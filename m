@@ -1,63 +1,49 @@
-From: "Thangirala, Hari" <Hari.Thangirala-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: KFD event handling questions
-Date: Mon, 2 Oct 2017 17:40:34 +0000
-Message-ID: <CY4PR12MB1320675FC673E595CCF7D403E27D0@CY4PR12MB1320.namprd12.prod.outlook.com>
-References: <0c2b2d6b-7466-6a2a-4da7-728756c020bb@amd.com>
- <CY4PR12MB1320F4926B8A9286421CEB89E2640@CY4PR12MB1320.namprd12.prod.outlook.com>
- <DM5PR1201MB02354ADD8A56B16EF16A544F927D0@DM5PR1201MB0235.namprd12.prod.outlook.com>
- <1506956716.122072.1125123352.5E99623F@webmail.messagingengine.com>
+From: bfields@fieldses.org (J. Bruce Fields)
+Subject: Re: [PATCH 00/18] use ARRAY_SIZE macro
+Date: Mon, 2 Oct 2017 15:22:24 -0400
+Message-ID: <20171002192224.GD1903@fieldses.org>
+References: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
+ <20171001220131.GA11812@eros>
+ <20171001205220.10b78086@blatinox-laptop.localdomain>
+ <20171002053554.GA28743@kroah.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1506956716.122072.1125123352.5E99623F-2RFepEojUI2N1INw9kWLP6GC3tUn3ZHUQQ4Iyu8u01E@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jay Cornwall <jay-gJmSnxjMpeIS+FvcfC7Uqw@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <netdev-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20171002053554.GA28743@kroah.com>
+Sender: netdev-owner@vger.kernel.org
+To: Greg KH <greg@kroah.com>
+Cc: =?utf-8?B?SsOpcsOpbXk=?= Lefaure <jeremy.lefaure@lse.epita.fr>, "Tobin C. Harding" <me@tobin.cc>, alsa-devel@alsa-project.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, dm-devel@redhat.com, brcm80211-dev-list@cypress.com, devel@driverdev.osuosl.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgunthorpe@obsidianresearch.com>, linux-acpi@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz, intel-wired-lan@lists.osuosl.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-raid@vger.kernel.org, openipmi-developer@lists.sourceforge.net, intel-gvt-dev@lists.freedesktop.org, devel@acpica.org, brcm80211-dev-list.pdl@broadcom.com, netde
+List-Id: amd-gfx.lists.freedesktop.org
 
-WWVzLCBzaG91bGQgYmUgb2theSB0byBkaXNhYmxlIGRlYnVnZ2VyIHRlc3RzIGFzIHdlIGRvbid0
-IHN1cHBvcnQgb2xkIGRlYnVnZ2VyIHBvc3QtMS41IHJlbGVhc2UuIEkndmUgc2VudCBhbiBlbWFp
-bCB0byBUb29scyB0ZWFtIGFuZCBjYydkIHNvIHdlIGdpdmUgdGhlbSBhIGhlYWRzLXVwLiBBcyBK
-YXkgc2FpZCwgd2UncmUgYWN0aXZlbHkgd29ya2luZyBvbiB0aGUgbmV3IGRlYnVnZ2VyIGRlc2ln
-biBhbmQgZG9uJ3QgaGF2ZSBhIG5lZWQgZm9yIGhhcmQtY29kaW5nIHNwZWNpYWwgZXZlbnQgSURz
-IGFueW1vcmUuICANCg0KVGhhbmtzDQpIYXJpDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-DQpGcm9tOiBKYXkgQ29ybndhbGwgW21haWx0bzpqYXlAamNvcm53YWxsLmNvbV0gDQpTZW50OiBN
-b25kYXksIE9jdG9iZXIgMiwgMjAxNyAxMDowNSBBTQ0KVG86IEt1ZWhsaW5nLCBGZWxpeCA8RmVs
-aXguS3VlaGxpbmdAYW1kLmNvbT47IFRoYW5naXJhbGEsIEhhcmkgPEhhcmkuVGhhbmdpcmFsYUBh
-bWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IE9kZWQgR2FiYmF5IDxvZGVk
-LmdhYmJheUBnbWFpbC5jb20+DQpTdWJqZWN0OiBSZTogS0ZEIGV2ZW50IGhhbmRsaW5nIHF1ZXN0
-aW9ucw0KDQpPbiBNb24sIE9jdCAyLCAyMDE3LCBhdCAwODoyMiwgS3VlaGxpbmcsIEZlbGl4IHdy
-b3RlOg0KPiBJcyB0aGUgIm5ldyBkZWJ1ZyB0cmFwIGhhbmRsZXIiIGFscmVhZHkgd29ya2luZz8g
-SXQgc2VlbXMgcmlnaHQgbm93IA0KPiBJJ20gYnJlYWtpbmcgdGhlICJvbGQiIGRlYnVnZ2VyIGJh
-Y2tlbmQgdGVzdC4gSG93ZXZlciwgZ2l2ZW4gdGhlIA0KPiBjdXJyZW50IHN0YXR1cyBvZiB0aGF0
-IGRlYnVnZ2VyLCBJIGd1ZXNzIHdlIGNhbiBkaXNhYmxlIHRob3NlIHRlc3RzIGZvciBub3c/DQo+
-IA0KPiBDYW4geW91IHNwZWFrIG9uIGJlaGFsZiBvZiB0aGUgZGVidWdnZXIgdGVhbSwgb3Igc2hv
-dWxkIEkgY29uc3VsdCANCj4gc29tZW9uZSBlbHNlIG9uIHRoZWlyIGVuZCBhcyB3ZWxsPw0KDQpU
-aGUgZXhpc3RpbmcgZGVidWcgQVBJIHdhcyBkZXNpZ25lZCB0byBpbnRlcmFjdCB3aXRoIGxpdmUg
-d2F2ZWZyb250cyBvbiB0aGUgZGV2aWNlLiBUaGlzIGNyZWF0ZWQgcHJvYmxlbXMgZm9yIHRoZSBz
-Y2hlZHVsZXIsIHdoaWNoIG5lZWRzIHRvIGJlIGFibGUgdG8gcmVtb3ZlIHdhdmVmcm9udHMgYXQg
-YW55IHRpbWUgd2l0aG91dCBub3RpY2UuIFRoZSB1bnByaXZpbGVnZWQgZGVidWdnZXIgY291bGQg
-aW50ZXJmZXJlIHdpdGggcHJpdmlsZWdlZCBvcGVyYXRpb25zIChlLmcuIGRlYnVnZ2luZyBpbiB0
-aGUgcHJlc2VuY2Ugb2Ygb3ZlcnN1YnNjcmliZWQgcHJvY2Vzc2VzLCB3b3JsZCBzd2l0Y2ggaW4g
-U1ItSU9WKS4gSXQgd2Fzbid0IGRldmVsb3BlZCBiZXlvbmQgaW50ZXJuYWwgdGVzdCBjYXNlcyBh
-bmQgdGhlIGlvY3RscyBzaG91bGQgbm90IGhhdmUgYmVlbiB1cHN0cmVhbWVkLg0KDQpUaGUgZGVi
-dWdnZXIgd2FzIHJlZGVzaWduZWQgdG8gd29yayB3aXRoIG9mZmxpbmUgd2F2ZWZyb250IHN0YXRl
-IGNvbGxlY3RlZCB0aHJvdWdoIHdhdmVmcm9udCBjb250ZXh0IHNhdmUgKGFscmVhZHkgaW1wbGVt
-ZW50ZWQgaW4gdGhlIHNjaGVkdWxlciBhbmQgY29udHJvbGxlZCB0aHJvdWdoIGhzYUttdFVwZGF0
-ZVF1ZXVlKS4gVGhpcyByZXNwZWN0cyB0aGUgcHJpdmlsZWdlIG1vZGVsIGFuZCBpcyByb2J1c3Qg
-aW4gYWxsIHNjaGVkdWxpbmcgc2NlbmFyaW9zLg0KDQpUaGVyZSBhcmUgc3RpbCBzb21lIHlldC10
-by1iZS1kZXRlcm1pbmVkIGludGVyZmFjZXMgdG8gY29udHJvbCBwZXItcHJvY2VzcyBkZWJ1Z2dp
-bmcgZmVhdHVyZXMuIFRoaXMgY291bGQgZXh0ZW5kL3JlcHVycG9zZSBhbiBleGlzdGluZyBpb2N0
-bCBvciByZXF1aXJlIGEgbmV3IG9uZS4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+On Mon, Oct 02, 2017 at 07:35:54AM +0200, Greg KH wrote:
+> On Sun, Oct 01, 2017 at 08:52:20PM -0400, Jérémy Lefaure wrote:
+> > On Mon, 2 Oct 2017 09:01:31 +1100
+> > "Tobin C. Harding" <me@tobin.cc> wrote:
+> > 
+> > > > In order to reduce the size of the To: and Cc: lines, each patch of the
+> > > > series is sent only to the maintainers and lists concerned by the patch.
+> > > > This cover letter is sent to every list concerned by this series.  
+> > > 
+> > > Why don't you just send individual patches for each subsystem? I'm not a maintainer but I don't see
+> > > how any one person is going to be able to apply this whole series, it is making it hard for
+> > > maintainers if they have to pick patches out from among the series (if indeed any will bother
+> > > doing that).
+> > Yeah, maybe it would have been better to send individual patches.
+> > 
+> > From my point of view it's a series because the patches are related (I
+> > did a git format-patch from my local branch). But for the maintainers
+> > point of view, they are individual patches.
+> 
+> And the maintainers view is what matters here, if you wish to get your
+> patches reviewed and accepted...
+
+Mainly I'd just like to know which you're asking for.  Do you want me to
+apply this, or to ACK it so someone else can?  If it's sent as a series
+I tend to assume the latter.
+
+But in this case I'm assuming it's the former, so I'll pick up the nfsd
+one....
+
+--b.
