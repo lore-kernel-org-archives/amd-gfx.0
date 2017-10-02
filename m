@@ -1,47 +1,99 @@
-From: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+From: Thierry Reding <thierry.reding@gmail.com>
 Subject: Re: [PATCH 06/18] drm: use ARRAY_SIZE
-Date: Mon, 02 Oct 2017 10:43:18 +0300
-Message-ID: <871smm6lm1.fsf@intel.com>
+Date: Mon, 2 Oct 2017 10:27:03 +0200
+Message-ID: <20171002082703.GA24250@ulmo>
 References: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
  <20171001193101.8898-7-jeremy.lefaure@lse.epita.fr>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171001193101.8898-7-jeremy.lefaure-tU7rkvAWjlwhT4uAktR2oQ@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Patrik Jakobsson <patrik.r.jakobsson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Zhenyu Wang <zhenyuw-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Zhi Wang <zhi.a.wang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?utf-8?B?SsOpcsOpbXk=?= Lefaure <jeremy.lefaure-tU7rkvAWjlwhT4uAktR2oQ@public.gmane.org>, intel-gvt-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============0347847038=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20171001193101.8898-7-jeremy.lefaure@lse.epita.fr>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?utf-8?B?SsOpcsOpbXk=?= Lefaure <jeremy.lefaure@lse.epita.fr>
+Cc: amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, linux-kernel@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, Alex Deucher <alexander.deucher@amd.com>, intel-gvt-dev@lists.freedesktop.org, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Zhi Wang <zhi.a.wang@intel.com>, Ben Skeggs <bskeggs@redhat.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gU3VuLCAwMSBPY3QgMjAxNywgSsOpcsOpbXkgTGVmYXVyZSA8amVyZW15LmxlZmF1cmVAbHNl
-LmVwaXRhLmZyPiB3cm90ZToKPiBVc2luZyB0aGUgQVJSQVlfU0laRSBtYWNybyBpbXByb3ZlcyB0
-aGUgcmVhZGFiaWxpdHkgb2YgdGhlIGNvZGUuIEFsc28sCj4gaXQgaXMgbm90IGFsd2F5cyB1c2Vm
-dWwgdG8gdXNlIGEgdmFyaWFibGUgdG8gc3RvcmUgdGhpcyBjb25zdGFudAo+IGNhbGN1bGF0ZWQg
-YXQgY29tcGlsZSB0aW1lIG5vciB0byByZS1pbnZlbnQgdGhlIEFSUkFZX1NJWkUgbWFjcm8uCj4K
-PiBGb3VuZCB3aXRoIENvY2NpbmVsbGUgd2l0aCB0aGUgZm9sbG93aW5nIHNlbWFudGljIHBhdGNo
-Ogo+IEByIGRlcGVuZHMgb24gKG9yZyB8fCByZXBvcnQpQAo+IHR5cGUgVDsKPiBUW10gRTsKPiBw
-b3NpdGlvbiBwOwo+IEBACj4gKAo+ICAoc2l6ZW9mKEUpQHAgL3NpemVvZigqRSkpCj4gfAo+ICAo
-c2l6ZW9mKEUpQHAgL3NpemVvZihFWy4uLl0pKQo+IHwKPiAgKHNpemVvZihFKUBwIC9zaXplb2Yo
-VCkpCj4gKQo+Cj4gU2lnbmVkLW9mZi1ieTogSsOpcsOpbXkgTGVmYXVyZSA8amVyZW15LmxlZmF1
-cmVAbHNlLmVwaXRhLmZyPgoKUGxlYXNlIHNwbGl0IHRoaXMgdXAuCgpQYXRjaCAxOgo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jICAgICAgICAgICB8ICA5ICsrKysrLS0t
-LQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAgICAgICAgICB8ICA5
-ICsrKysrLS0tLQoKUGF0Y2ggMjoKPiAgZHJpdmVycy9ncHUvZHJtL2dtYTUwMC9wc2JfaW50ZWxf
-c2R2by5jICAgICAgICAgfCAgOSArKysrLS0tLS0KClBhdGNoIDM6Cj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2d2dC92Z3B1LmMgICAgICAgICAgICAgICAgIHwgIDMgKystCgpQYXRjaCA0Ogo+ICBk
-cml2ZXJzL2dwdS9kcm0vbm91dmVhdS9udmttL3N1YmRldi9iaW9zL2luaXQuYyB8ICA3ICsrKyst
-LS0KClBhdGNoIDU6Cj4gIGRyaXZlcnMvZ3B1L2RybS92aWEvdmlhX3ZlcmlmaWVyLmMgICAgICAg
-ICAgICAgIHwgMTAgKysrKy0tLS0tLQoKQlIsCkphbmkuCgotLSAKSmFuaSBOaWt1bGEsIEludGVs
-IE9wZW4gU291cmNlIFRlY2hub2xvZ3kgQ2VudGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCk5vdXZlYXUgbWFpbGluZyBsaXN0Ck5vdXZlYXVAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vbm91dmVhdQo=
+
+--===============0347847038==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="OgqxwSJOaUobr8KG"
+Content-Disposition: inline
+
+
+--OgqxwSJOaUobr8KG
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Oct 01, 2017 at 03:30:44PM -0400, J=C3=A9r=C3=A9my Lefaure wrote:
+> Using the ARRAY_SIZE macro improves the readability of the code. Also,
+> it is not always useful to use a variable to store this constant
+> calculated at compile time nor to re-invent the ARRAY_SIZE macro.
+>=20
+> Found with Coccinelle with the following semantic patch:
+> @r depends on (org || report)@
+> type T;
+> T[] E;
+> position p;
+> @@
+> (
+>  (sizeof(E)@p /sizeof(*E))
+> |
+>  (sizeof(E)@p /sizeof(E[...]))
+> |
+>  (sizeof(E)@p /sizeof(T))
+> )
+>=20
+> Signed-off-by: J=C3=A9r=C3=A9my Lefaure <jeremy.lefaure@lse.epita.fr>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c           |  9 +++++----
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c           |  9 +++++----
+>  drivers/gpu/drm/gma500/psb_intel_sdvo.c         |  9 ++++-----
+>  drivers/gpu/drm/i915/gvt/vgpu.c                 |  3 ++-
+>  drivers/gpu/drm/nouveau/nvkm/subdev/bios/init.c |  7 ++++---
+>  drivers/gpu/drm/via/via_verifier.c              | 10 ++++------
+>  6 files changed, 24 insertions(+), 23 deletions(-)
+
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+
+--OgqxwSJOaUobr8KG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlnR+FAACgkQ3SOs138+
+s6FqlA/+Ie73Rwh5+pod1oJoeYslPHTaGbLeIMLwB2ScPKaR65zvVrdQGCCKxd0M
+2Agwzz4IDNSZszbiM9LSUAf85kGJOyOfSM/J5pII1vYknuxqprtvCDHbXyuYJSKt
+9cwkAHokumHeC2iS1De026SkEUasTQod5JzTug0DGTWsQUt2Cg+Z/eEcxr/EJpQQ
+SsisGhNFGAz1hgQ/r2Q9U3c48tzE8ejgvwPI32nSK0Mt1wJGQfmhhAJCRhc9Sb2h
+0HSYnRpSNIUB9qF9VI9hzU5cuquS6fPnq09DMxU0c45NefbfRLx/bjJuhrciLPDI
+TaNmy2qpwmhs5iPTGNqHPLjRTlSkmFZ+nciJQJG+pqeQa/nz/KKPNAy3ocvRCurs
+ZxeajR12fI5+oA+sBk0ugOo9lyURaaX2kY9Ur//98BaDlsb2f0BMfIoheY+aISuD
+1gZLm1Igc8U9jjWbzIOklxFTh9iXJNriqGPy3STh62g2nYNIxmmcPENxneVMAuNg
+YQ2fJz8WYI6cqpyz44RI/uylwOMOF3qeLg9+we+YNnCrKhaUyy7WMMrXMPs+wm+T
+KPBMb3hnrVOeANHFTWBMIfbgZX9cduCq17NLcf4kYXGVirUgwLYZCot8uufCxFJK
++kE3hQisTg4lbFZaBOCeAlICymlsRjQ1x5k+2gDFlcoiKAMPX4A=
+=k6eh
+-----END PGP SIGNATURE-----
+
+--OgqxwSJOaUobr8KG--
+
+--===============0347847038==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0347847038==--
