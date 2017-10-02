@@ -1,49 +1,74 @@
-From: bfields@fieldses.org (J. Bruce Fields)
-Subject: Re: [PATCH 00/18] use ARRAY_SIZE macro
-Date: Mon, 2 Oct 2017 15:22:24 -0400
-Message-ID: <20171002192224.GD1903@fieldses.org>
-References: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
- <20171001220131.GA11812@eros>
- <20171001205220.10b78086@blatinox-laptop.localdomain>
- <20171002053554.GA28743@kroah.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 6/7] drm/amd/display: Disable pre-Vega ASICs by default
+Date: Mon, 2 Oct 2017 15:37:26 -0400
+Message-ID: <f66b9b8a-937d-0b4e-0fa4-631c7a3362e4@amd.com>
+References: <20171002153216.1746-1-harry.wentland@amd.com>
+ <20171002153216.1746-7-harry.wentland@amd.com>
+ <BN6PR12MB1652C8D10AFCD168E0CD271AF77D0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <netdev-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20171002053554.GA28743@kroah.com>
-Sender: netdev-owner@vger.kernel.org
-To: Greg KH <greg@kroah.com>
-Cc: =?utf-8?B?SsOpcsOpbXk=?= Lefaure <jeremy.lefaure@lse.epita.fr>, "Tobin C. Harding" <me@tobin.cc>, alsa-devel@alsa-project.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, dm-devel@redhat.com, brcm80211-dev-list@cypress.com, devel@driverdev.osuosl.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgunthorpe@obsidianresearch.com>, linux-acpi@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz, intel-wired-lan@lists.osuosl.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-raid@vger.kernel.org, openipmi-developer@lists.sourceforge.net, intel-gvt-dev@lists.freedesktop.org, devel@acpica.org, brcm80211-dev-list.pdl@broadcom.com, netde
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652C8D10AFCD168E0CD271AF77D0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, Oct 02, 2017 at 07:35:54AM +0200, Greg KH wrote:
-> On Sun, Oct 01, 2017 at 08:52:20PM -0400, Jérémy Lefaure wrote:
-> > On Mon, 2 Oct 2017 09:01:31 +1100
-> > "Tobin C. Harding" <me@tobin.cc> wrote:
-> > 
-> > > > In order to reduce the size of the To: and Cc: lines, each patch of the
-> > > > series is sent only to the maintainers and lists concerned by the patch.
-> > > > This cover letter is sent to every list concerned by this series.  
-> > > 
-> > > Why don't you just send individual patches for each subsystem? I'm not a maintainer but I don't see
-> > > how any one person is going to be able to apply this whole series, it is making it hard for
-> > > maintainers if they have to pick patches out from among the series (if indeed any will bother
-> > > doing that).
-> > Yeah, maybe it would have been better to send individual patches.
-> > 
-> > From my point of view it's a series because the patches are related (I
-> > did a git format-patch from my local branch). But for the maintainers
-> > point of view, they are individual patches.
-> 
-> And the maintainers view is what matters here, if you wish to get your
-> patches reviewed and accepted...
-
-Mainly I'd just like to know which you're asking for.  Do you want me to
-apply this, or to ACK it so someone else can?  If it's sent as a series
-I tend to assume the latter.
-
-But in this case I'm assuming it's the former, so I'll pick up the nfsd
-one....
-
---b.
+T24gMjAxNy0xMC0wMiAwMjo0NyBQTSwgRGV1Y2hlciwgQWxleGFuZGVyIHdyb3RlOgo+PiAtLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+PiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1i
+b3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmCj4+IE9mIEhhcnJ5IFdlbnRs
+YW5kCj4+IFNlbnQ6IE1vbmRheSwgT2N0b2JlciAwMiwgMjAxNyAxMTozMiBBTQo+PiBUbzogYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gQ2M6IFdlbnRsYW5kLCBIYXJyeQo+PiBTdWJq
+ZWN0OiBbUEFUQ0ggNi83XSBkcm0vYW1kL2Rpc3BsYXk6IERpc2FibGUgcHJlLVZlZ2EgQVNJQ3Mg
+YnkgZGVmYXVsdAo+Pgo+PiB2MjogQ2xhcmlmeSBoZWxwIHRleHQgZm9yIHByZS12ZWdhIGNvbmZp
+Zwo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1k
+LmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
+LmMgfCAyICsrCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvS2NvbmZpZyAgICAgICAg
+fCA5ICsrKysrKysrKwo+PiAgMiBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspCj4+Cj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMK
+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPj4gaW5kZXgg
+MjRmNmUzYzFiMTE0Li4wM2U4NmU0YzEwOGYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPj4gQEAgLTE5OTgsNyArMTk5OCw5IEBAIGJvb2wgYW1k
+Z3B1X2RldmljZV9hc2ljX2hhc19kY19zdXBwb3J0KGVudW0KPj4gYW1kX2FzaWNfdHlwZSBhc2lj
+X3R5cGUpCj4+ICAJY2FzZSBDSElQX1RPTkdBOgo+PiAgCWNhc2UgQ0hJUF9GSUpJOgo+PiAgCWNh
+c2UgQ0hJUF9WRUdBMTA6Cj4+ICsjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19QUkVfVkVH
+QSkKPj4gIAkJcmV0dXJuIGFtZGdwdV9kYyAhPSAwOwo+PiArI2VuZGlmCj4+ICAJY2FzZSBDSElQ
+X0tBQklOSToKPj4gIAljYXNlIENISVBfTVVMTElOUzoKPj4gIAkJcmV0dXJuIGFtZGdwdV9kYyA+
+IDA7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvS2NvbmZpZwo+
+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9LY29uZmlnCj4+IGluZGV4IDk2YTU3MWY2
+ZDM3My4uNmQxMDg2ZDBhMjc3IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvS2NvbmZpZwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvS2NvbmZp
+Zwo+PiBAQCAtMywxMSArMywyMCBAQCBtZW51ICJEaXNwbGF5IEVuZ2luZSBDb25maWd1cmF0aW9u
+Igo+Pgo+PiAgY29uZmlnIERSTV9BTURfREMKPj4gIAlib29sICJBTUQgREMgLSBFbmFibGUgbmV3
+IGRpc3BsYXkgZW5naW5lIgo+PiArCWRlZmF1bHQgeQo+PiAgCWhlbHAKPj4gIAkgIENob29zZSB0
+aGlzIG9wdGlvbiBpZiB5b3Ugd2FudCB0byB1c2UgdGhlIG5ldyBkaXNwbGF5IGVuZ2luZQo+PiAg
+CSAgc3VwcG9ydCBmb3IgQU1ER1BVLiBUaGlzIGFkZHMgcmVxdWlyZWQgc3VwcG9ydCBmb3IgVmVn
+YSBhbmQKPj4gIAkgIFJhdmVuIEFTSUNzLgo+Pgo+PiArY29uZmlnIERSTV9BTURfRENfUFJFX1ZF
+R0EKPj4gKwlib29sICJEQyBzdXBwb3J0IGZvciBQb2xhcmlzIGFuZCBvbGRlciBBU0lDcyIKPj4g
+KwlkZWZhdWx0IG4KPiAKPiBFaXRoZXIgZHJvcCB0aGlzIHBhdGNoIG9yIHNldCB0aGlzIHRvIHkg
+Zm9yIGFtZC1zdGFnaW5nLiAgVGhlIHJlc3Qgb2YgdGhlIHBhdGNoZXMgYXJlOgo+IEFja2VkLWJ5
+OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gCgpXYXMgdGhpbmtp
+bmcgb2YgdXBkYXRpbmcgb3VyIGNvbmZpZyBvdmVycmlkZSBidXQgaXQncyBwcm9iYWJseSBlYXNp
+ZXIgdG8KbGVhdmUgaXQgb3V0LiBUaGlzIGlzIHJlYWxseSBvbmx5IG5lZWRlZCBmb3IgdXBzdHJl
+YW0uCgpIYXJyeQoKPiBBbGV4Cj4gCj4+ICsJaGVscAo+PiArCSAgQ2hvb3NlIHRoaXMgb3B0aW9u
+IHRvIGVuYWJsZSB0aGUgbmV3IERDIHN1cHBvcnQgZm9yIG9sZGVyIGFzaWNzCj4+ICsJICBieSBk
+ZWZhdWx0LiBUaGlzIGluY2x1ZGVzIFBvbGFyaXMsIENhcnJpem8sIFRvbmdhLCBCb25haXJlLAo+
+PiArCSAgYW5kIEhhd2FpaS4KPj4gKwo+PiAgY29uZmlnIERSTV9BTURfRENfRENOMV8wCj4+ICAJ
+Ym9vbCAiRENOIDEuMCBSYXZlbiBmYW1pbHkiCj4+ICAJZGVwZW5kcyBvbiBEUk1fQU1EX0RDICYm
+IFg4Ngo+PiAtLQo+PiAyLjExLjAKPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
