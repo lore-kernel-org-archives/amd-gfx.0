@@ -1,14 +1,10 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: KFD event handling questions
-Date: Mon, 2 Oct 2017 13:22:02 +0000
-Message-ID: <DM5PR1201MB02354ADD8A56B16EF16A544F927D0@DM5PR1201MB0235.namprd12.prod.outlook.com>
-References: <0c2b2d6b-7466-6a2a-4da7-728756c020bb@amd.com>
- <CY4PR12MB1320F4926B8A9286421CEB89E2640@CY4PR12MB1320.namprd12.prod.outlook.com>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: build failures on drm-next
+Date: Mon, 2 Oct 2017 09:49:45 -0400
+Message-ID: <c4ee0f01-1c09-a978-01b9-4bc92c4459e8@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------BCD4239B6FDAB25E48121EE2"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1320F4926B8A9286421CEB89E2640-rpdhrqHFk05WqhXzhz0uLQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,62 +16,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Thangirala, Hari" <Hari.Thangirala-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-SGkgSGFyaSwNCg0KSXMgdGhlICJuZXcgZGVidWcgdHJhcCBoYW5kbGVyIiBhbHJlYWR5IHdvcmtp
-bmc/IEl0IHNlZW1zIHJpZ2h0IG5vdyBJJ20gYnJlYWtpbmcgdGhlICJvbGQiIGRlYnVnZ2VyIGJh
-Y2tlbmQgdGVzdC4gSG93ZXZlciwgZ2l2ZW4gdGhlIGN1cnJlbnQgc3RhdHVzIG9mIHRoYXQgZGVi
-dWdnZXIsIEkgZ3Vlc3Mgd2UgY2FuIGRpc2FibGUgdGhvc2UgdGVzdHMgZm9yIG5vdz8NCg0KQ2Fu
-IHlvdSBzcGVhayBvbiBiZWhhbGYgb2YgdGhlIGRlYnVnZ2VyIHRlYW0sIG9yIHNob3VsZCBJIGNv
-bnN1bHQgc29tZW9uZSBlbHNlIG9uIHRoZWlyIGVuZCBhcyB3ZWxsPw0KDQpSZWdhcmRzLA0KICBG
-ZWxpeA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogVGhhbmdpcmFsYSwgSGFy
-aSANClNlbnQ6IEZyaWRheSwgU2VwdGVtYmVyIDIyLCAyMDE3IDg6NDQgUE0NClRvOiBLdWVobGlu
-ZywgRmVsaXg7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBPZGVkIEdhYmJheQ0KU3Vi
-amVjdDogUkU6IEtGRCBldmVudCBoYW5kbGluZyBxdWVzdGlvbnMNCg0KSGkgRmVsaXgsDQoNCkV2
-ZW50IElEcyByZXNlcnZlZCBmb3IgZGVidWcgZXZlbnRzIHdhcyBhbiBhcnRpZmFjdCBvZiBhIGRl
-YnVnZ2VyIGRlc2lnbi4gV2UgY2hhbmdlZCBvdXIgdG9vbHMgc3RyYXRlZ3kgc28gdGhvc2UgbGlt
-aXRhdGlvbnMgZG8gbm90IGV4aXN0IGFueW1vcmUuIFRoZXJlJ3Mgbm8gbmVlZCB0byByZXNlcnZl
-IHNwZWNpYWwgZXZlbnQtSURzIGZvciBkZWJ1Z2dlci4gNDA5NiBpcyBnb29kIGVub3VnaCBhbmQg
-dGhlIG5ldyBkZWJ1ZyB0cmFwIGhhbmRsZXIgd2lsbCB1c2UgZXZlbnRzIGZyb20gdGhhdCBwb29s
-Lg0KDQpUaGFua3MNCkhhcmkNCg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9t
-OiBLdWVobGluZywgRmVsaXggDQpTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDIxLCAyMDE3IDk6
-MzYgUE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgT2RlZCBHYWJiYXkgPG9k
-ZWQuZ2FiYmF5QGdtYWlsLmNvbT47IFRoYW5naXJhbGEsIEhhcmkgPEhhcmkuVGhhbmdpcmFsYUBh
-bWQuY29tPg0KU3ViamVjdDogS0ZEIGV2ZW50IGhhbmRsaW5nIHF1ZXN0aW9ucw0KDQpbSGFyaSwg
-Y2FuIHlvdSBjb21tZW50IG9uIHRoZSBsYXN0IHBhcmFncmFwaCBiZWxvdyByZWdhcmRpbmcgdGhl
-IGV2ZW50cyBsaW1pdD8gV291bGQgaXQgaHVydCB0aGUgcnVudGltZSBtdWNoIHRvIGxvc2UgOCBz
-aWduYWxzIG91dCBvZiA0MDk2P10NCg0KSGkgT2RlZCwNCg0KSSdtIGxvb2tpbmcgaW50byB1cHN0
-cmVhbWluZyBzb21lIGV2ZW50IGhhbmRsaW5nIGVuaGFuY2VtZW50cy4gSSBzZWUgdGhhdCB5b3Ug
-YWN0dWFsbHkgd29ya2VkIG9uIGluY3JlYXNpbmcgdGhlIG51bWJlciBvZiBldmVudHMgdG8gNDA5
-NiBhbmQgd29ya2luZyBhcm91bmQgc29tZSBwcm9ibGVtcyB3aXRoIGRlYnVnIGV2ZW50cyB3aGVu
-IHlvdSB3ZXJlIGF0IEFNRC4NCg0KQXMgSSdtIGxvb2tpbmcgYXQgdGhpcywgSSdtIGNvbmZ1c2Vk
-IGJ5IHRoZSBjb2RlIHRoYXQgYWxsb2NhdGVzIHNpZ25hbCBwYWdlcy4gSXQgYWxsb2NhdGVzIGEg
-c2luZ2xlIHNpZ25hbCBwYWdlIHRoYXQncyBiaWcgZW5vdWdoIHRvIGFjY29tbW9kYXRlIGFsbCBz
-aWduYWxzLiBCdXQgYWxsb2NhdGVfc2lnbmFsX3BhZ2UgbG9va3MgbGlrZSBpdCB3YXMgbWVhbnQg
-dG8gYWxsb2NhdGUgc21hbGxlciBzaWduYWwgcGFnZXMgaW5jcmVtZW50YWxseSB0aGF0IGFyZSBh
-Y2N1bXVsYXRlZCBpbiBhIGtmZF9wcm9jZXNzOjpzaWduYWxfZXZlbnRfcGFnZXMgbGlzdC4gSG93
-ZXZlciwgdGhpcyBmZWF0dXJlIG5ldmVyIGdldHMgdXNlZC4gSXQgd291bGQgYWxzbyBicmVhayB1
-c2VyIG1vZGUgYmVjYXVzZSB0aGUgVGh1bmsgZXhwZWN0cyB0byBiZSBhYmxlIHRvIG1hcCBhIHNp
-bmdsZSBzaWduYWwgcGFnZSBmb3IgYWxsIGl0cyBzaWduYWxzLg0KDQpUaGVyZWZvcmUgSSdtIGlu
-Y2xpbmVkIHRvIHNpbXBsaWZ5IGFsbG9jYXRlX3NpZ25hbF9wYWdlIGFuZCByZWxhdGVkIGNvZGUg
-dG8gb25seSBkZWFsIHdpdGggYSBzaW5nbGUgYWxsb2NhdGlvbi4gRG8geW91IGhhdmUgYW55IGNv
-bmNlcm5zIG9yIG9iamVjdGlvbnMgYWJvdXQgdGhhdD8NCg0KU29tZXdoYXQgcmVsYXRlZCB0byB0
-aGF0LCB5b3UgYWxzbyBhZGRlZCBhIHdvcmthcm91bmQgdGhhdCBpbmNyZWFzZXMgdGhlIHNpZ25h
-bCBudW1iZXIgdG8gNDA5Nis1MTIgdG8gYWNjb21tb2RhdGUgOCBkZWJ1ZyBldmVudHMgd2hpbGUg
-bWFpbnRhaW5pbmcgcGFnZSBhbGlnbm1lbnQuIEhvd2V2ZXIsIHRoZSBzaWduYWwgcGFnZSBpcyBh
-bGxvY2F0ZWQgd2l0aCBfX2dldF9mcmVlX3BhZ2VzLCB3aGljaCBhbGxvY2F0ZXMgaW4gcG93ZXJz
-IG9mIDIuIFNvIGluIGZhY3QgaXQgbmVlZHMgdG8gYWxsb2NhdGUgODE5MiBzaWduYWxzLCB3YXN0
-aW5nIGFib3V0IDI4S0IgcGVyIHByb2Nlc3MuIEl0J3Mgbm90IGEgbG90IG9mIHdhc3RlLiBCdXQg
-YW4gYWx0ZXJuYXRpdmUgd291bGQgYmUgdG8gaW5zdGVhZCBzYWNyaWZpY2UgOCB1c2VyIHNpZ25h
-bHMuDQpUaGUgcnVudGltZSBoYXMgYSBmYWxsYmFjayBmb3Igd2hlbiBpdCBydW5zIG91dCBvZiBz
-aWduYWxzLCBhbmQgdGhlIGRpZmZlcmVuY2UgYmV0d2VlbiA0MDk2IGFuZCA0MDg4IHNlZW1zIGlu
-c2lnbmlmaWNhbnQuIFdoYXQgZG8geW91IHRoaW5rPw0KDQpSZWdhcmRzLA0KwqAgRmVsaXgNCg0K
-LS0gDQpGIGUgbCBpIHggICBLIHUgZSBoIGwgaSBuIGcNClBNVFMgU29mdHdhcmUgRGV2ZWxvcG1l
-bnQgRW5naW5lZXIgfCBWZXJ0aWNhbCBXb3Jrc3RhdGlvbi9Db21wdXRlDQoxIENvbW1lcmNlIFZh
-bGxleSBEci4gRWFzdCwgTWFya2hhbSwgT04gTDNUIDdYNiBDYW5hZGENCihPKSArMSgyODkpNjk1
-LTE1OTcNCiAgIF8gICAgIF8gICBfICAgX19fX18gICBfX19fXw0KICAvIFwgICB8IFwgLyB8IHwg
-IF8gIFwgIFwgXyAgfA0KIC8gQSBcICB8IFxNLyB8IHwgfEQpICkgIC98X3wgfA0KL18vIFxfXCB8
-X3wgfF98IHxfX19fXy8gfF9fLyBcfCAgIGZhY2Vib29rLmNvbS9BTUQgfCBhbWQuY29tDQoNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--------------BCD4239B6FDAB25E48121EE2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+The lastest good commit is
+
+commit f5a16c561fb8a15e94a4384e880b9d84a2657098
+Author: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Date:   Thu Sep 28 14:46:17 2017 +0100
+
+     drm/radeon: make functions alloc_pasid and free_pasid static
+
+     The functions alloc_pasid  and free_pasid are local to the
+     source and do not need to be in global scope, so make them static.
+
+     Cleans up sparse warnings:
+     warning: symbol 'alloc_pasid' was not declared. Should it be static?
+     warning: symbol 'free_pasid' was not declared. Should it be static?
+
+     Signed-off-by: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+     Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+
+I see errors (e.g., attached) when building from the tip of drm-next.
+
+Cheers,
+Tom
+
+--------------BCD4239B6FDAB25E48121EE2
+Content-Type: text/x-log;
+ name="drmnext_build.log"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+ filename="drmnext_build.log"
+
+  CHK     include/config/kernel.release
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  CHK     scripts/mod/devicetable-offsets.h
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/asm-offsets.h
+  CALL    scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.o
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.o
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.o
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_services.o
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.o
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c: In function ‘rv_populate_clock_table’:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:424:44: error: passing argument 1 of ‘smum_send_msg_to_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+  PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr->smumgr,
+                                            ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:31:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:99:12: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ extern int smum_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);
+            ^~~~~~~~~~~~~~~~~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:428:44: error: passing argument 1 of ‘rv_read_arg_from_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+  PP_ASSERT_WITH_CODE(!rv_read_arg_from_smc(hwmgr->smumgr,
+                                            ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:37:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/rv_smumgr.h:54:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int rv_read_arg_from_smc(struct pp_hwmgr *hwmgr, uint32_t *arg);
+     ^~~~~~~~~~~~~~~~~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:434:44: error: passing argument 1 of ‘smum_send_msg_to_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+  PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr->smumgr,
+                                            ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:31:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:99:12: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ extern int smum_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);
+            ^~~~~~~~~~~~~~~~~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:438:44: error: passing argument 1 of ‘rv_read_arg_from_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+  PP_ASSERT_WITH_CODE(!rv_read_arg_from_smc(hwmgr->smumgr,
+                                            ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:37:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/rv_smumgr.h:54:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int rv_read_arg_from_smc(struct pp_hwmgr *hwmgr, uint32_t *arg);
+     ^~~~~~~~~~~~~~~~~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c: In function ‘rv_print_clock_levels’:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:629:45: error: passing argument 1 of ‘smum_send_msg_to_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr->smumgr,
+                                             ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:31:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:99:12: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ extern int smum_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);
+            ^~~~~~~~~~~~~~~~~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:633:45: error: passing argument 1 of ‘rv_read_arg_from_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   PP_ASSERT_WITH_CODE(!rv_read_arg_from_smc(hwmgr->smumgr,
+                                             ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:37:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/rv_smumgr.h:54:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int rv_read_arg_from_smc(struct pp_hwmgr *hwmgr, uint32_t *arg);
+     ^~~~~~~~~~~~~~~~~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:648:45: error: passing argument 1 of ‘smum_send_msg_to_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr->smumgr,
+                                             ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:31:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:99:12: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ extern int smum_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);
+            ^~~~~~~~~~~~~~~~~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:23:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:652:45: error: passing argument 1 of ‘rv_read_arg_from_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   PP_ASSERT_WITH_CODE(!rv_read_arg_from_smc(hwmgr->smumgr,
+                                             ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/pp_debug.h:39:9: note: in definition of macro ‘PP_ASSERT_WITH_CODE’
+   if (!(cond)) {   \
+         ^~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:37:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/rv_smumgr.h:54:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int rv_read_arg_from_smc(struct pp_hwmgr *hwmgr, uint32_t *arg);
+     ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c: In function ‘rv_read_sensor’:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:904:30: error: passing argument 1 of ‘smum_send_msg_to_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   ret = smum_send_msg_to_smc(hwmgr->smumgr, PPSMC_MSG_GetGfxclkFrequency);
+                              ^~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:31:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:99:12: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ extern int smum_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);
+            ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:906:25: error: passing argument 1 of ‘rv_read_arg_from_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+    rv_read_arg_from_smc(hwmgr->smumgr, &sclk);
+                         ^~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:37:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/rv_smumgr.h:54:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int rv_read_arg_from_smc(struct pp_hwmgr *hwmgr, uint32_t *arg);
+     ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:913:30: error: passing argument 1 of ‘smum_send_msg_to_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   ret = smum_send_msg_to_smc(hwmgr->smumgr, PPSMC_MSG_GetFclkFrequency);
+                              ^~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:31:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:99:12: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ extern int smum_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);
+            ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:915:25: error: passing argument 1 of ‘rv_read_arg_from_smc’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+    rv_read_arg_from_smc(hwmgr->smumgr, &mclk);
+                         ^~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c:37:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/rv_smumgr.h:54:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int rv_read_arg_from_smc(struct pp_hwmgr *hwmgr, uint32_t *arg);
+     ^~~~~~~~~~~~~~~~~~~~
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/basics/conversion.o
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.c: In function ‘vega10_enable_didt_config’:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.c:1246:40: error: passing argument 1 of ‘vega10_enable_smc_features’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+    result = vega10_enable_smc_features(hwmgr->smumgr, true, data->smu_features[GNLD_DIDT].smu_feature_bitmap);
+                                        ^~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.c:27:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vega10_smumgr.h:60:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int vega10_enable_smc_features(struct pp_hwmgr *hwmgr,
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.c: In function ‘vega10_disable_didt_config’:
+drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.c:1293:40: error: passing argument 1 of ‘vega10_enable_smc_features’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+    result = vega10_enable_smc_features(hwmgr->smumgr, false, data->smu_features[GNLD_DIDT].smu_feature_bitmap);
+                                        ^~~~~
+In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.c:27:0:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/vega10_smumgr.h:60:5: note: expected ‘struct pp_hwmgr *’ but argument is of type ‘struct pp_smumgr *’
+ int vega10_enable_smc_features(struct pp_hwmgr *hwmgr,
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/basics/fixpt31_32.o
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/basics/fixpt32_32.o
+cc1: some warnings being treated as errors
+distcc[19873] ERROR: compile drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.c on localhost failed
+scripts/Makefile.build:302: recipe for target 'drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.o' failed
+make[4]: *** [drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/rv_hwmgr.o] Error 1
+make[4]: *** Waiting for unfinished jobs....
+cc1: some warnings being treated as errors
+distcc[19715] ERROR: compile drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.c on localhost failed
+scripts/Makefile.build:302: recipe for target 'drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.o' failed
+make[4]: *** [drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/vega10_powertune.o] Error 1
+scripts/Makefile.build:561: recipe for target 'drivers/gpu/drm/amd/amdgpu' failed
+make[3]: *** [drivers/gpu/drm/amd/amdgpu] Error 2
+scripts/Makefile.build:561: recipe for target 'drivers/gpu/drm' failed
+make[2]: *** [drivers/gpu/drm] Error 2
+scripts/Makefile.build:561: recipe for target 'drivers/gpu' failed
+make[1]: *** [drivers/gpu] Error 2
+Makefile:1019: recipe for target 'drivers' failed
+make: *** [drivers] Error 2
+
+--------------BCD4239B6FDAB25E48121EE2
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------BCD4239B6FDAB25E48121EE2--
