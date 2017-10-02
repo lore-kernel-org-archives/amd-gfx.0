@@ -1,54 +1,27 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 0/9][drm-next] Add uvd6.3 HEVC encode feature in amdgpu
-Date: Mon, 2 Oct 2017 11:59:56 -0400
-Message-ID: <347864bb-ae8a-4e67-f560-0f110ca906c1@amd.com>
-References: <1506953594-26977-1-git-send-email-James.Zhu@amd.com>
- <bc659479-f331-4a49-1023-3043b17bf09a@gmail.com>
+From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+Subject: Re: [PATCH 00/18] use ARRAY_SIZE macro
+Date: Mon, 2 Oct 2017 13:37:34 -0300
+Message-ID: <20171002133734.6ac10ded@recife.lan>
+References: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
+        <20171001220131.GA11812@eros>
+        <20171001205220.10b78086@blatinox-laptop.localdomain>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bc659479-f331-4a49-1023-3043b17bf09a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-GB
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, James Zhu <James.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+Return-path: <linux-media-owner@vger.kernel.org>
+In-Reply-To: <20171001205220.10b78086@blatinox-laptop.localdomain>
+Sender: linux-media-owner@vger.kernel.org
+To: =?UTF-8?B?SsOpcsOpbXk=?= Lefaure <jeremy.lefaure@lse.epita.fr>
+Cc: "Tobin C. Harding" <me@tobin.cc>, alsa-devel@alsa-project.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, dm-devel@redhat.com, brcm80211-dev-list@cypress.com, devel@driverdev.osuosl.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgunthorpe@obsidianresearch.com>, linux-acpi@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz, intel-wired-lan@lists.osuosl.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-raid@vger.kernel.org, openipmi-developer@lists.sourceforge.net, intel-gvt-dev@lists.freedesktop.org, devel@acpica.org, brcm80211-dev-list.pdl@broadcom.com, netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-wireless@vge
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAxMC8wMi8yMDE3IDExOjU2IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IFNvbWUg
-bWlub3Igbml0IHBpY2tzIG9uIHBhdGNoICM0IGFuZCAjOSwgYnV0IGFwYXJ0IGZyb20gdGhhdCBp
-dCBsb29rcyAKPiBnb29kIHRvIG1lLgo+Cj4gV2l0aCB0aG9zZSBmaXhlZCB0aGUgc2VyaWVzIGlz
-IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIAo+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
-b20+LCBidXQgTGVvIHNob3VsZCBwcm9iYWJseSB0YWtlIGEgbG9vayBhcyB3ZWxsLgoKWWVzLiBJ
-IGRpZC4KCldpdGggQ2hyaXN0aWFuJ3MgY29tbWVudHMgZml4ZWQuIFRoZSBzZXJpZXMgaXMKClJl
-dmlld2VkLWFuZC1UZXN0ZWQtYnk6IExlbyBMaXUgPGxlby5saXVAYW1kLmNvbT4KCj4KPiBCVFc6
-IFdoYXQgY29tbWFuZCBkaWQgeW91IHVzZSB0byBzZW5kIHRob3NlIG1haWxzPyBUaGUgc3ViamVj
-dCBsaW5lcyAKPiBsb29rIGEgYml0IG9kZC4KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4g
-QW0gMDIuMTAuMjAxNyB1bSAxNjoxMyBzY2hyaWViIEphbWVzIFpodToKPj4gVGhlc2UgcGF0Y2hl
-cyBhZGQgaGVhZGVycy9yaW5ncy90ZXN0X2Nhc2VzL0lSUXMgdG8gc3VwcG9ydCB1dmQ2LjMgSEVW
-Qwo+PiBlbmNvZGUgaW4gYW1kZ3B1Cj4+ICAgU2lnbmVkLW9mZi1ieTogSmFtZXMgWmh1IDxKYW1l
-cy5aaHVAYW1kLmNvbT4KPj4gLS0tCj4+IEphbWVzIFpodSAoOSk6Cj4+ICAgIGRybS9hbWRncHU6
-IGFkZCB1dmQgZW5jIHJlZ2lzdGVycyBpbiBoZWFkZXIKPj4gICAgZHJtL2FtZGdwdTogYWRkIHV2
-ZCBlbmMgY29tbWFuZCBpbiBoZWFkZXIKPj4gICAgZHJtL2FtZGdwdTogYWRkIG5ldyB1dmQgZW5j
-IHJpbmcgbWV0aG9kcwo+PiAgICBkcm0vYW1kZ3B1OiBhZGQgdXZkIGVuYyByaW5ncwo+PiAgICBk
-cm0vYW1kZ3B1OiBhZGQgdXZkIGVuYyBpbnRvIHJ1biBxdWV1ZQo+PiAgICBkcm0vYW1kZ3B1OiBh
-ZGQgdXZkIGVuYyB2bSBmdW5jdGlvbnMKPj4gICAgZHJtL2FtZGdwdTogYWRkIHV2ZCBlbmMgcmlu
-ZyB0ZXN0Cj4+ICAgIGRybS9hbWRncHU6IGFkZCB1dmQgZW5jIGliIHRlc3QKPj4gICAgZHJtL2Ft
-ZGdwdTogYWRkIHV2ZCBlbmMgaXJxCj4+Cj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dXZkX3Y2XzAuYyAgICAgICAgICAgICAgfCA0ODUgCj4+ICsrKysrKysrKysrKysrKysrKysrLQo+
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpZC5oICAgICAgICAgICAgICAgICAgIHwg
-IDEwICsKPj4gICAuLi4vZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy91dmQvdXZkXzZfMF9k
-LmggICB8ICAxNSArCj4+ICAgMyBmaWxlcyBjaGFuZ2VkLCA1MDQgaW5zZXJ0aW9ucygrKSwgNiBk
-ZWxldGlvbnMoLSkKPj4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Em Sun, 1 Oct 2017 20:52:20 -0400
+Jérémy Lefaure <jeremy.lefaure@lse.epita.fr> escreveu:
+
+> Anyway, I can tell to each maintainer that they can apply the patches
+> they're concerned about and next time I may send individual patches.
+
+In the case of media, we'll handle it as if they were individual ones.
+
+Thanks,
+Mauro
