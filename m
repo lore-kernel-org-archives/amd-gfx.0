@@ -1,7 +1,7 @@
 From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] amdgpu/dc: use kernel ilog2 for log_2.
-Date: Tue,  3 Oct 2017 13:14:36 +1000
-Message-ID: <20171003031436.20269-1-airlied@gmail.com>
+Subject: [PATCH 1/4] amdgpu/dc: use kernel ilog2 for log_2.
+Date: Tue,  3 Oct 2017 13:49:42 +1000
+Message-ID: <20171003034945.27909-1-airlied@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
