@@ -1,50 +1,73 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: clear build warning
-Date: Wed, 4 Oct 2017 12:02:11 +0000
-Message-ID: <BN6PR12MB165259EDB915145A7E9B7C1DF7730@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1507116865-15334-1-git-send-email-James.Zhu@amd.com>
+From: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 0/6 v4] Add ASoC support for AMD Stoney APUs
+Date: Wed, 4 Oct 2017 15:49:28 +0100
+Message-ID: <20171004144928.hyvkgym45le32mm3@sirena.co.uk>
+References: <1505325475-22602-1-git-send-email-alexander.deucher@amd.com>
+ <20170913181218.bb2br4zehzjoatyq@sirena.org.uk>
+ <CADnq5_PdpjS448n6u6tPBqgKfEw278BENMTjVPiEQ4zQx313AA@mail.gmail.com>
+ <20170914174228.esh6lvih3yjs46ur@sirena.org.uk>
+ <20170928185936.zajc466sp6ttuh7v@sirena.org.uk>
+ <BN6PR12MB165217002EC43137E3F87F83F7790@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1507116865-15334-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0278116365567395132=="
+Return-path: <alsa-devel-bounces@alsa-project.org>
+In-Reply-To: <BN6PR12MB165217002EC43137E3F87F83F7790@BN6PR12MB1652.namprd12.prod.outlook.com>
+List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
+List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Errors-To: alsa-devel-bounces@alsa-project.org
+Sender: alsa-devel-bounces@alsa-project.org
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, rajeev kumar <rajeevkumar.linux@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "Mukunda,
+ Vijendar" <Vijendar.Mukunda@amd.com>, Alex Deucher <alexdeucher@gmail.com>, Dave Airlie <airlied@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEphbWVz
-IFpodQ0KPiBTZW50OiBXZWRuZXNkYXksIE9jdG9iZXIgMDQsIDIwMTcgNzozNCBBTQ0KPiBUbzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1k
-Z3B1OiBjbGVhciBidWlsZCB3YXJuaW5nDQo+IA0KPiBDbGVhciBidWlsZCB3YXJuaW5nOiBzdWdn
-ZXN0IGV4cGxpY2l0IGJyYWNlcyB0byBhdm9pZCBhbWJpZ3VvdXMNCj4g4oCYZWxzZeKAmSBbLVdw
-YXJlbnRoZXNlc10uIEludHJvZHVjZWQgYnkgY29tbWl0czoNCj4gYmMwMTIzZTRmMGQ4ZDA3MmEz
-MTQ0ZTc2NjI4NDZjNTIyMTI0NWRjMw0KPiANCj4gU2lnbmVkLW9mZi1ieTogSmFtZXMgWmh1IDxK
-YW1lcy5aaHVAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
-LmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3V2ZF92Nl8wLmMgfCAzICsrLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3V2ZF92Nl8wLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5j
-DQo+IGluZGV4IGMyMTcwNjIuLjYwYWY3MzEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdXZkX3Y2XzAuYw0KPiBAQCAtNTI1LDExICs1MjUsMTIgQEAgc3RhdGljIGludCB1dmRfdjZf
-MF9od19pbml0KHZvaWQgKmhhbmRsZSkNCj4gIAl9DQo+IA0KPiAgZG9uZToNCj4gLQlpZiAoIXIp
-DQo+ICsJaWYgKCFyKSB7DQo+ICAJCWlmICh1dmRfdjZfMF9lbmNfc3VwcG9ydChhZGV2KSkNCj4g
-IAkJCURSTV9JTkZPKCJVVkQgYW5kIFVWRCBFTkMgaW5pdGlhbGl6ZWQNCj4gc3VjY2Vzc2Z1bGx5
-LlxuIik7DQo+ICAJCWVsc2UNCj4gIAkJCURSTV9JTkZPKCJVVkQgaW5pdGlhbGl6ZWQgc3VjY2Vz
-c2Z1bGx5LlxuIik7DQo+ICsJfQ0KPiANCj4gIAlyZXR1cm4gcjsNCj4gIH0NCj4gLS0NCj4gMi43
-LjQNCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-DQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0278116365567395132==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="6nswwxtvczrecfv6"
+Content-Disposition: inline
+
+
+--6nswwxtvczrecfv6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Sep 28, 2017 at 07:21:07PM +0000, Deucher, Alexander wrote:
+
+> > Any updates with the pull requests?
+
+> Sorry travelling last week and swamped this week.  I'm going to try
+> and get it done tomorrow, otherwise, probably the week after.
+
+No worries, it's only -rc3 so we've got 3-4 weeks.
+
+--6nswwxtvczrecfv6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnU9PgACgkQJNaLcl1U
+h9Dy0wf/emD+KgYrXwCACEP9KsjWPfzo0q/nO9nwpKV2VJdFHztFIX0PjbcFiJUH
+iQGbXigEVfWLCs5Xeialex7/SMTx5ONChKnAO9k2EaAC034d6inAFACRlKAo0tS/
+rs5Ez7fkxwZkJrUuK0dHBfVL1EMjMEqzNQNIOuKb6D2KwSjoezrUAxfiELPMwF4w
+jrUpbBdDlIL5m21QNXinhwWgan45ib0f8nAct/c5Rk2fEG5M/MvuJwEXEWuT5tG2
+cizXO0kWJ3T+Yan3Gz6XeXXao+gTjiwCVY8hCgjBE1klsuaLQQXJ7Tjsih/+NJWA
+WMe7MpEIEtfjZViM2ZP8TMzr2kvRKg==
+=N2Bg
+-----END PGP SIGNATURE-----
+
+--6nswwxtvczrecfv6--
+
+--===============0278116365567395132==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+--===============0278116365567395132==--
