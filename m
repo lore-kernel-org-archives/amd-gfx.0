@@ -1,58 +1,38 @@
-From: Leo Liu <leo.liu@amd.com>
-Subject: Re: [PATCH libdrm v2 2/2] tests/amdgpu: fix uvd enc data corruption
- issue
-Date: Thu, 5 Oct 2017 11:39:43 -0400
-Message-ID: <99fd1615-2a78-a29c-4b0d-0d94b621275f@amd.com>
-References: <1507217090-10669-1-git-send-email-James.Zhu@amd.com>
- <1507217090-10669-2-git-send-email-James.Zhu@amd.com>
+From: "J. Bruce Fields" <bfields@fieldses.org>
+Subject: Re: [PATCH 00/18] use ARRAY_SIZE macro
+Date: Thu, 5 Oct 2017 13:57:15 -0400
+Message-ID: <20171005175715.GA19093@fieldses.org>
+References: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
+ <20171001220131.GA11812@eros>
+ <20171001205220.10b78086@blatinox-laptop.localdomain>
+ <20171002053554.GA28743@kroah.com>
+ <20171002192224.GD1903@fieldses.org>
+ <20171002213312.3f904290@blatinox-laptop.localdomain>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1507217090-10669-2-git-send-email-James.Zhu@amd.com>
-Content-Language: en-GB
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <netdev-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20171002213312.3f904290@blatinox-laptop.localdomain>
+Sender: netdev-owner@vger.kernel.org
+To: =?utf-8?B?SsOpcsOpbXk=?= Lefaure <jeremy.lefaure@lse.epita.fr>
+Cc: Greg KH <greg@kroah.com>, "Tobin C. Harding" <me@tobin.cc>, alsa-devel@alsa-project.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, dm-devel@redhat.com, brcm80211-dev-list@cypress.com, devel@driverdev.osuosl.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgunthorpe@obsidianresearch.com>, linux-acpi@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz, intel-wired-lan@lists.osuosl.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-raid@vger.kernel.org, openipmi-developer@lists.sourceforge.net, intel-gvt-dev@lists.freedesktop.org, devel@acpica.org, brcm80211-dev-list.pdl@broadcom.com, netdev@vger.kernel.org, linux-usb@v
 List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAxMC8wNS8yMDE3IDExOjI0IEFNLCBKYW1lcyBaaHUgd3JvdGU6Cj4gSW4gdXZkIGVuY29k
-ZSBwYXJhbWV0ZXIgcGFja2FnZSwgcGFyYW1ldGVycyBpbnB1dF9waWNfbHVtYV9waXRjaCBhbmQK
-PiBpbnB1dF9waWNfY2hyb21hX3BpdGNoIHNob3VsZCBiZSBwaWN0dXJlIHdpZHRoIGFsaWduIHdp
-dGggaGFyZHdhcmUgYWxpZ25tZW50Lgo+IFRoZSBoYXJkd2FyZSBhbGlnbm1lbnQgaXMgMTYgZm9y
-IGFtZGdwdSBmYW1pbHkgZWFybGllciB0aGFuIEFNREdQVV9GQU1JTFlfQUksCj4gYW5kIDI1NiBm
-b3IgbGF0ZXIgdGhhbiBhbmQgaW5jbHVkaW5nIEFNREdQVV9GQU1JTFlfQUkuCj4KPiBTaWduZWQt
-b2ZmLWJ5OiBKYW1lcyBaaHUgPEphbWVzLlpodUBhbWQuY29tPgo+IC0tLQo+ICAgdGVzdHMvYW1k
-Z3B1L3V2ZF9lbmNfdGVzdHMuYyB8IDQgKysrLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0
-aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL3Rlc3RzL2FtZGdwdS91dmRf
-ZW5jX3Rlc3RzLmMgYi90ZXN0cy9hbWRncHUvdXZkX2VuY190ZXN0cy5jCj4gaW5kZXggNzUxODEw
-My4uYmJkYTEzMSAxMDA2NDQKPiAtLS0gYS90ZXN0cy9hbWRncHUvdXZkX2VuY190ZXN0cy5jCj4g
-KysrIGIvdGVzdHMvYW1kZ3B1L3V2ZF9lbmNfdGVzdHMuYwo+IEBAIC0yNzIsNyArMjcyLDcgQEAg
-c3RhdGljIHZvaWQgYW1kZ3B1X2NzX3V2ZF9lbmNfY3JlYXRlKHZvaWQpCj4gICBzdGF0aWMgdm9p
-ZCBjaGVja19yZXN1bHQoc3RydWN0IGFtZGdwdV91dmRfZW5jICplbmMpCj4gICB7Cj4gICAJdWlu
-dDY0X3Qgc3VtOwo+IC0JdWludDMyX3QgcyA9IDI2MzgyOwo+ICsJdWludDMyX3QgcyA9IDE3NTYw
-MjsKPiAgIAl1aW50MzJfdCAqcHRyLCBzaXplOwo+ICAgCWludCBpLCBqLCByOwo+ICAgCj4gQEAg
-LTQ2Myw2ICs0NjMsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY3NfdXZkX2VuY19lbmNvZGUodm9p
-ZCkKPiAgIAlpYl9jcHVbbGVuKytdID0gY2hyb21hX29mZnNldCA+PiAzMjsKPiAgIAlpYl9jcHVb
-bGVuKytdID0gY2hyb21hX29mZnNldDsKPiAgIAltZW1jcHkoKGliX2NwdSArIGxlbiksIHV2ZV9l
-bmNvZGVfcGFyYW0sIHNpemVvZih1dmVfZW5jb2RlX3BhcmFtKSk7Cj4gKwlpYl9jcHVbbGVuXSA9
-IEFMSUdOKGVuYy53aWR0aCwgYWxpZ24pOwo+ICsJaWJfY3B1W2xlbiArIDFdID0gQUxJR04oZW5j
-LndpZHRoLCBhbGlnbik7ClNpbmNlIGhlcmUgd2Ugb3ZlcnJpZGUgdGhlIHBpdGNoIHZhbHVlIGJh
-c2VkIG9uIGJlbG93IGZyb20gdXZlX2liLmguCgpzdGF0aWMgY29uc3QgdWludDMyX3QgdXZlX2Vu
-Y29kZV9wYXJhbVtdID0gewogICAgIDB4MDAwMDAwYTAsCiAgICAgMHgwMDAwMDA4MCwKCldlJ2Qg
-YmV0dGVyIHRvIHJlc2V0IHRoZW0gdG8gMCBmcm9tIHRoZSBoZWFkZXIgZmlsZSwgc2luY2Ugd2Ug
-ZG9uJ3Qgd2FudCAKdG8gbGVhdmUgdGhlIGluY29ycmVjdCB2YWx1ZSB0aGVyZS4KCldpdGggdGhh
-dCBmaXhlZCwgdGhlIHNlcmllcyBpcwoKUmV2aWV3ZWQtYnk6IExlbyBMaXUgPGxlby5saXVAYW1k
-LmNvbT4KCj4gICAJbGVuICs9IHNpemVvZih1dmVfZW5jb2RlX3BhcmFtKSAvIDQ7Cj4gICAKPiAg
-IAltZW1jcHkoKGliX2NwdSArIGxlbiksIHV2ZV9vcF9zcGVlZF9lbmNfbW9kZSwgc2l6ZW9mKHV2
-ZV9vcF9zcGVlZF9lbmNfbW9kZSkpOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vZHJpLWRldmVsCg==
+On Mon, Oct 02, 2017 at 09:33:12PM -0400, Jérémy Lefaure wrote:
+> On Mon, 2 Oct 2017 15:22:24 -0400
+> bfields@fieldses.org (J. Bruce Fields) wrote:
+> 
+> > Mainly I'd just like to know which you're asking for.  Do you want me to
+> > apply this, or to ACK it so someone else can?  If it's sent as a series
+> > I tend to assume the latter.
+> > 
+> > But in this case I'm assuming it's the former, so I'll pick up the nfsd
+> > one....
+> Could you to apply the NFSD patch ("nfsd: use ARRAY_SIZE") with the
+> Reviewed-by: Jeff Layton <jlayton@redhat.com>) tag please ?
+> 
+> This patch is an individual patch and it should not have been sent in a
+> series (sorry about that).
+
+Applying for 4.15, thanks.--b.
