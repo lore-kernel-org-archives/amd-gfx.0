@@ -1,16 +1,14 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Regression: Crash/freeze when resuming from suspend or locked
- screen
-Date: Tue, 10 Oct 2017 15:01:56 +0000
-Message-ID: <CY4PR12MB168768E4CC5B9BBD98611FB6FB750@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <mailman.10603.1507217137.1832.amd-gfx@lists.freedesktop.org>
- <1507308193.2877.4.camel@online.de>
- <624136700.113676.1507618522363@mailxchange.de>,
- <CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750@CY4PR12MB1653.namprd12.prod.outlook.com>
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v2 1/2] drm/amdgpu: Refactor amdgpu_move_blit
+Date: Tue, 10 Oct 2017 15:20:45 +0000
+Message-ID: <DM3PR1201MB1038A8BE6338B19D188AA0C08C750@DM3PR1201MB1038.namprd12.prod.outlook.com>
+References: <1507327732-8797-1-git-send-email-Harish.Kasiviswanathan@amd.com>
+ <586e28f0-7c99-a991-6167-0eaf56ffb0c7@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1254659199=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <586e28f0-7c99-a991-6167-0eaf56ffb0c7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,257 +20,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, 'Martin Babutzka' <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1254659199==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_"
-
---_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Martin,
-
-Can you try to reproduce this issue with amdgpu.dc=3D0 when modprobe amdgpu
-
-Best Regards
-Rex
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Deucher,=
- Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, October 10, 2017 10:41:29 PM
-To: 'Martin Babutzka'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: Regression: Crash/freeze when resuming from suspend or locked =
-screen
-
-We haven't had a chance to look into it yet.
-
-Alex
-
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of M=
-artin Babutzka
-Sent: Tuesday, October 10, 2017 2:55 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Fwd: Regression: Crash/freeze when resuming from suspend or locked=
- screen
-
-
-Dear AMD developers,
-
-Are there no comments/questions on this issue or did the mail just got lost=
- in between the flood of patches?
-
-Many regards,
-Martin
-
-
-
----------- Urspr=FCngliche Nachricht ----------
-Von: Martin Babutzka <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org<mailto:martin.babutzka@onli=
-ne.de>>
-An: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Datum: 6. Oktober 2017 um 18:43
-Betreff: Regression: Crash/freeze when resuming from suspend or locked scre=
-en
-
-Hello there,
-
-Sorry it is me again with another regression. I just built the latest
-amd-staging-drm-next and the issue which was already reported here:
-https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/29
-and which I can confirm is still existing.
-
-The issue is caused occasionally when re-enabling the display from
-either suspend or from a locked screen. The frozen image can be black,
-a weird colorful pattern or the login screen. Attached you can find the
-kernel crash+trace error I just caught.
-
-So far I have no idea when it was exactly introduced. I asked the other
-users if they are able to give me a time range I will try to bisect it.
-
-My setup: Xubuntu 17.04, patched amd-staging-drm-next kernel, R9 380
-
-Many regards,
-Martin
-
---_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-Hi Martin,<br>
-<br>
-Can you try to reproduce this issue with amdgpu.dc=3D0 when modprobe amdgpu=
-<br>
-<br>
-Best Regards<br>
-Rex
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
-der.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, October 10, 2017 10:41:29 PM<br>
-<b>To:</b> 'Martin Babutzka'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: Regression: Crash/freeze when resuming from suspend or =
-locked screen</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">We haven't had a chance t=
-o look into it yet.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
->
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
-[mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
-<b>On Behalf Of </b>Martin Babutzka<br>
-<b>Sent:</b> Tuesday, October 10, 2017 2:55 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Fwd: Regression: Crash/freeze when resuming from suspend or=
- locked screen<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p>Dear AMD developers,<br>
-<br>
-Are there no comments/questions on this issue or did the mail just got lost=
- in between the flood of patches?<br>
-<br>
-Many regards,<br>
-Martin<o:p></o:p></p>
-<p><o:p>&nbsp;</o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p>---------- Urspr=FCngliche Nachricht ----------<br>
-Von: Martin Babutzka &lt;<a href=3D"mailto:martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org">marti=
-n.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org</a>&gt;<br>
-An: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org</a><br>
-Datum: 6. Oktober 2017 um 18:43<br>
-Betreff: Regression: Crash/freeze when resuming from suspend or locked scre=
-en<o:p></o:p></p>
-<p>Hello there,<o:p></o:p></p>
-<p>Sorry it is me again with another regression. I just built the latest<br=
->
-amd-staging-drm-next and the issue which was already reported here:<br>
-<a href=3D"https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/29"=
->https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/29</a><br>
-and which I can confirm is still existing.<o:p></o:p></p>
-<p>The issue is caused occasionally when re-enabling the display from<br>
-either suspend or from a locked screen. The frozen image can be black,<br>
-a weird colorful pattern or the login screen. Attached you can find the<br>
-kernel crash&#43;trace error I just caught.<o:p></o:p></p>
-<p>So far I have no idea when it was exactly introduced. I asked the other<=
-br>
-users if they are able to give me a time range I will try to bisect it.<o:p=
-></o:p></p>
-<p>My setup: Xubuntu 17.04, patched amd-staging-drm-next kernel, R9 380<o:p=
-></o:p></p>
-<p>Many regards,<br>
-Martin<o:p></o:p></p>
-</blockquote>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_--
-
---===============1254659199==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1254659199==--
+DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mIENocmlzdGlh
+biBLw7ZuaWcNClNlbnQ6IE1vbmRheSwgT2N0b2JlciAwOSwgMjAxNyA1OjA4IEFNDQpUbzogS2Fz
+aXZpc3dhbmF0aGFuLCBIYXJpc2ggPEhhcmlzaC5LYXNpdmlzd2FuYXRoYW5AYW1kLmNvbT47IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIHYyIDEvMl0g
+ZHJtL2FtZGdwdTogUmVmYWN0b3IgYW1kZ3B1X21vdmVfYmxpdA0KDQpBbSAwNy4xMC4yMDE3IHVt
+IDAwOjA4IHNjaHJpZWIgSGFyaXNoIEthc2l2aXN3YW5hdGhhbjoNCj4gQWRkIG1vcmUgZ2VuZXJp
+YyBmdW5jdGlvbiBhbWRncHVfY29weV90dG1fbWVtX3RvX21lbSgpIHRoYXQgc3VwcG9ydHMNCj4g
+YXJiaXRyYXJ5IGNvcHkgc2l6ZSwgb2Zmc2V0cyBhbmQgdHdvIEJPcyAoc291cmNlICYgZGVzdC4p
+Lg0KPg0KPiBUaGlzIGlzIHVzZWZ1bCBmb3IgS0ZEIENyb3NzIE1lbW9yeSBBdHRhY2ggZmVhdHVy
+ZSB3aGVyZSBkYXRhIG5lZWRzIHRvDQo+IGJlIGNvcGllZCBmcm9tIEJPcyBmcm9tIGRpZmZlcmVu
+dCBwcm9jZXNzZXMNCj4NCj4gdjI6IEFkZCBzdHJ1Y3QgYW1kZ3B1X2NvcHlfbWVtIGFuZCBjaGFu
+Z2VkIGFtZGdwdV9jb3B5X3R0bV9tZW1fdG9fbWVtKCkNCj4gZnVuY3Rpb24gcGFyYW1ldGVycyB0
+byB1c2UgdGhlIHN0cnVjdA0KPg0KPiBDaGFuZ2UtSWQ6IEk4NDhkNTQxYTg0YTFjMmQxMjgyN2Q5
+ZGNmNmQ5MDU0ZDg1NGI0MTU5DQo+IFNpZ25lZC1vZmYtYnk6IEhhcmlzaCBLYXNpdmlzd2FuYXRo
+YW4gPEhhcmlzaC5LYXNpdmlzd2FuYXRoYW5AYW1kLmNvbT4NCg0KTG9va3MgbGlrZSBhIG5pY2Ug
+Y2xlYW51cCB0byBtZSwgd2l0aCB0aGUgbm90ZXMgYmVsb3cgZml4ZWQgdGhlIHBhdGNoIGlzIA0K
+UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4u
+DQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIHwg
+MTY5ICsrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIHwgIDEyICsrKw0KPiAgIDIgZmlsZXMgY2hhbmdlZCwg
+MTMyIGluc2VydGlvbnMoKyksIDQ5IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+IGluZGV4IDEwODZmMDMuLmRkYTRmMDggMTAwNjQ0DQo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gQEAgLTI4OSw5NyArMjg5
+LDE2OCBAQCBzdGF0aWMgdWludDY0X3QgYW1kZ3B1X21tX25vZGVfYWRkcihzdHJ1Y3QgdHRtX2J1
+ZmZlcl9vYmplY3QgKmJvLA0KPiAgIAlyZXR1cm4gYWRkcjsNCj4gICB9DQo+ICAgDQo+IC1zdGF0
+aWMgaW50IGFtZGdwdV9tb3ZlX2JsaXQoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywNCj4g
+LQkJCSAgICBib29sIGV2aWN0LCBib29sIG5vX3dhaXRfZ3B1LA0KPiAtCQkJICAgIHN0cnVjdCB0
+dG1fbWVtX3JlZyAqbmV3X21lbSwNCj4gLQkJCSAgICBzdHJ1Y3QgdHRtX21lbV9yZWcgKm9sZF9t
+ZW0pDQo+ICsvKioNCj4gKyAqIGFtZGdwdV9jb3B5X3R0bV9tZW1fdG9fbWVtIC0gSGVscGVyIGZ1
+bmN0aW9uIGZvciBjb3B5DQo+ICsgKg0KPiArICogVGhlIGZ1bmN0aW9uIGNvcGllcyBAc2l6ZSBi
+eXRlcyBmcm9tIHtzcmMtPm1lbSArIHNyYy0+b2Zmc2V0fSB0bw0KPiArICoge2RzdC0+bWVtICsg
+ZHN0LT5vZmZzZXR9LiBzcmMtPmJvIGFuZCBkc3QtPmJvIGNvdWxkIGJlIHNhbWUgQk8gZm9yIGEN
+Cj4gKyAqIG1vdmUgYW5kIGRpZmZlcmVudCBmb3IgYSBCTyB0byBCTyBjb3B5Lg0KPiArICoNCj4g
+KyAqIEBmOiBSZXR1cm5zIHRoZSBsYXN0IGZlbmNlIGlmIG11bHRpcGxlIGpvYnMgYXJlIHN1Ym1p
+dHRlZC4NCj4gKyAqLw0KPiAraW50IGFtZGdwdV9jb3B5X3R0bV9tZW1fdG9fbWVtKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LA0KDQpQbGVhc2UgbmFtZSB0aGF0IGFtZGdwdV90dG1fY29weV8u
+Li4uIHRvIG5vdGUgdGhhdCB0aGUgZnVuY3Rpb24gaXMgcGFydCANCm9mIHRoZSBUVE0gc3Vic3lz
+dGVtIGluIGFtZGdwdS4NCg0KW0hLXSAtIFdpbGwgZml4IHRoZSBuYW1lLg0KDQo+ICsJCQkgICAg
+ICAgc3RydWN0IGFtZGdwdV9jb3B5X21lbSAqc3JjLA0KPiArCQkJICAgICAgIHN0cnVjdCBhbWRn
+cHVfY29weV9tZW0gKmRzdCwNCj4gKwkJCSAgICAgICB1aW50NjRfdCBzaXplLA0KPiArCQkJICAg
+ICAgIHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YsDQo+ICsJCQkgICAgICAgc3RydWN0
+IGRtYV9mZW5jZSAqKmYpDQo+ICAgew0KPiAtCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0g
+YW1kZ3B1X3R0bV9hZGV2KGJvLT5iZGV2KTsNCj4gICAJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
+ID0gYWRldi0+bW1hbi5idWZmZXJfZnVuY3NfcmluZzsNCj4gLQ0KPiAtCXN0cnVjdCBkcm1fbW1f
+bm9kZSAqb2xkX21tLCAqbmV3X21tOw0KPiAtCXVpbnQ2NF90IG9sZF9zdGFydCwgb2xkX3NpemUs
+IG5ld19zdGFydCwgbmV3X3NpemU7DQo+IC0JdW5zaWduZWQgbG9uZyBudW1fcGFnZXM7DQo+ICsJ
+c3RydWN0IGRybV9tbV9ub2RlICpzcmNfbW0sICpkc3RfbW07DQo+ICsJdWludDY0X3Qgc3JjX25v
+ZGVfc3RhcnQsIGRzdF9ub2RlX3N0YXJ0LCBzcmNfbm9kZV9zaXplLA0KPiArCQkgZHN0X25vZGVf
+c2l6ZSwgc3JjX3BhZ2Vfb2Zmc2V0LCBkc3RfcGFnZV9vZmZzZXQ7DQo+ICAgCXN0cnVjdCBkbWFf
+ZmVuY2UgKmZlbmNlID0gTlVMTDsNCj4gLQlpbnQgcjsNCj4gLQ0KPiAtCUJVSUxEX0JVR19PTigo
+UEFHRV9TSVpFICUgQU1ER1BVX0dQVV9QQUdFX1NJWkUpICE9IDApOw0KPiArCWludCByID0gMDsN
+Cj4gKwljb25zdCB1aW50NjRfdCBHVFRfTUFYX0JZVEVTID0gKEFNREdQVV9HVFRfTUFYX1RSQU5T
+RkVSX1NJWkUgKg0KPiArCQkJCQlBTURHUFVfR1BVX1BBR0VfU0laRSk7DQo+ICAgDQo+ICAgCWlm
+ICghcmluZy0+cmVhZHkpIHsNCj4gICAJCURSTV9FUlJPUigiVHJ5aW5nIHRvIG1vdmUgbWVtb3J5
+IHdpdGggcmluZyB0dXJuZWQgb2ZmLlxuIik7DQo+ICAgCQlyZXR1cm4gLUVJTlZBTDsNCj4gICAJ
+fQ0KPiAgIA0KPiAtCW9sZF9tbSA9IG9sZF9tZW0tPm1tX25vZGU7DQo+IC0Jb2xkX3NpemUgPSBv
+bGRfbW0tPnNpemU7DQo+IC0Jb2xkX3N0YXJ0ID0gYW1kZ3B1X21tX25vZGVfYWRkcihibywgb2xk
+X21tLCBvbGRfbWVtKTsNCj4gKwlzcmNfbW0gPSBzcmMtPm1lbS0+bW1fbm9kZTsNCj4gKwl3aGls
+ZSAoc3JjLT5vZmZzZXQgPj0gKHNyY19tbS0+c2l6ZSA8PCBQQUdFX1NISUZUKSkgew0KPiArCQlz
+cmMtPm9mZnNldCAtPSAoc3JjX21tLT5zaXplIDw8IFBBR0VfU0hJRlQpOw0KPiArCQkrK3NyY19t
+bTsNCj4gKwl9DQo+ICsJc3JjX25vZGVfc3RhcnQgPSBhbWRncHVfbW1fbm9kZV9hZGRyKHNyYy0+
+Ym8sIHNyY19tbSwgc3JjLT5tZW0pICsNCj4gKwkJCQkJICAgICBzcmMtPm9mZnNldDsNCj4gKwlz
+cmNfbm9kZV9zaXplID0gKHNyY19tbS0+c2l6ZSA8PCBQQUdFX1NISUZUKSAtIHNyYy0+b2Zmc2V0
+Ow0KPiArCXNyY19wYWdlX29mZnNldCA9IHNyY19ub2RlX3N0YXJ0ICYgKFBBR0VfU0laRSAtIDEp
+Ow0KPiAgIA0KPiAtCW5ld19tbSA9IG5ld19tZW0tPm1tX25vZGU7DQo+IC0JbmV3X3NpemUgPSBu
+ZXdfbW0tPnNpemU7DQo+IC0JbmV3X3N0YXJ0ID0gYW1kZ3B1X21tX25vZGVfYWRkcihibywgbmV3
+X21tLCBuZXdfbWVtKTsNCj4gKwlkc3RfbW0gPSBkc3QtPm1lbS0+bW1fbm9kZTsNCj4gKwl3aGls
+ZSAoZHN0LT5vZmZzZXQgPj0gKGRzdF9tbS0+c2l6ZSA8PCBQQUdFX1NISUZUKSkgew0KPiArCQlk
+c3QtPm9mZnNldCAtPSAoZHN0X21tLT5zaXplIDw8IFBBR0VfU0hJRlQpOw0KPiArCQkrK2RzdF9t
+bTsNCj4gKwl9DQo+ICsJZHN0X25vZGVfc3RhcnQgPSBhbWRncHVfbW1fbm9kZV9hZGRyKGRzdC0+
+Ym8sIGRzdF9tbSwgZHN0LT5tZW0pICsNCj4gKwkJCQkJICAgICBkc3QtPm9mZnNldDsNCj4gKwlk
+c3Rfbm9kZV9zaXplID0gKGRzdF9tbS0+c2l6ZSA8PCBQQUdFX1NISUZUKSAtIGRzdC0+b2Zmc2V0
+Ow0KPiArCWRzdF9wYWdlX29mZnNldCA9IGRzdF9ub2RlX3N0YXJ0ICYgKFBBR0VfU0laRSAtIDEp
+Ow0KPiAgIA0KPiAtCW51bV9wYWdlcyA9IG5ld19tZW0tPm51bV9wYWdlczsNCj4gICAJbXV0ZXhf
+bG9jaygmYWRldi0+bW1hbi5ndHRfd2luZG93X2xvY2spOw0KPiAtCXdoaWxlIChudW1fcGFnZXMp
+IHsNCj4gLQkJdW5zaWduZWQgbG9uZyBjdXJfcGFnZXMgPSBtaW4obWluKG9sZF9zaXplLCBuZXdf
+c2l6ZSksDQo+IC0JCQkJCSAgICAgICh1NjQpQU1ER1BVX0dUVF9NQVhfVFJBTlNGRVJfU0laRSk7
+DQo+IC0JCXVpbnQ2NF90IGZyb20gPSBvbGRfc3RhcnQsIHRvID0gbmV3X3N0YXJ0Ow0KPiArDQo+
+ICsJd2hpbGUgKHNpemUpIHsNCj4gKwkJdW5zaWduZWQgbG9uZyBjdXJfc2l6ZTsNCj4gKwkJdWlu
+dDY0X3QgZnJvbSA9IHNyY19ub2RlX3N0YXJ0LCB0byA9IGRzdF9ub2RlX3N0YXJ0Ow0KPiAgIAkJ
+c3RydWN0IGRtYV9mZW5jZSAqbmV4dDsNCj4gICANCj4gLQkJaWYgKG9sZF9tZW0tPm1lbV90eXBl
+ID09IFRUTV9QTF9UVCAmJg0KPiAtCQkgICAgIWFtZGdwdV9ndHRfbWdyX2lzX2FsbG9jYXRlZChv
+bGRfbWVtKSkgew0KPiAtCQkJciA9IGFtZGdwdV9tYXBfYnVmZmVyKGJvLCBvbGRfbWVtLCBjdXJf
+cGFnZXMsDQo+IC0JCQkJCSAgICAgIG9sZF9zdGFydCwgMCwgcmluZywgJmZyb20pOw0KPiArCQkv
+KiBDb3B5IHNpemUgY2Fubm90IGV4Y2VlZCBHVFRfTUFYX0JZVEVTLiBTbyBpZiBzcmMgb3IgZHN0
+DQo+ICsJCSAqIGJlZ2lucyBhdCBhbiBvZmZzZXQsIHRoZW4gYWRqdXN0IHRoZSBzaXplIGFjY29y
+ZGluZ2x5DQo+ICsJCSAqLw0KPiArCQljdXJfc2l6ZSA9IG1pbjMobWluKHNyY19ub2RlX3NpemUs
+IGRzdF9ub2RlX3NpemUpLCBzaXplLA0KPiArCQkJCUdUVF9NQVhfQllURVMpOw0KPiArCQlpZiAo
+Y3VyX3NpemUgKyBzcmNfcGFnZV9vZmZzZXQgPiBHVFRfTUFYX0JZVEVTIHx8DQo+ICsJCSAgICBj
+dXJfc2l6ZSArIGRzdF9wYWdlX29mZnNldCA+IEdUVF9NQVhfQllURVMpDQo+ICsJCQljdXJfc2l6
+ZSAtPSBtYXgoc3JjX3BhZ2Vfb2Zmc2V0LCBkc3RfcGFnZV9vZmZzZXQpOw0KPiArDQo+ICsJCS8q
+IE1hcCBvbmx5IHdoYXQgbmVlZHMgdG8gYmUgYWNjZXNzZWQuIE1hcCBzcmMgdG8gd2luZG93IDAg
+YW5kDQo+ICsJCSAqIGRzdCB0byB3aW5kb3cgMQ0KPiArCQkgKi8NCj4gKwkJaWYgKHNyYy0+bWVt
+LT5tZW1fdHlwZSA9PSBUVE1fUExfVFQgJiYNCj4gKwkJICAgICFhbWRncHVfZ3R0X21ncl9pc19h
+bGxvY2F0ZWQoc3JjLT5tZW0pKSB7DQo+ICsJCQlyID0gYW1kZ3B1X21hcF9idWZmZXIoc3JjLT5i
+bywgc3JjLT5tZW0sDQo+ICsJCQkJCVBGTl9VUChjdXJfc2l6ZSArIHNyY19wYWdlX29mZnNldCks
+DQo+ICsJCQkJCXNyY19ub2RlX3N0YXJ0LCAwLCByaW5nLA0KPiArCQkJCQkmZnJvbSk7DQo+ICAg
+CQkJaWYgKHIpDQo+ICAgCQkJCWdvdG8gZXJyb3I7DQo+ICsJCQkvKiBBZGp1c3QgdGhlIG9mZnNl
+dCBiZWNhdXNlIGFtZGdwdV9tYXBfYnVmZmVyIHJldHVybnMNCj4gKwkJCSAqIHN0YXJ0IG9mIG1h
+cHBlZCBwYWdlDQo+ICsJCQkgKi8NCj4gKwkJCWZyb20gKz0gc3JjX3BhZ2Vfb2Zmc2V0Ow0KPiAg
+IAkJfQ0KPiAgIA0KPiAtCQlpZiAobmV3X21lbS0+bWVtX3R5cGUgPT0gVFRNX1BMX1RUICYmDQo+
+IC0JCSAgICAhYW1kZ3B1X2d0dF9tZ3JfaXNfYWxsb2NhdGVkKG5ld19tZW0pKSB7DQo+IC0JCQly
+ID0gYW1kZ3B1X21hcF9idWZmZXIoYm8sIG5ld19tZW0sIGN1cl9wYWdlcywNCj4gLQkJCQkJICAg
+ICAgbmV3X3N0YXJ0LCAxLCByaW5nLCAmdG8pOw0KPiArCQlpZiAoZHN0LT5tZW0tPm1lbV90eXBl
+ID09IFRUTV9QTF9UVCAmJg0KPiArCQkgICAgIWFtZGdwdV9ndHRfbWdyX2lzX2FsbG9jYXRlZChk
+c3QtPm1lbSkpIHsNCj4gKwkJCXIgPSBhbWRncHVfbWFwX2J1ZmZlcihkc3QtPmJvLCBkc3QtPm1l
+bSwNCj4gKwkJCQkJUEZOX1VQKGN1cl9zaXplICsgZHN0X3BhZ2Vfb2Zmc2V0KSwNCj4gKwkJCQkJ
+ZHN0X25vZGVfc3RhcnQsIDEsIHJpbmcsDQo+ICsJCQkJCSZ0byk7DQo+ICAgCQkJaWYgKHIpDQo+
+ICAgCQkJCWdvdG8gZXJyb3I7DQo+ICsJCQl0byArPSBkc3RfcGFnZV9vZmZzZXQ7DQo+ICAgCQl9
+DQo+ICAgDQo+IC0JCXIgPSBhbWRncHVfY29weV9idWZmZXIocmluZywgZnJvbSwgdG8sDQo+IC0J
+CQkJICAgICAgIGN1cl9wYWdlcyAqIFBBR0VfU0laRSwNCj4gLQkJCQkgICAgICAgYm8tPnJlc3Ys
+ICZuZXh0LCBmYWxzZSwgdHJ1ZSk7DQo+ICsJCXIgPSBhbWRncHVfY29weV9idWZmZXIocmluZywg
+ZnJvbSwgdG8sIGN1cl9zaXplLA0KPiArCQkJCSAgICAgICByZXN2LCAmbmV4dCwgZmFsc2UsIHRy
+dWUpOw0KPiAgIAkJaWYgKHIpDQo+ICAgCQkJZ290byBlcnJvcjsNCj4gICANCj4gICAJCWRtYV9m
+ZW5jZV9wdXQoZmVuY2UpOw0KPiAgIAkJZmVuY2UgPSBuZXh0Ow0KPiAgIA0KPiAtCQludW1fcGFn
+ZXMgLT0gY3VyX3BhZ2VzOw0KPiAtCQlpZiAoIW51bV9wYWdlcykNCj4gKwkJc2l6ZSAtPSBjdXJf
+c2l6ZTsNCj4gKwkJaWYgKCFzaXplKQ0KPiAgIAkJCWJyZWFrOw0KPiAgIA0KPiAtCQlvbGRfc2l6
+ZSAtPSBjdXJfcGFnZXM7DQo+IC0JCWlmICghb2xkX3NpemUpIHsNCj4gLQkJCW9sZF9zdGFydCA9
+IGFtZGdwdV9tbV9ub2RlX2FkZHIoYm8sICsrb2xkX21tLCBvbGRfbWVtKTsNCj4gLQkJCW9sZF9z
+aXplID0gb2xkX21tLT5zaXplOw0KPiArCQlzcmNfbm9kZV9zaXplIC09IGN1cl9zaXplOw0KPiAr
+CQlpZiAoIXNyY19ub2RlX3NpemUpIHsNCj4gKwkJCXNyY19ub2RlX3N0YXJ0ID0gYW1kZ3B1X21t
+X25vZGVfYWRkcihzcmMtPmJvLCArK3NyY19tbSwNCj4gKwkJCQkJCQkgICAgIHNyYy0+bWVtKTsN
+Cj4gKwkJCXNyY19ub2RlX3NpemUgPSAoc3JjX21tLT5zaXplIDw8IFBBR0VfU0hJRlQpOw0KPiAg
+IAkJfSBlbHNlIHsNCj4gLQkJCW9sZF9zdGFydCArPSBjdXJfcGFnZXMgKiBQQUdFX1NJWkU7DQo+
+ICsJCQlzcmNfbm9kZV9zdGFydCArPSBjdXJfc2l6ZTsNCj4gKwkJCXNyY19wYWdlX29mZnNldCA9
+IHNyY19ub2RlX3N0YXJ0ICYgKFBBR0VfU0laRSAtIDEpOw0KPiAgIAkJfQ0KPiAtDQo+IC0JCW5l
+d19zaXplIC09IGN1cl9wYWdlczsNCj4gLQkJaWYgKCFuZXdfc2l6ZSkgew0KPiAtCQkJbmV3X3N0
+YXJ0ID0gYW1kZ3B1X21tX25vZGVfYWRkcihibywgKytuZXdfbW0sIG5ld19tZW0pOw0KPiAtCQkJ
+bmV3X3NpemUgPSBuZXdfbW0tPnNpemU7DQo+ICsJCWRzdF9ub2RlX3NpemUgLT0gY3VyX3NpemU7
+DQo+ICsJCWlmICghZHN0X25vZGVfc2l6ZSkgew0KPiArCQkJZHN0X25vZGVfc3RhcnQgPSBhbWRn
+cHVfbW1fbm9kZV9hZGRyKGRzdC0+Ym8sICsrZHN0X21tLA0KPiArCQkJCQkJCSAgICAgZHN0LT5t
+ZW0pOw0KPiArCQkJZHN0X25vZGVfc2l6ZSA9IChkc3RfbW0tPnNpemUgPDwgUEFHRV9TSElGVCk7
+DQo+ICAgCQl9IGVsc2Ugew0KPiAtCQkJbmV3X3N0YXJ0ICs9IGN1cl9wYWdlcyAqIFBBR0VfU0la
+RTsNCj4gKwkJCWRzdF9ub2RlX3N0YXJ0ICs9IGN1cl9zaXplOw0KPiArCQkJZHN0X3BhZ2Vfb2Zm
+c2V0ID0gZHN0X25vZGVfc3RhcnQgJiAoUEFHRV9TSVpFIC0gMSk7DQo+ICAgCQl9DQo+ICAgCX0N
+Cj4gK2Vycm9yOg0KPiAgIAltdXRleF91bmxvY2soJmFkZXYtPm1tYW4uZ3R0X3dpbmRvd19sb2Nr
+KTsNCj4gKwlpZiAoZikNCj4gKwkJKmYgPSBkbWFfZmVuY2VfZ2V0KGZlbmNlKTsNCj4gKwlkbWFf
+ZmVuY2VfcHV0KGZlbmNlKTsNCj4gKwlyZXR1cm4gcjsNCj4gK30NCj4gKw0KPiArDQo+ICtzdGF0
+aWMgaW50IGFtZGdwdV9tb3ZlX2JsaXQoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywNCj4g
+KwkJCSAgICBib29sIGV2aWN0LCBib29sIG5vX3dhaXRfZ3B1LA0KPiArCQkJICAgIHN0cnVjdCB0
+dG1fbWVtX3JlZyAqbmV3X21lbSwNCj4gKwkJCSAgICBzdHJ1Y3QgdHRtX21lbV9yZWcgKm9sZF9t
+ZW0pDQo+ICt7DQoNCkkgdGhpbmsgSSB3b3VsZCByYXRoZXIgcHJlZmVyIHRvIGNoYW5nZSB0aGUg
+Y2FsbGVycyBvZiB0aGF0IGZ1bmN0aW9uLCANCmJ1dCBub3QgMTAwJSBzdXJlLg0KDQpIb3cgbXVj
+aCBjaGFuZ2Ugd291bGQgdGhhdCBiZT8gQnV0IG5vdCBhIGJsb2NraW5nIGlzc3VlLg0KDQpbSEtd
+OiBUaGUgZnVuY3Rpb24gaXMgY2FsbGVkIDMgdGltZXMgaW4gYW1kZ3B1X3R0bS5jLiBJIGRvbid0
+IHNlZSBhbiBlbGVnYW50IHdheSB0byBhdm9pZCB0aGlzIGZ1bmN0aW9uLiBTbyBmb3Igbm93IEkg
+YW0gbGVhdmluZyBpdCBhcyBpdCBpcy4NCg0KPiArCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gYW1kZ3B1X3R0bV9hZGV2KGJvLT5iZGV2KTsNCj4gKwlzdHJ1Y3QgYW1kZ3B1X2NvcHlfbWVt
+IHNyYywgZHN0Ow0KPiArCXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlID0gTlVMTDsNCj4gKwlpbnQg
+cjsNCj4gKw0KPiArCXNyYy5ibyA9IGJvOw0KPiArCWRzdC5ibyA9IGJvOw0KPiArCXNyYy5tZW0g
+PSBvbGRfbWVtOw0KPiArCWRzdC5tZW0gPSBuZXdfbWVtOw0KPiArCXNyYy5vZmZzZXQgPSAwOw0K
+PiArCWRzdC5vZmZzZXQgPSAwOw0KPiArDQo+ICsJciA9IGFtZGdwdV9jb3B5X3R0bV9tZW1fdG9f
+bWVtKGFkZXYsICZzcmMsICZkc3QsDQo+ICsJCQkJICAgICAgIG5ld19tZW0tPm51bV9wYWdlcyA8
+PCBQQUdFX1NISUZULA0KPiArCQkJCSAgICAgICBiby0+cmVzdiwgJmZlbmNlKTsNCj4gKwlpZiAo
+cikNCj4gKwkJZ290byBlcnJvcjsNCj4gICANCj4gICAJciA9IHR0bV9ib19waXBlbGluZV9tb3Zl
+KGJvLCBmZW5jZSwgZXZpY3QsIG5ld19tZW0pOw0KPiAgIAlkbWFfZmVuY2VfcHV0KGZlbmNlKTsN
+Cj4gICAJcmV0dXJuIHI7DQo+ICAgDQo+ICAgZXJyb3I6DQo+IC0JbXV0ZXhfdW5sb2NrKCZhZGV2
+LT5tbWFuLmd0dF93aW5kb3dfbG9jayk7DQo+IC0NCj4gICAJaWYgKGZlbmNlKQ0KPiAgIAkJZG1h
+X2ZlbmNlX3dhaXQoZmVuY2UsIGZhbHNlKTsNCj4gICAJZG1hX2ZlbmNlX3B1dChmZW5jZSk7DQo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmggYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgNCj4gaW5kZXggN2FiYWU2OC4u
+MjE4ODAzNCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3R0bS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaA0K
+PiBAQCAtNTgsNiArNTgsMTIgQEAgc3RydWN0IGFtZGdwdV9tbWFuIHsNCj4gICAJc3RydWN0IGFt
+ZF9zY2hlZF9lbnRpdHkJCQllbnRpdHk7DQo+ICAgfTsNCj4gICANCj4gK3N0cnVjdCBhbWRncHVf
+Y29weV9tZW0gew0KPiArCXN0cnVjdCB0dG1fYnVmZmVyX29iamVjdAkqYm87DQo+ICsJc3RydWN0
+IHR0bV9tZW1fcmVnCQkqbWVtOw0KPiArCXVuc2lnbmVkIGxvbmcJCQlvZmZzZXQ7DQo+ICt9Ow0K
+PiArDQo+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlcl9mdW5jIGFt
+ZGdwdV9ndHRfbWdyX2Z1bmM7DQo+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCB0dG1fbWVtX3R5cGVf
+bWFuYWdlcl9mdW5jIGFtZGdwdV92cmFtX21ncl9mdW5jOw0KPiAgIA0KPiBAQCAtNzIsNiArNzgs
+MTIgQEAgaW50IGFtZGdwdV9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVp
+bnQ2NF90IHNyY19vZmZzZXQsDQo+ICAgCQkgICAgICAgc3RydWN0IHJlc2VydmF0aW9uX29iamVj
+dCAqcmVzdiwNCj4gICAJCSAgICAgICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UsIGJvb2wgZGly
+ZWN0X3N1Ym1pdCwNCj4gICAJCSAgICAgICBib29sIHZtX25lZWRzX2ZsdXNoKTsNCj4gK2ludCBh
+bWRncHVfY29weV90dG1fbWVtX3RvX21lbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4g
+KwkJCSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2NvcHlfbWVtICpzcmMsDQo+ICsJCQkgICAgICAgc3Ry
+dWN0IGFtZGdwdV9jb3B5X21lbSAqZHN0LA0KPiArCQkJICAgICAgIHVpbnQ2NF90IHNpemUsDQo+
+ICsJCQkgICAgICAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdiwNCj4gKwkJCSAgICAg
+ICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZik7DQo+ICAgaW50IGFtZGdwdV9maWxsX2J1ZmZlcihzdHJ1
+Y3QgYW1kZ3B1X2JvICpibywNCj4gICAJCQl1aW50NjRfdCBzcmNfZGF0YSwNCj4gICAJCQlzdHJ1
+Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LA0KDQoNCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
