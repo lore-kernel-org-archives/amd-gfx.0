@@ -1,15 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: Regression: Crash/freeze when resuming from suspend or locked
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Regression: Crash/freeze when resuming from suspend or locked
  screen
-Date: Tue, 10 Oct 2017 14:41:29 +0000
-Message-ID: <CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750@CY4PR12MB1653.namprd12.prod.outlook.com>
+Date: Tue, 10 Oct 2017 15:01:56 +0000
+Message-ID: <CY4PR12MB168768E4CC5B9BBD98611FB6FB750@CY4PR12MB1687.namprd12.prod.outlook.com>
 References: <mailman.10603.1507217137.1832.amd-gfx@lists.freedesktop.org>
  <1507308193.2877.4.camel@online.de>
- <624136700.113676.1507618522363@mailxchange.de>
+ <624136700.113676.1507618522363@mailxchange.de>,
+ <CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750@CY4PR12MB1653.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0220930553=="
+Content-Type: multipart/mixed; boundary="===============1254659199=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <624136700.113676.1507618522363-NM1PAhYDU/Oo9dU1Uvar1Q@public.gmane.org>
+In-Reply-To: <CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,146 +22,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 'Martin Babutzka' <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, 'Martin Babutzka' <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0220930553==
+--===============1254659199==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750CY4PR12MB1653namp_"
+	boundary="_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_"
 
---_000_CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750CY4PR12MB1653namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-V2UgaGF2ZW4ndCBoYWQgYSBjaGFuY2UgdG8gbG9vayBpbnRvIGl0IHlldC4NCg0KQWxleA0KDQpG
-cm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Z10gT24gQmVoYWxmIE9mIE1hcnRpbiBCYWJ1dHprYQ0KU2VudDogVHVlc2RheSwgT2N0b2JlciAx
-MCwgMjAxNyAyOjU1IEFNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1Ympl
-Y3Q6IEZ3ZDogUmVncmVzc2lvbjogQ3Jhc2gvZnJlZXplIHdoZW4gcmVzdW1pbmcgZnJvbSBzdXNw
-ZW5kIG9yIGxvY2tlZCBzY3JlZW4NCg0KDQpEZWFyIEFNRCBkZXZlbG9wZXJzLA0KDQpBcmUgdGhl
-cmUgbm8gY29tbWVudHMvcXVlc3Rpb25zIG9uIHRoaXMgaXNzdWUgb3IgZGlkIHRoZSBtYWlsIGp1
-c3QgZ290IGxvc3QgaW4gYmV0d2VlbiB0aGUgZmxvb2Qgb2YgcGF0Y2hlcz8NCg0KTWFueSByZWdh
-cmRzLA0KTWFydGluDQoNCg0KDQotLS0tLS0tLS0tIFVyc3Byw7xuZ2xpY2hlIE5hY2hyaWNodCAt
-LS0tLS0tLS0tDQpWb246IE1hcnRpbiBCYWJ1dHprYSA8bWFydGluLmJhYnV0emthQG9ubGluZS5k
-ZTxtYWlsdG86bWFydGluLmJhYnV0emthQG9ubGluZS5kZT4+DQpBbjogYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KRGF0
-dW06IDYuIE9rdG9iZXIgMjAxNyB1bSAxODo0Mw0KQmV0cmVmZjogUmVncmVzc2lvbjogQ3Jhc2gv
-ZnJlZXplIHdoZW4gcmVzdW1pbmcgZnJvbSBzdXNwZW5kIG9yIGxvY2tlZCBzY3JlZW4NCg0KSGVs
-bG8gdGhlcmUsDQoNClNvcnJ5IGl0IGlzIG1lIGFnYWluIHdpdGggYW5vdGhlciByZWdyZXNzaW9u
-LiBJIGp1c3QgYnVpbHQgdGhlIGxhdGVzdA0KYW1kLXN0YWdpbmctZHJtLW5leHQgYW5kIHRoZSBp
-c3N1ZSB3aGljaCB3YXMgYWxyZWFkeSByZXBvcnRlZCBoZXJlOg0KaHR0cHM6Ly9naXRodWIuY29t
-L00tQmFiL2xpbnV4LWtlcm5lbC1hbWRncHUtYmluYXJpZXMvaXNzdWVzLzI5DQphbmQgd2hpY2gg
-SSBjYW4gY29uZmlybSBpcyBzdGlsbCBleGlzdGluZy4NCg0KVGhlIGlzc3VlIGlzIGNhdXNlZCBv
-Y2Nhc2lvbmFsbHkgd2hlbiByZS1lbmFibGluZyB0aGUgZGlzcGxheSBmcm9tDQplaXRoZXIgc3Vz
-cGVuZCBvciBmcm9tIGEgbG9ja2VkIHNjcmVlbi4gVGhlIGZyb3plbiBpbWFnZSBjYW4gYmUgYmxh
-Y2ssDQphIHdlaXJkIGNvbG9yZnVsIHBhdHRlcm4gb3IgdGhlIGxvZ2luIHNjcmVlbi4gQXR0YWNo
-ZWQgeW91IGNhbiBmaW5kIHRoZQ0Ka2VybmVsIGNyYXNoK3RyYWNlIGVycm9yIEkganVzdCBjYXVn
-aHQuDQoNClNvIGZhciBJIGhhdmUgbm8gaWRlYSB3aGVuIGl0IHdhcyBleGFjdGx5IGludHJvZHVj
-ZWQuIEkgYXNrZWQgdGhlIG90aGVyDQp1c2VycyBpZiB0aGV5IGFyZSBhYmxlIHRvIGdpdmUgbWUg
-YSB0aW1lIHJhbmdlIEkgd2lsbCB0cnkgdG8gYmlzZWN0IGl0Lg0KDQpNeSBzZXR1cDogWHVidW50
-dSAxNy4wNCwgcGF0Y2hlZCBhbWQtc3RhZ2luZy1kcm0tbmV4dCBrZXJuZWwsIFI5IDM4MA0KDQpN
-YW55IHJlZ2FyZHMsDQpNYXJ0aW4NCg==
+Hi Martin,
 
---_000_CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750CY4PR12MB1653namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Can you try to reproduce this issue with amdgpu.dc=3D0 when modprobe amdgpu
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJ
-e2ZvbnQtZmFtaWx5OlRhaG9tYTsNCglwYW5vc2UtMToyIDExIDYgNCAzIDUgNCA0IDIgNDt9DQov
-KiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1z
-b05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNp
-emU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9tYW4iLCJzZXJpZiI7fQ0KYTps
-aW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6
-Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29I
-eXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxl
-Ow0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcA0KCXttc28tc3R5bGUtcHJpb3JpdHk6
-OTk7DQoJbXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFyZ2luLXJpZ2h0OjBpbjsNCgltc28t
-bWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVmdDowaW47DQoJZm9udC1zaXplOjEy
-LjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIiwic2VyaWYiO30NCnAuTXNvQWNl
-dGF0ZSwgbGkuTXNvQWNldGF0ZSwgZGl2Lk1zb0FjZXRhdGUNCgl7bXNvLXN0eWxlLXByaW9yaXR5
-Ojk5Ow0KCW1zby1zdHlsZS1saW5rOiJCYWxsb29uIFRleHQgQ2hhciI7DQoJbWFyZ2luOjBpbjsN
-CgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjguMHB0Ow0KCWZvbnQtZmFtaWx5
-OiJUYWhvbWEiLCJzYW5zLXNlcmlmIjt9DQpzcGFuLkVtYWlsU3R5bGUxOA0KCXttc28tc3R5bGUt
-dHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsInNhbnMtc2VyaWYi
-Ow0KCWNvbG9yOiMxRjQ5N0Q7fQ0Kc3Bhbi5CYWxsb29uVGV4dENoYXINCgl7bXNvLXN0eWxlLW5h
-bWU6IkJhbGxvb24gVGV4dCBDaGFyIjsNCgltc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNvLXN0
-eWxlLWxpbms6IkJhbGxvb24gVGV4dCI7DQoJZm9udC1mYW1pbHk6IlRhaG9tYSIsInNhbnMtc2Vy
-aWYiO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZv
-bnQtc2l6ZToxMC4wcHQ7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGlu
-Ow0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJ
-e3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+
-DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+
-PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4
-dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxh
-eW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5r
-PSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWls
-eTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3
-RCI+V2UgaGF2ZW4ndCBoYWQgYSBjaGFuY2UgdG8gbG9vayBpbnRvIGl0IHlldC48bzpwPjwvbzpw
-Pjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
-OjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYm
-cXVvdDs7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6
-JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOiMxRjQ5N0Qi
-PkFsZXg8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZx
-dW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3Nw
-YW4+PC9wPg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAx
-LjVwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3Jk
-ZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNCNUM0REYgMS4wcHQ7cGFkZGluZzozLjBwdCAwaW4g
-MGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
-OjEwLjBwdDtmb250LWZhbWlseTomcXVvdDtUYWhvbWEmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
-dW90OyI+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2ZvbnQt
-ZmFtaWx5OiZxdW90O1RhaG9tYSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7Ij4gYW1kLWdm
-eCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddDQo8Yj5PbiBC
-ZWhhbGYgT2YgPC9iPk1hcnRpbiBCYWJ1dHprYTxicj4NCjxiPlNlbnQ6PC9iPiBUdWVzZGF5LCBP
-Y3RvYmVyIDEwLCAyMDE3IDI6NTUgQU08YnI+DQo8Yj5Ubzo8L2I+IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnPGJyPg0KPGI+U3ViamVjdDo8L2I+IEZ3ZDogUmVncmVzc2lvbjogQ3Jhc2gv
-ZnJlZXplIHdoZW4gcmVzdW1pbmcgZnJvbSBzdXNwZW5kIG9yIGxvY2tlZCBzY3JlZW48bzpwPjwv
-bzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86
-cD4mbmJzcDs8L286cD48L3A+DQo8cD5EZWFyIEFNRCBkZXZlbG9wZXJzLDxicj4NCjxicj4NCkFy
-ZSB0aGVyZSBubyBjb21tZW50cy9xdWVzdGlvbnMgb24gdGhpcyBpc3N1ZSBvciBkaWQgdGhlIG1h
-aWwganVzdCBnb3QgbG9zdCBpbiBiZXR3ZWVuIHRoZSBmbG9vZCBvZiBwYXRjaGVzPzxicj4NCjxi
-cj4NCk1hbnkgcmVnYXJkcyw8YnI+DQpNYXJ0aW48bzpwPjwvbzpwPjwvcD4NCjxwPjxvOnA+Jm5i
-c3A7PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2lu
-LWJvdHRvbTo1LjBwdCI+DQo8cD4tLS0tLS0tLS0tIFVyc3Byw7xuZ2xpY2hlIE5hY2hyaWNodCAt
-LS0tLS0tLS0tPGJyPg0KVm9uOiBNYXJ0aW4gQmFidXR6a2EgJmx0OzxhIGhyZWY9Im1haWx0bzpt
-YXJ0aW4uYmFidXR6a2FAb25saW5lLmRlIj5tYXJ0aW4uYmFidXR6a2FAb25saW5lLmRlPC9hPiZn
-dDs8YnI+DQpBbjogPGEgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Ij5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+DQpEYXR1bTogNi4gT2t0b2Jl
-ciAyMDE3IHVtIDE4OjQzPGJyPg0KQmV0cmVmZjogUmVncmVzc2lvbjogQ3Jhc2gvZnJlZXplIHdo
-ZW4gcmVzdW1pbmcgZnJvbSBzdXNwZW5kIG9yIGxvY2tlZCBzY3JlZW48bzpwPjwvbzpwPjwvcD4N
-CjxwPkhlbGxvIHRoZXJlLDxvOnA+PC9vOnA+PC9wPg0KPHA+U29ycnkgaXQgaXMgbWUgYWdhaW4g
-d2l0aCBhbm90aGVyIHJlZ3Jlc3Npb24uIEkganVzdCBidWlsdCB0aGUgbGF0ZXN0PGJyPg0KYW1k
-LXN0YWdpbmctZHJtLW5leHQgYW5kIHRoZSBpc3N1ZSB3aGljaCB3YXMgYWxyZWFkeSByZXBvcnRl
-ZCBoZXJlOjxicj4NCjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9NLUJhYi9saW51eC1rZXJu
-ZWwtYW1kZ3B1LWJpbmFyaWVzL2lzc3Vlcy8yOSI+aHR0cHM6Ly9naXRodWIuY29tL00tQmFiL2xp
-bnV4LWtlcm5lbC1hbWRncHUtYmluYXJpZXMvaXNzdWVzLzI5PC9hPjxicj4NCmFuZCB3aGljaCBJ
-IGNhbiBjb25maXJtIGlzIHN0aWxsIGV4aXN0aW5nLjxvOnA+PC9vOnA+PC9wPg0KPHA+VGhlIGlz
-c3VlIGlzIGNhdXNlZCBvY2Nhc2lvbmFsbHkgd2hlbiByZS1lbmFibGluZyB0aGUgZGlzcGxheSBm
-cm9tPGJyPg0KZWl0aGVyIHN1c3BlbmQgb3IgZnJvbSBhIGxvY2tlZCBzY3JlZW4uIFRoZSBmcm96
-ZW4gaW1hZ2UgY2FuIGJlIGJsYWNrLDxicj4NCmEgd2VpcmQgY29sb3JmdWwgcGF0dGVybiBvciB0
-aGUgbG9naW4gc2NyZWVuLiBBdHRhY2hlZCB5b3UgY2FuIGZpbmQgdGhlPGJyPg0Ka2VybmVsIGNy
-YXNoJiM0Mzt0cmFjZSBlcnJvciBJIGp1c3QgY2F1Z2h0LjxvOnA+PC9vOnA+PC9wPg0KPHA+U28g
-ZmFyIEkgaGF2ZSBubyBpZGVhIHdoZW4gaXQgd2FzIGV4YWN0bHkgaW50cm9kdWNlZC4gSSBhc2tl
-ZCB0aGUgb3RoZXI8YnI+DQp1c2VycyBpZiB0aGV5IGFyZSBhYmxlIHRvIGdpdmUgbWUgYSB0aW1l
-IHJhbmdlIEkgd2lsbCB0cnkgdG8gYmlzZWN0IGl0LjxvOnA+PC9vOnA+PC9wPg0KPHA+TXkgc2V0
-dXA6IFh1YnVudHUgMTcuMDQsIHBhdGNoZWQgYW1kLXN0YWdpbmctZHJtLW5leHQga2VybmVsLCBS
-OSAzODA8bzpwPjwvbzpwPjwvcD4NCjxwPk1hbnkgcmVnYXJkcyw8YnI+DQpNYXJ0aW48bzpwPjwv
-bzpwPjwvcD4NCjwvYmxvY2txdW90ZT4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+
-DQo=
+Best Regards
+Rex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Deucher,=
+ Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, October 10, 2017 10:41:29 PM
+To: 'Martin Babutzka'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: Regression: Crash/freeze when resuming from suspend or locked =
+screen
 
---_000_CY4PR12MB16533EE2F12BC8E8BF9BD4EFF7750CY4PR12MB1653namp_--
+We haven't had a chance to look into it yet.
 
---===============0220930553==
+Alex
+
+From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of M=
+artin Babutzka
+Sent: Tuesday, October 10, 2017 2:55 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Fwd: Regression: Crash/freeze when resuming from suspend or locked=
+ screen
+
+
+Dear AMD developers,
+
+Are there no comments/questions on this issue or did the mail just got lost=
+ in between the flood of patches?
+
+Many regards,
+Martin
+
+
+
+---------- Urspr=FCngliche Nachricht ----------
+Von: Martin Babutzka <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org<mailto:martin.babutzka@onli=
+ne.de>>
+An: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Datum: 6. Oktober 2017 um 18:43
+Betreff: Regression: Crash/freeze when resuming from suspend or locked scre=
+en
+
+Hello there,
+
+Sorry it is me again with another regression. I just built the latest
+amd-staging-drm-next and the issue which was already reported here:
+https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/29
+and which I can confirm is still existing.
+
+The issue is caused occasionally when re-enabling the display from
+either suspend or from a locked screen. The frozen image can be black,
+a weird colorful pattern or the login screen. Attached you can find the
+kernel crash+trace error I just caught.
+
+So far I have no idea when it was exactly introduced. I asked the other
+users if they are able to give me a time range I will try to bisect it.
+
+My setup: Xubuntu 17.04, patched amd-staging-drm-next kernel, R9 380
+
+Many regards,
+Martin
+
+--_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+Hi Martin,<br>
+<br>
+Can you try to reproduce this issue with amdgpu.dc=3D0 when modprobe amdgpu=
+<br>
+<br>
+Best Regards<br>
+Rex
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, October 10, 2017 10:41:29 PM<br>
+<b>To:</b> 'Martin Babutzka'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: Regression: Crash/freeze when resuming from suspend or =
+locked screen</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">We haven't had a chance t=
+o look into it yet.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
+[mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
+<b>On Behalf Of </b>Martin Babutzka<br>
+<b>Sent:</b> Tuesday, October 10, 2017 2:55 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Fwd: Regression: Crash/freeze when resuming from suspend or=
+ locked screen<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p>Dear AMD developers,<br>
+<br>
+Are there no comments/questions on this issue or did the mail just got lost=
+ in between the flood of patches?<br>
+<br>
+Many regards,<br>
+Martin<o:p></o:p></p>
+<p><o:p>&nbsp;</o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p>---------- Urspr=FCngliche Nachricht ----------<br>
+Von: Martin Babutzka &lt;<a href=3D"mailto:martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org">marti=
+n.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org</a>&gt;<br>
+An: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org</a><br>
+Datum: 6. Oktober 2017 um 18:43<br>
+Betreff: Regression: Crash/freeze when resuming from suspend or locked scre=
+en<o:p></o:p></p>
+<p>Hello there,<o:p></o:p></p>
+<p>Sorry it is me again with another regression. I just built the latest<br=
+>
+amd-staging-drm-next and the issue which was already reported here:<br>
+<a href=3D"https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/29"=
+>https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/29</a><br>
+and which I can confirm is still existing.<o:p></o:p></p>
+<p>The issue is caused occasionally when re-enabling the display from<br>
+either suspend or from a locked screen. The frozen image can be black,<br>
+a weird colorful pattern or the login screen. Attached you can find the<br>
+kernel crash&#43;trace error I just caught.<o:p></o:p></p>
+<p>So far I have no idea when it was exactly introduced. I asked the other<=
+br>
+users if they are able to give me a time range I will try to bisect it.<o:p=
+></o:p></p>
+<p>My setup: Xubuntu 17.04, patched amd-staging-drm-next kernel, R9 380<o:p=
+></o:p></p>
+<p>Many regards,<br>
+Martin<o:p></o:p></p>
+</blockquote>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB168768E4CC5B9BBD98611FB6FB750CY4PR12MB1687namp_--
+
+--===============1254659199==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -170,4 +275,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0220930553==--
+--===============1254659199==--
