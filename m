@@ -1,14 +1,13 @@
-From: "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: correct reference clock value on vega10
-Date: Thu, 12 Oct 2017 02:41:54 +0000
-Message-ID: <BY1PR12MB04720594366544666A7AE8478C4B0@BY1PR12MB0472.namprd12.prod.outlook.com>
-References: <CY1PR12MB0474780D27899B282A97EE988C4A0@CY1PR12MB0474.namprd12.prod.outlook.com>,
- <CADnq5_N0Nw5ZzDaqq5iwBrCKEhfC8eZPTUBxMw-vqCefy1sA4g@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: add new sysfs pp_alloc_mem_for_smu
+Date: Wed, 11 Oct 2017 23:48:47 -0400
+Message-ID: <CADnq5_MFtDJoA-RmTgtB5Egv4kNZAnHzRXmT41utNPt3Z6Z5Aw@mail.gmail.com>
+References: <1507721331-7924-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0136510552=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_N0Nw5ZzDaqq5iwBrCKEhfC8eZPTUBxMw-vqCefy1sA4g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1507721331-7924-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,190 +18,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0136510552==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BY1PR12MB04720594366544666A7AE8478C4B0BY1PR12MB0472namp_"
-
---_000_BY1PR12MB04720594366544666A7AE8478C4B0BY1PR12MB0472namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-got it, I will send another patch for reviewing.
-
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, October 11, 2017 9:30:01 PM
-To: Wang, Ken
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander
-Subject: Re: [PATCH] drm/amdgpu: correct reference clock value on vega10
-
-On Wed, Oct 11, 2017 at 4:48 AM, Wang, Ken <Ken.Wang-5C7GfCeVMHo@public.gmane.org> wrote:
-> From: Ken Wang <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
->
-> Change-Id: I377029075af1e2e002f7cfd793ddd58d8610e474
-> Signed-off-by: Ken Wang <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-
-NAK.  We use 10khz units for all other asics.  We already multiply
-this by 10 in amdgpu_kms.c before sending it to userspace:
-        /* return all clocks in KHz */
-        dev_info.gpu_counter_freq =3D amdgpu_asic_get_xclk(adev) * 10;
-
-Just return adev->clock.spll.reference_freq.
-
-Alex
-
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 7839677..a510c8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -279,10 +279,8 @@ static void soc15_init_golden_registers(struct
-> amdgpu_device *adev)
->  }
->  static u32 soc15_get_xclk(struct amdgpu_device *adev)
->  {
-> -       if (adev->asic_type =3D=3D CHIP_VEGA10)
-> -               return adev->clock.spll.reference_freq/4;
-> -       else
-> -               return adev->clock.spll.reference_freq;
-> +       /* return the value in Khz instead of 10Khz*/
-> +       return adev->clock.spll.reference_freq * 10;
->  }
->
->
-> --
-> 2.7.4
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---_000_BY1PR12MB04720594366544666A7AE8478C4B0BY1PR12MB0472namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p>got it, I will send another patch for reviewing.<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
-exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, October 11, 2017 9:30:01 PM<br>
-<b>To:</b> Wang, Ken<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: correct reference clock value on ve=
-ga10</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On Wed, Oct 11, 2017 at 4:48 AM, Wang, Ken &lt;Ken=
-.Wang-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
-&gt; From: Ken Wang &lt;Ken.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; Change-Id: I377029075af1e2e002f7cfd793ddd58d8610e474<br>
-&gt; Signed-off-by: Ken Wang &lt;Ken.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-NAK.&nbsp; We use 10khz units for all other asics.&nbsp; We already multipl=
-y<br>
-this by 10 in amdgpu_kms.c before sending it to userspace:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* return all clocks in KHz */<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info.gpu_counter_freq =3D am=
-dgpu_asic_get_xclk(adev) * 10;<br>
-<br>
-Just return adev-&gt;clock.spll.reference_freq.<br>
-<br>
-Alex<br>
-<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c | 6 &#43;&#43;----<br>
-&gt;&nbsp; 1 file changed, 2 insertions(&#43;), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; index 7839677..a510c8c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; @@ -279,10 &#43;279,8 @@ static void soc15_init_golden_registers(struc=
-t<br>
-&gt; amdgpu_device *adev)<br>
-&gt;&nbsp; }<br>
-&gt;&nbsp; static u32 soc15_get_xclk(struct amdgpu_device *adev)<br>
-&gt;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=3D CH=
-IP_VEGA10)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return adev-&gt;clock.spll.reference_freq/4;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return adev-&gt;clock.spll.reference_freq;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* return the value in Khz i=
-nstead of 10Khz*/<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return adev-&gt;clock.spll.r=
-eference_freq * 10;<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-&gt;<br>
-&gt; --<br>
-&gt; 2.7.4<br>
-&gt;<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-&gt;<br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_BY1PR12MB04720594366544666A7AE8478C4B0BY1PR12MB0472namp_--
-
---===============0136510552==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0136510552==--
+T24gV2VkLCBPY3QgMTEsIDIwMTcgYXQgNzoyOCBBTSwgUmV4IFpodSA8UmV4LlpodUBhbWQuY29t
+PiB3cm90ZToKPiBDaGFuZ2UtSWQ6IEllMDZmODc0NDVlN2Q2OTQ1NDcyZDg4YWM5NzY2OTNjOThk
+OTZjZDQzCj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKUGxlYXNl
+IGFkZCBhIGJldHRlciBwYXRjaCBkZXNjcmlwdGlvbi4gIFNvbWV0aGluZyBsaWtlOgpBZGQgYSBz
+eXNmcyBpbnRlcmZhY2UgdG8gYWxsb2NhdGUgYSBzbXUgbG9nZ2luZyBidWZmZXIgb24gdGhlIGZs
+eS4KCkFkZGl0aW9uYWxseSwgd291bGRuJ3QgdGhpcyBiZSBiZXR0ZXIgaW4gZGVidWdmcyByYXRo
+ZXIgdGhhbiBzeXNmcz8KSXQncyBub3QgcmVhbGx5IGEgdXNlciBjb25maWd1cmF0aW9uIG9wdGlv
+biBwZXIgc2UuICBJdCdzIHJlYWxseSBvbmx5CnRoZXJlIGZvciBkZWJ1Z2dpbmcgcG93ZXIgc3R1
+ZmYuICBUaGF0IHNhaWQsIEknbSBub3Qgc3VyZSBob3cgdHJpY2t5Cml0IHdvdWxkIGJlIHRvIGFk
+ZCBpdCB0byB0aGUgZXhpc3RpbmcgYW1kZ3B1IGRybSBkZWJ1Z2ZzIGZpbGVzIHNpbmNlCnRob3Nl
+IGFyZSByZWFkIG9ubHkgYXQgdGhlIG1vbWVudCBhbmQgdGhhdCB3b3VsZCBiZSB0aGUgbW9zdCBs
+b2dpY2FsCnBsYWNlIGZvciBpdC4gIEkgZ3Vlc3MgY2FsbGluZyBkZWJ1Z2ZzX2NyZWF0ZV9maWxl
+IGFuZCB1c2luZwphZGV2LT5kZGV2LT5wcmltYXJ5LT5kZWJ1Z2ZzX3Jvb3Qgc2hvdWxkIHdvcmsu
+CgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwg
+ICAzICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgICA0
+ICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgICAgIHwgMTM0ICsr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gIDMgZmlsZXMgY2hhbmdlZCwgMTQxIGluc2Vy
+dGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggZGE0OGY5
+Ny4uOWQyZjA5NSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHUuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gQEAgLTE2
+MzYsNiArMTYzNiw5IEBAIHN0cnVjdCBhbWRncHVfZGV2aWNlIHsKPiAgICAgICAgIGJvb2wgaGFz
+X2h3X3Jlc2V0Owo+ICAgICAgICAgdTggICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXNl
+dF9tYWdpY1tBTURHUFVfUkVTRVRfTUFHSUNfTlVNXTsKPgo+ICsgICAgICAgc3RydWN0IGFtZGdw
+dV9ibyAgICAgICAgICAgICAgICAqc211X3Bydl9idWZmZXI7Cj4gKyAgICAgICB1MzIgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHNtdV9wcnZfYnVmZmVyX3NpemU7CgoKUGxlYXNlIHB1dCB0
+aGVzZSBpbiB0aGUgYW1kZ3B1X3BtIG9yIGFtZF9wb3dlcnBsYXkgc3RydWN0dXJlcyBpbnN0ZWFk
+CnNpbmNlIHRoZXkgYXJlIHBvd2VyIHJlbGF0ZWQuCgo+ICsKPiAgICAgICAgIC8qIHJlY29yZCBs
+YXN0IG1tIGluZGV4IGJlaW5nIHdyaXR0ZW4gdGhyb3VnaCBXUkVHMzIqLwo+ICAgICAgICAgdW5z
+aWduZWQgbG9uZyBsYXN0X21tX2luZGV4Owo+ICAgICAgICAgYm9vbCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBpbl9zcmlvdl9yZXNldDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jCj4gaW5kZXggZmRmZTQxOC4uYzllMzAxOSAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBAQCAtMjQzMCw2ICsyNDMwLDEw
+IEBAIHZvaWQgYW1kZ3B1X2RldmljZV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+
+ICAgICAgICAgICAgICAgICByZWxlYXNlX2Zpcm13YXJlKGFkZXYtPmZpcm13YXJlLmdwdV9pbmZv
+X2Z3KTsKPiAgICAgICAgICAgICAgICAgYWRldi0+ZmlybXdhcmUuZ3B1X2luZm9fZncgPSBOVUxM
+Owo+ICAgICAgICAgfQo+ICsgICAgICAgaWYgKGFkZXYtPnNtdV9wcnZfYnVmZmVyKSB7Cj4gKyAg
+ICAgICAgICAgICAgIGFtZGdwdV9ib19mcmVlX2tlcm5lbCgmYWRldi0+c211X3Bydl9idWZmZXIs
+IE5VTEwsIE5VTEwpOwo+ICsgICAgICAgICAgICAgICBhZGV2LT5zbXVfcHJ2X2J1ZmZlciA9IE5V
+TEw7Cj4gKyAgICAgICB9Cj4gICAgICAgICBhZGV2LT5hY2NlbF93b3JraW5nID0gZmFsc2U7Cj4g
+ICAgICAgICBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJmFkZXYtPmxhdGVfaW5pdF93b3JrKTsK
+PiAgICAgICAgIC8qIGZyZWUgaTJjIGJ1c2VzICovCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3BtLmMKPiBpbmRleCBmM2FmYTY2Li44NGU2N2ZiIDEwMDY0NAo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKPiBAQCAtNzM3LDYgKzczNywxMjkgQEAgc3RhdGljIHNz
+aXplX3QgYW1kZ3B1X3NldF9wcF9jb21wdXRlX3Bvd2VyX3Byb2ZpbGUoc3RydWN0IGRldmljZSAq
+ZGV2LAo+ICAgICAgICAgcmV0dXJuIGFtZGdwdV9zZXRfcHBfcG93ZXJfcHJvZmlsZShkZXYsIGJ1
+ZiwgY291bnQsICZyZXF1ZXN0KTsKPiAgfQo+Cj4gK3N0YXRpYyBzc2l6ZV90IGFtZGdwdV9nZXRf
+cHBfYWxsb2NfbWVtX2Zvcl9zbXUoc3RydWN0IGRldmljZSAqZGV2LAo+ICsgICAgICAgICAgICAg
+ICBzdHJ1Y3QgZGV2aWNlX2F0dHJpYnV0ZSAqYXR0ciwKPiArICAgICAgICAgICAgICAgY2hhciAq
+YnVmKQo+ICt7Cj4gKyAgICAgICBzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9IGRldl9nZXRfZHJ2
+ZGF0YShkZXYpOwo+ICsgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZGV2LT5k
+ZXZfcHJpdmF0ZTsKPiArICAgICAgIHN0cnVjdCBzeXNpbmZvIHNpOwo+ICsgICAgICAgYm9vbCBp
+c19vc182NCA9IChzaXplb2Yodm9pZCAqKSA9PSA4KSA/IHRydWUgOiBmYWxzZTsKPiArICAgICAg
+IHVpbnQ2NF90IHRvdGFsX21lbW9yeTsKPiArICAgICAgIHVpbnQ2NF90IGRyYW1fc2l6ZV9zZXZl
+bl9HQiA9IDB4MUI4MDAwMDAwOwo+ICsgICAgICAgdWludDY0X3QgZHJhbV9zaXplX3RocmVlX0dC
+ID0gMHhCODAwMDAwMDsKPiArICAgICAgIHUzMiBidWZfbGVuID0gMDsKPiArICAgICAgIHUzMiBn
+YXJ0X3NpemU7Cj4gKwo+ICsgICAgICAgaWYgKCFpc19vc182NCkgewo+ICsgICAgICAgICAgICAg
+ICBhZGV2LT5zbXVfcHJ2X2J1ZmZlcl9zaXplID0gMDsKPiArICAgICAgICAgICAgICAgYnVmX2xl
+biArPSBzbnByaW50ZihidWYgKyBidWZfbGVuLCBQQUdFX1NJWkUsCj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICJGZWF0dXJlIG9ubHkgc3VwcG9ydGVkIG9uIDY0LWJp
+dCBPU1xuIik7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiBidWZfbGVuOwo+ICsgICAgICAgfQo+
+ICsKPiArICAgICAgIHNpX21lbWluZm8oJnNpKTsKPiArICAgICAgIHRvdGFsX21lbW9yeSA9ICh1
+aW50NjRfdClzaS50b3RhbHJhbSAqIHNpLm1lbV91bml0Owo+ICsKPiArICAgICAgIGlmICh0b3Rh
+bF9tZW1vcnkgPCBkcmFtX3NpemVfdGhyZWVfR0IpICB7Cj4gKyAgICAgICAgICAgICAgIGFkZXYt
+PnNtdV9wcnZfYnVmZmVyX3NpemUgPSAwOwo+ICsgICAgICAgICAgICAgICBidWZfbGVuICs9IHNu
+cHJpbnRmKGJ1ZiArIGJ1Zl9sZW4sIFBBR0VfU0laRSwKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICJTeXN0ZW0gbWVtb3J5IG5vdCBlbm91Z2gsIEZlYXR1cmUgbm90IGVuYWJsZWRc
+biIpOwo+ICsgICAgICAgICAgICAgICByZXR1cm4gYnVmX2xlbjsKPiArICAgICAgIH0KPiArCj4g
+KyAgICAgICBpZiAodG90YWxfbWVtb3J5IDwgZHJhbV9zaXplX3NldmVuX0dCKQo+ICsgICAgICAg
+ICAgICAgICBhZGV2LT5zbXVfcHJ2X2J1ZmZlcl9zaXplID0gNTEyOwo+ICsgICAgICAgZWxzZQo+
+ICsgICAgICAgICAgICAgICBhZGV2LT5zbXVfcHJ2X2J1ZmZlcl9zaXplID0gMjA0ODsKPiArCj4g
+KyAgICAgICBidWZfbGVuICs9IHNucHJpbnRmKGJ1ZiArIGJ1Zl9sZW4sIFBBR0VfU0laRSwKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJNYXggc3VwcG9ydDogJWQgTWIiLAo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPnNtdV9wcnZfYnVmZmVyX3NpemUp
+Owo+ICsKPiArICAgICAgIGdhcnRfc2l6ZSA9IGFkZXYtPm1jLmdhcnRfc2l6ZSA+PiAyMDsKPiAr
+ICAgICAgIGlmIChhbWRncHVfZ2FydF9zaXplID09IC0xKQo+ICsgICAgICAgICAgICAgICBidWZf
+bGVuICs9IHNucHJpbnRmKGJ1ZiArIGJ1Zl9sZW4sIFBBR0VfU0laRSwKPiArICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICIgIChOZWVkIHRvIHNldCBnYXJ0c2l6ZSBtb3JlIHRoYW4gJWQg
+TWIpXG4iLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPnNtdV9wcnZf
+YnVmZmVyX3NpemUgKyBnYXJ0X3NpemUpOwo+ICsgICAgICAgZWxzZQo+ICsgICAgICAgICAgICAg
+ICBidWZfbGVuICs9IHNucHJpbnRmKGJ1ZiArIGJ1Zl9sZW4sIFBBR0VfU0laRSwKPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICJcbiIpOwo+ICsKCldoeSBkbyB3ZSBuZWVkIGFsbCB0
+aGlzIGxvZ2ljPyAganVzdCByZXR1cm4gdGhlIGN1cnJlbnQgdmFsdWUgb2YKc211X3ByaXZfYnVm
+ZmVyX3NpemUuICBUaGlzIGludGVyZmFjZSBpcyB3ZWlyZDsgcmVhZGluZyBpdCBzaG91bGRuJ3QK
+c2V0IHRoZSBzbXVfcHJ2X2J1ZmZlcl9zaXplLgoKPiArICAgICAgIHJldHVybiBidWZfbGVuOwo+
+ICt9Cj4gKwo+ICtzdGF0aWMgaW50IGFtZGdwdV9hbGxvY19tZW1fZm9yX3NtdShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgc2l6ZSkKPiArewo+ICsgICAgICAgaW50IHIgPSAt
+RUlOVkFMOwo+ICsgICAgICAgdm9pZCAqY3B1X3B0ciA9IE5VTEw7Cj4gKyAgICAgICB1aW50NjRf
+dCBncHVfYWRkcjsKPiArCj4gKyAgICAgICBpZiAoYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoYWRl
+diwgc2l6ZSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQQUdFX1NJ
+WkUsIEFNREdQVV9HRU1fRE9NQUlOX0dUVCwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAmYWRldi0+c211X3Bydl9idWZmZXIsCj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgJmdwdV9hZGRyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICZjcHVfcHRyKSkgewo+ICsgICAgICAgICAgICAgICBEUk1fRVJST1IoImFt
+ZGdwdTogZmFpbGVkIHRvIGNyZWF0ZSBzbXUgcHJ2IGJ1ZmZlclxuIik7Cj4gKyAgICAgICAgICAg
+ICAgIHJldHVybiByOwo+ICsgICAgICAgfQo+ICsKPiArICAgICAgIGlmIChhZGV2LT5wb3dlcnBs
+YXkucHBfZnVuY3MtPm5vdGlmeV9zbXVfbWVtb3J5X2luZm8pCj4gKyAgICAgICAgICAgICAgIHIg
+PSBhbWRncHVfZHBtX25vdGlmeV9zbXVfbWVtb3J5X2luZm8oYWRldiwKPiArICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgbG93ZXJfMzJfYml0cygodW5zaWduZWQgbG9uZylj
+cHVfcHRyKSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdXBwZXJf
+MzJfYml0cygodW5zaWduZWQgbG9uZyljcHVfcHRyKSwKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgbG93ZXJfMzJfYml0cyhncHVfYWRkciksCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVwcGVyXzMyX2JpdHMoZ3B1X2FkZHIpLAo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplKTsKPiArCj4gKyAgICAg
+ICBpZiAocikgewo+ICsgICAgICAgICAgICAgICBhbWRncHVfYm9fZnJlZV9rZXJuZWwoJmFkZXYt
+PnNtdV9wcnZfYnVmZmVyLCBOVUxMLCBOVUxMKTsKPiArICAgICAgICAgICAgICAgYWRldi0+c211
+X3Bydl9idWZmZXIgPSBOVUxMOwo+ICsgICAgICAgICAgICAgICBEUk1fRVJST1IoImFtZGdwdTog
+ZmFpbGVkIHRvIG5vdGlmeSBTTVUgYnVmZmVyIGFkZHJlc3MuXG4iKTsKPiArICAgICAgIH0KPiAr
+Cj4gKyAgICAgICByZXR1cm4gcjsKPiArfQo+ICsKPiArc3RhdGljIHNzaXplX3QgYW1kZ3B1X3Nl
+dF9wcF9hbGxvY19tZW1fZm9yX3NtdShzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gKyAgICAgICAgICAg
+ICAgIHN0cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRyLAo+ICsgICAgICAgICAgICAgICBjb25z
+dCBjaGFyICpidWYsCj4gKyAgICAgICAgICAgICAgIHNpemVfdCBjb3VudCkKPiArewo+ICsgICAg
+ICAgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsKPiArICAg
+ICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7Cj4gKyAg
+ICAgICB1MzIgc2l6ZTsKPiArICAgICAgIGludCBlcnI7Cj4gKwo+ICsgICAgICAgaWYgKGFkZXYt
+PnNtdV9wcnZfYnVmZmVyX3NpemUgPT0gMCkgewo+ICsgICAgICAgICAgICAgICBwcl9pbmZvKCJQ
+bGVhc2UgY2hlY2sgYW1kZ3B1X2d0dF9tbSB2YWx1ZSBmaXJzdFxuIik7Cj4gKyAgICAgICAgICAg
+ICAgIHJldHVybiAtRUlOVkFMOwo+ICsgICAgICAgfQo+ICsKPiArICAgICAgIGVyciA9IGtzdHJ0
+b3UzMihidWYsIDEwLCAmc2l6ZSk7Cj4gKyAgICAgICBpZiAoZXJyKQo+ICsgICAgICAgICAgICAg
+ICByZXR1cm4gZXJyOwo+ICsKPiArICAgICAgIGlmIChzaXplID09IDApIHsKPiArICAgICAgICAg
+ICAgICAgaWYgKGFkZXYtPnNtdV9wcnZfYnVmZmVyKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5zbXVfcHJ2X2J1ZmZlciwgTlVMTCwgTlVM
+TCk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+c211X3Bydl9idWZmZXIgPSBOVUxM
+Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBjb3VudDsKPiArICAgICAgICAgICAg
+ICAgfQo+ICsgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiArICAgICAgIH0KPiArCj4g
+KyAgICAgICBpZiAoc2l6ZSA+IGFkZXYtPnNtdV9wcnZfYnVmZmVyX3NpemUpIHsKPiArICAgICAg
+ICAgICAgICAgcHJfaW5mbygiU211IG1lbW9yeSBzaXplIG5vdCBzdXBwb3J0ZWRcbiIpOwo+ICsg
+ICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiArICAgICAgIH0KClNhbWUgdGhpbmcgaGVy
+ZS4gIEp1c3QgY2FsbCBhbWRncHVfYm9fY3JlYXRlX2tlcm5lbCgpIHdpdGggdGhlCnJlcXVlc3Rl
+ZCBzaXplLiAgSWYgaXQgZmFpbHMsIGp1c3QgcmV0dXJuIHRoZSBlcnJvciBtZXNzYWdlLiAgQXBw
+cwp3aWxsIGtub3cgaWYgdGhleSBnZXQgLUVOT01FTSB0aGF0IHRoZXkgbmVlZCB0byByZWR1Y2Ug
+dGhlaXIgcmVxdWVzdGVkCnNpemUgb3IgYWRqdXN0IHRoZSBnYXJ0X3NpemUgcGFyYW1ldGVyLgoK
+QWxleAoKCj4gKwo+ICsgICAgICAgaWYgKGFtZGdwdV9hbGxvY19tZW1fZm9yX3NtdShhZGV2LCBz
+aXplIDw8IDIwKSkKPiArICAgICAgICAgICAgICAgY291bnQgPSAtRUlOVkFMOwo+ICsKPiArICAg
+ICAgIHJldHVybiBjb3VudDsKPiArfQo+ICsKPiAgc3RhdGljIERFVklDRV9BVFRSKHBvd2VyX2Rw
+bV9zdGF0ZSwgU19JUlVHTyB8IFNfSVdVU1IsIGFtZGdwdV9nZXRfZHBtX3N0YXRlLCBhbWRncHVf
+c2V0X2RwbV9zdGF0ZSk7Cj4gIHN0YXRpYyBERVZJQ0VfQVRUUihwb3dlcl9kcG1fZm9yY2VfcGVy
+Zm9ybWFuY2VfbGV2ZWwsIFNfSVJVR08gfCBTX0lXVVNSLAo+ICAgICAgICAgICAgICAgICAgICBh
+bWRncHVfZ2V0X2RwbV9mb3JjZWRfcGVyZm9ybWFuY2VfbGV2ZWwsCj4gQEAgLTc3MCw2ICs4OTMs
+MTAgQEAgc3RhdGljIERFVklDRV9BVFRSKHBwX2dmeF9wb3dlcl9wcm9maWxlLCBTX0lSVUdPIHwg
+U19JV1VTUiwKPiAgc3RhdGljIERFVklDRV9BVFRSKHBwX2NvbXB1dGVfcG93ZXJfcHJvZmlsZSwg
+U19JUlVHTyB8IFNfSVdVU1IsCj4gICAgICAgICAgICAgICAgIGFtZGdwdV9nZXRfcHBfY29tcHV0
+ZV9wb3dlcl9wcm9maWxlLAo+ICAgICAgICAgICAgICAgICBhbWRncHVfc2V0X3BwX2NvbXB1dGVf
+cG93ZXJfcHJvZmlsZSk7Cj4gK3N0YXRpYyBERVZJQ0VfQVRUUihwcF9hbGxvY19tZW1fZm9yX3Nt
+dSwgU19JUlVHTyB8IFNfSVdVU1IsCj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9nZXRfcHBfYWxs
+b2NfbWVtX2Zvcl9zbXUsCj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9zZXRfcHBfYWxsb2NfbWVt
+X2Zvcl9zbXUpOwo+ICsKPgo+ICBzdGF0aWMgc3NpemVfdCBhbWRncHVfaHdtb25fc2hvd190ZW1w
+KHN0cnVjdCBkZXZpY2UgKmRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHN0cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRyLAo+IEBAIC0xMzk4LDYgKzE1MjUsMTMg
+QEAgaW50IGFtZGdwdV9wbV9zeXNmc19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+
+ICAgICAgICAgICAgICAgICByZXR1cm4gcmV0Owo+ICAgICAgICAgfQo+Cj4gKyAgICAgICByZXQg
+PSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0+ZGV2LAo+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICZkZXZfYXR0cl9wcF9hbGxvY19tZW1fZm9yX3NtdSk7Cj4gKyAgICAgICBpZiAocmV0KSB7Cj4g
+KyAgICAgICAgICAgICAgIERSTV9FUlJPUigiZmFpbGVkIHRvIGNyZWF0ZSBkZXZpY2UgZmlsZSBw
+cF9hbGxvY19tZW1fZm9yX3NtdVxuIik7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4g
+KyAgICAgICB9Cj4gKwo+ICAgICAgICAgcmV0ID0gYW1kZ3B1X2RlYnVnZnNfcG1faW5pdChhZGV2
+KTsKPiAgICAgICAgIGlmIChyZXQpIHsKPiAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJGYWls
+ZWQgdG8gcmVnaXN0ZXIgZGVidWdmcyBmaWxlIGZvciBkcG0hXG4iKTsKPiAtLQo+IDEuOS4xCj4K
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
