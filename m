@@ -1,15 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: add new sysfs pp_alloc_mem_for_smu
-Date: Thu, 12 Oct 2017 10:10:54 +0200
-Message-ID: <8ec17767-92e7-1518-52fc-f6a4f893315f@gmail.com>
-References: <1507721331-7924-1-git-send-email-Rex.Zhu@amd.com>
- <CADnq5_MFtDJoA-RmTgtB5Egv4kNZAnHzRXmT41utNPt3Z6Z5Aw@mail.gmail.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: TDR and VRAM lost handling in KMD (v2)
+Date: Thu, 12 Oct 2017 10:40:47 +0200
+Message-ID: <f8946032-9ce6-9f36-ad03-cc5a3160dda5@amd.com>
+References: <BLUPR12MB0449E6EBA74EC3EB8918F71E844B0@BLUPR12MB0449.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0867225096=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_MFtDJoA-RmTgtB5Egv4kNZAnHzRXmT41utNPt3Z6Z5Aw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <BLUPR12MB0449E6EBA74EC3EB8918F71E844B0-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,186 +18,1342 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>, "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+Cc: "Ramirez, Alejandro" <Alejandro.Ramirez-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Filipas,
+ Mario" <Mario.Filipas-5C7GfCeVMHo@public.gmane.org>, "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "Li,
+ Bingley" <Bingley.Li-5C7GfCeVMHo@public.gmane.org>, "Jiang, Jerry (SW)" <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTIuMTAuMjAxNyB1bSAwNTo0OCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBXZWQsIE9j
-dCAxMSwgMjAxNyBhdCA3OjI4IEFNLCBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+IHdyb3RlOgo+
-PiBDaGFuZ2UtSWQ6IEllMDZmODc0NDVlN2Q2OTQ1NDcyZDg4YWM5NzY2OTNjOThkOTZjZDQzCj4+
-IFNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KPiBQbGVhc2UgYWRkIGEg
-YmV0dGVyIHBhdGNoIGRlc2NyaXB0aW9uLiAgU29tZXRoaW5nIGxpa2U6Cj4gQWRkIGEgc3lzZnMg
-aW50ZXJmYWNlIHRvIGFsbG9jYXRlIGEgc211IGxvZ2dpbmcgYnVmZmVyIG9uIHRoZSBmbHkuCj4K
-PiBBZGRpdGlvbmFsbHksIHdvdWxkbid0IHRoaXMgYmUgYmV0dGVyIGluIGRlYnVnZnMgcmF0aGVy
-IHRoYW4gc3lzZnM/Cj4gSXQncyBub3QgcmVhbGx5IGEgdXNlciBjb25maWd1cmF0aW9uIG9wdGlv
-biBwZXIgc2UuICBJdCdzIHJlYWxseSBvbmx5Cj4gdGhlcmUgZm9yIGRlYnVnZ2luZyBwb3dlciBz
-dHVmZi4gIFRoYXQgc2FpZCwgSSdtIG5vdCBzdXJlIGhvdyB0cmlja3kKPiBpdCB3b3VsZCBiZSB0
-byBhZGQgaXQgdG8gdGhlIGV4aXN0aW5nIGFtZGdwdSBkcm0gZGVidWdmcyBmaWxlcyBzaW5jZQo+
-IHRob3NlIGFyZSByZWFkIG9ubHkgYXQgdGhlIG1vbWVudCBhbmQgdGhhdCB3b3VsZCBiZSB0aGUg
-bW9zdCBsb2dpY2FsCj4gcGxhY2UgZm9yIGl0LiAgSSBndWVzcyBjYWxsaW5nIGRlYnVnZnNfY3Jl
-YXRlX2ZpbGUgYW5kIHVzaW5nCj4gYWRldi0+ZGRldi0+cHJpbWFyeS0+ZGVidWdmc19yb290IHNo
-b3VsZCB3b3JrLgoKV2UgYWxzbyBhbHJlYWR5IGhhdmUgd3JpdGVhYmxlIGRlYnVnZnMgZmlsZXMu
-IEp1c3QgdGFrZSBhIGxvb2sgYXQgaG93IAp0aGUgcmVnaXN0ZXIgb3IgVlJBTSBhY2Nlc3NvcnMg
-d29yay4KClNob3VsZCBiZSB0cml2aWFsIHRvIG1vdmUgb3ZlciBpZiB5b3UgaGF2ZSBzeXNmcyBh
-bHJlYWR5IHdvcmtpbmcuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4KPj4gLS0tCj4+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgICAzICsKPj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAgIDQgKwo+PiAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jICAgICB8IDEzNCArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKwo+PiAgIDMgZmlsZXMgY2hhbmdlZCwgMTQxIGluc2VydGlvbnMoKykK
-Pj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gaW5kZXggZGE0OGY5Ny4uOWQy
-ZjA5NSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgK
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gQEAgLTE2MzYs
-NiArMTYzNiw5IEBAIHN0cnVjdCBhbWRncHVfZGV2aWNlIHsKPj4gICAgICAgICAgYm9vbCBoYXNf
-aHdfcmVzZXQ7Cj4+ICAgICAgICAgIHU4ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVz
-ZXRfbWFnaWNbQU1ER1BVX1JFU0VUX01BR0lDX05VTV07Cj4+Cj4+ICsgICAgICAgc3RydWN0IGFt
-ZGdwdV9ibyAgICAgICAgICAgICAgICAqc211X3Bydl9idWZmZXI7Cj4+ICsgICAgICAgdTMyICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBzbXVfcHJ2X2J1ZmZlcl9zaXplOwo+Cj4gUGxlYXNl
-IHB1dCB0aGVzZSBpbiB0aGUgYW1kZ3B1X3BtIG9yIGFtZF9wb3dlcnBsYXkgc3RydWN0dXJlcyBp
-bnN0ZWFkCj4gc2luY2UgdGhleSBhcmUgcG93ZXIgcmVsYXRlZC4KPgo+PiArCj4+ICAgICAgICAg
-IC8qIHJlY29yZCBsYXN0IG1tIGluZGV4IGJlaW5nIHdyaXR0ZW4gdGhyb3VnaCBXUkVHMzIqLwo+
-PiAgICAgICAgICB1bnNpZ25lZCBsb25nIGxhc3RfbW1faW5kZXg7Cj4+ICAgICAgICAgIGJvb2wg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5fc3Jpb3ZfcmVzZXQ7Cj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPj4gaW5kZXggZmRmZTQxOC4uYzllMzAx
-OSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
-ZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+
-PiBAQCAtMjQzMCw2ICsyNDMwLDEwIEBAIHZvaWQgYW1kZ3B1X2RldmljZV9maW5pKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQo+PiAgICAgICAgICAgICAgICAgIHJlbGVhc2VfZmlybXdhcmUo
-YWRldi0+ZmlybXdhcmUuZ3B1X2luZm9fZncpOwo+PiAgICAgICAgICAgICAgICAgIGFkZXYtPmZp
-cm13YXJlLmdwdV9pbmZvX2Z3ID0gTlVMTDsKPj4gICAgICAgICAgfQo+PiArICAgICAgIGlmIChh
-ZGV2LT5zbXVfcHJ2X2J1ZmZlcikgewo+PiArICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2ZyZWVf
-a2VybmVsKCZhZGV2LT5zbXVfcHJ2X2J1ZmZlciwgTlVMTCwgTlVMTCk7Cj4+ICsgICAgICAgICAg
-ICAgICBhZGV2LT5zbXVfcHJ2X2J1ZmZlciA9IE5VTEw7Cj4+ICsgICAgICAgfQo+PiAgICAgICAg
-ICBhZGV2LT5hY2NlbF93b3JraW5nID0gZmFsc2U7Cj4+ICAgICAgICAgIGNhbmNlbF9kZWxheWVk
-X3dvcmtfc3luYygmYWRldi0+bGF0ZV9pbml0X3dvcmspOwo+PiAgICAgICAgICAvKiBmcmVlIGky
-YyBidXNlcyAqLwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+PiBpbmRl
-eCBmM2FmYTY2Li44NGU2N2ZiIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfcG0uYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfcG0uYwo+PiBAQCAtNzM3LDYgKzczNywxMjkgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X3Nl
-dF9wcF9jb21wdXRlX3Bvd2VyX3Byb2ZpbGUoc3RydWN0IGRldmljZSAqZGV2LAo+PiAgICAgICAg
-ICByZXR1cm4gYW1kZ3B1X3NldF9wcF9wb3dlcl9wcm9maWxlKGRldiwgYnVmLCBjb3VudCwgJnJl
-cXVlc3QpOwo+PiAgIH0KPj4KPj4gK3N0YXRpYyBzc2l6ZV90IGFtZGdwdV9nZXRfcHBfYWxsb2Nf
-bWVtX2Zvcl9zbXUoc3RydWN0IGRldmljZSAqZGV2LAo+PiArICAgICAgICAgICAgICAgc3RydWN0
-IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsCj4+ICsgICAgICAgICAgICAgICBjaGFyICpidWYpCj4+
-ICt7Cj4+ICsgICAgICAgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBkZXZfZ2V0X2RydmRhdGEo
-ZGV2KTsKPj4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRkZXYtPmRldl9w
-cml2YXRlOwo+PiArICAgICAgIHN0cnVjdCBzeXNpbmZvIHNpOwo+PiArICAgICAgIGJvb2wgaXNf
-b3NfNjQgPSAoc2l6ZW9mKHZvaWQgKikgPT0gOCkgPyB0cnVlIDogZmFsc2U7Cj4+ICsgICAgICAg
-dWludDY0X3QgdG90YWxfbWVtb3J5Owo+PiArICAgICAgIHVpbnQ2NF90IGRyYW1fc2l6ZV9zZXZl
-bl9HQiA9IDB4MUI4MDAwMDAwOwo+PiArICAgICAgIHVpbnQ2NF90IGRyYW1fc2l6ZV90aHJlZV9H
-QiA9IDB4QjgwMDAwMDA7Cj4+ICsgICAgICAgdTMyIGJ1Zl9sZW4gPSAwOwo+PiArICAgICAgIHUz
-MiBnYXJ0X3NpemU7Cj4+ICsKPj4gKyAgICAgICBpZiAoIWlzX29zXzY0KSB7Cj4+ICsgICAgICAg
-ICAgICAgICBhZGV2LT5zbXVfcHJ2X2J1ZmZlcl9zaXplID0gMDsKPj4gKyAgICAgICAgICAgICAg
-IGJ1Zl9sZW4gKz0gc25wcmludGYoYnVmICsgYnVmX2xlbiwgUEFHRV9TSVpFLAo+PiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkZlYXR1cmUgb25seSBzdXBwb3J0ZWQg
-b24gNjQtYml0IE9TXG4iKTsKPj4gKyAgICAgICAgICAgICAgIHJldHVybiBidWZfbGVuOwo+PiAr
-ICAgICAgIH0KPj4gKwo+PiArICAgICAgIHNpX21lbWluZm8oJnNpKTsKPj4gKyAgICAgICB0b3Rh
-bF9tZW1vcnkgPSAodWludDY0X3Qpc2kudG90YWxyYW0gKiBzaS5tZW1fdW5pdDsKPj4gKwo+PiAr
-ICAgICAgIGlmICh0b3RhbF9tZW1vcnkgPCBkcmFtX3NpemVfdGhyZWVfR0IpICB7Cj4+ICsgICAg
-ICAgICAgICAgICBhZGV2LT5zbXVfcHJ2X2J1ZmZlcl9zaXplID0gMDsKPj4gKyAgICAgICAgICAg
-ICAgIGJ1Zl9sZW4gKz0gc25wcmludGYoYnVmICsgYnVmX2xlbiwgUEFHRV9TSVpFLAo+PiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICJTeXN0ZW0gbWVtb3J5IG5vdCBlbm91Z2gsIEZl
-YXR1cmUgbm90IGVuYWJsZWRcbiIpOwo+PiArICAgICAgICAgICAgICAgcmV0dXJuIGJ1Zl9sZW47
-Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgaWYgKHRvdGFsX21lbW9yeSA8IGRyYW1fc2l6
-ZV9zZXZlbl9HQikKPj4gKyAgICAgICAgICAgICAgIGFkZXYtPnNtdV9wcnZfYnVmZmVyX3NpemUg
-PSA1MTI7Cj4+ICsgICAgICAgZWxzZQo+PiArICAgICAgICAgICAgICAgYWRldi0+c211X3Bydl9i
-dWZmZXJfc2l6ZSA9IDIwNDg7Cj4+ICsKPj4gKyAgICAgICBidWZfbGVuICs9IHNucHJpbnRmKGJ1
-ZiArIGJ1Zl9sZW4sIFBBR0VfU0laRSwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAiTWF4IHN1cHBvcnQ6ICVkIE1iIiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgYWRldi0+c211X3Bydl9idWZmZXJfc2l6ZSk7Cj4+ICsKPj4gKyAgICAgICBnYXJ0X3NpemUg
-PSBhZGV2LT5tYy5nYXJ0X3NpemUgPj4gMjA7Cj4+ICsgICAgICAgaWYgKGFtZGdwdV9nYXJ0X3Np
-emUgPT0gLTEpCj4+ICsgICAgICAgICAgICAgICBidWZfbGVuICs9IHNucHJpbnRmKGJ1ZiArIGJ1
-Zl9sZW4sIFBBR0VfU0laRSwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiICAo
-TmVlZCB0byBzZXQgZ2FydHNpemUgbW9yZSB0aGFuICVkIE1iKVxuIiwKPj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgYWRldi0+c211X3Bydl9idWZmZXJfc2l6ZSArIGdhcnRfc2l6
-ZSk7Cj4+ICsgICAgICAgZWxzZQo+PiArICAgICAgICAgICAgICAgYnVmX2xlbiArPSBzbnByaW50
-ZihidWYgKyBidWZfbGVuLCBQQUdFX1NJWkUsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIlxuIik7Cj4+ICsKPiBXaHkgZG8gd2UgbmVlZCBhbGwgdGhpcyBsb2dpYz8gIGp1c3Qg
-cmV0dXJuIHRoZSBjdXJyZW50IHZhbHVlIG9mCj4gc211X3ByaXZfYnVmZmVyX3NpemUuICBUaGlz
-IGludGVyZmFjZSBpcyB3ZWlyZDsgcmVhZGluZyBpdCBzaG91bGRuJ3QKPiBzZXQgdGhlIHNtdV9w
-cnZfYnVmZmVyX3NpemUuCj4KPj4gKyAgICAgICByZXR1cm4gYnVmX2xlbjsKPj4gK30KPj4gKwo+
-PiArc3RhdGljIGludCBhbWRncHVfYWxsb2NfbWVtX2Zvcl9zbXUoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsIHVpbnQzMl90IHNpemUpCj4+ICt7Cj4+ICsgICAgICAgaW50IHIgPSAtRUlOVkFM
-Owo+PiArICAgICAgIHZvaWQgKmNwdV9wdHIgPSBOVUxMOwo+PiArICAgICAgIHVpbnQ2NF90IGdw
-dV9hZGRyOwo+PiArCj4+ICsgICAgICAgaWYgKGFtZGdwdV9ib19jcmVhdGVfa2VybmVsKGFkZXYs
-IHNpemUsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBBR0VfU0la
-RSwgQU1ER1BVX0dFTV9ET01BSU5fR1RULAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAmYWRldi0+c211X3Bydl9idWZmZXIsCj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICZncHVfYWRkciwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgJmNwdV9wdHIpKSB7Cj4+ICsgICAgICAgICAgICAgICBEUk1fRVJST1Io
-ImFtZGdwdTogZmFpbGVkIHRvIGNyZWF0ZSBzbXUgcHJ2IGJ1ZmZlclxuIik7Cj4+ICsgICAgICAg
-ICAgICAgICByZXR1cm4gcjsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICBpZiAoYWRldi0+
-cG93ZXJwbGF5LnBwX2Z1bmNzLT5ub3RpZnlfc211X21lbW9yeV9pbmZvKQo+PiArICAgICAgICAg
-ICAgICAgciA9IGFtZGdwdV9kcG1fbm90aWZ5X3NtdV9tZW1vcnlfaW5mbyhhZGV2LAo+PiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbG93ZXJfMzJfYml0cygodW5zaWdu
-ZWQgbG9uZyljcHVfcHRyKSwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHVwcGVyXzMyX2JpdHMoKHVuc2lnbmVkIGxvbmcpY3B1X3B0ciksCj4+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsb3dlcl8zMl9iaXRzKGdwdV9hZGRyKSwKPj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVwcGVyXzMyX2JpdHMoZ3B1
-X2FkZHIpLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZSk7
-Cj4+ICsKPj4gKyAgICAgICBpZiAocikgewo+PiArICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2Zy
-ZWVfa2VybmVsKCZhZGV2LT5zbXVfcHJ2X2J1ZmZlciwgTlVMTCwgTlVMTCk7Cj4+ICsgICAgICAg
-ICAgICAgICBhZGV2LT5zbXVfcHJ2X2J1ZmZlciA9IE5VTEw7Cj4+ICsgICAgICAgICAgICAgICBE
-Uk1fRVJST1IoImFtZGdwdTogZmFpbGVkIHRvIG5vdGlmeSBTTVUgYnVmZmVyIGFkZHJlc3MuXG4i
-KTsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICByZXR1cm4gcjsKPj4gK30KPj4gKwo+PiAr
-c3RhdGljIHNzaXplX3QgYW1kZ3B1X3NldF9wcF9hbGxvY19tZW1fZm9yX3NtdShzdHJ1Y3QgZGV2
-aWNlICpkZXYsCj4+ICsgICAgICAgICAgICAgICBzdHJ1Y3QgZGV2aWNlX2F0dHJpYnV0ZSAqYXR0
-ciwKPj4gKyAgICAgICAgICAgICAgIGNvbnN0IGNoYXIgKmJ1ZiwKPj4gKyAgICAgICAgICAgICAg
-IHNpemVfdCBjb3VudCkKPj4gK3sKPj4gKyAgICAgICBzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9
-IGRldl9nZXRfZHJ2ZGF0YShkZXYpOwo+PiArICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7Cj4+ICsgICAgICAgdTMyIHNpemU7Cj4+ICsgICAgICAg
-aW50IGVycjsKPj4gKwo+PiArICAgICAgIGlmIChhZGV2LT5zbXVfcHJ2X2J1ZmZlcl9zaXplID09
-IDApIHsKPj4gKyAgICAgICAgICAgICAgIHByX2luZm8oIlBsZWFzZSBjaGVjayBhbWRncHVfZ3R0
-X21tIHZhbHVlIGZpcnN0XG4iKTsKPj4gKyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+
-PiArICAgICAgIH0KPj4gKwo+PiArICAgICAgIGVyciA9IGtzdHJ0b3UzMihidWYsIDEwLCAmc2l6
-ZSk7Cj4+ICsgICAgICAgaWYgKGVycikKPj4gKyAgICAgICAgICAgICAgIHJldHVybiBlcnI7Cj4+
-ICsKPj4gKyAgICAgICBpZiAoc2l6ZSA9PSAwKSB7Cj4+ICsgICAgICAgICAgICAgICBpZiAoYWRl
-di0+c211X3Bydl9idWZmZXIpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2Jv
-X2ZyZWVfa2VybmVsKCZhZGV2LT5zbXVfcHJ2X2J1ZmZlciwgTlVMTCwgTlVMTCk7Cj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIGFkZXYtPnNtdV9wcnZfYnVmZmVyID0gTlVMTDsKPj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgcmV0dXJuIGNvdW50Owo+PiArICAgICAgICAgICAgICAgfQo+PiAr
-ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAg
-ICAgaWYgKHNpemUgPiBhZGV2LT5zbXVfcHJ2X2J1ZmZlcl9zaXplKSB7Cj4+ICsgICAgICAgICAg
-ICAgICBwcl9pbmZvKCJTbXUgbWVtb3J5IHNpemUgbm90IHN1cHBvcnRlZFxuIik7Cj4+ICsgICAg
-ICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPj4gKyAgICAgICB9Cj4gU2FtZSB0aGluZyBoZXJl
-LiAgSnVzdCBjYWxsIGFtZGdwdV9ib19jcmVhdGVfa2VybmVsKCkgd2l0aCB0aGUKPiByZXF1ZXN0
-ZWQgc2l6ZS4gIElmIGl0IGZhaWxzLCBqdXN0IHJldHVybiB0aGUgZXJyb3IgbWVzc2FnZS4gIEFw
-cHMKPiB3aWxsIGtub3cgaWYgdGhleSBnZXQgLUVOT01FTSB0aGF0IHRoZXkgbmVlZCB0byByZWR1
-Y2UgdGhlaXIgcmVxdWVzdGVkCj4gc2l6ZSBvciBhZGp1c3QgdGhlIGdhcnRfc2l6ZSBwYXJhbWV0
-ZXIuCj4KPiBBbGV4Cj4KPgo+PiArCj4+ICsgICAgICAgaWYgKGFtZGdwdV9hbGxvY19tZW1fZm9y
-X3NtdShhZGV2LCBzaXplIDw8IDIwKSkKPj4gKyAgICAgICAgICAgICAgIGNvdW50ID0gLUVJTlZB
-TDsKPj4gKwo+PiArICAgICAgIHJldHVybiBjb3VudDsKPj4gK30KPj4gKwo+PiAgIHN0YXRpYyBE
-RVZJQ0VfQVRUUihwb3dlcl9kcG1fc3RhdGUsIFNfSVJVR08gfCBTX0lXVVNSLCBhbWRncHVfZ2V0
-X2RwbV9zdGF0ZSwgYW1kZ3B1X3NldF9kcG1fc3RhdGUpOwo+PiAgIHN0YXRpYyBERVZJQ0VfQVRU
-Uihwb3dlcl9kcG1fZm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwsIFNfSVJVR08gfCBTX0lXVVNSLAo+
-PiAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9nZXRfZHBtX2ZvcmNlZF9wZXJmb3JtYW5jZV9s
-ZXZlbCwKPj4gQEAgLTc3MCw2ICs4OTMsMTAgQEAgc3RhdGljIERFVklDRV9BVFRSKHBwX2dmeF9w
-b3dlcl9wcm9maWxlLCBTX0lSVUdPIHwgU19JV1VTUiwKPj4gICBzdGF0aWMgREVWSUNFX0FUVFIo
-cHBfY29tcHV0ZV9wb3dlcl9wcm9maWxlLCBTX0lSVUdPIHwgU19JV1VTUiwKPj4gICAgICAgICAg
-ICAgICAgICBhbWRncHVfZ2V0X3BwX2NvbXB1dGVfcG93ZXJfcHJvZmlsZSwKPj4gICAgICAgICAg
-ICAgICAgICBhbWRncHVfc2V0X3BwX2NvbXB1dGVfcG93ZXJfcHJvZmlsZSk7Cj4+ICtzdGF0aWMg
-REVWSUNFX0FUVFIocHBfYWxsb2NfbWVtX2Zvcl9zbXUsIFNfSVJVR08gfCBTX0lXVVNSLAo+PiAr
-ICAgICAgICAgICAgICAgYW1kZ3B1X2dldF9wcF9hbGxvY19tZW1fZm9yX3NtdSwKPj4gKyAgICAg
-ICAgICAgICAgIGFtZGdwdV9zZXRfcHBfYWxsb2NfbWVtX2Zvcl9zbXUpOwo+PiArCj4+Cj4+ICAg
-c3RhdGljIHNzaXplX3QgYW1kZ3B1X2h3bW9uX3Nob3dfdGVtcChzdHJ1Y3QgZGV2aWNlICpkZXYs
-Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkZXZpY2Vf
-YXR0cmlidXRlICphdHRyLAo+PiBAQCAtMTM5OCw2ICsxNTI1LDEzIEBAIGludCBhbWRncHVfcG1f
-c3lzZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4gICAgICAgICAgICAgICAg
-ICByZXR1cm4gcmV0Owo+PiAgICAgICAgICB9Cj4+Cj4+ICsgICAgICAgcmV0ID0gZGV2aWNlX2Ny
-ZWF0ZV9maWxlKGFkZXYtPmRldiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgJmRldl9hdHRy
-X3BwX2FsbG9jX21lbV9mb3Jfc211KTsKPj4gKyAgICAgICBpZiAocmV0KSB7Cj4+ICsgICAgICAg
-ICAgICAgICBEUk1fRVJST1IoImZhaWxlZCB0byBjcmVhdGUgZGV2aWNlIGZpbGUgcHBfYWxsb2Nf
-bWVtX2Zvcl9zbXVcbiIpOwo+PiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPj4gKyAgICAg
-ICB9Cj4+ICsKPj4gICAgICAgICAgcmV0ID0gYW1kZ3B1X2RlYnVnZnNfcG1faW5pdChhZGV2KTsK
-Pj4gICAgICAgICAgaWYgKHJldCkgewo+PiAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigiRmFp
-bGVkIHRvIHJlZ2lzdGVyIGRlYnVnZnMgZmlsZSBmb3IgZHBtIVxuIik7Cj4+IC0tCj4+IDEuOS4x
-Cj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+
-IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0867225096==
+Content-Type: multipart/alternative;
+ boundary="------------09BC02B5C0020074A275B462"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------09BC02B5C0020074A275B462
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Yeah, that sounds like a plan to me.
+
+Going to commit the patches I've already done in a minute, they still 
+seem to implement quite a bit of what we want to do here.
+
+Regards,
+Christian.
+
+Am 12.10.2017 um 10:03 schrieb Liu, Monk:
+>
+> V2 summary
+>
+> Hi team
+>
+> *please give your comments*
+>
+> lWhen a job timed out (set from lockup_timeout kernel parameter), What 
+> KMD should do in TDR routine :
+>
+> 1.Update adev->*gpu_reset_counter*, and stop scheduler first
+>
+> 2.Set its fence error status to “*ECANCELED*”,
+>
+> 3.Find the *context* behind this job, and set this *context* as 
+> “*guilty*”(will have a new member field in context structure – *bool 
+> guilty*)
+>
+> a)There will be “*bool * guilty*” in entity structure, which points to 
+> its father context’s member – “*bool guilty” *when context 
+> initialized**, so no matter we get context or entity, we always know 
+> if it is “guilty”
+>
+> b)For kernel entity that used for VM updates, there is no context back 
+> it, so kernel entity’s “bool *guilty” always “NULL”.
+>
+> c)The idea to skip the whole context is for consistence consideration, 
+> because we’ll fake signal the hang job in job_run(), so all jobs in 
+> its context shall be dropped otherwise either bad drawing/computing 
+> results or more GPU hang.
+>
+> **
+>
+> 4.Do GPU reset, which is can be some callbacks to let bare-metal and 
+> SR-IOV implement with their favor style
+>
+> 5.After reset, KMD need to aware if the VRAM lost happens or not, 
+> bare-metal can implement some function to judge, while for SR-IOV I 
+> prefer to read it from GIM side (for initial version we consider it’s 
+> always VRAM lost, till GIM side change aligned)
+>
+> 6.If VRAM lost hit, update adev->*vram_lost_counter*.
+>
+> 7.Do GTT recovery and shadow buffer recovery.
+>
+> 8.Re-schedule all JOBs in mirror list and restart scheduler
+>
+> lFor GPU scheduler function --- job_run()
+>
+> 1.Before schedule a job to ring, checks if job->*vram_lost_counter* == 
+> adev->*vram_lost_counter*, and drop this job if mismatch
+>
+> 2.Before schedule a job to ring, checks if job->entity->*guilty* is 
+> NULL or not, *and drop this job if (guilty!=NULL && *guilty == TRUE)*
+>
+> 3.if a job is dropped:
+>
+> a)set job’s sched_fence status to “*ECANCELED*”
+>
+> b)fake/force signal job’s hw fence (no need to set hw fence’s status)
+>
+> lFor cs_wait() IOCTL:
+>
+> After it found fence signaled, it should check if there is error on 
+> this fence and return the error status of this fence
+>
+> lFor cs_wait_fences() IOCTL:
+>
+> Similar with above approach
+>
+> lFor cs_submit() IOCTL:
+>
+> 1.check if current ctx been marked “*guilty*”and return “*ECANCELED*” 
+>  if so.
+>
+> 2.set job->*vram_lost_counter* with adev->*vram_lost_counter*, and 
+> return “*ECANCELED*” if ctx->*vram_lost_counter* != 
+> job->*vram_lost_counter* (Christian already submitted this patch)
+>
+> a)discussion: can we return “ENODEV” if vram_lost_counter mismatch ? 
+> that way UMD know this context is under “device lost”
+>
+> lIntroduce a new IOCTL to let UMD query latest adev->*vram_lost_counter*:
+>
+> lFor amdgpu_ctx_query():
+>
+> n*Don’t update ctx->reset_counter when querying this function, 
+> otherwise the query result is not consistent *
+>
+> nSet out->state.reset_status to “AMDGPU_CTX_GUILTY_RESET” if the ctx 
+> is “*guilty*”, no need to check “ctx->reset_counter”
+>
+> nSet out->state.reset_status to “AMDGPU_CTX_INNOCENT_RESET” *if the 
+> ctx isn’t “guilty” && ctx->reset_counter != adev->reset_counter *
+>
+> nSet out->state.reset_status to “AMDGPU_CTX_NO_RESET” if 
+> ctx->reset_counter == adev->reset_counter
+>
+> nSet out->state.flags to “AMDGPU_CTX_FLAG_VRAM_LOST” if 
+> ctx->vram_lost_counter != adev->vram_lost_counter
+>
+> udiscussion: can we return “ENODEV” for amdgpu_ctx_query() if 
+> ctx->vram_lost_counter != adev->vram_lost_counter ? that way UMD know 
+> this context is under “device lost”
+>
+> nUMD shall release this context if it is AMDGPU_CTX_GUILTY_RESET or 
+> its flags is “AMDGPU_CTX_FLAG_VRAM_LOST”
+>
+> For UMD behavior we still have something need to consider:
+>
+> If MESA creates a new context from an old context (share list?? I’m 
+> not familiar with UMD , David Mao shall have some discuss on it with 
+> Nicolai), the new created context’s vram_lost_counter
+>
+> And reset_counter shall all be ported from that old context , 
+> otherwise CS_SUBMIT will not block it which isn’t correct
+>
+> Need your feedback, thx
+>
+> *From:*amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] *On 
+> Behalf Of *Liu, Monk
+> *Sent:* 2017年10月11日13:34
+> *To:* Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; Haehnle, Nicolai 
+> <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>; Olsak, Marek <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>; 
+> Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+> *Cc:* Ramirez, Alejandro <Alejandro.Ramirez-5C7GfCeVMHo@public.gmane.org>; 
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Filipas, Mario <Mario.Filipas-5C7GfCeVMHo@public.gmane.org>; 
+> Ding, Pixel <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>; Li, Bingley <Bingley.Li-5C7GfCeVMHo@public.gmane.org>; 
+> Jiang, Jerry (SW) <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>
+> *Subject:* TDR and VRAM lost handling in KMD:
+>
+> Hi Christian & Nicolai,
+>
+> We need to achieve some agreements on what should MESA/UMD do and what 
+> should KMD do, *please give your comments with **“okay”or “No”and your 
+> idea on below items,*
+>
+> lWhen a job timed out (set from lockup_timeout kernel parameter), What 
+> KMD should do in TDR routine :
+>
+> 1.Update adev->*gpu_reset_counter*, and stop scheduler first, 
+> (*gpu_reset_counter* is used to force vm flush after GPU reset, out of 
+> this thread’s scope so no more discussion on it)
+>
+> 2.Set its fence error status to “*ETIME*”,
+>
+> 3.Find the entity/ctx behind this job, and set this ctx as “*guilty*”
+>
+> 4.Kick out this job from scheduler’s mirror list, so this job won’t 
+> get re-scheduled to ring anymore.
+>
+> 5.Kick out all jobs in this “guilty”ctx’s KFIFO queue, and set all 
+> their fence status to “*ECANCELED*”
+>
+> *6.*Force signal all fences that get kicked out by above two 
+> steps,*otherwise UMD will block forever if waiting on those fences*
+>
+> 7.Do gpu reset, which is can be some callbacks to let bare-metal and 
+> SR-IOV implement with their favor style
+>
+> 8.After reset, KMD need to aware if the VRAM lost happens or not, 
+> bare-metal can implement some function to judge, while for SR-IOV I 
+> prefer to read it from GIM side (for initial version we consider it’s 
+> always VRAM lost, till GIM side change aligned)
+>
+> 9.If VRAM lost not hit, continue, otherwise:
+>
+> a)Update adev->*vram_lost_counter*,
+>
+> b)Iterate over all living ctx, and set all ctx as “*guilty*”since VRAM 
+> lost actually ruins all VRAM contents
+>
+> c)Kick out all jobs in all ctx’s KFIFO queue, and set all their fence 
+> status to “*ECANCELDED*”
+>
+> 10.Do GTT recovery and VRAM page tables/entries recovery (optional, do 
+> we need it ???)
+>
+> 11.Re-schedule all JOBs remains in mirror list to ring again and 
+> restart scheduler (for VRAM lost case, no JOB will re-scheduled)
+>
+> lFor cs_wait() IOCTL:
+>
+> After it found fence signaled, it should check with 
+> *“dma_fence_get_status” *to see if there is error there,
+>
+> And return the error status of fence
+>
+> lFor cs_wait_fences() IOCTL:
+>
+> Similar with above approach
+>
+> lFor cs_submit() IOCTL:
+>
+> It need to check if current ctx been marked as “*guilty*”and return 
+> “*ECANCELED*”if so
+>
+> lIntroduce a new IOCTL to let UMD query *vram_lost_counter*:
+>
+> This way, UMD can also block app from submitting, like @Nicolai 
+> mentioned, we can cache one copy of *vram_lost_counter* when enumerate 
+> physical device, and deny all
+>
+> gl-context from submitting if the counter queried bigger than that one 
+> cached in physical device. (looks a little overkill to me, but easy to 
+> implement )
+>
+> UMD can also return error to APP when creating gl-context if found 
+> current queried*vram_lost_counter *bigger than that one cached in 
+> physical device.
+>
+> BTW: I realized that gl-context is a little different with kernel’s 
+> context. Because for kernel. BO is not related with context but only 
+> with FD, while in UMD, BO have a backend
+>
+> gl-context, so block submitting in UMD layer is also needed although 
+> KMD will do its job as bottom line
+>
+> lBasically “vram_lost_counter”is exposure by kernel to let UMD take 
+> the control of robust extension feature, it will be UMD’s call to 
+> move, KMD only deny “guilty”context from submitting
+>
+> Need your feedback, thx
+>
+> We’d better make TDR feature landed ASAP
+>
+> BR Monk
+>
+
+
+--------------09BC02B5C0020074A275B462
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Yeah, that sounds like a plan to me.<br>
+      <br>
+      Going to commit the patches I've already done in a minute, they
+      still seem to implement quite a bit of what we want to do here.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 12.10.2017 um 10:03 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BLUPR12MB0449E6EBA74EC3EB8918F71E844B0-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:等线;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@等线";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:等线;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:21.0pt;
+	font-size:10.5pt;
+	font-family:等线;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:宋体;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:等线;
+	color:windowtext;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:等线;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:65107788;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1024615094 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:21.0pt;
+	text-indent:-21.0pt;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%2\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:42.0pt;
+	text-indent:-21.0pt;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:63.0pt;
+	text-indent:-21.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:84.0pt;
+	text-indent:-21.0pt;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%5\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:105.0pt;
+	text-indent:-21.0pt;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:126.0pt;
+	text-indent:-21.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:147.0pt;
+	text-indent:-21.0pt;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%8\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-21.0pt;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:189.0pt;
+	text-indent:-21.0pt;}
+@list l1
+	{mso-list-id:236406344;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-73740254 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:21.0pt;
+	text-indent:-21.0pt;}
+@list l1:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%2\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:42.0pt;
+	text-indent:-21.0pt;}
+@list l1:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:63.0pt;
+	text-indent:-21.0pt;}
+@list l1:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:84.0pt;
+	text-indent:-21.0pt;}
+@list l1:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%5\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:105.0pt;
+	text-indent:-21.0pt;}
+@list l1:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:126.0pt;
+	text-indent:-21.0pt;}
+@list l1:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:147.0pt;
+	text-indent:-21.0pt;}
+@list l1:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%8\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-21.0pt;}
+@list l1:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:189.0pt;
+	text-indent:-21.0pt;}
+@list l2
+	{mso-list-id:423769606;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1895020312 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l2:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:42.0pt;
+	text-indent:-21.0pt;}
+@list l2:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%2\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:63.0pt;
+	text-indent:-21.0pt;}
+@list l2:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:84.0pt;
+	text-indent:-21.0pt;}
+@list l2:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:105.0pt;
+	text-indent:-21.0pt;}
+@list l2:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%5\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:126.0pt;
+	text-indent:-21.0pt;}
+@list l2:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:147.0pt;
+	text-indent:-21.0pt;}
+@list l2:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-21.0pt;}
+@list l2:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%8\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:189.0pt;
+	text-indent:-21.0pt;}
+@list l2:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:210.0pt;
+	text-indent:-21.0pt;}
+@list l3
+	{mso-list-id:697632068;
+	mso-list-type:hybrid;
+	mso-list-template-ids:19056858 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:21.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:42.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:63.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:84.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:105.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:126.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:147.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l3:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:189.0pt;
+	text-indent:-21.0pt;
+	font-family:Wingdings;}
+@list l4
+	{mso-list-id:1273434182;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1024615094 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l4:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:21.0pt;
+	text-indent:-21.0pt;}
+@list l4:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%2\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:42.0pt;
+	text-indent:-21.0pt;}
+@list l4:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:63.0pt;
+	text-indent:-21.0pt;}
+@list l4:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:84.0pt;
+	text-indent:-21.0pt;}
+@list l4:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%5\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:105.0pt;
+	text-indent:-21.0pt;}
+@list l4:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:126.0pt;
+	text-indent:-21.0pt;}
+@list l4:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:147.0pt;
+	text-indent:-21.0pt;}
+@list l4:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%8\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:168.0pt;
+	text-indent:-21.0pt;}
+@list l4:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:189.0pt;
+	text-indent:-21.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal"><span lang="EN-US">V2 summary<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">Hi team<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><b><span lang="EN-US">please give your
+              comments</span></b><span lang="EN-US"><o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">When
+            a job timed out (set from lockup_timeout kernel parameter),
+            What KMD should do in TDR routine :<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">1.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Update
+            adev-&gt;<b>gpu_reset_counter</b>, and stop scheduler first<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">2.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Set
+            its fence error status to </span>
+          “<b><span lang="EN-US">ECANCELED</span></b>”<span lang="EN-US">,<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">3.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Find
+            the <b>context</b> behind this job, and set this
+            <b>context</b> as </span>“<b><span lang="EN-US">guilty</span></b>”<span
+            lang="EN-US"> (will have a new member field in context
+            structure –
+            <b>bool guilty</b>)<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l0
+          level2 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">a)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">      
+              </span></span></span><!--[endif]--><span lang="EN-US">There
+            will be “<b>bool * guilty</b>” in entity structure, which
+            points to its father context’s member – “<b>bool guilty”
+            </b>when context initialized<b> </b>, so no matter we get
+            context or entity, we always know if it is “guilty”<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l0
+          level2 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">b)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">      
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            kernel entity that used for VM updates, there is no context
+            back it, so kernel entity’s “bool *guilty” always “NULL”.<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l0
+          level2 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">c)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">The
+            idea to skip the whole context is for consistence
+            consideration, because we’ll fake signal the hang job in
+            job_run(), so all jobs in its context shall be dropped
+            otherwise either bad drawing/computing results or more GPU
+            hang.<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:0cm"><b><span
+              lang="EN-US"><o:p> </o:p></span></b></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">4.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Do
+            GPU reset, which is can be some callbacks to let bare-metal
+            and SR-IOV implement with their favor style
+            <o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">5.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">After
+            reset, KMD need to aware if the VRAM lost happens or not,
+            bare-metal can implement some function to judge, while for
+            SR-IOV I prefer to read it from GIM side (for initial
+            version we consider it</span>’<span lang="EN-US">s always
+            VRAM lost, till GIM side change aligned)<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">6.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">If
+            VRAM lost hit, update adev-&gt;<b>vram_lost_counter</b>.<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">7.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Do
+            GTT recovery and shadow buffer recovery.<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0
+          level1 lfo4">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">8.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Re-schedule
+            all JOBs in mirror list and restart scheduler<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            GPU scheduler function --- job_run()<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l2
+          level1 lfo6">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">1.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Before
+            schedule a job to ring, checks if job-&gt;<b>vram_lost_counter</b>
+            == adev-&gt;<b>vram_lost_counter</b>, and drop this job if
+            mismatch<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l2
+          level1 lfo6">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">2.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Before
+            schedule a job to ring, checks if job-&gt;entity-&gt;<b>guilty</b>
+            is NULL or not,
+            <b>and drop this job if (guilty!=NULL &amp;&amp; *guilty ==
+              TRUE)</b><o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l2
+          level1 lfo6">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">3.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">if a
+            job is dropped:<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:63.0pt;text-indent:-21.0pt;mso-list:l2
+          level2 lfo6">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">a)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">      
+              </span></span></span><!--[endif]--><span lang="EN-US">set
+            job’s sched_fence status to “<b>ECANCELED</b>”<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:63.0pt;text-indent:-21.0pt;mso-list:l2
+          level2 lfo6">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">b)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">      
+              </span></span></span><!--[endif]--><span lang="EN-US">fake/force
+            signal job’s hw fence (no need to set hw fence’s status)<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            cs_wait() IOCTL:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">After it found fence
+            signaled, it should check if there is error on this fence
+            and return the error status of this fence<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            cs_wait_fences() IOCTL:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">Similar with above
+            approach<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            cs_submit() IOCTL:<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l1
+          level1 lfo7">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">1.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">check
+            if current ctx been marked
+          </span>“<b><span lang="EN-US">guilty</span></b>”<span
+            lang="EN-US"> and return </span>
+          “<b><span lang="EN-US">ECANCELED</span></b>” <span
+            lang="EN-US"> if so.<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l1
+          level1 lfo7">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">2.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">set
+            job-&gt;<b>vram_lost_counter</b> with adev-&gt;<b>vram_lost_counter</b>,
+            and return “<b>ECANCELED</b>” if ctx-&gt;<b>vram_lost_counter</b>
+            != job-&gt;<b>vram_lost_counter</b> (Christian already
+            submitted this patch)<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l1
+          level2 lfo7">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">a)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">      
+              </span></span></span><!--[endif]--><span lang="EN-US">discussion:
+            can we return “ENODEV” if vram_lost_counter mismatch ? that
+            way UMD know this context is under “device lost”<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">Introduce
+            a new IOCTL to let UMD query latest adev-&gt;<b>vram_lost_counter</b>:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            amdgpu_ctx_query(): <o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l3
+          level2 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">n<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><b><span lang="EN-US">Don’t
+              update ctx-&gt;reset_counter when querying this function,
+              otherwise the query result is not consistent
+              <o:p></o:p></span></b></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l3
+          level2 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">n<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">Set
+            out-&gt;state.reset_status to “AMDGPU_CTX_GUILTY_RESET” if
+            the ctx is “<b>guilty</b>”, no need to check
+            “ctx-&gt;reset_counter”<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l3
+          level2 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">n<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">Set
+            out-&gt;state.reset_status to “AMDGPU_CTX_INNOCENT_RESET”
+            <b>if the ctx isn’t “guilty” &amp;&amp;
+              ctx-&gt;reset_counter != adev-&gt;reset_counter </b><o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l3
+          level2 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">n<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">Set
+            out-&gt;state.reset_status to “AMDGPU_CTX_NO_RESET” if
+            ctx-&gt;reset_counter == adev-&gt;reset_counter<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l3
+          level2 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">n<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">Set
+            out-&gt;state.flags to “AMDGPU_CTX_FLAG_VRAM_LOST” if
+            ctx-&gt;vram_lost_counter != adev-&gt;vram_lost_counter<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:63.0pt;text-indent:-21.0pt;mso-list:l3
+          level3 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">u<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">discussion:
+            can we return “ENODEV” for amdgpu_ctx_query() if
+            ctx-&gt;vram_lost_counter != adev-&gt;vram_lost_counter ?
+            that way UMD know this context is under “device lost”<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l3
+          level2 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">n<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">UMD
+            shall release this context if it is AMDGPU_CTX_GUILTY_RESET
+            or its flags is “AMDGPU_CTX_FLAG_VRAM_LOST”<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:0cm"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">For UMD behavior we
+            still have something need to consider:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">If MESA creates a new
+            context from an old context (share list?? I’m not familiar
+            with UMD , David Mao shall have some discuss on it with
+            Nicolai), the new created context’s vram_lost_counter<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">And reset_counter shall
+            all be ported from that old context , otherwise CS_SUBMIT
+            will not block it which isn’t correct
+            <o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">Need your feedback, thx<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <div>
+          <div style="border:none;border-top:solid #E1E1E1
+            1.0pt;padding:3.0pt 0cm 0cm 0cm">
+            <p class="MsoNormal" style="text-align:left" align="left"><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
+                  lang="EN-US">From:</span></b><span
+                style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
+                lang="EN-US"> amd-gfx
+                [<a class="moz-txt-link-freetext" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
+                <b>On Behalf Of </b>Liu, Monk<br>
+                <b>Sent:</b> 2017</span><span
+                style="font-size:11.0pt;font-family:宋体">年</span><span
+                style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
+                lang="EN-US">10</span><span
+                style="font-size:11.0pt;font-family:宋体">月</span><span
+                style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
+                lang="EN-US">11</span><span
+                style="font-size:11.0pt;font-family:宋体">日</span><span
+                style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
+                lang="EN-US"> 13:34<br>
+                <b>To:</b> Koenig, Christian
+                <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>; Haehnle, Nicolai
+                <a class="moz-txt-link-rfc2396E" href="mailto:Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org">&lt;Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org&gt;</a>; Olsak, Marek
+                <a class="moz-txt-link-rfc2396E" href="mailto:Marek.Olsak-5C7GfCeVMHo@public.gmane.org">&lt;Marek.Olsak-5C7GfCeVMHo@public.gmane.org&gt;</a>; Deucher, Alexander
+                <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                <b>Cc:</b> Ramirez, Alejandro
+                <a class="moz-txt-link-rfc2396E" href="mailto:Alejandro.Ramirez-5C7GfCeVMHo@public.gmane.org">&lt;Alejandro.Ramirez-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Filipas, Mario
+                <a class="moz-txt-link-rfc2396E" href="mailto:Mario.Filipas-5C7GfCeVMHo@public.gmane.org">&lt;Mario.Filipas-5C7GfCeVMHo@public.gmane.org&gt;</a>; Ding, Pixel
+                <a class="moz-txt-link-rfc2396E" href="mailto:Pixel.Ding-5C7GfCeVMHo@public.gmane.org">&lt;Pixel.Ding-5C7GfCeVMHo@public.gmane.org&gt;</a>; Li, Bingley
+                <a class="moz-txt-link-rfc2396E" href="mailto:Bingley.Li-5C7GfCeVMHo@public.gmane.org">&lt;Bingley.Li-5C7GfCeVMHo@public.gmane.org&gt;</a>; Jiang, Jerry (SW)
+                <a class="moz-txt-link-rfc2396E" href="mailto:Jerry.Jiang-5C7GfCeVMHo@public.gmane.org">&lt;Jerry.Jiang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                <b>Subject:</b> TDR and VRAM lost handling in KMD:<o:p></o:p></span></p>
+          </div>
+        </div>
+        <p class="MsoNormal" style="text-align:left" align="left"><span
+            lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">Hi Christian &amp;
+            Nicolai,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">We need to achieve some
+            agreements on what should MESA/UMD do and what should KMD
+            do,
+            <b>please give your comments with </b></span><b>“<span
+              lang="EN-US">okay</span>”<span lang="EN-US"> or
+            </span>“<span lang="EN-US">No</span>”<span lang="EN-US"> and
+              your idea on below items,</span></b><span lang="EN-US"><o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">When
+            a job timed out (set from lockup_timeout kernel parameter),
+            What KMD should do in TDR routine :<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">1.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Update
+            adev-&gt;<b>gpu_reset_counter</b>, and stop scheduler first,
+            (<b>gpu_reset_counter</b> is used to force vm flush after
+            GPU reset, out of this thread</span>’<span lang="EN-US">s
+            scope so no more discussion on it)<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">2.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Set
+            its fence error status to </span>
+          “<b><span lang="EN-US">ETIME</span></b>”<span lang="EN-US">,<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">3.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Find
+            the entity/ctx behind this job, and set this ctx as
+          </span>“<b><span lang="EN-US">guilty</span></b>”<span
+            lang="EN-US"><o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">4.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Kick
+            out this job from scheduler</span>’<span lang="EN-US">s
+            mirror list, so this job won</span>’<span lang="EN-US">t get
+            re-scheduled to ring anymore.<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">5.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Kick
+            out all jobs in this </span>
+          “<span lang="EN-US">guilty</span>”<span lang="EN-US"> ctx</span>’<span
+            lang="EN-US">s KFIFO queue, and set all their fence status
+            to
+          </span>“<b><span lang="EN-US">ECANCELED</span></b>”<span
+            lang="EN-US"><o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><b><span lang="EN-US"><span
+                style="mso-list:Ignore">6.<span style="font:7.0pt
+                  &quot;Times New Roman&quot;">      
+                </span></span></span></b><!--[endif]--><span
+            lang="EN-US">Force signal all fences that get kicked out by
+            above two steps,<b> otherwise UMD will block forever if
+              waiting on those fences<o:p></o:p></b></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">7.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Do
+            gpu reset, which is can be some callbacks to let bare-metal
+            and SR-IOV implement with their favor style
+            <o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">8.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">After
+            reset, KMD need to aware if the VRAM lost happens or not,
+            bare-metal can implement some function to judge, while for
+            SR-IOV I prefer to read it from GIM side (for initial
+            version we consider it</span>’<span lang="EN-US">s always
+            VRAM lost, till GIM side change aligned)<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">9.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">If
+            VRAM lost not hit, continue, otherwise:<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l4
+          level2 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">a)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">      
+              </span></span></span><!--[endif]--><span lang="EN-US">Update
+            adev-&gt;<b>vram_lost_counter</b>,<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l4
+          level2 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">b)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">      
+              </span></span></span><!--[endif]--><span lang="EN-US">Iterate
+            over all living ctx, and set all ctx as
+          </span>“<b><span lang="EN-US">guilty</span></b>”<span
+            lang="EN-US"> since VRAM lost actually ruins all VRAM
+            contents<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:42.0pt;text-indent:-21.0pt;mso-list:l4
+          level2 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">c)<span style="font:7.0pt
+                &quot;Times New Roman&quot;">       
+              </span></span></span><!--[endif]--><span lang="EN-US">Kick
+            out all jobs in all ctx</span>’<span lang="EN-US">s KFIFO
+            queue, and set all their fence status to
+          </span>“<b><span lang="EN-US">ECANCELDED</span></b>”<span
+            lang="EN-US"><o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">10.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">    
+              </span></span></span><!--[endif]--><span lang="EN-US">Do
+            GTT recovery and VRAM page tables/entries recovery
+            (optional, do we need it ???)<o:p></o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l4
+          level1 lfo5">
+          <!--[if !supportLists]--><span lang="EN-US"><span
+              style="mso-list:Ignore">11.<span style="font:7.0pt
+                &quot;Times New Roman&quot;">    
+              </span></span></span><!--[endif]--><span lang="EN-US">Re-schedule
+            all JOBs remains in mirror list to ring again and restart
+            scheduler (for VRAM lost case, no JOB will re-scheduled)<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            cs_wait() IOCTL:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">After it found fence
+            signaled, it should check with
+          </span><b>“<span lang="EN-US">dma_fence_get_status</span>” </b><span
+            lang="EN-US">to see if there is error there,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">And return the error
+            status of fence<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            cs_wait_fences() IOCTL:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">Similar with above
+            approach<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">For
+            cs_submit() IOCTL:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">It need to check if
+            current ctx been marked as
+          </span>“<b><span lang="EN-US">guilty</span></b>”<span
+            lang="EN-US"> and return </span>
+          “<b><span lang="EN-US">ECANCELED</span></b>”<span lang="EN-US">
+            if so<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">Introduce
+            a new IOCTL to let UMD query
+            <b>vram_lost_counter</b>:<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">This way, UMD can also
+            block app from submitting, like @Nicolai mentioned, we can
+            cache one copy of
+            <b>vram_lost_counter</b> when enumerate physical device, and
+            deny all <o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">gl-context from
+            submitting if the counter queried bigger than that one
+            cached in physical device. (looks a little overkill to me,
+            but easy to implement )
+            <o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">UMD can also return
+            error to APP when creating gl-context if found current
+            queried<b> vram_lost_counter
+            </b>bigger than that one cached in physical device.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">BTW: I realized that
+            gl-context is a little different with kernel</span>’<span
+            lang="EN-US">s context. Because for kernel. BO is not
+            related with context but only with FD, while in UMD, BO have
+            a backend<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">gl-context, so block
+            submitting in UMD layer is also needed although KMD will do
+            its job as bottom line
+            <o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoListParagraph"
+          style="margin-left:21.0pt;text-indent:-21.0pt;mso-list:l3
+          level1 lfo2">
+          <!--[if !supportLists]--><span style="font-family:Wingdings"
+            lang="EN-US"><span style="mso-list:Ignore">l<span
+                style="font:7.0pt &quot;Times New Roman&quot;"> 
+              </span></span></span><!--[endif]--><span lang="EN-US">Basically
+          </span>“<span lang="EN-US">vram_lost_counter</span>”<span
+            lang="EN-US"> is exposure by kernel to let UMD take the
+            control of robust extension feature, it will be UMD</span>’<span
+            lang="EN-US">s call to move, KMD only deny </span>“<span
+            lang="EN-US">guilty</span>”<span lang="EN-US"> context from
+            submitting<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">Need your feedback, thx<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">We</span>’<span
+            lang="EN-US">d better make TDR feature landed ASAP<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">BR Monk<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------09BC02B5C0020074A275B462--
+
+--===============0867225096==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0867225096==--
