@@ -1,11 +1,15 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Fix warning about overflow
-Date: Thu, 12 Oct 2017 13:54:42 -0400
-Message-ID: <20171012175442.4298-1-harry.wentland@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: introduce AMDGPU_GEM_CREATE_EXPLICIT_SYNC v2
+Date: Thu, 12 Oct 2017 20:27:10 +0200
+Message-ID: <CAAxE2A4MjBnDweD3kKZuSkxRGY9RZ1Z335Hm3XgZemZy0wz_qw@mail.gmail.com>
+References: <20170919125918.4132-1-andresx7@gmail.com>
+ <fa69f268-541d-8729-48cf-93ae50d44035@gmail.com>
+ <23e71499-cd99-7016-fb8e-a7029dadee51@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <23e71499-cd99-7016-fb8e-a7029dadee51-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,25 +20,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, michel-otUistvHUpPR7s880joybQ@public.gmane.org, michel.daenzer-5C7GfCeVMHo@public.gmane.org
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-V2UncmUgb3ZlcmZsb3dpbmcgdGhlIGxhc3QgYml0LiBDYXN0IGl0IGV4cGxpY2l0bHkKClNpZ25l
-ZC1vZmYtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgotLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9iaW9zL2Jpb3NfcGFyc2VyMi5jIHwgMiArLQog
-MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIyLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlvcy9iaW9zX3BhcnNlcjIuYwppbmRleCBj
-Yjk0ZTE4Y2M0NTUuLjcxNWRjNzg5YmIyNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIyLmMKQEAgLTEwNDcsNyArMTA0Nyw3IEBAIHN0
-YXRpYyBlbnVtIGJwX3Jlc3VsdCBnZXRfZW1iZWRkZWRfcGFuZWxfaW5mb192Ml8xKAogCQlsdmRz
-LT5sY2RfdGltaW5nLm1pc2NpbmZvICYgQVRPTV9WX1JFUExJQ0FUSU9OQlkyOwogCWluZm8tPmxj
-ZF90aW1pbmcubWlzY19pbmZvLkNPTVBPU0lURV9TWU5DID0KIAkJbHZkcy0+bGNkX3RpbWluZy5t
-aXNjaW5mbyAmIEFUT01fQ09NUE9TSVRFU1lOQzsKLQlpbmZvLT5sY2RfdGltaW5nLm1pc2NfaW5m
-by5JTlRFUkxBQ0UgPQorCWluZm8tPmxjZF90aW1pbmcubWlzY19pbmZvLklOVEVSTEFDRSA9ICh1
-aW50MzJfdCkKIAkJbHZkcy0+bGNkX3RpbWluZy5taXNjaW5mbyAmIEFUT01fSU5URVJMQUNFOwog
-CiAJLyogbm90IHByb3ZpZGVkIGJ5IFZCSU9TKi8KLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gVGh1LCBTZXAgMjEsIDIwMTcgYXQgNDozOCBQTSwgQW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVz
+eDdAZ21haWwuY29tPiB3cm90ZToKPiBIaSBDaHJpc3RpYW4sCj4KPiBUaGUgcmVmZXJlbmNlIHJh
+ZHYgcGF0Y2hlcyBhcmUgb24gdGhlIGxpc3QuIFRoZSBiYXNpYyBpZGVhIGlzIHRvIG9ubHkgc2V0
+Cj4gdGhlIGV4cGxpY2l0IHN5bmMgZmxhZyBmb3IgYnVmZmVycyBhbGxvY2F0ZWQgZm9yIGRyaSB1
+c2FnZS4KCkRpZCB5b3UgbWVhbiAib25seSBzZXQgdGhlIGV4cGxpY2l0IHN5bmMgZmxhZyBmb3Ig
+YnVmZmVycyBOT1QKYWxsb2NhdGVkIGZvciBkcmkgdXNhZ2UiPwoKTWFyZWsKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
