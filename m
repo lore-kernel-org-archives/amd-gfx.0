@@ -1,206 +1,68 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: regression with d6c650c0a8f6f671e49553725e1db541376d95f2
-Date: Fri, 13 Oct 2017 10:16:44 +0200
-Message-ID: <b0f57d8a-de01-addd-c17d-7af25e15f36d@amd.com>
-References: <BLUPR12MB044941343D6D1A35996C7B4284480@BLUPR12MB0449.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [pull] amdgpu drm-fixes-4.14
+Date: Fri, 13 Oct 2017 10:19:31 +0200
+Message-ID: <b4e9aec8-e69c-e5b2-15d1-c75d9c7dc0f3@gmail.com>
+References: <1507823900-2785-1-git-send-email-alexander.deucher@amd.com>
+ <dfb5a003-f9a1-24f4-90aa-e9f43fdb4e1c@daenzer.net>
+ <996c1073-5832-0f3c-91e9-67fac0be6071@gmail.com>
+ <CADnq5_MkBijy4Zd2fRYMXLUH2_cSF85bOGkCLJPZheALZaF0+A@mail.gmail.com>
+ <13411f85-3739-42f6-a2a8-3ef4f1c9c4af@daenzer.net>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1249167078=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB044941343D6D1A35996C7B4284480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============1249167078==
-Content-Type: multipart/alternative;
- boundary="------------6B0423601D1DF3775B16DD5B"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------6B0423601D1DF3775B16DD5B
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Yeah, that change is actually incorrect and should be reverted.
-
-What we really need to do is remove dropping sched_job->s_fence from 
-amd_sched_process_job() into amd_sched_job_finish() directly before the 
-call to free_job().
-
-Regards,
-Christian.
-
-Am 13.10.2017 um 09:24 schrieb Liu, Monk:
-> commit d6c650c0a8f6f671e49553725e1db541376d95f2
-> Author: Nicolai Hähnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
-> @@ -611,6 +611,10 @@ static int amd_sched_main(void *param)
->
->                 fence = sched->ops->run_job(sched_job);
->                 amd_sched_fence_scheduled(s_fence);
-> +
-> +               /* amd_sched_process_job drops the job's reference of 
-> the fence. */
-> +               sched_job->s_fence = NULL;
-> +
->                 if (fence) {
->                         s_fence->parent = dma_fence_get(fence);
->                         r = dma_fence_add_callback(fence, &s_fence->cb,
->
-> Hi Nicolai
->
->
-> with this patch, you will break "amdgpu_sched_hw_job_reset()"routine:
->
-> voidamd_sched_hw_job_reset(structamd_gpu_scheduler *sched)
-> {
-> structamd_sched_job *s_job;
-> spin_lock(&sched->job_list_lock);
-> list_for_each_entry_reverse(s_job, &sched->ring_mirror_list, node) {
-> if(s_job->s_fence->parent&&
-> fence_remove_callback(s_job->s_fence->parent,
-> &s_job->s_fence->cb)) {
-> fence_put(s_job->s_fence->parent);
->             s_job->s_fence->parent=NULL;
-> atomic_dec(&sched->hw_rq_count);
->         }
->     }
-> spin_unlock(&sched->job_list_lock);
-> }
->
->
-> see that without sched_job->s_fence, you cannot remove the callback 
-> from its hw fence,
->
->
-> any idea??
->
->
-> BR Monk
->
->
->
-
-
---------------6B0423601D1DF3775B16DD5B
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Yeah, that change is actually incorrect
-      and should be reverted.<br>
-      <br>
-      What we really need to do is remove dropping sched_job-&gt;s_fence
-      from amd_sched_process_job() into amd_sched_job_finish() directly
-      before the call to free_job().<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 13.10.2017 um 09:24 schrieb Liu, Monk:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BLUPR12MB044941343D6D1A35996C7B4284480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <div>commit d6c650c0a8f6f671e49553725e1db541376d95f2<br>
-          Author: Nicolai Hähnle <a class="moz-txt-link-rfc2396E" href="mailto:nicolai.haehnle-5C7GfCeVMHo@public.gmane.org">&lt;nicolai.haehnle-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-          @@ -611,6 +611,10 @@ static int amd_sched_main(void *param)<br>
-           <br>
-                          fence = sched-&gt;ops-&gt;run_job(sched_job);<br>
-                          amd_sched_fence_scheduled(s_fence);<br>
-          +<br>
-          +               /* amd_sched_process_job drops the job's
-          reference of the fence. */<br>
-          +               sched_job-&gt;s_fence = NULL;<br>
-          +<br>
-                          if (fence) {<br>
-                                  s_fence-&gt;parent =
-          dma_fence_get(fence);<br>
-                                  r = dma_fence_add_callback(fence,
-          &amp;s_fence-&gt;cb,<br>
-          <br>
-        </div>
-        <p>Hi Nicolai</p>
-        <p><br>
-        </p>
-        <p>with this patch, you will break
-          "amdgpu_sched_hw_job_reset()"routine:</p>
-        <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback';font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;">
-<div><span style="color: #569cd6;">void</span><span style="color: #d4d4d4;"> </span>
-<span style="color: #dcdcaa;">amd_sched_hw_job_reset</span><span style="color: #d4d4d4;">(</span><span style="color: #569cd6;">struct</span><span style="color: #d4d4d4;"> amd_gpu_scheduler
-</span><span style="color: #d4d4d4;">*</span><span style="color: #d4d4d4;">sched)</span></div>
-<div><span style="color: #d4d4d4;">{</span></div>
-<div><span style="color: #d4d4d4;">    </span><span style="color: #569cd6;">struct</span><span style="color: #d4d4d4;"> amd_sched_job
-</span><span style="color: #d4d4d4;">*</span><span style="color: #d4d4d4;">s_job;</span></div>
-
-
-<div><span style="color: #d4d4d4;">    </span><span style="color: #dcdcaa;">spin_lock</span><span style="color: #d4d4d4;">(</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">job_list_lock</span><span style="color: #d4d4d4;">);</span></div>
-<div><span style="color: #d4d4d4;">    </span><span style="color: #dcdcaa;">list_for_each_entry_reverse</span><span style="color: #d4d4d4;">(s_job,
-</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">ring_mirror_list</span><span style="color: #d4d4d4;">, node) {</span></div>
-<div><span style="color: #d4d4d4;">        </span><span style="color: #c586c0;">if</span><span style="color: #d4d4d4;"> (s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">
-</span><span style="color: #d4d4d4;">&amp;&amp;</span></div>
-<div><span style="color: #d4d4d4;">         </span><span style="color: #dcdcaa;">fence_remove_callback</span><span style="color: #d4d4d4;">(s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">,</span></div>
-<div><span style="color: #d4d4d4;">                     </span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">cb</span><span style="color: #d4d4d4;">))
- {</span></div>
-<div><span style="color: #d4d4d4;">            </span><span style="color: #dcdcaa;">fence_put</span><span style="color: #d4d4d4;">(s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">);</span></div>
-<div><span style="color: #d4d4d4;">            s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">
-</span><span style="color: #d4d4d4;">=</span><span style="color: #d4d4d4;"> </span>
-<span style="color: #569cd6;">NULL</span><span style="color: #d4d4d4;">;</span></div>
-<div><span style="color: #d4d4d4;">            </span><span style="color: #dcdcaa;">atomic_dec</span><span style="color: #d4d4d4;">(</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">hw_rq_count</span><span style="color: #d4d4d4;">);</span></div>
-<div><span style="color: #d4d4d4;">        }</span></div>
-<div><span style="color: #d4d4d4;">    }</span></div>
-<div><span style="color: #d4d4d4;">    </span><span style="color: #dcdcaa;">spin_unlock</span><span style="color: #d4d4d4;">(</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">job_list_lock</span><span style="color: #d4d4d4;">);</span></div>
-<div><span style="color: #d4d4d4;">}</span></div>
-</div>
-        <p><br>
-        </p>
-        <p>see that without sched_job-&gt;s_fence, you cannot remove the
-          callback from its hw fence,</p>
-        <p><br>
-        </p>
-        <p>any idea??</p>
-        <p><br>
-        </p>
-        <p>BR Monk<br>
-        </p>
-        <p><br>
-        </p>
-        <p><br>
-        </p>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------6B0423601D1DF3775B16DD5B--
-
---===============1249167078==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <13411f85-3739-42f6-a2a8-3ef4f1c9c4af@daenzer.net>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, Alex Deucher <alexdeucher@gmail.com>, Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1249167078==--
+QW0gMTMuMTAuMjAxNyB1bSAwOTo0MSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDEyLzEw
+LzE3IDA3OjQ5IFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+IE9uIFRodSwgT2N0IDEyLCAyMDE3
+IGF0IDE6MDIgUE0sIENocmlzdGlhbiBLw7ZuaWcKPj4gPGNrb2VuaWcubGVpY2h0enVtZXJrZW5A
+Z21haWwuY29tPiB3cm90ZToKPj4+IEFtIDEyLjEwLjIwMTcgdW0gMTg6MjAgc2NocmllYiBNaWNo
+ZWwgRMOkbnplcjoKPj4+PiBPbiAxMi8xMC8xNyAwNTo1OCBQTSwgQWxleCBEZXVjaGVyIHdyb3Rl
+Ogo+Pj4+PiBIaSBEYXZlLAo+Pj4+Pgo+Pj4+PiBPbmUgbWVtb3J5IG1hbmFnZW1lbnQgcmVncmVz
+c2lvbiBmaXguCj4+Pj4+Cj4+Pj4+IFRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQK
+Pj4+Pj4gNTQ1MDM2YTk5NDRlOWQ2ZTUwZmVkNGNhMDMxMTcxNDdjODgwZmY3MToKPj4+Pj4KPj4+
+Pj4gICAgIE1lcmdlIHRhZyAnZHJtLW1pc2MtZml4ZXMtMjAxNy0xMC0xMScgb2YKPj4+Pj4gZ2l0
+Oi8vYW5vbmdpdC5mcmVlZGVza3RvcC5vcmcvZHJtL2RybS1taXNjIGludG8gZHJtLWZpeGVzICgy
+MDE3LTEwLTEyCj4+Pj4+IDEwOjM4OjA5ICsxMDAwKQo+Pj4+Pgo+Pj4+PiBhcmUgYXZhaWxhYmxl
+IGluIHRoZSBnaXQgcmVwb3NpdG9yeSBhdDoKPj4+Pj4KPj4+Pj4gICAgIGdpdDovL3Blb3BsZS5m
+cmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IGRybS1maXhlcy00LjE0Cj4+Pj4+Cj4+Pj4+IGZv
+ciB5b3UgdG8gZmV0Y2ggY2hhbmdlcyB1cCB0byAyN2I5NGI0ZjEzODZjM2E4MTgxZjVhMDI3NzQz
+NGEzMmUyNGU3ZGQ3Ogo+Pj4+Pgo+Pj4+PiAgICAgZHJtL2FtZGdwdTogZml4IHBsYWNlbWVudCBm
+bGFncyBpbiBhbWRncHVfdHRtX2JpbmQgKDIwMTctMTAtMTIKPj4+Pj4gMTA6MzQ6NDIgLTA0MDAp
+Cj4+Pj4+Cj4+Pj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0KPj4+Pj4gQ2hyaXN0aWFuIEvDtm5pZyAoMSk6Cj4+Pj4+ICAg
+ICAgICAgZHJtL2FtZGdwdTogZml4IHBsYWNlbWVudCBmbGFncyBpbiBhbWRncHVfdHRtX2JpbmQK
+Pj4+PiBUaGFua3MgQWxleCwgYnV0IHRoZXJlJ3MgYW5vdGhlciBwaWdsaXQgaGFuZyByZWdyZXNz
+aW9uIGluIDQuMTQsIGNhdXNlZAo+Pj4+IGJ5IGNvbW1pdCA2YWYwODgzZWQ5NzcgImRybS9hbWRn
+cHU6IGRpc2NhcmQgY29tbWFuZHMgb2Yga2lsbGVkCj4+Pj4gcHJvY2Vzc2VzIiwgZml4ZWQgYnkg
+Zml2ZSBjb21taXRzIDZiMzdkMDMyODBhNC4uMzE4ZDg1ZGU5YzIwIGluCj4+Pj4gYW1kLXN0YWdp
+bmctZHJtLW5leHQuIEVpdGhlciB0aGUgbGF0dGVyIG5lZWQgdG8gYmUgYmFja3BvcnRlZCB0byA0
+LjE0LAo+Pj4+IG9yIHRoZSBmb3JtZXIgbmVlZHMgdG8gYmUgcmV2ZXJ0ZWQgZnJvbSBpdC4KPj4+
+Cj4+PiBUaGUgcmV2ZXJ0IGlzIHByb2JhYmx5IGVhc2llciB0byBoYW5kbGUgYXQgdGhpcyBwb2lu
+dC4KPj4+Cj4+PiBTbyB0byBhbnN3ZXIgeW91ciBxdWVzdGlvbiBmcm9tIHRoZSBvdGhlciB0aHJl
+YWQgSSB2b3RlIGZvciB0aGF0Lgo+PiBOaWNvbGFpJ3MgcGF0Y2hlcyBhcHBseSBjbGVhbmx5IGFu
+ZCBJIHRoaW5rIHRoZXkgY2hhbmdlIGFib3V0IHRoZSBzYW1lCj4+IGFtb3VudCBvZiBjb2RlIGFu
+ZCB3ZSBkb24ndCBoYXZlIHRvIHdvcnJ5IGFib3V0IGFueSBwcm9ibGVtcyBkb3duIHRoZQo+PiBy
+b2FkIHdoZW4gdGhlIHJldmVydCBnZXRzIG1lcmdlZCBpbnRvIGRybS1uZXh0Lgo+IFRoYXQncyBi
+YXNpY2FsbHkgd2h5IEkgYXNrZWQgd2hpY2ggd2F5IHRvIGdvLiBIb3dldmVyLCBNb25rIGp1c3QK
+PiByZXBvcnRlZCBhIHBvdGVudGlhbCByZWdyZXNzaW9uIGluIG9uZSBvZiBOaWNvbGFpJ3MgY2hh
+bmdlcywgc28KPiByZXZlcnRpbmcgc2VlbXMgc2FmZXIgZm9yIDQuMTQuCgpJIGFncmVlIHRoYXQg
+cmV2ZXJ0aW5nIHRoZSBvcmlnaW5hbCBvZmZlbmRpbmcgcGF0Y2ggaXMgcHJvYmFibHkgdGhlIApi
+ZXR0ZXIgYXBwcm9hY2guCgpSZWdhcmRzLApDaHJpc3RpYW4uCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
