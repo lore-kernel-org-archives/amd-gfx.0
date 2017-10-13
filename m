@@ -1,972 +1,338 @@
-From: Harsha Sharma <harshasharmaiitr@gmail.com>
-Subject: [PATCH v4] drm/amd/powerplay: Remove unnecessary cast on void pointer
-Date: Sat, 14 Oct 2017 03:17:49 +0530
-Message-ID: <20171013214749.22351-1-harshasharmaiitr@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, outreachy-kernel@googlegroups.com, Harsha Sharma <harshasharmaiitr@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: TDR and VRAM lost handling in KMD (v2)
+Date: Fri, 13 Oct 2017 23:44:34 +0200
+Message-ID: <4b012d23-9ca4-e930-43b7-c0ae46456d84@amd.com>
+References: <BLUPR12MB0449E6EBA74EC3EB8918F71E844B0@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <9d0f4ba2-da01-1229-106a-ad80822d8056@amd.com>
+ <84255db0-bd9f-64ed-1394-3bf72d65adae@amd.com>
+ <8c85e72f-a5c7-3c36-0f2d-be61de6f1a06@amd.com>
+ <977779df-856e-54ae-6a75-8c48c72a262a@amd.com>
+ <778f7851-c464-579b-74c7-dda6b5982244@daenzer.net>
+ <cc6c86e7-d828-4376-0360-5c100fbfdd3d@amd.com>
+ <5f671cec-0c69-509c-0f31-b4718c448ede@amd.com>
+ <BLUPR12MB0449B1E12216845D4B52FC63844B0@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <784b63e5-6dc3-0b22-c57b-3711ae89b6f8@amd.com>
+ <BLUPR12MB04490BE71AF5EAC49CE2DA7984480@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <b1a2e469-c11d-f4e4-07ae-65b87f079d2c@amd.com>
+ <BLUPR12MB0449BC505EB71117FBD41BBF84480@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <BLUPR12MB044925AAAF56C7D65C81B14284480@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <b3834c8e-841b-ce62-dcd5-a01637e431d1@amd.com>
+ <BLUPR12MB044977DC58691C31825322D384480@BLUPR12MB0449.namprd12.prod.outlook.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BLUPR12MB044977DC58691C31825322D384480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+Cc: "Ramirez, Alejandro" <Alejandro.Ramirez-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Filipas,
+ Mario" <Mario.Filipas-5C7GfCeVMHo@public.gmane.org>, "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "Li,
+ Bingley" <Bingley.Li-5C7GfCeVMHo@public.gmane.org>, "Jiang, Jerry (SW)" <Jerry.Jiang-5C7GfCeVMHo@public.gmane.org>
 
-Done with following coccinelle patch
-
-@r@
-expression x;
-void* e;
-type T;
-identifier f;
-@@
-(
-  *((T *)e)
-|
-  ((T *)x)[...]
-|
-  ((T*)x)->f
-|
-
-- (T*)
-  e
-)
-
-Signed-off-by: Harsha Sharma <harshasharmaiitr@gmail.com>
----
-Changes in v4:
- -Removed git diff warning "No newline at end of file"
-Changes in v3:
- -Removed unnecessary lines
- -Remove more useless casts
-Changes in v2:
- -Remove unnecessary parentheses
- -Remove one more useless cast
- drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     |   6 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        |   8 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c   |   2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c |   4 +-
- .../gpu/drm/amd/powerplay/hwmgr/processpptables.c  |   2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 177 ++++++++++-----------
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c |   2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c |  22 +--
- .../gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c   |   2 +-
- 9 files changed, 105 insertions(+), 120 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-index bc839ff0bdd0..f22104c78dcb 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-@@ -474,7 +474,7 @@ static int cz_tf_upload_pptable_to_smu(struct pp_hwmgr *hwmgr, void *input,
- 	PP_ASSERT_WITH_CODE((0 == ret && NULL != table),
- 			    "Fail to get clock table from SMU!", return -EINVAL;);
- 
--	clock_table = (struct SMU8_Fusion_ClkTable *)table;
-+	clock_table = table;
- 
- 	/* patch clock table */
- 	PP_ASSERT_WITH_CODE((vddc_table->count <= CZ_MAX_HARDWARE_POWERLEVELS),
-@@ -868,8 +868,8 @@ static int cz_tf_update_low_mem_pstate(struct pp_hwmgr *hwmgr,
- {
- 	bool disable_switch;
- 	bool enable_low_mem_state;
--	struct cz_hwmgr *hw_data = (struct cz_hwmgr *)(hwmgr->backend);
--	const struct phm_set_power_state_input *states = (struct phm_set_power_state_input *)input;
-+	struct cz_hwmgr *hw_data = hwmgr->backend;
-+	const struct phm_set_power_state_input *states = input;
- 	const struct cz_power_state *pnew_state = cast_const_PhwCzPowerState(states->pnew_state);
- 
- 	if (hw_data->sys_info.nb_dpm_enable) {
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-index 9547f265a8bb..5d63a1b18b39 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -469,7 +469,7 @@ int phm_reset_single_dpm_table(void *table,
- {
- 	int i;
- 
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 
- 	dpm_table->count = count > max ? max : count;
- 
-@@ -484,7 +484,7 @@ void phm_setup_pcie_table_entry(
- 	uint32_t index, uint32_t pcie_gen,
- 	uint32_t pcie_lanes)
- {
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 	dpm_table->dpm_level[index].value = pcie_gen;
- 	dpm_table->dpm_level[index].param1 = pcie_lanes;
- 	dpm_table->dpm_level[index].enabled = 1;
-@@ -494,7 +494,7 @@ int32_t phm_get_dpm_level_enable_mask_value(void *table)
- {
- 	int32_t i;
- 	int32_t mask = 0;
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 
- 	for (i = dpm_table->count; i > 0; i--) {
- 		mask = mask << 1;
-@@ -566,7 +566,7 @@ int phm_find_boot_level(void *table,
- {
- 	int result = -EINVAL;
- 	uint32_t i;
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 
- 	for (i = 0; i < dpm_table->count; i++) {
- 		if (value == dpm_table->dpm_level[i].value) {
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
-index 953e0c9ad7cd..676f2e8bb2ee 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
-@@ -579,7 +579,7 @@ static ATOM_GPIO_PIN_LUT *get_gpio_lookup_table(void *device)
- 	PP_ASSERT_WITH_CODE((NULL != table_address),
- 			"Error retrieving BIOS Table Address!", return NULL;);
- 
--	return (ATOM_GPIO_PIN_LUT *)table_address;
-+	return table_address;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-index c062844b15f3..219f478482bb 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-@@ -66,7 +66,7 @@ static struct atom_voltage_objects_info_v4_1 *pp_atomfwctrl_get_voltage_info_tab
-         "Error retrieving BIOS Table Address!",
-         return NULL);
- 
--    return (struct atom_voltage_objects_info_v4_1 *)table_address;
-+    return table_address;
- }
- 
- /**
-@@ -173,7 +173,7 @@ static struct atom_gpio_pin_lut_v2_1 *pp_atomfwctrl_get_gpio_lookup_table(
- 			"Error retrieving BIOS Table Address!",
- 			return NULL);
- 
--	return (struct atom_gpio_pin_lut_v2_1 *)table_address;
-+	return table_address;
- }
- 
- static bool pp_atomfwctrl_lookup_gpio_pin(
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-index 2716721e5453..e795b14eaabe 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-@@ -807,7 +807,7 @@ static const ATOM_PPLIB_POWERPLAYTABLE *get_powerplay_table(
- 		hwmgr->soft_pp_table_size = size;
- 	}
- 
--	return (const ATOM_PPLIB_POWERPLAYTABLE *)table_addr;
-+	return table_addr;
- }
- 
- int pp_tables_get_response_times(struct pp_hwmgr *hwmgr,
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index c2743233ba10..7470e33c4322 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -175,8 +175,7 @@ static int smu7_enable_smc_voltage_controller(struct pp_hwmgr *hwmgr)
- */
- static bool smu7_voltage_control(const struct pp_hwmgr *hwmgr)
- {
--	const struct smu7_hwmgr *data =
--			(const struct smu7_hwmgr *)(hwmgr->backend);
-+	const struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	return (SMU7_VOLTAGE_CONTROL_NONE != data->voltage_control);
- }
-@@ -227,7 +226,7 @@ static int phm_get_svi2_voltage_table_v0(pp_atomctrl_voltage_table *voltage_tabl
- */
- static int smu7_construct_voltage_tables(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)hwmgr->pptable;
- 	int result = 0;
-@@ -340,7 +339,7 @@ static int smu7_construct_voltage_tables(struct pp_hwmgr *hwmgr)
- static int smu7_program_static_screen_threshold_parameters(
- 							struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	/* Set static screen threshold unit */
- 	PHM_WRITE_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
-@@ -386,7 +385,7 @@ static int smu7_enable_display_gap(struct pp_hwmgr *hwmgr)
- */
- static int smu7_program_voting_clients(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	/* Clear reset for voting clients before enabling DPM */
- 	PHM_WRITE_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC,
-@@ -526,7 +525,7 @@ static int smu7_force_switch_to_arbf0(struct pp_hwmgr *hwmgr)
- 
- static int smu7_setup_default_pcie_table(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
-@@ -619,7 +618,7 @@ static int smu7_setup_default_pcie_table(struct pp_hwmgr *hwmgr)
- 
- static int smu7_reset_dpm_tables(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	memset(&(data->dpm_table), 0x00, sizeof(data->dpm_table));
- 
-@@ -661,7 +660,7 @@ static int smu7_reset_dpm_tables(struct pp_hwmgr *hwmgr)
- 
- static int smu7_setup_dpm_tables_v0(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_clock_voltage_dependency_table *allowed_vdd_sclk_table =
- 		hwmgr->dyn_state.vddc_dependency_on_sclk;
- 	struct phm_clock_voltage_dependency_table *allowed_vdd_mclk_table =
-@@ -747,7 +746,7 @@ static int smu7_setup_dpm_tables_v0(struct pp_hwmgr *hwmgr)
- 
- static int smu7_setup_dpm_tables_v1(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 	uint32_t i;
-@@ -809,7 +808,7 @@ static int smu7_setup_dpm_tables_v1(struct pp_hwmgr *hwmgr)
- 
- static int smu7_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	smu7_reset_dpm_tables(hwmgr);
- 
-@@ -870,7 +869,7 @@ static int smu7_enable_sclk_control(struct pp_hwmgr *hwmgr)
- 
- static int smu7_enable_ulv(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (data->ulv_supported)
- 		return smum_send_msg_to_smc(hwmgr->smumgr, PPSMC_MSG_EnableULV);
-@@ -880,7 +879,7 @@ static int smu7_enable_ulv(struct pp_hwmgr *hwmgr)
- 
- static int smu7_disable_ulv(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (data->ulv_supported)
- 		return smum_send_msg_to_smc(hwmgr->smumgr, PPSMC_MSG_DisableULV);
-@@ -925,7 +924,7 @@ static int smu7_disable_deep_sleep_master_switch(struct pp_hwmgr *hwmgr)
- 
- static int smu7_disable_handshake_uvd(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t soft_register_value = 0;
- 	uint32_t handshake_disables_offset = data->soft_regs_start
- 				+ smum_get_offsetof(hwmgr->smumgr,
-@@ -942,7 +941,7 @@ static int smu7_disable_handshake_uvd(struct pp_hwmgr *hwmgr)
- 
- static int smu7_enable_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	/* enable SCLK dpm */
- 	if (!data->sclk_dpm_key_disabled)
-@@ -977,7 +976,7 @@ static int smu7_enable_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- 
- static int smu7_start_dpm(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	/*enable general power management */
- 
-@@ -1025,7 +1024,7 @@ static int smu7_start_dpm(struct pp_hwmgr *hwmgr)
- 
- static int smu7_disable_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	/* disable SCLK dpm */
- 	if (!data->sclk_dpm_key_disabled) {
-@@ -1048,7 +1047,7 @@ static int smu7_disable_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- 
- static int smu7_stop_dpm(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	/* disable general power management */
- 	PHM_WRITE_INDIRECT_FIELD(hwmgr->device, CGS_IND_REG__SMC, GENERAL_PWRMGT,
-@@ -1120,7 +1119,7 @@ static void smu7_set_dpm_event_sources(struct pp_hwmgr *hwmgr, uint32_t sources)
- static int smu7_enable_auto_throttle_source(struct pp_hwmgr *hwmgr,
- 		PHM_AutoThrottleSource source)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (!(data->active_auto_throttle_sources & (1 << source))) {
- 		data->active_auto_throttle_sources |= 1 << source;
-@@ -1137,7 +1136,7 @@ static int smu7_enable_thermal_auto_throttle(struct pp_hwmgr *hwmgr)
- static int smu7_disable_auto_throttle_source(struct pp_hwmgr *hwmgr,
- 		PHM_AutoThrottleSource source)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (data->active_auto_throttle_sources & (1 << source)) {
- 		data->active_auto_throttle_sources &= ~(1 << source);
-@@ -1153,7 +1152,7 @@ static int smu7_disable_thermal_auto_throttle(struct pp_hwmgr *hwmgr)
- 
- static int smu7_pcie_performance_request(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	data->pcie_performance_request = true;
- 
- 	return 0;
-@@ -1349,7 +1348,7 @@ int smu7_reset_asic_tasks(struct pp_hwmgr *hwmgr)
- 
- static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 	struct cgs_system_info sys_info = {0};
-@@ -1472,7 +1471,7 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
- */
- static int smu7_get_evv_voltages(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint16_t vv_id;
- 	uint16_t vddc = 0;
- 	uint16_t vddgfx = 0;
-@@ -1624,7 +1623,7 @@ static int smu7_patch_voltage_dependency_tables_with_lookup_table(
- {
- 	uint8_t entry_id;
- 	uint8_t voltage_id;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 
-@@ -1706,7 +1705,7 @@ static int smu7_calc_voltage_dependency_tables(struct pp_hwmgr *hwmgr)
- {
- 	uint8_t entry_id;
- 	struct phm_ppt_v1_voltage_lookup_record v_record;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *pptable_info = (struct phm_ppt_v1_information *)(hwmgr->pptable);
- 
- 	phm_ppt_v1_clock_voltage_dependency_table *sclk_table = pptable_info->vdd_dep_on_sclk;
-@@ -1748,7 +1747,7 @@ static int smu7_calc_mm_voltage_dependency_table(struct pp_hwmgr *hwmgr)
- {
- 	uint8_t entry_id;
- 	struct phm_ppt_v1_voltage_lookup_record v_record;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *pptable_info = (struct phm_ppt_v1_information *)(hwmgr->pptable);
- 	phm_ppt_v1_mm_clock_voltage_dependency_table *mm_table = pptable_info->mm_dep_table;
- 
-@@ -1799,7 +1798,7 @@ static int smu7_complete_dependency_tables(struct pp_hwmgr *hwmgr)
- {
- 	int result = 0;
- 	int tmp_result;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 
-@@ -2053,7 +2052,7 @@ static int smu7_patch_vddc(struct pp_hwmgr *hwmgr,
- 			      struct phm_clock_voltage_dependency_table *tab)
- {
- 	uint16_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab)
- 		for (i = 0; i < tab->count; i++)
-@@ -2067,7 +2066,7 @@ static int smu7_patch_vddci(struct pp_hwmgr *hwmgr,
- 			       struct phm_clock_voltage_dependency_table *tab)
- {
- 	uint16_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab)
- 		for (i = 0; i < tab->count; i++)
-@@ -2081,7 +2080,7 @@ static int smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
- 				  struct phm_vce_clock_voltage_dependency_table *tab)
- {
- 	uint16_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab)
- 		for (i = 0; i < tab->count; i++)
-@@ -2096,7 +2095,7 @@ static int smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
- 				  struct phm_uvd_clock_voltage_dependency_table *tab)
- {
- 	uint16_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab)
- 		for (i = 0; i < tab->count; i++)
-@@ -2110,7 +2109,7 @@ static int smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
- 					 struct phm_phase_shedding_limits_table *tab)
- {
- 	uint16_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab)
- 		for (i = 0; i < tab->count; i++)
-@@ -2124,7 +2123,7 @@ static int smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
- 				   struct phm_samu_clock_voltage_dependency_table *tab)
- {
- 	uint16_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab)
- 		for (i = 0; i < tab->count; i++)
-@@ -2138,7 +2137,7 @@ static int smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
- 				  struct phm_acp_clock_voltage_dependency_table *tab)
- {
- 	uint16_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab)
- 		for (i = 0; i < tab->count; i++)
-@@ -2152,7 +2151,7 @@ static int smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
- 				  struct phm_clock_and_voltage_limits *tab)
- {
- 	uint32_t vddc, vddci;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab) {
- 		vddc = tab->vddc;
-@@ -2172,7 +2171,7 @@ static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_ta
- {
- 	uint32_t i;
- 	uint32_t vddc;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (tab) {
- 		for (i = 0; i < tab->count; i++) {
-@@ -2243,7 +2242,7 @@ static int smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hwmgr)
- 
- static int smu7_set_private_data_based_on_pptable_v0(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	struct phm_clock_voltage_dependency_table *allowed_sclk_vddc_table = hwmgr->dyn_state.vddc_dependency_on_sclk;
- 	struct phm_clock_voltage_dependency_table *allowed_mclk_vddc_table = hwmgr->dyn_state.vddc_dependency_on_mclk;
-@@ -2371,7 +2370,7 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr *hwmgr)
- 
- static int smu7_force_dpm_highest(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t level, tmp;
- 
- 	if (!data->pcie_dpm_key_disabled) {
-@@ -2420,7 +2419,7 @@ static int smu7_force_dpm_highest(struct pp_hwmgr *hwmgr)
- 
- static int smu7_upload_dpm_level_enable_mask(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (hwmgr->pp_table_version == PP_TABLE_V1)
- 		phm_apply_dal_min_voltage_request(hwmgr);
-@@ -2445,7 +2444,7 @@ static int smu7_upload_dpm_level_enable_mask(struct pp_hwmgr *hwmgr)
- 
- static int smu7_unforce_dpm_levels(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (!smum_is_dpm_running(hwmgr))
- 		return -EINVAL;
-@@ -2460,8 +2459,7 @@ static int smu7_unforce_dpm_levels(struct pp_hwmgr *hwmgr)
- 
- static int smu7_force_dpm_lowest(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data =
--			(struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t level;
- 
- 	if (!data->sclk_dpm_key_disabled)
-@@ -2501,7 +2499,7 @@ static int smu7_get_profiling_clk(struct pp_hwmgr *hwmgr, enum amd_dpm_forced_le
- 				uint32_t *sclk_mask, uint32_t *mclk_mask, uint32_t *pcie_mask)
- {
- 	uint32_t percentage;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_dpm_table *golden_dpm_table = &data->golden_dpm_table;
- 	int32_t tmp_mclk;
- 	int32_t tmp_sclk;
-@@ -2655,7 +2653,7 @@ static int smu7_get_power_state_size(struct pp_hwmgr *hwmgr)
- static int smu7_vblank_too_short(struct pp_hwmgr *hwmgr,
- 				 uint32_t vblank_time_us)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t switch_limit_us;
- 
- 	switch (hwmgr->chip_id) {
-@@ -2691,7 +2689,7 @@ static int smu7_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 	struct cgs_mode_info mode_info = {0};
- 	const struct phm_clock_and_voltage_limits *max_limits;
- 	uint32_t i;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 	int32_t count;
-@@ -2890,7 +2888,7 @@ static int smu7_dpm_get_sclk(struct pp_hwmgr *hwmgr, bool low)
- static int smu7_dpm_patch_boot_state(struct pp_hwmgr *hwmgr,
- 					struct pp_hw_power_state *hw_ps)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_power_state *ps = (struct smu7_power_state *)hw_ps;
- 	ATOM_FIRMWARE_INFO_V2_2 *fw_info;
- 	uint16_t size;
-@@ -2952,13 +2950,11 @@ static int smu7_get_pp_table_entry_callback_func_v1(struct pp_hwmgr *hwmgr,
- 		void *state, struct pp_power_state *power_state,
- 		void *pp_table, uint32_t classification_flag)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
--	struct smu7_power_state  *smu7_power_state =
--			(struct smu7_power_state *)(&(power_state->hardware));
-+	struct smu7_hwmgr *data = hwmgr->backend;
-+	struct smu7_power_state  *smu7_power_state = &(power_state->hardware);
- 	struct smu7_performance_level *performance_level;
--	ATOM_Tonga_State *state_entry = (ATOM_Tonga_State *)state;
--	ATOM_Tonga_POWERPLAYTABLE *powerplay_table =
--			(ATOM_Tonga_POWERPLAYTABLE *)pp_table;
-+	ATOM_Tonga_State *state_entry = state;
-+	ATOM_Tonga_POWERPLAYTABLE *powerplay_table = pp_table;
- 	PPTable_Generic_SubTable_Header *sclk_dep_table =
- 			(PPTable_Generic_SubTable_Header *)
- 			(((unsigned long)powerplay_table) +
-@@ -3051,7 +3047,7 @@ static int smu7_get_pp_table_entry_v1(struct pp_hwmgr *hwmgr,
- {
- 	int result;
- 	struct smu7_power_state *ps;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
- 	struct phm_ppt_v1_clock_voltage_dependency_table *dep_mclk_table =
-@@ -3152,7 +3148,7 @@ static int smu7_get_pp_table_entry_callback_func_v0(struct pp_hwmgr *hwmgr,
- 					struct pp_hw_power_state *power_state,
- 					unsigned int index, const void *clock_info)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_power_state  *ps = cast_phw_smu7_power_state(power_state);
- 	const ATOM_PPLIB_CI_CLOCK_INFO *visland_clk_info = clock_info;
- 	struct smu7_performance_level *performance_level;
-@@ -3196,7 +3192,7 @@ static int smu7_get_pp_table_entry_v0(struct pp_hwmgr *hwmgr,
- {
- 	int result;
- 	struct smu7_power_state *ps;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct phm_clock_voltage_dependency_table *dep_mclk_table =
- 			hwmgr->dyn_state.vddci_dependency_on_mclk;
- 
-@@ -3345,7 +3341,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- {
- 	uint32_t sclk, mclk, activity_percent;
- 	uint32_t offset;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	/* size must be at least 4 bytes for all sensors */
- 	if (*size < 4)
-@@ -3391,7 +3387,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 		if (*size < sizeof(struct pp_gpu_power))
- 			return -EINVAL;
- 		*size = sizeof(struct pp_gpu_power);
--		return smu7_get_gpu_power(hwmgr, (struct pp_gpu_power *)value);
-+		return smu7_get_gpu_power(hwmgr, value);
- 	default:
- 		return -EINVAL;
- 	}
-@@ -3399,11 +3395,10 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 
- static int smu7_find_dpm_states_clocks_in_dpm_table(struct pp_hwmgr *hwmgr, const void *input)
- {
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+	const struct phm_set_power_state_input *states = input;
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_single_dpm_table *sclk_table = &(data->dpm_table.sclk_table);
- 	uint32_t sclk = smu7_ps->performance_levels
- 			[smu7_ps->performance_level_count - 1].engine_clock;
-@@ -3454,7 +3449,7 @@ static uint16_t smu7_get_maximum_link_speed(struct pp_hwmgr *hwmgr,
- {
- 	uint32_t i;
- 	uint32_t sclk, max_sclk = 0;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_dpm_table *dpm_table = &data->dpm_table;
- 
- 	for (i = 0; i < smu7_ps->performance_level_count; i++) {
-@@ -3477,9 +3472,8 @@ static uint16_t smu7_get_maximum_link_speed(struct pp_hwmgr *hwmgr,
- static int smu7_request_link_speed_change_before_state_change(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	const struct phm_set_power_state_input *states = input;
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	const struct smu7_power_state *smu7_nps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
- 	const struct smu7_power_state *polaris10_cps =
-@@ -3521,7 +3515,7 @@ static int smu7_request_link_speed_change_before_state_change(
- 
- static int smu7_freeze_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (0 == data->need_update_smu7_dpm_table)
- 		return 0;
-@@ -3557,11 +3551,10 @@ static int smu7_populate_and_upload_sclk_mclk_dpm_levels(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
- 	int result = 0;
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+	const struct phm_set_power_state_input *states = input;
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t sclk = smu7_ps->performance_levels
- 			[smu7_ps->performance_level_count - 1].engine_clock;
- 	uint32_t mclk = smu7_ps->performance_levels
-@@ -3702,7 +3695,7 @@ static int smu7_trim_single_dpm_states(struct pp_hwmgr *hwmgr,
- static int smu7_trim_dpm_states(struct pp_hwmgr *hwmgr,
- 		const struct smu7_power_state *smu7_ps)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t high_limit_count;
- 
- 	PP_ASSERT_WITH_CODE((smu7_ps->performance_level_count >= 1),
-@@ -3728,9 +3721,8 @@ static int smu7_generate_dpm_level_enable_mask(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
- 	int result;
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	const struct phm_set_power_state_input *states = input;
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
- 
-@@ -3750,7 +3742,7 @@ static int smu7_generate_dpm_level_enable_mask(
- 
- static int smu7_unfreeze_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (0 == data->need_update_smu7_dpm_table)
- 		return 0;
-@@ -3788,9 +3780,8 @@ static int smu7_unfreeze_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- static int smu7_notify_link_speed_change_after_state_change(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	const struct phm_set_power_state_input *states = input;
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
- 	uint16_t target_link_speed = smu7_get_maximum_link_speed(hwmgr, smu7_ps);
-@@ -3821,7 +3812,7 @@ static int smu7_notify_link_speed_change_after_state_change(
- 
- static int smu7_notify_smc_display(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (hwmgr->feature_mask & PP_VBI_TIME_SUPPORT_MASK)
- 		smum_send_msg_to_smc_with_parameter(hwmgr->smumgr,
-@@ -3832,7 +3823,7 @@ static int smu7_notify_smc_display(struct pp_hwmgr *hwmgr)
- static int smu7_set_power_state_tasks(struct pp_hwmgr *hwmgr, const void *input)
- {
- 	int tmp_result, result = 0;
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	tmp_result = smu7_find_dpm_states_clocks_in_dpm_table(hwmgr, input);
- 	PP_ASSERT_WITH_CODE((0 == tmp_result),
-@@ -3939,7 +3930,7 @@ smu7_notify_smc_display_config_after_ps_adjustment(struct pp_hwmgr *hwmgr)
- */
- static int smu7_program_display_gap(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t num_active_displays = 0;
- 	uint32_t display_gap = cgs_read_ind_register(hwmgr->device, CGS_IND_REG__SMC, ixCG_DISPLAY_GAP_CNTL);
- 	uint32_t display_gap2;
-@@ -4020,7 +4011,7 @@ static int smu7_register_internal_thermal_interrupt(struct pp_hwmgr *hwmgr,
- static bool
- smu7_check_smc_update_required_for_display_configuration(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	bool is_update_required = false;
- 	struct cgs_display_info info = {0, 0, NULL};
- 
-@@ -4084,7 +4075,7 @@ static int smu7_check_states_equal(struct pp_hwmgr *hwmgr,
- 
- static int smu7_upload_mc_firmware(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	uint32_t vbios_version;
- 	uint32_t tmp;
-@@ -4116,7 +4107,7 @@ static int smu7_upload_mc_firmware(struct pp_hwmgr *hwmgr)
- 
- static int smu7_read_clock_registers(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	data->clock_registers.vCG_SPLL_FUNC_CNTL         =
- 		cgs_read_ind_register(hwmgr->device, CGS_IND_REG__SMC, ixCG_SPLL_FUNC_CNTL);
-@@ -4160,7 +4151,7 @@ static int smu7_read_clock_registers(struct pp_hwmgr *hwmgr)
-  */
- static int smu7_get_memory_type(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	uint32_t temp;
- 
- 	temp = cgs_read_register(hwmgr->device, mmMC_SEQ_MISC0);
-@@ -4194,7 +4185,7 @@ static int smu7_enable_acpi_power_management(struct pp_hwmgr *hwmgr)
-  */
- static int smu7_init_power_gate_state(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	data->uvd_power_gated = false;
- 	data->vce_power_gated = false;
-@@ -4205,7 +4196,7 @@ static int smu7_init_power_gate_state(struct pp_hwmgr *hwmgr)
- 
- static int smu7_init_sclk_threshold(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	data->low_sclk_interrupt_threshold = 0;
- 	return 0;
-@@ -4247,7 +4238,7 @@ static int smu7_setup_asic_task(struct pp_hwmgr *hwmgr)
- static int smu7_force_clock_level(struct pp_hwmgr *hwmgr,
- 		enum pp_clock_type type, uint32_t mask)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (hwmgr->dpm_level & (AMD_DPM_FORCED_LEVEL_AUTO |
- 				AMD_DPM_FORCED_LEVEL_LOW |
-@@ -4291,7 +4282,7 @@ static int smu7_force_clock_level(struct pp_hwmgr *hwmgr,
- static int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,
- 		enum pp_clock_type type, char *buf)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_single_dpm_table *sclk_table = &(data->dpm_table.sclk_table);
- 	struct smu7_single_dpm_table *mclk_table = &(data->dpm_table.mclk_table);
- 	struct smu7_single_dpm_table *pcie_table = &(data->dpm_table.pcie_speed_table);
-@@ -4384,7 +4375,7 @@ static int smu7_get_fan_control_mode(struct pp_hwmgr *hwmgr)
- 
- static int smu7_get_sclk_od(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_single_dpm_table *sclk_table = &(data->dpm_table.sclk_table);
- 	struct smu7_single_dpm_table *golden_sclk_table =
- 			&(data->golden_dpm_table.sclk_table);
-@@ -4400,7 +4391,7 @@ static int smu7_get_sclk_od(struct pp_hwmgr *hwmgr)
- 
- static int smu7_set_sclk_od(struct pp_hwmgr *hwmgr, uint32_t value)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_single_dpm_table *golden_sclk_table =
- 			&(data->golden_dpm_table.sclk_table);
- 	struct pp_power_state  *ps;
-@@ -4426,7 +4417,7 @@ static int smu7_set_sclk_od(struct pp_hwmgr *hwmgr, uint32_t value)
- 
- static int smu7_get_mclk_od(struct pp_hwmgr *hwmgr)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_single_dpm_table *mclk_table = &(data->dpm_table.mclk_table);
- 	struct smu7_single_dpm_table *golden_mclk_table =
- 			&(data->golden_dpm_table.mclk_table);
-@@ -4442,7 +4433,7 @@ static int smu7_get_mclk_od(struct pp_hwmgr *hwmgr)
- 
- static int smu7_set_mclk_od(struct pp_hwmgr *hwmgr, uint32_t value)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_single_dpm_table *golden_mclk_table =
- 			&(data->golden_dpm_table.mclk_table);
- 	struct pp_power_state  *ps;
-@@ -4494,7 +4485,7 @@ static int smu7_get_sclks(struct pp_hwmgr *hwmgr, struct amd_pp_clocks *clocks)
- 
- static uint32_t smu7_get_mem_latency(struct pp_hwmgr *hwmgr, uint32_t clk)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 
- 	if (clk >= MEM_FREQ_LOW_LATENCY && clk < MEM_FREQ_HIGH_LATENCY)
- 		return data->mem_latency_high;
-@@ -4552,7 +4543,7 @@ static void smu7_find_min_clock_masks(struct pp_hwmgr *hwmgr,
- 		uint32_t *sclk_mask, uint32_t *mclk_mask,
- 		uint32_t min_sclk, uint32_t min_mclk)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	struct smu7_dpm_table *dpm_table = &(data->dpm_table);
- 	uint32_t i;
- 
-@@ -4572,7 +4563,7 @@ static void smu7_find_min_clock_masks(struct pp_hwmgr *hwmgr,
- static int smu7_set_power_profile_state(struct pp_hwmgr *hwmgr,
- 		struct amd_pp_profile *request)
- {
--	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+	struct smu7_hwmgr *data = hwmgr->backend;
- 	int tmp_result, result = 0;
- 	uint32_t sclk_mask = 0, mclk_mask = 0;
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
-index baddb569a8b8..5fc5e7262eea 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
-@@ -452,7 +452,7 @@ static int tf_smu7_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr,
- static int tf_smu7_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
- 		void *input, void *output, void *storage, int result)
- {
--	struct PP_TemperatureRange *range = (struct PP_TemperatureRange *)input;
-+	struct PP_TemperatureRange *range = input;
- 
- 	if (range == NULL)
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index f8f02e70b8bc..9d3c5bfeebc7 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -2994,9 +2994,8 @@ static int vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
- 	struct vega10_power_state *vega10_power_state =
- 			cast_phw_vega10_power_state(&(power_state->hardware));
- 	struct vega10_performance_level *performance_level;
--	ATOM_Vega10_State *state_entry = (ATOM_Vega10_State *)state;
--	ATOM_Vega10_POWERPLAYTABLE *powerplay_table =
--			(ATOM_Vega10_POWERPLAYTABLE *)pp_table;
-+	ATOM_Vega10_State *state_entry = state;
-+	ATOM_Vega10_POWERPLAYTABLE *powerplay_table = pp_table;
- 	ATOM_Vega10_SOCCLK_Dependency_Table *socclk_dep_table =
- 			(ATOM_Vega10_SOCCLK_Dependency_Table *)
- 			(((unsigned long)powerplay_table) +
-@@ -3305,8 +3304,7 @@ static int vega10_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- 
- static int vega10_find_dpm_states_clocks_in_dpm_table(struct pp_hwmgr *hwmgr, const void *input)
- {
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+	const struct phm_set_power_state_input *states = input;
- 	const struct vega10_power_state *vega10_ps =
- 			cast_const_phw_vega10_power_state(states->pnew_state);
- 	struct vega10_hwmgr *data =
-@@ -3396,12 +3394,10 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_levels(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
- 	int result = 0;
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+	const struct phm_set_power_state_input *states = input;
- 	const struct vega10_power_state *vega10_ps =
- 			cast_const_phw_vega10_power_state(states->pnew_state);
--	struct vega10_hwmgr *data =
--			(struct vega10_hwmgr *)(hwmgr->backend);
-+	struct vega10_hwmgr *data = hwmgr->backend;
- 	uint32_t sclk = vega10_ps->performance_levels
- 			[vega10_ps->performance_level_count - 1].gfx_clock;
- 	uint32_t mclk = vega10_ps->performance_levels
-@@ -3810,10 +3806,8 @@ static int vega10_upload_dpm_max_level(struct pp_hwmgr *hwmgr)
- static int vega10_generate_dpm_level_enable_mask(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
--	struct vega10_hwmgr *data =
--			(struct vega10_hwmgr *)(hwmgr->backend);
--	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+	struct vega10_hwmgr *data = hwmgr->backend;
-+	const struct phm_set_power_state_input *states = input;
- 	const struct vega10_power_state *vega10_ps =
- 			cast_const_phw_vega10_power_state(states->pnew_state);
- 	int i;
-@@ -4042,7 +4036,7 @@ static int vega10_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 			ret = -EINVAL;
- 		else {
- 			*size = sizeof(struct pp_gpu_power);
--			ret = vega10_get_gpu_power(hwmgr, (struct pp_gpu_power *)value);
-+			ret = vega10_get_gpu_power(hwmgr, value);
- 		}
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-index d44243441d28..4f832c607514 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-@@ -647,7 +647,7 @@ int tf_vega10_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr,
- int tf_vega10_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
- 		void *input, void *output, void *storage, int result)
- {
--	struct PP_TemperatureRange *range = (struct PP_TemperatureRange *)input;
-+	struct PP_TemperatureRange *range = input;
- 
- 	if (range == NULL)
- 		return -EINVAL;
--- 
-2.11.0
+T24gMTMuMTAuMjAxNyAxNDowNCwgTGl1LCBNb25rIHdyb3RlOgo+IFRoYXQncyB3aGF0IEkgc3Vn
+Z2VzdGVkLCBsb29rIHRvIGtub3cgaXQncyBhZ3JlZWQKClllYWgsIHRoYXQncyBmaW5lIHdpdGgg
+bWUgYXMgd2VsbC4KCkNoZWVycywKTmljb2xhaQoKPiAKPiBCUiBNb25rCj4gCj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbgo+IFNlbnQ6IDIwMTfl
+ubQxMOaciDEz5pelIDIwOjAxCj4gVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IEhh
+ZWhubGUsIE5pY29sYWkgPE5pY29sYWkuSGFlaG5sZUBhbWQuY29tPjsgTWljaGVsIETDpG56ZXIg
+PG1pY2hlbEBkYWVuemVyLm5ldD47IE9sc2FrLCBNYXJlayA8TWFyZWsuT2xzYWtAYW1kLmNvbT47
+IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFpob3UsIERh
+dmlkKENodW5NaW5nKSA8RGF2aWQxLlpob3VAYW1kLmNvbT47IE1hbywgRGF2aWQgPERhdmlkLk1h
+b0BhbWQuY29tPgo+IENjOiBSYW1pcmV6LCBBbGVqYW5kcm8gPEFsZWphbmRyby5SYW1pcmV6QGFt
+ZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRmlsaXBhcywgTWFyaW8gPE1h
+cmlvLkZpbGlwYXNAYW1kLmNvbT47IERpbmcsIFBpeGVsIDxQaXhlbC5EaW5nQGFtZC5jb20+OyBM
+aSwgQmluZ2xleSA8QmluZ2xleS5MaUBhbWQuY29tPjsgSmlhbmcsIEplcnJ5IChTVykgPEplcnJ5
+LkppYW5nQGFtZC5jb20+Cj4gU3ViamVjdDogUmU6IFREUiBhbmQgVlJBTSBsb3N0IGhhbmRsaW5n
+IGluIEtNRCAodjIpCj4gCj4gSSB0aGluayB0aGUgYmVzdCBhcHByb2FjaCBpcyB0byBrZWVwIGl0
+IGFzIGl0IGlzIHJpZ2h0IG5vdyBhbmQgZG9uJ3QgY2hhbmdlIGEgdGhpbmcuCj4gCj4gQW5kIHdl
+IGFkZCBhIG5ldyBJT0NUTCB3aXRoIGEgYml0IG1vcmUgc2FuZSByZXR1cm4gdmFsdWVzLiBFLmcu
+IGd1aWx0eSBzdGF0dXMgYW5kIFZSQU0gbG9zdCBzdGF0dXMgYXMgZmxhZ3MuCj4gCj4gUmVnYXJk
+cywKPiBDaHJpc3RpYW4uCj4gCj4gQW0gMTMuMTAuMjAxNyB1bSAxMzo1MSBzY2hyaWViIExpdSwg
+TW9uazoKPj4gUGluZyBDaHJpc3RpYW4gJiBOaWNvbGFpCj4+Cj4+IFRoaXMgY3R4X3F1ZXJ5KCkg
+aXMgYSBsaXR0bGUgYW5ub3lpbmcgdG8gbWUKPj4KPj4gQlIgTW9uawo+Pgo+PiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQo+PiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmCj4+IE9mIExpdSwgTW9uawo+PiBTZW50
+OiAyMDE35bm0MTDmnIgxM+aXpSAxNzoxOQo+PiBUbzogSGFlaG5sZSwgTmljb2xhaSA8Tmljb2xh
+aS5IYWVobmxlQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbgo+PiA8Q2hyaXN0aWFuLktvZW5p
+Z0BhbWQuY29tPjsgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD47IE9sc2FrLAo+
+PiBNYXJlayA8TWFyZWsuT2xzYWtAYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlcgo+PiA8QWxl
+eGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFpob3UsIERhdmlkKENodW5NaW5nKQo+PiA8RGF2aWQx
+Llpob3VAYW1kLmNvbT47IE1hbywgRGF2aWQgPERhdmlkLk1hb0BhbWQuY29tPgo+PiBDYzogUmFt
+aXJleiwgQWxlamFuZHJvIDxBbGVqYW5kcm8uUmFtaXJlekBhbWQuY29tPjsKPj4gYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmc7IEZpbGlwYXMsIE1hcmlvIDxNYXJpby5GaWxpcGFzQGFtZC5j
+b20+Owo+PiBEaW5nLCBQaXhlbCA8UGl4ZWwuRGluZ0BhbWQuY29tPjsgTGksIEJpbmdsZXkgPEJp
+bmdsZXkuTGlAYW1kLmNvbT47Cj4+IEppYW5nLCBKZXJyeSAoU1cpIDxKZXJyeS5KaWFuZ0BhbWQu
+Y29tPgo+PiBTdWJqZWN0OiBSRTogVERSIGFuZCBWUkFNIGxvc3QgaGFuZGxpbmcgaW4gS01EICh2
+MikKPj4KPj4gQWxyaWdodCwgaWYgTUVTQSBjYW4gaGFuZGxlIGNsb25lIGNvbnRleHQncyBWUkFN
+X0xPU1RfQ09VTlRFUiBtaXNtYXRjaAo+PiBpc3N1ZSwgbm8gbmVlZCB0byBpbnRyb2R1Y2Ugb25l
+IG1vcmUgVS9LIGluIGttZCwKPj4KPj4gU28gd2UgaGF2ZSBvbmx5IG9uZSBpc3N1ZSB1bnJlc29s
+dmVkIGFuZCBuZWVkIGRldGVybWluZWQgQVNBUDoKPj4KPj4gSG93IHRvIG1vZGlmeSBhbWRncHVf
+Y3R4X3F1ZXJ5KCkgPz8KPj4KPj4gQ3VycmVudCBkZXNpZ24gd29uJ3Qgd29yayBsYXRlciB3aXRo
+IG91ciBkaXNjdXNzaW9uIG9uIHRoZSBURFIgKHYyKSByaWdodCA/IHVubGVzcyBNRVNBIHN0b3Ag
+Y2FsbGluZyB0aGlzIGN0eF9xdWVyeSgpIGFuZCB0b3RhbGx5IGRlcGVuZCBvbiBuZXcgaW50cm9k
+dWNlZCBpbnRlcmZhY2UgdGhhdCBnZXQgbGF0ZXN0IHZyYW0tbG9zdC1jb3VudGVyIHRvIGp1ZGdl
+IENvbnRleHQgaGVhbHRoeS4KPj4KPj4gQlIgTW9uawo+Pgo+PiAtLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQo+PiBGcm9tOiBIYWVobmxlLCBOaWNvbGFpCj4+IFNlbnQ6IDIwMTflubQxMOaciDEz
+5pelIDE1OjQzCj4+IFRvOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+OyBLb2VuaWcsIENo
+cmlzdGlhbgo+PiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgTWljaGVsIETDpG56ZXIgPG1p
+Y2hlbEBkYWVuemVyLm5ldD47IE9sc2FrLAo+PiBNYXJlayA8TWFyZWsuT2xzYWtAYW1kLmNvbT47
+IERldWNoZXIsIEFsZXhhbmRlcgo+PiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFpob3Us
+IERhdmlkKENodW5NaW5nKQo+PiA8RGF2aWQxLlpob3VAYW1kLmNvbT47IE1hbywgRGF2aWQgPERh
+dmlkLk1hb0BhbWQuY29tPgo+PiBDYzogUmFtaXJleiwgQWxlamFuZHJvIDxBbGVqYW5kcm8uUmFt
+aXJlekBhbWQuY29tPjsKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IEZpbGlwYXMs
+IE1hcmlvIDxNYXJpby5GaWxpcGFzQGFtZC5jb20+Owo+PiBEaW5nLCBQaXhlbCA8UGl4ZWwuRGlu
+Z0BhbWQuY29tPjsgTGksIEJpbmdsZXkgPEJpbmdsZXkuTGlAYW1kLmNvbT47Cj4+IEppYW5nLCBK
+ZXJyeSAoU1cpIDxKZXJyeS5KaWFuZ0BhbWQuY29tPgo+PiBTdWJqZWN0OiBSZTogVERSIGFuZCBW
+UkFNIGxvc3QgaGFuZGxpbmcgaW4gS01EICh2MikKPj4KPj4gT24gMTMuMTAuMjAxNyAwNTo1Nywg
+TGl1LCBNb25rIHdyb3RlOgo+Pj4+IFRoYXQgc291bmRzIHNhbmUsIGJ1dCB1bmZvcnR1bmF0ZWx5
+IG1pZ2h0IG5vdCBiZSBwb3NzaWJsZSB3aXRoIHRoZSBleGlzdGluZyBJT0NUTC4gS2VlcCBpbiBt
+aW5kIHRoYXQgd2UgbmVlZCB0byBrZWVwIGJhY2t3YXJkIGNvbXBhdGliaWxpdHkgaGVyZS4KPj4+
+IHVuZm9ydHVuYXRlbHkgdGhlIGN1cnJlbnQgc2NoZW1lIG9uIGFtZGdwdV9jdHhfcXVlcnkoKSB3
+b27igJl0IHdvcmsKPj4+IHdpdGggVERSIGZlYXR1cmUsIHdoaWNoIGlzIGFpbSB0byBzdXBwb3J0
+IHZ1bGthbi9tZXNhL2Nsb3NlLW9nbC9yYWR2Cj4+PiDigKYKPj4+Cj4+PiBJdOKAmXMgZW51bWVy
+YXRpb24gaXMgdG9vIGxpbWl0ZWQgdG8gTUVTQSBpbXBsZW1lbnQg4oCmCj4+Pgo+Pj4gKkRvIHlv
+dSBoYXZlIGdvb2QgaWRlYSA/ICBib3RoIGtlZXAgdGhlIGNvbXBhdGliaWxpdHkgaGVyZSBhbmQg
+Z2l2ZQo+Pj4gZmxleGlibGUgPyoKPj4+Cj4+PiAqbG9va3MgbGlrZSB3ZSBuZWVkIHRvIGFkZCBh
+IG5ldyBhbWRncHVfY3R4X3F1ZXJ5XzIoKSBJTlRFUkZBQ0Ug4oCmLioKPj4+Cj4+PiDCtypBIG5l
+dyBJT0NUTCBhZGRlZCBmb3IgY29udGV4dDoqCj4+Pgo+Pj4gVm9pZCBhbWRncHVfY3R4X3JlaW5p
+dCgpewo+Pj4KPj4+ICAgICAgICAgICAgQ3R44oaSdnJhbV9sb3N0X2NvdW50ZXIgPSBhZGV24oaS
+dnJhbV9sb3N0X2NvdW50ZXI7Cj4+Pgo+Pj4gICAgICAgICAgICBDdHjihpJyZXNldF9jb3VudGVy
+ID0gYWRlduKGknJlc2V0X2NvdW50ZXI7Cj4+Pgo+Pj4gfQo+Pj4KPj4+Cj4+PiBNaG0sIGlzIHRo
+ZXJlIGFueSBhZHZhbnRhZ2UgdG8ganVzdCBjcmVhdGluZyBhIG5ldyBjb250ZXh0Pwo+Pj4KPj4+
+IFtNTF0gc29ycnksIHRoaXMgZnVuY3Rpb24gaXMgd3JvbmcsIGhlcmUgaXMgbXkgb3JpZ2luYWwg
+aWRlYToKPj4+Cj4+PiBNRVNBIGNhbiBjcmVhdGUgYSBuZXcgY3R4IGJhc2VkIG9uIGFuIG9sZCBv
+bmUsbGlrZToKPj4+Cj4+PiBDcmVhdGUgZ2wtY3R4MSwKPj4+Cj4+PiBDcmVhdGUgQk8tQSB1bmRl
+ciBnbC1jdHgxIOKApgo+Pj4KPj4+IFZSQU0gTE9TVAo+Pj4KPj4+IENyZWF0ZSBnbC1jdHgyIGZy
+b20gZ2wtY3R4MSAoc2hhcmUgbGlzdCwgSeKAmW0gbm90IGZhbWlsaWFyIHdpdGggVU1ELAo+Pj4g
+RGF2aWQgTWFvIGFuIE5pY29sYWkgY2FuIGlucHV0KQo+Pj4KPj4+IENyZWF0ZSBCTy1iIFVOREVS
+IGdsLWN0eDIg4oCmCj4+Pgo+Pj4gU3VibWl0IGpvYiB1cG9uIGdsLWN0eDIsIGJ1dCBpdCBjYW4g
+cmVmZXIgdG8gQk8tQSwKPj4+Cj4+PiBXaXRoIG91ciBkZXNpZ24sIGtlcm5lbCB3b27igJl0IGJs
+b2NrIHN1Ym1pdCBmcm9tIGNvbnRleHQyIChmcm9tCj4+PiBnbC1jdHgyKSBzaW5jZSBpdHMgdnJh
+bV9sb3N0X2NvdW50ZXIgZXF1YWxzIHRvIGxhdGVzdCBhZGV2IGNvcHkKPj4+Cj4+PiBCdXQgZ2wt
+Y3R4MiBpcyBhIGNsb25lIGZyb20gZ2wtY3R4MSwgdGhlIG9ubHkgZGlmZmVyZW5jZSBpcyB0aGUK
+Pj4+IHZyYW1fbG9zdC9ncHVfcmVzZXQgY291bnRlciBpcyB1cGRhdGVkIHRvIGxhdGVzdCBvbmUK
+Pj4+Cj4+PiBTbyBsb2dpY2FsbHkgd2Ugc2hvdWxkIGFsc28gYmxvY2sgc3VibWl0IGZyb20gZ2wt
+Y3R4MiAobWFwcGluZyB0bwo+Pj4ga2VybmVsIGNvbnRleHQyKSwgYW5kIHdlIGZhaWxlZCBkbyBz
+byDigKYKPj4+Cj4+PiBUaGF04oCZcyB3aHkgSSB3YW50IHRvIGFkZCBhIG5ldyDigJxhbWRncHVf
+Y3R4X2Nsb25l4oCdLCB3aGljaCBzaG91bGQgd29yayBsaWtlOgo+Pj4KPj4+IEludCBhbWRncHVf
+Y3R4X2Nsb25lKHN0cnVjdCBjb250ZXh0ICpvcmlnaW5hbCwgc3RydWN0IGNvbnRleHQgKm5ldykg
+ewo+Pj4KPj4+ICAgICAgICBOZXctPnZyYW1fbG9zdF9jb3VudGVyID0gb3JpZ2luYWwtPnZyYW1f
+bG9zdF9jb3VudGVyOwo+Pj4KPj4+ICAgICAgICBOZXctPmdwdV9yZXNldF9jb3VudGVyID0gb3Jp
+Z2luYWwtPmdwdV9yZXNldF9jb3VudGVyOwo+Pj4KPj4+IH0KPj4gICAgRnJvbSB0aGUgTWVzYSBw
+ZXJzcGVjdGl2ZSwgSSBkb24ndCB0aGluayB3ZSB3b3VsZCBuZWVkIHRvIHVzZSB0aGF0IGFzIGxv
+bmcgYXMgd2UgY2FuIHF1ZXJ5IHRoZSBkZXZpY2UgVlJBTSBsb3N0IGNvdW50ZXIuCj4+Cj4+IFBl
+cnNvbmFsbHksIEkgdGhpbmsgaXQncyBiZXR0ZXIgZm9yIHRoZSBVTUQgdG8gYnVpbGQgaXRzIHBv
+bGljeSBvbiBsb3dlci1sZXZlbCBwcmltaXRpdmVzIHN1Y2ggYXMgdGhlIFZSQU0gbG9zdCBjb3Vu
+dGVyIHF1ZXJ5Lgo+Pgo+PiBDaGVlcnMsCj4+IE5pY29sYWkKPj4KPj4+IEJSIE1vbmsKPj4+Cj4+
+PiAqRnJvbToqS29lbmlnLCBDaHJpc3RpYW4KPj4+ICpTZW50OiogMjAxN+W5tDEw5pyIMTLml6Ux
+OTo1MAo+Pj4gKlRvOiogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPjsgSGFlaG5sZSwgTmlj
+b2xhaQo+Pj4gPE5pY29sYWkuSGFlaG5sZUBhbWQuY29tPjsgTWljaGVsIETDpG56ZXIgPG1pY2hl
+bEBkYWVuemVyLm5ldD47IE9sc2FrLAo+Pj4gTWFyZWsgPE1hcmVrLk9sc2FrQGFtZC5jb20+OyBE
+ZXVjaGVyLCBBbGV4YW5kZXIKPj4+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgWmhvdSwg
+RGF2aWQoQ2h1bk1pbmcpCj4+PiA8RGF2aWQxLlpob3VAYW1kLmNvbT47IE1hbywgRGF2aWQgPERh
+dmlkLk1hb0BhbWQuY29tPgo+Pj4gKkNjOiogUmFtaXJleiwgQWxlamFuZHJvIDxBbGVqYW5kcm8u
+UmFtaXJlekBhbWQuY29tPjsKPj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBGaWxp
+cGFzLCBNYXJpbwo+Pj4gPE1hcmlvLkZpbGlwYXNAYW1kLmNvbT47IERpbmcsIFBpeGVsIDxQaXhl
+bC5EaW5nQGFtZC5jb20+OyBMaSwKPj4+IEJpbmdsZXkgPEJpbmdsZXkuTGlAYW1kLmNvbT47IEpp
+YW5nLCBKZXJyeSAoU1cpIDxKZXJyeS5KaWFuZ0BhbWQuY29tPgo+Pj4gKlN1YmplY3Q6KiBSZTog
+VERSIGFuZCBWUkFNIGxvc3QgaGFuZGxpbmcgaW4gS01EICh2MikKPj4+Cj4+PiBBbSAxMi4xMC4y
+MDE3IHVtIDEzOjM3IHNjaHJpZWIgTGl1LCBNb25rOgo+Pj4KPj4+ICAgICAgIEhpIHRlYW0KPj4+
+Cj4+PiAgICAgICBWZXJ5IGdvb2QsIG1hbnkgcG9saWN5IGFuZCBpbXBsZW1lbnQgYXJlIGFncmVl
+ZCwgbG9va3Mgd2Ugb25seSBoYXZlCj4+PiAgICAgICBzb21lIGFyZ3VtZW50cyBpbiBhbWRncHVf
+Y3R4X3F1ZXJ5KCksIHdlbGwgSSBhbHNvIGNvbmZ1c2VkIHdpdGggdGhlCj4+PiAgICAgICBjdXJy
+ZW50IGltcGxlbWVudCBvZiBpdCwg4pi5Cj4+Pgo+Pj4gICAgICAgRmlyc3QsIEkgd2FudCB0byBr
+bm93IGlmIHlvdSBndXlzIGFncmVlIHRoYXQgd2UqZG9uJ3QgdXBkYXRlCj4+PiAgICAgICBjdHgt
+PnJlc2V0X2NvdW50ZXIgaW4gYW1kZ3B1X2N0eF9xdWVyeSgpICo/IGJlY2F1c2UgSSB3YW50IHRv
+IG1ha2UKPj4+ICAgICAgIHRoZSBxdWVyeSByZXN1bHQgYWx3YXlzIGNvbnNpc3RlbnQgdXBvbiBh
+IGdpdmVuIGNvbnRleHQsCj4+Pgo+Pj4KPj4+IFRoYXQgc291bmRzIGxpa2UgYSBnb29kIGlkZWEg
+dG8gbWUsIGJ1dCBJJ20gbm90IHN1cmUgaWYgaXQgd29uJ3QKPj4+IGJyZWFrIHVzZXJzcGFjZSAo
+SSBkb24ndCB0aGluayBzbykuIE5pY29sYWkgb3IgTWFyZWsgbmVlZCB0byBjb21tZW50Lgo+Pj4K
+Pj4+Cj4+PiAgICAgICBTZWNvbmQsIEkgd2FudCB0byBzYXkgdGhhdCBmb3IgS0VSTkVMLCBpdCBz
+aG91bGRuJ3QgdXNlIHRoZSB0ZXJtCj4+PiAgICAgICBmcm9tIE1FU0Egb3IgT0dMIG9yIFZVTEtB
+TiwgZS5nLiBrZXJuZWwgc2hvdWxkbid0IHVzZQo+Pj4gICAgICAgQU1ER1BVX0lOTk9DRU5UX1JF
+U0VUIHRvIG1hcCB0byBHTF9JTk5PQ0VOVF9SRVNFVF9BUkIsIGV0Yy4uLgo+Pj4KPj4+ICAgICAg
+IEJlY2F1c2UgdGhhdCB3YXkga2VybmVsIHdpbGwgYmUgdmVyeSBsaW1pdGVkIHRvIGNlcnRhaW4g
+VU1ELCBzbyBJCj4+PiAgICAgICBzdWdnZXN0IHdlIHRvdGFsbHkgcmUtbmFtZSB0aGUgY29udGV4
+dCBzdGF0dXMsIGFuZCBlYWNoIFVNRCBoYXMgaXRzCj4+PiAgICAgICBvd24gd2F5IHRvIG1hcCB0
+aGUga2VybmVsIGNvbnRleHQncyByZXN1bHQgdG8KPj4+IGdsLWNvbnRleHQvdmstY29udGV4dC9l
+dGPigKYKPj4+Cj4+Pgo+Pj4gWWVzLCBjb21wbGV0ZWx5IGFncmVlLgo+Pj4KPj4+Cj4+PiAgICAg
+ICBLZXJuZWwgc2hvdWxkIG9ubHkgcHJvdmlkZSBiZWxvdyAqKkZMQUcgYml0cyoqIG9uIGEgZ2l2
+ZW4gY29udGV4dDoKPj4+Cj4+PiAgICAgICDCt0RlZmluZSBBTURHUFVfQ1RYX1NUQVRFX0dVSUxU
+WSAweDEgICAgICAgICAgICAgLy9hcyBsb25nIGFzIFREUgo+Pj4gICAgICAgZGV0ZWN0cyBhIGpv
+YiBoYW5nLCBLTUQgc2V0IHRoZSBjb250ZXh0IGJlaGluZCB0aGlzIGNvbnRleHQgYXMgImd1aWx0
+eSIKPj4+Cj4+PiAgICAgICDCt0RlZmluZSBBTURHUFVfQ1RYX1NUQVRFX1ZSQU1MT1NUICAgICAg
+ICAgMHgyICAgICAgLy9hcyBsb25nIGFzCj4+PiAgICAgICB0aGVyZSBpcyBhIFZSQU0gbG9zdCBl
+dmVudCBoaXQgYWZ0ZXIgdGhpcyBjb250ZXh0IGNyZWF0ZWQsIHdlIG1hcmsKPj4+ICAgICAgIHRo
+aXMgY29udGV4dCAiVlJBTV9MT1NUIiwgc28gVU1EIGNhbiBzYXkgdGhhdCBhbGwgQk8gdW5kZXIg
+dGhpcwo+Pj4gICAgICAgY29udGV4dCBtYXkgbG9zdCB0aGVpciBjb250ZW50LCAgc2luY2Uga2Vy
+bmVsIGhhdmUgbm8gcmVsYXRpb25zaGlwCj4+PiAgICAgICBiZXR3ZWVuIGNvbnRleHQgYW5kIEJP
+IHNvIHRoaXMgaXMgVU1EJ3MgY2FsbCB0byBqdWRnZSBpZiBhIEJPCj4+PiAgICAgICBjb25zaWRl
+cmVkICJWUkFNIGxvc3QiIG9yIG5vdC4KPj4+Cj4+PiAgICAgICDCt0RlZmluZSBBTURHUFVfQ1RY
+X1NUQVRFX1JFU0VUICAgMHgzICAgICAvL2FzIGxvbmcgYXMgdGhlcmUgaXMgYSBncHUKPj4+ICAg
+ICAgIHJlc2V0IG9jY3VycmVkIGFmdGVyIGNvbnRleHQgY3JlYXRpb24sIHRoaXMgZmxhZyBzaGFs
+bCBiZSBzZXQKPj4+Cj4+Pgo+Pj4gVGhhdCBzb3VuZHMgc2FuZSwgYnV0IHVuZm9ydHVuYXRlbHkg
+bWlnaHQgbm90IGJlIHBvc3NpYmxlIHdpdGggdGhlCj4+PiBleGlzdGluZyBJT0NUTC4gS2VlcCBp
+biBtaW5kIHRoYXQgd2UgbmVlZCB0byBrZWVwIGJhY2t3YXJkCj4+PiBjb21wYXRpYmlsaXR5IGhl
+cmUuCj4+Pgo+Pj4KPj4+ICAgICAgIFNhbXBsZSBjb2RlOgo+Pj4KPj4+ICAgICAgIEludCBhbWRn
+cHVfY3R4X3F1ZXJ5KHN0cnVjdCBhbWRncHVfY3R4X3F1ZXJ5X3Bhcm0gKiBvdXQsIOKApi4uKSB7
+Cj4+Pgo+Pj4gICAgICAgICAgICAgICAgaWYgKGN0eC0gPnZyYW1fbG9zdF9jb3VudGVyICE9IGFk
+ZXYtPnZyYW1fbG9zdF9jb3VudGVyKQo+Pj4KPj4+ICAgICAgICAgICAgICAgICAgICAgICAgb3V0
+LSA+c3RhdHVzIHw9IEFNREdQVV9DVFhfU1RBVEVfVlJBTV9MT1NUOwo+Pj4KPj4+ICAgICAgIGlm
+IChjdHgtID5yZXNldF9jb3VudGVyICE9IGFkZXbihpJyZXNldF9jb3VudGVyKSB7Cj4+Pgo+Pj4g
+ICAgICAgb3V0LSA+c3RhdHVzIHw9IEFNREdQVV9DVFhfU1RBVEVfUkVTRVQ7Cj4+Pgo+Pj4gICAg
+ICAgaWYgKGN0eC0gPmd1aWx0eSA9PSBUUlVFKQo+Pj4KPj4+ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBvdXQtID5zdGF0dXMgfD0KPj4+IEFNREdQVV9DVFhfU1RBVEVfR1VJTFRZOwo+
+Pj4KPj4+ICAgICAgIH0KPj4+Cj4+PiAgICAgICByZXR1cm4gMDsKPj4+Cj4+PiAgICAgICB9Cj4+
+Pgo+Pj4gICAgICAgRm9yIFVNRCBpZiBpdCBmb3VuZCAib3V0LnN0YXR1cyA9PSAwIiBtZWFucyB0
+aGVyZSBpcyBubyBncHUgcmVzZXQKPj4+ICAgICAgIGV2ZW4gb2NjdXJyZWQsIHRoZSBjb250ZXh0
+IGlzIHRvdGFsbHkgcmVndWxhciwKPj4+Cj4+PiAgICAgICDCtypBIG5ldyBJT0NUTCBhZGRlZCBm
+b3IgY29udGV4dDoqCj4+Pgo+Pj4gICAgICAgVm9pZCBhbWRncHVfY3R4X3JlaW5pdCgpewo+Pj4K
+Pj4+ICAgICAgICAgICAgICAgIEN0eOKGknZyYW1fbG9zdF9jb3VudGVyID0gYWRlduKGknZyYW1f
+bG9zdF9jb3VudGVyOwo+Pj4KPj4+ICAgICAgICAgICAgICAgIEN0eOKGknJlc2V0X2NvdW50ZXIg
+PSBhZGV24oaScmVzZXRfY291bnRlcjsKPj4+Cj4+PiAgICAgICB9Cj4+Pgo+Pj4KPj4+IE1obSwg
+aXMgdGhlcmUgYW55IGFkdmFudGFnZSB0byBqdXN0IGNyZWF0aW5nIGEgbmV3IGNvbnRleHQ/Cj4+
+Pgo+Pj4gUmVnYXJkcywKPj4+IENocmlzdGlhbi4KPj4+Cj4+Pgo+Pj4gICAgICAgKmlmIFVNRCBk
+ZWNpZGUgKm5vdCogdG8gcmVsZWFzZSB0aGUgImd1aWx0eSIgY29udGV4dCBidXQgY29udGludWUK
+Pj4+ICAgICAgIHVzaW5nIGl0IGFmdGVyIFVNRCBhY2tub3dsZWRnZWQgR1BVIGhhbmcgb24gY2Vy
+dGFpbiBqb2IvY29udGV4dCwgSQo+Pj4gICAgICAgc3VnZ2VzdCBVTUQgY2FsbCAiYW1kZ3B1X2N0
+eF9yZWluaXQoKSI6Kgo+Pj4KPj4+ICAgICAgIFRoYXQgd2F5IGFmdGVyIHlvdSByZS1pbml0KCkg
+dGhpcyBjb250ZXh0LCB5b3UgY2FuIGdldCB1cGRhdGVkCj4+PiAgICAgICByZXN1bHQgZnJvbSAi
+YW1kZ3B1X2N0eF9xdWVyeSIsIHdoaWNoIHdpbGwgcHJvYmFibHkgZ2l2ZSB5b3UKPj4+ICAgICAg
+ICJvdXQuc3RhdHVzID09IDAiIGFzIGxvbmcgYXMgbm8gZ3B1IHJlc2V0L3ZyYW0gbG9zdCBoaXQg
+YWZ0ZXIgcmUtaW5pdCgpLgo+Pj4KPj4+ICAgICAgIEJSIE1vbmsKPj4+Cj4+PiAgICAgICAtLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4gICAgICAgRnJvbTogS29lbmlnLCBDaHJpc3RpYW4K
+Pj4+ICAgICAgIFNlbnQ6IDIwMTflubQxMOaciDEy5pelMTg6MTMKPj4+ICAgICAgIFRvOiBIYWVo
+bmxlLCBOaWNvbGFpIDxOaWNvbGFpLkhhZWhubGVAYW1kLmNvbT4KPj4+ICAgICAgIDxtYWlsdG86
+Tmljb2xhaS5IYWVobmxlQGFtZC5jb20+OyBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIu
+bmV0Pgo+Pj4gICAgICAgPG1haWx0bzptaWNoZWxAZGFlbnplci5uZXQ+OyBMaXUsIE1vbmsgPE1v
+bmsuTGl1QGFtZC5jb20+Cj4+PiAgICAgICA8bWFpbHRvOk1vbmsuTGl1QGFtZC5jb20+OyBPbHNh
+aywgTWFyZWsgPE1hcmVrLk9sc2FrQGFtZC5jb20+Cj4+PiAgICAgICA8bWFpbHRvOk1hcmVrLk9s
+c2FrQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXIKPj4+ICAgICAgIDxBbGV4YW5kZXIuRGV1
+Y2hlckBhbWQuY29tPiA8bWFpbHRvOkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+Owo+Pj4gICAg
+ICAgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpIDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+Pj4gICAgICAg
+PG1haWx0bzpEYXZpZDEuWmhvdUBhbWQuY29tPjsgTWFvLCBEYXZpZCA8RGF2aWQuTWFvQGFtZC5j
+b20+Cj4+PiAgICAgICA8bWFpbHRvOkRhdmlkLk1hb0BhbWQuY29tPgo+Pj4gICAgICAgQ2M6IFJh
+bWlyZXosIEFsZWphbmRybyA8QWxlamFuZHJvLlJhbWlyZXpAYW1kLmNvbT4KPj4+ICAgICAgIDxt
+YWlsdG86QWxlamFuZHJvLlJhbWlyZXpAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4+PiAgICAgICA8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsg
+RmlsaXBhcywgTWFyaW8KPj4+ICAgICAgIDxNYXJpby5GaWxpcGFzQGFtZC5jb20+IDxtYWlsdG86
+TWFyaW8uRmlsaXBhc0BhbWQuY29tPjsgRGluZywgUGl4ZWwKPj4+ICAgICAgIDxQaXhlbC5EaW5n
+QGFtZC5jb20+IDxtYWlsdG86UGl4ZWwuRGluZ0BhbWQuY29tPjsgTGksIEJpbmdsZXkKPj4+ICAg
+ICAgIDxCaW5nbGV5LkxpQGFtZC5jb20+IDxtYWlsdG86QmluZ2xleS5MaUBhbWQuY29tPjsgSmlh
+bmcsIEplcnJ5IChTVykKPj4+ICAgICAgIDxKZXJyeS5KaWFuZ0BhbWQuY29tPiA8bWFpbHRvOkpl
+cnJ5LkppYW5nQGFtZC5jb20+Cj4+PiAgICAgICBTdWJqZWN0OiBSZTogVERSIGFuZCBWUkFNIGxv
+c3QgaGFuZGxpbmcgaW4gS01EICh2MikKPj4+Cj4+PiAgICAgICBBbSAxMi4xMC4yMDE3IHVtIDEx
+OjQ0IHNjaHJpZWIgTmljb2xhaSBIw6RobmxlOgo+Pj4KPj4+ICAgICAgID4gT24gMTIuMTAuMjAx
+NyAxMTozNSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+Pgo+Pj4gICAgICAgPj4gT24gMTIvMTAv
+MTcgMTE6MjMgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pgo+Pj4gICAgICAgPj4+IEFt
+IDEyLjEwLjIwMTcgdW0gMTE6MTAgc2NocmllYiBOaWNvbGFpIEjDpGhubGU6Cj4+Pgo+Pj4gICAg
+ICAgPj4+PiBPbiAxMi4xMC4yMDE3IDEwOjQ5LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4K
+Pj4+ICAgICAgID4+Pj4+PiBIb3dldmVyLCAhZ3VpbHR5ICYmIGN0eC0+cmVzZXRfY291bnRlciAh
+PQo+Pj4gYWRldi0+cmVzZXRfY291bnRlcgo+Pj4KPj4+ICAgICAgID4+Pj4+PiBkb2VzIG5vdCBp
+bXBseSB0aGF0IHRoZSBjb250ZXh0IHdhcyBsb3N0Lgo+Pj4KPj4+ICAgICAgID4+Pj4+Pgo+Pj4K
+Pj4+ICAgICAgID4+Pj4+PiBUaGUgd2F5IEkgdW5kZXJzdGFuZCBpdCwgd2Ugc2hvdWxkIHJldHVy
+bgo+Pj4KPj4+ICAgICAgID4+Pj4+PiBBTURHUFVfQ1RYX0lOTk9DRU5UX1JFU0VUIGlmICFndWls
+dHkgJiYgY3R4LT52cmFtX2xvc3RfY291bnRlciAhPSBhZGV2LT52cmFtX2xvc3RfY291bnRlci4K
+Pj4+Cj4+PiAgICAgICA+Pj4+Pj4KPj4+Cj4+PiAgICAgICA+Pj4+Pj4gQXMgZmFyIGFzIEkgdW5k
+ZXJzdGFuZCBpdCwgdGhlIGNhc2Ugb2YgIWd1aWx0eSAmJgo+Pj4KPj4+ICAgICAgID4+Pj4+PiBj
+dHgtPnJlc2V0X2NvdW50ZXIgIT0gYWRldi0+cmVzZXRfY291bnRlciAmJgo+Pj4KPj4+ICAgICAg
+ID4+Pj4+PiBjdHgtPnZyYW1fbG9zdF9jb3VudGVyID09Cj4+Pgo+Pj4gICAgICAgPj4+Pj4+IGFk
+ZXYtPnZyYW1fbG9zdF9jb3VudGVyIHNob3VsZCByZXR1cm4KPj4+IEFNREdQVV9DVFhfTk9fUkVT
+RVQsCj4+Pgo+Pj4gICAgICAgPj4+Pj4+IGFkZXYtPmJlY2F1c2UgYQo+Pj4KPj4+ICAgICAgID4+
+Pj4+PiBHUFUgcmVzZXQgb2NjdXJyZWQsIGJ1dCBpdCBkaWRuJ3QgYWZmZWN0IG91ciBjb250ZXh0
+Lgo+Pj4KPj4+ICAgICAgID4+Pj4+IEkgZGlzYWdyZWUgb24gdGhhdC4KPj4+Cj4+PiAgICAgICA+
+Pj4+Pgo+Pj4KPj4+ICAgICAgID4+Pj4+IEFNREdQVV9DVFhfSU5OT0NFTlRfUkVTRVQganVzdCBt
+ZWFucyB3aGF0IGl0IGRvZXMKPj4+IGN1cnJlbnRseSwgdGhlcmUKPj4+Cj4+PiAgICAgICA+Pj4+
+PiB3YXMgYSByZXNldCBidXQgd2UgaGF2ZW4ndCBiZWVuIGNhdXNpbmcgaXQuCj4+Pgo+Pj4gICAg
+ICAgPj4+Pj4KPj4+Cj4+PiAgICAgICA+Pj4+PiBUaGF0IHRoZSBPcGVuR0wgZXh0ZW5zaW9uIGlz
+IHNwZWNpZmllZCBvdGhlcndpc2UgaXMKPj4+IHVuZm9ydHVuYXRlLAo+Pj4KPj4+ICAgICAgID4+
+Pj4+IGJ1dCBJIHRoaW5rIHdlIHNob3VsZG4ndCB1c2UgdGhhdCBmb3IgdGhlIGtlcm5lbCBpbnRl
+cmZhY2UgaGVyZS4KPj4+Cj4+PiAgICAgICA+Pj4+IFR3byBjb3VudGVycG9pbnRzOgo+Pj4KPj4+
+ICAgICAgID4+Pj4KPj4+Cj4+PiAgICAgICA+Pj4+IDEuIFdoeSBzaG91bGQgYW55IGFwcGxpY2F0
+aW9uIGNhcmUgdGhhdCB0aGVyZSB3YXMgYSByZXNldAo+Pj4gd2hpbGUgaXQKPj4+Cj4+PiAgICAg
+ICA+Pj4+IHdhcyBpZGxlPyBUaGUgT3BlbkdMIGJlaGF2aW9yIGlzIHdoYXQgbWFrZXMgc2Vuc2Uu
+Cj4+Pgo+Pj4gICAgICAgPj4+Cj4+Pgo+Pj4gICAgICAgPj4+IFRoZSBhcHBsaWNhdGlvbiBpcyBj
+ZXJ0YWlubHkgbm90IGludGVyZXN0IGlmIGEgcmVzZXQKPj4+IGhhcHBlbmVkIG9yCj4+Pgo+Pj4g
+ICAgICAgPj4+IG5vdCwgYnV0IEkgdGhvdWdoIHRoYXQgdGhlIGRyaXZlciBzdGFjayBtaWdodCBi
+ZS4KPj4+Cj4+PiAgICAgICA+Pj4KPj4+Cj4+PiAgICAgICA+Pj4+Cj4+Pgo+Pj4gICAgICAgPj4+
+PiAyLiBBTURHUFVfQ1RYX0lOTk9DRU5UX1JFU0VUIGRvZXNuJ3QgYWN0dWFsbHkgbWVhbiBhbnl0
+aGluZwo+Pj4gdG9kYXkKPj4+Cj4+PiAgICAgICA+Pj4+IGJlY2F1c2Ugd2UgbmV2ZXIgcmV0dXJu
+IGl0IDopCj4+Pgo+Pj4gICAgICAgPj4+Pgo+Pj4KPj4+ICAgICAgID4+Pgo+Pj4KPj4+ICAgICAg
+ID4+PiBHb29kIHBvaW50Lgo+Pj4KPj4+ICAgICAgID4+Pgo+Pj4KPj4+ICAgICAgID4+Pj4gYW1k
+Z3B1X2N0eF9xdWVyeSBvbmx5IGV2ZXIgcmV0dXJucwo+Pj4gQU1ER1BVX0NUWF9VTktOT1dOX1JF
+U0VULCB3aGljaAo+Pj4KPj4+ICAgICAgID4+Pj4gaXMgaW4gbGluZSB3aXRoIHRoZSBPcGVuR0wg
+c3BlYzogd2UncmUgY29uc2VydmF0aXZlbHkKPj4+IHJldHVybmluZwo+Pj4KPj4+ICAgICAgID4+
+Pj4gdGhhdCBhIHJlc2V0IGhhcHBlbmVkIGJlY2F1c2Ugd2UgZG9uJ3Qga25vdyB3aGV0aGVyIHRo
+ZQo+Pj4gY29udGV4dCB3YXMKPj4+Cj4+PiAgICAgICA+Pj4+IGFmZmVjdGVkLCBhbmQgd2UgcmV0
+dXJuIFVOS05PV04gYmVjYXVzZSB3ZSBhbHNvIGRvbid0IGtub3cKPj4+IHdoZXRoZXIKPj4+Cj4+
+PiAgICAgICA+Pj4+IHRoZSBjb250ZXh0IHdhcyBndWlsdHkgb3Igbm90Lgo+Pj4KPj4+ICAgICAg
+ID4+Pj4KPj4+Cj4+PiAgICAgICA+Pj4+IFJldHVybmluZyBBTURHUFVfQ1RYX05PX1JFU0VUIGlu
+IHRoZSBjYXNlIG9mICFndWlsdHkgJiYKPj4+Cj4+PiAgICAgICA+Pj4+IGN0eC0+dnJhbV9sb3N0
+X2NvdW50ZXIgPT0gYWRldi0+dnJhbV9sb3N0X2NvdW50ZXIgaXMgc2ltcGx5Cj4+PiBhCj4+Pgo+
+Pj4gICAgICAgPj4+PiByZWZpbmVtZW50IGFuZCBpbXByb3ZlbWVudCBvZiB0aGUgY3VycmVudCwg
+b3Zlcmx5Cj4+PiBjb25zZXJ2YXRpdmUKPj4+Cj4+PiAgICAgICA+Pj4+IGJlaGF2aW9yLgo+Pj4K
+Pj4+ICAgICAgID4+Pgo+Pj4KPj4+ICAgICAgID4+PiBPayBsZXQncyByZWVudW1lcmF0ZSB3aGF0
+IEkgdGhpbmsgdGhlIGRpZmZlcmVudCByZXR1cm4KPj4+IHZhbHVlcyBzaG91bGQKPj4+Cj4+PiAg
+ICAgICA+Pj4gbWVhbjoKPj4+Cj4+PiAgICAgICA+Pj4KPj4+Cj4+PiAgICAgICA+Pj4gKiBBTURH
+UFVfQ1RYX0dVSUxUWV9SRVNFVAo+Pj4KPj4+ICAgICAgID4+Pgo+Pj4KPj4+ICAgICAgID4+PiBn
+dWlsdHkgaXMgc2V0IHRvIHRydWUgZm9yIHRoaXMgY29udGV4dC4KPj4+Cj4+PiAgICAgICA+Pj4K
+Pj4+Cj4+PiAgICAgICA+Pj4gKiBBTURHUFVfQ1RYX0lOTk9DRU5UX1JFU0VUCj4+Pgo+Pj4gICAg
+ICAgPj4+Cj4+Pgo+Pj4gICAgICAgPj4+IGd1aWx0eSBpcyBub3Qgc2V0IGFuZCB2cmFtX2xvc3Rf
+Y291bnRlciBoYXMgY2hhbmdlZC4KPj4+Cj4+PiAgICAgICA+Pj4KPj4+Cj4+PiAgICAgICA+Pj4g
+KiBBTURHUFVfQ1RYX1VOS05PV05fUkVTRVQKPj4+Cj4+PiAgICAgICA+Pj4KPj4+Cj4+PiAgICAg
+ICA+Pj4gZ3VpbHR5IGlzIG5vdCBzZXQgYW5kIHZyYW1fbG9zdF9jb3VudGVyIGhhcyBub3QgY2hh
+bmdlZCwgYnV0Cj4+Pgo+Pj4gICAgICAgPj4+IGdwdV9yZXNldF9jb3VudGVyIGhhcyBjaGFuZ2Vk
+Lgo+Pj4KPj4+ICAgICAgID4+Cj4+Pgo+Pj4gICAgICAgPj4gSSBkb24ndCB1bmRlcnN0YW5kIHRo
+ZSBkaXN0aW5jdGlvbiB5b3UncmUgcHJvcG9zaW5nIGJldHdlZW4KPj4+Cj4+PiAgICAgICA+PiBB
+TURHUFVfQ1RYX0lOTk9DRU5UX1JFU0VUIGFuZCBBTURHUFVfQ1RYX1VOS05PV05fUkVTRVQuIEkK
+Pj4+IHRoaW5rIGJvdGgKPj4+Cj4+PiAgICAgICA+PiBjYXNlcyB5b3UncmUgZGVzY3JpYmluZyBz
+aG91bGQgcmV0dXJuIGVpdGhlcgo+Pj4KPj4+ICAgICAgID4+IEFNREdQVV9DVFhfSU5OT0NFTlRf
+UkVTRVQsIGlmIHRoZSB2YWx1ZSBvZiBndWlsdHkgaXMKPj4+IHJlbGlhYmxlLCBvcgo+Pj4KPj4+
+ICAgICAgID4+IEFNREdQVV9DVFhfVU5LTk9XTl9SRVNFVCBpZiBpdCdzIG5vdC4KPj4+Cj4+PiAg
+ICAgICA+Cj4+Pgo+Pj4gICAgICAgPiBJIHRoaW5rIGl0J2QgbWFrZSBtb3JlIHNlbnNlIGlmIGl0
+IHdhcyBjYWxsZWQKPj4+Cj4+PiAgICAgICA+ICJBTURHUFVfQ1RYX1VOQUZGRUNURURfUkVTRVQi
+Lgo+Pj4KPj4+ICAgICAgID4KPj4+Cj4+PiAgICAgICA+IFNvOgo+Pj4KPj4+ICAgICAgID4gLSBB
+TURHUFVfQ1RYX0dVSUxUWV9SRVNFVCAtLT4gdGhlIGNvbnRleHQgd2FzIGFmZmVjdGVkIGJ5IGEK
+Pj4+IHJlc2V0LCBhbmQKPj4+Cj4+PiAgICAgICA+IHdlIGtub3cgdGhhdCBpdCdzIHRoZSBjb250
+ZXh0J3MgZmF1bHQKPj4+Cj4+PiAgICAgICA+IC0gQU1ER1BVX0NUWF9JTk5PQ0VOVF9SRVNFVCAt
+LT4gdGhlIGNvbnRleHQgd2FzIGFmZmVjdGVkIGJ5IGEKPj4+IHJlc2V0LAo+Pj4KPj4+ICAgICAg
+ID4gYW5kIHdlIGtub3cgdGhhdCBpdCAqd2Fzbid0KiB0aGUgY29udGV4dCdzIGZhdWx0IChubyBj
+b250ZXh0Cj4+PiBqb2IKPj4+Cj4+PiAgICAgICA+IGFjdGl2ZSkKPj4+Cj4+PiAgICAgICA+IC0g
+QU1ER1BVX0NUWF9VTktOT1dOX1JFU0VUIC0tPiB0aGUgY29udGV4dCB3YXMgYWZmZWN0ZWQgYnkg
+YQo+Pj4gcmVzZXQsCj4+Pgo+Pj4gICAgICAgPiBhbmQgd2UgZG9uJ3Qga25vdyB3aG8ncyByZXNw
+b25zaWJsZSAodGhpcyBjb3VsZCBiZSByZXR1cm5lZCBpbgo+Pj4gdGhlCj4+Pgo+Pj4gICAgICAg
+PiB1bmxpa2VseSBjYXNlIHdoZXJlIGNvbnRleHQgQSdzIGdmeCBqb2IgaGFzIG5vdCB5ZXQgZmlu
+aXNoZWQsCj4+PiBidXQKPj4+Cj4+PiAgICAgICA+IGNvbnRleHQgQidzIGdmeCBqb2IgaGFzIGFs
+cmVhZHkgc3RhcnRlZDsgaXQgY291bGQgYmUgdGhlIGZhdWx0Cj4+PiBvZiBBLAo+Pj4KPj4+ICAg
+ICAgID4gaXQgY291bGQgYmUgdGhlIGZhdWx0IG9mIEIgLS0gd2hpY2ggc29tZWhvdyBtYW5hZ2Vz
+IHRvIGhhbmcgYQo+Pj4gcGFydCBvZgo+Pj4KPj4+ICAgICAgID4gdGhlIGhhcmR3YXJlIHRoYXQg
+dGhlbiBwcmV2ZW50cyBBJ3Mgam9iIGZyb20gZmluaXNoaW5nIC0tIG9yCj4+PiBpdCBjb3VsZAo+
+Pj4KPj4+ICAgICAgID4gYmUgYm90aDsgYnV0IGl0J3MgYSBiaXQgYWNhZGVtaWMpCj4+Pgo+Pj4g
+ICAgICAgPiAtIEFNREdQVV9DVFhfVU5BRkZFQ1RFRF9SRVNFVCAtLT4gdGhlcmUgd2FzIGEgcmVz
+ZXQsIGJ1dCB0aGlzCj4+PiBjb250ZXh0Cj4+Pgo+Pj4gICAgICAgPiB3YXNuJ3QgYWZmZWN0ZWQK
+Pj4+Cj4+PiAgICAgICA+Cj4+Pgo+Pj4gICAgICAgPiBUaGlzIGxhc3QgdmFsdWUgd291bGQgY3Vy
+cmVudGx5IGp1c3QgYmUgZGlzY2FyZGVkIGJ5IE1lc2EKPj4+IChiZWNhdXNlIHdlCj4+Pgo+Pj4g
+ICAgICAgPiBzaG91bGQgb25seSBkaXN0dXJiIGFwcGxpY2F0aW9ucyB3aGVuIHdlIGhhdmUgdG8p
+LCBidXQgcGVyaGFwcwo+Pj4KPj4+ICAgICAgID4gc29tZWJvZHkgZWxzZSBjb3VsZCBmaW5kIGl0
+IHVzZWZ1bD8KPj4+Cj4+PiAgICAgICBZZXMsIHRoYXQncyB3aGF0IEkgaGFkIGluIG1pbmQgYXMg
+d2VsbC4KPj4+Cj4+PiAgICAgICBDYXVzZSBvdGhlcndpc2Ugd2Ugd291bGQgcmV0dXJuIEFNREdQ
+VV9DVFhfTk9fUkVTRVQgd2hpbGUgdGhlcmUKPj4+ICAgICAgIGFjdHVhbGx5IHdhcyBhIHJlc2V0
+IGFuZCB0aGF0IGNlcnRhaW5seSBkb2Vzbid0IHNvdW5kIGNvcnJlY3QgdG8gbWUuCj4+Pgo+Pj4g
+ICAgICAgUmVnYXJkcywKPj4+Cj4+PiAgICAgICBDaHJpc3RpYW4uCj4+Pgo+Pj4gICAgICAgPgo+
+Pj4KPj4+ICAgICAgID4gQ2hlZXJzLAo+Pj4KPj4+ICAgICAgID4gTmljb2xhaQo+Pj4KPj4gX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gCj4gCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
