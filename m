@@ -1,322 +1,206 @@
-From: Harsha Sharma <harshasharmaiitr@gmail.com>
-Subject: [PATCH] drm/amd/powerplay: Remove unnecessary cast on void pointer
-Date: Fri, 13 Oct 2017 13:39:02 +0530
-Message-ID: <20171013080902.3323-1-harshasharmaiitr@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, outreachy-kernel@googlegroups.com, Harsha Sharma <harshasharmaiitr@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: regression with d6c650c0a8f6f671e49553725e1db541376d95f2
+Date: Fri, 13 Oct 2017 10:16:44 +0200
+Message-ID: <b0f57d8a-de01-addd-c17d-7af25e15f36d@amd.com>
+References: <BLUPR12MB044941343D6D1A35996C7B4284480@BLUPR12MB0449.namprd12.prod.outlook.com>
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============1249167078=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BLUPR12MB044941343D6D1A35996C7B4284480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Done with following coccinelle patch
+This is a multi-part message in MIME format.
+--===============1249167078==
+Content-Type: multipart/alternative;
+ boundary="------------6B0423601D1DF3775B16DD5B"
+Content-Language: en-US
 
-@r@
-expression x;
-void* e;
-type T;
-identifier f;
-@@
-(
-  *((T *)e)
-|
-  ((T *)x)[...]
-|
-  ((T*)x)->f
-|
+This is a multi-part message in MIME format.
+--------------6B0423601D1DF3775B16DD5B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-- (T*)
-  e
-)
+Yeah, that change is actually incorrect and should be reverted.
 
-Signed-off-by: Harsha Sharma <harshasharmaiitr@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c        |  6 +++---
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c           |  8 ++++----
- drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c      |  2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c    |  6 +++---
- drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c |  2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c      | 18 +++++++++---------
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c    |  4 ++--
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c    | 12 ++++++------
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c  |  2 +-
- 9 files changed, 30 insertions(+), 30 deletions(-)
+What we really need to do is remove dropping sched_job->s_fence from 
+amd_sched_process_job() into amd_sched_job_finish() directly before the 
+call to free_job().
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-index bc839ff0bdd0..897f666622f3 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-@@ -474,7 +474,7 @@ static int cz_tf_upload_pptable_to_smu(struct pp_hwmgr *hwmgr, void *input,
- 	PP_ASSERT_WITH_CODE((0 == ret && NULL != table),
- 			    "Fail to get clock table from SMU!", return -EINVAL;);
- 
--	clock_table = (struct SMU8_Fusion_ClkTable *)table;
-+	clock_table = table;
- 
- 	/* patch clock table */
- 	PP_ASSERT_WITH_CODE((vddc_table->count <= CZ_MAX_HARDWARE_POWERLEVELS),
-@@ -868,8 +868,8 @@ static int cz_tf_update_low_mem_pstate(struct pp_hwmgr *hwmgr,
- {
- 	bool disable_switch;
- 	bool enable_low_mem_state;
--	struct cz_hwmgr *hw_data = (struct cz_hwmgr *)(hwmgr->backend);
--	const struct phm_set_power_state_input *states = (struct phm_set_power_state_input *)input;
-+	struct cz_hwmgr *hw_data = (hwmgr->backend);
-+	const struct phm_set_power_state_input *states = input;
- 	const struct cz_power_state *pnew_state = cast_const_PhwCzPowerState(states->pnew_state);
- 
- 	if (hw_data->sys_info.nb_dpm_enable) {
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-index 9547f265a8bb..5d63a1b18b39 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -469,7 +469,7 @@ int phm_reset_single_dpm_table(void *table,
- {
- 	int i;
- 
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 
- 	dpm_table->count = count > max ? max : count;
- 
-@@ -484,7 +484,7 @@ void phm_setup_pcie_table_entry(
- 	uint32_t index, uint32_t pcie_gen,
- 	uint32_t pcie_lanes)
- {
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 	dpm_table->dpm_level[index].value = pcie_gen;
- 	dpm_table->dpm_level[index].param1 = pcie_lanes;
- 	dpm_table->dpm_level[index].enabled = 1;
-@@ -494,7 +494,7 @@ int32_t phm_get_dpm_level_enable_mask_value(void *table)
- {
- 	int32_t i;
- 	int32_t mask = 0;
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 
- 	for (i = dpm_table->count; i > 0; i--) {
- 		mask = mask << 1;
-@@ -566,7 +566,7 @@ int phm_find_boot_level(void *table,
- {
- 	int result = -EINVAL;
- 	uint32_t i;
--	struct vi_dpm_table *dpm_table = (struct vi_dpm_table *)table;
-+	struct vi_dpm_table *dpm_table = table;
- 
- 	for (i = 0; i < dpm_table->count; i++) {
- 		if (value == dpm_table->dpm_level[i].value) {
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
-index 953e0c9ad7cd..676f2e8bb2ee 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
-@@ -579,7 +579,7 @@ static ATOM_GPIO_PIN_LUT *get_gpio_lookup_table(void *device)
- 	PP_ASSERT_WITH_CODE((NULL != table_address),
- 			"Error retrieving BIOS Table Address!", return NULL;);
- 
--	return (ATOM_GPIO_PIN_LUT *)table_address;
-+	return table_address;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-index c062844b15f3..05e3f5302994 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-@@ -66,7 +66,7 @@ static struct atom_voltage_objects_info_v4_1 *pp_atomfwctrl_get_voltage_info_tab
-         "Error retrieving BIOS Table Address!",
-         return NULL);
- 
--    return (struct atom_voltage_objects_info_v4_1 *)table_address;
-+    return table_address;
- }
- 
- /**
-@@ -173,7 +173,7 @@ static struct atom_gpio_pin_lut_v2_1 *pp_atomfwctrl_get_gpio_lookup_table(
- 			"Error retrieving BIOS Table Address!",
- 			return NULL);
- 
--	return (struct atom_gpio_pin_lut_v2_1 *)table_address;
-+	return table_address;
- }
- 
- static bool pp_atomfwctrl_lookup_gpio_pin(
-@@ -542,4 +542,4 @@ int pp_atomfwctrl_get_vbios_bootup_values(struct pp_hwmgr *hwmgr,
- 		boot_values->ulDCEFClk   = frequency;
- 
- 	return 0;
--}
-\ No newline at end of file
-+}
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-index 2716721e5453..e795b14eaabe 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-@@ -807,7 +807,7 @@ static const ATOM_PPLIB_POWERPLAYTABLE *get_powerplay_table(
- 		hwmgr->soft_pp_table_size = size;
- 	}
- 
--	return (const ATOM_PPLIB_POWERPLAYTABLE *)table_addr;
-+	return table_addr;
- }
- 
- int pp_tables_get_response_times(struct pp_hwmgr *hwmgr,
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index c2743233ba10..9b4b644525c9 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -2954,11 +2954,11 @@ static int smu7_get_pp_table_entry_callback_func_v1(struct pp_hwmgr *hwmgr,
- {
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 	struct smu7_power_state  *smu7_power_state =
--			(struct smu7_power_state *)(&(power_state->hardware));
-+			(&(power_state->hardware));
- 	struct smu7_performance_level *performance_level;
--	ATOM_Tonga_State *state_entry = (ATOM_Tonga_State *)state;
-+	ATOM_Tonga_State *state_entry = state;
- 	ATOM_Tonga_POWERPLAYTABLE *powerplay_table =
--			(ATOM_Tonga_POWERPLAYTABLE *)pp_table;
-+			pp_table;
- 	PPTable_Generic_SubTable_Header *sclk_dep_table =
- 			(PPTable_Generic_SubTable_Header *)
- 			(((unsigned long)powerplay_table) +
-@@ -3391,7 +3391,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 		if (*size < sizeof(struct pp_gpu_power))
- 			return -EINVAL;
- 		*size = sizeof(struct pp_gpu_power);
--		return smu7_get_gpu_power(hwmgr, (struct pp_gpu_power *)value);
-+		return smu7_get_gpu_power(hwmgr, value);
- 	default:
- 		return -EINVAL;
- 	}
-@@ -3400,7 +3400,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- static int smu7_find_dpm_states_clocks_in_dpm_table(struct pp_hwmgr *hwmgr, const void *input)
- {
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-@@ -3478,7 +3478,7 @@ static int smu7_request_link_speed_change_before_state_change(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 	const struct smu7_power_state *smu7_nps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
-@@ -3558,7 +3558,7 @@ static int smu7_populate_and_upload_sclk_mclk_dpm_levels(
- {
- 	int result = 0;
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-@@ -3729,7 +3729,7 @@ static int smu7_generate_dpm_level_enable_mask(
- {
- 	int result;
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
-@@ -3789,7 +3789,7 @@ static int smu7_notify_link_speed_change_after_state_change(
- 		struct pp_hwmgr *hwmgr, const void *input)
- {
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 	const struct smu7_power_state *smu7_ps =
- 			cast_const_phw_smu7_power_state(states->pnew_state);
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
-index baddb569a8b8..a17443d5aa61 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
-@@ -452,7 +452,7 @@ static int tf_smu7_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr,
- static int tf_smu7_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
- 		void *input, void *output, void *storage, int result)
- {
--	struct PP_TemperatureRange *range = (struct PP_TemperatureRange *)input;
-+	struct PP_TemperatureRange *range = input;
- 
- 	if (range == NULL)
- 		return -EINVAL;
-@@ -581,4 +581,4 @@ void pp_smu7_thermal_fini(struct pp_hwmgr *hwmgr)
- 	phm_destroy_table(hwmgr, &(hwmgr->set_temperature_range));
- 	phm_destroy_table(hwmgr, &(hwmgr->start_thermal_controller));
- 	return;
--}
-\ No newline at end of file
-+}
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index f8f02e70b8bc..9e82eed7e7a9 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -2994,9 +2994,9 @@ static int vega10_get_pp_table_entry_callback_func(struct pp_hwmgr *hwmgr,
- 	struct vega10_power_state *vega10_power_state =
- 			cast_phw_vega10_power_state(&(power_state->hardware));
- 	struct vega10_performance_level *performance_level;
--	ATOM_Vega10_State *state_entry = (ATOM_Vega10_State *)state;
-+	ATOM_Vega10_State *state_entry = state;
- 	ATOM_Vega10_POWERPLAYTABLE *powerplay_table =
--			(ATOM_Vega10_POWERPLAYTABLE *)pp_table;
-+			pp_table;
- 	ATOM_Vega10_SOCCLK_Dependency_Table *socclk_dep_table =
- 			(ATOM_Vega10_SOCCLK_Dependency_Table *)
- 			(((unsigned long)powerplay_table) +
-@@ -3306,7 +3306,7 @@ static int vega10_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- static int vega10_find_dpm_states_clocks_in_dpm_table(struct pp_hwmgr *hwmgr, const void *input)
- {
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	const struct vega10_power_state *vega10_ps =
- 			cast_const_phw_vega10_power_state(states->pnew_state);
- 	struct vega10_hwmgr *data =
-@@ -3397,7 +3397,7 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_levels(
- {
- 	int result = 0;
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	const struct vega10_power_state *vega10_ps =
- 			cast_const_phw_vega10_power_state(states->pnew_state);
- 	struct vega10_hwmgr *data =
-@@ -3813,7 +3813,7 @@ static int vega10_generate_dpm_level_enable_mask(
- 	struct vega10_hwmgr *data =
- 			(struct vega10_hwmgr *)(hwmgr->backend);
- 	const struct phm_set_power_state_input *states =
--			(const struct phm_set_power_state_input *)input;
-+			input;
- 	const struct vega10_power_state *vega10_ps =
- 			cast_const_phw_vega10_power_state(states->pnew_state);
- 	int i;
-@@ -4042,7 +4042,7 @@ static int vega10_read_sensor(struct pp_hwmgr *hwmgr, int idx,
- 			ret = -EINVAL;
- 		else {
- 			*size = sizeof(struct pp_gpu_power);
--			ret = vega10_get_gpu_power(hwmgr, (struct pp_gpu_power *)value);
-+			ret = vega10_get_gpu_power(hwmgr, value);
- 		}
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-index d44243441d28..4f832c607514 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_thermal.c
-@@ -647,7 +647,7 @@ int tf_vega10_thermal_start_smc_fan_control(struct pp_hwmgr *hwmgr,
- int tf_vega10_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
- 		void *input, void *output, void *storage, int result)
- {
--	struct PP_TemperatureRange *range = (struct PP_TemperatureRange *)input;
-+	struct PP_TemperatureRange *range = input;
- 
- 	if (range == NULL)
- 		return -EINVAL;
--- 
-2.11.0
+Regards,
+Christian.
+
+Am 13.10.2017 um 09:24 schrieb Liu, Monk:
+> commit d6c650c0a8f6f671e49553725e1db541376d95f2
+> Author: Nicolai Hähnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+> @@ -611,6 +611,10 @@ static int amd_sched_main(void *param)
+>
+>                 fence = sched->ops->run_job(sched_job);
+>                 amd_sched_fence_scheduled(s_fence);
+> +
+> +               /* amd_sched_process_job drops the job's reference of 
+> the fence. */
+> +               sched_job->s_fence = NULL;
+> +
+>                 if (fence) {
+>                         s_fence->parent = dma_fence_get(fence);
+>                         r = dma_fence_add_callback(fence, &s_fence->cb,
+>
+> Hi Nicolai
+>
+>
+> with this patch, you will break "amdgpu_sched_hw_job_reset()"routine:
+>
+> voidamd_sched_hw_job_reset(structamd_gpu_scheduler *sched)
+> {
+> structamd_sched_job *s_job;
+> spin_lock(&sched->job_list_lock);
+> list_for_each_entry_reverse(s_job, &sched->ring_mirror_list, node) {
+> if(s_job->s_fence->parent&&
+> fence_remove_callback(s_job->s_fence->parent,
+> &s_job->s_fence->cb)) {
+> fence_put(s_job->s_fence->parent);
+>             s_job->s_fence->parent=NULL;
+> atomic_dec(&sched->hw_rq_count);
+>         }
+>     }
+> spin_unlock(&sched->job_list_lock);
+> }
+>
+>
+> see that without sched_job->s_fence, you cannot remove the callback 
+> from its hw fence,
+>
+>
+> any idea??
+>
+>
+> BR Monk
+>
+>
+>
+
+
+--------------6B0423601D1DF3775B16DD5B
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Yeah, that change is actually incorrect
+      and should be reverted.<br>
+      <br>
+      What we really need to do is remove dropping sched_job-&gt;s_fence
+      from amd_sched_process_job() into amd_sched_job_finish() directly
+      before the call to free_job().<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 13.10.2017 um 09:24 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BLUPR12MB044941343D6D1A35996C7B4284480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <div>commit d6c650c0a8f6f671e49553725e1db541376d95f2<br>
+          Author: Nicolai Hähnle <a class="moz-txt-link-rfc2396E" href="mailto:nicolai.haehnle-5C7GfCeVMHo@public.gmane.org">&lt;nicolai.haehnle-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+          @@ -611,6 +611,10 @@ static int amd_sched_main(void *param)<br>
+           <br>
+                          fence = sched-&gt;ops-&gt;run_job(sched_job);<br>
+                          amd_sched_fence_scheduled(s_fence);<br>
+          +<br>
+          +               /* amd_sched_process_job drops the job's
+          reference of the fence. */<br>
+          +               sched_job-&gt;s_fence = NULL;<br>
+          +<br>
+                          if (fence) {<br>
+                                  s_fence-&gt;parent =
+          dma_fence_get(fence);<br>
+                                  r = dma_fence_add_callback(fence,
+          &amp;s_fence-&gt;cb,<br>
+          <br>
+        </div>
+        <p>Hi Nicolai</p>
+        <p><br>
+        </p>
+        <p>with this patch, you will break
+          "amdgpu_sched_hw_job_reset()"routine:</p>
+        <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback';font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;">
+<div><span style="color: #569cd6;">void</span><span style="color: #d4d4d4;"> </span>
+<span style="color: #dcdcaa;">amd_sched_hw_job_reset</span><span style="color: #d4d4d4;">(</span><span style="color: #569cd6;">struct</span><span style="color: #d4d4d4;"> amd_gpu_scheduler
+</span><span style="color: #d4d4d4;">*</span><span style="color: #d4d4d4;">sched)</span></div>
+<div><span style="color: #d4d4d4;">{</span></div>
+<div><span style="color: #d4d4d4;">    </span><span style="color: #569cd6;">struct</span><span style="color: #d4d4d4;"> amd_sched_job
+</span><span style="color: #d4d4d4;">*</span><span style="color: #d4d4d4;">s_job;</span></div>
+
+
+<div><span style="color: #d4d4d4;">    </span><span style="color: #dcdcaa;">spin_lock</span><span style="color: #d4d4d4;">(</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">job_list_lock</span><span style="color: #d4d4d4;">);</span></div>
+<div><span style="color: #d4d4d4;">    </span><span style="color: #dcdcaa;">list_for_each_entry_reverse</span><span style="color: #d4d4d4;">(s_job,
+</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">ring_mirror_list</span><span style="color: #d4d4d4;">, node) {</span></div>
+<div><span style="color: #d4d4d4;">        </span><span style="color: #c586c0;">if</span><span style="color: #d4d4d4;"> (s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">
+</span><span style="color: #d4d4d4;">&amp;&amp;</span></div>
+<div><span style="color: #d4d4d4;">         </span><span style="color: #dcdcaa;">fence_remove_callback</span><span style="color: #d4d4d4;">(s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">,</span></div>
+<div><span style="color: #d4d4d4;">                     </span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">cb</span><span style="color: #d4d4d4;">))
+ {</span></div>
+<div><span style="color: #d4d4d4;">            </span><span style="color: #dcdcaa;">fence_put</span><span style="color: #d4d4d4;">(s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">);</span></div>
+<div><span style="color: #d4d4d4;">            s_job-&gt;</span><span style="color: #9cdcfe;">s_fence</span><span style="color: #d4d4d4;">-&gt;</span><span style="color: #9cdcfe;">parent</span><span style="color: #d4d4d4;">
+</span><span style="color: #d4d4d4;">=</span><span style="color: #d4d4d4;"> </span>
+<span style="color: #569cd6;">NULL</span><span style="color: #d4d4d4;">;</span></div>
+<div><span style="color: #d4d4d4;">            </span><span style="color: #dcdcaa;">atomic_dec</span><span style="color: #d4d4d4;">(</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">hw_rq_count</span><span style="color: #d4d4d4;">);</span></div>
+<div><span style="color: #d4d4d4;">        }</span></div>
+<div><span style="color: #d4d4d4;">    }</span></div>
+<div><span style="color: #d4d4d4;">    </span><span style="color: #dcdcaa;">spin_unlock</span><span style="color: #d4d4d4;">(</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #d4d4d4;">sched-&gt;</span><span style="color: #9cdcfe;">job_list_lock</span><span style="color: #d4d4d4;">);</span></div>
+<div><span style="color: #d4d4d4;">}</span></div>
+</div>
+        <p><br>
+        </p>
+        <p>see that without sched_job-&gt;s_fence, you cannot remove the
+          callback from its hw fence,</p>
+        <p><br>
+        </p>
+        <p>any idea??</p>
+        <p><br>
+        </p>
+        <p>BR Monk<br>
+        </p>
+        <p><br>
+        </p>
+        <p><br>
+        </p>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------6B0423601D1DF3775B16DD5B--
+
+--===============1249167078==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1249167078==--
