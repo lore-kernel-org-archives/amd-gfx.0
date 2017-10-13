@@ -1,16 +1,19 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 4/4] drm/amdgpu: busywait KIQ register accessing
-Date: Fri, 13 Oct 2017 10:04:51 +0000
-Message-ID: <BLUPR12MB0449E6C72D64821D235E3F1184480@BLUPR12MB0449.namprd12.prod.outlook.com>
-References: <1507883180-5626-1-git-send-email-Pixel.Ding@amd.com>
- <1507883180-5626-5-git-send-email-Pixel.Ding@amd.com>
- <BLUPR12MB0449383454665A6D4916951884480@BLUPR12MB0449.namprd12.prod.outlook.com>
- <ADFC5FB7-0904-434D-A950-A699B98B2921@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: regression with d6c650c0a8f6f671e49553725e1db541376d95f2
+Date: Fri, 13 Oct 2017 12:13:58 +0200
+Message-ID: <e9d3674e-8ccf-c709-0dd9-b1fa493e086f@amd.com>
+References: <BLUPR12MB044941343D6D1A35996C7B4284480@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <b0f57d8a-de01-addd-c17d-7af25e15f36d@amd.com>
+ <BLUPR12MB04490BB257118A34DE346E0984480@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <6cf3017b-d694-1bfd-1f5a-861fd824c014@amd.com>
+ <BLUPR12MB044988754711ABD7BF66B19184480@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <BLUPR12MB044908B9AECE89D7E942EC7F84480@BLUPR12MB0449.namprd12.prod.outlook.com>
+ <53f57508-6669-82ed-1b95-011f30610e05@amd.com>
+ <BLUPR12MB0449CD46159EC28E81B823C184480@BLUPR12MB0449.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------9E3D4D9120897095357E05E5"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ADFC5FB7-0904-434D-A950-A699B98B2921-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BLUPR12MB0449CD46159EC28E81B823C184480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,169 +25,1139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Bingley" <Bingley.Li-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-V2h5IHRoZXJlIHdpbGwgYmUgcmFjaW5nIGlzc3VlID8NCg0KUG9sbGluZyBvciBzbGVlcCB3YWl0
-IG9ubHkgaGF2ZSBkaWZmZXJlbnQgcmVzdWx0IGZvciB0aGUgY2FsbGVyLCBub3QgdGhlIGpvYiBz
-Y2hlZHVsZWQgdG8gS0lRIA0KDQpUaGUgc2xlZXAgd2FpdGluZyBpcyBzeW5jaHJvbml6IHNsZWVw
-LCBpdCBqdXN0IHJlbGVhc2UgQ1BVIHJlc291cmNlIHRvIG90aGVyIHByb2Nlc3MvdGhyZWFkLCBz
-byB0aGUgb3JkZXIgaXMgZ3VhcmFudGVlZCANCg0KQlIgTW9uaw0KDQotLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQ0KRnJvbTogRGluZywgUGl4ZWwgDQpTZW50OiAyMDE35bm0MTDmnIgxM+aXpSAx
-NzozOQ0KVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnDQpDYzogTGksIEJpbmdsZXkgPEJpbmdsZXkuTGlAYW1kLmNvbT4NClN1Ympl
-Y3Q6IFJlOiBbUEFUQ0ggNC80XSBkcm0vYW1kZ3B1OiBidXN5d2FpdCBLSVEgcmVnaXN0ZXIgYWNj
-ZXNzaW5nDQoNCknigJltIGFmcmFpZCB0aGVyZeKAmXMgcmFjaW5nIGlzc3VlIGlmIHBvbGxpbmcg
-YW5kIElSUSB1c2UgY2FzZXMgYXJlIG1peGVkIGF0IHRoZSBzYW1lIHRpbWUuDQoNClRoZSBvcmln
-aW5hbCBpbXBsZW1lbnRhdGlvbiBpcyBhcyB5b3VyIHN1Z2dlc3RlZC4gSXMgdGhlcmUgYW55IGJl
-bmVmaXQgdG8ga2VlcCB0byBzbGVlcHkgdmVyc2lvbj8NCuKAlCANClNpbmNlcmVseSBZb3VycywN
-ClBpeGVsDQoNCg0KDQoNCg0KDQoNCg0KT24gMTMvMTAvMjAxNywgNTozNCBQTSwgIkxpdSwgTW9u
-ayIgPE1vbmsuTGl1QGFtZC5jb20+IHdyb3RlOg0KDQo+UGl4ZWwNCj4NCj5JIGRvbid0IHRoaW5r
-IHRoaXMgd2lsbCB3b3JrIHdlbGwsIG15IHN1Z2dlc3Rpb24gaXMgeW91IGFkZCBhIG5ldyBmdW5j
-dGlvbiBsaWtlOg0KPmFtZGdwdV93cmVnX2tpcV9idXN5KCksDQo+DQo+d2hpY2ggd2lsbCB3cml0
-ZSByZWdpc3RlcnMgdGhyb3VnaCBLSVEgYW5kIHVzZSBwb2xsaW5nL2J1c3kgd2FpdCwgYW5kIHRo
-ZSBvcmlnaW5hbCBhbWRndV93cmVnX25vX2tpcSgpIGNhbiBiZSBzdGlsbCB0aGVyZS4NCj4NCj5X
-aGVuIHlvdSBuZWVkIHRvIGRpc2FibGUgc2xlZXAgbGlrZSBpbiBJUlEgQ09OVEVYVCwgeW91IGNh
-biBjYWxsIHdyZWdfa2lxX2J1c3koKSBvciB3cmVnX25vX2tpcSgpLA0KPg0KPkJ1dCBkb24ndCBq
-dXN0IGNoYW5nZSB0aGUgb3JpZ2luYWwgZnVuY3Rpb24gDQo+DQo+QlIgTW9uaw0KPg0KPi0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91
-bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBQaXhlbCBEaW5nDQo+U2Vu
-dDogMjAxN+W5tDEw5pyIMTPml6UgMTY6MjYNCj5UbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj5DYzogRGluZywgUGl4ZWwgPFBpeGVsLkRpbmdAYW1kLmNvbT47IExpLCBCaW5nbGV5
-IDxCaW5nbGV5LkxpQGFtZC5jb20+DQo+U3ViamVjdDogW1BBVENIIDQvNF0gZHJtL2FtZGdwdTog
-YnVzeXdhaXQgS0lRIHJlZ2lzdGVyIGFjY2Vzc2luZw0KPg0KPkZyb206IHBkaW5nIDxQaXhlbC5E
-aW5nQGFtZC5jb20+DQo+DQo+UmVnaXN0ZXIgYWNjZXNzaW5nIGlzIHBlcmZvcm1lZCB3aGVuIElS
-USBpcyBkaXNhYmxlZC4gTmV2ZXIgc2xlZXAgaW4gdGhpcyBmdW5jdGlvbi4NCj4NCj5Lbm93biBp
-c3N1ZTogZGVhZCBzbGVlcCBpbiBtYW55IHVzZSBjYXNlcyBvZiBpbmRleC9kYXRhIHJlZ2lzdGVy
-cy4NCj4NCj5TaWduZWQtb2ZmLWJ5OiBwZGluZyA8UGl4ZWwuRGluZ0BhbWQuY29tPg0KPi0tLQ0K
-PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgfCAgMSArDQo+IGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICA4ICsrLS0tICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyAgfCAgMiArLQ0KPiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMgICAgfCAgMSArDQo+IGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmggICB8ICAxICsNCj4gZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYyAgIHwgNTUgKysrKysrKysrKysrKysrKysrLS0tLS0t
-LS0tLS0tDQo+IDYgZmlsZXMgY2hhbmdlZCwgNDAgaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRpb25z
-KC0pDQo+DQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj5pbmRleCBjYTIxMmVmLi5m
-OWRlNzU2IDEwMDY0NA0KPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
-DQo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj5AQCAtODg2LDYg
-Kzg4Niw3IEBAIHN0cnVjdCBhbWRncHVfa2lxIHsNCj4gCXU2NAkJCWVvcF9ncHVfYWRkcjsNCj4g
-CXN0cnVjdCBhbWRncHVfYm8JKmVvcF9vYmo7DQo+IAlzdHJ1Y3QgbXV0ZXgJCXJpbmdfbXV0ZXg7
-DQo+KwlzcGlubG9ja190ICAgICAgICAgICAgICByaW5nX2xvY2s7DQo+IAlzdHJ1Y3QgYW1kZ3B1
-X3JpbmcJcmluZzsNCj4gCXN0cnVjdCBhbWRncHVfaXJxX3NyYwlpcnE7DQo+IH07DQo+ZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPmluZGV4IGFiOGYwZDYuLjEx
-OTcyNzQgMTAwNjQ0DQo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jDQo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5j
-DQo+QEAgLTEwOSwxMCArMTA5LDggQEAgdWludDMyX3QgYW1kZ3B1X21tX3JyZWcoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZywgIHsNCj4gCXVpbnQzMl90IHJldDsNCj4g
-DQo+LQlpZiAoIShhY2NfZmxhZ3MgJiBBTURHUFVfUkVHU19OT19LSVEpICYmIGFtZGdwdV9zcmlv
-dl9ydW50aW1lKGFkZXYpKSB7DQo+LQkJQlVHX09OKGluX2ludGVycnVwdCgpKTsNCj4rCWlmICgh
-KGFjY19mbGFncyAmIEFNREdQVV9SRUdTX05PX0tJUSkgJiYgYW1kZ3B1X3NyaW92X3J1bnRpbWUo
-YWRldikpDQo+IAkJcmV0dXJuIGFtZGdwdV92aXJ0X2tpcV9ycmVnKGFkZXYsIHJlZyk7DQo+LQl9
-DQo+IA0KPiAJaWYgKChyZWcgKiA0KSA8IGFkZXYtPnJtbWlvX3NpemUgJiYgIShhY2NfZmxhZ3Mg
-JiBBTURHUFVfUkVHU19JRFgpKQ0KPiAJCXJldCA9IHJlYWRsKCgodm9pZCBfX2lvbWVtICopYWRl
-di0+cm1taW8pICsgKHJlZyAqIDQpKTsgQEAgLTEzNywxMCArMTM1LDggQEAgdm9pZCBhbWRncHVf
-bW1fd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnLCB1aW50MzJf
-dCB2LA0KPiAJCWFkZXYtPmxhc3RfbW1faW5kZXggPSB2Ow0KPiAJfQ0KPiANCj4tCWlmICghKGFj
-Y19mbGFncyAmIEFNREdQVV9SRUdTX05PX0tJUSkgJiYgYW1kZ3B1X3NyaW92X3J1bnRpbWUoYWRl
-dikpIHsNCj4tCQlCVUdfT04oaW5faW50ZXJydXB0KCkpOw0KPisJaWYgKCEoYWNjX2ZsYWdzICYg
-QU1ER1BVX1JFR1NfTk9fS0lRKSAmJiBhbWRncHVfc3Jpb3ZfcnVudGltZShhZGV2KSkNCj4gCQly
-ZXR1cm4gYW1kZ3B1X3ZpcnRfa2lxX3dyZWcoYWRldiwgcmVnLCB2KTsNCj4tCX0NCj4gDQo+IAlp
-ZiAoKHJlZyAqIDQpIDwgYWRldi0+cm1taW9fc2l6ZSAmJiAhKGFjY19mbGFncyAmIEFNREdQVV9S
-RUdTX0lEWCkpDQo+IAkJd3JpdGVsKHYsICgodm9pZCBfX2lvbWVtICopYWRldi0+cm1taW8pICsg
-KHJlZyAqIDQpKTsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9mZW5jZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMNCj5p
-bmRleCAyMDQ0NzU4Li5jNmM3YmYzIDEwMDY0NA0KPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9mZW5jZS5jDQo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2ZlbmNlLmMNCj5AQCAtMTA5LDcgKzEwOSw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9m
-ZW5jZV93cml0ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHUzMiBzZXEpDQo+ICAqIFJlYWRz
-IGEgZmVuY2UgdmFsdWUgZnJvbSBtZW1vcnkgKGFsbCBhc2ljcykuDQo+ICAqIFJldHVybnMgdGhl
-IHZhbHVlIG9mIHRoZSBmZW5jZSByZWFkIGZyb20gbWVtb3J5Lg0KPiAgKi8NCj4tc3RhdGljIHUz
-MiBhbWRncHVfZmVuY2VfcmVhZChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQo+K3UzMiBhbWRn
-cHVfZmVuY2VfcmVhZChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQo+IHsNCj4gCXN0cnVjdCBh
-bWRncHVfZmVuY2VfZHJpdmVyICpkcnYgPSAmcmluZy0+ZmVuY2VfZHJ2Ow0KPiAJdTMyIHNlcSA9
-IDA7DQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZngu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYw0KPmluZGV4IDRmNmM2
-OGYuLjQ2ZmE4OGMgMTAwNjQ0DQo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2dmeC5jDQo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5j
-DQo+QEAgLTE4Niw2ICsxODYsNyBAQCBpbnQgYW1kZ3B1X2dmeF9raXFfaW5pdF9yaW5nKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAJaW50IHIgPSAwOw0KPiANCj4gCW11dGV4X2luaXQo
-JmtpcS0+cmluZ19tdXRleCk7DQo+KwlzcGluX2xvY2tfaW5pdCgma2lxLT5yaW5nX2xvY2spOw0K
-PiANCj4gCXIgPSBhbWRncHVfd2JfZ2V0KGFkZXYsICZhZGV2LT52aXJ0LnJlZ192YWxfb2Zmcyk7
-DQo+IAlpZiAocikNCj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3JpbmcuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgNCj5p
-bmRleCBhZjhlNTQ0Li5hNGZhOTIzIDEwMDY0NA0KPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9yaW5nLmgNCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfcmluZy5oDQo+QEAgLTg5LDYgKzg5LDcgQEAgaW50IGFtZGdwdV9mZW5jZV9kcml2ZXJf
-c3RhcnRfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsICB2b2lkIGFtZGdwdV9mZW5jZV9k
-cml2ZXJfc3VzcGVuZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7ICB2b2lkIGFtZGdwdV9m
-ZW5jZV9kcml2ZXJfcmVzdW1lKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsgIGludCBhbWRn
-cHVfZmVuY2VfZW1pdChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHN0cnVjdCBkbWFfZmVuY2Ug
-KipmZW5jZSk7DQo+K3UzMiBhbWRncHVfZmVuY2VfcmVhZChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
-bmcpOw0KPiB2b2lkIGFtZGdwdV9mZW5jZV9wcm9jZXNzKHN0cnVjdCBhbWRncHVfcmluZyAqcmlu
-Zyk7ICBpbnQgYW1kZ3B1X2ZlbmNlX3dhaXRfZW1wdHkoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
-KTsgIHVuc2lnbmVkIGFtZGdwdV9mZW5jZV9jb3VudF9lbWl0dGVkKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZyk7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dmlydC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYw0KPmluZGV4
-IGFiMDUxMjEuLjk3NTdkZjEgMTAwNjQ0DQo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZpcnQuYw0KPisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92aXJ0LmMNCj5AQCAtMjIsNyArMjIsNyBAQA0KPiAgKi8NCj4gDQo+ICNpbmNsdWRlICJhbWRn
-cHUuaCINCj4tI2RlZmluZSBNQVhfS0lRX1JFR19XQUlUCTEwMDAwMA0KPisjZGVmaW5lIE1BWF9L
-SVFfUkVHX1dBSVQJMTAwMDAwMDAwIC8qIGluIHVzZWNzICovDQo+IA0KPiBpbnQgYW1kZ3B1X2Fs
-bG9jYXRlX3N0YXRpY19jc2Eoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpICB7IEBAIC0xMTMs
-MjggKzExMywzMiBAQCB2b2lkIGFtZGdwdV92aXJ0X2luaXRfc2V0dGluZyhzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikNCj4gDQo+IHVpbnQzMl90IGFtZGdwdV92aXJ0X2tpcV9ycmVnKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcpICB7DQo+LQlzaWduZWQgbG9uZyBy
-Ow0KPi0JdWludDMyX3QgdmFsOw0KPi0Jc3RydWN0IGRtYV9mZW5jZSAqZjsNCj4rCXNpZ25lZCBs
-b25nIHRpbWVvdXQgPSB1c2Vjc190b19qaWZmaWVzKE1BWF9LSVFfUkVHX1dBSVQpOw0KPisJdW5z
-aWduZWQgbG9uZyBmbGFnczsNCj4rCXVpbnQzMl90IHZhbCwgc2VxLCB3YWl0X3NlcTsNCj4gCXN0
-cnVjdCBhbWRncHVfa2lxICpraXEgPSAmYWRldi0+Z2Z4LmtpcTsNCj4gCXN0cnVjdCBhbWRncHVf
-cmluZyAqcmluZyA9ICZraXEtPnJpbmc7DQo+IA0KPiAJQlVHX09OKCFyaW5nLT5mdW5jcy0+ZW1p
-dF9ycmVnKTsNCj4gDQo+LQltdXRleF9sb2NrKCZraXEtPnJpbmdfbXV0ZXgpOw0KPisJc3Bpbl9s
-b2NrX2lycXNhdmUoJmtpcS0+cmluZ19sb2NrLCBmbGFncyk7DQo+IAlhbWRncHVfcmluZ19hbGxv
-YyhyaW5nLCAzMik7DQo+IAlhbWRncHVfcmluZ19lbWl0X3JyZWcocmluZywgcmVnKTsNCj4tCWFt
-ZGdwdV9mZW5jZV9lbWl0KHJpbmcsICZmKTsNCj4rCXdhaXRfc2VxID0gKytyaW5nLT5mZW5jZV9k
-cnYuc3luY19zZXE7DQo+KwlhbWRncHVfcmluZ19lbWl0X2ZlbmNlKHJpbmcsIHJpbmctPmZlbmNl
-X2Rydi5ncHVfYWRkciwNCj4rCQkJICAgICAgIHdhaXRfc2VxLCBBTURHUFVfRkVOQ0VfRkxBR19J
-TlQpOw0KPiAJYW1kZ3B1X3JpbmdfY29tbWl0KHJpbmcpOw0KPi0JbXV0ZXhfdW5sb2NrKCZraXEt
-PnJpbmdfbXV0ZXgpOw0KPi0NCj4tCXIgPSBkbWFfZmVuY2Vfd2FpdF90aW1lb3V0KGYsIGZhbHNl
-LCBtc2Vjc190b19qaWZmaWVzKE1BWF9LSVFfUkVHX1dBSVQpKTsNCj4tCWRtYV9mZW5jZV9wdXQo
-Zik7DQo+LQlpZiAociA8IDEpIHsNCj4tCQlEUk1fRVJST1IoIndhaXQgZm9yIGtpcSBmZW5jZSBl
-cnJvcjogJWxkLlxuIiwgcik7DQo+KwlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZraXEtPnJpbmdf
-bG9jaywgZmxhZ3MpOw0KPisJZG8gew0KPisJCXNlcSA9IGFtZGdwdV9mZW5jZV9yZWFkKHJpbmcp
-Ow0KPisJCXVkZWxheSg1KTsNCj4rCQl0aW1lb3V0IC09IDU7DQo+Kwl9IHdoaWxlIChzZXEgPCB3
-YWl0X3NlcSAmJiB0aW1lb3V0ID4gMCk7DQo+Kw0KPisJaWYgKHRpbWVvdXQgPCAxKSB7DQo+KwkJ
-RFJNX0VSUk9SKCJ3YWl0IGZvciBraXEgZmVuY2UgZXJyb3I6ICVsZFxuIiwgdGltZW91dCk7DQo+
-IAkJcmV0dXJuIH4wOw0KPiAJfQ0KPi0NCj4gCXZhbCA9IGFkZXYtPndiLndiW2FkZXYtPnZpcnQu
-cmVnX3ZhbF9vZmZzXTsNCj4gDQo+IAlyZXR1cm4gdmFsOw0KPkBAIC0xNDIsMjQgKzE0NiwzMyBA
-QCB1aW50MzJfdCBhbWRncHVfdmlydF9raXFfcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgdWludDMyX3QgcmVnKQ0KPiANCj4gdm9pZCBhbWRncHVfdmlydF9raXFfd3JlZyhzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnLCB1aW50MzJfdCB2KSAgew0KPi0Jc2ln
-bmVkIGxvbmcgcjsNCj4rCXNpZ25lZCBsb25nIHRpbWVvdXQgPSB1c2Vjc190b19qaWZmaWVzKE1B
-WF9LSVFfUkVHX1dBSVQpOw0KPisJdW5zaWduZWQgbG9uZyBmbGFnczsNCj4rCXVpbnQzMl90IHNl
-cSwgd2FpdF9zZXE7DQo+IAlzdHJ1Y3QgZG1hX2ZlbmNlICpmOw0KPiAJc3RydWN0IGFtZGdwdV9r
-aXEgKmtpcSA9ICZhZGV2LT5nZngua2lxOw0KPiAJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0g
-JmtpcS0+cmluZzsNCj4gDQo+IAlCVUdfT04oIXJpbmctPmZ1bmNzLT5lbWl0X3dyZWcpOw0KPiAN
-Cj4tCW11dGV4X2xvY2soJmtpcS0+cmluZ19tdXRleCk7DQo+KwlzcGluX2xvY2tfaXJxc2F2ZSgm
-a2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsNCj4gCWFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDMyKTsN
-Cj4gCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCByZWcsIHYpOw0KPi0JYW1kZ3B1X2ZlbmNl
-X2VtaXQocmluZywgJmYpOw0KPisJLyogYW1kZ3B1X2ZlbmNlX2VtaXQocmluZywgJmYpOyAqLw0K
-PisJd2FpdF9zZXEgPSArK3JpbmctPmZlbmNlX2Rydi5zeW5jX3NlcTsNCj4rCWFtZGdwdV9yaW5n
-X2VtaXRfZmVuY2UocmluZywgcmluZy0+ZmVuY2VfZHJ2LmdwdV9hZGRyLA0KPisJCQkgICAgICAg
-d2FpdF9zZXEsIEFNREdQVV9GRU5DRV9GTEFHX0lOVCk7DQo+IAlhbWRncHVfcmluZ19jb21taXQo
-cmluZyk7DQo+LQltdXRleF91bmxvY2soJmtpcS0+cmluZ19tdXRleCk7DQo+KwlzcGluX3VubG9j
-a19pcnFyZXN0b3JlKCZraXEtPnJpbmdfbG9jaywgZmxhZ3MpOw0KPisNCj4rCWRvIHsNCj4rCQlz
-ZXEgPSBhbWRncHVfZmVuY2VfcmVhZChyaW5nKTsNCj4rCQl1ZGVsYXkoNSk7DQo+KwkJdGltZW91
-dCAtPSA1Ow0KPisJfSB3aGlsZSAoc2VxIDwgd2FpdF9zZXEgJiYgdGltZW91dCA+IDApOw0KPiAN
-Cj4tCXIgPSBkbWFfZmVuY2Vfd2FpdF90aW1lb3V0KGYsIGZhbHNlLCBtc2Vjc190b19qaWZmaWVz
-KE1BWF9LSVFfUkVHX1dBSVQpKTsNCj4tCWlmIChyIDwgMSkNCj4tCQlEUk1fRVJST1IoIndhaXQg
-Zm9yIGtpcSBmZW5jZSBlcnJvcjogJWxkLlxuIiwgcik7DQo+LQlkbWFfZmVuY2VfcHV0KGYpOw0K
-PisJaWYgKHRpbWVvdXQgPCAxKQ0KPisJCURSTV9FUlJPUigid2FpdCBmb3Iga2lxIGZlbmNlIGVy
-cm9yOiAlbGRcbiIsIHRpbWVvdXQpOw0KPiB9DQo+IA0KPiAvKioNCj4tLQ0KPjIuOS41DQo+DQo+
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj5hbWQtZ2Z4
-IG1haWxpbmcgbGlzdA0KPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+aHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--------------9E3D4D9120897095357E05E5
+Content-Type: multipart/alternative;
+ boundary="------------97498484B1290876880B116A"
+
+--------------97498484B1290876880B116A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Good point as well. How about the attached version?
+
+This time we keep an extra reference in amd_sched_process_job() until we 
+are sure that we don't need the s_fence any more.
+
+Regards,
+Christian.
+
+Am 13.10.2017 um 11:13 schrieb Liu, Monk:
+>
+> your patch looks good,  do you think we should also do this:
+>
+>
+>  void amd_sched_fence_scheduled(struct amd_sched_fence *fence)
+>  {
+> -       int ret = fence_signal(&fence->scheduled);
+> +       int ret;
+> +
+> +       fence_get(&fence->scheduled;)
+> +       ret = fence_signal(&fence->scheduled);
+>
+>         if (!ret)
+>                 FENCE_TRACE(&fence->scheduled, "signaled from irq 
+> context\n");
+>         else
+>                 FENCE_TRACE(&fence->scheduled, "was already signaled\n");
+> +       fence_put(&fence->scheduled);
+>  }
+>
+>
+> ------------------------------------------------------------------------
+> *From:* Koenig, Christian
+> *Sent:* Friday, October 13, 2017 5:00:27 PM
+> *To:* Liu, Monk; Nicolai Hähnle; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: regression with d6c650c0a8f6f671e49553725e1db541376d95f2
+>>
+>> There is chance that free_job() called before that 
+>> “trace_amd_sched_process_job”, correct?
+>>
+> Correct, but that is harmless.
+>
+> Take a look what trace_amd_sched_process_job actually does, it just 
+> prints the pointer of the fence structure (but the pointer might be 
+> stale at this point).
+>
+> Nevertheless you are right that this is really ugly.
+>
+> How about the attached patch to fix the issue?
+>
+> Regards,
+> Christian.
+>
+> Am 13.10.2017 um 10:51 schrieb Liu, Monk:
+>>
+>> The free_job() is called in sched_job_finish() which is queued on a 
+>> WORK and scheduled from that “amd_sched_fence_finished()”
+>>
+>> So the finishing timing of free_job() is asynchronized with 
+>> sched_process_job()
+>>
+>> There is chance that free_job() called before that 
+>> “trace_amd_sched_process_job”, correct?
+>>
+>> And if so the s_fence referred by it maybe a wild pointer
+>>
+>> BR Monk
+>>
+>> *From:*Liu, Monk
+>> *Sent:* 2017年10月13日16:49
+>> *To:* Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; Nicolai Hähnle 
+>> <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> *Subject:* RE: regression with d6c650c0a8f6f671e49553725e1db541376d95f2
+>>
+>> No that’s not true
+>>
+>> The free_job() is called in sched_job_finish() which is queued on a 
+>> WORK and scheduled from that “amd_sched_fence_finished()”
+>>
+>> So the finishing timing of free_job() is asynchronized with 
+>> sched_process_job()
+>>
+>> How can you sure free_job() must before “trace_amd_sched_process_job”?
+>>
+>> *From:*Koenig, Christian
+>> *Sent:* 2017年10月13日16:43
+>> *To:* Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>; Nicolai 
+>> Hähnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; 
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>> *Subject:* Re: regression with d6c650c0a8f6f671e49553725e1db541376d95f2
+>>
+>> The free_job() callback is called only way after the job has finished.
+>>
+>> That is one change actually made by you to the code :)
+>>
+>> Christian.
+>>
+>> Am 13.10.2017 um 10:39 schrieb Liu, Monk:
+>>
+>>     I doubt it would always work fine…
+>>
+>>     First, we have FENCE_TRACE reference s_fence->finished after
+>>     “fence_signal(&fence->finished)”
+>>
+>>     Second, we have trace_amd_sched_proess_job(s_fence) after
+>>     “amd_sched_fence_finished()”,
+>>
+>>     If you put the finished before free_job() and by coincidence the
+>>     job_finish() get very soon executed you’ll have odds to hit wild
+>>     pointer on above two cases
+>>
+>>     BR Monk
+>>
+>>     *From:*Koenig, Christian
+>>     *Sent:* 2017年10月13日16:17
+>>     *To:* Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org> <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>;
+>>     Nicolai Hähnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> <mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>;
+>>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>>     *Subject:* Re: regression with
+>>     d6c650c0a8f6f671e49553725e1db541376d95f2
+>>
+>>     Yeah, that change is actually incorrect and should be reverted.
+>>
+>>     What we really need to do is remove dropping sched_job->s_fence
+>>     from amd_sched_process_job() into amd_sched_job_finish() directly
+>>     before the call to free_job().
+>>
+>>     Regards,
+>>     Christian.
+>>
+>>     Am 13.10.2017 um 09:24 schrieb Liu, Monk:
+>>
+>>         commit d6c650c0a8f6f671e49553725e1db541376d95f2
+>>         Author: Nicolai Hähnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+>>         <mailto:nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+>>         @@ -611,6 +611,10 @@ static int amd_sched_main(void *param)
+>>
+>>                         fence = sched->ops->run_job(sched_job);
+>>         amd_sched_fence_scheduled(s_fence);
+>>         +
+>>         +               /* amd_sched_process_job drops the job's
+>>         reference of the fence. */
+>>         +               sched_job->s_fence = NULL;
+>>         +
+>>                         if (fence) {
+>>                                 s_fence->parent = dma_fence_get(fence);
+>>                                 r = dma_fence_add_callback(fence,
+>>         &s_fence->cb,
+>>
+>>         Hi Nicolai
+>>
+>>         with this patch, you will break
+>>         "amdgpu_sched_hw_job_reset()"routine:
+>>
+>>         void
+>>
+>>         amd_sched_hw_job_reset(structamd_gpu_scheduler
+>>
+>>         *sched)
+>>
+>>         {
+>>
+>>         structamd_sched_job
+>>
+>>         *s_job;
+>>
+>>         spin_lock(&sched->job_list_lock);
+>>
+>>         list_for_each_entry_reverse(s_job,
+>>
+>>         &sched->ring_mirror_list, node) {
+>>
+>>         if(s_job->s_fence->parent
+>>
+>>         &&
+>>
+>>         fence_remove_callback(s_job->s_fence->parent,
+>>
+>>         &s_job->s_fence->cb))
+>>
+>>         {
+>>
+>>         fence_put(s_job->s_fence->parent);
+>>
+>>                     s_job->s_fence->parent
+>>
+>>         =
+>>
+>>         NULL;
+>>
+>>         atomic_dec(&sched->hw_rq_count);
+>>
+>>                 }
+>>
+>>             }
+>>
+>>         spin_unlock(&sched->job_list_lock);
+>>
+>>         }
+>>
+>>         see that without sched_job->s_fence, you cannot remove the
+>>         callback from its hw fence,
+>>
+>>         any idea??
+>>
+>>         BR Monk
+>>
+>
+
+
+--------------97498484B1290876880B116A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Good point as well. How about the
+      attached version?<br>
+      <br>
+      This time we keep an extra reference in amd_sched_process_job()
+      until we are sure that we don't need the s_fence any more.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 13.10.2017 um 11:13 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BLUPR12MB0449CD46159EC28E81B823C184480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <p>your patch looks good,  do you think we should also do this:</p>
+        <p><br>
+        </p>
+        <div> void amd_sched_fence_scheduled(struct amd_sched_fence
+          *fence)<br>
+           {<br>
+          -       int ret = fence_signal(&amp;fence-&gt;scheduled);<br>
+          +       int ret;<br>
+          +<br>
+          +       fence_get(&amp;fence-&gt;scheduled;)<br>
+          +       ret = fence_signal(&amp;fence-&gt;scheduled);<br>
+           <br>
+                  if (!ret)<br>
+                          FENCE_TRACE(&amp;fence-&gt;scheduled,
+          "signaled from irq context\n");<br>
+                  else<br>
+                          FENCE_TRACE(&amp;fence-&gt;scheduled, "was
+          already signaled\n");<br>
+          +       fence_put(&amp;fence-&gt;scheduled);<br>
+           }</div>
+        <br>
+        <p><br>
+        </p>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          face="Calibri, sans-serif" color="#000000"><b>From:</b>
+          Koenig, Christian<br>
+          <b>Sent:</b> Friday, October 13, 2017 5:00:27 PM<br>
+          <b>To:</b> Liu, Monk; Nicolai Hähnle;
+          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+          <b>Subject:</b> Re: regression with
+          d6c650c0a8f6f671e49553725e1db541376d95f2</font>
+        <div> </div>
+      </div>
+      <div>
+        <div class="moz-cite-prefix">
+          <blockquote type="cite">
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">There is chance that free_job() called
+                before that  </span><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext">“<span
+                  lang="EN-US">trace_amd_sched_process_job</span>”<span
+                  lang="EN-US">, correct?</span></span></p>
+            <span
+              style="font-size:10.5pt;font-family:等线;color:windowtext"
+              lang="EN-US"></span></blockquote>
+          Correct, but that is harmless.<br>
+          <br>
+          Take a look what trace_amd_sched_process_job actually does, it
+          just prints the pointer of the fence structure (but the
+          pointer might be stale at this point).<br>
+          <br>
+          Nevertheless you are right that this is really ugly.<br>
+          <br>
+          How about the attached patch to fix the issue?<br>
+          <br>
+          Regards,<br>
+          Christian. <br>
+          <br>
+          Am 13.10.2017 um 10:51 schrieb Liu, Monk:<br>
+        </div>
+        <blockquote type="cite"
+cite="mid:BLUPR12MB044908B9AECE89D7E942EC7F84480-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+          <meta name="Generator" content="Microsoft Word 15 (filtered
+            medium)">
+          <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:等线;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@等线";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Courier New \;color\:\#D4D4D4";
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Courier New \;color\:\#569CD6";
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Courier New \;color\:\#DCDCAA";
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Courier New \;color\:\#9CDCFE";
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Courier New \;color\:\#C586C0";
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:宋体;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:宋体;
+	color:black;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:等线;
+	color:windowtext;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:等线;
+	color:windowtext;}
+span.EmailStyle22
+	{mso-style-type:personal-reply;
+	font-family:等线;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+          <div class="WordSection1">
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">The free_job() is called in
+                sched_job_finish() which is queued on a WORK and
+                scheduled from that
+              </span><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext">“<span
+                  lang="EN-US">amd_sched_fence_finished()</span>”<span
+                  lang="EN-US"><o:p></o:p></span></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">So the finishing timing of free_job() is
+                asynchronized with sched_process_job()<o:p></o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">There is chance that free_job() called
+                before that  </span><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext">“<span
+                  lang="EN-US">trace_amd_sched_process_job</span>”<span
+                  lang="EN-US">, correct?<o:p></o:p></span></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">And if so the s_fence referred by it maybe
+                a wild pointer
+                <o:p></o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">BR Monk<o:p></o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <div>
+              <div style="border:none;border-top:solid #E1E1E1
+                1.0pt;padding:3.0pt 0cm 0cm 0cm">
+                <p class="MsoNormal"><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                      lang="EN-US">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US"> Liu, Monk
+                    <br>
+                    <b>Sent:</b> 2017</span><span
+                    style="font-size:11.0pt;color:windowtext">年</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US">10</span><span
+                    style="font-size:11.0pt;color:windowtext">月</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US">13</span><span
+                    style="font-size:11.0pt;color:windowtext">日</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US"> 16:49<br>
+                    <b>To:</b> Koenig, Christian <a
+                      class="moz-txt-link-rfc2396E"
+                      href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org"
+                      moz-do-not-send="true">
+                      &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>; Nicolai
+                    Hähnle <a class="moz-txt-link-rfc2396E"
+                      href="mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                      moz-do-not-send="true">
+                      &lt;nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>; <a
+                      class="moz-txt-link-abbreviated"
+                      href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                      moz-do-not-send="true">
+                      amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                    <b>Subject:</b> RE: regression with
+                    d6c650c0a8f6f671e49553725e1db541376d95f2<o:p></o:p></span></p>
+              </div>
+            </div>
+            <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">No that</span><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext">’<span
+                  lang="EN-US">s not true<o:p></o:p></span></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">The free_job() is called in
+                sched_job_finish() which is queued on a WORK and
+                scheduled from that
+              </span><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext">“<span
+                  lang="EN-US">amd_sched_fence_finished()</span>”<span
+                  lang="EN-US"><o:p></o:p></span></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">So the finishing timing of free_job() is
+                asynchronized with sched_process_job()<o:p></o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US">How can you sure free_job() must before
+              </span><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext">“<span
+                  lang="EN-US">trace_amd_sched_process_job</span>”<span
+                  lang="EN-US"> ?<o:p></o:p></span></span></p>
+            <p class="MsoNormal"><span
+                style="font-size:10.5pt;font-family:等线;color:windowtext"
+                lang="EN-US"><o:p> </o:p></span></p>
+            <div>
+              <div style="border:none;border-top:solid #E1E1E1
+                1.0pt;padding:3.0pt 0cm 0cm 0cm">
+                <p class="MsoNormal"><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                      lang="EN-US">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US"> Koenig, Christian
+                    <br>
+                    <b>Sent:</b> 2017</span><span
+                    style="font-size:11.0pt;color:windowtext">年</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US">10</span><span
+                    style="font-size:11.0pt;color:windowtext">月</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US">13</span><span
+                    style="font-size:11.0pt;color:windowtext">日</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                    lang="EN-US"> 16:43<br>
+                    <b>To:</b> Liu, Monk &lt;<a
+                      href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org"
+                      moz-do-not-send="true">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+                    Nicolai Hähnle &lt;<a
+                      href="mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                      moz-do-not-send="true">nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;;
+                    <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                      moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                    <b>Subject:</b> Re: regression with
+                    d6c650c0a8f6f671e49553725e1db541376d95f2<o:p></o:p></span></p>
+              </div>
+            </div>
+            <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
+            <div>
+              <p class="MsoNormal"><span lang="EN-US">The free_job()
+                  callback is called only way after the job has
+                  finished.<br>
+                  <br>
+                  That is one change actually made by you to the code :)<br>
+                  <br>
+                  Christian.<br>
+                  <br>
+                  Am 13.10.2017 um 10:39 schrieb Liu, Monk:<o:p></o:p></span></p>
+            </div>
+            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US">I doubt it would always work fine</span><span
+style="font-size:10.5pt;font-family:等线;color:windowtext">…</span><span
+                  lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US">First, we have FENCE_TRACE reference
+                  s_fence-&gt;finished after
+                </span><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext">“<span
+                    lang="EN-US">fence_signal(&amp;fence-&gt;finished)</span>”</span><span
+                  lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US">Second, we have
+                  trace_amd_sched_proess_job(s_fence) after
+                </span><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext">“<span
+                    lang="EN-US">amd_sched_fence_finished()</span>”<span
+                    lang="EN-US">,</span></span><span lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US">If you put the finished before free_job()
+                  and by coincidence the job_finish() get very soon
+                  executed you</span><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext">’<span
+                    lang="EN-US">ll have odds to hit wild pointer on
+                    above two cases</span></span><span lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US">BR Monk</span><span lang="EN-US"><o:p></o:p></span></p>
+              <p class="MsoNormal"><span
+                  style="font-size:10.5pt;font-family:等线;color:windowtext"
+                  lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+              <div>
+                <div style="border:none;border-top:solid #E1E1E1
+                  1.0pt;padding:3.0pt 0cm 0cm 0cm">
+                  <p class="MsoNormal"><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                        lang="EN-US">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                      lang="EN-US"> Koenig, Christian
+                      <br>
+                      <b>Sent:</b> 2017</span><span
+                      style="font-size:11.0pt;color:windowtext">年</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                      lang="EN-US">10</span><span
+                      style="font-size:11.0pt;color:windowtext">月</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                      lang="EN-US">13</span><span
+                      style="font-size:11.0pt;color:windowtext">日</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext"
+                      lang="EN-US"> 16:17<br>
+                      <b>To:</b> Liu, Monk <a
+                        href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org"
+                        moz-do-not-send="true">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                      Nicolai Hähnle
+                      <a href="mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                        moz-do-not-send="true">&lt;nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>;
+                      <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                        moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                      <b>Subject:</b> Re: regression with
+                      d6c650c0a8f6f671e49553725e1db541376d95f2</span><span
+                      lang="EN-US"><o:p></o:p></span></p>
+                </div>
+              </div>
+              <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
+              <div>
+                <p class="MsoNormal"><span lang="EN-US">Yeah, that
+                    change is actually incorrect and should be reverted.<br>
+                    <br>
+                    What we really need to do is remove dropping
+                    sched_job-&gt;s_fence from amd_sched_process_job()
+                    into amd_sched_job_finish() directly before the call
+                    to free_job().<br>
+                    <br>
+                    Regards,<br>
+                    Christian.<br>
+                    <br>
+                    Am 13.10.2017 um 09:24 schrieb Liu, Monk:<o:p></o:p></span></p>
+              </div>
+              <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+                <div id="divtagdefaultwrapper">
+                  <div>
+                    <p class="MsoNormal" style="margin-bottom:12.0pt"><span
+style="font-family:&quot;Calibri&quot;,sans-serif" lang="EN-US">commit
+                        d6c650c0a8f6f671e49553725e1db541376d95f2<br>
+                        Author: Nicolai Hähnle <a
+                          href="mailto:nicolai.haehnle-5C7GfCeVMHo@public.gmane.org"
+                          moz-do-not-send="true">
+                          &lt;nicolai.haehnle-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                        @@ -611,6 +611,10 @@ static int
+                        amd_sched_main(void *param)<br>
+                         <br>
+                                        fence =
+                        sched-&gt;ops-&gt;run_job(sched_job);<br>
+                                       
+                        amd_sched_fence_scheduled(s_fence);<br>
+                        +<br>
+                        +               /* amd_sched_process_job drops
+                        the job's reference of the fence. */<br>
+                        +               sched_job-&gt;s_fence = NULL;<br>
+                        +<br>
+                                        if (fence) {<br>
+                                                s_fence-&gt;parent =
+                        dma_fence_get(fence);<br>
+                                                r =
+                        dma_fence_add_callback(fence,
+                        &amp;s_fence-&gt;cb,</span><span lang="EN-US"><o:p></o:p></span></p>
+                  </div>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US">Hi Nicolai</span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US">with this patch, you will break
+                      "amdgpu_sched_hw_job_reset()"routine:</span><span
+                      lang="EN-US"><o:p></o:p></span></p>
+                  <div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#569CD6&quot;,serif" lang="EN-US">void</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">
+                        </span><span lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#DCDCAA&quot;,serif" lang="EN-US">amd_sched_hw_job_reset</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">(</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#569CD6&quot;,serif" lang="EN-US">struct</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">
+                          amd_gpu_scheduler</span><span lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">*sched)</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">{</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">    </span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#569CD6&quot;,serif" lang="EN-US">struct</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">
+                          amd_sched_job</span><span lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">*s_job;</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">    </span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#DCDCAA&quot;,serif" lang="EN-US">spin_lock</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">(&amp;sched-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">job_list_lock</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">);</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">    </span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#DCDCAA&quot;,serif" lang="EN-US">list_for_each_entry_reverse</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">(s_job,</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">&amp;sched-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">ring_mirror_list</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">,
+                          node) {</span><span lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">        </span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#C586C0&quot;,serif" lang="EN-US">if</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">
+                          (s_job-&gt;</span><span
+                          style="font-size:10.5pt;font-family:&quot;Courier
+                          New ;color:#9CDCFE&quot;,serif" lang="EN-US">s_fence</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">parent</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">&amp;&amp;</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">        
+                        </span><span
+                          style="font-size:10.5pt;font-family:&quot;Courier
+                          New ;color:#DCDCAA&quot;,serif" lang="EN-US">fence_remove_callback</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">(s_job-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">s_fence</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">parent</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">,</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">                    
+                          &amp;s_job-&gt;</span><span
+                          style="font-size:10.5pt;font-family:&quot;Courier
+                          New ;color:#9CDCFE&quot;,serif" lang="EN-US">s_fence</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">cb</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">))</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">{</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">            </span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#DCDCAA&quot;,serif" lang="EN-US">fence_put</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">(s_job-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">s_fence</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">parent</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">);</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">            s_job-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">s_fence</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">parent</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">=
+                        </span><span lang="EN-US"><o:p></o:p></span></p>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#569CD6&quot;,serif" lang="EN-US">NULL</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">;</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">            </span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#DCDCAA&quot;,serif" lang="EN-US">atomic_dec</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">(&amp;sched-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">hw_rq_count</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">);</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">        }</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">    }</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">    </span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#DCDCAA&quot;,serif" lang="EN-US">spin_unlock</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">(&amp;sched-&gt;</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#9CDCFE&quot;,serif" lang="EN-US">job_list_lock</span><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">);</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                    <div>
+                      <p class="MsoNormal"
+                        style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                          ;color:#D4D4D4&quot;,serif" lang="EN-US">}</span><span
+                          lang="EN-US"><o:p></o:p></span></p>
+                    </div>
+                    <p class="MsoNormal"
+                      style="line-height:14.25pt;background:#1E1E1E"><span
+style="font-size:10.5pt;font-family:&quot;Courier New
+                        ;color:#D4D4D4&quot;,serif" lang="EN-US"> </span><span
+                        lang="EN-US"><o:p></o:p></span></p>
+                  </div>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US">see that without
+                      sched_job-&gt;s_fence, you cannot remove the
+                      callback from its hw fence,</span><span
+                      lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US">any idea??</span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US">BR Monk</span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+                  <p><span
+                      style="font-family:&quot;Calibri&quot;,sans-serif"
+                      lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
+                </div>
+              </blockquote>
+              <p><span lang="EN-US"> <o:p></o:p></span></p>
+            </blockquote>
+            <p><span lang="EN-US"><o:p> </o:p></span></p>
+          </div>
+        </blockquote>
+        <p><br>
+        </p>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------97498484B1290876880B116A--
+
+--------------9E3D4D9120897095357E05E5
+Content-Type: text/x-patch;
+ name="0001-drm-amd-sched-fix-job-tear-down-order-v2.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+ filename="0001-drm-amd-sched-fix-job-tear-down-order-v2.patch"
+
+>From 56079bea614e1239ade60e8d4dd618abb63e06d8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Date: Fri, 13 Oct 2017 10:58:15 +0200
+Subject: [PATCH] drm/amd/sched: fix job tear down order v2
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Move the trace before we signal the scheduler fence and drop the
+scheduler fence reference directly before we free the job.
+
+v2: keep extra s_fence reference
+
+Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+index 59f1325d975c..e4d3b4ec4e92 100644
+--- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
++++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+@@ -406,6 +406,7 @@ static void amd_sched_job_finish(struct work_struct *work)
+ 			schedule_delayed_work(&next->work_tdr, sched->timeout);
+ 	}
+ 	spin_unlock(&sched->job_list_lock);
++	dma_fence_put(&s_job->s_fence->finished);
+ 	sched->ops->free_job(s_job);
+ }
+ 
+@@ -586,6 +587,7 @@ static void amd_sched_process_job(struct dma_fence *f, struct dma_fence_cb *cb)
+ 		container_of(cb, struct amd_sched_fence, cb);
+ 	struct amd_gpu_scheduler *sched = s_fence->sched;
+ 
++	dma_fence_get(&s_fence->finished);
+ 	atomic_dec(&sched->hw_rq_count);
+ 	amd_sched_fence_finished(s_fence);
+ 
+@@ -638,9 +640,6 @@ static int amd_sched_main(void *param)
+ 		fence = sched->ops->run_job(sched_job);
+ 		amd_sched_fence_scheduled(s_fence);
+ 
+-		/* amd_sched_process_job drops the job's reference of the fence. */
+-		sched_job->s_fence = NULL;
+-
+ 		if (fence) {
+ 			s_fence->parent = dma_fence_get(fence);
+ 			r = dma_fence_add_callback(fence, &s_fence->cb,
+-- 
+2.11.0
+
+
+--------------9E3D4D9120897095357E05E5
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------9E3D4D9120897095357E05E5--
