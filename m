@@ -1,125 +1,128 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: use ARRAY_SIZE
-Date: Mon, 16 Oct 2017 11:37:46 -0400
-Message-ID: <CADnq5_Pz14A9EKNAku7zg_QB22bJm8UYoNqvzExwYag28yMtwg@mail.gmail.com>
-References: <20171016022924.18772-1-jeremy.lefaure@lse.epita.fr>
- <0e288951-2e55-09dd-d993-814331be7fe8@gmail.com>
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: amdgpu: DRI3 with EGL?
+Date: Mon, 16 Oct 2017 17:53:35 +0200
+Message-ID: <c3bc7d1d-37d0-c194-5bf7-535949ef194b@dev.carbon-project.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <0e288951-2e55-09dd-d993-814331be7fe8@gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Christian Koenig <christian.koenig@amd.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, =?UTF-8?B?SsOpcsOpbXkgTGVmYXVyZQ==?= <jeremy.lefaure@lse.epita.fr>, Thierry Reding <treding@nvidia.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0181516897=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gTW9uLCBPY3QgMTYsIDIwMTcgYXQgMzo0OCBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo8Y2tvZW5p
-Zy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOgo+IEFtIDE2LjEwLjIwMTcgdW0gMDQ6
-Mjkgc2NocmllYiBKw6lyw6lteSBMZWZhdXJlOgo+Pgo+PiBVc2luZyB0aGUgQVJSQVlfU0laRSBt
-YWNybyBpbXByb3ZlcyB0aGUgcmVhZGFiaWxpdHkgb2YgdGhlIGNvZGUuCj4+Cj4+IEZvdW5kIHdp
-dGggQ29jY2luZWxsZSB3aXRoIHRoZSBmb2xsb3dpbmcgc2VtYW50aWMgcGF0Y2g6Cj4+IEByIGRl
-cGVuZHMgb24gKG9yZyB8fCByZXBvcnQpQAo+PiB0eXBlIFQ7Cj4+IFRbXSBFOwo+PiBwb3NpdGlv
-biBwOwo+PiBAQAo+PiAoCj4+ICAgKHNpemVvZihFKUBwIC9zaXplb2YoKkUpKQo+PiB8Cj4+ICAg
-KHNpemVvZihFKUBwIC9zaXplb2YoRVsuLi5dKSkKPj4gfAo+PiAgIChzaXplb2YoRSlAcCAvc2l6
-ZW9mKFQpKQo+PiApCj4+Cj4+IFJldmlld2VkLWJ5OiBUaGllcnJ5IFJlZGluZyA8dHJlZGluZ0Bu
-dmlkaWEuY29tPgo+PiBTaWduZWQtb2ZmLWJ5OiBKw6lyw6lteSBMZWZhdXJlIDxqZXJlbXkubGVm
-YXVyZUBsc2UuZXBpdGEuZnI+Cj4KPgo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KCkFwcGxpZWQuIFRoYW5rcyEKCkFsZXgKCgo+Cj4+
-IC0tLQo+PiBUaGlzIHBhdGNoIHdhcyBwYXJ0IG9mIGEgYmlnZ2VyIHBhdGNoIFsxXSByZXZpZXdl
-ZCBieSBUaGllcnJ5IFJlZGluZwo+PiBiZWZvcmUgaXQgd2FzIHNwbGl0IGluIHNldmVyYWwgcGF0
-Y2hlcy4KPj4KPj4gWzFdOiBodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3BhdGNoLzk5Nzk4
-NDMvCj4+Cj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDkgKysr
-KystLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDkgKysr
-KystLS0tCj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9u
-cygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4
-XzAuYwo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4gaW5kZXgg
-MTQ3ZTkyYjNhOTU5Li5jOWY1NDJiNGUwNWMgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ2Z4X3Y4XzAuYwo+PiBAQCAtMjAsNiArMjAsNyBAQAo+PiAgICAqIE9USEVSIERFQUxJTkdT
-IElOIFRIRSBTT0ZUV0FSRS4KPj4gICAgKgo+PiAgICAqLwo+PiArI2luY2x1ZGUgPGxpbnV4L2tl
-cm5lbC5oPgo+PiAgICNpbmNsdWRlIDxsaW51eC9maXJtd2FyZS5oPgo+PiAgICNpbmNsdWRlIDxk
-cm0vZHJtUC5oPgo+PiAgICNpbmNsdWRlICJhbWRncHUuaCIKPj4gQEAgLTM5NTIsMTAgKzM5NTMs
-MTAgQEAgc3RhdGljIGludCBnZnhfdjhfMF9pbml0X3NhdmVfcmVzdG9yZV9saXN0KHN0cnVjdAo+
-PiBhbWRncHVfZGV2aWNlICphZGV2KQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGFkZXYtPmdmeC5ybGMucmVnX2xpc3RfZm9ybWF0X3NpemVfYnl0ZXMKPj4gPj4gMiwKPj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1bmlxdWVfaW5kaWNlcywKPj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAmaW5kaWNlc19jb3VudCwKPj4gLSAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBzaXplb2YodW5pcXVlX2luZGljZXMpIC8gc2l6ZW9mKGludCksCj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQVJSQVlfU0laRSh1bmlxdWVfaW5kaWNl
-cyksCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5kaXJlY3Rfc3RhcnRfb2Zm
-c2V0cywKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmb2Zmc2V0X2NvdW50LAo+
-PiAtCj4+IHNpemVvZihpbmRpcmVjdF9zdGFydF9vZmZzZXRzKS9zaXplb2YoaW50KSk7Cj4+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQVJSQVlfU0laRShpbmRpcmVjdF9zdGFydF9v
-ZmZzZXRzKSk7Cj4+ICAgICAgICAgLyogc2F2ZSBhbmQgcmVzdG9yZSBsaXN0ICovCj4+ICAgICAg
-ICAgV1JFRzMyX0ZJRUxEKFJMQ19TUk1fQ05UTCwgQVVUT19JTkNSX0FERFIsIDEpOwo+PiBAQCAt
-Mzk3NywxNCArMzk3OCwxNCBAQCBzdGF0aWMgaW50IGdmeF92OF8wX2luaXRfc2F2ZV9yZXN0b3Jl
-X2xpc3Qoc3RydWN0Cj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICAgICAgICAgLyogc3RhcnRp
-bmcgb2Zmc2V0cyBzdGFydHMgKi8KPj4gICAgICAgICBXUkVHMzIobW1STENfR1BNX1NDUkFUQ0hf
-QUREUiwKPj4gICAgICAgICAgICAgICAgIGFkZXYtPmdmeC5ybGMuc3RhcnRpbmdfb2Zmc2V0c19z
-dGFydCk7Cj4+IC0gICAgICAgZm9yIChpID0gMDsgaSA8IHNpemVvZihpbmRpcmVjdF9zdGFydF9v
-ZmZzZXRzKS9zaXplb2YoaW50KTsgaSsrKQo+PiArICAgICAgIGZvciAoaSA9IDA7IGkgPCBBUlJB
-WV9TSVpFKGluZGlyZWN0X3N0YXJ0X29mZnNldHMpOyBpKyspCj4+ICAgICAgICAgICAgICAgICBX
-UkVHMzIobW1STENfR1BNX1NDUkFUQ0hfREFUQSwKPj4gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBpbmRpcmVjdF9zdGFydF9vZmZzZXRzW2ldKTsKPj4gICAgICAgICAvKiB1bmlxdWUg
-aW5kaWNlcyAqLwo+PiAgICAgICAgIHRlbXAgPSBtbVJMQ19TUk1fSU5ERVhfQ05UTF9BRERSXzA7
-Cj4+ICAgICAgICAgZGF0YSA9IG1tUkxDX1NSTV9JTkRFWF9DTlRMX0RBVEFfMDsKPj4gLSAgICAg
-ICBmb3IgKGkgPSAwOyBpIDwgc2l6ZW9mKHVuaXF1ZV9pbmRpY2VzKSAvIHNpemVvZihpbnQpOyBp
-KyspIHsKPj4gKyAgICAgICBmb3IgKGkgPSAwOyBpIDwgQVJSQVlfU0laRSh1bmlxdWVfaW5kaWNl
-cyk7IGkrKykgewo+PiAgICAgICAgICAgICAgICAgaWYgKHVuaXF1ZV9pbmRpY2VzW2ldICE9IDAp
-IHsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgV1JFRzMyKHRlbXAgKyBpLCB1bmlxdWVfaW5k
-aWNlc1tpXSAmIDB4M0ZGRkYpOwo+PiAgICAgICAgICAgICAgICAgICAgICAgICBXUkVHMzIoZGF0
-YSArIGksIHVuaXF1ZV9pbmRpY2VzW2ldID4+IDIwKTsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjlfMC5jCj4+IGluZGV4IDk5YTViM2I5MmU4ZS4uN2YxNWJiMmM1MjMzIDEwMDY0
-NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4gQEAgLTIwLDYgKzIwLDcg
-QEAKPj4gICAgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCj4+ICAgICoKPj4gICAg
-Ki8KPj4gKyNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPj4gICAjaW5jbHVkZSA8bGludXgvZmly
-bXdhcmUuaD4KPj4gICAjaW5jbHVkZSA8ZHJtL2RybVAuaD4KPj4gICAjaW5jbHVkZSAiYW1kZ3B1
-LmgiCj4+IEBAIC0xNzMwLDEwICsxNzMxLDEwIEBAIHN0YXRpYyBpbnQKPj4gZ2Z4X3Y5XzBfaW5p
-dF9ybGNfc2F2ZV9yZXN0b3JlX2xpc3Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+Z2Z4LnJsYy5yZWdfbGlzdF9mb3Jt
-YXRfc2l6ZV9ieXRlcwo+PiA+PiAyLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHVuaXF1ZV9pbmRpcmVjdF9yZWdzLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICZ1bmlxdWVfaW5kaXJlY3RfcmVnX2NvdW50LAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHNpemVvZih1bmlxdWVfaW5kaXJlY3RfcmVncykvc2l6ZW9mKGludCksCj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgQVJSQVlfU0laRSh1bmlxdWVfaW5kaXJlY3RfcmVn
-cyksCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5kaXJlY3Rfc3RhcnRfb2Zm
-c2V0cywKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmaW5kaXJlY3Rfc3RhcnRf
-b2Zmc2V0c19jb3VudCwKPj4gLQo+PiBzaXplb2YoaW5kaXJlY3Rfc3RhcnRfb2Zmc2V0cykvc2l6
-ZW9mKGludCkpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFSUkFZX1NJWkUo
-aW5kaXJlY3Rfc3RhcnRfb2Zmc2V0cykpOwo+PiAgICAgICAgIC8qIGVuYWJsZSBhdXRvIGluYyBp
-biBjYXNlIGl0IGlzIGRpc2FibGVkICovCj4+ICAgICAgICAgdG1wID0gUlJFRzMyKFNPQzE1X1JF
-R19PRkZTRVQoR0MsIDAsIG1tUkxDX1NSTV9DTlRMKSk7Cj4+IEBAIC0xNzcwLDEyICsxNzcxLDEy
-IEBAIHN0YXRpYyBpbnQKPj4gZ2Z4X3Y5XzBfaW5pdF9ybGNfc2F2ZV9yZXN0b3JlX2xpc3Qoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICAgICAgICAgLyogd3JpdGUgdGhlIHN0YXJ0aW5n
-IG9mZnNldHMgdG8gUkxDIHNjcmF0Y2ggcmFtICovCj4+ICAgICAgICAgV1JFRzMyKFNPQzE1X1JF
-R19PRkZTRVQoR0MsIDAsIG1tUkxDX0dQTV9TQ1JBVENIX0FERFIpLAo+PiAgICAgICAgICAgICAg
-ICAgYWRldi0+Z2Z4LnJsYy5zdGFydGluZ19vZmZzZXRzX3N0YXJ0KTsKPj4gLSAgICAgICBmb3Ig
-KGkgPSAwOyBpIDwgc2l6ZW9mKGluZGlyZWN0X3N0YXJ0X29mZnNldHMpL3NpemVvZihpbnQpOyBp
-KyspCj4+ICsgICAgICAgZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUoaW5kaXJlY3Rfc3RhcnRf
-b2Zmc2V0cyk7IGkrKykKPj4gICAgICAgICAgICAgICAgIFdSRUczMihTT0MxNV9SRUdfT0ZGU0VU
-KEdDLCAwLCBtbVJMQ19HUE1fU0NSQVRDSF9EQVRBKSwKPj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgaW5kaXJlY3Rfc3RhcnRfb2Zmc2V0c1tpXSk7Cj4+ICAgICAgICAgLyogbG9hZCB1bmlxdWUg
-aW5kaXJlY3QgcmVncyovCj4+IC0gICAgICAgZm9yIChpID0gMDsgaSA8IHNpemVvZih1bmlxdWVf
-aW5kaXJlY3RfcmVncykvc2l6ZW9mKGludCk7IGkrKykgewo+PiArICAgICAgIGZvciAoaSA9IDA7
-IGkgPCBBUlJBWV9TSVpFKHVuaXF1ZV9pbmRpcmVjdF9yZWdzKTsgaSsrKSB7Cj4+ICAgICAgICAg
-ICAgICAgICBXUkVHMzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwKPj4gbW1STENfU1JNX0lOREVY
-X0NOVExfQUREUl8wKSArIGksCj4+ICAgICAgICAgICAgICAgICAgICAgICAgIHVuaXF1ZV9pbmRp
-cmVjdF9yZWdzW2ldICYgMHgzRkZGRik7Cj4+ICAgICAgICAgICAgICAgICBXUkVHMzIoU09DMTVf
-UkVHX09GRlNFVChHQywgMCwKPj4gbW1STENfU1JNX0lOREVYX0NOVExfREFUQV8wKSArIGksCj4K
-Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
-bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWls
-aW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0181516897==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="Hg379G9OKK2KrhPh24FLh61ouQgFqHVTF"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Hg379G9OKK2KrhPh24FLh61ouQgFqHVTF
+Content-Type: multipart/mixed; boundary="aCb5VjsRC3POtvwLiUCaGb4N1IBae1Pb6";
+ protected-headers="v1"
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <c3bc7d1d-37d0-c194-5bf7-535949ef194b-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: amdgpu: DRI3 with EGL?
+
+--aCb5VjsRC3POtvwLiUCaGb4N1IBae1Pb6
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+[Please CC me on all replies, I'm not subscribed to amd-gfx.]
+
+Hey,
+I'm not sure whether this is a bug or if I'm just missing something. I've=
+ got
+the following stack (Debian testing as a base):
+GPU: Hawaii PRO [Radeon R9 290] (ChipID =3D 0x67b1)
+Mesa: Git:master/c7a81dcea9
+libdrm: 2.4.84-2
+LLVM: SVN:trunk/r315850 (6.0 devel)
+X.Org: 2:1.19.3-2
+Linux: 4.13.7
+Firmware (firmware-amd-graphics): 20170823-1
+libclc: Git:master/df9db2adca
+DDX (xserver-xorg-video-amdgpu): 1.4.0-1
+
+In my xorg.conf I have (and if I read the manpage correctly, the =C2=BBOp=
+tion "DRI"
+"3"=C2=AB line shouldn't even be necessary anymore):
+> Section "Device"
+>         Identifier      "Forced to amdgpu with DRI3"
+>         Driver          "amdgpu"
+>         Option          "DRI"                   "3"
+> EndSection
+
+But when I look at my Xorg.0.log or the output of eglinfo, I see the foll=
+owing
+lines:
+- Xorg.0.log:	[    15.305] (II) glamor: EGL version 1.5 (DRI2):
+- eglinfo:	EGL version string: 1.5 (DRI2)
+
+My understanding was, that amdgpu supports DRI3 for quite some time now a=
+nd
+therefore would expect to see something like "EGL version string: 1.5 (DR=
+I3)".
+
+What am I missing? Is this a configuration I messed up? Is it a bug somew=
+here
+(I'm happy to report it against the right module, just point me in the ri=
+ght
+direction)?
+
+Additional notes:
+- I checked this occasionally and I never saw DRI3, so I'd say if somethi=
+ng is
+amiss, it has always been this way
+- If you need anything else, let me know.
+
+Thank you in advance for your reply!
+
+Cheers,
+Kai
+
+
+--aCb5VjsRC3POtvwLiUCaGb4N1IBae1Pb6--
+
+--Hg379G9OKK2KrhPh24FLh61ouQgFqHVTF
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlnk1gsACgkQownXbOHe
+WdIRKwv+PdI7lZmwe27s6rOBgUttyLyTB4nMi5f9KOMkSz7J3PppztgEWgIriiNs
+0STRbVlkT97XOPSTeuiTiYZVGPlRNGgMPk+s4hVw3/dH63YUPe9PBVF/5RDBIf1L
+3g/4u1mg8eLMHV8+cM1VODmc7K+u8NSrgo3KzDayvFuF2sNeyNIIw/xRRFLdK7/U
+VyR6zbnxZauFq62ayMECwN30Q45LFUT5hvLF6KsKFhiZZldeHwuumt8gHj1KVn6q
+KiHxUgJFqSoiOPL0kAH7WauStzP0/uawFzb91B+Y4jJfodEt3cd3r/4Q63W/aamU
+B9Cku+3KxEJILmrr6HF37A2jM7A6RiuVqrw3vlAD0UT/XiXB3NEgq9GfligH6sPz
+xgrYkGZmqOS6N9TZpVEiiKUvuW8bDmWdxSZAfXYZq9OezcG/HwooQUHg9+uh64G4
+hzj4qKVPo20tPjL9NkP+07bT+CJ+i09dUO0+MSXWR6YkCXsTzGRu8swV2vXC6Zva
+lSSa4Sqb
+=jMDa
+-----END PGP SIGNATURE-----
+
+--Hg379G9OKK2KrhPh24FLh61ouQgFqHVTF--
+
+--===============0181516897==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0181516897==--
