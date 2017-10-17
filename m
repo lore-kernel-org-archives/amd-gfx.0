@@ -1,16 +1,14 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Trigger bug when allocation fails.
-Date: Tue, 17 Oct 2017 18:05:53 -0400
-Message-ID: <ef080a5a-f1f2-e386-defd-c5c72fd61d33@amd.com>
-References: <20171017174554.13930-1-tom.stdenis@amd.com>
- <d035e531-09e5-0307-4340-7c96685dc60e@gmail.com>
- <49649733-17eb-4d9a-a523-340be9a6a0e2@amd.com>
- <13db5809-f805-7289-f901-3d675b24faf5@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: drm/amdgpu: LVDS-1 output only turns on with sleep 1s workaround
+Date: Tue, 17 Oct 2017 22:27:44 +0000
+Message-ID: <BN6PR12MB16527DC39E5461AED2ABE4ABF74C0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <20171012134926.GD4167@stuge.se> <20171017112847.GN4167@stuge.se>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <13db5809-f805-7289-f901-3d675b24faf5-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20171017112847.GN4167-Y+HMSxxDrH8@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,36 +19,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+To: 'Peter Stuge' <peter-Y+HMSxxDrH8@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-CgpPbiAxMC8xNy8yMDE3IDA1OjExIFBNLCBUb20gU3QgRGVuaXMgd3JvdGU6Cj4gSSdtIG9rIHdp
-dGggbm90IHB1c2hpbmcgbXkgY29tbWl0IGFuZCBzaW1wbHkgYWRkaW5nIGFuIGVsc2UgYnJhbmNo
-IAo+IHRoYXQgc2V0cyB0aGUgcG9pbnRlciB0byBOVUxMLgo+Cj4gKG1heWJlIHB1dCBhIFdBUk5f
-T04gdG8gZ2l2ZSBjb250ZXh0PykKClNlZW1zIHJlYXNvbmFibGUgdG8gbWUuCkhhcnJ5ID8KCkFu
-ZHJleQoKPgo+IFRvbQo+Cj4gT24gMTcvMTAvMTcgMDQ6NDIgUE0sIEFuZHJleSBHcm9kem92c2t5
-IHdyb3RlOgo+Pgo+Pgo+PiBPbiAxMC8xNy8yMDE3IDA0OjEyIFBNLCBOaWNvbGFpIEjDpGhubGUg
-d3JvdGU6Cj4+PiBPbiAxNy4xMC4yMDE3IDE5OjQ1LCBUb20gU3QgRGVuaXMgd3JvdGU6Cj4+Pj4g
-SWYgdGhlIGFsbG9jYXRpb24gZmFpbHMgaW4gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9mdW5jc19yZXNl
-dCgpIHRoZQo+Pj4+IEFQSSBjYW5ub3QgY29udGludWUgc28gdHJpZ2dlciBhIEJVR19PTi4KPj4+
-Cj4+PiBUaGF0IHNlZW1zIHF1ZXN0aW9uYWJsZSB0byBiZSBob25lc3QuIFRoZSBkcm1fYXRvbWlj
-X2hlbHBlciB2ZXJzaW9uIAo+Pj4gb2YgdGhpcyBmdW5jdGlvbiBlbmRzIHVwIHNldHRpbmcgY29u
-bmVjdG9yLT5zdGF0ZSA9IE5VTEw7IGluIHRoaXMgY2FzZS4KPj4KPj4gSSBzZWUgaXQgbm93LCBp
-dCB3aWxsIHByb3BhZ2F0ZSBiYWNrIHRvIHVzZXIgbW9kZSBhcyAtRU5PTUVNLCBzbyBpIAo+PiBn
-dWVzcyBpdCdzIGdvb2QganVzdCBzZXQgaXQgYXMgTlVMTC4KPj4KPj4gVGhhbmtzLAo+PiBBbmRy
-ZXkKPj4KPj4+Cj4+PiBDaGVlcnMsCj4+PiBOaWNvbGFpCj4+Pgo+Pj4+Cj4+Pj4gU2lnbmVkLW9m
-Zi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgo+Pj4+IC0tLQo+Pj4+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDEgKwo+
-Pj4+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyAKPj4+
-PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPj4+
-PiBpbmRleCA1OGUyOWEyYTVjYTYuLmFjNThiYTRmMTBjZiAxMDA2NDQKPj4+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4+Pj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+Pj4+IEBA
-IC0yNzIyLDYgKzI3MjIsNyBAQCB2b2lkIGFtZGdwdV9kbV9jb25uZWN0b3JfZnVuY3NfcmVzZXQo
-c3RydWN0IAo+Pj4+IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKPj4+PiAgICAgICBrZnJlZShz
-dGF0ZSk7Cj4+Pj4gICAgICAgICBzdGF0ZSA9IGt6YWxsb2Moc2l6ZW9mKCpzdGF0ZSksIEdGUF9L
-RVJORUwpOwo+Pj4+ICsgICAgQlVHX09OKHN0YXRlID09IE5VTEwpOwo+Pj4+ICAgICAgICAgaWYg
-KHN0YXRlKSB7Cj4+Pj4gICAgICAgICAgIHN0YXRlLT5zY2FsaW5nID0gUk1YX09GRjsKPj4+Pgo+
-Pj4KPj4+Cj4+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IFBldGVyIFN0dWdlIFttYWlsdG86
+cGV0ZXJAc3R1Z2Uuc2VdCj4gU2VudDogVHVlc2RheSwgT2N0b2JlciAxNywgMjAxNyA3OjI5IEFN
+Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IERldWNoZXIsIEFsZXhh
+bmRlcjsgS29lbmlnLCBDaHJpc3RpYW4KPiBTdWJqZWN0OiBSZTogZHJtL2FtZGdwdTogTFZEUy0x
+IG91dHB1dCBvbmx5IHR1cm5zIG9uIHdpdGggc2xlZXAgMXMKPiB3b3JrYXJvdW5kCj4gCj4gUGV0
+ZXIgU3R1Z2Ugd3JvdGU6Cj4gPiBDYW4gSSBoZWxwIGZpbmQgdGhlIGNhdXNlIG9mIG15IHByb2Js
+ZW0gYW5kIG1ha2UgdGhlIGludGVybmFsIHBhbmVsIHR1cm4KPiA+IG9uIHdpdGhvdXQgbXkgd29y
+a2Fyb3VuZD8gV2hhdCBpbmZvcm1hdGlvbiB3b3VsZCBiZSBuZWVkZWQsIGFuZAo+IHNob3VsZCBJ
+Cj4gPiBzZW5kIGhlcmUgb3IgdXNlIGJ1Z3ppbGxhPwo+IAo+IEFueW9uZT8gUmVkaXJlY3Rpbmcg
+bWUgdG8gYnVnemlsbGEgaXMgZmluZSwgaWYgdGhhdCdzIG15IGJlc3QgYmV0LgoKU29ycnksIGJl
+ZW4gc3dhbXBlZCBsYXRlbHkuICBIYXZlbid0IGhhZCBhIGNoYW5jZSB0byBsb29rLiAgQnVnemls
+bGEgaXMgcHJvYmFibHkgYSBiZXR0ZXIgYmV0IHNvIGl0IHdvbid0IGdldCBsb3N0IGluIHRoZSBl
+bWFpbC4KCkFsZXgKCj4gCj4gCj4gVGhhbmtzIQo+IAo+IC8vUGV0ZXIKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
