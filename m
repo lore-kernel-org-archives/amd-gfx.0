@@ -1,15 +1,16 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Various cleanups for amdgpu_dm
-Date: Tue, 17 Oct 2017 17:43:24 -0400
-Message-ID: <6dadea86-5a2c-e193-d02f-27515408b24c@amd.com>
-References: <20171017161912.11357-1-tom.stdenis@amd.com>
- <5eaea6a7-e3d9-e19d-4d75-3d26e4db9aaf@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Trigger bug when allocation fails.
+Date: Tue, 17 Oct 2017 18:05:53 -0400
+Message-ID: <ef080a5a-f1f2-e386-defd-c5c72fd61d33@amd.com>
+References: <20171017174554.13930-1-tom.stdenis@amd.com>
+ <d035e531-09e5-0307-4340-7c96685dc60e@gmail.com>
+ <49649733-17eb-4d9a-a523-340be9a6a0e2@amd.com>
+ <13db5809-f805-7289-f901-3d675b24faf5@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5eaea6a7-e3d9-e19d-4d75-3d26e4db9aaf-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <13db5809-f805-7289-f901-3d675b24faf5-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,19 +21,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-T24gMTcvMTAvMTcgMDQ6MzAgUE0sIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOgo+IFRoYW5rcyBmb3Ig
-dGhlc2UgY2xlYW51cHMuCj4gCj4gU29tZSBvZiB0aGVzZSBjb3VsZCBwb3NzaWJseSBzcXVhc2hl
-ZCBidXQgdGhlbiwgSSBnZW5lcmFsbHkKPiBwcmVmZXIgc21hbGxlciBjaGFuZ2VzIHRoYW4gb25l
-IGJpZyBsdW1wLgo+IAo+IFJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxh
-bmRAYW1kLmNvbT4KCkhpIEhhcnJ5LAoKWW91J3JlIHdlbGNvbWUuICBOb3JtYWxseSBJIHRvbyBh
-Z3JlZSB0aGF0IHNxdWFzaGluZyBpcyBiZXR0ZXIgYnV0IHNpbmNlIAp0aGF0IHBhcnQgb2YgdGhl
-IHRyZWUgaXMgbGVzcyBmYW1pbGlhciBJIGRlY2lkZWQgdG8gZ28gZm9yIGEgZWFzaWx5IApiaXNl
-Y3RhYmxlIHBhdGNoc2V0IGluIGNhc2UgSSBkaWQgZnViYXIgc29tZXRoaW5nLiAgTW9zdGx5IEkg
-anVzdCAKY29tcGlsZSB0ZXN0IGFzIEkgZ28gdG8gbWFrZSBzdXJlIEkgZGlkbid0IHR5cG8gYW55
-dGhpbmcuCgpJJ3ZlIHB1c2hlZCB0aGVzZSB0byBkcm0tbmV4dC4gIElzIHRoZXJlIGFueSBvdGhl
-ciBwbGFjZSB5b3UnZCBsaWtlIG1lIAp0byBtZXJnZSB0aGVtPwoKQ2hlZXJzLApUb20KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+CgpPbiAxMC8xNy8yMDE3IDA1OjExIFBNLCBUb20gU3QgRGVuaXMgd3JvdGU6Cj4gSSdtIG9rIHdp
+dGggbm90IHB1c2hpbmcgbXkgY29tbWl0IGFuZCBzaW1wbHkgYWRkaW5nIGFuIGVsc2UgYnJhbmNo
+IAo+IHRoYXQgc2V0cyB0aGUgcG9pbnRlciB0byBOVUxMLgo+Cj4gKG1heWJlIHB1dCBhIFdBUk5f
+T04gdG8gZ2l2ZSBjb250ZXh0PykKClNlZW1zIHJlYXNvbmFibGUgdG8gbWUuCkhhcnJ5ID8KCkFu
+ZHJleQoKPgo+IFRvbQo+Cj4gT24gMTcvMTAvMTcgMDQ6NDIgUE0sIEFuZHJleSBHcm9kem92c2t5
+IHdyb3RlOgo+Pgo+Pgo+PiBPbiAxMC8xNy8yMDE3IDA0OjEyIFBNLCBOaWNvbGFpIEjDpGhubGUg
+d3JvdGU6Cj4+PiBPbiAxNy4xMC4yMDE3IDE5OjQ1LCBUb20gU3QgRGVuaXMgd3JvdGU6Cj4+Pj4g
+SWYgdGhlIGFsbG9jYXRpb24gZmFpbHMgaW4gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9mdW5jc19yZXNl
+dCgpIHRoZQo+Pj4+IEFQSSBjYW5ub3QgY29udGludWUgc28gdHJpZ2dlciBhIEJVR19PTi4KPj4+
+Cj4+PiBUaGF0IHNlZW1zIHF1ZXN0aW9uYWJsZSB0byBiZSBob25lc3QuIFRoZSBkcm1fYXRvbWlj
+X2hlbHBlciB2ZXJzaW9uIAo+Pj4gb2YgdGhpcyBmdW5jdGlvbiBlbmRzIHVwIHNldHRpbmcgY29u
+bmVjdG9yLT5zdGF0ZSA9IE5VTEw7IGluIHRoaXMgY2FzZS4KPj4KPj4gSSBzZWUgaXQgbm93LCBp
+dCB3aWxsIHByb3BhZ2F0ZSBiYWNrIHRvIHVzZXIgbW9kZSBhcyAtRU5PTUVNLCBzbyBpIAo+PiBn
+dWVzcyBpdCdzIGdvb2QganVzdCBzZXQgaXQgYXMgTlVMTC4KPj4KPj4gVGhhbmtzLAo+PiBBbmRy
+ZXkKPj4KPj4+Cj4+PiBDaGVlcnMsCj4+PiBOaWNvbGFpCj4+Pgo+Pj4+Cj4+Pj4gU2lnbmVkLW9m
+Zi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgo+Pj4+IC0tLQo+Pj4+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDEgKwo+
+Pj4+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyAKPj4+
+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPj4+
+PiBpbmRleCA1OGUyOWEyYTVjYTYuLmFjNThiYTRmMTBjZiAxMDA2NDQKPj4+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4+Pj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+Pj4+IEBA
+IC0yNzIyLDYgKzI3MjIsNyBAQCB2b2lkIGFtZGdwdV9kbV9jb25uZWN0b3JfZnVuY3NfcmVzZXQo
+c3RydWN0IAo+Pj4+IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKPj4+PiAgICAgICBrZnJlZShz
+dGF0ZSk7Cj4+Pj4gICAgICAgICBzdGF0ZSA9IGt6YWxsb2Moc2l6ZW9mKCpzdGF0ZSksIEdGUF9L
+RVJORUwpOwo+Pj4+ICsgICAgQlVHX09OKHN0YXRlID09IE5VTEwpOwo+Pj4+ICAgICAgICAgaWYg
+KHN0YXRlKSB7Cj4+Pj4gICAgICAgICAgIHN0YXRlLT5zY2FsaW5nID0gUk1YX09GRjsKPj4+Pgo+
+Pj4KPj4+Cj4+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
