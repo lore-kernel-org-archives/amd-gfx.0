@@ -1,16 +1,18 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: possible use-after-free in amdgpu_dm
-Date: Tue, 17 Oct 2017 13:25:36 -0400
-Message-ID: <152711af-98ec-1dde-6456-58a7ed0b887a@amd.com>
-References: <f6968925-fe34-901e-1d86-32680620bcb0@amd.com>
- <3bd6a5e2-2c00-95f1-cfc0-828c03ecb028@gmail.com>
- <ce79890c-6d35-61f7-b3e4-fba9d004bafa@amd.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/9] drm/amdkfd: Avoid submitting an unnecessary packet to
+ HWS
+Date: Tue, 17 Oct 2017 13:26:35 -0400
+Message-ID: <4ffac32e-9955-af7a-ab9c-cd1ee50a8c97@amd.com>
+References: <1506485396-6326-1-git-send-email-Felix.Kuehling@amd.com>
+ <1506485396-6326-5-git-send-email-Felix.Kuehling@amd.com>
+ <CAFCwf113j3LDjeST-me4NOK=o6N+JxCcaR8zxPt+XtuOy091mA@mail.gmail.com>
+ <CAFCwf13vQn8NG0dxS1jxT1yj3e7evbOgM9vt1DXrSUf_fzm0JQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ce79890c-6d35-61f7-b3e4-fba9d004bafa-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAFCwf13vQn8NG0dxS1jxT1yj3e7evbOgM9vt1DXrSUf_fzm0JQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,40 +23,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMTcvMTAvMTcgMDE6MjMgUE0sIFRvbSBTdCBEZW5pcyB3cm90ZToKPiBPbiAxNy8xMC8xNyAw
-MToxOCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMTcuMTAuMjAxNyB1bSAxNjox
-MCBzY2hyaWViIFRvbSBTdCBEZW5pczoKPj4+IEluIHRoaXMgYmxvY2sgb2YgY29kZToKPj4+Cj4+
-PiB2b2lkIGFtZGdwdV9kbV9jb25uZWN0b3JfZnVuY3NfcmVzZXQoc3RydWN0IGRybV9jb25uZWN0
-b3IgKmNvbm5lY3RvcikKPj4+IHsKPj4+IMKgwqDCoCBzdHJ1Y3QgZG1fY29ubmVjdG9yX3N0YXRl
-ICpzdGF0ZSA9Cj4+PiDCoMKgwqDCoMKgwqDCoCB0b19kbV9jb25uZWN0b3Jfc3RhdGUoY29ubmVj
-dG9yLT5zdGF0ZSk7Cj4+Pgo+Pj4gwqDCoMKgIGtmcmVlKHN0YXRlKTsKPj4+Cj4+PiDCoMKgwqAg
-c3RhdGUgPSBremFsbG9jKHNpemVvZigqc3RhdGUpLCBHRlBfS0VSTkVMKTsKPj4+Cj4+Pgo+Pj4g
-VGhlIHZhbHVlIG9mIHN0YXRlIGlzIG5ldmVyIGNvbXBhcmVkIHdpdGggTlVMTCBhbmQgbW9yZXNv
-IHRoZSB2YWx1ZSAKPj4+IG9mIGNvbm5lY3Rvci0+c3RhdGUgaXMgbmV2ZXIgd3JpdHRlbiB0byBp
-ZiBOVUxMLiBXb3VsZG4ndCB0aGlzIG1lYW4gCj4+PiB0aGUgcG9pbnRlciBwb2ludHMgdG8gZnJl
-ZWQgbWVtb3J5Pwo+Pgo+PiBXaHkgc2hvdWxkIHdlIGNvbXBhcmUgdGhlIHZhbHVlIG9mIHN0YXRl
-IHRvIE5VTEw/IFdoYXQncyBkb25lIGhlcmUgaXMgCj4+IGp1c3QgdG8gZ2V0IHRoZSBzaXplIG9m
-IHRoZSB0eXBlIHN0YXRlIHBvaW50cyB0by4KPj4KPj4gTm90IHN1cmUgaWYgdGhhdCBpcyByZWFs
-bHkgY292ZXJlZCBieSB0aGUgQyBzdGFuZGFyZCwgYnV0IGluIHByYWN0aWNlIAo+PiBpdCB3b3Jr
-cyBmaW5lIGV2ZW4gd2hlbiBzdGF0ZSBpcyBOVUxMLgo+IAo+IEhpIENocmlzdGlhbiwKPiAKPiAK
-PiBPaCBzb3JyeSBubyB0aGUgaXNzdWUgaXNuJ3Qgd2l0aCB0aGUgc2l6ZW9mICh0aGF0J3MgcGVy
-ZmVjdGx5IGZpbmUgc2luY2UgCj4gdGhlIHN0YW5kYXJkIHNheXMgdGhlIHBvaW50ZXIgd29uJ3Qg
-YmUgZGVyZWZlcmVuY2VkKS4KPiAKPiBUaGUgaXNzdWUgaXMgbGF0ZXIgb24gaW4gdGhlIGZ1bmN0
-aW9uIHRoZXJlJ3MgdGhpcyBzdGF0ZW1lbnQ6Cj4gCj4gIMKgwqDCoMKgwqDCoMKgIGNvbm5lY3Rv
-ci0+c3RhdGUgPSAmc3RhdGUtPmJhc2U7Cj4gCj4gV2hlcmUgImJhc2UiIGlzIGZpcnN0IGl0ZW0g
-aW4gdGhlIHN0cnVjdCBzbyBpdCdzIGVmZmVjdGl2ZWx5IGp1c3QgCj4gImNvbm5lY3Rvci0+c3Rh
-dGUgPSAmc3RhdGUiLgo+IAo+IFRoaXMgbWVhbnMgdGhhdCB0aGUgdmFsdWUgb2YgImNvbm5lY3Rv
-ci0+c3RhdGUiIGlzIHN0YWxlIHNpbmNlIHRoZSAKPiBwb2ludGVyIHdhcyBrZnJlZSdlZCByaWdo
-dCAoaWYgdGhlIGFsbG9jIGZhaWxzKSB3aGljaCBjb3VsZCBsZWFkIHRvIGEgCj4gdXNlLWFmdGVy
-LWZyZWUgZXJyb3IgKEkgZG9uJ3Qga25vdyB3aGVyZSB0aGlzIGZ1bmN0aW9uIGxpZXMgaW4gdGhl
-IHJlc3QgCj4gb2YgdGhlIGNvZGUgcGF0aHMgYnV0IGl0IHNlZW1zIHdyb25nIGVpdGhlciB3YXkp
-LgoKClNvcnJ5IEkgdGhpbmsgSSBtaWdodCBiZSBleHBsYWluaW5nIHRoaXMgcG9vcmx5LgoKSW4g
-dGhlIGNhc2UgdGhlIGFsbG9jIHN1Y2NlZWRzIHRoZSBwb2ludGVyIGlzIHVwZGF0ZWQgYW5kIGV2
-ZXJ5dGhpbmcgaXMgCmZpbmUuCgpJRiB0aGUgYWxsb2MgZmFpbHMgdGhlIHBvaW50ZXIgKGNvbm5l
-Y3Rvci0+c3RhdGUpIGlzIG5vdCB1cGRhdGVkIGFuZCB0aGUgCnZhbHVlIHBvaW50cyB0byBmcmVl
-ZCBtZW1vcnkuCgpUb20KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+SSdsbCBzZW5kIHlvdSBhIHBhdGNoIGJ5IEZyaWRheS4KClJlZ2FyZHMsCsKgIEZlbGl4CgoKT24g
+MjAxNy0xMC0xNyAwMzowNCBBTSwgT2RlZCBHYWJiYXkgd3JvdGU6Cj4gSGkgRmVsaXgsIFlvbmcu
+Cj4gSSB3b3VsZCBsaWtlIHRvIHNlbmQgYSBwdWxsIHJlcXVlc3QgdG8gRGF2ZSBmb3Iga2VybmVs
+IDQuMTUgd2l0aCBhbGwKPiB0aGUgcGF0Y2hlcyB5b3Ugc2VudCBpbiB0aGUgbGFzdCAzIHdlZWtz
+LCBidXQgSSdtIGJsb2NrZWQgYnkgdGhlIGZpeCBJCj4gYXNrZWQgZm9yIHRoaXMgcGF0Y2guCj4g
+RG8geW91IHRoaW5rIHlvdSBjb3VsZCBtYWtlIGl0IGhhcHBlbiB1bnRpbCB0aGUgZW5kIG9mIHRo
+ZSB3ZWVrID8KPgo+IFRoYW5rcywKPiBPZGVkCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
