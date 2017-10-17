@@ -1,18 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: regression with d6c650c0a8f6f671e49553725e1db541376d95f2
-Date: Tue, 17 Oct 2017 11:13:31 +0200
-Message-ID: <68ce66db-25e3-7467-591e-ee4b21696938@amd.com>
-References: <BLUPR12MB044941343D6D1A35996C7B4284480@BLUPR12MB0449.namprd12.prod.outlook.com>
- <b0f57d8a-de01-addd-c17d-7af25e15f36d@amd.com>
- <BLUPR12MB04490BB257118A34DE346E0984480@BLUPR12MB0449.namprd12.prod.outlook.com>
- <BLUPR12MB0449FE32E68AC10504D8E7A684480@BLUPR12MB0449.namprd12.prod.outlook.com>
- <ae88aac7-0800-df06-5802-ad5376af0c0d@gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: amdgpu: DRI3 with EGL?
+Date: Tue, 17 Oct 2017 11:20:14 +0200
+Message-ID: <81f4151e-f638-789c-8c7c-a450830a8b79@daenzer.net>
+References: <c3bc7d1d-37d0-c194-5bf7-535949ef194b@dev.carbon-project.org>
+ <e5ffcce1-4e8f-e00d-82ee-5b95cab2282c@daenzer.net>
+ <d48e9c96-83fd-de4c-0d70-ade8e6b1bd4f@dev.carbon-project.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1489603780=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ae88aac7-0800-df06-5802-ad5376af0c0d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <d48e9c96-83fd-de4c-0d70-ade8e6b1bd4f-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,87 +19,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTcuMTAuMjAxNyB1bSAxMDo1NyBzY2hyaWViIE5pY29sYWkgSMOkaG5sZToKPiBPbiAxMy4x
-MC4yMDE3IDEwOjQ2LCBMaXUsIE1vbmsgd3JvdGU6Cj4+IEp1c3QgcmV2ZXJ0IE5pY29sYWnigJlz
-IHBhdGNoLGlmIG90aGVyIHJvdXRpbmUgd2FudCB0byByZWZlcmVuY2UgCj4+IHNfZmVuY2UsIGl0
-IHNob3VsZCBnZXQgdGhlIGZpbmlzaGVkIGZlbmNlIGluIHRoZSBmaXJzdCBwbGFjZS90aW1lLAo+
-Pgo+PiBGb3IgZ3B1X3Jlc2V0IHJvdXRpbmUsIGl0IHJlZmVycyB0byBzX2ZlbmNlIG9ubHkgb24g
-dGhvc2UgdW5maW5pc2hlZCAKPj4gam9iIGluIHNjaGVkX2h3X2pvYl9yZXNldCwgc28gdG90YWxs
-eSBzYWZlIHRvIHJlZmVyIHRvIHNfZmVuY2UgcG9pbnRlcgo+Pgo+PiBJIHdvbmRlciB3aGF0IGlz
-c3VlIE5pY29sYWkgbWV0IHdpdGggYW5kIHN1Ym1pdHRlZCB0aGlzIHBhdGNoCj4KPiBUaGUgb3Jp
-Z2luYWwgbW90aXZhdGlvbiBvZiBteSBwYXRjaCB3YXMgdG8gY2F0Y2ggYWNjaWRlbnRhbCB1c2Ug
-b2YgCj4gam9iLT5zX2ZlbmNlIGFmdGVyIHRoZSBmZW5jZSB3YXMgZGVzdHJveWVkIGluIGFtZF9z
-Y2hlZF9wcm9jZXNzX2pvYi4gCj4gQmFzaWNhbGx5LCBwcmV2ZW50IGEgZGFuZ2xpbmcgcG9pbnRl
-ci4gSSBzdGlsbCB0aGluayB0aGF0J3MgYSAKPiByZWFzb25hYmxlIGlkZWEsIHRob3VnaCBjbGVh
-cmx5IG15IGZpcnN0IGF0dGVtcHQgYXQgaXQgd2FzIGp1c3Qgd3JvbmcuCgpJdCB3YXMgdmVyeSBy
-ZWFzb25hYmxlIHRoYXQgeW91IHBvaW50ZWQgb3V0IHRoZSBwcm9ibGVtLCBpdCdzIGp1c3QgdGhh
-dCAKdGhlIHNvbHV0aW9uIHRvIHNldCBpdCB0byBOVUxMIHdhcyB3cm9uZy4KCkluc3RlYWQgd2Ug
-c2hvdWxkIGp1c3QgaGF2ZSBpbmNyZWFzZWQgdGhlIGxpZmV0aW1lIG9mIHRoZSByZWZlcmVuY2Uu
-Cgo+Cj4gSW4gQ2hyaXN0aWFuJ3MgdjIgcGF0Y2gsIGl0IG1pZ2h0IG1ha2Ugc2Vuc2UgdG8gYWRk
-Cj4KPiAgICAgc3Bpbl91bmxvY2soJnNjaGVkLT5qb2JfbGlzdF9sb2NrKTsKPiArICAgIGRtYV9m
-ZW5jZV9wdXQoJnNfam9iLT5zX2ZlbmNlLT5maW5pc2hlZCk7Cj4gKyAgICBzX2pvYi0+c19mZW5j
-ZSA9IE5VTEw7Cj4gICAgIHNjaGVkLT5vcHMtPmZyZWVfam9iKHNfam9iKTsKPgo+IC4uLiB0aG91
-Z2ggSSdtIG5vdCAxMDAlIGNlcnRhaW4gYWJvdXQgaG93IHRoZSBmZW5jZSBsaWZldGltZXMgd29y
-ay4KClRoYXQncyBhIGJpdCBwb2ludGxlc3MgYmVjYXVzZSBzY2hlZC0+b3BzLT5mcmVlX2pvYigp
-IHdpbGwgZnJlZSBzX2pvYiBhcyAKdGhlIG5leHQgdGhpbmcgd2UgZG8gaGVyZS4KClJlZ2FyZHMs
-CkNocmlzdGlhbi4KCj4KPiBDaGVlcnMsCj4gTmljb2xhaQo+Cj4KPj4KPj4gQlIgTW9uawo+Pgo+
-PiAqRnJvbToqYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3Rv
-cC5vcmddICpPbiAKPj4gQmVoYWxmIE9mICpMaXUsIE1vbmsKPj4gKlNlbnQ6KiAyMDE35bm0MTDm
-nIgxM+aXpTE2OjQwCj4+ICpUbzoqIEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmln
-QGFtZC5jb20+OyBOaWNvbGFpIEjDpGhubGUgCj4+IDxuaGFlaG5sZUBnbWFpbC5jb20+OyBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiAqU3ViamVjdDoqIFJFOiByZWdyZXNzaW9uIHdp
-dGggZDZjNjUwYzBhOGY2ZjY3MWU0OTU1MzcyNWUxZGI1NDEzNzZkOTVmMgo+Pgo+PiBJIGRvdWJ0
-IGl0IHdvdWxkIGFsd2F5cyB3b3JrIGZpbmXigKYKPj4KPj4gRmlyc3QsIHdlIGhhdmUgRkVOQ0Vf
-VFJBQ0UgcmVmZXJlbmNlIHNfZmVuY2UtPmZpbmlzaGVkIGFmdGVyIAo+PiDigJxmZW5jZV9zaWdu
-YWwoJmZlbmNlLT5maW5pc2hlZCnigJ0KPj4KPj4gU2Vjb25kLCB3ZSBoYXZlIHRyYWNlX2FtZF9z
-Y2hlZF9wcm9lc3Nfam9iKHNfZmVuY2UpIGFmdGVyIAo+PiDigJxhbWRfc2NoZWRfZmVuY2VfZmlu
-aXNoZWQoKeKAnSwKPj4KPj4gSWYgeW91IHB1dCB0aGUgZmluaXNoZWQgYmVmb3JlIGZyZWVfam9i
-KCkgYW5kIGJ5IGNvaW5jaWRlbmNlIHRoZSAKPj4gam9iX2ZpbmlzaCgpIGdldCB2ZXJ5IHNvb24g
-ZXhlY3V0ZWQgeW914oCZbGwgaGF2ZSBvZGRzIHRvIGhpdCB3aWxkIAo+PiBwb2ludGVyIG9uIGFi
-b3ZlIHR3byBjYXNlcwo+Pgo+PiBCUiBNb25rCj4+Cj4+ICpGcm9tOipLb2VuaWcsIENocmlzdGlh
-bgo+PiAqU2VudDoqIDIwMTflubQxMOaciDEz5pelMTY6MTcKPj4gKlRvOiogTGl1LCBNb25rIDxN
-b25rLkxpdUBhbWQuY29tIDxtYWlsdG86TW9uay5MaXVAYW1kLmNvbT4+OyBOaWNvbGFpIAo+PiBI
-w6RobmxlIDxuaGFlaG5sZUBnbWFpbC5jb20gPG1haWx0bzpuaGFlaG5sZUBnbWFpbC5jb20+Pjsg
-Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxtYWlsdG86YW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmc+Cj4+ICpTdWJqZWN0OiogUmU6IHJlZ3Jlc3Npb24gd2l0aCBkNmM2NTBj
-MGE4ZjZmNjcxZTQ5NTUzNzI1ZTFkYjU0MTM3NmQ5NWYyCj4+Cj4+IFllYWgsIHRoYXQgY2hhbmdl
-IGlzIGFjdHVhbGx5IGluY29ycmVjdCBhbmQgc2hvdWxkIGJlIHJldmVydGVkLgo+Pgo+PiBXaGF0
-IHdlIHJlYWxseSBuZWVkIHRvIGRvIGlzIHJlbW92ZSBkcm9wcGluZyBzY2hlZF9qb2ItPnNfZmVu
-Y2UgZnJvbSAKPj4gYW1kX3NjaGVkX3Byb2Nlc3Nfam9iKCkgaW50byBhbWRfc2NoZWRfam9iX2Zp
-bmlzaCgpIGRpcmVjdGx5IGJlZm9yZSAKPj4gdGhlIGNhbGwgdG8gZnJlZV9qb2IoKS4KPj4KPj4g
-UmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+PiBBbSAxMy4xMC4yMDE3IHVtIDA5OjI0IHNjaHJp
-ZWIgTGl1LCBNb25rOgo+Pgo+PiAgICAgY29tbWl0IGQ2YzY1MGMwYThmNmY2NzFlNDk1NTM3MjVl
-MWRiNTQxMzc2ZDk1ZjIKPj4gICAgIEF1dGhvcjogTmljb2xhaSBIw6RobmxlIDxuaWNvbGFpLmhh
-ZWhubGVAYW1kLmNvbT4KPj4gICAgIDxtYWlsdG86bmljb2xhaS5oYWVobmxlQGFtZC5jb20+Cj4+
-ICAgICBAQCAtNjExLDYgKzYxMSwxMCBAQCBzdGF0aWMgaW50IGFtZF9zY2hlZF9tYWluKHZvaWQg
-KnBhcmFtKQo+Pgo+PiAgICAgICAgICAgICAgICAgICAgICBmZW5jZSA9IHNjaGVkLT5vcHMtPnJ1
-bl9qb2Ioc2NoZWRfam9iKTsKPj4gICAgICAgICAgICAgICAgICAgICAgYW1kX3NjaGVkX2ZlbmNl
-X3NjaGVkdWxlZChzX2ZlbmNlKTsKPj4gICAgICsKPj4gICAgICsgICAgICAgICAgICAgICAvKiBh
-bWRfc2NoZWRfcHJvY2Vzc19qb2IgZHJvcHMgdGhlIGpvYidzIHJlZmVyZW5jZQo+PiAgICAgb2Yg
-dGhlIGZlbmNlLiAqLwo+PiAgICAgKyAgICAgICAgICAgICAgIHNjaGVkX2pvYi0+c19mZW5jZSA9
-IE5VTEw7Cj4+ICAgICArCj4+ICAgICAgICAgICAgICAgICAgICAgIGlmIChmZW5jZSkgewo+PiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNfZmVuY2UtPnBhcmVudCA9IGRtYV9mZW5jZV9n
-ZXQoZmVuY2UpOwo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHIgPSBkbWFfZmVuY2Vf
-YWRkX2NhbGxiYWNrKGZlbmNlLCAKPj4gJnNfZmVuY2UtPmNiLAo+Pgo+PiAgICAgSGkgTmljb2xh
-aQo+Pgo+PiAgICAgd2l0aCB0aGlzIHBhdGNoLCB5b3Ugd2lsbCBicmVhayAKPj4gImFtZGdwdV9z
-Y2hlZF9od19qb2JfcmVzZXQoKSJyb3V0aW5lOgo+Pgo+PiAgICAgdm9pZAo+Pgo+PiAgICAgYW1k
-X3NjaGVkX2h3X2pvYl9yZXNldChzdHJ1Y3RhbWRfZ3B1X3NjaGVkdWxlcgo+Pgo+PiAgICAgKnNj
-aGVkKQo+Pgo+PiAgICAgewo+Pgo+PiAgICAgc3RydWN0YW1kX3NjaGVkX2pvYgo+Pgo+PiAgICAg
-KnNfam9iOwo+Pgo+PiAgICAgc3Bpbl9sb2NrKCZzY2hlZC0+am9iX2xpc3RfbG9jayk7Cj4+Cj4+
-ICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5X3JldmVyc2Uoc19qb2IsCj4+Cj4+ICAgICAmc2NoZWQt
-PnJpbmdfbWlycm9yX2xpc3QsIG5vZGUpIHsKPj4KPj4gICAgIGlmKHNfam9iLT5zX2ZlbmNlLT5w
-YXJlbnQKPj4KPj4gICAgICYmCj4+Cj4+ICAgICBmZW5jZV9yZW1vdmVfY2FsbGJhY2soc19qb2It
-PnNfZmVuY2UtPnBhcmVudCwKPj4KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAmc19qb2It
-PnNfZmVuY2UtPmNiKSkKPj4KPj4gICAgIHsKPj4KPj4gICAgIGZlbmNlX3B1dChzX2pvYi0+c19m
-ZW5jZS0+cGFyZW50KTsKPj4KPj4gICAgICAgICAgICAgICAgICBzX2pvYi0+c19mZW5jZS0+cGFy
-ZW50Cj4+Cj4+ICAgICA9Cj4+Cj4+ICAgICBOVUxMOwo+Pgo+PiAgICAgYXRvbWljX2RlYygmc2No
-ZWQtPmh3X3JxX2NvdW50KTsKPj4KPj4gICAgICAgICAgICAgIH0KPj4KPj4gICAgICAgICAgfQo+
-Pgo+PiAgICAgc3Bpbl91bmxvY2soJnNjaGVkLT5qb2JfbGlzdF9sb2NrKTsKPj4KPj4gICAgIH0K
-Pj4KPj4gICAgIHNlZSB0aGF0IHdpdGhvdXQgc2NoZWRfam9iLT5zX2ZlbmNlLCB5b3UgY2Fubm90
-IHJlbW92ZSB0aGUgY2FsbGJhY2sKPj4gICAgIGZyb20gaXRzIGh3IGZlbmNlLAo+Pgo+PiAgICAg
-YW55IGlkZWE/Pwo+Pgo+PiAgICAgQlIgTW9uawo+Pgo+Cj4KCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1489603780==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="r5ITs1gb9ogq7cKUgTV0lHnlNHENHUVK6"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--r5ITs1gb9ogq7cKUgTV0lHnlNHENHUVK6
+Content-Type: multipart/mixed; boundary="xFtRshxDoccvNfUcC31te0xgfu4ml4HOb";
+ protected-headers="v1"
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <81f4151e-f638-789c-8c7c-a450830a8b79-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: amdgpu: DRI3 with EGL?
+References: <c3bc7d1d-37d0-c194-5bf7-535949ef194b-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+ <e5ffcce1-4e8f-e00d-82ee-5b95cab2282c-otUistvHUpPR7s880joybQ@public.gmane.org>
+ <d48e9c96-83fd-de4c-0d70-ade8e6b1bd4f-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+In-Reply-To: <d48e9c96-83fd-de4c-0d70-ade8e6b1bd4f-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+
+--xFtRshxDoccvNfUcC31te0xgfu4ml4HOb
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-CA
+Content-Transfer-Encoding: quoted-printable
+
+On 16/10/17 06:21 PM, Kai Wasserb=C3=A4ch wrote:
+> Michel D=C3=A4nzer wrote on 16.10.2017 18:05:
+>> On 16/10/17 05:53 PM, Kai Wasserb=C3=A4ch wrote:
+>>>
+>>> Hey,
+>>> I'm not sure whether this is a bug or if I'm just missing something. =
+I've got
+>>> the following stack (Debian testing as a base):
+>>> GPU: Hawaii PRO [Radeon R9 290] (ChipID =3D 0x67b1)
+>>> Mesa: Git:master/c7a81dcea9
+>>> libdrm: 2.4.84-2
+>>> LLVM: SVN:trunk/r315850 (6.0 devel)
+>>> X.Org: 2:1.19.3-2
+>>> Linux: 4.13.7
+>>> Firmware (firmware-amd-graphics): 20170823-1
+>>> libclc: Git:master/df9db2adca
+>>> DDX (xserver-xorg-video-amdgpu): 1.4.0-1
+>>>
+>>> In my xorg.conf I have (and if I read the manpage correctly, the =C2=BB=
+Option "DRI"
+>>> "3"=C2=AB line shouldn't even be necessary anymore):
+>>>> Section "Device"
+>>>>         Identifier      "Forced to amdgpu with DRI3"
+>>>>         Driver          "amdgpu"
+>>>>         Option          "DRI"                   "3"
+>>>> EndSection
+>>>
+>>> But when I look at my Xorg.0.log or the output of eglinfo, I see the =
+following
+>>> lines:
+>>> - Xorg.0.log:	[    15.305] (II) glamor: EGL version 1.5 (DRI2):
+>>> - eglinfo:	EGL version string: 1.5 (DRI2)
+>>>
+>>> My understanding was, that amdgpu supports DRI3 for quite some time n=
+ow and
+>>> therefore would expect to see something like "EGL version string: 1.5=
+ (DRI3)".
+>>>
+>>> What am I missing?
+>>
+>> Only that those messages are about a different "DRI2" than the
+>> alternative to DRI3.
+>=20
+> ah, I was not aware of that. What =E2=80=9EDRI=E2=80=9C is meant here t=
+hen?
+
+The API exposed by *_dri.so to the EGL runtime. It's called "DRI2"
+because it had to be changed from the original API when DRI2 was
+introduced. However, that wasn't necessary for DRI3.
+
+
+--=20
+Earthling Michel D=C3=A4nzer               |               http://www.amd=
+=2Ecom
+Libre software enthusiast             |             Mesa and X developer
+
+
+--xFtRshxDoccvNfUcC31te0xgfu4ml4HOb--
+
+--r5ITs1gb9ogq7cKUgTV0lHnlNHENHUVK6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHEEARECADEWIQSwn681vpFFIZgJURRaga+OatuyAAUCWeXLThMcbWljaGVsQGRh
+ZW56ZXIubmV0AAoJEFqBr45q27IAGZIAnA3JJavaIBSu0gSg91BHf5Ro06umAKCH
+LLMIthlq3y5Mvm6A7HTY5orjTA==
+=FOcG
+-----END PGP SIGNATURE-----
+
+--r5ITs1gb9ogq7cKUgTV0lHnlNHENHUVK6--
+
+--===============1489603780==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1489603780==--
