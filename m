@@ -1,13 +1,13 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu/sriov:now must reinit psp
-Date: Wed, 18 Oct 2017 10:11:24 +0000
-Message-ID: <BLUPR12MB0449CD19152E8028C929046C844D0@BLUPR12MB0449.namprd12.prod.outlook.com>
-References: <1508320755-12780-1-git-send-email-Monk.Liu@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH v9 1/5] PCI: add a define for the PCI resource type mask v2
+Date: Wed, 18 Oct 2017 15:58:17 +0200
+Message-ID: <20171018135821.3248-2-deathsimple@vodafone.de>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0428418572=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1508320755-12780-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20171018135821.3248-1-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,171 +18,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0428418572==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB0449CD19152E8028C929046C844D0BLUPR12MB0449namp_"
-
---_000_BLUPR12MB0449CD19152E8028C929046C844D0BLUPR12MB0449namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-can you help review those three patches ?
-
-
-1/3 now must reinit psp
-
-2/3 fix vf_error_put
-
-3/3 fix wb_clear
-
-
-the first two are only SRIOV affected, at least some one give me an ACK-by
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Monk Liu=
- <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, October 18, 2017 5:59:13 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Monk
-Subject: [PATCH 1/3] drm/amdgpu/sriov:now must reinit psp
-
-otherwise after VF FLR the KIQ cannot work
-
-Change-Id: Icb18e794b5e4dccfd70c811c138c7102df874203
-Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 0a0ebc0..8354af6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1956,6 +1956,7 @@ static int amdgpu_sriov_reinit_late(struct amdgpu_dev=
-ice *adev)
-
-         static enum amd_ip_block_type ip_order[] =3D {
-                 AMD_IP_BLOCK_TYPE_SMC,
-+               AMD_IP_BLOCK_TYPE_PSP,
-                 AMD_IP_BLOCK_TYPE_DCE,
-                 AMD_IP_BLOCK_TYPE_GFX,
-                 AMD_IP_BLOCK_TYPE_SDMA,
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BLUPR12MB0449CD19152E8028C929046C844D0BLUPR12MB0449namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p>can you help review those three patches ?</p>
-<p><br>
-</p>
-<p>1/3 now must reinit psp</p>
-<p>2/3 fix vf_error_put</p>
-<p>3/3 fix wb_clear</p>
-<p><br>
-</p>
-<p>the first two are only SRIOV affected, at least some one give me an ACK-=
-by<br>
-</p>
-<p><br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Monk Liu &lt;Monk.Liu@amd.c=
-om&gt;<br>
-<b>Sent:</b> Wednesday, October 18, 2017 5:59:13 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Liu, Monk<br>
-<b>Subject:</b> [PATCH 1/3] drm/amdgpu/sriov:now must reinit psp</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">otherwise after VF FLR the KIQ cannot work<br>
-<br>
-Change-Id: Icb18e794b5e4dccfd70c811c138c7102df874203<br>
-Signed-off-by: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 &#43;<br>
-&nbsp;1 file changed, 1 insertion(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 0a0ebc0..8354af6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -1956,6 &#43;1956,7 @@ static int amdgpu_sriov_reinit_late(struct amdgpu=
-_device *adev)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static enum amd_ip_block_t=
-ype ip_order[] =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_SMC,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_PSP,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_DCE,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_GFX,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_SDMA,<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_BLUPR12MB0449CD19152E8028C929046C844D0BLUPR12MB0449namp_--
-
---===============0428418572==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0428418572==--
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKV2UgdXNl
+IHRoaXMgbWFzayBtdWx0aXBsZSB0aW1lcyBpbiB0aGUgYnVzIHNldHVwLgoKdjI6IGZpeCBzb21l
+IHN0eWxlIG5pdCBwaWNrcwoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
+aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogQW5keSBTaGV2Y2hlbmtvIDxhbmR5LnNo
+ZXZjaGVua29AZ21haWwuY29tPgotLS0KIGRyaXZlcnMvcGNpL3BjaS5oICAgICAgIHwgIDMgKysr
+CiBkcml2ZXJzL3BjaS9zZXR1cC1idXMuYyB8IDEyICsrKy0tLS0tLS0tLQogMiBmaWxlcyBjaGFu
+Z2VkLCA2IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9wY2kvcGNpLmggYi9kcml2ZXJzL3BjaS9wY2kuaAppbmRleCAyMmUwNjE3MzhjNmYuLjVjNDc1
+ZWRjNzhjMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9wY2kvcGNpLmgKKysrIGIvZHJpdmVycy9wY2kv
+cGNpLmgKQEAgLTQsNiArNCw5IEBACiAjZGVmaW5lIFBDSV9GSU5EX0NBUF9UVEwJNDgKIAogI2Rl
+ZmluZSBQQ0lfVlNFQ19JRF9JTlRFTF9UQlQJMHgxMjM0CS8qIFRodW5kZXJib2x0ICovCisjZGVm
+aW5lIFBDSV9SRVNfVFlQRV9NQVNLIFwKKwkoSU9SRVNPVVJDRV9JTyB8IElPUkVTT1VSQ0VfTUVN
+IHwgSU9SRVNPVVJDRV9QUkVGRVRDSCB8XAorCSBJT1JFU09VUkNFX01FTV82NCkKIAogZXh0ZXJu
+IGNvbnN0IHVuc2lnbmVkIGNoYXIgcGNpZV9saW5rX3NwZWVkW107CiAKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvcGNpL3NldHVwLWJ1cy5jIGIvZHJpdmVycy9wY2kvc2V0dXAtYnVzLmMKaW5kZXggOTU4
+ZGE3ZGI5MDMzLi4zNzQ1MGQ5ZTExMzIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvcGNpL3NldHVwLWJ1
+cy5jCisrKyBiL2RyaXZlcnMvcGNpL3NldHVwLWJ1cy5jCkBAIC0xNTIzLDggKzE1MjMsNiBAQCBz
+dGF0aWMgdm9pZCBwY2lfYnJpZGdlX3JlbGVhc2VfcmVzb3VyY2VzKHN0cnVjdCBwY2lfYnVzICpi
+dXMsCiB7CiAJc3RydWN0IHBjaV9kZXYgKmRldiA9IGJ1cy0+c2VsZjsKIAlzdHJ1Y3QgcmVzb3Vy
+Y2UgKnI7Ci0JdW5zaWduZWQgbG9uZyB0eXBlX21hc2sgPSBJT1JFU09VUkNFX0lPIHwgSU9SRVNP
+VVJDRV9NRU0gfAotCQkJCSAgSU9SRVNPVVJDRV9QUkVGRVRDSCB8IElPUkVTT1VSQ0VfTUVNXzY0
+OwogCXVuc2lnbmVkIG9sZF9mbGFncyA9IDA7CiAJc3RydWN0IHJlc291cmNlICpiX3JlczsKIAlp
+bnQgaWR4ID0gMTsKQEAgLTE1NjcsNyArMTU2NSw3IEBAIHN0YXRpYyB2b2lkIHBjaV9icmlkZ2Vf
+cmVsZWFzZV9yZXNvdXJjZXMoc3RydWN0IHBjaV9idXMgKmJ1cywKIAkgKi8KIAlyZWxlYXNlX2No
+aWxkX3Jlc291cmNlcyhyKTsKIAlpZiAoIXJlbGVhc2VfcmVzb3VyY2UocikpIHsKLQkJdHlwZSA9
+IG9sZF9mbGFncyA9IHItPmZsYWdzICYgdHlwZV9tYXNrOworCQl0eXBlID0gb2xkX2ZsYWdzID0g
+ci0+ZmxhZ3MgJiBQQ0lfUkVTX1RZUEVfTUFTSzsKIAkJZGV2X3ByaW50ayhLRVJOX0RFQlVHLCAm
+ZGV2LT5kZXYsICJyZXNvdXJjZSAlZCAlcFIgcmVsZWFzZWRcbiIsCiAJCQkJCVBDSV9CUklER0Vf
+UkVTT1VSQ0VTICsgaWR4LCByKTsKIAkJLyoga2VlcCB0aGUgb2xkIHNpemUgKi8KQEAgLTE3NTgs
+OCArMTc1Niw2IEBAIHZvaWQgcGNpX2Fzc2lnbl91bmFzc2lnbmVkX3Jvb3RfYnVzX3Jlc291cmNl
+cyhzdHJ1Y3QgcGNpX2J1cyAqYnVzKQogCWVudW0gcmVsZWFzZV90eXBlIHJlbF90eXBlID0gbGVh
+Zl9vbmx5OwogCUxJU1RfSEVBRChmYWlsX2hlYWQpOwogCXN0cnVjdCBwY2lfZGV2X3Jlc291cmNl
+ICpmYWlsX3JlczsKLQl1bnNpZ25lZCBsb25nIHR5cGVfbWFzayA9IElPUkVTT1VSQ0VfSU8gfCBJ
+T1JFU09VUkNFX01FTSB8Ci0JCQkJICBJT1JFU09VUkNFX1BSRUZFVENIIHwgSU9SRVNPVVJDRV9N
+RU1fNjQ7CiAJaW50IHBjaV90cnlfbnVtID0gMTsKIAllbnVtIGVuYWJsZV90eXBlIGVuYWJsZV9s
+b2NhbDsKIApAQCAtMTgxOCw3ICsxODE0LDcgQEAgdm9pZCBwY2lfYXNzaWduX3VuYXNzaWduZWRf
+cm9vdF9idXNfcmVzb3VyY2VzKHN0cnVjdCBwY2lfYnVzICpidXMpCiAJICovCiAJbGlzdF9mb3Jf
+ZWFjaF9lbnRyeShmYWlsX3JlcywgJmZhaWxfaGVhZCwgbGlzdCkKIAkJcGNpX2J1c19yZWxlYXNl
+X2JyaWRnZV9yZXNvdXJjZXMoZmFpbF9yZXMtPmRldi0+YnVzLAotCQkJCQkJIGZhaWxfcmVzLT5m
+bGFncyAmIHR5cGVfbWFzaywKKwkJCQkJCSBmYWlsX3Jlcy0+ZmxhZ3MgJiBQQ0lfUkVTX1RZUEVf
+TUFTSywKIAkJCQkJCSByZWxfdHlwZSk7CiAKIAkvKiByZXN0b3JlIHNpemUgYW5kIGZsYWdzICov
+CkBAIC0xODYyLDggKzE4NTgsNiBAQCB2b2lkIHBjaV9hc3NpZ25fdW5hc3NpZ25lZF9icmlkZ2Vf
+cmVzb3VyY2VzKHN0cnVjdCBwY2lfZGV2ICpicmlkZ2UpCiAJTElTVF9IRUFEKGZhaWxfaGVhZCk7
+CiAJc3RydWN0IHBjaV9kZXZfcmVzb3VyY2UgKmZhaWxfcmVzOwogCWludCByZXR2YWw7Ci0JdW5z
+aWduZWQgbG9uZyB0eXBlX21hc2sgPSBJT1JFU09VUkNFX0lPIHwgSU9SRVNPVVJDRV9NRU0gfAot
+CQkJCSAgSU9SRVNPVVJDRV9QUkVGRVRDSCB8IElPUkVTT1VSQ0VfTUVNXzY0OwogCiBhZ2FpbjoK
+IAlfX3BjaV9idXNfc2l6ZV9icmlkZ2VzKHBhcmVudCwgJmFkZF9saXN0KTsKQEAgLTE4ODksNyAr
+MTg4Myw3IEBAIHZvaWQgcGNpX2Fzc2lnbl91bmFzc2lnbmVkX2JyaWRnZV9yZXNvdXJjZXMoc3Ry
+dWN0IHBjaV9kZXYgKmJyaWRnZSkKIAkgKi8KIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KGZhaWxfcmVz
+LCAmZmFpbF9oZWFkLCBsaXN0KQogCQlwY2lfYnVzX3JlbGVhc2VfYnJpZGdlX3Jlc291cmNlcyhm
+YWlsX3Jlcy0+ZGV2LT5idXMsCi0JCQkJCQkgZmFpbF9yZXMtPmZsYWdzICYgdHlwZV9tYXNrLAor
+CQkJCQkJIGZhaWxfcmVzLT5mbGFncyAmIFBDSV9SRVNfVFlQRV9NQVNLLAogCQkJCQkJIHdob2xl
+X3N1YnRyZWUpOwogCiAJLyogcmVzdG9yZSBzaXplIGFuZCBmbGFncyAqLwotLSAKMi4xMS4wCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
