@@ -1,8 +1,8 @@
 From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-amdgpu] modesetting: Skip no-longer-present
- connectors when resetting BAD links
-Date: Fri, 20 Oct 2017 17:49:39 +0200
-Message-ID: <20171020154939.15757-1-michel@daenzer.net>
+Subject: [PATCH xf86-video-ati] modesetting: Skip no-longer-present connectors
+ when resetting BAD links
+Date: Fri, 20 Oct 2017 17:50:20 +0200
+Message-ID: <20171020155020.16039-1-michel@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
@@ -27,9 +27,9 @@ ZXIgY29tbWl0IDM3ZjRlNzY1MWEyZmQ1MWVmYTYxM2EwOGExZTcwNTU1M2JlMzNlNzYpCgpTaWdu
 ZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KLS0tCiBz
 cmMvZHJtbW9kZV9kaXNwbGF5LmMgfCA1ICsrKystCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
 b25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5j
-IGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCmluZGV4IDJjZWY5M2NkZC4uNGNhOTRlNzFkIDEwMDY0
+IGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCmluZGV4IDE2N2VjZmI0My4uZjU3YzQzNjQ3IDEwMDY0
 NAotLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5j
-CkBAIC0yNjAwLDkgKzI2MDAsMTIgQEAgYW1kZ3B1X21vZGVfaG90cGx1ZyhTY3JuSW5mb1B0ciBz
+CkBAIC0yNzk3LDkgKzI3OTcsMTIgQEAgcmFkZW9uX21vZGVfaG90cGx1ZyhTY3JuSW5mb1B0ciBz
 Y3JuLCBkcm1tb2RlX3B0ciBkcm1tb2RlKQogCWZvciAoaSA9IDA7IGkgPCBjb25maWctPm51bV9v
 dXRwdXQ7IGkrKykgewogCQl4Zjg2T3V0cHV0UHRyIG91dHB1dCA9IGNvbmZpZy0+b3V0cHV0W2ld
 OwogCQlkcm1tb2RlX291dHB1dF9wcml2YXRlX3B0ciBkcm1tb2RlX291dHB1dCA9IG91dHB1dC0+
