@@ -1,11 +1,14 @@
-From: <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Fix memoryleak during S3 resume.
-Date: Fri, 20 Oct 2017 13:59:53 -0400
-Message-ID: <1508522393-27889-1-git-send-email-sunpeng.li@amd.com>
+From: Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 0/2] Some changes to fix performance drop on Vega10
+Date: Fri, 20 Oct 2017 14:10:20 -0400
+Message-ID: <18695bbf-f6c0-9d7b-4c16-20b7ba7a0c23@amd.com>
+References: <1508440499-19321-1-git-send-email-JinHuiEric.Huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1508440499-19321-1-git-send-email-JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,26 +20,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
 
-RnJvbTogIkxlbyAoU3VucGVuZykgTGkiIDxzdW5wZW5nLmxpQGFtZC5jb20+CgpEbyBub3QgY3Jl
-YXRlIGRjX3N0YXRlIHdpdGhpbiBkaXNwbGF5X3Jlc3VtZSwgc2luY2UgaXQncyBiZWluZwpjb25z
-dHJ1Y3RlZCB3aXRoaW4gYXRvbWljIGNoZWNrLgoKU2lnbmVkLW9mZi1ieTogTGVvIChTdW5wZW5n
-KSBMaSA8c3VucGVuZy5saUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCA0IC0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbS5jCmluZGV4IDQyMDJmZDEuLmIzNjc0ODIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtNjkyLDEwICs2OTIsNiBA
-QCBpbnQgYW1kZ3B1X2RtX2Rpc3BsYXlfcmVzdW1lKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQogCSAqIHJlc3RvcmluZyBpdC4KIAkgKi8KIAotCWNhY2hlZF9zdGF0ZS0+Y29udGV4dCA9IGRj
-X2NyZWF0ZV9zdGF0ZSgpOwotCUFTU0VSVChjYWNoZWRfc3RhdGUtPmNvbnRleHQpOwotCWRjX3Jl
-c291cmNlX3N0YXRlX2NvcHlfY29uc3RydWN0X2N1cnJlbnQoYWRldi0+ZG0uZGMsIGNhY2hlZF9z
-dGF0ZS0+Y29udGV4dCk7Ci0KIAlmb3JfZWFjaF9uZXdfY3J0Y19pbl9zdGF0ZShhZGV2LT5kbS5j
-YWNoZWRfc3RhdGUsIGNydGMsIG5ld19jcnRjX3N0YXRlLCBpKSB7CiAJCWRtX25ld19jcnRjX3N0
-YXRlID0gdG9fZG1fY3J0Y19zdGF0ZShuZXdfY3J0Y19zdGF0ZSk7CiAJCWlmIChkbV9uZXdfY3J0
-Y19zdGF0ZS0+c3RyZWFtKSB7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+UGluZy4KCgpPbiAyMDE3LTEwLTE5IDAzOjE0IFBNLCBFcmljIEh1YW5nIHdyb3RlOgo+IEVyaWMg
+SHVhbmcgKDIpOgo+ICAgIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgb25lIHNtYyBtZXNzYWdlIGZv
+ciBWZWdhMTAKPiAgICBkcm0vYW1kL3Bvd2VycGxheTogZml4IHBlcmZvcm1hbmNlIGRyb3Agb24g
+VmVnYTEwCj4KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9o
+d21nci5jIHwgNiArKysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy92
+ZWdhMTBfcHBzbWMuaCAgIHwgMyArKy0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25z
+KCspLCAxIGRlbGV0aW9uKC0pCj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
