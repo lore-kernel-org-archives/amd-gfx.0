@@ -1,15 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/amdgpu: Remove workaround for suspend/resume in
- uvd7
-Date: Tue, 24 Oct 2017 17:21:35 +0000
-Message-ID: <BN6PR12MB1652A11B16FC0B8C007D9B29F7470@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <20171024160815.25394-1-tom.stdenis@amd.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Upstream repo for libhsakmt
+Date: Tue, 24 Oct 2017 20:24:04 +0300
+Message-ID: <CAFCwf11HF3rQBuQTVf1gj5jbGUjF+D5sMx9i7f22fJbR2zn5aA@mail.gmail.com>
+References: <39989b27-7389-c9e4-6c4f-7648b98f9269@redhat.com>
+ <65d94617-2458-ba7c-a38f-57ba4834a813@amd.com>
+ <9c79974e-488e-c09b-de55-34785df6335e@gmail.com>
+ <8f52faa9-4c9b-da12-9d2c-c99e6079e842@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1251064199=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171024160815.25394-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <8f52faa9-4c9b-da12-9d2c-c99e6079e842-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,41 +20,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+To: tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFRvbSBT
-dCBEZW5pcw0KPiBTZW50OiBUdWVzZGF5LCBPY3RvYmVyIDI0LCAyMDE3IDEyOjA4IFBNDQo+IFRv
-OiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogU3REZW5pcywgVG9tDQo+IFN1
-YmplY3Q6IFtQQVRDSF0gZHJtL2FtZC9hbWRncHU6IFJlbW92ZSB3b3JrYXJvdW5kIGZvcg0KPiBz
-dXNwZW5kL3Jlc3VtZSBpbiB1dmQ3DQo+IA0KPiBUaGUgd29ya2Fyb3VuZCBpcyBub3QgcmVxdWly
-ZWQgYW55bW9yIGFuZCB3b3VsZCByZXN1bHQgaW4NCj4gaGFuZ3MgZHVyaW5nIHN1c3BlbmQvcmVz
-dW1lIGN5Y2xlcyBpZiB0aGUgdXZkIGJsb2NrIHdlcmUgYnVzeS4NCj4gDQo+IFNpZ25lZC1vZmYt
-Ynk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4NCg0KQWNrZWQtYnk6IEFsZXgg
-RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMgfCAxNiArKysrKy0tLS0tLS0tLS0tDQo+ICAx
-IGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkNCj4gDQo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jDQo+IGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYw0KPiBpbmRleCA4ZGJiNDA5YjIwYmUu
-Ljc2MmZmMzkwMWE3YSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dXZkX3Y3XzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5j
-DQo+IEBAIC01OTIsMTEgKzU5Miw3IEBAIHN0YXRpYyBpbnQgdXZkX3Y3XzBfc3VzcGVuZCh2b2lk
-ICpoYW5kbGUpDQo+ICAJaWYgKHIpDQo+ICAJCXJldHVybiByOw0KPiANCj4gLQkvKiBTa2lwIHRo
-aXMgZm9yIEFQVSBmb3Igbm93ICovDQo+IC0JaWYgKCEoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBV
-KSkNCj4gLQkJciA9IGFtZGdwdV91dmRfc3VzcGVuZChhZGV2KTsNCj4gLQ0KPiAtCXJldHVybiBy
-Ow0KPiArCXJldHVybiBhbWRncHVfdXZkX3N1c3BlbmQoYWRldik7DQo+ICB9DQo+IA0KPiAgc3Rh
-dGljIGludCB1dmRfdjdfMF9yZXN1bWUodm9pZCAqaGFuZGxlKQ0KPiBAQCAtNjA0LDEyICs2MDAs
-MTAgQEAgc3RhdGljIGludCB1dmRfdjdfMF9yZXN1bWUodm9pZCAqaGFuZGxlKQ0KPiAgCWludCBy
-Ow0KPiAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICopaGFuZGxlOw0KPiANCj4gLQkvKiBTa2lwIHRoaXMgZm9yIEFQVSBmb3Igbm93ICovDQo+IC0J
-aWYgKCEoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSkgew0KPiAtCQlyID0gYW1kZ3B1X3V2ZF9y
-ZXN1bWUoYWRldik7DQo+IC0JCWlmIChyKQ0KPiAtCQkJcmV0dXJuIHI7DQo+IC0JfQ0KPiArCXIg
-PSBhbWRncHVfdXZkX3Jlc3VtZShhZGV2KTsNCj4gKwlpZiAocikNCj4gKwkJcmV0dXJuIHI7DQo+
-ICsNCj4gIAlyZXR1cm4gdXZkX3Y3XzBfaHdfaW5pdChhZGV2KTsNCj4gIH0NCj4gDQo+IC0tDQo+
-IDIuMTIuMA0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1251064199==
+Content-Type: multipart/alternative; boundary="001a113d1002bff183055c4e3436"
+
+--001a113d1002bff183055c4e3436
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Tom,
+I have commit access.
+Oded
+
+On Oct 24, 2017 7:30 PM, "Tom Stellard" <tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org> wrote:
+
+> On 10/17/2017 09:14 AM, Andres Rodriguez wrote:
+> > If I remember correctly, it should be John B.
+> >
+>
+> Hi John,
+>
+> Do you have commit access for this repo:
+>
+> https://cgit.freedesktop.org/amd/hsakmt/
+>
+> Thanks,
+> Tom
+>
+> > Regards,
+> > Andres
+> >
+> > On 2017-10-17 11:42 AM, Felix Kuehling wrote:
+> >> I didn't even know about the freedesktop repository. Do you know who has
+> >> commit access to that?
+> >>
+> >> Regards,
+> >>    Felix
+> >>
+> >>
+> >> On 2017-10-16 10:44 PM, Tom Stellard wrote:
+> >>> Hi Felix,
+> >>>
+> >>> What do you think about merging your fxkamd/drm-next-wip into the
+> >>> master branch of the hsakmt repository of freedesktop[1]?
+> >>>
+> >>> Fedora is already packaging code from the freedesktop repository,
+> >>> and it might help to distinguish between the ROCm thunk and the
+> upstream
+> >>> thunk by keeping them in separate repos.
+> >>>
+> >>> -Tom
+> >>>
+> >>> [1]https://cgit.freedesktop.org/amd/hsakmt/
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >>
+>
+>
+
+--001a113d1002bff183055c4e3436
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi Tom,<div dir=3D"auto">I have commit access.=C2=A0</div=
+><div dir=3D"auto">Oded=C2=A0</div></div><div class=3D"gmail_extra"><br><di=
+v class=3D"gmail_quote">On Oct 24, 2017 7:30 PM, &quot;Tom Stellard&quot; &=
+lt;<a href=3D"mailto:tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org">tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt; wrote=
+:<br type=3D"attribution"><blockquote class=3D"gmail_quote" style=3D"margin=
+:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 10/17/2017 09:1=
+4 AM, Andres Rodriguez wrote:<br>
+&gt; If I remember correctly, it should be John B.<br>
+&gt;<br>
+<br>
+Hi John,<br>
+<br>
+Do you have commit access for this repo:<br>
+<br>
+<a href=3D"https://cgit.freedesktop.org/amd/hsakmt/" rel=3D"noreferrer" tar=
+get=3D"_blank">https://cgit.freedesktop.org/<wbr>amd/hsakmt/</a><br>
+<br>
+Thanks,<br>
+Tom<br>
+<br>
+&gt; Regards,<br>
+&gt; Andres<br>
+&gt;<br>
+&gt; On 2017-10-17 11:42 AM, Felix Kuehling wrote:<br>
+&gt;&gt; I didn&#39;t even know about the freedesktop repository. Do you kn=
+ow who has<br>
+&gt;&gt; commit access to that?<br>
+&gt;&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt;=C2=A0 =C2=A0 Felix<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; On 2017-10-16 10:44 PM, Tom Stellard wrote:<br>
+&gt;&gt;&gt; Hi Felix,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; What do you think about merging your fxkamd/drm-next-wip into =
+the<br>
+&gt;&gt;&gt; master branch of the hsakmt repository of freedesktop[1]?<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Fedora is already packaging code from the freedesktop reposito=
+ry,<br>
+&gt;&gt;&gt; and it might help to distinguish between the ROCm thunk and th=
+e upstream<br>
+&gt;&gt;&gt; thunk by keeping them in separate repos.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; -Tom<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; [1]<a href=3D"https://cgit.freedesktop.org/amd/hsakmt/" rel=3D=
+"noreferrer" target=3D"_blank">https://cgit.freedesktop.<wbr>org/amd/hsakmt=
+/</a><br>
+&gt;&gt;<br>
+&gt;&gt; ______________________________<wbr>_________________<br>
+&gt;&gt; amd-gfx mailing list<br>
+&gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org</a><br>
+&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>ma=
+ilman/listinfo/amd-gfx</a><br>
+&gt;&gt;<br>
+<br>
+</blockquote></div></div>
+
+--001a113d1002bff183055c4e3436--
+
+--===============1251064199==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1251064199==--
