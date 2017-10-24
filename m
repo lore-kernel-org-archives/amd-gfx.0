@@ -1,94 +1,47 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: assign fb_location only if bo is pinned
-Date: Tue, 24 Oct 2017 15:43:14 -0400
-Message-ID: <3437290b-97c3-9c2a-a800-45321c10e0f3@amd.com>
-References: <1508852848-17713-1-git-send-email-shirish.s12@gmail.com>
- <BN6PR12MB18268EA378DD476F38B2FED7F2470@BN6PR12MB1826.namprd12.prod.outlook.com>
- <44152644-4a1f-23b5-3b3a-81fc9bb90007@amd.com>
- <59f795cf-f25c-2b7b-9775-0f685131d7d8@amd.com>
- <41ca6c61-1ade-8bf3-cc45-c1adf8606976@amd.com>
- <21693e67-aa36-a4a9-12ac-18e6c5a32e63@daenzer.net>
- <1c36babd-69ee-e701-d857-c6eb8ebab2c3@amd.com>
- <efda8b1f-763c-939a-a1e6-5dd1ad5d3e81@daenzer.net>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: Resizable PCI BAR support V9
+Date: Tue, 24 Oct 2017 14:44:38 -0500
+Message-ID: <20171024194438.GB21840@bhelgaas-glaptop.roam.corp.google.com>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <efda8b1f-763c-939a-a1e6-5dd1ad5d3e81-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "S, Shirish" <sshankar-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20171018135821.3248-1-deathsimple@vodafone.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAxMC8yNC8yMDE3IDEyOjA2IFBNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyNC8x
-MC8xNyAwNjowMCBQTSwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4+IE9uIDEwLzI0LzIwMTcg
-MTE6NDMgQU0sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+Pj4gT24gMjQvMTAvMTcgMDQ6NTggUE0s
-IEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+Pj4+IE9uIDEwLzI0LzIwMTcgMTA6MzYgQU0sIFMs
-IFNoaXJpc2ggd3JvdGU6Cj4+Pj4+IE9uIDEwLzI0LzIwMTcgNzo0OCBQTSwgQW5kcmV5IEdyb2R6
-b3Zza3kgd3JvdGU6Cj4+Pj4+PiBPbiAxMC8yNC8yMDE3IDA5OjUxIEFNLCBTLCBTaGlyaXNoIHdy
-b3RlOgo+Pj4+Pj4+IEZyb206IFNoaXJpc2ggUyA8c2hpcmlzaC5zQGFtZC5jb20+Cj4+Pj4+Pj4K
-Pj4+Pj4+PiBPbiBzb21lIHN5c3RlbXMgYW1kZ3B1X2JvX2dwdV9vZmZzZXQgc2VlbXMgdG8gYmUK
-Pj4+Pj4+PiBjYWxsZWQgYmVmb3JlIHRoZSBCTyBpcyBwaW5uZWQsIGxlYWRpbmcgdG8gcGFnZSBm
-YXVsdHMKPj4+Pj4+PiBhcyB0aGUgR1BVIGFkZHJlc3MgaXMgc3RpbGwgc3ViamVjdCB0byBjaGFu
-Z2UuCj4+Pj4+Pj4KPj4+Pj4+PiBUaGlzIHBhdGNoIGZpeGVzIHRoZSBhYm92ZSBpc3N1ZS4KPj4+
-Pj4+Pgo+Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFNoaXJpc2ggUyA8c2hpcmlzaC5zQGFtZC5jb20+
-Cj4+Pj4+Pj4gLS0tCj4+Pj4+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMgfCA3ICsrKysrLS0KPj4+Pj4+PiAgICAgMSBmaWxlIGNoYW5nZWQs
-IDUgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4+Pj4+Pgo+Pj4+Pj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4+
-Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-Cj4+Pj4+Pj4gaW5kZXggOTc0ZWU5Ny4uYjI1MWI3ZSAxMDA2NDQKPj4+Pj4+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4+Pj4+Pj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+Pj4+
-Pj4+IEBAIC0xNzg2LDggKzE3ODYsMTEgQEAgc3RhdGljIGludCBnZXRfZmJfaW5mbyhjb25zdCBz
-dHJ1Y3QKPj4+Pj4+PiBhbWRncHVfZnJhbWVidWZmZXIgKmFtZGdwdV9mYiwKPj4+Pj4+PiAgICAg
-ICAgICAgICByZXR1cm4gcjsKPj4+Pj4+PiAgICAgICAgIH0KPj4+Pj4+PiAgICAgLSAgICBpZiAo
-ZmJfbG9jYXRpb24pCj4+Pj4+Pj4gLSAgICAgICAgKmZiX2xvY2F0aW9uID0gYW1kZ3B1X2JvX2dw
-dV9vZmZzZXQocmJvKTsKPj4+Pj4+PiArICAgIHIgPSBhbWRncHVfYm9fcGluKHJibywgQU1ER1BV
-X0dFTV9ET01BSU5fVlJBTSwgZmJfbG9jYXRpb24pOwo+Pj4+Pj4+ICsgICAgaWYgKHVubGlrZWx5
-KHIgIT0gMCkpIHsKPj4+Pj4+PiArICAgICAgICBhbWRncHVfYm9fdW5yZXNlcnZlKHJibyk7Cj4+
-Pj4+Pj4gKyAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+Pj4+Pj4gKyAgICB9Cj4+Pj4+PiBXaGVy
-ZSB0aGUgdW5waW4gd291bGQgaGFwcGVuIHRoZW4gPyBUb2RheSBEQUwgY2FsbHMgcGluIGZyb20K
-Pj4+Pj4+IGRtX3BsYW5lX2hlbHBlcl9wcmVwYXJlX2ZiIHdoaWxlIHRoZSB1bnBpbiBmcm9tCj4+
-Pj4+PiBkbV9wbGFuZV9oZWxwZXJfY2xlYW51cF9mYi4KPj4+Pj4+Cj4+Pj4+IEdvb2QgcG9pbnQs
-IGFtIHRyeWluZyB0byBhZGRyZXNzIHRoZSBpc3N1ZSBNaWNoZWwgaXMgZmFjaW5nLCBpZiB0aGlz
-Cj4+Pj4+IHBhdGNoIHdvcmtzLCB3ZSBjYW4gdGhpbmsgb2YgdW5waW5uaW5nIHRoZSBibyBhcHBy
-b3ByaWF0ZWx5Lgo+Pj4+PiBJZGVhbGx5IGl0IHNob3VsZCBiZSBhdCB0aGUgZW5kIG9mIGFtZGdw
-dV9kbV9hdG9taWNfY2hlY2soKS4gQ2FuIHlvdQo+Pj4+PiB0aGluayBvZiBhbnkgYmV0dGVyIHBs
-YWNlPwo+Pj4+IFNvdW5kcyByaWdodCwgeW91IGhhdmUgdG8gdW5waW4gd2l0aGluIGF0b21pY19j
-aGVjayBzaW5jZSBVTUQgbWlnaHQgY2FsbAo+Pj4+IGNoZWNrIHdpdGhvdXQgY29tbWl0IHNvbWV0
-aW1lcy4KPj4+IE5vdCBzdXJlIGl0J3MgYXBwcm9wcmlhdGUgdG8gcGluIEJPcyBmcm9tIGF0b21p
-Y19jaGVjay4KPj4+Cj4+PiBJbiBnZW5lcmFsLCBCT3Mgc2hvdWxkIGJlIHBpbm5lZCBqdXN0IGJl
-Zm9yZSB0aGUgZGlzcGxheSBoYXJkd2FyZSBzdGFydHMKPj4+IGFjY2Vzc2luZyB0aGVtLCBhbmQg
-dW5waW5uZWQganVzdCBhZnRlciBpdCBzdG9wcyBhY2Nlc3NpbmcgdGhlbS4KPj4gTm90IHN1cmUg
-d2hhdCBvdGhlciBvcHRpb24gKHVubGVzcyBtb3ZpbmcgZmlsbF9wbGFuZV9hdHRyaWJ1dGVzX2Zy
-b21fZmIKPj4gdG8gY29tbWl0KQo+IElmIHRoYXQgaXMgcG9zc2libGUsIGl0IHNvdW5kcyBsaWtl
-IHRoZSBwcm9wZXIgc29sdXRpb24uCj4KPj4gc2luY2UgbmV3IGZiIHBhcmFtZXRlcnMgYXJlIG5l
-ZWRlZCBpbiBjaGVjayB0byBidWlsZCB0aGUgbmV3IHBsYW5lIHN0YXRlLgo+IElzIHRoZSBCTydz
-IE1DIGFkZHJlc3MgbmVlZGVkIGZvciB0aGUgbmV3IHBsYW5lIHN0YXRlIHRob3VnaD8KClllYSwg
-aW4gZ2VuZXJhbCBpdCBzZWVtcyB0aWxpbmcgZmxhZ3MgYW5kIGFkZHJlc3Mgc3R1ZmYgY2FuIGJl
-IGRlZmVycmVkIHRvCmNvbW1pdCBzaW5jZSB0aGV5IGFyZSByZWFsbHkgb25seSBuZWVkZWQgZm9y
-IGFjdHVhbCBwcm9ncmFtbWluZwphbmQgYnkgdGhpcyBza2lwcGluZyB0aGUgbmVlZCB0byBjYWxs
-IGdldF9mYl9pbmZvIGR1cmluZyBjaGVjay4KVGhlIG9ubHkgcHJvYmxlbSBpcyBubyBzYW5pdHkg
-Y2FuIGJlIGRvbmUgb24gdGhlbSBpbiB0aGF0IGNhc2UuCgpUaGFua3MsCkFuZHJleQoKPgo+Cj4+
-IEJlZm9yZSB3ZSBkaWQgdXBzdHJlYW0gcmVmYWN0b3JpbmcgZ2V0X2ZiX2luZm8gd2FzIGFsd2F5
-cyBjYWxsZWQgY2FsbGVkCj4+IGZyb20gYXRvbWljX2NvbW1pdCBzbyBpdCB3YXMgd2l0aGluIHBp
-bi91bnBpbiBzY29wZS4gTW92aW5nIGl0IG91dCBpbnRvCj4+IGNoZWNrIHdlIG1pc3NlZCB0aGUg
-cHJvYmxlbSBTaGlyaXNoIGp1c3QgZm91bmQuCj4gQWN0dWFsbHksIEkgZm91bmQgaXQuIDopCj4K
-Pj4gV2UgY2FuJ3QgZG8gcGluIGluIGJlZ2lubmluZyBvZiBjaGVjayBhbmQgdW5waW4gaW4gdGhl
-IGVuZCBvZiBjb21taXQKPj4gYmVjYXVzZSBhcyBpIHNhaWQsIHNvbWV0aW1lcyBjaGVjayBpcyBj
-YWxsZWQgd1xvIGNvbW1pdCwgWy4uLl0KPiBUaGF0IGFsc28gbWVhbnMgcGlubmluZyBhbmQgdW5w
-aW5uaW5nIHdpdGhpbiBjaGVjayBpc24ndCBhIGdvb2QKPiBzb2x1dGlvbiwgc2luY2UgcGlubmlu
-ZyBtaWdodCBpbnZvbHZlIG1vdmluZyB0aGUgYnVmZmVyLCB3aGljaCBjb3VsZCBiZQo+IGEgd2Fz
-dGUgb2YgZWZmb3J0IGlmIHRoZSBjb21taXQgbmV2ZXIgZm9sbG93cy4KPgo+CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, Oct 18, 2017 at 03:58:16PM +0200, Christian König wrote:
+> Hi everyone,
+> 
+> This is the ninth and hopefully last incarnation of this set of patches. It
+> enables device drivers to resize and most likely also relocate the PCI BAR of
+> devices they manage to allow the CPU to access all of the device local memory
+> at once.
+> 
+> This is very useful for GFX device drivers where the default PCI BAR is only
+> about 256MB in size for compatibility reasons, but the device easily have
+> multiple gigabyte of local memory.
+> 
+> Some changes since the last version:
+> 1. Rebased on drm-next, so should be ready to be merged for 4.15.
+> 2. The fixup of the 64bit root window on AMD Family 15h CPUs/APUs is only
+>    enabled when we compile a kernel supporting that hw.
+> 3. Some minor error handling improvements for the amdgpu side. We now
+>    gracefully abort driver loading in case of a critical error instead of
+>    calling BUG().
+> 
+> Bjorn any more comments or can we finally get this into 4.15? I will remove the
+> version tags from the patches when I send you a pull request if you want this.
+> 
+> I only work on this as a background task, so sorry for the ~3 month delay
+> between each version of the patchset.
+
+I put these (except for the last) on pci/resource for v4.15.  I'd be
+happy to merge the last as well if you like.  My tree does not include
+drm-next, so there would be a minor conflict when merging upstream.
+
+Bjorn
