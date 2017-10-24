@@ -1,47 +1,89 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: Resizable PCI BAR support V9
-Date: Tue, 24 Oct 2017 14:44:38 -0500
-Message-ID: <20171024194438.GB21840@bhelgaas-glaptop.roam.corp.google.com>
-References: <20171018135821.3248-1-deathsimple@vodafone.de>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 4/7] drm/amdgpu/virt: add function to check MMIO accessing
+Date: Tue, 24 Oct 2017 20:42:40 +0000
+Message-ID: <BN6PR12MB1652B60A0C747E66918D962CF7470@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1508753012-2196-1-git-send-email-Pixel.Ding@amd.com>
+ <1508753012-2196-5-git-send-email-Pixel.Ding@amd.com>
+ <BN6PR12MB165261DE3E8A751BD8250C77F7460@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <F836DB5B-E4E7-4593-A838-FB852B50510B@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20171018135821.3248-1-deathsimple@vodafone.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <F836DB5B-E4E7-4593-A838-FB852B50510B-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Sun, Gary" <Gary.Sun-5C7GfCeVMHo@public.gmane.org>, "Li, Bingley" <Bingley.Li-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Oct 18, 2017 at 03:58:16PM +0200, Christian König wrote:
-> Hi everyone,
-> 
-> This is the ninth and hopefully last incarnation of this set of patches. It
-> enables device drivers to resize and most likely also relocate the PCI BAR of
-> devices they manage to allow the CPU to access all of the device local memory
-> at once.
-> 
-> This is very useful for GFX device drivers where the default PCI BAR is only
-> about 256MB in size for compatibility reasons, but the device easily have
-> multiple gigabyte of local memory.
-> 
-> Some changes since the last version:
-> 1. Rebased on drm-next, so should be ready to be merged for 4.15.
-> 2. The fixup of the 64bit root window on AMD Family 15h CPUs/APUs is only
->    enabled when we compile a kernel supporting that hw.
-> 3. Some minor error handling improvements for the amdgpu side. We now
->    gracefully abort driver loading in case of a critical error instead of
->    calling BUG().
-> 
-> Bjorn any more comments or can we finally get this into 4.15? I will remove the
-> version tags from the patches when I send you a pull request if you want this.
-> 
-> I only work on this as a background task, so sorry for the ~3 month delay
-> between each version of the patchset.
-
-I put these (except for the last) on pci/resource for v4.15.  I'd be
-happy to merge the last as well if you like.  My tree does not include
-drm-next, so there would be a minor conflict when merging upstream.
-
-Bjorn
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBEaW5nLCBQaXhlbA0KPiBTZW50
+OiBNb25kYXksIE9jdG9iZXIgMjMsIDIwMTcgOTo0MyBQTQ0KPiBUbzogRGV1Y2hlciwgQWxleGFu
+ZGVyOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogU3VuLCBHYXJ5OyBMaSwg
+QmluZ2xleQ0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDQvN10gZHJtL2FtZGdwdS92aXJ0OiBhZGQg
+ZnVuY3Rpb24gdG8gY2hlY2sgTU1JTw0KPiBhY2Nlc3NpbmcNCj4gDQo+IEl0IHdvcmtzIHdpdGgg
+Y3VycmVudCBNTUlPIGJsb2NraW5nIHBvbGljeSwgd2hpbGUgYWxsIHBhZ2VzIGFyZSBibG9ja2Vk
+DQo+IGV4cGVjdCB0aGUgb25lIGNvbnRhaW5pbmcgbWFpbGJveCByZWdpc3RlcnMuIEJ1dCBhY3R1
+YWxseSBpdOKAmXMgbm90IGEgZ29vZA0KPiBhcHByb2FjaCwgYXMgY29tbWVudGVkIHdlIHNob3Vs
+ZCBhZGQgaW50ZXJhY3Rpb24gYmV0d2VlbiBob3N0IGFuZCBndWVzdA0KPiBmb3IgTU1JTyBibG9j
+a2luZyBjaGVjayBpbiBmdXR1cmUuDQo+IA0KPiBCeSBub3cgSSBjYW4gYWRkIG1vcmUgY29tbWVu
+dHMgaGVyZSwgaXMgaXQgT0s/DQoNClBsZWFzZSBhZGQgYSBjb21tZW50IHRoYXQgbWVudGlvbnMg
+d2hhdCByZWdpc3RlciB0aGlzIGlzLiAgV2l0aCB0aGF0IGZpeGVkIHRoZSBwYXRjaCBpczoNCkFj
+a2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4g4oCU
+DQo+IFNpbmNlcmVseSBZb3VycywNCj4gUGl4ZWwNCj4gDQo+IA0KPiANCj4gDQo+IA0KPiANCj4g
+DQo+IE9uIDI0LzEwLzIwMTcsIDEyOjMzIEFNLCAiRGV1Y2hlciwgQWxleGFuZGVyIg0KPiA8QWxl
+eGFuZGVyLkRldWNoZXJAYW1kLmNvbT4gd3JvdGU6DQo+IA0KPiA+PiAtLS0tLU9yaWdpbmFsIE1l
+c3NhZ2UtLS0tLQ0KPiA+PiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZ10gT24NCj4gQmVoYWxmDQo+ID4+IE9mIFBpeGVsIERpbmcNCj4g
+Pj4gU2VudDogTW9uZGF5LCBPY3RvYmVyIDIzLCAyMDE3IDY6MDMgQU0NCj4gPj4gVG86IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+IENjOiBTdW4sIEdhcnk7IERpbmcsIFBpeGVs
+OyBMaSwgQmluZ2xleQ0KPiA+PiBTdWJqZWN0OiBbUEFUQ0ggNC83XSBkcm0vYW1kZ3B1L3ZpcnQ6
+IGFkZCBmdW5jdGlvbiB0byBjaGVjayBNTUlPDQo+ID4+IGFjY2Vzc2luZw0KPiA+Pg0KPiA+PiBG
+cm9tOiBwZGluZyA8UGl4ZWwuRGluZ0BhbWQuY29tPg0KPiA+Pg0KPiA+PiBNTUlPIHNwYWNlIGNh
+biBiZSBibG9ja2VkIG9uIHZpcnR1YWxpc2VkIGRldmljZS4gQWRkIHRoaXMgZnVuY3Rpb24NCj4g
+Pj4gdG8gY2hlY2sgaWYgTU1JTyBpcyBibG9ja2VkIG9yIG5vdC4NCj4gPj4NCj4gPj4gVG9kbzog
+bmVlZCBhIHJlbGlhYmxlIG1ldGhvZCBzdWNoIGxpa2UgY29tbXVuYXRpb24gd2l0aCBoeXBlcnZp
+c29yLg0KPiA+Pg0KPiA+PiBTaWduZWQtb2ZmLWJ5OiBwZGluZyA8UGl4ZWwuRGluZ0BhbWQuY29t
+Pg0KPiA+PiAtLS0NCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0
+LmMgfCA1ICsrKysrDQo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmly
+dC5oIHwgMSArDQo+ID4+ICAyIGZpbGVzIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQ0KPiA+Pg0K
+PiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQu
+Yw0KPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMNCj4gPj4g
+aW5kZXggZTk3ZjgwZi4uMzNkYWM3ZSAxMDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYw0KPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdmlydC5jDQo+ID4+IEBAIC0yNCw2ICsyNCwxMSBAQA0KPiA+PiAgI2lu
+Y2x1ZGUgImFtZGdwdS5oIg0KPiA+PiAgI2RlZmluZSBNQVhfS0lRX1JFR19XQUlUCTEwMDAwMDAw
+MCAvKiBpbiB1c2VjcyAqLw0KPiA+Pg0KPiA+PiArYm9vbCBhbWRncHVfdmlydF9tbWlvX2Jsb2Nr
+ZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ID4+ICt7DQo+ID4+ICsJcmV0dXJuIFJS
+RUczMl9OT19LSVEoMHhjMDQwKSA9PSAweGZmZmZmZmZmOw0KPiA+PiArfQ0KPiA+DQo+ID5JcyB0
+aGlzIHNhZmU/ICBXb24ndCBhY2Nlc3Npbmcgbm9uLWluc3RhbmNlZCByZWdpc3RlcnMgY2F1c2Ug
+YSBwcm9ibGVtPw0KPiBQcm9iYWJseSBhbHNvIHdvcnRoIGNvbW1lbnRpbmcgdGhhdCByZWdpc3Rl
+ciB0aGlzIGlzIGFuZCBhIG5vdGUgZm9yIGZ1dHVyZQ0KPiBhc2ljcyBpbiBjYXNlIHRoZSByZWdp
+c3RlciBtYXAgY2hhbmdlcy4NCj4gPg0KPiA+QWxleA0KPiA+DQo+ID4+ICsNCj4gPj4gIGludCBh
+bWRncHVfYWxsb2NhdGVfc3RhdGljX2NzYShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4g
+Pj4gIHsNCj4gPj4gIAlpbnQgcjsNCj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgNCj4gPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdmlydC5oDQo+ID4+IGluZGV4IGI4OWQzN2YuLjgxZWZiOWQgMTAwNjQ0DQo+ID4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgNCj4gPj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaA0KPiA+PiBAQCAtMjc2
+LDYgKzI3Niw3IEBAIHN0YXRpYyBpbmxpbmUgYm9vbCBpc192aXJ0dWFsX21hY2hpbmUodm9pZCkN
+Cj4gPj4gIH0NCj4gPj4NCj4gPj4gIHN0cnVjdCBhbWRncHVfdm07DQo+ID4+ICtib29sIGFtZGdw
+dV92aXJ0X21taW9fYmxvY2tlZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ID4+ICBp
+bnQgYW1kZ3B1X2FsbG9jYXRlX3N0YXRpY19jc2Eoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
+Ow0KPiA+PiAgaW50IGFtZGdwdV9tYXBfc3RhdGljX2NzYShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwgc3RydWN0DQo+ID4+IGFtZGdwdV92bSAqdm0sDQo+ID4+ICAJCQkgIHN0cnVjdCBhbWRn
+cHVfYm9fdmEgKipib192YSk7DQo+ID4+IC0tDQo+ID4+IDIuOS41DQo+ID4+DQo+ID4+IF9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+ID4+IGFtZC1nZngg
+bWFpbGluZyBsaXN0DQo+ID4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+IGh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
