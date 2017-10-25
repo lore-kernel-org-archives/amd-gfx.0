@@ -1,56 +1,68 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: Resizable PCI BAR support V9
-Date: Wed, 25 Oct 2017 13:27:48 +0200
-Message-ID: <6cea55fd-1454-60ef-e3d0-f394b7a1c61f@gmail.com>
-References: <20171018135821.3248-1-deathsimple@vodafone.de>
- <20171024194438.GB21840@bhelgaas-glaptop.roam.corp.google.com>
-Reply-To: christian.koenig@amd.com
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/9] drm/amdgpu:cleanup hw fence get&put
+Date: Wed, 25 Oct 2017 13:38:34 +0200
+Message-ID: <c156d49b-18c8-7893-7aa8-21398d0cc237@gmail.com>
+References: <1508923343-24404-1-git-send-email-Monk.Liu@amd.com>
+ <1508923343-24404-2-git-send-email-Monk.Liu@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20171024194438.GB21840@bhelgaas-glaptop.roam.corp.google.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1508923343-24404-2-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Am 24.10.2017 um 21:44 schrieb Bjorn Helgaas:
-> On Wed, Oct 18, 2017 at 03:58:16PM +0200, Christian König wrote:
->> Hi everyone,
->>
->> This is the ninth and hopefully last incarnation of this set of patches. It
->> enables device drivers to resize and most likely also relocate the PCI BAR of
->> devices they manage to allow the CPU to access all of the device local memory
->> at once.
->>
->> This is very useful for GFX device drivers where the default PCI BAR is only
->> about 256MB in size for compatibility reasons, but the device easily have
->> multiple gigabyte of local memory.
->>
->> Some changes since the last version:
->> 1. Rebased on drm-next, so should be ready to be merged for 4.15.
->> 2. The fixup of the 64bit root window on AMD Family 15h CPUs/APUs is only
->>     enabled when we compile a kernel supporting that hw.
->> 3. Some minor error handling improvements for the amdgpu side. We now
->>     gracefully abort driver loading in case of a critical error instead of
->>     calling BUG().
->>
->> Bjorn any more comments or can we finally get this into 4.15? I will remove the
->> version tags from the patches when I send you a pull request if you want this.
->>
->> I only work on this as a background task, so sorry for the ~3 month delay
->> between each version of the patchset.
-> I put these (except for the last) on pci/resource for v4.15.  I'd be
-> happy to merge the last as well if you like.  My tree does not include
-> drm-next, so there would be a minor conflict when merging upstream.
-
-Thanks Bjorn, that is great to hear.
-
-I will sync up with Alex and Dave how to merge the last patch.
-
-Christian.
-
->
-> Bjorn
+TkFLLCB3ZSBoYXZlIHRyaWVkIHRoaXMgYmVmb3JlLgoKVGhpcyB3YXkgd2UgY2FuIGFjY2lkZW50
+YWxseSB0cnkgdG8gc2lnbmFsIGEgZmVuY2UgdHdpY2Ugd2hlbiB0aGUgZmVuY2UgCnZhbHVlIGlz
+IHNvbWVob3cgY29ycnVwdGVkLgoKQ2hyaXN0aWFuLgoKQW0gMjUuMTAuMjAxNyB1bSAxMToyMiBz
+Y2hyaWViIE1vbmsgTGl1Ogo+IEluIGFtZGdwdV9mZW5jZV9wcm9jZXNzIGl0IHNob3VsZG4ndCBw
+dXQgdGhlIHNpZ25hbGVkIGh3IGZlbmNlIGFuZCBzZXQKPiBSQ1UgcG9pbnRlciB0byBOVUxMLCBp
+bnN0ZWFkIHRoZSBtb3JlIHJlYXNvbmFibGUgc2VxdWVuY2UgaXMganVzdCBsZWF2ZQo+IHRoZSBS
+Q1UgYmUgdGhlcmUgdW50b3VjaGVkLCBhbmQ6Cj4gMSkgRWl0aGVyIGRyaXZlcl9maW5pKCkgc2hv
+dWxkIHB1dCB0aGlzIFJDVSBmZW5jZSBvcgo+IDIpIE5ldyBodyBmZW5jZSBlbWl0dGluZyBzaG91
+bGQgdGFrZSB0aGUgUkNVIHNsb3QgYW5kIHB1dCB0aGUgb2xkIGh3IGZlbmNlLgo+Cj4gbWFwcGlu
+ZyBiZXR3ZWVuIGdldCAmIHB1dCBvbiBodyBmZW5jZSBpczoKPgo+IEdldAkJCQkJCVB1dAo+IGZl
+bmNlX2VtaXQ6ZmVuY2VfaW5pdAktLS0+CWZyZWVfam9iOnB1dCBqb2ItPmZlbmNlCj4gCSAgICAg
+ICAJCS0tLT4JcnVuX2pvYjpwdXQgam9iLT5mZW5jZSAvL0dQVSBSRVNFVCBjYXNlCj4KPiBmZW5j
+ZV9lbWl0OnJjdV9hc3NpZ25fcG9pbnRlcgktLS0+IGZlbmNlX2RyaXZlcl9maW5pOnB1dCByaW5n
+LT5mZW5jZV9kcnYuZmVuY2VzW2pdCj4gCQkJCS0tLT4gZmVuY2VfZW1pdDpwdXQob2xkKSAvL2Fm
+dGVyIGZlbmNlX3dhaXQob2xkKQo+Cj4gcnVuX2pvYjpqb2ItPmZlbmNlPWZlbmNlX2dldCgpCS0t
+PiBzY2hlZF9tYWluOnB1dChmZW5jZSkKPiAJCQkJLS0+IGpvYl9yZWNvdmVyeTpwdXQoZmVuY2Up
+IC8vZm9yIEdQVSBSRVNFVCBjYXNlCj4KPiBzY2hlZF9tYWluOnBhcmVudD1mZW5jZV9nZXQoKQkt
+LT4gc2NoZWRfZmVuY2VfZnJlZTpwdXQoZmVuY2UtPnBhcmVudCkKPiBzY2hlZF9qb2JfcmVjb3Zl
+cnk6cGFyZW50PWZlbmNlX2dldCgpIC0tPiBzY2hlZF9od19qb2JfcmVzZXQ6cHV0KHNfam9iLT5z
+X2ZlbmNlLT5wYXJlbnQpIC8vIGZvciBHUFUgUkVTRVQgY2FzZQo+Cj4gQ2hhbmdlLUlkOiBJNjIz
+MTY3YzFlMzE0MzIzM2Y0ZTFiZTdhNDAwYTliNjk4YjRhMTM1NQo+IFNpZ25lZC1vZmYtYnk6IE1v
+bmsgTGl1IDxNb25rLkxpdUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2ZlbmNlLmMgfCA0ICsrLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2Vy
+dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZmVuY2UuYwo+IGluZGV4IGY0MzMxOWMuLmQ3Mzc0Y2YgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYwo+IEBAIC0xNjEsNiArMTYxLDggQEAgaW50
+IGFtZGdwdV9mZW5jZV9lbWl0KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgc3RydWN0IGRtYV9m
+ZW5jZSAqKmYpCj4gICAJCWRtYV9mZW5jZV93YWl0KG9sZCwgZmFsc2UpOwo+ICAgCX0KPiAgIAo+
+ICsJZG1hX2ZlbmNlX3B1dChvbGQpOwo+ICsKPiAgIAlyY3VfYXNzaWduX3BvaW50ZXIoKnB0ciwg
+ZG1hX2ZlbmNlX2dldCgmZmVuY2UtPmJhc2UpKTsKPiAgIAo+ICAgCSpmID0gJmZlbmNlLT5iYXNl
+Owo+IEBAIC0yNDYsNyArMjQ4LDYgQEAgdm9pZCBhbWRncHVfZmVuY2VfcHJvY2VzcyhzdHJ1Y3Qg
+YW1kZ3B1X3JpbmcgKnJpbmcpCj4gICAKPiAgIAkJLyogVGhlcmUgaXMgYWx3YXlzIGV4YWN0bHkg
+b25lIHRocmVhZCBzaWduYWxpbmcgdGhpcyBmZW5jZSBzbG90ICovCj4gICAJCWZlbmNlID0gcmN1
+X2RlcmVmZXJlbmNlX3Byb3RlY3RlZCgqcHRyLCAxKTsKPiAtCQlSQ1VfSU5JVF9QT0lOVEVSKCpw
+dHIsIE5VTEwpOwo+ICAgCj4gICAJCWlmICghZmVuY2UpCj4gICAJCQljb250aW51ZTsKPiBAQCAt
+MjU3LDcgKzI1OCw2IEBAIHZvaWQgYW1kZ3B1X2ZlbmNlX3Byb2Nlc3Moc3RydWN0IGFtZGdwdV9y
+aW5nICpyaW5nKQo+ICAgCQllbHNlCj4gICAJCQlCVUcoKTsKPiAgIAo+IC0JCWRtYV9mZW5jZV9w
+dXQoZmVuY2UpOwo+ICAgCX0gd2hpbGUgKGxhc3Rfc2VxICE9IHNlcSk7Cj4gICB9Cj4gICAKCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
