@@ -1,7 +1,7 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/display: assign fb_location only if bo is pinned
-Date: Wed, 25 Oct 2017 10:05:04 +0000
-Message-ID: <BN6PR12MB182689AA79CD6FA9AF0E2B51F2440@BN6PR12MB1826.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: assign fb_location only if bo is pinned
+Date: Wed, 25 Oct 2017 12:23:36 +0200
+Message-ID: <328522dd-6f96-60bb-58ad-e91103dd6aef@daenzer.net>
 References: <1508852848-17713-1-git-send-email-shirish.s12@gmail.com>
  <BN6PR12MB18268EA378DD476F38B2FED7F2470@BN6PR12MB1826.namprd12.prod.outlook.com>
  <44152644-4a1f-23b5-3b3a-81fc9bb90007@amd.com>
@@ -13,12 +13,13 @@ References: <1508852848-17713-1-git-send-email-shirish.s12@gmail.com>
  <3437290b-97c3-9c2a-a800-45321c10e0f3@amd.com>
  <d41c9d08-000d-44f4-43d5-e4cda19bc728@amd.com>
  <c270f341-c59b-7f56-eb1a-94c765673b89@daenzer.net>
+ <BN6PR12MB182689AA79CD6FA9AF0E2B51F2440@BN6PR12MB1826.namprd12.prod.outlook.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c270f341-c59b-7f56-eb1a-94c765673b89-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <BN6PR12MB182689AA79CD6FA9AF0E2B51F2440-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -29,41 +30,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgQWxleCwgTWljaGVsICYgQW5kcmV5LA0KDQogW1BBVENIXSBkcm0vYW1kL2Rpc3BsYXk6IGFz
-c2lnbiBmYl9sb2NhdGlvbiBvbmx5IGlmIGJvIGlzIHBpbm5lZA0KIFtQQVRDSCAyLzJdIGRybS9h
-bWQvZGlzcGxheTogY2xlYW51cCBhZGRSZXEgYW5kIGZpeCBmYl9sb2NhdGlvbg0KDQpzaG91bGQg
-YmUgZHJvcHBlZCBhbmQgaW5zdGVhZDoNCg0KW1BBVENIXSBkcm0vYW1kL2Rpc3BsYXk6IGZpeCBo
-aWdoIHBhcnQgYWRkcmVzcyBpbiBkbV9wbGFuZV9oZWxwZXJfcHJlcGFyZV9mYigpDQoNCg0Kc2hv
-dWxkIGJlIHJldmlld2VkIC4NCg0KV2l0aCB0aGlzIGNoYW5nZSBJIGRvbuKAmXQgaGF2ZSBjbGVh
-bi11cCBhZGRSZXEsICBhcyBJIGdldCB0aGUgZ3B1X29mZnNldA0KcmVxdWlyZWQgZm9yIGhpZ2gg
-cGFydCBpbiBkbV9wbGFuZV9oZWxwZXJfcHJlcGFyZV9mYigpLg0KDQoNClRoYW5rcy4NClJlZ2Fy
-ZHMsDQpTaGlyaXNoIFMNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTWlj
-aGVsIETDpG56ZXIgW21haWx0bzptaWNoZWxAZGFlbnplci5uZXRdIA0KU2VudDogV2VkbmVzZGF5
-LCBPY3RvYmVyIDI1LCAyMDE3IDE6MzggUE0NClRvOiBTLCBTaGlyaXNoIDxTaGlyaXNoLlNAYW1k
-LmNvbT47IEdyb2R6b3Zza3ksIEFuZHJleSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4NCkNj
-OiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-U3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZC9kaXNwbGF5OiBhc3NpZ24gZmJfbG9jYXRpb24g
-b25seSBpZiBibyBpcyBwaW5uZWQNCg0KT24gMjUvMTAvMTcgMDc6MTggQU0sIFMsIFNoaXJpc2gg
-d3JvdGU6DQo+DQo+IEFuZHJleSwNCj4gVGlsbCBub3cgdGhlIGdldF9mYl9pbmZvKCkgbmV2ZXIg
-Y2FsY3VsYXRlZCBmYl9sb2NhdGlvbihhcyBhZGRyUmVxIHdhcw0KPiBhbHdheXMgZmFsc2UpLCBi
-dXQgc2luY2Ugbm93IGl0cyByZXF1aXJlZCB0byBwcm9ncmFtIHRoZSBoaWdoIHBhcnQgb2YNCj4g
-dGhlIGFkZHJlc3Mgc3RydWN0dXJlLA0KPiBjYW4geW91IG1vdmUgaXQgYmFjayBpbnRvIHRoZSBj
-b21taXQgc2NvcGUgYW5kIGVuc3VyZSB0aGF0IGZiX2xvY2F0aW9uDQo+IGlzIGNhbGN1bGF0ZWQg
-ZXZlcnl0aW1lLihJIGhhdmUgbGltaXRlZCBrbm93bGVkZ2UgYmVoaW5kIHdoeSBpdCB3YXMNCj4g
-bW92ZWQgb3V0KQ0KPiBBbmQgaW4gY2FzZSBpZiB5b3UgaW5zaXN0IG9uIGFkZGluZyBwaW4gJiB1
-bnBpbiBpbiBhdG9taWNfY2hlY2soKSBzY29wZQ0KPiBpIGNhbiBwb3N0IGEgcGF0Y2ggZm9yIGl0
-Lg0KDQpUaGUgbGF0dGVyIG9uIGl0cyBvd24gY291bGRuJ3QgcmVhbGx5IHNvbHZlIHRoZSBwcm9i
-bGVtIGFueXdheTogV2hpbGUgYQ0KQk8gaXMgdW5waW5uZWQsIGl0cyBNQyBhZGRyZXNzIGNhbiBj
-aGFuZ2UgYXQgYW55IHRpbWUuIFRoZSBNQyBhZGRyZXNzDQpwcm9ncmFtbWVkIHRvIHRoZSBoYXJk
-d2FyZSBtdXN0IGJlIGRldGVybWluZWQgd2hpbGUgdGhlIEJPIGlzIGFuZCBzdGF5cw0KcGlubmVk
-Lg0KDQoNCi0tIA0KRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAg
-ICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQ0KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAg
-ICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMjUvMTAvMTcgMTI6MDUgUE0sIFMsIFNoaXJpc2ggd3JvdGU6Cj4gSGkgQWxleCwgTWljaGVs
+ICYgQW5kcmV5LAo+IAo+ICBbUEFUQ0hdIGRybS9hbWQvZGlzcGxheTogYXNzaWduIGZiX2xvY2F0
+aW9uIG9ubHkgaWYgYm8gaXMgcGlubmVkCj4gIFtQQVRDSCAyLzJdIGRybS9hbWQvZGlzcGxheTog
+Y2xlYW51cCBhZGRSZXEgYW5kIGZpeCBmYl9sb2NhdGlvbgo+IAo+IHNob3VsZCBiZSBkcm9wcGVk
+IGFuZCBpbnN0ZWFkOgoKU2luY2UgeW91IHB1c2hlZCB0aGUgbGF0dGVyIHRvIGFtZC1zdGFnaW5n
+LWRybS1uZXh0LCBwbGVhc2UgcmV2ZXJ0IGl0CnRoZXJlLCBvciBtYXliZSBzdWJtaXQgYW5vdGhl
+ciBwYXRjaCByZW1vdmluZyBhbGwgZmJfbG9jYXRpb24gcmVsYXRlZApjb2RlIGZyb20gZ2V0X2Zi
+X2luZm8gYW5kIGZpbGxfcGxhbmVfYXR0cmlidXRlc19mcm9tX2ZiLgoKCj4gW1BBVENIXSBkcm0v
+YW1kL2Rpc3BsYXk6IGZpeCBoaWdoIHBhcnQgYWRkcmVzcyBpbiBkbV9wbGFuZV9oZWxwZXJfcHJl
+cGFyZV9mYigpCj4gCj4gc2hvdWxkIGJlIHJldmlld2VkIC4KClJldmlld2VkLWJ5OiBNaWNoZWwg
+RMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCkJ1dCBwbGVhc2Ugd2FpdCBmb3IgcmV2
+aWV3IGZyb20gREMgZm9sa3MuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAg
+ICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUg
+ZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVy
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
