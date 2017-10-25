@@ -1,14 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Subject: Re: KASAN use-after-free report during piglit run
-Date: Wed, 25 Oct 2017 17:51:30 +0200
-Message-ID: <bb31e238-502c-eda7-5bcb-302ef6c04c15@gmail.com>
+Date: Wed, 25 Oct 2017 17:54:20 +0200
+Message-ID: <9d301254-6ce8-f8e0-ea3f-dc73f0440d08@daenzer.net>
 References: <e9df6a9b-19bc-4b2f-eeb2-a06ebb2f22c2@daenzer.net>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <bb31e238-502c-eda7-5bcb-302ef6c04c15@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2119625592=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e9df6a9b-19bc-4b2f-eeb2-a06ebb2f22c2-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <bb31e238-502c-eda7-5bcb-302ef6c04c15-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,92 +20,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============2119625592==
-Content-Type: multipart/alternative;
- boundary="------------0719DE9E814DF0ECCE27F0EA"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------0719DE9E814DF0ECCE27F0EA
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Going to take a look tomorrow.
-
-Christian.
-
-Am 25.10.2017 um 17:43 schrieb Michel Dänzer:
-> KASAN caught another use-after-free on my development machine today, see
-> the attached dmesg excerpt. There haven't been any related changes in
-> amd-staging-drm-next since yesterday, so maybe userspace is just
-> tickling the kernel differently (e.g. piglit runs some more tests in
-> parallel now). It's not reproducible every time, but it just happened a
-> second time (with an amd-staging-drm-next commit from about a week ago).
->
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------0719DE9E814DF0ECCE27F0EA
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Going to take a look tomorrow.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 25.10.2017 um 17:43 schrieb Michel Dänzer:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:e9df6a9b-19bc-4b2f-eeb2-a06ebb2f22c2-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">
-KASAN caught another use-after-free on my development machine today, see
-the attached dmesg excerpt. There haven't been any related changes in
-amd-staging-drm-next since yesterday, so maybe userspace is just
-tickling the kernel differently (e.g. piglit runs some more tests in
-parallel now). It's not reproducible every time, but it just happened a
-second time (with an amd-staging-drm-next commit from about a week ago).
-
-
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------0719DE9E814DF0ECCE27F0EA--
-
---===============2119625592==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2119625592==--
+T24gMjUvMTAvMTcgMDU6NTEgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gR29pbmcgdG8g
+dGFrZSBhIGxvb2sgdG9tb3Jyb3cuCgpUaGFua3MuCgpGV0lXLCBpdCdzIHRoZSBsaW5lIGF0IGRy
+aXZlcnMvZG1hLWJ1Zi9yZXNlcnZhdGlvbi5jOjQ4NToKCglpZiAoIWZlbmNlICYmIHdhaXRfYWxs
+KSB7CgkJc3RydWN0IHJlc2VydmF0aW9uX29iamVjdF9saXN0ICpmb2JqID0KCQkJCQkJcmN1X2Rl
+cmVmZXJlbmNlKG9iai0+ZmVuY2UpOwoKCQlpZiAoZm9iaikKCQkJc2hhcmVkX2NvdW50ID0gZm9i
+ai0+c2hhcmVkX2NvdW50OyA8PT09CgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAg
+ICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdh
+cmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxv
+cGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
