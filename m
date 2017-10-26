@@ -1,13 +1,16 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 6/8] drm/amd/display: enable GPU VM support
-Date: Thu, 26 Oct 2017 14:09:30 -0400
-Message-ID: <590b04be-64ca-eb26-9fce-986c44297769@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 5/8] drm/amdgpu: don't use ttm_bo_move_ttm in
+ amdgpu_ttm_bind
+Date: Thu, 26 Oct 2017 18:11:18 +0000
+Message-ID: <BN6PR12MB1652E2D2EE8BDBA571EC95EAF7450@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <1509033983-2977-1-git-send-email-deathsimple@vodafone.de>
- <1509033983-2977-6-git-send-email-deathsimple@vodafone.de>
+ <1509033983-2977-5-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0840308919=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1509033983-2977-6-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1509033983-2977-5-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,101 +21,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0840308919==
-Content-Type: multipart/alternative;
- boundary="------------783A85284D8EA6D748619DC3"
-
-This is a multi-part message in MIME format.
---------------783A85284D8EA6D748619DC3
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Reviewed-by: Andrey Grodzovsky<andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-
-
-On 2017-10-26 12:06 PM, Christian König wrote:
-> From: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->
-> Just set the bit so that DC does the hardware programming.
->
-> Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
->   1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 2188f20..ed4351a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -417,6 +417,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->   
->   	init_data.dce_environment = DCE_ENV_PRODUCTION_DRV;
->   
-> +	init_data.flags.gpu_vm_support = true;
-> +
->   	if (amdgpu_dc_log)
->   		init_data.log_mask = DC_DEFAULT_LOG_MASK;
->   	else
-
-
---------------783A85284D8EA6D748619DC3
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <pre wrap="">Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
-    <br>
-    <div class="moz-cite-prefix">On 2017-10-26 12:06 PM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote
-      cite="mid:1509033983-2977-6-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite">
-      <pre wrap="">From: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>
-
-Just set the bit so that DC does the hardware programming.
-
-Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2188f20..ed4351a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -417,6 +417,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 
- 	init_data.dce_environment = DCE_ENV_PRODUCTION_DRV;
- 
-+	init_data.flags.gpu_vm_support = true;
-+
- 	if (amdgpu_dc_log)
- 		init_data.log_mask = DC_DEFAULT_LOG_MASK;
- 	else
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------783A85284D8EA6D748619DC3--
-
---===============0840308919==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0840308919==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIENocmlz
+dGlhbiBLw7ZuaWcNCj4gU2VudDogVGh1cnNkYXksIE9jdG9iZXIgMjYsIDIwMTcgMTI6MDYgUE0N
+Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSCA1
+LzhdIGRybS9hbWRncHU6IGRvbid0IHVzZSB0dG1fYm9fbW92ZV90dG0gaW4NCj4gYW1kZ3B1X3R0
+bV9iaW5kDQo+IA0KPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+DQo+IA0KPiBKdXN0IHVuYmluZCBhbmQgcmViaW5kIHRvIGZvcmNlIHVwZGF0ZXMgb2Yg
+dGhlIEdBUlQgc3BhY2UuDQo+IA0KPiBUaGlzIHByZXZlbnRzIGZvcmNpbmcgdGhlIEJPIHRvIGJl
+IGlkbGUuDQoNCklzIHRoZXJlIGEgY2hhbmNlIHNvbWV0aGluZyBjb3VsZCBjaGFuZ2UgbGlrZSB0
+aGUgY2FjaGluZyBvbiBhICByZWJpbmQgdGhhdCB3ZSBuZWVkIHRvIGFjY291bnQgZm9yPw0KDQpB
+bGV4DQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
+b2VuaWdAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdHRtLmMgfCAyNCArKysrKysrKysrKysrKysrKystDQo+IC0tLS0tDQo+ICAxIGZpbGUgY2hh
+bmdlZCwgMTggaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gaW5kZXggMzA0NTcwMS4uYjQwZDJmMyAx
+MDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPiBAQCAtOTE3
+LDE0ICs5MTcsMjYgQEAgaW50IGFtZGdwdV90dG1fYmluZChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmpl
+Y3QNCj4gKmJvLCBzdHJ1Y3QgdHRtX21lbV9yZWcgKmJvX21lbSkNCj4gIAlpZiAodW5saWtlbHko
+cikpDQo+ICAJCXJldHVybiByOw0KPiANCj4gLQlyID0gdHRtX2JvX21vdmVfdHRtKGJvLCB0cnVl
+LCBmYWxzZSwgJnRtcCk7DQo+IC0JaWYgKHVubGlrZWx5KHIpKQ0KPiArCWlmICh0dG0tPnN0YXRl
+ID09IHR0X2JvdW5kKSB7DQo+ICsJCXIgPSB0dG0tPmZ1bmMtPnVuYmluZCh0dG0pOw0KPiArCQlp
+ZiAodW5saWtlbHkocikpDQo+ICsJCQlyZXR1cm4gcjsNCj4gKw0KPiArCQl0dG0tPnN0YXRlID0g
+dHRfdW5ib3VuZDsNCj4gKwl9DQo+ICsNCj4gKwlyID0gdHRtX3R0X2JpbmQodHRtLCAmdG1wKTsN
+Cj4gKwlpZiAodW5saWtlbHkocikpIHsNCj4gIAkJdHRtX2JvX21lbV9wdXQoYm8sICZ0bXApOw0K
+PiAtCWVsc2UNCj4gLQkJYm8tPm9mZnNldCA9IChiby0+bWVtLnN0YXJ0IDw8IFBBR0VfU0hJRlQp
+ICsNCj4gLQkJCWJvLT5iZGV2LT5tYW5bYm8tPm1lbS5tZW1fdHlwZV0uZ3B1X29mZnNldDsNCj4g
+KwkJcmV0dXJuIHI7DQo+ICsJfQ0KPiANCj4gLQlyZXR1cm4gcjsNCj4gKwl0dG1fYm9fbWVtX3B1
+dChibywgYm9fbWVtKTsNCj4gKwliby0+bWVtID0gdG1wOw0KPiArCWJvLT5vZmZzZXQgPSAoYm8t
+Pm1lbS5zdGFydCA8PCBQQUdFX1NISUZUKSArDQo+ICsJCWJvLT5iZGV2LT5tYW5bYm8tPm1lbS5t
+ZW1fdHlwZV0uZ3B1X29mZnNldDsNCj4gKw0KPiArCXJldHVybiAwOw0KPiAgfQ0KPiANCj4gIGlu
+dCBhbWRncHVfdHRtX3JlY292ZXJfZ2FydChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4g
+LS0NCj4gMi43LjQNCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
