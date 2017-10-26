@@ -1,13 +1,18 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amd/display: Don't print error when bo_pin is
- interrupted
-Date: Thu, 26 Oct 2017 16:16:02 -0400
-Message-ID: <ff616ee9-0e16-5278-1169-b75b61db6141@amd.com>
-References: <20171026200801.14662-1-harry.wentland@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 5/8] drm/amdgpu: don't use ttm_bo_move_ttm in
+ amdgpu_ttm_bind
+Date: Thu, 26 Oct 2017 21:05:02 +0000
+Message-ID: <BN6PR12MB16525792860170C68EA98293F7450@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1509033983-2977-1-git-send-email-deathsimple@vodafone.de>
+ <1509033983-2977-5-git-send-email-deathsimple@vodafone.de>
+ <BN6PR12MB1652E2D2EE8BDBA571EC95EAF7450@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <0b9322f4-dc4b-08de-fd90-f188c885ecd7@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0009911843=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <0b9322f4-dc4b-08de-fd90-f188c885ecd7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,116 +23,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0009911843==
-Content-Type: multipart/alternative;
- boundary="------------E8CF22E3B09C0810AE6AB204"
-
-This is a multi-part message in MIME format.
---------------E8CF22E3B09C0810AE6AB204
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-
-On 2017-10-26 04:08 PM, Harry Wentland wrote:
-> v2: Also don't print for ERESTARTSYS or EAGAIN
->
-> Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-
-Reviewed-by: Andrey Grodzovsky<andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-
-
-Thanks,
-Andrey
-
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index cf15701f208d..4401f0fb3f02 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
->   	amdgpu_bo_unreserve(rbo);
->   
->   	if (unlikely(r != 0)) {
-> -		DRM_ERROR("Failed to pin framebuffer\n");
-> +		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
-> +			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
->   		return r;
->   	}
->   
-
-
---------------E8CF22E3B09C0810AE6AB204
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=windows-1252"
-      http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 2017-10-26 04:08 PM, Harry Wentland
-      wrote:<br>
-    </div>
-    <blockquote cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
-      type="cite">
-      <pre wrap="">v2: Also don't print for ERESTARTSYS or EAGAIN
-
-Signed-off-by: Harry Wentland <a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">&lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
-    </blockquote>
-    <br>
-    <pre wrap="">Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
-    <br>
-    Thanks,<br>
-    Andrey<br>
-    <br>
-    <blockquote cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
-      type="cite">
-      <pre wrap="">
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index cf15701f208d..4401f0fb3f02 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 	amdgpu_bo_unreserve(rbo);
- 
- 	if (unlikely(r != 0)) {
--		DRM_ERROR("Failed to pin framebuffer\n");
-+		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
-+			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
- 		return r;
- 	}
- 
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------E8CF22E3B09C0810AE6AB204--
-
---===============0009911843==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0009911843==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIFtt
+YWlsdG86Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb21dDQo+IFNlbnQ6IFRodXJzZGF5
+LCBPY3RvYmVyIDI2LCAyMDE3IDI6MzkgUE0NCj4gVG86IERldWNoZXIsIEFsZXhhbmRlcjsgJ0No
+cmlzdGlhbiBLw7ZuaWcnOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0
+OiBSZTogW1BBVENIIDUvOF0gZHJtL2FtZGdwdTogZG9uJ3QgdXNlIHR0bV9ib19tb3ZlX3R0bSBp
+bg0KPiBhbWRncHVfdHRtX2JpbmQNCj4gDQo+IEFtIDI2LjEwLjIwMTcgdW0gMjA6MTEgc2Nocmll
+YiBEZXVjaGVyLCBBbGV4YW5kZXI6DQo+ID4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+
+ID4+IEZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnXSBPbg0KPiBCZWhhbGYNCj4gPj4gT2YgQ2hyaXN0aWFuIEvDtm5pZw0KPiA+PiBTZW50
+OiBUaHVyc2RheSwgT2N0b2JlciAyNiwgMjAxNyAxMjowNiBQTQ0KPiA+PiBUbzogYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPj4gU3ViamVjdDogW1BBVENIIDUvOF0gZHJtL2FtZGdw
+dTogZG9uJ3QgdXNlIHR0bV9ib19tb3ZlX3R0bSBpbg0KPiA+PiBhbWRncHVfdHRtX2JpbmQNCj4g
+Pj4NCj4gPj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
+Pg0KPiA+Pg0KPiA+PiBKdXN0IHVuYmluZCBhbmQgcmViaW5kIHRvIGZvcmNlIHVwZGF0ZXMgb2Yg
+dGhlIEdBUlQgc3BhY2UuDQo+ID4+DQo+ID4+IFRoaXMgcHJldmVudHMgZm9yY2luZyB0aGUgQk8g
+dG8gYmUgaWRsZS4NCj4gPiBJcyB0aGVyZSBhIGNoYW5jZSBzb21ldGhpbmcgY291bGQgY2hhbmdl
+IGxpa2UgdGhlIGNhY2hpbmcgb24gYSAgcmViaW5kIHRoYXQNCj4gd2UgbmVlZCB0byBhY2NvdW50
+IGZvcj8NCj4gDQo+IE5vdCB0aGF0IEkgY291bGQgdGhpbmsgb2YuDQo+IA0KPiBUaGUgbmV3IHBs
+YWNlbWVudCBzaG91bGQgaGF2ZSBpZGVudGljYWwgYXR0cmlidXRlcyB0byB0aGUgb2xkIG9uZSwg
+anVzdA0KPiB3aXRoIEdBUlQgc3BhY2UgYWxsb2NhdGVkLg0KDQpJbiB0aGF0IGNhc2UsDQoNCkFj
+a2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4gDQo+
+IENocmlzdGlhbi4NCj4gDQo+ID4NCj4gPiBBbGV4DQo+ID4NCj4gPj4gU2lnbmVkLW9mZi1ieTog
+Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiA+PiAtLS0NCj4g
+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgfCAyNA0KPiArKysr
+KysrKysrKysrKysrKystDQo+ID4+IC0tLS0tDQo+ID4+ICAgMSBmaWxlIGNoYW5nZWQsIDE4IGlu
+c2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQo+ID4+DQo+ID4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gPj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gPj4gaW5kZXggMzA0NTcwMS4uYjQwZDJmMyAx
+MDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
+DQo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPiA+
+PiBAQCAtOTE3LDE0ICs5MTcsMjYgQEAgaW50IGFtZGdwdV90dG1fYmluZChzdHJ1Y3QgdHRtX2J1
+ZmZlcl9vYmplY3QNCj4gPj4gKmJvLCBzdHJ1Y3QgdHRtX21lbV9yZWcgKmJvX21lbSkNCj4gPj4g
+ICAJaWYgKHVubGlrZWx5KHIpKQ0KPiA+PiAgIAkJcmV0dXJuIHI7DQo+ID4+DQo+ID4+IC0JciA9
+IHR0bV9ib19tb3ZlX3R0bShibywgdHJ1ZSwgZmFsc2UsICZ0bXApOw0KPiA+PiAtCWlmICh1bmxp
+a2VseShyKSkNCj4gPj4gKwlpZiAodHRtLT5zdGF0ZSA9PSB0dF9ib3VuZCkgew0KPiA+PiArCQly
+ID0gdHRtLT5mdW5jLT51bmJpbmQodHRtKTsNCj4gPj4gKwkJaWYgKHVubGlrZWx5KHIpKQ0KPiA+
+PiArCQkJcmV0dXJuIHI7DQo+ID4+ICsNCj4gPj4gKwkJdHRtLT5zdGF0ZSA9IHR0X3VuYm91bmQ7
+DQo+ID4+ICsJfQ0KPiA+PiArDQo+ID4+ICsJciA9IHR0bV90dF9iaW5kKHR0bSwgJnRtcCk7DQo+
+ID4+ICsJaWYgKHVubGlrZWx5KHIpKSB7DQo+ID4+ICAgCQl0dG1fYm9fbWVtX3B1dChibywgJnRt
+cCk7DQo+ID4+IC0JZWxzZQ0KPiA+PiAtCQliby0+b2Zmc2V0ID0gKGJvLT5tZW0uc3RhcnQgPDwg
+UEFHRV9TSElGVCkgKw0KPiA+PiAtCQkJYm8tPmJkZXYtPm1hbltiby0+bWVtLm1lbV90eXBlXS5n
+cHVfb2Zmc2V0Ow0KPiA+PiArCQlyZXR1cm4gcjsNCj4gPj4gKwl9DQo+ID4+DQo+ID4+IC0JcmV0
+dXJuIHI7DQo+ID4+ICsJdHRtX2JvX21lbV9wdXQoYm8sIGJvX21lbSk7DQo+ID4+ICsJYm8tPm1l
+bSA9IHRtcDsNCj4gPj4gKwliby0+b2Zmc2V0ID0gKGJvLT5tZW0uc3RhcnQgPDwgUEFHRV9TSElG
+VCkgKw0KPiA+PiArCQliby0+YmRldi0+bWFuW2JvLT5tZW0ubWVtX3R5cGVdLmdwdV9vZmZzZXQ7
+DQo+ID4+ICsNCj4gPj4gKwlyZXR1cm4gMDsNCj4gPj4gICB9DQo+ID4+DQo+ID4+ICAgaW50IGFt
+ZGdwdV90dG1fcmVjb3Zlcl9nYXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiA+PiAt
+LQ0KPiA+PiAyLjcuNA0KPiA+Pg0KPiA+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXw0KPiA+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiA+PiBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXw0KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+ID4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj4gDQoNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
