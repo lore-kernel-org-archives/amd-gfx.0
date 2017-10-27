@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm 1/2] amdgpu: Add wrappers for AMDGPU_VM IOCTL.
-Date: Fri, 27 Oct 2017 09:44:56 +0200
-Message-ID: <5274b8e4-6908-e750-ed5f-1aa7274ff260@gmail.com>
-References: <1509063355-5205-1-git-send-email-Andrey.Grodzovsky@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amd/display: Don't print error when bo_pin is
+ interrupted
+Date: Fri, 27 Oct 2017 09:46:11 +0200
+Message-ID: <28547400-b0f2-d3b0-2f9d-14749a479257@amd.com>
+References: <20171026200801.14662-1-harry.wentland@amd.com>
+ <ff616ee9-0e16-5278-1169-b75b61db6141@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0619592908=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1509063355-5205-1-git-send-email-Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <ff616ee9-0e16-5278-1169-b75b61db6141-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,82 +20,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org
 
-QW0gMjcuMTAuMjAxNyB1bSAwMjoxNSBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+IENoYW5n
-ZS1JZDogSTdlYWZiODVjMWNhOTZkNmQyNTVmMDE4M2JlZDBjZTQxMjk3NDZmZTAKPiBTaWduZWQt
-b2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4KPiAt
-LS0KPiAgIGFtZGdwdS9NYWtlZmlsZS5zb3VyY2VzIHwgIDEgKwo+ICAgYW1kZ3B1L2FtZGdwdS5o
-ICAgICAgICAgfCAyMCArKysrKysrKysrKysrKysrKysrCj4gICBhbWRncHUvYW1kZ3B1X3ZtLmMg
-ICAgICB8IDUyICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysKPiAgIDMgZmlsZXMgY2hhbmdlZCwgNzMgaW5zZXJ0aW9ucygrKQo+ICAgY3JlYXRlIG1vZGUg
-MTAwNjQ0IGFtZGdwdS9hbWRncHVfdm0uYwo+Cj4gZGlmZiAtLWdpdCBhL2FtZGdwdS9NYWtlZmls
-ZS5zb3VyY2VzIGIvYW1kZ3B1L01ha2VmaWxlLnNvdXJjZXMKPiBpbmRleCBiYzNhYmFhLi40OThi
-NjRjIDEwMDY0NAo+IC0tLSBhL2FtZGdwdS9NYWtlZmlsZS5zb3VyY2VzCj4gKysrIGIvYW1kZ3B1
-L01ha2VmaWxlLnNvdXJjZXMKPiBAQCAtNiw2ICs2LDcgQEAgTElCRFJNX0FNREdQVV9GSUxFUyA6
-PSBcCj4gICAJYW1kZ3B1X2dwdV9pbmZvLmMgXAo+ICAgCWFtZGdwdV9pbnRlcm5hbC5oIFwKPiAg
-IAlhbWRncHVfdmFtZ3IuYyBcCj4gKwlhbWRncHVfdm0uYyBcCj4gICAJdXRpbF9oYXNoLmMgXAo+
-ICAgCXV0aWxfaGFzaC5oIFwKPiAgIAl1dGlsX2hhc2hfdGFibGUuYyBcCj4gZGlmZiAtLWdpdCBh
-L2FtZGdwdS9hbWRncHUuaCBiL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IGVjYzk3NWYuLjA3ZjI4
-NTEgMTAwNjQ0Cj4gLS0tIGEvYW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIvYW1kZ3B1L2FtZGdwdS5o
-Cj4gQEAgLTE0ODksNiArMTQ4OSwyNiBAQCB2b2lkIGFtZGdwdV9jc19jaHVua19mZW5jZV90b19k
-ZXAoc3RydWN0IGFtZGdwdV9jc19mZW5jZSAqZmVuY2UsCj4gICB2b2lkIGFtZGdwdV9jc19jaHVu
-a19mZW5jZV9pbmZvX3RvX2RhdGEoc3RydWN0IGFtZGdwdV9jc19mZW5jZV9pbmZvICpmZW5jZV9p
-bmZvLAo+ICAgCQkJCQlzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19kYXRhICpkYXRhKTsKPiAg
-IAo+ICsvKioKPiArICogUmVzZXJ2ZSBWTUlECj4gKyAqIFxwYXJhbSAgIGNvbnRleHQgLSBcYyBb
-aW5dICBHUFUgQ29udGV4dAo+ICsgKiBccGFyYW0gICBmbGFncyAtIFxjIFtpbl0gIFRCRAo+ICsg
-Kgo+ICsgKiBccmV0dXJuICAwIG9uIHN1Y2Nlc3Mgb3RoZXJ3aXNlIFBPU0lYIEVycm9yIGNvZGUK
-PiArKi8KPiAraW50IGFtZGdwdV92bV9hbGxvY19yZXNlcnZlZF92bWlkKGFtZGdwdV9jb250ZXh0
-X2hhbmRsZSBjb250ZXh0LAo+ICsJCQkJCQkJCSAgdWludDMyX3QJZmxhZ3MpOwo+ICsKPiArLyoq
-Cj4gKyAqIEZyZWUgcmVzZXJ2ZWQgVk1JRAo+ICsgKiBccGFyYW0gICBjb250ZXh0IC0gXGMgW2lu
-XSAgR1BVIENvbnRleHQKPiArICogXHBhcmFtICAgZmxhZ3MgLSBcYyBbaW5dICBUQkQKPiArICoK
-PiArICogXHJldHVybiAgMCBvbiBzdWNjZXNzIG90aGVyd2lzZSBQT1NJWCBFcnJvciBjb2RlCj4g
-KyovCj4gK2ludCBhbWRncHVfdm1fZnJlZV9yZXNlcnZlZF92bWlkKGFtZGdwdV9jb250ZXh0X2hh
-bmRsZSBjb250ZXh0LAo+ICsJCQkJCQkJCSB1aW50MzJfdAlmbGFncyk7Cj4gKwo+ICAgI2lmZGVm
-IF9fY3BsdXNwbHVzCj4gICB9Cj4gICAjZW5kaWYKPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdw
-dV92bS5jIGIvYW1kZ3B1L2FtZGdwdV92bS5jCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRl
-eCAwMDAwMDAwLi4xNjY0YjdiCj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL2FtZGdwdS9hbWRncHVf
-dm0uYwo+IEBAIC0wLDAgKzEsNTIgQEAKPiArLyoKPiArICogQ29weXJpZ2h0IDIwMTcgQWR2YW5j
-ZWQgTWljcm8gRGV2aWNlcywgSW5jLgo+ICsgKgo+ICsgKiBQZXJtaXNzaW9uIGlzIGhlcmVieSBn
-cmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQo+ICsgKiBj
-b3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9jdW1lbnRhdGlvbiBmaWxlcyAo
-dGhlICJTb2Z0d2FyZSIpLAo+ICsgKiB0byBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRob3V0IHJl
-c3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9uCj4gKyAqIHRoZSByaWdodHMg
-dG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNl
-bnNlLAo+ICsgKiBhbmQvb3Igc2VsbCBjb3BpZXMgb2YgdGhlIFNvZnR3YXJlLCBhbmQgdG8gcGVy
-bWl0IHBlcnNvbnMgdG8gd2hvbSB0aGUKPiArICogU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRv
-IHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9uczoKPiArICoKPiArICogVGhl
-IGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwg
-YmUgaW5jbHVkZWQgaW4KPiArICogYWxsIGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0aW9ucyBv
-ZiB0aGUgU29mdHdhcmUuCj4gKyAqCj4gKyAqIFRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMg
-SVMiLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SCj4gKyAqIElNUExJ
-RUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hB
-TlRBQklMSVRZLAo+ICsgKiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9O
-SU5GUklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgU0hBTEwKPiArICogVEhFIENPUFlSSUdIVCBIT0xE
-RVIoUykgT1IgQVVUSE9SKFMpIEJFIExJQUJMRSBGT1IgQU5ZIENMQUlNLCBEQU1BR0VTIE9SCj4g
-KyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRP
-UlQgT1IgT1RIRVJXSVNFLAo+ICsgKiBBUklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNU
-SU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IKPiArICogT1RIRVIgREVBTElOR1Mg
-SU4gVEhFIFNPRlRXQVJFLgo+ICsgKgo+ICsgKi8KPiArCj4gKwo+ICsjaW5jbHVkZSAiYW1kZ3B1
-LmgiCj4gKyNpbmNsdWRlICJhbWRncHVfZHJtLmgiCj4gKyNpbmNsdWRlICJ4Zjg2ZHJtLmgiCj4g
-KyNpbmNsdWRlICJhbWRncHVfaW50ZXJuYWwuaCIKPiArCj4gK2ludCBhbWRncHVfdm1fYWxsb2Nf
-cmVzZXJ2ZWRfdm1pZChhbWRncHVfY29udGV4dF9oYW5kbGUgY29udGV4dCwKPiArCQkJCQkJCQkg
-IHVpbnQzMl90CWZsYWdzKQoKQ291bGQganVzdCBiZSB0aGUgbWFpbCBjbGllbnQsIGJ1dCBmbGFn
-cyBsb29rcyB3YXkgdG8gbXVjaCBpbmRlbnRlZCB0byAKdGhlIHJpZ2h0LgoKQWRkaXRpb25hbCB0
-byB0aGF0IEkgd291bGQga2VlcCB0aGUgbmFtZSBvZiB0aGUga2VybmVsIElPQ1RMIGZvciB0aGUg
-CmZ1bmN0aW9uIG5hbWUuCgpFLmcuIGFtZGdwdV92bV9yZXNlcnZlX3ZtaWQoKSBhbmQgYW1kZ3B1
-X3ZtX3VucmVzZXJ2ZV92bWlkKCkuCgpBcGFydCBmcm9tIHRoYXQgYm90aCBwYXRjaGVzIGxvb2sg
-Z29vZCB0byBtZS4KCkNocmlzdGlhbi4KCj4gK3sKPiArCXVuaW9uIGRybV9hbWRncHVfdm0gdm07
-Cj4gKwo+ICsJdm0uaW4ub3AgPSBBTURHUFVfVk1fT1BfUkVTRVJWRV9WTUlEOwo+ICsJdm0uaW4u
-ZmxhZ3MgPSBmbGFnczsKPiArCj4gKwlyZXR1cm4gZHJtQ29tbWFuZFdyaXRlUmVhZChjb250ZXh0
-LT5kZXYtPmZkLCBEUk1fQU1ER1BVX1ZNLAo+ICsJCQkJCQkJICAgJnZtLCBzaXplb2Yodm0pKTsK
-PiArfQo+ICsKPiAraW50IGFtZGdwdV92bV9mcmVlX3Jlc2VydmVkX3ZtaWQoYW1kZ3B1X2NvbnRl
-eHRfaGFuZGxlIGNvbnRleHQsCj4gKwkJCQkJCQkJIHVpbnQzMl90CWZsYWdzKQo+ICt7Cj4gKwl1
-bmlvbiBkcm1fYW1kZ3B1X3ZtIHZtOwo+ICsKPiArCXZtLmluLm9wID0gQU1ER1BVX1ZNX09QX1VO
-UkVTRVJWRV9WTUlEOwo+ICsJdm0uaW4uZmxhZ3MgPSBmbGFnczsKPiArCj4gKwlyZXR1cm4gZHJt
-Q29tbWFuZFdyaXRlUmVhZChjb250ZXh0LT5kZXYtPmZkLCBEUk1fQU1ER1BVX1ZNLAo+ICsJCQkJ
-CQkJICAgJnZtLCBzaXplb2Yodm0pKTsKPiArfQoKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0619592908==
+Content-Type: multipart/alternative;
+ boundary="------------14FFB792E6B7E46A671AF8C7"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------14FFB792E6B7E46A671AF8C7
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi Harry,
+
+actually it's best practice that you only ignore ERESTARTSYS here, see 
+other code in the driver as well.
+
+EINTR means that the IOCTL was interrupted and can't be restarted 
+because of some problem.
+
+EAGAIN mean the we can't do this operation right now, but might be able 
+to do it at some point in the future.
+
+Both sound like a good idea to note to the user.
+
+Regards,
+Christian.
+
+Am 26.10.2017 um 22:16 schrieb Andrey Grodzovsky:
+>
+>
+>
+> On 2017-10-26 04:08 PM, Harry Wentland wrote:
+>> v2: Also don't print for ERESTARTSYS or EAGAIN
+>>
+>> Signed-off-by: Harry Wentland<harry.wentland-5C7GfCeVMHo@public.gmane.org>
+>
+> Reviewed-by: Andrey Grodzovsky<andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+>
+> Thanks,
+> Andrey
+>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index cf15701f208d..4401f0fb3f02 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+>>   	amdgpu_bo_unreserve(rbo);
+>>   
+>>   	if (unlikely(r != 0)) {
+>> -		DRM_ERROR("Failed to pin framebuffer\n");
+>> +		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
+>> +			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
+>>   		return r;
+>>   	}
+>>   
+>
+
+
+--------------14FFB792E6B7E46A671AF8C7
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Hi Harry,<br>
+      <br>
+      actually it's best practice that you only ignore ERESTARTSYS here,
+      see other code in the driver as well.<br>
+      <br>
+      EINTR means that the IOCTL was interrupted and can't be restarted
+      because of some problem.<br>
+      <br>
+      EAGAIN mean the we can't do this operation right now, but might be
+      able to do it at some point in the future.<br>
+      <br>
+      Both sound like a good idea to note to the user.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 26.10.2017 um 22:16 schrieb Andrey Grodzovsky:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:ff616ee9-0e16-5278-1169-b75b61db6141-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <p><br>
+      </p>
+      <br>
+      <div class="moz-cite-prefix">On 2017-10-26 04:08 PM, Harry
+        Wentland wrote:<br>
+      </div>
+      <blockquote
+        cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
+        type="cite">
+        <pre wrap="">v2: Also don't print for ERESTARTSYS or EAGAIN
+
+Signed-off-by: Harry Wentland <a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
+      </blockquote>
+      <br>
+      <pre wrap="">Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
+      <br>
+      Thanks,<br>
+      Andrey<br>
+      <br>
+      <blockquote
+        cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
+        type="cite">
+        <pre wrap="">---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index cf15701f208d..4401f0fb3f02 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+ 	amdgpu_bo_unreserve(rbo);
+ 
+ 	if (unlikely(r != 0)) {
+-		DRM_ERROR("Failed to pin framebuffer\n");
++		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
++			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
+ 		return r;
+ 	}
+ 
+</pre>
+      </blockquote>
+      <br>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------14FFB792E6B7E46A671AF8C7--
+
+--===============0619592908==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0619592908==--
