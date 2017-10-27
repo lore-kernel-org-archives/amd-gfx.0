@@ -1,15 +1,12 @@
 From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 03/29] drm/amd/display: Complete TODO item: use new DRM
- iterator
-Date: Thu, 26 Oct 2017 23:06:15 -0400
-Message-ID: <3450881e-59f5-7784-707c-fa9387d9e97e@amd.com>
+Subject: Re: [PATCH 00/29] DC Linux Patches Oct 25, 2017
+Date: Thu, 26 Oct 2017 23:14:05 -0400
+Message-ID: <bf8dcfe1-83f1-9b06-9328-b35058fc3de7@amd.com>
 References: <20171026183525.7532-1-harry.wentland@amd.com>
- <20171026183525.7532-4-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0229655174=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171026183525.7532-4-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20171026183525.7532-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,69 +18,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
 
-CgpPbiAyMDE3LTEwLTI2IDAyOjM0IFBNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPiBGcm9tOiAi
-TGVvIChTdW5wZW5nKSBMaSIgPHN1bnBlbmcubGlAYW1kLmNvbT4KPgo+IEFiYW5kb24gbmV3X2Ny
-dGNzIGFycmF5IGFuZCB1c2UgZm9yX2VhY2hfbmV3IGl0ZXJhdG9yIHRvIGFjcXVpcmUgbmV3Cj4g
-Y3J0Y3MuCj4KPiBTaWduZWQtb2ZmLWJ5OiBMZW8gKFN1bnBlbmcpIExpIDxzdW5wZW5nLmxpQGFt
-ZC5jb20+Cj4gUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxIYXJyeS5XZW50bGFuZEBhbWQu
-Y29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYyB8IDM2ICsrKysrKysrKy0tLS0tLS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwg
-MTQgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiBpbmRleCA0NDJiMzk5YTk0
-MDAuLjU5MGY4MGQyOWI1NiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IEBAIC00MDEzLDEwICs0MDEzLDggQEAgc3RhdGlj
-IHZvaWQgYW1kZ3B1X2RtX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgZHJtX2F0b21pY19zdGF0
-ZSAqc3RhdGUpCj4gICAJc3RydWN0IGFtZGdwdV9kaXNwbGF5X21hbmFnZXIgKmRtID0gJmFkZXYt
-PmRtOwo+ICAgCXN0cnVjdCBkbV9hdG9taWNfc3RhdGUgKmRtX3N0YXRlOwo+ICAgCXVpbnQzMl90
-IGksIGo7Cj4gLQl1aW50MzJfdCBuZXdfY3J0Y3NfY291bnQgPSAwOwo+ICAgCXN0cnVjdCBkcm1f
-Y3J0YyAqY3J0YzsKPiAgIAlzdHJ1Y3QgZHJtX2NydGNfc3RhdGUgKm9sZF9jcnRjX3N0YXRlLCAq
-bmV3X2NydGNfc3RhdGU7Cj4gLQlzdHJ1Y3QgYW1kZ3B1X2NydGMgKm5ld19jcnRjc1tNQVhfU1RS
-RUFNU107Cj4gICAJdW5zaWduZWQgbG9uZyBmbGFnczsKPiAgIAlib29sIHdhaXRfZm9yX3ZibGFu
-ayA9IHRydWU7Cj4gICAJc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcjsKPiBAQCAtNDA3
-NSwyNSArNDA3Myw5IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9hdG9taWNfY29tbWl0X3RhaWwo
-c3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKQo+ICAgCQkJCWNvbnRpbnVlOwo+ICAgCQkJ
-fQo+ICAgCj4gLQo+ICAgCQkJaWYgKGRtX29sZF9jcnRjX3N0YXRlLT5zdHJlYW0pCj4gICAJCQkJ
-cmVtb3ZlX3N0cmVhbShhZGV2LCBhY3J0YywgZG1fb2xkX2NydGNfc3RhdGUtPnN0cmVhbSk7Cj4g
-ICAKPiAtCj4gLQkJCS8qCj4gLQkJCSAqIHRoaXMgbG9vcCBzYXZlcyBzZXQgbW9kZSBjcnRjcwo+
-IC0JCQkgKiB3ZSBuZWVkZWQgdG8gZW5hYmxlIHZibGFua3Mgb25jZSBhbGwKPiAtCQkJICogcmVz
-b3VyY2VzIGFjcXVpcmVkIGluIGRjIGFmdGVyIGRjX2NvbW1pdF9zdHJlYW1zCj4gLQkJCSAqLwo+
-IC0KPiAtCQkJLypUT0RPIG1vdmUgYWxsIHRoaXMgaW50byBkbV9jcnRjX3N0YXRlLCBnZXQgcmlk
-IG9mCj4gLQkJCSAqIG5ld19jcnRjcyBhcnJheSBhbmQgdXNlIG9sZCBhbmQgbmV3IGF0b21pYyBz
-dGF0ZXMKPiAtCQkJICogaW5zdGVhZAo+IC0JCQkgKi8KPiAtCQkJbmV3X2NydGNzW25ld19jcnRj
-c19jb3VudF0gPSBhY3J0YzsKPiAtCQkJbmV3X2NydGNzX2NvdW50Kys7Cj4gLQo+IC0JCQluZXdf
-Y3J0Y19zdGF0ZSA9IGRybV9hdG9taWNfZ2V0X25ld19jcnRjX3N0YXRlKHN0YXRlLCBjcnRjKTsK
-PiAgIAkJCWFjcnRjLT5lbmFibGVkID0gdHJ1ZTsKPiAgIAkJCWFjcnRjLT5od19tb2RlID0gbmV3
-X2NydGNfc3RhdGUtPm1vZGU7Cj4gICAJCQljcnRjLT5od21vZGUgPSBuZXdfY3J0Y19zdGF0ZS0+
-bW9kZTsKPiBAQCAtNDIyMSwxOCArNDIwMywyOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG1fYXRv
-bWljX2NvbW1pdF90YWlsKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSkKPiAgIAkJCWRt
-X2Vycm9yKCIlczogRmFpbGVkIHRvIHVwZGF0ZSBzdHJlYW0gc2NhbGluZyFcbiIsIF9fZnVuY19f
-KTsKPiAgIAl9Cj4gICAKPiAtCWZvciAoaSA9IDA7IGkgPCBuZXdfY3J0Y3NfY291bnQ7IGkrKykg
-ewo+ICsJZm9yX2VhY2hfb2xkbmV3X2NydGNfaW5fc3RhdGUoc3RhdGUsIGNydGMsIG9sZF9jcnRj
-X3N0YXRlLAo+ICsJCQluZXdfY3J0Y19zdGF0ZSwgaSkgewo+ICAgCQkvKgo+ICAgCQkgKiBsb29w
-IHRvIGVuYWJsZSBpbnRlcnJ1cHRzIG9uIG5ld2x5IGFycml2ZWQgY3J0Ywo+ICAgCQkgKi8KPiAt
-CQlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFjcnRjID0gbmV3X2NydGNzW2ldOwo+ICsJCXN0cnVjdCBh
-bWRncHVfY3J0YyAqYWNydGMgPSB0b19hbWRncHVfY3J0YyhjcnRjKTsKPiArCQlib29sIG1vZGVz
-ZXRfbmVlZGVkOwo+ICAgCj4gLQkJbmV3X2NydGNfc3RhdGUgPSBkcm1fYXRvbWljX2dldF9uZXdf
-Y3J0Y19zdGF0ZShzdGF0ZSwgJmFjcnRjLT5iYXNlKTsKPiAgIAkJZG1fbmV3X2NydGNfc3RhdGUg
-PSB0b19kbV9jcnRjX3N0YXRlKG5ld19jcnRjX3N0YXRlKTsKPiArCQlkbV9vbGRfY3J0Y19zdGF0
-ZSA9IHRvX2RtX2NydGNfc3RhdGUob2xkX2NydGNfc3RhdGUpOwo+ICsJCW1vZGVzZXRfbmVlZGVk
-ID0gbW9kZXNldF9yZXF1aXJlZCgKPiArCQkJCW5ld19jcnRjX3N0YXRlLAo+ICsJCQkJZG1fbmV3
-X2NydGNfc3RhdGUtPnN0cmVhbSwKPiArCQkJCWRtX29sZF9jcnRjX3N0YXRlLT5zdHJlYW0pOwo+
-ICsKPiArCQlpZiAoZG1fbmV3X2NydGNfc3RhdGUtPnN0cmVhbSA9PSBOVUxMIHx8ICFtb2Rlc2V0
-X25lZWRlZCkKPiArCQkJY29udGludWU7CgpJIGZlZWwgaXQncyBhIGJpdCBmdXR1cmUgYnVnIHBy
-b25lIHRvIHJlcGVhdCB0aGUgMiBjaGVja3MgYWJvdmUgZnJvbSB0aGUgCmluaXRpYWwKZm9yX2Vh
-Y2hfY3J0Y19pbl9zdGF0ZSBsb29wLCBzb21lYm9keSBtYWtlcyBjaGFuZ2VzIHRoZXJlIGFuZCBm
-b3JnZXQgCmFib3V0IHRoaXMgbG9vcC4KVGhlIGFycmF5IGlzIHVnbHkgYnV0IGl0IGF2b2lkcyBs
-b2dpYyBkdXBsaWNhdGlvbi4KClRoYW5rcywKQW5kcmV5Cgo+ICAgCj4gICAJCWlmIChhZGV2LT5k
-bS5mcmVlc3luY19tb2R1bGUpCj4gICAJCQltb2RfZnJlZXN5bmNfbm90aWZ5X21vZGVfY2hhbmdl
-KAo+IC0JCQkJYWRldi0+ZG0uZnJlZXN5bmNfbW9kdWxlLCAmZG1fbmV3X2NydGNfc3RhdGUtPnN0
-cmVhbSwgMSk7Cj4gKwkJCQlhZGV2LT5kbS5mcmVlc3luY19tb2R1bGUsCj4gKwkJCQkmZG1fbmV3
-X2NydGNfc3RhdGUtPnN0cmVhbSwgMSk7Cj4gICAKPiAgIAkJbWFuYWdlX2RtX2ludGVycnVwdHMo
-YWRldiwgYWNydGMsIHRydWUpOwo+ICAgCX0KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0229655174==
+Content-Type: multipart/alternative;
+ boundary="------------769A199109B58F2CCCC2ED5A"
+
+This is a multi-part message in MIME format.
+--------------769A199109B58F2CCCC2ED5A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Patches 1,2,6,24-26,28 are
+
+Reviewed-by: Andrey Grodzovsky<andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+
+
+On 2017-10-26 02:34 PM, Harry Wentland wrote:
+>   * Remove annoyning Freesync warning
+>   * Fix Freesync and amd-stg which was broken in last set of patches
+>   * Fix issue with plugging in displays during S3
+>   * Bunch of generic fixes found during Raven bringup
+>   * Whole bunch of Raven fixes and work
+>
+> Andrew Jiang (3):
+>    drm/amd/display: Reject PPLib clock values if they are invalid
+>    drm/amd/display: Use constants from atom.h for HDMI caps read
+>    drm/amd/display: Don't reject 3D timings
+>
+> Anthony Koo (1):
+>    drm/amd/display: Move hdr_metadata from plane to stream
+>
+> Charlene Liu (1):
+>    drm/amd/display: correct DP is always in full range or bt609
+>
+> Dmytro Laktyushkin (2):
+>    drm/amd/display: fix split recout calculation
+>    drm/amd/display: fix split recout offset
+>
+> Eric Yang (1):
+>    drm/amd/display: Add timing validation against dongle cap
+>
+> Harry Wentland (7):
+>    drm/amdgpu: Remove immutable flag from freesync_capable property
+>    drm/amd/display: Move conn_state to header
+>    drm/amd/display: Use plane pointer to avoid line breaks
+>    drm/amd/display: Use single fail label in init_drm_dev
+>    drm/amd/display: Explicitly call ->reset for each object
+>    drm/amd/display: Don't access legacy properties
+>    drm/amd/display: Fix Freesync enablement
+>
+> Hersen Wu (1):
+>    drm/amd/display: Handle as MST first and then DP dongle if sink
+>      support both
+>
+> Leo (Sunpeng) Li (2):
+>    drm/amd/display: Fix styling of freesync code in commit_tail
+>    drm/amd/display: Complete TODO item: use new DRM iterator
+>
+> Roman Li (1):
+>    drm/amd/display: Fix S3 topology change
+>
+> SivapiriyanKumarasamy (1):
+>    drm/amd/display: Apply VQ adjustments in MPO case
+>
+> Tony Cheng (3):
+>    drm/amd/display: dal 3.1.08
+>    drm/amd/display: dal 3.1.09
+>    drm/amd/display: dal 3.1.10
+>
+> Yongqiang Sun (3):
+>    drm/amd/display: Power down front end in init_hw.
+>    drm/amd/display: Not reset front end when program back end.
+>    drm/amd/display: Added disconnect dchub.
+>
+> Yue Hin Lau (3):
+>    drm/amd/display: create new files for hubbub functions
+>    drm/amd/display: create new structure for hubbub
+>    drm/amd/display: fix bug from last commit for hubbub
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   2 +-
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 198 ++---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  13 +
+>   drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c   |  68 +-
+>   drivers/gpu/drm/amd/display/dc/core/dc.c           |  23 +-
+>   drivers/gpu/drm/amd/display/dc/core/dc_debug.c     |   4 +
+>   drivers/gpu/drm/amd/display/dc/core/dc_link.c      | 108 ++-
+>   drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  21 +-
+>   drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  51 +-
+>   drivers/gpu/drm/amd/display/dc/dc.h                |  44 +-
+>   drivers/gpu/drm/amd/display/dc/dc_hw_types.h       |   9 +
+>   drivers/gpu/drm/amd/display/dc/dc_types.h          |   5 -
+>   .../drm/amd/display/dc/dce/dce_stream_encoder.c    |  34 +-
+>   .../amd/display/dc/dce110/dce110_hw_sequencer.c    |   3 +-
+>   drivers/gpu/drm/amd/display/dc/dcn10/Makefile      |   3 +-
+>   drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c   |  31 +-
+>   drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.h   |  47 +-
+>   .../gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c    |  44 +-
+>   .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c    | 510 +++++++++++++
+>   .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h    | 217 ++++++
+>   drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c  |   9 +
+>   .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  | 841 +++++----------------
+>   .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h  |   1 +
+>   .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |  44 ++
+>   .../amd/display/dc/dcn10/dcn10_timing_generator.c  |   3 -
+>   drivers/gpu/drm/amd/display/dc/inc/core_status.h   |   2 +-
+>   drivers/gpu/drm/amd/display/dc/inc/core_types.h    |   1 +
+>   drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h        |  10 +-
+>   drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |   2 +
+>   drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h  |  14 +
+>   drivers/gpu/drm/amd/display/dc/inc/hw/ipp.h        |   6 +-
+>   drivers/gpu/drm/amd/display/dc/inc/hw/transform.h  |   6 +-
+>   32 files changed, 1468 insertions(+), 906 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
+>   create mode 100644 drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
+>
+
+
+--------------769A199109B58F2CCCC2ED5A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Patches 1,2,6,24-26,28 are <br>
+    </p>
+    <pre wrap="">Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
+    <br>
+    <div class="moz-cite-prefix">On 2017-10-26 02:34 PM, Harry Wentland
+      wrote:<br>
+    </div>
+    <blockquote cite="mid:20171026183525.7532-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
+      type="cite">
+      <pre wrap=""> * Remove annoyning Freesync warning
+ * Fix Freesync and amd-stg which was broken in last set of patches
+ * Fix issue with plugging in displays during S3
+ * Bunch of generic fixes found during Raven bringup
+ * Whole bunch of Raven fixes and work
+
+Andrew Jiang (3):
+  drm/amd/display: Reject PPLib clock values if they are invalid
+  drm/amd/display: Use constants from atom.h for HDMI caps read
+  drm/amd/display: Don't reject 3D timings
+
+Anthony Koo (1):
+  drm/amd/display: Move hdr_metadata from plane to stream
+
+Charlene Liu (1):
+  drm/amd/display: correct DP is always in full range or bt609
+
+Dmytro Laktyushkin (2):
+  drm/amd/display: fix split recout calculation
+  drm/amd/display: fix split recout offset
+
+Eric Yang (1):
+  drm/amd/display: Add timing validation against dongle cap
+
+Harry Wentland (7):
+  drm/amdgpu: Remove immutable flag from freesync_capable property
+  drm/amd/display: Move conn_state to header
+  drm/amd/display: Use plane pointer to avoid line breaks
+  drm/amd/display: Use single fail label in init_drm_dev
+  drm/amd/display: Explicitly call -&gt;reset for each object
+  drm/amd/display: Don't access legacy properties
+  drm/amd/display: Fix Freesync enablement
+
+Hersen Wu (1):
+  drm/amd/display: Handle as MST first and then DP dongle if sink
+    support both
+
+Leo (Sunpeng) Li (2):
+  drm/amd/display: Fix styling of freesync code in commit_tail
+  drm/amd/display: Complete TODO item: use new DRM iterator
+
+Roman Li (1):
+  drm/amd/display: Fix S3 topology change
+
+SivapiriyanKumarasamy (1):
+  drm/amd/display: Apply VQ adjustments in MPO case
+
+Tony Cheng (3):
+  drm/amd/display: dal 3.1.08
+  drm/amd/display: dal 3.1.09
+  drm/amd/display: dal 3.1.10
+
+Yongqiang Sun (3):
+  drm/amd/display: Power down front end in init_hw.
+  drm/amd/display: Not reset front end when program back end.
+  drm/amd/display: Added disconnect dchub.
+
+Yue Hin Lau (3):
+  drm/amd/display: create new files for hubbub functions
+  drm/amd/display: create new structure for hubbub
+  drm/amd/display: fix bug from last commit for hubbub
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 198 ++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  13 +
+ drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c   |  68 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  23 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_debug.c     |   4 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      | 108 ++-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  21 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  51 +-
+ drivers/gpu/drm/amd/display/dc/dc.h                |  44 +-
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h       |   9 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h          |   5 -
+ .../drm/amd/display/dc/dce/dce_stream_encoder.c    |  34 +-
+ .../amd/display/dc/dce110/dce110_hw_sequencer.c    |   3 +-
+ drivers/gpu/drm/amd/display/dc/dcn10/Makefile      |   3 +-
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c   |  31 +-
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.h   |  47 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_dpp_cm.c    |  44 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c    | 510 +++++++++++++
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h    | 217 ++++++
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c  |   9 +
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  | 841 +++++----------------
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h  |   1 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |  44 ++
+ .../amd/display/dc/dcn10/dcn10_timing_generator.c  |   3 -
+ drivers/gpu/drm/amd/display/dc/inc/core_status.h   |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/core_types.h    |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h        |  10 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |   2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h  |  14 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/ipp.h        |   6 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/transform.h  |   6 +-
+ 32 files changed, 1468 insertions(+), 906 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
+
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------769A199109B58F2CCCC2ED5A--
+
+--===============0229655174==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0229655174==--
