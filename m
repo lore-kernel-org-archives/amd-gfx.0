@@ -1,15 +1,14 @@
 From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amd/display: Don't print error when bo_pin is
- interrupted
-Date: Fri, 27 Oct 2017 10:27:15 -0400
-Message-ID: <a300fecf-453f-eea5-ce06-37616c6199b7@amd.com>
-References: <20171026200801.14662-1-harry.wentland@amd.com>
- <ff616ee9-0e16-5278-1169-b75b61db6141@amd.com>
- <28547400-b0f2-d3b0-2f9d-14749a479257@amd.com>
+Subject: Re: [PATCH 6/8] drm/amd/display: enable GPU VM support
+Date: Fri, 27 Oct 2017 10:37:51 -0400
+Message-ID: <058e99f7-c585-5ba7-e22f-2c0a2d7c241b@amd.com>
+References: <1509033983-2977-1-git-send-email-deathsimple@vodafone.de>
+ <1509033983-2977-6-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1740291720=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <28547400-b0f2-d3b0-2f9d-14749a479257-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1509033983-2977-6-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,180 +20,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1740291720==
-Content-Type: multipart/alternative;
- boundary="------------8F528C552C4A5DECC47C4EE4"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------8F528C552C4A5DECC47C4EE4
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-Hi Christian,
-
-thanks for clarifying the semantics. I wasn't fully clear on that. What you say makes sense. I'll respin the patch.
-
-Harry
-
-On 2017-10-27 03:46 AM, Christian König wrote:
-> Hi Harry,
->
-> actually it's best practice that you only ignore ERESTARTSYS here, see other code in the driver as well.
->
-> EINTR means that the IOCTL was interrupted and can't be restarted because of some problem.
->
-> EAGAIN mean the we can't do this operation right now, but might be able to do it at some point in the future.
->
-> Both sound like a good idea to note to the user.
->
-> Regards,
-> Christian.
->
-> Am 26.10.2017 um 22:16 schrieb Andrey Grodzovsky:
->>
->>
->>
->> On 2017-10-26 04:08 PM, Harry Wentland wrote:
->>> v2: Also don't print for ERESTARTSYS or EAGAIN
->>>
->>> Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
->>
->> Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
->>
->> Thanks,
->> Andrey
->>
->>> ---
->>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
->>>  1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index cf15701f208d..4401f0fb3f02 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
->>>  	amdgpu_bo_unreserve(rbo);
->>>  
->>>  	if (unlikely(r != 0)) {
->>> -		DRM_ERROR("Failed to pin framebuffer\n");
->>> +		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
->>> +			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
->>>  		return r;
->>>  	}
->>>  
->>
->
-
-
---------------8F528C552C4A5DECC47C4EE4
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    Hi Christian,<br>
-    <br>
-    thanks for clarifying the semantics. I wasn't fully clear on that.
-    What you say makes sense. I'll respin the patch.<br>
-    <br>
-    Harry<br>
-    <br>
-    <div class="moz-cite-prefix">On 2017-10-27 03:46 AM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:28547400-b0f2-d3b0-2f9d-14749a479257-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <div class="moz-cite-prefix">Hi Harry,<br>
-        <br>
-        actually it's best practice that you only ignore ERESTARTSYS
-        here, see other code in the driver as well.<br>
-        <br>
-        EINTR means that the IOCTL was interrupted and can't be
-        restarted because of some problem.<br>
-        <br>
-        EAGAIN mean the we can't do this operation right now, but might
-        be able to do it at some point in the future.<br>
-        <br>
-        Both sound like a good idea to note to the user.<br>
-        <br>
-        Regards,<br>
-        Christian.<br>
-        <br>
-        Am 26.10.2017 um 22:16 schrieb Andrey Grodzovsky:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:ff616ee9-0e16-5278-1169-b75b61db6141-5C7GfCeVMHo@public.gmane.org">
-        <p><br>
-        </p>
-        <br>
-        <div class="moz-cite-prefix">On 2017-10-26 04:08 PM, Harry
-          Wentland wrote:<br>
-        </div>
-        <blockquote
-          cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
-          type="cite">
-          <pre wrap="">v2: Also don't print for ERESTARTSYS or EAGAIN
-
-Signed-off-by: Harry Wentland <a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
-        </blockquote>
-        <br>
-        <pre wrap="">Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
-        <br>
-        Thanks,<br>
-        Andrey<br>
-        <br>
-        <blockquote
-          cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
-          type="cite">
-          <pre wrap="">---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index cf15701f208d..4401f0fb3f02 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 	amdgpu_bo_unreserve(rbo);
- 
- 	if (unlikely(r != 0)) {
--		DRM_ERROR("Failed to pin framebuffer\n");
-+		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
-+			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
- 		return r;
- 	}
- 
-</pre>
-        </blockquote>
-        <br>
-      </blockquote>
-      <p><br>
-      </p>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------8F528C552C4A5DECC47C4EE4--
-
---===============1740291720==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1740291720==--
+T24gMjAxNy0xMC0yNiAxMjowNiBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBGcm9tOiBD
+aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gCj4gSnVzdCBzZXQg
+dGhlIGJpdCBzbyB0aGF0IERDIGRvZXMgdGhlIGhhcmR3YXJlIHByb2dyYW1taW5nLgo+IAo+IFNp
+Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
+PiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
+YyB8IDIgKysKPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IGluZGV4
+IDIxODhmMjAuLmVkNDM1MWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiBAQCAtNDE3LDYgKzQxNyw4IEBAIHN0YXRpYyBp
+bnQgYW1kZ3B1X2RtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIAo+ICAJaW5p
+dF9kYXRhLmRjZV9lbnZpcm9ubWVudCA9IERDRV9FTlZfUFJPRFVDVElPTl9EUlY7Cj4gIAo+ICsJ
+aW5pdF9kYXRhLmZsYWdzLmdwdV92bV9zdXBwb3J0ID0gdHJ1ZTsKPiArCgpIaSBDaHJpc3RpYW4s
+Cgp3aGF0IEFTSUMgaGFzIHRoaXMgYmVlbiB0ZXN0ZWQgb24/CgpJJ20gbm90IHN1cmUgdGhhdCB0
+aGlzIHdvbid0IGJyZWFrIGRHUFUuIGRHUFUgZG9lc24ndCBoYXZlIHZtX3N1cHBvcnQgYnV0IEkg
+dGhpbmsgREMgd2lsbCBzdGlsbCB0cnkgdG8gd3JpdGUgdGhlIHNhbWUgcmVnaXN0ZXJzIGFzIGZv
+ciBDWiBvbiBkR1BVIGlmIHdlIGVuYWJsZSB0aGlzLiBXZSBhdCBsZWFzdCBuZWVkIHRvIG1ha2Ug
+c3VyZSBpdCBkb2Vzbid0IGJsb3cgdXAuCgpBcyBmb3IgUmF2ZW4gd2UgdXNlIHRoaXMgZmxhZyBv
+biBXaW5kb3dzIGJ1dCBvbmx5IHRlc3RlZCB0aGUgY2FzZSB3aGVyZSBWTSBpcyBhY3R1YWxseSBw
+cm9ncmFtbWVkLiBJZiBWTSBpc24ndCBwcm9ncmFtbWVkIGl0IG1pZ2h0IHN0aWxsIHdvcmsgYnV0
+IHdlJ2QgbmVlZCB0byBnaXZlIHRoYXQgYSBzcGluLgoKSGFycnkKCj4gIAlpZiAoYW1kZ3B1X2Rj
+X2xvZykKPiAgCQlpbml0X2RhdGEubG9nX21hc2sgPSBEQ19ERUZBVUxUX0xPR19NQVNLOwo+ICAJ
+ZWxzZQo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
