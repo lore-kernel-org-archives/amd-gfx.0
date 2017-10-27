@@ -1,66 +1,200 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH libdrm 1/2] amdgpu: Add wrappers for AMDGPU_VM IOCTL.
-Date: Fri, 27 Oct 2017 09:55:48 -0400
-Message-ID: <0f021617-8573-b94d-5c72-e44a5dbe08b1@amd.com>
-References: <1509063355-5205-1-git-send-email-Andrey.Grodzovsky@amd.com>
- <CACvgo53-ZBtSciJE5iLJLBEAgX2pBc7MxWPY01HLDgm9Hbv-Ww@mail.gmail.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amd/display: Don't print error when bo_pin is
+ interrupted
+Date: Fri, 27 Oct 2017 10:27:15 -0400
+Message-ID: <a300fecf-453f-eea5-ce06-37616c6199b7@amd.com>
+References: <20171026200801.14662-1-harry.wentland@amd.com>
+ <ff616ee9-0e16-5278-1169-b75b61db6141@amd.com>
+ <28547400-b0f2-d3b0-2f9d-14749a479257@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CACvgo53-ZBtSciJE5iLJLBEAgX2pBc7MxWPY01HLDgm9Hbv-Ww@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Emil Velikov <emil.l.velikov@gmail.com>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, ML dri-devel <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1740291720=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <28547400-b0f2-d3b0-2f9d-14749a479257-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org
 
-CgpPbiAxMC8yNy8yMDE3IDA0OjUyIEFNLCBFbWlsIFZlbGlrb3Ygd3JvdGU6Cj4gT24gMjcgT2N0
-b2JlciAyMDE3IGF0IDAxOjE1LCBBbmRyZXkgR3JvZHpvdnNreQo+IDxBbmRyZXkuR3JvZHpvdnNr
-eUBhbWQuY29tPiB3cm90ZToKPj4gQ2hhbmdlLUlkOiBJN2VhZmI4NWMxY2E5NmQ2ZDI1NWYwMTgz
-YmVkMGNlNDEyOTc0NmZlMAo+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8QW5k
-cmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4KPj4gLS0tCj4+ICAgYW1kZ3B1L01ha2VmaWxlLnNvdXJj
-ZXMgfCAgMSArCj4+ICAgYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgfCAyMCArKysrKysrKysrKysr
-KysrKysrCj4+ICAgYW1kZ3B1L2FtZGdwdV92bS5jICAgICAgfCA1MiArKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4+ICAgMyBmaWxlcyBjaGFuZ2VkLCA3
-MyBpbnNlcnRpb25zKCspCj4+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFtZGdwdS9hbWRncHVfdm0u
-Ywo+Pgo+PiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L01ha2VmaWxlLnNvdXJjZXMgYi9hbWRncHUvTWFr
-ZWZpbGUuc291cmNlcwo+PiBpbmRleCBiYzNhYmFhLi40OThiNjRjIDEwMDY0NAo+PiAtLS0gYS9h
-bWRncHUvTWFrZWZpbGUuc291cmNlcwo+PiArKysgYi9hbWRncHUvTWFrZWZpbGUuc291cmNlcwo+
-PiBAQCAtNiw2ICs2LDcgQEAgTElCRFJNX0FNREdQVV9GSUxFUyA6PSBcCj4+ICAgICAgICAgIGFt
-ZGdwdV9ncHVfaW5mby5jIFwKPj4gICAgICAgICAgYW1kZ3B1X2ludGVybmFsLmggXAo+PiAgICAg
-ICAgICBhbWRncHVfdmFtZ3IuYyBcCj4+ICsgICAgICAgYW1kZ3B1X3ZtLmMgXAo+PiAgICAgICAg
-ICB1dGlsX2hhc2guYyBcCj4+ICAgICAgICAgIHV0aWxfaGFzaC5oIFwKPj4gICAgICAgICAgdXRp
-bF9oYXNoX3RhYmxlLmMgXAo+PiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdwdS5oIGIvYW1kZ3B1
-L2FtZGdwdS5oCj4+IGluZGV4IGVjYzk3NWYuLjA3ZjI4NTEgMTAwNjQ0Cj4+IC0tLSBhL2FtZGdw
-dS9hbWRncHUuaAo+PiArKysgYi9hbWRncHUvYW1kZ3B1LmgKPj4gQEAgLTE0ODksNiArMTQ4OSwy
-NiBAQCB2b2lkIGFtZGdwdV9jc19jaHVua19mZW5jZV90b19kZXAoc3RydWN0IGFtZGdwdV9jc19m
-ZW5jZSAqZmVuY2UsCj4+ICAgdm9pZCBhbWRncHVfY3NfY2h1bmtfZmVuY2VfaW5mb190b19kYXRh
-KHN0cnVjdCBhbWRncHVfY3NfZmVuY2VfaW5mbyAqZmVuY2VfaW5mbywKPj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19k
-YXRhICpkYXRhKTsKPj4KPj4gKy8qKgo+PiArICogUmVzZXJ2ZSBWTUlECj4+ICsgKiBccGFyYW0g
-ICBjb250ZXh0IC0gXGMgW2luXSAgR1BVIENvbnRleHQKPj4gKyAqIFxwYXJhbSAgIGZsYWdzIC0g
-XGMgW2luXSAgVEJECj4+ICsgKgo+PiArICogXHJldHVybiAgMCBvbiBzdWNjZXNzIG90aGVyd2lz
-ZSBQT1NJWCBFcnJvciBjb2RlCj4+ICsqLwo+PiAraW50IGFtZGdwdV92bV9hbGxvY19yZXNlcnZl
-ZF92bWlkKGFtZGdwdV9jb250ZXh0X2hhbmRsZSBjb250ZXh0LAo+PiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50MzJf
-dCAgICAgIGZsYWdzKTsKPj4gKwo+PiArLyoqCj4+ICsgKiBGcmVlIHJlc2VydmVkIFZNSUQKPj4g
-KyAqIFxwYXJhbSAgIGNvbnRleHQgLSBcYyBbaW5dICBHUFUgQ29udGV4dAo+PiArICogXHBhcmFt
-ICAgZmxhZ3MgLSBcYyBbaW5dICBUQkQKPj4gKyAqCj4+ICsgKiBccmV0dXJuICAwIG9uIHN1Y2Nl
-c3Mgb3RoZXJ3aXNlIFBPU0lYIEVycm9yIGNvZGUKPj4gKyovCj4+ICtpbnQgYW1kZ3B1X3ZtX2Zy
-ZWVfcmVzZXJ2ZWRfdm1pZChhbWRncHVfY29udGV4dF9oYW5kbGUgY29udGV4dCwKPj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB1aW50MzJfdCAgICAgICBmbGFncyk7Cj4+ICsKPiBBbmRyZXksIGRvbid0IGZvcmdldCB0byBy
-dW4gbWFrZSBjaGVjay4gWW91J2xsIHNlZSBpdCBmbGFnIGEgbG92ZWx5IGVycm9yIDstKQoKVGhh
-bmtzLCBkaWRuJ3Qga25vdyBhYm91dCB0aGUgY2hlY2sgb3B0aW9uLCB3aWxsIGZpeC4KCkFuZHJl
-eQoKPgo+IC1FbWlsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2
-ZWwK
+This is a multi-part message in MIME format.
+--===============1740291720==
+Content-Type: multipart/alternative;
+ boundary="------------8F528C552C4A5DECC47C4EE4"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------8F528C552C4A5DECC47C4EE4
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+Hi Christian,
+
+thanks for clarifying the semantics. I wasn't fully clear on that. What you say makes sense. I'll respin the patch.
+
+Harry
+
+On 2017-10-27 03:46 AM, Christian König wrote:
+> Hi Harry,
+>
+> actually it's best practice that you only ignore ERESTARTSYS here, see other code in the driver as well.
+>
+> EINTR means that the IOCTL was interrupted and can't be restarted because of some problem.
+>
+> EAGAIN mean the we can't do this operation right now, but might be able to do it at some point in the future.
+>
+> Both sound like a good idea to note to the user.
+>
+> Regards,
+> Christian.
+>
+> Am 26.10.2017 um 22:16 schrieb Andrey Grodzovsky:
+>>
+>>
+>>
+>> On 2017-10-26 04:08 PM, Harry Wentland wrote:
+>>> v2: Also don't print for ERESTARTSYS or EAGAIN
+>>>
+>>> Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+>>
+>> Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+>>
+>> Thanks,
+>> Andrey
+>>
+>>> ---
+>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index cf15701f208d..4401f0fb3f02 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+>>>  	amdgpu_bo_unreserve(rbo);
+>>>  
+>>>  	if (unlikely(r != 0)) {
+>>> -		DRM_ERROR("Failed to pin framebuffer\n");
+>>> +		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
+>>> +			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
+>>>  		return r;
+>>>  	}
+>>>  
+>>
+>
+
+
+--------------8F528C552C4A5DECC47C4EE4
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    Hi Christian,<br>
+    <br>
+    thanks for clarifying the semantics. I wasn't fully clear on that.
+    What you say makes sense. I'll respin the patch.<br>
+    <br>
+    Harry<br>
+    <br>
+    <div class="moz-cite-prefix">On 2017-10-27 03:46 AM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:28547400-b0f2-d3b0-2f9d-14749a479257-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <div class="moz-cite-prefix">Hi Harry,<br>
+        <br>
+        actually it's best practice that you only ignore ERESTARTSYS
+        here, see other code in the driver as well.<br>
+        <br>
+        EINTR means that the IOCTL was interrupted and can't be
+        restarted because of some problem.<br>
+        <br>
+        EAGAIN mean the we can't do this operation right now, but might
+        be able to do it at some point in the future.<br>
+        <br>
+        Both sound like a good idea to note to the user.<br>
+        <br>
+        Regards,<br>
+        Christian.<br>
+        <br>
+        Am 26.10.2017 um 22:16 schrieb Andrey Grodzovsky:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:ff616ee9-0e16-5278-1169-b75b61db6141-5C7GfCeVMHo@public.gmane.org">
+        <p><br>
+        </p>
+        <br>
+        <div class="moz-cite-prefix">On 2017-10-26 04:08 PM, Harry
+          Wentland wrote:<br>
+        </div>
+        <blockquote
+          cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
+          type="cite">
+          <pre wrap="">v2: Also don't print for ERESTARTSYS or EAGAIN
+
+Signed-off-by: Harry Wentland <a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
+        </blockquote>
+        <br>
+        <pre wrap="">Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
+        <br>
+        Thanks,<br>
+        Andrey<br>
+        <br>
+        <blockquote
+          cite="mid:20171026200801.14662-1-harry.wentland-5C7GfCeVMHo@public.gmane.org"
+          type="cite">
+          <pre wrap="">---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index cf15701f208d..4401f0fb3f02 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2944,7 +2944,8 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+ 	amdgpu_bo_unreserve(rbo);
+ 
+ 	if (unlikely(r != 0)) {
+-		DRM_ERROR("Failed to pin framebuffer\n");
++		if (!(r == -EINTR || r == -ERESTARTSYS || r == EAGAIN))
++			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
+ 		return r;
+ 	}
+ 
+</pre>
+        </blockquote>
+        <br>
+      </blockquote>
+      <p><br>
+      </p>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------8F528C552C4A5DECC47C4EE4--
+
+--===============1740291720==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1740291720==--
