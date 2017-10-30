@@ -1,17 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: KASAN use-after-free report during piglit run
-Date: Mon, 30 Oct 2017 15:54:23 +0100
-Message-ID: <967212f2-5558-f8ee-6f6a-660c1879cb10@daenzer.net>
-References: <e9df6a9b-19bc-4b2f-eeb2-a06ebb2f22c2@daenzer.net>
- <bb31e238-502c-eda7-5bcb-302ef6c04c15@gmail.com>
- <9d301254-6ce8-f8e0-ea3f-dc73f0440d08@daenzer.net>
- <77e5ed00-bc39-4faa-c189-c27191ed4d72@gmail.com>
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH] drm/amd/display: revert "enable GPU VM support"
+Date: Mon, 30 Oct 2017 15:55:58 +0100
+Message-ID: <1509375358-32528-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <77e5ed00-bc39-4faa-c189-c27191ed4d72-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,17 +16,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMzAvMTAvMTcgMDM6NTEgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gV2VsbCBJJ3Zl
-IGZvdW5kIGEgbWlub3IgYnVnIGluIFRUTSAoZmFsc2UgcG9zaXRpdmUgd2FybmluZyksIGJ1dCB3
-YXMKPiBuZXZlciBhYmxlIHRvIHJlcHJvZHVjZSB0aGlzIGlzc3VlLgoKSSd2ZSBiZWVuIHJlcHJv
-ZHVjaW5nIGl0IGZhaXJseSByZWd1bGFybHkgc2luY2UgSSByZXBvcnRlZCBpdC4KCgo+IFdoYXQg
-aGFyZHdhcmUgZ2VuZXJhdGlvbiBkaWQgeW91IHVzZSBmb3IgdGVzdGluZz8KClRvbmdhLgoKCi0t
-IApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAg
-aHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAg
-fCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKVGhpcyBy
+ZXZlcnRzIGNvbW1pdCBhYTcxODdjNWM2NDA1NTllYmMwMmNhYTAxOTFjMGRiNDZiNTViNGE2LgoK
+RGlzYWJsZSBHUFUgVk0gc3VwcG9ydCBhZ2FpbiBmb3Igbm93IHVudGlsIGl0IGRvZXNuJ3QgY2F1
+c2UgYSB3YXJuaW5nIG9uCmhhcmR3YXJlIHdoaWNoIGRvZXNuJ3Qgc3VwcG9ydCBpdC4KClNpZ25l
+ZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMiAt
+LQogMSBmaWxlIGNoYW5nZWQsIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKaW5kZXggYzEzMTEwZi4uZTZlYzEz
+MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jCkBAIC00MTcsOCArNDE3LDYgQEAgc3RhdGljIGludCBhbWRncHVfZG1faW5pdChzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAogCWluaXRfZGF0YS5kY2VfZW52aXJvbm1lbnQgPSBE
+Q0VfRU5WX1BST0RVQ1RJT05fRFJWOwogCi0JaW5pdF9kYXRhLmZsYWdzLmdwdV92bV9zdXBwb3J0
+ID0gdHJ1ZTsKLQogCWlmIChhbWRncHVfZGNfbG9nKQogCQlpbml0X2RhdGEubG9nX21hc2sgPSBE
+Q19ERUZBVUxUX0xPR19NQVNLOwogCWVsc2UKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
