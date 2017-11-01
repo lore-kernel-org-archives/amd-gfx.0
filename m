@@ -1,13 +1,15 @@
 From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 00/17] KFD interrupt and signal event handling
- improvements v2
-Date: Wed, 1 Nov 2017 10:33:29 +0200
-Message-ID: <CAFCwf11G-2TfmSAS7cXZYx_keHWiv1xS4150VaXXncZMP8ZABA@mail.gmail.com>
-References: <1509147334-16281-1-git-send-email-Felix.Kuehling@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: release exclusive mode after hw_init if no kfd
+Date: Wed, 1 Nov 2017 10:37:25 +0200
+Message-ID: <CAFCwf12Ub9wuZT6osOZ44o=VmGSLOCsUqDAoDbpNJHVnXKxRkw@mail.gmail.com>
+References: <1509350225-5712-1-git-send-email-Pixel.Ding@amd.com>
+ <ddf9c014-565b-8cc5-42d7-69d896c57c46@redhat.com>
+ <CCE67A7A-45E3-4B46-AD15-4B433B72939D@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0058720112=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1509147334-16281-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CCE67A7A-45E3-4B46-AD15-4B433B72939D-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,182 +20,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
---===============0058720112==
-Content-Type: multipart/alternative; boundary="001a11465d5ab27ef4055ce7bbd4"
-
---001a11465d5ab27ef4055ce7bbd4
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-I've taken the patch-set to -next.
-Oded
-
-On Sat, Oct 28, 2017 at 2:35 AM, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-wrote:
-
-> This patch series improves interrupt handling latency, signal event
-> processing overhead and replaces some custom data structures with
-> standard kernel data structures (idr, kfifo, waitqueue).
->
-> It also increases the capacity of the number of signals that can be
-> processed from 256 to 4096. This breaks ancient versions of the Thunk
-> that support only 256 signal events. The current WIP-version on github
-> supports both sizes. If support for ancient Thunks is considered
-> important, this could be fixed by allowing mappings that are smaller
-> than 4096 signals, and limiting the number of signals per process
-> depending on the size of the mapped events page.
->
-> v2:
->  * Don't break ABI when changing KFD_SIGNAL_EVENT_LIMIT
->  * Integrated review feedback for "Use wait_queue_t to implement event
-> waiting"
->  * Integrated review feedback for "Don't dereference kfd_process.mm"
->
-> Andres Rodriguez (4):
->   drm/amdkfd: use standard kernel kfifo for IH
->   drm/amdkfd: increase IH num entries to 8192
->   drm/amdkfd: wait only for IH work on IH exit
->   drm/amdkfd: use a high priority workqueue for IH work
->
-> Besar Wicaksono (1):
->   drm/amdkfd: Add SDMA trap src id to the KFD isr wanted list
->
-> Felix Kuehling (9):
->   drm/amdkfd: Don't dereference kfd_process.mm v2
->   drm/amdkfd: Clean up kfd_wait_on_events
->   drm/amdkfd: Fix event destruction with pending waiters
->   drm/amdkfd: remove redundant kfd_event_waiter.input_index
->   drm/amdkfd: Use wait_queue_t to implement event waiting
->   drm/amdkfd: Simplify events page allocator
->   drm/amdkfd: Simplify event ID and signal slot management
->   drm/amdkfd: Use IH context ID for signal lookup
->   drm/amdkfd: Make event limit dependent on user mode mapping size
->
-> Oded Gabbay (1):
->   drm/amdkfd: increase limit of signal events to 4096 per process
->
-> Sean Keely (2):
->   drm/amdkfd: Short cut for kfd_wait_on_events without waiting
->   drm/amdkfd: Fix scheduler race in kfd_wait_on_events sleep loop
->
->  drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c |   8 +-
->  drivers/gpu/drm/amd/amdkfd/cik_int.h             |   3 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         |   5 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c          |   2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_events.c          | 615
-> +++++++++++------------
->  drivers/gpu/drm/amd/amdkfd/kfd_events.h          |  18 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c       |  83 ++-
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h            |  33 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c         |   1 -
->  include/uapi/linux/kfd_ioctl.h                   |   2 +-
->  10 files changed, 350 insertions(+), 420 deletions(-)
->
-> --
-> 2.7.4
->
->
-
---001a11465d5ab27ef4055ce7bbd4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-size:small">Hi,=
-</div><div class=3D"gmail_default" style=3D"font-size:small">I&#39;ve taken=
- the patch-set to -next.</div><div class=3D"gmail_default" style=3D"font-si=
-ze:small">Oded</div></div><div class=3D"gmail_extra"><br><div class=3D"gmai=
-l_quote">On Sat, Oct 28, 2017 at 2:35 AM, Felix Kuehling <span dir=3D"ltr">=
-&lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Felix.Kuehl=
-ing-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">This pa=
-tch series improves interrupt handling latency, signal event<br>
-processing overhead and replaces some custom data structures with<br>
-standard kernel data structures (idr, kfifo, waitqueue).<br>
-<br>
-It also increases the capacity of the number of signals that can be<br>
-processed from 256 to 4096. This breaks ancient versions of the Thunk<br>
-that support only 256 signal events. The current WIP-version on github<br>
-supports both sizes. If support for ancient Thunks is considered<br>
-important, this could be fixed by allowing mappings that are smaller<br>
-than 4096 signals, and limiting the number of signals per process<br>
-depending on the size of the mapped events page.<br>
-<br>
-v2:<br>
-=C2=A0* Don&#39;t break ABI when changing KFD_SIGNAL_EVENT_LIMIT<br>
-=C2=A0* Integrated review feedback for &quot;Use wait_queue_t to implement =
-event waiting&quot;<br>
-=C2=A0* Integrated review feedback for &quot;Don&#39;t dereference <a href=
-=3D"http://kfd_process.mm" rel=3D"noreferrer" target=3D"_blank">kfd_process=
-.mm</a>&quot;<br>
-<br>
-Andres Rodriguez (4):<br>
-=C2=A0 drm/amdkfd: use standard kernel kfifo for IH<br>
-=C2=A0 drm/amdkfd: increase IH num entries to 8192<br>
-=C2=A0 drm/amdkfd: wait only for IH work on IH exit<br>
-=C2=A0 drm/amdkfd: use a high priority workqueue for IH work<br>
-<br>
-Besar Wicaksono (1):<br>
-=C2=A0 drm/amdkfd: Add SDMA trap src id to the KFD isr wanted list<br>
-<br>
-Felix Kuehling (9):<br>
-=C2=A0 drm/amdkfd: Don&#39;t dereference <a href=3D"http://kfd_process.mm" =
-rel=3D"noreferrer" target=3D"_blank">kfd_process.mm</a> v2<br>
-=C2=A0 drm/amdkfd: Clean up kfd_wait_on_events<br>
-=C2=A0 drm/amdkfd: Fix event destruction with pending waiters<br>
-=C2=A0 drm/amdkfd: remove redundant kfd_event_waiter.input_index<br>
-=C2=A0 drm/amdkfd: Use wait_queue_t to implement event waiting<br>
-=C2=A0 drm/amdkfd: Simplify events page allocator<br>
-=C2=A0 drm/amdkfd: Simplify event ID and signal slot management<br>
-=C2=A0 drm/amdkfd: Use IH context ID for signal lookup<br>
-=C2=A0 drm/amdkfd: Make event limit dependent on user mode mapping size<br>
-<br>
-Oded Gabbay (1):<br>
-=C2=A0 drm/amdkfd: increase limit of signal events to 4096 per process<br>
-<br>
-Sean Keely (2):<br>
-=C2=A0 drm/amdkfd: Short cut for kfd_wait_on_events without waiting<br>
-=C2=A0 drm/amdkfd: Fix scheduler race in kfd_wait_on_events sleep loop<br>
-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>cik_event_interrupt.c |=C2=A0 =C2=A08=
- +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>cik_int.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A03 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>kfd_chardev.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A05 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>kfd_device.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 |=C2=A0 =C2=A02 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>kfd_events.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 | 615 +++++++++++------------<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>kfd_events.h=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 |=C2=A0 18 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>kfd_interrupt.c=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0|=C2=A0 83 ++-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>kfd_priv.h=C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 |=C2=A0 33 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/<wbr>kfd_process.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A01 -<br>
-=C2=A0include/uapi/linux/kfd_ioctl.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A02 +-<br>
-=C2=A010 files changed, 350 insertions(+), 420 deletions(-)<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
---<br>
-2.7.4<br>
-<br>
-</font></span></blockquote></div><br></div>
-
---001a11465d5ab27ef4055ce7bbd4--
-
---===============0058720112==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0058720112==--
+VG9tLApBRkFJSywgeW91IGNhbid0IG1hbnVhbGx5IGxvYWQgdGhlIGFtZGtmZCBkcml2ZXIuIGku
+ZS4gaXQgc2ltcGx5IHdvbid0CndvcmssIHdpdGggb3Igd2l0aG91dCB0aGlzIGNoYW5nZS4KSXQg
+bXVzdCBiZSBsb2FkZWQgaW4gYSBjZXJ0YWluIG9yZGVyIChpbiByZWxhdGlvbiB0byBhbWRncHUg
+YW5kCmFtZF9pb21tdV92MikgZHVyaW5nIExpbnV4IGJvb3QuClRoYXQgaXNzdWUgaXMgb25lIHRo
+YXQgaGFzIGJlZW4gd2l0aCB1cyBmcm9tIHRoZSBzdGFydCBhbmQgaGFzCnJlY2VpdmVkIGp1c3Rp
+ZmllZCBjcml0aWNpc20gb3ZlciB0aGUgeWVhcnMuClVuZm9ydHVuYXRlbHksIG5vIG9uZSBib3Ro
+ZXJlZCB0byBmaXggaXQgeWV0LgoKT2RlZAoKT24gV2VkLCBOb3YgMSwgMjAxNyBhdCAzOjI1IEFN
+LCBEaW5nLCBQaXhlbCA8UGl4ZWwuRGluZ0BhbWQuY29tPiB3cm90ZToKPgo+IEnigJltIG5vdCBm
+b3Igc3VyZSBhYm91dCB0aGlzIGNhc2UgeW91IHRhbGtlZCBhYm91dC4gQXNzdW1lIHRoYXQgaXQg
+Y291bGQgaGFwcGVuIGFuZCB0aGUgS0ZEIHByb2JlIGFuZCBpbml0IGFyZSBpbnZva2VkIHdoZW4g
+bG9hZGluZyBpdCBtYW51YWxseS4KPgo+IEZvciBiYXJlbWV0YWwgZGV2aWNlLCBpdOKAmXMgYWx3
+YXlzIGNvcnJlY3QuCj4gRm9yIFNSSU9WIHZpcnR1YWwgZnVuY3Rpb24sIGl0IGRvZXNu4oCZdCBi
+ZWhhdmUgY29ycmVjdGx5IHdpdGggb3Igd2l0aG91dCB0aGlzIHBhdGNoLiBLRkQgaW5pdGlhbGl6
+YXRpb24gYWxzbyBuZWVkcyB0byBhY2Nlc3MgVkYgaW4gZXhjbHVzaXZlIG1vZGUsIHdoaWxlIHRo
+ZSBleGNsdXNpdmUgbW9kZSByZXF1ZXN0L3JlbGVhc2UgbWVzc2FnZXMgYXJlIHNlbnQgaW4gYW1k
+Z3B1X2RldmljZV9pbml0Lgo+Cj4g4oCUCj4gU2luY2VyZWx5IFlvdXJzLAo+IFBpeGVsCj4KPgo+
+Cj4KPgo+Cj4KPiBPbiAzMS8xMC8yMDE3LCAxMTowNiBQTSwgIlRvbSBTdGVsbGFyZCIgPHRzdGVs
+bGFyQHJlZGhhdC5jb20+IHdyb3RlOgo+Cj4gPk9uIDEwLzMwLzIwMTcgMTI6NTcgQU0sIFBpeGVs
+IERpbmcgd3JvdGU6Cj4gPj4gRnJvbTogcGRpbmcgPFBpeGVsLkRpbmdAYW1kLmNvbT4KPiA+Pgo+
+ID4+IE1vdmUga2ZkIHByb2JlIHByaW9yIHRvIGRldmljZSBpbml0LiBSZWxlYXNlIGV4Y2x1c2l2
+ZSBtb2RlCj4gPj4gYWZ0ZXIgaHdfaW5pdCBpZiBrZmQgaXMgbm90IGVuYWJsZWQuCj4gPj4KPiA+
+Cj4gPldoYXQgaGFwcGVucyBpZiBvbmx5IHRoZSBhbWRncHUgbW9kdWxlIGlzIGxvYWRlZCBhdCBz
+dGFydHVwLCBhbmQgdGhlbiB0aGUKPiA+dXNlciBtYW51YWxseSBsb2FkcyB0aGUgYW1ka2ZkIG1v
+ZHVsZSBhdCBzb21lIHBvaW50IGxhdGVyIG9uLiAgV2lsbCB0aGUgZHJpdmVyCj4gPnN0aWxsIGJl
+aGF2ZSBjb3JyZWN0bHkgaW4gdGhpcyBjYXNlIHdpdGggdGhpcyBwYXRjaD8KPiA+Cj4gPi1Ub20K
+PiA+Cj4gPgo+ID4+IFNpZ25lZC1vZmYtYnk6IHBkaW5nIDxQaXhlbC5EaW5nQGFtZC5jb20+Cj4g
+Pj4gLS0tCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8
+IDMgKysrCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyAgICB8
+IDUgKysrLS0KPiA+PiAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIgZGVsZXRp
+b25zKC0pCj4gPj4KPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
+ZS5jCj4gPj4gaW5kZXggNDAwZGZhYS4uZTQ2ZWM1MSAxMDA2NDQKPiA+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiA+PiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiA+PiBAQCAtMTcxNiw2ICsxNzE2LDkg
+QEAgc3RhdGljIGludCBhbWRncHVfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiA+
+PiAgICAgICAgICAgICAgYWRldi0+aXBfYmxvY2tzW2ldLnN0YXR1cy5odyA9IHRydWU7Cj4gPj4g
+ICAgICB9Cj4gPj4KPiA+PiArICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikgJiYgIWFkZXYt
+PmtmZCkKPiA+PiArICAgICAgICAgICAgYW1kZ3B1X3ZpcnRfcmVsZWFzZV9mdWxsX2dwdShhZGV2
+LCB0cnVlKTsKPiA+PiArCj4gPj4gICAgICByZXR1cm4gMDsKPiA+PiAgfQo+ID4+Cj4gPj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+ID4+IGluZGV4IDNlOTc2MGQuLmU5
+MTkwN2MgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2ttcy5jCj4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5j
+Cj4gPj4gQEAgLTEzOCw2ICsxMzgsOCBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9sb2FkX2ttcyhzdHJ1
+Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBsb25nIGZsYWdzKQo+ID4+ICAgICAgICAgICFw
+Y2lfaXNfdGh1bmRlcmJvbHRfYXR0YWNoZWQoZGV2LT5wZGV2KSkKPiA+PiAgICAgICAgICAgICAg
+ZmxhZ3MgfD0gQU1EX0lTX1BYOwo+ID4+Cj4gPj4gKyAgICBhbWRncHVfYW1ka2ZkX2RldmljZV9w
+cm9iZShhZGV2KTsKPiA+PiArCj4gPj4gICAgICAvKiBhbWRncHVfZGV2aWNlX2luaXQgc2hvdWxk
+IHJlcG9ydCBvbmx5IGZhdGFsIGVycm9yCj4gPj4gICAgICAgKiBsaWtlIG1lbW9yeSBhbGxvY2F0
+aW9uIGZhaWx1cmUgb3IgaW9tYXBwaW5nIGZhaWx1cmUsCj4gPj4gICAgICAgKiBvciBtZW1vcnkg
+bWFuYWdlciBpbml0aWFsaXphdGlvbiBmYWlsdXJlLCBpdCBtdXN0Cj4gPj4gQEAgLTE3MCw3ICsx
+NzIsNiBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9sb2FkX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2
+LCB1bnNpZ25lZCBsb25nIGZsYWdzKQo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IkVycm9yIGR1cmluZyBBQ1BJIG1ldGhvZHMgY2FsbFxuIik7Cj4gPj4gICAgICB9Cj4gPj4KPiA+
+PiAtICAgIGFtZGdwdV9hbWRrZmRfZGV2aWNlX3Byb2JlKGFkZXYpOwo+ID4+ICAgICAgYW1kZ3B1
+X2FtZGtmZF9kZXZpY2VfaW5pdChhZGV2KTsKPiA+Pgo+ID4+ICAgICAgaWYgKGFtZGdwdV9kZXZp
+Y2VfaXNfcHgoZGV2KSkgewo+ID4+IEBAIC0xODIsNyArMTgzLDcgQEAgaW50IGFtZGdwdV9kcml2
+ZXJfbG9hZF9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdW5zaWduZWQgbG9uZyBmbGFncykK
+PiA+PiAgICAgICAgICAgICAgcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoZGV2LT5kZXYpOwo+
+ID4+ICAgICAgfQo+ID4+Cj4gPj4gLSAgICBpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQo+ID4+
+ICsgICAgaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSAmJiBhZGV2LT5rZmQpCj4gPj4gICAgICAg
+ICAgICAgIGFtZGdwdV92aXJ0X3JlbGVhc2VfZnVsbF9ncHUoYWRldiwgdHJ1ZSk7Cj4gPj4KPiA+
+PiAgb3V0Ogo+ID4+Cj4gPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
