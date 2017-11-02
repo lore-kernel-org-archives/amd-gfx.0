@@ -1,196 +1,56 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
- (Models 30h-3fh) Processors v5
-Date: Thu, 2 Nov 2017 12:43:31 -0400
-Message-ID: <CADnq5_MOTfeck34SMpTCihVJKXupPRgLY5-m13tjB1iz8Mj=7A@mail.gmail.com>
-References: <20171018135821.3248-1-deathsimple@vodafone.de> <20171018135821.3248-5-deathsimple@vodafone.de>
+Subject: [pull] radeon, amdgpu, and ttm drm-next-4.15
+Date: Thu,  2 Nov 2017 12:54:04 -0400
+Message-ID: <1509641644-2722-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-pci-owner@vger.kernel.org>
-In-Reply-To: <20171018135821.3248-5-deathsimple@vodafone.de>
-Sender: linux-pci-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Linux PCI <linux-pci@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Oct 18, 2017 at 9:58 AM, Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
-> From: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> Most BIOS don't enable this because of compatibility reasons.
->
-> Manually enable a 64bit BAR of 64GB size so that we have
-> enough room for PCI devices.
->
-> v2: style cleanups, increase size, add resource name, set correct flags,
->     print message that windows was added
-> v3: add defines for all the magic numbers, style cleanups
-> v4: add some comment that the BIOS should actually allow this using
->     _PRS and _SRS.
-> v5: only enable this if CONFIG_PHYS_ADDR_T_64BIT is set
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-> ---
->  arch/x86/pci/fixup.c | 80 ++++++++++++++++++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 80 insertions(+)
->
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index 11e407489db0..7b6bd76713c5 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -618,3 +618,83 @@ static void quirk_apple_mbp_poweroff(struct pci_dev =
-*pdev)
->                 dev_info(dev, "can't work around MacBook Pro poweroff iss=
-ue\n");
->  }
->  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x8c10, quirk_apple_mbp_po=
-weroff);
-> +
-> +#ifdef CONFIG_PHYS_ADDR_T_64BIT
-> +
-> +#define AMD_141b_MMIO_BASE(x)  (0x80 + (x) * 0x8)
-> +#define AMD_141b_MMIO_BASE_RE_MASK             BIT(0)
-> +#define AMD_141b_MMIO_BASE_WE_MASK             BIT(1)
-> +#define AMD_141b_MMIO_BASE_MMIOBASE_MASK       GENMASK(31,8)
-> +
-> +#define AMD_141b_MMIO_LIMIT(x) (0x84 + (x) * 0x8)
-> +#define AMD_141b_MMIO_LIMIT_MMIOLIMIT_MASK     GENMASK(31,8)
-> +
-> +#define AMD_141b_MMIO_HIGH(x)  (0x180 + (x) * 0x4)
-> +#define AMD_141b_MMIO_HIGH_MMIOBASE_MASK       GENMASK(7,0)
-> +#define AMD_141b_MMIO_HIGH_MMIOLIMIT_SHIFT     16
-> +#define AMD_141b_MMIO_HIGH_MMIOLIMIT_MASK      GENMASK(23,16)
-> +
-> +/*
-> + * The PCI Firmware Spec, rev 3.2 notes that ACPI should optionally allo=
-w
-> + * configuring host bridge windows using the _PRS and _SRS methods.
-> + *
-> + * But this is rarely implemented, so we manually enable a large 64bit B=
-AR for
-> + * PCIe device on AMD Family 15h (Models 30h-3fh) Processors here.
-> + */
-> +static void pci_amd_enable_64bit_bar(struct pci_dev *dev)
-> +{
-> +       struct resource *res, *conflict;
-> +       u32 base, limit, high;
-> +       unsigned i;
-> +
-> +       for (i =3D 0; i < 8; ++i) {
-> +               pci_read_config_dword(dev, AMD_141b_MMIO_BASE(i), &base);
-> +               pci_read_config_dword(dev, AMD_141b_MMIO_HIGH(i), &high);
-> +
-> +               /* Is this slot free? */
-> +               if (!(base & (AMD_141b_MMIO_BASE_RE_MASK |
-> +                             AMD_141b_MMIO_BASE_WE_MASK)))
-> +                       break;
-> +
-> +               base >>=3D 8;
-> +               base |=3D high << 24;
-> +
-> +               /* Abort if a slot already configures a 64bit BAR. */
-> +               if (base > 0x10000)
-> +                       return;
-> +       }
-> +       if (i =3D=3D 8)
-> +               return;
-> +
-> +       res =3D kzalloc(sizeof(*res), GFP_KERNEL);
-> +       if (!res)
-> +               return;
-> +
-> +       res->name =3D "PCI Bus 0000:00";
-> +       res->flags =3D IORESOURCE_PREFETCH | IORESOURCE_MEM |
-> +               IORESOURCE_MEM_64 | IORESOURCE_WINDOW;
-> +       res->start =3D 0x100000000ull;
-> +       res->end =3D 0xfd00000000ull - 1;
-> +
-> +       /* Just grab the free area behind system memory for this */
-> +       while ((conflict =3D request_resource_conflict(&iomem_resource, r=
-es)))
-> +               res->start =3D conflict->end + 1;
-> +
-> +       dev_info(&dev->dev, "adding root bus resource %pR\n", res);
-> +
-> +       base =3D ((res->start >> 8) & AMD_141b_MMIO_BASE_MMIOBASE_MASK) |
-> +               AMD_141b_MMIO_BASE_RE_MASK | AMD_141b_MMIO_BASE_WE_MASK;
-> +       limit =3D ((res->end + 1) >> 8) & AMD_141b_MMIO_LIMIT_MMIOLIMIT_M=
-ASK;
-> +       high =3D ((res->start >> 40) & AMD_141b_MMIO_HIGH_MMIOBASE_MASK) =
-|
-> +               ((((res->end + 1) >> 40) << AMD_141b_MMIO_HIGH_MMIOLIMIT_=
-SHIFT)
-> +                & AMD_141b_MMIO_HIGH_MMIOLIMIT_MASK);
-> +
-> +       pci_write_config_dword(dev, AMD_141b_MMIO_HIGH(i), high);
-> +       pci_write_config_dword(dev, AMD_141b_MMIO_LIMIT(i), limit);
-> +       pci_write_config_dword(dev, AMD_141b_MMIO_BASE(i), base);
-> +
-> +       pci_bus_add_resource(dev->bus, res, 0);
-> +}
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x141b, pci_amd_enable_64bit_=
-bar);
-> +
-
-We may want to expand this to cover more host bridges.  E.g., on my KV
-system I have these:
-00:00.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family
-15h (Models 30h-3fh) Processor Root Complex [1022:1422]
-00:02.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1424]
-00:03.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1424]
-00:04.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1424]
-00:18.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family
-15h (Models 30h-3fh) Processor Function 0 [1022:141a]
-00:18.1 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family
-15h (Models 30h-3fh) Processor Function 1 [1022:141b]
-00:18.2 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family
-15h (Models 30h-3fh) Processor Function 2 [1022:141c]
-00:18.3 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family
-15h (Models 30h-3fh) Processor Function 3 [1022:141d]
-00:18.4 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family
-15h (Models 30h-3fh) Processor Function 4 [1022:141e]
-00:18.5 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Family
-15h (Models 30h-3fh) Processor Function 5 [1022:141f]
-
-And on my CZ system:
-00:00.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1576]
-00:02.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:157b]
-00:03.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:157b]
-00:09.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:157d]
-00:18.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1570]
-00:18.1 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1571]
-00:18.2 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1572]
-00:18.3 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1573]
-00:18.4 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1574]
-00:18.5 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Device
-[1022:1575]
-
-Do you know if Zen based systems use the same registers?  They have
-yet more set of pci ids for host bridges.
-
-Alex
-
-
-> +#endif
-> --
-> 2.11.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgRGF2ZSwKCk1pc2MgZml4ZXMgZm9yIHJhZGVvbiwgYW1kZ3B1LCBhbmQgdHRtIGZvciA0LjE1
+LgoKVGhlIGZvbGxvd2luZyBjaGFuZ2VzIHNpbmNlIGNvbW1pdCA0YTAxNDRiZmM2ZGYxZjdhODlh
+MDRhM2U4NjYyZjFmNDM3NWViMWZlOgoKICBkcm0vYW1kL2FtZGdwdTogUmVtb3ZlIHdvcmthcm91
+bmQgZm9yIHN1c3BlbmQvcmVzdW1lIGluIHV2ZDcgKDIwMTctMTAtMjUgMjM6MDk6NDAgLTA0MDAp
+CgphcmUgYXZhaWxhYmxlIGluIHRoZSBnaXQgcmVwb3NpdG9yeSBhdDoKCiAgZ2l0Oi8vcGVvcGxl
+LmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggZHJtLW5leHQtNC4xNQoKZm9yIHlvdSB0byBm
+ZXRjaCBjaGFuZ2VzIHVwIHRvIDcxMDkzMWMyYmU1YTc4NGMwNjUxMTExZjU0YmQwODNlMzY4MWMz
+MDk6CgogIGRybS9hbWQvcG93ZXJwbGF5OiB3cm9uZyBjb250cm9sIG1vZGUgY2F1c2UgdGhlIGZh
+biBzcGlucyBmYXN0ZXIgdW5uZWNlc3NhcmlseSAoMjAxNy0xMS0wMSAyMzozMToxMyAtMDQwMCkK
+Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0KQ2hyaXN0aWFuIEvDtm5pZyAoMik6CiAgICAgIGRybS90dG06IG9uY2UgbW9yZSBm
+aXggdHRtX2J1ZmZlcl9vYmplY3RfdHJhbnNmZXIKICAgICAgZHJtL2FtZGdwdTogZml4IGVycm9y
+IGhhbmRsaW5nIGluIGFtZGdwdV9ib19kb19jcmVhdGUKCkVyaWMgSHVhbmcgKDIpOgogICAgICBk
+cm0vYW1kL3Bvd2VycGxheTogY2hhbmdlIEFTSUMgdGVtcGVyYXR1cmUgcmVhZGluZyBvbiBWZWdh
+MTAKICAgICAgZHJtL2FtZC9wb3dlcnBsYXk6IGZpeCBtZW1vcnkgbGVhayBvZiBoYXJkY29kZWQg
+cHB0YWJsZQoKRXZhbiBRdWFuICgxKToKICAgICAgZHJtL2FtZC9wb3dlcnBsYXk6IHdyb25nIGNv
+bnRyb2wgbW9kZSBjYXVzZSB0aGUgZmFuIHNwaW5zIGZhc3RlciB1bm5lY2Vzc2FyaWx5CgpNb25r
+IExpdSAoMik6CiAgICAgIGRybS90dG06Zml4IG1lbW9yeSBsZWFrIGR1ZSB0byBpbmRpdmlkdWFs
+aXplCiAgICAgIGRybS9hbWRncHU6YWRkIGZ3LXZyYW0tdXNhZ2UgZm9yIGF0b21maXJtd2FyZQoK
+Um9tYW4gS2FwbCAoMSk6CiAgICAgIGRybS9yYWRlb246IGZpeCBhdG9tYmlvcyBvbiBiaWcgZW5k
+aWFuCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9zLmMgICAgICAg
+fCAzOCArKysrKysrKysrLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfYXRvbWZpcm13YXJlLmMgICB8IDIyICsrKysrKysrKystLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyAgICAgICAgIHwgIDYgKystLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jICAgICAgfCAgMyArKwogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfCAgMiArLQogLi4u
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfdGhlcm1hbC5jICAgfCAgNCArLS0K
+IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vYXRvbWJpb3NfZHAuYyAgICAgICAgICAgICAgIHwgMzgg
+KysrKysrKysrKy0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyAgICAg
+ICAgICAgICAgICAgICAgICAgfCAgNSArKy0KIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3V0
+aWwuYyAgICAgICAgICAgICAgICAgIHwgIDEgKwogOSBmaWxlcyBjaGFuZ2VkLCA2OCBpbnNlcnRp
+b25zKCspLCA1MSBkZWxldGlvbnMoLSkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vZHJpLWRldmVsCg==
