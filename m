@@ -1,50 +1,64 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH v2] drm/amdgpu/display: provide ASSERT macros unconditionally
-Date: Thu,  2 Nov 2017 15:24:40 +0100
-Message-ID: <20171102142501.684516-1-arnd@arndb.de>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dave Airlie <airlied@redhat.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu/display: provide ASSERT macros
+ unconditionally
+Date: Thu, 2 Nov 2017 10:26:05 -0400
+Message-ID: <CADnq5_MeBVzddqJU5BSr8jYpWx0MpVfTfr2uAXVwgBhUGjqVhQ@mail.gmail.com>
+References: <20171102112657.111405-1-arnd@arndb.de>
+ <c2ffa633-d4e6-00dd-712e-c6169047bb1f@amd.com>
+ <CAK8P3a2eTpP2FjH24XjD8rqwx5mn05_hrGnGsLeeLsyYE4bkAA@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAK8P3a2eTpP2FjH24XjD8rqwx5mn05_hrGnGsLeeLsyYE4bkAA@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: David Airlie <airlied@linux.ie>, Edward O'Callaghan <funfunctor@folklore1984.net>, Felix Kuehling <felix.kuehling@amd.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>, Tony Cheng <Tony.Cheng@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-It seems impossible to build this driver without setting either
-CONFIG_DEBUG_KERNEL or CONFIG_DEBUG_DRIVER:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services.h: In function 'set_reg_field_value_ex':
-drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services.h:132:2: error: implicit declaration of function 'ASSERT'; did you mean 'IS_ERR'? [-Werror=implicit-function-declaration]
-
-This moves the ASSERT() macro and related helpers outside of
-the #ifdef to get it to build again.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/display/dc/os_types.h | 4 ----
- 1 file changed, 4 deletions(-)
-
-v2: remove accidtental comment change.
-
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
-index 86170b40b5c5..a87c0329541f 100644
---- a/drivers/gpu/drm/amd/display/dc/os_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-@@ -61,8 +61,6 @@
-  * general debug capabilities
-  *
-  */
--#if defined(CONFIG_DEBUG_KERNEL) || defined(CONFIG_DEBUG_DRIVER)
--
- #if defined(CONFIG_HAVE_KGDB) || defined(CONFIG_KGDB)
- #define ASSERT_CRITICAL(expr) do {	\
- 	if (WARN_ON(!(expr))) { \
-@@ -86,8 +84,6 @@
- 
- #define BREAK_TO_DEBUGGER() ASSERT(0)
- 
--#endif /* CONFIG_DEBUG_KERNEL || CONFIG_DEBUG_DRIVER */
--
- #define DC_ERR(...)  do { \
- 	dm_error(__VA_ARGS__); \
- 	BREAK_TO_DEBUGGER(); \
--- 
-2.9.0
+T24gVGh1LCBOb3YgMiwgMjAxNyBhdCAxMDoyMCBBTSwgQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5k
+Yi5kZT4gd3JvdGU6Cj4gT24gVGh1LCBOb3YgMiwgMjAxNyBhdCAzOjA5IFBNLCBGZWxpeCBLdWVo
+bGluZyA8ZmVsaXgua3VlaGxpbmdAYW1kLmNvbT4gd3JvdGU6Cj4+IE9uIDIwMTctMTEtMDIgMDc6
+MjYgQU0sIEFybmQgQmVyZ21hbm4gd3JvdGU6Cj4+PiBJdCBzZWVtcyBpbXBvc3NpYmxlIHRvIGJ1
+aWxkIHRoaXMgZHJpdmVyIHdpdGhvdXQgc2V0dGluZyBlaXRoZXIKPj4+IENPTkZJR19ERUJVR19L
+RVJORUwgb3IgQ09ORklHX0RFQlVHX0RSSVZFUjoKPj4+Cj4+PiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS8uLi9kaXNwbGF5L2RjL2RtX3NlcnZpY2VzLmg6IEluIGZ1bmN0aW9uICdzZXRfcmVn
+X2ZpZWxkX3ZhbHVlX2V4JzoKPj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3Bs
+YXkvZGMvZG1fc2VydmljZXMuaDoxMzI6MjogZXJyb3I6IGltcGxpY2l0IGRlY2xhcmF0aW9uIG9m
+IGZ1bmN0aW9uICdBU1NFUlQnOyBkaWQgeW91IG1lYW4gJ0lTX0VSUic/IFstV2Vycm9yPWltcGxp
+Y2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQo+Pj4KPj4+IFRoaXMgbW92ZXMgdGhlIEFTU0VSVCgp
+IG1hY3JvIGFuZCByZWxhdGVkIGhlbHBlcnMgb3V0c2lkZSBvZgo+Pj4gdGhlICNpZmRlZiB0byBn
+ZXQgaXQgdG8gYnVpbGQgYWdhaW4uCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogQXJuZCBCZXJnbWFu
+biA8YXJuZEBhcm5kYi5kZT4KPj4+IC0tLQo+Pj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9vc190eXBlcy5oIHwgNiArLS0tLS0KPj4+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oKyksIDUgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9vc190eXBlcy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL29zX3R5cGVzLmgKPj4+IGluZGV4IDg2MTcwYjQwYjVjNS4uNDk5YmQ1MjAwNGNmIDEwMDY0
+NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL29zX3R5cGVzLmgKPj4+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9vc190eXBlcy5oCj4+PiBAQCAt
+NjEsOCArNjEsNiBAQAo+Pj4gICAqIGdlbmVyYWwgZGVidWcgY2FwYWJpbGl0aWVzCj4+PiAgICoK
+Pj4+ICAgKi8KPj4+IC0jaWYgZGVmaW5lZChDT05GSUdfREVCVUdfS0VSTkVMKSB8fCBkZWZpbmVk
+KENPTkZJR19ERUJVR19EUklWRVIpCj4+PiAtCj4+PiAgI2lmIGRlZmluZWQoQ09ORklHX0hBVkVf
+S0dEQikgfHwgZGVmaW5lZChDT05GSUdfS0dEQikKPj4+ICAjZGVmaW5lIEFTU0VSVF9DUklUSUNB
+TChleHByKSBkbyB7ICAgXAo+Pj4gICAgICAgaWYgKFdBUk5fT04oIShleHByKSkpIHsgXAo+Pj4g
+QEAgLTc1LDcgKzczLDcgQEAKPj4+ICAgICAgICAgICAgICAgOyBcCj4+PiAgICAgICB9IFwKPj4+
+ICB9IHdoaWxlICgwKQo+Pj4gLSNlbmRpZgo+Pj4gKyNlbmRpZiAvKiBDT05GSUdfREVCVUdfS0VS
+TkVMIHx8IENPTkZJR19ERUJVR19EUklWRVIgKi8KPj4KPj4gSXMgdGhpcyB0aGUgcmlnaHQgY29t
+bWVudCBoZXJlPyBMb29rcyBsaWtlIGl0IHNob3VsZCBiZSAvKgo+PiBkZWZpbmVkKENPTkZJR19I
+QVZFX0tHREIpIHx8IGRlZmluZWQoQ09ORklHX0tHREIpICovLgo+Cj4gUmlnaHQsIG15IG1pc3Rh
+a2UuIEkgaGFkIHRyaWVkIGEgY291cGxlIG9mIGRpZmZlcmVudCB2ZXJzaW9ucyBiZWZvcmUgSSBm
+b3VuZAo+IG9uZSB0aGF0IGJ1aWx0IGluIGFsbCBjb25maWd1cmF0aW9ucy4gVGhpcyBzbGlwcGVk
+IHRocm91Z2guIEknbGwgc2VuZCBhIGZpeGVkCj4gdmVyc2lvbiBvZiB0aGlzIG9uZSBwYXRjaCBi
+dXQgbm90IHRoZSBvdGhlciB0d28gaW4gdGhlIHNlcmllcyBpZiB0aGF0J3Mgb2suCgpTb3VuZHMg
+Z29vZC4gIFRoYW5rcyEKCkFsZXgKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+ZHJpLWRldmVsCg==
