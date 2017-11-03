@@ -1,78 +1,123 @@
-From: "Yu, Xiangliang" <Xiangliang.Yu@amd.com>
-Subject: RE: [PATCH] drm/amdgpu/virt: don't dereference undefined 'module'
- struct
-Date: Fri, 3 Nov 2017 06:57:30 +0000
-Message-ID: <BY2PR1201MB09353D47BD0360CDF2A548F1EB5D0@BY2PR1201MB0935.namprd12.prod.outlook.com>
-References: <20171102112619.72157-1-arnd@arndb.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 02/17] drm/amdkfd: Don't dereference kfd_process.mm v2
+Date: Fri, 3 Nov 2017 14:08:35 +0100
+Message-ID: <656651b7-ae6b-5f29-bd6e-46dec09d2230@amd.com>
+References: <1509147334-16281-1-git-send-email-Felix.Kuehling@amd.com>
+ <1509147334-16281-3-git-send-email-Felix.Kuehling@amd.com>
+ <77653755-3676-49da-6aff-749a472c8415@gmail.com>
+ <dd58b48a-4db4-91b4-dae2-34856df40691@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20171102112619.72157-1-arnd@arndb.de>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <dd58b48a-4db4-91b4-dae2-34856df40691-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: David Airlie <airlied@linux.ie>, "Liu, Monk" <Monk.Liu@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
-Reviewed-By: Xiangliang Yu <Xiangliang.Yu@amd.com>
-
-Thanks!
-
-> -----Original Message-----
-> From: Arnd Bergmann [mailto:arnd@arndb.de]
-> Sent: Thursday, November 02, 2017 7:26 PM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>
-> Cc: Arnd Bergmann <arnd@arndb.de>; David Airlie <airlied@linux.ie>; Liu,
-> Monk <Monk.Liu@amd.com>; Yu, Xiangliang <Xiangliang.Yu@amd.com>;
-> Chen, Horace <Horace.Chen@amd.com>; amd-gfx@lists.freedesktop.org;
-> dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH] drm/amdgpu/virt: don't dereference undefined 'module'
-> struct
->=20
-> Accessing the THIS_MODULE directly is only possible when modules are
-> enabled, otherwise we get a build failure:
->=20
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c: In function
-> 'amdgpu_virt_init_data_exchange':
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:20: error: dereferencing
-> pointer to incomplete type 'struct module'
->=20
-> Further, THIS_MODULE is NULL when the driver is built-in, so the code wou=
-ld
-> likely cause a NULL pointer dereference.
->=20
-> This adds an #ifdef check to avoid the compile-time error, plus a NULL
-> pointer check before dereferencing THIS_MODULE. It might be better to fin=
-d
-> a way to avoid using the module version altogether.
->=20
-> Fixes: 2dc8f81e4f82 ("drm/amdgpu: SR-IOV data exchange between PF&VF")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index e97f80f86005..4e4a476593e8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -328,9 +328,11 @@ void amdgpu_virt_init_data_exchange(struct
-> amdgpu_device *adev)
->  					sizeof(amdgim_vf2pf_info));
->  				AMDGPU_FW_VRAM_VF2PF_READ(adev,
-> driver_version,
->  					&str);
-> +#ifdef MODULE
->  				if (THIS_MODULE->version !=3D NULL)
->  					strcpy(str, THIS_MODULE->version);
->  				else
-> +#endif
->  					strcpy(str, "N/A");
->  				AMDGPU_FW_VRAM_VF2PF_WRITE(adev,
-> driver_cert,
->  					0);
-> --
-> 2.9.0
+QW0gMzAuMTAuMjAxNyB1bSAxNzoyMyBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IE9uIDIwMTct
+MTAtMjggMTA6NDQgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDI4LjEwLjIwMTcg
+dW0gMDE6MzUgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4+IFRoZSBrZmRfcHJvY2VzcyBkb2Vz
+bid0IG93biBhIHJlZmVyZW5jZSB0byB0aGUgbW1fc3RydWN0LCBzbyBpdCBjYW4KPj4+IGRpc2Fw
+cGVhciB3aXRob3V0IHdhcm5pbmcgZXZlbiB3aGlsZSB0aGUga2ZkX3Byb2Nlc3Mgc3RpbGwgZXhp
+c3RzLgo+Pj4KPj4+IFRoZXJlZm9yZSwgYXZvaWQgZGVyZWZlcmVuY2luZyB0aGUga2ZkX3Byb2Nl
+c3MubW0gcG9pbnRlciBhbmQgbWFrZQo+Pj4gaXQgb3BhcXVlLiBVc2UgZ2V0X3Rhc2tfbW0gdG8g
+Z2V0IGEgdGVtcG9yYXJ5IHJlZmVyZW5jZSB0byB0aGUgbW0KPj4+IHdoZW4gaXQncyBuZWVkZWQu
+Cj4+Pgo+Pj4gdjI6IHJlbW92ZWQgdW5uZWNlc3NhcnkgV0FSTl9PTgo+Pj4KPj4+IFNpZ25lZC1v
+ZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Pj4gUmV2aWV3
+ZWQtYnk6IE9kZWQgR2FiYmF5IDxvZGVkLmdhYmJheUBnbWFpbC5jb20+ICh2MSkKPj4+IC0tLQo+
+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuY8KgIHwgMTkgKysr
+KysrKysrKysrKysrLS0tLQo+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9w
+cml2LmjCoMKgwqAgfMKgIDcgKysrKysrLQo+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9wcm9jZXNzLmMgfMKgIDEgLQo+Pj4gIMKgIDMgZmlsZXMgY2hhbmdlZCwgMjEgaW5z
+ZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9ldmVudHMuYwo+Pj4gaW5kZXggOTQ0YWJmYS4uNjFjZTU0NyAxMDA2NDQKPj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYwo+Pj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jCj4+PiBAQCAtMjQsOCArMjQs
+OCBAQAo+Pj4gIMKgICNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cj4+PiAgwqAgI2luY2x1ZGUgPGxp
+bnV4L3R5cGVzLmg+Cj4+PiAgwqAgI2luY2x1ZGUgPGxpbnV4L3NjaGVkL3NpZ25hbC5oPgo+Pj4g
+KyNpbmNsdWRlIDxsaW51eC9zY2hlZC9tbS5oPgo+Pj4gIMKgICNpbmNsdWRlIDxsaW51eC91YWNj
+ZXNzLmg+Cj4+PiAtI2luY2x1ZGUgPGxpbnV4L21tLmg+Cj4+PiAgwqAgI2luY2x1ZGUgPGxpbnV4
+L21tYW4uaD4KPj4+ICDCoCAjaW5jbHVkZSA8bGludXgvbWVtb3J5Lmg+Cj4+PiAgwqAgI2luY2x1
+ZGUgImtmZF9wcml2LmgiCj4+PiBAQCAtOTA0LDE0ICs5MDQsMjQgQEAgdm9pZCBrZmRfc2lnbmFs
+X2lvbW11X2V2ZW50KHN0cnVjdCBrZmRfZGV2Cj4+PiAqZGV2LCB1bnNpZ25lZCBpbnQgcGFzaWQs
+Cj4+PiAgwqDCoMKgwqDCoMKgICogcnVubmluZyBzbyB0aGUgbG9va3VwIGZ1bmN0aW9uIHJldHVy
+bnMgYSBsb2NrZWQgcHJvY2Vzcy4KPj4+ICDCoMKgwqDCoMKgwqAgKi8KPj4+ICDCoMKgwqDCoMKg
+IHN0cnVjdCBrZmRfcHJvY2VzcyAqcCA9IGtmZF9sb29rdXBfcHJvY2Vzc19ieV9wYXNpZChwYXNp
+ZCk7Cj4+PiArwqDCoMKgIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tOwo+Pj4gIMKgIMKgwqDCoMKgwqAg
+aWYgKCFwKQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm47IC8qIFByZXN1bWFibHkgcHJv
+Y2VzcyBleGl0ZWQuICovCj4+PiAgwqAgK8KgwqDCoCAvKiBUYWtlIGEgc2FmZSByZWZlcmVuY2Ug
+dG8gdGhlIG1tX3N0cnVjdCwgd2hpY2ggbWF5IG90aGVyd2lzZQo+Pj4gK8KgwqDCoMKgICogZGlz
+YXBwZWFyIGV2ZW4gd2hpbGUgdGhlIGtmZF9wcm9jZXNzIGlzIHN0aWxsIHJlZmVyZW5jZWQuCj4+
+PiArwqDCoMKgwqAgKi8KPj4+ICvCoMKgwqAgbW0gPSBnZXRfdGFza19tbShwLT5sZWFkX3RocmVh
+ZCk7Cj4+PiArwqDCoMKgIGlmICghbW0pIHsKPj4+ICvCoMKgwqDCoMKgwqDCoCBtdXRleF91bmxv
+Y2soJnAtPm11dGV4KTsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm47IC8qIFByb2Nlc3MgaXMg
+ZXhpdGluZyAqLwo+Pj4gK8KgwqDCoCB9Cj4+PiArCj4+PiAgwqDCoMKgwqDCoCBtZW1zZXQoJm1l
+bW9yeV9leGNlcHRpb25fZGF0YSwgMCwgc2l6ZW9mKG1lbW9yeV9leGNlcHRpb25fZGF0YSkpOwo+
+Pj4gIMKgIC3CoMKgwqAgZG93bl9yZWFkKCZwLT5tbS0+bW1hcF9zZW0pOwo+Pj4gLcKgwqDCoCB2
+bWEgPSBmaW5kX3ZtYShwLT5tbSwgYWRkcmVzcyk7Cj4+PiArwqDCoMKgIGRvd25fcmVhZCgmbW0t
+Pm1tYXBfc2VtKTsKPj4+ICvCoMKgwqAgdm1hID0gZmluZF92bWEobW0sIGFkZHJlc3MpOwo+Pj4g
+IMKgIMKgwqDCoMKgwqAgbWVtb3J5X2V4Y2VwdGlvbl9kYXRhLmdwdV9pZCA9IGRldi0+aWQ7Cj4+
+PiAgwqDCoMKgwqDCoCBtZW1vcnlfZXhjZXB0aW9uX2RhdGEudmEgPSBhZGRyZXNzOwo+Pj4gQEAg
+LTkzNyw3ICs5NDcsOCBAQCB2b2lkIGtmZF9zaWduYWxfaW9tbXVfZXZlbnQoc3RydWN0IGtmZF9k
+ZXYgKmRldiwKPj4+IHVuc2lnbmVkIGludCBwYXNpZCwKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAg
+fQo+Pj4gIMKgwqDCoMKgwqAgfQo+Pj4gIMKgIC3CoMKgwqAgdXBfcmVhZCgmcC0+bW0tPm1tYXBf
+c2VtKTsKPj4+ICvCoMKgwqAgdXBfcmVhZCgmbW0tPm1tYXBfc2VtKTsKPj4+ICvCoMKgwqAgbW1w
+dXQobW0pOwo+Pj4gIMKgIMKgwqDCoMKgwqAgbXV0ZXhfbG9jaygmcC0+ZXZlbnRfbXV0ZXgpOwo+
+Pj4gIMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5o
+Cj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgKPj4+IGluZGV4IDdk
+ODZlYzkuLjFhNDgzYTcgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfcHJpdi5oCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJp
+di5oCj4+PiBAQCAtNDk0LDcgKzQ5NCwxMiBAQCBzdHJ1Y3Qga2ZkX3Byb2Nlc3Mgewo+Pj4gIMKg
+wqDCoMKgwqDCoCAqLwo+Pj4gIMKgwqDCoMKgwqAgc3RydWN0IGhsaXN0X25vZGUga2ZkX3Byb2Nl
+c3NlczsKPj4+ICDCoCAtwqDCoMKgIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tOwo+Pj4gK8KgwqDCoCAv
+Kgo+Pj4gK8KgwqDCoMKgICogT3BhcXVlIHBvaW50ZXIgdG8gbW1fc3RydWN0LiBXZSBkb24ndCBo
+b2xkIGEgcmVmZXJlbmNlIHRvCj4+PiArwqDCoMKgwqAgKiBpdCBzbyBpdCBzaG91bGQgbmV2ZXIg
+YmUgZGVyZWZlcmVuY2VkIGZyb20gaGVyZS4gVGhpcyBpcwo+Pj4gK8KgwqDCoMKgICogb25seSB1
+c2VkIGZvciBsb29raW5nIHVwIHByb2Nlc3NlcyBieSB0aGVpciBtbS4KPj4+ICvCoMKgwqDCoCAq
+Lwo+Pj4gK8KgwqDCoCB2b2lkICptbTsKPj4gVXNpbmcgYSB2b2lkKiBoZXJlIHN0aWxsIGRvZXNu
+J3QgbG9vayBsaWtlIHRoZSByaWdodCB0aGluZyB0byBkby4KPiBGb3IgYWRkZWQgY29udGV4dCwg
+dGhpcyBpcyBob3cgaXQncyB1c2VkOgo+Cj4gICAgICBzdGF0aWMgc3RydWN0IGtmZF9wcm9jZXNz
+ICpjcmVhdGVfcHJvY2Vzcyhjb25zdCBzdHJ1Y3QgdGFza19zdHJ1Y3QgKnRocmVhZCkKPiAgICAg
+IHsKPiAgICAgIC4uLgo+ICAgICAgICAgICAgICBwcm9jZXNzLT5tbSA9IHRocmVhZC0+bW07Cj4g
+ICAgICAuLi4KPiAgICAgICAgICAgICAgaGFzaF9hZGRfcmN1KGtmZF9wcm9jZXNzZXNfdGFibGUs
+ICZwcm9jZXNzLT5rZmRfcHJvY2Vzc2VzLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KHVpbnRwdHJfdClwcm9jZXNzLT5tbSk7Cj4gICAgICAuLi4KPiAgICAgIH0KPgo+ICAgICAgc3Rh
+dGljIHN0cnVjdCBrZmRfcHJvY2VzcyAqZmluZF9wcm9jZXNzX2J5X21tKGNvbnN0IHN0cnVjdCBt
+bV9zdHJ1Y3QgKm1tKQo+ICAgICAgewo+ICAgICAgICAgICAgICBzdHJ1Y3Qga2ZkX3Byb2Nlc3Mg
+KnByb2Nlc3M7Cj4KPiAgICAgICAgICAgICAgaGFzaF9mb3JfZWFjaF9wb3NzaWJsZV9yY3Uoa2Zk
+X3Byb2Nlc3Nlc190YWJsZSwgcHJvY2VzcywKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBrZmRfcHJvY2Vzc2VzLCAodWludHB0cl90KW1tKQo+ICAgICAgICAg
+ICAgICAgICAgICAgIGlmIChwcm9jZXNzLT5tbSA9PSBtbSkKPiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJldHVybiBwcm9jZXNzOwo+Cj4gICAgICAgICAgICAgIHJldHVybiBOVUxMOwo+
+ICAgICAgfQoKSW4gdGhpcyBjYXNlIEkgd291bGQgbWFrZSBwLT5tbSBhIHVpbnRwdHJfdCBhbmQg
+bm90IHZvaWQqLiBJIHdvdWxkIHVzZSAKdm9pZCogb25seSBpZiB5b3UgcmVhbGx5IGRvbid0IGtu
+b3cgd2hhdCBwb2ludGVyIGl0IGlzLgoKQW55d2F5IHRoZSBwYXRjaCBpcyBmaW5lIHdpdGggbWUg
+YXMgaXQgaXMsIGp1c3Qgd2FudGVkIHRvIHVuZGVyc3RhbmQgCndoYXQncyBoYXBwZW5pbmcgaGVy
+ZS4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4KPgo+Pj4gIMKgIMKgwqDCoMKgwqAgc3RydWN0IG11
+dGV4IG11dGV4Owo+Pj4gIMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfcHJvY2Vzcy5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9j
+ZXNzLmMKPj4+IGluZGV4IDNjY2IzYjUuLjY5NWZhMmEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4+PiBAQCAtMjAwLDcgKzIwMCw2IEBAIHN0YXRp
+YyB2b2lkIGtmZF9wcm9jZXNzX2Rlc3Ryb3lfZGVsYXllZChzdHJ1Y3QKPj4+IHJjdV9oZWFkICpy
+Y3UpCj4+PiAgwqDCoMKgwqDCoCBzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnA7Cj4+PiAgwqAgwqDCoMKg
+wqDCoCBwID0gY29udGFpbmVyX29mKHJjdSwgc3RydWN0IGtmZF9wcm9jZXNzLCByY3UpOwo+Pj4g
+LcKgwqDCoCBXQVJOX09OKGF0b21pY19yZWFkKCZwLT5tbS0+bW1fY291bnQpIDw9IDApOwo+Pj4g
+IMKgIMKgwqDCoMKgwqAgbW1kcm9wKHAtPm1tKTsKPj4gSWYgeW91IGFyZSBjb25jZXJuZWQgdGhh
+dCBwLT5tbSBpcyB1c2VkIGFmdGVyIHRoaXMganVzdCBzZXQgaXQgdG8gTlVMTC4KPiBJJ20gbm90
+IGNvbmNlcm5lZCBhYm91dCBpdC4KPgo+IFJlZ2FyZHMsCj4gIMKgIEZlbGl4Cj4KPj4gUmVnYXJk
+cywKPj4gQ2hyaXN0aWFuLgo+Pgo+Pj4gICAgCj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
