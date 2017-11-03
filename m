@@ -1,86 +1,78 @@
-From: "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdgpu: release exclusive mode after hw_init if
- no kfd
-Date: Fri, 3 Nov 2017 01:00:52 +0000
-Message-ID: <7439C41A-0E2D-4679-9CA6-6CDC2C33D4D6@amd.com>
-References: <1509592570-4142-1-git-send-email-Pixel.Ding@amd.com>
- <1509592570-4142-3-git-send-email-Pixel.Ding@amd.com>
- <cceec675-b59e-7b41-1d0b-ea6d7fbc9cdf@amd.com>
+From: "Yu, Xiangliang" <Xiangliang.Yu@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/virt: don't dereference undefined 'module'
+ struct
+Date: Fri, 3 Nov 2017 06:57:30 +0000
+Message-ID: <BY2PR1201MB09353D47BD0360CDF2A548F1EB5D0@BY2PR1201MB0935.namprd12.prod.outlook.com>
+References: <20171102112619.72157-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <cceec675-b59e-7b41-1d0b-ea6d7fbc9cdf-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20171102112619.72157-1-arnd@arndb.de>
 Content-Language: en-US
-Content-ID: <0E8B1DBAD124444CBE1CDB5EBDB57D97-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>, "Liu, Monk" <Monk.Liu@amd.com>, "Chen, Horace" <Horace.Chen@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRmVsaXgsDQoNCg0KS0ZEIHdpbGwgc2V0IEhRRC4gVGhlc2UgcmVnaXN0ZXJzIG11c3QgYmUg
-YWNjZXNzZWQgaW4gZXhjbHVzaXZlIG1vZGUsIG90aGVyd2lzZSBkcml2ZXIgdXNlIEtJUSB0byBh
-Y2Nlc3MgdGhlbSB3aGljaCBjYXVzZXMgd29ybGQgc3dpdGNoIGZhaWx1cmUuDQoNCuKAlCANClNp
-bmNlcmVseSBZb3VycywNClBpeGVsDQoNCg0KDQoNCg0KDQoNCk9uIDAyLzExLzIwMTcsIDk6NDkg
-UE0sICJLdWVobGluZywgRmVsaXgiIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPiB3cm90ZToNCg0K
-PkhpIFBpeGVsLA0KPg0KPkknbSBjdXJpb3VzLCB3aGljaCBwYXJ0IG9mIHRoZSBLRkQgaW5pdGlh
-bGl6YXRpb24gcmVxdWlyZXMgZXhjbHVzaXZlDQo+YWNjZXNzPyBLRkQgZG9lc24ndCBhY2Nlc3Mg
-TU1JTyBkaXJlY3RseSwgb25seSB0aHJvdWdoIGNhbGxiYWNrcyB0bw0KPmFtZGdwdS4gV2hpY2gg
-b2YgdGhvc2UgY2FsbGJhY2tzIGFyZSBvbmx5IHVzZWQgZHVyaW5nIGluaXRpYWxpemF0aW9uLA0K
-PmFuZCByZXF1aXJlIGV4Y2x1c2l2ZSBhY2Nlc3M/IE1heWJlIHRoYXQncyBzb21ldGhpbmcgdGhh
-dCBjYW4gYmUgZml4ZWQuDQo+DQo+UmVnYXJkcywNCj4gIEZlbGl4DQo+DQo+DQo+T24gMjAxNy0x
-MS0wMSAxMToxNiBQTSwgUGl4ZWwgRGluZyB3cm90ZToNCj4+IEZyb206IHBkaW5nIDxQaXhlbC5E
-aW5nQGFtZC5jb20+DQo+Pg0KPj4gS0ZEIGRldmljZSBpbml0IHJlcXVpcmVzIGV4Y2x1c2l2ZSBt
-b2RlLiBEcml2ZXIgY2FuIHJlbGVhc2UNCj4+IGV4Y2x1c2l2ZSBtb2RlIGFmdGVyIGh3X2luaXQg
-aWYgS0ZEIGlzIG5vdCBlbmFibGVkLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IHBkaW5nIDxQaXhl
-bC5EaW5nQGFtZC5jb20+DQo+PiAtLS0NCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMgfCAzICsrKw0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9rbXMuYyAgICB8IDUgKysrLS0NCj4+ICAyIGZpbGVzIGNoYW5nZWQsIDYgaW5zZXJ0aW9u
-cygrKSwgMiBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2RldmljZS5jDQo+PiBpbmRleCA4MDllNjU2Li5kYzFkMWFmIDEwMDY0NA0KPj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+PiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+IEBAIC0xNzE2LDYg
-KzE3MTYsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KQ0KPj4gIAkJYWRldi0+aXBfYmxvY2tzW2ldLnN0YXR1cy5odyA9IHRydWU7DQo+PiAgCX0N
-Cj4+ICANCj4+ICsJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSAmJiAhYWRldi0+a2ZkKQ0KPj4g
-KwkJYW1kZ3B1X3ZpcnRfcmVsZWFzZV9mdWxsX2dwdShhZGV2LCB0cnVlKTsNCj4+ICsNCj4+ICAJ
-cmV0dXJuIDA7DQo+PiAgfQ0KPj4gIA0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9rbXMuYw0KPj4gaW5kZXggYWNkYjAxMC4uNTg5YjQxZiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+PiBAQCAtMTMwLDYgKzEzMCw3IEBAIGludCBh
-bWRncHVfZHJpdmVyX2xvYWRfa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGxv
-bmcgZmxhZ3MpDQo+PiAgDQo+PiAgCWRldi0+ZGV2X3ByaXZhdGUgPSAodm9pZCAqKWFkZXY7DQo+
-PiAgDQo+PiArCWFtZGdwdV9hbWRrZmRfZGV2aWNlX3Byb2JlKGFkZXYpOw0KPj4gIAkvKiBhbWRn
-cHVfZGV2aWNlX2luaXQgc2hvdWxkIHJlcG9ydCBvbmx5IGZhdGFsIGVycm9yDQo+PiAgCSAqIGxp
-a2UgbWVtb3J5IGFsbG9jYXRpb24gZmFpbHVyZSBvciBpb21hcHBpbmcgZmFpbHVyZSwNCj4+ICAJ
-ICogb3IgbWVtb3J5IG1hbmFnZXIgaW5pdGlhbGl6YXRpb24gZmFpbHVyZSwgaXQgbXVzdA0KPj4g
-QEAgLTE0MSw2ICsxNDIsNyBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9sb2FkX2ttcyhzdHJ1Y3QgZHJt
-X2RldmljZSAqZGV2LCB1bnNpZ25lZCBsb25nIGZsYWdzKQ0KPj4gIAkJYWRldi0+dmlydC5jYXBz
-ICY9IH5BTURHUFVfU1JJT1ZfQ0FQU19SVU5USU1FOw0KPj4gIAkJYWRldi0+dmlydC5vcHMgPSBO
-VUxMOw0KPj4gIAkJYW1kZ3B1X2RldmljZV9maW5pKGFkZXYpOw0KPj4gKwkJa2ZyZWUoYWRldi0+
-a2ZkKTsNCj4+ICAJCWtmcmVlKGFkZXYpOw0KPj4gIAkJZGV2LT5kZXZfcHJpdmF0ZSA9IE5VTEw7
-DQo+PiAgCQkvKiBEb24ndCByZXF1ZXN0IEVYIG1vZGUgdG9vIGZyZXF1ZW50bHkgd2hpY2ggaXMg
-YXR0YWNraW5nICovDQo+PiBAQCAtMTYyLDcgKzE2NCw2IEBAIGludCBhbWRncHVfZHJpdmVyX2xv
-YWRfa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGxvbmcgZmxhZ3MpDQo+PiAg
-CQkJCSJFcnJvciBkdXJpbmcgQUNQSSBtZXRob2RzIGNhbGxcbiIpOw0KPj4gIAl9DQo+PiAgDQo+
-PiAtCWFtZGdwdV9hbWRrZmRfZGV2aWNlX3Byb2JlKGFkZXYpOw0KPj4gIAlhbWRncHVfYW1ka2Zk
-X2RldmljZV9pbml0KGFkZXYpOw0KPj4gIA0KPj4gIAlpZiAoYW1kZ3B1X2RldmljZV9pc19weChk
-ZXYpKSB7DQo+PiBAQCAtMTc0LDcgKzE3NSw3IEBAIGludCBhbWRncHVfZHJpdmVyX2xvYWRfa21z
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGxvbmcgZmxhZ3MpDQo+PiAgCQlwbV9y
-dW50aW1lX3B1dF9hdXRvc3VzcGVuZChkZXYtPmRldik7DQo+PiAgCX0NCj4+ICANCj4+IC0JaWYg
-KGFtZGdwdV9zcmlvdl92ZihhZGV2KSkNCj4+ICsJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSAm
-JiBhZGV2LT5rZmQpDQo+PiAgCQlhbWRncHVfdmlydF9yZWxlYXNlX2Z1bGxfZ3B1KGFkZXYsIHRy
-dWUpOw0KPj4gIA0KPj4gIG91dDoNCj4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+Reviewed-By: Xiangliang Yu <Xiangliang.Yu@amd.com>
+
+Thanks!
+
+> -----Original Message-----
+> From: Arnd Bergmann [mailto:arnd@arndb.de]
+> Sent: Thursday, November 02, 2017 7:26 PM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>
+> Cc: Arnd Bergmann <arnd@arndb.de>; David Airlie <airlied@linux.ie>; Liu,
+> Monk <Monk.Liu@amd.com>; Yu, Xiangliang <Xiangliang.Yu@amd.com>;
+> Chen, Horace <Horace.Chen@amd.com>; amd-gfx@lists.freedesktop.org;
+> dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
+> Subject: [PATCH] drm/amdgpu/virt: don't dereference undefined 'module'
+> struct
+>=20
+> Accessing the THIS_MODULE directly is only possible when modules are
+> enabled, otherwise we get a build failure:
+>=20
+> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c: In function
+> 'amdgpu_virt_init_data_exchange':
+> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:20: error: dereferencing
+> pointer to incomplete type 'struct module'
+>=20
+> Further, THIS_MODULE is NULL when the driver is built-in, so the code wou=
+ld
+> likely cause a NULL pointer dereference.
+>=20
+> This adds an #ifdef check to avoid the compile-time error, plus a NULL
+> pointer check before dereferencing THIS_MODULE. It might be better to fin=
+d
+> a way to avoid using the module version altogether.
+>=20
+> Fixes: 2dc8f81e4f82 ("drm/amdgpu: SR-IOV data exchange between PF&VF")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index e97f80f86005..4e4a476593e8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -328,9 +328,11 @@ void amdgpu_virt_init_data_exchange(struct
+> amdgpu_device *adev)
+>  					sizeof(amdgim_vf2pf_info));
+>  				AMDGPU_FW_VRAM_VF2PF_READ(adev,
+> driver_version,
+>  					&str);
+> +#ifdef MODULE
+>  				if (THIS_MODULE->version !=3D NULL)
+>  					strcpy(str, THIS_MODULE->version);
+>  				else
+> +#endif
+>  					strcpy(str, "N/A");
+>  				AMDGPU_FW_VRAM_VF2PF_WRITE(adev,
+> driver_cert,
+>  					0);
+> --
+> 2.9.0
