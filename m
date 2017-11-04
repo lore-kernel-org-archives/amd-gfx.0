@@ -1,34 +1,54 @@
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: [PATCH] drm/amd/display: indent an if statement
-Date: Sat, 4 Nov 2017 09:12:32 +0300
-Message-ID: <20171104061232.5bq5hwr2p2ca2cl7@mwanda>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [bug report] drm/amdgpu/display: Add core dc support for DCN
+Date: Sat, 4 Nov 2017 10:28:25 +0300
+Message-ID: <20171104072825.4vkuaw333oqwflbb@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-Sender: kernel-janitors-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Tony Cheng <tony.cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, Yue Hin Lau <Yuehin.Lau@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: harry.wentland-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-The if statement wasn't indented so it makes static analysis tools and
-probably very recent GCC versions complain.
-
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
-I went over 80 characters because other lines do already and it seemed
-like the cleanest thing here.
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index d911590d08bc..c83ac4d9ca3a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -727,7 +727,7 @@ static void destruct(struct dcn10_resource_pool *pool)
- 
- 	for (i = 0; i < pool->base.stream_enc_count; i++) {
- 		if (pool->base.stream_enc[i] != NULL)
--		kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
-+			kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
- 	}
- 
- 	for (i = 0; i < pool->base.audio_count; i++) {
+SGVsbG8gSGFycnkgV2VudGxhbmQsCgpUaGUgcGF0Y2ggNzBjY2FiNjA0MDQ5OiAiZHJtL2FtZGdw
+dS9kaXNwbGF5OiBBZGQgY29yZSBkYyBzdXBwb3J0IGZvcgpEQ04iIGZyb20gTWF5IDgsIDIwMTcs
+IGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgc3RhdGljIGNoZWNrZXIgd2FybmluZzoKCglkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNl
+ci5jOjE2OTYgZGNuMTBfdHJhbnNsYXRlX3JlZ2FtbWFfdG9faHdfZm9ybWF0KCkKCXdhcm46IHBv
+dGVudGlhbCBvZmYgYnkgb25lIChuYW1lZCBsaW1pdCAnTUFYX1JFR0lPTlNfTlVNQkVSJykgJ3Nl
+Z19kaXN0cltrXScKCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvZGNu
+MTAvZGNuMTBfaHdfc2VxdWVuY2VyLmMKICAxNTYwICAgICAgICAgIGludDMyX3Qgc2VnbWVudF9z
+dGFydCwgc2VnbWVudF9lbmQ7CiAgMTU2MSAgICAgICAgICBpbnQzMl90IGk7CiAgMTU2MiAgICAg
+ICAgICB1aW50MzJfdCBqLCBrLCBzZWdfZGlzdHJbTUFYX1JFR0lPTlNfTlVNQkVSXSwgaW5jcmVt
+ZW50LCBzdGFydF9pbmRleCwgaHdfcG9pbnRzOwogICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIF5eXl5eXl5eXl5eXl5eXl5eXl4KWyBzbmlwIF0KCiAgMTY4NCAgICAgICAg
+ICBpID0gMTsKICAxNjg1ICAgICAgICAgIGZvciAoayA9IDA7IGsgPCBNQVhfUkVHSU9OU19OVU1C
+RVIgJiYgaSA8IE1BWF9SRUdJT05TX05VTUJFUjsgaysrKSB7CiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBeXl5eXl5eXl5eXl5eXl5eXl5eXl5eCiAgMTY4NiAgICAgICAgICAgICAgICAgIGlm
+IChzZWdfZGlzdHJba10gIT0gLTEpIHsKICAxNjg3ICAgICAgICAgICAgICAgICAgICAgICAgICBy
+ZWdhbW1hX3BhcmFtcy0+YXJyX2N1cnZlX3BvaW50c1trXS5zZWdtZW50c19udW0gPQogIDE2ODgg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZWdfZGlzdHJba107CiAg
+MTY4OSAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnYW1tYV9wYXJhbXMtPmFycl9jdXJ2ZV9w
+b2ludHNbaV0ub2Zmc2V0ID0KICAxNjkwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcmVnYW1tYV9wYXJhbXMtPmFycl9jdXJ2ZV9wb2ludHNba10uCiAgMTY5MSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9mZnNldCArICgxIDw8IHNlZ19k
+aXN0cltrXSk7CiAgMTY5MiAgICAgICAgICAgICAgICAgIH0KICAxNjkzICAgICAgICAgICAgICAg
+ICAgaSsrOwogIDE2OTQgICAgICAgICAgfQogIDE2OTUgIAogIDE2OTYgICAgICAgICAgaWYgKHNl
+Z19kaXN0cltrXSAhPSAtMSkKICAgICAgICAgICAgICAgICAgICBeXl5eXl5eXl5eXl4KSWYgayA9
+PSBNQVhfUkVHSU9OU19OVU1CRVIgdGhlbiB3ZSdyZSByZWFkaW5nIGJleW9uZCB0aGUgZW5kIG9m
+IHRoZSBhcnJheQoKICAxNjk3ICAgICAgICAgICAgICAgICAgcmVnYW1tYV9wYXJhbXMtPmFycl9j
+dXJ2ZV9wb2ludHNba10uc2VnbWVudHNfbnVtID0KICAxNjk4ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHNlZ19kaXN0cltrXTsKICAxNjk5ICAKCnJlZ2FyZHMsCmRhbiBjYXJwZW50
+ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
