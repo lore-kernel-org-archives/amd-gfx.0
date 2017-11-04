@@ -1,41 +1,34 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH umr] Skip ahead if PDE entry is actually a PTE entry.
-Date: Fri,  3 Nov 2017 19:54:27 -0400
-Message-ID: <20171103235427.26271-1-tom.stdenis@amd.com>
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [PATCH] drm/amd/display: indent an if statement
+Date: Sat, 4 Nov 2017 09:12:32 +0300
+Message-ID: <20171104061232.5bq5hwr2p2ca2cl7@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: kernel-janitors-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Tony Cheng <tony.cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, Yue Hin Lau <Yuehin.Lau@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIHNy
-Yy9saWIvcmVhZF92cmFtLmMgfCA2ICsrKysrKwogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9u
-cygrKQoKZGlmZiAtLWdpdCBhL3NyYy9saWIvcmVhZF92cmFtLmMgYi9zcmMvbGliL3JlYWRfdnJh
-bS5jCmluZGV4IDBkZjQ4ZGFkZWMxMi4uNWQ5NTIzNDc2ZTI1IDEwMDY0NAotLS0gYS9zcmMvbGli
-L3JlYWRfdnJhbS5jCisrKyBiL3NyYy9saWIvcmVhZF92cmFtLmMKQEAgLTUyMiw2ICs1MjIsMTEg
-QEAgc3RhdGljIGludCB1bXJfYWNjZXNzX3ZyYW1fYWkoc3RydWN0IHVtcl9hc2ljICphc2ljLCB1
-aW50MzJfdCB2bWlkLAogCQkJCQkJCShpbnQpcGRlX2ZpZWxkcy5wdGUpOwogCQkJCW1lbWNweSgm
-cGRlX2FycmF5W3BkZV9jbnQrK10sICZwZGVfZmllbGRzLCBzaXplb2YgcGRlX2ZpZWxkcyk7CiAK
-KwkJCQlpZiAocGRlX2ZpZWxkcy5wdGUpIHsKKwkJCQkJcHRlX2VudHJ5ID0gcGRlX2VudHJ5Owor
-CQkJCQlnb3RvIHBkZV9pc19wdGU7CisJCQkJfQorCiAJCQkJaWYgKCFwZGVfZmllbGRzLnN5c3Rl
-bSkKIAkJCQkJcGRlX2ZpZWxkcy5wdGVfYmFzZV9hZGRyIC09IHZtX2ZiX29mZnNldDsKIApAQCAt
-NTM5LDYgKzU0NCw3IEBAIHN0YXRpYyBpbnQgdW1yX2FjY2Vzc192cmFtX2FpKHN0cnVjdCB1bXJf
-YXNpYyAqYXNpYywgdWludDMyX3Qgdm1pZCwKIAkJCQlyZXR1cm4gLTE7CiAKIAkJCS8vIGRlY29k
-ZSBQVEUgdmFsdWVzCitwZGVfaXNfcHRlOgogCQkJcHRlX2ZpZWxkcy5wYWdlX2Jhc2VfYWRkciA9
-IHB0ZV9lbnRyeSAmIDB4RkZGRkZGRkZGRjAwMFVMTDsKIAkJCXB0ZV9maWVsZHMuZnJhZ21lbnQg
-ICAgICAgPSAocHRlX2VudHJ5ID4+IDcpICAmIDB4MUY7CiAJCQlwdGVfZmllbGRzLnN5c3RlbSAg
-ICAgICAgID0gKHB0ZV9lbnRyeSA+PiAxKSAmIDE7Ci0tIAoyLjEyLjAKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+The if statement wasn't indented so it makes static analysis tools and
+probably very recent GCC versions complain.
+
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+I went over 80 characters because other lines do already and it seemed
+like the cleanest thing here.
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+index d911590d08bc..c83ac4d9ca3a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+@@ -727,7 +727,7 @@ static void destruct(struct dcn10_resource_pool *pool)
+ 
+ 	for (i = 0; i < pool->base.stream_enc_count; i++) {
+ 		if (pool->base.stream_enc[i] != NULL)
+-		kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
++			kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
+ 	}
+ 
+ 	for (i = 0; i < pool->base.audio_count; i++) {
