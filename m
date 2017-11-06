@@ -1,80 +1,50 @@
-From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogU3lzdGVtIGZyZWV6ZSBvbiBkaXNwbGF5IHJlLWFjdGl2YXRpb24g?=
- =?gb2312?Q?persists?=
-Date: Mon, 6 Nov 2017 02:35:28 +0000
-Message-ID: <DM3PR12MB08735008A72E3C1DC81FF0DE99500@DM3PR12MB0873.namprd12.prod.outlook.com>
-References: <1509604577.1928.9.camel@online.de>
- <CADnq5_NCKycvFz_okprcV_FRaJG7szF=FKCosM=k9DL_U1pOYw@mail.gmail.com>,
- <1509906015.1928.6.camel@online.de>
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [PATCH] drm/amd/display: indent an if statement
+Date: Mon, 6 Nov 2017 09:42:49 +0300
+Message-ID: <20171106064249.4qkjkidrzxd66oet@mwanda>
+References: <20171104061232.5bq5hwr2p2ca2cl7@mwanda>
+ <59FD8567.4030500@bfs.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1509906015.1928.6.camel-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>
-Content-Language: zh-CN
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Martin Babutzka <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <59FD8567.4030500@bfs.de>
+Sender: kernel-janitors-owner@vger.kernel.org
+To: walter harms <wharms@bfs.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Tony Cheng <tony.cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, Yue Hin Lau <Yuehin.Lau@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgTWFydGluOg0KDQpUaGUgbG9nIGRvIG5vdCBoYXZlIGFueSB1c2VmdWwgaW5mb3JtYXRpb24u
-IEZvciBTMyBpc3N1ZSBJIHRoaW5rIHlvdSBjYW4gZG86DQoNCjEuIERvIHlvdSBoYXZlIGFueSBv
-dGhlciBBTUQgR0ZYPyBzdWNoIGFzIEJvbmFpcmUgb3IgVG9uZ2EuIFBsZWFzZSBoYXZlIGEgdHJ5
-IHdpdGggdGhlIHNvbWUgZHJpdmVyLg0KMi4gRG8geW91IGhhdmUgYSBjaGFuY2UgdG8gc2V0IHVw
-IGNvbSBwb3J0PyBUaGUgY29tIHBvcnQgaXMgdmVyeSB1c2VmdWwgZm9yIGRlYnVnZ2luZyBTMyBp
-c3N1ZS4NCiAgICAgYS4gYWRkICJjb25zb2xlPXR0eVMwLDExNTIwMCw4TjEgY29uc29sZT10dHkx
-IG5vX2NvbnNvbGVfc3VzcGVuZCIgdG8gR1JVQl9DTURMSU5FX0xJTlVYIGluIGtlcm5lbCBncnVi
-LiB0aGVuIHVwZGF0ZS1ncnViDQogICAgIGIuIGVjaG8gNyA+IC9wcm9jL3N5cy9rZXJuZWwvcHJp
-bnRrLCB0aGVuIHBlcmZvcm0gUzMuIA0KDQpUaGFua3MNCkppbVF1DQoNCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18NCuWPkeS7tuS6ujogYW1kLWdmeCA8YW1kLWdmeC1i
-b3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4g5Luj6KGoIE1hcnRpbiBCYWJ1dHprYSA8bWFy
-dGluLmJhYnV0emthQG9ubGluZS5kZT4NCuWPkemAgeaXtumXtDogMjAxN+W5tDEx5pyINuaXpSAy
-OjIwDQrmlLbku7bkuro6IEFsZXggRGV1Y2hlcjsgYW1kLWdmeCBsaXN0DQrkuLvpopg6IFJlOiBT
-eXN0ZW0gZnJlZXplIG9uIGRpc3BsYXkgcmUtYWN0aXZhdGlvbiBwZXJzaXN0cw0KDQpEZWFyIGRl
-dmVsb3BlcnMsDQoNClVuZm9ydHVuYXRlbHkgSSBjYW5ub3QgY29uZmlybSB0aGF0IHRoZSBpc3N1
-ZSBpcyBmdWxseSByZXNvbHZlZC4gSQ0KYnVpbHQgdGhlIGFtZC1zdGFnaW5nLWRybS1uZXh0IGlu
-Y2x1ZGluZyB0aGUgbWVudGlvbmVkIGNvbW1pdC4gQ3Jhc2hlcw0KYXJlIHN0aWxsIGxpa2VseSB0
-byBoYXBwZW4gd2hlbiBJIHRyeSB0byByZXN1bWUgZnJvbSBzdXNwZW5kLiBUaGUNCnN5c3RlbSBm
-cmVlemUgY2FuIHNob3cgYSBibGFjayBzY3JlZW4gb3IgYSB3ZWlyZCBwYXR0ZXJuIGxpa2UgYXR0
-YWNoZWQuDQpUaGVyZSBpcyBoYXJkbHkgYW55IGxvZyBtZXNzYWdlIHRoYXQgaGVscHMgYWxsIHJl
-bGV2YW50IGxvZ3MgZW5kIHVwDQp3aXRoIGEgbGFyZ2UgbnVtYmVyIG9mICJeQCIgc3ltYm9scy4N
-Cg0KQW55IGZ1cnRoZXIgcmVjb21tZW5kYXRpb25zIG9mIGJyYW5jaGVzIHRvIHRlc3Qgb3Igc2V0
-dGluZ3MgdG8gY2hhbmdlPw0KRG8gSSBoYXZlIHRvIGVuYWJsZSBkcG1zIG1hbnVhbGx5Pw0KDQpN
-YW55IHJlZ2FyZHMsDQpNYXJ0aW4NCg0KDQoNCkFtIERvbm5lcnN0YWcsIGRlbiAwMi4xMS4yMDE3
-LCAwOTozOCAtMDQwMCBzY2hyaWViIEFsZXggRGV1Y2hlcjoNCj4gT24gVGh1LCBOb3YgMiwgMjAx
-NyBhdCAyOjM2IEFNLCBNYXJ0aW4gQmFidXR6a2ENCj4gPG1hcnRpbi5iYWJ1dHprYUBvbmxpbmUu
-ZGU+IHdyb3RlOg0KPiA+IERlYXIgQU1EIGRldmVsb3BlcnMsDQo+ID4NCj4gPiBJIHdhbnRlZCB0
-byBtZW50aW9uIHRoYXQgdGhlIHJlZ3Jlc3Npb24gaW4gYW1kLXN0YWdpbmctZHJtLW5leHQNCj4g
-PiB3aGljaCBJDQo+ID4gcmVwb3J0ZWQgb24gdGhlIDI5LjA5LiBhbmQgdGhlIDA2LjEwLiBzdGls
-bCBleGlzdHMgd2l0aCB0aGUgbGF0ZXN0DQo+ID4gdHJlZQ0KPiA+IHN0YXRlIG9mIHRoZSBicmFu
-Y2guDQo+ID4NCj4gPiBBIGNyYXNoL2ZyZWV6ZSBvY2N1cnMgYWZ0ZXIgdGhlIHNjcmVlbiBpcyBy
-ZS1lbmFibGVkIGVpdGhlciBmcm9tDQo+ID4gc3VzcGVuZCBvciBmcm9tIHNjcmVlbiBsb2NraW5n
-ICh3aGljaCBzaHV0cyBvZmYgdGhlIGRpc3BsYXkgYXMNCj4gPiB3ZWxsKS4NCj4gPiBUaGUgc3lz
-dGVtIGxvY2stdGltaW5nIHZhcmllczogSXQgY2FuIGdldCBzdHVjayBhdCBhIGJsYW5rIHNjcmVl
-biwNCj4gPiBhdA0KPiA+IHRoZSBsb2dpbiBzY3JlZW4gb3IgZXZlbiBzaG9ydGx5IGFmdGVyIGEg
-bG9naW4uDQo+ID4gVGhlIGtlcm5lbCBpcyB0aGUgdW5tb2RpZmllZCBhbWQtc3RhZ2luZy1kcm0t
-bmV4dCBydW5uaW5nIHdpdGggbXkNCj4gPiBUb25nYQ0KPiA+IEdQVS4gSXQgZG9lcyBub3Qgb2Nj
-dXIgaW4gdGhlIG9mZmljaWFsIDQuMTMga2VybmVsIG9mIFVidW50dSAxNy4xMC4NCj4gPg0KPiA+
-IFVuZm9ydHVuYXRlbHkgSSBmYWlsZWQgdG8gYmlzZWN0IGl0IHRvIHRoZSBjYXVzaW5nIGNvbW1p
-dCBidXQgdGhlDQo+ID4gaXNzdWUNCj4gPiBpcyB0aGVyZSBmb3IgYSBwcmV0dHkgbG9uZyB0aW1l
-IGluIHRoZSA0LjEzIGtlcm5lbCwgbW9zdCBsaWtlbHkNCj4gPiBtZXJnZWQNCj4gPiBpbnRvIHRo
-ZSBjb2RlIGJlZm9yZSAxMC4wOS4NCj4gPiBEaWQgbm9ib2R5IGVsc2UgZnJvbSB0aGlzIG1haWxp
-bmcgbGlzdCBleHBlcmllbmNlIHRoZSBzYW1lIGlzc3VlPw0KPg0KPiBJdCB3YXMgcmVwb3J0ZWQg
-YW5kIGNvbmZpcm1lZCB0aGF0IHRoaXMgcGF0Y2ggZml4ZXMgaXQ6DQo+IGh0dHBzOi8vY2dpdC5m
-cmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4L2NvbW1pdC8/aD1hbWQtc3RhZ2luZy1kcm0tbg0K
-PiBleHQmaWQ9ZGRhYmJmNjVhYWUzNmUyMWI0Yzc5MzU0OTQwZjgwZWFlNmMzNjEwNA0KPg0KPiBJ
-J20gcnVubmluZyBhIHRvbmdhIGJvYXJkIG5vdyBhbmQgaGF2ZSBubyBwcm9ibGVtcyB3aXRoIGRw
-bXMuDQo+DQo+IEFsZXgNCj4NCj4gPg0KPiA+IE1hbnkgcmVnYXJkcywNCj4gPiBNYXJ0aW4NCj4g
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiA+IGFt
-ZC1nZnggbWFpbGluZyBsaXN0DQo+ID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngN
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Sat, Nov 04, 2017 at 10:16:23AM +0100, walter harms wrote:
+> 
+> 
+> Am 04.11.2017 07:12, schrieb Dan Carpenter:
+> > The if statement wasn't indented so it makes static analysis tools and
+> > probably very recent GCC versions complain.
+> > 
+> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> > ---
+> > I went over 80 characters because other lines do already and it seemed
+> > like the cleanest thing here.
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+> > index d911590d08bc..c83ac4d9ca3a 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+> > @@ -727,7 +727,7 @@ static void destruct(struct dcn10_resource_pool *pool)
+> >  
+> >  	for (i = 0; i < pool->base.stream_enc_count; i++) {
+> >  		if (pool->base.stream_enc[i] != NULL)
+> > -		kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
+> > +			kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
+> >  	}
+> >  
+> 
+> Is that "if (pool->base.stream_enc[i] != NULL)" needed at all ?
+> kfree() should happily handle NULL.
+> 
+
+Good point.  I'll resend.
+
+regards,
+dan carpenter
+
