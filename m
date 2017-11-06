@@ -1,44 +1,75 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: Did my graphics card get damaged?
-Date: Mon, 6 Nov 2017 16:42:59 +0100
-Message-ID: <a6995b0d-d569-0baa-492e-1cd5e0ef8a4e@daenzer.net>
-References: <CA+BpUpXYsZuLEyJ+VGSu-xfrY_GBVbVcYULJkKR4AywECdqd5w@mail.gmail.com>
- <BN6PR12MB1348850D76E3F3B730228F72E8530@BN6PR12MB1348.namprd12.prod.outlook.com>
- <CA+BpUpWyAZfkKCWUybv2vSV4So7Uy1fJX4buYvotwa6CJDB4DA@mail.gmail.com>
+From: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/3] ASoC: amd: Report accurate hw_ptr during dma
+Date: Mon, 6 Nov 2017 15:48:00 +0000
+Message-ID: <20171106154800.sotryjiadmobitac@sirena.co.uk>
+References: <1509741345-1589-1-git-send-email-alexander.deucher@amd.com>
+ <1509741345-1589-2-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CA+BpUpWyAZfkKCWUybv2vSV4So7Uy1fJX4buYvotwa6CJDB4DA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Vladimir Klebanov <klebanov-Qicz5VY8OY0@public.gmane.org>, "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0919855703=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1509741345-1589-2-git-send-email-alexander.deucher@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, Akshu Agrawal <Akshu.Agrawal@amd.com>, amd-gfx@lists.freedesktop.org, Vijendar.Mukunda@amd.com, Alex Deucher <alexander.deucher@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDYvMTEvMTcgMDk6NTcgQU0sIFZsYWRpbWlyIEtsZWJhbm92IHdyb3RlOgo+IE9uIFN1biwg
-Tm92IDUsIDIwMTcgYXQgMTE6NTMgUE0sIEJyaWRnbWFuLCBKb2huIDxKb2huLkJyaWRnbWFuQGFt
-ZC5jb20+IHdyb3RlOgo+IAo+PiBUaGUgb25seSBwcm9ibGVtcyBJIHNlZSBpbiB0aGUgeG9yZyBs
-b2cgYXJlIHRoZSBmb2xsb3dpbmcgbGluZXMgYXQgdGhlIGVuZCwgYnV0IG5vdCBzdXJlIGlmIHRo
-ZXkgYXJlIHNlcmlvdXMgb3Igbm90Lgo+Pgo+PiBbICAgMjA1LjU0Ml0gKFdXKSBSQURFT04oMCk6
-IGZsaXAgcXVldWUgZmFpbGVkOiBJbnZhbGlkIGFyZ3VtZW50Cj4+IFsgICAyMDUuNTQyXSAoV1cp
-IFJBREVPTigwKTogUGFnZSBmbGlwIGZhaWxlZDogSW52YWxpZCBhcmd1bWVudAo+PiBbICAgMjA1
-LjU0NF0gKFdXKSBSQURFT04oMCk6IGZsaXAgcXVldWUgZmFpbGVkOiBJbnZhbGlkIGFyZ3VtZW50
-Cj4+IFsgICAyMDUuNTQ0XSAoV1cpIFJBREVPTigwKTogUGFnZSBmbGlwIGZhaWxlZDogSW52YWxp
-ZCBhcmd1bWVudAo+IAo+IE5laXRoZXIgZG8gSS4gSSBob3BlIHNvbWVvbmUgaGVyZSBtaWdodCBo
-YXZlIGFuIGlkZWEuCgpUaGV5IHNob3VsZG4ndCBiZSBzZXJpb3VzLiBJdCdzIGV4dHJlbWVseSB1
-bmxpa2VseSB0aGF0IHRoZSBmYWlsdXJlIHRvClBPU1QgaXMgZGlyZWN0bHkgcmVsYXRlZCB0byB0
-aGVtLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAg
-ICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAg
-ICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+--===============0919855703==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j5mt5ugy3f5w7aer"
+Content-Disposition: inline
+
+
+--j5mt5ugy3f5w7aer
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Nov 03, 2017 at 04:35:43PM -0400, Alex Deucher wrote:
+
+> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> Signed-off-by: Akshu Agrawal <Akshu.Agrawal@amd.com>
+> Reviewed-on: https://chromium-review.googlesource.com/659699
+> Commit-Ready: Akshu Agrawal <akshu.agrawal@amd.com>
+> Tested-by: Akshu Agrawal <akshu.agrawal@amd.com>
+> Reviewed-by: Jason Clinton <jclinton@chromium.org>
+> Reviewed-on: https://chromium-review.googlesource.com/676627
+
+These two URLs are different, what was being reviewed here?  What is
+Commit-Ready supposed to mean?
+
+--j5mt5ugy3f5w7aer
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAloAhC8ACgkQJNaLcl1U
+h9AR5gf8DMrIKTB+3xFwrWz3ZYBaDFRPoTFT5y2s1snoQWgaAddkmPKtbuf+jrIf
+mqyDMhJznA1ltO/tRIqZViEq1xu097uayj971ExaMS7TkWWuMfr3E1GhSYLdk1fg
+ZaFUcdTdoUOIQUh9jZCDCdf842Ef7lTDX+p0rL4qTSPtyQaPUC40cyjFnG3xrNPY
+wxr020yD7BxWRRuYnHX27y+bp4qLjAG+7FX93Ki6eXwjDpgQzzqEBVTvXd2y8pGQ
+YyEkQgqwdG/sxPfxlgYKobQ2Qx3PdO/gJqVEgoSFX7IDY67rBkJQaJPeuCYfZsyN
+2pCaYnCMiSkY6KR2H0Z0/lkX3NCS0g==
+=BaVE
+-----END PGP SIGNATURE-----
+
+--j5mt5ugy3f5w7aer--
+
+--===============0919855703==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0919855703==--
