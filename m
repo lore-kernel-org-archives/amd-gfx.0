@@ -1,50 +1,71 @@
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [PATCH] drm/amd/display: indent an if statement
-Date: Mon, 6 Nov 2017 09:42:49 +0300
-Message-ID: <20171106064249.4qkjkidrzxd66oet@mwanda>
-References: <20171104061232.5bq5hwr2p2ca2cl7@mwanda>
- <59FD8567.4030500@bfs.de>
+From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: use multipipe compute policy on non PL11
+ asics
+Date: Mon, 6 Nov 2017 14:49:35 +0800
+Message-ID: <b9de7b08-8239-d860-0d6b-19c9f63ecfe7@amd.com>
+References: <20170926162246.3200-1-andresx7@gmail.com>
+ <20170926162246.3200-2-andresx7@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <kernel-janitors-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <59FD8567.4030500@bfs.de>
-Sender: kernel-janitors-owner@vger.kernel.org
-To: walter harms <wharms@bfs.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Tony Cheng <tony.cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, Yue Hin Lau <Yuehin.Lau@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170926162246.3200-2-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org
 
-On Sat, Nov 04, 2017 at 10:16:23AM +0100, walter harms wrote:
-> 
-> 
-> Am 04.11.2017 07:12, schrieb Dan Carpenter:
-> > The if statement wasn't indented so it makes static analysis tools and
-> > probably very recent GCC versions complain.
-> > 
-> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> > ---
-> > I went over 80 characters because other lines do already and it seemed
-> > like the cleanest thing here.
-> > 
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> > index d911590d08bc..c83ac4d9ca3a 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-> > @@ -727,7 +727,7 @@ static void destruct(struct dcn10_resource_pool *pool)
-> >  
-> >  	for (i = 0; i < pool->base.stream_enc_count; i++) {
-> >  		if (pool->base.stream_enc[i] != NULL)
-> > -		kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
-> > +			kfree(DCE110STRENC_FROM_STRENC(pool->base.stream_enc[i]));
-> >  	}
-> >  
-> 
-> Is that "if (pool->base.stream_enc[i] != NULL)" needed at all ?
-> kfree() should happily handle NULL.
-> 
-
-Good point.  I'll resend.
-
-regards,
-dan carpenter
-
+SGkgQW5kcmVzLAoKV2l0aCB5b3VyIHRoaXMgcGF0Y2gsIE9DTHBlcmYgaHVuZy4KCkNvdWxkIHlv
+dSBleHBsYWluIG1vcmU/CgpJZiBJIGFtIGNvcnJlY3RseSwgdGhlIGRpZmZlcmVuY2Ugb2Ygd2l0
+aCBhbmQgd2l0aG91dCB0aGlzIHBhdGNoIGlzIApzZXR0aW5nIGZpcnN0IHR3byBxdWV1ZSBvciBz
+ZXR0aW5nIGFsbCBxdWV1ZXMgb2YgcGlwZTAgdG8gcXVldWVfYml0bWFwLgoKVGhlbiBVTUQgY2Fu
+IHVzZSBkaWZmZXJlbnQgbnVtYmVyIHF1ZXVlIHRvIHN1Ym1pdCBjb21tYW5kIGZvciBjb21wdXRl
+IApzZWxlY3RlZCBieSBhbWRncHVfcXVldWVfbWdyX21hcC4KCkkgY2hlY2tlZCBhbWRncHVfcXVl
+dWVfbWdyX21hcCBpbXBsZW1lbnRhdGlvbizCoCBDU19JT0NUTCBjYW4gbWFwIHVzZXIgCnJpbmcg
+dG8gZGlmZmVyZW50IGh3IHJpbmcgZGVwZW5kaW5nIG9uIGJ1c3kgb3IgaWRsZSwgcmlnaHQ/CgpJ
+ZiB5ZXMsIEkgc2VlIGEgYnVnIGluIGl0LCB3aGljaCB3aWxsIHJlc3VsdCBpbiBvdXIgc2NoZWRf
+ZmVuY2Ugbm90IAp3b3JrLiBPdXIgc2NoZWQgZmVuY2UgYXNzdW1lcyB0aGUgam9iIHdpbGwgYmUg
+ZXhlY3V0ZWQgaW4gb3JkZXIsIHlvdXIgCm1hcHBpbmcgcXVldWUgYnJlYWtzIHRoaXMuCgoKUmVn
+YXJkcywKCkRhdmlkIFpob3UKCgpPbiAyMDE35bm0MDnmnIgyN+aXpSAwMDoyMiwgQW5kcmVzIFJv
+ZHJpZ3VleiB3cm90ZToKPiBBIHBlcmZvcm1hbmNlIHJlZ3Jlc3Npb24gZm9yIE9wZW5DTCB0ZXN0
+cyBvbiBQb2xhcmlzMTEgaGFkIHRoaXMgZmVhdHVyZQo+IGRpc2FibGVkIGZvciBhbGwgYXNpY3Mu
+Cj4KPiBJbnN0ZWFkLCBkaXNhYmxlIGl0IHNlbGVjdGl2ZWx5IG9uIHRoZSBhZmZlY3RlZCBhc2lj
+cy4KPgo+IFNpZ25lZC1vZmYtYnk6IEFuZHJlcyBSb2RyaWd1ZXogPGFuZHJlc3g3QGdtYWlsLmNv
+bT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyB8IDE0
+ICsrKysrKysrKysrKy0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMiBk
+ZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZ2Z4LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMKPiBp
+bmRleCA0ZjZjNjhmLi4zZDc2ZTc2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nZnguYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9nZnguYwo+IEBAIC0xMDksOSArMTA5LDIwIEBAIHZvaWQgYW1kZ3B1X2dmeF9wYXJzZV9k
+aXNhYmxlX2N1KHVuc2lnbmVkICptYXNrLCB1bnNpZ25lZCBtYXhfc2UsIHVuc2lnbmVkIG1heF9z
+Cj4gICAJfQo+ICAgfQo+ICAgCj4gK3N0YXRpYyBib29sIGFtZGdwdV9nZnhfaXNfbXVsdGlwaXBl
+X2NhcGFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gK3sKPiArCS8qIEZJWE1FOiBz
+cHJlYWRpbmcgdGhlIHF1ZXVlcyBhY3Jvc3MgcGlwZXMgY2F1c2VzIHBlcmYgcmVncmVzc2lvbnMK
+PiArCSAqIG9uIFBPTEFSSVMxMSBjb21wdXRlIHdvcmtsb2FkcyAqLwo+ICsJaWYgKGFkZXYtPmFz
+aWNfdHlwZSA9PSBDSElQX1BPTEFSSVMxMSkKPiArCQlyZXR1cm4gZmFsc2U7Cj4gKwo+ICsJcmV0
+dXJuIGFkZXYtPmdmeC5tZWMubnVtX21lYyA+IDE7Cj4gK30KPiArCj4gICB2b2lkIGFtZGdwdV9n
+ZnhfY29tcHV0ZV9xdWV1ZV9hY3F1aXJlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAg
+ewo+ICAgCWludCBpLCBxdWV1ZSwgcGlwZSwgbWVjOwo+ICsJYm9vbCBtdWx0aXBpcGVfcG9saWN5
+ID0gYW1kZ3B1X2dmeF9pc19tdWx0aXBpcGVfY2FwYWJsZShhZGV2KTsKPiAgIAo+ICAgCS8qIHBv
+bGljeSBmb3IgYW1kZ3B1IGNvbXB1dGUgcXVldWUgb3duZXJzaGlwICovCj4gICAJZm9yIChpID0g
+MDsgaSA8IEFNREdQVV9NQVhfQ09NUFVURV9RVUVVRVM7ICsraSkgewo+IEBAIC0xMjUsOCArMTM2
+LDcgQEAgdm9pZCBhbWRncHVfZ2Z4X2NvbXB1dGVfcXVldWVfYWNxdWlyZShzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldikKPiAgIAkJaWYgKG1lYyA+PSBhZGV2LT5nZngubWVjLm51bV9tZWMpCj4g
+ICAJCQlicmVhazsKPiAgIAo+IC0JCS8qIEZJWE1FOiBzcHJlYWRpbmcgdGhlIHF1ZXVlcyBhY3Jv
+c3MgcGlwZXMgY2F1c2VzIHBlcmYgcmVncmVzc2lvbnMgKi8KPiAtCQlpZiAoMCkgewo+ICsJCWlm
+IChtdWx0aXBpcGVfcG9saWN5KSB7Cj4gICAJCQkvKiBwb2xpY3k6IGFtZGdwdSBvd25zIHRoZSBm
+aXJzdCB0d28gcXVldWVzIG9mIHRoZSBmaXJzdCBNRUMgKi8KPiAgIAkJCWlmIChtZWMgPT0gMCAm
+JiBxdWV1ZSA8IDIpCj4gICAJCQkJc2V0X2JpdChpLCBhZGV2LT5nZngubWVjLnF1ZXVlX2JpdG1h
+cCk7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
