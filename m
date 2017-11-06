@@ -1,69 +1,72 @@
-From: Randy Dunlap <rdunlap@infradead.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: linux-next: Tree for Nov 6 (amdgpu_virt.c)
-Date: Mon, 6 Nov 2017 09:20:33 -0800
-Message-ID: <6f48e708-ee6f-641f-d474-4defeab93de4@infradead.org>
+Date: Mon, 6 Nov 2017 12:30:35 -0500
+Message-ID: <CADnq5_OSXAeujckfseMm_HeGz3EcFv27m9S7YOzraAHdEwbzug@mail.gmail.com>
 References: <20171106183019.46c29b1f@canb.auug.org.au>
+ <6f48e708-ee6f-641f-d474-4defeab93de4@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20171106183019.46c29b1f@canb.auug.org.au>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Stephen Rothwell <sfr@canb.auug.org.au>, Linux-Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <6f48e708-ee6f-641f-d474-4defeab93de4-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Randy Dunlap <rdunlap-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Cc: Stephen Rothwell <sfr-3FnU+UHB4dNDw9hX6IcOSA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Linux-Next Mailing List <linux-next-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On 11/05/2017 11:30 PM, Stephen Rothwell wrote:
-> Hi all,
-> 
-> Changes since 20171103:
-> 
-
-on i386, when CONFIG_MODULES is not set:
-
-  CC      drivers/gpu/drm/amd/amdgpu/amdgpu_virt.o
-In file included from ../arch/x86/include/asm/atomic.h:5:0,
-                 from ../include/linux/atomic.h:5,
-                 from ../drivers/gpu/drm/amd/amdgpu/amdgpu.h:31,
-                 from ../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:24:
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c: In function 'amdgpu_virt_init_data_exchange':
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:20: error: dereferencing pointer to incomplete type
-     if (THIS_MODULE->version != NULL)
-                    ^
-../include/linux/compiler.h:58:30: note: in definition of macro '__trace_if'
-  if (__builtin_constant_p(!!(cond)) ? !!(cond) :   \
-                              ^
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:5: note: in expansion of macro 'if'
-     if (THIS_MODULE->version != NULL)
-     ^
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:20: error: dereferencing pointer to incomplete type
-     if (THIS_MODULE->version != NULL)
-                    ^
-../include/linux/compiler.h:58:42: note: in definition of macro '__trace_if'
-  if (__builtin_constant_p(!!(cond)) ? !!(cond) :   \
-                                          ^
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:5: note: in expansion of macro 'if'
-     if (THIS_MODULE->version != NULL)
-     ^
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:20: error: dereferencing pointer to incomplete type
-     if (THIS_MODULE->version != NULL)
-                    ^
-../include/linux/compiler.h:69:16: note: in definition of macro '__trace_if'
-   ______r = !!(cond);     \
-                ^
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:331:5: note: in expansion of macro 'if'
-     if (THIS_MODULE->version != NULL)
-     ^
-../drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:332:29: error: dereferencing pointer to incomplete type
-      strcpy(str, THIS_MODULE->version);
-                             ^
-../scripts/Makefile.build:314: recipe for target 'drivers/gpu/drm/amd/amdgpu/amdgpu_virt.o' failed
-make[5]: *** [drivers/gpu/drm/amd/amdgpu/amdgpu_virt.o] Error 1
-
-
-
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-
--- 
-~Randy
+T24gTW9uLCBOb3YgNiwgMjAxNyBhdCAxMjoyMCBQTSwgUmFuZHkgRHVubGFwIDxyZHVubGFwQGlu
+ZnJhZGVhZC5vcmc+IHdyb3RlOgo+IE9uIDExLzA1LzIwMTcgMTE6MzAgUE0sIFN0ZXBoZW4gUm90
+aHdlbGwgd3JvdGU6Cj4+IEhpIGFsbCwKPj4KPj4gQ2hhbmdlcyBzaW5jZSAyMDE3MTEwMzoKPj4K
+Pgo+IG9uIGkzODYsIHdoZW4gQ09ORklHX01PRFVMRVMgaXMgbm90IHNldDoKPgo+ICAgQ0MgICAg
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5vCj4gSW4gZmlsZSBpbmNs
+dWRlZCBmcm9tIC4uL2FyY2gveDg2L2luY2x1ZGUvYXNtL2F0b21pYy5oOjU6MCwKPiAgICAgICAg
+ICAgICAgICAgIGZyb20gLi4vaW5jbHVkZS9saW51eC9hdG9taWMuaDo1LAo+ICAgICAgICAgICAg
+ICAgICAgZnJvbSAuLi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaDozMSwKPiAg
+ICAgICAgICAgICAgICAgIGZyb20gLi4vZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZpcnQuYzoyNDoKPiAuLi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5j
+OiBJbiBmdW5jdGlvbiAnYW1kZ3B1X3ZpcnRfaW5pdF9kYXRhX2V4Y2hhbmdlJzoKPiAuLi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jOjMzMToyMDogZXJyb3I6IGRlcmVm
+ZXJlbmNpbmcgcG9pbnRlciB0byBpbmNvbXBsZXRlIHR5cGUKPiAgICAgIGlmIChUSElTX01PRFVM
+RS0+dmVyc2lvbiAhPSBOVUxMKQo+ICAgICAgICAgICAgICAgICAgICAgXgo+IC4uL2luY2x1ZGUv
+bGludXgvY29tcGlsZXIuaDo1ODozMDogbm90ZTogaW4gZGVmaW5pdGlvbiBvZiBtYWNybyAnX190
+cmFjZV9pZicKPiAgIGlmIChfX2J1aWx0aW5fY29uc3RhbnRfcCghIShjb25kKSkgPyAhIShjb25k
+KSA6ICAgXAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KPiAuLi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jOjMzMTo1OiBub3RlOiBpbiBleHBhbnNpb24g
+b2YgbWFjcm8gJ2lmJwo+ICAgICAgaWYgKFRISVNfTU9EVUxFLT52ZXJzaW9uICE9IE5VTEwpCj4g
+ICAgICBeCj4gLi4vZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYzozMzE6
+MjA6IGVycm9yOiBkZXJlZmVyZW5jaW5nIHBvaW50ZXIgdG8gaW5jb21wbGV0ZSB0eXBlCj4gICAg
+ICBpZiAoVEhJU19NT0RVTEUtPnZlcnNpb24gIT0gTlVMTCkKPiAgICAgICAgICAgICAgICAgICAg
+IF4KPiAuLi9pbmNsdWRlL2xpbnV4L2NvbXBpbGVyLmg6NTg6NDI6IG5vdGU6IGluIGRlZmluaXRp
+b24gb2YgbWFjcm8gJ19fdHJhY2VfaWYnCj4gICBpZiAoX19idWlsdGluX2NvbnN0YW50X3AoISEo
+Y29uZCkpID8gISEoY29uZCkgOiAgIFwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBeCj4gLi4vZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQu
+YzozMzE6NTogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvICdpZicKPiAgICAgIGlmIChUSElT
+X01PRFVMRS0+dmVyc2lvbiAhPSBOVUxMKQo+ICAgICAgXgo+IC4uL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmM6MzMxOjIwOiBlcnJvcjogZGVyZWZlcmVuY2luZyBwb2lu
+dGVyIHRvIGluY29tcGxldGUgdHlwZQo+ICAgICAgaWYgKFRISVNfTU9EVUxFLT52ZXJzaW9uICE9
+IE5VTEwpCj4gICAgICAgICAgICAgICAgICAgICBeCj4gLi4vaW5jbHVkZS9saW51eC9jb21waWxl
+ci5oOjY5OjE2OiBub3RlOiBpbiBkZWZpbml0aW9uIG9mIG1hY3JvICdfX3RyYWNlX2lmJwo+ICAg
+IF9fX19fX3IgPSAhIShjb25kKTsgICAgIFwKPiAgICAgICAgICAgICAgICAgXgo+IC4uL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmM6MzMxOjU6IG5vdGU6IGluIGV4cGFu
+c2lvbiBvZiBtYWNybyAnaWYnCj4gICAgICBpZiAoVEhJU19NT0RVTEUtPnZlcnNpb24gIT0gTlVM
+TCkKPiAgICAgIF4KPiAuLi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5j
+OjMzMjoyOTogZXJyb3I6IGRlcmVmZXJlbmNpbmcgcG9pbnRlciB0byBpbmNvbXBsZXRlIHR5cGUK
+PiAgICAgICBzdHJjcHkoc3RyLCBUSElTX01PRFVMRS0+dmVyc2lvbik7Cj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBeCj4gLi4vc2NyaXB0cy9NYWtlZmlsZS5idWlsZDozMTQ6IHJlY2lw
+ZSBmb3IgdGFyZ2V0ICdkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5vJyBm
+YWlsZWQKPiBtYWtlWzVdOiAqKiogW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+aXJ0Lm9dIEVycm9yIDEKPgo+Cj4KPiBSZXBvcnRlZC1ieTogUmFuZHkgRHVubGFwIDxyZHVubGFw
+QGluZnJhZGVhZC5vcmc+CgpUaGFua3MuICBGaXhlZCBpbjoKaHR0cHM6Ly9jZ2l0LmZyZWVkZXNr
+dG9wLm9yZy9+YWlybGllZC9saW51eC9jb21taXQvP2g9ZHJtLW5leHQmaWQ9ZTQ3N2U5NDBkYWQx
+ODM2YzZmNmQyMzM1M2U0MjQ2NjViOTMxNmI2ZQoKQWxleApfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
