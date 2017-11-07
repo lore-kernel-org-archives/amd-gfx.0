@@ -1,42 +1,65 @@
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Subject: Re: [PATCH 1/3] ASoC: amd: Report accurate hw_ptr
-	during dma
-Date: Tue, 7 Nov 2017 19:26:03 +0530
-Message-ID: <e1db3baf-44f4-c35b-680b-822962823180@amd.com>
-References: <1509741345-1589-1-git-send-email-alexander.deucher@amd.com>
- <1509741345-1589-2-git-send-email-alexander.deucher@amd.com>
- <20171106154800.sotryjiadmobitac@sirena.co.uk>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: fix static checker warning
+Date: Tue, 7 Nov 2017 09:36:17 +0100
+Message-ID: <749aa319-2a75-4ecc-7d88-4ca27a048a59@daenzer.net>
+References: <1510025307-28747-1-git-send-email-shirish.s12@gmail.com>
+ <BN6PR12MB1826B46B10F7FD2BC24F0D2BF2510@BN6PR12MB1826.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
-Return-path: <alsa-devel-bounces@alsa-project.org>
-In-Reply-To: <20171106154800.sotryjiadmobitac@sirena.co.uk>
-Content-Language: en-US
-List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
- <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
-List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
- <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Errors-To: alsa-devel-bounces@alsa-project.org
-Sender: alsa-devel-bounces@alsa-project.org
-To: Mark Brown <broonie@kernel.org>, Alex Deucher <alexdeucher@gmail.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, Akshu Agrawal <Akshu.Agrawal@amd.com>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN6PR12MB1826B46B10F7FD2BC24F0D2BF2510-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Cc: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Removing URL links and commit-ready description in v2.
-
-
-On Monday 06 November 2017 09:18 PM, Mark Brown wrote:
-> On Fri, Nov 03, 2017 at 04:35:43PM -0400, Alex Deucher wrote:
->
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> Signed-off-by: Akshu Agrawal <Akshu.Agrawal@amd.com>
->> Reviewed-on: https://chromium-review.googlesource.com/659699
->> Commit-Ready: Akshu Agrawal <akshu.agrawal@amd.com>
->> Tested-by: Akshu Agrawal <akshu.agrawal@amd.com>
->> Reviewed-by: Jason Clinton <jclinton@chromium.org>
->> Reviewed-on: https://chromium-review.googlesource.com/676627
-> These two URLs are different, what was being reviewed here?  What is
-> Commit-Ready supposed to mean?
+T24gMDcvMTEvMTcgMDQ6MjkgQU0sIFMsIFNoaXJpc2ggd3JvdGU6Cj4gRnJvbTogU2hpcmlzaCBT
+IDxzaGlyaXNoLnNAYW1kLmNvbT4KPiAKPiBUaGlzIHBhdGNoIGZpeGVzIHN0YXRpYyBjaGVja2Vy
+IHdhcm5pbmcgb2YKPiAid2FybjogY2FzdCBhZnRlciBiaW5vcCIgaW50cm9kdWNlZCBieQo+IDRk
+M2UwMGRhZDgwYTogImRybS9hbWQvZGlzcGxheSA6IGFkZCBoaWdoIHBhcnQgYWRkcmVzcyBjYWxj
+dWxhdGlvbiBmb3IgdW5kZXJsYXkiCj4gCj4gU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxzaGly
+aXNoLnNAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG0uYyB8IDQgKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
+KCspLCAyIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IGluZGV4IGE4N2U1YWMuLmUxYmRmNWUgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
+LmMKPiBAQCAtMTgyNyw3ICsxODI3LDcgQEAgc3RhdGljIGludCBmaWxsX3BsYW5lX2F0dHJpYnV0
+ZXNfZnJvbV9mYihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgCQkJCQkJPSBsb3dlcl8z
+Ml9iaXRzKGZiX2xvY2F0aW9uKTsKPiAgCQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9n
+cmVzc2l2ZS5sdW1hX2FkZHIuaGlnaF9wYXJ0Cj4gIAkJCQkJCT0gdXBwZXJfMzJfYml0cyhmYl9s
+b2NhdGlvbik7Cj4gLQkJY2hyb21hX2FkZHIgPSBmYl9sb2NhdGlvbiArICh1NjQpKGF3aWR0aCAq
+IGZiLT5oZWlnaHQpOwo+ICsJCWNocm9tYV9hZGRyID0gZmJfbG9jYXRpb24gKyAodTY0KWF3aWR0
+aCAqIGZiLT5oZWlnaHQ7Cj4gIAkJcGxhbmVfc3RhdGUtPmFkZHJlc3MudmlkZW9fcHJvZ3Jlc3Np
+dmUuY2hyb21hX2FkZHIubG93X3BhcnQKPiAgCQkJCQkJPSBsb3dlcl8zMl9iaXRzKGNocm9tYV9h
+ZGRyKTsKPiAgCQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9ncmVzc2l2ZS5jaHJvbWFf
+YWRkci5oaWdoX3BhcnQKPiBAQCAtMjk1OSw3ICsyOTU5LDcgQEAgc3RhdGljIGludCBkbV9wbGFu
+ZV9oZWxwZXJfcHJlcGFyZV9mYihzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKPiAgCQkJCQkJCT0g
+bG93ZXJfMzJfYml0cyhhZmItPmFkZHJlc3MpOwo+ICAJCQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52
+aWRlb19wcm9ncmVzc2l2ZS5sdW1hX2FkZHIuaGlnaF9wYXJ0Cj4gIAkJCQkJCQk9IHVwcGVyXzMy
+X2JpdHMoYWZiLT5hZGRyZXNzKTsKPiAtCQkJY2hyb21hX2FkZHIgPSBhZmItPmFkZHJlc3MgKyAo
+dTY0KShhd2lkdGggKiBuZXdfc3RhdGUtPmZiLT5oZWlnaHQpOwo+ICsJCQljaHJvbWFfYWRkciA9
+IGFmYi0+YWRkcmVzcyArICh1NjQpYXdpZHRoICogbmV3X3N0YXRlLT5mYi0+aGVpZ2h0Owo+ICAJ
+CQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9ncmVzc2l2ZS5jaHJvbWFfYWRkci5sb3df
+cGFydAo+ICAJCQkJCQkJPSBsb3dlcl8zMl9iaXRzKGNocm9tYV9hZGRyKTsKPiAgCQkJcGxhbmVf
+c3RhdGUtPmFkZHJlc3MudmlkZW9fcHJvZ3Jlc3NpdmUuY2hyb21hX2FkZHIuaGlnaF9wYXJ0Cj4g
+CgpUaGlzIGNvZGUgc2hvdWxkIHJlYWxseSBiZSByZW1vdmVkLCBzaW5jZSBmYl9sb2NhdGlvbiBp
+cyBhbHdheXMgMCBub3cgaW4KdGhpcyBmdW5jdGlvbiwgc28gdGhlIHZhbHVlcyBkZXJpdmVkIGZy
+b20gaXQgY2Fubm90IGJlIHVzZWQgZm9yIGFueXRoaW5nCmFueXdheS4KCgotLSAKRWFydGhsaW5n
+IE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cu
+YW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAg
+ICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
