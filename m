@@ -1,56 +1,82 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: fix static checker warning
-Date: Tue, 7 Nov 2017 03:29:55 +0000
-Message-ID: <BN6PR12MB1826B46B10F7FD2BC24F0D2BF2510@BN6PR12MB1826.namprd12.prod.outlook.com>
-References: <1510025307-28747-1-git-send-email-shirish.s12@gmail.com>
+From: "Agrawal, Akshu" <Akshu.Agrawal@amd.com>
+Subject: Re: [PATCH 3/3] ASoC: rt5645: Wait for 400msec before
+ concluding on value of RT5645_VENDOR_ID2
+Date: Tue, 7 Nov 2017 12:42:40 +0530
+Message-ID: <8dadcaa1-8712-2f56-14bf-0d070c8c76b9@amd.com>
+References: <1509741345-1589-1-git-send-email-alexander.deucher@amd.com>
+ <1509741345-1589-4-git-send-email-alexander.deucher@amd.com>
+ <20171106162422.vhurovalfxztf6ma@sirena.co.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1510025307-28747-1-git-send-email-shirish.s12-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <alsa-devel-bounces@alsa-project.org>
+In-Reply-To: <20171106162422.vhurovalfxztf6ma@sirena.co.uk>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dan
- Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
+List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Errors-To: alsa-devel-bounces@alsa-project.org
+Sender: alsa-devel-bounces@alsa-project.org
+To: Mark Brown <broonie@kernel.org>, Alex Deucher <alexdeucher@gmail.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Vijendar.Mukunda@amd.com, Alex Deucher <alexander.deucher@amd.com>, Bard Liao <bardliao@realtek.com>, airlied@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNvbT4KClRoaXMgcGF0Y2ggZml4ZXMgc3Rh
-dGljIGNoZWNrZXIgd2FybmluZyBvZgoid2FybjogY2FzdCBhZnRlciBiaW5vcCIgaW50cm9kdWNl
-ZCBieQo0ZDNlMDBkYWQ4MGE6ICJkcm0vYW1kL2Rpc3BsYXkgOiBhZGQgaGlnaCBwYXJ0IGFkZHJl
-c3MgY2FsY3VsYXRpb24gZm9yIHVuZGVybGF5IgoKU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxz
-aGlyaXNoLnNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1
-X2RtL2FtZGdwdV9kbS5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCsp
-LCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGE4N2U1YWMuLmUxYmRmNWUgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtMTgyNyw3
-ICsxODI3LDcgQEAgc3RhdGljIGludCBmaWxsX3BsYW5lX2F0dHJpYnV0ZXNfZnJvbV9mYihzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkJCT0gbG93ZXJfMzJfYml0cyhmYl9sb2NhdGlv
-bik7CiAJCXBsYW5lX3N0YXRlLT5hZGRyZXNzLnZpZGVvX3Byb2dyZXNzaXZlLmx1bWFfYWRkci5o
-aWdoX3BhcnQKIAkJCQkJCT0gdXBwZXJfMzJfYml0cyhmYl9sb2NhdGlvbik7Ci0JCWNocm9tYV9h
-ZGRyID0gZmJfbG9jYXRpb24gKyAodTY0KShhd2lkdGggKiBmYi0+aGVpZ2h0KTsKKwkJY2hyb21h
-X2FkZHIgPSBmYl9sb2NhdGlvbiArICh1NjQpYXdpZHRoICogZmItPmhlaWdodDsKIAkJcGxhbmVf
-c3RhdGUtPmFkZHJlc3MudmlkZW9fcHJvZ3Jlc3NpdmUuY2hyb21hX2FkZHIubG93X3BhcnQKIAkJ
-CQkJCT0gbG93ZXJfMzJfYml0cyhjaHJvbWFfYWRkcik7CiAJCXBsYW5lX3N0YXRlLT5hZGRyZXNz
-LnZpZGVvX3Byb2dyZXNzaXZlLmNocm9tYV9hZGRyLmhpZ2hfcGFydApAQCAtMjk1OSw3ICsyOTU5
-LDcgQEAgc3RhdGljIGludCBkbV9wbGFuZV9oZWxwZXJfcHJlcGFyZV9mYihzdHJ1Y3QgZHJtX3Bs
-YW5lICpwbGFuZSwKIAkJCQkJCQk9IGxvd2VyXzMyX2JpdHMoYWZiLT5hZGRyZXNzKTsKIAkJCXBs
-YW5lX3N0YXRlLT5hZGRyZXNzLnZpZGVvX3Byb2dyZXNzaXZlLmx1bWFfYWRkci5oaWdoX3BhcnQK
-IAkJCQkJCQk9IHVwcGVyXzMyX2JpdHMoYWZiLT5hZGRyZXNzKTsKLQkJCWNocm9tYV9hZGRyID0g
-YWZiLT5hZGRyZXNzICsgKHU2NCkoYXdpZHRoICogbmV3X3N0YXRlLT5mYi0+aGVpZ2h0KTsKKwkJ
-CWNocm9tYV9hZGRyID0gYWZiLT5hZGRyZXNzICsgKHU2NClhd2lkdGggKiBuZXdfc3RhdGUtPmZi
-LT5oZWlnaHQ7CiAJCQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9ncmVzc2l2ZS5jaHJv
-bWFfYWRkci5sb3dfcGFydAogCQkJCQkJCT0gbG93ZXJfMzJfYml0cyhjaHJvbWFfYWRkcik7CiAJ
-CQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9ncmVzc2l2ZS5jaHJvbWFfYWRkci5oaWdo
-X3BhcnQKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+
+On 11/6/2017 9:54 PM, Mark Brown wrote:
+> On Fri, Nov 03, 2017 at 04:35:45PM -0400, Alex Deucher wrote:
+> 
+>> Minimum time required between power On of codec and read
+>> of RT5645_VENDOR_ID2 is 400msec. We should wait and attempt
+>> before erroring out.
+> 
+> So the description says we have to wait 400ms before attempting a
+> read...
+
+Yes, that's true.
+
+> 
+>> BUG=b:66978383
+> 
+> What does this mean?
+
+A bug ID. Removing it in V2.
+
+> 
+>> @@ -3786,6 +3789,15 @@ static int rt5645_i2c_probe(struct i2c_client *i2c,
+>>   	}
+>>   	regmap_read(regmap, RT5645_VENDOR_ID2, &val);
+>>   
+>> +	/*
+>> +	 * Read for 400msec, as it is the interval required between
+>> +	 * read and power On.
+>> +	 */
+>> +	while (val != RT5645_DEVICE_ID && val != RT5650_DEVICE_ID && --timeout) {
+>> +		msleep(1);
+>> +		regmap_read(regmap, RT5645_VENDOR_ID2, &val);
+>> +	}
+>> +
+> 
+> ...but what we actually do is try to read up to 400 times starting well
+> before that 400ms is up.  This directly contradicts what the commit
+> message said we needed, may take a lot longer if the chip misbehaves on
+> the I2C bus while it's not ready (which wouldn't be that much of a
+> surprise), might lead to us reporting before the chip is really stable
+> (if the read happens to work while the chip isn't yet stable) and could
+> cause lots of noise on the console if the I2C controller gets upset.
+> What are we actually waiting for here?
+> 
+
+In my understanding if we get RT5645 or RT5650 DEVICE ID from register 
+RT5645_VENDOR_ID2 then that means the chip is stable.
+
+> If we really need 400ms of dead reckoning time (which is a lot for a
+> modern chip, that feels more like a VMID ramp) then it's going to be
+> safer to just do that.
+> 
+
+Agreed, will just sleep for 400ms before reading the register value.
