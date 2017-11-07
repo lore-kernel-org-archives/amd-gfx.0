@@ -1,15 +1,20 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: fix static checker warning
-Date: Tue, 7 Nov 2017 09:36:17 +0100
-Message-ID: <749aa319-2a75-4ecc-7d88-4ca27a048a59@daenzer.net>
-References: <1510025307-28747-1-git-send-email-shirish.s12@gmail.com>
- <BN6PR12MB1826B46B10F7FD2BC24F0D2BF2510@BN6PR12MB1826.namprd12.prod.outlook.com>
+From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: use multipipe compute policy on non PL11
+ asics
+Date: Tue, 7 Nov 2017 09:23:40 +0000
+Message-ID: <MWHPR1201MB02066E434C312ECA541C51C8B4510@MWHPR1201MB0206.namprd12.prod.outlook.com>
+References: <20170926162246.3200-1-andresx7@gmail.com>
+ <20170926162246.3200-2-andresx7@gmail.com>
+ <b9de7b08-8239-d860-0d6b-19c9f63ecfe7@amd.com>
+ <2200a1fa-d1d3-bd92-825d-987ecd355dac@gmail.com>
+ <CAFQ_0eFcs+DLu6sEEEtX1GJU+ccb1B2bHPSkrAdk3OUVfqq3zg@mail.gmail.com>
+ <MWHPR1201MB0206CEC26FF751CB39B529D6B4510@MWHPR1201MB0206.namprd12.prod.outlook.com>,
+ <CAFQ_0eEqvKgUEUicckuPtvjZq-f4BXdhQO_p8hPVvy4Jh_KQgQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0311793150=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1826B46B10F7FD2BC24F0D2BF2510-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <CAFQ_0eEqvKgUEUicckuPtvjZq-f4BXdhQO_p8hPVvy4Jh_KQgQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,46 +25,614 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Cc: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMDcvMTEvMTcgMDQ6MjkgQU0sIFMsIFNoaXJpc2ggd3JvdGU6Cj4gRnJvbTogU2hpcmlzaCBT
-IDxzaGlyaXNoLnNAYW1kLmNvbT4KPiAKPiBUaGlzIHBhdGNoIGZpeGVzIHN0YXRpYyBjaGVja2Vy
-IHdhcm5pbmcgb2YKPiAid2FybjogY2FzdCBhZnRlciBiaW5vcCIgaW50cm9kdWNlZCBieQo+IDRk
-M2UwMGRhZDgwYTogImRybS9hbWQvZGlzcGxheSA6IGFkZCBoaWdoIHBhcnQgYWRkcmVzcyBjYWxj
-dWxhdGlvbiBmb3IgdW5kZXJsYXkiCj4gCj4gU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxzaGly
-aXNoLnNAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYyB8IDQgKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
-KCspLCAyIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IGluZGV4IGE4N2U1YWMuLmUxYmRmNWUgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
-Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
-LmMKPiBAQCAtMTgyNyw3ICsxODI3LDcgQEAgc3RhdGljIGludCBmaWxsX3BsYW5lX2F0dHJpYnV0
-ZXNfZnJvbV9mYihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgCQkJCQkJPSBsb3dlcl8z
-Ml9iaXRzKGZiX2xvY2F0aW9uKTsKPiAgCQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9n
-cmVzc2l2ZS5sdW1hX2FkZHIuaGlnaF9wYXJ0Cj4gIAkJCQkJCT0gdXBwZXJfMzJfYml0cyhmYl9s
-b2NhdGlvbik7Cj4gLQkJY2hyb21hX2FkZHIgPSBmYl9sb2NhdGlvbiArICh1NjQpKGF3aWR0aCAq
-IGZiLT5oZWlnaHQpOwo+ICsJCWNocm9tYV9hZGRyID0gZmJfbG9jYXRpb24gKyAodTY0KWF3aWR0
-aCAqIGZiLT5oZWlnaHQ7Cj4gIAkJcGxhbmVfc3RhdGUtPmFkZHJlc3MudmlkZW9fcHJvZ3Jlc3Np
-dmUuY2hyb21hX2FkZHIubG93X3BhcnQKPiAgCQkJCQkJPSBsb3dlcl8zMl9iaXRzKGNocm9tYV9h
-ZGRyKTsKPiAgCQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9ncmVzc2l2ZS5jaHJvbWFf
-YWRkci5oaWdoX3BhcnQKPiBAQCAtMjk1OSw3ICsyOTU5LDcgQEAgc3RhdGljIGludCBkbV9wbGFu
-ZV9oZWxwZXJfcHJlcGFyZV9mYihzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKPiAgCQkJCQkJCT0g
-bG93ZXJfMzJfYml0cyhhZmItPmFkZHJlc3MpOwo+ICAJCQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52
-aWRlb19wcm9ncmVzc2l2ZS5sdW1hX2FkZHIuaGlnaF9wYXJ0Cj4gIAkJCQkJCQk9IHVwcGVyXzMy
-X2JpdHMoYWZiLT5hZGRyZXNzKTsKPiAtCQkJY2hyb21hX2FkZHIgPSBhZmItPmFkZHJlc3MgKyAo
-dTY0KShhd2lkdGggKiBuZXdfc3RhdGUtPmZiLT5oZWlnaHQpOwo+ICsJCQljaHJvbWFfYWRkciA9
-IGFmYi0+YWRkcmVzcyArICh1NjQpYXdpZHRoICogbmV3X3N0YXRlLT5mYi0+aGVpZ2h0Owo+ICAJ
-CQlwbGFuZV9zdGF0ZS0+YWRkcmVzcy52aWRlb19wcm9ncmVzc2l2ZS5jaHJvbWFfYWRkci5sb3df
-cGFydAo+ICAJCQkJCQkJPSBsb3dlcl8zMl9iaXRzKGNocm9tYV9hZGRyKTsKPiAgCQkJcGxhbmVf
-c3RhdGUtPmFkZHJlc3MudmlkZW9fcHJvZ3Jlc3NpdmUuY2hyb21hX2FkZHIuaGlnaF9wYXJ0Cj4g
-CgpUaGlzIGNvZGUgc2hvdWxkIHJlYWxseSBiZSByZW1vdmVkLCBzaW5jZSBmYl9sb2NhdGlvbiBp
-cyBhbHdheXMgMCBub3cgaW4KdGhpcyBmdW5jdGlvbiwgc28gdGhlIHZhbHVlcyBkZXJpdmVkIGZy
-b20gaXQgY2Fubm90IGJlIHVzZWQgZm9yIGFueXRoaW5nCmFueXdheS4KCgotLSAKRWFydGhsaW5n
-IE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cu
-YW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAg
-ICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+--===============0311793150==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR1201MB02066E434C312ECA541C51C8B4510MWHPR1201MB0206_"
+
+--_000_MWHPR1201MB02066E434C312ECA541C51C8B4510MWHPR1201MB0206_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+I got the infomation about this issue:
+
+"
+
+  *   If I install #491963 (failed in the report) with =1B$B!H=1B(B./amdgpu=
+-pro-install -y --opencl=3Dlegacy=1B$B!I=1B(B command, the test passed. It =
+failed when rocm is also installed with =1B$B!H=1B(B./amdgpu-pro-install -y=
+ --opencl=3Dlegacy,rocm=1B$B!I=1B(B command."
+
+So I guess the hung is related to the pipe is used both ORCA and rocm. But =
+Felix said they dont support rocm on Tonga, that could mean this issue does=
+n't matter currently.
+
+
+Regards,
+
+David  Zhou
+
+________________________________
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Tuesday, November 7, 2017 3:26:38 PM
+To: Zhou, David(ChunMing)
+Cc: amd-gfx list; Deucher, Alexander
+Subject: Re: [PATCH 1/2] drm/amdgpu: use multipipe compute policy on non PL=
+11 asics
+
+Do you have any work actually going into multiple pipes? My understanding i=
+s that opencl will only use one queue at a time (but I'm not really certain=
+ about that).
+
+What you can also check is if the app works correctly when it executed on p=
+ipe0, and if it hangs on pipe 1+. I removed all the locations where pipe0 w=
+as hardcoded in the open driver, but it is possible it is still hardcoded s=
+omewhere on the closed stack.
+
+Regards,
+Andres
+
+On Nov 6, 2017 10:19 PM, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org<mailt=
+o:David1.Zhou-5C7GfCeVMHo@public.gmane.org>> wrote:
+
+Then snychronization should have no problem, it maybe relate to multipipe h=
+w setting issue.
+
+
+Regards,
+
+David Zhou
+
+________________________________
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Sent: Tuesday, November 7, 2017 2:00:57 AM
+To: Zhou, David(ChunMing); amd-gfx list
+Cc: Deucher, Alexander
+Subject: Re: [PATCH 1/2] drm/amdgpu: use multipipe compute policy on non PL=
+11 asics
+
+Sorry my mail client seems to have blown up. My reply got cut off,
+here is the full version:
+
+
+
+On 2017-11-06 01:49 AM, Chunming Zhou wrote:
+> Hi Andres,
+>
+Hi David,
+
+> With your this patch, OCLperf hung.
+Is this on all ASICs or just a specific one?
+
+>
+> Could you explain more?
+>
+> If I am correctly, the difference of with and without this patch is
+> setting first two queue or setting all queues of pipe0 to queue_bitmap.
+It is slightly different. With this patch we will also use the first
+two queues of all pipes, not just pipe 0;
+
+Pre-patch:
+
+|-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|
+ 11111111  00000000  00000000  00000000
+
+Post-patch:
+
+|-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|
+ 11000000  11000000  11000000  11000000
+
+What this means is that we are allowing real multithreading for
+compute. Jobs on different pipes allow for parallel execution of work.
+Jobs on the same pipe (but different queues) use timeslicing to share
+the hardware.
+
+
+>
+> Then UMD can use different number queue to submit command for compute
+> selected by amdgpu_queue_mgr_map.
+>
+> I checked amdgpu_queue_mgr_map implementation,  CS_IOCTL can map user
+> ring to different hw ring depending on busy or idle, right?
+Yes, when a queue is first used, amdgpu_queue_mgr_map will decide what
+the mapping is for a usermode ring to a kernel ring id.
+
+> If yes, I see a bug in it, which will result in our sched_fence not
+> work. Our sched fence assumes the job will be executed in order, your
+> mapping queue breaks this.
+
+I think here you mean that work will execute out of order because it
+will go to different rings?
+
+That should not happen, since the id mapping is permanent on a
+per-context basis. Once a mapping is decided, it will be cached for
+this context so that we keep execution order guarantees. See the
+id-caching code in amdgpu_queue_mgr.c for reference.
+
+As long as the usermode keeps submitting work to the same ring, it
+will all be executed in order (all in the same ring). There is no
+change in this guarantee compared to pre-patch. Note that even before
+this patch amdgpu_queue_mgr_map has been using an LRU policy for a
+long time now.
+
+Regards,
+Andres
+
+On Mon, Nov 6, 2017 at 12:44 PM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailt=
+o:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
+>
+>
+> On 2017-11-06 01:49 AM, Chunming Zhou wrote:
+>>
+>> Hi Andres,
+>>
+>
+> Hi David,
+>
+>> With your this patch, OCLperf hung.
+>
+>
+> Is this on all ASICs or just a specific one?
+>
+>>
+>> Could you explain more?
+>>
+>> If I am correctly, the difference of with and without this patch is
+>> setting first two queue or setting all queues of pipe0 to queue_bitmap.
+>
+>
+> It is slightly different. With this patch we will also use the first two
+> queues of all pipes, not just pipe 0;
+>
+> Pre-patch:
+>
+> |-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|
+>  11111111  00000000  00000000  00000000
+>
+> Post-patch:
+>
+> |-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|
+>  11000000  11000000  11000000  11000000
+>
+> What this means is that we are allowing real multithreading for compute.
+> Jobs on different pipes allow for parallel execution of work. Jobs on the
+> same pipe (but different queues) use timeslicing to share the hardware.
+>
+>
+>
+>>
+>> Then UMD can use different number queue to submit command for compute
+>> selected by amdgpu_queue_mgr_map.
+>>
+>> I checked amdgpu_queue_mgr_map implementation,  CS_IOCTL can map user ri=
+ng
+>> to different hw ring depending on busy or idle, right?
+>>
+>> If yes, I see a bug in it, which will result in our sched_fence not work=
+.
+>> Our sched fence assumes the job will be executed in order, your mapping
+>> queue breaks this.
+>>
+>>
+>> Regards,
+>>
+>> David Zhou
+>>
+>>
+>> On 2017=1B$BG/=1B(B09=1B$B7n=1B(B27=1B$BF|=1B(B 00:22, Andres Rodriguez =
+wrote:
+>>>
+>>> A performance regression for OpenCL tests on Polaris11 had this feature
+>>> disabled for all asics.
+>>>
+>>> Instead, disable it selectively on the affected asics.
+>>>
+>>> Signed-off-by: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:andresx7@gma=
+il.com>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 14 ++++++++++++--
+>>>   1 file changed, 12 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>> index 4f6c68f..3d76e76 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>> @@ -109,9 +109,20 @@ void amdgpu_gfx_parse_disable_cu(unsigned *mask,
+>>> unsigned max_se, unsigned max_s
+>>>       }
+>>>   }
+>>> +static bool amdgpu_gfx_is_multipipe_capable(struct amdgpu_device *adev=
+)
+>>> +{
+>>> +    /* FIXME: spreading the queues across pipes causes perf regression=
+s
+>>> +     * on POLARIS11 compute workloads */
+>>> +    if (adev->asic_type =3D=3D CHIP_POLARIS11)
+>>> +        return false;
+>>> +
+>>> +    return adev->gfx.mec.num_mec > 1;
+>>> +}
+>>> +
+>>>   void amdgpu_gfx_compute_queue_acquire(struct amdgpu_device *adev)
+>>>   {
+>>>       int i, queue, pipe, mec;
+>>> +    bool multipipe_policy =3D amdgpu_gfx_is_multipipe_capable(adev);
+>>>       /* policy for amdgpu compute queue ownership */
+>>>       for (i =3D 0; i < AMDGPU_MAX_COMPUTE_QUEUES; ++i) {
+>>> @@ -125,8 +136,7 @@ void amdgpu_gfx_compute_queue_acquire(struct
+>>> amdgpu_device *adev)
+>>>           if (mec >=3D adev->gfx.mec.num_mec)
+>>>               break;
+>>> -        /* FIXME: spreading the queues across pipes causes perf
+>>> regressions */
+>>> -        if (0) {
+>>> +        if (multipipe_policy) {
+>>>               /* policy: amdgpu owns the first two queues of the first
+>>> MEC */
+>>>               if (mec =3D=3D 0 && queue < 2)
+>>>                   set_bit(i, adev->gfx.mec.queue_bitmap);
+>>
+>>
+>
+
+--_000_MWHPR1201MB02066E434C312ECA541C51C8B4510MWHPR1201MB0206_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p>I got the infomation about this issue:</p>
+<p>&quot;<br>
+</p>
+<p><span lang=3D"en-US"></p>
+<li style=3D"margin:0;"><font style=3D"font-family: MS PGothic,sans-serif,s=
+erif,&quot;EmojiFont&quot;;" face=3D"MS PGothic,sans-serif" size=3D"3"><spa=
+n style=3D"font-size:12pt;"><font style=3D"font-family: Calibri,sans-serif,=
+serif,&quot;EmojiFont&quot;;" face=3D"Calibri,sans-serif" size=3D"2"><span =
+style=3D"font-size:11pt;">If
+ I install #491963 (failed in the report) with =1B$B!H=1B(B</span></font><f=
+ont style=3D"font-family: Calibri,sans-serif,serif,&quot;EmojiFont&quot;;" =
+face=3D"Calibri,sans-serif" size=3D"2"><span style=3D"font-size:11pt;">./am=
+dgpu-pro-install -y --opencl=3D</span></font><font style=3D"font-family: Ca=
+libri,sans-serif,serif,&quot;EmojiFont&quot;;" face=3D"Calibri,sans-serif" =
+size=3D"2"><span style=3D"font-size:11pt;background-color:yellow;">legacy</=
+span></font><font style=3D"font-family: Calibri,sans-serif,serif,&quot;Emoj=
+iFont&quot;;" face=3D"Calibri,sans-serif" size=3D"2"><span style=3D"font-si=
+ze:11pt;">=1B$B!I=1B(B
+ command, the test passed. It failed when rocm is also installed with =1B$B=
+!H=1B(B</span></font><font style=3D"font-family: Calibri,sans-serif,serif,&=
+quot;EmojiFont&quot;;" face=3D"Calibri,sans-serif" size=3D"2"><span style=
+=3D"font-size:11pt;">./amdgpu-pro-install -y --opencl=3D</span></font><font=
+ style=3D"font-family: Calibri,sans-serif,serif,&quot;EmojiFont&quot;;" fac=
+e=3D"Calibri,sans-serif" size=3D"2"><span style=3D"font-size:11pt;backgroun=
+d-color:yellow;">legacy,rocm</span></font><font style=3D"font-family: Calib=
+ri,sans-serif,serif,&quot;EmojiFont&quot;;" face=3D"Calibri,sans-serif" siz=
+e=3D"2"><span style=3D"font-size:11pt;">=1B$B!I=1B(B
+ command.</span></font></span></font></span>&quot;
+<p></p>
+<p>So I guess the hung is related to the pipe is used both ORCA and rocm. B=
+ut Felix said they dont support rocm on Tonga, that could mean this issue d=
+oesn't matter currently.</p>
+<p><br>
+</p>
+<p>Regards,</p>
+<p>David&nbsp; Zhou<br>
+</p>
+</li></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Andres Rodriguez &lt;=
+andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, November 7, 2017 3:26:38 PM<br>
+<b>To:</b> Zhou, David(ChunMing)<br>
+<b>Cc:</b> amd-gfx list; Deucher, Alexander<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: use multipipe compute policy on=
+ non PL11 asics</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"auto">Do you have any work actually going into multiple pipes? =
+My understanding is that opencl will only use one queue at a time (but I'm =
+not really certain about that).
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">What you can also check is if the app works correctly whe=
+n it executed on pipe0, and if it hangs on pipe 1&#43;. I removed all the l=
+ocations where pipe0 was hardcoded in the open driver, but it is possible i=
+t is still hardcoded somewhere on the
+ closed stack.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Regards,</div>
+<div dir=3D"auto">Andres&nbsp;</div>
+</div>
+<div class=3D"x_gmail_extra"><br>
+<div class=3D"x_gmail_quote">On Nov 6, 2017 10:19 PM, &quot;Zhou, David(Chu=
+nMing)&quot; &lt;<a href=3D"mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">David1.Zhou-5C7GfCeVMHo@public.gmane.org=
+</a>&gt; wrote:<br type=3D"attribution">
+<blockquote class=3D"x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-left=
+:1px #ccc solid; padding-left:1ex">
+<div dir=3D"ltr">
+<div id=3D"x_m_-7809043402888492486divtagdefaultwrapper" dir=3D"ltr" style=
+=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-serif=
+">
+<p>Then snychronization should have no problem, it maybe relate to multipip=
+e hw setting issue.</p>
+<p><br>
+</p>
+<p>Regards,</p>
+<p>David Zhou<br>
+</p>
+</div>
+<hr style=3D"display:inline-block; width:98%">
+<div id=3D"x_m_-7809043402888492486divRplyFwdMsg" dir=3D"ltr"><font face=3D=
+"Calibri, sans-serif" color=3D"#000000" style=3D"font-size:11pt"><b>From:</=
+b> Andres Rodriguez &lt;<a href=3D"mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_bl=
+ank">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Tuesday, November 7, 2017 2:00:57 AM<br>
+<b>To:</b> Zhou, David(ChunMing); amd-gfx list<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: use multipipe compute policy on=
+ non PL11 asics</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_m_-7809043402888492486BodyFragment"><font size=3D"2"><span =
+style=3D"font-size:10pt">
+<div class=3D"x_m_-7809043402888492486PlainText">Sorry my mail client seems=
+ to have blown up. My reply got cut off,<br>
+here is the full version:<br>
+<br>
+<br>
+<br>
+On 2017-11-06 01:49 AM, Chunming Zhou wrote:<br>
+&gt; Hi Andres,<br>
+&gt;<br>
+Hi David,<br>
+<br>
+&gt; With your this patch, OCLperf hung.<br>
+Is this on all ASICs or just a specific one?<br>
+<br>
+&gt;<br>
+&gt; Could you explain more?<br>
+&gt;<br>
+&gt; If I am correctly, the difference of with and without this patch is<br=
+>
+&gt; setting first two queue or setting all queues of pipe0 to queue_bitmap=
+.<br>
+It is slightly different. With this patch we will also use the first<br>
+two queues of all pipes, not just pipe 0;<br>
+<br>
+Pre-patch:<br>
+<br>
+|-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|<br>
+&nbsp;11111111&nbsp; 00000000&nbsp; 00000000&nbsp; 00000000<br>
+<br>
+Post-patch:<br>
+<br>
+|-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|<br>
+&nbsp;11000000&nbsp; 11000000&nbsp; 11000000&nbsp; 11000000<br>
+<br>
+What this means is that we are allowing real multithreading for<br>
+compute. Jobs on different pipes allow for parallel execution of work.<br>
+Jobs on the same pipe (but different queues) use timeslicing to share<br>
+the hardware.<br>
+<br>
+<br>
+&gt;<br>
+&gt; Then UMD can use different number queue to submit command for compute<=
+br>
+&gt; selected by amdgpu_queue_mgr_map.<br>
+&gt;<br>
+&gt; I checked amdgpu_queue_mgr_map implementation,&nbsp; CS_IOCTL can map =
+user<br>
+&gt; ring to different hw ring depending on busy or idle, right?<br>
+Yes, when a queue is first used, amdgpu_queue_mgr_map will decide what<br>
+the mapping is for a usermode ring to a kernel ring id.<br>
+<br>
+&gt; If yes, I see a bug in it, which will result in our sched_fence not<br=
+>
+&gt; work. Our sched fence assumes the job will be executed in order, your<=
+br>
+&gt; mapping queue breaks this.<br>
+<br>
+I think here you mean that work will execute out of order because it<br>
+will go to different rings?<br>
+<br>
+That should not happen, since the id mapping is permanent on a<br>
+per-context basis. Once a mapping is decided, it will be cached for<br>
+this context so that we keep execution order guarantees. See the<br>
+id-caching code in amdgpu_queue_mgr.c for reference.<br>
+<br>
+As long as the usermode keeps submitting work to the same ring, it<br>
+will all be executed in order (all in the same ring). There is no<br>
+change in this guarantee compared to pre-patch. Note that even before<br>
+this patch amdgpu_queue_mgr_map has been using an LRU policy for a<br>
+long time now.<br>
+<br>
+Regards,<br>
+Andres<br>
+<br>
+On Mon, Nov 6, 2017 at 12:44 PM, Andres Rodriguez &lt;<a href=3D"mailto:and=
+resx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;<br>
+&gt;<br>
+&gt; On 2017-11-06 01:49 AM, Chunming Zhou wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; Hi Andres,<br>
+&gt;&gt;<br>
+&gt;<br>
+&gt; Hi David,<br>
+&gt;<br>
+&gt;&gt; With your this patch, OCLperf hung.<br>
+&gt;<br>
+&gt;<br>
+&gt; Is this on all ASICs or just a specific one?<br>
+&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Could you explain more?<br>
+&gt;&gt;<br>
+&gt;&gt; If I am correctly, the difference of with and without this patch i=
+s<br>
+&gt;&gt; setting first two queue or setting all queues of pipe0 to queue_bi=
+tmap.<br>
+&gt;<br>
+&gt;<br>
+&gt; It is slightly different. With this patch we will also use the first t=
+wo<br>
+&gt; queues of all pipes, not just pipe 0;<br>
+&gt;<br>
+&gt; Pre-patch:<br>
+&gt;<br>
+&gt; |-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|<br>
+&gt;&nbsp; 11111111&nbsp; 00000000&nbsp; 00000000&nbsp; 00000000<br>
+&gt;<br>
+&gt; Post-patch:<br>
+&gt;<br>
+&gt; |-Pipe 0-||-Pipe 1-||-Pipe 2-||-Pipe 3-|<br>
+&gt;&nbsp; 11000000&nbsp; 11000000&nbsp; 11000000&nbsp; 11000000<br>
+&gt;<br>
+&gt; What this means is that we are allowing real multithreading for comput=
+e.<br>
+&gt; Jobs on different pipes allow for parallel execution of work. Jobs on =
+the<br>
+&gt; same pipe (but different queues) use timeslicing to share the hardware=
+.<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Then UMD can use different number queue to submit command for comp=
+ute<br>
+&gt;&gt; selected by amdgpu_queue_mgr_map.<br>
+&gt;&gt;<br>
+&gt;&gt; I checked amdgpu_queue_mgr_map implementation,&nbsp; CS_IOCTL can =
+map user ring<br>
+&gt;&gt; to different hw ring depending on busy or idle, right?<br>
+&gt;&gt;<br>
+&gt;&gt; If yes, I see a bug in it, which will result in our sched_fence no=
+t work.<br>
+&gt;&gt; Our sched fence assumes the job will be executed in order, your ma=
+pping<br>
+&gt;&gt; queue breaks this.<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt;<br>
+&gt;&gt; David Zhou<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; On 2017=1B$BG/=1B(B09=1B$B7n=1B(B27=1B$BF|=1B(B 00:22, Andres Rodr=
+iguez wrote:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; A performance regression for OpenCL tests on Polaris11 had thi=
+s feature<br>
+&gt;&gt;&gt; disabled for all asics.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Instead, disable it selectively on the affected asics.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Andres Rodriguez &lt;<a href=3D"mailto:andresx7=
+@gmail.com" target=3D"_blank">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gfx.c | 14 =
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
+&gt;&gt;&gt;&nbsp;&nbsp; 1 file changed, 12 insertions(&#43;), 2 deletions(=
+-)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gfx.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gfx.c<br>
+&gt;&gt;&gt; index 4f6c68f..3d76e76 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gfx.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gfx.c=
+<br>
+&gt;&gt;&gt; @@ -109,9 &#43;109,20 @@ void amdgpu_gfx_parse_disable_cu(<wbr=
+>unsigned *mask,<br>
+&gt;&gt;&gt; unsigned max_se, unsigned max_s<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt; &#43;static bool amdgpu_gfx_is_multipipe_<wbr>capable(struct a=
+mdgpu_device *adev)<br>
+&gt;&gt;&gt; &#43;{<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; /* FIXME: spreading the queues across =
+pipes causes perf regressions<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; * on POLARIS11 compute workloads=
+ */<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=3D CHIP_POL=
+ARIS11)<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<=
+br>
+&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; return adev-&gt;gfx.mec.num_mec &gt; 1=
+;<br>
+&gt;&gt;&gt; &#43;}<br>
+&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt;&nbsp;&nbsp; void amdgpu_gfx_compute_queue_<wbr>acquire(struct =
+amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, queue, pipe, mec;<b=
+r>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; bool multipipe_policy =3D amdgpu_gfx_i=
+s_multipipe_<wbr>capable(adev);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* policy for amdgpu compu=
+te queue ownership */<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; AMDGP=
+U_MAX_COMPUTE_QUEUES; &#43;&#43;i) {<br>
+&gt;&gt;&gt; @@ -125,8 &#43;136,7 @@ void amdgpu_gfx_compute_queue_<wbr>acq=
+uire(struct<br>
+&gt;&gt;&gt; amdgpu_device *adev)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if=
+ (mec &gt;=3D adev-&gt;gfx.mec.num_mec)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* FIXME: spreadin=
+g the queues across pipes causes perf<br>
+&gt;&gt;&gt; regressions */<br>
+&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (0) {<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (multipipe_=
+policy) {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* policy: amdgpu owns the first two queues of the fi=
+rst<br>
+&gt;&gt;&gt; MEC */<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (mec =3D=3D 0 &amp;&amp; queue &lt; 2)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_bit(i, adev-&gt;gfx.mec.q=
+ueue_bitmap);<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;<br>
+</div>
+</span></font></div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MWHPR1201MB02066E434C312ECA541C51C8B4510MWHPR1201MB0206_--
+
+--===============0311793150==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0311793150==--
