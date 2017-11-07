@@ -1,84 +1,42 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu:remove debugfs file in amdgpu_device_finish
-Date: Tue, 7 Nov 2017 08:47:48 +0100
-Message-ID: <66075b81-61bb-7897-cd7c-792548153748@amd.com>
-References: <1509960040-17849-1-git-send-email-Gary.Sun@amd.com>
- <9eea88e9-886b-c35b-0fe7-9e7fbe243ba5@amd.com>
- <DM5PR12MB15311826E7AD3AC5ADDF434896510@DM5PR12MB1531.namprd12.prod.outlook.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Subject: Re: [PATCH 1/3] ASoC: amd: Report accurate hw_ptr
+	during dma
+Date: Tue, 7 Nov 2017 19:26:03 +0530
+Message-ID: <e1db3baf-44f4-c35b-680b-822962823180@amd.com>
+References: <1509741345-1589-1-git-send-email-alexander.deucher@amd.com>
+ <1509741345-1589-2-git-send-email-alexander.deucher@amd.com>
+ <20171106154800.sotryjiadmobitac@sirena.co.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB15311826E7AD3AC5ADDF434896510-2J9CzHegvk/mU37preBipQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <alsa-devel-bounces@alsa-project.org>
+In-Reply-To: <20171106154800.sotryjiadmobitac@sirena.co.uk>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Sun, Gary" <Gary.Sun-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
+List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Errors-To: alsa-devel-bounces@alsa-project.org
+Sender: alsa-devel-bounces@alsa-project.org
+To: Mark Brown <broonie@kernel.org>, Alex Deucher <alexdeucher@gmail.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, Akshu Agrawal <Akshu.Agrawal@amd.com>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgR2FyeSwKCm5vdCBzdXJlIHdoYXQgZHJpdmVyIHJlLWluaXRpYWxpemUgZmVhdHVyZSB5b3Ug
-YXJlIHRhbGtpbmcgYWJvdXQsIGJ1dCAKdGhlIGxhc3QgdGltZSBJIHRyaWVkIHRvIHJlLWluaXRp
-YWxpemUgdGhlIGRyaXZlciBpdCBkZWFkbG9ja3MgaW4gdGhlIAptb2Rlc2V0IGNvZGUgYmVjYXVz
-ZSBvZiBzb21lIERDIHByb2JsZW0uCgpJdCdzIHByb2JhYmx5IGEgZ29vZCBpZGVhIHRvIGZpeCB0
-aGF0IGZpcnN0LCBidXQgaW4gZ2VuZXJhbCBwbGVhc2UgCmV4cGxhaW4gZnVydGhlciB3aGF0IGFy
-ZSB5b3Ugd29ya2luZyBvbi4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDA3LjExLjIwMTcgdW0g
-MDg6MjMgc2NocmllYiBTdW4sIEdhcnk6Cj4gSGkgQ2hyaXN0aWFuLAo+Cj4gVGhlIHBhdGNoIGlz
-IGZvciBkcml2ZXIgcmUtIGluaXRpYWxpemUgIGZlYXR1cmUsIG5vdCBmb3IgZHJpdmVyIGV4aXQg
-b3Igcm1tb2QuICBXaGVuIHRoZSBkcml2ZXIgaW5pdGlhbGl6ZSBmYWlsZWQgYXQgc29tZSBwb2lu
-dCwgdGhlIHJlLSBpbml0aWFsaXplICBmZWF0dXJlIHdpbGwgZG8gc29tZSBsaXR0bGUgY2xlYW4g
-YW5kIHRoZW4gdHJ5IHRvIGluaXRpYWxpemUgZHJpdmVyIGFnYWluLCB0aGVuIGl0IHdpbGwgcmUt
-cmVnaXN0ZXIgc29tZSByZWdpc3RlcmVkIGRlYnVnZnMgLCBzbyBpdCB3aWxsIGZhaWwuCj4KPiBS
-ZWdhcmRzLAo+IEdhcnkKPgo+Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBL
-b2VuaWcsIENocmlzdGlhbgo+IFNlbnQ6IE1vbmRheSwgTm92ZW1iZXIgMDYsIDIwMTcgNToyNiBQ
-TQo+IFRvOiBTdW4sIEdhcnkgPEdhcnkuU3VuQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6cmVtb3ZlIGRlYnVn
-ZnMgZmlsZSBpbiBhbWRncHVfZGV2aWNlX2ZpbmlzaAo+Cj4gQW0gMDYuMTEuMjAxNyB1bSAxMDoy
-MCBzY2hyaWViIEdhcnkgU3VuOgo+PiByZW1vdmUgZGVidWdmcyBmaWxlIGluIGFtZGdwdV9kZXZp
-Y2VfZmluaXNoCj4gTkFLLCB0aGUgZGVidWdmcyBmaWxlcyBhcmUgcmVtb3ZlZCBhdXRvbWF0aWNh
-bGx5IGJ5IGRybV9kZWJ1Z2ZzX2NsZWFudXAoKS4KPgo+IFNvIHRoYXQgcGF0Y2ggaXMgdW5uZWNl
-c3NhcnkuCj4KPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+PiBTaWduZWQtb2ZmLWJ5OiBHYXJ5
-IFN1biA8R2FyeS5TdW5AYW1kLmNvbT4KPj4gLS0tCj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oICAgICAgICB8ICAgIDEgKwo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAgIDE4ICsrKysrKysrKysrKysrKysrKwo+PiAgICAy
-IGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDAgZGVsZXRpb25zKC0pCj4+Cj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+PiBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IGluZGV4IDRmOTE5ZDMuLjZjZmNiNWYg
-MTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IEBAIC0xMjUwLDYgKzEy
-NTAsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2RlYnVnZnMgewo+PiAgICBpbnQgYW1kZ3B1X2RlYnVnZnNf
-YWRkX2ZpbGVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgICAJCQkgICAgIGNvbnN0
-IHN0cnVjdCBkcm1faW5mb19saXN0ICpmaWxlcywKPj4gICAgCQkJICAgICB1bnNpZ25lZCBuZmls
-ZXMpOwo+PiAraW50IGFtZGdwdV9kZWJ1Z2ZzX2NsZWFudXBfZmlsZXMoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpOwo+PiAgICBpbnQgYW1kZ3B1X2RlYnVnZnNfZmVuY2VfaW5pdChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldik7Cj4+ICAgIAo+PiAgICAjaWYgZGVmaW5lZChDT05GSUdfREVC
-VUdfRlMpCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMK
-Pj4gaW5kZXggN2I3NDM5Zi4uZWU4MDBhYiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+PiBAQCAtMjUyMCw2ICsyNTIwLDcgQEAgdm9pZCBhbWRn
-cHVfZGV2aWNlX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICAgIAlhbWRncHVf
-ZG9vcmJlbGxfZmluaShhZGV2KTsKPj4gICAgCWFtZGdwdV9wbV9zeXNmc19maW5pKGFkZXYpOwo+
-PiAgICAJYW1kZ3B1X2RlYnVnZnNfcmVnc19jbGVhbnVwKGFkZXYpOwo+PiArCWFtZGdwdV9kZWJ1
-Z2ZzX2NsZWFudXBfZmlsZXMoYWRldik7Cj4+ICAgIH0KPj4gICAgCj4+ICAgIAo+PiBAQCAtMzMw
-NCw2ICszMzA1LDIzIEBAIGludCBhbWRncHVfZGVidWdmc19hZGRfZmlsZXMoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCj4+ICAgIAlyZXR1cm4gMDsKPj4gICAgfQo+PiAgICAKPj4gK2ludCBh
-bWRncHVfZGVidWdmc19jbGVhbnVwX2ZpbGVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KSB7
-Cj4+ICsJdW5zaWduZWQgaW50IGk7Cj4+ICsKPj4gKwlmb3IgKGkgPSAwOyBpIDwgYWRldi0+ZGVi
-dWdmc19jb3VudDsgaSsrKSB7ICNpZgo+PiArZGVmaW5lZChDT05GSUdfREVCVUdfRlMpCj4+ICsJ
-CWRybV9kZWJ1Z2ZzX3JlbW92ZV9maWxlcyhhZGV2LT5kZWJ1Z2ZzW2ldLmZpbGVzLAo+PiArCQkJ
-CWFkZXYtPmRlYnVnZnNbaV0ubnVtX2ZpbGVzLAo+PiArCQkJCWFkZXYtPmRkZXYtPnByaW1hcnkp
-Owo+PiArI2VuZGlmCj4+ICsJCWFkZXYtPmRlYnVnZnNbaV0uZmlsZXMgPSBOVUw7Cj4+ICsJCWFk
-ZXYtPmRlYnVnZnNbaV0ubnVtX2ZpbGVzID0gMDsKPj4gKwl9Cj4+ICsJYWRldi0+ZGVidWdmc19j
-b3VudCA9IDA7Cj4+ICsJcmV0dXJuIDA7Cj4+ICt9Cj4+ICsKPj4gICAgI2lmIGRlZmluZWQoQ09O
-RklHX0RFQlVHX0ZTKQo+PiAgICAKPj4gICAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2RlYnVnZnNf
-cmVnc19yZWFkKHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlcgo+PiAqYnVmLAo+CgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Removing URL links and commit-ready description in v2.
+
+
+On Monday 06 November 2017 09:18 PM, Mark Brown wrote:
+> On Fri, Nov 03, 2017 at 04:35:43PM -0400, Alex Deucher wrote:
+>
+>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>> Signed-off-by: Akshu Agrawal <Akshu.Agrawal@amd.com>
+>> Reviewed-on: https://chromium-review.googlesource.com/659699
+>> Commit-Ready: Akshu Agrawal <akshu.agrawal@amd.com>
+>> Tested-by: Akshu Agrawal <akshu.agrawal@amd.com>
+>> Reviewed-by: Jason Clinton <jclinton@chromium.org>
+>> Reviewed-on: https://chromium-review.googlesource.com/676627
+> These two URLs are different, what was being reviewed here?  What is
+> Commit-Ready supposed to mean?
