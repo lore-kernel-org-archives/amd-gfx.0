@@ -1,55 +1,50 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: bypass FB resizing for SRIOV VF
-Date: Tue, 7 Nov 2017 15:45:46 +0000
-Message-ID: <BN6PR12MB1652E0EBD00413409E648ACDF7510@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1510024085-21956-1-git-send-email-Pixel.Ding@amd.com>
+From: "Agrawal, Akshu" <Akshu.Agrawal@amd.com>
+Subject: Re: [PATCH 1/3] ASoC: amd: Report accurate hw_ptr
+	during dma
+Date: Tue, 7 Nov 2017 21:34:35 +0530
+Message-ID: <b7394063-321f-581f-2ba2-d87e277574b6@amd.com>
+References: <1509741345-1589-1-git-send-email-alexander.deucher@amd.com>
+ <1509741345-1589-2-git-send-email-alexander.deucher@amd.com>
+ <20171106154800.sotryjiadmobitac@sirena.co.uk>
+ <e1db3baf-44f4-c35b-680b-822962823180@amd.com>
+ <20171107113714.bohg3f7ys3wygifn@sirena.org.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1510024085-21956-1-git-send-email-Pixel.Ding-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <alsa-devel-bounces@alsa-project.org>
+In-Reply-To: <20171107113714.bohg3f7ys3wygifn@sirena.org.uk>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
+List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Errors-To: alsa-devel-bounces@alsa-project.org
+Sender: alsa-devel-bounces@alsa-project.org
+To: Mark Brown <broonie@kernel.org>, "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>, airlied@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFBpeGVs
-IERpbmcNCj4gU2VudDogTW9uZGF5LCBOb3ZlbWJlciAwNiwgMjAxNyAxMDowOCBQTQ0KPiBUbzog
-Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb207IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQo+IENjOiBEaW5nLCBQaXhlbA0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6
-IGJ5cGFzcyBGQiByZXNpemluZyBmb3IgU1JJT1YgVkYNCj4gDQo+IEZyb206IHBkaW5nIDxQaXhl
-bC5EaW5nQGFtZC5jb20+DQo+IA0KPiBJdCBpbnRyb2R1Y2VzIDkwMG1zIGxhdGVuY3kgaW4gZXhj
-bHVzaXZlIG1vZGUgd2hpY2ggY2F1c2VzIGZhaWx1cmUNCj4gb2YgZHJpdmVyIGxvYWRpbmcuIEhv
-c3QgY2FuIHJlc2l6ZSB0aGUgQkFSIGJlZm9yZSBndWVzdCBzdGFyaW5nLA0KPiBzbyB0aGUgcmVz
-aXppbmcgaXMgbm90IG5lY2Vzc2FyeSBoZXJlLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogcGRpbmcg
-PFBpeGVsLkRpbmdAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYyB8IDQgKysrKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0
-aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZXZpY2UuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
-Y2UuYw0KPiBpbmRleCA2ZjAxZGRhLi5iZjJiMDA4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IEBAIC03NjgsNiArNzY4LDEwIEBAIGludCBh
-bWRncHVfZGV2aWNlX3Jlc2l6ZV9mYl9iYXIoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQo+ICAJdTE2IGNtZDsNCj4gIAlpbnQgcjsNCj4gDQo+ICsJLyogQnlwYXNzIGZvciBWRiAqLw0K
-PiArCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpDQo+ICsJCXJldHVybiAwOw0KPiArDQo+ICAJ
-LyogRGlzYWJsZSBtZW1vcnkgZGVjb2Rpbmcgd2hpbGUgd2UgY2hhbmdlIHRoZSBCQVIgYWRkcmVz
-c2VzDQo+IGFuZCBzaXplICovDQo+ICAJcGNpX3JlYWRfY29uZmlnX3dvcmQoYWRldi0+cGRldiwg
-UENJX0NPTU1BTkQsICZjbWQpOw0KPiAgCXBjaV93cml0ZV9jb25maWdfd29yZChhZGV2LT5wZGV2
-LCBQQ0lfQ09NTUFORCwNCj4gLS0NCj4gMi45LjUNCj4gDQo+IF9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+
+
+On 11/7/2017 5:07 PM, Mark Brown wrote:
+> On Tue, Nov 07, 2017 at 07:26:03PM +0530, Mukunda,Vijendar wrote:
+>> Removing URL links and commit-ready description in v2.
+> 
+> This doesn't really answer my question:
+> 
+>>> These two URLs are different, what was being reviewed here?  What is
+>>> Commit-Ready supposed to mean?
+
+Same patch is reviewed, once on 4.4 kernel (659699) and then on 4.12 
+kernel (672267).
+Commit-ready is to get it merged on tree after receiving a +2.
+
+> 
+> Please don't top post, reply in line with needed context.  This allows
+> readers to readily follow the flow of conversation and understand what
+> you are talking about and also helps ensure that everything in the
+> discussion is being addressed.
+> 
