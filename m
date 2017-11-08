@@ -1,53 +1,52 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH 1/4] x86/PCI: Enable a 64bit BAR on AMD Family 15h
- (Models 00h-0fh) Processors
-Date: Wed, 8 Nov 2017 14:48:27 -0600
-Message-ID: <20171108204827.GB21597@bhelgaas-glaptop.roam.corp.google.com>
-References: <1509717164-1946-1-git-send-email-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] amd/display: Fix potential null dereference in dce_calcs.c
+Date: Wed, 8 Nov 2017 20:54:10 +0000
+Message-ID: <BN6PR12MB16527CF3D43670B4E2E340CAF7560@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <20171108201703.27467-1-ernstp@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <1509717164-1946-1-git-send-email-christian.koenig@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Andy Shevchenko <andy.shevchenko@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20171108201703.27467-1-ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?J0VybnN0IFNqw7ZzdHJhbmQn?= <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-[+cc Andy]
-
-On Fri, Nov 03, 2017 at 02:52:41PM +0100, Christian König wrote:
-> Just add the extra PCI-ID to the existing fixup.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-
-I folded all these additional devices into the original quirk.
-
-> ---
->  arch/x86/pci/fixup.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index 7b6bd76..1d2238d 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -639,7 +639,7 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x8c10, quirk_apple_mbp_poweroff);
->   * configuring host bridge windows using the _PRS and _SRS methods.
->   *
->   * But this is rarely implemented, so we manually enable a large 64bit BAR for
-> - * PCIe device on AMD Family 15h (Models 30h-3fh) Processors here.
-> + * PCIe device on AMD Family 15h (Models 00h-0fh, 30h-3fh) Processors here.
->   */
->  static void pci_amd_enable_64bit_bar(struct pci_dev *dev)
->  {
-> @@ -696,5 +696,6 @@ static void pci_amd_enable_64bit_bar(struct pci_dev *dev)
->  	pci_bus_add_resource(dev->bus, res, 0);
->  }
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x141b, pci_amd_enable_64bit_bar);
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1601, pci_amd_enable_64bit_bar);
->  
->  #endif
-> -- 
-> 2.7.4
-> 
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEVybnN0
+IFNqw7ZzdHJhbmQNCj4gU2VudDogV2VkbmVzZGF5LCBOb3ZlbWJlciAwOCwgMjAxNyAzOjE3IFBN
+DQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBbUEFUQ0hd
+IGFtZC9kaXNwbGF5OiBGaXggcG90ZW50aWFsIG51bGwgZGVyZWZlcmVuY2UgaW4gZGNlX2NhbGNz
+LmMNCj4gDQo+IFJlcG9ydGVkIGJ5IHNtYXRjaDoNCj4gYndfY2FsY3MoKSBlcnJvcjogcG90ZW50
+aWFsIG51bGwgZGVyZWZlcmVuY2UgJ2RhdGEnDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBFcm5zdCBT
+asO2c3RyYW5kIDxlcm5zdHBAZ21haWwuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9jYWxjcy9kY2VfY2FsY3MuYyB8IDQgKysrKw0KPiAgMSBmaWxlIGNoYW5n
+ZWQsIDQgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9jYWxjcy9kY2VfY2FsY3MuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9jYWxjcy9kY2VfY2FsY3MuYw0KPiBpbmRleCA0ZjhhOTUzNjhmZmMuLjY0YTg4
+NTE5NTIwOCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nh
+bGNzL2RjZV9jYWxjcy5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9j
+YWxjcy9kY2VfY2FsY3MuYw0KPiBAQCAtMjc5NCw2ICsyNzk0LDEwIEBAIGJvb2wgYndfY2FsY3Mo
+c3RydWN0IGRjX2NvbnRleHQgKmN0eCwNCj4gIHsNCj4gIAlzdHJ1Y3QgYndfY2FsY3NfZGF0YSAq
+ZGF0YSA9IGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCBid19jYWxjc19kYXRhKSwNCj4gIAkJCQkJICAg
+ICBHRlBfS0VSTkVMKTsNCj4gKwlpZiAoIWRhdGEpIHsNCj4gKwkJRFJNX0VSUk9SKCJGYWlsZWQg
+dG8gYWxsb2NhdGUgYndfY2FsY3NfZGF0YVxuIik7DQoNCkkgdGhpbmsgd2UgYXJlIHRyeWluZyB0
+byBrZWVwIERSTSBzcGVjaWZpY3Mgb3V0IG9mIGRjIGFzIG11Y2ggYXMgcG9zc2libGUgc28gZHJv
+cCB0aGUgZXJyb3IgbWVzc2FnZSBhbmQganVzdCByZXR1cm4gZmFsc2UuDQoNClRoYW5rcyENCg0K
+QWxleA0KDQo+ICsJCXJldHVybiBmYWxzZTsNCj4gKwl9DQo+IA0KPiAgCXBvcHVsYXRlX2luaXRp
+YWxfZGF0YShwaXBlLCBwaXBlX2NvdW50LCBkYXRhKTsNCj4gDQo+IC0tDQo+IDIuMTQuMQ0KPiAN
+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
