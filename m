@@ -1,64 +1,75 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH xf86-video-amdgpu] Use correct ScrnInfoPtr in
- redisplay_dirty
-Date: Wed, 8 Nov 2017 18:20:37 +0000
-Message-ID: <BN6PR12MB1652D2189C4885E095F56B6EF7560@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <20171108174725.20180-1-michel@daenzer.net>
+From: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: amd: fix report accurate hw_ptr during dma
+Date: Wed, 8 Nov 2017 18:22:14 +0000
+Message-ID: <20171108182214.bwdvt5wwwz7wqf32@sirena.co.uk>
+References: <20171108181841.29332-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171108174725.20180-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0754935007=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20171108181841.29332-1-alexander.deucher@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, Vijendar.Mukunda@amd.com, Guenter Roeck <groeck@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
-bCBEw6RuemVyDQo+IFNlbnQ6IFdlZG5lc2RheSwgTm92ZW1iZXIgMDgsIDIwMTcgMTI6NDcgUE0N
-Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSCB4
-Zjg2LXZpZGVvLWFtZGdwdV0gVXNlIGNvcnJlY3QgU2NybkluZm9QdHIgaW4NCj4gcmVkaXNwbGF5
-X2RpcnR5DQo+IA0KPiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNv
-bT4NCj4gDQo+IFdlIHVzZWQgdGhlIGRlc3RpbmF0aW9uIHBpeG1hcCdzIHNjcmVlbiBmb3IgZmx1
-c2hpbmcgZ2xhbW9yLiBCdXQgd2hlbg0KPiB3ZSBhcmUgdGhlIG1hc3RlciBzY3JlZW4sIHRoZSBk
-ZXN0aW5hdGlvbiBwaXhtYXAgaXMgZnJvbSB0aGUgc2xhdmUNCj4gc2NyZWVuLg0KPiANCj4gRml4
-ZXMgY3Jhc2ggd2hlbiB0aGUgc2xhdmUgc2NyZWVuIGlzbid0IHVzaW5nIGdsYW1vciBhcyB3ZWxs
-Lg0KPiANCj4gQnVnemlsbGE6IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvMTAzNjEzDQo+
-IEZpeGVzOiBlMTViMjM2NjNjZDEgKCJBZGFwdCB0byBQaXhtYXBEaXJ0eVVwZGF0ZVJlYzo6c3Jj
-IGJlaW5nIGENCj4gICAgICAgICAgICAgICAgICAgICAgRHJhd2FibGVQdHIiKQ0KPiBTaWduZWQt
-b2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4NCg0KUmV2aWV3
-ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KDQo+IC0t
-LQ0KPiAgc3JjL2FtZGdwdV9rbXMuYyB8IDggKysrKysrLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCA2
-IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvc3JjL2Ft
-ZGdwdV9rbXMuYyBiL3NyYy9hbWRncHVfa21zLmMNCj4gaW5kZXggY2IwZmIzYjU3Li5hNWYyMDQw
-YTggMTAwNjQ0DQo+IC0tLSBhL3NyYy9hbWRncHVfa21zLmMNCj4gKysrIGIvc3JjL2FtZGdwdV9r
-bXMuYw0KPiBAQCAtNDc5LDcgKzQ3OSwxMSBAQCBkaXJ0eV9yZWdpb24oUGl4bWFwRGlydHlVcGRh
-dGVQdHIgZGlydHkpDQo+ICBzdGF0aWMgdm9pZA0KPiAgcmVkaXNwbGF5X2RpcnR5KFBpeG1hcERp
-cnR5VXBkYXRlUHRyIGRpcnR5LCBSZWdpb25QdHIgcmVnaW9uKQ0KPiAgew0KPiAtCVNjcm5JbmZv
-UHRyIHNjcm4gPSB4Zjg2U2NyZWVuVG9TY3JuKGRpcnR5LT5zbGF2ZV9kc3QtDQo+ID5kcmF3YWJs
-ZS5wU2NyZWVuKTsNCj4gKyNpZmRlZiBIQVNfRElSVFlUUkFDS0lOR19EUkFXQUJMRV9TUkMNCj4g
-KwlTY3JuSW5mb1B0ciBzcmNfc2NybiA9IHhmODZTY3JlZW5Ub1Njcm4oZGlydHktPnNyYy0+cFNj
-cmVlbik7DQo+ICsjZWxzZQ0KPiArCVNjcm5JbmZvUHRyIHNyY19zY3JuID0geGY4NlNjcmVlblRv
-U2NybihkaXJ0eS0+c3JjLQ0KPiA+ZHJhd2FibGUucFNjcmVlbik7DQo+ICsjZW5kaWYNCj4gDQo+
-ICAJaWYgKFJlZ2lvbk5pbChyZWdpb24pKQ0KPiAgCQlnb3RvIG91dDsNCj4gQEAgLTQ5Myw3ICs0
-OTcsNyBAQCByZWRpc3BsYXlfZGlydHkoUGl4bWFwRGlydHlVcGRhdGVQdHIgZGlydHksDQo+IFJl
-Z2lvblB0ciByZWdpb24pDQo+ICAJUGl4bWFwU3luY0RpcnR5SGVscGVyKGRpcnR5LCByZWdpb24p
-Ow0KPiAgI2VuZGlmDQo+IA0KPiAtCWFtZGdwdV9nbGFtb3JfZmx1c2goc2Nybik7DQo+ICsJYW1k
-Z3B1X2dsYW1vcl9mbHVzaChzcmNfc2Nybik7DQo+ICAJaWYgKGRpcnR5LT5zbGF2ZV9kc3QtPm1h
-c3Rlcl9waXhtYXApDQo+ICAJCURhbWFnZVJlZ2lvblByb2Nlc3NQZW5kaW5nKCZkaXJ0eS0+c2xh
-dmVfZHN0LQ0KPiA+ZHJhd2FibGUpOw0KPiANCj4gLS0NCj4gMi4xNS4wDQo+IA0KPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxp
-bmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+--===============0754935007==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ntd73vxin3ez563k"
+Content-Disposition: inline
+
+
+--ntd73vxin3ez563k
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Nov 08, 2017 at 01:18:41PM -0500, Alex Deucher wrote:
+> From: Guenter Roeck <groeck@chromium.org>
+>=20
+> ERROR: "__aeabi_uldivmod" [sound/soc/amd/snd-soc-acp-pcm.ko] undefined!
+>=20
+> 64-bit divides require special operations to avoid build errors on 32-bit
+> systems.
+
+Like I said in reply to your other mail please don't resubmit already
+applied patches.  The current tip of my topic/amd branch appears to be
+this very patch, if there's anything needs changing please send an
+incremental patch.
+
+--ntd73vxin3ez563k
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAloDS1YACgkQJNaLcl1U
+h9DRNQf/fM4SKHjSjCwvb/KtlSFw0oG0oYOoMfl7EbQjS1pK84r3cKkh1Z7sQ9T1
+xUv7XL3bVeZ9Id/874Iok9xT/GcUbkhFKV3PotAOhfgcumA8AzA3DFiMxlTdfH4B
+CBasyJE7U2b1/DaRNbWrgt5LJe7XlTpmVdvCuEKT1jzk1DLpP13rsELumSZ3Uup1
+/hAHOiYdjlofvVd7NencK8aqiwn9ZaaKGBn3sSuNijMHglwKMvtfRNVp5Yfv57PE
+m2q1RlJjVJNfSfjESDi6TZv9CYZSDliO0X1KT1ejLoAYYsnl5axGHLIQbftUVUng
+IVuL2BFJ3TrjIZDXPkC/8VEuH95/HA==
+=R5iY
+-----END PGP SIGNATURE-----
+
+--ntd73vxin3ez563k--
+
+--===============0754935007==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0754935007==--
