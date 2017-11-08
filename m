@@ -1,36 +1,80 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 0/3] Bunch of cleanups in DM and amdgpu_crtc
-Date: Wed, 8 Nov 2017 10:51:45 -0500
-Message-ID: <34331f5d-fb90-578f-031f-6d9abec2dde3@amd.com>
-References: <20171108153339.19723-1-harry.wentland@amd.com>
+From: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/3] ASoC: amd: Report accurate hw_ptr during dma
+Date: Wed, 8 Nov 2017 16:05:54 +0000
+Message-ID: <20171108160554.qgx2rkewmbpfcdf6@sirena.co.uk>
+References: <1509741345-1589-1-git-send-email-alexander.deucher@amd.com>
+ <1509741345-1589-2-git-send-email-alexander.deucher@amd.com>
+ <20171106154800.sotryjiadmobitac@sirena.co.uk>
+ <e1db3baf-44f4-c35b-680b-822962823180@amd.com>
+ <20171107113714.bohg3f7ys3wygifn@sirena.org.uk>
+ <b7394063-321f-581f-2ba2-d87e277574b6@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171108153339.19723-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============0723287992=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <b7394063-321f-581f-2ba2-d87e277574b6@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Agrawal, Akshu" <Akshu.Agrawal@amd.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, "Mukunda, Vijendar" <vijendar.mukunda@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-ICBSZXZpZXdlZC1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5j
-b20+CgoKT24gMTEvMDgvMjAxNyAxMDozMyBBTSwgSGFycnkgV2VudGxhbmQgd3JvdGU6Cj4gSnVz
-dCByZW1vdmluZyBhIGNvdXBsZSB1bnVzZWQgdGhpbmdzIEkgbm90aWNlZCB3aGlsZSBnb2luZyB0
-aHJvdWdoCj4gdGhlIGNvZGUuCj4KPiBIYXJyeSBXZW50bGFuZCAoMyk6Cj4gICAgYW1kZ3B1L2Rt
-OiBSZW1vdmUgZmJfbG9jYXRpb24gZm9ybSBmaWxsX3BsYW5lX2F0dHJpYnV0ZXMKPiAgICBkcm0v
-YW1kZ3B1OiBSZW1vdmUgdW51c2VkIGRjX3N0cmVhbSBmcm9tIGFtZGdwdV9jcnRjCj4gICAgYW1k
-Z3B1L2RtOiBSZW1vdmUgdW51c2VkIGZvcndhcmQgZGVjbGFyYXRpb24KPgo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCAgICAgICAgICB8ICAyIC0tCj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMTMgLS0tLS0t
-LS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG0uaCB8ICAyIC0tCj4gICAzIGZpbGVzIGNoYW5nZWQsIDE3IGRlbGV0aW9ucygtKQo+CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+--===============0723287992==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ol7vjagx4luicymf"
+Content-Disposition: inline
+
+
+--ol7vjagx4luicymf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Nov 07, 2017 at 09:34:35PM +0530, Agrawal, Akshu wrote:
+> On 11/7/2017 5:07 PM, Mark Brown wrote:
+
+> > > > These two URLs are different, what was being reviewed here?  What is
+> > > > Commit-Ready supposed to mean?
+
+> Same patch is reviewed, once on 4.4 kernel (659699) and then on 4.12 kernel
+> (672267).
+> Commit-ready is to get it merged on tree after receiving a +2.
+
+OK, that's not unreasonable but probably best to mention if the review
+was in the context of a very old kernel, sometimes upstream changes can
+invalidate the review.
+
+--ol7vjagx4luicymf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAloDK2IACgkQJNaLcl1U
+h9C4NAf+NqzMWvS0zbduNHhhSwXXgML2AuEr0LAkDam6jEHxaxIIejgAWqktnB4O
+Q3RcD4zTuHSaH6pXSJ7eV46KvSwgvpEUItqIYmk9lePAMTXuCNqXAnOiFCYO93xq
+BxXiiwioIPKuBSXV9/NimD9uO4ljW75ypm2T2xygWCmyaX49XAj0hsl1M5pXKg9l
+J1FiqJWnRWtMZDnNXxw6xERpC6qP6xoJVGaCoOh762PgrOFnaY6zODrypmyLlPoQ
+iriTwnCl4+6OlqrPuaNEsIcm3GUewULAt/78O4Ogync0UCeCA2Rn6MYEmsvQ0OqA
+NtjHtpOqwzg5L70VV7A4NGVoGm0Xgw==
+=CkR5
+-----END PGP SIGNATURE-----
+
+--ol7vjagx4luicymf--
+
+--===============0723287992==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0723287992==--
