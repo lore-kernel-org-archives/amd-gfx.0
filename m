@@ -1,11 +1,14 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH umr] Switch GRBM index when reading wave data directly.
-Date: Wed,  8 Nov 2017 13:39:22 -0500
-Message-ID: <20171108183922.18188-1-tom.stdenis@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] ASoC: amd: fix report accurate hw_ptr during dma
+Date: Wed, 8 Nov 2017 13:40:32 -0500
+Message-ID: <CADnq5_PM=C9OjseqvV8M5ohm7Mo18foHGPUkFZSnVNpVruut8Q@mail.gmail.com>
+References: <20171108181841.29332-1-alexander.deucher@amd.com>
+ <20171108182214.bwdvt5wwwz7wqf32@sirena.co.uk>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20171108182214.bwdvt5wwwz7wqf32-7j8lgAiuQgnQXOPxS62xeg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,27 +19,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: Mark Brown <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Cc: "alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org" <alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org>, Takashi Iwai <tiwai-l3A5Bk7waGM@public.gmane.org>, Liam Girdwood <lgirdwood-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Vijendar Mukunda <Vijendar.Mukunda-5C7GfCeVMHo@public.gmane.org>, Guenter Roeck <groeck-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
 
-U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIHNy
-Yy9saWIvd2F2ZV9zdGF0dXMuYyB8IDQgKysrKwogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9u
-cygrKQoKZGlmZiAtLWdpdCBhL3NyYy9saWIvd2F2ZV9zdGF0dXMuYyBiL3NyYy9saWIvd2F2ZV9z
-dGF0dXMuYwppbmRleCBmZTJhZGQ3NzlmZGQuLjdmMDEzMGJiOTM0NyAxMDA2NDQKLS0tIGEvc3Jj
-L2xpYi93YXZlX3N0YXR1cy5jCisrKyBiL3NyYy9saWIvd2F2ZV9zdGF0dXMuYwpAQCAtMTE2LDcg
-KzExNiw5IEBAIHN0YXRpYyBpbnQgdW1yX2dldF93YXZlX3N0YXR1c192aShzdHJ1Y3QgdW1yX2Fz
-aWMgKmFzaWMsIHVuc2lnbmVkIHNlLCB1bnNpZ25lZCBzCiAJCXJlYWQoYXNpYy0+ZmQud2F2ZSwg
-JmJ1ZiwgMzIqNCk7CiAJfSBlbHNlIHsKIAkJaW50IG4gPSAwOworCQl1bXJfZ3JibV9zZWxlY3Rf
-aW5kZXgoYXNpYywgc2UsIHNoLCBjdSk7CiAJCXJlYWRfd2F2ZV9zdGF0dXNfdmlhX21taW8oYXNp
-Yywgc2ltZCwgd2F2ZSwgJmJ1ZlswXSwgJm4pOworCQl1bXJfZ3JibV9zZWxlY3RfaW5kZXgoYXNp
-YywgMHhGRkZGRkZGRiwgMHhGRkZGRkZGRiwgMHhGRkZGRkZGRik7CiAJfQogCiAJaWYgKGJ1Zlsw
-XSAhPSAwKSB7CkBAIC0yMTgsNyArMjIwLDkgQEAgc3RhdGljIGludCB1bXJfZ2V0X3dhdmVfc3Rh
-dHVzX2FpKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdW5zaWduZWQgc2UsIHVuc2lnbmVkIHMKIAkJ
-cmVhZChhc2ljLT5mZC53YXZlLCAmYnVmLCAzMio0KTsKIAl9IGVsc2UgewogCQlpbnQgbiA9IDA7
-CisJCXVtcl9ncmJtX3NlbGVjdF9pbmRleChhc2ljLCBzZSwgc2gsIGN1KTsKIAkJcmVhZF93YXZl
-X3N0YXR1c192aWFfbW1pbyhhc2ljLCBzaW1kLCB3YXZlLCAmYnVmWzBdLCAmbik7CisJCXVtcl9n
-cmJtX3NlbGVjdF9pbmRleChhc2ljLCAweEZGRkZGRkZGLCAweEZGRkZGRkZGLCAweEZGRkZGRkZG
-KTsKIAl9CiAKIAlpZiAoYnVmWzBdICE9IDEpIHsKLS0gCjIuMTIuMAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gV2VkLCBOb3YgOCwgMjAxNyBhdCAxOjIyIFBNLCBNYXJrIEJyb3duIDxicm9vbmllQGtlcm5l
+bC5vcmc+IHdyb3RlOgo+IE9uIFdlZCwgTm92IDA4LCAyMDE3IGF0IDAxOjE4OjQxUE0gLTA1MDAs
+IEFsZXggRGV1Y2hlciB3cm90ZToKPj4gRnJvbTogR3VlbnRlciBSb2VjayA8Z3JvZWNrQGNocm9t
+aXVtLm9yZz4KPj4KPj4gRVJST1I6ICJfX2FlYWJpX3VsZGl2bW9kIiBbc291bmQvc29jL2FtZC9z
+bmQtc29jLWFjcC1wY20ua29dIHVuZGVmaW5lZCEKPj4KPj4gNjQtYml0IGRpdmlkZXMgcmVxdWly
+ZSBzcGVjaWFsIG9wZXJhdGlvbnMgdG8gYXZvaWQgYnVpbGQgZXJyb3JzIG9uIDMyLWJpdAo+PiBz
+eXN0ZW1zLgo+Cj4gTGlrZSBJIHNhaWQgaW4gcmVwbHkgdG8geW91ciBvdGhlciBtYWlsIHBsZWFz
+ZSBkb24ndCByZXN1Ym1pdCBhbHJlYWR5Cj4gYXBwbGllZCBwYXRjaGVzLiAgVGhlIGN1cnJlbnQg
+dGlwIG9mIG15IHRvcGljL2FtZCBicmFuY2ggYXBwZWFycyB0byBiZQo+IHRoaXMgdmVyeSBwYXRj
+aCwgaWYgdGhlcmUncyBhbnl0aGluZyBuZWVkcyBjaGFuZ2luZyBwbGVhc2Ugc2VuZCBhbgo+IGlu
+Y3JlbWVudGFsIHBhdGNoLgoKSSdtIG5vdCBzZWVpbmcgdGhpcyBvbmUgaW4geW91ciB0cmVlIGVp
+dGhlci4gIFRoaXMgaXMganVzdCBhIHJlc2VuZCBvZgpHdWVudGVyJ3MgcGF0Y2ggZnJvbSBhbiBo
+b3VyIGFnbyB3aXRoIHRoZSBjaHJvbWl1bSBzdHVmZiByZW1vdmVkLgpNYXliZSB5b3UgYWxyZWFk
+eSBhcHBsaWVkIGl0IGluIHRoZSBpbnRlcmltPwoKQWxleApfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
