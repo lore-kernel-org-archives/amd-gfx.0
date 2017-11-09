@@ -1,15 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix null pointer issue in
- amdgpu_cs_wait_any_fence
-Date: Thu, 9 Nov 2017 10:05:28 +0100
-Message-ID: <0ed1ec89-c411-67af-3ea2-f0359eb73cff@gmail.com>
-References: <1510214382-6807-1-git-send-email-Emily.Deng@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Agrawal, Akshu" <Akshu.Agrawal-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 2/3] ASoC: rt5645: Wait for 400msec before concluding
+ on value of RT5645_VENDOR_ID2
+Date: Thu, 9 Nov 2017 14:44:59 +0530
+Message-ID: <042f85a6-2fa8-2a2f-1733-fd57f807722b@amd.com>
+References: <20171108172404.19118-1-alexander.deucher@amd.com>
+ <20171108172404.19118-3-alexander.deucher@amd.com>
+ <20171108180957.ddcdyzu2fschypbx@sirena.co.uk>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1510214382-6807-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20171108180957.ddcdyzu2fschypbx-7j8lgAiuQgnQXOPxS62xeg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,26 +22,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Mark Brown <broonie-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org, tiwai-l3A5Bk7waGM@public.gmane.org, lgirdwood-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Vijendar.Mukunda-5C7GfCeVMHo@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Bard Liao <bardliao-Rasf1IRRPZFBDgjK7y7TUQ@public.gmane.org>
 
-QW0gMDkuMTEuMjAxNyB1bSAwODo1OSBzY2hyaWViIEVtaWx5IERlbmc6Cj4gVGhlIGFycmF5W2Zp
-cnN0XSBtYXkgYmUgbnVsbCB3aGVuIHRoZSBmZW5jZSBoYXMgYWxyZWFkeSBiZWVuIHNpZ25hbGVk
-Lgo+Cj4gQlVHOiBTV0RFVi0xMzYyMzkKPgo+IFNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPEVt
-aWx5LkRlbmdAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2NzLmMgfCA3ICsrKysrLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMo
-KyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2NzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3Mu
-Ywo+IGluZGV4IDM1NGM4NzQuLjE4MmRmMDggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfY3MuYwo+IEBAIC0xNTAyLDggKzE1MDIsMTEgQEAgc3RhdGljIGludCBhbWRncHVf
-Y3Nfd2FpdF9hbnlfZmVuY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAJbWVtc2V0
-KHdhaXQsIDAsIHNpemVvZigqd2FpdCkpOwo+ICAgCXdhaXQtPm91dC5zdGF0dXMgPSAociA+IDAp
-Owo+ICAgCXdhaXQtPm91dC5maXJzdF9zaWduYWxlZCA9IGZpcnN0Owo+IC0JLyogc2V0IHJldHVy
-biB2YWx1ZSAwIHRvIGluZGljYXRlIHN1Y2Nlc3MgKi8KPiAtCXIgPSBhcnJheVtmaXJzdF0tPmVy
-cm9yOwo+ICsKPiArCWlmIChhcnJheVtmaXJzdF0pCj4gKwkJciA9IGFycmF5W2ZpcnN0XS0+ZXJy
-b3I7Cj4gKwllbHNlCj4gKwkJciA9IDA7Cj4gICAKPiAgIGVycl9mcmVlX2ZlbmNlX2FycmF5Ogo+
-ICAgCWZvciAoaSA9IDA7IGkgPCBmZW5jZV9jb3VudDsgaSsrKQoKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+CgpPbiAxMS84LzIwMTcgMTE6MzkgUE0sIE1hcmsgQnJvd24gd3JvdGU6Cj4gT24gV2VkLCBOb3Yg
+MDgsIDIwMTcgYXQgMTI6MjQ6MDNQTSAtMDUwMCwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IAo+PiAg
+IAlyZWdtYXBfcmVhZChyZWdtYXAsIFJUNTY0NV9WRU5ET1JfSUQyLCAmdmFsKTsKPj4gICAKPj4g
+KwkvKgo+PiArCSAqIFJlYWQgYWZ0ZXIgNDAwbXNlYywgYXMgaXQgaXMgdGhlIGludGVydmFsIHJl
+cXVpcmVkIGJldHdlZW4KPj4gKwkgKiByZWFkIGFuZCBwb3dlciBPbi4KPj4gKwkgKi8KPj4gKwlt
+c2xlZXAoVElNRV9UT19QT1dFUl9NUyk7Cj4+ICsJcmVnbWFwX3JlYWQocmVnbWFwLCBSVDU2NDVf
+VkVORE9SX0lEMiwgJnZhbCk7Cj4+ICsKPiAKPiBUaGlzIGxlYXZlcyB0aGUgb3JpZ2luYWwgcmVh
+ZCBpbiB0aGVyZSBzbyB3ZSd2ZSBib3RoIGdvdCB0aGUgZWFybHkgcmVhZAo+ICh3aGljaCBtaWdo
+dCB1cHNldCB0aGluZ3MgcG90ZW50aWFsbHkpIGFuZCB0aGUgZGVsYXllZCByZWFkLiAgU2hvdWxk
+bid0Cj4gd2UganVzdCBiZSBhZGRpbmcgYSBtc2xlZXAoKSBiZWZvcmUgdGhlIGV4aXN0aW5nIHJl
+YWQ/Cj4gCgpNeSBiYWQsIEkgc2hvdWxkIGhhdmUgcmVtb3ZlZCB0aGUgYWRkaXRpb24gb2YgcmVn
+aXN0ZXIgcmVhZCBmcm9tIHRoZSBwYXRjaC4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
