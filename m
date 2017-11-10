@@ -1,80 +1,67 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/amdgpu: Fix wave mask in amdgpu_debugfs_wave_read()
- (v2)
-Date: Fri, 10 Nov 2017 14:37:42 -0500
-Message-ID: <20171110193742.3634-1-tom.stdenis@amd.com>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: [PATCH] drm/amd/display/dc/dce110/dce110_mem_input_v: use swap macro
+ in program_size_and_rotation
+Date: Fri, 10 Nov 2017 16:31:09 -0600
+Message-ID: <20171110223109.GA31549@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIGJvdHRvbSB0d28gYml0cyBvZiB0aGUgc2ltZCB2YWx1ZSB3ZXJlIGJlaW5nIHB1dCBpbnRv
-CnRoZSB1cHBlciBiaXRzIG9mIHRoZSB3YXZlIHZhbHVlIHdoaWNoIHdhcyBsaWtlbHkgd29ya2lu
-ZyBkdWUKdG8gdGhlIGJpdHMgYmVpbmcgaWdub3JlZCAob3IgYWxpYXNlZCkuCgpFaXRoZXJ3YXks
-IG5vdyB3ZSBtYXNrIGl0IGNvcnJlY3RseS4KClNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8
-dG9tLnN0ZGVuaXNAYW1kLmNvbT4KCih2MikgVG91Y2ggdXAgdXNpbmcgR0VOTUFTS19VTEwgdG8g
-YSBjb3VwbGUgb2Ygb3RoZXIgZnVuY3Rpb25zIHRvbwotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDQwICsrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0t
-LQogMSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDIwIGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCBjMWYxYjhmMTUz
-OTUuLjQ5NDRmOGUxNTc3YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYwpAQCAtMzMzNiw5ICszMzM2LDkgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2RlYnVn
-ZnNfcmVnc19yZWFkKHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlciAqYnVmLAogCXBtX3BnX2xv
-Y2sgPSAoKnBvcyA+PiAyMykgJiAxOwogCiAJaWYgKCpwb3MgJiAoMVVMTCA8PCA2MikpIHsKLQkJ
-c2VfYmFuayA9ICgqcG9zID4+IDI0KSAmIDB4M0ZGOwotCQlzaF9iYW5rID0gKCpwb3MgPj4gMzQp
-ICYgMHgzRkY7Ci0JCWluc3RhbmNlX2JhbmsgPSAoKnBvcyA+PiA0NCkgJiAweDNGRjsKKwkJc2Vf
-YmFuayA9ICgqcG9zICYgR0VOTUFTS19VTEwoMzMsIDI0KSkgPj4gMjQ7CisJCXNoX2JhbmsgPSAo
-KnBvcyAmIEdFTk1BU0tfVUxMKDQzLCAzNCkpID4+IDM0OworCQlpbnN0YW5jZV9iYW5rID0gKCpw
-b3MgJiBHRU5NQVNLX1VMTCg1MywgNDQpKSA+PiA0NDsKIAogCQlpZiAoc2VfYmFuayA9PSAweDNG
-RikKIAkJCXNlX2JhbmsgPSAweEZGRkZGRkZGOwpAQCAtMzQxMiw5ICszNDEyLDkgQEAgc3RhdGlj
-IHNzaXplX3QgYW1kZ3B1X2RlYnVnZnNfcmVnc193cml0ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3Qg
-Y2hhciBfX3VzZXIgKmJ1ZiwKIAlwbV9wZ19sb2NrID0gKCpwb3MgPj4gMjMpICYgMTsKIAogCWlm
-ICgqcG9zICYgKDFVTEwgPDwgNjIpKSB7Ci0JCXNlX2JhbmsgPSAoKnBvcyA+PiAyNCkgJiAweDNG
-RjsKLQkJc2hfYmFuayA9ICgqcG9zID4+IDM0KSAmIDB4M0ZGOwotCQlpbnN0YW5jZV9iYW5rID0g
-KCpwb3MgPj4gNDQpICYgMHgzRkY7CisJCXNlX2JhbmsgPSAoKnBvcyAmIEdFTk1BU0tfVUxMKDMz
-LCAyNCkpID4+IDI0OworCQlzaF9iYW5rID0gKCpwb3MgJiBHRU5NQVNLX1VMTCg0MywgMzQpKSA+
-PiAzNDsKKwkJaW5zdGFuY2VfYmFuayA9ICgqcG9zICYgR0VOTUFTS19VTEwoNTMsIDQ0KSkgPj4g
-NDQ7CiAKIAkJaWYgKHNlX2JhbmsgPT0gMHgzRkYpCiAJCQlzZV9iYW5rID0gMHhGRkZGRkZGRjsK
-QEAgLTM3NjIsMTIgKzM3NjIsMTIgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2RlYnVnZnNfd2F2
-ZV9yZWFkKHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlciAqYnVmLAogCQlyZXR1cm4gLUVJTlZB
-TDsKIAogCS8qIGRlY29kZSBvZmZzZXQgKi8KLQlvZmZzZXQgPSAoKnBvcyAmIDB4N0YpOwotCXNl
-ID0gKCgqcG9zID4+IDcpICYgMHhGRik7Ci0Jc2ggPSAoKCpwb3MgPj4gMTUpICYgMHhGRik7Ci0J
-Y3UgPSAoKCpwb3MgPj4gMjMpICYgMHhGRik7Ci0Jd2F2ZSA9ICgoKnBvcyA+PiAzMSkgJiAweEZG
-KTsKLQlzaW1kID0gKCgqcG9zID4+IDM3KSAmIDB4RkYpOworCW9mZnNldCA9ICgqcG9zICYgR0VO
-TUFTS19VTEwoNiwgMCkpOworCXNlID0gKCpwb3MgJiBHRU5NQVNLX1VMTCgxNCwgNykpID4+IDc7
-CisJc2ggPSAoKnBvcyAmIEdFTk1BU0tfVUxMKDIyLCAxNSkpID4+IDE1OworCWN1ID0gKCpwb3Mg
-JiBHRU5NQVNLX1VMTCgzMCwgMjMpKSA+PiAyMzsKKwl3YXZlID0gKCpwb3MgJiBHRU5NQVNLX1VM
-TCgzNiwgMzEpKSA+PiAzMTsKKwlzaW1kID0gKCpwb3MgJiBHRU5NQVNLX1VMTCg0NCwgMzcpKSA+
-PiAzNzsKIAogCS8qIHN3aXRjaCB0byB0aGUgc3BlY2lmaWMgc2Uvc2gvY3UgKi8KIAltdXRleF9s
-b2NrKCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7CkBAIC0zODEyLDE0ICszODEyLDE0IEBAIHN0YXRp
-YyBzc2l6ZV90IGFtZGdwdV9kZWJ1Z2ZzX2dwcl9yZWFkKHN0cnVjdCBmaWxlICpmLCBjaGFyIF9f
-dXNlciAqYnVmLAogCQlyZXR1cm4gLUVJTlZBTDsKIAogCS8qIGRlY29kZSBvZmZzZXQgKi8KLQlv
-ZmZzZXQgPSAoKnBvcyAmIDB4RkZGKTsgICAgICAgLyogaW4gZHdvcmRzICovCi0Jc2UgPSAoKCpw
-b3MgPj4gMTIpICYgMHhGRik7Ci0Jc2ggPSAoKCpwb3MgPj4gMjApICYgMHhGRik7Ci0JY3UgPSAo
-KCpwb3MgPj4gMjgpICYgMHhGRik7Ci0Jd2F2ZSA9ICgoKnBvcyA+PiAzNikgJiAweEZGKTsKLQlz
-aW1kID0gKCgqcG9zID4+IDQ0KSAmIDB4RkYpOwotCXRocmVhZCA9ICgoKnBvcyA+PiA1MikgJiAw
-eEZGKTsKLQliYW5rID0gKCgqcG9zID4+IDYwKSAmIDEpOworCW9mZnNldCA9ICpwb3MgJiBHRU5N
-QVNLX1VMTCgxMSwgMCk7CisJc2UgPSAoKnBvcyAmIEdFTk1BU0tfVUxMKDE5LCAxMikpID4+IDEy
-OworCXNoID0gKCpwb3MgJiBHRU5NQVNLX1VMTCgyNywgMjApKSA+PiAyMDsKKwljdSA9ICgqcG9z
-ICYgR0VOTUFTS19VTEwoMzUsIDI4KSkgPj4gMjg7CisJd2F2ZSA9ICgqcG9zICYgR0VOTUFTS19V
-TEwoNDMsIDM2KSkgPj4gMzY7CisJc2ltZCA9ICgqcG9zICYgR0VOTUFTS19VTEwoNTEsIDQ0KSkg
-Pj4gNDQ7CisJdGhyZWFkID0gKCpwb3MgJiBHRU5NQVNLX1VMTCg1OSwgNTIpKSA+PiA1MjsKKwli
-YW5rID0gKCpwb3MgJiBHRU5NQVNLX1VMTCg2MSwgNjApKSA+PiA2MDsKIAogCWRhdGEgPSBrbWFs
-bG9jX2FycmF5KDEwMjQsIHNpemVvZigqZGF0YSksIEdGUF9LRVJORUwpOwogCWlmICghZGF0YSkK
-LS0gCjIuMTIuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Make use of the swap macro instead of _manually_ swapping values
+and remove unnecessary variable swap.
+
+This makes the code easier to read and maintain.
+
+This code was detected with the help of Coccinelle.
+
+Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+---
+ .../drm/amd/display/dc/dce110/dce110_mem_input_v.c | 28 +++++++---------------
+ 1 file changed, 8 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
+index a06c602..7bab8c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
+@@ -237,26 +237,14 @@ static void program_size_and_rotation(
+ 	if (rotation == ROTATION_ANGLE_90 ||
+ 		rotation == ROTATION_ANGLE_270) {
+ 
+-		uint32_t swap;
+-		swap = local_size.video.luma_size.x;
+-		local_size.video.luma_size.x =
+-			local_size.video.luma_size.y;
+-		local_size.video.luma_size.y  = swap;
+-
+-		swap = local_size.video.luma_size.width;
+-		local_size.video.luma_size.width =
+-			local_size.video.luma_size.height;
+-		local_size.video.luma_size.height = swap;
+-
+-		swap = local_size.video.chroma_size.x;
+-		local_size.video.chroma_size.x =
+-			local_size.video.chroma_size.y;
+-		local_size.video.chroma_size.y  = swap;
+-
+-		swap = local_size.video.chroma_size.width;
+-		local_size.video.chroma_size.width =
+-			local_size.video.chroma_size.height;
+-		local_size.video.chroma_size.height = swap;
++		swap(local_size.video.luma_size.x,
++		     local_size.video.luma_size.y);
++		swap(local_size.video.luma_size.width,
++		     local_size.video.luma_size.height);
++		swap(local_size.video.chroma_size.x,
++		     local_size.video.chroma_size.y);
++		swap(local_size.video.chroma_size.width,
++		     local_size.video.chroma_size.height);
+ 	}
+ 
+ 	value = 0;
+-- 
+2.7.4
