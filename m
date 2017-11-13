@@ -1,19 +1,16 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH libdrm 0/4] Dynamicly disable suites and tets.
-Date: Mon, 13 Nov 2017 09:57:35 -0500
-Message-ID: <faf30a58-a8cf-05b2-6028-065438b38f07@amd.com>
-References: <1510288203-21716-1-git-send-email-andrey.grodzovsky@amd.com>
- <fbf19682-a259-4105-7f4b-193524fe2dae@amd.com>
- <407f0a79-e15b-61b7-2e3a-8f4b680c9c6c@amd.com>
- <ebac16f5-4d16-d6e9-8bc0-5ee0de061719@amd.com>
- <58c5d164-078d-74cc-b3ab-07bf6d39287c@amd.com>
- <1245c92c-bfc4-d343-c752-17fa036e1bad@amd.com>
- <7a5b2721-5938-c865-27b0-47dae1ad5883@daenzer.net>
- <cbb173a7-289f-c13d-5518-55ea20a69b58@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 0/7] *** GPU recover V3 ***
+Date: Mon, 13 Nov 2017 10:23:00 -0500
+Message-ID: <CADnq5_Px7W7iEgVE4rQY+K_U49g547c_eHJ=kJQhkFpY9hMjpg@mail.gmail.com>
+References: <1509336909-11455-1-git-send-email-Monk.Liu@amd.com>
+ <CAHWPjbU=47WZzbdWYPbP360v4qa6t=_pCtkYcxO2J4bSwA8jVA@mail.gmail.com>
+ <CADnq5_Otuz78P8YuoSYZNNx+iy2Pi4bBqLxvt4NrhwYDWXtjLw@mail.gmail.com>
+ <CAHWPjbX+gqRLMgr896kzSXPeQnUU8X3_1jPfZtfzLB_VsuEa3A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------7BC5953CCBD8B0B8A753FC8F"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <cbb173a7-289f-c13d-5518-55ea20a69b58-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAHWPjbX+gqRLMgr896kzSXPeQnUU8X3_1jPfZtfzLB_VsuEa3A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,163 +21,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---------------7BC5953CCBD8B0B8A753FC8F
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 11/13/2017 07:39 AM, Christian König wrote:
-
-> Am 13.11.2017 um 12:32 schrieb Michel Dänzer:
->> On 12/11/17 10:35 AM, Christian König wrote:
->>> A few comments on the code:
->>>
->>>> +/* Validate bo size is bit bigger then the request domain */
->>>> +static inline bool amdgpu_bo_validate_bo_size(struct amdgpu_device
->>>> *adev,
->>>> +                      unsigned long size, u32 domain)
->>> Drop the inline keyword and the second _bo_ in the name here.
->>>
->>>> +{
->>>> +    struct ttm_mem_type_manager *man = NULL;
->>>> +
->>>> +    if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
->>>> +        man = &adev->mman.bdev.man[TTM_PL_VRAM];
->>>> +
->>>> +        if (man && size < (man->size << PAGE_SHIFT))
->>> Drop the extra check that man is not NULL. We get the pointer to an
->>> array element, that can't be NULL.
->>>
->>>> +            return true;
->>> Mhm, domain is a bitmask of allowed domains.
->>>
->>> So we should check all valid domains if the size fit, not just the 
->>> first
->>> one.
->> Assuming VRAM <-> system migration of BOs larger than the GTT domain
->> works, I'd say we should only require that the BO can fit in any of the
->> allowed domains. Otherwise it must also always fit in GTT.
-> Good point, and yes VRAM <-> system migration of BOs larger than the 
-> GTT domain works now.
->
-> I can agree on that VRAM should probably be optional, otherwise we 
-> can't allocate anything large when the driver uses only very low 
-> amounts of stolen VRAM on APUs.
->
-> But I think when userspace requests VRAM and GTT at the same time we 
-> still should be able to fall back to GTT.
-
-Attached V2 patch, I still don't understand why I experience the SIGSEV 
-in the tester when the check fails and the IOCTLs will return ENOMEM
-
-I will update the libdrm test to correctly handle mem failure, it 
-segfaults at the moment.
-
-
-Thanks,
-Andey
->
-> Regards,
-> Christian.
-
-
---------------7BC5953CCBD8B0B8A753FC8F
-Content-Type: text/x-patch;
- name="0001-drm-amdgpu-Implement-BO-size-validation-V2.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="0001-drm-amdgpu-Implement-BO-size-validation-V2.patch"
-
->From 37369b3a58027dedf7e9dc65fd9bc0f9e86d0d80 Mon Sep 17 00:00:00 2001
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Date: Fri, 10 Nov 2017 18:35:56 -0500
-Subject: drm/amdgpu: Implement BO size validation V2
-
-Validates BO size against each requested domain's total memory.
-
-v2:
-Make GTT size check a MUST to allow fall back to GTT.
-Rmove redundant NULL check.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 41 ++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index a937c49..5acf20c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -281,6 +281,44 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
- 		*cpu_addr = NULL;
- }
- 
-+/* Validate bo size is bit bigger then the request domain */
-+static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
-+					  unsigned long size, u32 domain)
-+{
-+	struct ttm_mem_type_manager *man = NULL;
-+
-+	/*
-+	 * If GTT is part of requested domains the check must succeed to
-+	 * allow fall back to GTT
-+	 */
-+	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
-+		man = &adev->mman.bdev.man[TTM_PL_TT];
-+
-+		if (size < (man->size << PAGE_SHIFT))
-+			return true;
-+		else
-+			goto fail;
-+	}
-+
-+	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
-+		man = &adev->mman.bdev.man[TTM_PL_VRAM];
-+
-+		if (size < (man->size << PAGE_SHIFT))
-+			return true;
-+		else
-+			goto fail;
-+	}
-+
-+
-+	/* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU */
-+	return true;
-+
-+fail:
-+	DRM_ERROR("BO size %lu > total memory in domain: %llu\n", size,
-+					      man->size << PAGE_SHIFT);
-+	return false;
-+}
-+
- static int amdgpu_bo_do_create(struct amdgpu_device *adev,
- 			       unsigned long size, int byte_align,
- 			       bool kernel, u32 domain, u64 flags,
-@@ -299,6 +337,9 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
- 	page_align = roundup(byte_align, PAGE_SIZE) >> PAGE_SHIFT;
- 	size = ALIGN(size, PAGE_SIZE);
- 
-+	if (!amdgpu_bo_validate_size(adev, size, domain))
-+		return -ENOMEM;
-+
- 	if (kernel) {
- 		type = ttm_bo_type_kernel;
- 	} else if (sg) {
--- 
-2.7.4
-
-
---------------7BC5953CCBD8B0B8A753FC8F
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------7BC5953CCBD8B0B8A753FC8F--
+T24gTW9uLCBOb3YgMTMsIDIwMTcgYXQgNjoyNCBBTSwgSnVsaWVuIElzb3JjZSA8anVsaWVuLmlz
+b3JjZUBnbWFpbC5jb20+IHdyb3RlOgo+IEhpIEFsZXgsCj4KPiBUaHggZm9yIHlvdXIgcmVwbHks
+IGJ1dCBpbiBhbGwgb2YgdGhlIGNhc2VzIHlvdSBtZW50aW9uZWQsIHRoZSB1c2VyIHdvdWxkCj4g
+c3RpbGwKPiBiZSBhYmxlIHRvIHJlYm9vdCBwcm9wZXJseSAoIGkuZS4gdHlwaW5nIHJlYm9vdCBv
+ciBhIG1hZ2ljIGtleWJvYXJkIGtleSkKPiBvciB0byBoYXZlIGEgdHJhY2Ugb2YgYSBrZXJuZWwg
+cGFuaWMgaWYgaXQgaGFwcGVucywgaXMgaXQgY29ycmVjdCA/CgpZZXMsIHRoZSBkZWFkbG9jayBp
+biB0aGUgR1BVIHNjaGVkdWxlciB3YXMgdGhlIGlzc3VlIHByZXZlbnRpbmcgdGhhdApmcm9tIHdv
+cmtpbmcgcHJvcGVybHkuCgpBbGV4Cgo+Cj4gVGh4Cj4gSnVsaWVuCj4KPiBPbiA5IE5vdmVtYmVy
+IDIwMTcgYXQgMTg6MDgsIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPiB3cm90
+ZToKPj4KPj4gT24gVGh1LCBOb3YgOSwgMjAxNyBhdCA0OjM1IEFNLCBKdWxpZW4gSXNvcmNlIDxq
+dWxpZW4uaXNvcmNlQGdtYWlsLmNvbT4KPj4gd3JvdGU6Cj4+ID4gSGkgTW9uay4KPj4gPgo+PiA+
+IEkgYW0gaW50ZXJlc3RlZCBvbiB0aGlzLiBDdXJyZW50bHkgd2hlbiBhICJyaW5nIFggc3RhbGxl
+ZCBmb3IgbW9yZSB0aGFuCj4+ID4gTgo+PiA+IHNlYyIgaGFwcGVucyBpdCB1c3VhbGx5IGdvZXMg
+aW50byB0aGUgZ3B1IHJlc2V0IHJvdXRpbmUuCj4+ID4gRG9lcyBpdCBhbHdheXMgY2F1c2UgdGhl
+IHZyYW0gdG8gYmUgbG9zdCA/IENvdWxkIHlvdSBleHBsYWluIHdoYXQKPj4gPiBoYXBwZW5zIGlm
+Cj4+ID4gdGhlIHZyYW0gcmVtYWlucyBsb3N0ID8KPj4KPj4gSXQgbWVhbnMgdGhlIGNvbnRlbnRz
+IG9mIHZyYW0gYXJlIGdvbmUgb3IgdW5yZWxpYWJsZS4gIEluIHRoYXQgY2FzZQo+PiBhcHBsaWNh
+dGlvbnMgbmVlZCB0byByZS1pbml0aWFsaXplIGFsbCBvZiB0aGVpciBidWZmZXJzIGJlZm9yZQo+
+PiBzdWJtaXR0aW5nIGFueSB3b3JrLiAgWW91IHJlYWxseSBuZWVkIHRvIGFkZCBHTF9yb2J1c3Ru
+ZXNzIHN1cHBvcnQgdG8KPj4gYW55IGFwcGxpY2F0aW9ucyB5b3UgY2FyZSBhYm91dC4gIFdoZXRo
+ZXIgdnJhbSBpcyBsb3N0IG9yIG5vdCBkZXBlbmRzCj4+IG9uIHRoZSByZXNldCBtZXRob2QgYW5k
+IHRoZSBhc2ljLiAgRS5nLiwgc29mdCByZXNldCBvZiBhIHNwZWNpZmljCj4+IGVuZ2luZSB3b24n
+dCBjYXVzZSBhIGxvc3Mgb2YgdnJhbSwgYnV0IGEgZnVsbCBhZGFwdGVyIHJlc2V0IG9yIGFuIEZM
+Ugo+PiBtYXkuCj4+Cj4+ID4KPj4gPiBJIGFtIGFza2luZyB0aGlzIGJlY2F1c2UgSSBleHBlcmll
+bmNlZCBzb21lIHJlY3VycmVudCBncHUgcmVzZXQgdGhhdCBhcmUKPj4gPiBtYXJrZWQgc3VjY2Vl
+ZGVkIGZyb20gdGhlIGxvZyBidXQgZmFpbCBpbiB0aGUgInJlc3VtZSIgc3RlcC4KPj4gPiBJIHdv
+dWxkIG5vdCBiZSBpbnRlcmVzdGVkIGluIHRoaXMgaWYgaXQgd291bGQgYWx3YXlzIGxlYXZlIGEg
+Y2hhbmNlIHRvCj4+ID4gdGhlCj4+ID4gdXNlciB0byBjbGVhbmx5IHJlYm9vdCB0aGUgbWFjaGlu
+ZS4KPj4gPgo+PiA+IFRoZSBpc3N1ZSBpcyB0aGF0IGl0IGNhbiByZXF1aXJlIGEgaGFyZCByZWJv
+b3Qgd2l0aG91dCBrZXJuZWwgcGFuaWMgYW5kCj4+ID4gd2l0aG91dCBrZWVwaW5nIHRoZSBrZXli
+b2FyZCByZXNwb25kaW5nIHRvIG1hZ2ljIGtleXMuCj4+ID4gQXJlIHRob3NlIHBhdGNoZXMgdHJ5
+aW5nIHRvIGFkZHJlc3MgdGhpcyBpc3N1ZSA/Cj4+ID4KPj4gPiBOb3RlIHRoYXQgaGVyZSAiaXNz
+dWUiIGlzIG5vdCByZWZlcnJpbmcgdG8gdGhlIHJvb3QgY2F1c2Ugb2YgYSByaW5nIFgKPj4gPiBz
+dGFsbGVkIGFuZCBpdCBpcyBhbHNvIG5vdCByZWZlcnJpbmcgdG8gd2h5ICJyZXN1bWUiIHN0ZXAg
+ZmFpbHMuCj4+Cj4+IFRoZXJlIHdlcmUgYSBmZXcgaXNzdWVzIHRoYXQgY2F1c2VkIHByb2JsZW1z
+IHdpdGggR1BVIHJlc2V0LiAgVGhlCj4+IGJpZ2dlc3Qgd2FzIHRoYXQgdGhlIEdQVSBzY2hlZHVs
+ZXIgZGVhZGxvY2tlZCBpbiBjZXJ0YWluIGNhc2VzIHNvIGlmCj4+IHlvdSBnb3QgYSBHUFUgaGFu
+ZywgdGhlIGRyaXZlciBsb2NrZWQgdXAuICBUaGF0IHNob3VsZCBtb3N0bHkgYmUKPj4gc3RyYWln
+aHRlbmVkIG91dCBhdCB0aGlzIHBvaW50LiAgSSB0aGluayB0aGVyZSBtYXkgc3RpbGwgYmUgc29t
+ZQo+PiBkZWFkbG9ja3MgaW4gdGhlIG1vZGVzZXR0aW5nIGNvZGUgYWZ0ZXIgYSByZXNldC4gIE9u
+Y2UgdGhhdCBpcyBzb3J0ZWQsCj4+IGl0IHdpbGwgY29tZSBkb3duIHRvIGZpbmUgdHVuaW5nIHRo
+ZSBhY3R1YWwgcmVzZXQgc2VxdWVuY2VzLiAgRnVsbAo+PiBhZGFwdGVyIHJlc2V0cyBhcmUgdGhl
+IGVhc2llc3QgdG8gZ2V0IHdvcmtpbmcgcmVsaWFibHkgKGFuZCBhcmUKPj4gYWxyZWFkeSBpbXBs
+ZW1lbnRlZCBpbiB0aGUgZHJpdmVyKSwgYnV0IGFsc28gdGhlIG1vc3QgZGVzdHJ1Y3RpdmUuCj4+
+Cj4+IEFsZXgKPj4KPj4gPgo+PiA+IFRoeCBhIGxvdAo+PiA+IEp1bGllbgo+PiA+Cj4+ID4KPj4g
+PiBPbiAzMCBPY3RvYmVyIDIwMTcgYXQgMDQ6MTUsIE1vbmsgTGl1IDxNb25rLkxpdUBhbWQuY29t
+PiB3cm90ZToKPj4gPj4KPj4gPj4gKioqIGpvYiBza2lwcGluZyBsb2dpYyBpbiBzY2hlZHVsZXIg
+cGFydCBpcyByZS1pbXBsZW1lbnRlZCAgKioqCj4+ID4+Cj4+ID4+IE1vbmsgTGl1ICg3KToKPj4g
+Pj4gICBhbWQvc2NoZWR1bGVyOmltcGxlIGpvYiBza2lwIGZlYXR1cmUodjMpCj4+ID4+ICAgZHJt
+L2FtZGdwdTppbXBsZW1lbnQgbmV3IEdQVSByZWNvdmVyKHYzKQo+PiA+PiAgIGRybS9hbWRncHU6
+Y2xlYW51cCBpbl9zcmlvdl9yZXNldCBhbmQgbG9ja19yZXNldAo+PiA+PiAgIGRybS9hbWRncHU6
+Y2xlYW51cCB1Y29kZV9pbml0X2JvCj4+ID4+ICAgZHJtL2FtZGdwdTpibG9jayBrbXMgb3BlbiBk
+dXJpbmcgZ3B1X3Jlc2V0Cj4+ID4+ICAgZHJtL2FtZGdwdS9zcmlvdjpmaXggbWVtb3J5IGxlYWsg
+aW4gcHNwX2xvYWRfZncKPj4gPj4gICBkcm0vYW1kZ3B1OmZpeCByYW5kb20gbWlzc2luZyBvZiBG
+TFIgTk9USUZZCj4+ID4+Cj4+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+aCAgICAgICAgICAgfCAgIDkgKy0KPj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYyAgICB8IDMxMQo+PiA+PiArKysrKysrKysrKystLS0tLS0tLS0tLS0tLQo+
+PiA+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMgICAgIHwgIDEw
+ICstCj4+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmMgICAgICAg
+fCAgIDIgKy0KPj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyAg
+ICAgICB8ICAxOCArLQo+PiA+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2tt
+cy5jICAgICAgIHwgICAzICsKPj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9wc3AuYyAgICAgICB8ICAyMiArLQo+PiA+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3Vjb2RlLmMgICAgIHwgICA0ICstCj4+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdmlydC5jICAgICAgfCAgIDIgLQo+PiA+PiAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaCAgICAgIHwgICAyIC0KPj4gPj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgICB8ICAgNiArLQo+PiA+PiAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgICAgICAgIHwgICA2ICstCj4+ID4+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9haS5jICAgICAgICAgfCAgMTYgKy0KPj4gPj4g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X3ZpLmMgICAgICAgICB8ICAgMiArLQo+
+PiA+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIHwgIDM5
+ICsrLS0KPj4gPj4gIDE1IGZpbGVzIGNoYW5nZWQsIDIyMCBpbnNlcnRpb25zKCspLCAyMzIgZGVs
+ZXRpb25zKC0pCj4+ID4+Cj4+ID4+IC0tCj4+ID4+IDIuNy40Cj4+ID4+Cj4+ID4+IF9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+ID4+IGFtZC1nZnggbWFp
+bGluZyBsaXN0Cj4+ID4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4+IGh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+PiA+Cj4+
+ID4KPj4gPgo+PiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwo+PiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo+PiA+Cj4KPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
