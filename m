@@ -1,13 +1,14 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/2] drm/ttm: optimize ttm_mem_evict_first v4
-Date: Mon, 13 Nov 2017 10:54:09 +0100
-Message-ID: <20171113095409.1904-2-christian.koenig@amd.com>
-References: <20171113095409.1904-1-christian.koenig@amd.com>
+From: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 0/7] *** GPU recover V3 ***
+Date: Mon, 13 Nov 2017 11:24:58 +0000
+Message-ID: <CAHWPjbX+gqRLMgr896kzSXPeQnUU8X3_1jPfZtfzLB_VsuEa3A@mail.gmail.com>
+References: <1509336909-11455-1-git-send-email-Monk.Liu@amd.com>
+ <CAHWPjbU=47WZzbdWYPbP360v4qa6t=_pCtkYcxO2J4bSwA8jVA@mail.gmail.com>
+ <CADnq5_Otuz78P8YuoSYZNNx+iy2Pi4bBqLxvt4NrhwYDWXtjLw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1155379798=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171113095409.1904-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_Otuz78P8YuoSYZNNx+iy2Pi4bBqLxvt4NrhwYDWXtjLw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,71 +19,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-RGVsZXRlZCBCT3Mgd2l0aCB0aGUgc2FtZSByZXNlcnZhdGlvbiBvYmplY3QgY2FuIGJlIHJlYXBl
-ZCBldmVuIGlmIHRoZXkKY2FuJ3QgYmUgcmVzZXJ2ZWQuCgp2MjogcmViYXNlIGFuZCB3ZSBzdGls
-bCBuZWVkIHRvIHJlbW92ZS9hZGQgdGhlIEJPIGZyb20vdG8gdGhlIExSVS4KdjM6IGZpeCByZW1v
-dmUvYWRkIG9uZSBtb3JlIHRpbWUsIGNsZWFudXAgdGhlIGxvZ2ljIGEgYml0CnY0OiB3ZSBzaG91
-bGQgc3RpbGwgY2hlY2sgaWYgdGhlIGV2aWN0aW9uIGlzIHZhbHVhYmxlCgpTaWduZWQtb2ZmLWJ5
-OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVy
-cy9ncHUvZHJtL3R0bS90dG1fYm8uYyB8IDU0ICsrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
-LS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMzMgaW5zZXJ0aW9ucygrKSwgMjEgZGVs
-ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyBiL2Ry
-aXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKaW5kZXggNjkxNjQ2YzBmOGQzLi43YjE1MjVkMzll
-YTggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL3R0bS90dG1fYm8uYwpAQCAtNzM4LDQ3ICs3MzgsNTcgQEAgYm9vbCB0dG1fYm9f
-ZXZpY3Rpb25fdmFsdWFibGUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKIEVYUE9SVF9T
-WU1CT0wodHRtX2JvX2V2aWN0aW9uX3ZhbHVhYmxlKTsKIAogc3RhdGljIGludCB0dG1fbWVtX2V2
-aWN0X2ZpcnN0KHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAotCQkJCXVpbnQzMl90IG1lbV90
-eXBlLAotCQkJCWNvbnN0IHN0cnVjdCB0dG1fcGxhY2UgKnBsYWNlLAotCQkJCWJvb2wgaW50ZXJy
-dXB0aWJsZSwKLQkJCQlib29sIG5vX3dhaXRfZ3B1KQorCQkJICAgICAgIHN0cnVjdCByZXNlcnZh
-dGlvbl9vYmplY3QgKnJlc3YsCisJCQkgICAgICAgdWludDMyX3QgbWVtX3R5cGUsCisJCQkgICAg
-ICAgY29uc3Qgc3RydWN0IHR0bV9wbGFjZSAqcGxhY2UsCisJCQkgICAgICAgYm9vbCBpbnRlcnJ1
-cHRpYmxlLAorCQkJICAgICAgIGJvb2wgbm9fd2FpdF9ncHUpCiB7CiAJc3RydWN0IHR0bV9ib19n
-bG9iYWwgKmdsb2IgPSBiZGV2LT5nbG9iOwogCXN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAq
-bWFuID0gJmJkZXYtPm1hblttZW1fdHlwZV07Ci0Jc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpi
-bzsKLQlpbnQgcmV0ID0gLUVCVVNZOworCXN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8gPSBO
-VUxMOworCWJvb2wgbG9ja2VkID0gZmFsc2U7CiAJdW5zaWduZWQgaTsKKwlpbnQgcmV0OwogCiAJ
-c3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7CiAJZm9yIChpID0gMDsgaSA8IFRUTV9NQVhfQk9f
-UFJJT1JJVFk7ICsraSkgewogCQlsaXN0X2Zvcl9lYWNoX2VudHJ5KGJvLCAmbWFuLT5scnVbaV0s
-IGxydSkgewotCQkJcmV0ID0gcmVzZXJ2YXRpb25fb2JqZWN0X3RyeWxvY2soYm8tPnJlc3YpID8g
-MCA6IC1FQlVTWTsKLQkJCWlmIChyZXQpCi0JCQkJY29udGludWU7CisJCQlpZiAoYm8tPnJlc3Yg
-PT0gcmVzdikgeworCQkJCWlmIChsaXN0X2VtcHR5KCZiby0+ZGRlc3Ryb3kpKQorCQkJCQljb250
-aW51ZTsKKworCQkJfSBlbHNlIHsKKwkJCQlsb2NrZWQgPSByZXNlcnZhdGlvbl9vYmplY3RfdHJ5
-bG9jayhiby0+cmVzdik7CisJCQkJaWYgKCFsb2NrZWQpCisJCQkJCWNvbnRpbnVlOworCQkJfQog
-CiAJCQlpZiAocGxhY2UgJiYgIWJkZXYtPmRyaXZlci0+ZXZpY3Rpb25fdmFsdWFibGUoYm8sCiAJ
-CQkJCQkJCSAgICAgIHBsYWNlKSkgewotCQkJCXJlc2VydmF0aW9uX29iamVjdF91bmxvY2soYm8t
-PnJlc3YpOwotCQkJCXJldCA9IC1FQlVTWTsKKwkJCQlpZiAobG9ja2VkKQorCQkJCQlyZXNlcnZh
-dGlvbl9vYmplY3RfdW5sb2NrKGJvLT5yZXN2KTsKIAkJCQljb250aW51ZTsKIAkJCX0KLQogCQkJ
-YnJlYWs7CiAJCX0KIAotCQlpZiAoIXJldCkKKwkJaWYgKCZiby0+bHJ1ICE9ICZtYW4tPmxydVtp
-XSkKIAkJCWJyZWFrOworCQllbHNlCisJCQlibyA9IE5VTEw7CiAJfQogCi0JaWYgKHJldCkgewor
-CWlmICghYm8pIHsKIAkJc3Bpbl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsKLQkJcmV0dXJuIHJl
-dDsKKwkJcmV0dXJuIC1FQlVTWTsKIAl9CiAKIAlrcmVmX2dldCgmYm8tPmxpc3Rfa3JlZik7CiAK
-IAlpZiAoIWxpc3RfZW1wdHkoJmJvLT5kZGVzdHJveSkpIHsKLQkJcmV0ID0gdHRtX2JvX2NsZWFu
-dXBfcmVmcyhibywgaW50ZXJydXB0aWJsZSwgbm9fd2FpdF9ncHUsIHRydWUpOworCQlyZXQgPSB0
-dG1fYm9fY2xlYW51cF9yZWZzKGJvLCBpbnRlcnJ1cHRpYmxlLCBub193YWl0X2dwdSwKKwkJCQkJ
-ICBsb2NrZWQpOwogCQlrcmVmX3B1dCgmYm8tPmxpc3Rfa3JlZiwgdHRtX2JvX3JlbGVhc2VfbGlz
-dCk7CiAJCXJldHVybiByZXQ7CiAJfQpAQCAtNzg2LDEwICs3OTYsMTEgQEAgc3RhdGljIGludCB0
-dG1fbWVtX2V2aWN0X2ZpcnN0KHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAogCXR0bV9ib19k
-ZWxfZnJvbV9scnUoYm8pOwogCXNwaW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7CiAKLQlCVUdf
-T04ocmV0ICE9IDApOwotCiAJcmV0ID0gdHRtX2JvX2V2aWN0KGJvLCBpbnRlcnJ1cHRpYmxlLCBu
-b193YWl0X2dwdSk7Ci0JdHRtX2JvX3VucmVzZXJ2ZShibyk7CisJaWYgKGxvY2tlZCkKKwkJdHRt
-X2JvX3VucmVzZXJ2ZShibyk7CisJZWxzZQorCQl0dG1fYm9fYWRkX3RvX2xydShibyk7CiAKIAlr
-cmVmX3B1dCgmYm8tPmxpc3Rfa3JlZiwgdHRtX2JvX3JlbGVhc2VfbGlzdCk7CiAJcmV0dXJuIHJl
-dDsKQEAgLTg1Myw3ICs4NjQsNyBAQCBzdGF0aWMgaW50IHR0bV9ib19tZW1fZm9yY2Vfc3BhY2Uo
-c3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKIAkJCXJldHVybiByZXQ7CiAJCWlmIChtZW0t
-Pm1tX25vZGUpCiAJCQlicmVhazsKLQkJcmV0ID0gdHRtX21lbV9ldmljdF9maXJzdChiZGV2LCBt
-ZW1fdHlwZSwgcGxhY2UsCisJCXJldCA9IHR0bV9tZW1fZXZpY3RfZmlyc3QoYmRldiwgYm8tPnJl
-c3YsIG1lbV90eXBlLCBwbGFjZSwKIAkJCQkJICBpbnRlcnJ1cHRpYmxlLCBub193YWl0X2dwdSk7
-CiAJCWlmICh1bmxpa2VseShyZXQgIT0gMCkpCiAJCQlyZXR1cm4gcmV0OwpAQCAtMTM1Niw3ICsx
-MzY3LDggQEAgc3RhdGljIGludCB0dG1fYm9fZm9yY2VfbGlzdF9jbGVhbihzdHJ1Y3QgdHRtX2Jv
-X2RldmljZSAqYmRldiwKIAlmb3IgKGkgPSAwOyBpIDwgVFRNX01BWF9CT19QUklPUklUWTsgKytp
-KSB7CiAJCXdoaWxlICghbGlzdF9lbXB0eSgmbWFuLT5scnVbaV0pKSB7CiAJCQlzcGluX3VubG9j
-aygmZ2xvYi0+bHJ1X2xvY2spOwotCQkJcmV0ID0gdHRtX21lbV9ldmljdF9maXJzdChiZGV2LCBt
-ZW1fdHlwZSwgTlVMTCwgZmFsc2UsIGZhbHNlKTsKKwkJCXJldCA9IHR0bV9tZW1fZXZpY3RfZmly
-c3QoYmRldiwgTlVMTCwgbWVtX3R5cGUsIE5VTEwsCisJCQkJCQkgIGZhbHNlLCBmYWxzZSk7CiAJ
-CQlpZiAocmV0KQogCQkJCXJldHVybiByZXQ7CiAJCQlzcGluX2xvY2soJmdsb2ItPmxydV9sb2Nr
-KTsKLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1155379798==
+Content-Type: multipart/alternative; boundary="089e082544044cf02c055ddb856f"
+
+--089e082544044cf02c055ddb856f
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Alex,
+
+Thx for your reply, but in all of the cases you mentioned, the user would
+still
+be able to reboot properly ( i.e. typing reboot or a magic keyboard key)
+or to have a trace of a kernel panic if it happens, is it correct ?
+
+Thx
+Julien
+
+On 9 November 2017 at 18:08, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> On Thu, Nov 9, 2017 at 4:35 AM, Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> wrote:
+> > Hi Monk.
+> >
+> > I am interested on this. Currently when a "ring X stalled for more than N
+> > sec" happens it usually goes into the gpu reset routine.
+> > Does it always cause the vram to be lost ? Could you explain what
+> happens if
+> > the vram remains lost ?
+>
+> It means the contents of vram are gone or unreliable.  In that case
+> applications need to re-initialize all of their buffers before
+> submitting any work.  You really need to add GL_robustness support to
+> any applications you care about.  Whether vram is lost or not depends
+> on the reset method and the asic.  E.g., soft reset of a specific
+> engine won't cause a loss of vram, but a full adapter reset or an FLR
+> may.
+>
+> >
+> > I am asking this because I experienced some recurrent gpu reset that are
+> > marked succeeded from the log but fail in the "resume" step.
+> > I would not be interested in this if it would always leave a chance to
+> the
+> > user to cleanly reboot the machine.
+> >
+> > The issue is that it can require a hard reboot without kernel panic and
+> > without keeping the keyboard responding to magic keys.
+> > Are those patches trying to address this issue ?
+> >
+> > Note that here "issue" is not referring to the root cause of a ring X
+> > stalled and it is also not referring to why "resume" step fails.
+>
+> There were a few issues that caused problems with GPU reset.  The
+> biggest was that the GPU scheduler deadlocked in certain cases so if
+> you got a GPU hang, the driver locked up.  That should mostly be
+> straightened out at this point.  I think there may still be some
+> deadlocks in the modesetting code after a reset.  Once that is sorted,
+> it will come down to fine tuning the actual reset sequences.  Full
+> adapter resets are the easiest to get working reliably (and are
+> already implemented in the driver), but also the most destructive.
+>
+> Alex
+>
+> >
+> > Thx a lot
+> > Julien
+> >
+> >
+> > On 30 October 2017 at 04:15, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org> wrote:
+> >>
+> >> *** job skipping logic in scheduler part is re-implemented  ***
+> >>
+> >> Monk Liu (7):
+> >>   amd/scheduler:imple job skip feature(v3)
+> >>   drm/amdgpu:implement new GPU recover(v3)
+> >>   drm/amdgpu:cleanup in_sriov_reset and lock_reset
+> >>   drm/amdgpu:cleanup ucode_init_bo
+> >>   drm/amdgpu:block kms open during gpu_reset
+> >>   drm/amdgpu/sriov:fix memory leak in psp_load_fw
+> >>   drm/amdgpu:fix random missing of FLR NOTIFY
+> >>
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   9 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 311
+> >> ++++++++++++--------------
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  10 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c       |   2 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  18 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   3 +
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  22 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     |   4 +-
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |   2 -
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h      |   2 -
+> >>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |   6 +-
+> >>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   6 +-
+> >>  drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c         |  16 +-
+> >>  drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c         |   2 +-
+> >>  drivers/gpu/drm/amd/scheduler/gpu_scheduler.c |  39 ++--
+> >>  15 files changed, 220 insertions(+), 232 deletions(-)
+> >>
+> >> --
+> >> 2.7.4
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >
+> >
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >
+>
+
+--089e082544044cf02c055ddb856f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Alex,<div><br></div><div>Thx for your reply, but in all=
+ of the cases you mentioned, the user would still</div><div>be able to rebo=
+ot properly ( i.e. typing reboot or a magic keyboard key)</div><div>or to h=
+ave a trace of a kernel panic if it happens, is it correct ?</div><div><div=
+ class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Thx</div><div c=
+lass=3D"gmail_extra">Julien</div><div class=3D"gmail_extra"><br><div class=
+=3D"gmail_quote">On 9 November 2017 at 18:08, Alex Deucher <span dir=3D"ltr=
+">&lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexdeuche=
+r@gmail.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span>O=
+n Thu, Nov 9, 2017 at 4:35 AM, Julien Isorce &lt;<a href=3D"mailto:julien.i=
+sorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<b=
+r>
+&gt; Hi Monk.<br>
+&gt;<br>
+&gt; I am interested on this. Currently when a &quot;ring X stalled for mor=
+e than N<br>
+&gt; sec&quot; happens it usually goes into the gpu reset routine.<br>
+&gt; Does it always cause the vram to be lost ? Could you explain what happ=
+ens if<br>
+&gt; the vram remains lost ?<br>
+<br>
+</span>It means the contents of vram are gone or unreliable.=C2=A0 In that =
+case<br>
+applications need to re-initialize all of their buffers before<br>
+submitting any work.=C2=A0 You really need to add GL_robustness support to<=
+br>
+any applications you care about.=C2=A0 Whether vram is lost or not depends<=
+br>
+on the reset method and the asic.=C2=A0 E.g., soft reset of a specific<br>
+engine won&#39;t cause a loss of vram, but a full adapter reset or an FLR<b=
+r>
+may.<br>
+<span><br>
+&gt;<br>
+&gt; I am asking this because I experienced some recurrent gpu reset that a=
+re<br>
+&gt; marked succeeded from the log but fail in the &quot;resume&quot; step.=
+<br>
+&gt; I would not be interested in this if it would always leave a chance to=
+ the<br>
+&gt; user to cleanly reboot the machine.<br>
+&gt;<br>
+&gt; The issue is that it can require a hard reboot without kernel panic an=
+d<br>
+&gt; without keeping the keyboard responding to magic keys.<br>
+&gt; Are those patches trying to address this issue ?<br>
+&gt;<br>
+&gt; Note that here &quot;issue&quot; is not referring to the root cause of=
+ a ring X<br>
+&gt; stalled and it is also not referring to why &quot;resume&quot; step fa=
+ils.<br>
+<br>
+</span>There were a few issues that caused problems with GPU reset.=C2=A0 T=
+he<br>
+biggest was that the GPU scheduler deadlocked in certain cases so if<br>
+you got a GPU hang, the driver locked up.=C2=A0 That should mostly be<br>
+straightened out at this point.=C2=A0 I think there may still be some<br>
+deadlocks in the modesetting code after a reset.=C2=A0 Once that is sorted,=
+<br>
+it will come down to fine tuning the actual reset sequences.=C2=A0 Full<br>
+adapter resets are the easiest to get working reliably (and are<br>
+already implemented in the driver), but also the most destructive.<br>
+<span class=3D"m_-6113423385651225305HOEnZb"><font color=3D"#888888"><br>
+Alex<br>
+</font></span><div class=3D"m_-6113423385651225305HOEnZb"><div class=3D"m_-=
+6113423385651225305h5"><br>
+&gt;<br>
+&gt; Thx a lot<br>
+&gt; Julien<br>
+&gt;<br>
+&gt;<br>
+&gt; On 30 October 2017 at 04:15, Monk Liu &lt;<a href=3D"mailto:Monk.Liu@a=
+md.com" target=3D"_blank">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; *** job skipping logic in scheduler part is re-implemented=C2=A0 *=
+**<br>
+&gt;&gt;<br>
+&gt;&gt; Monk Liu (7):<br>
+&gt;&gt;=C2=A0 =C2=A0amd/scheduler:imple job skip feature(v3)<br>
+&gt;&gt;=C2=A0 =C2=A0drm/amdgpu:implement new GPU recover(v3)<br>
+&gt;&gt;=C2=A0 =C2=A0drm/amdgpu:cleanup in_sriov_reset and lock_reset<br>
+&gt;&gt;=C2=A0 =C2=A0drm/amdgpu:cleanup ucode_init_bo<br>
+&gt;&gt;=C2=A0 =C2=A0drm/amdgpu:block kms open during gpu_reset<br>
+&gt;&gt;=C2=A0 =C2=A0drm/amdgpu/sriov:fix memory leak in psp_load_fw<br>
+&gt;&gt;=C2=A0 =C2=A0drm/amdgpu:fix random missing of FLR NOTIFY<br>
+&gt;&gt;<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu.h=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A09 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_device.c=C2=A0 =C2=A0=
+ | 311<br>
+&gt;&gt; ++++++++++++--------------<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_fence.c=C2=A0 =C2=A0 =
+=C2=A0|=C2=A0 10 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_irq.c=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 =C2=A02 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_job.c=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 18 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_kms.c=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 =C2=A03 +<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_psp.c=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 22 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_ucode.c=C2=A0 =C2=A0 =
+=C2=A0|=C2=A0 =C2=A04 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_virt.c=C2=A0 =C2=A0 =
+=C2=A0 |=C2=A0 =C2=A02 -<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_virt.h=C2=A0 =C2=A0 =
+=C2=A0 |=C2=A0 =C2=A02 -<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx<wbr>_v8_0.c=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A06 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx<wbr>_v9_0.c=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A06 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/mxg<wbr>pu_ai.c=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0|=C2=A0 16 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/mxg<wbr>pu_vi.c=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A02 +-<br>
+&gt;&gt;=C2=A0 drivers/gpu/drm/amd/scheduler/<wbr>gpu_scheduler.c |=C2=A0 3=
+9 ++--<br>
+&gt;&gt;=C2=A0 15 files changed, 220 insertions(+), 232 deletions(-)<br>
+&gt;&gt;<br>
+&gt;&gt; --<br>
+&gt;&gt; 2.7.4<br>
+&gt;&gt;<br>
+&gt;&gt; ______________________________<wbr>_________________<br>
+&gt;&gt; amd-gfx mailing list<br>
+&gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank"=
+>amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>ma=
+ilman/listinfo/amd-gfx</a><br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; ______________________________<wbr>_________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
+=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailma=
+n/listinfo/amd-gfx</a><br>
+&gt;<br>
+</div></div></blockquote></div><br></div></div></div>
+
+--089e082544044cf02c055ddb856f--
+
+--===============1155379798==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1155379798==--
