@@ -1,12 +1,17 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [DC] [CRTC:44:crtc-0] vblank wait timed out
-Date: Tue, 14 Nov 2017 20:52:20 -0500
-Message-ID: <85a4cd81-b891-d64f-be2c-40a42a2ab7e8@amd.com>
-References: <b7843d0b-40fe-0288-bbc6-ca55b6d87a6c@daenzer.net>
+From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 05/10] drm/amdgpu:fix memleak in takedown
+Date: Wed, 15 Nov 2017 10:03:13 +0800
+Message-ID: <da9bf7d2-2d6c-b3be-c682-9c61176ac475@amd.com>
+References: <1510650468-5708-1-git-send-email-Monk.Liu@amd.com>
+ <1510650468-5708-6-git-send-email-Monk.Liu@amd.com>
+ <1bcc08fa-144a-2ff1-4e9c-05dad181c2ca@gmail.com>
+ <386d37ac-7ec1-5e63-14ef-b9351fbfa958@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------816EA1816827EFA973844E47"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b7843d0b-40fe-0288-bbc6-ca55b6d87a6c-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <386d37ac-7ec1-5e63-14ef-b9351fbfa958-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,80 +22,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "sw.dl.display.sudo" <sw.dl.display.sudo-5C7GfCeVMHo@public.gmane.org>, dc_upstream-5C7GfCeVMHo@public.gmane.org
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---------------816EA1816827EFA973844E47
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Can you try this patch ? I noticed there is a new API to use to wait for 
-flips instead of what we are using now.
-
-Thanks,
-Andrey
-
-On 2017-11-14 01:06 PM, Michel Dänzer wrote:
-> I sometimes get the attached dmesg splat when the GDM login screen times
-> out and fades to black (presumably specifically when it finally sets
-> DPMS off, which disables the vblank interrupt).
->
-> I've seen this for the first time today, so it might have been
-> introduced by one of the DC changes which landed in amd-staging-drm-next
-> since yesterday. But since it doesn't happen every time, I can't be sure
-> of that yet.
->
->
-
-
---------------816EA1816827EFA973844E47
-Content-Type: text/x-patch;
- name="0001-drm-amdgpu-display-Switch-to-drm_atomic_helper_wait_.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-drm-amdgpu-display-Switch-to-drm_atomic_helper_wait_.pa";
- filename*1="tch"
-
->From 301759d8cb7a4ccfbe3a219d91bebbec9a256d11 Mon Sep 17 00:00:00 2001
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Date: Tue, 14 Nov 2017 20:45:52 -0500
-Subject: drm/amdgpu/display: Switch to drm_atomic_helper_wait_for_flip_done
-
-This new helper function is advised to be used for drviers that
-use the nonblocking commit tracking support instead of
-drm_atomic_helper_wait_for_vblanks.
-
-Signed-off-by: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 39e751d..088d154 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4255,7 +4255,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 	drm_atomic_helper_commit_hw_done(state);
- 
- 	if (wait_for_vblank)
--		drm_atomic_helper_wait_for_vblanks(dev, state);
-+		drm_atomic_helper_wait_for_flip_done(dev, state);
- 
- 	drm_atomic_helper_cleanup_planes(dev, state);
- }
--- 
-2.7.4
-
-
---------------816EA1816827EFA973844E47
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------816EA1816827EFA973844E47--
+CgpPbiAyMDE35bm0MTHmnIgxNOaXpSAyMDowMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBB
+bSAxNC4xMS4yMDE3IHVtIDEyOjUyIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPj4gQW0gMTQu
+MTEuMjAxNyB1bSAxMDowNyBzY2hyaWViIE1vbmsgTGl1Ogo+Pj4gdGhpcyBjYW4gZml4IHRoZSBt
+ZW1vcnkgbGVhayB1bmRlciB0aGUgY2FzZSB0aGF0IG5vdCBhbGwKPj4+IEJPIGFyZSBmcmVlZCBk
+dXJpbmcgInRha2Vkb3duIiBzdGFnZSwgYmVjYXVzZSBvcmlnaW5hbGx5Cj4+PiBpdCBibG9ja3Mg
+Zm9sbG93aW5nIGtmcmVlIG9uIG1nci4KPj4KPj4gTkFLLCBhbGwgQk9zIG11c3QgYmUgZnJlZWQg
+YmVmb3JlIHdlIHRha2UgZG93biBhdCBsZWFzdCB0aGUgR1RUIG1hbmFnZXIuCj4KPiBBaCwgd2Fp
+dCBhIHNlY29uZC4gVGhhdCBpcyB0aGUgYWRkcmVzcyBzcGFjZSBtYW5hZ2VyIGhlcmUhCj4KPiBN
+aG0sIHJldHVybmluZyAtRUJVU1kgaXMgcHJvYmFibHkgbm90IGEgZ29vZCBpZGVhLCBidXQgd2Ug
+c2hvdWxkIGF0IAo+IGxlYXN0IHByaW50IHNvbWUgd2FybmluZy4KUmVtb3ZlIGl0IGFuZCBkcm1f
+bW1fdGFrZWRvd24gd2lsbCBwcmludCBhIHdhcm5pbmcuCgpSZWdhcmRzLApEYXZpZCBaaG91Cj4K
+PiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+PiBUaGF0IHdlIHJ1biBpbnRvIGEgbWVtb3J5IGxl
+YWsgaXMgaW50ZW5kZWQsIGNhdXNlIHRoYXQgaXMgc3RpbGwgCj4+IGJldHRlciB0aGFuIGNyYXNo
+aW5nIHRoZSBzeXN0ZW0gYmVjYXVzZSB3ZSBhY2Nlc3MgYWxyZWFkeSBmcmVlZCB1cCAKPj4gbWVt
+b3J5Lgo+Pgo+PiBSZWdhcmRzLAo+PiBDaHJpc3RpYW4uCj4+Cj4+Pgo+Pj4gQ2hhbmdlLUlkOiBJ
+NTZlODMyYWMzMTcyMTVhNGQ5ZjU4ZWRiOGU3NWVhNzIyMTU4NzE1Ywo+Pj4gU2lnbmVkLW9mZi1i
+eTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Cj4+PiAtLS0KPj4+IMKgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmPCoCB8IDYgLS0tLS0tCj4+PiDCoCBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYyB8IDUgLS0tLS0KPj4+IMKg
+IDIgZmlsZXMgY2hhbmdlZCwgMTEgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMgCj4+PiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMKPj4+IGluZGV4IDg4NzA5ZjkuLjcy
+ODE5Y2MgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z3R0X21nci5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ3R0
+X21nci5jCj4+PiBAQCAtNzYsMTIgKzc2LDYgQEAgc3RhdGljIGludCBhbWRncHVfZ3R0X21ncl9m
+aW5pKHN0cnVjdCAKPj4+IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4pCj4+PiDCoCB7Cj4+PiDC
+oMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfZ3R0X21nciAqbWdyID0gbWFuLT5wcml2Owo+Pj4gwqAg
+LcKgwqDCoCBzcGluX2xvY2soJm1nci0+bG9jayk7Cj4+PiAtwqDCoMKgIGlmICghZHJtX21tX2Ns
+ZWFuKCZtZ3ItPm1tKSkgewo+Pj4gLcKgwqDCoMKgwqDCoMKgIHNwaW5fdW5sb2NrKCZtZ3ItPmxv
+Y2spOwo+Pj4gLcKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUJVU1k7Cj4+PiAtwqDCoMKgIH0KPj4+
+IC0KPj4+IMKgwqDCoMKgwqAgZHJtX21tX3Rha2Vkb3duKCZtZ3ItPm1tKTsKPj4+IMKgwqDCoMKg
+wqAgc3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4+PiDCoMKgwqDCoMKgIGtmcmVlKG1ncik7Cj4+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdy
+LmMgCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4+
+PiBpbmRleCA0Y2E2MjJiLi4zZTg4M2U1IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4+PiBAQCAtNjgsMTEgKzY4LDYgQEAgc3RhdGlj
+IGludCBhbWRncHVfdnJhbV9tZ3JfZmluaShzdHJ1Y3QgCj4+PiB0dG1fbWVtX3R5cGVfbWFuYWdl
+ciAqbWFuKQo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3ZyYW1fbWdyICptZ3IgPSBtYW4t
+PnByaXY7Cj4+PiDCoCDCoMKgwqDCoMKgIHNwaW5fbG9jaygmbWdyLT5sb2NrKTsKPj4+IC3CoMKg
+wqAgaWYgKCFkcm1fbW1fY2xlYW4oJm1nci0+bW0pKSB7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgc3Bp
+bl91bmxvY2soJm1nci0+bG9jayk7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FQlVTWTsK
+Pj4+IC3CoMKgwqAgfQo+Pj4gLQo+Pj4gwqDCoMKgwqDCoCBkcm1fbW1fdGFrZWRvd24oJm1nci0+
+bW0pOwo+Pj4gwqDCoMKgwqDCoCBzcGluX3VubG9jaygmbWdyLT5sb2NrKTsKPj4+IMKgwqDCoMKg
+wqAga2ZyZWUobWdyKTsKPj4KPj4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
