@@ -1,14 +1,12 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: fix unfreeze level smc message for smu7
-Date: Thu, 16 Nov 2017 16:39:59 +0000
-Message-ID: <BN6PR12MB165209A9A31E0558C2DDF1A6F72E0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1510849326-10849-1-git-send-email-JinHuiEric.Huang@amd.com>
+From: Jan Vesely <jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu:fix virtual dce bug
+Date: Thu, 16 Nov 2017 11:40:14 -0500
+Message-ID: <1510850414.3218.161.camel@rutgers.edu>
+References: <1510802063-20869-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0094774804=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1510849326-10849-1-git-send-email-JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1510802063-20869-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,35 +17,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEVyaWMg
-SHVhbmcNCj4gU2VudDogVGh1cnNkYXksIE5vdmVtYmVyIDE2LCAyMDE3IDExOjIyIEFNDQo+IFRv
-OiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogSHVhbmcsIEppbkh1aUVyaWMN
-Cj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kL3Bvd2VycGxheTogZml4IHVuZnJlZXplIGxldmVs
-IHNtYyBtZXNzYWdlIGZvcg0KPiBzbXU3DQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBFcmljIEh1YW5n
-IDxKaW5IdWlFcmljLkh1YW5nQGFtZC5jb20+DQo+IENoYW5nZS1JZDogSTIxNWU0OWIzY2FlNDNj
-OGJhNmRmMGJkNDBkYjhiMmIwN2ZmYzRmZWQNCg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8
-YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyB8IDIgKy0NCj4gIDEgZmlsZSBjaGFuZ2Vk
-LCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYw0KPiBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYw0KPiBpbmRleCBlZDE3YWY0
-Li44ZWRiMGM0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci9zbXU3X2h3bWdyLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3Ivc211N19od21nci5jDQo+IEBAIC0zNzc4LDcgKzM3NzgsNyBAQCBzdGF0aWMgaW50IHNt
-dTdfdW5mcmVlemVfc2Nsa19tY2xrX2RwbShzdHJ1Y3QNCj4gcHBfaHdtZ3IgKmh3bWdyKQ0KPiAg
-CQkJCSJUcnlpbmcgdG8gVW5mcmVlemUgTUNMSyBEUE0gd2hlbiBEUE0gaXMNCj4gZGlzYWJsZWQi
-LA0KPiAgCQkJCSk7DQo+ICAJCVBQX0FTU0VSVF9XSVRIX0NPREUoMCA9PQ0KPiBzbXVtX3NlbmRf
-bXNnX3RvX3NtYyhod21nciwNCj4gLQkJCQlQUFNNQ19NU0dfU0NMS0RQTV9VbmZyZWV6ZUxldmVs
-KSwNCj4gKwkJCQlQUFNNQ19NU0dfTUNMS0RQTV9VbmZyZWV6ZUxldmVsKSwNCj4gIAkJICAgICJG
-YWlsZWQgdG8gdW5mcmVlemUgTUNMSyBEUE0gZHVyaW5nDQo+IFVuRnJlZXplU2Nsa01jbGtEUE0g
-RnVuY3Rpb24hIiwNCj4gIAkJICAgIHJldHVybiAtRUlOVkFMKTsNCj4gIAl9DQo+IC0tDQo+IDIu
-Ny40DQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+--===============0094774804==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-pGqXS83r3kAC/qH2yZ2m"
+
+
+--=-pGqXS83r3kAC/qH2yZ2m
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2017-11-16 at 11:14 +0800, Monk Liu wrote:
+> this fix the issue that access memory after freed
+> after driver unloaded.
+
+can you please change the patch subject and commit message to something
+more descriptive?
+
+Jan
+
+>=20
+> Change-Id: I64e2488c18f5dc044b57c74567785da21fc028da
+> Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_virtual.c
+> index a8829af..39460eb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> @@ -437,6 +437,8 @@ static int dce_virtual_sw_fini(void *handle)
+>  	drm_kms_helper_poll_fini(adev->ddev);
+> =20
+>  	drm_mode_config_cleanup(adev->ddev);
+> +	/* clear crtcs pointer to avoid dce irq finish routine access freed dat=
+a */
+> +	memset(adev->mode_info.crtcs, 0, sizeof(adev->mode_info.crtcs[0]) * AMD=
+GPU_MAX_CRTCS);
+>  	adev->mode_info.mode_config_initialized =3D false;
+>  	return 0;
+>  }
+> @@ -723,7 +725,7 @@ static void dce_virtual_set_crtc_vblank_interrupt_sta=
+te(struct amdgpu_device *ad
+>  							int crtc,
+>  							enum amdgpu_interrupt_state state)
+>  {
+> -	if (crtc >=3D adev->mode_info.num_crtc) {
+> +	if (crtc >=3D adev->mode_info.num_crtc || !adev->mode_info.crtcs[crtc])=
+ {
+>  		DRM_DEBUG("invalid crtc %d\n", crtc);
+>  		return;
+>  	}
+
+--=-pGqXS83r3kAC/qH2yZ2m
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEjGgSoFJq63cCYGKvY+M/tz9IsiAFAloNv24ACgkQY+M/tz9I
+siBT5hAAzdl8JFO9vN1PHseCarvwfExstqDy4NjdXCtfKYA6QdU9qz/GlK8/i0fe
+u0UhB+h4GFjEuO1cADyQxbGgxDy569OdahqSb1YXUYL+xivfHVnVezZRaTgS3nZK
+JTxKoGISsLOCw5QETM7/X4GwcGk2L2dTLHMSnSW89fFlCvgiDg1Oz8YaC7RGuPh8
+gMkKY0VdQk5FYCE0AXLPB43umwRqfzoO6FkehWKocqYCu4PZoibULvsQ80x2zQA4
+1fn25S4A45RbM6YrA64ciV1isoohpN+GE4PNX11yRVnc4GxWRDhFUBcHmxsse9in
+xBoAu+yrzMJGpqujdCke6/3jK50jR06NmRS5+S0tBi0b5dkvYYsDgDBXK+UOnL67
+rieF+dsy/tzfxbBJ5e0Kf5Ms3as6LuNWBrZq5uoCLLOvsO2HfHzVJU0uylvngzjY
+ypwKqbmip7lSmn8d6KCP460VNhgIXFzaklN5QtHBrwlzCiv1D104lnFx9S8ucBN9
+K+rzwXyiOJQNs5vbKGuOqwq3R3yqD359rTWGpwdUTIFMx9wuRYGfD6wHHM5QJtgX
+j0mdETQCHsF/fY8K7o4kHimz2VMcHnGLThyGA3WNK33NJqHMF3pEicnlTp5RkhRK
+VmWeMLwWAi6fR5H73ljvTMW66I2FmfnbYc0kRSYUKBDgIbZr5EM=
+=ynGk
+-----END PGP SIGNATURE-----
+
+--=-pGqXS83r3kAC/qH2yZ2m--
+
+
+--===============0094774804==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0094774804==--
