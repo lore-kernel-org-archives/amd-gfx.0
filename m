@@ -1,40 +1,42 @@
-From: Mimi Zohar <zohar@linux.vnet.ibm.com>
-Subject: Re: [PATCH 0/4] treewide: Fix line continuation formats
-Date: Thu, 16 Nov 2017 14:35:22 -0500
-Message-ID: <1510860922.3711.452.camel@linux.vnet.ibm.com>
-References: <cover.1510845910.git.joe@perches.com>
-         <1510852273.3711.448.camel@linux.vnet.ibm.com>
-         <1510852649.31559.38.camel@perches.com>
+From: Jan Vesely <jan.vesely@rutgers.edu>
+Subject: [PATCH 1/1] drm/amdkfd: Do not ignore requested queue size during
+ allocation
+Date: Thu, 16 Nov 2017 16:36:31 -0500
+Message-ID: <20171116213631.3987-1-jan.vesely@rutgers.edu>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-security-module-owner@vger.kernel.org>
-In-Reply-To: <1510852649.31559.38.camel@perches.com>
-Sender: owner-linux-security-module@vger.kernel.org
-To: Joe Perches <joe@perches.com>, Chanwoo Choi <cw00.choi@samsung.com>, linux-pm@vger.kernel.org, linux-integrity@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, linux-security-module@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, 2017-11-16 at 09:17 -0800, Joe Perches wrote:
-> On Thu, 2017-11-16 at 12:11 -0500, Mimi Zohar wrote:
-> > On Thu, 2017-11-16 at 07:27 -0800, Joe Perches wrote:
-> > > Avoid using line continations in formats as that causes unexpected
-> > > output.
-> > 
-> > Is having lines greater than 80 characters the preferred method?
-> 
-> yes.
-> 
-> >  Could you add quotes before the backlash and before the first word on
-> > the next line instead?
-> 
-> coalesced formats are preferred.
-
-In the future, please reference the commit 6f76b6fcaa60 "CodingStyle:
-Document the exception of not splitting user-visible strings, for
-grepping"
-
-thanks,
-
-Mimi
-
+U2lnbmVkLW9mZi1ieTogSmFuIFZlc2VseSA8amFuLnZlc2VseUBydXRnZXJzLmVkdT4KLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3ZpLmMgfCA1ICsrKy0t
+CiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVfdmkuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVfdmkuYwppbmRleCBm
+MWQ0ODI4MWUzMjIuLmIzYmVlMzk2NjFhYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZV92aS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVfdmkuYwpAQCAtMzcsMTUgKzM3LDE2IEBAIHN0YXRpYyBi
+b29sIGluaXRpYWxpemVfdmkoc3RydWN0IGtlcm5lbF9xdWV1ZSAqa3EsIHN0cnVjdCBrZmRfZGV2
+ICpkZXYsCiAJCQllbnVtIGtmZF9xdWV1ZV90eXBlIHR5cGUsIHVuc2lnbmVkIGludCBxdWV1ZV9z
+aXplKQogewogCWludCByZXR2YWw7CisJdW5zaWduZWQgaW50IHNpemUgPSBBTElHTihxdWV1ZV9z
+aXplLCBQQUdFX1NJWkUpOwogCi0JcmV0dmFsID0ga2ZkX2d0dF9zYV9hbGxvY2F0ZShkZXYsIFBB
+R0VfU0laRSwgJmtxLT5lb3BfbWVtKTsKKwlyZXR2YWwgPSBrZmRfZ3R0X3NhX2FsbG9jYXRlKGRl
+diwgc2l6ZSwgJmtxLT5lb3BfbWVtKTsKIAlpZiAocmV0dmFsICE9IDApCiAJCXJldHVybiBmYWxz
+ZTsKIAogCWtxLT5lb3BfZ3B1X2FkZHIgPSBrcS0+ZW9wX21lbS0+Z3B1X2FkZHI7CiAJa3EtPmVv
+cF9rZXJuZWxfYWRkciA9IGtxLT5lb3BfbWVtLT5jcHVfcHRyOwogCi0JbWVtc2V0KGtxLT5lb3Bf
+a2VybmVsX2FkZHIsIDAsIFBBR0VfU0laRSk7CisJbWVtc2V0KGtxLT5lb3Bfa2VybmVsX2FkZHIs
+IDAsIHNpemUpOwogCiAJcmV0dXJuIHRydWU7CiB9Ci0tIAoyLjEzLjYKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QK
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
