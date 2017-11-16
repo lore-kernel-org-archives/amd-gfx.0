@@ -1,47 +1,44 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: always make gart.table_addr 64bit
-Date: Thu, 16 Nov 2017 12:49:04 -0500
-Message-ID: <CADnq5_NsVOnf4=9TYbhDXfH2w191CoYVG3zp7ZW6ny4G2pXVuw@mail.gmail.com>
-References: <20171116173113.843-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] Revert "drm/radeon: dont switch vt on suspend"
+Date: Thu, 16 Nov 2017 13:09:32 -0500
+Message-ID: <CADnq5_OxTjUh5a_EVNAMn9+GjCak+tKxgxYhXBAVD=nhOWcnsQ@mail.gmail.com>
+References: <20171114223300.28026-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171116173113.843-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "monk.liu" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20171114223300.28026-1-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBOb3YgMTYsIDIwMTcgYXQgMTI6MzEgUE0sIENocmlzdGlhbiBLw7ZuaWcKPGNrb2Vu
-aWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPiBGaXhpbmcgd2FybmluZy9jb21w
-aWxlIGVycm9ycyBvbiAzMmJpdCBrZXJuZWxzLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFu
-IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKQWNrZWQtYnk6IEFsZXggRGV1Y2hl
-ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmggfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
-dGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZ2FydC5oCj4gaW5kZXggZjE1ZTMxOTU4MGVjLi41ZWIxYTY4MDBmNzIgMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuaAo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmgKPiBAQCAtMzksNyArMzksNyBAQCBz
-dHJ1Y3QgYW1kZ3B1X2dhcnRfZnVuY3M7Cj4gICNkZWZpbmUgQU1ER1BVX0dQVV9QQUdFX0FMSUdO
-KGEpICgoKGEpICsgQU1ER1BVX0dQVV9QQUdFX01BU0spICYgfkFNREdQVV9HUFVfUEFHRV9NQVNL
-KQo+Cj4gIHN0cnVjdCBhbWRncHVfZ2FydCB7Cj4gLSAgICAgICBkbWFfYWRkcl90ICAgICAgICAg
-ICAgICAgICAgICAgIHRhYmxlX2FkZHI7Cj4gKyAgICAgICB1NjQgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHRhYmxlX2FkZHI7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICAgICAgICAg
-ICAgICAgICpyb2JqOwo+ICAgICAgICAgdm9pZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAq
-cHRyOwo+ICAgICAgICAgdW5zaWduZWQgICAgICAgICAgICAgICAgICAgICAgICBudW1fZ3B1X3Bh
-Z2VzOwo+IC0tCj4gMi4xMS4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Ping?
+
+
+On Tue, Nov 14, 2017 at 5:33 PM, Alex Deucher <alexdeucher@gmail.com> wrote:
+> Fixes distorted colors on some cards on resume from suspend.
+>
+> This reverts commit b9729b17a414f99c61f4db9ac9f9ed987fa0cbfe.
+>
+> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=98832
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  drivers/gpu/drm/radeon/radeon_fb.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
+> index 2fcf805d3a16..33b821d6d018 100644
+> --- a/drivers/gpu/drm/radeon/radeon_fb.c
+> +++ b/drivers/gpu/drm/radeon/radeon_fb.c
+> @@ -245,7 +245,6 @@ static int radeonfb_create(struct drm_fb_helper *helper,
+>         }
+>
+>         info->par = rfbdev;
+> -       info->skip_vt_switch = true;
+>
+>         ret = radeon_framebuffer_init(rdev->ddev, &rfbdev->rfb, &mode_cmd, gobj);
+>         if (ret) {
+> --
+> 2.13.6
+>
