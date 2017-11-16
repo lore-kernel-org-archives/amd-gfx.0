@@ -1,17 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amd/include:cleanup vega10 hdp header files.
-Date: Thu, 16 Nov 2017 17:01:32 +0100
-Message-ID: <972ef372-bf2b-c0d2-836b-8fde6c88bff3@daenzer.net>
-References: <1510819404-4543-1-git-send-email-Feifei.Xu@amd.com>
- <1510819404-4543-2-git-send-email-Feifei.Xu@amd.com>
- <999d4551-7032-b5a4-0775-43bbad024049@gmail.com>
- <DM5PR12MB17694F9575D58E3CB0DA2E81FE2E0@DM5PR12MB1769.namprd12.prod.outlook.com>
+From: Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: fix unfreeze level smc message for smu7
+Date: Thu, 16 Nov 2017 11:22:06 -0500
+Message-ID: <1510849326-10849-1-git-send-email-JinHuiEric.Huang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB17694F9575D58E3CB0DA2E81FE2E0-2J9CzHegvk9dkv5Ee8rwNgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,19 +16,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
 
-T24gMTYvMTEvMTcgMTE6MjkgQU0sIFh1LCBGZWlmZWkgd3JvdGU6Cj4gUmVzZW50IHRoZSBwYXRj
-aCAjMSwgeWVzLCBpdCBpcyB0b28gbGFyZ2UgZHVlIHRvIHRoZSBoZWFkZXIgZmlsZSBtb3ZlbWVu
-dC4KPiBBbmQgSSB3aWxsIHNlbmQgdGhlIGNvbWluZyBjbGVhbnVwIHBhdGNoZXMgc2VwYXJhdGVs
-eSB0byBhdm9pZCBtZXNzYWdlIGRyb3BwaW5nLgoKVGhlcmUncyBubyBuZWVkIGZvciBhbnlib2R5
-IHRvIGRvd25sb2FkIG1lZ2FieXRlcyBvZiBlLW1haWwgZm9yIHBhdGNoZXMKd2hpY2gganVzdCAo
-cmUpbW92ZSBmaWxlcy4gUGxlYXNlIHRyeSBmbGFncyBzdWNoIGFzIC0tZmluZC1yZW5hbWVzIC8K
-LS1pcnJldmVyc2libGUtZGVsZXRlIHdpdGggZ2l0IGZvcm1hdC1wYXRjaC4KCgotLSAKRWFydGhs
-aW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93
-d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAg
-ICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+U2lnbmVkLW9mZi1ieTogRXJpYyBIdWFuZyA8SmluSHVpRXJpYy5IdWFuZ0BhbWQuY29tPgpDaGFu
+Z2UtSWQ6IEkyMTVlNDliM2NhZTQzYzhiYTZkZjBiZDQwZGI4YjJiMDdmZmM0ZmVkCi0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIHwgMiArLQogMSBm
+aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCmluZGV4IGVkMTdhZjQu
+LjhlZGIwYzQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
+L3NtdTdfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9z
+bXU3X2h3bWdyLmMKQEAgLTM3NzgsNyArMzc3OCw3IEBAIHN0YXRpYyBpbnQgc211N191bmZyZWV6
+ZV9zY2xrX21jbGtfZHBtKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJCQkJIlRyeWluZyB0byBV
+bmZyZWV6ZSBNQ0xLIERQTSB3aGVuIERQTSBpcyBkaXNhYmxlZCIsCiAJCQkJKTsKIAkJUFBfQVNT
+RVJUX1dJVEhfQ09ERSgwID09IHNtdW1fc2VuZF9tc2dfdG9fc21jKGh3bWdyLAotCQkJCVBQU01D
+X01TR19TQ0xLRFBNX1VuZnJlZXplTGV2ZWwpLAorCQkJCVBQU01DX01TR19NQ0xLRFBNX1VuZnJl
+ZXplTGV2ZWwpLAogCQkgICAgIkZhaWxlZCB0byB1bmZyZWV6ZSBNQ0xLIERQTSBkdXJpbmcgVW5G
+cmVlemVTY2xrTWNsa0RQTSBGdW5jdGlvbiEiLAogCQkgICAgcmV0dXJuIC1FSU5WQUwpOwogCX0K
+LS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
