@@ -1,87 +1,40 @@
-From: Mark Brown <broonie@kernel.org>
-Subject: Applied "ASoC: AMD: Make the driver name consistent across files" to
- the asoc tree
-Date: Thu, 16 Nov 2017 19:28:48 +0000 (GMT)
-Message-ID: <20171116192848.26DFF44005B@finisterre.ee.mobilebroadband>
-References: <1509741345-1589-3-git-send-email-alexander.deucher@amd.com>
+From: Mimi Zohar <zohar@linux.vnet.ibm.com>
+Subject: Re: [PATCH 0/4] treewide: Fix line continuation formats
+Date: Thu, 16 Nov 2017 14:35:22 -0500
+Message-ID: <1510860922.3711.452.camel@linux.vnet.ibm.com>
+References: <cover.1510845910.git.joe@perches.com>
+         <1510852273.3711.448.camel@linux.vnet.ibm.com>
+         <1510852649.31559.38.camel@perches.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1509741345-1589-3-git-send-email-alexander.deucher@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Akshu Agrawal <akshu.agrawal@amd.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, Jason Clinton <jclinton@chromium.org>, broonie@kernel.org, amd-gfx@lists.freedesktop.org, Vijendar.Mukunda@amd.com, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-security-module-owner@vger.kernel.org>
+In-Reply-To: <1510852649.31559.38.camel@perches.com>
+Sender: owner-linux-security-module@vger.kernel.org
+To: Joe Perches <joe@perches.com>, Chanwoo Choi <cw00.choi@samsung.com>, linux-pm@vger.kernel.org, linux-integrity@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, linux-security-module@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIHBhdGNoCgogICBBU29DOiBBTUQ6IE1ha2UgdGhlIGRyaXZlciBuYW1lIGNvbnNpc3RlbnQg
-YWNyb3NzIGZpbGVzCgpoYXMgYmVlbiBhcHBsaWVkIHRvIHRoZSBhc29jIHRyZWUgYXQKCiAgIGh0
-dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L2Jyb29uaWUvc291
-bmQuZ2l0IAoKQWxsIGJlaW5nIHdlbGwgdGhpcyBtZWFucyB0aGF0IGl0IHdpbGwgYmUgaW50ZWdy
-YXRlZCBpbnRvIHRoZSBsaW51eC1uZXh0CnRyZWUgKHVzdWFsbHkgc29tZXRpbWUgaW4gdGhlIG5l
-eHQgMjQgaG91cnMpIGFuZCBzZW50IHRvIExpbnVzIGR1cmluZwp0aGUgbmV4dCBtZXJnZSB3aW5k
-b3cgKG9yIHNvb25lciBpZiBpdCBpcyBhIGJ1ZyBmaXgpLCBob3dldmVyIGlmCnByb2JsZW1zIGFy
-ZSBkaXNjb3ZlcmVkIHRoZW4gdGhlIHBhdGNoIG1heSBiZSBkcm9wcGVkIG9yIHJldmVydGVkLiAg
-CgpZb3UgbWF5IGdldCBmdXJ0aGVyIGUtbWFpbHMgcmVzdWx0aW5nIGZyb20gYXV0b21hdGVkIG9y
-IG1hbnVhbCB0ZXN0aW5nCmFuZCByZXZpZXcgb2YgdGhlIHRyZWUsIHBsZWFzZSBlbmdhZ2Ugd2l0
-aCBwZW9wbGUgcmVwb3J0aW5nIHByb2JsZW1zIGFuZApzZW5kIGZvbGxvd3VwIHBhdGNoZXMgYWRk
-cmVzc2luZyBhbnkgaXNzdWVzIHRoYXQgYXJlIHJlcG9ydGVkIGlmIG5lZWRlZC4KCklmIGFueSB1
-cGRhdGVzIGFyZSByZXF1aXJlZCBvciB5b3UgYXJlIHN1Ym1pdHRpbmcgZnVydGhlciBjaGFuZ2Vz
-IHRoZXkKc2hvdWxkIGJlIHNlbnQgYXMgaW5jcmVtZW50YWwgdXBkYXRlcyBhZ2FpbnN0IGN1cnJl
-bnQgZ2l0LCBleGlzdGluZwpwYXRjaGVzIHdpbGwgbm90IGJlIHJlcGxhY2VkLgoKUGxlYXNlIGFk
-ZCBhbnkgcmVsZXZhbnQgbGlzdHMgYW5kIG1haW50YWluZXJzIHRvIHRoZSBDQ3Mgd2hlbiByZXBs
-eWluZwp0byB0aGlzIG1haWwuCgpUaGFua3MsCk1hcmsKCkZyb20gYTc2ZDdmNTQ1NGM2ODhiNTJk
-Yzg0OWU4MzJjYzRjNmRkMDk3NTcyMyBNb24gU2VwIDE3IDAwOjAwOjAwIDIwMDEKRnJvbTogQWtz
-aHUgQWdyYXdhbCA8YWtzaHUuYWdyYXdhbEBhbWQuY29tPgpEYXRlOiBGcmksIDMgTm92IDIwMTcg
-MTY6MzU6NDQgLTA0MDAKU3ViamVjdDogW1BBVENIXSBBU29DOiBBTUQ6IE1ha2UgdGhlIGRyaXZl
-ciBuYW1lIGNvbnNpc3RlbnQgYWNyb3NzIGZpbGVzCgpUaGlzIGZpeGVzIHRoZSBpc3N1ZSBvZiBk
-cml2ZXIgbm90IGdldHRpbmcgYXV0byBsb2FkZWQgd2l0aApNT0RVTEVfQUxJQVMuCmZpbmQgL3N5
-cy9kZXZpY2VzIC1uYW1lIG1vZGFsaWFzIC1wcmludDAgfCB4YXJncyAtMCBncmVwICdhdWRpbycK
-L3N5cy9kZXZpY2VzL3BjaTAwMDA6MDAvMDAwMDowMDowMS4wL2FjcF9hdWRpb19kbWEuMC5hdXRv
-L21vZGFsaWFzOnBsYXRmb3JtOmFjcF9hdWRpb19kbWEKCkJVRz1iOjYyMTAzODM3ClRFU1Q9Ym9v
-dCBhbmQgY2hlY2sgZm9yIGRldmljZSBpbiBsc21vZAoKU2lnbmVkLW9mZi1ieTogQWtzaHUgQWdy
-YXdhbCA8YWtzaHUuYWdyYXdhbEBhbWQuY29tPgpSZXZpZXdlZC1vbjogaHR0cHM6Ly9jaHJvbWl1
-bS1yZXZpZXcuZ29vZ2xlc291cmNlLmNvbS82NzgyNzgKVGVzdGVkLWJ5OiBKYXNvbiBDbGludG9u
-IDxqY2xpbnRvbkBjaHJvbWl1bS5vcmc+ClJldmlld2VkLWJ5OiBKYXNvbiBDbGludG9uIDxqY2xp
-bnRvbkBjaHJvbWl1bS5vcmc+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
-LmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogTWFyayBCcm93biA8YnJvb25pZUBrZXJu
-ZWwub3JnPgotLS0KIHNvdW5kL3NvYy9hbWQvTWFrZWZpbGUgICAgICB8IDQgKystLQogc291bmQv
-c29jL2FtZC9hY3AtcGNtLWRtYS5jIHwgNiArKysrLS0KIDIgZmlsZXMgY2hhbmdlZCwgNiBpbnNl
-cnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9hbWQvTWFr
-ZWZpbGUgYi9zb3VuZC9zb2MvYW1kL01ha2VmaWxlCmluZGV4IGVlZDY0ZmY2YzczZS4uZjA3ZmQy
-ZTI4NzBhIDEwMDY0NAotLS0gYS9zb3VuZC9zb2MvYW1kL01ha2VmaWxlCisrKyBiL3NvdW5kL3Nv
-Yy9hbWQvTWFrZWZpbGUKQEAgLTEsNSArMSw1IEBACi1zbmQtc29jLWFjcC1wY20tb2Jqcwk6PSBh
-Y3AtcGNtLWRtYS5vCithY3BfYXVkaW9fZG1hLW9ianMgOj0gYWNwLXBjbS1kbWEubwogc25kLXNv
-Yy1hY3AtcnQ1NjQ1LW1hY2gtb2JqcyA6PSBhY3AtcnQ1NjQ1Lm8KIAotb2JqLSQoQ09ORklHX1NO
-RF9TT0NfQU1EX0FDUCkgKz0gc25kLXNvYy1hY3AtcGNtLm8KK29iai0kKENPTkZJR19TTkRfU09D
-X0FNRF9BQ1ApICs9IGFjcF9hdWRpb19kbWEubwogb2JqLSQoQ09ORklHX1NORF9TT0NfQU1EX0Na
-X1JUNTY0NV9NQUNIKSArPSBzbmQtc29jLWFjcC1ydDU2NDUtbWFjaC5vCmRpZmYgLS1naXQgYS9z
-b3VuZC9zb2MvYW1kL2FjcC1wY20tZG1hLmMgYi9zb3VuZC9zb2MvYW1kL2FjcC1wY20tZG1hLmMK
-aW5kZXggNzNiNThlZTAwMzgzLi45NWM2MWVjZGQxZGQgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9h
-bWQvYWNwLXBjbS1kbWEuYworKysgYi9zb3VuZC9zb2MvYW1kL2FjcC1wY20tZG1hLmMKQEAgLTQw
-LDYgKzQwLDggQEAKICNkZWZpbmUgU1RfTUFYX0JVRkZFUiAoU1RfUExBWUJBQ0tfTUFYX1BFUklP
-RF9TSVpFICogUExBWUJBQ0tfTUFYX05VTV9QRVJJT0RTKQogI2RlZmluZSBTVF9NSU5fQlVGRkVS
-IFNUX01BWF9CVUZGRVIKIAorI2RlZmluZSBEUlZfTkFNRSAiYWNwX2F1ZGlvX2RtYSIKKwogc3Rh
-dGljIGNvbnN0IHN0cnVjdCBzbmRfcGNtX2hhcmR3YXJlIGFjcF9wY21faGFyZHdhcmVfcGxheWJh
-Y2sgPSB7CiAJLmluZm8gPSBTTkRSVl9QQ01fSU5GT19JTlRFUkxFQVZFRCB8CiAJCVNORFJWX1BD
-TV9JTkZPX0JMT0NLX1RSQU5TRkVSIHwgU05EUlZfUENNX0lORk9fTU1BUCB8CkBAIC0xMTcwLDcg
-KzExNzIsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBhY3BfZG1hX2RyaXZlciA9
-IHsKIAkucHJvYmUgPSBhY3BfYXVkaW9fcHJvYmUsCiAJLnJlbW92ZSA9IGFjcF9hdWRpb19yZW1v
-dmUsCiAJLmRyaXZlciA9IHsKLQkJLm5hbWUgPSAiYWNwX2F1ZGlvX2RtYSIsCisJCS5uYW1lID0g
-RFJWX05BTUUsCiAJCS5wbSA9ICZhY3BfcG1fb3BzLAogCX0sCiB9OwpAQCAtMTE4MSw0ICsxMTgz
-LDQgQEAgTU9EVUxFX0FVVEhPUigiVmlqZW5kYXIuTXVrdW5kYUBhbWQuY29tIik7CiBNT0RVTEVf
-QVVUSE9SKCJNYXJ1dGhpLkJheXlhdmFyYXB1QGFtZC5jb20iKTsKIE1PRFVMRV9ERVNDUklQVElP
-TigiQU1EIEFDUCBQQ00gRHJpdmVyIik7CiBNT0RVTEVfTElDRU5TRSgiR1BMIHYyIik7Ci1NT0RV
-TEVfQUxJQVMoInBsYXRmb3JtOmFjcC1kbWEtYXVkaW8iKTsKK01PRFVMRV9BTElBUygicGxhdGZv
-cm06IkRSVl9OQU1FKTsKLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vZHJpLWRldmVsCg==
+On Thu, 2017-11-16 at 09:17 -0800, Joe Perches wrote:
+> On Thu, 2017-11-16 at 12:11 -0500, Mimi Zohar wrote:
+> > On Thu, 2017-11-16 at 07:27 -0800, Joe Perches wrote:
+> > > Avoid using line continations in formats as that causes unexpected
+> > > output.
+> > 
+> > Is having lines greater than 80 characters the preferred method?
+> 
+> yes.
+> 
+> >  Could you add quotes before the backlash and before the first word on
+> > the next line instead?
+> 
+> coalesced formats are preferred.
+
+In the future, please reference the commit 6f76b6fcaa60 "CodingStyle:
+Document the exception of not splitting user-visible strings, for
+grepping"
+
+thanks,
+
+Mimi
+
