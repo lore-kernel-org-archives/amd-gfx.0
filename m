@@ -1,14 +1,17 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu:fix virtual dce bug
-Date: Fri, 17 Nov 2017 04:26:10 +0000
-Message-ID: <BLUPR12MB04498F5AE2FF155F75D61BF3842F0@BLUPR12MB0449.namprd12.prod.outlook.com>
-References: <1510802063-20869-1-git-send-email-Monk.Liu@amd.com>
- <1510850414.3218.161.camel@rutgers.edu>
+From: Feifei Xu <feifxu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amd/include:cleanup vega10 hdp header files.
+Date: Fri, 17 Nov 2017 12:38:39 +0800
+Message-ID: <73edd3c9-6fd4-b6c0-8c3a-b1b753df849b@amd.com>
+References: <1510819404-4543-1-git-send-email-Feifei.Xu@amd.com>
+ <1510819404-4543-2-git-send-email-Feifei.Xu@amd.com>
+ <999d4551-7032-b5a4-0775-43bbad024049@gmail.com>
+ <DM5PR12MB17694F9575D58E3CB0DA2E81FE2E0@DM5PR12MB1769.namprd12.prod.outlook.com>
+ <972ef372-bf2b-c0d2-836b-8fde6c88bff3@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1510850414.3218.161.camel-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>
+In-Reply-To: <972ef372-bf2b-c0d2-836b-8fde6c88bff3-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,39 +23,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jan Vesely <jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SSB0aGluayBpdCdzIGFscmVhZHkgY2xlYXIgZW5vdWdoIA0KDQotLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KRnJvbTogSmFuIFZlc2VseSBbbWFpbHRvOmp2MzU2QHNjYXJsZXRtYWlsLnJ1dGdl
-cnMuZWR1XSBPbiBCZWhhbGYgT2YgSmFuIFZlc2VseQ0KU2VudDogMjAxN+W5tDEx5pyIMTfml6Ug
-MDo0MA0KVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTpmaXggdmly
-dHVhbCBkY2UgYnVnDQoNCk9uIFRodSwgMjAxNy0xMS0xNiBhdCAxMToxNCArMDgwMCwgTW9uayBM
-aXUgd3JvdGU6DQo+IHRoaXMgZml4IHRoZSBpc3N1ZSB0aGF0IGFjY2VzcyBtZW1vcnkgYWZ0ZXIg
-ZnJlZWQgYWZ0ZXIgZHJpdmVyIA0KPiB1bmxvYWRlZC4NCg0KY2FuIHlvdSBwbGVhc2UgY2hhbmdl
-IHRoZSBwYXRjaCBzdWJqZWN0IGFuZCBjb21taXQgbWVzc2FnZSB0byBzb21ldGhpbmcgbW9yZSBk
-ZXNjcmlwdGl2ZT8NCg0KSmFuDQoNCj4gDQo+IENoYW5nZS1JZDogSTY0ZTI0ODhjMThmNWRjMDQ0
-YjU3Yzc0NTY3Nzg1ZGEyMWZjMDI4ZGENCj4gU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsu
-TGl1QGFtZC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Zp
-cnR1YWwuYyB8IDQgKysrLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBk
-ZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2RjZV92aXJ0dWFsLmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1
-YWwuYw0KPiBpbmRleCBhODgyOWFmLi4zOTQ2MGViIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMNCj4gQEAgLTQzNyw2ICs0MzcsOCBAQCBzdGF0aWMgaW50
-IGRjZV92aXJ0dWFsX3N3X2Zpbmkodm9pZCAqaGFuZGxlKQ0KPiAgCWRybV9rbXNfaGVscGVyX3Bv
-bGxfZmluaShhZGV2LT5kZGV2KTsNCj4gIA0KPiAgCWRybV9tb2RlX2NvbmZpZ19jbGVhbnVwKGFk
-ZXYtPmRkZXYpOw0KPiArCS8qIGNsZWFyIGNydGNzIHBvaW50ZXIgdG8gYXZvaWQgZGNlIGlycSBm
-aW5pc2ggcm91dGluZSBhY2Nlc3MgZnJlZWQgZGF0YSAqLw0KPiArCW1lbXNldChhZGV2LT5tb2Rl
-X2luZm8uY3J0Y3MsIDAsIHNpemVvZihhZGV2LT5tb2RlX2luZm8uY3J0Y3NbMF0pICogDQo+ICtB
-TURHUFVfTUFYX0NSVENTKTsNCj4gIAlhZGV2LT5tb2RlX2luZm8ubW9kZV9jb25maWdfaW5pdGlh
-bGl6ZWQgPSBmYWxzZTsNCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4gQEAgLTcyMyw3ICs3MjUsNyBA
-QCBzdGF0aWMgdm9pZCBkY2VfdmlydHVhbF9zZXRfY3J0Y192YmxhbmtfaW50ZXJydXB0X3N0YXRl
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZA0KPiAgCQkJCQkJCWludCBjcnRjLA0KPiAgCQkJCQkJ
-CWVudW0gYW1kZ3B1X2ludGVycnVwdF9zdGF0ZSBzdGF0ZSkgIHsNCj4gLQlpZiAoY3J0YyA+PSBh
-ZGV2LT5tb2RlX2luZm8ubnVtX2NydGMpIHsNCj4gKwlpZiAoY3J0YyA+PSBhZGV2LT5tb2RlX2lu
-Zm8ubnVtX2NydGMgfHwgDQo+ICshYWRldi0+bW9kZV9pbmZvLmNydGNzW2NydGNdKSB7DQo+ICAJ
-CURSTV9ERUJVRygiaW52YWxpZCBjcnRjICVkXG4iLCBjcnRjKTsNCj4gIAkJcmV0dXJuOw0KPiAg
-CX0NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+CgpPbiAxMS8xNy8yMDE3IDEyOjAxIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAxNi8x
+MS8xNyAxMToyOSBBTSwgWHUsIEZlaWZlaSB3cm90ZToKPj4gUmVzZW50IHRoZSBwYXRjaCAjMSwg
+eWVzLCBpdCBpcyB0b28gbGFyZ2UgZHVlIHRvIHRoZSBoZWFkZXIgZmlsZSBtb3ZlbWVudC4KPj4g
+QW5kIEkgd2lsbCBzZW5kIHRoZSBjb21pbmcgY2xlYW51cCBwYXRjaGVzIHNlcGFyYXRlbHkgdG8g
+YXZvaWQgbWVzc2FnZSBkcm9wcGluZy4KPiBUaGVyZSdzIG5vIG5lZWQgZm9yIGFueWJvZHkgdG8g
+ZG93bmxvYWQgbWVnYWJ5dGVzIG9mIGUtbWFpbCBmb3IgcGF0Y2hlcwo+IHdoaWNoIGp1c3QgKHJl
+KW1vdmUgZmlsZXMuIFBsZWFzZSB0cnkgZmxhZ3Mgc3VjaCBhcyAtLWZpbmQtcmVuYW1lcyAvCj4g
+LS1pcnJldmVyc2libGUtZGVsZXRlIHdpdGggZ2l0IGZvcm1hdC1wYXRjaC4KPgo+ClRoYW5rcy4g
+VG8gYXZvaWQgZHVwbGljYXRpb24gb2YgaGVhZGVyIGZpbGVzLCBhIGxvdCBvZiBoZWFkZXIgZmls
+ZXMgd2lsbCAKYmUgcmUvbW92ZWQuCkkgd2lsbCBzZW5kIG91dCBmb2xsb3dpbmcgY2xlYW51cCBw
+YXRjaGVzIGFzIHN1Z2dlc3RlZCB0byBhdm9pZCBodWdlIApwYXRjaGVzIGZsdXNoLgoKLS0gCi1G
+ZWlmZWkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
