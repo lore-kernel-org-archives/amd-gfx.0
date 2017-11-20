@@ -1,140 +1,161 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: fix VA hole handling on Vega10 v2
-Date: Mon, 20 Nov 2017 15:46:06 +0100
-Message-ID: <81190489-18f8-0469-91e9-1a3902d7543b@daenzer.net>
-References: <20171116102252.10173-1-christian.koenig@amd.com>
- <d995f9a6-f76a-aa7c-4b61-fe848bfb549a@gmail.com>
- <d5aafe10-1b90-ceeb-db50-99afb412eccb@daenzer.net>
- <17f339f2-20fa-1aba-8ddb-86ce320fd3ce@gmail.com>
- <fe723f59-fd9a-a13c-e7b6-8da13bfa34fb@daenzer.net>
- <91ea2d42-63bc-0da1-c72e-74ada52dfa64@gmail.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
+ (Models 30h-3fh) Processors v5
+Date: Mon, 20 Nov 2017 10:51:02 -0500
+Message-ID: <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
+ <20171018135821.3248-5-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <91ea2d42-63bc-0da1-c72e-74ada52dfa64-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20171018135821.3248-5-deathsimple@vodafone.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAvMTEvMTcgMDI6MjAgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjAuMTEu
-MjAxNyB1bSAxMTozNiBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+PiBPbiAxOC8xMS8xNyAwMzoz
-MSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+IEFtIDE3LjExLjIwMTcgdW0gMTc6MDkg
-c2NocmllYiBNaWNoZWwgRMOkbnplcjoKPj4+PiBPbiAxNy8xMS8xNyAxMToyOCBBTSwgQ2hyaXN0
-aWFuIEvDtm5pZyB3cm90ZToKPj4+Pj4gUGluZz8gTWljaGVsLCBBbGV4IGNhbiBzb21lYm9keSB0
-YWtlIGEgbG9vaz8KPj4+PiBQYXRjaCAyIGlzCj4+Pj4KPj4+PiBSZXZpZXdlZC1ieTogTWljaGVs
-IETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4+Pj4KPj4+Pgo+Pj4+IFdpdGggcGF0
-Y2hlcyAxICYgMywgaXQncyBub3QgMTAwJSBjbGVhciB0byBtZSB3aGF0IHRoZSBpZGVhIGlzIGJl
-aGluZAo+Pj4+IHRoZSBoYW5kbGluZyBvZiB0aGUgaG9sZSBvbiB0aGUga2VybmVsIGFuZCB1c2Vy
-c3BhY2Ugc2lkZS4gTWF5YmUgeW91Cj4+Pj4gY2FuCj4+Pj4gYWRkIHNvbWUgZXhwbGFuYXRpb24g
-aW4gY29kZSBjb21tZW50cyBvciB0aGUgY29tbWl0IGxvZ3M/Cj4+PiBZZWFoLCB0aGF0IGlzIGFj
-dHVhbGx5IGEgYml0IG9mIGEgbWVzcyBiZWNhdXNlIHRoZSBoYXJkd2FyZQo+Pj4gZG9jdW1lbnRh
-dGlvbiB3YXNuJ3QgdmVyeSBjbGVhciBvbiBob3cgdGhpcyB3b3Jrcy4KPj4+Cj4+PiBIb3cgYWJv
-dXQgdGhpcyBhcyBleHRyYSBjb2RlIGNvbW1lbnQgb24gcGF0Y2ggMSB0byB0aGUgYXNzaWdubWVu
-dCBvZgo+Pj4gZGV2X2luZm8udmlydHVhbF9hZGRyZXNzX21heDoKPj4+Cj4+PiAvKgo+Pj4gwqDC
-oCogT2xkIHVzZXJzcGFjZSBpc24ndCBhd2FyZSBvZiB0aGUgVkEgaG9sZSBvbiBWZWdhMTAuIFNv
-IGluIHRoZW9yeSBhbgo+Pj4gY2xpZW50IGNvdWxkIGdldCBpbnZhbGlkIFZBIGFkZHJlc3NlcyBh
-c3NpZ25lZC4KPj4+IMKgwqAqIFRvIGZpeCB0aGlzIGFuZCBrZWVwIGJhY2t3YXJkIGNvbXBhdGli
-aWxpdHkgd2UgbGltaXQgdGhlIFZBIHNwYWNlCj4+PiByZXBvcnRlZCBpbiB0aGlzIGZpZWxkIHRv
-IHRoZSByYW5nZSBiZWxvdyB0aGUgaG9sZS4KPj4+IMKgwqAqLwo+Pj4KPj4+IFRoZSBsYXN0IHBh
-dGNoIGlzIHRoZW4gdG8gcmVwb3J0IHRoZSBWQSBzcGFjZSBhYm92ZSB0aGUgaG9sZSwgY2F1c2Ug
-dGhhdAo+Pj4gaXMgYWN0dWFsbHkgd2hhdCBsaWJkcm0gc2hvdWxkIHVzZS4KPj4+Cj4+PiBUaGUg
-Y3J1eCBpcyB3aGVuIEkgcHV0IHRoZSBWQSBzcGFjZSBhYm92ZSB0aGUgaG9sZSBkaXJlY3RseSBp
-bnRvIHRoZSBvbGQKPj4+IGZpZWxkcyBvbGRlciB2ZXJzaW9ucyBvZiBsaWJkcm0gd291bGQgYnJl
-YWsgYW5kIHdlIGNhbid0IGRvIHRoYXQuCj4+IFRoYXQgbXVjaCB3YXMgYWN0dWFsbHkgY2xlYXIu
-IDopIE1heWJlIHNvbWUgcXVlc3Rpb25zIHdpbGwgZXhwb3NlIHdoYXQKPj4gSSdtIG1pc3Npbmc6
-Cj4+Cj4+Cj4+IFBhdGNoIDE6Cj4+Cj4+PiBAQCAtODgwLDE0ICs4ODAsMTQgQEDCoCBzdGF0aWMg
-aW50IGFtZGdwdV9jc19pYl92bV9jaHVuayhzdHJ1Y3QKPj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoY2h1bmstPmNodW5rX2lkICE9IEFN
-REdQVV9DSFVOS19JRF9JQikKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-Y29udGludWU7Cj4+PiDCoCAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X2NzX2Zp
-bmRfbWFwcGluZyhwLCBjaHVua19pYi0+dmFfc3RhcnQsCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAmYW9iaiwgJm0pOwo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgdmFfc3RhcnQgPSBjaHVua19pYi0+dmFfc3RhcnQgJiBBTURHUFVf
-VkFfSE9MRV9NQVNLOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV9jc19m
-aW5kX21hcHBpbmcocCwgdmFfc3RhcnQsICZhb2JqLCAmbSk7Cj4+IEkgZG9uJ3QgdW5kZXJzdGFu
-ZCBob3cgdXNlcnNwYWNlIGNhbiBtYWtlIHVzZSBvZiB0aGUgYWRkcmVzcyBzcGFjZSBhYm92ZQo+
-PiB0aGUgaG9sZSwgc2luY2UgQU1ER1BVX1ZBX0hPTEVfTUFTSyBpcyAweDAwMDBmZmZmZmZmZmZm
-ZmZVTEwgYW5kCj4+IEFNREdQVV9WQV9IT0xFX0VORCBpcyAweGZmZmY4MDAwMDAwMDAwMDBVTEws
-IHNvIG1hc2tpbmcgd2l0aAo+PiBBTURHUFVfVkFfSE9MRV9NQVNLIGFsd2F5cyByZXN1bHRzIGlu
-IGFuIGFkZHJlc3MgYmVsb3cgb3IgaW5zaWRlIHRoZQo+PiBob2xlPwo+IAo+IFllcywgYW5kIGV4
-YWN0bHkgdGhhdCBpcyBpbnRlbmRlZCBoZXJlLgo+IAo+IFNlZSBmb3IgcHJvZ3JhbW1pbmcgdGhl
-IE1DIGFuZCBmaWxsaW5nIHRoZSBwYWdlIHRhYmxlcyB5b3UgaGFuZGxlIHRoaXMKPiBhcyBpZiB0
-aGVyZSBpc24ndCBhIGhvbGUgaW4gdGhlIGFkZHJlc3Mgc3BhY2UuCj4gCj4gT25seSB3aGVuIHlv
-dSBzdGFydCB0byB1c2UgdGhlIGFkZHJlc3MgZnJvbSB1c2Vyc3BhY2UgeW91IHdpbGwgZmluZCB0
-aGF0Cj4geW91IG5lZWQgdG8gc2lnbiBleHRlbmQgYml0IDQ3IGludG8gYml0cyA0OC02My4KPiAK
-PiBBcHBseWluZyB0aGUgQU1ER1BVX1ZBX0hPTEVfTUFTSyB0byBhbmQgYWRkcmVzcyBtYXNrcyBv
-dXQgdGhlIHVwcGVyIDE2Cj4gYml0cyBhbmQgc28gcmVtb3ZlcyB0aGUgc2lnbiBleHRlbnNpb24g
-YWdhaW4uCj4gCj4+Cj4+Cj4+PiBAQCAtNTY2LDYgKzU2NiwxNyBAQMKgIGludCBhbWRncHVfZ2Vt
-X3ZhX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4+PiB2b2lkICpkYXRhLAo+Pj4gwqDC
-oMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+Pj4gwqDCoMKgwqDCoCB9Cj4+PiDCoCAr
-wqDCoMKgIGlmIChhcmdzLT52YV9hZGRyZXNzID49IEFNREdQVV9WQV9IT0xFX1NUQVJUICYmCj4+
-PiArwqDCoMKgwqDCoMKgwqAgYXJncy0+dmFfYWRkcmVzcyA8IEFNREdQVV9WQV9IT0xFX0VORCkg
-ewo+Pj4gK8KgwqDCoMKgwqDCoMKgIGRldl9kYmcoJmRldi0+cGRldi0+ZGV2LAo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgInZhX2FkZHJlc3MgMHglTFggaXMgaW4gVkEgaG9sZSAweCVMWC0w
-eCVMWFxuIiwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFyZ3MtPnZhX2FkZHJlc3MsIEFN
-REdQVV9WQV9IT0xFX1NUQVJULAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX1ZB
-X0hPTEVfRU5EKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPj4+ICvCoMKg
-wqAgfQo+Pj4gKwo+Pj4gK8KgwqDCoCBhcmdzLT52YV9hZGRyZXNzICY9IEFNREdQVV9WQV9IT0xF
-X01BU0s7Cj4+IElnbm9yaW5nIHRoZSBhYm92ZSwgSSB0aGluayB0aGUgbWFza2luZyB3aXRoIEFN
-REdQVV9WQV9IT0xFX01BU0sgd291bGQKPj4gbmVlZCB0byBiZSBkb25lIGJlZm9yZSBjaGVja2lu
-ZyBmb3IgdGhlIGhvbGUsIG90aGVyd2lzZSB0aGUgbWFza2VkCj4+IGFkZHJlc3MgY291bGQgYmUg
-aW5zaWRlIHRoZSBob2xlPwo+IAo+IFRoZSBtYXNraW5nIGp1c3QgcmVtb3ZlcyB0aGUgc2lnbiBl
-eHRlbnNpb24gd2hpY2ggY3JlYXRlZCB0aGUgaG9sZSBpbgo+IHRoZSBmaXJzdCBwbGFjZS4KPiAK
-PiBUaGUgVk0gYW5kIE1DIGlzIHByb2dyYW1tZWQgYXMgaWYgdGhlcmUgaXNuJ3QgYSBob2xlLgo+
-IAo+PiBQYXRjaCAzOgo+Pgo+Pj4gQEAgLTU3NywxMCArNTc4LDE3IEBAwqAgc3RhdGljIGludCBh
-bWRncHVfaW5mb19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZQo+Pj4gKmRldiwgdm9pZCAqZGF0YSwg
-c3RydWN0IGRybV9maWxlCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby5p
-ZHNfZmxhZ3MgfD0gQU1ER1BVX0lEU19GTEFHU19GVVNJT047Cj4+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGRldl9pbmZvLmlkc19mbGFncyB8PSBBTURHUFVfSURTX0ZMQUdTX1BSRUVNUFRJT047Cj4+
-PiArCj4+PiArwqDCoMKgwqDCoMKgwqAgdm1fc2l6ZSA9IGFkZXYtPnZtX21hbmFnZXIubWF4X3Bm
-biAqIEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9pbmZv
-LnZpcnR1YWxfYWRkcmVzc19vZmZzZXQgPSBBTURHUFVfVkFfUkVTRVJWRURfU0laRTsKPj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoCBkZXZfaW5mby52aXJ0dWFsX2FkZHJlc3NfbWF4ID0KPj4+IC3CoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIG1pbihhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4gKiBBTURHUFVf
-R1BVX1BBR0VfU0laRSwKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BV
-X1ZBX0hPTEVfU1RBUlQpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWluKHZtX3NpemUs
-IEFNREdQVV9WQV9IT0xFX1NUQVJUKTsKPj4+ICsKPj4+ICvCoMKgwqDCoMKgwqDCoCB2bV9zaXpl
-IC09IEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmICh2bV9z
-aXplID4gQU1ER1BVX1ZBX0hPTEVfU1RBUlQpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGRldl9pbmZvLmhpZ2hfdmFfb2Zmc2V0ID0gQU1ER1BVX1ZBX0hPTEVfRU5EOwo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8uaGlnaF92YV9tYXggPSBBTURHUFVfVkFfSE9MRV9F
-TkQgfCB2bV9zaXplOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIH0KPj4gVGhpcyBtb3N0bHkgbWFrZXMg
-c2Vuc2UsIGV4Y2VwdCBmb3IgdGhlCj4+Cj4+IMKgwqDCoMKgwqDCoMKgIGRldl9pbmZvLmhpZ2hf
-dmFfbWF4ID0gQU1ER1BVX1ZBX0hPTEVfRU5EIHwgdm1fc2l6ZTsKPj4KPj4gbGluZS4gQ2FuIHlv
-dSBleHBsYWluIGhvdyBzaW1wbHkgb3InaW5nIHRvZ2V0aGVyIHRoZSBhZGRyZXNzIG9mIHRoZSBl
-bmQKPj4gb2YgdGhlIGhvbGUgYW5kIHRoZSBWTSBzaXplIHdvcmtzIGNvcnJlY3RseSBpbiBhbGwg
-Y2FzZXM/Cj4+Cj4+IEFzIGFuIGV4dHJlbWUgZXhhbXBsZSwgd2l0aCB2bV9zaXplID09IDEsIHRo
-aXMgdmFsdWUgd291bGQgY29tcHV0ZSBhcwo+PiAweGZmZmY4MDAwMDAwMDAwMDFVTEwsIHdoaWNo
-IHNlZW1zIHdyb25nIG9yIGF0IGxlYXN0IHdlaXJkLgo+IAo+IFdlIGNoZWNrIGFib3ZlIGlmIHZt
-X3NpemUgaXMgbGFyZ2VyIHRoYW4gQU1ER1BVX1ZBX0hPTEVfU1RBUlQsIGluIG90aGVyCj4gd29y
-ZHMgbGFyZ2VyIHRoYW4gMHg4MDAwMDAwMDAwLgo+IAo+IFNpbmNlIHZtX3NpemUgaXMgb25jZSBt
-b3JlIGluIHRoZSB2YWx1ZSByYW5nZSB0aGUgTUMgZXhwZWN0cyBpdCAod2l0aG91dAo+IHRoZSBo
-b2xlKSB0aGF0IHNob3VsZCBnaXZlIHVzIHRoZSByaWdodCByZXN1bHQgdG8gc2lnbiBleHRlbmQg
-Yml0IDQ3Cj4gaW50byBiaXRzIDQ4LTYzLCBlLmcuIDB4ZmZmZjgwMDAwMDAwMC4KPiAKPiAKPiBB
-bmQgeWVzIHRoYXQgaW5pdGlhbGx5IGNvbmZ1c2VkIG1lIGFzIHdlbGwuIEVzcGVjaWFsbHkgdGhh
-dCB5b3UgbmVlZCB0bwo+IHByb2dyYW0gdGhlIE1DIGFuZCBmaWxsIHRoZSBwYWdlIHRhYmxlcyBh
-cyBpZiB0aGVyZSB3b3VsZG4ndCBiZSBhIGhvbGUKPiBpbiB0aGUgYWRkcmVzcyBzcGFjZS4KPiAK
-PiBBcHBseWluZyAiJiBBTURHUFVfVkFfSE9MRV9NQVNLIiBhbmQgInwgQU1ER1BVX1ZBX0hPTEVf
-RU5EIiBqdXN0Cj4gY29udmVydHMgYmV0d2VlbiB0aGUgcmVwcmVzZW50YXRpb24gd2l0aCBhbmQg
-d2l0aG91dCB0aGUgaG9sZSBpbiBpdC4KClRoYW5rcyBmb3IgdGhlIGV4cGxhbmF0aW9uLCBJIGdl
-dCBpdCBub3cuCgpGb3IgdGhlIGJlbmVmaXQgb2YgZnV0dXJlIHJlYWRlcnMgb2YgdGhpcyBjb2Rl
-LCBpdCB3b3VsZCBiZSBuaWNlIHRvIGhhdmUKYSBzaG9ydCB2ZXJzaW9uIG9mIHRoaXMgZXhwbGFu
-YXRpb24gYXMgYSBjb21tZW50LCBlLmcuIGFib3ZlIHRoZQpBTURHUFVfVkFfSE9MRV8qIGRlZmlu
-ZXMuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAg
-ICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAg
-ICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On 10/18/2017 09:58 AM, Christian König wrote:
+> From: Christian König <christian.koenig@amd.com>
+>
+> Most BIOS don't enable this because of compatibility reasons.
+>
+> Manually enable a 64bit BAR of 64GB size so that we have
+> enough room for PCI devices.
+>
+> v2: style cleanups, increase size, add resource name, set correct flags,
+>     print message that windows was added
+> v3: add defines for all the magic numbers, style cleanups
+> v4: add some comment that the BIOS should actually allow this using
+>     _PRS and _SRS.
+> v5: only enable this if CONFIG_PHYS_ADDR_T_64BIT is set
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> ---
+>  arch/x86/pci/fixup.c | 80 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 80 insertions(+)
+>
+> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
+> index 11e407489db0..7b6bd76713c5 100644
+> --- a/arch/x86/pci/fixup.c
+> +++ b/arch/x86/pci/fixup.c
+> @@ -618,3 +618,83 @@ static void quirk_apple_mbp_poweroff(struct pci_dev *pdev)
+>  		dev_info(dev, "can't work around MacBook Pro poweroff issue\n");
+>  }
+>  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x8c10, quirk_apple_mbp_poweroff);
+> +
+> +#ifdef CONFIG_PHYS_ADDR_T_64BIT
+> +
+> +#define AMD_141b_MMIO_BASE(x)	(0x80 + (x) * 0x8)
+> +#define AMD_141b_MMIO_BASE_RE_MASK		BIT(0)
+> +#define AMD_141b_MMIO_BASE_WE_MASK		BIT(1)
+> +#define AMD_141b_MMIO_BASE_MMIOBASE_MASK	GENMASK(31,8)
+> +
+> +#define AMD_141b_MMIO_LIMIT(x)	(0x84 + (x) * 0x8)
+> +#define AMD_141b_MMIO_LIMIT_MMIOLIMIT_MASK	GENMASK(31,8)
+> +
+> +#define AMD_141b_MMIO_HIGH(x)	(0x180 + (x) * 0x4)
+> +#define AMD_141b_MMIO_HIGH_MMIOBASE_MASK	GENMASK(7,0)
+> +#define AMD_141b_MMIO_HIGH_MMIOLIMIT_SHIFT	16
+> +#define AMD_141b_MMIO_HIGH_MMIOLIMIT_MASK	GENMASK(23,16)
+> +
+> +/*
+> + * The PCI Firmware Spec, rev 3.2 notes that ACPI should optionally allow
+> + * configuring host bridge windows using the _PRS and _SRS methods.
+> + *
+> + * But this is rarely implemented, so we manually enable a large 64bit BAR for
+> + * PCIe device on AMD Family 15h (Models 30h-3fh) Processors here.
+> + */
+> +static void pci_amd_enable_64bit_bar(struct pci_dev *dev)
+> +{
+> +	struct resource *res, *conflict;
+> +	u32 base, limit, high;
+> +	unsigned i;
+> +
+> +	for (i = 0; i < 8; ++i) {
+> +		pci_read_config_dword(dev, AMD_141b_MMIO_BASE(i), &base);
+> +		pci_read_config_dword(dev, AMD_141b_MMIO_HIGH(i), &high);
+> +
+> +		/* Is this slot free? */
+> +		if (!(base & (AMD_141b_MMIO_BASE_RE_MASK |
+> +			      AMD_141b_MMIO_BASE_WE_MASK)))
+> +			break;
+> +
+> +		base >>= 8;
+> +		base |= high << 24;
+> +
+> +		/* Abort if a slot already configures a 64bit BAR. */
+> +		if (base > 0x10000)
+> +			return;
+> +	}
+> +	if (i == 8)
+> +		return;
+> +
+> +	res = kzalloc(sizeof(*res), GFP_KERNEL);
+> +	if (!res)
+> +		return;
+> +
+> +	res->name = "PCI Bus 0000:00";
+> +	res->flags = IORESOURCE_PREFETCH | IORESOURCE_MEM |
+> +		IORESOURCE_MEM_64 | IORESOURCE_WINDOW;
+> +	res->start = 0x100000000ull;
+> +	res->end = 0xfd00000000ull - 1;
+> +
+> +	/* Just grab the free area behind system memory for this */
+> +	while ((conflict = request_resource_conflict(&iomem_resource, res)))
+> +		res->start = conflict->end + 1;
+
+
+I get stuck in the infinite loop here.
+
+Presumably because on a multi-socket system we succeed for the first
+processor (0000:00:18.1) and add 'res' to iomem_resource. For
+0000:00:19.1 we find the slot in the 'for' loop above but then we fail
+to find a place to add 'res'. And with final sibling being [0 - max
+possible addr] we are stuck here.
+
+A possible solution to get out of the loop could be
+    if (conflict->end >= res->end) {
+                            kfree(res);
+                            return;
+   }
+
+
+but I don't know whether this is what we actually want.
+
+This is a 2-socket
+
+vendor_id    : AuthenticAMD
+cpu family    : 21
+model        : 1
+model name    : AMD Opteron(TM) Processor 6272
+stepping    : 2
+
+
+(and then it breaks differently as a Xen guest --- we hung on the last
+pci_read_config_dword(), I haven't looked at this at all yet)
+
+
+
+-boris
+
+
+> +
+> +	dev_info(&dev->dev, "adding root bus resource %pR\n", res);
+> +
+> +	base = ((res->start >> 8) & AMD_141b_MMIO_BASE_MMIOBASE_MASK) |
+> +		AMD_141b_MMIO_BASE_RE_MASK | AMD_141b_MMIO_BASE_WE_MASK;
+> +	limit = ((res->end + 1) >> 8) & AMD_141b_MMIO_LIMIT_MMIOLIMIT_MASK;
+> +	high = ((res->start >> 40) & AMD_141b_MMIO_HIGH_MMIOBASE_MASK) |
+> +		((((res->end + 1) >> 40) << AMD_141b_MMIO_HIGH_MMIOLIMIT_SHIFT)
+> +		 & AMD_141b_MMIO_HIGH_MMIOLIMIT_MASK);
+> +
+> +	pci_write_config_dword(dev, AMD_141b_MMIO_HIGH(i), high);
+> +	pci_write_config_dword(dev, AMD_141b_MMIO_LIMIT(i), limit);
+> +	pci_write_config_dword(dev, AMD_141b_MMIO_BASE(i), base);
+> +
+> +	pci_bus_add_resource(dev->bus, res, 0);
+> +}
+> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x141b, pci_amd_enable_64bit_bar);
+> +
+> +#endif
