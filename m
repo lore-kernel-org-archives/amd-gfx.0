@@ -1,161 +1,126 @@
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
  (Models 30h-3fh) Processors v5
-Date: Mon, 20 Nov 2017 10:51:02 -0500
-Message-ID: <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+Date: Mon, 20 Nov 2017 17:07:19 +0100
+Message-ID: <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
 References: <20171018135821.3248-1-deathsimple@vodafone.de>
  <20171018135821.3248-5-deathsimple@vodafone.de>
+ <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20171018135821.3248-5-deathsimple@vodafone.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 10/18/2017 09:58 AM, Christian König wrote:
-> From: Christian König <christian.koenig@amd.com>
->
-> Most BIOS don't enable this because of compatibility reasons.
->
-> Manually enable a 64bit BAR of 64GB size so that we have
-> enough room for PCI devices.
->
-> v2: style cleanups, increase size, add resource name, set correct flags,
->     print message that windows was added
-> v3: add defines for all the magic numbers, style cleanups
-> v4: add some comment that the BIOS should actually allow this using
->     _PRS and _SRS.
-> v5: only enable this if CONFIG_PHYS_ADDR_T_64BIT is set
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-> ---
->  arch/x86/pci/fixup.c | 80 ++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 80 insertions(+)
->
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index 11e407489db0..7b6bd76713c5 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -618,3 +618,83 @@ static void quirk_apple_mbp_poweroff(struct pci_dev *pdev)
->  		dev_info(dev, "can't work around MacBook Pro poweroff issue\n");
->  }
->  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x8c10, quirk_apple_mbp_poweroff);
-> +
-> +#ifdef CONFIG_PHYS_ADDR_T_64BIT
-> +
-> +#define AMD_141b_MMIO_BASE(x)	(0x80 + (x) * 0x8)
-> +#define AMD_141b_MMIO_BASE_RE_MASK		BIT(0)
-> +#define AMD_141b_MMIO_BASE_WE_MASK		BIT(1)
-> +#define AMD_141b_MMIO_BASE_MMIOBASE_MASK	GENMASK(31,8)
-> +
-> +#define AMD_141b_MMIO_LIMIT(x)	(0x84 + (x) * 0x8)
-> +#define AMD_141b_MMIO_LIMIT_MMIOLIMIT_MASK	GENMASK(31,8)
-> +
-> +#define AMD_141b_MMIO_HIGH(x)	(0x180 + (x) * 0x4)
-> +#define AMD_141b_MMIO_HIGH_MMIOBASE_MASK	GENMASK(7,0)
-> +#define AMD_141b_MMIO_HIGH_MMIOLIMIT_SHIFT	16
-> +#define AMD_141b_MMIO_HIGH_MMIOLIMIT_MASK	GENMASK(23,16)
-> +
-> +/*
-> + * The PCI Firmware Spec, rev 3.2 notes that ACPI should optionally allow
-> + * configuring host bridge windows using the _PRS and _SRS methods.
-> + *
-> + * But this is rarely implemented, so we manually enable a large 64bit BAR for
-> + * PCIe device on AMD Family 15h (Models 30h-3fh) Processors here.
-> + */
-> +static void pci_amd_enable_64bit_bar(struct pci_dev *dev)
-> +{
-> +	struct resource *res, *conflict;
-> +	u32 base, limit, high;
-> +	unsigned i;
-> +
-> +	for (i = 0; i < 8; ++i) {
-> +		pci_read_config_dword(dev, AMD_141b_MMIO_BASE(i), &base);
-> +		pci_read_config_dword(dev, AMD_141b_MMIO_HIGH(i), &high);
-> +
-> +		/* Is this slot free? */
-> +		if (!(base & (AMD_141b_MMIO_BASE_RE_MASK |
-> +			      AMD_141b_MMIO_BASE_WE_MASK)))
-> +			break;
-> +
-> +		base >>= 8;
-> +		base |= high << 24;
-> +
-> +		/* Abort if a slot already configures a 64bit BAR. */
-> +		if (base > 0x10000)
-> +			return;
-> +	}
-> +	if (i == 8)
-> +		return;
-> +
-> +	res = kzalloc(sizeof(*res), GFP_KERNEL);
-> +	if (!res)
-> +		return;
-> +
-> +	res->name = "PCI Bus 0000:00";
-> +	res->flags = IORESOURCE_PREFETCH | IORESOURCE_MEM |
-> +		IORESOURCE_MEM_64 | IORESOURCE_WINDOW;
-> +	res->start = 0x100000000ull;
-> +	res->end = 0xfd00000000ull - 1;
-> +
-> +	/* Just grab the free area behind system memory for this */
-> +	while ((conflict = request_resource_conflict(&iomem_resource, res)))
-> +		res->start = conflict->end + 1;
-
-
-I get stuck in the infinite loop here.
-
-Presumably because on a multi-socket system we succeed for the first
-processor (0000:00:18.1) and add 'res' to iomem_resource. For
-0000:00:19.1 we find the slot in the 'for' loop above but then we fail
-to find a place to add 'res'. And with final sibling being [0 - max
-possible addr] we are stuck here.
-
-A possible solution to get out of the loop could be
-    if (conflict->end >= res->end) {
-                            kfree(res);
-                            return;
-   }
-
-
-but I don't know whether this is what we actually want.
-
-This is a 2-socket
-
-vendor_id    : AuthenticAMD
-cpu family    : 21
-model        : 1
-model name    : AMD Opteron(TM) Processor 6272
-stepping    : 2
-
-
-(and then it breaks differently as a Xen guest --- we hung on the last
-pci_read_config_dword(), I haven't looked at this at all yet)
-
-
-
--boris
-
-
-> +
-> +	dev_info(&dev->dev, "adding root bus resource %pR\n", res);
-> +
-> +	base = ((res->start >> 8) & AMD_141b_MMIO_BASE_MMIOBASE_MASK) |
-> +		AMD_141b_MMIO_BASE_RE_MASK | AMD_141b_MMIO_BASE_WE_MASK;
-> +	limit = ((res->end + 1) >> 8) & AMD_141b_MMIO_LIMIT_MMIOLIMIT_MASK;
-> +	high = ((res->start >> 40) & AMD_141b_MMIO_HIGH_MMIOBASE_MASK) |
-> +		((((res->end + 1) >> 40) << AMD_141b_MMIO_HIGH_MMIOLIMIT_SHIFT)
-> +		 & AMD_141b_MMIO_HIGH_MMIOLIMIT_MASK);
-> +
-> +	pci_write_config_dword(dev, AMD_141b_MMIO_HIGH(i), high);
-> +	pci_write_config_dword(dev, AMD_141b_MMIO_LIMIT(i), limit);
-> +	pci_write_config_dword(dev, AMD_141b_MMIO_BASE(i), base);
-> +
-> +	pci_bus_add_resource(dev->bus, res, 0);
-> +}
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x141b, pci_amd_enable_64bit_bar);
-> +
-> +#endif
+QW0gMjAuMTEuMjAxNyB1bSAxNjo1MSBzY2hyaWViIEJvcmlzIE9zdHJvdnNreToKPiBPbiAxMC8x
+OC8yMDE3IDA5OjU4IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBGcm9tOiBDaHJpc3Rp
+YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+Cj4+IE1vc3QgQklPUyBkb24n
+dCBlbmFibGUgdGhpcyBiZWNhdXNlIG9mIGNvbXBhdGliaWxpdHkgcmVhc29ucy4KPj4KPj4gTWFu
+dWFsbHkgZW5hYmxlIGEgNjRiaXQgQkFSIG9mIDY0R0Igc2l6ZSBzbyB0aGF0IHdlIGhhdmUKPj4g
+ZW5vdWdoIHJvb20gZm9yIFBDSSBkZXZpY2VzLgo+Pgo+PiB2Mjogc3R5bGUgY2xlYW51cHMsIGlu
+Y3JlYXNlIHNpemUsIGFkZCByZXNvdXJjZSBuYW1lLCBzZXQgY29ycmVjdCBmbGFncywKPj4gICAg
+ICBwcmludCBtZXNzYWdlIHRoYXQgd2luZG93cyB3YXMgYWRkZWQKPj4gdjM6IGFkZCBkZWZpbmVz
+IGZvciBhbGwgdGhlIG1hZ2ljIG51bWJlcnMsIHN0eWxlIGNsZWFudXBzCj4+IHY0OiBhZGQgc29t
+ZSBjb21tZW50IHRoYXQgdGhlIEJJT1Mgc2hvdWxkIGFjdHVhbGx5IGFsbG93IHRoaXMgdXNpbmcK
+Pj4gICAgICBfUFJTIGFuZCBfU1JTLgo+PiB2NTogb25seSBlbmFibGUgdGhpcyBpZiBDT05GSUdf
+UEhZU19BRERSX1RfNjRCSVQgaXMgc2V0Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBL
+w7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4gUmV2aWV3ZWQtYnk6IEFuZHkgU2hl
+dmNoZW5rbyA8YW5keS5zaGV2Y2hlbmtvQGdtYWlsLmNvbT4KPj4gLS0tCj4+ICAgYXJjaC94ODYv
+cGNpL2ZpeHVwLmMgfCA4MCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDgwIGluc2VydGlvbnMoKykKPj4KPj4g
+ZGlmZiAtLWdpdCBhL2FyY2gveDg2L3BjaS9maXh1cC5jIGIvYXJjaC94ODYvcGNpL2ZpeHVwLmMK
+Pj4gaW5kZXggMTFlNDA3NDg5ZGIwLi43YjZiZDc2NzEzYzUgMTAwNjQ0Cj4+IC0tLSBhL2FyY2gv
+eDg2L3BjaS9maXh1cC5jCj4+ICsrKyBiL2FyY2gveDg2L3BjaS9maXh1cC5jCj4+IEBAIC02MTgs
+MyArNjE4LDgzIEBAIHN0YXRpYyB2b2lkIHF1aXJrX2FwcGxlX21icF9wb3dlcm9mZihzdHJ1Y3Qg
+cGNpX2RldiAqcGRldikKPj4gICAJCWRldl9pbmZvKGRldiwgImNhbid0IHdvcmsgYXJvdW5kIE1h
+Y0Jvb2sgUHJvIHBvd2Vyb2ZmIGlzc3VlXG4iKTsKPj4gICB9Cj4+ICAgREVDTEFSRV9QQ0lfRklY
+VVBfSEVBREVSKFBDSV9WRU5ET1JfSURfSU5URUwsIDB4OGMxMCwgcXVpcmtfYXBwbGVfbWJwX3Bv
+d2Vyb2ZmKTsKPj4gKwo+PiArI2lmZGVmIENPTkZJR19QSFlTX0FERFJfVF82NEJJVAo+PiArCj4+
+ICsjZGVmaW5lIEFNRF8xNDFiX01NSU9fQkFTRSh4KQkoMHg4MCArICh4KSAqIDB4OCkKPj4gKyNk
+ZWZpbmUgQU1EXzE0MWJfTU1JT19CQVNFX1JFX01BU0sJCUJJVCgwKQo+PiArI2RlZmluZSBBTURf
+MTQxYl9NTUlPX0JBU0VfV0VfTUFTSwkJQklUKDEpCj4+ICsjZGVmaW5lIEFNRF8xNDFiX01NSU9f
+QkFTRV9NTUlPQkFTRV9NQVNLCUdFTk1BU0soMzEsOCkKPj4gKwo+PiArI2RlZmluZSBBTURfMTQx
+Yl9NTUlPX0xJTUlUKHgpCSgweDg0ICsgKHgpICogMHg4KQo+PiArI2RlZmluZSBBTURfMTQxYl9N
+TUlPX0xJTUlUX01NSU9MSU1JVF9NQVNLCUdFTk1BU0soMzEsOCkKPj4gKwo+PiArI2RlZmluZSBB
+TURfMTQxYl9NTUlPX0hJR0goeCkJKDB4MTgwICsgKHgpICogMHg0KQo+PiArI2RlZmluZSBBTURf
+MTQxYl9NTUlPX0hJR0hfTU1JT0JBU0VfTUFTSwlHRU5NQVNLKDcsMCkKPj4gKyNkZWZpbmUgQU1E
+XzE0MWJfTU1JT19ISUdIX01NSU9MSU1JVF9TSElGVAkxNgo+PiArI2RlZmluZSBBTURfMTQxYl9N
+TUlPX0hJR0hfTU1JT0xJTUlUX01BU0sJR0VOTUFTSygyMywxNikKPj4gKwo+PiArLyoKPj4gKyAq
+IFRoZSBQQ0kgRmlybXdhcmUgU3BlYywgcmV2IDMuMiBub3RlcyB0aGF0IEFDUEkgc2hvdWxkIG9w
+dGlvbmFsbHkgYWxsb3cKPj4gKyAqIGNvbmZpZ3VyaW5nIGhvc3QgYnJpZGdlIHdpbmRvd3MgdXNp
+bmcgdGhlIF9QUlMgYW5kIF9TUlMgbWV0aG9kcy4KPj4gKyAqCj4+ICsgKiBCdXQgdGhpcyBpcyBy
+YXJlbHkgaW1wbGVtZW50ZWQsIHNvIHdlIG1hbnVhbGx5IGVuYWJsZSBhIGxhcmdlIDY0Yml0IEJB
+UiBmb3IKPj4gKyAqIFBDSWUgZGV2aWNlIG9uIEFNRCBGYW1pbHkgMTVoIChNb2RlbHMgMzBoLTNm
+aCkgUHJvY2Vzc29ycyBoZXJlLgo+PiArICovCj4+ICtzdGF0aWMgdm9pZCBwY2lfYW1kX2VuYWJs
+ZV82NGJpdF9iYXIoc3RydWN0IHBjaV9kZXYgKmRldikKPj4gK3sKPj4gKwlzdHJ1Y3QgcmVzb3Vy
+Y2UgKnJlcywgKmNvbmZsaWN0Owo+PiArCXUzMiBiYXNlLCBsaW1pdCwgaGlnaDsKPj4gKwl1bnNp
+Z25lZCBpOwo+PiArCj4+ICsJZm9yIChpID0gMDsgaSA8IDg7ICsraSkgewo+PiArCQlwY2lfcmVh
+ZF9jb25maWdfZHdvcmQoZGV2LCBBTURfMTQxYl9NTUlPX0JBU0UoaSksICZiYXNlKTsKPj4gKwkJ
+cGNpX3JlYWRfY29uZmlnX2R3b3JkKGRldiwgQU1EXzE0MWJfTU1JT19ISUdIKGkpLCAmaGlnaCk7
+Cj4+ICsKPj4gKwkJLyogSXMgdGhpcyBzbG90IGZyZWU/ICovCj4+ICsJCWlmICghKGJhc2UgJiAo
+QU1EXzE0MWJfTU1JT19CQVNFX1JFX01BU0sgfAo+PiArCQkJICAgICAgQU1EXzE0MWJfTU1JT19C
+QVNFX1dFX01BU0spKSkKPj4gKwkJCWJyZWFrOwo+PiArCj4+ICsJCWJhc2UgPj49IDg7Cj4+ICsJ
+CWJhc2UgfD0gaGlnaCA8PCAyNDsKPj4gKwo+PiArCQkvKiBBYm9ydCBpZiBhIHNsb3QgYWxyZWFk
+eSBjb25maWd1cmVzIGEgNjRiaXQgQkFSLiAqLwo+PiArCQlpZiAoYmFzZSA+IDB4MTAwMDApCj4+
+ICsJCQlyZXR1cm47Cj4+ICsJfQo+PiArCWlmIChpID09IDgpCj4+ICsJCXJldHVybjsKPj4gKwo+
+PiArCXJlcyA9IGt6YWxsb2Moc2l6ZW9mKCpyZXMpLCBHRlBfS0VSTkVMKTsKPj4gKwlpZiAoIXJl
+cykKPj4gKwkJcmV0dXJuOwo+PiArCj4+ICsJcmVzLT5uYW1lID0gIlBDSSBCdXMgMDAwMDowMCI7
+Cj4+ICsJcmVzLT5mbGFncyA9IElPUkVTT1VSQ0VfUFJFRkVUQ0ggfCBJT1JFU09VUkNFX01FTSB8
+Cj4+ICsJCUlPUkVTT1VSQ0VfTUVNXzY0IHwgSU9SRVNPVVJDRV9XSU5ET1c7Cj4+ICsJcmVzLT5z
+dGFydCA9IDB4MTAwMDAwMDAwdWxsOwo+PiArCXJlcy0+ZW5kID0gMHhmZDAwMDAwMDAwdWxsIC0g
+MTsKPj4gKwo+PiArCS8qIEp1c3QgZ3JhYiB0aGUgZnJlZSBhcmVhIGJlaGluZCBzeXN0ZW0gbWVt
+b3J5IGZvciB0aGlzICovCj4+ICsJd2hpbGUgKChjb25mbGljdCA9IHJlcXVlc3RfcmVzb3VyY2Vf
+Y29uZmxpY3QoJmlvbWVtX3Jlc291cmNlLCByZXMpKSkKPj4gKwkJcmVzLT5zdGFydCA9IGNvbmZs
+aWN0LT5lbmQgKyAxOwo+Cj4gSSBnZXQgc3R1Y2sgaW4gdGhlIGluZmluaXRlIGxvb3AgaGVyZS4K
+Pgo+IFByZXN1bWFibHkgYmVjYXVzZSBvbiBhIG11bHRpLXNvY2tldCBzeXN0ZW0gd2Ugc3VjY2Vl
+ZCBmb3IgdGhlIGZpcnN0Cj4gcHJvY2Vzc29yICgwMDAwOjAwOjE4LjEpIGFuZCBhZGQgJ3Jlcycg
+dG8gaW9tZW1fcmVzb3VyY2UuIEZvcgo+IDAwMDA6MDA6MTkuMSB3ZSBmaW5kIHRoZSBzbG90IGlu
+IHRoZSAnZm9yJyBsb29wIGFib3ZlIGJ1dCB0aGVuIHdlIGZhaWwKPiB0byBmaW5kIGEgcGxhY2Ug
+dG8gYWRkICdyZXMnLiBBbmQgd2l0aCBmaW5hbCBzaWJsaW5nIGJlaW5nIFswIC0gbWF4Cj4gcG9z
+c2libGUgYWRkcl0gd2UgYXJlIHN0dWNrIGhlcmUuCj4KPiBBIHBvc3NpYmxlIHNvbHV0aW9uIHRv
+IGdldCBvdXQgb2YgdGhlIGxvb3AgY291bGQgYmUKPiAgICAgIGlmIChjb25mbGljdC0+ZW5kID49
+IHJlcy0+ZW5kKSB7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBrZnJlZShyZXMpOwo+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuOwo+ICAgICB9CgpBaCwgc29ycnkg
+Zm9yIHRoYXQuIFllcyBwcm9ibGVtIGlzIG9idmlvdXMgbm93LgoKPiBidXQgSSBkb24ndCBrbm93
+IHdoZXRoZXIgdGhpcyBpcyB3aGF0IHdlIGFjdHVhbGx5IHdhbnQuCgpBY3R1YWxseSB3ZSB3b3Vs
+ZCBwcm9iYWJseSB3YW50IHRvIGFkZCB0aGUgcmFuZ2UgdG8gYWxsIGNvcmVzIGF0IHRoZSAKc2Ft
+ZSB0aW1lLgoKPgo+IFRoaXMgaXMgYSAyLXNvY2tldAo+Cj4gdmVuZG9yX2lkICAgIDogQXV0aGVu
+dGljQU1ECj4gY3B1IGZhbWlseSAgICA6IDIxCj4gbW9kZWwgICAgICAgIDogMQo+IG1vZGVsIG5h
+bWUgICAgOiBBTUQgT3B0ZXJvbihUTSkgUHJvY2Vzc29yIDYyNzIKPiBzdGVwcGluZyAgICA6IDIK
+Pgo+Cj4gKGFuZCB0aGVuIGl0IGJyZWFrcyBkaWZmZXJlbnRseSBhcyBhIFhlbiBndWVzdCAtLS0g
+d2UgaHVuZyBvbiB0aGUgbGFzdAo+IHBjaV9yZWFkX2NvbmZpZ19kd29yZCgpLCBJIGhhdmVuJ3Qg
+bG9va2VkIGF0IHRoaXMgYXQgYWxsIHlldCkKCkh1aT8gSG93IGRvZXMgdGhpcyBmaXggYXBwbGll
+cyB0byBhIFhlbiBndWVzdCBpbiB0aGUgZmlyc3QgcGxhY2U/CgpQbGVhc2UgcHJvdmlkZSB0aGUg
+b3V0cHV0IG9mICJsc3BjaSAtbm4iIGFuZCBleHBsYWluIGZ1cnRoZXIgd2hhdCBpcyAKeW91ciBj
+b25maWcgd2l0aCBYZW4uCgpSZWdhcmRzLApDaHJpc3RpYW4uCgoKPgo+Cj4KPiAtYm9yaXMKPgo+
+Cj4+ICsKPj4gKwlkZXZfaW5mbygmZGV2LT5kZXYsICJhZGRpbmcgcm9vdCBidXMgcmVzb3VyY2Ug
+JXBSXG4iLCByZXMpOwo+PiArCj4+ICsJYmFzZSA9ICgocmVzLT5zdGFydCA+PiA4KSAmIEFNRF8x
+NDFiX01NSU9fQkFTRV9NTUlPQkFTRV9NQVNLKSB8Cj4+ICsJCUFNRF8xNDFiX01NSU9fQkFTRV9S
+RV9NQVNLIHwgQU1EXzE0MWJfTU1JT19CQVNFX1dFX01BU0s7Cj4+ICsJbGltaXQgPSAoKHJlcy0+
+ZW5kICsgMSkgPj4gOCkgJiBBTURfMTQxYl9NTUlPX0xJTUlUX01NSU9MSU1JVF9NQVNLOwo+PiAr
+CWhpZ2ggPSAoKHJlcy0+c3RhcnQgPj4gNDApICYgQU1EXzE0MWJfTU1JT19ISUdIX01NSU9CQVNF
+X01BU0spIHwKPj4gKwkJKCgoKHJlcy0+ZW5kICsgMSkgPj4gNDApIDw8IEFNRF8xNDFiX01NSU9f
+SElHSF9NTUlPTElNSVRfU0hJRlQpCj4+ICsJCSAmIEFNRF8xNDFiX01NSU9fSElHSF9NTUlPTElN
+SVRfTUFTSyk7Cj4+ICsKPj4gKwlwY2lfd3JpdGVfY29uZmlnX2R3b3JkKGRldiwgQU1EXzE0MWJf
+TU1JT19ISUdIKGkpLCBoaWdoKTsKPj4gKwlwY2lfd3JpdGVfY29uZmlnX2R3b3JkKGRldiwgQU1E
+XzE0MWJfTU1JT19MSU1JVChpKSwgbGltaXQpOwo+PiArCXBjaV93cml0ZV9jb25maWdfZHdvcmQo
+ZGV2LCBBTURfMTQxYl9NTUlPX0JBU0UoaSksIGJhc2UpOwo+PiArCj4+ICsJcGNpX2J1c19hZGRf
+cmVzb3VyY2UoZGV2LT5idXMsIHJlcywgMCk7Cj4+ICt9Cj4+ICtERUNMQVJFX1BDSV9GSVhVUF9F
+QVJMWShQQ0lfVkVORE9SX0lEX0FNRCwgMHgxNDFiLCBwY2lfYW1kX2VuYWJsZV82NGJpdF9iYXIp
+Owo+PiArCj4+ICsjZW5kaWYKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
+cmktZGV2ZWwK
