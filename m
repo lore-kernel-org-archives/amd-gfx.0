@@ -1,37 +1,50 @@
-From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: Re: [PATCH] drm/amd/display/dc/dce110/dce110_mem_input_v: use swap
- macro in program_size_and_rotation
-Date: Sun, 19 Nov 2017 23:25:02 -0600
-Message-ID: <20171119232502.Horde.q2PQYS7eChaoQL8h2Iegu1z@gator4166.hostgator.com>
-References: <20171110223109.GA31549@embeddedor.com>
- <fc996517-7d2b-a35a-1a2d-930037668dac@amd.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH 1/8] drm/ttm: add operation ctx to ttm_bo_validate v2
+Date: Mon, 20 Nov 2017 11:14:53 +0100
+Message-ID: <20171120101453.7hh2bpfxoj3imc6f@phenom.ffwll.local>
+References: <20171117104935.4150-1-christian.koenig@amd.com>
+ <20171117104935.4150-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <fc996517-7d2b-a35a-1a2d-930037668dac@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?b?S8O2bmln?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+In-Reply-To: <20171117104935.4150-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-
-Quoting Harry Wentland <harry.wentland@amd.com>:
-
-> On 2017-11-10 05:31 PM, Gustavo A. R. Silva wrote:
->> Make use of the swap macro instead of _manually_ swapping values
->> and remove unnecessary variable swap.
->>
->> This makes the code easier to read and maintain.
->>
->> This code was detected with the help of Coccinelle.
->>
->> Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
->
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-
-Thank you, Harry.
-
---
-Gustavo A. R. Silva
+T24gRnJpLCBOb3YgMTcsIDIwMTcgYXQgMTE6NDk6MjhBTSArMDEwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBHaXZlIG1vdmluZyBhIEJPIGludG8gcGxhY2UgYW4gb3BlcmF0aW9uIGNvbnRl
+eHQgdG8gd29yayB3aXRoLgo+IAo+IHYyOiByZWJhc2VkCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hy
+aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IFJldmlld2VkLWJ5OiBN
+aWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPiAtLS0KPiBkaWZmIC0tZ2l0
+IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaCBiL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9f
+YXBpLmgKPiBpbmRleCA4MzNjM2FkMjQwOTEuLjA5Nzk1MWU5OTliYyAxMDA2NDQKPiAtLS0gYS9p
+bmNsdWRlL2RybS90dG0vdHRtX2JvX2FwaS5oCj4gKysrIGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9i
+b19hcGkuaAo+IEBAIC0yNTksNiArMjU5LDIwIEBAIHN0cnVjdCB0dG1fYm9fa21hcF9vYmogewo+
+ICB9Owo+ICAKPiAgLyoqCj4gKyAqIHN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eAo+ICsgKgo+ICsg
+KiBAaW50ZXJydXB0aWJsZTogU2xlZXAgaW50ZXJydXB0aWJsZSBpZiBzbGVlcGluZy4KPiArICog
+QG5vX3dhaXRfZ3B1OiBSZXR1cm4gaW1tZWRpYXRlbHkgaWYgdGhlIEdQVSBpcyBidXN5Lgo+ICsg
+Kgo+ICsgKiBDb250ZXh0IGZvciBUVE0gb3BlcmF0aW9ucyBsaWtlIGNoYW5naW5nIGJ1ZmZlciBw
+bGFjZW1lbnQgb3IgZ2VuZXJhbCBtZW1vcnkKPiArICogYWxsb2NhdGlvbi4KPiArICovCj4gK3N0
+cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCB7Cj4gKwlib29sIGludGVycnVwdGlibGU7Cj4gKwlib29s
+IG5vX3dhaXRfZ3B1OwoKUmFuZG9tIGRyaXZlLWJ5IGNvbW1lbnQgd2l0aG91dCBsb29raW5nIGF0
+IGhvdyB0aGlzIHdvdWxkIHdvcmsgb3V0LCBidXQKbWF5YmUgZW1iZWQgdGhlIHd3X2FjcXVpcmVf
+Y3R4IGluIGhlcmUgdG9vPyBUaGF0J3MgYXQgbGVhc3QgdGhlIGRlc2lnbiB3ZQplbmRlZCB1cCB3
+aXRoIG9uIHRoZSBrbXMgc2lkZSBmb3IgYSAoYXQgYSBxdWljayBnbGFuY2UpIGZhaXJseSBzaW1p
+bGFyCnByb2JsZW0uIFNlZSBzdHJ1Y3QgZHJtX21vZGVzZXRfYWNxdWlyZV9jdHguCgpDaGVlcnMs
+IERhbmllbAotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9y
+YXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
