@@ -1,85 +1,64 @@
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
- (Models 30h-3fh) Processors v5
-Date: Mon, 20 Nov 2017 11:33:49 -0500
-Message-ID: <26df0a78-8028-e42c-ce50-4cefe612a7e1@oracle.com>
-References: <20171018135821.3248-1-deathsimple@vodafone.de>
- <20171018135821.3248-5-deathsimple@vodafone.de>
- <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
- <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/1] drm/amdkfd: Do not ignore requested queue size during
+ allocation
+Date: Mon, 20 Nov 2017 14:22:11 -0500
+Message-ID: <21e77adc-4fbe-a3e9-0a02-5d84eb201561@amd.com>
+References: <20171116213631.3987-1-jan.vesely@rutgers.edu>
+ <CAFCwf10MTrBcGn1kejNvn9AcHDsCiW85HkC6bSmYfY=1shGJxQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-pci-owner@vger.kernel.org>
-In-Reply-To: <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
-Sender: linux-pci-owner@vger.kernel.org
-To: christian.koenig@amd.com, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAFCwf10MTrBcGn1kejNvn9AcHDsCiW85HkC6bSmYfY=1shGJxQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Jan Vesely <jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On 11/20/2017 11:07 AM, Christian König wrote:
-> Am 20.11.2017 um 16:51 schrieb Boris Ostrovsky:
->>
->> (and then it breaks differently as a Xen guest --- we hung on the last
->> pci_read_config_dword(), I haven't looked at this at all yet)
->
-> Hui? How does this fix applies to a Xen guest in the first place?
->
-> Please provide the output of "lspci -nn" and explain further what is
-> your config with Xen.
->
->
-
-
-This is dom0.
-
--bash-4.1# lspci -nn
-00:00.0 Host bridge [0600]: ATI Technologies Inc RD890 Northbridge only
-dual slot (2x16) PCI-e GFX Hydra part [1002:5a10] (rev 02)
-00:00.2 Generic system peripheral [0806]: ATI Technologies Inc Device
-[1002:5a23]
-00:0d.0 PCI bridge [0604]: ATI Technologies Inc RD890 PCI to PCI bridge
-(external gfx1 port B) [1002:5a1e]
-00:11.0 SATA controller [0106]: ATI Technologies Inc SB700/SB800 SATA
-Controller [AHCI mode] [1002:4391]
-00:12.0 USB Controller [0c03]: ATI Technologies Inc SB700/SB800 USB
-OHCI0 Controller [1002:4397]
-00:12.1 USB Controller [0c03]: ATI Technologies Inc SB700 USB OHCI1
-Controller [1002:4398]
-00:12.2 USB Controller [0c03]: ATI Technologies Inc SB700/SB800 USB EHCI
-Controller [1002:4396]
-00:13.0 USB Controller [0c03]: ATI Technologies Inc SB700/SB800 USB
-OHCI0 Controller [1002:4397]
-00:13.1 USB Controller [0c03]: ATI Technologies Inc SB700 USB OHCI1
-Controller [1002:4398]
-00:13.2 USB Controller [0c03]: ATI Technologies Inc SB700/SB800 USB EHCI
-Controller [1002:4396]
-00:14.0 SMBus [0c05]: ATI Technologies Inc SBx00 SMBus Controller
-[1002:4385] (rev 3d)
-00:14.3 ISA bridge [0601]: ATI Technologies Inc SB700/SB800 LPC host
-controller [1002:439d]
-00:14.4 PCI bridge [0604]: ATI Technologies Inc SBx00 PCI to PCI Bridge
-[1002:4384]
-00:14.5 USB Controller [0c03]: ATI Technologies Inc SB700/SB800 USB
-OHCI2 Controller [1002:4399]
-00:18.0 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1600]
-00:18.1 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1601]
-00:18.2 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1602]
-00:18.3 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1603]
-00:18.4 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1604]
-00:18.5 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1605]
-00:19.0 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1600]
-00:19.1 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1601]
-00:19.2 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1602]
-00:19.3 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1603]
-00:19.4 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1604]
-00:19.5 Host bridge [0600]: Advanced Micro Devices [AMD] Device [1022:1605]
-01:04.0 VGA compatible controller [0300]: Matrox Graphics, Inc. MGA
-G200eW WPCM450 [102b:0532] (rev 0a)
-02:00.0 Ethernet controller [0200]: Intel Corporation 82576 Gigabit
-Network Connection [8086:10c9] (rev 01)
-02:00.1 Ethernet controller [0200]: Intel Corporation 82576 Gigabit
-Network Connection [8086:10c9] (rev 01)
--bash-4.1#
-
-
--boris
+SSB0aGluayB0aGlzIHBhdGNoIGlzIG5vdCBjb3JyZWN0LiBUaGUgRU9QLW1lbSBpcyBub3QgYXNz
+b2NpYXRlZCB3aXRoCnRoZSBxdWV1ZSBzaXplLiBUaGUgRU9QIGJ1ZmZlciBpcyBhIHNlcGFyYXRl
+IGJ1ZmZlciB1c2VkIGJ5IHRoZSBmaXJtd2FyZQp0byBoYW5kbGUgY29tbWFuZCBjb21wbGV0aW9u
+LiBBcyBJIHVuZGVyc3RhbmQgaXQsIHRoaXMgYWxsb3dzIG1vcmUKY29uY3VycmVuY3ksIHdoaWxl
+IHN0aWxsIG1ha2luZyBpdCBsb29rIGxpa2UgYWxsIGNvbW1hbmRzIGluIHRoZSBxdWV1ZQphcmUg
+Y29tcGxldGluZyBpbiBvcmRlci4KClJlZ2FyZHMsCsKgIEZlbGl4CgoKT24gMjAxNy0xMS0xOSAw
+MzoxOSBBTSwgT2RlZCBHYWJiYXkgd3JvdGU6Cj4gT24gVGh1LCBOb3YgMTYsIDIwMTcgYXQgMTE6
+MzYgUE0sIEphbiBWZXNlbHkgPGphbi52ZXNlbHlAcnV0Z2Vycy5lZHU+IHdyb3RlOgo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBKYW4gVmVzZWx5IDxqYW4udmVzZWx5QHJ1dGdlcnMuZWR1Pgo+PiAtLS0KPj4g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVfdmkuYyB8IDUgKysr
+LS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+
+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1
+ZXVlX3ZpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3Zp
+LmMKPj4gaW5kZXggZjFkNDgyODFlMzIyLi5iM2JlZTM5NjYxYWIgMTAwNjQ0Cj4+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVfdmkuYwo+PiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3ZpLmMKPj4gQEAgLTM3
+LDE1ICszNywxNiBAQCBzdGF0aWMgYm9vbCBpbml0aWFsaXplX3ZpKHN0cnVjdCBrZXJuZWxfcXVl
+dWUgKmtxLCBzdHJ1Y3Qga2ZkX2RldiAqZGV2LAo+PiAgICAgICAgICAgICAgICAgICAgICAgICBl
+bnVtIGtmZF9xdWV1ZV90eXBlIHR5cGUsIHVuc2lnbmVkIGludCBxdWV1ZV9zaXplKQo+PiAgewo+
+PiAgICAgICAgIGludCByZXR2YWw7Cj4+ICsgICAgICAgdW5zaWduZWQgaW50IHNpemUgPSBBTElH
+TihxdWV1ZV9zaXplLCBQQUdFX1NJWkUpOwo+Pgo+PiAtICAgICAgIHJldHZhbCA9IGtmZF9ndHRf
+c2FfYWxsb2NhdGUoZGV2LCBQQUdFX1NJWkUsICZrcS0+ZW9wX21lbSk7Cj4+ICsgICAgICAgcmV0
+dmFsID0ga2ZkX2d0dF9zYV9hbGxvY2F0ZShkZXYsIHNpemUsICZrcS0+ZW9wX21lbSk7Cj4+ICAg
+ICAgICAgaWYgKHJldHZhbCAhPSAwKQo+PiAgICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwo+
+Pgo+PiAgICAgICAgIGtxLT5lb3BfZ3B1X2FkZHIgPSBrcS0+ZW9wX21lbS0+Z3B1X2FkZHI7Cj4+
+ICAgICAgICAga3EtPmVvcF9rZXJuZWxfYWRkciA9IGtxLT5lb3BfbWVtLT5jcHVfcHRyOwo+Pgo+
+PiAtICAgICAgIG1lbXNldChrcS0+ZW9wX2tlcm5lbF9hZGRyLCAwLCBQQUdFX1NJWkUpOwo+PiAr
+ICAgICAgIG1lbXNldChrcS0+ZW9wX2tlcm5lbF9hZGRyLCAwLCBzaXplKTsKPj4KPj4gICAgICAg
+ICByZXR1cm4gdHJ1ZTsKPj4gIH0KPj4gLS0KPj4gMi4xMy42Cj4+Cj4+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0
+Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+IFRoYW5rcyEKPiBBcHBsaWVkIHRv
+IC1uZXh0IHRyZWUKPiBPZGVkCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
