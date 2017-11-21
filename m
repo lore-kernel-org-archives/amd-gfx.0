@@ -1,16 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/4] drm/ttm: use NUM_PAGES_TO_ALLOC always
-Date: Tue, 21 Nov 2017 10:41:52 +0100
-Message-ID: <0a21c9fd-8cb3-d311-8c49-093235449811@gmail.com>
+From: Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 4/4] drm/ttm: free one in huge pool even shrink request less
+ than one element
+Date: Tue, 21 Nov 2017 17:32:22 +0800
+Message-ID: <1511256742-5601-5-git-send-email-Hongbo.He@amd.com>
 References: <1511256742-5601-1-git-send-email-Hongbo.He@amd.com>
- <1511256742-5601-3-git-send-email-Hongbo.He@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1511256742-5601-3-git-send-email-Hongbo.He-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1511256742-5601-1-git-send-email-Hongbo.He-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,25 +19,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjEuMTEuMjAxNyB1bSAxMDozMiBzY2hyaWViIFJvZ2VyIEhlOgo+IENoYW5nZS1JZDogSWRl
-OTZhMWNjYWQ5YmI0NGIwYmIwZDgwZTEyM2MyZDgxMGJhNjE4ZWQKPiBTaWduZWQtb2ZmLWJ5OiBS
-b2dlciBIZSA8SG9uZ2JvLkhlQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS90
-dG0vdHRtX3BhZ2VfYWxsb2MuYyB8IDMgKy0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0
-bS90dG1fcGFnZV9hbGxvYy5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5j
-Cj4gaW5kZXggMmI4M2M1Mi4uMjdiMjQwMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-dHRtL3R0bV9wYWdlX2FsbG9jLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdl
-X2FsbG9jLmMKPiBAQCAtNTIwLDggKzUyMCw3IEBAIHN0YXRpYyBpbnQgdHRtX2FsbG9jX25ld19w
-YWdlcyhzdHJ1Y3QgbGlzdF9oZWFkICpwYWdlcywgZ2ZwX3QgZ2ZwX2ZsYWdzLAo+ICAgCWludCBy
-ID0gMDsKPiAgIAl1bnNpZ25lZCBpLCBqLCBjcGFnZXM7Cj4gICAJdW5zaWduZWQgbnBhZ2VzID0g
-MSA8PCBvcmRlcjsKPiAtCXVuc2lnbmVkIG1heF9jcGFnZXMgPSBtaW4oY291bnQsCj4gLQkJCSh1
-bnNpZ25lZCkoUEFHRV9TSVpFL3NpemVvZihzdHJ1Y3QgcGFnZSAqKSkpOwo+ICsJdW5zaWduZWQg
-bWF4X2NwYWdlcyA9IG1pbihjb3VudCwgKHVuc2lnbmVkKU5VTV9QQUdFU19UT19BTExPQyk7Cj4g
-ICAKPiAgIAkvKiBhbGxvY2F0ZSBhcnJheSBmb3IgcGFnZSBjYWNoaW5nIGNoYW5nZSAqLwo+ICAg
-CWNhY2hpbmdfYXJyYXkgPSBrbWFsbG9jKG1heF9jcGFnZXMqc2l6ZW9mKHN0cnVjdCBwYWdlICop
-LCBHRlBfS0VSTkVMKTsKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Q2hhbmdlLUlkOiBJZDhiZDRkMWVjZmY5ZjNhYjE0MzU1ZTJkYmQxYzU5YjlmZTgyNGUwMQpTaWdu
+ZWQtb2ZmLWJ5OiBSb2dlciBIZSA8SG9uZ2JvLkhlQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jIHwgNiArKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGlu
+c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3R0bS90dG1fcGFnZV9hbGxvYy5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxv
+Yy5jCmluZGV4IDkwNTQ2ZmQuLmMxOTRhNTEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90
+dG0vdHRtX3BhZ2VfYWxsb2MuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdlX2Fs
+bG9jLmMKQEAgLTQ1MywxMSArNDUzLDEzIEBAIHR0bV9wb29sX3Nocmlua19zY2FuKHN0cnVjdCBz
+aHJpbmtlciAqc2hyaW5rLCBzdHJ1Y3Qgc2hyaW5rX2NvbnRyb2wgKnNjKQogCQlwb29sID0gJl9t
+YW5hZ2VyLT5wb29sc1soaSArIHBvb2xfb2Zmc2V0KSVOVU1fUE9PTFNdOwogCQkvKiBPSyB0byB1
+c2Ugc3RhdGljIGJ1ZmZlciBzaW5jZSBnbG9iYWwgbXV0ZXggaXMgaGVsZC4gKi8KIAkJbnJfZnJl
+ZV9wb29sID0gKG5yX2ZyZWUgPj4gcG9vbC0+b3JkZXIpOwotCQlpZiAobnJfZnJlZV9wb29sID09
+IDApCi0JCQljb250aW51ZTsKKwkJaWYgKCFucl9mcmVlX3Bvb2wgJiYgcG9vbC0+b3JkZXIpCisJ
+CQlucl9mcmVlX3Bvb2wgPSAxOwogCiAJCXNocmlua19wYWdlcyA9IHR0bV9wYWdlX3Bvb2xfZnJl
+ZShwb29sLCBucl9mcmVlX3Bvb2wsIHRydWUpOwogCQlmcmVlZCArPSAoKG5yX2ZyZWVfcG9vbCAt
+IHNocmlua19wYWdlcykgPDwgcG9vbC0+b3JkZXIpOworCQlpZiAoZnJlZWQgPiBzYy0+bnJfdG9f
+c2NhbikKKwkJCWJyZWFrOwogCX0KIAltdXRleF91bmxvY2soJmxvY2spOwogCXJldHVybiBmcmVl
+ZDsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
