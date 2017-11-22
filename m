@@ -1,15 +1,14 @@
-From: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/4] drm/ttm: add page order support in ttm_pages_put
-Date: Wed, 22 Nov 2017 09:48:04 +0000
-Message-ID: <MWHPR1201MB0127E6CB5B7B320F67B07F54FD200@MWHPR1201MB0127.namprd12.prod.outlook.com>
-References: <1511329016-552-1-git-send-email-Hongbo.He@amd.com>
- <1511329016-552-2-git-send-email-Hongbo.He@amd.com>
- <b6c683f7-0fda-e6cd-f1d4-6037c889eca6@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/5] drm/ttm: add page order support in ttm_pages_put
+Date: Wed, 22 Nov 2017 11:00:30 +0100
+Message-ID: <f046cb74-c7ee-0961-fdee-53b696261f91@gmail.com>
+References: <1511342234-18570-1-git-send-email-Hongbo.He@amd.com>
+ <1511342234-18570-3-git-send-email-Hongbo.He@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------2AC675C4FF214130DDD5CADB"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b6c683f7-0fda-e6cd-f1d4-6037c889eca6-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1511342234-18570-3-git-send-email-Hongbo.He-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,68 +20,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGkgQ2hyaXN0aWFuOg0KDQpUaGlzIGlzIG9sZCBwYXRjaCwgSSBhbHJlYWR5IHNlbmQgbmV3IHBh
-dGNoZXMuIEFuZCBpdCBpcyBjbGVhbiBhbmQgc2ltcGxlLiAgUGxlYXNlIGNoZWNrIHRoYXQuDQoN
-ClRoYW5rcw0KUm9nZXIoSG9uZ2JvLkhlKQ0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyBbbWFpbHRvOmNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21h
-aWwuY29tXSANClNlbnQ6IFdlZG5lc2RheSwgTm92ZW1iZXIgMjIsIDIwMTcgNToyOSBQTQ0KVG86
-IEhlLCBSb2dlciA8SG9uZ2JvLkhlQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IEtvZW5pZywgQ2hyaXN0
-aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIDIvNF0g
-ZHJtL3R0bTogYWRkIHBhZ2Ugb3JkZXIgc3VwcG9ydCBpbiB0dG1fcGFnZXNfcHV0DQoNCkkgd291
-bGQgcmF0aGVyIGNvbXBsZXRlbHkgbnVrZSB0dG1fcGFnZXNfcHV0KCkgaW5zdGVhZCBvZiBjb21p
-bmcgdXAgd2l0aCBtb3JlIHdvcmthcm91bmRzIGhlcmUuDQoNCkdvaW5nIHRvIHByb3ZpZGUgYSBj
-bGVhbnVwIHBhdGNoIHRvIHNob3cgd2hhdCBJIG1lYW4sIGp1c3QgZ2l2ZSBtZSBhIG1pbnV0ZS4N
-Cg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KQW0gMjIuMTEuMjAxNyB1bSAwNjozNiBzY2hyaWVi
-IFJvZ2VyIEhlOg0KPiBDaGFuZ2UtSWQ6IElhNTViMjA2ZDk1ODEyYzVhZmNmZDZjZWMyOWY1ODA3
-NThkMWY1MGYwDQo+IFNpZ25lZC1vZmYtYnk6IFJvZ2VyIEhlIDxIb25nYm8uSGVAYW1kLmNvbT4N
-Cj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jIHwgNDIgKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDM0
-IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vdHRtL3R0bV9wYWdlX2FsbG9jLmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL3R0bS90
-dG1fcGFnZV9hbGxvYy5jDQo+IGluZGV4IDBhMGM2NTMuLmRlNjQyMDkgMTAwNjQ0DQo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3BhZ2VfYWxsb2MuYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vdHRtL3R0bV9wYWdlX2FsbG9jLmMNCj4gQEAgLTI4NSwxMyArMjg1LDM5IEBAIHN0YXRp
-YyBzdHJ1Y3QgdHRtX3BhZ2VfcG9vbCAqdHRtX2dldF9wb29sKGludCBmbGFncywgYm9vbCBodWdl
-LA0KPiAgIH0NCj4gICANCj4gICAvKiBzZXQgbWVtb3J5IGJhY2sgdG8gd2IgYW5kIGZyZWUgdGhl
-IHBhZ2VzLiAqLyAtc3RhdGljIHZvaWQgDQo+IHR0bV9wYWdlc19wdXQoc3RydWN0IHBhZ2UgKnBh
-Z2VzW10sIHVuc2lnbmVkIG5wYWdlcykNCj4gK3N0YXRpYyB2b2lkIHR0bV9wYWdlc19wdXQoc3Ry
-dWN0IHBhZ2UgKnBhZ2VzW10sIHVuc2lnbmVkIG5wYWdlcywNCj4gKwkJdW5zaWduZWQgaW50IG9y
-ZGVyKQ0KPiAgIHsNCj4gLQl1bnNpZ25lZCBpOw0KPiAtCWlmIChzZXRfcGFnZXNfYXJyYXlfd2Io
-cGFnZXMsIG5wYWdlcykpDQo+IC0JCXByX2VycigiRmFpbGVkIHRvIHNldCAlZCBwYWdlcyB0byB3
-YiFcbiIsIG5wYWdlcyk7DQo+IC0JZm9yIChpID0gMDsgaSA8IG5wYWdlczsgKytpKQ0KPiAtCQlf
-X2ZyZWVfcGFnZShwYWdlc1tpXSk7DQo+ICsJc3RydWN0IHBhZ2UgKipwYWdlc190b19mcmVlID0g
-TlVMTDsNCj4gKwlzdHJ1Y3QgcGFnZSAqKnBhZ2VzX2FycmF5Ow0KPiArCXN0cnVjdCBwYWdlICpw
-Ow0KPiArCXVuc2lnbmVkIGludCBpLCBqLCBwYWdlc19uciA9ICgxIDw8IG9yZGVyKTsNCj4gKw0K
-PiArCWlmIChvcmRlciA+IDApIHsNCj4gKwkJcGFnZXNfdG9fZnJlZSA9IGttYWxsb2NfYXJyYXko
-cGFnZXNfbnIsIHNpemVvZihzdHJ1Y3QgcGFnZSAqKSwNCj4gKwkJCQkJR0ZQX0tFUk5FTCk7DQo+
-ICsJCWlmICghcGFnZXNfdG9fZnJlZSkgew0KPiArCQkJcHJfZXJyKCJGYWlsZWQgdG8gYWxsb2Nh
-dGUgbWVtb3J5IGZvciB0dG0gcGFnZXMgcHV0IG9wZXJhdGlvblxuIik7DQo+ICsJCQlyZXR1cm47
-DQo+ICsJCX0NCj4gKwl9DQo+ICsNCj4gKwlmb3IgKGkgPSAwOyBpIDwgbnBhZ2VzOyArK2kpIHsN
-Cj4gKwkJaWYgKG9yZGVyID4gMCkgew0KPiArCQkJcCA9IHBhZ2VzW2ldOw0KPiArCQkJZm9yIChq
-ID0gMDsgaiA8IHBhZ2VzX25yOyArK2opDQo+ICsJCQkJcGFnZXNfdG9fZnJlZVtqXSA9IHArKzsN
-Cj4gKw0KPiArCQkJcGFnZXNfYXJyYXkgPSBwYWdlc190b19mcmVlOw0KPiArCQl9IGVsc2UNCj4g
-KwkJCXBhZ2VzX2FycmF5ID0gcGFnZXM7DQo+ICsNCj4gKwkJaWYgKHNldF9wYWdlc19hcnJheV93
-YihwYWdlc19hcnJheSwgcGFnZXNfbnIpKQ0KPiArCQkJcHJfZXJyKCJGYWlsZWQgdG8gc2V0ICVk
-IHBhZ2VzIHRvIHdiIVxuIiwgcGFnZXNfbnIpOw0KPiArCQlfX2ZyZWVfcGFnZXMocGFnZXNbaV0s
-IG9yZGVyKTsNCj4gKwl9DQo+ICsNCj4gKwlrZnJlZShwYWdlc190b19mcmVlKTsNCj4gICB9DQo+
-ICAgDQo+ICAgc3RhdGljIHZvaWQgdHRtX3Bvb2xfdXBkYXRlX2ZyZWVfbG9ja2VkKHN0cnVjdCB0
-dG1fcGFnZV9wb29sICpwb29sLCANCj4gQEAgLTM1NCw3ICszODAsNyBAQCBzdGF0aWMgaW50IHR0
-bV9wYWdlX3Bvb2xfZnJlZShzdHJ1Y3QgdHRtX3BhZ2VfcG9vbCAqcG9vbCwgdW5zaWduZWQgbnJf
-ZnJlZSwNCj4gICAJCQkgKi8NCj4gICAJCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZwb29sLT5s
-b2NrLCBpcnFfZmxhZ3MpOw0KPiAgIA0KPiAtCQkJdHRtX3BhZ2VzX3B1dChwYWdlc190b19mcmVl
-LCBmcmVlZF9wYWdlcyk7DQo+ICsJCQl0dG1fcGFnZXNfcHV0KHBhZ2VzX3RvX2ZyZWUsIGZyZWVk
-X3BhZ2VzLCBwb29sLT5vcmRlcik7DQo+ICAgCQkJaWYgKGxpa2VseShucl9mcmVlICE9IEZSRUVf
-QUxMX1BBR0VTKSkNCj4gICAJCQkJbnJfZnJlZSAtPSBmcmVlZF9wYWdlczsNCj4gICANCj4gQEAg
-LTM4OSw3ICs0MTUsNyBAQCBzdGF0aWMgaW50IHR0bV9wYWdlX3Bvb2xfZnJlZShzdHJ1Y3QgdHRt
-X3BhZ2VfcG9vbCAqcG9vbCwgdW5zaWduZWQgbnJfZnJlZSwNCj4gICAJc3Bpbl91bmxvY2tfaXJx
-cmVzdG9yZSgmcG9vbC0+bG9jaywgaXJxX2ZsYWdzKTsNCj4gICANCj4gICAJaWYgKGZyZWVkX3Bh
-Z2VzKQ0KPiAtCQl0dG1fcGFnZXNfcHV0KHBhZ2VzX3RvX2ZyZWUsIGZyZWVkX3BhZ2VzKTsNCj4g
-KwkJdHRtX3BhZ2VzX3B1dChwYWdlc190b19mcmVlLCBmcmVlZF9wYWdlcywgcG9vbC0+b3JkZXIp
-Ow0KPiAgIG91dDoNCj4gICAJaWYgKHBhZ2VzX3RvX2ZyZWUgIT0gc3RhdGljX2J1ZikNCj4gICAJ
-CWtmcmVlKHBhZ2VzX3RvX2ZyZWUpOw0KDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--------------2AC675C4FF214130DDD5CADB
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+That completely negates the advantage of setting write back on multiple 
+pages at once.
+
+In other words this way we wouldn't need the array any more at all and 
+could remove the whole complicated handling.
+
+I'm pretty close to saying just go ahead with that and even clean up the 
+whole stuff with the static array, but I'm not sure if that doesn't 
+result in some performance problems.
+
+A possible alternative is the (untested) patch attached, this way we 
+move the __free_page()/_free_pages() call out of ttm_pages_put and just 
+need to add the correct number of pages to the array in the loop.
+
+Regards,
+Christian.
+
+Am 22.11.2017 um 10:17 schrieb Roger He:
+> Change-Id: Ia55b206d95812c5afcfd6cec29f580758d1f50f0
+> Signed-off-by: Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/ttm/ttm_page_alloc.c | 19 +++++++++++--------
+>   1 file changed, 11 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc.c b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+> index 9b48b93..2dc83c0 100644
+> --- a/drivers/gpu/drm/ttm/ttm_page_alloc.c
+> +++ b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+> @@ -299,13 +299,16 @@ static struct ttm_page_pool *ttm_get_pool(int flags, bool huge,
+>   }
+>   
+>   /* set memory back to wb and free the pages. */
+> -static void ttm_pages_put(struct page *pages[], unsigned npages)
+> +static void ttm_pages_put(struct page *pages[], unsigned npages,
+> +		unsigned int order)
+>   {
+> -	unsigned i;
+> -	if (set_pages_array_wb(pages, npages))
+> -		pr_err("Failed to set %d pages to wb!\n", npages);
+> -	for (i = 0; i < npages; ++i)
+> -		__free_page(pages[i]);
+> +	unsigned int i, pages_nr = (1 << order);
+> +
+> +	for (i = 0; i < npages; ++i) {
+> +		if (set_pages_wb(pages[i], pages_nr))
+> +			pr_err("Failed to set %d pages to wb!\n", pages_nr);
+> +		__free_pages(pages[i], order);
+> +	}
+>   }
+>   
+>   static void ttm_pool_update_free_locked(struct ttm_page_pool *pool,
+> @@ -368,7 +371,7 @@ static int ttm_page_pool_free(struct ttm_page_pool *pool, unsigned nr_free,
+>   			 */
+>   			spin_unlock_irqrestore(&pool->lock, irq_flags);
+>   
+> -			ttm_pages_put(pages_to_free, freed_pages);
+> +			ttm_pages_put(pages_to_free, freed_pages, pool->order);
+>   			if (likely(nr_free != FREE_ALL_PAGES))
+>   				nr_free -= freed_pages;
+>   
+> @@ -403,7 +406,7 @@ static int ttm_page_pool_free(struct ttm_page_pool *pool, unsigned nr_free,
+>   	spin_unlock_irqrestore(&pool->lock, irq_flags);
+>   
+>   	if (freed_pages)
+> -		ttm_pages_put(pages_to_free, freed_pages);
+> +		ttm_pages_put(pages_to_free, freed_pages, pool->order);
+>   out:
+>   	if (pages_to_free != static_buf)
+>   		kfree(pages_to_free);
+
+
+
+--------------2AC675C4FF214130DDD5CADB
+Content-Type: text/x-patch;
+ name="0001-drm-ttm-move-__free_page-out-of-ttm_pages_put.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+ filename="0001-drm-ttm-move-__free_page-out-of-ttm_pages_put.patch"
+
+>From 4fcc6c40e3596e12a9712b01a44d9c0265f04582 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Date: Wed, 22 Nov 2017 10:54:58 +0100
+Subject: [PATCH] drm/ttm: move __free_page out of ttm_pages_put
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This way we can easier free the pages with the right order.
+
+Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/ttm/ttm_page_alloc.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc.c b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+index 72ea037b7090..4deb9c8441b5 100644
+--- a/drivers/gpu/drm/ttm/ttm_page_alloc.c
++++ b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+@@ -286,11 +286,8 @@ static struct ttm_page_pool *ttm_get_pool(int flags, bool huge,
+ /* set memory back to wb and free the pages. */
+ static void ttm_pages_put(struct page *pages[], unsigned npages)
+ {
+-	unsigned i;
+ 	if (set_pages_array_wb(pages, npages))
+ 		pr_err("Failed to set %d pages to wb!\n", npages);
+-	for (i = 0; i < npages; ++i)
+-		__free_page(pages[i]);
+ }
+ 
+ static void ttm_pool_update_free_locked(struct ttm_page_pool *pool,
+@@ -315,7 +312,8 @@ static int ttm_page_pool_free(struct ttm_page_pool *pool, unsigned nr_free,
+ {
+ 	static struct page *static_buf[NUM_PAGES_TO_ALLOC];
+ 	unsigned long irq_flags;
+-	struct page *p;
++	struct list_head freed;
++	struct page *p, *tmp;
+ 	struct page **pages_to_free;
+ 	unsigned freed_pages = 0,
+ 		 npages_to_free = nr_free;
+@@ -333,6 +331,8 @@ static int ttm_page_pool_free(struct ttm_page_pool *pool, unsigned nr_free,
+ 		return 0;
+ 	}
+ 
++	INIT_LIST_HEAD(&freed);
++
+ restart:
+ 	spin_lock_irqsave(&pool->lock, irq_flags);
+ 
+@@ -345,6 +345,8 @@ static int ttm_page_pool_free(struct ttm_page_pool *pool, unsigned nr_free,
+ 		if (freed_pages >= NUM_PAGES_TO_ALLOC) {
+ 			/* remove range of pages from the pool */
+ 			__list_del(p->lru.prev, &pool->list);
++			/* and add to freed list */
++			__list_add(&p->lru, &freed, &freed);
+ 
+ 			ttm_pool_update_free_locked(pool, freed_pages);
+ 			/**
+@@ -380,6 +382,8 @@ static int ttm_page_pool_free(struct ttm_page_pool *pool, unsigned nr_free,
+ 	/* remove range of pages from the pool */
+ 	if (freed_pages) {
+ 		__list_del(&p->lru, &pool->list);
++		/* and add to freed list */
++		__list_add(&p->lru, &freed, &freed);
+ 
+ 		ttm_pool_update_free_locked(pool, freed_pages);
+ 		nr_free -= freed_pages;
+@@ -392,6 +396,10 @@ static int ttm_page_pool_free(struct ttm_page_pool *pool, unsigned nr_free,
+ out:
+ 	if (pages_to_free != static_buf)
+ 		kfree(pages_to_free);
++
++	list_for_each_entry_safe(p, tmp, &freed, lru)
++		__free_page(p);
++
+ 	return nr_free;
+ }
+ 
+-- 
+2.11.0
+
+
+--------------2AC675C4FF214130DDD5CADB
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------2AC675C4FF214130DDD5CADB--
