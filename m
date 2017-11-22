@@ -1,58 +1,80 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: fix memory leaks on error exit return
-Date: Wed, 22 Nov 2017 12:13:35 -0500
-Message-ID: <7f0ece54-283a-aab6-da42-9102565e8e7e@amd.com>
-References: <20171122164735.1497-1-colin.king@canonical.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
+ (Models 30h-3fh) Processors v5
+Date: Wed, 22 Nov 2017 12:27:55 -0500
+Message-ID: <0bb468d9-bc1d-e3c5-e313-1cf9408380f0@oracle.com>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
+ <20171018135821.3248-5-deathsimple@vodafone.de>
+ <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+ <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
+ <26df0a78-8028-e42c-ce50-4cefe612a7e1@oracle.com>
+ <3443aad0-8c3b-b97e-685a-96b0866827be@amd.com>
+ <b937778c-556e-5587-c557-abba8cefe100@oracle.com>
+ <bee2c953-0ab6-a086-9150-ae51e099655c@amd.com>
+ <c2d52d00-8c3c-9944-29b3-3cab2f7c35f7@oracle.com>
+ <7936fdd3-1615-ac1f-7b75-330ccb6a1a3f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171122164735.1497-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-pci-owner@vger.kernel.org>
+In-Reply-To: <7936fdd3-1615-ac1f-7b75-330ccb6a1a3f@amd.com>
+Sender: linux-pci-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, xen-devel <xen-devel@lists.xen.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxNy0xMS0yMiAxMTo0NyBBTSwgQ29saW4gS2luZyB3cm90ZToKPiBGcm9tOiBDb2xpbiBJ
-YW4gS2luZyA8Y29saW4ua2luZ0BjYW5vbmljYWwuY29tPgo+IAo+IEN1cnJlbnRseSBpbiB0aGUg
-Y2FzZSB3aGVyZSBzb21lIG9mIHRoZSBhbGxvY2F0aW9ucyBmYWlsIGZvciBkY2UxMTBfdGd2LAo+
-IGRjZTExMF94Zm12LCBkY2UxMTBfbWl2IG9yIGRjZTExMF9vcHB2IHRoZW4gdGhlIGV4aXQgcmV0
-dXJuIHBhdGggZW5kcwo+IHVwIGxlYWtpbmcgYWxsb2NhdGVkIG9iamVjdHMuIEZpeCB0aGlzIGJ5
-IGtmcmVlJ2luZyB0aGVtIGJlZm9yZSByZXR1cm5pbmcuCj4gQWxzbyByZS13b3JrIHRoZSBjb21w
-YXJpc29uIG9mIHRoZSBudWxsIHBvaW50ZXJzIHRvIHVzZSB0aGUgIXB0ciBpZGlvbS4KPiAKPiBE
-ZXRlY3RlZCBieSBDb3Zlcml0eVNjYW4sIENJRCMxNDYwMjQ2LCAxNDYwMzI1LCAxNDYwMzI0LCAx
-NDYwMzkyCj4gKCJSZXNvdXJjZSBMZWFrIikKPiAKPiBGaXhlczogYzQ1NjIyMzZiM2JjICgiZHJt
-L2FtZC9kYzogQWRkIGRjIGRpc3BsYXkgZHJpdmVyICh2MikiKQo+IFNpZ25lZC1vZmYtYnk6IENv
-bGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+CgpUaGFua3MuIEkgZ290IHRo
-ZSBzYW1lIHBhdGNoIGJ1dCB3YXMgdG9vIHNsb3cgdG8gcG9zdC4KClJldmlld2VkLWJ5OiBIYXJy
-eSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KCkhhcnJ5Cgo+IC0tLQo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9yZXNvdXJjZS5jIHwgMTIg
-KysrKysrKy0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDUgZGVsZXRp
-b25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
-Y2UxMTAvZGNlMTEwX3Jlc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZGNlMTEwL2RjZTExMF9yZXNvdXJjZS5jCj4gaW5kZXggZGI5NmQyYjQ3ZmYxLi42MWFkYjgxNzRj
-ZTAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9k
-Y2UxMTBfcmVzb3VyY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
-Y2UxMTAvZGNlMTEwX3Jlc291cmNlLmMKPiBAQCAtMTAzNywxMSArMTAzNywxMyBAQCBzdGF0aWMg
-Ym9vbCB1bmRlcmxheV9jcmVhdGUoc3RydWN0IGRjX2NvbnRleHQgKmN0eCwgc3RydWN0IHJlc291
-cmNlX3Bvb2wgKnBvb2wpCj4gIAlzdHJ1Y3QgZGNlMTEwX29wcCAqZGNlMTEwX29wcHYgPSBremFs
-bG9jKHNpemVvZigqZGNlMTEwX29wcHYpLAo+ICAJCQkJCQkgR0ZQX0tFUk5FTCk7Cj4gIAo+IC0J
-aWYgKChkY2UxMTBfdGd2ID09IE5VTEwpIHx8Cj4gLQkJKGRjZTExMF94Zm12ID09IE5VTEwpIHx8
-Cj4gLQkJKGRjZTExMF9taXYgPT0gTlVMTCkgfHwKPiAtCQkoZGNlMTEwX29wcHYgPT0gTlVMTCkp
-Cj4gLQkJCXJldHVybiBmYWxzZTsKPiArCWlmICghZGNlMTEwX3RndiB8fCAhZGNlMTEwX3hmbXYg
-fHwgIWRjZTExMF9taXYgfHwgIWRjZTExMF9vcHB2KSB7Cj4gKwkJa2ZyZWUoZGNlMTEwX3Rndik7
-Cj4gKwkJa2ZyZWUoZGNlMTEwX3hmbXYpOwo+ICsJCWtmcmVlKGRjZTExMF9taXYpOwo+ICsJCWtm
-cmVlKGRjZTExMF9vcHB2KTsKPiArCQlyZXR1cm4gZmFsc2U7Cj4gKwl9Cj4gIAo+ICAJZGNlMTEw
-X29wcF92X2NvbnN0cnVjdChkY2UxMTBfb3BwdiwgY3R4KTsKPiAgCj4gCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On 11/22/2017 11:54 AM, Christian König wrote:
+> Am 22.11.2017 um 17:24 schrieb Boris Ostrovsky:
+>> On 11/22/2017 05:09 AM, Christian König wrote:
+>>> Am 21.11.2017 um 23:26 schrieb Boris Ostrovsky:
+>>>> On 11/21/2017 08:34 AM, Christian König wrote:
+>>>>> Hi Boris,
+>>>>>
+>>>>> attached are two patches.
+>>>>>
+>>>>> The first one is a trivial fix for the infinite loop issue, it now
+>>>>> correctly aborts the fixup when it can't find address space for the
+>>>>> root window.
+>>>>>
+>>>>> The second is a workaround for your board. It simply checks if there
+>>>>> is exactly one Processor Function to apply this fix on.
+>>>>>
+>>>>> Both are based on linus current master branch. Please test if they
+>>>>> fix
+>>>>> your issue.
+>>>> Yes, they do fix it but that's because the feature is disabled.
+>>>>
+>>>> Do you know what the actual problem was (on Xen)?
+>>> I still haven't understood what you actually did with Xen.
+>>>
+>>> When you used PCI pass through with those devices then you have made a
+>>> major configuration error.
+>>>
+>>> When the problem happened on dom0 then the explanation is most likely
+>>> that some PCI device ended up in the configured space, but the routing
+>>> was only setup correctly on one CPU socket.
+>> The problem is that dom0 can be (and was in my case() booted with less
+>> than full physical memory and so the "rest" of the host memory is not
+>> necessarily reflected in iomem. Your patch then tried to configure that
+>> memory for MMIO and the system hang.
+>>
+>> And so my guess is that this patch will break dom0 on a single-socket
+>> system as well.
+>
+> Oh, thanks!
+>
+> I've thought about that possibility before, but wasn't able to find a
+> system which actually does that.
+>
+> May I ask why the rest of the memory isn't reported to the OS?
+
+That memory doesn't belong to the OS (dom0), it is owned by the hypervisor.
+
+>
+> Sounds like I can't trust Linux resource management and probably need
+> to read the DRAM config to figure things out after all.
+
+
+My question is whether what you are trying to do should ever be done for
+a guest at all (any guest, not necessarily Xen).
+
+-boris
