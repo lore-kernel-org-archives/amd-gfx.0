@@ -1,75 +1,107 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: remove usage of legacy_cursor_update
-Date: Thu, 23 Nov 2017 06:16:20 +0000
-Message-ID: <BN6PR12MB1826D81F6C6FF778A79C6754F2210@BN6PR12MB1826.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
+ (Models 30h-3fh) Processors v5
+Date: Thu, 23 Nov 2017 09:11:02 +0100
+Message-ID: <275e859a-0ddd-ea7f-a681-67e42a5233fe@amd.com>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
+ <20171018135821.3248-5-deathsimple@vodafone.de>
+ <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+ <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
+ <26df0a78-8028-e42c-ce50-4cefe612a7e1@oracle.com>
+ <3443aad0-8c3b-b97e-685a-96b0866827be@amd.com>
+ <b937778c-556e-5587-c557-abba8cefe100@oracle.com>
+ <bee2c953-0ab6-a086-9150-ae51e099655c@amd.com>
+ <c2d52d00-8c3c-9944-29b3-3cab2f7c35f7@oracle.com>
+ <7936fdd3-1615-ac1f-7b75-330ccb6a1a3f@amd.com>
+ <0bb468d9-bc1d-e3c5-e313-1cf9408380f0@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-pci-owner@vger.kernel.org>
+In-Reply-To: <0bb468d9-bc1d-e3c5-e313-1cf9408380f0@oracle.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-pci-owner@vger.kernel.org
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, xen-devel <xen-devel@lists.xen.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-CkZyb206IFNoaXJpc2ggUyA8c2hpcmlzaC5zQGFtZC5jb20+CgpDdXJyZW50bHkgdGhlIGF0b21p
-YyBjaGVjayBjb2RlIHVzZXMgbGVnYWN5X2N1cnNvcl91cGRhdGUgdG8gZGlmZmVybmV0aWF0ZSBp
-ZiB0aGUgY3Vyc29yIHBsYW5lIGlzIGJlaW5nIHJlcXVlc3RlZCBieSB0aGUgdXNlciwgd2hpY2gg
-aXMgbm90IHJlcXVpcmVkIGFzIHdlIHNoYWxsIGJlIHVwZGF0aW5nIHBsYW5lIG9ubHkgaWYgbW9k
-ZXNldCBpcyByZXF1ZXN0ZWQvcmVxdWlyZWQuCgpIYXZlIHRlc3RlZCBjdXJzb3IgcGxhbmUgYW5k
-IHVuZGVybGF5IGdldCB1cGRhdGVkIHNlYW1sZXNzbHksIHdpdGhvdXQgYW55IGxhZyBvciBmcmFt
-ZSBkcm9wcy4KClNpZ25lZC1vZmYtYnk6IFNoaXJpc2ggUyA8c2hpcmlzaC5zQGFtZC5jb20+ClJl
-dmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNDEgKysr
-KysrKy0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAy
-OSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYwppbmRleCA4NjM4ZjFjLi4yZGYyZTMyIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTQ3NTIsOCAr
-NDc1Miw2IEBAIHN0YXRpYyBpbnQgZG1fdXBkYXRlX3BsYW5lc19zdGF0ZShzdHJ1Y3QgZGMgKmRj
-LCAgc3RhdGljIGludCBhbWRncHVfZG1fYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYsCiAJCQkJICBzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUpCiB7Ci0JaW50IGk7Ci0J
-aW50IHJldDsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRldi0+ZGV2X3ByaXZhdGU7
-CiAJc3RydWN0IGRjICpkYyA9IGFkZXYtPmRtLmRjOwogCXN0cnVjdCBkbV9hdG9taWNfc3RhdGUg
-KmRtX3N0YXRlID0gdG9fZG1fYXRvbWljX3N0YXRlKHN0YXRlKTsgQEAgLTQ3NjEsNiArNDc1OSw3
-IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RtX2F0b21pY19jaGVjayhzdHJ1Y3QgZHJtX2RldmljZSAq
-ZGV2LAogCXN0cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpvbGRfY29uX3N0YXRlLCAqbmV3X2Nv
-bl9zdGF0ZTsKIAlzdHJ1Y3QgZHJtX2NydGMgKmNydGM7CiAJc3RydWN0IGRybV9jcnRjX3N0YXRl
-ICpvbGRfY3J0Y19zdGF0ZSwgKm5ld19jcnRjX3N0YXRlOworCWludCByZXQsIGk7CiAKIAkvKgog
-CSAqIFRoaXMgYm9vbCB3aWxsIGJlIHNldCBmb3IgdHJ1ZSBmb3IgYW55IG1vZGVzZXQvcmVzZXQg
-QEAgLTQ3NzIsMzYgKzQ3NzEsMjAgQEAgc3RhdGljIGludCBhbWRncHVfZG1fYXRvbWljX2NoZWNr
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJaWYgKHJldCkKIAkJZ290byBmYWlsOwogCi0JLyoK
-LQkgKiBsZWdhY3lfY3Vyc29yX3VwZGF0ZSBzaG91bGQgYmUgbWFkZSBmYWxzZSBmb3IgU29DJ3Mg
-aGF2aW5nCi0JICogYSBkZWRpY2F0ZWQgaGFyZHdhcmUgcGxhbmUgZm9yIGN1cnNvciBpbiBhbWRn
-cHVfZG1fYXRvbWljX2NvbW1pdCgpLAotCSAqIG90aGVyd2lzZSBmb3Igc29mdHdhcmUgY3Vyc29y
-IHBsYW5lLAotCSAqIHdlIHNob3VsZCBub3QgYWRkIGl0IHRvIGxpc3Qgb2YgYWZmZWN0ZWQgcGxh
-bmVzLgotCSAqLwotCWlmIChzdGF0ZS0+bGVnYWN5X2N1cnNvcl91cGRhdGUpIHsKLQkJZm9yX2Vh
-Y2hfbmV3X2NydGNfaW5fc3RhdGUoc3RhdGUsIGNydGMsIG5ld19jcnRjX3N0YXRlLCBpKSB7Ci0J
-CQlpZiAobmV3X2NydGNfc3RhdGUtPmNvbG9yX21nbXRfY2hhbmdlZCkgewotCQkJCXJldCA9IGRy
-bV9hdG9taWNfYWRkX2FmZmVjdGVkX3BsYW5lcyhzdGF0ZSwgY3J0Yyk7Ci0JCQkJaWYgKHJldCkK
-LQkJCQkJZ290byBmYWlsOwotCQkJfQotCQl9Ci0JfSBlbHNlIHsKLQkJZm9yX2VhY2hfb2xkbmV3
-X2NydGNfaW5fc3RhdGUoc3RhdGUsIGNydGMsIG9sZF9jcnRjX3N0YXRlLCBuZXdfY3J0Y19zdGF0
-ZSwgaSkgewotCQkJaWYgKCFkcm1fYXRvbWljX2NydGNfbmVlZHNfbW9kZXNldChuZXdfY3J0Y19z
-dGF0ZSkpCi0JCQkJY29udGludWU7CisJZm9yX2VhY2hfb2xkbmV3X2NydGNfaW5fc3RhdGUoc3Rh
-dGUsIGNydGMsIG9sZF9jcnRjX3N0YXRlLCBuZXdfY3J0Y19zdGF0ZSwgaSkgeworCQlpZiAoIWRy
-bV9hdG9taWNfY3J0Y19uZWVkc19tb2Rlc2V0KG5ld19jcnRjX3N0YXRlKSkKKwkJCWNvbnRpbnVl
-OwogCi0JCQlpZiAoIW5ld19jcnRjX3N0YXRlLT5lbmFibGUpCi0JCQkJY29udGludWU7CisJCWlm
-ICghbmV3X2NydGNfc3RhdGUtPmVuYWJsZSkKKwkJCWNvbnRpbnVlOwogCi0JCQlyZXQgPSBkcm1f
-YXRvbWljX2FkZF9hZmZlY3RlZF9jb25uZWN0b3JzKHN0YXRlLCBjcnRjKTsKLQkJCWlmIChyZXQp
-Ci0JCQkJcmV0dXJuIHJldDsKKwkJcmV0ID0gZHJtX2F0b21pY19hZGRfYWZmZWN0ZWRfY29ubmVj
-dG9ycyhzdGF0ZSwgY3J0Yyk7CisJCWlmIChyZXQpCisJCQlyZXR1cm4gcmV0OwogCi0JCQlyZXQg
-PSBkcm1fYXRvbWljX2FkZF9hZmZlY3RlZF9wbGFuZXMoc3RhdGUsIGNydGMpOwotCQkJaWYgKHJl
-dCkKLQkJCQlnb3RvIGZhaWw7Ci0JCX0KKwkJcmV0ID0gZHJtX2F0b21pY19hZGRfYWZmZWN0ZWRf
-cGxhbmVzKHN0YXRlLCBjcnRjKTsKKwkJaWYgKHJldCkKKwkJCWdvdG8gZmFpbDsKIAl9CiAKIAlk
-bV9zdGF0ZS0+Y29udGV4dCA9IGRjX2NyZWF0ZV9zdGF0ZSgpOwotLQoyLjcuNAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 22.11.2017 um 18:27 schrieb Boris Ostrovsky:
+> On 11/22/2017 11:54 AM, Christian König wrote:
+>> Am 22.11.2017 um 17:24 schrieb Boris Ostrovsky:
+>>> On 11/22/2017 05:09 AM, Christian König wrote:
+>>>> Am 21.11.2017 um 23:26 schrieb Boris Ostrovsky:
+>>>>> On 11/21/2017 08:34 AM, Christian König wrote:
+>>>>>> Hi Boris,
+>>>>>>
+>>>>>> attached are two patches.
+>>>>>>
+>>>>>> The first one is a trivial fix for the infinite loop issue, it now
+>>>>>> correctly aborts the fixup when it can't find address space for the
+>>>>>> root window.
+>>>>>>
+>>>>>> The second is a workaround for your board. It simply checks if there
+>>>>>> is exactly one Processor Function to apply this fix on.
+>>>>>>
+>>>>>> Both are based on linus current master branch. Please test if they
+>>>>>> fix
+>>>>>> your issue.
+>>>>> Yes, they do fix it but that's because the feature is disabled.
+>>>>>
+>>>>> Do you know what the actual problem was (on Xen)?
+>>>> I still haven't understood what you actually did with Xen.
+>>>>
+>>>> When you used PCI pass through with those devices then you have made a
+>>>> major configuration error.
+>>>>
+>>>> When the problem happened on dom0 then the explanation is most likely
+>>>> that some PCI device ended up in the configured space, but the routing
+>>>> was only setup correctly on one CPU socket.
+>>> The problem is that dom0 can be (and was in my case() booted with less
+>>> than full physical memory and so the "rest" of the host memory is not
+>>> necessarily reflected in iomem. Your patch then tried to configure that
+>>> memory for MMIO and the system hang.
+>>>
+>>> And so my guess is that this patch will break dom0 on a single-socket
+>>> system as well.
+>> Oh, thanks!
+>>
+>> I've thought about that possibility before, but wasn't able to find a
+>> system which actually does that.
+>>
+>> May I ask why the rest of the memory isn't reported to the OS?
+> That memory doesn't belong to the OS (dom0), it is owned by the hypervisor.
+>
+>> Sounds like I can't trust Linux resource management and probably need
+>> to read the DRAM config to figure things out after all.
+>
+> My question is whether what you are trying to do should ever be done for
+> a guest at all (any guest, not necessarily Xen).
+
+The issue is probably that I don't know enough about Xen: What exactly 
+is dom0? My understanding was that dom0 is the hypervisor, but that 
+seems to be incorrect.
+
+The issue is that under no circumstances *EVER* a virtualized guest 
+should have access to the PCI devices marked as "Processor Function" on 
+AMD platforms. Otherwise it is trivial to break out of the virtualization.
+
+When dom0 is something like the system domain with all hardware access 
+then the approach seems legitimate, but then the hypervisor should 
+report the stolen memory to the OS using the e820 table.
+
+When the hypervisor doesn't do that and the Linux kernel isn't aware 
+that there is memory at a given location mapping PCI space there will 
+obviously crash the hypervisor.
+
+Possible solutions as far as I can see are either disabling this feature 
+when we detect that we are a Xen dom0, scanning the DRAM settings to 
+update Linux resource handling or fixing Xen to report stolen memory to 
+the dom0 OS as reserved.
+
+Opinions?
+
+Thanks,
+Christian.
+
+>
+> -boris
+>
