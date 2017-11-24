@@ -1,15 +1,12 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: Delete a useless parameter from create_queue
- function pointer
-Date: Fri, 24 Nov 2017 16:44:48 -0500
-Message-ID: <bf0d440f-b554-b366-afe2-7d237fdc1833@amd.com>
-References: <1511557060-3552-1-git-send-email-yong.zhao@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: remove usage of legacy_cursor_update
+Date: Fri, 24 Nov 2017 17:00:06 -0500
+Message-ID: <53723683-0ea7-1738-e209-8d382fe275f4@amd.com>
+References: <BN6PR12MB1826D81F6C6FF778A79C6754F2210@BN6PR12MB1826.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0967464367=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1511557060-3552-1-git-send-email-yong.zhao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <BN6PR12MB1826D81F6C6FF778A79C6754F2210-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,85 +17,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgT2RlZCwKCllvbmcgbWFkZSB0aGlzIHBhdGNoIGFnYWluc3Qgb3VyIGludGVybmFsIEtGRCBi
-cmFuY2guIEkgYXNrZWQgaGltIHRvCnNlbmQgaXQgdG8gdXBzdHJlYW0gYXMgd2VsbCwgc2luY2Ug
-aXQgYXBwbGllcyB0byBjb2RlIEkgaGF2ZSBhbHJlYWR5CnVwc3RyZWFtZWQuIEknbSBnb2luZyB0
-byBkbyB0aGlzIGZvciBtb3JlIHBhdGNoZXMgaW4gdGhlIGZ1dHVyZSBhcyBtb3JlCktGRCBjb2Rl
-IGlzIHVwc3RyZWFtIGFuZCBtb3JlIG9mIG91ciBpbnRlcm5hbCBjaGFuZ2VzIGFyZSBhcHBsaWNh
-YmxlCnVwc3RyZWFtIGRpcmVjdGx5LgoKSXMgdGhpcyBPSyB3aXRoIHlvdSwgb3IgZG8geW91IHBy
-ZWZlciBnZXR0aW5nIGFsbCBwYXRjaGVzIHRocm91Z2ggbWUsIGluCnJvdWdobHkgYmktd2Vla2x5
-IGJhdGNoZXMgYXMgcGFydCBvZiBteSBvbi1nb2luZyB1cHN0cmVhbWluZyBlZmZvcnQ/CgpIaSBZ
-b25nLAoKV2hpY2ggYnJhbmNoIGlzIHRoaXMgcGF0Y2ggYWdhaW5zdD8gRm9yIHVwc3RyZWFtIEtG
-RCBjb21taXRzLCB0aGV5CnNob3VsZCBiZSBhcHBsaWVkIGFnYWluc3QgYW1ka2ZkLW5leHQgb24K
-Z2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+Z2FiYmF5by9saW51eC4gT2RlZCB3aWxsIGFw
-cGx5IHRoZSBwYXRjaAppZiBoZSBhY2NlcHRzIGl0LCBzbyB5b3Ugb25seSBuZWVkIHJlYWQgYWNj
-ZXNzIHRvIHRoaXMgcmVwb3NpdG9yeS4KCkFsc28sIHBsZWFzZSByZW1vdmUgdGhlIENoYW5nZS1J
-ZCBmcm9tIHRoZSBjb21taXQgbWVzc2FnZS4gSXQgaXMKbWVhbmluZ2xlc3MgZm9yIHVwc3RyZWFt
-IHN1Ym1pc3Npb25zIG91dHNpZGUgb2Ygb3VyIEdlcnJpdCBzZXJ2ZXIuCgpPdGhlciB0aGFuIHRo
-YXQsIHRoaXMgcGF0Y2ggaXMgUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeApLdWVo
-bGluZ0BhbWQuY29tPgoKUmVnYXJkcywKwqAgRmVsaXgKCgpPbiAyMDE3LTExLTI0IDAzOjU3IFBN
-LCBZb25nIFpoYW8gd3JvdGU6Cj4gQ2hhbmdlLUlkOiBJYTVjNzRhZDU2N2MzMGUyMDZlZDgwNGIy
-MDRmZGY4YTBmOGE3NWExOQo+IFNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8eW9uZy56aGFvQGFt
-ZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVl
-dWVfbWFuYWdlci5jICB8IDE0ICsrKystLS0tLS0tLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5oICB8ICAzICstLQo+ICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMgfCAgMyArLS0KPiAg
-MyBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDE0IGRlbGV0aW9ucygtKQo+Cj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFu
-YWdlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5h
-Z2VyLmMKPiBpbmRleCA1M2E2NmU4Li4xZGYxMTIzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMKPiBAQCAtMTQ0
-LDggKzE0NCw3IEBAIHN0YXRpYyB2b2lkIGRlYWxsb2NhdGVfdm1pZChzdHJ1Y3QgZGV2aWNlX3F1
-ZXVlX21hbmFnZXIgKmRxbSwKPiAgCj4gIHN0YXRpYyBpbnQgY3JlYXRlX3F1ZXVlX25vY3BzY2go
-c3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCj4gIAkJCQlzdHJ1Y3QgcXVldWUgKnEs
-Cj4gLQkJCQlzdHJ1Y3QgcWNtX3Byb2Nlc3NfZGV2aWNlICpxcGQsCj4gLQkJCQlpbnQgKmFsbG9j
-YXRlZF92bWlkKQo+ICsJCQkJc3RydWN0IHFjbV9wcm9jZXNzX2RldmljZSAqcXBkKQo+ICB7Cj4g
-IAlpbnQgcmV0dmFsOwo+ICAKPiBAQCAtMTY1LDcgKzE2NCw2IEBAIHN0YXRpYyBpbnQgY3JlYXRl
-X3F1ZXVlX25vY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCj4gIAkJaWYg
-KHJldHZhbCkKPiAgCQkJZ290byBvdXRfdW5sb2NrOwo+ICAJfQo+IC0JKmFsbG9jYXRlZF92bWlk
-ID0gcXBkLT52bWlkOwo+ICAJcS0+cHJvcGVydGllcy52bWlkID0gcXBkLT52bWlkOwo+ICAKPiAg
-CWlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZUEVfQ09NUFVURSkKPiBAQCAt
-MTc2LDEwICsxNzQsOSBAQCBzdGF0aWMgaW50IGNyZWF0ZV9xdWV1ZV9ub2Nwc2NoKHN0cnVjdCBk
-ZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLAo+ICAJCXJldHZhbCA9IC1FSU5WQUw7Cj4gIAo+ICAJ
-aWYgKHJldHZhbCkgewo+IC0JCWlmIChsaXN0X2VtcHR5KCZxcGQtPnF1ZXVlc19saXN0KSkgewo+
-ICsJCWlmIChsaXN0X2VtcHR5KCZxcGQtPnF1ZXVlc19saXN0KSkKPiAgCQkJZGVhbGxvY2F0ZV92
-bWlkKGRxbSwgcXBkLCBxKTsKPiAtCQkJKmFsbG9jYXRlZF92bWlkID0gMDsKPiAtCQl9Cj4gKwo+
-ICAJCWdvdG8gb3V0X3VubG9jazsKPiAgCX0KPiAgCj4gQEAgLTc4OCwxNiArNzg1LDEzIEBAIHN0
-YXRpYyB2b2lkIHNlbGVjdF9zZG1hX2VuZ2luZV9pZChzdHJ1Y3QgcXVldWUgKnEpCj4gIH0KPiAg
-Cj4gIHN0YXRpYyBpbnQgY3JlYXRlX3F1ZXVlX2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFu
-YWdlciAqZHFtLCBzdHJ1Y3QgcXVldWUgKnEsCj4gLQkJCXN0cnVjdCBxY21fcHJvY2Vzc19kZXZp
-Y2UgKnFwZCwgaW50ICphbGxvY2F0ZV92bWlkKQo+ICsJCQlzdHJ1Y3QgcWNtX3Byb2Nlc3NfZGV2
-aWNlICpxcGQpCj4gIHsKPiAgCWludCByZXR2YWw7Cj4gIAlzdHJ1Y3QgbXFkX21hbmFnZXIgKm1x
-ZDsKPiAgCj4gIAlyZXR2YWwgPSAwOwo+ICAKPiAtCWlmIChhbGxvY2F0ZV92bWlkKQo+IC0JCSph
-bGxvY2F0ZV92bWlkID0gMDsKPiAtCj4gIAltdXRleF9sb2NrKCZkcW0tPmxvY2spOwo+ICAKPiAg
-CWlmIChkcW0tPnRvdGFsX3F1ZXVlX2NvdW50ID49IG1heF9udW1fb2ZfcXVldWVzX3Blcl9kZXZp
-Y2UpIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rldmlj
-ZV9xdWV1ZV9tYW5hZ2VyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNl
-X3F1ZXVlX21hbmFnZXIuaAo+IGluZGV4IGZhZjgyMGEuLjQ0OTQwN2EgMTAwNjQ0Cj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmgKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIu
-aAo+IEBAIC04NCw4ICs4NCw3IEBAIHN0cnVjdCBkZXZpY2VfcHJvY2Vzc19ub2RlIHsKPiAgc3Ry
-dWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyX29wcyB7Cj4gIAlpbnQJKCpjcmVhdGVfcXVldWUpKHN0
-cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLAo+ICAJCQkJc3RydWN0IHF1ZXVlICpxLAo+
-IC0JCQkJc3RydWN0IHFjbV9wcm9jZXNzX2RldmljZSAqcXBkLAo+IC0JCQkJaW50ICphbGxvY2F0
-ZV92bWlkKTsKPiArCQkJCXN0cnVjdCBxY21fcHJvY2Vzc19kZXZpY2UgKnFwZCk7Cj4gIAo+ICAJ
-aW50CSgqZGVzdHJveV9xdWV1ZSkoc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCj4g
-IAkJCQlzdHJ1Y3QgcWNtX3Byb2Nlc3NfZGV2aWNlICpxcGQsCj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYwo+IGluZGV4
-IDAzYmVjNzYuLjFlN2JjYWUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
-ZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jCj4gQEAgLTE5OSw4ICsxOTksNyBA
-QCBpbnQgcHFtX2NyZWF0ZV9xdWV1ZShzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyICpwcW0s
-Cj4gIAkJCWdvdG8gZXJyX2NyZWF0ZV9xdWV1ZTsKPiAgCQlwcW4tPnEgPSBxOwo+ICAJCXBxbi0+
-a3EgPSBOVUxMOwo+IC0JCXJldHZhbCA9IGRldi0+ZHFtLT5vcHMuY3JlYXRlX3F1ZXVlKGRldi0+
-ZHFtLCBxLCAmcGRkLT5xcGQsCj4gLQkJCQkJCSZxLT5wcm9wZXJ0aWVzLnZtaWQpOwo+ICsJCXJl
-dHZhbCA9IGRldi0+ZHFtLT5vcHMuY3JlYXRlX3F1ZXVlKGRldi0+ZHFtLCBxLCAmcGRkLT5xcGQp
-Owo+ICAJCXByX2RlYnVnKCJEUU0gcmV0dXJuZWQgJWQgZm9yIGNyZWF0ZV9xdWV1ZVxuIiwgcmV0
-dmFsKTsKPiAgCQlwcmludF9xdWV1ZShxKTsKPiAgCQlicmVhazsKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0967464367==
+Content-Type: multipart/alternative;
+ boundary="------------39E1E368F57AB7EDDC6EA15B"
+
+This is a multi-part message in MIME format.
+--------------39E1E368F57AB7EDDC6EA15B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+
+On 2017-11-23 01:16 AM, S, Shirish wrote:
+> From: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+>
+> Currently the atomic check code uses legacy_cursor_update to differnetiate if the cursor plane is being requested by the user, which is not required as we shall be updating plane only if modeset is requested/required.
+>
+> Have tested cursor plane and underlay get updated seamlessly, without any lag or frame drops.
+>
+> Signed-off-by: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+> Reviewed-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 +++++++----------------
+>   1 file changed, 12 insertions(+), 29 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 8638f1c..2df2e32 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4752,8 +4752,6 @@ static int dm_update_planes_state(struct dc *dc,  static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>   				  struct drm_atomic_state *state)
+>   {
+> -	int i;
+> -	int ret;
+>   	struct amdgpu_device *adev = dev->dev_private;
+>   	struct dc *dc = adev->dm.dc;
+>   	struct dm_atomic_state *dm_state = to_dm_atomic_state(state); @@ -4761,6 +4759,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>   	struct drm_connector_state *old_con_state, *new_con_state;
+>   	struct drm_crtc *crtc;
+>   	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+> +	int ret, i;
+>   
+>   	/*
+>   	 * This bool will be set for true for any modeset/reset @@ -4772,36 +4771,20 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>   	if (ret)
+>   		goto fail;
+>   
+> -	/*
+> -	 * legacy_cursor_update should be made false for SoC's having
+> -	 * a dedicated hardware plane for cursor in amdgpu_dm_atomic_commit(),
+> -	 * otherwise for software cursor plane,
+> -	 * we should not add it to list of affected planes.
+> -	 */
+> -	if (state->legacy_cursor_update) {
+> -		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+> -			if (new_crtc_state->color_mgmt_changed) {
+> -				ret = drm_atomic_add_affected_planes(state, crtc);
+
+I don't even understand this, why even bundle together cursor updates 
+and gamma settings...
+
+Change is Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+
+Thanks,
+Andrey
+
+> -				if (ret)
+> -					goto fail;
+> -			}
+> -		}
+> -	} else {
+> -		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+> -			if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+> -				continue;
+> +	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+> +		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+> +			continue;
+>   
+> -			if (!new_crtc_state->enable)
+> -				continue;
+> +		if (!new_crtc_state->enable)
+> +			continue;
+>   
+> -			ret = drm_atomic_add_affected_connectors(state, crtc);
+> -			if (ret)
+> -				return ret;
+> +		ret = drm_atomic_add_affected_connectors(state, crtc);
+> +		if (ret)
+> +			return ret;
+>   
+> -			ret = drm_atomic_add_affected_planes(state, crtc);
+> -			if (ret)
+> -				goto fail;
+> -		}
+> +		ret = drm_atomic_add_affected_planes(state, crtc);
+> +		if (ret)
+> +			goto fail;
+>   	}
+>   
+>   	dm_state->context = dc_create_state();
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------39E1E368F57AB7EDDC6EA15B
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 2017-11-23 01:16 AM, S, Shirish
+      wrote:<br>
+    </div>
+    <blockquote
+cite="mid:BN6PR12MB1826D81F6C6FF778A79C6754F2210-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <pre wrap="">
+From: Shirish S <a class="moz-txt-link-rfc2396E" href="mailto:shirish.s-5C7GfCeVMHo@public.gmane.org">&lt;shirish.s-5C7GfCeVMHo@public.gmane.org&gt;</a>
+
+Currently the atomic check code uses legacy_cursor_update to differnetiate if the cursor plane is being requested by the user, which is not required as we shall be updating plane only if modeset is requested/required.
+
+Have tested cursor plane and underlay get updated seamlessly, without any lag or frame drops.
+
+Signed-off-by: Shirish S <a class="moz-txt-link-rfc2396E" href="mailto:shirish.s-5C7GfCeVMHo@public.gmane.org">&lt;shirish.s-5C7GfCeVMHo@public.gmane.org&gt;</a>
+Reviewed-by: Harry Wentland <a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">&lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 +++++++----------------
+ 1 file changed, 12 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 8638f1c..2df2e32 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4752,8 +4752,6 @@ static int dm_update_planes_state(struct dc *dc,  static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 				  struct drm_atomic_state *state)
+ {
+-	int i;
+-	int ret;
+ 	struct amdgpu_device *adev = dev-&gt;dev_private;
+ 	struct dc *dc = adev-&gt;dm.dc;
+ 	struct dm_atomic_state *dm_state = to_dm_atomic_state(state); @@ -4761,6 +4759,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	struct drm_connector_state *old_con_state, *new_con_state;
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
++	int ret, i;
+ 
+ 	/*
+ 	 * This bool will be set for true for any modeset/reset @@ -4772,36 +4771,20 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	if (ret)
+ 		goto fail;
+ 
+-	/*
+-	 * legacy_cursor_update should be made false for SoC's having
+-	 * a dedicated hardware plane for cursor in amdgpu_dm_atomic_commit(),
+-	 * otherwise for software cursor plane,
+-	 * we should not add it to list of affected planes.
+-	 */
+-	if (state-&gt;legacy_cursor_update) {
+-		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+-			if (new_crtc_state-&gt;color_mgmt_changed) {
+-				ret = drm_atomic_add_affected_planes(state, crtc);</pre>
+    </blockquote>
+    <br>
+    I don't even understand this, why even bundle together cursor
+    updates and gamma settings...<br>
+    <br>
+    Change is Reviewed-by: Andrey Grodzovsky <a
+      class="moz-txt-link-rfc2396E"
+      href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+    <br>
+    Thanks,<br>
+    Andrey<br>
+    <br>
+    <blockquote
+cite="mid:BN6PR12MB1826D81F6C6FF778A79C6754F2210-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <pre wrap="">
+-				if (ret)
+-					goto fail;
+-			}
+-		}
+-	} else {
+-		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+-			if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+-				continue;
++	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
++		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
++			continue;
+ 
+-			if (!new_crtc_state-&gt;enable)
+-				continue;
++		if (!new_crtc_state-&gt;enable)
++			continue;
+ 
+-			ret = drm_atomic_add_affected_connectors(state, crtc);
+-			if (ret)
+-				return ret;
++		ret = drm_atomic_add_affected_connectors(state, crtc);
++		if (ret)
++			return ret;
+ 
+-			ret = drm_atomic_add_affected_planes(state, crtc);
+-			if (ret)
+-				goto fail;
+-		}
++		ret = drm_atomic_add_affected_planes(state, crtc);
++		if (ret)
++			goto fail;
+ 	}
+ 
+ 	dm_state-&gt;context = dc_create_state();
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------39E1E368F57AB7EDDC6EA15B--
+
+--===============0967464367==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0967464367==--
