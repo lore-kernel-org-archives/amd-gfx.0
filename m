@@ -1,93 +1,69 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: check plane state before validating fbc
-Date: Mon, 27 Nov 2017 09:56:04 -0500
-Message-ID: <e3a319bb-0d04-2f30-70c3-b4f643396991@amd.com>
-References: <1511334698-5752-1-git-send-email-shirish.s12@gmail.com>
- <BN6PR12MB182648D32C4125E3124C7C8AF2200@BN6PR12MB1826.namprd12.prod.outlook.com>
- <c8ca42f2-1237-d13c-ad30-dd42a5d850f2@amd.com>
- <6e85fe6c-ff85-cf10-be5b-a6f411f8b83d@amd.com>
- <6ac8f56c-8782-901a-35f9-d54fac563000@amd.com>
- <a33f198c-10fc-4976-67f3-5243029da52c@amd.com>
- <80a8e63b-6b84-c880-ba96-58534d3fff44@amd.com>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: [PATCH] drm/amd/display: Fix potential NULL pointer dereferences in
+ amdgpu_dm_atomic_commit_tail
+Date: Mon, 27 Nov 2017 08:57:00 -0600
+Message-ID: <20171127145700.GA18395@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <80a8e63b-6b84-c880-ba96-58534d3fff44-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "sw.dl.display.sudo" <sw.dl.display.sudo-5C7GfCeVMHo@public.gmane.org>, "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxNy0xMS0yNyAwOTozNyBBTSwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4gCj4gCj4g
-T24gMTEvMjcvMjAxNyAwOToyOCBBTSwgSGFycnkgV2VudGxhbmQgd3JvdGU6Cj4+Cj4+IE9uIDIw
-MTctMTEtMjcgMDc6MzggQU0sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+Pj4KPj4+IE9uIDEx
-LzI2LzIwMTcgMTE6NTcgQU0sIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOgo+Pj4+IE9uIDIwMTctMTEt
-MjQgMDU6MDcgUE0sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+Pj4+PiBUaGUgcGF0Y2ggaXMg
-Z29vZCwgYnV0IHdoeSB2YWxpZGF0ZV9mYmMgaXMgYmVpbmcgY2FsbGVkIGZyb20gZGNlMTEwX2Fw
-cGx5X2N0eF90b19odyAoYXRvbWljX2NvbW1pdCkgPyBJdCBzaG91bGQgYmUgY2FsbGVkIGZyb20g
-YXRvbWljX2NoZWNrLgo+Pj4+Pgo+Pj4+IElkZWFsbHkgeWVzLCBidXQgSSBkb24ndCB0aGluayB0
-aGlzIGhhcyBhbnkgaW1wYWN0IG9uIGJhbmR3aWR0aCBhbmQgbW9kZSB2YWxpZGF0aW9uLCBpLmUu
-IHdlIHNob3VsZCBuZXZlciBmYWlsIHRvIGFwcGx5IGFuIGF0b21pYyBzdGF0ZSwgbm8gbWF0dGVy
-IHdoZXRoZXIgd2UgZG8gRkJDLiBJZiB3ZSBsZXQgdXNlci1tb2RlIGRlY2lkZSB3aGV0aGVyIHRv
-IGRvIEZCQyBvciBub3QgaXQgd291bGQgbmVlZCB0byBiZSBhIHByb3BlcnR5IGFuZCBjaGVjayBp
-biBhdG9taWNfY2hlY2sgYnV0IEkgZG9uJ3QgdGhpbmsgaXQgbWFrZXMgYW55IHNlbnNlIHRvIGV4
-cG9zZSB0aGlzIG91dHNpZGUgREMuCj4+Pj4KPj4+PiBIYXJyeQo+Pj4gSSBzZWUsIGFzIGxvbmcg
-YXMgZW5hYmxlX2ZiYyByZXR1cm4gY29kZSBpcyBpZ25vcmVkIGFzIGl0IGlzIHRvZGF5IHRoYXQg
-b2suCj4+Pgo+PiBNYXliZSB3ZSBqdXN0IHNob3VsZG4ndCByZXR1cm4gYW4gZXJyb3IgY29kZSBo
-ZXJlLiBkY2UxMTBfYXBwbHlfY3R4X3RvX2h3IHByb2JhYmx5IHNob3VsZG4ndCByZXR1cm4gb25l
-IGVpdGhlciB0aGVuLCBhbmQgYXBwbHlfc2luZ2xlX2NvbnRyb2xsZXJfY3R4X3RvX2h3X3BsYW5l
-IChqdXN0IGEgY291cGxlIGxpbmVzIGJlZm9yZSBlbmFibGVfZmJjKSBzaG91bGRuJ3QgZmFpbC4g
-SSBtaWdodCBoYXZlIHRvIGxvb2sgYXQgdGhvc2Ugc29tZXRpbWUuCj4+Cj4+IEhhcnJ5Cj4gCj4g
-V2VsbCwgaXQgc2VlbXMgd3JvbmcgdG8gaGF2ZSBhIHZhbGlkYXRpb24gZnVuY3Rpb24gd2hpY2gg
-bmV2ZXIgZmFpbHMgb3IgaXQncyByZXR1cm4gdmFsdWUgaWdub3JlZCwgbWF5YmUganVzdCBtZXJn
-ZSB2YWxpZGF0ZV9mYmMgaW50byBlbmFibGVfZmJjICwgZHJvcCBhbGwgdGhlIGVycm9yIGNvZGVz
-IGFuZCByZW5hbWUgZW5hYmxlX2ZiYyBpbnRvIHRyeV9lbmFibGVfZmJjCgpUaGlzIGZ1bmN0aW9u
-IGp1c3Qgc2VlbXMgdG8gbWlzbGFiZWxlZC4gZGVjaWRlX2ZiYyBtaWdodCBiZSBiZXR0ZXIuIEl0
-J3Mgb25seSBjYWxsZWQgZnJvbSBlbmFibGVfZmJjIHRvIGRlY2lkZSB3aGV0aGVyIG9yIG5vdCB0
-byBkbyBGQkMuCgpSb21hLCB3b3VsZCBpdCBtYWtlIHNlbnNlIHRvIHJlbmFtZSB0aGlzIGZ1bmN0
-aW9uIHRvIGF2b2lkIGNvbmZ1c2lvbj8KCkhhcnJ5Cgo+IAo+IFRoYW5rcywKPiBBbmRyZXkKPiAK
-Pj4KPj4+IFRoYW5rcywKPj4+IEFuZHJleQo+Pj4KPj4+Pj4gVGhhbmtzLAo+Pj4+PiBBbmRyZXkK
-Pj4+Pj4KPj4+Pj4gT24gMjAxNy0xMS0yMiAwMjoxMyBBTSwgUywgU2hpcmlzaCB3cm90ZToKPj4+
-Pj4+IEZyb206IFNoaXJpc2ggUyA8c2hpcmlzaC5zQGFtZC5jb20+Cj4+Pj4+Pgo+Pj4+Pj4gV2hp
-bGUgdmFsaWRhdGlvbiBmYmMsIGFycmF5X21vZGUgb2YgdGhlIHBpcGUgaXMgYWNjZXNzZWQgd2l0
-aG91dCBjaGVja2luZyBwbGFuZV9zdGF0ZSBleGlzdHMgZm9yIGl0Lgo+Pj4+Pj4gQ2F1c2luZyB0
-byBudWxsIHBvaW50ZXIgZGVyZWZlcmVuY2luZyBmb2xsb3dlZCBieSByZWJvb3Qgd2hlbiBhIGNy
-dGMgYXNzb2NpYXRlZCB3aXRoIGV4dGVybmFsIGRpc3BsYXkobm90Cj4+Pj4+PiBjb25uZWN0ZWQp
-IGlzIHBhZ2UgZmxpcHBlZC4KPj4+Pj4+Cj4+Pj4+PiBUaGlzIHBhdGNoIGFkZHMgYSBjaGVjayBm
-b3IgcGxhbmVfc3RhdGUgYmVmb3JlIHVzaW5nIGl0IHRvIHZhbGlkYXRlIGZiYy4KPj4+Pj4+Cj4+
-Pj4+PiBTaWduZWQtb2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPgo+Pj4+Pj4g
-UmV2aWV3ZWQtYnk6IFJvbWFuIExpIDxSb21hbi5MaUBhbWQuY29tPgo+Pj4+Pj4gLS0tCj4+Pj4+
-PiDCoMKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdf
-c2VxdWVuY2VyLmMgfCA0ICsrKysKPj4+Pj4+IMKgwqDCoCAxIGZpbGUgY2hhbmdlZCwgNCBpbnNl
-cnRpb25zKCspCj4+Pj4+Pgo+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNlci5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMKPj4+Pj4+IGluZGV4
-IGVlM2I5NDQuLmE2Y2Q2M2EgMTAwNjQ0Cj4+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9od19zZXF1ZW5jZXIuYwo+Pj4+Pj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMK
-Pj4+Pj4+IEBAIC0xNzI0LDYgKzE3MjQsMTAgQEAgc3RhdGljIGVudW0gZGNfc3RhdHVzIHZhbGlk
-YXRlX2ZiYyhzdHJ1Y3QgZGMgKmRjLAo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqAgaWYgKHBpcGVfY3R4
-LT5zdHJlYW0tPnNpbmstPmxpbmstPnBzcl9lbmFibGVkKQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gRENfRVJST1JfVU5FWFBFQ1RFRDsKPj4+Pj4+IMKgwqDCoCArwqDCoMKg
-IC8qIE5vdGhpbmcgdG8gY29tcHJlc3MgKi8KPj4+Pj4+ICvCoMKgwqAgaWYgKCFwaXBlX2N0eC0+
-cGxhbmVfc3RhdGUpCj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIERDX0VSUk9SX1VORVhQ
-RUNURUQ7Cj4+Pj4+PiArCj4+Pj4+PiDCoMKgwqDCoMKgwqDCoCAvKiBPbmx5IGZvciBub24tbGlu
-ZWFyIHRpbGluZyAqLwo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqAgaWYgKHBpcGVfY3R4LT5wbGFuZV9z
-dGF0ZS0+dGlsaW5nX2luZm8uZ2Z4OC5hcnJheV9tb2RlID09IERDX0FSUkFZX0xJTkVBUl9HRU5F
-UkFMKQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gRENfRVJST1JfVU5FWFBF
-Q1RFRDsKPj4+Pj4+IC0twqAKPj4+Pj4+IDIuNy40Cj4+Pj4+Pgo+Pj4+Pj4gX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+Pj4+IGFtZC1nZnggbWFpbGlu
-ZyBsaXN0Cj4+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4gaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+dm_new_crtc_state->stream and disconnected_acrtc are being dereferenced
+before they are null checked, hence there is a potential null pointer
+dereference.
+
+Fix this by null checking such pointers before they are dereferenced.
+
+Addresses-Coverity-ID: 1423745 ("Dereference before null check")
+Addresses-Coverity-ID: 1423833 ("Dereference before null check")
+Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
+Fixes: 54d765752467 ("drm/amd/display: Unify amdgpu_dm state variable namings.")
+Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 889ed24..3bdd137 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4190,6 +4190,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 
++		if (!dm_new_crtc_state->stream)
++			continue;
++
+ 		update_stream_scaling_settings(&dm_new_con_state->base.crtc->mode,
+ 				dm_new_con_state, (struct dc_stream_state *)dm_new_crtc_state->stream);
+ 
+@@ -4197,9 +4200,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		WARN_ON(!status);
+ 		WARN_ON(!status->plane_count);
+ 
+-		if (!dm_new_crtc_state->stream)
+-			continue;
+-
+ 		/*TODO How it works with MPO ?*/
+ 		if (!dc_commit_planes_to_stream(
+ 				dm->dc,
+@@ -4332,9 +4332,11 @@ void dm_restore_drm_connector_state(struct drm_device *dev,
+ 		return;
+ 
+ 	disconnected_acrtc = to_amdgpu_crtc(connector->encoder->crtc);
+-	acrtc_state = to_dm_crtc_state(disconnected_acrtc->base.state);
++	if (!disconnected_acrtc)
++		return;
+ 
+-	if (!disconnected_acrtc || !acrtc_state->stream)
++	acrtc_state = to_dm_crtc_state(disconnected_acrtc->base.state);
++	if (!acrtc_state->stream)
+ 		return;
+ 
+ 	/*
+-- 
+2.7.4
