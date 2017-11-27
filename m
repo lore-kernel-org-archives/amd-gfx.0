@@ -1,90 +1,130 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/7] drm/amdgpu: fix VM PD addr shift
-Date: Mon, 27 Nov 2017 18:51:45 +0100
-Message-ID: <13c097af-4a34-fd29-7830-9cf9497108c1@daenzer.net>
-References: <20171127160217.4010-1-christian.koenig@amd.com>
- <e809f02c-24f3-a8a4-13e2-cc9c10b22bb6@amd.com>
- <fbaf4196-f070-6675-e528-cc335de3f28b@amd.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
+ (Models 30h-3fh) Processors v5
+Date: Mon, 27 Nov 2017 13:30:32 -0500
+Message-ID: <65885386-3dde-de23-7e95-7d96dfdf6033@oracle.com>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
+ <20171018135821.3248-5-deathsimple@vodafone.de>
+ <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+ <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
+ <26df0a78-8028-e42c-ce50-4cefe612a7e1@oracle.com>
+ <3443aad0-8c3b-b97e-685a-96b0866827be@amd.com>
+ <b937778c-556e-5587-c557-abba8cefe100@oracle.com>
+ <bee2c953-0ab6-a086-9150-ae51e099655c@amd.com>
+ <c2d52d00-8c3c-9944-29b3-3cab2f7c35f7@oracle.com>
+ <7936fdd3-1615-ac1f-7b75-330ccb6a1a3f@amd.com>
+ <0bb468d9-bc1d-e3c5-e313-1cf9408380f0@oracle.com>
+ <275e859a-0ddd-ea7f-a681-67e42a5233fe@amd.com>
+ <38bc76d9-2ed5-61f3-24b3-085031825181@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <fbaf4196-f070-6675-e528-cc335de3f28b-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <38bc76d9-2ed5-61f3-24b3-085031825181@oracle.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, xen-devel <xen-devel@lists.xen.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxNy0xMS0yNyAwNjoxMiBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAyNy4x
-MS4yMDE3IHVtIDE3OjQwIHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4+IE9uIDIwMTctMTEtMjcg
-MTE6MDIgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBUaGUgYmxvY2sgc2l6ZSBvbmx5
-IGFmZmVjdHMgdGhlIGxlYXZlIG5vZGVzLCBldmVyeXRoaW5nIGVsc2UgaXMgZml4ZWQuCj4+Pgo+
-Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
-Y29tPgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
-YyB8IDI4Cj4+PiArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tCj4+PiDCoCAxIGZpbGUgY2hh
-bmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+IGluZGV4IDEyMjM3OWRmYzdkOC4uZjFl
-NTQxZTliNTE0IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-Cj4+PiBAQCAtMTM5LDYgKzEzOSwyNCBAQCBzdHJ1Y3QgYW1kZ3B1X3BydF9jYiB7Cj4+PiDCoCB9
-Owo+Pj4gwqAgwqAgLyoqCj4+PiArICogYW1kZ3B1X3ZtX2xldmVsX3NoaWZ0IC0gcmV0dXJuIHRo
-ZSBhZGRyIHNoaWZ0IGZvciBlYWNoIGxldmVsCj4+PiArICoKPj4+ICsgKiBAYWRldjogYW1kZ3B1
-X2RldmljZSBwb2ludGVyCj4+PiArICoKPj4+ICsgKiBSZXR1cm5zIHRoZSBudW1iZXIgb2YgYml0
-cyB0aGUgcGZuIG5lZWRzIHRvIGJlIHJpZ2h0IHNoaWZ0ZWQgZm9yCj4+PiBhIGxldmVsLgo+Pj4g
-KyAqLwo+Pj4gK3N0YXRpYyB1bnNpZ25lZCBhbWRncHVfdm1fbGV2ZWxfc2hpZnQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHVuc2lnbmVkIGxldmVsKQo+Pj4gK3sKPj4+ICvCoMKgwqAgaWYgKGxldmVsICE9
-IGFkZXYtPnZtX21hbmFnZXIubnVtX2xldmVsKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiA5
-ICogKGFkZXYtPnZtX21hbmFnZXIubnVtX2xldmVsIC0gbGV2ZWwgLSAxKSArCj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBhZGV2LT52bV9tYW5hZ2VyLmJsb2NrX3NpemU7Cj4+PiArwqDCoMKg
-IGVsc2UKPj4+ICvCoMKgwqDCoMKgwqDCoCAvKiBGb3IgdGhlIHBhZ2UgdGFibGVzIG9uIHRoZSBs
-ZWF2ZXMgKi8KPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+ICt9Cj4+PiArCj4+PiAr
-LyoqCj4+PiDCoMKgICogYW1kZ3B1X3ZtX251bV9lbnRyaWVzIC0gcmV0dXJuIHRoZSBudW1iZXIg
-b2YgZW50cmllcyBpbiBhIFBEL1BUCj4+PiDCoMKgICoKPj4+IMKgwqAgKiBAYWRldjogYW1kZ3B1
-X2RldmljZSBwb2ludGVyCj4+PiBAQCAtMjg4LDggKzMwNiw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1
-X3ZtX2FsbG9jX2xldmVscyhzdHJ1Y3QKPj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50NjRfdCBzYWRkciwgdWludDY0
-X3QgZWFkZHIsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNp
-Z25lZCBsZXZlbCkKPj4+IMKgIHsKPj4+IC3CoMKgwqAgdW5zaWduZWQgc2hpZnQgPSAoYWRldi0+
-dm1fbWFuYWdlci5udW1fbGV2ZWwgLSBsZXZlbCkgKgo+Pj4gLcKgwqDCoMKgwqDCoMKgIGFkZXYt
-PnZtX21hbmFnZXIuYmxvY2tfc2l6ZTsKPj4+ICvCoMKgwqAgdW5zaWduZWQgc2hpZnQgPSBhbWRn
-cHVfdm1fbGV2ZWxfc2hpZnQoYWRldiwgbGV2ZWwpOwo+Pj4gwqDCoMKgwqDCoCB1bnNpZ25lZCBw
-dF9pZHgsIGZyb20sIHRvOwo+Pj4gwqDCoMKgwqDCoCBpbnQgcjsKPj4+IMKgwqDCoMKgwqAgdTY0
-IGZsYWdzOwo+Pj4gQEAgLTEzMDIsMTggKzEzMTksMTkgQEAgdm9pZCBhbWRncHVfdm1fZ2V0X2Vu
-dHJ5KHN0cnVjdAo+Pj4gYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwLCB1aW50NjRfdCBhZGRy
-LAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3ZtX3B0ICoq
-ZW50cnksCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfdm1f
-cHQgKipwYXJlbnQpCj4+PiDCoCB7Cj4+PiAtwqDCoMKgIHVuc2lnbmVkIGlkeCwgbGV2ZWwgPSBw
-LT5hZGV2LT52bV9tYW5hZ2VyLm51bV9sZXZlbDsKPj4+ICvCoMKgwqAgdW5zaWduZWQgbGV2ZWwg
-PSAwOwo+PiBUaGlzIGdlbmVyYXRlcyBhIGNoZWNrcGF0Y2gucGwgd2FybmluZy4KPj4KPj4gR2Vu
-ZXJhbCBxdWVzdGlvbjogRG8geW91IGhhdmUgYSBwb2xpY3kgZm9yIHJ1bm5pbmcgeW91ciBwYXRj
-aGVzIHRocm91Z2gKPj4gY2hlY2twYXRjaC5wbCBiZWZvcmUvZHVyaW5nL2FmdGVyIGNvZGUgcmV2
-aWV3Pwo+IAo+IE5vLCBJJ20gdXNpbmcgZWRpdG9yIHNldHRpbmdzIHdoaWNoIGdlbmVyYXRlIGNv
-ZGluZyBzdHlsZSBjb21wbGlhbnQgY29kZQo+IG1vc3Qgb2YgdGhlIHRpbWUgYW5kIGNvbXBsYWlu
-cy9zaG93cyB3aGVuIGl0IGlzbid0IGNvbXBsaWFudC4KPiAKPj4gSSd2ZSBub3RpY2VkIGJlZm9y
-ZSB0aGF0IHNvbWUgb2YgeW91ciBwYXRjaGVzIGFyZW4ndCBhbHdheXMgMTAwJQo+PiBjb21wbGlh
-bnQuCj4gCj4gWWVhaCwgYW1kZ3B1IGluaGVyaXRlZCBhIGxvdCBvZiBjb2RlIGFzIHdlbGwgYXMg
-Y29kaW5nIHN0eWxlIGZyb20gcmFkZW9uCj4gd2hpY2ggaXNuJ3QgY29tcGxpYW50Lgo+IAo+IEZv
-ciBleGFtcGxlIGluIHRoaXMgY2FzZSBjaGVja3BhdGNoLnBsIG1vc3QgbGlrZWx5IGNvbXBsYWlu
-cyB0aGF0IHdlCj4gc2hvdWxkIHVzZSAidW5zaWduZWQgaW50IiBpbnN0ZWFkIG9mIGp1c3QgInVu
-c2lnbmVkIi4KPiAKPiBJJ3ZlIHRyaWVkIHRvIGNsZWFuIHRoaXMgdXAgZm9yIHllYXJzLCBidXQg
-c2ltcGx5IG5vdCBlbm91Z2ggdGltZSB0bwo+IGhhbmRsZSBldmVyeXRoaW5nLgoKTW9yZW92ZXIs
-IGNoZWNrcGF0Y2gucGwgY2Fubm90IGFsd2F5cyBiZSAxMDAlIHNhdGlzZmllZCwgbGV0IGFsb25l
-IGluIGEKd2F5IHRoYXQgYWN0dWFsbHkgbWFrZXMgc2Vuc2UgZm9yIHRoZSBjb2RlIGluIHF1ZXN0
-aW9uLiBJdHMgcmVwb3J0cwpzaG91bGQgYmUgY29uc2lkZXJlZCBndWlkZWxpbmVzLCBub3QgdGhl
-IGxhdy4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAg
-ICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAg
-ICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 11/23/2017 09:12 AM, Boris Ostrovsky wrote:
+>
+>
+> On 11/23/2017 03:11 AM, Christian König wrote:
+>> Am 22.11.2017 um 18:27 schrieb Boris Ostrovsky:
+>>> On 11/22/2017 11:54 AM, Christian König wrote:
+>>>> Am 22.11.2017 um 17:24 schrieb Boris Ostrovsky:
+>>>>> On 11/22/2017 05:09 AM, Christian König wrote:
+>>>>>> Am 21.11.2017 um 23:26 schrieb Boris Ostrovsky:
+>>>>>>> On 11/21/2017 08:34 AM, Christian König wrote:
+>>>>>>>> Hi Boris,
+>>>>>>>>
+>>>>>>>> attached are two patches.
+>>>>>>>>
+>>>>>>>> The first one is a trivial fix for the infinite loop issue, it now
+>>>>>>>> correctly aborts the fixup when it can't find address space for
+>>>>>>>> the
+>>>>>>>> root window.
+>>>>>>>>
+>>>>>>>> The second is a workaround for your board. It simply checks if
+>>>>>>>> there
+>>>>>>>> is exactly one Processor Function to apply this fix on.
+>>>>>>>>
+>>>>>>>> Both are based on linus current master branch. Please test if they
+>>>>>>>> fix
+>>>>>>>> your issue.
+>>>>>>> Yes, they do fix it but that's because the feature is disabled.
+>>>>>>>
+>>>>>>> Do you know what the actual problem was (on Xen)?
+>>>>>> I still haven't understood what you actually did with Xen.
+>>>>>>
+>>>>>> When you used PCI pass through with those devices then you have
+>>>>>> made a
+>>>>>> major configuration error.
+>>>>>>
+>>>>>> When the problem happened on dom0 then the explanation is most
+>>>>>> likely
+>>>>>> that some PCI device ended up in the configured space, but the
+>>>>>> routing
+>>>>>> was only setup correctly on one CPU socket.
+>>>>> The problem is that dom0 can be (and was in my case() booted with
+>>>>> less
+>>>>> than full physical memory and so the "rest" of the host memory is not
+>>>>> necessarily reflected in iomem. Your patch then tried to configure
+>>>>> that
+>>>>> memory for MMIO and the system hang.
+>>>>>
+>>>>> And so my guess is that this patch will break dom0 on a single-socket
+>>>>> system as well.
+>>>> Oh, thanks!
+>>>>
+>>>> I've thought about that possibility before, but wasn't able to find a
+>>>> system which actually does that.
+>>>>
+>>>> May I ask why the rest of the memory isn't reported to the OS?
+>>> That memory doesn't belong to the OS (dom0), it is owned by the
+>>> hypervisor.
+>>>
+>>>> Sounds like I can't trust Linux resource management and probably need
+>>>> to read the DRAM config to figure things out after all.
+>>>
+>>> My question is whether what you are trying to do should ever be done
+>>> for
+>>> a guest at all (any guest, not necessarily Xen).
+>>
+>> The issue is probably that I don't know enough about Xen: What
+>> exactly is dom0? My understanding was that dom0 is the hypervisor,
+>> but that seems to be incorrect.
+>>
+>> The issue is that under no circumstances *EVER* a virtualized guest
+>> should have access to the PCI devices marked as "Processor Function"
+>> on AMD platforms. Otherwise it is trivial to break out of the
+>> virtualization.
+>>
+>> When dom0 is something like the system domain with all hardware
+>> access then the approach seems legitimate, but then the hypervisor
+>> should report the stolen memory to the OS using the e820 table.
+>>
+>> When the hypervisor doesn't do that and the Linux kernel isn't aware
+>> that there is memory at a given location mapping PCI space there will
+>> obviously crash the hypervisor.
+>>
+>> Possible solutions as far as I can see are either disabling this
+>> feature when we detect that we are a Xen dom0, scanning the DRAM
+>> settings to update Linux resource handling or fixing Xen to report
+>> stolen memory to the dom0 OS as reserved.
+>>
+>> Opinions?
+>
+> You are right, these functions are not exposed to a regular guest.
+>
+> I think for dom0 (which is a special Xen guest, with additional
+> privileges) we may be able to add a reserved e820 region for host
+> memory that is not assigned to dom0. Let me try it on Monday (I am out
+> until then).
+
+
+One thing I realized while looking at solution for Xen dom0 is that this
+patch may cause problems for memory hotplug. What happens if new memory
+is added to the system and we have everything above current memory set
+to MMIO?
+
+-boris
