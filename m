@@ -1,56 +1,42 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [amdgpu] script to generate a VCE 1.0 amdgpu compatible firmware
-Date: Tue, 28 Nov 2017 18:36:32 +0100
-Message-ID: <85914c7d-0e8f-8ec3-2e1e-22d83b71f883@gmail.com>
-References: <647a0989-7c2a-0dc8-c4c9-a20a661331d3@gmail.com>
- <b655b477-2099-c7c6-2539-64262f738134@gmail.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
+ (Models 30h-3fh) Processors v5
+Date: Tue, 28 Nov 2017 13:55:58 -0500
+Message-ID: <cb0d5830-11dd-57b8-606b-7eca560cfcc7@oracle.com>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
+ <20171018135821.3248-5-deathsimple@vodafone.de>
+ <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+ <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
+ <26df0a78-8028-e42c-ce50-4cefe612a7e1@oracle.com>
+ <3443aad0-8c3b-b97e-685a-96b0866827be@amd.com>
+ <b937778c-556e-5587-c557-abba8cefe100@oracle.com>
+ <bee2c953-0ab6-a086-9150-ae51e099655c@amd.com>
+ <c2d52d00-8c3c-9944-29b3-3cab2f7c35f7@oracle.com>
+ <7936fdd3-1615-ac1f-7b75-330ccb6a1a3f@amd.com>
+ <0bb468d9-bc1d-e3c5-e313-1cf9408380f0@oracle.com>
+ <275e859a-0ddd-ea7f-a681-67e42a5233fe@amd.com>
+ <38bc76d9-2ed5-61f3-24b3-085031825181@oracle.com>
+ <65885386-3dde-de23-7e95-7d96dfdf6033@oracle.com>
+ <0ab28334-3ccc-2a93-9991-396ee01a3662@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b655b477-2099-c7c6-2539-64262f738134-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <0ab28334-3ccc-2a93-9991-396ee01a3662@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, xen-devel <xen-devel@lists.xen.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjguMTEuMjAxNyB1bSAxNzozNCBzY2hyaWViIEFsZXhhbmRyZSBEZW1lcnM6Cj4gT24gMjAx
-Ny0xMS0yMyAwMDo1MywgQWxleGFuZHJlIERlbWVycyB3cm90ZToKPj4gSGksCj4+Cj4+IEkganVz
-dCB3YW50IHRvIGxldCB5b3Uga25vdyB0aGF0IEknbSBzdGlsbCBhbGl2ZSBhbmQgc3RpbGwgY29t
-bWl0dGVkIHRvCj4+IHBvcnRpbmcgVkNFIDEuMCBmcm9tIHJhZGVvbiB0byBhbWRncHUuIEhvd2V2
-ZXIsIGZvciBtYW55IHJlYXNvbnMsIEkndmUKPj4gYmVlbiBwcmV0dHkgbXVjaCB1bmFibGUgdG8g
-d29yayBvbiB0aGUgY29kZSBzaW5jZSBteSBsYXN0IGNvbW11bmljYXRpb24uCj4+Cj4+IFRoYXQg
-YmVpbmcgc2FpZCwgSSd2ZSBjcmVhdGVkIGEgc2NyaXB0IGJhc2VkIG9uIFBpb3RyIFJlZGxld3Nr
-aSdzIHdvcmsKPj4gdG8gZ2VuZXJhdGUgYSBjb21wYXRpYmxlIFZDRSAxLjAgZmlybXdhcmUgd2l0
-aCBhbWRncHUuIFRoZSBzY3JpcHQgY2FuIGJlCj4+IGZvdW5kIG9uIEdpdGh1Ykdpc3Q6Cj4+IGh0
-dHBzOi8vZ2lzdC5naXRodWIuY29tL094YWxpbi9iYTlhYTljMWMxOTEyZTY4Zjc2ZGFkY2FkNDM2
-ZDFhNAo+Pgo+PiBOb3csIEkndmUgcmVhZCB0aGUgcGF0Y2hzZXQgc2VudCBieSBSZWRsZXdza2kg
-Zm9yIGFkZGluZyBVVkQgb24gR0NOIDEKPj4gZGV2aWNlcy4gQ2hyaXN0aWFuLCBzaW5jZSB5b3Ug
-d2VyZSB0byBzZWUgaWYgQU1EIGNvdWxkIHJlbGVhc2UgYSBuZXcgVVZECj4+IGZpcm13YXJlIHdp
-dGggaGVhZGVyIGFuZCBjb3JyZWN0IDQwYml0IGFkZHJlc3NpbmcsIGNvdWxkIHlvdSBhc2sgaWYg
-YW4KPj4gb2ZmaWNpYWwgVkNFIDEuMCBmaXJtd2FyZSB3aXRoIGFuIG9mZmljaWFsIGhlYWRlciAo
-YW5kIHdoYXRldmVyIGVsc2UKPj4gY291bGQgYmUgbmVlZGVkKSBiZSByZWxlYXNlZCBhdCB0aGUg
-c2FtZSB0aW1lPwo+Pgo+PiBDaGVlcnMKPj4KPiBUaGUgc2NyaXB0IG5vdyBsaXZlcyBvbiBnaXRo
-dWIgYXQgdGhlIGZvbGxvd2luZyBhZGRyZXNzOgo+IGdpdEBnaXRodWIuY29tOk94YWxpbi92Y2Ut
-MS4wLWZ3LWNvbnZlcnRvci5naXQKPgo+IENocmlzdGlhbiwgYW55IG5ld3MgYWJvdXQgb2ZmaWNp
-YWwgVkNFIGFuZCBVVkQgZmlybXdhcmVzIGZyb20gQU1EPwoKWWVhaCwgd2UgdGFsa2VkIGFib3V0
-IHRoYXQganVzdCB5ZXN0ZXJkYXkuCgpWQ0Ugc2hvdWxkbid0IGJlIHRvIG11Y2ggb2YgYW4gaXNz
-dWUuIFRoZSBtYWluIHByb2JsZW0gaXMgdGhhdCB3ZSBuZWVkIAp0byBmaWd1cmUgb3V0IHRoZSBs
-YXRlc3QgdGVzdGVkIHZlcnNpb24gZm9yIFNJIGFuZCB0aGVuIHRocm93IHRoYXQgaW50byAKdGhl
-IGdlbmVyYXRvci4KClVWRCBpcyBhIGJpZ2dlciBwcm9ibGVtLiBDdXJyZW50bHkgc3RpbGwgbG9v
-a2luZyBpbnRvIHRoaXMuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4gQWxleGFuZHJlIERlbWVy
-cwo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
-bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On 11/28/2017 04:12 AM, Christian König wrote:
+>
+>
+> How about the attached patch? It limits the newly added MMIO space to
+> the upper 256GB of the address space. That should still be enough for
+> most devices, but we avoid both issues with Xen dom0 as most likely
+> problems with memory hotplug as well.
+
+It certainly makes the problem to be less likely so I guess we could do
+this for now.
+
+Thanks.
+-boris
