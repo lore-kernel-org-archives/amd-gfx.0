@@ -1,13 +1,27 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 0/8] Cleanup raven1 header files.
-Date: Tue, 28 Nov 2017 09:53:12 +0800
-Message-ID: <5A1CC188.1090500@amd.com>
-References: <1511782150-31595-1-git-send-email-Feifei.Xu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v9 4/5] x86/PCI: Enable a 64bit BAR on AMD Family 15h
+ (Models 30h-3fh) Processors v5
+Date: Tue, 28 Nov 2017 10:12:44 +0100
+Message-ID: <0ab28334-3ccc-2a93-9991-396ee01a3662@amd.com>
+References: <20171018135821.3248-1-deathsimple@vodafone.de>
+ <20171018135821.3248-5-deathsimple@vodafone.de>
+ <c5ca14bc-3812-ff15-7dd0-e862ce85a348@oracle.com>
+ <d81d50e6-c267-fe43-214f-278e57903448@gmail.com>
+ <26df0a78-8028-e42c-ce50-4cefe612a7e1@oracle.com>
+ <3443aad0-8c3b-b97e-685a-96b0866827be@amd.com>
+ <b937778c-556e-5587-c557-abba8cefe100@oracle.com>
+ <bee2c953-0ab6-a086-9150-ae51e099655c@amd.com>
+ <c2d52d00-8c3c-9944-29b3-3cab2f7c35f7@oracle.com>
+ <7936fdd3-1615-ac1f-7b75-330ccb6a1a3f@amd.com>
+ <0bb468d9-bc1d-e3c5-e313-1cf9408380f0@oracle.com>
+ <275e859a-0ddd-ea7f-a681-67e42a5233fe@amd.com>
+ <38bc76d9-2ed5-61f3-24b3-085031825181@oracle.com>
+ <65885386-3dde-de23-7e95-7d96dfdf6033@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------6B8B41B4035F4AC36787ABE7"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1511782150-31595-1-git-send-email-Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <65885386-3dde-de23-7e95-7d96dfdf6033-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,108 +32,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Ken.Wang-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: Boris Ostrovsky <boris.ostrovsky-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, xen-devel <xen-devel-GuqFBffKawuEi8DpZVb4nw@public.gmane.org>
 
-T24gMTEvMjcvMjAxNyAwNzoyOSBQTSwgRmVpZmVpIFh1IHdyb3RlOgo+IFJlbW92ZSBmb2xkZXIg
-YW1kL2luY2x1ZGUvYXNpY19yZWcvcmF2ZW4xIHRvIGF2b2lkIGhlYWRlciBmaWxlcyBkdXBsaWNh
-dGlvbi4KPiBIZWFkZXIgZmlsZXMgdW5kZXIgdGhpcyBmb2xkZXIgd2lsbCBiZSBtb3ZlZCB0byBh
-c2ljX3JlZy8uCj4KPiBBbHNvIHJlbW92ZWQgc29tZSB1bnVzZWQgaGVhZGVyIGZpbGVzIG9mIHJh
-dmVuMS4KPgo+IFBhdGNoZXMgYXJlIGZvcm1hdGVkIHdpdGggZmxhZyAtLWZpbmQtcmVuYW1lcyBh
-bmQgLS1pcnJldmVyc2libGUtZGVsZXRlLgo+IFRoZXkgYXJlIGp1c3QgZm9yIHJldmlld2luZyBh
-bmQgbm90IG1lYW50IHRvIGJlIGFwcGxpZWQgd2l0aCBnaXQgYXBwbHkuCgpUaGFua3MgZm9yIHJh
-dmVuMSBjbGVhbiB1cC4KKEFib3V0IHJlbW92ZWQgZmlsZXMsIFJhdmVuIGNvdWxkIHNoYXJlIHNv
-bWUgaGVhZGVycyB3aXRoIHZlZ2ExMCwgSSB0aGluaykKClJldmlld2VkLWJ5OiBKdW53ZWkgWmhh
-bmcgPEplcnJ5LlpoYW5nQGFtZC5jb20+Cgo+Cj4gRmVpZmVpIFh1ICg4KToKPiAgICBkcm0vYW1k
-L2luY2x1ZGU6Y2xlYW51cCByYXZlbjEgc2RtYSBoZWFkZXIgZmlsZXMuCj4gICAgZHJtL2FtZC9p
-bmNsdWRlOmNsZWFudXAgcmF2ZW4xIGRjbiBoZWFkZXIgZmlsZXMuCj4gICAgZHJtL2FtZC9pbmNs
-dWRlOmNsZWFudXAgcmF2ZW4xIGdjIGhlYWRlciBmaWxlcy4KPiAgICBkcm0vYW1kL2luY2x1ZGU6
-Y2xlYW51cCByYXZlbjEgbW1odWIgaGVhZGVyIGZpbGVzLgo+ICAgIGRybS9hbWQvaW5jbHVkZTpj
-bGVhbnVwIHJhdmVuMSBtcCBoZWFkZXIgZmlsZXMuCj4gICAgZHJtL2FtZC9pbmNsdWRlOmNsZWFu
-dXAgcmF2ZW4xIG5iaW8gaGVhZGVyIGZpbGVzLgo+ICAgIGRybS9hbWQvaW5jbHVkZTpjbGVhbnVw
-IHJhdmVuMSB0aG0gaGVhZGVyIGZpbGVzLgo+ICAgIGRybS9hbWQvaW5jbHVkZTpjbGVhbnVwIHJh
-dmVuMSB2Y24gaGVhZGVyIGZpbGVzLgo+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdmNuLmMgICAgICAgICAgICB8ICAgICAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9uYmlvX3Y3XzAuYyAgICAgICAgICAgICB8ICAgICA2ICstCj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuYyAgICAgICAgICAgICB8ICAgICA2ICstCj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYyAgICAgICAgICAgICB8ICAgICAy
-ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jICAgICAgICAgICAg
-ICB8ICAgICA4ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbS5jICB8ICAgICA0ICstCj4gICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24x
-MC9kY24xMF9yZXNvdXJjZS5jICB8ICAgIDEwICstCj4gICAuLi4vYW1kL2Rpc3BsYXkvZGMvZ3Bp
-by9kY24xMC9od19mYWN0b3J5X2RjbjEwLmMgICB8ICAgICA0ICstCj4gICAuLi4vYW1kL2Rpc3Bs
-YXkvZGMvZ3Bpby9kY24xMC9od190cmFuc2xhdGVfZGNuMTAuYyB8ICAgICA0ICstCj4gICAuLi4v
-ZHJtL2FtZC9kaXNwbGF5L2RjL2kyY2F1eC9kY24xMC9pMmNhdXhfZGNuMTAuYyB8ICAgICA0ICst
-Cj4gICAuLi4vYW1kL2Rpc3BsYXkvZGMvaXJxL2RjbjEwL2lycV9zZXJ2aWNlX2RjbjEwLmMgICB8
-ICAgICA0ICstCj4gICAuLi4vYXNpY19yZWcve3JhdmVuMS9EQ04gPT4gZGNufS9kY25fMV8wX29m
-ZnNldC5oICB8ICAgICAwCj4gICAuLi4vYXNpY19yZWcve3JhdmVuMS9EQ04gPT4gZGNufS9kY25f
-MV8wX3NoX21hc2suaCB8ICAgICAwCj4gICAuLi4vYXNpY19yZWcve3JhdmVuMS9HQyA9PiBnY30v
-Z2NfOV8xX29mZnNldC5oICAgICB8ICAgICAwCj4gICAuLi4ve3JhdmVuMS9NTUhVQiA9PiBtbWh1
-Yn0vbW1odWJfOV8xX29mZnNldC5oICAgICB8ICAgICAwCj4gICAuLi4ve3JhdmVuMS9NTUhVQiA9
-PiBtbWh1Yn0vbW1odWJfOV8xX3NoX21hc2suaCAgICB8ICAgICAwCj4gICAuLi4vYXNpY19yZWcv
-e3JhdmVuMS9NUCA9PiBtcH0vbXBfMTBfMF9kZWZhdWx0LmggICB8ICAgICAwCj4gICAuLi4vYXNp
-Y19yZWcve3JhdmVuMS9NUCA9PiBtcH0vbXBfMTBfMF9vZmZzZXQuaCAgICB8ICAgICAwCj4gICAu
-Li4vYXNpY19yZWcve3JhdmVuMS9NUCA9PiBtcH0vbXBfMTBfMF9zaF9tYXNrLmggICB8ICAgICAw
-Cj4gICAuLi4ve3JhdmVuMS9OQklPID0+IG5iaW99L25iaW9fN18wX2RlZmF1bHQuaCAgICAgICB8
-ICAgICAwCj4gICAuLi4ve3JhdmVuMS9OQklPID0+IG5iaW99L25iaW9fN18wX29mZnNldC5oICAg
-ICAgICB8ICAgICAwCj4gICAuLi4ve3JhdmVuMS9OQklPID0+IG5iaW99L25iaW9fN18wX3NoX21h
-c2suaCAgICAgICB8ICAgICAwCj4gICAuLi4vaW5jbHVkZS9hc2ljX3JlZy9yYXZlbjEvRENOL2Rj
-bl8xXzBfZGVmYXVsdC5oICB8ICA3OTg4IC0tLS0tCj4gICAuLi4vaW5jbHVkZS9hc2ljX3JlZy9y
-YXZlbjEvR0MvZ2NfOV8xX2RlZmF1bHQuaCAgICB8ICA0MDA1IC0tLQo+ICAgLi4uL2luY2x1ZGUv
-YXNpY19yZWcvcmF2ZW4xL0dDL2djXzlfMV9zaF9tYXNrLmggICAgfCAzMTE5MSAtLS0tLS0tLS0t
-LS0tLS0tLS0tCj4gICAuLi4vYXNpY19yZWcvcmF2ZW4xL01NSFVCL21taHViXzlfMV9kZWZhdWx0
-LmggICAgICB8ICAxMDI4IC0KPiAgIC4uLi9hc2ljX3JlZy9yYXZlbjEvU0RNQTAvc2RtYTBfNF8x
-X3NoX21hc2suaCAgICAgIHwgIDE2NTggLQo+ICAgLi4uL2luY2x1ZGUvYXNpY19yZWcvcmF2ZW4x
-L1ZDTi92Y25fMV8wX2RlZmF1bHQuaCAgfCAgIDIwMiAtCj4gICAuLi4ve3JhdmVuMS9TRE1BMCA9
-PiBzZG1hMH0vc2RtYTBfNF8xX2RlZmF1bHQuaCAgICB8ICAgICAwCj4gICAuLi4ve3JhdmVuMS9T
-RE1BMCA9PiBzZG1hMH0vc2RtYTBfNF8xX29mZnNldC5oICAgICB8ICAgICAwCj4gICAuLi4ve3Jh
-dmVuMS9USE0gPT4gdGhtfS90aG1fMTBfMF9kZWZhdWx0LmggICAgICAgICB8ICAgICAwCj4gICAu
-Li4vYXNpY19yZWcve3JhdmVuMS9USE0gPT4gdGhtfS90aG1fMTBfMF9vZmZzZXQuaCB8ICAgICAw
-Cj4gICAuLi4ve3JhdmVuMS9USE0gPT4gdGhtfS90aG1fMTBfMF9zaF9tYXNrLmggICAgICAgICB8
-ICAgICAwCj4gICAuLi4vYXNpY19yZWcve3JhdmVuMS9WQ04gPT4gdmNufS92Y25fMV8wX29mZnNl
-dC5oICB8ICAgICAwCj4gICAuLi4vYXNpY19yZWcve3JhdmVuMS9WQ04gPT4gdmNufS92Y25fMV8w
-X3NoX21hc2suaCB8ICAgICAwCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci9ydl9pbmMuaCAgICAgICB8ICAgIDE4ICstCj4gICAzNiBmaWxlcyBjaGFuZ2VkLCAzNiBpbnNl
-cnRpb25zKCspLCA0NjEwOCBkZWxldGlvbnMoLSkKPiAgIHJlbmFtZSBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2luY2x1ZGUvYXNpY19yZWcve3JhdmVuMS9EQ04gPT4gZGNufS9kY25fMV8wX29mZnNldC5o
-ICgxMDAlKQo+ICAgcmVuYW1lIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97
-cmF2ZW4xL0RDTiA9PiBkY259L2Rjbl8xXzBfc2hfbWFzay5oICgxMDAlKQo+ICAgcmVuYW1lIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97cmF2ZW4xL0dDID0+IGdjfS9nY185
-XzFfb2Zmc2V0LmggKDEwMCUpCj4gICByZW5hbWUgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRl
-L2FzaWNfcmVnL3tyYXZlbjEvTU1IVUIgPT4gbW1odWJ9L21taHViXzlfMV9vZmZzZXQuaCAoMTAw
-JSkKPiAgIHJlbmFtZSBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcve3JhdmVu
-MS9NTUhVQiA9PiBtbWh1Yn0vbW1odWJfOV8xX3NoX21hc2suaCAoMTAwJSkKPiAgIHJlbmFtZSBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcve3JhdmVuMS9NUCA9PiBtcH0vbXBf
-MTBfMF9kZWZhdWx0LmggKDEwMCUpCj4gICByZW5hbWUgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNs
-dWRlL2FzaWNfcmVnL3tyYXZlbjEvTVAgPT4gbXB9L21wXzEwXzBfb2Zmc2V0LmggKDEwMCUpCj4g
-ICByZW5hbWUgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3tyYXZlbjEvTVAg
-PT4gbXB9L21wXzEwXzBfc2hfbWFzay5oICgxMDAlKQo+ICAgcmVuYW1lIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97cmF2ZW4xL05CSU8gPT4gbmJpb30vbmJpb183XzBfZGVm
-YXVsdC5oICgxMDAlKQo+ICAgcmVuYW1lIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2lj
-X3JlZy97cmF2ZW4xL05CSU8gPT4gbmJpb30vbmJpb183XzBfb2Zmc2V0LmggKDEwMCUpCj4gICBy
-ZW5hbWUgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3tyYXZlbjEvTkJJTyA9
-PiBuYmlvfS9uYmlvXzdfMF9zaF9tYXNrLmggKDEwMCUpCj4gICBkZWxldGUgbW9kZSAxMDA2NDQg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3JhdmVuMS9EQ04vZGNuXzFfMF9k
-ZWZhdWx0LmgKPiAgIGRlbGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1
-ZGUvYXNpY19yZWcvcmF2ZW4xL0dDL2djXzlfMV9kZWZhdWx0LmgKPiAgIGRlbGV0ZSBtb2RlIDEw
-MDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvcmF2ZW4xL0dDL2djXzlf
-MV9zaF9tYXNrLmgKPiAgIGRlbGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2lu
-Y2x1ZGUvYXNpY19yZWcvcmF2ZW4xL01NSFVCL21taHViXzlfMV9kZWZhdWx0LmgKPiAgIGRlbGV0
-ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvcmF2ZW4x
-L1NETUEwL3NkbWEwXzRfMV9zaF9tYXNrLmgKPiAgIGRlbGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvcmF2ZW4xL1ZDTi92Y25fMV8wX2RlZmF1bHQu
-aAo+ICAgcmVuYW1lIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97cmF2ZW4x
-L1NETUEwID0+IHNkbWEwfS9zZG1hMF80XzFfZGVmYXVsdC5oICgxMDAlKQo+ICAgcmVuYW1lIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97cmF2ZW4xL1NETUEwID0+IHNkbWEw
-fS9zZG1hMF80XzFfb2Zmc2V0LmggKDEwMCUpCj4gICByZW5hbWUgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9pbmNsdWRlL2FzaWNfcmVnL3tyYXZlbjEvVEhNID0+IHRobX0vdGhtXzEwXzBfZGVmYXVsdC5o
-ICgxMDAlKQo+ICAgcmVuYW1lIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97
-cmF2ZW4xL1RITSA9PiB0aG19L3RobV8xMF8wX29mZnNldC5oICgxMDAlKQo+ICAgcmVuYW1lIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97cmF2ZW4xL1RITSA9PiB0aG19L3Ro
-bV8xMF8wX3NoX21hc2suaCAoMTAwJSkKPiAgIHJlbmFtZSBkcml2ZXJzL2dwdS9kcm0vYW1kL2lu
-Y2x1ZGUvYXNpY19yZWcve3JhdmVuMS9WQ04gPT4gdmNufS92Y25fMV8wX29mZnNldC5oICgxMDAl
-KQo+ICAgcmVuYW1lIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy97cmF2ZW4x
-L1ZDTiA9PiB2Y259L3Zjbl8xXzBfc2hfbWFzay5oICgxMDAlKQo+Cl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--------------6B8B41B4035F4AC36787ABE7
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 27.11.2017 um 19:30 schrieb Boris Ostrovsky:
+> On 11/23/2017 09:12 AM, Boris Ostrovsky wrote:
+>>
+>> On 11/23/2017 03:11 AM, Christian König wrote:
+>>> Am 22.11.2017 um 18:27 schrieb Boris Ostrovsky:
+>>>> On 11/22/2017 11:54 AM, Christian König wrote:
+>>>>> Am 22.11.2017 um 17:24 schrieb Boris Ostrovsky:
+>>>>>> On 11/22/2017 05:09 AM, Christian König wrote:
+>>>>>>> Am 21.11.2017 um 23:26 schrieb Boris Ostrovsky:
+>>>>>>>> On 11/21/2017 08:34 AM, Christian König wrote:
+>>>>>>>>> Hi Boris,
+>>>>>>>>>
+>>>>>>>>> attached are two patches.
+>>>>>>>>>
+>>>>>>>>> The first one is a trivial fix for the infinite loop issue, it now
+>>>>>>>>> correctly aborts the fixup when it can't find address space for
+>>>>>>>>> the
+>>>>>>>>> root window.
+>>>>>>>>>
+>>>>>>>>> The second is a workaround for your board. It simply checks if
+>>>>>>>>> there
+>>>>>>>>> is exactly one Processor Function to apply this fix on.
+>>>>>>>>>
+>>>>>>>>> Both are based on linus current master branch. Please test if they
+>>>>>>>>> fix
+>>>>>>>>> your issue.
+>>>>>>>> Yes, they do fix it but that's because the feature is disabled.
+>>>>>>>>
+>>>>>>>> Do you know what the actual problem was (on Xen)?
+>>>>>>> I still haven't understood what you actually did with Xen.
+>>>>>>>
+>>>>>>> When you used PCI pass through with those devices then you have
+>>>>>>> made a
+>>>>>>> major configuration error.
+>>>>>>>
+>>>>>>> When the problem happened on dom0 then the explanation is most
+>>>>>>> likely
+>>>>>>> that some PCI device ended up in the configured space, but the
+>>>>>>> routing
+>>>>>>> was only setup correctly on one CPU socket.
+>>>>>> The problem is that dom0 can be (and was in my case() booted with
+>>>>>> less
+>>>>>> than full physical memory and so the "rest" of the host memory is not
+>>>>>> necessarily reflected in iomem. Your patch then tried to configure
+>>>>>> that
+>>>>>> memory for MMIO and the system hang.
+>>>>>>
+>>>>>> And so my guess is that this patch will break dom0 on a single-socket
+>>>>>> system as well.
+>>>>> Oh, thanks!
+>>>>>
+>>>>> I've thought about that possibility before, but wasn't able to find a
+>>>>> system which actually does that.
+>>>>>
+>>>>> May I ask why the rest of the memory isn't reported to the OS?
+>>>> That memory doesn't belong to the OS (dom0), it is owned by the
+>>>> hypervisor.
+>>>>
+>>>>> Sounds like I can't trust Linux resource management and probably need
+>>>>> to read the DRAM config to figure things out after all.
+>>>> My question is whether what you are trying to do should ever be done
+>>>> for
+>>>> a guest at all (any guest, not necessarily Xen).
+>>> The issue is probably that I don't know enough about Xen: What
+>>> exactly is dom0? My understanding was that dom0 is the hypervisor,
+>>> but that seems to be incorrect.
+>>>
+>>> The issue is that under no circumstances *EVER* a virtualized guest
+>>> should have access to the PCI devices marked as "Processor Function"
+>>> on AMD platforms. Otherwise it is trivial to break out of the
+>>> virtualization.
+>>>
+>>> When dom0 is something like the system domain with all hardware
+>>> access then the approach seems legitimate, but then the hypervisor
+>>> should report the stolen memory to the OS using the e820 table.
+>>>
+>>> When the hypervisor doesn't do that and the Linux kernel isn't aware
+>>> that there is memory at a given location mapping PCI space there will
+>>> obviously crash the hypervisor.
+>>>
+>>> Possible solutions as far as I can see are either disabling this
+>>> feature when we detect that we are a Xen dom0, scanning the DRAM
+>>> settings to update Linux resource handling or fixing Xen to report
+>>> stolen memory to the dom0 OS as reserved.
+>>>
+>>> Opinions?
+>> You are right, these functions are not exposed to a regular guest.
+>>
+>> I think for dom0 (which is a special Xen guest, with additional
+>> privileges) we may be able to add a reserved e820 region for host
+>> memory that is not assigned to dom0. Let me try it on Monday (I am out
+>> until then).
+>
+> One thing I realized while looking at solution for Xen dom0 is that this
+> patch may cause problems for memory hotplug.
+
+Good point. My assumption was that when you got an BIOS which can handle 
+memory hotplug then you also got an BIOS which doesn't need this fixup. 
+But I've never validated that assumption.
+
+> What happens if new memory
+> is added to the system and we have everything above current memory set
+> to MMIO?
+
+In theory the BIOS would search for address space and won't find 
+anything, so the hotplug operation should fail even before it reaches 
+the kernel in the first place.
+
+In practice I think that nobody ever tested if that works correctly. So 
+I'm pretty sure the system would just crash.
+
+How about the attached patch? It limits the newly added MMIO space to 
+the upper 256GB of the address space. That should still be enough for 
+most devices, but we avoid both issues with Xen dom0 as most likely 
+problems with memory hotplug as well.
+
+Christian.
+
+>
+> -boris
+>
+
+
+--------------6B8B41B4035F4AC36787ABE7
+Content-Type: text/x-patch;
+ name="0001-x86-PCI-limit-the-size-of-the-64bit-BAR-to-256GB.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+ filename*0="0001-x86-PCI-limit-the-size-of-the-64bit-BAR-to-256GB.patch"
+
+>From 586bd9d67ebb6ca48bd0a6b1bd9203e94093cc8e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Date: Tue, 28 Nov 2017 10:02:35 +0100
+Subject: [PATCH] x86/PCI: limit the size of the 64bit BAR to 256GB
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This avoids problems with Xen which hides some memory resources from the
+OS and potentially also allows memory hotplug while this fixup is
+enabled.
+
+Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ arch/x86/pci/fixup.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
+index 56c39a7bd080..6dffdee8a2de 100644
+--- a/arch/x86/pci/fixup.c
++++ b/arch/x86/pci/fixup.c
+@@ -690,7 +690,7 @@ static void pci_amd_enable_64bit_bar(struct pci_dev *dev)
+ 	res->name = "PCI Bus 0000:00";
+ 	res->flags = IORESOURCE_PREFETCH | IORESOURCE_MEM |
+ 		IORESOURCE_MEM_64 | IORESOURCE_WINDOW;
+-	res->start = 0x100000000ull;
++	res->start = 0xbd00000000ull;
+ 	res->end = 0xfd00000000ull - 1;
+ 
+ 	/* Just grab the free area behind system memory for this */
+-- 
+2.11.0
+
+
+--------------6B8B41B4035F4AC36787ABE7
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------6B8B41B4035F4AC36787ABE7--
