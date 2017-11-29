@@ -1,143 +1,91 @@
-From: Jan Vesely <jan.vesely@rutgers.edu>
-Subject: Re: [PATCH 1/1] drm/amdkfd: Do not ignore requested queue size
- during allocation
-Date: Wed, 29 Nov 2017 16:43:23 -0500
-Message-ID: <1511991803.2978.67.camel@rutgers.edu>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/1] drm/amdkfd: Do not ignore requested queue size during
+ allocation
+Date: Wed, 29 Nov 2017 16:58:14 -0500
+Message-ID: <772df39e-167a-6404-4330-913718560b2f@amd.com>
 References: <20171116213631.3987-1-jan.vesely@rutgers.edu>
  <CAFCwf10MTrBcGn1kejNvn9AcHDsCiW85HkC6bSmYfY=1shGJxQ@mail.gmail.com>
  <21e77adc-4fbe-a3e9-0a02-5d84eb201561@amd.com>
+ <1511991803.2978.67.camel@rutgers.edu>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1897960067=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <21e77adc-4fbe-a3e9-0a02-5d84eb201561@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Felix Kuehling <felix.kuehling@amd.com>, Oded Gabbay <oded.gabbay@gmail.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
-
---===============1897960067==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Mh63DbUGSoAh5zA2idKx"
-
-
---=-Mh63DbUGSoAh5zA2idKx
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2017-11-20 at 14:22 -0500, Felix Kuehling wrote:
-> I think this patch is not correct. The EOP-mem is not associated with
-> the queue size. The EOP buffer is a separate buffer used by the firmware
-> to handle command completion. As I understand it, this allows more
-> concurrency, while still making it look like all commands in the queue
-> are completing in order.
-
-thanks for the explanation. I was looking for a source of a CP hang
-(rptr stops advancing), but bumping the eop size actually mode things
-worse. Is there a way to find out if a queue got disabled and for what
-reason? (I'm running ROCK-1.6.x based kernel)
-
-thanks,
-Jan
-
->=20
-> Regards,
->   Felix
->=20
->=20
-> On 2017-11-19 03:19 AM, Oded Gabbay wrote:
-> > On Thu, Nov 16, 2017 at 11:36 PM, Jan Vesely <jan.vesely@rutgers.edu> w=
-rote:
-> > > Signed-off-by: Jan Vesely <jan.vesely@rutgers.edu>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c | 5 +++--
-> > >  1 file changed, 3 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c b/drive=
-rs/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> > > index f1d48281e322..b3bee39661ab 100644
-> > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> > > @@ -37,15 +37,16 @@ static bool initialize_vi(struct kernel_queue *kq=
-, struct kfd_dev *dev,
-> > >                         enum kfd_queue_type type, unsigned int queue_=
-size)
-> > >  {
-> > >         int retval;
-> > > +       unsigned int size =3D ALIGN(queue_size, PAGE_SIZE);
-> > >=20
-> > > -       retval =3D kfd_gtt_sa_allocate(dev, PAGE_SIZE, &kq->eop_mem);
-> > > +       retval =3D kfd_gtt_sa_allocate(dev, size, &kq->eop_mem);
-> > >         if (retval !=3D 0)
-> > >                 return false;
-> > >=20
-> > >         kq->eop_gpu_addr =3D kq->eop_mem->gpu_addr;
-> > >         kq->eop_kernel_addr =3D kq->eop_mem->cpu_ptr;
-> > >=20
-> > > -       memset(kq->eop_kernel_addr, 0, PAGE_SIZE);
-> > > +       memset(kq->eop_kernel_addr, 0, size);
-> > >=20
-> > >         return true;
-> > >  }
-> > > --
-> > > 2.13.6
-> > >=20
-> > > _______________________________________________
-> > > amd-gfx mailing list
-> > > amd-gfx@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> >=20
-> > Thanks!
-> > Applied to -next tree
-> > Oded
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->=20
->=20
-
---=-Mh63DbUGSoAh5zA2idKx
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEjGgSoFJq63cCYGKvY+M/tz9IsiAFAlofKf0ACgkQY+M/tz9I
-siC8nRAAwIPkvLmPF/U8ez3Ba5fbot6htWgIrzG+dXODnAWWlcw3BnDdF1XCNzQ1
-+WRGXVL08dfi/zCk9xgA6Lwob00sHYTuntejKomiuLjQD91xXWs6AxTFEfw12dTl
-IGZLWvoWTEKimaafEjqC4As7zZq7LW+AMESmmzSgC7vZDa6LDjal4kogu2wQnzlS
-RvsU9AXpCaYhTl/k1T9m5Ebz0Fw1ce7MTEyIY9Ye90T3Y0aHgs8PoxayvISJEhqH
-gtqILIOPc3r+Bx1DSjUY44+XwWeBmuUWccJcCqy0S+moUr0xOCdKQa/7UvAtqEt/
-gOxasR9TpfWSvNmwPDnr27OghE4cPW0WOBIg7ZJu1bVypSnGMRXH/EsTm+z8/wYq
-791PQ5nPcao5RC4q7Fc6g/iygel9q8SFyKH/nGA0968SfMfh75TpFvw8LWMU3PDB
-s4Ln0CXk6C8+/7+q6H2yLIjIU2nomhOU2JdEX/sZ2tebeMKQz/hWEoLkxQmNoSlp
-Y/9HT13NFH/0VQqCjpIC7/Ac1y4D4+qZoqAUPZpI0c8i7txYl+o2opwSdiw2ulsu
-a0mC3Uyc6CaOCWeJhiN+IgVDAz0Pp5bTntYxvUhdXOzVYCqaC/+QXI4/B6sEFCsl
-aPQZ4Qv3B+wxkar3Xzp3ukWu9rHi3ANBMy9Z+zgwrEPA2EwQ3TI=
-=Fjch
------END PGP SIGNATURE-----
-
---=-Mh63DbUGSoAh5zA2idKx--
-
-
---===============1897960067==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1511991803.2978.67.camel-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Jan Vesely <jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1897960067==--
+WW91IGNhbiBzZWUgdGhlIHN0YXRlIG9mIHRoZSBxdWV1ZXMgaW4gZGVidWdmczoKL3N5cy9rZXJu
+ZWwvZGVidWcva2ZkLy4uLiBZb3UgY2FuIGxvb2sgYXQgTVFEcyBhbmQgSFFEcy4KCklmIHlvdXIg
+YXBwbGljYXRpb24gaXNuJ3Qgc3RvcHBpbmcgcXVldWVzIGRlbGliZXJhdGVseSwgcXVldWVzIGdl
+dApkaXNhYmxlZCBieSBldmljdGlvbnMsIHVzdWFsbHkgdGVtcG9yYXJpbHkuIFlvdSdsbCBzZWUg
+a2VybmVsIG1lc3NhZ2VzCndoZW4gdGhhdCBoYXBwZW5zLgoKQSBWTSBmYXVsdCB3aWxsIHJlc3Vs
+dCBpbiBxdWV1ZXMgb2YgdGhlIG9mZmVuZGluZyBwcm9jZXNzIGdldHRpbmcKZGlzYWJsZWQgcGVy
+bWFuZW50bHkuIEFnYWluLCB5b3UnbGwgc2VlIG1lc3NhZ2VzIGFib3V0IHRoYXQgaW4gdGhlCmtl
+cm5lbCBsb2cuCgpUaGUgUlBUUiBjYW4gYWxzbyBzdG9wIGFkdmFuY2luZyBpZiB5b3UgaGF2ZSBh
+biBpbmZpbml0ZSBsb29wIGluIGEKc2hhZGVyIHByb2dyYW0sIG9yIGp1c3QgYSBzaGFkZXIgdGhh
+dCB0YWtlcyBhIHZlcnkgbG9uZyB0aW1lIHRvIGV4ZWN1dGUuCk9yIG1heWJlIGlmIHlvdSBoYXZl
+IHNvbWUgZGVwZW5kZW5jaWVzIChiYXJyaWVycykgaW4geW91ciBBUUwgcGFja2V0cwp0aGF0IG5l
+dmVyIGdldCBzYXRpc2ZpZWQuCgpUaGUgZnVuY3Rpb24geW91IGNoYW5nZWQgb25seSBhZmZlY3Rz
+IHRoZSBISVEsIHRoZSBxdWV1ZSB0aGF0IEtGRCB1c2VzCnRvIGNvbnRyb2wgdGhlIEhXUy4gSXQg
+ZG9lcyBub3QgYWZmZWN0IHVzZXIgbW9kZSBxdWV1ZXMuIElmIHlvdXIgcHJvYmxlbQppcyB3aXRo
+IGEgdXNlciBtb2RlIHF1ZXVlLCB5b3VyIGNoYW5nZSBzaG91bGQgaGF2ZSBubyBlZmZlY3QgYXQg
+YWxsLgoKUmVnYXJkcywKwqAgRmVsaXgKCgpPbiAyMDE3LTExLTI5IDA0OjQzIFBNLCBKYW4gVmVz
+ZWx5IHdyb3RlOgo+IE9uIE1vbiwgMjAxNy0xMS0yMCBhdCAxNDoyMiAtMDUwMCwgRmVsaXggS3Vl
+aGxpbmcgd3JvdGU6Cj4+IEkgdGhpbmsgdGhpcyBwYXRjaCBpcyBub3QgY29ycmVjdC4gVGhlIEVP
+UC1tZW0gaXMgbm90IGFzc29jaWF0ZWQgd2l0aAo+PiB0aGUgcXVldWUgc2l6ZS4gVGhlIEVPUCBi
+dWZmZXIgaXMgYSBzZXBhcmF0ZSBidWZmZXIgdXNlZCBieSB0aGUgZmlybXdhcmUKPj4gdG8gaGFu
+ZGxlIGNvbW1hbmQgY29tcGxldGlvbi4gQXMgSSB1bmRlcnN0YW5kIGl0LCB0aGlzIGFsbG93cyBt
+b3JlCj4+IGNvbmN1cnJlbmN5LCB3aGlsZSBzdGlsbCBtYWtpbmcgaXQgbG9vayBsaWtlIGFsbCBj
+b21tYW5kcyBpbiB0aGUgcXVldWUKPj4gYXJlIGNvbXBsZXRpbmcgaW4gb3JkZXIuCj4gdGhhbmtz
+IGZvciB0aGUgZXhwbGFuYXRpb24uIEkgd2FzIGxvb2tpbmcgZm9yIGEgc291cmNlIG9mIGEgQ1Ag
+aGFuZwo+IChycHRyIHN0b3BzIGFkdmFuY2luZyksIGJ1dCBidW1waW5nIHRoZSBlb3Agc2l6ZSBh
+Y3R1YWxseSBtb2RlIHRoaW5ncwo+IHdvcnNlLiBJcyB0aGVyZSBhIHdheSB0byBmaW5kIG91dCBp
+ZiBhIHF1ZXVlIGdvdCBkaXNhYmxlZCBhbmQgZm9yIHdoYXQKPiByZWFzb24/IChJJ20gcnVubmlu
+ZyBST0NLLTEuNi54IGJhc2VkIGtlcm5lbCkKPgo+IHRoYW5rcywKPiBKYW4KPgo+PiBSZWdhcmRz
+LAo+PiAgIEZlbGl4Cj4+Cj4+Cj4+IE9uIDIwMTctMTEtMTkgMDM6MTkgQU0sIE9kZWQgR2FiYmF5
+IHdyb3RlOgo+Pj4gT24gVGh1LCBOb3YgMTYsIDIwMTcgYXQgMTE6MzYgUE0sIEphbiBWZXNlbHkg
+PGphbi52ZXNlbHlAcnV0Z2Vycy5lZHU+IHdyb3RlOgo+Pj4+IFNpZ25lZC1vZmYtYnk6IEphbiBW
+ZXNlbHkgPGphbi52ZXNlbHlAcnV0Z2Vycy5lZHU+Cj4+Pj4gLS0tCj4+Pj4gIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVfdmkuYyB8IDUgKysrLS0KPj4+PiAgMSBm
+aWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3Zp
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3ZpLmMKPj4+
+PiBpbmRleCBmMWQ0ODI4MWUzMjIuLmIzYmVlMzk2NjFhYiAxMDA2NDQKPj4+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3ZpLmMKPj4+PiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3ZpLmMKPj4+PiBAQCAt
+MzcsMTUgKzM3LDE2IEBAIHN0YXRpYyBib29sIGluaXRpYWxpemVfdmkoc3RydWN0IGtlcm5lbF9x
+dWV1ZSAqa3EsIHN0cnVjdCBrZmRfZGV2ICpkZXYsCj4+Pj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgZW51bSBrZmRfcXVldWVfdHlwZSB0eXBlLCB1bnNpZ25lZCBpbnQgcXVldWVfc2l6ZSkKPj4+
+PiAgewo+Pj4+ICAgICAgICAgaW50IHJldHZhbDsKPj4+PiArICAgICAgIHVuc2lnbmVkIGludCBz
+aXplID0gQUxJR04ocXVldWVfc2l6ZSwgUEFHRV9TSVpFKTsKPj4+Pgo+Pj4+IC0gICAgICAgcmV0
+dmFsID0ga2ZkX2d0dF9zYV9hbGxvY2F0ZShkZXYsIFBBR0VfU0laRSwgJmtxLT5lb3BfbWVtKTsK
+Pj4+PiArICAgICAgIHJldHZhbCA9IGtmZF9ndHRfc2FfYWxsb2NhdGUoZGV2LCBzaXplLCAma3Et
+PmVvcF9tZW0pOwo+Pj4+ICAgICAgICAgaWYgKHJldHZhbCAhPSAwKQo+Pj4+ICAgICAgICAgICAg
+ICAgICByZXR1cm4gZmFsc2U7Cj4+Pj4KPj4+PiAgICAgICAgIGtxLT5lb3BfZ3B1X2FkZHIgPSBr
+cS0+ZW9wX21lbS0+Z3B1X2FkZHI7Cj4+Pj4gICAgICAgICBrcS0+ZW9wX2tlcm5lbF9hZGRyID0g
+a3EtPmVvcF9tZW0tPmNwdV9wdHI7Cj4+Pj4KPj4+PiAtICAgICAgIG1lbXNldChrcS0+ZW9wX2tl
+cm5lbF9hZGRyLCAwLCBQQUdFX1NJWkUpOwo+Pj4+ICsgICAgICAgbWVtc2V0KGtxLT5lb3Bfa2Vy
+bmVsX2FkZHIsIDAsIHNpemUpOwo+Pj4+Cj4+Pj4gICAgICAgICByZXR1cm4gdHJ1ZTsKPj4+PiAg
+fQo+Pj4+IC0tCj4+Pj4gMi4xMy42Cj4+Pj4KPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwo+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPj4+IFRoYW5rcyEKPj4+IEFwcGxpZWQgdG8g
+LW5leHQgdHJlZQo+Pj4gT2RlZAo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
