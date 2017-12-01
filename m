@@ -1,201 +1,70 @@
-From: Jan Vesely <jan.vesely@rutgers.edu>
-Subject: Re: [PATCH 1/1] drm/amdkfd: Do not ignore requested queue size
- during allocation
-Date: Thu, 30 Nov 2017 18:51:29 -0500
-Message-ID: <1512085889.3631.50.camel@rutgers.edu>
-References: <20171116213631.3987-1-jan.vesely@rutgers.edu>
- <CAFCwf10MTrBcGn1kejNvn9AcHDsCiW85HkC6bSmYfY=1shGJxQ@mail.gmail.com>
- <21e77adc-4fbe-a3e9-0a02-5d84eb201561@amd.com>
- <1511991803.2978.67.camel@rutgers.edu>
- <772df39e-167a-6404-4330-913718560b2f@amd.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH 0/4] Backported amdgpu ttm deadlock fixes for 4.14
+Date: Thu, 30 Nov 2017 19:23:02 -0500
+Message-ID: <20171201002311.28098-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1710299943=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <772df39e-167a-6404-4330-913718560b2f@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Felix Kuehling <felix.kuehling@amd.com>, Oded Gabbay <oded.gabbay@gmail.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
-
---===============1710299943==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-tLs82fIaNO88GD6BzuHd"
-
-
---=-tLs82fIaNO88GD6BzuHd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 2017-11-29 at 16:58 -0500, Felix Kuehling wrote:
-> You can see the state of the queues in debugfs:
-> /sys/kernel/debug/kfd/... You can look at MQDs and HQDs.
-
-thanks. how do I decode the information?
-The rptr always stops at pos 60 which looks like this in mqds:
-
- DIQ on device 45a2
-    00000000: c0310800 00004000 00000000 00000000 00000000 00000000 0000000=
-0 00000000
-    00000020: 00000000 00000000 00000000 00000001 00000000 00000000 0000000=
-0 00000000
-    00000040: 00000000 00000000 00000000 00000000 00000000 00000000 0000000=
-0 ffffffff
-    00000060: ffffffff 00000000 ffffffff ffffffff 00000000 00000000 0000000=
-0 00000000
-
-If I understood correctly that's the queue dump, so those fffffs look
-wrong
-
->=20
-> If your application isn't stopping queues deliberately, queues get
-> disabled by evictions, usually temporarily. You'll see kernel messages
-> when that happens.
->=20
-> A VM fault will result in queues of the offending process getting
-> disabled permanently. Again, you'll see messages about that in the
-> kernel log.
->=20
-> The RPTR can also stop advancing if you have an infinite loop in a
-> shader program, or just a shader that takes a very long time to execute.
-> Or maybe if you have some dependencies (barriers) in your AQL packets
-> that never get satisfied.
->=20
-> The function you changed only affects the HIQ, the queue that KFD uses
-> to control the HWS. It does not affect user mode queues. If your problem
-> is with a user mode queue, your change should have no effect at all.
-
-It's not a userspace queue that stops. I'm using kernel dbgdev to issue
-wave_resume commands. (waves are halted after executing
-s_sendmsg_halt).
-I bumped KFD_KERNEL_QUEUE_SIZE to 16KB to make sure all 320 resume
-commads fit (otherwise I get spurious ENOMEM when the queue is full but
-still advancing).
-
-thanks,
-Jan
-
->=20
-> Regards,
->   Felix
->=20
->=20
-> On 2017-11-29 04:43 PM, Jan Vesely wrote:
-> > On Mon, 2017-11-20 at 14:22 -0500, Felix Kuehling wrote:
-> > > I think this patch is not correct. The EOP-mem is not associated with
-> > > the queue size. The EOP buffer is a separate buffer used by the firmw=
-are
-> > > to handle command completion. As I understand it, this allows more
-> > > concurrency, while still making it look like all commands in the queu=
-e
-> > > are completing in order.
-> >=20
-> > thanks for the explanation. I was looking for a source of a CP hang
-> > (rptr stops advancing), but bumping the eop size actually mode things
-> > worse. Is there a way to find out if a queue got disabled and for what
-> > reason? (I'm running ROCK-1.6.x based kernel)
-> >=20
-> > thanks,
-> > Jan
-> >=20
-> > > Regards,
-> > >   Felix
-> > >=20
-> > >=20
-> > > On 2017-11-19 03:19 AM, Oded Gabbay wrote:
-> > > > On Thu, Nov 16, 2017 at 11:36 PM, Jan Vesely <jan.vesely@rutgers.ed=
-u> wrote:
-> > > > > Signed-off-by: Jan Vesely <jan.vesely@rutgers.edu>
-> > > > > ---
-> > > > >  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c | 5 +++--
-> > > > >  1 file changed, 3 insertions(+), 2 deletions(-)
-> > > > >=20
-> > > > > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c b/d=
-rivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> > > > > index f1d48281e322..b3bee39661ab 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> > > > > @@ -37,15 +37,16 @@ static bool initialize_vi(struct kernel_queue=
- *kq, struct kfd_dev *dev,
-> > > > >                         enum kfd_queue_type type, unsigned int qu=
-eue_size)
-> > > > >  {
-> > > > >         int retval;
-> > > > > +       unsigned int size =3D ALIGN(queue_size, PAGE_SIZE);
-> > > > >=20
-> > > > > -       retval =3D kfd_gtt_sa_allocate(dev, PAGE_SIZE, &kq->eop_m=
-em);
-> > > > > +       retval =3D kfd_gtt_sa_allocate(dev, size, &kq->eop_mem);
-> > > > >         if (retval !=3D 0)
-> > > > >                 return false;
-> > > > >=20
-> > > > >         kq->eop_gpu_addr =3D kq->eop_mem->gpu_addr;
-> > > > >         kq->eop_kernel_addr =3D kq->eop_mem->cpu_ptr;
-> > > > >=20
-> > > > > -       memset(kq->eop_kernel_addr, 0, PAGE_SIZE);
-> > > > > +       memset(kq->eop_kernel_addr, 0, size);
-> > > > >=20
-> > > > >         return true;
-> > > > >  }
-> > > > > --
-> > > > > 2.13.6
-> > > > >=20
-> > > > > _______________________________________________
-> > > > > amd-gfx mailing list
-> > > > > amd-gfx@lists.freedesktop.org
-> > > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> > > >=20
-> > > > Thanks!
-> > > > Applied to -next tree
-> > > > Oded
-> > > > _______________________________________________
-> > > > amd-gfx mailing list
-> > > > amd-gfx@lists.freedesktop.org
-> > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->=20
->=20
-
---=-tLs82fIaNO88GD6BzuHd
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEjGgSoFJq63cCYGKvY+M/tz9IsiAFAlogmYIACgkQY+M/tz9I
-siAyHw/9FjBKF2riBtQsPWGBcz+6icpkQjkRMBgAxUIQuXvpcf3pr+yXVRg/jFND
-/mj76tv+UXFaas8zMPVVjbB91n0kZXj7vIMc0jP+ReP0GoHpx7Qy9XbVcYPeKtsz
-9xQ6Q6ZQSVnDgP9cdS48xCIStCyEc80yV3WyUWXwufuIANYU6Qn5TGmejHjA+p99
-ngOe8wTd1i4ssBT6PLSJZ3bVak3nClEX0ZRF8bX499mVStzv673RCl6iRvlZTmlJ
-D4pUzfXI2ig2MuhpcvwO7kz/pEqE5ipiEQ0q/bQth1+Yznuzu1OjsGC82dL4r+cP
-FAv0qYDqNzJXb4wTTixrX7JyjPJuOpyP0d6hJlPg8Q889zjcbfmCvudxTqLTJ4LA
-UA1jDXHjN1FmaAFketo6e/d+8ozqERyxsWKV9/0k6LOFpmLZk29A4NNdCDJtvmeY
-UMyz9MLWHJXnuTS5QiQQ5qEyrmrL7E48oR7pfhunlBDu+G0unFywO0S/3o9kMGEG
-RHFzvDlsJifnNnxbhyEz5O0braXZl36UGCmBScqos+T3gLrvyTy4dRCR1vU0HjsS
-/81ehqiXec+CO3qWIrW53ajA22R/VdcMl1YExv08LqUjPYMIRYyvh7bLhUujSfwj
-Pe/Fa1TTPc+gNgTGL2WUFf9MmYRQ1n117MaGCBh7FGR3OlNoySI=
-=UlpA
------END PGP SIGNATURE-----
-
---=-tLs82fIaNO88GD6BzuHd--
-
-
---===============1710299943==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, Sinclair Yeh <syeh-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Harish Kasiviswanathan <harish.kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jerry" <jerry.zhang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Sumit Semwal <sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, Peter Zijlstra <peterz-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Alex Xie <alexbin.xie-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1710299943==--
+SSBoYXZlbid0IGdvbmUgdG8gc2VlIHdoZXJlIGl0IHN0YXJ0ZWQsIGJ1dCBhcyBvZiBsYXRlIGEg
+Z29vZCBudW1iZXIgb2YKcHJldHR5IG5hc3R5IGRlYWRsb2NrIGlzc3VlcyBoYXZlIGFwcGVhcmVk
+IHdpdGggdGhlIGtlcm5lbC4gRWFzeQpyZXByb2R1Y3Rpb24gcmVjaXBlIG9uIGEgbGFwdG9wIHdp
+dGggaTkxNS9hbWRncHUgcHJpbWUgd2l0aCBsb2NrZGVwIGVuYWJsZWQ6CgpEUklfUFJJTUU9MSBn
+bHhpbmZvCgpBZGRpdGlvbmFsbHksIHNvbWUgbW9yZSByYWNlIGNvbmRpdGlvbnMgZXhpc3QgdGhh
+dCBJJ3ZlIG1hbmFnZWQgdG8KdHJpZ2dlciB3aXRoIHBpZ2xpdCBhbmQgbG9ja2RlcCBlbmFibGVk
+IGFmdGVyIGFwcGx5aW5nIHRoZXNlIHBhdGNoZXM6CgogICAgPT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT0KICAgIFdBUk5JTkc6IHN1c3BpY2lvdXMgUkNVIHVzYWdlCiAgICA0LjE0LjNMeXVk
+ZS1UZXN0KyAjMiBOb3QgdGFpbnRlZAogICAgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
+ICAgIC4vaW5jbHVkZS9saW51eC9yZXNlcnZhdGlvbi5oOjIxNiBzdXNwaWNpb3VzIHJjdV9kZXJl
+ZmVyZW5jZV9wcm90ZWN0ZWQoKSB1c2FnZSEKCiAgICBvdGhlciBpbmZvIHRoYXQgbWlnaHQgaGVs
+cCB1cyBkZWJ1ZyB0aGlzOgoKICAgIHJjdV9zY2hlZHVsZXJfYWN0aXZlID0gMiwgZGVidWdfbG9j
+a3MgPSAxCiAgICAxIGxvY2sgaGVsZCBieSBleHRfaW1hZ2VfZG1hX2IvMjc0NTE6CiAgICAgIzA6
+ICAocmVzZXJ2YXRpb25fd3dfY2xhc3NfbXV0ZXgpeysuKy59LCBhdDogWzxmZmZmZmZmZmEwMzRm
+MmZmPl0gdHRtX2JvX3VucmVmKzB4OWYvMHgzYzAgW3R0bV0KCiAgICBzdGFjayBiYWNrdHJhY2U6
+CiAgICBDUFU6IDAgUElEOiAyNzQ1MSBDb21tOiBleHRfaW1hZ2VfZG1hX2IgTm90IHRhaW50ZWQg
+NC4xNC4zTHl1ZGUtVGVzdCsgIzIKICAgIEhhcmR3YXJlIG5hbWU6IEhQIEhQIFpCb29rIDE1IEc0
+LzgyNzUsIEJJT1MgUDcwIFZlci4gMDEuMDIgMDYvMDkvMjAxNwogICAgQ2FsbCBUcmFjZToKICAg
+ICBkdW1wX3N0YWNrKzB4OGUvMHhjZQogICAgIGxvY2tkZXBfcmN1X3N1c3BpY2lvdXMrMHhjNS8w
+eDEwMAogICAgIHJlc2VydmF0aW9uX29iamVjdF9jb3B5X2ZlbmNlcysweDI5Mi8weDJiMAogICAg
+ID8gdHRtX2JvX3VucmVmKzB4OWYvMHgzYzAgW3R0bV0KICAgICB0dG1fYm9fdW5yZWYrMHhiZC8w
+eDNjMCBbdHRtXQogICAgIGFtZGdwdV9ib191bnJlZisweDJhLzB4NTAgW2FtZGdwdV0KICAgICBh
+bWRncHVfZ2VtX29iamVjdF9mcmVlKzB4NGIvMHg1MCBbYW1kZ3B1XQogICAgIGRybV9nZW1fb2Jq
+ZWN0X2ZyZWUrMHgxZi8weDQwIFtkcm1dCiAgICAgZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2Vk
+KzB4NDAvMHhiMCBbZHJtXQogICAgIGRybV9nZW1fb2JqZWN0X2hhbmRsZV9wdXRfdW5sb2NrZWQr
+MHg2Yy8weGIwIFtkcm1dCiAgICAgZHJtX2dlbV9vYmplY3RfcmVsZWFzZV9oYW5kbGUrMHg1MS8w
+eDkwIFtkcm1dCiAgICAgZHJtX2dlbV9oYW5kbGVfZGVsZXRlKzB4NWUvMHg5MCBbZHJtXQogICAg
+ID8gZHJtX2dlbV9oYW5kbGVfY3JlYXRlKzB4NDAvMHg0MCBbZHJtXQogICAgIGRybV9nZW1fY2xv
+c2VfaW9jdGwrMHgyMC8weDMwIFtkcm1dCiAgICAgZHJtX2lvY3RsX2tlcm5lbCsweDVkLzB4YjAg
+W2RybV0KICAgICBkcm1faW9jdGwrMHgyZjcvMHgzYjAgW2RybV0KICAgICA/IGRybV9nZW1faGFu
+ZGxlX2NyZWF0ZSsweDQwLzB4NDAgW2RybV0KICAgICA/IHRyYWNlX2hhcmRpcnFzX29uX2NhbGxl
+cisweGY0LzB4MTkwCiAgICAgPyB0cmFjZV9oYXJkaXJxc19vbisweGQvMHgxMAogICAgIGFtZGdw
+dV9kcm1faW9jdGwrMHg0Zi8weDkwIFthbWRncHVdCiAgICAgZG9fdmZzX2lvY3RsKzB4OTMvMHg2
+NzAKICAgICA/IF9fZmdldCsweDEwOC8weDFmMAogICAgIFN5U19pb2N0bCsweDc5LzB4OTAKICAg
+ICBlbnRyeV9TWVNDQUxMXzY0X2Zhc3RwYXRoKzB4MjMvMHhjMgoKSSd2ZSBhbHNvIGFkZGVkIHRo
+ZSByZWxldmFudCBmaXhlcyBmb3IgdGhlIGlzc3VlIG1lbnRpb25lZCBhYm92ZS4KCkNocmlzdGlh
+biBLw7ZuaWcgKDMpOgogIGRybS90dG06IGZpeCB0dG1fYm9fY2xlYW51cF9yZWZzX29yX3F1ZXVl
+IG9uY2UgbW9yZQogIGRtYS1idWY6IG1ha2UgcmVzZXJ2YXRpb25fb2JqZWN0X2NvcHlfZmVuY2Vz
+IHJjdSBzYXZlCiAgZHJtL2FtZGdwdTogcmVzZXJ2ZSByb290IFBEIHdoaWxlIHJlbGVhc2luZyBp
+dAoKTWljaGVsIETDpG56ZXIgKDEpOgogIGRybS90dG06IEFsd2F5cyBhbmQgb25seSBkZXN0cm95
+IGJvLT50dG1fcmVzdiBpbiB0dG1fYm9fcmVsZWFzZV9saXN0CgogZHJpdmVycy9kbWEtYnVmL3Jl
+c2VydmF0aW9uLmMgICAgICAgICAgfCA1NiArKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0t
+LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDEzICsrKysrKy0t
+CiBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jICAgICAgICAgICB8IDQzICsrKysrKysrKysr
+KystLS0tLS0tLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDc0IGluc2VydGlvbnMoKyksIDM4IGRl
+bGV0aW9ucygtKQoKLS0KMi4xNC4zCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
