@@ -1,106 +1,44 @@
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Subject: Re: [PATCH 02/13] fbdev: add remove_conflicting_pci_framebuffers()
-Date: Fri, 1 Dec 2017 14:10:15 +0000
-Message-ID: <20171201141015.GA7126@sudip-tp>
-References: <cover.1511544782.git.mirq-linux@rere.qmqm.pl>
-	<1738dbed0239bffc886f126fd3091daa39cd14c9.1511544782.git.mirq-linux@rere.qmqm.pl>
-	<20171127102758.y7c6yzyey6wfntxh@phenom.ffwll.local>
-	<20171127205219.GA3537@sudip-laptop>
-	<20171128102217.b7ynyqarwzkdvmdq@phenom.ffwll.local>
-	<20171128113238.GA29456@kroah.com>
-	<20171128123008.GA12986@sudip-tp>
-	<20171129095634.ymeld4l7zaehbuvn@phenom.ffwll.local>
-	<20171130234953.GA5542@sudip-laptop>
-	<20171201071916.jpl5ucxq4glduho4@phenom.ffwll.local>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 02/20] drm/amd/display: Print DC_VER at DC init
+Date: Fri, 1 Dec 2017 09:25:36 -0500
+Message-ID: <20171201142554.11672-3-harry.wentland@amd.com>
+References: <20171201142554.11672-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <virtualization-bounces@lists.linux-foundation.org>
-Content-Disposition: inline
-In-Reply-To: <20171201071916.jpl5ucxq4glduho4@phenom.ffwll.local>
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/virtualization/>
-List-Post: <mailto:virtualization@lists.linux-foundation.org>
-List-Help: <mailto:virtualization-request@lists.linux-foundation.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=subscribe>
-Sender: virtualization-bounces@lists.linux-foundation.org
-Errors-To: virtualization-bounces@lists.linux-foundation.org
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: Teddy Wang <teddy.wang@siliconmotion.com>, David Airlie <airlied@linux.ie>, Greg KH <gregkh@linuxfoundation.org>, amd-gfx@lists.freedesktop.org, =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, virtualization@lists.linux-foundation.org, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20171201142554.11672-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Dec 01, 2017 at 08:19:16AM +0100, Daniel Vetter wrote:
-> On Thu, Nov 30, 2017 at 11:49:53PM +0000, Sudip Mukherjee wrote:
-> > Hi Daniel,
-> > 
-> > <snip>
-> > 
-> > > > > > 
-> > > > > > Greg?
-> > > > > 
-> > > > > Yes, if no one is working to get it out of staging, that means no one
-> > > > > cares about it, and it needs to be removed from the tree.
-> > > > 
-> > > > Agreed. I was not working on getting it out of staging as there is no
-> > > > place for it to go.
-> > > > But, Teddy Wang told me that they have a working drm driver for it, but
-> > > > it is not atomic like Daniel was asking for. If it is ok, then I can send
-> > > > in a patch to remove the existing sm750 from staging and add the new sm750
-> > > > drm driver to staging. And after it is ready, we can go ahead with moving
-> > > > it out of staging to drm.
-> > > 
-> > > Please keep the todo item that it needs to be converted to atomic. And
-> > > tbh, it's probably faster if you just submit it to dri-devel, assuming you
-> > > have time to work on it. For small drivers we tend to be fairly quick in
-> > > getting them into good enough shape.
-> > 
-> > I have received the driver from Teddy and pushed it to
-> > https://github.com/sudipm-mukherjee/parport/tree/drm_smi for your first
-> > look into it. It is not even building with next-20171130 and has lots of
-> > build warnings. I will have to do a lot of work on it before I can even
-> > submit it to dri-devel.
-> > 
-> > Time will be the problem, as this is not part of my day job.
-> > 
-> > > 
-> > > Staging is also a major pain for drm subsystem refactorings, I really,
-> > > really, really prefer we don't add more than the vbox pain we have
-> > > already.
-> > 
-> > I am hoping that after seeing it, you will agree to have it in staging. :)
-> 
-> So I know Greg is willing to take anything into staging, but I'm no fan.
-> We refactor and improve drm a lot, with a lot of cross-driver changes
-> necessary to move things forward. We can do that since we have a generally
-> rather active development community, and we try hard to keep most drivers
-> in reasonable good shape and so easy to maintain.
-> 
-> If you know throw a pile of unmaintainable stuff into staging, but without
-> working on it, then that's just cost, no benefit to the dri-devel
-> community. On top, staging tree is separate from drm trees, so more pain
-> to synchronize trees (and we have to do that a few times per release cycle
-> or drivers simply stop compiling). Where's the upside of taking this
-> driver into staging?
-> 
-> One is users, but ime for soc display drivers usually everything else is
-> in worse shape (e.g. even great drivers like the one for qualcom must be
-> tested on some vendor tree because critical core bits are missing in
-> upstream), so "more users" is not the good reason. And it's clearly not
-> "more developers", because no time to clean things up. So what exactly is
-> the good reason to put this into staging instead of just waiting until
-> someone has the time to clean it up quickly?
-
-Ok, I will not try to give any more reasons now. :)
-
-I will cleanup the basic things I can and then submit it to dri-devel.
-
-Greg - Please keep the SM750 driver in staging for now. I will send
-a patch later to add in TODO the git location where the drm driver is
-being developed. And when that drm driver is ready, I will send a patch
-to remove the sm750fb driver from staging.
-
---
-Regards
-Sudip
+VGhpcyBoYXMgcHJvdmVuIGhlbHBmdWwgb24gb3RoZXIgT1NlcyB0byBnaXZlIGEgcXVpY2sgc3Rh
+dGUgb2YgdGhlCkRDIGRyaXZlciB3aGVuIGEgYnVnIGlzIHJlcG9ydGVkLgoKU2lnbmVkLW9mZi1i
+eTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+ClJldmlld2VkLWJ5OiBU
+b255IENoZW5nIDxUb255LkNoZW5nQGFtZC5jb20+CkFja2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8
+aGFycnkud2VudGxhbmRAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+YW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRp
+b25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGZkN2Y2YzVkZjczZC4uZDJkOWNmNWUwY2Zj
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMKQEAgLTQzMSw5ICs0MzEsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9kbV9pbml0KHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KQogCWFkZXYtPmRtLmRjID0gZGNfY3JlYXRlKCZpbml0X2Rh
+dGEpOwogCiAJaWYgKGFkZXYtPmRtLmRjKSB7Ci0JCURSTV9JTkZPKCJEaXNwbGF5IENvcmUgaW5p
+dGlhbGl6ZWQhXG4iKTsKKwkJRFJNX0lORk8oIkRpc3BsYXkgQ29yZSBpbml0aWFsaXplZCB3aXRo
+IHYlcyFcbiIsIERDX1ZFUik7CiAJfSBlbHNlIHsKLQkJRFJNX0lORk8oIkRpc3BsYXkgQ29yZSBm
+YWlsZWQgdG8gaW5pdGlhbGl6ZSFcbiIpOworCQlEUk1fSU5GTygiRGlzcGxheSBDb3JlIGZhaWxl
+ZCB0byBpbml0aWFsaXplIHdpdGggdiVzIVxuIiwgRENfVkVSKTsKIAkJZ290byBlcnJvcjsKIAl9
+CiAKLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
