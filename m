@@ -1,80 +1,52 @@
-From: Greg KH <greg@kroah.com>
-Subject: Re: [PATCH 0/4] Backported amdgpu ttm deadlock fixes for 4.14
-Date: Mon, 4 Dec 2017 12:45:17 +0100
-Message-ID: <20171204114517.GA28068@kroah.com>
-References: <20171201002311.28098-1-lyude@redhat.com>
+From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdkfd: Fix printing pointer cast
+Date: Mon,  4 Dec 2017 06:50:17 -0500
+Message-ID: <1512388217-16404-1-git-send-email-kent.russell@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20171201002311.28098-1-lyude@redhat.com>
-Sender: stable-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: stable@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, Sinclair Yeh <syeh@vmware.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, Nicolai =?iso-8859-1?Q?H=E4hnle?= <nicolai.haehnle@amd.com>, dri-devel@lists.freedesktop.org, Peter Zijlstra <peterz@infradead.org>, Chunming Zhou <david1.zhou@amd.com>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>, Alex Xie <alexbin.xie@amd.com>, "Zhang, Jerry" <jerry.zhang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, felix.kuehling-5C7GfCeVMHo@public.gmane.org
+Cc: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Nov 30, 2017 at 07:23:02PM -0500, Lyude Paul wrote:
-> I haven't gone to see where it started, but as of late a good number of
-> pretty nasty deadlock issues have appeared with the kernel. Easy
-> reproduction recipe on a laptop with i915/amdgpu prime with lockdep enabled:
-> 
-> DRI_PRIME=1 glxinfo
-> 
-> Additionally, some more race conditions exist that I've managed to
-> trigger with piglit and lockdep enabled after applying these patches:
-> 
->     =============================
->     WARNING: suspicious RCU usage
->     4.14.3Lyude-Test+ #2 Not tainted
->     -----------------------------
->     ./include/linux/reservation.h:216 suspicious rcu_dereference_protected() usage!
-> 
->     other info that might help us debug this:
-> 
->     rcu_scheduler_active = 2, debug_locks = 1
->     1 lock held by ext_image_dma_b/27451:
->      #0:  (reservation_ww_class_mutex){+.+.}, at: [<ffffffffa034f2ff>] ttm_bo_unref+0x9f/0x3c0 [ttm]
-> 
->     stack backtrace:
->     CPU: 0 PID: 27451 Comm: ext_image_dma_b Not tainted 4.14.3Lyude-Test+ #2
->     Hardware name: HP HP ZBook 15 G4/8275, BIOS P70 Ver. 01.02 06/09/2017
->     Call Trace:
->      dump_stack+0x8e/0xce
->      lockdep_rcu_suspicious+0xc5/0x100
->      reservation_object_copy_fences+0x292/0x2b0
->      ? ttm_bo_unref+0x9f/0x3c0 [ttm]
->      ttm_bo_unref+0xbd/0x3c0 [ttm]
->      amdgpu_bo_unref+0x2a/0x50 [amdgpu]
->      amdgpu_gem_object_free+0x4b/0x50 [amdgpu]
->      drm_gem_object_free+0x1f/0x40 [drm]
->      drm_gem_object_put_unlocked+0x40/0xb0 [drm]
->      drm_gem_object_handle_put_unlocked+0x6c/0xb0 [drm]
->      drm_gem_object_release_handle+0x51/0x90 [drm]
->      drm_gem_handle_delete+0x5e/0x90 [drm]
->      ? drm_gem_handle_create+0x40/0x40 [drm]
->      drm_gem_close_ioctl+0x20/0x30 [drm]
->      drm_ioctl_kernel+0x5d/0xb0 [drm]
->      drm_ioctl+0x2f7/0x3b0 [drm]
->      ? drm_gem_handle_create+0x40/0x40 [drm]
->      ? trace_hardirqs_on_caller+0xf4/0x190
->      ? trace_hardirqs_on+0xd/0x10
->      amdgpu_drm_ioctl+0x4f/0x90 [amdgpu]
->      do_vfs_ioctl+0x93/0x670
->      ? __fget+0x108/0x1f0
->      SyS_ioctl+0x79/0x90
->      entry_SYSCALL_64_fastpath+0x23/0xc2
-> 
-> I've also added the relevant fixes for the issue mentioned above.
-> 
-> Christian König (3):
->   drm/ttm: fix ttm_bo_cleanup_refs_or_queue once more
->   dma-buf: make reservation_object_copy_fences rcu save
->   drm/amdgpu: reserve root PD while releasing it
-> 
-> Michel Dänzer (1):
->   drm/ttm: Always and only destroy bo->ttm_resv in ttm_bo_release_list
-
-All now queued up, thanks.
-
-greg k-h
+SnVzdCBwcmludCBhIHBvaW50ZXIgaW5zdGVhZCBvZiBjYXN0aW5nCgp2MjogUmVtb3ZlIHRoZSAw
+eCBwcmVmaXgsIHNpbmNlICVwIHByaW50cyB0aGF0IGF1dG9tYXRpY2FsbHksIGFuZCByZW1vdmUK
+aXQgZnJvbSBvbmUgb3RoZXIgc3BvdCBhcyB3ZWxsCgpDaGFuZ2UtSWQ6IEkwNTY0MjMwZDI5ODVl
+NzAzZDU5MjAxODMyZjUwMzU4ZGEzYjY3YWZjClNpZ25lZC1vZmYtYnk6IEtlbnQgUnVzc2VsbCA8
+a2VudC5ydXNzZWxsQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X2Rvb3JiZWxsLmMgfCA5ICsrKystLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygr
+KSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfZG9vcmJlbGwuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kb29yYmVs
+bC5jCmluZGV4IGZlYjc2YzIuLmViYjRkYTE0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfZG9vcmJlbGwuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfZG9vcmJlbGwuYwpAQCAtMTE2LDggKzExNiw3IEBAIGludCBrZmRfZG9vcmJlbGxfaW5p
+dChzdHJ1Y3Qga2ZkX2RldiAqa2ZkKQogCXByX2RlYnVnKCJkb29yYmVsbCBhcGVydHVyZSBzaXpl
+ICA9PSAweCUwOGxYXG4iLAogCQkJa2ZkLT5zaGFyZWRfcmVzb3VyY2VzLmRvb3JiZWxsX2FwZXJ0
+dXJlX3NpemUpOwogCi0JcHJfZGVidWcoImRvb3JiZWxsIGtlcm5lbCBhZGRyZXNzID09IDB4JTA4
+bFhcbiIsCi0JCQkodWludHB0cl90KWtmZC0+ZG9vcmJlbGxfa2VybmVsX3B0cik7CisJcHJfZGVi
+dWcoImRvb3JiZWxsIGtlcm5lbCBhZGRyZXNzID09ICVwXG4iLCBrZmQtPmRvb3JiZWxsX2tlcm5l
+bF9wdHIpOwogCiAJcmV0dXJuIDA7CiB9CkBAIC0xOTQsOCArMTkzLDggQEAgdTMyIF9faW9tZW0g
+KmtmZF9nZXRfa2VybmVsX2Rvb3JiZWxsKHN0cnVjdCBrZmRfZGV2ICprZmQsCiAKIAlwcl9kZWJ1
+ZygiR2V0IGtlcm5lbCBxdWV1ZSBkb29yYmVsbFxuIgogCQkJICIgICAgIGRvb3JiZWxsIG9mZnNl
+dCAgID09IDB4JTA4WFxuIgotCQkJICIgICAgIGtlcm5lbCBhZGRyZXNzICAgID09IDB4JTA4bFhc
+biIsCi0JCSpkb29yYmVsbF9vZmYsICh1aW50cHRyX3QpKGtmZC0+ZG9vcmJlbGxfa2VybmVsX3B0
+ciArIGlueCkpOworCQkJICIgICAgIGtlcm5lbCBhZGRyZXNzICAgID09ICVwXG4iLAorCQkqZG9v
+cmJlbGxfb2ZmLCAoa2ZkLT5kb29yYmVsbF9rZXJuZWxfcHRyICsgaW54KSk7CiAKIAlyZXR1cm4g
+a2ZkLT5kb29yYmVsbF9rZXJuZWxfcHRyICsgaW54OwogfQpAQCAtMjE1LDcgKzIxNCw3IEBAIGlu
+bGluZSB2b2lkIHdyaXRlX2tlcm5lbF9kb29yYmVsbCh1MzIgX19pb21lbSAqZGIsIHUzMiB2YWx1
+ZSkKIHsKIAlpZiAoZGIpIHsKIAkJd3JpdGVsKHZhbHVlLCBkYik7Ci0JCXByX2RlYnVnKCJXcml0
+aW5nICVkIHRvIGRvb3JiZWxsIGFkZHJlc3MgMHglcFxuIiwgdmFsdWUsIGRiKTsKKwkJcHJfZGVi
+dWcoIldyaXRpbmcgJWQgdG8gZG9vcmJlbGwgYWRkcmVzcyAlcFxuIiwgdmFsdWUsIGRiKTsKIAl9
+CiB9CiAKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
