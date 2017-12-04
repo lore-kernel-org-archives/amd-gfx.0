@@ -1,44 +1,80 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/2] drm/ttm: swap consecutive allocated pooled pages
-Date: Mon,  4 Dec 2017 12:42:24 +0100
-Message-ID: <20171204114224.27712-2-christian.koenig@amd.com>
-References: <20171204114224.27712-1-christian.koenig@amd.com>
+From: Greg KH <greg@kroah.com>
+Subject: Re: [PATCH 0/4] Backported amdgpu ttm deadlock fixes for 4.14
+Date: Mon, 4 Dec 2017 12:45:17 +0100
+Message-ID: <20171204114517.GA28068@kroah.com>
+References: <20171201002311.28098-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171204114224.27712-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hongbo.He-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20171201002311.28098-1-lyude@redhat.com>
+Sender: stable-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: stable@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, Sinclair Yeh <syeh@vmware.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, Nicolai =?iso-8859-1?Q?H=E4hnle?= <nicolai.haehnle@amd.com>, dri-devel@lists.freedesktop.org, Peter Zijlstra <peterz@infradead.org>, Chunming Zhou <david1.zhou@amd.com>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>, Alex Xie <alexbin.xie@amd.com>, "Zhang, Jerry" <jerry.zhang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2hlbiB3ZSBkZXRlY3QgY29uc2VjdXRpdmUgYWxsb2NhdGlvbiBvZiBwYWdlcyBzd2FwIHRoZW0g
-dG8gYXZvaWQKYWNjaWRlbnRhbGx5IGZyZWVpbmcgdGhlbSBhcyBodWdlIHBhZ2UuCgpTaWduZWQt
-b2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jIHwgMTAgKysrKysrKysrLQogMSBm
-aWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3BhZ2VfYWxsb2MuYyBiL2RyaXZlcnMvZ3B1L2RybS90
-dG0vdHRtX3BhZ2VfYWxsb2MuYwppbmRleCA2MDQwMTM1MGEwMWEuLjkwOTAyOGZkNjYzZCAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS90dG0vdHRtX3BhZ2VfYWxsb2MuYwpAQCAtOTU3LDggKzk1NywxNiBAQCBzdGF0
-aWMgaW50IHR0bV9nZXRfcGFnZXMoc3RydWN0IHBhZ2UgKipwYWdlcywgdW5zaWduZWQgbnBhZ2Vz
-LCBpbnQgZmxhZ3MsCiAJciA9IHR0bV9wYWdlX3Bvb2xfZ2V0X3BhZ2VzKHBvb2wsICZwbGlzdCwg
-ZmxhZ3MsIGNzdGF0ZSwKIAkJCQkgICAgbnBhZ2VzIC0gY291bnQsIDApOwogCi0JbGlzdF9mb3Jf
-ZWFjaF9lbnRyeShwLCAmcGxpc3QsIGxydSkKKwlsaXN0X2Zvcl9lYWNoX2VudHJ5KHAsICZwbGlz
-dCwgbHJ1KSB7CisJCS8qIFN3YXAgdGhlIHBhZ2VzIGlmIHdlIGRldGVjdCBjb25zZWN1dGl2ZSBv
-cmRlciAqLworCQlpZiAoY291bnQgJiYgcGFnZXNbY291bnQgLSAxXSA9PSBwIC0gMSkgeworCQkJ
-c3RydWN0IHBhZ2UgKnRtcCA9IHA7CisKKwkJCXAgPSBwYWdlc1tjb3VudCAtIDFdOworCQkJcGFn
-ZXNbY291bnQgLSAxXSA9IHRtcDsKKwkJfQogCQlwYWdlc1tjb3VudCsrXSA9IHA7CisJfQogCiAJ
-aWYgKHIpIHsKIAkJLyogSWYgdGhlcmUgaXMgYW55IHBhZ2VzIGluIHRoZSBsaXN0IHB1dCB0aGVt
-IGJhY2sgdG8KLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+On Thu, Nov 30, 2017 at 07:23:02PM -0500, Lyude Paul wrote:
+> I haven't gone to see where it started, but as of late a good number of
+> pretty nasty deadlock issues have appeared with the kernel. Easy
+> reproduction recipe on a laptop with i915/amdgpu prime with lockdep enabled:
+> 
+> DRI_PRIME=1 glxinfo
+> 
+> Additionally, some more race conditions exist that I've managed to
+> trigger with piglit and lockdep enabled after applying these patches:
+> 
+>     =============================
+>     WARNING: suspicious RCU usage
+>     4.14.3Lyude-Test+ #2 Not tainted
+>     -----------------------------
+>     ./include/linux/reservation.h:216 suspicious rcu_dereference_protected() usage!
+> 
+>     other info that might help us debug this:
+> 
+>     rcu_scheduler_active = 2, debug_locks = 1
+>     1 lock held by ext_image_dma_b/27451:
+>      #0:  (reservation_ww_class_mutex){+.+.}, at: [<ffffffffa034f2ff>] ttm_bo_unref+0x9f/0x3c0 [ttm]
+> 
+>     stack backtrace:
+>     CPU: 0 PID: 27451 Comm: ext_image_dma_b Not tainted 4.14.3Lyude-Test+ #2
+>     Hardware name: HP HP ZBook 15 G4/8275, BIOS P70 Ver. 01.02 06/09/2017
+>     Call Trace:
+>      dump_stack+0x8e/0xce
+>      lockdep_rcu_suspicious+0xc5/0x100
+>      reservation_object_copy_fences+0x292/0x2b0
+>      ? ttm_bo_unref+0x9f/0x3c0 [ttm]
+>      ttm_bo_unref+0xbd/0x3c0 [ttm]
+>      amdgpu_bo_unref+0x2a/0x50 [amdgpu]
+>      amdgpu_gem_object_free+0x4b/0x50 [amdgpu]
+>      drm_gem_object_free+0x1f/0x40 [drm]
+>      drm_gem_object_put_unlocked+0x40/0xb0 [drm]
+>      drm_gem_object_handle_put_unlocked+0x6c/0xb0 [drm]
+>      drm_gem_object_release_handle+0x51/0x90 [drm]
+>      drm_gem_handle_delete+0x5e/0x90 [drm]
+>      ? drm_gem_handle_create+0x40/0x40 [drm]
+>      drm_gem_close_ioctl+0x20/0x30 [drm]
+>      drm_ioctl_kernel+0x5d/0xb0 [drm]
+>      drm_ioctl+0x2f7/0x3b0 [drm]
+>      ? drm_gem_handle_create+0x40/0x40 [drm]
+>      ? trace_hardirqs_on_caller+0xf4/0x190
+>      ? trace_hardirqs_on+0xd/0x10
+>      amdgpu_drm_ioctl+0x4f/0x90 [amdgpu]
+>      do_vfs_ioctl+0x93/0x670
+>      ? __fget+0x108/0x1f0
+>      SyS_ioctl+0x79/0x90
+>      entry_SYSCALL_64_fastpath+0x23/0xc2
+> 
+> I've also added the relevant fixes for the issue mentioned above.
+> 
+> Christian König (3):
+>   drm/ttm: fix ttm_bo_cleanup_refs_or_queue once more
+>   dma-buf: make reservation_object_copy_fences rcu save
+>   drm/amdgpu: reserve root PD while releasing it
+> 
+> Michel Dänzer (1):
+>   drm/ttm: Always and only destroy bo->ttm_resv in ttm_bo_release_list
+
+All now queued up, thanks.
+
+greg k-h
