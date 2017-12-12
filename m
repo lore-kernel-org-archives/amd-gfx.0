@@ -1,64 +1,226 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 3/3] drm/amdgpu: drop amdgpu_atombios_scratch_regs_save/restore
-Date: Tue, 12 Dec 2017 15:27:20 -0500
-Message-ID: <20171212202720.6954-3-alexander.deucher@amd.com>
-References: <20171212202720.6954-1-alexander.deucher@amd.com>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [PATCH 29/37] PCI: Add pci_enable_atomic_ops_to_root
+Date: Tue, 12 Dec 2017 17:27:07 -0600
+Message-ID: <20171212232707.GF53955@bhelgaas-glaptop.roam.corp.google.com>
+References: <1512792555-26042-1-git-send-email-Felix.Kuehling@amd.com>
+ <1512792555-26042-30-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171212202720.6954-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-pci-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1512792555-26042-30-git-send-email-Felix.Kuehling@amd.com>
+Sender: linux-pci-owner@vger.kernel.org
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: oded.gabbay@gmail.com, amd-gfx@lists.freedesktop.org, Jay Cornwall <Jay.Cornwall@amd.com>, linux-pci@vger.kernel.org, Ram Amrani <Ram.Amrani@cavium.com>, Doug Ledford <dledford@redhat.com>, Michal Kalderon <Michal.Kalderon@cavium.com>, Ariel Elior <Ariel.Elior@cavium.com>, Jason Gunthorpe <jgg@ziepe.ca>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Tm8gbG9uZ2VyIHVzZWQuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0
-b21iaW9zLmMgfCAyMiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuaCB8ICAyIC0tCiAyIGZpbGVzIGNoYW5nZWQsIDI0IGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9hdG9tYmlvcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9z
-LmMKaW5kZXggMzlmNGQwZGYxYWRhLi5mZmFmMDUzNGUzM2MgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCkBAIC0xNzIxLDI4ICsxNzIxLDYgQEAgdm9p
-ZCBhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCiAJV1JFRzMyKGFkZXYtPmJpb3Nfc2NyYXRjaF9yZWdfb2Zmc2V0ICsgNiwgYmlvc182
-X3NjcmF0Y2gpOwogfQogCi12b2lkIGFtZGdwdV9hdG9tYmlvc19zY3JhdGNoX3JlZ3Nfc2F2ZShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKLXsKLQlpbnQgaTsKLQotCWZvciAoaSA9IDA7IGkg
-PCBBTURHUFVfQklPU19OVU1fU0NSQVRDSDsgaSsrKQotCQlhZGV2LT5iaW9zX3NjcmF0Y2hbaV0g
-PSBSUkVHMzIoYWRldi0+Ymlvc19zY3JhdGNoX3JlZ19vZmZzZXQgKyBpKTsKLX0KLQotdm9pZCBh
-bWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX3Jlc3RvcmUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCi17Ci0JaW50IGk7Ci0KLQkvKgotCSAqIFZCSU9TIHdpbGwgY2hlY2sgQVNJQ19JTklU
-X0NPTVBMRVRFIGJpdCB0byBkZWNpZGUgaWYKLQkgKiBleGVjdXRlIEFTSUNfSW5pdCBwb3N0aW5n
-IHZpYSBkcml2ZXIKLQkgKi8KLQlhZGV2LT5iaW9zX3NjcmF0Y2hbN10gJj0gfkFUT01fUzdfQVNJ
-Q19JTklUX0NPTVBMRVRFX01BU0s7Ci0KLQlmb3IgKGkgPSAwOyBpIDwgQU1ER1BVX0JJT1NfTlVN
-X1NDUkFUQ0g7IGkrKykKLQkJV1JFRzMyKGFkZXYtPmJpb3Nfc2NyYXRjaF9yZWdfb2Zmc2V0ICsg
-aSwgYWRldi0+Ymlvc19zY3JhdGNoW2ldKTsKLX0KLQogdm9pZCBhbWRncHVfYXRvbWJpb3Nfc2Ny
-YXRjaF9yZWdzX2VuZ2luZV9odW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJCQkg
-ICAgICBib29sIGh1bmcpCiB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfYXRvbWJpb3MuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
-dG9tYmlvcy5oCmluZGV4IGIwZDVkMWQ3ZmRiYS4uNTg1MDdmOWZmODU2IDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuaAorKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuaApAQCAtMTk2LDggKzE5Niw2IEBA
-IGJvb2wgYW1kZ3B1X2F0b21iaW9zX2hhc19ncHVfdmlydHVhbGl6YXRpb25fdGFibGUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogCiB2b2lkIGFtZGdwdV9hdG9tYmlvc19zY3JhdGNoX3Jl
-Z3NfbG9jayhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBsb2NrKTsKIHZvaWQgYW1k
-Z3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KTsKLXZvaWQgYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19zYXZlKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KTsKLXZvaWQgYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19yZXN0b3Jl
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIHZvaWQgYW1kZ3B1X2F0b21iaW9zX3NjcmF0
-Y2hfcmVnc19lbmdpbmVfaHVuZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkJICAg
-ICAgYm9vbCBodW5nKTsKIGJvb2wgYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfbmVlZF9hc2ljX2lu
-aXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwotLSAKMi4xMy42CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+[+cc Ram, Michal, Ariel, Doug, Jason]
+
+The [29/37] in the subject makes it look like this is part of a larger
+series, but I can't find the rest of it on linux-pci or linux-kernel.
+
+I don't want to merge a new interface unless there's an in-tree user
+of it.  I assume the rest of the series includes a user.
+
+On Fri, Dec 08, 2017 at 11:09:07PM -0500, Felix Kuehling wrote:
+> From: Jay Cornwall <Jay.Cornwall@amd.com>
+> 
+> The PCIe 3.0 AtomicOp (6.15) feature allows atomic transctions to be
+> requested by, routed through and completed by PCIe components. Routing and
+> completion do not require software support. Component support for each is
+> detectable via the DEVCAP2 register.
+> 
+> AtomicOp requests are permitted only if a component's
+> DEVCTL2.ATOMICOP_REQUESTER_ENABLE field is set. This capability cannot be
+> detected but is a no-op if set on a component with no support. These
+> requests can only be serviced if the upstream components support AtomicOp
+> completion and/or routing to a component which does.
+> 
+> A concrete example is the AMD Fiji-class GPU, which is specified to
+> support AtomicOp requests, routed through a PLX 8747 switch (advertising
+> AtomicOp routing) to a Haswell host bridge (advertising AtomicOp
+> completion support). When AtomicOp requests are disabled the GPU logs
+> attempts to initiate requests to an MMIO register for debugging.
+> 
+> Add pci_enable_atomic_ops_to_root for per-device control over AtomicOp
+> requests. Upstream bridges are checked for AtomicOp routing capability and
+> the call fails if any lack this capability. The root port is checked for
+> AtomicOp completion capabilities and the call fails if it does not support
+> any. Routes to other PCIe components are not checked for AtomicOp routing
+> and completion capabilities.
+> 
+> v2: Check for AtomicOp route to root port with AtomicOp completion
+> v3: Style fixes
+> v4: Endpoint to root port only, check upstream egress blocking
+> v5: Rebase, use existing PCI_EXP_DEVCTL2_ATOMIC_EGRESS_BLOCK define
+> 
+> CC: linux-pci@vger.kernel.org
+> Signed-off-by: Jay Cornwall <Jay.Cornwall@amd.com>
+> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> ---
+>  drivers/pci/pci.c             | 81 +++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/pci.h           |  1 +
+>  include/uapi/linux/pci_regs.h |  2 ++
+>  3 files changed, 84 insertions(+)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 6078dfc..89a8bb0 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -2966,6 +2966,87 @@ bool pci_acs_path_enabled(struct pci_dev *start,
+>  }
+>  
+>  /**
+> + * pci_enable_atomic_ops_to_root - enable AtomicOp requests to root port
+> + * @dev: the PCI device
+> + *
+> + * Return 0 if the device is capable of generating AtomicOp requests,
+
+I don't believe this part.
+
+You return 0 if the upstream path can route AtomicOps and the Root
+Port can complete them.  But there's nothing here that's conditional
+on capabilities of *dev*.
+
+You could read back PCI_EXP_DEVCTL2 to see if
+PCI_EXP_DEVCTL2_ATOMIC_REQ was writable, but even then, you can't
+really tell what the device is capable of.
+
+> + * all upstream bridges support AtomicOp routing, egress blocking is disabled
+> + * on all upstream ports, and the root port supports 32-bit, 64-bit and/or
+> + * 128-bit AtomicOp completion, or negative otherwise.
+> + */
+> +int pci_enable_atomic_ops_to_root(struct pci_dev *dev)
+> +{
+> +	struct pci_bus *bus = dev->bus;
+> +
+> +	if (!pci_is_pcie(dev))
+> +		return -EINVAL;
+> +
+> +	switch (pci_pcie_type(dev)) {
+> +	/*
+> +	 * PCIe 3.0, 6.15 specifies that endpoints and root ports are permitted
+> +	 * to implement AtomicOp requester capabilities.
+> +	 */
+> +	case PCI_EXP_TYPE_ENDPOINT:
+> +	case PCI_EXP_TYPE_LEG_END:
+> +	case PCI_EXP_TYPE_RC_END:
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	while (bus->parent) {
+> +		struct pci_dev *bridge = bus->self;
+> +		u32 cap;
+> +
+> +		pcie_capability_read_dword(bridge, PCI_EXP_DEVCAP2, &cap);
+> +
+> +		switch (pci_pcie_type(bridge)) {
+> +		/*
+> +		 * Upstream, downstream and root ports may implement AtomicOp
+> +		 * routing capabilities. AtomicOp routing via a root port is
+> +		 * not considered.
+> +		 */
+> +		case PCI_EXP_TYPE_UPSTREAM:
+> +		case PCI_EXP_TYPE_DOWNSTREAM:
+> +			if (!(cap & PCI_EXP_DEVCAP2_ATOMIC_ROUTE))
+> +				return -EINVAL;
+> +			break;
+> +
+> +		/*
+> +		 * Root ports are permitted to implement AtomicOp completion
+> +		 * capabilities.
+> +		 */
+> +		case PCI_EXP_TYPE_ROOT_PORT:
+> +			if (!(cap & (PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
+> +				     PCI_EXP_DEVCAP2_ATOMIC_COMP64 |
+> +				     PCI_EXP_DEVCAP2_ATOMIC_COMP128)))
+> +				return -EINVAL;
+> +			break;
+> +		}
+
+IIUC, you want to enable an endpoint, e.g., an AMD Fiji-class GPU, to
+initiate AtomicOps that target system memory.  This interface
+(pci_enable_atomic_ops_to_root()) doesn't specify what size operations
+the driver wants to do.  If the GPU requests a 128-bit op and the Root
+Port doesn't support it, I think we'll see an Unsupported Request
+error.
+
+Do you need to extend this interface so the driver can specify what
+sizes it wants?
+
+The existing code in qedr_pci_set_atomic() is very similar.  We should
+make this new interface work for both places, then actually use it in
+qedr_pci_set_atomic().
+
+> +
+> +		/*
+> +		 * Upstream ports may block AtomicOps on egress.
+> +		 */
+> +		if (pci_pcie_type(bridge) == PCI_EXP_TYPE_UPSTREAM) {
+
+pci_pcie_type() is not a reliable method for determining the function
+of a switch port.  There are systems where the upstream port is
+labeled as a downstream port, e.g.,
+http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=c8fc9339409d
+
+> +			u32 ctl2;
+> +
+> +			pcie_capability_read_dword(bridge, PCI_EXP_DEVCTL2,
+> +						   &ctl2);
+> +			if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_EGRESS_BLOCK)
+> +				return -EINVAL;
+> +		}
+> +
+> +		bus = bus->parent;
+> +	}
+> +
+> +	pcie_capability_set_word(dev, PCI_EXP_DEVCTL2,
+> +				 PCI_EXP_DEVCTL2_ATOMIC_REQ);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(pci_enable_atomic_ops_to_root);
+> +
+> +/**
+>   * pci_swizzle_interrupt_pin - swizzle INTx for device behind bridge
+>   * @dev: the PCI device
+>   * @pin: the INTx pin (1=INTA, 2=INTB, 3=INTC, 4=INTD)
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index f4f8ee5..2a39f63 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -2062,6 +2062,7 @@ void pci_request_acs(void);
+>  bool pci_acs_enabled(struct pci_dev *pdev, u16 acs_flags);
+>  bool pci_acs_path_enabled(struct pci_dev *start,
+>  			  struct pci_dev *end, u16 acs_flags);
+> +int pci_enable_atomic_ops_to_root(struct pci_dev *dev);
+>  
+>  #define PCI_VPD_LRDT			0x80	/* Large Resource Data Type */
+>  #define PCI_VPD_LRDT_ID(x)		((x) | PCI_VPD_LRDT)
+> diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+> index f8d5804..45f251a 100644
+> --- a/include/uapi/linux/pci_regs.h
+> +++ b/include/uapi/linux/pci_regs.h
+> @@ -623,7 +623,9 @@
+>  #define PCI_EXP_DEVCAP2		36	/* Device Capabilities 2 */
+>  #define  PCI_EXP_DEVCAP2_ARI		0x00000020 /* Alternative Routing-ID */
+>  #define  PCI_EXP_DEVCAP2_ATOMIC_ROUTE	0x00000040 /* Atomic Op routing */
+> +#define  PCI_EXP_DEVCAP2_ATOMIC_COMP32	0x00000080 /* 32b AtomicOp completion */
+>  #define PCI_EXP_DEVCAP2_ATOMIC_COMP64	0x00000100 /* Atomic 64-bit compare */
+> +#define  PCI_EXP_DEVCAP2_ATOMIC_COMP128	0x00000200 /* 128b AtomicOp completion*/
+
+The comments should be similar.  I think yours are better than the
+original, so please change the original to
+
+  /* 64b AtomicOp completion */
+
+so they all match.
+
+>  #define  PCI_EXP_DEVCAP2_LTR		0x00000800 /* Latency tolerance reporting */
+>  #define  PCI_EXP_DEVCAP2_OBFF_MASK	0x000c0000 /* OBFF support mechanism */
+>  #define  PCI_EXP_DEVCAP2_OBFF_MSG	0x00040000 /* New message signaling */
+> -- 
+> 2.7.4
+> 
