@@ -1,37 +1,49 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH 29/37] PCI: Add pci_enable_atomic_ops_to_root
-Date: Tue, 12 Dec 2017 16:42:43 -0700
-Message-ID: <20171212234243.GD16603@ziepe.ca>
-References: <1512792555-26042-1-git-send-email-Felix.Kuehling@amd.com>
- <1512792555-26042-30-git-send-email-Felix.Kuehling@amd.com>
- <20171212232707.GF53955@bhelgaas-glaptop.roam.corp.google.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: drop scratch regs save and restore from
+ S3/S4 handling
+Date: Tue, 12 Dec 2017 18:52:12 -0500
+Message-ID: <b1504171-6807-235a-39f5-e3e3c595e8c4@amd.com>
+References: <20171212202720.6954-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-pci-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20171212232707.GF53955@bhelgaas-glaptop.roam.corp.google.com>
-Sender: linux-pci-owner@vger.kernel.org
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, oded.gabbay@gmail.com, amd-gfx@lists.freedesktop.org, Jay Cornwall <Jay.Cornwall@amd.com>, linux-pci@vger.kernel.org, Ram Amrani <Ram.Amrani@cavium.com>, Doug Ledford <dledford@redhat.com>, Michal Kalderon <Michal.Kalderon@cavium.com>, Ariel Elior <Ariel.Elior@cavium.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20171212202720.6954-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Dec 12, 2017 at 05:27:07PM -0600, Bjorn Helgaas wrote:
-> [+cc Ram, Michal, Ariel, Doug, Jason]
-> 
-> The [29/37] in the subject makes it look like this is part of a larger
-> series, but I can't find the rest of it on linux-pci or linux-kernel.
-
-Didn't find the cover letter, but the AMD patchworks captured the series..
-
-https://patchwork.freedesktop.org/project/amd-xorg-ddx/patches/
-
-> I don't want to merge a new interface unless there's an in-tree user
-> of it.  I assume the rest of the series includes a user.
-
-Looks like it.
-
-I would also guess we will see users in drivers/infiniband emerge as
-CPU coherent atomics are also a topic our hardware drivers will be
-interested in. But I am not aware of any pending patches.
-
-Jason
+T24gMjAxNy0xMi0xMiAwMzoyNyBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IFRoZSBleHBlY3Rh
+dGlvbiBpcyB0aGF0IHRoZSBiYXNlIGRyaXZlciBkb2Vzbid0IG1lc3Mgd2l0aCB0aGVzZS4KPiBT
+b21lIGNvbXBvbmVudHMgaW50ZXJhY3Qgd2l0aCB0aGVzZSBkaXJlY3RseSBzbyBsZXQgdGhlIGNv
+bXBvbmVudHMKPiBoYW5kbGUgdGhlc2UgZGlyZWN0bHkuCj4gCj4gU2lnbmVkLW9mZi1ieTogQWxl
+eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKU2VyaWVzIGlzIFJldmlld2Vk
+LWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KCkhhcnJ5Cgo+IC0t
+LQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAyIC0tCj4g
+IDEgZmlsZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCA5OGQ2MmE5OTFiNjcuLmNhMWNmOGE3MWRk
+YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBA
+QCAtMjU3Nyw3ICsyNTc3LDYgQEAgaW50IGFtZGdwdV9kZXZpY2Vfc3VzcGVuZChzdHJ1Y3QgZHJt
+X2RldmljZSAqZGV2LCBib29sIHN1c3BlbmQsIGJvb2wgZmJjb24pCj4gIAkgKi8KPiAgCWFtZGdw
+dV9ib19ldmljdF92cmFtKGFkZXYpOwo+ICAKPiAtCWFtZGdwdV9hdG9tYmlvc19zY3JhdGNoX3Jl
+Z3Nfc2F2ZShhZGV2KTsKPiAgCXBjaV9zYXZlX3N0YXRlKGRldi0+cGRldik7Cj4gIAlpZiAoc3Vz
+cGVuZCkgewo+ICAJCS8qIFNodXQgZG93biB0aGUgZGV2aWNlICovCj4gQEAgLTI2MjYsNyArMjYy
+NSw2IEBAIGludCBhbWRncHVfZGV2aWNlX3Jlc3VtZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBi
+b29sIHJlc3VtZSwgYm9vbCBmYmNvbikKPiAgCQlpZiAocikKPiAgCQkJZ290byB1bmxvY2s7Cj4g
+IAl9Cj4gLQlhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX3Jlc3RvcmUoYWRldik7Cj4gIAo+
+ICAJLyogcG9zdCBjYXJkICovCj4gIAlpZiAoYW1kZ3B1X25lZWRfcG9zdChhZGV2KSkgewo+IApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
