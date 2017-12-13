@@ -1,12 +1,15 @@
-From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix no irq process when evict vram
-Date: Wed, 13 Dec 2017 11:23:24 +0000
-Message-ID: <CAHbf0-HJr=5UJ0rnNvuURQoT8Ze6JnZkc8-_7ysoopUyBPXzwA@mail.gmail.com>
-References: <1513136263-9908-1-git-send-email-yttao@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Add gpu_recovery parameter
+Date: Wed, 13 Dec 2017 13:20:51 +0100
+Message-ID: <7daac1b8-38c4-0546-b16f-5d09f71fcd12@amd.com>
+References: <95bd3554-f9e3-6ad7-32e5-9921da23feaa@gmail.com>
+ <1513106162-19664-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1983713680=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1513136263-9908-1-git-send-email-yttao-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1513106162-19664-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,140 +20,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Yintian Tao <yttao-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Monk.Liu-5C7GfCeVMHo@public.gmane.org, maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
---===============1983713680==
-Content-Type: multipart/alternative; boundary="f403045d70fa8904ef056036ffb0"
-
---f403045d70fa8904ef056036ffb0
-Content-Type: text/plain; charset="UTF-8"
-
-Is this a follow on to
-https://cgit.freedesktop.org/~agd5f/linux/commit/?h=drm-next-4.16-wip&id=b9141cd3930e390f156739829ca9589fda7926e4
-
-
-On Wed, 13 Dec 2017 at 07:11 Yintian Tao <yttao-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> When unload amdgpu driver we use sdma to evict vram but there is no
-> irq process after sdma completed work which raises that waiting for the
-> fence costs 2s which will trigger VFLR under SRIOV and at last make
-> unload driver failed.The reason is that the shutdown varible in adev
-> is set to true before evict vram, it cause ISR directly return without
-> processing.Therefore, we need set the varible after evict vram.
->
-> Change-Id: I7bf75481aa0744b99c41672b49670adc70b478bd
-> Signed-off-by: Yintian Tao <yttao-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a269bbc..80934ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2458,7 +2458,6 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
->         int r;
->
->         DRM_INFO("amdgpu: finishing device.\n");
-> -       adev->shutdown = true;
->         if (adev->mode_info.mode_config_initialized)
->                 drm_crtc_force_disable_all(adev->ddev);
->
-> @@ -2466,6 +2465,7 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
->         amdgpu_fence_driver_fini(adev);
->         amdgpu_fbdev_fini(adev);
->         r = amdgpu_fini(adev);
-> +       adev->shutdown = true;
->         if (adev->firmware.gpu_info_fw) {
->                 release_firmware(adev->firmware.gpu_info_fw);
->                 adev->firmware.gpu_info_fw = NULL;
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---f403045d70fa8904ef056036ffb0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Is this a follow on to=C2=A0<a href=3D"https://cgit.freede=
-sktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.16-wip&amp;id=3Db9141cd3930e3=
-90f156739829ca9589fda7926e4">https://cgit.freedesktop.org/~agd5f/linux/comm=
-it/?h=3Ddrm-next-4.16-wip&amp;id=3Db9141cd3930e390f156739829ca9589fda7926e4=
-</a>=C2=A0</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed, 13 =
-Dec 2017 at 07:11 Yintian Tao &lt;<a href=3D"mailto:yttao-5C7GfCeVMHo@public.gmane.org">yttao@am=
-d.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">When unload am=
-dgpu driver we use sdma to evict vram but there is no<br>
-irq process after sdma completed work which raises that waiting for the<br>
-fence costs 2s which will trigger VFLR under SRIOV and at last make<br>
-unload driver failed.The reason is that the shutdown varible in adev<br>
-is set to true before evict vram, it cause ISR directly return without<br>
-processing.Therefore, we need set the varible after evict vram.<br>
-<br>
-Change-Id: I7bf75481aa0744b99c41672b49670adc70b478bd<br>
-Signed-off-by: Yintian Tao &lt;<a href=3D"mailto:yttao-5C7GfCeVMHo@public.gmane.org" target=3D"_=
-blank">yttao-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-<br>
-=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index a269bbc..80934ee 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2458,7 +2458,6 @@ void amdgpu_device_fini(struct amdgpu_device *adev)<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int r;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 DRM_INFO(&quot;amdgpu: finishing device.\n&quot=
-;);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;shutdown =3D true;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (adev-&gt;mode_info.mode_config_initialized)=
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_crtc_force_disa=
-ble_all(adev-&gt;ddev);<br>
-<br>
-@@ -2466,6 +2465,7 @@ void amdgpu_device_fini(struct amdgpu_device *adev)<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_fence_driver_fini(adev);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_fbdev_fini(adev);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D amdgpu_fini(adev);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;shutdown =3D true;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (adev-&gt;firmware.gpu_info_fw) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 release_firmware(ad=
-ev-&gt;firmware.gpu_info_fw);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;firmware.g=
-pu_info_fw =3D NULL;<br>
---<br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-
---f403045d70fa8904ef056036ffb0--
-
---===============1983713680==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1983713680==--
+QW0gMTIuMTIuMjAxNyB1bSAyMDoxNiBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+IEFkZCBu
+ZXcgcGFyYW1ldGVyIHRvIGNvbnRyb2wgR1BVIHJlY292ZXJ5IHByb2NlZHVyZS4KPiBSZXRpcmUg
+b2xkIHdheSBvZiBkaXNhYmxpbmcgR1BVIHJlY292ZXJ5IGJ5IHNldHRpbmcgbG9ja3VwX3RpbWVv
+dXQgPT0gMCBhbmQKPiBzZXQgZGVmYXVsdCBmb3IgbG9ja3VwX3RpbWVvdXQgdG8gMTBzLgo+Cj4g
+U2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5j
+b20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAg
+fCAxICsKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDUg
+KysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICB8IDgg
+KysrKysrLS0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlv
+bnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+aCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggMzczNTUwMC4u
+MjZhYmUwMyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+aAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gQEAgLTEyNiw2
+ICsxMjYsNyBAQCBleHRlcm4gaW50IGFtZGdwdV9wYXJhbV9idWZfcGVyX3NlOwo+ICAgZXh0ZXJu
+IGludCBhbWRncHVfam9iX2hhbmdfbGltaXQ7Cj4gICBleHRlcm4gaW50IGFtZGdwdV9sYnB3Owo+
+ICAgZXh0ZXJuIGludCBhbWRncHVfY29tcHV0ZV9tdWx0aXBpcGU7Cj4gK2V4dGVybiBpbnQgYW1k
+Z3B1X2dwdV9yZWNvdmVyeTsKPiAgIAo+ICAgI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX1NJCj4g
+ICBleHRlcm4gaW50IGFtZGdwdV9zaV9zdXBwb3J0Owo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCA4ZDAzYmFhLi5kODRiNTdhIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0zMDMwLDYgKzMw
+MzAsMTEgQEAgaW50IGFtZGdwdV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+diwgc3RydWN0IGFtZGdwdV9qb2IgKmpvYikKPiAgIAkJcmV0dXJuIDA7Cj4gICAJfQo+ICAgCj4g
+KwlpZiAoIWFtZGdwdV9ncHVfcmVjb3ZlcnkpIHsKPiArCQlEUk1fSU5GTygiR1BVIHJlY292ZXJ5
+IGRpc2FibGVkLlxuIik7Cj4gKwkJcmV0dXJuIDA7Cj4gKwl9Cj4gKwoKUGxlYXNlIG1vdmUgdGhp
+cyBjaGVjayBpbnRvIHRoZSBjYWxsZXIgb2YgYW1kZ3B1X2dwdV9yZWNvdmVyKCkuCgpUaGlzIHdh
+eSB3ZSBjYW4gc3RpbGwgdHJpZ2dlciBhIEdQVSByZWNvdmVyeSBtYW51YWxseSBvciBmcm9tIHRo
+ZSAKaHlwZXJ2aXNvciB1bmRlciBTUklPVi4KCkNocmlzdGlhbi4KCj4gICAJZGV2X2luZm8oYWRl
+di0+ZGV2LCAiR1BVIHJlc2V0IGJlZ2luIVxuIik7Cj4gICAKPiAgIAltdXRleF9sb2NrKCZhZGV2
+LT5sb2NrX3Jlc2V0KTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4g
+aW5kZXggMGIwMzliZC4uNWM2MTJlOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZHJ2LmMKPiBAQCAtOTAsNyArOTAsNyBAQCBpbnQgYW1kZ3B1X2Rpc3BfcHJpb3JpdHkg
+PSAwOwo+ICAgaW50IGFtZGdwdV9od19pMmMgPSAwOwo+ICAgaW50IGFtZGdwdV9wY2llX2dlbjIg
+PSAtMTsKPiAgIGludCBhbWRncHVfbXNpID0gLTE7Cj4gLWludCBhbWRncHVfbG9ja3VwX3RpbWVv
+dXQgPSAwOwo+ICtpbnQgYW1kZ3B1X2xvY2t1cF90aW1lb3V0ID0gMTAwMDA7Cj4gICBpbnQgYW1k
+Z3B1X2RwbSA9IC0xOwo+ICAgaW50IGFtZGdwdV9md19sb2FkX3R5cGUgPSAtMTsKPiAgIGludCBh
+bWRncHVfYXNwbSA9IC0xOwo+IEBAIC0xMjgsNiArMTI4LDcgQEAgaW50IGFtZGdwdV9wYXJhbV9i
+dWZfcGVyX3NlID0gMDsKPiAgIGludCBhbWRncHVfam9iX2hhbmdfbGltaXQgPSAwOwo+ICAgaW50
+IGFtZGdwdV9sYnB3ID0gLTE7Cj4gICBpbnQgYW1kZ3B1X2NvbXB1dGVfbXVsdGlwaXBlID0gLTE7
+Cj4gK2ludCBhbWRncHVfZ3B1X3JlY292ZXJ5ID0gMTsKPiAgIAo+ICAgTU9EVUxFX1BBUk1fREVT
+Qyh2cmFtbGltaXQsICJSZXN0cmljdCBWUkFNIGZvciB0ZXN0aW5nLCBpbiBtZWdhYnl0ZXMiKTsK
+PiAgIG1vZHVsZV9wYXJhbV9uYW1lZCh2cmFtbGltaXQsIGFtZGdwdV92cmFtX2xpbWl0LCBpbnQs
+IDA2MDApOwo+IEBAIC0xNjUsNyArMTY2LDcgQEAgbW9kdWxlX3BhcmFtX25hbWVkKHBjaWVfZ2Vu
+MiwgYW1kZ3B1X3BjaWVfZ2VuMiwgaW50LCAwNDQ0KTsKPiAgIE1PRFVMRV9QQVJNX0RFU0MobXNp
+LCAiTVNJIHN1cHBvcnQgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlLCAtMSA9IGF1dG8pIik7Cj4g
+ICBtb2R1bGVfcGFyYW1fbmFtZWQobXNpLCBhbWRncHVfbXNpLCBpbnQsIDA0NDQpOwo+ICAgCj4g
+LU1PRFVMRV9QQVJNX0RFU0MobG9ja3VwX3RpbWVvdXQsICJHUFUgbG9ja3VwIHRpbWVvdXQgaW4g
+bXMgKGRlZmF1bHQgMCA9IGRpc2FibGUpIik7Cj4gK01PRFVMRV9QQVJNX0RFU0MobG9ja3VwX3Rp
+bWVvdXQsICJHUFUgbG9ja3VwIHRpbWVvdXQgaW4gbXMgKGRlZmF1bHQgMTAwMDApIik7Cj4gICBt
+b2R1bGVfcGFyYW1fbmFtZWQobG9ja3VwX3RpbWVvdXQsIGFtZGdwdV9sb2NrdXBfdGltZW91dCwg
+aW50LCAwNDQ0KTsKPiAgIAo+ICAgTU9EVUxFX1BBUk1fREVTQyhkcG0sICJEUE0gc3VwcG9ydCAo
+MSA9IGVuYWJsZSwgMCA9IGRpc2FibGUsIC0xID0gYXV0bykiKTsKPiBAQCAtMjgwLDYgKzI4MSw5
+IEBAIG1vZHVsZV9wYXJhbV9uYW1lZChsYnB3LCBhbWRncHVfbGJwdywgaW50LCAwNDQ0KTsKPiAg
+IE1PRFVMRV9QQVJNX0RFU0MoY29tcHV0ZV9tdWx0aXBpcGUsICJGb3JjZSBjb21wdXRlIHF1ZXVl
+cyB0byBiZSBzcHJlYWQgYWNyb3NzIHBpcGVzICgxID0gZW5hYmxlLCAwID0gZGlzYWJsZSwgLTEg
+PSBhdXRvKSIpOwo+ICAgbW9kdWxlX3BhcmFtX25hbWVkKGNvbXB1dGVfbXVsdGlwaXBlLCBhbWRn
+cHVfY29tcHV0ZV9tdWx0aXBpcGUsIGludCwgMDQ0NCk7Cj4gICAKPiArTU9EVUxFX1BBUk1fREVT
+QyhncHVfcmVjb3ZlcnksICJFbmFibGUgR1BVIHJlY292ZXJ5IG1lY2hhbmlzbSwgKDEgPSBlbmFi
+bGUgKGRlZmF1bHQpICwgMCA9IGRpc2FibGUiKTsKPiArbW9kdWxlX3BhcmFtX25hbWVkKGdwdV9y
+ZWNvdmVyeSwgYW1kZ3B1X2dwdV9yZWNvdmVyeSwgaW50LCAwNDQ0KTsKPiArCj4gICAjaWZkZWYg
+Q09ORklHX0RSTV9BTURHUFVfU0kKPiAgIAo+ICAgI2lmIGRlZmluZWQoQ09ORklHX0RSTV9SQURF
+T04pIHx8IGRlZmluZWQoQ09ORklHX0RSTV9SQURFT05fTU9EVUxFKQoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
