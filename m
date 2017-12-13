@@ -1,47 +1,36 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH 2/3] drm/amd/amdgpu: init allow_reserved_eviction and resv
- when create a new bo
-Date: Wed, 13 Dec 2017 11:03:19 +0100
-Message-ID: <91121ff7-1413-b86d-8f98-8023c20c6b89@daenzer.net>
-References: <1513142278-4294-1-git-send-email-Hongbo.He@amd.com>
- <1513142278-4294-2-git-send-email-Hongbo.He@amd.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/pp: reset dpm level when adjust power state
+Date: Wed, 13 Dec 2017 17:52:48 +0800
+Message-ID: <1513158768-29751-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1513142278-4294-2-git-send-email-Hongbo.He@amd.com>
-Content-Language: en-CA
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Roger He <Hongbo.He@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxNy0xMi0xMyAwNjoxNyBBTSwgUm9nZXIgSGUgd3JvdGU6Cj4gQ2hhbmdlLUlkOiBJMGM2
-NTcxYzJhNjRlNmM1YmRhZDgwY2NiY2NjYjQwZWJhMWMyMGI0ZQo+IFNpZ25lZC1vZmYtYnk6IFJv
-Z2VyIEhlIDxIb25nYm8uSGVAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X29iamVjdC5jIHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X29iamVjdC5jCj4gaW5kZXggZGMwYThiZS4uN2M3ZjU2ZjUgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gQEAgLTMyNyw3ICszMjcsNyBAQCBz
-dGF0aWMgaW50IGFtZGdwdV9ib19kb19jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-Cj4gIAkJCSAgICAgICB1aW50NjRfdCBpbml0X3ZhbHVlLAo+ICAJCQkgICAgICAgc3RydWN0IGFt
-ZGdwdV9ibyAqKmJvX3B0cikKPiAgewo+IC0Jc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4IGN0eCA9
-IHsgIWtlcm5lbCwgZmFsc2UgfTsKPiArCXN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCBjdHggPSB7
-ICFrZXJuZWwsIGZhbHNlLCB0cnVlLCByZXN2IH07CgpQbGVhc2UgdXNlIG5hbWVkIGluaXRpYWxp
-emVycywgdG8gbWFrZSBpdCBlYXNpZXIgdG8gdW5kZXJzdGFuZCB3aGljaApmaWVsZCBpcyBpbml0
-aWFsaXplZCB0byB3aGljaCB2YWx1ZS4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAg
-ICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0
-d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZl
-bG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
-LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+Q2hhbmdlLUlkOiBJMzEyZDFjZjdiOTY0ZDI1ZDY5OGIwMjgwMGNlN2NkMDZhYzMzYjI4ZgpTaWdu
+ZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHBfcHNtLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci9wcF9wc20uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2h3bWdyL3BwX3BzbS5jCmluZGV4IGZmYTQ0YmIuLmFiODUyYjIgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwX3BzbS5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwX3BzbS5jCkBAIC0yNDQsNyArMjQ0LDcgQEAg
+aW50IHBzbV9hZGp1c3RfcG93ZXJfc3RhdGVfZHluYW1pYyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
+LCBib29sIHNraXAsCiAJfQogCiAJcGhtX25vdGlmeV9zbWNfZGlzcGxheV9jb25maWdfYWZ0ZXJf
+cHNfYWRqdXN0bWVudChod21ncik7Ci0KKwlwaG1fZm9yY2VfZHBtX2xldmVscyhod21nciwgaHdt
+Z3ItPmRwbV9sZXZlbCk7CiAJcmV0dXJuIDA7CiB9CiAKLS0gCjEuOS4xCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
