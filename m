@@ -1,13 +1,20 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amdgpu: Add gpu_recovery parameter
-Date: Wed, 13 Dec 2017 14:01:32 -0500
-Message-ID: <1513191692-6034-1-git-send-email-andrey.grodzovsky@amd.com>
-References: <57efe9e8-51c2-caa4-6f54-fc1c99c626fa@gmail.com>
+From: Samuel Li <samuel.li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: FW: [PATCH v2 2/2] drm/amdgpu: Move to gtt before cpu accesses
+ dma buf.
+Date: Wed, 13 Dec 2017 14:17:49 -0500
+Message-ID: <e92edd07-27fb-4717-bddd-e97ce5fbc266@amd.com>
+References: <1512771734-13581-1-git-send-email-Samuel.Li@amd.com>
+ <BLUPR12MB0628724406FBB250987B1B41F5340@BLUPR12MB0628.namprd12.prod.outlook.com>
+ <212eeef1-2c32-bef9-82a6-a1884ef002da@amd.com>
+ <82599e20-60fa-fe6f-2c91-4882ffcff4ce@amd.com>
+ <154804e5-cdbb-a5f8-2ad8-506b0752943b@amd.com>
+ <53b66de8-3fe3-c139-9887-7358bf1d95b5@amd.com>
+ <141a2180-104a-4a75-7757-6de3b522c578@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------B146ED0E458E4E527575472F"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <57efe9e8-51c2-caa4-6f54-fc1c99c626fa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <141a2180-104a-4a75-7757-6de3b522c578-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,125 +25,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Monk.Liu-5C7GfCeVMHo@public.gmane.org, maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QWRkIG5ldyBwYXJhbWV0ZXIgdG8gY29udHJvbCBHUFUgcmVjb3ZlcnkgcHJvY2VkdXJlLgpSZXRp
-cmUgb2xkIHdheSBvZiBkaXNhYmxpbmcgR1BVIHJlY292ZXJ5IGJ5IHNldHRpbmcgbG9ja3VwX3Rp
-bWVvdXQgPT0gMCBhbmQKc2V0IGRlZmF1bHQgZm9yIGxvY2t1cF90aW1lb3V0IHRvIDEwcy4KCnYy
-OgpBZGQgYXV0byBsb2dpYyB3aGVyZSByZXNldCBpcyBkaXNhYmxlZCBmb3IgYmFyZSBtZXRhbCBh
-bmQgZW5hYmxlZApmb3IgU1ItSU9WLgpBbGxvdyBmb3JjZWQgcmVzZXQgZnJvbSBkZWJ1Z2ZzLgoK
-U2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgMyAr
-Ky0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDkgKysrKysr
-KystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCA0ICsrKysK
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jICB8IDIgKy0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYyAgICB8IDIgKy0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyAgICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L214Z3B1X2FpLmMgICAgICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L214Z3B1X3ZpLmMgICAgICB8IDIgKy0KIDggZmlsZXMgY2hhbmdlZCwgMTkgaW5zZXJ0aW9u
-cygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCmluZGV4
-IDM3MzU1MDAuLmQ3ZjAyNjMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCkBAIC0x
-MjYsNiArMTI2LDcgQEAgZXh0ZXJuIGludCBhbWRncHVfcGFyYW1fYnVmX3Blcl9zZTsKIGV4dGVy
-biBpbnQgYW1kZ3B1X2pvYl9oYW5nX2xpbWl0OwogZXh0ZXJuIGludCBhbWRncHVfbGJwdzsKIGV4
-dGVybiBpbnQgYW1kZ3B1X2NvbXB1dGVfbXVsdGlwaXBlOworZXh0ZXJuIGludCBhbWRncHVfZ3B1
-X3JlY292ZXJ5OwogCiAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfU0kKIGV4dGVybiBpbnQgYW1k
-Z3B1X3NpX3N1cHBvcnQ7CkBAIC0xODc5LDcgKzE4ODAsNyBAQCBhbWRncHVfZ2V0X3NkbWFfaW5z
-dGFuY2Uoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogI2RlZmluZSBhbWRncHVfcHNwX2NoZWNr
-X2Z3X2xvYWRpbmdfc3RhdHVzKGFkZXYsIGkpIChhZGV2KS0+ZmlybXdhcmUuZnVuY3MtPmNoZWNr
-X2Z3X2xvYWRpbmdfc3RhdHVzKChhZGV2KSwgKGkpKQogCiAvKiBDb21tb24gZnVuY3Rpb25zICov
-Ci1pbnQgYW1kZ3B1X2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1
-Y3QgYW1kZ3B1X2pvYiogam9iKTsKK2ludCBhbWRncHVfZ3B1X3JlY292ZXIoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfam9iKiBqb2IsIGJvb2wgZm9yY2UpOwogYm9v
-bCBhbWRncHVfbmVlZF9iYWNrdXAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogdm9pZCBh
-bWRncHVfcGNpX2NvbmZpZ19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiBib29s
-IGFtZGdwdV9uZWVkX3Bvc3Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDhkMDNiYWEuLmEwNzQ1MDIg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTMwMTUs
-MTEgKzMwMTUsMTIgQEAgc3RhdGljIGludCBhbWRncHVfcmVzZXRfc3Jpb3Yoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsIHVpbnQ2NF90ICpyZXNldF9mbGFncywKICAqCiAgKiBAYWRldjogYW1k
-Z3B1IGRldmljZSBwb2ludGVyCiAgKiBAam9iOiB3aGljaCBqb2IgdHJpZ2dlciBoYW5nCisgKiBA
-Zm9yY2UgZm9yY2VzIHJlc2V0IHJlZ2FyZGxlc3Mgb2YgYW1kZ3B1X2dwdV9yZWNvdmVyeQogICoK
-ICAqIEF0dGVtcHQgdG8gcmVzZXQgdGhlIEdQVSBpZiBpdCBoYXMgaHVuZyAoYWxsIGFzaWNzKS4K
-ICAqIFJldHVybnMgMCBmb3Igc3VjY2VzcyBvciBhbiBlcnJvciBvbiBmYWlsdXJlLgogICovCi1p
-bnQgYW1kZ3B1X2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3Qg
-YW1kZ3B1X2pvYiAqam9iKQoraW50IGFtZGdwdV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwgYm9vbCBmb3JjZSkKIHsKIAlzdHJ1
-Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUgPSBOVUxMOwogCXVpbnQ2NF90IHJlc2V0X2ZsYWdz
-ID0gMDsKQEAgLTMwMzAsNiArMzAzMSwxMiBAQCBpbnQgYW1kZ3B1X2dwdV9yZWNvdmVyKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iKQogCQlyZXR1cm4g
-MDsKIAl9CiAKKwlpZiAoIWZvcmNlICYmIChhbWRncHVfZ3B1X3JlY292ZXJ5ID09IDAgfHwKKwkJ
-CShhbWRncHVfZ3B1X3JlY292ZXJ5ID09IC0xICAmJiAhYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKSkp
-IHsKKwkJRFJNX0lORk8oIkdQVSByZWNvdmVyeSBkaXNhYmxlZC5cbiIpOworCQlyZXR1cm4gMDsK
-Kwl9CisKIAlkZXZfaW5mbyhhZGV2LT5kZXYsICJHUFUgcmVzZXQgYmVnaW4hXG4iKTsKIAogCW11
-dGV4X2xvY2soJmFkZXYtPmxvY2tfcmVzZXQpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rydi5jCmluZGV4IDBiMDM5YmQuLmI3MzRjZDYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTEyOCw2ICsxMjgsNyBAQCBpbnQgYW1kZ3B1X3BhcmFtX2J1
-Zl9wZXJfc2UgPSAwOwogaW50IGFtZGdwdV9qb2JfaGFuZ19saW1pdCA9IDA7CiBpbnQgYW1kZ3B1
-X2xicHcgPSAtMTsKIGludCBhbWRncHVfY29tcHV0ZV9tdWx0aXBpcGUgPSAtMTsKK2ludCBhbWRn
-cHVfZ3B1X3JlY292ZXJ5ID0gLTE7IC8qIGF1dG8gKi8KIAogTU9EVUxFX1BBUk1fREVTQyh2cmFt
-bGltaXQsICJSZXN0cmljdCBWUkFNIGZvciB0ZXN0aW5nLCBpbiBtZWdhYnl0ZXMiKTsKIG1vZHVs
-ZV9wYXJhbV9uYW1lZCh2cmFtbGltaXQsIGFtZGdwdV92cmFtX2xpbWl0LCBpbnQsIDA2MDApOwpA
-QCAtMjgwLDYgKzI4MSw5IEBAIG1vZHVsZV9wYXJhbV9uYW1lZChsYnB3LCBhbWRncHVfbGJwdywg
-aW50LCAwNDQ0KTsKIE1PRFVMRV9QQVJNX0RFU0MoY29tcHV0ZV9tdWx0aXBpcGUsICJGb3JjZSBj
-b21wdXRlIHF1ZXVlcyB0byBiZSBzcHJlYWQgYWNyb3NzIHBpcGVzICgxID0gZW5hYmxlLCAwID0g
-ZGlzYWJsZSwgLTEgPSBhdXRvKSIpOwogbW9kdWxlX3BhcmFtX25hbWVkKGNvbXB1dGVfbXVsdGlw
-aXBlLCBhbWRncHVfY29tcHV0ZV9tdWx0aXBpcGUsIGludCwgMDQ0NCk7CiAKK01PRFVMRV9QQVJN
-X0RFU0MoZ3B1X3JlY292ZXJ5LCAiRW5hYmxlIEdQVSByZWNvdmVyeSBtZWNoYW5pc20sICgxID0g
-ZW5hYmxlLCAwID0gZGlzYWJsZSwgLTEgPSBhdXRvIik7Cittb2R1bGVfcGFyYW1fbmFtZWQoZ3B1
-X3JlY292ZXJ5LCBhbWRncHVfZ3B1X3JlY292ZXJ5LCBpbnQsIDA0NDQpOworCiAjaWZkZWYgQ09O
-RklHX0RSTV9BTURHUFVfU0kKIAogI2lmIGRlZmluZWQoQ09ORklHX0RSTV9SQURFT04pIHx8IGRl
-ZmluZWQoQ09ORklHX0RSTV9SQURFT05fTU9EVUxFKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZmVuY2UuYwppbmRleCAxNDY5OTYzLi44NTRiYWYwIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYwpAQCAtNzA1LDcgKzcwNSw3IEBAIHN0YXRpYyBp
-bnQgYW1kZ3B1X2RlYnVnZnNfZ3B1X3JlY292ZXIoc3RydWN0IHNlcV9maWxlICptLCB2b2lkICpk
-YXRhKQogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2LT5kZXZfcHJpdmF0ZTsKIAog
-CXNlcV9wcmludGYobSwgImdwdSByZWNvdmVyXG4iKTsKLQlhbWRncHVfZ3B1X3JlY292ZXIoYWRl
-diwgTlVMTCk7CisJYW1kZ3B1X2dwdV9yZWNvdmVyKGFkZXYsIE5VTEwsIHRydWUpOwogCiAJcmV0
-dXJuIDA7CiB9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmMKaW5kZXggYzM0
-MDc3NC4uYzQzNjQzZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2lycS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYwpA
-QCAtODgsNyArODgsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfaXJxX3Jlc2V0X3dvcmtfZnVuYyhz
-dHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCiAJCQkJCQkgIHJlc2V0X3dvcmspOwogCiAJaWYgKCFh
-bWRncHVfc3Jpb3ZfdmYoYWRldikpCi0JCWFtZGdwdV9ncHVfcmVjb3ZlcihhZGV2LCBOVUxMKTsK
-KwkJYW1kZ3B1X2dwdV9yZWNvdmVyKGFkZXYsIE5VTEwsIGZhbHNlKTsKIH0KIAogLyogRGlzYWJs
-ZSAqYWxsKiBpbnRlcnJ1cHRzICovCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfam9iLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9i
-LmMKaW5kZXggMDEzYzBhOC4uYmU4YTQzNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2pvYi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9qb2IuYwpAQCAtMzcsNyArMzcsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfam9iX3RpbWVk
-b3V0KHN0cnVjdCBkcm1fc2NoZWRfam9iICpzX2pvYikKIAkJICBhdG9taWNfcmVhZCgmam9iLT5y
-aW5nLT5mZW5jZV9kcnYubGFzdF9zZXEpLAogCQkgIGpvYi0+cmluZy0+ZmVuY2VfZHJ2LnN5bmNf
-c2VxKTsKIAotCWFtZGdwdV9ncHVfcmVjb3Zlcihqb2ItPmFkZXYsIGpvYik7CisJYW1kZ3B1X2dw
-dV9yZWNvdmVyKGpvYi0+YWRldiwgam9iLCBmYWxzZSk7CiB9CiAKIGludCBhbWRncHVfam9iX2Fs
-bG9jKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBudW1faWJzLApkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbXhncHVfYWkuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L214Z3B1X2FpLmMKaW5kZXggNzFmNTY5MC4uN2FkZTU2ZCAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbXhncHVfYWkuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9haS5jCkBAIC0yNTMsNyArMjUzLDcgQEAgc3RhdGlj
-IHZvaWQgeGdwdV9haV9tYWlsYm94X2Zscl93b3JrKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykK
-IAl9CiAKIAkvKiBUcmlnZ2VyIHJlY292ZXJ5IGR1ZSB0byB3b3JsZCBzd2l0Y2ggZmFpbHVyZSAq
-LwotCWFtZGdwdV9ncHVfcmVjb3ZlcihhZGV2LCBOVUxMKTsKKwlhbWRncHVfZ3B1X3JlY292ZXIo
-YWRldiwgTlVMTCwgZmFsc2UpOwogfQogCiBzdGF0aWMgaW50IHhncHVfYWlfc2V0X21haWxib3hf
-cmN2X2lycShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X3ZpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9teGdwdV92aS5jCmluZGV4IGRmNTI4MjQuLmUwNTgyM2QgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X3ZpLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvbXhncHVfdmkuYwpAQCAtNTIxLDcgKzUyMSw3IEBAIHN0YXRpYyB2b2lkIHhncHVfdmlf
-bWFpbGJveF9mbHJfd29yayhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCiAJfQogCiAJLyogVHJp
-Z2dlciByZWNvdmVyeSBkdWUgdG8gd29ybGQgc3dpdGNoIGZhaWx1cmUgKi8KLQlhbWRncHVfZ3B1
-X3JlY292ZXIoYWRldiwgTlVMTCk7CisJYW1kZ3B1X2dwdV9yZWNvdmVyKGFkZXYsIE5VTEwsIGZh
-bHNlKTsKIH0KIAogc3RhdGljIGludCB4Z3B1X3ZpX3NldF9tYWlsYm94X3Jjdl9pcnEoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--------------B146ED0E458E4E527575472F
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+For the record.
+
+
+On 2017-12-13 01:26 PM, Christian König wrote:
+> Actually we try to avoid that drivers define their own dma_buf_ops in DRM.
+> 
+> That's why you have all those callbacks in drm_driver which just mirror the dma_buf interface but unpack the GEM object from the dma-buf object.
+> 
+> There are quite a number of exceptions, but those drivers then implement everything on their own because the DRM marshaling doesn't make sense for them.
+> 
+> Christian.
+> 
+> Am 13.12.2017 um 19:01 schrieb Samuel Li:
+>> That is an approach. The cost is to add a new call back, which is not necessary though, since driver can always actually define their own dma_buf_ops.
+>> The intention here is to allow a driver reuse drm_gem_prime_dmabuf_ops{}. If you would like to go this far, maybe a more straight forward way is to export those ops, e.g. drm_gem_map_attach, so that a driver can use them in its own definitions.
+>>
+>> Sam
+>>
+>>
+>>
+>> On 2017-12-13 05:23 AM, Christian König wrote:
+>>> Something like the attached patch. Not even compile tested.
+>>>
+>>> Christian.
+>>>
+>>> Am 12.12.2017 um 20:13 schrieb Samuel Li:
+>>>> Not sure if I understand your comments correctly. Currently amdgpu prime reuses drm_gem_prime_dmabuf_ops{}, and it is defined as static which is reasonable. I do not see an easier way to introduce amdgpu_gem_begin_cpu_access().
+>>>>
+>>>> Sam
+>>>>
+>>>> On 2017-12-12 01:30 PM, Christian König wrote:
+>>>>>> +    while (amdgpu_dmabuf_ops.begin_cpu_access != amdgpu_gem_begin_cpu_access)
+>>>>> I would rather just add the four liner code to drm to forward the begin_cpu_access callback into a drm_driver callback instead of all this.
+>>>>>
+>>>>> But apart from that it looks good to me.
+>>>>>
+>>>>> Christian.
+>>>>>
+>>>>> Am 12.12.2017 um 19:14 schrieb Li, Samuel:
+>>>>>> A gentle ping on this one, Christian, can you take a look at this?
+>>>>>>
+>>>>>> Sam
+>>>>>>
+>>>>>> -----Original Message-----
+>>>>>> From: Li, Samuel
+>>>>>> Sent: Friday, December 08, 2017 5:22 PM
+>>>>>> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>>>> Cc: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+>>>>>> Subject: [PATCH v2 2/2] drm/amdgpu: Move to gtt before cpu accesses dma buf.
+>>>>>>
+>>>>>> To improve cpu read performance. This is implemented for APUs currently.
+>>>>>>
+>>>>>> v2: Adapt to change https://lists.freedesktop.org/archives/amd-gfx/2017-October/015174.html
+>>>>>>
+>>>>>> Change-Id: I7a583e23a9ee706e0edd2a46f4e4186a609368e3
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  2 ++
+>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  2 +-
+>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c | 58 +++++++++++++++++++++++++++++++
+>>>>>>     3 files changed, 61 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>> index f8657c3..193db70 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>> @@ -417,6 +417,8 @@ amdgpu_gem_prime_import_sg_table(struct drm_device *dev,  struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+>>>>>>                         struct drm_gem_object *gobj,
+>>>>>>                         int flags);
+>>>>>> +struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+>>>>>> +                        struct dma_buf *dma_buf);
+>>>>>>     int amdgpu_gem_prime_pin(struct drm_gem_object *obj);  void amdgpu_gem_prime_unpin(struct drm_gem_object *obj);  struct reservation_object *amdgpu_gem_prime_res_obj(struct drm_gem_object *); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>>> index 31383e0..df30b08 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>>> @@ -868,7 +868,7 @@ static struct drm_driver kms_driver = {
+>>>>>>         .prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>>>>>>         .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+>>>>>>         .gem_prime_export = amdgpu_gem_prime_export,
+>>>>>> -    .gem_prime_import = drm_gem_prime_import,
+>>>>>> +    .gem_prime_import = amdgpu_gem_prime_import,
+>>>>>>         .gem_prime_pin = amdgpu_gem_prime_pin,
+>>>>>>         .gem_prime_unpin = amdgpu_gem_prime_unpin,
+>>>>>>         .gem_prime_res_obj = amdgpu_gem_prime_res_obj, diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>>>>>> index ae9c106..de6f599 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>>>>>> @@ -26,6 +26,7 @@
+>>>>>>     #include <drm/drmP.h>
+>>>>>>       #include "amdgpu.h"
+>>>>>> +#include "amdgpu_display.h"
+>>>>>>     #include <drm/amdgpu_drm.h>
+>>>>>>     #include <linux/dma-buf.h>
+>>>>>>     @@ -164,6 +165,33 @@ struct reservation_object *amdgpu_gem_prime_res_obj(struct drm_gem_object *obj)
+>>>>>>         return bo->tbo.resv;
+>>>>>>     }
+>>>>>>     +static int amdgpu_gem_begin_cpu_access(struct dma_buf *dma_buf, enum
+>>>>>> +dma_data_direction direction) {
+>>>>>> +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(dma_buf->priv);
+>>>>>> +    struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>>>>>> +    struct ttm_operation_ctx ctx = { true, false };
+>>>>>> +    u32 domain = amdgpu_framebuffer_domains(adev);
+>>>>>> +    long ret = 0;
+>>>>>> +    bool reads = (direction == DMA_BIDIRECTIONAL || direction ==
+>>>>>> +DMA_FROM_DEVICE);
+>>>>>> +
+>>>>>> +    if (!reads || !(domain | AMDGPU_GEM_DOMAIN_GTT) || bo->pin_count)
+>>>>>> +        return 0;
+>>>>>> +
+>>>>>> +    /* move to gtt */
+>>>>>> +    ret = amdgpu_bo_reserve(bo, false);
+>>>>>> +    if (unlikely(ret != 0))
+>>>>>> +        return ret;
+>>>>>> +
+>>>>>> +    amdgpu_ttm_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
+>>>>>> +    ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+>>>>>> +
+>>>>>> +    amdgpu_bo_unreserve(bo);
+>>>>>> +    return ret;
+>>>>>> +}
+>>>>>> +
+>>>>>> +static struct dma_buf_ops amdgpu_dmabuf_ops; static atomic_t aops_lock;
+>>>>>> +
+>>>>>>     struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+>>>>>>                         struct drm_gem_object *gobj,
+>>>>>>                         int flags)
+>>>>>> @@ -178,5 +206,35 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+>>>>>>         buf = drm_gem_prime_export(dev, gobj, flags);
+>>>>>>         if (!IS_ERR(buf))
+>>>>>>             buf->file->f_mapping = dev->anon_inode->i_mapping;
+>>>>>> +
+>>>>>> +    while (amdgpu_dmabuf_ops.begin_cpu_access != amdgpu_gem_begin_cpu_access)
+>>>>>> +    {
+>>>>>> +        if (!atomic_cmpxchg(&aops_lock, 0, 1)) {
+>>>>>> +            amdgpu_dmabuf_ops = *(buf->ops);
+>>>>>> +            amdgpu_dmabuf_ops.begin_cpu_access = amdgpu_gem_begin_cpu_access;
+>>>>>> +        }
+>>>>>> +    }
+>>>>>> +    buf->ops = &amdgpu_dmabuf_ops;
+>>>>>> +
+>>>>>>         return buf;
+>>>>>>     }
+>>>>>> +
+>>>>>> +struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+>>>>>> +                        struct dma_buf *dma_buf)
+>>>>>> +{
+>>>>>> +    struct drm_gem_object *obj;
+>>>>>> +
+>>>>>> +    if (dma_buf->ops == &amdgpu_dmabuf_ops) {
+>>>>>> +        obj = dma_buf->priv;
+>>>>>> +        if (obj->dev == dev) {
+>>>>>> +            /*
+>>>>>> +             * Importing dmabuf exported from out own gem increases
+>>>>>> +             * refcount on gem itself instead of f_count of dmabuf.
+>>>>>> +             */
+>>>>>> +            drm_gem_object_get(obj);
+>>>>>> +            return obj;
+>>>>>> +        }
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    return drm_gem_prime_import(dev, dma_buf); }
+>>>>>> -- 
+>>>>>> 2.7.4
+>>>>>>
+> 
+
+--------------B146ED0E458E4E527575472F
+Content-Type: text/x-patch;
+ name="0001-drm-prime-forward-begin_cpu_access-callback-to-drive.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+ filename*0="0001-drm-prime-forward-begin_cpu_access-callback-to-drive.pa";
+ filename*1="tch"
+
+>From 95a211bd0a6bfea56e49670842addd3a02a76063 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Date: Wed, 13 Dec 2017 11:22:05 +0100
+Subject: [PATCH] drm/prime: forward begin_cpu_access callback to drivers
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Allow drivers to implement their own begin_cpu_access callback.
+
+Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/drm_prime.c | 11 +++++++++++
+ include/drm/drm_drv.h       |  2 ++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 8de93a226c24..3bf497e489f1 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -346,6 +346,16 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf)
+ }
+ EXPORT_SYMBOL(drm_gem_dmabuf_release);
+ 
++static void drm_gem_dmabuf_begin_cpu_access(struct dma_buf *dma_buf,
++					    enum dma_data_direction direction)
++{
++	struct drm_gem_object *obj = dma_buf->priv;
++	struct drm_device *dev = obj->dev;
++
++	if (dev->driver->gem_prime_begin_cpu_access);
++		dev->driver->gem_prime_begin_cpu_access(obj, direction);
++}
++
+ static void *drm_gem_dmabuf_vmap(struct dma_buf *dma_buf)
+ {
+ 	struct drm_gem_object *obj = dma_buf->priv;
+@@ -403,6 +413,7 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
+ 	.map_dma_buf = drm_gem_map_dma_buf,
+ 	.unmap_dma_buf = drm_gem_unmap_dma_buf,
+ 	.release = drm_gem_dmabuf_release,
++	.begin_cpu_access = drm_gem_dmabuf_begin_cpu_access,
+ 	.map = drm_gem_dmabuf_kmap,
+ 	.map_atomic = drm_gem_dmabuf_kmap_atomic,
+ 	.unmap = drm_gem_dmabuf_kunmap,
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index d32b688eb346..6fb8b80f4349 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -490,6 +490,8 @@ struct drm_driver {
+ 				struct drm_device *dev,
+ 				struct dma_buf_attachment *attach,
+ 				struct sg_table *sgt);
++	void (*gem_prime_begin_cpu_access)(struct drm_gem_object *obj,
++					   enum dma_data_direction direction);
+ 	void *(*gem_prime_vmap)(struct drm_gem_object *obj);
+ 	void (*gem_prime_vunmap)(struct drm_gem_object *obj, void *vaddr);
+ 	int (*gem_prime_mmap)(struct drm_gem_object *obj,
+-- 
+2.11.0
+
+
+--------------B146ED0E458E4E527575472F
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------B146ED0E458E4E527575472F--
