@@ -1,60 +1,35 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 02/30] drm/amd/display: Remove dead enable_plane function
- definition and call
-Date: Wed, 13 Dec 2017 17:38:40 -0500
-Message-ID: <F9C369C1-1DF5-4272-B52B-09426B2BF80A@amd.com>
-References: <20171213223502.25224-1-harry.wentland@amd.com>
- <20171213223502.25224-3-harry.wentland@amd.com>
+From: Roger He <Hongbo.He@amd.com>
+Subject: [PATCH] drm/ttm: init locked again to prevent incorrect unlock
+Date: Thu, 14 Dec 2017 11:15:39 +0800
+Message-ID: <1513221339-9927-1-git-send-email-Hongbo.He@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171213223502.25224-3-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Roger He <Hongbo.He@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-V291bGQgdGhpcyBmaXggdGhlIHJlZ3Jlc3Npb24gSSBmb3VuZCBvbiBDYXJyaXpvIGFmdGVyIHRo
-ZSBkcm0tbmV4dCByZWJhc2U/CgpUb20KCgoKT24gRGVjZW1iZXIgMTMsIDIwMTcgNTozNDozNCBQ
-TSBFU1QsIEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPiB3cm90ZToKPlNp
-Z25lZC1vZmYtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgo+UmV2
-aWV3ZWQtYnk6IEpvcmRhbiBMYXphcmUgPEpvcmRhbi5MYXphcmVAYW1kLmNvbT4KPlJldmlld2Vk
-LWJ5OiBUb255IENoZW5nIDxUb255LkNoZW5nQGFtZC5jb20+Cj5BY2tlZC1ieTogSGFycnkgV2Vu
-dGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4tLS0KPiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9od19zZXF1ZW5jZXIuYyB8IDMgLS0tCj4gZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9od19zZXF1ZW5jZXIuaCAgICAgICAgICAgfCA0
-IC0tLS0KPiAyIGZpbGVzIGNoYW5nZWQsIDcgZGVsZXRpb25zKC0pCj4KPmRpZmYgLS1naXQKPmEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2Vy
-LmMKPmIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2Vx
-dWVuY2VyLmMKPmluZGV4IDgwZDM2NjEwYzMwMi4uZjAwMDJkNjNlYjYzIDEwMDY0NAo+LS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2Vy
-LmMKPisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3
-X3NlcXVlbmNlci5jCj5AQCAtMjA1Myw5ICsyMDUzLDYgQEAgZW51bSBkY19zdGF0dXMgZGNlMTEw
-X2FwcGx5X2N0eF90b19odygKPiAJCQkJY29udGV4dCwKPiAJCQkJZGMpOwo+IAo+LQkJaWYgKGRj
-LT5od3NzLmVuYWJsZV9wbGFuZSkKPi0JCQlkYy0+aHdzcy5lbmFibGVfcGxhbmUoZGMsIHBpcGVf
-Y3R4LCBjb250ZXh0KTsKPi0KPiAJCWlmIChEQ19PSyAhPSBzdGF0dXMpCj4gCQkJcmV0dXJuIHN0
-YXR1czsKPiAJfQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9p
-bmMvaHdfc2VxdWVuY2VyLmgKPmIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9o
-d19zZXF1ZW5jZXIuaAo+aW5kZXggYjYyMTViYTUxNGQ4Li41ZDJiMDViOTNlNzYgMTAwNjQ0Cj4t
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2h3X3NlcXVlbmNlci5oCj4r
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2h3X3NlcXVlbmNlci5oCj5A
-QCAtMTM4LDEwICsxMzgsNiBAQCBzdHJ1Y3QgaHdfc2VxdWVuY2VyX2Z1bmNzIHsKPiAKPiAJdm9p
-ZCAoKmRpc2FibGVfcGxhbmUpKHN0cnVjdCBkYyAqZGMsIHN0cnVjdCBwaXBlX2N0eCAqcGlwZV9j
-dHgpOwo+IAo+LQl2b2lkICgqZW5hYmxlX3BsYW5lKShzdHJ1Y3QgZGMgKmRjLAo+LQkJCXN0cnVj
-dCBwaXBlX2N0eCAqcGlwZSwKPi0JCQlzdHJ1Y3QgZGNfc3RhdGUgKmNvbnRleHQpOwo+LQo+IAl2
-b2lkICgqdXBkYXRlX2luZm9fZnJhbWUpKHN0cnVjdCBwaXBlX2N0eCAqcGlwZV9jdHgpOwo+IAo+
-IAl2b2lkICgqZW5hYmxlX3N0cmVhbSkoc3RydWN0IHBpcGVfY3R4ICpwaXBlX2N0eCk7Cj4tLSAK
-PjIuMTQuMQo+Cj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+YW1kLWdmeCBtYWlsaW5nIGxpc3QKPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj5o
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Change-Id: Icc8b5112570429f24e90d52484df2728c546f85b
+Signed-off-by: Roger He <Hongbo.He@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index a3f908c..098b22e 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -735,6 +735,7 @@ static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
+ 								      place)) {
+ 				if (locked)
+ 					reservation_object_unlock(bo->resv);
++				locked = false;
+ 				continue;
+ 			}
+ 			break;
+-- 
+2.7.4
