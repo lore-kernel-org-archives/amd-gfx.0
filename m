@@ -1,11 +1,24 @@
-From: "Lvzhihong (ReJohn)" <lvzhihong1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Subject: Re: AMD WX7100 screen display problem on AArch64 architecture server.
-Date: Thu, 14 Dec 2017 08:00:46 +0000
-Message-ID: <E7DD0E9246072C4A9CA8F1C79F816696018C995E@dggemi505-mbx.china.huawei.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: FW: [PATCH v2 2/2] drm/amdgpu: Move to gtt before cpu accesses
+ dma buf.
+Date: Thu, 14 Dec 2017 09:07:25 +0100
+Message-ID: <3c4474d9-bdc4-25ab-9fe8-9732ee95a391@gmail.com>
+References: <1512771734-13581-1-git-send-email-Samuel.Li@amd.com>
+ <BLUPR12MB0628724406FBB250987B1B41F5340@BLUPR12MB0628.namprd12.prod.outlook.com>
+ <212eeef1-2c32-bef9-82a6-a1884ef002da@amd.com>
+ <82599e20-60fa-fe6f-2c91-4882ffcff4ce@amd.com>
+ <154804e5-cdbb-a5f8-2ad8-506b0752943b@amd.com>
+ <53b66de8-3fe3-c139-9887-7358bf1d95b5@amd.com>
+ <141a2180-104a-4a75-7757-6de3b522c578@amd.com>
+ <e92edd07-27fb-4717-bddd-e97ce5fbc266@amd.com>
+ <BN6PR12MB1652331B4826780B9442CA67F7350@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <BLUPR12MB06283F027DB3101FEDFF46A0F5350@BLUPR12MB0628.namprd12.prod.outlook.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0485437181=="
+Content-Type: multipart/mixed; boundary="===============0241121226=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <BLUPR12MB06283F027DB3101FEDFF46A0F5350-7LeqcoF/hwrL9O90+oShTwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,510 +29,719 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, sunnanyong <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0485437181==
-Content-Language: zh-CN
-Content-Type: multipart/related;
-	boundary="_004_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_";
-	type="multipart/alternative"
-
---_004_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_
+This is a multi-part message in MIME format.
+--===============0241121226==
 Content-Type: multipart/alternative;
-	boundary="_000_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_"
+ boundary="------------A335ED0766DE6266E4190F81"
+Content-Language: en-US
 
---_000_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------A335ED0766DE6266E4190F81
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-DQoNCj5XaXRoIFNoYWRvd1ByaW1hcnkgZW5hYmxlZCwgYWxsIG5vcm1hbCBYMTEgZHJhd2luZyBp
-cyBwZXJmb3JtZWQgYnkgdGhlIENQVSwgbm90IHRoZSBHUFUuDQoNCg0KDQo+RG9lcyBlbmFibGlu
-ZyBTaGFkb3dQcmltYXJ5IGFsc28gbWFrZSBPcGVuR0wgYXBwbGljYXRpb25zIGxvb2sgY29ycmVj
-dD8NCg0KPklmIG5vdCwgaXQncyBtb3N0IGxpa2VseSBhIE1lc2Egb3IgbWF5YmUgTExWTSBpc3N1
-ZS4NCg0KDQoNCkVuYWJsZWluZyBTaGFkb3dQcmltYXJ5LCBzb21lIE9wZW5HTCBhcHBsaWNhdGlv
-bnMgbG9va3MgYmV0dGVyLiBCdXQgc29tZSBhcHAgc3RpbGwgaGFzIHByb2JsZW06DQoNCltjaWQ6
-aW1hZ2UwMDEucG5nQDAxRDM3NEY0LjQxREIyNzAwXQ0KDQoNCg0KQnkgdGhlIHdheSwgSSBzZXQg
-IkFjY2VsTWV0aG9kIiB0byDigJ1ub25l4oCdIGluc3RlYWQgb2Yg4oCcZ2xhbW9y4oCdIGFsc28g
-bWFrZXMgdGhlIHNjcmVlbiBiZWNhbWUgbm9ybWFsLiBidXQgT3BlbkdMIGFwcCBydW4gd2l0aCBF
-cnJvcjoNCg0KDQoNClggRXJyb3Igb2YgZmFpbGVkIHJlcXVlc3Q6ICBCYWREcmF3YWJsZSAoaW52
-YWxpZCBQaXhtYXAgb3IgV2luZG93IHBhcmFtZXRlcikNCg0KICBNYWpvciBvcGNvZGUgb2YgZmFp
-bGVkIHJlcXVlc3Q6ICAxNTMgKERSSTIpDQoNCiAgTWlub3Igb3Bjb2RlIG9mIGZhaWxlZCByZXF1
-ZXN0OiAgOCAoRFJJMlN3YXBCdWZmZXJzICAgICAgICAgICAgICAgKQ0KDQogIFJlc291cmNlIGlk
-IGluIGZhaWxlZCByZXF1ZXN0OiAgMHgxZTAwMDAyDQoNCiAgU2VyaWFsIG51bWJlciBvZiBmYWls
-ZWQgcmVxdWVzdDogIDExNQ0KDQogIEN1cnJlbnQgc2VyaWFsIG51bWJlciBpbiBvdXRwdXQgc3Ry
-ZWFtOiAgMTE2DQoNCg0KDQpJZiBpdCBpcyBtb3N0IGxpa2VseSBhIE1lc2Egb3IgTExWTSBpc3N1
-ZSwgaG93IGNhbiBJIGRlYnVnIG9yIGRvIHNvbWUgdHJpYWwgPw0KDQpUaGFua3MuDQoNCg0K
+Please CC Michel as well, he originally commented that we should try to 
+solve this in the DDX instead.
 
---_000_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+And BTW: Why don't we just do the migration during the mmap call?
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPCEtLVtp
-ZiAhbXNvXT48c3R5bGU+dlw6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kb1w6KiB7
-YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kd1w6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0
-I1ZNTCk7fQ0KLnNoYXBlIHtiZWhhdmlvcjp1cmwoI2RlZmF1bHQjVk1MKTt9DQo8L3N0eWxlPjwh
-W2VuZGlmXS0tPjxzdHlsZT48IS0tDQovKiBGb250IERlZmluaXRpb25zICovDQpAZm9udC1mYWNl
-DQoJe2ZvbnQtZmFtaWx5OuWui+S9kzsNCglwYW5vc2UtMToyIDEgNiAwIDMgMSAxIDEgMSAxO30N
-CkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0
-IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJ
-cGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWls
-eToiXEDlrovkvZMiOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KLyogU3R5bGUg
-RGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwN
-Cgl7bWFyZ2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJdGV4dC1hbGlnbjpqdXN0
-aWZ5Ow0KCXRleHQtanVzdGlmeTppbnRlci1pZGVvZ3JhcGg7DQoJZm9udC1zaXplOjEwLjVwdDsN
-Cglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQphOmxpbmssIHNwYW4uTXNvSHlw
-ZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjojMDU2M0MxOw0KCXRleHQt
-ZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFuLk1zb0h5cGVybGlua0ZvbGxv
-d2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjojOTU0RjcyOw0KCXRleHQtZGVj
-b3JhdGlvbjp1bmRlcmxpbmU7fQ0KcC5Nc29QbGFpblRleHQsIGxpLk1zb1BsYWluVGV4dCwgZGl2
-Lk1zb1BsYWluVGV4dA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNvLXN0eWxlLWxpbms6
-Iue6r+aWh+acrCBDaGFyIjsNCgltYXJnaW46MGNtOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsN
-Cglmb250LXNpemU6MTAuNXB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30N
-CnNwYW4uQ2hhcg0KCXttc28tc3R5bGUtbmFtZToi57qv5paH5pysIENoYXIiOw0KCW1zby1zdHls
-ZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazrnuq/mlofmnKw7DQoJZm9udC1mYW1pbHk6
-IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6
-ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KLyogUGFn
-ZSBEZWZpbml0aW9ucyAqLw0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6NjEyLjBwdCA3OTIu
-MHB0Ow0KCW1hcmdpbjo3Mi4wcHQgOTAuMHB0IDcyLjBwdCA5MC4wcHQ7fQ0KZGl2LldvcmRTZWN0
-aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5
-XT48eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4N
-CjwveG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlv
-dXQgdjpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286
-c2hhcGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJaSC1D
-TiIgbGluaz0iIzA1NjNDMSIgdmxpbms9IiM5NTRGNzIiIHN0eWxlPSJ0ZXh0LWp1c3RpZnktdHJp
-bTpwdW5jdHVhdGlvbiI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1z
-b1BsYWluVGV4dCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxzcGFuIGxhbmc9IkVOLVVTIj4mZ3Q7V2l0aCBT
-aGFkb3dQcmltYXJ5IGVuYWJsZWQsIGFsbCBub3JtYWwgWDExIGRyYXdpbmcgaXMgcGVyZm9ybWVk
-IGJ5IHRoZSBDUFUsIG5vdCB0aGUgR1BVLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29QbGFpblRleHQiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bh
-bj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBsYW5nPSJFTi1VUyI+Jmd0O0Rv
-ZXMgZW5hYmxpbmcgU2hhZG93UHJpbWFyeSBhbHNvIG1ha2UgT3BlbkdMIGFwcGxpY2F0aW9ucyBs
-b29rIGNvcnJlY3Q/PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
-dCI+PHNwYW4gbGFuZz0iRU4tVVMiPiZndDtJZiBub3QsIGl0J3MgbW9zdCBsaWtlbHkgYSBNZXNh
-IG9yIG1heWJlIExMVk0gaXNzdWUuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1z
-b1BsYWluVGV4dCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxzcGFuIGxhbmc9IkVOLVVTIj5FbmFibGVpbmcg
-U2hhZG93UHJpbWFyeSwgc29tZSBPcGVuR0wgYXBwbGljYXRpb25zIGxvb2tzIGJldHRlci4gQnV0
-IHNvbWUgYXBwIHN0aWxsIGhhcyBwcm9ibGVtOjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNs
-YXNzPSJNc29QbGFpblRleHQiPjxzcGFuIGxhbmc9IkVOLVVTIj48aW1nIHdpZHRoPSI0OTIiIGhl
-aWdodD0iMTc3IiBpZD0i5Zu+54mHX3gwMDIwXzEiIHNyYz0iY2lkOmltYWdlMDAxLnBuZ0AwMUQz
-NzRGNC40MURCMjcwMCI+PC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPjwvbzpwPjwvc3Bh
-bj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD4m
-bmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PHNwYW4gbGFu
-Zz0iRU4tVVMiPkJ5IHRoZSB3YXksIEkgc2V0ICZxdW90O0FjY2VsTWV0aG9kJnF1b3Q7IHRvIDwv
-c3Bhbj4NCjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmll
-ciBOZXcmcXVvdDsiPuKAnTwvc3Bhbj48c3BhbiBsYW5nPSJFTi1VUyI+bm9uZTwvc3Bhbj48c3Bh
-biBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7
-Ij7igJ08L3NwYW4+PHNwYW4gbGFuZz0iRU4tVVMiPiBpbnN0ZWFkIG9mDQo8L3NwYW4+PHNwYW4g
-bGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90OyI+
-4oCcPC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIj5nbGFtb3I8L3NwYW4+PHNwYW4gbGFuZz0iRU4t
-VVMiIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90OyI+4oCdPC9zcGFu
-PjxzcGFuIGxhbmc9IkVOLVVTIj4gYWxzbyBtYWtlcyB0aGUgc2NyZWVuIGJlY2FtZSBub3JtYWwu
-IGJ1dCBPcGVuR0wgYXBwIHJ1biB3aXRoIEVycm9yOjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxw
-IGNsYXNzPSJNc29QbGFpblRleHQiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpw
-Pjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0IiBzdHlsZT0idGV4dC1pbmRlbnQ6
-MTAuNXB0Ij48c3BhbiBsYW5nPSJFTi1VUyI+WCBFcnJvciBvZiBmYWlsZWQgcmVxdWVzdDombmJz
-cDsgQmFkRHJhd2FibGUgKGludmFsaWQgUGl4bWFwIG9yIFdpbmRvdyBwYXJhbWV0ZXIpPG86cD48
-L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PHNwYW4gbGFuZz0iRU4t
-VVMiPiZuYnNwOyBNYWpvciBvcGNvZGUgb2YgZmFpbGVkIHJlcXVlc3Q6Jm5ic3A7IDE1MyAoRFJJ
-Mik8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBs
-YW5nPSJFTi1VUyI+Jm5ic3A7IE1pbm9yIG9wY29kZSBvZiBmYWlsZWQgcmVxdWVzdDombmJzcDsg
-OCAoRFJJMlN3YXBCdWZmZXJzJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICk8bzpwPjwvbzpw
-Pjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBsYW5nPSJFTi1VUyI+
-Jm5ic3A7IFJlc291cmNlIGlkIGluIGZhaWxlZCByZXF1ZXN0OiZuYnNwOyAweDFlMDAwMDI8bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBsYW5nPSJF
-Ti1VUyI+Jm5ic3A7IFNlcmlhbCBudW1iZXIgb2YgZmFpbGVkIHJlcXVlc3Q6Jm5ic3A7IDExNTxv
-OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxzcGFuIGxhbmc9
-IkVOLVVTIj4mbmJzcDsgQ3VycmVudCBzZXJpYWwgbnVtYmVyIGluIG91dHB1dCBzdHJlYW06Jm5i
-c3A7IDExNjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxz
-cGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
-TXNvUGxhaW5UZXh0Ij48c3BhbiBsYW5nPSJFTi1VUyI+SWYgaXQgaXMgbW9zdCBsaWtlbHkgYSBN
-ZXNhIG9yIExMVk0gaXNzdWUsIGhvdyBjYW4gSSBkZWJ1ZyBvciBkbyBzb21lIHRyaWFsID88bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBsYW5nPSJF
-Ti1VUyI+VGhhbmtzLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRl
-eHQiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rp
-dj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+Christian.
 
---_000_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_--
+Am 13.12.2017 um 22:28 schrieb Li, Samuel:
+>
+> Will do after some basic testing.
+>
+> Sam
+>
+> *From:*Deucher, Alexander
+> *Sent:* Wednesday, December 13, 2017 2:49 PM
+> *To:* Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian 
+> <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: FW: [PATCH v2 2/2] drm/amdgpu: Move to gtt before cpu 
+> accesses dma buf.
+>
+> Please send the drm prime patch to dri-devel if you didn't already.
+>
+> Alex
+>
+> ------------------------------------------------------------------------
+>
+> *From:*amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
+> <mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>> on behalf of Samuel Li 
+> <samuel.li-5C7GfCeVMHo@public.gmane.org <mailto:samuel.li-5C7GfCeVMHo@public.gmane.org>>
+> *Sent:* Wednesday, December 13, 2017 2:17:49 PM
+> *To:* Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
+> <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> *Subject:* Re: FW: [PATCH v2 2/2] drm/amdgpu: Move to gtt before cpu 
+> accesses dma buf.
+>
+> For the record.
+>
+>
+> On 2017-12-13 01:26 PM, Christian König wrote:
+> > Actually we try to avoid that drivers define their own dma_buf_ops 
+> in DRM.
+> >
+> > That's why you have all those callbacks in drm_driver which just 
+> mirror the dma_buf interface but unpack the GEM object from the 
+> dma-buf object.
+> >
+> > There are quite a number of exceptions, but those drivers then 
+> implement everything on their own because the DRM marshaling doesn't 
+> make sense for them.
+> >
+> > Christian.
+> >
+> > Am 13.12.2017 um 19:01 schrieb Samuel Li:
+> >> That is an approach. The cost is to add a new call back, which is 
+> not necessary though, since driver can always actually define their 
+> own dma_buf_ops.
+> >> The intention here is to allow a driver reuse 
+> drm_gem_prime_dmabuf_ops{}. If you would like to go this far, maybe a 
+> more straight forward way is to export those ops, e.g. 
+> drm_gem_map_attach, so that a driver can use them in its own definitions.
+> >>
+> >> Sam
+> >>
+> >>
+> >>
+> >> On 2017-12-13 05:23 AM, Christian König wrote:
+> >>> Something like the attached patch. Not even compile tested.
+> >>>
+> >>> Christian.
+> >>>
+> >>> Am 12.12.2017 um 20:13 schrieb Samuel Li:
+> >>>> Not sure if I understand your comments correctly. Currently 
+> amdgpu prime reuses drm_gem_prime_dmabuf_ops{}, and it is defined as 
+> static which is reasonable. I do not see an easier way to introduce 
+> amdgpu_gem_begin_cpu_access().
+> >>>>
+> >>>> Sam
+> >>>>
+> >>>> On 2017-12-12 01:30 PM, Christian König wrote:
+> >>>>>> +    while (amdgpu_dmabuf_ops.begin_cpu_access != 
+> amdgpu_gem_begin_cpu_access)
+> >>>>> I would rather just add the four liner code to drm to forward 
+> the begin_cpu_access callback into a drm_driver callback instead of 
+> all this.
+> >>>>>
+> >>>>> But apart from that it looks good to me.
+> >>>>>
+> >>>>> Christian.
+> >>>>>
+> >>>>> Am 12.12.2017 um 19:14 schrieb Li, Samuel:
+> >>>>>> A gentle ping on this one, Christian, can you take a look at this?
+> >>>>>>
+> >>>>>> Sam
+> >>>>>>
+> >>>>>> -----Original Message-----
+> >>>>>> From: Li, Samuel
+> >>>>>> Sent: Friday, December 08, 2017 5:22 PM
+> >>>>>> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
+> <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> >>>>>> Cc: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org <mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>
+> >>>>>> Subject: [PATCH v2 2/2] drm/amdgpu: Move to gtt before cpu 
+> accesses dma buf.
+> >>>>>>
+> >>>>>> To improve cpu read performance. This is implemented for APUs 
+> currently.
+> >>>>>>
+> >>>>>> v2: Adapt to change 
+> https://lists.freedesktop.org/archives/amd-gfx/2017-October/015174.html
+> >>>>>>
+> >>>>>> Change-Id: I7a583e23a9ee706e0edd2a46f4e4186a609368e3
+> >>>>>> ---
+> >>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  2 ++
+> >>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  2 +-
+> >>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c | 58 
+> +++++++++++++++++++++++++++++++
+> >>>>>>     3 files changed, 61 insertions(+), 1 deletion(-)
+> >>>>>>
+> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >>>>>> index f8657c3..193db70 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> >>>>>> @@ -417,6 +417,8 @@ amdgpu_gem_prime_import_sg_table(struct 
+> drm_device *dev,  struct dma_buf *amdgpu_gem_prime_export(struct 
+> drm_device *dev,
+> >>>>>> struct drm_gem_object *gobj,
+> >>>>>>                         int flags);
+> >>>>>> +struct drm_gem_object *amdgpu_gem_prime_import(struct 
+> drm_device *dev,
+> >>>>>> + struct dma_buf *dma_buf);
+> >>>>>>     int amdgpu_gem_prime_pin(struct drm_gem_object *obj); void 
+> amdgpu_gem_prime_unpin(struct drm_gem_object *obj);  struct 
+> reservation_object *amdgpu_gem_prime_res_obj(struct drm_gem_object *); 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> index 31383e0..df30b08 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>>> @@ -868,7 +868,7 @@ static struct drm_driver kms_driver = {
+> >>>>>>         .prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+> >>>>>>         .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+> >>>>>>         .gem_prime_export = amdgpu_gem_prime_export,
+> >>>>>> -    .gem_prime_import = drm_gem_prime_import,
+> >>>>>> +    .gem_prime_import = amdgpu_gem_prime_import,
+> >>>>>>         .gem_prime_pin = amdgpu_gem_prime_pin,
+> >>>>>>         .gem_prime_unpin = amdgpu_gem_prime_unpin,
+> >>>>>>         .gem_prime_res_obj = amdgpu_gem_prime_res_obj, diff 
+> --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+> >>>>>> index ae9c106..de6f599 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+> >>>>>> @@ -26,6 +26,7 @@
+> >>>>>>     #include <drm/drmP.h>
+> >>>>>>       #include "amdgpu.h"
+> >>>>>> +#include "amdgpu_display.h"
+> >>>>>>     #include <drm/amdgpu_drm.h>
+> >>>>>>     #include <linux/dma-buf.h>
+> >>>>>>     @@ -164,6 +165,33 @@ struct reservation_object 
+> *amdgpu_gem_prime_res_obj(struct drm_gem_object *obj)
+> >>>>>>         return bo->tbo.resv;
+> >>>>>>     }
+> >>>>>>     +static int amdgpu_gem_begin_cpu_access(struct dma_buf 
+> *dma_buf, enum
+> >>>>>> +dma_data_direction direction) {
+> >>>>>> +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(dma_buf->priv);
+> >>>>>> +    struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+> >>>>>> +    struct ttm_operation_ctx ctx = { true, false };
+> >>>>>> +    u32 domain = amdgpu_framebuffer_domains(adev);
+> >>>>>> +    long ret = 0;
+> >>>>>> +    bool reads = (direction == DMA_BIDIRECTIONAL || direction ==
+> >>>>>> +DMA_FROM_DEVICE);
+> >>>>>> +
+> >>>>>> +    if (!reads || !(domain | AMDGPU_GEM_DOMAIN_GTT) || 
+> bo->pin_count)
+> >>>>>> +        return 0;
+> >>>>>> +
+> >>>>>> +    /* move to gtt */
+> >>>>>> +    ret = amdgpu_bo_reserve(bo, false);
+> >>>>>> +    if (unlikely(ret != 0))
+> >>>>>> +        return ret;
+> >>>>>> +
+> >>>>>> + amdgpu_ttm_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
+> >>>>>> +    ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+> >>>>>> +
+> >>>>>> +    amdgpu_bo_unreserve(bo);
+> >>>>>> +    return ret;
+> >>>>>> +}
+> >>>>>> +
+> >>>>>> +static struct dma_buf_ops amdgpu_dmabuf_ops; static atomic_t 
+> aops_lock;
+> >>>>>> +
+> >>>>>>     struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+> >>>>>> struct drm_gem_object *gobj,
+> >>>>>>                         int flags)
+> >>>>>> @@ -178,5 +206,35 @@ struct dma_buf 
+> *amdgpu_gem_prime_export(struct drm_device *dev,
+> >>>>>>         buf = drm_gem_prime_export(dev, gobj, flags);
+> >>>>>>         if (!IS_ERR(buf))
+> >>>>>> buf->file->f_mapping = dev->anon_inode->i_mapping;
+> >>>>>> +
+> >>>>>> +    while (amdgpu_dmabuf_ops.begin_cpu_access != 
+> amdgpu_gem_begin_cpu_access)
+> >>>>>> +    {
+> >>>>>> +        if (!atomic_cmpxchg(&aops_lock, 0, 1)) {
+> >>>>>> + amdgpu_dmabuf_ops = *(buf->ops);
+> >>>>>> + amdgpu_dmabuf_ops.begin_cpu_access = amdgpu_gem_begin_cpu_access;
+> >>>>>> +        }
+> >>>>>> +    }
+> >>>>>> +    buf->ops = &amdgpu_dmabuf_ops;
+> >>>>>> +
+> >>>>>>         return buf;
+> >>>>>>     }
+> >>>>>> +
+> >>>>>> +struct drm_gem_object *amdgpu_gem_prime_import(struct 
+> drm_device *dev,
+> >>>>>> + struct dma_buf *dma_buf)
+> >>>>>> +{
+> >>>>>> +    struct drm_gem_object *obj;
+> >>>>>> +
+> >>>>>> +    if (dma_buf->ops == &amdgpu_dmabuf_ops) {
+> >>>>>> +        obj = dma_buf->priv;
+> >>>>>> +        if (obj->dev == dev) {
+> >>>>>> +            /*
+> >>>>>> +             * Importing dmabuf exported from out own gem 
+> increases
+> >>>>>> +             * refcount on gem itself instead of f_count of 
+> dmabuf.
+> >>>>>> +             */
+> >>>>>> + drm_gem_object_get(obj);
+> >>>>>> +            return obj;
+> >>>>>> +        }
+> >>>>>> +    }
+> >>>>>> +
+> >>>>>> +    return drm_gem_prime_import(dev, dma_buf); }
+> >>>>>> --
+> >>>>>> 2.7.4
+> >>>>>>
+> >
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_004_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_
-Content-Type: image/png; name="image001.png"
-Content-Description: image001.png
-Content-Disposition: inline; filename="image001.png"; size=20291;
-	creation-date="Thu, 14 Dec 2017 08:00:45 GMT";
-	modification-date="Thu, 14 Dec 2017 08:00:45 GMT"
-Content-ID: <image001.png-5nr0R/ZhGfAMmRzD7uJlHjRmByFHzeGd@public.gmane.org>
-Content-Transfer-Encoding: base64
 
-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
-h/4p3F//+tf3XWMQG264YV96bX9r8OEXfWT0M/qBdlttx0e73GusywtTt9U67111pquf6UK533XX
-XTNtXwtmS8H2EByDBPu0004r/kcffXQZUVrnvvjii5sDDzyw2Xbbbces1ahI3G+77baydiH8Pffc
-03znO98p7k9+8pN7Yf1vg9J9991Xwu2+++7lWpdeemkvzCte8YrmZz/7WXGPDkznLPwhhxxS3DUU
-5wjBPuWUU4pfW/SWXXbZko8///nPZQOKONdcc025BvcXv/jFvbBf/epXS94dRESl/M9//lPObSKK
-TriG+Uc622yzTS9Pv/jFL5qrrrqqWXHFFfvC2sku7LHHHlvKWVhlHGU+jGDb0HH99deX8PWms6nJ
-exc6gdioc9lllzVbb711yefhhx/enHfeeSX/ZhYRvq4zdeP8zGc+U56rQ3q1YDOV/f3vfy9+6kwt
-2PLpGlGWzMgPPvjgGAEZJNjqpw1pri1+1JmJrDIE+/zzzy9h1XXphx/hUGccP/zhD3t15stf/nLp
-lBw77bRT6cC+8Y1vNP/+9797m864yceuu+5awhHsuLcwGdaCTaxdP44LLrhgaEsY0dNWHbXwwJri
-jTfeWPzqe1PntEeHgYV8eeby7znU5U6wrXM6brrppl6dj/ou/Gc/+9leeHzgAx8o7lGPoK0ef/zx
-faLdzrvdxn/961/L+Uc+8pG+NKeEQYKtn5Gvut2qN3/6059K3RWGYHPXXh0nnnhiL2xQ15lwm0iw
-7UFx7fvvv78M1sVRZ7hptxGOYNd9pHr3k5/8pJyfdNJJfW3VgKG+BpSvclberhF9pL7dubV54eq2
-Wm86a9cZg7uo7w59ed2/10wPy8aUMtsJtg7+97//fenk6k63Jnb8moWHIGhMl1xySXFv7yKUlkPF
-eu5zn1vcdGTRCTCPcHvCE55QRFznS1y4PfvZzy5utWBjkIlwvMHGoFnqfvvtV9x/9atflR253Jiv
-rrvuuuLe3mkdFdT6/je/+c3SAW+22WbFTd7rBgUV+eabb25WX331nturX/3q5uc//3nzl7/8pc9U
-ZinCcfrppxeh4/axj32sdASOYQQbg3aJT2neBxE7Tz1zz56ba6kTDnWkDj9ol7iOl+jrTGwkDHf1
-45ZbbumrM4EOYcstt2we//jHl3OzPp29zs09RbguwXYN13LNECz7NQ4++OAJBRv77LNPSbPLvKmD
-dHiFrXZn9ttxxx37LErELgQ7GK8Di/p+9dVXl07bc0MI95SIdtT3tmAj2mot2DDYdkS5w/8OfnXY
-KPe//e1vvQ10Ud8dbeFQJ+r6DptGiccf//jH5kMf+lDPPfLueamrysoxIwRbmgYEtWXgzW9+c7P/
-/vuXer/00kv33Mdbwx6vzgxCnXEYjMYs9etf/3px02/WYZWt4x//+Eez/fbbN9/73vfKufrIf9Au
-ceWqfJVzbNIdVO4Q3zGof//xj39cBtNRN6N/13/r2+s4MNjYeeedmzvvvHPofm1ame0EW6VyqGRd
-/hjU+eowjD7NWGKWvd5665WZ0m677dY873nP6wv/xS9+sXnggQeavfbaqzxQHa/joYceKqPaCKfD
-rsUO00uwNcYrrrii+eUvfzlm1Gv2e8MNNxQhr03LIXqETp656cCIhaPuwJiJdFQXXnhhzy1oNyQd
-/XHHHVfE1v3VYafEJI6JBHuYvI/HoE4gRFsjrk3Mg+oMDj300OJHfGLAJH5XnVEv1I8Y5AVm4A73
-F25dgm0DkMNsr361hGgvuOCCvfNBxAYi9c7SUe03nmAThdptagX78ssv73trIzZZOobdIDotgl2X
-u/qjHmnDxDvcu8odr3nNa3qDVBYJbiEaXXnvqjORd+lIj3Vso402KmbgOu6U0FXuZte/+c1veqJX
-09VHTk/BJnYsYeq6HdW1n+uoN4Q53EKw9bMGSGbZyiQsGYPaqnJ1DDu4nkiwxasH19G/O6KvaRN5
-b0/IZhQp2C2/6HzjAw8TvQ8c5hMPlHBsvPHG5dyDNpPoioPpJdgx6rd+XYcNujqwEL32uqrOzFGL
-nhlduKkjNUzIjmhIU2MdGMREgj1M3sdjUCcAeXTIc7iNV2eswZrxOjxX5kAdk6WEdtgQjh/84Ad9
-ZfmjH/2ouE8k2K985SuLydrRFu1hGVRnZoZgt+s7wiozswUbww6UAtd0yIPzyLsBbf08wWrg6BLs
-rrwTqXYag7D8EPG6yt0zdLivdtxYr55Rgi0fjnadgX7Sod8Mt4lEb2YJdrvOoO7f235IwZ5GZqVg
-Ow/hcDCp7L333n2z7WDUBJt50DvjXURZPVYFG9IzezSI0fH68ElXuBAOSyZdZVm/wzxIOCLvDp2j
-OhYzvmHoqjPyY7DJhMpcG5ug1F1+baFLwe4XbJu1up4n6vd+h8n7MEdtVh5PsFkDuvKE+lsPKdgp
-2LOEWS3YPl1no43NC3EwD7Vn26Mm2F0m8TaPZcGG5QDHkUceWcydXWEGCUcXg4SDuVMdI9Rx2HA4
-rGj7+MvZZ59dRCZ20cq7Otkud52vTqmOjxTsfsGeHnm3l8JzHYbasjKeYHeZxLsYRcG2efG3v/1t
-33q8v865129BIAV7EjKrBTuw0cJsyWsNDuFswAj/FOzxGTXBNqu2Mc/mLB2W58p83Q43PQQ7eNWr
-XlXqWHSoUyLatXDIu3u2zyEFe9YJ9tTyWBVsRFsl0vbqDBJrpGBPQiaLYAc6iKhUteiNmmDbCVlv
-FOnisSrYBM8rQMIzhUferRW2368N4bBBrWvnac1Egh2YzUenOjXCoQ5GffcJSju5lbt1UrO5rsFF
-Cna/YBssDSNoM1uwb7311qFedxx1wdZv24ALO+Hb4ZCCPQmZFsFud7zcdDQ299gJ2u58vees03JN
-G850wNGQa7pmqdNLsL33fOqppxYTp/dB2+EJrfvyjedwnxLR87nJMO9LqxYxuKb0/W/Gx0xrHbT9
-nd2uvI/HrBLsxRZbrLwra6d4vfY40SCvq8442p2ANxHidRFvI9R+nlFdb7uEw87urg54SkVPh37m
-mWcW7M4NwYbrqe+WctTdOl4wGQRb3uM9W0R9dwwj2H7Iwfez3WfdiQ8SbNeKMlN+3OrBUvsVR2gH
-6lSczyzBtttZPXF0ibZX0Kxjx/n0FOxFF120XNOzrvsdqPPekqh/gW5qBXtQWx1ECvYkROX1oQrv
-INcVsiY6X+aTeFc7xNox6IF6lzhevzCzffjhh4t7dAIeqo8DMMlEXJ24tUIfAqk3eQwr2NZkYiPS
-INGLTkA+40tcwt5xxx3FfVpFLzowhzR1coF6U/90aXS+RNu9cPN6WYy6J5tge+Yx4FAX1AmHOlKH
-HyTYPrpB8Np1xjqxD5HUdSaITsBRl6WPWtTC2SUc/NsdsNe5LrroolKXhum4gujAHG3BjmNaBJuY
-ebXN/9NTsAmn954dBqpRfuuss06vng0SbNc3sIb/HYPqu+fkPVtu6qFrOdrCoU7E4fr1M/W6oU49
-ws4swYb3sONQZ+p8ebe4fq1vSgRb3au/+NdFvIfNyhT9Y3zgZ9B72FMq2FHuLEL1vSG+rVAzvQXb
-K5s+2qIPUb/b/jOC2U6wMd4sFdH5ekGf2e+YY44p649Ezqit/TqOr+lwNwgwmxXeRzqWX3754h6m
-zTD36MiEgU5YGB8PifRUjPjkn86ifgc0BhwEXnxmaJ2mtcn4KpL3ruuPTGh4rmHk76tE4hFW6+fc
-61GuLzbJu8MsKj5qYLNcbJoyENl33317ccyypWO3cH2o6LFpKWCFENarRwRLXsw2DXCYgdt570In
-GQ2FcMda8NTkfRDRCXieLAjyqcOwYUz+31R99lJ9iq+AeX0r3s/2IYj4mplyr2d73s2Pr7K5Rv0e
-PIF1jUceeaT4O3RiCyywQC+MehBfV/MjAyF8hNXhoyzyDH7S6+pwxoMIqTO+CFW/L66+q2uf+9zn
-Oj+/y6Lw3//+t+D/cPc8fG/AB2Dky5qitMar7+5HuTt08kzw4Tcekfc4PAuDuOh8lZ0yjPAh2ISS
-UPuyl7qk3OpyRwi2GbMZsnvxBTxpC98eRKqf3OMLXXE4r8Vae9TPOPS5MUufFnyYKV7HU+7aXfgp
-D/mKbxTEYRDpvf0Ip0yY9B3aavsTrAaB2pdBobLwUaCuVxZrTE5cW93VVsVTX7jVg0P17uSTTy7X
-vvfee8f02dpUfGlNW/Ocw69+xbF96Gdcc6K2qu3Io6NdZ3xgRl/uUF/CPRg0UJqRzJaC/ZKXvKQ8
-iIkE2wjNeocOFINexQl8HzvCoj3qetzjHtfnj64vGGlkdZh3vOMdff5mZOEXH0MxW6njdH17WDp1
-GNdph5GfOkwMNtp5/+hHPzomLuGvw7Q/vFFjJ3MdVsflXvzflfcajamOGyP0acl7m3rUTkwjbi3U
-gY+h1OnHjFlHVrvPNddcvTg649ovBhc1zJLh79OztR+hrOOHFcM1and0bbAZFnWm/XEXWOqIcm9j
-NhHXbs8s3Gf4xRLNePVdW639JvrkZU1d3+ODF3W514ONEGz3FOU+aFYUgk2g67yPV99hSSjCwnnt
-7znV/l3lPqXog+o0u35noF1n2laYrrZa+6PO+0RiXcPSVKfd9rcsUfu3l/XGy7tZNLE0KarDBF6x
-JNxM9IPaqnZVu9d1ZqK8E2yDgPrzszOa2VKwwcxmNOtD7m2/QebN5LHDIDNbMntSC3aXf00t2F3+
-yazHGjhrgPY76BVKgz/m8Viam56wXlgiYRXq8p9RzLaCbbbM3N21LpaCnaRgP7ZIwZ69GGbfgw8B
-WbufEYLNyqBOtZcEZzSzrWBDoVq7sEZZu6dgJynYjy1SsGcvQrAJsjVp6+rhp7/n5pnbAzQ9lh5q
-/OiHdfd6H8DMYrYWbPjxCpsuwjTubzReu/sG/cZqMvtizSl2sdpw4mcju8Ilswc2PcUGPxvcbFLs
-CgcbmWw2c/g9ABvnusIlsxZr0ATTBlUH4faGB/Tv3PnHWvX0wo+ZnHXWWdO0b2RaKDotA3bj2nY/
-O2I0ZAeg//31zefAjsl2+GT2xo7Pug5Yi+oKl8weeFe3ft52tneFg5/mrcP6AY+ucMnkwA75+nkF
-3LvCTyve+Y5fdJwV0Ok5vHLjtQsz7SRJkiRJJh/nnHNO8/8BDRB80pGwrQgAAAAASUVORK5CYII=
+--------------A335ED0766DE6266E4190F81
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
 
---_004_E7DD0E9246072C4A9CA8F1C79F816696018C995Edggemi505mbxchi_--
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Please CC Michel as well, he originally
+      commented that we should try to solve this in the DDX instead.<br>
+      <br>
+      And BTW: Why don't we just do the migration during the mmap call?<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 13.12.2017 um 22:28 schrieb Li, Samuel:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BLUPR12MB06283F027DB3101FEDFF46A0F5350-7LeqcoF/hwrL9O90+oShTwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]-->
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#2F5496;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Will
+            do after some basic testing.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Sam<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496"><o:p> </o:p></span></p>
+        <div style="border:none;border-left:solid blue 1.5pt;padding:0in
+          0in 0in 4.0pt">
+          <div>
+            <div style="border:none;border-top:solid #E1E1E1
+              1.0pt;padding:3.0pt 0in 0in 0in">
+              <p class="MsoNormal"><b><span
+                    style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
+                  Deucher, Alexander
+                  <br>
+                  <b>Sent:</b> Wednesday, December 13, 2017 2:49 PM<br>
+                  <b>To:</b> Li, Samuel <a class="moz-txt-link-rfc2396E" href="mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org">&lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                  Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <b>Subject:</b> Re: FW: [PATCH v2 2/2] drm/amdgpu:
+                  Move to gtt before cpu accesses dma buf.<o:p></o:p></span></p>
+            </div>
+          </div>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <div id="divtagdefaultwrapper">
+            <p><span
+                style="font-family:&quot;Calibri&quot;,sans-serif;color:black">Please
+                send the drm prime patch to dri-devel if you didn't
+                already.<o:p></o:p></span></p>
+            <p><span
+                style="font-family:&quot;Calibri&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
+            <p><span
+                style="font-family:&quot;Calibri&quot;,sans-serif;color:black">Alex<o:p></o:p></span></p>
+          </div>
+          <div class="MsoNormal" style="text-align:center"
+            align="center">
+            <hr align="center" size="2" width="98%">
+          </div>
+          <div id="divRplyFwdMsg">
+            <p class="MsoNormal"><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+                amd-gfx &lt;<a
+                  href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                  moz-do-not-send="true">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+                on behalf of Samuel Li &lt;<a
+                  href="mailto:samuel.li-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">samuel.li-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+                <b>Sent:</b> Wednesday, December 13, 2017 2:17:49 PM<br>
+                <b>To:</b> Koenig, Christian; <a
+                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                  moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                <b>Subject:</b> Re: FW: [PATCH v2 2/2] drm/amdgpu: Move
+                to gtt before cpu accesses dma buf.</span>
+              <o:p></o:p></p>
+            <div>
+              <p class="MsoNormal"> <o:p></o:p></p>
+            </div>
+          </div>
+          <div>
+            <div>
+              <p class="MsoNormal"><span style="font-size:10.0pt">For
+                  the record.<br>
+                  <br>
+                  <br>
+                  On 2017-12-13 01:26 PM, Christian König wrote:<br>
+                  &gt; Actually we try to avoid that drivers define
+                  their own dma_buf_ops in DRM.<br>
+                  &gt; <br>
+                  &gt; That's why you have all those callbacks in
+                  drm_driver which just mirror the dma_buf interface but
+                  unpack the GEM object from the dma-buf object.<br>
+                  &gt; <br>
+                  &gt; There are quite a number of exceptions, but those
+                  drivers then implement everything on their own because
+                  the DRM marshaling doesn't make sense for them.<br>
+                  &gt; <br>
+                  &gt; Christian.<br>
+                  &gt; <br>
+                  &gt; Am 13.12.2017 um 19:01 schrieb Samuel Li:<br>
+                  &gt;&gt; That is an approach. The cost is to add a new
+                  call back, which is not necessary though, since driver
+                  can always actually define their own dma_buf_ops.<br>
+                  &gt;&gt; The intention here is to allow a driver reuse
+                  drm_gem_prime_dmabuf_ops{}. If you would like to go
+                  this far, maybe a more straight forward way is to
+                  export those ops, e.g. drm_gem_map_attach, so that a
+                  driver can use them in its own definitions.<br>
+                  &gt;&gt;<br>
+                  &gt;&gt; Sam<br>
+                  &gt;&gt;<br>
+                  &gt;&gt;<br>
+                  &gt;&gt;<br>
+                  &gt;&gt; On 2017-12-13 05:23 AM, Christian König
+                  wrote:<br>
+                  &gt;&gt;&gt; Something like the attached patch. Not
+                  even compile tested.<br>
+                  &gt;&gt;&gt;<br>
+                  &gt;&gt;&gt; Christian.<br>
+                  &gt;&gt;&gt;<br>
+                  &gt;&gt;&gt; Am 12.12.2017 um 20:13 schrieb Samuel Li:<br>
+                  &gt;&gt;&gt;&gt; Not sure if I understand your
+                  comments correctly. Currently amdgpu prime reuses
+                  drm_gem_prime_dmabuf_ops{}, and it is defined as
+                  static which is reasonable. I do not see an easier way
+                  to introduce amdgpu_gem_begin_cpu_access().<br>
+                  &gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt; Sam<br>
+                  &gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt; On 2017-12-12 01:30 PM, Christian
+                  König wrote:<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    while
+                  (amdgpu_dmabuf_ops.begin_cpu_access !=
+                  amdgpu_gem_begin_cpu_access)<br>
+                  &gt;&gt;&gt;&gt;&gt; I would rather just add the four
+                  liner code to drm to forward the begin_cpu_access
+                  callback into a drm_driver callback instead of all
+                  this.<br>
+                  &gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt; But apart from that it looks good
+                  to me.<br>
+                  &gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt; Christian.<br>
+                  &gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt; Am 12.12.2017 um 19:14 schrieb
+                  Li, Samuel:<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; A gentle ping on this one,
+                  Christian, can you take a look at this?<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; Sam<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; -----Original Message-----<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; From: Li, Samuel<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; Sent: Friday, December 08,
+                  2017 5:22 PM<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; To: <a
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; Cc: Li, Samuel &lt;<a
+                    href="mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org"
+                    moz-do-not-send="true">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; Subject: [PATCH v2 2/2]
+                  drm/amdgpu: Move to gtt before cpu accesses dma buf.<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; To improve cpu read
+                  performance. This is implemented for APUs currently.<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; v2: Adapt to change <a
+href="https://lists.freedesktop.org/archives/amd-gfx/2017-October/015174.html"
+                    moz-do-not-send="true">
+https://lists.freedesktop.org/archives/amd-gfx/2017-October/015174.html</a><br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; Change-Id:
+                  I7a583e23a9ee706e0edd2a46f4e4186a609368e3<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; ---<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;    
+                  drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  2 ++<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;    
+                  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  2 +-<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;    
+                  drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c | 58
+                  +++++++++++++++++++++++++++++++<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     3 files changed, 61
+                  insertions(+), 1 deletion(-)<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; index f8657c3..193db70 100644<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; ---
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +++
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; @@ -417,6 +417,8 @@
+                  amdgpu_gem_prime_import_sg_table(struct drm_device
+                  *dev,  struct dma_buf *amdgpu_gem_prime_export(struct
+                  drm_device *dev,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;                        
+                  struct drm_gem_object *gobj,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;                         int
+                  flags);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +struct drm_gem_object
+                  *amdgpu_gem_prime_import(struct drm_device *dev,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +                       
+                  struct dma_buf *dma_buf);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     int
+                  amdgpu_gem_prime_pin(struct drm_gem_object *obj); 
+                  void amdgpu_gem_prime_unpin(struct drm_gem_object
+                  *obj);  struct reservation_object
+                  *amdgpu_gem_prime_res_obj(struct drm_gem_object *);
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; index 31383e0..df30b08 100644<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; ---
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +++
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; @@ -868,7 +868,7 @@ static
+                  struct drm_driver kms_driver = {<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         .prime_handle_to_fd =
+                  drm_gem_prime_handle_to_fd,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         .prime_fd_to_handle =
+                  drm_gem_prime_fd_to_handle,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         .gem_prime_export =
+                  amdgpu_gem_prime_export,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; -    .gem_prime_import =
+                  drm_gem_prime_import,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    .gem_prime_import =
+                  amdgpu_gem_prime_import,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         .gem_prime_pin =
+                  amdgpu_gem_prime_pin,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         .gem_prime_unpin =
+                  amdgpu_gem_prime_unpin,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         .gem_prime_res_obj =
+                  amdgpu_gem_prime_res_obj, diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; index ae9c106..de6f599 100644<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; ---
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +++
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; @@ -26,6 +26,7 @@<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     #include
+                  &lt;drm/drmP.h&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;       #include "amdgpu.h"<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +#include "amdgpu_display.h"<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     #include
+                  &lt;drm/amdgpu_drm.h&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     #include
+                  &lt;linux/dma-buf.h&gt;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     @@ -164,6 +165,33 @@
+                  struct reservation_object
+                  *amdgpu_gem_prime_res_obj(struct drm_gem_object *obj)<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         return
+                  bo-&gt;tbo.resv;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     }<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     +static int
+                  amdgpu_gem_begin_cpu_access(struct dma_buf *dma_buf,
+                  enum<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +dma_data_direction
+                  direction) {<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    struct amdgpu_bo *bo =
+                  gem_to_amdgpu_bo(dma_buf-&gt;priv);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    struct amdgpu_device
+                  *adev = amdgpu_ttm_adev(bo-&gt;tbo.bdev);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    struct ttm_operation_ctx
+                  ctx = { true, false };<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    u32 domain =
+                  amdgpu_framebuffer_domains(adev);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    long ret = 0;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    bool reads = (direction
+                  == DMA_BIDIRECTIONAL || direction ==<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +DMA_FROM_DEVICE);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    if (!reads || !(domain |
+                  AMDGPU_GEM_DOMAIN_GTT) || bo-&gt;pin_count)<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +        return 0;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    /* move to gtt */<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    ret =
+                  amdgpu_bo_reserve(bo, false);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    if (unlikely(ret != 0))<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +        return ret;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +   
+                  amdgpu_ttm_placement_from_domain(bo,
+                  AMDGPU_GEM_DOMAIN_GTT);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    ret =
+                  ttm_bo_validate(&amp;bo-&gt;tbo,
+                  &amp;bo-&gt;placement, &amp;ctx);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    amdgpu_bo_unreserve(bo);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    return ret;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +}<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +static struct dma_buf_ops
+                  amdgpu_dmabuf_ops; static atomic_t aops_lock;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     struct dma_buf
+                  *amdgpu_gem_prime_export(struct drm_device *dev,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;                        
+                  struct drm_gem_object *gobj,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;                         int
+                  flags)<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; @@ -178,5 +206,35 @@ struct
+                  dma_buf *amdgpu_gem_prime_export(struct drm_device
+                  *dev,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         buf =
+                  drm_gem_prime_export(dev, gobj, flags);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         if (!IS_ERR(buf))<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;            
+                  buf-&gt;file-&gt;f_mapping =
+                  dev-&gt;anon_inode-&gt;i_mapping;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    while
+                  (amdgpu_dmabuf_ops.begin_cpu_access !=
+                  amdgpu_gem_begin_cpu_access)<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    {<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +        if
+                  (!atomic_cmpxchg(&amp;aops_lock, 0, 1)) {<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +           
+                  amdgpu_dmabuf_ops = *(buf-&gt;ops);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +           
+                  amdgpu_dmabuf_ops.begin_cpu_access =
+                  amdgpu_gem_begin_cpu_access;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +        }<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    }<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    buf-&gt;ops =
+                  &amp;amdgpu_dmabuf_ops;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;         return buf;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;     }<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +struct drm_gem_object
+                  *amdgpu_gem_prime_import(struct drm_device *dev,<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +                       
+                  struct dma_buf *dma_buf)<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +{<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    struct drm_gem_object
+                  *obj;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    if (dma_buf-&gt;ops ==
+                  &amp;amdgpu_dmabuf_ops) {<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +        obj =
+                  dma_buf-&gt;priv;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +        if (obj-&gt;dev ==
+                  dev) {<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +            /*<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +             * Importing
+                  dmabuf exported from out own gem increases<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +             * refcount on
+                  gem itself instead of f_count of dmabuf.<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +             */<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +           
+                  drm_gem_object_get(obj);<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +            return obj;<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +        }<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    }<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; +    return
+                  drm_gem_prime_import(dev, dma_buf); }<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; -- <br>
+                  &gt;&gt;&gt;&gt;&gt;&gt; 2.7.4<br>
+                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
+                  &gt; <o:p></o:p></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
---===============0485437181==
+--------------A335ED0766DE6266E4190F81--
+
+--===============0241121226==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -529,4 +751,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0485437181==--
+--===============0241121226==--
