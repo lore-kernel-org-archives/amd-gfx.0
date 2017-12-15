@@ -1,14 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] Revert "drm/amd/amdgpu: set gtt size according to system
- memory size only"
-Date: Fri, 15 Dec 2017 19:44:29 +0000
-Message-ID: <BN6PR12MB1652C9469B6CB554006FF9AFF70B0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1513364973-18300-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 00/16] clean up amdgpu_device.c
+Date: Fri, 15 Dec 2017 16:56:10 -0500
+Message-ID: <20171215215626.20822-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1739508575=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1513364973-18300-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,183 +16,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Daenzer, Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-
---===============1739508575==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652C9469B6CB554006FF9AFF70B0BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652C9469B6CB554006FF9AFF70B0BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Andrey G=
-rodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, December 15, 2017 2:09 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: He, Roger; Daenzer, Michel; Koenig, Christian; Grodzovsky, Andrey
-Subject: [PATCH] Revert "drm/amd/amdgpu: set gtt size according to system m=
-emory size only"
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-This reverts commit ba851eed895c76be0eb4260bdbeb7e26f9ccfaa2.
-With that change piglit max size tests (running with -t max.*size) are caus=
-ing
-OOM and hard hang on my CZ with 1GB RAM.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ttm.c
-index c307a7d..814a9c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1329,9 +1329,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
-                 struct sysinfo si;
-
-                 si_meminfo(&si);
--               gtt_size =3D max(AMDGPU_DEFAULT_GTT_SIZE_MB << 20,
--                       (uint64_t)si.totalram * si.mem_unit * 3/4);
--       } else
-+               gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_SIZE_MB << 20),
-+                              adev->mc.mc_vram_size),
-+                              ((uint64_t)si.totalram * si.mem_unit * 3/4))=
-;
-+       }
-+       else
-                 gtt_size =3D (uint64_t)amdgpu_gtt_size << 20;
-         r =3D ttm_bo_init_mm(&adev->mman.bdev, TTM_PL_TT, gtt_size >> PAGE=
-_SHIFT);
-         if (r) {
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1652C9469B6CB554006FF9AFF70B0BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Andrey Grodzovsky &lt;andre=
-y.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, December 15, 2017 2:09 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> He, Roger; Daenzer, Michel; Koenig, Christian; Grodzovsky, Andre=
-y<br>
-<b>Subject:</b> [PATCH] Revert &quot;drm/amd/amdgpu: set gtt size according=
- to system memory size only&quot;</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:10pt;=
-">
-<div class=3D"PlainText">This reverts commit ba851eed895c76be0eb4260bdbeb7e=
-26f9ccfaa2.<br>
-With that change piglit max size tests (running with -t max.*size) are caus=
-ing<br>
-OOM and hard hang on my CZ with 1GB RAM.<br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">Acked-by: Alex Deucher &lt;alexander.deucher@amd.c=
-om&gt;<br>
-</div>
-<div class=3D"PlainText"><br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 &#43;&#43;&#43;&#43;&#43;=
----<br>
-&nbsp;1 file changed, 5 insertions(&#43;), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ttm.c<br>
-index c307a7d..814a9c1 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-@@ -1329,9 &#43;1329,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct sysinfo si;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; si_meminfo(&amp;si);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; gtt_size =3D max(AMDGPU_DEFAULT_GTT_SIZE_MB &lt;&lt; 20,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (uint64_t)si.tot=
-alram * si.mem_unit * 3/4);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; gtt_size =3D min(max((AMDGPU_DEFAULT_GTT_SIZE_MB &lt;&lt; 20=
-),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mc.mc_vram_size),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((uint64_t)si.totalram * si.mem_unit * 3/4));=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; gtt_size =3D (uint64_t)amdgpu_gtt_size &lt;&lt; 20;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D ttm_bo_init_mm(&amp;=
-adev-&gt;mman.bdev, TTM_PL_TT, gtt_size &gt;&gt; PAGE_SHIFT);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk710875" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1652C9469B6CB554006FF9AFF70B0BN6PR12MB1652namp_--
-
---===============1739508575==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1739508575==--
+VGhpcyBmaWxlIGhhcyBnb3R0ZW4gaHVnZSBhbmQgaGFzIGJlY29tZSBhIGR1bXBpbmcgZ3JvdW5k
+IGZvciBhbGwKc29ydHMgb2YgdGhpbmdzLiAgVGhlIGZ1bmN0aW9uIG5hbWluZyBpcyBhbHNvIHJl
+YWxseSBpbmNvbnNpc3RlbnQuClRoaXMgcGF0Y2ggc2V0OgoxLiBjbGVhbnMgdXAgdGhlIGZ1bmN0
+aW9uIG5hbWluZyB0byBtYWtlIGl0IGNvbnNpc3RlbnQKMi4gbW92ZXMgYWxsIHRoZSBkZWJ1Z2Zz
+IHN0dWZmIHRvIGl0J3Mgb3duIGZpbGUKMy4gbW92ZXMgYWxsIHRoZSBhdG9tIHN0dWZmIHRvIGFt
+ZGdwdV9hdG9tYmlvcy5jCjQuIG1vdmVzIGEgYnVuY2ggb2YgaGVscGVyIGZ1bmN0aW9ucyBsb2Nh
+bCB0byB3aGVyZSB0aGV5IGFyZSB1c2VkCgpBbGV4IERldWNoZXIgKDE2KToKICBkcm0vYW1kZ3B1
+OiBtb3ZlIGF0b20gZnVuY3Rpb25zIGZyb20gYW1kZ3B1X2RldmljZS5jCiAgZHJtL2FtZGdwdTog
+dXNlIGNvbnNpc3RlbnQgbmFtaW5nIGZvciBzdGF0aWMgZnVuY3MgaW4gYW1kZ3B1X2RldmljZS5j
+CiAgZHJtL2FtZGdwdTogcmVuYW1lIGFtZGdwdV9zdXNwZW5kIHRvIGFtZGdwdV9kZXZpY2VfaXBf
+c3VzcGVuZAogIGRybS9hbWRncHU6IG1vdmUgZGVidWdmcyBmdW5jdGlvbnMgdG8gdGhlaXIgb3du
+IGZpbGUKICBkcm0vYW1kZ3B1OiByZW5hbWUgYW1kZ3B1X3diXyogZnVuY3Rpb25zCiAgZHJtL2Ft
+ZGdwdTogcmVuYW1lIGFtZGdwdV9wcm9ncmFtX3JlZ2lzdGVyX3NlcXVlbmNlCiAgZHJtL2FtZGdw
+dTogcmVuYW1lIGFtZGdwdV9wY2lfY29uZmlnX3Jlc2V0CiAgZHJtL2FtZGdwdTogbW92ZSBhbWRn
+cHVfZG9vcmJlbGxfZ2V0X2tmZF9pbmZvIHRvIGFtZGdwdV9hbWRrZmQuYwogIGRybS9hbWRncHU6
+IHJlbmFtZSBhbWRncHVfKl9sb2NhdGlvbiBmdW5jdGlvbnMKICBkcm0vYW1kZ3B1OiBtb3ZlIGZ3
+X3Jlc2VydmUgZnVuY3Rpb25zIHRvIGFtZGdwdV90dG0uYwogIGRybS9hbWRncHU6IHJlbmFtZSBp
+cCBibG9jayBoZWxwZXIgZnVuY3Rpb25zCiAgZHJtL2FtZGdwdTogcmVuYW1lIGFtZGdwdV9uZWVk
+X3Bvc3QKICBkcm0vYW1kZ3B1OiBtb3ZlIGR1bW15IHBhZ2UgZnVuY3Rpb25zIHRvIGFtZGdwdV9n
+YXJ0LmMKICBkcm0vYW1kZ3B1OiByZW5hbWUgYW1kZ3B1X2dwdV9yZWNvdmVyCiAgZHJtL2FtZGdw
+dTogbW92ZSBhbWRncHVfbmVlZF9iYWNrdXAgdG8gYW1kZ3B1X29iamVjdC5jCiAgZHJtL2FtZGdw
+dTogcmVuYW1lIGFtZGdwdV9nZXRfcGNpZV9pbmZvCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvTWFrZWZpbGUgICAgICAgICAgfCAgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHUuaCAgICAgICAgICB8ICAgOTAgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hY3AuYyAgICAgIHwgICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2FtZGtmZC5jICAgfCAgIDMzICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9hdG9tYmlvcy5jIHwgIDIzNiArKysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2F0b21iaW9zLmggfCAgICA0ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfYmlvcy5jICAgICB8ICAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZWJ1Z2ZzLmMgIHwgIDc5MiArKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuaCAgfCAgIDQyICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAgIHwgMTQ1OCArKystLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgICAgfCAgICAyICst
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyAgICB8ICAgIDIgKy0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmMgICAgIHwgICA0OSArLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jICAgICAgfCAgICAyICstCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMgICAgICB8ICAgIDQgKy0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9paC5jICAgICAgIHwgICAxMCArLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jICAgICAgfCAgICAyICstCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMgICAgICB8ICAgIDIgKy0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyAgIHwgICAgOCArCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyAgICAgICB8ICAgMTggKy0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmMgICAgIHwgICAxNiArLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jICAgICAgfCAgIDk5ICstCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMgICAgICB8ICAgMTggKy0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYyAgICAgIHwgICAxNiArLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgICAgfCAgICAyICstCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9jaV9kcG0uYyAgICAgICAgICB8ICAgIDggKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2Npay5jICAgICAgICAgICAgIHwgIDIxMiArKy0tCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9jaWtfc2RtYS5jICAgICAgICB8ICAgMTAgKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jICAgICAgIHwgICAyNCArLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZGNlX3YxMV8wLmMgICAgICAgfCAgIDMwICstCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjhfMC5jICAgICAgICB8ICAxMzIgKy0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nbWNfdjZfMC5jICAgICAgICB8ICAgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dtY192N18wLmMgICAgICAgIHwgICAxNiArLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ21jX3Y4XzAuYyAgICAgICAgfCAgIDU4ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nbWNfdjlfMC5jICAgICAgICB8ICAgMTAgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2t2X2RwbS5jICAgICAgICAgIHwgICAgOCArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvbXhncHVfYWkuYyAgICAgICAgfCAgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9teGdwdV92aS5jICAgICAgICB8ICAgNTAgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3NkbWFfdjJfNC5jICAgICAgIHwgICAyMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc2RtYV92M18wLmMgICAgICAgfCAgIDcwICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9zZG1hX3Y0XzAuYyAgICAgICB8ICAgMTAgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3NpLmMgICAgICAgICAgICAgIHwgIDE1NiArLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3NpX2RtYS5jICAgICAgICAgIHwgICAxMCArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+c29jMTUuYyAgICAgICAgICAgfCAgIDQ4ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92
+aS5jICAgICAgICAgICAgICB8ICAxNjYgKy0tCiA0NSBmaWxlcyBjaGFuZ2VkLCAyMDA4IGluc2Vy
+dGlvbnMoKyksIDE5NDkgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmgKCi0tIAoyLjEzLjYKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
