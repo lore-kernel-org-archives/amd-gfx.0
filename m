@@ -1,393 +1,178 @@
-From: Thomas Hellstrom <thomas@shipmail.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/ttm: enable eviction for Per-VM-BO
-Date: Fri, 15 Dec 2017 12:35:31 +0100
-Message-ID: <63abed46-c23c-4eb8-30be-3d6cd50972eb@shipmail.org>
+Date: Fri, 15 Dec 2017 13:05:45 +0100
+Message-ID: <0ca749b7-292f-49cf-bc6d-849732c12d06@amd.com>
 References: <1513239041-32734-1-git-send-email-Hongbo.He@amd.com>
  <89163c6a-6002-c3db-3680-3c7b19918b1c@shipmail.org>
  <fb224ee5-7762-e31f-224c-5f32d62f6793@amd.com>
  <cf03dbda-68f7-1423-3256-462f82c95a7b@shipmail.org>
  <bedd8993-78ef-cbe2-4aca-fa68d7f90b0a@gmail.com>
+ <63abed46-c23c-4eb8-30be-3d6cd50972eb@shipmail.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------87071215BE9CFE08742F883C"
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <bedd8993-78ef-cbe2-4aca-fa68d7f90b0a@gmail.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: christian.koenig@amd.com, Roger He <Hongbo.He@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
-
-This is a multi-part message in MIME format.
---------------87071215BE9CFE08742F883C
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 12/15/2017 10:53 AM, Christian König wrote:
->
->> Well this is more or less replicating what you are doing currently 
->> but instead of spreading the checks and locking state all over the 
->> code, both as local variables and parameters this is keeping it in a 
->> single place with correctness checks.
->
-> I don't see how that can be correct. 
-
-In what sense? It should be doing *exactly* what you're doing now but 
-use an abstraction. No more no less. But with correctness checks, and 
-less of passing state around. Specifically what I'm referring to are 
-things like the locking test this patch is proposing, the "locked" 
-variable in ttm_mem_evict_first(), and the parameter special code in 
-ttm_mem_cleanup_refs() that I think are hard to follow and error prone. 
-Conditional locking like in ttm_mem_clenup_refs() also typically trip 
-static lock balance checkers.
-
-> As far as I can see it makes TTM responsible about locking again
-
-No it doesn't. It's a helper. The only TTM state in my suggestion was 
-the "bo::reserved"  debug variable, which could either be ommited or 
-count the recursive reservation to aid making sure that all recursive 
-reservations you do in TTM are undone in TTM.
-
-> and to be honest TTM is a bloody mess regarding this already.
-
-Hmm. IMO strong unspecific wording like this in a design descussions 
-should be avoided. It tends to take away focus from what's actually 
-being dicussed by making either part feel bad. And it's typically 
-unproductive.
-
-
->
-> My intention in the long term is rather to remove logic from TTM and 
-> move it back into the drivers. The end result I have in mind is that 
-> TTM becomes a toolbox instead of the midlayer it is currently.
-
-I'm in favour of that. But I don't think what I proposed is a step away 
-from that direction. On the contrary.  I've attached a POC patch with 
-the correctness checks stripped, not compile-tested. Much easier to 
-follow if you ask me, but if you feel so strongly against it, never mind.
-
-Thanks,
-Thomas
-
-
->
-> Regards,
-> Christian. qq
->
->>
->>
->> I agree recursive locking is generally frowned upon, but you're 
->> already doing it, not by using recursive locks, but by passing 
->> locking state around which IMO is worse.
->>
->> Collecting the state in a the operation_ctx will make that 
->> usage-pattern more obvious but will help make the code cleaner and 
->> less error prone.
->>
->> /Thomas
->>
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>> Am 15.12.2017 um 08:01 schrieb Thomas Hellstrom:
->>>> Roger and Chrisitian,
->>>>
->>>> Correct me if I'm wrong, but It seems to me like a lot of the 
->>>> recent changes to ttm_bo.c are to allow recursive reservation 
->>>> object locking in the case of shared reservation objects, but only 
->>>> in certain functions and with special arguments so it doesn't look 
->>>> like recursive locking to the lockdep checker. Wouldn't it be a lot 
->>>> cleaner if we were to hide all this in a resurrected 
->>>> __ttm_bo_reserve something along the lines of
->>>>
->>>> int __ttm_bo_reserve(struct ttm_bo *bo, struct ttm_operation_ctx 
->>>> *ctx) {
->>>>     if (ctx && ctx->resv == bo->resv) {
->>>> #ifdef CONFIG_LOCKDEP
->>>>         WARN_ON(bo->reserved);
->>>> lockdep_assert_held(&ctx->resv);
->>>>         ctx->reserve_count++;
->>>> bo->reserved = true;
->>>> #endif
->>>>         return0;
->>>>      } else {
->>>>         int ret = reservation_object_lock(bo->resv, NULL) ? 0:-EBUSY;
->>>>
->>>>         if (ret)
->>>>             return ret;
->>>> #ifdef CONFIG_LOCKDEP
->>>>         WARN_ON(bo->reserved);
->>>>         bo->reserved = true;
->>>> #endif
->>>>         return 0;
->>>> }
->>>>
->>>> And similar for tryreserve and unreserve? Perhaps with a 
->>>> ww_acquire_ctx included somewhere as well...
->>>>
->>>> /Thomas
->>>>
->>>>
->>>>
->>>>
->>>> On 12/14/2017 09:10 AM, Roger He wrote:
->>>>> Change-Id: I0c6ece0decd18d30ccc94e5c7ca106d351941c62
->>>>> Signed-off-by: Roger He <Hongbo.He@amd.com>
->>>>> ---
->>>>>   drivers/gpu/drm/ttm/ttm_bo.c | 11 +++++------
->>>>>   1 file changed, 5 insertions(+), 6 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c 
->>>>> b/drivers/gpu/drm/ttm/ttm_bo.c
->>>>> index 098b22e..ba5b486 100644
->>>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->>>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->>>>> @@ -707,7 +707,6 @@ bool ttm_bo_eviction_valuable(struct 
->>>>> ttm_buffer_object *bo,
->>>>>   EXPORT_SYMBOL(ttm_bo_eviction_valuable);
->>>>>     static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
->>>>> -                   struct reservation_object *resv,
->>>>>                      uint32_t mem_type,
->>>>>                      const struct ttm_place *place,
->>>>>                      struct ttm_operation_ctx *ctx)
->>>>> @@ -722,8 +721,9 @@ static int ttm_mem_evict_first(struct 
->>>>> ttm_bo_device *bdev,
->>>>>       spin_lock(&glob->lru_lock);
->>>>>       for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i) {
->>>>>           list_for_each_entry(bo, &man->lru[i], lru) {
->>>>> -            if (bo->resv == resv) {
->>>>> -                if (list_empty(&bo->ddestroy))
->>>>> +            if (bo->resv == ctx->resv) {
->>>>> +                if (!ctx->allow_reserved_eviction &&
->>>>> +                    list_empty(&bo->ddestroy))
->>>>>                       continue;
->>>>>               } else {
->>>>>                   locked = reservation_object_trylock(bo->resv);
->>>>> @@ -835,7 +835,7 @@ static int ttm_bo_mem_force_space(struct 
->>>>> ttm_buffer_object *bo,
->>>>>               return ret;
->>>>>           if (mem->mm_node)
->>>>>               break;
->>>>> -        ret = ttm_mem_evict_first(bdev, bo->resv, mem_type, 
->>>>> place, ctx);
->>>>> +        ret = ttm_mem_evict_first(bdev, mem_type, place, ctx);
->>>>>           if (unlikely(ret != 0))
->>>>>               return ret;
->>>>>       } while (1);
->>>>> @@ -1332,8 +1332,7 @@ static int ttm_bo_force_list_clean(struct 
->>>>> ttm_bo_device *bdev,
->>>>>       for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i) {
->>>>>           while (!list_empty(&man->lru[i])) {
->>>>>               spin_unlock(&glob->lru_lock);
->>>>> -            ret = ttm_mem_evict_first(bdev, NULL, mem_type,
->>>>> -                          NULL, &ctx);
->>>>> +            ret = ttm_mem_evict_first(bdev, mem_type, NULL, &ctx);
->>>>>               if (ret)
->>>>>                   return ret;
->>>>>               spin_lock(&glob->lru_lock);
->>>>
->>>>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------87071215BE9CFE08742F883C
-Content-Type: text/x-patch;
- name="0001-drm-ttm-tryreserve_shared-POC.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="0001-drm-ttm-tryreserve_shared-POC.patch"
-
->From 3d992baf41109fcedc311a97b13186076827d7f0 Mon Sep 17 00:00:00 2001
-From: Thomas Hellstrom <thellstrom@vmware.com>
-Date: Fri, 15 Dec 2017 12:24:50 +0100
-Subject: [PATCH] drm/ttm tryreserve_shared POC.
-
-Signed-off-by: Thomas Hellstrom <thellstrom@vmware.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c | 68 +++++++++++++++++++++++++-------------------
- 1 file changed, 39 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index d6986b9..f2102d2 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -46,6 +46,31 @@
- #define TTM_DEBUG(fmt, arg...)
- #define TTM_BO_HASH_ORDER 13
- 
-+
-+static int __ttm_bo_reserve_shared(struct ttm_bo *bo, struct ttm_operation_ctx *ctx)
-+{
-+	if (ctx && ctx->resv == bo->resv)
-+		return 0;
-+	else
-+		return reservation_object_lock(bo->resv, NULL) ? 0 : -EBUSY;
-+}
-+
-+static bool __ttm_bo_tryreserve_shared(struct ttm_bo *bo, struct ttm_operation_ctx *ctx)
-+{
-+	if (ctx && ctx->resv == bo->resv)
-+		return true;
-+	else
-+		return reservation_object_trylock(bo->resv, NULL);
-+}
-+
-+static void __ttm_bo_unreserve_shared(struct ttm_bo *bo, struct ttm_operation_ctx *ctx)
-+{
-+	if (ctx && ctx->resv == bo->resv)
-+		return;
-+	else
-+		reservation_object_unlock(bo->resv);
-+}
-+
- static int ttm_bo_swapout(struct ttm_mem_shrink *shrink);
- static void ttm_bo_global_kobj_release(struct kobject *kobj);
- 
-@@ -491,16 +516,14 @@ static void ttm_bo_cleanup_refs_or_queue(struct ttm_buffer_object *bo)
-  * If not idle, do nothing.
-  *
-  * Must be called with lru_lock and reservation held, this function
-- * will drop the lru lock and optionally the reservation lock before returning.
-+ * will drop the lru lock before returning.
-  *
-  * @interruptible         Any sleeps should occur interruptibly.
-  * @no_wait_gpu           Never wait for gpu. Return -EBUSY instead.
-- * @unlock_resv           Unlock the reservation lock as well.
-  */
--
--static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
--			       bool interruptible, bool no_wait_gpu,
--			       bool unlock_resv)
-+static int ttm_bo_cleanup_refs_and_unlock(struct ttm_buffer_object *bo,
-+					  bool interruptible, bool no_wait_gpu,
-+					  struct ttm_operation_ctc *ctx)
- {
- 	struct ttm_bo_global *glob = bo->glob;
- 	struct reservation_object *resv;
-@@ -519,8 +542,7 @@ static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
- 	if (ret && !no_wait_gpu) {
- 		long lret;
- 
--		if (unlock_resv)
--			reservation_object_unlock(bo->resv);
-+		__ttm_bo_unreserve_shared(bo, ctx);
- 		spin_unlock(&glob->lru_lock);
- 
- 		lret = reservation_object_wait_timeout_rcu(resv, true,
-@@ -533,7 +555,7 @@ static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
- 			return -EBUSY;
- 
- 		spin_lock(&glob->lru_lock);
--		if (unlock_resv && !reservation_object_trylock(bo->resv)) {
-+		if (!__ttm_bo_tryreserve_shared(bo, ctx)) {
- 			/*
- 			 * We raced, and lost, someone else holds the reservation now,
- 			 * and is probably busy in ttm_bo_cleanup_memtype_use.
-@@ -549,8 +571,6 @@ static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
- 	}
- 
- 	if (ret || unlikely(list_empty(&bo->ddestroy))) {
--		if (unlock_resv)
--			reservation_object_unlock(bo->resv);
- 		spin_unlock(&glob->lru_lock);
- 		return ret;
- 	}
-@@ -562,9 +582,6 @@ static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
- 	spin_unlock(&glob->lru_lock);
- 	ttm_bo_cleanup_memtype_use(bo);
- 
--	if (unlock_resv)
--		reservation_object_unlock(bo->resv);
--
- 	return 0;
- }
- 
-@@ -593,7 +610,8 @@ static bool ttm_bo_delayed_delete(struct ttm_bo_device *bdev, bool remove_all)
- 		reservation_object_lock(bo->resv, NULL);
- 
- 		spin_lock(&glob->lru_lock);
--		ttm_bo_cleanup_refs(bo, false, !remove_all, true);
-+		ttm_bo_cleanup_refs_and_unlock(bo, false, !remove_all, NULL);
-+		reservation_object_unlock(bo->resv);
- 
- 		kref_put(&bo->list_kref, ttm_bo_release_list);
- 		spin_lock(&glob->lru_lock);
-@@ -709,6 +727,7 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- EXPORT_SYMBOL(ttm_bo_eviction_valuable);
- 
- static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
-+			       struct reservation_object *resv,
- 			       uint32_t mem_type,
- 			       const struct ttm_place *place,
- 			       struct ttm_operation_ctx *ctx)
-@@ -716,27 +735,18 @@ static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
- 	struct ttm_bo_global *glob = bdev->glob;
- 	struct ttm_mem_type_manager *man = &bdev->man[mem_type];
- 	struct ttm_buffer_object *bo = NULL;
--	bool locked = false;
- 	unsigned i;
- 	int ret;
- 
- 	spin_lock(&glob->lru_lock);
- 	for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i) {
- 		list_for_each_entry(bo, &man->lru[i], lru) {
--			if (bo->resv == ctx->resv) {
--				if (!ctx->allow_reserved_eviction &&
--				    list_empty(&bo->ddestroy))
--					continue;
--			} else {
--				locked = reservation_object_trylock(bo->resv);
--				if (!locked)
--					continue;
--			}
-+			if (!__ttm_bo_tryreserve_shared(bo, ctx))
-+				continue;
- 
- 			if (place && !bdev->driver->eviction_valuable(bo,
- 								      place)) {
--				if (locked)
--					reservation_object_unlock(bo->resv);
-+				__ttm_bo_unreserve_shared(bo);
- 				continue;
- 			}
- 			break;
-@@ -757,8 +767,8 @@ static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
- 	kref_get(&bo->list_kref);
- 
- 	if (!list_empty(&bo->ddestroy)) {
--		ret = ttm_bo_cleanup_refs(bo, ctx->interruptible,
--					  ctx->no_wait_gpu, locked);
-+		ret = ttm_bo_cleanup_refs_and_unlock(bo, ctx->interruptible,
-+						     ctx->no_wait_gpu, ctx);
- 		kref_put(&bo->list_kref, ttm_bo_release_list);
- 		return ret;
- 	}
--- 
-2.9.5
-
-
---------------87071215BE9CFE08742F883C
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <63abed46-c23c-4eb8-30be-3d6cd50972eb-4+hqylr40dJg9hUCZPvPmw@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Thomas Hellstrom <thomas-4+hqylr40dJg9hUCZPvPmw@public.gmane.org>, Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---------------87071215BE9CFE08742F883C--
+QW0gMTUuMTIuMjAxNyB1bSAxMjozNSBzY2hyaWViIFRob21hcyBIZWxsc3Ryb206Cj4gT24gMTIv
+MTUvMjAxNyAxMDo1MyBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4KPj4+IFdlbGwgdGhp
+cyBpcyBtb3JlIG9yIGxlc3MgcmVwbGljYXRpbmcgd2hhdCB5b3UgYXJlIGRvaW5nIGN1cnJlbnRs
+eSAKPj4+IGJ1dCBpbnN0ZWFkIG9mIHNwcmVhZGluZyB0aGUgY2hlY2tzIGFuZCBsb2NraW5nIHN0
+YXRlIGFsbCBvdmVyIHRoZSAKPj4+IGNvZGUsIGJvdGggYXMgbG9jYWwgdmFyaWFibGVzIGFuZCBw
+YXJhbWV0ZXJzIHRoaXMgaXMga2VlcGluZyBpdCBpbiBhIAo+Pj4gc2luZ2xlIHBsYWNlIHdpdGgg
+Y29ycmVjdG5lc3MgY2hlY2tzLgo+Pgo+PiBJIGRvbid0IHNlZSBob3cgdGhhdCBjYW4gYmUgY29y
+cmVjdC4gCj4KPiBJbiB3aGF0IHNlbnNlPyBJdCBzaG91bGQgYmUgZG9pbmcgKmV4YWN0bHkqIHdo
+YXQgeW91J3JlIGRvaW5nIG5vdyBidXQgCj4gdXNlIGFuIGFic3RyYWN0aW9uLiBObyBtb3JlIG5v
+IGxlc3MuIEJ1dCB3aXRoIGNvcnJlY3RuZXNzIGNoZWNrcywgYW5kIAo+IGxlc3Mgb2YgcGFzc2lu
+ZyBzdGF0ZSBhcm91bmQuIFNwZWNpZmljYWxseSB3aGF0IEknbSByZWZlcnJpbmcgdG8gYXJlIAo+
+IHRoaW5ncyBsaWtlIHRoZSBsb2NraW5nIHRlc3QgdGhpcyBwYXRjaCBpcyBwcm9wb3NpbmcsIHRo
+ZSAibG9ja2VkIiAKPiB2YXJpYWJsZSBpbiB0dG1fbWVtX2V2aWN0X2ZpcnN0KCksIGFuZCB0aGUg
+cGFyYW1ldGVyIHNwZWNpYWwgY29kZSBpbiAKPiB0dG1fbWVtX2NsZWFudXBfcmVmcygpIHRoYXQg
+SSB0aGluayBhcmUgaGFyZCB0byBmb2xsb3cgYW5kIGVycm9yIAo+IHByb25lLiBDb25kaXRpb25h
+bCBsb2NraW5nIGxpa2UgaW4gdHRtX21lbV9jbGVudXBfcmVmcygpIGFsc28gCj4gdHlwaWNhbGx5
+IHRyaXAgc3RhdGljIGxvY2sgYmFsYW5jZSBjaGVja2Vycy4KCkl0IGxvb2tzIGxpa2UgeW91IGp1
+c3QgaGF2ZSBhIHR5cG8gaW4geW91ciBleGFtcGxlIGNvZGUgdGhlbiAKImN0eC0+cmVzZXJ2ZV9j
+b3VudCsrOyIgdGhhdCBzaG91bGQgbWVhbiAiYm8tPnJlc2VydmVkKys7IiwgZG9lc24ndCBpdD8g
+ClRoYXQgbWFrZXMgdGhlIGlkZWEgbW9yZSBjbGVhci4KCj4KPgo+PiBBcyBmYXIgYXMgSSBjYW4g
+c2VlIGl0IG1ha2VzIFRUTSByZXNwb25zaWJsZSBhYm91dCBsb2NraW5nIGFnYWluCj4KPiBObyBp
+dCBkb2Vzbid0LiBJdCdzIGEgaGVscGVyLiBUaGUgb25seSBUVE0gc3RhdGUgaW4gbXkgc3VnZ2Vz
+dGlvbiB3YXMgCj4gdGhlICJibzo6cmVzZXJ2ZWQiwqAgZGVidWcgdmFyaWFibGUsIHdoaWNoIGNv
+dWxkIGVpdGhlciBiZSBvbW1pdGVkIG9yIAo+IGNvdW50IHRoZSByZWN1cnNpdmUgcmVzZXJ2YXRp
+b24gdG8gYWlkIG1ha2luZyBzdXJlIHRoYXQgYWxsIHJlY3Vyc2l2ZSAKPiByZXNlcnZhdGlvbnMg
+eW91IGRvIGluIFRUTSBhcmUgdW5kb25lIGluIFRUTS4KClllcywgYnV0IHRoaXMgYm8tPnJlc2Vy
+dmVkIGNvdW50ZXIgaXMgd2hhdCBtYWtlcyBtZSB0aGluZyB0aGF0IHRoaXMgCmlzbid0IGEgZ29v
+ZCBpZGVhIGF0IGFsbC4KCldlIG5lZWQgdG8gZGlzdGluY3QgYmV0d2VlbiBCT3Mgd2hpY2ggYXJl
+IHJlc2VydmVkIGJ5IHRoZSBldmljdGlvbiBjb2RlIAphbmQgd2hpY2ggYXJlIGFscmVhZHkgcmVz
+ZXJ2ZWQgYW55d2F5LiBIaWRpbmcgdGhhdCBiZWhpbmQgYW4gZXh0cmEgbGF5ZXIgCm1ha2VzIHRo
+aW5ncyBtb3JlIGVycm9yIHByb25lLCBub3QgbGVzcy4KCj4KPj4gYW5kIHRvIGJlIGhvbmVzdCBU
+VE0gaXMgYSBibG9vZHkgbWVzcyByZWdhcmRpbmcgdGhpcyBhbHJlYWR5Lgo+Cj4gSG1tLiBJTU8g
+c3Ryb25nIHVuc3BlY2lmaWMgd29yZGluZyBsaWtlIHRoaXMgaW4gYSBkZXNpZ24gZGVzY3Vzc2lv
+bnMgCj4gc2hvdWxkIGJlIGF2b2lkZWQuIEl0IHRlbmRzIHRvIHRha2UgYXdheSBmb2N1cyBmcm9t
+IHdoYXQncyBhY3R1YWxseSAKPiBiZWluZyBkaWN1c3NlZCBieSBtYWtpbmcgZWl0aGVyIHBhcnQg
+ZmVlbCBiYWQuCgpJIGFncmVlIHRoYXQgdGhpcyBpcyBzdHJvbmcgd29yZGluZywgYnV0IHVuZm9y
+dHVuYXRlbHkgcmVnYXJkaW5nIGxvY2tpbmcgClRUTSBpcyBvbmUgb2YgdGhlIGNvZGUgYmFzZXMg
+d2hlcmUgaXQgcmVhbGx5IGFwcGxpZXMgaW4gbXkgb3Bpbmlvbi4KCkZ1bmN0aW9ucyB3aGljaCBh
+cmUgZW50ZXJlZCB3aXRoIGxvY2tzIGhlbGQgYW5kIHRoZW4gcmVsZWFzZSBhbmQvb3IgCnJlZ3Jh
+YiB0aGVtIGFyZSByZWFsbHkgbm90IGZ1biB0byB3b3JrIHdpdGguIFRvb2sgdXMgcXVpdGUgYSB3
+aGlsZSB0byAKZ2V0IGEgZ3JpcCBvbiB0aGF0IGFuZCB1bmRlcnN0YW5kIGFsbCB0aGUgc2lkZSBl
+ZmZlY3RzIGEgY2hhbmdlIGNvdWxkIGhhdmUuCgo+IEFuZCBpdCdzIHR5cGljYWxseSB1bnByb2R1
+Y3RpdmUuCgpZZWFoLCBhZ3JlZSBvbiB0aGF0IHRyeWluZyB0byBjaG9vc2UgbXkgd29yZGluZyBt
+b3JlIHdpc2VseSBpbiB0aGUgZnV0dXJlLgoKPj4gTXkgaW50ZW50aW9uIGluIHRoZSBsb25nIHRl
+cm0gaXMgcmF0aGVyIHRvIHJlbW92ZSBsb2dpYyBmcm9tIFRUTSBhbmQgCj4+IG1vdmUgaXQgYmFj
+ayBpbnRvIHRoZSBkcml2ZXJzLiBUaGUgZW5kIHJlc3VsdCBJIGhhdmUgaW4gbWluZCBpcyB0aGF0
+IAo+PiBUVE0gYmVjb21lcyBhIHRvb2xib3ggaW5zdGVhZCBvZiB0aGUgbWlkbGF5ZXIgaXQgaXMg
+Y3VycmVudGx5Lgo+Cj4gSSdtIGluIGZhdm91ciBvZiB0aGF0LiBCdXQgSSBkb24ndCB0aGluayB3
+aGF0IEkgcHJvcG9zZWQgaXMgYSBzdGVwIAo+IGF3YXkgZnJvbSB0aGF0IGRpcmVjdGlvbi4gT24g
+dGhlIGNvbnRyYXJ5LsKgIEkndmUgYXR0YWNoZWQgYSBQT0MgcGF0Y2ggCj4gd2l0aCB0aGUgY29y
+cmVjdG5lc3MgY2hlY2tzIHN0cmlwcGVkLCBub3QgY29tcGlsZS10ZXN0ZWQuIE11Y2ggZWFzaWVy
+IAo+IHRvIGZvbGxvdyBpZiB5b3UgYXNrIG1lLCBidXQgaWYgeW91IGZlZWwgc28gc3Ryb25nbHkg
+YWdhaW5zdCBpdCwgbmV2ZXIgCj4gbWluZC4KCkV4YWN0bHkgdGhhdCdzIHdoYXQgSSd2ZSBtZWFu
+dCB3aXRoIHRoYXQgdGhpcyB3b24ndCB3b3JrLiBTZWUgeW91IGxvb3NlIAp0aGUgZXh0cmEgY2hl
+Y2sgIiFjdHgtPmFsbG93X3Jlc2VydmVkX2V2aWN0aW9uICYmIApsaXN0X2VtcHR5KCZiby0+ZGRl
+c3Ryb3kpKSIgaGVyZSBhbmQgdGhhdCBvbmUgaXMgcmVhbGx5IGltcG9ydGFudCBmb3IgCmNvcnJl
+Y3Qgb3BlcmF0aW9uLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFRoYW5rcywKPiBUaG9tYXMK
+Pgo+Cj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4gcXEKPj4KPj4+Cj4+Pgo+Pj4gSSBhZ3Jl
+ZSByZWN1cnNpdmUgbG9ja2luZyBpcyBnZW5lcmFsbHkgZnJvd25lZCB1cG9uLCBidXQgeW91J3Jl
+IAo+Pj4gYWxyZWFkeSBkb2luZyBpdCwgbm90IGJ5IHVzaW5nIHJlY3Vyc2l2ZSBsb2NrcywgYnV0
+IGJ5IHBhc3NpbmcgCj4+PiBsb2NraW5nIHN0YXRlIGFyb3VuZCB3aGljaCBJTU8gaXMgd29yc2Uu
+Cj4+Pgo+Pj4gQ29sbGVjdGluZyB0aGUgc3RhdGUgaW4gYSB0aGUgb3BlcmF0aW9uX2N0eCB3aWxs
+IG1ha2UgdGhhdCAKPj4+IHVzYWdlLXBhdHRlcm4gbW9yZSBvYnZpb3VzIGJ1dCB3aWxsIGhlbHAg
+bWFrZSB0aGUgY29kZSBjbGVhbmVyIGFuZCAKPj4+IGxlc3MgZXJyb3IgcHJvbmUuCj4+Pgo+Pj4g
+L1Rob21hcwo+Pj4KPj4+Cj4+Pgo+Pj4+Cj4+Pj4gUmVnYXJkcywKPj4+PiBDaHJpc3RpYW4uCj4+
+Pj4KPj4+PiBBbSAxNS4xMi4yMDE3IHVtIDA4OjAxIHNjaHJpZWIgVGhvbWFzIEhlbGxzdHJvbToK
+Pj4+Pj4gUm9nZXIgYW5kIENocmlzaXRpYW4sCj4+Pj4+Cj4+Pj4+IENvcnJlY3QgbWUgaWYgSSdt
+IHdyb25nLCBidXQgSXQgc2VlbXMgdG8gbWUgbGlrZSBhIGxvdCBvZiB0aGUgCj4+Pj4+IHJlY2Vu
+dCBjaGFuZ2VzIHRvIHR0bV9iby5jIGFyZSB0byBhbGxvdyByZWN1cnNpdmUgcmVzZXJ2YXRpb24g
+Cj4+Pj4+IG9iamVjdCBsb2NraW5nIGluIHRoZSBjYXNlIG9mIHNoYXJlZCByZXNlcnZhdGlvbiBv
+YmplY3RzLCBidXQgb25seSAKPj4+Pj4gaW4gY2VydGFpbiBmdW5jdGlvbnMgYW5kIHdpdGggc3Bl
+Y2lhbCBhcmd1bWVudHMgc28gaXQgZG9lc24ndCBsb29rIAo+Pj4+PiBsaWtlIHJlY3Vyc2l2ZSBs
+b2NraW5nIHRvIHRoZSBsb2NrZGVwIGNoZWNrZXIuIFdvdWxkbid0IGl0IGJlIGEgCj4+Pj4+IGxv
+dCBjbGVhbmVyIGlmIHdlIHdlcmUgdG8gaGlkZSBhbGwgdGhpcyBpbiBhIHJlc3VycmVjdGVkIAo+
+Pj4+PiBfX3R0bV9ib19yZXNlcnZlIHNvbWV0aGluZyBhbG9uZyB0aGUgbGluZXMgb2YKPj4+Pj4K
+Pj4+Pj4gaW50IF9fdHRtX2JvX3Jlc2VydmUoc3RydWN0IHR0bV9ibyAqYm8sIHN0cnVjdCB0dG1f
+b3BlcmF0aW9uX2N0eCAKPj4+Pj4gKmN0eCkgewo+Pj4+PiDCoMKgwqAgaWYgKGN0eCAmJiBjdHgt
+PnJlc3YgPT0gYm8tPnJlc3YpIHsKPj4+Pj4gI2lmZGVmIENPTkZJR19MT0NLREVQCj4+Pj4+IMKg
+wqDCoMKgwqDCoMKgIFdBUk5fT04oYm8tPnJlc2VydmVkKTsKPj4+Pj4gbG9ja2RlcF9hc3NlcnRf
+aGVsZCgmY3R4LT5yZXN2KTsKPj4+Pj4gwqDCoMKgIMKgwqDCoCBjdHgtPnJlc2VydmVfY291bnQr
+KzsKPj4+Pj4gYm8tPnJlc2VydmVkID0gdHJ1ZTsKPj4+Pj4gI2VuZGlmCj4+Pj4+IMKgwqDCoCDC
+oMKgwqAgcmV0dXJuMDsKPj4+Pj4gwqDCoMKgwqAgfSBlbHNlIHsKPj4+Pj4gwqDCoMKgwqDCoMKg
+wqAgaW50IHJldCA9IHJlc2VydmF0aW9uX29iamVjdF9sb2NrKGJvLT5yZXN2LCBOVUxMKSA/IDA6
+LUVCVVNZOwo+Pj4+Pgo+Pj4+PiDCoMKgwqDCoMKgwqDCoCBpZiAocmV0KQo+Pj4+PiDCoMKgwqAg
+wqDCoMKgIMKgwqDCoCByZXR1cm4gcmV0Owo+Pj4+PiAjaWZkZWYgQ09ORklHX0xPQ0tERVAKPj4+
+Pj4gwqDCoMKgIMKgwqDCoCBXQVJOX09OKGJvLT5yZXNlcnZlZCk7Cj4+Pj4+IMKgwqDCoCDCoMKg
+wqAgYm8tPnJlc2VydmVkID0gdHJ1ZTsKPj4+Pj4gI2VuZGlmCj4+Pj4+IMKgwqDCoCDCoMKgwqAg
+cmV0dXJuIDA7Cj4+Pj4+IH0KPj4+Pj4KPj4+Pj4gQW5kIHNpbWlsYXIgZm9yIHRyeXJlc2VydmUg
+YW5kIHVucmVzZXJ2ZT8gUGVyaGFwcyB3aXRoIGEgCj4+Pj4+IHd3X2FjcXVpcmVfY3R4IGluY2x1
+ZGVkIHNvbWV3aGVyZSBhcyB3ZWxsLi4uCj4+Pj4+Cj4+Pj4+IC9UaG9tYXMKPj4+Pj4KPj4+Pj4K
+Pj4+Pj4KPj4+Pj4KPj4+Pj4gT24gMTIvMTQvMjAxNyAwOToxMCBBTSwgUm9nZXIgSGUgd3JvdGU6
+Cj4+Pj4+PiBDaGFuZ2UtSWQ6IEkwYzZlY2UwZGVjZDE4ZDMwY2NjOTRlNWM3Y2ExMDZkMzUxOTQx
+YzYyCj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBSb2dlciBIZSA8SG9uZ2JvLkhlQGFtZC5jb20+Cj4+
+Pj4+PiAtLS0KPj4+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgfCAxMSArKysr
+Ky0tLS0tLQo+Pj4+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNiBkZWxl
+dGlvbnMoLSkKPj4+Pj4+Cj4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90
+dG1fYm8uYyAKPj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+Pj4+Pj4gaW5k
+ZXggMDk4YjIyZS4uYmE1YjQ4NiAxMDA2NDQKPj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90
+dG0vdHRtX2JvLmMKPj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4+
+Pj4+IEBAIC03MDcsNyArNzA3LDYgQEAgYm9vbCB0dG1fYm9fZXZpY3Rpb25fdmFsdWFibGUoc3Ry
+dWN0IAo+Pj4+Pj4gdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+Pj4+Pj4gwqAgRVhQT1JUX1NZTUJP
+TCh0dG1fYm9fZXZpY3Rpb25fdmFsdWFibGUpOwo+Pj4+Pj4gwqAgwqAgc3RhdGljIGludCB0dG1f
+bWVtX2V2aWN0X2ZpcnN0KHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAo+Pj4+Pj4gLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0
+ICpyZXN2LAo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1
+aW50MzJfdCBtZW1fdHlwZSwKPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgY29uc3Qgc3RydWN0IHR0bV9wbGFjZSAqcGxhY2UsCj4+Pj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAq
+Y3R4KQo+Pj4+Pj4gQEAgLTcyMiw4ICs3MjEsOSBAQCBzdGF0aWMgaW50IHR0bV9tZW1fZXZpY3Rf
+Zmlyc3Qoc3RydWN0IAo+Pj4+Pj4gdHRtX2JvX2RldmljZSAqYmRldiwKPj4+Pj4+IMKgwqDCoMKg
+wqAgc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4+Pj4+PiDCoMKgwqDCoMKgIGZvciAoaSA9
+IDA7IGkgPCBUVE1fTUFYX0JPX1BSSU9SSVRZOyArK2kpIHsKPj4+Pj4+IMKgwqDCoMKgwqDCoMKg
+wqDCoCBsaXN0X2Zvcl9lYWNoX2VudHJ5KGJvLCAmbWFuLT5scnVbaV0sIGxydSkgewo+Pj4+Pj4g
+LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGJvLT5yZXN2ID09IHJlc3YpIHsKPj4+Pj4+IC3C
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGxpc3RfZW1wdHkoJmJvLT5kZGVzdHJv
+eSkpCj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoYm8tPnJlc3YgPT0gY3R4LT5y
+ZXN2KSB7Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghY3R4LT5h
+bGxvd19yZXNlcnZlZF9ldmljdGlvbiAmJgo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGxpc3RfZW1wdHkoJmJvLT5kZGVzdHJveSkpCj4+Pj4+PiDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29udGludWU7Cj4+Pj4+PiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2Ugewo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBsb2NrZWQgPSByZXNlcnZhdGlvbl9vYmplY3RfdHJ5bG9jayhiby0+
+cmVzdik7Cj4+Pj4+PiBAQCAtODM1LDcgKzgzNSw3IEBAIHN0YXRpYyBpbnQgdHRtX2JvX21lbV9m
+b3JjZV9zcGFjZShzdHJ1Y3QgCj4+Pj4+PiB0dG1fYnVmZmVyX29iamVjdCAqYm8sCj4+Pj4+PiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+Pj4+Pj4gwqDCoMKgwqDCoMKg
+wqDCoMKgIGlmIChtZW0tPm1tX25vZGUpCj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBicmVhazsKPj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSB0dG1fbWVtX2V2aWN0X2ZpcnN0
+KGJkZXYsIGJvLT5yZXN2LCBtZW1fdHlwZSwgCj4+Pj4+PiBwbGFjZSwgY3R4KTsKPj4+Pj4+ICvC
+oMKgwqDCoMKgwqDCoCByZXQgPSB0dG1fbWVtX2V2aWN0X2ZpcnN0KGJkZXYsIG1lbV90eXBlLCBw
+bGFjZSwgY3R4KTsKPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAodW5saWtlbHkocmV0ICE9
+IDApKQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPj4+Pj4+
+IMKgwqDCoMKgwqAgfSB3aGlsZSAoMSk7Cj4+Pj4+PiBAQCAtMTMzMiw4ICsxMzMyLDcgQEAgc3Rh
+dGljIGludCB0dG1fYm9fZm9yY2VfbGlzdF9jbGVhbihzdHJ1Y3QgCj4+Pj4+PiB0dG1fYm9fZGV2
+aWNlICpiZGV2LAo+Pj4+Pj4gwqDCoMKgwqDCoCBmb3IgKGkgPSAwOyBpIDwgVFRNX01BWF9CT19Q
+UklPUklUWTsgKytpKSB7Cj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgd2hpbGUgKCFsaXN0X2Vt
+cHR5KCZtYW4tPmxydVtpXSkpIHsKPj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNw
+aW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4+Pj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCByZXQgPSB0dG1fbWVtX2V2aWN0X2ZpcnN0KGJkZXYsIE5VTEwsIG1lbV90eXBlLAo+Pj4+Pj4g
+LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIE5VTEws
+ICZjdHgpOwo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gdHRtX21lbV9ldmlj
+dF9maXJzdChiZGV2LCBtZW1fdHlwZSwgTlVMTCwgJmN0eCk7Cj4+Pj4+PiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBpZiAocmV0KQo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gcmV0Owo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Bp
+bl9sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4+Pj4+Cj4+Pj4+Cj4+Pgo+Pj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+IGFtZC1nZnggbWFpbGluZyBs
+aXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4gaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KPgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
