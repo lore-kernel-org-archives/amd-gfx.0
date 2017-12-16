@@ -1,104 +1,211 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 00/16] clean up amdgpu_device.c
-Date: Sat, 16 Dec 2017 11:11:26 +0100
-Message-ID: <8ed33b93-c94a-3f31-c2a4-3c8ed7627858@gmail.com>
-References: <20171215215626.20822-1-alexander.deucher@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171215215626.20822-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+From: Pravin Shedge <pravin.shedge4linux@gmail.com>
+Subject: [PATCH 04/45] gpu: drm: remove duplicate includes
+Date: Sat, 16 Dec 2017 17:24:52 +0530
+Message-ID: <1513425292-6510-1-git-send-email-pravin.shedge4linux@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie, oded.gabbay@gmail.com, architt@codeaurora.org, a.hajda@samsung.com, Laurent.pinchart@ideasonboard.com, daniel.vetter@intel.com, jani.nikula@linux.intel.com, seanpaul@chromium.org, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, bskeggs@redhat.com, thierry.reding@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: pravin.shedge4linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4gZm9y
-IHRoZSB3aG9sZSBzZXJpZXMuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAxNS4xMi4yMDE3IHVt
-IDIyOjU2IHNjaHJpZWIgQWxleCBEZXVjaGVyOgo+IFRoaXMgZmlsZSBoYXMgZ290dGVuIGh1Z2Ug
-YW5kIGhhcyBiZWNvbWUgYSBkdW1waW5nIGdyb3VuZCBmb3IgYWxsCj4gc29ydHMgb2YgdGhpbmdz
-LiAgVGhlIGZ1bmN0aW9uIG5hbWluZyBpcyBhbHNvIHJlYWxseSBpbmNvbnNpc3RlbnQuCj4gVGhp
-cyBwYXRjaCBzZXQ6Cj4gMS4gY2xlYW5zIHVwIHRoZSBmdW5jdGlvbiBuYW1pbmcgdG8gbWFrZSBp
-dCBjb25zaXN0ZW50Cj4gMi4gbW92ZXMgYWxsIHRoZSBkZWJ1Z2ZzIHN0dWZmIHRvIGl0J3Mgb3du
-IGZpbGUKPiAzLiBtb3ZlcyBhbGwgdGhlIGF0b20gc3R1ZmYgdG8gYW1kZ3B1X2F0b21iaW9zLmMK
-PiA0LiBtb3ZlcyBhIGJ1bmNoIG9mIGhlbHBlciBmdW5jdGlvbnMgbG9jYWwgdG8gd2hlcmUgdGhl
-eSBhcmUgdXNlZAo+Cj4gQWxleCBEZXVjaGVyICgxNik6Cj4gICAgZHJtL2FtZGdwdTogbW92ZSBh
-dG9tIGZ1bmN0aW9ucyBmcm9tIGFtZGdwdV9kZXZpY2UuYwo+ICAgIGRybS9hbWRncHU6IHVzZSBj
-b25zaXN0ZW50IG5hbWluZyBmb3Igc3RhdGljIGZ1bmNzIGluIGFtZGdwdV9kZXZpY2UuYwo+ICAg
-IGRybS9hbWRncHU6IHJlbmFtZSBhbWRncHVfc3VzcGVuZCB0byBhbWRncHVfZGV2aWNlX2lwX3N1
-c3BlbmQKPiAgICBkcm0vYW1kZ3B1OiBtb3ZlIGRlYnVnZnMgZnVuY3Rpb25zIHRvIHRoZWlyIG93
-biBmaWxlCj4gICAgZHJtL2FtZGdwdTogcmVuYW1lIGFtZGdwdV93Yl8qIGZ1bmN0aW9ucwo+ICAg
-IGRybS9hbWRncHU6IHJlbmFtZSBhbWRncHVfcHJvZ3JhbV9yZWdpc3Rlcl9zZXF1ZW5jZQo+ICAg
-IGRybS9hbWRncHU6IHJlbmFtZSBhbWRncHVfcGNpX2NvbmZpZ19yZXNldAo+ICAgIGRybS9hbWRn
-cHU6IG1vdmUgYW1kZ3B1X2Rvb3JiZWxsX2dldF9rZmRfaW5mbyB0byBhbWRncHVfYW1ka2ZkLmMK
-PiAgICBkcm0vYW1kZ3B1OiByZW5hbWUgYW1kZ3B1XypfbG9jYXRpb24gZnVuY3Rpb25zCj4gICAg
-ZHJtL2FtZGdwdTogbW92ZSBmd19yZXNlcnZlIGZ1bmN0aW9ucyB0byBhbWRncHVfdHRtLmMKPiAg
-ICBkcm0vYW1kZ3B1OiByZW5hbWUgaXAgYmxvY2sgaGVscGVyIGZ1bmN0aW9ucwo+ICAgIGRybS9h
-bWRncHU6IHJlbmFtZSBhbWRncHVfbmVlZF9wb3N0Cj4gICAgZHJtL2FtZGdwdTogbW92ZSBkdW1t
-eSBwYWdlIGZ1bmN0aW9ucyB0byBhbWRncHVfZ2FydC5jCj4gICAgZHJtL2FtZGdwdTogcmVuYW1l
-IGFtZGdwdV9ncHVfcmVjb3Zlcgo+ICAgIGRybS9hbWRncHU6IG1vdmUgYW1kZ3B1X25lZWRfYmFj
-a3VwIHRvIGFtZGdwdV9vYmplY3QuYwo+ICAgIGRybS9hbWRncHU6IHJlbmFtZSBhbWRncHVfZ2V0
-X3BjaWVfaW5mbwo+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAgICAg
-ICAgICB8ICAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAg
-ICAgICAgIHwgICA5MCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Fj
-cC5jICAgICAgfCAgICAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-YW1ka2ZkLmMgICB8ICAgMzMgKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2F0b21iaW9zLmMgfCAgMjM2ICsrKystCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfYXRvbWJpb3MuaCB8ICAgIDQgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9iaW9zLmMgICAgIHwgICAgMiArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2RlYnVnZnMuYyAgfCAgNzkyICsrKysrKysrKysrKysrCj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5oICB8ICAgNDIgKwo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jICAgfCAxNDU4ICsrKy0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMg
-ICAgICB8ICAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5j
-ZS5jICAgIHwgICAgMiArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dh
-cnQuYyAgICAgfCAgIDQ5ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Z2VtLmMgICAgICB8ICAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9nZnguYyAgICAgIHwgICAgNCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2loLmMgICAgICAgfCAgIDEwICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfaXJxLmMgICAgICB8ICAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9qb2IuYyAgICAgIHwgICAgMiArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X29iamVjdC5jICAgfCAgICA4ICsKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9wbS5jICAgICAgIHwgICAxOCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3JpbmcuYyAgICAgfCAgIDE2ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdHRtLmMgICAgICB8ICAgOTkgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV91dmQuYyAgICAgIHwgICAxOCArLQo+ICAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5jICAgICAgfCAgIDE2ICstCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgICB8ICAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2NpX2RwbS5jICAgICAgICAgIHwgICAgOCArLQo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvY2lrLmMgICAgICAgICAgICAgfCAgMjEyICsrLS0KPiAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npa19zZG1hLmMgICAgICAgIHwgICAxMCArLQo+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMgICAgICAgfCAgIDI0ICstCj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjExXzAuYyAgICAgICB8ICAgMzAgKy0KPiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgIHwgIDEzMiArLS0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMgICAgICAgIHwgICAgNCAr
-LQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYyAgICAgICAgfCAgIDE2
-ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jICAgICAgICB8ICAg
-NTggKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgICAgIHwg
-ICAxMCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUva3ZfZHBtLmMgICAgICAgICAg
-fCAgICA4ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9haS5jICAgICAg
-ICB8ICAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X3ZpLmMgICAg
-ICAgIHwgICA1MCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92Ml80LmMg
-ICAgICAgfCAgIDIyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAu
-YyAgICAgICB8ICAgNzAgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRf
-MC5jICAgICAgIHwgICAxMCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2kuYyAg
-ICAgICAgICAgICAgfCAgMTU2ICstLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lf
-ZG1hLmMgICAgICAgICAgfCAgIDEwICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9z
-b2MxNS5jICAgICAgICAgICB8ICAgNDggKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3ZpLmMgICAgICAgICAgICAgIHwgIDE2NiArLS0KPiAgIDQ1IGZpbGVzIGNoYW5nZWQsIDIwMDgg
-aW5zZXJ0aW9ucygrKSwgMTk0OSBkZWxldGlvbnMoLSkKPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jCj4gICBjcmVhdGUgbW9k
-ZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuaAo+Cgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+These duplicate includes have been found with scripts/checkincludes.pl but
+they have been removed manually to avoid removing false positives.
+
+Signed-off-by: Pravin Shedge <pravin.shedge4linux@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c                     | 1 -
+ drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c                     | 1 -
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c                     | 1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c  | 1 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         | 3 ---
+ drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c     | 1 -
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 1 -
+ drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c   | 1 -
+ drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.c          | 1 -
+ drivers/gpu/drm/bridge/panel.c                            | 1 -
+ drivers/gpu/drm/drm_drv.c                                 | 1 -
+ drivers/gpu/drm/i915/intel_dsi_vbt.c                      | 1 -
+ drivers/gpu/drm/nouveau/nvkm/subdev/bus/nv04.c            | 2 --
+ drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c     | 1 -
+ 14 files changed, 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 9ecdf62..7fd0599 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -44,7 +44,6 @@
+ #include "gca/gfx_8_0_d.h"
+ #include "gca/gfx_8_0_enum.h"
+ #include "gca/gfx_8_0_sh_mask.h"
+-#include "gca/gfx_8_0_enum.h"
+ 
+ #include "dce/dce_10_0_d.h"
+ #include "dce/dce_10_0_sh_mask.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+index c25a831..aad4134 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+@@ -37,7 +37,6 @@
+ #include "gmc/gmc_8_2_sh_mask.h"
+ #include "oss/oss_3_0_d.h"
+ #include "oss/oss_3_0_sh_mask.h"
+-#include "gca/gfx_8_0_sh_mask.h"
+ #include "dce/dce_10_0_d.h"
+ #include "dce/dce_10_0_sh_mask.h"
+ #include "smu/smu_7_1_3_d.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index cf81065..b526623 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -34,7 +34,6 @@
+ #include "vce/vce_3_0_sh_mask.h"
+ #include "oss/oss_3_0_d.h"
+ #include "oss/oss_3_0_sh_mask.h"
+-#include "gca/gfx_8_0_d.h"
+ #include "smu/smu_7_1_2_d.h"
+ #include "smu/smu_7_1_2_sh_mask.h"
+ #include "gca/gfx_8_0_d.h"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
+index 2fbce57..8266a3f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_vi.c
+@@ -24,7 +24,6 @@
+ #include "kfd_device_queue_manager.h"
+ #include "gca/gfx_8_0_enum.h"
+ #include "gca/gfx_8_0_sh_mask.h"
+-#include "gca/gfx_8_0_enum.h"
+ #include "oss/oss_3_0_sh_mask.h"
+ 
+ static bool set_cache_memory_policy_vi(struct device_queue_manager *dqm,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f71fe6d..b825dcb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -23,7 +23,6 @@
+  *
+  */
+ 
+-#include "dm_services_types.h"
+ #include "dc.h"
+ #include "dc/inc/core_types.h"
+ 
+@@ -66,8 +65,6 @@
+ #include "soc15_common.h"
+ #endif
+ 
+-#include "modules/inc/mod_freesync.h"
+-
+ #include "i2caux_interface.h"
+ 
+ /* basic init/fini API */
+diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+index 9c18efd..3f55dbc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+@@ -40,7 +40,6 @@
+ #include "dce/dce_mem_input.h"
+ #include "dce/dce_link_encoder.h"
+ #include "dce/dce_stream_encoder.h"
+-#include "dce/dce_mem_input.h"
+ #include "dce/dce_ipp.h"
+ #include "dce/dce_transform.h"
+ #include "dce/dce_opp.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 961ad5c..8d5d4c2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -39,7 +39,6 @@
+ #include "ipp.h"
+ #include "mpc.h"
+ #include "reg_helper.h"
+-#include "custom_float.h"
+ #include "dcn10_hubp.h"
+ 
+ #define CTX \
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+index bd6be77..ebbe8a1 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+@@ -44,7 +44,6 @@
+ 
+ #include "smu7_hwmgr.h"
+ #include "hardwaremanager.h"
+-#include "ppatomctrl.h"
+ #include "atombios.h"
+ #include "pppcielanes.h"
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.c
+index b98ade6..cd9c9b9 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.c
+@@ -29,7 +29,6 @@
+ #include "rv_ppsmc.h"
+ #include "smu10_driver_if.h"
+ #include "smu10.h"
+-#include "ppatomctrl.h"
+ #include "pp_debug.h"
+ #include "smu_ucode_xfer_vi.h"
+ #include "smu7_smumgr.h"
+diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+index 6d99d4a..89e8d68 100644
+--- a/drivers/gpu/drm/bridge/panel.c
++++ b/drivers/gpu/drm/bridge/panel.c
+@@ -15,7 +15,6 @@
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+-#include <drm/drm_panel.h>
+ 
+ struct panel_bridge {
+ 	struct drm_bridge bridge;
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index a934fd5..11f2461 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -39,7 +39,6 @@
+ #include "drm_crtc_internal.h"
+ #include "drm_legacy.h"
+ #include "drm_internal.h"
+-#include "drm_crtc_internal.h"
+ 
+ /*
+  * drm_debug: Enable debug output.
+diff --git a/drivers/gpu/drm/i915/intel_dsi_vbt.c b/drivers/gpu/drm/i915/intel_dsi_vbt.c
+index 91c07b0..0d6e999 100644
+--- a/drivers/gpu/drm/i915/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/intel_dsi_vbt.c
+@@ -32,7 +32,6 @@
+ #include <linux/slab.h>
+ #include <video/mipi_display.h>
+ #include <asm/intel-mid.h>
+-#include <video/mipi_display.h>
+ #include "i915_drv.h"
+ #include "intel_drv.h"
+ #include "intel_dsi.h"
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bus/nv04.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bus/nv04.c
+index c80b967..2b44ba5 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/bus/nv04.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bus/nv04.c
+@@ -26,8 +26,6 @@
+ 
+ #include <subdev/gpio.h>
+ 
+-#include <subdev/gpio.h>
+-
+ static void
+ nv04_bus_intr(struct nvkm_bus *bus)
+ {
+diff --git a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+index 890fd6f..b9afb13 100644
+--- a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
++++ b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+@@ -57,7 +57,6 @@
+ #include <drm/drmP.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_mipi_dsi.h>
+-#include <drm/drm_panel.h>
+ 
+ #define RPI_DSI_DRIVER_NAME "rpi-ts-dsi"
+ 
+-- 
+2.7.4
