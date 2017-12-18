@@ -1,15 +1,14 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix a bug that vm size is wrong on Raven
-Date: Mon, 18 Dec 2017 17:00:57 +0000
-Message-ID: <MWHPR12MB143800E804732F641083D673F00E0@MWHPR12MB1438.namprd12.prod.outlook.com>
-References: <1513269904-3385-1-git-send-email-yong.zhao@amd.com>
- <9ebd38b5-2b12-8797-65e5-3a920ce697aa@gmail.com>,
- <e3d20771-df70-b9e5-345b-9914c54db292@gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 5/5] drm/amd/pp: implement force_dpm_level on rv
+Date: Mon, 18 Dec 2017 12:03:26 -0500
+Message-ID: <CADnq5_OAVC_ShFsKoe2MggWdvibfC8axFmkQVVK5fgebF7daLQ@mail.gmail.com>
+References: <1513597856-8558-1-git-send-email-Rex.Zhu@amd.com>
+ <1513597856-8558-5-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0163584890=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e3d20771-df70-b9e5-345b-9914c54db292-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1513597856-8558-5-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,232 +19,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Felix_K=FChling?= <felix.kuehling-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0163584890==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB143800E804732F641083D673F00E0MWHPR12MB1438namp_"
-
---_000_MWHPR12MB143800E804732F641083D673F00E0MWHPR12MB1438namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Felix,
-
-
-we ended up with this fix. http://git.amd.com:8080/#/c/122202/
-
-
-I explored the option to override the VM size only for KFD VMs, but it was =
-not easy as amdgpu_check_vm_size() and amdgpu_vm_adjust_size() come in duri=
-ng loading amdgpu, i. e. before KFD VMs are created. So to fix the problem =
-quickly, we ended up to not overwrite the VM size for all Raven VMs.
-
-
-Regards,
-
-Yong
-
-________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, December 18, 2017 4:22:43 AM
-To: Felix K=FChling; Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amdgpu: Fix a bug that vm size is wrong on Raven
-
-The problem was a merge conflict.
-
-No idea what exactly went wrong, but Yong ended up with a branch where the =
-vm_size was always overwritten with the value 64.
-
-So we can completely drop this patch and yes when an user overrides the vm_=
-size value he/she should know what the consequences are.
-
-Regards,
-Christian.
-
-Am 17.12.2017 um 00:21 schrieb Felix K=FChling:
-
-Is there a way to override the VM size for KFD VMs only? Only they
-depend on ATS, so only they need to be forced to be 48-bits.
-
-On the other hand, it could be argued that a user who manually sets the
-VM size with a module parameter knows what they're doing. So let them
-break ATS.
-
-Regards,
-  Felix
-
-
-Am 14.12.2017 um 17:45 schrieb Yong Zhao:
-
-
-Change-Id: Id522c1cbadb8c069720f4e64a31cff42cd014733
-Signed-off-by: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org><mailto:yong.zhao-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.c
-index 709587d..93500e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2534,7 +2534,7 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev=
-, uint32_t vm_size,
-        uint64_t tmp;
-
-        /* adjust vm size first */
--       if (amdgpu_vm_size !=3D -1) {
-+       if (amdgpu_vm_size !=3D -1 && adev->asic_type !=3D CHIP_RAVEN) {
-                unsigned max_size =3D 1 << (max_bits - 30);
-
-                vm_size =3D amdgpu_vm_size;
-
-
-
-
-
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---_000_MWHPR12MB143800E804732F641083D673F00E0MWHPR12MB1438namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Felix,&nbsp;</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">we ended up with this fix.&nbsp;<=
-a href=3D"http://git.amd.com:8080/#/c/122202/" class=3D"OWAAutoLink" id=3D"=
-LPlnk552811" previewremoved=3D"true" style=3D"font-size: 12pt;">http://git.=
-amd.com:8080/#/c/122202/</a></p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">I explored the option to override=
- the VM size only&nbsp;for KFD VMs, but it was not easy as
-<span>amdgpu_check_vm_size() and&nbsp;</span><span style=3D"color: rgb(33, =
-33, 33); font-size: 15px;">amdgpu_vm_adjust_size() come in during loading a=
-mdgpu, i.&nbsp;e.&nbsp;before KFD VMs are created. So to fix the problem qu=
-ickly, we ended up to not overwrite the VM size for
- all&nbsp;Raven VMs.&nbsp;</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(33, 33,=
- 33); font-size: 15px;">Regards,</span></p>
-<p style=3D"margin-top:0;margin-bottom:0">Yong</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
-;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, December 18, 2017 4:22:43 AM<br>
-<b>To:</b> Felix K=FChling; Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Fix a bug that vm size is wrong on =
-Raven</font>
-<div>&nbsp;</div>
-</div>
-<div style=3D"background-color:#FFFFFF">
-<div class=3D"x_moz-cite-prefix">The problem was a merge conflict.<br>
-<br>
-No idea what exactly went wrong, but Yong ended up with a branch where the =
-vm_size was always overwritten with the value 64.<br>
-<br>
-So we can completely drop this patch and yes when an user overrides the vm_=
-size value he/she should know what the consequences are.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 17.12.2017 um 00:21 schrieb Felix K=FChling:<br>
-</div>
-<blockquote type=3D"cite">
-<pre>Is there a way to override the VM size for KFD VMs only? Only they
-depend on ATS, so only they need to be forced to be 48-bits.
-
-On the other hand, it could be argued that a user who manually sets the
-VM size with a module parameter knows what they're doing. So let them
-break ATS.
-
-Regards,
-&nbsp; Felix
-
-
-Am 14.12.2017 um 17:45 schrieb Yong Zhao:
-</pre>
-<blockquote type=3D"cite">
-<pre>Change-Id: Id522c1cbadb8c069720f4e64a31cff42cd014733
-Signed-off-by: Yong Zhao <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailt=
-o:yong.zhao-5C7GfCeVMHo@public.gmane.org">&lt;yong.zhao-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 &#43;-
- 1 file changed, 1 insertion(&#43;), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.c
-index 709587d..93500e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2534,7 &#43;2534,7 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *=
-adev, uint32_t vm_size,
- 	uint64_t tmp;
-=20
- 	/* adjust vm size first */
--	if (amdgpu_vm_size !=3D -1) {
-&#43;	if (amdgpu_vm_size !=3D -1 &amp;&amp; adev-&gt;asic_type !=3D CHIP_RA=
-VEN) {
- 		unsigned max_size =3D 1 &lt;&lt; (max_bits - 30);
-=20
- 		vm_size =3D amdgpu_vm_size;
-</pre>
-</blockquote>
-<pre>
-
-</pre>
-<br>
-<fieldset class=3D"x_mimeAttachmentHeader"></fieldset> <br>
-<pre>_______________________________________________
-amd-gfx mailing list
-<a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class=3D"x_moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/=
-mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/am=
-d-gfx</a>
-</pre>
-</blockquote>
-<br>
-</div>
-</body>
-</html>
-
---_000_MWHPR12MB143800E804732F641083D673F00E0MWHPR12MB1438namp_--
-
---===============0163584890==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0163584890==--
+T24gTW9uLCBEZWMgMTgsIDIwMTcgYXQgNjo1MCBBTSwgUmV4IFpodSA8UmV4LlpodUBhbWQuY29t
+PiB3cm90ZToKPiB1c2VyIGNhbiBjaGFuZ2UgZW5naW5lL21jbGsvc29jL3ZjbiBjbG9ja3Mgb24g
+UnYKPgo+IHYzOiBhZGQgc211IHZlcnNpb24gY2hlY2sKPiB2MjogZml4IG5vIHJldHVybiBzdGF0
+ZW1lbnQKPgo+IENoYW5nZS1JZDogSTRjYmE3NTk3MDFhYjAzMTA4NWE2ODcxMDJkZTY1NjY3NzFm
+NDQ5NGYKPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+CgpQYXRjaGVz
+IDEtNDoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
+bT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdy
+LmMgfCAxMjcgKysrKysrKysrKysrKysrKysrKysrKysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci9ydl9od21nci5oIHwgIDE1ICsrKwo+ICAyIGZpbGVzIGNoYW5nZWQs
+IDE0MiBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaHdtZ3IvcnZfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2h3bWdyL3J2X2h3bWdyLmMKPiBpbmRleCBhZTExYTg1Li45MWYxOTEyIDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9ydl9od21nci5jCj4gQEAgLTQ4NCw2
+ICs0ODQsMTMzIEBAIHN0YXRpYyBpbnQgcnZfaHdtZ3JfYmFja2VuZF9maW5pKHN0cnVjdCBwcF9o
+d21nciAqaHdtZ3IpCj4gIHN0YXRpYyBpbnQgcnZfZHBtX2ZvcmNlX2RwbV9sZXZlbChzdHJ1Y3Qg
+cHBfaHdtZ3IgKmh3bWdyLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZW51bSBh
+bWRfZHBtX2ZvcmNlZF9sZXZlbCBsZXZlbCkKPiAgewo+ICsgICAgICAgdWludDMyX3QgdmVyc2lv
+bjsKPiArCj4gKyAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nciwgUFBTTUNfTVNHX0dl
+dFNtdVZlcnNpb24pOwo+ICsgICAgICAgcnZfcmVhZF9hcmdfZnJvbV9zbWMoaHdtZ3IsICZ2ZXJz
+aW9uKTsKPiArICAgICAgIGlmICh2ZXJzaW9uIDwgMHgxRTM3MDApIHsKPiArICAgICAgICAgICAg
+ICAgcHJfaW5mbygic211IGZpcm13YXJlIHZlcnNpb24gdG9vIG9sZCwgY2FuIG5vdCBzZXQgZHBt
+IGxldmVsXG4iKTsKPiArICAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gKyAgICAgICB9CgpJIHRo
+aW5rIGl0IHdvdWxkIGJlIGJldHRlciB0byBzdG9yZSB0aGlzIGluIGh3bWdyIHN0YXRlIHRoYW4g
+dG8gbG9vawppdCB1cCBldmVyeSB0aW1lLiAgV2UgbmVlZCB0byBhZGQgZmV0Y2ggaXQgZWFybGll
+ciBhbnl3YXkgc28gdGhhdCB3ZQpleHBvcnQgdGhlIHNtdSB2ZXJzaW9uIG9uIEFQVXMgcHJvcGVy
+bHkgc28gd2UgY2FuIGZpeCB0aGUgU01VIGZ3CnZlcnNpb24gd2UgZXhwb3NlIHRvIHVzZXJzcGFj
+ZSAocmF0aGVyIHRoYW4gYWx3YXlzIHJlcG9ydGluZyAwIGZvcgpBUFVzKS4KCkFsZXgKCj4gKwo+
+ICsgICAgICAgc3dpdGNoIChsZXZlbCkgewo+ICsgICAgICAgY2FzZSBBTURfRFBNX0ZPUkNFRF9M
+RVZFTF9ISUdIOgo+ICsgICAgICAgY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX1BF
+QUs6Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVy
+KGh3bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IFBQU01DX01TR19TZXRIYXJkTWluR2Z4Q2xrLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVfUEVBS19HRlhDTEspOwo+ICsg
+ICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwK
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19N
+U0dfU2V0SGFyZE1pbkZjbGtCeUZyZXEsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUkFWRU5fVU1EX1BTVEFURV9QRUFLX0ZDTEspOwo+ICsgICAgICAg
+ICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfU2V0
+SGFyZE1pblNvY2Nsa0J5RnJlcSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRFX1BFQUtfU09DQ0xLKTsKPiArICAgICAgICAg
+ICAgICAgc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldEhh
+cmRNaW5WY24sCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgUkFWRU5fVU1EX1BTVEFURV9WQ0UpOwo+ICsKPiArICAgICAgICAgICAgICAgc211bV9zZW5k
+X21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldFNvZnRNYXhHZnhDbGssCj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUkFWRU5fVU1E
+X1BTVEFURV9QRUFLX0dGWENMSyk7Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9f
+c21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFBQU01DX01TR19TZXRTb2Z0TWF4RmNsa0J5RnJlcSwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNU
+QVRFX1BFQUtfRkNMSyk7Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dp
+dGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFBQU01DX01TR19TZXRTb2Z0TWF4U29jY2xrQnlGcmVxLAo+ICsgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVf
+UEVBS19TT0NDTEspOwo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRo
+X3BhcmFtZXRlcihod21nciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBQUFNNQ19NU0dfU2V0U29mdE1heFZjbiwKPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRFX1ZDRSk7Cj4gKyAg
+ICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9Q
+Uk9GSUxFX01JTl9TQ0xLOgo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193
+aXRoX3BhcmFtZXRlcihod21nciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBQUFNNQ19NU0dfU2V0SGFyZE1pbkdmeENsaywKPiArICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRFX01JTl9H
+RlhDTEspOwo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFt
+ZXRlcihod21nciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBQUFNNQ19NU0dfU2V0U29mdE1heEdmeENsaywKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRFX01JTl9HRlhDTEspOwo+
+ICsgICAgICAgICAgICAgICBicmVhazsKPiArICAgICAgIGNhc2UgQU1EX0RQTV9GT1JDRURfTEVW
+RUxfUFJPRklMRV9NSU5fTUNMSzoKPiArICAgICAgICAgICAgICAgc211bV9zZW5kX21zZ190b19z
+bWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldEhhcmRNaW5GY2xrQnlGcmVxLAo+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RB
+VEVfTUlOX0ZDTEspOwo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRo
+X3BhcmFtZXRlcihod21nciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBQUFNNQ19NU0dfU2V0U29mdE1heEZjbGtCeUZyZXEsCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUkFWRU5fVU1EX1BTVEFURV9NSU5f
+RkNMSyk7Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSBBTURfRFBNX0ZP
+UkNFRF9MRVZFTF9QUk9GSUxFX1NUQU5EQVJEOgo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRf
+bXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfU2V0SGFyZE1pbkdmeENsaywKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURf
+UFNUQVRFX0dGWENMSyk7Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dp
+dGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFBQU01DX01TR19TZXRIYXJkTWluRmNsa0J5RnJlcSwKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRFX0ZD
+TEspOwo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRl
+cihod21nciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBQUFNNQ19NU0dfU2V0SGFyZE1pblNvY2Nsa0J5RnJlcSwKPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRFX1NPQ0NMSyk7Cj4g
+KyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdy
+LAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBQU01D
+X01TR19TZXRIYXJkTWluVmNuLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVfVkNFKTsKPiArCj4gKyAgICAgICAgICAgICAg
+IHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBQU01DX01TR19TZXRTb2Z0TWF4
+R2Z4Q2xrLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IFJBVkVOX1VNRF9QU1RBVEVfR0ZYQ0xLKTsKPiArICAgICAgICAgICAgICAgc211bV9zZW5kX21z
+Z190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldFNvZnRNYXhGY2xrQnlGcmVxLAo+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJBVkVOX1VN
+RF9QU1RBVEVfRkNMSyk7Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dp
+dGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFBQU01DX01TR19TZXRTb2Z0TWF4U29jY2xrQnlGcmVxLAo+ICsgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVf
+U09DQ0xLKTsKPiArICAgICAgICAgICAgICAgc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJh
+bWV0ZXIoaHdtZ3IsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgUFBTTUNfTVNHX1NldFNvZnRNYXhWY24sCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgUkFWRU5fVU1EX1BTVEFURV9WQ0UpOwo+ICsgICAgICAg
+ICAgICAgICBicmVhazsKPiArICAgICAgIGNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfQVVUTzoK
+PiArICAgICAgICAgICAgICAgc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdt
+Z3IsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUFBT
+TUNfTVNHX1NldEhhcmRNaW5HZnhDbGssCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUkFWRU5fVU1EX1BTVEFURV9NSU5fR0ZYQ0xLKTsKPiArICAgICAg
+ICAgICAgICAgc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1Nl
+dEhhcmRNaW5GY2xrQnlGcmVxLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVfTUlOX0ZDTEspOwo+ICsgICAgICAgICAgICAg
+ICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfU2V0SGFyZE1p
+blNvY2Nsa0J5RnJlcSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBSQVZFTl9VTURfUFNUQVRFX01JTl9TT0NDTEspOwo+ICsgICAgICAgICAgICAgICBz
+bXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwKPiArICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfU2V0SGFyZE1pblZj
+biwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZF
+Tl9VTURfUFNUQVRFX01JTl9WQ0UpOwo+ICsKPiArICAgICAgICAgICAgICAgc211bV9zZW5kX21z
+Z190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldFNvZnRNYXhHZnhDbGssCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUkFWRU5fVU1EX1BT
+VEFURV9QRUFLX0dGWENMSyk7Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21j
+X3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIFBQU01DX01TR19TZXRTb2Z0TWF4RmNsa0J5RnJlcSwKPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRF
+X1BFQUtfRkNMSyk7Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhf
+cGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIFBQU01DX01TR19TZXRTb2Z0TWF4U29jY2xrQnlGcmVxLAo+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVfUEVB
+S19TT0NDTEspOwo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3Bh
+cmFtZXRlcihod21nciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBQUFNNQ19NU0dfU2V0U29mdE1heFZjbiwKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBSQVZFTl9VTURfUFNUQVRFX1ZDRSk7Cj4gKyAgICAg
+ICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9MT1c6
+Cj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3
+bWdyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBQ
+U01DX01TR19TZXRIYXJkTWluR2Z4Q2xrLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVfTUlOX0dGWENMSyk7Cj4gKyAgICAg
+ICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBQU01DX01TR19T
+ZXRTb2Z0TWF4R2Z4Q2xrLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIFJBVkVOX1VNRF9QU1RBVEVfTUlOX0dGWENMSyk7Cj4gKyAgICAgICAgICAgICAg
+IHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBQU01DX01TR19TZXRIYXJkTWlu
+RmNsa0J5RnJlcSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBSQVZFTl9VTURfUFNUQVRFX01JTl9GQ0xLKTsKPiArICAgICAgICAgICAgICAgc211bV9z
+ZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldFNvZnRNYXhGY2xrQnlG
+cmVxLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJB
+VkVOX1VNRF9QU1RBVEVfTUlOX0ZDTEspOwo+ICsgICAgICAgICAgICAgICBicmVhazsKPiArICAg
+ICAgIGNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfTUFOVUFMOgo+ICsgICAgICAgY2FzZSBBTURf
+RFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX0VYSVQ6Cj4gKyAgICAgICBkZWZhdWx0Ogo+ICsgICAg
+ICAgICAgICAgICBicmVhazsKPiArICAgICAgIH0KPiAgICAgICAgIHJldHVybiAwOwo+ICB9Cj4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcnZfaHdt
+Z3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmgKPiBp
+bmRleCA5ZGM1MDMwLi5jM2JjMzExIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9od21nci9ydl9od21nci5oCj4gQEAgLTMwNCw0ICszMDQsMTkgQEAgc3RydWN0IHJ2
+X2h3bWdyIHsKPgo+ICBpbnQgcnZfaW5pdF9mdW5jdGlvbl9wb2ludGVycyhzdHJ1Y3QgcHBfaHdt
+Z3IgKmh3bWdyKTsKPgo+ICsvKiBVTUQgUFN0YXRlIFJhdmVuIE1zZyBQYXJhbWV0ZXJzIGluIE1I
+eiAqLwo+ICsjZGVmaW5lIFJBVkVOX1VNRF9QU1RBVEVfR0ZYQ0xLICAgICAgICAgICAgICAgICA3
+MDAKPiArI2RlZmluZSBSQVZFTl9VTURfUFNUQVRFX1NPQ0NMSyAgICAgICAgICAgICAgICAgNjI2
+Cj4gKyNkZWZpbmUgUkFWRU5fVU1EX1BTVEFURV9GQ0xLICAgICAgICAgICAgICAgICAgIDkzMwo+
+ICsjZGVmaW5lIFJBVkVOX1VNRF9QU1RBVEVfVkNFICAgICAgICAgICAgICAgICAgICAweDAzQzAw
+MzIwCj4gKwo+ICsjZGVmaW5lIFJBVkVOX1VNRF9QU1RBVEVfUEVBS19HRlhDTEsgICAgICAgICAg
+ICAxMTAwCj4gKyNkZWZpbmUgUkFWRU5fVU1EX1BTVEFURV9QRUFLX1NPQ0NMSyAgICAgICAgICAg
+IDc1Nwo+ICsjZGVmaW5lIFJBVkVOX1VNRF9QU1RBVEVfUEVBS19GQ0xLICAgICAgICAgICAgICAx
+MjAwCj4gKwo+ICsjZGVmaW5lIFJBVkVOX1VNRF9QU1RBVEVfTUlOX0dGWENMSyAgICAgICAgICAg
+ICAyMDAKPiArI2RlZmluZSBSQVZFTl9VTURfUFNUQVRFX01JTl9GQ0xLICAgICAgICAgICAgICAg
+NDAwCj4gKyNkZWZpbmUgUkFWRU5fVU1EX1BTVEFURV9NSU5fU09DQ0xLICAgICAgICAgICAgIDIw
+MAo+ICsjZGVmaW5lIFJBVkVOX1VNRF9QU1RBVEVfTUlOX1ZDRSAgICAgICAgICAgICAgICAweDAx
+OTAwMTJDCj4gKwo+ICAjZW5kaWYKPiAtLQo+IDEuOS4xCj4KPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
