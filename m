@@ -1,49 +1,40 @@
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-Subject: Re: [trivial PATCH] treewide: Align function
- definition open/close braces
-Date: Mon, 18 Dec 2017 23:15:11 +0100
-Message-ID: <20171218221511.GH15162@piout.net>
-References: <1513556924.31581.51.camel@perches.com>
+From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Depth 30 enablement for ati-ddx + exa.
+Date: Mon, 18 Dec 2017 23:36:42 +0100
+Message-ID: <20171218223645.25142-1-mario.kleiner.de@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <alsa-devel-bounces@alsa-project.org>
-Content-Disposition: inline
-In-Reply-To: <1513556924.31581.51.camel@perches.com>
-List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
- <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
-List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
- <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Errors-To: alsa-devel-bounces@alsa-project.org
-Sender: alsa-devel-bounces@alsa-project.org
-To: Joe Perches <joe@perches.com>
-Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Jiri Kosina <trivial@kernel.org>, linux-scsi@vger.kernel.org, MPT-FusionLinux.pdl@broadcom.com, acpi4asus-user@lists.sourceforge.net, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-xfs@vger.kernel.org, linux-acpi@vger.kernel.org, linux-audit@redhat.com, amd-gfx@lists.freedesktop.org, netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>, ocfs2-devel@oss.oracle.com, linux-media@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
-On 17/12/2017 at 16:28:44 -0800, Joe Perches wrote:
-> Some functions definitions have either the initial open brace and/or
-> the closing brace outside of column 1.
-> 
-> Move those braces to column 1.
-> 
-> This allows various function analyzers like gnu complexity to work
-> properly for these modified functions.
-> 
-> Miscellanea:
-> 
-> o Remove extra trailing ; and blank line from xfs_agf_verify
-> 
-> Signed-off-by: Joe Perches <joe@perches.com>
-
-For RTC:
-
-Acked-by: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-
-
--- 
-Alexandre Belloni, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+SGksCgp0aGlzIGlzIHRoZSBwYXRjaCBzZXJpZXMgZm9yIGF0aS1kZHggdG8gZW5hYmxlIGRlcHRo
+IDMwCmNvbG9yIGRpc3BsYXkgdW5kZXIgZXhhLCB3aGljaCBpIHVzZWQgZm9yIHRlc3RpbmcgdGhl
+CmNvcnJlc3BvbmRpbmcgbWVzYSAzMCBiaXQgcmVuZGVyaW5nIHBhdGNoZXMuIFdvcmtzIHdlbGws
+CmFuZCBwaG90b21ldGVyIG1lYXN1cmVtZW50cyBjb25maXJtZWQgd2UgZ2V0IDEwIGJwYyBwZXIK
+Y29sb3IgY2hhbm5lbC4KCjEvMyBmaXhlcyBhIHNlcnZlciBjcmFzaCBpZiB4LXNjcmVlbiBkZXB0
+aCAzMCBpcyBzZWxlY3RlZC4KCjIvMyBpcyBhY3R1YWxseSBGcmVkcmlrIEhvZWdsdW5kcyB3b3Jr
+LCB3aGljaCBoZSBzZW50IG91dCBtYW55CnllYXJzIGFnbyB0byB0aGUgbWFpbGluZyBsaXN0LiBJ
+J3ZlIHRlc3RlZCBpdCB3aXRob3V0IHByb2JsZW1zCm9uIEhEIDU3NzAgZm9yIHRoZSBldmVyZ3Jl
+ZW4gZXhhIHBhdGgsIGFuZCBvbiBzb21lIEhEIDQwMDAgc2VyaWVzCihydjYzMCBpaXJjKSBmb3Ig
+dGhlIHI2MDAgZXhhIHBhdGgsIGFuZCBpdCBzZWVtcyB0byB3b3JrIG5pY2VseS4KCkl0IGFsc28g
+aGFzIGEgci1iIGJ5IG1lIGFzIGluICJsb29rcyBnb29kIHRvIG1lIiwgYnV0IGknbQpub3QgZmFt
+aWxpYXIgZW5vdWdoIHdpdGggZXhhIHRvIHJlYWxseSBqdWRnZSBpZiBpdCBpcyBjb21wbGV0ZSBv
+cgppZiBzb21ldGhpbmcgZm9yIHNvbWUgbW9yZSB1bnVzdWFsIGNhc2UgbWlnaHQgYmUgbWlzc2lu
+Zy4KCkkgZ3Vlc3MgaXQgYWxzbyBtaWdodCBuZWVkIGEgc2lnbmVkIG9mZiBieSBGcmVkcmlrPwoK
+My8zIHN3aXRjaGVzIGRlcHRoIDMwIG9uIGZvciBleGEgKyBMaW51eCAzLjE2IGFuZCBsYXRlciwg
+d2hlbiBkZXB0aAozMCBzY2Fub3V0IHdhcyBhZGRlZCB0byByYWRlb24ta21zLgoKVGhhbmtzLAot
+bWFyaW8KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
