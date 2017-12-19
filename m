@@ -1,402 +1,177 @@
-From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-Subject: Re: [trivial PATCH] treewide: Align function definition open/close
- braces
-Date: Tue, 19 Dec 2017 11:04:36 -0200
-Message-ID: <20171219110436.7d8a0733@vento.lan>
-References: <1513556924.31581.51.camel@perches.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Topaz mistakenly reported as vf
+Date: Tue, 19 Dec 2017 14:20:44 +0000
+Message-ID: <BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <2405754.qoBN6c2ta5@bee> <2725982.yAJCsOSm2P@localhost>
+ <BY2PR1201MB0935B6DE5790F85F6CEC05FDEB0F0@BY2PR1201MB0935.namprd12.prod.outlook.com>
+ <12522973.cAA0sX3idh@localhost>,
+ <BY2PR1201MB0935ECB9DDC4DE571DF65433EB0F0@BY2PR1201MB0935.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-In-Reply-To: <1513556924.31581.51.camel@perches.com>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: Joe Perches <joe@perches.com>
-Cc: Jiri Kosina <trivial@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org, acpi4asus-user@lists.sourceforge.net, platform-driver-x86@vger.kernel.org, linux-rtc@vger.kernel.org, linux-fsdevel@vger.kernel.org, ocfs2-devel@oss.oracle.com, linux-xfs@vger.kernel.org, linux-audit@redhat.com, alsa-devel@alsa-project.org, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1640970790=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BY2PR1201MB0935ECB9DDC4DE571DF65433EB0F0-O28G1zQ8oGkaqtME6NEo1mrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Jos=E9_Pekkarinen?= <jose.pekkarinen-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Em Sun, 17 Dec 2017 16:28:44 -0800
-Joe Perches <joe@perches.com> escreveu:
+--===============1640970790==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_"
 
-> Some functions definitions have either the initial open brace and/or
-> the closing brace outside of column 1.
-> 
-> Move those braces to column 1.
-> 
-> This allows various function analyzers like gnu complexity to work
-> properly for these modified functions.
-> 
-> Miscellanea:
-> 
-> o Remove extra trailing ; and blank line from xfs_agf_verify
-> 
-> Signed-off-by: Joe Perches <joe@perches.com>
+--_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-For the media patch:
-
-Acked-by: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-
-> ---
-> git diff -w shows no difference other than the above 'Miscellanea'
-> 
-> (this is against -next, but it applies against Linus' tree
->  with a couple offsets)
-> 
->  arch/x86/include/asm/atomic64_32.h                   |  2 +-
->  drivers/acpi/custom_method.c                         |  2 +-
->  drivers/acpi/fan.c                                   |  2 +-
->  drivers/gpu/drm/amd/display/dc/core/dc.c             |  2 +-
->  drivers/media/i2c/msp3400-kthreads.c                 |  2 +-
->  drivers/message/fusion/mptsas.c                      |  2 +-
->  drivers/net/ethernet/qlogic/netxen/netxen_nic_init.c |  2 +-
->  drivers/net/wireless/ath/ath9k/xmit.c                |  2 +-
->  drivers/platform/x86/eeepc-laptop.c                  |  2 +-
->  drivers/rtc/rtc-ab-b5ze-s3.c                         |  2 +-
->  drivers/scsi/dpt_i2o.c                               |  2 +-
->  drivers/scsi/sym53c8xx_2/sym_glue.c                  |  2 +-
->  fs/locks.c                                           |  2 +-
->  fs/ocfs2/stack_user.c                                |  2 +-
->  fs/xfs/libxfs/xfs_alloc.c                            |  5 ++---
->  fs/xfs/xfs_export.c                                  |  2 +-
->  kernel/audit.c                                       |  6 +++---
->  kernel/trace/trace_printk.c                          |  4 ++--
->  lib/raid6/sse2.c                                     | 14 +++++++-------
->  sound/soc/fsl/fsl_dma.c                              |  2 +-
->  20 files changed, 30 insertions(+), 31 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/atomic64_32.h b/arch/x86/include/asm/atomic64_32.h
-> index 97c46b8169b7..d4d4883080fa 100644
-> --- a/arch/x86/include/asm/atomic64_32.h
-> +++ b/arch/x86/include/asm/atomic64_32.h
-> @@ -122,7 +122,7 @@ static inline long long atomic64_read(const atomic64_t *v)
->  	long long r;
->  	alternative_atomic64(read, "=&A" (r), "c" (v) : "memory");
->  	return r;
-> - }
-> +}
->  
->  /**
->   * atomic64_add_return - add and return
-> diff --git a/drivers/acpi/custom_method.c b/drivers/acpi/custom_method.c
-> index c68e72414a67..e967c1173ba3 100644
-> --- a/drivers/acpi/custom_method.c
-> +++ b/drivers/acpi/custom_method.c
-> @@ -94,7 +94,7 @@ static void __exit acpi_custom_method_exit(void)
->  {
->  	if (cm_dentry)
->  		debugfs_remove(cm_dentry);
-> - }
-> +}
->  
->  module_init(acpi_custom_method_init);
->  module_exit(acpi_custom_method_exit);
-> diff --git a/drivers/acpi/fan.c b/drivers/acpi/fan.c
-> index 6cf4988206f2..3563103590c6 100644
-> --- a/drivers/acpi/fan.c
-> +++ b/drivers/acpi/fan.c
-> @@ -219,7 +219,7 @@ fan_set_cur_state(struct thermal_cooling_device *cdev, unsigned long state)
->  		return fan_set_state_acpi4(device, state);
->  	else
->  		return fan_set_state(device, state);
-> - }
-> +}
->  
->  static const struct thermal_cooling_device_ops fan_cooling_ops = {
->  	.get_max_state = fan_get_max_state,
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index d1488d5ee028..1e0d1e7c5324 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -461,7 +461,7 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
->   ******************************************************************************/
->  
->  struct dc *dc_create(const struct dc_init_data *init_params)
-> - {
-> +{
->  	struct dc *dc = kzalloc(sizeof(*dc), GFP_KERNEL);
->  	unsigned int full_pipe_count;
->  
-> diff --git a/drivers/media/i2c/msp3400-kthreads.c b/drivers/media/i2c/msp3400-kthreads.c
-> index 4dd01e9f553b..dc6cb8d475b3 100644
-> --- a/drivers/media/i2c/msp3400-kthreads.c
-> +++ b/drivers/media/i2c/msp3400-kthreads.c
-> @@ -885,7 +885,7 @@ static int msp34xxg_modus(struct i2c_client *client)
->  }
->  
->  static void msp34xxg_set_source(struct i2c_client *client, u16 reg, int in)
-> - {
-> +{
->  	struct msp_state *state = to_state(i2c_get_clientdata(client));
->  	int source, matrix;
->  
-> diff --git a/drivers/message/fusion/mptsas.c b/drivers/message/fusion/mptsas.c
-> index 345f6035599e..69a62d23514b 100644
-> --- a/drivers/message/fusion/mptsas.c
-> +++ b/drivers/message/fusion/mptsas.c
-> @@ -2968,7 +2968,7 @@ mptsas_exp_repmanufacture_info(MPT_ADAPTER *ioc,
->  	mutex_unlock(&ioc->sas_mgmt.mutex);
->  out:
->  	return ret;
-> - }
-> +}
->  
->  static void
->  mptsas_parse_device_info(struct sas_identify *identify,
-> diff --git a/drivers/net/ethernet/qlogic/netxen/netxen_nic_init.c b/drivers/net/ethernet/qlogic/netxen/netxen_nic_init.c
-> index 3dd973475125..0ea141ece19e 100644
-> --- a/drivers/net/ethernet/qlogic/netxen/netxen_nic_init.c
-> +++ b/drivers/net/ethernet/qlogic/netxen/netxen_nic_init.c
-> @@ -603,7 +603,7 @@ static struct uni_table_desc *nx_get_table_desc(const u8 *unirom, int section)
->  
->  static int
->  netxen_nic_validate_header(struct netxen_adapter *adapter)
-> - {
-> +{
->  	const u8 *unirom = adapter->fw->data;
->  	struct uni_table_desc *directory = (struct uni_table_desc *) &unirom[0];
->  	u32 fw_file_size = adapter->fw->size;
-> diff --git a/drivers/net/wireless/ath/ath9k/xmit.c b/drivers/net/wireless/ath/ath9k/xmit.c
-> index bd438062a6db..baedc7186b10 100644
-> --- a/drivers/net/wireless/ath/ath9k/xmit.c
-> +++ b/drivers/net/wireless/ath/ath9k/xmit.c
-> @@ -196,7 +196,7 @@ ath_tid_pull(struct ath_atx_tid *tid)
->  	}
->  
->  	return skb;
-> - }
-> +}
->  
->  static struct sk_buff *ath_tid_dequeue(struct ath_atx_tid *tid)
->  {
-> diff --git a/drivers/platform/x86/eeepc-laptop.c b/drivers/platform/x86/eeepc-laptop.c
-> index 5a681962899c..4c38904a8a32 100644
-> --- a/drivers/platform/x86/eeepc-laptop.c
-> +++ b/drivers/platform/x86/eeepc-laptop.c
-> @@ -492,7 +492,7 @@ static void eeepc_platform_exit(struct eeepc_laptop *eeepc)
->   * potentially bad time, such as a timer interrupt.
->   */
->  static void tpd_led_update(struct work_struct *work)
-> - {
-> +{
->  	struct eeepc_laptop *eeepc;
->  
->  	eeepc = container_of(work, struct eeepc_laptop, tpd_led_work);
-> diff --git a/drivers/rtc/rtc-ab-b5ze-s3.c b/drivers/rtc/rtc-ab-b5ze-s3.c
-> index a319bf1e49de..ef5c16dfabfa 100644
-> --- a/drivers/rtc/rtc-ab-b5ze-s3.c
-> +++ b/drivers/rtc/rtc-ab-b5ze-s3.c
-> @@ -648,7 +648,7 @@ static int abb5zes3_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alarm)
->  			ret);
->  
->  	return ret;
-> - }
-> +}
->  
->  /* Enable or disable battery low irq generation */
->  static inline int _abb5zes3_rtc_battery_low_irq_enable(struct regmap *regmap,
-> diff --git a/drivers/scsi/dpt_i2o.c b/drivers/scsi/dpt_i2o.c
-> index fd172b0890d3..a00d822e3142 100644
-> --- a/drivers/scsi/dpt_i2o.c
-> +++ b/drivers/scsi/dpt_i2o.c
-> @@ -3524,7 +3524,7 @@ static int adpt_i2o_systab_send(adpt_hba* pHba)
->  #endif
->  
->  	return ret;	
-> - }
-> +}
->  
->  
->  /*============================================================================
-> diff --git a/drivers/scsi/sym53c8xx_2/sym_glue.c b/drivers/scsi/sym53c8xx_2/sym_glue.c
-> index 791a2182de53..7320d5fe4cbc 100644
-> --- a/drivers/scsi/sym53c8xx_2/sym_glue.c
-> +++ b/drivers/scsi/sym53c8xx_2/sym_glue.c
-> @@ -1393,7 +1393,7 @@ static struct Scsi_Host *sym_attach(struct scsi_host_template *tpnt, int unit,
->  		scsi_host_put(shost);
->  
->  	return NULL;
-> - }
-> +}
->  
->  
->  /*
-> diff --git a/fs/locks.c b/fs/locks.c
-> index 21b4dfa289ee..d2399d001afe 100644
-> --- a/fs/locks.c
-> +++ b/fs/locks.c
-> @@ -559,7 +559,7 @@ static const struct lock_manager_operations lease_manager_ops = {
->   * Initialize a lease, use the default lock manager operations
->   */
->  static int lease_init(struct file *filp, long type, struct file_lock *fl)
-> - {
-> +{
->  	if (assign_type(fl, type) != 0)
->  		return -EINVAL;
->  
-> diff --git a/fs/ocfs2/stack_user.c b/fs/ocfs2/stack_user.c
-> index dae9eb7c441e..d2fb97b173da 100644
-> --- a/fs/ocfs2/stack_user.c
-> +++ b/fs/ocfs2/stack_user.c
-> @@ -398,7 +398,7 @@ static int ocfs2_control_do_setnode_msg(struct file *file,
->  
->  static int ocfs2_control_do_setversion_msg(struct file *file,
->  					   struct ocfs2_control_message_setv *msg)
-> - {
-> +{
->  	long major, minor;
->  	char *ptr = NULL;
->  	struct ocfs2_control_private *p = file->private_data;
-> diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
-> index 0da80019a917..217108f765d5 100644
-> --- a/fs/xfs/libxfs/xfs_alloc.c
-> +++ b/fs/xfs/libxfs/xfs_alloc.c
-> @@ -2401,7 +2401,7 @@ static bool
->  xfs_agf_verify(
->  	struct xfs_mount *mp,
->  	struct xfs_buf	*bp)
-> - {
-> +{
->  	struct xfs_agf	*agf = XFS_BUF_TO_AGF(bp);
->  
->  	if (xfs_sb_version_hascrc(&mp->m_sb)) {
-> @@ -2449,8 +2449,7 @@ xfs_agf_verify(
->  	     be32_to_cpu(agf->agf_refcount_level) > XFS_BTREE_MAXLEVELS))
->  		return false;
->  
-> -	return true;;
-> -
-> +	return true;
->  }
->  
->  static void
-> diff --git a/fs/xfs/xfs_export.c b/fs/xfs/xfs_export.c
-> index fe1bfee35898..7d5c355d78b5 100644
-> --- a/fs/xfs/xfs_export.c
-> +++ b/fs/xfs/xfs_export.c
-> @@ -122,7 +122,7 @@ xfs_nfs_get_inode(
->  	struct super_block	*sb,
->  	u64			ino,
->  	u32			generation)
-> - {
-> +{
->   	xfs_mount_t		*mp = XFS_M(sb);
->  	xfs_inode_t		*ip;
->  	int			error;
-> diff --git a/kernel/audit.c b/kernel/audit.c
-> index 227db99b0f19..d97e8f0f73ca 100644
-> --- a/kernel/audit.c
-> +++ b/kernel/audit.c
-> @@ -443,15 +443,15 @@ static int audit_set_failure(u32 state)
->   * Drop any references inside the auditd connection tracking struct and free
->   * the memory.
->   */
-> - static void auditd_conn_free(struct rcu_head *rcu)
-> - {
-> +static void auditd_conn_free(struct rcu_head *rcu)
-> +{
->  	struct auditd_connection *ac;
->  
->  	ac = container_of(rcu, struct auditd_connection, rcu);
->  	put_pid(ac->pid);
->  	put_net(ac->net);
->  	kfree(ac);
-> - }
-> +}
->  
->  /**
->   * auditd_set - Set/Reset the auditd connection state
-> diff --git a/kernel/trace/trace_printk.c b/kernel/trace/trace_printk.c
-> index ad1d6164e946..50f44b7b2b32 100644
-> --- a/kernel/trace/trace_printk.c
-> +++ b/kernel/trace/trace_printk.c
-> @@ -196,7 +196,7 @@ struct notifier_block module_trace_bprintk_format_nb = {
->  };
->  
->  int __trace_bprintk(unsigned long ip, const char *fmt, ...)
-> - {
-> +{
->  	int ret;
->  	va_list ap;
->  
-> @@ -214,7 +214,7 @@ int __trace_bprintk(unsigned long ip, const char *fmt, ...)
->  EXPORT_SYMBOL_GPL(__trace_bprintk);
->  
->  int __ftrace_vbprintk(unsigned long ip, const char *fmt, va_list ap)
-> - {
-> +{
->  	if (unlikely(!fmt))
->  		return 0;
->  
-> diff --git a/lib/raid6/sse2.c b/lib/raid6/sse2.c
-> index 1d2276b007ee..8191e1d0d2fb 100644
-> --- a/lib/raid6/sse2.c
-> +++ b/lib/raid6/sse2.c
-> @@ -91,7 +91,7 @@ static void raid6_sse21_gen_syndrome(int disks, size_t bytes, void **ptrs)
->  
->  static void raid6_sse21_xor_syndrome(int disks, int start, int stop,
->  				     size_t bytes, void **ptrs)
-> - {
-> +{
->  	u8 **dptr = (u8 **)ptrs;
->  	u8 *p, *q;
->  	int d, z, z0;
-> @@ -200,9 +200,9 @@ static void raid6_sse22_gen_syndrome(int disks, size_t bytes, void **ptrs)
->  	kernel_fpu_end();
->  }
->  
-> - static void raid6_sse22_xor_syndrome(int disks, int start, int stop,
-> +static void raid6_sse22_xor_syndrome(int disks, int start, int stop,
->  				     size_t bytes, void **ptrs)
-> - {
-> +{
->  	u8 **dptr = (u8 **)ptrs;
->  	u8 *p, *q;
->  	int d, z, z0;
-> @@ -265,7 +265,7 @@ static void raid6_sse22_gen_syndrome(int disks, size_t bytes, void **ptrs)
->  
->  	asm volatile("sfence" : : : "memory");
->  	kernel_fpu_end();
-> - }
-> +}
->  
->  const struct raid6_calls raid6_sse2x2 = {
->  	raid6_sse22_gen_syndrome,
-> @@ -366,9 +366,9 @@ static void raid6_sse24_gen_syndrome(int disks, size_t bytes, void **ptrs)
->  	kernel_fpu_end();
->  }
->  
-> - static void raid6_sse24_xor_syndrome(int disks, int start, int stop,
-> +static void raid6_sse24_xor_syndrome(int disks, int start, int stop,
->  				     size_t bytes, void **ptrs)
-> - {
-> +{
->  	u8 **dptr = (u8 **)ptrs;
->  	u8 *p, *q;
->  	int d, z, z0;
-> @@ -471,7 +471,7 @@ static void raid6_sse24_gen_syndrome(int disks, size_t bytes, void **ptrs)
->  	}
->  	asm volatile("sfence" : : : "memory");
->  	kernel_fpu_end();
-> - }
-> +}
->  
->  
->  const struct raid6_calls raid6_sse2x4 = {
-> diff --git a/sound/soc/fsl/fsl_dma.c b/sound/soc/fsl/fsl_dma.c
-> index 0c11f434a374..ec619f51d336 100644
-> --- a/sound/soc/fsl/fsl_dma.c
-> +++ b/sound/soc/fsl/fsl_dma.c
-> @@ -879,7 +879,7 @@ static const struct snd_pcm_ops fsl_dma_ops = {
->  };
->  
->  static int fsl_soc_dma_probe(struct platform_device *pdev)
-> - {
-> +{
->  	struct dma_object *dma;
->  	struct device_node *np = pdev->dev.of_node;
->  	struct device_node *ssi_np;
-> 
+Please make sure we only check that register on asics where it is relevant.=
+  There are a bunch of VI asics.  It should probably be restricted to tonga=
+ and fiji only.
 
 
+Alex
 
-Thanks,
-Mauro
+
+________________________________
+From: Yu, Xiangliang
+Sent: Tuesday, December 19, 2017 2:44 AM
+To: Jos=E9 Pekkarinen
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koenig, Christian
+Subject: RE: Topaz mistakenly reported as vf
+
+We can add ASIC check in vi_detect_hw_virtualization function to avoid to e=
+ntry error path.
+I'll submit patch later.
+
+Thanks!
+
+> -----Original Message-----
+> From: Jos=E9 Pekkarinen [mailto:jose.pekkarinen-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org]
+> Sent: Tuesday, December 19, 2017 3:27 PM
+> To: Yu, Xiangliang <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+> Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander
+> <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian
+> <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+> Subject: Re: Topaz mistakenly reported as vf
+>
+> On Tuesday, 19 December 2017 09:19:02 EET Yu, Xiangliang wrote:
+> > Topaz doesn't support SRIOV.
+> >
+>
+>        Hi Xiangliang,
+>
+>        Allow me to ask for some attention, as I'm trying to say that give=
+n
+> that Topaz is not having support, amdgpu_sriov_vf(adev) may return false
+> and ignore the vi.c code path. Instead of it, it enters the code path and
+> reaches the BUG_ON that states this is not supported.
+>
+>        Thanks for coming back!
+>
+>        Jos=E9.
+>
+
+
+--_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Please make sure we only check th=
+at register on asics where it is relevant.&nbsp; There are a bunch of VI as=
+ics.&nbsp; It should probably be restricted to tonga and fiji only.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Yu, Xiangliang<br>
+<b>Sent:</b> Tuesday, December 19, 2017 2:44 AM<br>
+<b>To:</b> Jos=E9 Pekkarinen<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koenig, Chris=
+tian<br>
+<b>Subject:</b> RE: Topaz mistakenly reported as vf</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">We can add ASIC check in vi_detect_hw_virtualizati=
+on function to avoid to entry error path.<br>
+I'll submit patch later.<br>
+<br>
+Thanks!<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Jos=E9 Pekkarinen [<a href=3D"mailto:jose.pekkarinen@canonical.c=
+om">mailto:jose.pekkarinen-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org</a>]<br>
+&gt; Sent: Tuesday, December 19, 2017 3:27 PM<br>
+&gt; To: Yu, Xiangliang &lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander<br>
+&gt; &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian<br>
+&gt; &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: Re: Topaz mistakenly reported as vf<br>
+&gt; <br>
+&gt; On Tuesday, 19 December 2017 09:19:02 EET Yu, Xiangliang wrote:<br>
+&gt; &gt; Topaz doesn't support SRIOV.<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hi Xiangliang,<br>
+&gt; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Allow me to ask for some att=
+ention, as I'm trying to say that given<br>
+&gt; that Topaz is not having support, amdgpu_sriov_vf(adev) may return fal=
+se<br>
+&gt; and ignore the vi.c code path. Instead of it, it enters the code path =
+and<br>
+&gt; reaches the BUG_ON that states this is not supported.<br>
+&gt; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thanks for coming back!<br>
+&gt; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jos=E9.<br>
+&gt; <br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_--
+
+--===============1640970790==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1640970790==--
