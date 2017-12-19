@@ -1,16 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Topaz mistakenly reported as vf
-Date: Tue, 19 Dec 2017 14:20:44 +0000
-Message-ID: <BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <2405754.qoBN6c2ta5@bee> <2725982.yAJCsOSm2P@localhost>
- <BY2PR1201MB0935B6DE5790F85F6CEC05FDEB0F0@BY2PR1201MB0935.namprd12.prod.outlook.com>
- <12522973.cAA0sX3idh@localhost>,
- <BY2PR1201MB0935ECB9DDC4DE571DF65433EB0F0@BY2PR1201MB0935.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/4] drm/amd/pp: move smu_version out vega to hwmgr
+Date: Tue, 19 Dec 2017 09:28:04 -0500
+Message-ID: <CADnq5_NspD+NbTLDCuHVhdZy4d77_VJovTUDeO0Gy7KYL-Bqwg@mail.gmail.com>
+References: <1513671094-5078-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1640970790=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB0935ECB9DDC4DE571DF65433EB0F0-O28G1zQ8oGkaqtME6NEo1mrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1513671094-5078-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,157 +18,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Jos=E9_Pekkarinen?= <jose.pekkarinen-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1640970790==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_"
-
---_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Please make sure we only check that register on asics where it is relevant.=
-  There are a bunch of VI asics.  It should probably be restricted to tonga=
- and fiji only.
-
-
-Alex
-
-
-________________________________
-From: Yu, Xiangliang
-Sent: Tuesday, December 19, 2017 2:44 AM
-To: Jos=E9 Pekkarinen
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koenig, Christian
-Subject: RE: Topaz mistakenly reported as vf
-
-We can add ASIC check in vi_detect_hw_virtualization function to avoid to e=
-ntry error path.
-I'll submit patch later.
-
-Thanks!
-
-> -----Original Message-----
-> From: Jos=E9 Pekkarinen [mailto:jose.pekkarinen-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org]
-> Sent: Tuesday, December 19, 2017 3:27 PM
-> To: Yu, Xiangliang <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
-> Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander
-> <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian
-> <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-> Subject: Re: Topaz mistakenly reported as vf
->
-> On Tuesday, 19 December 2017 09:19:02 EET Yu, Xiangliang wrote:
-> > Topaz doesn't support SRIOV.
-> >
->
->        Hi Xiangliang,
->
->        Allow me to ask for some attention, as I'm trying to say that give=
-n
-> that Topaz is not having support, amdgpu_sriov_vf(adev) may return false
-> and ignore the vi.c code path. Instead of it, it enters the code path and
-> reaches the BUG_ON that states this is not supported.
->
->        Thanks for coming back!
->
->        Jos=E9.
->
-
-
---_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Please make sure we only check th=
-at register on asics where it is relevant.&nbsp; There are a bunch of VI as=
-ics.&nbsp; It should probably be restricted to tonga and fiji only.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Yu, Xiangliang<br>
-<b>Sent:</b> Tuesday, December 19, 2017 2:44 AM<br>
-<b>To:</b> Jos=E9 Pekkarinen<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koenig, Chris=
-tian<br>
-<b>Subject:</b> RE: Topaz mistakenly reported as vf</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">We can add ASIC check in vi_detect_hw_virtualizati=
-on function to avoid to entry error path.<br>
-I'll submit patch later.<br>
-<br>
-Thanks!<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Jos=E9 Pekkarinen [<a href=3D"mailto:jose.pekkarinen@canonical.c=
-om">mailto:jose.pekkarinen-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org</a>]<br>
-&gt; Sent: Tuesday, December 19, 2017 3:27 PM<br>
-&gt; To: Yu, Xiangliang &lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander<br>
-&gt; &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian<br>
-&gt; &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: Re: Topaz mistakenly reported as vf<br>
-&gt; <br>
-&gt; On Tuesday, 19 December 2017 09:19:02 EET Yu, Xiangliang wrote:<br>
-&gt; &gt; Topaz doesn't support SRIOV.<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hi Xiangliang,<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Allow me to ask for some att=
-ention, as I'm trying to say that given<br>
-&gt; that Topaz is not having support, amdgpu_sriov_vf(adev) may return fal=
-se<br>
-&gt; and ignore the vi.c code path. Instead of it, it enters the code path =
-and<br>
-&gt; reaches the BUG_ON that states this is not supported.<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thanks for coming back!<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jos=E9.<br>
-&gt; <br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB16521EC059E5AFAE3A2F15EDF70F0BN6PR12MB1652namp_--
-
---===============1640970790==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1640970790==--
+T24gVHVlLCBEZWMgMTksIDIwMTcgYXQgMzoxMSBBTSwgUmV4IFpodSA8UmV4LlpodUBhbWQuY29t
+PiB3cm90ZToKClBsZWFzZSBpbmNsdWRlIGEgYmV0dGVyIHBhdGNoIGRlc2NyaXB0aW9uLiAgU29t
+ZXRoaW5nIGxpa2U6Ck1vdmUgdGhlIHNtdV92ZXJzaW9uIHRvIGNvbW1vbiBjb2RlIHNvIGl0IGNh
+biBiZSBzaGFyZWQgYnkgb3RoZXIgYXNpY3MuCgpXaXRoIHRoYXQgZml4ZWQ6ClJldmlld2VkLWJ5
+OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IENoYW5nZS1JZDog
+SWU4YzMyNjYzYWEwZDYxYTFkZmRkOGUwMTk1MDljYjU1MWYxMzdhYTAKPiBTaWduZWQtb2ZmLWJ5
+OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIHwgOCArKysrLS0tLQo+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuaCB8IDEgLQo+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaCAgICAgICAgICB8IDEgKwo+ICAzIGZp
+bGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gaW5k
+ZXggZjAyOTVmYS4uMmQ1NWRhYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gQEAgLTQyNiw5ICs0MjYsOSBAQCBzdGF0
+aWMgdm9pZCB2ZWdhMTBfaW5pdF9kcG1fZGVmYXVsdHMoc3RydWN0IHBwX2h3bWdyICpod21ncikK
+PiAgICAgICAgICAgICAgICAgZGF0YS0+c211X2ZlYXR1cmVzW0dOTERfVlIwSE9UXS5zdXBwb3J0
+ZWQgPSB0cnVlOwo+Cj4gICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nciwgUFBTTUNf
+TVNHX0dldFNtdVZlcnNpb24pOwo+IC0gICAgICAgdmVnYTEwX3JlYWRfYXJnX2Zyb21fc21jKGh3
+bWdyLCAmKGRhdGEtPnNtdV92ZXJzaW9uKSk7Cj4gKyAgICAgICB2ZWdhMTBfcmVhZF9hcmdfZnJv
+bV9zbWMoaHdtZ3IsICYoaHdtZ3ItPnNtdV92ZXJzaW9uKSk7Cj4gICAgICAgICAgICAgICAgIC8q
+IEFDRyBmaXJtd2FyZSBoYXMgbWFqb3IgdmVyc2lvbiA1ICovCj4gLSAgICAgICBpZiAoKGRhdGEt
+PnNtdV92ZXJzaW9uICYgMHhmZjAwMDAwMCkgPT0gMHg1MDAwMDAwKQo+ICsgICAgICAgaWYgKCho
+d21nci0+c211X3ZlcnNpb24gJiAweGZmMDAwMDAwKSA9PSAweDUwMDAwMDApCj4gICAgICAgICAg
+ICAgICAgIGRhdGEtPnNtdV9mZWF0dXJlc1tHTkxEX0FDR10uc3VwcG9ydGVkID0gdHJ1ZTsKPgo+
+ICAgICAgICAgaWYgKGRhdGEtPnJlZ2lzdHJ5X2RhdGEuZGlkdF9zdXBwb3J0KQo+IEBAIC0yODc5
+LDggKzI4NzksOCBAQCBzdGF0aWMgaW50IHZlZ2ExMF9lbmFibGVfZHBtX3Rhc2tzKHN0cnVjdCBw
+cF9od21nciAqaHdtZ3IpCj4gICAgICAgICAgICAgICAgICAgICAgICAgIkRQTSBpcyBhbHJlYWR5
+IHJ1bm5pbmcgcmlnaHQgLCBza2lwcGluZyByZS1lbmFibGVtZW50ISIsCj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgcmV0dXJuIDApOwo+Cj4gLSAgICAgICBpZiAoKGRhdGEtPnNtdV92ZXJzaW9u
+ID09IDB4MDAxYzJjMDApIHx8Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgKGRhdGEtPnNtdV92
+ZXJzaW9uID09IDB4MDAxYzJkMDApKSB7Cj4gKyAgICAgICBpZiAoKGh3bWdyLT5zbXVfdmVyc2lv
+biA9PSAweDAwMWMyYzAwKSB8fAo+ICsgICAgICAgICAgICAgICAgICAgICAgIChod21nci0+c211
+X3ZlcnNpb24gPT0gMHgwMDFjMmQwMCkpIHsKPiAgICAgICAgICAgICAgICAgdG1wX3Jlc3VsdCA9
+IHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1VwZGF0ZVBrZ1B3clBpZEFscGhhLCAxKTsK
+PiAgICAgICAgICAgICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERSghdG1wX3Jlc3VsdCwKPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
+LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuaAo+
+IGluZGV4IDhmNzM1OGMuLmU4NTA3ZmYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuaAo+IEBAIC0zODcsNyArMzg3LDYgQEAg
+c3RydWN0IHZlZ2ExMF9od21nciB7Cj4gICAgICAgICBzdHJ1Y3QgdmVnYTEwX3NtY19zdGF0ZV90
+YWJsZSAgc21jX3N0YXRlX3RhYmxlOwo+Cj4gICAgICAgICB1aW50MzJfdCAgICAgICAgICAgICAg
+ICAgICAgICAgY29uZmlnX3RlbGVtZXRyeTsKPiAtICAgICAgIHVpbnQzMl90ICAgICAgICAgICAg
+ICAgICAgICAgICBzbXVfdmVyc2lvbjsKPiAgICAgICAgIHVpbnQzMl90ICAgICAgICAgICAgICAg
+ICAgICAgICBhY2dfbG9vcF9zdGF0ZTsKPiAgICAgICAgIHVpbnQzMl90ICAgICAgICAgICAgICAg
+ICAgICAgICBtZW1fY2hhbm5lbHM7Cj4gIH07Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvaW5jL2h3bWdyLmgKPiBpbmRleCAzOWVlZGJjLi41NjVmZTA4IDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKPiBAQCAtNjkyLDYgKzY5Miw3IEBAIGVu
+dW0gUFBfVEFCTEVfVkVSU0lPTiB7Cj4gIHN0cnVjdCBwcF9od21nciB7Cj4gICAgICAgICB1aW50
+MzJfdCBjaGlwX2ZhbWlseTsKPiAgICAgICAgIHVpbnQzMl90IGNoaXBfaWQ7Cj4gKyAgICAgICB1
+aW50MzJfdCBzbXVfdmVyc2lvbjsKPgo+ICAgICAgICAgdWludDMyX3QgcHBfdGFibGVfdmVyc2lv
+bjsKPiAgICAgICAgIHZvaWQgKmRldmljZTsKPiAtLQo+IDEuOS4xCj4KPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0
+Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
