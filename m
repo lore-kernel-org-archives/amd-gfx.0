@@ -1,14 +1,15 @@
-From: =?ISO-8859-1?Q?Jos=E9?= Pekkarinen <jose.pekkarinen-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Subject: Re: Topaz mistakenly reported as vf
-Date: Tue, 19 Dec 2017 09:50:44 +0200
-Message-ID: <2232774.d6XA96ciAX@localhost>
-References: <2405754.qoBN6c2ta5@bee> <12522973.cAA0sX3idh@localhost>
- <BY2PR1201MB0935ECB9DDC4DE571DF65433EB0F0@BY2PR1201MB0935.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 1/3] Fix xf86HandleColormaps() crash at color depth 30.
+Date: Tue, 19 Dec 2017 09:58:10 +0100
+Message-ID: <3e792109-b517-4f4c-26eb-033b903bfba8@daenzer.net>
+References: <20171218223645.25142-1-mario.kleiner.de@gmail.com>
+ <20171218223645.25142-2-mario.kleiner.de@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="nextPart3268520.Pp8NGv4lD9"
-Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB0935ECB9DDC4DE571DF65433EB0F0-O28G1zQ8oGkaqtME6NEo1mrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <20171218223645.25142-2-mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,75 +20,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
-
---nextPart3268520.Pp8NGv4lD9
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-
-On Tuesday, 19 December 2017 09:44:00 EET Yu, Xiangliang wrote:
-> We can add ASIC check in vi_detect_hw_virtualization function to avoid to
-> entry error path. I'll submit patch later.
->=20
-> Thanks!
-
-	Awesome, thanks!
-
-	Also, I noticed the following patch in case you can consider it for=20
-upstream.
-
-	Best regards.
-
-	Jos=E9.
---nextPart3268520.Pp8NGv4lD9
-Content-Disposition: attachment; filename="0001-Release-the-mutex-hold-before-backtracing-for-not-su.patch"
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/x-patch; charset="UTF-8"; name="0001-Release-the-mutex-hold-before-backtracing-for-not-su.patch"
-
-=46rom dc691db50dbfb213aaee2b76574a5e8de2d7bca0 Mon Sep 17 00:00:00 2001
-=46rom: =3D?UTF-8?q?Jos=3DC3=3DA9=3D20Pekkarinen?=3D <koalinux-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Date: Tue, 19 Dec 2017 09:39:50 +0200
-Subject: [PATCH] Release the mutex hold before backtracing for not supported
- mxgpu.
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
-
-Signed-off-by: Jos=C3=A9 Pekkarinen <koalinux-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-=2D--
- drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/am=
-dgpu/mxgpu_vi.c
-index c25a831f94ec..cac1d8b003e6 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-@@ -307,6 +307,7 @@ void xgpu_vi_init_golden_registers(struct amdgpu_device=
- *adev)
- 						 xgpu_tonga_golden_common_all));
- 		break;
- 	default:
-+		mutex_unlock(&adev->grbm_idx_mutex);
- 		BUG_ON("Doesn't support chip type.\n");
- 		break;
- 	}
-=2D-=20
-2.13.6
-
-
---nextPart3268520.Pp8NGv4lD9
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---nextPart3268520.Pp8NGv4lD9--
+T24gMjAxNy0xMi0xOCAxMTozNiBQTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPiBUaGUgc2l6ZSBv
+ZiB0aGUgWC1TZXJ2ZXIgcFNjcmVlblByaXYtPlByZUFsbG9jSW5kaWNlcwo+IGFycmF5IGFsbG9j
+YXRlZCB3aXRoaW4geGY4NkhhbmRsZUNvbG9ybWFwcygpIGlzIGdpdmVuCj4gYnkgdGhlIGdpdmVu
+IG1heENvbG9ycyBhcmd1bWVudCwgYnV0IHRoZSByYW5nZSBvZgo+IGluZGljZXMgYnkgd2hpY2gg
+dGhlIFByZUFsbG9jSW5kaWNlcyBhcnJheSBpcyBpbmRleGVkCj4gaW4gcm91dGluZXMgbGlrZSBD
+TWFwUmVpbnN0YWxsTWFwKCkgc2VlbXMgdG8gYmUgdXAgdG8KPiAxMDIzIG9uIGEgMTAgYnBjIC8g
+ZGVwdGggMzAgc2NyZWVuLCBsZWFkaW5nIHRvIGFuCj4gb3V0LW9mLWJvdW5kcyBhY2Nlc3MgYW5k
+IHNlcnZlciBjcmFzaC4KPiAKPiBSYWlzaW5nIG1heENvbG9ycyB0byAxMDI0IGZpeGVzIHRoZSBj
+cmFzaCBhdCBzZXJ2ZXIKPiBzdGFydHVwIHdpdGggWC1TY3JlZW4gY29sb3IgZGVwdGggMzAuCj4g
+Cj4gU2lnbmVkLW9mZi1ieTogTWFyaW8gS2xlaW5lciA8bWFyaW8ua2xlaW5lci5kZUBnbWFpbC5j
+b20+Cj4gLS0tCj4gIHNyYy9kcm1tb2RlX2Rpc3BsYXkuYyB8IDMgKystCj4gIDEgZmlsZSBjaGFu
+Z2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvc3Jj
+L2RybW1vZGVfZGlzcGxheS5jIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCj4gaW5kZXggN2FkMzIz
+NS4uNjdkYjg2ZSAxMDA2NDQKPiAtLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKPiArKysgYi9z
+cmMvZHJtbW9kZV9kaXNwbGF5LmMKPiBAQCAtMjczMCw4ICsyNzMwLDkgQEAgQm9vbCBkcm1tb2Rl
+X3NldHVwX2NvbG9ybWFwKFNjcmVlblB0ciBwU2NyZWVuLCBTY3JuSW5mb1B0ciBwU2NybikKPiAg
+CQkgICAgICAgIkluaXRpYWxpemluZyBrbXMgY29sb3IgbWFwXG4iKTsKPiAgCWlmICghbWlDcmVh
+dGVEZWZDb2xvcm1hcChwU2NyZWVuKSkKPiAgCSAgICByZXR1cm4gRkFMU0U7Cj4gKwo+ICAJLyog
+YWxsIHJhZGVvbnMgc3VwcG9ydCAxMCBiaXQgQ0xVVHMgKi8KPiAtCWlmICgheGY4NkhhbmRsZUNv
+bG9ybWFwcyhwU2NyZWVuLCAyNTYsIDEwLAo+ICsJaWYgKCF4Zjg2SGFuZGxlQ29sb3JtYXBzKHBT
+Y3JlZW4sIDEwMjQsIDEwLAo+ICAJCQkJIE5VTEwsIE5VTEwsCj4gIAkJCQkgQ01BUF9QQUxFVFRF
+RF9UUlVFQ09MT1IKPiAgI2lmIDAgLyogVGhpcyBvcHRpb24gbWVzc2VzIHVwIHRleHQgbW9kZSEg
+KGVpY2hAc3VzZS5kZSkgKi8KPiAKClRoZSBoYXJkd2FyZSBDTFVUIGlzbid0IGFjdHVhbGx5IHVz
+ZWQgYXQgZGVwdGggMzAsIHNvIGEgYmV0dGVyIHNvbHV0aW9uCndvdWxkIGJlIHRvIHNraXAgdGhl
+IHhmODZIYW5kbGVDb2xvcm1hcHMgY2FsbCAoYW5kIHByb2JhYmx5IGFsc28gc2V0CnhmODZDcnRj
+RnVuY3NSZWM6OmdhbW1hX3NldCA9IE5VTEwpIGZvciBwU2Nybi0+ZGVwdGggPT0gMzAuCgoKLS0g
+CkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBo
+dHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8
+ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
