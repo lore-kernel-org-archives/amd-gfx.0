@@ -1,59 +1,39 @@
-From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 3/3] Support exa screen color depth 30 on Linux 3.16 and later.
-Date: Mon, 18 Dec 2017 23:36:45 +0100
-Message-ID: <20171218223645.25142-4-mario.kleiner.de@gmail.com>
-References: <20171218223645.25142-1-mario.kleiner.de@gmail.com>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+Subject: Re: [trivial PATCH] treewide: Align function
+	definition open/close braces
+Date: Mon, 18 Dec 2017 22:31:06 -0500
+Message-ID: <yq1shc7jsw5.fsf@oracle.com>
+References: <1513556924.31581.51.camel@perches.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171218223645.25142-1-mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <alsa-devel-bounces@alsa-project.org>
+In-Reply-To: <1513556924.31581.51.camel@perches.com> (Joe Perches's message of
+ "Sun, 17 Dec 2017 16:28:44 -0800")
+List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
+List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Errors-To: alsa-devel-bounces@alsa-project.org
+Sender: alsa-devel-bounces@alsa-project.org
+To: Joe Perches <joe@perches.com>
+Cc: linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, Jiri Kosina <trivial@kernel.org>, linux-scsi@vger.kernel.org, MPT-FusionLinux.pdl@broadcom.com, acpi4asus-user@lists.sourceforge.net, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-xfs@vger.kernel.org, linux-acpi@vger.kernel.org, linux-audit@redhat.com, amd-gfx@lists.freedesktop.org, netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>, ocfs2-devel@oss.oracle.com, linux-media@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-TGludXggMy4xNidzIHJhZGVvbi1rbXMgaW50cm9kdWNlZCAxMCBicGMgZmIgc3VwcG9ydC4KQ3Vy
-cmVudGx5LCBhcyBvZiBYLVNlcnZlciAxLjE5LCB0aGlzIHdvcmtzIHdpdGggZXhhIGFjY2VsLApi
-dXQgbm90IHlldCB3aGVuIHVzaW5nIGdsYW1vciBhY2NlbGVyYXRpb24uCgpTaWduZWQtb2ZmLWJ5
-OiBNYXJpbyBLbGVpbmVyIDxtYXJpby5rbGVpbmVyLmRlQGdtYWlsLmNvbT4KLS0tCiBtYW4vcmFk
-ZW9uLm1hbiAgIHwgIDMgKystCiBzcmMvcmFkZW9uX2ttcy5jIHwgMTcgKysrKysrKysrKysrKysr
-KysKIDIgZmlsZXMgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlm
-ZiAtLWdpdCBhL21hbi9yYWRlb24ubWFuIGIvbWFuL3JhZGVvbi5tYW4KaW5kZXggZjQ0NDFjNC4u
-ZDg4OGFjMCAxMDA2NDQKLS0tIGEvbWFuL3JhZGVvbi5tYW4KKysrIGIvbWFuL3JhZGVvbi5tYW4K
-QEAgLTE4LDcgKzE4LDggQEAgZm9sbG93aW5nIGZlYXR1cmVzOgogLlBEIDAKIC5UUCAyCiBcKGJ1
-Ci1GdWxsIHN1cHBvcnQgZm9yIDgtLCAxNS0sIDE2LSBhbmQgMjQtYml0IHBpeGVsIGRlcHRoczsK
-K0Z1bGwgc3VwcG9ydCBmb3IgOC0sIDE1LSwgMTYtIGFuZCAyNC1iaXQgcGl4ZWwgZGVwdGhzLCBh
-bmQgZm9yIDMwLWJpdCBkZXB0aCBvbiBMaW51eCAzLjE2CithbmQgbGF0ZXIgd2l0aCBleGEgYWNj
-ZWxlcmF0aW9uOwogLlRQCiBcKGJ1CiBSYW5kUiAxLjIgYW5kIFJhbmRSIDEuMyBzdXBwb3J0Owpk
-aWZmIC0tZ2l0IGEvc3JjL3JhZGVvbl9rbXMuYyBiL3NyYy9yYWRlb25fa21zLmMKaW5kZXggYTkz
-MDBkNC4uMjk2YmM2YyAxMDA2NDQKLS0tIGEvc3JjL3JhZGVvbl9rbXMuYworKysgYi9zcmMvcmFk
-ZW9uX2ttcy5jCkBAIC0xMjQ4LDYgKzEyNDgsNyBAQCBzdGF0aWMgQm9vbCBSQURFT05QcmVJbml0
-VmlzdWFsKFNjcm5JbmZvUHRyIHBTY3JuKQogICAgIGNhc2UgMTU6CiAgICAgY2FzZSAxNjoKICAg
-ICBjYXNlIDI0OgorICAgIGNhc2UgMzA6CiAJYnJlYWs7CiAKICAgICBkZWZhdWx0OgpAQCAtMTc2
-Myw2ICsxNzY0LDIyIEBAIEJvb2wgUkFERU9OUHJlSW5pdF9LTVMoU2NybkluZm9QdHIgcFNjcm4s
-IGludCBmbGFncykKIAogICAgIGlmICghUkFERU9OUHJlSW5pdEFjY2VsX0tNUyhwU2NybikpICAg
-ICAgICAgICAgICBnb3RvIGZhaWw7CiAKKyAgICAvKiBEZXB0aCAzMCBvbmx5IHN1cHBvcnRlZCBz
-aW5jZSBMaW51eCAzLjE2IC8ga21zIGRyaXZlciBtaW5vciB2ZXJzaW9uIDM5ICovCisgICAgaWYg
-KChwU2Nybi0+ZGVwdGggPT0gMzApICYmIChpbmZvLT5kcmkyLnBLZXJuZWxEUk1WZXJzaW9uLT52
-ZXJzaW9uX21pbm9yIDwgMzkpKSB7CisJeGY4NkRydk1zZyhwU2Nybi0+c2NybkluZGV4LCBYX0VS
-Uk9SLAorCQkgICAiR2l2ZW4gZGVwdGggKCVkKSBpcyBub3Qgc3VwcG9ydGVkLiBLZXJuZWwgdG9v
-IG9sZC4gTmVlZHMgTGludXggMy4xNitcbiIsCisJCSAgIHBTY3JuLT5kZXB0aCk7CisJZ290byBm
-YWlsOworICAgIH0KKworICAgIC8qIERlcHRoIDMwIG5vdCB5ZXQgc3VwcG9ydGVkIHVuZGVyIGds
-YW1vci4gKi8KKyAgICBpZiAoKHBTY3JuLT5kZXB0aCA9PSAzMCkgJiYgaW5mby0+dXNlX2dsYW1v
-cikgeworCXhmODZEcnZNc2cocFNjcm4tPnNjcm5JbmRleCwgWF9FUlJPUiwKKwkJICAgIkdpdmVu
-IGRlcHRoICglZCkgaXMgbm90IHN1cHBvcnRlZCB1bmRlciBnbGFtb3IgYWNjZWwuIFNlbGVjdCBl
-eGEuXG4iLAorCQkgICBwU2Nybi0+ZGVwdGgpOworCWdvdG8gZmFpbDsKKyAgICB9CisKICAgICBy
-YWRlb25fZHJtX3F1ZXVlX2luaXQoKTsKIAogICAgIGluZm8tPmFsbG93Q29sb3JUaWxpbmcyRCA9
-IEZBTFNFOwotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+
+Joe,
+
+> Some functions definitions have either the initial open brace and/or
+> the closing brace outside of column 1.
+>
+> Move those braces to column 1.
+
+SCSI bits look OK.
+
+Acked-by: Martin K. Petersen <martin.petersen@oracle.com>
+
+-- 
+Martin K. Petersen	Oracle Linux Engineering
