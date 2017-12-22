@@ -1,12 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: Get and save CZ/ST smu version
-Date: Fri, 22 Dec 2017 00:29:05 +0000
-Message-ID: <BN6PR12MB16525C02E9F9E3F23C1A9709F7020@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1513852896-24551-1-git-send-email-Rex.Zhu@amd.com>
+From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/3] Fix xf86HandleColormaps() crash at color depth 30.
+Date: Fri, 22 Dec 2017 02:49:33 +0100
+Message-ID: <bd1746c1-63ed-eed4-5dae-c79e6a88c9e3@gmail.com>
+References: <20171218223645.25142-1-mario.kleiner.de@gmail.com>
+ <20171218223645.25142-2-mario.kleiner.de@gmail.com>
+ <3e792109-b517-4f4c-26eb-033b903bfba8@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0287094702=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1513852896-24551-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <3e792109-b517-4f4c-26eb-033b903bfba8-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,231 +21,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0287094702==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16525C02E9F9E3F23C1A9709F7020BN6PR12MB1652namp_"
-
---_000_BN6PR12MB16525C02E9F9E3F23C1A9709F7020BN6PR12MB1652namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, December 21, 2017 5:41:36 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH] drm/amd/pp: Get and save CZ/ST smu version
-
-The smu firmware is loaded by the sbios on APUs, so query it
-from the smu and save the smu fw version info that is reported
-to userspace.
-
-Change-Id: Ifce41405c0369610985881cea26e14b0525e4d25
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c          |  2 ++
- drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c | 13 +++++++++++++
- 2 files changed, 15 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_cgs.c
-index 13607e2..4466f35 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-@@ -801,6 +801,8 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_devi=
-ce *cgs_device,
-                                 else
-                                         strcpy(fw_name, "amdgpu/vega10_smc=
-.bin");
-                                 break;
-+                       case CHIP_CARRIZO:
-+                       case CHIP_STONEY:
-                         case CHIP_RAVEN:
-                                 adev->pm.fw_version =3D info->version;
-                                 return 0;
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c b/drivers/gpu=
-/drm/amd/powerplay/smumgr/cz_smumgr.c
-index 78ab055..4d3aff3 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c
-@@ -709,6 +709,19 @@ static int cz_start_smu(struct pp_hwmgr *hwmgr)
- {
-         int ret =3D 0;
-         uint32_t fw_to_check =3D 0;
-+       struct cgs_firmware_info info =3D {0};
-+       uint32_t index =3D SMN_MP1_SRAM_START_ADDR +
-+                        SMU8_FIRMWARE_HEADER_LOCATION +
-+                        offsetof(struct SMU8_Firmware_Header, Version);
-+
-+
-+       if (hwmgr =3D=3D NULL || hwmgr->device =3D=3D NULL)
-+               return -EINVAL;
-+
-+       cgs_write_register(hwmgr->device, mmMP0PUB_IND_INDEX, index);
-+       hwmgr->smu_version =3D cgs_read_register(hwmgr->device, mmMP0PUB_IN=
-D_DATA);
-+       info.version =3D hwmgr->smu_version >> 8;
-+       cgs_get_firmware_info(hwmgr->device, CGS_UCODE_ID_SMU, &info);
-
-         fw_to_check =3D UCODE_ID_RLC_G_MASK |
-                         UCODE_ID_SDMA0_MASK |
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB16525C02E9F9E3F23C1A9709F7020BN6PR12MB1652namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Thursday, December 21, 2017 5:41:36 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH] drm/amd/pp: Get and save CZ/ST smu version</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The smu firmware is loaded by the sbios on APUs, s=
-o query it<br>
-from the smu and save the smu fw version info that is reported<br>
-to userspace.<br>
-<br>
-Change-Id: Ifce41405c0369610985881cea26e14b0525e4d25<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c | 13 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;2 files changed, 15 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_cgs.c<br>
-index 13607e2..4466f35 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c<br>
-@@ -801,6 &#43;801,8 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
-device *cgs_device,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; strcpy(fw_name, &quot;amdgpu/vega10_smc.bin&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_CA=
-RRIZO:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ST=
-ONEY:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case =
-CHIP_RAVEN:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.fw_version =3D info-=
-&gt;version;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c b/drivers/gpu=
-/drm/amd/powerplay/smumgr/cz_smumgr.c<br>
-index 78ab055..4d3aff3 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c<br>
-@@ -709,6 &#43;709,19 @@ static int cz_start_smu(struct pp_hwmgr *hwmgr)<br=
->
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fw_to_check =3D 0=
-;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct cgs_firmware_info info =3D=
- {0};<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index =3D SMN_MP1_SRAM_S=
-TART_ADDR &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU8_F=
-IRMWARE_HEADER_LOCATION &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset=
-of(struct SMU8_Firmware_Header, Version);<br>
-&#43;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr =3D=3D NULL || hwmgr-&g=
-t;device =3D=3D NULL)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cgs_write_register(hwmgr-&gt;devi=
-ce, mmMP0PUB_IND_INDEX, index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;smu_version =3D cgs_rea=
-d_register(hwmgr-&gt;device, mmMP0PUB_IND_DATA);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info.version =3D hwmgr-&gt;smu_ve=
-rsion &gt;&gt; 8;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cgs_get_firmware_info(hwmgr-&gt;d=
-evice, CGS_UCODE_ID_SMU, &amp;info);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_to_check =3D UCODE_ID_R=
-LC_G_MASK |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UCODE=
-_ID_SDMA0_MASK |<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB16525C02E9F9E3F23C1A9709F7020BN6PR12MB1652namp_--
-
---===============0287094702==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0287094702==--
+T24gMTIvMTkvMjAxNyAwOTo1OCBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxNy0x
+Mi0xOCAxMTozNiBQTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPj4gVGhlIHNpemUgb2YgdGhlIFgt
+U2VydmVyIHBTY3JlZW5Qcml2LT5QcmVBbGxvY0luZGljZXMKPj4gYXJyYXkgYWxsb2NhdGVkIHdp
+dGhpbiB4Zjg2SGFuZGxlQ29sb3JtYXBzKCkgaXMgZ2l2ZW4KPj4gYnkgdGhlIGdpdmVuIG1heENv
+bG9ycyBhcmd1bWVudCwgYnV0IHRoZSByYW5nZSBvZgo+PiBpbmRpY2VzIGJ5IHdoaWNoIHRoZSBQ
+cmVBbGxvY0luZGljZXMgYXJyYXkgaXMgaW5kZXhlZAo+PiBpbiByb3V0aW5lcyBsaWtlIENNYXBS
+ZWluc3RhbGxNYXAoKSBzZWVtcyB0byBiZSB1cCB0bwo+PiAxMDIzIG9uIGEgMTAgYnBjIC8gZGVw
+dGggMzAgc2NyZWVuLCBsZWFkaW5nIHRvIGFuCj4+IG91dC1vZi1ib3VuZHMgYWNjZXNzIGFuZCBz
+ZXJ2ZXIgY3Jhc2guCj4+Cj4+IFJhaXNpbmcgbWF4Q29sb3JzIHRvIDEwMjQgZml4ZXMgdGhlIGNy
+YXNoIGF0IHNlcnZlcgo+PiBzdGFydHVwIHdpdGggWC1TY3JlZW4gY29sb3IgZGVwdGggMzAuCj4+
+Cj4+IFNpZ25lZC1vZmYtYnk6IE1hcmlvIEtsZWluZXIgPG1hcmlvLmtsZWluZXIuZGVAZ21haWwu
+Y29tPgo+PiAtLS0KPj4gICBzcmMvZHJtbW9kZV9kaXNwbGF5LmMgfCAzICsrLQo+PiAgIDEgZmls
+ZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4KPj4gZGlmZiAtLWdp
+dCBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYyBiL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYwo+PiBpbmRl
+eCA3YWQzMjM1Li42N2RiODZlIDEwMDY0NAo+PiAtLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMK
+Pj4gKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCj4+IEBAIC0yNzMwLDggKzI3MzAsOSBAQCBC
+b29sIGRybW1vZGVfc2V0dXBfY29sb3JtYXAoU2NyZWVuUHRyIHBTY3JlZW4sIFNjcm5JbmZvUHRy
+IHBTY3JuKQo+PiAgIAkJICAgICAgICJJbml0aWFsaXppbmcga21zIGNvbG9yIG1hcFxuIik7Cj4+
+ICAgCWlmICghbWlDcmVhdGVEZWZDb2xvcm1hcChwU2NyZWVuKSkKPj4gICAJICAgIHJldHVybiBG
+QUxTRTsKPj4gKwo+PiAgIAkvKiBhbGwgcmFkZW9ucyBzdXBwb3J0IDEwIGJpdCBDTFVUcyAqLwo+
+PiAtCWlmICgheGY4NkhhbmRsZUNvbG9ybWFwcyhwU2NyZWVuLCAyNTYsIDEwLAo+PiArCWlmICgh
+eGY4NkhhbmRsZUNvbG9ybWFwcyhwU2NyZWVuLCAxMDI0LCAxMCwKPj4gICAJCQkJIE5VTEwsIE5V
+TEwsCj4+ICAgCQkJCSBDTUFQX1BBTEVUVEVEX1RSVUVDT0xPUgo+PiAgICNpZiAwIC8qIFRoaXMg
+b3B0aW9uIG1lc3NlcyB1cCB0ZXh0IG1vZGUhIChlaWNoQHN1c2UuZGUpICovCj4+Cj4gCj4gVGhl
+IGhhcmR3YXJlIENMVVQgaXNuJ3QgYWN0dWFsbHkgdXNlZCBhdCBkZXB0aCAzMCwgc28gYSBiZXR0
+ZXIgc29sdXRpb24KPiB3b3VsZCBiZSB0byBza2lwIHRoZSB4Zjg2SGFuZGxlQ29sb3JtYXBzIGNh
+bGwgKGFuZCBwcm9iYWJseSBhbHNvIHNldAo+IHhmODZDcnRjRnVuY3NSZWM6OmdhbW1hX3NldCA9
+IE5VTEwpIGZvciBwU2Nybi0+ZGVwdGggPT0gMzAuCj4gCgpJIGtub3cuIFNraXBwaW5nIHRoZSB4
+Zjg2SGFuZGxlQ29sb3JtYXBzKCkgZnVuY3Rpb24gd2FzIHRoZSBzb2x1dGlvbiBpIApmaXJzdCB1
+c2VkLCBidXQgdGhlbiBpIHRob3VnaHQgd2UgbWlnaHQgd2FudCB0byBrZWVwIGl0IGFzIApmdXR1
+cmUtcHJvb2ZpbmcgaW4gY2FzZSB3ZSdkIGltcGxlbWVudCBodyBnYW1tYSB0YWJsZXMgaW4gdGhl
+IGttcyAKZHJpdmVycyBmb3IgZGVwdGggPiAyNCBieSBzd2l0Y2hpbmcgdG8gdGhlIHBpZWNld2lz
+ZSBsaW5lYXIgaHcgZ2FtbWEgCnRhYmxlcy4gSGF2ZW4ndCBsb29rZWQgeWV0IHdoYXQgREMgdXNl
+cyBpbiBhbWRncHUta21zLCBhbmQgd2hhdCAKdGhlcmVmb3JlIG1ha2VzIHNlbnNlIGZvciB0aGUg
+YW1kZ3B1LWRkeD8KCkJ1dCBubyBzdHJvbmcgb3Bpbmlvbiwgc28gd2hhdGV2ZXIgeW91IHByZWZl
+cj8KCnRoYW5rcywKLW1hcmlvCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
