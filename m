@@ -1,373 +1,475 @@
-From: "Mao, David" <David.Mao@amd.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
 Subject: Re: Initial release of AMD Open Source Driver for Vulkan
-Date: Fri, 22 Dec 2017 15:04:46 +0000
-Message-ID: <1EA656B0-81C7-45DD-8B52-496E56C8EFAC@amd.com>
+Date: Fri, 22 Dec 2017 16:15:09 +0000
+Message-ID: <CAHbf0-F+HU080yyDkp-WPm1Nf5gMuDaY2J=prWzC_oJQ-XjTTQ@mail.gmail.com>
 References: <BN6PR1201MB012970C5E9B13A10B77FD103EE020@BN6PR1201MB0129.namprd12.prod.outlook.com>
  <CAHbf0-FG9RvkNj_S0yaGfChojL36boWbZU2q7meJjUg2t+ueUw@mail.gmail.com>
+ <1EA656B0-81C7-45DD-8B52-496E56C8EFAC@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1223483068=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CAHbf0-FG9RvkNj_S0yaGfChojL36boWbZU2q7meJjUg2t+ueUw@mail.gmail.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Mike Lothian <mike@fireburn.co.uk>
-Cc: "mesa-dev@lists.freedesktop.org" <mesa-dev@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0750516720=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1EA656B0-81C7-45DD-8B52-496E56C8EFAC-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+Cc: "mesa-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <mesa-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1223483068==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_1EA656B081C745DD8B52496E56C8EFACamdcom_"
+--===============0750516720==
+Content-Type: multipart/alternative; boundary="001a1143c8607def8f0560f01fad"
 
---_000_1EA656B081C745DD8B52496E56C8EFACamdcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--001a1143c8607def8f0560f01fad
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgTG90aGlhbiwNClRoYW5rcyBmb3IgdGVzdGluZyBvdXQgb3V0IGRyaXZlciENCk9mZmljaWFs
-bHkgd2UgcmVjb21tZW5kIHlvdSB0byBzdGljayB0byBHQ0M1IGZvciBub3csIGhvd2V2ZXIsIHdl
-IGRvIGhhdmUgYSBmaXggZm9yIHRoZSBjb25zdGV4cHIgaXNzdWUgbWVudGlvbmVkIGJlbG93IHRo
-YXQganVzdCBkaWRu4oCZdCBtYWtlIGl0IHRvIHRoaXMgZmlyc3QgcmVsZWFzZS4NCkFjY29yZGlu
-ZyB0byB5b3VyIGRpZmYsIGFyZSB5b3UgdXNpbmcgSUNDPw0KQ291bGQgeW91IGxldCB1cyBrbm93
-IHRoZSBjb21waWxlciB2ZXJzaW9uIGFzIHdlbGwgYXMgeW91ciBkaXN0cm8/DQoNClRoYW5rcy4N
-CkJlc3QgUmVnYXJkcywNCkRhdmlkDQoNCk9uIERlYyAyMiwgMjAxNywgYXQgOTo0OCBQTSwgTWlr
-ZSBMb3RoaWFuIDxtaWtlQGZpcmVidXJuLmNvLnVrPG1haWx0bzptaWtlQGZpcmVidXJuLmNvLnVr
-Pj4gd3JvdGU6DQoNCkNvbmdyYXR1bGF0aW9ucyBvbiBnZXR0aW5nIHRoaXMgb3V0IHRoZSBkb29y
-DQoNCkl0IGRpZG4ndCBjb21waWxlIGZvciBtZSB3aXRob3V0IHRoZXNlIGNoYW5nZXM6DQoNCklu
-IHBhbDoNCg0KZGlmZiAtLWdpdCBhL3NyYy91dGlsL21hdGguY3BwIGIvc3JjL3V0aWwvbWF0aC5j
-cHANCmluZGV4IDQ2ZTllZGUuLjNhZjQyNTkgMTAwNjQ0DQotLS0gYS9zcmMvdXRpbC9tYXRoLmNw
-cA0KKysrIGIvc3JjL3V0aWwvbWF0aC5jcHANCkBAIC01NCw3ICs1NCw3IEBAIHN0YXRpYyB1aW50
-MzIgRmxvYXQzMlRvRmxvYXROKGZsb2F0IGYsIGNvbnN0IE5CaXRGbG9hdEluZm8mIGluZm8pOw0K
-IHN0YXRpYyBmbG9hdCBGbG9hdE5Ub0Zsb2F0MzIodWludDMyIGZCaXRzLCBjb25zdCBOQml0Rmxv
-YXRJbmZvJiBpbmZvKTsNCg0KIC8vIEluaXRpYWxpemUgdGhlIGRlc2NyaXB0b3JzIGZvciB2YXJp
-b3VzIE4tYml0IGZsb2F0aW5nIHBvaW50IHJlcHJlc2VudGF0aW9uczoNCi1zdGF0aWMgY29uc3Rl
-eHByIE5CaXRGbG9hdEluZm8gRmxvYXQxNkluZm8gPQ0KK3N0YXRpYyBOQml0RmxvYXRJbmZvIEZs
-b2F0MTZJbmZvID0NCiB7DQogICAgIDE2LCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAvLyBudW1CaXRzDQogICAgIDEwLCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvLyBudW1GcmFjQml0cw0K
-QEAgLTcyLDcgKzcyLDcgQEAgc3RhdGljIGNvbnN0ZXhwciBOQml0RmxvYXRJbmZvIEZsb2F0MTZJ
-bmZvID0NCiAgICAgKDIzIC0gMTApLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIC8vIGZyYWNCaXRzRGlmZg0KIH07DQoNCi1zdGF0aWMgY29uc3RleHByIE5C
-aXRGbG9hdEluZm8gRmxvYXQxMUluZm8gPQ0KK3N0YXRpYyBOQml0RmxvYXRJbmZvIEZsb2F0MTFJ
-bmZvID0NCiB7DQogICAgIDExLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAvLyBudW1CaXRzDQogICAgIDYsICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvLyBudW1GcmFjQml0cw0KQEAgLTkw
-LDcgKzkwLDcgQEAgc3RhdGljIGNvbnN0ZXhwciBOQml0RmxvYXRJbmZvIEZsb2F0MTFJbmZvID0N
-CiAgICAgMjMgLSA2LCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIC8vIGZyYWNCaXRzRGlmZg0KIH07DQoNCi1zdGF0aWMgY29uc3RleHByIE5CaXRGbG9h
-dEluZm8gRmxvYXQxMEluZm8gPQ0KK3N0YXRpYyBOQml0RmxvYXRJbmZvIEZsb2F0MTBJbmZvID0N
-CiB7DQogICAgIDEwLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAvLyBudW1CaXRzDQogICAgIDUsICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvLyBudW1GcmFjQml0cw0KDQpJbiB4Z2w6DQoN
-CmRpZmYgLS1naXQgYS9pY2QvQ01ha2VMaXN0cy50eHQgYi9pY2QvQ01ha2VMaXN0cy50eHQNCmlu
-ZGV4IDRlNGQ2NjkuLjUwMDYxODQgMTAwNjQ0DQotLS0gYS9pY2QvQ01ha2VMaXN0cy50eHQNCisr
-KyBiL2ljZC9DTWFrZUxpc3RzLnR4dA0KQEAgLTUwMywxNiArNTAzLDE2IEBAIGlmIChVTklYKQ0K
-DQogICAgIHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFJJVkFURSBjIHN0ZGMrKyAke0NNQUtF
-X0RMX0xJQlN9IHB0aHJlYWQpDQoNCi0gICAgaWYoTk9UIElDRF9VU0VfR0NDKQ0KLSAgICAgICAg
-bWVzc2FnZShXQVJOSU5HICJJbnRlbCBJQ0MgdW50ZXN0ZWQgaW4gQ01ha2UuIikNCi0gICAgICAg
-IHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFJJVkFURSAtZmFiaS12ZXJzaW9uPTAgLXN0YXRp
-Yy1pbnRlbCkNCi0gICAgZW5kaWYoKQ0KKyAgICAjaWYoTk9UIElDRF9VU0VfR0NDKQ0KKyAgICAj
-ICAgIG1lc3NhZ2UoV0FSTklORyAiSW50ZWwgSUNDIHVudGVzdGVkIGluIENNYWtlLiIpDQorICAg
-ICMgICAgdGFyZ2V0X2xpbmtfbGlicmFyaWVzKHhnbCBQUklWQVRFIC1mYWJpLXZlcnNpb249MCAt
-c3RhdGljLWludGVsKQ0KKyAgICAjZW5kaWYoKQ0KDQogICAgIGlmKENNQUtFX0JVSUxEX1RZUEVf
-UkVMRUFTRSkNCiAgICAgICAgIGlmKCIke0NNQUtFX0NYWF9DT01QSUxFUl9JRH0iIFNUUkVRVUFM
-ICJHTlUiKQ0KICAgICAgICAgICAgIGV4ZWN1dGVfcHJvY2VzcyhDT01NQU5EICR7Q01BS0VfQ19D
-T01QSUxFUn0gLWR1bXB2ZXJzaW9uIE9VVFBVVF9WQVJJQUJMRSBHQ0NfVkVSU0lPTikNCiAgICAg
-ICAgICAgICBpZiAoR0NDX1ZFUlNJT04gVkVSU0lPTl9HUkVBVEVSIDUuMyBPUiBHQ0NfVkVSU0lP
-TiBWRVJTSU9OX0VRVUFMIDUuMykNCi0gICAgICAgICAgICAgICAgdGFyZ2V0X2xpbmtfbGlicmFy
-aWVzKHhnbCBQUklWQVRFIC1mbHRvPTQgIC1mdXNlLWxpbmtlci1wbHVnaW4gLVduby1vZHIpDQor
-ICAgICAgICAgICAgICAgIHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFJJVkFURSAtV25vLW9k
-cikNCiAgICAgICAgICAgICAgICAgbWVzc2FnZShXQVJOSU5HICJMVE8gZW5hYmxlZCBmb3IgTGlu
-a2luZyIpDQogICAgICAgICAgICAgZW5kaWYoKQ0KICAgICAgICAgZW5kaWYoKQ0KQEAgLTUzMCwx
-NyArNTMwLDE3IEBAIGlmIChVTklYKQ0KDQogICAgICMgQ01BS0UtVE9ETzogV2hhdCBpcyB3aG9s
-ZS1hcmNoaXZlIHVzZWQgZm9yPw0KICAgICAjdGFyZ2V0X2xpbmtfbGlicmFyaWVzKHhnbCAtV2ws
-LS13aG9sZS1hcmNoaXZlICR7SUNEX0xJQlN9IC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpDQotICAg
-IGlmKENNQUtFX0JVSUxEX1RZUEVfUkVMRUFTRSkNCi0gICAgICAgIGV4ZWN1dGVfcHJvY2VzcyhD
-T01NQU5EICR7Q01BS0VfQ19DT01QSUxFUn0gLWR1bXB2ZXJzaW9uIE9VVFBVVF9WQVJJQUJMRSBH
-Q0NfVkVSU0lPTikNCi0gICAgICAgIGlmIChHQ0NfVkVSU0lPTiBWRVJTSU9OX0dSRUFURVIgNS4z
-IE9SIEdDQ19WRVJTSU9OIFZFUlNJT05fRVFVQUwgNS4zKQ0KLSAgICAgICAgICAgIHRhcmdldF9s
-aW5rX2xpYnJhcmllcyh4Z2wgUFJJVkFURSAtV2wsLS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9C
-SU5BUllfRElSfS9wYWwvc3JjL2xpYnBhbC5hIC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpDQotICAg
-ICAgICAgICAgdGFyZ2V0X2xpbmtfbGlicmFyaWVzKHhnbCBQVUJMSUMgLVdsLC0td2hvbGUtYXJj
-aGl2ZSAke1BST0pFQ1RfQklOQVJZX0RJUn0vcGFsL21ldHJvaGFzaC9saWJtZXRyb2hhc2guYSAt
-V2wsLS1uby13aG9sZS1hcmNoaXZlKQ0KLSAgICAgICAgICAgIHRhcmdldF9saW5rX2xpYnJhcmll
-cyh4Z2wgUFVCTElDIC1XbCwtLXdob2xlLWFyY2hpdmUgJHtQUk9KRUNUX0JJTkFSWV9ESVJ9L3Bh
-bC9ncHVvcGVuL2xpYmdwdW9wZW4uYSAtV2wsLS1uby13aG9sZS1hcmNoaXZlKQ0KLSAgICAgICAg
-ICAgIHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFVCTElDIC1XbCwtLXdob2xlLWFyY2hpdmUg
-JHtQUk9KRUNUX0JJTkFSWV9ESVJ9L3BhbC92YW0vbGlidmFtLmEgLVdsLC0tbm8td2hvbGUtYXJj
-aGl2ZSkNCi0gICAgICAgICAgICB0YXJnZXRfbGlua19saWJyYXJpZXMoeGdsIFBVQkxJQyAtV2ws
-LS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9CSU5BUllfRElSfS9wYWwvYWRkcmxpYi9saWJhZGRy
-bGliLmEgLVdsLC0tbm8td2hvbGUtYXJjaGl2ZSkNCi0gICAgICAgICAgICB0YXJnZXRfbGlua19s
-aWJyYXJpZXMoeGdsIFBVQkxJQyAtV2wsLS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9CSU5BUllf
-RElSfS9wYWwvamVtYWxsb2MvbGliamVtYWxsb2MuYSAtV2wsLS1uby13aG9sZS1hcmNoaXZlKQ0K
-LSAgICAgICAgZW5kaWYoKQ0KLSAgICBlbmRpZigpDQorICAgICNpZihDTUFLRV9CVUlMRF9UWVBF
-X1JFTEVBU0UpDQorICAgICMgICAgZXhlY3V0ZV9wcm9jZXNzKENPTU1BTkQgJHtDTUFLRV9DX0NP
-TVBJTEVSfSAtZHVtcHZlcnNpb24gT1VUUFVUX1ZBUklBQkxFIEdDQ19WRVJTSU9OKQ0KKyAgICAj
-ICAgIGlmIChHQ0NfVkVSU0lPTiBWRVJTSU9OX0dSRUFURVIgNS4zIE9SIEdDQ19WRVJTSU9OIFZF
-UlNJT05fRVFVQUwgNS4zKQ0KKyAgICAjICAgICAgICB0YXJnZXRfbGlua19saWJyYXJpZXMoeGds
-IFBSSVZBVEUgLVdsLC0td2hvbGUtYXJjaGl2ZSAke1BST0pFQ1RfQklOQVJZX0RJUn0vcGFsL3Ny
-Yy9saWJwYWwuYSAtV2wsLS1uby13aG9sZS1hcmNoaXZlKQ0KKyAgICAjICAgICAgICB0YXJnZXRf
-bGlua19saWJyYXJpZXMoeGdsIFBVQkxJQyAtV2wsLS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9C
-SU5BUllfRElSfS9wYWwvbWV0cm9oYXNoL2xpYm1ldHJvaGFzaC5hIC1XbCwtLW5vLXdob2xlLWFy
-Y2hpdmUpDQorICAgICMgICAgICAgIHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFVCTElDIC1X
-bCwtLXdob2xlLWFyY2hpdmUgJHtQUk9KRUNUX0JJTkFSWV9ESVJ9L3BhbC9ncHVvcGVuL2xpYmdw
-dW9wZW4uYSAtV2wsLS1uby13aG9sZS1hcmNoaXZlKQ0KKyAgICAjICAgICAgICB0YXJnZXRfbGlu
-a19saWJyYXJpZXMoeGdsIFBVQkxJQyAtV2wsLS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9CSU5B
-UllfRElSfS9wYWwvdmFtL2xpYnZhbS5hIC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpDQorICAgICMg
-ICAgICAgIHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFVCTElDIC1XbCwtLXdob2xlLWFyY2hp
-dmUgJHtQUk9KRUNUX0JJTkFSWV9ESVJ9L3BhbC9hZGRybGliL2xpYmFkZHJsaWIuYSAtV2wsLS1u
-by13aG9sZS1hcmNoaXZlKQ0KKyAgICAjICAgICAgICB0YXJnZXRfbGlua19saWJyYXJpZXMoeGds
-IFBVQkxJQyAtV2wsLS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9CSU5BUllfRElSfS9wYWwvamVt
-YWxsb2MvbGliamVtYWxsb2MuYSAtV2wsLS1uby13aG9sZS1hcmNoaXZlKQ0KKyAgICAjICAgIGVu
-ZGlmKCkNCisgICAgI2VuZGlmKCkNCg0KICAgICAjJHtJQ0RfVEFSR0VUfS5zbyR7U09fVkVSU0lP
-Tl9OVU1CRVJ9IDogJHtmaWx0ZXItb3V0IC1XbCUsJChMTExJQlN9KQ0KDQoNCmRpZmYgLS1naXQg
-YS9pY2QvYXBpL2xscGMvdXRpbC9sbHBjRGVidWcuY3BwIGIvaWNkL2FwaS9sbHBjL3V0aWwvbGxw
-Y0RlYnVnLmNwcA0KaW5kZXggMTI3M2NkNi4uODQ3Nzg2ZSAxMDA2NDQNCi0tLSBhL2ljZC9hcGkv
-bGxwYy91dGlsL2xscGNEZWJ1Zy5jcHANCisrKyBiL2ljZC9hcGkvbGxwYy91dGlsL2xscGNEZWJ1
-Zy5jcHANCkBAIC0xMTMsNyArMTEzLDcgQEAgYm9vbCBFbmFibGVFcnJzKCkNCiAvLyBUcmFuc2xh
-dGVzIGVudW0gIlJlc291cmNlTWFwcGluZ05vZGVUeXBlIiB0byBzdHJpbmcgYW5kIG91dHB1dCB0
-byBvc3RyZWFtLg0KIHJhd19vc3RyZWFtJiBvcGVyYXRvcjw8KA0KICAgICByYXdfb3N0cmVhbSYg
-ICAgICAgICAgICAgICAgICAgICAgIG91dCwgICAvLyBbb3V0XSBPdXRwdXQgc3RyZWFtDQotICAg
-IGVudW0gY2xhc3MgUmVzb3VyY2VNYXBwaW5nTm9kZVR5cGUgdHlwZSkgIC8vIFJlc291cmNlIG1h
-cCBub2RlIHR5cGUNCisgICAgZW51bSBSZXNvdXJjZU1hcHBpbmdOb2RlVHlwZSB0eXBlKSAgLy8g
-UmVzb3VyY2UgbWFwIG5vZGUgdHlwZQ0KIHsNCiAgICAgY29uc3QgY2hhciogcFN0cmluZyA9IG51
-bGxwdHI7DQogICAgIHN3aXRjaCAodHlwZSkNCg0KDQoNCg==
+Hi
 
---_000_1EA656B081C745DD8B52496E56C8EFACamdcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <1D75FC134387ED4796652A0CC6147002@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+No I'm not using ICC however that section prevents you using Clang, it
+basically says if not GCC then assumes Intel's compiler
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHN0eWxlPSJ3b3JkLXdy
-YXA6IGJyZWFrLXdvcmQ7IC13ZWJraXQtbmJzcC1tb2RlOiBzcGFjZTsgbGluZS1icmVhazogYWZ0
-ZXItd2hpdGUtc3BhY2U7IiBjbGFzcz0iIj4NCkhpIExvdGhpYW4sDQo8ZGl2IGNsYXNzPSIiPlRo
-YW5rcyBmb3IgdGVzdGluZyBvdXQgb3V0IGRyaXZlciE8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PHNw
-YW4gc3R5bGU9ImNvbG9yOiByZ2IoMzYsIDQxLCA0Nik7IGZvbnQtdmFyaWFudC1saWdhdHVyZXM6
-IG5vcm1hbDsgb3JwaGFuczogMjsgd2lkb3dzOiAyOyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1
-LCAyNTUsIDI1NSk7IiBjbGFzcz0iIj5PZmZpY2lhbGx5IHdlIHJlY29tbWVuZCB5b3UgdG8gc3Rp
-Y2sgdG8gR0NDNSBmb3Igbm93LCBob3dldmVyLCB3ZSBkbyBoYXZlIGEgZml4IGZvciB0aGUgY29u
-c3RleHByIGlzc3VlDQogbWVudGlvbmVkIGJlbG93IHRoYXQganVzdCBkaWRu4oCZdCBtYWtlIGl0
-IHRvIHRoaXMgZmlyc3QgcmVsZWFzZS48L3NwYW4+PC9kaXY+DQo8ZGl2IGNsYXNzPSIiPkFjY29y
-ZGluZyB0byB5b3VyIGRpZmYsIGFyZSB5b3UgdXNpbmcgSUNDPzwvZGl2Pg0KPGRpdiBjbGFzcz0i
-Ij5Db3VsZCB5b3UgbGV0IHVzIGtub3cgdGhlIGNvbXBpbGVyIHZlcnNpb24gYXMgd2VsbCBhcyB5
-b3VyIGRpc3Rybz88L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8
-ZGl2IGNsYXNzPSIiPlRoYW5rcy48L2Rpdj4NCjxkaXYgY2xhc3M9IiI+QmVzdCBSZWdhcmRzLDwv
-ZGl2Pg0KPGRpdiBjbGFzcz0iIj5EYXZpZDxiciBjbGFzcz0iIj4NCjxkaXY+PGJyIGNsYXNzPSIi
-Pg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2xhc3M9IiI+DQo8ZGl2IGNsYXNzPSIiPk9uIERl
-YyAyMiwgMjAxNywgYXQgOTo0OCBQTSwgTWlrZSBMb3RoaWFuICZsdDs8YSBocmVmPSJtYWlsdG86
-bWlrZUBmaXJlYnVybi5jby51ayIgY2xhc3M9IiI+bWlrZUBmaXJlYnVybi5jby51azwvYT4mZ3Q7
-IHdyb3RlOjwvZGl2Pg0KPGJyIGNsYXNzPSJBcHBsZS1pbnRlcmNoYW5nZS1uZXdsaW5lIj4NCjxk
-aXYgY2xhc3M9IiI+DQo8ZGl2IGRpcj0ibHRyIiBjbGFzcz0iIj5Db25ncmF0dWxhdGlvbnMgb24g
-Z2V0dGluZyB0aGlzIG91dCB0aGUgZG9vcg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8
-L2Rpdj4NCjxkaXYgY2xhc3M9IiI+SXQgZGlkbid0IGNvbXBpbGUgZm9yIG1lIHdpdGhvdXQgdGhl
-c2UgY2hhbmdlczo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8
-ZGl2IGNsYXNzPSIiPkluIHBhbDo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0K
-PC9kaXY+DQo8ZGl2IGNsYXNzPSIiPg0KPGRpdiBjbGFzcz0iIj5kaWZmIC0tZ2l0IGEvc3JjL3V0
-aWwvbWF0aC5jcHAgYi9zcmMvdXRpbC9tYXRoLmNwcDwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5pbmRl
-eCA0NmU5ZWRlLi4zYWY0MjU5IDEwMDY0NDwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4tLS0gYS9zcmMv
-dXRpbC9tYXRoLmNwcDwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mIzQzOyYjNDM7JiM0MzsgYi9zcmMv
-dXRpbC9tYXRoLmNwcDwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5AQCAtNTQsNyAmIzQzOzU0LDcgQEAg
-c3RhdGljIHVpbnQzMiBGbG9hdDMyVG9GbG9hdE4oZmxvYXQgZiwgY29uc3QgTkJpdEZsb2F0SW5m
-byZhbXA7IGluZm8pOzwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mbmJzcDtzdGF0aWMgZmxvYXQgRmxv
-YXROVG9GbG9hdDMyKHVpbnQzMiBmQml0cywgY29uc3QgTkJpdEZsb2F0SW5mbyZhbXA7IGluZm8p
-OzwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9
-IiI+Jm5ic3A7Ly8gSW5pdGlhbGl6ZSB0aGUgZGVzY3JpcHRvcnMgZm9yIHZhcmlvdXMgTi1iaXQg
-ZmxvYXRpbmcgcG9pbnQgcmVwcmVzZW50YXRpb25zOjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4tc3Rh
-dGljIGNvbnN0ZXhwciBOQml0RmxvYXRJbmZvIEZsb2F0MTZJbmZvID08L2Rpdj4NCjxkaXYgY2xh
-c3M9IiI+JiM0MztzdGF0aWMgTkJpdEZsb2F0SW5mbyBGbG9hdDE2SW5mbyA9PC9kaXY+DQo8ZGl2
-IGNsYXNzPSIiPiZuYnNwO3s8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+Jm5ic3A7ICZuYnNwOyAmbmJz
-cDsxNiwmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsvLyBudW1CaXRzPC9kaXY+DQo8ZGl2IGNsYXNz
-PSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7MTAsJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Ly8gbnVt
-RnJhY0JpdHM8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+QEAgLTcyLDcgJiM0Mzs3Miw3IEBAIHN0YXRp
-YyBjb25zdGV4cHIgTkJpdEZsb2F0SW5mbyBGbG9hdDE2SW5mbyA9PC9kaXY+DQo8ZGl2IGNsYXNz
-PSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7KDIzIC0gMTApLCZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC8vIGZyYWNCaXRzRGlmZjwvZGl2Pg0KPGRp
-diBjbGFzcz0iIj4mbmJzcDt9OzwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8
-L2Rpdj4NCjxkaXYgY2xhc3M9IiI+LXN0YXRpYyBjb25zdGV4cHIgTkJpdEZsb2F0SW5mbyBGbG9h
-dDExSW5mbyA9PC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiYjNDM7c3RhdGljIE5CaXRGbG9hdEluZm8g
-RmxvYXQxMUluZm8gPTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mbmJzcDt7PC9kaXY+DQo8ZGl2IGNs
-YXNzPSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7MTEsJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
-ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Ly8g
-bnVtQml0czwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mbmJzcDsgJm5ic3A7ICZuYnNwOzYsJm5ic3A7
-ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7IC8vIG51bUZyYWNCaXRzPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPkBA
-IC05MCw3ICYjNDM7OTAsNyBAQCBzdGF0aWMgY29uc3RleHByIE5CaXRGbG9hdEluZm8gRmxvYXQx
-MUluZm8gPTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mbmJzcDsgJm5ic3A7ICZuYnNwOzIzIC0gNiwm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7Ly8gZnJhY0JpdHNEaWZmPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiZuYnNwO307PC9k
-aXY+DQo8ZGl2IGNsYXNzPSIiPjxiciBjbGFzcz0iIj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4t
-c3RhdGljIGNvbnN0ZXhwciBOQml0RmxvYXRJbmZvIEZsb2F0MTBJbmZvID08L2Rpdj4NCjxkaXYg
-Y2xhc3M9IiI+JiM0MztzdGF0aWMgTkJpdEZsb2F0SW5mbyBGbG9hdDEwSW5mbyA9PC9kaXY+DQo8
-ZGl2IGNsYXNzPSIiPiZuYnNwO3s8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+Jm5ic3A7ICZuYnNwOyAm
-bmJzcDsxMCwmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsvLyBudW1CaXRzPC9kaXY+DQo8ZGl2IGNs
-YXNzPSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7NSwmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgLy8g
-bnVtRnJhY0JpdHM8L2Rpdj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8
-L2Rpdj4NCjxkaXYgY2xhc3M9IiI+SW4geGdsOjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xh
-c3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+DQo8ZGl2IGNsYXNzPSIiPmRpZmYgLS1naXQg
-YS9pY2QvQ01ha2VMaXN0cy50eHQgYi9pY2QvQ01ha2VMaXN0cy50eHQ8L2Rpdj4NCjxkaXYgY2xh
-c3M9IiI+aW5kZXggNGU0ZDY2OS4uNTAwNjE4NCAxMDA2NDQ8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+
-LS0tIGEvaWNkL0NNYWtlTGlzdHMudHh0PC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiYjNDM7JiM0Mzsm
-IzQzOyBiL2ljZC9DTWFrZUxpc3RzLnR4dDwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5AQCAtNTAzLDE2
-ICYjNDM7NTAzLDE2IEBAIGlmIChVTklYKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9
-IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+Jm5ic3A7ICZuYnNwOyAmbmJzcDt0YXJnZXRfbGlu
-a19saWJyYXJpZXMoeGdsIFBSSVZBVEUgYyBzdGRjJiM0MzsmIzQzOyAke0NNQUtFX0RMX0xJQlN9
-IHB0aHJlYWQpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPjxiciBjbGFzcz0iIj4NCjwvZGl2Pg0KPGRp
-diBjbGFzcz0iIj4tJm5ic3A7ICZuYnNwOyBpZihOT1QgSUNEX1VTRV9HQ0MpPC9kaXY+DQo8ZGl2
-IGNsYXNzPSIiPi0mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgbWVzc2FnZShXQVJOSU5HICZx
-dW90O0ludGVsIElDQyB1bnRlc3RlZCBpbiBDTWFrZS4mcXVvdDspPC9kaXY+DQo8ZGl2IGNsYXNz
-PSIiPi0mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgdGFyZ2V0X2xpbmtfbGlicmFyaWVzKHhn
-bCBQUklWQVRFIC1mYWJpLXZlcnNpb249MCAtc3RhdGljLWludGVsKTwvZGl2Pg0KPGRpdiBjbGFz
-cz0iIj4tJm5ic3A7ICZuYnNwOyBlbmRpZigpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiYjNDM7Jm5i
-c3A7ICZuYnNwOyAjaWYoTk9UIElDRF9VU0VfR0NDKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mIzQz
-OyZuYnNwOyAmbmJzcDsgIyZuYnNwOyAmbmJzcDsgbWVzc2FnZShXQVJOSU5HICZxdW90O0ludGVs
-IElDQyB1bnRlc3RlZCBpbiBDTWFrZS4mcXVvdDspPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiYjNDM7
-Jm5ic3A7ICZuYnNwOyAjJm5ic3A7ICZuYnNwOyB0YXJnZXRfbGlua19saWJyYXJpZXMoeGdsIFBS
-SVZBVEUgLWZhYmktdmVyc2lvbj0wIC1zdGF0aWMtaW50ZWwpPC9kaXY+DQo8ZGl2IGNsYXNzPSIi
-PiYjNDM7Jm5ic3A7ICZuYnNwOyAjZW5kaWYoKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xh
-c3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+Jm5ic3A7ICZuYnNwOyAmbmJzcDtpZihDTUFL
-RV9CVUlMRF9UWVBFX1JFTEVBU0UpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDtpZigmcXVvdDske0NNQUtFX0NYWF9DT01QSUxFUl9JRH0mcXVv
-dDsgU1RSRVFVQUwgJnF1b3Q7R05VJnF1b3Q7KTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtleGVjdXRlX3Byb2Nlc3Mo
-Q09NTUFORCAke0NNQUtFX0NfQ09NUElMRVJ9IC1kdW1wdmVyc2lvbiBPVVRQVVRfVkFSSUFCTEUg
-R0NDX1ZFUlNJT04pPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2lmIChHQ0NfVkVSU0lPTiBWRVJTSU9OX0dSRUFURVIg
-NS4zIE9SIEdDQ19WRVJTSU9OIFZFUlNJT05fRVFVQUwgNS4zKTwvZGl2Pg0KPGRpdiBjbGFzcz0i
-Ij4tJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-OyB0YXJnZXRfbGlua19saWJyYXJpZXMoeGdsIFBSSVZBVEUgLWZsdG89NCZuYnNwOyAtZnVzZS1s
-aW5rZXItcGx1Z2luIC1Xbm8tb2RyKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mIzQzOyZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgdGFyZ2V0X2xp
-bmtfbGlicmFyaWVzKHhnbCBQUklWQVRFIC1Xbm8tb2RyKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4m
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwO21lc3NhZ2UoV0FSTklORyAmcXVvdDtMVE8gZW5hYmxlZCBmb3IgTGlua2luZyZxdW90Oyk8
-L2Rpdj4NCjxkaXYgY2xhc3M9IiI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ZW5kaWYoKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ZW5kaWYoKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5AQCAtNTMwLDE3
-ICYjNDM7NTMwLDE3IEBAIGlmIChVTklYKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9
-IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsjIENNQUtFLVRP
-RE86IFdoYXQgaXMgd2hvbGUtYXJjaGl2ZSB1c2VkIGZvcj88L2Rpdj4NCjxkaXYgY2xhc3M9IiI+
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsjdGFyZ2V0X2xpbmtfbGlicmFyaWVzKHhnbCAtV2wsLS13aG9s
-ZS1hcmNoaXZlICR7SUNEX0xJQlN9IC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpPC9kaXY+DQo8ZGl2
-IGNsYXNzPSIiPi0mbmJzcDsgJm5ic3A7IGlmKENNQUtFX0JVSUxEX1RZUEVfUkVMRUFTRSk8L2Rp
-dj4NCjxkaXYgY2xhc3M9IiI+LSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBleGVjdXRlX3By
-b2Nlc3MoQ09NTUFORCAke0NNQUtFX0NfQ09NUElMRVJ9IC1kdW1wdmVyc2lvbiBPVVRQVVRfVkFS
-SUFCTEUgR0NDX1ZFUlNJT04pPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPi0mbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgaWYgKEdDQ19WRVJTSU9OIFZFUlNJT05fR1JFQVRFUiA1LjMgT1IgR0NDX1ZF
-UlNJT04gVkVSU0lPTl9FUVVBTCA1LjMpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPi0mbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyB0YXJnZXRfbGlua19saWJyYXJpZXMoeGds
-IFBSSVZBVEUgLVdsLC0td2hvbGUtYXJjaGl2ZSAke1BST0pFQ1RfQklOQVJZX0RJUn0vcGFsL3Ny
-Yy9saWJwYWwuYSAtV2wsLS1uby13aG9sZS1hcmNoaXZlKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4t
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgdGFyZ2V0X2xpbmtfbGli
-cmFyaWVzKHhnbCBQVUJMSUMgLVdsLC0td2hvbGUtYXJjaGl2ZSAke1BST0pFQ1RfQklOQVJZX0RJ
-Un0vcGFsL21ldHJvaGFzaC9saWJtZXRyb2hhc2guYSAtV2wsLS1uby13aG9sZS1hcmNoaXZlKTwv
-ZGl2Pg0KPGRpdiBjbGFzcz0iIj4tJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgdGFyZ2V0X2xpbmtfbGlicmFyaWVzKHhnbCBQVUJMSUMgLVdsLC0td2hvbGUtYXJjaGl2
-ZSAke1BST0pFQ1RfQklOQVJZX0RJUn0vcGFsL2dwdW9wZW4vbGliZ3B1b3Blbi5hIC1XbCwtLW5v
-LXdob2xlLWFyY2hpdmUpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPi0mbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyB0YXJnZXRfbGlua19saWJyYXJpZXMoeGdsIFBVQkxJQyAt
-V2wsLS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9CSU5BUllfRElSfS9wYWwvdmFtL2xpYnZhbS5h
-IC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPi0mbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyB0YXJnZXRfbGlua19saWJyYXJpZXMoeGds
-IFBVQkxJQyAtV2wsLS13aG9sZS1hcmNoaXZlICR7UFJPSkVDVF9CSU5BUllfRElSfS9wYWwvYWRk
-cmxpYi9saWJhZGRybGliLmEgLVdsLC0tbm8td2hvbGUtYXJjaGl2ZSk8L2Rpdj4NCjxkaXYgY2xh
-c3M9IiI+LSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHRhcmdldF9s
-aW5rX2xpYnJhcmllcyh4Z2wgUFVCTElDIC1XbCwtLXdob2xlLWFyY2hpdmUgJHtQUk9KRUNUX0JJ
-TkFSWV9ESVJ9L3BhbC9qZW1hbGxvYy9saWJqZW1hbGxvYy5hIC1XbCwtLW5vLXdob2xlLWFyY2hp
-dmUpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPi0mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgZW5k
-aWYoKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4tJm5ic3A7ICZuYnNwOyBlbmRpZigpPC9kaXY+DQo8
-ZGl2IGNsYXNzPSIiPiYjNDM7Jm5ic3A7ICZuYnNwOyAjaWYoQ01BS0VfQlVJTERfVFlQRV9SRUxF
-QVNFKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mIzQzOyZuYnNwOyAmbmJzcDsgIyZuYnNwOyAmbmJz
-cDsgZXhlY3V0ZV9wcm9jZXNzKENPTU1BTkQgJHtDTUFLRV9DX0NPTVBJTEVSfSAtZHVtcHZlcnNp
-b24gT1VUUFVUX1ZBUklBQkxFIEdDQ19WRVJTSU9OKTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mIzQz
-OyZuYnNwOyAmbmJzcDsgIyZuYnNwOyAmbmJzcDsgaWYgKEdDQ19WRVJTSU9OIFZFUlNJT05fR1JF
-QVRFUiA1LjMgT1IgR0NDX1ZFUlNJT04gVkVSU0lPTl9FUVVBTCA1LjMpPC9kaXY+DQo8ZGl2IGNs
-YXNzPSIiPiYjNDM7Jm5ic3A7ICZuYnNwOyAjJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHRh
-cmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFJJVkFURSAtV2wsLS13aG9sZS1hcmNoaXZlICR7UFJP
-SkVDVF9CSU5BUllfRElSfS9wYWwvc3JjL2xpYnBhbC5hIC1XbCwtLW5vLXdob2xlLWFyY2hpdmUp
-PC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiYjNDM7Jm5ic3A7ICZuYnNwOyAjJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7IHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFVCTElDIC1XbCwtLXdob2xl
-LWFyY2hpdmUgJHtQUk9KRUNUX0JJTkFSWV9ESVJ9L3BhbC9tZXRyb2hhc2gvbGlibWV0cm9oYXNo
-LmEgLVdsLC0tbm8td2hvbGUtYXJjaGl2ZSk8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+JiM0MzsmbmJz
-cDsgJm5ic3A7ICMmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgdGFyZ2V0X2xpbmtfbGlicmFy
-aWVzKHhnbCBQVUJMSUMgLVdsLC0td2hvbGUtYXJjaGl2ZSAke1BST0pFQ1RfQklOQVJZX0RJUn0v
-cGFsL2dwdW9wZW4vbGliZ3B1b3Blbi5hIC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpPC9kaXY+DQo8
-ZGl2IGNsYXNzPSIiPiYjNDM7Jm5ic3A7ICZuYnNwOyAjJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7IHRhcmdldF9saW5rX2xpYnJhcmllcyh4Z2wgUFVCTElDIC1XbCwtLXdob2xlLWFyY2hpdmUg
-JHtQUk9KRUNUX0JJTkFSWV9ESVJ9L3BhbC92YW0vbGlidmFtLmEgLVdsLC0tbm8td2hvbGUtYXJj
-aGl2ZSk8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+JiM0MzsmbmJzcDsgJm5ic3A7ICMmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgdGFyZ2V0X2xpbmtfbGlicmFyaWVzKHhnbCBQVUJMSUMgLVdsLC0t
-d2hvbGUtYXJjaGl2ZSAke1BST0pFQ1RfQklOQVJZX0RJUn0vcGFsL2FkZHJsaWIvbGliYWRkcmxp
-Yi5hIC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiYjNDM7Jm5i
-c3A7ICZuYnNwOyAjJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHRhcmdldF9saW5rX2xpYnJh
-cmllcyh4Z2wgUFVCTElDIC1XbCwtLXdob2xlLWFyY2hpdmUgJHtQUk9KRUNUX0JJTkFSWV9ESVJ9
-L3BhbC9qZW1hbGxvYy9saWJqZW1hbGxvYy5hIC1XbCwtLW5vLXdob2xlLWFyY2hpdmUpPC9kaXY+
-DQo8ZGl2IGNsYXNzPSIiPiYjNDM7Jm5ic3A7ICZuYnNwOyAjJm5ic3A7ICZuYnNwOyBlbmRpZigp
-PC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiYjNDM7Jm5ic3A7ICZuYnNwOyAjZW5kaWYoKTwvZGl2Pg0K
-PGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+Jm5ic3A7
-ICZuYnNwOyAmbmJzcDsjJHtJQ0RfVEFSR0VUfS5zbyR7U09fVkVSU0lPTl9OVU1CRVJ9IDogJHtm
-aWx0ZXItb3V0IC1XbCUsJChMTExJQlN9KTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4NCjxkaXYgY2xh
-c3M9IiI+PGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPjxiciBjbGFzcz0iIj4N
-CjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5kaWZmIC0tZ2l0IGEvaWNkL2FwaS9sbHBjL3V0aWwvbGxw
-Y0RlYnVnLmNwcCBiL2ljZC9hcGkvbGxwYy91dGlsL2xscGNEZWJ1Zy5jcHA8L2Rpdj4NCjxkaXYg
-Y2xhc3M9IiI+aW5kZXggMTI3M2NkNi4uODQ3Nzg2ZSAxMDA2NDQ8L2Rpdj4NCjxkaXYgY2xhc3M9
-IiI+LS0tIGEvaWNkL2FwaS9sbHBjL3V0aWwvbGxwY0RlYnVnLmNwcDwvZGl2Pg0KPGRpdiBjbGFz
-cz0iIj4mIzQzOyYjNDM7JiM0MzsgYi9pY2QvYXBpL2xscGMvdXRpbC9sbHBjRGVidWcuY3BwPC9k
-aXY+DQo8ZGl2IGNsYXNzPSIiPkBAIC0xMTMsNyAmIzQzOzExMyw3IEBAIGJvb2wgRW5hYmxlRXJy
-cygpPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiZuYnNwOy8vIFRyYW5zbGF0ZXMgZW51bSAmcXVvdDtS
-ZXNvdXJjZU1hcHBpbmdOb2RlVHlwZSZxdW90OyB0byBzdHJpbmcgYW5kIG91dHB1dCB0byBvc3Ry
-ZWFtLjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mbmJzcDtyYXdfb3N0cmVhbSZhbXA7IG9wZXJhdG9y
-Jmx0OyZsdDsoPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7cmF3X29z
-dHJlYW0mYW1wOyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7b3V0LCZuYnNwOyAmbmJzcDsvLyBb
-b3V0XSBPdXRwdXQgc3RyZWFtPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPi0mbmJzcDsgJm5ic3A7IGVu
-dW0gY2xhc3MgUmVzb3VyY2VNYXBwaW5nTm9kZVR5cGUgdHlwZSkmbmJzcDsgLy8gUmVzb3VyY2Ug
-bWFwIG5vZGUgdHlwZTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj4mIzQzOyZuYnNwOyAmbmJzcDsgZW51
-bSBSZXNvdXJjZU1hcHBpbmdOb2RlVHlwZSB0eXBlKSZuYnNwOyAvLyBSZXNvdXJjZSBtYXAgbm9k
-ZSB0eXBlPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPiZuYnNwO3s8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+
-Jm5ic3A7ICZuYnNwOyAmbmJzcDtjb25zdCBjaGFyKiBwU3RyaW5nID0gbnVsbHB0cjs8L2Rpdj4N
-CjxkaXYgY2xhc3M9IiI+Jm5ic3A7ICZuYnNwOyAmbmJzcDtzd2l0Y2ggKHR5cGUpPC9kaXY+DQo8
-L2Rpdj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYg
-Y2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ibG9ja3F1
-b3RlPg0KPC9kaXY+DQo8YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+Cheers
 
---_000_1EA656B081C745DD8B52496E56C8EFACamdcom_--
+Mike
 
---===============1223483068==
+On Fri, 22 Dec 2017, 3:04 pm Mao, David, <David.Mao-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> Hi Lothian,
+> Thanks for testing out out driver!
+> Officially we recommend you to stick to GCC5 for now, however, we do have
+> a fix for the constexpr issue mentioned below that just didn=E2=80=99t ma=
+ke it to
+> this first release.
+> According to your diff, are you using ICC?
+> Could you let us know the compiler version as well as your distro?
+>
+> Thanks.
+> Best Regards,
+> David
+>
+>
+> On Dec 22, 2017, at 9:48 PM, Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org> wrote:
+>
+> Congratulations on getting this out the door
+>
+> It didn't compile for me without these changes:
+>
+> In pal:
+>
+> diff --git a/src/util/math.cpp b/src/util/math.cpp
+> index 46e9ede..3af4259 100644
+> --- a/src/util/math.cpp
+> +++ b/src/util/math.cpp
+> @@ -54,7 +54,7 @@ static uint32 Float32ToFloatN(float f, const
+> NBitFloatInfo& info);
+>  static float FloatNToFloat32(uint32 fBits, const NBitFloatInfo& info);
+>
+>  // Initialize the descriptors for various N-bit floating point
+> representations:
+> -static constexpr NBitFloatInfo Float16Info =3D
+> +static NBitFloatInfo Float16Info =3D
+>  {
+>      16,                                                       // numBits
+>      10,                                                       //
+> numFracBits
+> @@ -72,7 +72,7 @@ static constexpr NBitFloatInfo Float16Info =3D
+>      (23 - 10),                                                //
+> fracBitsDiff
+>  };
+>
+> -static constexpr NBitFloatInfo Float11Info =3D
+> +static NBitFloatInfo Float11Info =3D
+>  {
+>      11,                                                       // numBits
+>      6,                                                        //
+> numFracBits
+> @@ -90,7 +90,7 @@ static constexpr NBitFloatInfo Float11Info =3D
+>      23 - 6,                                                   //
+> fracBitsDiff
+>  };
+>
+> -static constexpr NBitFloatInfo Float10Info =3D
+> +static NBitFloatInfo Float10Info =3D
+>  {
+>      10,                                                       // numBits
+>      5,                                                        //
+> numFracBits
+>
+> In xgl:
+>
+> diff --git a/icd/CMakeLists.txt b/icd/CMakeLists.txt
+> index 4e4d669..5006184 100644
+> --- a/icd/CMakeLists.txt
+> +++ b/icd/CMakeLists.txt
+> @@ -503,16 +503,16 @@ if (UNIX)
+>
+>      target_link_libraries(xgl PRIVATE c stdc++ ${CMAKE_DL_LIBS} pthread)
+>
+> -    if(NOT ICD_USE_GCC)
+> -        message(WARNING "Intel ICC untested in CMake.")
+> -        target_link_libraries(xgl PRIVATE -fabi-version=3D0 -static-inte=
+l)
+> -    endif()
+> +    #if(NOT ICD_USE_GCC)
+> +    #    message(WARNING "Intel ICC untested in CMake.")
+> +    #    target_link_libraries(xgl PRIVATE -fabi-version=3D0 -static-int=
+el)
+> +    #endif()
+>
+>      if(CMAKE_BUILD_TYPE_RELEASE)
+>          if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+>              execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
+> OUTPUT_VARIABLE GCC_VERSION)
+>              if (GCC_VERSION VERSION_GREATER 5.3 OR GCC_VERSION
+> VERSION_EQUAL 5.3)
+> -                target_link_libraries(xgl PRIVATE -flto=3D4
+> -fuse-linker-plugin -Wno-odr)
+> +                target_link_libraries(xgl PRIVATE -Wno-odr)
+>                  message(WARNING "LTO enabled for Linking")
+>              endif()
+>          endif()
+> @@ -530,17 +530,17 @@ if (UNIX)
+>
+>      # CMAKE-TODO: What is whole-archive used for?
+>      #target_link_libraries(xgl -Wl,--whole-archive ${ICD_LIBS}
+> -Wl,--no-whole-archive)
+> -    if(CMAKE_BUILD_TYPE_RELEASE)
+> -        execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
+> OUTPUT_VARIABLE GCC_VERSION)
+> -        if (GCC_VERSION VERSION_GREATER 5.3 OR GCC_VERSION VERSION_EQUAL
+> 5.3)
+> -            target_link_libraries(xgl PRIVATE -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/src/libpal.a -Wl,--no-whole-archive)
+> -            target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/metrohash/libmetrohash.a -Wl,--no-whole-archive=
+)
+> -            target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/gpuopen/libgpuopen.a -Wl,--no-whole-archive)
+> -            target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/vam/libvam.a -Wl,--no-whole-archive)
+> -            target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/addrlib/libaddrlib.a -Wl,--no-whole-archive)
+> -            target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/jemalloc/libjemalloc.a -Wl,--no-whole-archive)
+> -        endif()
+> -    endif()
+> +    #if(CMAKE_BUILD_TYPE_RELEASE)
+> +    #    execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
+> OUTPUT_VARIABLE GCC_VERSION)
+> +    #    if (GCC_VERSION VERSION_GREATER 5.3 OR GCC_VERSION VERSION_EQUA=
+L
+> 5.3)
+> +    #        target_link_libraries(xgl PRIVATE -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/src/libpal.a -Wl,--no-whole-archive)
+> +    #        target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/metrohash/libmetrohash.a -Wl,--no-whole-archive=
+)
+> +    #        target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/gpuopen/libgpuopen.a -Wl,--no-whole-archive)
+> +    #        target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/vam/libvam.a -Wl,--no-whole-archive)
+> +    #        target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/addrlib/libaddrlib.a -Wl,--no-whole-archive)
+> +    #        target_link_libraries(xgl PUBLIC -Wl,--whole-archive
+> ${PROJECT_BINARY_DIR}/pal/jemalloc/libjemalloc.a -Wl,--no-whole-archive)
+> +    #    endif()
+> +    #endif()
+>
+>      #${ICD_TARGET}.so${SO_VERSION_NUMBER} : ${filter-out -Wl%,$(LLLIBS})
+>
+>
+> diff --git a/icd/api/llpc/util/llpcDebug.cpp
+> b/icd/api/llpc/util/llpcDebug.cpp
+> index 1273cd6..847786e 100644
+> --- a/icd/api/llpc/util/llpcDebug.cpp
+> +++ b/icd/api/llpc/util/llpcDebug.cpp
+> @@ -113,7 +113,7 @@ bool EnableErrs()
+>  // Translates enum "ResourceMappingNodeType" to string and output to
+> ostream.
+>  raw_ostream& operator<<(
+>      raw_ostream&                       out,   // [out] Output stream
+> -    enum class ResourceMappingNodeType type)  // Resource map node type
+> +    enum ResourceMappingNodeType type)  // Resource map node type
+>  {
+>      const char* pString =3D nullptr;
+>      switch (type)
+>
+>
+>
+>
+
+--001a1143c8607def8f0560f01fad
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<p dir=3D"ltr">Hi</p>
+<p dir=3D"ltr">No I&#39;m not using ICC however that section prevents you u=
+sing Clang, it basically says if not GCC then assumes Intel&#39;s compiler<=
+/p>
+<p dir=3D"ltr">Cheers</p>
+<p dir=3D"ltr">Mike</p>
+<br><div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, 22 Dec 2017, 3:04 p=
+m Mao, David, &lt;<a href=3D"mailto:David.Mao-5C7GfCeVMHo@public.gmane.org">David.Mao-5C7GfCeVMHo@public.gmane.org</a=
+>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
+ 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+
+
+<div style=3D"word-wrap:break-word;line-break:after-white-space">
+Hi Lothian,
+<div>Thanks for testing out out driver!</div>
+<div><span style=3D"color:rgb(36,41,46);font-variant-ligatures:normal;backg=
+round-color:rgb(255,255,255)">Officially we recommend you to stick to GCC5 =
+for now, however, we do have a fix for the constexpr issue
+ mentioned below that just didn=E2=80=99t make it to this first release.</s=
+pan></div>
+<div>According to your diff, are you using ICC?</div>
+<div>Could you let us know the compiler version as well as your distro?</di=
+v>
+<div><br>
+</div>
+<div>Thanks.</div>
+<div>Best Regards,</div>
+<div>David</div></div><div style=3D"word-wrap:break-word;line-break:after-w=
+hite-space"><div><br>
+<div><br>
+<blockquote type=3D"cite">
+<div>On Dec 22, 2017, at 9:48 PM, Mike Lothian &lt;<a href=3D"mailto:mike@f=
+ireburn.co.uk" target=3D"_blank">mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org</a>&gt; wrote:</div>
+<br class=3D"m_-3388281588475979354Apple-interchange-newline">
+<div>
+<div dir=3D"ltr">Congratulations on getting this out the door
+<div><br>
+</div>
+<div>It didn&#39;t compile for me without these changes:</div>
+<div><br>
+</div>
+<div>In pal:</div>
+<div><br>
+</div>
+<div>
+<div>diff --git a/src/util/math.cpp b/src/util/math.cpp</div>
+<div>index 46e9ede..3af4259 100644</div>
+<div>--- a/src/util/math.cpp</div>
+<div>+++ b/src/util/math.cpp</div>
+<div>@@ -54,7 +54,7 @@ static uint32 Float32ToFloatN(float f, const NBitFlo=
+atInfo&amp; info);</div>
+<div>=C2=A0static float FloatNToFloat32(uint32 fBits, const NBitFloatInfo&a=
+mp; info);</div>
+<div><br>
+</div>
+<div>=C2=A0// Initialize the descriptors for various N-bit floating point r=
+epresentations:</div>
+<div>-static constexpr NBitFloatInfo Float16Info =3D</div>
+<div>+static NBitFloatInfo Float16Info =3D</div>
+<div>=C2=A0{</div>
+<div>=C2=A0 =C2=A0 =C2=A016,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0// numBits</div>
+<div>=C2=A0 =C2=A0 =C2=A010,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0// numFracBits</div>
+<div>@@ -72,7 +72,7 @@ static constexpr NBitFloatInfo Float16Info =3D</div>
+<div>=C2=A0 =C2=A0 =C2=A0(23 - 10),=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 // fracBitsDiff</di=
+v>
+<div>=C2=A0};</div>
+<div><br>
+</div>
+<div>-static constexpr NBitFloatInfo Float11Info =3D</div>
+<div>+static NBitFloatInfo Float11Info =3D</div>
+<div>=C2=A0{</div>
+<div>=C2=A0 =C2=A0 =C2=A011,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0// numBits</div>
+<div>=C2=A0 =C2=A0 =C2=A06,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /=
+/ numFracBits</div>
+<div>@@ -90,7 +90,7 @@ static constexpr NBitFloatInfo Float11Info =3D</div>
+<div>=C2=A0 =C2=A0 =C2=A023 - 6,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0// fracBi=
+tsDiff</div>
+<div>=C2=A0};</div>
+<div><br>
+</div>
+<div>-static constexpr NBitFloatInfo Float10Info =3D</div>
+<div>+static NBitFloatInfo Float10Info =3D</div>
+<div>=C2=A0{</div>
+<div>=C2=A0 =C2=A0 =C2=A010,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0// numBits</div>
+<div>=C2=A0 =C2=A0 =C2=A05,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /=
+/ numFracBits</div>
+</div>
+<div><br>
+</div>
+<div>In xgl:</div>
+<div><br>
+</div>
+<div>
+<div>diff --git a/icd/CMakeLists.txt b/icd/CMakeLists.txt</div>
+<div>index 4e4d669..5006184 100644</div>
+<div>--- a/icd/CMakeLists.txt</div>
+<div>+++ b/icd/CMakeLists.txt</div>
+<div>@@ -503,16 +503,16 @@ if (UNIX)</div>
+<div><br>
+</div>
+<div>=C2=A0 =C2=A0 =C2=A0target_link_libraries(xgl PRIVATE c stdc++ ${CMAKE=
+_DL_LIBS} pthread)</div>
+<div><br>
+</div>
+<div>-=C2=A0 =C2=A0 if(NOT ICD_USE_GCC)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 message(WARNING &quot;Intel ICC untested =
+in CMake.&quot;)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl PRIVATE -fabi-v=
+ersion=3D0 -static-intel)</div>
+<div>-=C2=A0 =C2=A0 endif()</div>
+<div>+=C2=A0 =C2=A0 #if(NOT ICD_USE_GCC)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 message(WARNING &quot;Intel ICC untested=
+ in CMake.&quot;)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 target_link_libraries(xgl PRIVATE -fabi-=
+version=3D0 -static-intel)</div>
+<div>+=C2=A0 =C2=A0 #endif()</div>
+<div><br>
+</div>
+<div>=C2=A0 =C2=A0 =C2=A0if(CMAKE_BUILD_TYPE_RELEASE)</div>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if(&quot;${CMAKE_CXX_COMPILER_ID}&qu=
+ot; STREQUAL &quot;GNU&quot;)</div>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0execute_process(COMMAN=
+D ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)</div>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (GCC_VERSION VERSIO=
+N_GREATER 5.3 OR GCC_VERSION VERSION_EQUAL 5.3)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_l=
+ibraries(xgl PRIVATE -flto=3D4=C2=A0 -fuse-linker-plugin -Wno-odr)</div>
+<div>+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_l=
+ibraries(xgl PRIVATE -Wno-odr)</div>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0message(=
+WARNING &quot;LTO enabled for Linking&quot;)</div>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0endif()</div>
+<div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0endif()</div>
+<div>@@ -530,17 +530,17 @@ if (UNIX)</div>
+<div><br>
+</div>
+<div>=C2=A0 =C2=A0 =C2=A0# CMAKE-TODO: What is whole-archive used for?</div=
+>
+<div>=C2=A0 =C2=A0 =C2=A0#target_link_libraries(xgl -Wl,--whole-archive ${I=
+CD_LIBS} -Wl,--no-whole-archive)</div>
+<div>-=C2=A0 =C2=A0 if(CMAKE_BUILD_TYPE_RELEASE)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 execute_process(COMMAND ${CMAKE_C_COMPILE=
+R} -dumpversion OUTPUT_VARIABLE GCC_VERSION)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (GCC_VERSION VERSION_GREATER 5.3 OR GC=
+C_VERSION VERSION_EQUAL 5.3)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl P=
+RIVATE -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/src/libpal.a -Wl,--no-=
+whole-archive)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl P=
+UBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/metrohash/libmetrohash.=
+a -Wl,--no-whole-archive)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl P=
+UBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/gpuopen/libgpuopen.a -W=
+l,--no-whole-archive)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl P=
+UBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/vam/libvam.a -Wl,--no-w=
+hole-archive)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl P=
+UBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/addrlib/libaddrlib.a -W=
+l,--no-whole-archive)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl P=
+UBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/jemalloc/libjemalloc.a =
+-Wl,--no-whole-archive)</div>
+<div>-=C2=A0 =C2=A0 =C2=A0 =C2=A0 endif()</div>
+<div>-=C2=A0 =C2=A0 endif()</div>
+<div>+=C2=A0 =C2=A0 #if(CMAKE_BUILD_TYPE_RELEASE)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 execute_process(COMMAND ${CMAKE_C_COMPIL=
+ER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 if (GCC_VERSION VERSION_GREATER 5.3 OR G=
+CC_VERSION VERSION_EQUAL 5.3)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl =
+PRIVATE -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/src/libpal.a -Wl,--no=
+-whole-archive)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl =
+PUBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/metrohash/libmetrohash=
+.a -Wl,--no-whole-archive)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl =
+PUBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/gpuopen/libgpuopen.a -=
+Wl,--no-whole-archive)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl =
+PUBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/vam/libvam.a -Wl,--no-=
+whole-archive)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl =
+PUBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/addrlib/libaddrlib.a -=
+Wl,--no-whole-archive)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 =C2=A0 =C2=A0 target_link_libraries(xgl =
+PUBLIC -Wl,--whole-archive ${PROJECT_BINARY_DIR}/pal/jemalloc/libjemalloc.a=
+ -Wl,--no-whole-archive)</div>
+<div>+=C2=A0 =C2=A0 #=C2=A0 =C2=A0 endif()</div>
+<div>+=C2=A0 =C2=A0 #endif()</div>
+<div><br>
+</div>
+<div>=C2=A0 =C2=A0 =C2=A0#${ICD_TARGET}.so${SO_VERSION_NUMBER} : ${filter-o=
+ut -Wl%,$(LLLIBS})</div>
+<div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>diff --git a/icd/api/llpc/util/llpcDebug.cpp b/icd/api/llpc/util/llpcD=
+ebug.cpp</div>
+<div>index 1273cd6..847786e 100644</div>
+<div>--- a/icd/api/llpc/util/llpcDebug.cpp</div>
+<div>+++ b/icd/api/llpc/util/llpcDebug.cpp</div>
+<div>@@ -113,7 +113,7 @@ bool EnableErrs()</div>
+<div>=C2=A0// Translates enum &quot;ResourceMappingNodeType&quot; to string=
+ and output to ostream.</div>
+<div>=C2=A0raw_ostream&amp; operator&lt;&lt;(</div>
+<div>=C2=A0 =C2=A0 =C2=A0raw_ostream&amp;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0out,=C2=A0 =C2=A0// [out] =
+Output stream</div>
+<div>-=C2=A0 =C2=A0 enum class ResourceMappingNodeType type)=C2=A0 // Resou=
+rce map node type</div>
+<div>+=C2=A0 =C2=A0 enum ResourceMappingNodeType type)=C2=A0 // Resource ma=
+p node type</div>
+<div>=C2=A0{</div>
+<div>=C2=A0 =C2=A0 =C2=A0const char* pString =3D nullptr;</div>
+<div>=C2=A0 =C2=A0 =C2=A0switch (type)</div>
+</div>
+</div>
+<div><br>
+</div>
+<div><br>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+<br>
+</div></div></blockquote></div>
+
+--001a1143c8607def8f0560f01fad--
+
+--===============0750516720==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1223483068==--
+--===============0750516720==--
