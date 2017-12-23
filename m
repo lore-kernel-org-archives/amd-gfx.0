@@ -1,14 +1,12 @@
-From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 3/3] Support exa screen color depth 30 on Linux 3.16 and
- later. (v2)
-Date: Sat, 23 Dec 2017 07:07:37 +0100
-Message-ID: <20171223060737.12271-4-mario.kleiner.de@gmail.com>
-References: <20171223060737.12271-1-mario.kleiner.de@gmail.com>
+From: =?UTF-8?Q?Felix_K=c3=bchling?= <felix.kuehling-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: PCIe3 atomics requirement for amdkfd
+Date: Sat, 23 Dec 2017 16:40:58 +0100
+Message-ID: <3f7e6fed-8668-b469-8813-e6677cb980ca@gmail.com>
+References: <c2c34443-9ba1-661b-476d-b657a7ddfe85@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2082981400=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171223060737.12271-1-mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <c2c34443-9ba1-661b-476d-b657a7ddfe85-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,43 +17,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+To: tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
 
-TGludXggMy4xNidzIHJhZGVvbi1rbXMgaW50cm9kdWNlZCAxMCBicGMgZmIgc3VwcG9ydC4KQ3Vy
-cmVudGx5LCBhcyBvZiBYLVNlcnZlciAxLjE5LCB0aGlzIHdvcmtzIHdpdGggZXhhIGFjY2VsLApi
-dXQgbm90IHlldCB3aGVuIHVzaW5nIGdsYW1vciBhY2NlbGVyYXRpb24uCgp2MjogU3R5bGUgZml4
-ZXMsIGNoZWNrIGZvciBnbGFtb3IgZmlyc3QsIGFzIHN1Z2dlc3RlZAogICAgYnkgTWljaGVsLgoK
-U2lnbmVkLW9mZi1ieTogTWFyaW8gS2xlaW5lciA8bWFyaW8ua2xlaW5lci5kZUBnbWFpbC5jb20+
-Ci0tLQogbWFuL3JhZGVvbi5tYW4gICB8ICAzICsrLQogc3JjL3JhZGVvbl9rbXMuYyB8IDE3ICsr
-KysrKysrKysrKysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKCmRpZmYgLS1naXQgYS9tYW4vcmFkZW9uLm1hbiBiL21hbi9yYWRlb24ubWFuCmlu
-ZGV4IGY0NDQxYzQuLjg4OTM1NWIgMTAwNjQ0Ci0tLSBhL21hbi9yYWRlb24ubWFuCisrKyBiL21h
-bi9yYWRlb24ubWFuCkBAIC0xOCw3ICsxOCw4IEBAIGZvbGxvd2luZyBmZWF0dXJlczoKIC5QRCAw
-CiAuVFAgMgogXChidQotRnVsbCBzdXBwb3J0IGZvciA4LSwgMTUtLCAxNi0gYW5kIDI0LWJpdCBw
-aXhlbCBkZXB0aHM7CitGdWxsIHN1cHBvcnQgZm9yIDgtLCAxNS0sIDE2LSBhbmQgMjQtYml0IHBp
-eGVsIGRlcHRocywgYW5kIGZvciAzMC1iaXQgZGVwdGggb24gTGludXggMy4xNgorYW5kIGxhdGVy
-IHdpdGggRVhBIGFjY2VsZXJhdGlvbjsKIC5UUAogXChidQogUmFuZFIgMS4yIGFuZCBSYW5kUiAx
-LjMgc3VwcG9ydDsKZGlmZiAtLWdpdCBhL3NyYy9yYWRlb25fa21zLmMgYi9zcmMvcmFkZW9uX2tt
-cy5jCmluZGV4IGE5MzAwZDQuLjA3YTQ5MGEgMTAwNjQ0Ci0tLSBhL3NyYy9yYWRlb25fa21zLmMK
-KysrIGIvc3JjL3JhZGVvbl9rbXMuYwpAQCAtMTI0OCw2ICsxMjQ4LDcgQEAgc3RhdGljIEJvb2wg
-UkFERU9OUHJlSW5pdFZpc3VhbChTY3JuSW5mb1B0ciBwU2NybikKICAgICBjYXNlIDE1OgogICAg
-IGNhc2UgMTY6CiAgICAgY2FzZSAyNDoKKyAgICBjYXNlIDMwOgogCWJyZWFrOwogCiAgICAgZGVm
-YXVsdDoKQEAgLTE3NjMsNiArMTc2NCwyMiBAQCBCb29sIFJBREVPTlByZUluaXRfS01TKFNjcm5J
-bmZvUHRyIHBTY3JuLCBpbnQgZmxhZ3MpCiAKICAgICBpZiAoIVJBREVPTlByZUluaXRBY2NlbF9L
-TVMocFNjcm4pKSAgICAgICAgICAgICAgZ290byBmYWlsOwogCisgICAgLyogRGVwdGggMzAgbm90
-IHlldCBzdXBwb3J0ZWQgdW5kZXIgZ2xhbW9yLiAqLworICAgIGlmIChwU2Nybi0+ZGVwdGggPT0g
-MzAgJiYgaW5mby0+dXNlX2dsYW1vcikgeworCXhmODZEcnZNc2cocFNjcm4tPnNjcm5JbmRleCwg
-WF9FUlJPUiwKKwkJICAgIkdpdmVuIGRlcHRoICglZCkgaXMgbm90IHN1cHBvcnRlZCB1bmRlciBH
-TEFNT1IgYWNjZWwuIFNlbGVjdCBFWEEuXG4iLAorCQkgICBwU2Nybi0+ZGVwdGgpOworCWdvdG8g
-ZmFpbDsKKyAgICB9CisKKyAgICAvKiBEZXB0aCAzMCBvbmx5IHN1cHBvcnRlZCBzaW5jZSBMaW51
-eCAzLjE2IC8ga21zIGRyaXZlciBtaW5vciB2ZXJzaW9uIDM5ICovCisgICAgaWYgKHBTY3JuLT5k
-ZXB0aCA9PSAzMCAmJiBpbmZvLT5kcmkyLnBLZXJuZWxEUk1WZXJzaW9uLT52ZXJzaW9uX21pbm9y
-IDwgMzkpIHsKKwl4Zjg2RHJ2TXNnKHBTY3JuLT5zY3JuSW5kZXgsIFhfRVJST1IsCisJCSAgICJH
-aXZlbiBkZXB0aCAoJWQpIGlzIG5vdCBzdXBwb3J0ZWQuIEtlcm5lbCB0b28gb2xkLiBOZWVkcyBM
-aW51eCAzLjE2K1xuIiwKKwkJICAgcFNjcm4tPmRlcHRoKTsKKwlnb3RvIGZhaWw7CisgICAgfQor
-CiAgICAgcmFkZW9uX2RybV9xdWV1ZV9pbml0KCk7CiAKICAgICBpbmZvLT5hbGxvd0NvbG9yVGls
-aW5nMkQgPSBGQUxTRTsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============2082981400==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="lNOH6SebaLD93IIaLdjnNhLFvwdrbmFPT"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--lNOH6SebaLD93IIaLdjnNhLFvwdrbmFPT
+Content-Type: multipart/mixed; boundary="wPOjrP3S4pTBAgPXSCrw70uCIxIK3HK8x";
+ protected-headers="v1"
+From: =?UTF-8?Q?Felix_K=c3=bchling?= <felix.kuehling-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <3f7e6fed-8668-b469-8813-e6677cb980ca-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: PCIe3 atomics requirement for amdkfd
+References: <c2c34443-9ba1-661b-476d-b657a7ddfe85-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <c2c34443-9ba1-661b-476d-b657a7ddfe85-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+
+--wPOjrP3S4pTBAgPXSCrw70uCIxIK3HK8x
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+
+As I understand it, it would require changes in the ROCr Runtime and in
+the firmware (MEC microcode). It also changes the programming model, so
+it may affect certain applications or higher level language runtimes
+that rely on atomic operations.
+
+Regards,
+=C2=A0 Felix
+
+
+Am 19.12.2017 um 16:04 schrieb Tom Stellard:
+> Hi,
+>
+> How hard of a requirement is PCIe3 atomics for dGPUs with the amdkfd
+> kernel driver?  Is it possible to make modifications to the runtime/ker=
+nel
+> driver to drop this requirement?
+>
+> -Tom
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--wPOjrP3S4pTBAgPXSCrw70uCIxIK3HK8x--
+
+--lNOH6SebaLD93IIaLdjnNhLFvwdrbmFPT
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF4EAREIAAYFAlo+eREACgkQ1hkrDAUMk3Z1ZQD+I3F1tj1FNwdrBbz9J1x4CgSt
+y/kTB5XV98uSoCPDsaYA/jdPkiQqaeNd3cKGtZbkydUqRFlpcKiUU5iv+EzD1Yr9
+=8cMN
+-----END PGP SIGNATURE-----
+
+--lNOH6SebaLD93IIaLdjnNhLFvwdrbmFPT--
+
+--===============2082981400==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2082981400==--
