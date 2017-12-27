@@ -1,43 +1,48 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: set gtt size according to system memory
- size only
-Date: Wed, 27 Dec 2017 09:58:07 +0100
-Message-ID: <ad59f224-9b6f-c5e3-a932-39a00d3d783f@daenzer.net>
-References: <1511946723-27200-1-git-send-email-Hongbo.He@amd.com>
- <090b426c-0635-3c59-8a69-315c7f430b59@daenzer.net>
- <7b138de2-70eb-62ef-e61a-8933d77af124@amd.com>
- <915d1570-856e-09ae-63b1-5e3d2b937edc@daenzer.net>
- <MWHPR1201MB0127DE9F4391624C09F625F1FD370@MWHPR1201MB0127.namprd12.prod.outlook.com>
- <8c70faa2-ee3e-296b-5c61-ede3ac6396f0@daenzer.net>
- <MWHPR1201MB0127C74D1BFACE3F93B79640FD010@MWHPR1201MB0127.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [amd-staging-drm-next] regression - *ERROR* Don't have
+ enable_spread_spectrum_on_ppll for v4
+Date: Wed, 27 Dec 2017 10:04:54 +0100
+Message-ID: <d00a90fb-1be4-c9f5-5202-02b4899ec07c@daenzer.net>
+References: <d23e9146851a0edc4d33fa7b7584520e@nuetzel-hh.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB0127C74D1BFACE3F93B79640FD010-3iK1xFAIwjq9imrIu4W8xGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <d23e9146851a0edc4d33fa7b7584520e@nuetzel-hh.de>
 Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Dieter_N=c3=bctzel?= <Dieter@nuetzel-hh.de>
+Cc: DRI Devel <dri-devel@lists.freedesktop.org>, amd-devel <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxNy0xMi0yNSAwOTo0NSBBTSwgSGUsIFJvZ2VyIHdyb3RlOgo+IAo+IENvdWxkIHlvdSB0
-ZWxsIG1lIGhvdyB0byBkdXBsaWNhdGUgdGhpcyBpc3N1ZT8gIE1heWJlIG5vdyBJIGNhbiBsb29r
-IGludG8gaXQuCgpJdCBoYXBwZW5lZCBmb3IgbWUgcnVubmluZwoKIHBpZ2xpdCBydW4gLXggZ2x4
-LW11bHRpdGhyZWFkLXRleHR1cmUgLS1wcm9jZXNzLWlzb2xhdGlvbiBmYWxzZSBncHUgcmVzdWx0
-cy9ncHUuPGRhdGU+Cgp1c2luZyB0aGUgTWVzYSByYWRlb25zaSBkcml2ZXIgb24gVG9uZ2EgaW4g
-YSBSeXplbiA3IDE3MDAgKDggY29yZXMsIDE2CnRocmVhZHMpIHN5c3RlbSB3aXRoIDE2IEdCIG9m
-IFJBTS4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAg
-ICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAg
-ICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMjAxNy0xMi0yNyAwNTo0MyBBTSwgRGlldGVyIE7DvHR6ZWwgd3JvdGU6Cj4gSGVsbG8gQU1E
+IHRlYW0sCj4gCj4gSSBnb3QgdGhpcyBzaW5jZSBsYXRlc3QgJ2FtZC1zdGFnaW5nLWRybS1uZXh0
+JyBnaXQgdXBkYXRlCj4gKCNiOTU2YzU4NmU1OGEpIGR1cmluZyBib290IHdpdGggUG9sYXJpcyBS
+WDU4MCBEQyBvbjoKPiAKPiBbwqDCoMKgIDMuNTg2MzQyXSBbZHJtOmRhbF9iaW9zX3BhcnNlcl9p
+bml0X2NtZF90YmwgW2FtZGdwdV1dICpFUlJPUiogRG9uJ3QKPiBoYXZlIGVuYWJsZV9zcHJlYWRf
+c3BlY3RydW1fb25fcHBsbCBmb3IgdjQKPiBbwqDCoMKgIDMuNTg2NDEwXSBbZHJtOmRhbF9iaW9z
+X3BhcnNlcl9pbml0X2NtZF90YmwgW2FtZGdwdV1dICpFUlJPUiogRG9uJ3QKPiBoYXZlIHByb2dy
+YW1fY2xvY2sgZm9yIHY3Cj4gCj4gTGF0ZXN0IEdPT0QgY29tbWl0IHdhcyAjYjM0MWExOWU4MDM5
+IChkcm0vcmFkZW9uOiBSZW1vdmUKPiBLRkRfQ0lLX1NETUFfUVVFVUVfT0ZGU0VUKS4KPiAKPiBJ
+J2xsIGJpc2VjdCBpZiBJIGhhdmUgc29tZSB0aW1lLgo+IE1heWJlIHNvbWVvbmUgc2VuZCBhIGhp
+bnQgdG8gdGhlIHJpZ2h0IGNvbW1pdC4KCkkgZG9uJ3QgdGhpbmsgYmlzZWN0aW5nIGlzIHVzZWZ1
+bCwgaXQnbGwgbW9zdCBsaWtlbHkganVzdCBpZGVudGlmeQpjb21taXQgMDQwZGRhMmUxZjUyICgi
+ZHJtL2FtZC9kaXNwbGF5OiBFcnJvciBwcmludCB3aGVuIEFUT00gQklPUwppbXBsZW1lbnRhdGlv
+biBpcyBtaXNzaW5nIikgd2hpY2ggc3RhcnRlZCBwcmludGluZyB0aGVzZSBtZXNzYWdlcyBmb3IK
+bWlzc2luZyBBVE9NIEJJT1MgaW1wbGVtZW50YXRpb25zLgoKSSdtIG5vdCBzdXJlLCBidXQgSSBz
+dXNwZWN0IHRoZXNlIG1lc3NhZ2VzIGFyZSBoYXJtbGVzcywgZ2l2ZW4gdGhhdAp0aGluZ3MgYXJl
+IG90aGVyd2lzZSBwcmVzdW1hYmx5IHN0aWxsIHdvcmtpbmcgYXMgd2VsbCBhcyB0aGV5IHdlcmUg
+YmVmb3JlLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAg
+ICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3Qg
+ICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBs
+aXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
