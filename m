@@ -1,14 +1,15 @@
-From: =?ISO-8859-1?Q?Jos=E9_Ram=F3n_Mu=F1oz?= Pekkarinen <koalinux-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] Only detect virtualization capabilities on Fiji and Tonga.
-Date: Wed, 27 Dec 2017 16:28:53 +0200
-Message-ID: <5858839.1iLCZByK7H@localhost>
-References: <20171226142610.27402-1-koalinux@gmail.com>
- <CADnq5_NM+BLiKUhAoQ1a6Dx=fXGeYNHrPjXzp8Ao+UHCxv4GzQ@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 11/12] drm/amd/powerplay: drop unneeded newline
+Date: Wed, 27 Dec 2017 16:40:12 +0100
+Message-ID: <0378ac3c-752c-12b4-6f7c-046b208ff6d7@daenzer.net>
+References: <1514386305-7402-1-git-send-email-Julia.Lawall@lip6.fr>
+ <1514386305-7402-12-git-send-email-Julia.Lawall@lip6.fr>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NM+BLiKUhAoQ1a6Dx=fXGeYNHrPjXzp8Ao+UHCxv4GzQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1514386305-7402-12-git-send-email-Julia.Lawall-L2FTfq7BK8M@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,15 +20,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Julia Lawall <Julia.Lawall-L2FTfq7BK8M@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gV2VkbmVzZGF5LCAyNyBEZWNlbWJlciAyMDE3IDA5OjQ1OjU3IEVFVCBBbGV4IERldWNoZXIg
-d3JvdGU6Cj4gT24gVHVlLCBEZWMgMjYsIDIwMTcgYXQgOToyNiBBTSwgSm9zw6kgUGVra2FyaW5l
-biA8a29hbGludXhAZ21haWwuY29tPiB3cm90ZToKPiA+IFNpZ25lZC1vZmYtYnk6IEpvc8OpIFBl
-a2thcmluZW4gPGtvYWxpbnV4QGdtYWlsLmNvbT4KPiAKPiBOQUNLLiAgVGhpcyB3b3VsZCBicmVh
-ayB2ZWdhMTAgYW5kIHRoaXMgY29kZSBwYXRoIGlzIG9ubHkgY2FsbGVkIG9uCj4gdmVnYTEwIGFz
-aWNzLgo+IAo+IEFsZXgKCglUcnVlLCB0aGlzIG1heSBub3QgYmUgaGFybWZ1bC4gVGhhbmtzIEFs
-ZXghCgoJSm9zw6kuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMjAxNy0xMi0yNyAwMzo1MSBQTSwgSnVsaWEgTGF3YWxsIHdyb3RlOgo+IFBQX0FTU0VSVF9X
+SVRIX0NPREUgcHJpbnRzIGEgbmV3bGluZSBhdCB0aGUgZW5kIG9mIHRoZSBtZXNzYWdlIHN0cmlu
+ZywKPiBzbyB0aGUgbWVzc2FnZSBzdHJpbmcgZG9lcyBub3QgbmVlZCB0byBpbmNsdWRlIGEgbmV3
+bGluZSBleHBsaWNpdGx5Lgo+IERvbmUgdXNpbmcgQ29jY2luZWxsZS4KPiAKPiBTaWduZWQtb2Zm
+LWJ5OiBKdWxpYSBMYXdhbGwgPEp1bGlhLkxhd2FsbEBsaXA2LmZyPgo+IAo+IC0tLQo+IAo+IEkg
+Y291bGRuJ3QgZmlndXJlIG91dCBob3cgdG8gY29uZmlndXJlIHRoZSBrZXJuZWwgdG8gZ2V0IGFu
+eSBvZiB0aGlzIGNvZGUKPiB0byBjb21waWxlLgoKSnVzdCBlbmFibGluZyBDT05GSUdfRFJNX0FN
+REdQVSBzaG91bGQgYmUgZW5vdWdoIEFGQUlDVC4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6Ru
+emVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJy
+ZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQg
+WCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
