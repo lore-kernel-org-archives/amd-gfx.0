@@ -1,60 +1,55 @@
-From: Julia Lawall <julia.lawall@lip6.fr>
-Subject: Re: [PATCH 11/12] drm/amd/powerplay: drop unneeded newline
-Date: Wed, 27 Dec 2017 21:11:56 +0100 (CET)
-Message-ID: <alpine.DEB.2.20.1712272111390.2118@hadrien>
-References: <1514386305-7402-1-git-send-email-Julia.Lawall@lip6.fr>
- <1514386305-7402-12-git-send-email-Julia.Lawall@lip6.fr>
- <0378ac3c-752c-12b4-6f7c-046b208ff6d7@daenzer.net>
+From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/3] Skip xf86HandleColormaps() at color depth 30.
+Date: Wed, 27 Dec 2017 21:49:35 +0100
+Message-ID: <bae0a477-fa06-5ddd-6202-ebb29576e432@gmail.com>
+References: <20171223060737.12271-1-mario.kleiner.de@gmail.com>
+ <20171223060737.12271-2-mario.kleiner.de@gmail.com>
+ <f15625f4-c8fa-38b2-6a35-05bdbcaa9a1e@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-482809422-1514405516=:2118"
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <0378ac3c-752c-12b4-6f7c-046b208ff6d7@daenzer.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?ISO-8859-15?Q?Michel_D=E4nzer?= <michel@daenzer.net>
-Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
-
---8323329-482809422-1514405516=:2118
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-
-
-
-On Wed, 27 Dec 2017, Michel Dänzer wrote:
-
-> On 2017-12-27 03:51 PM, Julia Lawall wrote:
-> > PP_ASSERT_WITH_CODE prints a newline at the end of the message string,
-> > so the message string does not need to include a newline explicitly.
-> > Done using Coccinelle.
-> >
-> > Signed-off-by: Julia Lawall <Julia.Lawall@lip6.fr>
-> >
-> > ---
-> >
-> > I couldn't figure out how to configure the kernel to get any of this code
-> > to compile.
->
-> Just enabling CONFIG_DRM_AMDGPU should be enough AFAICT.
-
-That seems to work.  Thanks.
-
-julia
---8323329-482809422-1514405516=:2118
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <f15625f4-c8fa-38b2-6a35-05bdbcaa9a1e-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---8323329-482809422-1514405516=:2118--
+T24gMTIvMjcvMjAxNyAxMjo1NiBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxNy0x
+Mi0yMyAwNzowNyBBTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPj4gVGhlIGhhcmR3YXJlIGdhbW1h
+IGx1dHMgZ2V0IGJ5cGFzc2VkIGF0IGNvbG9yCj4+IGRlcHRoIDMwIGFueXdheSwgc28gc2tpcCB0
+aGVpciBzZXR1cC4KPj4KPj4gQWxzbyBza2lwIGRybW1vZGVfY3J0Y19nYW1tYV9zZXQoKSBmb3Ig
+YSBzY3JlZW4KPj4gd2l0aCBkZXB0aCAzMC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogTWFyaW8gS2xl
+aW5lciA8bWFyaW8ua2xlaW5lci5kZUBnbWFpbC5jb20+Cj4+IC0tLQo+PiAgIHNyYy9kcm1tb2Rl
+X2Rpc3BsYXkuYyB8IDEwICsrKysrKysrLS0KPj4gICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRp
+b25zKCspLCAyIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlz
+cGxheS5jIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCj4+IGluZGV4IDdhZDMyMzUuLmU1ZjlkYmUg
+MTAwNjQ0Cj4+IC0tLSBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYwo+PiArKysgYi9zcmMvZHJtbW9k
+ZV9kaXNwbGF5LmMKPj4gQEAgLTEyNzUsNiArMTI3NSwxMCBAQCBkcm1tb2RlX2NydGNfZ2FtbWFf
+c2V0KHhmODZDcnRjUHRyIGNydGMsIHVpbnQxNl90ICpyZWQsIHVpbnQxNl90ICpncmVlbiwKPj4g
+ICAJUkFERU9OSW5mb1B0ciBpbmZvID0gUkFERU9OUFRSKHNjcm4pOwo+PiAgIAlpbnQgaTsKPj4g
+ICAKPj4gKwkvKiBIdyBnYW1tYSBsdXQncyBhcmUgYnlwYXNzZWQgYXQgY29sb3IgZGVwdGggMzAg
+Ki8KPj4gKwlpZiAoc2Nybi0+ZGVwdGggPT0gMzApCj4+ICsJCXJldHVybjsKPiAKPiBJdCdzIGJl
+dHRlciB0byBzZXQgeGY4NkNydGNGdW5jc1JlYzo6Z2FtbWFfc2V0ID0gTlVMTCBpbiB0aGlzIGNh
+c2UsIHRvCj4gcHJldmVudCB0aGUgWCBzZXJ2ZXIgZnJvbSB3YXN0aW5nIHdvcmsgY2FsY3VsYXRp
+bmcgZ2FtbWEgdGFibGVzIHRoYXQKPiB3aWxsIG5ldmVyIGJlIHVzZWQuCgpJIGxvb2tlZCBhdCB0
+aGF0LCBidXQgYXMgZmFyIGFzIGkgdW5kZXJzdGFuZCwgd291bGRuJ3QgTlVMTCdpbmcgdGhhdCAK
+ZW50cnkgYWZmZWN0IGFsbCBhY3RpdmUgWC1TY3JlZW5zLCBub3Qgb25seSB0aGUgZGVwdGggMzAg
+b25lcywgYXMgZWFjaCAKc2NyZWVuIG9ubHkgcmVmZXJlbmNlcyB0aGUgc2FtZSBzaGFyZWQgc3Rh
+dGljIHN0cnVjdCB3aXRoIGZ1bmN0aW9uIApwb2ludGVycyBpbiB0aGUgZHJpdmVyPyBBdCBsZWFz
+dCBmb3IgdGhlIHVzZSBjYXNlcyBvZiBtYW55IG9mICJteSIgCnVzZXJzLCB0d28gc2VwYXJhdGUg
+eC1zY3JlZW5zLCB3aXRoIFphcGhvZEhlYWRzIGFuZCBkaWZmZXJlbnQgY29sb3IgCmRlcHRoIHdv
+dWxkbid0IGJlIGFuIHVuZXhwZWN0ZWQgc2V0dXAuCgpPciBtYXliZSBpIGp1c3Qgb3Zlcmxvb2sg
+c29tZXRoaW5nIChub3Qgd2l0aCBteSBjb2RlL3Rlc3QtbWFjaGluZSBhdG0uKT8KLW1hcmlvCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
