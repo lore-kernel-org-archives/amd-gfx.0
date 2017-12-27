@@ -1,14 +1,21 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] Look for bios sriov capabilities only if we are on Fiji
- or Tonga.
-Date: Wed, 27 Dec 2017 02:49:40 -0500
-Message-ID: <CADnq5_Mewg2SUFMqi0L0t7FOsD1RfKZERcK08KnybbcG=riadg@mail.gmail.com>
-References: <20171225204947.9950-1-koalinux@gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: set gtt size according to system memory
+ size only
+Date: Wed, 27 Dec 2017 09:58:07 +0100
+Message-ID: <ad59f224-9b6f-c5e3-a932-39a00d3d783f@daenzer.net>
+References: <1511946723-27200-1-git-send-email-Hongbo.He@amd.com>
+ <090b426c-0635-3c59-8a69-315c7f430b59@daenzer.net>
+ <7b138de2-70eb-62ef-e61a-8933d77af124@amd.com>
+ <915d1570-856e-09ae-63b1-5e3d2b937edc@daenzer.net>
+ <MWHPR1201MB0127DE9F4391624C09F625F1FD370@MWHPR1201MB0127.namprd12.prod.outlook.com>
+ <8c70faa2-ee3e-296b-5c61-ede3ac6396f0@daenzer.net>
+ <MWHPR1201MB0127C74D1BFACE3F93B79640FD010@MWHPR1201MB0127.namprd12.prod.outlook.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171225204947.9950-1-koalinux-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <MWHPR1201MB0127C74D1BFACE3F93B79640FD010-3iK1xFAIwjq9imrIu4W8xGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,42 +26,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Jos=C3=A9_Pekkarinen?= <koalinux-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gTW9uLCBEZWMgMjUsIDIwMTcgYXQgMzo0OSBQTSwgSm9zw6kgUGVra2FyaW5lbiA8a29hbGlu
-dXhAZ21haWwuY29tPiB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5OiBKb3PDqSBQZWtrYXJpbmVuIDxr
-b2FsaW51eEBnbWFpbC5jb20+CgpOQUNLLiAgVGhpcyB3aWxsIGJyZWFrIHZlZ2ExMC4gIFRoZSB2
-aXJ0dWFsaXphdGlvbiB0YWJsZSBvbmx5IGV4aXN0cwpvbiBzci1pb3YgY2FwYWJsZSBjYXJkcyBz
-byB0aGUgY2hlY2tzIGFyZSBzYWZlIG9uIGFsbCBhc2ljcy4KCkFsZXgKCj4gLS0tCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDE1ICsrKysrKysrKy0tLS0t
-LQo+ICAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+Cj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IGU2MzBk
-OTE4ZmVmYy4uNzk1ODU5NzAyOGUzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0xOTMzLDEyICsxOTMzLDE1IEBAIHN0YXRpYyBpbnQgYW1k
-Z3B1X3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPgo+ICBzdGF0aWMgdm9pZCBh
-bWRncHVfZGV2aWNlX2RldGVjdF9zcmlvdl9iaW9zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQo+ICB7Cj4gLSAgICAgICBpZiAoYWRldi0+aXNfYXRvbV9mdykgewo+IC0gICAgICAgICAgICAg
-ICBpZiAoYW1kZ3B1X2F0b21maXJtd2FyZV9ncHVfc3VwcG9ydHNfdmlydHVhbGl6YXRpb24oYWRl
-dikpCj4gLSAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+dmlydC5jYXBzIHw9IEFNREdQVV9T
-UklPVl9DQVBTX1NSSU9WX1ZCSU9TOwo+IC0gICAgICAgfSBlbHNlIHsKPiAtICAgICAgICAgICAg
-ICAgaWYgKGFtZGdwdV9hdG9tYmlvc19oYXNfZ3B1X3ZpcnR1YWxpemF0aW9uX3RhYmxlKGFkZXYp
-KQo+IC0gICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPnZpcnQuY2FwcyB8PSBBTURHUFVfU1JJ
-T1ZfQ0FQU19TUklPVl9WQklPUzsKPiArICAgICAgIGlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJ
-UF9UT05HQSB8fAo+ICsgICAgICAgICAgIGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX0ZJSkkpIHsK
-PiArICAgICAgICAgICAgICAgaWYgKGFkZXYtPmlzX2F0b21fZncpIHsKPiArICAgICAgICAgICAg
-ICAgICAgICAgICBpZiAoYW1kZ3B1X2F0b21maXJtd2FyZV9ncHVfc3VwcG9ydHNfdmlydHVhbGl6
-YXRpb24oYWRldikpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT52aXJ0
-LmNhcHMgfD0gQU1ER1BVX1NSSU9WX0NBUFNfU1JJT1ZfVkJJT1M7Cj4gKyAgICAgICAgICAgICAg
-IH0gZWxzZSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGFtZGdwdV9hdG9tYmlvc19o
-YXNfZ3B1X3ZpcnR1YWxpemF0aW9uX3RhYmxlKGFkZXYpKQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYWRldi0+dmlydC5jYXBzIHw9IEFNREdQVV9TUklPVl9DQVBTX1NSSU9WX1ZC
-SU9TOwo+ICsgICAgICAgICAgICAgICB9Cj4gICAgICAgICB9Cj4gIH0KPgo+IC0tCj4gMi4xMy42
-Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFt
-ZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMjAxNy0xMi0yNSAwOTo0NSBBTSwgSGUsIFJvZ2VyIHdyb3RlOgo+IAo+IENvdWxkIHlvdSB0
+ZWxsIG1lIGhvdyB0byBkdXBsaWNhdGUgdGhpcyBpc3N1ZT8gIE1heWJlIG5vdyBJIGNhbiBsb29r
+IGludG8gaXQuCgpJdCBoYXBwZW5lZCBmb3IgbWUgcnVubmluZwoKIHBpZ2xpdCBydW4gLXggZ2x4
+LW11bHRpdGhyZWFkLXRleHR1cmUgLS1wcm9jZXNzLWlzb2xhdGlvbiBmYWxzZSBncHUgcmVzdWx0
+cy9ncHUuPGRhdGU+Cgp1c2luZyB0aGUgTWVzYSByYWRlb25zaSBkcml2ZXIgb24gVG9uZ2EgaW4g
+YSBSeXplbiA3IDE3MDAgKDggY29yZXMsIDE2CnRocmVhZHMpIHN5c3RlbSB3aXRoIDE2IEdCIG9m
+IFJBTS4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAg
+ICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAg
+ICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
