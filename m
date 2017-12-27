@@ -1,81 +1,60 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH xf86-video-ati 1/2] Move cursor related ScreenInit calls
- into AMDGPUCursorInit_KMS
-Date: Wed, 27 Dec 2017 13:14:47 -0500
-Message-ID: <CADnq5_No_Gm0F5-zhQL_RYrgYbNpqS1Do=+0tXRW_ppKB1n0ow@mail.gmail.com>
-References: <20171227164321.14752-1-michel@daenzer.net>
+From: Julia Lawall <julia.lawall@lip6.fr>
+Subject: Re: [PATCH 11/12] drm/amd/powerplay: drop unneeded newline
+Date: Wed, 27 Dec 2017 21:11:56 +0100 (CET)
+Message-ID: <alpine.DEB.2.20.1712272111390.2118@hadrien>
+References: <1514386305-7402-1-git-send-email-Julia.Lawall@lip6.fr>
+ <1514386305-7402-12-git-send-email-Julia.Lawall@lip6.fr>
+ <0378ac3c-752c-12b4-6f7c-046b208ff6d7@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20171227164321.14752-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; BOUNDARY="8323329-482809422-1514405516=:2118"
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <0378ac3c-752c-12b4-6f7c-046b208ff6d7@daenzer.net>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?ISO-8859-15?Q?Michel_D=E4nzer?= <michel@daenzer.net>
+Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBEZWMgMjcsIDIwMTcgYXQgMTE6NDMgQU0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxA
-ZGFlbnplci5uZXQ+IHdyb3RlOgo+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnpl
-ckBhbWQuY29tPgo+Cj4gQW5kIGJhaWwgaWYgeGY4Nl9jdXJzb3JzX2luaXQgZmFpbHMuCj4KPiAo
-UG9ydGVkIGZyb20gYW1kZ3B1IGNvbW1pdCBkZmNjYWE3MDQzY2NiMTU3YTFmOGJlNzMxMzEyMzc5
-MmJiN2U3MDAxKQo+Cj4gU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVu
-emVyQGFtZC5jb20+CgpTZXJpZXMgaXM6ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhh
-bmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBzcmMvcmFkZW9uX2ttcy5jIHwgNDQgKysr
-KysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5n
-ZWQsIDI1IGluc2VydGlvbnMoKyksIDE5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL3Ny
-Yy9yYWRlb25fa21zLmMgYi9zcmMvcmFkZW9uX2ttcy5jCj4gaW5kZXggYTkzMDBkNDAwLi42MDJh
-OGZiN2MgMTAwNjQ0Cj4gLS0tIGEvc3JjL3JhZGVvbl9rbXMuYwo+ICsrKyBiL3NyYy9yYWRlb25f
-a21zLmMKPiBAQCAtMTk4MiwxMiArMTk4MiwyOSBAQCBzdGF0aWMgQm9vbCBSQURFT05DdXJzb3JJ
-bml0X0tNUyhTY3JlZW5QdHIgcFNjcmVlbikKPiAgICAgIFNjcm5JbmZvUHRyICAgIHBTY3JuID0g
-eGY4NlNjcmVlblRvU2NybihwU2NyZWVuKTsKPiAgICAgIFJBREVPTkluZm9QdHIgIGluZm8gID0g
-UkFERU9OUFRSKHBTY3JuKTsKPgo+IC0gICAgcmV0dXJuIHhmODZfY3Vyc29yc19pbml0IChwU2Ny
-ZWVuLCBpbmZvLT5jdXJzb3JfdywgaW5mby0+Y3Vyc29yX2gsCj4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgKEhBUkRXQVJFX0NVUlNPUl9UUlVFQ09MT1JfQVRfOEJQUCB8Cj4gLSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIEhBUkRXQVJFX0NVUlNPUl9BTkRfU09VUkNFX1dJVEhf
-TUFTSyB8Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEhBUkRXQVJFX0NVUlNPUl9T
-T1VSQ0VfTUFTS19JTlRFUkxFQVZFXzEgfAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBIQVJEV0FSRV9DVVJTT1JfVVBEQVRFX1VOSElEREVOIHwKPiAtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgSEFSRFdBUkVfQ1VSU09SX0FSR0IpKTsKPiArICAgIHhmODZEcnZNc2dWZXJi
-KHBTY3JuLT5zY3JuSW5kZXgsIFhfSU5GTywgUkFERU9OX0xPR0xFVkVMX0RFQlVHLAo+ICsgICAg
-ICAgICAgICAgICAgICAiSW5pdGlhbGl6aW5nIEN1cnNvclxuIik7Cj4gKwo+ICsgICAgLyogU2V0
-IFNpbGtlbiBNb3VzZSAqLwo+ICsgICAgeGY4NlNldFNpbGtlbk1vdXNlKHBTY3JlZW4pOwo+ICsK
-PiArICAgIC8qIEN1cnNvciBzZXR1cCAqLwo+ICsgICAgbWlEQ0luaXRpYWxpemUocFNjcmVlbiwg
-eGY4NkdldFBvaW50ZXJTY3JlZW5GdW5jcygpKTsKPiArCj4gKyAgICBpZiAoeGY4NlJldHVybk9w
-dFZhbEJvb2woaW5mby0+T3B0aW9ucywgT1BUSU9OX1NXX0NVUlNPUiwgRkFMU0UpKQo+ICsgICAg
-ICAgcmV0dXJuIFRSVUU7Cj4gKwo+ICsgICAgaWYgKCF4Zjg2X2N1cnNvcnNfaW5pdChwU2NyZWVu
-LCBpbmZvLT5jdXJzb3JfdywgaW5mby0+Y3Vyc29yX2gsCj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgSEFSRFdBUkVfQ1VSU09SX1RSVUVDT0xPUl9BVF84QlBQIHwKPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICBIQVJEV0FSRV9DVVJTT1JfQU5EX1NPVVJDRV9XSVRIX01BU0sgfAo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgIEhBUkRXQVJFX0NVUlNPUl9TT1VSQ0VfTUFTS19JTlRF
-UkxFQVZFXzEgfAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIEhBUkRXQVJFX0NVUlNPUl9V
-UERBVEVfVU5ISURERU4gfAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIEhBUkRXQVJFX0NV
-UlNPUl9BUkdCKSkgewo+ICsgICAgICAgeGY4NkRydk1zZyhwU2Nybi0+c2NybkluZGV4LCBYX0VS
-Uk9SLCAieGY4Nl9jdXJzb3JzX2luaXQgZmFpbGVkXG4iKTsKPiArICAgICAgIHJldHVybiBGQUxT
-RTsKPiArICAgIH0KPiArCj4gKyAgICByZXR1cm4gVFJVRTsKPiAgfQo+Cj4gIHZvaWQKPiBAQCAt
-MjMzMCwxOSArMjM0Nyw4IEBAIEJvb2wgUkFERU9OU2NyZWVuSW5pdF9LTVMoU2NyZWVuUHRyIHBT
-Y3JlZW4sIGludCBhcmdjLCBjaGFyICoqYXJndikKPiAgICAgICAgICAgICAgICAgICAgIkluaXRp
-YWxpemluZyBEUE1TXG4iKTsKPiAgICAgIHhmODZEUE1TSW5pdChwU2NyZWVuLCB4Zjg2RFBNU1Nl
-dCwgMCk7Cj4KPiAtICAgIHhmODZEcnZNc2dWZXJiKHBTY3JuLT5zY3JuSW5kZXgsIFhfSU5GTywg
-UkFERU9OX0xPR0xFVkVMX0RFQlVHLAo+IC0gICAgICAgICAgICAgICAgICAiSW5pdGlhbGl6aW5n
-IEN1cnNvclxuIik7Cj4gLQo+IC0gICAgLyogU2V0IFNpbGtlbiBNb3VzZSAqLwo+IC0gICAgeGY4
-NlNldFNpbGtlbk1vdXNlKHBTY3JlZW4pOwo+IC0KPiAtICAgIC8qIEN1cnNvciBzZXR1cCAqLwo+
-IC0gICAgbWlEQ0luaXRpYWxpemUocFNjcmVlbiwgeGY4NkdldFBvaW50ZXJTY3JlZW5GdW5jcygp
-KTsKPiAtCj4gLSAgICBpZiAoIXhmODZSZXR1cm5PcHRWYWxCb29sKGluZm8tPk9wdGlvbnMsIE9Q
-VElPTl9TV19DVVJTT1IsIEZBTFNFKSkgewo+IC0gICAgICAgaWYgKFJBREVPTkN1cnNvckluaXRf
-S01TKHBTY3JlZW4pKSB7Cj4gLSAgICAgICB9Cj4gLSAgICB9Cj4gKyAgICBpZiAoIVJBREVPTkN1
-cnNvckluaXRfS01TKHBTY3JlZW4pKQo+ICsgICAgICAgcmV0dXJuIEZBTFNFOwo+Cj4gICAgICAv
-KiBER0Egc2V0dXAgKi8KPiAgI2lmZGVmIFhGcmVlWERHQQo+IC0tCj4gMi4xNS4xCj4KPiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFp
-bGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--8323329-482809422-1514405516=:2118
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
+
+
+
+On Wed, 27 Dec 2017, Michel Dänzer wrote:
+
+> On 2017-12-27 03:51 PM, Julia Lawall wrote:
+> > PP_ASSERT_WITH_CODE prints a newline at the end of the message string,
+> > so the message string does not need to include a newline explicitly.
+> > Done using Coccinelle.
+> >
+> > Signed-off-by: Julia Lawall <Julia.Lawall@lip6.fr>
+> >
+> > ---
+> >
+> > I couldn't figure out how to configure the kernel to get any of this code
+> > to compile.
+>
+> Just enabling CONFIG_DRM_AMDGPU should be enough AFAICT.
+
+That seems to work.  Thanks.
+
+julia
+--8323329-482809422-1514405516=:2118
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--8323329-482809422-1514405516=:2118--
