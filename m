@@ -1,15 +1,21 @@
-From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/3] Skip xf86HandleColormaps() at color depth 30.
-Date: Wed, 27 Dec 2017 21:49:35 +0100
-Message-ID: <bae0a477-fa06-5ddd-6202-ebb29576e432@gmail.com>
-References: <20171223060737.12271-1-mario.kleiner.de@gmail.com>
- <20171223060737.12271-2-mario.kleiner.de@gmail.com>
- <f15625f4-c8fa-38b2-6a35-05bdbcaa9a1e@daenzer.net>
+From: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/amdgpu: set gtt size according to system memory
+ size only
+Date: Thu, 28 Dec 2017 03:37:22 +0000
+Message-ID: <MWHPR1201MB01273E8700DF0289D6A20194FD040@MWHPR1201MB0127.namprd12.prod.outlook.com>
+References: <1511946723-27200-1-git-send-email-Hongbo.He@amd.com>
+ <090b426c-0635-3c59-8a69-315c7f430b59@daenzer.net>
+ <7b138de2-70eb-62ef-e61a-8933d77af124@amd.com>
+ <915d1570-856e-09ae-63b1-5e3d2b937edc@daenzer.net>
+ <MWHPR1201MB0127DE9F4391624C09F625F1FD370@MWHPR1201MB0127.namprd12.prod.outlook.com>
+ <8c70faa2-ee3e-296b-5c61-ede3ac6396f0@daenzer.net>
+ <MWHPR1201MB0127C74D1BFACE3F93B79640FD010@MWHPR1201MB0127.namprd12.prod.outlook.com>
+ <ad59f224-9b6f-c5e3-a932-39a00d3d783f@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f15625f4-c8fa-38b2-6a35-05bdbcaa9a1e-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <ad59f224-9b6f-c5e3-a932-39a00d3d783f-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,35 +27,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky,
+ Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMTIvMjcvMjAxNyAxMjo1NiBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxNy0x
-Mi0yMyAwNzowNyBBTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPj4gVGhlIGhhcmR3YXJlIGdhbW1h
-IGx1dHMgZ2V0IGJ5cGFzc2VkIGF0IGNvbG9yCj4+IGRlcHRoIDMwIGFueXdheSwgc28gc2tpcCB0
-aGVpciBzZXR1cC4KPj4KPj4gQWxzbyBza2lwIGRybW1vZGVfY3J0Y19nYW1tYV9zZXQoKSBmb3Ig
-YSBzY3JlZW4KPj4gd2l0aCBkZXB0aCAzMC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogTWFyaW8gS2xl
-aW5lciA8bWFyaW8ua2xlaW5lci5kZUBnbWFpbC5jb20+Cj4+IC0tLQo+PiAgIHNyYy9kcm1tb2Rl
-X2Rpc3BsYXkuYyB8IDEwICsrKysrKysrLS0KPj4gICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRp
-b25zKCspLCAyIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlz
-cGxheS5jIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCj4+IGluZGV4IDdhZDMyMzUuLmU1ZjlkYmUg
-MTAwNjQ0Cj4+IC0tLSBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYwo+PiArKysgYi9zcmMvZHJtbW9k
-ZV9kaXNwbGF5LmMKPj4gQEAgLTEyNzUsNiArMTI3NSwxMCBAQCBkcm1tb2RlX2NydGNfZ2FtbWFf
-c2V0KHhmODZDcnRjUHRyIGNydGMsIHVpbnQxNl90ICpyZWQsIHVpbnQxNl90ICpncmVlbiwKPj4g
-ICAJUkFERU9OSW5mb1B0ciBpbmZvID0gUkFERU9OUFRSKHNjcm4pOwo+PiAgIAlpbnQgaTsKPj4g
-ICAKPj4gKwkvKiBIdyBnYW1tYSBsdXQncyBhcmUgYnlwYXNzZWQgYXQgY29sb3IgZGVwdGggMzAg
-Ki8KPj4gKwlpZiAoc2Nybi0+ZGVwdGggPT0gMzApCj4+ICsJCXJldHVybjsKPiAKPiBJdCdzIGJl
-dHRlciB0byBzZXQgeGY4NkNydGNGdW5jc1JlYzo6Z2FtbWFfc2V0ID0gTlVMTCBpbiB0aGlzIGNh
-c2UsIHRvCj4gcHJldmVudCB0aGUgWCBzZXJ2ZXIgZnJvbSB3YXN0aW5nIHdvcmsgY2FsY3VsYXRp
-bmcgZ2FtbWEgdGFibGVzIHRoYXQKPiB3aWxsIG5ldmVyIGJlIHVzZWQuCgpJIGxvb2tlZCBhdCB0
-aGF0LCBidXQgYXMgZmFyIGFzIGkgdW5kZXJzdGFuZCwgd291bGRuJ3QgTlVMTCdpbmcgdGhhdCAK
-ZW50cnkgYWZmZWN0IGFsbCBhY3RpdmUgWC1TY3JlZW5zLCBub3Qgb25seSB0aGUgZGVwdGggMzAg
-b25lcywgYXMgZWFjaCAKc2NyZWVuIG9ubHkgcmVmZXJlbmNlcyB0aGUgc2FtZSBzaGFyZWQgc3Rh
-dGljIHN0cnVjdCB3aXRoIGZ1bmN0aW9uIApwb2ludGVycyBpbiB0aGUgZHJpdmVyPyBBdCBsZWFz
-dCBmb3IgdGhlIHVzZSBjYXNlcyBvZiBtYW55IG9mICJteSIgCnVzZXJzLCB0d28gc2VwYXJhdGUg
-eC1zY3JlZW5zLCB3aXRoIFphcGhvZEhlYWRzIGFuZCBkaWZmZXJlbnQgY29sb3IgCmRlcHRoIHdv
-dWxkbid0IGJlIGFuIHVuZXhwZWN0ZWQgc2V0dXAuCgpPciBtYXliZSBpIGp1c3Qgb3Zlcmxvb2sg
-c29tZXRoaW5nIChub3Qgd2l0aCBteSBjb2RlL3Rlc3QtbWFjaGluZSBhdG0uKT8KLW1hcmlvCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+R290IGl0LCB0aGFuayB5b3UhDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBN
+aWNoZWwgRMOkbnplciBbbWFpbHRvOm1pY2hlbEBkYWVuemVyLm5ldF0gDQpTZW50OiBXZWRuZXNk
+YXksIERlY2VtYmVyIDI3LCAyMDE3IDQ6NTggUE0NClRvOiBIZSwgUm9nZXIgPEhvbmdiby5IZUBh
+bWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IEdy
+b2R6b3Zza3ksIEFuZHJleSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4NCkNjOiBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZC9hbWRn
+cHU6IHNldCBndHQgc2l6ZSBhY2NvcmRpbmcgdG8gc3lzdGVtIG1lbW9yeSBzaXplIG9ubHkNCg0K
+T24gMjAxNy0xMi0yNSAwOTo0NSBBTSwgSGUsIFJvZ2VyIHdyb3RlOg0KPiANCj4gQ291bGQgeW91
+IHRlbGwgbWUgaG93IHRvIGR1cGxpY2F0ZSB0aGlzIGlzc3VlPyAgTWF5YmUgbm93IEkgY2FuIGxv
+b2sgaW50byBpdC4NCg0KSXQgaGFwcGVuZWQgZm9yIG1lIHJ1bm5pbmcNCg0KIHBpZ2xpdCBydW4g
+LXggZ2x4LW11bHRpdGhyZWFkLXRleHR1cmUgLS1wcm9jZXNzLWlzb2xhdGlvbiBmYWxzZSBncHUg
+cmVzdWx0cy9ncHUuPGRhdGU+DQoNCnVzaW5nIHRoZSBNZXNhIHJhZGVvbnNpIGRyaXZlciBvbiBU
+b25nYSBpbiBhIFJ5emVuIDcgMTcwMCAoOCBjb3JlcywgMTYNCnRocmVhZHMpIHN5c3RlbSB3aXRo
+IDE2IEdCIG9mIFJBTS4NCg0KDQotLSANCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAg
+ICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20NCkxpYnJlIHNvZnR3YXJl
+IGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Bl
+cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
