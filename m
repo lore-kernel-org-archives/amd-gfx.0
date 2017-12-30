@@ -1,12 +1,15 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] Revert "drm/amd/amdgpu: set gtt size according to system
- memory size only"
-Date: Fri, 29 Dec 2017 20:19:06 +0000
-Message-ID: <f817cb0f-9c6f-472b-8bdc-025b34da595a@email.android.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amd/powerplay: set pp_num_states as 0 on error
+ situation
+Date: Sat, 30 Dec 2017 18:30:12 +0000
+Message-ID: <BN6PR12MB165258D2F40C6CE5FC910054F71A0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1514533479-14038-1-git-send-email-evan.quan@amd.com>,
+ <1514533479-14038-4-git-send-email-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1413741816=="
+Content-Type: multipart/mixed; boundary="===============1361078736=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: de-DE
+In-Reply-To: <1514533479-14038-4-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,153 +20,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Daenzer,
- Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1413741816==
-Content-Language: de-DE
+--===============1361078736==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_f817cb0f9c6f472b8bdc025b34da595aemailandroidcom_"
+	boundary="_000_BN6PR12MB165258D2F40C6CE5FC910054F71A0BN6PR12MB1652namp_"
 
---_000_f817cb0f9c6f472b8bdc025b34da595aemailandroidcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_BN6PR12MB165258D2F40C6CE5FC910054F71A0BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-VGhlIGRpZmZlcmVuY2UgaXMgdGhhdCB0aGUgT09NIGtpbGxlciBkb2Vzbid0IGtub3cgb2YgdGhl
-IHBhZ2VzIGFuIGFwcGxpY2F0aW9uIGFsbG9jYXRlcyB0aHJvdWdoIHRoZSBkcml2ZXIuDQoNClRo
-aXMgcmVzdWx0cyBpbiBhIGJhZCBkZWNpc2lvbiB3aGljaCBwcm9jZXNzIHRvIGtpbGwuDQoNCkkg
-aGFkIHBhdGNoZXMgdG8gZml4IHRoaXMgYSBsb25nIHRpbWUgYWdvIG9uIHRoZSBsaXN0LCBidXQg
-bmV2ZXIgZm91bmQgdGltZSB0byBjbGVhbiB0aGVtIHVwIGFuZCBwdXNoIHRoZW0gdXBzdHJlYW0u
-DQoNCkFuZHJleSBpcyBub3cgd29ya2luZyBvbiB0aGlzLCBidXQgSSBkb24ndCBrbm93IHRoZSBz
-dGF0dXMgb2YgaGFuZC4NCg0KQ2hyaXN0aWFuLg0KDQpBbSAyOS4xMi4yMDE3IDIwOjM2IHNjaHJp
-ZWIgIkt1ZWhsaW5nLCBGZWxpeCIgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+Og0KSXMgaXQgcG9z
-c2libGUgdGhhdCB0aGUgdGVzdCBpcyBicm9rZW4/IEEgdGVzdCB0aGF0IGFsbG9jYXRlcyBtZW1v
-cnkgdG8NCmV4aGF1c3Rpb24gbWF5IHdlbGwgdHJpZ2dlciB0aGUgT09NIGtpbGxlci4gQSB0ZXN0
-IGNhbiBkbyB0aGF0IGJ5IHVzaW5nDQptYWxsb2MuIFdoeSBub3QgYnkgdXNpbmcgdGhlIGdyYXBo
-aWNzIGRyaXZlcj8gVGhlIE9PTSBraWxsZXIgZG9lcyB3aGF0DQppdCdzIHN1cHBvc2VkIHRvIGRv
-LCBhbmQga2lsbHMgdGhlIGJyb2tlbiBhcHBsaWNhdGlvbi4NCg0KQXMgSSB1bmRlcnN0YW5kIGl0
-LCB0aGlzIGNoYW5nZSBpcyBhZGRzIGFydGlmaWNpYWwgbGltaXRhdGlvbnMgdG8NCndvcmthcm91
-bmQgYSBidWcgaW4gYSB1c2VyIG1vZGUgdGVzdC4gSG93ZXZlciwgaXQgZW5kcyB1cCBsaW1pdGlu
-ZyB0aGUNCm1lbW9yeSBhdmFpbGFibGUgZm9yIHdlbGwgYmVoYXZlZCBhcHBsaWNhdGlvbnMsIG1v
-cmUgdGhhbiBuZWNlc3NhcnkuDQoNCkZvciBjb21wdXRlIGFwcGxpY2F0aW9ucyB0aGF0IHdvcmsg
-d2l0aCBodWdlIGRhdGEgc2V0cywgd2Ugd2FudCB0byBiZQ0KYWJsZSB0byBhbGxvY2F0ZSBsb3Rz
-IG9mIHN5c3RlbSBtZW1vcnkuIFR5aW5nIGF2YWlsYWJsZSBzeXN0ZW0gbWVtb3J5IHRvDQp0aGUg
-VlJBTSBzaXplIG1ha2VzIG5vIHNlbnNlIGZvciBjb21wdXRlIGFwcGxpY2F0aW9ucyB0aGF0IHdh
-bnQgdG8gd29yaw0Kd2l0aCBzdWNoIGh1Z2UgZGF0YSBzZXRzLg0KDQpSZWdhcmRzLA0KICBGZWxp
-eA0KDQoNCk9uIDIwMTctMTItMTUgMDI6MDkgUE0sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOg0K
-PiBUaGlzIHJldmVydHMgY29tbWl0IGJhODUxZWVkODk1Yzc2YmUwZWI0MjYwYmRiZWI3ZTI2Zjlj
-Y2ZhYTIuDQo+IFdpdGggdGhhdCBjaGFuZ2UgcGlnbGl0IG1heCBzaXplIHRlc3RzIChydW5uaW5n
-IHdpdGggLXQgbWF4LipzaXplKSBhcmUgY2F1c2luZw0KPiBPT00gYW5kIGhhcmQgaGFuZyBvbiBt
-eSBDWiB3aXRoIDFHQiBSQU0uDQo+DQo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5
-IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8IDggKysrKystLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCA1
-IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdHRtLmMNCj4gaW5kZXggYzMwN2E3ZC4uODE0YTljMSAxMDA2NDQNCj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPiBAQCAtMTMyOSw5ICsxMzI5LDEx
-IEBAIGludCBhbWRncHVfdHRtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAg
-ICAgICAgICAgICAgIHN0cnVjdCBzeXNpbmZvIHNpOw0KPg0KPiAgICAgICAgICAgICAgICBzaV9t
-ZW1pbmZvKCZzaSk7DQo+IC0gICAgICAgICAgICAgZ3R0X3NpemUgPSBtYXgoQU1ER1BVX0RFRkFV
-TFRfR1RUX1NJWkVfTUIgPDwgMjAsDQo+IC0gICAgICAgICAgICAgICAgICAgICAodWludDY0X3Qp
-c2kudG90YWxyYW0gKiBzaS5tZW1fdW5pdCAqIDMvNCk7DQo+IC0gICAgIH0gZWxzZQ0KPiArICAg
-ICAgICAgICAgIGd0dF9zaXplID0gbWluKG1heCgoQU1ER1BVX0RFRkFVTFRfR1RUX1NJWkVfTUIg
-PDwgMjApLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPm1jLm1jX3ZyYW1f
-c2l6ZSksDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgKCh1aW50NjRfdClzaS50b3Rh
-bHJhbSAqIHNpLm1lbV91bml0ICogMy80KSk7DQo+ICsgICAgIH0NCj4gKyAgICAgZWxzZQ0KPiAg
-ICAgICAgICAgICAgICBndHRfc2l6ZSA9ICh1aW50NjRfdClhbWRncHVfZ3R0X3NpemUgPDwgMjA7
-DQo+ICAgICAgICByID0gdHRtX2JvX2luaXRfbW0oJmFkZXYtPm1tYW4uYmRldiwgVFRNX1BMX1RU
-LCBndHRfc2l6ZSA+PiBQQUdFX1NISUZUKTsNCj4gICAgICAgIGlmIChyKSB7DQoNCg0K
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---_000_f817cb0f9c6f472b8bdc025b34da595aemailandroidcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <A01B04FABDB2A7448D4A47220A5BDBA7-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
-Content-Transfer-Encoding: base64
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
+n <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, December 29, 2017 2:44:39 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Quan, Evan
+Subject: [PATCH 4/4] drm/amd/powerplay: set pp_num_states as 0 on error sit=
+uation
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBkaXI9ImF1
-dG8iPlRoZSBkaWZmZXJlbmNlIGlzIHRoYXQgdGhlIE9PTSBraWxsZXIgZG9lc24ndCBrbm93IG9m
-IHRoZSBwYWdlcyBhbiBhcHBsaWNhdGlvbiBhbGxvY2F0ZXMgdGhyb3VnaCB0aGUgZHJpdmVyLg0K
-PGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPlRoaXMgcmVzdWx0
-cyBpbiBhIGJhZCBkZWNpc2lvbiB3aGljaCBwcm9jZXNzIHRvIGtpbGwuPC9kaXY+DQo8ZGl2IGRp
-cj0iYXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+SSBoYWQgcGF0Y2hlcyB0byBm
-aXggdGhpcyBhIGxvbmcgdGltZSBhZ28gb24gdGhlIGxpc3QsIGJ1dCBuZXZlciBmb3VuZCB0aW1l
-IHRvIGNsZWFuIHRoZW0gdXAgYW5kIHB1c2ggdGhlbSB1cHN0cmVhbS48L2Rpdj4NCjxkaXYgZGly
-PSJhdXRvIj48YnI+DQo8L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj5BbmRyZXkgaXMgbm93IHdvcmtp
-bmcgb24gdGhpcywgYnV0IEkgZG9uJ3Qga25vdyB0aGUgc3RhdHVzIG9mIGhhbmQuPC9kaXY+DQo8
-ZGl2IGRpcj0iYXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+Q2hyaXN0aWFuLjwv
-ZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+PGJyPg0KPGRpdiBjbGFzcz0i
-Z21haWxfcXVvdGUiPkFtIDI5LjEyLjIwMTcgMjA6MzYgc2NocmllYiAmcXVvdDtLdWVobGluZywg
-RmVsaXgmcXVvdDsgJmx0O0ZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20mZ3Q7OjxiciB0eXBlPSJhdHRy
-aWJ1dGlvbiI+DQo8YmxvY2txdW90ZSBjbGFzcz0icXVvdGUiIHN0eWxlPSJtYXJnaW46MCAwIDAg
-LjhleDtib3JkZXItbGVmdDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6MWV4Ij4NCjxkaXY+
-PGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0Ij4NCjxkaXY+SXMgaXQg
-cG9zc2libGUgdGhhdCB0aGUgdGVzdCBpcyBicm9rZW4/IEEgdGVzdCB0aGF0IGFsbG9jYXRlcyBt
-ZW1vcnkgdG88YnI+DQpleGhhdXN0aW9uIG1heSB3ZWxsIHRyaWdnZXIgdGhlIE9PTSBraWxsZXIu
-IEEgdGVzdCBjYW4gZG8gdGhhdCBieSB1c2luZzxicj4NCm1hbGxvYy4gV2h5IG5vdCBieSB1c2lu
-ZyB0aGUgZ3JhcGhpY3MgZHJpdmVyPyBUaGUgT09NIGtpbGxlciBkb2VzIHdoYXQ8YnI+DQppdCdz
-IHN1cHBvc2VkIHRvIGRvLCBhbmQga2lsbHMgdGhlIGJyb2tlbiBhcHBsaWNhdGlvbi48YnI+DQo8
-YnI+DQpBcyBJIHVuZGVyc3RhbmQgaXQsIHRoaXMgY2hhbmdlIGlzIGFkZHMgYXJ0aWZpY2lhbCBs
-aW1pdGF0aW9ucyB0bzxicj4NCndvcmthcm91bmQgYSBidWcgaW4gYSB1c2VyIG1vZGUgdGVzdC4g
-SG93ZXZlciwgaXQgZW5kcyB1cCBsaW1pdGluZyB0aGU8YnI+DQptZW1vcnkgYXZhaWxhYmxlIGZv
-ciB3ZWxsIGJlaGF2ZWQgYXBwbGljYXRpb25zLCBtb3JlIHRoYW4gbmVjZXNzYXJ5Ljxicj4NCjxi
-cj4NCkZvciBjb21wdXRlIGFwcGxpY2F0aW9ucyB0aGF0IHdvcmsgd2l0aCBodWdlIGRhdGEgc2V0
-cywgd2Ugd2FudCB0byBiZTxicj4NCmFibGUgdG8gYWxsb2NhdGUgbG90cyBvZiBzeXN0ZW0gbWVt
-b3J5LiBUeWluZyBhdmFpbGFibGUgc3lzdGVtIG1lbW9yeSB0bzxicj4NCnRoZSBWUkFNIHNpemUg
-bWFrZXMgbm8gc2Vuc2UgZm9yIGNvbXB1dGUgYXBwbGljYXRpb25zIHRoYXQgd2FudCB0byB3b3Jr
-PGJyPg0Kd2l0aCBzdWNoIGh1Z2UgZGF0YSBzZXRzLjxicj4NCjxicj4NClJlZ2FyZHMsPGJyPg0K
-Jm5ic3A7IEZlbGl4PGJyPg0KPGJyPg0KPGJyPg0KT24gMjAxNy0xMi0xNSAwMjowOSBQTSwgQW5k
-cmV5IEdyb2R6b3Zza3kgd3JvdGU6PGJyPg0KJmd0OyBUaGlzIHJldmVydHMgY29tbWl0IGJhODUx
-ZWVkODk1Yzc2YmUwZWI0MjYwYmRiZWI3ZTI2ZjljY2ZhYTIuPGJyPg0KJmd0OyBXaXRoIHRoYXQg
-Y2hhbmdlIHBpZ2xpdCBtYXggc2l6ZSB0ZXN0cyAocnVubmluZyB3aXRoIC10IG1heC4qc2l6ZSkg
-YXJlIGNhdXNpbmc8YnI+DQomZ3Q7IE9PTSBhbmQgaGFyZCBoYW5nIG9uIG15IENaIHdpdGggMUdC
-IFJBTS48YnI+DQomZ3Q7PGJyPg0KJmd0OyBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNr
-eSAmbHQ7YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbSZndDs8YnI+DQomZ3Q7IC0tLTxicj4NCiZn
-dDsmbmJzcDsgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIHwgOCAmIzQz
-OyYjNDM7JiM0MzsmIzQzOyYjNDM7LS0tPGJyPg0KJmd0OyZuYnNwOyAxIGZpbGUgY2hhbmdlZCwg
-NSBpbnNlcnRpb25zKCYjNDM7KSwgMyBkZWxldGlvbnMoLSk8YnI+DQomZ3Q7PGJyPg0KJmd0OyBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jPGJyPg0KJmd0OyBpbmRleCBjMzA3
-YTdkLi44MTRhOWMxIDEwMDY0NDxicj4NCiZndDsgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3R0bS5jPGJyPg0KJmd0OyAmIzQzOyYjNDM7JiM0MzsgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmM8YnI+DQomZ3Q7IEBAIC0xMzI5LDkgJiM0Mzsx
-MzI5LDExIEBAIGludCBhbWRncHVfdHRtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-PGJyPg0KJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3Qgc3lzaW5m
-byBzaTs8YnI+DQomZ3Q7Jm5ic3A7IDxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsgc2lfbWVtaW5mbygmYW1wO3NpKTs8YnI+DQomZ3Q7IC0mbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
-Z3R0X3NpemUgPSBtYXgoQU1ER1BVX0RFRkFVTFRfR1RUX1NJWkVfTUIgJmx0OyZsdDsgMjAsPGJy
-Pg0KJmd0OyAtJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7ICh1aW50NjRfdClzaS50b3RhbHJhbSAqIHNpLm1lbV91bml0ICogMy80
-KTs8YnI+DQomZ3Q7IC0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfSBlbHNlPGJyPg0KJmd0OyAm
-IzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyBndHRfc2l6ZSA9IG1pbihtYXgoKEFNREdQVV9ERUZBVUxUX0dU
-VF9TSVpFX01CICZsdDsmbHQ7IDIwKSw8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFkZXYtJmd0O21jLm1jX3ZyYW1fc2l6ZSks
-PGJyPg0KJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyAoKHVpbnQ2NF90KXNpLnRvdGFscmFtICogc2kubWVtX3VuaXQgKiAzLzQpKTs8YnI+
-DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IH08YnI+DQomZ3Q7ICYjNDM7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGVsc2U8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7IGd0dF9zaXplID0gKHVpbnQ2NF90KWFtZGdwdV9ndHRfc2l6ZSAmbHQ7Jmx0
-OyAyMDs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-IHIgPSB0dG1fYm9faW5pdF9tbSgmYW1wO2FkZXYtJmd0O21tYW4uYmRldiwgVFRNX1BMX1RULCBn
-dHRfc2l6ZSAmZ3Q7Jmd0OyBQQUdFX1NISUZUKTs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChyKSB7PCEtLSAtLT48YnI+DQo8YnI+DQo8L2Rp
-dj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxicj4NCjwv
-ZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+Change-Id: Ia27af812631666d2c9d54da156fd3451bd738d4b
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---_000_f817cb0f9c6f472b8bdc025b34da595aemailandroidcom_--
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c
+index f3888dd..684828a 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -726,6 +726,8 @@ static int pp_dpm_get_pp_num_states(void *handle,
+         struct pp_instance *pp_handle =3D (struct pp_instance *)handle;
+         int ret =3D 0;
 
---===============1413741816==
++       memset(data, 0, sizeof(*data));
++
+         ret =3D pp_check(pp_handle);
+
+         if (ret)
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB165258D2F40C6CE5FC910054F71A0BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Friday, December 29, 2017 2:44:39 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Quan, Evan<br>
+<b>Subject:</b> [PATCH 4/4] drm/amd/powerplay: set pp_num_states as 0 on er=
+ror situation</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Change-Id: Ia27af812631666d2c9d54da156fd3451bd738d=
+4b<br>
+Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 2 &#43;&#43;<br>
+&nbsp;1 file changed, 2 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c<br>
+index f3888dd..684828a 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+@@ -726,6 &#43;726,8 @@ static int pp_dpm_get_pp_num_states(void *handle,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_instance *pp_han=
+dle =3D (struct pp_instance *)handle;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(data, 0, sizeof(*data));<b=
+r>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D pp_check(pp_handle=
+);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB165258D2F40C6CE5FC910054F71A0BN6PR12MB1652namp_--
+
+--===============1361078736==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -173,4 +152,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1413741816==--
+--===============1361078736==--
