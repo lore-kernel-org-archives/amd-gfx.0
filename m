@@ -1,13 +1,13 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 4/4] drm/amdgpu: simplify huge page handling
-Date: Tue,  2 Jan 2018 15:47:15 +0100
-Message-ID: <20180102144715.4278-4-christian.koenig@amd.com>
-References: <20180102144715.4278-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: fix memory leakage when reload
+Date: Tue, 2 Jan 2018 15:00:19 +0000
+Message-ID: <DM5PR12MB16601E771F35BCEC2A80C555F7190@DM5PR12MB1660.namprd12.prod.outlook.com>
+References: <1514776580-17052-1-git-send-email-yttao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1233113003=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180102144715.4278-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1514776580-17052-1-git-send-email-yttao-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,71 +18,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Tao, Yintian" <Yintian.Tao-5C7GfCeVMHo@public.gmane.org>
 
-VXBkYXRlIHRoZSBQREVzIGFmdGVyIHJlc2V0dGluZyB0aGUgaHVnZSBmbGFnLgoKU2lnbmVkLW9m
-Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNjAgKysrKysrKysrKy0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKyksIDQy
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKaW5kZXgg
-YzFjNWNjZGVlNzgzLi44MTUwNTg3MGVlYmMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV92bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jCkBAIC05NDYsNTQgKzk0NiwzOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdm1faGFu
-ZGxlX2h1Z2VfcGFnZXMoc3RydWN0IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcCwKIAkJCQkJ
-dW5zaWduZWQgbnB0ZXMsIHVpbnQ2NF90IGRzdCwKIAkJCQkJdWludDY0X3QgZmxhZ3MpCiB7Ci0J
-Ym9vbCB1c2VfY3B1X3VwZGF0ZSA9IChwLT5mdW5jID09IGFtZGdwdV92bV9jcHVfc2V0X3B0ZXMp
-OwogCXVpbnQ2NF90IHBkX2FkZHIsIHBkZTsKIAogCS8qIEluIHRoZSBjYXNlIG9mIGEgbWl4ZWQg
-UFQgdGhlIFBERSBtdXN0IHBvaW50IHRvIGl0Ki8KLQlpZiAocC0+YWRldi0+YXNpY190eXBlIDwg
-Q0hJUF9WRUdBMTAgfHwgcC0+c3JjIHx8Ci0JICAgIG5wdGVzICE9IEFNREdQVV9WTV9QVEVfQ09V
-TlQocC0+YWRldikpIHsKLQkJZHN0ID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQoZW50cnktPmJhc2Uu
-Ym8pOwotCQlmbGFncyA9IEFNREdQVV9QVEVfVkFMSUQ7Ci0JfSBlbHNlIHsKKwlpZiAocC0+YWRl
-di0+YXNpY190eXBlID49IENISVBfVkVHQTEwICYmICFwLT5zcmMgJiYKKwkgICAgbnB0ZXMgPT0g
-QU1ER1BVX1ZNX1BURV9DT1VOVChwLT5hZGV2KSkgewogCQkvKiBTZXQgdGhlIGh1Z2UgcGFnZSBm
-bGFnIHRvIHN0b3Agc2Nhbm5pbmcgYXQgdGhpcyBQREUgKi8KIAkJZmxhZ3MgfD0gQU1ER1BVX1BE
-RV9QVEU7CiAJfQogCi0JaWYgKCFlbnRyeS0+aHVnZSAmJiAhKGZsYWdzICYgQU1ER1BVX1BERV9Q
-VEUpKQorCWlmICghKGZsYWdzICYgQU1ER1BVX1BERV9QVEUpKSB7CisJCWlmIChlbnRyeS0+aHVn
-ZSkgeworCQkJLyogQWRkIHRoZSBlbnRyeSB0byB0aGUgcmVsb2NhdGVkIGxpc3QgdG8gdXBkYXRl
-IGl0LiAqLworCQkJZW50cnktPmh1Z2UgPSBmYWxzZTsKKwkJCXNwaW5fbG9jaygmcC0+dm0tPnN0
-YXR1c19sb2NrKTsKKwkJCWxpc3RfbW92ZSgmZW50cnktPmJhc2Uudm1fc3RhdHVzLCAmcC0+dm0t
-PnJlbG9jYXRlZCk7CisJCQlzcGluX3VubG9jaygmcC0+dm0tPnN0YXR1c19sb2NrKTsKKwkJfQog
-CQlyZXR1cm47Ci0JZW50cnktPmh1Z2UgPSAhIShmbGFncyAmIEFNREdQVV9QREVfUFRFKTsKKwl9
-CiAKKwllbnRyeS0+aHVnZSA9IHRydWU7CiAJYW1kZ3B1X2dhcnRfZ2V0X3ZtX3BkZShwLT5hZGV2
-LCBBTURHUFVfVk1fUERCMCwKIAkJCSAgICAgICAmZHN0LCAmZmxhZ3MpOwogCi0JaWYgKHVzZV9j
-cHVfdXBkYXRlKSB7Ci0JCS8qIEluIGNhc2UgYSBodWdlIHBhZ2UgaXMgcmVwbGFjZWQgd2l0aCBh
-IHN5c3RlbQotCQkgKiBtZW1vcnkgbWFwcGluZywgcC0+cGFnZXNfYWRkciAhPSBOVUxMIGFuZAot
-CQkgKiBhbWRncHVfdm1fY3B1X3NldF9wdGVzIHdvdWxkIHRyeSB0byB0cmFuc2xhdGUgZHN0Ci0J
-CSAqIHRocm91Z2ggYW1kZ3B1X3ZtX21hcF9nYXJ0LiBCdXQgZHN0IGlzIGFscmVhZHkgYQotCQkg
-KiBHUFUgYWRkcmVzcyAob2YgdGhlIHBhZ2UgdGFibGUpLiBEaXNhYmxlCi0JCSAqIGFtZGdwdV92
-bV9tYXBfZ2FydCB0ZW1wb3JhcmlseS4KLQkJICovCi0JCWRtYV9hZGRyX3QgKnRtcDsKLQotCQl0
-bXAgPSBwLT5wYWdlc19hZGRyOwotCQlwLT5wYWdlc19hZGRyID0gTlVMTDsKLQotCQlwZF9hZGRy
-ID0gKHVuc2lnbmVkIGxvbmcpYW1kZ3B1X2JvX2twdHIocGFyZW50LT5iYXNlLmJvKTsKLQkJcGRl
-ID0gcGRfYWRkciArIChlbnRyeSAtIHBhcmVudC0+ZW50cmllcykgKiA4OwotCQlhbWRncHVfdm1f
-Y3B1X3NldF9wdGVzKHAsIHBkZSwgZHN0LCAxLCAwLCBmbGFncyk7Ci0KLQkJcC0+cGFnZXNfYWRk
-ciA9IHRtcDsKLQl9IGVsc2UgewotCQlpZiAocGFyZW50LT5iYXNlLmJvLT5zaGFkb3cpIHsKLQkJ
-CXBkX2FkZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChwYXJlbnQtPmJhc2UuYm8tPnNoYWRvdyk7
-Ci0JCQlwZGUgPSBwZF9hZGRyICsgKGVudHJ5IC0gcGFyZW50LT5lbnRyaWVzKSAqIDg7Ci0JCQlh
-bWRncHVfdm1fZG9fc2V0X3B0ZXMocCwgcGRlLCBkc3QsIDEsIDAsIGZsYWdzKTsKLQkJfQotCQlw
-ZF9hZGRyID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQocGFyZW50LT5iYXNlLmJvKTsKKwlpZiAocGFy
-ZW50LT5iYXNlLmJvLT5zaGFkb3cpIHsKKwkJcGRfYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0
-KHBhcmVudC0+YmFzZS5iby0+c2hhZG93KTsKIAkJcGRlID0gcGRfYWRkciArIChlbnRyeSAtIHBh
-cmVudC0+ZW50cmllcykgKiA4OwotCQlhbWRncHVfdm1fZG9fc2V0X3B0ZXMocCwgcGRlLCBkc3Qs
-IDEsIDAsIGZsYWdzKTsKKwkJcC0+ZnVuYyhwLCBwZGUsIGRzdCwgMSwgMCwgZmxhZ3MpOwogCX0K
-KwlwZF9hZGRyID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQocGFyZW50LT5iYXNlLmJvKTsKKwlwZGUg
-PSBwZF9hZGRyICsgKGVudHJ5IC0gcGFyZW50LT5lbnRyaWVzKSAqIDg7CisJcC0+ZnVuYyhwLCBw
-ZGUsIGRzdCwgMSwgMCwgZmxhZ3MpOwogfQogCiAvKioKQEAgLTEyMDUsMTIgKzExODksNiBAQCBz
-dGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwKIAkvKiBwYWRkaW5nLCBldGMuICovCiAJbmR3ID0gNjQ7CiAKLQkvKiBvbmUgUERF
-IHdyaXRlIGZvciBlYWNoIGh1Z2UgcGFnZSAqLwotCWlmICh2bS0+cm9vdC5iYXNlLmJvLT5zaGFk
-b3cpCi0JCW5kdyArPSAoKG5wdGVzID4+IGFkZXYtPnZtX21hbmFnZXIuYmxvY2tfc2l6ZSkgKyAx
-KSAqIDYgKiAyOwotCWVsc2UKLQkJbmR3ICs9ICgobnB0ZXMgPj4gYWRldi0+dm1fbWFuYWdlci5i
-bG9ja19zaXplKSArIDEpICogNjsKLQogCWlmIChwYWdlc19hZGRyKSB7CiAJCS8qIGNvcHkgY29t
-bWFuZHMgbmVlZGVkICovCiAJCW5kdyArPSBuY21kcyAqIGFkZXYtPnZtX21hbmFnZXIudm1fcHRl
-X2Z1bmNzLT5jb3B5X3B0ZV9udW1fZHc7CkBAIC0xMjg1LDggKzEyNjMsNiBAQCBzdGF0aWMgaW50
-IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
-IAogZXJyb3JfZnJlZToKIAlhbWRncHVfam9iX2ZyZWUoam9iKTsKLQlhbWRncHVfdm1faW52YWxp
-ZGF0ZV9sZXZlbChhZGV2LCB2bSwgJnZtLT5yb290LAotCQkJCSAgIGFkZXYtPnZtX21hbmFnZXIu
-cm9vdF9sZXZlbCk7CiAJcmV0dXJuIHI7CiB9CiAKLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1233113003==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB16601E771F35BCEC2A80C555F7190DM5PR12MB1660namp_"
+
+--_000_DM5PR12MB16601E771F35BCEC2A80C555F7190DM5PR12MB1660namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Yintian =
+Tao <yttao-5C7GfCeVMHo@public.gmane.org>
+Sent: Sunday, December 31, 2017 10:16 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tao, Yintian
+Subject: [PATCH] drm/amd/powerplay: fix memory leakage when reload
+
+add smu_free_memory when smu fini to prevent memory leakage
+
+Change-Id: Id9103d8b54869b63f22a9af53d9fbc3b7a221191
+Signed-off-by: Yintian Tao <yttao-5C7GfCeVMHo@public.gmane.org>
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+Looks like vega10, cz, rv have the same issue can you send patches for them=
+ as well?
+
+Thanks,
+
+Alex
+
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+index c49a6f2..925217e 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+@@ -607,6 +607,12 @@ int smu7_init(struct pp_smumgr *smumgr)
+
+ int smu7_smu_fini(struct pp_smumgr *smumgr)
+ {
++       struct smu7_smumgr *smu_data =3D (struct smu7_smumgr *)(smumgr->bac=
+kend);
++
++       smu_free_memory(smumgr->device, smu_data->header_buffer.handle);
++       if (!cgs_is_virtualization_enabled(smumgr->device))
++               smu_free_memory(smumgr->device, smu_data->smu_buffer.handle=
+);
++
+         if (smumgr->backend) {
+                 kfree(smumgr->backend);
+                 smumgr->backend =3D NULL;
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB16601E771F35BCEC2A80C555F7190DM5PR12MB1660namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Yintian Tao &lt;yttao@amd.c=
+om&gt;<br>
+<b>Sent:</b> Sunday, December 31, 2017 10:16 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Tao, Yintian<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: fix memory leakage when reload</=
+font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">add smu_free_memory when smu fini to prevent memor=
+y leakage<br>
+<br>
+Change-Id: Id9103d8b54869b63f22a9af53d9fbc3b7a221191<br>
+Signed-off-by: Yintian Tao &lt;yttao-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">Reviewed-by: Alex Deucher &lt;alexander.deucher@am=
+d.com&gt;<br>
+</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">Looks like vega10, cz, rv have the same issue can =
+you send patches for them as well?</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">Thanks,</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">Alex<br>
+</div>
+<div class=3D"PlainText"><br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 6 &#43;&#43;&#43=
+;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 6 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
+index c49a6f2..925217e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
+@@ -607,6 &#43;607,12 @@ int smu7_init(struct pp_smumgr *smumgr)<br>
+&nbsp;<br>
+&nbsp;int smu7_smu_fini(struct pp_smumgr *smumgr)<br>
+&nbsp;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_smumgr *smu_data =3D =
+(struct smu7_smumgr *)(smumgr-&gt;backend);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_free_memory(smumgr-&gt;device=
+, smu_data-&gt;header_buffer.handle);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!cgs_is_virtualization_enable=
+d(smumgr-&gt;device))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu_free_memory(smumgr-&gt;device, smu_data-&gt;smu_buffer.h=
+andle);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smumgr-&gt;backend) {<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; kfree(smumgr-&gt;backend);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; smumgr-&gt;backend =3D NULL;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk576477" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
+stinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB16601E771F35BCEC2A80C555F7190DM5PR12MB1660namp_--
+
+--===============1233113003==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1233113003==--
