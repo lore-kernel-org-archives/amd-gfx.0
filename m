@@ -1,61 +1,52 @@
-From: Julia Lawall <julia.lawall-L2FTfq7BK8M@public.gmane.org>
-Subject: Re: [Cluster-devel] [PATCH 00/12] drop unneeded newline
-Date: Tue, 2 Jan 2018 15:00:46 +0100 (CET)
-Message-ID: <alpine.DEB.2.20.1801021458360.24055@hadrien>
-References: <1514386305-7402-1-git-send-email-Julia.Lawall@lip6.fr>
-	<1878806802.2632123.1514901158666.JavaMail.zimbra@redhat.com>
-	<1019862289.2632779.1514901387442.JavaMail.zimbra@redhat.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/4] drm/amdgpu: minor optimize VM moved handling v2
+Date: Tue,  2 Jan 2018 15:47:13 +0100
+Message-ID: <20180102144715.4278-2-christian.koenig@amd.com>
+References: <20180102144715.4278-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <ovs-dev-bounces-yBygre7rU0TnMu66kgdUjQ@public.gmane.org>
-In-Reply-To: <1019862289.2632779.1514901387442.JavaMail.zimbra-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Unsubscribe: <https://mail.openvswitch.org/mailman/options/ovs-dev>,
-	<mailto:ovs-dev-request-yBygre7rU0TnMu66kgdUjQ@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://mail.openvswitch.org/pipermail/ovs-dev/>
-List-Post: <mailto:ovs-dev-yBygre7rU0TnMu66kgdUjQ@public.gmane.org>
-List-Help: <mailto:ovs-dev-request-yBygre7rU0TnMu66kgdUjQ@public.gmane.org?subject=help>
-List-Subscribe: <https://mail.openvswitch.org/mailman/listinfo/ovs-dev>,
-	<mailto:ovs-dev-request-yBygre7rU0TnMu66kgdUjQ@public.gmane.org?subject=subscribe>
-Sender: ovs-dev-bounces-yBygre7rU0TnMu66kgdUjQ@public.gmane.org
-Errors-To: ovs-dev-bounces-yBygre7rU0TnMu66kgdUjQ@public.gmane.org
-To: Bob Peterson <rpeterso-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: dev-yBygre7rU0TnMu66kgdUjQ@public.gmane.org, linux-s390-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-scsi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dccp-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alexander Shishkin <alexander.shishkin-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, cluster-devel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, esc storagedev <esc.storagedev-dzo6w/eZyo2tG0bUXCXiUA@public.gmane.org>, Namhyung Kim <namhyung-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, linux-ext4-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Jiri Olsa <jolsa-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180102144715.4278-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-
-
-On Tue, 2 Jan 2018, Bob Peterson wrote:
-
-> ----- Original Message -----
-> | ----- Original Message -----
-> | | Drop newline at the end of a message string when the printing function adds
-> | | a newline.
-> |
-> | Hi Julia,
-> |
-> | NACK.
-> |
-> | As much as it's a pain when searching the source code for output strings,
-> | this patch set goes against the accepted Linux coding style document. See:
-> |
-> | https://www.kernel.org/doc/html/v4.10/process/coding-style.html#breaking-long-lines-and-strings
-> |
-> | Regards,
-> |
-> | Bob Peterson
-> |
-> |
-> Hm. I guess I stand corrected. The document reads:
->
-> "However, never break user-visible strings such as printk messages, because that breaks the ability to grep for them."
->
-> Still, the GFS2 and DLM code has a plethora of broken-up printk messages,
-> and I don't like the thought of re-combining them all.
-
-Actually, the point of the patch was to remove the unnecessary \n at the
-end of the string, because log_print will add another one.  If you prefer
-to keep the string broken up, I can resend the patch in that form, but
-without the unnecessary \n.
-
-julia
+VHJ5IHRvIGxvY2sgbW92ZWQgQk9zIGlmIGl0J3Mgc3VjY2Vzc2Z1bCB3ZSBjYW4gdXBkYXRlIHRo
+ZQpQVEVzIGRpcmVjdGx5IHRvIHRoZSBuZXcgbG9jYXRpb24uCgp2MjogcmViYXNlCgpTaWduZWQt
+b2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAxNSArKysrKysrKysrKysr
+Ky0KIDEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCAzNjMyYzY5ZjE4MTQuLmMxYzVj
+Y2RlZTc4MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTE2OTcs
+MTggKzE2OTcsMzEgQEAgaW50IGFtZGdwdV92bV9oYW5kbGVfbW92ZWQoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYsCiAJc3Bpbl9sb2NrKCZ2bS0+c3RhdHVzX2xvY2spOwogCXdoaWxlICghbGlz
+dF9lbXB0eSgmdm0tPm1vdmVkKSkgewogCQlzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICpib192YTsKKwkJ
+c3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdjsKIAogCQlib192YSA9IGxpc3RfZmlyc3Rf
+ZW50cnkoJnZtLT5tb3ZlZCwKIAkJCXN0cnVjdCBhbWRncHVfYm9fdmEsIGJhc2Uudm1fc3RhdHVz
+KTsKIAkJc3Bpbl91bmxvY2soJnZtLT5zdGF0dXNfbG9jayk7CiAKKwkJcmVzdiA9IGJvX3ZhLT5i
+YXNlLmJvLT50Ym8ucmVzdjsKKwogCQkvKiBQZXIgVk0gQk9zIG5ldmVyIG5lZWQgdG8gYm8gY2xl
+YXJlZCBpbiB0aGUgcGFnZSB0YWJsZXMgKi8KLQkJY2xlYXIgPSBib192YS0+YmFzZS5iby0+dGJv
+LnJlc3YgIT0gdm0tPnJvb3QuYmFzZS5iby0+dGJvLnJlc3Y7CisJCWlmIChyZXN2ID09IHZtLT5y
+b290LmJhc2UuYm8tPnRiby5yZXN2KQorCQkJY2xlYXIgPSBmYWxzZTsKKwkJLyogVHJ5IHRvIHJl
+c2VydmUgdGhlIEJPIHRvIGF2b2lkIGNsZWFyaW5nIGl0cyBwdGVzICovCisJCWVsc2UgaWYgKHJl
+c2VydmF0aW9uX29iamVjdF90cnlsb2NrKHJlc3YpKQorCQkJY2xlYXIgPSBmYWxzZTsKKwkJLyog
+U29tZWJvZHkgZWxzZSBpcyB1c2luZyB0aGUgQk8gcmlnaHQgbm93ICovCisJCWVsc2UKKwkJCWNs
+ZWFyID0gdHJ1ZTsKIAogCQlyID0gYW1kZ3B1X3ZtX2JvX3VwZGF0ZShhZGV2LCBib192YSwgY2xl
+YXIpOwogCQlpZiAocikKIAkJCXJldHVybiByOwogCisJCWlmICghY2xlYXIgJiYgcmVzdiAhPSB2
+bS0+cm9vdC5iYXNlLmJvLT50Ym8ucmVzdikKKwkJCXJlc2VydmF0aW9uX29iamVjdF91bmxvY2so
+cmVzdik7CisKIAkJc3Bpbl9sb2NrKCZ2bS0+c3RhdHVzX2xvY2spOwogCX0KIAlzcGluX3VubG9j
+aygmdm0tPnN0YXR1c19sb2NrKTsKLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
