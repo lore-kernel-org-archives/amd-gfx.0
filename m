@@ -1,14 +1,15 @@
 From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/4] drm/amd/powerplay: show the right unit for the temp
- printed out
-Date: Tue, 2 Jan 2018 01:30:28 +0000
-Message-ID: <MWHPR1201MB24944CDBDC4564380C90A00BE4190@MWHPR1201MB2494.namprd12.prod.outlook.com>
-References: <1514533479-14038-1-git-send-email-evan.quan@amd.com>
- <BN6PR12MB16520A7E810230A8EFAFD531F71A0@BN6PR12MB1652.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 2/4] drm/amd/powerplay: remove unused parameter of
+ phm_start_thermal_controller
+Date: Tue, 2 Jan 2018 01:51:12 +0000
+Message-ID: <MWHPR1201MB2494130290BCAC752A1FE690E4190@MWHPR1201MB2494.namprd12.prod.outlook.com>
+References: <1514533479-14038-1-git-send-email-evan.quan@amd.com>,
+ <1514533479-14038-2-git-send-email-evan.quan@amd.com>
+ <BN6PR12MB1652FB809C0FE26E36E11B16F71A0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1443831123=="
+Content-Type: multipart/mixed; boundary="===============1457234537=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB16520A7E810230A8EFAFD531F71A0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652FB809C0FE26E36E11B16F71A0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,29 +23,33 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1443831123==
+--===============1457234537==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB24944CDBDC4564380C90A00BE4190MWHPR1201MB2494_"
+	boundary="_000_MWHPR1201MB2494130290BCAC752A1FE690E4190MWHPR1201MB2494_"
 
---_000_MWHPR1201MB24944CDBDC4564380C90A00BE4190MWHPR1201MB2494_
+--_000_MWHPR1201MB2494130290BCAC752A1FE690E4190MWHPR1201MB2494_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Got it. I will drop this patch.
+Hi Alex,
+
+Sorry, i cannot get your point. The patch removes the 2nd parameter 'temper=
+ature_range' which is always passed in as 'NULL'.
+Do you mean someone sent another patch which uses this parameter as non 'NU=
+LL'?
 
 Regards,
 Evan
 From: Deucher, Alexander
-Sent: Sunday, December 31, 2017 2:29 AM
+Sent: Sunday, December 31, 2017 2:31 AM
 To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/4] drm/amd/powerplay: show the right unit for the tem=
-p printed out
+Subject: Re: [PATCH 2/4] drm/amd/powerplay: remove unused parameter of phm_=
+start_thermal_controller
 
 
-I don't think the hwmon interface should expose the units in the string, th=
-is will probably break some applications that use the hwmon interface.  The=
-y are assumed to be milli-degrees celsius as per the API.
+Should this be used to set the default critical temperatures?  IIRC, they w=
+ere set to 0 until last week when someone sent a patch to fix them.
 
 
 
@@ -57,40 +62,94 @@ van.quan-5C7GfCeVMHo@public.gmane.org>>
 Sent: Friday, December 29, 2017 2:44 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: Quan, Evan
-Subject: [PATCH 1/4] drm/amd/powerplay: show the right unit for the temp pr=
-inted out
+Subject: [PATCH 2/4] drm/amd/powerplay: remove unused parameter of phm_star=
+t_thermal_controller
 
-Change-Id: I30ea29aa85ab89c0017ecb4e0ab469db5ab5c103
+Change-Id: Id6039cb50b73bdf8a6df37e5383f4bea4ae737ed
 Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c | 14 +++-----------
+ drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c           |  4 ++--
+ drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h   |  2 +-
+ 3 files changed, 6 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index 814329b..91f809e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -789,7 +789,7 @@ static ssize_t amdgpu_hwmon_show_temp(struct device *de=
-v,
-         else
-                 temp =3D amdgpu_dpm_get_temperature(adev);
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c b/driver=
+s/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+index 623cff9..cba0aee 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+@@ -220,20 +220,12 @@ int phm_register_thermal_interrupt(struct pp_hwmgr *h=
+wmgr, const void *info)
+ * Initializes the thermal controller subsystem.
+ *
+ * @param    pHwMgr  the address of the powerplay hardware manager.
+-* @param    pTemperatureRange the address of the structure holding the tem=
+perature range.
+ * @exception PP_Result_Failed if any of the paramters is NULL, otherwise t=
+he return value from the dispatcher.
+ */
+-int phm_start_thermal_controller(struct pp_hwmgr *hwmgr, struct PP_Tempera=
+tureRange *temperature_range)
++int phm_start_thermal_controller(struct pp_hwmgr *hwmgr)
+ {
+-       struct PP_TemperatureRange range;
+-
+-       if (temperature_range =3D=3D NULL) {
+-               range.max =3D TEMP_RANGE_MAX;
+-               range.min =3D TEMP_RANGE_MIN;
+-       } else {
+-               range.max =3D temperature_range->max;
+-               range.min =3D temperature_range->min;
+-       }
++       struct PP_TemperatureRange range =3D {{TEMP_RANGE_MIN, TEMP_RANGE_M=
+AX}};
++
+         if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
+                         PHM_PlatformCaps_ThermalController)
+                         && hwmgr->hwmgr_func->start_thermal_controller !=
+=3D NULL)
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
+amd/powerplay/hwmgr/hwmgr.c
+index 08b7963..38f7d0d 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+@@ -265,7 +265,7 @@ int hwmgr_hw_init(struct pp_instance *handle)
+         ret =3D phm_enable_dynamic_state_management(hwmgr);
+         if (ret)
+                 goto err2;
+-       ret =3D phm_start_thermal_controller(hwmgr, NULL);
++       ret =3D phm_start_thermal_controller(hwmgr);
+         ret |=3D psm_set_performance_states(hwmgr);
+         if (ret)
+                 goto err2;
+@@ -345,7 +345,7 @@ int hwmgr_hw_resume(struct pp_instance *handle)
+         ret =3D phm_enable_dynamic_state_management(hwmgr);
+         if (ret)
+                 return ret;
+-       ret =3D phm_start_thermal_controller(hwmgr, NULL);
++       ret =3D phm_start_thermal_controller(hwmgr);
+         if (ret)
+                 return ret;
 
--       return snprintf(buf, PAGE_SIZE, "%d\n", temp);
-+       return snprintf(buf, PAGE_SIZE, "%d millicelsius\n", temp);
- }
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h b/drivers/=
+gpu/drm/amd/powerplay/inc/hardwaremanager.h
+index b8bd86b..7489003 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h
+@@ -407,7 +407,7 @@ extern int phm_force_dpm_levels(struct pp_hwmgr *hwmgr,=
+ enum amd_dpm_forced_leve
+ extern int phm_display_configuration_changed(struct pp_hwmgr *hwmgr);
+ extern int phm_notify_smc_display_config_after_ps_adjustment(struct pp_hwm=
+gr *hwmgr);
+ extern int phm_register_thermal_interrupt(struct pp_hwmgr *hwmgr, const vo=
+id *info);
+-extern int phm_start_thermal_controller(struct pp_hwmgr *hwmgr, struct PP_=
+TemperatureRange *temperature_range);
++extern int phm_start_thermal_controller(struct pp_hwmgr *hwmgr);
+ extern int phm_stop_thermal_controller(struct pp_hwmgr *hwmgr);
+ extern bool phm_check_smc_update_required_for_display_configuration(struct=
+ pp_hwmgr *hwmgr);
 
- static ssize_t amdgpu_hwmon_show_temp_thresh(struct device *dev,
-@@ -805,7 +805,7 @@ static ssize_t amdgpu_hwmon_show_temp_thresh(struct dev=
-ice *dev,
-         else
-                 temp =3D adev->pm.dpm.thermal.max_temp;
-
--       return snprintf(buf, PAGE_SIZE, "%d\n", temp);
-+       return snprintf(buf, PAGE_SIZE, "%d millicelsius\n", temp);
- }
-
- static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
 --
 2.7.4
 
@@ -99,7 +158,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_MWHPR1201MB24944CDBDC4564380C90A00BE4190MWHPR1201MB2494_
+--_000_MWHPR1201MB2494130290BCAC752A1FE690E4190MWHPR1201MB2494_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -173,7 +232,16 @@ div.WordSection1
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
 <p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:#1F497D">Got it. I will drop this patch.<o:p></o:p></span></p>
+serif;color:#1F497D">Hi Alex,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:#1F497D">Sorry, i cannot get your point. The patch removes the =
+2<sup>nd</sup> parameter &#8216;temperature_range&#8217; which is always pa=
+ssed in as &#8216;NULL&#8217;.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:#1F497D">Do you mean someone sent another patch which uses this=
+ parameter as non &#8216;NULL&#8217;?<o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
 serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
@@ -189,20 +257,19 @@ serif;color:#1F497D">Evan<o:p></o:p></span></p>
 ;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
 font-family:&quot;Calibri&quot;,sans-serif"> Deucher, Alexander
 <br>
-<b>Sent:</b> Sunday, December 31, 2017 2:29 AM<br>
+<b>Sent:</b> Sunday, December 31, 2017 2:31 AM<br>
 <b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org<br>
-<b>Subject:</b> Re: [PATCH 1/4] drm/amd/powerplay: show the right unit for =
-the temp printed out<o:p></o:p></span></p>
+<b>Subject:</b> Re: [PATCH 2/4] drm/amd/powerplay: remove unused parameter =
+of phm_start_thermal_controller<o:p></o:p></span></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div id=3D"divtagdefaultwrapper">
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">I=
- don't think the hwmon interface should expose the units in the string, thi=
-s will probably break some applications that use the hwmon interface.&nbsp;=
- They are assumed to be milli-degrees celsius as
- per the API.<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">S=
+hould this be used to set the default critical temperatures?&nbsp; IIRC, th=
+ey were set to 0 until last week when someone sent a patch to fix them.<o:p=
+></o:p></span></p>
 <p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
 o:p>&nbsp;</o:p></span></p>
 <p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">A=
@@ -227,9 +294,9 @@ amd.com</a>&gt;<br>
 <b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
 reedesktop.org</a><br>
 <b>Cc:</b> Quan, Evan<br>
-<b>Subject:</b> [PATCH 1/4] drm/amd/powerplay: show the right unit for the =
-temp printed out</span><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black">
+<b>Subject:</b> [PATCH 2/4] drm/amd/powerplay: remove unused parameter of p=
+hm_start_thermal_controller</span><span style=3D"font-family:&quot;Calibri&=
+quot;,sans-serif;color:black">
 <o:p></o:p></span></p>
 <div>
 <p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
@@ -239,45 +306,118 @@ serif;color:black">&nbsp;<o:p></o:p></span></p>
 <div>
 <div>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:black">Change-Id: I30ea29aa85ab89c0017ecb4e0ab=
-469db5ab5c103<br>
+libri&quot;,sans-serif;color:black">Change-Id: Id6039cb50b73bdf8a6df37e5383=
+f4bea4ae737ed<br>
 Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
 @amd.com</a>&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 4 &#43;&#43;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c | 14 &#43;&#43;=
+&#43;-----------<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h&nbsp;&nbsp; |&nbs=
+p; 2 &#43;-<br>
+&nbsp;3 files changed, 6 insertions(&#43;), 14 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index 814329b..91f809e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -789,7 &#43;789,7 @@ static ssize_t amdgpu_hwmon_show_temp(struct device=
- *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c b/driver=
+s/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c<br>
+index 623cff9..cba0aee 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c<br>
+@@ -220,20 &#43;220,12 @@ int phm_register_thermal_interrupt(struct pp_hwmg=
+r *hwmgr, const void *info)<br>
+&nbsp;* Initializes the thermal controller subsystem.<br>
+&nbsp;*<br>
+&nbsp;* @param&nbsp;&nbsp;&nbsp; pHwMgr&nbsp; the address of the powerplay =
+hardware manager.<br>
+-* @param&nbsp;&nbsp;&nbsp; pTemperatureRange the address of the structure =
+holding the temperature range.<br>
+&nbsp;* @exception PP_Result_Failed if any of the paramters is NULL, otherw=
+ise the return value from the dispatcher.<br>
+&nbsp;*/<br>
+-int phm_start_thermal_controller(struct pp_hwmgr *hwmgr, struct PP_Tempera=
+tureRange *temperature_range)<br>
+&#43;int phm_start_thermal_controller(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_TemperatureRange range;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (temperature_range =3D=3D NULL) {<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; range.max =3D TEMP_RANGE_MAX;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; range.min =3D TEMP_RANGE_MIN;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; range.max =3D temperature_range-&gt;max;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; range.min =3D temperature_range-&gt;min;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_TemperatureRange range =
+=3D {{TEMP_RANGE_MIN, TEMP_RANGE_MAX}};<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (phm_cap_enabled(hwmgr-=
+&gt;platform_descriptor.platformCaps,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; temp =3D amdgpu_dpm_get_temperature(adev);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &quot=
-;%d\n&quot;, temp);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
-quot;%d millicelsius\n&quot;, temp);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static ssize_t amdgpu_hwmon_show_temp_thresh(struct device *dev,<br>
-@@ -805,7 &#43;805,7 @@ static ssize_t amdgpu_hwmon_show_temp_thresh(struct=
- device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_P=
+latformCaps_ThermalController)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; temp =3D adev-&gt;pm.dpm.thermal.max_temp;<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
+&amp; hwmgr-&gt;hwmgr_func-&gt;start_thermal_controller !=3D NULL)<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
+amd/powerplay/hwmgr/hwmgr.c<br>
+index 08b7963..38f7d0d 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
+@@ -265,7 &#43;265,7 @@ int hwmgr_hw_init(struct pp_instance *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_enable_dynamic=
+_state_management(hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto err2;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_start_thermal_controller(=
+hwmgr, NULL);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_start_thermal_control=
+ler(hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret |=3D psm_set_performan=
+ce_states(hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto err2;<br>
+@@ -345,7 &#43;345,7 @@ int hwmgr_hw_resume(struct pp_instance *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_enable_dynamic=
+_state_management(hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_start_thermal_controller(=
+hwmgr, NULL);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_start_thermal_control=
+ler(hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
 &nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &quot=
-;%d\n&quot;, temp);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
-quot;%d millicelsius\n&quot;, temp);<br>
-&nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h b/drivers/=
+gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+index b8bd86b..7489003 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+@@ -407,7 &#43;407,7 @@ extern int phm_force_dpm_levels(struct pp_hwmgr *hw=
+mgr, enum amd_dpm_forced_leve<br>
+&nbsp;extern int phm_display_configuration_changed(struct pp_hwmgr *hwmgr);=
+<br>
+&nbsp;extern int phm_notify_smc_display_config_after_ps_adjustment(struct p=
+p_hwmgr *hwmgr);<br>
+&nbsp;extern int phm_register_thermal_interrupt(struct pp_hwmgr *hwmgr, con=
+st void *info);<br>
+-extern int phm_start_thermal_controller(struct pp_hwmgr *hwmgr, struct PP_=
+TemperatureRange *temperature_range);<br>
+&#43;extern int phm_start_thermal_controller(struct pp_hwmgr *hwmgr);<br>
+&nbsp;extern int phm_stop_thermal_controller(struct pp_hwmgr *hwmgr);<br>
+&nbsp;extern bool phm_check_smc_update_required_for_display_configuration(s=
+truct pp_hwmgr *hwmgr);<br>
 &nbsp;<br>
-&nbsp;static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,<br>
 -- <br>
 2.7.4<br>
 <br>
@@ -286,7 +426,7 @@ amd-gfx mailing list<br>
 <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk967897">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p><=
+lnk358679">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p><=
 /o:p></span></p>
 </div>
 </div>
@@ -297,9 +437,9 @@ lnk967897">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p><=
 </body>
 </html>
 
---_000_MWHPR1201MB24944CDBDC4564380C90A00BE4190MWHPR1201MB2494_--
+--_000_MWHPR1201MB2494130290BCAC752A1FE690E4190MWHPR1201MB2494_--
 
---===============1443831123==
+--===============1457234537==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -309,4 +449,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1443831123==--
+--===============1457234537==--
