@@ -1,15 +1,15 @@
-From: Tom Stellard <tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: Re: PCIe3 atomics requirement for amdkfd
-Date: Wed, 3 Jan 2018 06:56:56 -0800
-Message-ID: <a5d6072b-6fea-f161-3773-50f58766ed45@redhat.com>
-References: <c2c34443-9ba1-661b-476d-b657a7ddfe85@redhat.com>
- <3f7e6fed-8668-b469-8813-e6677cb980ca@gmail.com>
-Reply-To: tstellar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [amd-staging-drm-next] regression - *ERROR* Don't have
+ enable_spread_spectrum_on_ppll for v4
+Date: Wed, 3 Jan 2018 10:03:18 -0500
+Message-ID: <71b85214-28ad-8a01-1af6-d2420215f4f3@amd.com>
+References: <d23e9146851a0edc4d33fa7b7584520e@nuetzel-hh.de>
+ <d00a90fb-1be4-c9f5-5202-02b4899ec07c@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3f7e6fed-8668-b469-8813-e6677cb980ca-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <d00a90fb-1be4-c9f5-5202-02b4899ec07c-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,27 +21,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Felix_K=c3=bchling?= <felix.kuehling-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Dieter_N=c3=bctzel?= <Dieter-0hun7QTegEsDD4udEopG9Q@public.gmane.org>
+Cc: amd-devel <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, DRI Devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMTIvMjMvMjAxNyAwNzo0MCBBTSwgRmVsaXggS8O8aGxpbmcgd3JvdGU6Cj4gQXMgSSB1bmRl
-cnN0YW5kIGl0LCBpdCB3b3VsZCByZXF1aXJlIGNoYW5nZXMgaW4gdGhlIFJPQ3IgUnVudGltZSBh
-bmQgaW4KPiB0aGUgZmlybXdhcmUgKE1FQyBtaWNyb2NvZGUpLiBJdCBhbHNvIGNoYW5nZXMgdGhl
-IHByb2dyYW1taW5nIG1vZGVsLCBzbwo+IGl0IG1heSBhZmZlY3QgY2VydGFpbiBhcHBsaWNhdGlv
-bnMgb3IgaGlnaGVyIGxldmVsIGxhbmd1YWdlIHJ1bnRpbWVzCj4gdGhhdCByZWx5IG9uIGF0b21p
-YyBvcGVyYXRpb25zLgo+IAoKSG93IGRvZXMgdGhlIE1FQyBtaWNyb2NvZGUga25vdyB0aGF0IGl0
-IGlzIHJ1bm5pbmcgYSBST0NtIHdvcmtsb2FkIGFzIG9wcG9zZWQKdG8gYSBncmFwaGljcyB3b3Jr
-bG9hZCB0aGF0IGRvZXNuJ3QgcmVxdWlyZSBQQ0llMyBhdG9taWNzLiAgSXMgdGhlcmUgYSBzcGVj
-aWZpYwpjb25maWd1cmF0aW9uIGJpdCB0aGF0IGlzIHNldCB0byBpbmRpY2F0ZSB0aGUgUk9DbSBw
-cm9ncmFtbWluZyBtb2RlbCBpcyBuZWVkZWQ/CgotVG9tCgo+IFJlZ2FyZHMsCj4gICBGZWxpeAo+
-IAo+IAo+IEFtIDE5LjEyLjIwMTcgdW0gMTY6MDQgc2NocmllYiBUb20gU3RlbGxhcmQ6Cj4+IEhp
-LAo+Pgo+PiBIb3cgaGFyZCBvZiBhIHJlcXVpcmVtZW50IGlzIFBDSWUzIGF0b21pY3MgZm9yIGRH
-UFVzIHdpdGggdGhlIGFtZGtmZAo+PiBrZXJuZWwgZHJpdmVyPyAgSXMgaXQgcG9zc2libGUgdG8g
-bWFrZSBtb2RpZmljYXRpb25zIHRvIHRoZSBydW50aW1lL2tlcm5lbAo+PiBkcml2ZXIgdG8gZHJv
-cCB0aGlzIHJlcXVpcmVtZW50Pwo+Pgo+PiAtVG9tCj4+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+IAo+IAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMjAxNy0xMi0yNyAwNDowNCBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxNy0x
+Mi0yNyAwNTo0MyBBTSwgRGlldGVyIE7DvHR6ZWwgd3JvdGU6Cj4+IEhlbGxvIEFNRCB0ZWFtLAo+
+Pgo+PiBJIGdvdCB0aGlzIHNpbmNlIGxhdGVzdCAnYW1kLXN0YWdpbmctZHJtLW5leHQnIGdpdCB1
+cGRhdGUKPj4gKCNiOTU2YzU4NmU1OGEpIGR1cmluZyBib290IHdpdGggUG9sYXJpcyBSWDU4MCBE
+QyBvbjoKPj4KPj4gW8KgwqDCoCAzLjU4NjM0Ml0gW2RybTpkYWxfYmlvc19wYXJzZXJfaW5pdF9j
+bWRfdGJsIFthbWRncHVdXSAqRVJST1IqIERvbid0Cj4+IGhhdmUgZW5hYmxlX3NwcmVhZF9zcGVj
+dHJ1bV9vbl9wcGxsIGZvciB2NAo+PiBbwqDCoMKgIDMuNTg2NDEwXSBbZHJtOmRhbF9iaW9zX3Bh
+cnNlcl9pbml0X2NtZF90YmwgW2FtZGdwdV1dICpFUlJPUiogRG9uJ3QKPj4gaGF2ZSBwcm9ncmFt
+X2Nsb2NrIGZvciB2Nwo+Pgo+PiBMYXRlc3QgR09PRCBjb21taXQgd2FzICNiMzQxYTE5ZTgwMzkg
+KGRybS9yYWRlb246IFJlbW92ZQo+PiBLRkRfQ0lLX1NETUFfUVVFVUVfT0ZGU0VUKS4KPj4KPj4g
+SSdsbCBiaXNlY3QgaWYgSSBoYXZlIHNvbWUgdGltZS4KPj4gTWF5YmUgc29tZW9uZSBzZW5kIGEg
+aGludCB0byB0aGUgcmlnaHQgY29tbWl0Lgo+IAo+IEkgZG9uJ3QgdGhpbmsgYmlzZWN0aW5nIGlz
+IHVzZWZ1bCwgaXQnbGwgbW9zdCBsaWtlbHkganVzdCBpZGVudGlmeQo+IGNvbW1pdCAwNDBkZGEy
+ZTFmNTIgKCJkcm0vYW1kL2Rpc3BsYXk6IEVycm9yIHByaW50IHdoZW4gQVRPTSBCSU9TCj4gaW1w
+bGVtZW50YXRpb24gaXMgbWlzc2luZyIpIHdoaWNoIHN0YXJ0ZWQgcHJpbnRpbmcgdGhlc2UgbWVz
+c2FnZXMgZm9yCj4gbWlzc2luZyBBVE9NIEJJT1MgaW1wbGVtZW50YXRpb25zLgo+IAo+IEknbSBu
+b3Qgc3VyZSwgYnV0IEkgc3VzcGVjdCB0aGVzZSBtZXNzYWdlcyBhcmUgaGFybWxlc3MsIGdpdmVu
+IHRoYXQKPiB0aGluZ3MgYXJlIG90aGVyd2lzZSBwcmVzdW1hYmx5IHN0aWxsIHdvcmtpbmcgYXMg
+d2VsbCBhcyB0aGV5IHdlcmUgYmVmb3JlLgoKVGhlc2UgYXJlIGhhcm1sZXNzLiBJIHdyb25nZnVs
+bHkgYXNzdW1lZCB0aGF0IHByaW50aW5nIGVycm9ycyBoZXJlIHNob3VsZCBiZSBmaW5lIG9uIGFs
+bCBBU0lDcyBhcyBJIGFzc3VtZWQgYWxsIHJlbGV2YW50IGZ1bmN0aW9ucyB3ZXJlIGltcGxlbWVu
+dGVkLiBBcHBhcmVudGx5IHRoZXkncmUgbm90LCBwcm92aW5nIG1lIHdyb25nIGFuZCBwcm92aW5n
+IHRoZSB1c2VmdWxuZXNzIG9mIHNvbWUgc29ydCBvZiBwcmludCBoZXJlLiBJJ2xsIHNlbmQgYSBw
+YXRjaCB0byBkZW1vdGUgdGhlIHByaW50cyB0byBkZWJ1ZyBsZXZlbC4KCkhhcnJ5Cgo+IAo+IApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
