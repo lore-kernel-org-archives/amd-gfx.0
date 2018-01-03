@@ -1,53 +1,52 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [amd-staging-drm-next] regression - *ERROR* Don't have
- enable_spread_spectrum_on_ppll for v4
-Date: Wed, 3 Jan 2018 10:03:18 -0500
-Message-ID: <71b85214-28ad-8a01-1af6-d2420215f4f3@amd.com>
-References: <d23e9146851a0edc4d33fa7b7584520e@nuetzel-hh.de>
- <d00a90fb-1be4-c9f5-5202-02b4899ec07c@daenzer.net>
+From: Bartlomiej Zolnierkiewicz <b.zolnierkie-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org>
+Subject: Re: [PATCH 00/13] remove_conflicting_framebuffers() cleanup
+Date: Wed, 03 Jan 2018 16:04:15 +0100
+Message-ID: <1733339.3qeImzqeL4@amdc3058>
+References: <cover.1511544782.git.mirq-linux@rere.qmqm.pl>
+        <CGME20171127103053epcas2p1b42cdcd817182cf468eb96ec16de9370@epcas2p1.samsung.com>
+        <20171127103044.faakzch7ehlkc3or@phenom.ffwll.local>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d00a90fb-1be4-c9f5-5202-02b4899ec07c-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Dieter_N=c3=bctzel?= <Dieter-0hun7QTegEsDD4udEopG9Q@public.gmane.org>
-Cc: amd-devel <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, DRI Devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-tegra-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+In-reply-to: <20171127103044.faakzch7ehlkc3or-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+Sender: linux-tegra-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux-CoA6ZxLDdyEEUmgCuDUIdw@public.gmane.org>
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-tegra-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Teddy Wang <teddy.wang-S9cbI//bT0v8C245oKUbwQC/G2K4zDHf@public.gmane.org>, Sudip Mukherjee <sudipm.mukherjee-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, Chen-Yu Tsai <wens-jdAy2FN1RRM@public.gmane.org>, Thierry Reding <thierry.reding-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Maxime Ripard <maxime.ripard-wi1+55ScJUtKEb57/3fJTNBPR1lH4CV8@public.gmane.org>, Jonathan Hunter <jonathanh-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, libnux-fbdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxNy0xMi0yNyAwNDowNCBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxNy0x
-Mi0yNyAwNTo0MyBBTSwgRGlldGVyIE7DvHR6ZWwgd3JvdGU6Cj4+IEhlbGxvIEFNRCB0ZWFtLAo+
-Pgo+PiBJIGdvdCB0aGlzIHNpbmNlIGxhdGVzdCAnYW1kLXN0YWdpbmctZHJtLW5leHQnIGdpdCB1
-cGRhdGUKPj4gKCNiOTU2YzU4NmU1OGEpIGR1cmluZyBib290IHdpdGggUG9sYXJpcyBSWDU4MCBE
-QyBvbjoKPj4KPj4gW8KgwqDCoCAzLjU4NjM0Ml0gW2RybTpkYWxfYmlvc19wYXJzZXJfaW5pdF9j
-bWRfdGJsIFthbWRncHVdXSAqRVJST1IqIERvbid0Cj4+IGhhdmUgZW5hYmxlX3NwcmVhZF9zcGVj
-dHJ1bV9vbl9wcGxsIGZvciB2NAo+PiBbwqDCoMKgIDMuNTg2NDEwXSBbZHJtOmRhbF9iaW9zX3Bh
-cnNlcl9pbml0X2NtZF90YmwgW2FtZGdwdV1dICpFUlJPUiogRG9uJ3QKPj4gaGF2ZSBwcm9ncmFt
-X2Nsb2NrIGZvciB2Nwo+Pgo+PiBMYXRlc3QgR09PRCBjb21taXQgd2FzICNiMzQxYTE5ZTgwMzkg
-KGRybS9yYWRlb246IFJlbW92ZQo+PiBLRkRfQ0lLX1NETUFfUVVFVUVfT0ZGU0VUKS4KPj4KPj4g
-SSdsbCBiaXNlY3QgaWYgSSBoYXZlIHNvbWUgdGltZS4KPj4gTWF5YmUgc29tZW9uZSBzZW5kIGEg
-aGludCB0byB0aGUgcmlnaHQgY29tbWl0Lgo+IAo+IEkgZG9uJ3QgdGhpbmsgYmlzZWN0aW5nIGlz
-IHVzZWZ1bCwgaXQnbGwgbW9zdCBsaWtlbHkganVzdCBpZGVudGlmeQo+IGNvbW1pdCAwNDBkZGEy
-ZTFmNTIgKCJkcm0vYW1kL2Rpc3BsYXk6IEVycm9yIHByaW50IHdoZW4gQVRPTSBCSU9TCj4gaW1w
-bGVtZW50YXRpb24gaXMgbWlzc2luZyIpIHdoaWNoIHN0YXJ0ZWQgcHJpbnRpbmcgdGhlc2UgbWVz
-c2FnZXMgZm9yCj4gbWlzc2luZyBBVE9NIEJJT1MgaW1wbGVtZW50YXRpb25zLgo+IAo+IEknbSBu
-b3Qgc3VyZSwgYnV0IEkgc3VzcGVjdCB0aGVzZSBtZXNzYWdlcyBhcmUgaGFybWxlc3MsIGdpdmVu
-IHRoYXQKPiB0aGluZ3MgYXJlIG90aGVyd2lzZSBwcmVzdW1hYmx5IHN0aWxsIHdvcmtpbmcgYXMg
-d2VsbCBhcyB0aGV5IHdlcmUgYmVmb3JlLgoKVGhlc2UgYXJlIGhhcm1sZXNzLiBJIHdyb25nZnVs
-bHkgYXNzdW1lZCB0aGF0IHByaW50aW5nIGVycm9ycyBoZXJlIHNob3VsZCBiZSBmaW5lIG9uIGFs
-bCBBU0lDcyBhcyBJIGFzc3VtZWQgYWxsIHJlbGV2YW50IGZ1bmN0aW9ucyB3ZXJlIGltcGxlbWVu
-dGVkLiBBcHBhcmVudGx5IHRoZXkncmUgbm90LCBwcm92aW5nIG1lIHdyb25nIGFuZCBwcm92aW5n
-IHRoZSB1c2VmdWxuZXNzIG9mIHNvbWUgc29ydCBvZiBwcmludCBoZXJlLiBJJ2xsIHNlbmQgYSBw
-YXRjaCB0byBkZW1vdGUgdGhlIHByaW50cyB0byBkZWJ1ZyBsZXZlbC4KCkhhcnJ5Cgo+IAo+IApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Monday, November 27, 2017 11:30:44 AM Daniel Vetter wrote:
+> On Fri, Nov 24, 2017 at 06:53:25PM +0100, Micha=C5=82 Miros=C5=82aw w=
+rote:
+> > This series cleans up duplicated code for replacing firmware FB
+> > driver with proper DRI driver and adds handover support to
+> > Tegra driver.
+
+Please Cc: me on and linux-fbdev ML on fbdev related patches
+(I was Cc:-ed only on the cover letter and patch #10, linux-fbdev
+was not Cc:-ed at all).
+
+> > The last patch is here because it uses new semantics of
+> > remove_conflicting_framebuffers() from this series. This
+> > can be considered independently, though.
+>=20
+> Except for that patches I've commented on:
+>=20
+> Acked-by: Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>
+>=20
+> Since this is for tegra and Thierry has drm-misc commit rights, it's
+> probably simplest when Thierry pushes this all to drm-misc once drive=
+r
+> maintainers had a chance to look at it. Also needs and ack from Bart =
+for
+> the fbdev sides.
+
+For fbdev changes:
+
+Acked-by: Bartlomiej Zolnierkiewicz <b.zolnierkie-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org>
+
+Best regards,
+--
+Bartlomiej Zolnierkiewicz
+Samsung R&D Institute Poland
+Samsung Electronics
