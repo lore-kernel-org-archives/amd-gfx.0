@@ -1,13 +1,13 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/pp: Add a new pp feature mask bit for OD
- feature
-Date: Thu, 4 Jan 2018 14:28:30 +0000
-Message-ID: <BN6PR12MB16524FE11B6CC348B7EFB997F71F0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1515059910-29827-1-git-send-email-Rex.Zhu@amd.com>
+Subject: Re: [PATCH 2/2] drm/amd/pp: Add and initialize OD_dpm_table for CI/VI.
+Date: Thu, 4 Jan 2018 14:31:22 +0000
+Message-ID: <BN6PR12MB16524BDD07B60799CBF41A4CF71F0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1515059910-29827-1-git-send-email-Rex.Zhu@amd.com>,
+ <1515059910-29827-2-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1321936013=="
+Content-Type: multipart/mixed; boundary="===============0586891290=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1515059910-29827-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1515059910-29827-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,161 +21,190 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1321936013==
+--===============0586891290==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16524FE11B6CC348B7EFB997F71F0BN6PR12MB1652namp_"
+	boundary="_000_BN6PR12MB16524BDD07B60799CBF41A4CF71F0BN6PR12MB1652namp_"
 
---_000_BN6PR12MB16524FE11B6CC348B7EFB997F71F0BN6PR12MB1652namp_
+--_000_BN6PR12MB16524BDD07B60799CBF41A4CF71F0BN6PR12MB1652namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Please include a commit message.  Something like:
+
+Add initial infrastructure for manual dpm control.
+
+With that fixed:
 
 Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 ________________________________
 From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
 <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, January 4, 2018 4:58:29 AM
+Sent: Thursday, January 4, 2018 4:58:30 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Zhu, Rex
-Subject: [PATCH 1/2] drm/amd/pp: Add a new pp feature mask bit for OD featu=
-re
+Subject: [PATCH 2/2] drm/amd/pp: Add and initialize OD_dpm_table for CI/VI.
 
-when this bit was set on module load,
-driver will allow the user over/under gpu
-clock and voltage through sysfs.
-
-by default, this bit was not set.
-
-Change-Id: I4ec2d3a689ae946d4af9f904c59b42da5b929181
+Change-Id: I05db3fe2a274ce9666a5074c82448bf8bd6e7ee8
 Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        | 3 +++
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 6 ++----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 7 ++-----
- drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          | 2 ++
- 5 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 73 ++++++++++++++++++++=
+++++
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h | 14 +++++
+ 2 files changed, 87 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 50afcf6..defe73a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -119,7 +119,7 @@
- uint amdgpu_sdma_phase_quantum =3D 32;
- char *amdgpu_disable_cu =3D NULL;
- char *amdgpu_virtual_display =3D NULL;
--uint amdgpu_pp_feature_mask =3D 0xffffffff;
-+uint amdgpu_pp_feature_mask =3D 0x2fff;
- int amdgpu_ngg =3D 0;
- int amdgpu_prim_buf_per_se =3D 0;
- int amdgpu_pos_buf_per_se =3D 0;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
-amd/powerplay/hwmgr/hwmgr.c
-index e35bdc5..ebfbbcf 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -935,6 +935,9 @@ int hwmgr_set_user_specify_caps(struct pp_hwmgr *hwmgr)
-                         PHM_PlatformCaps_CAC);
-         }
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index 9b17cec..863f0d6 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -792,6 +792,74 @@ static int smu7_setup_dpm_tables_v1(struct pp_hwmgr *h=
+wmgr)
+         return 0;
+ }
 
-+       if (hwmgr->feature_mask & PP_OVER_DRIVER_MASK)
-+               hwmgr->od_enabled =3D true;
++static int smu7_get_voltage_dependency_table(
++                       const struct phm_ppt_v1_clock_voltage_dependency_ta=
+ble *allowed_dep_table,
++                       struct phm_ppt_v1_clock_voltage_dependency_table *d=
+ep_table)
++{
++       uint8_t i =3D 0;
++       PP_ASSERT_WITH_CODE((0 !=3D allowed_dep_table->count),
++                               "Voltage Lookup Table empty",
++                               return -EINVAL);
++
++       dep_table->count =3D allowed_dep_table->count;
++       for (i=3D0; i<dep_table->count; i++) {
++               dep_table->entries[i].clk =3D allowed_dep_table->entries[i]=
+.clk;
++               dep_table->entries[i].vddInd =3D allowed_dep_table->entries=
+[i].vddInd;
++               dep_table->entries[i].vdd_offset =3D allowed_dep_table->ent=
+ries[i].vdd_offset;
++               dep_table->entries[i].vddc =3D allowed_dep_table->entries[i=
+].vddc;
++               dep_table->entries[i].vddgfx =3D allowed_dep_table->entries=
+[i].vddgfx;
++               dep_table->entries[i].vddci =3D allowed_dep_table->entries[=
+i].vddci;
++               dep_table->entries[i].mvdd =3D allowed_dep_table->entries[i=
+].mvdd;
++               dep_table->entries[i].phases =3D allowed_dep_table->entries=
+[i].phases;
++               dep_table->entries[i].cks_enable =3D allowed_dep_table->ent=
+ries[i].cks_enable;
++               dep_table->entries[i].cks_voffset =3D allowed_dep_table->en=
+tries[i].cks_voffset;
++       }
++
++       return 0;
++}
++
++static int smu7_odn_initial_default_setting(struct pp_hwmgr *hwmgr)
++{
++       struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend);
++       struct smu7_odn_dpm_table *odn_table =3D &(data->odn_dpm_table);
++       struct phm_ppt_v1_information *table_info =3D
++                       (struct phm_ppt_v1_information *)(hwmgr->pptable);
++       uint32_t i;
++
++       struct phm_ppt_v1_clock_voltage_dependency_table *dep_sclk_table;
++       struct phm_ppt_v1_clock_voltage_dependency_table *dep_mclk_table;
++
++       if (table_info =3D=3D NULL)
++               return -EINVAL;
++
++       dep_sclk_table =3D table_info->vdd_dep_on_sclk;
++       dep_mclk_table =3D table_info->vdd_dep_on_mclk;
++
++       odn_table->odn_core_clock_dpm_levels.number_of_performance_levels =
+=3D
++                                               data->dpm_table.sclk_table.=
+count;
++       for (i=3D0; i<data->dpm_table.sclk_table.count; i++) {
++               odn_table->odn_core_clock_dpm_levels.entries[i].clock =3D
++                                       data->dpm_table.sclk_table.dpm_leve=
+ls[i].value;
++               odn_table->odn_core_clock_dpm_levels.entries[i].enabled =3D=
+ true;
++       }
++
++       smu7_get_voltage_dependency_table(dep_sclk_table,
++               (struct phm_ppt_v1_clock_voltage_dependency_table *)&(odn_t=
+able->vdd_dependency_on_sclk));
++
++       odn_table->odn_memory_clock_dpm_levels.number_of_performance_levels=
+ =3D
++                                               data->dpm_table.mclk_table.=
+count;
++       for (i=3D0; i<data->dpm_table.sclk_table.count; i++) {
++               odn_table->odn_memory_clock_dpm_levels.entries[i].clock =3D
++                                       data->dpm_table.mclk_table.dpm_leve=
+ls[i].value;
++               odn_table->odn_memory_clock_dpm_levels.entries[i].enabled =
+=3D true;
++       }
++
++       smu7_get_voltage_dependency_table(dep_mclk_table,
++               (struct phm_ppt_v1_clock_voltage_dependency_table *)&(odn_t=
+able->vdd_dependency_on_mclk));
++
++       return 0;
++}
++
+ static int smu7_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
+ {
+         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -808,6 +876,11 @@ static int smu7_setup_default_dpm_tables(struct pp_hwm=
+gr *hwmgr)
+         /* save a copy of the default DPM table */
+         memcpy(&(data->golden_dpm_table), &(data->dpm_table),
+                         sizeof(struct smu7_dpm_table));
++
++       /* initialize ODN table */
++       if (hwmgr->od_enabled)
++               smu7_odn_initial_default_setting(hwmgr);
 +
          return 0;
  }
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index fdbe117..9b17cec 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3606,8 +3606,7 @@ static int smu7_populate_and_upload_sclk_mclk_dpm_lev=
-els(
-                 dpm_table->sclk_table.dpm_levels
-                 [dpm_table->sclk_table.count - 1].value =3D sclk;
-
--               if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps=
-, PHM_PlatformCaps_OD6PlusinACSupport) ||
--                   phm_cap_enabled(hwmgr->platform_descriptor.platformCaps=
-, PHM_PlatformCaps_OD6PlusinDCSupport)) {
-+               if (hwmgr->od_enabled) {
-                 /* Need to do calculation based on the golden DPM table
-                  * as the Heatmap GPU Clock axis is also based on the defa=
-ult values
-                  */
-@@ -3652,8 +3651,7 @@ static int smu7_populate_and_upload_sclk_mclk_dpm_lev=
-els(
-                 dpm_table->mclk_table.dpm_levels
-                         [dpm_table->mclk_table.count - 1].value =3D mclk;
-
--               if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps=
-, PHM_PlatformCaps_OD6PlusinACSupport) ||
--                   phm_cap_enabled(hwmgr->platform_descriptor.platformCaps=
-, PHM_PlatformCaps_OD6PlusinDCSupport)) {
-+               if (hwmgr->od_enabled) {
-
-                         PP_ASSERT_WITH_CODE(
-                                         (golden_dpm_table->mclk_table.dpm_=
-levels
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index 7e6feed..4219004 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -3394,8 +3394,7 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_l=
-evels(
-                                 dpm_table->
-                                 gfx_table.dpm_levels[dpm_table->gfx_table.=
-count - 1].
-                                 value =3D sclk;
--                               if (PP_CAP(PHM_PlatformCaps_OD6PlusinACSupp=
-ort) ||
--                                   PP_CAP(PHM_PlatformCaps_OD6PlusinDCSupp=
-ort)) {
-+                               if (hwmgr->od_enabled) {
-                                         /* Need to do calculation based on=
- the golden DPM table
-                                          * as the Heatmap GPU Clock axis i=
-s also based on
-                                          * the default values
-@@ -3449,9 +3448,7 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_l=
-evels(
-                         mem_table.dpm_levels[dpm_table->mem_table.count - =
-1].
-                         value =3D mclk;
-
--                       if (PP_CAP(PHM_PlatformCaps_OD6PlusinACSupport) ||
--                           PP_CAP(PHM_PlatformCaps_OD6PlusinDCSupport)) {
--
-+                       if (hwmgr->od_enabled) {
-                                 PP_ASSERT_WITH_CODE(
-                                         golden_dpm_table->mem_table.dpm_le=
-vels
-                                         [golden_dpm_table->mem_table.count=
- - 1].value,
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h
-index f37f211..5d92f13 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-@@ -84,6 +84,7 @@ enum PP_FEATURE_MASK {
-         PP_OD_FUZZY_FAN_CONTROL_MASK =3D 0x800,
-         PP_SOCCLK_DPM_MASK =3D 0x1000,
-         PP_DCEFCLK_DPM_MASK =3D 0x2000,
-+       PP_OVER_DRIVER_MASK =3D 0x4000,
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.h
+index beba25c..8eec974 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h
+@@ -178,9 +178,23 @@ struct smu7_pcie_perf_range {
+         uint16_t  min;
  };
 
- enum PHM_BackEnd_Magic {
-@@ -750,6 +751,7 @@ struct pp_hwmgr {
-         struct amd_pp_profile default_compute_power_profile;
-         enum amd_pp_profile_type current_power_profile;
-         bool en_umd_pstate;
-+       bool od_enabled;
- };
++struct smu7_odn_clock_voltage_dependency_table {
++       uint32_t count;
++       phm_ppt_v1_clock_voltage_dependency_record entries[MAX_REGULAR_DPM_=
+NUMBER];
++};
++
++struct smu7_odn_dpm_table {
++       struct phm_odn_clock_levels             odn_core_clock_dpm_levels;
++       struct phm_odn_clock_levels             odn_memory_clock_dpm_levels=
+;
++       struct smu7_odn_clock_voltage_dependency_table  vdd_dependency_on_s=
+clk;
++       struct smu7_odn_clock_voltage_dependency_table  vdd_dependency_on_m=
+clk;
++       uint32_t                                        odn_mclk_min_limit;
++};
++
+ struct smu7_hwmgr {
+         struct smu7_dpm_table                   dpm_table;
+         struct smu7_dpm_table                   golden_dpm_table;
++       struct smu7_odn_dpm_table               odn_dpm_table;
 
- struct cgs_irq_src_funcs {
+         uint32_t                                                voting_rig=
+hts_clients[8];
+         uint32_t                                                static_scr=
+een_threshold_unit;
 --
 1.9.1
 
@@ -184,7 +213,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB16524FE11B6CC348B7EFB997F71F0BN6PR12MB1652namp_
+--_000_BN6PR12MB16524BDD07B60799CBF41A4CF71F0BN6PR12MB1652namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -198,8 +227,13 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<p style=3D"margin-top:0;margin-bottom:0">Please include a commit message.&=
+nbsp; Something like:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Add initial infrastructure for ma=
+nual dpm control.</p>
+<p style=3D"margin-top:0;margin-bottom:0">With that fixed:</p>
+<p style=3D"margin-top:0;margin-bottom:0"><span>Reviewed-by: Alex Deucher &=
+lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
 </p>
 </div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
@@ -207,220 +241,255 @@ xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
 ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
 t;<br>
-<b>Sent:</b> Thursday, January 4, 2018 4:58:29 AM<br>
+<b>Sent:</b> Thursday, January 4, 2018 4:58:30 AM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 1/2] drm/amd/pp: Add a new pp feature mask bit for O=
-D feature</font>
+<b>Subject:</b> [PATCH 2/2] drm/amd/pp: Add and initialize OD_dpm_table for=
+ CI/VI.</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">when this bit was set on module load,<br>
-driver will allow the user over/under gpu<br>
-clock and voltage through sysfs.<br>
-<br>
-by default, this bit was not set.<br>
-<br>
-Change-Id: I4ec2d3a689ae946d4af9f904c59b42da5b929181<br>
+<div class=3D"PlainText">Change-Id: I05db3fe2a274ce9666a5074c82448bf8bd6e7e=
+e8<br>
 Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; | 3 &#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp; | 6 &#43=
-;&#43;----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 7 &#43;&#43;----=
--<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &#43;&#43;<br>
-&nbsp;5 files changed, 10 insertions(&#43;), 10 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 73 &#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h | 14 &#43;&#43;&#43;=
+&#43;&#43;<br>
+&nbsp;2 files changed, 87 insertions(&#43;)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index 50afcf6..defe73a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -119,7 &#43;119,7 @@<br>
-&nbsp;uint amdgpu_sdma_phase_quantum =3D 32;<br>
-&nbsp;char *amdgpu_disable_cu =3D NULL;<br>
-&nbsp;char *amdgpu_virtual_display =3D NULL;<br>
--uint amdgpu_pp_feature_mask =3D 0xffffffff;<br>
-&#43;uint amdgpu_pp_feature_mask =3D 0x2fff;<br>
-&nbsp;int amdgpu_ngg =3D 0;<br>
-&nbsp;int amdgpu_prim_buf_per_se =3D 0;<br>
-&nbsp;int amdgpu_pos_buf_per_se =3D 0;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
-amd/powerplay/hwmgr/hwmgr.c<br>
-index e35bdc5..ebfbbcf 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-@@ -935,6 &#43;935,9 @@ int hwmgr_set_user_specify_caps(struct pp_hwmgr *hw=
-mgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_P=
-latformCaps_CAC);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+index 9b17cec..863f0d6 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+@@ -792,6 &#43;792,74 @@ static int smu7_setup_dpm_tables_v1(struct pp_hwmg=
+r *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
 &nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;feature_mask &amp; =
-PP_OVER_DRIVER_MASK)<br>
+&#43;static int smu7_get_voltage_dependency_table(<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; hwmgr-&gt;od_enabled =3D true;<br>
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct=
+ phm_ppt_v1_clock_voltage_dependency_table *allowed_dep_table,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_p=
+pt_v1_clock_voltage_dependency_table *dep_table)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t i =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE((0 !=3D allow=
+ed_dep_table-&gt;count),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Voltage Lookup Table empty&quot;,=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dep_table-&gt;count =3D allowed_d=
+ep_table-&gt;count;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;dep_table-&gt;co=
+unt; i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].clk =3D allowed_dep_table-&gt;entri=
+es[i].clk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].vddInd =3D allowed_dep_table-&gt;en=
+tries[i].vddInd;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].vdd_offset =3D allowed_dep_table-&g=
+t;entries[i].vdd_offset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].vddc =3D allowed_dep_table-&gt;entr=
+ies[i].vddc;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].vddgfx =3D allowed_dep_table-&gt;en=
+tries[i].vddgfx;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].vddci =3D allowed_dep_table-&gt;ent=
+ries[i].vddci;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].mvdd =3D allowed_dep_table-&gt;entr=
+ies[i].mvdd;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].phases =3D allowed_dep_table-&gt;en=
+tries[i].phases;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].cks_enable =3D allowed_dep_table-&g=
+t;entries[i].cks_enable;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dep_table-&gt;entries[i].cks_voffset =3D allowed_dep_table-&=
+gt;entries[i].cks_voffset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&#43;<br>
+&#43;static int smu7_odn_initial_default_setting(struct pp_hwmgr *hwmgr)<br=
+>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_hwmgr *data =3D (stru=
+ct smu7_hwmgr *)(hwmgr-&gt;backend);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_odn_dpm_table *odn_ta=
+ble =3D &amp;(data-&gt;odn_dpm_table);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_ppt_v1_information *ta=
+ble_info =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (struct phm_=
+ppt_v1_information *)(hwmgr-&gt;pptable);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_ppt_v1_clock_voltage_d=
+ependency_table *dep_sclk_table;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_ppt_v1_clock_voltage_d=
+ependency_table *dep_mclk_table;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (table_info =3D=3D NULL)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dep_sclk_table =3D table_info-&gt=
+;vdd_dep_on_sclk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dep_mclk_table =3D table_info-&gt=
+;vdd_dep_on_mclk;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_table-&gt;odn_core_clock_dpm_=
+levels.number_of_performance_levels =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table=
+.sclk_table.count;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;data-&gt;dpm_tab=
+le.sclk_table.count; i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; odn_table-&gt;odn_core_clock_dpm_levels.entries[i].clock =3D=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; data-&gt;dpm_table.sclk_table.dpm_levels[i].value;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; odn_table-&gt;odn_core_clock_dpm_levels.entries[i].enabled =
+=3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_get_voltage_dependency_table=
+(dep_sclk_table,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; (struct phm_ppt_v1_clock_voltage_dependency_table *)&amp;(od=
+n_table-&gt;vdd_dependency_on_sclk));<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_table-&gt;odn_memory_clock_dp=
+m_levels.number_of_performance_levels =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;dpm_table=
+.mclk_table.count;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;data-&gt;dpm_tab=
+le.sclk_table.count; i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; odn_table-&gt;odn_memory_clock_dpm_levels.entries[i].clock =
+=3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; data-&gt;dpm_table.mclk_table.dpm_levels[i].value;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; odn_table-&gt;odn_memory_clock_dpm_levels.entries[i].enabled=
+ =3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_get_voltage_dependency_table=
+(dep_mclk_table,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; (struct phm_ppt_v1_clock_voltage_dependency_table *)&amp;(od=
+n_table-&gt;vdd_dependency_on_mclk));<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static int smu7_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_hwmgr *data =
+=3D (struct smu7_hwmgr *)(hwmgr-&gt;backend);<br>
+@@ -808,6 &#43;876,11 @@ static int smu7_setup_default_dpm_tables(struct pp=
+_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* save a copy of the defa=
+ult DPM table */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;(data-&gt;gold=
+en_dpm_table), &amp;(data-&gt;dpm_table),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeo=
+f(struct smu7_dpm_table));<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* initialize ODN table */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;od_enabled)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu7_odn_initial_default_setting(hwmgr);<br>
 &#43;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
 &nbsp;}<br>
 &nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-index fdbe117..9b17cec 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -3606,8 &#43;3606,7 @@ static int smu7_populate_and_upload_sclk_mclk_dpm=
-_levels(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;sclk_table.dpm_levels<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; [dpm_table-&gt;sclk_table.count - 1].value =3D sclk;<=
-br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+index beba25c..8eec974 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+@@ -178,9 &#43;178,23 @@ struct smu7_pcie_perf_range {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t&nbsp; min;<br>
+&nbsp;};<br>
 &nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (phm_cap_enabled(hwmgr-&gt;platform_descriptor.platformCaps, =
-PHM_PlatformCaps_OD6PlusinACSupport) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_enabled(hwmgr-&gt;platform_descr=
-iptor.platformCaps, PHM_PlatformCaps_OD6PlusinDCSupport)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (hwmgr-&gt;od_enabled) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Need to do calculation based on the golden DPM tab=
-le<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * as the Heatmap GPU Clock axis is also based o=
-n the default values<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-@@ -3652,8 &#43;3651,7 @@ static int smu7_populate_and_upload_sclk_mclk_dpm=
-_levels(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;mclk_table.dpm_levels<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [dpm_=
-table-&gt;mclk_table.count - 1].value =3D mclk;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (phm_cap_enabled(hwmgr-&gt;platform_descriptor.platformCaps, =
-PHM_PlatformCaps_OD6PlusinACSupport) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_enabled(hwmgr-&gt;platform_descr=
-iptor.platformCaps, PHM_PlatformCaps_OD6PlusinDCSupport)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (hwmgr-&gt;od_enabled) {<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_AS=
-SERT_WITH_CODE(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; (golden_dpm_table-&gt;mclk_table.dpm_levels<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-index 7e6feed..4219004 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-@@ -3394,8 &#43;3394,7 @@ static int vega10_populate_and_upload_sclk_mclk_d=
-pm_levels(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_table.dpm_levels[dpm_table-&=
-gt;gfx_table.count - 1].<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value =3D sclk;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_OD6PlusinACSupp=
-ort) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_CAP(PHM_Platform=
-Caps_OD6PlusinDCSupport)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+&#43;struct smu7_odn_clock_voltage_dependency_table {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t count;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_ppt_v1_clock_voltage_dependen=
+cy_record entries[MAX_REGULAR_DPM_NUMBER];<br>
+&#43;};<br>
+&#43;<br>
+&#43;struct smu7_odn_dpm_table {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_odn_clock_levels&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_core=
+_clock_dpm_levels;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_odn_clock_levels&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_memo=
+ry_clock_dpm_levels;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_odn_clock_voltage_dep=
+endency_table&nbsp; vdd_dependency_on_sclk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_odn_clock_voltage_dep=
+endency_table&nbsp; vdd_dependency_on_mclk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;od_enabled) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; /* Need to do calculation based on the golden DPM table<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; * as the Heatmap GPU Clock axis is also based on<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; * the default values<br>
-@@ -3449,9 &#43;3448,7 @@ static int vega10_populate_and_upload_sclk_mclk_d=
-pm_levels(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem_t=
-able.dpm_levels[dpm_table-&gt;mem_table.count - 1].<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value=
- =3D mclk;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_P=
-latformCaps_OD6PlusinACSupport) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_mclk_min_li=
+mit;<br>
+&#43;};<br>
+&#43;<br>
+&nbsp;struct smu7_hwmgr {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_dpm_table&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_dpm_table&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; golden_dpm_table;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_odn_dpm_table&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; PP_CAP(PHM_PlatformCaps_OD6PlusinDCSupport)) {<br>
--<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&g=
-t;od_enabled) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; golden_dpm_table-&gt;mem_table.dpm_levels<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; [golden_dpm_table-&gt;mem_table.count - 1].value,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h<br>
-index f37f211..5d92f13 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-@@ -84,6 &#43;84,7 @@ enum PP_FEATURE_MASK {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_OD_FUZZY_FAN_CONTROL_MA=
-SK =3D 0x800,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_SOCCLK_DPM_MASK =3D 0x1=
-000,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_DCEFCLK_DPM_MASK =3D 0x=
-2000,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_OVER_DRIVER_MASK =3D 0x4000,<b=
-r>
-&nbsp;};<br>
+; odn_dpm_table;<br>
 &nbsp;<br>
-&nbsp;enum PHM_BackEnd_Magic {<br>
-@@ -750,6 &#43;751,7 @@ struct pp_hwmgr {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_pp_profile defa=
-ult_compute_power_profile;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pp_profile_type c=
-urrent_power_profile;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool en_umd_pstate;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool od_enabled;<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;struct cgs_irq_src_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voting_rights_clients[8];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static_screen_threshold_unit;<br>
 -- <br>
 1.9.1<br>
 <br>
@@ -434,9 +503,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_BN6PR12MB16524FE11B6CC348B7EFB997F71F0BN6PR12MB1652namp_--
+--_000_BN6PR12MB16524BDD07B60799CBF41A4CF71F0BN6PR12MB1652namp_--
 
---===============1321936013==
+--===============0586891290==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -446,4 +515,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1321936013==--
+--===============0586891290==--
