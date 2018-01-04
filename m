@@ -1,11 +1,13 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/2] drm/amd/pp: Add a new pp feature mask bit for OD feature
-Date: Thu, 4 Jan 2018 17:58:29 +0800
-Message-ID: <1515059910-29827-1-git-send-email-Rex.Zhu@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Refine code shorten variable name
+Date: Thu, 4 Jan 2018 14:27:25 +0000
+Message-ID: <BN6PR12MB1652805012C9F3D666EFEBF8F71F0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1515059816-29329-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2009830563=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1515059816-29329-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,91 +18,422 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-d2hlbiB0aGlzIGJpdCB3YXMgc2V0IG9uIG1vZHVsZSBsb2FkLApkcml2ZXIgd2lsbCBhbGxvdyB0
-aGUgdXNlciBvdmVyL3VuZGVyIGdwdQpjbG9jayBhbmQgdm9sdGFnZSB0aHJvdWdoIHN5c2ZzLgoK
-YnkgZGVmYXVsdCwgdGhpcyBiaXQgd2FzIG5vdCBzZXQuCgpDaGFuZ2UtSWQ6IEk0ZWMyZDNhNjg5
-YWU5NDZkNGFmOWY5MDRjNTliNDJkYTViOTI5MTgxClNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJl
-eC5aaHVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
-LmMgICAgICAgICAgICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
-L2h3bWdyLmMgICAgICAgIHwgMyArKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
-bWdyL3NtdTdfaHdtZ3IuYyAgIHwgNiArKy0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIHwgNyArKy0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9pbmMvaHdtZ3IuaCAgICAgICAgICB8IDIgKysKIDUgZmlsZXMgY2hhbmdlZCwg
-MTAgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2Rydi5jCmluZGV4IDUwYWZjZjYuLmRlZmU3M2EgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTExOSw3ICsxMTksNyBAQAogdWludCBhbWRncHVf
-c2RtYV9waGFzZV9xdWFudHVtID0gMzI7CiBjaGFyICphbWRncHVfZGlzYWJsZV9jdSA9IE5VTEw7
-CiBjaGFyICphbWRncHVfdmlydHVhbF9kaXNwbGF5ID0gTlVMTDsKLXVpbnQgYW1kZ3B1X3BwX2Zl
-YXR1cmVfbWFzayA9IDB4ZmZmZmZmZmY7Cit1aW50IGFtZGdwdV9wcF9mZWF0dXJlX21hc2sgPSAw
-eDJmZmY7CiBpbnQgYW1kZ3B1X25nZyA9IDA7CiBpbnQgYW1kZ3B1X3ByaW1fYnVmX3Blcl9zZSA9
-IDA7CiBpbnQgYW1kZ3B1X3Bvc19idWZfcGVyX3NlID0gMDsKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9od21nci5jCmluZGV4IGUzNWJkYzUuLmViZmJiY2YgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwpAQCAtOTM1LDYgKzkzNSw5
-IEBAIGludCBod21ncl9zZXRfdXNlcl9zcGVjaWZ5X2NhcHMoc3RydWN0IHBwX2h3bWdyICpod21n
-cikKIAkJCVBITV9QbGF0Zm9ybUNhcHNfQ0FDKTsKIAl9CiAKKwlpZiAoaHdtZ3ItPmZlYXR1cmVf
-bWFzayAmIFBQX09WRVJfRFJJVkVSX01BU0spCisJCWh3bWdyLT5vZF9lbmFibGVkID0gdHJ1ZTsK
-KwogCXJldHVybiAwOwogfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9zbXU3X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci9zbXU3X2h3bWdyLmMKaW5kZXggZmRiZTExNy4uOWIxN2NlYyAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwpAQCAtMzYwNiw4ICsz
-NjA2LDcgQEAgc3RhdGljIGludCBzbXU3X3BvcHVsYXRlX2FuZF91cGxvYWRfc2Nsa19tY2xrX2Rw
-bV9sZXZlbHMoCiAJCWRwbV90YWJsZS0+c2Nsa190YWJsZS5kcG1fbGV2ZWxzCiAJCVtkcG1fdGFi
-bGUtPnNjbGtfdGFibGUuY291bnQgLSAxXS52YWx1ZSA9IHNjbGs7CiAKLQkJaWYgKHBobV9jYXBf
-ZW5hYmxlZChod21nci0+cGxhdGZvcm1fZGVzY3JpcHRvci5wbGF0Zm9ybUNhcHMsIFBITV9QbGF0
-Zm9ybUNhcHNfT0Q2UGx1c2luQUNTdXBwb3J0KSB8fAotCQkgICAgcGhtX2NhcF9lbmFibGVkKGh3
-bWdyLT5wbGF0Zm9ybV9kZXNjcmlwdG9yLnBsYXRmb3JtQ2FwcywgUEhNX1BsYXRmb3JtQ2Fwc19P
-RDZQbHVzaW5EQ1N1cHBvcnQpKSB7CisJCWlmIChod21nci0+b2RfZW5hYmxlZCkgewogCQkvKiBO
-ZWVkIHRvIGRvIGNhbGN1bGF0aW9uIGJhc2VkIG9uIHRoZSBnb2xkZW4gRFBNIHRhYmxlCiAJCSAq
-IGFzIHRoZSBIZWF0bWFwIEdQVSBDbG9jayBheGlzIGlzIGFsc28gYmFzZWQgb24gdGhlIGRlZmF1
-bHQgdmFsdWVzCiAJCSAqLwpAQCAtMzY1Miw4ICszNjUxLDcgQEAgc3RhdGljIGludCBzbXU3X3Bv
-cHVsYXRlX2FuZF91cGxvYWRfc2Nsa19tY2xrX2RwbV9sZXZlbHMoCiAJCWRwbV90YWJsZS0+bWNs
-a190YWJsZS5kcG1fbGV2ZWxzCiAJCQlbZHBtX3RhYmxlLT5tY2xrX3RhYmxlLmNvdW50IC0gMV0u
-dmFsdWUgPSBtY2xrOwogCi0JCWlmIChwaG1fY2FwX2VuYWJsZWQoaHdtZ3ItPnBsYXRmb3JtX2Rl
-c2NyaXB0b3IucGxhdGZvcm1DYXBzLCBQSE1fUGxhdGZvcm1DYXBzX09ENlBsdXNpbkFDU3VwcG9y
-dCkgfHwKLQkJICAgIHBobV9jYXBfZW5hYmxlZChod21nci0+cGxhdGZvcm1fZGVzY3JpcHRvci5w
-bGF0Zm9ybUNhcHMsIFBITV9QbGF0Zm9ybUNhcHNfT0Q2UGx1c2luRENTdXBwb3J0KSkgeworCQlp
-ZiAoaHdtZ3ItPm9kX2VuYWJsZWQpIHsKIAogCQkJUFBfQVNTRVJUX1dJVEhfQ09ERSgKIAkJCQkJ
-KGdvbGRlbl9kcG1fdGFibGUtPm1jbGtfdGFibGUuZHBtX2xldmVscwpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwppbmRleCA3ZTZmZWVk
-Li40MjE5MDA0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci92ZWdhMTBfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci92ZWdhMTBfaHdtZ3IuYwpAQCAtMzM5NCw4ICszMzk0LDcgQEAgc3RhdGljIGludCB2ZWdhMTBf
-cG9wdWxhdGVfYW5kX3VwbG9hZF9zY2xrX21jbGtfZHBtX2xldmVscygKIAkJCQlkcG1fdGFibGUt
-PgogCQkJCWdmeF90YWJsZS5kcG1fbGV2ZWxzW2RwbV90YWJsZS0+Z2Z4X3RhYmxlLmNvdW50IC0g
-MV0uCiAJCQkJdmFsdWUgPSBzY2xrOwotCQkJCWlmIChQUF9DQVAoUEhNX1BsYXRmb3JtQ2Fwc19P
-RDZQbHVzaW5BQ1N1cHBvcnQpIHx8Ci0JCQkJICAgIFBQX0NBUChQSE1fUGxhdGZvcm1DYXBzX09E
-NlBsdXNpbkRDU3VwcG9ydCkpIHsKKwkJCQlpZiAoaHdtZ3ItPm9kX2VuYWJsZWQpIHsKIAkJCQkJ
-LyogTmVlZCB0byBkbyBjYWxjdWxhdGlvbiBiYXNlZCBvbiB0aGUgZ29sZGVuIERQTSB0YWJsZQog
-CQkJCQkgKiBhcyB0aGUgSGVhdG1hcCBHUFUgQ2xvY2sgYXhpcyBpcyBhbHNvIGJhc2VkIG9uCiAJ
-CQkJCSAqIHRoZSBkZWZhdWx0IHZhbHVlcwpAQCAtMzQ0OSw5ICszNDQ4LDcgQEAgc3RhdGljIGlu
-dCB2ZWdhMTBfcG9wdWxhdGVfYW5kX3VwbG9hZF9zY2xrX21jbGtfZHBtX2xldmVscygKIAkJCW1l
-bV90YWJsZS5kcG1fbGV2ZWxzW2RwbV90YWJsZS0+bWVtX3RhYmxlLmNvdW50IC0gMV0uCiAJCQl2
-YWx1ZSA9IG1jbGs7CiAKLQkJCWlmIChQUF9DQVAoUEhNX1BsYXRmb3JtQ2Fwc19PRDZQbHVzaW5B
-Q1N1cHBvcnQpIHx8Ci0JCQkgICAgUFBfQ0FQKFBITV9QbGF0Zm9ybUNhcHNfT0Q2UGx1c2luRENT
-dXBwb3J0KSkgewotCisJCQlpZiAoaHdtZ3ItPm9kX2VuYWJsZWQpIHsKIAkJCQlQUF9BU1NFUlRf
-V0lUSF9DT0RFKAogCQkJCQlnb2xkZW5fZHBtX3RhYmxlLT5tZW1fdGFibGUuZHBtX2xldmVscwog
-CQkJCQlbZ29sZGVuX2RwbV90YWJsZS0+bWVtX3RhYmxlLmNvdW50IC0gMV0udmFsdWUsCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaCBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCmluZGV4IGYzN2YyMTEuLjVkOTJm
-MTMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5o
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCkBAIC04NCw2
-ICs4NCw3IEBAIGVudW0gUFBfRkVBVFVSRV9NQVNLIHsKIAlQUF9PRF9GVVpaWV9GQU5fQ09OVFJP
-TF9NQVNLID0gMHg4MDAsCiAJUFBfU09DQ0xLX0RQTV9NQVNLID0gMHgxMDAwLAogCVBQX0RDRUZD
-TEtfRFBNX01BU0sgPSAweDIwMDAsCisJUFBfT1ZFUl9EUklWRVJfTUFTSyA9IDB4NDAwMCwKIH07
-CiAKIGVudW0gUEhNX0JhY2tFbmRfTWFnaWMgewpAQCAtNzUwLDYgKzc1MSw3IEBAIHN0cnVjdCBw
-cF9od21nciB7CiAJc3RydWN0IGFtZF9wcF9wcm9maWxlIGRlZmF1bHRfY29tcHV0ZV9wb3dlcl9w
-cm9maWxlOwogCWVudW0gYW1kX3BwX3Byb2ZpbGVfdHlwZSBjdXJyZW50X3Bvd2VyX3Byb2ZpbGU7
-CiAJYm9vbCBlbl91bWRfcHN0YXRlOworCWJvb2wgb2RfZW5hYmxlZDsKIH07CiAKIHN0cnVjdCBj
-Z3NfaXJxX3NyY19mdW5jcyB7Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+--===============2009830563==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652805012C9F3D666EFEBF8F71F0BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652805012C9F3D666EFEBF8F71F0BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, January 4, 2018 4:56:56 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amd/pp: Refine code shorten variable name
+
+Change-Id: Id5f146321b11c9dbfa5a48a5197e714761f57670
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 24 ++++++++----------=
+----
+ .../gpu/drm/amd/powerplay/inc/hardwaremanager.h    |  2 +-
+ 2 files changed, 9 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 3d729f0..4219004 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -1387,11 +1387,9 @@ static int vega10_setup_default_dpm_tables(struct pp=
+_hwmgr *hwmgr)
+                 data->odn_dpm_table.odn_core_clock_dpm_levels.
+                 number_of_performance_levels =3D data->dpm_table.gfx_table=
+.count;
+                 for (i =3D 0; i < data->dpm_table.gfx_table.count; i++) {
+-                       data->odn_dpm_table.odn_core_clock_dpm_levels.
+-                       performance_level_entries[i].clock =3D
++                       data->odn_dpm_table.odn_core_clock_dpm_levels.entri=
+es[i].clock =3D
+                                         data->dpm_table.gfx_table.dpm_leve=
+ls[i].value;
+-                       data->odn_dpm_table.odn_core_clock_dpm_levels.
+-                       performance_level_entries[i].enabled =3D true;
++                       data->odn_dpm_table.odn_core_clock_dpm_levels.entri=
+es[i].enabled =3D true;
+                 }
+
+                 data->odn_dpm_table.vdd_dependency_on_sclk.count =3D
+@@ -1410,11 +1408,9 @@ static int vega10_setup_default_dpm_tables(struct pp=
+_hwmgr *hwmgr)
+                 data->odn_dpm_table.odn_memory_clock_dpm_levels.
+                 number_of_performance_levels =3D data->dpm_table.mem_table=
+.count;
+                 for (i =3D 0; i < data->dpm_table.mem_table.count; i++) {
+-                       data->odn_dpm_table.odn_memory_clock_dpm_levels.
+-                       performance_level_entries[i].clock =3D
++                       data->odn_dpm_table.odn_memory_clock_dpm_levels.ent=
+ries[i].clock =3D
+                                         data->dpm_table.mem_table.dpm_leve=
+ls[i].value;
+-                       data->odn_dpm_table.odn_memory_clock_dpm_levels.
+-                       performance_level_entries[i].enabled =3D true;
++                       data->odn_dpm_table.odn_memory_clock_dpm_levels.ent=
+ries[i].enabled =3D true;
+                 }
+
+                 data->odn_dpm_table.vdd_dependency_on_mclk.count =3D dep_m=
+clk_table->count;
+@@ -3352,11 +3348,9 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_=
+levels(
+                                         dpm_count < dpm_table->gfx_table.c=
+ount;
+                                         dpm_count++) {
+                                 dpm_table->gfx_table.dpm_levels[dpm_count]=
+.enabled =3D
+-                                               data->odn_dpm_table.odn_cor=
+e_clock_dpm_levels.
+-                                               performance_level_entries[d=
+pm_count].enabled;
++                                       data->odn_dpm_table.odn_core_clock_=
+dpm_levels.entries[dpm_count].enabled;
+                                 dpm_table->gfx_table.dpm_levels[dpm_count]=
+.value =3D
+-                                               data->odn_dpm_table.odn_cor=
+e_clock_dpm_levels.
+-                                               performance_level_entries[d=
+pm_count].clock;
++                                       data->odn_dpm_table.odn_core_clock_=
+dpm_levels.entries[dpm_count].clock;
+                         }
+                 }
+
+@@ -3366,11 +3360,9 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_=
+levels(
+                                         dpm_count < dpm_table->mem_table.c=
+ount;
+                                         dpm_count++) {
+                                 dpm_table->mem_table.dpm_levels[dpm_count]=
+.enabled =3D
+-                                               data->odn_dpm_table.odn_mem=
+ory_clock_dpm_levels.
+-                                               performance_level_entries[d=
+pm_count].enabled;
++                                       data->odn_dpm_table.odn_memory_cloc=
+k_dpm_levels.entries[dpm_count].enabled;
+                                 dpm_table->mem_table.dpm_levels[dpm_count]=
+.value =3D
+-                                               data->odn_dpm_table.odn_mem=
+ory_clock_dpm_levels.
+-                                               performance_level_entries[d=
+pm_count].clock;
++                                       data->odn_dpm_table.odn_memory_cloc=
+k_dpm_levels.entries[dpm_count].clock;
+                         }
+                 }
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h b/drivers/=
+gpu/drm/amd/powerplay/inc/hardwaremanager.h
+index f919301..933aa44 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h
+@@ -370,7 +370,7 @@ struct phm_odn_clock_levels {
+         uint32_t flags;
+         uint32_t number_of_performance_levels;
+         /* variable-sized array, specify by ulNumberOfPerformanceLevels. *=
+/
+-       struct phm_odn_performance_level performance_level_entries[8];
++       struct phm_odn_performance_level entries[8];
+ };
+
+ extern int phm_disable_clock_power_gatings(struct pp_hwmgr *hwmgr);
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1652805012C9F3D666EFEBF8F71F0BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Thursday, January 4, 2018 4:56:56 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Refine code shorten variable name</font=
+>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Change-Id: Id5f146321b11c9dbfa5a48a5197e714761f576=
+70<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 24 &#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;--------------<br>
+&nbsp;.../gpu/drm/amd/powerplay/inc/hardwaremanager.h&nbsp;&nbsp;&nbsp; |&n=
+bsp; 2 &#43;-<br>
+&nbsp;2 files changed, 9 insertions(&#43;), 17 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+index 3d729f0..4219004 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+@@ -1387,11 &#43;1387,9 @@ static int vega10_setup_default_dpm_tables(struc=
+t pp_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table.odn_core_clock_dpm_levels.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; number_of_performance_levels =3D data-&gt;dpm_table.g=
+fx_table.count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; data-&gt;dpm_table.gfx_table.cou=
+nt; i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm=
+_table.odn_core_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_leve=
+l_entries[i].clock =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn=
+_dpm_table.odn_core_clock_dpm_levels.entries[i].clock =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; data-&gt;dpm_table.gfx_table.dpm_levels[i].value;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm=
+_table.odn_core_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_leve=
+l_entries[i].enabled =3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn=
+_dpm_table.odn_core_clock_dpm_levels.entries[i].enabled =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table.vdd_dependency_on_sclk.count =
+=3D<br>
+@@ -1410,11 &#43;1408,9 @@ static int vega10_setup_default_dpm_tables(struc=
+t pp_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table.odn_memory_clock_dpm_levels.<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; number_of_performance_levels =3D data-&gt;dpm_table.m=
+em_table.count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; data-&gt;dpm_table.mem_table.cou=
+nt; i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm=
+_table.odn_memory_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_leve=
+l_entries[i].clock =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn=
+_dpm_table.odn_memory_clock_dpm_levels.entries[i].clock =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; data-&gt;dpm_table.mem_table.dpm_levels[i].value;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm=
+_table.odn_memory_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_leve=
+l_entries[i].enabled =3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn=
+_dpm_table.odn_memory_clock_dpm_levels.entries[i].enabled =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table.vdd_dependency_on_mclk.count =
+=3D dep_mclk_table-&gt;count;<br>
+@@ -3352,11 &#43;3348,9 @@ static int vega10_populate_and_upload_sclk_mclk_=
+dpm_levels(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; dpm_count &lt; dpm_table-&gt;gfx_table.count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; dpm_count&#43;&#43;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;gfx_table.dpm_leve=
+ls[dpm_count].enabled =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table=
+.odn_core_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_level_entr=
+ies[dpm_count].enabled;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; data-&gt;odn_dpm_table.odn_core_clock_dpm_levels.entries[dpm_count=
+].enabled;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;gfx_table.dpm_leve=
+ls[dpm_count].value =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table=
+.odn_core_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_level_entr=
+ies[dpm_count].clock;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; data-&gt;odn_dpm_table.odn_core_clock_dpm_levels.entries[dpm_count=
+].clock;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -3366,11 &#43;3360,9 @@ static int vega10_populate_and_upload_sclk_mclk_=
+dpm_levels(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; dpm_count &lt; dpm_table-&gt;mem_table.count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; dpm_count&#43;&#43;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;mem_table.dpm_leve=
+ls[dpm_count].enabled =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table=
+.odn_memory_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_level_entr=
+ies[dpm_count].enabled;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; data-&gt;odn_dpm_table.odn_memory_clock_dpm_levels.entries[dpm_cou=
+nt].enabled;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;mem_table.dpm_leve=
+ls[dpm_count].value =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;odn_dpm_table=
+.odn_memory_clock_dpm_levels.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_level_entr=
+ies[dpm_count].clock;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; data-&gt;odn_dpm_table.odn_memory_clock_dpm_levels.entries[dpm_cou=
+nt].clock;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h b/drivers/=
+gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+index f919301..933aa44 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+@@ -370,7 &#43;370,7 @@ struct phm_odn_clock_levels {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t number_of_perform=
+ance_levels;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* variable-sized array, s=
+pecify by ulNumberOfPerformanceLevels. */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_odn_performance_level perf=
+ormance_level_entries[8];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_odn_performance_level =
+entries[8];<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;extern int phm_disable_clock_power_gatings(struct pp_hwmgr *hwmgr);<b=
+r>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652805012C9F3D666EFEBF8F71F0BN6PR12MB1652namp_--
+
+--===============2009830563==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2009830563==--
