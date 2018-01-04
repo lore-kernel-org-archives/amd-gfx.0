@@ -1,130 +1,79 @@
-From: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/9] PCI: Add pci_enable_atomic_ops_to_root
-Date: Thu,  4 Jan 2018 17:17:40 -0500
-Message-ID: <1515104268-25087-2-git-send-email-Felix.Kuehling@amd.com>
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+Subject: [PATCH 2/9] drm/amdkfd: Conditionally enable PCIe atomics
+Date: Thu,  4 Jan 2018 17:17:41 -0500
+Message-ID: <1515104268-25087-3-git-send-email-Felix.Kuehling@amd.com>
 References: <1515104268-25087-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1515104268-25087-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Jay Cornwall <Jay.Cornwall-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-pci-owner@vger.kernel.org>
+In-Reply-To: <1515104268-25087-1-git-send-email-Felix.Kuehling@amd.com>
+Sender: linux-pci-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, oded.gabbay@gmail.com
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, linux-pci@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogSmF5IENvcm53YWxsIDxKYXkuQ29ybndhbGxAYW1kLmNvbT4KClRoZSBQQ0llIDMuMCBB
-dG9taWNPcCAoNi4xNSkgZmVhdHVyZSBhbGxvd3MgYXRvbWljIHRyYW5zY3Rpb25zIHRvIGJlCnJl
-cXVlc3RlZCBieSwgcm91dGVkIHRocm91Z2ggYW5kIGNvbXBsZXRlZCBieSBQQ0llIGNvbXBvbmVu
-dHMuIFJvdXRpbmcgYW5kCmNvbXBsZXRpb24gZG8gbm90IHJlcXVpcmUgc29mdHdhcmUgc3VwcG9y
-dC4gQ29tcG9uZW50IHN1cHBvcnQgZm9yIGVhY2ggaXMKZGV0ZWN0YWJsZSB2aWEgdGhlIERFVkNB
-UDIgcmVnaXN0ZXIuCgpBdG9taWNPcCByZXF1ZXN0cyBhcmUgcGVybWl0dGVkIG9ubHkgaWYgYSBj
-b21wb25lbnQncwpERVZDVEwyLkFUT01JQ09QX1JFUVVFU1RFUl9FTkFCTEUgZmllbGQgaXMgc2V0
-LiBUaGlzIGNhcGFiaWxpdHkgY2Fubm90IGJlCmRldGVjdGVkIGJ1dCBpcyBhIG5vLW9wIGlmIHNl
-dCBvbiBhIGNvbXBvbmVudCB3aXRoIG5vIHN1cHBvcnQuIFRoZXNlCnJlcXVlc3RzIGNhbiBvbmx5
-IGJlIHNlcnZpY2VkIGlmIHRoZSB1cHN0cmVhbSBjb21wb25lbnRzIHN1cHBvcnQgQXRvbWljT3AK
-Y29tcGxldGlvbiBhbmQvb3Igcm91dGluZyB0byBhIGNvbXBvbmVudCB3aGljaCBkb2VzLgoKQSBj
-b25jcmV0ZSBleGFtcGxlIGlzIHRoZSBBTUQgRmlqaS1jbGFzcyBHUFUsIHdoaWNoIGlzIHNwZWNp
-ZmllZCB0bwpzdXBwb3J0IEF0b21pY09wIHJlcXVlc3RzLCByb3V0ZWQgdGhyb3VnaCBhIFBMWCA4
-NzQ3IHN3aXRjaCAoYWR2ZXJ0aXNpbmcKQXRvbWljT3Agcm91dGluZykgdG8gYSBIYXN3ZWxsIGhv
-c3QgYnJpZGdlIChhZHZlcnRpc2luZyBBdG9taWNPcApjb21wbGV0aW9uIHN1cHBvcnQpLiBXaGVu
-IEF0b21pY09wIHJlcXVlc3RzIGFyZSBkaXNhYmxlZCB0aGUgR1BVIGxvZ3MKYXR0ZW1wdHMgdG8g
-aW5pdGlhdGUgcmVxdWVzdHMgdG8gYW4gTU1JTyByZWdpc3RlciBmb3IgZGVidWdnaW5nLgoKQWRk
-IHBjaV9lbmFibGVfYXRvbWljX29wc190b19yb290IGZvciBwZXItZGV2aWNlIGNvbnRyb2wgb3Zl
-ciBBdG9taWNPcApyZXF1ZXN0cy4gVXBzdHJlYW0gYnJpZGdlcyBhcmUgY2hlY2tlZCBmb3IgQXRv
-bWljT3Agcm91dGluZyBjYXBhYmlsaXR5IGFuZAp0aGUgY2FsbCBmYWlscyBpZiBhbnkgbGFjayB0
-aGlzIGNhcGFiaWxpdHkuIFRoZSByb290IHBvcnQgaXMgY2hlY2tlZCBmb3IKQXRvbWljT3AgY29t
-cGxldGlvbiBjYXBhYmlsaXRpZXMgYW5kIHRoZSBjYWxsIGZhaWxzIGlmIGl0IGRvZXMgbm90IHN1
-cHBvcnQKYW55LiBSb3V0ZXMgdG8gb3RoZXIgUENJZSBjb21wb25lbnRzIGFyZSBub3QgY2hlY2tl
-ZCBmb3IgQXRvbWljT3Agcm91dGluZwphbmQgY29tcGxldGlvbiBjYXBhYmlsaXRpZXMuCgp2Mjog
-Q2hlY2sgZm9yIEF0b21pY09wIHJvdXRlIHRvIHJvb3QgcG9ydCB3aXRoIEF0b21pY09wIGNvbXBs
-ZXRpb24KdjM6IFN0eWxlIGZpeGVzCnY0OiBFbmRwb2ludCB0byByb290IHBvcnQgb25seSwgY2hl
-Y2sgdXBzdHJlYW0gZWdyZXNzIGJsb2NraW5nCnY1OiBSZWJhc2UsIHVzZSBleGlzdGluZyBQQ0lf
-RVhQX0RFVkNUTDJfQVRPTUlDX0VHUkVTU19CTE9DSyBkZWZpbmUKdjY6IEFkZCBjb21wX2NhcHMg
-cGFyYW0sIGZpeCB1cHN0cmVhbSBwb3J0IGRldGVjdGlvbiwgY29zbWV0aWMvY29tbWVudHMKCkND
-OiBsaW51eC1wY2lAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IEpheSBDb3Jud2FsbCA8
-SmF5LkNvcm53YWxsQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxp
-eC5LdWVobGluZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvcGNpL3BjaS5jICAgICAgICAgICAgIHwg
-ODAgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogaW5jbHVkZS9s
-aW51eC9wY2kuaCAgICAgICAgICAgfCAgMSArCiBpbmNsdWRlL3VhcGkvbGludXgvcGNpX3JlZ3Mu
-aCB8ICA0ICsrLQogMyBmaWxlcyBjaGFuZ2VkLCA4NCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9wY2kvcGNpLmMgYi9kcml2ZXJzL3BjaS9wY2kuYwpp
-bmRleCA0YTdjNjg2Li45Y2VhMzk5IDEwMDY0NAotLS0gYS9kcml2ZXJzL3BjaS9wY2kuYworKysg
-Yi9kcml2ZXJzL3BjaS9wY2kuYwpAQCAtMzA2Niw2ICszMDY2LDg2IEBAIGludCBwY2lfcmViYXJf
-c2V0X3NpemUoc3RydWN0IHBjaV9kZXYgKnBkZXYsIGludCBiYXIsIGludCBzaXplKQogfQogCiAv
-KioKKyAqIHBjaV9lbmFibGVfYXRvbWljX29wc190b19yb290IC0gZW5hYmxlIEF0b21pY09wIHJl
-cXVlc3RzIHRvIHJvb3QgcG9ydAorICogQGRldjogdGhlIFBDSSBkZXZpY2UKKyAqIEBjb21wX2Nh
-cHM6IENhcHMgcmVxdWlyZWQgZm9yIGF0b21pYyByZXF1ZXN0IGNvbXBsZXRpb24KKyAqCisgKiBS
-ZXR1cm4gMCBpZiBhbGwgdXBzdHJlYW0gYnJpZGdlcyBzdXBwb3J0IEF0b21pY09wIHJvdXRpbmcs
-IGVncmVzcworICogYmxvY2tpbmcgaXMgZGlzYWJsZWQgb24gYWxsIHVwc3RyZWFtIHBvcnRzLCBh
-bmQgdGhlIHJvb3QgcG9ydAorICogc3VwcG9ydHMgdGhlIHJlcXVlc3RlZCBjb21wbGV0aW9uIGNh
-cGFiaWxpdGllcyAoMzItYml0LCA2NC1iaXQKKyAqIGFuZC9vciAxMjgtYml0IEF0b21pY09wIGNv
-bXBsZXRpb24pLCBvciBuZWdhdGl2ZSBvdGhlcndpc2UuCisgKi8KK2ludCBwY2lfZW5hYmxlX2F0
-b21pY19vcHNfdG9fcm9vdChzdHJ1Y3QgcGNpX2RldiAqZGV2LCB1MzIgY29tcF9jYXBzKQorewor
-CXN0cnVjdCBwY2lfYnVzICpidXMgPSBkZXYtPmJ1czsKKworCWlmICghcGNpX2lzX3BjaWUoZGV2
-KSkKKwkJcmV0dXJuIC1FSU5WQUw7CisKKwlzd2l0Y2ggKHBjaV9wY2llX3R5cGUoZGV2KSkgewor
-CS8qCisJICogUENJZSAzLjAsIDYuMTUgc3BlY2lmaWVzIHRoYXQgZW5kcG9pbnRzIGFuZCByb290
-IHBvcnRzIGFyZSBwZXJtaXR0ZWQKKwkgKiB0byBpbXBsZW1lbnQgQXRvbWljT3AgcmVxdWVzdGVy
-IGNhcGFiaWxpdGllcy4KKwkgKi8KKwljYXNlIFBDSV9FWFBfVFlQRV9FTkRQT0lOVDoKKwljYXNl
-IFBDSV9FWFBfVFlQRV9MRUdfRU5EOgorCWNhc2UgUENJX0VYUF9UWVBFX1JDX0VORDoKKwkJYnJl
-YWs7CisJZGVmYXVsdDoKKwkJcmV0dXJuIC1FSU5WQUw7CisJfQorCisJd2hpbGUgKGJ1cy0+cGFy
-ZW50KSB7CisJCXN0cnVjdCBwY2lfZGV2ICpicmlkZ2UgPSBidXMtPnNlbGY7CisJCXUzMiBjYXA7
-CisKKwkJcGNpZV9jYXBhYmlsaXR5X3JlYWRfZHdvcmQoYnJpZGdlLCBQQ0lfRVhQX0RFVkNBUDIs
-ICZjYXApOworCisJCXN3aXRjaCAocGNpX3BjaWVfdHlwZShicmlkZ2UpKSB7CisJCS8qCisJCSAq
-IFVwc3RyZWFtLCBkb3duc3RyZWFtIGFuZCByb290IHBvcnRzIG1heSBpbXBsZW1lbnQgQXRvbWlj
-T3AKKwkJICogcm91dGluZyBjYXBhYmlsaXRpZXMuIEF0b21pY09wIHJvdXRpbmcgdmlhIGEgcm9v
-dCBwb3J0IGlzCisJCSAqIG5vdCBjb25zaWRlcmVkLgorCQkgKi8KKwkJY2FzZSBQQ0lfRVhQX1RZ
-UEVfVVBTVFJFQU06CisJCWNhc2UgUENJX0VYUF9UWVBFX0RPV05TVFJFQU06CisJCQlpZiAoIShj
-YXAgJiBQQ0lfRVhQX0RFVkNBUDJfQVRPTUlDX1JPVVRFKSkKKwkJCQlyZXR1cm4gLUVJTlZBTDsK
-KwkJCWJyZWFrOworCisJCS8qCisJCSAqIFJvb3QgcG9ydHMgYXJlIHBlcm1pdHRlZCB0byBpbXBs
-ZW1lbnQgQXRvbWljT3AgY29tcGxldGlvbgorCQkgKiBjYXBhYmlsaXRpZXMuCisJCSAqLworCQlj
-YXNlIFBDSV9FWFBfVFlQRV9ST09UX1BPUlQ6CisJCQlpZiAoKGNhcCAmIGNvbXBfY2FwcykgIT0g
-Y29tcF9jYXBzKQorCQkJCXJldHVybiAtRUlOVkFMOworCQkJYnJlYWs7CisJCX0KKworCQkvKgor
-CQkgKiBVcHN0cmVhbSBwb3J0cyBtYXkgYmxvY2sgQXRvbWljT3BzIG9uIGVncmVzcy4KKwkJICov
-CisJCWlmICghYnJpZGdlLT5oYXNfc2Vjb25kYXJ5X2xpbmspIHsKKwkJCXUzMiBjdGwyOworCisJ
-CQlwY2llX2NhcGFiaWxpdHlfcmVhZF9kd29yZChicmlkZ2UsIFBDSV9FWFBfREVWQ1RMMiwKKwkJ
-CQkJCSAgICZjdGwyKTsKKwkJCWlmIChjdGwyICYgUENJX0VYUF9ERVZDVEwyX0FUT01JQ19FR1JF
-U1NfQkxPQ0spCisJCQkJcmV0dXJuIC1FSU5WQUw7CisJCX0KKworCQlidXMgPSBidXMtPnBhcmVu
-dDsKKwl9CisKKwlwY2llX2NhcGFiaWxpdHlfc2V0X3dvcmQoZGV2LCBQQ0lfRVhQX0RFVkNUTDIs
-CisJCQkJIFBDSV9FWFBfREVWQ1RMMl9BVE9NSUNfUkVRKTsKKworCXJldHVybiAwOworfQorRVhQ
-T1JUX1NZTUJPTChwY2lfZW5hYmxlX2F0b21pY19vcHNfdG9fcm9vdCk7CisKKy8qKgogICogcGNp
-X3N3aXp6bGVfaW50ZXJydXB0X3BpbiAtIHN3aXp6bGUgSU5UeCBmb3IgZGV2aWNlIGJlaGluZCBi
-cmlkZ2UKICAqIEBkZXY6IHRoZSBQQ0kgZGV2aWNlCiAgKiBAcGluOiB0aGUgSU5UeCBwaW4gKDE9
-SU5UQSwgMj1JTlRCLCAzPUlOVEMsIDQ9SU5URCkKZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgv
-cGNpLmggYi9pbmNsdWRlL2xpbnV4L3BjaS5oCmluZGV4IGMxNzBjOTIuLjUyYTE3NzU0IDEwMDY0
-NAotLS0gYS9pbmNsdWRlL2xpbnV4L3BjaS5oCisrKyBiL2luY2x1ZGUvbGludXgvcGNpLmgKQEAg
-LTIwNjEsNiArMjA2MSw3IEBAIHZvaWQgcGNpX3JlcXVlc3RfYWNzKHZvaWQpOwogYm9vbCBwY2lf
-YWNzX2VuYWJsZWQoc3RydWN0IHBjaV9kZXYgKnBkZXYsIHUxNiBhY3NfZmxhZ3MpOwogYm9vbCBw
-Y2lfYWNzX3BhdGhfZW5hYmxlZChzdHJ1Y3QgcGNpX2RldiAqc3RhcnQsCiAJCQkgIHN0cnVjdCBw
-Y2lfZGV2ICplbmQsIHUxNiBhY3NfZmxhZ3MpOworaW50IHBjaV9lbmFibGVfYXRvbWljX29wc190
-b19yb290KHN0cnVjdCBwY2lfZGV2ICpkZXYsIHUzMiBjb21wX2NhcHMpOwogCiAjZGVmaW5lIFBD
-SV9WUERfTFJEVAkJCTB4ODAJLyogTGFyZ2UgUmVzb3VyY2UgRGF0YSBUeXBlICovCiAjZGVmaW5l
-IFBDSV9WUERfTFJEVF9JRCh4KQkJKCh4KSB8IFBDSV9WUERfTFJEVCkKZGlmZiAtLWdpdCBhL2lu
-Y2x1ZGUvdWFwaS9saW51eC9wY2lfcmVncy5oIGIvaW5jbHVkZS91YXBpL2xpbnV4L3BjaV9yZWdz
-LmgKaW5kZXggNzBjMmIyYS4uZjMxYjU2YiAxMDA2NDQKLS0tIGEvaW5jbHVkZS91YXBpL2xpbnV4
-L3BjaV9yZWdzLmgKKysrIGIvaW5jbHVkZS91YXBpL2xpbnV4L3BjaV9yZWdzLmgKQEAgLTYyNCw3
-ICs2MjQsOSBAQAogI2RlZmluZSBQQ0lfRVhQX0RFVkNBUDIJCTM2CS8qIERldmljZSBDYXBhYmls
-aXRpZXMgMiAqLwogI2RlZmluZSAgUENJX0VYUF9ERVZDQVAyX0FSSQkJMHgwMDAwMDAyMCAvKiBB
-bHRlcm5hdGl2ZSBSb3V0aW5nLUlEICovCiAjZGVmaW5lICBQQ0lfRVhQX0RFVkNBUDJfQVRPTUlD
-X1JPVVRFCTB4MDAwMDAwNDAgLyogQXRvbWljIE9wIHJvdXRpbmcgKi8KLSNkZWZpbmUgUENJX0VY
-UF9ERVZDQVAyX0FUT01JQ19DT01QNjQJMHgwMDAwMDEwMCAvKiBBdG9taWMgNjQtYml0IGNvbXBh
-cmUgKi8KKyNkZWZpbmUgIFBDSV9FWFBfREVWQ0FQMl9BVE9NSUNfQ09NUDMyCTB4MDAwMDAwODAg
-LyogMzJiIEF0b21pY09wIGNvbXBsZXRpb24gKi8KKyNkZWZpbmUgIFBDSV9FWFBfREVWQ0FQMl9B
-VE9NSUNfQ09NUDY0CTB4MDAwMDAxMDAgLyogNjRiIEF0b21pY09wIGNvbXBsZXRpb24gKi8KKyNk
-ZWZpbmUgIFBDSV9FWFBfREVWQ0FQMl9BVE9NSUNfQ09NUDEyOAkweDAwMDAwMjAwIC8qIDEyOGIg
-QXRvbWljT3AgY29tcGxldGlvbiAqLwogI2RlZmluZSAgUENJX0VYUF9ERVZDQVAyX0xUUgkJMHgw
-MDAwMDgwMCAvKiBMYXRlbmN5IHRvbGVyYW5jZSByZXBvcnRpbmcgKi8KICNkZWZpbmUgIFBDSV9F
-WFBfREVWQ0FQMl9PQkZGX01BU0sJMHgwMDBjMDAwMCAvKiBPQkZGIHN1cHBvcnQgbWVjaGFuaXNt
-ICovCiAjZGVmaW5lICBQQ0lfRVhQX0RFVkNBUDJfT0JGRl9NU0cJMHgwMDA0MDAwMCAvKiBOZXcg
-bWVzc2FnZSBzaWduYWxpbmcgKi8KLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+This will be needed for most dGPUs.
+
+CC: linux-pci@vger.kernel.org
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 17 +++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h   |  1 +
+ 2 files changed, 18 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index a8fa33a..fafe971 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -41,6 +41,7 @@ static const struct kfd_device_info kaveri_device_info = {
+ 	.num_of_watch_points = 4,
+ 	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+ 	.supports_cwsr = false,
++	.needs_pci_atomics = false,
+ };
+ 
+ static const struct kfd_device_info carrizo_device_info = {
+@@ -53,6 +54,7 @@ static const struct kfd_device_info carrizo_device_info = {
+ 	.num_of_watch_points = 4,
+ 	.mqd_size_aligned = MQD_SIZE_ALIGNED,
+ 	.supports_cwsr = true,
++	.needs_pci_atomics = false,
+ };
+ 
+ struct kfd_deviceid {
+@@ -127,6 +129,21 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+ 		return NULL;
+ 	}
+ 
++	if (device_info->needs_pci_atomics) {
++		/* Allow BIF to recode atomics to PCIe 3.0
++		 * AtomicOps. 32 and 64-bit requests are possible and
++		 * must be supported.
++		 */
++		if (pci_enable_atomic_ops_to_root(pdev,
++				PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
++				PCI_EXP_DEVCAP2_ATOMIC_COMP64) < 0) {
++			dev_info(kfd_device,
++				"skipped device %x:%x, PCI rejects atomics",
++				 pdev->vendor, pdev->device);
++			return NULL;
++		}
++	}
++
+ 	kfd = kzalloc(sizeof(*kfd), GFP_KERNEL);
+ 	if (!kfd)
+ 		return NULL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 6a48d29..eebfb1e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -158,6 +158,7 @@ struct kfd_device_info {
+ 	uint8_t num_of_watch_points;
+ 	uint16_t mqd_size_aligned;
+ 	bool supports_cwsr;
++	bool needs_pci_atomics;
+ };
+ 
+ struct kfd_mem_obj {
+-- 
+2.7.4
