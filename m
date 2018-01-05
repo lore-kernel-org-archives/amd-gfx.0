@@ -1,13 +1,16 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: Fix no-cast warnings in smu7_smu_fini
-Date: Fri, 5 Jan 2018 06:44:21 +0000
-Message-ID: <CY4PR12MB16870CE74AADDD7DED38C276FB1C0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20180104160122.22697-1-harry.wentland@amd.com>
- <BN6PR12MB1652FC402BB6484951B4B846F71F0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: allow framebuffer in GART memory as well
+Date: Fri, 5 Jan 2018 09:45:44 +0100
+Message-ID: <08ba657b-21a9-cd12-2a83-2908abd849e8@amd.com>
+References: <1515100305-6774-1-git-send-email-Samuel.Li@amd.com>
+ <CADnq5_N0xH2kgo4EwmpjWC8yO1-vOOn5bf7nrDcbjg9tjtvVFQ@mail.gmail.com>
+ <727d29ae-ce10-780b-1efa-8a20db0274ad@amd.com>
+ <CADnq5_NAC7MzPdHzB_=x1Q5QMdTkWG2_jskRyi6gycpQ9C_67g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2001097734=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1652FC402BB6484951B4B846F71F0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CADnq5_NAC7MzPdHzB_=x1Q5QMdTkWG2_jskRyi6gycpQ9C_67g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,380 +22,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Tao, Yintian" <Yintian.Tao-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Samuel Li <samuel.li-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2001097734==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB16870CE74AADDD7DED38C276FB1C0CY4PR12MB1687namp_"
-
---_000_CY4PR12MB16870CE74AADDD7DED38C276FB1C0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-and pushed the patch to drm-next.
-
-Best Regards
-Rex
-
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of D=
-eucher, Alexander
-Sent: Friday, January 05, 2018 12:09 AM
-To: Wentland, Harry; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Tao, Yintian
-Subject: Re: [PATCH] drm/amd/powerplay: Fix no-cast warnings in smu7_smu_fi=
-ni
-
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deucher@=
-amd.com>>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Harry Wentland <harry.wentland-urvtwAKJhsc@public.gmane.org=
-m<mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org>>
-Sent: Thursday, January 4, 2018 11:01 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Ta=
-o, Yintian
-Cc: Wentland, Harry
-Subject: [PATCH] drm/amd/powerplay: Fix no-cast warnings in smu7_smu_fini
-
-This fixes these warnings:
-
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c: In function '=
-smu7_smu_fini':
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:653:33: warnin=
-g: passing argument 2 of 'smu_free_memory' makes pointer from integer witho=
-ut a cast [-Wint-conversion]
-  smu_free_memory(hwmgr->device, smu_data->header_buffer.handle);
-                                 ^~~~~~~~
-In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_s=
-mumgr.c:26:0:
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:114:12: note: expected=
- 'void *' but argument is of type 'long unsigned int'
- extern int smu_free_memory(void *device, void *handle);
-            ^~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:655:34: warnin=
-g: passing argument 2 of 'smu_free_memory' makes pointer from integer witho=
-ut a cast [-Wint-conversion]
-   smu_free_memory(hwmgr->device, smu_data->smu_buffer.handle);
-                                  ^~~~~~~~
-In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_s=
-mumgr.c:26:0:
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:114:12: note: expected=
- 'void *' but argument is of type 'long unsigned int'
- extern int smu_free_memory(void *device, void *handle);
-            ^~~~~~~~~~~~~~~
-
-Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org<mailto:harry.wentland=
-@amd.com>>
----
- drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-index 25dd7781c9f2..311ff3718618 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-@@ -650,9 +650,9 @@ int smu7_smu_fini(struct pp_hwmgr *hwmgr)
- {
-         struct smu7_smumgr *smu_data =3D (struct smu7_smumgr *)(hwmgr->smu=
-_backend);
-
--       smu_free_memory(hwmgr->device, smu_data->header_buffer.handle);
-+       smu_free_memory(hwmgr->device, (void *) smu_data->header_buffer.han=
-dle);
-         if (!cgs_is_virtualization_enabled(hwmgr->device))
--               smu_free_memory(hwmgr->device, smu_data->smu_buffer.handle)=
-;
-+               smu_free_memory(hwmgr->device, (void *) smu_data->smu_buffe=
-r.handle);
-
-         kfree(hwmgr->smu_backend);
-         hwmgr->smu_backend =3D NULL;
---
-2.14.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB16870CE74AADDD7DED38C276FB1C0CY4PR12MB1687namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
-p
-	{mso-style-priority:99;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Times New Roman","serif";}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:SimSun;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:"Calibri","sans-serif";}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">Reviewed-by: Rex Zhu &lt;Rex=
-.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp=
-;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">and pushed=
- the patch to drm-next.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp=
-;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Best Regar=
-ds<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Rex<o:p></=
-o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp=
-;</o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span =
-lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&qu=
-ot;sans-serif&quot;"> amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
-]
-<b>On Behalf Of </b>Deucher, Alexander<br>
-<b>Sent:</b> Friday, January 05, 2018 12:09 AM<br>
-<b>To:</b> Wentland, Harry; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Tao, Yintian<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: Fix no-cast warnings in smu7=
-_smu_fini<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<div id=3D"divtagdefaultwrapper">
-<p><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;;color:black">Acked-by: Alex Deucher &lt;<a href=3D"mailto:alex=
-ander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></span><=
-/p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black=
-"><o:p>&nbsp;</o:p></span></p>
-<div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
- lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&q=
-uot;;color:black">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</span></div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:11.0pt;fo=
-nt-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</sp=
-an></b><span lang=3D"EN-US" style=3D"font-size:11.0pt;font-family:&quot;Cal=
-ibri&quot;,&quot;sans-serif&quot;;color:black"> amd-gfx &lt;<a href=3D"mail=
-to:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
-.org</a>&gt;
- on behalf of Harry Wentland &lt;<a href=3D"mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">=
-harry.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Thursday, January 4, 2018 11:01 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a>; Tao, Yintian<br>
-<b>Cc:</b> Wentland, Harry<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: Fix no-cast warnings in smu7_smu=
-_fini</span><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&=
-quot;sans-serif&quot;;color:black">
-<o:p></o:p></span></p>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Cali=
-bri&quot;,&quot;sans-serif&quot;;color:black">&nbsp;<o:p></o:p></span></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">This fixes t=
-hese warnings:<br>
-<br>
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c: In function &=
-#8216;smu7_smu_fini&#8217;:<br>
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:653:33: warnin=
-g: passing argument 2 of &#8216;smu_free_memory&#8217; makes pointer from i=
-nteger without a cast [-Wint-conversion]<br>
-&nbsp; smu_free_memory(hwmgr-&gt;device, smu_data-&gt;header_buffer.handle)=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~~<br>
-In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_s=
-mumgr.c:26:0:<br>
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:114:12: note: expected=
- &#8216;void *&#8217; but argument is of type &#8216;long unsigned int&#821=
-7;<br>
-&nbsp;extern int smu_free_memory(void *device, void *handle);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~~=
-~~~~~~~<br>
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:655:34: warnin=
-g: passing argument 2 of &#8216;smu_free_memory&#8217; makes pointer from i=
-nteger without a cast [-Wint-conversion]<br>
-&nbsp;&nbsp; smu_free_memory(hwmgr-&gt;device, smu_data-&gt;smu_buffer.hand=
-le);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~~<br>
-In file included from drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_s=
-mumgr.c:26:0:<br>
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/smumgr.h:114:12: note: expected=
- &#8216;void *&#8217; but argument is of type &#8216;long unsigned int&#821=
-7;<br>
-&nbsp;extern int smu_free_memory(void *device, void *handle);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~~=
-~~~~~~~<br>
-<br>
-Signed-off-by: Harry Wentland &lt;<a href=3D"mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org"=
->harry.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 4 &#43;&#43;--<b=
-r>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-index 25dd7781c9f2..311ff3718618 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-@@ -650,9 &#43;650,9 @@ int smu7_smu_fini(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_smumgr *smu_da=
-ta =3D (struct smu7_smumgr *)(hwmgr-&gt;smu_backend);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_free_memory(hwmgr-&gt;device, smu=
-_data-&gt;header_buffer.handle);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_free_memory(hwmgr-&gt;device,=
- (void *) smu_data-&gt;header_buffer.handle);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!cgs_is_virtualization=
-_enabled(hwmgr-&gt;device))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; smu_free_memory(hwmgr-&gt;device, smu_data-&gt;smu_buffer.handle=
-);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smu_free_memory(hwmgr-&gt;device, (void *) smu_data-&gt;smu_=
-buffer.handle);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;smu_backen=
-d);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;smu_backend =3D =
-NULL;<br>
--- <br>
-2.14.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk110459">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p><=
-/o:p></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB16870CE74AADDD7DED38C276FB1C0CY4PR12MB1687namp_--
-
---===============2001097734==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2001097734==--
+QW0gMDQuMDEuMjAxOCB1bSAyMzo0MyBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBUaHUsIEph
+biA0LCAyMDE4IGF0IDU6MjYgUE0sIFNhbXVlbCBMaSA8c2FtdWVsLmxpQGFtZC5jb20+IHdyb3Rl
+Ogo+Pj4+ICt1aW50MzJfdCBhbWRncHVfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldikKPj4+IFBsZWFzZSByZW5hbWUgdGhpcyBhbWRncHVfZGlzcGxheV9mcmFt
+ZWJ1ZmZlcl9kb21haW5zKCkgZm9yIGNvbnNpc3RlbmN5Lgo+PiBDdXJyZW50bHkgYWxsIHRoZSBm
+dW5jdGlvbnMgaW4gdGhpcyBmaWxlIGFyZSBuYW1lZCB3aXRob3V0IF9kaXNwbGF5Xy4gQW0gSSBt
+aXNzaW5nIHNvbWV0aGluZz8KPiBUaGF0IGZpbGUgaXMgc3RpbGwgYSBiaXQgb2YgYSBtZXNzIGJ1
+dCBJJ20gdHJ5aW5nIHRvIG1ha2UgYWxsIHRoZQo+IGZpbGVzIHVzZSBjb25zaXN0ZW50IG5hbWlu
+ZyBnb2luZyBmb3J3YXJkIHRvIG1ha2UgdGhlIGNvZGUgbW9yZQo+IHJlYWRhYmxlLiAgVGhlIElQ
+IGZpbGVzIChnZngsIHV2ZCwgZ21jLCBldGMuKSBhbHJlYWR5IGRvIGFuZCBJCj4gcmVjZW50bHkg
+Y2xlYW5lZCB1cCBhbWRncHVfZGV2aWNlLmMuCj4KPj4+PiArICAgICAgIGlmIChwbGFuZS0+dHlw
+ZSAhPSBEUk1fUExBTkVfVFlQRV9DVVJTT1IpCj4+PiBEbyBjdXJzb3JzIGhhdmUgdG8gYmUgaW4g
+dnJhbT8gIEl0IHNlZW1zIGxpa2UgdGhleSBzaG91bGRuJ3QuCj4+IEkgY2hlY2tlZCBzb21lIGRl
+c2lnbiBkb2N1bWVudGF0aW9uIGFuZCByZWxhdGVkIGltcGxlbWVudGF0aW9uIGp1c3Qgbm93LiBM
+b29rcyBsaWtlIGN1cnNvciBpcyBzdGlsbCBzdXBwb3NlZCB0byBiZSBwdXQgaW4gdnJhbSBub3cu
+Cj4+Cj4gU291bmRzIGdvb2QuICB0aGFua3MgZm9yIGNoZWNraW5nLgoKWWVhaCwgSSBhY3R1YWxs
+eSB0cmllZCB0aGF0IHdoaWxlIHdvcmtpbmcgb24gdGhlIHBhdGNoLgoKQXQgbGVhc3Qgb24gQ2Fy
+aXp6byB0aGUgY3Vyc29yIG11c3Qgc3RpbGwgYmUgaW4gVlJBTSBvciBvdGhlcndpc2UgeW91IApz
+ZWVtIHRvIG9ubHkgZ2V0IGdhcmJhZ2UuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4gQWxleAo+
+Cj4+IFJlZ2FyZHMsCj4+IFNhbQo+Pgo+Pgo+Pgo+PiBPbiAyMDE4LTAxLTA0IDA0OjE4IFBNLCBB
+bGV4IERldWNoZXIgd3JvdGU6Cj4+PiBPbiBUaHUsIEphbiA0LCAyMDE4IGF0IDQ6MTEgUE0sIFNh
+bXVlbCBMaSA8U2FtdWVsLkxpQGFtZC5jb20+IHdyb3RlOgo+Pj4+IEZyb206IENocmlzdGlhbiBL
+w7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4+Pgo+Pj4+IE9uIENaIGFuZCBuZXdl
+ciBBUFVzIHdlIGNhbiBwaW4gdGhlIGZiIGludG8gR0FSVCBhcyB3ZWxsIGFzIFZSQU0uCj4+Pj4K
+Pj4+PiB2MjogRG9uJ3QgZW5hYmxlIGdwdV92bV9zdXBwb3J0IGZvciBSYXZlbiB5ZXQgc2luY2Ug
+aXQgbGVhZHMgdG8KPj4+PiAgICAgIGEgYmxhY2sgc2NyZWVuLiBOZWVkIHRvIGRlYnVnIHRoaXMg
+ZnVydGhlciBiZWZvcmUgZW5hYmxpbmcuCj4+Pj4KPj4+PiBDaGFuZ2UtSWQ6IElkMGY4YWYzMTEw
+ZTU0YTNhYWJmN2EyNTg4NzE4NjdiYzEyMWNjMWEyCj4+Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0
+aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Pj4+IFJldmlld2VkLWJ5OiBB
+bmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPj4+PiBBY2tlZC1i
+eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pj4+IFNpZ25lZC1v
+ZmYtYnk6IFNhbXVlbCBMaSA8c2FtdWVsLmxpQGFtZC5jb20+Cj4+Pj4gLS0tCj4+Pj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jICAgICAgIHwgMTQgKysrKysr
+KysrKysrKy0KPj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5
+LmggICAgICAgfCAgMSArCj4+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZmIuYyAgICAgICAgICAgIHwgMTAgKysrKysrLS0tLQo+Pj4+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDExICsrKysrKysrKy0tCj4+Pj4gICA0
+IGZpbGVzIGNoYW5nZWQsIDI5IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4+Pj4KPj4+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXku
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKPj4+PiBpbmRl
+eCBkNzA0YTQ1Li5kOWZkYzE5IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGlzcGxheS5jCj4+Pj4gQEAgLTI5LDYgKzI5LDcgQEAKPj4+PiAgICNpbmNs
+dWRlICJhbWRncHVfaTJjLmgiCj4+Pj4gICAjaW5jbHVkZSAiYXRvbS5oIgo+Pj4+ICAgI2luY2x1
+ZGUgImFtZGdwdV9jb25uZWN0b3JzLmgiCj4+Pj4gKyNpbmNsdWRlICJhbWRncHVfZGlzcGxheS5o
+Igo+Pj4+ICAgI2luY2x1ZGUgPGFzbS9kaXY2NC5oPgo+Pj4+Cj4+Pj4gICAjaW5jbHVkZSA8bGlu
+dXgvcG1fcnVudGltZS5oPgo+Pj4+IEBAIC0xODgsNyArMTg5LDcgQEAgaW50IGFtZGdwdV9jcnRj
+X3BhZ2VfZmxpcF90YXJnZXQoc3RydWN0IGRybV9jcnRjICpjcnRjLAo+Pj4+ICAgICAgICAgICAg
+ICAgICAgZ290byBjbGVhbnVwOwo+Pj4+ICAgICAgICAgIH0KPj4+Pgo+Pj4+IC0gICAgICAgciA9
+IGFtZGdwdV9ib19waW4obmV3X2FibywgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwgJmJhc2UpOwo+
+Pj4+ICsgICAgICAgciA9IGFtZGdwdV9ib19waW4obmV3X2FibywgYW1kZ3B1X2ZyYW1lYnVmZmVy
+X2RvbWFpbnMoYWRldiksICZiYXNlKTsKPj4+PiAgICAgICAgICBpZiAodW5saWtlbHkociAhPSAw
+KSkgewo+Pj4+ICAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJmYWlsZWQgdG8gcGluIG5ldyBh
+Ym8gYnVmZmVyIGJlZm9yZSBmbGlwXG4iKTsKPj4+PiAgICAgICAgICAgICAgICAgIGdvdG8gdW5y
+ZXNlcnZlOwo+Pj4+IEBAIC01MDEsNiArNTAyLDE3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJt
+X2ZyYW1lYnVmZmVyX2Z1bmNzIGFtZGdwdV9mYl9mdW5jcyA9IHsKPj4+PiAgICAgICAgICAuY3Jl
+YXRlX2hhbmRsZSA9IGFtZGdwdV91c2VyX2ZyYW1lYnVmZmVyX2NyZWF0ZV9oYW5kbGUsCj4+Pj4g
+ICB9Owo+Pj4+Cj4+Pj4gK3VpbnQzMl90IGFtZGdwdV9mcmFtZWJ1ZmZlcl9kb21haW5zKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4gUGxlYXNlIHJlbmFtZSB0aGlzIGFtZGdwdV9kaXNw
+bGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMoKSBmb3IgY29uc2lzdGVuY3kuCj4+Pgo+Pj4+ICt7Cj4+
+Pj4gKyAgICAgICB1aW50MzJfdCBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNOwo+Pj4+
+ICsKPj4+PiArICAgICAgIGlmIChhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9DQVJSSVpPICYmIGFk
+ZXYtPmFzaWNfdHlwZSA8IENISVBfUkFWRU4gJiYKPj4+PiArICAgICAgICAgICBhZGV2LT5mbGFn
+cyAmIEFNRF9JU19BUFUpCj4+Pj4gKyAgICAgICAgICAgICAgIGRvbWFpbiB8PSBBTURHUFVfR0VN
+X0RPTUFJTl9HVFQ7Cj4+Pj4gKwo+Pj4+ICsgICAgICAgcmV0dXJuIGRvbWFpbjsKPj4+PiArfQo+
+Pj4+ICsKPj4+PiAgIGludAo+Pj4+ICAgYW1kZ3B1X2ZyYW1lYnVmZmVyX2luaXQoc3RydWN0IGRy
+bV9kZXZpY2UgKmRldiwKPj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGFtZGdw
+dV9mcmFtZWJ1ZmZlciAqcmZiLAo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGlzcGxheS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rpc3BsYXkuaAo+Pj4+IGluZGV4IDExYWU0YWIuLmYyNDE5NDkgMTAwNjQ0Cj4+Pj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuaAo+Pj4+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmgKPj4+PiBAQCAtMjMs
+NiArMjMsNyBAQAo+Pj4+ICAgI2lmbmRlZiBfX0FNREdQVV9ESVNQTEFZX0hfXwo+Pj4+ICAgI2Rl
+ZmluZSBfX0FNREdQVV9ESVNQTEFZX0hfXwo+Pj4+Cj4+Pj4gK3VpbnQzMl90IGFtZGdwdV9mcmFt
+ZWJ1ZmZlcl9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPj4+PiAgIHN0cnVj
+dCBkcm1fZnJhbWVidWZmZXIgKgo+Pj4+ICAgYW1kZ3B1X3VzZXJfZnJhbWVidWZmZXJfY3JlYXRl
+KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdiwKPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZmIuYwo+Pj4+IGluZGV4IDkwZmE4ZTguLjliZTMyMjggMTAwNjQ0Cj4+Pj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMKPj4+PiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwo+Pj4+IEBAIC0zOCw2ICszOCw4
+IEBACj4+Pj4KPj4+PiAgICNpbmNsdWRlIDxsaW51eC92Z2Ffc3dpdGNoZXJvby5oPgo+Pj4+Cj4+
+Pj4gKyNpbmNsdWRlICJhbWRncHVfZGlzcGxheS5oIgo+Pj4+ICsKPj4+PiAgIC8qIG9iamVjdCBo
+aWVyYXJjaHkgLQo+Pj4+ICAgICAgdGhpcyBjb250YWlucyBhIGhlbHBlciArIGEgYW1kZ3B1IGZi
+Cj4+Pj4gICAgICB0aGUgaGVscGVyIGNvbnRhaW5zIGEgcG9pbnRlciB0byBhbWRncHUgZnJhbWVi
+dWZmZXIgYmFzZWNsYXNzLgo+Pj4+IEBAIC0xMjQsNyArMTI2LDcgQEAgc3RhdGljIGludCBhbWRn
+cHVmYl9jcmVhdGVfcGlubmVkX29iamVjdChzdHJ1Y3QgYW1kZ3B1X2ZiZGV2ICpyZmJkZXYsCj4+
+Pj4gICAgICAgICAgc3RydWN0IGRybV9nZW1fb2JqZWN0ICpnb2JqID0gTlVMTDsKPj4+PiAgICAg
+ICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICphYm8gPSBOVUxMOwo+Pj4+ICAgICAgICAgIGJvb2wgZmJf
+dGlsZWQgPSBmYWxzZTsgLyogdXNlZnVsIGZvciB0ZXN0aW5nICovCj4+Pj4gLSAgICAgICB1MzIg
+dGlsaW5nX2ZsYWdzID0gMDsKPj4+PiArICAgICAgIHUzMiB0aWxpbmdfZmxhZ3MgPSAwLCBkb21h
+aW47Cj4+Pj4gICAgICAgICAgaW50IHJldDsKPj4+PiAgICAgICAgICBpbnQgYWxpZ25lZF9zaXpl
+LCBzaXplOwo+Pj4+ICAgICAgICAgIGludCBoZWlnaHQgPSBtb2RlX2NtZC0+aGVpZ2h0Owo+Pj4+
+IEBAIC0xMzUsMTIgKzEzNywxMiBAQCBzdGF0aWMgaW50IGFtZGdwdWZiX2NyZWF0ZV9waW5uZWRf
+b2JqZWN0KHN0cnVjdCBhbWRncHVfZmJkZXYgKnJmYmRldiwKPj4+PiAgICAgICAgICAvKiBuZWVk
+IHRvIGFsaWduIHBpdGNoIHdpdGggY3J0YyBsaW1pdHMgKi8KPj4+PiAgICAgICAgICBtb2RlX2Nt
+ZC0+cGl0Y2hlc1swXSA9IGFtZGdwdV9hbGlnbl9waXRjaChhZGV2LCBtb2RlX2NtZC0+d2lkdGgs
+IGNwcCwKPj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBmYl90aWxlZCk7Cj4+Pj4gKyAgICAgICBkb21haW4gPSBhbWRncHVfZnJhbWVidWZmZXJf
+ZG9tYWlucyhhZGV2KTsKPj4+Pgo+Pj4+ICAgICAgICAgIGhlaWdodCA9IEFMSUdOKG1vZGVfY21k
+LT5oZWlnaHQsIDgpOwo+Pj4+ICAgICAgICAgIHNpemUgPSBtb2RlX2NtZC0+cGl0Y2hlc1swXSAq
+IGhlaWdodDsKPj4+PiAgICAgICAgICBhbGlnbmVkX3NpemUgPSBBTElHTihzaXplLCBQQUdFX1NJ
+WkUpOwo+Pj4+IC0gICAgICAgcmV0ID0gYW1kZ3B1X2dlbV9vYmplY3RfY3JlYXRlKGFkZXYsIGFs
+aWduZWRfc2l6ZSwgMCwKPj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBBTURHUFVfR0VNX0RPTUFJTl9WUkFNLAo+Pj4+ICsgICAgICAgcmV0ID0gYW1kZ3B1X2dlbV9v
+YmplY3RfY3JlYXRlKGFkZXYsIGFsaWduZWRfc2l6ZSwgMCwgZG9tYWluLAo+Pj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUND
+RVNTX1JFUVVJUkVEIHwKPj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DT05USUdVT1VTIHwKPj4+PiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DTEVBUkVE
+LAo+Pj4+IEBAIC0xNjYsNyArMTY4LDcgQEAgc3RhdGljIGludCBhbWRncHVmYl9jcmVhdGVfcGlu
+bmVkX29iamVjdChzdHJ1Y3QgYW1kZ3B1X2ZiZGV2ICpyZmJkZXYsCj4+Pj4gICAgICAgICAgfQo+
+Pj4+Cj4+Pj4KPj4+PiAtICAgICAgIHJldCA9IGFtZGdwdV9ib19waW4oYWJvLCBBTURHUFVfR0VN
+X0RPTUFJTl9WUkFNLCBOVUxMKTsKPj4+PiArICAgICAgIHJldCA9IGFtZGdwdV9ib19waW4oYWJv
+LCBkb21haW4sIE5VTEwpOwo+Pj4+ICAgICAgICAgIGlmIChyZXQpIHsKPj4+PiAgICAgICAgICAg
+ICAgICAgIGFtZGdwdV9ib191bnJlc2VydmUoYWJvKTsKPj4+PiAgICAgICAgICAgICAgICAgIGdv
+dG8gb3V0X3VucmVmOwo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYwo+Pj4+IGluZGV4IGEzYmYwMjEuLjliMDVhYmQgMTAwNjQ0Cj4+
+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
+Ywo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMKPj4+PiBAQCAtMjk4MiwxMSArMjk4MiwxMyBAQCBzdGF0aWMgaW50IGRtX3BsYW5lX2hl
+bHBlcl9wcmVwYXJlX2ZiKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAo+Pj4+ICAgewo+Pj4+ICAg
+ICAgICAgIHN0cnVjdCBhbWRncHVfZnJhbWVidWZmZXIgKmFmYjsKPj4+PiAgICAgICAgICBzdHJ1
+Y3QgZHJtX2dlbV9vYmplY3QgKm9iajsKPj4+PiArICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2Owo+Pj4+ICAgICAgICAgIHN0cnVjdCBhbWRncHVfYm8gKnJibzsKPj4+PiAgICAgICAg
+ICB1aW50NjRfdCBjaHJvbWFfYWRkciA9IDA7Cj4+Pj4gLSAgICAgICBpbnQgcjsKPj4+PiAgICAg
+ICAgICBzdHJ1Y3QgZG1fcGxhbmVfc3RhdGUgKmRtX3BsYW5lX3N0YXRlX25ldywgKmRtX3BsYW5l
+X3N0YXRlX29sZDsKPj4+PiAgICAgICAgICB1bnNpZ25lZCBpbnQgYXdpZHRoOwo+Pj4+ICsgICAg
+ICAgdWludDMyX3QgZG9tYWluOwo+Pj4+ICsgICAgICAgaW50IHI7Cj4+Pj4KPj4+PiAgICAgICAg
+ICBkbV9wbGFuZV9zdGF0ZV9vbGQgPSB0b19kbV9wbGFuZV9zdGF0ZShwbGFuZS0+c3RhdGUpOwo+
+Pj4+ICAgICAgICAgIGRtX3BsYW5lX3N0YXRlX25ldyA9IHRvX2RtX3BsYW5lX3N0YXRlKG5ld19z
+dGF0ZSk7Cj4+Pj4gQEAgLTMwMDAsMTIgKzMwMDIsMTcgQEAgc3RhdGljIGludCBkbV9wbGFuZV9o
+ZWxwZXJfcHJlcGFyZV9mYihzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKPj4+Pgo+Pj4+ICAgICAg
+ICAgIG9iaiA9IGFmYi0+b2JqOwo+Pj4+ICAgICAgICAgIHJibyA9IGdlbV90b19hbWRncHVfYm8o
+b2JqKTsKPj4+PiArICAgICAgIGFkZXYgPSBhbWRncHVfdHRtX2FkZXYocmJvLT50Ym8uYmRldik7
+Cj4+Pj4gICAgICAgICAgciA9IGFtZGdwdV9ib19yZXNlcnZlKHJibywgZmFsc2UpOwo+Pj4+ICAg
+ICAgICAgIGlmICh1bmxpa2VseShyICE9IDApKQo+Pj4+ICAgICAgICAgICAgICAgICAgcmV0dXJu
+IHI7Cj4+Pj4KPj4+PiAtICAgICAgIHIgPSBhbWRncHVfYm9fcGluKHJibywgQU1ER1BVX0dFTV9E
+T01BSU5fVlJBTSwgJmFmYi0+YWRkcmVzcyk7Cj4+Pj4gKyAgICAgICBpZiAocGxhbmUtPnR5cGUg
+IT0gRFJNX1BMQU5FX1RZUEVfQ1VSU09SKQo+Pj4gRG8gY3Vyc29ycyBoYXZlIHRvIGJlIGluIHZy
+YW0/ICBJdCBzZWVtcyBsaWtlIHRoZXkgc2hvdWxkbid0Lgo+Pj4KPj4+IEFsZXgKPj4+Cj4+Pj4g
+KyAgICAgICAgICAgICAgIGRvbWFpbiA9IGFtZGdwdV9mcmFtZWJ1ZmZlcl9kb21haW5zKGFkZXYp
+Owo+Pj4+ICsgICAgICAgZWxzZQo+Pj4+ICsgICAgICAgICAgICAgICBkb21haW4gPSBBTURHUFVf
+R0VNX0RPTUFJTl9WUkFNOwo+Pj4+Cj4+Pj4gKyAgICAgICByID0gYW1kZ3B1X2JvX3BpbihyYm8s
+IGRvbWFpbiwgJmFmYi0+YWRkcmVzcyk7Cj4+Pj4KPj4+PiAgICAgICAgICBhbWRncHVfYm9fdW5y
+ZXNlcnZlKHJibyk7Cj4+Pj4KPj4+PiAtLQo+Pj4+IDIuNy40Cj4+Pj4KPj4+PiBfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+IGFtZC1nZnggbWFpbGlu
+ZyBsaXN0Cj4+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+PiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
