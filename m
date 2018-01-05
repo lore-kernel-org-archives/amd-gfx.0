@@ -1,15 +1,14 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display support in
- debugfs
-Date: Fri, 5 Jan 2018 16:03:58 +0000
-Message-ID: <CY4PR12MB168775C206840059F055ED3CFB1C0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1515152305-17549-1-git-send-email-Rex.Zhu@amd.com>,
- <1515152305-17549-2-git-send-email-Rex.Zhu@amd.com>,
- <BN6PR12MB16521B0C1D9FE6C399F09F52F71C0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/3] drm/amdgpu: allow framebuffer in GART memory as well
+Date: Fri, 5 Jan 2018 15:54:51 +0000
+Message-ID: <BLUPR12MB0628A2249B197524380308E2F51C0@BLUPR12MB0628.namprd12.prod.outlook.com>
+References: <1515100305-6774-1-git-send-email-Samuel.Li@amd.com>
+ <e1d6a05e-82ef-70a4-27dd-5b5e4b884913@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0578373115=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB16521B0C1D9FE6C399F09F52F71C0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <e1d6a05e-82ef-70a4-27dd-5b5e4b884913-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,307 +20,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============0578373115==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB168775C206840059F055ED3CFB1C0CY4PR12MB1687namp_"
-
---_000_CY4PR12MB168775C206840059F055ED3CFB1C0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Ok. Thanks. I will query twice.one for pstate sclk and one for mclk.
-
-Best Regards
-Rex
-________________________________
-From: Deucher, Alexander
-Sent: Friday, January 5, 2018 11:44:00 PM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display support =
-in debugfs
-
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, January 5, 2018 6:38 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display support in d=
-ebugfs
-
-The additional output are: PSTATE_SCLK and PSTATE_MCLK value
-in MHz as:
-
-300 MHz (PSTATE_SCLK)
-300 MHz (PSTATE_MCLK)
-
-Change-Id: I08645d518635f81bc566d242712b6906ee5413fb
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c         | 2 ++
- drivers/gpu/drm/amd/include/kgd_pp_interface.h | 1 +
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c  | 8 ++++++++
- 3 files changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index e5ee7cf..4bd48b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -1512,6 +1512,8 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file =
-*m, struct amdgpu_device *a
-                 seq_printf(m, "\t%u MHz (MCLK)\n", value/100);
-         if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GFX_SCLK, (void=
- *)&value, &size))
-                 seq_printf(m, "\t%u MHz (SCLK)\n", value/100);
-+       if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_STABLE_PSTATE_CL=
-K, (void *)&value, &size))
-+               seq_printf(m, "\t%u MHz (PSTATE_SCLK)\n\t%u MHz (PSTATE_MCL=
-K)\n", value & 0xffff, (value>>16) & 0xffff);
-         if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_VDDGFX, (void *=
-)&value, &size))
-                 seq_printf(m, "\t%u mV (VDDGFX)\n", value);
-         if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_VDDNB, (void *)=
-&value, &size))
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h
-index 0f89d2a8..1be526f 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -122,6 +122,7 @@ enum amd_pp_sensors {
-         AMDGPU_PP_SENSOR_VCE_POWER,
-         AMDGPU_PP_SENSOR_UVD_POWER,
-         AMDGPU_PP_SENSOR_GPU_POWER,
-+       AMDGPU_PP_SENSOR_STABLE_PSTATE_CLK,
- };
-
- enum amd_pp_task {
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c
-index 8859b67..a0c5642 100644
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-@@ -998,6 +998,14 @@ static int pp_dpm_read_sensor(void *handle, int idx,
-
-         hwmgr =3D pp_handle->hwmgr;
-
-+       if ((idx =3D=3D AMDGPU_PP_SENSOR_STABLE_PSTATE_CLK) && (value !=3D =
-NULL)) {
-+               mutex_lock(&pp_handle->pp_lock);
-+               *((uint32_t *)value) =3D (hwmgr->pstate_sclk / 100 & 0xffff=
-) |
-+                               ((hwmgr->pstate_mclk / 100 & 0xffff) << 16)=
-;
-
-This seems kinda hacky.  Either add two queries or make the query take two =
-values.
-
-Alex
-
-+               mutex_unlock(&pp_handle->pp_lock);
-+               return 0;
-+       }
-+
-         if (hwmgr->hwmgr_func->read_sensor =3D=3D NULL) {
-                 pr_info("%s was not implemented.\n", __func__);
-                 return 0;
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB168775C206840059F055ED3CFB1C0CY4PR12MB1687namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-Ok. Thanks. I will query twice.one for pstate sclk and one for mclk.<br>
-<br>
-Best Regards<br>
-Rex
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander<br=
->
-<b>Sent:</b> Friday, January 5, 2018 11:44:00 PM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display s=
-upport in debugfs</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,&quot;EmojiFont&quo=
-t;,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,=
-&quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<div style=3D"color:rgb(0,0,0)">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Sent:</b> Friday, January 5, 2018 6:38 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display suppo=
-rt in debugfs</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">The additional output are: PSTATE_SCLK and PSTAT=
-E_MCLK value<br>
-in MHz as:<br>
-<br>
-300 MHz (PSTATE_SCLK)<br>
-300 MHz (PSTATE_MCLK)<br>
-<br>
-Change-Id: I08645d518635f81bc566d242712b6906ee5413fb<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; | 2 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/include/kgd_pp_interface.h | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp; | 8 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;3 files changed, 11 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index e5ee7cf..4bd48b1 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -1512,6 &#43;1512,8 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_f=
-ile *m, struct amdgpu_device *a<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;\t%u MHz (MCLK)\n&quot;, value/10=
-0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_read_senso=
-r(adev, AMDGPU_PP_SENSOR_GFX_SCLK, (void *)&amp;value, &amp;size))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;\t%u MHz (SCLK)\n&quot;, value/10=
-0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_read_sensor(adev,=
- AMDGPU_PP_SENSOR_STABLE_PSTATE_CLK, (void *)&amp;value, &amp;size))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; seq_printf(m, &quot;\t%u MHz (PSTATE_SCLK)\n\t%u MHz (PSTATE=
-_MCLK)\n&quot;, value &amp; 0xffff, (value&gt;&gt;16) &amp; 0xffff);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_read_senso=
-r(adev, AMDGPU_PP_SENSOR_VDDGFX, (void *)&amp;value, &amp;size))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;\t%u mV (VDDGFX)\n&quot;, value);=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_read_senso=
-r(adev, AMDGPU_PP_SENSOR_VDDNB, (void *)&amp;value, &amp;size))<br>
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h<br>
-index 0f89d2a8..1be526f 100644<br>
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-@@ -122,6 &#43;122,7 @@ enum amd_pp_sensors {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_VCE_POWER=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_UVD_POWER=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GPU_POWER=
-,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_STABLE_PSTATE_CL=
-K,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;enum amd_pp_task {<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c<br>
-index 8859b67..a0c5642 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-@@ -998,6 &#43;998,14 @@ static int pp_dpm_read_sensor(void *handle, int id=
-x,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr =3D pp_handle-&gt;hw=
-mgr;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((idx =3D=3D AMDGPU_PP_SENSOR_=
-STABLE_PSTATE_CLK) &amp;&amp; (value !=3D NULL)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; mutex_lock(&amp;pp_handle-&gt;pp_lock);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; *((uint32_t *)value) =3D (hwmgr-&gt;pstate_sclk / 100 &amp; =
-0xffff) |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((hwmgr-&gt;pstate_mclk / 100 &amp; 0xf=
-fff) &lt;&lt; 16);</div>
-<div class=3D"x_PlainText"><br>
-</div>
-<div class=3D"x_PlainText">This seems kinda hacky.&nbsp; Either add two que=
-ries or make the query take two values.</div>
-<div class=3D"x_PlainText"><br>
-</div>
-<div class=3D"x_PlainText">Alex<br>
-</div>
-<div class=3D"x_PlainText"><br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; mutex_unlock(&amp;pp_handle-&gt;pp_lock);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&=
-gt;read_sensor =3D=3D NULL) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pr_info(&quot;%s was not implemented.\n&quot;, __func=
-__);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk796199">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB168775C206840059F055ED3CFB1C0CY4PR12MB1687namp_--
-
---===============0578373115==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+SSB0aGluayBBbmRyZXkgYXBwcm92ZWQgeW91ciBwYXRjaCBsYXN0IERlY2VtYmVyPw0KSWYgeW91
+IG1lYW4gdGhlIGRyaXZlciBhY3R1YWxseSBzZXQgdXAgZmIgaW4gZ2FydCBtZW1vcnksIHRoYXQg
+aXMgbm90IGluY2x1ZGVkIGluIHRoaXMgc2VyaWVzLiBJIGNhbiBkbyB0aGF0IGluIGFub3RoZXIg
+cGF0Y2guDQoNClJlZ2FyZHMsDQpTYW11ZWwgTGkNCg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tDQo+IEZyb206IFdlbnRsYW5kLCBIYXJyeQ0KPiBTZW50OiBGcmlkYXksIEphbnVhcnkg
+MDUsIDIwMTggMTA6NTAgQU0NCj4gVG86IExpLCBTYW11ZWwgPFNhbXVlbC5MaUBhbWQuY29tPjsg
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcNCj4gQ2M6IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5j
+b20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8zXSBkcm0vYW1kZ3B1OiBhbGxvdyBmcmFtZWJ1
+ZmZlciBpbiBHQVJUIG1lbW9yeQ0KPiBhcyB3ZWxsDQo+IA0KPiBPbiAyMDE4LTAxLTA0IDA0OjEx
+IFBNLCBTYW11ZWwgTGkgd3JvdGU6DQo+ID4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
+aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiA+DQo+ID4gT24gQ1ogYW5kIG5ld2VyIEFQVXMgd2UgY2Fu
+IHBpbiB0aGUgZmIgaW50byBHQVJUIGFzIHdlbGwgYXMgVlJBTS4NCj4gPg0KPiA+IHYyOiBEb24n
+dCBlbmFibGUgZ3B1X3ZtX3N1cHBvcnQgZm9yIFJhdmVuIHlldCBzaW5jZSBpdCBsZWFkcyB0bw0K
+PiA+ICAgICBhIGJsYWNrIHNjcmVlbi4gTmVlZCB0byBkZWJ1ZyB0aGlzIGZ1cnRoZXIgYmVmb3Jl
+IGVuYWJsaW5nLg0KPiANCj4gSSBjYW4ndCBmaW5kIHRoZSBwYXJ0IHRvIGVuYWJsZSBncHVfdm1f
+c3VwcG9ydCBmb3IgQ1ovU1QuIElzIHRoYXQgaW4gYW5vdGhlcg0KPiBwYXRjaD8NCj4gDQo+IEhh
+cnJ5DQo+IA0KPiA+DQo+ID4gQ2hhbmdlLUlkOiBJZDBmOGFmMzExMGU1NGEzYWFiZjdhMjU4ODcx
+ODY3YmMxMjFjYzFhMg0KPiA+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
+dGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4gPiBSZXZpZXdlZC1ieTogQW5kcmV5IEdyb2R6b3Zza3kg
+PGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+DQo+ID4gQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8
+YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBTYW11ZWwgTGkg
+PHNhbXVlbC5saUBhbWQuY29tPg0KPiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGlzcGxheS5jICAgICAgIHwgMTQNCj4gKysrKysrKysrKysrKy0NCj4gPiAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuaCAgICAgICB8ICAxICsN
+Cj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMgICAgICAgICAgICB8
+IDEwICsrKysrKy0tLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG0uYyB8IDExDQo+ICsrKysrKysrKy0tDQo+ID4gIDQgZmlsZXMgY2hhbmdlZCwg
+MjkgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+ID4gYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+ID4gaW5kZXggZDcwNGE0NS4u
+ZDlmZGMxOSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGlzcGxheS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rpc3BsYXkuYw0KPiA+IEBAIC0yOSw2ICsyOSw3IEBADQo+ID4gICNpbmNsdWRlICJhbWRncHVf
+aTJjLmgiDQo+ID4gICNpbmNsdWRlICJhdG9tLmgiDQo+ID4gICNpbmNsdWRlICJhbWRncHVfY29u
+bmVjdG9ycy5oIg0KPiA+ICsjaW5jbHVkZSAiYW1kZ3B1X2Rpc3BsYXkuaCINCj4gPiAgI2luY2x1
+ZGUgPGFzbS9kaXY2NC5oPg0KPiA+DQo+ID4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+
+DQo+ID4gQEAgLTE4OCw3ICsxODksNyBAQCBpbnQgYW1kZ3B1X2NydGNfcGFnZV9mbGlwX3Rhcmdl
+dChzdHJ1Y3QgZHJtX2NydGMNCj4gKmNydGMsDQo+ID4gIAkJZ290byBjbGVhbnVwOw0KPiA+ICAJ
+fQ0KPiA+DQo+ID4gLQlyID0gYW1kZ3B1X2JvX3BpbihuZXdfYWJvLCBBTURHUFVfR0VNX0RPTUFJ
+Tl9WUkFNLA0KPiAmYmFzZSk7DQo+ID4gKwlyID0gYW1kZ3B1X2JvX3BpbihuZXdfYWJvLA0KPiBh
+bWRncHVfZnJhbWVidWZmZXJfZG9tYWlucyhhZGV2KSwgJmJhc2UpOw0KPiA+ICAJaWYgKHVubGlr
+ZWx5KHIgIT0gMCkpIHsNCj4gPiAgCQlEUk1fRVJST1IoImZhaWxlZCB0byBwaW4gbmV3IGFibyBi
+dWZmZXIgYmVmb3JlIGZsaXBcbiIpOw0KPiA+ICAJCWdvdG8gdW5yZXNlcnZlOw0KPiA+IEBAIC01
+MDEsNiArNTAyLDE3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyX2Z1bmNz
+DQo+IGFtZGdwdV9mYl9mdW5jcyA9IHsNCj4gPiAgCS5jcmVhdGVfaGFuZGxlID0gYW1kZ3B1X3Vz
+ZXJfZnJhbWVidWZmZXJfY3JlYXRlX2hhbmRsZSwNCj4gPiAgfTsNCj4gPg0KPiA+ICt1aW50MzJf
+dCBhbWRncHVfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikg
+ew0KPiA+ICsJdWludDMyX3QgZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTTsNCj4gPiAr
+DQo+ID4gKwlpZiAoYWRldi0+YXNpY190eXBlID49IENISVBfQ0FSUklaTyAmJiBhZGV2LT5hc2lj
+X3R5cGUgPA0KPiBDSElQX1JBVkVOICYmDQo+ID4gKwkgICAgYWRldi0+ZmxhZ3MgJiBBTURfSVNf
+QVBVKQ0KPiA+ICsJCWRvbWFpbiB8PSBBTURHUFVfR0VNX0RPTUFJTl9HVFQ7DQo+ID4gKw0KPiA+
+ICsJcmV0dXJuIGRvbWFpbjsNCj4gPiArfQ0KPiA+ICsNCj4gPiAgaW50DQo+ID4gIGFtZGdwdV9m
+cmFtZWJ1ZmZlcl9pbml0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsDQo+ID4gIAkJCXN0cnVjdCBh
+bWRncHVfZnJhbWVidWZmZXIgKnJmYiwNCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuaA0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2Rpc3BsYXkuaA0KPiA+IGluZGV4IDExYWU0YWIuLmYyNDE5NDkgMTAwNjQ0
+DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuaA0K
+PiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmgNCj4g
+PiBAQCAtMjMsNiArMjMsNyBAQA0KPiA+ICAjaWZuZGVmIF9fQU1ER1BVX0RJU1BMQVlfSF9fDQo+
+ID4gICNkZWZpbmUgX19BTURHUFVfRElTUExBWV9IX18NCj4gPg0KPiA+ICt1aW50MzJfdCBhbWRn
+cHVfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ID4g
+IHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKg0KPiA+ICBhbWRncHVfdXNlcl9mcmFtZWJ1ZmZlcl9j
+cmVhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwNCj4gPiAgCQkJICAgICAgIHN0cnVjdCBkcm1f
+ZmlsZSAqZmlsZV9wcml2LCBkaWZmIC0tZ2l0DQo+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZmIuYw0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2ZiLmMNCj4gPiBpbmRleCA5MGZhOGU4Li45YmUzMjI4IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMNCj4gPiBAQCAtMzgsNiArMzgsOCBAQA0KPiA+DQo+
+ID4gICNpbmNsdWRlIDxsaW51eC92Z2Ffc3dpdGNoZXJvby5oPg0KPiA+DQo+ID4gKyNpbmNsdWRl
+ICJhbWRncHVfZGlzcGxheS5oIg0KPiA+ICsNCj4gPiAgLyogb2JqZWN0IGhpZXJhcmNoeSAtDQo+
+ID4gICAgIHRoaXMgY29udGFpbnMgYSBoZWxwZXIgKyBhIGFtZGdwdSBmYg0KPiA+ICAgICB0aGUg
+aGVscGVyIGNvbnRhaW5zIGEgcG9pbnRlciB0byBhbWRncHUgZnJhbWVidWZmZXIgYmFzZWNsYXNz
+Lg0KPiA+IEBAIC0xMjQsNyArMTI2LDcgQEAgc3RhdGljIGludCBhbWRncHVmYl9jcmVhdGVfcGlu
+bmVkX29iamVjdChzdHJ1Y3QNCj4gYW1kZ3B1X2ZiZGV2ICpyZmJkZXYsDQo+ID4gIAlzdHJ1Y3Qg
+ZHJtX2dlbV9vYmplY3QgKmdvYmogPSBOVUxMOw0KPiA+ICAJc3RydWN0IGFtZGdwdV9ibyAqYWJv
+ID0gTlVMTDsNCj4gPiAgCWJvb2wgZmJfdGlsZWQgPSBmYWxzZTsgLyogdXNlZnVsIGZvciB0ZXN0
+aW5nICovDQo+ID4gLQl1MzIgdGlsaW5nX2ZsYWdzID0gMDsNCj4gPiArCXUzMiB0aWxpbmdfZmxh
+Z3MgPSAwLCBkb21haW47DQo+ID4gIAlpbnQgcmV0Ow0KPiA+ICAJaW50IGFsaWduZWRfc2l6ZSwg
+c2l6ZTsNCj4gPiAgCWludCBoZWlnaHQgPSBtb2RlX2NtZC0+aGVpZ2h0Ow0KPiA+IEBAIC0xMzUs
+MTIgKzEzNywxMiBAQCBzdGF0aWMgaW50IGFtZGdwdWZiX2NyZWF0ZV9waW5uZWRfb2JqZWN0KHN0
+cnVjdA0KPiBhbWRncHVfZmJkZXYgKnJmYmRldiwNCj4gPiAgCS8qIG5lZWQgdG8gYWxpZ24gcGl0
+Y2ggd2l0aCBjcnRjIGxpbWl0cyAqLw0KPiA+ICAJbW9kZV9jbWQtPnBpdGNoZXNbMF0gPSBhbWRn
+cHVfYWxpZ25fcGl0Y2goYWRldiwgbW9kZV9jbWQtDQo+ID53aWR0aCwgY3BwLA0KPiA+ICAJCQkJ
+CQkgIGZiX3RpbGVkKTsNCj4gPiArCWRvbWFpbiA9IGFtZGdwdV9mcmFtZWJ1ZmZlcl9kb21haW5z
+KGFkZXYpOw0KPiA+DQo+ID4gIAloZWlnaHQgPSBBTElHTihtb2RlX2NtZC0+aGVpZ2h0LCA4KTsN
+Cj4gPiAgCXNpemUgPSBtb2RlX2NtZC0+cGl0Y2hlc1swXSAqIGhlaWdodDsNCj4gPiAgCWFsaWdu
+ZWRfc2l6ZSA9IEFMSUdOKHNpemUsIFBBR0VfU0laRSk7DQo+ID4gLQlyZXQgPSBhbWRncHVfZ2Vt
+X29iamVjdF9jcmVhdGUoYWRldiwgYWxpZ25lZF9zaXplLCAwLA0KPiA+IC0JCQkJICAgICAgIEFN
+REdQVV9HRU1fRE9NQUlOX1ZSQU0sDQo+ID4gKwlyZXQgPSBhbWRncHVfZ2VtX29iamVjdF9jcmVh
+dGUoYWRldiwgYWxpZ25lZF9zaXplLCAwLCBkb21haW4sDQo+ID4NCj4gQU1ER1BVX0dFTV9DUkVB
+VEVfQ1BVX0FDQ0VTU19SRVFVSVJFRCB8DQo+ID4NCj4gQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9D
+T05USUdVT1VTIHwNCj4gPg0KPiBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NMRUFSRUQsIEBAIC0x
+NjYsNyArMTY4LDcgQEAgc3RhdGljDQo+ID4gaW50IGFtZGdwdWZiX2NyZWF0ZV9waW5uZWRfb2Jq
+ZWN0KHN0cnVjdCBhbWRncHVfZmJkZXYgKnJmYmRldiwNCj4gPiAgCX0NCj4gPg0KPiA+DQo+ID4g
+LQlyZXQgPSBhbWRncHVfYm9fcGluKGFibywgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwgTlVMTCk7
+DQo+ID4gKwlyZXQgPSBhbWRncHVfYm9fcGluKGFibywgZG9tYWluLCBOVUxMKTsNCj4gPiAgCWlm
+IChyZXQpIHsNCj4gPiAgCQlhbWRncHVfYm9fdW5yZXNlcnZlKGFibyk7DQo+ID4gIAkJZ290byBv
+dXRfdW5yZWY7DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
+bWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
+bWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gPiBpbmRleCBhM2JmMDIxLi45YjA1YWJkIDEwMDY0NA0K
+PiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
+LmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jDQo+ID4gQEAgLTI5ODIsMTEgKzI5ODIsMTMgQEAgc3RhdGljIGludCBkbV9wbGFuZV9o
+ZWxwZXJfcHJlcGFyZV9mYihzdHJ1Y3QNCj4gPiBkcm1fcGxhbmUgKnBsYW5lLCAgew0KPiA+ICAJ
+c3RydWN0IGFtZGdwdV9mcmFtZWJ1ZmZlciAqYWZiOw0KPiA+ICAJc3RydWN0IGRybV9nZW1fb2Jq
+ZWN0ICpvYmo7DQo+ID4gKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldjsNCj4gPiAgCXN0cnVj
+dCBhbWRncHVfYm8gKnJibzsNCj4gPiAgCXVpbnQ2NF90IGNocm9tYV9hZGRyID0gMDsNCj4gPiAt
+CWludCByOw0KPiA+ICAJc3RydWN0IGRtX3BsYW5lX3N0YXRlICpkbV9wbGFuZV9zdGF0ZV9uZXcs
+DQo+ICpkbV9wbGFuZV9zdGF0ZV9vbGQ7DQo+ID4gIAl1bnNpZ25lZCBpbnQgYXdpZHRoOw0KPiA+
+ICsJdWludDMyX3QgZG9tYWluOw0KPiA+ICsJaW50IHI7DQo+ID4NCj4gPiAgCWRtX3BsYW5lX3N0
+YXRlX29sZCA9IHRvX2RtX3BsYW5lX3N0YXRlKHBsYW5lLT5zdGF0ZSk7DQo+ID4gIAlkbV9wbGFu
+ZV9zdGF0ZV9uZXcgPSB0b19kbV9wbGFuZV9zdGF0ZShuZXdfc3RhdGUpOyBAQCAtDQo+IDMwMDAs
+MTINCj4gPiArMzAwMiwxNyBAQCBzdGF0aWMgaW50IGRtX3BsYW5lX2hlbHBlcl9wcmVwYXJlX2Zi
+KHN0cnVjdCBkcm1fcGxhbmUNCj4gPiAqcGxhbmUsDQo+ID4NCj4gPiAgCW9iaiA9IGFmYi0+b2Jq
+Ow0KPiA+ICAJcmJvID0gZ2VtX3RvX2FtZGdwdV9ibyhvYmopOw0KPiA+ICsJYWRldiA9IGFtZGdw
+dV90dG1fYWRldihyYm8tPnRiby5iZGV2KTsNCj4gPiAgCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShy
+Ym8sIGZhbHNlKTsNCj4gPiAgCWlmICh1bmxpa2VseShyICE9IDApKQ0KPiA+ICAJCXJldHVybiBy
+Ow0KPiA+DQo+ID4gLQlyID0gYW1kZ3B1X2JvX3BpbihyYm8sIEFNREdQVV9HRU1fRE9NQUlOX1ZS
+QU0sICZhZmItDQo+ID5hZGRyZXNzKTsNCj4gPiArCWlmIChwbGFuZS0+dHlwZSAhPSBEUk1fUExB
+TkVfVFlQRV9DVVJTT1IpDQo+ID4gKwkJZG9tYWluID0gYW1kZ3B1X2ZyYW1lYnVmZmVyX2RvbWFp
+bnMoYWRldik7DQo+ID4gKwllbHNlDQo+ID4gKwkJZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5f
+VlJBTTsNCj4gPg0KPiA+ICsJciA9IGFtZGdwdV9ib19waW4ocmJvLCBkb21haW4sICZhZmItPmFk
+ZHJlc3MpOw0KPiA+DQo+ID4gIAlhbWRncHVfYm9fdW5yZXNlcnZlKHJibyk7DQo+ID4NCj4gPg0K
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0578373115==--
