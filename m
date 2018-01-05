@@ -1,176 +1,146 @@
-From: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH 29/37] PCI: Add pci_enable_atomic_ops_to_root
-Date: Thu, 4 Jan 2018 19:09:23 -0500
-Message-ID: <bc32c18f-9a6a-379f-bd04-6acba440c9d8@amd.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 04/37] drm/amdgpu: Implement get_local_mem_info
+Date: Thu, 4 Jan 2018 19:16:51 -0500
+Message-ID: <52dbb3d6-629a-d829-ca9e-b53da2aa7e27@amd.com>
 References: <1512792555-26042-1-git-send-email-Felix.Kuehling@amd.com>
- <1512792555-26042-30-git-send-email-Felix.Kuehling@amd.com>
- <20171212232707.GF53955@bhelgaas-glaptop.roam.corp.google.com>
- <564f4514-58a6-08b0-81c3-175238a9e828@amd.com>
- <20180104234035.GK189897@bhelgaas-glaptop.roam.corp.google.com>
+ <1512792555-26042-5-git-send-email-Felix.Kuehling@amd.com>
+ <CAPM=9typVidxNLS0+9JcUOcwohcOi469Ke56GcPDZKAh2Tg6fg@mail.gmail.com>
+ <997ef22c-f58b-ab06-9ba0-bf3ee290d8f7@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-pci-owner@vger.kernel.org>
-In-Reply-To: <20180104234035.GK189897@bhelgaas-glaptop.roam.corp.google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <997ef22c-f58b-ab06-9ba0-bf3ee290d8f7-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-CA
-Sender: linux-pci-owner@vger.kernel.org
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Jay Cornwall <Jay.Cornwall@amd.com>, oded.gabbay@gmail.com, amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org, Ram Amrani <Ram.Amrani@cavium.com>, Doug Ledford <dledford@redhat.com>, Michal Kalderon <Michal.Kalderon@cavium.com>, Ariel Elior <Ariel.Elior@cavium.com>, Jason Gunthorpe <jgg@ziepe.ca>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Ben Goz <ben.goz-5C7GfCeVMHo@public.gmane.org>, Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Hi Bjorn,
-
-I figured it out. The difference between the functions is whether they
-use struct pci_bus * or struct pci_dev * as cursor. I found that the
-functions are in fact equivalent. The last loop iteration in
-pci_enable_atomic_ops_to_root is equivalent to the code after the loop
-in qedr_pci_set_atomic. Both handle the root port.
-
-I think my confusion was based on an incorrect assumption that
-bridge->bus->self is the same as bridge. But brigde->bus is in fact the
-parent bus.
-
-I sent out an updated patch that addresses your comments to the previous
-version. This should be general enough that it can replace
-qedr_pci_set_atomic.
-
-Regards,
-  Felix
-
-
-On 2018-01-04 06:40 PM, Bjorn Helgaas wrote:
-> On Tue, Jan 02, 2018 at 06:41:17PM -0500, Felix Kuehling wrote:
->> On 2017-12-12 06:27 PM, Bjorn Helgaas wrote:
->>> [+cc Ram, Michal, Ariel, Doug, Jason]
->>>
->>> The [29/37] in the subject makes it look like this is part of a larger
->>> series, but I can't find the rest of it on linux-pci or linux-kernel.
->>>
->>> I don't want to merge a new interface unless there's an in-tree user
->>> of it.  I assume the rest of the series includes a user.
->>>
->>> On Fri, Dec 08, 2017 at 11:09:07PM -0500, Felix Kuehling wrote:
->> [snip]
->>>> + * all upstream bridges support AtomicOp routing, egress blocking is disabled
->>>> + * on all upstream ports, and the root port supports 32-bit, 64-bit and/or
->>>> + * 128-bit AtomicOp completion, or negative otherwise.
->>>> + */
->>>> +int pci_enable_atomic_ops_to_root(struct pci_dev *dev)
->>>> +{
->>>> +	struct pci_bus *bus = dev->bus;
->>>> +
->>>> +	if (!pci_is_pcie(dev))
->>>> +		return -EINVAL;
->>>> +
->>>> +	switch (pci_pcie_type(dev)) {
->>>> +	/*
->>>> +	 * PCIe 3.0, 6.15 specifies that endpoints and root ports are permitted
->>>> +	 * to implement AtomicOp requester capabilities.
->>>> +	 */
->>>> +	case PCI_EXP_TYPE_ENDPOINT:
->>>> +	case PCI_EXP_TYPE_LEG_END:
->>>> +	case PCI_EXP_TYPE_RC_END:
->>>> +		break;
->>>> +	default:
->>>> +		return -EINVAL;
->>>> +	}
->>>> +
->>>> +	while (bus->parent) {
->>>> +		struct pci_dev *bridge = bus->self;
->>>> +		u32 cap;
->>>> +
->>>> +		pcie_capability_read_dword(bridge, PCI_EXP_DEVCAP2, &cap);
->>>> +
->>>> +		switch (pci_pcie_type(bridge)) {
->>>> +		/*
->>>> +		 * Upstream, downstream and root ports may implement AtomicOp
->>>> +		 * routing capabilities. AtomicOp routing via a root port is
->>>> +		 * not considered.
->>>> +		 */
->>>> +		case PCI_EXP_TYPE_UPSTREAM:
->>>> +		case PCI_EXP_TYPE_DOWNSTREAM:
->>>> +			if (!(cap & PCI_EXP_DEVCAP2_ATOMIC_ROUTE))
->>>> +				return -EINVAL;
->>>> +			break;
->>>> +
->>>> +		/*
->>>> +		 * Root ports are permitted to implement AtomicOp completion
->>>> +		 * capabilities.
->>>> +		 */
->>>> +		case PCI_EXP_TYPE_ROOT_PORT:
->>>> +			if (!(cap & (PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
->>>> +				     PCI_EXP_DEVCAP2_ATOMIC_COMP64 |
->>>> +				     PCI_EXP_DEVCAP2_ATOMIC_COMP128)))
->>>> +				return -EINVAL;
->>>> +			break;
->>>> +		}
->>> IIUC, you want to enable an endpoint, e.g., an AMD Fiji-class GPU, to
->>> initiate AtomicOps that target system memory.  This interface
->>> (pci_enable_atomic_ops_to_root()) doesn't specify what size operations
->>> the driver wants to do.  If the GPU requests a 128-bit op and the Root
->>> Port doesn't support it, I think we'll see an Unsupported Request
->>> error.
->>>
->>> Do you need to extend this interface so the driver can specify what
->>> sizes it wants?
->>>
->>> The existing code in qedr_pci_set_atomic() is very similar.  We should
->>> make this new interface work for both places, then actually use it in
->>> qedr_pci_set_atomic().
->> Hi Bjorn, Doug, Ram,
->>
->> I just discussed this with Jay, and he noticed that qedr_pci_set_atomic
->> seems to use a different criteria to find the completer for atomic
->> requests. Jay's function expects the root port to have a parent, which
->> was the case on the systems he tested. But Ram's function looks for a
->> bridge without a parent and checks completion capabilities on that. Jay
->> believes that to be a root complex, not a root port.
-> By "Ram's function", I guess you mean qedr_pci_set_atomic()?
->
-> That starts with a PCIe device ("pdev"; it assumes but does not check
-> that this is a PCIe device), and traverses through all the bridges
-> leading to it.  Usually this will be:
->
->   endpoint -> root port
->   endpoint -> switch downstream port -> switch upstream port -> root port
->
-> Or there may be additional switches in the middle.  The code is
-> actually not quite correct because it is legal to have this:
->
->   endpoint -> PCI-to-PCIe bridge -> conventional PCI bridge -> ...
->
-> and qedr_pci_set_atomic() will traverse up through the conventional
-> part of the hierarchy, where there is no PCI_EXP_DEVCAP2.
->
-> In general, a Root Port is the root of a PCIe hierarchy and there is
-> no parent device.  E.g., on my laptop:
->
->   00:1c.0 Intel Root Port (bridge to [bus 02])
->   00:1c.2 Intel Root Port (bridge to [bus 04])
->
-> What sort of parent do you expect?  As I mentioned, it's legal to have
-> a PCI/PCI-X to PCIe bridge inside a conventional PCI hierarchy, but
-> that's a little unusual.
->
->> According to the spec, "Root ports are permitted to implement AtomicOp
->> completion capabilities." It talks about a root port, not a root complex.
->>
->> Can you help us understand, which interpretation is correct? And how to
->> correctly identify the root port for checking completion capabilities?
-> If you start with a PCIe device and traverse upstream, you should
-> eventually reach a Root Port or a PCI/PCI-X to PCIe bridge.
->
->> Are there valid topologies where a root port does not have a parent?
-> I don't understand this because Root Ports normally do not have
-> parents.
->
-> PCIe devices other than Root Ports normally have a Root Port (or
-> PCI/PCI-X to PCIe bridge) at the root of the PCIe hierarchy, but there
-> are definitely exceptions.
->
-> For example, there some systems where the Root Port is not visible to
-> Linux, e.g.,
-> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=ee8bdfb6568d
-> On systems like that, I don't think you can safely use AtomicOps.
->
-> Bjorn
+T24gMjAxOC0wMS0wNCAwNjo1NCBQTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4gSSBzZWUuIHJl
+c291cmNlX3NpemVfdCAoYWxpYXMgZm9yIHBoeXNfYWRkcl90KSBpcyB1NjQgb24geDg2IGFuZCB4
+ODZfNjQuCj4gQnV0IHByb2JhYmx5IG9ubHkgdTMyIG9uIEFSTS0zMi4gVGhpcyBkZXBlbmRzIG9u
+Cj4gQ09ORklHX1BIWVNfQUREUl9UXzY0QklUOiBpbmNsdWRlL2xpbnV4L3R5cGVzLmg6Cj4KPiAg
+ICAgI2lmZGVmIENPTkZJR19QSFlTX0FERFJfVF82NEJJVAo+ICAgICB0eXBlZGVmIHU2NCBwaHlz
+X2FkZHJfdDsKPiAgICAgI2Vsc2UKPiAgICAgdHlwZWRlZiB1MzIgcGh5c19hZGRyX3Q7Cj4gICAg
+ICNlbmRpZgo+Cj4gVGhlIGVhc2llc3Qgc29sdXRpb24gaXMgcHJvYmFibHkgdG8gZGVmaW5lIGFw
+ZXJfbGltaXQgYXMgdWludDY0X3QuCgpUaGF0IHNhaWQsIEtGRCBpc24ndCBzdXBwb3J0ZWQgb24g
+MzItYml0IGtlcm5lbHMgYW55d2F5LiBXZSBwcm9iYWJseQpkb24ndCBuZWVkIHRvIGNvbXBpbGUg
+dGhpcyBmaWxlIGF0IGFsbCBvbiAzMi1iaXQga2VybmVscy4gVGhhdCB3b3VsZApwcm9iYWJseSBu
+ZWVkIG1vcmUgY2hhbmdlcyBlbHNld2hlcmUgdG8gbWFrZSBzdXJlIG5vIG9uZSB0cmllcyB0byBj
+YWxsCnRoZXNlIGZ1bmN0aW9ucyBvbiAzMi1iaXQga2VybmVscywgb3IgZGVmaW5lIGVtcHR5IHN0
+dWJzLgoKPgo+IFJlZ2FyZHMsCj4gwqAgRmVsaXgKPgo+Cj4gT24gMjAxOC0wMS0wNCAwNjozNSBQ
+TSwgRGF2ZSBBaXJsaWUgd3JvdGU6Cj4+IE9uIDkgRGVjZW1iZXIgMjAxNyBhdCAxNDowOCwgRmVs
+aXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+Pj4gRnJvbTogSGFy
+aXNoIEthc2l2aXN3YW5hdGhhbiA8SGFyaXNoLkthc2l2aXN3YW5hdGhhbkBhbWQuY29tPgo+Pj4K
+Pj4+IEltcGxlbWVudCBuZXcga2dkLWtmZCBpbnRlcmZhY2UgZnVuY3Rpb24gZ2V0X2xvY2FsX21l
+bV9pbmZvLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IEhhcmlzaCBLYXNpdmlzd2FuYXRoYW4gPEhh
+cmlzaC5LYXNpdmlzd2FuYXRoYW5AYW1kLmNvbT4KPj4+IFNpZ25lZC1vZmYtYnk6IEJlbiBHb3og
+PGJlbi5nb3pAYW1kLmNvbT4KPj4+IFNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxp
+eC5LdWVobGluZ0BhbWQuY29tPgo+Pj4gLS0tCj4+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2FtZGtmZC5jICAgICAgICB8IDMwICsrKysrKysrKysrKysrKysrKysrKysrCj4+
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oICAgICAgICB8ICAy
+ICsrCj4+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjcu
+YyB8ICAxICsKPj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dm
+eF92OC5jIHwgIDEgKwo+Pj4gIDQgZmlsZXMgY2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKQo+Pj4K
+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2Zk
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKPj4+IGluZGV4
+IGNmYjc4MjcuLjU2ZjZjMTIgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfYW1ka2ZkLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hbWRrZmQuYwo+Pj4gQEAgLTI1Miw2ICsyNTIsMzYgQEAgdWludDY0X3QgZ2V0X3Zt
+ZW1fc2l6ZShzdHJ1Y3Qga2dkX2RldiAqa2dkKQo+Pj4gICAgICAgICByZXR1cm4gYWRldi0+bWMu
+cmVhbF92cmFtX3NpemU7Cj4+PiAgfQo+Pj4KPj4+ICt2b2lkIGdldF9sb2NhbF9tZW1faW5mbyhz
+dHJ1Y3Qga2dkX2RldiAqa2dkLAo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGtm
+ZF9sb2NhbF9tZW1faW5mbyAqbWVtX2luZm8pCj4+PiArewo+Pj4gKyAgICAgICBzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWtnZDsKPj4+ICsgICAg
+ICAgdWludDY0X3QgYWRkcmVzc19tYXNrID0gYWRldi0+ZGV2LT5kbWFfbWFzayA/IH4qYWRldi0+
+ZGV2LT5kbWFfbWFzayA6Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICB+KCgxVUxMIDw8IDMyKSAtIDEpOwo+Pj4gKyAgICAgICByZXNvdXJjZV9zaXplX3Qg
+YXBlcl9saW1pdCA9IGFkZXYtPm1jLmFwZXJfYmFzZSArIGFkZXYtPm1jLmFwZXJfc2l6ZTsKPj4+
+ICsKPj4+ICsgICAgICAgbWVtc2V0KG1lbV9pbmZvLCAwLCBzaXplb2YoKm1lbV9pbmZvKSk7Cj4+
+PiArICAgICAgIGlmICghKGFkZXYtPm1jLmFwZXJfYmFzZSAmIGFkZHJlc3NfbWFzayB8fCBhcGVy
+X2xpbWl0ICYgYWRkcmVzc19tYXNrKSkgewo+Pj4gKyAgICAgICAgICAgICAgIG1lbV9pbmZvLT5s
+b2NhbF9tZW1fc2l6ZV9wdWJsaWMgPSBhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZTsKPj4+ICsg
+ICAgICAgICAgICAgICBtZW1faW5mby0+bG9jYWxfbWVtX3NpemVfcHJpdmF0ZSA9IGFkZXYtPm1j
+LnJlYWxfdnJhbV9zaXplIC0KPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRl
+di0+bWMudmlzaWJsZV92cmFtX3NpemU7Cj4+PiArICAgICAgIH0gZWxzZSB7Cj4+PiArICAgICAg
+ICAgICAgICAgbWVtX2luZm8tPmxvY2FsX21lbV9zaXplX3B1YmxpYyA9IDA7Cj4+PiArICAgICAg
+ICAgICAgICAgbWVtX2luZm8tPmxvY2FsX21lbV9zaXplX3ByaXZhdGUgPSBhZGV2LT5tYy5yZWFs
+X3ZyYW1fc2l6ZTsKPj4+ICsgICAgICAgfQo+Pj4gKyAgICAgICBtZW1faW5mby0+dnJhbV93aWR0
+aCA9IGFkZXYtPm1jLnZyYW1fd2lkdGg7Cj4+PiArCj4+PiArICAgICAgIHByX2RlYnVnKCJBZGRy
+ZXNzIGJhc2U6IDB4JWxseCBsaW1pdCAweCVsbHggcHVibGljIDB4JWxseCBwcml2YXRlIDB4JWxs
+eFxuIiwKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPm1jLmFwZXJfYmFzZSwgYXBl
+cl9saW1pdCwKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIG1lbV9pbi9ob21lL2FpcmxpZWQv
+ZGV2ZWwva2VybmVsL2RybS1uZXh0L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
+bWRrZmQuY2ZvLT5sb2NhbF9tZW1fc2l6ZV9wdWJsaWMsCj4+PiArICAgICAgICAgICAgICAgICAg
+ICAgICBtZW1faW5mby0+bG9jYWxfbWVtX3NpemVfcHJpdmF0ZSk7Cj4+IFRoaXMgcGF0Y2hlcyBp
+bnRyb2R1Y2VzOgo+Pgo+PiBJbiBmaWxlIGluY2x1ZGVkIGZyb20KPj4gL2hvbWUvYWlybGllZC9k
+ZXZlbC9rZXJuZWwvZHJtLW5leHQvaW5jbHVkZS9saW51eC9rZXJuZWwuaDoxNDowLAo+PiAgICAg
+ICAgICAgICAgICAgIGZyb20KPj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQv
+aW5jbHVkZS9hc20tZ2VuZXJpYy9idWcuaDoxOCwKPj4gICAgICAgICAgICAgICAgICBmcm9tCj4+
+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RybS1uZXh0L2FyY2gvYXJtL2luY2x1ZGUvYXNt
+L2J1Zy5oOjYwLAo+PiAgICAgICAgICAgICAgICAgIGZyb20gL2hvbWUvYWlybGllZC9kZXZlbC9r
+ZXJuZWwvZHJtLW5leHQvaW5jbHVkZS9saW51eC9idWcuaDo1LAo+PiAgICAgICAgICAgICAgICAg
+IGZyb20KPj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvaW5jbHVkZS9saW51
+eC90aHJlYWRfaW5mby5oOjEyLAo+PiAgICAgICAgICAgICAgICAgIGZyb20KPj4gL2hvbWUvYWly
+bGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvaW5jbHVkZS9hc20tZ2VuZXJpYy9jdXJyZW50Lmg6
+NSwKPj4gICAgICAgICAgICAgICAgICBmcm9tIC4vYXJjaC9hcm0vaW5jbHVkZS9nZW5lcmF0ZWQv
+YXNtL2N1cnJlbnQuaDoxLAo+PiAgICAgICAgICAgICAgICAgIGZyb20KPj4gL2hvbWUvYWlybGll
+ZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvaW5jbHVkZS9saW51eC9zY2hlZC5oOjEyLAo+PiAgICAg
+ICAgICAgICAgICAgIGZyb20KPj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQv
+YXJjaC9hcm0vaW5jbHVkZS9hc20vbW11X2NvbnRleHQuaDoxNywKPj4gICAgICAgICAgICAgICAg
+ICBmcm9tCj4+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RybS1uZXh0L2luY2x1ZGUvbGlu
+dXgvbW11X2NvbnRleHQuaDo1LAo+PiAgICAgICAgICAgICAgICAgIGZyb20KPj4gL2hvbWUvYWly
+bGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2FtZGtmZC5oOjI5LAo+PiAgICAgICAgICAgICAgICAgIGZyb20KPj4gL2hvbWUvYWlybGll
+ZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2FtZGtmZC5jOjIzOgo+PiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmM6Cj4+IEluIGZ1bmN0aW9uIOKA
+mGdldF9sb2NhbF9tZW1faW5mb+KAmToKPj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJt
+LW5leHQvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jOjI5NzoxMToK
+Pj4gd2FybmluZzogZm9ybWF0IOKAmCVsbHjigJkgZXhwZWN0cyBhcmd1bWVudCBvZiB0eXBlIOKA
+mGxvbmcgbG9uZyB1bnNpZ25lZAo+PiBpbnTigJksIGJ1dCBhcmd1bWVudCAzIGhhcyB0eXBlIOKA
+mHJlc291cmNlX3NpemVfdCB7YWthIHVuc2lnbmVkIGludH3igJkKPj4gWy1XZm9ybWF0PV0KPj4g
+ICBwcl9kZWJ1ZygiQWRkcmVzcyBiYXNlOiAweCVsbHggbGltaXQgMHglbGx4IHB1YmxpYyAweCVs
+bHggcHJpdmF0ZSAweCVsbHhcbiIsCj4+ICAgICAgICAgICAgXgo+PiAvaG9tZS9haXJsaWVkL2Rl
+dmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNsdWRlL2xpbnV4L3ByaW50ay5oOjI4NToyMToKPj4gbm90
+ZTogaW4gZGVmaW5pdGlvbiBvZiBtYWNybyDigJhwcl9mbXTigJkKPj4gICNkZWZpbmUgcHJfZm10
+KGZtdCkgZm10Cj4+ICAgICAgICAgICAgICAgICAgICAgIF5+fgo+PiAvaG9tZS9haXJsaWVkL2Rl
+dmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNsdWRlL2xpbnV4L3ByaW50ay5oOjMzMzoyOgo+PiBub3Rl
+OiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYZHluYW1pY19wcl9kZWJ1Z+KAmQo+PiAgIGR5bmFt
+aWNfcHJfZGVidWcoZm10LCAjI19fVkFfQVJHU19fKQo+PiAgIF5+fn5+fn5+fn5+fn5+fn4KPj4g
+L2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2FtZGtmZC5jOjI5NzoyOgo+PiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFj
+cm8g4oCYcHJfZGVidWfigJkKPj4gICBwcl9kZWJ1ZygiQWRkcmVzcyBiYXNlOiAweCVsbHggbGlt
+aXQgMHglbGx4IHB1YmxpYyAweCVsbHggcHJpdmF0ZSAweCVsbHhcbiIsCj4+ICAgXn5+fn5+fn4K
+Pj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jOjI5NzoxMToKPj4gd2FybmluZzogZm9ybWF0IOKAmCVs
+bHjigJkgZXhwZWN0cyBhcmd1bWVudCBvZiB0eXBlIOKAmGxvbmcgbG9uZyB1bnNpZ25lZAo+PiBp
+bnTigJksIGJ1dCBhcmd1bWVudCA0IGhhcyB0eXBlIOKAmHJlc291cmNlX3NpemVfdCB7YWthIHVu
+c2lnbmVkIGludH3igJkKPj4gWy1XZm9ybWF0PV0KPj4gICBwcl9kZWJ1ZygiQWRkcmVzcyBiYXNl
+OiAweCVsbHggbGltaXQgMHglbGx4IHB1YmxpYyAweCVsbHggcHJpdmF0ZSAweCVsbHhcbiIsCj4+
+ICAgICAgICAgICAgXgo+PiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNs
+dWRlL2xpbnV4L3ByaW50ay5oOjI4NToyMToKPj4gbm90ZTogaW4gZGVmaW5pdGlvbiBvZiBtYWNy
+byDigJhwcl9mbXTigJkKPj4gICNkZWZpbmUgcHJfZm10KGZtdCkgZm10Cj4+ICAgICAgICAgICAg
+ICAgICAgICAgIF5+fgo+PiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNs
+dWRlL2xpbnV4L3ByaW50ay5oOjMzMzoyOgo+PiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g
+4oCYZHluYW1pY19wcl9kZWJ1Z+KAmQo+PiAgIGR5bmFtaWNfcHJfZGVidWcoZm10LCAjI19fVkFf
+QVJHU19fKQo+PiAgIF5+fn5+fn5+fn5+fn5+fn4KPj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJu
+ZWwvZHJtLW5leHQvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jOjI5
+NzoyOgo+PiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYcHJfZGVidWfigJkKPj4gICBw
+cl9kZWJ1ZygiQWRkcmVzcyBiYXNlOiAweCVsbHggbGltaXQgMHglbGx4IHB1YmxpYyAweCVsbHgg
+cHJpdmF0ZSAweCVsbHhcbiIsCj4+ICAgXn5+fn5+fn4KPj4KPj4gT24gMzItYml0IGFybSBidWls
+ZC4KPj4KPj4gRGF2ZS4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
