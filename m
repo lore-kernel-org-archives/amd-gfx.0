@@ -1,134 +1,176 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 04/37] drm/amdgpu: Implement get_local_mem_info
-Date: Thu, 4 Jan 2018 18:54:36 -0500
-Message-ID: <997ef22c-f58b-ab06-9ba0-bf3ee290d8f7@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH 29/37] PCI: Add pci_enable_atomic_ops_to_root
+Date: Thu, 4 Jan 2018 19:09:23 -0500
+Message-ID: <bc32c18f-9a6a-379f-bd04-6acba440c9d8@amd.com>
 References: <1512792555-26042-1-git-send-email-Felix.Kuehling@amd.com>
- <1512792555-26042-5-git-send-email-Felix.Kuehling@amd.com>
- <CAPM=9typVidxNLS0+9JcUOcwohcOi469Ke56GcPDZKAh2Tg6fg@mail.gmail.com>
+ <1512792555-26042-30-git-send-email-Felix.Kuehling@amd.com>
+ <20171212232707.GF53955@bhelgaas-glaptop.roam.corp.google.com>
+ <564f4514-58a6-08b0-81c3-175238a9e828@amd.com>
+ <20180104234035.GK189897@bhelgaas-glaptop.roam.corp.google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAPM=9typVidxNLS0+9JcUOcwohcOi469Ke56GcPDZKAh2Tg6fg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-pci-owner@vger.kernel.org>
+In-Reply-To: <20180104234035.GK189897@bhelgaas-glaptop.roam.corp.google.com>
 Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Ben Goz <ben.goz-5C7GfCeVMHo@public.gmane.org>, Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-pci-owner@vger.kernel.org
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Jay Cornwall <Jay.Cornwall@amd.com>, oded.gabbay@gmail.com, amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org, Ram Amrani <Ram.Amrani@cavium.com>, Doug Ledford <dledford@redhat.com>, Michal Kalderon <Michal.Kalderon@cavium.com>, Ariel Elior <Ariel.Elior@cavium.com>, Jason Gunthorpe <jgg@ziepe.ca>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SSBzZWUuIHJlc291cmNlX3NpemVfdCAoYWxpYXMgZm9yIHBoeXNfYWRkcl90KSBpcyB1NjQgb24g
-eDg2IGFuZCB4ODZfNjQuCkJ1dCBwcm9iYWJseSBvbmx5IHUzMiBvbiBBUk0tMzIuIFRoaXMgZGVw
-ZW5kcyBvbgpDT05GSUdfUEhZU19BRERSX1RfNjRCSVQ6IGluY2x1ZGUvbGludXgvdHlwZXMuaDoK
-CiAgICAjaWZkZWYgQ09ORklHX1BIWVNfQUREUl9UXzY0QklUCiAgICB0eXBlZGVmIHU2NCBwaHlz
-X2FkZHJfdDsKICAgICNlbHNlCiAgICB0eXBlZGVmIHUzMiBwaHlzX2FkZHJfdDsKICAgICNlbmRp
-ZgoKVGhlIGVhc2llc3Qgc29sdXRpb24gaXMgcHJvYmFibHkgdG8gZGVmaW5lIGFwZXJfbGltaXQg
-YXMgdWludDY0X3QuCgpSZWdhcmRzLArCoCBGZWxpeAoKCk9uIDIwMTgtMDEtMDQgMDY6MzUgUE0s
-IERhdmUgQWlybGllIHdyb3RlOgo+IE9uIDkgRGVjZW1iZXIgMjAxNyBhdCAxNDowOCwgRmVsaXgg
-S3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+PiBGcm9tOiBIYXJpc2gg
-S2FzaXZpc3dhbmF0aGFuIDxIYXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+Cj4+Cj4+IElt
-cGxlbWVudCBuZXcga2dkLWtmZCBpbnRlcmZhY2UgZnVuY3Rpb24gZ2V0X2xvY2FsX21lbV9pbmZv
-Lgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBIYXJpc2ggS2FzaXZpc3dhbmF0aGFuIDxIYXJpc2guS2Fz
-aXZpc3dhbmF0aGFuQGFtZC5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IEJlbiBHb3ogPGJlbi5nb3pA
-YW1kLmNvbT4KPj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5n
-QGFtZC5jb20+Cj4+IC0tLQo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
-ZGtmZC5jICAgICAgICB8IDMwICsrKysrKysrKysrKysrKysrKysrKysrCj4+ICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmggICAgICAgIHwgIDIgKysKPj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMgfCAgMSArCj4+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OC5jIHwgIDEgKwo+
-PiAgNCBmaWxlcyBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKPj4gaW5kZXggY2ZiNzgyNy4uNTZmNmMxMiAx
-MDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5j
-Cj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYwo+PiBA
-QCAtMjUyLDYgKzI1MiwzNiBAQCB1aW50NjRfdCBnZXRfdm1lbV9zaXplKHN0cnVjdCBrZ2RfZGV2
-ICprZ2QpCj4+ICAgICAgICAgcmV0dXJuIGFkZXYtPm1jLnJlYWxfdnJhbV9zaXplOwo+PiAgfQo+
-Pgo+PiArdm9pZCBnZXRfbG9jYWxfbWVtX2luZm8oc3RydWN0IGtnZF9kZXYgKmtnZCwKPj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGtmZF9sb2NhbF9tZW1faW5mbyAqbWVtX2luZm8p
-Cj4+ICt7Cj4+ICsgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKilrZ2Q7Cj4+ICsgICAgICAgdWludDY0X3QgYWRkcmVzc19tYXNrID0gYWRl
-di0+ZGV2LT5kbWFfbWFzayA/IH4qYWRldi0+ZGV2LT5kbWFfbWFzayA6Cj4+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH4oKDFVTEwgPDwgMzIpIC0gMSk7Cj4+
-ICsgICAgICAgcmVzb3VyY2Vfc2l6ZV90IGFwZXJfbGltaXQgPSBhZGV2LT5tYy5hcGVyX2Jhc2Ug
-KyBhZGV2LT5tYy5hcGVyX3NpemU7Cj4+ICsKPj4gKyAgICAgICBtZW1zZXQobWVtX2luZm8sIDAs
-IHNpemVvZigqbWVtX2luZm8pKTsKPj4gKyAgICAgICBpZiAoIShhZGV2LT5tYy5hcGVyX2Jhc2Ug
-JiBhZGRyZXNzX21hc2sgfHwgYXBlcl9saW1pdCAmIGFkZHJlc3NfbWFzaykpIHsKPj4gKyAgICAg
-ICAgICAgICAgIG1lbV9pbmZvLT5sb2NhbF9tZW1fc2l6ZV9wdWJsaWMgPSBhZGV2LT5tYy52aXNp
-YmxlX3ZyYW1fc2l6ZTsKPj4gKyAgICAgICAgICAgICAgIG1lbV9pbmZvLT5sb2NhbF9tZW1fc2l6
-ZV9wcml2YXRlID0gYWRldi0+bWMucmVhbF92cmFtX3NpemUgLQo+PiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGFkZXYtPm1jLnZpc2libGVfdnJhbV9zaXplOwo+PiArICAgICAgIH0g
-ZWxzZSB7Cj4+ICsgICAgICAgICAgICAgICBtZW1faW5mby0+bG9jYWxfbWVtX3NpemVfcHVibGlj
-ID0gMDsKPj4gKyAgICAgICAgICAgICAgIG1lbV9pbmZvLT5sb2NhbF9tZW1fc2l6ZV9wcml2YXRl
-ID0gYWRldi0+bWMucmVhbF92cmFtX3NpemU7Cj4+ICsgICAgICAgfQo+PiArICAgICAgIG1lbV9p
-bmZvLT52cmFtX3dpZHRoID0gYWRldi0+bWMudnJhbV93aWR0aDsKPj4gKwo+PiArICAgICAgIHBy
-X2RlYnVnKCJBZGRyZXNzIGJhc2U6IDB4JWxseCBsaW1pdCAweCVsbHggcHVibGljIDB4JWxseCBw
-cml2YXRlIDB4JWxseFxuIiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+bWMuYXBl
-cl9iYXNlLCBhcGVyX2xpbWl0LAo+PiArICAgICAgICAgICAgICAgICAgICAgICBtZW1faW4vaG9t
-ZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfYW1ka2ZkLmNmby0+bG9jYWxfbWVtX3NpemVfcHVibGljLAo+PiArICAgICAgICAg
-ICAgICAgICAgICAgICBtZW1faW5mby0+bG9jYWxfbWVtX3NpemVfcHJpdmF0ZSk7Cj4gVGhpcyBw
-YXRjaGVzIGludHJvZHVjZXM6Cj4KPiBJbiBmaWxlIGluY2x1ZGVkIGZyb20KPiAvaG9tZS9haXJs
-aWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNsdWRlL2xpbnV4L2tlcm5lbC5oOjE0OjAsCj4g
-ICAgICAgICAgICAgICAgICBmcm9tCj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5l
-eHQvaW5jbHVkZS9hc20tZ2VuZXJpYy9idWcuaDoxOCwKPiAgICAgICAgICAgICAgICAgIGZyb20K
-PiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9hcmNoL2FybS9pbmNsdWRlL2Fz
-bS9idWcuaDo2MCwKPiAgICAgICAgICAgICAgICAgIGZyb20gL2hvbWUvYWlybGllZC9kZXZlbC9r
-ZXJuZWwvZHJtLW5leHQvaW5jbHVkZS9saW51eC9idWcuaDo1LAo+ICAgICAgICAgICAgICAgICAg
-ZnJvbQo+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RybS1uZXh0L2luY2x1ZGUvbGludXgv
-dGhyZWFkX2luZm8uaDoxMiwKPiAgICAgICAgICAgICAgICAgIGZyb20KPiAvaG9tZS9haXJsaWVk
-L2RldmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNsdWRlL2FzbS1nZW5lcmljL2N1cnJlbnQuaDo1LAo+
-ICAgICAgICAgICAgICAgICAgZnJvbSAuL2FyY2gvYXJtL2luY2x1ZGUvZ2VuZXJhdGVkL2FzbS9j
-dXJyZW50Lmg6MSwKPiAgICAgICAgICAgICAgICAgIGZyb20KPiAvaG9tZS9haXJsaWVkL2RldmVs
-L2tlcm5lbC9kcm0tbmV4dC9pbmNsdWRlL2xpbnV4L3NjaGVkLmg6MTIsCj4gICAgICAgICAgICAg
-ICAgICBmcm9tCj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvYXJjaC9hcm0v
-aW5jbHVkZS9hc20vbW11X2NvbnRleHQuaDoxNywKPiAgICAgICAgICAgICAgICAgIGZyb20KPiAv
-aG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNsdWRlL2xpbnV4L21tdV9jb250
-ZXh0Lmg6NSwKPiAgICAgICAgICAgICAgICAgIGZyb20KPiAvaG9tZS9haXJsaWVkL2RldmVsL2tl
-cm5lbC9kcm0tbmV4dC9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmg6
-MjksCj4gICAgICAgICAgICAgICAgICBmcm9tCj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwv
-ZHJtLW5leHQvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jOjIzOgo+
-IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RybS1uZXh0L2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9hbWRrZmQuYzoKPiBJbiBmdW5jdGlvbiDigJhnZXRfbG9jYWxfbWVtX2lu
-Zm/igJk6Cj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5leHQvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jOjI5NzoxMToKPiB3YXJuaW5nOiBmb3JtYXQg
-4oCYJWxseOKAmSBleHBlY3RzIGFyZ3VtZW50IG9mIHR5cGUg4oCYbG9uZyBsb25nIHVuc2lnbmVk
-Cj4gaW504oCZLCBidXQgYXJndW1lbnQgMyBoYXMgdHlwZSDigJhyZXNvdXJjZV9zaXplX3Qge2Fr
-YSB1bnNpZ25lZCBpbnR94oCZCj4gWy1XZm9ybWF0PV0KPiAgIHByX2RlYnVnKCJBZGRyZXNzIGJh
-c2U6IDB4JWxseCBsaW1pdCAweCVsbHggcHVibGljIDB4JWxseCBwcml2YXRlIDB4JWxseFxuIiwK
-PiAgICAgICAgICAgIF4KPiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5lbC9kcm0tbmV4dC9pbmNs
-dWRlL2xpbnV4L3ByaW50ay5oOjI4NToyMToKPiBub3RlOiBpbiBkZWZpbml0aW9uIG9mIG1hY3Jv
-IOKAmHByX2ZtdOKAmQo+ICAjZGVmaW5lIHByX2ZtdChmbXQpIGZtdAo+ICAgICAgICAgICAgICAg
-ICAgICAgIF5+fgo+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RybS1uZXh0L2luY2x1ZGUv
-bGludXgvcHJpbnRrLmg6MzMzOjI6Cj4gbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKAmGR5
-bmFtaWNfcHJfZGVidWfigJkKPiAgIGR5bmFtaWNfcHJfZGVidWcoZm10LCAjI19fVkFfQVJHU19f
-KQo+ICAgXn5+fn5+fn5+fn5+fn5+fgo+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2RybS1u
-ZXh0L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYzoyOTc6MjoKPiBu
-b3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYcHJfZGVidWfigJkKPiAgIHByX2RlYnVnKCJB
-ZGRyZXNzIGJhc2U6IDB4JWxseCBsaW1pdCAweCVsbHggcHVibGljIDB4JWxseCBwcml2YXRlIDB4
-JWxseFxuIiwKPiAgIF5+fn5+fn5+Cj4gL2hvbWUvYWlybGllZC9kZXZlbC9rZXJuZWwvZHJtLW5l
-eHQvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jOjI5NzoxMToKPiB3
-YXJuaW5nOiBmb3JtYXQg4oCYJWxseOKAmSBleHBlY3RzIGFyZ3VtZW50IG9mIHR5cGUg4oCYbG9u
-ZyBsb25nIHVuc2lnbmVkCj4gaW504oCZLCBidXQgYXJndW1lbnQgNCBoYXMgdHlwZSDigJhyZXNv
-dXJjZV9zaXplX3Qge2FrYSB1bnNpZ25lZCBpbnR94oCZCj4gWy1XZm9ybWF0PV0KPiAgIHByX2Rl
-YnVnKCJBZGRyZXNzIGJhc2U6IDB4JWxseCBsaW1pdCAweCVsbHggcHVibGljIDB4JWxseCBwcml2
-YXRlIDB4JWxseFxuIiwKPiAgICAgICAgICAgIF4KPiAvaG9tZS9haXJsaWVkL2RldmVsL2tlcm5l
-bC9kcm0tbmV4dC9pbmNsdWRlL2xpbnV4L3ByaW50ay5oOjI4NToyMToKPiBub3RlOiBpbiBkZWZp
-bml0aW9uIG9mIG1hY3JvIOKAmHByX2ZtdOKAmQo+ICAjZGVmaW5lIHByX2ZtdChmbXQpIGZtdAo+
-ICAgICAgICAgICAgICAgICAgICAgIF5+fgo+IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2Ry
-bS1uZXh0L2luY2x1ZGUvbGludXgvcHJpbnRrLmg6MzMzOjI6Cj4gbm90ZTogaW4gZXhwYW5zaW9u
-IG9mIG1hY3JvIOKAmGR5bmFtaWNfcHJfZGVidWfigJkKPiAgIGR5bmFtaWNfcHJfZGVidWcoZm10
-LCAjI19fVkFfQVJHU19fKQo+ICAgXn5+fn5+fn5+fn5+fn5+fgo+IC9ob21lL2FpcmxpZWQvZGV2
-ZWwva2VybmVsL2RybS1uZXh0L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRr
-ZmQuYzoyOTc6MjoKPiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYcHJfZGVidWfigJkK
-PiAgIHByX2RlYnVnKCJBZGRyZXNzIGJhc2U6IDB4JWxseCBsaW1pdCAweCVsbHggcHVibGljIDB4
-JWxseCBwcml2YXRlIDB4JWxseFxuIiwKPiAgIF5+fn5+fn5+Cj4KPiBPbiAzMi1iaXQgYXJtIGJ1
-aWxkLgo+Cj4gRGF2ZS4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Hi Bjorn,
+
+I figured it out. The difference between the functions is whether they
+use struct pci_bus * or struct pci_dev * as cursor. I found that the
+functions are in fact equivalent. The last loop iteration in
+pci_enable_atomic_ops_to_root is equivalent to the code after the loop
+in qedr_pci_set_atomic. Both handle the root port.
+
+I think my confusion was based on an incorrect assumption that
+bridge->bus->self is the same as bridge. But brigde->bus is in fact the
+parent bus.
+
+I sent out an updated patch that addresses your comments to the previous
+version. This should be general enough that it can replace
+qedr_pci_set_atomic.
+
+Regards,
+  Felix
+
+
+On 2018-01-04 06:40 PM, Bjorn Helgaas wrote:
+> On Tue, Jan 02, 2018 at 06:41:17PM -0500, Felix Kuehling wrote:
+>> On 2017-12-12 06:27 PM, Bjorn Helgaas wrote:
+>>> [+cc Ram, Michal, Ariel, Doug, Jason]
+>>>
+>>> The [29/37] in the subject makes it look like this is part of a larger
+>>> series, but I can't find the rest of it on linux-pci or linux-kernel.
+>>>
+>>> I don't want to merge a new interface unless there's an in-tree user
+>>> of it.  I assume the rest of the series includes a user.
+>>>
+>>> On Fri, Dec 08, 2017 at 11:09:07PM -0500, Felix Kuehling wrote:
+>> [snip]
+>>>> + * all upstream bridges support AtomicOp routing, egress blocking is disabled
+>>>> + * on all upstream ports, and the root port supports 32-bit, 64-bit and/or
+>>>> + * 128-bit AtomicOp completion, or negative otherwise.
+>>>> + */
+>>>> +int pci_enable_atomic_ops_to_root(struct pci_dev *dev)
+>>>> +{
+>>>> +	struct pci_bus *bus = dev->bus;
+>>>> +
+>>>> +	if (!pci_is_pcie(dev))
+>>>> +		return -EINVAL;
+>>>> +
+>>>> +	switch (pci_pcie_type(dev)) {
+>>>> +	/*
+>>>> +	 * PCIe 3.0, 6.15 specifies that endpoints and root ports are permitted
+>>>> +	 * to implement AtomicOp requester capabilities.
+>>>> +	 */
+>>>> +	case PCI_EXP_TYPE_ENDPOINT:
+>>>> +	case PCI_EXP_TYPE_LEG_END:
+>>>> +	case PCI_EXP_TYPE_RC_END:
+>>>> +		break;
+>>>> +	default:
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +
+>>>> +	while (bus->parent) {
+>>>> +		struct pci_dev *bridge = bus->self;
+>>>> +		u32 cap;
+>>>> +
+>>>> +		pcie_capability_read_dword(bridge, PCI_EXP_DEVCAP2, &cap);
+>>>> +
+>>>> +		switch (pci_pcie_type(bridge)) {
+>>>> +		/*
+>>>> +		 * Upstream, downstream and root ports may implement AtomicOp
+>>>> +		 * routing capabilities. AtomicOp routing via a root port is
+>>>> +		 * not considered.
+>>>> +		 */
+>>>> +		case PCI_EXP_TYPE_UPSTREAM:
+>>>> +		case PCI_EXP_TYPE_DOWNSTREAM:
+>>>> +			if (!(cap & PCI_EXP_DEVCAP2_ATOMIC_ROUTE))
+>>>> +				return -EINVAL;
+>>>> +			break;
+>>>> +
+>>>> +		/*
+>>>> +		 * Root ports are permitted to implement AtomicOp completion
+>>>> +		 * capabilities.
+>>>> +		 */
+>>>> +		case PCI_EXP_TYPE_ROOT_PORT:
+>>>> +			if (!(cap & (PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
+>>>> +				     PCI_EXP_DEVCAP2_ATOMIC_COMP64 |
+>>>> +				     PCI_EXP_DEVCAP2_ATOMIC_COMP128)))
+>>>> +				return -EINVAL;
+>>>> +			break;
+>>>> +		}
+>>> IIUC, you want to enable an endpoint, e.g., an AMD Fiji-class GPU, to
+>>> initiate AtomicOps that target system memory.  This interface
+>>> (pci_enable_atomic_ops_to_root()) doesn't specify what size operations
+>>> the driver wants to do.  If the GPU requests a 128-bit op and the Root
+>>> Port doesn't support it, I think we'll see an Unsupported Request
+>>> error.
+>>>
+>>> Do you need to extend this interface so the driver can specify what
+>>> sizes it wants?
+>>>
+>>> The existing code in qedr_pci_set_atomic() is very similar.  We should
+>>> make this new interface work for both places, then actually use it in
+>>> qedr_pci_set_atomic().
+>> Hi Bjorn, Doug, Ram,
+>>
+>> I just discussed this with Jay, and he noticed that qedr_pci_set_atomic
+>> seems to use a different criteria to find the completer for atomic
+>> requests. Jay's function expects the root port to have a parent, which
+>> was the case on the systems he tested. But Ram's function looks for a
+>> bridge without a parent and checks completion capabilities on that. Jay
+>> believes that to be a root complex, not a root port.
+> By "Ram's function", I guess you mean qedr_pci_set_atomic()?
+>
+> That starts with a PCIe device ("pdev"; it assumes but does not check
+> that this is a PCIe device), and traverses through all the bridges
+> leading to it.  Usually this will be:
+>
+>   endpoint -> root port
+>   endpoint -> switch downstream port -> switch upstream port -> root port
+>
+> Or there may be additional switches in the middle.  The code is
+> actually not quite correct because it is legal to have this:
+>
+>   endpoint -> PCI-to-PCIe bridge -> conventional PCI bridge -> ...
+>
+> and qedr_pci_set_atomic() will traverse up through the conventional
+> part of the hierarchy, where there is no PCI_EXP_DEVCAP2.
+>
+> In general, a Root Port is the root of a PCIe hierarchy and there is
+> no parent device.  E.g., on my laptop:
+>
+>   00:1c.0 Intel Root Port (bridge to [bus 02])
+>   00:1c.2 Intel Root Port (bridge to [bus 04])
+>
+> What sort of parent do you expect?  As I mentioned, it's legal to have
+> a PCI/PCI-X to PCIe bridge inside a conventional PCI hierarchy, but
+> that's a little unusual.
+>
+>> According to the spec, "Root ports are permitted to implement AtomicOp
+>> completion capabilities." It talks about a root port, not a root complex.
+>>
+>> Can you help us understand, which interpretation is correct? And how to
+>> correctly identify the root port for checking completion capabilities?
+> If you start with a PCIe device and traverse upstream, you should
+> eventually reach a Root Port or a PCI/PCI-X to PCIe bridge.
+>
+>> Are there valid topologies where a root port does not have a parent?
+> I don't understand this because Root Ports normally do not have
+> parents.
+>
+> PCIe devices other than Root Ports normally have a Root Port (or
+> PCI/PCI-X to PCIe bridge) at the root of the PCIe hierarchy, but there
+> are definitely exceptions.
+>
+> For example, there some systems where the Root Port is not visible to
+> Linux, e.g.,
+> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=ee8bdfb6568d
+> On systems like that, I don't think you can safely use AtomicOps.
+>
+> Bjorn
