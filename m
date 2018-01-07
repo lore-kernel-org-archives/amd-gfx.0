@@ -1,18 +1,13 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Failing S3 resume since "Add missing irqflags tracing to
- native_load_gs_index()"
-Date: Sat, 6 Jan 2018 09:55:53 -0500
-Message-ID: <54e8303c-47e7-40a6-6b70-d7fd2abd3462@amd.com>
-References: <e57b5775-d7f2-a89c-f007-41b4db704251@amd.com>
- <62B74215-776F-4DB0-A316-FCE56E1328F0@amacapital.net>
- <84ec8c27-77ea-4915-aabb-657225194e3a@amd.com>
- <0D266FAA-2C99-4944-81D1-8CBE140A5D26@amacapital.net>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH libdrm 3/4] amdgpu: use the high VA range if possible v2
+Date: Sun,  7 Jan 2018 10:11:34 +0100
+Message-ID: <20180107091135.2373-3-christian.koenig@amd.com>
+References: <20180107091135.2373-1-christian.koenig@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0D266FAA-2C99-4944-81D1-8CBE140A5D26-kltTT9wpgjJwATOyAt5JVQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180107091135.2373-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,21 +18,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andy Lutomirski <luto-kltTT9wpgjJwATOyAt5JVQ@public.gmane.org>
-Cc: Juergen Gross <jgross-IBi9RG/b67k@public.gmane.org>, Josh Poimboeuf <jpoimboe-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Greg Kroah-Hartman <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, x86-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ingo Molnar <mingo-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, marta.lofstedt-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, Andy Lutomirski <luto-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, "H. Peter Anvin" <hpa-YMNOUZJC4hwAvxtiuMwx3w@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Thomas Gleixner <tglx-hfZtesqFncYOwBW4kG4KsQ@public.gmane.org>, Borislav Petkov <bp-l3A5Bk7waGM@public.gmane.org>, "Kirill A. Shutemov" <kirill.shutemov-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wMS0wNSAwNjowNyBQTSwgQW5keSBMdXRvbWlyc2tpIHdyb3RlOgo+IAo+IAo+PiBP
-biBKYW4gNSwgMjAxOCwgYXQgMTo1MSBQTSwgSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5k
-QGFtZC5jb20+IHdyb3RlOgo+Pgo+Pj4gT24gMjAxOC0wMS0wNSAwNDoyOCBQTSwgQW5keSBMdXRv
-bWlyc2tpIHdyb3RlOgo+Pj4gSXQncyBhIGtub3duIGlzc3VlLCBhbmQgaXQgc2hvdWxkIGJlIGZp
-eGVkIGluIG5ld2VyIC1yYyBrZXJuZWxzLgo+Pj4KPj4KPj4gSSdtIHN0aWxsIHNlZWluZyB0aGlz
-IG9uIHY0LjE1LXJjNi4gV2lsbCBJIG5lZWQgcmM3IG9yIHRoZSBsYXRlc3QgeDg2IG1lcmdlcyBp
-biBsaW51cydzIG1hc3Rlcj8KPj4KPiAKPiBObywgaXQgc2hvdWxkIGJlIGZpbmUgaW4gLXJjNi4g
-IEkgZG9uJ3Qgc3VwcG9zZSB5b3UgY291bGQgdHJ5IGJpc2VjdGluZyBidXQgcmV2ZXJ0aW5nIHRo
-ZSBuYXRpdmVfbG9hZF9nc19pbmRleCBjaGFuZ2Ugb24gZWFjaCBpdGVyYXRpb24/CgooZml4aW5n
-IHVwIHRoZSBhbWQtZ2Z4IGFkZHJlc3MpCgpJJ2xsIGdpdmUgdGhhdCBhIHRyeSBvbiBNb25kYXkg
-d2hlbiBJJ20gYmFjayBhdCB3b3JrLgoKSGFycnkKCj4gCj4+IFRoYW5rcywKPj4gSGFycnkKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+UmV0aXJlIHRoZSBsb3cgcmFuZ2Ugb24gVmVnYTEwIHRoaXMgZnJlZXMgdXAgZXZlcnl0aGluZyBi
+ZWxvdyAweGZmZmY4MDAwMDAwMDAwMDAgZm9yIEhNTS4KCnYyOiBrZWVwIHRoZSAzMmJpdCByYW5n
+ZSB3b3JraW5nLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtv
+ZW5pZ0BhbWQuY29tPgotLS0KIGFtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxOCArKysrKysrKysr
+KysrKy0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9hbWRncHUvYW1kZ3B1X2Rl
+dmljZS5jCmluZGV4IGQ3MDc3MTg0Li5hMGQwMTcyNyAxMDA2NDQKLS0tIGEvYW1kZ3B1L2FtZGdw
+dV9kZXZpY2UuYworKysgYi9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0yNjQsMTMgKzI2NCwy
+MyBAQCBpbnQgYW1kZ3B1X2RldmljZV9pbml0aWFsaXplKGludCBmZCwKIAkJZ290byBjbGVhbnVw
+OwogCX0KIAotCXN0YXJ0ID0gZGV2LT5kZXZfaW5mby52aXJ0dWFsX2FkZHJlc3Nfb2Zmc2V0Owot
+CW1heCA9IE1JTjIoZGV2LT5kZXZfaW5mby52aXJ0dWFsX2FkZHJlc3NfbWF4LCAweDEwMDAwMDAw
+MFVMTCk7CisJaWYgKGRldi0+ZGV2X2luZm8uaGlnaF92YV9vZmZzZXQgJiYgZGV2LT5kZXZfaW5m
+by5oaWdoX3ZhX21heCkgeworCQlzdGFydCA9IGRldi0+ZGV2X2luZm8uaGlnaF92YV9vZmZzZXQ7
+CisJCW1heCA9IGRldi0+ZGV2X2luZm8uaGlnaF92YV9tYXg7CisJfSBlbHNlIHsKKwkJc3RhcnQg
+PSBkZXYtPmRldl9pbmZvLnZpcnR1YWxfYWRkcmVzc19vZmZzZXQ7CisJCW1heCA9IGRldi0+ZGV2
+X2luZm8udmlydHVhbF9hZGRyZXNzX21heDsKKwl9CisKKwltYXggPSBNSU4yKG1heCwgKHN0YXJ0
+ICYgfjB4ZmZmZmZmZmYpICsgMHgxMDAwMDAwMDBVTEwpOwogCWFtZGdwdV92YW1ncl9pbml0KCZk
+ZXYtPnZhbWdyXzMyLCBzdGFydCwgbWF4LAogCQkJICBkZXYtPmRldl9pbmZvLnZpcnR1YWxfYWRk
+cmVzc19hbGlnbm1lbnQpOwogCi0Jc3RhcnQgPSBNQVgyKGRldi0+ZGV2X2luZm8udmlydHVhbF9h
+ZGRyZXNzX29mZnNldCwgMHgxMDAwMDAwMDBVTEwpOwotCW1heCA9IE1BWDIoZGV2LT5kZXZfaW5m
+by52aXJ0dWFsX2FkZHJlc3NfbWF4LCAweDEwMDAwMDAwMFVMTCk7CisJc3RhcnQgPSBtYXg7CisJ
+aWYgKGRldi0+ZGV2X2luZm8uaGlnaF92YV9vZmZzZXQgJiYgZGV2LT5kZXZfaW5mby5oaWdoX3Zh
+X21heCkKKwkJbWF4ID0gZGV2LT5kZXZfaW5mby5oaWdoX3ZhX21heDsKKwllbHNlCisJCW1heCA9
+IGRldi0+ZGV2X2luZm8udmlydHVhbF9hZGRyZXNzX21heDsKIAlhbWRncHVfdmFtZ3JfaW5pdCgm
+ZGV2LT52YW1nciwgc3RhcnQsIG1heCwKIAkJCSAgZGV2LT5kZXZfaW5mby52aXJ0dWFsX2FkZHJl
+c3NfYWxpZ25tZW50KTsKIAotLSAKMi4xMS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
