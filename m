@@ -1,15 +1,15 @@
-From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/3] drm: export gem dmabuf_ops for drivers to reuse
-Date: Tue, 9 Jan 2018 15:20:13 +0000
-Message-ID: <BLUPR12MB06285B53BBB52C80D9F15780F5100@BLUPR12MB0628.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm: export gem dmabuf_ops for drivers to reuse
+Date: Tue, 9 Jan 2018 15:56:26 +0000
+Message-ID: <BN6PR12MB1652646849B5874BFB9F209AF7100@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <1515100334-6845-1-git-send-email-Samuel.Li@amd.com>
  <c816da24-7676-8cef-528f-77bfa44af049@gmail.com>
- <20180109092201.GE26573@phenom.ffwll.local>
+ <20180109092201.GE26573@phenom.ffwll.local>,
+ <BLUPR12MB06285B53BBB52C80D9F15780F5100@BLUPR12MB0628.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0589420597=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180109092201.GE26573-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+In-Reply-To: <BLUPR12MB06285B53BBB52C80D9F15780F5100-7LeqcoF/hwrL9O90+oShTwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,162 +21,677 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-WWVzLCBwbGVhc2UgaHVzaCB0aGlzIGZvciBtZS4KClJlZ2FyZHMsClNhbXVlbCBMaQoKCj4gLS0t
-LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBEYW5pZWwgVmV0dGVyIFttYWlsdG86ZGFu
-aWVsLnZldHRlckBmZndsbC5jaF0gT24gQmVoYWxmIE9mIERhbmllbAo+IFZldHRlcgo+IFNlbnQ6
-IFR1ZXNkYXksIEphbnVhcnkgMDksIDIwMTggNDoyMiBBTQo+IFRvOiBLb2VuaWcsIENocmlzdGlh
-biA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPgo+IENjOiBMaSwgU2FtdWVsIDxTYW11ZWwuTGlA
-YW1kLmNvbT47IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGFtZC0KPiBnZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4gU3ViamVjdDogUmU6IFtQQVRDSCAyLzNdIGRybTogZXhwb3J0
-IGdlbSBkbWFidWZfb3BzIGZvciBkcml2ZXJzIHRvIHJldXNlCj4gCj4gT24gRnJpLCBKYW4gMDUs
-IDIwMTggYXQgMTA6MTY6MDRBTSArMDEwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiA+IEFt
-IDA0LjAxLjIwMTggdW0gMjI6MTIgc2NocmllYiBTYW11ZWwgTGk6Cj4gPiA+IENoYW5nZS1JZDog
-STAzYzIyYTg5MGQyMzA1ZjMyNDNkODgwMTlkMWEyOGJkZGQ0ZGRkYTcKPiA+ID4gU2lnbmVkLW9m
-Zi1ieTogU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1kLmNvbT4KPiA+Cj4gPiBSZXZpZXdlZC1ieTog
-Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IAo+IFdhbnQgdG8g
-cHVzaCB0byBkcm0tbWlzYyBvciBzb21lIG90aGVyIHBsYW4gd2l0aCB0aGlzPwo+IC1EYW5pZWwK
-PiAKPiA+Cj4gPiA+IC0tLQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYyB8IDUz
-ICsrKysrKysrKysrKysrKysrKysrKysrKysrLS0tCj4gLS0tLS0tLS0tLS0tLS0tLQo+ID4gPiAg
-IGluY2x1ZGUvZHJtL2RybV9wcmltZS5oICAgICB8IDIyICsrKysrKysrKysrKysrKysrKysKPiA+
-ID4gICAyIGZpbGVzIGNoYW5nZWQsIDUzIGluc2VydGlvbnMoKyksIDIyIGRlbGV0aW9ucygtKQo+
-ID4gPgo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9wcmltZS5jCj4gPiA+
-IGIvZHJpdmVycy9ncHUvZHJtL2RybV9wcmltZS5jIGluZGV4IDhkZTkzYTIuLjY4YTY5ZTkgMTAw
-NjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYwo+ID4gPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vZHJtX3ByaW1lLmMKPiA+ID4gQEAgLTE4MCw5ICsxODAsOCBAQCBzdGF0
-aWMgaW50IGRybV9wcmltZV9sb29rdXBfYnVmX2hhbmRsZShzdHJ1Y3QKPiBkcm1fcHJpbWVfZmls
-ZV9wcml2YXRlICpwcmltZV9mcHJpCj4gPiA+ICAgCXJldHVybiAtRU5PRU5UOwo+ID4gPiAgIH0K
-PiA+ID4gLXN0YXRpYyBpbnQgZHJtX2dlbV9tYXBfYXR0YWNoKHN0cnVjdCBkbWFfYnVmICpkbWFf
-YnVmLAo+ID4gPiAtCQkJICAgICAgc3RydWN0IGRldmljZSAqdGFyZ2V0X2RldiwKPiA+ID4gLQkJ
-CSAgICAgIHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCkKPiA+ID4gK2ludCBkcm1f
-Z2VtX21hcF9hdHRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHN0cnVjdCBkZXZpY2UKPiAq
-dGFyZ2V0X2RldiwKPiA+ID4gKwkJICAgICAgIHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0
-dGFjaCkKPiA+ID4gICB7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fcHJpbWVfYXR0YWNobWVudCAqcHJp
-bWVfYXR0YWNoOwo+ID4gPiAgIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9IGRtYV9idWYt
-PnByaXY7IEBAIC0yMDAsOSArMTk5LDEwCj4gQEAKPiA+ID4gc3RhdGljIGludCBkcm1fZ2VtX21h
-cF9hdHRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4gPiA+ICAgCXJldHVybiBkZXYtPmRy
-aXZlci0+Z2VtX3ByaW1lX3BpbihvYmopOwo+ID4gPiAgIH0KPiA+ID4gK0VYUE9SVF9TWU1CT0wo
-ZHJtX2dlbV9tYXBfYXR0YWNoKTsKPiA+ID4gLXN0YXRpYyB2b2lkIGRybV9nZW1fbWFwX2RldGFj
-aChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ID4gLQkJCSAgICAgICBzdHJ1Y3QgZG1hX2J1
-Zl9hdHRhY2htZW50ICphdHRhY2gpCj4gPiA+ICt2b2lkIGRybV9nZW1fbWFwX2RldGFjaChzdHJ1
-Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ID4gKwkJCXN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQg
-KmF0dGFjaCkKPiA+ID4gICB7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fcHJpbWVfYXR0YWNobWVudCAq
-cHJpbWVfYXR0YWNoID0gYXR0YWNoLT5wcml2Owo+ID4gPiAgIAlzdHJ1Y3QgZHJtX2dlbV9vYmpl
-Y3QgKm9iaiA9IGRtYV9idWYtPnByaXY7IEBAIC0yMjcsNiArMjI3LDcKPiBAQAo+ID4gPiBzdGF0
-aWMgdm9pZCBkcm1fZ2VtX21hcF9kZXRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4gPiA+
-ICAgCWtmcmVlKHByaW1lX2F0dGFjaCk7Cj4gPiA+ICAgCWF0dGFjaC0+cHJpdiA9IE5VTEw7Cj4g
-PiA+ICAgfQo+ID4gPiArRVhQT1JUX1NZTUJPTChkcm1fZ2VtX21hcF9kZXRhY2gpOwo+ID4gPiAg
-IHZvaWQgZHJtX3ByaW1lX3JlbW92ZV9idWZfaGFuZGxlX2xvY2tlZChzdHJ1Y3QKPiBkcm1fcHJp
-bWVfZmlsZV9wcml2YXRlICpwcmltZV9mcHJpdiwKPiA+ID4gICAJCQkJCXN0cnVjdCBkbWFfYnVm
-ICpkbWFfYnVmKQo+ID4gPiBAQCAtMjUzLDggKzI1NCw4IEBAIHZvaWQKPiBkcm1fcHJpbWVfcmVt
-b3ZlX2J1Zl9oYW5kbGVfbG9ja2VkKHN0cnVjdCBkcm1fcHJpbWVfZmlsZV9wcml2YXRlCj4gKnBy
-aW1lX2Zwcgo+ID4gPiAgIAl9Cj4gPiA+ICAgfQo+ID4gPiAtc3RhdGljIHN0cnVjdCBzZ190YWJs
-ZSAqZHJtX2dlbV9tYXBfZG1hX2J1ZihzdHJ1Y3QKPiBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFj
-aCwKPiA+ID4gLQkJCQkJICAgIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRpcikKPiA+ID4gK3N0
-cnVjdCBzZ190YWJsZSAqZHJtX2dlbV9tYXBfZG1hX2J1ZihzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2ht
-ZW50Cj4gKmF0dGFjaCwKPiA+ID4gKwkJCQkgICAgIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRp
-cikKPiA+ID4gICB7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fcHJpbWVfYXR0YWNobWVudCAqcHJpbWVf
-YXR0YWNoID0gYXR0YWNoLT5wcml2Owo+ID4gPiAgIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9i
-aiA9IGF0dGFjaC0+ZG1hYnVmLT5wcml2OyBAQCAtMjg5LDEzCj4gPiA+ICsyOTAsMTUgQEAgc3Rh
-dGljIHN0cnVjdCBzZ190YWJsZSAqZHJtX2dlbV9tYXBfZG1hX2J1ZihzdHJ1Y3QKPiBkbWFfYnVm
-X2F0dGFjaG1lbnQgKmF0dGFjaCwKPiA+ID4gICAJcmV0dXJuIHNndDsKPiA+ID4gICB9Cj4gPiA+
-ICtFWFBPUlRfU1lNQk9MKGRybV9nZW1fbWFwX2RtYV9idWYpOwo+ID4gPiAtc3RhdGljIHZvaWQg
-ZHJtX2dlbV91bm1hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQKPiAqYXR0YWNo
-LAo+ID4gPiAtCQkJCSAgc3RydWN0IHNnX3RhYmxlICpzZ3QsCj4gPiA+IC0JCQkJICBlbnVtIGRt
-YV9kYXRhX2RpcmVjdGlvbiBkaXIpCj4gPiA+ICt2b2lkIGRybV9nZW1fdW5tYXBfZG1hX2J1Zihz
-dHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsCj4gPiA+ICsJCQkgICBzdHJ1Y3Qgc2df
-dGFibGUgKnNndCwKPiA+ID4gKwkJCSAgIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRpcikKPiA+
-ID4gICB7Cj4gPiA+ICAgCS8qIG5vdGhpbmcgdG8gYmUgZG9uZSBoZXJlICovCj4gPiA+ICAgfQo+
-ID4gPiArRVhQT1JUX1NZTUJPTChkcm1fZ2VtX3VubWFwX2RtYV9idWYpOwo+ID4gPiAgIC8qKgo+
-ID4gPiAgICAqIGRybV9nZW1fZG1hYnVmX2V4cG9ydCAtIGRtYV9idWYgZXhwb3J0IGltcGxlbWVu
-dGF0aW9uIGZvcgo+IEdFTQo+ID4gPiBAQCAtMzQ2LDQ3ICszNDksNTIgQEAgdm9pZCBkcm1fZ2Vt
-X2RtYWJ1Zl9yZWxlYXNlKHN0cnVjdAo+IGRtYV9idWYgKmRtYV9idWYpCj4gPiA+ICAgfQo+ID4g
-PiAgIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfcmVsZWFzZSk7Cj4gPiA+IC1zdGF0aWMg
-dm9pZCAqZHJtX2dlbV9kbWFidWZfdm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZikKPiA+ID4g
-K3ZvaWQgKmRybV9nZW1fZG1hYnVmX3ZtYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYpCj4gPiA+
-ICAgewo+ID4gPiAgIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9IGRtYV9idWYtPnByaXY7
-Cj4gPiA+ICAgCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBvYmotPmRldjsKPiA+ID4gICAJcmV0
-dXJuIGRldi0+ZHJpdmVyLT5nZW1fcHJpbWVfdm1hcChvYmopOwo+ID4gPiAgIH0KPiA+ID4gK0VY
-UE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfdm1hcCk7Cj4gPiA+IC1zdGF0aWMgdm9pZCBkcm1f
-Z2VtX2RtYWJ1Zl92dW5tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHZvaWQKPiA+ID4gKnZh
-ZGRyKQo+ID4gPiArdm9pZCBkcm1fZ2VtX2RtYWJ1Zl92dW5tYXAoc3RydWN0IGRtYV9idWYgKmRt
-YV9idWYsIHZvaWQKPiAqdmFkZHIpCj4gPiA+ICAgewo+ID4gPiAgIAlzdHJ1Y3QgZHJtX2dlbV9v
-YmplY3QgKm9iaiA9IGRtYV9idWYtPnByaXY7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYgPSBvYmotPmRldjsKPiA+ID4gICAJZGV2LT5kcml2ZXItPmdlbV9wcmltZV92dW5tYXAob2Jq
-LCB2YWRkcik7Cj4gPiA+ICAgfQo+ID4gPiArRVhQT1JUX1NZTUJPTChkcm1fZ2VtX2RtYWJ1Zl92
-dW5tYXApOwo+ID4gPiAtc3RhdGljIHZvaWQgKmRybV9nZW1fZG1hYnVmX2ttYXBfYXRvbWljKHN0
-cnVjdCBkbWFfYnVmCj4gKmRtYV9idWYsCj4gPiA+IC0JCQkJCXVuc2lnbmVkIGxvbmcgcGFnZV9u
-dW0pCj4gPiA+ICt2b2lkICpkcm1fZ2VtX2RtYWJ1Zl9rbWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1
-ZiAqZG1hX2J1ZiwKPiA+ID4gKwkJCQkgdW5zaWduZWQgbG9uZyBwYWdlX251bSkKPiA+ID4gICB7
-Cj4gPiA+ICAgCXJldHVybiBOVUxMOwo+ID4gPiAgIH0KPiA+ID4gK0VYUE9SVF9TWU1CT0woZHJt
-X2dlbV9kbWFidWZfa21hcF9hdG9taWMpOwo+ID4gPiAtc3RhdGljIHZvaWQgZHJtX2dlbV9kbWFi
-dWZfa3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1Zgo+ICpkbWFfYnVmLAo+ID4gPiAtCQkJCQkg
-dW5zaWduZWQgbG9uZyBwYWdlX251bSwgdm9pZCAqYWRkcikKPiA+ID4gK3ZvaWQgZHJtX2dlbV9k
-bWFidWZfa3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ID4gKwkJCQkg
-IHVuc2lnbmVkIGxvbmcgcGFnZV9udW0sIHZvaWQgKmFkZHIpCj4gPiA+ICAgewo+ID4gPiAgIH0K
-PiA+ID4gLXN0YXRpYyB2b2lkICpkcm1fZ2VtX2RtYWJ1Zl9rbWFwKHN0cnVjdCBkbWFfYnVmICpk
-bWFfYnVmLAo+ID4gPiAtCQkJCSB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtKQo+ID4gPiArRVhQT1JU
-X1NZTUJPTChkcm1fZ2VtX2RtYWJ1Zl9rdW5tYXBfYXRvbWljKTsKPiA+ID4gKwo+ID4gPiArdm9p
-ZCAqZHJtX2dlbV9kbWFidWZfa21hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwgdW5zaWduZWQK
-PiBsb25nCj4gPiA+ICtwYWdlX251bSkKPiA+ID4gICB7Cj4gPiA+ICAgCXJldHVybiBOVUxMOwo+
-ID4gPiAgIH0KPiA+ID4gK0VYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfa21hcCk7Cj4gPiA+
-IC1zdGF0aWMgdm9pZCBkcm1fZ2VtX2RtYWJ1Zl9rdW5tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9i
-dWYsCj4gPiA+IC0JCQkJICB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtLCB2b2lkICphZGRyKQo+ID4g
-PiArdm9pZCBkcm1fZ2VtX2RtYWJ1Zl9rdW5tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHVu
-c2lnbmVkCj4gbG9uZyBwYWdlX251bSwKPiA+ID4gKwkJCSAgIHZvaWQgKmFkZHIpCj4gPiA+ICAg
-ewo+ID4gPiAgIH0KPiA+ID4gK0VYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfa3VubWFwKTsK
-PiA+ID4gLXN0YXRpYyBpbnQgZHJtX2dlbV9kbWFidWZfbW1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1h
-X2J1ZiwKPiA+ID4gLQkJCSAgICAgICBzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSkKPiA+ID4g
-K2ludCBkcm1fZ2VtX2RtYWJ1Zl9tbWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCBzdHJ1Y3QK
-PiA+ID4gK3ZtX2FyZWFfc3RydWN0ICp2bWEpCj4gPiA+ICAgewo+ID4gPiAgIAlzdHJ1Y3QgZHJt
-X2dlbV9vYmplY3QgKm9iaiA9IGRtYV9idWYtPnByaXY7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fZGV2
-aWNlICpkZXYgPSBvYmotPmRldjsgQEAgLTM5Niw2ICs0MDQsNyBAQCBzdGF0aWMgaW50Cj4gPiA+
-IGRybV9nZW1fZG1hYnVmX21tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4gPiA+ICAgCXJl
-dHVybiBkZXYtPmRyaXZlci0+Z2VtX3ByaW1lX21tYXAob2JqLCB2bWEpOwo+ID4gPiAgIH0KPiA+
-ID4gK0VYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfbW1hcCk7Cj4gPiA+ICAgc3RhdGljIGNv
-bnN0IHN0cnVjdCBkbWFfYnVmX29wcyBkcm1fZ2VtX3ByaW1lX2RtYWJ1Zl9vcHMgPSAgewo+ID4g
-PiAgIAkuYXR0YWNoID0gZHJtX2dlbV9tYXBfYXR0YWNoLAo+ID4gPiBkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9kcm0vZHJtX3ByaW1lLmggYi9pbmNsdWRlL2RybS9kcm1fcHJpbWUuaCBpbmRleAo+ID4g
-PiA5Y2Q5ZTM2Li40ZDVmNWQ2IDEwMDY0NAo+ID4gPiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fcHJp
-bWUuaAo+ID4gPiArKysgYi9pbmNsdWRlL2RybS9kcm1fcHJpbWUuaAo+ID4gPiBAQCAtNTQsNiAr
-NTQsOSBAQCBzdHJ1Y3QgZGV2aWNlOwo+ID4gPiAgIHN0cnVjdCBkbWFfYnVmX2V4cG9ydF9pbmZv
-Owo+ID4gPiAgIHN0cnVjdCBkbWFfYnVmOwo+ID4gPiArc3RydWN0IGRtYV9idWZfYXR0YWNobWVu
-dDsKPiA+ID4gKwo+ID4gPiArZW51bSBkbWFfZGF0YV9kaXJlY3Rpb247Cj4gPiA+ICAgc3RydWN0
-IGRybV9kZXZpY2U7Cj4gPiA+ICAgc3RydWN0IGRybV9nZW1fb2JqZWN0Owo+ID4gPiBAQCAtNzks
-NiArODIsMjUgQEAgaW50IGRybV9nZW1fcHJpbWVfZmRfdG9faGFuZGxlKHN0cnVjdAo+IGRybV9k
-ZXZpY2UgKmRldiwKPiA+ID4gICBzdHJ1Y3QgZG1hX2J1ZiAqZHJtX2dlbV9kbWFidWZfZXhwb3J0
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4gPiA+ICAgCQkJCSAgICAgIHN0cnVjdCBkbWFfYnVm
-X2V4cG9ydF9pbmZvICpleHBfaW5mbyk7Cj4gPiA+ICAgdm9pZCBkcm1fZ2VtX2RtYWJ1Zl9yZWxl
-YXNlKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmKTsKPiA+ID4gK2ludCBkcm1fZ2VtX21hcF9hdHRh
-Y2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHN0cnVjdCBkZXZpY2UKPiAqdGFyZ2V0X2RldiwK
-PiA+ID4gKwkJICAgICAgIHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCk7IHZvaWQK
-PiA+ID4gK2RybV9nZW1fbWFwX2RldGFjaChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ID4g
-KwkJCXN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCk7IHN0cnVjdCBzZ190YWJsZQo+
-ID4gPiArKmRybV9nZW1fbWFwX2RtYV9idWYoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0
-YWNoLAo+ID4gPiArCQkJCSAgICAgZW51bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGlyKTsgdm9pZAo+
-ID4gPiArZHJtX2dlbV91bm1hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0
-dGFjaCwKPiA+ID4gKwkJCSAgIHN0cnVjdCBzZ190YWJsZSAqc2d0LAo+ID4gPiArCQkJICAgZW51
-bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGlyKTsgdm9pZAo+ID4gPiArKmRybV9nZW1fZG1hYnVmX3Zt
-YXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYpOyB2b2lkCj4gPiA+ICtkcm1fZ2VtX2RtYWJ1Zl92
-dW5tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHZvaWQgKnZhZGRyKTsKPiB2b2lkCj4gPiA+
-ICsqZHJtX2dlbV9kbWFidWZfa21hcF9hdG9taWMoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4g
-PiA+ICsJCQkJIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0pOwo+ID4gPiArdm9pZCBkcm1fZ2VtX2Rt
-YWJ1Zl9rdW5tYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gPiArCQkJCSAg
-dW5zaWduZWQgbG9uZyBwYWdlX251bSwgdm9pZCAqYWRkcik7IHZvaWQKPiA+ID4gKypkcm1fZ2Vt
-X2RtYWJ1Zl9rbWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCB1bnNpZ25lZCBsb25nCj4gPiA+
-ICtwYWdlX251bSk7IHZvaWQgZHJtX2dlbV9kbWFidWZfa3VubWFwKHN0cnVjdCBkbWFfYnVmCj4g
-KmRtYV9idWYsIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0sCj4gPiA+ICsJCQkgICB2b2lkICphZGRy
-KTsKPiA+ID4gK2ludCBkcm1fZ2VtX2RtYWJ1Zl9tbWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVm
-LCBzdHJ1Y3QKPiA+ID4gK3ZtX2FyZWFfc3RydWN0ICp2bWEpOwo+ID4gPiAgIGludCBkcm1fcHJp
-bWVfc2dfdG9fcGFnZV9hZGRyX2FycmF5cyhzdHJ1Y3Qgc2dfdGFibGUgKnNndCwgc3RydWN0Cj4g
-cGFnZSAqKnBhZ2VzLAo+ID4gPiAgIAkJCQkgICAgIGRtYV9hZGRyX3QgKmFkZHJzLCBpbnQgbWF4
-X3BhZ2VzKTsKPiA+Cj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwo+ID4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+ID4gZHJpLWRldmVsQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9kcmktZGV2ZWwKPiAKPiAtLQo+IERhbmllbCBWZXR0ZXIKPiBTb2Z0d2FyZSBFbmdp
-bmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPiBodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0589420597==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652646849B5874BFB9F209AF7100BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652646849B5874BFB9F209AF7100BN6PR12MB1652namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+I'll can push this and a few other misc patches today.
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Li, Samu=
+el <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, January 9, 2018 10:20 AM
+To: Daniel Vetter; Koenig, Christian
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH 2/3] drm: export gem dmabuf_ops for drivers to reuse
+
+Yes, please hush this for me.
+
+Regards,
+Samuel Li
+
+
+> -----Original Message-----
+> From: Daniel Vetter [mailto:daniel.vetter-/w4YWyX8dFk@public.gmane.org] On Behalf Of Daniel
+> Vetter
+> Sent: Tuesday, January 09, 2018 4:22 AM
+> To: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+> Cc: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org>; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; amd-
+> gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Subject: Re: [PATCH 2/3] drm: export gem dmabuf_ops for drivers to reuse
+>
+> On Fri, Jan 05, 2018 at 10:16:04AM +0100, Christian K=F6nig wrote:
+> > Am 04.01.2018 um 22:12 schrieb Samuel Li:
+> > > Change-Id: I03c22a890d2305f3243d88019d1a28bddd4ddda7
+> > > Signed-off-by: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+> >
+> > Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>
+> Want to push to drm-misc or some other plan with this?
+> -Daniel
+>
+> >
+> > > ---
+> > >   drivers/gpu/drm/drm_prime.c | 53 ++++++++++++++++++++++++++---
+> ----------------
+> > >   include/drm/drm_prime.h     | 22 +++++++++++++++++++
+> > >   2 files changed, 53 insertions(+), 22 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/drm_prime.c
+> > > b/drivers/gpu/drm/drm_prime.c index 8de93a2..68a69e9 100644
+> > > --- a/drivers/gpu/drm/drm_prime.c
+> > > +++ b/drivers/gpu/drm/drm_prime.c
+> > > @@ -180,9 +180,8 @@ static int drm_prime_lookup_buf_handle(struct
+> drm_prime_file_private *prime_fpri
+> > >    return -ENOENT;
+> > >   }
+> > > -static int drm_gem_map_attach(struct dma_buf *dma_buf,
+> > > -                       struct device *target_dev,
+> > > -                       struct dma_buf_attachment *attach)
+> > > +int drm_gem_map_attach(struct dma_buf *dma_buf, struct device
+> *target_dev,
+> > > +                struct dma_buf_attachment *attach)
+> > >   {
+> > >    struct drm_prime_attachment *prime_attach;
+> > >    struct drm_gem_object *obj =3D dma_buf->priv; @@ -200,9 +199,10
+> @@
+> > > static int drm_gem_map_attach(struct dma_buf *dma_buf,
+> > >    return dev->driver->gem_prime_pin(obj);
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_map_attach);
+> > > -static void drm_gem_map_detach(struct dma_buf *dma_buf,
+> > > -                        struct dma_buf_attachment *attach)
+> > > +void drm_gem_map_detach(struct dma_buf *dma_buf,
+> > > +                 struct dma_buf_attachment *attach)
+> > >   {
+> > >    struct drm_prime_attachment *prime_attach =3D attach->priv;
+> > >    struct drm_gem_object *obj =3D dma_buf->priv; @@ -227,6 +227,7
+> @@
+> > > static void drm_gem_map_detach(struct dma_buf *dma_buf,
+> > >    kfree(prime_attach);
+> > >    attach->priv =3D NULL;
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_map_detach);
+> > >   void drm_prime_remove_buf_handle_locked(struct
+> drm_prime_file_private *prime_fpriv,
+> > >                                    struct dma_buf *dma_buf)
+> > > @@ -253,8 +254,8 @@ void
+> drm_prime_remove_buf_handle_locked(struct drm_prime_file_private
+> *prime_fpr
+> > >    }
+> > >   }
+> > > -static struct sg_table *drm_gem_map_dma_buf(struct
+> dma_buf_attachment *attach,
+> > > -                                     enum dma_data_direction dir)
+> > > +struct sg_table *drm_gem_map_dma_buf(struct dma_buf_attachment
+> *attach,
+> > > +                              enum dma_data_direction dir)
+> > >   {
+> > >    struct drm_prime_attachment *prime_attach =3D attach->priv;
+> > >    struct drm_gem_object *obj =3D attach->dmabuf->priv; @@ -289,13
+> > > +290,15 @@ static struct sg_table *drm_gem_map_dma_buf(struct
+> dma_buf_attachment *attach,
+> > >    return sgt;
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_map_dma_buf);
+> > > -static void drm_gem_unmap_dma_buf(struct dma_buf_attachment
+> *attach,
+> > > -                           struct sg_table *sgt,
+> > > -                           enum dma_data_direction dir)
+> > > +void drm_gem_unmap_dma_buf(struct dma_buf_attachment *attach,
+> > > +                    struct sg_table *sgt,
+> > > +                    enum dma_data_direction dir)
+> > >   {
+> > >    /* nothing to be done here */
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_unmap_dma_buf);
+> > >   /**
+> > >    * drm_gem_dmabuf_export - dma_buf export implementation for
+> GEM
+> > > @@ -346,47 +349,52 @@ void drm_gem_dmabuf_release(struct
+> dma_buf *dma_buf)
+> > >   }
+> > >   EXPORT_SYMBOL(drm_gem_dmabuf_release);
+> > > -static void *drm_gem_dmabuf_vmap(struct dma_buf *dma_buf)
+> > > +void *drm_gem_dmabuf_vmap(struct dma_buf *dma_buf)
+> > >   {
+> > >    struct drm_gem_object *obj =3D dma_buf->priv;
+> > >    struct drm_device *dev =3D obj->dev;
+> > >    return dev->driver->gem_prime_vmap(obj);
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
+> > > -static void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void
+> > > *vaddr)
+> > > +void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void
+> *vaddr)
+> > >   {
+> > >    struct drm_gem_object *obj =3D dma_buf->priv;
+> > >    struct drm_device *dev =3D obj->dev;
+> > >    dev->driver->gem_prime_vunmap(obj, vaddr);
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
+> > > -static void *drm_gem_dmabuf_kmap_atomic(struct dma_buf
+> *dma_buf,
+> > > -                                 unsigned long page_num)
+> > > +void *drm_gem_dmabuf_kmap_atomic(struct dma_buf *dma_buf,
+> > > +                          unsigned long page_num)
+> > >   {
+> > >    return NULL;
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_dmabuf_kmap_atomic);
+> > > -static void drm_gem_dmabuf_kunmap_atomic(struct dma_buf
+> *dma_buf,
+> > > -                                  unsigned long page_num, void *addr=
+)
+> > > +void drm_gem_dmabuf_kunmap_atomic(struct dma_buf *dma_buf,
+> > > +                           unsigned long page_num, void *addr)
+> > >   {
+> > >   }
+> > > -static void *drm_gem_dmabuf_kmap(struct dma_buf *dma_buf,
+> > > -                          unsigned long page_num)
+> > > +EXPORT_SYMBOL(drm_gem_dmabuf_kunmap_atomic);
+> > > +
+> > > +void *drm_gem_dmabuf_kmap(struct dma_buf *dma_buf, unsigned
+> long
+> > > +page_num)
+> > >   {
+> > >    return NULL;
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_dmabuf_kmap);
+> > > -static void drm_gem_dmabuf_kunmap(struct dma_buf *dma_buf,
+> > > -                           unsigned long page_num, void *addr)
+> > > +void drm_gem_dmabuf_kunmap(struct dma_buf *dma_buf, unsigned
+> long page_num,
+> > > +                    void *addr)
+> > >   {
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_dmabuf_kunmap);
+> > > -static int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf,
+> > > -                        struct vm_area_struct *vma)
+> > > +int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct
+> > > +vm_area_struct *vma)
+> > >   {
+> > >    struct drm_gem_object *obj =3D dma_buf->priv;
+> > >    struct drm_device *dev =3D obj->dev; @@ -396,6 +404,7 @@ static in=
+t
+> > > drm_gem_dmabuf_mmap(struct dma_buf *dma_buf,
+> > >    return dev->driver->gem_prime_mmap(obj, vma);
+> > >   }
+> > > +EXPORT_SYMBOL(drm_gem_dmabuf_mmap);
+> > >   static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =3D  {
+> > >    .attach =3D drm_gem_map_attach,
+> > > diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h index
+> > > 9cd9e36..4d5f5d6 100644
+> > > --- a/include/drm/drm_prime.h
+> > > +++ b/include/drm/drm_prime.h
+> > > @@ -54,6 +54,9 @@ struct device;
+> > >   struct dma_buf_export_info;
+> > >   struct dma_buf;
+> > > +struct dma_buf_attachment;
+> > > +
+> > > +enum dma_data_direction;
+> > >   struct drm_device;
+> > >   struct drm_gem_object;
+> > > @@ -79,6 +82,25 @@ int drm_gem_prime_fd_to_handle(struct
+> drm_device *dev,
+> > >   struct dma_buf *drm_gem_dmabuf_export(struct drm_device *dev,
+> > >                                  struct dma_buf_export_info *exp_info=
+);
+> > >   void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
+> > > +int drm_gem_map_attach(struct dma_buf *dma_buf, struct device
+> *target_dev,
+> > > +                struct dma_buf_attachment *attach); void
+> > > +drm_gem_map_detach(struct dma_buf *dma_buf,
+> > > +                 struct dma_buf_attachment *attach); struct sg_table
+> > > +*drm_gem_map_dma_buf(struct dma_buf_attachment *attach,
+> > > +                              enum dma_data_direction dir); void
+> > > +drm_gem_unmap_dma_buf(struct dma_buf_attachment *attach,
+> > > +                    struct sg_table *sgt,
+> > > +                    enum dma_data_direction dir); void
+> > > +*drm_gem_dmabuf_vmap(struct dma_buf *dma_buf); void
+> > > +drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void *vaddr);
+> void
+> > > +*drm_gem_dmabuf_kmap_atomic(struct dma_buf *dma_buf,
+> > > +                          unsigned long page_num);
+> > > +void drm_gem_dmabuf_kunmap_atomic(struct dma_buf *dma_buf,
+> > > +                           unsigned long page_num, void *addr); void
+> > > +*drm_gem_dmabuf_kmap(struct dma_buf *dma_buf, unsigned long
+> > > +page_num); void drm_gem_dmabuf_kunmap(struct dma_buf
+> *dma_buf, unsigned long page_num,
+> > > +                    void *addr);
+> > > +int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct
+> > > +vm_area_struct *vma);
+> > >   int drm_prime_sg_to_page_addr_arrays(struct sg_table *sgt, struct
+> page **pages,
+> > >                                 dma_addr_t *addrs, int max_pages);
+> >
+> > _______________________________________________
+> > dri-devel mailing list
+> > dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1652646849B5874BFB9F209AF7100BN6PR12MB1652namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">I'll can push this and a few othe=
+r misc patches today.<br>
+</p>
+<br>
+Alex<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Li, Samuel &lt;Samuel.Li@am=
+d.com&gt;<br>
+<b>Sent:</b> Tuesday, January 9, 2018 10:20 AM<br>
+<b>To:</b> Daniel Vetter; Koenig, Christian<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<b=
+r>
+<b>Subject:</b> RE: [PATCH 2/3] drm: export gem dmabuf_ops for drivers to r=
+euse</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Yes, please hush this for me.<br>
+<br>
+Regards,<br>
+Samuel Li<br>
+<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Daniel Vetter [<a href=3D"mailto:daniel.vetter-/w4YWyX8dFk@public.gmane.org">mailto:=
+daniel.vetter-/w4YWyX8dFk@public.gmane.org</a>] On Behalf Of Daniel<br>
+&gt; Vetter<br>
+&gt; Sent: Tuesday, January 09, 2018 4:22 AM<br>
+&gt; To: Koenig, Christian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Cc: Li, Samuel &lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;; dri-devel-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org; amd-<br>
+&gt; gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; Subject: Re: [PATCH 2/3] drm: export gem dmabuf_ops for drivers to reu=
+se<br>
+&gt; <br>
+&gt; On Fri, Jan 05, 2018 at 10:16:04AM &#43;0100, Christian K=F6nig wrote:=
+<br>
+&gt; &gt; Am 04.01.2018 um 22:12 schrieb Samuel Li:<br>
+&gt; &gt; &gt; Change-Id: I03c22a890d2305f3243d88019d1a28bddd4ddda7<br>
+&gt; &gt; &gt; Signed-off-by: Samuel Li &lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<b=
+r>
+&gt; <br>
+&gt; Want to push to drm-misc or some other plan with this?<br>
+&gt; -Daniel<br>
+&gt; <br>
+&gt; &gt;<br>
+&gt; &gt; &gt; ---<br>
+&gt; &gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/drm_prime.c | 53 &#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---<br>
+&gt; ----------------<br>
+&gt; &gt; &gt;&nbsp;&nbsp; include/drm/drm_prime.h&nbsp;&nbsp;&nbsp;&nbsp; =
+| 22 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; 2 files changed, 53 insertions(&#43;), 22 deleti=
+ons(-)<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; diff --git a/drivers/gpu/drm/drm_prime.c<br>
+&gt; &gt; &gt; b/drivers/gpu/drm/drm_prime.c index 8de93a2..68a69e9 100644<=
+br>
+&gt; &gt; &gt; --- a/drivers/gpu/drm/drm_prime.c<br>
+&gt; &gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/drm_prime.c<br>
+&gt; &gt; &gt; @@ -180,9 &#43;180,8 @@ static int drm_prime_lookup_buf_hand=
+le(struct<br>
+&gt; drm_prime_file_private *prime_fpri<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; return -ENOENT;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; -static int drm_gem_map_attach(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s=
+truct device *target_dev,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s=
+truct dma_buf_attachment *attach)<br>
+&gt; &gt; &gt; &#43;int drm_gem_map_attach(struct dma_buf *dma_buf, struct =
+device<br>
+&gt; *target_dev,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_buf_attachment *attach)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_prime_attachment *prime_attach;=
+<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj =3D dma_buf-&gt=
+;priv; @@ -200,9 &#43;199,10<br>
+&gt; @@<br>
+&gt; &gt; &gt; static int drm_gem_map_attach(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; return dev-&gt;driver-&gt;gem_prime_pin(ob=
+j);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_map_attach);<br>
+&gt; &gt; &gt; -static void drm_gem_map_detach(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; struct dma_buf_attachment *attach)<br>
+&gt; &gt; &gt; &#43;void drm_gem_map_detach(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_buf_attachment *attach=
+)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_prime_attachment *prime_attach =
+=3D attach-&gt;priv;<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj =3D dma_buf-&gt=
+;priv; @@ -227,6 &#43;227,7<br>
+&gt; @@<br>
+&gt; &gt; &gt; static void drm_gem_map_detach(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; kfree(prime_attach);<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; attach-&gt;priv =3D NULL;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_map_detach);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; void drm_prime_remove_buf_handle_locked(struct<b=
+r>
+&gt; drm_prime_file_private *prime_fpriv,<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+struct dma_buf *dma_buf)<br>
+&gt; &gt; &gt; @@ -253,8 &#43;254,8 @@ void<br>
+&gt; drm_prime_remove_buf_handle_locked(struct drm_prime_file_private<br>
+&gt; *prime_fpr<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; -static struct sg_table *drm_gem_map_dma_buf(struct<br>
+&gt; dma_buf_attachment *attach,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; enum dma_data_direction dir)<br>
+&gt; &gt; &gt; &#43;struct sg_table *drm_gem_map_dma_buf(struct dma_buf_att=
+achment<br>
+&gt; *attach,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum dma_data_direction dir)<b=
+r>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_prime_attachment *prime_attach =
+=3D attach-&gt;priv;<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj =3D attach-&gt;=
+dmabuf-&gt;priv; @@ -289,13<br>
+&gt; &gt; &gt; &#43;290,15 @@ static struct sg_table *drm_gem_map_dma_buf(s=
+truct<br>
+&gt; dma_buf_attachment *attach,<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; return sgt;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_map_dma_buf);<br>
+&gt; &gt; &gt; -static void drm_gem_unmap_dma_buf(struct dma_buf_attachment=
+<br>
+&gt; *attach,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; struct sg_table *sgt,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; enum dma_data_direction dir)<br>
+&gt; &gt; &gt; &#43;void drm_gem_unmap_dma_buf(struct dma_buf_attachment *a=
+ttach,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct sg_table=
+ *sgt,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum dma_data_d=
+irection dir)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; /* nothing to be done here */<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_unmap_dma_buf);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; /**<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; * drm_gem_dmabuf_export - dma_buf export i=
+mplementation for<br>
+&gt; GEM<br>
+&gt; &gt; &gt; @@ -346,47 &#43;349,52 @@ void drm_gem_dmabuf_release(struct=
+<br>
+&gt; dma_buf *dma_buf)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt;&nbsp;&nbsp; EXPORT_SYMBOL(drm_gem_dmabuf_release);<br>
+&gt; &gt; &gt; -static void *drm_gem_dmabuf_vmap(struct dma_buf *dma_buf)<b=
+r>
+&gt; &gt; &gt; &#43;void *drm_gem_dmabuf_vmap(struct dma_buf *dma_buf)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj =3D dma_buf-&gt=
+;priv;<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D obj-&gt;dev;<br=
+>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; return dev-&gt;driver-&gt;gem_prime_vmap(o=
+bj);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_dmabuf_vmap);<br>
+&gt; &gt; &gt; -static void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, =
+void<br>
+&gt; &gt; &gt; *vaddr)<br>
+&gt; &gt; &gt; &#43;void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, voi=
+d<br>
+&gt; *vaddr)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj =3D dma_buf-&gt=
+;priv;<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D obj-&gt;dev;<br=
+>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; dev-&gt;driver-&gt;gem_prime_vunmap(obj, v=
+addr);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);<br>
+&gt; &gt; &gt; -static void *drm_gem_dmabuf_kmap_atomic(struct dma_buf<br>
+&gt; *dma_buf,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long pa=
+ge_num)<br>
+&gt; &gt; &gt; &#43;void *drm_gem_dmabuf_kmap_atomic(struct dma_buf *dma_bu=
+f,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; unsigned long page_num)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; return NULL;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_dmabuf_kmap_atomic);<br>
+&gt; &gt; &gt; -static void drm_gem_dmabuf_kunmap_atomic(struct dma_buf<br>
+&gt; *dma_buf,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned l=
+ong page_num, void *addr)<br>
+&gt; &gt; &gt; &#43;void drm_gem_dmabuf_kunmap_atomic(struct dma_buf *dma_b=
+uf,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long page_num, void *addr)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; -static void *drm_gem_dmabuf_kmap(struct dma_buf *dma_buf,<b=
+r>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; unsigned long page_num)<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_dmabuf_kunmap_atomic);<br>
+&gt; &gt; &gt; &#43;<br>
+&gt; &gt; &gt; &#43;void *drm_gem_dmabuf_kmap(struct dma_buf *dma_buf, unsi=
+gned<br>
+&gt; long<br>
+&gt; &gt; &gt; &#43;page_num)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; return NULL;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_dmabuf_kmap);<br>
+&gt; &gt; &gt; -static void drm_gem_dmabuf_kunmap(struct dma_buf *dma_buf,<=
+br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; unsigned long page_num, void *addr)<br>
+&gt; &gt; &gt; &#43;void drm_gem_dmabuf_kunmap(struct dma_buf *dma_buf, uns=
+igned<br>
+&gt; long page_num,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *addr)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_dmabuf_kunmap);<br>
+&gt; &gt; &gt; -static int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; struct vm_area_struct *vma)<br>
+&gt; &gt; &gt; &#43;int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct=
+<br>
+&gt; &gt; &gt; &#43;vm_area_struct *vma)<br>
+&gt; &gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj =3D dma_buf-&gt=
+;priv;<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D obj-&gt;dev; @@=
+ -396,6 &#43;404,7 @@ static int<br>
+&gt; &gt; &gt; drm_gem_dmabuf_mmap(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; return dev-&gt;driver-&gt;gem_prime_mmap(o=
+bj, vma);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt; &gt; &#43;EXPORT_SYMBOL(drm_gem_dmabuf_mmap);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; static const struct dma_buf_ops drm_gem_prime_dm=
+abuf_ops =3D&nbsp; {<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp; .attach =3D drm_gem_map_attach,<br>
+&gt; &gt; &gt; diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime=
+.h index<br>
+&gt; &gt; &gt; 9cd9e36..4d5f5d6 100644<br>
+&gt; &gt; &gt; --- a/include/drm/drm_prime.h<br>
+&gt; &gt; &gt; &#43;&#43;&#43; b/include/drm/drm_prime.h<br>
+&gt; &gt; &gt; @@ -54,6 &#43;54,9 @@ struct device;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; struct dma_buf_export_info;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; struct dma_buf;<br>
+&gt; &gt; &gt; &#43;struct dma_buf_attachment;<br>
+&gt; &gt; &gt; &#43;<br>
+&gt; &gt; &gt; &#43;enum dma_data_direction;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; struct drm_device;<br>
+&gt; &gt; &gt;&nbsp;&nbsp; struct drm_gem_object;<br>
+&gt; &gt; &gt; @@ -79,6 &#43;82,25 @@ int drm_gem_prime_fd_to_handle(struct=
+<br>
+&gt; drm_device *dev,<br>
+&gt; &gt; &gt;&nbsp;&nbsp; struct dma_buf *drm_gem_dmabuf_export(struct drm=
+_device *dev,<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_b=
+uf_export_info *exp_info);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; void drm_gem_dmabuf_release(struct dma_buf *dma_=
+buf);<br>
+&gt; &gt; &gt; &#43;int drm_gem_map_attach(struct dma_buf *dma_buf, struct =
+device<br>
+&gt; *target_dev,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_buf_attachment *attach); voi=
+d<br>
+&gt; &gt; &gt; &#43;drm_gem_map_detach(struct dma_buf *dma_buf,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_buf_attachment *attach=
+); struct sg_table<br>
+&gt; &gt; &gt; &#43;*drm_gem_map_dma_buf(struct dma_buf_attachment *attach,=
+<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum dma_data_direction dir); =
+void<br>
+&gt; &gt; &gt; &#43;drm_gem_unmap_dma_buf(struct dma_buf_attachment *attach=
+,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct sg_table=
+ *sgt,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum dma_data_d=
+irection dir); void<br>
+&gt; &gt; &gt; &#43;*drm_gem_dmabuf_vmap(struct dma_buf *dma_buf); void<br>
+&gt; &gt; &gt; &#43;drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, void *va=
+ddr);<br>
+&gt; void<br>
+&gt; &gt; &gt; &#43;*drm_gem_dmabuf_kmap_atomic(struct dma_buf *dma_buf,<br=
+>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; unsigned long page_num);<br>
+&gt; &gt; &gt; &#43;void drm_gem_dmabuf_kunmap_atomic(struct dma_buf *dma_b=
+uf,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long page_num, void *addr); void<br>
+&gt; &gt; &gt; &#43;*drm_gem_dmabuf_kmap(struct dma_buf *dma_buf, unsigned =
+long<br>
+&gt; &gt; &gt; &#43;page_num); void drm_gem_dmabuf_kunmap(struct dma_buf<br=
+>
+&gt; *dma_buf, unsigned long page_num,<br>
+&gt; &gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *addr);<br=
+>
+&gt; &gt; &gt; &#43;int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct=
+<br>
+&gt; &gt; &gt; &#43;vm_area_struct *vma);<br>
+&gt; &gt; &gt;&nbsp;&nbsp; int drm_prime_sg_to_page_addr_arrays(struct sg_t=
+able *sgt, struct<br>
+&gt; page **pages,<br>
+&gt; &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_addr_t *addrs,=
+ int max_pages);<br>
+&gt; &gt;<br>
+&gt; &gt; _______________________________________________<br>
+&gt; &gt; dri-devel mailing list<br>
+&gt; &gt; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-dev=
+el">https://lists.freedesktop.org/mailman/listinfo/dri-devel</a><br>
+&gt; <br>
+&gt; --<br>
+&gt; Daniel Vetter<br>
+&gt; Software Engineer, Intel Corporation<br>
+&gt; <a href=3D"http://blog.ffwll.ch">http://blog.ffwll.ch</a><br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652646849B5874BFB9F209AF7100BN6PR12MB1652namp_--
+
+--===============0589420597==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0589420597==--
