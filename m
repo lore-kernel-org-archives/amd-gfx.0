@@ -1,19 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display when
- print_clock_levels
-Date: Mon, 8 Jan 2018 21:18:33 +0000
-Message-ID: <BN6PR12MB1652592A32877B4A306CA655F7130@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1515405451-16492-1-git-send-email-Rex.Zhu@amd.com>
- <1515405451-16492-2-git-send-email-Rex.Zhu@amd.com>
- <b0f6ccfc-eb6b-be04-9122-4b3dd9b73979@amd.com>
- <CADnq5_O_Dqj51NLAYddSsDg_9ZvLF-+niEmVwEZ45=OZ27PMYQ@mail.gmail.com>
- ,
- <BN6PR1201MB0180DCC58FCE82683ED7591485130@BN6PR1201MB0180.namprd12.prod.outlook.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm: export gem dmabuf_ops for drivers to reuse
+Date: Tue, 9 Jan 2018 10:22:01 +0100
+Message-ID: <20180109092201.GE26573@phenom.ffwll.local>
+References: <1515100334-6845-1-git-send-email-Samuel.Li@amd.com>
+ <c816da24-7676-8cef-528f-77bfa44af049@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2055416826=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR1201MB0180DCC58FCE82683ED7591485130-6iU6OBHu2P/H0AMcJMwsYmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <c816da24-7676-8cef-528f-77bfa44af049-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,581 +20,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 
---===============2055416826==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652592A32877B4A306CA655F7130BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652592A32877B4A306CA655F7130BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-The changes to the pp_dpm_files are purely informational with this patch (y=
-ou can't actually interact with the stable pstate) so I think they should b=
-e dropped and exposed some other way.  Setting the profile modes via force_=
-performance_level forces the clocks and disables clock and power gating.  T=
-hat is the interface you should use to interact with it.
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Russell,=
- Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, January 8, 2018 3:22 PM
-To: Alex Deucher; Kuehling, Felix
-Cc: amd-gfx list
-Subject: RE: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display when pri=
-nt_clock_levels
-
-Sorry, I just re-read and saw that this will be in sclk and mclk, not just =
-mclk. So will this have a direct impact on any other functionality, or will=
- it just disable clock/power gating and prevent the clocks from changing?
-
- Kent
-
------Original Message-----
-From: Russell, Kent
-Sent: Monday, January 08, 2018 2:52 PM
-To: 'Alex Deucher'; Kuehling, Felix
-Cc: amd-gfx list
-Subject: RE: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display when pri=
-nt_clock_levels
-
-And yes, it will confuse the SMI in a couple functions, but thankfully it's=
- nice enough that I can fix it with a couple lines.
-
-So just to make sure that I understand this correctly, if a user were to ec=
-ho P to the pp_dpm_mclk file, it would disable clockgating and powergating =
-and keep the memory clocks at a stable level (likely level 0)? And this wou=
-ld have no impact on the SCLK or Power Profile or anything else, just the m=
-clk? Just asking so I know how to implement it in the SMI. Thanks!
-
- Kent
-
------Original Message-----
-From: Alex Deucher [mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
-Sent: Monday, January 08, 2018 2:35 PM
-To: Kuehling, Felix
-Cc: amd-gfx list; Russell, Kent
-Subject: Re: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display when pri=
-nt_clock_levels
-
-On Mon, Jan 8, 2018 at 2:20 PM, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org> wro=
-te:
-> [+Kent]
->
-> What does stable pstate mean? What is it used for?
-
-This is used for the profiling stuff in force_performance_level.  It disabl=
-es clock and power gating and sets stable clock levels for doing performanc=
-e profiling.
-
-Alex
-
->
-> Hi Kent,
->
-> Is this going to confuse rocm_smi?
->
-> Regards,
->   Felix
->
->
-> On 2018-01-08 04:57 AM, Rex Zhu wrote:
->> The additional output are at the end of sclk/mclk info as cat
->> pp_dpm_mclk
->> 0: 300Mhz *
->> 1: 1650Mhz
->> P: 300Mhz
->>
->> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
->>
->> Change-Id: Idf8eeedb5d399d9ffb7de7a2fb2976c7fa7c01a8
->> ---
->>  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     | 2 ++
->>  drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c     | 2 ++
->>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 2 ++
->>  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 ++
->>  4 files changed, 8 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
->> b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
->> index f68dd08..03dfba0 100644
->> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
->> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
->> @@ -1601,6 +1601,7 @@ static int cz_print_clock_levels(struct pp_hwmgr *=
-hwmgr,
->>                       size +=3D sprintf(buf + size, "%d: %uMhz %s\n",
->>                                       i, sclk_table->entries[i].clk / 10=
-0,
->>                                       (i =3D=3D now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_sclk/100);
->>               break;
->>       case PP_MCLK:
->>               now =3D
->> PHM_GET_FIELD(cgs_read_ind_register(hwmgr->device,
->> @@ -1613,6 +1614,7 @@ static int cz_print_clock_levels(struct pp_hwmgr *=
-hwmgr,
->>                       size +=3D sprintf(buf + size, "%d: %uMhz %s\n",
->>                                       CZ_NUM_NBPMEMORYCLOCK-i, data->sys=
-_info.nbp_memory_clock[i-1] / 100,
->>                                       (CZ_NUM_NBPMEMORYCLOCK-i =3D=3D
->> now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_mclk/100);
->>               break;
->>       default:
->>               break;
->> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
->> b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
->> index 409a56b..88c6ad8 100644
->> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
->> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
->> @@ -756,6 +756,7 @@ static int rv_print_clock_levels(struct pp_hwmgr *hw=
-mgr,
->>                               data->gfx_max_freq_limit / 100,
->>                               ((data->gfx_max_freq_limit / 100)
->>                                =3D=3D now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_sclk/100);
->>               break;
->>       case PP_MCLK:
->>               PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr,
->> @@ -773,6 +774,7 @@ static int rv_print_clock_levels(struct pp_hwmgr *hw=
-mgr,
->>                                       mclk_table->entries[i].clk / 100,
->>                                       ((mclk_table->entries[i].clk / 100=
-)
->>                                        =3D=3D now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_mclk/100);
->>               break;
->>       default:
->>               break;
->> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
->> b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
->> index 72031bd..1bdcd86 100644
->> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
->> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
->> @@ -4372,6 +4372,7 @@ static int smu7_print_clock_levels(struct pp_hwmgr=
- *hwmgr,
->>                       size +=3D sprintf(buf + size, "%d: %uMhz %s\n",
->>                                       i, sclk_table->dpm_levels[i].value=
- / 100,
->>                                       (i =3D=3D now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_sclk/100);
->>               break;
->>       case PP_MCLK:
->>               smum_send_msg_to_smc(hwmgr,
->> PPSMC_MSG_API_GetMclkFrequency); @@ -4388,6 +4389,7 @@ static int smu7_p=
-rint_clock_levels(struct pp_hwmgr *hwmgr,
->>                       size +=3D sprintf(buf + size, "%d: %uMhz %s\n",
->>                                       i, mclk_table->dpm_levels[i].value=
- / 100,
->>                                       (i =3D=3D now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_mclk/100);
->>               break;
->>       case PP_PCIE:
->>               pcie_speed =3D smu7_get_current_pcie_speed(hwmgr);
->> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
->> b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
->> index cb35f4f..cab50fc 100644
->> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
->> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
->> @@ -4565,6 +4565,7 @@ static int vega10_print_clock_levels(struct pp_hwm=
-gr *hwmgr,
->>                       size +=3D sprintf(buf + size, "%d: %uMhz %s\n",
->>                                       i, sclk_table->dpm_levels[i].value=
- / 100,
->>                                       (i =3D=3D now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_sclk/100);
->>               break;
->>       case PP_MCLK:
->>               if (data->registry_data.mclk_dpm_key_disabled)
->> @@ -4583,6 +4584,7 @@ static int vega10_print_clock_levels(struct pp_hwm=
-gr *hwmgr,
->>                       size +=3D sprintf(buf + size, "%d: %uMhz %s\n",
->>                                       i, mclk_table->dpm_levels[i].value=
- / 100,
->>                                       (i =3D=3D now) ? "*" : "");
->> +             size +=3D sprintf(buf + size, "P: %uMhz\n",
->> + hwmgr->pstate_mclk/100);
->>               break;
->>       case PP_PCIE:
->>               PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr,
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1652592A32877B4A306CA655F7130BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">The changes to the pp_dpm_files a=
-re purely informational with this patch (you can't actually interact with t=
-he stable pstate) so I think they should be dropped and exposed some other =
-way.&nbsp; Setting the profile modes via
- force_performance_level forces the clocks and disables clock and power gat=
-ing.&nbsp; That is the interface you should use to interact with it.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Russell, Kent &lt;Kent.Russ=
-ell-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, January 8, 2018 3:22 PM<br>
-<b>To:</b> Alex Deucher; Kuehling, Felix<br>
-<b>Cc:</b> amd-gfx list<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display w=
-hen print_clock_levels</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Sorry, I just re-read and saw that this will be in=
- sclk and mclk, not just mclk. So will this have a direct impact on any oth=
-er functionality, or will it just disable clock/power gating and prevent th=
-e clocks from changing?<br>
-<br>
-&nbsp;Kent<br>
-<br>
------Original Message-----<br>
-From: Russell, Kent <br>
-Sent: Monday, January 08, 2018 2:52 PM<br>
-To: 'Alex Deucher'; Kuehling, Felix<br>
-Cc: amd-gfx list<br>
-Subject: RE: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display when pri=
-nt_clock_levels<br>
-<br>
-And yes, it will confuse the SMI in a couple functions, but thankfully it's=
- nice enough that I can fix it with a couple lines.
-<br>
-<br>
-So just to make sure that I understand this correctly, if a user were to ec=
-ho P to the pp_dpm_mclk file, it would disable clockgating and powergating =
-and keep the memory clocks at a stable level (likely level 0)? And this wou=
-ld have no impact on the SCLK or
- Power Profile or anything else, just the mclk? Just asking so I know how t=
-o implement it in the SMI. Thanks!<br>
-<br>
-&nbsp;Kent<br>
-<br>
------Original Message-----<br>
-From: Alex Deucher [<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mailto:alexdeu=
-cher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]<br>
-Sent: Monday, January 08, 2018 2:35 PM<br>
-To: Kuehling, Felix<br>
-Cc: amd-gfx list; Russell, Kent<br>
-Subject: Re: [PATCH 2/2] drm/amd/pp: Add stable Pstate clk display when pri=
-nt_clock_levels<br>
-<br>
-On Mon, Jan 8, 2018 at 2:20 PM, Felix Kuehling &lt;felix.kuehling-5C7GfCeVMHo@public.gmane.org&g=
-t; wrote:<br>
-&gt; [&#43;Kent]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-&gt;<br>
-&gt; What does stable pstate mean? What is it used for?<br>
-<br>
-This is used for the profiling stuff in force_performance_level.&nbsp; It d=
-isables clock and power gating and sets stable clock levels for doing perfo=
-rmance profiling.<br>
-<br>
-Alex<br>
-<br>
-&gt;<br>
-&gt; Hi Kent,<br>
-&gt;<br>
-&gt; Is this going to confuse rocm_smi?<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt;&nbsp;&nbsp; Felix<br>
-&gt;<br>
-&gt;<br>
-&gt; On 2018-01-08 04:57 AM, Rex Zhu wrote:<br>
-&gt;&gt; The additional output are at the end of sclk/mclk info as cat <br>
-&gt;&gt; pp_dpm_mclk<br>
-&gt;&gt; 0: 300Mhz *<br>
-&gt;&gt; 1: 1650Mhz<br>
-&gt;&gt; P: 300Mhz<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; Change-Id: Idf8eeedb5d399d9ffb7de7a2fb2976c7fa7c01a8<br>
-&gt;&gt; ---<br>
-&gt;&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c&nbsp;&nbsp;&n=
-bsp;&nbsp; | 2 &#43;&#43;<br>
-&gt;&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c&nbsp;&nbsp;&n=
-bsp;&nbsp; | 2 &#43;&#43;<br>
-&gt;&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp;=
- | 2 &#43;&#43;<br>
-&gt;&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 &#43;=
-&#43;<br>
-&gt;&gt;&nbsp; 4 files changed, 8 insertions(&#43;)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt;&gt; index f68dd08..03dfba0 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<b=
-r>
-&gt;&gt; @@ -1601,6 &#43;1601,7 @@ static int cz_print_clock_levels(struct =
-pp_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43=
-;=3D sprintf(buf &#43; size, &quot;%d: %uMhz %s\n&quot;,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; i, sclk_table-&gt;entries[i].clk / 100,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (i =3D=3D now) ? &quot;*&quot; : &quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_sclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_MCLK:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; now =3D<br>
-&gt;&gt; PHM_GET_FIELD(cgs_read_ind_register(hwmgr-&gt;device,<br>
-&gt;&gt; @@ -1613,6 &#43;1614,7 @@ static int cz_print_clock_levels(struct =
-pp_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43=
-;=3D sprintf(buf &#43; size, &quot;%d: %uMhz %s\n&quot;,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; CZ_NUM_NBPMEMORYCLOCK-i, data-&gt;sys_info.nbp_memory_clock[i-1=
-] / 100,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (CZ_NUM_NBPMEMORYCLOCK-i =3D=3D<br>
-&gt;&gt; now) ? &quot;*&quot; : &quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_mclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
-&gt;&gt; index 409a56b..88c6ad8 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<b=
-r>
-&gt;&gt; @@ -756,6 &#43;756,7 @@ static int rv_print_clock_levels(struct pp=
-_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;gfx_max_freq_limit / 100,<b=
-r>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((data-&gt;gfx_max_freq_limit / 100)=
-<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D=3D now) ? &quot;*&quot; : =
-&quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_sclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_MCLK:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr,<br>
-&gt;&gt; @@ -773,6 &#43;774,7 @@ static int rv_print_clock_levels(struct pp=
-_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; mclk_table-&gt;entries[i].clk / 100,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; ((mclk_table-&gt;entries[i].clk / 100)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; =3D=3D now) ? &quot;*&quot; : &quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_mclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt;&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt;&gt; index 72031bd..1bdcd86 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c=
-<br>
-&gt;&gt; @@ -4372,6 &#43;4372,7 @@ static int smu7_print_clock_levels(struc=
-t pp_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43=
-;=3D sprintf(buf &#43; size, &quot;%d: %uMhz %s\n&quot;,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; i, sclk_table-&gt;dpm_levels[i].value / 100,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (i =3D=3D now) ? &quot;*&quot; : &quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_sclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_MCLK:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; smum_send_msg_to_smc(hwmgr, <br>
-&gt;&gt; PPSMC_MSG_API_GetMclkFrequency); @@ -4388,6 &#43;4389,7 @@ static =
-int smu7_print_clock_levels(struct pp_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43=
-;=3D sprintf(buf &#43; size, &quot;%d: %uMhz %s\n&quot;,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; i, mclk_table-&gt;dpm_levels[i].value / 100,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (i =3D=3D now) ? &quot;*&quot; : &quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_mclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_PCIE:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; pcie_speed =3D smu7_get_current_pcie_speed(hwmgr);<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br=
->
-&gt;&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt;&gt; index cb35f4f..cab50fc 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr=
-.c<br>
-&gt;&gt; @@ -4565,6 &#43;4565,7 @@ static int vega10_print_clock_levels(str=
-uct pp_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43=
-;=3D sprintf(buf &#43; size, &quot;%d: %uMhz %s\n&quot;,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; i, sclk_table-&gt;dpm_levels[i].value / 100,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (i =3D=3D now) ? &quot;*&quot; : &quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_sclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_MCLK:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (data-&gt;registry_data.mclk_dpm_key_disabled)<br>
-&gt;&gt; @@ -4583,6 &#43;4584,7 @@ static int vega10_print_clock_levels(str=
-uct pp_hwmgr *hwmgr,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43=
-;=3D sprintf(buf &#43; size, &quot;%d: %uMhz %s\n&quot;,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; i, mclk_table-&gt;dpm_levels[i].value / 100,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (i =3D=3D now) ? &quot;*&quot; : &quot;&quot;);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;P: %uMhz\n&quot;,<b=
-r>
-&gt;&gt; &#43; hwmgr-&gt;pstate_mclk/100);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; break;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_PCIE:<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr,<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1652592A32877B4A306CA655F7130BN6PR12MB1652namp_--
-
---===============2055416826==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2055416826==--
+T24gRnJpLCBKYW4gMDUsIDIwMTggYXQgMTA6MTY6MDRBTSArMDEwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBBbSAwNC4wMS4yMDE4IHVtIDIyOjEyIHNjaHJpZWIgU2FtdWVsIExpOgo+ID4g
+Q2hhbmdlLUlkOiBJMDNjMjJhODkwZDIzMDVmMzI0M2Q4ODAxOWQxYTI4YmRkZDRkZGRhNwo+ID4g
+U2lnbmVkLW9mZi1ieTogU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1kLmNvbT4KPiAKPiBSZXZpZXdl
+ZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKV2FudCB0
+byBwdXNoIHRvIGRybS1taXNjIG9yIHNvbWUgb3RoZXIgcGxhbiB3aXRoIHRoaXM/Ci1EYW5pZWwK
+Cj4gCj4gPiAtLS0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9wcmltZS5jIHwgNTMgKysrKysr
+KysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiAgIGluY2x1ZGUvZHJt
+L2RybV9wcmltZS5oICAgICB8IDIyICsrKysrKysrKysrKysrKysrKysKPiA+ICAgMiBmaWxlcyBj
+aGFuZ2VkLCA1MyBpbnNlcnRpb25zKCspLCAyMiBkZWxldGlvbnMoLSkKPiA+IAo+ID4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1f
+cHJpbWUuYwo+ID4gaW5kZXggOGRlOTNhMi4uNjhhNjllOSAxMDA2NDQKPiA+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9kcm1fcHJpbWUuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9wcmlt
+ZS5jCj4gPiBAQCAtMTgwLDkgKzE4MCw4IEBAIHN0YXRpYyBpbnQgZHJtX3ByaW1lX2xvb2t1cF9i
+dWZfaGFuZGxlKHN0cnVjdCBkcm1fcHJpbWVfZmlsZV9wcml2YXRlICpwcmltZV9mcHJpCj4gPiAg
+IAlyZXR1cm4gLUVOT0VOVDsKPiA+ICAgfQo+ID4gLXN0YXRpYyBpbnQgZHJtX2dlbV9tYXBfYXR0
+YWNoKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gLQkJCSAgICAgIHN0cnVjdCBkZXZpY2Ug
+KnRhcmdldF9kZXYsCj4gPiAtCQkJICAgICAgc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0
+YWNoKQo+ID4gK2ludCBkcm1fZ2VtX21hcF9hdHRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYs
+IHN0cnVjdCBkZXZpY2UgKnRhcmdldF9kZXYsCj4gPiArCQkgICAgICAgc3RydWN0IGRtYV9idWZf
+YXR0YWNobWVudCAqYXR0YWNoKQo+ID4gICB7Cj4gPiAgIAlzdHJ1Y3QgZHJtX3ByaW1lX2F0dGFj
+aG1lbnQgKnByaW1lX2F0dGFjaDsKPiA+ICAgCXN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqID0g
+ZG1hX2J1Zi0+cHJpdjsKPiA+IEBAIC0yMDAsOSArMTk5LDEwIEBAIHN0YXRpYyBpbnQgZHJtX2dl
+bV9tYXBfYXR0YWNoKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gICAJcmV0dXJuIGRldi0+
+ZHJpdmVyLT5nZW1fcHJpbWVfcGluKG9iaik7Cj4gPiAgIH0KPiA+ICtFWFBPUlRfU1lNQk9MKGRy
+bV9nZW1fbWFwX2F0dGFjaCk7Cj4gPiAtc3RhdGljIHZvaWQgZHJtX2dlbV9tYXBfZGV0YWNoKHN0
+cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gLQkJCSAgICAgICBzdHJ1Y3QgZG1hX2J1Zl9hdHRh
+Y2htZW50ICphdHRhY2gpCj4gPiArdm9pZCBkcm1fZ2VtX21hcF9kZXRhY2goc3RydWN0IGRtYV9i
+dWYgKmRtYV9idWYsCj4gPiArCQkJc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoKQo+
+ID4gICB7Cj4gPiAgIAlzdHJ1Y3QgZHJtX3ByaW1lX2F0dGFjaG1lbnQgKnByaW1lX2F0dGFjaCA9
+IGF0dGFjaC0+cHJpdjsKPiA+ICAgCXN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqID0gZG1hX2J1
+Zi0+cHJpdjsKPiA+IEBAIC0yMjcsNiArMjI3LDcgQEAgc3RhdGljIHZvaWQgZHJtX2dlbV9tYXBf
+ZGV0YWNoKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gICAJa2ZyZWUocHJpbWVfYXR0YWNo
+KTsKPiA+ICAgCWF0dGFjaC0+cHJpdiA9IE5VTEw7Cj4gPiAgIH0KPiA+ICtFWFBPUlRfU1lNQk9M
+KGRybV9nZW1fbWFwX2RldGFjaCk7Cj4gPiAgIHZvaWQgZHJtX3ByaW1lX3JlbW92ZV9idWZfaGFu
+ZGxlX2xvY2tlZChzdHJ1Y3QgZHJtX3ByaW1lX2ZpbGVfcHJpdmF0ZSAqcHJpbWVfZnByaXYsCj4g
+PiAgIAkJCQkJc3RydWN0IGRtYV9idWYgKmRtYV9idWYpCj4gPiBAQCAtMjUzLDggKzI1NCw4IEBA
+IHZvaWQgZHJtX3ByaW1lX3JlbW92ZV9idWZfaGFuZGxlX2xvY2tlZChzdHJ1Y3QgZHJtX3ByaW1l
+X2ZpbGVfcHJpdmF0ZSAqcHJpbWVfZnByCj4gPiAgIAl9Cj4gPiAgIH0KPiA+IC1zdGF0aWMgc3Ry
+dWN0IHNnX3RhYmxlICpkcm1fZ2VtX21hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1l
+bnQgKmF0dGFjaCwKPiA+IC0JCQkJCSAgICBlbnVtIGRtYV9kYXRhX2RpcmVjdGlvbiBkaXIpCj4g
+PiArc3RydWN0IHNnX3RhYmxlICpkcm1fZ2VtX21hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0
+dGFjaG1lbnQgKmF0dGFjaCwKPiA+ICsJCQkJICAgICBlbnVtIGRtYV9kYXRhX2RpcmVjdGlvbiBk
+aXIpCj4gPiAgIHsKPiA+ICAgCXN0cnVjdCBkcm1fcHJpbWVfYXR0YWNobWVudCAqcHJpbWVfYXR0
+YWNoID0gYXR0YWNoLT5wcml2Owo+ID4gICAJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmogPSBh
+dHRhY2gtPmRtYWJ1Zi0+cHJpdjsKPiA+IEBAIC0yODksMTMgKzI5MCwxNSBAQCBzdGF0aWMgc3Ry
+dWN0IHNnX3RhYmxlICpkcm1fZ2VtX21hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1l
+bnQgKmF0dGFjaCwKPiA+ICAgCXJldHVybiBzZ3Q7Cj4gPiAgIH0KPiA+ICtFWFBPUlRfU1lNQk9M
+KGRybV9nZW1fbWFwX2RtYV9idWYpOwo+ID4gLXN0YXRpYyB2b2lkIGRybV9nZW1fdW5tYXBfZG1h
+X2J1ZihzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsCj4gPiAtCQkJCSAgc3RydWN0
+IHNnX3RhYmxlICpzZ3QsCj4gPiAtCQkJCSAgZW51bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGlyKQo+
+ID4gK3ZvaWQgZHJtX2dlbV91bm1hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQg
+KmF0dGFjaCwKPiA+ICsJCQkgICBzdHJ1Y3Qgc2dfdGFibGUgKnNndCwKPiA+ICsJCQkgICBlbnVt
+IGRtYV9kYXRhX2RpcmVjdGlvbiBkaXIpCj4gPiAgIHsKPiA+ICAgCS8qIG5vdGhpbmcgdG8gYmUg
+ZG9uZSBoZXJlICovCj4gPiAgIH0KPiA+ICtFWFBPUlRfU1lNQk9MKGRybV9nZW1fdW5tYXBfZG1h
+X2J1Zik7Cj4gPiAgIC8qKgo+ID4gICAgKiBkcm1fZ2VtX2RtYWJ1Zl9leHBvcnQgLSBkbWFfYnVm
+IGV4cG9ydCBpbXBsZW1lbnRhdGlvbiBmb3IgR0VNCj4gPiBAQCAtMzQ2LDQ3ICszNDksNTIgQEAg
+dm9pZCBkcm1fZ2VtX2RtYWJ1Zl9yZWxlYXNlKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmKQo+ID4g
+ICB9Cj4gPiAgIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfcmVsZWFzZSk7Cj4gPiAtc3Rh
+dGljIHZvaWQgKmRybV9nZW1fZG1hYnVmX3ZtYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYpCj4g
+PiArdm9pZCAqZHJtX2dlbV9kbWFidWZfdm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZikKPiA+
+ICAgewo+ID4gICAJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmogPSBkbWFfYnVmLT5wcml2Owo+
+ID4gICAJc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IG9iai0+ZGV2Owo+ID4gICAJcmV0dXJuIGRl
+di0+ZHJpdmVyLT5nZW1fcHJpbWVfdm1hcChvYmopOwo+ID4gICB9Cj4gPiArRVhQT1JUX1NZTUJP
+TChkcm1fZ2VtX2RtYWJ1Zl92bWFwKTsKPiA+IC1zdGF0aWMgdm9pZCBkcm1fZ2VtX2RtYWJ1Zl92
+dW5tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHZvaWQgKnZhZGRyKQo+ID4gK3ZvaWQgZHJt
+X2dlbV9kbWFidWZfdnVubWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCB2b2lkICp2YWRkcikK
+PiA+ICAgewo+ID4gICAJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmogPSBkbWFfYnVmLT5wcml2
+Owo+ID4gICAJc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IG9iai0+ZGV2Owo+ID4gICAJZGV2LT5k
+cml2ZXItPmdlbV9wcmltZV92dW5tYXAob2JqLCB2YWRkcik7Cj4gPiAgIH0KPiA+ICtFWFBPUlRf
+U1lNQk9MKGRybV9nZW1fZG1hYnVmX3Z1bm1hcCk7Cj4gPiAtc3RhdGljIHZvaWQgKmRybV9nZW1f
+ZG1hYnVmX2ttYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gLQkJCQkJdW5z
+aWduZWQgbG9uZyBwYWdlX251bSkKPiA+ICt2b2lkICpkcm1fZ2VtX2RtYWJ1Zl9rbWFwX2F0b21p
+YyhzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ICsJCQkJIHVuc2lnbmVkIGxvbmcgcGFnZV9u
+dW0pCj4gPiAgIHsKPiA+ICAgCXJldHVybiBOVUxMOwo+ID4gICB9Cj4gPiArRVhQT1JUX1NZTUJP
+TChkcm1fZ2VtX2RtYWJ1Zl9rbWFwX2F0b21pYyk7Cj4gPiAtc3RhdGljIHZvaWQgZHJtX2dlbV9k
+bWFidWZfa3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+IC0JCQkJCSB1
+bnNpZ25lZCBsb25nIHBhZ2VfbnVtLCB2b2lkICphZGRyKQo+ID4gK3ZvaWQgZHJtX2dlbV9kbWFi
+dWZfa3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ICsJCQkJICB1bnNp
+Z25lZCBsb25nIHBhZ2VfbnVtLCB2b2lkICphZGRyKQo+ID4gICB7Cj4gPiAgIH0KPiA+IC1zdGF0
+aWMgdm9pZCAqZHJtX2dlbV9kbWFidWZfa21hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+
+IC0JCQkJIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0pCj4gPiArRVhQT1JUX1NZTUJPTChkcm1fZ2Vt
+X2RtYWJ1Zl9rdW5tYXBfYXRvbWljKTsKPiA+ICsKPiA+ICt2b2lkICpkcm1fZ2VtX2RtYWJ1Zl9r
+bWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtKQo+ID4g
+ICB7Cj4gPiAgIAlyZXR1cm4gTlVMTDsKPiA+ICAgfQo+ID4gK0VYUE9SVF9TWU1CT0woZHJtX2dl
+bV9kbWFidWZfa21hcCk7Cj4gPiAtc3RhdGljIHZvaWQgZHJtX2dlbV9kbWFidWZfa3VubWFwKHN0
+cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gLQkJCQkgIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0s
+IHZvaWQgKmFkZHIpCj4gPiArdm9pZCBkcm1fZ2VtX2RtYWJ1Zl9rdW5tYXAoc3RydWN0IGRtYV9i
+dWYgKmRtYV9idWYsIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0sCj4gPiArCQkJICAgdm9pZCAqYWRk
+cikKPiA+ICAgewo+ID4gICB9Cj4gPiArRVhQT1JUX1NZTUJPTChkcm1fZ2VtX2RtYWJ1Zl9rdW5t
+YXApOwo+ID4gLXN0YXRpYyBpbnQgZHJtX2dlbV9kbWFidWZfbW1hcChzdHJ1Y3QgZG1hX2J1ZiAq
+ZG1hX2J1ZiwKPiA+IC0JCQkgICAgICAgc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEpCj4gPiAr
+aW50IGRybV9nZW1fZG1hYnVmX21tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHN0cnVjdCB2
+bV9hcmVhX3N0cnVjdCAqdm1hKQo+ID4gICB7Cj4gPiAgIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3Qg
+Km9iaiA9IGRtYV9idWYtPnByaXY7Cj4gPiAgIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gb2Jq
+LT5kZXY7Cj4gPiBAQCAtMzk2LDYgKzQwNCw3IEBAIHN0YXRpYyBpbnQgZHJtX2dlbV9kbWFidWZf
+bW1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ICAgCXJldHVybiBkZXYtPmRyaXZlci0+
+Z2VtX3ByaW1lX21tYXAob2JqLCB2bWEpOwo+ID4gICB9Cj4gPiArRVhQT1JUX1NZTUJPTChkcm1f
+Z2VtX2RtYWJ1Zl9tbWFwKTsKPiA+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWFfYnVmX29wcyBk
+cm1fZ2VtX3ByaW1lX2RtYWJ1Zl9vcHMgPSAgewo+ID4gICAJLmF0dGFjaCA9IGRybV9nZW1fbWFw
+X2F0dGFjaCwKPiA+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fcHJpbWUuaCBiL2luY2x1
+ZGUvZHJtL2RybV9wcmltZS5oCj4gPiBpbmRleCA5Y2Q5ZTM2Li40ZDVmNWQ2IDEwMDY0NAo+ID4g
+LS0tIGEvaW5jbHVkZS9kcm0vZHJtX3ByaW1lLmgKPiA+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9w
+cmltZS5oCj4gPiBAQCAtNTQsNiArNTQsOSBAQCBzdHJ1Y3QgZGV2aWNlOwo+ID4gICBzdHJ1Y3Qg
+ZG1hX2J1Zl9leHBvcnRfaW5mbzsKPiA+ICAgc3RydWN0IGRtYV9idWY7Cj4gPiArc3RydWN0IGRt
+YV9idWZfYXR0YWNobWVudDsKPiA+ICsKPiA+ICtlbnVtIGRtYV9kYXRhX2RpcmVjdGlvbjsKPiA+
+ICAgc3RydWN0IGRybV9kZXZpY2U7Cj4gPiAgIHN0cnVjdCBkcm1fZ2VtX29iamVjdDsKPiA+IEBA
+IC03OSw2ICs4MiwyNSBAQCBpbnQgZHJtX2dlbV9wcmltZV9mZF90b19oYW5kbGUoc3RydWN0IGRy
+bV9kZXZpY2UgKmRldiwKPiA+ICAgc3RydWN0IGRtYV9idWYgKmRybV9nZW1fZG1hYnVmX2V4cG9y
+dChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+ID4gICAJCQkJICAgICAgc3RydWN0IGRtYV9idWZf
+ZXhwb3J0X2luZm8gKmV4cF9pbmZvKTsKPiA+ICAgdm9pZCBkcm1fZ2VtX2RtYWJ1Zl9yZWxlYXNl
+KHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmKTsKPiA+ICtpbnQgZHJtX2dlbV9tYXBfYXR0YWNoKHN0
+cnVjdCBkbWFfYnVmICpkbWFfYnVmLCBzdHJ1Y3QgZGV2aWNlICp0YXJnZXRfZGV2LAo+ID4gKwkJ
+ICAgICAgIHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCk7Cj4gPiArdm9pZCBkcm1f
+Z2VtX21hcF9kZXRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4gPiArCQkJc3RydWN0IGRt
+YV9idWZfYXR0YWNobWVudCAqYXR0YWNoKTsKPiA+ICtzdHJ1Y3Qgc2dfdGFibGUgKmRybV9nZW1f
+bWFwX2RtYV9idWYoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoLAo+ID4gKwkJCQkg
+ICAgIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRpcik7Cj4gPiArdm9pZCBkcm1fZ2VtX3VubWFw
+X2RtYV9idWYoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoLAo+ID4gKwkJCSAgIHN0
+cnVjdCBzZ190YWJsZSAqc2d0LAo+ID4gKwkJCSAgIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRp
+cik7Cj4gPiArdm9pZCAqZHJtX2dlbV9kbWFidWZfdm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1
+Zik7Cj4gPiArdm9pZCBkcm1fZ2VtX2RtYWJ1Zl92dW5tYXAoc3RydWN0IGRtYV9idWYgKmRtYV9i
+dWYsIHZvaWQgKnZhZGRyKTsKPiA+ICt2b2lkICpkcm1fZ2VtX2RtYWJ1Zl9rbWFwX2F0b21pYyhz
+dHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ICsJCQkJIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0p
+Owo+ID4gK3ZvaWQgZHJtX2dlbV9kbWFidWZfa3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1ZiAq
+ZG1hX2J1ZiwKPiA+ICsJCQkJICB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtLCB2b2lkICphZGRyKTsK
+PiA+ICt2b2lkICpkcm1fZ2VtX2RtYWJ1Zl9rbWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCB1
+bnNpZ25lZCBsb25nIHBhZ2VfbnVtKTsKPiA+ICt2b2lkIGRybV9nZW1fZG1hYnVmX2t1bm1hcChz
+dHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwgdW5zaWduZWQgbG9uZyBwYWdlX251bSwKPiA+ICsJCQkg
+ICB2b2lkICphZGRyKTsKPiA+ICtpbnQgZHJtX2dlbV9kbWFidWZfbW1hcChzdHJ1Y3QgZG1hX2J1
+ZiAqZG1hX2J1Ziwgc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEpOwo+ID4gICBpbnQgZHJtX3By
+aW1lX3NnX3RvX3BhZ2VfYWRkcl9hcnJheXMoc3RydWN0IHNnX3RhYmxlICpzZ3QsIHN0cnVjdCBw
+YWdlICoqcGFnZXMsCj4gPiAgIAkJCQkgICAgIGRtYV9hZGRyX3QgKmFkZHJzLCBpbnQgbWF4X3Bh
+Z2VzKTsKPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
+ZGV2ZWwKCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3Jh
+dGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
