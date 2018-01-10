@@ -1,49 +1,58 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix 64bit BAR detection
-Date: Wed, 10 Jan 2018 11:32:21 -0500
-Message-ID: <CADnq5_PZ+w8Z42DfSHDnk1xVFa_ZCaJgF9skpdBShZwxjWL4RQ@mail.gmail.com>
-References: <20180108135147.41819-1-christian.koenig@amd.com>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: [PATCH] drm/amdkfd: Fix potential NULL pointer dereferences
+Date: Wed, 10 Jan 2018 10:50:08 -0600
+Message-ID: <20180110165008.GA10691@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180108135147.41819-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBKYW4gOCwgMjAxOCBhdCA4OjUxIEFNLCBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
-LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4gV2luZG93cyBhZGRlZCBieSB0aGUg
-QklPUyBhcmUgbm90IG1hcmtlZCBhcyA2NGJpdCBiZWNhdXNlIHRoZXkgYXJlCj4gdXN1YWxseSBu
-b3QgY2hhbmdlYWJsZSBhbnl3YXkuCj4KPiBUaGlzIGZpeGVzIGxhcmdlIEJBUiBzdXBwb3J0IG9u
-IG15IG5ldyBSeXplbiBidWlsZCBzeXN0ZW0uCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4g
-S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBp
-bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCBlOTE1NzUzMTE2NDYuLjcxMTRmMjUyN2VkYyAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBAQCAtNjI2
-LDcgKzYyNiw3IEBAIGludCBhbWRncHVfZGV2aWNlX3Jlc2l6ZV9mYl9iYXIoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCj4gICAgICAgICAgICAgICAgIHJvb3QgPSByb290LT5wYXJlbnQ7Cj4K
-PiAgICAgICAgIHBjaV9idXNfZm9yX2VhY2hfcmVzb3VyY2Uocm9vdCwgcmVzLCBpKSB7Cj4gLSAg
-ICAgICAgICAgICAgIGlmIChyZXMgJiYgcmVzLT5mbGFncyAmIElPUkVTT1VSQ0VfTUVNXzY0ICYm
-Cj4gKyAgICAgICAgICAgICAgIGlmIChyZXMgJiYgcmVzLT5mbGFncyAmIChJT1JFU09VUkNFX01F
-TSB8IElPUkVTT1VSQ0VfTUVNXzY0KSAmJgo+ICAgICAgICAgICAgICAgICAgICAgcmVzLT5zdGFy
-dCA+IDB4MTAwMDAwMDAwdWxsKQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+ICAg
-ICAgICAgfQo+IC0tCj4gMi4xNC4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+In case kfd_get_process_device_data returns null, there are some
+null pointer dereferences in functions kfd_bind_processes_to_device
+and kfd_unbind_processes_from_device.
+
+Fix this by null checking pdd before dereferencing it.
+
+Addresses-Coverity-ID: 1463794 ("Dereference null return value")
+Addresses-Coverity-ID: 1463772 ("Dereference null return value")
+Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index a22fb071..29d51d5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -461,6 +461,13 @@ int kfd_bind_processes_to_device(struct kfd_dev *dev)
+ 	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+ 		mutex_lock(&p->mutex);
+ 		pdd = kfd_get_process_device_data(dev, p);
++
++		if (!pdd) {
++			pr_err("Process device data doesn't exist\n");
++			mutex_unlock(&p->mutex);
++			return -EFAULT;
++		}
++
+ 		if (pdd->bound != PDD_BOUND_SUSPENDED) {
+ 			mutex_unlock(&p->mutex);
+ 			continue;
+@@ -501,6 +508,11 @@ void kfd_unbind_processes_from_device(struct kfd_dev *dev)
+ 		mutex_lock(&p->mutex);
+ 		pdd = kfd_get_process_device_data(dev, p);
+ 
++		if (!pdd) {
++			mutex_unlock(&p->mutex);
++			return;
++		}
++
+ 		if (pdd->bound == PDD_BOUND)
+ 			pdd->bound = PDD_BOUND_SUSPENDED;
+ 		mutex_unlock(&p->mutex);
+-- 
+2.7.4
