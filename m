@@ -1,66 +1,81 @@
-From: Oded Gabbay <oded.gabbay@gmail.com>
-Subject: Re: [PATCH v2] drm/amdkfd: Fix potential NULL pointer dereferences
-Date: Thu, 11 Jan 2018 16:40:02 +0200
-Message-ID: <CAFCwf10UEirfrUci8ukfQ1m-+tQSHFmjVyBfqTtt2xJ0h0pGNw@mail.gmail.com>
-References: <20180110231509.GA14154@embeddedor.com>
+From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 3/3] drm/amdgpu: Move to gtt before cpu accesses dma buf.
+Date: Thu, 11 Jan 2018 16:46:00 +0000
+Message-ID: <BY1PR12MB0504ED901D99B235F4F03273F5160@BY1PR12MB0504.namprd12.prod.outlook.com>
+References: <1515100355-6893-1-git-send-email-Samuel.Li@amd.com>
+ <20180111064250.serwwuqpqr5gycjn@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180110231509.GA14154@embeddedor.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180111064250.serwwuqpqr5gycjn@mwanda>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, "kbuild-JC7UmRfGjtg@public.gmane.org" <kbuild-JC7UmRfGjtg@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "kbuild-all-JC7UmRfGjtg@public.gmane.org" <kbuild-all-JC7UmRfGjtg@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Thu, Jan 11, 2018 at 1:15 AM, Gustavo A. R. Silva
-<garsilva@embeddedor.com> wrote:
-> In case kfd_get_process_device_data returns null, there are some
-> null pointer dereferences in functions kfd_bind_processes_to_device
-> and kfd_unbind_processes_from_device.
->
-> Fix this by printing a WARN_ON for PDDs that aren't found and skip
-> them with continue statements.
->
-> Addresses-Coverity-ID: 1463794 ("Dereference null return value")
-> Addresses-Coverity-ID: 1463772 ("Dereference null return value")
-> Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
-> Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
-> ---
-> Changes in v2:
->  Print a WARN_ON and skip PDDs that aren't found instead of returning
->  an error.
->
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index a22fb071..4ff5f0f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -461,7 +461,8 @@ int kfd_bind_processes_to_device(struct kfd_dev *dev)
->         hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
->                 mutex_lock(&p->mutex);
->                 pdd = kfd_get_process_device_data(dev, p);
-> -               if (pdd->bound != PDD_BOUND_SUSPENDED) {
-> +
-> +               if (WARN_ON(!pdd) || pdd->bound != PDD_BOUND_SUSPENDED) {
->                         mutex_unlock(&p->mutex);
->                         continue;
->                 }
-> @@ -501,6 +502,11 @@ void kfd_unbind_processes_from_device(struct kfd_dev *dev)
->                 mutex_lock(&p->mutex);
->                 pdd = kfd_get_process_device_data(dev, p);
->
-> +               if (WARN_ON(!pdd)) {
-> +                       mutex_unlock(&p->mutex);
-> +                       continue;
-> +               }
-> +
->                 if (pdd->bound == PDD_BOUND)
->                         pdd->bound = PDD_BOUND_SUSPENDED;
->                 mutex_unlock(&p->mutex);
-> --
-> 2.7.4
->
-This patch is:
-Reviewed-by: Oded Gabbay <oded.gabbay@gmail.com>
+QSBnb29kIGNhdGNoLiBJJ2xsIGZpeCB0aGF0LgoKUmVnYXJkcywKU2FtdWVsIExpCgoKPiAtLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IERhbiBDYXJwZW50ZXIgW21haWx0bzpkYW4u
+Y2FycGVudGVyQG9yYWNsZS5jb21dCj4gU2VudDogVGh1cnNkYXksIEphbnVhcnkgMTEsIDIwMTgg
+MTo0MyBBTQo+IFRvOiBrYnVpbGRAMDEub3JnOyBMaSwgU2FtdWVsIDxTYW11ZWwuTGlAYW1kLmNv
+bT4KPiBDYzoga2J1aWxkLWFsbEAwMS5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmc7IGFtZC0KPiBnZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBMaSwgU2FtdWVsIDxTYW11ZWwu
+TGlAYW1kLmNvbT47IERhbiBDYXJwZW50ZXIKPiA8ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tPgo+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1OiBNb3ZlIHRvIGd0dCBiZWZvcmUg
+Y3B1IGFjY2Vzc2VzIGRtYQo+IGJ1Zi4KPiAKPiAKPiBIaSBTYW11ZWwsCj4gCj4gVGhhbmsgeW91
+IGZvciB0aGUgcGF0Y2ghIFBlcmhhcHMgc29tZXRoaW5nIHRvIGltcHJvdmU6Cj4gCj4gW2F1dG8g
+YnVpbGQgdGVzdCBXQVJOSU5HIG9uIGRybS9kcm0tbmV4dF0gW2Fsc28gYnVpbGQgdGVzdCBXQVJO
+SU5HIG9uCj4gdjQuMTUtcmM3IG5leHQtMjAxODAxMTBdIFtpZiB5b3VyIHBhdGNoIGlzIGFwcGxp
+ZWQgdG8gdGhlIHdyb25nIGdpdCB0cmVlLAo+IHBsZWFzZSBkcm9wIHVzIGEgbm90ZSB0byBoZWxw
+IGltcHJvdmUgdGhlIHN5c3RlbV0KPiAKPiB1cmw6ICAgIGh0dHBzOi8vZ2l0aHViLmNvbS8wZGF5
+LWNpL2xpbnV4L2NvbW1pdHMvU2FtdWVsLUxpL2RybS1hbWRncHUtCj4gYWxsb3ctZnJhbWVidWZm
+ZXItaW4tR0FSVC1tZW1vcnktYXMtd2VsbC8yMDE4MDEwNi0wNTA0MzIKPiBiYXNlOiAgIGdpdDov
+L3Blb3BsZS5mcmVlZGVza3RvcC5vcmcvfmFpcmxpZWQvbGludXguZ2l0IGRybS1uZXh0Cj4gCj4g
+c21hdGNoIHdhcm5pbmdzOgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmlt
+ZS5jOjIyNgo+IGFtZGdwdV9nZW1fcHJpbWVfZXhwb3J0KCkgZXJyb3I6ICdidWYnIGRlcmVmZXJl
+bmNpbmcgcG9zc2libGUgRVJSX1BUUigpCj4gCj4gIyBodHRwczovL2dpdGh1Yi5jb20vMGRheS0K
+PiBjaS9saW51eC9jb21taXQvNmFhMmFmZWNiNWEzZWZjNDYzZDIwMDAyMzgzOTM5OTU3MTQwNDg0
+Mwo+IGdpdCByZW1vdGUgYWRkIGxpbnV4LXJldmlldyBodHRwczovL2dpdGh1Yi5jb20vMGRheS1j
+aS9saW51eCBnaXQgcmVtb3RlCj4gdXBkYXRlIGxpbnV4LXJldmlldyBnaXQgY2hlY2tvdXQKPiA2
+YWEyYWZlY2I1YTNlZmM0NjNkMjAwMDIzODM5Mzk5NTcxNDA0ODQzCj4gdmltICsvYnVmICsyMjYg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKPiAKPiA2YWEyYWZlY2I1
+IFNhbXVlbCBMaSAgICAgICAyMDE4LTAxLTA0ICAyMTEKPiBkMzhjZWFmOTllIEFsZXggRGV1Y2hl
+ciAgICAyMDE1LTA0LTIwICAyMTIgIHN0cnVjdCBkbWFfYnVmCj4gKmFtZGdwdV9nZW1fcHJpbWVf
+ZXhwb3J0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4gZDM4Y2VhZjk5ZSBBbGV4IERldWNoZXIg
+ICAgMjAxNS0wNC0yMCAgMjEzCj4gCXN0cnVjdCBkcm1fZ2VtX29iamVjdCAqZ29iaiwKPiBkMzhj
+ZWFmOTllIEFsZXggRGV1Y2hlciAgICAyMDE1LTA0LTIwICAyMTQKPiAJaW50IGZsYWdzKQo+IGQz
+OGNlYWY5OWUgQWxleCBEZXVjaGVyICAgIDIwMTUtMDQtMjAgIDIxNSAgewo+IGQzOGNlYWY5OWUg
+QWxleCBEZXVjaGVyICAgIDIwMTUtMDQtMjAgIDIxNiAgCXN0cnVjdCBhbWRncHVfYm8gKmJvID0K
+PiBnZW1fdG9fYW1kZ3B1X2JvKGdvYmopOwo+IDRiMjc3MjQ3YjEgQ2hyaXN0aWFuIEvDtm5pZyAy
+MDE3LTExLTEzICAyMTcgIAlzdHJ1Y3QgZG1hX2J1ZiAqYnVmOwo+IGQzOGNlYWY5OWUgQWxleCBE
+ZXVjaGVyICAgIDIwMTUtMDQtMjAgIDIxOAo+IGUxZWI4OTliNDUgQ2hyaXN0aWFuIEvDtm5pZyAy
+MDE3LTA4LTI1ICAyMTkgIAlpZgo+IChhbWRncHVfdHRtX3R0X2dldF91c2VybW0oYm8tPnRiby50
+dG0pIHx8Cj4gZTFlYjg5OWI0NSBDaHJpc3RpYW4gS8O2bmlnIDIwMTctMDgtMjUgIDIyMCAgCSAg
+ICBiby0+ZmxhZ3MgJgo+IEFNREdQVV9HRU1fQ1JFQVRFX1ZNX0FMV0FZU19WQUxJRCkKPiBkMzhj
+ZWFmOTllIEFsZXggRGV1Y2hlciAgICAyMDE1LTA0LTIwICAyMjEgIAkJcmV0dXJuIEVSUl9QVFIo
+LQo+IEVQRVJNKTsKPiBkMzhjZWFmOTllIEFsZXggRGV1Y2hlciAgICAyMDE1LTA0LTIwICAyMjIK
+PiA0YjI3NzI0N2IxIENocmlzdGlhbiBLw7ZuaWcgMjAxNy0xMS0xMyAgMjIzICAJYnVmID0KPiBk
+cm1fZ2VtX3ByaW1lX2V4cG9ydChkZXYsIGdvYmosIGZsYWdzKTsKPiA0YjI3NzI0N2IxIENocmlz
+dGlhbiBLw7ZuaWcgMjAxNy0xMS0xMyAgMjI0ICAJaWYgKCFJU19FUlIoYnVmKSkKPiA0YjI3NzI0
+N2IxIENocmlzdGlhbiBLw7ZuaWcgMjAxNy0xMS0xMyAgMjI1ICAJCWJ1Zi0+ZmlsZS0+Zl9tYXBw
+aW5nCj4gPSBkZXYtPmFub25faW5vZGUtPmlfbWFwcGluZzsKPiA2YWEyYWZlY2I1IFNhbXVlbCBM
+aSAgICAgICAyMDE4LTAxLTA0IEAyMjYgIAlidWYtPm9wcyA9Cj4gJmFtZGdwdV9kbWFidWZfb3Bz
+Owo+IDZhYTJhZmVjYjUgU2FtdWVsIExpICAgICAgIDIwMTgtMDEtMDQgIDIyNwo+IDRiMjc3MjQ3
+YjEgQ2hyaXN0aWFuIEvDtm5pZyAyMDE3LTExLTEzICAyMjggIAlyZXR1cm4gYnVmOwo+IGQzOGNl
+YWY5OWUgQWxleCBEZXVjaGVyICAgIDIwMTUtMDQtMjAgIDIyOSAgfQo+IDZhYTJhZmVjYjUgU2Ft
+dWVsIExpICAgICAgIDIwMTgtMDEtMDQgIDIzMAo+IAo+IC0tLQo+IDAtREFZIGtlcm5lbCB0ZXN0
+IGluZnJhc3RydWN0dXJlICAgICAgICAgICAgICAgIE9wZW4gU291cmNlIFRlY2hub2xvZ3kgQ2Vu
+dGVyCj4gaHR0cHM6Ly9saXN0cy4wMS5vcmcvcGlwZXJtYWlsL2tidWlsZC1hbGwgICAgICAgICAg
+ICAgICAgICAgSW50ZWwgQ29ycG9yYXRpb24KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
