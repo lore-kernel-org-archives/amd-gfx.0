@@ -1,81 +1,66 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu/gfx9: fix ngg enablement to clear gds
- reserved memory (v2)
-Date: Thu, 11 Jan 2018 10:23:38 +0100
-Message-ID: <2d1cece3-8524-631c-9557-36e225602e99@gmail.com>
-References: <1515637852-2238-1-git-send-email-Jerry.Zhang@amd.com>
- <5585fbaf-d71f-3892-18e7-b6a2ea0a4e1b@amd.com> <5A56D2B6.9040105@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Subject: Re: [PATCH v2] drm/amdkfd: Fix potential NULL pointer dereferences
+Date: Thu, 11 Jan 2018 16:40:02 +0200
+Message-ID: <CAFCwf10UEirfrUci8ukfQ1m-+tQSHFmjVyBfqTtt2xJ0h0pGNw@mail.gmail.com>
+References: <20180110231509.GA14154@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5A56D2B6.9040105-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180110231509.GA14154@embeddedor.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2FuJ3QganVkZ2UgdGhlIG90aGVyIGNoYW5nZXMsIGJ1dCByZXBsYWNpbmcgdGhlIFNPQzE1IG1h
-Y3JvIHdpdGggYSAKcmVnaXN0ZXIgcmVhZCBsb29rcyBsaWtlIGEgdmFsaWQgZml4IHRvIG1lLgoK
-Rm9yIG5vdyB0aGUgcGF0Y2ggaXMgQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
-bi5rb2VuaWdAYW1kLmNvbT4uCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAxMS4wMS4yMDE4IHVt
-IDAzOjU3IHNjaHJpZWIgWmhhbmcsIEplcnJ5IChKdW53ZWkpOgo+IE9uIDAxLzExLzIwMTggMTA6
-NTAgQU0sIENodW5taW5nIFpob3Ugd3JvdGU6Cj4+IENvdWxkIEkgaG93IHRvIHZlcmlmeSB0aGlz
-IGlzIHZhbGlkIGZpeD8KPgo+IEZvciBub3csIGNoZWNrIGlmIHRoZXJlIGlzIG5vIHZtIGZhdWx0
-IG9yIGFueSBvdGhlciBzaWRlIGVmZmVjdCB3aGVuIAo+IGxvYWRpbmcgYW1kZ3B1IHdpdGggbmdn
-PTEuCj4KPiBMYXRlciBkZXZlbG9wbWVudCB3aWxsIGJlIGltcGxlbWVudGVkIHdpdGggT0dMIHRl
-YW0gdG9nZXRoZXIuCj4KPiBKZXJyeQo+Cj4+Cj4+IFJlZ2FyZHMsCj4+Cj4+IERhdmlkIFpob3UK
-Pj4KPj4KPj4gT24gMjAxOOW5tDAx5pyIMTHml6UgMTA6MzAsIEp1bndlaSBaaGFuZyB3cm90ZToK
-Pj4+IHYyOiBmaXggcmVnaXN0ZXIgYWNjZXNzCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogSnVud2Vp
-IFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgOSArKysrKy0tLS0KPj4+IMKgIDEgZmlsZSBjaGFu
-Z2VkLCA1IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+Pj4gaW5kZXggYWU5NzZlMy4uNmRiMzY0NSAxMDA2
-NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4+IEBAIC0xMDY4LDgg
-KzEwNjgsOCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX25nZ19pbml0KHN0cnVjdCAKPj4+IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCj4+PiDCoMKgwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVf
-c2l6ZSA9IEFMSUdOKDUgKiA0LCAweDQwKTsKPj4+IMKgwqDCoMKgwqAgYWRldi0+Z2RzLm1lbS50
-b3RhbF9zaXplIC09IGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfc2l6ZTsKPj4+IMKgwqDCoMKg
-wqAgYWRldi0+Z2RzLm1lbS5nZnhfcGFydGl0aW9uX3NpemUgLT0gCj4+PiBhZGV2LT5nZngubmdn
-Lmdkc19yZXNlcnZlX3NpemU7Cj4+PiAtwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVf
-YWRkciA9IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIAo+Pj4gbW1HRFNfVk1JRDBfQkFTRSk7Cj4+
-PiAtwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfYWRkciArPSAKPj4+IGFkZXYtPmdk
-cy5tZW0uZ2Z4X3BhcnRpdGlvbl9zaXplOwo+Pj4gK8KgwqDCoCBhZGV2LT5nZngubmdnLmdkc19y
-ZXNlcnZlX2FkZHIgPSBSUkVHMzJfU09DMTUoR0MsIDAsIAo+Pj4gbW1HRFNfVk1JRDBfQkFTRSk7
-Cj4+PiArwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfYWRkciArPSBSUkVHMzJfU09D
-MTUoR0MsIDAsIAo+Pj4gbW1HRFNfVk1JRDBfU0laRSk7Cj4+PiDCoMKgwqDCoMKgIC8qIFByaW1p
-dGl2ZSBCdWZmZXIgKi8KPj4+IMKgwqDCoMKgwqAgciA9IGdmeF92OV8wX25nZ19jcmVhdGVfYnVm
-KGFkZXYsICZhZGV2LT5nZngubmdnLmJ1ZltOR0dfUFJJTV0sCj4+PiBAQCAtMTE4MSwxMyArMTE4
-MSwxNCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX25nZ19lbihzdHJ1Y3QgCj4+PiBhbWRncHVfZGV2
-aWNlICphZGV2KQo+Pj4gwqDCoMKgwqDCoCBhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQz
-KFBBQ0tFVDNfRE1BX0RBVEEsIDUpKTsKPj4+IMKgwqDCoMKgwqAgYW1kZ3B1X3Jpbmdfd3JpdGUo
-cmluZywgKFBBQ0tFVDNfRE1BX0RBVEFfQ1BfU1lOQyB8Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIFBBQ0tFVDNfRE1BX0RBVEFfRFNUX1NFTCgxKSB8Cj4+PiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFBBQ0tFVDNfRE1BX0RBVEFfU1JDX1NFTCgyKSkpOwo+
-Pj4gwqDCoMKgwqDCoCBhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsKPj4+IMKgwqDCoMKgwqAg
-YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMCk7Cj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9yaW5nX3dy
-aXRlKHJpbmcsIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfYWRkcik7Cj4+PiDCoMKgwqDCoMKg
-IGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDApOwo+Pj4gLcKgwqDCoCBhbWRncHVfcmluZ193cml0
-ZShyaW5nLCBhZGV2LT5nZngubmdnLmdkc19yZXNlcnZlX3NpemUpOwo+Pj4gLQo+Pj4gK8KgwqDC
-oCBhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzX0RNQV9EQVRBX0NNRF9SQVdfV0FJVCB8
-Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jl
-c2VydmVfc2l6ZSk7Cj4+PiDCoMKgwqDCoMKgIGdmeF92OV8wX3dyaXRlX2RhdGFfdG9fcmVnKHJp
-bmcsIDAsIGZhbHNlLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUdEU19WTUlEMF9TSVpFKSwgMCk7Cj4+Cj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Thu, Jan 11, 2018 at 1:15 AM, Gustavo A. R. Silva
+<garsilva@embeddedor.com> wrote:
+> In case kfd_get_process_device_data returns null, there are some
+> null pointer dereferences in functions kfd_bind_processes_to_device
+> and kfd_unbind_processes_from_device.
+>
+> Fix this by printing a WARN_ON for PDDs that aren't found and skip
+> them with continue statements.
+>
+> Addresses-Coverity-ID: 1463794 ("Dereference null return value")
+> Addresses-Coverity-ID: 1463772 ("Dereference null return value")
+> Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+> Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+> ---
+> Changes in v2:
+>  Print a WARN_ON and skip PDDs that aren't found instead of returning
+>  an error.
+>
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index a22fb071..4ff5f0f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -461,7 +461,8 @@ int kfd_bind_processes_to_device(struct kfd_dev *dev)
+>         hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>                 mutex_lock(&p->mutex);
+>                 pdd = kfd_get_process_device_data(dev, p);
+> -               if (pdd->bound != PDD_BOUND_SUSPENDED) {
+> +
+> +               if (WARN_ON(!pdd) || pdd->bound != PDD_BOUND_SUSPENDED) {
+>                         mutex_unlock(&p->mutex);
+>                         continue;
+>                 }
+> @@ -501,6 +502,11 @@ void kfd_unbind_processes_from_device(struct kfd_dev *dev)
+>                 mutex_lock(&p->mutex);
+>                 pdd = kfd_get_process_device_data(dev, p);
+>
+> +               if (WARN_ON(!pdd)) {
+> +                       mutex_unlock(&p->mutex);
+> +                       continue;
+> +               }
+> +
+>                 if (pdd->bound == PDD_BOUND)
+>                         pdd->bound = PDD_BOUND_SUSPENDED;
+>                 mutex_unlock(&p->mutex);
+> --
+> 2.7.4
+>
+This patch is:
+Reviewed-by: Oded Gabbay <oded.gabbay@gmail.com>
