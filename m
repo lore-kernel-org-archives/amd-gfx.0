@@ -1,68 +1,82 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 21/21] drm/amdgpu: print the PASID with VM faults on GMC v8
-Date: Thu, 11 Jan 2018 13:50:00 +0800
-Message-ID: <ee5c1325-9eec-eadf-f507-ed6dccb00152@amd.com>
-References: <20180110125424.4202-1-christian.koenig@amd.com>
- <20180110125424.4202-21-christian.koenig@amd.com>
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Move to gtt before cpu
+ accesses dma buf.
+Date: Thu, 11 Jan 2018 09:42:50 +0300
+Message-ID: <20180111064250.serwwuqpqr5gycjn@mwanda>
+References: <1515100355-6893-1-git-send-email-Samuel.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180110125424.4202-21-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <kbuild-bounces@lists.01.org>
+Content-Disposition: inline
+In-Reply-To: <1515100355-6893-1-git-send-email-Samuel.Li@amd.com>
+List-Unsubscribe: <https://lists.01.org/mailman/options/kbuild>,
+ <mailto:kbuild-request@lists.01.org?subject=unsubscribe>
+List-Archive: <http://lists.01.org/pipermail/kbuild/>
+List-Post: <mailto:kbuild@lists.01.org>
+List-Help: <mailto:kbuild-request@lists.01.org?subject=help>
+List-Subscribe: <https://lists.01.org/mailman/listinfo/kbuild>,
+ <mailto:kbuild-request@lists.01.org?subject=subscribe>
+Errors-To: kbuild-bounces@lists.01.org
+Sender: "kbuild" <kbuild-bounces@lists.01.org>
+To: kbuild@01.org
+Cc: Samuel Li <Samuel.Li@amd.com>, amd-gfx@lists.freedesktop.org, kbuild-all@01.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RXhjZXB0IHNvbWUgc21hbGwgbml0cGlja3MgaW4gcGF0Y2ggIzMsICM0LCAjNSwgdGhlIHNlcmll
-cyBsb29rcyBvayB0byAKbWUsIFJldmlld2VkLWJ5OiBDaHVubWluZyBaaG91IDxkYXZpZDEuemhv
-dUBhbWQuY29tPgoKClJlZ2FyZHMsCkRhdmlkIFpob3UKT24gMjAxOOW5tDAx5pyIMTDml6UgMjA6
-NTQsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gUHJpbnQgdGhhdCBleHRyYSBpbmZvcm1hdGlv
-biBvbiBHTUMgdjguCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-bWNfdjhfMC5jIHwgMTMgKysrKysrKy0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0
-aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4
-XzAuYwo+IGluZGV4IDI4NzIyODMxNWI3Ni4uNWI0ZjZjMWYwOTkzIDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jCj4gQEAgLTk2MiwyMSArOTYyLDIxIEBAIHN0YXRpYyB2
-b2lkIGdtY192OF8wX2dhcnRfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAq
-Cj4gICAgKiBQcmludCBodW1hbiByZWFkYWJsZSBmYXVsdCBpbmZvcm1hdGlvbiAoQ0lLKS4KPiAg
-ICAqLwo+IC1zdGF0aWMgdm9pZCBnbWNfdjhfMF92bV9kZWNvZGVfZmF1bHQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCj4gLQkJCQkgICAgIHUzMiBzdGF0dXMsIHUzMiBhZGRyLCB1MzIgbWNf
-Y2xpZW50KQo+ICtzdGF0aWMgdm9pZCBnbWNfdjhfMF92bV9kZWNvZGVfZmF1bHQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBzdGF0dXMsCj4gKwkJCQkgICAgIHUzMiBhZGRyLCB1MzIg
-bWNfY2xpZW50LCB1bnNpZ25lZCBwYXNpZCkKPiAgIHsKPiAtCXUzMiBtY19pZDsKPiAgIAl1MzIg
-dm1pZCA9IFJFR19HRVRfRklFTEQoc3RhdHVzLCBWTV9DT05URVhUMV9QUk9URUNUSU9OX0ZBVUxU
-X1NUQVRVUywgVk1JRCk7Cj4gICAJdTMyIHByb3RlY3Rpb25zID0gUkVHX0dFVF9GSUVMRChzdGF0
-dXMsIFZNX0NPTlRFWFQxX1BST1RFQ1RJT05fRkFVTFRfU1RBVFVTLAo+ICAgCQkJCQlQUk9URUNU
-SU9OUyk7Cj4gICAJY2hhciBibG9ja1s1XSA9IHsgbWNfY2xpZW50ID4+IDI0LCAobWNfY2xpZW50
-ID4+IDE2KSAmIDB4ZmYsCj4gICAJCShtY19jbGllbnQgPj4gOCkgJiAweGZmLCBtY19jbGllbnQg
-JiAweGZmLCAwIH07Cj4gKwl1MzIgbWNfaWQ7Cj4gICAKPiAgIAltY19pZCA9IFJFR19HRVRfRklF
-TEQoc3RhdHVzLCBWTV9DT05URVhUMV9QUk9URUNUSU9OX0ZBVUxUX1NUQVRVUywKPiAgIAkJCSAg
-ICAgIE1FTU9SWV9DTElFTlRfSUQpOwo+ICAgCj4gLQlkZXZfZXJyKGFkZXYtPmRldiwgIlZNIGZh
-dWx0ICgweCUwMngsIHZtaWQgJWQpIGF0IHBhZ2UgJXUsICVzIGZyb20gJyVzJyAoMHglMDh4KSAo
-JWQpXG4iLAo+IC0JICAgICAgIHByb3RlY3Rpb25zLCB2bWlkLCBhZGRyLAo+ICsJZGV2X2Vycihh
-ZGV2LT5kZXYsICJWTSBmYXVsdCAoMHglMDJ4LCB2bWlkICVkLCBwYXNpZCAlZCkgYXQgcGFnZSAl
-dSwgJXMgZnJvbSAnJXMnICgweCUwOHgpICglZClcbiIsCj4gKwkgICAgICAgcHJvdGVjdGlvbnMs
-IHZtaWQsIHBhc2lkLCBhZGRyLAo+ICAgCSAgICAgICBSRUdfR0VUX0ZJRUxEKHN0YXR1cywgVk1f
-Q09OVEVYVDFfUFJPVEVDVElPTl9GQVVMVF9TVEFUVVMsCj4gICAJCQkgICAgIE1FTU9SWV9DTElF
-TlRfUlcpID8KPiAgIAkgICAgICAgIndyaXRlIiA6ICJyZWFkIiwgYmxvY2ssIG1jX2NsaWVudCwg
-bWNfaWQpOwo+IEBAIC0xNDA0LDcgKzE0MDQsOCBAQCBzdGF0aWMgaW50IGdtY192OF8wX3Byb2Nl
-c3NfaW50ZXJydXB0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCQkJYWRkcik7Cj4g
-ICAJCWRldl9lcnIoYWRldi0+ZGV2LCAiICBWTV9DT05URVhUMV9QUk9URUNUSU9OX0ZBVUxUX1NU
-QVRVUyAweCUwOFhcbiIsCj4gICAJCQlzdGF0dXMpOwo+IC0JCWdtY192OF8wX3ZtX2RlY29kZV9m
-YXVsdChhZGV2LCBzdGF0dXMsIGFkZHIsIG1jX2NsaWVudCk7Cj4gKwkJZ21jX3Y4XzBfdm1fZGVj
-b2RlX2ZhdWx0KGFkZXYsIHN0YXR1cywgYWRkciwgbWNfY2xpZW50LAo+ICsJCQkJCSBlbnRyeS0+
-cGFzaWQpOwo+ICAgCX0KPiAgIAo+ICAgCXJldHVybiAwOwoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+Hi Samuel,
+
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on v4.15-rc7 next-20180110]
+[if your patch is applied to the wrong git tree, please drop us a note to h=
+elp improve the system]
+
+url:    https://github.com/0day-ci/linux/commits/Samuel-Li/drm-amdgpu-allow=
+-framebuffer-in-GART-memory-as-well/20180106-050432
+base:   git://people.freedesktop.org/~airlied/linux.git drm-next
+
+smatch warnings:
+drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c:226 amdgpu_gem_prime_export() err=
+or: 'buf' dereferencing possible ERR_PTR()
+
+# https://github.com/0day-ci/linux/commit/6aa2afecb5a3efc463d20002383939957=
+1404843
+git remote add linux-review https://github.com/0day-ci/linux
+git remote update linux-review
+git checkout 6aa2afecb5a3efc463d200023839399571404843
+vim +/buf +226 drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+
+6aa2afecb5 Samuel Li       2018-01-04  211  =
+
+d38ceaf99e Alex Deucher    2015-04-20  212  struct dma_buf *amdgpu_gem_prim=
+e_export(struct drm_device *dev,
+d38ceaf99e Alex Deucher    2015-04-20  213  					struct drm_gem_object *gob=
+j,
+d38ceaf99e Alex Deucher    2015-04-20  214  					int flags)
+d38ceaf99e Alex Deucher    2015-04-20  215  {
+d38ceaf99e Alex Deucher    2015-04-20  216  	struct amdgpu_bo *bo =3D gem_t=
+o_amdgpu_bo(gobj);
+4b277247b1 Christian K=F6nig 2017-11-13  217  	struct dma_buf *buf;
+d38ceaf99e Alex Deucher    2015-04-20  218  =
+
+e1eb899b45 Christian K=F6nig 2017-08-25  219  	if (amdgpu_ttm_tt_get_usermm=
+(bo->tbo.ttm) ||
+e1eb899b45 Christian K=F6nig 2017-08-25  220  	    bo->flags & AMDGPU_GEM_C=
+REATE_VM_ALWAYS_VALID)
+d38ceaf99e Alex Deucher    2015-04-20  221  		return ERR_PTR(-EPERM);
+d38ceaf99e Alex Deucher    2015-04-20  222  =
+
+4b277247b1 Christian K=F6nig 2017-11-13  223  	buf =3D drm_gem_prime_export=
+(dev, gobj, flags);
+4b277247b1 Christian K=F6nig 2017-11-13  224  	if (!IS_ERR(buf))
+4b277247b1 Christian K=F6nig 2017-11-13  225  		buf->file->f_mapping =3D de=
+v->anon_inode->i_mapping;
+6aa2afecb5 Samuel Li       2018-01-04 @226  	buf->ops =3D &amdgpu_dmabuf_op=
+s;
+6aa2afecb5 Samuel Li       2018-01-04  227  =
+
+4b277247b1 Christian K=F6nig 2017-11-13  228  	return buf;
+d38ceaf99e Alex Deucher    2015-04-20  229  }
+6aa2afecb5 Samuel Li       2018-01-04  230  =
