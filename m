@@ -1,82 +1,81 @@
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Move to gtt before cpu
- accesses dma buf.
-Date: Thu, 11 Jan 2018 09:42:50 +0300
-Message-ID: <20180111064250.serwwuqpqr5gycjn@mwanda>
-References: <1515100355-6893-1-git-send-email-Samuel.Li@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu/gfx9: fix ngg enablement to clear gds
+ reserved memory (v2)
+Date: Thu, 11 Jan 2018 10:23:38 +0100
+Message-ID: <2d1cece3-8524-631c-9557-36e225602e99@gmail.com>
+References: <1515637852-2238-1-git-send-email-Jerry.Zhang@amd.com>
+ <5585fbaf-d71f-3892-18e7-b6a2ea0a4e1b@amd.com> <5A56D2B6.9040105@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <kbuild-bounces@lists.01.org>
-Content-Disposition: inline
-In-Reply-To: <1515100355-6893-1-git-send-email-Samuel.Li@amd.com>
-List-Unsubscribe: <https://lists.01.org/mailman/options/kbuild>,
- <mailto:kbuild-request@lists.01.org?subject=unsubscribe>
-List-Archive: <http://lists.01.org/pipermail/kbuild/>
-List-Post: <mailto:kbuild@lists.01.org>
-List-Help: <mailto:kbuild-request@lists.01.org?subject=help>
-List-Subscribe: <https://lists.01.org/mailman/listinfo/kbuild>,
- <mailto:kbuild-request@lists.01.org?subject=subscribe>
-Errors-To: kbuild-bounces@lists.01.org
-Sender: "kbuild" <kbuild-bounces@lists.01.org>
-To: kbuild@01.org
-Cc: Samuel Li <Samuel.Li@amd.com>, amd-gfx@lists.freedesktop.org, kbuild-all@01.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5A56D2B6.9040105-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-
-Hi Samuel,
-
-Thank you for the patch! Perhaps something to improve:
-
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on v4.15-rc7 next-20180110]
-[if your patch is applied to the wrong git tree, please drop us a note to h=
-elp improve the system]
-
-url:    https://github.com/0day-ci/linux/commits/Samuel-Li/drm-amdgpu-allow=
--framebuffer-in-GART-memory-as-well/20180106-050432
-base:   git://people.freedesktop.org/~airlied/linux.git drm-next
-
-smatch warnings:
-drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c:226 amdgpu_gem_prime_export() err=
-or: 'buf' dereferencing possible ERR_PTR()
-
-# https://github.com/0day-ci/linux/commit/6aa2afecb5a3efc463d20002383939957=
-1404843
-git remote add linux-review https://github.com/0day-ci/linux
-git remote update linux-review
-git checkout 6aa2afecb5a3efc463d200023839399571404843
-vim +/buf +226 drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
-
-6aa2afecb5 Samuel Li       2018-01-04  211  =
-
-d38ceaf99e Alex Deucher    2015-04-20  212  struct dma_buf *amdgpu_gem_prim=
-e_export(struct drm_device *dev,
-d38ceaf99e Alex Deucher    2015-04-20  213  					struct drm_gem_object *gob=
-j,
-d38ceaf99e Alex Deucher    2015-04-20  214  					int flags)
-d38ceaf99e Alex Deucher    2015-04-20  215  {
-d38ceaf99e Alex Deucher    2015-04-20  216  	struct amdgpu_bo *bo =3D gem_t=
-o_amdgpu_bo(gobj);
-4b277247b1 Christian K=F6nig 2017-11-13  217  	struct dma_buf *buf;
-d38ceaf99e Alex Deucher    2015-04-20  218  =
-
-e1eb899b45 Christian K=F6nig 2017-08-25  219  	if (amdgpu_ttm_tt_get_usermm=
-(bo->tbo.ttm) ||
-e1eb899b45 Christian K=F6nig 2017-08-25  220  	    bo->flags & AMDGPU_GEM_C=
-REATE_VM_ALWAYS_VALID)
-d38ceaf99e Alex Deucher    2015-04-20  221  		return ERR_PTR(-EPERM);
-d38ceaf99e Alex Deucher    2015-04-20  222  =
-
-4b277247b1 Christian K=F6nig 2017-11-13  223  	buf =3D drm_gem_prime_export=
-(dev, gobj, flags);
-4b277247b1 Christian K=F6nig 2017-11-13  224  	if (!IS_ERR(buf))
-4b277247b1 Christian K=F6nig 2017-11-13  225  		buf->file->f_mapping =3D de=
-v->anon_inode->i_mapping;
-6aa2afecb5 Samuel Li       2018-01-04 @226  	buf->ops =3D &amdgpu_dmabuf_op=
-s;
-6aa2afecb5 Samuel Li       2018-01-04  227  =
-
-4b277247b1 Christian K=F6nig 2017-11-13  228  	return buf;
-d38ceaf99e Alex Deucher    2015-04-20  229  }
-6aa2afecb5 Samuel Li       2018-01-04  230  =
+Q2FuJ3QganVkZ2UgdGhlIG90aGVyIGNoYW5nZXMsIGJ1dCByZXBsYWNpbmcgdGhlIFNPQzE1IG1h
+Y3JvIHdpdGggYSAKcmVnaXN0ZXIgcmVhZCBsb29rcyBsaWtlIGEgdmFsaWQgZml4IHRvIG1lLgoK
+Rm9yIG5vdyB0aGUgcGF0Y2ggaXMgQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4uCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAxMS4wMS4yMDE4IHVt
+IDAzOjU3IHNjaHJpZWIgWmhhbmcsIEplcnJ5IChKdW53ZWkpOgo+IE9uIDAxLzExLzIwMTggMTA6
+NTAgQU0sIENodW5taW5nIFpob3Ugd3JvdGU6Cj4+IENvdWxkIEkgaG93IHRvIHZlcmlmeSB0aGlz
+IGlzIHZhbGlkIGZpeD8KPgo+IEZvciBub3csIGNoZWNrIGlmIHRoZXJlIGlzIG5vIHZtIGZhdWx0
+IG9yIGFueSBvdGhlciBzaWRlIGVmZmVjdCB3aGVuIAo+IGxvYWRpbmcgYW1kZ3B1IHdpdGggbmdn
+PTEuCj4KPiBMYXRlciBkZXZlbG9wbWVudCB3aWxsIGJlIGltcGxlbWVudGVkIHdpdGggT0dMIHRl
+YW0gdG9nZXRoZXIuCj4KPiBKZXJyeQo+Cj4+Cj4+IFJlZ2FyZHMsCj4+Cj4+IERhdmlkIFpob3UK
+Pj4KPj4KPj4gT24gMjAxOOW5tDAx5pyIMTHml6UgMTA6MzAsIEp1bndlaSBaaGFuZyB3cm90ZToK
+Pj4+IHYyOiBmaXggcmVnaXN0ZXIgYWNjZXNzCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogSnVud2Vp
+IFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgOSArKysrKy0tLS0KPj4+IMKgIDEgZmlsZSBjaGFu
+Z2VkLCA1IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4+IGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+Pj4gaW5kZXggYWU5NzZlMy4uNmRiMzY0NSAxMDA2
+NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4+IEBAIC0xMDY4LDgg
+KzEwNjgsOCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX25nZ19pbml0KHN0cnVjdCAKPj4+IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCj4+PiDCoMKgwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVf
+c2l6ZSA9IEFMSUdOKDUgKiA0LCAweDQwKTsKPj4+IMKgwqDCoMKgwqAgYWRldi0+Z2RzLm1lbS50
+b3RhbF9zaXplIC09IGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfc2l6ZTsKPj4+IMKgwqDCoMKg
+wqAgYWRldi0+Z2RzLm1lbS5nZnhfcGFydGl0aW9uX3NpemUgLT0gCj4+PiBhZGV2LT5nZngubmdn
+Lmdkc19yZXNlcnZlX3NpemU7Cj4+PiAtwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVf
+YWRkciA9IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIAo+Pj4gbW1HRFNfVk1JRDBfQkFTRSk7Cj4+
+PiAtwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfYWRkciArPSAKPj4+IGFkZXYtPmdk
+cy5tZW0uZ2Z4X3BhcnRpdGlvbl9zaXplOwo+Pj4gK8KgwqDCoCBhZGV2LT5nZngubmdnLmdkc19y
+ZXNlcnZlX2FkZHIgPSBSUkVHMzJfU09DMTUoR0MsIDAsIAo+Pj4gbW1HRFNfVk1JRDBfQkFTRSk7
+Cj4+PiArwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfYWRkciArPSBSUkVHMzJfU09D
+MTUoR0MsIDAsIAo+Pj4gbW1HRFNfVk1JRDBfU0laRSk7Cj4+PiDCoMKgwqDCoMKgIC8qIFByaW1p
+dGl2ZSBCdWZmZXIgKi8KPj4+IMKgwqDCoMKgwqAgciA9IGdmeF92OV8wX25nZ19jcmVhdGVfYnVm
+KGFkZXYsICZhZGV2LT5nZngubmdnLmJ1ZltOR0dfUFJJTV0sCj4+PiBAQCAtMTE4MSwxMyArMTE4
+MSwxNCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX25nZ19lbihzdHJ1Y3QgCj4+PiBhbWRncHVfZGV2
+aWNlICphZGV2KQo+Pj4gwqDCoMKgwqDCoCBhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQz
+KFBBQ0tFVDNfRE1BX0RBVEEsIDUpKTsKPj4+IMKgwqDCoMKgwqAgYW1kZ3B1X3Jpbmdfd3JpdGUo
+cmluZywgKFBBQ0tFVDNfRE1BX0RBVEFfQ1BfU1lOQyB8Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIFBBQ0tFVDNfRE1BX0RBVEFfRFNUX1NFTCgxKSB8Cj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFBBQ0tFVDNfRE1BX0RBVEFfU1JDX1NFTCgyKSkpOwo+
+Pj4gwqDCoMKgwqDCoCBhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsKPj4+IMKgwqDCoMKgwqAg
+YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMCk7Cj4+PiDCoMKgwqDCoMKgIGFtZGdwdV9yaW5nX3dy
+aXRlKHJpbmcsIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfYWRkcik7Cj4+PiDCoMKgwqDCoMKg
+IGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDApOwo+Pj4gLcKgwqDCoCBhbWRncHVfcmluZ193cml0
+ZShyaW5nLCBhZGV2LT5nZngubmdnLmdkc19yZXNlcnZlX3NpemUpOwo+Pj4gLQo+Pj4gK8KgwqDC
+oCBhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzX0RNQV9EQVRBX0NNRF9SQVdfV0FJVCB8
+Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jl
+c2VydmVfc2l6ZSk7Cj4+PiDCoMKgwqDCoMKgIGdmeF92OV8wX3dyaXRlX2RhdGFfdG9fcmVnKHJp
+bmcsIDAsIGZhbHNlLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUdEU19WTUlEMF9TSVpFKSwgMCk7Cj4+Cj4gX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
