@@ -1,71 +1,60 @@
-From: SF Markus Elfring <elfring@users.sourceforge.net>
-Subject: [PATCH] drm/amdgpu: Use seq_putc() in two functions
-Date: Fri, 12 Jan 2018 22:22:51 +0100
-Message-ID: <c7ec76b3-3020-80c3-1f43-5f29714f87f2@users.sourceforge.net>
+From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: only allow scatter/gather display with DC
+Date: Fri, 12 Jan 2018 21:35:52 +0000
+Message-ID: <BY1PR12MB0504B7C3435FCA8BD2887570F5170@BY1PR12MB0504.namprd12.prod.outlook.com>
+References: <20180112195811.15372-1-alexander.deucher@amd.com>
+ <c10fed9d-fdd0-ff5e-7b3b-8cc9ffe809d2@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Language: en-GB
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Alex Xie <AlexBin.Xie@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Junwei Zhang <Jerry.Zhang@amd.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@amd.com>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle@amd.com>, Yong Zhao <Yong.Zhao@amd.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <c10fed9d-fdd0-ff5e-7b3b-8cc9ffe809d2-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Fri, 12 Jan 2018 22:08:50 +0100
-
-A few single characters should be put into a sequence.
-Thus use the corresponding function "seq_putc".
-
-This issue was detected by using the Coccinelle software.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c  | 9 +++------
- 2 files changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 10805edcf964..7ac233f5abe2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -806,8 +806,8 @@ static int amdgpu_debugfs_gem_bo_info(int id, void *ptr, void *data)
- 	pin_count = READ_ONCE(bo->pin_count);
- 	if (pin_count)
- 		seq_printf(m, " pin count %d", pin_count);
--	seq_printf(m, "\n");
- 
-+	seq_putc(m, '\n');
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-index 3144400435b7..57ce42d960ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-@@ -419,11 +419,8 @@ void amdgpu_sa_bo_dump_debug_info(struct amdgpu_sa_manager *sa_manager,
- 	list_for_each_entry(i, &sa_manager->olist, olist) {
- 		uint64_t soffset = i->soffset + sa_manager->gpu_addr;
- 		uint64_t eoffset = i->eoffset + sa_manager->gpu_addr;
--		if (&i->olist == sa_manager->hole) {
--			seq_printf(m, ">");
--		} else {
--			seq_printf(m, " ");
--		}
-+
-+		seq_putc(m, (&i->olist == sa_manager->hole) ? '>' : ' ');
- 		seq_printf(m, "[0x%010llx 0x%010llx] size %8lld",
- 			   soffset, eoffset, eoffset - soffset);
- 
-@@ -431,7 +428,7 @@ void amdgpu_sa_bo_dump_debug_info(struct amdgpu_sa_manager *sa_manager,
- 			seq_printf(m, " protected by 0x%08x on context %llu",
- 				   i->fence->seqno, i->fence->context);
- 
--		seq_printf(m, "\n");
-+		seq_putc(m, '\n');
- 	}
- 	spin_unlock(&sa_manager->wq.lock);
- }
--- 
-2.15.1
+U29tZWhvdyBteSB0ZXN0IGNhc2Ugc2VlbXMgd29ya2luZyBhbHRob3VnaCBEQyBub3QgZW5hYmxl
+ZD8NCg0KUmVnYXJkcywNClNhbXVlbCBMaQ0KDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0t
+LS0NCj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVz
+a3RvcC5vcmddIE9uIEJlaGFsZg0KPiBPZiBDaHJpc3RpYW4gS8O2bmlnDQo+IFNlbnQ6IEZyaWRh
+eSwgSmFudWFyeSAxMiwgMjAxOCA0OjAzIFBNDQo+IFRvOiBBbGV4IERldWNoZXIgPGFsZXhkZXVj
+aGVyQGdtYWlsLmNvbT47IGFtZC0NCj4gZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzog
+RGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KPiBTdWJqZWN0
+OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBvbmx5IGFsbG93IHNjYXR0ZXIvZ2F0aGVyIGRpc3Bs
+YXkgd2l0aCBEQw0KPiANCj4gQW0gMTIuMDEuMjAxOCB1bSAyMDo1OCBzY2hyaWViIEFsZXggRGV1
+Y2hlcjoNCj4gPiBDaGVjayBpZiBEQyBpcyBlbmFibGVkIGJlZm9yZSBhbGxvd2luZyBzY2Fub3V0
+IGJ1ZmZlcnMgdG8gYmUgcGlubmVkIGluDQo+ID4gc3lzdGVtIG1lbW9yeS4NCj4gPg0KPiA+IFNp
+Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4g
+DQo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
+b20+DQo+IA0KPiA+IC0tLQ0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rpc3BsYXkuYyB8IDUgKysrKy0NCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMo
+KyksIDEgZGVsZXRpb24oLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+ID4gaW5kZXggOGVkZTI2NDVhMDZjLi44NTk5NDI1NTJl
+OWYgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rp
+c3BsYXkuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNw
+bGF5LmMNCj4gPiBAQCAtNTA3LDkgKzUwNywxMiBAQCB1aW50MzJfdA0KPiBhbWRncHVfZGlzcGxh
+eV9mcmFtZWJ1ZmZlcl9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiA+ICAg
+ew0KPiA+ICAgCXVpbnQzMl90IGRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU07DQo+ID4N
+Cj4gPiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfREMpDQo+ID4gICAJaWYgKGFkZXYtPmFz
+aWNfdHlwZSA+PSBDSElQX0NBUlJJWk8gJiYgYWRldi0+YXNpY190eXBlIDwNCj4gQ0hJUF9SQVZF
+TiAmJg0KPiA+IC0JICAgIGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkNCj4gPiArCSAgICBhZGV2
+LT5mbGFncyAmIEFNRF9JU19BUFUgJiYNCj4gPiArCSAgICBhbWRncHVfZGV2aWNlX2FzaWNfaGFz
+X2RjX3N1cHBvcnQoYWRldi0+YXNpY190eXBlKSkNCj4gPiAgIAkJZG9tYWluIHw9IEFNREdQVV9H
+RU1fRE9NQUlOX0dUVDsNCj4gPiArI2VuZGlmDQo+ID4NCj4gPiAgIAlyZXR1cm4gZG9tYWluOw0K
+PiA+ICAgfQ0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
