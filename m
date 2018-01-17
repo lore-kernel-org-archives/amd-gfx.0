@@ -1,54 +1,60 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: TTM leaking swap space?
-Date: Wed, 17 Jan 2018 11:52:04 -0500
-Message-ID: <2345843e-2a2d-125c-55aa-e8866d993964@amd.com>
-References: <5ce0f6cb-4c5e-2915-da39-a8037568edcb@amd.com>
- <d497572f-bd28-d637-5b83-c8812d942e8e@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d497572f-bd28-d637-5b83-c8812d942e8e-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Luis de Bethencourt <luisbg@kernel.org>
+Subject: [PATCH] drm: amd: Fix trailing semicolons
+Date: Wed, 17 Jan 2018 18:50:20 +0000
+Message-ID: <20180117185020.25169-1-luisbg@kernel.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org
+Cc: Joe Perches <joe@perches.com>, Alex Deucher <alexander.deucher@amd.com>, Christian Konig <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <tony.cheng@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, Ding Wang <Ding.Wang@amd.com>, Sylvia Tsai <sylvia.tsai@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Eric Huang <JinHuiEric.Huang@amd.com>, Huang Rui <ray.huang@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Luis de Bethencourt <luisbg@kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SXQncyBvbiB0aGUgYW1kLWtmZC1zdGFnaW5nIGJyYW5jaCB3aXRoIHNvbWUgZXZpY3Rpb24gZml4
-ZXMgdGhhdCBhcmUKc3RpbGwgdW5kZXIgZGV2ZWxvcGVyIHRlc3RpbmcsIGFuZCBhIHRlc3QgdGhh
-dCdzIHN0aWxsIGluIGRldmVsb3BtZW50LgpOb3QgZWFzeSB0byBzaGFyZSByaWdodCBub3cuCgpJ
-J2xsIGxvb2sgaW50byB3YXlzIHRvIG1ha2UgaXQgZWFzaWVyIHRvIHJlcHJvZHVjZS4gSSdsbCBl
-eHBlcmltZW50IHdpdGgKYSBkcml2ZXIgY2hhbmdlIHRoYXQgZGVsaWJlcmF0ZWx5IHN3YXBzIGFs
-bCBCT3MgZHVyaW5nIGFsbG9jYXRpb24gdG8gc2VlCmlmIHRoZXJlIGlzIGFueSBvYnZpb3VzIHBy
-b2JsZW0gd2l0aCBzd2FwcGluZy4KClJlZ2FyZHMsCsKgIEZlbGl4CgoKT24gMjAxOC0wMS0xNiAx
-MDoyNCBQTSwgQ2h1bm1pbmcgWmhvdSB3cm90ZToKPiBIaSBGZWxpeCwKPgo+IENvdWxkIEkgZ2V0
-IHlvdXIgdGVzdCB0byBoYXZlIGEgdHJ5Pwo+Cj4KPiBUaGFua3MsCj4KPiBEYXZpZCBaaG91Cj4K
-Pgo+IE9uIDIwMTjlubQwMeaciDE35pelIDExOjIxLCBGZWxpeCBLdWVobGluZyB3cm90ZToKPj4g
-SSdtIHJ1bm5pbmcgYW4gZXZpY3Rpb24gc3RyZXNzIHRlc3Qgd2l0aCBLRkQgYW5kIGZpbmQgdGhh
-dCBzb21ldGltZXMgaXQKPj4gc3RhcnRzIHN3YXBwaW5nLiBXaGVuIHRoYXQgaGFwcGVucywgc3dh
-cCB1c2FnZSBnb2VzIHVwIHJhcGlkbHksIGJ1dCBpdAo+PiBuZXZlciBjb21lcyBkb3duLiBFdmVu
-IGFmdGVyIHRoZSBwcm9jZXNzZXMgdGVybWluYXRlLCBhbmQgYWxsIFZSQU0gYW5kCj4+IEdUVCBh
-bGxvY2F0aW9ucyBhcmUgZnJlZWQgKGNoZWNrZWQgaW4KPj4gL3N5cy9rZXJuZWwvZGVidWcvZHJp
-LzAvYW1kZ3B1X3tndHR8dnJhbX1fbW0pLCBzd2FwIHNwYWNlIGlzIHN0aWxsIG5vdAo+PiByZWxl
-YXNlZC4KPj4KPj4gUnVubmluZyB0aGUgdGVzdCByZXBlYXRlZGx5IEkgd2FzIGFibGUgdG8gdHJp
-Z2dlciB0aGUgT09NIGtpbGxlciBxdWl0ZQo+PiBlYXNpbHkuIFRoZSBzeXN0ZW0gZGllZCB3aXRo
-IGEgcGFuaWMsIHJ1bm5pbmcgb3V0IG9mIHByb2Nlc3NlcyB0byBraWxsLgo+Pgo+PiBUaGUgc3lt
-cHRvbXMgbG9vayBsaWtlIHN3YXAgc3BhY2UgaXMgb25seSBhbGxvY2F0ZWQgYnV0IG5ldmVyIHJl
-bGVhc2VkLgo+Pgo+PiBBIHF1aWNrIGxvb2sgYXQgdGhlIHN3YXBwaW5nIGNvZGUgaW4gdHRtX3R0
-LmMgZG9lc24ndCBzaG93IGFueSBvYnZpb3VzCj4+IHByb2JsZW1zLiBJJ20gYXNzdW1pbmcgdGhh
-dCBmcHV0IHNob3VsZCBmcmVlIHN3YXAgc3BhY2UuIFRoYXQgc2hvdWxkCj4+IGhhcHBlbiB3aGVu
-IEJPcyBhcmUgc3dhcHBlZCBiYWNrIGluLCBvciBkZXN0cm95ZWQuIEFzIGZhciBhcyBJIGNhbiB0
-ZWxsLAo+PiBhbWRncHUgZG9lc24ndCB1c2UgcGVyc2lzdGVudCBzd2FwIHNwYWNlLCBzbyBJJ20g
-aWdub3JpbmcKPj4gVFRNX1BBR0VfRkxBR19QRVJTSVNURU5UX1NXQVAuCj4+Cj4+IEFueSBvdGhl
-ciBpZGVhcyBvciBwb2ludGVycz8KPj4KPj4gVGhhbmtzLAo+PiDCoMKgIEZlbGl4Cj4+Cj4KCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+The trailing semicolon is an empty statement that does no operation.
+Removing the two instances of them since they don't do anything.
+
+Signed-off-by: Luis de Bethencourt <luisbg@kernel.org>
+---
+
+Hi,
+
+After fixing the same thing in drivers/staging/rtl8723bs/, Joe Perches
+suggested I fix it treewide [0].
+
+Best regards 
+Luis
+
+
+[0] http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2018-January/115410.html
+[1] http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2018-January/115390.html
+
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 61e8c3e02d16..33d91e4474ea 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -718,7 +718,7 @@ static enum link_training_result perform_channel_equalization_sequence(
+ 	uint32_t retries_ch_eq;
+ 	enum dc_lane_count lane_count = lt_settings->link_settings.lane_count;
+ 	union lane_align_status_updated dpcd_lane_status_updated = {{0}};
+-	union lane_status dpcd_lane_status[LANE_COUNT_DP_MAX] = {{{0}}};;
++	union lane_status dpcd_lane_status[LANE_COUNT_DP_MAX] = {{{0}}};
+ 
+ 	hw_tr_pattern = get_supported_tp(link);
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+index fa9d1615a2cc..b98a7a8a22b5 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -162,7 +162,7 @@ static int pp_hw_init(void *handle)
+ 		if(hwmgr->smumgr_funcs->start_smu(pp_handle->hwmgr)) {
+ 			pr_err("smc start failed\n");
+ 			hwmgr->smumgr_funcs->smu_fini(pp_handle->hwmgr);
+-			return -EINVAL;;
++			return -EINVAL;
+ 		}
+ 		if (ret == PP_DPM_DISABLED)
+ 			goto exit;
+-- 
+2.15.1
