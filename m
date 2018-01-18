@@ -1,205 +1,55 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: Felix Kuehling <felix.kuehling@amd.com>
 Subject: Re: [PATCH 1/2] drm/ttm: Don't add swapped BOs to swap-LRU list
-Date: Thu, 18 Jan 2018 21:15:12 +0000
-Message-ID: <BN6PR12MB1652C9BDA540238CBB3C7B47F7E80@BN6PR12MB1652.namprd12.prod.outlook.com>
+Date: Thu, 18 Jan 2018 16:12:53 -0500
+Message-ID: <117acb40-1cc5-9ea0-0e64-5db554c8cf9b@amd.com>
 References: <1516294577-29078-1-git-send-email-Felix.Kuehling@amd.com>
- <8d81b35d-dd7c-3d9c-cb91-4978b59f95c8@gmail.com>,
- <117acb40-1cc5-9ea0-0e64-5db554c8cf9b@amd.com>
+ <8d81b35d-dd7c-3d9c-cb91-4978b59f95c8@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0551263523=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <117acb40-1cc5-9ea0-0e64-5db554c8cf9b-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
-
---===============0551263523==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652C9BDA540238CBB3C7B47F7E80BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652C9BDA540238CBB3C7B47F7E80BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-
-________________________________
-From: Kuehling, Felix
-Sent: Thursday, January 18, 2018 4:12 PM
-To: Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org; He, Roger; Deucher, Alexander
-Subject: Re: [PATCH 1/2] drm/ttm: Don't add swapped BOs to swap-LRU list
-
-On 2018-01-18 01:09 PM, Christian K=F6nig wrote:
-> Am 18.01.2018 um 17:56 schrieb Felix Kuehling:
->> A BO that's already swapped would be added back to the swap-LRU list
->> for example if its validation failed under high memory pressure. This
->> could later lead to swapping it out again and leaking previous swap
->> storage.
->>
->> This commit adds a condition to prevent that from happening.
->>
->> v2: Check page_flags instead of swap_storage
->>
->> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
->
-> Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org> for both.
-
-Thanks. I pushed them to amd-staging-drm-next. I think patch 1 should
-also go to -fixes. Alex?
-
-Yup, already planning on it.
-
-Alex
-
-Regards,
-  Felix
-
->
->> ---
->>   drivers/gpu/drm/ttm/ttm_bo.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
->> index 2eb71ff..62518b6 100644
->> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->> @@ -170,7 +170,8 @@ void ttm_bo_add_to_lru(struct ttm_buffer_object *bo)
->>           list_add_tail(&bo->lru, &man->lru[bo->priority]);
->>           kref_get(&bo->list_kref);
->>   -        if (bo->ttm && !(bo->ttm->page_flags & TTM_PAGE_FLAG_SG)) {
->> +        if (bo->ttm && !(bo->ttm->page_flags &
->> +                 (TTM_PAGE_FLAG_SG | TTM_PAGE_FLAG_SWAPPED))) {
->>               list_add_tail(&bo->swap,
->>                         &bo->glob->swap_lru[bo->priority]);
->>               kref_get(&bo->list_kref);
->
-
-
---_000_BN6PR12MB1652C9BDA540238CBB3C7B47F7E80BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
-<b>Sent:</b> Thursday, January 18, 2018 4:12 PM<br>
-<b>To:</b> Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel@list=
-s.freedesktop.org; He, Roger; Deucher, Alexander<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/ttm: Don't add swapped BOs to swap-LRU =
-list</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2018-01-18 01:09 PM, Christian K=F6nig wrote:<b=
-r>
-&gt; Am 18.01.2018 um 17:56 schrieb Felix Kuehling:<br>
-&gt;&gt; A BO that's already swapped would be added back to the swap-LRU li=
-st<br>
-&gt;&gt; for example if its validation failed under high memory pressure. T=
-his<br>
-&gt;&gt; could later lead to swapping it out again and leaking previous swa=
-p<br>
-&gt;&gt; storage.<br>
-&gt;&gt;<br>
-&gt;&gt; This commit adds a condition to prevent that from happening.<br>
-&gt;&gt;<br>
-&gt;&gt; v2: Check page_flags instead of swap_storage<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt; for bo=
-th.<br>
-<br>
-Thanks. I pushed them to amd-staging-drm-next. I think patch 1 should<br>
-also go to -fixes. Alex?<br>
-</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">Yup, already planning on it.</div>
-<div class=3D"PlainText"><br>
-</div>
-<div class=3D"PlainText">Alex<br>
-</div>
-<div class=3D"PlainText"><br>
-Regards,<br>
-&nbsp; Felix<br>
-<br>
-&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/ttm/ttm_bo.c | 3 &#43;&#43;-<br>
-&gt;&gt; &nbsp; 1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/tt=
-m_bo.c<br>
-&gt;&gt; index 2eb71ff..62518b6 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/ttm/ttm_bo.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/ttm/ttm_bo.c<br>
-&gt;&gt; @@ -170,7 &#43;170,8 @@ void ttm_bo_add_to_lru(struct ttm_buffer_o=
-bject *bo)<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_add_ta=
-il(&amp;bo-&gt;lru, &amp;man-&gt;lru[bo-&gt;priority]);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kref_get(&a=
-mp;bo-&gt;list_kref);<br>
-&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo-&gt;ttm =
-&amp;&amp; !(bo-&gt;ttm-&gt;page_flags &amp; TTM_PAGE_FLAG_SG)) {<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo-&gt;ttm &am=
-p;&amp; !(bo-&gt;ttm-&gt;page_flags &amp;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (TTM_PAGE_FLAG_SG | TTM_PAGE_FLAG_SWAPP=
-ED))) {<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; list_add_tail(&amp;bo-&gt;swap,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &a=
-mp;bo-&gt;glob-&gt;swap_lru[bo-&gt;priority]);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; kref_get(&amp;bo-&gt;list_kref);<br>
-&gt;<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1652C9BDA540238CBB3C7B47F7E80BN6PR12MB1652namp_--
-
---===============0551263523==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <8d81b35d-dd7c-3d9c-cb91-4978b59f95c8@gmail.com>
+Content-Language: en-CA
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Hongbo.He@amd.com, "Deucher, Alexander" <Alexander.Deucher@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0551263523==--
+T24gMjAxOC0wMS0xOCAwMTowOSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAxOC4w
+MS4yMDE4IHVtIDE3OjU2IHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4+IEEgQk8gdGhhdCdzIGFs
+cmVhZHkgc3dhcHBlZCB3b3VsZCBiZSBhZGRlZCBiYWNrIHRvIHRoZSBzd2FwLUxSVSBsaXN0Cj4+
+IGZvciBleGFtcGxlIGlmIGl0cyB2YWxpZGF0aW9uIGZhaWxlZCB1bmRlciBoaWdoIG1lbW9yeSBw
+cmVzc3VyZS4gVGhpcwo+PiBjb3VsZCBsYXRlciBsZWFkIHRvIHN3YXBwaW5nIGl0IG91dCBhZ2Fp
+biBhbmQgbGVha2luZyBwcmV2aW91cyBzd2FwCj4+IHN0b3JhZ2UuCj4+Cj4+IFRoaXMgY29tbWl0
+IGFkZHMgYSBjb25kaXRpb24gdG8gcHJldmVudCB0aGF0IGZyb20gaGFwcGVuaW5nLgo+Pgo+PiB2
+MjogQ2hlY2sgcGFnZV9mbGFncyBpbnN0ZWFkIG9mIHN3YXBfc3RvcmFnZQo+Pgo+PiBTaWduZWQt
+b2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPgo+IFJldmll
+d2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGZvciBi
+b3RoLgoKVGhhbmtzLiBJIHB1c2hlZCB0aGVtIHRvIGFtZC1zdGFnaW5nLWRybS1uZXh0LiBJIHRo
+aW5rIHBhdGNoIDEgc2hvdWxkCmFsc28gZ28gdG8gLWZpeGVzLiBBbGV4PwoKUmVnYXJkcywKwqAg
+RmVsaXgKCj4KPj4gLS0tCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgfCAzICsr
+LQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+
+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGIvZHJpdmVycy9n
+cHUvZHJtL3R0bS90dG1fYm8uYwo+PiBpbmRleCAyZWI3MWZmLi42MjUxOGI2IDEwMDY0NAo+PiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS90dG0vdHRtX2JvLmMKPj4gQEAgLTE3MCw3ICsxNzAsOCBAQCB2b2lkIHR0bV9ib19hZGRfdG9f
+bHJ1KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8pCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBs
+aXN0X2FkZF90YWlsKCZiby0+bHJ1LCAmbWFuLT5scnVbYm8tPnByaW9yaXR5XSk7Cj4+IMKgwqDC
+oMKgwqDCoMKgwqDCoCBrcmVmX2dldCgmYm8tPmxpc3Rfa3JlZik7Cj4+IMKgIC3CoMKgwqDCoMKg
+wqDCoCBpZiAoYm8tPnR0bSAmJiAhKGJvLT50dG0tPnBhZ2VfZmxhZ3MgJiBUVE1fUEFHRV9GTEFH
+X1NHKSkgewo+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGJvLT50dG0gJiYgIShiby0+dHRtLT5wYWdl
+X2ZsYWdzICYKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIChUVE1fUEFHRV9G
+TEFHX1NHIHwgVFRNX1BBR0VfRkxBR19TV0FQUEVEKSkpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgbGlzdF9hZGRfdGFpbCgmYm8tPnN3YXAsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmJvLT5nbG9iLT5zd2FwX2xydVtiby0+cHJpb3Jp
+dHldKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAga3JlZl9nZXQoJmJvLT5saXN0X2ty
+ZWYpOwo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpk
+cmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
