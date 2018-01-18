@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: disable MMHUB power gating on raven
-Date: Thu, 18 Jan 2018 15:16:46 +0000
-Message-ID: <BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1516278371-14623-1-git-send-email-ray.huang@amd.com>
+From: James Zhu <James.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/3] drm/amd/amdgpu: Replace uvd_v6_0_enc_support with
+ uvd.num_enc_rings after uvd_v6_0_early_init
+Date: Thu, 18 Jan 2018 10:49:52 -0500
+Message-ID: <1516290593-6955-2-git-send-email-James.Zhu@amd.com>
+References: <1516290593-6955-1-git-send-email-James.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0548696463=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1516278371-14623-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1516290593-6955-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,155 +19,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0548696463==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Huang Ru=
-i <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, January 18, 2018 7:26:11 AM
-To: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Huang, Ray
-Subject: [PATCH] drm/amdgpu: disable MMHUB power gating on raven
-
-MMHUB power gating still has issue, and doesn't work on raven at current. S=
-o
-disable it for the moment.
-
-Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Acked-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/soc15.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index f134ca0..5ccac91 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -659,8 +659,8 @@ static int soc15_common_early_init(void *handle)
-                         AMD_CG_SUPPORT_MC_LS |
-                         AMD_CG_SUPPORT_SDMA_MGCG |
-                         AMD_CG_SUPPORT_SDMA_LS;
--               adev->pg_flags =3D AMD_PG_SUPPORT_SDMA |
--                                AMD_PG_SUPPORT_MMHUB;
-+               adev->pg_flags =3D AMD_PG_SUPPORT_SDMA;
-+
-                 adev->external_rev_id =3D 0x1;
-                 break;
-         default:
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Huang Rui &lt;ray.huang@amd.c=
-om&gt;<br>
-<b>Sent:</b> Thursday, January 18, 2018 7:26:11 AM<br>
-<b>To:</b> Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Huang, Ray<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: disable MMHUB power gating on raven</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">MMHUB power gating still has issue, and doesn't wo=
-rk on raven at current. So<br>
-disable it for the moment.<br>
-<br>
-Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Acked-by: Hawking Zhang &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c | 4 &#43;&#43;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index f134ca0..5ccac91 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -659,8 &#43;659,8 @@ static int soc15_common_early_init(void *handle)<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_MC_LS |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_SDMA_MGCG |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
-G_SUPPORT_SDMA_LS;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;pg_flags =3D AMD_PG_SUPPORT_SDMA |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_MMHUB;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;pg_flags =3D AMD_PG_SUPPORT_SDMA;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;external_rev_id =3D 0x1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_--
-
---===============0548696463==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0548696463==--
+U2lnbmVkLW9mZi1ieTogSmFtZXMgWmh1IDxKYW1lcy5aaHVAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5jIHwgNTUgKysrKysrKysrKysrKysrLS0tLS0t
+LS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspLCAzMiBkZWxl
+dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZf
+MC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y2XzAuYwppbmRleCA2MTI0NTVk
+Li4zMTlkNGIzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZf
+MC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMKQEAgLTQwMiwx
+NyArNDAyLDE2IEBAIHN0YXRpYyBpbnQgdXZkX3Y2XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCiAJ
+aWYgKHIpCiAJCXJldHVybiByOwogCi0JLyogVVZEIEVOQyBUUkFQICovCi0JaWYgKHV2ZF92Nl8w
+X2VuY19zdXBwb3J0KGFkZXYpKSB7CisJaWYgKGFkZXYtPnV2ZC5udW1fZW5jX3JpbmdzKSB7CisJ
+CXN0cnVjdCBkcm1fc2NoZWRfcnEgKnJxOworCisJCS8qIFVWRCBFTkMgVFJBUCAqLwogCQlmb3Ig
+KGkgPSAwOyBpIDwgYWRldi0+dXZkLm51bV9lbmNfcmluZ3M7ICsraSkgewogCQkJciA9IGFtZGdw
+dV9pcnFfYWRkX2lkKGFkZXYsIEFNREdQVV9JSF9DTElFTlRJRF9MRUdBQ1ksIGkgKyAxMTksICZh
+ZGV2LT51dmQuaXJxKTsKIAkJCWlmIChyKQogCQkJCXJldHVybiByOwogCQl9Ci0JfQogCi0JaWYg
+KHV2ZF92Nl8wX2VuY19zdXBwb3J0KGFkZXYpKSB7Ci0JCXN0cnVjdCBkcm1fc2NoZWRfcnEgKnJx
+OwogCQlyaW5nID0gJmFkZXYtPnV2ZC5yaW5nX2VuY1swXTsKIAkJcnEgPSAmcmluZy0+c2NoZWQu
+c2NoZWRfcnFbRFJNX1NDSEVEX1BSSU9SSVRZX05PUk1BTF07CiAJCXIgPSBkcm1fc2NoZWRfZW50
+aXR5X2luaXQoJnJpbmctPnNjaGVkLCAmYWRldi0+dXZkLmVudGl0eV9lbmMsCkBAIC00MzMsMTQg
+KzQzMiwxMiBAQCBzdGF0aWMgaW50IHV2ZF92Nl8wX3N3X2luaXQodm9pZCAqaGFuZGxlKQogCWlm
+IChyKQogCQlyZXR1cm4gcjsKIAotCWlmICh1dmRfdjZfMF9lbmNfc3VwcG9ydChhZGV2KSkgewot
+CQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dXZkLm51bV9lbmNfcmluZ3M7ICsraSkgewotCQkJcmlu
+ZyA9ICZhZGV2LT51dmQucmluZ19lbmNbaV07Ci0JCQlzcHJpbnRmKHJpbmctPm5hbWUsICJ1dmRf
+ZW5jJWQiLCBpKTsKLQkJCXIgPSBhbWRncHVfcmluZ19pbml0KGFkZXYsIHJpbmcsIDUxMiwgJmFk
+ZXYtPnV2ZC5pcnEsIDApOwotCQkJaWYgKHIpCi0JCQkJcmV0dXJuIHI7Ci0JCX0KKwlmb3IgKGkg
+PSAwOyBpIDwgYWRldi0+dXZkLm51bV9lbmNfcmluZ3M7ICsraSkgeworCQlyaW5nID0gJmFkZXYt
+PnV2ZC5yaW5nX2VuY1tpXTsKKwkJc3ByaW50ZihyaW5nLT5uYW1lLCAidXZkX2VuYyVkIiwgaSk7
+CisJCXIgPSBhbWRncHVfcmluZ19pbml0KGFkZXYsIHJpbmcsIDUxMiwgJmFkZXYtPnV2ZC5pcnEs
+IDApOworCQlpZiAocikKKwkJCXJldHVybiByOwogCX0KIAogCXJldHVybiByOwpAQCAtNDU1LDcg
+KzQ1Miw3IEBAIHN0YXRpYyBpbnQgdXZkX3Y2XzBfc3dfZmluaSh2b2lkICpoYW5kbGUpCiAJaWYg
+KHIpCiAJCXJldHVybiByOwogCi0JaWYgKHV2ZF92Nl8wX2VuY19zdXBwb3J0KGFkZXYpKSB7CisJ
+aWYgKGFkZXYtPnV2ZC5udW1fZW5jX3JpbmdzKSB7CiAJCWRybV9zY2hlZF9lbnRpdHlfZmluaSgm
+YWRldi0+dXZkLnJpbmdfZW5jWzBdLnNjaGVkLCAmYWRldi0+dXZkLmVudGl0eV9lbmMpOwogCiAJ
+CWZvciAoaSA9IDA7IGkgPCBhZGV2LT51dmQubnVtX2VuY19yaW5nczsgKytpKQpAQCAtNTE3LDIx
+ICs1MTQsMTkgQEAgc3RhdGljIGludCB1dmRfdjZfMF9od19pbml0KHZvaWQgKmhhbmRsZSkKIAog
+CWFtZGdwdV9yaW5nX2NvbW1pdChyaW5nKTsKIAotCWlmICh1dmRfdjZfMF9lbmNfc3VwcG9ydChh
+ZGV2KSkgewotCQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dXZkLm51bV9lbmNfcmluZ3M7ICsraSkg
+ewotCQkJcmluZyA9ICZhZGV2LT51dmQucmluZ19lbmNbaV07Ci0JCQlyaW5nLT5yZWFkeSA9IHRy
+dWU7Ci0JCQlyID0gYW1kZ3B1X3JpbmdfdGVzdF9yaW5nKHJpbmcpOwotCQkJaWYgKHIpIHsKLQkJ
+CQlyaW5nLT5yZWFkeSA9IGZhbHNlOwotCQkJCWdvdG8gZG9uZTsKLQkJCX0KKwlmb3IgKGkgPSAw
+OyBpIDwgYWRldi0+dXZkLm51bV9lbmNfcmluZ3M7ICsraSkgeworCQlyaW5nID0gJmFkZXYtPnV2
+ZC5yaW5nX2VuY1tpXTsKKwkJcmluZy0+cmVhZHkgPSB0cnVlOworCQlyID0gYW1kZ3B1X3Jpbmdf
+dGVzdF9yaW5nKHJpbmcpOworCQlpZiAocikgeworCQkJcmluZy0+cmVhZHkgPSBmYWxzZTsKKwkJ
+CWdvdG8gZG9uZTsKIAkJfQogCX0KIAogZG9uZToKIAlpZiAoIXIpIHsKLQkJaWYgKHV2ZF92Nl8w
+X2VuY19zdXBwb3J0KGFkZXYpKQorCQlpZiAoYWRldi0+dXZkLm51bV9lbmNfcmluZ3MpCiAJCQlE
+Uk1fSU5GTygiVVZEIGFuZCBVVkQgRU5DIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseS5cbiIpOwog
+CQllbHNlCiAJCQlEUk1fSU5GTygiVVZEIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseS5cbiIpOwpA
+QCAtODUyLDcgKzg0Nyw3IEBAIHN0YXRpYyBpbnQgdXZkX3Y2XzBfc3RhcnQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCiAKIAlXUkVHMzJfRklFTEQoVVZEX1JCQ19SQl9DTlRMLCBSQl9OT19G
+RVRDSCwgMCk7CiAKLQlpZiAodXZkX3Y2XzBfZW5jX3N1cHBvcnQoYWRldikpIHsKKwlpZiAoYWRl
+di0+dXZkLm51bV9lbmNfcmluZ3MpIHsKIAkJcmluZyA9ICZhZGV2LT51dmQucmluZ19lbmNbMF07
+CiAJCVdSRUczMihtbVVWRF9SQl9SUFRSLCBsb3dlcl8zMl9iaXRzKHJpbmctPndwdHIpKTsKIAkJ
+V1JFRzMyKG1tVVZEX1JCX1dQVFIsIGxvd2VyXzMyX2JpdHMocmluZy0+d3B0cikpOwpAQCAtMTI1
+NCwxMyArMTI0OSwxMyBAQCBzdGF0aWMgaW50IHV2ZF92Nl8wX3Byb2Nlc3NfaW50ZXJydXB0KHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQlhbWRncHVfZmVuY2VfcHJvY2VzcygmYWRldi0+
+dXZkLnJpbmcpOwogCQlicmVhazsKIAljYXNlIDExOToKLQkJaWYgKGxpa2VseSh1dmRfdjZfMF9l
+bmNfc3VwcG9ydChhZGV2KSkpCisJCWlmIChsaWtlbHkoYWRldi0+dXZkLm51bV9lbmNfcmluZ3Mp
+KQogCQkJYW1kZ3B1X2ZlbmNlX3Byb2Nlc3MoJmFkZXYtPnV2ZC5yaW5nX2VuY1swXSk7CiAJCWVs
+c2UKIAkJCWludF9oYW5kbGVkID0gZmFsc2U7CiAJCWJyZWFrOwogCWNhc2UgMTIwOgotCQlpZiAo
+bGlrZWx5KHV2ZF92Nl8wX2VuY19zdXBwb3J0KGFkZXYpKSkKKwkJaWYgKGxpa2VseShhZGV2LT51
+dmQubnVtX2VuY19yaW5ncykpCiAJCQlhbWRncHVfZmVuY2VfcHJvY2VzcygmYWRldi0+dXZkLnJp
+bmdfZW5jWzFdKTsKIAkJZWxzZQogCQkJaW50X2hhbmRsZWQgPSBmYWxzZTsKQEAgLTE2NTIsMTEg
+KzE2NDcsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9pcnFfc3JjX2Z1bmNzIHV2ZF92
+Nl8wX2lycV9mdW5jcyA9IHsKIAogc3RhdGljIHZvaWQgdXZkX3Y2XzBfc2V0X2lycV9mdW5jcyhz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlpZiAodXZkX3Y2XzBfZW5jX3N1cHBvcnQo
+YWRldikpCi0JCWFkZXYtPnV2ZC5pcnEubnVtX3R5cGVzID0gYWRldi0+dXZkLm51bV9lbmNfcmlu
+Z3MgKyAxOwotCWVsc2UKLQkJYWRldi0+dXZkLmlycS5udW1fdHlwZXMgPSAxOwotCisJYWRldi0+
+dXZkLmlycS5udW1fdHlwZXMgPSBhZGV2LT51dmQubnVtX2VuY19yaW5ncyArIDE7CiAJYWRldi0+
+dXZkLmlycS5mdW5jcyA9ICZ1dmRfdjZfMF9pcnFfZnVuY3M7CiB9CiAKLS0gCjIuNy40CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
