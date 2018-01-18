@@ -1,43 +1,61 @@
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-Subject: [PATCH 1/2] drm/ttm: Don't add swapped BOs to swap-LRU list
-Date: Thu, 18 Jan 2018 11:56:16 -0500
-Message-ID: <1516294577-29078-1-git-send-email-Felix.Kuehling@amd.com>
+From: Michal Hocko <mhocko@kernel.org>
+Subject: Re: [RFC] Per file OOM badness
+Date: Thu, 18 Jan 2018 18:00:06 +0100
+Message-ID: <20180118170006.GG6584@dhcp22.suse.cz>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, christian.koenig@amd.com, Hongbo.He@amd.com
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+Content-Disposition: inline
+In-Reply-To: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+Sender: owner-linux-mm@kvack.org
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-QSBCTyB0aGF0J3MgYWxyZWFkeSBzd2FwcGVkIHdvdWxkIGJlIGFkZGVkIGJhY2sgdG8gdGhlIHN3
-YXAtTFJVIGxpc3QKZm9yIGV4YW1wbGUgaWYgaXRzIHZhbGlkYXRpb24gZmFpbGVkIHVuZGVyIGhp
-Z2ggbWVtb3J5IHByZXNzdXJlLiBUaGlzCmNvdWxkIGxhdGVyIGxlYWQgdG8gc3dhcHBpbmcgaXQg
-b3V0IGFnYWluIGFuZCBsZWFraW5nIHByZXZpb3VzIHN3YXAKc3RvcmFnZS4KClRoaXMgY29tbWl0
-IGFkZHMgYSBjb25kaXRpb24gdG8gcHJldmVudCB0aGF0IGZyb20gaGFwcGVuaW5nLgoKdjI6IENo
-ZWNrIHBhZ2VfZmxhZ3MgaW5zdGVhZCBvZiBzd2FwX3N0b3JhZ2UKClNpZ25lZC1vZmYtYnk6IEZl
-bGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS90dG0vdHRtX2JvLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCmluZGV4IDJlYjcxZmYuLjYyNTE4YjYgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL3R0bS90dG1fYm8uYwpAQCAtMTcwLDcgKzE3MCw4IEBAIHZvaWQgdHRtX2JvX2FkZF90b19s
-cnUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibykKIAkJbGlzdF9hZGRfdGFpbCgmYm8tPmxy
-dSwgJm1hbi0+bHJ1W2JvLT5wcmlvcml0eV0pOwogCQlrcmVmX2dldCgmYm8tPmxpc3Rfa3JlZik7
-CiAKLQkJaWYgKGJvLT50dG0gJiYgIShiby0+dHRtLT5wYWdlX2ZsYWdzICYgVFRNX1BBR0VfRkxB
-R19TRykpIHsKKwkJaWYgKGJvLT50dG0gJiYgIShiby0+dHRtLT5wYWdlX2ZsYWdzICYKKwkJCQkg
-KFRUTV9QQUdFX0ZMQUdfU0cgfCBUVE1fUEFHRV9GTEFHX1NXQVBQRUQpKSkgewogCQkJbGlzdF9h
-ZGRfdGFpbCgmYm8tPnN3YXAsCiAJCQkJICAgICAgJmJvLT5nbG9iLT5zd2FwX2xydVtiby0+cHJp
-b3JpdHldKTsKIAkJCWtyZWZfZ2V0KCZiby0+bGlzdF9rcmVmKTsKLS0gCjIuNy40CgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGlu
-ZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+On Thu 18-01-18 11:47:48, Andrey Grodzovsky wrote:
+> Hi, this series is a revised version of an RFC sent by Christian König
+> a few years ago. The original RFC can be found at 
+> https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html
+> 
+> This is the same idea and I've just adressed his concern from the original RFC 
+> and switched to a callback into file_ops instead of a new member in struct file.
+
+Please add the full description to the cover letter and do not make
+people hunt links.
+
+Here is the origin cover letter text
+: I'm currently working on the issue that when device drivers allocate memory on
+: behalf of an application the OOM killer usually doesn't knew about that unless
+: the application also get this memory mapped into their address space.
+: 
+: This is especially annoying for graphics drivers where a lot of the VRAM
+: usually isn't CPU accessible and so doesn't make sense to map into the
+: address space of the process using it.
+: 
+: The problem now is that when an application starts to use a lot of VRAM those
+: buffers objects sooner or later get swapped out to system memory, but when we
+: now run into an out of memory situation the OOM killer obviously doesn't knew
+: anything about that memory and so usually kills the wrong process.
+: 
+: The following set of patches tries to address this problem by introducing a per
+: file OOM badness score, which device drivers can use to give the OOM killer a
+: hint how many resources are bound to a file descriptor so that it can make
+: better decisions which process to kill.
+: 
+: So question at every one: What do you think about this approach?
+: 
+: My biggest concern right now is the patches are messing with a core kernel
+: structure (adding a field to struct file). Any better idea? I'm considering
+: to put a callback into file_ops instead.
+
+-- 
+Michal Hocko
+SUSE Labs
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
