@@ -1,13 +1,12 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Bump driver version for sensor pstate clk
-Date: Thu, 18 Jan 2018 15:10:25 +0000
-Message-ID: <BN6PR12MB16522B11BE795D075F25D835F7E80@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1516245123-12823-1-git-send-email-Rex.Zhu@amd.com>,
- <1516245123-12823-2-git-send-email-Rex.Zhu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: disable MMHUB power gating on raven
+Date: Thu, 18 Jan 2018 15:16:46 +0000
+Message-ID: <BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1516278371-14623-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1595632097=="
+Content-Type: multipart/mixed; boundary="===============0548696463=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1516245123-12823-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1516278371-14623-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,61 +18,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1595632097==
+--===============0548696463==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_"
+	boundary="_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_"
 
---_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_
+--_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, January 17, 2018 10:12:03 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 2/2] drm/amdgpu: Bump driver version for sensor pstate clk
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Huang Ru=
+i <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, January 18, 2018 7:26:11 AM
+To: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang, Ray
+Subject: [PATCH] drm/amdgpu: disable MMHUB power gating on raven
 
-Change-Id: I7fc6e49fc2c37502e66903331f64c7418c1684dd
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+MMHUB power gating still has issue, and doesn't work on raven at current. S=
+o
+disable it for the moment.
+
+Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Acked-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 46a0c93..24bc3e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -74,9 +74,10 @@
-  * - 3.22.0 - Add DRM_AMDGPU_SCHED ioctl
-  * - 3.23.0 - Add query for VRAM lost counter
-  * - 3.24.0 - Add high priority compute support for gfx9
-+ * - 3.25.0 - Add support for sensor query info (stable pstate sclk/mclk).
-  */
- #define KMS_DRIVER_MAJOR        3
--#define KMS_DRIVER_MINOR       24
-+#define KMS_DRIVER_MINOR       25
- #define KMS_DRIVER_PATCHLEVEL   0
-
- int amdgpu_vram_limit =3D 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c
+index f134ca0..5ccac91 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -659,8 +659,8 @@ static int soc15_common_early_init(void *handle)
+                         AMD_CG_SUPPORT_MC_LS |
+                         AMD_CG_SUPPORT_SDMA_MGCG |
+                         AMD_CG_SUPPORT_SDMA_LS;
+-               adev->pg_flags =3D AMD_PG_SUPPORT_SDMA |
+-                                AMD_PG_SUPPORT_MMHUB;
++               adev->pg_flags =3D AMD_PG_SUPPORT_SDMA;
++
+                 adev->external_rev_id =3D 0x1;
+                 break;
+         default:
 --
-1.9.1
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_
+--_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -87,53 +87,65 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 </p>
 </div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Wednesday, January 17, 2018 10:12:03 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: Bump driver version for sensor psta=
-te clk</font>
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Huang Rui &lt;ray.huang@amd.c=
+om&gt;<br>
+<b>Sent:</b> Thursday, January 18, 2018 7:26:11 AM<br>
+<b>To:</b> Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Huang, Ray<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: disable MMHUB power gating on raven</fo=
+nt>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Change-Id: I7fc6e49fc2c37502e66903331f64c7418c1684=
-dd<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+<div class=3D"PlainText">MMHUB power gating still has issue, and doesn't wo=
+rk on raven at current. So<br>
+disable it for the moment.<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index 46a0c93..24bc3e9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -74,9 &#43;74,10 @@<br>
-&nbsp; * - 3.22.0 - Add DRM_AMDGPU_SCHED ioctl<br>
-&nbsp; * - 3.23.0 - Add query for VRAM lost counter<br>
-&nbsp; * - 3.24.0 - Add high priority compute support for gfx9<br>
-&#43; * - 3.25.0 - Add support for sensor query info (stable pstate sclk/mc=
-lk).<br>
-&nbsp; */<br>
-&nbsp;#define KMS_DRIVER_MAJOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3<=
-br>
--#define KMS_DRIVER_MINOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24<br>
-&#43;#define KMS_DRIVER_MINOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 25<br>
-&nbsp;#define KMS_DRIVER_PATCHLEVEL&nbsp;&nbsp; 0<br>
-&nbsp;<br>
-&nbsp;int amdgpu_vram_limit =3D 0;<br>
+Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Acked-by: Hawking Zhang &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c | 4 &#43;&#43;--<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c<br>
+index f134ca0..5ccac91 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+@@ -659,8 &#43;659,8 @@ static int soc15_common_early_init(void *handle)<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_MC_LS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_SDMA_MGCG |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_SDMA_LS;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;pg_flags =3D AMD_PG_SUPPORT_SDMA |<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_MMHUB;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;pg_flags =3D AMD_PG_SUPPORT_SDMA;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;external_rev_id =3D 0x1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
 -- <br>
-1.9.1<br>
+2.7.4<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
@@ -145,9 +157,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_--
+--_000_BN6PR12MB1652E97B2BFC74ACAD1A5C91F7E80BN6PR12MB1652namp_--
 
---===============1595632097==
+--===============0548696463==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -157,4 +169,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1595632097==--
+--===============0548696463==--
