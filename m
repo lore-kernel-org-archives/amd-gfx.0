@@ -1,69 +1,49 @@
-From: Michal Hocko <mhocko@kernel.org>
-Subject: Re: [RFC] Per file OOM badness
-Date: Thu, 18 Jan 2018 18:13:55 +0100
-Message-ID: <20180118171355.GH6584@dhcp22.suse.cz>
-References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
- <20180118170006.GG6584@dhcp22.suse.cz>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 1/2] drm/ttm: Don't add swapped BOs to swap-LRU list
+Date: Thu, 18 Jan 2018 19:09:18 +0100
+Message-ID: <8d81b35d-dd7c-3d9c-cb91-4978b59f95c8@gmail.com>
+References: <1516294577-29078-1-git-send-email-Felix.Kuehling@amd.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20180118170006.GG6584@dhcp22.suse.cz>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1516294577-29078-1-git-send-email-Felix.Kuehling@amd.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, christian.koenig@amd.com, Hongbo.He@amd.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu 18-01-18 18:00:06, Michal Hocko wrote:
-> On Thu 18-01-18 11:47:48, Andrey Grodzovsky wrote:
-> > Hi, this series is a revised version of an RFC sent by Christian König
-> > a few years ago. The original RFC can be found at 
-> > https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html
-> > 
-> > This is the same idea and I've just adressed his concern from the original RFC 
-> > and switched to a callback into file_ops instead of a new member in struct file.
-> 
-> Please add the full description to the cover letter and do not make
-> people hunt links.
-> 
-> Here is the origin cover letter text
-> : I'm currently working on the issue that when device drivers allocate memory on
-> : behalf of an application the OOM killer usually doesn't knew about that unless
-> : the application also get this memory mapped into their address space.
-> : 
-> : This is especially annoying for graphics drivers where a lot of the VRAM
-> : usually isn't CPU accessible and so doesn't make sense to map into the
-> : address space of the process using it.
-> : 
-> : The problem now is that when an application starts to use a lot of VRAM those
-> : buffers objects sooner or later get swapped out to system memory, but when we
-> : now run into an out of memory situation the OOM killer obviously doesn't knew
-> : anything about that memory and so usually kills the wrong process.
-
-OK, but how do you attribute that memory to a particular OOM killable
-entity? And how do you actually enforce that those resources get freed
-on the oom killer action?
-
-> : The following set of patches tries to address this problem by introducing a per
-> : file OOM badness score, which device drivers can use to give the OOM killer a
-> : hint how many resources are bound to a file descriptor so that it can make
-> : better decisions which process to kill.
-
-But files are not killable, they can be shared... In other words this
-doesn't help the oom killer to make an educated guess at all.
-
-> : 
-> : So question at every one: What do you think about this approach?
-
-I thing is just just wrong semantically. Non-reclaimable memory is a
-pain, especially when there is way too much of it. If you can free that
-memory somehow then you can hook into slab shrinker API and react on the
-memory pressure. If you can account such a memory to a particular
-process and make sure that the consumption is bound by the process life
-time then we can think of an accounting that oom_badness can consider
-when selecting a victim.
-
--- 
-Michal Hocko
-SUSE Labs
+QW0gMTguMDEuMjAxOCB1bSAxNzo1NiBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IEEgQk8gdGhh
+dCdzIGFscmVhZHkgc3dhcHBlZCB3b3VsZCBiZSBhZGRlZCBiYWNrIHRvIHRoZSBzd2FwLUxSVSBs
+aXN0Cj4gZm9yIGV4YW1wbGUgaWYgaXRzIHZhbGlkYXRpb24gZmFpbGVkIHVuZGVyIGhpZ2ggbWVt
+b3J5IHByZXNzdXJlLiBUaGlzCj4gY291bGQgbGF0ZXIgbGVhZCB0byBzd2FwcGluZyBpdCBvdXQg
+YWdhaW4gYW5kIGxlYWtpbmcgcHJldmlvdXMgc3dhcAo+IHN0b3JhZ2UuCj4KPiBUaGlzIGNvbW1p
+dCBhZGRzIGEgY29uZGl0aW9uIHRvIHByZXZlbnQgdGhhdCBmcm9tIGhhcHBlbmluZy4KPgo+IHYy
+OiBDaGVjayBwYWdlX2ZsYWdzIGluc3RlYWQgb2Ygc3dhcF9zdG9yYWdlCj4KPiBTaWduZWQtb2Zm
+LWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KClJldmlld2VkLWJ5
+OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGZvciBib3RoLgoK
+PiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgfCAzICsrLQo+ICAgMSBmaWxl
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9i
+by5jCj4gaW5kZXggMmViNzFmZi4uNjI1MThiNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vdHRtL3R0bV9iby5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+IEBA
+IC0xNzAsNyArMTcwLDggQEAgdm9pZCB0dG1fYm9fYWRkX3RvX2xydShzdHJ1Y3QgdHRtX2J1ZmZl
+cl9vYmplY3QgKmJvKQo+ICAgCQlsaXN0X2FkZF90YWlsKCZiby0+bHJ1LCAmbWFuLT5scnVbYm8t
+PnByaW9yaXR5XSk7Cj4gICAJCWtyZWZfZ2V0KCZiby0+bGlzdF9rcmVmKTsKPiAgIAo+IC0JCWlm
+IChiby0+dHRtICYmICEoYm8tPnR0bS0+cGFnZV9mbGFncyAmIFRUTV9QQUdFX0ZMQUdfU0cpKSB7
+Cj4gKwkJaWYgKGJvLT50dG0gJiYgIShiby0+dHRtLT5wYWdlX2ZsYWdzICYKPiArCQkJCSAoVFRN
+X1BBR0VfRkxBR19TRyB8IFRUTV9QQUdFX0ZMQUdfU1dBUFBFRCkpKSB7Cj4gICAJCQlsaXN0X2Fk
+ZF90YWlsKCZiby0+c3dhcCwKPiAgIAkJCQkgICAgICAmYm8tPmdsb2ItPnN3YXBfbHJ1W2JvLT5w
+cmlvcml0eV0pOwo+ICAgCQkJa3JlZl9nZXQoJmJvLT5saXN0X2tyZWYpOwoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlz
+dApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
