@@ -1,124 +1,68 @@
-From: Chunming Zhou <zhoucm1@amd.com>
-Subject: Re: [PATCH 3/4] drm/gem: adjust per file OOM badness on handling
- buffers
-Date: Fri, 19 Jan 2018 14:01:32 +0800
-Message-ID: <bc332280-b60d-308b-5a52-8131590c06b7@amd.com>
-References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
- <1516294072-17841-4-git-send-email-andrey.grodzovsky@amd.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 12/24] drm/amd/display: disable az_clock_gating for endpoint
+ register access only
+Date: Thu, 18 Jan 2018 16:03:41 -0500
+Message-ID: <20180118210353.18842-13-harry.wentland@amd.com>
+References: <20180118210353.18842-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <1516294072-17841-4-git-send-email-andrey.grodzovsky@amd.com>
-Content-Language: en-US
-Sender: owner-linux-mm@kvack.org
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180118210353.18842-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Charlene Liu <charlene.liu-5C7GfCeVMHo@public.gmane.org>
 
-
-
-On 2018年01月19日 00:47, Andrey Grodzovsky wrote:
-> Large amounts of VRAM are usually not CPU accessible, so they are not mapped
-> into the processes address space. But since the device drivers usually support
-> swapping buffers from VRAM to system memory we can still run into an out of
-> memory situation when userspace starts to allocate to much.
->
-> This patch gives the OOM another hint which process is
-> holding how many resources.
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->   drivers/gpu/drm/drm_file.c | 12 ++++++++++++
->   drivers/gpu/drm/drm_gem.c  |  8 ++++++++
->   include/drm/drm_file.h     |  4 ++++
->   3 files changed, 24 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index b3c6e99..626cc76 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -747,3 +747,15 @@ void drm_send_event(struct drm_device *dev, struct drm_pending_event *e)
->   	spin_unlock_irqrestore(&dev->event_lock, irqflags);
->   }
->   EXPORT_SYMBOL(drm_send_event);
-> +
-> +long drm_oom_badness(struct file *f)
-> +{
-> +
-> +	struct drm_file *file_priv = f->private_data;
-> +
-> +	if (file_priv)
-> +		return atomic_long_read(&file_priv->f_oom_badness);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_oom_badness);
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 01f8d94..ffbadc8 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -264,6 +264,9 @@ drm_gem_object_release_handle(int id, void *ptr, void *data)
->   		drm_gem_remove_prime_handles(obj, file_priv);
->   	drm_vma_node_revoke(&obj->vma_node, file_priv);
->   
-> +	atomic_long_sub(obj->size >> PAGE_SHIFT,
-> +				&file_priv->f_oom_badness);
-> +
->   	drm_gem_object_handle_put_unlocked(obj);
->   
->   	return 0;
-> @@ -299,6 +302,8 @@ drm_gem_handle_delete(struct drm_file *filp, u32 handle)
->   	idr_remove(&filp->object_idr, handle);
->   	spin_unlock(&filp->table_lock);
->   
-> +	atomic_long_sub(obj->size >> PAGE_SHIFT, &filp->f_oom_badness);
-> +
->   	return 0;
->   }
->   EXPORT_SYMBOL(drm_gem_handle_delete);
-> @@ -417,6 +422,9 @@ drm_gem_handle_create_tail(struct drm_file *file_priv,
->   	}
->   
->   	*handlep = handle;
-> +
-> +	atomic_long_add(obj->size >> PAGE_SHIFT,
-> +				&file_priv->f_oom_badness);
-For VRAM case, it should be counted only when vram bo is evicted to 
-system memory.
-For example, vram total is 8GB, system memory total is 8GB, one 
-application allocates 7GB vram and 7GB system memory, which is allowed, 
-but if following your idea, then this application will be killed by OOM, 
-right?
-
-Regards,
-David Zhou
->   	return 0;
->   
->   err_revoke:
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 0e0c868..ac3aa75 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -317,6 +317,8 @@ struct drm_file {
->   
->   	/* private: */
->   	unsigned long lock_count; /* DRI1 legacy lock count */
-> +
-> +	atomic_long_t		f_oom_badness;
->   };
->   
->   /**
-> @@ -378,4 +380,6 @@ void drm_event_cancel_free(struct drm_device *dev,
->   void drm_send_event_locked(struct drm_device *dev, struct drm_pending_event *e);
->   void drm_send_event(struct drm_device *dev, struct drm_pending_event *e);
->   
-> +long drm_oom_badness(struct file *f);
-> +
->   #endif /* _DRM_FILE_H_ */
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+RnJvbTogQ2hhcmxlbmUgTGl1IDxjaGFybGVuZS5saXVAYW1kLmNvbT4KClNpZ25lZC1vZmYtYnk6
+IENoYXJsZW5lIExpdSA8Y2hhcmxlbmUubGl1QGFtZC5jb20+ClJldmlld2VkLWJ5OiBLcnVub3Ns
+YXYgS292YWMgPEtydW5vc2xhdi5Lb3ZhY0BhbWQuY29tPgpBY2tlZC1ieTogSGFycnkgV2VudGxh
+bmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RjZS9kY2VfYXVkaW8uYyB8IDE4ICsrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNo
+YW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9hdWRpby5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfYXVkaW8uYwppbmRleCAwZGY5ZWNiMjcxMGMuLmUz
+NjZiZmQ3Y2Y2ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
+ZS9kY2VfYXVkaW8uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2Rj
+ZV9hdWRpby5jCkBAIC0zNTksNyArMzU5LDEwIEBAIHZvaWQgZGNlX2F1ZF9hel9lbmFibGUoc3Ry
+dWN0IGF1ZGlvICphdWRpbykKIAkJCSAgICBBVURJT19FTkFCTEVEKTsKIAogCUFaX1JFR19XUklU
+RShBWkFMSUFfRjBfQ09ERUNfUElOX0NPTlRST0xfSE9UX1BMVUdfQ09OVFJPTCwgdmFsdWUpOwot
+CXZhbHVlID0gQVpfUkVHX1JFQUQoQVpBTElBX0YwX0NPREVDX1BJTl9DT05UUk9MX0hPVF9QTFVH
+X0NPTlRST0wpOworCXNldF9yZWdfZmllbGRfdmFsdWUodmFsdWUsIDAsCisJCQlBWkFMSUFfRjBf
+Q09ERUNfUElOX0NPTlRST0xfSE9UX1BMVUdfQ09OVFJPTCwKKwkJCUNMT0NLX0dBVElOR19ESVNB
+QkxFKTsKKwlBWl9SRUdfV1JJVEUoQVpBTElBX0YwX0NPREVDX1BJTl9DT05UUk9MX0hPVF9QTFVH
+X0NPTlRST0wsIHZhbHVlKTsKIAogCWRtX2xvZ2dlcl93cml0ZShDVFgtPmxvZ2dlciwgTE9HX0hX
+X0FVRElPLAogCQkJIlxuXHQ9PT09PT09PT0gQVVESU86ZGNlX2F1ZF9hel9lbmFibGU6IGluZGV4
+OiAldSAgZGF0YTogMHgleFxuIiwKQEAgLTM3Miw2ICszNzUsMTAgQEAgdm9pZCBkY2VfYXVkX2F6
+X2Rpc2FibGUoc3RydWN0IGF1ZGlvICphdWRpbykKIAlzdHJ1Y3QgZGNlX2F1ZGlvICphdWQgPSBE
+Q0VfQVVEKGF1ZGlvKTsKIAogCXZhbHVlID0gQVpfUkVHX1JFQUQoQVpBTElBX0YwX0NPREVDX1BJ
+Tl9DT05UUk9MX0hPVF9QTFVHX0NPTlRST0wpOworCXNldF9yZWdfZmllbGRfdmFsdWUodmFsdWUs
+IDEsCisJCQlBWkFMSUFfRjBfQ09ERUNfUElOX0NPTlRST0xfSE9UX1BMVUdfQ09OVFJPTCwKKwkJ
+CUNMT0NLX0dBVElOR19ESVNBQkxFKTsKKwlBWl9SRUdfV1JJVEUoQVpBTElBX0YwX0NPREVDX1BJ
+Tl9DT05UUk9MX0hPVF9QTFVHX0NPTlRST0wsIHZhbHVlKTsKIAogCXNldF9yZWdfZmllbGRfdmFs
+dWUodmFsdWUsIDAsCiAJCUFaQUxJQV9GMF9DT0RFQ19QSU5fQ09OVFJPTF9IT1RfUExVR19DT05U
+Uk9MLApAQCAtNzE2LDYgKzcyMywxMSBAQCB2b2lkIGRjZV9hdWRfYXpfY29uZmlndXJlKAogCQlE
+RVNDUklQVElPTjE3KTsKIAogCUFaX1JFR19XUklURShBWkFMSUFfRjBfQ09ERUNfUElOX0NPTlRS
+T0xfU0lOS19JTkZPOCwgdmFsdWUpOworCXZhbHVlID0gQVpfUkVHX1JFQUQoQVpBTElBX0YwX0NP
+REVDX1BJTl9DT05UUk9MX0hPVF9QTFVHX0NPTlRST0wpOworCXNldF9yZWdfZmllbGRfdmFsdWUo
+dmFsdWUsIDAsCisJCQlBWkFMSUFfRjBfQ09ERUNfUElOX0NPTlRST0xfSE9UX1BMVUdfQ09OVFJP
+TCwKKwkJCUNMT0NLX0dBVElOR19ESVNBQkxFKTsKKwlBWl9SRUdfV1JJVEUoQVpBTElBX0YwX0NP
+REVDX1BJTl9DT05UUk9MX0hPVF9QTFVHX0NPTlRST0wsIHZhbHVlKTsKIH0KIAogLyoKQEAgLTg5
+Nyw2ICs5MDksMTAgQEAgdm9pZCBkY2VfYXVkX2h3X2luaXQoCiAJUkVHX1VQREFURV8yKEFaQUxJ
+QV9GMF9DT0RFQ19GVU5DVElPTl9QQVJBTUVURVJfUE9XRVJfU1RBVEVTLAogCQkJQ0xLU1RPUCwg
+MSwKIAkJCUVQU1MsIDEpOworCXNldF9yZWdfZmllbGRfdmFsdWUodmFsdWUsIDAsCisJCQlBWkFM
+SUFfRjBfQ09ERUNfUElOX0NPTlRST0xfSE9UX1BMVUdfQ09OVFJPTCwKKwkJCUNMT0NLX0dBVElO
+R19ESVNBQkxFKTsKKwlBWl9SRUdfV1JJVEUoQVpBTElBX0YwX0NPREVDX1BJTl9DT05UUk9MX0hP
+VF9QTFVHX0NPTlRST0wsIHZhbHVlKTsKIH0KIAogc3RhdGljIGNvbnN0IHN0cnVjdCBhdWRpb19m
+dW5jcyBmdW5jcyA9IHsKLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
