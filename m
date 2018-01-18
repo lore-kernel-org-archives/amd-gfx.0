@@ -1,11 +1,14 @@
-From: =?ISO-8859-1?Q?Jos=E9?= Pekkarinen <koalinux-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: amd powerplay firmware load oops.
-Date: Thu, 18 Jan 2018 11:11:45 +0200
-Message-ID: <1530416.nPKL8MM05u@localhost>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Bump driver version for sensor pstate clk
+Date: Thu, 18 Jan 2018 15:10:25 +0000
+Message-ID: <BN6PR12MB16522B11BE795D075F25D835F7E80@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1516245123-12823-1-git-send-email-Rex.Zhu@amd.com>,
+ <1516245123-12823-2-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1595632097=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1516245123-12823-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,141 +19,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CUdvb2QgbW9ybmluZyBhbWQtZ2Z4LAoKCUknZCBsaWtlIHRvIHNoYXJlIHRoZSBmb2xsb3dpbmcg
-b29wcyB0aGF0IGRvZXNuJ3Qgc2VlbSB0byBiZSBzdHJhaWdodCAKZm9yd2FyZCwgdG8gbGVhcm4g
-YW5kIGlkZW50aWZ5IHdoYXQgaXMgdGhlIGZpbmFsIGlzc3VlIGluIHRoZSBiYWNrZ3JvdW5kLiBU
-aGUgCm91cHV0IGlzIHRoZSBmb2xsb3dpbmc6CgpKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDog
-WyAgIDI3LjUzNDQwN10gYW1kZ3B1OiBbcG93ZXJwbGF5XSBzbXUgbm90IApydW5uaW5nLCB1cGxv
-YWQgZmlybXdhcmUgYWdhaW4gCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM1
-NzE3XSBCVUc6IHVuYWJsZSB0byBoYW5kbGUga2VybmVsIHBhZ2luZyAKcmVxdWVzdCBhdCBmZmZm
-YzkxYzAwNDMwZmVjCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM1NzU3XSBJ
-UDogCnNtdTdfcG9wdWxhdGVfc2luZ2xlX2Zpcm13YXJlX2VudHJ5LmlzcmEuMysweDY4LzB4YzAg
-W2FtZGdwdV0KSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzU3NjBdIFBHRCAz
-NWQxMGEwNjcgUDREIDM1ZDEwYTA2NyBQVUQgMCAKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6
-IFsgICAyNy41MzU3NjRdIE9vcHM6IDAwMDIgWyMxXSBTTVAgUFRJCkphbiAxNiAwNjozNTozMCBi
-ZWUga2VybmVsOiBbICAgMjcuNTM1NzY2XSBNb2R1bGVzIGxpbmtlZCBpbjogaTkxNSgrKSBhcmM0
-IAphbWRncHUoKykgaXdsbXZtIHV2Y3ZpZGVvIHZpZGVvYnVmMl92bWFsbG9jIHZpZGVvYnVmMl9t
-ZW1vcHMgdmlkZW9idWYyX3Y0bDIgCnZpZGVvYnVmMl9jb3JlIHZpZGVvZGV2IG1hYzgwMjExIG1l
-ZGlhIHg4Nl9wa2dfdGVtcF90aGVybWFsIGludGVsX3Bvd2VyY2xhbXAgCmJ0dXNiIGpveQpkZXYg
-YnRydGwgY29yZXRlbXAgbW91c2VkZXYgcnRzeF9wY2lfbXMgYnRiY20ga3ZtX2ludGVsIGkyY19h
-bGdvX2JpdCBtZW1zdGljayAKZHJtX2ttc19oZWxwZXIgcnRzeF9wY2lfc2RtbWMga3ZtIGl3bHdp
-ZmkgbW1jX2NvcmUgdHRtIGRybSB3bWlfYm1vZiBpcnFieXBhc3MgCnNuZF9oZGFfaW50ZWwgaGNp
-X3VhcnQgY3JjMzJjX2ludGVsIGJ0aW50ZWwgZ2hhc2hfY2xtdWxuaV9pbnRlbCBzbmRfaGRhX2Nv
-ZGVjIApibHUKZXRvb3RoIGNmZzgwMjExIGludGVsX2NzdGF0ZSBzbmRfaHdkZXAgZWZpX3BzdG9y
-ZSBldmRldiBpbnRlbF91bmNvcmUgcHNtb3VzZSAKZWZpdmFycyBydHN4X3BjaSBpbnB1dF9sZWRz
-IGlkZWFwYWRfbGFwdG9wIGludGVsX3JhcGxfcGVyZiBzZXJpb19yYXcgCnNuZF9oZGFfY29yZSBz
-cGFyc2Vfa2V5bWFwIHRoZXJtYWwgc3lzY29weWFyZWEgd21pIGkyY19pODAxIHNuZF9wY20gCmVj
-ZGhfZ2VuZXJpYyB2aWRlbyByZmtpCmxsIHN5c2ZpbGxyZWN0IGludGVsX2xwc3NfYWNwaSBzeXNp
-bWdibHQgaW50ZWxfbHBzcyBmYW4gc25kX3RpbWVyIGZiX3N5c19mb3BzIAptZmRfY29yZSBpMmNf
-aGlkIGJ1dHRvbiBiYXR0ZXJ5IGFjIHNuZCBzb3VuZGNvcmUKSmFuIDE2IDA2OjM1OjMwIGJlZSBr
-ZXJuZWw6IFsgICAyNy41MzU4MDldICBiYWNrbGlnaHQgdHBtX2NyYiBhY3BpX3BhZCAKZWZpdmFy
-ZnMgdW5peCBkbV96ZXJvIGRtX3RoaW5fcG9vbCBkbV9wZXJzaXN0ZW50X2RhdGEgZG1fYmlvX3By
-aXNvbiAKZG1fc2VydmljZV90aW1lIGRtX3JvdW5kX3JvYmluIGRtX3F1ZXVlX2xlbmd0aCBkbV9t
-dWx0aXBhdGggZG1fbG9nX3VzZXJzcGFjZSAKY24gZG1fZmxha2V5IGRtX2RlbGF5CiB4dHMgYWVz
-bmlfaW50ZWwgY3J5cHRvX3NpbWQgY3J5cHRkIGdsdWVfaGVscGVyIGFlc194ODZfNjQgY2JjIHNo
-YTI1Nl9nZW5lcmljIApzY3NpX3RyYW5zcG9ydF9pc2NzaSByODE2OSBtaWkgZnVzZSB4ZnMgbmZz
-IGxvY2tkIGdyYWNlIHN1bnJwYyBmc2NhY2hlIGV4dDQgCm1iY2FjaGUgamJkMiBtdWx0aXBhdGgg
-bGluZWFyIHJhaWQxMCByYWlkMSByYWlkMCBkbV9yYWlkIHJhaWQ0NTYgbWRfbW9kIAphc3luY19y
-YWlkNgpfcmVjb3YgYXN5bmNfbWVtY3B5IGFzeW5jX3BxIGFzeW5jX3hvciB4b3IgYXN5bmNfdHgg
-cmFpZDZfcHEgbGliY3JjMzJjIApkbV9zbmFwc2hvdCBkbV9idWZpbyBkbV9jcnlwdCBkbV9taXJy
-b3IgZG1fcmVnaW9uX2hhc2ggZG1fbG9nIGRtX21vZCBkYXggCmhpZF9nZW5lcmljIHVzYmhpZCB4
-aGNpX3BjaSB4aGNpX2hjZCBvaGNpX2hjZCB1aGNpX2hjZCB1c2Jfc3RvcmFnZSBlaGNpX3BjaSAK
-ZWhjaV9oY2QgdXNiY29yZSAKdXNiX2NvbW1vbiBzY3NpX3RyYW5zcG9ydF9mYyBzcl9tb2QgY2Ry
-b20gc2cgc2RfbW9kIGF0YV9waWl4IGFoY2kgbGliYWhjaSAKc2F0YV9zeDQgcGF0YV9vbGRwaWl4
-CkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM1ODU1XSBDUFU6IDIgUElEOiAz
-NjYxIENvbW06IHVkZXZkIE5vdCAKdGFpbnRlZCA0LjE0LjEyKyAjMgpKYW4gMTYgMDY6MzU6MzAg
-YmVlIGtlcm5lbDogWyAgIDI3LjUzNTg1N10gSGFyZHdhcmUgbmFtZTogTEVOT1ZPIDgwVVYvTGVu
-b3ZvIAppZGVhcGFkIDUxMFMtMTRJS0IsIEJJT1MgMlNDTjIxV1coVjIuMDEpIDEyLzIwLzIwMTYK
-SmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzU4NjBdIHRhc2s6IGZmZmY4ODAz
-NThjZTk5ODAgdGFzay5zdGFjazogCmZmZmZjOTAwMDA1YjQwMDAKSmFuIDE2IDA2OjM1OjMwIGJl
-ZSBrZXJuZWw6IFsgICAyNy41MzU4OTNdIFJJUDogCjAwMTA6c211N19wb3B1bGF0ZV9zaW5nbGVf
-ZmlybXdhcmVfZW50cnkuaXNyYS4zKzB4NjgvMHhjMCBbYW1kZ3B1XQpKYW4gMTYgMDY6MzU6MzAg
-YmVlIGtlcm5lbDogWyAgIDI3LjUzNTg5NV0gUlNQOiAwMDE4OmZmZmZjOTAwMDA1YjdhMzggRUZM
-QUdTOiAKMDAwMTAyNDYKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzU4OThd
-IFJBWDogMDAwMDAwMDAwMDAwMDA3ZSBSQlg6IAowMDAwMDAwMDAwMDAwMDAzIFJDWDogMDAwMDAx
-MDAwZjU0MjAwMApKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNTkwMF0gUkRY
-OiAwMDAwMDAwMDAwMDAwMDA0IFJTSTogCjAwMDAwMDAwMDAwMDAwMDAgUkRJOiBmZmZmODgwMzNl
-OTZkNjYwCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM1OTAyXSBSQlA6IGZm
-ZmZjOTFjMDA0MzBmZWMgUjA4OiAKMDAwMDAwMDAwMDAwMDAwMSBSMDk6IDAwMDAwMDAwMDAwMDAz
-ODUKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzU5MDVdIFIxMDogMDAwMDAw
-MDAwMDAwMDAwMCBSMTE6IAowMDAwMDAwMDAwMDAwMDAwIFIxMjogZmZmZjg4MDM0MDRmNzE0OApK
-YW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNTkwN10gUjEzOiBmZmZmODgwMzQw
-NWE0MDAwIFIxNDogCjAwMDAwMDAwMDAwMDA0N2UgUjE1OiBmZmZmODgwMzNiOGIwMDAwCkphbiAx
-NiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM1OTA5XSBGUzogIDAwMDA3ZmQ4NDQzNjg3
-ODAoMDAwMCkgCkdTOmZmZmY4ODA0NmVkMDAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAw
-MApKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNTkxMl0gQ1M6ICAwMDEwIERT
-OiAwMDAwIEVTOiAwMDAwIENSMDogCjAwMDAwMDAwODAwNTAwMzMKSmFuIDE2IDA2OjM1OjMwIGJl
-ZSBrZXJuZWw6IFsgICAyNy41MzU5MTRdIENSMjogZmZmZmM5MWMwMDQzMGZlYyBDUjM6IAowMDAw
-MDAwMzU4ODY0MDAxIENSNDogMDAwMDAwMDAwMDM2MDZlMApKYW4gMTYgMDY6MzU6MzAgYmVlIGtl
-cm5lbDogWyAgIDI3LjUzNTkxNl0gQ2FsbCBUcmFjZToKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJu
-ZWw6IFsgICAyNy41MzU5NDhdICBzbXU3X3JlcXVlc3Rfc211X2xvYWRfZncKKzB4OTEvMHgzMTAg
-W2FtZGdwdV0KSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzU5NzddICBwcF9o
-d19pbml0KzB4YmIvMHgxMDAgW2FtZGdwdV0KSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsg
-ICAyNy41MzYwMDVdICBhbWRncHVfcHBfaHdfaW5pdCsweDM0LzB4ODAgClthbWRncHVdCkphbiAx
-NiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2MDI2XSAgYW1kZ3B1X2RldmljZV9pbml0
-KzB4YzQzLzB4MTRhMCAKW2FtZGdwdV0KSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAy
-Ny41MzYwMzBdICA/IApjYWNoZV9hbGxvY19kZWJ1Z2NoZWNrX2FmdGVyLmlzcmEuMjIrMHgxOTUv
-MHgxZTAKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYwMzJdICA/IGttZW1f
-Y2FjaGVfYWxsb2NfdHJhY2UKKzB4MWY2LzB4MjMwCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVs
-OiBbICAgMjcuNTM2MDUxXSAgPyBhbWRncHVfZHJpdmVyX2xvYWRfa21zCisweDI1LzB4MWIwIFth
-bWRncHVdCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2MDY5XSAgYW1kZ3B1
-X2RyaXZlcl9sb2FkX2ttcysweDRhLzB4MWIwIApbYW1kZ3B1XQpKYW4gMTYgMDY6MzU6MzAgYmVl
-IGtlcm5lbDogWyAgIDI3LjUzNjA4Ml0gIGRybV9kZXZfcmVnaXN0ZXIrMHgxMmYvMHgxYzAgW2Ry
-bV0KSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYxMDZdICBhbWRncHVfcGNp
-X3Byb2JlKzB4MTBmLzB4MTQwIApbYW1kZ3B1XQpKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDog
-WyAgIDI3LjUzNjEwOV0gIHBjaV9kZXZpY2VfcHJvYmUrMHhjOC8weDE0MApKYW4gMTYgMDY6MzU6
-MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNjExM10gIGRyaXZlcl9wcm9iZV9kZXZpY2UrMHgyOTMv
-MHg0NDAKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYxMTZdICBfX2RyaXZl
-cl9hdHRhY2grMHhkYS8weGUwCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2
-MTE5XSAgPyBkcml2ZXJfcHJvYmVfZGV2aWNlKzB4NDQwLzB4NDQwCkphbiAxNiAwNjozNTozMCBi
-ZWUga2VybmVsOiBbICAgMjcuNTM2MTIxXSAgYnVzX2Zvcl9lYWNoX2RldisweDVhLzB4OTAKSmFu
-IDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYxMjNdICBidXNfYWRkX2RyaXZlcisw
-eDE2YS8weDI2MApKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNjEyNl0gIGRy
-aXZlcl9yZWdpc3RlcisweDU3LzB4YzAKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAy
-Ny41MzYxMjhdICA/IDB4ZmZmZmZmZmZhMGZlMTAwMApKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5l
-bDogWyAgIDI3LjUzNjEzMF0gIGRvX29uZV9pbml0Y2FsbCsweDRlLzB4MTkwCkphbiAxNiAwNjoz
-NTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2MTMzXSAgPyBrbWVtX2NhY2hlX2FsbG9jX3RyYWNl
-CisweDFmNi8weDIzMApKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNjEzNV0g
-ID8gZG9faW5pdF9tb2R1bGUrMHgyMi8weDFmYgpKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDog
-WyAgIDI3LjUzNjEzN10gIGRvX2luaXRfbW9kdWxlKzB4NWIvMHgxZmIKSmFuIDE2IDA2OjM1OjMw
-IGJlZSBrZXJuZWw6IFsgICAyNy41MzYxMzldICBsb2FkX21vZHVsZSsweDE1MTEvMHgxNzQwCkph
-biAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2MTQyXSAgPyBTeVNfZmluaXRfbW9k
-dWxlKzB4YWEvMHhlMApKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNjE0NF0g
-IFN5U19maW5pdF9tb2R1bGUrMHhhYS8weGUwCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBb
-ICAgMjcuNTM2MTQ2XSAgZG9fc3lzY2FsbF82NCsweDYwLzB4MTkwCkphbiAxNiAwNjozNTozMCBi
-ZWUga2VybmVsOiBbICAgMjcuNTM2MTQ5XSAgZW50cnlfU1lTQ0FMTDY0X3Nsb3dfcGF0aAorMHgy
-NS8weDI1CkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2MTUxXSBSSVA6IDAw
-MzM6MHg3ZmQ4NDNhN2Y4ZjkKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYx
-NTNdIFJTUDogMDAyYjowMDAwN2ZmZjgyYjM3NDk4IEVGTEFHUzogCjAwMDAwMjQ2IE9SSUdfUkFY
-OiAwMDAwMDAwMDAwMDAwMTM5CkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2
-MTU2XSBSQVg6IGZmZmZmZmZmZmZmZmZmZGEgUkJYOiAKMDAwMDU1OWQ2YjFiNzAzMCBSQ1g6IDAw
-MDA3ZmQ4NDNhN2Y4ZjkKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYxNTdd
-IFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6IAowMDAwN2ZkODQzZDRkNTY1IFJESTogMDAwMDAw
-MDAwMDAwMDAwZgpKYW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNjE1OV0gUkJQ
-OiAwMDAwN2ZkODQzZDRkNTY1IFIwODogCjAwMDAwMDAwMDAwMDAwMDAgUjA5OiAwMDAwN2ZmZjgy
-YjM3NjEwCkphbiAxNiAwNjozNTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2MTYxXSBSMTA6IDAw
-MDAwMDAwMDAwMDAwMGYgUjExOiAKMDAwMDAwMDAwMDAwMDI0NiBSMTI6IDAwMDAwMDAwMDAwMDAw
-MDAKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYxNjNdIFIxMzogMDAwMDU1
-OWQ2YjFiODBiMCBSMTQ6IAowMDAwMDAwMDAwMDIwMDAwIFIxNTogMDAwMDU1OWQ2YWI2NThlOQpK
-YW4gMTYgMDY6MzU6MzAgYmVlIGtlcm5lbDogWyAgIDI3LjUzNjE2NV0gQ29kZTogYjYgYjEgNjAg
-ZGIgZjIgYTAgZmYgZDAgODUgYzAgCjc0IDFhIDgzIGViIDA2IDMxIGMwIDgzIGUzIGZiIDBmIDk0
-IGMwIDY2IDg5IDQ1IDE4IDQ4IDgzIGM0IDMwIDMxIGMwIDViIDVkIDQxIAo1YyBjMyAwZiBiNyA0
-NCAyNCAwMiA8NjY+IDg5IDVkIDAwIGM3IDQ1IDBjIDAwIDAwIDAwIDAwIGM3IDQ1IDEwIDAwIDAw
-IDAwIDAwIAo2NiA4OSA0NSAKSmFuIDE2IDA2OjM1OjMwIGJlZSBrZXJuZWw6IFsgICAyNy41MzYy
-MTRdIFJJUDogCnNtdTdfcG9wdWxhdGVfc2luZ2xlX2Zpcm13YXJlX2VudHJ5LmlzcmEuMysweDY4
-LzB4YzAgW2FtZGdwdV0gUlNQOiAKZmZmZmM5MDAwMDViN2EzOApKYW4gMTYgMDY6MzU6MzAgYmVl
-IGtlcm5lbDogWyAgIDI3LjUzNjIxNl0gQ1IyOiBmZmZmYzkxYzAwNDMwZmVjCkphbiAxNiAwNjoz
-NTozMCBiZWUga2VybmVsOiBbICAgMjcuNTM2MjE4XSAtLS1bIGVuZCB0cmFjZSAxOTVkMDc0Nzc1
-MDM3YTY3IApdLS0tCgoJVGhpcyBvb3BzIGlzIGp1c3QgdmlzaWJsZSBpZiB0aGUgbGFwdG9wIGlz
-IHVucGx1Z2dlZCBmcm9tIHBvd2VyY29yZCwgYW5kIAppdCdzIGJlaW5nIHRoZXJlIHNpbmNlIDQu
-MTMgYXQgbGVhc3QuIFRoaXMgaXMgZnJvbSB0aGUgbGF0ZXN0IExUUywgNC4xNCB3aXRoIApzb21l
-IHBhdGNoZXMgZnJvbSBBbGV4IHRvIHByZXZlbnQgdGhlIHZpcnR1YWxpemF0aW9uIHBhdGggdG8g
-YmUgZXhlY3V0ZWQgb24gYSAKdmdhIHRoYXQgaXMgbm90IGZpamkgb3IgdG9uZ2EuCgoJVGhlIGVm
-ZmVjdCBvZiB0aGlzIHByb2JsZW0gaXMgYSBibGFjayBzY3JlZW4gb24gYm9vdCwgbW9zdCBsaWtl
-bHkgYmVjYXVzZSAKb2Ygbm90IGxldHRpbmcgdGhlIGk5MTUgbW9kdWxlIHRha2UgdGhlIGRpc3Bs
-YXkuCgoJQmVzdCByZWdhcmRzLgoKCUpvc8OpLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+--===============1595632097==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, January 17, 2018 10:12:03 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 2/2] drm/amdgpu: Bump driver version for sensor pstate clk
+
+Change-Id: I7fc6e49fc2c37502e66903331f64c7418c1684dd
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 46a0c93..24bc3e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -74,9 +74,10 @@
+  * - 3.22.0 - Add DRM_AMDGPU_SCHED ioctl
+  * - 3.23.0 - Add query for VRAM lost counter
+  * - 3.24.0 - Add high priority compute support for gfx9
++ * - 3.25.0 - Add support for sensor query info (stable pstate sclk/mclk).
+  */
+ #define KMS_DRIVER_MAJOR        3
+-#define KMS_DRIVER_MINOR       24
++#define KMS_DRIVER_MINOR       25
+ #define KMS_DRIVER_PATCHLEVEL   0
+
+ int amdgpu_vram_limit =3D 0;
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Wednesday, January 17, 2018 10:12:03 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: Bump driver version for sensor psta=
+te clk</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Change-Id: I7fc6e49fc2c37502e66903331f64c7418c1684=
+dd<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 &#43;&#43;-<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 46a0c93..24bc3e9 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -74,9 &#43;74,10 @@<br>
+&nbsp; * - 3.22.0 - Add DRM_AMDGPU_SCHED ioctl<br>
+&nbsp; * - 3.23.0 - Add query for VRAM lost counter<br>
+&nbsp; * - 3.24.0 - Add high priority compute support for gfx9<br>
+&#43; * - 3.25.0 - Add support for sensor query info (stable pstate sclk/mc=
+lk).<br>
+&nbsp; */<br>
+&nbsp;#define KMS_DRIVER_MAJOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3<=
+br>
+-#define KMS_DRIVER_MINOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24<br>
+&#43;#define KMS_DRIVER_MINOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 25<br>
+&nbsp;#define KMS_DRIVER_PATCHLEVEL&nbsp;&nbsp; 0<br>
+&nbsp;<br>
+&nbsp;int amdgpu_vram_limit =3D 0;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB16522B11BE795D075F25D835F7E80BN6PR12MB1652namp_--
+
+--===============1595632097==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1595632097==--
