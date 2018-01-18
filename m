@@ -1,16 +1,13 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 14/21] drm/amdgpu: add new amdgpu_gmc_emit_flush_gpu_tlb
- callback
-Date: Thu, 18 Jan 2018 15:08:39 +0800
-Message-ID: <db8d7b0d-bb67-e5fe-299e-a334e483bd19@amd.com>
-References: <20180116194017.39067-1-christian.koenig@amd.com>
- <20180116194017.39067-14-christian.koenig@amd.com>
- <abf156ad-44a7-fe7f-12b0-3c1a77757fbd@amd.com>
- <2d56c566-9a4d-924e-6542-1e406ce1776a@gmail.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type
+Date: Thu, 18 Jan 2018 03:11:57 +0000
+Message-ID: <CY4PR12MB16873431BA294A4B26BA7E4DFBE80@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1516228529-14571-1-git-send-email-andrey.grodzovsky@amd.com>
+ <CY4PR12MB1653C2E1B728B5CBA10EE68BF7E90@CY4PR12MB1653.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------F7635B3D2C0114CEA16D4240"
+Content-Type: multipart/mixed; boundary="===============1255908652=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2d56c566-9a4d-924e-6542-1e406ce1776a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CY4PR12MB1653C2E1B728B5CBA10EE68BF7E90-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,349 +19,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Lipski, Mikita" <Mikita.Lipski-5C7GfCeVMHo@public.gmane.org>
 
---------------F7635B3D2C0114CEA16D4240
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+--===============1255908652==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_"
 
+--_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+Reviewed-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-On 2018年01月17日 20:19, Christian König wrote:
-> Am 17.01.2018 um 07:24 schrieb Chunming Zhou:
->> I'm not sure if this is a good ongoing, as I know, our per IP 
->> topology is intended for every generation asic bringup.
->
-> Actually the intention goes beyond that, e.g. we want to reuse IPs for 
-> newer ASICs as well when they haven't changed.
->
->>
->> I think there are many similar logics which we can abstract, but we 
->> don't do that.
->>
->> For emit_wreg above patches, they only can be used by vm flush part, 
->> but they are common func fallback.
->>
->> Can we only make emit_wreg as static in their files, and replace 
->> every where they are used?
->
-> Not sure what you are suggesting here?
-my mean is like the attached, only abstract them in file per ip.
-
-Regards,
-David Zhou
->
-> Regards,
-> Christian.
->
->>
->> Regards,
->> David Zhou
->> On 2018年01月17日 03:40, Christian König wrote:
->>> Add a new GMC function to unify vm flushing.
->>>
->>> Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h | 3 +++
->>>   2 files changed, 4 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> index 93eae393b08d..230826718c98 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>> @@ -1779,6 +1779,7 @@ amdgpu_get_sdma_instance(struct amdgpu_ring 
->>> *ring)
->>>   #define amdgpu_asic_flush_hdp(adev) 
->>> (adev)->asic_funcs->flush_hdp((adev))
->>>   #define amdgpu_asic_invalidate_hdp(adev) 
->>> (adev)->asic_funcs->invalidate_hdp((adev))
->>>   #define amdgpu_gmc_flush_gpu_tlb(adev, vmid) 
->>> (adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid))
->>> +#define amdgpu_gmc_emit_flush_gpu_tlb(r, vmid, pasid, addr) 
->>> (r)->adev->gmc.gmc_funcs->emit_flush_gpu_tlb((r), (vmid), (pasid), 
->>> (addr))
->>>   #define amdgpu_gmc_set_pte_pde(adev, pt, idx, addr, flags) 
->>> (adev)->gmc.gmc_funcs->set_pte_pde((adev), (pt), (idx), (addr), 
->>> (flags))
->>>   #define amdgpu_gmc_get_vm_pde(adev, level, dst, flags) 
->>> (adev)->gmc.gmc_funcs->get_vm_pde((adev), (level), (dst), (flags))
->>>   #define amdgpu_gmc_get_pte_flags(adev, flags) 
->>> (adev)->gmc.gmc_funcs->get_vm_pte_flags((adev),(flags))
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>> index a4a8374f7f3f..114350a4693f 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
->>> @@ -52,6 +52,9 @@ struct amdgpu_gmc_funcs {
->>>       /* flush the vm tlb via mmio */
->>>       void (*flush_gpu_tlb)(struct amdgpu_device *adev,
->>>                     uint32_t vmid);
->>> +    /* flush the vm tlb via ring */
->>> +    uint64_t (*emit_flush_gpu_tlb)(struct amdgpu_ring *ring, 
->>> unsigned vmid,
->>> +                       unsigned pasid, uint64_t pd_addr);
->>>       /* write pte/pde updates using the cpu */
->>>       int (*set_pte_pde)(struct amdgpu_device *adev,
->>>                  void *cpu_pt_addr, /* cpu addr of page table */
->>
->
+Best Regards
+Rex
+From: Deucher, Alexander
+Sent: Thursday, January 18, 2018 7:11 AM
+To: Grodzovsky, Andrey; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Lipski, Mikita; Zhu, Rex
+Subject: Re: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type
 
 
---------------F7635B3D2C0114CEA16D4240
-Content-Type: text/x-patch;
-	name="0001-drm-amdgpu-abstract-write-data-packet-for-gfx8.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename="0001-drm-amdgpu-abstract-write-data-packet-for-gfx8.patch"
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deuch=
+er-5C7GfCeVMHo@public.gmane.org>>
 
->From ce20fa3aba41605e7a5001e08a0e97a5fa1f4cff Mon Sep 17 00:00:00 2001
-From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Date: Thu, 18 Jan 2018 15:05:59 +0800
-Subject: [PATCH] drm/amdgpu: abstract write data packet for gfx8
+________________________________
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org<mailto:andrey.grodzovsky=
+@amd.com>>
+Sent: Wednesday, January 17, 2018 5:35 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Lipski, Mikita; Zhu, Rex; Deucher, Alexander; Grodzovsky, Andrey
+Subject: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type
 
-Change-Id: I1512225e94b4875b9c59fcaf1bff818922dbdd7c
-Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Handle describes kernel logical address, should be unsigned long and not ui=
+nt32_t.
+Fixes KASAN error and GFP on driver unload.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org<mailto:andrey.g=
+rodzovsky-5C7GfCeVMHo@public.gmane.org>>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 153 +++++++++++++++++++---------------
- 1 file changed, 84 insertions(+), 69 deletions(-)
+ drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 3fd7eb2a9a7b..9ba4aae128d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -675,6 +675,24 @@ static void gfx_v8_0_get_cu_info(struct amdgpu_device *adev);
- static void gfx_v8_0_ring_emit_ce_meta(struct amdgpu_ring *ring);
- static void gfx_v8_0_ring_emit_de_meta(struct amdgpu_ring *ring);
- 
-+struct gfx8_write_data {
-+	uint32_t n;
-+	uint32_t control;
-+	uint64_t reg;
-+	uint32_t val;
-+};
-+
-+static void gfx_v8_0_ring_write_data(struct amdgpu_ring *ring,
-+				     struct gfx8_write_data *wd)
-+{
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, wd->n));
-+	amdgpu_ring_write(ring, wd->control);
-+	amdgpu_ring_write(ring, lower_32_bits(wd->reg));
-+	amdgpu_ring_write(ring, upper_32_bits(wd->reg));
-+	amdgpu_ring_write(ring, wd->val);
-+}
-+
-+
- static void gfx_v8_0_init_golden_registers(struct amdgpu_device *adev)
- {
- 	switch (adev->asic_type) {
-@@ -5340,6 +5358,8 @@ static void gfx_v8_0_ring_emit_gds_switch(struct amdgpu_ring *ring,
- 					  uint32_t gws_base, uint32_t gws_size,
- 					  uint32_t oa_base, uint32_t oa_size)
- {
-+	struct gfx8_write_data wd;
-+
- 	gds_base = gds_base >> AMDGPU_GDS_SHIFT;
- 	gds_size = gds_size >> AMDGPU_GDS_SHIFT;
- 
-@@ -5350,36 +5370,32 @@ static void gfx_v8_0_ring_emit_gds_switch(struct amdgpu_ring *ring,
- 	oa_size = oa_size >> AMDGPU_OA_SHIFT;
- 
- 	/* GDS Base */
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--				WRITE_DATA_DST_SEL(0)));
--	amdgpu_ring_write(ring, amdgpu_gds_reg_offset[vmid].mem_base);
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, gds_base);
-+	wd.n = 3;
-+	wd.control = WRITE_DATA_ENGINE_SEL(0) |	WRITE_DATA_DST_SEL(0);
-+	wd.reg = amdgpu_gds_reg_offset[vmid].mem_base;
-+	wd.val = gds_base;
-+	gfx_v8_0_ring_write_data(ring, &wd);
- 
- 	/* GDS Size */
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--				WRITE_DATA_DST_SEL(0)));
--	amdgpu_ring_write(ring, amdgpu_gds_reg_offset[vmid].mem_size);
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, gds_size);
-+	wd.n = 3;
-+	wd.control = WRITE_DATA_ENGINE_SEL(0) |	WRITE_DATA_DST_SEL(0);
-+	wd.reg = amdgpu_gds_reg_offset[vmid].mem_size;
-+	wd.val = gds_size;
-+	gfx_v8_0_ring_write_data(ring, &wd);
- 
- 	/* GWS */
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--				WRITE_DATA_DST_SEL(0)));
--	amdgpu_ring_write(ring, amdgpu_gds_reg_offset[vmid].gws);
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, gws_size << GDS_GWS_VMID0__SIZE__SHIFT | gws_base);
-+	wd.n = 3;
-+	wd.control = WRITE_DATA_ENGINE_SEL(0) |	WRITE_DATA_DST_SEL(0);
-+	wd.reg = amdgpu_gds_reg_offset[vmid].gws;
-+	wd.val = gws_size << GDS_GWS_VMID0__SIZE__SHIFT | gws_base;
-+	gfx_v8_0_ring_write_data(ring, &wd);
- 
- 	/* OA */
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--				WRITE_DATA_DST_SEL(0)));
--	amdgpu_ring_write(ring, amdgpu_gds_reg_offset[vmid].oa);
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, (1 << (oa_size + oa_base)) - (1 << oa_base));
-+	wd.n = 3;
-+	wd.control = WRITE_DATA_ENGINE_SEL(0) |	WRITE_DATA_DST_SEL(0);
-+	wd.reg = amdgpu_gds_reg_offset[vmid].oa;
-+	wd.val = (1 << (oa_size + oa_base)) - (1 << oa_base);
-+	gfx_v8_0_ring_write_data(ring, &wd);
- }
- 
- static uint32_t wave_read_ind(struct amdgpu_device *adev, uint32_t simd, uint32_t wave, uint32_t address)
-@@ -6233,14 +6249,14 @@ static void gfx_v8_0_ring_emit_vgt_flush(struct amdgpu_ring *ring)
- 
- static void gfx_v8_0_ring_emit_hdp_invalidate(struct amdgpu_ring *ring)
- {
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--				 WRITE_DATA_DST_SEL(0) |
--				 WR_CONFIRM));
--	amdgpu_ring_write(ring, mmHDP_DEBUG0);
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, 1);
--
-+	struct gfx8_write_data wd = {
-+		.n = 3,
-+		.control = WRITE_DATA_ENGINE_SEL(0) | WRITE_DATA_DST_SEL(0) |
-+			WR_CONFIRM,
-+		.reg = mmHDP_DEBUG0,
-+		.val = 1
-+	};
-+	gfx_v8_0_ring_write_data(ring, &wd);
- }
- 
- static void gfx_v8_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
-@@ -6332,29 +6348,24 @@ static void gfx_v8_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 					uint64_t pd_addr)
- {
- 	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
-+	struct gfx8_write_data wd;
- 
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(usepfp) |
--				 WRITE_DATA_DST_SEL(0)) |
--				 WR_CONFIRM);
--	if (vmid < 8) {
--		amdgpu_ring_write(ring,
--				  (mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR + vmid));
--	} else {
--		amdgpu_ring_write(ring,
--				  (mmVM_CONTEXT8_PAGE_TABLE_BASE_ADDR + vmid - 8));
--	}
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, pd_addr >> 12);
-+	wd.n = 3;
-+	wd.control = WRITE_DATA_ENGINE_SEL(usepfp) | WRITE_DATA_DST_SEL(0) |
-+		WR_CONFIRM;
-+	wd.reg = vmid < 8 ? mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR + vmid :
-+		mmVM_CONTEXT8_PAGE_TABLE_BASE_ADDR + vmid;
-+	wd.val = pd_addr >> 12;
-+	gfx_v8_0_ring_write_data(ring, &wd);
- 
- 	/* bits 0-15 are the VM contexts0-15 */
- 	/* invalidate the cache */
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--				 WRITE_DATA_DST_SEL(0)));
--	amdgpu_ring_write(ring, mmVM_INVALIDATE_REQUEST);
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, 1 << vmid);
-+	wd.n = 3;
-+	wd.control = WRITE_DATA_ENGINE_SEL(usepfp) | WRITE_DATA_DST_SEL(0) |
-+		WR_CONFIRM;
-+	wd.reg = mmVM_INVALIDATE_REQUEST;
-+	wd.val = 1 << vmid;
-+	gfx_v8_0_ring_write_data(ring, &wd);
- 
- 	/* wait for the invalidate to complete */
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
-@@ -6501,7 +6512,8 @@ static void gfx_v8_0_ring_emit_fence_compute(struct amdgpu_ring *ring,
- 				 EOP_TC_WB_ACTION_EN |
- 				 EVENT_TYPE(CACHE_FLUSH_AND_INV_TS_EVENT) |
- 				 EVENT_INDEX(5)));
--	amdgpu_ring_write(ring, DATA_SEL(write64bit ? 2 : 1) | INT_SEL(int_sel ? 2 : 0));
-+	amdgpu_ring_write(ring, DATA_SEL(write64bit ? 2 : 1) |
-+			  INT_SEL(int_sel ? 2 : 0));
- 	amdgpu_ring_write(ring, addr & 0xfffffffc);
- 	amdgpu_ring_write(ring, upper_32_bits(addr));
- 	amdgpu_ring_write(ring, lower_32_bits(seq));
-@@ -6511,25 +6523,26 @@ static void gfx_v8_0_ring_emit_fence_compute(struct amdgpu_ring *ring,
- static void gfx_v8_0_ring_emit_fence_kiq(struct amdgpu_ring *ring, u64 addr,
- 					 u64 seq, unsigned int flags)
- {
-+	struct gfx8_write_data wd;
- 	/* we only allocate 32bit for each seq wb address */
- 	BUG_ON(flags & AMDGPU_FENCE_FLAG_64BIT);
- 
- 	/* write fence seq to the "addr" */
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--				 WRITE_DATA_DST_SEL(5) | WR_CONFIRM));
--	amdgpu_ring_write(ring, lower_32_bits(addr));
--	amdgpu_ring_write(ring, upper_32_bits(addr));
--	amdgpu_ring_write(ring, lower_32_bits(seq));
-+	wd.n = 3;
-+	wd.control = WRITE_DATA_ENGINE_SEL(0) | WRITE_DATA_DST_SEL(5) |
-+		WR_CONFIRM;
-+	wd.reg = addr;
-+	wd.val = lower_32_bits(seq);
-+	gfx_v8_0_ring_write_data(ring, &wd);
- 
- 	if (flags & AMDGPU_FENCE_FLAG_INT) {
- 		/* set register to trigger INT */
--		amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--		amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(0) |
--					 WRITE_DATA_DST_SEL(0) | WR_CONFIRM));
--		amdgpu_ring_write(ring, mmCPC_INT_STATUS);
--		amdgpu_ring_write(ring, 0);
--		amdgpu_ring_write(ring, 0x20000000); /* src_id is 178 */
-+		wd.n = 3;
-+		wd.control = WRITE_DATA_ENGINE_SEL(0) | WRITE_DATA_DST_SEL(0) |
-+			WR_CONFIRM;
-+		wd.reg = mmCPC_INT_STATUS;
-+		wd.val = 0X20000000;
-+		gfx_v8_0_ring_write_data(ring, &wd);
- 	}
- }
- 
-@@ -6618,11 +6631,13 @@ static void gfx_v8_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg)
- static void gfx_v8_0_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg,
- 				  uint32_t val)
- {
--	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
--	amdgpu_ring_write(ring, (1 << 16)); /* no inc addr */
--	amdgpu_ring_write(ring, reg);
--	amdgpu_ring_write(ring, 0);
--	amdgpu_ring_write(ring, val);
-+	struct gfx8_write_data wd = {
-+	.n = 3,
-+	.control = 1 << 16,
-+	.reg = reg,
-+	.val = val
-+	};
-+	gfx_v8_0_ring_write_data(ring, &wd);
- }
- 
- static void gfx_v8_0_set_gfx_eop_interrupt_state(struct amdgpu_device *adev,
--- 
-2.14.1
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h b/drivers/gpu=
+/drm/amd/powerplay/smumgr/rv_smumgr.h
+index 5888840..caebdbe 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h
+@@ -40,7 +40,7 @@ struct smu_table_entry {
+         uint32_t table_addr_high;
+         uint32_t table_addr_low;
+         uint8_t *table;
+-       uint32_t handle;
++       unsigned long handle;
+ };
 
+ struct smu_table_array {
+--
+2.7.4
 
---------------F7635B3D2C0114CEA16D4240
+--_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Times New Roman","serif";}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:SimSun;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;;color:black">Reviewed-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</spa=
+n><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-family:&quot;Calibri&=
+quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp=
+;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Best Regar=
+ds<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
+family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Rex<o:p></=
+o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:10.0pt;fo=
+nt-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span =
+lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&qu=
+ot;sans-serif&quot;"> Deucher, Alexander
+<br>
+<b>Sent:</b> Thursday, January 18, 2018 7:11 AM<br>
+<b>To:</b> Grodzovsky, Andrey; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Lipski, Mikita; Zhu, Rex<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle t=
+ype<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;;color:black">Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:a=
+lexander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></spa=
+n></p>
+<div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
+ lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&q=
+uot;;color:black">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</span></div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:11.0pt;fo=
+nt-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</sp=
+an></b><span lang=3D"EN-US" style=3D"font-size:11.0pt;font-family:&quot;Cal=
+ibri&quot;,&quot;sans-serif&quot;;color:black"> Andrey Grodzovsky &lt;<a hr=
+ef=3D"mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;<b=
+r>
+<b>Sent:</b> Wednesday, January 17, 2018 5:35 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a><br>
+<b>Cc:</b> Lipski, Mikita; Zhu, Rex; Deucher, Alexander; Grodzovsky, Andrey=
+<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type<=
+/span><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;s=
+ans-serif&quot;;color:black">
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Cali=
+bri&quot;,&quot;sans-serif&quot;;color:black">&nbsp;<o:p></o:p></span></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
+style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&=
+quot;;color:black">Handle describes kernel logical address, should be unsig=
+ned long and not uint32_t.<br>
+Fixes KASAN error and GFP on driver unload.<br>
+<br>
+Signed-off-by: Andrey Grodzovsky &lt;<a href=3D"mailto:andrey.grodzovsky@am=
+d.com">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h b/drivers/gpu=
+/drm/amd/powerplay/smumgr/rv_smumgr.h<br>
+index 5888840..caebdbe 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h<br>
+@@ -40,7 &#43;40,7 @@ struct smu_table_entry {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_addr_high;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_addr_low;<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t *table;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t handle;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long handle;<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;struct smu_table_array {<br>
+-- <br>
+2.7.4<o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_--
+
+--===============1255908652==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -374,4 +279,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---------------F7635B3D2C0114CEA16D4240--
+--===============1255908652==--
