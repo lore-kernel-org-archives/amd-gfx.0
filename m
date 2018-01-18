@@ -1,14 +1,16 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type
-Date: Thu, 18 Jan 2018 03:11:57 +0000
-Message-ID: <CY4PR12MB16873431BA294A4B26BA7E4DFBE80@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1516228529-14571-1-git-send-email-andrey.grodzovsky@amd.com>
- <CY4PR12MB1653C2E1B728B5CBA10EE68BF7E90@CY4PR12MB1653.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: TTM leaking swap space?
+Date: Wed, 17 Jan 2018 23:22:39 -0500
+Message-ID: <a10ff3a3-8174-7df8-570b-d1da27a169b7@amd.com>
+References: <5ce0f6cb-4c5e-2915-da39-a8037568edcb@amd.com>
+ <995fdb3c-27e5-4cd7-2a0b-cd686a575fde@amd.com>
+ <a76d4e01-906a-179b-64b6-acec8526e7bd@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1255908652=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1653C2E1B728B5CBA10EE68BF7E90-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <a76d4e01-906a-179b-64b6-acec8526e7bd-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,264 +21,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Lipski, Mikita" <Mikita.Lipski-5C7GfCeVMHo@public.gmane.org>
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1255908652==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_"
-
---_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-Best Regards
-Rex
-From: Deucher, Alexander
-Sent: Thursday, January 18, 2018 7:11 AM
-To: Grodzovsky, Andrey; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Lipski, Mikita; Zhu, Rex
-Subject: Re: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type
-
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deuch=
-er-5C7GfCeVMHo@public.gmane.org>>
-
-________________________________
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org<mailto:andrey.grodzovsky=
-@amd.com>>
-Sent: Wednesday, January 17, 2018 5:35 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Lipski, Mikita; Zhu, Rex; Deucher, Alexander; Grodzovsky, Andrey
-Subject: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type
-
-Handle describes kernel logical address, should be unsigned long and not ui=
-nt32_t.
-Fixes KASAN error and GFP on driver unload.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org<mailto:andrey.g=
-rodzovsky-5C7GfCeVMHo@public.gmane.org>>
----
- drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h b/drivers/gpu=
-/drm/amd/powerplay/smumgr/rv_smumgr.h
-index 5888840..caebdbe 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h
-@@ -40,7 +40,7 @@ struct smu_table_entry {
-         uint32_t table_addr_high;
-         uint32_t table_addr_low;
-         uint8_t *table;
--       uint32_t handle;
-+       unsigned long handle;
- };
-
- struct smu_table_array {
---
-2.7.4
-
---_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Times New Roman","serif";}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:SimSun;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;;color:black">Reviewed-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</spa=
-n><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-family:&quot;Calibri&=
-quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp=
-;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Best Regar=
-ds<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Rex<o:p></=
-o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:10.0pt;fo=
-nt-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span =
-lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&qu=
-ot;sans-serif&quot;"> Deucher, Alexander
-<br>
-<b>Sent:</b> Thursday, January 18, 2018 7:11 AM<br>
-<b>To:</b> Grodzovsky, Andrey; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Lipski, Mikita; Zhu, Rex<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle t=
-ype<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<div id=3D"divtagdefaultwrapper">
-<p><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;;color:black">Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:a=
-lexander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></spa=
-n></p>
-<div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
- lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&q=
-uot;;color:black">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</span></div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:11.0pt;fo=
-nt-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</sp=
-an></b><span lang=3D"EN-US" style=3D"font-size:11.0pt;font-family:&quot;Cal=
-ibri&quot;,&quot;sans-serif&quot;;color:black"> Andrey Grodzovsky &lt;<a hr=
-ef=3D"mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;<b=
-r>
-<b>Sent:</b> Wednesday, January 17, 2018 5:35 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Cc:</b> Lipski, Mikita; Zhu, Rex; Deucher, Alexander; Grodzovsky, Andrey=
-<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: Fix smu_table_entry.handle type<=
-/span><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,&quot;s=
-ans-serif&quot;;color:black">
-<o:p></o:p></span></p>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-family:&quot;Cali=
-bri&quot;,&quot;sans-serif&quot;;color:black">&nbsp;<o:p></o:p></span></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&=
-quot;;color:black">Handle describes kernel logical address, should be unsig=
-ned long and not uint32_t.<br>
-Fixes KASAN error and GFP on driver unload.<br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;<a href=3D"mailto:andrey.grodzovsky@am=
-d.com">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h b/drivers/gpu=
-/drm/amd/powerplay/smumgr/rv_smumgr.h<br>
-index 5888840..caebdbe 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/rv_smumgr.h<br>
-@@ -40,7 &#43;40,7 @@ struct smu_table_entry {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_addr_high;<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t table_addr_low;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t *table;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t handle;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long handle;<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;struct smu_table_array {<br>
--- <br>
-2.7.4<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB16873431BA294A4B26BA7E4DFBE80CY4PR12MB1687namp_--
-
---===============1255908652==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1255908652==--
+SSBmaW5kIHRoYXQgdHRtX2JvX3N3YXBvdXQgdHJpZXMgdG8gc3dhcCB0aGUgZmlyc3QgQk8gZnJv
+bSB0aGUgc3dhcCBMUlUKbGlzdC4gQnV0IEkgZG9uJ3QgZmluZCB3aGF0IHJlbW92ZXMgYSBCTyBm
+cm9tIHRoYXQgbGlzdC4gSXQgbG9va3MgbGlrZQp0aGUgc2FtZSBCTyBjYW4gYmUgc3dhcHBlZCBh
+Z2FpbiwgZXZlbiB3aGVuIGl0J3MgYWxyZWFkeSBzd2FwcGVkLiBXaGF0CmFtIEkgbWlzc2luZz8K
+ClNob3VsZCBzd2FwcGVkIG91dCBCT3Mgc3RpbGwgYmUgb24gdGhlIHN3YXAgTFJVIGxpc3Q/IElu
+IHRoYXQgY2FzZSB3ZQpuZWVkIHRvIGFkZCBhIGNvbmRpdGlvbiBpbiB0dG1fYm9fc3dhcG91dCB0
+byBwcmV2ZW50IHN3YXBwaW5nIG91dCBhIEJPCnRoYXQncyBhbHJlYWR5IHN3YXBwZWQuCgpSZWdh
+cmRzLArCoCBGZWxpeAoKCk9uIDIwMTgtMDEtMTcgMDY6NTAgUE0sIEZlbGl4IEt1ZWhsaW5nIHdy
+b3RlOgo+IE9uIDIwMTgtMDEtMTcgMDM6MzMgUE0sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+
+PiBJIGhhdmUgYSBwcml2YXRlIGxpYmRybSBhbWRncHUgdGVzdCB3aGljaCBhbGxvY2F0ZXMgdmVy
+eSBiaWcgQk9zIGluCj4+IGxvb3AgdW50aWwgYWxsIFZSQU0sIEdUVCBhbmQgc3dhcCBhcmUgZnVs
+bCwgYW5kIEkgZG9uJ3QgcmVsZWFzZSB0aGVtCj4+IGluIHRoZSB0ZXN0ICh5ZXQpIC4KPj4KPj4g
+T25jZSB0aGUgdGVzdCBwcm9jZXNzIHRlcm1pbmF0ZXMgZXZlcnl0aGluZyBhbHdheXMgZ2V0cyBj
+bGVhcmVkCj4+IGluY2x1ZGluZyBzd2FwIC4gQ291bGQgdGhpcyBwb2ludCB0byBLRkQgc3BlY2lm
+aWMgaXNzdWUgPwo+IFRoYXQncyBwb3NzaWJsZS4KPgo+IEkgYWRkZWQgc29tZSBXQVJOczoKPgo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV90dC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL3R0bS90dG1fdHQuYwo+IGluZGV4IDVhMDQ2YTMuLmQ2ODE0MWUgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0v
+dHRtX3R0LmMKPiBAQCAtMTc1LDcgKzE3NSw3IEBAIHZvaWQgdHRtX3R0X2Rlc3Ryb3koc3RydWN0
+IHR0bV90dCAqdHRtKQo+ICAKPiAgICAgICAgIGlmICh0dG0tPnN0YXRlID09IHR0X3VuYm91bmQp
+Cj4gICAgICAgICAgICAgICAgIHR0bV90dF91bnBvcHVsYXRlKHR0bSk7Cj4gLQo+ICsgICAgICAg
+IFdBUk5fT04odHRtLT5wYWdlX2ZsYWdzICYgVFRNX1BBR0VfRkxBR19QRVJTSVNURU5UX1NXQVAp
+Owo+ICAgICAgICAgaWYgKCEodHRtLT5wYWdlX2ZsYWdzICYgVFRNX1BBR0VfRkxBR19QRVJTSVNU
+RU5UX1NXQVApICYmCj4gICAgICAgICAgICAgdHRtLT5zd2FwX3N0b3JhZ2UpCj4gICAgICAgICAg
+ICAgICAgIGZwdXQodHRtLT5zd2FwX3N0b3JhZ2UpOwo+IEBAIC0zMjEsNiArMzIxLDcgQEAgaW50
+IHR0bV90dF9zd2FwaW4oc3RydWN0IHR0bV90dCAqdHRtKQo+ICAKPiAgICAgICAgIHJldHVybiAw
+Owo+ICBvdXRfZXJyOgo+ICsgICAgICAgIFdBUk4oMSwgIlJldHVybmluZyBlcnJvciwgbm90IGZy
+ZWVpbmcgc3dhcF9zdG9yYWdlIik7Cj4gICAgICAgICByZXR1cm4gcmV0Owo+ICB9Cj4gIAo+IEBA
+IC0zMzYsNyArMzM3LDggQEAgaW50IHR0bV90dF9zd2Fwb3V0KHN0cnVjdCB0dG1fdHQgKnR0bSwg
+c3RydWN0IGZpbGUgKnBlcnNpc3RlbnRfc3dhcF9zdG9yYWdlKQo+ICAgICAgICAgQlVHX09OKHR0
+bS0+c3RhdGUgIT0gdHRfdW5ib3VuZCAmJiB0dG0tPnN0YXRlICE9IHR0X3VucG9wdWxhdGVkKTsK
+PiAgICAgICAgIEJVR19PTih0dG0tPmNhY2hpbmdfc3RhdGUgIT0gdHRfY2FjaGVkKTsKPiAgCj4g
+LSAgICAgICBpZiAoIXBlcnNpc3RlbnRfc3dhcF9zdG9yYWdlKSB7Cj4gKyAgICAgICAgaWYgKCFw
+ZXJzaXN0ZW50X3N3YXBfc3RvcmFnZSkgewo+ICsgICAgICAgICAgICAgICAgV0FSTih0dG0tPnN3
+YXBfc3RvcmFnZSwgImFscmVhZHkgaGFzIHN3YXAgc3RvcmFnZSIpOwo+ICAgICAgICAgICAgICAg
+ICBzd2FwX3N0b3JhZ2UgPSBzaG1lbV9maWxlX3NldHVwKCJ0dG0gc3dhcCIsCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHRtLT5udW1fcGFnZXMgPDwg
+UEFHRV9TSElGVCwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAwKTsKPgo+Cj4gQW5kIG5vdGljZWQgdGhhdCB0dG1fYm9fc3dhcG91dCBpcyBnZXR0aW5n
+IGNhbGxlZCBvbiBCT3MgdGhhdCBhbHJlYWR5Cj4gaGF2ZSBzd2FwIHNwYWNlLiBJIHRoaW5rIHRo
+YXQgbWVhbnMgaXQncyB0cnlpbmcgdG8gc3dhcCBvdXQgYSBCTyB0aGF0J3MKPiBhbHJlYWR5IHN3
+YXBwZWQgb3V0LCBhbmQgdGhhdCdzIHdoZXJlIGl0J3MgbGVha2luZyB0aGUgcG9pbnRlciB0bwo+
+IGFscmVhZHkgYWxsb2NhdGVkIHN3YXAgc3BhY2U6Cj4KPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhs
+aW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMDgzXSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJl
+IF0tLS0tLS0tLS0tLS0KPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIga2VybmVs
+OiBbICAxOTYuNjAyMDg2XSBhbHJlYWR5IGhhcyBzd2FwIHN0b3JhZ2UKPiBKYW4gMTcgMTg6NDA6
+MDYgZmt1ZWhsaW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMTI0XSBXQVJOSU5HOiBDUFU6
+IDggUElEOiAxOTQwIGF0IC9ob21lL2ZrdWVobGluL2NvbXB1dGUva2VybmVsL2RyaXZlcnMvZ3B1
+L2RybS90dG0vdAo+IHRtX3R0LmM6MzQxIHR0bV90dF9zd2Fwb3V0KzB4MjMwLzB4MjUwIFt0dG1d
+Cj4gSmFuIDE3IDE4OjQwOjA2IGZrdWVobGluLWhzYXRlc3QyIGtlcm5lbDogWyAgMTk2LjYwMjEy
+Nl0gTW9kdWxlcyBsaW5rZWQgaW46IGlwNl90YWJsZXMoRSkgaXBfdGFibGVzKEUpIHhfdGFibGVz
+KEUpIHg4Nl9wa2dfdGVtcF90aGVybWFsKEUKPiApIGFtZGtmZChFKSBhbWRfaW9tbXVfdjIoRSkg
+YW1kZ3B1KEUpIGNoYXNoKEUpIGdwdV9zY2hlZChFKSB0dG0oRSkKPiBKYW4gMTcgMTg6NDA6MDYg
+Zmt1ZWhsaW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMTM5XSBDUFU6IDggUElEOiAxOTQw
+IENvbW06IGt3b3JrZXIvdTI0OjYgVGFpbnRlZDogRyAgICAgICAgVyAgIEUgICAgNC4xNS4wLXJj
+Mi1rZmQtZmt1ZWhsaW4gIzcKPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIga2Vy
+bmVsOiBbICAxOTYuNjAyMTQxXSBIYXJkd2FyZSBuYW1lOiBBU1VTIEFsbCBTZXJpZXMvWDk5LUUg
+V1MvVVNCIDMuMSwgQklPUyAyMDA2IDA0LzA3LzIwMTYKPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhs
+aW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMTQ0XSBXb3JrcXVldWU6IHR0bV9zd2FwIHR0
+bV9zaHJpbmtfd29yayBbdHRtXQo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBr
+ZXJuZWw6IFsgIDE5Ni42MDIxNDddIHRhc2s6IDAwMDAwMDAwODk0ZmZmYzYgdGFzay5zdGFjazog
+MDAwMDAwMDA4ZjczYmQ0Mwo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBrZXJu
+ZWw6IFsgIDE5Ni42MDIxNTBdIFJJUDogMDAxMDp0dG1fdHRfc3dhcG91dCsweDIzMC8weDI1MCBb
+dHRtXQo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBrZXJuZWw6IFsgIDE5Ni42
+MDIxNTFdIFJTUDogMDAxODpmZmZmYTg3YTQzNjMzY2U4IEVGTEFHUzogMDAwMTAyOTYKPiBKYW4g
+MTcgMTg6NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMTUzXSBSQVg6
+IDAwMDAwMDAwMDAwMDAwMTggUkJYOiBmZmZmOTBiYTNhZjZiODU4IFJDWDogMDAwMDAwMDAwMDAw
+MDAwNgo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBrZXJuZWw6IFsgIDE5Ni42
+MDIxNTRdIFJEWDogMDAwMDAwMDAwMDAwMTAyNyBSU0k6IGZmZmY5MGJiZTMzMDZkZjggUkRJOiAw
+MDAwMDAwMDAwMDAwMjAyCj4gSmFuIDE3IDE4OjQwOjA2IGZrdWVobGluLWhzYXRlc3QyIGtlcm5l
+bDogWyAgMTk2LjYwMjE1NV0gUkJQOiBmZmZmOTBiYmRkYWJkZTAwIFIwODogMDAwMDAwMDAwMDAw
+MDAwMCBSMDk6IDAwMDAwMDAwMDAwMDAwMDAKPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhsaW4taHNh
+dGVzdDIga2VybmVsOiBbICAxOTYuNjAyMTU2XSBSMTA6IDAwMDAwMDAwNWIyNjM1ZDAgUjExOiAw
+MDAwMDAwMDAwMDAwMDAwIFIxMjogZmZmZjkwYmEzYWY2Yjg4Ywo+IEphbiAxNyAxODo0MDowNiBm
+a3VlaGxpbi1oc2F0ZXN0MiBrZXJuZWw6IFsgIDE5Ni42MDIxNTddIFIxMzogZmZmZmE4N2E0MzYz
+M2UzYSBSMTQ6IGZmZmY5MGJiZGRhNTlkNzAgUjE1OiBmZmZmOTBiYmRkYTU5Y2UwCj4gSmFuIDE3
+IDE4OjQwOjA2IGZrdWVobGluLWhzYXRlc3QyIGtlcm5lbDogWyAgMTk2LjYwMjE1OV0gRlM6ICAw
+MDAwMDAwMDAwMDAwMDAwKDAwMDApIEdTOmZmZmY5MGJiZTc0MDAwMDAoMDAwMCkga25sR1M6MDAw
+MDAwMDAwMDAwMDAwMAo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBrZXJuZWw6
+IFsgIDE5Ni42MDIxNjBdIENTOiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAw
+ODAwNTAwMzMKPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIga2VybmVsOiBbICAx
+OTYuNjAyMTYxXSBDUjI6IDAwMDAwMDAwMDFhZmJkNTggQ1IzOiAwMDAwMDAwM2Y1MDEwMDAyIENS
+NDogMDAwMDAwMDAwMDE2MDZlMAo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBr
+ZXJuZWw6IFsgIDE5Ni42MDIxNjJdIENhbGwgVHJhY2U6Cj4gSmFuIDE3IDE4OjQwOjA2IGZrdWVo
+bGluLWhzYXRlc3QyIGtlcm5lbDogWyAgMTk2LjYwMjE3MV0gIHR0bV9ib19zd2Fwb3V0KzB4MjNh
+LzB4MjYwIFt0dG1dCj4gSmFuIDE3IDE4OjQwOjA2IGZrdWVobGluLWhzYXRlc3QyIGtlcm5lbDog
+WyAgMTk2LjYwMjE3NV0gID8gdHRtX3NocmluaysweGE4LzB4ZjAgW3R0bV0KPiBKYW4gMTcgMTg6
+NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMTc5XSAgdHRtX3Nocmlu
+aysweGI2LzB4ZjAgW3R0bV0KPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIga2Vy
+bmVsOiBbICAxOTYuNjAyMTg0XSAgdHRtX3Nocmlua193b3JrKzB4MzEvMHg0MCBbdHRtXQo+IEph
+biAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBrZXJuZWw6IFsgIDE5Ni42MDIxODldICBw
+cm9jZXNzX29uZV93b3JrKzB4MTlkLzB4NDMwCj4gSmFuIDE3IDE4OjQwOjA2IGZrdWVobGluLWhz
+YXRlc3QyIGtlcm5lbDogWyAgMTk2LjYwMjE5MV0gID8gcHJvY2Vzc19vbmVfd29yaysweDEzNi8w
+eDQzMAo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBrZXJuZWw6IFsgIDE5Ni42
+MDIxOTZdICB3b3JrZXJfdGhyZWFkKzB4NDUvMHg0MzAKPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhs
+aW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMjAyXSAga3RocmVhZCsweDEzNC8weDE3MAo+
+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0MiBrZXJuZWw6IFsgIDE5Ni42MDIyMDRd
+ICA/IHByb2Nlc3Nfb25lX3dvcmsrMHg0MzAvMHg0MzAKPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhs
+aW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMjA2XSAgPyBrdGhyZWFkX2RlbGF5ZWRfd29y
+a190aW1lcl9mbisweDgwLzB4ODAKPiBKYW4gMTcgMTg6NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIg
+a2VybmVsOiBbICAxOTYuNjAyMjEyXSAgcmV0X2Zyb21fZm9yaysweDI0LzB4MzAKPiBKYW4gMTcg
+MTg6NDA6MDYgZmt1ZWhsaW4taHNhdGVzdDIga2VybmVsOiBbICAxOTYuNjAyMjE4XSBDb2RlOiA4
+OSA0NSA0MCAzMSBjMCBlOSAzNCBmZiBmZiBmZiA0OCBjNyBjNyBhOCBlYSAxMyBjMCBlOCAwYiBm
+ZiBmOCBlZCA4YiA0NCAyNCAwOCBlOSAxZiBmZiBmZiBmZiA0OCBjNyBjNyBkZSBmYSAxMyBjMCBl
+OCBkMCA4NSBmMiBlZCA8MGY+IGZmIGViIDgwIDQ4IDg5IGVmIGU4IDE0IGZjIGZmIGZmIDQ4IDhi
+IDA0IDI0IDQ4IDg5IDQ1IDQwIDhiIAo+IEphbiAxNyAxODo0MDowNiBma3VlaGxpbi1oc2F0ZXN0
+MiBrZXJuZWw6IFsgIDE5Ni42MDIyNjhdIC0tLVsgZW5kIHRyYWNlIDAxOWI2Mzk4Y2FiYzgyNjYg
+XS0tLQo+Cj4gUmVnYXJkcywKPiDCoCBGZWxpeAo+Cj4KPj4gVGhhbmtzLAo+Pgo+PiBBbmRyZXkK
+Pj4KPj4KPj4gT24gMDEvMTYvMjAxOCAxMDoyMSBQTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4+
+PiBJJ20gcnVubmluZyBhbiBldmljdGlvbiBzdHJlc3MgdGVzdCB3aXRoIEtGRCBhbmQgZmluZCB0
+aGF0IHNvbWV0aW1lcyBpdAo+Pj4gc3RhcnRzIHN3YXBwaW5nLiBXaGVuIHRoYXQgaGFwcGVucywg
+c3dhcCB1c2FnZSBnb2VzIHVwIHJhcGlkbHksIGJ1dCBpdAo+Pj4gbmV2ZXIgY29tZXMgZG93bi4g
+RXZlbiBhZnRlciB0aGUgcHJvY2Vzc2VzIHRlcm1pbmF0ZSwgYW5kIGFsbCBWUkFNIGFuZAo+Pj4g
+R1RUIGFsbG9jYXRpb25zIGFyZSBmcmVlZCAoY2hlY2tlZCBpbgo+Pj4gL3N5cy9rZXJuZWwvZGVi
+dWcvZHJpLzAvYW1kZ3B1X3tndHR8dnJhbX1fbW0pLCBzd2FwIHNwYWNlIGlzIHN0aWxsIG5vdAo+
+Pj4gcmVsZWFzZWQuCj4+Pgo+Pj4gUnVubmluZyB0aGUgdGVzdCByZXBlYXRlZGx5IEkgd2FzIGFi
+bGUgdG8gdHJpZ2dlciB0aGUgT09NIGtpbGxlciBxdWl0ZQo+Pj4gZWFzaWx5LiBUaGUgc3lzdGVt
+IGRpZWQgd2l0aCBhIHBhbmljLCBydW5uaW5nIG91dCBvZiBwcm9jZXNzZXMgdG8ga2lsbC4KPj4+
+Cj4+PiBUaGUgc3ltcHRvbXMgbG9vayBsaWtlIHN3YXAgc3BhY2UgaXMgb25seSBhbGxvY2F0ZWQg
+YnV0IG5ldmVyIHJlbGVhc2VkLgo+Pj4KPj4+IEEgcXVpY2sgbG9vayBhdCB0aGUgc3dhcHBpbmcg
+Y29kZSBpbiB0dG1fdHQuYyBkb2Vzbid0IHNob3cgYW55IG9idmlvdXMKPj4+IHByb2JsZW1zLiBJ
+J20gYXNzdW1pbmcgdGhhdCBmcHV0IHNob3VsZCBmcmVlIHN3YXAgc3BhY2UuIFRoYXQgc2hvdWxk
+Cj4+PiBoYXBwZW4gd2hlbiBCT3MgYXJlIHN3YXBwZWQgYmFjayBpbiwgb3IgZGVzdHJveWVkLiBB
+cyBmYXIgYXMgSSBjYW4gdGVsbCwKPj4+IGFtZGdwdSBkb2Vzbid0IHVzZSBwZXJzaXN0ZW50IHN3
+YXAgc3BhY2UsIHNvIEknbSBpZ25vcmluZwo+Pj4gVFRNX1BBR0VfRkxBR19QRVJTSVNURU5UX1NX
+QVAuCj4+Pgo+Pj4gQW55IG90aGVyIGlkZWFzIG9yIHBvaW50ZXJzPwo+Pj4KPj4+IFRoYW5rcywK
+Pj4+IMKgwqAgRmVsaXgKPj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
