@@ -1,7 +1,7 @@
 From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu: quick fix since gmc rename
-Date: Thu, 18 Jan 2018 15:13:16 +0800
-Message-ID: <20180118071316.10046-1-david1.zhou@amd.com>
+Date: Thu, 18 Jan 2018 15:13:29 +0800
+Message-ID: <20180118071329.10097-1-david1.zhou@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
