@@ -1,13 +1,14 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v3] drm/amdgpu: reserved requested gtt buffer for smu
-Date: Thu, 18 Jan 2018 07:34:10 +0000
-Message-ID: <DM5PR1201MB24899DAF4DD83AC006FDFD56E4E80@DM5PR1201MB2489.namprd12.prod.outlook.com>
-References: <1516168586-31709-1-git-send-email-Rex.Zhu@amd.com>
+From: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: disable ECC check for Raven to avoid error
+ message annoyance
+Date: Thu, 18 Jan 2018 01:32:46 +0000
+Message-ID: <CY4PR12MB1414C2B8F4B0060F016BF5D0FFE80@CY4PR12MB1414.namprd12.prod.outlook.com>
+References: <1516172538-27374-1-git-send-email-Jerry.Zhang@amd.com>
+ <BN6PR12MB1652BC4DA2E56C4B5828D281F7E90@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1625884524=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1516168586-31709-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652BC4DA2E56C4B5828D281F7E90-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,174 +20,337 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNClJlZ2FyZHMsCQ0K
-RXZhbg0KPi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogYW1kLWdmeCBbbWFpbHRv
-OmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBSZXgg
-Wmh1DQo+U2VudDogV2VkbmVzZGF5LCBKYW51YXJ5IDE3LCAyMDE4IDE6NTYgUE0NCj5UbzogYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj5DYzogWmh1LCBSZXggPFJleC5aaHVAYW1kLmNv
-bT4NCj5TdWJqZWN0OiBbUEFUQ0ggdjNdIGRybS9hbWRncHU6IHJlc2VydmVkIHJlcXVlc3RlZCBn
-dHQgYnVmZmVyIGZvciBzbXUNCj4NCj52MzogLSBmaXggcmV0dXJuIHZhbHVlIGNoZWNrIGluIGFt
-ZGdwdV9wcF9hbGxvY19tZW1fZm9yX3NtdQ0KPiAgICAtIHNhdmUgbWVtb3J5IHNpemUgaW4gc3Ry
-dWN0IHBvd2VycGxheQ0KPiAgICAtIG5vdCBtb2RpZnkgbW9kdWxlIHBhcmFtZXRlcg0KPnYyOiAt
-IG1lcmdlIHRpcCBkcm0tbmV4dCBjb2RlLg0KPiAgICAtIHNpbXBsaWZ5IGNoZWNrIHNtdV9tZW1v
-cnlfc2l6ZSBjb2RlLg0KPiAgICAtIHNpbXBsaWZ5IGFsbG9jYXRlIHNtdSBtZW1yb3kgY29kZS4N
-Cj4NCj5TaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+DQo+LS0tDQo+IGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICB8ICAzICsrDQo+IGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAgICB8IDQzDQo+KysrKysr
-KysrKysrKysrKysrKysrKysrKysrDQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kcnYuYyAgICAgICB8ICA2ICsrKysNCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3Bvd2VycGxheS5jIHwgMzkNCj4rKysrKysrKysrKysrKysrKysrKysrKysNCj4gZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYyAgICAgICAgIHwgIDEgKw0KPiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jICAgICAgICAgfCAgMiArLQ0KPiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jICAgICAgICAgfCAgMSArDQo+IGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgICAgICB8ICAyICstDQo+IDggZmlsZXMg
-Y2hhbmdlZCwgOTUgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4NCj5kaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj5iL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+aW5kZXggY2QzYWY1MS4uZmY4NmQ2ZSAxMDA2NDQNCj4t
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+QEAgLTEyOCw2ICsxMjgsNyBAQA0KPiBleHRl
-cm4gaW50IGFtZGdwdV9sYnB3Ow0KPiBleHRlcm4gaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlw
-ZTsNCj4gZXh0ZXJuIGludCBhbWRncHVfZ3B1X3JlY292ZXJ5Ow0KPitleHRlcm4gdWludCBhbWRn
-cHVfc211X21lbW9yeV9wb29sX3NpemU7DQo+DQo+ICNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9T
-SQ0KPiBleHRlcm4gaW50IGFtZGdwdV9zaV9zdXBwb3J0Ow0KPkBAIC0xNDE4LDYgKzE0MTksOCBA
-QCBlbnVtIGFtZF9od19pcF9ibG9ja190eXBlIHsNCj4gc3RydWN0IGFtZF9wb3dlcnBsYXkgew0K
-PiAJc3RydWN0IGNnc19kZXZpY2UgKmNnc19kZXZpY2U7DQo+IAl2b2lkICpwcF9oYW5kbGU7DQo+
-KwlzdHJ1Y3QgYW1kZ3B1X2JvICpzbXVfcHJ2X2J1ZmZlcjsgLyogdXNlZCBmb3IgU01VIGRlYnVn
-ICovDQo+Kwl1MzIgc211X3Bydl9idWZmZXJfc2l6ZTsNCj4gCWNvbnN0IHN0cnVjdCBhbWRfaXBf
-ZnVuY3MgKmlwX2Z1bmNzOw0KPiAJY29uc3Qgc3RydWN0IGFtZF9wbV9mdW5jcyAqcHBfZnVuY3M7
-DQo+IH07DQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYw0KPmIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+
-aW5kZXggZDA5YzRlZS4uMDE3YWJiNSAxMDA2NDQNCj4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGV2aWNlLmMNCj5AQCAtNzczLDYgKzc3Myw0NiBAQCBzdGF0aWMgdm9pZCBhbWRn
-cHVfZGV2aWNlX2NoZWNrX3ZtX3NpemUoc3RydWN0DQo+YW1kZ3B1X2RldmljZSAqYWRldikNCj4g
-CX0NCj4gfQ0KPg0KPitzdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNlX2NoZWNrX3NtdV9wcnZfYnVm
-ZmVyX3NpemUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+K3sNCj4rCXN0cnVjdCBzeXNp
-bmZvIHNpOw0KPisJYm9vbCBpc19vc182NCA9IChzaXplb2Yodm9pZCAqKSA9PSA4KSA/IHRydWUg
-OiBmYWxzZTsNCj4rCXVpbnQ2NF90IHRvdGFsX21lbW9yeTsNCj4rCXVpbnQ2NF90IGRyYW1fc2l6
-ZV9zZXZlbl9HQiA9IDB4MUI4MDAwMDAwOw0KPisJdWludDY0X3QgZHJhbV9zaXplX3RocmVlX0dC
-ID0gMHhCODAwMDAwMDsNCj4rDQo+KwlpZiAoYW1kZ3B1X3NtdV9tZW1vcnlfcG9vbF9zaXplID09
-IDApDQo+KwkJcmV0dXJuOw0KPisNCj4rCWlmICghaXNfb3NfNjQpIHsNCj4rCQlEUk1fV0FSTigi
-Tm90IDY0LWJpdCBPUywgZmVhdHVyZSBub3Qgc3VwcG9ydGVkXG4iKTsNCj4rCQlnb3RvIGRlZl92
-YWx1ZTsNCj4rCX0NCj4rCXNpX21lbWluZm8oJnNpKTsNCj4rCXRvdGFsX21lbW9yeSA9ICh1aW50
-NjRfdClzaS50b3RhbHJhbSAqIHNpLm1lbV91bml0Ow0KPisNCj4rCWlmICgoYW1kZ3B1X3NtdV9t
-ZW1vcnlfcG9vbF9zaXplID09IDEpIHx8DQo+KwkJKGFtZGdwdV9zbXVfbWVtb3J5X3Bvb2xfc2l6
-ZSA9PSAyKSkgew0KPisJCWlmICh0b3RhbF9tZW1vcnkgPCBkcmFtX3NpemVfdGhyZWVfR0IpDQo+
-KwkJCWdvdG8gZGVmX3ZhbHVlMTsNCj4rCX0gZWxzZSBpZiAoKGFtZGdwdV9zbXVfbWVtb3J5X3Bv
-b2xfc2l6ZSA9PSA0KSB8fA0KPisJCShhbWRncHVfc211X21lbW9yeV9wb29sX3NpemUgPT0gOCkp
-IHsNCj4rCQlpZiAodG90YWxfbWVtb3J5IDwgZHJhbV9zaXplX3NldmVuX0dCKQ0KPisJCQlnb3Rv
-IGRlZl92YWx1ZTE7DQo+Kwl9IGVsc2Ugew0KPisJCURSTV9XQVJOKCJTbXUgbWVtb3J5IHBvb2wg
-c2l6ZSBub3Qgc3VwcG9ydGVkXG4iKTsNCj4rCQlnb3RvIGRlZl92YWx1ZTsNCj4rCX0NCj4rCWFk
-ZXYtPnBvd2VycGxheS5zbXVfcHJ2X2J1ZmZlcl9zaXplID0gYW1kZ3B1X3NtdV9tZW1vcnlfcG9v
-bF9zaXplIDw8IDI4Ow0KPisNCj4rCXJldHVybjsNCj4rDQo+K2RlZl92YWx1ZTE6DQo+KwlEUk1f
-V0FSTigiTm8gZW5vdWdoIHN5c3RlbSBtZW1vcnlcbiIpOw0KPitkZWZfdmFsdWU6DQo+KwlhZGV2
-LT5wb3dlcnBsYXkuc211X3Bydl9idWZmZXJfc2l6ZSA9IDA7DQo+K30NCj4rDQo+IC8qKg0KPiAg
-KiBhbWRncHVfZGV2aWNlX2NoZWNrX2FyZ3VtZW50cyAtIHZhbGlkYXRlIG1vZHVsZSBwYXJhbXMN
-Cj4gICoNCj5AQCAtODE0LDYgKzg1NCw4IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2VfY2hl
-Y2tfYXJndW1lbnRzKHN0cnVjdA0KPmFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+IAkJYW1kZ3B1X3Zt
-X2ZyYWdtZW50X3NpemUgPSAtMTsNCj4gCX0NCj4NCj4rCWFtZGdwdV9kZXZpY2VfY2hlY2tfc211
-X3Bydl9idWZmZXJfc2l6ZShhZGV2KTsNCj4rDQo+IAlhbWRncHVfZGV2aWNlX2NoZWNrX3ZtX3Np
-emUoYWRldik7DQo+DQo+IAlhbWRncHVfZGV2aWNlX2NoZWNrX2Jsb2NrX3NpemUoYWRldik7DQo+
-QEAgLTIwNzMsNiArMjExNSw3IEBAIHZvaWQgYW1kZ3B1X2RldmljZV9maW5pKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQ0KPiAJCXJlbGVhc2VfZmlybXdhcmUoYWRldi0+ZmlybXdhcmUuZ3B1
-X2luZm9fZncpOw0KPiAJCWFkZXYtPmZpcm13YXJlLmdwdV9pbmZvX2Z3ID0gTlVMTDsNCj4gCX0N
-Cj4rDQo+IAlhZGV2LT5hY2NlbF93b3JraW5nID0gZmFsc2U7DQo+IAljYW5jZWxfZGVsYXllZF93
-b3JrX3N5bmMoJmFkZXYtPmxhdGVfaW5pdF93b3JrKTsNCj4gCS8qIGZyZWUgaTJjIGJ1c2VzICov
-DQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0K
-PmIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jDQo+aW5kZXggMGJiMzRk
-Yi4uZTY3OWJiOCAxMDA2NDQNCj4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZHJ2LmMNCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMN
-Cj5AQCAtMTMwLDYgKzEzMCw3IEBADQo+IGludCBhbWRncHVfbGJwdyA9IC0xOw0KPiBpbnQgYW1k
-Z3B1X2NvbXB1dGVfbXVsdGlwaXBlID0gLTE7DQo+IGludCBhbWRncHVfZ3B1X3JlY292ZXJ5ID0g
-LTE7IC8qIGF1dG8gKi8NCj4rdWludCBhbWRncHVfc211X21lbW9yeV9wb29sX3NpemUgPSAwOw0K
-Pg0KPiBNT0RVTEVfUEFSTV9ERVNDKHZyYW1saW1pdCwgIlJlc3RyaWN0IFZSQU0gZm9yIHRlc3Rp
-bmcsIGluIG1lZ2FieXRlcyIpOw0KPiBtb2R1bGVfcGFyYW1fbmFtZWQodnJhbWxpbWl0LCBhbWRn
-cHVfdnJhbV9saW1pdCwgaW50LCAwNjAwKTsNCj5AQCAtMzExLDYgKzMxMiwxMSBAQA0KPiBtb2R1
-bGVfcGFyYW1fbmFtZWQoY2lrX3N1cHBvcnQsIGFtZGdwdV9jaWtfc3VwcG9ydCwgaW50LCAwNDQ0
-KTsNCj4gI2VuZGlmDQo+DQo+K01PRFVMRV9QQVJNX0RFU0Moc211X21lbW9yeV9wb29sX3NpemUs
-DQo+KwkicmVzZXJ2ZSBndHQgZm9yIHNtdSBkZWJ1ZyB1c2FnZSwgMCA9IGRpc2FibGUsIg0KPisJ
-CSIweDEgPSAyNTZNYnl0ZSwgMHgyID0gNTEyTWJ5dGUsIDB4NCA9IDEgR2J5dGUsIDB4OCA9IDJH
-Qnl0ZSIpOw0KPittb2R1bGVfcGFyYW1fbmFtZWQoc211X21lbW9yeV9wb29sX3NpemUsIGFtZGdw
-dV9zbXVfbWVtb3J5X3Bvb2xfc2l6ZSwgdWludCwNCj4wNDQ0KTsNCj4rDQo+IHN0YXRpYyBjb25z
-dCBzdHJ1Y3QgcGNpX2RldmljZV9pZCBwY2lpZGxpc3RbXSA9IHsNCj4gI2lmZGVmICBDT05GSUdf
-RFJNX0FNREdQVV9TSQ0KPiAJezB4MTAwMiwgMHg2NzgwLCBQQ0lfQU5ZX0lELCBQQ0lfQU5ZX0lE
-LCAwLCAwLCBDSElQX1RBSElUSX0sDQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9wb3dlcnBsYXkuYw0KPmIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3Bvd2VycGxheS5jDQo+aW5kZXggNWY1YWE1Zi4uOTk4MWZmMyAxMDA2NDQNCj4tLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG93ZXJwbGF5LmMNCj4rKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG93ZXJwbGF5LmMNCj5AQCAtMTAxLDYg
-KzEwMSwzNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9wcF9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkN
-Cj4gCXJldHVybiByZXQ7DQo+IH0NCj4NCj4rc3RhdGljIHZvaWQgYW1kZ3B1X3BwX2FsbG9jX21l
-bV9mb3Jfc211KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPit7DQo+KwlpbnQgciA9IDA7
-DQo+Kwl2b2lkICpjcHVfcHRyID0gTlVMTDsNCj4rCXVpbnQ2NF90IGdwdV9hZGRyOw0KPisNCj4r
-CWlmIChhbWRncHVfYm9fY3JlYXRlX2tlcm5lbChhZGV2LCBhZGV2LT5wb3dlcnBsYXkuc211X3By
-dl9idWZmZXJfc2l6ZSwNCj4rCQkJCQlQQUdFX1NJWkUsIEFNREdQVV9HRU1fRE9NQUlOX0dUVCwN
-Cj4rCQkJCQkmYWRldi0+cG93ZXJwbGF5LnNtdV9wcnZfYnVmZmVyLA0KPisJCQkJCSZncHVfYWRk
-ciwNCj4rCQkJCQkmY3B1X3B0cikpIHsNCj4rCQlEUk1fRVJST1IoImFtZGdwdTogZmFpbGVkIHRv
-IGNyZWF0ZSBzbXUgcHJ2IGJ1ZmZlciBcbiIpOw0KPisJCXJldHVybjsNCj4rCX0NCj4rDQo+Kwlp
-ZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5ub3RpZnlfc211X21lbW9yeV9pbmZvKQ0KPisJ
-CXIgPSBhbWRncHVfZHBtX25vdGlmeV9zbXVfbWVtb3J5X2luZm8oYWRldiwNCj4rCQkJCQlsb3dl
-cl8zMl9iaXRzKCh1bnNpZ25lZCBsb25nKWNwdV9wdHIpLA0KPisJCQkJCXVwcGVyXzMyX2JpdHMo
-KHVuc2lnbmVkIGxvbmcpY3B1X3B0ciksDQo+KwkJCQkJbG93ZXJfMzJfYml0cyhncHVfYWRkciks
-DQo+KwkJCQkJdXBwZXJfMzJfYml0cyhncHVfYWRkciksDQo+KwkJCQkJYWRldi0+cG93ZXJwbGF5
-LnNtdV9wcnZfYnVmZmVyX3NpemUpOw0KPisNCj4rCWlmIChyKSB7DQo+KwkJYW1kZ3B1X2JvX2Zy
-ZWVfa2VybmVsKCZhZGV2LT5wb3dlcnBsYXkuc211X3Bydl9idWZmZXIsIE5VTEwsIE5VTEwpOw0K
-PisJCWFkZXYtPnBvd2VycGxheS5zbXVfcHJ2X2J1ZmZlciA9IE5VTEw7DQo+KwkJRFJNX0VSUk9S
-KCJhbWRncHU6IGZhaWxlZCB0byBub3RpZnkgU01VIGJ1ZmZlciBhZGRyZXNzLlxuIik7DQo+Kwl9
-DQo+Kw0KPisJcmV0dXJuOw0KPit9DQo+DQo+IHN0YXRpYyBpbnQgYW1kZ3B1X3BwX2xhdGVfaW5p
-dCh2b2lkICpoYW5kbGUpDQo+IHsNCj5AQCAtMTExLDYgKzE0Miw5IEBAIHN0YXRpYyBpbnQgYW1k
-Z3B1X3BwX2xhdGVfaW5pdCh2b2lkICpoYW5kbGUpDQo+IAkJcmV0ID0gYWRldi0+cG93ZXJwbGF5
-LmlwX2Z1bmNzLT5sYXRlX2luaXQoDQo+IAkJCQkJYWRldi0+cG93ZXJwbGF5LnBwX2hhbmRsZSk7
-DQo+DQo+KwlpZiAoYWRldi0+cG93ZXJwbGF5LnNtdV9wcnZfYnVmZmVyX3NpemUpDQo+KwkJYW1k
-Z3B1X3BwX2FsbG9jX21lbV9mb3Jfc211KGFkZXYpOw0KPisNCj4gCXJldHVybiByZXQ7DQo+IH0N
-Cj4NCj5AQCAtMTgwLDYgKzIxNCwxMSBAQCBzdGF0aWMgdm9pZCBhbWRncHVfcHBfbGF0ZV9maW5p
-KHZvaWQgKmhhbmRsZSkNCj4NCj4gCWlmIChhZGV2LT5wb3dlcnBsYXkuY2dzX2RldmljZSkNCj4g
-CQlhbWRncHVfY2dzX2Rlc3Ryb3lfZGV2aWNlKGFkZXYtPnBvd2VycGxheS5jZ3NfZGV2aWNlKTsN
-Cj4rDQo+KwlpZiAoYWRldi0+cG93ZXJwbGF5LnNtdV9wcnZfYnVmZmVyKSB7DQo+KwkJYW1kZ3B1
-X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5wb3dlcnBsYXkuc211X3Bydl9idWZmZXIsIE5VTEwsIE5V
-TEwpOw0KPisJCWFkZXYtPnBvd2VycGxheS5zbXVfcHJ2X2J1ZmZlciA9IE5VTEw7DQo+Kwl9DQo+
-IH0NCj4NCj4gc3RhdGljIGludCBhbWRncHVfcHBfc3VzcGVuZCh2b2lkICpoYW5kbGUpDQo+ZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMNCj5iL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMNCj5pbmRleCA3MDliMTY3Li4wNDMzYWQy
-IDEwMDY0NA0KPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMNCj4r
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jDQo+QEAgLTM1MCw2ICsz
-NTAsNyBAQCBzdGF0aWMgaW50IGdtY192Nl8wX21jX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpDQo+IAl9IGVsc2Ugew0KPiAJCWFkZXYtPmdtYy5nYXJ0X3NpemUgPSAodTY0KWFtZGdw
-dV9nYXJ0X3NpemUgPDwgMjA7DQo+IAl9DQo+KwlhZGV2LT5nbWMuZ2FydF9zaXplICs9IGFkZXYt
-PnBvd2VycGxheS5zbXVfcHJ2X2J1ZmZlcl9zaXplOw0KPg0KPiAJZ21jX3Y2XzBfdnJhbV9ndHRf
-bG9jYXRpb24oYWRldiwgJmFkZXYtPmdtYyk7DQo+DQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMNCj5iL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dtY192N18wLmMNCj5pbmRleCBmYmE3YWFlLi40NzM4YTQ4IDEwMDY0NA0KPi0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMNCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjdfMC5jDQo+QEAgLTQwNyw3ICs0MDcsNyBAQCBzdGF0aWMgaW50IGdt
-Y192N18wX21jX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+IAl9IGVsc2Ugew0K
-PiAJCWFkZXYtPmdtYy5nYXJ0X3NpemUgPSAodTY0KWFtZGdwdV9nYXJ0X3NpemUgPDwgMjA7DQo+
-IAl9DQo+LQ0KPisJYWRldi0+Z21jLmdhcnRfc2l6ZSArPSBhZGV2LT5wb3dlcnBsYXkuc211X3By
-dl9idWZmZXJfc2l6ZTsNCj4gCWdtY192N18wX3ZyYW1fZ3R0X2xvY2F0aW9uKGFkZXYsICZhZGV2
-LT5nbWMpOw0KPg0KPiAJcmV0dXJuIDA7DQo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192OF8wLmMNCj5iL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-OF8wLmMNCj5pbmRleCBjNjE0NjU3Li45M2YwYjEyIDEwMDY0NA0KPi0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMNCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjhfMC5jDQo+QEAgLTU4Myw2ICs1ODMsNyBAQCBzdGF0aWMgaW50IGdtY192OF8w
-X21jX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+IAkJYWRldi0+Z21jLmdhcnRf
-c2l6ZSA9ICh1NjQpYW1kZ3B1X2dhcnRfc2l6ZSA8PCAyMDsNCj4gCX0NCj4NCj4rCWFkZXYtPmdt
-Yy5nYXJ0X3NpemUgKz0gYWRldi0+cG93ZXJwbGF5LnNtdV9wcnZfYnVmZmVyX3NpemU7DQo+IAln
-bWNfdjhfMF92cmFtX2d0dF9sb2NhdGlvbihhZGV2LCAmYWRldi0+Z21jKTsNCj4NCj4gCXJldHVy
-biAwOw0KPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5j
-DQo+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+aW5kZXggYjdlM2E0
-ZC4uNGFlYjE4NSAxMDA2NDQNCj4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djlfMC5jDQo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPkBA
-IC03NDUsNyArNzQ1LDcgQEAgc3RhdGljIGludCBnbWNfdjlfMF9tY19pbml0KHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQ0KPiAJfSBlbHNlIHsNCj4gCQlhZGV2LT5nbWMuZ2FydF9zaXplID0g
-KHU2NClhbWRncHVfZ2FydF9zaXplIDw8IDIwOw0KPiAJfQ0KPi0NCj4rCWFkZXYtPmdtYy5nYXJ0
-X3NpemUgKz0gYWRldi0+cG93ZXJwbGF5LnNtdV9wcnZfYnVmZmVyX3NpemU7DQo+IAlnbWNfdjlf
-MF92cmFtX2d0dF9sb2NhdGlvbihhZGV2LCAmYWRldi0+Z21jKTsNCj4NCj4gCXJldHVybiAwOw0K
-Pi0tDQo+MS45LjENCj4NCj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXw0KPmFtZC1nZnggbWFpbGluZyBsaXN0DQo+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1625884524==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1414C2B8F4B0060F016BF5D0FFE80CY4PR12MB1414namp_"
+
+--_000_CY4PR12MB1414C2B8F4B0060F016BF5D0FFE80CY4PR12MB1414namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Alex,
+That's fine for me.
+
+Reviewed-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+
+Regards,
+Jerry (Junwei Zhang)
+
+Linux Base Graphics
+SRDC Software Development
+_____________________________________
+
+From: Deucher, Alexander
+Sent: Wednesday, January 17, 2018 22:12
+To: Zhang, Jerry; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amdgpu: disable ECC check for Raven to avoid error=
+ message annoyance
+
+
+The check should be moved up into late_init where the call to ecc_available=
+ is and we should make it explicit since only vega10 supports it, that way =
+we don't get any false messages from RV.  How about the attached patch?
+
+
+
+Alex
+
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org<mai=
+lto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>>
+Sent: Wednesday, January 17, 2018 2:02 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Zhang, Jerry
+Subject: [PATCH] drm/amdgpu: disable ECC check for Raven to avoid error mes=
+sage annoyance
+
+It should be enabled until ECC is supported for Raven.
+
+Change-Id: If847663d503c26d2a08274ca721b4ce1bc637111
+Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org<mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org=
+>>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c
+index c12ee75..a333442 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -533,6 +533,10 @@ static int gmc_v9_0_ecc_available(struct amdgpu_device=
+ *adev)
+
+         DRM_DEBUG("ecc: gmc_v9_0_ecc_available()\n");
+
++       /* Temporally skip ECC for Raven to avoid error message annoyance *=
+/
++       if (adev->asic_type =3D=3D CHIP_RAVEN)
++               return 0;
++
+         lost_sheep =3D 0;
+         for (i =3D 0; i < ARRAY_SIZE(ecc_umclocalcap_addrs); ++i) {
+                 reg_addr =3D ecc_umclocalcap_addrs[i];
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR12MB1414C2B8F4B0060F016BF5D0FFE80CY4PR12MB1414namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Thanks Alex,<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">That&#8217;s fine for me.=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Reviewed-by: Junwei Zhang=
+ &lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Regards,<o:p></o:p></span=
+></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Jerry (Junwei Zhang)<o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Linux Base Graphics<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">SRDC Software
+</span><span style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quo=
+t;sans-serif&quot;;color:#1F497D">Development<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">_________________________=
+____________<o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Deucher,=
+ Alexander
+<br>
+<b>Sent:</b> Wednesday, January 17, 2018 22:12<br>
+<b>To:</b> Zhang, Jerry; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: disable ECC check for Raven to avoi=
+d error message annoyance<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">The check should be moved up into late_init where the call to ec=
+c_available is and we should make it explicit since only vega10 supports it=
+, that way we don't get any false messages from RV.&nbsp; How
+ about the attached patch?<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black"><o:p>&nbsp;</o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">Alex<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
+ style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
+k">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</span></div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
+yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
+ot;;color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+ on behalf of Junwei Zhang &lt;<a href=3D"mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org">Jerry=
+.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Wednesday, January 17, 2018 2:02 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a><br>
+<b>Cc:</b> Zhang, Jerry<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: disable ECC check for Raven to avoid er=
+ror message annoyance</span><span style=3D"font-family:&quot;Calibri&quot;,=
+&quot;sans-serif&quot;;color:black">
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">&nbsp;<o:p></o:p></span></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:black">It should be enabled until =
+ECC is supported for Raven.<br>
+<br>
+Change-Id: If847663d503c26d2a08274ca721b4ce1bc637111<br>
+Signed-off-by: Junwei Zhang &lt;<a href=3D"mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org">Jerr=
+y.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 &#43;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 4 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c<br>
+index c12ee75..a333442 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+@@ -533,6 &#43;533,10 @@ static int gmc_v9_0_ecc_available(struct amdgpu_de=
+vice *adev)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;ecc: gmc_v=
+9_0_ecc_available()\n&quot;);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Temporally skip ECC for Raven =
+to avoid error message annoyance */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=3D CHI=
+P_RAVEN)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return 0;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lost_sheep =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; ARRAY=
+_SIZE(ecc_umclocalcap_addrs); &#43;&#43;i) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; reg_addr =3D ecc_umclocalcap_addrs[i];<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk459467">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p><=
+/o:p></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1414C2B8F4B0060F016BF5D0FFE80CY4PR12MB1414namp_--
+
+--===============1625884524==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1625884524==--
