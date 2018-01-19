@@ -1,43 +1,69 @@
-From: Michal Hocko <mhocko@kernel.org>
-Subject: Re: [RFC] Per file OOM badness
-Date: Fri, 19 Jan 2018 09:25:17 +0100
-Message-ID: <20180119082517.GM6584@dhcp22.suse.cz>
-References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
- <20180118170006.GG6584@dhcp22.suse.cz>
- <20180118171355.GH6584@dhcp22.suse.cz>
- <DM5PR1201MB01216B72BEF121DD25AB7247FDEF0@DM5PR1201MB0121.namprd12.prod.outlook.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2 0/7] Add sysfs to support OverDrive feature
+Date: Fri, 19 Jan 2018 16:10:04 +0800
+Message-ID: <1516349411-18102-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <owner-linux-mm@kvack.org>
-Content-Disposition: inline
-In-Reply-To: <DM5PR1201MB01216B72BEF121DD25AB7247FDEF0@DM5PR1201MB0121.namprd12.prod.outlook.com>
-Sender: owner-linux-mm@kvack.org
-To: "He, Roger" <Hongbo.He@amd.com>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Koenig, Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-[removed the broken quoting - please try to use an email client which
-doesn't mess up the qouted text]
-
-On Fri 19-01-18 06:01:26, He, Roger wrote:
-[...]
-> I think you are misunderstanding here.
-> Actually for now, the memory in TTM Pools already has mm_shrink which is implemented in ttm_pool_mm_shrink_init.
-> And here the memory we want to make it contribute to OOM badness is not in TTM Pools.
-> Because when TTM buffer allocation success, the memory already is removed from TTM Pools.  
-
-I have no idea what TTM buffers are. But this smells like something
-rather specific to the particular subsytem. And my main objection here
-is that struct file is not a proper vehicle to carry such an
-information. So whatever the TTM subsystem does it should contribute to
-generic counters rather than abuse fd because it happens to use it to
-communicate with userspace.
--- 
-Michal Hocko
-SUSE Labs
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+djI6IC0gQWRkIHBhdGNoIDAwMDMgdG8gY2hlY2sgd2hldGhlciB2YmlvcyBjYW4gc3VwcG9ydCBP
+RAogICAgLSBBZGQgcGF0Y2ggMDAwNCB0byBkaXNhYmxlIE9EIGZlYXR1cmUgb24gQ0kvSWNlbGFu
+ZCB0ZW1wb3JhcnkKICAgIC0gQ2hlY2sgY2xrIGFnYWluc3QgT3ZlckRyaXZlIGxpbWl0cyBmcm9t
+IFZCSU9TCiAgICAtIENoZWNrIHZvbHRhZ2UgYmV0d2VlbiBsZXZlbDAgLSAyMDAwbVYKICAgIC0g
+U2V0IE9EIGZsYWcgd2hlbiB1c2VyIGNvbW1pdCB0aGUgc2V0dGluZwogICAgLSBQcmludCB0aGUg
+cmlnaHQgY2xrL3ZvbHRhZ2UgcmFuZ2Ugd2hlbiB1c2VyJ3Mgc2V0dGluZyBvdXQgb2YgcmFuZ2UK
+ICAgIC0gcmVmaW5lIE9EIGZsYWcncyB1cGRhdGUgd2hlbiBzZXQgcG93ZXIgc3RhdGUKCk9EIGZl
+YXR1cmUgaXMgZGlzYWJsZWQgYnkgZGVmYXVsdC4KY2FuIGJlIGVuYWJsZWQgYnkgbW9kdWxlIHBh
+cmFtZXRlcgpwcGZlYXR1cmVtYXNrPTB4N2ZmZgoocHBmZWF0dXJlbWFzayBkZWZhdWx0IHZhbHVl
+IGlzIDB4M2ZmZikKCkFkZCBuZXcgc3lzZnMgcHBfb2RfY2xrX3ZvbHRhZ2UuCgpjYXQgcHBfb2Rf
+Y2xrX3ZvbHRhZ2Ugb3V0cHV0IGFzCk9EX1NDTEs6IAowOiAgICAgICAgMzAwTWh6ICAgICAgICA4
+MDAgbVYKMTogICAgICAgIDQ2Nk1oeiAgICAgICAgODE4IG1WCjI6ICAgICAgICA3NTFNaHogICAg
+ICAgIDgyNCBtVgozOiAgICAgICAxMDE5TWh6ICAgICAgICA5ODcgbVYKNDogICAgICAgMTA3NE1o
+eiAgICAgICAxMDM3IG1WCjU6ICAgICAgIDExMjZNaHogICAgICAgMTA4NyBtVgo2OiAgICAgICAx
+MTY5TWh6ICAgICAgIDExMzcgbVYKNzogICAgICAgMTIwNk1oeiAgICAgICAxMTUwIG1WCk9EX01D
+TEs6IAowOiAgICAgICAgMzAwTWh6ICAgICAgICA4MDAgbVYKMTogICAgICAgMTY1ME1oeiAgICAg
+ICAxMDAwIG1WCgp1c2VyIGNhbiBjaGFuZ2UgY2xvY2svdm9sdGFnZSBieSAKCmVjaG8gInMvbSBs
+ZXZlbCBjbG9jayB2b2x0YWdlIj5wcF9vZF9jbGtfdm9sdGFnZSB0byBjaGFuZ2UgdGhlIHNjbGsv
+bWNsayBjbG9jay92b2x0YWdlIHZhbHVlIGluIG9kIGRwbSB0YWJsZS4KYW5kCmVjaG8gImMiIHRv
+IGNvbW1pdCB0aGUgdXNlcidzIHNldHRpbmcKCndoZW4gbmVlZCB0byByZXNldCB0byBkZWZhdWx0
+IGRwbSB0YWJsZSwKCmVjaG8gInIiIHRvIHJlc3RvcmUgdGhlIG9kIGRwbSB0YWJsZQplY2hvICJj
+IiB0byBjb21taXQgdGhlIHNldHRpbmcuCgp0aGUgY2xvY2sncyByYW5nZSBpcyBsZXZlbDAtbGV2
+ZWw3KjEuMgp0aGUgdm9sdGFnZSByYW5nZSBpcyBsZXZlbDAtbGV2ZWw3KjEuMgoKUmV4IFpodSAo
+Nyk6CiAgZHJtL2FtZC9wcDogQWRkIGh3bWdyIGludGVyZmFjZSBmb3IgZWRpdCBkcG0gdGFibGUK
+ICBkcm0vYW1kL3BwOiBBZGQgZWRpdC9jb21taXQvc2hvdyBPRCBjbG9jay92b2x0YWdlIHN1cHBv
+cnQgaW4gc3lzZnMKICBkcm0vYW1kL3BwOiBEaXNhYmxlIE9EIGZlYXR1cmUgaWYgVkJJT1MgbGlt
+aXRzCiAgZHJtL2FtZC9wcDogRGlzYWJsZSBPRCBmZWF0dXJlIG9uIENJL0ljZWxhbmQuCiAgZHJt
+L2FtZC9wcDogSW1wbGVtZW50IGVkaXRfZHBtX3RhYmxlIG9uIHNtdTcKICBkcm0vYW1kL3BwOiBV
+cGRhdGUgc211NyBkcG0gdGFibGUgd2l0aCBPRCBjbG9jay92b2x0YWdlCiAgZHJtL2FtZC9wcDog
+QWRkIHVwZGF0ZV9hdmZzIGNhbGwgd2hlbiBzZXRfcG93ZXJfc3RhdGUKCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZHBtLmggICAgICAgICAgICB8ICAgNCArCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyAgICAgICAgICAgICB8ICA5OCArKysrKy0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2RfcHBfaW50ZXJmYWNlLmggICAgIHwgICA4ICsK
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYyAgICAgIHwgIDE5
+ICsrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5jICAgICAgICB8
+ICAgMiArCiAuLi4vYW1kL3Bvd2VycGxheS9od21nci9wcm9jZXNzX3BwdGFibGVzX3YxXzAuYyAg
+ICB8ICAgOCArLQogLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcm9jZXNzcHB0YWJs
+ZXMuYyAgfCAgMTEgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdf
+aHdtZ3IuYyAgIHwgMzY2ICsrKysrKysrKysrKysrLS0tLS0tLQogLi4uL2FtZC9wb3dlcnBsYXkv
+aHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5jICAgfCAgIDggKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oICAgICAgICAgIHwgICAzICsKIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9maWppX3NtdW1nci5jIHwgIDE4ICstCiAuLi4vZHJt
+L2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyAgICB8ICAxOCArLQogLi4u
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdG9uZ2Ffc211bWdyLmMgICAgfCAgMTggKy0K
+IDEzIGZpbGVzIGNoYW5nZWQsIDQzNCBpbnNlcnRpb25zKCspLCAxNDcgZGVsZXRpb25zKC0pCgot
+LSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
