@@ -1,38 +1,60 @@
-From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: [PATCH] drm/amdkfd: Use ARRAY_SIZE macro in
- kfd_build_sysfs_node_entry
-Date: Thu, 18 Jan 2018 18:39:55 -0600
-Message-ID: <20180119003955.GA28885@embeddedor.com>
+From: "He, Roger" <Hongbo.He@amd.com>
+Subject: RE: [RFC] Per file OOM badness
+Date: Fri, 19 Jan 2018 05:39:11 +0000
+Message-ID: <DM5PR1201MB012142B041369BF6911C5818FDEF0@DM5PR1201MB0121.namprd12.prod.outlook.com>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <owner-linux-mm@kvack.org>
+In-Reply-To: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+Content-Language: en-US
+Sender: owner-linux-mm@kvack.org
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Use ARRAY_SIZE instead of dividing sizeof array with sizeof an element.
+QmFzaWNhbGx5IHRoZSBpZGVhIGlzIHJpZ2h0IHRvIG1lLg0KDQoxLiBCdXQgd2UgbmVlZCBzbWFs
+bGVyIGdyYW51bGFyaXR5IHRvIGNvbnRyb2wgdGhlIGNvbnRyaWJ1dGlvbiB0byBPT00gYmFkbmVz
+cy4NCiAgICAgQmVjYXVzZSB3aGVuIHRoZSBUVE0gYnVmZmVyIHJlc2lkZXMgaW4gVlJBTSByYXRo
+ZXIgdGhhbiBldmljdCB0byBzeXN0ZW0gbWVtb3J5LCB3ZSBzaG91bGQgbm90IHRha2UgdGhpcyBh
+Y2NvdW50IGludG8gYmFkbmVzcy4NCiAgICAgQnV0IEkgdGhpbmsgaXQgaXMgbm90IGVhc3kgdG8g
+aW1wbGVtZW50Lg0KDQoyLiBJZiB0aGUgVFRNIGJ1ZmZlcihHVFQgaGVyZSkgaXMgbWFwcGVkIHRv
+IHVzZXIgZm9yIENQVSBhY2Nlc3MsIG5vdCBxdWl0ZSBzdXJlIHRoZSBidWZmZXIgc2l6ZSBpcyBh
+bHJlYWR5IHRha2VuIGludG8gYWNjb3VudCBmb3Iga2VybmVsLg0KICAgICBJZiB5ZXMsIGF0IGxh
+c3QgdGhlIHNpemUgd2lsbCBiZSBjb3VudGVkIGFnYWluIGJ5IHlvdXIgcGF0Y2hlcy4NCg0KU28s
+IEkgYW0gdGhpbmtpbmcgaWYgd2UgY2FuIGNvdW50ZWQgdGhlIFRUTSBidWZmZXIgc2l6ZSBpbnRv
+OiANCnN0cnVjdCBtbV9yc3Nfc3RhdCB7DQoJYXRvbWljX2xvbmdfdCBjb3VudFtOUl9NTV9DT1VO
+VEVSU107DQp9Ow0KV2hpY2ggaXMgZG9uZSBieSBrZXJuZWwgYmFzZWQgb24gQ1BVIFZNIChwYWdl
+IHRhYmxlKS4NCg0KU29tZXRoaW5nIGxpa2UgdGhhdDoNCldoZW4gR1RUIGFsbG9jYXRlIHN1Y2Vl
+c3M6DQphZGRfbW1fY291bnRlcih2bWEtPnZtX21tLCBNTV9BTk9OUEFHRVMsIGJ1ZmZlcl9zaXpl
+KTsNCg0KV2hlbiBHVFQgc3dhcHBlZCBvdXQ6DQpkZWNfbW1fY291bnRlciBmcm9tIE1NX0FOT05Q
+QUdFUyBmcmlzdCwgdGhlbiANCmFkZF9tbV9jb3VudGVyKHZtYS0+dm1fbW0sIE1NX1NXQVBFTlRT
+LCBidWZmZXJfc2l6ZSk7ICAvLyBvciBNTV9TSE1FTVBBR0VTIG9yIGFkZCBuZXcgaXRlbS4NCg0K
+VXBkYXRlIHRoZSBjb3JyZXNwb25kaW5nIGl0ZW0gaW4gbW1fcnNzX3N0YXQgYWx3YXlzLg0KSWYg
+dGhhdCwgd2UgY2FuIGNvbnRyb2wgdGhlIHN0YXR1cyB1cGRhdGUgYWNjdXJhdGVseS4gDQpXaGF0
+IGRvIHlvdSB0aGluayBhYm91dCB0aGF0Pw0KQW5kIGlzIHRoZXJlIGFueSBzaWRlLWVmZmVjdCBm
+b3IgdGhpcyBhcHByb2FjaD8NCg0KDQpUaGFua3MNClJvZ2VyKEhvbmdiby5IZSkNCg0KLS0tLS1P
+cmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGRyaS1kZXZlbCBbbWFpbHRvOmRyaS1kZXZlbC1i
+b3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mIEFuZHJleSBHcm9kem92
+c2t5DQpTZW50OiBGcmlkYXksIEphbnVhcnkgMTksIDIwMTggMTI6NDggQU0NClRvOiBsaW51eC1r
+ZXJuZWxAdmdlci5rZXJuZWwub3JnOyBsaW51eC1tbUBrdmFjay5vcmc7IGRyaS1kZXZlbEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogS29l
+bmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NClN1YmplY3Q6IFtSRkNd
+IFBlciBmaWxlIE9PTSBiYWRuZXNzDQoNCkhpLCB0aGlzIHNlcmllcyBpcyBhIHJldmlzZWQgdmVy
+c2lvbiBvZiBhbiBSRkMgc2VudCBieSBDaHJpc3RpYW4gS8O2bmlnIGEgZmV3IHllYXJzIGFnby4g
+VGhlIG9yaWdpbmFsIFJGQyBjYW4gYmUgZm91bmQgYXQgaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvYXJjaGl2ZXMvZHJpLWRldmVsLzIwMTUtU2VwdGVtYmVyLzA4OTc3OC5odG1sDQoNClRo
+aXMgaXMgdGhlIHNhbWUgaWRlYSBhbmQgSSd2ZSBqdXN0IGFkcmVzc2VkIGhpcyBjb25jZXJuIGZy
+b20gdGhlIG9yaWdpbmFsIFJGQyBhbmQgc3dpdGNoZWQgdG8gYSBjYWxsYmFjayBpbnRvIGZpbGVf
+b3BzIGluc3RlYWQgb2YgYSBuZXcgbWVtYmVyIGluIHN0cnVjdCBmaWxlLg0KDQpUaGFua3MsDQpB
+bmRyZXkNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+CmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QNCmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+DQo=
 
-This issue was detected with the help of Coccinelle.
-
-Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index c6a7609..7783250 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -677,7 +677,7 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 	}
- 
- 	/* All hardware blocks have the same number of attributes. */
--	num_attrs = sizeof(perf_attr_iommu)/sizeof(struct kfd_perf_attr);
-+	num_attrs = ARRAY_SIZE(perf_attr_iommu);
- 	list_for_each_entry(perf, &dev->perf_props, list) {
- 		perf->attr_group = kzalloc(sizeof(struct kfd_perf_attr)
- 			* num_attrs + sizeof(struct attribute_group),
--- 
-2.7.4
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
