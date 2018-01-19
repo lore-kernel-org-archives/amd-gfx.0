@@ -1,126 +1,127 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [RFC] Per file OOM badness
-Date: Fri, 19 Jan 2018 10:32:09 +0100
-Message-ID: <a3f6dc22-fce2-4371-462a-a4898249cf61@daenzer.net>
+Date: Fri, 19 Jan 2018 10:58:24 +0100
+Message-ID: <11153f4f-8b9a-5780-6087-bc1e85459584@gmail.com>
 References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
  <20180118170006.GG6584@dhcp22.suse.cz> <20180118171355.GH6584@dhcp22.suse.cz>
  <87k1wfgcmb.fsf@anholt.net> <20180119082046.GL6584@dhcp22.suse.cz>
  <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
+ <a3f6dc22-fce2-4371-462a-a4898249cf61@daenzer.net>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
-Content-Language: en-CA
-Sender: owner-linux-mm@kvack.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Michal Hocko <mhocko@kernel.org>, Eric Anholt <eric@anholt.net>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <a3f6dc22-fce2-4371-462a-a4898249cf61@daenzer.net>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Michal Hocko <mhocko@kernel.org>, Eric Anholt <eric@anholt.net>
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-mm@kvack.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2018-01-19 09:39 AM, Christian König wrote:
-> Am 19.01.2018 um 09:20 schrieb Michal Hocko:
->> On Thu 18-01-18 12:01:32, Eric Anholt wrote:
->>> Michal Hocko <mhocko@kernel.org> writes:
->>>
->>>> On Thu 18-01-18 18:00:06, Michal Hocko wrote:
->>>>> On Thu 18-01-18 11:47:48, Andrey Grodzovsky wrote:
->>>>>> Hi, this series is a revised version of an RFC sent by Christian
->>>>>> König
->>>>>> a few years ago. The original RFC can be found at
->>>>>> https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html
->>>>>>
->>>>>>
->>>>>> This is the same idea and I've just adressed his concern from the
->>>>>> original RFC
->>>>>> and switched to a callback into file_ops instead of a new member
->>>>>> in struct file.
->>>>> Please add the full description to the cover letter and do not make
->>>>> people hunt links.
->>>>>
->>>>> Here is the origin cover letter text
->>>>> : I'm currently working on the issue that when device drivers
->>>>> allocate memory on
->>>>> : behalf of an application the OOM killer usually doesn't knew
->>>>> about that unless
->>>>> : the application also get this memory mapped into their address
->>>>> space.
->>>>> :
->>>>> : This is especially annoying for graphics drivers where a lot of
->>>>> the VRAM
->>>>> : usually isn't CPU accessible and so doesn't make sense to map
->>>>> into the
->>>>> : address space of the process using it.
->>>>> :
->>>>> : The problem now is that when an application starts to use a lot
->>>>> of VRAM those
->>>>> : buffers objects sooner or later get swapped out to system memory,
->>>>> but when we
->>>>> : now run into an out of memory situation the OOM killer obviously
->>>>> doesn't knew
->>>>> : anything about that memory and so usually kills the wrong process.
->>>> OK, but how do you attribute that memory to a particular OOM killable
->>>> entity? And how do you actually enforce that those resources get freed
->>>> on the oom killer action?
->>>>
->>>>> : The following set of patches tries to address this problem by
->>>>> introducing a per
->>>>> : file OOM badness score, which device drivers can use to give the
->>>>> OOM killer a
->>>>> : hint how many resources are bound to a file descriptor so that it
->>>>> can make
->>>>> : better decisions which process to kill.
->>>> But files are not killable, they can be shared... In other words this
->>>> doesn't help the oom killer to make an educated guess at all.
->>> Maybe some more context would help the discussion?
->>>
->>> The struct file in patch 3 is the DRM fd.  That's effectively "my
->>> process's interface to talking to the GPU" not "a single GPU resource".
->>> Once that file is closed, all of the process's private, idle GPU buffers
->>> will be immediately freed (this will be most of their allocations), and
->>> some will be freed once the GPU completes some work (this will be most
->>> of the rest of their allocations).
->>>
->>> Some GEM BOs won't be freed just by closing the fd, if they've been
->>> shared between processes.  Those are usually about 8-24MB total in a
->>> process, rather than the GBs that modern apps use (or that our testcases
->>> like to allocate and thus trigger oomkilling of the test harness instead
->>> of the offending testcase...)
->>>
->>> Even if we just had the private+idle buffers being accounted in OOM
->>> badness, that would be a huge step forward in system reliability.
->> OK, in that case I would propose a different approach. We already
->> have rss_stat. So why do not we simply add a new counter there
->> MM_KERNELPAGES and consider those in oom_badness? The rule would be
->> that such a memory is bound to the process life time. I guess we will
->> find more users for this later.
-> 
-> I already tried that and the problem with that approach is that some
-> buffers are not created by the application which actually uses them.
-> 
-> For example X/Wayland is creating and handing out render buffers to
-> application which want to use OpenGL.
-> 
-> So the result is when you always account the application who created the
-> buffer the OOM killer will certainly reap X/Wayland first. And that is
-> exactly what we want to avoid here.
-
-FWIW, what you describe is true with DRI2, but not with DRI3 or Wayland
-anymore. With DRI3 and Wayland, buffers are allocated by the clients and
-then shared with the X / Wayland server.
-
-Also, in all cases, the amount of memory allocated for buffers shared
-between DRI/Wayland clients and the server should be relatively small
-compared to the amount of memory allocated for buffers used only locally
-in the client, particularly for clients which create significant memory
-pressure.
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+QW0gMTkuMDEuMjAxOCB1bSAxMDozMiBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDIwMTgt
+MDEtMTkgMDk6MzkgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDE5LjAxLjIwMTgg
+dW0gMDk6MjAgc2NocmllYiBNaWNoYWwgSG9ja286Cj4+PiBPbiBUaHUgMTgtMDEtMTggMTI6MDE6
+MzIsIEVyaWMgQW5ob2x0IHdyb3RlOgo+Pj4+IE1pY2hhbCBIb2NrbyA8bWhvY2tvQGtlcm5lbC5v
+cmc+IHdyaXRlczoKPj4+Pgo+Pj4+PiBPbiBUaHUgMTgtMDEtMTggMTg6MDA6MDYsIE1pY2hhbCBI
+b2NrbyB3cm90ZToKPj4+Pj4+IE9uIFRodSAxOC0wMS0xOCAxMTo0Nzo0OCwgQW5kcmV5IEdyb2R6
+b3Zza3kgd3JvdGU6Cj4+Pj4+Pj4gSGksIHRoaXMgc2VyaWVzIGlzIGEgcmV2aXNlZCB2ZXJzaW9u
+IG9mIGFuIFJGQyBzZW50IGJ5IENocmlzdGlhbgo+Pj4+Pj4+IEvDtm5pZwo+Pj4+Pj4+IGEgZmV3
+IHllYXJzIGFnby4gVGhlIG9yaWdpbmFsIFJGQyBjYW4gYmUgZm91bmQgYXQKPj4+Pj4+PiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9hcmNoaXZlcy9kcmktZGV2ZWwvMjAxNS1TZXB0ZW1i
+ZXIvMDg5Nzc4Lmh0bWwKPj4+Pj4+Pgo+Pj4+Pj4+Cj4+Pj4+Pj4gVGhpcyBpcyB0aGUgc2FtZSBp
+ZGVhIGFuZCBJJ3ZlIGp1c3QgYWRyZXNzZWQgaGlzIGNvbmNlcm4gZnJvbSB0aGUKPj4+Pj4+PiBv
+cmlnaW5hbCBSRkMKPj4+Pj4+PiBhbmQgc3dpdGNoZWQgdG8gYSBjYWxsYmFjayBpbnRvIGZpbGVf
+b3BzIGluc3RlYWQgb2YgYSBuZXcgbWVtYmVyCj4+Pj4+Pj4gaW4gc3RydWN0IGZpbGUuCj4+Pj4+
+PiBQbGVhc2UgYWRkIHRoZSBmdWxsIGRlc2NyaXB0aW9uIHRvIHRoZSBjb3ZlciBsZXR0ZXIgYW5k
+IGRvIG5vdCBtYWtlCj4+Pj4+PiBwZW9wbGUgaHVudCBsaW5rcy4KPj4+Pj4+Cj4+Pj4+PiBIZXJl
+IGlzIHRoZSBvcmlnaW4gY292ZXIgbGV0dGVyIHRleHQKPj4+Pj4+IDogSSdtIGN1cnJlbnRseSB3
+b3JraW5nIG9uIHRoZSBpc3N1ZSB0aGF0IHdoZW4gZGV2aWNlIGRyaXZlcnMKPj4+Pj4+IGFsbG9j
+YXRlIG1lbW9yeSBvbgo+Pj4+Pj4gOiBiZWhhbGYgb2YgYW4gYXBwbGljYXRpb24gdGhlIE9PTSBr
+aWxsZXIgdXN1YWxseSBkb2Vzbid0IGtuZXcKPj4+Pj4+IGFib3V0IHRoYXQgdW5sZXNzCj4+Pj4+
+PiA6IHRoZSBhcHBsaWNhdGlvbiBhbHNvIGdldCB0aGlzIG1lbW9yeSBtYXBwZWQgaW50byB0aGVp
+ciBhZGRyZXNzCj4+Pj4+PiBzcGFjZS4KPj4+Pj4+IDoKPj4+Pj4+IDogVGhpcyBpcyBlc3BlY2lh
+bGx5IGFubm95aW5nIGZvciBncmFwaGljcyBkcml2ZXJzIHdoZXJlIGEgbG90IG9mCj4+Pj4+PiB0
+aGUgVlJBTQo+Pj4+Pj4gOiB1c3VhbGx5IGlzbid0IENQVSBhY2Nlc3NpYmxlIGFuZCBzbyBkb2Vz
+bid0IG1ha2Ugc2Vuc2UgdG8gbWFwCj4+Pj4+PiBpbnRvIHRoZQo+Pj4+Pj4gOiBhZGRyZXNzIHNw
+YWNlIG9mIHRoZSBwcm9jZXNzIHVzaW5nIGl0Lgo+Pj4+Pj4gOgo+Pj4+Pj4gOiBUaGUgcHJvYmxl
+bSBub3cgaXMgdGhhdCB3aGVuIGFuIGFwcGxpY2F0aW9uIHN0YXJ0cyB0byB1c2UgYSBsb3QKPj4+
+Pj4+IG9mIFZSQU0gdGhvc2UKPj4+Pj4+IDogYnVmZmVycyBvYmplY3RzIHNvb25lciBvciBsYXRl
+ciBnZXQgc3dhcHBlZCBvdXQgdG8gc3lzdGVtIG1lbW9yeSwKPj4+Pj4+IGJ1dCB3aGVuIHdlCj4+
+Pj4+PiA6IG5vdyBydW4gaW50byBhbiBvdXQgb2YgbWVtb3J5IHNpdHVhdGlvbiB0aGUgT09NIGtp
+bGxlciBvYnZpb3VzbHkKPj4+Pj4+IGRvZXNuJ3Qga25ldwo+Pj4+Pj4gOiBhbnl0aGluZyBhYm91
+dCB0aGF0IG1lbW9yeSBhbmQgc28gdXN1YWxseSBraWxscyB0aGUgd3JvbmcgcHJvY2Vzcy4KPj4+
+Pj4gT0ssIGJ1dCBob3cgZG8geW91IGF0dHJpYnV0ZSB0aGF0IG1lbW9yeSB0byBhIHBhcnRpY3Vs
+YXIgT09NIGtpbGxhYmxlCj4+Pj4+IGVudGl0eT8gQW5kIGhvdyBkbyB5b3UgYWN0dWFsbHkgZW5m
+b3JjZSB0aGF0IHRob3NlIHJlc291cmNlcyBnZXQgZnJlZWQKPj4+Pj4gb24gdGhlIG9vbSBraWxs
+ZXIgYWN0aW9uPwo+Pj4+Pgo+Pj4+Pj4gOiBUaGUgZm9sbG93aW5nIHNldCBvZiBwYXRjaGVzIHRy
+aWVzIHRvIGFkZHJlc3MgdGhpcyBwcm9ibGVtIGJ5Cj4+Pj4+PiBpbnRyb2R1Y2luZyBhIHBlcgo+
+Pj4+Pj4gOiBmaWxlIE9PTSBiYWRuZXNzIHNjb3JlLCB3aGljaCBkZXZpY2UgZHJpdmVycyBjYW4g
+dXNlIHRvIGdpdmUgdGhlCj4+Pj4+PiBPT00ga2lsbGVyIGEKPj4+Pj4+IDogaGludCBob3cgbWFu
+eSByZXNvdXJjZXMgYXJlIGJvdW5kIHRvIGEgZmlsZSBkZXNjcmlwdG9yIHNvIHRoYXQgaXQKPj4+
+Pj4+IGNhbiBtYWtlCj4+Pj4+PiA6IGJldHRlciBkZWNpc2lvbnMgd2hpY2ggcHJvY2VzcyB0byBr
+aWxsLgo+Pj4+PiBCdXQgZmlsZXMgYXJlIG5vdCBraWxsYWJsZSwgdGhleSBjYW4gYmUgc2hhcmVk
+Li4uIEluIG90aGVyIHdvcmRzIHRoaXMKPj4+Pj4gZG9lc24ndCBoZWxwIHRoZSBvb20ga2lsbGVy
+IHRvIG1ha2UgYW4gZWR1Y2F0ZWQgZ3Vlc3MgYXQgYWxsLgo+Pj4+IE1heWJlIHNvbWUgbW9yZSBj
+b250ZXh0IHdvdWxkIGhlbHAgdGhlIGRpc2N1c3Npb24/Cj4+Pj4KPj4+PiBUaGUgc3RydWN0IGZp
+bGUgaW4gcGF0Y2ggMyBpcyB0aGUgRFJNIGZkLsKgIFRoYXQncyBlZmZlY3RpdmVseSAibXkKPj4+
+PiBwcm9jZXNzJ3MgaW50ZXJmYWNlIHRvIHRhbGtpbmcgdG8gdGhlIEdQVSIgbm90ICJhIHNpbmds
+ZSBHUFUgcmVzb3VyY2UiLgo+Pj4+IE9uY2UgdGhhdCBmaWxlIGlzIGNsb3NlZCwgYWxsIG9mIHRo
+ZSBwcm9jZXNzJ3MgcHJpdmF0ZSwgaWRsZSBHUFUgYnVmZmVycwo+Pj4+IHdpbGwgYmUgaW1tZWRp
+YXRlbHkgZnJlZWQgKHRoaXMgd2lsbCBiZSBtb3N0IG9mIHRoZWlyIGFsbG9jYXRpb25zKSwgYW5k
+Cj4+Pj4gc29tZSB3aWxsIGJlIGZyZWVkIG9uY2UgdGhlIEdQVSBjb21wbGV0ZXMgc29tZSB3b3Jr
+ICh0aGlzIHdpbGwgYmUgbW9zdAo+Pj4+IG9mIHRoZSByZXN0IG9mIHRoZWlyIGFsbG9jYXRpb25z
+KS4KPj4+Pgo+Pj4+IFNvbWUgR0VNIEJPcyB3b24ndCBiZSBmcmVlZCBqdXN0IGJ5IGNsb3Npbmcg
+dGhlIGZkLCBpZiB0aGV5J3ZlIGJlZW4KPj4+PiBzaGFyZWQgYmV0d2VlbiBwcm9jZXNzZXMuwqAg
+VGhvc2UgYXJlIHVzdWFsbHkgYWJvdXQgOC0yNE1CIHRvdGFsIGluIGEKPj4+PiBwcm9jZXNzLCBy
+YXRoZXIgdGhhbiB0aGUgR0JzIHRoYXQgbW9kZXJuIGFwcHMgdXNlIChvciB0aGF0IG91ciB0ZXN0
+Y2FzZXMKPj4+PiBsaWtlIHRvIGFsbG9jYXRlIGFuZCB0aHVzIHRyaWdnZXIgb29ta2lsbGluZyBv
+ZiB0aGUgdGVzdCBoYXJuZXNzIGluc3RlYWQKPj4+PiBvZiB0aGUgb2ZmZW5kaW5nIHRlc3RjYXNl
+Li4uKQo+Pj4+Cj4+Pj4gRXZlbiBpZiB3ZSBqdXN0IGhhZCB0aGUgcHJpdmF0ZStpZGxlIGJ1ZmZl
+cnMgYmVpbmcgYWNjb3VudGVkIGluIE9PTQo+Pj4+IGJhZG5lc3MsIHRoYXQgd291bGQgYmUgYSBo
+dWdlIHN0ZXAgZm9yd2FyZCBpbiBzeXN0ZW0gcmVsaWFiaWxpdHkuCj4+PiBPSywgaW4gdGhhdCBj
+YXNlIEkgd291bGQgcHJvcG9zZSBhIGRpZmZlcmVudCBhcHByb2FjaC4gV2UgYWxyZWFkeQo+Pj4g
+aGF2ZSByc3Nfc3RhdC4gU28gd2h5IGRvIG5vdCB3ZSBzaW1wbHkgYWRkIGEgbmV3IGNvdW50ZXIg
+dGhlcmUKPj4+IE1NX0tFUk5FTFBBR0VTIGFuZCBjb25zaWRlciB0aG9zZSBpbiBvb21fYmFkbmVz
+cz8gVGhlIHJ1bGUgd291bGQgYmUKPj4+IHRoYXQgc3VjaCBhIG1lbW9yeSBpcyBib3VuZCB0byB0
+aGUgcHJvY2VzcyBsaWZlIHRpbWUuIEkgZ3Vlc3Mgd2Ugd2lsbAo+Pj4gZmluZCBtb3JlIHVzZXJz
+IGZvciB0aGlzIGxhdGVyLgo+PiBJIGFscmVhZHkgdHJpZWQgdGhhdCBhbmQgdGhlIHByb2JsZW0g
+d2l0aCB0aGF0IGFwcHJvYWNoIGlzIHRoYXQgc29tZQo+PiBidWZmZXJzIGFyZSBub3QgY3JlYXRl
+ZCBieSB0aGUgYXBwbGljYXRpb24gd2hpY2ggYWN0dWFsbHkgdXNlcyB0aGVtLgo+Pgo+PiBGb3Ig
+ZXhhbXBsZSBYL1dheWxhbmQgaXMgY3JlYXRpbmcgYW5kIGhhbmRpbmcgb3V0IHJlbmRlciBidWZm
+ZXJzIHRvCj4+IGFwcGxpY2F0aW9uIHdoaWNoIHdhbnQgdG8gdXNlIE9wZW5HTC4KPj4KPj4gU28g
+dGhlIHJlc3VsdCBpcyB3aGVuIHlvdSBhbHdheXMgYWNjb3VudCB0aGUgYXBwbGljYXRpb24gd2hv
+IGNyZWF0ZWQgdGhlCj4+IGJ1ZmZlciB0aGUgT09NIGtpbGxlciB3aWxsIGNlcnRhaW5seSByZWFw
+IFgvV2F5bGFuZCBmaXJzdC4gQW5kIHRoYXQgaXMKPj4gZXhhY3RseSB3aGF0IHdlIHdhbnQgdG8g
+YXZvaWQgaGVyZS4KPiBGV0lXLCB3aGF0IHlvdSBkZXNjcmliZSBpcyB0cnVlIHdpdGggRFJJMiwg
+YnV0IG5vdCB3aXRoIERSSTMgb3IgV2F5bGFuZAo+IGFueW1vcmUuIFdpdGggRFJJMyBhbmQgV2F5
+bGFuZCwgYnVmZmVycyBhcmUgYWxsb2NhdGVkIGJ5IHRoZSBjbGllbnRzIGFuZAo+IHRoZW4gc2hh
+cmVkIHdpdGggdGhlIFggLyBXYXlsYW5kIHNlcnZlci4KCkdvb2QgcG9pbnQsIHdoZW4gSSBpbml0
+aWFsbHkgbG9va2VkIGF0IHRoYXQgcHJvYmxlbSBEUkkzIHdhc24ndCB3aWRlbHkgCnVzZWQgeWV0
+LgoKPiBBbHNvLCBpbiBhbGwgY2FzZXMsIHRoZSBhbW91bnQgb2YgbWVtb3J5IGFsbG9jYXRlZCBm
+b3IgYnVmZmVycyBzaGFyZWQKPiBiZXR3ZWVuIERSSS9XYXlsYW5kIGNsaWVudHMgYW5kIHRoZSBz
+ZXJ2ZXIgc2hvdWxkIGJlIHJlbGF0aXZlbHkgc21hbGwKPiBjb21wYXJlZCB0byB0aGUgYW1vdW50
+IG9mIG1lbW9yeSBhbGxvY2F0ZWQgZm9yIGJ1ZmZlcnMgdXNlZCBvbmx5IGxvY2FsbHkKPiBpbiB0
+aGUgY2xpZW50LCBwYXJ0aWN1bGFybHkgZm9yIGNsaWVudHMgd2hpY2ggY3JlYXRlIHNpZ25pZmlj
+YW50IG1lbW9yeQo+IHByZXNzdXJlLgoKVGhhdCBpcyB1bmZvcnR1bmF0ZWx5IG9ubHkgcGFydGlh
+bGx5IHRydWUuIFdoZW4geW91IGhhdmUgYSBzaW5nbGUgCnJ1bmF3YXkgYXBwbGljYXRpb24gd2hp
+Y2ggdHJpZXMgdG8gYWxsb2NhdGUgZXZlcnl0aGluZyBpdCB3b3VsZCBpbmRlZWQgCndvcmsgYXMg
+eW91IGRlc2NyaWJlZC4KCkJ1dCB3aGVuIEkgdGVzdGVkIHRoaXMgYSBmZXcgeWVhcnMgYWdvIHdp
+dGggWCBiYXNlZCBkZXNrdG9wIHRoZSAKYXBwbGljYXRpb25zIHdoaWNoIGFjdHVhbGx5IHVzZWQg
+bW9zdCBvZiB0aGUgbWVtb3J5IHdoZXJlIEZpcmVmb3ggYW5kIApUaHVuZGVyYmlyZC4gVW5mb3J0
+dW5hdGVseSB0aGV5IG5ldmVyIGdvdCBhY2NvdW50ZWQgZm9yIHRoYXQuCgpOb3csIG9uIG15IGN1
+cnJlbnQgV2F5bGFuZCBiYXNlZCBkZXNrdG9wIGl0IGFjdHVhbGx5IGRvZXNuJ3QgbG9vayBtdWNo
+IApiZXR0ZXIuIFRha2luZyBhIGxvb2sgYXQgcmFkZW9uX2dlbV9pbmZvL2FtZGdwdV9nZW1faW5m
+byB0aGUgbWFqb3JpdHkgb2YgCmFsbCBtZW1vcnkgd2FzIGFsbG9jYXRlZCBlaXRoZXIgYnkgZ25v
+bWUtc2hlbGwgb3IgWHdheWxhbmQuCgpSZWdhcmRzLApDaHJpc3RpYW4uCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QK
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
