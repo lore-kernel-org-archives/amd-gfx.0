@@ -1,74 +1,47 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [RFC] Per file OOM badness
-Date: Fri, 19 Jan 2018 12:37:51 +0100
-Message-ID: <d4fe7e59-da2d-11a5-73e2-55f2f27cdfd8@amd.com>
-References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
- <20180118170006.GG6584@dhcp22.suse.cz> <20180118171355.GH6584@dhcp22.suse.cz>
- <87k1wfgcmb.fsf@anholt.net> <20180119082046.GL6584@dhcp22.suse.cz>
- <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
- <20180119104058.GU6584@dhcp22.suse.cz>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 06/21] drm/amdgpu: wire up emit_wreg for CIK SDMA
+Date: Fri, 19 Jan 2018 12:48:10 +0100
+Message-ID: <20180119114825.1336-6-christian.koenig@amd.com>
+References: <20180119114825.1336-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <20180119104058.GU6584@dhcp22.suse.cz>
-Content-Language: en-US
-Sender: owner-linux-mm@kvack.org
-To: Michal Hocko <mhocko@kernel.org>
-Cc: Eric Anholt <eric@anholt.net>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180119114825.1336-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Am 19.01.2018 um 11:40 schrieb Michal Hocko:
-> On Fri 19-01-18 09:39:03, Christian König wrote:
->> Am 19.01.2018 um 09:20 schrieb Michal Hocko:
-> [...]
->>> OK, in that case I would propose a different approach. We already
->>> have rss_stat. So why do not we simply add a new counter there
->>> MM_KERNELPAGES and consider those in oom_badness? The rule would be
->>> that such a memory is bound to the process life time. I guess we will
->>> find more users for this later.
->> I already tried that and the problem with that approach is that some buffers
->> are not created by the application which actually uses them.
->>
->> For example X/Wayland is creating and handing out render buffers to
->> application which want to use OpenGL.
->>
->> So the result is when you always account the application who created the
->> buffer the OOM killer will certainly reap X/Wayland first. And that is
->> exactly what we want to avoid here.
-> Then you have to find the target allocation context at the time of the
-> allocation and account it.
-
-And exactly that's the root of the problem: The target allocation 
-context isn't known at the time of the allocation.
-
-We could add callbacks so that when the memory is passed from the 
-allocator to the actual user of the memory. In other words when the 
-memory is passed from the X server to the client the driver would need 
-to decrement the X servers accounting and increment the clients accounting.
-
-But I think that would go deep into the file descriptor handling (we 
-would at least need to handle dup/dup2 and passing the fd using unix 
-domain sockets) and most likely would be rather error prone.
-
-The per file descriptor badness is/was just the much easier approach to 
-solve the issue, because the drivers already knew which client is 
-currently using which buffer objects.
-
-I of course agree that file descriptors can be shared between processes 
-and are by themselves not killable. But at least for our graphics driven 
-use case I don't see much of a problem killing all processes when a file 
-descriptor is used by more than one at the same time.
-
-Regards,
-Christian.
-
-> As follow up emails show, implementations
-> might differ and any robust oom solution have to rely on the common
-> counters.
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+TmVlZGVkIGZvciB2bV9mbHVzaCB1bmlmaWNhdGlvbi4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlh
+biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9jaWtfc2RtYS5jIHwgOSArKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA5IGlu
+c2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtf
+c2RtYS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrX3NkbWEuYwppbmRleCA2NmQ5
+YjVmODVkNmUuLmZiYmFjODQ5ODA0NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvY2lrX3NkbWEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfc2Rt
+YS5jCkBAIC05MDcsNiArOTA3LDE0IEBAIHN0YXRpYyB2b2lkIGNpa19zZG1hX3JpbmdfZW1pdF92
+bV9mbHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCiAJYW1kZ3B1X3Jpbmdfd3JpdGUocmlu
+ZywgKDB4ZmZmIDw8IDE2KSB8IDEwKTsgLyogcmV0cnkgY291bnQsIHBvbGwgaW50ZXJ2YWwgKi8K
+IH0KIAorc3RhdGljIHZvaWQgY2lrX3NkbWFfcmluZ19lbWl0X3dyZWcoc3RydWN0IGFtZGdwdV9y
+aW5nICpyaW5nLAorCQkJCSAgICB1aW50MzJfdCByZWcsIHVpbnQzMl90IHZhbCkKK3sKKwlhbWRn
+cHVfcmluZ193cml0ZShyaW5nLCBTRE1BX1BBQ0tFVChTRE1BX09QQ09ERV9TUkJNX1dSSVRFLCAw
+LCAweGYwMDApKTsKKwlhbWRncHVfcmluZ193cml0ZShyaW5nLCByZWcpOworCWFtZGdwdV9yaW5n
+X3dyaXRlKHJpbmcsIHZhbCk7Cit9CisKIHN0YXRpYyB2b2lkIGNpa19lbmFibGVfc2RtYV9tZ2Nn
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJCSBib29sIGVuYWJsZSkKIHsKQEAgLTEy
+OTUsNiArMTMwMyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgY2lr
+X3NkbWFfcmluZ19mdW5jcyA9IHsKIAkudGVzdF9pYiA9IGNpa19zZG1hX3JpbmdfdGVzdF9pYiwK
+IAkuaW5zZXJ0X25vcCA9IGNpa19zZG1hX3JpbmdfaW5zZXJ0X25vcCwKIAkucGFkX2liID0gY2lr
+X3NkbWFfcmluZ19wYWRfaWIsCisJLmVtaXRfd3JlZyA9IGNpa19zZG1hX3JpbmdfZW1pdF93cmVn
+LAogfTsKIAogc3RhdGljIHZvaWQgY2lrX3NkbWFfc2V0X3JpbmdfZnVuY3Moc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCi0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
