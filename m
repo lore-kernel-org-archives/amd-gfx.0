@@ -1,171 +1,126 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm] amdgpu: add bo eviction test
-Date: Fri, 19 Jan 2018 09:54:50 +0100
-Message-ID: <5c6d080f-eada-184b-6fe8-f34a5b23fe4a@gmail.com>
-References: <20180119082345.6195-1-david1.zhou@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [RFC] Per file OOM badness
+Date: Fri, 19 Jan 2018 10:32:09 +0100
+Message-ID: <a3f6dc22-fce2-4371-462a-a4898249cf61@daenzer.net>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20180118170006.GG6584@dhcp22.suse.cz> <20180118171355.GH6584@dhcp22.suse.cz>
+ <87k1wfgcmb.fsf@anholt.net> <20180119082046.GL6584@dhcp22.suse.cz>
+ <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180119082345.6195-1-david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+In-Reply-To: <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
+Content-Language: en-CA
+Sender: owner-linux-mm@kvack.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Michal Hocko <mhocko@kernel.org>, Eric Anholt <eric@anholt.net>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTkuMDEuMjAxOCB1bSAwOToyMyBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gZm9yKCggaT0x
-OyBpIDwgMTAwOyBpKyspKQo+IGRvCj4gICAgICAgZWNobyAiSGVsbG8sIFdlbGNvbWUgJGkgdGlt
-ZXMgIgo+ICAgICAgIHN1ZG8gLi9hbWRncHVfdGVzdCAtcyAxIC10IDUKPiBkb25lCj4KPiB3aXRo
-IGFib3ZlIHN0cmljcHQsIHJ1biBpbiB0d28gdGVybWluYWxzLCB3aWxsIHJlcHJvZHVjZSBGZWxp
-eCdzIHN3YXAgbGVla2luZyBpc3N1ZS4KPgo+IENoYW5nZS1JZDogSWY2MzdiNWRhMWVhYmU2OTgw
-NmY0MWYwYzZmOTA1NmIxZTk0NDdlZmMKPiBTaWduZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxk
-YXZpZDEuemhvdUBhbWQuY29tPgoKQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
-bi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICB0ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuaCB8
-ICAyNCArKysrKysrCj4gICB0ZXN0cy9hbWRncHUvYmFzaWNfdGVzdHMuYyB8IDE1NyArKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgIDIgZmlsZXMgY2hhbmdl
-ZCwgMTgxIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS90ZXN0cy9hbWRncHUvYW1kZ3B1
-X3Rlc3QuaCBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5oCj4gaW5kZXggZWNlOTNmNGMuLmRl
-NzI0YjMzIDEwMDY0NAo+IC0tLSBhL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5oCj4gKysrIGIv
-dGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmgKPiBAQCAtMjA2LDYgKzIwNiwzMCBAQCBzdGF0aWMg
-aW5saW5lIGludCBncHVfbWVtX2ZyZWUoYW1kZ3B1X2JvX2hhbmRsZSBibywKPiAgIAlyZXR1cm4g
-MDsKPiAgIH0KPiAgIAo+ICtzdGF0aWMgaW5saW5lIGludAo+ICthbWRncHVfYm9fYWxsb2Nfd3Jh
-cChhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsIHVuc2lnbmVkIHNpemUsCj4gKwkJICAgICB1bnNp
-Z25lZCBhbGlnbm1lbnQsIHVuc2lnbmVkIGhlYXAsIHVpbnQ2NF90IGZsYWdzLAo+ICsJCSAgICAg
-YW1kZ3B1X2JvX2hhbmRsZSAqYm8pCj4gK3sKPiArCXN0cnVjdCBhbWRncHVfYm9fYWxsb2NfcmVx
-dWVzdCByZXF1ZXN0ID0ge307Cj4gKwlhbWRncHVfYm9faGFuZGxlIGJ1Zl9oYW5kbGU7Cj4gKwlp
-bnQgcjsKPiArCj4gKwlyZXF1ZXN0LmFsbG9jX3NpemUgPSBzaXplOwo+ICsJcmVxdWVzdC5waHlz
-X2FsaWdubWVudCA9IGFsaWdubWVudDsKPiArCXJlcXVlc3QucHJlZmVycmVkX2hlYXAgPSBoZWFw
-Owo+ICsJcmVxdWVzdC5mbGFncyA9IGZsYWdzOwo+ICsKPiArCXIgPSBhbWRncHVfYm9fYWxsb2Mo
-ZGV2LCAmcmVxdWVzdCwgJmJ1Zl9oYW5kbGUpOwo+ICsJaWYgKHIpCj4gKwkJcmV0dXJuIHI7Cj4g
-Kwo+ICsJKmJvID0gYnVmX2hhbmRsZTsKPiArCj4gKwlyZXR1cm4gMDsKPiArfQo+ICsKPiArCj4g
-ICBzdGF0aWMgaW5saW5lIGludAo+ICAgYW1kZ3B1X2JvX2FsbG9jX2FuZF9tYXAoYW1kZ3B1X2Rl
-dmljZV9oYW5kbGUgZGV2LCB1bnNpZ25lZCBzaXplLAo+ICAgCQkJdW5zaWduZWQgYWxpZ25tZW50
-LCB1bnNpZ25lZCBoZWFwLCB1aW50NjRfdCBmbGFncywKPiBkaWZmIC0tZ2l0IGEvdGVzdHMvYW1k
-Z3B1L2Jhc2ljX3Rlc3RzLmMgYi90ZXN0cy9hbWRncHUvYmFzaWNfdGVzdHMuYwo+IGluZGV4IDJl
-MjgzMjA1Li4wNTM2OGEyNyAxMDA2NDQKPiAtLS0gYS90ZXN0cy9hbWRncHUvYmFzaWNfdGVzdHMu
-Ywo+ICsrKyBiL3Rlc3RzL2FtZGdwdS9iYXNpY190ZXN0cy5jCj4gQEAgLTU1LDE2ICs1NSwyNCBA
-QCBzdGF0aWMgdm9pZCBhbWRncHVfc2VtYXBob3JlX3Rlc3Qodm9pZCk7Cj4gICBzdGF0aWMgdm9p
-ZCBhbWRncHVfc3ZtX3Rlc3Qodm9pZCk7Cj4gICBzdGF0aWMgdm9pZCBhbWRncHVfbXVsdGlfc3Zt
-X3Rlc3Qodm9pZCk7Cj4gICBzdGF0aWMgdm9pZCBhbWRncHVfdmFfcmFuZ2VfdGVzdCh2b2lkKTsK
-PiArc3RhdGljIHZvaWQgYW1kZ3B1X2JvX2V2aWN0aW9uX3Rlc3Qodm9pZCk7Cj4gICAKPiAgIHN0
-YXRpYyB2b2lkIGFtZGdwdV9jb21tYW5kX3N1Ym1pc3Npb25fd3JpdGVfbGluZWFyX2hlbHBlcih1
-bnNpZ25lZCBpcF90eXBlKTsKPiAgIHN0YXRpYyB2b2lkIGFtZGdwdV9jb21tYW5kX3N1Ym1pc3Np
-b25fY29uc3RfZmlsbF9oZWxwZXIodW5zaWduZWQgaXBfdHlwZSk7Cj4gICBzdGF0aWMgdm9pZCBh
-bWRncHVfY29tbWFuZF9zdWJtaXNzaW9uX2NvcHlfbGluZWFyX2hlbHBlcih1bnNpZ25lZCBpcF90
-eXBlKTsKPiArc3RhdGljIHZvaWQgYW1kZ3B1X3Rlc3RfZXhlY19jc19oZWxwZXIoYW1kZ3B1X2Nv
-bnRleHRfaGFuZGxlIGNvbnRleHRfaGFuZGxlLAo+ICsJCQkJICAgICAgIHVuc2lnbmVkIGlwX3R5
-cGUsCj4gKwkJCQkgICAgICAgaW50IGluc3RhbmNlLCBpbnQgcG00X2R3LCB1aW50MzJfdCAqcG00
-X3NyYywKPiArCQkJCSAgICAgICBpbnQgcmVzX2NudCwgYW1kZ3B1X2JvX2hhbmRsZSAqcmVzb3Vy
-Y2VzLAo+ICsJCQkJICAgICAgIHN0cnVjdCBhbWRncHVfY3NfaWJfaW5mbyAqaWJfaW5mbywKPiAr
-CQkJCSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2NzX3JlcXVlc3QgKmlic19yZXF1ZXN0KTsKPiAgIAo+
-ICAgQ1VfVGVzdEluZm8gYmFzaWNfdGVzdHNbXSA9IHsKPiAgIAl7ICJRdWVyeSBJbmZvIFRlc3Qi
-LCAgYW1kZ3B1X3F1ZXJ5X2luZm9fdGVzdCB9LAo+ICAgCXsgIk1lbW9yeSBhbGxvYyBUZXN0Iiwg
-IGFtZGdwdV9tZW1vcnlfYWxsb2MgfSwKPiAgIAl7ICJVc2VycHRyIFRlc3QiLCAgYW1kZ3B1X3Vz
-ZXJwdHJfdGVzdCB9LAo+ICAgCXsgIkZpbmQgYm8gVGVzdCIsICBhbWRncHVfZmluZF9ib190ZXN0
-IH0sCj4gKwl7ICJibyBldmljdGlvbiBUZXN0IiwgIGFtZGdwdV9ib19ldmljdGlvbl90ZXN0IH0s
-Cj4gICAJeyAiQ29tbWFuZCBzdWJtaXNzaW9uIFRlc3QgKEdGWCkiLCAgYW1kZ3B1X2NvbW1hbmRf
-c3VibWlzc2lvbl9nZnggfSwKPiAgIAl7ICJDb21tYW5kIHN1Ym1pc3Npb24gVGVzdCAoQ29tcHV0
-ZSkiLCBhbWRncHVfY29tbWFuZF9zdWJtaXNzaW9uX2NvbXB1dGUgfSwKPiAgIAl7ICJDb21tYW5k
-IHN1Ym1pc3Npb24gVGVzdCAoTXVsdGktRmVuY2UpIiwgYW1kZ3B1X2NvbW1hbmRfc3VibWlzc2lv
-bl9tdWx0aV9mZW5jZSB9LAo+IEBAIC01MTgsNiArNTI2LDE1NSBAQCBzdGF0aWMgdm9pZCBhbWRn
-cHVfY29tbWFuZF9zdWJtaXNzaW9uX2dmeF9jcF9jb3B5X2RhdGEodm9pZCkKPiAgIAlhbWRncHVf
-Y29tbWFuZF9zdWJtaXNzaW9uX2NvcHlfbGluZWFyX2hlbHBlcihBTURHUFVfSFdfSVBfR0ZYKTsK
-PiAgIH0KPiAgIAo+ICtzdGF0aWMgdm9pZCBhbWRncHVfYm9fZXZpY3Rpb25fdGVzdCh2b2lkKQo+
-ICt7Cj4gKwljb25zdCBpbnQgc2RtYV93cml0ZV9sZW5ndGggPSAxMDI0Owo+ICsJY29uc3QgaW50
-IHBtNF9kdyA9IDI1NjsKPiArCWFtZGdwdV9jb250ZXh0X2hhbmRsZSBjb250ZXh0X2hhbmRsZTsK
-PiArCWFtZGdwdV9ib19oYW5kbGUgYm8xLCBibzIsIHZyYW1fbWF4WzJdLCBndHRfbWF4WzJdOwo+
-ICsJYW1kZ3B1X2JvX2hhbmRsZSAqcmVzb3VyY2VzOwo+ICsJdWludDMyX3QgKnBtNDsKPiArCXN0
-cnVjdCBhbWRncHVfY3NfaWJfaW5mbyAqaWJfaW5mbzsKPiArCXN0cnVjdCBhbWRncHVfY3NfcmVx
-dWVzdCAqaWJzX3JlcXVlc3Q7Cj4gKwl1aW50NjRfdCBibzFfbWMsIGJvMl9tYzsKPiArCXZvbGF0
-aWxlIHVuc2lnbmVkIGNoYXIgKmJvMV9jcHUsICpibzJfY3B1Owo+ICsJaW50IGksIGosIHIsIGxv
-b3AxLCBsb29wMjsKPiArCXVpbnQ2NF90IGd0dF9mbGFnc1syXSA9IHswLCBBTURHUFVfR0VNX0NS
-RUFURV9DUFVfR1RUX1VTV0N9Owo+ICsJYW1kZ3B1X3ZhX2hhbmRsZSBibzFfdmFfaGFuZGxlLCBi
-bzJfdmFfaGFuZGxlOwo+ICsJc3RydWN0IGFtZGdwdV9oZWFwX2luZm8gdnJhbV9pbmZvLCBndHRf
-aW5mbzsKPiArCj4gKwlwbTQgPSBjYWxsb2MocG00X2R3LCBzaXplb2YoKnBtNCkpOwo+ICsJQ1Vf
-QVNTRVJUX05PVF9FUVVBTChwbTQsIE5VTEwpOwo+ICsKPiArCWliX2luZm8gPSBjYWxsb2MoMSwg
-c2l6ZW9mKCppYl9pbmZvKSk7Cj4gKwlDVV9BU1NFUlRfTk9UX0VRVUFMKGliX2luZm8sIE5VTEwp
-Owo+ICsKPiArCWlic19yZXF1ZXN0ID0gY2FsbG9jKDEsIHNpemVvZigqaWJzX3JlcXVlc3QpKTsK
-PiArCUNVX0FTU0VSVF9OT1RfRVFVQUwoaWJzX3JlcXVlc3QsIE5VTEwpOwo+ICsKPiArCXIgPSBh
-bWRncHVfY3NfY3R4X2NyZWF0ZShkZXZpY2VfaGFuZGxlLCAmY29udGV4dF9oYW5kbGUpOwo+ICsJ
-Q1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ICsKPiArCS8qIHByZXBhcmUgcmVzb3VyY2UgKi8KPiAr
-CXJlc291cmNlcyA9IGNhbGxvYyg0LCBzaXplb2YoYW1kZ3B1X2JvX2hhbmRsZSkpOwo+ICsJQ1Vf
-QVNTRVJUX05PVF9FUVVBTChyZXNvdXJjZXMsIE5VTEwpOwo+ICsKPiArCXIgPSBhbWRncHVfcXVl
-cnlfaGVhcF9pbmZvKGRldmljZV9oYW5kbGUsIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCj4gKwkJ
-CQkgICAwLCAmdnJhbV9pbmZvKTsKPiArCUNVX0FTU0VSVF9FUVVBTChyLCAwKTsKPiArCj4gKwly
-ID0gYW1kZ3B1X2JvX2FsbG9jX3dyYXAoZGV2aWNlX2hhbmRsZSwgdnJhbV9pbmZvLm1heF9hbGxv
-Y2F0aW9uLCA0MDk2LAo+ICsJCQkJIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sIDAsICZ2cmFtX21h
-eFswXSk7Cj4gKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7Cj4gKwlyID0gYW1kZ3B1X2JvX2FsbG9j
-X3dyYXAoZGV2aWNlX2hhbmRsZSwgdnJhbV9pbmZvLm1heF9hbGxvY2F0aW9uLCA0MDk2LAo+ICsJ
-CQkJIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sIDAsICZ2cmFtX21heFsxXSk7Cj4gKwlDVV9BU1NF
-UlRfRVFVQUwociwgMCk7Cj4gKwo+ICsJciA9IGFtZGdwdV9xdWVyeV9oZWFwX2luZm8oZGV2aWNl
-X2hhbmRsZSwgQU1ER1BVX0dFTV9ET01BSU5fR1RULAo+ICsJCQkJICAgMCwgJmd0dF9pbmZvKTsK
-PiArCUNVX0FTU0VSVF9FUVVBTChyLCAwKTsKPiArCj4gKwlyID0gYW1kZ3B1X2JvX2FsbG9jX3dy
-YXAoZGV2aWNlX2hhbmRsZSwgZ3R0X2luZm8ubWF4X2FsbG9jYXRpb24sIDQwOTYsCj4gKwkJCQkg
-QU1ER1BVX0dFTV9ET01BSU5fR1RULCAwLCAmZ3R0X21heFswXSk7Cj4gKwlDVV9BU1NFUlRfRVFV
-QUwociwgMCk7Cj4gKwlyID0gYW1kZ3B1X2JvX2FsbG9jX3dyYXAoZGV2aWNlX2hhbmRsZSwgZ3R0
-X2luZm8ubWF4X2FsbG9jYXRpb24sIDQwOTYsCj4gKwkJCQkgQU1ER1BVX0dFTV9ET01BSU5fR1RU
-LCAwLCAmZ3R0X21heFsxXSk7Cj4gKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7Cj4gKwo+ICsKPiAr
-Cj4gKwlsb29wMSA9IGxvb3AyID0gMDsKPiArCS8qIHJ1biA5IGNpcmNsZSB0byB0ZXN0IGFsbCBt
-YXBwaW5nIGNvbWJpbmF0aW9uICovCj4gKwl3aGlsZShsb29wMSA8IDIpIHsKPiArCQl3aGlsZShs
-b29wMiA8IDIpIHsKPiArCQkJLyogYWxsb2NhdGUgVUMgYm8xZm9yIHNETUEgdXNlICovCj4gKwkJ
-CXIgPSBhbWRncHVfYm9fYWxsb2NfYW5kX21hcChkZXZpY2VfaGFuZGxlLAo+ICsJCQkJCQkgICAg
-c2RtYV93cml0ZV9sZW5ndGgsIDQwOTYsCj4gKwkJCQkJCSAgICBBTURHUFVfR0VNX0RPTUFJTl9H
-VFQsCj4gKwkJCQkJCSAgICBndHRfZmxhZ3NbbG9vcDFdLCAmYm8xLAo+ICsJCQkJCQkgICAgKHZv
-aWQqKikmYm8xX2NwdSwgJmJvMV9tYywKPiArCQkJCQkJICAgICZibzFfdmFfaGFuZGxlKTsKPiAr
-CQkJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ICsKPiArCQkJLyogc2V0IGJvMSAqLwo+ICsJCQlt
-ZW1zZXQoKHZvaWQqKWJvMV9jcHUsIDB4YWEsIHNkbWFfd3JpdGVfbGVuZ3RoKTsKPiArCj4gKwkJ
-CS8qIGFsbG9jYXRlIFVDIGJvMiBmb3Igc0RNQSB1c2UgKi8KPiArCQkJciA9IGFtZGdwdV9ib19h
-bGxvY19hbmRfbWFwKGRldmljZV9oYW5kbGUsCj4gKwkJCQkJCSAgICBzZG1hX3dyaXRlX2xlbmd0
-aCwgNDA5NiwKPiArCQkJCQkJICAgIEFNREdQVV9HRU1fRE9NQUlOX0dUVCwKPiArCQkJCQkJICAg
-IGd0dF9mbGFnc1tsb29wMl0sICZibzIsCj4gKwkJCQkJCSAgICAodm9pZCoqKSZibzJfY3B1LCAm
-Ym8yX21jLAo+ICsJCQkJCQkgICAgJmJvMl92YV9oYW5kbGUpOwo+ICsJCQlDVV9BU1NFUlRfRVFV
-QUwociwgMCk7Cj4gKwo+ICsJCQkvKiBjbGVhciBibzIgKi8KPiArCQkJbWVtc2V0KCh2b2lkKili
-bzJfY3B1LCAwLCBzZG1hX3dyaXRlX2xlbmd0aCk7Cj4gKwo+ICsJCQlyZXNvdXJjZXNbMF0gPSBi
-bzE7Cj4gKwkJCXJlc291cmNlc1sxXSA9IGJvMjsKPiArCQkJcmVzb3VyY2VzWzJdID0gdnJhbV9t
-YXhbbG9vcDJdOwo+ICsJCQlyZXNvdXJjZXNbM10gPSBndHRfbWF4W2xvb3AyXTsKPiArCj4gKwkJ
-CS8qIGZ1bGZpbGwgUE00OiB0ZXN0IERNQSBjb3B5IGxpbmVhciAqLwo+ICsJCQlpID0gaiA9IDA7
-Cj4gKwkJCWlmIChmYW1pbHlfaWQgPT0gQU1ER1BVX0ZBTUlMWV9TSSkgewo+ICsJCQkJcG00W2kr
-K10gPSBTRE1BX1BBQ0tFVF9TSShTRE1BX09QQ09ERV9DT1BZX1NJLCAwLCAwLCAwLAo+ICsJCQkJ
-CQkJICBzZG1hX3dyaXRlX2xlbmd0aCk7Cj4gKwkJCQlwbTRbaSsrXSA9IDB4ZmZmZmZmZmYgJiBi
-bzJfbWM7Cj4gKwkJCQlwbTRbaSsrXSA9IDB4ZmZmZmZmZmYgJiBibzFfbWM7Cj4gKwkJCQlwbTRb
-aSsrXSA9ICgweGZmZmZmZmZmMDAwMDAwMDAgJiBibzJfbWMpID4+IDMyOwo+ICsJCQkJcG00W2kr
-K10gPSAoMHhmZmZmZmZmZjAwMDAwMDAwICYgYm8xX21jKSA+PiAzMjsKPiArCQkJfSBlbHNlIHsK
-PiArCQkJCXBtNFtpKytdID0gU0RNQV9QQUNLRVQoU0RNQV9PUENPREVfQ09QWSwgU0RNQV9DT1BZ
-X1NVQl9PUENPREVfTElORUFSLCAwKTsKPiArCQkJCWlmIChmYW1pbHlfaWQgPj0gQU1ER1BVX0ZB
-TUlMWV9BSSkKPiArCQkJCQlwbTRbaSsrXSA9IHNkbWFfd3JpdGVfbGVuZ3RoIC0gMTsKPiArCQkJ
-CWVsc2UKPiArCQkJCQlwbTRbaSsrXSA9IHNkbWFfd3JpdGVfbGVuZ3RoOwo+ICsJCQkJcG00W2kr
-K10gPSAwOwo+ICsJCQkJcG00W2krK10gPSAweGZmZmZmZmZmICYgYm8xX21jOwo+ICsJCQkJcG00
-W2krK10gPSAoMHhmZmZmZmZmZjAwMDAwMDAwICYgYm8xX21jKSA+PiAzMjsKPiArCQkJCXBtNFtp
-KytdID0gMHhmZmZmZmZmZiAmIGJvMl9tYzsKPiArCQkJCXBtNFtpKytdID0gKDB4ZmZmZmZmZmYw
-MDAwMDAwMCAmIGJvMl9tYykgPj4gMzI7Cj4gKwkJCX0KPiArCj4gKwkJCWFtZGdwdV90ZXN0X2V4
-ZWNfY3NfaGVscGVyKGNvbnRleHRfaGFuZGxlLAo+ICsJCQkJCQkgICBBTURHUFVfSFdfSVBfRE1B
-LCAwLAo+ICsJCQkJCQkgICBpLCBwbTQsCj4gKwkJCQkJCSAgIDQsIHJlc291cmNlcywKPiArCQkJ
-CQkJICAgaWJfaW5mbywgaWJzX3JlcXVlc3QpOwo+ICsKPiArCQkJLyogdmVyaWZ5IGlmIFNETUEg
-dGVzdCByZXN1bHQgbWVldHMgd2l0aCBleHBlY3RlZCAqLwo+ICsJCQlpID0gMDsKPiArCQkJd2hp
-bGUoaSA8IHNkbWFfd3JpdGVfbGVuZ3RoKSB7Cj4gKwkJCQlDVV9BU1NFUlRfRVFVQUwoYm8yX2Nw
-dVtpKytdLCAweGFhKTsKPiArCQkJfQo+ICsJCQlyID0gYW1kZ3B1X2JvX3VubWFwX2FuZF9mcmVl
-KGJvMSwgYm8xX3ZhX2hhbmRsZSwgYm8xX21jLAo+ICsJCQkJCQkgICAgIHNkbWFfd3JpdGVfbGVu
-Z3RoKTsKPiArCQkJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ICsJCQlyID0gYW1kZ3B1X2JvX3Vu
-bWFwX2FuZF9mcmVlKGJvMiwgYm8yX3ZhX2hhbmRsZSwgYm8yX21jLAo+ICsJCQkJCQkgICAgIHNk
-bWFfd3JpdGVfbGVuZ3RoKTsKPiArCQkJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ICsJCQlsb29w
-MisrOwo+ICsJCX0KPiArCQlsb29wMiA9IDA7Cj4gKwkJbG9vcDErKzsKPiArCX0KPiArCWFtZGdw
-dV9ib19mcmVlKHZyYW1fbWF4WzBdKTsKPiArCWFtZGdwdV9ib19mcmVlKHZyYW1fbWF4WzFdKTsK
-PiArCWFtZGdwdV9ib19mcmVlKGd0dF9tYXhbMF0pOwo+ICsJYW1kZ3B1X2JvX2ZyZWUoZ3R0X21h
-eFsxXSk7Cj4gKwkvKiBjbGVhbiByZXNvdXJjZXMgKi8KPiArCWZyZWUocmVzb3VyY2VzKTsKPiAr
-CWZyZWUoaWJzX3JlcXVlc3QpOwo+ICsJZnJlZShpYl9pbmZvKTsKPiArCWZyZWUocG00KTsKPiAr
-Cj4gKwkvKiBlbmQgb2YgdGVzdCAqLwo+ICsJciA9IGFtZGdwdV9jc19jdHhfZnJlZShjb250ZXh0
-X2hhbmRsZSk7Cj4gKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7Cj4gK30KPiArCj4gICBzdGF0aWMg
-dm9pZCBhbWRncHVfY29tbWFuZF9zdWJtaXNzaW9uX2dmeCh2b2lkKQo+ICAgewo+ICAgCS8qIHdy
-aXRlIGRhdGEgdXNpbmcgdGhlIENQICovCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+On 2018-01-19 09:39 AM, Christian König wrote:
+> Am 19.01.2018 um 09:20 schrieb Michal Hocko:
+>> On Thu 18-01-18 12:01:32, Eric Anholt wrote:
+>>> Michal Hocko <mhocko@kernel.org> writes:
+>>>
+>>>> On Thu 18-01-18 18:00:06, Michal Hocko wrote:
+>>>>> On Thu 18-01-18 11:47:48, Andrey Grodzovsky wrote:
+>>>>>> Hi, this series is a revised version of an RFC sent by Christian
+>>>>>> König
+>>>>>> a few years ago. The original RFC can be found at
+>>>>>> https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html
+>>>>>>
+>>>>>>
+>>>>>> This is the same idea and I've just adressed his concern from the
+>>>>>> original RFC
+>>>>>> and switched to a callback into file_ops instead of a new member
+>>>>>> in struct file.
+>>>>> Please add the full description to the cover letter and do not make
+>>>>> people hunt links.
+>>>>>
+>>>>> Here is the origin cover letter text
+>>>>> : I'm currently working on the issue that when device drivers
+>>>>> allocate memory on
+>>>>> : behalf of an application the OOM killer usually doesn't knew
+>>>>> about that unless
+>>>>> : the application also get this memory mapped into their address
+>>>>> space.
+>>>>> :
+>>>>> : This is especially annoying for graphics drivers where a lot of
+>>>>> the VRAM
+>>>>> : usually isn't CPU accessible and so doesn't make sense to map
+>>>>> into the
+>>>>> : address space of the process using it.
+>>>>> :
+>>>>> : The problem now is that when an application starts to use a lot
+>>>>> of VRAM those
+>>>>> : buffers objects sooner or later get swapped out to system memory,
+>>>>> but when we
+>>>>> : now run into an out of memory situation the OOM killer obviously
+>>>>> doesn't knew
+>>>>> : anything about that memory and so usually kills the wrong process.
+>>>> OK, but how do you attribute that memory to a particular OOM killable
+>>>> entity? And how do you actually enforce that those resources get freed
+>>>> on the oom killer action?
+>>>>
+>>>>> : The following set of patches tries to address this problem by
+>>>>> introducing a per
+>>>>> : file OOM badness score, which device drivers can use to give the
+>>>>> OOM killer a
+>>>>> : hint how many resources are bound to a file descriptor so that it
+>>>>> can make
+>>>>> : better decisions which process to kill.
+>>>> But files are not killable, they can be shared... In other words this
+>>>> doesn't help the oom killer to make an educated guess at all.
+>>> Maybe some more context would help the discussion?
+>>>
+>>> The struct file in patch 3 is the DRM fd.  That's effectively "my
+>>> process's interface to talking to the GPU" not "a single GPU resource".
+>>> Once that file is closed, all of the process's private, idle GPU buffers
+>>> will be immediately freed (this will be most of their allocations), and
+>>> some will be freed once the GPU completes some work (this will be most
+>>> of the rest of their allocations).
+>>>
+>>> Some GEM BOs won't be freed just by closing the fd, if they've been
+>>> shared between processes.  Those are usually about 8-24MB total in a
+>>> process, rather than the GBs that modern apps use (or that our testcases
+>>> like to allocate and thus trigger oomkilling of the test harness instead
+>>> of the offending testcase...)
+>>>
+>>> Even if we just had the private+idle buffers being accounted in OOM
+>>> badness, that would be a huge step forward in system reliability.
+>> OK, in that case I would propose a different approach. We already
+>> have rss_stat. So why do not we simply add a new counter there
+>> MM_KERNELPAGES and consider those in oom_badness? The rule would be
+>> that such a memory is bound to the process life time. I guess we will
+>> find more users for this later.
+> 
+> I already tried that and the problem with that approach is that some
+> buffers are not created by the application which actually uses them.
+> 
+> For example X/Wayland is creating and handing out render buffers to
+> application which want to use OpenGL.
+> 
+> So the result is when you always account the application who created the
+> buffer the OOM killer will certainly reap X/Wayland first. And that is
+> exactly what we want to avoid here.
+
+FWIW, what you describe is true with DRI2, but not with DRI3 or Wayland
+anymore. With DRI3 and Wayland, buffers are allocated by the clients and
+then shared with the X / Wayland server.
+
+Also, in all cases, the amount of memory allocated for buffers shared
+between DRI/Wayland clients and the server should be relatively small
+compared to the amount of memory allocated for buffers used only locally
+in the client, particularly for clients which create significant memory
+pressure.
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
