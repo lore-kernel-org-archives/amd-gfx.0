@@ -1,81 +1,67 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Subject: Re: [RFC] Per file OOM badness
-Date: Fri, 19 Jan 2018 17:48:24 +0100
-Message-ID: <d1e54376-6ed4-dceb-1dfa-1b95a11ab3c8@daenzer.net>
+Date: Fri, 19 Jan 2018 17:54:36 +0100
+Message-ID: <7c7b0616-97ba-01e7-0053-bf224ca5b5f2@amd.com>
 References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
  <20180118170006.GG6584@dhcp22.suse.cz> <20180118171355.GH6584@dhcp22.suse.cz>
  <87k1wfgcmb.fsf@anholt.net> <20180119082046.GL6584@dhcp22.suse.cz>
  <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
  <20180119104058.GU6584@dhcp22.suse.cz>
  <d4fe7e59-da2d-11a5-73e2-55f2f27cdfd8@amd.com>
+ <20180119121351.GW6584@dhcp22.suse.cz> <20180119122005.GX6584@dhcp22.suse.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <d4fe7e59-da2d-11a5-73e2-55f2f27cdfd8@amd.com>
-Content-Language: en-CA
-Sender: owner-linux-mm@kvack.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Michal Hocko <mhocko@kernel.org>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180119122005.GX6584@dhcp22.suse.cz>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Michal Hocko <mhocko@kernel.org>
 Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2018-01-19 12:37 PM, Christian König wrote:
-> Am 19.01.2018 um 11:40 schrieb Michal Hocko:
->> On Fri 19-01-18 09:39:03, Christian König wrote:
->>> Am 19.01.2018 um 09:20 schrieb Michal Hocko:
->> [...]
->>>> OK, in that case I would propose a different approach. We already
->>>> have rss_stat. So why do not we simply add a new counter there
->>>> MM_KERNELPAGES and consider those in oom_badness? The rule would be
->>>> that such a memory is bound to the process life time. I guess we will
->>>> find more users for this later.
->>> I already tried that and the problem with that approach is that some
->>> buffers
->>> are not created by the application which actually uses them.
->>>
->>> For example X/Wayland is creating and handing out render buffers to
->>> application which want to use OpenGL.
->>>
->>> So the result is when you always account the application who created the
->>> buffer the OOM killer will certainly reap X/Wayland first. And that is
->>> exactly what we want to avoid here.
->> Then you have to find the target allocation context at the time of the
->> allocation and account it.
-> 
-> And exactly that's the root of the problem: The target allocation
-> context isn't known at the time of the allocation.
-> 
-> We could add callbacks so that when the memory is passed from the
-> allocator to the actual user of the memory. In other words when the
-> memory is passed from the X server to the client the driver would need
-> to decrement the X servers accounting and increment the clients accounting.
-> 
-> But I think that would go deep into the file descriptor handling (we
-> would at least need to handle dup/dup2 and passing the fd using unix
-> domain sockets) and most likely would be rather error prone.
-> 
-> The per file descriptor badness is/was just the much easier approach to
-> solve the issue, because the drivers already knew which client is
-> currently using which buffer objects.
-> 
-> I of course agree that file descriptors can be shared between processes
-> and are by themselves not killable. But at least for our graphics driven
-> use case I don't see much of a problem killing all processes when a file
-> descriptor is used by more than one at the same time.
-
-In that case, accounting a BO as suggested by Michal above, in every
-process that shares it, should work fine, shouldn't it?
-
-The OOM killer will first select the process which has more memory
-accounted for other things than the BOs shared with another process.
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+QW0gMTkuMDEuMjAxOCB1bSAxMzoyMCBzY2hyaWViIE1pY2hhbCBIb2NrbzoKPiBPbiBGcmkgMTkt
+MDEtMTggMTM6MTM6NTEsIE1pY2hhbCBIb2NrbyB3cm90ZToKPj4gT24gRnJpIDE5LTAxLTE4IDEy
+OjM3OjUxLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBbLi4uXQo+Pj4gVGhlIHBlciBmaWxl
+IGRlc2NyaXB0b3IgYmFkbmVzcyBpcy93YXMganVzdCB0aGUgbXVjaCBlYXNpZXIgYXBwcm9hY2gg
+dG8KPj4+IHNvbHZlIHRoZSBpc3N1ZSwgYmVjYXVzZSB0aGUgZHJpdmVycyBhbHJlYWR5IGtuZXcg
+d2hpY2ggY2xpZW50IGlzIGN1cnJlbnRseQo+Pj4gdXNpbmcgd2hpY2ggYnVmZmVyIG9iamVjdHMu
+Cj4+Pgo+Pj4gSSBvZiBjb3Vyc2UgYWdyZWUgdGhhdCBmaWxlIGRlc2NyaXB0b3JzIGNhbiBiZSBz
+aGFyZWQgYmV0d2VlbiBwcm9jZXNzZXMgYW5kCj4+PiBhcmUgYnkgdGhlbXNlbHZlcyBub3Qga2ls
+bGFibGUuIEJ1dCBhdCBsZWFzdCBmb3Igb3VyIGdyYXBoaWNzIGRyaXZlbiB1c2UKPj4+IGNhc2Ug
+SSBkb24ndCBzZWUgbXVjaCBvZiBhIHByb2JsZW0ga2lsbGluZyBhbGwgcHJvY2Vzc2VzIHdoZW4g
+YSBmaWxlCj4+PiBkZXNjcmlwdG9yIGlzIHVzZWQgYnkgbW9yZSB0aGFuIG9uZSBhdCB0aGUgc2Ft
+ZSB0aW1lLgo+PiBPaGgsIEkgYWJzb2x1dGVseSBzZWUgd2h5IHlvdSBoYXZlIGNob3NlbiB0aGlz
+IHdheSBmb3IgeW91ciBwYXJ0aWN1bGFyCj4+IHVzZWNhc2UuIEkgYW0ganVzdCBhcmd1aW5nIHRo
+YXQgdGhpcyB3b3VsZCByYXRoZXIgYmUgbW9yZSBnZW5lcmljIHRvIGJlCj4+IG1lcmdlZC4gSWYg
+dGhlcmUgaXMgYWJzb2x1dGVseSBubyBvdGhlciB3YXkgYXJvdW5kIHdlIGNhbiBjb25zaWRlciBp
+dAo+PiBidXQgcmlnaHQgbm93IEkgZG8gbm90IHNlZSB0aGF0IGFsbCBvdGhlciBvcHRpb25zIGhh
+dmUgYmVlbiBjb25zaWRlcmVkCj4+IHByb3Blcmx5LiBFc3BlY2lhbGx5IHdoZW4gdGhlIGZkIGJh
+c2VkIGFwcHJvYWNoIGlzIGJhc2ljYWxseSB3cm9uZyBmb3IKPj4gYWxtb3N0IGFueWJvZHkgZWxz
+ZS4KPiBBbmQgbW9yZSBpbXBvcnRhbnRseS4gSXRlcmF0aW5nIG92ZXIgX2FsbF8gZmQgd2hpY2gg
+aXMgd2hhdCBpcyB5b3VyCj4gYXBwcm9hY2ggaXMgYmFzZWQgb24gQUZBSVUgaXMgbm90IGFjY2Vw
+dGFibGUgZm9yIHRoZSBPT00gcGF0aC4gRXZlbgo+IHRob3VnaCBvb21fYmFkbmVzcyBpcyBub3Qg
+YSBob3QgcGF0aCB3ZSBkbyBub3QgcmVhbGx5IHdhbnQgaXQgdG8gdGFrZSBhCj4gbG90IG9mIHRp
+bWUgZWl0aGVyLiBFdmVuIHRoZSBjdXJyZW50IGl0ZXJhdGlvbiBvdmVyIGFsbCBwcm9jZXNzZXMg
+aXMKPiBxdWl0ZSB0aW1lIGNvbnN1bWluZy4gTm93IHlvdSB3YW50IHRvIGFkZCB0aGUgbnVtYmVy
+IG9mIG9wZW5lZCBmaWxlcyBhbmQKPiB0aGF0IG1pZ2h0IGJlIHF1aXRlIG1hbnkgcGVyIHByb2Nl
+c3MuCgpNaG0sIGNyYXAgdGhhdCBpcyBhIHJlYWxseSBnb29kIGFyZ3VtZW50LgoKSG93IGFib3V0
+IGFkZGluZyBhIGxpbmtlZCBsaXN0IG9mIGNhbGxiYWNrcyB0byBjaGVjayBmb3IgdGhlIE9PTSBr
+aWxsZXIgCnRvIGNoZWNrIGZvciBlYWNoIHByb2Nlc3M/CgpUaGlzIHdheSB3ZSBjYW4gYXZvaWQg
+ZmluZGluZyB0aGUgcHJvY2VzcyB3aGVyZSB3ZSBuZWVkIHRvIGFjY291bnQgCnRoaW5ncyBvbiB3
+aGVuIG1lbW9yeSBpcyBhbGxvY2F0ZWQgYW5kIHN0aWxsIGFsbG93IHRoZSBPT00ga2lsbGVyIHRv
+IApvbmx5IGNoZWNrIHRoZSBzcGVjaWZpYyBjYWxsYmFja3MgaXQgbmVlZHMgdG8gZGV0ZXJtaW5l
+IHRoZSBzY29yZSBvZiBhIApwcm9jZXNzPwoKV291bGQgc3RpbGwgcmVxdWlyZSBzb21lIGNoYW5n
+ZXMgaW4gdGhlIGZzIGxheWVyLCBidXQgSSB0aGluayB0aGF0IApzaG91bGQgYmUgZG9hYmxlLgoK
+UmVnYXJkcywKQ2hyaXN0aWFuLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
+cmktZGV2ZWwK
