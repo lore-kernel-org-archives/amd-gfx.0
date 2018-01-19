@@ -1,83 +1,53 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/pp: Implement get_power_profile_mode on smu7
-Date: Fri, 19 Jan 2018 18:15:57 +0800
-Message-ID: <1516356957-23699-1-git-send-email-Rex.Zhu@amd.com>
+From: Michal Hocko <mhocko@kernel.org>
+Subject: Re: [RFC] Per file OOM badness
+Date: Fri, 19 Jan 2018 11:40:58 +0100
+Message-ID: <20180119104058.GU6584@dhcp22.suse.cz>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20180118170006.GG6584@dhcp22.suse.cz>
+ <20180118171355.GH6584@dhcp22.suse.cz>
+ <87k1wfgcmb.fsf@anholt.net>
+ <20180119082046.GL6584@dhcp22.suse.cz>
+ <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+Content-Disposition: inline
+In-Reply-To: <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
+Sender: owner-linux-mm@kvack.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Eric Anholt <eric@anholt.net>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VXNlIGNhbiBnZXQgc211NyBwcm9maWxlIHBhbWFtZXRlcnMgdGhyb3VnaCBzeXNmcwoKY2F0IHBw
-X3Bvd2VyX3Byb2ZpbGVfbW9kZQoKTlVNICAgICAgICBNT0RFX05BTUUgVVBfSFlTVCBET1dOX0hZ
-U1QgQUNUSVZFX0xFVkVMCiAgMCAzRF9GVUxMX1NDUkVFTio6ICAgMCAgICAgICAxMDAgICAgICAg
-ICAgIDMwCiAgMSAgIFBPV0VSX1NBVklORyA6ICAxMCAgICAgICAgIDAgICAgICAgICAgIDMwCiAg
-MiAgICAgICBDT01QVVRFUiA6ICAgMCAgICAgICAgIDUgICAgICAgICAgIDMwCiAgMyAgICAgICAg
-IENVU1RPTSA6ICAgMCAgICAgICAgIDAgICAgICAgICAgICAwCgpDaGFuZ2UtSWQ6IEk4ZmU4YmY4
-OGMyZDc0MDBhMDk3ZmJhMmMwYTM3NDgzNTBlMzVmNjE5ClNpZ25lZC1vZmYtYnk6IFJleCBaaHUg
-PFJleC5aaHVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci9zbXU3X2h3bWdyLmMgfCA0MyArKysrKysrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuaCB8ICAxICsKIDIgZmlsZXMgY2hh
-bmdlZCwgNDQgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwppbmRleCA1NGY1NjljLi5hMWE2OTc4IDEwMDY0NAotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCkBAIC00OTI3
-LDYgKzQ5MjcsNDcgQEAgc3RhdGljIGludCBzbXU3X29kbl9lZGl0X2RwbV90YWJsZShzdHJ1Y3Qg
-cHBfaHdtZ3IgKmh3bWdyLAogCXJldHVybiAwOwogfQogCitzdGF0aWMgaW50IHNtdTdfZ2V0X3Bv
-d2VyX3Byb2ZpbGVfbW9kZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBjaGFyICpidWYpCit7CisJ
-c3RydWN0IHNtdTdfaHdtZ3IgKmRhdGEgPSAoc3RydWN0IHNtdTdfaHdtZ3IgKikoaHdtZ3ItPmJh
-Y2tlbmQpOworCXVpbnQzMl90IGksIHNpemUgPSAwOworCXN0YXRpYyBjb25zdCB1aW50OF90IHBy
-b2ZpbGVfbW9kZV9zZXR0aW5nWzNdWzNdID0ge3swLCAxMDAsIDMwfSwKKwkJCQkJCXsxMCwgMCwg
-MzB9LAorCQkJCQkJezAsIDUsIDMwfSwKKwkJCQkJCX07CisJc3RhdGljIGNvbnN0IGNoYXIgKnBy
-b2ZpbGVfbmFtZVs0XSA9IHsiM0RfRlVMTF9TQ1JFRU4iLAorCQkJCQkiUE9XRVJfU0FWSU5HIiwK
-KwkJCQkJIkNPTVBVVEVSIiwKKwkJCQkJIkNVU1RPTSJ9OworCXN0YXRpYyBjb25zdCBjaGFyICp0
-aXRsZVs1XSA9IHsiTlVNIiwKKwkJCSJNT0RFX05BTUUiLAorCQkJIlVQX0hZU1QiLAorCQkJIkRP
-V05fSFlTVCIsCisJCQkiQUNUSVZFX0xFVkVMIn07CisKKwlpZiAoIWJ1ZikKKwkJcmV0dXJuIC1F
-SU5WQUw7CisKKwlzaXplICs9IHNwcmludGYoYnVmICsgc2l6ZSwgIiVzICUxNnMgJXMgJXMgJXNc
-biIsdGl0bGVbMF0sCisJCQl0aXRsZVsxXSwgdGl0bGVbMl0sIHRpdGxlWzNdLCB0aXRsZVs0XSk7
-CisKKwlmb3IgKGkgPSAwOyBpIDwgMzsgaSsrKQorCQlzaXplICs9IHNwcmludGYoYnVmICsgc2l6
-ZSwgIiUzZCAlMTRzJXM6ICUzZCAlOWQgJTEyZFxuIiwKKwkJCWksIHByb2ZpbGVfbmFtZVtpXSwg
-KGkgPT0gaHdtZ3ItPnBvd2VyX3Byb2ZpbGVfbW9kZSkgPyAiKiIgOiAiICIsCisJCQlwcm9maWxl
-X21vZGVfc2V0dGluZ1tpXVswXSwgcHJvZmlsZV9tb2RlX3NldHRpbmdbaV1bMV0sCisJCQlwcm9m
-aWxlX21vZGVfc2V0dGluZ1tpXVsyXSk7CisJc2l6ZSArPSBzcHJpbnRmKGJ1ZiArIHNpemUsICIl
-M2QgJTE0cyVzOiAlM2QgJTlkICUxMmRcbiIsIGksCisJCQlwcm9maWxlX25hbWVbaV0sIChpID09
-IGh3bWdyLT5wb3dlcl9wcm9maWxlX21vZGUpID8gIioiIDogIiAiLAorCQkJZGF0YS0+Y3VzdG9t
-X3Byb2ZpbGVfbW9kZVswXSwgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfbW9kZVsxXSwKKwkJCWRhdGEt
-PmN1c3RvbV9wcm9maWxlX21vZGVbMl0pOworCXJldHVybiBzaXplOworfQorCitzdGF0aWMgaW50
-IHNtdTdfc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBsb25n
-ICppbnB1dCwgdWludDMyX3Qgc2l6ZSkKK3sKKwkvKiBUbyBEbyAqLworCXJldHVybiAwOworfQog
-CiBzdGF0aWMgY29uc3Qgc3RydWN0IHBwX2h3bWdyX2Z1bmMgc211N19od21ncl9mdW5jcyA9IHsK
-IAkuYmFja2VuZF9pbml0ID0gJnNtdTdfaHdtZ3JfYmFja2VuZF9pbml0LApAQCAtNDk4Myw2ICs1
-MDI0LDggQEAgc3RhdGljIGludCBzbXU3X29kbl9lZGl0X2RwbV90YWJsZShzdHJ1Y3QgcHBfaHdt
-Z3IgKmh3bWdyLAogCS5nZXRfbWF4X2hpZ2hfY2xvY2tzID0gc211N19nZXRfbWF4X2hpZ2hfY2xv
-Y2tzLAogCS5nZXRfdGhlcm1hbF90ZW1wZXJhdHVyZV9yYW5nZSA9IHNtdTdfZ2V0X3RoZXJtYWxf
-dGVtcGVyYXR1cmVfcmFuZ2UsCiAJLm9kbl9lZGl0X2RwbV90YWJsZSA9IHNtdTdfb2RuX2VkaXRf
-ZHBtX3RhYmxlLAorCS5nZXRfcG93ZXJfcHJvZmlsZV9tb2RlID0gc211N19nZXRfcG93ZXJfcHJv
-ZmlsZV9tb2RlLAorCS5zZXRfcG93ZXJfcHJvZmlsZV9tb2RlID0gc211N19zZXRfcG93ZXJfcHJv
-ZmlsZV9tb2RlLAogfTsKIAogdWludDhfdCBzbXU3X2dldF9zbGVlcF9kaXZpZGVyX2lkX2Zyb21f
-Y2xvY2sodWludDMyX3QgY2xvY2ssCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9zbXU3X2h3bWdyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9od21nci9zbXU3X2h3bWdyLmgKaW5kZXggMWNlODRjYy4uMGFkZWU1MSAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5oCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuaApAQCAtMzE1LDYg
-KzMxNSw3IEBAIHN0cnVjdCBzbXU3X2h3bWdyIHsKIAl1aW50MTZfdCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIG1lbV9sYXRlbmN5X2hpZ2g7CiAJdWludDE2X3QgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBtZW1fbGF0ZW5jeV9sb3c7CiAJdWludDMyX3QgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB2cl9jb25maWc7CisJdWludDhfdCAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBjdXN0b21fcHJvZmlsZV9tb2RlWzNdOwogfTsKIAogLyogVG8gY29udmVydCB0byBR
-OC44IGZvcm1hdCBmb3IgZmlybXdhcmUgKi8KLS0gCjEuOS4xCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Fri 19-01-18 09:39:03, Christian König wrote:
+> Am 19.01.2018 um 09:20 schrieb Michal Hocko:
+[...]
+> > OK, in that case I would propose a different approach. We already
+> > have rss_stat. So why do not we simply add a new counter there
+> > MM_KERNELPAGES and consider those in oom_badness? The rule would be
+> > that such a memory is bound to the process life time. I guess we will
+> > find more users for this later.
+> 
+> I already tried that and the problem with that approach is that some buffers
+> are not created by the application which actually uses them.
+> 
+> For example X/Wayland is creating and handing out render buffers to
+> application which want to use OpenGL.
+> 
+> So the result is when you always account the application who created the
+> buffer the OOM killer will certainly reap X/Wayland first. And that is
+> exactly what we want to avoid here.
+
+Then you have to find the target allocation context at the time of the
+allocation and account it. As follow up emails show, implementations
+might differ and any robust oom solution have to rely on the common
+counters.
+-- 
+Michal Hocko
+SUSE Labs
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
