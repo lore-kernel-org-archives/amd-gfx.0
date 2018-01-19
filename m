@@ -1,90 +1,98 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [RFC] Per file OOM badness
-Date: Fri, 19 Jan 2018 09:35:47 +0100
-Message-ID: <47fd8d6f-1c0e-388c-8c3d-a8784f8090ca@amd.com>
+Date: Fri, 19 Jan 2018 09:39:03 +0100
+Message-ID: <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
 References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
  <20180118170006.GG6584@dhcp22.suse.cz> <20180118171355.GH6584@dhcp22.suse.cz>
- <87k1wfgcmb.fsf@anholt.net>
+ <87k1wfgcmb.fsf@anholt.net> <20180119082046.GL6584@dhcp22.suse.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <87k1wfgcmb.fsf@anholt.net>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180119082046.GL6584-2MMpYkNvuYDjFM9bn6wA6Q@public.gmane.org>
 Content-Language: en-US
-Sender: owner-linux-mm@kvack.org
-To: Eric Anholt <eric@anholt.net>, Michal Hocko <mhocko@kernel.org>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Michal Hocko <mhocko-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org
 
-Am 18.01.2018 um 21:01 schrieb Eric Anholt:
-> Michal Hocko <mhocko@kernel.org> writes:
->
->> [SNIP]
->> But files are not killable, they can be shared... In other words this
->> doesn't help the oom killer to make an educated guess at all.
-> Maybe some more context would help the discussion?
-
-Thanks for doing this. Wanted to reply yesterday with that information 
-as well, but was unfortunately on sick leave.
-
->
-> The struct file in patch 3 is the DRM fd.  That's effectively "my
-> process's interface to talking to the GPU" not "a single GPU resource".
-> Once that file is closed, all of the process's private, idle GPU buffers
-> will be immediately freed (this will be most of their allocations), and
-> some will be freed once the GPU completes some work (this will be most
-> of the rest of their allocations).
->
-> Some GEM BOs won't be freed just by closing the fd, if they've been
-> shared between processes.  Those are usually about 8-24MB total in a
-> process, rather than the GBs that modern apps use (or that our testcases
-> like to allocate and thus trigger oomkilling of the test harness instead
-> of the offending testcase...)
->
-> Even if we just had the private+idle buffers being accounted in OOM
-> badness, that would be a huge step forward in system reliability.
-
-Yes, and that's exactly the intention here because currently the OOM 
-killer usually kills X when a graphics related application allocates to 
-much memory and that is highly undesirable.
-
->>> : So question at every one: What do you think about this approach?
->> I thing is just just wrong semantically. Non-reclaimable memory is a
->> pain, especially when there is way too much of it. If you can free that
->> memory somehow then you can hook into slab shrinker API and react on the
->> memory pressure. If you can account such a memory to a particular
->> process and make sure that the consumption is bound by the process life
->> time then we can think of an accounting that oom_badness can consider
->> when selecting a victim.
-> For graphics, we can't free most of our memory without also effectively
-> killing the process.  i915 and vc4 have "purgeable" interfaces for
-> userspace (on i915 this is exposed all the way to GL applications and is
-> hooked into shrinker, and on vc4 this is so far just used for
-> userspace-internal buffer caches to be purged when a CMA allocation
-> fails).  However, those purgeable pools are expected to be a tiny
-> fraction of the GPU allocations by the process.
-
-Same thing with TTM and amdgpu/radeon. We already have a shrinker hock 
-as well and make room as much as we can when needed.
-
-But I think Michal's concerns are valid as well and I thought about them 
-when I created the initial patch.
-
-One possible solution which came to my mind is that (IIRC) we not only 
-store the usual reference count per GEM object, but also how many 
-handles where created for it.
-
-So what we could do is to iterate over all GEM handles of a client and 
-account only size/num_handles as badness for the client.
-
-The end result would be that X and the client application would both get 
-1/2 of the GEM objects size accounted for.
-
-Regards,
-Christian.
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+QW0gMTkuMDEuMjAxOCB1bSAwOToyMCBzY2hyaWViIE1pY2hhbCBIb2NrbzoKPiBPbiBUaHUgMTgt
+MDEtMTggMTI6MDE6MzIsIEVyaWMgQW5ob2x0IHdyb3RlOgo+PiBNaWNoYWwgSG9ja28gPG1ob2Nr
+b0BrZXJuZWwub3JnPiB3cml0ZXM6Cj4+Cj4+PiBPbiBUaHUgMTgtMDEtMTggMTg6MDA6MDYsIE1p
+Y2hhbCBIb2NrbyB3cm90ZToKPj4+PiBPbiBUaHUgMTgtMDEtMTggMTE6NDc6NDgsIEFuZHJleSBH
+cm9kem92c2t5IHdyb3RlOgo+Pj4+PiBIaSwgdGhpcyBzZXJpZXMgaXMgYSByZXZpc2VkIHZlcnNp
+b24gb2YgYW4gUkZDIHNlbnQgYnkgQ2hyaXN0aWFuIEvDtm5pZwo+Pj4+PiBhIGZldyB5ZWFycyBh
+Z28uIFRoZSBvcmlnaW5hbCBSRkMgY2FuIGJlIGZvdW5kIGF0Cj4+Pj4+IGh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2RyaS1kZXZlbC8yMDE1LVNlcHRlbWJlci8wODk3Nzgu
+aHRtbAo+Pj4+Pgo+Pj4+PiBUaGlzIGlzIHRoZSBzYW1lIGlkZWEgYW5kIEkndmUganVzdCBhZHJl
+c3NlZCBoaXMgY29uY2VybiBmcm9tIHRoZSBvcmlnaW5hbCBSRkMKPj4+Pj4gYW5kIHN3aXRjaGVk
+IHRvIGEgY2FsbGJhY2sgaW50byBmaWxlX29wcyBpbnN0ZWFkIG9mIGEgbmV3IG1lbWJlciBpbiBz
+dHJ1Y3QgZmlsZS4KPj4+PiBQbGVhc2UgYWRkIHRoZSBmdWxsIGRlc2NyaXB0aW9uIHRvIHRoZSBj
+b3ZlciBsZXR0ZXIgYW5kIGRvIG5vdCBtYWtlCj4+Pj4gcGVvcGxlIGh1bnQgbGlua3MuCj4+Pj4K
+Pj4+PiBIZXJlIGlzIHRoZSBvcmlnaW4gY292ZXIgbGV0dGVyIHRleHQKPj4+PiA6IEknbSBjdXJy
+ZW50bHkgd29ya2luZyBvbiB0aGUgaXNzdWUgdGhhdCB3aGVuIGRldmljZSBkcml2ZXJzIGFsbG9j
+YXRlIG1lbW9yeSBvbgo+Pj4+IDogYmVoYWxmIG9mIGFuIGFwcGxpY2F0aW9uIHRoZSBPT00ga2ls
+bGVyIHVzdWFsbHkgZG9lc24ndCBrbmV3IGFib3V0IHRoYXQgdW5sZXNzCj4+Pj4gOiB0aGUgYXBw
+bGljYXRpb24gYWxzbyBnZXQgdGhpcyBtZW1vcnkgbWFwcGVkIGludG8gdGhlaXIgYWRkcmVzcyBz
+cGFjZS4KPj4+PiA6Cj4+Pj4gOiBUaGlzIGlzIGVzcGVjaWFsbHkgYW5ub3lpbmcgZm9yIGdyYXBo
+aWNzIGRyaXZlcnMgd2hlcmUgYSBsb3Qgb2YgdGhlIFZSQU0KPj4+PiA6IHVzdWFsbHkgaXNuJ3Qg
+Q1BVIGFjY2Vzc2libGUgYW5kIHNvIGRvZXNuJ3QgbWFrZSBzZW5zZSB0byBtYXAgaW50byB0aGUK
+Pj4+PiA6IGFkZHJlc3Mgc3BhY2Ugb2YgdGhlIHByb2Nlc3MgdXNpbmcgaXQuCj4+Pj4gOgo+Pj4+
+IDogVGhlIHByb2JsZW0gbm93IGlzIHRoYXQgd2hlbiBhbiBhcHBsaWNhdGlvbiBzdGFydHMgdG8g
+dXNlIGEgbG90IG9mIFZSQU0gdGhvc2UKPj4+PiA6IGJ1ZmZlcnMgb2JqZWN0cyBzb29uZXIgb3Ig
+bGF0ZXIgZ2V0IHN3YXBwZWQgb3V0IHRvIHN5c3RlbSBtZW1vcnksIGJ1dCB3aGVuIHdlCj4+Pj4g
+OiBub3cgcnVuIGludG8gYW4gb3V0IG9mIG1lbW9yeSBzaXR1YXRpb24gdGhlIE9PTSBraWxsZXIg
+b2J2aW91c2x5IGRvZXNuJ3Qga25ldwo+Pj4+IDogYW55dGhpbmcgYWJvdXQgdGhhdCBtZW1vcnkg
+YW5kIHNvIHVzdWFsbHkga2lsbHMgdGhlIHdyb25nIHByb2Nlc3MuCj4+PiBPSywgYnV0IGhvdyBk
+byB5b3UgYXR0cmlidXRlIHRoYXQgbWVtb3J5IHRvIGEgcGFydGljdWxhciBPT00ga2lsbGFibGUK
+Pj4+IGVudGl0eT8gQW5kIGhvdyBkbyB5b3UgYWN0dWFsbHkgZW5mb3JjZSB0aGF0IHRob3NlIHJl
+c291cmNlcyBnZXQgZnJlZWQKPj4+IG9uIHRoZSBvb20ga2lsbGVyIGFjdGlvbj8KPj4+Cj4+Pj4g
+OiBUaGUgZm9sbG93aW5nIHNldCBvZiBwYXRjaGVzIHRyaWVzIHRvIGFkZHJlc3MgdGhpcyBwcm9i
+bGVtIGJ5IGludHJvZHVjaW5nIGEgcGVyCj4+Pj4gOiBmaWxlIE9PTSBiYWRuZXNzIHNjb3JlLCB3
+aGljaCBkZXZpY2UgZHJpdmVycyBjYW4gdXNlIHRvIGdpdmUgdGhlIE9PTSBraWxsZXIgYQo+Pj4+
+IDogaGludCBob3cgbWFueSByZXNvdXJjZXMgYXJlIGJvdW5kIHRvIGEgZmlsZSBkZXNjcmlwdG9y
+IHNvIHRoYXQgaXQgY2FuIG1ha2UKPj4+PiA6IGJldHRlciBkZWNpc2lvbnMgd2hpY2ggcHJvY2Vz
+cyB0byBraWxsLgo+Pj4gQnV0IGZpbGVzIGFyZSBub3Qga2lsbGFibGUsIHRoZXkgY2FuIGJlIHNo
+YXJlZC4uLiBJbiBvdGhlciB3b3JkcyB0aGlzCj4+PiBkb2Vzbid0IGhlbHAgdGhlIG9vbSBraWxs
+ZXIgdG8gbWFrZSBhbiBlZHVjYXRlZCBndWVzcyBhdCBhbGwuCj4+IE1heWJlIHNvbWUgbW9yZSBj
+b250ZXh0IHdvdWxkIGhlbHAgdGhlIGRpc2N1c3Npb24/Cj4+Cj4+IFRoZSBzdHJ1Y3QgZmlsZSBp
+biBwYXRjaCAzIGlzIHRoZSBEUk0gZmQuICBUaGF0J3MgZWZmZWN0aXZlbHkgIm15Cj4+IHByb2Nl
+c3MncyBpbnRlcmZhY2UgdG8gdGFsa2luZyB0byB0aGUgR1BVIiBub3QgImEgc2luZ2xlIEdQVSBy
+ZXNvdXJjZSIuCj4+IE9uY2UgdGhhdCBmaWxlIGlzIGNsb3NlZCwgYWxsIG9mIHRoZSBwcm9jZXNz
+J3MgcHJpdmF0ZSwgaWRsZSBHUFUgYnVmZmVycwo+PiB3aWxsIGJlIGltbWVkaWF0ZWx5IGZyZWVk
+ICh0aGlzIHdpbGwgYmUgbW9zdCBvZiB0aGVpciBhbGxvY2F0aW9ucyksIGFuZAo+PiBzb21lIHdp
+bGwgYmUgZnJlZWQgb25jZSB0aGUgR1BVIGNvbXBsZXRlcyBzb21lIHdvcmsgKHRoaXMgd2lsbCBi
+ZSBtb3N0Cj4+IG9mIHRoZSByZXN0IG9mIHRoZWlyIGFsbG9jYXRpb25zKS4KPj4KPj4gU29tZSBH
+RU0gQk9zIHdvbid0IGJlIGZyZWVkIGp1c3QgYnkgY2xvc2luZyB0aGUgZmQsIGlmIHRoZXkndmUg
+YmVlbgo+PiBzaGFyZWQgYmV0d2VlbiBwcm9jZXNzZXMuICBUaG9zZSBhcmUgdXN1YWxseSBhYm91
+dCA4LTI0TUIgdG90YWwgaW4gYQo+PiBwcm9jZXNzLCByYXRoZXIgdGhhbiB0aGUgR0JzIHRoYXQg
+bW9kZXJuIGFwcHMgdXNlIChvciB0aGF0IG91ciB0ZXN0Y2FzZXMKPj4gbGlrZSB0byBhbGxvY2F0
+ZSBhbmQgdGh1cyB0cmlnZ2VyIG9vbWtpbGxpbmcgb2YgdGhlIHRlc3QgaGFybmVzcyBpbnN0ZWFk
+Cj4+IG9mIHRoZSBvZmZlbmRpbmcgdGVzdGNhc2UuLi4pCj4+Cj4+IEV2ZW4gaWYgd2UganVzdCBo
+YWQgdGhlIHByaXZhdGUraWRsZSBidWZmZXJzIGJlaW5nIGFjY291bnRlZCBpbiBPT00KPj4gYmFk
+bmVzcywgdGhhdCB3b3VsZCBiZSBhIGh1Z2Ugc3RlcCBmb3J3YXJkIGluIHN5c3RlbSByZWxpYWJp
+bGl0eS4KPiBPSywgaW4gdGhhdCBjYXNlIEkgd291bGQgcHJvcG9zZSBhIGRpZmZlcmVudCBhcHBy
+b2FjaC4gV2UgYWxyZWFkeQo+IGhhdmUgcnNzX3N0YXQuIFNvIHdoeSBkbyBub3Qgd2Ugc2ltcGx5
+IGFkZCBhIG5ldyBjb3VudGVyIHRoZXJlCj4gTU1fS0VSTkVMUEFHRVMgYW5kIGNvbnNpZGVyIHRo
+b3NlIGluIG9vbV9iYWRuZXNzPyBUaGUgcnVsZSB3b3VsZCBiZQo+IHRoYXQgc3VjaCBhIG1lbW9y
+eSBpcyBib3VuZCB0byB0aGUgcHJvY2VzcyBsaWZlIHRpbWUuIEkgZ3Vlc3Mgd2Ugd2lsbAo+IGZp
+bmQgbW9yZSB1c2VycyBmb3IgdGhpcyBsYXRlci4KCkkgYWxyZWFkeSB0cmllZCB0aGF0IGFuZCB0
+aGUgcHJvYmxlbSB3aXRoIHRoYXQgYXBwcm9hY2ggaXMgdGhhdCBzb21lIApidWZmZXJzIGFyZSBu
+b3QgY3JlYXRlZCBieSB0aGUgYXBwbGljYXRpb24gd2hpY2ggYWN0dWFsbHkgdXNlcyB0aGVtLgoK
+Rm9yIGV4YW1wbGUgWC9XYXlsYW5kIGlzIGNyZWF0aW5nIGFuZCBoYW5kaW5nIG91dCByZW5kZXIg
+YnVmZmVycyB0byAKYXBwbGljYXRpb24gd2hpY2ggd2FudCB0byB1c2UgT3BlbkdMLgoKU28gdGhl
+IHJlc3VsdCBpcyB3aGVuIHlvdSBhbHdheXMgYWNjb3VudCB0aGUgYXBwbGljYXRpb24gd2hvIGNy
+ZWF0ZWQgdGhlIApidWZmZXIgdGhlIE9PTSBraWxsZXIgd2lsbCBjZXJ0YWlubHkgcmVhcCBYL1dh
+eWxhbmQgZmlyc3QuIEFuZCB0aGF0IGlzIApleGFjdGx5IHdoYXQgd2Ugd2FudCB0byBhdm9pZCBo
+ZXJlLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
