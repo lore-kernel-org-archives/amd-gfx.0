@@ -1,64 +1,49 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 21/21] drm/amdgpu: add PASID mapping for GMC v9
-Date: Fri, 19 Jan 2018 12:48:25 +0100
-Message-ID: <20180119114825.1336-21-christian.koenig@amd.com>
-References: <20180119114825.1336-1-christian.koenig@amd.com>
+From: Michal Hocko <mhocko@kernel.org>
+Subject: Re: [RFC] Per file OOM badness
+Date: Fri, 19 Jan 2018 13:13:51 +0100
+Message-ID: <20180119121351.GW6584@dhcp22.suse.cz>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20180118170006.GG6584@dhcp22.suse.cz>
+ <20180118171355.GH6584@dhcp22.suse.cz>
+ <87k1wfgcmb.fsf@anholt.net>
+ <20180119082046.GL6584@dhcp22.suse.cz>
+ <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
+ <20180119104058.GU6584@dhcp22.suse.cz>
+ <d4fe7e59-da2d-11a5-73e2-55f2f27cdfd8@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180119114825.1336-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+Content-Disposition: inline
+In-Reply-To: <d4fe7e59-da2d-11a5-73e2-55f2f27cdfd8@amd.com>
+Sender: owner-linux-mm@kvack.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Eric Anholt <eric@anholt.net>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyB3YXkgd2UgY2FuIHNlZSB0aGUgUEFTSUQgaW4gVk0gZmF1bHRzLgoKU2lnbmVkLW9mZi1i
-eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1i
-eTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwgMTIgKysrKysrKysrKystCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9zb2MxNS5oICAgIHwgIDIgKy0KIDIgZmlsZXMgY2hhbmdlZCwgMTIgaW5z
-ZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5
-XzAuYwppbmRleCBkYThlYTQ3ODNjZjMuLjI2M2RhNGYzZTcwYiAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjlfMC5jCkBAIC0zMyw2ICszMyw3IEBACiAjaW5jbHVkZSAidmVnYTEwX2Vu
-dW0uaCIKICNpbmNsdWRlICJtbWh1Yi9tbWh1Yl8xXzBfb2Zmc2V0LmgiCiAjaW5jbHVkZSAiYXRo
-dWIvYXRodWJfMV8wX29mZnNldC5oIgorI2luY2x1ZGUgIm9zcy9vc3NzeXNfNF8wX29mZnNldC5o
-IgogCiAjaW5jbHVkZSAic29jMTUuaCIKICNpbmNsdWRlICJzb2MxNV9jb21tb24uaCIKQEAgLTM2
-OSwxMCArMzcwLDEyIEBAIHN0YXRpYyB1aW50NjRfdCBnbWNfdjlfMF9lbWl0X2ZsdXNoX2dwdV90
-bGIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAogCQkJCQkgICAgdW5zaWduZWQgdm1pZCwgdW5z
-aWduZWQgcGFzaWQsCiAJCQkJCSAgICB1aW50NjRfdCBwZF9hZGRyKQogewotCXN0cnVjdCBhbWRn
-cHVfdm1odWIgKmh1YiA9ICZyaW5nLT5hZGV2LT52bWh1YltyaW5nLT5mdW5jcy0+dm1odWJdOwor
-CXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gcmluZy0+YWRldjsKKwlzdHJ1Y3QgYW1kZ3B1
-X3ZtaHViICpodWIgPSAmYWRldi0+dm1odWJbcmluZy0+ZnVuY3MtPnZtaHViXTsKIAl1aW50MzJf
-dCByZXEgPSBnbWNfdjlfMF9nZXRfaW52YWxpZGF0ZV9yZXEodm1pZCk7CiAJdWludDY0X3QgZmxh
-Z3MgPSBBTURHUFVfUFRFX1ZBTElEOwogCXVuc2lnbmVkIGVuZyA9IHJpbmctPnZtX2ludl9lbmc7
-CisJdWludDMyX3QgcmVnOwogCiAJYW1kZ3B1X2dtY19nZXRfdm1fcGRlKHJpbmctPmFkZXYsIC0x
-LCAmcGRfYWRkciwgJmZsYWdzKTsKIAlwZF9hZGRyIHw9IGZsYWdzOwpAQCAtMzgzLDYgKzM4Niwx
-MyBAQCBzdGF0aWMgdWludDY0X3QgZ21jX3Y5XzBfZW1pdF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBh
-bWRncHVfcmluZyAqcmluZywKIAlhbWRncHVfcmluZ19lbWl0X3dyZWcocmluZywgaHViLT5jdHgw
-X3B0Yl9hZGRyX2hpMzIgKyAoMiAqIHZtaWQpLAogCQkJICAgICAgdXBwZXJfMzJfYml0cyhwZF9h
-ZGRyKSk7CiAKKwlpZiAocmluZy0+ZnVuY3MtPnZtaHViID09IEFNREdQVV9HRlhIVUIpCisJCXJl
-ZyA9IFNPQzE1X1JFR19PRkZTRVQoT1NTU1lTLCAwLCBtbUlIX1ZNSURfMF9MVVQpICsgdm1pZDsK
-KwllbHNlCisJCXJlZyA9IFNPQzE1X1JFR19PRkZTRVQoT1NTU1lTLCAwLCBtbUlIX1ZNSURfMF9M
-VVRfTU0pICsgdm1pZDsKKworCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCByZWcsIHBhc2lk
-KTsKKwogCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCBodWItPnZtX2ludl9lbmcwX3JlcSAr
-IGVuZywgcmVxKTsKIAogCXJldHVybiBwZF9hZGRyOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvc29jMTUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1
-LmgKaW5kZXggYTZiM2IwMGQ1NWU0Li4wZjYzZWQ2NzRkMGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvc29jMTUuaApAQCAtMjcsNyArMjcsNyBAQAogI2luY2x1ZGUgIm5iaW9fdjZfMS5oIgogI2lu
-Y2x1ZGUgIm5iaW9fdjdfMC5oIgogCi0jZGVmaW5lIFNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1dS
-RUcJMworI2RlZmluZSBTT0MxNV9GTFVTSF9HUFVfVExCX05VTV9XUkVHCTQKIAogZXh0ZXJuIGNv
-bnN0IHN0cnVjdCBhbWRfaXBfZnVuY3Mgc29jMTVfY29tbW9uX2lwX2Z1bmNzOwogCi0tIAoyLjE0
-LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Fri 19-01-18 12:37:51, Christian König wrote:
+[...]
+> The per file descriptor badness is/was just the much easier approach to
+> solve the issue, because the drivers already knew which client is currently
+> using which buffer objects.
+> 
+> I of course agree that file descriptors can be shared between processes and
+> are by themselves not killable. But at least for our graphics driven use
+> case I don't see much of a problem killing all processes when a file
+> descriptor is used by more than one at the same time.
+
+Ohh, I absolutely see why you have chosen this way for your particular
+usecase. I am just arguing that this would rather be more generic to be
+merged. If there is absolutely no other way around we can consider it
+but right now I do not see that all other options have been considered
+properly. Especially when the fd based approach is basically wrong for
+almost anybody else.
+-- 
+Michal Hocko
+SUSE Labs
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
