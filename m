@@ -1,8 +1,8 @@
 From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu: Temparary disable the sdma use pollmem feature
  for sriov.
-Date: Fri, 19 Jan 2018 18:15:34 +0800
-Message-ID: <1516356934-2773-1-git-send-email-Emily.Deng@amd.com>
+Date: Fri, 19 Jan 2018 18:18:25 +0800
+Message-ID: <1516357105-3657-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
