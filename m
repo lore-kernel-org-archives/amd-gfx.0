@@ -1,14 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amd/display: dc: Remove unused display_mode_vba.c
-Date: Mon, 22 Jan 2018 21:29:35 +0000
-Message-ID: <BN6PR12MB1652474AC2D090E0D3D9C931F7EC0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <20180118210353.18842-2-harry.wentland@amd.com>,
- <20180122212733.18899-1-harry.wentland@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu] Fix linear check in
+ amdgpu_glamor_share_pixmap_backing
+Date: Mon, 22 Jan 2018 23:18:58 +0100
+Message-ID: <CAAxE2A7iukUDDS5--U6x2HA-04G0AEHSY-=is6RAji=5Lu7eGw@mail.gmail.com>
+References: <20180122173613.18988-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1362850066=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180122212733.18899-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180122173613.18988-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,130 +19,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1362850066==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652474AC2D090E0D3D9C931F7EC0BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652474AC2D090E0D3D9C931F7EC0BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
-ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, January 22, 2018 4:27 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Grodzovsky, Andrey; Cheng, Tony; Laktyus=
-hkin, Dmytro; Deucher, Alexander
-Cc: Wentland, Harry
-Subject: [PATCH v2] drm/amd/display: dc: Remove unused display_mode_vba.c
-
-We're currently not using this.
-
-v2: More files and includes to remove.
-
-Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/dml/Makefile        |    6 +-
- .../gpu/drm/amd/display/dc/dml/display_mode_lib.h  |    3 -
- .../gpu/drm/amd/display/dc/dml/display_mode_vba.c  | 6085 ----------------=
-----
- .../gpu/drm/amd/display/dc/dml/display_mode_vba.h  |  598 --
- .../drm/amd/display/dc/dml/display_rq_dlg_calc.c   | 1772 ------
- .../drm/amd/display/dc/dml/display_rq_dlg_calc.h   |  148 -
- .../amd/display/dc/dml/dml1_display_rq_dlg_calc.h  |    3 +-
- 7 files changed, 4 insertions(+), 8611 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_rq_dlg_calc.=
-c
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_rq_dlg_calc.=
-h
-
-
---_000_BN6PR12MB1652474AC2D090E0D3D9C931F7EC0BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<br>
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-<br>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.we=
-ntland-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, January 22, 2018 4:27 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Grodzovsky, Andrey; Cheng, Tony; =
-Laktyushkin, Dmytro; Deucher, Alexander<br>
-<b>Cc:</b> Wentland, Harry<br>
-<b>Subject:</b> [PATCH v2] drm/amd/display: dc: Remove unused display_mode_=
-vba.c</font>
-<div>&nbsp;</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:11pt;">
-<div class=3D"PlainText">We're currently not using this.<br>
-<br>
-v2: More files and includes to remove.<br>
-<br>
-Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dml/Makefile&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; 6 &#43;-<br>
-&nbsp;.../gpu/drm/amd/display/dc/dml/display_mode_lib.h&nbsp; |&nbsp;&nbsp;=
-&nbsp; 3 -<br>
-&nbsp;.../gpu/drm/amd/display/dc/dml/display_mode_vba.c&nbsp; | 6085 ------=
---------------<br>
-&nbsp;.../gpu/drm/amd/display/dc/dml/display_mode_vba.h&nbsp; |&nbsp; 598 -=
--<br>
-&nbsp;.../drm/amd/display/dc/dml/display_rq_dlg_calc.c&nbsp;&nbsp; | 1772 -=
------<br>
-&nbsp;.../drm/amd/display/dc/dml/display_rq_dlg_calc.h&nbsp;&nbsp; |&nbsp; =
-148 -<br>
-&nbsp;.../amd/display/dc/dml/dml1_display_rq_dlg_calc.h&nbsp; |&nbsp;&nbsp;=
-&nbsp; 3 &#43;-<br>
-&nbsp;7 files changed, 4 insertions(&#43;), 8611 deletions(-)<br>
-&nbsp;delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_mode_vb=
-a.c<br>
-&nbsp;delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_mode_vb=
-a.h<br>
-&nbsp;delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_rq_dlg_=
-calc.c<br>
-&nbsp;delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/display_rq_dlg_=
-calc.h</div>
-</span></font><br>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1652474AC2D090E0D3D9C931F7EC0BN6PR12MB1652namp_--
-
---===============1362850066==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1362850066==--
+UmV2aWV3ZWQtYnk6IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+CgpNYXJlawoK
+T24gTW9uLCBKYW4gMjIsIDIwMTggYXQgNjozNiBQTSwgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBk
+YWVuemVyLm5ldD4gd3JvdGU6Cj4gRnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVy
+QGFtZC5jb20+Cj4KPiBXZSB3ZXJlIGluY29ycmVjdGx5IGludGVycHJldGluZyB0aGUgdGlsaW5n
+IGluZm9ybWF0aW9uLgo+Cj4gUmVwb3J0ZWQtYnk6IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2Fr
+QGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVy
+QGFtZC5jb20+Cj4gLS0tCj4gIGNvbmZpZ3VyZS5hYyAgICAgICAgfCAgMiArLQo+ICBzcmMvYW1k
+Z3B1X2dsYW1vci5jIHwgMTEgKysrKysrKysrKy0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNl
+cnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2NvbmZpZ3VyZS5hYyBi
+L2NvbmZpZ3VyZS5hYwo+IGluZGV4IDAyZTE5YWFjNS4uZWE0MWY0MWIzIDEwMDY0NAo+IC0tLSBh
+L2NvbmZpZ3VyZS5hYwo+ICsrKyBiL2NvbmZpZ3VyZS5hYwo+IEBAIC03MSw3ICs3MSw3IEBAIFhP
+UkdfRFJJVkVSX0NIRUNLX0VYVChEUE1TRXh0ZW5zaW9uLCB4ZXh0cHJvdG8pCj4KPiAgIyBDaGVj
+a3MgZm9yIGxpYnJhcmllcy4KPiAgUEtHX0NIRUNLX01PRFVMRVMoTElCRFJNLCBbbGliZHJtID49
+IDIuNC43OF0pCj4gLVBLR19DSEVDS19NT0RVTEVTKExJQkRSTV9BTURHUFUsIFtsaWJkcm1fYW1k
+Z3B1ID49IDIuNC43Ml0pCj4gK1BLR19DSEVDS19NT0RVTEVTKExJQkRSTV9BTURHUFUsIFtsaWJk
+cm1fYW1kZ3B1ID49IDIuNC43Nl0pCj4gIFBLR19DSEVDS19NT0RVTEVTKEdCTSwgW2dibV0pCj4K
+PiAgIyBPYnRhaW4gY29tcGlsZXIvbGlua2VyIG9wdGlvbnMgZm9yIHRoZSBkcml2ZXIgZGVwZW5k
+ZW5jaWVzCj4gZGlmZiAtLWdpdCBhL3NyYy9hbWRncHVfZ2xhbW9yLmMgYi9zcmMvYW1kZ3B1X2ds
+YW1vci5jCj4gaW5kZXggNGQ5Nzg4Nzg3Li44MjE0NmExNTcgMTAwNjQ0Cj4gLS0tIGEvc3JjL2Ft
+ZGdwdV9nbGFtb3IuYwo+ICsrKyBiL3NyYy9hbWRncHVfZ2xhbW9yLmMKPiBAQCAtMzIzLDEzICsz
+MjMsMjIgQEAgYW1kZ3B1X2dsYW1vcl9zaGFyZV9waXhtYXBfYmFja2luZyhQaXhtYXBQdHIgcGl4
+bWFwLCBTY3JlZW5QdHIgc2xhdmUsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB2b2lkICoqaGFuZGxlX3ApCj4gIHsKPiAgICAgICAgIFNjcmVlblB0ciBzY3JlZW4gPSBwaXht
+YXAtPmRyYXdhYmxlLnBTY3JlZW47Cj4gKyAgICAgICBBTURHUFVJbmZvUHRyIGluZm8gPSBBTURH
+UFVQVFIoeGY4NlNjcmVlblRvU2NybihzY3JlZW4pKTsKPiAgICAgICAgIHVpbnQ2NF90IHRpbGlu
+Z19pbmZvOwo+ICAgICAgICAgQ0FSRDE2IHN0cmlkZTsKPiAgICAgICAgIENBUkQzMiBzaXplOwo+
+ICsgICAgICAgQm9vbCBpc19saW5lYXI7Cj4gICAgICAgICBpbnQgZmQ7Cj4KPiAgICAgICAgIHRp
+bGluZ19pbmZvID0gYW1kZ3B1X3BpeG1hcF9nZXRfdGlsaW5nX2luZm8ocGl4bWFwKTsKPiAtICAg
+ICAgIGlmIChBTURHUFVfVElMSU5HX0dFVCh0aWxpbmdfaW5mbywgQVJSQVlfTU9ERSkgIT0gMCkg
+ewo+ICsKPiArICAgICAgIGlmIChpbmZvLT5mYW1pbHkgPj0gQU1ER1BVX0ZBTUlMWV9BSSkgewo+
+ICsgICAgICAgICAgICAgICBpc19saW5lYXIgPSBBTURHUFVfVElMSU5HX0dFVCh0aWxpbmdfaW5m
+bywgU1dJWlpMRV9NT0RFKSA9PSAwOwo+ICsgICAgICAgfSBlbHNlIHsKPiArICAgICAgICAgICAg
+ICAgaXNfbGluZWFyID0gQU1ER1BVX1RJTElOR19HRVQodGlsaW5nX2luZm8sIEFSUkFZX01PREUp
+ID09IDE7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgaWYgKCFpc19saW5lYXIpIHsKPiAgICAg
+ICAgICAgICAgICAgUGl4bWFwUHRyIGxpbmVhcjsKPgo+ICAgICAgICAgICAgICAgICAvKiBXZSBk
+b24ndCB3YW50IHRvIHJlLWFsbG9jYXRlIHRoZSBzY3JlZW4gcGl4bWFwIGFzCj4gLS0KPiAyLjE1
+LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
