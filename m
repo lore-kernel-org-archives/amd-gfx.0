@@ -1,15 +1,11 @@
-From: "Lipski, Mikita" <Mikita.Lipski-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: drop the drm irq pre/post/un install callbacks
-Date: Mon, 22 Jan 2018 18:42:59 +0000
-Message-ID: <BN6PR1201MB0100462BB7320A3F8FFE1DBCE4EC0@BN6PR1201MB0100.namprd12.prod.outlook.com>
-References: <20180122172249.22421-1-alexander.deucher@amd.com>
- <742cf61a-d07b-799f-be8a-d151c976ff10@amd.com>,
- <bf43f531-5f85-a038-b2e1-54813661f2e1@amd.com>
+From: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 01/13] drm/amdgpu: rename static functions in amdgpu_display.c
+Date: Mon, 22 Jan 2018 14:38:02 -0500
+Message-ID: <1516649894-4518-1-git-send-email-Samuel.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2078059372=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bf43f531-5f85-a038-b2e1-54813661f2e1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,447 +16,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 
---===============2078059372==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR1201MB0100462BB7320A3F8FFE1DBCE4EC0BN6PR1201MB0100_"
-
---_000_BN6PR1201MB0100462BB7320A3F8FFE1DBCE4EC0BN6PR1201MB0100_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Tested-By: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
-
-
-Thanks,
-
-Nick
-
-________________________________
-From: Grodzovsky, Andrey
-Sent: Monday, January 22, 2018 1:36:01 PM
-To: Wentland, Harry; Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lipski, M=
-ikita
-Cc: Deucher, Alexander
-Subject: Re: [PATCH] drm/amdgpu: drop the drm irq pre/post/un install callb=
-acks
-
-+ Mikita who verified the patch.
-
-Andrey
-
-
-On 01/22/2018 01:34 PM, Harry Wentland wrote:
-> On 2018-01-22 12:22 PM, Alex Deucher wrote:
->> The preinstall callback didn't do anything because not all
->> of the IPs were initialized when it was called.
->>
->> Move the postinstall setup into sequence in the driver.
->>
->> The uninstall callback disabled all interrupt source, but
->> it got called too late in the driver sequence and caused problems
->> with IPs who already freed the relevant data structures.  Move
->> the call into the right place in the driver sequence.
->>
->> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> Acked-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
->
-> Harry
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  3 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 --
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    | 52 ++--------------------=
---------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h    |  4 +--
->>   4 files changed, 6 insertions(+), 56 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_device.c
->> index d09c4ee9f7e1..02a9157e72ac 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -1483,6 +1483,9 @@ static int amdgpu_device_ip_fini(struct amdgpu_dev=
-ice *adev)
->>               adev->ip_blocks[i].status.hw =3D false;
->>       }
->>
->> +    /* disable all interrupts */
->> +    amdgpu_irq_disable_all(adev);
->> +
->>       for (i =3D adev->num_ip_blocks - 1; i >=3D 0; i--) {
->>               if (!adev->ip_blocks[i].status.sw)
->>                       continue;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_drv.c
->> index 24bc3e9203e2..ab4cb4917565 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->> @@ -856,9 +856,6 @@ static struct drm_driver kms_driver =3D {
->>       .disable_vblank =3D amdgpu_disable_vblank_kms,
->>       .get_vblank_timestamp =3D drm_calc_vbltimestamp_from_scanoutpos,
->>       .get_scanout_position =3D amdgpu_get_crtc_scanout_position,
->> -    .irq_preinstall =3D amdgpu_irq_preinstall,
->> -    .irq_postinstall =3D amdgpu_irq_postinstall,
->> -    .irq_uninstall =3D amdgpu_irq_uninstall,
->>       .irq_handler =3D amdgpu_irq_handler,
->>       .ioctls =3D amdgpu_ioctls_kms,
->>       .gem_free_object_unlocked =3D amdgpu_gem_object_free,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_irq.c
->> index 56bcd59c3399..f6f2a662bb8f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->> @@ -92,7 +92,7 @@ static void amdgpu_irq_reset_work_func(struct work_str=
-uct *work)
->>   }
->>
->>   /* Disable *all* interrupts */
->> -static void amdgpu_irq_disable_all(struct amdgpu_device *adev)
->> +void amdgpu_irq_disable_all(struct amdgpu_device *adev)
->>   {
->>       unsigned long irqflags;
->>       unsigned i, j, k;
->> @@ -123,55 +123,6 @@ static void amdgpu_irq_disable_all(struct amdgpu_de=
-vice *adev)
->>   }
->>
->>   /**
->> - * amdgpu_irq_preinstall - drm irq preinstall callback
->> - *
->> - * @dev: drm dev pointer
->> - *
->> - * Gets the hw ready to enable irqs (all asics).
->> - * This function disables all interrupt sources on the GPU.
->> - */
->> -void amdgpu_irq_preinstall(struct drm_device *dev)
->> -{
->> -    struct amdgpu_device *adev =3D dev->dev_private;
->> -
->> -    /* Disable *all* interrupts */
->> -    amdgpu_irq_disable_all(adev);
->> -    /* Clear bits */
->> -    amdgpu_ih_process(adev);
->> -}
->> -
->> -/**
->> - * amdgpu_irq_postinstall - drm irq preinstall callback
->> - *
->> - * @dev: drm dev pointer
->> - *
->> - * Handles stuff to be done after enabling irqs (all asics).
->> - * Returns 0 on success.
->> - */
->> -int amdgpu_irq_postinstall(struct drm_device *dev)
->> -{
->> -    dev->max_vblank_count =3D 0x00ffffff;
->> -    return 0;
->> -}
->> -
->> -/**
->> - * amdgpu_irq_uninstall - drm irq uninstall callback
->> - *
->> - * @dev: drm dev pointer
->> - *
->> - * This function disables all interrupt sources on the GPU (all asics).
->> - */
->> -void amdgpu_irq_uninstall(struct drm_device *dev)
->> -{
->> -    struct amdgpu_device *adev =3D dev->dev_private;
->> -
->> -    if (adev =3D=3D NULL) {
->> -            return;
->> -    }
->> -    amdgpu_irq_disable_all(adev);
->> -}
->> -
->> -/**
->>    * amdgpu_irq_handler - irq handler
->>    *
->>    * @int irq, void *arg: args
->> @@ -261,6 +212,7 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
->>               cancel_work_sync(&adev->reset_work);
->>               return r;
->>       }
->> +    adev->ddev->max_vblank_count =3D 0x00ffffff;
->>
->>       DRM_DEBUG("amdgpu: irq initialized.\n");
->>       return 0;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_irq.h
->> index 0610cc4a9788..3375ad778edc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
->> @@ -78,9 +78,7 @@ struct amdgpu_irq {
->>       uint32_t                        srbm_soft_reset;
->>   };
->>
->> -void amdgpu_irq_preinstall(struct drm_device *dev);
->> -int amdgpu_irq_postinstall(struct drm_device *dev);
->> -void amdgpu_irq_uninstall(struct drm_device *dev);
->> +void amdgpu_irq_disable_all(struct amdgpu_device *adev);
->>   irqreturn_t amdgpu_irq_handler(int irq, void *arg);
->>
->>   int amdgpu_irq_init(struct amdgpu_device *adev);
->>
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---_000_BN6PR1201MB0100462BB7320A3F8FFE1DBCE4EC0BN6PR1201MB0100_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span>Tested-By: Mikita Lipski &l=
-t;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span><br>
-</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span>Thanks,<br>
-</span></p>
-<span>Nick</span><br>
-<p></p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Grodzovsky, Andrey<br=
->
-<b>Sent:</b> Monday, January 22, 2018 1:36:01 PM<br>
-<b>To:</b> Wentland, Harry; Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Li=
-pski, Mikita<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: drop the drm irq pre/post/un instal=
-l callbacks</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">&#43; Mikita who verified the patch.<br>
-<br>
-Andrey<br>
-<br>
-<br>
-On 01/22/2018 01:34 PM, Harry Wentland wrote:<br>
-&gt; On 2018-01-22 12:22 PM, Alex Deucher wrote:<br>
-&gt;&gt; The preinstall callback didn't do anything because not all<br>
-&gt;&gt; of the IPs were initialized when it was called.<br>
-&gt;&gt;<br>
-&gt;&gt; Move the postinstall setup into sequence in the driver.<br>
-&gt;&gt;<br>
-&gt;&gt; The uninstall callback disabled all interrupt source, but<br>
-&gt;&gt; it got called too late in the driver sequence and caused problems<=
-br>
-&gt;&gt; with IPs who already freed the relevant data structures.&nbsp; Mov=
-e<br>
-&gt;&gt; the call into the right place in the driver sequence.<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Acked-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; Harry<br>
-&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |&nbsp; 3 &=
-#43;&#43;<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nb=
-sp; |&nbsp; 3 --<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c&nbsp;&nbsp;&nb=
-sp; | 52 &#43;&#43;----------------------------<br>
-&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h&nbsp;&nbsp;&nb=
-sp; |&nbsp; 4 &#43;--<br>
-&gt;&gt;&nbsp;&nbsp; 4 files changed, 6 insertions(&#43;), 56 deletions(-)<=
-br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt; index d09c4ee9f7e1..02a9157e72ac 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt; @@ -1483,6 &#43;1483,9 @@ static int amdgpu_device_ip_fini(struct =
-amdgpu_device *adev)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].status.hw =3D false;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; /* disable all interrupts */<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; amdgpu_irq_disable_all(adev);<br>
-&gt;&gt; &#43;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D adev-&gt;num_ip_blo=
-cks - 1; i &gt;=3D 0; i--) {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (!adev-&gt;ip_blocks[i].status.sw)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;=
-<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt;&gt; index 24bc3e9203e2..ab4cb4917565 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt;&gt; @@ -856,9 &#43;856,6 @@ static struct drm_driver kms_driver =3D {<=
-br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .disable_vblank =3D amdgpu_dis=
-able_vblank_kms,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_vblank_timestamp =3D drm_=
-calc_vbltimestamp_from_scanoutpos,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_scanout_position =3D amdg=
-pu_get_crtc_scanout_position,<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; .irq_preinstall =3D amdgpu_irq_preinstall,<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; .irq_postinstall =3D amdgpu_irq_postinstall,<b=
-r>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; .irq_uninstall =3D amdgpu_irq_uninstall,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .irq_handler =3D amdgpu_irq_ha=
-ndler,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ioctls =3D amdgpu_ioctls_kms,=
-<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .gem_free_object_unlocked =3D =
-amdgpu_gem_object_free,<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_irq.c<br>
-&gt;&gt; index 56bcd59c3399..f6f2a662bb8f 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<br>
-&gt;&gt; @@ -92,7 &#43;92,7 @@ static void amdgpu_irq_reset_work_func(struc=
-t work_struct *work)<br>
-&gt;&gt;&nbsp;&nbsp; }<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp; /* Disable *all* interrupts */<br>
-&gt;&gt; -static void amdgpu_irq_disable_all(struct amdgpu_device *adev)<br=
->
-&gt;&gt; &#43;void amdgpu_irq_disable_all(struct amdgpu_device *adev)<br>
-&gt;&gt;&nbsp;&nbsp; {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long irqflags;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned i, j, k;<br>
-&gt;&gt; @@ -123,55 &#43;123,6 @@ static void amdgpu_irq_disable_all(struct=
- amdgpu_device *adev)<br>
-&gt;&gt;&nbsp;&nbsp; }<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp; /**<br>
-&gt;&gt; - * amdgpu_irq_preinstall - drm irq preinstall callback<br>
-&gt;&gt; - *<br>
-&gt;&gt; - * @dev: drm dev pointer<br>
-&gt;&gt; - *<br>
-&gt;&gt; - * Gets the hw ready to enable irqs (all asics).<br>
-&gt;&gt; - * This function disables all interrupt sources on the GPU.<br>
-&gt;&gt; - */<br>
-&gt;&gt; -void amdgpu_irq_preinstall(struct drm_device *dev)<br>
-&gt;&gt; -{<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-&gt;dev_pri=
-vate;<br>
-&gt;&gt; -<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; /* Disable *all* interrupts */<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; amdgpu_irq_disable_all(adev);<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; /* Clear bits */<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; amdgpu_ih_process(adev);<br>
-&gt;&gt; -}<br>
-&gt;&gt; -<br>
-&gt;&gt; -/**<br>
-&gt;&gt; - * amdgpu_irq_postinstall - drm irq preinstall callback<br>
-&gt;&gt; - *<br>
-&gt;&gt; - * @dev: drm dev pointer<br>
-&gt;&gt; - *<br>
-&gt;&gt; - * Handles stuff to be done after enabling irqs (all asics).<br>
-&gt;&gt; - * Returns 0 on success.<br>
-&gt;&gt; - */<br>
-&gt;&gt; -int amdgpu_irq_postinstall(struct drm_device *dev)<br>
-&gt;&gt; -{<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; dev-&gt;max_vblank_count =3D 0x00ffffff;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt; -}<br>
-&gt;&gt; -<br>
-&gt;&gt; -/**<br>
-&gt;&gt; - * amdgpu_irq_uninstall - drm irq uninstall callback<br>
-&gt;&gt; - *<br>
-&gt;&gt; - * @dev: drm dev pointer<br>
-&gt;&gt; - *<br>
-&gt;&gt; - * This function disables all interrupt sources on the GPU (all a=
-sics).<br>
-&gt;&gt; - */<br>
-&gt;&gt; -void amdgpu_irq_uninstall(struct drm_device *dev)<br>
-&gt;&gt; -{<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-&gt;dev_pri=
-vate;<br>
-&gt;&gt; -<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; if (adev =3D=3D NULL) {<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; return;<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; -&nbsp;&nbsp;&nbsp; amdgpu_irq_disable_all(adev);<br>
-&gt;&gt; -}<br>
-&gt;&gt; -<br>
-&gt;&gt; -/**<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; * amdgpu_irq_handler - irq handler<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp; * @int irq, void *arg: args<br>
-&gt;&gt; @@ -261,6 &#43;212,7 @@ int amdgpu_irq_init(struct amdgpu_device *=
-adev)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; cancel_work_sync(&amp;adev-&gt;reset_work);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; adev-&gt;ddev-&gt;max_vblank_count =3D 0x0=
-0ffffff;<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;amdgpu: irq in=
-itialized.\n&quot;);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_irq.h<br>
-&gt;&gt; index 0610cc4a9788..3375ad778edc 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h<br>
-&gt;&gt; @@ -78,9 &#43;78,7 @@ struct amdgpu_irq {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; srbm_soft_reset;<br>
-&gt;&gt;&nbsp;&nbsp; };<br>
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt; -void amdgpu_irq_preinstall(struct drm_device *dev);<br>
-&gt;&gt; -int amdgpu_irq_postinstall(struct drm_device *dev);<br>
-&gt;&gt; -void amdgpu_irq_uninstall(struct drm_device *dev);<br>
-&gt;&gt; &#43;void amdgpu_irq_disable_all(struct amdgpu_device *adev);<br>
-&gt;&gt;&nbsp;&nbsp; irqreturn_t amdgpu_irq_handler(int irq, void *arg);<br=
->
-&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&nbsp;&nbsp; int amdgpu_irq_init(struct amdgpu_device *adev);<br>
-&gt;&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR1201MB0100462BB7320A3F8FFE1DBCE4EC0BN6PR1201MB0100_--
-
---===============2078059372==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2078059372==--
+QWRkIGRpc3BsYXkgdG8gdGhlIG5hbWUgZm9yIGNvbnNpc3RlbmN5LgoKU2lnbmVkLW9mZi1ieTog
+U2FtdWVsIExpIDxTYW11ZWwuTGlAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGlzcGxheS5jIHwgNDEgKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0K
+IDEgZmlsZSBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspLCAxOSBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwppbmRleCAyMmVkZmUwLi5j
+YmY4YTc0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlz
+cGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMK
+QEAgLTM3LDcgKzM3LDggQEAKICNpbmNsdWRlIDxkcm0vZHJtX2VkaWQuaD4KICNpbmNsdWRlIDxk
+cm0vZHJtX2ZiX2hlbHBlci5oPgogCi1zdGF0aWMgdm9pZCBhbWRncHVfZmxpcF9jYWxsYmFjayhz
+dHJ1Y3QgZG1hX2ZlbmNlICpmLCBzdHJ1Y3QgZG1hX2ZlbmNlX2NiICpjYikKK3N0YXRpYyB2b2lk
+IGFtZGdwdV9kaXNwbGF5X2ZsaXBfY2FsbGJhY2soc3RydWN0IGRtYV9mZW5jZSAqZiwKKwkJCQkJ
+IHN0cnVjdCBkbWFfZmVuY2VfY2IgKmNiKQogewogCXN0cnVjdCBhbWRncHVfZmxpcF93b3JrICp3
+b3JrID0KIAkJY29udGFpbmVyX29mKGNiLCBzdHJ1Y3QgYW1kZ3B1X2ZsaXBfd29yaywgY2IpOwpA
+QCAtNDYsOCArNDcsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZmxpcF9jYWxsYmFjayhzdHJ1Y3Qg
+ZG1hX2ZlbmNlICpmLCBzdHJ1Y3QgZG1hX2ZlbmNlX2NiICpjYikKIAlzY2hlZHVsZV93b3JrKCZ3
+b3JrLT5mbGlwX3dvcmsud29yayk7CiB9CiAKLXN0YXRpYyBib29sIGFtZGdwdV9mbGlwX2hhbmRs
+ZV9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2ZsaXBfd29yayAqd29yaywKLQkJCQkgICAgIHN0cnVjdCBk
+bWFfZmVuY2UgKipmKQorc3RhdGljIGJvb2wgYW1kZ3B1X2Rpc3BsYXlfZmxpcF9oYW5kbGVfZmVu
+Y2Uoc3RydWN0IGFtZGdwdV9mbGlwX3dvcmsgKndvcmssCisJCQkJCSAgICAgc3RydWN0IGRtYV9m
+ZW5jZSAqKmYpCiB7CiAJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2U9ICpmOwogCkBAIC01NiwxNCAr
+NTcsMTUgQEAgc3RhdGljIGJvb2wgYW1kZ3B1X2ZsaXBfaGFuZGxlX2ZlbmNlKHN0cnVjdCBhbWRn
+cHVfZmxpcF93b3JrICp3b3JrLAogCiAJKmYgPSBOVUxMOwogCi0JaWYgKCFkbWFfZmVuY2VfYWRk
+X2NhbGxiYWNrKGZlbmNlLCAmd29yay0+Y2IsIGFtZGdwdV9mbGlwX2NhbGxiYWNrKSkKKwlpZiAo
+IWRtYV9mZW5jZV9hZGRfY2FsbGJhY2soZmVuY2UsICZ3b3JrLT5jYiwKKwkJCQkgICAgYW1kZ3B1
+X2Rpc3BsYXlfZmxpcF9jYWxsYmFjaykpCiAJCXJldHVybiB0cnVlOwogCiAJZG1hX2ZlbmNlX3B1
+dChmZW5jZSk7CiAJcmV0dXJuIGZhbHNlOwogfQogCi1zdGF0aWMgdm9pZCBhbWRncHVfZmxpcF93
+b3JrX2Z1bmMoc3RydWN0IHdvcmtfc3RydWN0ICpfX3dvcmspCitzdGF0aWMgdm9pZCBhbWRncHVf
+ZGlzcGxheV9mbGlwX3dvcmtfZnVuYyhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKl9fd29yaykKIHsKIAlz
+dHJ1Y3QgZGVsYXllZF93b3JrICpkZWxheWVkX3dvcmsgPQogCQljb250YWluZXJfb2YoX193b3Jr
+LCBzdHJ1Y3QgZGVsYXllZF93b3JrLCB3b3JrKTsKQEAgLTc3LDExICs3OSwxMSBAQCBzdGF0aWMg
+dm9pZCBhbWRncHVfZmxpcF93b3JrX2Z1bmMoc3RydWN0IHdvcmtfc3RydWN0ICpfX3dvcmspCiAJ
+dW5zaWduZWQgaTsKIAlpbnQgdnBvcywgaHBvczsKIAotCWlmIChhbWRncHVfZmxpcF9oYW5kbGVf
+ZmVuY2Uod29yaywgJndvcmstPmV4Y2wpKQorCWlmIChhbWRncHVfZGlzcGxheV9mbGlwX2hhbmRs
+ZV9mZW5jZSh3b3JrLCAmd29yay0+ZXhjbCkpCiAJCXJldHVybjsKIAogCWZvciAoaSA9IDA7IGkg
+PCB3b3JrLT5zaGFyZWRfY291bnQ7ICsraSkKLQkJaWYgKGFtZGdwdV9mbGlwX2hhbmRsZV9mZW5j
+ZSh3b3JrLCAmd29yay0+c2hhcmVkW2ldKSkKKwkJaWYgKGFtZGdwdV9kaXNwbGF5X2ZsaXBfaGFu
+ZGxlX2ZlbmNlKHdvcmssICZ3b3JrLT5zaGFyZWRbaV0pKQogCQkJcmV0dXJuOwogCiAJLyogV2Fp
+dCB1bnRpbCB3ZSdyZSBvdXQgb2YgdGhlIHZlcnRpY2FsIGJsYW5rIHBlcmlvZCBiZWZvcmUgdGhl
+IG9uZQpAQCAtMTE4LDcgKzEyMCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9mbGlwX3dvcmtfZnVu
+YyhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKl9fd29yaykKIC8qCiAgKiBIYW5kbGUgdW5waW4gZXZlbnRz
+IG91dHNpZGUgdGhlIGludGVycnVwdCBoYW5kbGVyIHByb3Blci4KICAqLwotc3RhdGljIHZvaWQg
+YW1kZ3B1X3VucGluX3dvcmtfZnVuYyhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKl9fd29yaykKK3N0YXRp
+YyB2b2lkIGFtZGdwdV9kaXNwbGF5X3VucGluX3dvcmtfZnVuYyhzdHJ1Y3Qgd29ya19zdHJ1Y3Qg
+Kl9fd29yaykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2ZsaXBfd29yayAqd29yayA9CiAJCWNvbnRhaW5l
+cl9vZihfX3dvcmssIHN0cnVjdCBhbWRncHVfZmxpcF93b3JrLCB1bnBpbl93b3JrKTsKQEAgLTE2
+Myw4ICsxNjUsOCBAQCBpbnQgYW1kZ3B1X2NydGNfcGFnZV9mbGlwX3RhcmdldChzdHJ1Y3QgZHJt
+X2NydGMgKmNydGMsCiAJaWYgKHdvcmsgPT0gTlVMTCkKIAkJcmV0dXJuIC1FTk9NRU07CiAKLQlJ
+TklUX0RFTEFZRURfV09SSygmd29yay0+ZmxpcF93b3JrLCBhbWRncHVfZmxpcF93b3JrX2Z1bmMp
+OwotCUlOSVRfV09SSygmd29yay0+dW5waW5fd29yaywgYW1kZ3B1X3VucGluX3dvcmtfZnVuYyk7
+CisJSU5JVF9ERUxBWUVEX1dPUksoJndvcmstPmZsaXBfd29yaywgYW1kZ3B1X2Rpc3BsYXlfZmxp
+cF93b3JrX2Z1bmMpOworCUlOSVRfV09SSygmd29yay0+dW5waW5fd29yaywgYW1kZ3B1X2Rpc3Bs
+YXlfdW5waW5fd29ya19mdW5jKTsKIAogCXdvcmstPmV2ZW50ID0gZXZlbnQ7CiAJd29yay0+YWRl
+diA9IGFkZXY7CkBAIC0yMjksNyArMjMxLDcgQEAgaW50IGFtZGdwdV9jcnRjX3BhZ2VfZmxpcF90
+YXJnZXQoc3RydWN0IGRybV9jcnRjICpjcnRjLAogCS8qIHVwZGF0ZSBjcnRjIGZiICovCiAJY3J0
+Yy0+cHJpbWFyeS0+ZmIgPSBmYjsKIAlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZjcnRjLT5kZXYt
+PmV2ZW50X2xvY2ssIGZsYWdzKTsKLQlhbWRncHVfZmxpcF93b3JrX2Z1bmMoJndvcmstPmZsaXBf
+d29yay53b3JrKTsKKwlhbWRncHVfZGlzcGxheV9mbGlwX3dvcmtfZnVuYygmd29yay0+ZmxpcF93
+b3JrLndvcmspOwogCXJldHVybiAwOwogCiBwZmxpcF9jbGVhbnVwOgpAQCAtNDgwLDcgKzQ4Miw3
+IEBAIGJvb2wgYW1kZ3B1X2RkY19wcm9iZShzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYW1kZ3B1
+X2Nvbm5lY3RvciwKIAlyZXR1cm4gdHJ1ZTsKIH0KIAotc3RhdGljIHZvaWQgYW1kZ3B1X3VzZXJf
+ZnJhbWVidWZmZXJfZGVzdHJveShzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyICpmYikKK3N0YXRpYyB2
+b2lkIGFtZGdwdV9kaXNwbGF5X3VzZXJfZnJhbWVidWZmZXJfZGVzdHJveShzdHJ1Y3QgZHJtX2Zy
+YW1lYnVmZmVyICpmYikKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2ZyYW1lYnVmZmVyICphbWRncHVfZmIg
+PSB0b19hbWRncHVfZnJhbWVidWZmZXIoZmIpOwogCkBAIC00ODksOSArNDkxLDEwIEBAIHN0YXRp
+YyB2b2lkIGFtZGdwdV91c2VyX2ZyYW1lYnVmZmVyX2Rlc3Ryb3koc3RydWN0IGRybV9mcmFtZWJ1
+ZmZlciAqZmIpCiAJa2ZyZWUoYW1kZ3B1X2ZiKTsKIH0KIAotc3RhdGljIGludCBhbWRncHVfdXNl
+cl9mcmFtZWJ1ZmZlcl9jcmVhdGVfaGFuZGxlKHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKmZiLAot
+CQkJCQkJICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdiwKLQkJCQkJCSAgdW5zaWduZWQgaW50
+ICpoYW5kbGUpCitzdGF0aWMgaW50IGFtZGdwdV9kaXNwbGF5X3VzZXJfZnJhbWVidWZmZXJfY3Jl
+YXRlX2hhbmRsZSgKKwkJCXN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKmZiLAorCQkJc3RydWN0IGRy
+bV9maWxlICpmaWxlX3ByaXYsCisJCQl1bnNpZ25lZCBpbnQgKmhhbmRsZSkKIHsKIAlzdHJ1Y3Qg
+YW1kZ3B1X2ZyYW1lYnVmZmVyICphbWRncHVfZmIgPSB0b19hbWRncHVfZnJhbWVidWZmZXIoZmIp
+OwogCkBAIC00OTksOCArNTAyLDggQEAgc3RhdGljIGludCBhbWRncHVfdXNlcl9mcmFtZWJ1ZmZl
+cl9jcmVhdGVfaGFuZGxlKHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKmZiLAogfQogCiBzdGF0aWMg
+Y29uc3Qgc3RydWN0IGRybV9mcmFtZWJ1ZmZlcl9mdW5jcyBhbWRncHVfZmJfZnVuY3MgPSB7Ci0J
+LmRlc3Ryb3kgPSBhbWRncHVfdXNlcl9mcmFtZWJ1ZmZlcl9kZXN0cm95LAotCS5jcmVhdGVfaGFu
+ZGxlID0gYW1kZ3B1X3VzZXJfZnJhbWVidWZmZXJfY3JlYXRlX2hhbmRsZSwKKwkuZGVzdHJveSA9
+IGFtZGdwdV9kaXNwbGF5X3VzZXJfZnJhbWVidWZmZXJfZGVzdHJveSwKKwkuY3JlYXRlX2hhbmRs
+ZSA9IGFtZGdwdV9kaXNwbGF5X3VzZXJfZnJhbWVidWZmZXJfY3JlYXRlX2hhbmRsZSwKIH07CiAK
+IHVpbnQzMl90IGFtZGdwdV9kaXNwbGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCkBAIC02NjcsNyArNjcwLDcgQEAgdm9pZCBhbWRncHVfdXBkYXRlX2Rp
+c3BsYXlfcHJpb3JpdHkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAKIH0KIAotc3RhdGlj
+IGJvb2wgaXNfaGR0dl9tb2RlKGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICptb2RlKQor
+c3RhdGljIGJvb2wgYW1kZ3B1X2Rpc3BsYXlfaXNfaGR0dl9tb2RlKGNvbnN0IHN0cnVjdCBkcm1f
+ZGlzcGxheV9tb2RlICptb2RlKQogewogCS8qIHRyeSBhbmQgZ3Vlc3MgaWYgdGhpcyBpcyBhIHR2
+IG9yIGEgbW9uaXRvciAqLwogCWlmICgobW9kZS0+dmRpc3BsYXkgPT0gNDgwICYmIG1vZGUtPmhk
+aXNwbGF5ID09IDcyMCkgfHwgLyogNDgwcCAqLwpAQCAtNzI0LDcgKzcyNyw3IEBAIGJvb2wgYW1k
+Z3B1X2NydGNfc2NhbGluZ19tb2RlX2ZpeHVwKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJICAg
+ICgoYW1kZ3B1X2VuY29kZXItPnVuZGVyc2Nhbl90eXBlID09IFVOREVSU0NBTl9PTikgfHwKIAkJ
+ICAgICAoKGFtZGdwdV9lbmNvZGVyLT51bmRlcnNjYW5fdHlwZSA9PSBVTkRFUlNDQU5fQVVUTykg
+JiYKIAkJICAgICAgZHJtX2RldGVjdF9oZG1pX21vbml0b3IoYW1kZ3B1X2Nvbm5lY3Rvcl9lZGlk
+KGNvbm5lY3RvcikpICYmCi0JCSAgICAgIGlzX2hkdHZfbW9kZShtb2RlKSkpKSB7CisJCSAgICAg
+IGFtZGdwdV9kaXNwbGF5X2lzX2hkdHZfbW9kZShtb2RlKSkpKSB7CiAJCQlpZiAoYW1kZ3B1X2Vu
+Y29kZXItPnVuZGVyc2Nhbl9oYm9yZGVyICE9IDApCiAJCQkJYW1kZ3B1X2NydGMtPmhfYm9yZGVy
+ID0gYW1kZ3B1X2VuY29kZXItPnVuZGVyc2Nhbl9oYm9yZGVyOwogCQkJZWxzZQotLSAKMi43LjQK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
