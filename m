@@ -1,10 +1,13 @@
-From: Drew Davenport <ddavenport-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Subject: atomic debugfs files not created
-Date: Mon, 22 Jan 2018 20:20:06 +0000
-Message-ID: <CAMmTTa0C=7amOzgJ=QLheQVB0nX_L123UGBP4yR+AqgRErBk+Q@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: atomic debugfs files not created
+Date: Mon, 22 Jan 2018 15:45:31 -0500
+Message-ID: <CADnq5_OtqdxmyJaGY3MRaAbD3phAU28xrUsCw7KWPg4u2TkHxw@mail.gmail.com>
+References: <CAMmTTa0C=7amOzgJ=QLheQVB0nX_L123UGBP4yR+AqgRErBk+Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1288823501=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAMmTTa0C=7amOzgJ=QLheQVB0nX_L123UGBP4yR+AqgRErBk+Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,52 +18,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Drew Davenport <ddavenport-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1288823501==
-Content-Type: multipart/alternative; boundary="94eb2c07d4ea95dd5f05636328ef"
-
---94eb2c07d4ea95dd5f05636328ef
-Content-Type: text/plain; charset="UTF-8"
-
-I was doing some debugging and found that /sys/kernel/debug/dri/0/state
-doesn't get created for amdgpu. After a bit of digging around I found that
-the DRIVER_ATOMIC feature flag gets set in dm_early_init in amdgpu_dm.c,
-which is run after drm_debugfs_init where the atomic debugfs files would
-have been created.
-
-I tried moving DRIVER_ATOMIC to the rest of the kms_driver.driver_feature
-flags in amdgpu_drv.c, and this allowed the debugfs to get created as
-expected. Nothing seemed terribly broken, but I didn't test thoroughly.
-
-Is there any reason not to move DRIVER_ATOMIC to the rest of the feature
-flags? Thanks.
-
---94eb2c07d4ea95dd5f05636328ef
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I was doing some debugging and found that /sys/kernel/debu=
-g/dri/0/state doesn&#39;t get created for amdgpu. After a bit of digging ar=
-ound I found that the=C2=A0DRIVER_ATOMIC feature flag gets set in dm_early_=
-init in amdgpu_dm.c, which is run after=C2=A0drm_debugfs_init where the ato=
-mic debugfs files would have been created.<div><br></div><div>I tried movin=
-g DRIVER_ATOMIC to the rest of the kms_driver.driver_feature flags in amdgp=
-u_drv.c, and this allowed the debugfs to get created as expected. Nothing s=
-eemed terribly broken, but I didn&#39;t test thoroughly.</div><div><br></di=
-v><div>Is there any reason not to move DRIVER_ATOMIC to the rest of the fea=
-ture flags? Thanks.</div></div>
-
---94eb2c07d4ea95dd5f05636328ef--
-
---===============1288823501==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1288823501==--
+T24gTW9uLCBKYW4gMjIsIDIwMTggYXQgMzoyMCBQTSwgRHJldyBEYXZlbnBvcnQgPGRkYXZlbnBv
+cnRAZ29vZ2xlLmNvbT4gd3JvdGU6Cj4gSSB3YXMgZG9pbmcgc29tZSBkZWJ1Z2dpbmcgYW5kIGZv
+dW5kIHRoYXQgL3N5cy9rZXJuZWwvZGVidWcvZHJpLzAvc3RhdGUKPiBkb2Vzbid0IGdldCBjcmVh
+dGVkIGZvciBhbWRncHUuIEFmdGVyIGEgYml0IG9mIGRpZ2dpbmcgYXJvdW5kIEkgZm91bmQgdGhh
+dAo+IHRoZSBEUklWRVJfQVRPTUlDIGZlYXR1cmUgZmxhZyBnZXRzIHNldCBpbiBkbV9lYXJseV9p
+bml0IGluIGFtZGdwdV9kbS5jLAo+IHdoaWNoIGlzIHJ1biBhZnRlciBkcm1fZGVidWdmc19pbml0
+IHdoZXJlIHRoZSBhdG9taWMgZGVidWdmcyBmaWxlcyB3b3VsZAo+IGhhdmUgYmVlbiBjcmVhdGVk
+Lgo+Cj4gSSB0cmllZCBtb3ZpbmcgRFJJVkVSX0FUT01JQyB0byB0aGUgcmVzdCBvZiB0aGUga21z
+X2RyaXZlci5kcml2ZXJfZmVhdHVyZQo+IGZsYWdzIGluIGFtZGdwdV9kcnYuYywgYW5kIHRoaXMg
+YWxsb3dlZCB0aGUgZGVidWdmcyB0byBnZXQgY3JlYXRlZCBhcwo+IGV4cGVjdGVkLiBOb3RoaW5n
+IHNlZW1lZCB0ZXJyaWJseSBicm9rZW4sIGJ1dCBJIGRpZG4ndCB0ZXN0IHRob3JvdWdobHkuCj4K
+PiBJcyB0aGVyZSBhbnkgcmVhc29uIG5vdCB0byBtb3ZlIERSSVZFUl9BVE9NSUMgdG8gdGhlIHJl
+c3Qgb2YgdGhlIGZlYXR1cmUKPiBmbGFncz8gVGhhbmtzLgoKSXQncyBvbmx5IGF2YWlsYWJsZSB3
+aXRoIHRoZSBuZXcgZGMgbW9kc2V0dGluZyBjb2RlIHdoaWNoIGRvZXNuJ3QKc3VwcG9ydCBhbGwg
+YXNpY3Mgc28geW91J2QgbmVlZCB0byBzZWxlY3RpdmVseSBlbmFibGUgaXQgZGVwZW5kaW5nIG9u
+CnRoZSBhc2ljLiAgWW91J2xsIG9ubHkgd2FudCB0byBlbmFibGUgaXQgaWYKYW1kZ3B1X2Rldmlj
+ZV9hc2ljX2hhc19kY19zdXBwb3J0KCkgcmV0dXJucyB0cnVlLiAgSSB0aGluayBJIGhhZCBhCnBh
+dGNoIHRvIGRvIHRoYXQgYXQgb25lIHBvaW50LCBidXQgSSBkb24ndCBrbm93IHdoYXQgSSBkaWQg
+d2l0aCBpdC4KCkFsZXgKCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
