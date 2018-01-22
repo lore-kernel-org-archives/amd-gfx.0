@@ -1,50 +1,31 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use queue 0 for kiq ring
-Date: Mon, 22 Jan 2018 17:28:52 -0500
-Message-ID: <ef29adff-9d94-9381-71ea-fcbda0ec48b5@amd.com>
-References: <1516628738-16083-1-git-send-email-ray.huang@amd.com>
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [RFC] Per file OOM badness
+Date: Mon, 22 Jan 2018 15:23:15 -0800
+Message-ID: <20180122152315.749d88f3c91ffce4d70ac450@linux-foundation.org>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1516628738-16083-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-S0ZEIGN1cnJlbnRseSBoYXJkLWNvZGVzIE1FQzIsIFBpcGUwLCBRdWV1ZTAgZm9yIHRoZSBISVEu
-IChGb3Igc29tZQpyZWFzb24gS0ZEIG51bWJlcnMgTUVDcyBzdGFydGluZyBmcm9tIDEsIG5vdCAw
-LikKClNvIHRoYXQgbmFycm93cyB5b3VyIGNob2ljZSBmb3IgS0lRIG9uIE1FQzIgZG93biB0byBw
-aXBlID09IDEsIHF1ZXVlID09IDAuCgpSZWdhcmRzLArCoCBGZWxpeAoKCk9uIDIwMTgtMDEtMjIg
-MDg6NDUgQU0sIEh1YW5nIFJ1aSB3cm90ZToKPiBJdCBtdXN0IHVzZSBxdWV1ZSBpZCAwLCBiZWNh
-dXNlIENHUEdfSURMRS9TQVZFL0xPQUQvUlVOIG9ubHkgY2FuIGJlIGlzc3VlZCBvbgo+IHF1ZXVl
-IDAuCj4KPiBTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+IEFj
-a2VkLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+Cj4gUmV2aWV3ZWQt
-Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiAtLS0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jIHwgOCArKysrKystLQo+ICAxIGZp
-bGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYwo+IGluZGV4IGVmMDQzMzYuLjBjZmI5MzkgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jCj4gQEAgLTE3OSw4ICsx
-NzksMTIgQEAgc3RhdGljIGludCBhbWRncHVfZ2Z4X2tpcV9hY3F1aXJlKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LAo+ICAKPiAgCQlhbWRncHVfZ2Z4X2JpdF90b19xdWV1ZShhZGV2LCBxdWV1
-ZV9iaXQsICZtZWMsICZwaXBlLCAmcXVldWUpOwo+ICAKPiAtCQkvKiBVc2luZyBwaXBlcyAyLzMg
-ZnJvbSBNRUMgMiBzZWVtcyBjYXVzZSBwcm9ibGVtcyAqLwo+IC0JCWlmIChtZWMgPT0gMSAmJiBw
-aXBlID4gMSkKPiArCQkvKgo+ICsJCSAqIDEuIFVzaW5nIHBpcGVzIDIvMyBmcm9tIE1FQyAyIHNl
-ZW1zIGNhdXNlIHByb2JsZW1zLgo+ICsJCSAqIDIuIEl0IG11c3QgdXNlIHF1ZXVlIGlkIDAsIGJl
-Y2F1c2UgQ0dQR19JRExFL1NBVkUvTE9BRC9SVU4KPiArCQkgKiBvbmx5IGNhbiBiZSBpc3N1ZWQg
-b24gcXVldWUgMC4KPiArCQkgKi8KPiArCQlpZiAoKG1lYyA9PSAxICYmIHBpcGUgPiAxKSB8fCBx
-dWV1ZSAhPSAwKQo+ICAJCQljb250aW51ZTsKPiAgCj4gIAkJcmluZy0+bWUgPSBtZWMgKyAxOwoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, 18 Jan 2018 11:47:48 -0500 Andrey Grodzovsky <andrey.grodzovsky@amd.com> wrote:
+
+> Hi, this series is a revised version of an RFC sent by Christian König
+> a few years ago. The original RFC can be found at 
+> https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html
+> 
+> This is the same idea and I've just adressed his concern from the original RFC 
+> and switched to a callback into file_ops instead of a new member in struct file.
+
+Should be in address_space_operations, I suspect.  If an application
+opens a file twice, we only want to count it once?
+
+But we're putting the cart ahead of the horse here.  Please provide us
+with a detailed description of the problem which you are addressing so
+that the MM developers can better consider how to address your
+requirements.
