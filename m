@@ -1,11 +1,19 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: drop the drm irq pre/post/un install callbacks
-Date: Mon, 22 Jan 2018 12:22:49 -0500
-Message-ID: <20180122172249.22421-1-alexander.deucher@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 15/24] drm/amd/display: Fix deadlock when flushing irq
+Date: Mon, 22 Jan 2018 17:23:20 +0000
+Message-ID: <BN6PR12MB16529F8B185DE71E994EC7A9F7EC0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <20180118210353.18842-1-harry.wentland@amd.com>
+ <20180118210353.18842-16-harry.wentland@amd.com>
+ <2996fec0-814d-ec58-788b-883df20d2651@amd.com>
+ <BN6PR1201MB0100D9415FC07D00CBE859CCE4EF0@BN6PR1201MB0100.namprd12.prod.outlook.com>
+ <a5d20d38-760e-a4ef-5f79-8774e70f3a4c@amd.com>
+ <fd132165-4c3e-09e4-ec1c-d583263a2917@amd.com>,
+ <98d53b0d-855f-1702-3c10-2b11ec416cc3@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1973982383=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <98d53b0d-855f-1702-3c10-2b11ec416cc3-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,91 +24,345 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Lipski, Mikita" <Mikita.Lipski-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhlIHByZWluc3RhbGwgY2FsbGJhY2sgZGlkbid0IGRvIGFueXRoaW5nIGJlY2F1c2Ugbm90IGFs
-bApvZiB0aGUgSVBzIHdlcmUgaW5pdGlhbGl6ZWQgd2hlbiBpdCB3YXMgY2FsbGVkLgoKTW92ZSB0
-aGUgcG9zdGluc3RhbGwgc2V0dXAgaW50byBzZXF1ZW5jZSBpbiB0aGUgZHJpdmVyLgoKVGhlIHVu
-aW5zdGFsbCBjYWxsYmFjayBkaXNhYmxlZCBhbGwgaW50ZXJydXB0IHNvdXJjZSwgYnV0Cml0IGdv
-dCBjYWxsZWQgdG9vIGxhdGUgaW4gdGhlIGRyaXZlciBzZXF1ZW5jZSBhbmQgY2F1c2VkIHByb2Js
-ZW1zCndpdGggSVBzIHdobyBhbHJlYWR5IGZyZWVkIHRoZSByZWxldmFudCBkYXRhIHN0cnVjdHVy
-ZXMuICBNb3ZlCnRoZSBjYWxsIGludG8gdGhlIHJpZ2h0IHBsYWNlIGluIHRoZSBkcml2ZXIgc2Vx
-dWVuY2UuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwg
-IDMgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICB8ICAzIC0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmMgICAgfCA1MiArKy0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9pcnEuaCAgICB8ICA0ICstLQogNCBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDU2
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-YwppbmRleCBkMDljNGVlOWY3ZTEuLjAyYTkxNTdlNzJhYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMTQ4Myw2ICsxNDgzLDkgQEAgc3RhdGljIGlu
-dCBhbWRncHVfZGV2aWNlX2lwX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCWFk
-ZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMuaHcgPSBmYWxzZTsKIAl9CiAKKwkvKiBkaXNhYmxlIGFs
-bCBpbnRlcnJ1cHRzICovCisJYW1kZ3B1X2lycV9kaXNhYmxlX2FsbChhZGV2KTsKKwogCWZvciAo
-aSA9IGFkZXYtPm51bV9pcF9ibG9ja3MgLSAxOyBpID49IDA7IGktLSkgewogCQlpZiAoIWFkZXYt
-PmlwX2Jsb2Nrc1tpXS5zdGF0dXMuc3cpCiAJCQljb250aW51ZTsKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kcnYuYwppbmRleCAyNGJjM2U5MjAzZTIuLmFiNGNiNDkxNzU2NSAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpAQCAtODU2LDkgKzg1Niw2IEBA
-IHN0YXRpYyBzdHJ1Y3QgZHJtX2RyaXZlciBrbXNfZHJpdmVyID0gewogCS5kaXNhYmxlX3ZibGFu
-ayA9IGFtZGdwdV9kaXNhYmxlX3ZibGFua19rbXMsCiAJLmdldF92YmxhbmtfdGltZXN0YW1wID0g
-ZHJtX2NhbGNfdmJsdGltZXN0YW1wX2Zyb21fc2Nhbm91dHBvcywKIAkuZ2V0X3NjYW5vdXRfcG9z
-aXRpb24gPSBhbWRncHVfZ2V0X2NydGNfc2Nhbm91dF9wb3NpdGlvbiwKLQkuaXJxX3ByZWluc3Rh
-bGwgPSBhbWRncHVfaXJxX3ByZWluc3RhbGwsCi0JLmlycV9wb3N0aW5zdGFsbCA9IGFtZGdwdV9p
-cnFfcG9zdGluc3RhbGwsCi0JLmlycV91bmluc3RhbGwgPSBhbWRncHVfaXJxX3VuaW5zdGFsbCwK
-IAkuaXJxX2hhbmRsZXIgPSBhbWRncHVfaXJxX2hhbmRsZXIsCiAJLmlvY3RscyA9IGFtZGdwdV9p
-b2N0bHNfa21zLAogCS5nZW1fZnJlZV9vYmplY3RfdW5sb2NrZWQgPSBhbWRncHVfZ2VtX29iamVj
-dF9mcmVlLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ly
-cS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jCmluZGV4IDU2YmNk
-NTljMzM5OS4uZjZmMmE2NjJiYjhmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfaXJxLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2lycS5jCkBAIC05Miw3ICs5Miw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9pcnFfcmVzZXRfd29y
-a19mdW5jKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIH0KIAogLyogRGlzYWJsZSAqYWxsKiBp
-bnRlcnJ1cHRzICovCi1zdGF0aWMgdm9pZCBhbWRncHVfaXJxX2Rpc2FibGVfYWxsKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQordm9pZCBhbWRncHVfaXJxX2Rpc2FibGVfYWxsKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQogewogCXVuc2lnbmVkIGxvbmcgaXJxZmxhZ3M7CiAJdW5zaWdu
-ZWQgaSwgaiwgazsKQEAgLTEyMyw1NSArMTIzLDYgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2lycV9k
-aXNhYmxlX2FsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIH0KIAogLyoqCi0gKiBhbWRn
-cHVfaXJxX3ByZWluc3RhbGwgLSBkcm0gaXJxIHByZWluc3RhbGwgY2FsbGJhY2sKLSAqCi0gKiBA
-ZGV2OiBkcm0gZGV2IHBvaW50ZXIKLSAqCi0gKiBHZXRzIHRoZSBodyByZWFkeSB0byBlbmFibGUg
-aXJxcyAoYWxsIGFzaWNzKS4KLSAqIFRoaXMgZnVuY3Rpb24gZGlzYWJsZXMgYWxsIGludGVycnVw
-dCBzb3VyY2VzIG9uIHRoZSBHUFUuCi0gKi8KLXZvaWQgYW1kZ3B1X2lycV9wcmVpbnN0YWxsKHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYpCi17Ci0Jc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBk
-ZXYtPmRldl9wcml2YXRlOwotCi0JLyogRGlzYWJsZSAqYWxsKiBpbnRlcnJ1cHRzICovCi0JYW1k
-Z3B1X2lycV9kaXNhYmxlX2FsbChhZGV2KTsKLQkvKiBDbGVhciBiaXRzICovCi0JYW1kZ3B1X2lo
-X3Byb2Nlc3MoYWRldik7Ci19Ci0KLS8qKgotICogYW1kZ3B1X2lycV9wb3N0aW5zdGFsbCAtIGRy
-bSBpcnEgcHJlaW5zdGFsbCBjYWxsYmFjawotICoKLSAqIEBkZXY6IGRybSBkZXYgcG9pbnRlcgot
-ICoKLSAqIEhhbmRsZXMgc3R1ZmYgdG8gYmUgZG9uZSBhZnRlciBlbmFibGluZyBpcnFzIChhbGwg
-YXNpY3MpLgotICogUmV0dXJucyAwIG9uIHN1Y2Nlc3MuCi0gKi8KLWludCBhbWRncHVfaXJxX3Bv
-c3RpbnN0YWxsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpCi17Ci0JZGV2LT5tYXhfdmJsYW5rX2Nv
-dW50ID0gMHgwMGZmZmZmZjsKLQlyZXR1cm4gMDsKLX0KLQotLyoqCi0gKiBhbWRncHVfaXJxX3Vu
-aW5zdGFsbCAtIGRybSBpcnEgdW5pbnN0YWxsIGNhbGxiYWNrCi0gKgotICogQGRldjogZHJtIGRl
-diBwb2ludGVyCi0gKgotICogVGhpcyBmdW5jdGlvbiBkaXNhYmxlcyBhbGwgaW50ZXJydXB0IHNv
-dXJjZXMgb24gdGhlIEdQVSAoYWxsIGFzaWNzKS4KLSAqLwotdm9pZCBhbWRncHVfaXJxX3VuaW5z
-dGFsbChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQotewotCXN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2ID0gZGV2LT5kZXZfcHJpdmF0ZTsKLQotCWlmIChhZGV2ID09IE5VTEwpIHsKLQkJcmV0dXJu
-OwotCX0KLQlhbWRncHVfaXJxX2Rpc2FibGVfYWxsKGFkZXYpOwotfQotCi0vKioKICAqIGFtZGdw
-dV9pcnFfaGFuZGxlciAtIGlycSBoYW5kbGVyCiAgKgogICogQGludCBpcnEsIHZvaWQgKmFyZzog
-YXJncwpAQCAtMjYxLDYgKzIxMiw3IEBAIGludCBhbWRncHVfaXJxX2luaXQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCiAJCWNhbmNlbF93b3JrX3N5bmMoJmFkZXYtPnJlc2V0X3dvcmspOwog
-CQlyZXR1cm4gcjsKIAl9CisJYWRldi0+ZGRldi0+bWF4X3ZibGFua19jb3VudCA9IDB4MDBmZmZm
-ZmY7CiAKIAlEUk1fREVCVUcoImFtZGdwdTogaXJxIGluaXRpYWxpemVkLlxuIik7CiAJcmV0dXJu
-IDA7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmgg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmgKaW5kZXggMDYxMGNjNGE5
-Nzg4Li4zMzc1YWQ3NzhlZGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9pcnEuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJx
-LmgKQEAgLTc4LDkgKzc4LDcgQEAgc3RydWN0IGFtZGdwdV9pcnEgewogCXVpbnQzMl90ICAgICAg
-ICAgICAgICAgICAgICAgICAgc3JibV9zb2Z0X3Jlc2V0OwogfTsKIAotdm9pZCBhbWRncHVfaXJx
-X3ByZWluc3RhbGwoc3RydWN0IGRybV9kZXZpY2UgKmRldik7Ci1pbnQgYW1kZ3B1X2lycV9wb3N0
-aW5zdGFsbChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KTsKLXZvaWQgYW1kZ3B1X2lycV91bmluc3Rh
-bGwoc3RydWN0IGRybV9kZXZpY2UgKmRldik7Cit2b2lkIGFtZGdwdV9pcnFfZGlzYWJsZV9hbGwo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogaXJxcmV0dXJuX3QgYW1kZ3B1X2lycV9oYW5k
-bGVyKGludCBpcnEsIHZvaWQgKmFyZyk7CiAKIGludCBhbWRncHVfaXJxX2luaXQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpOwotLSAKMi4xMy42CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+--===============1973982383==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB16529F8B185DE71E994EC7A9F7EC0BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB16529F8B185DE71E994EC7A9F7EC0BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks for verifying.  Sent out for review.
+
+
+Alex
+
+________________________________
+From: Grodzovsky, Andrey
+Sent: Monday, January 22, 2018 11:01:36 AM
+To: Wentland, Harry; Lipski, Mikita; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher=
+, Alexander
+Subject: Re: [PATCH 15/24] drm/amd/display: Fix deadlock when flushing irq
+
+NP.
+
+Alex just a reminder to push your patch from SWDEV-143068 into the tree.
+
+Thanks,
+
+Andrey
+
+
+
+On 01/22/2018 10:53 AM, Harry Wentland wrote:
+> On 2018-01-22 09:57 AM, Andrey Grodzovsky wrote:
+>> You guys just need to revert it on dal-dev branch and don't promote to a=
+md-staging-drm-next.
+>>
+> K. I'll leave it out of amd-staging-drm-next and we'll revert on our inte=
+rnal branch.
+>
+> Thanks for following up on this and good to hear we found a better soluti=
+on.
+>
+> Harry
+>
+>> So NAK for the change.
+>>
+>>
+>>
+>> Thanks,
+>>
+>> Andrey
+>>
+>>
+>> On 01/22/2018 09:38 AM, Lipski, Mikita wrote:
+>>> Hi Andrey,
+>>>
+>>>
+>>> I've checked to revert this change and use Alex's change on switching i=
+rq destruction sequence and it worked no problem.
+>>> You can reject this change if Alex's change is pulled in.
+>>>
+>>>
+>>> Thanks,
+>>>
+>>> Nick
+>>>
+>>> -----------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+-------------------
+>>> *From:* Grodzovsky, Andrey
+>>> *Sent:* Friday, January 19, 2018 1:33:51 PM
+>>> *To:* Wentland, Harry; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> *Cc:* Lipski, Mikita
+>>> *Subject:* Re: [PATCH 15/24] drm/amd/display: Fix deadlock when flushin=
+g irq
+>>>
+>>> What this spin lock is protecting here ? Seems to me it's just a read o=
+f
+>>> an array element which is always there.
+>>>
+>>> Regarding subsequent remove_timer_handler and timer queue destruction i=
+t
+>>> seems to me to be obsolete code, I don't think DAL is still using the
+>>> timer queue,
+>>>
+>>> so seems to me everything related to it should be removed.
+>>>
+>>> Thanks,
+>>>
+>>> Andrey
+>>>
+>>>
+>>> On 01/18/2018 04:03 PM, Harry Wentland wrote:
+>>>> From: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+>>>>
+>>>> Lock irq table when reading a work in queue,
+>>>> unlock to flush the work, lock again till all tasks
+>>>> are cleared
+>>>>
+>>>> Signed-off-by: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+>>>> Reviewed-by: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+>>>> ---
+>>>>     drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 5 +++--
+>>>>     1 file changed, 3 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/d=
+rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>>>> index 1874b6cee6af..fb60c91a1bfe 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>>>> @@ -400,14 +400,15 @@ void amdgpu_dm_irq_fini(struct amdgpu_device *ad=
+ev)
+>>>>     {
+>>>>          int src;
+>>>>          struct irq_list_head *lh;
+>>>> +     unsigned long irq_table_flags;
+>>>>          DRM_DEBUG_KMS("DM_IRQ: releasing resources.\n");
+>>>> -
+>>>>          for (src =3D 0; src < DAL_IRQ_SOURCES_NUMBER; src++) {
+>>>> -
+>>>> +             DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
+>>>>                  /* The handler was removed from the table,
+>>>>                   * it means it is safe to flush all the 'work'
+>>>>                   * (because no code can schedule a new one). */
+>>>>                  lh =3D &adev->dm.irq_handler_list_low_tab[src];
+>>>> +             DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
+>>>>                  flush_work(&lh->work);
+>>>>          }
+>>>>
+
+
+
+--_000_BN6PR12MB16529F8B185DE71E994EC7A9F7EC0BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Thanks for verifying.&nbsp; Sent =
+out for review.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Grodzovsky, Andrey<br=
+>
+<b>Sent:</b> Monday, January 22, 2018 11:01:36 AM<br>
+<b>To:</b> Wentland, Harry; Lipski, Mikita; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; =
+Deucher, Alexander<br>
+<b>Subject:</b> Re: [PATCH 15/24] drm/amd/display: Fix deadlock when flushi=
+ng irq</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">NP.<br>
+<br>
+Alex just a reminder to push your patch from SWDEV-143068 into the tree.<br=
+>
+<br>
+Thanks,<br>
+<br>
+Andrey<br>
+<br>
+<br>
+<br>
+On 01/22/2018 10:53 AM, Harry Wentland wrote:<br>
+&gt; On 2018-01-22 09:57 AM, Andrey Grodzovsky wrote:<br>
+&gt;&gt; You guys just need to revert it on dal-dev branch and don't promot=
+e to amd-staging-drm-next.<br>
+&gt;&gt;<br>
+&gt; K. I'll leave it out of amd-staging-drm-next and we'll revert on our i=
+nternal branch.<br>
+&gt;<br>
+&gt; Thanks for following up on this and good to hear we found a better sol=
+ution.<br>
+&gt;<br>
+&gt; Harry<br>
+&gt;<br>
+&gt;&gt; So NAK for the change.<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Thanks,<br>
+&gt;&gt;<br>
+&gt;&gt; Andrey<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; On 01/22/2018 09:38 AM, Lipski, Mikita wrote:<br>
+&gt;&gt;&gt; Hi Andrey,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; I've checked to revert this change and use Alex's change on sw=
+itching irq destruction sequence and it worked no problem.<br>
+&gt;&gt;&gt; You can reject this change if Alex's change is pulled in.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Thanks,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Nick<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; --------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+----------------------------<br>
+&gt;&gt;&gt; *From:* Grodzovsky, Andrey<br>
+&gt;&gt;&gt; *Sent:* Friday, January 19, 2018 1:33:51 PM<br>
+&gt;&gt;&gt; *To:* Wentland, Harry; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;&gt;&gt; *Cc:* Lipski, Mikita<br>
+&gt;&gt;&gt; *Subject:* Re: [PATCH 15/24] drm/amd/display: Fix deadlock whe=
+n flushing irq<br>
+&gt;&gt;&gt;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; What this spin lock is protecting here ? Seems to me it's just=
+ a read of<br>
+&gt;&gt;&gt; an array element which is always there.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Regarding subsequent remove_timer_handler and timer queue dest=
+ruction it<br>
+&gt;&gt;&gt; seems to me to be obsolete code, I don't think DAL is still us=
+ing the<br>
+&gt;&gt;&gt; timer queue,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; so seems to me everything related to it should be removed.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Thanks,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Andrey<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; On 01/18/2018 04:03 PM, Harry Wentland wrote:<br>
+&gt;&gt;&gt;&gt; From: Mikita Lipski &lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Lock irq table when reading a work in queue,<br>
+&gt;&gt;&gt;&gt; unlock to flush the work, lock again till all tasks<br>
+&gt;&gt;&gt;&gt; are cleared<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Signed-off-by: Mikita Lipski &lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;=
+<br>
+&gt;&gt;&gt;&gt; Reviewed-by: Harry Wentland &lt;Harry.Wentland-5C7GfCeVMHo@public.gmane.org&gt;=
+<br>
+&gt;&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/a=
+mdgpu_dm_irq.c | 5 &#43;&#43;&#43;--<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 1 file changed, 3 insertions(&#43;), 2 =
+deletions(-)<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c<br>
+&gt;&gt;&gt;&gt; index 1874b6cee6af..fb60c91a1bfe 100644<br>
+&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.=
+c<br>
+&gt;&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/am=
+dgpu_dm_irq.c<br>
+&gt;&gt;&gt;&gt; @@ -400,14 &#43;400,15 @@ void amdgpu_dm_irq_fini(struct a=
+mdgpu_device *adev)<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; {<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int src;<=
+br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ir=
+q_list_head *lh;<br>
+&gt;&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long irq_table_flag=
+s;<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG=
+_KMS(&quot;DM_IRQ: releasing resources.\n&quot;);<br>
+&gt;&gt;&gt;&gt; -<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (src =
+=3D 0; src &lt; DAL_IRQ_SOURCES_NUMBER; src&#43;&#43;) {<br>
+&gt;&gt;&gt;&gt; -<br>
+&gt;&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; DM_IRQ_TABLE_LOCK(adev, irq_table_flags);<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* The handler was removed from the =
+table,<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * it means it is safe to flush=
+ all the 'work'<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * (because no code can schedul=
+e a new one). */<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lh =3D &amp;adev-&gt;dm.irq_handler_=
+list_low_tab[src];<br>
+&gt;&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flush_work(&amp;lh-&gt;work);<br>
+&gt;&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
+<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB16529F8B185DE71E994EC7A9F7EC0BN6PR12MB1652namp_--
+
+--===============1973982383==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1973982383==--
