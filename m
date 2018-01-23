@@ -1,13 +1,15 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [RFC] Per file OOM badness
-Date: Mon, 22 Jan 2018 20:59:19 -0500
-Message-ID: <a2f42c82-4f37-1235-c16b-2bba48eafb6d@amd.com>
-References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
- <20180122152315.749d88f3c91ffce4d70ac450@linux-foundation.org>
+From: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address
+ space
+Date: Tue, 23 Jan 2018 02:36:31 +0000
+Message-ID: <MWHPR1201MB0127D1F3C71A0C2D99A64603FDE30@MWHPR1201MB0127.namprd12.prod.outlook.com>
+References: <20180122104404.1239-1-christian.koenig@amd.com>
+ <20180122104404.1239-3-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0992958000=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180122152315.749d88f3c91ffce4d70ac450-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>
+In-Reply-To: <20180122104404.1239-3-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,168 +21,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>
-Cc: linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0992958000==
-Content-Type: multipart/alternative;
- boundary="------------6A6E3A4A1D18107554EA7ECB"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------6A6E3A4A1D18107554EA7ECB
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 01/22/2018 06:23 PM, Andrew Morton wrote:
-> On Thu, 18 Jan 2018 11:47:48 -0500 Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org> wrote:
->
->> Hi, this series is a revised version of an RFC sent by Christian König
->> a few years ago. The original RFC can be found at
->> https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html
->>
->> This is the same idea and I've just adressed his concern from the original RFC
->> and switched to a callback into file_ops instead of a new member in struct file.
-> Should be in address_space_operations, I suspect.  If an application
-> opens a file twice, we only want to count it once?
-
-Makes sense
-
->
-> But we're putting the cart ahead of the horse here.  Please provide us
-> with a detailed description of the problem which you are addressing so
-> that the MM developers can better consider how to address your
-> requirements.
-
-I will just reiterate the problem statement from the original RFC, 
-should have
-put it in the body of the RFC and not just a link, as already commented 
-by Michal.
-Bellow is the quoted RFC.
-
-Thanks,
-Andrey
-
-P.S You can also check the follow up discussion after this first email.
-
-"
-
-I'm currently working on the issue that when device drivers allocate memory on
-behalf of an application the OOM killer usually doesn't knew about that unless
-the application also get this memory mapped into their address space.
-
-This is especially annoying for graphics drivers where a lot of the VRAM
-usually isn't CPU accessible and so doesn't make sense to map into the
-address space of the process using it.
-
-The problem now is that when an application starts to use a lot of VRAM those
-buffers objects sooner or later get swapped out to system memory, but when we
-now run into an out of memory situation the OOM killer obviously doesn't knew
-anything about that memory and so usually kills the wrong process
-
-"
-
-
-
-
---------------6A6E3A4A1D18107554EA7ECB
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 01/22/2018 06:23 PM, Andrew Morton
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20180122152315.749d88f3c91ffce4d70ac450-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org">
-      <pre wrap="">On Thu, 18 Jan 2018 11:47:48 -0500 Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Hi, this series is a revised version of an RFC sent by Christian König
-a few years ago. The original RFC can be found at 
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html">https://lists.freedesktop.org/archives/dri-devel/2015-September/089778.html</a>
-
-This is the same idea and I've just adressed his concern from the original RFC 
-and switched to a callback into file_ops instead of a new member in struct file.
-</pre>
-      </blockquote>
-      <pre wrap="">
-Should be in address_space_operations, I suspect.  If an application
-opens a file twice, we only want to count it once?</pre>
-    </blockquote>
-    <br>
-    Makes sense <br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20180122152315.749d88f3c91ffce4d70ac450-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org">
-      <pre wrap="">
-
-But we're putting the cart ahead of the horse here.  Please provide us
-with a detailed description of the problem which you are addressing so
-that the MM developers can better consider how to address your
-requirements.</pre>
-    </blockquote>
-    <br>
-    I will just reiterate the problem statement from the original RFC,
-    should have<br>
-    put it in the body of the RFC and not just a link, as already
-    commented by Michal.<br>
-    Bellow is the quoted RFC.<br>
-    <br>
-    Thanks,<br>
-    Andrey<br>
-    <br>
-    P.S You can also check the follow up discussion after this first
-    email.<br>
-    <br>
-    "<br>
-    <pre style="white-space: pre-wrap; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">I'm currently working on the issue that when device drivers allocate memory on
-behalf of an application the OOM killer usually doesn't knew about that unless
-the application also get this memory mapped into their address space.
-
-This is especially annoying for graphics drivers where a lot of the VRAM
-usually isn't CPU accessible and so doesn't make sense to map into the
-address space of the process using it.
-
-The problem now is that when an application starts to use a lot of VRAM those
-buffers objects sooner or later get swapped out to system memory, but when we
-now run into an out of memory situation the OOM killer obviously doesn't knew
-anything about that memory and so usually kills the wrong process
-
-"
-
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:20180122152315.749d88f3c91ffce4d70ac450-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org">
-      <pre wrap="">
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------6A6E3A4A1D18107554EA7ECB--
-
---===============0992958000==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0992958000==--
+DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mIENocmlzdGlh
+biBLP25pZw0KU2VudDogTW9uZGF5LCBKYW51YXJ5IDIyLCAyMDE4IDY6NDQgUE0NClRvOiBMaXUs
+IE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
+U3ViamVjdDogW1BBVENIIDMvM10gZHJtL2FtZGdwdTogbW92ZSBzdGF0aWMgQ1NBIGFkZHJlc3Mg
+dG8gdG9wIG9mIGFkZHJlc3Mgc3BhY2UNCg0KVGhlcmUgc2VlbXMgdG8gYmUgYSBkZXNpZ24gZmxh
+dyB3aXRoIHRoaXMgc2luY2UgdGhlIGFkZHJlc3Mgb2YgdGhlIHN0YXRpYyBDU0EgaXMgbmV2ZXIg
+ZXhwb3J0ZWQgYW55d2hlcmUuDQoNClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92aXJ0LmMgfCAxNSArKysrKysrLS0tLS0tLS0gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92aXJ0LmggfCAgNiArKysrLS0NCiAyIGZpbGVzIGNoYW5nZWQsIDExIGlu
+c2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92aXJ0LmMNCmluZGV4IGU3ZGZiN2I0NGI0Yi4uYzdkMjRhZjAzZTNlIDEwMDY0NA0K
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYw0KKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYw0KQEAgLTU1LDExICs1NSwxMCBA
+QCB2b2lkIGFtZGdwdV9mcmVlX3N0YXRpY19jc2Eoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
+IHsNCiANCiAvKg0KICAqIGFtZGdwdV9tYXBfc3RhdGljX2NzYSBzaG91bGQgYmUgY2FsbGVkIGR1
+cmluZyBhbWRncHVfdm1faW5pdA0KLSAqIGl0IG1hcHMgdmlydHVhbCBhZGRyZXNzICJBTURHUFVf
+VkFfUkVTRVJWRURfU0laRSAtIEFNREdQVV9DU0FfU0laRSINCi0gKiB0byB0aGlzIFZNLCBhbmQg
+ZWFjaCBjb21tYW5kIHN1Ym1pc3Npb24gb2YgR0ZYIHNob3VsZCB1c2UgdGhpcyB2aXJ0dWFsDQot
+ICogYWRkcmVzcyB3aXRoaW4gTUVUQV9EQVRBIGluaXQgcGFja2FnZSB0byBzdXBwb3J0IFNSSU9W
+IGdmeCBwcmVlbXB0aW9uLg0KKyAqIGl0IG1hcHMgdmlydHVhbCBhZGRyZXNzICJBTURHUFVfQ1NB
+X1ZBRERSIiB0byB0aGlzIFZNLCBhbmQgZWFjaCANCisgY29tbWFuZA0KKyAqIHN1Ym1pc3Npb24g
+b2YgR0ZYIHNob3VsZCB1c2UgdGhpcyB2aXJ0dWFsIGFkZHJlc3Mgd2l0aGluIE1FVEFfREFUQSAN
+CisgaW5pdA0KKyAqIHBhY2thZ2UgdG8gc3VwcG9ydCBTUklPViBnZnggcHJlZW1wdGlvbi4NCiAg
+Ki8NCi0NCiBpbnQgYW1kZ3B1X21hcF9zdGF0aWNfY3NhKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwNCiAJCQkgIHN0cnVjdCBhbWRncHVfYm9fdmEgKipi
+b192YSkNCiB7DQpAQCAtOTAsNyArODksNyBAQCBpbnQgYW1kZ3B1X21hcF9zdGF0aWNfY3NhKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwNCiAJCXJldHVy
+biAtRU5PTUVNOw0KIAl9DQogDQotCXIgPSBhbWRncHVfdm1fYWxsb2NfcHRzKGFkZXYsICgqYm9f
+dmEpLT5iYXNlLnZtLCBBTURHUFVfQ1NBX1ZBRERSLA0KKwlyID0gYW1kZ3B1X3ZtX2FsbG9jX3B0
+cyhhZGV2LCAoKmJvX3ZhKS0+YmFzZS52bSwgDQorQU1ER1BVX0NTQV9WQUREUihhZGV2KSwNCiAJ
+CQkJQU1ER1BVX0NTQV9TSVpFKTsNCiAJaWYgKHIpIHsNCiAJCURSTV9FUlJPUigiZmFpbGVkIHRv
+IGFsbG9jYXRlIHB0cyBmb3Igc3RhdGljIENTQSwgZXJyPSVkXG4iLCByKTsgQEAgLTk5LDkgKzk4
+LDkgQEAgaW50IGFtZGdwdV9tYXBfc3RhdGljX2NzYShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+diwgc3RydWN0IGFtZGdwdV92bSAqdm0sDQogCQlyZXR1cm4gcjsNCiAJfQ0KIA0KLQlyID0gYW1k
+Z3B1X3ZtX2JvX21hcChhZGV2LCAqYm9fdmEsIEFNREdQVV9DU0FfVkFERFIsIDAsIEFNREdQVV9D
+U0FfU0laRSwNCi0JCQkgICAgIEFNREdQVV9QVEVfUkVBREFCTEUgfCBBTURHUFVfUFRFX1dSSVRF
+QUJMRSB8DQotCQkJICAgICBBTURHUFVfUFRFX0VYRUNVVEFCTEUpOw0KKwlyID0gYW1kZ3B1X3Zt
+X2JvX21hcChhZGV2LCAqYm9fdmEsIEFNREdQVV9DU0FfVkFERFIoYWRldiksIDAsDQorCQkJICAg
+ICBBTURHUFVfQ1NBX1NJWkUsIEFNREdQVV9QVEVfUkVBREFCTEUgfA0KKwkJCSAgICAgQU1ER1BV
+X1BURV9XUklURUFCTEUgfCBBTURHUFVfUFRFX0VYRUNVVEFCTEUpOw0KIA0KIAlpZiAocikgew0K
+IAkJRFJNX0VSUk9SKCJmYWlsZWQgdG8gZG8gYm9fbWFwIG9uIHN0YXRpYyBDU0EsIGVycj0lZFxu
+Iiwgcik7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmly
+dC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaA0KaW5kZXggNmE4
+MzQyNWFhOWVkLi40OTkzNjJiNTVlNDUgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdmlydC5oDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdmlydC5oDQpAQCAtMjUxLDggKzI1MSwxMCBAQCBzdHJ1Y3QgYW1kZ3B1X3ZpcnQgew0K
+IAl1aW50MzJfdCBnaW1fZmVhdHVyZTsNCiB9Ow0KIA0KLSNkZWZpbmUgQU1ER1BVX0NTQV9TSVpF
+ICAgICg4ICogMTAyNCkNCi0jZGVmaW5lIEFNREdQVV9DU0FfVkFERFIgICAoQU1ER1BVX1ZBX1JF
+U0VSVkVEX1NJWkUgLSBBTURHUFVfQ1NBX1NJWkUpDQorI2RlZmluZSBBTURHUFVfQ1NBX1NJWkUJ
+CSg4ICogMTAyNCkNCisjZGVmaW5lIEFNREdQVV9DU0FfVkFERFIoYWRldikJXA0KCSsJKCgoYWRl
+diktPnZtX21hbmFnZXIubWF4X3BmbiA8PCBBTURHUFVfR1BVX1BBR0VfU0hJRlQpICsgXA0KCSsJ
+IEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFKQ0KIA0KSWYgSSAgdW5kZXJzdGFuZCB5b3VyIGludGVu
+dGlvbiBjb3JyZWN0bHksIGl0IHNob3VsZCBiZSB0aGF0OiANCisJKCgoYWRldiktPnZtX21hbmFn
+ZXIubWF4X3BmbiA8PCBBTURHUFVfR1BVX1BBR0VfU0hJRlQpICAtIFwNCisJIEFNREdQVV9WQV9S
+RVNFUlZFRF9TSVpFKQ0KDQpUaGFua3MNClJvZ2VyKEhvbmdiby5IZSkNCg0KICNkZWZpbmUgYW1k
+Z3B1X3NyaW92X2VuYWJsZWQoYWRldikgXA0KICgoYWRldiktPnZpcnQuY2FwcyAmIEFNREdQVV9T
+UklPVl9DQVBTX0VOQUJMRV9JT1YpDQotLQ0KMi4xNC4xDQoNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
