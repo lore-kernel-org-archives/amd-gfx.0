@@ -1,17 +1,12 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address
- space
-Date: Tue, 23 Jan 2018 03:23:23 +0000
-Message-ID: <BLUPR12MB0449A76D5FB31F4C46AD8BB384E30@BLUPR12MB0449.namprd12.prod.outlook.com>
-References: <20180122104404.1239-1-christian.koenig@amd.com>
- <20180122104404.1239-3-christian.koenig@amd.com>,
- <MWHPR1201MB0127D1F3C71A0C2D99A64603FDE30@MWHPR1201MB0127.namprd12.prod.outlook.com>,
- <BLUPR12MB04494E357187195CC3C90B0584E30@BLUPR12MB0449.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Avoid leaking PM domain on driver unbind
+Date: Mon, 22 Jan 2018 23:22:58 -0500
+Message-ID: <CADnq5_PrAtz=rO1E_Tkg0+n880FwOAyowMW2WampSpVx+69CLA@mail.gmail.com>
+References: <8cbcbe7f57f72bc1d4e36c9cfaf670140e311da9.1516538481.git.lukas@wunner.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1275635156=="
+Content-Type: multipart/mixed; boundary="94eb2c0940fedc2d99056369e6d2"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB04494E357187195CC3C90B0584E30-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <8cbcbe7f57f72bc1d4e36c9cfaf670140e311da9.1516538481.git.lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,355 +17,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1275635156==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_"
+--94eb2c0940fedc2d99056369e6d2
+Content-Type: text/plain; charset="UTF-8"
 
---_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-anyway I prefer no change on that part unless there issues or bug need to f=
-ix by the change.
-
-the CSA address is for use by CPG h/w not s/w, and since 8MB is a reserved =
-range for each VM I don't see
-
-it's a design flaw with it
-
-________________________________
-From: Liu, Monk
-Sent: Tuesday, January 23, 2018 11:20:35 AM
-To: He, Roger; Christian K=F6nig; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of addr=
-ess space
-
-
-Any bug introduced by original design ? I don't see why 8MB- 8KB as the sta=
-rt vm address of CSA has any trouble compared with top range ? Besides, ple=
-ase note that you also need modify gfx8/9 source to align emit_cs/de_meta w=
-ith your change
-
-
-
-________________________________
-From: He, Roger
-Sent: Tuesday, January 23, 2018 10:36:31 AM
-To: Christian K=F6nig; Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH 3/3] drm/amdgpu: move static CSA address to top of addr=
-ess space
-
-
-
------Original Message-----
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of C=
-hristian K?nig
-Sent: Monday, January 22, 2018 6:44 PM
-To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address =
-space
-
-There seems to be a design flaw with this since the address of the static C=
-SA is never exported anywhere.
-
-Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 15 +++++++--------  drivers/gpu=
-/drm/amd/amdgpu/amdgpu_virt.h |  6 ++++--
- 2 files changed, 11 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c
-index e7dfb7b44b4b..c7d24af03e3e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -55,11 +55,10 @@ void amdgpu_free_static_csa(struct amdgpu_device *adev)=
- {
-
- /*
-  * amdgpu_map_static_csa should be called during amdgpu_vm_init
-- * it maps virtual address "AMDGPU_VA_RESERVED_SIZE - AMDGPU_CSA_SIZE"
-- * to this VM, and each command submission of GFX should use this virtual
-- * address within META_DATA init package to support SRIOV gfx preemption.
-+ * it maps virtual address "AMDGPU_CSA_VADDR" to this VM, and each
-+ command
-+ * submission of GFX should use this virtual address within META_DATA
-+ init
-+ * package to support SRIOV gfx preemption.
-  */
--
- int amdgpu_map_static_csa(struct amdgpu_device *adev, struct amdgpu_vm *vm=
-,
-                           struct amdgpu_bo_va **bo_va)
- {
-@@ -90,7 +89,7 @@ int amdgpu_map_static_csa(struct amdgpu_device *adev, str=
-uct amdgpu_vm *vm,
-                 return -ENOMEM;
-         }
-
--       r =3D amdgpu_vm_alloc_pts(adev, (*bo_va)->base.vm, AMDGPU_CSA_VADDR=
-,
-+       r =3D amdgpu_vm_alloc_pts(adev, (*bo_va)->base.vm,
-+AMDGPU_CSA_VADDR(adev),
-                                 AMDGPU_CSA_SIZE);
-         if (r) {
-                 DRM_ERROR("failed to allocate pts for static CSA, err=3D%d=
-\n", r); @@ -99,9 +98,9 @@ int amdgpu_map_static_csa(struct amdgpu_device *=
-adev, struct amdgpu_vm *vm,
-                 return r;
-         }
-
--       r =3D amdgpu_vm_bo_map(adev, *bo_va, AMDGPU_CSA_VADDR, 0, AMDGPU_CS=
-A_SIZE,
--                            AMDGPU_PTE_READABLE | AMDGPU_PTE_WRITEABLE |
--                            AMDGPU_PTE_EXECUTABLE);
-+       r =3D amdgpu_vm_bo_map(adev, *bo_va, AMDGPU_CSA_VADDR(adev), 0,
-+                            AMDGPU_CSA_SIZE, AMDGPU_PTE_READABLE |
-+                            AMDGPU_PTE_WRITEABLE | AMDGPU_PTE_EXECUTABLE);
-
-         if (r) {
-                 DRM_ERROR("failed to do bo_map on static CSA, err=3D%d\n",=
- r); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_virt.h
-index 6a83425aa9ed..499362b55e45 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -251,8 +251,10 @@ struct amdgpu_virt {
-         uint32_t gim_feature;
- };
-
--#define AMDGPU_CSA_SIZE    (8 * 1024)
--#define AMDGPU_CSA_VADDR   (AMDGPU_VA_RESERVED_SIZE - AMDGPU_CSA_SIZE)
-+#define AMDGPU_CSA_SIZE                (8 * 1024)
-+#define AMDGPU_CSA_VADDR(adev) \
-        +       (((adev)->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) + \
-        +        AMDGPU_VA_RESERVED_SIZE)
-
-If I  understand your intention correctly, it should be that:
-+       (((adev)->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT)  - \
-+        AMDGPU_VA_RESERVED_SIZE)
-
-Thanks
-Roger(Hongbo.He)
-
- #define amdgpu_sriov_enabled(adev) \
- ((adev)->virt.caps & AMDGPU_SRIOV_CAPS_ENABLE_IOV)
---
-2.14.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">anyway I prefer no change on that=
- part unless there issues or bug need to fix by the change.</p>
-<p style=3D"margin-top:0;margin-bottom:0">the CSA address is for use by CPG=
- h/w not s/w, and since 8MB is a reserved range for each VM I don't see</p>
-<p style=3D"margin-top:0;margin-bottom:0">it's a design flaw with it<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Monk<br>
-<b>Sent:</b> Tuesday, January 23, 2018 11:20:35 AM<br>
-<b>To:</b> He, Roger; Christian K=F6nig; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
-of address space</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0; margin-bottom:0">Any bug introduced by original d=
-esign ? I don't see why 8MB- 8KB as the start vm address of CSA has any tro=
-uble compared with top range ? Besides, please note that you also need modi=
-fy gfx8/9 source to align emit_cs/de_meta
- with your change</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> He, Roger<br>
-<b>Sent:</b> Tuesday, January 23, 2018 10:36:31 AM<br>
-<b>To:</b> Christian K=F6nig; Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
-of address space</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText"><br>
-<br>
------Original Message-----<br>
-From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mai=
-lto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf Of Christian K?nig=
-<br>
-Sent: Monday, January 22, 2018 6:44 PM<br>
-To: Liu, Monk &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-Subject: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address =
-space<br>
-<br>
-There seems to be a design flaw with this since the address of the static C=
-SA is never exported anywhere.<br>
-<br>
-Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 15 &#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;--------&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |&nbsp;=
- 6 &#43;&#43;&#43;&#43;--<br>
-&nbsp;2 files changed, 11 insertions(&#43;), 10 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.c<br>
-index e7dfb7b44b4b..c7d24af03e3e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-@@ -55,11 &#43;55,10 @@ void amdgpu_free_static_csa(struct amdgpu_device *a=
-dev) {<br>
-&nbsp;<br>
-&nbsp;/*<br>
-&nbsp; * amdgpu_map_static_csa should be called during amdgpu_vm_init<br>
-- * it maps virtual address &quot;AMDGPU_VA_RESERVED_SIZE - AMDGPU_CSA_SIZE=
-&quot;<br>
-- * to this VM, and each command submission of GFX should use this virtual<=
-br>
-- * address within META_DATA init package to support SRIOV gfx preemption.<=
-br>
-&#43; * it maps virtual address &quot;AMDGPU_CSA_VADDR&quot; to this VM, an=
-d each <br>
-&#43; command<br>
-&#43; * submission of GFX should use this virtual address within META_DATA =
-<br>
-&#43; init<br>
-&#43; * package to support SRIOV gfx preemption.<br>
-&nbsp; */<br>
--<br>
-&nbsp;int amdgpu_map_static_csa(struct amdgpu_device *adev, struct amdgpu_v=
-m *vm,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; struct amdgpu_bo_va **bo_va)<br>
-&nbsp;{<br>
-@@ -90,7 &#43;89,7 @@ int amdgpu_map_static_csa(struct amdgpu_device *adev,=
- struct amdgpu_vm *vm,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vm_alloc_pts(adev, (*bo_=
-va)-&gt;base.vm, AMDGPU_CSA_VADDR,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vm_alloc_pts(adev, (=
-*bo_va)-&gt;base.vm, <br>
-&#43;AMDGPU_CSA_VADDR(adev),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_CSA_SIZE);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;failed to allocate pts for static CSA=
-, err=3D%d\n&quot;, r); @@ -99,9 &#43;98,9 @@ int amdgpu_map_static_csa(str=
-uct amdgpu_device *adev, struct amdgpu_vm *vm,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vm_bo_map(adev, *bo_va, =
-AMDGPU_CSA_VADDR, 0, AMDGPU_CSA_SIZE,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; AMDGPU_PTE_READABLE | AMDGPU_PTE_WRITEABLE |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; AMDGPU_PTE_EXECUTABLE);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vm_bo_map(adev, *bo_=
-va, AMDGPU_CSA_VADDR(adev), 0,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; AMDGPU_CSA_SIZE, AMDGPU_PTE_READABLE |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; AMDGPU_PTE_WRITEABLE | AMDGPU_PTE_EXECUTABLE);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;failed to do bo_map on static CSA, er=
-r=3D%d\n&quot;, r); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b=
-/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-index 6a83425aa9ed..499362b55e45 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-@@ -251,8 &#43;251,10 @@ struct amdgpu_virt {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gim_feature;<br>
-&nbsp;};<br>
-&nbsp;<br>
--#define AMDGPU_CSA_SIZE&nbsp;&nbsp;&nbsp; (8 * 1024)<br>
--#define AMDGPU_CSA_VADDR&nbsp;&nbsp; (AMDGPU_VA_RESERVED_SIZE - AMDGPU_CSA=
-_SIZE)<br>
-&#43;#define AMDGPU_CSA_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (8 * 1024)<br>
-&#43;#define AMDGPU_CSA_VADDR(adev) \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; (((adev)-&gt;vm_manager.max_pfn &lt;&lt; AMDGPU_GPU_PAGE_SHIFT) &=
-#43; \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; AMDGPU_VA_RESERVED_SIZE)<br>
-&nbsp;<br>
-If I&nbsp; understand your intention correctly, it should be that: <br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (((adev)-&gt;vm_manager.max_pfn &=
-lt;&lt; AMDGPU_GPU_PAGE_SHIFT)&nbsp; - \<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_VA_RESERVED_SIZE)<br=
+On Sun, Jan 21, 2018 at 7:46 AM, Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org> wrote:
+> amdgpu_device_init() calls vga_switcheroo_init_domain_pm_ops() either
+> if the device has the PowerXpress flag set or if the user has set the
+> "runpm" module param to 1.
 >
-<br>
-Thanks<br>
-Roger(Hongbo.He)<br>
-<br>
-&nbsp;#define amdgpu_sriov_enabled(adev) \<br>
-&nbsp;((adev)-&gt;virt.caps &amp; AMDGPU_SRIOV_CAPS_ENABLE_IOV)<br>
---<br>
-2.14.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> However amdgpu_device_fini() calls vga_switcheroo_fini_domain_pm_ops()
+> only under the first of those two conditions.
 
---_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_--
+Good catch.  Forcing runpm=1 doesn't do anything useful anyway so just
+remove it in device_init().  See the attached patch.
 
---===============1275635156==
+Alex
+
+
+>
+> (Note this issue isn't present in radeon.  It was introduced when the
+> driver was forked.)
+>
+> Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+> Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index d09c4ee9f7e1..f07eedc53761 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2083,7 +2083,7 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+>         adev->bios = NULL;
+>         if (!pci_is_thunderbolt_attached(adev->pdev))
+>                 vga_switcheroo_unregister_client(adev->pdev);
+> -       if (adev->flags & AMD_IS_PX)
+> +       if (adev->flags & AMD_IS_PX || amdgpu_runtime_pm == 1)
+>                 vga_switcheroo_fini_domain_pm_ops(adev->dev);
+>         vga_client_register(adev->pdev, NULL, NULL, NULL);
+>         if (adev->rio_mem)
+> --
+> 2.15.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--94eb2c0940fedc2d99056369e6d2
+Content-Type: text/x-patch; charset="US-ASCII";
+	name="0001-drm-amdgpu-Avoid-leaking-PM-domain-on-driver-unbind-.patch"
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-Avoid-leaking-PM-domain-on-driver-unbind-.patch"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_jcr4x64w0
+
+RnJvbSA0MjBhMWEzZTdjMWMxMmI2M2NkOTNkMzA2YjhjZTgwNzUwZDliYzhlIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IE1vbiwgMjIgSmFuIDIwMTggMjM6MTM6MzIgLTA1MDAKU3ViamVjdDogW1BBVENI
+XSBkcm0vYW1kZ3B1OiBBdm9pZCBsZWFraW5nIFBNIGRvbWFpbiBvbiBkcml2ZXIgdW5iaW5kICh2
+MikKCldlIG9ubHkgc3VwcG9ydCB2Z2Ffc3dpdGNoZXJvbyBhbmQgcnVudGltZSBwbSBvbiBQWC9I
+RyBzeXN0ZW1zCnNvIGZvcmNpbmcgcnVucG0gdG8gMSBkb2Vzbid0IGRvIGFueXRoaW5nIHVzZWZ1
+bCBhbnl3YXkuCgpPbmx5IGNhbGwgdmdhX3N3aXRjaGVyb29faW5pdF9kb21haW5fcG1fb3BzKCkg
+Zm9yIFBYL0hHIHNvCnRoYXQgdGhlIGNsZWFudXAgcGF0aCBpcyBjb3JyZWN0IGFzIHdlbGwuICBU
+aGlzIG1pcnJvcnMgd2hhdApyYWRlb24gZG9lcyBhcyB3ZWxsLgoKdjI6IHJld29yayB0aGUgcGF0
+Y2ggb3JpZ2luYWxseSBzZW50IGJ5IEx1a2FzIChBbGV4KQoKUmVwb3J0ZWQtYnk6IEx1a2FzIFd1
+bm5lciA8bHVrYXNAd3VubmVyLmRlPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhh
+bmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEx1a2FzIFd1bm5lciA8bHVrYXNA
+d3VubmVyLmRlPiAodjEpCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCi0tLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMiAtLQogMSBmaWxlIGNoYW5nZWQs
+IDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
+ZS5jCmluZGV4IDAyYTkxNTdlNzJhYy4uNzE5OGViOTczNGVkIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0xODc3LDggKzE4NzcsNiBAQCBpbnQgYW1k
+Z3B1X2RldmljZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCSAqIGlnbm9yZSBp
+dCAqLwogCXZnYV9jbGllbnRfcmVnaXN0ZXIoYWRldi0+cGRldiwgYWRldiwgTlVMTCwgYW1kZ3B1
+X2RldmljZV92Z2Ffc2V0X2RlY29kZSk7CiAKLQlpZiAoYW1kZ3B1X3J1bnRpbWVfcG0gPT0gMSkK
+LQkJcnVudGltZSA9IHRydWU7CiAJaWYgKGFtZGdwdV9kZXZpY2VfaXNfcHgoZGRldikpCiAJCXJ1
+bnRpbWUgPSB0cnVlOwogCWlmICghcGNpX2lzX3RodW5kZXJib2x0X2F0dGFjaGVkKGFkZXYtPnBk
+ZXYpKQotLSAKMi4xMy42Cgo=
+--94eb2c0940fedc2d99056369e6d2
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -380,4 +112,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1275635156==--
+--94eb2c0940fedc2d99056369e6d2--
