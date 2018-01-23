@@ -1,72 +1,103 @@
-From: Michal Hocko <mhocko@kernel.org>
-Subject: Re: [RFC] Per file OOM badness
-Date: Tue, 23 Jan 2018 12:39:12 +0100
-Message-ID: <20180123113912.GH1526@dhcp22.suse.cz>
-References: <20180118170006.GG6584@dhcp22.suse.cz>
- <20180118171355.GH6584@dhcp22.suse.cz>
- <87k1wfgcmb.fsf@anholt.net>
- <20180119082046.GL6584@dhcp22.suse.cz>
- <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
- <20180119104058.GU6584@dhcp22.suse.cz>
- <d4fe7e59-da2d-11a5-73e2-55f2f27cdfd8@amd.com>
- <20180119121351.GW6584@dhcp22.suse.cz>
- <20180119122005.GX6584@dhcp22.suse.cz>
- <7c7b0616-97ba-01e7-0053-bf224ca5b5f2@amd.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/5] drm/amd/pp: Change activity_target for performance
+ optimization on Polaris
+Date: Tue, 23 Jan 2018 18:04:58 +0800
+Message-ID: <1516701902-14105-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-Content-Disposition: inline
-In-Reply-To: <7c7b0616-97ba-01e7-0053-bf224ca5b5f2@amd.com>
-Sender: owner-linux-mm@kvack.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Eric Anholt <eric@anholt.net>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-On Fri 19-01-18 17:54:36, Christian König wrote:
-> Am 19.01.2018 um 13:20 schrieb Michal Hocko:
-> > On Fri 19-01-18 13:13:51, Michal Hocko wrote:
-> > > On Fri 19-01-18 12:37:51, Christian König wrote:
-> > > [...]
-> > > > The per file descriptor badness is/was just the much easier approach to
-> > > > solve the issue, because the drivers already knew which client is currently
-> > > > using which buffer objects.
-> > > > 
-> > > > I of course agree that file descriptors can be shared between processes and
-> > > > are by themselves not killable. But at least for our graphics driven use
-> > > > case I don't see much of a problem killing all processes when a file
-> > > > descriptor is used by more than one at the same time.
-> > > Ohh, I absolutely see why you have chosen this way for your particular
-> > > usecase. I am just arguing that this would rather be more generic to be
-> > > merged. If there is absolutely no other way around we can consider it
-> > > but right now I do not see that all other options have been considered
-> > > properly. Especially when the fd based approach is basically wrong for
-> > > almost anybody else.
-> > And more importantly. Iterating over _all_ fd which is what is your
-> > approach is based on AFAIU is not acceptable for the OOM path. Even
-> > though oom_badness is not a hot path we do not really want it to take a
-> > lot of time either. Even the current iteration over all processes is
-> > quite time consuming. Now you want to add the number of opened files and
-> > that might be quite many per process.
-> 
-> Mhm, crap that is a really good argument.
-> 
-> How about adding a linked list of callbacks to check for the OOM killer to
-> check for each process?
-> 
-> This way we can avoid finding the process where we need to account things on
-> when memory is allocated and still allow the OOM killer to only check the
-> specific callbacks it needs to determine the score of a process?
-
-I might be oversimplifying but there really have to be a boundary when
-you have the target user context, no? Then do the accounting when you
-get data to the user.
--- 
-Michal Hocko
-SUSE Labs
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+QW5kIG5vdCBzdXBwb3J0IHBlckRQTSBvcHRpbWl6YXRpb24gb24gUG9sYXJpcywgc28KZGVsZXRl
+IHNjbGsgYWN0aXZpdHlfdGFyZ2V0IGFycmF5LgoKQ2hhbmdlLUlkOiBJNDRjYTAxZDUxMjRiZmJj
+N2NlNzgwMmRlN2UwMzdiOGZhNjk2YzJiYQpTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1
+QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19k
+eW5fZGVmYXVsdHMuaCB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
+L3NtdTdfaHdtZ3IuYyAgICAgICAgfCAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2h3bWdyL3NtdTdfaHdtZ3IuaCAgICAgICAgfCAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMgfCA2ICstLS0tLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuaCB8IDEgLQogNSBmaWxl
+cyBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19keW5fZGVmYXVsdHMuaCBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfZHluX2RlZmF1bHRzLmgK
+aW5kZXggZjk2NzYxMy4uMzQ3N2Q0ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaHdtZ3Ivc211N19keW5fZGVmYXVsdHMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci9zbXU3X2R5bl9kZWZhdWx0cy5oCkBAIC01MCw2ICs1MCw2IEBA
+CiAjZGVmaW5lIFNNVTdfQ0dVTFZDT05UUk9MX0RGTFQgICAgICAgICAgICAgICAgICAgICAgMHgw
+MDAwNzQ1MAogI2RlZmluZSBTTVU3X1RBUkdFVEFDVElWSVRZX0RGTFQgICAgICAgICAgICAgICAg
+ICAgICA1MAogI2RlZmluZSBTTVU3X01DTEtfVEFSR0VUQUNUSVZJVFlfREZMVCAgICAgICAgICAg
+ICAgICAxMAotCisjZGVmaW5lIFNNVTdfU0NMS19UQVJHRVRBQ1RJVklUWV9ERkxUICAgICAgICAg
+ICAgICAgIDMwCiAjZW5kaWYKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aHdtZ3Ivc211N19od21nci5jCmluZGV4IDU0ZjU2OWMuLjNmZjk1MzYgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKQEAgLTE0ODUsNiAr
+MTQ4NSw3IEBAIHN0YXRpYyB2b2lkIHNtdTdfaW5pdF9kcG1fZGVmYXVsdHMoc3RydWN0IHBwX2h3
+bWdyICpod21ncikKIAlkYXRhLT5kbGxfZGVmYXVsdF9vbiA9IGZhbHNlOwogCWRhdGEtPm1jbGtf
+ZHBtMF9hY3Rpdml0eV90YXJnZXQgPSAweGE7CiAJZGF0YS0+bWNsa19hY3Rpdml0eV90YXJnZXQg
+PSBTTVU3X01DTEtfVEFSR0VUQUNUSVZJVFlfREZMVDsKKwlkYXRhLT5zY2xrX2FjdGl2aXR5X3Rh
+cmdldCA9IFNNVTdfU0NMS19UQVJHRVRBQ1RJVklUWV9ERkxUOwogCWRhdGEtPnZkZGNfdmRkZ2Z4
+X2RlbHRhID0gMzAwOwogCWRhdGEtPnN0YXRpY19zY3JlZW5fdGhyZXNob2xkID0gU01VN19TVEFU
+SUNTQ1JFRU5USFJFU0hPTERfREZMVDsKIAlkYXRhLT5zdGF0aWNfc2NyZWVuX3RocmVzaG9sZF91
+bml0ID0gU01VN19TVEFUSUNTQ1JFRU5USFJFU0hPTERVTklUX0RGTFQ7CmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmggYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmgKaW5kZXggMWNlODRjYy4u
+YTYyNmEzZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Iv
+c211N19od21nci5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Nt
+dTdfaHdtZ3IuaApAQCAtMjkwLDYgKzI5MCw3IEBAIHN0cnVjdCBzbXU3X2h3bWdyIHsKIAlib29s
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1c2VfcGNpZV9wZXJmb3JtYW5j
+ZV9sZXZlbHM7CiAJYm9vbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdXNl
+X3BjaWVfcG93ZXJfc2F2aW5nX2xldmVsczsKIAl1aW50MzJfdCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBtY2xrX2FjdGl2aXR5X3RhcmdldDsKKwl1aW50MTZfdCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBzY2xrX2FjdGl2aXR5X3RhcmdldDsKIAl1aW50MzJfdCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtY2xrX2RwbTBfYWN0aXZpdHlfdGFyZ2V0
+OwogCXVpbnQzMl90ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxvd19zY2xrX2lu
+dGVycnVwdF90aHJlc2hvbGQ7CiAJdWludDMyX3QgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgbGFzdF9tY2xrX2RwbV9lbmFibGVfbWFzazsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCmluZGV4IGE3NjBh
+ODIuLjM1NmY2MGUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Nt
+dW1nci9wb2xhcmlzMTBfc211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwpAQCAtMzY2LDcgKzM2Niw2IEBAIHN0YXRpYyBi
+b29sIHBvbGFyaXMxMF9pc19od19hdmZzX3ByZXNlbnQoc3RydWN0IHBwX2h3bWdyICpod21ncikK
+IHN0YXRpYyBpbnQgcG9sYXJpczEwX3NtdV9pbml0KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiB7
+CiAJc3RydWN0IHBvbGFyaXMxMF9zbXVtZ3IgKnNtdV9kYXRhOwotCWludCBpOwogCiAJc211X2Rh
+dGEgPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgcG9sYXJpczEwX3NtdW1nciksIEdGUF9LRVJORUwp
+OwogCWlmIChzbXVfZGF0YSA9PSBOVUxMKQpAQCAtMzc3LDkgKzM3Niw2IEBAIHN0YXRpYyBpbnQg
+cG9sYXJpczEwX3NtdV9pbml0KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJaWYgKHNtdTdfaW5p
+dChod21ncikpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JZm9yIChpID0gMDsgaSA8IFNNVTc0X01B
+WF9MRVZFTFNfR1JBUEhJQ1M7IGkrKykKLQkJc211X2RhdGEtPmFjdGl2aXR5X3RhcmdldFtpXSA9
+IFBQUE9MQVJJUzEwX1RBUkdFVEFDVElWSVRZX0RGTFQ7Ci0KIAlyZXR1cm4gMDsKIH0KIApAQCAt
+MTAzNyw3ICsxMDMzLDcgQEAgc3RhdGljIGludCBwb2xhcmlzMTBfcG9wdWxhdGVfYWxsX2dyYXBo
+aWNfbGV2ZWxzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAKIAkJcmVzdWx0ID0gcG9sYXJpczEw
+X3BvcHVsYXRlX3NpbmdsZV9ncmFwaGljX2xldmVsKGh3bWdyLAogCQkJCWRwbV90YWJsZS0+c2Ns
+a190YWJsZS5kcG1fbGV2ZWxzW2ldLnZhbHVlLAotCQkJCSh1aW50MTZfdClzbXVfZGF0YS0+YWN0
+aXZpdHlfdGFyZ2V0W2ldLAorCQkJCWh3X2RhdGEtPnNjbGtfYWN0aXZpdHlfdGFyZ2V0LAogCQkJ
+CSYoc211X2RhdGEtPnNtY19zdGF0ZV90YWJsZS5HcmFwaGljc0xldmVsW2ldKSk7CiAJCWlmIChy
+ZXN1bHQpCiAJCQlyZXR1cm4gcmVzdWx0OwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmgKaW5kZXggNWUxOWMyNC4uMWVj
+NDI1ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3Bv
+bGFyaXMxMF9zbXVtZ3IuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVt
+Z3IvcG9sYXJpczEwX3NtdW1nci5oCkBAIC01OSw3ICs1OSw2IEBAIHN0cnVjdCBwb2xhcmlzMTBf
+c211bWdyIHsKIAlzdHJ1Y3QgU01VNzRfRGlzY3JldGVfUG1GdXNlcyAgcG93ZXJfdHVuZV90YWJs
+ZTsKIAlzdHJ1Y3QgcG9sYXJpczEwX3JhbmdlX3RhYmxlICAgICAgICAgICAgICAgIHJhbmdlX3Rh
+YmxlW05VTV9TQ0xLX1JBTkdFXTsKIAljb25zdCBzdHJ1Y3QgcG9sYXJpczEwX3B0X2RlZmF1bHRz
+ICAgICAgICpwb3dlcl90dW5lX2RlZmF1bHRzOwotCXVpbnQzMl90ICAgICAgICAgICAgICAgYWN0
+aXZpdHlfdGFyZ2V0W1NNVTc0X01BWF9MRVZFTFNfR1JBUEhJQ1NdOwogCXVpbnQzMl90ICAgICAg
+ICAgICAgICAgYmlmX3NjbGtfdGFibGVbU01VNzRfTUFYX0xFVkVMU19MSU5LXTsKIH07CiAKLS0g
+CjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
