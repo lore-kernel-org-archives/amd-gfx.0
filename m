@@ -1,64 +1,82 @@
-From: Michal Hocko <mhocko@kernel.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Subject: Re: [RFC] Per file OOM badness
-Date: Tue, 23 Jan 2018 16:36:31 +0100
-Message-ID: <20180123153631.GR1526@dhcp22.suse.cz>
+Date: Tue, 23 Jan 2018 17:39:19 +0100
+Message-ID: <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
 References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
  <20180118170006.GG6584@dhcp22.suse.cz>
  <20180123152659.GA21817@castle.DHCP.thefacebook.com>
+ <20180123153631.GR1526@dhcp22.suse.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-Content-Disposition: inline
-In-Reply-To: <20180123152659.GA21817@castle.DHCP.thefacebook.com>
-Sender: owner-linux-mm@kvack.org
-To: Roman Gushchin <guro@fb.com>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180123153631.GR1526-2MMpYkNvuYDjFM9bn6wA6Q@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Michal Hocko <mhocko-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Roman Gushchin <guro-b10kYP2dOMg@public.gmane.org>
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-On Tue 23-01-18 15:27:00, Roman Gushchin wrote:
-> On Thu, Jan 18, 2018 at 06:00:06PM +0100, Michal Hocko wrote:
-> > On Thu 18-01-18 11:47:48, Andrey Grodzovsky wrote:
-> > > Hi, this series is a revised version of an RFC sent by Christian König
-> > > a few years ago. The original RFC can be found at 
-> > > https://urldefense.proofpoint.com/v2/url?u=https-3A__lists.freedesktop.org_archives_dri-2Ddevel_2015-2DSeptember_089778.html&d=DwIDAw&c=5VD0RTtNlTh3ycd41b3MUw&r=jJYgtDM7QT-W-Fz_d29HYQ&m=R-JIQjy8rqmH5qD581_VYL0Q7cpWSITKOnBCE-3LI8U&s=QZGqKpKuJ2BtioFGSy8_721owcWJ0J6c6d4jywOwN4w&
-> > Here is the origin cover letter text
-> > : I'm currently working on the issue that when device drivers allocate memory on
-> > : behalf of an application the OOM killer usually doesn't knew about that unless
-> > : the application also get this memory mapped into their address space.
-> > : 
-> > : This is especially annoying for graphics drivers where a lot of the VRAM
-> > : usually isn't CPU accessible and so doesn't make sense to map into the
-> > : address space of the process using it.
-> > : 
-> > : The problem now is that when an application starts to use a lot of VRAM those
-> > : buffers objects sooner or later get swapped out to system memory, but when we
-> > : now run into an out of memory situation the OOM killer obviously doesn't knew
-> > : anything about that memory and so usually kills the wrong process.
-> > : 
-> > : The following set of patches tries to address this problem by introducing a per
-> > : file OOM badness score, which device drivers can use to give the OOM killer a
-> > : hint how many resources are bound to a file descriptor so that it can make
-> > : better decisions which process to kill.
-> > : 
-> > : So question at every one: What do you think about this approach?
-> > : 
-> > : My biggest concern right now is the patches are messing with a core kernel
-> > : structure (adding a field to struct file). Any better idea? I'm considering
-> > : to put a callback into file_ops instead.
-> 
-> Hello!
-> 
-> I wonder if groupoom (aka cgroup-aware OOM killer) can work for you?
-
-I do not think so. The problem is that the allocating context is not
-identical with the end consumer.
--- 
-Michal Hocko
-SUSE Labs
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+T24gMjAxOC0wMS0yMyAwNDozNiBQTSwgTWljaGFsIEhvY2tvIHdyb3RlOgo+IE9uIFR1ZSAyMy0w
+MS0xOCAxNToyNzowMCwgUm9tYW4gR3VzaGNoaW4gd3JvdGU6Cj4+IE9uIFRodSwgSmFuIDE4LCAy
+MDE4IGF0IDA2OjAwOjA2UE0gKzAxMDAsIE1pY2hhbCBIb2NrbyB3cm90ZToKPj4+IE9uIFRodSAx
+OC0wMS0xOCAxMTo0Nzo0OCwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4+Pj4gSGksIHRoaXMg
+c2VyaWVzIGlzIGEgcmV2aXNlZCB2ZXJzaW9uIG9mIGFuIFJGQyBzZW50IGJ5IENocmlzdGlhbiBL
+w7ZuaWcKPj4+PiBhIGZldyB5ZWFycyBhZ28uIFRoZSBvcmlnaW5hbCBSRkMgY2FuIGJlIGZvdW5k
+IGF0IAo+Pj4+IGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRw
+cy0zQV9fbGlzdHMuZnJlZWRlc2t0b3Aub3JnX2FyY2hpdmVzX2RyaS0yRGRldmVsXzIwMTUtMkRT
+ZXB0ZW1iZXJfMDg5Nzc4Lmh0bWwmZD1Ed0lEQXcmYz01VkQwUlR0TmxUaDN5Y2Q0MWIzTVV3JnI9
+akpZZ3RETTdRVC1XLUZ6X2QyOUhZUSZtPVItSklRank4cnFtSDVxRDU4MV9WWUwwUTdjcFdTSVRL
+T25CQ0UtM0xJOFUmcz1RWkdxS3BLdUoyQnRpb0ZHU3k4XzcyMW93Y1dKMEo2YzZkNGp5d093TjR3
+Jgo+Pj4gSGVyZSBpcyB0aGUgb3JpZ2luIGNvdmVyIGxldHRlciB0ZXh0Cj4+PiA6IEknbSBjdXJy
+ZW50bHkgd29ya2luZyBvbiB0aGUgaXNzdWUgdGhhdCB3aGVuIGRldmljZSBkcml2ZXJzIGFsbG9j
+YXRlIG1lbW9yeSBvbgo+Pj4gOiBiZWhhbGYgb2YgYW4gYXBwbGljYXRpb24gdGhlIE9PTSBraWxs
+ZXIgdXN1YWxseSBkb2Vzbid0IGtuZXcgYWJvdXQgdGhhdCB1bmxlc3MKPj4+IDogdGhlIGFwcGxp
+Y2F0aW9uIGFsc28gZ2V0IHRoaXMgbWVtb3J5IG1hcHBlZCBpbnRvIHRoZWlyIGFkZHJlc3Mgc3Bh
+Y2UuCj4+PiA6IAo+Pj4gOiBUaGlzIGlzIGVzcGVjaWFsbHkgYW5ub3lpbmcgZm9yIGdyYXBoaWNz
+IGRyaXZlcnMgd2hlcmUgYSBsb3Qgb2YgdGhlIFZSQU0KPj4+IDogdXN1YWxseSBpc24ndCBDUFUg
+YWNjZXNzaWJsZSBhbmQgc28gZG9lc24ndCBtYWtlIHNlbnNlIHRvIG1hcCBpbnRvIHRoZQo+Pj4g
+OiBhZGRyZXNzIHNwYWNlIG9mIHRoZSBwcm9jZXNzIHVzaW5nIGl0Lgo+Pj4gOiAKPj4+IDogVGhl
+IHByb2JsZW0gbm93IGlzIHRoYXQgd2hlbiBhbiBhcHBsaWNhdGlvbiBzdGFydHMgdG8gdXNlIGEg
+bG90IG9mIFZSQU0gdGhvc2UKPj4+IDogYnVmZmVycyBvYmplY3RzIHNvb25lciBvciBsYXRlciBn
+ZXQgc3dhcHBlZCBvdXQgdG8gc3lzdGVtIG1lbW9yeSwgYnV0IHdoZW4gd2UKPj4+IDogbm93IHJ1
+biBpbnRvIGFuIG91dCBvZiBtZW1vcnkgc2l0dWF0aW9uIHRoZSBPT00ga2lsbGVyIG9idmlvdXNs
+eSBkb2Vzbid0IGtuZXcKPj4+IDogYW55dGhpbmcgYWJvdXQgdGhhdCBtZW1vcnkgYW5kIHNvIHVz
+dWFsbHkga2lsbHMgdGhlIHdyb25nIHByb2Nlc3MuCj4+PiA6IAo+Pj4gOiBUaGUgZm9sbG93aW5n
+IHNldCBvZiBwYXRjaGVzIHRyaWVzIHRvIGFkZHJlc3MgdGhpcyBwcm9ibGVtIGJ5IGludHJvZHVj
+aW5nIGEgcGVyCj4+PiA6IGZpbGUgT09NIGJhZG5lc3Mgc2NvcmUsIHdoaWNoIGRldmljZSBkcml2
+ZXJzIGNhbiB1c2UgdG8gZ2l2ZSB0aGUgT09NIGtpbGxlciBhCj4+PiA6IGhpbnQgaG93IG1hbnkg
+cmVzb3VyY2VzIGFyZSBib3VuZCB0byBhIGZpbGUgZGVzY3JpcHRvciBzbyB0aGF0IGl0IGNhbiBt
+YWtlCj4+PiA6IGJldHRlciBkZWNpc2lvbnMgd2hpY2ggcHJvY2VzcyB0byBraWxsLgo+Pj4gOiAK
+Pj4+IDogU28gcXVlc3Rpb24gYXQgZXZlcnkgb25lOiBXaGF0IGRvIHlvdSB0aGluayBhYm91dCB0
+aGlzIGFwcHJvYWNoPwo+Pj4gOiAKPj4+IDogTXkgYmlnZ2VzdCBjb25jZXJuIHJpZ2h0IG5vdyBp
+cyB0aGUgcGF0Y2hlcyBhcmUgbWVzc2luZyB3aXRoIGEgY29yZSBrZXJuZWwKPj4+IDogc3RydWN0
+dXJlIChhZGRpbmcgYSBmaWVsZCB0byBzdHJ1Y3QgZmlsZSkuIEFueSBiZXR0ZXIgaWRlYT8gSSdt
+IGNvbnNpZGVyaW5nCj4+PiA6IHRvIHB1dCBhIGNhbGxiYWNrIGludG8gZmlsZV9vcHMgaW5zdGVh
+ZC4KPj4KPj4gSGVsbG8hCj4+Cj4+IEkgd29uZGVyIGlmIGdyb3Vwb29tIChha2EgY2dyb3VwLWF3
+YXJlIE9PTSBraWxsZXIpIGNhbiB3b3JrIGZvciB5b3U/Cj4gCj4gSSBkbyBub3QgdGhpbmsgc28u
+IFRoZSBwcm9ibGVtIGlzIHRoYXQgdGhlIGFsbG9jYXRpbmcgY29udGV4dCBpcyBub3QKPiBpZGVu
+dGljYWwgd2l0aCB0aGUgZW5kIGNvbnN1bWVyLgoKVGhhdCdzIGFjdHVhbGx5IG5vdCByZWFsbHkg
+dHJ1ZS4gRXZlbiBpbiBjYXNlcyB3aGVyZSBhIEJPIGlzIHNoYXJlZCB3aXRoCmEgZGlmZmVyZW50
+IHByb2Nlc3MsIGl0IGlzIHN0aWxsIHVzZWQgYXQgbGVhc3Qgb2NjYXNpb25hbGx5IGluIHRoZQpw
+cm9jZXNzIHdoaWNoIGFsbG9jYXRlZCBpdCBhcyB3ZWxsLiBPdGhlcndpc2UgdGhlcmUgd291bGQg
+YmUgbm8gcG9pbnQgaW4Kc2hhcmluZyBpdCBiZXR3ZWVuIHByb2Nlc3Nlcy4KCgpUaGVyZSBzaG91
+bGQgYmUgbm8gcHJvYmxlbSBpZiB0aGUgbWVtb3J5IG9mIGEgc2hhcmVkIEJPIGlzIGFjY291bnRl
+ZCBmb3IKaW4gZWFjaCBwcm9jZXNzIHNoYXJpbmcgaXQuIEl0IG1pZ2h0IGJlIG5pY2UgdG8gc2Nh
+bGUgZWFjaCBwcm9jZXNzJwoiZGVidCIgYnkgMSAvIChudW1iZXIgb2YgcHJvY2Vzc2VzIHNoYXJp
+bmcgaXQpIGlmIHBvc3NpYmxlLCBidXQgaW4gdGhlCndvcnN0IGNhc2UgYWNjb3VudGluZyBpdCBm
+dWxseSBpbiBlYWNoIHByb2Nlc3Mgc2hvdWxkIGJlIGZpbmUuCgoKLS0gCkVhcnRobGluZyBNaWNo
+ZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5j
+b20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1l
+c2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
