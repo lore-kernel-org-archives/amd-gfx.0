@@ -1,108 +1,64 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/display: Remove timer handler.
-Date: Tue, 23 Jan 2018 10:29:42 -0500
-Message-ID: <529d8e19-3460-6da1-622a-12802db5871b@amd.com>
-References: <1516397706-31747-1-git-send-email-andrey.grodzovsky@amd.com>
- <1516397706-31747-2-git-send-email-andrey.grodzovsky@amd.com>
+From: Michal Hocko <mhocko@kernel.org>
+Subject: Re: [RFC] Per file OOM badness
+Date: Tue, 23 Jan 2018 16:36:31 +0100
+Message-ID: <20180123153631.GR1526@dhcp22.suse.cz>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20180118170006.GG6584@dhcp22.suse.cz>
+ <20180123152659.GA21817@castle.DHCP.thefacebook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1516397706-31747-2-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, sw.dl.display.sudo-5C7GfCeVMHo@public.gmane.org
-Cc: =harry.wentland-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+Content-Disposition: inline
+In-Reply-To: <20180123152659.GA21817@castle.DHCP.thefacebook.com>
+Sender: owner-linux-mm@kvack.org
+To: Roman Gushchin <guro@fb.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wMS0xOSAwNDozNSBQTSwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4gRGVhZCBj
-b2RlLCBsb29rcyBvYnNvbGV0ZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNr
-eSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KCkdvb2QgY2xlYW51cC4gVGhhbmtzLgoKU2Vy
-aWVzIGlzClJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNv
-bT4KCkhhcnJ5Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
-L2FtZGdwdV9kbS5oICB8ICA0IC0tCj4gIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG1faXJxLmMgIHwgNzYgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICAyIGZpbGVz
-IGNoYW5nZWQsIDgwIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5oIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uaAo+IGluZGV4IDU1YWMyOTYuLjk5MDIxMzIg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmgKPiBAQCAtMTE3LDEwICsxMTcsNiBAQCBzdHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfbWFu
-YWdlciB7Cj4gIAkvKiB0aGlzIHNwaW4gbG9jayBzeW5jaHJvbml6ZXMgYWNjZXNzIHRvICdpcnFf
-aGFuZGxlcl9saXN0X3RhYmxlJyAqLwo+ICAJc3BpbmxvY2tfdCBpcnFfaGFuZGxlcl9saXN0X3Rh
-YmxlX2xvY2s7Cj4gIAo+IC0JLyogVGltZXItcmVsYXRlZCBkYXRhLiAqLwo+IC0Jc3RydWN0IGxp
-c3RfaGVhZCB0aW1lcl9oYW5kbGVyX2xpc3Q7Cj4gLQlzdHJ1Y3Qgd29ya3F1ZXVlX3N0cnVjdCAq
-dGltZXJfd29ya3F1ZXVlOwo+IC0KPiAgCXN0cnVjdCBiYWNrbGlnaHRfZGV2aWNlICpiYWNrbGln
-aHRfZGV2Owo+ICAKPiAgCWNvbnN0IHN0cnVjdCBkY19saW5rICpiYWNrbGlnaHRfbGluazsKPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1faXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bV9pcnEuYwo+IGluZGV4IDE4NzRiNmMuLjBlZTQyNWIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faXJxLmMKPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9pcnEuYwo+IEBAIC01
-MSwxMSArNTEsNiBAQCBzdHJ1Y3QgYW1kZ3B1X2RtX2lycV9oYW5kbGVyX2RhdGEgewo+ICAJZW51
-bSBkY19pcnFfc291cmNlIGlycV9zb3VyY2U7Cj4gIH07Cj4gIAo+IC1zdHJ1Y3QgYW1kZ3B1X2Rt
-X3RpbWVyX2hhbmRsZXJfZGF0YSB7Cj4gLQlzdHJ1Y3QgaGFuZGxlcl9jb21tb25fZGF0YSBoY2Q7
-Cj4gLQlzdHJ1Y3QgZGVsYXllZF93b3JrIGRfd29yazsKPiAtfTsKPiAtCj4gICNkZWZpbmUgRE1f
-SVJRX1RBQkxFX0xPQ0soYWRldiwgZmxhZ3MpIFwKPiAgCXNwaW5fbG9ja19pcnFzYXZlKCZhZGV2
-LT5kbS5pcnFfaGFuZGxlcl9saXN0X3RhYmxlX2xvY2ssIGZsYWdzKQo+ICAKPiBAQCAtMTY5LDYy
-ICsxNjQsNiBAQCBzdGF0aWMgc3RydWN0IGxpc3RfaGVhZCAqcmVtb3ZlX2lycV9oYW5kbGVyKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAJcmV0dXJuIGhuZF9saXN0Owo+ICB9Cj4gIAo+
-IC0vKiBJZiAnaGFuZGxlcl9pbiA9PSBOVUxMJyB0aGVuIHJlbW92ZSBBTEwgaGFuZGxlcnMuICov
-Cj4gLXN0YXRpYyB2b2lkIHJlbW92ZV90aW1lcl9oYW5kbGVyKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAo+IC0JCQkJIHN0cnVjdCBhbWRncHVfZG1fdGltZXJfaGFuZGxlcl9kYXRhICpoYW5k
-bGVyX2luKQo+IC17Cj4gLQlzdHJ1Y3QgYW1kZ3B1X2RtX3RpbWVyX2hhbmRsZXJfZGF0YSAqaGFu
-ZGxlcl90ZW1wOwo+IC0Jc3RydWN0IGxpc3RfaGVhZCAqaGFuZGxlcl9saXN0Owo+IC0Jc3RydWN0
-IGxpc3RfaGVhZCAqZW50cnksICp0bXA7Cj4gLQl1bnNpZ25lZCBsb25nIGlycV90YWJsZV9mbGFn
-czsKPiAtCWJvb2wgaGFuZGxlcl9yZW1vdmVkID0gZmFsc2U7Cj4gLQo+IC0JRE1fSVJRX1RBQkxF
-X0xPQ0soYWRldiwgaXJxX3RhYmxlX2ZsYWdzKTsKPiAtCj4gLQloYW5kbGVyX2xpc3QgPSAmYWRl
-di0+ZG0udGltZXJfaGFuZGxlcl9saXN0Owo+IC0KPiAtCWxpc3RfZm9yX2VhY2hfc2FmZShlbnRy
-eSwgdG1wLCBoYW5kbGVyX2xpc3QpIHsKPiAtCQkvKiBOb3RlIHRoYXQgbGlzdF9mb3JfZWFjaF9z
-YWZlKCkgZ3VhcmFudGVlcyB0aGF0Cj4gLQkJICogaGFuZGxlcl90ZW1wIGlzIE5PVCBudWxsLiAq
-Lwo+IC0JCWhhbmRsZXJfdGVtcCA9IGxpc3RfZW50cnkoZW50cnksCj4gLQkJCQlzdHJ1Y3QgYW1k
-Z3B1X2RtX3RpbWVyX2hhbmRsZXJfZGF0YSwgaGNkLmxpc3QpOwo+IC0KPiAtCQlpZiAoaGFuZGxl
-cl9pbiA9PSBOVUxMIHx8IGhhbmRsZXJfaW4gPT0gaGFuZGxlcl90ZW1wKSB7Cj4gLQkJCWxpc3Rf
-ZGVsKCZoYW5kbGVyX3RlbXAtPmhjZC5saXN0KTsKPiAtCQkJRE1fSVJRX1RBQkxFX1VOTE9DSyhh
-ZGV2LCBpcnFfdGFibGVfZmxhZ3MpOwo+IC0KPiAtCQkJRFJNX0RFQlVHX0tNUygiRE1fSVJROiBy
-ZW1vdmluZyB0aW1lciBoYW5kbGVyOiAlcFxuIiwKPiAtCQkJCQloYW5kbGVyX3RlbXApOwo+IC0K
-PiAtCQkJaWYgKGhhbmRsZXJfaW4gPT0gTlVMTCkgewo+IC0JCQkJLyogU2luY2UgaXQgaXMgc3Rp
-bGwgaW4gdGhlIHF1ZXVlLCBpdCBtdXN0Cj4gLQkJCQkgKiBiZSBjYW5jZWxsZWQuICovCj4gLQkJ
-CQljYW5jZWxfZGVsYXllZF93b3JrX3N5bmMoJmhhbmRsZXJfdGVtcC0+ZF93b3JrKTsKPiAtCQkJ
-fQo+IC0KPiAtCQkJa2ZyZWUoaGFuZGxlcl90ZW1wKTsKPiAtCQkJaGFuZGxlcl9yZW1vdmVkID0g
-dHJ1ZTsKPiAtCj4gLQkJCURNX0lSUV9UQUJMRV9MT0NLKGFkZXYsIGlycV90YWJsZV9mbGFncyk7
-Cj4gLQkJfQo+IC0KPiAtCQkvKiBSZW1vdmUgQUxMIGhhbmRsZXJzLiAqLwo+IC0JCWlmIChoYW5k
-bGVyX2luID09IE5VTEwpCj4gLQkJCWNvbnRpbnVlOwo+IC0KPiAtCQkvKiBSZW1vdmUgYSBTUEVD
-SUZJQyBoYW5kbGVyLgo+IC0JCSAqIEZvdW5kIG91ciBoYW5kbGVyIC0gd2UgY2FuIHN0b3AgaGVy
-ZS4gKi8KPiAtCQlpZiAoaGFuZGxlcl9pbiA9PSBoYW5kbGVyX3RlbXApCj4gLQkJCWJyZWFrOwo+
-IC0JfQo+IC0KPiAtCURNX0lSUV9UQUJMRV9VTkxPQ0soYWRldiwgaXJxX3RhYmxlX2ZsYWdzKTsK
-PiAtCj4gLQlpZiAoaGFuZGxlcl9pbiAhPSBOVUxMICYmIGhhbmRsZXJfcmVtb3ZlZCA9PSBmYWxz
-ZSkKPiAtCQlEUk1fRVJST1IoIkRNX0lSUTogaGFuZGxlcjogJXAgaXMgbm90IGluIHRoZSBsaXN0
-IVxuIiwKPiAtCQkJCWhhbmRsZXJfaW4pOwo+IC19Cj4gLQo+ICBzdGF0aWMgYm9vbAo+ICB2YWxp
-ZGF0ZV9pcnFfcmVnaXN0cmF0aW9uX3BhcmFtcyhzdHJ1Y3QgZGNfaW50ZXJydXB0X3BhcmFtcyAq
-aW50X3BhcmFtcywKPiAgCQkJCSB2b2lkICgqaWgpKHZvaWQgKikpCj4gQEAgLTM4MiwxNiArMzIx
-LDYgQEAgaW50IGFtZGdwdV9kbV9pcnFfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-PiAgCQlJTklUX0xJU1RfSEVBRCgmYWRldi0+ZG0uaXJxX2hhbmRsZXJfbGlzdF9oaWdoX3RhYltz
-cmNdKTsKPiAgCX0KPiAgCj4gLQlJTklUX0xJU1RfSEVBRCgmYWRldi0+ZG0udGltZXJfaGFuZGxl
-cl9saXN0KTsKPiAtCj4gLQkvKiBhbGxvY2F0ZSBhbmQgaW5pdGlhbGl6ZSB0aGUgd29ya3F1ZXVl
-IGZvciBETSB0aW1lciAqLwo+IC0JYWRldi0+ZG0udGltZXJfd29ya3F1ZXVlID0gY3JlYXRlX3Np
-bmdsZXRocmVhZF93b3JrcXVldWUoCj4gLQkJCSJkbV90aW1lcl9xdWV1ZSIpOwo+IC0JaWYgKGFk
-ZXYtPmRtLnRpbWVyX3dvcmtxdWV1ZSA9PSBOVUxMKSB7Cj4gLQkJRFJNX0VSUk9SKCJETV9JUlE6
-IHVuYWJsZSB0byBjcmVhdGUgdGltZXIgcXVldWUhXG4iKTsKPiAtCQlyZXR1cm4gLTE7Cj4gLQl9
-Cj4gLQo+ICAJcmV0dXJuIDA7Cj4gIH0KPiAgCj4gQEAgLTQxMCwxMSArMzM5LDYgQEAgdm9pZCBh
-bWRncHVfZG1faXJxX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIAkJbGggPSAm
-YWRldi0+ZG0uaXJxX2hhbmRsZXJfbGlzdF9sb3dfdGFiW3NyY107Cj4gIAkJZmx1c2hfd29yaygm
-bGgtPndvcmspOwo+ICAJfQo+IC0KPiAtCS8qIENhbmNlbCBBTEwgdGltZXJzIGFuZCByZWxlYXNl
-IGhhbmRsZXJzIChpZiBhbnkpLiAqLwo+IC0JcmVtb3ZlX3RpbWVyX2hhbmRsZXIoYWRldiwgTlVM
-TCk7Cj4gLQkvKiBSZWxlYXNlIHRoZSBxdWV1ZSBpdHNlbGYuICovCj4gLQlkZXN0cm95X3dvcmtx
-dWV1ZShhZGV2LT5kbS50aW1lcl93b3JrcXVldWUpOwo+ICB9Cj4gIAo+ICBpbnQgYW1kZ3B1X2Rt
-X2lycV9zdXNwZW5kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+IApfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Tue 23-01-18 15:27:00, Roman Gushchin wrote:
+> On Thu, Jan 18, 2018 at 06:00:06PM +0100, Michal Hocko wrote:
+> > On Thu 18-01-18 11:47:48, Andrey Grodzovsky wrote:
+> > > Hi, this series is a revised version of an RFC sent by Christian König
+> > > a few years ago. The original RFC can be found at 
+> > > https://urldefense.proofpoint.com/v2/url?u=https-3A__lists.freedesktop.org_archives_dri-2Ddevel_2015-2DSeptember_089778.html&d=DwIDAw&c=5VD0RTtNlTh3ycd41b3MUw&r=jJYgtDM7QT-W-Fz_d29HYQ&m=R-JIQjy8rqmH5qD581_VYL0Q7cpWSITKOnBCE-3LI8U&s=QZGqKpKuJ2BtioFGSy8_721owcWJ0J6c6d4jywOwN4w&
+> > Here is the origin cover letter text
+> > : I'm currently working on the issue that when device drivers allocate memory on
+> > : behalf of an application the OOM killer usually doesn't knew about that unless
+> > : the application also get this memory mapped into their address space.
+> > : 
+> > : This is especially annoying for graphics drivers where a lot of the VRAM
+> > : usually isn't CPU accessible and so doesn't make sense to map into the
+> > : address space of the process using it.
+> > : 
+> > : The problem now is that when an application starts to use a lot of VRAM those
+> > : buffers objects sooner or later get swapped out to system memory, but when we
+> > : now run into an out of memory situation the OOM killer obviously doesn't knew
+> > : anything about that memory and so usually kills the wrong process.
+> > : 
+> > : The following set of patches tries to address this problem by introducing a per
+> > : file OOM badness score, which device drivers can use to give the OOM killer a
+> > : hint how many resources are bound to a file descriptor so that it can make
+> > : better decisions which process to kill.
+> > : 
+> > : So question at every one: What do you think about this approach?
+> > : 
+> > : My biggest concern right now is the patches are messing with a core kernel
+> > : structure (adding a field to struct file). Any better idea? I'm considering
+> > : to put a callback into file_ops instead.
+> 
+> Hello!
+> 
+> I wonder if groupoom (aka cgroup-aware OOM killer) can work for you?
+
+I do not think so. The problem is that the allocating context is not
+identical with the end consumer.
+-- 
+Michal Hocko
+SUSE Labs
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
