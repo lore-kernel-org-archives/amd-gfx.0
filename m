@@ -1,18 +1,20 @@
 From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address
  space
-Date: Tue, 23 Jan 2018 12:43:13 +0000
-Message-ID: <BLUPR12MB044956D60F5A8551D1CE427784E30@BLUPR12MB0449.namprd12.prod.outlook.com>
+Date: Tue, 23 Jan 2018 13:44:59 +0000
+Message-ID: <BLUPR12MB044994791174D013A88B302284E30@BLUPR12MB0449.namprd12.prod.outlook.com>
 References: <20180122104404.1239-1-christian.koenig@amd.com>
  <20180122104404.1239-3-christian.koenig@amd.com>
  <MWHPR1201MB0127D1F3C71A0C2D99A64603FDE30@MWHPR1201MB0127.namprd12.prod.outlook.com>
  <BLUPR12MB04494E357187195CC3C90B0584E30@BLUPR12MB0449.namprd12.prod.outlook.com>
- <BLUPR12MB0449A76D5FB31F4C46AD8BB384E30@BLUPR12MB0449.namprd12.prod.outlook.com>,
+ <BLUPR12MB0449A76D5FB31F4C46AD8BB384E30@BLUPR12MB0449.namprd12.prod.outlook.com>
  <99bd1b34-e10e-800d-fd35-8166a452fd3e@gmail.com>
+ <BLUPR12MB044956D60F5A8551D1CE427784E30@BLUPR12MB0449.namprd12.prod.outlook.com>,
+ <5b3ef38e-eb44-75a8-3300-4e892de11dab@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0720565669=="
+Content-Type: multipart/mixed; boundary="===============0765743553=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <99bd1b34-e10e-800d-fd35-8166a452fd3e-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <5b3ef38e-eb44-75a8-3300-4e892de11dab-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,25 +26,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0720565669==
+--===============0765743553==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB044956D60F5A8551D1CE427784E30BLUPR12MB0449namp_"
+	boundary="_000_BLUPR12MB044994791174D013A88B302284E30BLUPR12MB0449namp_"
 
---_000_BLUPR12MB044956D60F5A8551D1CE427784E30BLUPR12MB0449namp_
+--_000_BLUPR12MB044994791174D013A88B302284E30BLUPR12MB0449namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+looks this is HSA feature to me that CPU and GPU share the same virtual add=
+ress ....
+
+
+Ack-by: Monk Liu <monk.liu-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: Koenig, Christian
+Sent: Tuesday, January 23, 2018 8:51:21 PM
+To: Liu, Monk; He, Roger; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of addr=
+ess space
+
+The ATC (or alternatively HMM) maps the CPU addresses into the GPU address =
+space.
+
+Now on Linux the lower range (0x0-0x7fffffffffff) is used for the userspace=
+ address space on the CPU, so when we want to use that on the GPU it must b=
+e free of other mappings.
+
+GFX8 and GFX7 hardware had a separate flag which address space to use in th=
+e memory instructions, but on GFX9 it's all one big shared address space an=
+d we need to make sure that we don't kick each others feet.
+
+Had to move the addresses Mesa use as well because of this and older VCE fi=
+rmware unfortunately was buggy regarding this as well.
+
+Regards,
+Christian.
+
+Am 23.01.2018 um 13:43 schrieb Liu, Monk:
 
 OK I see, but why HMM/ATC/SVN want  low 8MB range ? why they cannot use hig=
 h range address ?
 
 
 ________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:ckoenig.l=
+eichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Sent: Tuesday, January 23, 2018 4:26:21 PM
-To: Liu, Monk; He, Roger; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Liu, Monk; He, Roger; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx@list=
+s.freedesktop.org>
 Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of addr=
 ess space
 
@@ -206,7 +242,8 @@ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
---_000_BLUPR12MB044956D60F5A8551D1CE427784E30BLUPR12MB0449namp_
+
+--_000_BLUPR12MB044994791174D013A88B302284E30BLUPR12MB0449namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -220,23 +257,72 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">OK I see, but why HMM/ATC/SVN wan=
-t&nbsp; low 8MB range ? why they cannot use high range address ?</p>
+<p style=3D"margin-top:0;margin-bottom:0">looks this is HSA feature to me t=
+hat CPU and GPU share the same virtual address ....</p>
 <p style=3D"margin-top:0;margin-bottom:0"><br>
 </p>
+<p style=3D"margin-top:0;margin-bottom:0">Ack-by: Monk Liu &lt;monk.liu@amd=
+.com&gt;</p>
 </div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
-;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, January 23, 2018 4:26:21 PM<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian<br>
+<b>Sent:</b> Tuesday, January 23, 2018 8:51:21 PM<br>
 <b>To:</b> Liu, Monk; He, Roger; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
 of address space</font>
 <div>&nbsp;</div>
 </div>
 <div style=3D"background-color:#FFFFFF">
-<div class=3D"x_moz-cite-prefix">
+<div class=3D"x_moz-cite-prefix">The ATC (or alternatively HMM) maps the CP=
+U addresses into the GPU address space.<br>
+<br>
+Now on Linux the lower range (0x0-0x7fffffffffff) is used for the userspace=
+ address space on the CPU, so when we want to use that on the GPU it must b=
+e free of other mappings.<br>
+<br>
+GFX8 and GFX7 hardware had a separate flag which address space to use in th=
+e memory instructions, but on GFX9 it's all one big shared address space an=
+d we need to make sure that we don't kick each others feet.<br>
+<br>
+Had to move the addresses Mesa use as well because of this and older VCE fi=
+rmware unfortunately was buggy regarding this as well.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 23.01.2018 um 13:43 schrieb Liu, Monk:<br>
+</div>
+<blockquote type=3D"cite"><style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">OK I see, but why HMM/ATC/SVN wa=
+nt&nbsp; low 8MB range ? why they cannot use high range address ?</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig
+<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:ckoenig.leichtzumerken@=
+gmail.com">
+&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+<b>Sent:</b> Tuesday, January 23, 2018 4:26:21 PM<br>
+<b>To:</b> Liu, Monk; He, Roger; <a class=3D"x_moz-txt-link-abbreviated" hr=
+ef=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
+of address space</font>
+<div>&nbsp;</div>
+</div>
+<div style=3D"background-color:#FFFFFF">
+<div class=3D"x_x_moz-cite-prefix">
 <blockquote type=3D"cite">Any bug introduced by original design ? I don't s=
 ee why 8MB- 8KB as the start vm address of CSA has any trouble compared wit=
 h top range ?</blockquote>
@@ -267,8 +353,8 @@ p
 	margin-bottom:0}
 -->
 </style>
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<div id=3D"x_x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; c=
+olor:#000000; font-family:Calibri,Helvetica,sans-serif">
 <p style=3D"margin-top:0; margin-bottom:0">anyway I prefer no change on tha=
 t part unless there issues or bug need to fix by the change.</p>
 <p style=3D"margin-top:0; margin-bottom:0">the CSA address is for use by CP=
@@ -278,11 +364,11 @@ G h/w not s/w, and since 8MB is a reserved range for each VM I don't see</p=
 </p>
 </div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Liu, Monk<br>
+<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
+" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Liu, Monk<br>
 <b>Sent:</b> Tuesday, January 23, 2018 11:20:35 AM<br>
-<b>To:</b> He, Roger; Christian K=F6nig; <a class=3D"x_moz-txt-link-abbrevi=
-ated" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+<b>To:</b> He, Roger; Christian K=F6nig; <a class=3D"x_x_moz-txt-link-abbre=
+viated" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
 of address space</font>
@@ -296,8 +382,8 @@ p
 -->
 </style>
 <div dir=3D"ltr">
-<div id=3D"x_x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; c=
-olor:#000000; font-family:Calibri,Helvetica,sans-serif">
+<div id=3D"x_x_x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt;=
+ color:#000000; font-family:Calibri,Helvetica,sans-serif">
 <p style=3D"margin-top:0; margin-bottom:0">Any bug introduced by original d=
 esign ? I don't see why 8MB- 8KB as the start vm address of CSA has any tro=
 uble compared with top range ? Besides, please note that you also need modi=
@@ -309,29 +395,29 @@ fy gfx8/9 source to align emit_cs/de_meta
 </p>
 </div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
-" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> He, Roger<br>
+<div id=3D"x_x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-ser=
+if" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> He, Roger<br>
 <b>Sent:</b> Tuesday, January 23, 2018 10:36:31 AM<br>
-<b>To:</b> Christian K=F6nig; Liu, Monk; <a class=3D"x_moz-txt-link-abbrevi=
-ated" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+<b>To:</b> Christian K=F6nig; Liu, Monk; <a class=3D"x_x_moz-txt-link-abbre=
+viated" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Subject:</b> RE: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
 of address space</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
-1pt">
-<div class=3D"x_x_PlainText"><br>
+<div class=3D"x_x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size=
+:11pt">
+<div class=3D"x_x_x_PlainText"><br>
 <br>
 -----Original Message-----<br>
 From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mai=
 lto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf Of Christian K?nig=
 <br>
 Sent: Monday, January 22, 2018 6:44 PM<br>
-To: Liu, Monk <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Monk.Liu@=
-amd.com">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
-<a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org">
+To: Liu, Monk <a class=3D"x_x_moz-txt-link-rfc2396E" href=3D"mailto:Monk.Li=
+u@amd.com">
+&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class=3D"x_x_moz-txt-link-abbreviated" hre=
+f=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 Subject: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address =
 space<br>
@@ -339,8 +425,8 @@ space<br>
 There seems to be a design flaw with this since the address of the static C=
 SA is never exported anywhere.<br>
 <br>
-Signed-off-by: Christian K=F6nig <a class=3D"x_moz-txt-link-rfc2396E" href=
-=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">
+Signed-off-by: Christian K=F6nig <a class=3D"x_x_moz-txt-link-rfc2396E" hre=
+f=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">
 &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 15 &#43;&#43;&#43;&#43;&#4=
@@ -459,8 +545,8 @@ Roger(Hongbo.He)<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-<a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<a class=3D"x_x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
+desktop.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
 lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
@@ -469,12 +555,15 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </blockquote>
 <br>
 </div>
+</blockquote>
+<br>
+</div>
 </body>
 </html>
 
---_000_BLUPR12MB044956D60F5A8551D1CE427784E30BLUPR12MB0449namp_--
+--_000_BLUPR12MB044994791174D013A88B302284E30BLUPR12MB0449namp_--
 
---===============0720565669==
+--===============0765743553==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -484,4 +573,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0720565669==--
+--===============0765743553==--
