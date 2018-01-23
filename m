@@ -1,15 +1,16 @@
 From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address
  space
-Date: Tue, 23 Jan 2018 03:20:35 +0000
-Message-ID: <BLUPR12MB04494E357187195CC3C90B0584E30@BLUPR12MB0449.namprd12.prod.outlook.com>
+Date: Tue, 23 Jan 2018 03:23:23 +0000
+Message-ID: <BLUPR12MB0449A76D5FB31F4C46AD8BB384E30@BLUPR12MB0449.namprd12.prod.outlook.com>
 References: <20180122104404.1239-1-christian.koenig@amd.com>
  <20180122104404.1239-3-christian.koenig@amd.com>,
- <MWHPR1201MB0127D1F3C71A0C2D99A64603FDE30@MWHPR1201MB0127.namprd12.prod.outlook.com>
+ <MWHPR1201MB0127D1F3C71A0C2D99A64603FDE30@MWHPR1201MB0127.namprd12.prod.outlook.com>,
+ <BLUPR12MB04494E357187195CC3C90B0584E30@BLUPR12MB0449.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1483415310=="
+Content-Type: multipart/mixed; boundary="===============1275635156=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB0127D1F3C71A0C2D99A64603FDE30-3iK1xFAIwjq9imrIu4W8xGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <BLUPR12MB04494E357187195CC3C90B0584E30-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,14 +24,30 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1483415310==
+--===============1275635156==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB04494E357187195CC3C90B0584E30BLUPR12MB0449namp_"
+	boundary="_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_"
 
---_000_BLUPR12MB04494E357187195CC3C90B0584E30BLUPR12MB0449namp_
+--_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+anyway I prefer no change on that part unless there issues or bug need to f=
+ix by the change.
+
+the CSA address is for use by CPG h/w not s/w, and since 8MB is a reserved =
+range for each VM I don't see
+
+it's a design flaw with it
+
+________________________________
+From: Liu, Monk
+Sent: Tuesday, January 23, 2018 11:20:35 AM
+To: He, Roger; Christian K=F6nig; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of addr=
+ess space
+
 
 Any bug introduced by original design ? I don't see why 8MB- 8KB as the sta=
 rt vm address of CSA has any trouble compared with top range ? Besides, ple=
@@ -149,7 +166,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BLUPR12MB04494E357187195CC3C90B0584E30BLUPR12MB0449namp_
+--_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -163,28 +180,54 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Any bug introduced by original de=
-sign ? I don't see why 8MB- 8KB as the start vm address of CSA has any trou=
-ble compared with top range ? Besides, please note that you also need modif=
-y gfx8/9 source to align emit_cs/de_meta
- with your change</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
+<p style=3D"margin-top:0;margin-bottom:0">anyway I prefer no change on that=
+ part unless there issues or bug need to fix by the change.</p>
+<p style=3D"margin-top:0;margin-bottom:0">the CSA address is for use by CPG=
+ h/w not s/w, and since 8MB is a reserved range for each VM I don't see</p>
+<p style=3D"margin-top:0;margin-bottom:0">it's a design flaw with it<br>
 </p>
 </div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> He, Roger<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Monk<br>
+<b>Sent:</b> Tuesday, January 23, 2018 11:20:35 AM<br>
+<b>To:</b> He, Roger; Christian K=F6nig; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
+of address space</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">Any bug introduced by original d=
+esign ? I don't see why 8MB- 8KB as the start vm address of CSA has any tro=
+uble compared with top range ? Besides, please note that you also need modi=
+fy gfx8/9 source to align emit_cs/de_meta
+ with your change</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> He, Roger<br>
 <b>Sent:</b> Tuesday, January 23, 2018 10:36:31 AM<br>
 <b>To:</b> Christian K=F6nig; Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Subject:</b> RE: [PATCH 3/3] drm/amdgpu: move static CSA address to top =
 of address space</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText"><br>
 <br>
 -----Original Message-----<br>
 From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mai=
@@ -321,12 +364,13 @@ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
+</div>
 </body>
 </html>
 
---_000_BLUPR12MB04494E357187195CC3C90B0584E30BLUPR12MB0449namp_--
+--_000_BLUPR12MB0449A76D5FB31F4C46AD8BB384E30BLUPR12MB0449namp_--
 
---===============1483415310==
+--===============1275635156==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -336,4 +380,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1483415310==--
+--===============1275635156==--
