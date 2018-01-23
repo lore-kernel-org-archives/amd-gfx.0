@@ -1,127 +1,72 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 4/4] drm/amdgpu: move static CSA address to top of address
- space v2
-Date: Tue, 23 Jan 2018 11:15:54 +0100
-Message-ID: <20180123101554.25390-4-christian.koenig@amd.com>
-References: <20180123101554.25390-1-christian.koenig@amd.com>
+From: Michal Hocko <mhocko@kernel.org>
+Subject: Re: [RFC] Per file OOM badness
+Date: Tue, 23 Jan 2018 12:39:12 +0100
+Message-ID: <20180123113912.GH1526@dhcp22.suse.cz>
+References: <20180118170006.GG6584@dhcp22.suse.cz>
+ <20180118171355.GH6584@dhcp22.suse.cz>
+ <87k1wfgcmb.fsf@anholt.net>
+ <20180119082046.GL6584@dhcp22.suse.cz>
+ <0cfaf256-928c-4cb8-8220-b8992592071b@amd.com>
+ <20180119104058.GU6584@dhcp22.suse.cz>
+ <d4fe7e59-da2d-11a5-73e2-55f2f27cdfd8@amd.com>
+ <20180119121351.GW6584@dhcp22.suse.cz>
+ <20180119122005.GX6584@dhcp22.suse.cz>
+ <7c7b0616-97ba-01e7-0053-bf224ca5b5f2@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180123101554.25390-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Monk.Liu-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+Content-Disposition: inline
+In-Reply-To: <7c7b0616-97ba-01e7-0053-bf224ca5b5f2@amd.com>
+Sender: owner-linux-mm@kvack.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Eric Anholt <eric@anholt.net>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-TW92ZSB0aGUgQ1NBIGFyZWEgdG8gdGhlIHRvcCBvZiB0aGUgVkEgc3BhY2UgdG8gYXZvaWQgY2xh
-c2hpbmcgd2l0aApITU0vQVRDIGluIHRoZSBsb3dlciByYW5nZSBvbiBHRlg5LgoKdjI6IHdyb25n
-IHNpZ24gbm90aWNlZCBieSBSb2dlciwgcmViYXNlIG9uIENTQV9WQUREUiBjbGVhbnVwLCBoYW5k
-bGUgVkEKaG9sZSBvbiBHRlg5IGFzIHdlbGwuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZpcnQuYyB8IDI0ICsrKysrKysrKysrKysrKysrKy0tLS0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaCB8ICA1ICsrKy0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jICAgIHwgIDYgKysrLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAgIHwgIDQgKystLQogNCBmaWxlcyBjaGFuZ2VkLCAy
-NiBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZpcnQuYwppbmRleCBlN2RmYjdiNDRiNGIuLmI4MzI2NTFkMjEzNyAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jCkBAIC0yNCw2ICsyNCwxOCBAQAog
-I2luY2x1ZGUgImFtZGdwdS5oIgogI2RlZmluZSBNQVhfS0lRX1JFR19XQUlUCTEwMDAwMDAwMCAv
-KiBpbiB1c2VjcyAqLwogCit1aW50NjRfdCBhbWRncHVfY3NhX3ZhZGRyKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KQoreworCXVpbnQ2NF90IGFkZHIgPSBhZGV2LT52bV9tYW5hZ2VyLm1heF9w
-Zm4gPDwgQU1ER1BVX0dQVV9QQUdFX1NISUZUOworCisJYWRkciAtPSBBTURHUFVfVkFfUkVTRVJW
-RURfU0laRTsKKworCWlmIChhZGRyID49IEFNREdQVV9WQV9IT0xFX1NUQVJUKQorCQlhZGRyIHw9
-IEFNREdQVV9WQV9IT0xFX0VORDsKKworCXJldHVybiBhZGRyOworfQorCiBib29sIGFtZGdwdV92
-aXJ0X21taW9fYmxvY2tlZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAkvKiBCeSBu
-b3cgYWxsIE1NSU8gcGFnZXMgZXhjZXB0IG1haWxib3ggYXJlIGJsb2NrZWQgKi8KQEAgLTU1LDE0
-ICs2NywxNCBAQCB2b2lkIGFtZGdwdV9mcmVlX3N0YXRpY19jc2Eoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpIHsKIAogLyoKICAqIGFtZGdwdV9tYXBfc3RhdGljX2NzYSBzaG91bGQgYmUgY2Fs
-bGVkIGR1cmluZyBhbWRncHVfdm1faW5pdAotICogaXQgbWFwcyB2aXJ0dWFsIGFkZHJlc3MgIkFN
-REdQVV9WQV9SRVNFUlZFRF9TSVpFIC0gQU1ER1BVX0NTQV9TSVpFIgotICogdG8gdGhpcyBWTSwg
-YW5kIGVhY2ggY29tbWFuZCBzdWJtaXNzaW9uIG9mIEdGWCBzaG91bGQgdXNlIHRoaXMgdmlydHVh
-bAotICogYWRkcmVzcyB3aXRoaW4gTUVUQV9EQVRBIGluaXQgcGFja2FnZSB0byBzdXBwb3J0IFNS
-SU9WIGdmeCBwcmVlbXB0aW9uLgorICogaXQgbWFwcyB2aXJ0dWFsIGFkZHJlc3MgYW1kZ3B1X2Nz
-YV92YWRkcigpIHRvIHRoaXMgVk0sIGFuZCBlYWNoIGNvbW1hbmQKKyAqIHN1Ym1pc3Npb24gb2Yg
-R0ZYIHNob3VsZCB1c2UgdGhpcyB2aXJ0dWFsIGFkZHJlc3Mgd2l0aGluIE1FVEFfREFUQSBpbml0
-CisgKiBwYWNrYWdlIHRvIHN1cHBvcnQgU1JJT1YgZ2Z4IHByZWVtcHRpb24uCiAgKi8KLQogaW50
-IGFtZGdwdV9tYXBfc3RhdGljX2NzYShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0
-IGFtZGdwdV92bSAqdm0sCiAJCQkgIHN0cnVjdCBhbWRncHVfYm9fdmEgKipib192YSkKIHsKKwl1
-aW50NjRfdCBjc2FfYWRkciA9IGFtZGdwdV9jc2FfdmFkZHIoYWRldikgJiBBTURHUFVfVkFfSE9M
-RV9NQVNLOwogCXN0cnVjdCB3d19hY3F1aXJlX2N0eCB0aWNrZXQ7CiAJc3RydWN0IGxpc3RfaGVh
-ZCBsaXN0OwogCXN0cnVjdCBhbWRncHVfYm9fbGlzdF9lbnRyeSBwZDsKQEAgLTkwLDcgKzEwMiw3
-IEBAIGludCBhbWRncHVfbWFwX3N0YXRpY19jc2Eoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-IHN0cnVjdCBhbWRncHVfdm0gKnZtLAogCQlyZXR1cm4gLUVOT01FTTsKIAl9CiAKLQlyID0gYW1k
-Z3B1X3ZtX2FsbG9jX3B0cyhhZGV2LCAoKmJvX3ZhKS0+YmFzZS52bSwgQU1ER1BVX0NTQV9WQURE
-UiwKKwlyID0gYW1kZ3B1X3ZtX2FsbG9jX3B0cyhhZGV2LCAoKmJvX3ZhKS0+YmFzZS52bSwgY3Nh
-X2FkZHIsCiAJCQkJQU1ER1BVX0NTQV9TSVpFKTsKIAlpZiAocikgewogCQlEUk1fRVJST1IoImZh
-aWxlZCB0byBhbGxvY2F0ZSBwdHMgZm9yIHN0YXRpYyBDU0EsIGVycj0lZFxuIiwgcik7CkBAIC05
-OSw3ICsxMTEsNyBAQCBpbnQgYW1kZ3B1X21hcF9zdGF0aWNfY3NhKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKIAkJcmV0dXJuIHI7CiAJfQogCi0JciA9
-IGFtZGdwdV92bV9ib19tYXAoYWRldiwgKmJvX3ZhLCBBTURHUFVfQ1NBX1ZBRERSLCAwLCBBTURH
-UFVfQ1NBX1NJWkUsCisJciA9IGFtZGdwdV92bV9ib19tYXAoYWRldiwgKmJvX3ZhLCBjc2FfYWRk
-ciwgMCwgQU1ER1BVX0NTQV9TSVpFLAogCQkJICAgICBBTURHUFVfUFRFX1JFQURBQkxFIHwgQU1E
-R1BVX1BURV9XUklURUFCTEUgfAogCQkJICAgICBBTURHUFVfUFRFX0VYRUNVVEFCTEUpOwogCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5oIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuaAppbmRleCA2YTgzNDI1YWE5ZWQu
-Ljg4MGFjMTEzYTNhOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZpcnQuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5o
-CkBAIC0yNTEsOCArMjUxLDcgQEAgc3RydWN0IGFtZGdwdV92aXJ0IHsKIAl1aW50MzJfdCBnaW1f
-ZmVhdHVyZTsKIH07CiAKLSNkZWZpbmUgQU1ER1BVX0NTQV9TSVpFICAgICg4ICogMTAyNCkKLSNk
-ZWZpbmUgQU1ER1BVX0NTQV9WQUREUiAgIChBTURHUFVfVkFfUkVTRVJWRURfU0laRSAtIEFNREdQ
-VV9DU0FfU0laRSkKKyNkZWZpbmUgQU1ER1BVX0NTQV9TSVpFCQkoOCAqIDEwMjQpCiAKICNkZWZp
-bmUgYW1kZ3B1X3NyaW92X2VuYWJsZWQoYWRldikgXAogKChhZGV2KS0+dmlydC5jYXBzICYgQU1E
-R1BVX1NSSU9WX0NBUFNfRU5BQkxFX0lPVikKQEAgLTI3OSw2ICsyNzgsOCBAQCBzdGF0aWMgaW5s
-aW5lIGJvb2wgaXNfdmlydHVhbF9tYWNoaW5lKHZvaWQpCiB9CiAKIHN0cnVjdCBhbWRncHVfdm07
-CisKK3VpbnQ2NF90IGFtZGdwdV9jc2FfdmFkZHIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-OwogYm9vbCBhbWRncHVfdmlydF9tbWlvX2Jsb2NrZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpOwogaW50IGFtZGdwdV9hbGxvY2F0ZV9zdGF0aWNfY3NhKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KTsKIGludCBhbWRncHVfbWFwX3N0YXRpY19jc2Eoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OF8wLmMKaW5kZXggNTMwZDJlYTFiNzNjLi42NDgyZWZlYzQ3YTEgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y4XzAuYwpAQCAtNzE0NywxMSArNzE0NywxMSBAQCBzdGF0aWMgdm9pZCBn
-ZnhfdjhfMF9yaW5nX2VtaXRfY2VfbWV0YShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiAJfSBj
-ZV9wYXlsb2FkID0ge307CiAKIAlpZiAocmluZy0+YWRldi0+dmlydC5jaGFpbmVkX2liX3N1cHBv
-cnQpIHsKLQkJY2VfcGF5bG9hZF9hZGRyID0gQU1ER1BVX0NTQV9WQUREUiArCisJCWNlX3BheWxv
-YWRfYWRkciA9IGFtZGdwdV9jc2FfdmFkZHIocmluZy0+YWRldikgKwogCQkJb2Zmc2V0b2Yoc3Ry
-dWN0IHZpX2dmeF9tZXRhX2RhdGFfY2hhaW5lZF9pYiwgY2VfcGF5bG9hZCk7CiAJCWNudF9jZSA9
-IChzaXplb2YoY2VfcGF5bG9hZC5jaGFpbmVkKSA+PiAyKSArIDQgLSAyOwogCX0gZWxzZSB7Ci0J
-CWNlX3BheWxvYWRfYWRkciA9IEFNREdQVV9DU0FfVkFERFIgKworCQljZV9wYXlsb2FkX2FkZHIg
-PSBhbWRncHVfY3NhX3ZhZGRyKHJpbmctPmFkZXYpICsKIAkJCW9mZnNldG9mKHN0cnVjdCB2aV9n
-ZnhfbWV0YV9kYXRhLCBjZV9wYXlsb2FkKTsKIAkJY250X2NlID0gKHNpemVvZihjZV9wYXlsb2Fk
-LnJlZ3VsYXIpID4+IDIpICsgNCAtIDI7CiAJfQpAQCAtNzE3NSw3ICs3MTc1LDcgQEAgc3RhdGlj
-IHZvaWQgZ2Z4X3Y4XzBfcmluZ19lbWl0X2RlX21ldGEoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
-KQogCQlzdHJ1Y3QgdmlfZGVfaWJfc3RhdGVfY2hhaW5lZF9pYiBjaGFpbmVkOwogCX0gZGVfcGF5
-bG9hZCA9IHt9OwogCi0JY3NhX2FkZHIgPSBBTURHUFVfQ1NBX1ZBRERSOworCWNzYV9hZGRyID0g
-YW1kZ3B1X2NzYV92YWRkcihyaW5nLT5hZGV2KTsKIAlnZHNfYWRkciA9IGNzYV9hZGRyICsgNDA5
-NjsKIAlpZiAocmluZy0+YWRldi0+dmlydC5jaGFpbmVkX2liX3N1cHBvcnQpIHsKIAkJZGVfcGF5
-bG9hZC5jaGFpbmVkLmdkc19iYWNrdXBfYWRkcmxvID0gbG93ZXJfMzJfYml0cyhnZHNfYWRkcik7
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwppbmRleCA3MjBkMTVmMTMyNGUuLjEz
-NjNlN2RkZDA0YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCkBAIC0zODcz
-LDcgKzM4NzMsNyBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfY2VfbWV0YShzdHJ1
-Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiAJaW50IGNudDsKIAogCWNudCA9IChzaXplb2YoY2VfcGF5
-bG9hZCkgPj4gMikgKyA0IC0gMjsKLQljc2FfYWRkciA9IEFNREdQVV9DU0FfVkFERFI7CisJY3Nh
-X2FkZHIgPSBhbWRncHVfY3NhX3ZhZGRyKHJpbmctPmFkZXYpOwogCiAJYW1kZ3B1X3Jpbmdfd3Jp
-dGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1dSSVRFX0RBVEEsIGNudCkpOwogCWFtZGdwdV9yaW5n
-X3dyaXRlKHJpbmcsIChXUklURV9EQVRBX0VOR0lORV9TRUwoMikgfApAQCAtMzg5MSw3ICszODkx
-LDcgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0X2RlX21ldGEoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nKQogCXVpbnQ2NF90IGNzYV9hZGRyLCBnZHNfYWRkcjsKIAlpbnQgY250Owog
-Ci0JY3NhX2FkZHIgPSBBTURHUFVfQ1NBX1ZBRERSOworCWNzYV9hZGRyID0gYW1kZ3B1X2NzYV92
-YWRkcihyaW5nLT5hZGV2KTsKIAlnZHNfYWRkciA9IGNzYV9hZGRyICsgNDA5NjsKIAlkZV9wYXls
-b2FkLmdkc19iYWNrdXBfYWRkcmxvID0gbG93ZXJfMzJfYml0cyhnZHNfYWRkcik7CiAJZGVfcGF5
-bG9hZC5nZHNfYmFja3VwX2FkZHJoaSA9IHVwcGVyXzMyX2JpdHMoZ2RzX2FkZHIpOwotLSAKMi4x
-NC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Fri 19-01-18 17:54:36, Christian König wrote:
+> Am 19.01.2018 um 13:20 schrieb Michal Hocko:
+> > On Fri 19-01-18 13:13:51, Michal Hocko wrote:
+> > > On Fri 19-01-18 12:37:51, Christian König wrote:
+> > > [...]
+> > > > The per file descriptor badness is/was just the much easier approach to
+> > > > solve the issue, because the drivers already knew which client is currently
+> > > > using which buffer objects.
+> > > > 
+> > > > I of course agree that file descriptors can be shared between processes and
+> > > > are by themselves not killable. But at least for our graphics driven use
+> > > > case I don't see much of a problem killing all processes when a file
+> > > > descriptor is used by more than one at the same time.
+> > > Ohh, I absolutely see why you have chosen this way for your particular
+> > > usecase. I am just arguing that this would rather be more generic to be
+> > > merged. If there is absolutely no other way around we can consider it
+> > > but right now I do not see that all other options have been considered
+> > > properly. Especially when the fd based approach is basically wrong for
+> > > almost anybody else.
+> > And more importantly. Iterating over _all_ fd which is what is your
+> > approach is based on AFAIU is not acceptable for the OOM path. Even
+> > though oom_badness is not a hot path we do not really want it to take a
+> > lot of time either. Even the current iteration over all processes is
+> > quite time consuming. Now you want to add the number of opened files and
+> > that might be quite many per process.
+> 
+> Mhm, crap that is a really good argument.
+> 
+> How about adding a linked list of callbacks to check for the OOM killer to
+> check for each process?
+> 
+> This way we can avoid finding the process where we need to account things on
+> when memory is allocated and still allow the OOM killer to only check the
+> specific callbacks it needs to determine the score of a process?
+
+I might be oversimplifying but there really have to be a boundary when
+you have the target user context, no? Then do the accounting when you
+get data to the user.
+-- 
+Michal Hocko
+SUSE Labs
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
