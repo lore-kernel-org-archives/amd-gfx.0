@@ -1,11 +1,12 @@
-From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH libdrm] amdgpu: typedef syncobj handle
-Date: Tue, 23 Jan 2018 14:00:25 +0800
-Message-ID: <20180123060025.18968-1-david1.zhou@amd.com>
+From: "Lvzhihong (ReJohn)" <lvzhihong1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Subject: Re: x11vnc display output problem while the physical monitor
+ display is normal.
+Date: Tue, 23 Jan 2018 06:49:51 +0000
+Message-ID: <E7DD0E9246072C4A9CA8F1C79F816696018D1052@dggemi505-mbx.china.huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2037982963=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,96 +17,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: sunnanyong <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
 
-Q2hhbmdlLUlkOiBJMWU3OThkMGZiYjdlMjAyM2Q2NjE5ZjUxNWE5Y2ZhZjAyOWI2MmI2ZApTaWdu
-ZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgotLS0KIGFtZGdw
-dS9hbWRncHUuaCAgICB8IDIxICsrKysrKysrKysrKystLS0tLS0tLQogYW1kZ3B1L2FtZGdwdV9j
-cy5jIHwgMTYgKysrKysrKystLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyMSBpbnNlcnRpb25z
-KCspLCAxNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1LmggYi9hbWRn
-cHUvYW1kZ3B1LmgKaW5kZXggYjVlNGUzYzYuLjU4Mzg4NGUzIDEwMDY0NAotLS0gYS9hbWRncHUv
-YW1kZ3B1LmgKKysrIGIvYW1kZ3B1L2FtZGdwdS5oCkBAIC0xNDYsNiArMTQ2LDExIEBAIHR5cGVk
-ZWYgc3RydWN0IGFtZGdwdV9zZW1hcGhvcmUgKmFtZGdwdV9zZW1hcGhvcmVfaGFuZGxlOwogICov
-CiB0eXBlZGVmIHVpbnQzMl90IGFtZGdwdV9zZW1faGFuZGxlOwogCisvKioKKyAqIERlZmluZSBo
-YW5kbGUgZm9yIHN5bmNvYmoKKyAqLwordHlwZWRlZiB1aW50MzJfdCBhbWRncHVfc3luY29ial9o
-YW5kbGU7CisKIAogLyotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCiAvKiAtLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLSBTdHJ1Y3R1cmVzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi8K
-QEAgLTE3MzUsNyArMTc0MCw3IEBAIGNvbnN0IGNoYXIgKmFtZGdwdV9nZXRfbWFya2V0aW5nX25h
-bWUoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2KTsKICAqCiAqLwogaW50IGFtZGdwdV9jc19jcmVh
-dGVfc3luY29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCi0JCQkgICAgIHVpbnQzMl90ICpz
-eW5jb2JqKTsKKwkJCSAgICAgYW1kZ3B1X3N5bmNvYmpfaGFuZGxlICpzeW5jb2JqKTsKIC8qKgog
-ICogIERlc3Ryb3kga2VybmVsIHN5bmMgb2JqZWN0CiAgKgpAQCAtMTc0Nyw3ICsxNzUyLDcgQEAg
-aW50IGFtZGdwdV9jc19jcmVhdGVfc3luY29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCiAg
-KgogKi8KIGludCBhbWRncHVfY3NfZGVzdHJveV9zeW5jb2JqKGFtZGdwdV9kZXZpY2VfaGFuZGxl
-IGRldiwKLQkJCSAgICAgIHVpbnQzMl90IHN5bmNvYmopOworCQkJICAgICAgYW1kZ3B1X3N5bmNv
-YmpfaGFuZGxlIHN5bmNvYmopOwogCiAvKioKICAqICBXYWl0IGZvciBvbmUgb3IgYWxsIHN5bmMg
-b2JqZWN0cyB0byBzaWduYWwuCkBAIC0xNzY1LDkgKzE3NzAsOSBAQCBpbnQgYW1kZ3B1X2NzX2Rl
-c3Ryb3lfc3luY29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCiAgKgogICovCiBpbnQgYW1k
-Z3B1X2NzX3N5bmNvYmpfd2FpdChhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCi0JCQkgICB1aW50
-MzJfdCAqaGFuZGxlcywgdW5zaWduZWQgbnVtX2hhbmRsZXMsCisJCQkgICBhbWRncHVfc3luY29i
-al9oYW5kbGUgKmhhbmRsZXMsIHVuc2lnbmVkIG51bV9oYW5kbGVzLAogCQkJICAgaW50NjRfdCB0
-aW1lb3V0X25zZWMsIHVuc2lnbmVkIGZsYWdzLAotCQkJICAgdWludDMyX3QgKmZpcnN0X3NpZ25h
-bGVkKTsKKwkJCSAgIGFtZGdwdV9zeW5jb2JqX2hhbmRsZSAqZmlyc3Rfc2lnbmFsZWQpOwogCiAv
-KioKICAqICBFeHBvcnQga2VybmVsIHN5bmMgb2JqZWN0IHRvIHNoYXJlYWJsZSBmZC4KQEAgLTE3
-ODEsNyArMTc4Niw3IEBAIGludCBhbWRncHVfY3Nfc3luY29ial93YWl0KGFtZGdwdV9kZXZpY2Vf
-aGFuZGxlIGRldiwKICAqCiAqLwogaW50IGFtZGdwdV9jc19leHBvcnRfc3luY29iaihhbWRncHVf
-ZGV2aWNlX2hhbmRsZSBkZXYsCi0JCQkgICAgIHVpbnQzMl90IHN5bmNvYmosCisJCQkgICAgIGFt
-ZGdwdV9zeW5jb2JqX2hhbmRsZSBzeW5jb2JqLAogCQkJICAgICBpbnQgKnNoYXJlZF9mZCk7CiAv
-KioKICAqICBJbXBvcnQga2VybmVsIHN5bmMgb2JqZWN0IGZyb20gc2hhcmVhYmxlIGZkLgpAQCAt
-MTc5Niw3ICsxODAxLDcgQEAgaW50IGFtZGdwdV9jc19leHBvcnRfc3luY29iaihhbWRncHVfZGV2
-aWNlX2hhbmRsZSBkZXYsCiAqLwogaW50IGFtZGdwdV9jc19pbXBvcnRfc3luY29iaihhbWRncHVf
-ZGV2aWNlX2hhbmRsZSBkZXYsCiAJCQkgICAgIGludCBzaGFyZWRfZmQsCi0JCQkgICAgIHVpbnQz
-Ml90ICpzeW5jb2JqKTsKKwkJCSAgICAgYW1kZ3B1X3N5bmNvYmpfaGFuZGxlICpzeW5jb2JqKTsK
-IAogLyoqCiAgKiAgRXhwb3J0IGtlcm5lbCBzeW5jIG9iamVjdCB0byBhIHN5bmNfZmlsZS4KQEAg
-LTE4MTAsNyArMTgxNSw3IEBAIGludCBhbWRncHVfY3NfaW1wb3J0X3N5bmNvYmooYW1kZ3B1X2Rl
-dmljZV9oYW5kbGUgZGV2LAogICoKICAqLwogaW50IGFtZGdwdV9jc19zeW5jb2JqX2V4cG9ydF9z
-eW5jX2ZpbGUoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAotCQkJCSAgICAgICB1aW50MzJfdCBz
-eW5jb2JqLAorCQkJCSAgICAgICBhbWRncHVfc3luY29ial9oYW5kbGUgc3luY29iaiwKIAkJCQkg
-ICAgICAgaW50ICpzeW5jX2ZpbGVfZmQpOwogCiAvKioKQEAgLTE4MjUsNyArMTgzMCw3IEBAIGlu
-dCBhbWRncHVfY3Nfc3luY29ial9leHBvcnRfc3luY19maWxlKGFtZGdwdV9kZXZpY2VfaGFuZGxl
-IGRldiwKICAqCiAgKi8KIGludCBhbWRncHVfY3Nfc3luY29ial9pbXBvcnRfc3luY19maWxlKGFt
-ZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKLQkJCQkgICAgICAgdWludDMyX3Qgc3luY29iaiwKKwkJ
-CQkgICAgICAgYW1kZ3B1X3N5bmNvYmpfaGFuZGxlIHN5bmNvYmosCiAJCQkJICAgICAgIGludCBz
-eW5jX2ZpbGVfZmQpOwogCiAvKioKZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVfY3MuYyBiL2Ft
-ZGdwdS9hbWRncHVfY3MuYwppbmRleCA2NGFkOTExNC4uYmU3ZGIxOWYgMTAwNjQ0Ci0tLSBhL2Ft
-ZGdwdS9hbWRncHVfY3MuYworKysgYi9hbWRncHUvYW1kZ3B1X2NzLmMKQEAgLTYwNyw3ICs2MDcs
-NyBAQCBpbnQgYW1kZ3B1X2NzX2Rlc3Ryb3lfc2VtYXBob3JlKGFtZGdwdV9zZW1hcGhvcmVfaGFu
-ZGxlIHNlbSkKIH0KIAogaW50IGFtZGdwdV9jc19jcmVhdGVfc3luY29iaihhbWRncHVfZGV2aWNl
-X2hhbmRsZSBkZXYsCi0JCQkgICAgIHVpbnQzMl90ICpoYW5kbGUpCisJCQkgICAgIGFtZGdwdV9z
-eW5jb2JqX2hhbmRsZSAqaGFuZGxlKQogewogCWlmIChOVUxMID09IGRldikKIAkJcmV0dXJuIC1F
-SU5WQUw7CkBAIC02MTYsNyArNjE2LDcgQEAgaW50IGFtZGdwdV9jc19jcmVhdGVfc3luY29iaihh
-bWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCiB9CiAKIGludCBhbWRncHVfY3NfZGVzdHJveV9zeW5j
-b2JqKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKLQkJCSAgICAgIHVpbnQzMl90IGhhbmRsZSkK
-KwkJCSAgICAgIGFtZGdwdV9zeW5jb2JqX2hhbmRsZSBoYW5kbGUpCiB7CiAJaWYgKE5VTEwgPT0g
-ZGV2KQogCQlyZXR1cm4gLUVJTlZBTDsKQEAgLTYyNSw5ICs2MjUsOSBAQCBpbnQgYW1kZ3B1X2Nz
-X2Rlc3Ryb3lfc3luY29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCiB9CiAKIGludCBhbWRn
-cHVfY3Nfc3luY29ial93YWl0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKLQkJCSAgIHVpbnQz
-Ml90ICpoYW5kbGVzLCB1bnNpZ25lZCBudW1faGFuZGxlcywKKwkJCSAgIGFtZGdwdV9zeW5jb2Jq
-X2hhbmRsZSAqaGFuZGxlcywgdW5zaWduZWQgbnVtX2hhbmRsZXMsCiAJCQkgICBpbnQ2NF90IHRp
-bWVvdXRfbnNlYywgdW5zaWduZWQgZmxhZ3MsCi0JCQkgICB1aW50MzJfdCAqZmlyc3Rfc2lnbmFs
-ZWQpCisJCQkgICBhbWRncHVfc3luY29ial9oYW5kbGUgKmZpcnN0X3NpZ25hbGVkKQogewogCWlm
-IChOVUxMID09IGRldikKIAkJcmV0dXJuIC1FSU5WQUw7CkBAIC02MzcsNyArNjM3LDcgQEAgaW50
-IGFtZGdwdV9jc19zeW5jb2JqX3dhaXQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAogfQogCiBp
-bnQgYW1kZ3B1X2NzX2V4cG9ydF9zeW5jb2JqKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKLQkJ
-CSAgICAgdWludDMyX3QgaGFuZGxlLAorCQkJICAgICBhbWRncHVfc3luY29ial9oYW5kbGUgaGFu
-ZGxlLAogCQkJICAgICBpbnQgKnNoYXJlZF9mZCkKIHsKIAlpZiAoTlVMTCA9PSBkZXYpCkBAIC02
-NDgsNyArNjQ4LDcgQEAgaW50IGFtZGdwdV9jc19leHBvcnRfc3luY29iaihhbWRncHVfZGV2aWNl
-X2hhbmRsZSBkZXYsCiAKIGludCBhbWRncHVfY3NfaW1wb3J0X3N5bmNvYmooYW1kZ3B1X2Rldmlj
-ZV9oYW5kbGUgZGV2LAogCQkJICAgICBpbnQgc2hhcmVkX2ZkLAotCQkJICAgICB1aW50MzJfdCAq
-aGFuZGxlKQorCQkJICAgICBhbWRncHVfc3luY29ial9oYW5kbGUgKmhhbmRsZSkKIHsKIAlpZiAo
-TlVMTCA9PSBkZXYpCiAJCXJldHVybiAtRUlOVkFMOwpAQCAtNjU3LDcgKzY1Nyw3IEBAIGludCBh
-bWRncHVfY3NfaW1wb3J0X3N5bmNvYmooYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAogfQogCiBp
-bnQgYW1kZ3B1X2NzX3N5bmNvYmpfZXhwb3J0X3N5bmNfZmlsZShhbWRncHVfZGV2aWNlX2hhbmRs
-ZSBkZXYsCi0JCQkJICAgICAgIHVpbnQzMl90IHN5bmNvYmosCisJCQkJICAgICAgIGFtZGdwdV9z
-eW5jb2JqX2hhbmRsZSBzeW5jb2JqLAogCQkJCSAgICAgICBpbnQgKnN5bmNfZmlsZV9mZCkKIHsK
-IAlpZiAoTlVMTCA9PSBkZXYpCkBAIC02NjcsNyArNjY3LDcgQEAgaW50IGFtZGdwdV9jc19zeW5j
-b2JqX2V4cG9ydF9zeW5jX2ZpbGUoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAogfQogCiBpbnQg
-YW1kZ3B1X2NzX3N5bmNvYmpfaW1wb3J0X3N5bmNfZmlsZShhbWRncHVfZGV2aWNlX2hhbmRsZSBk
-ZXYsCi0JCQkJICAgICAgIHVpbnQzMl90IHN5bmNvYmosCisJCQkJICAgICAgIGFtZGdwdV9zeW5j
-b2JqX2hhbmRsZSBzeW5jb2JqLAogCQkJCSAgICAgICBpbnQgc3luY19maWxlX2ZkKQogewogCWlm
-IChOVUxMID09IGRldikKLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+--===============2037982963==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_E7DD0E9246072C4A9CA8F1C79F816696018D1052dggemi505mbxchi_"
+
+--_000_E7DD0E9246072C4A9CA8F1C79F816696018D1052dggemi505mbxchi_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+As we debug into the code, we found that the calls of glreadpixels function=
+ returns a large number of pixels which value are '0'.  It means that when =
+the problem appear, the call of glreadpixels function will get wrong pixels=
+ from framebuffer. But we still confused why and when  the problem will occ=
+urs.
+
+
+--_000_E7DD0E9246072C4A9CA8F1C79F816696018D1052dggemi505mbxchi_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+span.EmailStyle20
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
+fy-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal" style=3D"text-indent:21.0pt"><span lang=3D"EN-US">As=
+ we debug into the code, we found that the calls of glreadpixels function r=
+eturns a large number of pixels which value are &#8216;0&#8217;. &nbsp;It m=
+eans that when the problem appear, the call of glreadpixels
+ function will get wrong pixels from framebuffer. But we still confused why=
+ and when &nbsp;the problem will occurs.
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</body>
+</html>
+
+--_000_E7DD0E9246072C4A9CA8F1C79F816696018D1052dggemi505mbxchi_--
+
+--===============2037982963==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2037982963==--
