@@ -1,18 +1,14 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top of address
- space
-Date: Tue, 23 Jan 2018 09:26:21 +0100
-Message-ID: <99bd1b34-e10e-800d-fd35-8166a452fd3e@gmail.com>
-References: <20180122104404.1239-1-christian.koenig@amd.com>
- <20180122104404.1239-3-christian.koenig@amd.com>
- <MWHPR1201MB0127D1F3C71A0C2D99A64603FDE30@MWHPR1201MB0127.namprd12.prod.outlook.com>
- <BLUPR12MB04494E357187195CC3C90B0584E30@BLUPR12MB0449.namprd12.prod.outlook.com>
- <BLUPR12MB0449A76D5FB31F4C46AD8BB384E30@BLUPR12MB0449.namprd12.prod.outlook.com>
+Subject: Re: [PATCH libdrm] amdgpu: typedef syncobj handle
+Date: Tue, 23 Jan 2018 11:05:43 +0100
+Message-ID: <d582647d-a3d3-6878-404b-5ab1dae5b4df@gmail.com>
+References: <20180123060025.18968-1-david1.zhou@amd.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1696765583=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB0449A76D5FB31F4C46AD8BB384E30-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20180123060025.18968-1-david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,415 +20,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1696765583==
-Content-Type: multipart/alternative;
- boundary="------------0258CFB2EA33C7CF6EFDAB9E"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------0258CFB2EA33C7CF6EFDAB9E
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-> Any bug introduced by original design ? I don't see why 8MB- 8KB as 
-> the start vm address of CSA has any trouble compared with top range ?
-On gfx9 we need the lower address range (0x0-0x7fffffffffff) for 
-HMM/ATC/SVM. If we map the 8k CSA in there and hit it by accident then 
-the GPU will not do what it is supposed to do :)
-
-I could limit the change to only gfx9, but I think the code will be 
-simpler if we change both gfx8 and gfx9.
-
-> Besides, please note that you also need modify gfx8/9 source to align 
-> emit_cs/de_meta with your change
-That was the design flaw I was talking about. In other words I couldn't 
-find the code where that address was actually used.
-
-We should use the macro define in those functions as well. Going to send 
-fixed for this in a minute.
-
-Thanks,
-Christian.
-
-Am 23.01.2018 um 04:23 schrieb Liu, Monk:
->
-> anyway I prefer no change on that part unless there issues or bug need 
-> to fix by the change.
->
-> the CSA address is for use by CPG h/w not s/w, and since 8MB is a 
-> reserved range for each VM I don't see
->
-> it's a design flaw with it
->
-> ------------------------------------------------------------------------
-> *From:* Liu, Monk
-> *Sent:* Tuesday, January 23, 2018 11:20:35 AM
-> *To:* He, Roger; Christian König; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* Re: [PATCH 3/3] drm/amdgpu: move static CSA address to top 
-> of address space
->
-> Any bug introduced by original design ? I don't see why 8MB- 8KB as 
-> the start vm address of CSA has any trouble compared with top range ? 
-> Besides, please note that you also need modify gfx8/9 source to align 
-> emit_cs/de_meta with your change
->
->
->
-> ------------------------------------------------------------------------
-> *From:* He, Roger
-> *Sent:* Tuesday, January 23, 2018 10:36:31 AM
-> *To:* Christian König; Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* RE: [PATCH 3/3] drm/amdgpu: move static CSA address to top 
-> of address space
->
->
-> -----Original Message-----
-> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf 
-> Of Christian K?nig
-> Sent: Monday, January 22, 2018 6:44 PM
-> To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Subject: [PATCH 3/3] drm/amdgpu: move static CSA address to top of 
-> address space
->
-> There seems to be a design flaw with this since the address of the 
-> static CSA is never exported anywhere.
->
-> Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 15 +++++++-------- 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  6 ++++--
->  2 files changed, 11 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index e7dfb7b44b4b..c7d24af03e3e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -55,11 +55,10 @@ void amdgpu_free_static_csa(struct amdgpu_device 
-> *adev) {
->
->  /*
->   * amdgpu_map_static_csa should be called during amdgpu_vm_init
-> - * it maps virtual address "AMDGPU_VA_RESERVED_SIZE - AMDGPU_CSA_SIZE"
-> - * to this VM, and each command submission of GFX should use this virtual
-> - * address within META_DATA init package to support SRIOV gfx preemption.
-> + * it maps virtual address "AMDGPU_CSA_VADDR" to this VM, and each
-> + command
-> + * submission of GFX should use this virtual address within META_DATA
-> + init
-> + * package to support SRIOV gfx preemption.
->   */
-> -
->  int amdgpu_map_static_csa(struct amdgpu_device *adev, struct 
-> amdgpu_vm *vm,
->                            struct amdgpu_bo_va **bo_va)
->  {
-> @@ -90,7 +89,7 @@ int amdgpu_map_static_csa(struct amdgpu_device 
-> *adev, struct amdgpu_vm *vm,
->                  return -ENOMEM;
->          }
->
-> -       r = amdgpu_vm_alloc_pts(adev, (*bo_va)->base.vm, AMDGPU_CSA_VADDR,
-> +       r = amdgpu_vm_alloc_pts(adev, (*bo_va)->base.vm,
-> +AMDGPU_CSA_VADDR(adev),
->                                  AMDGPU_CSA_SIZE);
->          if (r) {
->                  DRM_ERROR("failed to allocate pts for static CSA, 
-> err=%d\n", r); @@ -99,9 +98,9 @@ int amdgpu_map_static_csa(struct 
-> amdgpu_device *adev, struct amdgpu_vm *vm,
->                  return r;
->          }
->
-> -       r = amdgpu_vm_bo_map(adev, *bo_va, AMDGPU_CSA_VADDR, 0, 
-> AMDGPU_CSA_SIZE,
-> -                            AMDGPU_PTE_READABLE | AMDGPU_PTE_WRITEABLE |
-> -                            AMDGPU_PTE_EXECUTABLE);
-> +       r = amdgpu_vm_bo_map(adev, *bo_va, AMDGPU_CSA_VADDR(adev), 0,
-> +                            AMDGPU_CSA_SIZE, AMDGPU_PTE_READABLE |
-> +                            AMDGPU_PTE_WRITEABLE | 
-> AMDGPU_PTE_EXECUTABLE);
->
->          if (r) {
->                  DRM_ERROR("failed to do bo_map on static CSA, 
-> err=%d\n", r); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> index 6a83425aa9ed..499362b55e45 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -251,8 +251,10 @@ struct amdgpu_virt {
->          uint32_t gim_feature;
->  };
->
-> -#define AMDGPU_CSA_SIZE    (8 * 1024)
-> -#define AMDGPU_CSA_VADDR   (AMDGPU_VA_RESERVED_SIZE - AMDGPU_CSA_SIZE)
-> +#define AMDGPU_CSA_SIZE                (8 * 1024)
-> +#define AMDGPU_CSA_VADDR(adev) \
->         +       (((adev)->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) + \
->         +        AMDGPU_VA_RESERVED_SIZE)
->
-> If I  understand your intention correctly, it should be that:
-> +       (((adev)->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT)  - \
-> +        AMDGPU_VA_RESERVED_SIZE)
->
-> Thanks
-> Roger(Hongbo.He)
->
->  #define amdgpu_sriov_enabled(adev) \
->  ((adev)->virt.caps & AMDGPU_SRIOV_CAPS_ENABLE_IOV)
-> --
-> 2.14.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------0258CFB2EA33C7CF6EFDAB9E
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">
-      <blockquote type="cite">Any bug introduced by original design ? I
-        don't see why 8MB- 8KB as the start vm address of CSA has any
-        trouble compared with top range ?</blockquote>
-      On gfx9 we need the lower address range (0x0-0x7fffffffffff) for
-      HMM/ATC/SVM. If we map the 8k CSA in there and hit it by accident
-      then the GPU will not do what it is supposed to do :)<br>
-      <br>
-      I could limit the change to only gfx9, but I think the code will
-      be simpler if we change both gfx8 and gfx9.<br>
-      <br>
-      <blockquote type="cite">Besides, please note that you also need
-        modify gfx8/9 source to align emit_cs/de_meta with your change</blockquote>
-      That was the design flaw I was talking about. In other words I
-      couldn't find the code where that address was actually used.<br>
-      <br>
-      We should use the macro define in those functions as well. Going
-      to send fixed for this in a minute.<br>
-      <br>
-      Thanks,<br>
-      Christian.<br>
-      <br>
-      Am 23.01.2018 um 04:23 schrieb Liu, Monk:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BLUPR12MB0449A76D5FB31F4C46AD8BB384E30-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <p style="margin-top:0;margin-bottom:0">anyway I prefer no
-          change on that part unless there issues or bug need to fix by
-          the change.</p>
-        <p style="margin-top:0;margin-bottom:0">the CSA address is for
-          use by CPG h/w not s/w, and since 8MB is a reserved range for
-          each VM I don't see</p>
-        <p style="margin-top:0;margin-bottom:0">it's a design flaw with
-          it<br>
-        </p>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          face="Calibri, sans-serif" color="#000000"><b>From:</b> Liu,
-          Monk<br>
-          <b>Sent:</b> Tuesday, January 23, 2018 11:20:35 AM<br>
-          <b>To:</b> He, Roger; Christian König;
-          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-          <b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: move static CSA
-          address to top of address space</font>
-        <div> </div>
-      </div>
-      <style type="text/css" style="display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-      <div dir="ltr">
-        <div id="x_divtagdefaultwrapper" dir="ltr"
-          style="font-size:12pt; color:#000000;
-          font-family:Calibri,Helvetica,sans-serif">
-          <p style="margin-top:0; margin-bottom:0">Any bug introduced by
-            original design ? I don't see why 8MB- 8KB as the start vm
-            address of CSA has any trouble compared with top range ?
-            Besides, please note that you also need modify gfx8/9 source
-            to align emit_cs/de_meta with your change</p>
-          <p style="margin-top:0; margin-bottom:0"><br>
-          </p>
-          <p style="margin-top:0; margin-bottom:0"><br>
-          </p>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b> He,
-            Roger<br>
-            <b>Sent:</b> Tuesday, January 23, 2018 10:36:31 AM<br>
-            <b>To:</b> Christian König; Liu, Monk;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-            <b>Subject:</b> RE: [PATCH 3/3] drm/amdgpu: move static CSA
-            address to top of address space</font>
-          <div> </div>
-        </div>
-        <div class="x_BodyFragment"><font size="2"><span
-              style="font-size:11pt">
-              <div class="x_PlainText"><br>
-                <br>
-                -----Original Message-----<br>
-                From: amd-gfx [<a
-                  href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
-                On Behalf Of Christian K?nig<br>
-                Sent: Monday, January 22, 2018 6:44 PM<br>
-                To: Liu, Monk <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                Subject: [PATCH 3/3] drm/amdgpu: move static CSA address
-                to top of address space<br>
-                <br>
-                There seems to be a design flaw with this since the
-                address of the static CSA is never exported anywhere.<br>
-                <br>
-                Signed-off-by: Christian König
-                <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                ---<br>
-                 drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 15
-                +++++++-------- 
-                drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  6 ++++--<br>
-                 2 files changed, 11 insertions(+), 10 deletions(-)<br>
-                <br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-                index e7dfb7b44b4b..c7d24af03e3e 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-                +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c<br>
-                @@ -55,11 +55,10 @@ void amdgpu_free_static_csa(struct
-                amdgpu_device *adev) {<br>
-                 <br>
-                 /*<br>
-                  * amdgpu_map_static_csa should be called during
-                amdgpu_vm_init<br>
-                - * it maps virtual address "AMDGPU_VA_RESERVED_SIZE -
-                AMDGPU_CSA_SIZE"<br>
-                - * to this VM, and each command submission of GFX
-                should use this virtual<br>
-                - * address within META_DATA init package to support
-                SRIOV gfx preemption.<br>
-                + * it maps virtual address "AMDGPU_CSA_VADDR" to this
-                VM, and each <br>
-                + command<br>
-                + * submission of GFX should use this virtual address
-                within META_DATA <br>
-                + init<br>
-                + * package to support SRIOV gfx preemption.<br>
-                  */<br>
-                -<br>
-                 int amdgpu_map_static_csa(struct amdgpu_device *adev,
-                struct amdgpu_vm *vm,<br>
-                                           struct amdgpu_bo_va **bo_va)<br>
-                 {<br>
-                @@ -90,7 +89,7 @@ int amdgpu_map_static_csa(struct
-                amdgpu_device *adev, struct amdgpu_vm *vm,<br>
-                                 return -ENOMEM;<br>
-                         }<br>
-                 <br>
-                -       r = amdgpu_vm_alloc_pts(adev,
-                (*bo_va)-&gt;base.vm, AMDGPU_CSA_VADDR,<br>
-                +       r = amdgpu_vm_alloc_pts(adev,
-                (*bo_va)-&gt;base.vm, <br>
-                +AMDGPU_CSA_VADDR(adev),<br>
-                                                 AMDGPU_CSA_SIZE);<br>
-                         if (r) {<br>
-                                 DRM_ERROR("failed to allocate pts for
-                static CSA, err=%d\n", r); @@ -99,9 +98,9 @@ int
-                amdgpu_map_static_csa(struct amdgpu_device *adev, struct
-                amdgpu_vm *vm,<br>
-                                 return r;<br>
-                         }<br>
-                 <br>
-                -       r = amdgpu_vm_bo_map(adev, *bo_va,
-                AMDGPU_CSA_VADDR, 0, AMDGPU_CSA_SIZE,<br>
-                -                            AMDGPU_PTE_READABLE |
-                AMDGPU_PTE_WRITEABLE |<br>
-                -                            AMDGPU_PTE_EXECUTABLE);<br>
-                +       r = amdgpu_vm_bo_map(adev, *bo_va,
-                AMDGPU_CSA_VADDR(adev), 0,<br>
-                +                            AMDGPU_CSA_SIZE,
-                AMDGPU_PTE_READABLE |<br>
-                +                            AMDGPU_PTE_WRITEABLE |
-                AMDGPU_PTE_EXECUTABLE);<br>
-                 <br>
-                         if (r) {<br>
-                                 DRM_ERROR("failed to do bo_map on
-                static CSA, err=%d\n", r); diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-                index 6a83425aa9ed..499362b55e45 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-                +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-                @@ -251,8 +251,10 @@ struct amdgpu_virt {<br>
-                         uint32_t gim_feature;<br>
-                 };<br>
-                 <br>
-                -#define AMDGPU_CSA_SIZE    (8 * 1024)<br>
-                -#define AMDGPU_CSA_VADDR   (AMDGPU_VA_RESERVED_SIZE -
-                AMDGPU_CSA_SIZE)<br>
-                +#define AMDGPU_CSA_SIZE                (8 * 1024)<br>
-                +#define AMDGPU_CSA_VADDR(adev) \<br>
-                        +       (((adev)-&gt;vm_manager.max_pfn &lt;&lt;
-                AMDGPU_GPU_PAGE_SHIFT) + \<br>
-                        +        AMDGPU_VA_RESERVED_SIZE)<br>
-                 <br>
-                If I  understand your intention correctly, it should be
-                that: <br>
-                +       (((adev)-&gt;vm_manager.max_pfn &lt;&lt;
-                AMDGPU_GPU_PAGE_SHIFT)  - \<br>
-                +        AMDGPU_VA_RESERVED_SIZE)<br>
-                <br>
-                Thanks<br>
-                Roger(Hongbo.He)<br>
-                <br>
-                 #define amdgpu_sriov_enabled(adev) \<br>
-                 ((adev)-&gt;virt.caps &amp;
-                AMDGPU_SRIOV_CAPS_ENABLE_IOV)<br>
-                --<br>
-                2.14.1<br>
-                <br>
-                _______________________________________________<br>
-                amd-gfx mailing list<br>
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <a
-                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                  moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------0258CFB2EA33C7CF6EFDAB9E--
-
---===============1696765583==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1696765583==--
+QW0gMjMuMDEuMjAxOCB1bSAwNzowMCBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gQ2hhbmdlLUlk
+OiBJMWU3OThkMGZiYjdlMjAyM2Q2NjE5ZjUxNWE5Y2ZhZjAyOWI2MmI2ZAo+IFNpZ25lZC1vZmYt
+Ynk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+CgpOb3Qgc3VyZSBpZiB0aGF0
+IGlzIGEgZ29vZCBpZGVhIGNhdXNlIHRoZSBoYW5kbGUgaXMgYWN0dWFsbHkgbm90IGFtZGdwdSAK
+c3BlY2lmaWMgYnV0IHJhdGhlciBhIGdlbmVyYWwgRFJNIGhhbmRsZSwgaXNuJ3QgaXQ/CgpDaHJp
+c3RpYW4uCgo+IC0tLQo+ICAgYW1kZ3B1L2FtZGdwdS5oICAgIHwgMjEgKysrKysrKysrKysrKy0t
+LS0tLS0tCj4gICBhbWRncHUvYW1kZ3B1X2NzLmMgfCAxNiArKysrKysrKy0tLS0tLS0tCj4gICAy
+IGZpbGVzIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQo+Cj4gZGlm
+ZiAtLWdpdCBhL2FtZGdwdS9hbWRncHUuaCBiL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IGI1ZTRl
+M2M2Li41ODM4ODRlMyAxMDA2NDQKPiAtLS0gYS9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9hbWRn
+cHUvYW1kZ3B1LmgKPiBAQCAtMTQ2LDYgKzE0NiwxMSBAQCB0eXBlZGVmIHN0cnVjdCBhbWRncHVf
+c2VtYXBob3JlICphbWRncHVfc2VtYXBob3JlX2hhbmRsZTsKPiAgICAqLwo+ICAgdHlwZWRlZiB1
+aW50MzJfdCBhbWRncHVfc2VtX2hhbmRsZTsKPiAgIAo+ICsvKioKPiArICogRGVmaW5lIGhhbmRs
+ZSBmb3Igc3luY29iago+ICsgKi8KPiArdHlwZWRlZiB1aW50MzJfdCBhbWRncHVfc3luY29ial9o
+YW5kbGU7Cj4gKwo+ICAgCj4gICAvKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKi8KPiAgIC8qIC0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tIFN0cnVjdHVyZXMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLSAqLwo+IEBAIC0xNzM1LDcgKzE3NDAsNyBAQCBjb25zdCBjaGFyICphbWRncHVfZ2V0
+X21hcmtldGluZ19uYW1lKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldik7Cj4gICAgKgo+ICAgKi8K
+PiAgIGludCBhbWRncHVfY3NfY3JlYXRlX3N5bmNvYmooYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2
+LAo+IC0JCQkgICAgIHVpbnQzMl90ICpzeW5jb2JqKTsKPiArCQkJICAgICBhbWRncHVfc3luY29i
+al9oYW5kbGUgKnN5bmNvYmopOwo+ICAgLyoqCj4gICAgKiAgRGVzdHJveSBrZXJuZWwgc3luYyBv
+YmplY3QKPiAgICAqCj4gQEAgLTE3NDcsNyArMTc1Miw3IEBAIGludCBhbWRncHVfY3NfY3JlYXRl
+X3N5bmNvYmooYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+ICAgICoKPiAgICovCj4gICBpbnQg
+YW1kZ3B1X2NzX2Rlc3Ryb3lfc3luY29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gLQkJ
+CSAgICAgIHVpbnQzMl90IHN5bmNvYmopOwo+ICsJCQkgICAgICBhbWRncHVfc3luY29ial9oYW5k
+bGUgc3luY29iaik7Cj4gICAKPiAgIC8qKgo+ICAgICogIFdhaXQgZm9yIG9uZSBvciBhbGwgc3lu
+YyBvYmplY3RzIHRvIHNpZ25hbC4KPiBAQCAtMTc2NSw5ICsxNzcwLDkgQEAgaW50IGFtZGdwdV9j
+c19kZXN0cm95X3N5bmNvYmooYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+ICAgICoKPiAgICAq
+Lwo+ICAgaW50IGFtZGdwdV9jc19zeW5jb2JqX3dhaXQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2
+LAo+IC0JCQkgICB1aW50MzJfdCAqaGFuZGxlcywgdW5zaWduZWQgbnVtX2hhbmRsZXMsCj4gKwkJ
+CSAgIGFtZGdwdV9zeW5jb2JqX2hhbmRsZSAqaGFuZGxlcywgdW5zaWduZWQgbnVtX2hhbmRsZXMs
+Cj4gICAJCQkgICBpbnQ2NF90IHRpbWVvdXRfbnNlYywgdW5zaWduZWQgZmxhZ3MsCj4gLQkJCSAg
+IHVpbnQzMl90ICpmaXJzdF9zaWduYWxlZCk7Cj4gKwkJCSAgIGFtZGdwdV9zeW5jb2JqX2hhbmRs
+ZSAqZmlyc3Rfc2lnbmFsZWQpOwo+ICAgCj4gICAvKioKPiAgICAqICBFeHBvcnQga2VybmVsIHN5
+bmMgb2JqZWN0IHRvIHNoYXJlYWJsZSBmZC4KPiBAQCAtMTc4MSw3ICsxNzg2LDcgQEAgaW50IGFt
+ZGdwdV9jc19zeW5jb2JqX3dhaXQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+ICAgICoKPiAg
+ICovCj4gICBpbnQgYW1kZ3B1X2NzX2V4cG9ydF9zeW5jb2JqKGFtZGdwdV9kZXZpY2VfaGFuZGxl
+IGRldiwKPiAtCQkJICAgICB1aW50MzJfdCBzeW5jb2JqLAo+ICsJCQkgICAgIGFtZGdwdV9zeW5j
+b2JqX2hhbmRsZSBzeW5jb2JqLAo+ICAgCQkJICAgICBpbnQgKnNoYXJlZF9mZCk7Cj4gICAvKioK
+PiAgICAqICBJbXBvcnQga2VybmVsIHN5bmMgb2JqZWN0IGZyb20gc2hhcmVhYmxlIGZkLgo+IEBA
+IC0xNzk2LDcgKzE4MDEsNyBAQCBpbnQgYW1kZ3B1X2NzX2V4cG9ydF9zeW5jb2JqKGFtZGdwdV9k
+ZXZpY2VfaGFuZGxlIGRldiwKPiAgICovCj4gICBpbnQgYW1kZ3B1X2NzX2ltcG9ydF9zeW5jb2Jq
+KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPiAgIAkJCSAgICAgaW50IHNoYXJlZF9mZCwKPiAt
+CQkJICAgICB1aW50MzJfdCAqc3luY29iaik7Cj4gKwkJCSAgICAgYW1kZ3B1X3N5bmNvYmpfaGFu
+ZGxlICpzeW5jb2JqKTsKPiAgIAo+ICAgLyoqCj4gICAgKiAgRXhwb3J0IGtlcm5lbCBzeW5jIG9i
+amVjdCB0byBhIHN5bmNfZmlsZS4KPiBAQCAtMTgxMCw3ICsxODE1LDcgQEAgaW50IGFtZGdwdV9j
+c19pbXBvcnRfc3luY29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gICAgKgo+ICAgICov
+Cj4gICBpbnQgYW1kZ3B1X2NzX3N5bmNvYmpfZXhwb3J0X3N5bmNfZmlsZShhbWRncHVfZGV2aWNl
+X2hhbmRsZSBkZXYsCj4gLQkJCQkgICAgICAgdWludDMyX3Qgc3luY29iaiwKPiArCQkJCSAgICAg
+ICBhbWRncHVfc3luY29ial9oYW5kbGUgc3luY29iaiwKPiAgIAkJCQkgICAgICAgaW50ICpzeW5j
+X2ZpbGVfZmQpOwo+ICAgCj4gICAvKioKPiBAQCAtMTgyNSw3ICsxODMwLDcgQEAgaW50IGFtZGdw
+dV9jc19zeW5jb2JqX2V4cG9ydF9zeW5jX2ZpbGUoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+
+ICAgICoKPiAgICAqLwo+ICAgaW50IGFtZGdwdV9jc19zeW5jb2JqX2ltcG9ydF9zeW5jX2ZpbGUo
+YW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+IC0JCQkJICAgICAgIHVpbnQzMl90IHN5bmNvYmos
+Cj4gKwkJCQkgICAgICAgYW1kZ3B1X3N5bmNvYmpfaGFuZGxlIHN5bmNvYmosCj4gICAJCQkJICAg
+ICAgIGludCBzeW5jX2ZpbGVfZmQpOwo+ICAgCj4gICAvKioKPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1
+L2FtZGdwdV9jcy5jIGIvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gaW5kZXggNjRhZDkxMTQuLmJlN2Ri
+MTlmIDEwMDY0NAo+IC0tLSBhL2FtZGdwdS9hbWRncHVfY3MuYwo+ICsrKyBiL2FtZGdwdS9hbWRn
+cHVfY3MuYwo+IEBAIC02MDcsNyArNjA3LDcgQEAgaW50IGFtZGdwdV9jc19kZXN0cm95X3NlbWFw
+aG9yZShhbWRncHVfc2VtYXBob3JlX2hhbmRsZSBzZW0pCj4gICB9Cj4gICAKPiAgIGludCBhbWRn
+cHVfY3NfY3JlYXRlX3N5bmNvYmooYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+IC0JCQkgICAg
+IHVpbnQzMl90ICpoYW5kbGUpCj4gKwkJCSAgICAgYW1kZ3B1X3N5bmNvYmpfaGFuZGxlICpoYW5k
+bGUpCj4gICB7Cj4gICAJaWYgKE5VTEwgPT0gZGV2KQo+ICAgCQlyZXR1cm4gLUVJTlZBTDsKPiBA
+QCAtNjE2LDcgKzYxNiw3IEBAIGludCBhbWRncHVfY3NfY3JlYXRlX3N5bmNvYmooYW1kZ3B1X2Rl
+dmljZV9oYW5kbGUgZGV2LAo+ICAgfQo+ICAgCj4gICBpbnQgYW1kZ3B1X2NzX2Rlc3Ryb3lfc3lu
+Y29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gLQkJCSAgICAgIHVpbnQzMl90IGhhbmRs
+ZSkKPiArCQkJICAgICAgYW1kZ3B1X3N5bmNvYmpfaGFuZGxlIGhhbmRsZSkKPiAgIHsKPiAgIAlp
+ZiAoTlVMTCA9PSBkZXYpCj4gICAJCXJldHVybiAtRUlOVkFMOwo+IEBAIC02MjUsOSArNjI1LDkg
+QEAgaW50IGFtZGdwdV9jc19kZXN0cm95X3N5bmNvYmooYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2
+LAo+ICAgfQo+ICAgCj4gICBpbnQgYW1kZ3B1X2NzX3N5bmNvYmpfd2FpdChhbWRncHVfZGV2aWNl
+X2hhbmRsZSBkZXYsCj4gLQkJCSAgIHVpbnQzMl90ICpoYW5kbGVzLCB1bnNpZ25lZCBudW1faGFu
+ZGxlcywKPiArCQkJICAgYW1kZ3B1X3N5bmNvYmpfaGFuZGxlICpoYW5kbGVzLCB1bnNpZ25lZCBu
+dW1faGFuZGxlcywKPiAgIAkJCSAgIGludDY0X3QgdGltZW91dF9uc2VjLCB1bnNpZ25lZCBmbGFn
+cywKPiAtCQkJICAgdWludDMyX3QgKmZpcnN0X3NpZ25hbGVkKQo+ICsJCQkgICBhbWRncHVfc3lu
+Y29ial9oYW5kbGUgKmZpcnN0X3NpZ25hbGVkKQo+ICAgewo+ICAgCWlmIChOVUxMID09IGRldikK
+PiAgIAkJcmV0dXJuIC1FSU5WQUw7Cj4gQEAgLTYzNyw3ICs2MzcsNyBAQCBpbnQgYW1kZ3B1X2Nz
+X3N5bmNvYmpfd2FpdChhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gICB9Cj4gICAKPiAgIGlu
+dCBhbWRncHVfY3NfZXhwb3J0X3N5bmNvYmooYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+IC0J
+CQkgICAgIHVpbnQzMl90IGhhbmRsZSwKPiArCQkJICAgICBhbWRncHVfc3luY29ial9oYW5kbGUg
+aGFuZGxlLAo+ICAgCQkJICAgICBpbnQgKnNoYXJlZF9mZCkKPiAgIHsKPiAgIAlpZiAoTlVMTCA9
+PSBkZXYpCj4gQEAgLTY0OCw3ICs2NDgsNyBAQCBpbnQgYW1kZ3B1X2NzX2V4cG9ydF9zeW5jb2Jq
+KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPiAgIAo+ICAgaW50IGFtZGdwdV9jc19pbXBvcnRf
+c3luY29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gICAJCQkgICAgIGludCBzaGFyZWRf
+ZmQsCj4gLQkJCSAgICAgdWludDMyX3QgKmhhbmRsZSkKPiArCQkJICAgICBhbWRncHVfc3luY29i
+al9oYW5kbGUgKmhhbmRsZSkKPiAgIHsKPiAgIAlpZiAoTlVMTCA9PSBkZXYpCj4gICAJCXJldHVy
+biAtRUlOVkFMOwo+IEBAIC02NTcsNyArNjU3LDcgQEAgaW50IGFtZGdwdV9jc19pbXBvcnRfc3lu
+Y29iaihhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gICB9Cj4gICAKPiAgIGludCBhbWRncHVf
+Y3Nfc3luY29ial9leHBvcnRfc3luY19maWxlKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPiAt
+CQkJCSAgICAgICB1aW50MzJfdCBzeW5jb2JqLAo+ICsJCQkJICAgICAgIGFtZGdwdV9zeW5jb2Jq
+X2hhbmRsZSBzeW5jb2JqLAo+ICAgCQkJCSAgICAgICBpbnQgKnN5bmNfZmlsZV9mZCkKPiAgIHsK
+PiAgIAlpZiAoTlVMTCA9PSBkZXYpCj4gQEAgLTY2Nyw3ICs2NjcsNyBAQCBpbnQgYW1kZ3B1X2Nz
+X3N5bmNvYmpfZXhwb3J0X3N5bmNfZmlsZShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gICB9
+Cj4gICAKPiAgIGludCBhbWRncHVfY3Nfc3luY29ial9pbXBvcnRfc3luY19maWxlKGFtZGdwdV9k
+ZXZpY2VfaGFuZGxlIGRldiwKPiAtCQkJCSAgICAgICB1aW50MzJfdCBzeW5jb2JqLAo+ICsJCQkJ
+ICAgICAgIGFtZGdwdV9zeW5jb2JqX2hhbmRsZSBzeW5jb2JqLAo+ICAgCQkJCSAgICAgICBpbnQg
+c3luY19maWxlX2ZkKQo+ICAgewo+ICAgCWlmIChOVUxMID09IGRldikKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
