@@ -1,7 +1,7 @@
-From: Michal Hocko <mhocko-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [RFC] Per file OOM badness
-Date: Wed, 24 Jan 2018 12:50:59 +0100
-Message-ID: <20180124115059.GC28465@dhcp22.suse.cz>
+Date: Wed, 24 Jan 2018 13:11:09 +0100
+Message-ID: <381a868c-78fd-d0d1-029e-a2cf4ab06d37@gmail.com>
 References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
  <20180118170006.GG6584@dhcp22.suse.cz>
  <20180123152659.GA21817@castle.DHCP.thefacebook.com>
@@ -11,43 +11,43 @@ References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
  <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
  <20180124110141.GA28465@dhcp22.suse.cz>
  <36b49523-792d-45f9-8617-32b6d9d77418@daenzer.net>
+ <20180124115059.GC28465@dhcp22.suse.cz>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <36b49523-792d-45f9-8617-32b6d9d77418-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Roman Gushchin <guro-b10kYP2dOMg@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180124115059.GC28465@dhcp22.suse.cz>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michal Hocko <mhocko@kernel.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Christian.Koenig@amd.com, linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, Roman Gushchin <guro@fb.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkIDI0LTAxLTE4IDEyOjIzOjEwLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyMDE4
-LTAxLTI0IDEyOjAxIFBNLCBNaWNoYWwgSG9ja28gd3JvdGU6Cj4gPiBPbiBXZWQgMjQtMDEtMTgg
-MTE6Mjc6MTUsIE1pY2hlbCBEw6RuemVyIHdyb3RlOgpbLi4uXQo+ID4+IDIuIElmIHRoZSBPT00g
-a2lsbGVyIGtpbGxzIGEgcHJvY2VzcyB3aGljaCBpcyBzaGFyaW5nIEJPcyB3aXRoIGFub3RoZXIK
-PiA+PiBwcm9jZXNzLCB0aGlzIHNob3VsZCByZXN1bHQgaW4gdGhlIG90aGVyIHByb2Nlc3MgZHJv
-cHBpbmcgaXRzIHJlZmVyZW5jZXMKPiA+PiB0byB0aGUgQk9zIGFzIHdlbGwsIGF0IHdoaWNoIHBv
-aW50IHRoZSBtZW1vcnkgaXMgcmVsZWFzZWQuCj4gPiAKPiA+IE9LLiBIb3cgZXhhY3RseSBhcmUg
-dGhvc2UgQk9zIG1hcHBlZCB0byB0aGUgdXNlcnNwYWNlPwo+IAo+IEknbSBub3Qgc3VyZSB3aGF0
-IHlvdSdyZSBhc2tpbmcuIFVzZXJzcGFjZSBtb3N0bHkgdXNlcyBhIEdFTSBoYW5kbGUgdG8KPiBy
-ZWZlciB0byBhIEJPLiBUaGVyZSBjYW4gYWxzbyBiZSB1c2Vyc3BhY2UgQ1BVIG1hcHBpbmdzIG9m
-IHRoZSBCTydzCj4gbWVtb3J5LCBidXQgdXNlcnNwYWNlIGRvZXNuJ3QgbmVlZCBDUFUgbWFwcGlu
-Z3MgZm9yIGFsbCBCT3MgYW5kIG9ubHkKPiBjcmVhdGVzIHRoZW0gYXMgbmVlZGVkLgoKT0ssIEkg
-Z3Vlc3MgeW91IGhhdmUgdG8gYmVhciB3aXRoIG1lIHNvbWUgbW9yZS4gVGhpcyB3aG9sZSBzdGFj
-ayBpcyBhCmNvbXBsZXRlIHVrbm9ud24uIEkgYW0gbW9zdGx5IGFmdGVyIGZpbmRpbmcgYSBib3Vu
-ZGFyeSB3aGVyZSB5b3UgY2FuCmNoYXJnZSB0aGUgYWxsb2NhdGVkIG1lbW9yeSB0byB0aGUgcHJv
-Y2VzcyBzbyB0aGF0IHRoZSBvb20ga2lsbGVyIGNhbgpjb25zaWRlciBpdC4gSXMgdGhlcmUgYW55
-dGhpbmcgbGlrZSB0aGF0PyBFeGNlcHQgZm9yIHRoZSBwcm9wb3NlZCBmaWxlCmhhbmRsZSBoYWNr
-PwotLSAKTWljaGFsIEhvY2tvClNVU0UgTGFicwpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+Am 24.01.2018 um 12:50 schrieb Michal Hocko:
+> On Wed 24-01-18 12:23:10, Michel Dänzer wrote:
+>> On 2018-01-24 12:01 PM, Michal Hocko wrote:
+>>> On Wed 24-01-18 11:27:15, Michel Dänzer wrote:
+> [...]
+>>>> 2. If the OOM killer kills a process which is sharing BOs with another
+>>>> process, this should result in the other process dropping its references
+>>>> to the BOs as well, at which point the memory is released.
+>>> OK. How exactly are those BOs mapped to the userspace?
+>> I'm not sure what you're asking. Userspace mostly uses a GEM handle to
+>> refer to a BO. There can also be userspace CPU mappings of the BO's
+>> memory, but userspace doesn't need CPU mappings for all BOs and only
+>> creates them as needed.
+> OK, I guess you have to bear with me some more. This whole stack is a
+> complete uknonwn. I am mostly after finding a boundary where you can
+> charge the allocated memory to the process so that the oom killer can
+> consider it. Is there anything like that? Except for the proposed file
+> handle hack?
+
+Not that I knew of.
+
+As I said before we need some kind of callback that a process now starts 
+to use a file descriptor, but without anything from that file descriptor 
+mapped into the address space.
+
+Regards,
+Christian.
