@@ -1,57 +1,76 @@
-From: Michal Hocko <mhocko@kernel.org>
-Subject: Re: [RFC] Per file OOM badness
-Date: Wed, 24 Jan 2018 12:01:41 +0100
-Message-ID: <20180124110141.GA28465@dhcp22.suse.cz>
-References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
- <20180118170006.GG6584@dhcp22.suse.cz>
- <20180123152659.GA21817@castle.DHCP.thefacebook.com>
- <20180123153631.GR1526@dhcp22.suse.cz>
- <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
- <20180124092847.GI1526@dhcp22.suse.cz>
- <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: lock/unlock mismatch in ttm_bo.c
+Date: Wed, 24 Jan 2018 06:09:14 -0500
+Message-ID: <7f01613e-3fe6-f83c-cdf1-212b01e266dc@amd.com>
+References: <1713476e-c17f-9eea-ebd3-6999c760b678@amd.com>
+ <81e40cdf-6869-57fa-6858-eb77dbfb45a8@amd.com>
+ <57fdd509-5de6-a7d8-9588-cb2c63b8f451@amd.com>
+ <6c1faffd-5347-5763-e377-fd18f2e65928@amd.com>
+ <95054871-ebd3-06a4-e845-9e2d7c7a56f8@amd.com>
+ <7f86e76a-a61d-4420-a752-6efde8a18e88@amd.com>
+ <6a54eb41-d251-3026-6a2a-71abc724e3ff@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-Content-Disposition: inline
-In-Reply-To: <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
-Sender: owner-linux-mm@kvack.org
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Christian.Koenig@amd.com, linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, Roman Gushchin <guro@fb.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <6a54eb41-d251-3026-6a2a-71abc724e3ff-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed 24-01-18 11:27:15, Michel Dänzer wrote:
-> On 2018-01-24 10:28 AM, Michal Hocko wrote:
-[...]
-> > So how exactly then helps to kill one of those processes? The memory
-> > stays pinned behind or do I still misunderstand?
-> 
-> Fundamentally, the memory is only released once all references to the
-> BOs are dropped. That's true no matter how the memory is accounted for
-> between the processes referencing the BO.
-> 
-> 
-> In practice, this should be fine:
-> 
-> 1. The amount of memory used for shared BOs is normally small compared
-> to the amount of memory used for non-shared BOs (and other things). So
-> regardless of how shared BOs are accounted for, the OOM killer should
-> first target the process which is responsible for more memory overall.
-
-OK. So this is essentially the same as with the normal shared memory
-which is a part of the RSS in general.
-
-> 2. If the OOM killer kills a process which is sharing BOs with another
-> process, this should result in the other process dropping its references
-> to the BOs as well, at which point the memory is released.
-
-OK. How exactly are those BOs mapped to the userspace?
--- 
-Michal Hocko
-SUSE Labs
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+T24gMjQvMDEvMTggMDM6NTggQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gTkFLLCB0aGF0
+IGRvZXNuJ3QgbG9va3MgY29ycmVjdCB0byBtZS4gdW5sb2NrX3Jlc3YgbWVhbnMgdGhhdCB0aGUg
+Cj4gZnVuY3Rpb24gaXMgYWxsb3dlZCB0byB1bmxvY2sgdGhlIHJlc2VydmF0aW9uLgo+IAo+IFNv
+IHRoZSBvcmlnaW5hbCBsb2dpYyBzZWVtcyB0byBkbyBleGFjdGx5IHdoYXQgaXQgaXMgc3VwcG9z
+ZWQgdG8gZG8uIAo+IFBsZWFzZSBrZWVwIGluIG1pbmQgdGhhdCByZXNlcnZhdGlvbl9vYmplY3Rf
+dHJ5bG9jayByZXR1cm5zIGJvb2xlYW4sIG5vdCAKPiBuZWdhdGl2ZSBlcnJvciBjb2RlLgoKSWYg
+dGhlIGNsZWFudXBfcmVmcygpIGZ1bmN0aW9uIGFzc3VtZXMgdGhlIGxvY2sgaXMgaGVsZCBpdCBz
+aG91bGRuJ3QgCnJlbGVhc2UgaXQgdGhlbi4gIE15IG9ubHkgZ29hbCBoZXJlIHdhcyB0byBjbGVh
+bnVwIHRoZSBsb2NrIHVzYWdlIHNvIAp0aGF0IGl0J3Mgb25seSBtYW5pcHVsYXRlZCBpbiBhIHNp
+bmdsZSBjb250ZXh0LgoKVGhlIGxvY2sgaXMgdW5sb2NrZWQgYSBiaXQgYmVmb3JlIHRoZSBmdW5j
+dGlvbiBlbmRzIGRvIHRoZSBvdGhlciB0dG0gCmZ1bmN0aW9ucyBjbGVhbnVwX3JlZnMoKSBjYWxs
+IHJlcXVpcmUgdGhlIGFiaWxpdHkgdG8gdGFrZSB0aGUgbG9jaz8KClRvbQoKCj4gCj4gUmVnYXJk
+cywKPiBDaHJpc3RpYW4uCj4gCj4gQW0gMjQuMDEuMjAxOCB1bSAwNjo0NiBzY2hyaWViIENodW5t
+aW5nIFpob3U6Cj4+IHVwZGF0ZSB0aGUgZml4Lgo+Pgo+Pgo+PiBPbiAyMDE45bm0MDHmnIgyNOaX
+pSAxMTowOSwgQ2h1bm1pbmcgWmhvdSB3cm90ZToKPj4+IEhpIFRvbSwKPj4+Cj4+PiBZb3VyIGNo
+YW5nZSBsb29rcyBvaywgYXMgUm9nZXIgc3VnZ2VzdGVkLCB5b3UgY2FuIHNlbmQgYm90aCBkcmkg
+YW5kIAo+Pj4gYW1kIG1haWwgbGlzdHMuCj4+Pgo+Pj4gSW4gYWRkaXRpb24sIHdoZW4gSSByZXZp
+ZXcgeW91ciBwYXRjaGVzLCBJIGZvdW5kIGEgYnVnIGFzIHRoZSAKPj4+IGF0dGFjaGVkLCB5b3Ug
+Y2FuIHNlbmQgaXQgdG9nZXRoZXIgd2l0aCB5b3VycyBpZiB5b3UgdGhpbmsgdGhhdCdzIGEgCj4+
+PiByaWdodCBmaXguCj4+Pgo+Pj4gUmVnYXJkcywKPj4+Cj4+PiBEYXZpZCBaaG91Cj4+Pgo+Pj4K
+Pj4+IE9uIDIwMTjlubQwMeaciDI05pelIDAzOjI1LCBUb20gU3QgRGVuaXMgd3JvdGU6Cj4+Pj4g
+T24gMjIvMDEvMTggMDE6NDIgQU0sIENodW5taW5nIFpob3Ugd3JvdGU6Cj4+Pj4+Cj4+Pj4+Cj4+
+Pj4+IE9uIDIwMTjlubQwMeaciDIw5pelIDAyOjIzLCBUb20gU3QgRGVuaXMgd3JvdGU6Cj4+Pj4+
+PiBPbiAxOS8wMS8xOCAwMToxNCBQTSwgVG9tIFN0IERlbmlzIHdyb3RlOgo+Pj4+Pj4+IEhpIGFs
+bCwKPj4+Pj4+Pgo+Pj4+Pj4+IEluIHRoZSBmdW5jdGlvbiB0dG1fYm9fY2xlYW51cF9yZWZzKCkg
+aXQgc2VlbXMgcG9zc2libGUgdG8gZ2V0IHRvIAo+Pj4+Pj4+IGxpbmUgNTUxIHdpdGhvdXQgZW50
+ZXJpbmcgdGhlIGJsb2NrIG9uIDUxNiB3aGljaCBtZWFucyB5b3UnbGwgYmUgCj4+Pj4+Pj4gdW5s
+b2NraW5nIGEgbXV0ZXggdGhhdCB3YXNuJ3QgbG9ja2VkLgo+Pj4+Pj4+Cj4+Pj4+Pj4gTm93IGl0
+IG1pZ2h0IGJlIHRoYXQgaW4gdGhlIGNvdXJzZSBvZiB0aGUgQVBJIHRoaXMgcGF0dGVybiBjYW5u
+b3QgCj4+Pj4+Pj4gYmUgZXhwcmVzc2VkIGJ1dCBpdCdzIG5vdCBjbGVhciBmcm9tIHRoZSBmdW5j
+dGlvbiBhbG9uZSB0aGF0IHRoYXQgCj4+Pj4+Pj4gaXMgdGhlIGNhc2UuCj4+Pj4+Pgo+Pj4+Pj4K
+Pj4+Pj4+IExvb2tpbmcgZnVydGhlciBpdCBzZWVtcyB0aGUgYmVoYXZpb3VyIGRlcGVuZHMgb24g
+bG9ja2luZyBpbiAKPj4+Pj4+IHBhcmVudCBjYWxsZXJzLsKgIFRoYXQncyBraW5kYSBhIG5vLW5v
+IHJpZ2h0P8KgIFNob3VsZG4ndCB0aGUgbG9jayAKPj4+Pj4+IGJlIHRha2VuL3JlbGVhc2VkIGlu
+IHRoZSBzYW1lIGZ1bmN0aW9uIGlkZWFsbHk/Cj4+Pj4+IFNhbWUgZmVlbGluZ3MKPj4+Pj4KPj4+
+Pj4gUmVnYXJkcywKPj4+Pj4gRGF2aWQgWmhvdQo+Pj4+Cj4+Pj4gQXR0YWNoZWQgaXMgYSBwYXRj
+aCB0aGF0IGFkZHJlc3NlcyB0aGlzLgo+Pj4+Cj4+Pj4gSSBjYW4ndCBzZWUgYW55IG9idmlvdXMg
+cmFjZSBpbiBmdW5jdGlvbnMgdGhhdCBjYWxsIAo+Pj4+IHR0bV9ib19jbGVhbnVwX3JlZnMoKSBi
+ZXR3ZWVuIHRoZSB0aW1lIHRoZXkgbGV0IGdvIG9mIHRoZSBsb2NrIGFuZCAKPj4+PiB0aGUgdGlt
+ZSBpdCdzIHRha2VuIGFnYWluIGluIHRoZSBjYWxsLgo+Pj4+Cj4+Pj4gUnVubmluZyBpdCBvbiBt
+eSBzeXN0ZW0gZG9lc24ndCBwcm9kdWNlIGFueXRoaW5nIG5vdGFibGUgdGhvdWdoIHRoZSAKPj4+
+PiBLQVNBTiB3aXRoIERSSV9QUklNRT0xIGlzc3VlIGlzIHN0aWxsIHRoZXJlICh0aGlzIHBhdGNo
+IG5laXRoZXIgCj4+Pj4gY2F1c2VzIHRoYXQgbm9yIGZpeGVzIGl0KS4KPj4+Pgo+Pj4+IFRvbQo+
+Pj4KPj4KPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
