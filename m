@@ -1,14 +1,17 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix another potential cause of VM faults
-Date: Wed, 24 Jan 2018 16:53:39 -0500
-Message-ID: <89e6244c-c7dc-ab68-b0eb-41169627d5bd@amd.com>
-References: <20180124135918.1996-1-christian.koenig@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amd/pp: Implement set_power_profile_mode on smu7
+Date: Wed, 24 Jan 2018 23:05:11 +0000
+Message-ID: <CY4PR12MB1687A95AD6A9C584060686F8FBE20@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1516786649-14914-1-git-send-email-Rex.Zhu@amd.com>
+ <1516786649-14914-4-git-send-email-Rex.Zhu@amd.com>
+ <e21a2657-7a80-5b59-6c1c-a578d3bf79a9@amd.com>
+ <CY4PR12MB1687B4CBFF3BC4DD121752A4FBE20@CY4PR12MB1687.namprd12.prod.outlook.com>,
+ <e86e1a66-37d4-f3cc-8eae-689c81356526@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0474592301=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180124135918.1996-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <e86e1a66-37d4-f3cc-8eae-689c81356526-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,51 +22,483 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Ck9uIDIwMTgtMDEtMjQgMDg6NTkgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gVGhlIHJv
-b3QgUEQgY2FuIGJlIGV2aWN0ZWQgZGlyZWN0bHkgYWZ0ZXIgYWxsb2NhdGluZyBpdCwganVzdCB2
-YWxpZGF0ZQo+IGl0IG9uIGZpcnN0IHVzZS4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBL
-w7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQWNrZWQtYnk6IEZlbGl4IEt1ZWhsaW5n
-IDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKUmVnYXJkcywKwqAgRmVsaXgKCj4gLS0tCj4gIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMzIgKysrKysrKysrKysrLS0t
-LS0tLS0tLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDIw
-IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBp
-bmRleCA2ZjcxNDExNjg4MzguLjBkZjUyY2IxNzY1YiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92bS5jCj4gQEAgLTIyNDEsMTIgKzIyNDEsMTIgQEAgaW50IGFtZGdwdV92
-bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwK
-PiAgewo+ICAJY29uc3QgdW5zaWduZWQgYWxpZ24gPSBtaW4oQU1ER1BVX1ZNX1BUQl9BTElHTl9T
-SVpFLAo+ICAJCUFNREdQVV9WTV9QVEVfQ09VTlQoYWRldikgKiA4KTsKPiArCXVpbnQ2NF90IGlu
-aXRfcGRlX3ZhbHVlID0gMCwgZmxhZ3M7Cj4gIAl1bnNpZ25lZCByaW5nX2luc3RhbmNlOwo+ICAJ
-c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nOwo+ICAJc3RydWN0IGRybV9zY2hlZF9ycSAqcnE7Cj4g
-Kwl1bnNpZ25lZCBsb25nIHNpemU7Cj4gIAlpbnQgciwgaTsKPiAtCXU2NCBmbGFnczsKPiAtCXVp
-bnQ2NF90IGluaXRfcGRlX3ZhbHVlID0gMDsKPiAgCj4gIAl2bS0+dmEgPSBSQl9ST09UX0NBQ0hF
-RDsKPiAgCWZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1ZNSFVCUzsgaSsrKQo+IEBAIC0yMjk3
-LDI5ICsyMjk3LDIxIEBAIGludCBhbWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gIAkJZmxhZ3MgfD0gKEFNREdQVV9HRU1fQ1JF
-QVRFX05PX0NQVV9BQ0NFU1MgfAo+ICAJCQkJQU1ER1BVX0dFTV9DUkVBVEVfU0hBRE9XKTsKPiAg
-Cj4gLQlyID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LAo+IC0JCQkgICAgIGFtZGdwdV92bV9ib19z
-aXplKGFkZXYsIGFkZXYtPnZtX21hbmFnZXIucm9vdF9sZXZlbCksCj4gLQkJCSAgICAgYWxpZ24s
-IHRydWUsCj4gLQkJCSAgICAgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwKPiAtCQkJICAgICBmbGFn
-cywKPiAtCQkJICAgICBOVUxMLCBOVUxMLCBpbml0X3BkZV92YWx1ZSwgJnZtLT5yb290LmJhc2Uu
-Ym8pOwo+ICsJc2l6ZSA9IGFtZGdwdV92bV9ib19zaXplKGFkZXYsIGFkZXYtPnZtX21hbmFnZXIu
-cm9vdF9sZXZlbCk7Cj4gKwlyID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LCBzaXplLCBhbGlnbiwg
-dHJ1ZSwgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwKPiArCQkJICAgICBmbGFncywgTlVMTCwgTlVM
-TCwgaW5pdF9wZGVfdmFsdWUsCj4gKwkJCSAgICAgJnZtLT5yb290LmJhc2UuYm8pOwo+ICAJaWYg
-KHIpCj4gIAkJZ290byBlcnJvcl9mcmVlX3NjaGVkX2VudGl0eTsKPiAgCj4gKwlyID0gYW1kZ3B1
-X2JvX3Jlc2VydmUodm0tPnJvb3QuYmFzZS5ibywgdHJ1ZSk7Cj4gKwlpZiAocikKPiArCQlnb3Rv
-IGVycm9yX2ZyZWVfcm9vdDsKPiArCj4gIAl2bS0+cm9vdC5iYXNlLnZtID0gdm07Cj4gIAlsaXN0
-X2FkZF90YWlsKCZ2bS0+cm9vdC5iYXNlLmJvX2xpc3QsICZ2bS0+cm9vdC5iYXNlLmJvLT52YSk7
-Cj4gLQlJTklUX0xJU1RfSEVBRCgmdm0tPnJvb3QuYmFzZS52bV9zdGF0dXMpOwo+IC0KPiAtCWlm
-ICh2bS0+dXNlX2NwdV9mb3JfdXBkYXRlKSB7Cj4gLQkJciA9IGFtZGdwdV9ib19yZXNlcnZlKHZt
-LT5yb290LmJhc2UuYm8sIGZhbHNlKTsKPiAtCQlpZiAocikKPiAtCQkJZ290byBlcnJvcl9mcmVl
-X3Jvb3Q7Cj4gLQo+IC0JCXIgPSBhbWRncHVfYm9fa21hcCh2bS0+cm9vdC5iYXNlLmJvLCBOVUxM
-KTsKPiAtCQlhbWRncHVfYm9fdW5yZXNlcnZlKHZtLT5yb290LmJhc2UuYm8pOwo+IC0JCWlmIChy
-KQo+IC0JCQlnb3RvIGVycm9yX2ZyZWVfcm9vdDsKPiAtCX0KPiArCWxpc3RfYWRkX3RhaWwoJnZt
-LT5yb290LmJhc2Uudm1fc3RhdHVzLCAmdm0tPmV2aWN0ZWQpOwo+ICsJYW1kZ3B1X2JvX3VucmVz
-ZXJ2ZSh2bS0+cm9vdC5iYXNlLmJvKTsKPiAgCj4gIAlpZiAocGFzaWQpIHsKPiAgCQl1bnNpZ25l
-ZCBsb25nIGZsYWdzOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0474592301==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687A95AD6A9C584060686F8FBE20CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB1687A95AD6A9C584060686F8FBE20CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Felix,
+
+The logic of gfx/computer profile setting works in such way as you said,nee=
+d under =1B$B!H=1B(Bauto=1B$B!I=1B(B state.
+But in new sysfs of power profile setting, we do not check the performance
+Level.
+
+And The =1B$B!H=1B(Bmanual=1B$B!I=1B(B state is a confusing flag=1B$B!$=1B(=
+Bwhen user set manual state=1B$B!$=1B(Band then change the clk range throug=
+h pp-dpm-sclk/mclk=1B$B!$=1B(Bthe dpm still works automatically in new cloc=
+k range, I think we can remove this flag.
+
+So  My idea is
+in the sysfs of pp dpm sclk/mclk, user can set clock range.
+In the sysfs of power profile state, user can configure the parameters smu/=
+driver exposed. They are independent.
+
+
+
+
+
+
+Best Regards
+Rex
+________________________________
+From: Kuehling, Felix
+Sent: Thursday, January 25, 2018 5:41:43 AM
+To: Zhu, Rex; Huang, JinHuiEric; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 4/4] drm/amd/pp: Implement set_power_profile_mode on sm=
+u7
+
+Hi Rex,
+
+As I understand it (the way power profiles currently work),
+pp_dpm_sclk/mclk only apply if pp_dpm_force_performance_level is set to
+"manual". Power profiles and automatic switching between profiles only
+happens when pp_dpm_force_performance_level is set to "auto".
+
+This means pp_dpm_sclk/mclk don't apply when profiles are in effect.
+Also, there would be no way to set different minimum clocks for
+different profiles.
+
+I think minimum clocks should be part of the profiles.
+
+Regards,
+  Felix
+
+
+On 2018-01-24 03:13 PM, Zhu, Rex wrote:
+> Hi Eric,
+>
+> We have sysfs pp-dpm-sclk/mclk to set min dpm level
+>
+> Best Regards
+> Rex
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+> Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
+> *Sent:* Thursday, January 25, 2018 12:04:55 AM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH 4/4] drm/amd/pp: Implement
+> set_power_profile_mode on smu7
+>
+> We have min_sclk and min_mclk in previous power profile parameters for
+> VI, which are similar with min_active_level for Vega10. How to implement
+> these parameters?
+>
+> Regards,
+> Eric
+>
+> On 2018-01-24 04:37 AM, Rex Zhu wrote:
+> > User can set smu7 profile pamameters through sysfs
+> >
+> > echo "0/1/2/3/4">pp_power_profile_mode
+> > to select 3D_FULL_SCREEN/POWER_SAVING/VIDEO/VR/COMPUTE
+> > mode.
+> > echo "5 * * * * * * * *">pp_power_profile_mode
+> > to config custom mode.
+> > "5 * * * * * * * *" mean "CUSTOM enable_sclk SCLK_UP_HYST
+> > SCLK_DOWN_HYST SCLK_ACTIVE_LEVEL enable_mclk MCLK_UP_HYST
+> > MCLK_DOWN_HYST MCLK_ACTIVE_LEVEL"
+> >
+> > Change-Id: Ic6d6f37363bc81ab17051285f6ace847edf725de
+> > Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 49
+> +++++++++++++++++++++++-
+> >   1 file changed, 48 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> > index 9f6afd5..13db75c 100644
+> > --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> > +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> > @@ -5036,7 +5036,54 @@ static int smu7_get_power_profile_mode(struct
+> pp_hwmgr *hwmgr, char *buf)
+> >
+> >   static int smu7_set_power_profile_mode(struct pp_hwmgr *hwmgr,
+> long *input, uint32_t size)
+> >   {
+> > -     /* To Do */
+> > +     struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
+;
+> > +     struct profile_mode_setting tmp;
+> > +
+> > +     hwmgr->power_profile_mode =3D input[size];
+> > +
+> > +     switch (hwmgr->power_profile_mode) {
+> > +     case PP_SMC_POWER_PROFILE_CUSTOM:
+> > +             if (size < 8)
+> > +                     return -EINVAL;
+> > +
+> > +             data->custom_profile_setting.bupdate_sclk =3D input[0];
+> > +             data->custom_profile_setting.sclk_up_hyst =3D input[1];
+> > +             data->custom_profile_setting.sclk_down_hyst =3D input[2];
+> > +             data->custom_profile_setting.sclk_activity =3D  input[3];
+> > +             data->custom_profile_setting.bupdate_mclk =3D input[4];
+> > +             data->custom_profile_setting.mclk_up_hyst =3D input[5];
+> > +             data->custom_profile_setting.mclk_down_hyst =3D input[6];
+> > +             data->custom_profile_setting.mclk_activity =3D  input[7];
+> > +             if (!smum_update_dpm_settings(hwmgr,
+> &data->custom_profile_setting))
+> > +                     memcpy(&data->current_profile_setting,
+> &data->custom_profile_setting, sizeof(struct profile_mode_setting));
+> > +             break;
+> > +     case PP_SMC_POWER_PROFILE_FULLSCREEN3D:
+> > +     case PP_SMC_POWER_PROFILE_POWERSAVING:
+> > +     case PP_SMC_POWER_PROFILE_VIDEO:
+> > +     case PP_SMC_POWER_PROFILE_VR:
+> > +     case PP_SMC_POWER_PROFILE_COMPUTE:
+> > +             memcpy(&tmp,
+> &smu7_profiling[hwmgr->power_profile_mode], sizeof(struct
+> profile_mode_setting));
+> > +             if (!smum_update_dpm_settings(hwmgr, &tmp)) {
+> > +                     if (tmp.bupdate_sclk) {
+> > +
+> data->current_profile_setting.bupdate_sclk =3D tmp.bupdate_sclk;
+> > +
+> data->current_profile_setting.sclk_up_hyst =3D tmp.sclk_up_hyst;
+> > +
+> data->current_profile_setting.sclk_down_hyst =3D tmp.sclk_down_hyst;
+> > +
+> data->current_profile_setting.sclk_activity =3D tmp.sclk_activity;
+> > +                     }
+> > +                     if (tmp.bupdate_mclk) {
+> > +
+> data->current_profile_setting.bupdate_mclk =3D tmp.bupdate_mclk;
+> > +
+> data->current_profile_setting.mclk_up_hyst =3D tmp.mclk_up_hyst;
+> > +
+> data->current_profile_setting.mclk_down_hyst =3D tmp.mclk_down_hyst;
+> > +
+> data->current_profile_setting.mclk_activity =3D tmp.mclk_activity;
+> > +                     }
+> > +             }
+> > +             break;
+> > +     case PP_SMC_POWER_PROFILE_AUTO: /* TO DO auto wattman feature
+> not implement */
+> > +             return 0;
+> > +     default:
+> > +             return -EINVAL;
+> > +     }
+> > +
+> >        return 0;
+> >   }
+> >
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--_000_CY4PR12MB1687A95AD6A9C584060686F8FBE20CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+</head>
+<body>
+Hi Felix,<br>
+<br>
+The logic of gfx/computer profile setting works in such way as you said,nee=
+d under =1B$B!H=1B(Bauto=1B$B!I=1B(B state.<br>
+But in new sysfs of power profile setting, we do not check the performance<=
+br>
+Level.<br>
+<br>
+And The =1B$B!H=1B(Bmanual=1B$B!I=1B(B state is a confusing flag=1B$B!$=1B(=
+Bwhen user set manual state=1B$B!$=1B(Band then change the clk range throug=
+h pp-dpm-sclk/mclk=1B$B!$=1B(Bthe dpm still works automatically in new cloc=
+k range, I think we can remove this flag.<br>
+<br>
+So&nbsp; My idea is <br>
+in the sysfs of pp dpm sclk/mclk, user can set clock range.<br>
+In the sysfs of power profile state, user can configure the parameters smu/=
+driver exposed. They are independent.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Best Regards<br>
+Rex
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
+<b>Sent:</b> Thursday, January 25, 2018 5:41:43 AM<br>
+<b>To:</b> Zhu, Rex; Huang, JinHuiEric; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 4/4] drm/amd/pp: Implement set_power_profile_mod=
+e on smu7</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hi Rex,<br>
+<br>
+As I understand it (the way power profiles currently work),<br>
+pp_dpm_sclk/mclk only apply if pp_dpm_force_performance_level is set to<br>
+&quot;manual&quot;. Power profiles and automatic switching between profiles=
+ only<br>
+happens when pp_dpm_force_performance_level is set to &quot;auto&quot;.<br>
+<br>
+This means pp_dpm_sclk/mclk don't apply when profiles are in effect.<br>
+Also, there would be no way to set different minimum clocks for<br>
+different profiles.<br>
+<br>
+I think minimum clocks should be part of the profiles.<br>
+<br>
+Regards,<br>
+&nbsp; Felix<br>
+<br>
+<br>
+On 2018-01-24 03:13 PM, Zhu, Rex wrote:<br>
+&gt; Hi Eric,<br>
+&gt;<br>
+&gt; We have sysfs pp-dpm-sclk/mclk to set min dpm level<br>
+&gt;<br>
+&gt; Best Regards<br>
+&gt; Rex<br>
+&gt; ----------------------------------------------------------------------=
+--<br>
+&gt; *From:* amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behal=
+f of<br>
+&gt; Eric Huang &lt;jinhuieric.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; *Sent:* Thursday, January 25, 2018 12:04:55 AM<br>
+&gt; *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; *Subject:* Re: [PATCH 4/4] drm/amd/pp: Implement<br>
+&gt; set_power_profile_mode on smu7<br>
+&gt; &nbsp;<br>
+&gt; We have min_sclk and min_mclk in previous power profile parameters for=
+<br>
+&gt; VI, which are similar with min_active_level for Vega10. How to impleme=
+nt<br>
+&gt; these parameters?<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Eric<br>
+&gt;<br>
+&gt; On 2018-01-24 04:37 AM, Rex Zhu wrote:<br>
+&gt; &gt; User can set smu7 profile pamameters through sysfs<br>
+&gt; &gt;<br>
+&gt; &gt; echo &quot;0/1/2/3/4&quot;&gt;pp_power_profile_mode<br>
+&gt; &gt; to select 3D_FULL_SCREEN/POWER_SAVING/VIDEO/VR/COMPUTE<br>
+&gt; &gt; mode.<br>
+&gt; &gt; echo &quot;5 * * * * * * * *&quot;&gt;pp_power_profile_mode<br>
+&gt; &gt; to config custom mode.<br>
+&gt; &gt; &quot;5 * * * * * * * *&quot; mean &quot;CUSTOM enable_sclk SCLK_=
+UP_HYST<br>
+&gt; &gt; SCLK_DOWN_HYST SCLK_ACTIVE_LEVEL enable_mclk MCLK_UP_HYST<br>
+&gt; &gt; MCLK_DOWN_HYST MCLK_ACTIVE_LEVEL&quot;<br>
+&gt; &gt;<br>
+&gt; &gt; Change-Id: Ic6d6f37363bc81ab17051285f6ace847edf725de<br>
+&gt; &gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; &gt; ---<br>
+&gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 49=
+<br>
+&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
+&gt; &gt;&nbsp;&nbsp; 1 file changed, 48 insertions(&#43;), 1 deletion(-)<b=
+r>
+&gt; &gt;<br>
+&gt; &gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &gt; index 9f6afd5..13db75c 100644<br>
+&gt; &gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.=
+c<br>
+&gt; &gt; @@ -5036,7 &#43;5036,54 @@ static int smu7_get_power_profile_mode=
+(struct<br>
+&gt; pp_hwmgr *hwmgr, char *buf)<br>
+&gt; &gt;&nbsp;&nbsp;<br>
+&gt; &gt;&nbsp;&nbsp; static int smu7_set_power_profile_mode(struct pp_hwmg=
+r *hwmgr,<br>
+&gt; long *input, uint32_t size)<br>
+&gt; &gt;&nbsp;&nbsp; {<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp; /* To Do */<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_hwmgr *data =3D (struct=
+ smu7_hwmgr *)(hwmgr-&gt;backend);<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct profile_mode_setting tmp;<br=
+>
+&gt; &gt; &#43;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mode =3D in=
+put[size];<br>
+&gt; &gt; &#43;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (hwmgr-&gt;power_profile_mod=
+e) {<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_CUSTOM:<b=
+r>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; if (size &lt; 8)<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL=
+;<br>
+&gt; &gt; &#43;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.bupdate_sclk =3D input[0];<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.sclk_up_hyst =3D input[1];<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.sclk_down_hyst =3D input[2];<b=
+r>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.sclk_activity =3D&nbsp; input[=
+3];<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.bupdate_mclk =3D input[4];<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.mclk_up_hyst =3D input[5];<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.mclk_down_hyst =3D input[6];<b=
+r>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; data-&gt;custom_profile_setting.mclk_activity =3D&nbsp; input[=
+7];<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; if (!smum_update_dpm_settings(hwmgr,<br>
+&gt; &amp;data-&gt;custom_profile_setting))<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;da=
+ta-&gt;current_profile_setting,<br>
+&gt; &amp;data-&gt;custom_profile_setting, sizeof(struct profile_mode_setti=
+ng));<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; break;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_FULLSCREE=
+N3D:<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_POWERSAVI=
+NG:<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_VIDEO:<br=
+>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_VR:<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_COMPUTE:<=
+br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; memcpy(&amp;tmp,<br>
+&gt; &amp;smu7_profiling[hwmgr-&gt;power_profile_mode], sizeof(struct<br>
+&gt; profile_mode_setting));<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; if (!smum_update_dpm_settings(hwmgr, &amp;tmp)) {<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp.bupdat=
+e_sclk) {<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.bupdate_sclk =3D tmp.bupdate_sclk;<br=
+>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.sclk_up_hyst =3D tmp.sclk_up_hyst;<br=
+>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.sclk_down_hyst =3D tmp.sclk_down_hyst=
+;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.sclk_activity =3D tmp.sclk_activity;<=
+br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp.bupdat=
+e_mclk) {<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.bupdate_mclk =3D tmp.bupdate_mclk;<br=
+>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.mclk_up_hyst =3D tmp.mclk_up_hyst;<br=
+>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.mclk_down_hyst =3D tmp.mclk_down_hyst=
+;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&gt; data-&gt;current_profile_setting.mclk_activity =3D tmp.mclk_activity;<=
+br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; }<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; break;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_AUTO: /* =
+TO DO auto wattman feature<br>
+&gt; not implement */<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; return 0;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt; &#43;<br>
+&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &gt;&nbsp;&nbsp; }<br>
+&gt; &gt;&nbsp;&nbsp;<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+&gt;<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB1687A95AD6A9C584060686F8FBE20CY4PR12MB1687namp_--
+
+--===============0474592301==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0474592301==--
