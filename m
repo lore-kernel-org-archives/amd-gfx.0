@@ -1,53 +1,40 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [RFC] Per file OOM badness
-Date: Wed, 24 Jan 2018 13:11:09 +0100
-Message-ID: <381a868c-78fd-d0d1-029e-a2cf4ab06d37@gmail.com>
-References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
- <20180118170006.GG6584@dhcp22.suse.cz>
- <20180123152659.GA21817@castle.DHCP.thefacebook.com>
- <20180123153631.GR1526@dhcp22.suse.cz>
- <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
- <20180124092847.GI1526@dhcp22.suse.cz>
- <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
- <20180124110141.GA28465@dhcp22.suse.cz>
- <36b49523-792d-45f9-8617-32b6d9d77418@daenzer.net>
- <20180124115059.GC28465@dhcp22.suse.cz>
-Reply-To: christian.koenig@amd.com
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu: remove WARN_ON when VM isn't found
+Date: Wed, 24 Jan 2018 13:39:38 +0100
+Message-ID: <20180124123938.4792-2-christian.koenig@amd.com>
+References: <20180124123938.4792-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180124115059.GC28465@dhcp22.suse.cz>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michal Hocko <mhocko@kernel.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Christian.Koenig@amd.com, linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, Roman Gushchin <guro@fb.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180124123938.4792-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Am 24.01.2018 um 12:50 schrieb Michal Hocko:
-> On Wed 24-01-18 12:23:10, Michel Dänzer wrote:
->> On 2018-01-24 12:01 PM, Michal Hocko wrote:
->>> On Wed 24-01-18 11:27:15, Michel Dänzer wrote:
-> [...]
->>>> 2. If the OOM killer kills a process which is sharing BOs with another
->>>> process, this should result in the other process dropping its references
->>>> to the BOs as well, at which point the memory is released.
->>> OK. How exactly are those BOs mapped to the userspace?
->> I'm not sure what you're asking. Userspace mostly uses a GEM handle to
->> refer to a BO. There can also be userspace CPU mappings of the BO's
->> memory, but userspace doesn't need CPU mappings for all BOs and only
->> creates them as needed.
-> OK, I guess you have to bear with me some more. This whole stack is a
-> complete uknonwn. I am mostly after finding a boundary where you can
-> charge the allocated memory to the process so that the oom killer can
-> consider it. Is there anything like that? Except for the proposed file
-> handle hack?
-
-Not that I knew of.
-
-As I said before we need some kind of callback that a process now starts 
-to use a file descriptor, but without anything from that file descriptor 
-mapped into the address space.
-
-Regards,
-Christian.
+SXQgY2FuIGVhc2lseSBiZSB0aGF0IHRoZSBWTSBpcyBhbHJlYWR5IGRlc3Ryb3llZCB3aGVuIHRo
+aXMgcnVucy4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
+aWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYyB8
+IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2loLmMKaW5kZXggOTU4OWUwYTJmMTRhLi5lZTdl
+MTZkNTc2YzAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9p
+aC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5jCkBAIC0yNzgs
+NyArMjc4LDcgQEAgc3RhdGljIGJvb2wgdmVnYTEwX2loX3ByZXNjcmVlbl9pdihzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldikKIAkvKiBUcmFjayByZXRyeSBmYXVsdHMgaW4gcGVyLVZNIGZhdWx0
+IEZJRk8uICovCiAJc3Bpbl9sb2NrKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2spOwogCXZt
+ID0gaWRyX2ZpbmQoJmFkZXYtPnZtX21hbmFnZXIucGFzaWRfaWRyLCBwYXNpZCk7Ci0JaWYgKFdB
+Uk5fT05fT05DRSghdm0pKSB7CisJaWYgKHZtKSB7CiAJCS8qIFZNIG5vdCBmb3VuZCwgcHJvY2Vz
+cyBpdCBub3JtYWxseSAqLwogCQlzcGluX3VubG9jaygmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9s
+b2NrKTsKIAkJYW1kZ3B1X2loX2NsZWFyX2ZhdWx0KGFkZXYsIGtleSk7Ci0tIAoyLjE0LjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
