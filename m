@@ -1,15 +1,22 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: Depth 30 enablement for ati-ddx + exa. Rev 3
-Date: Wed, 24 Jan 2018 12:35:47 +0100
-Message-ID: <cdaef450-d7f2-ad4a-c6be-957e29469f6b@daenzer.net>
-References: <20180122021437.9361-1-mario.kleiner.de@gmail.com>
- <04923fbb-dffb-b849-2f59-16e1f993a728@daenzer.net>
+From: Michal Hocko <mhocko-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: Re: [RFC] Per file OOM badness
+Date: Wed, 24 Jan 2018 12:50:59 +0100
+Message-ID: <20180124115059.GC28465@dhcp22.suse.cz>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20180118170006.GG6584@dhcp22.suse.cz>
+ <20180123152659.GA21817@castle.DHCP.thefacebook.com>
+ <20180123153631.GR1526@dhcp22.suse.cz>
+ <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
+ <20180124092847.GI1526@dhcp22.suse.cz>
+ <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
+ <20180124110141.GA28465@dhcp22.suse.cz>
+ <36b49523-792d-45f9-8617-32b6d9d77418@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <04923fbb-dffb-b849-2f59-16e1f993a728-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-CA
+Content-Disposition: inline
+In-Reply-To: <36b49523-792d-45f9-8617-32b6d9d77418-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,32 +27,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Roman Gushchin <guro-b10kYP2dOMg@public.gmane.org>
 
-T24gMjAxOC0wMS0yMiAwNzowMSBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxOC0w
-MS0yMiAwMzoxNCBBTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPj4gT2ssIDNyZCByZXZpc2lvbiwg
-bm93IHdpdGggcGVyLXgtc2NyZWVuIGRybW1vZGVfY3J0Y19mdW5jcyByZWMKPj4gYW5kIHNldF9n
-YW1tYSA9IE5VTEwgaW4gdGhlIGRlcHRoIDMwIGNhc2UuIEFsc28gYmFjayB0byBGcmVkcmlrJ3MK
-Pj4gb3JpZ2luYWwgZXhhIDEwIGJpdCBwYXRjaCwganVzdCB3aXRoIGhpcyBzaWduZWQtb2ZmIHRh
-Y2tlZCBvbi4KPj4KPj4gVGVzdGVkIHdpdGggc2luZ2xlIGFuZCBkdWFsIHgtc2NyZWVuLCBkZXB0
-aCAyNCwgZGVwdGggMzAgYW5kIG1peGVkCj4+IDI0IGFuZCAzMCBvbiBzZXBhcmF0ZSB4LXNjcmVl
-bnMuIEFsc28gdGVzdGVkIGFnYWluc3QgY3VycmVudCB0aXAKPj4gb2YgYXRpLWRkeCBtYXN0ZXIu
-Cj4gCj4gVGhhbmtzIGZvciB0aGUgdGhvcm91Z2ggdGVzdGluZy4KPiAKPiBUaGUgcGF0Y2hlcyBs
-b29rIG1vc3RseSBnb29kIG5vdywgYXBhcnQgZnJvbSBzb21lIGNvc21ldGljIGlzc3VlcyAobGlu
-ZXMKPiBzaG91bGRuJ3QgYmUgdW5uZWNlc3NhcmlseSBzaG9ydGVyIHRoYW4gNzIgY29sdW1ucywg
-YW5kIGFjcm9ueW1zIHNob3VsZAo+IGJlIHNwZWxsZWQgaW4gYWxsIHVwcGVyIGNhc2UsIGluIHRo
-ZSBjb21taXQgbG9ncyksIGJ1dCBJIGNhbiBsaXZlIHdpdGgKPiB0aG9zZS4KPiAKPiBIb3dldmVy
-LCBJIGdhdmUgdGhlIHBhdGNoZXMgYSBxdWljayBzcGluICh3aXRob3V0IGEgMzAtYml0IGNhcGFi
-bGUKPiBtb25pdG9yIHRob3VnaCkgb24gdGhlIFR1cmtzIGNhcmQgdGhhdCdzIGN1cnJlbnRseSBz
-aXR0aW5nIGluIG15Cj4gZGV2ZWxvcG1lbnQgbWFjaGluZSwgYW5kIEkgbm90aWNlZCB0aGF0IFhv
-cmcgY3Jhc2hlcyBvbiBzaHV0ZG93biBiZWNhdXNlCj4gdGhlIFh2TUMgZXh0ZW5zaW9uIGZhaWxl
-ZCB0byBpbml0aWFsaXplLiBDYW4geW91IHRha2UgYSBsb29rPwoKVGhhdCB0dXJuZWQgb3V0IHRv
-IGJlIGFuIHhzZXJ2ZXIgYnVnOgpodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvcGF0
-Y2gvMjAwMzc5LwoKU28gSSBwdXNoZWQgdGhpcyBzZXJpZXMsIHRoYW5rcyEKCgotLSAKRWFydGhs
-aW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93
-d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAg
-ICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+T24gV2VkIDI0LTAxLTE4IDEyOjIzOjEwLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyMDE4
+LTAxLTI0IDEyOjAxIFBNLCBNaWNoYWwgSG9ja28gd3JvdGU6Cj4gPiBPbiBXZWQgMjQtMDEtMTgg
+MTE6Mjc6MTUsIE1pY2hlbCBEw6RuemVyIHdyb3RlOgpbLi4uXQo+ID4+IDIuIElmIHRoZSBPT00g
+a2lsbGVyIGtpbGxzIGEgcHJvY2VzcyB3aGljaCBpcyBzaGFyaW5nIEJPcyB3aXRoIGFub3RoZXIK
+PiA+PiBwcm9jZXNzLCB0aGlzIHNob3VsZCByZXN1bHQgaW4gdGhlIG90aGVyIHByb2Nlc3MgZHJv
+cHBpbmcgaXRzIHJlZmVyZW5jZXMKPiA+PiB0byB0aGUgQk9zIGFzIHdlbGwsIGF0IHdoaWNoIHBv
+aW50IHRoZSBtZW1vcnkgaXMgcmVsZWFzZWQuCj4gPiAKPiA+IE9LLiBIb3cgZXhhY3RseSBhcmUg
+dGhvc2UgQk9zIG1hcHBlZCB0byB0aGUgdXNlcnNwYWNlPwo+IAo+IEknbSBub3Qgc3VyZSB3aGF0
+IHlvdSdyZSBhc2tpbmcuIFVzZXJzcGFjZSBtb3N0bHkgdXNlcyBhIEdFTSBoYW5kbGUgdG8KPiBy
+ZWZlciB0byBhIEJPLiBUaGVyZSBjYW4gYWxzbyBiZSB1c2Vyc3BhY2UgQ1BVIG1hcHBpbmdzIG9m
+IHRoZSBCTydzCj4gbWVtb3J5LCBidXQgdXNlcnNwYWNlIGRvZXNuJ3QgbmVlZCBDUFUgbWFwcGlu
+Z3MgZm9yIGFsbCBCT3MgYW5kIG9ubHkKPiBjcmVhdGVzIHRoZW0gYXMgbmVlZGVkLgoKT0ssIEkg
+Z3Vlc3MgeW91IGhhdmUgdG8gYmVhciB3aXRoIG1lIHNvbWUgbW9yZS4gVGhpcyB3aG9sZSBzdGFj
+ayBpcyBhCmNvbXBsZXRlIHVrbm9ud24uIEkgYW0gbW9zdGx5IGFmdGVyIGZpbmRpbmcgYSBib3Vu
+ZGFyeSB3aGVyZSB5b3UgY2FuCmNoYXJnZSB0aGUgYWxsb2NhdGVkIG1lbW9yeSB0byB0aGUgcHJv
+Y2VzcyBzbyB0aGF0IHRoZSBvb20ga2lsbGVyIGNhbgpjb25zaWRlciBpdC4gSXMgdGhlcmUgYW55
+dGhpbmcgbGlrZSB0aGF0PyBFeGNlcHQgZm9yIHRoZSBwcm9wb3NlZCBmaWxlCmhhbmRsZSBoYWNr
+PwotLSAKTWljaGFsIEhvY2tvClNVU0UgTGFicwpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
