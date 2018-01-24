@@ -1,131 +1,104 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/4] drm/amd/pp: Implement get_power_profile_mode on smu7
-Date: Wed, 24 Jan 2018 17:37:28 +0800
-Message-ID: <1516786649-14914-3-git-send-email-Rex.Zhu@amd.com>
-References: <1516786649-14914-1-git-send-email-Rex.Zhu@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [RFC] Per file OOM badness
+Date: Wed, 24 Jan 2018 11:27:15 +0100
+Message-ID: <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20180118170006.GG6584@dhcp22.suse.cz>
+ <20180123152659.GA21817@castle.DHCP.thefacebook.com>
+ <20180123153631.GR1526@dhcp22.suse.cz>
+ <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
+ <20180124092847.GI1526@dhcp22.suse.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1516786649-14914-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+In-Reply-To: <20180124092847.GI1526@dhcp22.suse.cz>
+Content-Language: en-CA
+Sender: owner-linux-mm@kvack.org
+To: Michal Hocko <mhocko@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Christian.Koenig@amd.com, linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, Roman Gushchin <guro@fb.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VXNlciBjYW4gZ2V0IHNtdTcgcHJvZmlsZSBwYW1hbWV0ZXJzIHRocm91Z2ggc3lzZnMKCmNhdCBw
-cF9wb3dlcl9wcm9maWxlX21vZGUKTlVNICAgICAgICBNT0RFX05BTUUgICAgIFNDTEtfVVBfSFlT
-VCAgIFNDTEtfRE9XTl9IWVNUIFNDTEtfQUNUSVZFX0xFVkVMICAgICBNQ0xLX1VQX0hZU1QgICBN
-Q0xLX0RPV05fSFlTVCBNQ0xLX0FDVElWRV9MRVZFTAogIDAgICAzRF9GVUxMX1NDUkVFTjogICAg
-ICAgIDAgICAgICAgICAgICAgIDEwMCAgICAgICAgICAgICAgIDMwICAgICAgICAgICAgICAgIDAg
-ICAgICAgICAgICAgIDEwMCAgICAgICAgICAgICAgIDEwCiAgMSAgICAgUE9XRVJfU0FWSU5HOiAg
-ICAgICAxMCAgICAgICAgICAgICAgICAwICAgICAgICAgICAgICAgMzAgICAgICAgICAgICAgICAg
-LSAgICAgICAgICAgICAgICAtICAgICAgICAgICAgICAgIC0KICAyICAgICAgICAgICAgVklERU86
-ICAgICAgICAtICAgICAgICAgICAgICAgIC0gICAgICAgICAgICAgICAgLSAgICAgICAgICAgICAg
-IDEwICAgICAgICAgICAgICAgMTYgICAgICAgICAgICAgICAzMQogIDMgICAgICAgICAgICAgICBW
-UjogICAgICAgIDAgICAgICAgICAgICAgICAxMSAgICAgICAgICAgICAgIDUwICAgICAgICAgICAg
-ICAgIDAgICAgICAgICAgICAgIDEwMCAgICAgICAgICAgICAgIDEwCiAgNCAgICAgICAgICBDT01Q
-VVRFOiAgICAgICAgMCAgICAgICAgICAgICAgICA1ICAgICAgICAgICAgICAgMzAgICAgICAgICAg
-ICAgICAgLSAgICAgICAgICAgICAgICAtICAgICAgICAgICAgICAgIC0KICA1ICAgICAgICAgICBD
-VVNUT006ICAgICAgICAwICAgICAgICAgICAgICAgIDAgICAgICAgICAgICAgICAgMCAgICAgICAg
-ICAgICAgICAwICAgICAgICAgICAgICAgIDAgICAgICAgICAgICAgICAgMAogIDYgICAgICAgICAg
-ICAgQVVUTzogICAgICAgIC0gICAgICAgICAgICAgICAgLSAgICAgICAgICAgICAgICAtICAgICAg
-ICAgICAgICAgIC0gICAgICAgICAgICAgICAgLSAgICAgICAgICAgICAgICAtCiAgKiAgICAgICAg
-ICBDVVJSRU5UOiAgICAgICAgMCAgICAgICAgICAgICAgMTAwICAgICAgICAgICAgICAgMzAgICAg
-ICAgICAgICAgICAgMCAgICAgICAgICAgICAgMTAwICAgICAgICAgICAgICAgMTAKCnYyOiBhZGQg
-YXV0byBtb2RlIGRpc3BsYXkKQ2hhbmdlLUlkOiBJMTBlMDJmOWU1ZmNkOGUyYjYyYzBjYWQ2MjBk
-OTYzNTMzNmVhMDFkZApTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0t
-LQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIHwgMTA3
-ICsrKysrKysrKysrKysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTA3IGluc2VydGlvbnMo
-KykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3
-X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdy
-LmMKaW5kZXggZjYyMzZmOS4uOWY2YWZkNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwpAQCAtODEsNiArODEsMjEgQEAKICNkZWZpbmUg
-UENJRV9CVVNfQ0xLICAgICAgICAgICAgICAgIDEwMDAwCiAjZGVmaW5lIFRDTEsgICAgICAgICAg
-ICAgICAgICAgICAgICAoUENJRV9CVVNfQ0xLIC8gMTApCiAKK3N0YXRpYyBjb25zdCBzdHJ1Y3Qg
-cHJvZmlsZV9tb2RlX3NldHRpbmcgc211N19wcm9maWxpbmdbNV0gPQorCQkJCQl7ezEsIDAsIDEw
-MCwgMzAsIDEsIDAsIDEwMCwgMTB9LAorCQkJCQkgezEsIDEwLCAwLCAzMCwgMCwgMCwgMCwgMH0s
-CisJCQkJCSB7MCwgMCwgMCwgMCwgMSwgMTAsIDE2LCAzMX0sCisJCQkJCSB7MSwgMCwgMTEsIDUw
-LCAxLCAwLCAxMDAsIDEwfSwKKwkJCQkJIHsxLCAwLCA1LCAzMCwgMCwgMCwgMCwgMH0sCisJCQkJ
-CX07CisKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgcHJvZmlsZV9tb2RlX3NldHRpbmcgcG9sYXJpczEx
-X3Byb2ZpbGluZ1s1XSA9CisJCQkJCXt7MSwgMCwgMTAwLCAzMCwgMSwgMCwgMTAwLCAxMH0sCisJ
-CQkJCSB7MSwgMTAsIDAsIDMwLCAwLCAwLCAwLCAwfSwKKwkJCQkJIHswLCAwLCAwLCAwLCAxLCAx
-MCwgMTYsIDYyfSwKKwkJCQkJIHsxLCAwLCAxMSwgNTAsIDEsIDAsIDEwMCwgMTB9LAorCQkJCQkg
-ezEsIDAsIDUsIDMwLCAwLCAwLCAwLCAwfSwKKwkJCQkJfTsKIAogLyoqIFZhbHVlcyBmb3IgdGhl
-IENHX1RIRVJNQUxfQ1RSTDo6RFBNX0VWRU5UX1NSQyBmaWVsZC4gKi8KIGVudW0gRFBNX0VWRU5U
-X1NSQyB7CkBAIC00OTM0LDYgKzQ5NDksOTYgQEAgc3RhdGljIGludCBzbXU3X29kbl9lZGl0X2Rw
-bV90YWJsZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCXJldHVybiAwOwogfQogCitzdGF0aWMg
-aW50IHNtdTdfZ2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBj
-aGFyICpidWYpCit7CisJc3RydWN0IHNtdTdfaHdtZ3IgKmRhdGEgPSAoc3RydWN0IHNtdTdfaHdt
-Z3IgKikoaHdtZ3ItPmJhY2tlbmQpOworCXVpbnQzMl90IGksIHNpemUgPSAwOworCXVpbnQzMl90
-IGxlbjsKKworCXN0YXRpYyBjb25zdCBjaGFyICpwcm9maWxlX25hbWVbNl0gPSB7IjNEX0ZVTExf
-U0NSRUVOIiwKKwkJCQkJIlBPV0VSX1NBVklORyIsCisJCQkJCSJWSURFTyIsCisJCQkJCSJWUiIs
-CisJCQkJCSJDT01QVVRFIiwKKwkJCQkJIkNVU1RPTSJ9OworCisJc3RhdGljIGNvbnN0IGNoYXIg
-KnRpdGxlWzhdID0geyJOVU0iLAorCQkJIk1PREVfTkFNRSIsCisJCQkiU0NMS19VUF9IWVNUIiwK
-KwkJCSJTQ0xLX0RPV05fSFlTVCIsCisJCQkiU0NMS19BQ1RJVkVfTEVWRUwiLAorCQkJIk1DTEtf
-VVBfSFlTVCIsCisJCQkiTUNMS19ET1dOX0hZU1QiLAorCQkJIk1DTEtfQUNUSVZFX0xFVkVMIn07
-CisKKwlpZiAoIWJ1ZikKKwkJcmV0dXJuIC1FSU5WQUw7CisKKwlzaXplICs9IHNwcmludGYoYnVm
-ICsgc2l6ZSwgIiVzICUxNnMgJTE2cyAlMTZzICUxNnMgJTE2cyAlMTZzICUxNnNcbiIsCisJCQl0
-aXRsZVswXSwgdGl0bGVbMV0sIHRpdGxlWzJdLCB0aXRsZVszXSwKKwkJCXRpdGxlWzRdLCB0aXRs
-ZVs1XSwgdGl0bGVbNl0sIHRpdGxlWzddKTsKKworCWxlbiA9IHNpemVvZihzbXU3X3Byb2ZpbGlu
-ZykgLyBzaXplb2Yoc3RydWN0IHByb2ZpbGVfbW9kZV9zZXR0aW5nKTsKKworCWZvciAoaSA9IDA7
-IGkgPCBsZW47IGkrKykgeworCQlpZiAoc211N19wcm9maWxpbmdbaV0uYnVwZGF0ZV9zY2xrKQor
-CQkJc2l6ZSArPSBzcHJpbnRmKGJ1ZiArIHNpemUsICIlM2QgJTE2czogJThkICUxNmQgJTE2ZCAi
-LAorCQkJaSwgcHJvZmlsZV9uYW1lW2ldLCBzbXU3X3Byb2ZpbGluZ1tpXS5zY2xrX3VwX2h5c3Qs
-CisJCQlzbXU3X3Byb2ZpbGluZ1tpXS5zY2xrX2Rvd25faHlzdCwKKwkJCXNtdTdfcHJvZmlsaW5n
-W2ldLnNjbGtfYWN0aXZpdHkpOworCQllbHNlCisJCQlzaXplICs9IHNwcmludGYoYnVmICsgc2l6
-ZSwgIiUzZCAlMTZzOiAlOHMgJTE2cyAlMTZzICIsCisJCQlpLCBwcm9maWxlX25hbWVbaV0sICIt
-IiwgIi0iLCAiLSIpOworCisJCWlmIChzbXU3X3Byb2ZpbGluZ1tpXS5idXBkYXRlX21jbGspCisJ
-CQlzaXplICs9IHNwcmludGYoYnVmICsgc2l6ZSwgIiUxNmQgJTE2ZCAlMTZkXG4iLAorCQkJc211
-N19wcm9maWxpbmdbaV0ubWNsa191cF9oeXN0LAorCQkJc211N19wcm9maWxpbmdbaV0ubWNsa19k
-b3duX2h5c3QsCisJCQlzbXU3X3Byb2ZpbGluZ1tpXS5tY2xrX2FjdGl2aXR5KTsKKwkJZWxzZQor
-CQkJc2l6ZSArPSBzcHJpbnRmKGJ1ZiArIHNpemUsICIlMTZzICUxNnMgJTE2c1xuIiwKKwkJCSIt
-IiwgIi0iLCAiLSIpOworCX0KKworCXNpemUgKz0gc3ByaW50ZihidWYgKyBzaXplLCAiJTNkICUx
-NnM6ICU4ZCAlMTZkICUxNmQgJTE2ZCAlMTZkICUxNmRcbiIsCisJCQlpLCBwcm9maWxlX25hbWVb
-aV0sCisJCQlkYXRhLT5jdXN0b21fcHJvZmlsZV9zZXR0aW5nLnNjbGtfdXBfaHlzdCwKKwkJCWRh
-dGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcuc2Nsa19kb3duX2h5c3QsCisJCQlkYXRhLT5jdXN0
-b21fcHJvZmlsZV9zZXR0aW5nLnNjbGtfYWN0aXZpdHksCisJCQlkYXRhLT5jdXN0b21fcHJvZmls
-ZV9zZXR0aW5nLm1jbGtfdXBfaHlzdCwKKwkJCWRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcu
-bWNsa19kb3duX2h5c3QsCisJCQlkYXRhLT5jdXN0b21fcHJvZmlsZV9zZXR0aW5nLm1jbGtfYWN0
-aXZpdHkpOworCisJaWYgKGh3bWdyLT5wb3dlcl9wcm9maWxlX21vZGUgPT0gUFBfU01DX1BPV0VS
-X1BST0ZJTEVfQVVUTykKKwkJc2l6ZSArPSBzcHJpbnRmKGJ1ZiArIHNpemUsICIlM2QgJTE2czog
-JThkICUxNmQgJTE2ZCAlMTZkICUxNmQgJTE2ZFxuIiwKKwkJCWkrMSwgIkFVVE8iLAorCQkJZGF0
-YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcuc2Nsa191cF9oeXN0LAorCQkJZGF0YS0+Y3VycmVu
-dF9wcm9maWxlX3NldHRpbmcuc2Nsa19kb3duX2h5c3QsCisJCQlkYXRhLT5jdXJyZW50X3Byb2Zp
-bGVfc2V0dGluZy5zY2xrX2FjdGl2aXR5LAorCQkJZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRp
-bmcubWNsa191cF9oeXN0LAorCQkJZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcubWNsa19k
-b3duX2h5c3QsCisJCQlkYXRhLT5jdXJyZW50X3Byb2ZpbGVfc2V0dGluZy5tY2xrX2FjdGl2aXR5
-KTsKKwllbHNlCisJCXNpemUgKz0gc3ByaW50ZihidWYgKyBzaXplLCAiJTNkICUxNnM6ICU4cyAl
-MTZzICUxNnMgJTE2cyAlMTZzICUxNnNcbiIsCisJCWkrMSwgIkFVVE8iLCAiLSIsICItIiwgIi0i
-LCAiLSIsICItIiwgIi0iKTsKKworCXNpemUgKz0gc3ByaW50ZihidWYgKyBzaXplLCAiJTNzICUx
-NnM6ICU4ZCAlMTZkICUxNmQgJTE2ZCAlMTZkICUxNmRcbiIsCisJCQkiKiIsICJDVVJSRU5UIiwK
-KwkJCWRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLnNjbGtfdXBfaHlzdCwKKwkJCWRhdGEt
-PmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLnNjbGtfZG93bl9oeXN0LAorCQkJZGF0YS0+Y3VycmVu
-dF9wcm9maWxlX3NldHRpbmcuc2Nsa19hY3Rpdml0eSwKKwkJCWRhdGEtPmN1cnJlbnRfcHJvZmls
-ZV9zZXR0aW5nLm1jbGtfdXBfaHlzdCwKKwkJCWRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5n
-Lm1jbGtfZG93bl9oeXN0LAorCQkJZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcubWNsa19h
-Y3Rpdml0eSk7CisKKwlyZXR1cm4gc2l6ZTsKK30KKworc3RhdGljIGludCBzbXU3X3NldF9wb3dl
-cl9wcm9maWxlX21vZGUoc3RydWN0IHBwX2h3bWdyICpod21nciwgbG9uZyAqaW5wdXQsIHVpbnQz
-Ml90IHNpemUpCit7CisJLyogVG8gRG8gKi8KKwlyZXR1cm4gMDsKK30KIAogc3RhdGljIGNvbnN0
-IHN0cnVjdCBwcF9od21ncl9mdW5jIHNtdTdfaHdtZ3JfZnVuY3MgPSB7CiAJLmJhY2tlbmRfaW5p
-dCA9ICZzbXU3X2h3bWdyX2JhY2tlbmRfaW5pdCwKQEAgLTQ5OTAsNiArNTA5NSw4IEBAIHN0YXRp
-YyBpbnQgc211N19vZG5fZWRpdF9kcG1fdGFibGUoc3RydWN0IHBwX2h3bWdyICpod21nciwKIAku
-Z2V0X21heF9oaWdoX2Nsb2NrcyA9IHNtdTdfZ2V0X21heF9oaWdoX2Nsb2NrcywKIAkuZ2V0X3Ro
-ZXJtYWxfdGVtcGVyYXR1cmVfcmFuZ2UgPSBzbXU3X2dldF90aGVybWFsX3RlbXBlcmF0dXJlX3Jh
-bmdlLAogCS5vZG5fZWRpdF9kcG1fdGFibGUgPSBzbXU3X29kbl9lZGl0X2RwbV90YWJsZSwKKwku
-Z2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSA9IHNtdTdfZ2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSwKKwku
-c2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSA9IHNtdTdfc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSwKIH07
-CiAKIHVpbnQ4X3Qgc211N19nZXRfc2xlZXBfZGl2aWRlcl9pZF9mcm9tX2Nsb2NrKHVpbnQzMl90
-IGNsb2NrLAotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+On 2018-01-24 10:28 AM, Michal Hocko wrote:
+> On Tue 23-01-18 17:39:19, Michel Dänzer wrote:
+>> On 2018-01-23 04:36 PM, Michal Hocko wrote:
+>>> On Tue 23-01-18 15:27:00, Roman Gushchin wrote:
+>>>> On Thu, Jan 18, 2018 at 06:00:06PM +0100, Michal Hocko wrote:
+>>>>> On Thu 18-01-18 11:47:48, Andrey Grodzovsky wrote:
+>>>>>> Hi, this series is a revised version of an RFC sent by Christian König
+>>>>>> a few years ago. The original RFC can be found at 
+>>>>>> https://urldefense.proofpoint.com/v2/url?u=https-3A__lists.freedesktop.org_archives_dri-2Ddevel_2015-2DSeptember_089778.html&d=DwIDAw&c=5VD0RTtNlTh3ycd41b3MUw&r=jJYgtDM7QT-W-Fz_d29HYQ&m=R-JIQjy8rqmH5qD581_VYL0Q7cpWSITKOnBCE-3LI8U&s=QZGqKpKuJ2BtioFGSy8_721owcWJ0J6c6d4jywOwN4w&
+>>>>> Here is the origin cover letter text
+>>>>> : I'm currently working on the issue that when device drivers allocate memory on
+>>>>> : behalf of an application the OOM killer usually doesn't knew about that unless
+>>>>> : the application also get this memory mapped into their address space.
+>>>>> : 
+>>>>> : This is especially annoying for graphics drivers where a lot of the VRAM
+>>>>> : usually isn't CPU accessible and so doesn't make sense to map into the
+>>>>> : address space of the process using it.
+>>>>> : 
+>>>>> : The problem now is that when an application starts to use a lot of VRAM those
+>>>>> : buffers objects sooner or later get swapped out to system memory, but when we
+>>>>> : now run into an out of memory situation the OOM killer obviously doesn't knew
+>>>>> : anything about that memory and so usually kills the wrong process.
+>>>>> : 
+>>>>> : The following set of patches tries to address this problem by introducing a per
+>>>>> : file OOM badness score, which device drivers can use to give the OOM killer a
+>>>>> : hint how many resources are bound to a file descriptor so that it can make
+>>>>> : better decisions which process to kill.
+>>>>> : 
+>>>>> : So question at every one: What do you think about this approach?
+>>>>> : 
+>>>>> : My biggest concern right now is the patches are messing with a core kernel
+>>>>> : structure (adding a field to struct file). Any better idea? I'm considering
+>>>>> : to put a callback into file_ops instead.
+>>>>
+>>>> Hello!
+>>>>
+>>>> I wonder if groupoom (aka cgroup-aware OOM killer) can work for you?
+>>>
+>>> I do not think so. The problem is that the allocating context is not
+>>> identical with the end consumer.
+>>
+>> That's actually not really true. Even in cases where a BO is shared with
+>> a different process, it is still used at least occasionally in the
+>> process which allocated it as well. Otherwise there would be no point in
+>> sharing it between processes.
+> 
+> OK, but somebody has to be made responsible. Otherwise you are just
+> killing a process which doesn't really release any memory.
+>  
+>> There should be no problem if the memory of a shared BO is accounted for
+>> in each process sharing it. It might be nice to scale each process'
+>> "debt" by 1 / (number of processes sharing it) if possible, but in the
+>> worst case accounting it fully in each process should be fine.
+> 
+> So how exactly then helps to kill one of those processes? The memory
+> stays pinned behind or do I still misunderstand?
+
+Fundamentally, the memory is only released once all references to the
+BOs are dropped. That's true no matter how the memory is accounted for
+between the processes referencing the BO.
+
+
+In practice, this should be fine:
+
+1. The amount of memory used for shared BOs is normally small compared
+to the amount of memory used for non-shared BOs (and other things). So
+regardless of how shared BOs are accounted for, the OOM killer should
+first target the process which is responsible for more memory overall.
+
+2. If the OOM killer kills a process which is sharing BOs with another
+process, this should result in the other process dropping its references
+to the BOs as well, at which point the memory is released.
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
