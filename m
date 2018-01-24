@@ -1,17 +1,12 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: lock/unlock mismatch in ttm_bo.c
-Date: Wed, 24 Jan 2018 13:46:28 +0800
-Message-ID: <7f86e76a-a61d-4420-a752-6efde8a18e88@amd.com>
-References: <1713476e-c17f-9eea-ebd3-6999c760b678@amd.com>
- <81e40cdf-6869-57fa-6858-eb77dbfb45a8@amd.com>
- <57fdd509-5de6-a7d8-9588-cb2c63b8f451@amd.com>
- <6c1faffd-5347-5763-e377-fd18f2e65928@amd.com>
- <95054871-ebd3-06a4-e845-9e2d7c7a56f8@amd.com>
+From: Seth Zhu <seth.zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH libdrm] drm/amdgpu: define amdgpu_syncobj_handle type for
+ vulkan usage
+Date: Wed, 24 Jan 2018 14:19:21 +0800
+Message-ID: <1516774761-32653-1-git-send-email-seth.zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------6C7F1FB018DA4F27E18C7A20"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <95054871-ebd3-06a4-e845-9e2d7c7a56f8-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,121 +17,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Seth Zhu <seth.zhu-5C7GfCeVMHo@public.gmane.org>
 
---------------6C7F1FB018DA4F27E18C7A20
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-update the fix.
-
-
-On 2018年01月24日 11:09, Chunming Zhou wrote:
-> Hi Tom,
->
-> Your change looks ok, as Roger suggested, you can send both dri and 
-> amd mail lists.
->
-> In addition, when I review your patches, I found a bug as the 
-> attached, you can send it together with yours if you think that's a 
-> right fix.
->
-> Regards,
->
-> David Zhou
->
->
-> On 2018年01月24日 03:25, Tom St Denis wrote:
->> On 22/01/18 01:42 AM, Chunming Zhou wrote:
->>>
->>>
->>> On 2018年01月20日 02:23, Tom St Denis wrote:
->>>> On 19/01/18 01:14 PM, Tom St Denis wrote:
->>>>> Hi all,
->>>>>
->>>>> In the function ttm_bo_cleanup_refs() it seems possible to get to 
->>>>> line 551 without entering the block on 516 which means you'll be 
->>>>> unlocking a mutex that wasn't locked.
->>>>>
->>>>> Now it might be that in the course of the API this pattern cannot 
->>>>> be expressed but it's not clear from the function alone that that 
->>>>> is the case.
->>>>
->>>>
->>>> Looking further it seems the behaviour depends on locking in parent 
->>>> callers.  That's kinda a no-no right?  Shouldn't the lock be 
->>>> taken/released in the same function ideally?
->>> Same feelings
->>>
->>> Regards,
->>> David Zhou
->>
->> Attached is a patch that addresses this.
->>
->> I can't see any obvious race in functions that call 
->> ttm_bo_cleanup_refs() between the time they let go of the lock and 
->> the time it's taken again in the call.
->>
->> Running it on my system doesn't produce anything notable though the 
->> KASAN with DRI_PRIME=1 issue is still there (this patch neither 
->> causes that nor fixes it).
->>
->> Tom
->
-
-
---------------6C7F1FB018DA4F27E18C7A20
-Content-Type: text/x-patch;
-	name="0001-ttm-fix-double-trylock-reservation.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename="0001-ttm-fix-double-trylock-reservation.patch"
-
->From 9f06e6619b47c506fc87471e38de4640c9879a9f Mon Sep 17 00:00:00 2001
-From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Date: Wed, 24 Jan 2018 10:59:05 +0800
-Subject: [PATCH] ttm: fix double trylock reservation
-
-Change-Id: Ie2d7af8b6ce4df8bb575f7959e17e36ac81092e5
-Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/ttm/ttm_bo.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index d33a6bb742a1..e737515405fd 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -530,7 +530,7 @@ static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
- 			return -EBUSY;
- 
- 		spin_lock(&glob->lru_lock);
--		if (unlock_resv && !reservation_object_trylock(bo->resv)) {
-+		if (!unlock_resv && !reservation_object_trylock(bo->resv)) {
- 			/*
- 			 * We raced, and lost, someone else holds the reservation now,
- 			 * and is probably busy in ttm_bo_cleanup_memtype_use.
-@@ -542,6 +542,7 @@ static int ttm_bo_cleanup_refs(struct ttm_buffer_object *bo,
- 			spin_unlock(&glob->lru_lock);
- 			return 0;
- 		}
-+		unlock_resv = true;
- 		ret = 0;
- 	}
- 
--- 
-2.14.1
-
-
---------------6C7F1FB018DA4F27E18C7A20
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------6C7F1FB018DA4F27E18C7A20--
+VnVsa2FuIEZlbmNlIGFuZCBTZW1hcGhvcmUoQU1EVkxLKSB3aWxsIGFkZCBpbXBsZW1lbnRhdGlv
+biBiYXNlZCBvbgpzeW5jIG9iamVjdC4gU2VtYW50aWMgc3luY29iaiBoYW5kbGUgdHlwZSBpcyBy
+ZXF1aXJlZCBpbnN0ZWFkIG9mCnVzaW5nIHVpbnQzMl90IGRpcmVjdGx5LgoKQ2hhbmdlLUlkOiBJ
+ZGJkMmIyYjE2MTgxOGZhNThmZTBiYjNkMWFjNDY0NTM4NDdhZTYyNgpTaWduZWQtb2ZmLWJ5OiBT
+ZXRoIFpodSA8c2V0aC56aHVAYW1kLmNvbT4KLS0tCiBhbWRncHUvYW1kZ3B1LmggfCA0ICsrKysK
+IDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9hbWRncHUvYW1k
+Z3B1LmggYi9hbWRncHUvYW1kZ3B1LmgKaW5kZXggOWVmNTVlNS4uMzFmYzIwMSAxMDA2NDQKLS0t
+IGEvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2FtZGdwdS9hbWRncHUuaApAQCAtMTQ1LDYgKzE0NSwx
+MCBAQCB0eXBlZGVmIHN0cnVjdCBhbWRncHVfc2VtYXBob3JlICphbWRncHVfc2VtYXBob3JlX2hh
+bmRsZTsKICAqIERlZmluZSBoYW5kbGUgZm9yIHNlbSBmaWxlCiAgKi8KIHR5cGVkZWYgdWludDMy
+X3QgYW1kZ3B1X3NlbV9oYW5kbGU7CisvKioKKyAqIERlZmluZSBoYW5kbGUgZm9yIHN5bmNvYmoK
+KyAqLwordHlwZWRlZiB1aW50MzJfdCBhbWRncHVfc3luY29ial9oYW5kbGU7CiAKIAogLyotLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLSovCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
