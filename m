@@ -1,14 +1,21 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 6/6] drm/amdgpu/pm: rework the hwmon visibility settings
-Date: Thu, 25 Jan 2018 02:40:12 +0000
-Message-ID: <CY4PR12MB168701AECB5826644CF3ABE9FBE10@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20180124235536.3065-1-alexander.deucher@amd.com>,
- <20180124235536.3065-6-alexander.deucher@amd.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amd/pp: Implement set_power_profile_mode on smu7
+Date: Wed, 24 Jan 2018 23:15:30 -0500
+Message-ID: <73ba3cee-960f-9f42-00fc-0039398be244@amd.com>
+References: <1516786649-14914-1-git-send-email-Rex.Zhu@amd.com>
+ <1516786649-14914-4-git-send-email-Rex.Zhu@amd.com>
+ <e21a2657-7a80-5b59-6c1c-a578d3bf79a9@amd.com>
+ <CY4PR12MB1687B4CBFF3BC4DD121752A4FBE20@CY4PR12MB1687.namprd12.prod.outlook.com>
+ <e86e1a66-37d4-f3cc-8eae-689c81356526@amd.com>
+ <CY4PR12MB1687A95AD6A9C584060686F8FBE20@CY4PR12MB1687.namprd12.prod.outlook.com>
+ <e63767e6-9900-d377-9e61-6ac75179e95d@amd.com>
+ <CY4PR12MB168748FA26D74B6E01890EBAFBE10@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0350246295=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180124235536.3065-6-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB168748FA26D74B6E01890EBAFBE10-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,345 +26,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0350246295==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB168701AECB5826644CF3ABE9FBE10CY4PR12MB1687namp_"
-
---_000_CY4PR12MB168701AECB5826644CF3ABE9FBE10CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Series is Reviewed-by:  Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-
-Best Regards
-
-Rex
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Thursday, January 25, 2018 7:55 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: [PATCH 6/6] drm/amdgpu/pm: rework the hwmon visibility settings
-
-Previously we just always exposed everything for asics
-supported by powerplay.  Make it a bit more fine grained.
-In practice this shouldn't change anything.
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 30 +++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index 6c53c6bc03eb..f12b9e777703 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -1246,9 +1246,19 @@ static umode_t hwmon_attributes_visible(struct kobje=
-ct *kobj,
-         struct amdgpu_device *adev =3D dev_get_drvdata(dev);
-         umode_t effective_mode =3D attr->mode;
-
--       /* no skipping for powerplay */
--       if (adev->powerplay.cgs_device)
--               return effective_mode;
-+       /* handle non-powerplay limitations */
-+       if (!adev->powerplay.cgs_device) {
-+               /* Skip fan attributes if fan is not present */
-+               if (adev->pm.no_fan &&
-+                   (attr =3D=3D &sensor_dev_attr_pwm1.dev_attr.attr ||
-+                    attr =3D=3D &sensor_dev_attr_pwm1_enable.dev_attr.attr=
- ||
-+                    attr =3D=3D &sensor_dev_attr_pwm1_max.dev_attr.attr ||
-+                    attr =3D=3D &sensor_dev_attr_pwm1_min.dev_attr.attr))
-+                       return 0;
-+               /* requires powerplay */
-+               if (attr =3D=3D &sensor_dev_attr_fan1_input.dev_attr.attr)
-+                       return 0;
-+       }
-
-         /* Skip limit attributes if DPM is not enabled */
-         if (!adev->pm.dpm_enabled &&
-@@ -1260,14 +1270,6 @@ static umode_t hwmon_attributes_visible(struct kobje=
-ct *kobj,
-              attr =3D=3D &sensor_dev_attr_pwm1_min.dev_attr.attr))
-                 return 0;
-
--       /* Skip fan attributes if fan is not present */
--       if (adev->pm.no_fan &&
--           (attr =3D=3D &sensor_dev_attr_pwm1.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_pwm1_enable.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_pwm1_max.dev_attr.attr ||
--            attr =3D=3D &sensor_dev_attr_pwm1_min.dev_attr.attr))
--               return 0;
--
-         /* mask fan attributes if we have no bindings for this asic to exp=
-ose */
-         if ((!adev->powerplay.pp_funcs->get_fan_speed_percent &&
-              attr =3D=3D &sensor_dev_attr_pwm1.dev_attr.attr) || /* can't =
-query fan */
-@@ -1288,8 +1290,10 @@ static umode_t hwmon_attributes_visible(struct kobje=
-ct *kobj,
-              attr =3D=3D &sensor_dev_attr_pwm1_min.dev_attr.attr))
-                 return 0;
-
--       /* requires powerplay */
--       if (attr =3D=3D &sensor_dev_attr_fan1_input.dev_attr.attr)
-+       /* only APUs have vddnb */
-+       if (!(adev->flags & AMD_IS_APU) &&
-+           (attr =3D=3D &sensor_dev_attr_in1_input.dev_attr.attr ||
-+            attr =3D=3D &sensor_dev_attr_in1_label.dev_attr.attr))
-                 return 0;
-
-         return effective_mode;
---
-2.13.6
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...
-
-
-
-
---_000_CY4PR12MB168701AECB5826644CF3ABE9FBE10CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is Reviewed-by:&nbsp;<span=
- style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFont; fo=
-nt-size: 14.6667px;">&nbsp;Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-family: Calib=
-ri, Helvetica, sans-serif, serif, EmojiFont; font-size: 14.6667px;"><br>
-</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-family: Calib=
-ri, Helvetica, sans-serif, serif, EmojiFont; font-size: 14.6667px;">Best Re=
-gards</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-family: Calib=
-ri, Helvetica, sans-serif, serif, EmojiFont; font-size: 14.6667px;">Rex</sp=
-an></p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
-gmail.com&gt;<br>
-<b>Sent:</b> Thursday, January 25, 2018 7:55 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH 6/6] drm/amdgpu/pm: rework the hwmon visibility sett=
-ings</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Previously we just always exposed everything for a=
-sics<br>
-supported by powerplay.&nbsp; Make it a bit more fine grained.<br>
-In practice this shouldn't change anything.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 30 &#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------------<b=
-r>
-&nbsp;1 file changed, 17 insertions(&#43;), 13 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index 6c53c6bc03eb..f12b9e777703 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -1246,9 &#43;1246,19 @@ static umode_t hwmon_attributes_visible(struct k=
-object *kobj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D dev_get_drvdata(dev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umode_t effective_mode =3D=
- attr-&gt;mode;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* no skipping for powerplay */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.cgs_device)<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return effective_mode;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* handle non-powerplay limitatio=
-ns */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;powerplay.cgs_devic=
-e) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* Skip fan attributes if fan is not present */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;pm.no_fan &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (attr =3D=3D &amp;sensor_dev_attr_pw=
-m1.dev_attr.attr ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =3D=3D &amp;sensor_dev_at=
-tr_pwm1_enable.dev_attr.attr ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =3D=3D &amp;sensor_dev_at=
-tr_pwm1_max.dev_attr.attr ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =3D=3D &amp;sensor_dev_at=
-tr_pwm1_min.dev_attr.attr))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* requires powerplay */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (attr =3D=3D &amp;sensor_dev_attr_fan1_input.dev_attr.att=
-r)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Skip limit attributes i=
-f DPM is not enabled */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;pm.dpm_enabl=
-ed &amp;&amp;<br>
-@@ -1260,14 &#43;1270,6 @@ static umode_t hwmon_attributes_visible(struct k=
-object *kobj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; attr =3D=3D &amp;sensor_dev_attr_pwm1_min.dev_attr.attr))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Skip fan attributes if fan is not =
-present */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.no_fan &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (attr =3D=3D =
-&amp;sensor_dev_attr_pwm1.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_pwm1_enable.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_pwm1_max.dev_attr.attr ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
-=3D=3D &amp;sensor_dev_attr_pwm1_min.dev_attr.attr))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* mask fan attributes if =
-we have no bindings for this asic to expose */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((!adev-&gt;powerplay.p=
-p_funcs-&gt;get_fan_speed_percent &amp;&amp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; attr =3D=3D &amp;sensor_dev_attr_pwm1.dev_attr.attr) || /* can't query =
-fan */<br>
-@@ -1288,8 &#43;1290,10 @@ static umode_t hwmon_attributes_visible(struct k=
-object *kobj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; attr =3D=3D &amp;sensor_dev_attr_pwm1_min.dev_attr.attr))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* requires powerplay */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (attr =3D=3D &amp;sensor_dev_attr_=
-fan1_input.dev_attr.attr)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only APUs have vddnb */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS=
-_APU) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (attr =3D=
-=3D &amp;sensor_dev_attr_in1_input.dev_attr.attr ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; att=
-r =3D=3D &amp;sensor_dev_attr_in1_label.dev_attr.attr))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return effective_mode;<br>
--- <br>
-2.13.6<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk598724" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15168478634930.5968332029337928" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15168478634900.13712077124056088" role=3D"presenta=
-tion" cellspacing=3D"0" style=3D"width: 90%; background-color: rgb(255, 255=
-, 255); position: relative; overflow: auto; padding-top: 20px; padding-bott=
-om: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200); bord=
-er-bottom: 1px dotted rgb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_15168478634910.924534069345174" colspan=3D"2" style=3D"v=
-ertical-align: top; position: relative; padding: 0px; display: table-cell;"=
->
-<div id=3D"LPRemovePreviewContainer_15168478634910.1709027748938059"></div>
-<div id=3D"LPTitle_15168478634910.8498868611745234" style=3D"top: 0px; colo=
-r: rgb(0, 120, 215); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
-<a id=3D"LPUrlAnchor_15168478634920.2896285752466594" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15168478634920.3563010283805921" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15168478634920.6766152807229358" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB168701AECB5826644CF3ABE9FBE10CY4PR12MB1687namp_--
-
---===============0350246295==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0350246295==--
+T24gMjAxOC0wMS0yNCAwOToyOCBQTSwgWmh1LCBSZXggd3JvdGU6Cj4KPiA+QnV0IHRoZW4geW91
+J3JlIGNoYW5naW5nIHRoZSBzZW1hbnRpY3Mgb2YgaG93IHBwX2RwbV9zY2xrL21jbGsgd29rCj4g
+PnRvZ2V0aGVyIHdpdGggcHBfZHBtX2ZvcmNlX3BlcmZvcm1hbmNlX2xldmVsLgo+Cj4gUmV4OlRo
+ZSB0d28gc3lzZnMgYXJlIGFsbCBmb3IgY2xvY2sgcmFuZ2Ugc2V0dGluZy4KPgo+Cj4gcHBfZHBt
+X3NjbGsvbWNsay9wY2llIGNhbiBzZXQgc2Nsay9tY2xrL3BjaWUgcmFuZ2Ugc2VwYXJhdGVseS4K
+PgoKT25seSBpbiBtYW51YWwgbW9kZS4gSWYgeW91IGNoYW5nZSB0aGF0LCB5b3UncmUgY2hhbmdp
+bmcgdGhlIGludGVyZmFjZQphbmQgYnJlYWtpbmcgZXhpc3RpbmcgdG9vbHMuCgo+Cj4gYW5kIHBw
+X2RwbV9mb3JjZV9wZXJmb3JtYW5jZV9sZXZlbCwgd2UgY2FuIHN1cHBvcnQgbG93L2hpZ2gvdW1k
+LXBzdGF0ZQo+IHRoYXQgc2V0IGFsbCB0aGUgY2xvY2tzIMKgcmFuZ2UuCj4KPiAobWFudWFsIHN0
+YXRlLCBkcml2ZXIgZG8gbm90aGluZyBleGNlcHQgc2V0IHRoZSBmbGFnKQo+Cj4KPiBObyBtYXR0
+ZXIgd2hhdCBzdGF0ZSB1c2VyIGVudGVyIGluLCBkcml2ZXIgY2FuIHN1cHBvcnQgdG8gY29udGlu
+dWUgdG8KPiBjaGFuZ2UgdGhlIGNsb2NrIHJhbmdlIHRocm91Z2ggcHBfZHBtX3NjbGsvbWNsay9w
+Y2llLgo+Cj4KPiBzbyBpbiBmYWN0LCBkb24ndCBuZWVkIG1hbnVhbCBzdGF0ZSBmb3Igc2VwYWxh
+dGVseSBzZXQgdGhlIGNsb2NrIHJhbmdlLgo+CgpUaGF0J3MgYSBjaGFuZ2UgaW4gdGhlIHBwX2Rw
+bV9zY2xrL21jbGsgaW50ZXJmYWNlLiBDdXJyZW5seSB0aGVzZSBvbmx5CndvcmsgaW4gbWFudWFs
+IG1vZGUgYW5kIGZhaWwgb3IgYXJlIGlnbm9yZWQgaW4gYXV0byBtb2RlLiBFLmcuIHNlZSB0aGlz
+CmNvZGUgaW4gc211N19od21nci5jOgoKc3RhdGljIGludCBzbXU3X2ZvcmNlX2Nsb2NrX2xldmVs
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAgICAgICAgICAgICAgICBlbnVtIHBwX2Nsb2NrX3R5
+cGUgdHlwZSwgdWludDMyX3QgbWFzaykKewogICAgICAgIHN0cnVjdCBzbXU3X2h3bWdyICpkYXRh
+ID0gKHN0cnVjdCBzbXU3X2h3bWdyICopKGh3bWdyLT5iYWNrZW5kKTsKCiAgICAgICAgaWYgKGh3
+bWdyLT5yZXF1ZXN0X2RwbV9sZXZlbCAmIChBTURfRFBNX0ZPUkNFRF9MRVZFTF9BVVRPIHwKICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFNRF9EUE1fRk9SQ0VEX0xFVkVM
+X0xPVyB8CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBTURfRFBNX0ZP
+UkNFRF9MRVZFTF9ISUdIKSkKICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwoKUmVnYXJk
+cywKwqAgRmVsaXgKCgo+Cj4gPlN5c2ZzIGludGVyZmFjZXMgc2hvdWxkIGJlIG1haW50YWluZWQg
+c3RhYmxlLiBJJ20gT0sgd2l0aCBicmVha2luZyB0aGUKPiA+b2xkIHBvd2VyIHByb2ZpbGUgc3R1
+ZmYsIGJlY2F1c2UgaXQgb25seSBhZmZlY3RzIEtGRCB3aGljaCBpc24ndAo+ID51cHN0cmVhbSB5
+ZXQuwqAKPgo+Cj4gUmV4OiBBcyB0aGUgb2xkIHBvd2VyIHByb2ZpbGUgaW50ZXJmYWNlIGNhbid0
+IHN1cHBvcnQgVmVnYS4KPgo+IHNvIGFkZCBuZXcgaW50ZXJmYWNlIGFuZCB3ZSBhcmUgdHJ5IHRv
+IHN1cHBvcnQgb2xkIGFzaWNzIHdpdGggbmV3IHN5c2ZzLgo+Cj4KPgo+ID5CdXQgdGhlIG9sZCBw
+cF9kcG1fc2Nsay9tY2xrIGFuZAo+ID5wcF9kcG1fZm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwgYWZm
+ZWN0IGNvZGUgdGhhdCdzIGN1cnJlbnRseSB1cHN0cmVhbSBhbmQKPiA+dXNlZCBieSBleGlzdGlu
+ZyB0b29scy4KPgo+Cj4gUmV4OiDCoFllcywgd2UgYXJlwqB0cnlpbmcgdG8gbWFpbnRhaW4gdGhl
+IHN5c2ZzIHN0YWJsZS4KPiBpZiB3ZSBjaGFuZ2UgdGhlIG9sZMKgc3lzZnMgY29kZSwgwqB3ZSB3
+aWxsIHRyeSB0byBub3QgYWZmZWN0IGV4aXN0aW5nCj4gdG9vbHMuCj4KPiBCZXN0IFJlZ2FyZHMK
+PiBSZXgKPgo+IMKgCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gKkZyb206KiBhbWQtZ2Z4IDxhbWQtZ2Z4
+LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhhbGYgb2YKPiBGZWxpeCBLdWVo
+bGluZyA8ZmVsaXgua3VlaGxpbmdAYW1kLmNvbT4KPiAqU2VudDoqIFRodXJzZGF5LCBKYW51YXJ5
+IDI1LCAyMDE4IDc6MTIgQU0KPiAqVG86KiBaaHUsIFJleDsgSHVhbmcsIEppbkh1aUVyaWM7IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gKlN1YmplY3Q6KiBSZTogW1BBVENIIDQvNF0g
+ZHJtL2FtZC9wcDogSW1wbGVtZW50Cj4gc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSBvbiBzbXU3Cj4g
+wqAKPiBPbiAyMDE4LTAxLTI0IDA2OjA1IFBNLCBaaHUsIFJleCB3cm90ZToKPiA+IEhpIEZlbGl4
+LAo+ID4KPiA+IFRoZSBsb2dpYyBvZiBnZngvY29tcHV0ZXIgcHJvZmlsZSBzZXR0aW5nIHdvcmtz
+IGluIHN1Y2ggd2F5IGFzIHlvdQo+ID4gc2FpZCxuZWVkIHVuZGVyIOKAnGF1dG/igJ0gc3RhdGUu
+Cj4gPiBCdXQgaW4gbmV3IHN5c2ZzIG9mIHBvd2VyIHByb2ZpbGUgc2V0dGluZywgd2UgZG8gbm90
+IGNoZWNrIHRoZQo+IHBlcmZvcm1hbmNlCj4gPiBMZXZlbC4KPiA+Cj4gPiBBbmQgVGhlIOKAnG1h
+bnVhbOKAnSBzdGF0ZSBpcyBhIGNvbmZ1c2luZyBmbGFn77yMd2hlbiB1c2VyIHNldCBtYW51YWwK
+PiA+IHN0YXRl77yMYW5kIHRoZW4gY2hhbmdlIHRoZSBjbGsgcmFuZ2UgdGhyb3VnaCBwcC1kcG0t
+c2Nsay9tY2xr77yMdGhlIGRwbQo+ID4gc3RpbGwgd29ya3MgYXV0b21hdGljYWxseSBpbiBuZXcg
+Y2xvY2sgcmFuZ2UsIEkgdGhpbmsgd2UgY2FuIHJlbW92ZQo+ID4gdGhpcyBmbGFnLgo+Cj4gQnV0
+IHRoZW4geW91J3JlIGNoYW5naW5nIHRoZSBzZW1hbnRpY3Mgb2YgaG93IHBwX2RwbV9zY2xrL21j
+bGsgd29rCj4gdG9nZXRoZXIgd2l0aCBwcF9kcG1fZm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwuCj4K
+PiBTeXNmcyBpbnRlcmZhY2VzIHNob3VsZCBiZSBtYWludGFpbmVkIHN0YWJsZS4gSSdtIE9LIHdp
+dGggYnJlYWtpbmcgdGhlCj4gb2xkIHBvd2VyIHByb2ZpbGUgc3R1ZmYsIGJlY2F1c2UgaXQgb25s
+eSBhZmZlY3RzIEtGRCB3aGljaCBpc24ndAo+IHVwc3RyZWFtIHlldC4gQnV0IHRoZSBvbGQgcHBf
+ZHBtX3NjbGsvbWNsayBhbmQKPiBwcF9kcG1fZm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwgYWZmZWN0
+IGNvZGUgdGhhdCdzIGN1cnJlbnRseSB1cHN0cmVhbSBhbmQKPiB1c2VkIGJ5IGV4aXN0aW5nIHRv
+b2xzLgo+Cj4gPgo+ID4gU2/CoCBNeSBpZGVhIGlzCj4gPiBpbiB0aGUgc3lzZnMgb2YgcHAgZHBt
+IHNjbGsvbWNsaywgdXNlciBjYW4gc2V0IGNsb2NrIHJhbmdlLgo+ID4gSW4gdGhlIHN5c2ZzIG9m
+IHBvd2VyIHByb2ZpbGUgc3RhdGUsIHVzZXIgY2FuIGNvbmZpZ3VyZSB0aGUgcGFyYW1ldGVycwo+
+ID4gc211L2RyaXZlciBleHBvc2VkLiBUaGV5IGFyZSBpbmRlcGVuZGVudC4KPgo+IEkgZGlzYWdy
+ZWUuIHRoZSBjbG9jayByYW5nZSBpcyBub3QgaW5kZXBlbmRlbnQgb2YgdGhlIHByb2ZpbGUuIFBy
+b2ZpbGVzCj4gY29ycmVzcG9uZCB0byB1c2UgY2FzZXMuIERpZmZlcmVudCB1c2UgY2FzZXMgaGF2
+ZSBkaWZmZXJlbnQgY2xvY2sKPiByZXF1aXJlbWVudHMuIEZvciBjb21wdXRlIHdlIHdhbnQgdGhl
+IGNsb2NrcyB0byBiZSBoaWdoLiBGb3IgdmlkZW8geW91Cj4gbWF5IGhhdmUgcmVxdWlyZW1lbnRz
+IGZvciBtaW5pbXVtIG1jbGtzIHRvIGVuc3VyZSBzbW9vdGggcGxheWJhY2suIEZvcgo+IHBvd2Vy
+IHNhdmluZyB5b3UgbWF5IHdhbnQgdG8gbGltaXQgbWF4aW11bSBjbG9ja3MsIGV0Yy4gU28gc2V0
+dGluZyB0aGUKPiBjbG9jayByYW5nZSBpbmRlcGVuZGVudCBvZiB0aGUgcHJvZmlsZSBpbiAiYXV0
+byIgbW9kZSBkb2VzIG5vdCBtYWtlCj4gc2Vuc2UgdG8gbWUuCj4KPiBSZWdhcmRzLAo+IMKgIEZl
+bGl4Cj4KPiA+Cj4gPgo+ID4KPiA+Cj4gPgo+ID4KPiA+IEJlc3QgUmVnYXJkcwo+ID4gUmV4Cj4g
+PiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0KPiA+ICpGcm9tOiogS3VlaGxpbmcsIEZlbGl4Cj4gPiAqU2VudDoq
+IFRodXJzZGF5LCBKYW51YXJ5IDI1LCAyMDE4IDU6NDE6NDMgQU0KPiA+ICpUbzoqIFpodSwgUmV4
+OyBIdWFuZywgSmluSHVpRXJpYzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+ICpT
+dWJqZWN0OiogUmU6IFtQQVRDSCA0LzRdIGRybS9hbWQvcHA6IEltcGxlbWVudAo+ID4gc2V0X3Bv
+d2VyX3Byb2ZpbGVfbW9kZSBvbiBzbXU3Cj4gPiDCoAo+ID4gSGkgUmV4LAo+ID4KPiA+IEFzIEkg
+dW5kZXJzdGFuZCBpdCAodGhlIHdheSBwb3dlciBwcm9maWxlcyBjdXJyZW50bHkgd29yayksCj4g
+PiBwcF9kcG1fc2Nsay9tY2xrIG9ubHkgYXBwbHkgaWYgcHBfZHBtX2ZvcmNlX3BlcmZvcm1hbmNl
+X2xldmVsIGlzIHNldCB0bwo+ID4gIm1hbnVhbCIuIFBvd2VyIHByb2ZpbGVzIGFuZCBhdXRvbWF0
+aWMgc3dpdGNoaW5nIGJldHdlZW4gcHJvZmlsZXMgb25seQo+ID4gaGFwcGVucyB3aGVuIHBwX2Rw
+bV9mb3JjZV9wZXJmb3JtYW5jZV9sZXZlbCBpcyBzZXQgdG8gImF1dG8iLgo+ID4KPiA+IFRoaXMg
+bWVhbnMgcHBfZHBtX3NjbGsvbWNsayBkb24ndCBhcHBseSB3aGVuIHByb2ZpbGVzIGFyZSBpbiBl
+ZmZlY3QuCj4gPiBBbHNvLCB0aGVyZSB3b3VsZCBiZSBubyB3YXkgdG8gc2V0IGRpZmZlcmVudCBt
+aW5pbXVtIGNsb2NrcyBmb3IKPiA+IGRpZmZlcmVudCBwcm9maWxlcy4KPiA+Cj4gPiBJIHRoaW5r
+IG1pbmltdW0gY2xvY2tzIHNob3VsZCBiZSBwYXJ0IG9mIHRoZSBwcm9maWxlcy4KPiA+Cj4gPiBS
+ZWdhcmRzLAo+ID4gwqAgRmVsaXgKPiA+Cj4gPgo+ID4gT24gMjAxOC0wMS0yNCAwMzoxMyBQTSwg
+Wmh1LCBSZXggd3JvdGU6Cj4gPiA+IEhpIEVyaWMsCj4gPiA+Cj4gPiA+IFdlIGhhdmUgc3lzZnMg
+cHAtZHBtLXNjbGsvbWNsayB0byBzZXQgbWluIGRwbSBsZXZlbAo+ID4gPgo+ID4gPiBCZXN0IFJl
+Z2FyZHMKPiA+ID4gUmV4Cj4gPiA+Cj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiA+ICpGcm9tOiogYW1k
+LWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9m
+Cj4gPiA+IEVyaWMgSHVhbmcgPGppbmh1aWVyaWMuaHVhbmdAYW1kLmNvbT4KPiA+ID4gKlNlbnQ6
+KiBUaHVyc2RheSwgSmFudWFyeSAyNSwgMjAxOCAxMjowNDo1NSBBTQo+ID4gPiAqVG86KiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gPiAqU3ViamVjdDoqIFJlOiBbUEFUQ0ggNC80
+XSBkcm0vYW1kL3BwOiBJbXBsZW1lbnQKPiA+ID4gc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSBvbiBz
+bXU3Cj4gPiA+IMKgCj4gPiA+IFdlIGhhdmUgbWluX3NjbGsgYW5kIG1pbl9tY2xrIGluIHByZXZp
+b3VzIHBvd2VyIHByb2ZpbGUgcGFyYW1ldGVycyBmb3IKPiA+ID4gVkksIHdoaWNoIGFyZSBzaW1p
+bGFyIHdpdGggbWluX2FjdGl2ZV9sZXZlbCBmb3IgVmVnYTEwLiBIb3cgdG8KPiBpbXBsZW1lbnQK
+PiA+ID4gdGhlc2UgcGFyYW1ldGVycz8KPiA+ID4KPiA+ID4gUmVnYXJkcywKPiA+ID4gRXJpYwo+
+ID4gPgo+ID4gPiBPbiAyMDE4LTAxLTI0IDA0OjM3IEFNLCBSZXggWmh1IHdyb3RlOgo+ID4gPiA+
+IFVzZXIgY2FuIHNldCBzbXU3IHByb2ZpbGUgcGFtYW1ldGVycyB0aHJvdWdoIHN5c2ZzCj4gPiA+
+ID4KPiA+ID4gPiBlY2hvICIwLzEvMi8zLzQiPnBwX3Bvd2VyX3Byb2ZpbGVfbW9kZQo+ID4gPiA+
+IHRvIHNlbGVjdCAzRF9GVUxMX1NDUkVFTi9QT1dFUl9TQVZJTkcvVklERU8vVlIvQ09NUFVURQo+
+ID4gPiA+IG1vZGUuCj4gPiA+ID4gZWNobyAiNSAqICogKiAqICogKiAqICoiPnBwX3Bvd2VyX3By
+b2ZpbGVfbW9kZQo+ID4gPiA+IHRvIGNvbmZpZyBjdXN0b20gbW9kZS4KPiA+ID4gPiAiNSAqICog
+KiAqICogKiAqICoiIG1lYW4gIkNVU1RPTSBlbmFibGVfc2NsayBTQ0xLX1VQX0hZU1QKPiA+ID4g
+PiBTQ0xLX0RPV05fSFlTVCBTQ0xLX0FDVElWRV9MRVZFTCBlbmFibGVfbWNsayBNQ0xLX1VQX0hZ
+U1QKPiA+ID4gPiBNQ0xLX0RPV05fSFlTVCBNQ0xLX0FDVElWRV9MRVZFTCIKPiA+ID4gPgo+ID4g
+PiA+IENoYW5nZS1JZDogSWM2ZDZmMzczNjNiYzgxYWIxNzA1MTI4NWY2YWNlODQ3ZWRmNzI1ZGUK
+PiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Cj4gPiA+ID4g
+LS0tCj4gPiA+ID7CoMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdf
+aHdtZ3IuYyB8IDQ5Cj4gPiA+ICsrKysrKysrKysrKysrKysrKysrKysrLQo+ID4gPiA+wqDCoCAx
+IGZpbGUgY2hhbmdlZCwgNDggaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+ID4gPiA+Cj4g
+PiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Nt
+dTdfaHdtZ3IuYwo+ID4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Nt
+dTdfaHdtZ3IuYwo+ID4gPiA+IGluZGV4IDlmNmFmZDUuLjEzZGI3NWMgMTAwNjQ0Cj4gPiA+ID4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCj4g
+PiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21n
+ci5jCj4gPiA+ID4gQEAgLTUwMzYsNyArNTAzNiw1NCBAQCBzdGF0aWMgaW50IHNtdTdfZ2V0X3Bv
+d2VyX3Byb2ZpbGVfbW9kZShzdHJ1Y3QKPiA+ID4gcHBfaHdtZ3IgKmh3bWdyLCBjaGFyICpidWYp
+Cj4gPiA+ID7CoMKgCj4gPiA+ID7CoMKgIHN0YXRpYyBpbnQgc211N19zZXRfcG93ZXJfcHJvZmls
+ZV9tb2RlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gPiA+IGxvbmcgKmlucHV0LCB1aW50MzJf
+dCBzaXplKQo+ID4gPiA+wqDCoCB7Cj4gPiA+ID4gLcKgwqDCoMKgIC8qIFRvIERvICovCj4gPiA+
+ID4gK8KgwqDCoMKgIHN0cnVjdCBzbXU3X2h3bWdyICpkYXRhID0gKHN0cnVjdCBzbXU3X2h3bWdy
+Cj4gKikoaHdtZ3ItPmJhY2tlbmQpOwo+ID4gPiA+ICvCoMKgwqDCoCBzdHJ1Y3QgcHJvZmlsZV9t
+b2RlX3NldHRpbmcgdG1wOwo+ID4gPiA+ICsKPiA+ID4gPiArwqDCoMKgwqAgaHdtZ3ItPnBvd2Vy
+X3Byb2ZpbGVfbW9kZSA9IGlucHV0W3NpemVdOwo+ID4gPiA+ICsKPiA+ID4gPiArwqDCoMKgwqAg
+c3dpdGNoIChod21nci0+cG93ZXJfcHJvZmlsZV9tb2RlKSB7Cj4gPiA+ID4gK8KgwqDCoMKgIGNh
+c2UgUFBfU01DX1BPV0VSX1BST0ZJTEVfQ1VTVE9NOgo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgaWYgKHNpemUgPCA4KQo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+ID4gPiA+ICsKPiA+ID4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcuYnVwZGF0ZV9z
+Y2xrID0gaW5wdXRbMF07Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkYXRhLT5j
+dXN0b21fcHJvZmlsZV9zZXR0aW5nLnNjbGtfdXBfaHlzdCA9IGlucHV0WzFdOwo+ID4gPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5zY2xr
+X2Rvd25faHlzdCA9Cj4gaW5wdXRbMl07Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBkYXRhLT5jdXN0b21fcHJvZmlsZV9zZXR0aW5nLnNjbGtfYWN0aXZpdHkgPcKgCj4gaW5wdXRb
+M107Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkYXRhLT5jdXN0b21fcHJvZmls
+ZV9zZXR0aW5nLmJ1cGRhdGVfbWNsayA9IGlucHV0WzRdOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5tY2xrX3VwX2h5c3QgPSBp
+bnB1dFs1XTsKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRhdGEtPmN1c3RvbV9w
+cm9maWxlX3NldHRpbmcubWNsa19kb3duX2h5c3QgPQo+IGlucHV0WzZdOwo+ID4gPiA+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5tY2xrX2Fj
+dGl2aXR5ID3CoAo+IGlucHV0WzddOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+aWYgKCFzbXVtX3VwZGF0ZV9kcG1fc2V0dGluZ3MoaHdtZ3IsCj4gPiA+ICZkYXRhLT5jdXN0b21f
+cHJvZmlsZV9zZXR0aW5nKSkKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBtZW1jcHkoJmRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLAo+ID4gPiAm
+ZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZywgc2l6ZW9mKHN0cnVjdCBwcm9maWxlX21vZGVf
+c2V0dGluZykpOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4gPiA+
+ID4gK8KgwqDCoMKgIGNhc2UgUFBfU01DX1BPV0VSX1BST0ZJTEVfRlVMTFNDUkVFTjNEOgo+ID4g
+PiA+ICvCoMKgwqDCoCBjYXNlIFBQX1NNQ19QT1dFUl9QUk9GSUxFX1BPV0VSU0FWSU5HOgo+ID4g
+PiA+ICvCoMKgwqDCoCBjYXNlIFBQX1NNQ19QT1dFUl9QUk9GSUxFX1ZJREVPOgo+ID4gPiA+ICvC
+oMKgwqDCoCBjYXNlIFBQX1NNQ19QT1dFUl9QUk9GSUxFX1ZSOgo+ID4gPiA+ICvCoMKgwqDCoCBj
+YXNlIFBQX1NNQ19QT1dFUl9QUk9GSUxFX0NPTVBVVEU6Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBtZW1jcHkoJnRtcCwKPiA+ID4gJnNtdTdfcHJvZmlsaW5nW2h3bWdyLT5wb3dl
+cl9wcm9maWxlX21vZGVdLCBzaXplb2Yoc3RydWN0Cj4gPiA+IHByb2ZpbGVfbW9kZV9zZXR0aW5n
+KSk7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIXNtdW1fdXBkYXRlX2Rw
+bV9zZXR0aW5ncyhod21nciwgJnRtcCkpIHsKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAodG1wLmJ1cGRhdGVfc2Nsaykgewo+ID4gPiA+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoAo+ID4g
+PiBkYXRhLT5jdXJyZW50X3Byb2ZpbGVfc2V0dGluZy5idXBkYXRlX3NjbGsgPSB0bXAuYnVwZGF0
+ZV9zY2xrOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoAo+ID4gPiBkYXRhLT5jdXJyZW50X3Byb2ZpbGVfc2V0dGluZy5zY2xr
+X3VwX2h5c3QgPSB0bXAuc2Nsa191cF9oeXN0Owo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoAo+ID4gPiBkYXRhLT5jdXJyZW50
+X3Byb2ZpbGVfc2V0dGluZy5zY2xrX2Rvd25faHlzdCA9IHRtcC5zY2xrX2Rvd25faHlzdDsKPiA+
+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAKPiA+ID4gZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcuc2Nsa19hY3Rpdml0eSA9
+IHRtcC5zY2xrX2FjdGl2aXR5Owo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIH0KPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBpZiAodG1wLmJ1cGRhdGVfbWNsaykgewo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoAo+ID4gPiBkYXRhLT5jdXJy
+ZW50X3Byb2ZpbGVfc2V0dGluZy5idXBkYXRlX21jbGsgPSB0bXAuYnVwZGF0ZV9tY2xrOwo+ID4g
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoAo+ID4gPiBkYXRhLT5jdXJyZW50X3Byb2ZpbGVfc2V0dGluZy5tY2xrX3VwX2h5c3QgPSB0
+bXAubWNsa191cF9oeXN0Owo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoAo+ID4gPiBkYXRhLT5jdXJyZW50X3Byb2ZpbGVfc2V0
+dGluZy5tY2xrX2Rvd25faHlzdCA9IHRtcC5tY2xrX2Rvd25faHlzdDsKPiA+ID4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+ID4g
+ZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcubWNsa19hY3Rpdml0eSA9IHRtcC5tY2xrX2Fj
+dGl2aXR5Owo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IH0KPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPiA+ID4gPiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+ID4gPiA+ICvCoMKgwqDCoCBjYXNlIFBQX1NNQ19QT1dF
+Ul9QUk9GSUxFX0FVVE86IC8qIFRPIERPIGF1dG8gd2F0dG1hbiBmZWF0dXJlCj4gPiA+IG5vdCBp
+bXBsZW1lbnQgKi8KPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+
+ID4gPiA+ICvCoMKgwqDCoCBkZWZhdWx0Ogo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgcmV0dXJuIC1FSU5WQUw7Cj4gPiA+ID4gK8KgwqDCoMKgIH0KPiA+ID4gPiArCj4gPiA+ID7C
+oMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPiA+ID4gPsKgwqAgfQo+ID4gPiA+wqDCoAo+ID4gPgo+
+ID4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4g
+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+ID4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+ID4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKPiBhbWQtZ2Z4IEluZm8gUGFnZSAtIGZyZWVkZXNrdG9wLm9yZwo+IDxodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng+Cj4gbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gU3Vic2NyaWJpbmcgdG8gYW1kLWdmeDogU3Vic2NyaWJlIHRvIGFtZC1n
+ZnggYnkgZmlsbGluZyBvdXQgdGhlCj4gZm9sbG93aW5nIGZvcm0uIFVzZSBvZiBhbGwgZnJlZWRl
+c2t0b3Aub3JnIGxpc3RzIGlzIHN1YmplY3QgdG8gb3VyCj4gQ29kZSBvZiAuLi4KPgo+Cj4KPiA+
+ID4KPiA+ID4KPiA+ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KPiA+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiA+ID4gYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKPiA+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cj4gYW1kLWdmeCBJbmZvIFBhZ2UgLSBmcmVlZGVza3RvcC5vcmcKPiA8
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Pgo+
+IGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IFN1YnNjcmliaW5nIHRvIGFtZC1nZng6IFN1YnNjcmli
+ZSB0byBhbWQtZ2Z4IGJ5IGZpbGxpbmcgb3V0IHRoZQo+IGZvbGxvd2luZyBmb3JtLiBVc2Ugb2Yg
+YWxsIGZyZWVkZXNrdG9wLm9yZyBsaXN0cyBpcyBzdWJqZWN0IHRvIG91cgo+IENvZGUgb2YgLi4u
+Cj4KPgo+Cj4gPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cj4gYW1kLWdmeCBJbmZvIFBhZ2UgLSBmcmVlZGVza3RvcC5vcmcKPiA8aHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Pgo+IGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+IFN1YnNjcmliaW5nIHRvIGFtZC1nZng6IFN1YnNjcmliZSB0byBhbWQtZ2Z4
+IGJ5IGZpbGxpbmcgb3V0IHRoZQo+IGZvbGxvd2luZyBmb3JtLiBVc2Ugb2YgYWxsIGZyZWVkZXNr
+dG9wLm9yZyBsaXN0cyBpcyBzdWJqZWN0IHRvIG91cgo+IENvZGUgb2YgLi4uCj4KPgo+CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
