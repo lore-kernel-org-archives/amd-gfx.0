@@ -1,9 +1,10 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: remove DC special casing for KB/ML
-Date: Thu, 25 Jan 2018 16:57:12 -0500
-Message-ID: <20180125215712.18632-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Dieter_N=C3=BCtzel?= <Dieter-0hun7QTegEsDD4udEopG9Q@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/amdgpu/pm: handle fan properly when card is
+ powered down
+Date: Fri, 26 Jan 2018 00:05:35 +0100
+Message-ID: <654cb0f671aeb2a6646909b0cfa85fc1@nuetzel-hh.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -16,28 +17,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-devel <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SXQgc2VlbXMgdG8gYmUgd29ya2luZyBub3cuCgpCdWc6IGh0dHBzOi8vYnVncy5mcmVlZGVza3Rv
-cC5vcmcvc2hvd19idWcuY2dpP2lkPTEwMjM3MgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2RldmljZS5jIHwgNSArKy0tLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9u
-cygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMKaW5kZXggMzA5OTc3ZWY1YjUxLi4yYWQ5ZGU0MmI2NWIgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTE3MDQsNiArMTcwNCw4IEBAIGJv
-b2wgYW1kZ3B1X2RldmljZV9hc2ljX2hhc19kY19zdXBwb3J0KGVudW0gYW1kX2FzaWNfdHlwZSBh
-c2ljX3R5cGUpCiAJY2FzZSBDSElQX0JPTkFJUkU6CiAJY2FzZSBDSElQX0hBV0FJSToKIAljYXNl
-IENISVBfS0FWRVJJOgorCWNhc2UgQ0hJUF9LQUJJTkk6CisJY2FzZSBDSElQX01VTExJTlM6CiAJ
-Y2FzZSBDSElQX0NBUlJJWk86CiAJY2FzZSBDSElQX1NUT05FWToKIAljYXNlIENISVBfUE9MQVJJ
-UzExOgpAQCAtMTcxNCw5ICsxNzE2LDYgQEAgYm9vbCBhbWRncHVfZGV2aWNlX2FzaWNfaGFzX2Rj
-X3N1cHBvcnQoZW51bSBhbWRfYXNpY190eXBlIGFzaWNfdHlwZSkKICNpZiBkZWZpbmVkKENPTkZJ
-R19EUk1fQU1EX0RDX1BSRV9WRUdBKQogCQlyZXR1cm4gYW1kZ3B1X2RjICE9IDA7CiAjZW5kaWYK
-LQljYXNlIENISVBfS0FCSU5JOgotCWNhc2UgQ0hJUF9NVUxMSU5TOgotCQlyZXR1cm4gYW1kZ3B1
-X2RjID4gMDsKIAljYXNlIENISVBfVkVHQTEwOgogI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURf
-RENfRENOMV8wKQogCWNhc2UgQ0hJUF9SQVZFTjoKLS0gCjIuMTMuNgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Rm9yIHRoZSBzZXJpZXM6CgpDT09MIHN0dWZmIQoKUlg1ODAgKFBvbGFyaXMyMCkgZHVyaW5nICdp
+ZGxlJyAoc2luZ2xlIEhEIDE5MjB4MTA4MCk6CmFtZC1zdGFnaW5nLWRybS1uZXh0CgphbWRncHUt
+cGNpLTAxMDAKQWRhcHRlcjogUENJIGFkYXB0ZXIKdmRkZ2Z4OiAgICAgICArMC43NSBWCmZhbjE6
+ICAgICAgICAgOTA0IFJQTQp0ZW1wMTogICAgICAgICsyNS4wwrBDICAoY3JpdCA9ICs5NC4wwrBD
+LCBoeXN0ID0gLTI3My4xwrBDKQpwb3dlcjE6ICAgICAgIDMyLjAwIFcKClRoYW5rIHlvdSB2ZXJ5
+IG11Y2ggQWxleCBldCBhbC4hCgpEaWV0ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
