@@ -1,15 +1,17 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amd/pp: Remove manual mode for
  power_dpm_force_performance_level
-Date: Fri, 26 Jan 2018 00:07:05 +0000
-Message-ID: <CY4PR12MB1687930CD8F44390C3791A63FBE10@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1516879614-11533-1-git-send-email-Rex.Zhu@amd.com>,
+Date: Thu, 25 Jan 2018 19:26:58 -0500
+Message-ID: <0ce63372-dc11-9710-f11d-0cf6abf326b4@amd.com>
+References: <1516879614-11533-1-git-send-email-Rex.Zhu@amd.com>
  <51c6111b-78ec-36f8-b5e0-4a23ccea6de4@amd.com>
+ <CY4PR12MB1687930CD8F44390C3791A63FBE10@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0073880318=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <51c6111b-78ec-36f8-b5e0-4a23ccea6de4-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB1687930CD8F44390C3791A63FBE10-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,610 +22,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0073880318==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687930CD8F44390C3791A63FBE10CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687930CD8F44390C3791A63FBE10CY4PR12MB1687namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-I also think about this problem.
-just think user should unforced clk level through pp dpm sclk/mclk/pcie if =
-they change the clock logic through those sysfs.
-
-The logic seems weird, As we supply many sysfs for adjust clock range.
-
-We can fix this problem by change current mode to manual mode after user ca=
-ll pp dpm sclk/mclk/pcie.
-
-But another think?if user change back the clk range through pp dpm clk.
-
-we are in manual mode, and user set auto mode, in fact, driver change nothi=
-ng.
-
-Comparatively speaking, better set manual mode after user call pp dpm clk.
-Thanks very much.
-
-Best Regards
-Rex
-________________________________
-From: Kuehling, Felix
-Sent: Friday, January 26, 2018 12:55:19 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zhu, Rex
-Subject: Re: [PATCH 1/2] drm/amd/pp: Remove manual mode for power_dpm_force=
-_performance_level
-
-This patch breaks unforcing of clocks, which is currently done by
-switching back from "manual" to "auto". By removing "manual" mode, you
-remove the ability to unset forced clocks.
-
-Regards,
-  Felix
-
-
-On 2018-01-25 06:26 AM, Rex Zhu wrote:
-> Driver do not maintain manual mode for dpm_force_performance_level,
-> User can set sclk/mclk/pcie range through pp_dpm_sclk/pp_dpm_mclk/pp_dpm_=
-pcie
-> directly.
->
-> In order to not break currently tools,
-> when set "manual" to power_dpm_force_performance_level
-> driver will do nothing and just return successful.
->
-> Change-Id: Iaf672b9abc7fa57b765ceb7fa2fba6ad3e80c50b
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c             |  3 +--
->  drivers/gpu/drm/amd/amdgpu/ci_dpm.c                |  5 -----
->  drivers/gpu/drm/amd/include/kgd_pp_interface.h     | 15 +++++++--------
->  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     |  4 ----
->  drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c     |  1 -
->  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   |  6 ------
->  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c |  6 ------
->  7 files changed, 8 insertions(+), 32 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_pm.c
-> index 1812009..66b4df0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> @@ -152,7 +152,6 @@ static ssize_t amdgpu_get_dpm_forced_performance_leve=
-l(struct device *dev,
->                        (level =3D=3D AMD_DPM_FORCED_LEVEL_AUTO) ? "auto" =
-:
->                        (level =3D=3D AMD_DPM_FORCED_LEVEL_LOW) ? "low" :
->                        (level =3D=3D AMD_DPM_FORCED_LEVEL_HIGH) ? "high" =
-:
-> -                     (level =3D=3D AMD_DPM_FORCED_LEVEL_MANUAL) ? "manua=
-l" :
->                        (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_STANDAR=
-D) ? "profile_standard" :
->                        (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCL=
-K) ? "profile_min_sclk" :
->                        (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCL=
-K) ? "profile_min_mclk" :
-> @@ -186,7 +185,7 @@ static ssize_t amdgpu_set_dpm_forced_performance_leve=
-l(struct device *dev,
->        } else if (strncmp("auto", buf, strlen("auto")) =3D=3D 0) {
->                level =3D AMD_DPM_FORCED_LEVEL_AUTO;
->        } else if (strncmp("manual", buf, strlen("manual")) =3D=3D 0) {
-> -             level =3D AMD_DPM_FORCED_LEVEL_MANUAL;
-> +             pr_info("No need to set manual mode, Just go ahead\n");
->        } else if (strncmp("profile_exit", buf, strlen("profile_exit")) =
-=3D=3D 0) {
->                level =3D AMD_DPM_FORCED_LEVEL_PROFILE_EXIT;
->        } else if (strncmp("profile_standard", buf, strlen("profile_standa=
-rd")) =3D=3D 0) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/am=
-dgpu/ci_dpm.c
-> index ab45232..8ddc978 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-> @@ -6639,11 +6639,6 @@ static int ci_dpm_force_clock_level(void *handle,
->        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->        struct ci_power_info *pi =3D ci_get_pi(adev);
->
-> -     if (adev->pm.dpm.forced_level & (AMD_DPM_FORCED_LEVEL_AUTO |
-> -                             AMD_DPM_FORCED_LEVEL_LOW |
-> -                             AMD_DPM_FORCED_LEVEL_HIGH))
-> -             return -EINVAL;
-> -
->        switch (type) {
->        case PP_SCLK:
->                if (!pi->sclk_dpm_key_disabled)
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu=
-/drm/amd/include/kgd_pp_interface.h
-> index b9aa9f4..3fab686 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -41,14 +41,13 @@ struct amd_vce_state {
->
->  enum amd_dpm_forced_level {
->        AMD_DPM_FORCED_LEVEL_AUTO =3D 0x1,
-> -     AMD_DPM_FORCED_LEVEL_MANUAL =3D 0x2,
-> -     AMD_DPM_FORCED_LEVEL_LOW =3D 0x4,
-> -     AMD_DPM_FORCED_LEVEL_HIGH =3D 0x8,
-> -     AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD =3D 0x10,
-> -     AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK =3D 0x20,
-> -     AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK =3D 0x40,
-> -     AMD_DPM_FORCED_LEVEL_PROFILE_PEAK =3D 0x80,
-> -     AMD_DPM_FORCED_LEVEL_PROFILE_EXIT =3D 0x100,
-> +     AMD_DPM_FORCED_LEVEL_LOW =3D 0x2,
-> +     AMD_DPM_FORCED_LEVEL_HIGH =3D 0x4,
-> +     AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD =3D 0x8,
-> +     AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK =3D 0x10,
-> +     AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK =3D 0x20,
-> +     AMD_DPM_FORCED_LEVEL_PROFILE_PEAK =3D 0x40,
-> +     AMD_DPM_FORCED_LEVEL_PROFILE_EXIT =3D 0x80,
->  };
->
->  enum amd_pm_state_type {
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> index dec8dd9..60d280c 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> @@ -1250,7 +1250,6 @@ static int cz_dpm_force_dpm_level(struct pp_hwmgr *=
-hwmgr,
->        case AMD_DPM_FORCED_LEVEL_AUTO:
->                ret =3D cz_phm_unforce_dpm_levels(hwmgr);
->                break;
-> -     case AMD_DPM_FORCED_LEVEL_MANUAL:
->        case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
->        default:
->                break;
-> @@ -1558,9 +1557,6 @@ static int cz_get_dal_power_level(struct pp_hwmgr *=
-hwmgr,
->  static int cz_force_clock_level(struct pp_hwmgr *hwmgr,
->                enum pp_clock_type type, uint32_t mask)
->  {
-> -     if (hwmgr->dpm_level !=3D AMD_DPM_FORCED_LEVEL_MANUAL)
-> -             return -EINVAL;
-> -
->        switch (type) {
->        case PP_SCLK:
->                smum_send_msg_to_smc_with_parameter(hwmgr,
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/rv_hwmgr.c
-> index 409a56b..eddcbcd 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
-> @@ -605,7 +605,6 @@ static int rv_dpm_force_dpm_level(struct pp_hwmgr *hw=
-mgr,
->                                                PPSMC_MSG_SetSoftMaxFclkBy=
-Freq,
->                                                RAVEN_UMD_PSTATE_MIN_FCLK)=
-;
->                break;
-> -     case AMD_DPM_FORCED_LEVEL_MANUAL:
->        case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
->        default:
->                break;
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> index 13db75c..e3a8374 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -2798,7 +2798,6 @@ static int smu7_force_dpm_level(struct pp_hwmgr *hw=
-mgr,
->                smu7_force_clock_level(hwmgr, PP_MCLK, 1<<mclk_mask);
->                smu7_force_clock_level(hwmgr, PP_PCIE, 1<<pcie_mask);
->                break;
-> -     case AMD_DPM_FORCED_LEVEL_MANUAL:
->        case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
->        default:
->                break;
-> @@ -4311,11 +4310,6 @@ static int smu7_force_clock_level(struct pp_hwmgr =
-*hwmgr,
->  {
->        struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend);
->
-> -     if (hwmgr->request_dpm_level & (AMD_DPM_FORCED_LEVEL_AUTO |
-> -                                     AMD_DPM_FORCED_LEVEL_LOW |
-> -                                     AMD_DPM_FORCED_LEVEL_HIGH))
-> -             return -EINVAL;
-> -
->        switch (type) {
->        case PP_SCLK:
->                if (!data->sclk_dpm_key_disabled)
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers=
-/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> index 6b28896..828677e 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -4241,7 +4241,6 @@ static int vega10_dpm_force_dpm_level(struct pp_hwm=
-gr *hwmgr,
->                vega10_force_clock_level(hwmgr, PP_SCLK, 1<<sclk_mask);
->                vega10_force_clock_level(hwmgr, PP_MCLK, 1<<mclk_mask);
->                break;
-> -     case AMD_DPM_FORCED_LEVEL_MANUAL:
->        case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
->        default:
->                break;
-> @@ -4500,11 +4499,6 @@ static int vega10_force_clock_level(struct pp_hwmg=
-r *hwmgr,
->  {
->        struct vega10_hwmgr *data =3D (struct vega10_hwmgr *)(hwmgr->backe=
-nd);
->
-> -     if (hwmgr->request_dpm_level & (AMD_DPM_FORCED_LEVEL_AUTO |
-> -                             AMD_DPM_FORCED_LEVEL_LOW |
-> -                             AMD_DPM_FORCED_LEVEL_HIGH))
-> -             return -EINVAL;
-> -
->        switch (type) {
->        case PP_SCLK:
->                data->smc_state_table.gfx_boot_level =3D mask ? (ffs(mask)=
- - 1) : 0;
-
-
---_000_CY4PR12MB1687930CD8F44390C3791A63FBE10CY4PR12MB1687namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-I also think about this problem.<br>
-just think user should unforced clk level through pp dpm sclk/mclk/pcie if =
-they change the clock logic through those sysfs.<br>
-<br>
-The logic seems weird, As we supply many sysfs for adjust clock range.<br>
-<br>
-We can fix this problem by change current mode to manual mode after user ca=
-ll pp dpm sclk/mclk/pcie.<br>
-<br>
-But another think&#65292;if user change back the clk range through pp dpm c=
-lk.<br>
-<br>
-we are in manual mode, and user set auto mode, in fact, driver change nothi=
-ng.<br>
-<br>
-Comparatively speaking, better set manual mode after user call pp dpm clk.<=
-br>
-Thanks very much.<br>
-<br>
-Best Regards<br>
-Rex<br>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
-<b>Sent:</b> Friday, January 26, 2018 12:55:19 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zhu, Rex<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amd/pp: Remove manual mode for power_dp=
-m_force_performance_level</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This patch breaks unforcing of clocks, which is cu=
-rrently done by<br>
-switching back from &quot;manual&quot; to &quot;auto&quot;. By removing &qu=
-ot;manual&quot; mode, you<br>
-remove the ability to unset forced clocks.<br>
-<br>
-Regards,<br>
-&nbsp; Felix<br>
-<br>
-<br>
-On 2018-01-25 06:26 AM, Rex Zhu wrote:<br>
-&gt; Driver do not maintain manual mode for dpm_force_performance_level,<br=
->
-&gt; User can set sclk/mclk/pcie range through pp_dpm_sclk/pp_dpm_mclk/pp_d=
-pm_pcie<br>
-&gt; directly.<br>
-&gt;<br>
-&gt; In order to not break currently tools,<br>
-&gt; when set &quot;manual&quot; to power_dpm_force_performance_level<br>
-&gt; driver will do nothing and just return successful.<br>
-&gt;<br>
-&gt; Change-Id: Iaf672b9abc7fa57b765ceb7fa2fba6ad3e80c50b<br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 &#43;--<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/ci_dpm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 5 ---=
---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/include/kgd_pp_interface.h&nbsp;&nbsp;&nbsp;=
-&nbsp; | 15 &#43;&#43;&#43;&#43;&#43;&#43;&#43;--------<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c&nbsp;&nbsp;&nbsp;=
-&nbsp; |&nbsp; 4 ----<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c&nbsp;&nbsp;&nbsp;=
-&nbsp; |&nbsp; 1 -<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp; |&n=
-bsp; 6 ------<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c |&nbsp; 6 ---=
----<br>
-&gt;&nbsp; 7 files changed, 8 insertions(&#43;), 32 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_pm.c<br>
-&gt; index 1812009..66b4df0 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&gt; @@ -152,7 &#43;152,6 @@ static ssize_t amdgpu_get_dpm_forced_performan=
-ce_level(struct device *dev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (level =
-=3D=3D AMD_DPM_FORCED_LEVEL_AUTO) ? &quot;auto&quot; :<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (level =
-=3D=3D AMD_DPM_FORCED_LEVEL_LOW) ? &quot;low&quot; :<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (level =
-=3D=3D AMD_DPM_FORCED_LEVEL_HIGH) ? &quot;high&quot; :<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (level =3D=3D AMD_DPM_F=
-ORCED_LEVEL_MANUAL) ? &quot;manual&quot; :<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (level =
-=3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD) ? &quot;profile_standard&quot=
-; :<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (level =
-=3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK) ? &quot;profile_min_sclk&quot=
-; :<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (level =
-=3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK) ? &quot;profile_min_mclk&quot=
-; :<br>
-&gt; @@ -186,7 &#43;185,7 @@ static ssize_t amdgpu_set_dpm_forced_performan=
-ce_level(struct device *dev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (strncmp(&quot;aut=
-o&quot;, buf, strlen(&quot;auto&quot;)) =3D=3D 0) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; level =3D AMD_DPM_FORCED_LEVEL_AUTO;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (strncmp(&quot;man=
-ual&quot;, buf, strlen(&quot;manual&quot;)) =3D=3D 0) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; level =3D AMD_DPM_FORCED_LEVEL_MANUAL;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; pr_info(&quot;No need to set manual mode, Just go ahead\n&quot;);<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (strncmp(&quot;pro=
-file_exit&quot;, buf, strlen(&quot;profile_exit&quot;)) =3D=3D 0) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; level =3D AMD_DPM_FORCED_LEVEL_PROFILE_EXIT;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (strncmp(&quot;pro=
-file_standard&quot;, buf, strlen(&quot;profile_standard&quot;)) =3D=3D 0) {=
-<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd=
-/amdgpu/ci_dpm.c<br>
-&gt; index ab45232..8ddc978 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
-&gt; @@ -6639,11 &#43;6639,6 @@ static int ci_dpm_force_clock_level(void *h=
-andle,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D (struct amdgpu_device *)handle;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ci_power_info *pi =3D=
- ci_get_pi(adev);<br>
-&gt;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm.forced_level &amp; (AMD_=
-DPM_FORCED_LEVEL_AUTO |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_LOW |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_HIGH))<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return -EINVAL;<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SCLK:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!pi-&gt;sclk_dpm_key_disabled)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/=
-gpu/drm/amd/include/kgd_pp_interface.h<br>
-&gt; index b9aa9f4..3fab686 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-&gt; @@ -41,14 &#43;41,13 @@ struct amd_vce_state {<br>
-&gt;&nbsp; <br>
-&gt;&nbsp; enum amd_dpm_forced_level {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_AUTO =
-=3D 0x1,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_MANUAL =3D 0x2,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_LOW =3D 0x4,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_HIGH =3D 0x8,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD =3D 0x=
-10,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK =3D 0x=
-20,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK =3D 0x=
-40,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_PEAK =3D 0x80,<=
-br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_EXIT =3D 0x100,=
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_LOW =3D 0x2,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_HIGH =3D 0x4,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD =
-=3D 0x8,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK =
-=3D 0x10,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK =
-=3D 0x20,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_PEAK =3D 0x=
-40,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_PROFILE_EXIT =3D 0x=
-80,<br>
-&gt;&nbsp; };<br>
-&gt;&nbsp; <br>
-&gt;&nbsp; enum amd_pm_state_type {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/=
-gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt; index dec8dd9..60d280c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt; @@ -1250,7 &#43;1250,6 @@ static int cz_dpm_force_dpm_level(struct pp_=
-hwmgr *hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_AU=
-TO:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; ret =3D cz_phm_unforce_dpm_levels(hwmgr);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_MANUAL:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_PR=
-OFILE_EXIT:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; @@ -1558,9 &#43;1557,6 @@ static int cz_get_dal_power_level(struct pp_=
-hwmgr *hwmgr,<br>
-&gt;&nbsp; static int cz_force_clock_level(struct pp_hwmgr *hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; enum pp_clock_type type, uint32_t mask)<br>
-&gt;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level !=3D AMD_DPM_FORCED_=
-LEVEL_MANUAL)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return -EINVAL;<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SCLK:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c b/drivers/=
-gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
-&gt; index 409a56b..eddcbcd 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
-&gt; @@ -605,7 &#43;605,6 @@ static int rv_dpm_force_dpm_level(struct pp_hw=
-mgr *hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_Set=
-SoftMaxFclkByFreq,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RAVEN_UMD_PST=
-ATE_MIN_FCLK);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_MANUAL:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_PR=
-OFILE_EXIT:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/driver=
-s/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt; index 13db75c..e3a8374 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt; @@ -2798,7 &#43;2798,6 @@ static int smu7_force_dpm_level(struct pp_hw=
-mgr *hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; smu7_force_clock_level(hwmgr, PP_MCLK, 1&lt;&lt;mclk_ma=
-sk);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; smu7_force_clock_level(hwmgr, PP_PCIE, 1&lt;&lt;pcie_ma=
-sk);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_MANUAL:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_PR=
-OFILE_EXIT:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; @@ -4311,11 &#43;4310,6 @@ static int smu7_force_clock_level(struct pp=
-_hwmgr *hwmgr,<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_hwmgr *data =3D =
-(struct smu7_hwmgr *)(hwmgr-&gt;backend);<br>
-&gt;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;request_dpm_level &amp; (AMD_D=
-PM_FORCED_LEVEL_AUTO |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AM=
-D_DPM_FORCED_LEVEL_LOW |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AM=
-D_DPM_FORCED_LEVEL_HIGH))<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return -EINVAL;<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SCLK:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!data-&gt;sclk_dpm_key_disabled)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/driv=
-ers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; index 6b28896..828677e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<b=
-r>
-&gt; @@ -4241,7 &#43;4241,6 @@ static int vega10_dpm_force_dpm_level(struct=
- pp_hwmgr *hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; vega10_force_clock_level(hwmgr, PP_SCLK, 1&lt;&lt;sclk_=
-mask);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; vega10_force_clock_level(hwmgr, PP_MCLK, 1&lt;&lt;mclk_=
-mask);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_MANUAL:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_PR=
-OFILE_EXIT:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; @@ -4500,11 &#43;4499,6 @@ static int vega10_force_clock_level(struct =
-pp_hwmgr *hwmgr,<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega10_hwmgr *data =
-=3D (struct vega10_hwmgr *)(hwmgr-&gt;backend);<br>
-&gt;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;request_dpm_level &amp; (AMD_D=
-PM_FORCED_LEVEL_AUTO |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_LOW |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; AMD_DPM_FORCED_LEVEL_HIGH))<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return -EINVAL;<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SCLK:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; data-&gt;smc_state_table.gfx_boot_level =3D mask ? (ffs=
-(mask) - 1) : 0;<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY4PR12MB1687930CD8F44390C3791A63FBE10CY4PR12MB1687namp_--
-
---===============0073880318==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0073880318==--
+T24gMjAxOC0wMS0yNSAwNzowNyBQTSwgWmh1LCBSZXggd3JvdGU6Cj4gSSBhbHNvIHRoaW5rIGFi
+b3V0IHRoaXMgcHJvYmxlbS4KPiBqdXN0IHRoaW5rIHVzZXIgc2hvdWxkIHVuZm9yY2VkIGNsayBs
+ZXZlbCB0aHJvdWdoIHBwIGRwbQo+IHNjbGsvbWNsay9wY2llIGlmIHRoZXkgY2hhbmdlIHRoZSBj
+bG9jayBsb2dpYyB0aHJvdWdoIHRob3NlIHN5c2ZzLgo+Cj4gVGhlIGxvZ2ljIHNlZW1zIHdlaXJk
+LCBBcyB3ZSBzdXBwbHkgbWFueSBzeXNmcyBmb3IgYWRqdXN0IGNsb2NrIHJhbmdlLgo+Cj4gV2Ug
+Y2FuIGZpeCB0aGlzIHByb2JsZW0gYnkgY2hhbmdlIGN1cnJlbnQgbW9kZSB0byBtYW51YWwgbW9k
+ZSBhZnRlcgo+IHVzZXIgY2FsbCBwcCBkcG0gc2Nsay9tY2xrL3BjaWUuCj4KPiBCdXQgYW5vdGhl
+ciB0aGlua++8jGlmIHVzZXIgY2hhbmdlIGJhY2sgdGhlIGNsayByYW5nZSB0aHJvdWdoIHBwIGRw
+bSBjbGsuCj4KPiB3ZSBhcmUgaW4gbWFudWFsIG1vZGUsIGFuZCB1c2VyIHNldCBhdXRvIG1vZGUs
+IGluIGZhY3QsIGRyaXZlciBjaGFuZ2UKPiBub3RoaW5nLgoKV2l0aCBwcm9maWxlcywgc3dpdGNo
+aW5nIGJhY2sgdG8gYXV0byBtb2RlIHdvdWxkIHNlbGVjdCB0aGUgYXBwcm9wcmlhdGUKcHJvZmls
+ZSwgd2hpY2ggbWF5IGhhdmUgYSBkaWZmZXJlbnQgY2xvY2sgbWFzay4gRm9yIGV4YW1wbGUgZm9y
+IGNvbXB1dGUKd2UgZW5hYmxlIG9ubHkgdGhlIGhpZ2hlc3QgdHdvIHNjbGsgbGV2ZWxzLgoKPgo+
+IENvbXBhcmF0aXZlbHkgc3BlYWtpbmcsIGJldHRlciBzZXQgbWFudWFsIG1vZGUgYWZ0ZXIgdXNl
+ciBjYWxsIHBwIGRwbSBjbGsuCgpUaGF0IHdvdWxkIG1ha2Ugc2Vuc2UuIEJ1dCBzd2l0Y2hpbmcg
+dG8gbWFudWFsIG1vZGUgd291bGQgZGlzYWJsZQpwcm9maWxlcyBhbmQgYXV0b21hdGljIHByb2Zp
+bGUgc2VsZWN0aW9uLiBUaGF0IHdhcyBvbmUgcmVhc29uIHdoeSBJCm9iamVjdGVkIHRvIHlvdXIg
+cGxhbiB0byBjb250cm9sIHByb2ZpbGUgY2xvY2sgbGltaXRzIHVzaW5nIHRoZXNlIGZpbGVzLgoK
+UmVnYXJkcywKwqAgRmVsaXgKCj4gVGhhbmtzIHZlcnkgbXVjaC4KPgo+IEJlc3QgUmVnYXJkcwo+
+IFJleAo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICpGcm9tOiogS3VlaGxpbmcsIEZlbGl4Cj4gKlNlbnQ6
+KiBGcmlkYXksIEphbnVhcnkgMjYsIDIwMTggMTI6NTU6MTkgQU0KPiAqVG86KiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZzsgWmh1LCBSZXgKPiAqU3ViamVjdDoqIFJlOiBbUEFUQ0ggMS8y
+XSBkcm0vYW1kL3BwOiBSZW1vdmUgbWFudWFsIG1vZGUgZm9yCj4gcG93ZXJfZHBtX2ZvcmNlX3Bl
+cmZvcm1hbmNlX2xldmVsCj4gwqAKPiBUaGlzIHBhdGNoIGJyZWFrcyB1bmZvcmNpbmcgb2YgY2xv
+Y2tzLCB3aGljaCBpcyBjdXJyZW50bHkgZG9uZSBieQo+IHN3aXRjaGluZyBiYWNrIGZyb20gIm1h
+bnVhbCIgdG8gImF1dG8iLiBCeSByZW1vdmluZyAibWFudWFsIiBtb2RlLCB5b3UKPiByZW1vdmUg
+dGhlIGFiaWxpdHkgdG8gdW5zZXQgZm9yY2VkIGNsb2Nrcy4KPgo+IFJlZ2FyZHMsCj4gwqAgRmVs
+aXgKPgo+Cj4gT24gMjAxOC0wMS0yNSAwNjoyNiBBTSwgUmV4IFpodSB3cm90ZToKPiA+IERyaXZl
+ciBkbyBub3QgbWFpbnRhaW4gbWFudWFsIG1vZGUgZm9yIGRwbV9mb3JjZV9wZXJmb3JtYW5jZV9s
+ZXZlbCwKPiA+IFVzZXIgY2FuIHNldCBzY2xrL21jbGsvcGNpZSByYW5nZSB0aHJvdWdoCj4gcHBf
+ZHBtX3NjbGsvcHBfZHBtX21jbGsvcHBfZHBtX3BjaWUKPiA+IGRpcmVjdGx5Lgo+ID4KPiA+IElu
+IG9yZGVyIHRvIG5vdCBicmVhayBjdXJyZW50bHkgdG9vbHMsCj4gPiB3aGVuIHNldCAibWFudWFs
+IiB0byBwb3dlcl9kcG1fZm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwKPiA+IGRyaXZlciB3aWxsIGRv
+IG5vdGhpbmcgYW5kIGp1c3QgcmV0dXJuIHN1Y2Nlc3NmdWwuCj4gPgo+ID4gQ2hhbmdlLUlkOiBJ
+YWY2NzJiOWFiYzdmYTU3Yjc2NWNlYjdmYTJmYmE2YWQzZTgwYzUwYgo+ID4gU2lnbmVkLW9mZi1i
+eTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgo+ID4gLS0tCj4gPsKgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAzICst
+LQo+ID7CoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uY8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB8wqAgNSAtLS0tLQo+ID7CoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2lu
+Y2x1ZGUva2dkX3BwX2ludGVyZmFjZS5owqDCoMKgwqAgfCAxNSArKysrKysrLS0tLS0tLS0KPiA+
+wqAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuY8KgwqDCoMKg
+IHzCoCA0IC0tLS0KPiA+wqAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcnZf
+aHdtZ3IuY8KgwqDCoMKgIHzCoCAxIC0KPiA+wqAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvaHdtZ3Ivc211N19od21nci5jwqDCoCB8wqAgNiAtLS0tLS0KPiA+wqAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfMKgIDYgLS0tLS0tCj4gPsKg
+IDcgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAzMiBkZWxldGlvbnMoLSkKPiA+Cj4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKPiBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCj4gPiBpbmRleCAxODEyMDA5
+Li42NmI0ZGYwIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3BtLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5j
+Cj4gPiBAQCAtMTUyLDcgKzE1Miw2IEBAIHN0YXRpYyBzc2l6ZV90Cj4gYW1kZ3B1X2dldF9kcG1f
+Zm9yY2VkX3BlcmZvcm1hbmNlX2xldmVsKHN0cnVjdCBkZXZpY2UgKmRldiwKPiA+wqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAobGV2ZWwgPT0gQU1EX0RQTV9G
+T1JDRURfTEVWRUxfQVVUTykgPyAiYXV0byIgOgo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIChsZXZlbCA9PSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9MT1cp
+ID8gImxvdyIgOgo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIChsZXZlbCA9PSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9ISUdIKSA/ICJoaWdoIiA6Cj4gPiAt
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAobGV2ZWwgPT0gQU1EX0RQ
+TV9GT1JDRURfTEVWRUxfTUFOVUFMKSA/Cj4gIm1hbnVhbCIgOgo+ID7CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIChsZXZlbCA9PQo+IEFNRF9EUE1fRk9SQ0VE
+X0xFVkVMX1BST0ZJTEVfU1RBTkRBUkQpID8gInByb2ZpbGVfc3RhbmRhcmQiIDoKPiA+wqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAobGV2ZWwgPT0KPiBBTURf
+RFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX01JTl9TQ0xLKSA/ICJwcm9maWxlX21pbl9zY2xrIiA6
+Cj4gPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKGxldmVs
+ID09Cj4gQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9NSU5fTUNMSykgPyAicHJvZmlsZV9t
+aW5fbWNsayIgOgo+ID4gQEAgLTE4Niw3ICsxODUsNyBAQCBzdGF0aWMgc3NpemVfdAo+IGFtZGdw
+dV9zZXRfZHBtX2ZvcmNlZF9wZXJmb3JtYW5jZV9sZXZlbChzdHJ1Y3QgZGV2aWNlICpkZXYsCj4g
+PsKgwqDCoMKgwqDCoMKgIH0gZWxzZSBpZiAoc3RybmNtcCgiYXV0byIsIGJ1Ziwgc3RybGVuKCJh
+dXRvIikpID09IDApIHsKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxldmVsID0g
+QU1EX0RQTV9GT1JDRURfTEVWRUxfQVVUTzsKPiA+wqDCoMKgwqDCoMKgwqAgfSBlbHNlIGlmIChz
+dHJuY21wKCJtYW51YWwiLCBidWYsIHN0cmxlbigibWFudWFsIikpID09IDApIHsKPiA+IC3CoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgbGV2ZWwgPSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9NQU5VQUw7
+Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByX2luZm8oIk5vIG5lZWQgdG8gc2V0IG1h
+bnVhbCBtb2RlLCBKdXN0IGdvIGFoZWFkXG4iKTsKPiA+wqDCoMKgwqDCoMKgwqAgfSBlbHNlIGlm
+IChzdHJuY21wKCJwcm9maWxlX2V4aXQiLCBidWYsCj4gc3RybGVuKCJwcm9maWxlX2V4aXQiKSkg
+PT0gMCkgewo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbGV2ZWwgPSBBTURfRFBN
+X0ZPUkNFRF9MRVZFTF9QUk9GSUxFX0VYSVQ7Cj4gPsKgwqDCoMKgwqDCoMKgIH0gZWxzZSBpZiAo
+c3RybmNtcCgicHJvZmlsZV9zdGFuZGFyZCIsIGJ1ZiwKPiBzdHJsZW4oInByb2ZpbGVfc3RhbmRh
+cmQiKSkgPT0gMCkgewo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2NpX2RwbS5jCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYwo+ID4gaW5k
+ZXggYWI0NTIzMi4uOGRkYzk3OCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2NpX2RwbS5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9k
+cG0uYwo+ID4gQEAgLTY2MzksMTEgKzY2MzksNiBAQCBzdGF0aWMgaW50IGNpX2RwbV9mb3JjZV9j
+bG9ja19sZXZlbCh2b2lkICpoYW5kbGUsCj4gPsKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+ID7CoMKgwqDC
+oMKgwqDCoCBzdHJ1Y3QgY2lfcG93ZXJfaW5mbyAqcGkgPSBjaV9nZXRfcGkoYWRldik7Cj4gPsKg
+Cj4gPiAtwqDCoMKgwqAgaWYgKGFkZXYtPnBtLmRwbS5mb3JjZWRfbGV2ZWwgJiAoQU1EX0RQTV9G
+T1JDRURfTEVWRUxfQVVUTyB8Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxfTE9XIHwKPiA+IC3C
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBB
+TURfRFBNX0ZPUkNFRF9MRVZFTF9ISUdIKSkKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+cmV0dXJuIC1FSU5WQUw7Cj4gPiAtCj4gPsKgwqDCoMKgwqDCoMKgIHN3aXRjaCAodHlwZSkgewo+
+ID7CoMKgwqDCoMKgwqDCoCBjYXNlIFBQX1NDTEs6Cj4gPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBpZiAoIXBpLT5zY2xrX2RwbV9rZXlfZGlzYWJsZWQpCj4gPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9wcF9pbnRlcmZhY2UuaAo+IGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9wcF9pbnRlcmZhY2UuaAo+ID4gaW5kZXggYjlhYTlm
+NC4uM2ZhYjY4NiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9r
+Z2RfcHBfaW50ZXJmYWNlLmgKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9r
+Z2RfcHBfaW50ZXJmYWNlLmgKPiA+IEBAIC00MSwxNCArNDEsMTMgQEAgc3RydWN0IGFtZF92Y2Vf
+c3RhdGUgewo+ID7CoAo+ID7CoCBlbnVtIGFtZF9kcG1fZm9yY2VkX2xldmVsIHsKPiA+wqDCoMKg
+wqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxfQVVUTyA9IDB4MSwKPiA+IC3CoMKgwqDCoCBB
+TURfRFBNX0ZPUkNFRF9MRVZFTF9NQU5VQUwgPSAweDIsCj4gPiAtwqDCoMKgwqAgQU1EX0RQTV9G
+T1JDRURfTEVWRUxfTE9XID0gMHg0LAo+ID4gLcKgwqDCoMKgIEFNRF9EUE1fRk9SQ0VEX0xFVkVM
+X0hJR0ggPSAweDgsCj4gPiAtwqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9T
+VEFOREFSRCA9IDB4MTAsCj4gPiAtwqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklM
+RV9NSU5fU0NMSyA9IDB4MjAsCj4gPiAtwqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJP
+RklMRV9NSU5fTUNMSyA9IDB4NDAsCj4gPiAtwqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxf
+UFJPRklMRV9QRUFLID0gMHg4MCwKPiA+IC3CoMKgwqDCoCBBTURfRFBNX0ZPUkNFRF9MRVZFTF9Q
+Uk9GSUxFX0VYSVQgPSAweDEwMCwKPiA+ICvCoMKgwqDCoCBBTURfRFBNX0ZPUkNFRF9MRVZFTF9M
+T1cgPSAweDIsCj4gPiArwqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxfSElHSCA9IDB4NCwK
+PiA+ICvCoMKgwqDCoCBBTURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX1NUQU5EQVJEID0gMHg4
+LAo+ID4gK8KgwqDCoMKgIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfTUlOX1NDTEsgPSAw
+eDEwLAo+ID4gK8KgwqDCoMKgIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfTUlOX01DTEsg
+PSAweDIwLAo+ID4gK8KgwqDCoMKgIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfUEVBSyA9
+IDB4NDAsCj4gPiArwqDCoMKgwqAgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9FWElUID0g
+MHg4MCwKPiA+wqAgfTsKPiA+wqAKPiA+wqAgZW51bSBhbWRfcG1fc3RhdGVfdHlwZSB7Cj4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3Iu
+Ywo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYwo+ID4g
+aW5kZXggZGVjOGRkOS4uNjBkMjgwYyAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmMKPiA+IEBAIC0xMjUwLDcgKzEyNTAsNiBAQCBz
+dGF0aWMgaW50IGN6X2RwbV9mb3JjZV9kcG1fbGV2ZWwoc3RydWN0Cj4gcHBfaHdtZ3IgKmh3bWdy
+LAo+ID7CoMKgwqDCoMKgwqDCoCBjYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX0FVVE86Cj4gPsKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSBjel9waG1fdW5mb3JjZV9kcG1fbGV2
+ZWxzKGh3bWdyKTsKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+ID4g
+LcKgwqDCoMKgIGNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfTUFOVUFMOgo+ID7CoMKgwqDCoMKg
+wqDCoCBjYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfRVhJVDoKPiA+wqDCoMKgwqDC
+oMKgwqAgZGVmYXVsdDoKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+
+ID4gQEAgLTE1NTgsOSArMTU1Nyw2IEBAIHN0YXRpYyBpbnQgY3pfZ2V0X2RhbF9wb3dlcl9sZXZl
+bChzdHJ1Y3QKPiBwcF9od21nciAqaHdtZ3IsCj4gPsKgIHN0YXRpYyBpbnQgY3pfZm9yY2VfY2xv
+Y2tfbGV2ZWwoc3RydWN0IHBwX2h3bWdyICpod21nciwKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGVudW0gcHBfY2xvY2tfdHlwZSB0eXBlLCB1aW50MzJfdCBtYXNrKQo+ID7CoCB7
+Cj4gPiAtwqDCoMKgwqAgaWYgKGh3bWdyLT5kcG1fbGV2ZWwgIT0gQU1EX0RQTV9GT1JDRURfTEVW
+RUxfTUFOVUFMKQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsK
+PiA+IC0KPiA+wqDCoMKgwqDCoMKgwqAgc3dpdGNoICh0eXBlKSB7Cj4gPsKgwqDCoMKgwqDCoMKg
+IGNhc2UgUFBfU0NMSzoKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNtdW1fc2Vu
+ZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmMKPiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmMKPiA+IGluZGV4IDQwOWE1NmIuLmVk
+ZGNiY2QgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci9ydl9od21nci5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci9ydl9od21nci5jCj4gPiBAQCAtNjA1LDcgKzYwNSw2IEBAIHN0YXRpYyBpbnQgcnZfZHBtX2Zv
+cmNlX2RwbV9sZXZlbChzdHJ1Y3QKPiBwcF9od21nciAqaHdtZ3IsCj4gPsKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiBQUFNNQ19NU0dfU2V0U29mdE1heEZjbGtCeUZyZXEs
+Cj4gPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiBSQVZFTl9VTURfUFNU
+QVRFX01JTl9GQ0xLKTsKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+
+ID4gLcKgwqDCoMKgIGNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfTUFOVUFMOgo+ID7CoMKgwqDC
+oMKgwqDCoCBjYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfRVhJVDoKPiA+wqDCoMKg
+wqDCoMKgwqAgZGVmYXVsdDoKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFr
+Owo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Nt
+dTdfaHdtZ3IuYwo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19o
+d21nci5jCj4gPiBpbmRleCAxM2RiNzVjLi5lM2E4Mzc0IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCj4gPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPiA+IEBAIC0yNzk4
+LDcgKzI3OTgsNiBAQCBzdGF0aWMgaW50IHNtdTdfZm9yY2VfZHBtX2xldmVsKHN0cnVjdAo+IHBw
+X2h3bWdyICpod21nciwKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNtdTdfZm9y
+Y2VfY2xvY2tfbGV2ZWwoaHdtZ3IsIFBQX01DTEssIDE8PG1jbGtfbWFzayk7Cj4gPsKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzbXU3X2ZvcmNlX2Nsb2NrX2xldmVsKGh3bWdyLCBQUF9Q
+Q0lFLCAxPDxwY2llX21hc2spOwo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJl
+YWs7Cj4gPiAtwqDCoMKgwqAgY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9NQU5VQUw6Cj4gPsKg
+wqDCoMKgwqDCoMKgIGNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9FWElUOgo+ID7C
+oMKgwqDCoMKgwqDCoCBkZWZhdWx0Ogo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+YnJlYWs7Cj4gPiBAQCAtNDMxMSwxMSArNDMxMCw2IEBAIHN0YXRpYyBpbnQgc211N19mb3JjZV9j
+bG9ja19sZXZlbChzdHJ1Y3QKPiBwcF9od21nciAqaHdtZ3IsCj4gPsKgIHsKPiA+wqDCoMKgwqDC
+oMKgwqAgc3RydWN0IHNtdTdfaHdtZ3IgKmRhdGEgPSAoc3RydWN0IHNtdTdfaHdtZ3IgKikoaHdt
+Z3ItPmJhY2tlbmQpOwo+ID7CoAo+ID4gLcKgwqDCoMKgIGlmIChod21nci0+cmVxdWVzdF9kcG1f
+bGV2ZWwgJiAoQU1EX0RQTV9GT1JDRURfTEVWRUxfQVVUTyB8Cj4gPiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX0xPVyB8Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNRF9EUE1f
+Rk9SQ0VEX0xFVkVMX0hJR0gpKQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4g
+LUVJTlZBTDsKPiA+IC0KPiA+wqDCoMKgwqDCoMKgwqAgc3dpdGNoICh0eXBlKSB7Cj4gPsKgwqDC
+oMKgwqDCoMKgIGNhc2UgUFBfU0NMSzoKPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGlmICghZGF0YS0+c2Nsa19kcG1fa2V5X2Rpc2FibGVkKQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+ID4gaW5kZXggNmIy
+ODg5Ni4uODI4Njc3ZSAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+ID4gQEAgLTQyNDEsNyArNDI0MSw2IEBAIHN0
+YXRpYyBpbnQgdmVnYTEwX2RwbV9mb3JjZV9kcG1fbGV2ZWwoc3RydWN0Cj4gcHBfaHdtZ3IgKmh3
+bWdyLAo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdmVnYTEwX2ZvcmNlX2Nsb2Nr
+X2xldmVsKGh3bWdyLCBQUF9TQ0xLLCAxPDxzY2xrX21hc2spOwo+ID7CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgdmVnYTEwX2ZvcmNlX2Nsb2NrX2xldmVsKGh3bWdyLCBQUF9NQ0xLLCAx
+PDxtY2xrX21hc2spOwo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4g
+PiAtwqDCoMKgwqAgY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9NQU5VQUw6Cj4gPsKgwqDCoMKg
+wqDCoMKgIGNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9FWElUOgo+ID7CoMKgwqDC
+oMKgwqDCoCBkZWZhdWx0Ogo+ID7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7
+Cj4gPiBAQCAtNDUwMCwxMSArNDQ5OSw2IEBAIHN0YXRpYyBpbnQgdmVnYTEwX2ZvcmNlX2Nsb2Nr
+X2xldmVsKHN0cnVjdAo+IHBwX2h3bWdyICpod21nciwKPiA+wqAgewo+ID7CoMKgwqDCoMKgwqDC
+oCBzdHJ1Y3QgdmVnYTEwX2h3bWdyICpkYXRhID0gKHN0cnVjdCB2ZWdhMTBfaHdtZ3IKPiAqKSho
+d21nci0+YmFja2VuZCk7Cj4gPsKgCj4gPiAtwqDCoMKgwqAgaWYgKGh3bWdyLT5yZXF1ZXN0X2Rw
+bV9sZXZlbCAmIChBTURfRFBNX0ZPUkNFRF9MRVZFTF9BVVRPIHwKPiA+IC3CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBBTURfRFBNX0ZPUkNF
+RF9MRVZFTF9MT1cgfAo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX0hJR0gpKQo+ID4gLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPiA+IC0KPiA+wqDCoMKgwqDCoMKg
+wqAgc3dpdGNoICh0eXBlKSB7Cj4gPsKgwqDCoMKgwqDCoMKgIGNhc2UgUFBfU0NMSzoKPiA+wqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRhdGEtPnNtY19zdGF0ZV90YWJsZS5nZnhfYm9v
+dF9sZXZlbCA9IG1hc2sgPwo+IChmZnMobWFzaykgLSAxKSA6IDA7Cj4KCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
