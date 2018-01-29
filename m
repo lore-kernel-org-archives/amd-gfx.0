@@ -1,14 +1,16 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 01/13] drm/amdgpu: fix vcn_v1_0_dec_ring_emit_wreg
-Date: Mon, 29 Jan 2018 18:01:41 -0500
-Message-ID: <ccb040a2-27cd-6ff6-45eb-5c81a108c99d@amd.com>
-References: <20180126201326.8829-1-christian.koenig@amd.com>
+From: Min Xu <min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)
+Date: Mon, 29 Jan 2018 15:37:35 -0800
+Message-ID: <CAJKuQOeByxZ2-pDO2dn7pi+tk=tHwbwt8Zrnkt35hX9ZrCPeqQ@mail.gmail.com>
+References: <CAJKuQOfP56P0Zq5kSmMjHAY74x_yTzcsgPbaRZj1h4K=iPBuwQ@mail.gmail.com>
+ <BN6PR12MB134817C964BC95F8D2B05CEAE8E50@BN6PR12MB1348.namprd12.prod.outlook.com>
+ <CAJKuQOcSdHQMWO-v4M84=YrxHnu5GudNtUaN=-JhjAnsQsuVNA@mail.gmail.com>
+ <CAJKuQOf7T7eiSfKrO+Zv4svt7yB==zLVKq6TxuwyMZuG6ehetA@mail.gmail.com>
+ <BN6PR12MB1348049C9670057579BDA50EE8E50@BN6PR12MB1348.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2084712726=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180126201326.8829-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <BN6PR12MB1348049C9670057579BDA50EE8E50-/b2+HYfkarQX0pEhCR5T8QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,67 +21,402 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhpcyBpcyBhIHZlcnkgY29vbCBwYXRjaCBzZXJpZXMuIEkgbWFkZSBzb21lIHNwZWNpZmljIGNv
-bW1lbnRzIG9uIHNvbWUKb2YgdGhlIHBhdGNoZXMuIEJ1dCBvdmVyYWxsIHRoaXMgaXMgZ3JlYXQu
-CgpJIGd1ZXNzIHlvdXIgcGxhbiBpcyB0byBzdGFydCB0ZXN0aW5nIHRoZSBTVk0gcHJvZ3JhbW1p
-bmcgbW9kZWwgd2l0aApBVEMsIGFuZCB0aGVuIGVuYWJsZSB0aGUgc2FtZSBwcm9ncmFtbWluZyBt
-b2RlbCB3aXRob3V0IHRoZSBJT01NVSB1c2luZwpITU0uIFRoYXQgbWVhbnMgdGhlcmUgY291bGQg
-YmUgd29ya2luZyBhbmQgdmFsaWRhdGVkIHRlc3RzIHRvIHJ1biBvbiBITU0uCgpJIHRoaW5rIDQu
-MTYgd2lsbCBnZXQgYW4gSU9NTVV2MiBkcml2ZXIgdGhhdCB3ZSB3b3JrZWQgb24gZm9yIFJhdmVu
-IHRvCnN1cHBvcnQgUFBSIG9uIG5ld2VyIElPTU1VIHZlcnNpb25zLiBXaXRob3V0IHRoYXQgdGhl
-IEdQVSBpcyBub3QgYWJsZSB0bwptYWtlIHN3YXBwZWQgb3IgbmV3IHBhZ2VzIHJlc2lkZW50IG9y
-IHRyaWdnZXIgYSBDT1cuCgpXZSdyZSBjdXJyZW50bHkgc3RpbGwgd29ya2luZyBvbiBvbmUgcHJv
-YmxlbSB3aXRoIFJhdmVuLCByZWxhdGVkIHRvIHRoZQp3YXkgR0ZYOSByZXRyaWVzIG1lbW9yeSBh
-Y2Nlc3Nlcy4gTWFueSBQUFIgcmVxdWVzdHMgZm9yIHRoZSBzYW1lIHZpcnR1YWwKYWRkcmVzcyBj
-YW4gYmUgb3V0c3RhbmRpbmcgKGluIGFuIElPTU1VIGxvZyBidWZmZXIpLiBBZnRlciB0aGUgZmly
-c3QKcmVxdWVzdCBpcyBoYW5kbGVkLCB0aGUgR1BVIGNhbiBjb250aW51ZSwgYnV0IHRoZSByZW1h
-aW5pbmcgcmVxdWVzdHMgYXJlCnN0aWxsIGluIHRoZSBxdWV1ZS4gVGhpcyBjYW4gcmVzdWx0IGlu
-IHRoZSBJT01NVSBkcml2ZXIgdHJ5aW5nIHRvIGhhbmRsZQphIFBQUiBmb3IgYSBwYWdlIHRoYXQn
-cyBhbHJlYWR5IGZyZWVkIGJ5IHRoZSBhcHBsaWNhdGlvbiwgd2hpY2ggdHJpZ2dlcnMKYW4gaW52
-YWxpZCBQUFIgY2FsbGJhY2suCgpBbiBpbnZhbGlkIFBQUiBpcyBsaWtlIHRoZSBHUFUtZXF1aXZh
-bGVudCBvZiBhIHNlZ2ZhdWx0LCBhbmQgS0ZECmltcGxlbWVudHMgaXQgbGlrZSB0aGF0LiBXaXRo
-IHRoZSBhYm92ZSBiZWhhdmlvdXIgd2UgZW5kIHVwIHNlZ2ZhdWx0aW5nCmFwcGxpY2F0aW9ucyB0
-aGF0IGRpZG4ndCBkbyBhbnl0aGluZyB3cm9uZy4gSSBndWVzcyBmb3IgeW91cgppbXBsZW1lbnRh
-dGlvbiBpdCdzIG5vdCBhIHByb2JsZW0gYmVjYXVzZSB5b3UgZG9uJ3QgaW1wbGVtZW50IHRoYXQK
-Y2FsbGJhY2sgeWV0LgoKUmVnYXJkcywKwqAgRmVsaXgKCgpPbiAyMDE4LTAxLTI2IDAzOjEzIFBN
-LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IFRoYXQgZ290IG1peGVkIHVwIHdpdGggdGhlIGVu
-Y29kZSByaW5nIGZ1bmN0aW9uLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92Y25fdjFfMC5jIHwgMTkgKysrKysrKysrKysrKysrKysrLQo+ICAxIGZpbGUgY2hhbmdl
-ZCwgMTggaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92Y25fdjFfMC5jCj4gaW5kZXggNDRjMDQxYTFmZTY4Li4yNGViYzNlMjk2YTYgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKPiBAQCAtODgwLDYgKzg4MCwyMiBA
-QCBzdGF0aWMgdm9pZCB2Y25fdjFfMF9kZWNfcmluZ19lbWl0X3ZtX2ZsdXNoKHN0cnVjdCBhbWRn
-cHVfcmluZyAqcmluZywKPiAgCXZjbl92MV8wX2RlY192bV9yZWdfd2FpdChyaW5nLCBkYXRhMCwg
-ZGF0YTEsIG1hc2spOwo+ICB9Cj4gIAo+ICtzdGF0aWMgdm9pZCB2Y25fdjFfMF9kZWNfcmluZ19l
-bWl0X3dyZWcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+ICsJCQkJCXVpbnQzMl90IHJlZywg
-dWludDMyX3QgdmFsKQo+ICt7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmct
-PmFkZXY7Cj4gKwo+ICsJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywKPiArCQlQQUNLRVQwKFNPQzE1
-X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9HUENPTV9WQ1BVX0RBVEEwKSwgMCkpOwo+ICsJYW1k
-Z3B1X3Jpbmdfd3JpdGUocmluZywgcmVnIDw8IDIpOwo+ICsJYW1kZ3B1X3Jpbmdfd3JpdGUocmlu
-ZywKPiArCQlQQUNLRVQwKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9HUENPTV9WQ1BV
-X0RBVEExKSwgMCkpOwo+ICsJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgdmFsKTsKPiArCWFtZGdw
-dV9yaW5nX3dyaXRlKHJpbmcsCj4gKwkJUEFDS0VUMChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgMCwg
-bW1VVkRfR1BDT01fVkNQVV9DTUQpLCAwKSk7Cj4gKwlhbWRncHVfcmluZ193cml0ZShyaW5nLCBW
-Q05fREVDX0NNRF9XUklURV9SRUcgPDwgMSk7Cj4gK30KPiArCj4gIC8qKgo+ICAgKiB2Y25fdjFf
-MF9lbmNfcmluZ19nZXRfcnB0ciAtIGdldCBlbmMgcmVhZCBwb2ludGVyCj4gICAqCj4gQEAgLTEw
-OTcsNyArMTExMyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgdmNu
-X3YxXzBfZGVjX3Jpbmdfdm1fZnVuY3MgPSB7Cj4gIAkucGFkX2liID0gYW1kZ3B1X3JpbmdfZ2Vu
-ZXJpY19wYWRfaWIsCj4gIAkuYmVnaW5fdXNlID0gYW1kZ3B1X3Zjbl9yaW5nX2JlZ2luX3VzZSwK
-PiAgCS5lbmRfdXNlID0gYW1kZ3B1X3Zjbl9yaW5nX2VuZF91c2UsCj4gLQkuZW1pdF93cmVnID0g
-dmNuX3YxXzBfZW5jX3JpbmdfZW1pdF93cmVnLAo+ICsJLmVtaXRfd3JlZyA9IHZjbl92MV8wX2Rl
-Y19yaW5nX2VtaXRfd3JlZywKPiAgfTsKPiAgCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1
-X3JpbmdfZnVuY3MgdmNuX3YxXzBfZW5jX3Jpbmdfdm1fZnVuY3MgPSB7Cj4gQEAgLTExMjQsNiAr
-MTE0MCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgdmNuX3YxXzBf
-ZW5jX3Jpbmdfdm1fZnVuY3MgPSB7Cj4gIAkucGFkX2liID0gYW1kZ3B1X3JpbmdfZ2VuZXJpY19w
-YWRfaWIsCj4gIAkuYmVnaW5fdXNlID0gYW1kZ3B1X3Zjbl9yaW5nX2JlZ2luX3VzZSwKPiAgCS5l
-bmRfdXNlID0gYW1kZ3B1X3Zjbl9yaW5nX2VuZF91c2UsCj4gKwkuZW1pdF93cmVnID0gdmNuX3Yx
-XzBfZW5jX3JpbmdfZW1pdF93cmVnLAo+ICB9Owo+ICAKPiAgc3RhdGljIHZvaWQgdmNuX3YxXzBf
-c2V0X2RlY19yaW5nX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============2084712726==
+Content-Type: multipart/alternative; boundary="94eb2c149f50253fe40563f2bbc1"
+
+--94eb2c149f50253fe40563f2bbc1
+Content-Type: text/plain; charset="UTF-8"
+
+Thanks so much! I added the two DC kernel configures and it is working now!
+This so great!
+
+Thanks again!
+
+On Mon, Jan 29, 2018 at 12:08 PM, Bridgman, John <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+wrote:
+
+> Yes, please file a bugzilla ticket and attach dmesg output.
+>
+>
+>
+> *From:* Min Xu [mailto:min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+> *Sent:* Monday, January 29, 2018 3:04 PM
+> *To:* Bridgman, John
+> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)
+>
+>
+>
+> Thanks for explaining that firmware is not permanently loaded. Then, I
+> have no ideas. Do you need my dmesg output?
+>
+>
+>
+> On Mon, Jan 29, 2018 at 12:02 PM, Min Xu <min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+>
+> I am running archlinux, the firmware version is very new:
+>
+>
+>
+> linux-firmware-20180119.2a713be-1
+>
+>
+>
+>
+>
+> On Mon, Jan 29, 2018 at 12:01 PM, Bridgman, John <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+> wrote:
+>
+> Microcode for the GPU hardware blocks is not permanently updated in the
+> chip, but rather is loaded at power-up. Usually the files will be
+> distributed via a package with a name like linux-firmware.
+>
+>
+>
+> I didn't see a mention of which distro/version you are using but along
+> with new kernel you will need a relatively new version of linux-firmware.
+>
+>
+>
+> *From:* amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] *On Behalf
+> Of *Min Xu
+> *Sent:* Monday, January 29, 2018 2:57 PM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)
+>
+>
+>
+> Dear AMD GFX developers,
+>
+>
+>
+> I just got a HP Envy x360 laptop and I am trying to run linux on it. I
+> want to first thank you all for the great work on the amdgpu driver.
+> Without it, people like me wants to run Linux would be stuck with windows.
+>
+>
+>
+> I suspect that my issue is a new issue that hasn't been reported before,
+> therefore, I am writing to you to see if there indeed is a new issue and
+> whether there is a workaround.
+>
+>
+>
+> I have compiled the latest kernel from the amd-staging-drm-next branch
+> last night. I think the kernel "works" with my GPU. The previous two
+> kernels I tried (4.14 and 4.15 final release) either doesn't support this
+> card or just simply hang the system most of the time.
+>
+>
+>
+> The issue I have is that the graphic card seems to never switch to the
+> high resolution mode of the monitor. The kernel would boot with the default
+> 800x600 VGA graphics and then stuck. The monitor continuous to display the
+> content written to the 800x600 console (some kernel booting messages) after
+> amdgpu takes over. I can see from kernel dmesg the amdgpu driver found my
+> card and initialized it and seems to be all happy about it. Yet, nothing
+> new is displayed on the monitor. The monitor just stuck at the content of
+> the 800x600 graphics.
+>
+>
+>
+> The keyboard works in this situation. Kernel is alive and I can reboot it
+> by pressing <ctrl>+<alt>+<del> and I saw from the log file the system
+> restarts just fine.
+>
+>
+>
+> I have tried different noobs of the amdgpu driver, like
+> amdgpu.exp_hw_support=1, si_support=0, etc. Nothing seems to work. I just
+> stuck with not able to switch to 1920x1080.
+>
+>
+>
+> I suspect that this is related to my firmware version. I confirmed the
+> latest firmware is installed on my /usr/lib/firmware/ dir. The reason I
+> suspect that it is a firmware issue is that I got the machine just 2 days
+> ago and I have updated windows 10 to build 1709, which is very new. I
+> suspect that windows have updated the GPU's firmware and the linux driver
+> isn't working with it. If so, is there a way to force a firmware load from
+> the linux side (i.e. a downgrade).
+>
+>
+>
+> Other users on the internet has report success with this particular
+> machine with 4.15 kernel. Given that 4.15 doesn't work for me, the only
+> thing that I could think of is the firmware version.
+>
+>
+>
+> Any other ideas?
+>
+>
+>
+>
+>
+> Thanks a lot,
+>
+> Min
+>
+>
+>
+>
+>
+>
+>
+
+--94eb2c149f50253fe40563f2bbc1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks so much! I added the two DC kernel configures and i=
+t is working now! This so great!<div><br></div><div>Thanks again!</div></di=
+v><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Mon, Jan 29,=
+ 2018 at 12:08 PM, Bridgman, John <span dir=3D"ltr">&lt;<a href=3D"mailto:J=
+ohn.Bridgman-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">John.Bridgman-5C7GfCeVMHo@public.gmane.org</a>&gt;</span=
+> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"m_-4398311252889693486WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Yes, please file a bugzil=
+la ticket and attach dmesg output.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Min Xu [=
+mailto:<a href=3D"mailto:min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">min.xu.=
+public@gmail.<wbr>com</a>]
+<br>
+<b>Sent:</b> Monday, January 29, 2018 3:04 PM<span class=3D""><br>
+<b>To:</b> Bridgman, John<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+</span><b>Subject:</b> Re: Strange issue on Vega 8 Mobile (HP Envy x360 Lap=
+top)<u></u><u></u></span></p>
+</div>
+</div><div><div class=3D"h5">
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">Thanks for explaining that firmware is not permanent=
+ly loaded. Then, I have no ideas. Do you need my dmesg output?<u></u><u></u=
+></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">On Mon, Jan 29, 2018 at 12:02 PM, Min Xu &lt;<a href=
+=3D"mailto:min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">min.xu.public@gmail.c=
+om</a>&gt; wrote:<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">I am running archlinux, the firmware version is very=
+ new:<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">linux-firmware-20180119.<wbr>2a713be-1<u></u><u></u>=
+</p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">On Mon, Jan 29, 2018 at 12:01 PM, Bridgman, John &lt=
+;<a href=3D"mailto:John.Bridgman-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">John.Bridgman@a=
+md.com</a>&gt; wrote:<u></u><u></u></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Microcode for the GPU har=
+dware blocks is not permanently updated in the chip, but rather is loaded
+ at power-up. Usually the files will be distributed via a package with a na=
+me like linux-firmware.
+</span><u></u><u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span><u></u><u></=
+u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">I didn&#39;t see a mentio=
+n of which distro/version you are using but along with new kernel you will =
+need
+ a relatively new version of linux-firmware.</span><u></u><u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span><u></u><u></=
+u></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
+[mailto:<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"=
+_blank">amd-gfx-bounces@lists.<wbr>freedesktop.org</a>]
+<b>On Behalf Of </b>Min Xu<br>
+<b>Sent:</b> Monday, January 29, 2018 2:57 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)</span>=
+<u></u><u></u></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">Dear AMD GFX developers,<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I just got a HP Envy x360 laptop and I am trying to =
+run linux on it. I want to first thank you all for the great work on the am=
+dgpu driver. Without it, people like me wants to run
+ Linux would be stuck with windows.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I suspect that my issue is a new issue that hasn&#39=
+;t been reported before, therefore, I am writing to you to see if there ind=
+eed is a new issue and whether there is a workaround.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I have compiled the latest kernel from the amd-stagi=
+ng-drm-next branch last night. I think the kernel &quot;works&quot; with my=
+ GPU. The previous two kernels I tried (4.14 and 4.15 final
+ release) either doesn&#39;t support this card or just simply hang the syst=
+em most of the time.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">The issue I have is that the graphic card seems to n=
+ever switch to the high resolution mode of the monitor. The kernel would bo=
+ot with the default 800x600 VGA graphics and then
+ stuck. The monitor continuous to display the content written to the 800x60=
+0 console (some kernel booting messages) after amdgpu takes over. I can see=
+ from kernel dmesg the amdgpu driver found my card and initialized it and s=
+eems to be all happy about it. Yet,
+ nothing new is displayed on the monitor. The monitor just stuck at the con=
+tent of the 800x600 graphics.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">The keyboard works in this situation. Kernel is aliv=
+e and I can reboot it by pressing &lt;ctrl&gt;+&lt;alt&gt;+&lt;del&gt; and =
+I saw from the log file the system restarts just fine.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I have tried different noobs of the amdgpu driver, l=
+ike amdgpu.exp_hw_support=3D1, si_support=3D0, etc. Nothing seems to work. =
+I just stuck with not able to switch to 1920x1080.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I suspect that this is related to my firmware versio=
+n. I confirmed the latest firmware is installed on my /usr/lib/firmware/ di=
+r. The reason I suspect that it is a firmware issue
+ is that I got the machine just 2 days ago and I have updated windows 10 to=
+ build 1709, which is very new. I suspect that windows have updated the GPU=
+&#39;s firmware and the linux driver isn&#39;t working with it. If so, is t=
+here a way to force a firmware load from
+ the linux side (i.e. a downgrade).<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Other users on the internet has report success with =
+this particular machine with 4.15 kernel. Given that 4.15 doesn&#39;t work =
+for me, the only thing that I could think of is the firmware
+ version.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Any other ideas?<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thanks a lot,<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Min<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+</div></div></div>
+</div>
+</div>
+
+</blockquote></div><br></div>
+
+--94eb2c149f50253fe40563f2bbc1--
+
+--===============2084712726==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2084712726==--
