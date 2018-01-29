@@ -1,47 +1,155 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 01/12] drm/ttm: Fix 'buf' pointer update in
- ttm_bo_vm_access_kmap() (v2)
-Date: Mon, 29 Jan 2018 15:39:00 +0100
-Message-ID: <ae578edc-835c-9a12-8eef-e53b10648fad@gmail.com>
-References: <20180129135513.22538-1-tom.stdenis@amd.com>
- <20180129135513.22538-2-tom.stdenis@amd.com>
- <8aa2cc49-8935-cb59-9f2a-97d8ad422959@daenzer.net>
-Reply-To: christian.koenig@amd.com
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: disable coarse grain clockgating for ST
+Date: Mon, 29 Jan 2018 14:52:14 +0000
+Message-ID: <BN6PR12MB16529C7F8ACD0AF0C1225A5CF7E50@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1516854622-9227-1-git-send-email-shirish.s12@gmail.com>,
+ <BN6PR12MB182641C9629DD1AEADBD3188F2E10@BN6PR12MB1826.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <8aa2cc49-8935-cb59-9f2a-97d8ad422959@daenzer.net>
+Content-Type: multipart/mixed; boundary="===============0204560488=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN6PR12MB182641C9629DD1AEADBD3188F2E10-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, Tom St Denis <tom.stdenis@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjkuMDEuMjAxOCB1bSAxNTozMSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDIwMTgt
-MDEtMjkgMDI6NTUgUE0sIFRvbSBTdCBEZW5pcyB3cm90ZToKPj4gVGhlIGJ1ZiBwb2ludGVyIHdh
-cyBub3QgYmVpbmcgaW5jcmVtZW50ZWQgaW5zaWRlIHRoZSBsb29wCj4+IG1lYW5pbmcgdGhlIHNh
-bWUgYmxvY2sgb2YgZGF0YSB3b3VsZCBiZSByZWFkIG9yIHdyaXR0ZW4KPj4gcmVwZWF0ZWRseS4K
-Pj4KPj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgo+
-PiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-Pgo+IFBsZWFzZSBhZGQ6Cj4KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+IEZpeGVzOiAw
-OWFjNGZjYjNmMjUgKCJkcm0vdHRtOiBJbXBsZW1lbnQgdm1fb3BlcmF0aW9uc19zdHJ1Y3QuYWNj
-ZXNzIHYyIikKCldoYXQgTWljaGVsIG1lYW50IGhlcmUgaXMgdGhhdCB5b3Ugc2hvdWxkIGFkZCB0
-aGUgIkNjOiAiIGFuZCAiRml4ZXM6ICIgCnRhZ3MgdG8gdGhlIGNvbW1pdCBtZXNzYWdlIGFuZCBO
-T1Qgc2VuZCBpdCBtYW51YWxseSB0byAKc3RhYmxlQHZnZXIua2VybmVsLm9yZy4KClRoZSAiQ2M6
-IiB0YWcgcmVzdWx0cyBpbiBhdXRvbWF0aWNhbGx5IGJhY2twb3J0aW5nIG9mIHRoZSBwYXRjaCB0
-byAKc3RhYmxlIGtlcm5lbHMuIE1hbnVhbGx5IHNlbmRpbmcgYSBwYXRjaCB0byBzdGFibGVAdmdl
-ci5rZXJuZWwub3JnIGlzIApvbmx5IG5lY2Vzc2FyeSB3aGVuIHRoZSBhdXRvbWF0ZWQgYmFja3Bv
-cnQgZG9lc24ndCB3b3JrLgoKQ2hyaXN0aWFuLgoKPgo+IHNvIHRoYXQgaXQnbGwgZ2V0IGJhY2tw
-b3J0ZWQgdG8gdGhlIHJlbGV2YW50IHN0YWJsZSBicmFuY2hlcy4KPgo+CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0
-CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+--===============0204560488==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB16529C7F8ACD0AF0C1225A5CF7E50BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB16529C7F8ACD0AF0C1225A5CF7E50BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: S, Shirish
+Sent: Wednesday, January 24, 2018 11:32:56 PM
+To: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH] drm/amdgpu: disable coarse grain clockgating for ST
+
+
+From: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+
+The CGCG feature on Stoney is causing GFX related issues such as freezes
+and blank outs.
+
+Signed-off-by: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vi.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c
+b/drivers/gpu/drm/amd/amdgpu/vi.c index 3b66e1a..ebfac67 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1045,7 +1045,6 @@ static int vi_common_early_init(void *handle)
+                         AMD_CG_SUPPORT_GFX_CP_LS |
+                         AMD_CG_SUPPORT_GFX_CGTS |
+                         AMD_CG_SUPPORT_GFX_CGTS_LS |
+-                       AMD_CG_SUPPORT_GFX_CGCG |
+                         AMD_CG_SUPPORT_GFX_CGLS |
+                         AMD_CG_SUPPORT_BIF_LS |
+                         AMD_CG_SUPPORT_HDP_MGCG |
+--
+2.7.4
+
+
+--_000_BN6PR12MB16529C7F8ACD0AF0C1225A5CF7E50BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> S, Shirish<br>
+<b>Sent:</b> Wednesday, January 24, 2018 11:32:56 PM<br>
+<b>To:</b> Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: disable coarse grain clockgating for ST=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+From: Shirish S &lt;shirish.s-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+The CGCG feature on Stoney is causing GFX related issues such as freezes<br=
+>
+and blank outs.<br>
+<br>
+Signed-off-by: Shirish S &lt;shirish.s-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vi.c | 1 -<br>
+&nbsp;1 file changed, 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+b/drivers/gpu/drm/amd/amdgpu/vi.c index 3b66e1a..ebfac67 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+@@ -1045,7 &#43;1045,6 @@ static int vi_common_early_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_GFX_CP_LS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_GFX_CGTS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_GFX_CGTS_LS |<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_CG_SUPPORT_G=
+FX_CGCG |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_GFX_CGLS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_BIF_LS |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_C=
+G_SUPPORT_HDP_MGCG |<br>
+--<br>
+2.7.4<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB16529C7F8ACD0AF0C1225A5CF7E50BN6PR12MB1652namp_--
+
+--===============0204560488==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0204560488==--
