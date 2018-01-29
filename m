@@ -1,40 +1,50 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 01/12] drm/ttm: Fix 'buf' pointer update in
- ttm_bo_vm_access_kmap() (v2)
-Date: Mon, 29 Jan 2018 15:31:51 +0100
-Message-ID: <8aa2cc49-8935-cb59-9f2a-97d8ad422959@daenzer.net>
-References: <20180129135513.22538-1-tom.stdenis@amd.com>
- <20180129135513.22538-2-tom.stdenis@amd.com>
+From: Tom St Denis <tom.stdenis@amd.com>
+Subject: [PATCH] drm/ttm: Fix 'buf' pointer update in ttm_bo_vm_access_kmap() (v2)
+Date: Mon, 29 Jan 2018 09:34:10 -0500
+Message-ID: <20180129143410.24323-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180129135513.22538-2-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Tom St Denis <tom.stdenis@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wMS0yOSAwMjo1NSBQTSwgVG9tIFN0IERlbmlzIHdyb3RlOgo+IFRoZSBidWYgcG9p
-bnRlciB3YXMgbm90IGJlaW5nIGluY3JlbWVudGVkIGluc2lkZSB0aGUgbG9vcAo+IG1lYW5pbmcg
-dGhlIHNhbWUgYmxvY2sgb2YgZGF0YSB3b3VsZCBiZSByZWFkIG9yIHdyaXR0ZW4KPiByZXBlYXRl
-ZGx5Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNv
-bT4KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
-Y29tPgoKUGxlYXNlIGFkZDoKCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCkZpeGVzOiAwOWFj
-NGZjYjNmMjUgKCJkcm0vdHRtOiBJbXBsZW1lbnQgdm1fb3BlcmF0aW9uc19zdHJ1Y3QuYWNjZXNz
-IHYyIikKCnNvIHRoYXQgaXQnbGwgZ2V0IGJhY2twb3J0ZWQgdG8gdGhlIHJlbGV2YW50IHN0YWJs
-ZSBicmFuY2hlcy4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAg
-fCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNp
-YXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+The buf pointer was not being incremented inside the loop
+meaning the same block of data would be read or written
+repeatedly.
+
+Fixes: 09ac4fcb3f25 ("drm/ttm: Implement vm_operations_struct.access v2")
+
+Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+(v2) Change 'buf' pointer to uint8_t* type
+---
+ drivers/gpu/drm/ttm/ttm_bo_vm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+index 08a3c324242e..60fcef1593dd 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+@@ -316,7 +316,7 @@ static void ttm_bo_vm_close(struct vm_area_struct *vma)
+ 
+ static int ttm_bo_vm_access_kmap(struct ttm_buffer_object *bo,
+ 				 unsigned long offset,
+-				 void *buf, int len, int write)
++				 uint8_t *buf, int len, int write)
+ {
+ 	unsigned long page = offset >> PAGE_SHIFT;
+ 	unsigned long bytes_left = len;
+@@ -345,6 +345,7 @@ static int ttm_bo_vm_access_kmap(struct ttm_buffer_object *bo,
+ 		ttm_bo_kunmap(&map);
+ 
+ 		page++;
++		buf += bytes;
+ 		bytes_left -= bytes;
+ 		offset = 0;
+ 	} while (bytes_left);
+-- 
+2.14.3
