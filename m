@@ -1,13 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)
-Date: Mon, 29 Jan 2018 20:06:58 +0000
-Message-ID: <BN6PR12MB165259DBBCB8941EBFA9CBC2F7E50@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)
+Date: Mon, 29 Jan 2018 20:08:33 +0000
+Message-ID: <BN6PR12MB1348049C9670057579BDA50EE8E50@BN6PR12MB1348.namprd12.prod.outlook.com>
 References: <CAJKuQOfP56P0Zq5kSmMjHAY74x_yTzcsgPbaRZj1h4K=iPBuwQ@mail.gmail.com>
  <BN6PR12MB134817C964BC95F8D2B05CEAE8E50@BN6PR12MB1348.namprd12.prod.outlook.com>
- <CAJKuQOcSdHQMWO-v4M84=YrxHnu5GudNtUaN=-JhjAnsQsuVNA@mail.gmail.com>,
+ <CAJKuQOcSdHQMWO-v4M84=YrxHnu5GudNtUaN=-JhjAnsQsuVNA@mail.gmail.com>
  <CAJKuQOf7T7eiSfKrO+Zv4svt7yB==zLVKq6TxuwyMZuG6ehetA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0473026787=="
+Content-Type: multipart/mixed; boundary="===============1276866279=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <CAJKuQOf7T7eiSfKrO+Zv4svt7yB==zLVKq6TxuwyMZuG6ehetA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
@@ -21,379 +21,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Min Xu <min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+To: Min Xu <min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0473026787==
+--===============1276866279==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB165259DBBCB8941EBFA9CBC2F7E50BN6PR12MB1652namp_"
+	boundary="_000_BN6PR12MB1348049C9670057579BDA50EE8E50BN6PR12MB1348namp_"
 
---_000_BN6PR12MB165259DBBCB8941EBFA9CBC2F7E50BN6PR12MB1652namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--_000_BN6PR12MB1348049C9670057579BDA50EE8E50BN6PR12MB1348namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Please file a bug (https://bugs.freedesktop.org) and attach your xorg log (=
-if using X) and your dmesg output along with a description of the problem. =
- Please also specify what GPU you are using.  If this a a Raven system, you=
-'ll need to make sure CONFIG_DRM_AMD_DC_DCN1_0 and CONFIG_DRM_AMD_DC are se=
-t in your kernel config.
+WWVzLCBwbGVhc2UgZmlsZSBhIGJ1Z3ppbGxhIHRpY2tldCBhbmQgYXR0YWNoIGRtZXNnIG91dHB1
+dC4NCg0KRnJvbTogTWluIFh1IFttYWlsdG86bWluLnh1LnB1YmxpY0BnbWFpbC5jb21dDQpTZW50
+OiBNb25kYXksIEphbnVhcnkgMjksIDIwMTggMzowNCBQTQ0KVG86IEJyaWRnbWFuLCBKb2huDQpD
+YzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFJlOiBTdHJhbmdlIGlz
+c3VlIG9uIFZlZ2EgOCBNb2JpbGUgKEhQIEVudnkgeDM2MCBMYXB0b3ApDQoNClRoYW5rcyBmb3Ig
+ZXhwbGFpbmluZyB0aGF0IGZpcm13YXJlIGlzIG5vdCBwZXJtYW5lbnRseSBsb2FkZWQuIFRoZW4s
+IEkgaGF2ZSBubyBpZGVhcy4gRG8geW91IG5lZWQgbXkgZG1lc2cgb3V0cHV0Pw0KDQpPbiBNb24s
+IEphbiAyOSwgMjAxOCBhdCAxMjowMiBQTSwgTWluIFh1IDxtaW4ueHUucHVibGljQGdtYWlsLmNv
+bTxtYWlsdG86bWluLnh1LnB1YmxpY0BnbWFpbC5jb20+PiB3cm90ZToNCkkgYW0gcnVubmluZyBh
+cmNobGludXgsIHRoZSBmaXJtd2FyZSB2ZXJzaW9uIGlzIHZlcnkgbmV3Og0KDQpsaW51eC1maXJt
+d2FyZS0yMDE4MDExOS4yYTcxM2JlLTENCg0KDQpPbiBNb24sIEphbiAyOSwgMjAxOCBhdCAxMjow
+MSBQTSwgQnJpZGdtYW4sIEpvaG4gPEpvaG4uQnJpZGdtYW5AYW1kLmNvbTxtYWlsdG86Sm9obi5C
+cmlkZ21hbkBhbWQuY29tPj4gd3JvdGU6DQpNaWNyb2NvZGUgZm9yIHRoZSBHUFUgaGFyZHdhcmUg
+YmxvY2tzIGlzIG5vdCBwZXJtYW5lbnRseSB1cGRhdGVkIGluIHRoZSBjaGlwLCBidXQgcmF0aGVy
+IGlzIGxvYWRlZCBhdCBwb3dlci11cC4gVXN1YWxseSB0aGUgZmlsZXMgd2lsbCBiZSBkaXN0cmli
+dXRlZCB2aWEgYSBwYWNrYWdlIHdpdGggYSBuYW1lIGxpa2UgbGludXgtZmlybXdhcmUuDQoNCkkg
+ZGlkbid0IHNlZSBhIG1lbnRpb24gb2Ygd2hpY2ggZGlzdHJvL3ZlcnNpb24geW91IGFyZSB1c2lu
+ZyBidXQgYWxvbmcgd2l0aCBuZXcga2VybmVsIHlvdSB3aWxsIG5lZWQgYSByZWxhdGl2ZWx5IG5l
+dyB2ZXJzaW9uIG9mIGxpbnV4LWZpcm13YXJlLg0KDQpGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz5dIE9uIEJlaGFsZiBPZiBNaW4gWHUNClNlbnQ6IE1vbmRh
+eSwgSmFudWFyeSAyOSwgMjAxOCAyOjU3IFBNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KU3ViamVjdDogU3Ry
+YW5nZSBpc3N1ZSBvbiBWZWdhIDggTW9iaWxlIChIUCBFbnZ5IHgzNjAgTGFwdG9wKQ0KDQpEZWFy
+IEFNRCBHRlggZGV2ZWxvcGVycywNCg0KSSBqdXN0IGdvdCBhIEhQIEVudnkgeDM2MCBsYXB0b3Ag
+YW5kIEkgYW0gdHJ5aW5nIHRvIHJ1biBsaW51eCBvbiBpdC4gSSB3YW50IHRvIGZpcnN0IHRoYW5r
+IHlvdSBhbGwgZm9yIHRoZSBncmVhdCB3b3JrIG9uIHRoZSBhbWRncHUgZHJpdmVyLiBXaXRob3V0
+IGl0LCBwZW9wbGUgbGlrZSBtZSB3YW50cyB0byBydW4gTGludXggd291bGQgYmUgc3R1Y2sgd2l0
+aCB3aW5kb3dzLg0KDQpJIHN1c3BlY3QgdGhhdCBteSBpc3N1ZSBpcyBhIG5ldyBpc3N1ZSB0aGF0
+IGhhc24ndCBiZWVuIHJlcG9ydGVkIGJlZm9yZSwgdGhlcmVmb3JlLCBJIGFtIHdyaXRpbmcgdG8g
+eW91IHRvIHNlZSBpZiB0aGVyZSBpbmRlZWQgaXMgYSBuZXcgaXNzdWUgYW5kIHdoZXRoZXIgdGhl
+cmUgaXMgYSB3b3JrYXJvdW5kLg0KDQpJIGhhdmUgY29tcGlsZWQgdGhlIGxhdGVzdCBrZXJuZWwg
+ZnJvbSB0aGUgYW1kLXN0YWdpbmctZHJtLW5leHQgYnJhbmNoIGxhc3QgbmlnaHQuIEkgdGhpbmsg
+dGhlIGtlcm5lbCAid29ya3MiIHdpdGggbXkgR1BVLiBUaGUgcHJldmlvdXMgdHdvIGtlcm5lbHMg
+SSB0cmllZCAoNC4xNCBhbmQgNC4xNSBmaW5hbCByZWxlYXNlKSBlaXRoZXIgZG9lc24ndCBzdXBw
+b3J0IHRoaXMgY2FyZCBvciBqdXN0IHNpbXBseSBoYW5nIHRoZSBzeXN0ZW0gbW9zdCBvZiB0aGUg
+dGltZS4NCg0KVGhlIGlzc3VlIEkgaGF2ZSBpcyB0aGF0IHRoZSBncmFwaGljIGNhcmQgc2VlbXMg
+dG8gbmV2ZXIgc3dpdGNoIHRvIHRoZSBoaWdoIHJlc29sdXRpb24gbW9kZSBvZiB0aGUgbW9uaXRv
+ci4gVGhlIGtlcm5lbCB3b3VsZCBib290IHdpdGggdGhlIGRlZmF1bHQgODAweDYwMCBWR0EgZ3Jh
+cGhpY3MgYW5kIHRoZW4gc3R1Y2suIFRoZSBtb25pdG9yIGNvbnRpbnVvdXMgdG8gZGlzcGxheSB0
+aGUgY29udGVudCB3cml0dGVuIHRvIHRoZSA4MDB4NjAwIGNvbnNvbGUgKHNvbWUga2VybmVsIGJv
+b3RpbmcgbWVzc2FnZXMpIGFmdGVyIGFtZGdwdSB0YWtlcyBvdmVyLiBJIGNhbiBzZWUgZnJvbSBr
+ZXJuZWwgZG1lc2cgdGhlIGFtZGdwdSBkcml2ZXIgZm91bmQgbXkgY2FyZCBhbmQgaW5pdGlhbGl6
+ZWQgaXQgYW5kIHNlZW1zIHRvIGJlIGFsbCBoYXBweSBhYm91dCBpdC4gWWV0LCBub3RoaW5nIG5l
+dyBpcyBkaXNwbGF5ZWQgb24gdGhlIG1vbml0b3IuIFRoZSBtb25pdG9yIGp1c3Qgc3R1Y2sgYXQg
+dGhlIGNvbnRlbnQgb2YgdGhlIDgwMHg2MDAgZ3JhcGhpY3MuDQoNClRoZSBrZXlib2FyZCB3b3Jr
+cyBpbiB0aGlzIHNpdHVhdGlvbi4gS2VybmVsIGlzIGFsaXZlIGFuZCBJIGNhbiByZWJvb3QgaXQg
+YnkgcHJlc3NpbmcgPGN0cmw+KzxhbHQ+KzxkZWw+IGFuZCBJIHNhdyBmcm9tIHRoZSBsb2cgZmls
+ZSB0aGUgc3lzdGVtIHJlc3RhcnRzIGp1c3QgZmluZS4NCg0KSSBoYXZlIHRyaWVkIGRpZmZlcmVu
+dCBub29icyBvZiB0aGUgYW1kZ3B1IGRyaXZlciwgbGlrZSBhbWRncHUuZXhwX2h3X3N1cHBvcnQ9
+MSwgc2lfc3VwcG9ydD0wLCBldGMuIE5vdGhpbmcgc2VlbXMgdG8gd29yay4gSSBqdXN0IHN0dWNr
+IHdpdGggbm90IGFibGUgdG8gc3dpdGNoIHRvIDE5MjB4MTA4MC4NCg0KSSBzdXNwZWN0IHRoYXQg
+dGhpcyBpcyByZWxhdGVkIHRvIG15IGZpcm13YXJlIHZlcnNpb24uIEkgY29uZmlybWVkIHRoZSBs
+YXRlc3QgZmlybXdhcmUgaXMgaW5zdGFsbGVkIG9uIG15IC91c3IvbGliL2Zpcm13YXJlLyBkaXIu
+IFRoZSByZWFzb24gSSBzdXNwZWN0IHRoYXQgaXQgaXMgYSBmaXJtd2FyZSBpc3N1ZSBpcyB0aGF0
+IEkgZ290IHRoZSBtYWNoaW5lIGp1c3QgMiBkYXlzIGFnbyBhbmQgSSBoYXZlIHVwZGF0ZWQgd2lu
+ZG93cyAxMCB0byBidWlsZCAxNzA5LCB3aGljaCBpcyB2ZXJ5IG5ldy4gSSBzdXNwZWN0IHRoYXQg
+d2luZG93cyBoYXZlIHVwZGF0ZWQgdGhlIEdQVSdzIGZpcm13YXJlIGFuZCB0aGUgbGludXggZHJp
+dmVyIGlzbid0IHdvcmtpbmcgd2l0aCBpdC4gSWYgc28sIGlzIHRoZXJlIGEgd2F5IHRvIGZvcmNl
+IGEgZmlybXdhcmUgbG9hZCBmcm9tIHRoZSBsaW51eCBzaWRlIChpLmUuIGEgZG93bmdyYWRlKS4N
+Cg0KT3RoZXIgdXNlcnMgb24gdGhlIGludGVybmV0IGhhcyByZXBvcnQgc3VjY2VzcyB3aXRoIHRo
+aXMgcGFydGljdWxhciBtYWNoaW5lIHdpdGggNC4xNSBrZXJuZWwuIEdpdmVuIHRoYXQgNC4xNSBk
+b2Vzbid0IHdvcmsgZm9yIG1lLCB0aGUgb25seSB0aGluZyB0aGF0IEkgY291bGQgdGhpbmsgb2Yg
+aXMgdGhlIGZpcm13YXJlIHZlcnNpb24uDQoNCkFueSBvdGhlciBpZGVhcz8NCg0KDQpUaGFua3Mg
+YSBsb3QsDQpNaW4NCg0KDQoNCg==
 
+--_000_BN6PR12MB1348049C9670057579BDA50EE8E50BN6PR12MB1348namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Thanks,
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJ
+e2ZvbnQtZmFtaWx5OlRhaG9tYTsNCglwYW5vc2UtMToyIDExIDYgNCAzIDUgNCA0IDIgNDt9DQov
+KiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1z
+b05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNp
+emU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9tYW4iLCJzZXJpZiI7fQ0KYTps
+aW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6
+Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29I
+eXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxl
+Ow0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcC5Nc29BY2V0YXRlLCBsaS5Nc29BY2V0
+YXRlLCBkaXYuTXNvQWNldGF0ZQ0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNvLXN0eWxl
+LWxpbms6IkJhbGxvb24gVGV4dCBDaGFyIjsNCgltYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206
+LjAwMDFwdDsNCglmb250LXNpemU6OC4wcHQ7DQoJZm9udC1mYW1pbHk6IlRhaG9tYSIsInNhbnMt
+c2VyaWYiO30NCnNwYW4uQmFsbG9vblRleHRDaGFyDQoJe21zby1zdHlsZS1uYW1lOiJCYWxsb29u
+IFRleHQgQ2hhciI7DQoJbXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCW1zby1zdHlsZS1saW5rOiJC
+YWxsb29uIFRleHQiOw0KCWZvbnQtZmFtaWx5OiJUYWhvbWEiLCJzYW5zLXNlcmlmIjt9DQpzcGFu
+LkVtYWlsU3R5bGUxOQ0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZh
+bWlseToiQ2FsaWJyaSIsInNhbnMtc2VyaWYiOw0KCWNvbG9yOiMxRjQ5N0Q7fQ0KLk1zb0NocERl
+ZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6IkNhbGli
+cmkiLCJzYW5zLXNlcmlmIjt9DQpAcGFnZSBXb3JkU2VjdGlvbjENCgl7c2l6ZTo4LjVpbiAxMS4w
+aW47DQoJbWFyZ2luOjEuMGluIDEuMGluIDEuMGluIDEuMGluO30NCmRpdi5Xb3JkU2VjdGlvbjEN
+Cgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT48IS0tW2lmIGd0ZSBtc28gOV0+PHht
+bD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNwaWRtYXg9IjEwMjYiIC8+DQo8L3ht
+bD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlbGF5b3V0IHY6
+ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBkYXRhPSIxIiAvPg0KPC9vOnNoYXBl
+bGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0iRU4tVVMiIGxp
+bms9ImJsdWUiIHZsaW5rPSJwdXJwbGUiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFt
+aWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0
+OTdEIj5ZZXMsIHBsZWFzZSBmaWxlIGEgYnVnemlsbGEgdGlja2V0IGFuZCBhdHRhY2ggZG1lc2cg
+b3V0cHV0LjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDss
+JnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwv
+c3Bhbj48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCBibHVl
+IDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQiPg0KPGRpdj4NCjxkaXYgc3R5bGU9ImJv
+cmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0I1QzRERiAxLjBwdDtwYWRkaW5nOjMuMHB0IDBp
+biAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNp
+emU6MTAuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O1RhaG9tYSZxdW90OywmcXVvdDtzYW5zLXNlcmlm
+JnF1b3Q7Ij5Gcm9tOjwvc3Bhbj48L2I+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQ7Zm9u
+dC1mYW1pbHk6JnF1b3Q7VGFob21hJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDsiPiBNaW4g
+WHUgW21haWx0bzptaW4ueHUucHVibGljQGdtYWlsLmNvbV0NCjxicj4NCjxiPlNlbnQ6PC9iPiBN
+b25kYXksIEphbnVhcnkgMjksIDIwMTggMzowNCBQTTxicj4NCjxiPlRvOjwvYj4gQnJpZGdtYW4s
+IEpvaG48YnI+DQo8Yj5DYzo8L2I+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0K
+PGI+U3ViamVjdDo8L2I+IFJlOiBTdHJhbmdlIGlzc3VlIG9uIFZlZ2EgOCBNb2JpbGUgKEhQIEVu
+dnkgeDM2MCBMYXB0b3ApPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPlRoYW5rcyBmb3IgZXhwbGFpbmluZyB0aGF0IGZpcm13YXJlIGlzIG5vdCBw
+ZXJtYW5lbnRseSBsb2FkZWQuIFRoZW4sIEkgaGF2ZSBubyBpZGVhcy4gRG8geW91IG5lZWQgbXkg
+ZG1lc2cgb3V0cHV0PzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+T24gTW9uLCBKYW4gMjksIDIwMTggYXQgMTI6MDIgUE0sIE1pbiBYdSAmbHQ7PGEgaHJlZj0i
+bWFpbHRvOm1pbi54dS5wdWJsaWNAZ21haWwuY29tIiB0YXJnZXQ9Il9ibGFuayI+bWluLnh1LnB1
+YmxpY0BnbWFpbC5jb208L2E+Jmd0OyB3cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj5JIGFtIHJ1bm5pbmcgYXJjaGxpbnV4LCB0aGUgZmlybXdhcmUgdmVy
+c2lvbiBpcyB2ZXJ5IG5ldzo8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPmxpbnV4LWZpcm13YXJlLTIwMTgwMTE5LjJhNzEzYmUtMTxvOnA+PC9vOnA+PC9wPg0K
+PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+
+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+T24g
+TW9uLCBKYW4gMjksIDIwMTggYXQgMTI6MDEgUE0sIEJyaWRnbWFuLCBKb2huICZsdDs8YSBocmVm
+PSJtYWlsdG86Sm9obi5CcmlkZ21hbkBhbWQuY29tIiB0YXJnZXQ9Il9ibGFuayI+Sm9obi5Ccmlk
+Z21hbkBhbWQuY29tPC9hPiZndDsgd3JvdGU6PG86cD48L286cD48L3A+DQo8ZGl2Pg0KPGRpdj4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28t
+bWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9u
+dC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9y
+OiMxRjQ5N0QiPk1pY3JvY29kZSBmb3IgdGhlIEdQVSBoYXJkd2FyZSBibG9ja3MgaXMgbm90IHBl
+cm1hbmVudGx5IHVwZGF0ZWQgaW4gdGhlIGNoaXAsIGJ1dCByYXRoZXIgaXMgbG9hZGVkDQogYXQg
+cG93ZXItdXAuIFVzdWFsbHkgdGhlIGZpbGVzIHdpbGwgYmUgZGlzdHJpYnV0ZWQgdmlhIGEgcGFj
+a2FnZSB3aXRoIGEgbmFtZSBsaWtlIGxpbnV4LWZpcm13YXJlLg0KPC9zcGFuPjxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRv
+O21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7
+Y29sb3I6IzFGNDk3RCI+Jm5ic3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9t
+LWFsdDphdXRvIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVv
+dDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3RCI+SSBk
+aWRuJ3Qgc2VlIGEgbWVudGlvbiBvZiB3aGljaCBkaXN0cm8vdmVyc2lvbiB5b3UgYXJlIHVzaW5n
+IGJ1dCBhbG9uZyB3aXRoIG5ldyBrZXJuZWwgeW91IHdpbGwgbmVlZA0KIGEgcmVsYXRpdmVseSBu
+ZXcgdmVyc2lvbiBvZiBsaW51eC1maXJtd2FyZS48L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdp
+bi1ib3R0b20tYWx0OmF1dG8iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFt
+aWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0
+OTdEIj4mbmJzcDs8L3NwYW4+PG86cD48L286cD48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9u
+ZTtib3JkZXItbGVmdDpzb2xpZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQi
+Pg0KPGRpdj4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0I1QzRE
+RiAxLjBwdDtwYWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+IHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0
+byI+PGI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7VGFo
+b21hJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDsiPkZyb206PC9zcGFuPjwvYj48c3BhbiBz
+dHlsZT0iZm9udC1zaXplOjEwLjBwdDtmb250LWZhbWlseTomcXVvdDtUYWhvbWEmcXVvdDssJnF1
+b3Q7c2Fucy1zZXJpZiZxdW90OyI+IGFtZC1nZnggW21haWx0bzo8YSBocmVmPSJtYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmFtZC1n
+ZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc8L2E+XQ0KPGI+T24gQmVoYWxmIE9mIDwv
+Yj5NaW4gWHU8YnI+DQo8Yj5TZW50OjwvYj4gTW9uZGF5LCBKYW51YXJ5IDI5LCAyMDE4IDI6NTcg
+UE08YnI+DQo8Yj5Ubzo8L2I+IDxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9h
+Pjxicj4NCjxiPlN1YmplY3Q6PC9iPiBTdHJhbmdlIGlzc3VlIG9uIFZlZ2EgOCBNb2JpbGUgKEhQ
+IEVudnkgeDM2MCBMYXB0b3ApPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4N
+CjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9w
+LWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwv
+cD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0
+OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPkRlYXIgQU1EIEdGWCBkZXZlbG9wZXJz
+LDxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28t
+bWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+Jm5ic3A7PG86
+cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPkkganVz
+dCBnb3QgYSBIUCBFbnZ5IHgzNjAgbGFwdG9wIGFuZCBJIGFtIHRyeWluZyB0byBydW4gbGludXgg
+b24gaXQuIEkgd2FudCB0byBmaXJzdCB0aGFuayB5b3UgYWxsIGZvciB0aGUgZ3JlYXQgd29yayBv
+biB0aGUgYW1kZ3B1IGRyaXZlci4gV2l0aG91dCBpdCwgcGVvcGxlIGxpa2UgbWUgd2FudHMgdG8g
+cnVuDQogTGludXggd291bGQgYmUgc3R1Y2sgd2l0aCB3aW5kb3dzLjxvOnA+PC9vOnA+PC9wPg0K
+PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9w
+LWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2lu
+LXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+SSBzdXNwZWN0IHRoYXQg
+bXkgaXNzdWUgaXMgYSBuZXcgaXNzdWUgdGhhdCBoYXNuJ3QgYmVlbiByZXBvcnRlZCBiZWZvcmUs
+IHRoZXJlZm9yZSwgSSBhbSB3cml0aW5nIHRvIHlvdSB0byBzZWUgaWYgdGhlcmUgaW5kZWVkIGlz
+IGEgbmV3IGlzc3VlIGFuZCB3aGV0aGVyIHRoZXJlIGlzIGEgd29ya2Fyb3VuZC48bzpwPjwvbzpw
+PjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFy
+Z2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+Jm5ic3A7PG86cD48
+L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNv
+LW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPkkgaGF2ZSBj
+b21waWxlZCB0aGUgbGF0ZXN0IGtlcm5lbCBmcm9tIHRoZSBhbWQtc3RhZ2luZy1kcm0tbmV4dCBi
+cmFuY2ggbGFzdCBuaWdodC4gSSB0aGluayB0aGUga2VybmVsICZxdW90O3dvcmtzJnF1b3Q7IHdp
+dGggbXkgR1BVLiBUaGUgcHJldmlvdXMgdHdvIGtlcm5lbHMgSSB0cmllZCAoNC4xNCBhbmQgNC4x
+NSBmaW5hbA0KIHJlbGVhc2UpIGVpdGhlciBkb2Vzbid0IHN1cHBvcnQgdGhpcyBjYXJkIG9yIGp1
+c3Qgc2ltcGx5IGhhbmcgdGhlIHN5c3RlbSBtb3N0IG9mIHRoZSB0aW1lLjxvOnA+PC9vOnA+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4t
+dG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpw
+PjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFy
+Z2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+VGhlIGlzc3VlIEkg
+aGF2ZSBpcyB0aGF0IHRoZSBncmFwaGljIGNhcmQgc2VlbXMgdG8gbmV2ZXIgc3dpdGNoIHRvIHRo
+ZSBoaWdoIHJlc29sdXRpb24gbW9kZSBvZiB0aGUgbW9uaXRvci4gVGhlIGtlcm5lbCB3b3VsZCBi
+b290IHdpdGggdGhlIGRlZmF1bHQgODAweDYwMCBWR0EgZ3JhcGhpY3MgYW5kIHRoZW4NCiBzdHVj
+ay4gVGhlIG1vbml0b3IgY29udGludW91cyB0byBkaXNwbGF5IHRoZSBjb250ZW50IHdyaXR0ZW4g
+dG8gdGhlIDgwMHg2MDAgY29uc29sZSAoc29tZSBrZXJuZWwgYm9vdGluZyBtZXNzYWdlcykgYWZ0
+ZXIgYW1kZ3B1IHRha2VzIG92ZXIuIEkgY2FuIHNlZSBmcm9tIGtlcm5lbCBkbWVzZyB0aGUgYW1k
+Z3B1IGRyaXZlciBmb3VuZCBteSBjYXJkIGFuZCBpbml0aWFsaXplZCBpdCBhbmQgc2VlbXMgdG8g
+YmUgYWxsIGhhcHB5IGFib3V0IGl0LiBZZXQsDQogbm90aGluZyBuZXcgaXMgZGlzcGxheWVkIG9u
+IHRoZSBtb25pdG9yLiBUaGUgbW9uaXRvciBqdXN0IHN0dWNrIGF0IHRoZSBjb250ZW50IG9mIHRo
+ZSA4MDB4NjAwIGdyYXBoaWNzLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4t
+Ym90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFy
+Z2luLWJvdHRvbS1hbHQ6YXV0byI+VGhlIGtleWJvYXJkIHdvcmtzIGluIHRoaXMgc2l0dWF0aW9u
+LiBLZXJuZWwgaXMgYWxpdmUgYW5kIEkgY2FuIHJlYm9vdCBpdCBieSBwcmVzc2luZyAmbHQ7Y3Ry
+bCZndDsmIzQzOyZsdDthbHQmZ3Q7JiM0MzsmbHQ7ZGVsJmd0OyBhbmQgSSBzYXcgZnJvbSB0aGUg
+bG9nIGZpbGUgdGhlIHN5c3RlbSByZXN0YXJ0cyBqdXN0IGZpbmUuPG86cD48L286cD48L3A+DQo8
+L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3At
+YWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPiZuYnNwOzxvOnA+PC9vOnA+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4t
+dG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj5JIGhhdmUgdHJpZWQgZGlm
+ZmVyZW50IG5vb2JzIG9mIHRoZSBhbWRncHUgZHJpdmVyLCBsaWtlIGFtZGdwdS5leHBfaHdfc3Vw
+cG9ydD0xLCBzaV9zdXBwb3J0PTAsIGV0Yy4gTm90aGluZyBzZWVtcyB0byB3b3JrLiBJIGp1c3Qg
+c3R1Y2sgd2l0aCBub3QgYWJsZSB0byBzd2l0Y2ggdG8gMTkyMHgxMDgwLjxvOnA+PC9vOnA+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4t
+dG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpw
+PjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFy
+Z2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+SSBzdXNwZWN0IHRo
+YXQgdGhpcyBpcyByZWxhdGVkIHRvIG15IGZpcm13YXJlIHZlcnNpb24uIEkgY29uZmlybWVkIHRo
+ZSBsYXRlc3QgZmlybXdhcmUgaXMgaW5zdGFsbGVkIG9uIG15IC91c3IvbGliL2Zpcm13YXJlLyBk
+aXIuIFRoZSByZWFzb24gSSBzdXNwZWN0IHRoYXQgaXQgaXMgYSBmaXJtd2FyZSBpc3N1ZQ0KIGlz
+IHRoYXQgSSBnb3QgdGhlIG1hY2hpbmUganVzdCAyIGRheXMgYWdvIGFuZCBJIGhhdmUgdXBkYXRl
+ZCB3aW5kb3dzIDEwIHRvIGJ1aWxkIDE3MDksIHdoaWNoIGlzIHZlcnkgbmV3LiBJIHN1c3BlY3Qg
+dGhhdCB3aW5kb3dzIGhhdmUgdXBkYXRlZCB0aGUgR1BVJ3MgZmlybXdhcmUgYW5kIHRoZSBsaW51
+eCBkcml2ZXIgaXNuJ3Qgd29ya2luZyB3aXRoIGl0LiBJZiBzbywgaXMgdGhlcmUgYSB3YXkgdG8g
+Zm9yY2UgYSBmaXJtd2FyZSBsb2FkIGZyb20NCiB0aGUgbGludXggc2lkZSAoaS5lLiBhIGRvd25n
+cmFkZSkuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+IiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1
+dG8iPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFs
+dDphdXRvIj5PdGhlciB1c2VycyBvbiB0aGUgaW50ZXJuZXQgaGFzIHJlcG9ydCBzdWNjZXNzIHdp
+dGggdGhpcyBwYXJ0aWN1bGFyIG1hY2hpbmUgd2l0aCA0LjE1IGtlcm5lbC4gR2l2ZW4gdGhhdCA0
+LjE1IGRvZXNuJ3Qgd29yayBmb3IgbWUsIHRoZSBvbmx5IHRoaW5nIHRoYXQgSSBjb3VsZCB0aGlu
+ayBvZiBpcyB0aGUgZmlybXdhcmUNCiB2ZXJzaW9uLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8
+ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRv
+O21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2
+Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6
+YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+QW55IG90aGVyIGlkZWFzPzxvOnA+PC9v
+OnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1t
+YXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpw
+PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJt
+c28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+Jm5ic3A7
+PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHls
+ZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPlRo
+YW5rcyBhIGxvdCw8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1h
+bHQ6YXV0byI+TWluPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20t
+YWx0OmF1dG8iPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0K
+PC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9k
+aXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
+--_000_BN6PR12MB1348049C9670057579BDA50EE8E50BN6PR12MB1348namp_--
 
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Min Xu <=
-min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, January 29, 2018 3:03:40 PM
-To: Bridgman, John
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)
-
-Thanks for explaining that firmware is not permanently loaded. Then, I have=
- no ideas. Do you need my dmesg output?
-
-On Mon, Jan 29, 2018 at 12:02 PM, Min Xu <min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:mi=
-n.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
-I am running archlinux, the firmware version is very new:
-
-linux-firmware-20180119.2a713be-1
-
-
-On Mon, Jan 29, 2018 at 12:01 PM, Bridgman, John <John.Bridgman-5C7GfCeVMHo@public.gmane.org<mai=
-lto:John.Bridgman-5C7GfCeVMHo@public.gmane.org>> wrote:
-
-Microcode for the GPU hardware blocks is not permanently updated in the chi=
-p, but rather is loaded at power-up. Usually the files will be distributed =
-via a package with a name like linux-firmware.
-
-
-
-I didn't see a mention of which distro/version you are using but along with=
- new kernel you will need a relatively new version of linux-firmware.
-
-
-
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-=
-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>] On Behalf Of Min Xu
-Sent: Monday, January 29, 2018 2:57 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)
-
-
-
-Dear AMD GFX developers,
-
-
-
-I just got a HP Envy x360 laptop and I am trying to run linux on it. I want=
- to first thank you all for the great work on the amdgpu driver. Without it=
-, people like me wants to run Linux would be stuck with windows.
-
-
-
-I suspect that my issue is a new issue that hasn't been reported before, th=
-erefore, I am writing to you to see if there indeed is a new issue and whet=
-her there is a workaround.
-
-
-
-I have compiled the latest kernel from the amd-staging-drm-next branch last=
- night. I think the kernel "works" with my GPU. The previous two kernels I =
-tried (4.14 and 4.15 final release) either doesn't support this card or jus=
-t simply hang the system most of the time.
-
-
-
-The issue I have is that the graphic card seems to never switch to the high=
- resolution mode of the monitor. The kernel would boot with the default 800=
-x600 VGA graphics and then stuck. The monitor continuous to display the con=
-tent written to the 800x600 console (some kernel booting messages) after am=
-dgpu takes over. I can see from kernel dmesg the amdgpu driver found my car=
-d and initialized it and seems to be all happy about it. Yet, nothing new i=
-s displayed on the monitor. The monitor just stuck at the content of the 80=
-0x600 graphics.
-
-
-
-The keyboard works in this situation. Kernel is alive and I can reboot it b=
-y pressing <ctrl>+<alt>+<del> and I saw from the log file the system restar=
-ts just fine.
-
-
-
-I have tried different noobs of the amdgpu driver, like amdgpu.exp_hw_suppo=
-rt=3D1, si_support=3D0, etc. Nothing seems to work. I just stuck with not a=
-ble to switch to 1920x1080.
-
-
-
-I suspect that this is related to my firmware version. I confirmed the late=
-st firmware is installed on my /usr/lib/firmware/ dir. The reason I suspect=
- that it is a firmware issue is that I got the machine just 2 days ago and =
-I have updated windows 10 to build 1709, which is very new. I suspect that =
-windows have updated the GPU's firmware and the linux driver isn't working =
-with it. If so, is there a way to force a firmware load from the linux side=
- (i.e. a downgrade).
-
-
-
-Other users on the internet has report success with this particular machine=
- with 4.15 kernel. Given that 4.15 doesn't work for me, the only thing that=
- I could think of is the firmware version.
-
-
-
-Any other ideas?
-
-
-
-
-
-Thanks a lot,
-
-Min
-
-
-
-
-
---_000_BN6PR12MB165259DBBCB8941EBFA9CBC2F7E50BN6PR12MB1652namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Please file a bug (<a href=3D"htt=
-ps://bugs.freedesktop.org" class=3D"OWAAutoLink" id=3D"LPlnk197565" preview=
-removed=3D"true">https://bugs.freedesktop.org</a>) and attach your xorg log=
- (if using X) and your dmesg output along
- with a description of the problem.&nbsp; Please also specify what GPU you =
-are using.&nbsp; If this a a Raven system, you'll need to make sure&nbsp;<s=
-pan>CONFIG_DRM_AMD_DC_DCN1_0</span> and&nbsp;<span>CONFIG_DRM_AMD_DC are se=
-t in your kernel config.</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Thanks,</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Min Xu &lt;min.xu.public@gmai=
-l.com&gt;<br>
-<b>Sent:</b> Monday, January 29, 2018 3:03:40 PM<br>
-<b>To:</b> Bridgman, John<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"ltr">Thanks for explaining that firmware is not permanently loa=
-ded. Then, I have no ideas. Do you need my dmesg output?</div>
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">On Mon, Jan 29, 2018 at 12:02 PM, Min Xu <span=
- dir=3D"ltr">
-&lt;<a href=3D"mailto:min.xu.public-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">min.xu.pub=
-lic-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br>
-<blockquote class=3D"x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-left=
-:1px #ccc solid; padding-left:1ex">
-<div dir=3D"ltr">I am running archlinux, the firmware version is very new:
-<div><br>
-</div>
-<div>linux-firmware-20180119.<wbr>2a713be-1<br>
-</div>
-<div><br>
-</div>
-</div>
-<div class=3D"x_HOEnZb">
-<div class=3D"x_h5">
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">On Mon, Jan 29, 2018 at 12:01 PM, Bridgman, Jo=
-hn <span dir=3D"ltr">
-&lt;<a href=3D"mailto:John.Bridgman-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">John.Bridgma=
-n@amd.com</a>&gt;</span> wrote:<br>
-<blockquote class=3D"x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-left=
-:1px #ccc solid; padding-left:1ex">
-<div lang=3D"EN-US">
-<div class=3D"x_m_7672285436398560458m_-6995857010834165525WordSection1">
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;; color:#1f497d">Microcode for the GPU=
- hardware blocks is not permanently updated in the chip, but rather is load=
-ed at power-up. Usually the files will be distributed via
- a package with a name like linux-firmware. <u></u><u></u></span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;; color:#1f497d"><u></u>&nbsp;<u></u><=
-/span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;; color:#1f497d">I didn't see a mentio=
-n of which distro/version you are using but along with new kernel you will =
-need a relatively new version of linux-firmware.<u></u><u></u></span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;; color:#1f497d"><u></u>&nbsp;<u></u><=
-/span></p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #b5c4df 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b><span style=3D"font-size:10.0pt; font-family:&q=
-uot;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"fon=
-t-size:10.0pt; font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-=
-gfx [mailto:<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=
-=3D"_blank">amd-gfx-bounces@lists.<wbr>freedesktop.org</a>]
-<b>On Behalf Of </b>Min Xu<br>
-<b>Sent:</b> Monday, January 29, 2018 2:57 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
-k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Strange issue on Vega 8 Mobile (HP Envy x360 Laptop)<u></u>=
-<u></u></span></p>
-</div>
-</div>
-<div>
-<div class=3D"x_m_7672285436398560458h5">
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-<div>
-<p class=3D"x_MsoNormal">Dear AMD GFX developers,<u></u><u></u></p>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">I just got a HP Envy x360 laptop and I am trying t=
-o run linux on it. I want to first thank you all for the great work on the =
-amdgpu driver. Without it, people like me wants to run Linux would be stuck=
- with windows.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">I suspect that my issue is a new issue that hasn't=
- been reported before, therefore, I am writing to you to see if there indee=
-d is a new issue and whether there is a workaround.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">I have compiled the latest kernel from the amd-sta=
-ging-drm-next branch last night. I think the kernel &quot;works&quot; with =
-my GPU. The previous two kernels I tried (4.14 and 4.15 final release) eith=
-er doesn't support this card or just simply
- hang the system most of the time.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">The issue I have is that the graphic card seems to=
- never switch to the high resolution mode of the monitor. The kernel would =
-boot with the default 800x600 VGA graphics and then stuck. The monitor cont=
-inuous to display the content written
- to the 800x600 console (some kernel booting messages) after amdgpu takes o=
-ver. I can see from kernel dmesg the amdgpu driver found my card and initia=
-lized it and seems to be all happy about it. Yet, nothing new is displayed =
-on the monitor. The monitor just
- stuck at the content of the 800x600 graphics.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">The keyboard works in this situation. Kernel is al=
-ive and I can reboot it by pressing &lt;ctrl&gt;&#43;&lt;alt&gt;&#43;&lt;de=
-l&gt; and I saw from the log file the system restarts just fine.<u></u><u><=
-/u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">I have tried different noobs of the amdgpu driver,=
- like amdgpu.exp_hw_support=3D1, si_support=3D0, etc. Nothing seems to work=
-. I just stuck with not able to switch to 1920x1080.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">I suspect that this is related to my firmware vers=
-ion. I confirmed the latest firmware is installed on my /usr/lib/firmware/ =
-dir. The reason I suspect that it is a firmware issue is that I got the mac=
-hine just 2 days ago and I have updated
- windows 10 to build 1709, which is very new. I suspect that windows have u=
-pdated the GPU's firmware and the linux driver isn't working with it. If so=
-, is there a way to force a firmware load from the linux side (i.e. a downg=
-rade).<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Other users on the internet has report success wit=
-h this particular machine with 4.15 kernel. Given that 4.15 doesn't work fo=
-r me, the only thing that I could think of is the firmware version.<u></u><=
-u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Any other ideas?<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Thanks a lot,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Min<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><u></u>&nbsp;<u></u></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<br>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<br>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB165259DBBCB8941EBFA9CBC2F7E50BN6PR12MB1652namp_--
-
---===============0473026787==
+--===============1276866279==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -403,4 +317,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0473026787==--
+--===============1276866279==--
