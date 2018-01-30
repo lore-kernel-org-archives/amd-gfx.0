@@ -1,132 +1,175 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [RFC] Per file OOM badness
-Date: Tue, 30 Jan 2018 16:52:55 +0100
-Message-ID: <628ea4ec-dc2b-12ef-382e-5cb396ad1967@daenzer.net>
-References: <20180118170006.GG6584@dhcp22.suse.cz>
- <20180123152659.GA21817@castle.DHCP.thefacebook.com>
- <20180123153631.GR1526@dhcp22.suse.cz>
- <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
- <20180124092847.GI1526@dhcp22.suse.cz>
- <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
- <20180124110141.GA28465@dhcp22.suse.cz>
- <36b49523-792d-45f9-8617-32b6d9d77418@daenzer.net>
- <20180124115059.GC28465@dhcp22.suse.cz>
- <381a868c-78fd-d0d1-029e-a2cf4ab06d37@gmail.com>
- <20180130093145.GE25930@phenom.ffwll.local>
- <3db43c1a-59b8-af86-2b87-c783c629f512@daenzer.net>
- <3026d8c5-9313-cb8b-91ef-09c02baf27db@amd.com>
- <445628d3-677c-a9f8-171f-7d74a603c61d@daenzer.net>
- <dce6d244-36c7-7452-97f5-7437bd78cfcc@gmail.com>
- <e511ba10-7032-36cc-f22c-2f6bb05f9f6e@daenzer.net>
- <82d5894f-f4ea-98cc-068a-5d470f5267df@gmail.com>
- <aef7f1f3-f7dc-21d5-bf0d-3145e10e2226@daenzer.net>
- <e1ec9d7b-99e3-1e2a-cb47-5e9a0a383703@amd.com>
+From: "Li, Samuel" <Samuel.Li@amd.com>
+Subject: RE: [PATCH v2 1/1] drm: add kernel doc for exported gem dmabuf_ops
+Date: Tue, 30 Jan 2018 16:01:23 +0000
+Message-ID: <BY1PR12MB050461D7634CF49F0432F851F5E40@BY1PR12MB0504.namprd12.prod.outlook.com>
+References: <1516311860-24949-1-git-send-email-Samuel.Li@amd.com>
+ <f364b092-3bbc-2b19-57b2-5f4a2d817de4@gmail.com>
+ <20180130093245.GF25930@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <e1ec9d7b-99e3-1e2a-cb47-5e9a0a383703@amd.com>
-Content-Language: en-CA
-Sender: owner-linux-mm@kvack.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle@gmail.com>, Michal Hocko <mhocko@kernel.org>, Roman Gushchin <guro@fb.com>
-Cc: linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180130093245.GF25930@phenom.ffwll.local>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Daniel Vetter <daniel@ffwll.ch>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2018-01-30 12:56 PM, Christian König wrote:
-> Am 30.01.2018 um 12:42 schrieb Michel Dänzer:
->> On 2018-01-30 12:36 PM, Nicolai Hähnle wrote:
->>> On 30.01.2018 12:34, Michel Dänzer wrote:
->>>> On 2018-01-30 12:28 PM, Christian König wrote:
->>>>> Am 30.01.2018 um 12:02 schrieb Michel Dänzer:
->>>>>> On 2018-01-30 11:40 AM, Christian König wrote:
->>>>>>> Am 30.01.2018 um 10:43 schrieb Michel Dänzer:
->>>>>>>> [SNIP]
->>>>>>>>> Would it be ok to hang onto potentially arbitrary mmget references
->>>>>>>>> essentially forever? If that's ok I think we can do your process
->>>>>>>>> based
->>>>>>>>> account (minus a few minor inaccuracies for shared stuff perhaps,
->>>>>>>>> but no
->>>>>>>>> one cares about that).
->>>>>>>> Honestly, I think you and Christian are overthinking this. Let's
->>>>>>>> try
->>>>>>>> charging the memory to every process which shares a buffer, and go
->>>>>>>> from
->>>>>>>> there.
->>>>>>> My problem is that this needs to be bullet prove.
->>>>>>>
->>>>>>> For example imagine an application which allocates a lot of BOs,
->>>>>>> then
->>>>>>> calls fork() and let the parent process die. The file descriptor
->>>>>>> lives
->>>>>>> on in the child process, but the memory is not accounted against the
->>>>>>> child.
->>>>>> What exactly are you referring to by "the file descriptor" here?
->>>>> The file descriptor used to identify the connection to the driver. In
->>>>> other words our drm_file structure in the kernel.
->>>>>
->>>>>> What happens to BO handles in general in this case? If both parent
->>>>>> and
->>>>>> child process keep the same handle for the same BO, one of them
->>>>>> destroying the handle will result in the other one not being able to
->>>>>> use
->>>>>> it anymore either, won't it?
->>>>> Correct.
->>>>>
->>>>> That usage is actually not useful at all, but we already had
->>>>> applications which did exactly that by accident.
->>>>>
->>>>> Not to mention that somebody could do it on purpose.
->>>> Can we just prevent child processes from using their parent's DRM file
->>>> descriptors altogether? Allowing it seems like a bad idea all around.
->>> Existing protocols pass DRM fds between processes though, don't they?
->>>
->>> Not child processes perhaps, but special-casing that seems like awful
->>> design.
->> Fair enough.
->>
->> Can we disallow passing DRM file descriptors which have any buffers
->> allocated? :)
-> 
-> Hehe good point, but I'm sorry I have to ruin that.
-> 
-> The root VM page table is allocated when the DRM file descriptor is
-> created and we want to account those to whoever uses the file descriptor
-> as well.
-
-Alternatively, since the file descriptor is closed in the sending
-process in this case, maybe we can "uncharge" the buffer memory from the
-sending process and charge it to the receiving one during the transfer?
-
-
-> Looking into the fs layer there actually only seem to be two function
-> which are involved when a file descriptor is installed/removed from a
-> process. So we just need to add some callbacks there.
-
-That could work for file descriptor passing, but I'm not sure it really
-helps for the fork case. Let's say we charge the buffer memory to the
-child process as well. If either process later destroys a buffer handle,
-the buffer becomes inaccessible to the other process as well, however
-its memory remains charged to it (even though it may already be freed).
-
-I think using a DRM file descriptor in both parent and child processes
-is a pathological case that we really want to prevent rather than
-worrying about how to make it work well. It doesn't seem to be working
-well in general already anyway.
-
-
-Maybe we could keep track of which process "owns" a DRM file descriptor,
-and return an error from any relevant system calls for it from another
-process. When passing an fd, its ownership would transfer to the
-receiving process. When forking, the ownership would remain with the
-parent process.
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+CkFsZXggaGVscGVkIHB1c2ggdGhpcyBpbnRvIGRybS10aXAsCmh0dHBzOi8vY2dpdC5mcmVlZGVz
+a3RvcC5vcmcvZHJtL2RybS10aXAvY29tbWl0L2RyaXZlcnMvZ3B1L2RybT9pZD1mN2E3MWIwY2Y5
+ZTM2YzFiMGVkYmZlODljZTAyOGEwMTE2NGI4NjRkCgpUaGFua3MsClNhbXVlbCBMaQoKCj4gLS0t
+LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBEYW5pZWwgVmV0dGVyIFttYWlsdG86ZGFu
+aWVsLnZldHRlckBmZndsbC5jaF0gT24gQmVoYWxmIE9mIERhbmllbAo+IFZldHRlcgo+IFNlbnQ6
+IFR1ZXNkYXksIEphbnVhcnkgMzAsIDIwMTggNDozMyBBTQo+IFRvOiBLb2VuaWcsIENocmlzdGlh
+biA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPgo+IENjOiBMaSwgU2FtdWVsIDxTYW11ZWwuTGlA
+YW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkcmktCj4gZGV2ZWxAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MiAxLzFdIGRybTogYWRk
+IGtlcm5lbCBkb2MgZm9yIGV4cG9ydGVkIGdlbQo+IGRtYWJ1Zl9vcHMKPiAKPiBPbiBGcmksIEph
+biAxOSwgMjAxOCBhdCAwOTo1MToyMEFNICswMTAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+
+ID4gQW0gMTguMDEuMjAxOCB1bSAyMjo0NCBzY2hyaWViIFNhbXVlbCBMaToKPiA+ID4gU2lnbmVk
+LW9mZi1ieTogU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1kLmNvbT4KPiA+ID4gUmV2aWV3ZWQtYnk6
+IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+Cj4gCj4gVGhhbmtzIGZvciB1
+cGRhdGluZyB0aGUgZG9jcy4KPiA+Cj4gPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IAo+IEknbSBhc3N1bWluZyB5b3UnbGwgYWxzIHB1
+c2ggdGhpcyBvbmUuCj4gLURhbmllbAo+IAo+ID4KPiA+ID4gLS0tCj4gPiA+ICAgZHJpdmVycy9n
+cHUvZHJtL2RybV9wcmltZS5jIHwgODgKPiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysKPiA+ID4gICAxIGZpbGUgY2hhbmdlZCwgODggaW5zZXJ0aW9ucygrKQo+
+ID4gPgo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9wcmltZS5jCj4gPiA+
+IGIvZHJpdmVycy9ncHUvZHJtL2RybV9wcmltZS5jIGluZGV4IGNhMDljZTcuLmU4MmE5NzYgMTAw
+NjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYwo+ID4gPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vZHJtX3ByaW1lLmMKPiA+ID4gQEAgLTczLDYgKzczLDkgQEAKPiA+ID4g
+ICAgKiBEcml2ZXJzIHNob3VsZCBkZXRlY3QgdGhpcyBzaXR1YXRpb24gYW5kIHJldHVybiBiYWNr
+IHRoZSBnZW0gb2JqZWN0Cj4gPiA+ICAgICogZnJvbSB0aGUgZG1hLWJ1ZiBwcml2YXRlLiAgUHJp
+bWUgd2lsbCBkbyB0aGlzIGF1dG9tYXRpY2FsbHkgZm9yIGRyaXZlcnMKPiB0aGF0Cj4gPiA+ICAg
+ICogdXNlIHRoZSBkcm1fZ2VtX3ByaW1lX3tpbXBvcnQsZXhwb3J0fSBoZWxwZXJzLgo+ID4gPiAr
+ICoKPiA+ID4gKyAqIEdFTSBzdHJ1Y3QgJmRtYV9idWZfb3BzIHN5bWJvbHMgYXJlIG5vdyBleHBv
+cnRlZC4gVGhleSBjYW4gYmUKPiA+ID4gKyByZXN1ZWQgYnkKPiA+ID4gKyAqIGRyaXZlcnMgd2hp
+Y2ggaW1wbGVtZW50IEdFTSBpbnRlcmZhY2UuCj4gPiA+ICAgICovCj4gPiA+ICAgc3RydWN0IGRy
+bV9wcmltZV9tZW1iZXIgewo+ID4gPiBAQCAtMTgwLDYgKzE4MywxOCBAQCBzdGF0aWMgaW50IGRy
+bV9wcmltZV9sb29rdXBfYnVmX2hhbmRsZShzdHJ1Y3QKPiBkcm1fcHJpbWVfZmlsZV9wcml2YXRl
+ICpwcmltZV9mcHJpCj4gPiA+ICAgCXJldHVybiAtRU5PRU5UOwo+ID4gPiAgIH0KPiA+ID4gKy8q
+Kgo+ID4gPiArICogZHJtX2dlbV9tYXBfYXR0YWNoIC0gZG1hX2J1ZiBhdHRhY2ggaW1wbGVtZW50
+YXRpb24gZm9yIEdFTQo+ID4gPiArICogQGRtYV9idWY6IGJ1ZmZlciB0byBhdHRhY2ggZGV2aWNl
+IHRvCj4gPiA+ICsgKiBAdGFyZ2V0X2Rldjogbm90IHVzZWQKPiA+ID4gKyAqIEBhdHRhY2g6IGJ1
+ZmZlciBhdHRhY2htZW50IGRhdGEKPiA+ID4gKyAqCj4gPiA+ICsgKiBBbGxvY2F0ZXMgJmRybV9w
+cmltZV9hdHRhY2htZW50IGFuZCBjYWxscwo+ID4gPiArJmRybV9kcml2ZXIuZ2VtX3ByaW1lX3Bp
+biBmb3IKPiA+ID4gKyAqIGRldmljZSBzcGVjaWZpYyBhdHRhY2htZW50LiBUaGlzIGNhbiBiZSB1
+c2VkIGFzIHRoZQo+ID4gPiArJmRtYV9idWZfb3BzLmF0dGFjaAo+ID4gPiArICogY2FsbGJhY2su
+Cj4gPiA+ICsgKgo+ID4gPiArICogUmV0dXJucyAwIG9uIHN1Y2Nlc3MsIG5lZ2F0aXZlIGVycm9y
+IGNvZGUgb24gZmFpbHVyZS4KPiA+ID4gKyAqLwo+ID4gPiAgIGludCBkcm1fZ2VtX21hcF9hdHRh
+Y2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHN0cnVjdCBkZXZpY2UKPiAqdGFyZ2V0X2RldiwK
+PiA+ID4gICAJCSAgICAgICBzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gpCj4gPiA+
+ICAgewo+ID4gPiBAQCAtMjAxLDYgKzIxNiwxNCBAQCBpbnQgZHJtX2dlbV9tYXBfYXR0YWNoKHN0
+cnVjdCBkbWFfYnVmCj4gKmRtYV9idWYsIHN0cnVjdCBkZXZpY2UgKnRhcmdldF9kZXYsCj4gPiA+
+ICAgfQo+ID4gPiAgIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9tYXBfYXR0YWNoKTsKPiA+ID4gKy8q
+Kgo+ID4gPiArICogZHJtX2dlbV9tYXBfZGV0YWNoIC0gZG1hX2J1ZiBkZXRhY2ggaW1wbGVtZW50
+YXRpb24gZm9yIEdFTQo+ID4gPiArICogQGRtYV9idWY6IGJ1ZmZlciB0byBkZXRhY2ggZnJvbQo+
+ID4gPiArICogQGF0dGFjaDogYXR0YWNobWVudCB0byBiZSBkZXRhY2hlZAo+ID4gPiArICoKPiA+
+ID4gKyAqIENsZWFucyB1cCAmZG1hX2J1Zl9hdHRhY2htZW50LiBUaGlzIGNhbiBiZSB1c2VkIGFz
+IHRoZQo+ID4gPiArJmRtYV9idWZfb3BzLmRldGFjaAo+ID4gPiArICogY2FsbGJhY2suCj4gPiA+
+ICsgKi8KPiA+ID4gICB2b2lkIGRybV9nZW1fbWFwX2RldGFjaChzdHJ1Y3QgZG1hX2J1ZiAqZG1h
+X2J1ZiwKPiA+ID4gICAJCQlzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gpCj4gPiA+
+ICAgewo+ID4gPiBAQCAtMjU1LDYgKzI3OCwxOCBAQCB2b2lkCj4gZHJtX3ByaW1lX3JlbW92ZV9i
+dWZfaGFuZGxlX2xvY2tlZChzdHJ1Y3QgZHJtX3ByaW1lX2ZpbGVfcHJpdmF0ZQo+ICpwcmltZV9m
+cHIKPiA+ID4gICAJfQo+ID4gPiAgIH0KPiA+ID4gKy8qKgo+ID4gPiArICogZHJtX2dlbV9tYXBf
+ZG1hX2J1ZiAtIG1hcF9kbWFfYnVmIGltcGxlbWVudGF0aW9uIGZvciBHRU0KPiA+ID4gKyAqIEBh
+dHRhY2g6IGF0dGFjaG1lbnQgd2hvc2Ugc2NhdHRlcmxpc3QgaXMgdG8gYmUgcmV0dXJuZWQKPiA+
+ID4gKyAqIEBkaXI6IGRpcmVjdGlvbiBvZiBETUEgdHJhbnNmZXIKPiA+ID4gKyAqCj4gPiA+ICsg
+KiBDYWxscyAmZHJtX2RyaXZlci5nZW1fcHJpbWVfZ2V0X3NnX3RhYmxlIGFuZCB0aGVuIG1hcHMg
+dGhlCj4gPiA+ICtzY2F0dGVybGlzdC4gVGhpcwo+ID4gPiArICogY2FuIGJlIHVzZWQgYXMgdGhl
+ICZkbWFfYnVmX29wcy5tYXBfZG1hX2J1ZiBjYWxsYmFjay4KPiA+ID4gKyAqCj4gPiA+ICsgKiBS
+ZXR1cm5zIHNnX3RhYmxlIGNvbnRhaW5pbmcgdGhlIHNjYXR0ZXJsaXN0IHRvIGJlIHJldHVybmVk
+Owo+ID4gPiArcmV0dXJucyBFUlJfUFRSCj4gPiA+ICsgKiBvbiBlcnJvci4gTWF5IHJldHVybiAt
+RUlOVFIgaWYgaXQgaXMgaW50ZXJydXB0ZWQgYnkgYSBzaWduYWwuCj4gPiA+ICsgKi8KPiA+ID4g
+Kwo+ID4gPiAgIHN0cnVjdCBzZ190YWJsZSAqZHJtX2dlbV9tYXBfZG1hX2J1ZihzdHJ1Y3QgZG1h
+X2J1Zl9hdHRhY2htZW50Cj4gKmF0dGFjaCwKPiA+ID4gICAJCQkJICAgICBlbnVtIGRtYV9kYXRh
+X2RpcmVjdGlvbiBkaXIpCj4gPiA+ICAgewo+ID4gPiBAQCAtMjk0LDYgKzMyOSwxMiBAQCBzdHJ1
+Y3Qgc2dfdGFibGUgKmRybV9nZW1fbWFwX2RtYV9idWYoc3RydWN0Cj4gZG1hX2J1Zl9hdHRhY2ht
+ZW50ICphdHRhY2gsCj4gPiA+ICAgfQo+ID4gPiAgIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9tYXBf
+ZG1hX2J1Zik7Cj4gPiA+ICsvKioKPiA+ID4gKyAqIGRybV9nZW1fdW5tYXBfZG1hX2J1ZiAtIHVu
+bWFwX2RtYV9idWYgaW1wbGVtZW50YXRpb24gZm9yCj4gR0VNCj4gPiA+ICsgKgo+ID4gPiArICog
+Tm90IGltcGxlbWVudGVkLiBUaGUgdW5tYXAgaXMgZG9uZSBhdCBkcm1fZ2VtX21hcF9kZXRhY2go
+KS4KPiA+ID4gK1RoaXMgY2FuIGJlCj4gPiA+ICsgKiB1c2VkIGFzIHRoZSAmZG1hX2J1Zl9vcHMu
+dW5tYXBfZG1hX2J1ZiBjYWxsYmFjay4KPiA+ID4gKyAqLwo+ID4gPiAgIHZvaWQgZHJtX2dlbV91
+bm1hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCwKPiA+ID4gICAJ
+CQkgICBzdHJ1Y3Qgc2dfdGFibGUgKnNndCwKPiA+ID4gICAJCQkgICBlbnVtIGRtYV9kYXRhX2Rp
+cmVjdGlvbiBkaXIpIEBAIC0zNTEsNiArMzkyLDE1Cj4gQEAgdm9pZAo+ID4gPiBkcm1fZ2VtX2Rt
+YWJ1Zl9yZWxlYXNlKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmKQo+ID4gPiAgIH0KPiA+ID4gICBF
+WFBPUlRfU1lNQk9MKGRybV9nZW1fZG1hYnVmX3JlbGVhc2UpOwo+ID4gPiArLyoqCj4gPiA+ICsg
+KiBkcm1fZ2VtX2RtYWJ1Zl92bWFwIC0gZG1hX2J1ZiB2bWFwIGltcGxlbWVudGF0aW9uIGZvciBH
+RU0KPiA+ID4gKyAqIEBkbWFfYnVmOiBidWZmZXIgdG8gYmUgbWFwcGVkCj4gPiA+ICsgKgo+ID4g
+PiArICogU2V0cyB1cCBhIGtlcm5lbCB2aXJ0dWFsIG1hcHBpbmcuIFRoaXMgY2FuIGJlIHVzZWQg
+YXMgdGhlCj4gPiA+ICsmZG1hX2J1Zl9vcHMudm1hcAo+ID4gPiArICogY2FsbGJhY2suCj4gPiA+
+ICsgKgo+ID4gPiArICogUmV0dXJucyB0aGUga2VybmVsIHZpcnR1YWwgYWRkcmVzcy4KPiA+ID4g
+KyAqLwo+ID4gPiAgIHZvaWQgKmRybV9nZW1fZG1hYnVmX3ZtYXAoc3RydWN0IGRtYV9idWYgKmRt
+YV9idWYpCj4gPiA+ICAgewo+ID4gPiAgIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9IGRt
+YV9idWYtPnByaXY7IEBAIC0zNjAsNiArNDEwLDE0Cj4gQEAKPiA+ID4gdm9pZCAqZHJtX2dlbV9k
+bWFidWZfdm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZikKPiA+ID4gICB9Cj4gPiA+ICAgRVhQ
+T1JUX1NZTUJPTChkcm1fZ2VtX2RtYWJ1Zl92bWFwKTsKPiA+ID4gKy8qKgo+ID4gPiArICogZHJt
+X2dlbV9kbWFidWZfdnVubWFwIC0gZG1hX2J1ZiB2dW5tYXAgaW1wbGVtZW50YXRpb24gZm9yCj4g
+R0VNCj4gPiA+ICsgKiBAZG1hX2J1ZjogYnVmZmVyIHRvIGJlIHVubWFwcGVkCj4gPiA+ICsgKiBA
+dmFkZHI6IHRoZSB2aXJ0dWFsIGFkZHJlc3Mgb2YgdGhlIGJ1ZmZlcgo+ID4gPiArICoKPiA+ID4g
+KyAqIFJlbGVhc2VzIGEga2VybmVsIHZpcnR1YWwgbWFwcGluZy4gVGhpcyBjYW4gYmUgdXNlZCBh
+cyB0aGUKPiA+ID4gKyAqICZkbWFfYnVmX29wcy52dW5tYXAgY2FsbGJhY2suCj4gPiA+ICsgKi8K
+PiA+ID4gICB2b2lkIGRybV9nZW1fZG1hYnVmX3Z1bm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1
+Ziwgdm9pZAo+ICp2YWRkcikKPiA+ID4gICB7Cj4gPiA+ICAgCXN0cnVjdCBkcm1fZ2VtX29iamVj
+dCAqb2JqID0gZG1hX2J1Zi0+cHJpdjsgQEAgLTM2OSw2ICs0MjcsMTEKPiBAQAo+ID4gPiB2b2lk
+IGRybV9nZW1fZG1hYnVmX3Z1bm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1Ziwgdm9pZCAqdmFk
+ZHIpCj4gPiA+ICAgfQo+ID4gPiAgIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfdnVubWFw
+KTsKPiA+ID4gKy8qKgo+ID4gPiArICogZHJtX2dlbV9kbWFidWZfa21hcF9hdG9taWMgLSBtYXBf
+YXRvbWljIGltcGxlbWVudGF0aW9uIGZvcgo+IEdFTQo+ID4gPiArICoKPiA+ID4gKyAqIE5vdCBp
+bXBsZW1lbnRlZC4gVGhpcyBjYW4gYmUgdXNlZCBhcyB0aGUKPiAmZG1hX2J1Zl9vcHMubWFwX2F0
+b21pYyBjYWxsYmFjay4KPiA+ID4gKyAqLwo+ID4gPiAgIHZvaWQgKmRybV9nZW1fZG1hYnVmX2tt
+YXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+ID4gPiAgIAkJCQkgdW5zaWduZWQg
+bG9uZyBwYWdlX251bSkKPiA+ID4gICB7Cj4gPiA+IEBAIC0zNzYsNiArNDM5LDExIEBAIHZvaWQg
+KmRybV9nZW1fZG1hYnVmX2ttYXBfYXRvbWljKHN0cnVjdAo+IGRtYV9idWYgKmRtYV9idWYsCj4g
+PiA+ICAgfQo+ID4gPiAgIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfa21hcF9hdG9taWMp
+Owo+ID4gPiArLyoqCj4gPiA+ICsgKiBkcm1fZ2VtX2RtYWJ1Zl9rdW5tYXBfYXRvbWljIC0gdW5t
+YXBfYXRvbWljCj4gaW1wbGVtZW50YXRpb24gZm9yCj4gPiA+ICtHRU0KPiA+ID4gKyAqCj4gPiA+
+ICsgKiBOb3QgaW1wbGVtZW50ZWQuIFRoaXMgY2FuIGJlIHVzZWQgYXMgdGhlCj4gJmRtYV9idWZf
+b3BzLnVubWFwX2F0b21pYyBjYWxsYmFjay4KPiA+ID4gKyAqLwo+ID4gPiAgIHZvaWQgZHJtX2dl
+bV9kbWFidWZfa3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiA+ID4gICAJ
+CQkJICB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtLCB2b2lkICphZGRyKQo+ID4gPiAgIHsKPiA+ID4g
+QEAgLTM4MywxMiArNDUxLDIyIEBAIHZvaWQgZHJtX2dlbV9kbWFidWZfa3VubWFwX2F0b21pYyhz
+dHJ1Y3QKPiBkbWFfYnVmICpkbWFfYnVmLAo+ID4gPiAgIH0KPiA+ID4gICBFWFBPUlRfU1lNQk9M
+KGRybV9nZW1fZG1hYnVmX2t1bm1hcF9hdG9taWMpOwo+ID4gPiArLyoqCj4gPiA+ICsgKiBkcm1f
+Z2VtX2RtYWJ1Zl9rbWFwIC0gbWFwIGltcGxlbWVudGF0aW9uIGZvciBHRU0KPiA+ID4gKyAqCj4g
+PiA+ICsgKiBOb3QgaW1wbGVtZW50ZWQuIFRoaXMgY2FuIGJlIHVzZWQgYXMgdGhlICZkbWFfYnVm
+X29wcy5tYXAKPiBjYWxsYmFjay4KPiA+ID4gKyAqLwo+ID4gPiAgIHZvaWQgKmRybV9nZW1fZG1h
+YnVmX2ttYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHVuc2lnbmVkCj4gbG9uZyBwYWdlX251
+bSkKPiA+ID4gICB7Cj4gPiA+ICAgCXJldHVybiBOVUxMOwo+ID4gPiAgIH0KPiA+ID4gICBFWFBP
+UlRfU1lNQk9MKGRybV9nZW1fZG1hYnVmX2ttYXApOwo+ID4gPiArLyoqCj4gPiA+ICsgKiBkcm1f
+Z2VtX2RtYWJ1Zl9rdW5tYXAgLSB1bm1hcCBpbXBsZW1lbnRhdGlvbiBmb3IgR0VNCj4gPiA+ICsg
+Kgo+ID4gPiArICogTm90IGltcGxlbWVudGVkLiBUaGlzIGNhbiBiZSB1c2VkIGFzIHRoZSAmZG1h
+X2J1Zl9vcHMudW5tYXAKPiBjYWxsYmFjay4KPiA+ID4gKyAqLwo+ID4gPiAgIHZvaWQgZHJtX2dl
+bV9kbWFidWZfa3VubWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCB1bnNpZ25lZAo+IGxvbmcg
+cGFnZV9udW0sCj4gPiA+ICAgCQkJICAgdm9pZCAqYWRkcikKPiA+ID4gICB7Cj4gPiA+IEBAIC0z
+OTYsNiArNDc0LDE2IEBAIHZvaWQgZHJtX2dlbV9kbWFidWZfa3VubWFwKHN0cnVjdAo+IGRtYV9i
+dWYgKmRtYV9idWYsIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0sCj4gPiA+ICAgfQo+ID4gPiAgIEVY
+UE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfa3VubWFwKTsKPiA+ID4gKy8qKgo+ID4gPiArICog
+ZHJtX2dlbV9kbWFidWZfbW1hcCAtIGRtYV9idWYgbW1hcCBpbXBsZW1lbnRhdGlvbiBmb3IKPiBH
+RU0KPiA+ID4gKyAqIEBkbWFfYnVmOiBidWZmZXIgdG8gYmUgbWFwcGVkCj4gPiA+ICsgKiBAdm1h
+OiB2aXJ0dWFsIGFkZHJlc3MgcmFuZ2UKPiA+ID4gKyAqCj4gPiA+ICsgKiBQcm92aWRlcyBtZW1v
+cnkgbWFwcGluZyBmb3IgdGhlIGJ1ZmZlci4gVGhpcyBjYW4gYmUgdXNlZCBhcyB0aGUKPiA+ID4g
+KyAqICZkbWFfYnVmX29wcy5tbWFwIGNhbGxiYWNrLgo+ID4gPiArICoKPiA+ID4gKyAqIFJldHVy
+bnMgMCBvbiBzdWNjZXNzIG9yIGEgbmVnYXRpdmUgZXJyb3IgY29kZSBvbiBmYWlsdXJlLgo+ID4g
+PiArICovCj4gPiA+ICAgaW50IGRybV9nZW1fZG1hYnVmX21tYXAoc3RydWN0IGRtYV9idWYgKmRt
+YV9idWYsIHN0cnVjdAo+IHZtX2FyZWFfc3RydWN0ICp2bWEpCj4gPiA+ICAgewo+ID4gPiAgIAlz
+dHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9IGRtYV9idWYtPnByaXY7Cj4gPgo+ID4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiA+IGRyaS1kZXZlbCBt
+YWlsaW5nIGxpc3QKPiA+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+IGh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCj4gCj4g
+LS0KPiBEYW5pZWwgVmV0dGVyCj4gU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9u
+Cj4gaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vZHJpLWRldmVsCg==
