@@ -1,50 +1,63 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: LLVM 7.0 + Wayland = broken mouse control
-Date: Tue, 30 Jan 2018 11:55:07 +0100
-Message-ID: <fa66db2b-0f75-e139-2fd9-ae42881d82df@daenzer.net>
-References: <CABXGCsMKWxAxDas=s2UxwydOYQ8TyEOCfR=0Mz0zGfgXxsnxcw@mail.gmail.com>
- <188aeb48-741c-0658-32f5-b12d6389b10c@amd.com>
- <BN4PR12MB08811DCADDC96DEDCAF61659F9E20@BN4PR12MB0881.namprd12.prod.outlook.com>
- <1517255915.3374.5.camel@gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [RFC] Per file OOM badness
+Date: Tue, 30 Jan 2018 12:02:26 +0100
+Message-ID: <445628d3-677c-a9f8-171f-7d74a603c61d@daenzer.net>
+References: <20180118170006.GG6584@dhcp22.suse.cz>
+ <20180123152659.GA21817@castle.DHCP.thefacebook.com>
+ <20180123153631.GR1526@dhcp22.suse.cz>
+ <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
+ <20180124092847.GI1526@dhcp22.suse.cz>
+ <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
+ <20180124110141.GA28465@dhcp22.suse.cz>
+ <36b49523-792d-45f9-8617-32b6d9d77418@daenzer.net>
+ <20180124115059.GC28465@dhcp22.suse.cz>
+ <381a868c-78fd-d0d1-029e-a2cf4ab06d37@gmail.com>
+ <20180130093145.GE25930@phenom.ffwll.local>
+ <3db43c1a-59b8-af86-2b87-c783c629f512@daenzer.net>
+ <3026d8c5-9313-cb8b-91ef-09c02baf27db@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1517255915.3374.5.camel-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+In-Reply-To: <3026d8c5-9313-cb8b-91ef-09c02baf27db@amd.com>
 Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: mikhail <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: owner-linux-mm@kvack.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Michal Hocko <mhocko@kernel.org>, Roman Gushchin <guro@fb.com>
+Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-ClsgRHJvcHBpbmcgZ3B1ZHJpdmVyZGV2c3VwcG9ydCwgcGxlYXNlIG5ldmVyIGNyb3NzLXBvc3Qg
-YmV0d2VlbiB0aGF0IGFuZApwdWJsaWMgbWFpbGluZyBsaXN0cyBdCgpPbiAyMDE4LTAxLTI5IDA4
-OjU4IFBNLCBtaWtoYWlsIHdyb3RlOgo+IAo+IE9uIE1vbiwgMjAxOC0wMS0yOSBhdCAxOToxOCAr
-MDEwMCwgTWFyZWsgT2zFocOhayB3cm90ZToKPj4gUGxlYXNlIHJlcG9ydCB0aGlzIGlzc3VlIHRv
-IHRoZSBnbm9tZS1zaGVsbCB0ZWFtLiBnbm9tZS1zaGVsbCBoYXMgYQo+PiBidWcgaW4gaG93IHRo
-ZXkgaGFuZGxlIChvciBpZ25vcmUpIDEwLWJpdHMtcGVyLWNoYW5uZWwgdmlzdWFscy4KPiAKPiBJ
-IGFscmVhZHkgcmVwb3J0ZWQgaGVyZTogCj4gaHR0cHM6Ly9naXRsYWIuZ25vbWUub3JnL0dOT01F
-L211dHRlci9pc3N1ZXMvMgo+IAo+PiBUaGUgd29ya2Fyb3VuZCBpcyB0byBzZXQgdGhlIGVudmly
-b25tZW50IHZhcmlhYmxlCj4+ICJhbGxvd19yZ2IxMF9jb25maWdzPWZhbHNlIiBmb3IgZ25vbWUt
-c2hlbGwuCj4gCj4gSSBhZGRlZCBlbnZpcm9ubWVudCB2YXJpYWJsZSBhcyB5b3Ugc2FpZDoKPiAj
-IGVjaG8gImFsbG93X3JnYjEwX2NvbmZpZ3M9ZmFsc2UiID4gL2V0Yy9wcm9maWxlLmQvZ25vbWUt
-d29ya2Fyb3VuZC5zaAo+IEJ1dCBpdCBub3QgaGVscHMgd29ya2Fyb3VuZCBwcm9ibGVtLgo+IE1h
-eWJlIHdlIG1hZGUgYSBtaXN0YWtlIGluIHRoZSBkaWFnbm9zaXM/Ck5vLCBpdCBqdXN0IG1lYW5z
-IHRoZXJlJ3MgYW4gZXJyb3IgaW4gdGhlIHdheSB5b3UncmUgdHJ5aW5nIHRvIHNldCB0aGUKd29y
-a2Fyb3VuZC4gTWF5YmUgaXQgbmVlZHMgdG8gYmUgImV4cG9ydCBhbGxvd19yZ2IxMF9jb25maWdz
-PWZhbHNlIj8KCllvdSBjYW4gYWxzbyB0cnkgdGhlIG1ldGhvZCBJIGRlc2NyaWJlZCBpbgpodHRw
-czovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD0xMDQ4MDgjYzIgLCBJIHZl
-cmlmaWVkIHRoYXQKdG8gd29yay4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAg
-ICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2Fy
-ZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9w
-ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 2018-01-30 11:40 AM, Christian König wrote:
+> Am 30.01.2018 um 10:43 schrieb Michel Dänzer:
+>> [SNIP]
+>>> Would it be ok to hang onto potentially arbitrary mmget references
+>>> essentially forever? If that's ok I think we can do your process based
+>>> account (minus a few minor inaccuracies for shared stuff perhaps, but no
+>>> one cares about that).
+>> Honestly, I think you and Christian are overthinking this. Let's try
+>> charging the memory to every process which shares a buffer, and go from
+>> there.
+> 
+> My problem is that this needs to be bullet prove.
+> 
+> For example imagine an application which allocates a lot of BOs, then
+> calls fork() and let the parent process die. The file descriptor lives
+> on in the child process, but the memory is not accounted against the child.
+
+What exactly are you referring to by "the file descriptor" here?
+
+
+What happens to BO handles in general in this case? If both parent and
+child process keep the same handle for the same BO, one of them
+destroying the handle will result in the other one not being able to use
+it anymore either, won't it?
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
