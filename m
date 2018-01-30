@@ -1,7 +1,7 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Subject: Re: [RFC] Per file OOM badness
-Date: Tue, 30 Jan 2018 12:42:20 +0100
-Message-ID: <aef7f1f3-f7dc-21d5-bf0d-3145e10e2226@daenzer.net>
+Date: Tue, 30 Jan 2018 12:56:10 +0100
+Message-ID: <e1ec9d7b-99e3-1e2a-cb47-5e9a0a383703@amd.com>
 References: <20180118170006.GG6584@dhcp22.suse.cz>
  <20180123152659.GA21817@castle.DHCP.thefacebook.com>
  <20180123153631.GR1526@dhcp22.suse.cz>
@@ -19,74 +19,84 @@ References: <20180118170006.GG6584@dhcp22.suse.cz>
  <dce6d244-36c7-7452-97f5-7437bd78cfcc@gmail.com>
  <e511ba10-7032-36cc-f22c-2f6bb05f9f6e@daenzer.net>
  <82d5894f-f4ea-98cc-068a-5d470f5267df@gmail.com>
+ <aef7f1f3-f7dc-21d5-bf0d-3145e10e2226@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <82d5894f-f4ea-98cc-068a-5d470f5267df@gmail.com>
-Content-Language: en-CA
+In-Reply-To: <aef7f1f3-f7dc-21d5-bf0d-3145e10e2226@daenzer.net>
+Content-Language: en-US
 Sender: owner-linux-mm@kvack.org
-To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle@gmail.com>, christian.koenig@amd.com, Michal Hocko <mhocko@kernel.org>, Roman Gushchin <guro@fb.com>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle@gmail.com>, Michal Hocko <mhocko@kernel.org>, Roman Gushchin <guro@fb.com>
 Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2018-01-30 12:36 PM, Nicolai Hähnle wrote:
-> On 30.01.2018 12:34, Michel Dänzer wrote:
->> On 2018-01-30 12:28 PM, Christian König wrote:
->>> Am 30.01.2018 um 12:02 schrieb Michel Dänzer:
->>>> On 2018-01-30 11:40 AM, Christian König wrote:
->>>>> Am 30.01.2018 um 10:43 schrieb Michel Dänzer:
->>>>>> [SNIP]
->>>>>>> Would it be ok to hang onto potentially arbitrary mmget references
->>>>>>> essentially forever? If that's ok I think we can do your process
->>>>>>> based
->>>>>>> account (minus a few minor inaccuracies for shared stuff perhaps,
->>>>>>> but no
->>>>>>> one cares about that).
->>>>>> Honestly, I think you and Christian are overthinking this. Let's try
->>>>>> charging the memory to every process which shares a buffer, and go
->>>>>> from
->>>>>> there.
->>>>> My problem is that this needs to be bullet prove.
->>>>>
->>>>> For example imagine an application which allocates a lot of BOs, then
->>>>> calls fork() and let the parent process die. The file descriptor lives
->>>>> on in the child process, but the memory is not accounted against the
->>>>> child.
->>>> What exactly are you referring to by "the file descriptor" here?
->>>
->>> The file descriptor used to identify the connection to the driver. In
->>> other words our drm_file structure in the kernel.
->>>
->>>> What happens to BO handles in general in this case? If both parent and
->>>> child process keep the same handle for the same BO, one of them
->>>> destroying the handle will result in the other one not being able to
->>>> use
->>>> it anymore either, won't it?
->>> Correct.
->>>
->>> That usage is actually not useful at all, but we already had
->>> applications which did exactly that by accident.
->>>
->>> Not to mention that somebody could do it on purpose.
+Am 30.01.2018 um 12:42 schrieb Michel Dänzer:
+> On 2018-01-30 12:36 PM, Nicolai Hähnle wrote:
+>> On 30.01.2018 12:34, Michel Dänzer wrote:
+>>> On 2018-01-30 12:28 PM, Christian König wrote:
+>>>> Am 30.01.2018 um 12:02 schrieb Michel Dänzer:
+>>>>> On 2018-01-30 11:40 AM, Christian König wrote:
+>>>>>> Am 30.01.2018 um 10:43 schrieb Michel Dänzer:
+>>>>>>> [SNIP]
+>>>>>>>> Would it be ok to hang onto potentially arbitrary mmget references
+>>>>>>>> essentially forever? If that's ok I think we can do your process
+>>>>>>>> based
+>>>>>>>> account (minus a few minor inaccuracies for shared stuff perhaps,
+>>>>>>>> but no
+>>>>>>>> one cares about that).
+>>>>>>> Honestly, I think you and Christian are overthinking this. Let's try
+>>>>>>> charging the memory to every process which shares a buffer, and go
+>>>>>>> from
+>>>>>>> there.
+>>>>>> My problem is that this needs to be bullet prove.
+>>>>>>
+>>>>>> For example imagine an application which allocates a lot of BOs, then
+>>>>>> calls fork() and let the parent process die. The file descriptor lives
+>>>>>> on in the child process, but the memory is not accounted against the
+>>>>>> child.
+>>>>> What exactly are you referring to by "the file descriptor" here?
+>>>> The file descriptor used to identify the connection to the driver. In
+>>>> other words our drm_file structure in the kernel.
+>>>>
+>>>>> What happens to BO handles in general in this case? If both parent and
+>>>>> child process keep the same handle for the same BO, one of them
+>>>>> destroying the handle will result in the other one not being able to
+>>>>> use
+>>>>> it anymore either, won't it?
+>>>> Correct.
+>>>>
+>>>> That usage is actually not useful at all, but we already had
+>>>> applications which did exactly that by accident.
+>>>>
+>>>> Not to mention that somebody could do it on purpose.
+>>> Can we just prevent child processes from using their parent's DRM file
+>>> descriptors altogether? Allowing it seems like a bad idea all around.
+>> Existing protocols pass DRM fds between processes though, don't they?
 >>
->> Can we just prevent child processes from using their parent's DRM file
->> descriptors altogether? Allowing it seems like a bad idea all around.
-> 
-> Existing protocols pass DRM fds between processes though, don't they?
-> 
-> Not child processes perhaps, but special-casing that seems like awful
-> design.
+>> Not child processes perhaps, but special-casing that seems like awful
+>> design.
+> Fair enough.
+>
+> Can we disallow passing DRM file descriptors which have any buffers
+> allocated? :)
 
-Fair enough.
+Hehe good point, but I'm sorry I have to ruin that.
 
-Can we disallow passing DRM file descriptors which have any buffers
-allocated? :)
+The root VM page table is allocated when the DRM file descriptor is 
+created and we want to account those to whoever uses the file descriptor 
+as well.
 
+We could now make an exception for the root VM page table to not be 
+accounted (shouldn't be that much compared to the rest of the VM tree), 
+but Nicolai is right all those exceptions are just an awful design :)
 
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
+Looking into the fs layer there actually only seem to be two function 
+which are involved when a file descriptor is installed/removed from a 
+process. So we just need to add some callbacks there.
+
+Regards,
+Christian.
 
 --
 To unsubscribe, send a message with 'unsubscribe linux-mm' in
