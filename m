@@ -1,7 +1,7 @@
-From: Daniel Vetter <daniel@ffwll.ch>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
 Subject: Re: [RFC] Per file OOM badness
-Date: Tue, 30 Jan 2018 11:42:16 +0100
-Message-ID: <20180130104216.GR25930@phenom.ffwll.local>
+Date: Tue, 30 Jan 2018 11:48:06 +0100
+Message-ID: <5c3f8061-d2d2-fa33-faac-cb95e0b2d44b@daenzer.net>
 References: <20180123153631.GR1526@dhcp22.suse.cz>
  <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
  <20180124092847.GI1526@dhcp22.suse.cz>
@@ -12,93 +12,52 @@ References: <20180123153631.GR1526@dhcp22.suse.cz>
  <381a868c-78fd-d0d1-029e-a2cf4ab06d37@gmail.com>
  <20180130093145.GE25930@phenom.ffwll.local>
  <3db43c1a-59b8-af86-2b87-c783c629f512@daenzer.net>
+ <20180130104216.GR25930@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <3db43c1a-59b8-af86-2b87-c783c629f512@daenzer.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, christian.koenig@amd.com, linux-mm@kvack.org, amd-gfx@lists.freedesktop.org, Michal Hocko <mhocko@kernel.org>, Roman Gushchin <guro@fb.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+In-Reply-To: <20180130104216.GR25930@phenom.ffwll.local>
+Content-Language: en-CA
+Sender: owner-linux-mm@kvack.org
+To: christian.koenig@amd.com, Michal Hocko <mhocko@kernel.org>, Roman Gushchin <guro@fb.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBKYW4gMzAsIDIwMTggYXQgMTA6NDM6MTBBTSArMDEwMCwgTWljaGVsIETDpG56ZXIg
-d3JvdGU6Cj4gT24gMjAxOC0wMS0zMCAxMDozMSBBTSwgRGFuaWVsIFZldHRlciB3cm90ZToKPiA+
-IE9uIFdlZCwgSmFuIDI0LCAyMDE4IGF0IDAxOjExOjA5UE0gKzAxMDAsIENocmlzdGlhbiBLw7Zu
-aWcgd3JvdGU6Cj4gPj4gQW0gMjQuMDEuMjAxOCB1bSAxMjo1MCBzY2hyaWViIE1pY2hhbCBIb2Nr
-bzoKPiA+Pj4gT24gV2VkIDI0LTAxLTE4IDEyOjIzOjEwLCBNaWNoZWwgRMOkbnplciB3cm90ZToK
-PiA+Pj4+IE9uIDIwMTgtMDEtMjQgMTI6MDEgUE0sIE1pY2hhbCBIb2NrbyB3cm90ZToKPiA+Pj4+
-PiBPbiBXZWQgMjQtMDEtMTggMTE6Mjc6MTUsIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+ID4+PiBb
-Li4uXQo+ID4+Pj4+PiAyLiBJZiB0aGUgT09NIGtpbGxlciBraWxscyBhIHByb2Nlc3Mgd2hpY2gg
-aXMgc2hhcmluZyBCT3Mgd2l0aCBhbm90aGVyCj4gPj4+Pj4+IHByb2Nlc3MsIHRoaXMgc2hvdWxk
-IHJlc3VsdCBpbiB0aGUgb3RoZXIgcHJvY2VzcyBkcm9wcGluZyBpdHMgcmVmZXJlbmNlcwo+ID4+
-Pj4+PiB0byB0aGUgQk9zIGFzIHdlbGwsIGF0IHdoaWNoIHBvaW50IHRoZSBtZW1vcnkgaXMgcmVs
-ZWFzZWQuCj4gPj4+Pj4gT0suIEhvdyBleGFjdGx5IGFyZSB0aG9zZSBCT3MgbWFwcGVkIHRvIHRo
-ZSB1c2Vyc3BhY2U/Cj4gPj4+PiBJJ20gbm90IHN1cmUgd2hhdCB5b3UncmUgYXNraW5nLiBVc2Vy
-c3BhY2UgbW9zdGx5IHVzZXMgYSBHRU0gaGFuZGxlIHRvCj4gPj4+PiByZWZlciB0byBhIEJPLiBU
-aGVyZSBjYW4gYWxzbyBiZSB1c2Vyc3BhY2UgQ1BVIG1hcHBpbmdzIG9mIHRoZSBCTydzCj4gPj4+
-PiBtZW1vcnksIGJ1dCB1c2Vyc3BhY2UgZG9lc24ndCBuZWVkIENQVSBtYXBwaW5ncyBmb3IgYWxs
-IEJPcyBhbmQgb25seQo+ID4+Pj4gY3JlYXRlcyB0aGVtIGFzIG5lZWRlZC4KPiA+Pj4gT0ssIEkg
-Z3Vlc3MgeW91IGhhdmUgdG8gYmVhciB3aXRoIG1lIHNvbWUgbW9yZS4gVGhpcyB3aG9sZSBzdGFj
-ayBpcyBhCj4gPj4+IGNvbXBsZXRlIHVrbm9ud24uIEkgYW0gbW9zdGx5IGFmdGVyIGZpbmRpbmcg
-YSBib3VuZGFyeSB3aGVyZSB5b3UgY2FuCj4gPj4+IGNoYXJnZSB0aGUgYWxsb2NhdGVkIG1lbW9y
-eSB0byB0aGUgcHJvY2VzcyBzbyB0aGF0IHRoZSBvb20ga2lsbGVyIGNhbgo+ID4+PiBjb25zaWRl
-ciBpdC4gSXMgdGhlcmUgYW55dGhpbmcgbGlrZSB0aGF0PyBFeGNlcHQgZm9yIHRoZSBwcm9wb3Nl
-ZCBmaWxlCj4gPj4+IGhhbmRsZSBoYWNrPwo+ID4+Cj4gPj4gTm90IHRoYXQgSSBrbmV3IG9mLgo+
-ID4+Cj4gPj4gQXMgSSBzYWlkIGJlZm9yZSB3ZSBuZWVkIHNvbWUga2luZCBvZiBjYWxsYmFjayB0
-aGF0IGEgcHJvY2VzcyBub3cgc3RhcnRzIHRvCj4gPj4gdXNlIGEgZmlsZSBkZXNjcmlwdG9yLCBi
-dXQgd2l0aG91dCBhbnl0aGluZyBmcm9tIHRoYXQgZmlsZSBkZXNjcmlwdG9yIG1hcHBlZAo+ID4+
-IGludG8gdGhlIGFkZHJlc3Mgc3BhY2UuCj4gPiAKPiA+IEZvciBtb3JlIGNvbnRleHQ6IFdpdGgg
-RFJJMyBhbmQgd2F5bGFuZCB0aGUgY29tcG9zaXRvciBvcGVucyB0aGUgRFJNIGZkCj4gPiBhbmQg
-dGhlbiBwYXNzZXMgaXQgdG8gdGhlIGNsaWVudCwgd2hpY2ggdGhlbiBzdGFydHMgYWxsb2NhdGlu
-ZyBzdHVmZi4gVGhhdAo+ID4gbWFrZXMgYm9vay1rZWVwaW5nIHJhdGhlciBhbm5veWluZy4KPiAK
-PiBBY3R1YWxseSwgd2hhdCB5b3UncmUgZGVzY3JpYmluZyBpcyBvbmx5IHRydWUgZm9yIHRoZSBi
-dWZmZXJzIHNoYXJlZCBieQo+IGFuIFggc2VydmVyIHdpdGggYW4gWDExIGNvbXBvc2l0b3IuIEZv
-ciB0aGUgYWN0dWFsIGFwcGxpY2F0aW9ucywgdGhlCj4gYnVmZmVycyBhcmUgY3JlYXRlZCBvbiB0
-aGUgY2xpZW50IHNpZGUgYW5kIHRoZW4gc2hhcmVkIHdpdGggdGhlIFggc2VydmVyCj4gLyBXYXls
-YW5kIGNvbXBvc2l0b3IuCj4gCj4gQW55d2F5LCBpdCBkb2Vzbid0IHJlYWxseSBtYXR0ZXIuIElu
-IGFsbCBjYXNlcywgdGhlIGJ1ZmZlcnMgYXJlIGFjdHVhbGx5Cj4gdXNlZCBieSBhbGwgcGFydGll
-cyB0aGF0IGFyZSBzaGFyaW5nIHRoZW0sIHNvIGNoYXJnaW5nIHRoZSBtZW1vcnkgdG8gYWxsCj4g
-b2YgdGhlbSBpcyBwZXJmZWN0bHkgYXBwcm9wcmlhdGUuCj4gCj4gCj4gPiBJIGd1ZXNzIGEgZ29v
-ZCBmaXJzdCBvcmRlciBhcHByb3hpbWF0aW9uIHdvdWxkIGJlIGlmIHdlIHNpbXBseSBjaGFyZ2Ug
-YW55Cj4gPiBuZXdseSBhbGxvY2F0ZWQgYnVmZmVycyB0byB0aGUgcHJvY2VzcyB0aGF0IGNyZWF0
-ZWQgdGhlbSwgYnV0IHRoYXQgbWVhbnMKPiA+IGhhbmdpbmcgb250byBsb3RzIG9mIG1tX3N0cnVj
-dCBwb2ludGVycyBzaW5jZSB3ZSB3YW50IHRvIG1ha2Ugc3VyZSB3ZSB0aGVuCj4gPiByZWxlYXNl
-IHRob3NlIHBhZ2VzIHRvIHRoZSByaWdodCBtbSBhZ2FpbiAoc2luY2UgdGhlIHByb2Nlc3MgdGhh
-dCBkcm9wcwo+ID4gdGhlIGxhc3QgcmVmIG1pZ2h0IGJlIGEgdG90YWxseSBkaWZmZXJlbnQgb25l
-LCBkZXBlbmRpbmcgdXBvbiBob3cgdGhlCj4gPiBidWZmZXJzIG9yIERSTSBmZCBoYXZlIGJlZW4g
-c2hhcmVkKS4KPiA+IAo+ID4gV291bGQgaXQgYmUgb2sgdG8gaGFuZyBvbnRvIHBvdGVudGlhbGx5
-IGFyYml0cmFyeSBtbWdldCByZWZlcmVuY2VzCj4gPiBlc3NlbnRpYWxseSBmb3JldmVyPyBJZiB0
-aGF0J3Mgb2sgSSB0aGluayB3ZSBjYW4gZG8geW91ciBwcm9jZXNzIGJhc2VkCj4gPiBhY2NvdW50
-IChtaW51cyBhIGZldyBtaW5vciBpbmFjY3VyYWNpZXMgZm9yIHNoYXJlZCBzdHVmZiBwZXJoYXBz
-LCBidXQgbm8KPiA+IG9uZSBjYXJlcyBhYm91dCB0aGF0KS4KPiAKPiBIb25lc3RseSwgSSB0aGlu
-ayB5b3UgYW5kIENocmlzdGlhbiBhcmUgb3ZlcnRoaW5raW5nIHRoaXMuIExldCdzIHRyeQo+IGNo
-YXJnaW5nIHRoZSBtZW1vcnkgdG8gZXZlcnkgcHJvY2VzcyB3aGljaCBzaGFyZXMgYSBidWZmZXIs
-IGFuZCBnbyBmcm9tCj4gdGhlcmUuCgpJJ20gbm90IGNvbmNlcm5lZCBhYm91dCB3cm9uZ2x5IGFj
-Y291bnRpbmcgc2hhcmVkIGJ1ZmZlcnMgKHRoZXkgZG9uJ3QKbWF0dGVyKSwgYnV0IGltYmFsYW5j
-ZWQgYWNjb3VudGluZy4gSS5lLiBhbGxvY2F0ZSBhIGJ1ZmZlciBpbiB0aGUgY2xpZW50LApzaGFy
-ZSBpdCwgYnV0IHRoZW4gdGhlIGNvbXBvc2l0b3IgZHJvcHMgdGhlIGxhc3QgcmVmZXJlbmNlLgoK
-SWYgd2Ugc3RvcmUgdGhlIG1tX3N0cnVjdCBwb2ludGVyIGluIGRybV9nZW1fb2JqZWN0LCB3ZSBk
-b24ndCBuZWVkIGFueQpjYWxsYmFjayBmcm9tIHRoZSB2ZnMgd2hlbiBmZHMgYXJlIHNoYXJlZCBv
-ciBhbnl0aGluZyBsaWtlIHRoYXQuIFdlIGNhbgpzaW1wbHkgYWNjb3VudCBhbnkgbmV3bHkgYWxs
-b2NhdGVkIGJ1ZmZlcnMgdG8gdGhlIGN1cnJlbnQtPm1tLCBhbmQgdGhlbgpzdG9yZSB0aGF0IGxh
-dGVyIGZvciBkcm9wcGluZyB0aGUgYWNjb3VudCBmb3Igd2hlbiB0aGUgZ2VtIG9iaiBpcwpyZWxl
-YXNlZC4gVGhpcyB3b3VsZCBlbnRpcmVseSBpZ25vcmUgYW55IGNvbXBsaWNhdGlvbnMgd2l0aCBz
-aGFyZWQKYnVmZmVycywgd2hpY2ggSSB0aGluayB3ZSBjYW4gZG8gYmVjYXVzZSBldmVuIHdoZW4g
-d2UgcGFzcyB0aGUgRFJNIGZkIHRvIGEKZGlmZmVyZW50IHByb2Nlc3MsIHRoZSBhY3R1YWwgYnVm
-ZmVyIGFsbG9jYXRpb25zIGFyZSBub3QgcGFzc2VkIGFyb3VuZApsaWtlIHRoYXQgZm9yIHByaXZh
-dGUgYnVmZmVycy4gQW5kIHByaXZhdGUgYnVmZmVycyBhcmUgdGhlIG9ubHkgb25lcyB0aGF0CnJl
-YWxseSBtYXR0ZXIuCi1EYW5pZWwKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIs
-IEludGVsIENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJp
-LWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+On 2018-01-30 11:42 AM, Daniel Vetter wrote:
+> On Tue, Jan 30, 2018 at 10:43:10AM +0100, Michel Dänzer wrote:
+>> On 2018-01-30 10:31 AM, Daniel Vetter wrote:
+>>
+>>> I guess a good first order approximation would be if we simply charge any
+>>> newly allocated buffers to the process that created them, but that means
+>>> hanging onto lots of mm_struct pointers since we want to make sure we then
+>>> release those pages to the right mm again (since the process that drops
+>>> the last ref might be a totally different one, depending upon how the
+>>> buffers or DRM fd have been shared).
+>>>
+>>> Would it be ok to hang onto potentially arbitrary mmget references
+>>> essentially forever? If that's ok I think we can do your process based
+>>> account (minus a few minor inaccuracies for shared stuff perhaps, but no
+>>> one cares about that).
+>>
+>> Honestly, I think you and Christian are overthinking this. Let's try
+>> charging the memory to every process which shares a buffer, and go from
+>> there.
+> 
+> I'm not concerned about wrongly accounting shared buffers (they don't
+> matter), but imbalanced accounting. I.e. allocate a buffer in the client,
+> share it, but then the compositor drops the last reference.
+
+I don't think the order matters. The memory is "uncharged" in each
+process when it drops its reference.
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
