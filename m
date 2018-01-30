@@ -1,17 +1,17 @@
-From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
-Subject: Re: LLVM 7.0 + Wayland = broken mouse control
-Date: Tue, 30 Jan 2018 16:52:34 +0000
-Message-ID: <CAHbf0-ECicce-r8GbaPGWXxGB2RQr4HwSFkX1hFNjzST4Qf_jw@mail.gmail.com>
-References: <CABXGCsMKWxAxDas=s2UxwydOYQ8TyEOCfR=0Mz0zGfgXxsnxcw@mail.gmail.com>
- <188aeb48-741c-0658-32f5-b12d6389b10c@amd.com>
- <BN4PR12MB08811DCADDC96DEDCAF61659F9E20@BN4PR12MB0881.namprd12.prod.outlook.com>
- <1517255915.3374.5.camel@gmail.com>
- <fa66db2b-0f75-e139-2fd9-ae42881d82df@daenzer.net>
- <1517329672.17945.4.camel@gmail.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 11/13] drm/amdgpu: add DRM_AMDGPU_ATC config option
+Date: Tue, 30 Jan 2018 11:53:46 -0500
+Message-ID: <c39b444b-49a1-771a-65ba-ae37ba643673@amd.com>
+References: <20180126201326.8829-1-christian.koenig@amd.com>
+ <20180126201326.8829-11-christian.koenig@amd.com>
+ <6cf4bd37-fbf1-1fb4-496a-d62e403aea6f@amd.com>
+ <7ebabb2b-1b18-8c7b-626f-d6874bdaac80@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1611916019=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1517329672.17945.4.camel-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <7ebabb2b-1b18-8c7b-626f-d6874bdaac80-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,107 +22,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: mikhail <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1611916019==
-Content-Type: multipart/alternative; boundary="001a1147e9a820b21d056401312c"
-
---001a1147e9a820b21d056401312c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I think you can set it by:
-
-echo "allow_rgb10_configs=3Dfalse" >> /etc/environment
-
-On Tue, 30 Jan 2018 at 16:38 mikhail <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> On Tue, 2018-01-30 at 11:55 +0100, Michel D=C3=A4nzer wrote:
-> >
-> > No, it just means there's an error in the way you're trying to set
-> > the
-> > workaround. Maybe it needs to be "export allow_rgb10_configs=3Dfalse"?
-> >
-> > You can also try the method I described in
-> > https://bugs.freedesktop.org/show_bug.cgi?id=3D104808#c2 , I verified
-> > that
-> > to work.
-> >
->
-> You right, my mistake I forgot add export.
-> Of cource right variant:
-> echo "export allow_rgb10_configs=3Dfalse" > /etc/profile.d/gnome-
-> workaround.sh
->
-> Mouse click now works again with latest llvm and mesa.
-> It is unfortunate I don't know how apply this variable to the login
-> screen (gdm).
->
-> Anyway, thanks.
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---001a1147e9a820b21d056401312c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I think you can set it by:<div><br></div><div>echo &quot;<=
-span style=3D"color:rgb(117,117,117)">allow_rgb10_configs=3Dfalse&quot; &gt=
-;&gt;=C2=A0</span><font color=3D"#757575">/etc/environment</font></div></di=
-v><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Tue, 30 Jan 2018 at 16=
-:38 mikhail &lt;<a href=3D"mailto:mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mikhail.v.g=
-avrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On=
- Tue, 2018-01-30 at 11:55 +0100, Michel D=C3=A4nzer wrote:<br>
-&gt;<br>
-&gt; No, it just means there&#39;s an error in the way you&#39;re trying to=
- set<br>
-&gt; the<br>
-&gt; workaround. Maybe it needs to be &quot;export allow_rgb10_configs=3Dfa=
-lse&quot;?<br>
-&gt;<br>
-&gt; You can also try the method I described in<br>
-&gt; <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D104808#c2" r=
-el=3D"noreferrer" target=3D"_blank">https://bugs.freedesktop.org/show_bug.c=
-gi?id=3D104808#c2</a> , I verified<br>
-&gt; that<br>
-&gt; to work.<br>
-&gt;<br>
-<br>
-You right, my mistake I forgot add export.<br>
-Of cource right variant:<br>
-echo &quot;export allow_rgb10_configs=3Dfalse&quot; &gt; /etc/profile.d/gno=
-me-<br>
-workaround.sh<br>
-<br>
-Mouse click now works again with latest llvm and mesa.<br>
-It is unfortunate I don&#39;t know how apply this variable to the login<br>
-screen (gdm).<br>
-<br>
-Anyway, thanks.<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-
---001a1147e9a820b21d056401312c--
-
---===============1611916019==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1611916019==--
+Ck9uIDIwMTgtMDEtMzAgMDg6NTkgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjku
+MDEuMjAxOCB1bSAyMzowOCBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+PiBPbiAyMDE4LTAxLTI2
+IDAzOjEzIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gW1NOSVBdCj4+PiArI2lmZGVm
+IENPTkZJR19EUk1fQU1ER1BVX0FUQwo+Pj4gK8KgwqDCoCByID0gYW1kX2lvbW11X2luaXRfZGV2
+aWNlKGFkZXYtPnBkZXYsIDB4MTAwMDApOwo+PiBLRkQgcXVlcmllcyBob3cgbWFueSBQQVNJRHMg
+dGhlIElPTU1VIGNhbiBzdXBwb3J0IHdpdGgKPj4gYW1kX2lvbW11X2RldmljZV9pbmZvLiBLRkQg
+b25seSBhc3NpZ25zIFBBU0lEcyB3aXRoaW4gdGhhdCByYW5nZS4gSXQgY2FuCj4+IGJlIG11Y2gg
+c21hbGxlciB0aGFuIHRoZSAxNi1iaXRzIHN1cHBvcnRlZCBieSB0aGUgR1BVLgo+Pgo+PiBGb3Ig
+YSBWTSB0aGF0IHVzZXMgQVRDLCB5b3UgbmVlZCB0byBtYWtlIHN1cmUgaXQgZ2V0cyBhIFBBU0lE
+IGluIHRoZQo+PiByYW5nZSBzdXBwb3J0ZWQgYnkgdGhlIElPTU1VLiBUaGUgUEFTSUQgbWFuYWdl
+ciBhbHJlYWR5IHN1cHBvcnRzIHRoYXQKPj4gYW5kIGtlZXBzIHNtYWxsZXIgUEFTSURzIGZvciB1
+c2VycyB0aGF0IHJlYWxseSBuZWVkIHRoZW0uCj4KPiBZZWFoLCBzZWVuIHRoYXQgYW5kIEknbSBu
+b3QgcmVhbGx5IGtlZW4gYWJvdXQgaXQuCj4KPiBFc3BlY2lhbGx5IHNpbmNlIHdlIG5lZWQgbXVs
+dGlwbGUgdHlwZXMgb2YgUEFTSURzIGhlcmU6Cj4gMS4gRm9yIEdQVVZNIGRlYnVnZ2luZyBhbmQg
+SE1NIGZhdWx0cywgd2hlcmUgd2UgY2FuIHVzZSB0aGUgZnVsbCAxNmJpdAo+IHJhbmdlIHdpdGhv
+dXQgd29ycnlpbmcgYWJvdXQgd2hhdCBJT01NVSBjYW4gZG8uCj4gMi4gRm9yIEFUQyB1c2UgY2Fz
+ZSB3aGVyZSB3ZSBuZWVkIHRvIGtlZXAgdGhlIElPTU1VIGluIHRoZSBwaWN0dXJlLgo+Cj4gQXJl
+IHRoZXJlIGFueSBoYXJkd2FyZSBsaW1pdGF0aW9ucyB3aGljaCBibG9ja3MgdXMgZnJvbSB1c2lu
+ZyBhIHBlcgo+IGRldmljZSBQQVNJRD8gVGhhdCB3b3VsZCBzaW1wbGlmeSB0aGUgd2hvbGUgaGFu
+ZGxpbmcgcXVpdGUgYSBiaXQuCgpDb25jZXB0dWFsbHkgUEFTSURzIGFyZSBkZXZpY2Utc3BlY2lm
+aWMgcHJvY2VzcyBJRHMuIEtGRCB1c2VzIHRoZSBzYW1lClBBU0lEIG9uIGFsbCBkZXZpY2VzLCBi
+dXQgdGhhdCdzIG5vdCBuZWNlc3NhcnkuCgpDdXJyZW50bHkgeW91IGFsbG9jYXRlIFBBU0lEcyBw
+ZXIgVk0gb3IgcGVyIG9wZW4gZGV2aWNlIGZpbGUuIFNvIHlvdSdsbAplbmQgdXAgd2l0aCBkaWZm
+ZXJlbnQgUEFTSURzIG9uIGVhY2ggZGV2aWNlLiBJIHRoaW5rIHlvdSBjYW4gZXZlbiBlbmQgdXAK
+d2l0aCBtdWx0aXBsZSBQQVNJRHMgaW4gZWFjaCBwcm9jZXNzIGV2ZW4gb24gdGhlIHNhbWUgZGV2
+aWNlLCBpZiB5b3UKY3JlYXRlIG11bHRpcGxlIFZNcy4gVGhhdCBkb2Vzbid0IHNlZW0gdG8gYmUg
+YSBwcm9ibGVtIGZvciB0aGUgSU9NTVUgZHJpdmVyLgoKPgo+IEFkZGl0aW9uYWwgdG8gdGhhdCB3
+ZSBkb24ndCByZWFsbHkgd2FudCB0aGlzIGRpcmVjdCByZWxhdGlvbnNoaXAKPiBiZXR3ZWVuIGFt
+ZGdwdS9hbWRrZmQgYW5kIHRoZSBhbWRfaW9tbXVfdjIgZHJpdmVyLgoKTm90IHN1cmUgd2hhdCB5
+b3UgbWVhbi4gUmlnaHQgbm93IGFtZGdwdSBhbmQgYW1ka2ZkIGRvbid0IGNvb3JkaW5hdGUKdGhl
+aXIgUEFTSURzIChvdGhlciB0aGFuIHVzaW5nIGEgY29tbW9uIGFsbG9jYXRvciB0byBhdm9pZCB1
+c2luZyB0aGUKc2FtZSBQQVNJRCBmb3IgZGlmZmVyZW50IHRoaW5ncykuCgo+Cj4gU28gd2hhdCBk
+byB5b3UgdGhpbmsgYWJvdXQgbW92aW5nIHRoZSBQQVNJRCBoYW5kbGluZyBpbnRvIHRoZSBJT01N
+VQo+IGRyaXZlcj8gQW5kIGFic3RyYWN0aW5nIHdoaWNoIGRyaXZlciBpcyBpbiB1c2UgdGhyb3Vn
+aCB0aGUgaW9tbXVfb3BzPwoKV2hhdCBpZiBib3RoIGRyaXZlcnMgd2FudCB0byB1c2UgdGhlIElP
+TU1VPwoKUmVnYXJkcywKwqAgRmVsaXgKCj4KPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+Pgo+
+PiBSZWdhcmRzLAo+PiDCoMKgIEZlbGl4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
