@@ -1,8 +1,8 @@
-From: mikhail <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: All games maded with Unity engine in steam catalog crashes on
- AMD GPU, but worked on Intel GPU on same machine.
-Date: Wed, 31 Jan 2018 02:04:30 +0500
-Message-ID: <1517346270.6516.7.camel@gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: All games maded with Unity engine in steam catalog crashes on AMD
+ GPU, but worked on Intel GPU on same machine.
+Date: Tue, 30 Jan 2018 22:36:26 +0100
+Message-ID: <CAAxE2A6aeHYAdVZo1ND14BP3JN=kP1Y4m83k0QVXDpBWCGJvQQ@mail.gmail.com>
 References: <1517156104.15379.10.camel@gmail.com>
  <CAAxE2A53JUCvPQsKDQ-NYzDp1ixkZrHqHb=3nUKOQWT6t+5wKw@mail.gmail.com>
  <1517246354.5736.2.camel@gmail.com>
@@ -11,11 +11,12 @@ References: <1517156104.15379.10.camel@gmail.com>
  <CAAxE2A6+Vnr0zs7T0cLSUcvxUin=tbCO_Mjb2+qCSx5aJ9bbYw@mail.gmail.com>
  <1517335699.9211.8.camel@gmail.com>
  <CAAxE2A6WW7pR8Nnpv10Z=Vib2dKFCh0oXLB2=iDEjnvOtR8O=w@mail.gmail.com>
+ <1517346270.6516.7.camel@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A6WW7pR8Nnpv10Z=Vib2dKFCh0oXLB2=iDEjnvOtR8O=w@mail.gmail.com>
+In-Reply-To: <1517346270.6516.7.camel-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,25 +27,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Marek =?UTF-8?Q?Ol=C5=A1=C3=A1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: mikhail <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCAyMDE4LTAxLTMwIGF0IDIwOjEyICswMTAwLCBNYXJlayBPbMWhw6FrIHdyb3RlOgo+
-IENhbiB5b3UgcmVjb3JkIGFuIGFwaXRyYWNlIG9uIGEgZHJpdmVyIHRoYXQgaXMgbm90IHJhZGVv
-bnNpPwoKQWxsIHRyYWNlcyBmcm9tIGZpdmUgbGlzdGVkIGdhbWVzIHdhcyByZWNvcmRlZCBvbiBJ
-bnRlbCBHUFUgKG5vdApyYWRlb25zaSkuCkkgYWxzbyB1bmRlcnN0b29kIHdoeSBmb3Igc29tZSBn
-YW1lcyB0cmFjZXMgd2FzIG5vdCByZWNvcmRlZCB5ZXN0ZXJkYXkuCkl0IGhhcHBlbnMgYmVjYXVz
-ZSBzdWNoIGdhbWVzIGFyZSAzMiBiaXQgYW5kIGZvciBjb3JyZWN0IHdvcmtpbmcKYXBpdHJhY2Ug
-d2FzIG5lZWRlZCBhcGl0cmFjZS1saWJzLTcuMS03LmZjMjcuaTY4NiBwYWNrYWdlLCBidXQgb25s
-eQphcGl0cmFjZS1saWJzLTcuMS03LmZjMjcueDg2XzY0IHdhcyBpbnN0YWxsZWQuCgo+IElmIHll
-cywgY2FuIHlvdSBjb3JyZWN0bHkgcmVwbGF5IHRoZSBhcGl0cmFjZSBvbiBhIGRyaXZlciB0aGF0
-IGlzIG5vdAo+IHJhZGVvbnNpPwoKQWxsIHRyYWNlcyB3YXMgY29ycmVjdGx5IHJlcGxheWVkIG9u
-IEludGVsIEdQVSAobm90IHJhZGVvbnNpKS4KCj4gSWYgeWVzLCBjYW4geW91IHJlcHJvZHVjZSB0
-aGUgY3Jhc2ggaWYgeW91IHJlcGxheSB0aGUgYXBpdHJhY2Ugb24KPiByYWRlb25zaT8KCkFsbCB0
-cmFjZXMgYWxzbyB3YXMgY29ycmVjdGx5IHJlcGxheWVkIG9uIEFNRCBWZWdhIDU2IEdQVSAocmFk
-ZW9uc2kpCndpdGhvdXQgY3Jhc2hlcy4KCldoYXQgZG9lcyB0aGlzIGdpdmUgdXM/CgpBbnl3YXkg
-bGF1bmNoaW5nIGxpc3RlZCBnYW1lcyB1bmRlciBBTUQgVmVnYSA1NiBHUFUgbGVhZCB0byBuZXcg
-Y3Jhc2VzLgoKLS0KQmVzdCBSZWdhcmRzLApNaWtoYWlsIEdhdnJpbG92Cl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+T24gVHVlLCBKYW4gMzAsIDIwMTggYXQgMTA6MDQgUE0sIG1pa2hhaWwgPG1pa2hhaWwudi5nYXZy
+aWxvdkBnbWFpbC5jb20+IHdyb3RlOgo+IE9uIFR1ZSwgMjAxOC0wMS0zMCBhdCAyMDoxMiArMDEw
+MCwgTWFyZWsgT2zFocOhayB3cm90ZToKPj4gQ2FuIHlvdSByZWNvcmQgYW4gYXBpdHJhY2Ugb24g
+YSBkcml2ZXIgdGhhdCBpcyBub3QgcmFkZW9uc2k/Cj4KPiBBbGwgdHJhY2VzIGZyb20gZml2ZSBs
+aXN0ZWQgZ2FtZXMgd2FzIHJlY29yZGVkIG9uIEludGVsIEdQVSAobm90Cj4gcmFkZW9uc2kpLgo+
+IEkgYWxzbyB1bmRlcnN0b29kIHdoeSBmb3Igc29tZSBnYW1lcyB0cmFjZXMgd2FzIG5vdCByZWNv
+cmRlZCB5ZXN0ZXJkYXkuCj4gSXQgaGFwcGVucyBiZWNhdXNlIHN1Y2ggZ2FtZXMgYXJlIDMyIGJp
+dCBhbmQgZm9yIGNvcnJlY3Qgd29ya2luZwo+IGFwaXRyYWNlIHdhcyBuZWVkZWQgYXBpdHJhY2Ut
+bGlicy03LjEtNy5mYzI3Lmk2ODYgcGFja2FnZSwgYnV0IG9ubHkKPiBhcGl0cmFjZS1saWJzLTcu
+MS03LmZjMjcueDg2XzY0IHdhcyBpbnN0YWxsZWQuCj4KPj4gSWYgeWVzLCBjYW4geW91IGNvcnJl
+Y3RseSByZXBsYXkgdGhlIGFwaXRyYWNlIG9uIGEgZHJpdmVyIHRoYXQgaXMgbm90Cj4+IHJhZGVv
+bnNpPwo+Cj4gQWxsIHRyYWNlcyB3YXMgY29ycmVjdGx5IHJlcGxheWVkIG9uIEludGVsIEdQVSAo
+bm90IHJhZGVvbnNpKS4KPgo+PiBJZiB5ZXMsIGNhbiB5b3UgcmVwcm9kdWNlIHRoZSBjcmFzaCBp
+ZiB5b3UgcmVwbGF5IHRoZSBhcGl0cmFjZSBvbgo+PiByYWRlb25zaT8KPgo+IEFsbCB0cmFjZXMg
+YWxzbyB3YXMgY29ycmVjdGx5IHJlcGxheWVkIG9uIEFNRCBWZWdhIDU2IEdQVSAocmFkZW9uc2kp
+Cj4gd2l0aG91dCBjcmFzaGVzLgo+Cj4gV2hhdCBkb2VzIHRoaXMgZ2l2ZSB1cz8KPgo+IEFueXdh
+eSBsYXVuY2hpbmcgbGlzdGVkIGdhbWVzIHVuZGVyIEFNRCBWZWdhIDU2IEdQVSBsZWFkIHRvIG5l
+dyBjcmFzZXMuCgpUaGFua3MuIEl0J3MgcG9zc2libGUgdGhhdCBVbml0eSBjb250YWlucyBpdHMg
+b3duIHZlcnNpb24gb2YgTExWTSBvcgppdHMgb3duIHZlcnNpb24gb2Ygc29tZSBzdGFuZGFyZCBs
+aWJyYXJpZXMgdGhhdCBMTFZNIHVzZXMsIGFuZApyYWRlb25zaSBkb2Vzbid0IGxpa2Ugd2hlbiBn
+YW1lcyByZXBsYWNlIGl0cyBkZXBlbmRlbmNpZXMuCgpNYXJlawpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
