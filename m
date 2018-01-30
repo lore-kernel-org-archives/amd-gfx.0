@@ -1,105 +1,65 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [RFC] Per file OOM badness
-Date: Tue, 30 Jan 2018 12:56:10 +0100
-Message-ID: <e1ec9d7b-99e3-1e2a-cb47-5e9a0a383703@amd.com>
-References: <20180118170006.GG6584@dhcp22.suse.cz>
- <20180123152659.GA21817@castle.DHCP.thefacebook.com>
- <20180123153631.GR1526@dhcp22.suse.cz>
- <ccac4870-ced3-f169-17df-2ab5da468bf0@daenzer.net>
- <20180124092847.GI1526@dhcp22.suse.cz>
- <583f328e-ff46-c6a4-8548-064259995766@daenzer.net>
- <20180124110141.GA28465@dhcp22.suse.cz>
- <36b49523-792d-45f9-8617-32b6d9d77418@daenzer.net>
- <20180124115059.GC28465@dhcp22.suse.cz>
- <381a868c-78fd-d0d1-029e-a2cf4ab06d37@gmail.com>
- <20180130093145.GE25930@phenom.ffwll.local>
- <3db43c1a-59b8-af86-2b87-c783c629f512@daenzer.net>
- <3026d8c5-9313-cb8b-91ef-09c02baf27db@amd.com>
- <445628d3-677c-a9f8-171f-7d74a603c61d@daenzer.net>
- <dce6d244-36c7-7452-97f5-7437bd78cfcc@gmail.com>
- <e511ba10-7032-36cc-f22c-2f6bb05f9f6e@daenzer.net>
- <82d5894f-f4ea-98cc-068a-5d470f5267df@gmail.com>
- <aef7f1f3-f7dc-21d5-bf0d-3145e10e2226@daenzer.net>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 5/7] drm/amdgpu: implement vce_v4_0_emit_reg_wait v2
+Date: Tue, 30 Jan 2018 13:09:24 +0100
+Message-ID: <20180130120926.15343-5-christian.koenig@amd.com>
+References: <20180130120926.15343-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <owner-linux-mm@kvack.org>
-In-Reply-To: <aef7f1f3-f7dc-21d5-bf0d-3145e10e2226@daenzer.net>
-Content-Language: en-US
-Sender: owner-linux-mm@kvack.org
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle@gmail.com>, Michal Hocko <mhocko@kernel.org>, Roman Gushchin <guro@fb.com>
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180130120926.15343-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, felix.kuehling-5C7GfCeVMHo@public.gmane.org
 
-Am 30.01.2018 um 12:42 schrieb Michel Dänzer:
-> On 2018-01-30 12:36 PM, Nicolai Hähnle wrote:
->> On 30.01.2018 12:34, Michel Dänzer wrote:
->>> On 2018-01-30 12:28 PM, Christian König wrote:
->>>> Am 30.01.2018 um 12:02 schrieb Michel Dänzer:
->>>>> On 2018-01-30 11:40 AM, Christian König wrote:
->>>>>> Am 30.01.2018 um 10:43 schrieb Michel Dänzer:
->>>>>>> [SNIP]
->>>>>>>> Would it be ok to hang onto potentially arbitrary mmget references
->>>>>>>> essentially forever? If that's ok I think we can do your process
->>>>>>>> based
->>>>>>>> account (minus a few minor inaccuracies for shared stuff perhaps,
->>>>>>>> but no
->>>>>>>> one cares about that).
->>>>>>> Honestly, I think you and Christian are overthinking this. Let's try
->>>>>>> charging the memory to every process which shares a buffer, and go
->>>>>>> from
->>>>>>> there.
->>>>>> My problem is that this needs to be bullet prove.
->>>>>>
->>>>>> For example imagine an application which allocates a lot of BOs, then
->>>>>> calls fork() and let the parent process die. The file descriptor lives
->>>>>> on in the child process, but the memory is not accounted against the
->>>>>> child.
->>>>> What exactly are you referring to by "the file descriptor" here?
->>>> The file descriptor used to identify the connection to the driver. In
->>>> other words our drm_file structure in the kernel.
->>>>
->>>>> What happens to BO handles in general in this case? If both parent and
->>>>> child process keep the same handle for the same BO, one of them
->>>>> destroying the handle will result in the other one not being able to
->>>>> use
->>>>> it anymore either, won't it?
->>>> Correct.
->>>>
->>>> That usage is actually not useful at all, but we already had
->>>> applications which did exactly that by accident.
->>>>
->>>> Not to mention that somebody could do it on purpose.
->>> Can we just prevent child processes from using their parent's DRM file
->>> descriptors altogether? Allowing it seems like a bad idea all around.
->> Existing protocols pass DRM fds between processes though, don't they?
->>
->> Not child processes perhaps, but special-casing that seems like awful
->> design.
-> Fair enough.
->
-> Can we disallow passing DRM file descriptors which have any buffers
-> allocated? :)
-
-Hehe good point, but I'm sorry I have to ruin that.
-
-The root VM page table is allocated when the DRM file descriptor is 
-created and we want to account those to whoever uses the file descriptor 
-as well.
-
-We could now make an exception for the root VM page table to not be 
-accounted (shouldn't be that much compared to the rest of the VM tree), 
-but Nicolai is right all those exceptions are just an awful design :)
-
-Looking into the fs layer there actually only seem to be two function 
-which are involved when a file descriptor is installed/removed from a 
-process. So we just need to add some callbacks there.
-
-Regards,
-Christian.
-
---
-To unsubscribe, send a message with 'unsubscribe linux-mm' in
-the body to majordomo@kvack.org.  For more info on Linux MM,
-see: http://www.linux-mm.org/ .
-Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
+QWRkIGVtaXRfcmVnX3dhaXQgaW1wbGVtZW50YXRpb24gZm9yIFZDRSB2NC4KCnYyOiBjYWxsIG5l
+dyBmdW5jdGlvbiBkaXJlY3RseSBmcm9tIGV4aXN0aW5nIGNvZGUKClNpZ25lZC1vZmYtYnk6IENo
+cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5jIHwgMjIgKysrKysrKysrKysrKystLS0tLS0tLQog
+MSBmaWxlIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCgpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMKaW5kZXggZTYyYTI0YjkwYWFmLi4yYTRmNzNkZGVh
+OTcgMTAwNzU1Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYwpAQCAtOTY1LDYgKzk2NSwx
+NSBAQCBzdGF0aWMgdm9pZCB2Y2VfdjRfMF9yaW5nX2luc2VydF9lbmQoc3RydWN0IGFtZGdwdV9y
+aW5nICpyaW5nKQogCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFZDRV9DTURfRU5EKTsKIH0KIAor
+c3RhdGljIHZvaWQgdmNlX3Y0XzBfZW1pdF9yZWdfd2FpdChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
+bmcsIHVpbnQzMl90IHJlZywKKwkJCQkgICB1aW50MzJfdCB2YWwsIHVpbnQzMl90IG1hc2spCit7
+CisJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgVkNFX0NNRF9SRUdfV0FJVCk7CisJYW1kZ3B1X3Jp
+bmdfd3JpdGUocmluZywJcmVnIDw8IDIpOworCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIG1hc2sp
+OworCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHZhbCk7Cit9CisKIHN0YXRpYyB2b2lkIHZjZV92
+NF8wX2VtaXRfdm1fZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAogCQkJCSAgIHVuc2ln
+bmVkIGludCB2bWlkLCB1bnNpZ25lZCBwYXNpZCwKIAkJCQkgICB1aW50NjRfdCBwZF9hZGRyKQpA
+QCAtOTc1LDE2ICs5ODQsMTIgQEAgc3RhdGljIHZvaWQgdmNlX3Y0XzBfZW1pdF92bV9mbHVzaChz
+dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCiAJcGRfYWRkciA9IGFtZGdwdV9nbWNfZW1pdF9mbHVz
+aF9ncHVfdGxiKHJpbmcsIHZtaWQsIHBhc2lkLCBwZF9hZGRyKTsKIAogCS8qIHdhaXQgZm9yIHJl
+ZyB3cml0ZXMgKi8KLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBWQ0VfQ01EX1JFR19XQUlUKTsK
+LQlhbWRncHVfcmluZ193cml0ZShyaW5nLAkoaHViLT5jdHgwX3B0Yl9hZGRyX2xvMzIgKyB2bWlk
+ICogMikgPDwgMik7Ci0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMHhmZmZmZmZmZik7Ci0JYW1k
+Z3B1X3Jpbmdfd3JpdGUocmluZywgbG93ZXJfMzJfYml0cyhwZF9hZGRyKSk7CisJdmNlX3Y0XzBf
+ZW1pdF9yZWdfd2FpdChyaW5nLCBodWItPmN0eDBfcHRiX2FkZHJfbG8zMiArIHZtaWQgKiAyLAor
+CQkJICAgICAgIGxvd2VyXzMyX2JpdHMocGRfYWRkciksIDB4ZmZmZmZmZmYpOwogCiAJLyogd2Fp
+dCBmb3IgZmx1c2ggKi8KLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBWQ0VfQ01EX1JFR19XQUlU
+KTsKLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCAoaHViLT52bV9pbnZfZW5nMF9hY2sgKyBlbmcp
+IDw8IDIpOwotCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDEgPDwgdm1pZCk7Ci0JYW1kZ3B1X3Jp
+bmdfd3JpdGUocmluZywgMSA8PCB2bWlkKTsKKwl2Y2VfdjRfMF9lbWl0X3JlZ193YWl0KHJpbmcs
+IGh1Yi0+dm1faW52X2VuZzBfYWNrICsgZW5nLAorCQkJICAgICAgIDEgPDwgdm1pZCwgMSA8PCB2
+bWlkKTsKIH0KIAogc3RhdGljIHZvaWQgdmNlX3Y0XzBfZW1pdF93cmVnKHN0cnVjdCBhbWRncHVf
+cmluZyAqcmluZywKQEAgLTEwNzksNiArMTA4NCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1k
+Z3B1X3JpbmdfZnVuY3MgdmNlX3Y0XzBfcmluZ192bV9mdW5jcyA9IHsKIAkuYmVnaW5fdXNlID0g
+YW1kZ3B1X3ZjZV9yaW5nX2JlZ2luX3VzZSwKIAkuZW5kX3VzZSA9IGFtZGdwdV92Y2VfcmluZ19l
+bmRfdXNlLAogCS5lbWl0X3dyZWcgPSB2Y2VfdjRfMF9lbWl0X3dyZWcsCisJLmVtaXRfcmVnX3dh
+aXQgPSB2Y2VfdjRfMF9lbWl0X3JlZ193YWl0LAogfTsKIAogc3RhdGljIHZvaWQgdmNlX3Y0XzBf
+c2V0X3JpbmdfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCi0tIAoyLjE0LjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
