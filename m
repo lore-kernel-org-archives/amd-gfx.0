@@ -1,120 +1,45 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 07/25] drm/amdgpu: Update kgd2kfd_shared_resources for
- dGPU support
-Date: Tue, 30 Jan 2018 10:13:59 +0100
-Message-ID: <6971885e-8965-d9f8-9111-e368e17eee02@gmail.com>
-References: <1517015381-1080-1-git-send-email-Felix.Kuehling@amd.com>
- <1517015381-1080-8-git-send-email-Felix.Kuehling@amd.com>
- <de92f17a-5278-1b55-2a22-af17a82f7471@gmail.com>
- <7425b235-e354-e9b7-0b83-623d9148c61b@amd.com>
- <37bf2205-ca7c-f441-1759-48f2d854dea5@gmail.com>
- <4aefa3bc-66b3-5e39-26e6-cc7c1e66adbd@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 4/4] drm/amdgpu: Use drm_oom_badness for amdgpu.
+Date: Tue, 30 Jan 2018 10:24:13 +0100
+Message-ID: <20180130092413.GD25930@phenom.ffwll.local>
+References: <1516294072-17841-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1516294072-17841-5-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4aefa3bc-66b3-5e39-26e6-cc7c1e66adbd-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <owner-linux-mm@kvack.org>
+Content-Disposition: inline
+In-Reply-To: <1516294072-17841-5-git-send-email-andrey.grodzovsky@amd.com>
+Sender: owner-linux-mm@kvack.org
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjkuMDEuMjAxOCB1bSAyMToyNSBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IE9uIDIwMTgt
-MDEtMjkgMDY6NDIgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDI5LjAxLjIwMTgg
-dW0gMDA6MDIgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4+IE9uIDIwMTgtMDEtMjcgMDQ6MTkg
-QU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gQW0gMjcuMDEuMjAxOCB1bSAwMjowOSBz
-Y2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+Pj4+PiBBZGQgR1BVVk0gc2l6ZSBhbmQgRFJNIHJlbmRl
-ciBub2RlLiBBbHNvIGFkZCBmdW5jdGlvbiB0byBxdWVyeSB0aGUKPj4+Pj4gVk1JRCBtYXNrIHRv
-IGF2b2lkIGhhcmQtY29kaW5nIGl0IGluIG11bHRpcGxlIHBsYWNlcyBsYXRlci4KPj4+Pj4KPj4+
-Pj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+
-Cj4+Pj4+IC0tLQo+Pj4+PiAgwqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-YW1ka2ZkLmPCoMKgwqDCoMKgIHwgMTkKPj4+Pj4gKysrKysrKysrKysrKysrKystLQo+Pj4+PiAg
-wqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmjCoMKgwqDCoMKg
-IHzCoCAyICsrCj4+Pj4+ICDCoMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2Zk
-X2ludGVyZmFjZS5oIHzCoCA2ICsrKysrKwo+Pj4+PiAgwqDCoCAzIGZpbGVzIGNoYW5nZWQsIDI1
-IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Pj4+Cj4+Pj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKPj4+Pj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKPj4+Pj4gaW5kZXggYzlmMjA0ZC4u
-Mjk0YzQ2NyAxMDA2NDQKPj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2FtZGtmZC5jCj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9hbWRrZmQuYwo+Pj4+PiBAQCAtMzAsNiArMzAsOCBAQAo+Pj4+PiAgwqDCoCBjb25zdCBzdHJ1
-Y3Qga2dkMmtmZF9jYWxscyAqa2dkMmtmZDsKPj4+Pj4gIMKgwqAgYm9vbCAoKmtnZDJrZmRfaW5p
-dF9wKSh1bnNpZ25lZCBpbnQsIGNvbnN0IHN0cnVjdCBrZ2Qya2ZkX2NhbGxzKiopOwo+Pj4+PiAg
-wqDCoCArc3RhdGljIGNvbnN0IHVuc2lnbmVkIGludCBjb21wdXRlX3ZtaWRfYml0bWFwID0gMHhG
-RjAwOwo+Pj4+PiArCj4+Pj4+ICDCoMKgIGludCBhbWRncHVfYW1ka2ZkX2luaXQodm9pZCkKPj4+
-Pj4gIMKgwqAgewo+Pj4+PiAgwqDCoMKgwqDCoMKgIGludCByZXQ7Cj4+Pj4+IEBAIC0xMzcsOSAr
-MTM5LDEyIEBAIHZvaWQgYW1kZ3B1X2FtZGtmZF9kZXZpY2VfaW5pdChzdHJ1Y3QKPj4+Pj4gYW1k
-Z3B1X2RldmljZSAqYWRldikKPj4+Pj4gIMKgwqDCoMKgwqDCoCBpbnQgbGFzdF92YWxpZF9iaXQ7
-Cj4+Pj4+ICDCoMKgwqDCoMKgwqAgaWYgKGFkZXYtPmtmZCkgewo+Pj4+PiAgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgc3RydWN0IGtnZDJrZmRfc2hhcmVkX3Jlc291cmNlcyBncHVfcmVzb3VyY2VzID0g
-ewo+Pj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuY29tcHV0ZV92bWlkX2JpdG1hcCA9IDB4
-RkYwMCwKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmNvbXB1dGVfdm1pZF9iaXRtYXAg
-PSBjb21wdXRlX3ZtaWRfYml0bWFwLAo+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCAubnVtX3BpcGVfcGVyX21lYyA9IGFkZXYtPmdmeC5tZWMubnVtX3BpcGVfcGVyX21lYywKPj4+
-Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLm51bV9xdWV1ZV9wZXJfcGlwZSA9IGFkZXYtPmdm
-eC5tZWMubnVtX3F1ZXVlX3Blcl9waXBlCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5u
-dW1fcXVldWVfcGVyX3BpcGUgPSBhZGV2LT5nZngubWVjLm51bV9xdWV1ZV9wZXJfcGlwZSwKPj4+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLmdwdXZtX3NpemUgPSBhZGV2LT52bV9tYW5hZ2Vy
-Lm1heF9wZm4KPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgPDwgQU1ER1BVX0dQVV9QQUdFX1NISUZULAo+Pj4+IFRoYXQgbW9zdCBsaWtlbHkgZG9l
-c24ndCB3b3JrIGFzIGludGVuZGVkIG9uIFZlZ2ExMC4gVGhlIGFkZHJlc3Mgc3BhY2UKPj4+PiBp
-cyBkaXZpZGVkIGludG8gYW4gdXBwZXIgYW5kIGEgbG93ZXIgcmFuZ2UsIGJ1dCBtYXhfcGZuIGlu
-Y2x1ZGVzIGJvdGguCj4+Pj4KPj4+PiBJIHN1Z2dlc3QgdG8gdXNlIHNvbWV0aGluZyBsaWtlIG1p
-bihhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4gPDwKPj4+PiBBTURHUFVfR1BVX1BBR0VfU0hJRlQs
-IEFNREdQVV9WTV9IT0xFX1NUQVJUKS4KPj4+IEkgdGhpbmsgdGhpcyBpcyBmaW5lIGFzIGl0IGlz
-LiBUaGlzIGp1c3QgdGVsbHMgdGhlIFRodW5rIHRoZSBzaXplIG9mIHRoZQo+Pj4gdmlydHVhbCBh
-ZGRyZXNzIHNwYWNlIHN1cHBvcnRlZCBieSB0aGUgR1BVLiBDdXJyZW50bHkgdGhlIFRodW5rIG9u
-bHkKPj4+IHVzZXMgNDAtYml0cyBmb3IgU1ZNLiBCdXQgZXZlbnR1YWxseSBpdCB3aWxsIGJlIGFi
-bGUgdG8gdXNlIHRoZSBlbnRpcmUKPj4+IDQ3IGJpdHMgb2YgdXNlciBhZGRyZXNzIHNwYWNlLiBB
-bnkgZXhjZXNzIGFkZHJlc3Mgc3BhY2Ugd2lsbCBqdXN0IGdvCj4+PiB1bnVzZWQuCj4+Pgo+Pj4g
-SSdtIGFsc28gd29uZGVyaW5nIGhvdyB1bml2ZXJzYWwgdGhlIHNwbGl0IDQ4LWJpdCB2aXJ0dWFs
-IGFkZHJlc3Mgc3BhY2UKPj4+IGxheW91dCBpcy4gRXZlbiBmb3IgeDg2XzY0IHRoZXJlIHNlZW1z
-IHRvIGJlIGEgNS1sZXZlbCBwYWdlIHRhYmxlIGxheW91dAo+Pj4gdGhhdCBzdXBwb3J0cyA1NiBi
-aXRzIG9mIHVzZXIgbW9kZSBhZGRyZXNzZXMKPj4+IChEb2N1bWVudGF0aW9uL3g4Ni94ODZfNjQv
-bW0udHh0KS4gQUFyY2g2NCBzZWVtcyB0byBzdXBwb3J0IDQ4LWJpdCB1c2VyCj4+PiBtb2RlIGFk
-ZHJlc3NlcyAoRG9jdW1lbnRhdGlvbi9hcm02NC9tZW1vcnkudHh0KS4gSSBoYXZlbid0IGZvdW5k
-IHNpbWlsYXIKPj4+IGluZm9ybWF0aW9uIGZvciBQb3dlclBDIHlldC4KPj4+Cj4+PiBXZSBzaG91
-bGQgYXZvaWQgY29kaW5nIHRvbyBtdWNoIGFyY2hpdGVjdHVyZS1zcGVjaWZpYyBsb2dpYyBpbnRv
-IHRoaXMKPj4+IGRyaXZlciB0aGF0J3Mgc3VwcG9zZWQgdG8gc3VwcG9ydCBvdGhlciBhcmNoaXRl
-Y3R1cmVzIGFzIHdlbGwuIEkgc2hvdWxkCj4+PiBhbHNvIHJldmlldyB0aGUgYXBlcnR1cmUgcGxh
-Y2VtZW50IHdpdGggYmlnZ2VyIHVzZXIgbW9kZSBhZGRyZXNzIHNwYWNlcwo+Pj4gaW4gbWluZC4K
-Pj4gQW5kIHRoYXQgaXMgZXhhY3RseSB0aGUgcmVhc29uIHdoeSBJJ3ZlIHN1Z2dlc3RlZCB0byBj
-aGFuZ2UgdGhhdC4KPj4KPj4gU2VlIHRoZSBzcGxpdCBiZXR3ZWVuIGxvd2VyIGFuZCB1cHBlciBy
-YW5nZSBpcyBub3QgcmVsYXRlZCB0byB0aGUgQ1BVCj4+IGNvbmZpZ3VyYXRpb24sIGluc3RlYWQg
-aXQgaXMgYSBwcm9wZXJ0eSBvZiBvdXIgR1BVIHNldHVwIGFuZCBoYXJkd2FyZQo+PiBnZW5lcmF0
-aW9uLgo+IEhvdyBleGFjdGx5IGRvZXMgdGhlIEdQVVZNIGhhcmR3YXJlIGJlaGF2ZSB3aGVuIGl0
-IHNlZXMgYSB2aXJ0dWFsCj4gYWRkcmVzcyAiaW4gdGhlIGhvbGUiLiBEb2VzIGl0IGdlbmVyYXRl
-IGEgVk0gZmF1bHQ/IE9yIGRvZXMgaXQgc2ltcGx5Cj4gaWdub3JlIHRoZSBoaWdoIGJpdHM/CgpB
-dCBsZWFzdCBvbiB0aGUgVmVnYTEwIHN5c3RlbSBJJ3ZlIHRlc3RlZCB5b3UgZ2V0IGEgcmFuZ2Ug
-ZmF1bHQgd2hlbiB5b3UgCnRyeSB0byBhY2Nlc3MgdGhlIGhvbGUuCgo+IElmIGl0IGlnbm9yZWQg
-dGhlIGhpZ2ggYml0cywgaXQgd291bGQgd29yayBPSyBmb3IgYm90aCB4ODZfNjQgKHdpdGggYQo+
-IHNwbGl0IGFkZHJlc3Mgc3BhY2UpIGFuZCBBUk02NCAod2l0aCBhIGZ1bGwgNDgtYml0IHVzZXIg
-bW9kZSB2aXJ0dWFsCj4gYWRkcmVzcyBzcGFjZSkuCj4KPiBPbiB0aGUgb3RoZXIgaGFuZCwgaWYg
-YWRkcmVzc2VzIGluIHRoZSBob2xlIGdlbmVyYXRlIGEgVk0gZmF1bHQsIHRoZW4gSQo+IGFncmVl
-IHdpdGggeW91LCBhbmQgd2Ugc2hvdWxkIG9ubHkgcmVwb3J0IDQ3LWJpdHMgb2YgdmlydHVhbCBh
-ZGRyZXNzCj4gc3BhY2UgdG8gdXNlciBtb2RlIGZvciBTVk0gcHVycG9zZXMuCgpZZXMsIGFjY29y
-ZGluZyB0byBteSB0ZXN0aW5nIGV4YWN0bHkgdGhhdCBpcyB0aGUgY2FzZSBoZXJlLgoKVGhlIGhh
-cmR3YXJlIGRvY3VtZW50YXRpb24gaXMgYSBiaXQgYW1iaXZhbGVudC4gU28gSSBpbml0aWFsbHkg
-dGhvdWdodCAKYXMgd2VsbCB0aGF0IHRoZSBoaWdoIGJpdHMgYXJlIGp1c3QgaWdub3JlZCwgYnV0
-IHRoYXQgZG9lc24ndCBzZWVtIHRvIGJlIAp0aGUgY2FzZS4KClJlZ2FyZHMsCkNocmlzdGlhbi4K
-Cj4KPiBSZWdhcmRzLAo+ICDCoCBGZWxpeAo+Cj4+IFNvIHdlIHNob3VsZCBlaXRoZXIgc3BsaXQg
-aXQgaW4gZ3B1dm1fc2l6ZV9sb3cvZ3B1dm1fc2l6ZV9oaWdoIG9yIHRvCj4+IGp1c3QgdXNlIHRo
-ZSBsb3dlciByYW5nZSBhbmQgbGltaXQgdGhlIHZhbHVlIGFzIHN1Z2dlc3RlZCBhYm92ZS4KPj4K
-Pj4gVGhpcyBzaG91bGQgYXZvaWQgaGF2aW5nIGFueSBHUFUgZ2VuZXJhdGlvbiBhbmQgQ1BVIGNv
-bmZpZ3VyYXRpb24KPj4gc3BlY2lmaWMgbG9naWMgaW4gdGhlIGNvbW1vbiBpbnRlcmZhY2UuCj4+
-Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4+IFJlZ2FyZHMsCj4+PiAgwqDCoCBGZWxp
-eAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Jan 18, 2018 at 11:47:52AM -0500, Andrey Grodzovsky wrote:
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 46a0c93..6a733cdc8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -828,6 +828,7 @@ static const struct file_operations amdgpu_driver_kms_fops = {
+>  #ifdef CONFIG_COMPAT
+>  	.compat_ioctl = amdgpu_kms_compat_ioctl,
+>  #endif
+> +	.oom_file_badness = drm_oom_badness,
+
+Would be neat if we could roll this out for all gem drivers (once it's no
+longer an RFC ofc).
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
