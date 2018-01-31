@@ -1,14 +1,15 @@
-From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 8/9] drm/amdkfd: Add dGPU device IDs and device info
-Date: Wed, 31 Jan 2018 17:20:45 +0200
-Message-ID: <CAFCwf139atQQouUbFabUwWs8qX=QHwS4KVm5E8fqqf667JH8Eg@mail.gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 7/9] drm/amdkfd: Add dGPU support to kernel_queue_init
+Date: Wed, 31 Jan 2018 15:23:13 +0000
+Message-ID: <BN6PR12MB16520A78D8FFA5E0AF393BD2F7FB0@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <1515104268-25087-1-git-send-email-Felix.Kuehling@amd.com>
- <1515104268-25087-9-git-send-email-Felix.Kuehling@amd.com>
+ <1515104268-25087-8-git-send-email-Felix.Kuehling@amd.com>,
+ <CAFCwf11nyKTuxF4R+GfWt_Zg5pRjYezbp9TEW_-OWqRhhR-rVg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0494121179=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1515104268-25087-9-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAFCwf11nyKTuxF4R+GfWt_Zg5pRjYezbp9TEW_-OWqRhhR-rVg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,160 +20,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpLCBKYW4gNSwgMjAxOCBhdCAxMjoxNyBBTSwgRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1
-ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+IENDOiBsaW51eC1wY2lAdmdlci5rZXJuZWwub3JnCj4g
-U2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+Cj4g
-LS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyB8IDE1MyArKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwgMTUxIGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRrZmQva2ZkX2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2RldmljZS5jCj4gaW5kZXggNmRkNTBjYy4uNjEyYWZhZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMKPiBAQCAtNjMsMTIgKzYzLDExOCBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyBjYXJyaXpvX2RldmljZV9pbmZvID0gewo+ICB9Owo+
-ICAjZW5kaWYKPgo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyBoYXdhaWlf
-ZGV2aWNlX2luZm8gPSB7Cj4gKyAgICAgICAuYXNpY19mYW1pbHkgPSBDSElQX0hBV0FJSSwKPiAr
-ICAgICAgIC5tYXhfcGFzaWRfYml0cyA9IDE2LAo+ICsgICAgICAgLyogbWF4IG51bSBvZiBxdWV1
-ZXMgZm9yIEtWLlRPRE8gc2hvdWxkIGJlIGEgZHluYW1pYyB2YWx1ZSAqLwo+ICsgICAgICAgLm1h
-eF9ub19vZl9ocWQgID0gMjQsCj4gKyAgICAgICAuaWhfcmluZ19lbnRyeV9zaXplID0gNCAqIHNp
-emVvZih1aW50MzJfdCksCj4gKyAgICAgICAuZXZlbnRfaW50ZXJydXB0X2NsYXNzID0gJmV2ZW50
-X2ludGVycnVwdF9jbGFzc19jaWssCj4gKyAgICAgICAubnVtX29mX3dhdGNoX3BvaW50cyA9IDQs
-Cj4gKyAgICAgICAubXFkX3NpemVfYWxpZ25lZCA9IE1RRF9TSVpFX0FMSUdORUQsCj4gKyAgICAg
-ICAuc3VwcG9ydHNfY3dzciA9IGZhbHNlLAo+ICsgICAgICAgLm5lZWRzX2lvbW11X2RldmljZSA9
-IGZhbHNlLAo+ICsgICAgICAgLm5lZWRzX3BjaV9hdG9taWNzID0gZmFsc2UsCj4gK307Cj4gKwo+
-ICtzdGF0aWMgY29uc3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyB0b25nYV9kZXZpY2VfaW5mbyA9
-IHsKPiArICAgICAgIC5hc2ljX2ZhbWlseSA9IENISVBfVE9OR0EsCj4gKyAgICAgICAubWF4X3Bh
-c2lkX2JpdHMgPSAxNiwKPiArICAgICAgIC5tYXhfbm9fb2ZfaHFkICA9IDI0LAo+ICsgICAgICAg
-LmloX3JpbmdfZW50cnlfc2l6ZSA9IDQgKiBzaXplb2YodWludDMyX3QpLAo+ICsgICAgICAgLmV2
-ZW50X2ludGVycnVwdF9jbGFzcyA9ICZldmVudF9pbnRlcnJ1cHRfY2xhc3NfY2lrLApJcyB0aGVy
-ZSBhbnkgcG9pbnQgaW4ga2VlcGluZyB0aGUgbmFtZSBldmVudF9pbnRlcnJ1cHRfY2xhc3NfY2lr
-PwptYXliZSBqdXN0IHJlbmFtZSB0byBldmVudF9pbnRlcnJ1cHRfY2xhc3MgPwpXaGF0IHdpbGwg
-aGFwcGVuIGluIHZlZ2EgPyBJZiBpdHMgdGhlIHNhbWUgSSB0aGluayByZW1vdmluZyB0aGUgX2Np
-awptYWtlcyB0aGUgY29kZSBtb3JlIGNvbnNpc3RlbnQuCgpPZGVkCgoKPiArICAgICAgIC5udW1f
-b2Zfd2F0Y2hfcG9pbnRzID0gNCwKPiArICAgICAgIC5tcWRfc2l6ZV9hbGlnbmVkID0gTVFEX1NJ
-WkVfQUxJR05FRCwKPiArICAgICAgIC5zdXBwb3J0c19jd3NyID0gZmFsc2UsCj4gKyAgICAgICAu
-bmVlZHNfaW9tbXVfZGV2aWNlID0gZmFsc2UsCj4gKyAgICAgICAubmVlZHNfcGNpX2F0b21pY3Mg
-PSB0cnVlLAo+ICt9Owo+ICsKPiArc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8g
-dG9uZ2FfdmZfZGV2aWNlX2luZm8gPSB7Cj4gKyAgICAgICAuYXNpY19mYW1pbHkgPSBDSElQX1RP
-TkdBLAo+ICsgICAgICAgLm1heF9wYXNpZF9iaXRzID0gMTYsCj4gKyAgICAgICAubWF4X25vX29m
-X2hxZCAgPSAyNCwKPiArICAgICAgIC5paF9yaW5nX2VudHJ5X3NpemUgPSA0ICogc2l6ZW9mKHVp
-bnQzMl90KSwKPiArICAgICAgIC5ldmVudF9pbnRlcnJ1cHRfY2xhc3MgPSAmZXZlbnRfaW50ZXJy
-dXB0X2NsYXNzX2NpaywKPiArICAgICAgIC5udW1fb2Zfd2F0Y2hfcG9pbnRzID0gNCwKPiArICAg
-ICAgIC5tcWRfc2l6ZV9hbGlnbmVkID0gTVFEX1NJWkVfQUxJR05FRCwKPiArICAgICAgIC5zdXBw
-b3J0c19jd3NyID0gZmFsc2UsCj4gKyAgICAgICAubmVlZHNfaW9tbXVfZGV2aWNlID0gZmFsc2Us
-Cj4gKyAgICAgICAubmVlZHNfcGNpX2F0b21pY3MgPSBmYWxzZSwKPiArfTsKPiArCj4gK3N0YXRp
-YyBjb25zdCBzdHJ1Y3Qga2ZkX2RldmljZV9pbmZvIGZpamlfZGV2aWNlX2luZm8gPSB7Cj4gKyAg
-ICAgICAuYXNpY19mYW1pbHkgPSBDSElQX0ZJSkksCj4gKyAgICAgICAubWF4X3Bhc2lkX2JpdHMg
-PSAxNiwKPiArICAgICAgIC5tYXhfbm9fb2ZfaHFkICA9IDI0LAo+ICsgICAgICAgLmloX3Jpbmdf
-ZW50cnlfc2l6ZSA9IDQgKiBzaXplb2YodWludDMyX3QpLAo+ICsgICAgICAgLmV2ZW50X2ludGVy
-cnVwdF9jbGFzcyA9ICZldmVudF9pbnRlcnJ1cHRfY2xhc3NfY2lrLAo+ICsgICAgICAgLm51bV9v
-Zl93YXRjaF9wb2ludHMgPSA0LAo+ICsgICAgICAgLm1xZF9zaXplX2FsaWduZWQgPSBNUURfU0la
-RV9BTElHTkVELAo+ICsgICAgICAgLnN1cHBvcnRzX2N3c3IgPSB0cnVlLAo+ICsgICAgICAgLm5l
-ZWRzX2lvbW11X2RldmljZSA9IGZhbHNlLAo+ICsgICAgICAgLm5lZWRzX3BjaV9hdG9taWNzID0g
-dHJ1ZSwKPiArfTsKPiArCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qga2ZkX2RldmljZV9pbmZvIGZp
-amlfdmZfZGV2aWNlX2luZm8gPSB7Cj4gKyAgICAgICAuYXNpY19mYW1pbHkgPSBDSElQX0ZJSkks
-Cj4gKyAgICAgICAubWF4X3Bhc2lkX2JpdHMgPSAxNiwKPiArICAgICAgIC5tYXhfbm9fb2ZfaHFk
-ICA9IDI0LAo+ICsgICAgICAgLmloX3JpbmdfZW50cnlfc2l6ZSA9IDQgKiBzaXplb2YodWludDMy
-X3QpLAo+ICsgICAgICAgLmV2ZW50X2ludGVycnVwdF9jbGFzcyA9ICZldmVudF9pbnRlcnJ1cHRf
-Y2xhc3NfY2lrLAo+ICsgICAgICAgLm51bV9vZl93YXRjaF9wb2ludHMgPSA0LAo+ICsgICAgICAg
-Lm1xZF9zaXplX2FsaWduZWQgPSBNUURfU0laRV9BTElHTkVELAo+ICsgICAgICAgLnN1cHBvcnRz
-X2N3c3IgPSB0cnVlLAo+ICsgICAgICAgLm5lZWRzX2lvbW11X2RldmljZSA9IGZhbHNlLAo+ICsg
-ICAgICAgLm5lZWRzX3BjaV9hdG9taWNzID0gZmFsc2UsCj4gK307Cj4gKwo+ICsKPiArc3RhdGlj
-IGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gcG9sYXJpczEwX2RldmljZV9pbmZvID0gewo+
-ICsgICAgICAgLmFzaWNfZmFtaWx5ID0gQ0hJUF9QT0xBUklTMTAsCj4gKyAgICAgICAubWF4X3Bh
-c2lkX2JpdHMgPSAxNiwKPiArICAgICAgIC5tYXhfbm9fb2ZfaHFkICA9IDI0LAo+ICsgICAgICAg
-LmloX3JpbmdfZW50cnlfc2l6ZSA9IDQgKiBzaXplb2YodWludDMyX3QpLAo+ICsgICAgICAgLmV2
-ZW50X2ludGVycnVwdF9jbGFzcyA9ICZldmVudF9pbnRlcnJ1cHRfY2xhc3NfY2lrLAo+ICsgICAg
-ICAgLm51bV9vZl93YXRjaF9wb2ludHMgPSA0LAo+ICsgICAgICAgLm1xZF9zaXplX2FsaWduZWQg
-PSBNUURfU0laRV9BTElHTkVELAo+ICsgICAgICAgLnN1cHBvcnRzX2N3c3IgPSB0cnVlLAo+ICsg
-ICAgICAgLm5lZWRzX2lvbW11X2RldmljZSA9IGZhbHNlLAo+ICsgICAgICAgLm5lZWRzX3BjaV9h
-dG9taWNzID0gdHJ1ZSwKPiArfTsKPiArCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qga2ZkX2Rldmlj
-ZV9pbmZvIHBvbGFyaXMxMF92Zl9kZXZpY2VfaW5mbyA9IHsKPiArICAgICAgIC5hc2ljX2ZhbWls
-eSA9IENISVBfUE9MQVJJUzEwLAo+ICsgICAgICAgLm1heF9wYXNpZF9iaXRzID0gMTYsCj4gKyAg
-ICAgICAubWF4X25vX29mX2hxZCAgPSAyNCwKPiArICAgICAgIC5paF9yaW5nX2VudHJ5X3NpemUg
-PSA0ICogc2l6ZW9mKHVpbnQzMl90KSwKPiArICAgICAgIC5ldmVudF9pbnRlcnJ1cHRfY2xhc3Mg
-PSAmZXZlbnRfaW50ZXJydXB0X2NsYXNzX2NpaywKPiArICAgICAgIC5udW1fb2Zfd2F0Y2hfcG9p
-bnRzID0gNCwKPiArICAgICAgIC5tcWRfc2l6ZV9hbGlnbmVkID0gTVFEX1NJWkVfQUxJR05FRCwK
-PiArICAgICAgIC5zdXBwb3J0c19jd3NyID0gdHJ1ZSwKPiArICAgICAgIC5uZWVkc19pb21tdV9k
-ZXZpY2UgPSBmYWxzZSwKPiArICAgICAgIC5uZWVkc19wY2lfYXRvbWljcyA9IGZhbHNlLAo+ICt9
-Owo+ICsKPiArc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gcG9sYXJpczExX2Rl
-dmljZV9pbmZvID0gewo+ICsgICAgICAgLmFzaWNfZmFtaWx5ID0gQ0hJUF9QT0xBUklTMTEsCj4g
-KyAgICAgICAubWF4X3Bhc2lkX2JpdHMgPSAxNiwKPiArICAgICAgIC5tYXhfbm9fb2ZfaHFkICA9
-IDI0LAo+ICsgICAgICAgLmloX3JpbmdfZW50cnlfc2l6ZSA9IDQgKiBzaXplb2YodWludDMyX3Qp
-LAo+ICsgICAgICAgLmV2ZW50X2ludGVycnVwdF9jbGFzcyA9ICZldmVudF9pbnRlcnJ1cHRfY2xh
-c3NfY2lrLAo+ICsgICAgICAgLm51bV9vZl93YXRjaF9wb2ludHMgPSA0LAo+ICsgICAgICAgLm1x
-ZF9zaXplX2FsaWduZWQgPSBNUURfU0laRV9BTElHTkVELAo+ICsgICAgICAgLnN1cHBvcnRzX2N3
-c3IgPSB0cnVlLAo+ICsgICAgICAgLm5lZWRzX2lvbW11X2RldmljZSA9IGZhbHNlLAo+ICsgICAg
-ICAgLm5lZWRzX3BjaV9hdG9taWNzID0gdHJ1ZSwKPiArfTsKPiArCj4gKwo+ICBzdHJ1Y3Qga2Zk
-X2RldmljZWlkIHsKPiAgICAgICAgIHVuc2lnbmVkIHNob3J0IGRpZDsKPiAgICAgICAgIGNvbnN0
-IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gKmRldmljZV9pbmZvOwo+ICB9Owo+Cj4gLS8qIFBsZWFz
-ZSBrZWVwIHRoaXMgc29ydGVkIGJ5IGluY3JlYXNpbmcgZGV2aWNlIGlkLiAqLwo+ICBzdGF0aWMg
-Y29uc3Qgc3RydWN0IGtmZF9kZXZpY2VpZCBzdXBwb3J0ZWRfZGV2aWNlc1tdID0gewo+ICAjaWYg
-ZGVmaW5lZChDT05GSUdfQU1EX0lPTU1VX1YyX01PRFVMRSkgfHwgZGVmaW5lZChDT05GSUdfQU1E
-X0lPTU1VX1YyKQo+ICAgICAgICAgeyAweDEzMDQsICZrYXZlcmlfZGV2aWNlX2luZm8gfSwgICAg
-ICAgIC8qIEthdmVyaSAqLwo+IEBAIC05Nyw4ICsyMDMsNTEgQEAgc3RhdGljIGNvbnN0IHN0cnVj
-dCBrZmRfZGV2aWNlaWQgc3VwcG9ydGVkX2RldmljZXNbXSA9IHsKPiAgICAgICAgIHsgMHg5ODc0
-LCAmY2Fycml6b19kZXZpY2VfaW5mbyB9LCAgICAgICAvKiBDYXJyaXpvICovCj4gICAgICAgICB7
-IDB4OTg3NSwgJmNhcnJpem9fZGV2aWNlX2luZm8gfSwgICAgICAgLyogQ2Fycml6byAqLwo+ICAg
-ICAgICAgeyAweDk4NzYsICZjYXJyaXpvX2RldmljZV9pbmZvIH0sICAgICAgIC8qIENhcnJpem8g
-Ki8KPiAtICAgICAgIHsgMHg5ODc3LCAmY2Fycml6b19kZXZpY2VfaW5mbyB9ICAgICAgICAvKiBD
-YXJyaXpvICovCj4gKyAgICAgICB7IDB4OTg3NywgJmNhcnJpem9fZGV2aWNlX2luZm8gfSwgICAg
-ICAgLyogQ2Fycml6byAqLwo+ICAjZW5kaWYKPiArICAgICAgIHsgMHg2N0EwLCAmaGF3YWlpX2Rl
-dmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2N0ExLCAmaGF3
-YWlpX2RldmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2N0Ey
-LCAmaGF3YWlpX2RldmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsg
-MHg2N0E4LCAmaGF3YWlpX2RldmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAg
-ICAgIHsgMHg2N0E5LCAmaGF3YWlpX2RldmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8K
-PiArICAgICAgIHsgMHg2N0FBLCAmaGF3YWlpX2RldmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdh
-aWkgKi8KPiArICAgICAgIHsgMHg2N0IwLCAmaGF3YWlpX2RldmljZV9pbmZvIH0sICAgICAgICAv
-KiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2N0IxLCAmaGF3YWlpX2RldmljZV9pbmZvIH0sICAg
-ICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2N0I4LCAmaGF3YWlpX2RldmljZV9pbmZv
-IH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2N0I5LCAmaGF3YWlpX2Rldmlj
-ZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2N0JBLCAmaGF3YWlp
-X2RldmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2N0JFLCAm
-aGF3YWlpX2RldmljZV9pbmZvIH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiArICAgICAgIHsgMHg2
-OTIwLCAmdG9uZ2FfZGV2aWNlX2luZm8gfSwgICAgICAgICAvKiBUb25nYSAqLwo+ICsgICAgICAg
-eyAweDY5MjEsICZ0b25nYV9kZXZpY2VfaW5mbyB9LCAgICAgICAgIC8qIFRvbmdhICovCj4gKyAg
-ICAgICB7IDB4NjkyOCwgJnRvbmdhX2RldmljZV9pbmZvIH0sICAgICAgICAgLyogVG9uZ2EgKi8K
-PiArICAgICAgIHsgMHg2OTI5LCAmdG9uZ2FfZGV2aWNlX2luZm8gfSwgICAgICAgICAvKiBUb25n
-YSAqLwo+ICsgICAgICAgeyAweDY5MkIsICZ0b25nYV9kZXZpY2VfaW5mbyB9LCAgICAgICAgIC8q
-IFRvbmdhICovCj4gKyAgICAgICB7IDB4NjkyRiwgJnRvbmdhX3ZmX2RldmljZV9pbmZvIH0sICAg
-ICAgLyogVG9uZ2EgdmYgKi8KPiArICAgICAgIHsgMHg2OTM4LCAmdG9uZ2FfZGV2aWNlX2luZm8g
-fSwgICAgICAgICAvKiBUb25nYSAqLwo+ICsgICAgICAgeyAweDY5MzksICZ0b25nYV9kZXZpY2Vf
-aW5mbyB9LCAgICAgICAgIC8qIFRvbmdhICovCj4gKyAgICAgICB7IDB4NzMwMCwgJmZpamlfZGV2
-aWNlX2luZm8gfSwgICAgICAgICAgLyogRmlqaSAqLwo+ICsgICAgICAgeyAweDczMEYsICZmaWpp
-X3ZmX2RldmljZV9pbmZvIH0sICAgICAgIC8qIEZpamkgdmYqLwo+ICsgICAgICAgeyAweDY3QzAs
-ICZwb2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAgIC8qIFBvbGFyaXMxMCAqLwo+ICsgICAgICAg
-eyAweDY3QzEsICZwb2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAgIC8qIFBvbGFyaXMxMCAqLwo+
-ICsgICAgICAgeyAweDY3QzIsICZwb2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAgIC8qIFBvbGFy
-aXMxMCAqLwo+ICsgICAgICAgeyAweDY3QzQsICZwb2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAg
-IC8qIFBvbGFyaXMxMCAqLwo+ICsgICAgICAgeyAweDY3QzcsICZwb2xhcmlzMTBfZGV2aWNlX2lu
-Zm8gfSwgICAgIC8qIFBvbGFyaXMxMCAqLwo+ICsgICAgICAgeyAweDY3QzgsICZwb2xhcmlzMTBf
-ZGV2aWNlX2luZm8gfSwgICAgIC8qIFBvbGFyaXMxMCAqLwo+ICsgICAgICAgeyAweDY3QzksICZw
-b2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAgIC8qIFBvbGFyaXMxMCAqLwo+ICsgICAgICAgeyAw
-eDY3Q0EsICZwb2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAgIC8qIFBvbGFyaXMxMCAqLwo+ICsg
-ICAgICAgeyAweDY3Q0MsICZwb2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAgIC8qIFBvbGFyaXMx
-MCAqLwo+ICsgICAgICAgeyAweDY3Q0YsICZwb2xhcmlzMTBfZGV2aWNlX2luZm8gfSwgICAgIC8q
-IFBvbGFyaXMxMCAqLwo+ICsgICAgICAgeyAweDY3RDAsICZwb2xhcmlzMTBfdmZfZGV2aWNlX2lu
-Zm8gfSwgIC8qIFBvbGFyaXMxMCB2ZiovCj4gKyAgICAgICB7IDB4NjdERiwgJnBvbGFyaXMxMF9k
-ZXZpY2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczEwICovCj4gKyAgICAgICB7IDB4NjdFMCwgJnBv
-bGFyaXMxMV9kZXZpY2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczExICovCj4gKyAgICAgICB7IDB4
-NjdFMSwgJnBvbGFyaXMxMV9kZXZpY2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczExICovCj4gKyAg
-ICAgICB7IDB4NjdFMywgJnBvbGFyaXMxMV9kZXZpY2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczEx
-ICovCj4gKyAgICAgICB7IDB4NjdFNywgJnBvbGFyaXMxMV9kZXZpY2VfaW5mbyB9LCAgICAgLyog
-UG9sYXJpczExICovCj4gKyAgICAgICB7IDB4NjdFOCwgJnBvbGFyaXMxMV9kZXZpY2VfaW5mbyB9
-LCAgICAgLyogUG9sYXJpczExICovCj4gKyAgICAgICB7IDB4NjdFOSwgJnBvbGFyaXMxMV9kZXZp
-Y2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczExICovCj4gKyAgICAgICB7IDB4NjdFQiwgJnBvbGFy
-aXMxMV9kZXZpY2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczExICovCj4gKyAgICAgICB7IDB4NjdF
-RiwgJnBvbGFyaXMxMV9kZXZpY2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczExICovCj4gKyAgICAg
-ICB7IDB4NjdGRiwgJnBvbGFyaXMxMV9kZXZpY2VfaW5mbyB9LCAgICAgLyogUG9sYXJpczExICov
-Cj4gIH07Cj4KPiAgc3RhdGljIGludCBrZmRfZ3R0X3NhX2luaXQoc3RydWN0IGtmZF9kZXYgKmtm
-ZCwgdW5zaWduZWQgaW50IGJ1Zl9zaXplLAo+IC0tCj4gMi43LjQKPgoKT3RoZXIgdGhlbiB0aGUg
-bm90ZSBhYm92ZSwgVGhpcyBwYXRjaCBpczoKUmV2aWV3ZWQtYnk6IE9kZWQgR2FiYmF5IDxvZGVk
-LmdhYmJheUBnbWFpbC5jb20+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+--===============0494121179==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB16520A78D8FFA5E0AF393BD2F7FB0BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB16520A78D8FFA5E0AF393BD2F7FB0BN6PR12MB1652namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Oded Gab=
+bay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Wednesday, January 31, 2018 10:17 AM
+To: Kuehling, Felix
+Cc: amd-gfx list
+Subject: Re: [PATCH 7/9] drm/amdkfd: Add dGPU support to kernel_queue_init
+
+On Fri, Jan 5, 2018 at 12:17 AM, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> wr=
+ote:
+> Recognize dGPU ASIC families.
+>
+> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_kernel_queue.c
+> index 5dc6567..69f4964 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+> @@ -297,10 +297,15 @@ struct kernel_queue *kernel_queue_init(struct kfd_d=
+ev *dev,
+>
+>         switch (dev->device_info->asic_family) {
+>         case CHIP_CARRIZO:
+> +       case CHIP_TONGA:
+> +       case CHIP_FIJI:
+> +       case CHIP_POLARIS10:
+> +       case CHIP_POLARIS11:
+I believe POLARIS is from arcatic islands, no ?
+Maybe rename kernel_queue_init_vi to kernel_queue_init_vi_ai ?
+or create a new function kernel_queue_init_ai() and assign same
+functions as vi ?
+Either way, I think you need to address that.
+
+They are all gfx8.  adding ai just confuses things.
+
+Alex
+
+
+>                 kernel_queue_init_vi(&kq->ops_asic_specific);
+>                 break;
+>
+>         case CHIP_KAVERI:
+> +       case CHIP_HAWAII:
+>                 kernel_queue_init_cik(&kq->ops_asic_specific);
+>                 break;
+>         default:
+> --
+> 2.7.4
+>
+
+Other then that, This patch is:
+Reviewed-by: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB16520A78D8FFA5E0AF393BD2F7FB0BN6PR12MB1652namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Oded Gabbay &lt;oded.gabbay=
+@gmail.com&gt;<br>
+<b>Sent:</b> Wednesday, January 31, 2018 10:17 AM<br>
+<b>To:</b> Kuehling, Felix<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 7/9] drm/amdkfd: Add dGPU support to kernel_queu=
+e_init</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Fri, Jan 5, 2018 at 12:17 AM, Felix Kuehling &l=
+t;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+&gt; Recognize dGPU ASIC families.<br>
+&gt;<br>
+&gt; Signed-off-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 5 &#43;&#43;&#43=
+;&#43;&#43;<br>
+&gt;&nbsp; 1 file changed, 5 insertions(&#43;)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; index 5dc6567..69f4964 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c<br>
+&gt; @@ -297,10 &#43;297,15 @@ struct kernel_queue *kernel_queue_init(struc=
+t kfd_dev *dev,<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (dev-&gt;device=
+_info-&gt;asic_family) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_CARRIZO:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_TONGA:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_FIJI:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS10:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS11:<br>
+I believe POLARIS is from arcatic islands, no ?<br>
+Maybe rename kernel_queue_init_vi to kernel_queue_init_vi_ai ?<br>
+or create a new function kernel_queue_init_ai() and assign same<br>
+functions as vi ?<br>
+Either way, I think you need to address that.</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">They are all gfx8.&nbsp; adding ai just confuses t=
+hings. &nbsp;</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">Alex<br>
+</div>
+<div class=3D"PlainText"><br>
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; kernel_queue_init_vi(&amp;kq-&gt;ops_asic_specifi=
+c);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_KAVERI:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_HAWAII:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; kernel_queue_init_cik(&amp;kq-&gt;ops_asic_specif=
+ic);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt;<br>
+<br>
+Other then that, This patch is:<br>
+Reviewed-by: Oded Gabbay &lt;oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk943420" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
+stinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB16520A78D8FFA5E0AF393BD2F7FB0BN6PR12MB1652namp_--
+
+--===============0494121179==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0494121179==--
