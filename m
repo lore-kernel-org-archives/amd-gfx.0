@@ -1,35 +1,52 @@
-From: Oded Gabbay <oded.gabbay@gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Use ARRAY_SIZE macro in kfd_build_sysfs_node_entry
-Date: Wed, 31 Jan 2018 17:52:57 +0200
-Message-ID: <CAFCwf11xcp=51b-SZWoooJnBPthRngOLFWxGHCp0CZLQKjwJ3A@mail.gmail.com>
-References: <20180119003955.GA28885@embeddedor.com> <1fea2528-11a5-0210-6350-e916ebfebbdf@amd.com>
- <20180119163033.Horde.mgSL8gNIZesX57JfE-3CXgu@gator4166.hostgator.com>
+From: Chris Chiu <chiu-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
+Subject: amdgpu hangs on boot or shutdown on AMD Raven Ridge CPU (Engineer
+ Sample)
+Date: Wed, 31 Jan 2018 22:31:09 +0800
+Message-ID: <CAB4CAweUBN=8pd8x4AfMHor3D-C+1HRgAiG=1Vc1ne8M-cV-og@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180119163033.Horde.mgSL8gNIZesX57JfE-3CXgu@gator4166.hostgator.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
 
-On Sat, Jan 20, 2018 at 12:30 AM, Gustavo A. R. Silva
-<garsilva@embeddedor.com> wrote:
->
-> Quoting Felix Kuehling <felix.kuehling@amd.com>:
->
->> Looks good. This change is Reviewed-by: Felix Kuehling
->> <Felix.Kuehling@amd.com>
->>
->
-> Thanks Felix.
-> --
-> Gustavo
->
-Applied to -next
-Oded
-
->
->
->
->
+SGksCiAgICBXZSBhcmUgd29ya2luZyB3aXRoIG5ldyBsYXB0b3BzIHRoYXQgaGF2ZSB0aGUgQU1E
+IFJhdmVubCBSaWRnZQpjaGlwc2V0IHdpdGggdGhpcyBgL3Byb2MvY3B1aW5mb2AKaHR0cHM6Ly9n
+aXN0LmdpdGh1Yi5jb20vbXNjaGl1NzcvYjA2ZGJhNTc0ZTg5YjlhMzBjZjRjNDUwZWFlYzQ5YmMK
+CiAgICBXaXRoIHRoZSBsYXRlc3Qga2VybmVsIDQuMTUsIHRoZXJlJ3JlIGxvdHMgb2YgZGlmZmVy
+ZW50CnBhbmljcy9vb3BzIGR1cmluZyBib290IHNvIG5vIGNoYW5jZSB0byBnZXQgaW50byBYLiBJ
+dCBhbHNvIGhhcHBlbnMKZHVyaW5nIHNodXRkb3duLiBUaGVuIEkgdHJpZWQgdG8gYnVpbGQga2Vy
+bmVsIGZyb20KZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggb24gYnJh
+bmNoCmFtZC1zdGFnaW5nLWRybS1uZXh0IHdpdGggaGVhZCBvbiBjb21taXQgImRybTogRml4IHRy
+YWlsaW5nIHNlbWljb2xvbiIKYW5kIHVwZGF0ZSB0aGUgbGludXgtZmlybXdhcmUuIFRoaW5ncyBz
+ZWVtIHRvIGdldCBiZXR0ZXIsIG9ubHkgMSBvb3BzCm9ic2VydmVkLiBIZXJlJ3MgdGhlIG9vcHMK
+aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vbXNjaGl1NzcvMWE2OGYyNzI3MmIyNDc3NWIyMDQwYWNk
+YjQ3NGNkZDMuCkhvd2V2ZXIsIEkgc3RpbGwgZ2V0IHN0dWNrIG9uIHRoZSBmb2xsb3dpbmcgbWVz
+c2FnZXMgZHVyaW5nIGJvb3QgdmVyeQpvZnRlbgoiIgpbICAgIDQuOTk4MjQxXSBlbmRsZXNzIGtl
+cm5lbDogW2RybV0gYW1kZ3B1IGtlcm5lbCBtb2Rlc2V0dGluZyBlbmFibGVkLgpbICAgIDQuOTk4
+Mjg4XSBlbmRsZXNzIGtlcm5lbDogY2hlY2tpbmcgZ2VuZXJpYyAoZTAwMDAwMDAgN2YwMDAwKSB2
+cwpodyAoZTAwMDAwMDAgMTAwMDAwMDApClsgICAgNC45OTgyODldIGVuZGxlc3Mga2VybmVsOiBm
+Yjogc3dpdGNoaW5nIHRvIGFtZGdwdWRybWZiIGZyb20gRUZJIFZHQQoiIgpJIHR1cm5lZCBvbiBk
+cm0uZGVidWc9MHhlIHdoaWxlIGJvb3RpbmcsIGJ1dCBubyBtb3JlIGluZm9ybWF0aW9uIGF0IHRo
+aXMgcG9pbnQuCkFueXRoaW5nIEkgY2FuIGRvIGF0IHRoaXMgcG9pbnQ/CgogICAgQW5kIHRoZXJl
+J3MgMSBtb3JlIGluZm9ybWF0aW9uIG1heSBiZSBoZWxwZnVsLiBTb21ldGltZXMgdGhlCnN5c3Rl
+bSBib290cyBPSyB3aXRoIHRoZSBibGFuayBzY3JlZW4sIEkgY2FuJ3Qgc3dpdGNoIHRvIHZpcnR1
+YWwKY29uc29sZSwgYnV0IGl0IGRpZCByZXNwb25kIHRvIHRoZSBtYWdpYyBzeXMtcnEga2V5LiBU
+aGUgZG1lc2cgd2l0aApkcm0uZGVidWc9MHhlIGlzIGhlcmUKaHR0cHM6Ly9naXN0LmdpdGh1Yi5j
+b20vbXNjaGl1NzcvMjkxZTQ3YjFmMDdkYzUyYmU5NDYxYzU1YzgyMDQ2NGMuCgogICAgSSdtIHBy
+ZXR0eSBzdXJlIGl0J3MgZHVlIHRvIHRoZSBhbWRncHUgZHJpdmVyLiBCZWNhdXNlIHdoZW4gSSBi
+b290CndpdGggbXkgb3duIGtlcm5lbCB3aGljaCBkaXNhYmxlcyB0aGUgYW1kZ3B1IGRyaXZlciwg
+YWxsIHRoZXNlCnN5bXB0b21zIHdlbnQgYXdheS4gUGxlYXNlIHN1Z2dlc3QgYW55dGhpbmcgSSBj
+YW4gZG8gZm9yIHRoaXMuIFRoYW5rcwoKQ2hyaXMKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
