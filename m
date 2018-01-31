@@ -1,89 +1,35 @@
-From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 9/9] drm/amdgpu: Enable KFD initialization on dGPUs
-Date: Wed, 31 Jan 2018 17:50:14 +0200
-Message-ID: <CAFCwf10Ws=-BQ4JCszumsay5=n_1e41Mps_JqsszOLg4FuXi3Q@mail.gmail.com>
-References: <1515104268-25087-1-git-send-email-Felix.Kuehling@amd.com>
- <1515104268-25087-10-git-send-email-Felix.Kuehling@amd.com>
- <CAFCwf11WWuHydSRBu3Pk8-jFLgoxJ7k0GDfuO-HWRjpvSRm5xQ@mail.gmail.com>
- <5881ecb1-3d76-9783-2b60-5b43b5547a3d@gmail.com>
- <CAFCwf10--hDY=0zFUaSM9+fZWXuk8h4AU5-PE+_0+adCAYJ34Q@mail.gmail.com>
- <6ea9aa7d-f8c5-e6a5-a492-7506055527c6@amd.com>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Use ARRAY_SIZE macro in kfd_build_sysfs_node_entry
+Date: Wed, 31 Jan 2018 17:52:57 +0200
+Message-ID: <CAFCwf11xcp=51b-SZWoooJnBPthRngOLFWxGHCp0CZLQKjwJ3A@mail.gmail.com>
+References: <20180119003955.GA28885@embeddedor.com> <1fea2528-11a5-0210-6350-e916ebfebbdf@amd.com>
+ <20180119163033.Horde.mgSL8gNIZesX57JfE-3CXgu@gator4166.hostgator.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6ea9aa7d-f8c5-e6a5-a492-7506055527c6-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180119163033.Horde.mgSL8gNIZesX57JfE-3CXgu@gator4166.hostgator.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBKYW4gMzEsIDIwMTggYXQgNTozNCBQTSwgQ2hyaXN0aWFuIEvDtm5pZwo8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPiBBbSAzMS4wMS4yMDE4IHVtIDE2OjMxIHNjaHJp
-ZWIgT2RlZCBHYWJiYXk6Cj4+Cj4+IE9uIFdlZCwgSmFuIDMxLCAyMDE4IGF0IDU6MjggUE0sIENo
-cmlzdGlhbiBLw7ZuaWcKPj4gPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90
-ZToKPj4+Cj4+PiBBbSAzMS4wMS4yMDE4IHVtIDE2OjI1IHNjaHJpZWIgT2RlZCBHYWJiYXk6Cj4+
-Pj4KPj4+PiBPbiBGcmksIEphbiA1LCAyMDE4IGF0IDEyOjE3IEFNLCBGZWxpeCBLdWVobGluZyA8
-RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPj4+PiB3cm90ZToKPj4+Pj4KPj4+Pj4gU2lnbmVkLW9m
-Zi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+Cj4+Pj4+IC0tLQo+
-Pj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgfCA1ICsr
-KysrCj4+Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKPj4+Pj4KPj4+Pj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYwo+
-Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYwo+Pj4+PiBp
-bmRleCAzMzVlNDU0Li43ZWJlNDMwIDEwMDY0NAo+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKPj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jCj4+Pj4+IEBAIC03OCwxMCArNzgsMTUgQEAgdm9pZCBh
-bWRncHVfYW1ka2ZkX2RldmljZV9wcm9iZShzdHJ1Y3QKPj4+Pj4gYW1kZ3B1X2RldmljZQo+Pj4+
-PiAqYWRldikKPj4+Pj4gICAgICAgICAgIHN3aXRjaCAoYWRldi0+YXNpY190eXBlKSB7Cj4+Pj4+
-ICAgICNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9DSUsKPj4+Pj4gICAgICAgICAgIGNhc2UgQ0hJ
-UF9LQVZFUkk6Cj4+Pj4+ICsgICAgICAgY2FzZSBDSElQX0hBV0FJSToKPj4+Pj4gICAgICAgICAg
-ICAgICAgICAga2ZkMmtnZCA9IGFtZGdwdV9hbWRrZmRfZ2Z4XzdfZ2V0X2Z1bmN0aW9ucygpOwo+
-Pj4+PiAgICAgICAgICAgICAgICAgICBicmVhazsKPj4+Pj4gICAgI2VuZGlmCj4+Pj4+ICAgICAg
-ICAgICBjYXNlIENISVBfQ0FSUklaTzoKPj4+Pj4gKyAgICAgICBjYXNlIENISVBfVE9OR0E6Cj4+
-Pj4+ICsgICAgICAgY2FzZSBDSElQX0ZJSkk6Cj4+Pj4+ICsgICAgICAgY2FzZSBDSElQX1BPTEFS
-SVMxMDoKPj4+Pj4gKyAgICAgICBjYXNlIENISVBfUE9MQVJJUzExOgo+Pj4+Cj4+Pj4gUG9sYXJp
-cyBpc24ndCBnZnggOSA/Cj4+Pj4gb3IgaXMgaXQgY2FsbGVkIGRpZmZlcmVudGx5ID8KPj4+Cj4+
-Pgo+Pj4gTm8gUG9sYXJpcyBhcmUganVzdCB1cGRhdGVkIGdmeDggdmFyaWFudHMuCj4+Pgo+Pj4g
-Z2Z4OSBpcyBWZWdhMTAuCj4+Pgo+Pj4gQ2hyaXN0aWFuLgo+Pgo+PiBPSywgdGhhbmtzLiBTbyB0
-aGlzIHBhdGNoIGlzIGZpbmUgYW5kIGlzCj4+IFJldmlld2VkLWJ5OiBPZGVkIEdhYmJheSA8b2Rl
-ZC5nYWJiYXlAZ21haWwuY29tPgo+Pgo+PiBIYXZpbmcgc2FpZCB0aGF0LCBhcyBJIHdyb3RlIHRv
-IEFsZXgsIGlmIHRoYXQgaXMgdGhlIGNhc2UsIEkgdGhpbmsgd2UKPj4gc2hvdWxkIHJlbmFtZSBh
-bGwgc29jLWRlcGVuZGVudCBmdW5jdGlvbnMgZnJvbSB1c2luZyBjaWsgYW5kIHZpIGFzCj4+IGlk
-ZW50aWZpZXJzIHRvIGdmeDcvZ2Z4OC4KPgo+Cj4gV2VsbCB0aGF0IGRlcGVuZHMgb24gd2hhdCB0
-aGUgbmFtZSByZWZlcnMgdG8uCj4KPiBnZng3L2dmeDgganVzdCBkZXNjcmliZSB0aGUgdmVyc2lv
-biBvZiB0aGUgQ1AsIG5vdCB0aGUgZnVsbCBBU0lDLgo+Cj4gRm9yIGV4YW1wbGUgVG9uZ2EgYW5k
-IFBvbGFyaXMgYXJlIGJvdGggZ2Z4OCwgYnV0IGhhdmUgYSBkaWZmZXJlbnQgU0RNQSBJSVJDLgo+
-Cj4gQ2hyaXN0aWFuLgoKVW5kZXJzdG9vZCwgYnV0IHNlZSB0aGUgZm9sbG93aW5nIGNvZGUgZnJv
-bSBtcWRfbWFuYWdlcl9pbml0KCk6Cgpzd2l0Y2ggKGRldi0+ZGV2aWNlX2luZm8tPmFzaWNfZmFt
-aWx5KSB7CmNhc2UgQ0hJUF9LQVZFUkk6CiAgICAgcmV0dXJuIG1xZF9tYW5hZ2VyX2luaXRfY2lr
-KHR5cGUsIGRldik7CmNhc2UgQ0hJUF9IQVdBSUk6CiAgICAgcmV0dXJuIG1xZF9tYW5hZ2VyX2lu
-aXRfY2lrX2hhd2FpaSh0eXBlLCBkZXYpOwpjYXNlIENISVBfQ0FSUklaTzoKICAgICByZXR1cm4g
-bXFkX21hbmFnZXJfaW5pdF92aSh0eXBlLCBkZXYpOwpjYXNlIENISVBfVE9OR0E6CmNhc2UgQ0hJ
-UF9GSUpJOgpjYXNlIENISVBfUE9MQVJJUzEwOgpjYXNlIENISVBfUE9MQVJJUzExOgogICAgIHJl
-dHVybiBtcWRfbWFuYWdlcl9pbml0X3ZpX3RvbmdhKHR5cGUsIGRldik7CmRlZmF1bHQ6CldBUk4o
-MSwgIlVuZXhwZWN0ZWQgQVNJQyBmYW1pbHkgJXUiLAogICAgIGRldi0+ZGV2aWNlX2luZm8tPmFz
-aWNfZmFtaWx5KTsKfQoKCllvdSBzdGFydGVkIHdpdGggbXFkX21hbmFnZXJfaW5pdF9jaWsgYW5k
-IG1xZF9tYW5hZ2VyX2luaXRfdmksIHdoaWNoIGlzIG5pY2UuClRoZW4sIHlvdSBhZGQgbXFkX21h
-bmFnZXJfaW5pdF9jaWtfaGF3YWlpIGFuZAptcWRfbWFuYWdlcl9pbml0X3ZpX3RvbmdhLCB3aGlj
-aCBpcyBsZXNzIG5pY2UuClRoZW4sIHRvIHRvcCBpdCBvZmYsIHlvdSBhc3NpZ24gQ0hJUF9QT0xB
-UklTMTAgYW5kIENISVBfUE9MQVJJUzExIHRvCm1xZF9tYW5hZ2VyX2luaXRfdmlfdG9uZ2EgPyBw
-b2xhcmlzIGlzIG5laXRoZXIgdmksIG5vciB0b25nYS4KCnNhbWUgdGhpbmcgaW4gZGV2aWNlX3F1
-ZXVlX21hbmFnZXJfaW5pdCgpCgpUaGF0J3Mgd2hhdCBJIG1lYW50IGJ5IHNheWluZyBjaWsgYW5k
-IHZpIGFyZW4ndCBzbyBnb29kIGFzIGlkZW50aWZpZXJzLgoKT2RlZAoKPgo+Cj4+Cj4+IE9kZWQK
-Pj4+Pj4KPj4+Pj4gICAgICAgICAgICAgICAgICAga2ZkMmtnZCA9IGFtZGdwdV9hbWRrZmRfZ2Z4
-XzhfMF9nZXRfZnVuY3Rpb25zKCk7Cj4+Pj4+ICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+Pj4+
-PiAgICAgICAgICAgZGVmYXVsdDoKPj4+Pj4gLS0KPj4+Pj4gMi43LjQKPj4+Pj4KPj4+PiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+IGFtZC1nZngg
-bWFpbGluZyBsaXN0Cj4+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+PiBodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPj4+Cj4+
-Pgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Sat, Jan 20, 2018 at 12:30 AM, Gustavo A. R. Silva
+<garsilva@embeddedor.com> wrote:
+>
+> Quoting Felix Kuehling <felix.kuehling@amd.com>:
+>
+>> Looks good. This change is Reviewed-by: Felix Kuehling
+>> <Felix.Kuehling@amd.com>
+>>
+>
+> Thanks Felix.
+> --
+> Gustavo
+>
+Applied to -next
+Oded
+
+>
+>
+>
+>
