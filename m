@@ -1,60 +1,50 @@
-From: Bas Nieuwenhuizen <basni-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Fix always_valid bos multiple LRU insertions.
-Date: Wed, 31 Jan 2018 13:58:55 +0100
-Message-ID: <20180131125855.244898-1-basni@chromium.org>
-References: <20180131120710.238619-1-basni@chromium.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 11/13] drm/amdgpu: add DRM_AMDGPU_ATC config option
+Date: Wed, 31 Jan 2018 14:04:17 +0100
+Message-ID: <6b19483a-79f3-e5e0-307f-ead73b4e2b7a@amd.com>
+References: <20180126201326.8829-1-christian.koenig@amd.com>
+	<20180126201326.8829-11-christian.koenig@amd.com>
+	<6cf4bd37-fbf1-1fb4-496a-d62e403aea6f@amd.com>
+	<7ebabb2b-1b18-8c7b-626f-d6874bdaac80@gmail.com>
+	<c39b444b-49a1-771a-65ba-ae37ba643673@amd.com>
+	<CAFCwf12ho2gXrBUHtaKRV-mX2kRk45xeu2o=F0-=Q+GFkAs=RA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180131120710.238619-1-basni-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Bas Nieuwenhuizen <basni-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <CAFCwf12ho2gXrBUHtaKRV-mX2kRk45xeu2o=F0-=Q+GFkAs=RA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, jean-philippe.brucker-5wv7dgnIgG8@public.gmane.org
+Cc: iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SWYgdGhlc2UgYm9zIGFyZSBldmljdGVkIGFuZCBhcmUgaW4gdGhlIHZhbGlkYXRlZCBsaXN0CnRo
-aW5ncyBibG93IHVwLCBzbyBkbyBub3QgcHV0IHRoZW0gaW4gdGhlcmUuIE5vdGFibHksCnRoYXQg
-dHJpZXMgdG8gYWRkIHRoZSBibyB0byB0aGUgTFJVIHR3aWNlLCB3aGljaCByZXN1bHRzCmluIGEg
-QlVHX09OIGluIHR0bV9iby5jLgoKV2hpbGUgZm9yIHRoZSBib19saXN0IGFuIGFsdGVybmF0aXZl
-IHdvdWxkIGJlIHRvIG5vdCBhbGxvdwphbHdheXMgdmFsaWQgYm9zIGluIHRoZXJlLCB0aGF0IGRv
-ZXMgbm90IHdvcmsgZm9yIHRoZSB1c2VyCmZlbmNlLgoKdjI6IEZpeGVkIHdoaXRlc3BhY2UgaXNz
-dWUgcG9pbnRlZCBvdXQgYnkgY2hlY2twYXRjaC5wbAoKU2lnbmVkLW9mZi1ieTogQmFzIE5pZXV3
-ZW5odWl6ZW4gPGJhc25pQGNocm9taXVtLm9yZz4KUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCgpNaW5vciB3aGl0ZXNwYWNlIGZpeCwg
-c29ycnkgZm9yIHRoZSBub2lzZSAuLi4KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9ib19saXN0LmMgfCA2ICsrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2NzLmMgICAgICB8IDIgKy0KIDIgZmlsZXMgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAzIGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9ib19saXN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5j
-CmluZGV4IDU5MDg5ZTAyN2Y0ZDguLjk1ODM5ZDMzYWYwMWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYwpAQCAtMjMzLDggKzIzMywxMCBAQCB2b2lkIGFt
-ZGdwdV9ib19saXN0X2dldF9saXN0KHN0cnVjdCBhbWRncHVfYm9fbGlzdCAqbGlzdCwKIAlmb3Ig
-KGkgPSAwOyBpIDwgbGlzdC0+bnVtX2VudHJpZXM7IGkrKykgewogCQl1bnNpZ25lZCBwcmlvcml0
-eSA9IGxpc3QtPmFycmF5W2ldLnByaW9yaXR5OwogCi0JCWxpc3RfYWRkX3RhaWwoJmxpc3QtPmFy
-cmF5W2ldLnR2LmhlYWQsCi0JCQkgICAgICAmYnVja2V0W3ByaW9yaXR5XSk7CisJCWlmICghbGlz
-dC0+YXJyYXlbaV0ucm9iai0+cGFyZW50KQorCQkJbGlzdF9hZGRfdGFpbCgmbGlzdC0+YXJyYXlb
-aV0udHYuaGVhZCwKKwkJCQkgICAgICAmYnVja2V0W3ByaW9yaXR5XSk7CisKIAkJbGlzdC0+YXJy
-YXlbaV0udXNlcl9wYWdlcyA9IE5VTEw7CiAJfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9jcy5jCmluZGV4IGY3ZmNlYjYzNDEzYzkuLmNiMzA0NDI1OGIzNTIgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCkBAIC01MjgsNyArNTI4LDcgQEAgc3RhdGljIGlu
-dCBhbWRncHVfY3NfcGFyc2VyX2JvcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKIAlJTklU
-X0xJU1RfSEVBRCgmZHVwbGljYXRlcyk7CiAJYW1kZ3B1X3ZtX2dldF9wZF9ibygmZnByaXYtPnZt
-LCAmcC0+dmFsaWRhdGVkLCAmcC0+dm1fcGQpOwogCi0JaWYgKHAtPnVmX2VudHJ5LnJvYmopCisJ
-aWYgKHAtPnVmX2VudHJ5LnJvYmogJiYgIXAtPnVmX2VudHJ5LnJvYmotPnBhcmVudCkKIAkJbGlz
-dF9hZGQoJnAtPnVmX2VudHJ5LnR2LmhlYWQsICZwLT52YWxpZGF0ZWQpOwogCiAJd2hpbGUgKDEp
-IHsKLS0gCjIuMTYuMC5yYzEuMjM4Lmc1MzBkNjQ5YTc5LWdvb2cKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Adding Jean and the IOMMU list as well.
+
+Am 31.01.2018 um 13:43 schrieb Oded Gabbay:
+> On Tue, Jan 30, 2018 at 6:53 PM, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org> wrote:
+>> [SNIP]
+> There was some discussion last year about a generic PASID allocator in
+> the iommu subsystem:
+> https://lists.linuxfoundation.org/pipermail/iommu/2017-June/022159.html
+>
+> Unfortunately, I don't think it got any further then that.
+
+Yeah, that sounds exactly like what I had in mind as well.
+
+Jean any updates on that topic? We are rather interested in common PASID 
+handling as well.
+
+Anybody already working on this? Sounds mostly like moving code around 
+and creating a common interface.
+
+Thanks,
+Christian.
