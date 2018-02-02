@@ -1,13 +1,14 @@
 From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: fix mclk fixed in high when no display
- connected
-Date: Fri, 2 Feb 2018 10:23:35 -0500
-Message-ID: <CADnq5_Nu75QhsdVKEA4xSyRPsPnrZRniJzAU8PtR1MUyP1EmcQ@mail.gmail.com>
-References: <1517547179-30756-1-git-send-email-Rex.Zhu@amd.com>
+Subject: Re: [PATCH] drm/amd/pp: Fix logic error of disable mclk switch on
+ Vega10
+Date: Fri, 2 Feb 2018 10:29:55 -0500
+Message-ID: <CADnq5_OyRV0e+PZfDRW6y7JQBdbLPXeu13S4-kch3fzD=LspfA@mail.gmail.com>
+References: <1517554575-32538-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="94eb2c06b932ce552f05643c4bda"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1517547179-30756-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1517554575-32538-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,98 +22,47 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---94eb2c06b932ce552f05643c4bda
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu, Feb 1, 2018 at 11:52 PM, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> wrote:
-> Change-Id: I2d7663e164ff8eeafe0a4fed99e106b1d130a285
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> index ba3c7d6..6700839 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -2919,10 +2919,10 @@ static int smu7_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
->                                     PHM_PlatformCaps_DisableMclkSwitchingForFrameLock);
->
->
-> -       disable_mclk_switching = ((1 < info.display_count) ||
-> -                                 disable_mclk_switching_for_frame_lock ||
-> +       disable_mclk_switching = ((1 < info.display_count) &&
-> +                                 (disable_mclk_switching_for_frame_lock ||
->                                   smu7_vblank_too_short(hwmgr, mode_info.vblank_time_us) ||
-> -                                 (mode_info.refresh_rate > 120));
-> +                                 (mode_info.refresh_rate > 120)));
-
-I think this will break the logic to handle single display over 120 hz
-and the vblank too short cases.  I think you want 1 <= display_count.
-It might be better to make the logic more clear.  How about the
-attached patch?
-
-Alex
-
->
->         sclk = smu7_ps->performance_levels[0].engine_clock;
->         mclk = smu7_ps->performance_levels[0].memory_clock;
-> --
-> 1.9.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---94eb2c06b932ce552f05643c4bda
-Content-Type: text/x-patch; charset="US-ASCII";
-	name="0001-drm-amd-pp-fix-mclk-fixed-in-high-when-no-display-co.patch"
-Content-Disposition: attachment;
-	filename="0001-drm-amd-pp-fix-mclk-fixed-in-high-when-no-display-co.patch"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_jd62xky70
-
-RnJvbSBiYzgyNTA2MzIwZTU5NGIxYjQ2NTE1ZmYwOWMwODAxODdmM2QyNjU2IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IEZyaSwgMiBGZWIgMjAxOCAxMDoxOToxMyAtMDUwMApTdWJqZWN0OiBbUEFUQ0hd
-IGRybS9hbWQvcHA6IGZpeCBtY2xrIGZpeGVkIGluIGhpZ2ggd2hlbiBubyBkaXNwbGF5IGNvbm5l
-Y3RlZAogKHYyKQoKQWxzbyBjbGVhbiB1cCB0aGUgbG9naWMgdG8gbWFrZSBpdCBjbGVhcmVyIGhv
-dyBtY2xrIHN3aXRjaGluZwppcyBkZXRlcm1pbmVkLgoKdjI6IE1ha2UgdGhlIGxvZ2ljIGNsZWFy
-ZXIsIGZpeCB0aGUgc2luZ2xlIGRpc3BsYXkgY2FzZS4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgfCAxNyArKysrKysrKysrKystLS0tLQogMSBm
-aWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCmluZGV4IGM1OWNi
-OTQ5OWUwNi4uYmM1NmU2ZjJmN2E5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3Ivc211N19od21nci5jCkBAIC0yOTAzLDExICsyOTAzLDE4IEBAIHN0YXRpYyBp
-bnQgc211N19hcHBseV9zdGF0ZV9hZGp1c3RfcnVsZXMoc3RydWN0IHBwX2h3bWdyICpod21nciwK
-IAkJCQkgICAgaHdtZ3ItPnBsYXRmb3JtX2Rlc2NyaXB0b3IucGxhdGZvcm1DYXBzLAogCQkJCSAg
-ICBQSE1fUGxhdGZvcm1DYXBzX0Rpc2FibGVNY2xrU3dpdGNoaW5nRm9yRnJhbWVMb2NrKTsKIAot
-Ci0JZGlzYWJsZV9tY2xrX3N3aXRjaGluZyA9ICgoMSA8IGluZm8uZGlzcGxheV9jb3VudCkgfHwK
-LQkJCQkgIGRpc2FibGVfbWNsa19zd2l0Y2hpbmdfZm9yX2ZyYW1lX2xvY2sgfHwKLQkJCQkgIHNt
-dTdfdmJsYW5rX3Rvb19zaG9ydChod21nciwgbW9kZV9pbmZvLnZibGFua190aW1lX3VzKSB8fAot
-CQkJCSAgKG1vZGVfaW5mby5yZWZyZXNoX3JhdGUgPiAxMjApKTsKKwlpZiAoaW5mby5kaXNwbGF5
-X2NvdW50ID09IDApCisJCS8qIG5vIGRpc3BsYXlzLCBlbmFibGUgbWNsayBzd2l0Y2hpbmcgKi8K
-KwkJZGlzYWJsZV9tY2xrX3N3aXRjaGluZyA9IGZhbHNlOworCWVsc2UgaWYgKGluZm8uZGlzcGxh
-eV9jb3VudCA9PSAxKQorCQkvKiAxIGRpc3BsYXksIGVuYWJsZSBtY2xrIHN3aXRjaGluZyBpZiBw
-b3NzaWJsZSAqLworCQlkaXNhYmxlX21jbGtfc3dpdGNoaW5nID0KKwkJCWRpc2FibGVfbWNsa19z
-d2l0Y2hpbmdfZm9yX2ZyYW1lX2xvY2sgfHwKKwkJCXNtdTdfdmJsYW5rX3Rvb19zaG9ydChod21n
-ciwgbW9kZV9pbmZvLnZibGFua190aW1lX3VzKSB8fAorCQkJKG1vZGVfaW5mby5yZWZyZXNoX3Jh
-dGUgPiAxMjApOworCWVsc2UKKwkJLyogPjEgZGlzcGxheSwgZGlzYWJsZSBtY2xrIHN3aXRjaGlu
-ZyAqLworCQlkaXNhYmxlX21jbGtfc3dpdGNoaW5nID0gdHJ1ZTsKIAogCXNjbGsgPSBzbXU3X3Bz
-LT5wZXJmb3JtYW5jZV9sZXZlbHNbMF0uZW5naW5lX2Nsb2NrOwogCW1jbGsgPSBzbXU3X3BzLT5w
-ZXJmb3JtYW5jZV9sZXZlbHNbMF0ubWVtb3J5X2Nsb2NrOwotLSAKMi4xMy42Cgo=
---94eb2c06b932ce552f05643c4bda
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---94eb2c06b932ce552f05643c4bda--
+T24gRnJpLCBGZWIgMiwgMjAxOCBhdCAxOjU2IEFNLCBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
+IHdyb3RlOgo+IENoYW5nZS1JZDogSTM4YjYwZDBiZTlkYzgwMGEzNDkyZGQ5ZmIxN2RjNTZhZGU3
+N2MwZGIKPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Cj4gLS0tCj4g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIHwgMTEg
+KysrKy0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlv
+bnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMTBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Zl
+Z2ExMF9od21nci5jCj4gaW5kZXggMjkyZjAxMy4uZGZhYWRhYiAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gQEAgLTMx
+NjQsMTYgKzMxNjQsMTQgQEAgc3RhdGljIGludCB2ZWdhMTBfYXBwbHlfc3RhdGVfYWRqdXN0X3J1
+bGVzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gICAgICAgICAgICAgICAgIG1pbmltdW1fY2xv
+Y2tzLm1lbW9yeUNsb2NrID0gc3RhYmxlX3BzdGF0ZV9tY2xrOwo+ICAgICAgICAgfQo+Cj4gLSAg
+ICAgICBkaXNhYmxlX21jbGtfc3dpdGNoaW5nX2Zvcl9mcmFtZV9sb2NrID0gcGhtX2NhcF9lbmFi
+bGVkKAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGh3bWdyLT5wbGF0Zm9y
+bV9kZXNjcmlwdG9yLnBsYXRmb3JtQ2FwcywKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBQSE1fUGxhdGZvcm1DYXBzX0Rpc2FibGVNY2xrU3dpdGNoaW5nRm9yRnJhbWVMb2Nr
+KTsKPiArICAgICAgIGRpc2FibGVfbWNsa19zd2l0Y2hpbmdfZm9yX2ZyYW1lX2xvY2sgPSBQUF9D
+QVAoUEhNX1BsYXRmb3JtQ2Fwc19EaXNhYmxlTWNsa1N3aXRjaGluZ0ZvckZyYW1lTG9jayk7Cj4g
+ICAgICAgICBkaXNhYmxlX21jbGtfc3dpdGNoaW5nX2Zvcl92ciA9IFBQX0NBUChQSE1fUGxhdGZv
+cm1DYXBzX0Rpc2FibGVNY2xrU3dpdGNoRm9yVlIpOwo+ICAgICAgICAgZm9yY2VfbWNsa19oaWdo
+ID0gUFBfQ0FQKFBITV9QbGF0Zm9ybUNhcHNfRm9yY2VNY2xrSGlnaCk7Cj4KPiAtICAgICAgIGRp
+c2FibGVfbWNsa19zd2l0Y2hpbmcgPSAoaW5mby5kaXNwbGF5X2NvdW50ID4gMSkgfHwKPiAtICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkaXNhYmxlX21jbGtfc3dpdGNoaW5nX2Zv
+cl9mcmFtZV9sb2NrIHx8Cj4gKyAgICAgICBkaXNhYmxlX21jbGtfc3dpdGNoaW5nID0gKGluZm8u
+ZGlzcGxheV9jb3VudCA+IDEpICYmCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKGRpc2FibGVfbWNsa19zd2l0Y2hpbmdfZm9yX2ZyYW1lX2xvY2sgfHwKPiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBkaXNhYmxlX21jbGtfc3dpdGNoaW5nX2Zvcl92ciB8
+fAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvcmNlX21jbGtfaGlnaDsK
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmb3JjZV9tY2xrX2hpZ2gpOwoK
+SSB0aGluayB0aGlzIGJyZWFrcyB0aGUgc2luZ2xlIGRpc3BsYXkgbG9naWMuICBJbiB0aGlzIGNh
+c2UsIHdlCnByb2JhYmx5IGRpc3BsYXlfY291bnQgPj0gMSBpZiB3ZSBzd2l0Y2ggdGhlIGxvZ2lj
+IHRvICYmLgoKQWxleAoKPgo+ICAgICAgICAgc2NsayA9IHZlZ2ExMF9wcy0+cGVyZm9ybWFuY2Vf
+bGV2ZWxzWzBdLmdmeF9jbG9jazsKPiAgICAgICAgIG1jbGsgPSB2ZWdhMTBfcHMtPnBlcmZvcm1h
+bmNlX2xldmVsc1swXS5tZW1fY2xvY2s7Cj4gQEAgLTUxNjAsNiArNTE1OCw1IEBAIGludCB2ZWdh
+MTBfaHdtZ3JfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICB7Cj4gICAgICAgICBod21n
+ci0+aHdtZ3JfZnVuYyA9ICZ2ZWdhMTBfaHdtZ3JfZnVuY3M7Cj4gICAgICAgICBod21nci0+cHB0
+YWJsZV9mdW5jID0gJnZlZ2ExMF9wcHRhYmxlX2Z1bmNzOwo+IC0KPiAgICAgICAgIHJldHVybiAw
+Owo+ICB9Cj4gLS0KPiAxLjkuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
