@@ -1,304 +1,198 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: Restore power profile mode in auto dpm level
- on Vega10
-Date: Fri, 2 Feb 2018 15:33:35 +0000
-Message-ID: <BN6PR12MB16521B9AE523174888520F37F7F90@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1517563063-5610-1-git-send-email-Rex.Zhu@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH] drm/amd/display: fix incompatible structure layouts
+Date: Fri, 2 Feb 2018 10:39:33 -0500
+Message-ID: <5307dea1-61f6-2c7b-75db-4e1a0885de30@amd.com>
+References: <20180202123232.477388-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1054155050=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1517563063-5610-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1054155050==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16521B9AE523174888520F37F7F90BN6PR12MB1652namp_"
-
---_000_BN6PR12MB16521B9AE523174888520F37F7F90BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, February 2, 2018 4:17 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH] drm/amd/pp: Restore power profile mode in auto dpm level o=
-n Vega10
-
-As auto power profile mode still not support on vega10, so
-just restore default profile mode in auto dpm level.
-
-Change-Id: I36359c1d11a48308bc9482f7aafe4c98767ac715
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 10 +++++++---
- drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          |  1 +
- 2 files changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index dfaadab..9a9a24e 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -761,6 +761,7 @@ static int vega10_hwmgr_backend_init(struct pp_hwmgr *h=
-wmgr)
-         hwmgr->backend =3D data;
-
-         hwmgr->power_profile_mode =3D PP_SMC_POWER_PROFILE_VIDEO;
-+       hwmgr->default_power_profile_mode =3D PP_SMC_POWER_PROFILE_VIDEO;
-
-         vega10_set_default_registry_data(hwmgr);
-
-@@ -4228,6 +4229,11 @@ static int vega10_dpm_force_dpm_level(struct pp_hwmg=
-r *hwmgr,
-                 break;
-         case AMD_DPM_FORCED_LEVEL_AUTO:
-                 ret =3D vega10_unforce_dpm_levels(hwmgr);
-+               if (hwmgr->default_power_profile_mode !=3D hwmgr->power_pro=
-file_mode) {
-+                               smum_send_msg_to_smc_with_parameter(hwmgr, =
-PPSMC_MSG_SetWorkloadMask,
-+                                               1 << hwmgr->default_power_p=
-rofile_mode);
-+                               hwmgr->power_profile_mode =3D hwmgr->defaul=
-t_power_profile_mode;
-+               }
-                 break;
-         case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-         case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-@@ -4251,6 +4257,7 @@ static int vega10_dpm_force_dpm_level(struct pp_hwmgr=
- *hwmgr,
-                 else if (level !=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK && h=
-wmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
-                         vega10_set_fan_control_mode(hwmgr, AMD_FAN_CTRL_AU=
-TO);
-         }
-+
-         return ret;
- }
-
-@@ -5068,9 +5075,6 @@ static int vega10_set_power_profile_mode(struct pp_hw=
-mgr *hwmgr, long *input, ui
-         uint8_t use_rlc_busy;
-         uint8_t min_active_level;
-
--       if (input[size] =3D=3D PP_SMC_POWER_PROFILE_AUTO)
--               return 0; /* TO DO auto wattman feature not enabled */
--
-         hwmgr->power_profile_mode =3D input[size];
-
-         smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_SetWorkloadMa=
-sk,
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h
-index 376af67..231c9be 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-@@ -758,6 +758,7 @@ struct pp_hwmgr {
-         enum amd_pp_profile_type current_power_profile;
-         bool en_umd_pstate;
-         uint32_t power_profile_mode;
-+       uint32_t default_power_profile_mode;
-         uint32_t pstate_sclk;
-         uint32_t pstate_mclk;
-         bool od_enabled;
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB16521B9AE523174888520F37F7F90BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Sent:</b> Friday, February 2, 2018 4:17 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH] drm/amd/pp: Restore power profile mode in auto dpm =
-level on Vega10</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">As auto power profile mode still not support on ve=
-ga10, so<br>
-just restore default profile mode in auto dpm level.<br>
-<br>
-Change-Id: I36359c1d11a48308bc9482f7aafe4c98767ac715<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 10 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;---<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 1 &#43;<br>
-&nbsp;2 files changed, 8 insertions(&#43;), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-index dfaadab..9a9a24e 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-@@ -761,6 &#43;761,7 @@ static int vega10_hwmgr_backend_init(struct pp_hwmg=
-r *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;backend =3D data=
-;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mo=
-de =3D PP_SMC_POWER_PROFILE_VIDEO;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;default_power_profile_m=
-ode =3D PP_SMC_POWER_PROFILE_VIDEO;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_set_default_registr=
-y_data(hwmgr);<br>
-&nbsp;<br>
-@@ -4228,6 &#43;4229,11 @@ static int vega10_dpm_force_dpm_level(struct pp_=
-hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_=
-AUTO:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D vega10_unforce_dpm_levels(hwmgr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (hwmgr-&gt;default_power_profile_mode !=3D hwmgr-&gt;powe=
-r_profile_mode) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwm=
-gr, PPSMC_MSG_SetWorkloadMask,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &lt;&lt; hwmgr-&=
-gt;default_power_profile_mode);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mode =3D hwmgr-=
-&gt;default_power_profile_mode;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_=
-PROFILE_STANDARD:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_=
-PROFILE_MIN_SCLK:<br>
-@@ -4251,6 &#43;4257,7 @@ static int vega10_dpm_force_dpm_level(struct pp_h=
-wmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; else if (level !=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK=
- &amp;&amp; hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega1=
-0_set_fan_control_mode(hwmgr, AMD_FAN_CTRL_AUTO);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -5068,9 &#43;5075,6 @@ static int vega10_set_power_profile_mode(struct p=
-p_hwmgr *hwmgr, long *input, ui<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t use_rlc_busy;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t min_active_level;<=
-br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (input[size] =3D=3D PP_SMC_POWER_P=
-ROFILE_AUTO)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0; /* TO DO auto wattman feature not enabled */<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mo=
-de =3D input[size];<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_=
-parameter(hwmgr, PPSMC_MSG_SetWorkloadMask,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h<br>
-index 376af67..231c9be 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-@@ -758,6 &#43;758,7 @@ struct pp_hwmgr {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pp_profile_type c=
-urrent_power_profile;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool en_umd_pstate;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t power_profile_mod=
-e;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t default_power_profile_mo=
-de;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pstate_sclk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pstate_mclk;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool od_enabled;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk661314" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB16521B9AE523174888520F37F7F90BN6PR12MB1652namp_--
-
---===============1054155050==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180202123232.477388-1-arnd@arndb.de>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Arnd Bergmann <arnd@arndb.de>, Alex Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1054155050==--
+T24gMjAxOC0wMi0wMiAwNzozMSBBTSwgQXJuZCBCZXJnbWFubiB3cm90ZToKPiBCdWlsZGluZyB0
+aGUgYW1kIGRpc3BsYXkgZHJpdmVyIHdpdGggbGluay10aW1lIG9wdGltaXphdGlvbnMgcmV2ZWFs
+ZWQgYSBidWcKCkN1cmlvdXMgaG93IEknZCBnbyBhYm91dCBidWlsZGluZyB3aXRoIGxpbmstdGlt
+ZSBvcHRpbWl6YXRpb25zLgoKPiB0aGF0IGNhdXNlZCBkYWxfY21kX3RibF9oZWxwZXJfZGNlODBf
+Z2V0X3RhYmxlKCkgYW5kCj4gZGFsX2NtZF90YmxfaGVscGVyX2RjZTExMF9nZXRfdGFibGUoKSBn
+ZXQgY2FsbGVkIHdpdGggYW4gaW5jb21wYXRpYmxlCj4gcmV0dXJuIHR5cGUgYmV0d2VlbiB0aGUg
+dHdvIGNhbGxlcnMgaW4gY29tbWFuZF90YWJsZV9oZWxwZXIuYyBhbmQKPiBjb21tYW5kX3RhYmxl
+X2hlbHBlcjIuYzoKPiAKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2Rj
+L2Jpb3MvZGNlODAvY29tbWFuZF90YWJsZV9oZWxwZXJfZGNlODAuaDozMTogZXJyb3I6IHR5cGUg
+b2YgJ2RhbF9jbWRfdGJsX2hlbHBlcl9kY2U4MF9nZXRfdGFibGUnIGRvZXMgbm90IG1hdGNoIG9y
+aWdpbmFsIGRlY2xhcmF0aW9uIFstV2Vycm9yPWx0by10eXBlLW1pc21hdGNoXQo+ICBjb25zdCBz
+dHJ1Y3QgY29tbWFuZF90YWJsZV9oZWxwZXIgKmRhbF9jbWRfdGJsX2hlbHBlcl9kY2U4MF9nZXRf
+dGFibGUodm9pZCk7Cj4gCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9k
+Yy9iaW9zL2RjZTgwL2NvbW1hbmRfdGFibGVfaGVscGVyX2RjZTgwLmM6MzUxOiBub3RlOiAnZGFs
+X2NtZF90YmxfaGVscGVyX2RjZTgwX2dldF90YWJsZScgd2FzIHByZXZpb3VzbHkgZGVjbGFyZWQg
+aGVyZQo+ICBjb25zdCBzdHJ1Y3QgY29tbWFuZF90YWJsZV9oZWxwZXIgKmRhbF9jbWRfdGJsX2hl
+bHBlcl9kY2U4MF9nZXRfdGFibGUodm9pZCkKPiAKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS8uLi9kaXNwbGF5L2RjL2Jpb3MvZGNlMTEwL2NvbW1hbmRfdGFibGVfaGVscGVyX2RjZTExMC5o
+OjMyOiBlcnJvcjogdHlwZSBvZiAnZGFsX2NtZF90YmxfaGVscGVyX2RjZTExMF9nZXRfdGFibGUn
+IGRvZXMgbm90IG1hdGNoIG9yaWdpbmFsIGRlY2xhcmF0aW9uIFstV2Vycm9yPWx0by10eXBlLW1p
+c21hdGNoXQo+ICBjb25zdCBzdHJ1Y3QgY29tbWFuZF90YWJsZV9oZWxwZXIgKmRhbF9jbWRfdGJs
+X2hlbHBlcl9kY2UxMTBfZ2V0X3RhYmxlKHZvaWQpOwo+IAo+IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvYmlvcy9kY2UxMTAvY29tbWFuZF90YWJsZV9oZWxwZXJfZGNl
+MTEwLmM6MzYxOiBub3RlOiAnZGFsX2NtZF90YmxfaGVscGVyX2RjZTExMF9nZXRfdGFibGUnIHdh
+cyBwcmV2aW91c2x5IGRlY2xhcmVkIGhlcmUKPiAgY29uc3Qgc3RydWN0IGNvbW1hbmRfdGFibGVf
+aGVscGVyICpkYWxfY21kX3RibF9oZWxwZXJfZGNlMTEwX2dldF90YWJsZSh2b2lkKQo+IAo+IFRo
+ZSB0d28gdmVyc2lvbnMgb2YgdGhlIHN0cnVjdHVyZSBhcmUgb2J2aW91c2x5IGRlcml2ZWQgZnJv
+bSB0aGUgc2FtZQo+IG9uZSwgYnV0IGhhdmUgZGl2ZXJnZWQgb3ZlciB0aW1lLCBiZWZvcmUgdGhl
+eSBnb3QgYWRkZWQgdG8gdGhlIGtlcm5lbC4KPiAKPiBUaGlzIG1vdmVzIHRoZSBzdHJ1Y3R1cmUg
+dG8gYSBuZXcgc2hhcmVkIGhlYWRlciBmaWxlIGFuZCB1c2VzIHRoZSBzdXBlcnNldAo+IG9mIHRo
+ZSBtZW1iZXJzLCB0byBlbnN1cmUgdGhlIGludGVyZmFjZXMgYXJlIGFsbCBjb21wYXRpYmxlLgo+
+IAo+IEZpeGVzOiBhZTc5YzMxMGIxYTYgKCJkcm0vYW1kL2Rpc3BsYXk6IEFkZCBEQ0UxMiBiaW9z
+IHBhcnNlciBzdXBwb3J0IikKPiBTaWduZWQtb2ZmLWJ5OiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFy
+bmRiLmRlPgoKVGhhbmtzIGZvciB0aGUgZml4LgoKUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5k
+IDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoKSGFycnkKCj4gLS0tCj4gIC4uLi9kcm0vYW1kL2Rp
+c3BsYXkvZGMvYmlvcy9jb21tYW5kX3RhYmxlX2hlbHBlci5oIHwgMzMgKy0tLS0tLS0tLS0KPiAg
+Li4uL2FtZC9kaXNwbGF5L2RjL2Jpb3MvY29tbWFuZF90YWJsZV9oZWxwZXIyLmggICAgfCAzMCAr
+LS0tLS0tLS0tCj4gIC4uLi9kaXNwbGF5L2RjL2Jpb3MvY29tbWFuZF90YWJsZV9oZWxwZXJfc3Ry
+dWN0LmggIHwgNjYgKysrKysrKysrKysrKysrKysrKysrKwo+ICAzIGZpbGVzIGNoYW5nZWQsIDY4
+IGluc2VydGlvbnMoKyksIDYxIGRlbGV0aW9ucygtKQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvY29tbWFuZF90YWJsZV9oZWxwZXJfc3Ry
+dWN0LmgKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jp
+b3MvY29tbWFuZF90YWJsZV9oZWxwZXIuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9iaW9zL2NvbW1hbmRfdGFibGVfaGVscGVyLmgKPiBpbmRleCAxZmFiNjM0YjY2YmUuLjRjMzc4
+OWRmMjUzZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlv
+cy9jb21tYW5kX3RhYmxlX2hlbHBlci5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2Jpb3MvY29tbWFuZF90YWJsZV9oZWxwZXIuaAo+IEBAIC0yOSwzOCArMjksNyBAQAo+
+ICAjaW5jbHVkZSAiZGNlODAvY29tbWFuZF90YWJsZV9oZWxwZXJfZGNlODAuaCIKPiAgI2luY2x1
+ZGUgImRjZTExMC9jb21tYW5kX3RhYmxlX2hlbHBlcl9kY2UxMTAuaCIKPiAgI2luY2x1ZGUgImRj
+ZTExMi9jb21tYW5kX3RhYmxlX2hlbHBlcl9kY2UxMTIuaCIKPiAtCj4gLXN0cnVjdCBjb21tYW5k
+X3RhYmxlX2hlbHBlciB7Cj4gLQlib29sICgqY29udHJvbGxlcl9pZF90b19hdG9tKShlbnVtIGNv
+bnRyb2xsZXJfaWQgaWQsIHVpbnQ4X3QgKmF0b21faWQpOwo+IC0JdWludDhfdCAoKmVuY29kZXJf
+YWN0aW9uX3RvX2F0b20pKAo+IC0JCQllbnVtIGJwX2VuY29kZXJfY29udHJvbF9hY3Rpb24gYWN0
+aW9uKTsKPiAtCXVpbnQzMl90ICgqZW5jb2Rlcl9tb2RlX2JwX3RvX2F0b20pKGVudW0gc2lnbmFs
+X3R5cGUgcywKPiAtCQkJYm9vbCBlbmFibGVfZHBfYXVkaW8pOwo+IC0JYm9vbCAoKmVuZ2luZV9i
+cF90b19hdG9tKShlbnVtIGVuZ2luZV9pZCBlbmdpbmVfaWQsCj4gLQkJCXVpbnQzMl90ICphdG9t
+X2VuZ2luZV9pZCk7Cj4gLQl2b2lkICgqYXNzaWduX2NvbnRyb2xfcGFyYW1ldGVyKSgKPiAtCQkJ
+Y29uc3Qgc3RydWN0IGNvbW1hbmRfdGFibGVfaGVscGVyICpoLAo+IC0JCQlzdHJ1Y3QgYnBfZW5j
+b2Rlcl9jb250cm9sICpjb250cm9sLAo+IC0JCQlESUdfRU5DT0RFUl9DT05UUk9MX1BBUkFNRVRF
+UlNfVjIgKmN0cmxfcGFyYW0pOwo+IC0JYm9vbCAoKmNsb2NrX3NvdXJjZV9pZF90b19hdG9tKShl
+bnVtIGNsb2NrX3NvdXJjZV9pZCBpZCwKPiAtCQkJdWludDMyX3QgKmF0b21fcGxsX2lkKTsKPiAt
+CWJvb2wgKCpjbG9ja19zb3VyY2VfaWRfdG9fcmVmX2Nsa19zcmMpKAo+IC0JCQllbnVtIGNsb2Nr
+X3NvdXJjZV9pZCBpZCwKPiAtCQkJdWludDMyX3QgKnJlZl9jbGtfc3JjX2lkKTsKPiAtCXVpbnQ4
+X3QgKCp0cmFuc21pdHRlcl9icF90b19hdG9tKShlbnVtIHRyYW5zbWl0dGVyIHQpOwo+IC0JdWlu
+dDhfdCAoKmVuY29kZXJfaWRfdG9fYXRvbSkoZW51bSBlbmNvZGVyX2lkIGlkKTsKPiAtCXVpbnQ4
+X3QgKCpjbG9ja19zb3VyY2VfaWRfdG9fYXRvbV9waHlfY2xrX3NyY19pZCkoCj4gLQkJCWVudW0g
+Y2xvY2tfc291cmNlX2lkIGlkKTsKPiAtCXVpbnQ4X3QgKCpzaWduYWxfdHlwZV90b19hdG9tX2Rp
+Z19tb2RlKShlbnVtIHNpZ25hbF90eXBlIHMpOwo+IC0JdWludDhfdCAoKmhwZF9zZWxfdG9fYXRv
+bSkoZW51bSBocGRfc291cmNlX2lkIGlkKTsKPiAtCXVpbnQ4X3QgKCpkaWdfZW5jb2Rlcl9zZWxf
+dG9fYXRvbSkoZW51bSBlbmdpbmVfaWQgZW5naW5lX2lkKTsKPiAtCXVpbnQ4X3QgKCpwaHlfaWRf
+dG9fYXRvbSkoZW51bSB0cmFuc21pdHRlciB0KTsKPiAtCXVpbnQ4X3QgKCpkaXNwX3Bvd2VyX2dh
+dGluZ19hY3Rpb25fdG9fYXRvbSkoCj4gLQkJCWVudW0gYnBfcGlwZV9jb250cm9sX2FjdGlvbiBh
+Y3Rpb24pOwo+IC0JYm9vbCAoKmRjX2Nsb2NrX3R5cGVfdG9fYXRvbSkoZW51bSBicF9kY2VfY2xv
+Y2tfdHlwZSBpZCwKPiAtCQkJdWludDMyX3QgKmF0b21fY2xvY2tfdHlwZSk7Cj4gLSAgICB1aW50
+OF90ICgqdHJhbnNtaXR0ZXJfY29sb3JfZGVwdGhfdG9fYXRvbSkoZW51bSB0cmFuc21pdHRlcl9j
+b2xvcl9kZXB0aCBpZCk7Cj4gLX07Cj4gKyNpbmNsdWRlICJjb21tYW5kX3RhYmxlX2hlbHBlcl9z
+dHJ1Y3QuaCIKPiAgCj4gIGJvb2wgZGFsX2Jpb3NfcGFyc2VyX2luaXRfY21kX3RibF9oZWxwZXIo
+Y29uc3Qgc3RydWN0IGNvbW1hbmRfdGFibGVfaGVscGVyICoqaCwKPiAgCWVudW0gZGNlX3ZlcnNp
+b24gZGNlKTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jp
+b3MvY29tbWFuZF90YWJsZV9oZWxwZXIyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvYmlvcy9jb21tYW5kX3RhYmxlX2hlbHBlcjIuaAo+IGluZGV4IDlmNTg3YzkxZDg0My4uNzg1
+ZmNiMjBhMWI5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9i
+aW9zL2NvbW1hbmRfdGFibGVfaGVscGVyMi5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2Jpb3MvY29tbWFuZF90YWJsZV9oZWxwZXIyLmgKPiBAQCAtMjksMzUgKzI5LDcg
+QEAKPiAgI2luY2x1ZGUgImRjZTgwL2NvbW1hbmRfdGFibGVfaGVscGVyX2RjZTgwLmgiCj4gICNp
+bmNsdWRlICJkY2UxMTAvY29tbWFuZF90YWJsZV9oZWxwZXJfZGNlMTEwLmgiCj4gICNpbmNsdWRl
+ICJkY2UxMTIvY29tbWFuZF90YWJsZV9oZWxwZXIyX2RjZTExMi5oIgo+IC0KPiAtc3RydWN0IGNv
+bW1hbmRfdGFibGVfaGVscGVyIHsKPiAtCWJvb2wgKCpjb250cm9sbGVyX2lkX3RvX2F0b20pKGVu
+dW0gY29udHJvbGxlcl9pZCBpZCwgdWludDhfdCAqYXRvbV9pZCk7Cj4gLQl1aW50OF90ICgqZW5j
+b2Rlcl9hY3Rpb25fdG9fYXRvbSkoCj4gLQkJCWVudW0gYnBfZW5jb2Rlcl9jb250cm9sX2FjdGlv
+biBhY3Rpb24pOwo+IC0JdWludDMyX3QgKCplbmNvZGVyX21vZGVfYnBfdG9fYXRvbSkoZW51bSBz
+aWduYWxfdHlwZSBzLAo+IC0JCQlib29sIGVuYWJsZV9kcF9hdWRpbyk7Cj4gLQlib29sICgqZW5n
+aW5lX2JwX3RvX2F0b20pKGVudW0gZW5naW5lX2lkIGVuZ2luZV9pZCwKPiAtCQkJdWludDMyX3Qg
+KmF0b21fZW5naW5lX2lkKTsKPiAtCWJvb2wgKCpjbG9ja19zb3VyY2VfaWRfdG9fYXRvbSkoZW51
+bSBjbG9ja19zb3VyY2VfaWQgaWQsCj4gLQkJCXVpbnQzMl90ICphdG9tX3BsbF9pZCk7Cj4gLQli
+b29sICgqY2xvY2tfc291cmNlX2lkX3RvX3JlZl9jbGtfc3JjKSgKPiAtCQkJZW51bSBjbG9ja19z
+b3VyY2VfaWQgaWQsCj4gLQkJCXVpbnQzMl90ICpyZWZfY2xrX3NyY19pZCk7Cj4gLQl1aW50OF90
+ICgqdHJhbnNtaXR0ZXJfYnBfdG9fYXRvbSkoZW51bSB0cmFuc21pdHRlciB0KTsKPiAtCXVpbnQ4
+X3QgKCplbmNvZGVyX2lkX3RvX2F0b20pKGVudW0gZW5jb2Rlcl9pZCBpZCk7Cj4gLQl1aW50OF90
+ICgqY2xvY2tfc291cmNlX2lkX3RvX2F0b21fcGh5X2Nsa19zcmNfaWQpKAo+IC0JCQllbnVtIGNs
+b2NrX3NvdXJjZV9pZCBpZCk7Cj4gLQl1aW50OF90ICgqc2lnbmFsX3R5cGVfdG9fYXRvbV9kaWdf
+bW9kZSkoZW51bSBzaWduYWxfdHlwZSBzKTsKPiAtCXVpbnQ4X3QgKCpocGRfc2VsX3RvX2F0b20p
+KGVudW0gaHBkX3NvdXJjZV9pZCBpZCk7Cj4gLQl1aW50OF90ICgqZGlnX2VuY29kZXJfc2VsX3Rv
+X2F0b20pKGVudW0gZW5naW5lX2lkIGVuZ2luZV9pZCk7Cj4gLQl1aW50OF90ICgqcGh5X2lkX3Rv
+X2F0b20pKGVudW0gdHJhbnNtaXR0ZXIgdCk7Cj4gLQl1aW50OF90ICgqZGlzcF9wb3dlcl9nYXRp
+bmdfYWN0aW9uX3RvX2F0b20pKAo+IC0JCQllbnVtIGJwX3BpcGVfY29udHJvbF9hY3Rpb24gYWN0
+aW9uKTsKPiAtCWJvb2wgKCpkY19jbG9ja190eXBlX3RvX2F0b20pKGVudW0gYnBfZGNlX2Nsb2Nr
+X3R5cGUgaWQsCj4gLQkJCXVpbnQzMl90ICphdG9tX2Nsb2NrX3R5cGUpOwo+IC0JdWludDhfdCAo
+KnRyYW5zbWl0dGVyX2NvbG9yX2RlcHRoX3RvX2F0b20pKAo+IC0JCQllbnVtIHRyYW5zbWl0dGVy
+X2NvbG9yX2RlcHRoIGlkKTsKPiAtfTsKPiArI2luY2x1ZGUgImNvbW1hbmRfdGFibGVfaGVscGVy
+X3N0cnVjdC5oIgo+ICAKPiAgYm9vbCBkYWxfYmlvc19wYXJzZXJfaW5pdF9jbWRfdGJsX2hlbHBl
+cjIoY29uc3Qgc3RydWN0IGNvbW1hbmRfdGFibGVfaGVscGVyICoqaCwKPiAgCWVudW0gZGNlX3Zl
+cnNpb24gZGNlKTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2Jpb3MvY29tbWFuZF90YWJsZV9oZWxwZXJfc3RydWN0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvYmlvcy9jb21tYW5kX3RhYmxlX2hlbHBlcl9zdHJ1Y3QuaAo+IG5ldyBmaWxl
+IG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAwMDAwMDAwLi4xZjJjMGEzZjA2ZjkKPiAtLS0gL2Rl
+di9udWxsCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvY29tbWFu
+ZF90YWJsZV9oZWxwZXJfc3RydWN0LmgKPiBAQCAtMCwwICsxLDY2IEBACj4gKy8qCj4gKyAqIENv
+cHlyaWdodCAyMDEyLTE1IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KPiArICoKPiArICog
+UGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJz
+b24gb2J0YWluaW5nIGEKPiArICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3NvY2lhdGVk
+IGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZSAiU29mdHdhcmUiKSwKPiArICogdG8gZGVhbCBpbiB0
+aGUgU29mdHdhcmUgd2l0aG91dCByZXN0cmljdGlvbiwgaW5jbHVkaW5nIHdpdGhvdXQgbGltaXRh
+dGlvbgo+ICsgKiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwgcHVibGlz
+aCwgZGlzdHJpYnV0ZSwgc3VibGljZW5zZSwKPiArICogYW5kL29yIHNlbGwgY29waWVzIG9mIHRo
+ZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBwZXJzb25zIHRvIHdob20gdGhlCj4gKyAqIFNvZnR3
+YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBzbywgc3ViamVjdCB0byB0aGUgZm9sbG93aW5nIGNvbmRp
+dGlvbnM6Cj4gKyAqCj4gKyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBl
+cm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVkIGluCj4gKyAqIGFsbCBjb3BpZXMgb3Ig
+c3Vic3RhbnRpYWwgcG9ydGlvbnMgb2YgdGhlIFNvZnR3YXJlLgo+ICsgKgo+ICsgKiBUSEUgU09G
+VFdBUkUgSVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lORCwg
+RVhQUkVTUyBPUgo+ICsgKiBJTVBMSUVELCBJTkNMVURJTkcgQlVUIE5PVCBMSU1JVEVEIFRPIFRI
+RSBXQVJSQU5USUVTIE9GIE1FUkNIQU5UQUJJTElUWSwKPiArICogRklUTkVTUyBGT1IgQSBQQVJU
+SUNVTEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC4gIElOIE5PIEVWRU5UIFNIQUxMCj4g
+KyAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBMSUFCTEUgRk9SIEFO
+WSBDTEFJTSwgREFNQUdFUyBPUgo+ICsgKiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4g
+QUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwKPiArICogQVJJU0lORyBGUk9N
+LCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9S
+Cj4gKyAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KPiArICoKPiArICogQXV0aG9y
+czogQU1ECj4gKyAqCj4gKyAqLwo+ICsKPiArI2lmbmRlZiBfX0RBTF9DT01NQU5EX1RBQkxFX0hF
+TFBFUl9TVFJVQ1RfSF9fCj4gKyNkZWZpbmUgX19EQUxfQ09NTUFORF9UQUJMRV9IRUxQRVJfU1RS
+VUNUX0hfXwo+ICsKPiArI2luY2x1ZGUgImRjZTgwL2NvbW1hbmRfdGFibGVfaGVscGVyX2RjZTgw
+LmgiCj4gKyNpbmNsdWRlICJkY2UxMTAvY29tbWFuZF90YWJsZV9oZWxwZXJfZGNlMTEwLmgiCj4g
+KyNpbmNsdWRlICJkY2UxMTIvY29tbWFuZF90YWJsZV9oZWxwZXJfZGNlMTEyLmgiCj4gKwo+ICtz
+dHJ1Y3QgX0RJR19FTkNPREVSX0NPTlRST0xfUEFSQU1FVEVSU19WMjsKPiArc3RydWN0IGNvbW1h
+bmRfdGFibGVfaGVscGVyIHsKPiArCWJvb2wgKCpjb250cm9sbGVyX2lkX3RvX2F0b20pKGVudW0g
+Y29udHJvbGxlcl9pZCBpZCwgdWludDhfdCAqYXRvbV9pZCk7Cj4gKwl1aW50OF90ICgqZW5jb2Rl
+cl9hY3Rpb25fdG9fYXRvbSkoCj4gKwkJCWVudW0gYnBfZW5jb2Rlcl9jb250cm9sX2FjdGlvbiBh
+Y3Rpb24pOwo+ICsJdWludDMyX3QgKCplbmNvZGVyX21vZGVfYnBfdG9fYXRvbSkoZW51bSBzaWdu
+YWxfdHlwZSBzLAo+ICsJCQlib29sIGVuYWJsZV9kcF9hdWRpbyk7Cj4gKwlib29sICgqZW5naW5l
+X2JwX3RvX2F0b20pKGVudW0gZW5naW5lX2lkIGVuZ2luZV9pZCwKPiArCQkJdWludDMyX3QgKmF0
+b21fZW5naW5lX2lkKTsKPiArCXZvaWQgKCphc3NpZ25fY29udHJvbF9wYXJhbWV0ZXIpKAo+ICsJ
+CQljb25zdCBzdHJ1Y3QgY29tbWFuZF90YWJsZV9oZWxwZXIgKmgsCj4gKwkJCXN0cnVjdCBicF9l
+bmNvZGVyX2NvbnRyb2wgKmNvbnRyb2wsCj4gKwkJCXN0cnVjdCBfRElHX0VOQ09ERVJfQ09OVFJP
+TF9QQVJBTUVURVJTX1YyICpjdHJsX3BhcmFtKTsKPiArCWJvb2wgKCpjbG9ja19zb3VyY2VfaWRf
+dG9fYXRvbSkoZW51bSBjbG9ja19zb3VyY2VfaWQgaWQsCj4gKwkJCXVpbnQzMl90ICphdG9tX3Bs
+bF9pZCk7Cj4gKwlib29sICgqY2xvY2tfc291cmNlX2lkX3RvX3JlZl9jbGtfc3JjKSgKPiArCQkJ
+ZW51bSBjbG9ja19zb3VyY2VfaWQgaWQsCj4gKwkJCXVpbnQzMl90ICpyZWZfY2xrX3NyY19pZCk7
+Cj4gKwl1aW50OF90ICgqdHJhbnNtaXR0ZXJfYnBfdG9fYXRvbSkoZW51bSB0cmFuc21pdHRlciB0
+KTsKPiArCXVpbnQ4X3QgKCplbmNvZGVyX2lkX3RvX2F0b20pKGVudW0gZW5jb2Rlcl9pZCBpZCk7
+Cj4gKwl1aW50OF90ICgqY2xvY2tfc291cmNlX2lkX3RvX2F0b21fcGh5X2Nsa19zcmNfaWQpKAo+
+ICsJCQllbnVtIGNsb2NrX3NvdXJjZV9pZCBpZCk7Cj4gKwl1aW50OF90ICgqc2lnbmFsX3R5cGVf
+dG9fYXRvbV9kaWdfbW9kZSkoZW51bSBzaWduYWxfdHlwZSBzKTsKPiArCXVpbnQ4X3QgKCpocGRf
+c2VsX3RvX2F0b20pKGVudW0gaHBkX3NvdXJjZV9pZCBpZCk7Cj4gKwl1aW50OF90ICgqZGlnX2Vu
+Y29kZXJfc2VsX3RvX2F0b20pKGVudW0gZW5naW5lX2lkIGVuZ2luZV9pZCk7Cj4gKwl1aW50OF90
+ICgqcGh5X2lkX3RvX2F0b20pKGVudW0gdHJhbnNtaXR0ZXIgdCk7Cj4gKwl1aW50OF90ICgqZGlz
+cF9wb3dlcl9nYXRpbmdfYWN0aW9uX3RvX2F0b20pKAo+ICsJCQllbnVtIGJwX3BpcGVfY29udHJv
+bF9hY3Rpb24gYWN0aW9uKTsKPiArCWJvb2wgKCpkY19jbG9ja190eXBlX3RvX2F0b20pKGVudW0g
+YnBfZGNlX2Nsb2NrX3R5cGUgaWQsCj4gKwkJCXVpbnQzMl90ICphdG9tX2Nsb2NrX3R5cGUpOwo+
+ICsJdWludDhfdCAoKnRyYW5zbWl0dGVyX2NvbG9yX2RlcHRoX3RvX2F0b20pKGVudW0gdHJhbnNt
+aXR0ZXJfY29sb3JfZGVwdGggaWQpOwo+ICt9Owo+ICsKPiArI2VuZGlmCj4gCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxp
+c3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
