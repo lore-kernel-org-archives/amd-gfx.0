@@ -1,77 +1,202 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: MCLK defaults high on second card
-Date: Fri, 2 Feb 2018 07:15:57 -0500
-Message-ID: <5e370484-4a52-fe37-441b-34ba2119dd22@amd.com>
-References: <dd618807-ecbf-cb2f-dada-e94aa1adf915@amd.com>
- <BN6PR12MB16520C31C35E33A8A790F84DF7FA0@BN6PR12MB1652.namprd12.prod.outlook.com>
- <01e38632-df19-5110-6af2-09f915fba390@amd.com>
- <BN6PR12MB16525ABF6BD68B2D902C7514F7FA0@BN6PR12MB1652.namprd12.prod.outlook.com>
- <433cc6b6-9f87-9fa0-eb88-499ab0fb1d94@amd.com>
- <CY4PR12MB1687D29C096236C2C5521928FBF90@CY4PR12MB1687.namprd12.prod.outlook.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1687D29C096236C2C5521928FBF90-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Lazare, Jordan" <Jordan.Lazare-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] drm/amd/display: fix incompatible structure layouts
+Date: Fri,  2 Feb 2018 13:31:26 +0100
+Message-ID: <20180202123232.477388-1-arnd@arndb.de>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDIvMDIvMTggMTI6MTYgQU0sIFpodSwgUmV4IHdyb3RlOgo+IEhpIFRvbSwKPiAKPiBUaGUg
-YXR0YWNoZWQgcGF0Y2ggc2hvdWxkIGJlIGFibGUgdG8gZml4IHRoaXMgaXNzdWUuCj4gCj4gQmVz
-dCBSZWdhcmRzCj4gUmV4CgpIaSBSZXgsCgpZdXAsIHdvcmtzIGZpbmUgd2l0aCB0aGUgcGF0Y2gu
-CgpDaGVlcnMsClRvbQoKPiAKPiAKPiAKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZy
-b206IFN0RGVuaXMsIFRvbQo+IFNlbnQ6IEZyaWRheSwgRmVicnVhcnkgMDIsIDIwMTggMjo1OCBB
-TQo+IFRvOiBEZXVjaGVyLCBBbGV4YW5kZXI7IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gQ2M6IFpo
-dSwgUmV4OyBMYXphcmUsIEpvcmRhbjsgV2VudGxhbmQsIEhhcnJ5Cj4gU3ViamVjdDogUmU6IE1D
-TEsgZGVmYXVsdHMgaGlnaCBvbiBzZWNvbmQgY2FyZAo+IAo+IE9uIDAxLzAyLzE4IDAxOjU0IFBN
-LCBEZXVjaGVyLCBBbGV4YW5kZXIgd3JvdGU6Cj4+IERvZXMgaXQgYWxzbyB3b3JrIHByb3Blcmx5
-IHdpdGggZGMgZGlzYWJsZWQ/wqAgSSBzdXNwZWN0IGEgYnVnCj4+IHNvbWV3aGVyZSBpbiB0aGUg
-ZGlzcGxheSBpbmZvIHRoYXQgZGMgZ2VuZXJhdGVkIHdoZW4gbm8gZGlzcGxheXMgYXJlIGF0dGFj
-aGVkLgo+PiBTZWUgc211N19wcm9ncmFtX2Rpc3BsYXlfZ2FwKCkuCj4gCj4gWXVwLCB3aXRoIGRj
-PTAgdGhlIGNsb2NrIGlzIGNvcnJlY3RseSBzZXQuCj4gCj4gSSdsbCB0YWtlIGEgcGVhayAodG9t
-b3Jyb3cpIGJ1dCBJIHN1c3BlY3QgaXQnbGwgcHJvYmFibHkgYmUgbW9yZSBmcnVpdGZ1bCB0byBo
-YW5kIGl0IG92ZXIgdG8gdGhlIGRpc3BsYXkgdGVhbS4KPiAKPiBUaGFua3MsCj4gVG9tCj4gCj4+
-Cj4+Cj4+IEFsZXgKPj4KPj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiAtLQo+PiAqRnJvbToqIFN0RGVuaXMs
-IFRvbQo+PiAqU2VudDoqIFRodXJzZGF5LCBGZWJydWFyeSAxLCAyMDE4IDE6NDMgUE0KPj4gKlRv
-OiogRGV1Y2hlciwgQWxleGFuZGVyOyBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiAqQ2M6KiBaaHUs
-IFJleAo+PiAqU3ViamVjdDoqIFJlOiBNQ0xLIGRlZmF1bHRzIGhpZ2ggb24gc2Vjb25kIGNhcmQg
-T24gMDEvMDIvMTggMDE6MzYgUE0sCj4+IERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPj4+IEFy
-ZSB0aGVyZSBhbnkgZGlzcGxheXMgYXR0YWNoZWQgdG8gdGhlIHNlY29uZGFyeSBjYXJkIHdpdGgg
-dGhlIG1jbGtzCj4+PiBzdHVjayBoaWdoP8KgIElmIG5vdCwgZG9lcyBhdHRhY2hpbmcgYSBkaXNw
-bGF5IGhlbHA/Cj4+Cj4+IFN0ZWFsaW5nIHRoZSBkaXNwbGF5IGZyb20gbXkgcHJpbWFyeSAoQ1og
-aW4gdGhpcyBjYXNlKSBkb2VzIGhlbHAsIGFuZAo+PiB0aGVuIHB1dHRpbmcgaXQgYmFjayB0aGUg
-TUNMSyByZW1haW5zIGxvdy4KPj4KPj4gVG9tCj4+Cj4+Pgo+Pj4KPj4+IEFsZXgKPj4+Cj4+PiAt
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0KPj4+IC0tLQo+Pj4gKkZyb206KiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhhbGYgb2YKPj4+IFRvbSBTdCBEZW5pcyA8dG9t
-LnN0ZGVuaXNAYW1kLmNvbT4KPj4+ICpTZW50OiogVGh1cnNkYXksIEZlYnJ1YXJ5IDEsIDIwMTgg
-MToxNDo0MyBQTQo+Pj4gKlRvOiogYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+ICpDYzoqIFpodSwg
-UmV4Cj4+PiAqU3ViamVjdDoqIE1DTEsgZGVmYXVsdHMgaGlnaCBvbiBzZWNvbmQgY2FyZCBIaSwK
-Pj4+Cj4+PiBJIGhhdmUgYSBzZXR1cCB3aXRoIGEgQ1ogKyBQb2xhcmlzMTAgYW5kIG9uIHRoZSBQ
-b2xhcmlzMTAgdGhlIFNDTEsKPj4+IGlkbGVzIGxvdyBhbmQgdGhlIE1DTEsgc3RheXMgaW4gdGhl
-IDJuZCBzdGF0ZSAoMTc1ME1IeikgYnV0IG9uIG15Cj4+PiBXb3Jrc3RhdGlvbiB3aGljaCBoYXMg
-YSBzaW5nbGUgNTYwIGluIGl0IHRoZSBjYXJkIGlkbGVzIGF0IDMwME1Iego+Pj4gKHdpdGggdGhl
-IHN0b2NrCj4+PiBGQzI3IGtlcm5lbCkuCj4+Pgo+Pj4gSXMgdGhlcmUgYW4gaXNzdWUgd2l0aCBu
-b24tcHJpbWFyeSBjYXJkcyBpZGxpbmcgcHJvcGVybHk/Cj4+Pgo+Pj4gRG9pbmcKPj4+Cj4+PiBl
-Y2hvIDAgPgo+Pj4gL3N5cy9kZXZpY2VzL3BjaTAwMDA6MDAvMDAwMDowMDowMy4xLzAwMDA6MjE6
-MDAuMC9wcF9kcG1fbWNsawo+Pj4KPj4+IERvZXNuJ3QgcmVzdWx0IGluIGxvdyBjbG9jayByYXRl
-cyBlaXRoZXIuCj4+Pgo+Pj4gVG9tCj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwo+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngKPj4KPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+Building the amd display driver with link-time optimizations revealed a bug
+that caused dal_cmd_tbl_helper_dce80_get_table() and
+dal_cmd_tbl_helper_dce110_get_table() get called with an incompatible
+return type between the two callers in command_table_helper.c and
+command_table_helper2.c:
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/dce80/command_table_helper_dce80.h:31: error: type of 'dal_cmd_tbl_helper_dce80_get_table' does not match original declaration [-Werror=lto-type-mismatch]
+ const struct command_table_helper *dal_cmd_tbl_helper_dce80_get_table(void);
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/dce80/command_table_helper_dce80.c:351: note: 'dal_cmd_tbl_helper_dce80_get_table' was previously declared here
+ const struct command_table_helper *dal_cmd_tbl_helper_dce80_get_table(void)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/dce110/command_table_helper_dce110.h:32: error: type of 'dal_cmd_tbl_helper_dce110_get_table' does not match original declaration [-Werror=lto-type-mismatch]
+ const struct command_table_helper *dal_cmd_tbl_helper_dce110_get_table(void);
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/bios/dce110/command_table_helper_dce110.c:361: note: 'dal_cmd_tbl_helper_dce110_get_table' was previously declared here
+ const struct command_table_helper *dal_cmd_tbl_helper_dce110_get_table(void)
+
+The two versions of the structure are obviously derived from the same
+one, but have diverged over time, before they got added to the kernel.
+
+This moves the structure to a new shared header file and uses the superset
+of the members, to ensure the interfaces are all compatible.
+
+Fixes: ae79c310b1a6 ("drm/amd/display: Add DCE12 bios parser support")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ .../drm/amd/display/dc/bios/command_table_helper.h | 33 +----------
+ .../amd/display/dc/bios/command_table_helper2.h    | 30 +---------
+ .../display/dc/bios/command_table_helper_struct.h  | 66 ++++++++++++++++++++++
+ 3 files changed, 68 insertions(+), 61 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/bios/command_table_helper_struct.h
+
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper.h b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper.h
+index 1fab634b66be..4c3789df253d 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper.h
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper.h
+@@ -29,38 +29,7 @@
+ #include "dce80/command_table_helper_dce80.h"
+ #include "dce110/command_table_helper_dce110.h"
+ #include "dce112/command_table_helper_dce112.h"
+-
+-struct command_table_helper {
+-	bool (*controller_id_to_atom)(enum controller_id id, uint8_t *atom_id);
+-	uint8_t (*encoder_action_to_atom)(
+-			enum bp_encoder_control_action action);
+-	uint32_t (*encoder_mode_bp_to_atom)(enum signal_type s,
+-			bool enable_dp_audio);
+-	bool (*engine_bp_to_atom)(enum engine_id engine_id,
+-			uint32_t *atom_engine_id);
+-	void (*assign_control_parameter)(
+-			const struct command_table_helper *h,
+-			struct bp_encoder_control *control,
+-			DIG_ENCODER_CONTROL_PARAMETERS_V2 *ctrl_param);
+-	bool (*clock_source_id_to_atom)(enum clock_source_id id,
+-			uint32_t *atom_pll_id);
+-	bool (*clock_source_id_to_ref_clk_src)(
+-			enum clock_source_id id,
+-			uint32_t *ref_clk_src_id);
+-	uint8_t (*transmitter_bp_to_atom)(enum transmitter t);
+-	uint8_t (*encoder_id_to_atom)(enum encoder_id id);
+-	uint8_t (*clock_source_id_to_atom_phy_clk_src_id)(
+-			enum clock_source_id id);
+-	uint8_t (*signal_type_to_atom_dig_mode)(enum signal_type s);
+-	uint8_t (*hpd_sel_to_atom)(enum hpd_source_id id);
+-	uint8_t (*dig_encoder_sel_to_atom)(enum engine_id engine_id);
+-	uint8_t (*phy_id_to_atom)(enum transmitter t);
+-	uint8_t (*disp_power_gating_action_to_atom)(
+-			enum bp_pipe_control_action action);
+-	bool (*dc_clock_type_to_atom)(enum bp_dce_clock_type id,
+-			uint32_t *atom_clock_type);
+-    uint8_t (*transmitter_color_depth_to_atom)(enum transmitter_color_depth id);
+-};
++#include "command_table_helper_struct.h"
+ 
+ bool dal_bios_parser_init_cmd_tbl_helper(const struct command_table_helper **h,
+ 	enum dce_version dce);
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.h b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.h
+index 9f587c91d843..785fcb20a1b9 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.h
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.h
+@@ -29,35 +29,7 @@
+ #include "dce80/command_table_helper_dce80.h"
+ #include "dce110/command_table_helper_dce110.h"
+ #include "dce112/command_table_helper2_dce112.h"
+-
+-struct command_table_helper {
+-	bool (*controller_id_to_atom)(enum controller_id id, uint8_t *atom_id);
+-	uint8_t (*encoder_action_to_atom)(
+-			enum bp_encoder_control_action action);
+-	uint32_t (*encoder_mode_bp_to_atom)(enum signal_type s,
+-			bool enable_dp_audio);
+-	bool (*engine_bp_to_atom)(enum engine_id engine_id,
+-			uint32_t *atom_engine_id);
+-	bool (*clock_source_id_to_atom)(enum clock_source_id id,
+-			uint32_t *atom_pll_id);
+-	bool (*clock_source_id_to_ref_clk_src)(
+-			enum clock_source_id id,
+-			uint32_t *ref_clk_src_id);
+-	uint8_t (*transmitter_bp_to_atom)(enum transmitter t);
+-	uint8_t (*encoder_id_to_atom)(enum encoder_id id);
+-	uint8_t (*clock_source_id_to_atom_phy_clk_src_id)(
+-			enum clock_source_id id);
+-	uint8_t (*signal_type_to_atom_dig_mode)(enum signal_type s);
+-	uint8_t (*hpd_sel_to_atom)(enum hpd_source_id id);
+-	uint8_t (*dig_encoder_sel_to_atom)(enum engine_id engine_id);
+-	uint8_t (*phy_id_to_atom)(enum transmitter t);
+-	uint8_t (*disp_power_gating_action_to_atom)(
+-			enum bp_pipe_control_action action);
+-	bool (*dc_clock_type_to_atom)(enum bp_dce_clock_type id,
+-			uint32_t *atom_clock_type);
+-	uint8_t (*transmitter_color_depth_to_atom)(
+-			enum transmitter_color_depth id);
+-};
++#include "command_table_helper_struct.h"
+ 
+ bool dal_bios_parser_init_cmd_tbl_helper2(const struct command_table_helper **h,
+ 	enum dce_version dce);
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper_struct.h b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper_struct.h
+new file mode 100644
+index 000000000000..1f2c0a3f06f9
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper_struct.h
+@@ -0,0 +1,66 @@
++/*
++ * Copyright 2012-15 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
++
++#ifndef __DAL_COMMAND_TABLE_HELPER_STRUCT_H__
++#define __DAL_COMMAND_TABLE_HELPER_STRUCT_H__
++
++#include "dce80/command_table_helper_dce80.h"
++#include "dce110/command_table_helper_dce110.h"
++#include "dce112/command_table_helper_dce112.h"
++
++struct _DIG_ENCODER_CONTROL_PARAMETERS_V2;
++struct command_table_helper {
++	bool (*controller_id_to_atom)(enum controller_id id, uint8_t *atom_id);
++	uint8_t (*encoder_action_to_atom)(
++			enum bp_encoder_control_action action);
++	uint32_t (*encoder_mode_bp_to_atom)(enum signal_type s,
++			bool enable_dp_audio);
++	bool (*engine_bp_to_atom)(enum engine_id engine_id,
++			uint32_t *atom_engine_id);
++	void (*assign_control_parameter)(
++			const struct command_table_helper *h,
++			struct bp_encoder_control *control,
++			struct _DIG_ENCODER_CONTROL_PARAMETERS_V2 *ctrl_param);
++	bool (*clock_source_id_to_atom)(enum clock_source_id id,
++			uint32_t *atom_pll_id);
++	bool (*clock_source_id_to_ref_clk_src)(
++			enum clock_source_id id,
++			uint32_t *ref_clk_src_id);
++	uint8_t (*transmitter_bp_to_atom)(enum transmitter t);
++	uint8_t (*encoder_id_to_atom)(enum encoder_id id);
++	uint8_t (*clock_source_id_to_atom_phy_clk_src_id)(
++			enum clock_source_id id);
++	uint8_t (*signal_type_to_atom_dig_mode)(enum signal_type s);
++	uint8_t (*hpd_sel_to_atom)(enum hpd_source_id id);
++	uint8_t (*dig_encoder_sel_to_atom)(enum engine_id engine_id);
++	uint8_t (*phy_id_to_atom)(enum transmitter t);
++	uint8_t (*disp_power_gating_action_to_atom)(
++			enum bp_pipe_control_action action);
++	bool (*dc_clock_type_to_atom)(enum bp_dce_clock_type id,
++			uint32_t *atom_clock_type);
++	uint8_t (*transmitter_color_depth_to_atom)(enum transmitter_color_depth id);
++};
++
++#endif
+-- 
+2.9.0
