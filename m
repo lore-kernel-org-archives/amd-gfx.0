@@ -1,11 +1,10 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Unify the dm resume calls into one
-Date: Mon, 5 Feb 2018 16:16:50 -0500
-Message-ID: <793c16c2-01d5-12d6-2070-5582d6ae5c90@amd.com>
+Date: Mon, 5 Feb 2018 16:35:19 -0500
+Message-ID: <31a666c6-98b5-c29c-6165-c134b3bfe213@amd.com>
 References: <1517865269-15199-1-git-send-email-mikita.lipski@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0915542511=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1517865269-15199-1-git-send-email-mikita.lipski-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
@@ -19,58 +18,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: mikita.lipski-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org
+To: mikita.lipski-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
 
-T24gMjAxOC0wMi0wNSAwNDoxNCBQTSwgbWlraXRhLmxpcHNraUBhbWQuY29tIHdyb3RlOgo+IEZy
-b206IE1pa2l0YSBMaXBza2kgPG1pa2l0YS5saXBza2lAYW1kLmNvbT4KPiAKPiBhbWRncHVfZG1f
-ZGlzcGxheV9yZXN1bWUgaXMgbm93IGNhbGxlZCBmcm9tIGRtX3Jlc3VtZSB0bwo+IHVuaWZ5IERB
-TCByZXN1bWUgY2FsbCBpbnRvIGEgc2luZ2xlIGZ1bmN0aW9uIGNhbGwKPiAKPiBUaGVyZSBpcyBu
-byBtb3JlIG5lZWQgdG8gc2VwYXJhdGVseSBjYWxsIDIgcmVzdW1lIGZ1bmN0aW9ucwo+IGZvciBE
-TS4KPiAKPiBJbml0aWFsbHkgdGhleSB3ZXJlIHNlcGFyYXRlZCB0byByZXN1bWUgZGlzcGxheSBz
-dGF0ZSBhZnRlcgo+IGN1cnNvciBpcyBwaW5uZWQuIEJ1dCBiZWNhdXNlIHRoZXJlIGlzIG5vIGxv
-bmdlciBhbnkgY29ycnVwdGlvbgo+IHdpdGggdGhlIGN1cnNvciAtIHRoZSBjYWxscyBjYW4gYmUg
-bWVyZ2VkIGludG8gb25lIGZ1bmN0aW9uIGhvb2suCj4gCj4gU2lnbmVkLW9mZi1ieTogTWlraXRh
-IExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAgICAgIHwgMTAgKy0tLS0tLS0tLQo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgIDQgKysrLQo+
-ICAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4gCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IDg1MDQ1
-M2UuLjBhYWJhMjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2RldmljZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jCj4gQEAgLTIyODcsMTQgKzIyODcsNiBAQCBpbnQgYW1kZ3B1X2RldmljZV9yZXN1bWUo
-c3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCByZXN1bWUsIGJvb2wgZmJjb24pCj4gIAkJCQlk
-cm1faGVscGVyX2Nvbm5lY3Rvcl9kcG1zKGNvbm5lY3RvciwgRFJNX01PREVfRFBNU19PTik7Cj4g
-IAkJCX0KPiAgCQkJZHJtX21vZGVzZXRfdW5sb2NrX2FsbChkZXYpOwo+IC0JCX0gZWxzZSB7Cj4g
-LQkJCS8qCj4gLQkJCSAqIFRoZXJlIGlzIG5vIGVxdWl2YWxlbnQgYXRvbWljIGhlbHBlciB0byB0
-dXJuIG9uCj4gLQkJCSAqIGRpc3BsYXksIHNvIHdlIGRlZmluZWQgb3VyIG93biBmdW5jdGlvbiBm
-b3IgdGhpcywKPiAtCQkJICogb25jZSBzdXNwZW5kIHJlc3VtZSBpcyBzdXBwb3J0ZWQgYnkgdGhl
-IGF0b21pYwo+IC0JCQkgKiBmcmFtZXdvcmsgdGhpcyB3aWxsIGJlIHJld29ya2VkCj4gLQkJCSAq
-Lwo+IC0JCQlhbWRncHVfZG1fZGlzcGxheV9yZXN1bWUoYWRldik7Cj4gIAkJfQo+ICAJfQo+ICAK
-PiBAQCAtMjUxNSw2ICsyNTA3LDcgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX3Jlc2V0KHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAJCQkJZ290byBvdXQ7Cj4gIAo+ICAJCQlyID0g
-YW1kZ3B1X2RldmljZV9pcF9yZXN1bWVfcGhhc2UyKGFkZXYpOwo+ICsKCk5pdHBpY2s6IHJlbW92
-ZSB0aGUgdW5yZWxhdGVkIG5ld2xpbmUgY2hhbmdlLgoKV2l0aCB0aGlzIGZpeGVkIHBhdGNoIGlz
-ClJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KCkhh
-cnJ5Cgo+ICAJCQlpZiAocikKPiAgCQkJCWdvdG8gb3V0Owo+ICAKPiBAQCAtMjcyOSw3ICsyNzIy
-LDYgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsCj4gIAlpZiAoYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9ydChhZGV2KSkgewo+ICAJ
-CWlmIChkcm1fYXRvbWljX2hlbHBlcl9yZXN1bWUoYWRldi0+ZGRldiwgc3RhdGUpKQo+ICAJCQlk
-ZXZfaW5mbyhhZGV2LT5kZXYsICJkcm0gcmVzdW1lIGZhaWxlZDolZFxuIiwgcik7Cj4gLQkJYW1k
-Z3B1X2RtX2Rpc3BsYXlfcmVzdW1lKGFkZXYpOwo+ICAJfSBlbHNlIHsKPiAgCQlkcm1faGVscGVy
-X3Jlc3VtZV9mb3JjZV9tb2RlKGFkZXYtPmRkZXYpOwo+ICAJfQo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IGluZGV4IGFjODIzODIu
-LjhlNmU2MGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMKPiBAQCAtNjU5LDExICs2NTksMTMgQEAgc3RhdGljIGludCBkbV9y
-ZXN1bWUodm9pZCAqaGFuZGxlKQo+ICB7Cj4gIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9
-IGhhbmRsZTsKPiAgCXN0cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSA9ICZhZGV2LT5k
-bTsKPiArCWludCByZXQgPSAwOwo+ICAKPiAgCS8qIHBvd2VyIG9uIGhhcmR3YXJlICovCj4gIAlk
-Y19zZXRfcG93ZXJfc3RhdGUoZG0tPmRjLCBEQ19BQ1BJX0NNX1BPV0VSX1NUQVRFX0QwKTsKPiAg
-Cj4gLQlyZXR1cm4gMDsKPiArCXJldCA9IGFtZGdwdV9kbV9kaXNwbGF5X3Jlc3VtZShhZGV2KTsK
-PiArCXJldHVybiByZXQ7Cj4gIH0KPiAgCj4gIGludCBhbWRncHVfZG1fZGlzcGxheV9yZXN1bWUo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0915542511==
+Content-Type: multipart/alternative;
+ boundary="------------927DC71061DD3A49DBE6D65B"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------927DC71061DD3A49DBE6D65B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Reviewed-by: Andrey Grodzovsky<andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+
+Andrey
+
+
+On 02/05/2018 04:14 PM, mikita.lipski-5C7GfCeVMHo@public.gmane.org wrote:
+> From: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+>
+> amdgpu_dm_display_resume is now called from dm_resume to
+> unify DAL resume call into a single function call
+>
+> There is no more need to separately call 2 resume functions
+> for DM.
+>
+> Initially they were separated to resume display state after
+> cursor is pinned. But because there is no longer any corruption
+> with the cursor - the calls can be merged into one function hook.
+>
+> Signed-off-by: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 10 +---------
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +++-
+>   2 files changed, 4 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 850453e..0aaba27 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2287,14 +2287,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool resume, bool fbcon)
+>   				drm_helper_connector_dpms(connector, DRM_MODE_DPMS_ON);
+>   			}
+>   			drm_modeset_unlock_all(dev);
+> -		} else {
+> -			/*
+> -			 * There is no equivalent atomic helper to turn on
+> -			 * display, so we defined our own function for this,
+> -			 * once suspend resume is supported by the atomic
+> -			 * framework this will be reworked
+> -			 */
+> -			amdgpu_dm_display_resume(adev);
+>   		}
+>   	}
+>   
+> @@ -2515,6 +2507,7 @@ static int amdgpu_device_reset(struct amdgpu_device *adev,
+>   				goto out;
+>   
+>   			r = amdgpu_device_ip_resume_phase2(adev);
+> +
+>   			if (r)
+>   				goto out;
+>   
+> @@ -2729,7 +2722,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>   	if (amdgpu_device_has_dc_support(adev)) {
+>   		if (drm_atomic_helper_resume(adev->ddev, state))
+>   			dev_info(adev->dev, "drm resume failed:%d\n", r);
+> -		amdgpu_dm_display_resume(adev);
+>   	} else {
+>   		drm_helper_resume_force_mode(adev->ddev);
+>   	}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ac82382..8e6e60e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -659,11 +659,13 @@ static int dm_resume(void *handle)
+>   {
+>   	struct amdgpu_device *adev = handle;
+>   	struct amdgpu_display_manager *dm = &adev->dm;
+> +	int ret = 0;
+>   
+>   	/* power on hardware */
+>   	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+>   
+> -	return 0;
+> +	ret = amdgpu_dm_display_resume(adev);
+> +	return ret;
+>   }
+>   
+>   int amdgpu_dm_display_resume(struct amdgpu_device *adev)
+
+
+--------------927DC71061DD3A49DBE6D65B
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <pre wrap="">Reviewed-by: Andrey Grodzovsky <font color="#000000"><a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></font>
+
+Andrey 
+</pre>
+    <br>
+    <div class="moz-cite-prefix">On 02/05/2018 04:14 PM,
+      <a class="moz-txt-link-abbreviated" href="mailto:mikita.lipski-5C7GfCeVMHo@public.gmane.org">mikita.lipski-5C7GfCeVMHo@public.gmane.org</a> wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1517865269-15199-1-git-send-email-mikita.lipski-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">From: Mikita Lipski <a class="moz-txt-link-rfc2396E" href="mailto:mikita.lipski-5C7GfCeVMHo@public.gmane.org">&lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;</a>
+
+amdgpu_dm_display_resume is now called from dm_resume to
+unify DAL resume call into a single function call
+
+There is no more need to separately call 2 resume functions
+for DM.
+
+Initially they were separated to resume display state after
+cursor is pinned. But because there is no longer any corruption
+with the cursor - the calls can be merged into one function hook.
+
+Signed-off-by: Mikita Lipski <a class="moz-txt-link-rfc2396E" href="mailto:mikita.lipski-5C7GfCeVMHo@public.gmane.org">&lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 10 +---------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +++-
+ 2 files changed, 4 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 850453e..0aaba27 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2287,14 +2287,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool resume, bool fbcon)
+ 				drm_helper_connector_dpms(connector, DRM_MODE_DPMS_ON);
+ 			}
+ 			drm_modeset_unlock_all(dev);
+-		} else {
+-			/*
+-			 * There is no equivalent atomic helper to turn on
+-			 * display, so we defined our own function for this,
+-			 * once suspend resume is supported by the atomic
+-			 * framework this will be reworked
+-			 */
+-			amdgpu_dm_display_resume(adev);
+ 		}
+ 	}
+ 
+@@ -2515,6 +2507,7 @@ static int amdgpu_device_reset(struct amdgpu_device *adev,
+ 				goto out;
+ 
+ 			r = amdgpu_device_ip_resume_phase2(adev);
++
+ 			if (r)
+ 				goto out;
+ 
+@@ -2729,7 +2722,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	if (amdgpu_device_has_dc_support(adev)) {
+ 		if (drm_atomic_helper_resume(adev-&gt;ddev, state))
+ 			dev_info(adev-&gt;dev, "drm resume failed:%d\n", r);
+-		amdgpu_dm_display_resume(adev);
+ 	} else {
+ 		drm_helper_resume_force_mode(adev-&gt;ddev);
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ac82382..8e6e60e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -659,11 +659,13 @@ static int dm_resume(void *handle)
+ {
+ 	struct amdgpu_device *adev = handle;
+ 	struct amdgpu_display_manager *dm = &amp;adev-&gt;dm;
++	int ret = 0;
+ 
+ 	/* power on hardware */
+ 	dc_set_power_state(dm-&gt;dc, DC_ACPI_CM_POWER_STATE_D0);
+ 
+-	return 0;
++	ret = amdgpu_dm_display_resume(adev);
++	return ret;
+ }
+ 
+ int amdgpu_dm_display_resume(struct amdgpu_device *adev)
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------927DC71061DD3A49DBE6D65B--
+
+--===============0915542511==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0915542511==--
