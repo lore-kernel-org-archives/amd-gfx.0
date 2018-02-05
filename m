@@ -1,17 +1,17 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Basic emulation support
-Date: Mon, 5 Feb 2018 18:19:24 +0000
-Message-ID: <DM5PR12MB1179F7F46AE1F5E674D7CD1BF4FE0@DM5PR12MB1179.namprd12.prod.outlook.com>
-References: <1517526990-17331-1-git-send-email-Shaoyun.Liu@amd.com>
- <CADnq5_Otc=AZ04YGLc29qF2cLU-Q5Vz8LMToa3Y+iMLyrqkqkA@mail.gmail.com>
- <90ed8e6e-7915-efec-a927-2d01d7ea5733@gmail.com>
- <BN6PR12MB1348F0F0E0E60CF27F039E1EE8FE0@BN6PR12MB1348.namprd12.prod.outlook.com>
- <CADnq5_OW7gLPYzyY3nhRB+C_a4EyBwAxBJYOszgawLUakSs1qQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/9] drm/amdkfd: Make IOMMUv2 code conditional
+Date: Mon, 5 Feb 2018 20:00:22 +0100
+Message-ID: <044a3842-92d1-fe2a-c432-0719e8528416@gmail.com>
+References: <1515104268-25087-1-git-send-email-Felix.Kuehling@amd.com>
+ <1515104268-25087-4-git-send-email-Felix.Kuehling@amd.com>
+ <CAFCwf125cHCf=fsfiMhhASjgMNEcau04gNGKKHFu7PQGeorpZQ@mail.gmail.com>
+ <CAFCwf12pqRA4KdRLpkUmiBs7EQmTePcy80V2kP9mP3pN8V-eTg@mail.gmail.com>
+ <5a1e7696-b5bf-547c-4fe6-e71e0ae7f5e0@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1142501818=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_OW7gLPYzyY3nhRB+C_a4EyBwAxBJYOszgawLUakSs1qQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <5a1e7696-b5bf-547c-4fe6-e71e0ae7f5e0-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,143 +23,944 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEFsZXggRGV1Y2hlciBbbWFpbHRvOmFs
-ZXhkZXVjaGVyQGdtYWlsLmNvbV0gDQpTZW50OiBNb25kYXksIEZlYnJ1YXJ5IDA1LCAyMDE4IDEy
-OjUzIFBNDQpUbzogQnJpZGdtYW4sIEpvaG4NCkNjOiBLb2VuaWcsIENocmlzdGlhbjsgTGl1LCBT
-aGFveXVuOyBhbWQtZ2Z4IGxpc3QNClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IEJh
-c2ljIGVtdWxhdGlvbiBzdXBwb3J0DQoNCk9uIE1vbiwgRmViIDUsIDIwMTggYXQgMTI6MzQgUE0s
-IEJyaWRnbWFuLCBKb2huIDxKb2huLkJyaWRnbWFuQGFtZC5jb20+IHdyb3RlOg0KPg0KPg0KPj4t
-LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj5Gcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdm
-eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIA0KPj5PZiBDaHJpc3Rp
-YW4gS8O2bmlnDQo+PlNlbnQ6IE1vbmRheSwgRmVicnVhcnkgMDUsIDIwMTggMTE6NDkgQU0NCj4+
-VG86IEFsZXggRGV1Y2hlcjsgTGl1LCBTaGFveXVuDQo+PkNjOiBhbWQtZ2Z4IGxpc3QNCj4+U3Vi
-amVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogQmFzaWMgZW11bGF0aW9uIHN1cHBvcnQNCj4+
-DQo+PkFtIDA1LjAyLjIwMTggdW0gMTc6NDUgc2NocmllYiBBbGV4IERldWNoZXI6DQo+Pj4gT24g
-VGh1LCBGZWIgMSwgMjAxOCBhdCA2OjE2IFBNLCBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1k
-LmNvbT4NCj4+d3JvdGU6DQo+Pj4+IEFkZCBhbWRncHVfZW11X21vZGUgbW9kdWxlIHBhcmFtZXRl
-ciB0byBjb250cm9sIHRoZSBlbXVsYXRpb24NCj4+bW9kZQ0KPj4+PiBBdm9pZCB2YmlvcyBvcGVy
-YXRpb24gb24gZW11bGF0aW9uIHNpbmNlIHRoZXJlIGlzIG5vIHZiaW9zIHBvc3QgDQo+Pj4+IGR1
-aXJuZyBlbXVsYXRpb24sIHVzZSB0aGUgY29tbW9uIGh3X2luaXQgdG8gc2ltdWxhdGUgdGhlIHBv
-c3QNCj4+Pj4NCj4+Pj4gQ2hhbmdlLUlkOiBJYmEzMmZhMTZlNzM1NDkwZTc0MDFlNDcxMjE5Nzk3
-YjgzYzZjMmE1OA0KPj4+PiBTaWduZWQtb2ZmLWJ5OiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVA
-YW1kLmNvbT4NCj4+PiBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPg0KPj4NCj4+QWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
-aWdAYW1kLmNvbT4gYXMgd2VsbC4NCj4NCj4gTWF5YmUgYWRkIGEgY29tbWVudCB0byB0aGUgZm9s
-bG93aW5nIGNoYW5nZSBpbmRpY2F0aW5nIHRoYXQgd2UgbWlnaHQgaGF2ZSBkb25lIGVhcmx5IEhX
-IGluaXQgZWl0aGVyIGR1ZSB0byBlbXVsYXRpb24gb3IgZWFybHkgaW5pdCBvZiBHTUMgZHVyaW5n
-IG5vcm1hbCBvcGVyYXRpb24gPw0KPg0KPiBPdGhlcndpc2UgY2hhbmdlIGlzIFJldmlld2VkLWJ5
-OiBKb2huIEJyaWRnbWFuIDxqb2huLmJyaWRnbWFuQGFtZC5jb20+DQoNCg0KQWN0dWFsbHksIHRo
-aW5raW5nIGFib3V0IHRoaXMgYSBiaXQgbW9yZSwgaXMgdGhlcmUgYW55IHJlYXNvbiB0byBub3Qg
-YWx3YXlzIGp1c3QgZG8gdGhlIGNvbW1vbiBzb2MgaHcgaW5pdCBmaXJzdD8gIEl0IGRvZXNuJ3Qg
-c2VlbSBsaWtlIGl0IHdvdWxkIGh1cnQgYW55dGhpbmcuDQoNCkFsZXgNCg0KDQpZZSAsICBzZWVt
-cyAgdGhlIGNvbW1vbiBodyBpbml0IHVzZWQgdG8gcHJvZ3JhbSB0aGUgZ29sZGVuIHNldHRpbmcg
-YW5kICBzb21lIFBDSUUgcmVnaXN0ZXJzICwgaXQgc2hvdWxkIHdvcmtzIGV2ZW4gIGluICAgbm9u
-ZS1lbXVsYXRpb24gIG1vZGUgLg0KDQpTaGFveXVuLmxpdQ0KDQoNCj4NCj4+DQo+Pj4NCj4+Pj4g
-LS0tDQo+Pj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwg
-IDEgKw0KPj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8
-IDI2DQo+PisrKysrKysrKysrKysrKysrKysrKysrLS0tDQo+Pj4+ICAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgIHwgIDQgKysrKw0KPj4+PiAgIDMgZmlsZXMgY2hh
-bmdlZCwgMjggaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4+Pj4NCj4+Pj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+Pj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+Pj4gaW5kZXggYWIxMDI5NS4uNGM5YzMy
-MCAxMDA2NDQNCj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgN
-Cj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+Pj4gQEAg
-LTEyOSw2ICsxMjksNyBAQA0KPj4+PiAgIGV4dGVybiBpbnQgYW1kZ3B1X2xicHc7DQo+Pj4+ICAg
-ZXh0ZXJuIGludCBhbWRncHVfY29tcHV0ZV9tdWx0aXBpcGU7DQo+Pj4+ICAgZXh0ZXJuIGludCBh
-bWRncHVfZ3B1X3JlY292ZXJ5Ow0KPj4+PiArZXh0ZXJuIGludCBhbWRncHVfZW11X21vZGU7DQo+
-Pj4+DQo+Pj4+ICAgI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX1NJDQo+Pj4+ICAgZXh0ZXJuIGlu
-dCBhbWRncHVfc2lfc3VwcG9ydDsNCj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYw0KPj4+PiBpbmRleCA2YWRiNmU4Li5mZTdhOTQxIDEwMDY0NA0K
-Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+Pj4+
-IEBAIC0xMzM5LDYgKzEzMzksMjAgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX2lwX2luaXQo
-c3RydWN0DQo+PmFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+Pj4+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICByZXR1cm4gcjsNCj4+Pj4gICAgICAgICAgICAgICAgICB9DQo+Pj4+ICAgICAgICAgICAg
-ICAgICAgYWRldi0+aXBfYmxvY2tzW2ldLnN0YXR1cy5zdyA9IHRydWU7DQo+Pj4+ICsNCj4+Pj4g
-KyAgICAgICAgICAgICAgIGlmIChhbWRncHVfZW11X21vZGUgPT0gMSkgew0KPj4+PiArICAgICAg
-ICAgICAgICAgICAgICAgICAvKiBOZWVkIHRvIGRvIGNvbW1vbiBodyBpbml0IGZpcnN0IG9uIGVt
-dWxhdGlvbiAgKi8NCj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGFkZXYtPmlwX2Js
-b2Nrc1tpXS52ZXJzaW9uLT50eXBlID09DQo+PkFNRF9JUF9CTE9DS19UWVBFX0NPTU1PTikgew0K
-Pj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHIgPSANCj4+Pj4gKyBhZGV2LT5p
-cF9ibG9ja3NbaV0udmVyc2lvbi0+ZnVuY3MtPmh3X2luaXQoKHZvaWQNCj4+KilhZGV2KTsNCj4+
-Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAocikgew0KPj4+PiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJod19pbml0IG9mIElQ
-IGJsb2NrIDwlcz4gZmFpbGVkICVkXG4iLA0KPj4+PiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+ZnVuY3Mt
-Pm5hbWUsIHIpOw0KPj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cmV0dXJuIHI7DQo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfQ0KPj4+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMu
-aHcgPSB0cnVlOw0KPj4+PiArICAgICAgICAgICAgICAgICAgICAgICB9DQo+Pj4+ICsgICAgICAg
-ICAgICAgICB9DQo+Pj4+ICsNCj4+Pj4gICAgICAgICAgICAgICAgICAvKiBuZWVkIHRvIGRvIGdt
-YyBodyBpbml0IGVhcmx5IHNvIHdlIGNhbiBhbGxvY2F0ZSBncHUgbWVtICovDQo+Pj4+ICAgICAg
-ICAgICAgICAgICAgaWYgKGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50eXBlID09DQo+PkFN
-RF9JUF9CTE9DS19UWVBFX0dNQykgew0KPj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgciA9
-IGFtZGdwdV9kZXZpY2VfdnJhbV9zY3JhdGNoX2luaXQoYWRldik7DQo+Pj4+IEBAIC0xMzcyLDgg
-KzEzODYsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBfaW5pdChzdHJ1Y3QNCj4+YW1k
-Z3B1X2RldmljZSAqYWRldikNCj4+Pj4gICAgICAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPm51
-bV9pcF9ibG9ja3M7IGkrKykgew0KPj4+PiAgICAgICAgICAgICAgICAgIGlmICghYWRldi0+aXBf
-YmxvY2tzW2ldLnN0YXR1cy5zdykNCj4+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRp
-bnVlOw0KPj4+PiAtICAgICAgICAgICAgICAgLyogZ21jIGh3IGluaXQgaXMgZG9uZSBlYXJseSAq
-Lw0KPj4+PiAtICAgICAgICAgICAgICAgaWYgKGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50
-eXBlID09DQo+PkFNRF9JUF9CTE9DS19UWVBFX0dNQykNCj4+Pj4gKyAgICAgICAgICAgICAgIGlm
-IChhZGV2LT5pcF9ibG9ja3NbaV0uc3RhdHVzLmh3KQ0KPj4+PiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgY29udGludWU7DQo+Pj4+ICAgICAgICAgICAgICAgICAgciA9IGFkZXYtPmlwX2Jsb2Nr
-c1tpXS52ZXJzaW9uLT5mdW5jcy0+aHdfaW5pdCgodm9pZCAqKWFkZXYpOw0KPj4+PiAgICAgICAg
-ICAgICAgICAgIGlmIChyKSB7DQo+Pj4+IEBAIC0xOTE0LDYgKzE5MjcsOSBAQCBpbnQgYW1kZ3B1
-X2RldmljZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+PiphZGV2LA0KPj4+PiAgICAgICAg
-ICBpZiAocnVudGltZSkNCj4+Pj4gICAgICAgICAgICAgICAgICB2Z2Ffc3dpdGNoZXJvb19pbml0
-X2RvbWFpbl9wbV9vcHMoYWRldi0+ZGV2LA0KPj4+PiAmYWRldi0+dmdhX3BtX2RvbWFpbik7DQo+
-Pj4+DQo+Pj4+ICsgICAgICAgaWYgKGFtZGdwdV9lbXVfbW9kZSA9PSAxKQ0KPj4+PiArICAgICAg
-ICAgICAgICAgZ290byBmZW5jZV9kcml2ZXJfaW5pdDsNCj4+Pj4gKw0KPj4+PiAgICAgICAgICAv
-KiBSZWFkIEJJT1MgKi8NCj4+Pj4gICAgICAgICAgaWYgKCFhbWRncHVfZ2V0X2Jpb3MoYWRldikp
-IHsNCj4+Pj4gICAgICAgICAgICAgICAgICByID0gLUVJTlZBTDsNCj4+Pj4gQEAgLTE5NjYsNiAr
-MTk4Miw3IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4+
-KmFkZXYsDQo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfYXRvbWJpb3NfaTJj
-X2luaXQoYWRldik7DQo+Pj4+ICAgICAgICAgIH0NCj4+Pj4NCj4+Pj4gK2ZlbmNlX2RyaXZlcl9p
-bml0Og0KPj4+PiAgICAgICAgICAvKiBGZW5jZSBkcml2ZXIgKi8NCj4+Pj4gICAgICAgICAgciA9
-IGFtZGdwdV9mZW5jZV9kcml2ZXJfaW5pdChhZGV2KTsNCj4+Pj4gICAgICAgICAgaWYgKHIpIHsN
-Cj4+Pj4gQEAgLTIxMDgsNyArMjEyNSwxMCBAQCB2b2lkIGFtZGdwdV9kZXZpY2VfZmluaShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZQ0KPj4qYWRldikNCj4+Pj4gICAgICAgICAgLyogZnJlZSBpMmMgYnVz
-ZXMgKi8NCj4+Pj4gICAgICAgICAgaWYgKCFhbWRncHVfZGV2aWNlX2hhc19kY19zdXBwb3J0KGFk
-ZXYpKQ0KPj4+PiAgICAgICAgICAgICAgICAgIGFtZGdwdV9pMmNfZmluaShhZGV2KTsNCj4+Pj4g
-LSAgICAgICBhbWRncHVfYXRvbWJpb3NfZmluaShhZGV2KTsNCj4+Pj4gKw0KPj4+PiArICAgICAg
-IGlmIChhbWRncHVfZW11X21vZGUgIT0gMSkNCj4+Pj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9h
-dG9tYmlvc19maW5pKGFkZXYpOw0KPj4+PiArDQo+Pj4+ICAgICAgICAgIGtmcmVlKGFkZXYtPmJp
-b3MpOw0KPj4+PiAgICAgICAgICBhZGV2LT5iaW9zID0gTlVMTDsNCj4+Pj4gICAgICAgICAgaWYg
-KCFwY2lfaXNfdGh1bmRlcmJvbHRfYXR0YWNoZWQoYWRldi0+cGRldikpDQo+Pj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4+Pj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4+Pj4gaW5kZXggNWE1ZWQ0Ny4u
-ZmRkMjRkNSAxMDA2NDQNCj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rydi5jDQo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-cnYuYw0KPj4+PiBAQCAtMTMwLDYgKzEzMCw3IEBADQo+Pj4+ICAgaW50IGFtZGdwdV9sYnB3ID0g
-LTE7DQo+Pj4+ICAgaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlwZSA9IC0xOw0KPj4+PiAgIGlu
-dCBhbWRncHVfZ3B1X3JlY292ZXJ5ID0gLTE7IC8qIGF1dG8gKi8NCj4+Pj4gK2ludCBhbWRncHVf
-ZW11X21vZGUgPSAwOw0KPj4+Pg0KPj4+PiAgIE1PRFVMRV9QQVJNX0RFU0ModnJhbWxpbWl0LCAi
-UmVzdHJpY3QgVlJBTSBmb3IgdGVzdGluZywgaW4NCj4+bWVnYWJ5dGVzIik7DQo+Pj4+ICAgbW9k
-dWxlX3BhcmFtX25hbWVkKHZyYW1saW1pdCwgYW1kZ3B1X3ZyYW1fbGltaXQsIGludCwgMDYwMCk7
-IEBADQo+Pj4+IC0yODUsNiArMjg2LDkgQEANCj4+Pj4gICBNT0RVTEVfUEFSTV9ERVNDKGdwdV9y
-ZWNvdmVyeSwgIkVuYWJsZSBHUFUgcmVjb3ZlcnkgbWVjaGFuaXNtLA0KPj4oMSA9IGVuYWJsZSwg
-MCA9IGRpc2FibGUsIC0xID0gYXV0byIpOw0KPj4+PiAgIG1vZHVsZV9wYXJhbV9uYW1lZChncHVf
-cmVjb3ZlcnksIGFtZGdwdV9ncHVfcmVjb3ZlcnksIGludCwNCj4+MDQ0NCk7DQo+Pj4+DQo+Pj4+
-ICtNT0RVTEVfUEFSTV9ERVNDKGVtdV9tb2RlLCAiRW11bGF0aW9uIG1vZGUsICgxID0gZW5hYmxl
-LCAwID0gDQo+Pj4+ICtkaXNhYmxlIik7IG1vZHVsZV9wYXJhbV9uYW1lZChlbXVfbW9kZSwgYW1k
-Z3B1X2VtdV9tb2RlLCBpbnQsDQo+PjA0NDQpOw0KPj4+PiArDQo+Pj4+ICAgI2lmZGVmIENPTkZJ
-R19EUk1fQU1ER1BVX1NJDQo+Pj4+DQo+Pj4+ICAgI2lmIGRlZmluZWQoQ09ORklHX0RSTV9SQURF
-T04pIHx8DQo+PmRlZmluZWQoQ09ORklHX0RSTV9SQURFT05fTU9EVUxFKQ0KPj4+PiAtLQ0KPj4+
-PiAxLjkuMQ0KPj4+Pg0KPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KPj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4+PiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KPj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngNCj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXw0KPj4+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+Pj4gYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj4+DQo+Pl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fDQo+PmFtZC1nZnggbWFpbGluZyBsaXN0DQo+PmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+Pmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============1142501818==
+Content-Type: multipart/alternative;
+ boundary="------------447CF3450049AB6687E85ABB"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------447CF3450049AB6687E85ABB
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Looks good to me on first glance.
+
+You probably don't mind that I'm going to pull a good part of that into 
+amdgpu as next step?
+
+Regards,
+Christian.
+
+Am 03.02.2018 um 03:29 schrieb Felix Kuehling:
+> The attached patch is my attempt to keep most of the IOMMU code in one
+> place (new kfd_iommu.c) to avoid #ifdefs all over the place. This way I
+> can still conditionally compile a bunch of KFD code that is only needed
+> for IOMMU handling, with stub functions for kernel configs without IOMMU
+> support. About 300 lines of conditionally compiled code got moved to
+> kfd_iommu.c.
+>
+> The only piece I didn't move into kfd_iommu.c is
+> kfd_signal_iommu_event. I prefer to keep that in kfd_events.c because it
+> doesn't call any IOMMU driver functions, and because it's closely
+> related to the rest of the event handling logic. It could be compiled
+> unconditionally, but it would be dead code without IOMMU support.
+>
+> And I moved pdd->bound to a place where it doesn't consume extra space
+> (on 64-bit systems due to structure alignment) instead of making it
+> conditional.
+>
+> This is only compile-tested for now.
+>
+> If you like this approach, I'll do more testing and squash it with "Make
+> IOMMUv2 code conditional".
+>
+> Regards,
+>    Felix
+>
+>
+> On 2018-01-31 10:00 AM, Oded Gabbay wrote:
+>> On Wed, Jan 31, 2018 at 4:56 PM, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+>>> Hi Felix,
+>>> Please don't spread 19 #ifdefs throughout the code.
+>>> I suggest to put one #ifdef in linux/amd-iommu.h itself around all the
+>>> functions declarations and in the #else section put macros with empty
+>>> implementations. This is much more readable and maintainable.
+>>>
+>>> Oded
+>> To emphasize my point, there is a call to amd_iommu_bind_pasid in
+>> kfd_bind_processes_to_device() which isn't wrapped with the #ifdef so
+>> the compliation breaks. Putting the #ifdefs around the calls is simply
+>> not scalable.
+>>
+>> Oded
+>>
+>>> On Fri, Jan 5, 2018 at 12:17 AM, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> wrote:
+>>>> dGPUs work without IOMMUv2. Make IOMMUv2 initialization dependent on
+>>>> ASIC information. Also allow building KFD without IOMMUv2 support.
+>>>> This is still useful for dGPUs and prepares for enabling KFD on
+>>>> architectures that don't support AMD IOMMUv2.
+>>>>
+>>>> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdkfd/Kconfig        |  2 +-
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |  8 +++-
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_device.c   | 62 +++++++++++++++++++++----------
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_events.c   |  2 +
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  5 +++
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c  | 17 ++++++---
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  2 +
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  2 +
+>>>>   8 files changed, 74 insertions(+), 26 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+>>>> index bc5a294..5bbeb95 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+>>>> @@ -4,6 +4,6 @@
+>>>>
+>>>>   config HSA_AMD
+>>>>          tristate "HSA kernel driver for AMD GPU devices"
+>>>> -       depends on DRM_AMDGPU && AMD_IOMMU_V2 && X86_64
+>>>> +       depends on DRM_AMDGPU && X86_64
+>>>>          help
+>>>>            Enable this if you want to use HSA features on AMD GPU devices.
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>>> index 2bc2816..3478270 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>>> @@ -22,7 +22,9 @@
+>>>>
+>>>>   #include <linux/pci.h>
+>>>>   #include <linux/acpi.h>
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   #include <linux/amd-iommu.h>
+>>>> +#endif
+>>>>   #include "kfd_crat.h"
+>>>>   #include "kfd_priv.h"
+>>>>   #include "kfd_topology.h"
+>>>> @@ -1037,15 +1039,17 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+>>>>          struct crat_subtype_generic *sub_type_hdr;
+>>>>          struct crat_subtype_computeunit *cu;
+>>>>          struct kfd_cu_info cu_info;
+>>>> -       struct amd_iommu_device_info iommu_info;
+>>>>          int avail_size = *size;
+>>>>          uint32_t total_num_of_cu;
+>>>>          int num_of_cache_entries = 0;
+>>>>          int cache_mem_filled = 0;
+>>>>          int ret = 0;
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>> +       struct amd_iommu_device_info iommu_info;
+>>>>          const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+>>>>                                           AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
+>>>>                                           AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
+>>>> +#endif
+>>>>          struct kfd_local_mem_info local_mem_info;
+>>>>
+>>>>          if (!pcrat_image || avail_size < VCRAT_SIZE_FOR_GPU)
+>>>> @@ -1106,12 +1110,14 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+>>>>          /* Check if this node supports IOMMU. During parsing this flag will
+>>>>           * translate to HSA_CAP_ATS_PRESENT
+>>>>           */
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>          iommu_info.flags = 0;
+>>>>          if (amd_iommu_device_info(kdev->pdev, &iommu_info) == 0) {
+>>>>                  if ((iommu_info.flags & required_iommu_flags) ==
+>>>>                                  required_iommu_flags)
+>>>>                          cu->hsa_capability |= CRAT_CU_FLAGS_IOMMU_PRESENT;
+>>>>          }
+>>>> +#endif
+>>>>
+>>>>          crat_table->length += sub_type_hdr->length;
+>>>>          crat_table->total_entries++;
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>>> index fafe971..5205b34 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>>> @@ -20,7 +20,9 @@
+>>>>    * OTHER DEALINGS IN THE SOFTWARE.
+>>>>    */
+>>>>
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   #include <linux/amd-iommu.h>
+>>>> +#endif
+>>>>   #include <linux/bsearch.h>
+>>>>   #include <linux/pci.h>
+>>>>   #include <linux/slab.h>
+>>>> @@ -31,6 +33,7 @@
+>>>>
+>>>>   #define MQD_SIZE_ALIGNED 768
+>>>>
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   static const struct kfd_device_info kaveri_device_info = {
+>>>>          .asic_family = CHIP_KAVERI,
+>>>>          .max_pasid_bits = 16,
+>>>> @@ -41,6 +44,7 @@ static const struct kfd_device_info kaveri_device_info = {
+>>>>          .num_of_watch_points = 4,
+>>>>          .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>>          .supports_cwsr = false,
+>>>> +       .needs_iommu_device = true,
+>>>>          .needs_pci_atomics = false,
+>>>>   };
+>>>>
+>>>> @@ -54,8 +58,10 @@ static const struct kfd_device_info carrizo_device_info = {
+>>>>          .num_of_watch_points = 4,
+>>>>          .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>>          .supports_cwsr = true,
+>>>> +       .needs_iommu_device = true,
+>>>>          .needs_pci_atomics = false,
+>>>>   };
+>>>> +#endif
+>>>>
+>>>>   struct kfd_deviceid {
+>>>>          unsigned short did;
+>>>> @@ -64,6 +70,7 @@ struct kfd_deviceid {
+>>>>
+>>>>   /* Please keep this sorted by increasing device id. */
+>>>>   static const struct kfd_deviceid supported_devices[] = {
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>          { 0x1304, &kaveri_device_info },        /* Kaveri */
+>>>>          { 0x1305, &kaveri_device_info },        /* Kaveri */
+>>>>          { 0x1306, &kaveri_device_info },        /* Kaveri */
+>>>> @@ -91,6 +98,7 @@ static const struct kfd_deviceid supported_devices[] = {
+>>>>          { 0x9875, &carrizo_device_info },       /* Carrizo */
+>>>>          { 0x9876, &carrizo_device_info },       /* Carrizo */
+>>>>          { 0x9877, &carrizo_device_info }        /* Carrizo */
+>>>> +#endif
+>>>>   };
+>>>>
+>>>>   static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+>>>> @@ -161,6 +169,7 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+>>>>          return kfd;
+>>>>   }
+>>>>
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   static bool device_iommu_pasid_init(struct kfd_dev *kfd)
+>>>>   {
+>>>>          const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+>>>> @@ -231,6 +240,7 @@ static int iommu_invalid_ppr_cb(struct pci_dev *pdev, int pasid,
+>>>>
+>>>>          return AMD_IOMMU_INV_PRI_RSP_INVALID;
+>>>>   }
+>>>> +#endif /* CONFIG_AMD_IOMMU_V2 */
+>>>>
+>>>>   static void kfd_cwsr_init(struct kfd_dev *kfd)
+>>>>   {
+>>>> @@ -321,12 +331,14 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>>>>                  goto device_queue_manager_error;
+>>>>          }
+>>>>
+>>>> -       if (!device_iommu_pasid_init(kfd)) {
+>>>> -               dev_err(kfd_device,
+>>>> -                       "Error initializing iommuv2 for device %x:%x\n",
+>>>> -                       kfd->pdev->vendor, kfd->pdev->device);
+>>>> -               goto device_iommu_pasid_error;
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>> +       if (kfd->device_info->needs_iommu_device) {
+>>>> +               if (!device_iommu_pasid_init(kfd)) {
+>>>> +                       dev_err(kfd_device, "Error initializing iommuv2\n");
+>>>> +                       goto device_iommu_pasid_error;
+>>>> +               }
+>>>>          }
+>>>> +#endif
+>>>>
+>>>>          kfd_cwsr_init(kfd);
+>>>>
+>>>> @@ -386,11 +398,16 @@ void kgd2kfd_suspend(struct kfd_dev *kfd)
+>>>>
+>>>>          kfd->dqm->ops.stop(kfd->dqm);
+>>>>
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>> +       if (!kfd->device_info->needs_iommu_device)
+>>>> +               return;
+>>>> +
+>>>>          kfd_unbind_processes_from_device(kfd);
+>>>>
+>>>>          amd_iommu_set_invalidate_ctx_cb(kfd->pdev, NULL);
+>>>>          amd_iommu_set_invalid_ppr_cb(kfd->pdev, NULL);
+>>>>          amd_iommu_free_device(kfd->pdev);
+>>>> +#endif
+>>>>   }
+>>>>
+>>>>   int kgd2kfd_resume(struct kfd_dev *kfd)
+>>>> @@ -405,19 +422,24 @@ int kgd2kfd_resume(struct kfd_dev *kfd)
+>>>>   static int kfd_resume(struct kfd_dev *kfd)
+>>>>   {
+>>>>          int err = 0;
+>>>> -       unsigned int pasid_limit = kfd_get_pasid_limit();
+>>>>
+>>>> -       err = amd_iommu_init_device(kfd->pdev, pasid_limit);
+>>>> -       if (err)
+>>>> -               return -ENXIO;
+>>>> -       amd_iommu_set_invalidate_ctx_cb(kfd->pdev,
+>>>> -                                       iommu_pasid_shutdown_callback);
+>>>> -       amd_iommu_set_invalid_ppr_cb(kfd->pdev,
+>>>> -                                    iommu_invalid_ppr_cb);
+>>>> -
+>>>> -       err = kfd_bind_processes_to_device(kfd);
+>>>> -       if (err)
+>>>> -               goto processes_bind_error;
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>> +       if (kfd->device_info->needs_iommu_device) {
+>>>> +               unsigned int pasid_limit = kfd_get_pasid_limit();
+>>>> +
+>>>> +               err = amd_iommu_init_device(kfd->pdev, pasid_limit);
+>>>> +               if (err)
+>>>> +                       return -ENXIO;
+>>>> +               amd_iommu_set_invalidate_ctx_cb(kfd->pdev,
+>>>> +                                               iommu_pasid_shutdown_callback);
+>>>> +               amd_iommu_set_invalid_ppr_cb(kfd->pdev,
+>>>> +                                            iommu_invalid_ppr_cb);
+>>>> +
+>>>> +               err = kfd_bind_processes_to_device(kfd);
+>>>> +               if (err)
+>>>> +                       goto processes_bind_error;
+>>>> +       }
+>>>> +#endif
+>>>>
+>>>>          err = kfd->dqm->ops.start(kfd->dqm);
+>>>>          if (err) {
+>>>> @@ -431,8 +453,10 @@ static int kfd_resume(struct kfd_dev *kfd)
+>>>>
+>>>>   dqm_start_error:
+>>>>   processes_bind_error:
+>>>> -       amd_iommu_free_device(kfd->pdev);
+>>>> -
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>> +       if (kfd->device_info->needs_iommu_device)
+>>>> +               amd_iommu_free_device(kfd->pdev);
+>>>> +#endif
+>>>>          return err;
+>>>>   }
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>>> index 93aae5c..f770dc7 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>>> @@ -837,6 +837,7 @@ static void lookup_events_by_type_and_signal(struct kfd_process *p,
+>>>>          }
+>>>>   }
+>>>>
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   void kfd_signal_iommu_event(struct kfd_dev *dev, unsigned int pasid,
+>>>>                  unsigned long address, bool is_write_requested,
+>>>>                  bool is_execute_requested)
+>>>> @@ -905,6 +906,7 @@ void kfd_signal_iommu_event(struct kfd_dev *dev, unsigned int pasid,
+>>>>          mutex_unlock(&p->event_mutex);
+>>>>          kfd_unref_process(p);
+>>>>   }
+>>>> +#endif /* CONFIG_AMD_IOMMU_V2_MODULE */
+>>>>
+>>>>   void kfd_signal_hw_exception_event(unsigned int pasid)
+>>>>   {
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>>> index eebfb1e..9f4766c 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>>> @@ -158,6 +158,7 @@ struct kfd_device_info {
+>>>>          uint8_t num_of_watch_points;
+>>>>          uint16_t mqd_size_aligned;
+>>>>          bool supports_cwsr;
+>>>> +       bool needs_iommu_device;
+>>>>          bool needs_pci_atomics;
+>>>>   };
+>>>>
+>>>> @@ -617,9 +618,11 @@ void kfd_unref_process(struct kfd_process *p);
+>>>>
+>>>>   struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
+>>>>                                                  struct kfd_process *p);
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   int kfd_bind_processes_to_device(struct kfd_dev *dev);
+>>>>   void kfd_unbind_processes_from_device(struct kfd_dev *dev);
+>>>>   void kfd_process_iommu_unbind_callback(struct kfd_dev *dev, unsigned int pasid);
+>>>> +#endif
+>>>>   struct kfd_process_device *kfd_get_process_device_data(struct kfd_dev *dev,
+>>>>                                                          struct kfd_process *p);
+>>>>   struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+>>>> @@ -784,9 +787,11 @@ int kfd_wait_on_events(struct kfd_process *p,
+>>>>                         uint32_t *wait_result);
+>>>>   void kfd_signal_event_interrupt(unsigned int pasid, uint32_t partial_id,
+>>>>                                  uint32_t valid_id_bits);
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   void kfd_signal_iommu_event(struct kfd_dev *dev,
+>>>>                  unsigned int pasid, unsigned long address,
+>>>>                  bool is_write_requested, bool is_execute_requested);
+>>>> +#endif
+>>>>   void kfd_signal_hw_exception_event(unsigned int pasid);
+>>>>   int kfd_set_event(struct kfd_process *p, uint32_t event_id);
+>>>>   int kfd_reset_event(struct kfd_process *p, uint32_t event_id);
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>>> index a22fb071..1d0e02c 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>>> @@ -173,14 +173,17 @@ static void kfd_process_wq_release(struct work_struct *work)
+>>>>   {
+>>>>          struct kfd_process *p = container_of(work, struct kfd_process,
+>>>>                                               release_work);
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>          struct kfd_process_device *pdd;
+>>>>
+>>>>          pr_debug("Releasing process (pasid %d) in workqueue\n", p->pasid);
+>>>>
+>>>>          list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+>>>> -               if (pdd->bound == PDD_BOUND)
+>>>> +               if (pdd->bound == PDD_BOUND &&
+>>>> +                   pdd->dev->device_info->needs_iommu_device)
+>>>>                          amd_iommu_unbind_pasid(pdd->dev->pdev, p->pasid);
+>>>>          }
+>>>> +#endif
+>>>>
+>>>>          kfd_process_destroy_pdds(p);
+>>>>
+>>>> @@ -421,7 +424,6 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
+>>>>                                                          struct kfd_process *p)
+>>>>   {
+>>>>          struct kfd_process_device *pdd;
+>>>> -       int err;
+>>>>
+>>>>          pdd = kfd_get_process_device_data(dev, p);
+>>>>          if (!pdd) {
+>>>> @@ -436,9 +438,14 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
+>>>>                  return ERR_PTR(-EINVAL);
+>>>>          }
+>>>>
+>>>> -       err = amd_iommu_bind_pasid(dev->pdev, p->pasid, p->lead_thread);
+>>>> -       if (err < 0)
+>>>> -               return ERR_PTR(err);
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>> +       if (dev->device_info->needs_iommu_device) {
+>>>> +               int err = amd_iommu_bind_pasid(dev->pdev, p->pasid,
+>>>> +                                              p->lead_thread);
+>>>> +               if (err < 0)
+>>>> +                       return ERR_PTR(err);
+>>>> +       }
+>>>> +#endif
+>>>>
+>>>>          pdd->bound = PDD_BOUND;
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>> index c6a7609..f57c305 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>> @@ -875,6 +875,7 @@ static void find_system_memory(const struct dmi_header *dm,
+>>>>    */
+>>>>   static int kfd_add_perf_to_topology(struct kfd_topology_device *kdev)
+>>>>   {
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>          struct kfd_perf_properties *props;
+>>>>
+>>>>          if (amd_iommu_pc_supported()) {
+>>>> @@ -886,6 +887,7 @@ static int kfd_add_perf_to_topology(struct kfd_topology_device *kdev)
+>>>>                          amd_iommu_pc_get_max_counters(0); /* assume one iommu */
+>>>>                  list_add_tail(&props->list, &kdev->perf_props);
+>>>>          }
+>>>> +#endif
+>>>>
+>>>>          return 0;
+>>>>   }
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>>> index 53fca1f..111fda2 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>>> @@ -183,8 +183,10 @@ struct kfd_topology_device *kfd_create_topology_device(
+>>>>                  struct list_head *device_list);
+>>>>   void kfd_release_topology_device_list(struct list_head *device_list);
+>>>>
+>>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>>>   extern bool amd_iommu_pc_supported(void);
+>>>>   extern u8 amd_iommu_pc_get_max_banks(u16 devid);
+>>>>   extern u8 amd_iommu_pc_get_max_counters(u16 devid);
+>>>> +#endif
+>>>>
+>>>>   #endif /* __KFD_TOPOLOGY_H__ */
+>>>> --
+>>>> 2.7.4
+>>>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------447CF3450049AB6687E85ABB
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Looks good to me on first glance.<br>
+      <br>
+      You probably don't mind that I'm going to pull a good part of that
+      into amdgpu as next step?<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 03.02.2018 um 03:29 schrieb Felix Kuehling:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:5a1e7696-b5bf-547c-4fe6-e71e0ae7f5e0-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">The attached patch is my attempt to keep most of the IOMMU code in one
+place (new kfd_iommu.c) to avoid #ifdefs all over the place. This way I
+can still conditionally compile a bunch of KFD code that is only needed
+for IOMMU handling, with stub functions for kernel configs without IOMMU
+support. About 300 lines of conditionally compiled code got moved to
+kfd_iommu.c.
+
+The only piece I didn't move into kfd_iommu.c is 
+kfd_signal_iommu_event. I prefer to keep that in kfd_events.c because it
+doesn't call any IOMMU driver functions, and because it's closely
+related to the rest of the event handling logic. It could be compiled
+unconditionally, but it would be dead code without IOMMU support.
+
+And I moved pdd-&gt;bound to a place where it doesn't consume extra space
+(on 64-bit systems due to structure alignment) instead of making it
+conditional.
+
+This is only compile-tested for now.
+
+If you like this approach, I'll do more testing and squash it with "Make
+IOMMUv2 code conditional".
+
+Regards,
+  Felix
+
+
+On 2018-01-31 10:00 AM, Oded Gabbay wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">On Wed, Jan 31, 2018 at 4:56 PM, Oded Gabbay <a class="moz-txt-link-rfc2396E" href="mailto:oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a> wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">Hi Felix,
+Please don't spread 19 #ifdefs throughout the code.
+I suggest to put one #ifdef in linux/amd-iommu.h itself around all the
+functions declarations and in the #else section put macros with empty
+implementations. This is much more readable and maintainable.
+
+Oded
+</pre>
+        </blockquote>
+        <pre wrap="">To emphasize my point, there is a call to amd_iommu_bind_pasid in
+kfd_bind_processes_to_device() which isn't wrapped with the #ifdef so
+the compliation breaks. Putting the #ifdefs around the calls is simply
+not scalable.
+
+Oded
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">
+On Fri, Jan 5, 2018 at 12:17 AM, Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="">dGPUs work without IOMMUv2. Make IOMMUv2 initialization dependent on
+ASIC information. Also allow building KFD without IOMMUv2 support.
+This is still useful for dGPUs and prepares for enabling KFD on
+architectures that don't support AMD IOMMUv2.
+
+Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/Kconfig        |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |  8 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c   | 62 +++++++++++++++++++++----------
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c   |  2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  5 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c  | 17 ++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  2 +
+ 8 files changed, 74 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
+index bc5a294..5bbeb95 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Kconfig
++++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+@@ -4,6 +4,6 @@
+
+ config HSA_AMD
+        tristate "HSA kernel driver for AMD GPU devices"
+-       depends on DRM_AMDGPU &amp;&amp; AMD_IOMMU_V2 &amp;&amp; X86_64
++       depends on DRM_AMDGPU &amp;&amp; X86_64
+        help
+          Enable this if you want to use HSA features on AMD GPU devices.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 2bc2816..3478270 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -22,7 +22,9 @@
+
+ #include &lt;linux/pci.h&gt;
+ #include &lt;linux/acpi.h&gt;
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ #include &lt;linux/amd-iommu.h&gt;
++#endif
+ #include "kfd_crat.h"
+ #include "kfd_priv.h"
+ #include "kfd_topology.h"
+@@ -1037,15 +1039,17 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+        struct crat_subtype_generic *sub_type_hdr;
+        struct crat_subtype_computeunit *cu;
+        struct kfd_cu_info cu_info;
+-       struct amd_iommu_device_info iommu_info;
+        int avail_size = *size;
+        uint32_t total_num_of_cu;
+        int num_of_cache_entries = 0;
+        int cache_mem_filled = 0;
+        int ret = 0;
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
++       struct amd_iommu_device_info iommu_info;
+        const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+                                         AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
+                                         AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
++#endif
+        struct kfd_local_mem_info local_mem_info;
+
+        if (!pcrat_image || avail_size &lt; VCRAT_SIZE_FOR_GPU)
+@@ -1106,12 +1110,14 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+        /* Check if this node supports IOMMU. During parsing this flag will
+         * translate to HSA_CAP_ATS_PRESENT
+         */
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+        iommu_info.flags = 0;
+        if (amd_iommu_device_info(kdev-&gt;pdev, &amp;iommu_info) == 0) {
+                if ((iommu_info.flags &amp; required_iommu_flags) ==
+                                required_iommu_flags)
+                        cu-&gt;hsa_capability |= CRAT_CU_FLAGS_IOMMU_PRESENT;
+        }
++#endif
+
+        crat_table-&gt;length += sub_type_hdr-&gt;length;
+        crat_table-&gt;total_entries++;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index fafe971..5205b34 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -20,7 +20,9 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
+
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ #include &lt;linux/amd-iommu.h&gt;
++#endif
+ #include &lt;linux/bsearch.h&gt;
+ #include &lt;linux/pci.h&gt;
+ #include &lt;linux/slab.h&gt;
+@@ -31,6 +33,7 @@
+
+ #define MQD_SIZE_ALIGNED 768
+
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ static const struct kfd_device_info kaveri_device_info = {
+        .asic_family = CHIP_KAVERI,
+        .max_pasid_bits = 16,
+@@ -41,6 +44,7 @@ static const struct kfd_device_info kaveri_device_info = {
+        .num_of_watch_points = 4,
+        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+        .supports_cwsr = false,
++       .needs_iommu_device = true,
+        .needs_pci_atomics = false,
+ };
+
+@@ -54,8 +58,10 @@ static const struct kfd_device_info carrizo_device_info = {
+        .num_of_watch_points = 4,
+        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+        .supports_cwsr = true,
++       .needs_iommu_device = true,
+        .needs_pci_atomics = false,
+ };
++#endif
+
+ struct kfd_deviceid {
+        unsigned short did;
+@@ -64,6 +70,7 @@ struct kfd_deviceid {
+
+ /* Please keep this sorted by increasing device id. */
+ static const struct kfd_deviceid supported_devices[] = {
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+        { 0x1304, &amp;kaveri_device_info },        /* Kaveri */
+        { 0x1305, &amp;kaveri_device_info },        /* Kaveri */
+        { 0x1306, &amp;kaveri_device_info },        /* Kaveri */
+@@ -91,6 +98,7 @@ static const struct kfd_deviceid supported_devices[] = {
+        { 0x9875, &amp;carrizo_device_info },       /* Carrizo */
+        { 0x9876, &amp;carrizo_device_info },       /* Carrizo */
+        { 0x9877, &amp;carrizo_device_info }        /* Carrizo */
++#endif
+ };
+
+ static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
+@@ -161,6 +169,7 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+        return kfd;
+ }
+
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ static bool device_iommu_pasid_init(struct kfd_dev *kfd)
+ {
+        const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+@@ -231,6 +240,7 @@ static int iommu_invalid_ppr_cb(struct pci_dev *pdev, int pasid,
+
+        return AMD_IOMMU_INV_PRI_RSP_INVALID;
+ }
++#endif /* CONFIG_AMD_IOMMU_V2 */
+
+ static void kfd_cwsr_init(struct kfd_dev *kfd)
+ {
+@@ -321,12 +331,14 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+                goto device_queue_manager_error;
+        }
+
+-       if (!device_iommu_pasid_init(kfd)) {
+-               dev_err(kfd_device,
+-                       "Error initializing iommuv2 for device %x:%x\n",
+-                       kfd-&gt;pdev-&gt;vendor, kfd-&gt;pdev-&gt;device);
+-               goto device_iommu_pasid_error;
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
++       if (kfd-&gt;device_info-&gt;needs_iommu_device) {
++               if (!device_iommu_pasid_init(kfd)) {
++                       dev_err(kfd_device, "Error initializing iommuv2\n");
++                       goto device_iommu_pasid_error;
++               }
+        }
++#endif
+
+        kfd_cwsr_init(kfd);
+
+@@ -386,11 +398,16 @@ void kgd2kfd_suspend(struct kfd_dev *kfd)
+
+        kfd-&gt;dqm-&gt;ops.stop(kfd-&gt;dqm);
+
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
++       if (!kfd-&gt;device_info-&gt;needs_iommu_device)
++               return;
++
+        kfd_unbind_processes_from_device(kfd);
+
+        amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev, NULL);
+        amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev, NULL);
+        amd_iommu_free_device(kfd-&gt;pdev);
++#endif
+ }
+
+ int kgd2kfd_resume(struct kfd_dev *kfd)
+@@ -405,19 +422,24 @@ int kgd2kfd_resume(struct kfd_dev *kfd)
+ static int kfd_resume(struct kfd_dev *kfd)
+ {
+        int err = 0;
+-       unsigned int pasid_limit = kfd_get_pasid_limit();
+
+-       err = amd_iommu_init_device(kfd-&gt;pdev, pasid_limit);
+-       if (err)
+-               return -ENXIO;
+-       amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev,
+-                                       iommu_pasid_shutdown_callback);
+-       amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev,
+-                                    iommu_invalid_ppr_cb);
+-
+-       err = kfd_bind_processes_to_device(kfd);
+-       if (err)
+-               goto processes_bind_error;
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
++       if (kfd-&gt;device_info-&gt;needs_iommu_device) {
++               unsigned int pasid_limit = kfd_get_pasid_limit();
++
++               err = amd_iommu_init_device(kfd-&gt;pdev, pasid_limit);
++               if (err)
++                       return -ENXIO;
++               amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev,
++                                               iommu_pasid_shutdown_callback);
++               amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev,
++                                            iommu_invalid_ppr_cb);
++
++               err = kfd_bind_processes_to_device(kfd);
++               if (err)
++                       goto processes_bind_error;
++       }
++#endif
+
+        err = kfd-&gt;dqm-&gt;ops.start(kfd-&gt;dqm);
+        if (err) {
+@@ -431,8 +453,10 @@ static int kfd_resume(struct kfd_dev *kfd)
+
+ dqm_start_error:
+ processes_bind_error:
+-       amd_iommu_free_device(kfd-&gt;pdev);
+-
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
++       if (kfd-&gt;device_info-&gt;needs_iommu_device)
++               amd_iommu_free_device(kfd-&gt;pdev);
++#endif
+        return err;
+ }
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index 93aae5c..f770dc7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -837,6 +837,7 @@ static void lookup_events_by_type_and_signal(struct kfd_process *p,
+        }
+ }
+
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ void kfd_signal_iommu_event(struct kfd_dev *dev, unsigned int pasid,
+                unsigned long address, bool is_write_requested,
+                bool is_execute_requested)
+@@ -905,6 +906,7 @@ void kfd_signal_iommu_event(struct kfd_dev *dev, unsigned int pasid,
+        mutex_unlock(&amp;p-&gt;event_mutex);
+        kfd_unref_process(p);
+ }
++#endif /* CONFIG_AMD_IOMMU_V2_MODULE */
+
+ void kfd_signal_hw_exception_event(unsigned int pasid)
+ {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index eebfb1e..9f4766c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -158,6 +158,7 @@ struct kfd_device_info {
+        uint8_t num_of_watch_points;
+        uint16_t mqd_size_aligned;
+        bool supports_cwsr;
++       bool needs_iommu_device;
+        bool needs_pci_atomics;
+ };
+
+@@ -617,9 +618,11 @@ void kfd_unref_process(struct kfd_process *p);
+
+ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
+                                                struct kfd_process *p);
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ int kfd_bind_processes_to_device(struct kfd_dev *dev);
+ void kfd_unbind_processes_from_device(struct kfd_dev *dev);
+ void kfd_process_iommu_unbind_callback(struct kfd_dev *dev, unsigned int pasid);
++#endif
+ struct kfd_process_device *kfd_get_process_device_data(struct kfd_dev *dev,
+                                                        struct kfd_process *p);
+ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+@@ -784,9 +787,11 @@ int kfd_wait_on_events(struct kfd_process *p,
+                       uint32_t *wait_result);
+ void kfd_signal_event_interrupt(unsigned int pasid, uint32_t partial_id,
+                                uint32_t valid_id_bits);
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ void kfd_signal_iommu_event(struct kfd_dev *dev,
+                unsigned int pasid, unsigned long address,
+                bool is_write_requested, bool is_execute_requested);
++#endif
+ void kfd_signal_hw_exception_event(unsigned int pasid);
+ int kfd_set_event(struct kfd_process *p, uint32_t event_id);
+ int kfd_reset_event(struct kfd_process *p, uint32_t event_id);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index a22fb071..1d0e02c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -173,14 +173,17 @@ static void kfd_process_wq_release(struct work_struct *work)
+ {
+        struct kfd_process *p = container_of(work, struct kfd_process,
+                                             release_work);
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+        struct kfd_process_device *pdd;
+
+        pr_debug("Releasing process (pasid %d) in workqueue\n", p-&gt;pasid);
+
+        list_for_each_entry(pdd, &amp;p-&gt;per_device_data, per_device_list) {
+-               if (pdd-&gt;bound == PDD_BOUND)
++               if (pdd-&gt;bound == PDD_BOUND &amp;&amp;
++                   pdd-&gt;dev-&gt;device_info-&gt;needs_iommu_device)
+                        amd_iommu_unbind_pasid(pdd-&gt;dev-&gt;pdev, p-&gt;pasid);
+        }
++#endif
+
+        kfd_process_destroy_pdds(p);
+
+@@ -421,7 +424,6 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
+                                                        struct kfd_process *p)
+ {
+        struct kfd_process_device *pdd;
+-       int err;
+
+        pdd = kfd_get_process_device_data(dev, p);
+        if (!pdd) {
+@@ -436,9 +438,14 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
+                return ERR_PTR(-EINVAL);
+        }
+
+-       err = amd_iommu_bind_pasid(dev-&gt;pdev, p-&gt;pasid, p-&gt;lead_thread);
+-       if (err &lt; 0)
+-               return ERR_PTR(err);
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
++       if (dev-&gt;device_info-&gt;needs_iommu_device) {
++               int err = amd_iommu_bind_pasid(dev-&gt;pdev, p-&gt;pasid,
++                                              p-&gt;lead_thread);
++               if (err &lt; 0)
++                       return ERR_PTR(err);
++       }
++#endif
+
+        pdd-&gt;bound = PDD_BOUND;
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index c6a7609..f57c305 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -875,6 +875,7 @@ static void find_system_memory(const struct dmi_header *dm,
+  */
+ static int kfd_add_perf_to_topology(struct kfd_topology_device *kdev)
+ {
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+        struct kfd_perf_properties *props;
+
+        if (amd_iommu_pc_supported()) {
+@@ -886,6 +887,7 @@ static int kfd_add_perf_to_topology(struct kfd_topology_device *kdev)
+                        amd_iommu_pc_get_max_counters(0); /* assume one iommu */
+                list_add_tail(&amp;props-&gt;list, &amp;kdev-&gt;perf_props);
+        }
++#endif
+
+        return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index 53fca1f..111fda2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -183,8 +183,10 @@ struct kfd_topology_device *kfd_create_topology_device(
+                struct list_head *device_list);
+ void kfd_release_topology_device_list(struct list_head *device_list);
+
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+ extern bool amd_iommu_pc_supported(void);
+ extern u8 amd_iommu_pc_get_max_banks(u16 devid);
+ extern u8 amd_iommu_pc_get_max_counters(u16 devid);
++#endif
+
+ #endif /* __KFD_TOPOLOGY_H__ */
+--
+2.7.4
+
+</pre>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------447CF3450049AB6687E85ABB--
+
+--===============1142501818==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1142501818==--
