@@ -1,13 +1,18 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Unify the dm resume calls into one
-Date: Mon, 5 Feb 2018 16:35:19 -0500
-Message-ID: <31a666c6-98b5-c29c-6165-c134b3bfe213@amd.com>
-References: <1517865269-15199-1-git-send-email-mikita.lipski@amd.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 7/9] drm/amdkfd: Add dGPU support to kernel_queue_init
+Date: Tue, 6 Feb 2018 10:39:37 +0200
+Message-ID: <CAFCwf11EuG1DfqEMEF1OuV=-48PR0k8PB_s-dosCj9Qhk4e+Yw@mail.gmail.com>
+References: <1515104268-25087-1-git-send-email-Felix.Kuehling@amd.com>
+ <1515104268-25087-8-git-send-email-Felix.Kuehling@amd.com>
+ <CAFCwf11nyKTuxF4R+GfWt_Zg5pRjYezbp9TEW_-OWqRhhR-rVg@mail.gmail.com>
+ <BN6PR12MB16520A78D8FFA5E0AF393BD2F7FB0@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <CAFCwf127vkM7aEcyUK9VjrVekZAFin7d7sk6Ko=JV5gibBeukg@mail.gmail.com>
+ <31443990-b612-e9cc-ec07-054b940c8c25@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0915542511=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1517865269-15199-1-git-send-email-mikita.lipski-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <31443990-b612-e9cc-ec07-054b940c8c25-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,206 +23,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: mikita.lipski-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0915542511==
-Content-Type: multipart/alternative;
- boundary="------------927DC71061DD3A49DBE6D65B"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------927DC71061DD3A49DBE6D65B
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Reviewed-by: Andrey Grodzovsky<andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-
-Andrey
-
-
-On 02/05/2018 04:14 PM, mikita.lipski-5C7GfCeVMHo@public.gmane.org wrote:
-> From: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
->
-> amdgpu_dm_display_resume is now called from dm_resume to
-> unify DAL resume call into a single function call
->
-> There is no more need to separately call 2 resume functions
-> for DM.
->
-> Initially they were separated to resume display state after
-> cursor is pinned. But because there is no longer any corruption
-> with the cursor - the calls can be merged into one function hook.
->
-> Signed-off-by: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 10 +---------
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +++-
->   2 files changed, 4 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 850453e..0aaba27 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2287,14 +2287,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool resume, bool fbcon)
->   				drm_helper_connector_dpms(connector, DRM_MODE_DPMS_ON);
->   			}
->   			drm_modeset_unlock_all(dev);
-> -		} else {
-> -			/*
-> -			 * There is no equivalent atomic helper to turn on
-> -			 * display, so we defined our own function for this,
-> -			 * once suspend resume is supported by the atomic
-> -			 * framework this will be reworked
-> -			 */
-> -			amdgpu_dm_display_resume(adev);
->   		}
->   	}
->   
-> @@ -2515,6 +2507,7 @@ static int amdgpu_device_reset(struct amdgpu_device *adev,
->   				goto out;
->   
->   			r = amdgpu_device_ip_resume_phase2(adev);
-> +
->   			if (r)
->   				goto out;
->   
-> @@ -2729,7 +2722,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->   	if (amdgpu_device_has_dc_support(adev)) {
->   		if (drm_atomic_helper_resume(adev->ddev, state))
->   			dev_info(adev->dev, "drm resume failed:%d\n", r);
-> -		amdgpu_dm_display_resume(adev);
->   	} else {
->   		drm_helper_resume_force_mode(adev->ddev);
->   	}
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index ac82382..8e6e60e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -659,11 +659,13 @@ static int dm_resume(void *handle)
->   {
->   	struct amdgpu_device *adev = handle;
->   	struct amdgpu_display_manager *dm = &adev->dm;
-> +	int ret = 0;
->   
->   	/* power on hardware */
->   	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
->   
-> -	return 0;
-> +	ret = amdgpu_dm_display_resume(adev);
-> +	return ret;
->   }
->   
->   int amdgpu_dm_display_resume(struct amdgpu_device *adev)
-
-
---------------927DC71061DD3A49DBE6D65B
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <pre wrap="">Reviewed-by: Andrey Grodzovsky <font color="#000000"><a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></font>
-
-Andrey 
-</pre>
-    <br>
-    <div class="moz-cite-prefix">On 02/05/2018 04:14 PM,
-      <a class="moz-txt-link-abbreviated" href="mailto:mikita.lipski-5C7GfCeVMHo@public.gmane.org">mikita.lipski-5C7GfCeVMHo@public.gmane.org</a> wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1517865269-15199-1-git-send-email-mikita.lipski-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">From: Mikita Lipski <a class="moz-txt-link-rfc2396E" href="mailto:mikita.lipski-5C7GfCeVMHo@public.gmane.org">&lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;</a>
-
-amdgpu_dm_display_resume is now called from dm_resume to
-unify DAL resume call into a single function call
-
-There is no more need to separately call 2 resume functions
-for DM.
-
-Initially they were separated to resume display state after
-cursor is pinned. But because there is no longer any corruption
-with the cursor - the calls can be merged into one function hook.
-
-Signed-off-by: Mikita Lipski <a class="moz-txt-link-rfc2396E" href="mailto:mikita.lipski-5C7GfCeVMHo@public.gmane.org">&lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        | 10 +---------
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +++-
- 2 files changed, 4 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 850453e..0aaba27 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2287,14 +2287,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool resume, bool fbcon)
- 				drm_helper_connector_dpms(connector, DRM_MODE_DPMS_ON);
- 			}
- 			drm_modeset_unlock_all(dev);
--		} else {
--			/*
--			 * There is no equivalent atomic helper to turn on
--			 * display, so we defined our own function for this,
--			 * once suspend resume is supported by the atomic
--			 * framework this will be reworked
--			 */
--			amdgpu_dm_display_resume(adev);
- 		}
- 	}
- 
-@@ -2515,6 +2507,7 @@ static int amdgpu_device_reset(struct amdgpu_device *adev,
- 				goto out;
- 
- 			r = amdgpu_device_ip_resume_phase2(adev);
-+
- 			if (r)
- 				goto out;
- 
-@@ -2729,7 +2722,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	if (amdgpu_device_has_dc_support(adev)) {
- 		if (drm_atomic_helper_resume(adev-&gt;ddev, state))
- 			dev_info(adev-&gt;dev, "drm resume failed:%d\n", r);
--		amdgpu_dm_display_resume(adev);
- 	} else {
- 		drm_helper_resume_force_mode(adev-&gt;ddev);
- 	}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ac82382..8e6e60e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -659,11 +659,13 @@ static int dm_resume(void *handle)
- {
- 	struct amdgpu_device *adev = handle;
- 	struct amdgpu_display_manager *dm = &amp;adev-&gt;dm;
-+	int ret = 0;
- 
- 	/* power on hardware */
- 	dc_set_power_state(dm-&gt;dc, DC_ACPI_CM_POWER_STATE_D0);
- 
--	return 0;
-+	ret = amdgpu_dm_display_resume(adev);
-+	return ret;
- }
- 
- int amdgpu_dm_display_resume(struct amdgpu_device *adev)
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------927DC71061DD3A49DBE6D65B--
-
---===============0915542511==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0915542511==--
+T24gV2VkLCBKYW4gMzEsIDIwMTggYXQgNjoyNyBQTSwgRmVsaXggS3VlaGxpbmcgPGZlbGl4Lmt1
+ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+IE9uIDIwMTgtMDEtMzEgMTA6MjkgQU0sIE9kZWQgR2Fi
+YmF5IHdyb3RlOgo+PiBPbiBXZWQsIEphbiAzMSwgMjAxOCBhdCA1OjIzIFBNLCBEZXVjaGVyLCBB
+bGV4YW5kZXIKPj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+IHdyb3RlOgo+Pj4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91
+bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFsZiBvZiBPZGVkCj4+PiBHYWJiYXkg
+PG9kZWQuZ2FiYmF5QGdtYWlsLmNvbT4KPj4+IFNlbnQ6IFdlZG5lc2RheSwgSmFudWFyeSAzMSwg
+MjAxOCAxMDoxNyBBTQo+Pj4gVG86IEt1ZWhsaW5nLCBGZWxpeAo+Pj4gQ2M6IGFtZC1nZnggbGlz
+dAo+Pj4gU3ViamVjdDogUmU6IFtQQVRDSCA3LzldIGRybS9hbWRrZmQ6IEFkZCBkR1BVIHN1cHBv
+cnQgdG8ga2VybmVsX3F1ZXVlX2luaXQKPj4+Cj4+PiBPbiBGcmksIEphbiA1LCAyMDE4IGF0IDEy
+OjE3IEFNLCBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPj4+IHdyb3Rl
+Ogo+Pj4+IFJlY29nbml6ZSBkR1BVIEFTSUMgZmFtaWxpZXMuCj4+Pj4KPj4+PiBTaWduZWQtb2Zm
+LWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPj4+PiAtLS0KPj4+
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZS5jIHwgNSArKysr
+Kwo+Pj4+ICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCj4+Pj4KPj4+PiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZS5jCj4+Pj4g
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlLmMKPj4+PiBpbmRl
+eCA1ZGM2NTY3Li42OWY0OTY0IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9rZXJuZWxfcXVldWUuYwo+Pj4+IEBAIC0yOTcsMTAgKzI5NywxNSBAQCBzdHJ1
+Y3Qga2VybmVsX3F1ZXVlICprZXJuZWxfcXVldWVfaW5pdChzdHJ1Y3QKPj4+PiBrZmRfZGV2ICpk
+ZXYsCj4+Pj4KPj4+PiAgICAgICAgIHN3aXRjaCAoZGV2LT5kZXZpY2VfaW5mby0+YXNpY19mYW1p
+bHkpIHsKPj4+PiAgICAgICAgIGNhc2UgQ0hJUF9DQVJSSVpPOgo+Pj4+ICsgICAgICAgY2FzZSBD
+SElQX1RPTkdBOgo+Pj4+ICsgICAgICAgY2FzZSBDSElQX0ZJSkk6Cj4+Pj4gKyAgICAgICBjYXNl
+IENISVBfUE9MQVJJUzEwOgo+Pj4+ICsgICAgICAgY2FzZSBDSElQX1BPTEFSSVMxMToKPj4+IEkg
+YmVsaWV2ZSBQT0xBUklTIGlzIGZyb20gYXJjYXRpYyBpc2xhbmRzLCBubyA/Cj4+PiBNYXliZSBy
+ZW5hbWUga2VybmVsX3F1ZXVlX2luaXRfdmkgdG8ga2VybmVsX3F1ZXVlX2luaXRfdmlfYWkgPwo+
+Pj4gb3IgY3JlYXRlIGEgbmV3IGZ1bmN0aW9uIGtlcm5lbF9xdWV1ZV9pbml0X2FpKCkgYW5kIGFz
+c2lnbiBzYW1lCj4+PiBmdW5jdGlvbnMgYXMgdmkgPwo+Pj4gRWl0aGVyIHdheSwgSSB0aGluayB5
+b3UgbmVlZCB0byBhZGRyZXNzIHRoYXQuCj4+Pgo+Pj4gVGhleSBhcmUgYWxsIGdmeDguICBhZGRp
+bmcgYWkganVzdCBjb25mdXNlcyB0aGluZ3MuCj4KPiBJbnRlcm5hbGx5IHdlIHVzZSBWSSBhbmQg
+R0ZYOCBpbnRlcmNoYW5nYWJseS4gSSB0aGluayB3aGF0J3MgY29uZnVzaW5nCj4gaXMsIHRoYXQg
+aW50ZXJuYWwgY29kZSBuYW1lcyBhcmUgdXNlZCBmb3IgbWFya2V0aW5nIHB1cnBvc2VzIGFuZCBh
+cHBsaWVkCj4gdG8gdGhlIHdyb25nIGNoaXAgZ2VuZXJhdGlvbi4KPgo+IEFub3RoZXIgcHJlY2Vk
+ZW50IGZvciB0aGF0IGlzIEhhd2FpaS4gSXQgd2FzIGNhbGxlZCB0aGUgZmlyc3QgInZvbGNhbmlj
+Cj4gaXNsYW5kIiBHUFUgd2hlbiBpdCB3YXMgbGF1bmNoZWQgYXQgYW4gZXZlbnQgb24gSGF3YWlp
+IChhIHZvbGNhbmljCj4gaXNsYW5kKSwgYnV0IGFzIGZhciBhcyB0aGUgZHJpdmVyIGlzIGNvbmNl
+cm5lZCwgaXQgYmVsb25ncyB0byB0aGUgQ0lLCj4gZ2VuZXJhdGlvbi4KPgo+IEl0J3MgcmVhbGx5
+IGhhcmQgdG8ga2VlcCBjb25zaXN0ZW50IG5hbWluZywgd2hlbiBuYW1pbmcgY29udmVudGlvbnMg
+Z2V0Cj4gbWlzYXBwcm9wcmlhdGVkIHRvIG1lYW4gZGlmZmVyZW50IHRoaW5ncyBvdmVyIHRpbWUu
+Cj4KPj4+Cj4+PiBBbGV4Cj4+IEluIHRoYXQgY2FzZSwgSSB0aGluayBpdCBpcyBiZXR0ZXIgbWF5
+YmUgdG8gY2hhbmdlIGl0IHRvCj4+IGtlcm5lbF9xdWV1ZV9pbml0X2dmeF83IGFuZCBrZXJuZWxf
+cXVldWVfaW5pdF9nZnhfOCwgdG8gYmUgY29uc2lzdGVudAo+PiB3aXRoIHRoZSBjYWxscyB0byBh
+bWRncHVfYW1ka2ZkX2dmeF83XzBfZ2V0X2Z1bmN0aW9ucyBhbmQKPj4gYW1kZ3B1X2FtZGtmZF9n
+ZnhfOF8wX2dldF9mdW5jdGlvbnMuCj4+Cj4+IExlYXZpbmcgYXMgY2lrIGFuZCB2aSBhcyB0aGUg
+aWRlbnRpZmllciB3aGVuIGl0IGNsZWFybHkgaXNuJ3Qgc2VlbXMKPj4gY29uZnVzaW5nIHRvIG1l
+IGFzIHdlbGwuCj4KPiBGb3IgVmVnYTEwIHdlIHVzZSB0aGUgc3VmZml4IF92OSBpbnN0ZWFkIG9m
+IF9jaWsgb3IgX3ZpLiBGb3IgY29uc2lzdGVuY3kKPiBhbmQgYnJldml0eSBJIGNvdWxkIHJlbmFt
+ZSBfY2lrLT52NyBhbmQgX3ZpLT52OC4gSG93ZXZlciwgdGhhdCB3b3VsZCBiZQo+IGEgbG90IG9m
+IGNodXJuIGFuZCwgaW4gbXkgZXllcywgYSB3YXN0ZSBvZiB0aW1lLgoKSSBhZ3JlZSBpdHMgYSBs
+b3Qgb2YgY2h1cm4gYnV0IEkgZG9uJ3QgdGhpbmsgaXRzIGEgdG90YWwgd2FzdGUgb2YKdGltZSwg
+ZXZlbiBpZiB0aG9zZSBkZXZpY2VzIGFyZSBub3QgcmVhbGx5IGltcG9ydGFudCBhbnltb3JlLgpJ
+J2xsIHRyeSB0byBmaW5kIHNvbWUgdGltZSB0byBkbyBpdC4KT2RlZAoKPgo+IFJlZ2FyZHMsCj4g
+ICBGZWxpeAo+Cj4+Cj4+IE9kZWQKPj4KPj4+Cj4+Pj4gICAgICAgICAgICAgICAgIGtlcm5lbF9x
+dWV1ZV9pbml0X3ZpKCZrcS0+b3BzX2FzaWNfc3BlY2lmaWMpOwo+Pj4+ICAgICAgICAgICAgICAg
+ICBicmVhazsKPj4+Pgo+Pj4+ICAgICAgICAgY2FzZSBDSElQX0tBVkVSSToKPj4+PiArICAgICAg
+IGNhc2UgQ0hJUF9IQVdBSUk6Cj4+Pj4gICAgICAgICAgICAgICAgIGtlcm5lbF9xdWV1ZV9pbml0
+X2Npaygma3EtPm9wc19hc2ljX3NwZWNpZmljKTsKPj4+PiAgICAgICAgICAgICAgICAgYnJlYWs7
+Cj4+Pj4gICAgICAgICBkZWZhdWx0Ogo+Pj4+IC0tCj4+Pj4gMi43LjQKPj4+Pgo+Pj4gT3RoZXIg
+dGhlbiB0aGF0LCBUaGlzIHBhdGNoIGlzOgo+Pj4gUmV2aWV3ZWQtYnk6IE9kZWQgR2FiYmF5IDxv
+ZGVkLmdhYmJheUBnbWFpbC5jb20+Cj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwo+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
