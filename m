@@ -1,16 +1,16 @@
-From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Add place holder for soc15 asic init on
  emulation
-Date: Tue, 6 Feb 2018 22:02:03 +0000
-Message-ID: <BN6PR12MB13485AFD9FE75C268018E82BE8FD0@BN6PR12MB1348.namprd12.prod.outlook.com>
+Date: Tue, 6 Feb 2018 17:02:50 -0500
+Message-ID: <CADnq5_NE-DcpUjikVkGvqMs8MsHEGrqWkd9ar02_tvCi2eupmw@mail.gmail.com>
 References: <1517953287-22026-1-git-send-email-Shaoyun.Liu@amd.com>
- <CADnq5_PFej=MAbD-ZOoqHwiNk82A+qg304_5c7rXHOLJS9He+A@mail.gmail.com>,
+ <CADnq5_PFej=MAbD-ZOoqHwiNk82A+qg304_5c7rXHOLJS9He+A@mail.gmail.com>
  <DM5PR12MB117937BE7328E6634A4DA6B1F4FD0@DM5PR12MB1179.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1158181485=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <DM5PR12MB117937BE7328E6634A4DA6B1F4FD0-2J9CzHegvk8p/eksZXEfgQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,439 +21,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Bridgman,
+ John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
 
---===============1158181485==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB13485AFD9FE75C268018E82BE8FD0BN6PR12MB1348namp_"
-
---_000_BN6PR12MB13485AFD9FE75C268018E82BE8FD0BN6PR12MB1348namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Yes, I made that suggestion in order to make it easy for us to replace the =
-massive function we use in emulation with a stub function for upstream. I f=
-igured if we had that function in a separate file it would be cleaner, but =
-maybe that is not the case.
-
-
-I was thinking that we could replace the upstream stub file with an NPI-spe=
-cific file for most of our emulator work, then go back to the stub file onc=
-e VBIOS was enabled and we no longer needed the SOC init sequence from HW.
-
-
-I guess from a CM perspective it doesn't make a lot of difference whether w=
-e add 20,000 lines to a file and delete them later or replace a short file =
-with a 20,000 line file and then replace it again later... so maybe we don'=
-t need to move the function out after all.
-
-
-________________________________
-From: Liu, Shaoyun
-Sent: February 6, 2018 4:55 PM
-To: Alex Deucher; Bridgman, John
-Cc: amd-gfx list
-Subject: RE: [PATCH] drm/amdgpu: Add place holder for soc15 asic init on em=
-ulation
-
-Ye, I  try to put  the asic specific  register sequences for emulation in a=
- separate emu_soc.c file, I think it's suggested by John or you ?  The asic=
- specific code will  be  keep in separate bring up branch , but a common pl=
-ace to add them  seems  not bad to me .
-
-Shaoyun.liu
-
------Original Message-----
-From: Alex Deucher [mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
-Sent: Tuesday, February 06, 2018 4:46 PM
-To: Liu, Shaoyun
-Cc: amd-gfx list
-Subject: Re: [PATCH] drm/amdgpu: Add place holder for soc15 asic init on em=
-ulation
-
-On Tue, Feb 6, 2018 at 4:41 PM, Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org> wrote:
-> Change-Id: I6ff04e1199d1ebdbdb31d0e7e8ca3c240c61ab3a
-> Signed-off-by: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-
-What is the purpose of this?  If it's just as a hint the the driver writer =
-as to where to add the emulation register sequences from the IP teams, I do=
-n't see much value in it.  Just add a comment.
-
-Alex
-
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/Makefile  |  2 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu.h  |  2 ++
-> drivers/gpu/drm/amd/amdgpu/emu_soc.c | 33 +++++++++++++++++++++++++++++++=
-++
->  drivers/gpu/drm/amd/amdgpu/soc15.c   |  4 ++++
->  4 files changed, 40 insertions(+), 1 deletion(-)  create mode 100644
-> drivers/gpu/drm/amd/amdgpu/emu_soc.c
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
-> b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 1f6d43e..6f5db5e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -41,7 +41,7 @@ amdgpu-$(CONFIG_DRM_AMDGPU_CIK)+=3D cik.o cik_ih.o
-> kv_smc.o kv_dpm.o \  amdgpu-$(CONFIG_DRM_AMDGPU_SI)+=3D si.o gmc_v6_0.o
-> gfx_v6_0.o si_ih.o si_dma.o dce_v6_0.o si_dpm.o si_smc.o
->
->  amdgpu-y +=3D \
-> -       vi.o mxgpu_vi.o nbio_v6_1.o soc15.o mxgpu_ai.o nbio_v7_0.o vega10=
-_reg_init.o vega20_reg_init.o nbio_v7_4.o
-> +       vi.o mxgpu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o
-> + nbio_v7_0.o vega10_reg_init.o vega20_reg_init.o nbio_v7_4.o
->
->  # add GMC block
->  amdgpu-y +=3D \
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index d417cfb..13aa8a8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1740,6 +1740,8 @@ void amdgpu_mm_wreg(struct amdgpu_device *adev,
-> uint32_t reg, uint32_t v,  bool amdgpu_device_asic_has_dc_support(enum
-> amd_asic_type asic_type);  bool amdgpu_device_has_dc_support(struct
-> amdgpu_device *adev);
->
-> +int emu_soc_asic_init(struct amdgpu_device *adev);
-> +
->  /*
->   * Registers read & write functions.
->   */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/emu_soc.c
-> b/drivers/gpu/drm/amd/amdgpu/emu_soc.c
-> new file mode 100644
-> index 0000000..d72c25c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/emu_soc.c
-> @@ -0,0 +1,33 @@
-> +/*
-> + * Copyright 2018 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person
-> +obtaining a
-> + * copy of this software and associated documentation files (the
-> +"Software"),
-> + * to deal in the Software without restriction, including without
-> +limitation
-> + * the rights to use, copy, modify, merge, publish, distribute,
-> +sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom
-> +the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be
-> +included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> +EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-
-
-Is there an expectation that MAM block features will become available under=
- virtualization at some point in the future, eg Navi10 ?
-
-> +MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-> +SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> +DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> +OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-> +OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +#include "amdgpu.h"
-> +#include "soc15.h"
-> +
-> +#include "soc15_common.h"
-> +#include "soc15_hw_ip.h"
-> +
-> +int emu_soc_asic_init(struct amdgpu_device *adev) {
-> +       return 0;
-> +}
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 22cd84f..6a3d108 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -747,6 +747,10 @@ static int soc15_common_hw_init(void *handle)  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->
-> +       /* Add asic specific init sequence for emulation */
-> +       if (amdgpu_emu_mode =3D=3D 1)
-> +               emu_soc_asic_init(adev);
-> +
->         /* enable pcie gen2/3 link */
->         soc15_pcie_gen3_enable(adev);
->         /* enable aspm */
-> --
-> 1.9.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB13485AFD9FE75C268018E82BE8FD0BN6PR12MB1348namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Yes, I made that suggestion in or=
-der to make it easy for us to replace the massive function we use in emulat=
-ion with a stub function for upstream. I figured if we had that function in=
- a separate file it would be cleaner,
- but maybe that is not the case. <br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">I was thinking that we could repl=
-ace the upstream stub file with an NPI-specific file for most of our emulat=
-or work, then go back to the stub file once VBIOS was enabled and we no lon=
-ger needed the SOC init sequence from
- HW.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">I guess from a CM perspective it =
-doesn't make a lot of difference whether we add 20,000 lines to a file and =
-delete them later or replace a short file with a 20,000 line file and then =
-replace it again later... so maybe
- we don't need to move the function out after all.<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Liu, Shaoyun<br>
-<b>Sent:</b> February 6, 2018 4:55 PM<br>
-<b>To:</b> Alex Deucher; Bridgman, John<br>
-<b>Cc:</b> amd-gfx list<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Add place holder for soc15 asic ini=
-t on emulation</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Ye, I&nbsp; try to put&nbsp; the asic specific&nbs=
-p; register sequences for emulation in a separate emu_soc.c file, I think i=
-t's suggested by John or you ?&nbsp; The asic specific code will&nbsp; be&n=
-bsp; keep in separate bring up branch , but a common place to add
- them&nbsp; seems&nbsp; not bad to me . <br>
-<br>
-Shaoyun.liu<br>
-<br>
------Original Message-----<br>
-From: Alex Deucher [<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mailto:alexdeu=
-cher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]
-<br>
-Sent: Tuesday, February 06, 2018 4:46 PM<br>
-To: Liu, Shaoyun<br>
-Cc: amd-gfx list<br>
-Subject: Re: [PATCH] drm/amdgpu: Add place holder for soc15 asic init on em=
-ulation<br>
-<br>
-On Tue, Feb 6, 2018 at 4:41 PM, Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt; wro=
-te:<br>
-&gt; Change-Id: I6ff04e1199d1ebdbdb31d0e7e8ca3c240c61ab3a<br>
-&gt; Signed-off-by: Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-What is the purpose of this?&nbsp; If it's just as a hint the the driver wr=
-iter as to where to add the emulation register sequences from the IP teams,=
- I don't see much value in it.&nbsp; Just add a comment.<br>
-<br>
-Alex<br>
-<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/Makefile&nbsp; |&nbsp; 2 &#43;-&nbsp;=
- <br>
-&gt; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp; |&nbsp; 2 &#43;&#43;&nbsp; <=
-br>
-&gt; drivers/gpu/drm/amd/amdgpu/emu_soc.c | 33 &#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp; |&nbsp; 4 &#43;&#=
-43;&#43;&#43;<br>
-&gt;&nbsp; 4 files changed, 40 insertions(&#43;), 1 deletion(-)&nbsp; creat=
-e mode 100644 <br>
-&gt; drivers/gpu/drm/amd/amdgpu/emu_soc.c<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile <br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/Makefile<br>
-&gt; index 1f6d43e..6f5db5e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/Makefile<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/Makefile<br>
-&gt; @@ -41,7 &#43;41,7 @@ amdgpu-$(CONFIG_DRM_AMDGPU_CIK)&#43;=3D cik.o ci=
-k_ih.o <br>
-&gt; kv_smc.o kv_dpm.o \&nbsp; amdgpu-$(CONFIG_DRM_AMDGPU_SI)&#43;=3D si.o =
-gmc_v6_0.o <br>
-&gt; gfx_v6_0.o si_ih.o si_dma.o dce_v6_0.o si_dpm.o si_smc.o<br>
-&gt;<br>
-&gt;&nbsp; amdgpu-y &#43;=3D \<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vi.o mxgpu_vi.o nbio_v6_1.o soc1=
-5.o mxgpu_ai.o nbio_v7_0.o vega10_reg_init.o vega20_reg_init.o nbio_v7_4.o<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vi.o mxgpu_vi.o nbio_v6_1.o =
-soc15.o emu_soc.o mxgpu_ai.o <br>
-&gt; &#43; nbio_v7_0.o vega10_reg_init.o vega20_reg_init.o nbio_v7_4.o<br>
-&gt;<br>
-&gt;&nbsp; # add GMC block<br>
-&gt;&nbsp; amdgpu-y &#43;=3D \<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; index d417cfb..13aa8a8 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; @@ -1740,6 &#43;1740,8 @@ void amdgpu_mm_wreg(struct amdgpu_device *ad=
-ev, <br>
-&gt; uint32_t reg, uint32_t v,&nbsp; bool amdgpu_device_asic_has_dc_support=
-(enum <br>
-&gt; amd_asic_type asic_type);&nbsp; bool amdgpu_device_has_dc_support(stru=
-ct <br>
-&gt; amdgpu_device *adev);<br>
-&gt;<br>
-&gt; &#43;int emu_soc_asic_init(struct amdgpu_device *adev);<br>
-&gt; &#43;<br>
-&gt;&nbsp; /*<br>
-&gt;&nbsp;&nbsp; * Registers read &amp; write functions.<br>
-&gt;&nbsp;&nbsp; */<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/emu_soc.c <br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/emu_soc.c<br>
-&gt; new file mode 100644<br>
-&gt; index 0000000..d72c25c<br>
-&gt; --- /dev/null<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/emu_soc.c<br>
-&gt; @@ -0,0 &#43;1,33 @@<br>
-&gt; &#43;/*<br>
-&gt; &#43; * Copyright 2018 Advanced Micro Devices, Inc.<br>
-&gt; &#43; *<br>
-&gt; &#43; * Permission is hereby granted, free of charge, to any person <b=
-r>
-&gt; &#43;obtaining a<br>
-&gt; &#43; * copy of this software and associated documentation files (the =
-<br>
-&gt; &#43;&quot;Software&quot;),<br>
-&gt; &#43; * to deal in the Software without restriction, including without=
- <br>
-&gt; &#43;limitation<br>
-&gt; &#43; * the rights to use, copy, modify, merge, publish, distribute, <=
-br>
-&gt; &#43;sublicense,<br>
-&gt; &#43; * and/or sell copies of the Software, and to permit persons to w=
-hom <br>
-&gt; &#43;the<br>
-&gt; &#43; * Software is furnished to do so, subject to the following condi=
-tions:<br>
-&gt; &#43; *<br>
-&gt; &#43; * The above copyright notice and this permission notice shall be=
- <br>
-&gt; &#43;included in<br>
-&gt; &#43; * all copies or substantial portions of the Software.<br>
-&gt; &#43; *<br>
-&gt; &#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY O=
-F ANY KIND, <br>
-&gt; &#43;EXPRESS OR<br>
-&gt; &#43; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-<div>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-Is there an expectation that MAM block features will become available under=
- virtualization at some point in the future, eg Navi10 ?
-</div>
-<br>
-&gt; &#43;MERCHANTABILITY,<br>
-&gt; &#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN=
- NO EVENT <br>
-&gt; &#43;SHALL<br>
-&gt; &#43; * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, =
-<br>
-&gt; &#43;DAMAGES OR<br>
-&gt; &#43; * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR <br=
->
-&gt; &#43;OTHERWISE,<br>
-&gt; &#43; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE=
- USE <br>
-&gt; &#43;OR<br>
-&gt; &#43; * OTHER DEALINGS IN THE SOFTWARE.<br>
-&gt; &#43; *<br>
-&gt; &#43; */<br>
-&gt; &#43;#include &quot;amdgpu.h&quot;<br>
-&gt; &#43;#include &quot;soc15.h&quot;<br>
-&gt; &#43;<br>
-&gt; &#43;#include &quot;soc15_common.h&quot;<br>
-&gt; &#43;#include &quot;soc15_hw_ip.h&quot;<br>
-&gt; &#43;<br>
-&gt; &#43;int emu_soc_asic_init(struct amdgpu_device *adev) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c <br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; index 22cd84f..6a3d108 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&gt; @@ -747,6 &#43;747,10 @@ static int soc15_common_hw_init(void *handle)=
-&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *=
-adev =3D (struct amdgpu_device *)handle;<br>
-&gt;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Add asic specific init se=
-quence for emulation */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode =3D=3D 1=
-)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; emu_soc_asic_init(adev);<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable pcie gen2/3 =
-link */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; soc15_pcie_gen3_enable=
-(adev);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable aspm */<br>
-&gt; --<br>
-&gt; 1.9.1<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB13485AFD9FE75C268018E82BE8FD0BN6PR12MB1348namp_--
-
---===============1158181485==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1158181485==--
+T24gVHVlLCBGZWIgNiwgMjAxOCBhdCA0OjU1IFBNLCBMaXUsIFNoYW95dW4gPFNoYW95dW4uTGl1
+QGFtZC5jb20+IHdyb3RlOgo+IFllLCBJICB0cnkgdG8gcHV0ICB0aGUgYXNpYyBzcGVjaWZpYyAg
+cmVnaXN0ZXIgc2VxdWVuY2VzIGZvciBlbXVsYXRpb24gaW4gYSBzZXBhcmF0ZSBlbXVfc29jLmMg
+ZmlsZSwgSSB0aGluayBpdCdzIHN1Z2dlc3RlZCBieSBKb2huIG9yIHlvdSA/ICBUaGUgYXNpYyBz
+cGVjaWZpYyBjb2RlIHdpbGwgIGJlICBrZWVwIGluIHNlcGFyYXRlIGJyaW5nIHVwIGJyYW5jaCAs
+IGJ1dCBhIGNvbW1vbiBwbGFjZSB0byBhZGQgdGhlbSAgc2VlbXMgIG5vdCBiYWQgdG8gbWUgLgo+
+Cj4gU2hhb3l1bi5saXUKCkkgZ3Vlc3MgdGhlIGlkZWEgaXMgdGhhdCB5b3UgY291bGQgdXNlIGVt
+dV9zb2NfYXNpY19pbml0KCkgZm9yIGFueQpmYW1pbHksIHRoYXQgbWFrZXMgc2Vuc2UuICBUbyBr
+ZWVwIHRoZSBsb2dpYyBtb3JlIHNpbWlsYXIgdG8gYWN0dWFsCnNpbGljb24sIGl0IG1pZ2h0IGJl
+IGJldHRlciB0byBtYWtlIGVtdV9zb2NfYXNpY19pbml0KCkgYSByZXBsYWNlbWVudApmb3IgYXRv
+bV9hc2ljX2luaXQoKSBpbiBhbWRncHVfZGV2aWNlLmMuICBFLmcuLAoKaWYgKGVtdSA9PSAxKSB7
+CiAgICBlbXVfc29jX2FzaWNfaW5pdCgpOwp9IGVsc2UgewogICAgLy8gZG8gdmJpb3Mgc3R1ZmYK
+fQoKVGhlbiB3ZSBjYW4gZHJvcCB0aGUgb3RoZXIgY2hhbmdlcyB0byB0aGUgaXAgb3JkZXJpbmcg
+Zm9yIGVtdWxhdGlvbi4KCkFsZXgKCj4KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZy
+b206IEFsZXggRGV1Y2hlciBbbWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNvbV0KPiBTZW50OiBU
+dWVzZGF5LCBGZWJydWFyeSAwNiwgMjAxOCA0OjQ2IFBNCj4gVG86IExpdSwgU2hhb3l1bgo+IENj
+OiBhbWQtZ2Z4IGxpc3QKPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBBZGQgcGxh
+Y2UgaG9sZGVyIGZvciBzb2MxNSBhc2ljIGluaXQgb24gZW11bGF0aW9uCj4KPiBPbiBUdWUsIEZl
+YiA2LCAyMDE4IGF0IDQ6NDEgUE0sIFNoYW95dW4gTGl1IDxTaGFveXVuLkxpdUBhbWQuY29tPiB3
+cm90ZToKPj4gQ2hhbmdlLUlkOiBJNmZmMDRlMTE5OWQxZWJkYmRiMzFkMGU3ZThjYTNjMjQwYzYx
+YWIzYQo+PiBTaWduZWQtb2ZmLWJ5OiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNvbT4K
+Pgo+IFdoYXQgaXMgdGhlIHB1cnBvc2Ugb2YgdGhpcz8gIElmIGl0J3MganVzdCBhcyBhIGhpbnQg
+dGhlIHRoZSBkcml2ZXIgd3JpdGVyIGFzIHRvIHdoZXJlIHRvIGFkZCB0aGUgZW11bGF0aW9uIHJl
+Z2lzdGVyIHNlcXVlbmNlcyBmcm9tIHRoZSBJUCB0ZWFtcywgSSBkb24ndCBzZWUgbXVjaCB2YWx1
+ZSBpbiBpdC4gIEp1c3QgYWRkIGEgY29tbWVudC4KPgo+IEFsZXgKPgo+Cj4+IC0tLQo+PiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUgIHwgIDIgKy0KPj4gZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggIHwgIDIgKysKPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZW11X3NvYy5jIHwgMzMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jICAgfCAgNCArKysrCj4+ICA0IGZp
+bGVzIGNoYW5nZWQsIDQwIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkgIGNyZWF0ZSBtb2Rl
+IDEwMDY0NAo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMKPj4KPj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlCj4+IGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUKPj4gaW5kZXggMWY2ZDQzZS4uNmY1ZGI1ZSAx
+MDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUKPj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUKPj4gQEAgLTQxLDcgKzQxLDcg
+QEAgYW1kZ3B1LSQoQ09ORklHX0RSTV9BTURHUFVfQ0lLKSs9IGNpay5vIGNpa19paC5vCj4+IGt2
+X3NtYy5vIGt2X2RwbS5vIFwgIGFtZGdwdS0kKENPTkZJR19EUk1fQU1ER1BVX1NJKSs9IHNpLm8g
+Z21jX3Y2XzAubwo+PiBnZnhfdjZfMC5vIHNpX2loLm8gc2lfZG1hLm8gZGNlX3Y2XzAubyBzaV9k
+cG0ubyBzaV9zbWMubwo+Pgo+PiAgYW1kZ3B1LXkgKz0gXAo+PiAtICAgICAgIHZpLm8gbXhncHVf
+dmkubyBuYmlvX3Y2XzEubyBzb2MxNS5vIG14Z3B1X2FpLm8gbmJpb192N18wLm8gdmVnYTEwX3Jl
+Z19pbml0Lm8gdmVnYTIwX3JlZ19pbml0Lm8gbmJpb192N180Lm8KPj4gKyAgICAgICB2aS5vIG14
+Z3B1X3ZpLm8gbmJpb192Nl8xLm8gc29jMTUubyBlbXVfc29jLm8gbXhncHVfYWkubwo+PiArIG5i
+aW9fdjdfMC5vIHZlZ2ExMF9yZWdfaW5pdC5vIHZlZ2EyMF9yZWdfaW5pdC5vIG5iaW9fdjdfNC5v
+Cj4+Cj4+ICAjIGFkZCBHTUMgYmxvY2sKPj4gIGFtZGdwdS15ICs9IFwKPj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gaW5kZXggZDQxN2NmYi4uMTNhYThhOCAxMDA2NDQKPj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gQEAgLTE3NDAsNiArMTc0MCw4IEBAIHZv
+aWQgYW1kZ3B1X21tX3dyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+IHVpbnQzMl90
+IHJlZywgdWludDMyX3QgdiwgIGJvb2wgYW1kZ3B1X2RldmljZV9hc2ljX2hhc19kY19zdXBwb3J0
+KGVudW0KPj4gYW1kX2FzaWNfdHlwZSBhc2ljX3R5cGUpOyAgYm9vbCBhbWRncHVfZGV2aWNlX2hh
+c19kY19zdXBwb3J0KHN0cnVjdAo+PiBhbWRncHVfZGV2aWNlICphZGV2KTsKPj4KPj4gK2ludCBl
+bXVfc29jX2FzaWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4+ICsKPj4gIC8q
+Cj4+ICAgKiBSZWdpc3RlcnMgcmVhZCAmIHdyaXRlIGZ1bmN0aW9ucy4KPj4gICAqLwo+PiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZW11X3NvYy5jCj4+IGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZW11X3NvYy5jCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+
+IGluZGV4IDAwMDAwMDAuLmQ3MmMyNWMKPj4gLS0tIC9kZXYvbnVsbAo+PiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMKPj4gQEAgLTAsMCArMSwzMyBAQAo+PiArLyoK
+Pj4gKyAqIENvcHlyaWdodCAyMDE4IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KPj4gKyAq
+Cj4+ICsgKiBQZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8g
+YW55IHBlcnNvbgo+PiArb2J0YWluaW5nIGEKPj4gKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBh
+bmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUKPj4gKyJTb2Z0d2FyZSIpLAo+
+PiArICogdG8gZGVhbCBpbiB0aGUgU29mdHdhcmUgd2l0aG91dCByZXN0cmljdGlvbiwgaW5jbHVk
+aW5nIHdpdGhvdXQKPj4gK2xpbWl0YXRpb24KPj4gKyAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5
+LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmlidXRlLAo+PiArc3VibGljZW5zZSwKPj4g
+KyAqIGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVy
+c29ucyB0byB3aG9tCj4+ICt0aGUKPj4gKyAqIFNvZnR3YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBz
+bywgc3ViamVjdCB0byB0aGUgZm9sbG93aW5nIGNvbmRpdGlvbnM6Cj4+ICsgKgo+PiArICogVGhl
+IGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwg
+YmUKPj4gK2luY2x1ZGVkIGluCj4+ICsgKiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRp
+b25zIG9mIHRoZSBTb2Z0d2FyZS4KPj4gKyAqCj4+ICsgKiBUSEUgU09GVFdBUkUgSVMgUFJPVklE
+RUQgIkFTIElTIiwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lORCwKPj4gK0VYUFJFU1MgT1IK
+Pj4gKyAqIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJ
+RVMgT0YKPj4gK01FUkNIQU5UQUJJTElUWSwKPj4gKyAqIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxB
+UiBQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1FTlQuICBJTiBOTyBFVkVOVAo+PiArU0hBTEwKPj4g
+KyAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBMSUFCTEUgRk9SIEFO
+WSBDTEFJTSwKPj4gK0RBTUFHRVMgT1IKPj4gKyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJ
+TiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IKPj4gK09USEVSV0lTRSwKPj4gKyAqIEFS
+SVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09GVFdBUkUgT1Ig
+VEhFIFVTRQo+PiArT1IKPj4gKyAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KPj4g
+KyAqCj4+ICsgKi8KPj4gKyNpbmNsdWRlICJhbWRncHUuaCIKPj4gKyNpbmNsdWRlICJzb2MxNS5o
+Igo+PiArCj4+ICsjaW5jbHVkZSAic29jMTVfY29tbW9uLmgiCj4+ICsjaW5jbHVkZSAic29jMTVf
+aHdfaXAuaCIKPj4gKwo+PiAraW50IGVtdV9zb2NfYXNpY19pbml0KHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KSB7Cj4+ICsgICAgICAgcmV0dXJuIDA7Cj4+ICt9Cj4+ICsKPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKPj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9zb2MxNS5jCj4+IGluZGV4IDIyY2Q4NGYuLjZhM2QxMDggMTAwNjQ0Cj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKPj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwo+PiBAQCAtNzQ3LDYgKzc0NywxMCBAQCBzdGF0
+aWMgaW50IHNvYzE1X2NvbW1vbl9od19pbml0KHZvaWQgKmhhbmRsZSkgIHsKPj4gICAgICAgICBz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRs
+ZTsKPj4KPj4gKyAgICAgICAvKiBBZGQgYXNpYyBzcGVjaWZpYyBpbml0IHNlcXVlbmNlIGZvciBl
+bXVsYXRpb24gKi8KPj4gKyAgICAgICBpZiAoYW1kZ3B1X2VtdV9tb2RlID09IDEpCj4+ICsgICAg
+ICAgICAgICAgICBlbXVfc29jX2FzaWNfaW5pdChhZGV2KTsKPj4gKwo+PiAgICAgICAgIC8qIGVu
+YWJsZSBwY2llIGdlbjIvMyBsaW5rICovCj4+ICAgICAgICAgc29jMTVfcGNpZV9nZW4zX2VuYWJs
+ZShhZGV2KTsKPj4gICAgICAgICAvKiBlbmFibGUgYXNwbSAqLwo+PiAtLQo+PiAxLjkuMQo+Pgo+
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQt
+Z2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
