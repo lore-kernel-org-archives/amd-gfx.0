@@ -1,13 +1,19 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Avoid get vram info from atom bios on
- emulation mode
-Date: Tue, 6 Feb 2018 22:42:05 +0000
-Message-ID: <CY4PR12MB165396B140B0B73F39B52DB6F7FD0@CY4PR12MB1653.namprd12.prod.outlook.com>
-References: <1517956286-29399-1-git-send-email-Shaoyun.Liu@amd.com>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Add place holder for soc15 asic init on
+ emulation
+Date: Tue, 6 Feb 2018 22:42:12 +0000
+Message-ID: <DM5PR12MB1179375843EB379B4B3315C8F4FD0@DM5PR12MB1179.namprd12.prod.outlook.com>
+References: <1517953287-22026-1-git-send-email-Shaoyun.Liu@amd.com>
+ <CADnq5_PFej=MAbD-ZOoqHwiNk82A+qg304_5c7rXHOLJS9He+A@mail.gmail.com>
+ <DM5PR12MB117937BE7328E6634A4DA6B1F4FD0@DM5PR12MB1179.namprd12.prod.outlook.com>
+ <CADnq5_NE-DcpUjikVkGvqMs8MsHEGrqWkd9ar02_tvCi2eupmw@mail.gmail.com>
+ <DM5PR12MB11795B8669187663F7070C6EF4FD0@DM5PR12MB1179.namprd12.prod.outlook.com>
+ <CY4PR12MB1653DA78A0412EC8B7A92EF8F7FD0@CY4PR12MB1653.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1210946722=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1517956286-29399-1-git-send-email-Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CY4PR12MB1653DA78A0412EC8B7A92EF8F7FD0-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,157 +25,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Bridgman,
+ John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
 
---===============1210946722==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB165396B140B0B73F39B52DB6F7FD0CY4PR12MB1653namp_"
-
---_000_CY4PR12MB165396B140B0B73F39B52DB6F7FD0CY4PR12MB1653namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Alternatively, you could also just return 0 in amdgpu_atomfirmware_get_vram=
-_width() if emu =3D=3D 1.  Either way:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Shaoyun =
-Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, February 6, 2018 5:31 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Shaoyun
-Subject: [PATCH] drm/amdgpu: Avoid get vram info from atom bios on emulatio=
-n mode
-
-Change-Id: I10030e83d63b2c27bfd16b64178e4f07c13addfa
-Signed-off-by: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c
-index 0a1868b..785fb78 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -707,7 +707,8 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
-         int chansize, numchan;
-         int r;
-
--       adev->gmc.vram_width =3D amdgpu_atomfirmware_get_vram_width(adev);
-+       if (amdgpu_emu_mode !=3D 1)
-+               adev->gmc.vram_width =3D amdgpu_atomfirmware_get_vram_width=
-(adev);
-         if (!adev->gmc.vram_width) {
-                 /* hbm memory channel size */
-                 chansize =3D 128;
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB165396B140B0B73F39B52DB6F7FD0CY4PR12MB1653namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Alternatively, you could also jus=
-t return 0 in
-<font size=3D"2"><span style=3D"font-size:11pt;">amdgpu_atomfirmware_get_vr=
-am_width</span></font>() if emu =3D=3D 1.&nbsp; Either way:<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Shaoyun Liu &lt;Shaoyun.Liu=
-@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, February 6, 2018 5:31 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Liu, Shaoyun<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Avoid get vram info from atom bios on e=
-mulation mode</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Change-Id: I10030e83d63b2c27bfd16b64178e4f07c13add=
-fa<br>
-Signed-off-by: Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c<br>
-index 0a1868b..785fb78 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-@@ -707,7 &#43;707,8 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *a=
-dev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int chansize, numchan;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.vram_width =3D amdgpu_at=
-omfirmware_get_vram_width(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode !=3D 1)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;gmc.vram_width =3D amdgpu_atomfirmware_get_vram_wid=
-th(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;gmc.vram_wid=
-th) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* hbm memory channel size */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; chansize =3D 128;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk737873" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB165396B140B0B73F39B52DB6F7FD0CY4PR12MB1653namp_--
-
---===============1210946722==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1210946722==--
+VGhhbmtzIC4gQ2FuICBJIGFkZCBSZXZpZXctQnkgeW91IGZvciB0aGlzIHBhdGNoICA/IA0KDQpT
+aGFveXVuLmxpdSANCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IERldWNoZXIs
+IEFsZXhhbmRlciANClNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDA2LCAyMDE4IDU6MzcgUE0NClRv
+OiBMaXUsIFNoYW95dW47IEFsZXggRGV1Y2hlcg0KQ2M6IGFtZC1nZnggbGlzdDsgQnJpZGdtYW4s
+IEpvaG4NClN1YmplY3Q6IFJFOiBbUEFUQ0hdIGRybS9hbWRncHU6IEFkZCBwbGFjZSBob2xkZXIg
+Zm9yIHNvYzE1IGFzaWMgaW5pdCBvbiBlbXVsYXRpb24NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIA0KPiBPZiBMaXUsIFNoYW95dW4NCj4gU2VudDogVHVl
+c2RheSwgRmVicnVhcnkgNiwgMjAxOCA1OjI2IFBNDQo+IFRvOiBBbGV4IERldWNoZXIgPGFsZXhk
+ZXVjaGVyQGdtYWlsLmNvbT4NCj4gQ2M6IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmc+OyBCcmlkZ21hbiwgSm9obiANCj4gPEpvaG4uQnJpZGdtYW5AYW1kLmNvbT4N
+Cj4gU3ViamVjdDogUkU6IFtQQVRDSF0gZHJtL2FtZGdwdTogQWRkIHBsYWNlIGhvbGRlciBmb3Ig
+c29jMTUgYXNpYyBpbml0IA0KPiBvbiBlbXVsYXRpb24NCj4gDQo+IFlvdSBhcmUgcmlnaHQgLCBJ
+IHRyeSB0byB1c2UgdGhlICBlbXVfc29jX2FzaWNfaW5pdCgpYXMgYSBlbnRyeSBwb2ludCAgDQo+
+IGZvciBhbnkgZmFtaWx5IC4NCj4gRm9yIGRyaXZlciB0byBnZXQgaW50byBhbWRncHVfYXRvbV9h
+c2ljX2luaXQoKSBmdW5jdGlvbiBjYWxsICwgaXQgDQo+IGRlcGVuZHMgb24gb3RoZXIgbG9naWMg
+bGlrZSByZWFkIGJpb3MgYW5kIGNoZWNrIHNvbWUgIHJlZ2lzdGVyIGV0YyAuICANCj4gT24gZW11
+bGF0aW9uIG1vZGUgLCB3ZSBjYW4gbm90IGdldCBiaW9zIGltYWdlIHNvIGl0IHdpbGwgcmVxdWly
+ZXMgbW9yZSAgDQo+IGNvZGUgYW5kIGxvZ2ljIGNoYW5nZSBiYXNlZCBvbiBleGlzdGluZyAgY29k
+ZSAgdGhhbiB3ZSB1c2UgdGhlIGNvbW1vbiANCj4gaHcgaW5pdCAgZW50cnkgcG9pbnQgIHRvIHNp
+bXVsYXRlIHRoZSAgcG9zdCAuICBJbiBlaXRoZXIgd2F5ICxkbyB5b3UgDQo+IGFncmVlIHRvIGtl
+ZXAgYSBzZXBhcmF0ZSBmaWxlIGFzIGVtdV9zb2MuYyBmb3IgdGhpcyBpbml0IHNlcXVlbmNlIG9u
+IGVtdWxhdGlvbiBtZG9lPw0KDQpZb3UgYWxyZWFkeSBzZW50IG91dCBhIHBhdGNoIHRvIHNraXAg
+YWxsIG9mIHRoZSB2YmlvcyBmZXRjaGluZyBhbmQgYXNpYyBpbml0IHN0dWZmIGlmIGVtdSA9PTEs
+IEl0IHdvdWxkIGJlIGEgdHJpdmlhbCBwYXRjaCBvbiB0b3Agb2YgdGhhdCBvbmUgdG8ganVzdCBj
+YWxsIHRoZSBlbXVfc29jIGNvZGUgd2hlbiBlbXUgPT0gMSBpbiBhbWRncHVfZGV2aWNlX2luaXQo
+KS4gIEknbSBmaW5lIHdpdGggdGhlIHNlcGFyYXRlIGZpbGUuICBZb3UndmUgY29udmluY2VkIG1l
+Lg0KDQpBbGV4DQoNCg0KPiANCj4gU2hhb3l1bi5saXUNCj4gDQo+IA0KPiAtLS0tLU9yaWdpbmFs
+IE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IERldWNoZXIgW21haWx0bzphbGV4ZGV1Y2hlckBn
+bWFpbC5jb21dDQo+IFNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDA2LCAyMDE4IDU6MDMgUE0NCj4g
+VG86IExpdSwgU2hhb3l1bg0KPiBDYzogQnJpZGdtYW4sIEpvaG47IGFtZC1nZnggbGlzdA0KPiBT
+dWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBBZGQgcGxhY2UgaG9sZGVyIGZvciBzb2Mx
+NSBhc2ljIGluaXQgDQo+IG9uIGVtdWxhdGlvbg0KPiANCj4gT24gVHVlLCBGZWIgNiwgMjAxOCBh
+dCA0OjU1IFBNLCBMaXUsIFNoYW95dW4gPFNoYW95dW4uTGl1QGFtZC5jb20+DQo+IHdyb3RlOg0K
+PiA+IFllLCBJICB0cnkgdG8gcHV0ICB0aGUgYXNpYyBzcGVjaWZpYyAgcmVnaXN0ZXIgc2VxdWVu
+Y2VzIGZvciANCj4gPiBlbXVsYXRpb24gaW4gYQ0KPiBzZXBhcmF0ZSBlbXVfc29jLmMgZmlsZSwg
+SSB0aGluayBpdCdzIHN1Z2dlc3RlZCBieSBKb2huIG9yIHlvdSA/ICBUaGUgDQo+IGFzaWMgc3Bl
+Y2lmaWMgY29kZSB3aWxsICBiZSAga2VlcCBpbiBzZXBhcmF0ZSBicmluZyB1cCBicmFuY2ggLCBi
+dXQgYSANCj4gY29tbW9uIHBsYWNlIHRvIGFkZCB0aGVtICBzZWVtcyAgbm90IGJhZCB0byBtZSAu
+DQo+ID4NCj4gPiBTaGFveXVuLmxpdQ0KPiANCj4gSSBndWVzcyB0aGUgaWRlYSBpcyB0aGF0IHlv
+dSBjb3VsZCB1c2UgZW11X3NvY19hc2ljX2luaXQoKSBmb3IgYW55IA0KPiBmYW1pbHksIHRoYXQg
+bWFrZXMgc2Vuc2UuICBUbyBrZWVwIHRoZSBsb2dpYyBtb3JlIHNpbWlsYXIgdG8gYWN0dWFsIA0K
+PiBzaWxpY29uLCBpdCBtaWdodCBiZSBiZXR0ZXIgdG8gbWFrZSBlbXVfc29jX2FzaWNfaW5pdCgp
+IGEgcmVwbGFjZW1lbnQgDQo+IGZvciBhdG9tX2FzaWNfaW5pdCgpIGluIGFtZGdwdV9kZXZpY2Uu
+Yy4gIEUuZy4sDQo+IA0KPiBpZiAoZW11ID09IDEpIHsNCj4gICAgIGVtdV9zb2NfYXNpY19pbml0
+KCk7DQo+IH0gZWxzZSB7DQo+ICAgICAvLyBkbyB2YmlvcyBzdHVmZg0KPiB9DQo+IA0KPiBUaGVu
+IHdlIGNhbiBkcm9wIHRoZSBvdGhlciBjaGFuZ2VzIHRvIHRoZSBpcCBvcmRlcmluZyBmb3IgZW11
+bGF0aW9uLg0KPiANCj4gQWxleA0KPiANCj4gPg0KPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQo+ID4gRnJvbTogQWxleCBEZXVjaGVyIFttYWlsdG86YWxleGRldWNoZXJAZ21haWwuY29t
+XQ0KPiA+IFNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDA2LCAyMDE4IDQ6NDYgUE0NCj4gPiBUbzog
+TGl1LCBTaGFveXVuDQo+ID4gQ2M6IGFtZC1nZnggbGlzdA0KPiA+IFN1YmplY3Q6IFJlOiBbUEFU
+Q0hdIGRybS9hbWRncHU6IEFkZCBwbGFjZSBob2xkZXIgZm9yIHNvYzE1IGFzaWMgDQo+ID4gaW5p
+dCBvbiBlbXVsYXRpb24NCj4gPg0KPiA+IE9uIFR1ZSwgRmViIDYsIDIwMTggYXQgNDo0MSBQTSwg
+U2hhb3l1biBMaXUgPFNoYW95dW4uTGl1QGFtZC5jb20+DQo+IHdyb3RlOg0KPiA+PiBDaGFuZ2Ut
+SWQ6IEk2ZmYwNGUxMTk5ZDFlYmRiZGIzMWQwZTdlOGNhM2MyNDBjNjFhYjNhDQo+ID4+IFNpZ25l
+ZC1vZmYtYnk6IFNoYW95dW4gTGl1IDxTaGFveXVuLkxpdUBhbWQuY29tPg0KPiA+DQo+ID4gV2hh
+dCBpcyB0aGUgcHVycG9zZSBvZiB0aGlzPyAgSWYgaXQncyBqdXN0IGFzIGEgaGludCB0aGUgdGhl
+IGRyaXZlciANCj4gPiB3cml0ZXIgYXMgdG8NCj4gd2hlcmUgdG8gYWRkIHRoZSBlbXVsYXRpb24g
+cmVnaXN0ZXIgc2VxdWVuY2VzIGZyb20gdGhlIElQIHRlYW1zLCBJIA0KPiBkb24ndCBzZWUgbXVj
+aCB2YWx1ZSBpbiBpdC4gIEp1c3QgYWRkIGEgY29tbWVudC4NCj4gPg0KPiA+IEFsZXgNCj4gPg0K
+PiA+DQo+ID4+IC0tLQ0KPiA+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUg
+IHwgIDIgKy0gDQo+ID4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICB8ICAy
+ICsrIA0KPiA+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMgfCAzMw0KPiAr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3NvYzE1LmMgICB8ICA0ICsrKysNCj4gPj4gIDQgZmlsZXMgY2hhbmdlZCwgNDAg
+aW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKSAgY3JlYXRlIG1vZGUgDQo+ID4+IDEwMDY0NCBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMNCj4gPj4NCj4gPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlDQo+ID4+IGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUNCj4gPj4gaW5kZXggMWY2ZDQzZS4uNmY1ZGI1ZSAx
+MDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUNCj4g
+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUNCj4gPj4gQEAgLTQx
+LDcgKzQxLDcgQEAgYW1kZ3B1LSQoQ09ORklHX0RSTV9BTURHUFVfQ0lLKSs9IGNpay5vDQo+IGNp
+a19paC5vDQo+ID4+IGt2X3NtYy5vIGt2X2RwbS5vIFwgIGFtZGdwdS0kKENPTkZJR19EUk1fQU1E
+R1BVX1NJKSs9IHNpLm8NCj4gZ21jX3Y2XzAubw0KPiA+PiBnZnhfdjZfMC5vIHNpX2loLm8gc2lf
+ZG1hLm8gZGNlX3Y2XzAubyBzaV9kcG0ubyBzaV9zbWMubw0KPiA+Pg0KPiA+PiAgYW1kZ3B1LXkg
+Kz0gXA0KPiA+PiAtICAgICAgIHZpLm8gbXhncHVfdmkubyBuYmlvX3Y2XzEubyBzb2MxNS5vIG14
+Z3B1X2FpLm8gbmJpb192N18wLm8NCj4gdmVnYTEwX3JlZ19pbml0Lm8gdmVnYTIwX3JlZ19pbml0
+Lm8gbmJpb192N180Lm8NCj4gPj4gKyAgICAgICB2aS5vIG14Z3B1X3ZpLm8gbmJpb192Nl8xLm8g
+c29jMTUubyBlbXVfc29jLm8gbXhncHVfYWkubyANCj4gPj4gKyBuYmlvX3Y3XzAubyB2ZWdhMTBf
+cmVnX2luaXQubyB2ZWdhMjBfcmVnX2luaXQubyBuYmlvX3Y3XzQubw0KPiA+Pg0KPiA+PiAgIyBh
+ZGQgR01DIGJsb2NrDQo+ID4+ICBhbWRncHUteSArPSBcDQo+ID4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdS5oDQo+ID4+IGluZGV4IGQ0MTdjZmIuLjEzYWE4YTggMTAwNjQ0DQo+
+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+ID4+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+ID4+IEBAIC0xNzQwLDYgKzE3
+NDAsOCBAQCB2b2lkIGFtZGdwdV9tbV93cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2
+LA0KPiA+PiB1aW50MzJfdCByZWcsIHVpbnQzMl90IHYsICBib29sDQo+ID4+IGFtZGdwdV9kZXZp
+Y2VfYXNpY19oYXNfZGNfc3VwcG9ydChlbnVtDQo+ID4+IGFtZF9hc2ljX3R5cGUgYXNpY190eXBl
+KTsgIGJvb2wgYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9ydChzdHJ1Y3QNCj4gPj4gYW1kZ3B1
+X2RldmljZSAqYWRldik7DQo+ID4+DQo+ID4+ICtpbnQgZW11X3NvY19hc2ljX2luaXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiA+PiArDQo+ID4+ICAvKg0KPiA+PiAgICogUmVnaXN0
+ZXJzIHJlYWQgJiB3cml0ZSBmdW5jdGlvbnMuDQo+ID4+ICAgKi8NCj4gPj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2VtdV9zb2MuYw0KPiA+PiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2VtdV9zb2MuYw0KPiA+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+
+PiBpbmRleCAwMDAwMDAwLi5kNzJjMjVjDQo+ID4+IC0tLSAvZGV2L251bGwNCj4gPj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZW11X3NvYy5jDQo+ID4+IEBAIC0wLDAgKzEsMzMg
+QEANCj4gPj4gKy8qDQo+ID4+ICsgKiBDb3B5cmlnaHQgMjAxOCBBZHZhbmNlZCBNaWNybyBEZXZp
+Y2VzLCBJbmMuDQo+ID4+ICsgKg0KPiA+PiArICogUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRl
+ZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gDQo+ID4+ICtvYnRhaW5pbmcgYQ0KPiA+
+PiArICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24g
+ZmlsZXMgKHRoZSANCj4gPj4gKyJTb2Z0d2FyZSIpLA0KPiA+PiArICogdG8gZGVhbCBpbiB0aGUg
+U29mdHdhcmUgd2l0aG91dCByZXN0cmljdGlvbiwgaW5jbHVkaW5nIHdpdGhvdXQgDQo+ID4+ICts
+aW1pdGF0aW9uDQo+ID4+ICsgKiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJn
+ZSwgcHVibGlzaCwgZGlzdHJpYnV0ZSwgDQo+ID4+ICtzdWJsaWNlbnNlLA0KPiA+PiArICogYW5k
+L29yIHNlbGwgY29waWVzIG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBwZXJzb25zIHRv
+IA0KPiA+PiArd2hvbSB0aGUNCj4gPj4gKyAqIFNvZnR3YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBz
+bywgc3ViamVjdCB0byB0aGUgZm9sbG93aW5nIGNvbmRpdGlvbnM6DQo+ID4+ICsgKg0KPiA+PiAr
+ICogVGhlIGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ug
+c2hhbGwgYmUgDQo+ID4+ICtpbmNsdWRlZCBpbg0KPiA+PiArICogYWxsIGNvcGllcyBvciBzdWJz
+dGFudGlhbCBwb3J0aW9ucyBvZiB0aGUgU29mdHdhcmUuDQo+ID4+ICsgKg0KPiA+PiArICogVEhF
+IFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZDQo+
+IEtJTkQsDQo+ID4+ICtFWFBSRVNTIE9SDQo+ID4+ICsgKiBJTVBMSUVELCBJTkNMVURJTkcgQlVU
+IE5PVCBMSU1JVEVEIFRPIFRIRSBXQVJSQU5USUVTIE9GIA0KPiA+PiArTUVSQ0hBTlRBQklMSVRZ
+LA0KPiA+PiArICogRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5EIE5PTklORlJJ
+TkdFTUVOVC4gIElODQo+IE5PDQo+ID4+ICtFVkVOVCBTSEFMTA0KPiA+PiArICogVEhFIENPUFlS
+SUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMpIEJFIExJQUJMRSBGT1IgQU5ZIENMQUlNLCANCj4g
+Pj4gK0RBTUFHRVMgT1INCj4gPj4gKyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBB
+Q1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgDQo+ID4+ICtPVEhFUldJU0UsDQo+ID4+ICsgKiBB
+UklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9S
+DQo+IFRIRQ0KPiA+PiArVVNFIE9SDQo+ID4+ICsgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09G
+VFdBUkUuDQo+ID4+ICsgKg0KPiA+PiArICovDQo+ID4+ICsjaW5jbHVkZSAiYW1kZ3B1LmgiDQo+
+ID4+ICsjaW5jbHVkZSAic29jMTUuaCINCj4gPj4gKw0KPiA+PiArI2luY2x1ZGUgInNvYzE1X2Nv
+bW1vbi5oIg0KPiA+PiArI2luY2x1ZGUgInNvYzE1X2h3X2lwLmgiDQo+ID4+ICsNCj4gPj4gK2lu
+dCBlbXVfc29jX2FzaWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgew0KPiA+PiAr
+ICAgICAgIHJldHVybiAwOw0KPiA+PiArfQ0KPiA+PiArDQo+ID4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+ID4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvc29jMTUuYw0KPiA+PiBpbmRleCAyMmNkODRmLi42YTNkMTA4IDEwMDY0NA0KPiA+
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+ID4+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCj4gPj4gQEAgLTc0Nyw2ICs3NDcsMTAg
+QEAgc3RhdGljIGludCBzb2MxNV9jb21tb25faHdfaW5pdCh2b2lkICpoYW5kbGUpDQo+IHsNCj4g
+Pj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSANCj4gPj4gKiloYW5kbGU7DQo+ID4+DQo+ID4+ICsgICAgICAgLyogQWRkIGFzaWMgc3Bl
+Y2lmaWMgaW5pdCBzZXF1ZW5jZSBmb3IgZW11bGF0aW9uICovDQo+ID4+ICsgICAgICAgaWYgKGFt
+ZGdwdV9lbXVfbW9kZSA9PSAxKQ0KPiA+PiArICAgICAgICAgICAgICAgZW11X3NvY19hc2ljX2lu
+aXQoYWRldik7DQo+ID4+ICsNCj4gPj4gICAgICAgICAvKiBlbmFibGUgcGNpZSBnZW4yLzMgbGlu
+ayAqLw0KPiA+PiAgICAgICAgIHNvYzE1X3BjaWVfZ2VuM19lbmFibGUoYWRldik7DQo+ID4+ICAg
+ICAgICAgLyogZW5hYmxlIGFzcG0gKi8NCj4gPj4gLS0NCj4gPj4gMS45LjENCj4gPj4NCj4gPj4g
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gPj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QNCj4gPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFt
+ZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
