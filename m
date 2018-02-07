@@ -1,39 +1,47 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] amdgpu drm-next-4.16
-Date: Wed,  7 Feb 2018 14:15:18 -0500
-Message-ID: <20180207191518.15417-1-alexander.deucher@amd.com>
+From: Guenter Roeck <groeck@google.com>
+Subject: Re: [PATCH] drm/amd/powerplay: Remove extra pair of parentheses
+Date: Wed, 7 Feb 2018 11:19:10 -0800
+Message-ID: <CABXOdTf8NTgzzE87ftqvzJLJfB+sqoti0Q8Pda-oxweu5XvuAg@mail.gmail.com>
+References: <20180207191017.77392-1-mka@chromium.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180207191017.77392-1-mka@chromium.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Matthias Kaehlcke <mka@chromium.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-kernel <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkp1c3Qgb25lIGZpeCB0aGlzIHdlZWsgZm9yIDQuMTYuICBUaGlzIGlzIG9uIHRv
-cCBvZiB0aGUgcHVsbCByZXF1ZXN0IEkKc2VudCBsYXN0IHdlZWsuICBPbmUgb2YgdGhlIGZpeGVz
-IGZyb20gbGFzdCB3ZWVrIGdvdCBhcHBsaWVkIHRvIHRoZSB3cm9uZwphc2ljIGJ5IGFjY2lkZW50
-LiAgVGhlIHBhdGNoIHRoaXMgd2VlayBmaXhlcyB0aGF0LgoKVGhlIGZvbGxvd2luZyBjaGFuZ2Vz
-IHNpbmNlIGNvbW1pdCA3ZTI0YTNlYTgyNWU1NDY0ODdjM2ZjNDdmOGNiZjY1MTJmNmM5ZThjOgoK
-ICBkcm0vYW1kZ3B1OiBkaXNhYmxlIGNvYXJzZSBncmFpbiBjbG9ja2dhdGluZyBmb3IgU1QgKDIw
-MTgtMDEtMjkgMjM6MzA6NDQgLTA1MDApCgphcmUgYXZhaWxhYmxlIGluIHRoZSBnaXQgcmVwb3Np
-dG9yeSBhdDoKCiAgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggZHJt
-LW5leHQtNC4xNgoKZm9yIHlvdSB0byBmZXRjaCBjaGFuZ2VzIHVwIHRvIGZiNGJiYmEyNzc1Mzk5
-MTQ5Y2E5MDJmMzFlYjVjNDZjYzdhOGQ4Yjg6CgogIGRybS9hbWRncHU6IHJlLWVuYWJsZSBDR0NH
-IG9uIENaIGFuZCBkaXNhYmxlIG9uIFNUICgyMDE4LTAyLTA2IDAwOjA1OjIyIC0wNTAwKQoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQpTaGlyaXNoIFMgKDEpOgogICAgICBkcm0vYW1kZ3B1OiByZS1lbmFibGUgQ0dDRyBvbiBD
-WiBhbmQgZGlzYWJsZSBvbiBTVAoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMgfCAy
-ICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Wed, Feb 7, 2018 at 11:10 AM, Matthias Kaehlcke <mka@chromium.org> wrote:
+> The double parentheses are not needed. Removing them fixes the following
+> warning when building with clang:
+>
+> drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c:419:29:
+>   error: equality comparison with extraneous parentheses
+>     [-Werror,-Wparentheses-equality]
+>   if ((data->vdd_gfx_control == SMU7_VOLTAGE_CONTROL_BY_SVID2)) {
+>
+> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+
+Reviewed-by: Guenter Roeck <groeck@chromium.org>
+
+> ---
+>  drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> index 79e5c05571bc..f5b3de29b632 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> @@ -416,7 +416,7 @@ static int tonga_populate_cac_tables(struct pp_hwmgr *hwmgr,
+>                         convert_to_vid(vddc_lookup_table->entries[index].us_cac_high);
+>         }
+>
+> -       if ((data->vdd_gfx_control == SMU7_VOLTAGE_CONTROL_BY_SVID2)) {
+> +       if (data->vdd_gfx_control == SMU7_VOLTAGE_CONTROL_BY_SVID2) {
+>                 /* We are populating vddgfx CAC data to BapmVddgfx table in split mode */
+>                 for (count = 0; count < vddgfx_level_count; count++) {
+>                         index = phm_get_voltage_index(vddgfx_lookup_table,
+> --
+> 2.16.0.rc1.238.g530d649a79-goog
+>
