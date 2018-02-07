@@ -1,47 +1,199 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Double the timeout count on emulation mode
-Date: Wed, 7 Feb 2018 15:26:38 -0500
-Message-ID: <CADnq5_NieoKF=yn9MUteyeRifhe_KqEbf3KRqi-C4gTgbLFu8w@mail.gmail.com>
-References: <1518033199-29350-1-git-send-email-Shaoyun.Liu@amd.com>
+From: Guenter Roeck <groeck@google.com>
+Subject: Re: [PATCH] drm/amd/display: Remove extra pairs of parentheses in dce_calcs.c
+Date: Wed, 7 Feb 2018 12:42:04 -0800
+Message-ID: <CABXOdTdH8GsiPuYk0JnrwRo1jT=GfenaAVw9zexFnG5grptmzw@mail.gmail.com>
+References: <20180207194928.93869-1-mka@chromium.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1518033199-29350-1-git-send-email-Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180207194928.93869-1-mka@chromium.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Matthias Kaehlcke <mka@chromium.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <tony.cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Joshua Aberback <Joshua.Aberback@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-kernel <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBGZWIgNywgMjAxOCBhdCAyOjUzIFBNLCBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVA
-YW1kLmNvbT4gd3JvdGU6Cj4gQ2hhbmdlLUlkOiBJZjczZDllNWYxZjJmOTk4ZDkyN2Y1MDZjYTRi
-N2E5NjFkYjM2ODcxNgo+IFNpZ25lZC1vZmYtYnk6IFNoYW95dW4gTGl1IDxTaGFveXVuLkxpdUBh
-bWQuY29tPgoKClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
-LmMgfCAyICsrCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCBmNmVjMzZmLi43OTY4
-OTQ0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
-Y2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+
-IEBAIC0xODEzLDYgKzE4MTMsOCBAQCBpbnQgYW1kZ3B1X2RldmljZV9pbml0KHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LAo+ICAgICAgICAgYWRldi0+ZmxhZ3MgPSBmbGFnczsKPiAgICAgICAg
-IGFkZXYtPmFzaWNfdHlwZSA9IGZsYWdzICYgQU1EX0FTSUNfTUFTSzsKPiAgICAgICAgIGFkZXYt
-PnVzZWNfdGltZW91dCA9IEFNREdQVV9NQVhfVVNFQ19USU1FT1VUOwo+ICsgICAgICAgaWYgKGFt
-ZGdwdV9lbXVfbW9kZSA9PSAxKQo+ICsgICAgICAgICAgICAgICBhZGV2LT51c2VjX3RpbWVvdXQg
-Kj0gMjsKPiAgICAgICAgIGFkZXYtPmdtYy5nYXJ0X3NpemUgPSA1MTIgKiAxMDI0ICogMTAyNDsK
-PiAgICAgICAgIGFkZXYtPmFjY2VsX3dvcmtpbmcgPSBmYWxzZTsKPiAgICAgICAgIGFkZXYtPm51
-bV9yaW5ncyA9IDA7Cj4gLS0KPiAxLjkuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+On Wed, Feb 7, 2018 at 11:49 AM, Matthias Kaehlcke <mka@chromium.org> wrote=
+:
+> The double parentheses are not needed. Removing them fixes multiple
+> warnings like this when building with clang:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dce_calcs.c:617:42:
+>   error: equality comparison with extraneous parentheses
+>     [-Werror,-Wparentheses-equality]
+>   if ((data->graphics_micro_tile_mode =3D=3D bw_def_rotated_micro_tiling)=
+) {
+>
+> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+
+Reviewed-by: Guenter Roeck <groeck@chromium.org>
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c | 22 +++++++++++-------=
+----
+>  1 file changed, 11 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c b/drivers/g=
+pu/drm/amd/display/dc/calcs/dce_calcs.c
+> index 2e11fac2a63d..bb03a9c64d5a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
+> +++ b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
+> @@ -623,7 +623,7 @@ static void calculate_bandwidth(
+>                                 }
+>                                 else {
+>                                         /*graphics portrait tiling mode*/
+> -                                       if ((data->graphics_micro_tile_mo=
+de =3D=3D bw_def_rotated_micro_tiling)) {
+> +                                       if (data->graphics_micro_tile_mod=
+e =3D=3D bw_def_rotated_micro_tiling) {
+>                                                 data->orthogonal_rotation=
+[i] =3D 0;
+>                                         }
+>                                         else {
+> @@ -634,7 +634,7 @@ static void calculate_bandwidth(
+>                         else {
+>                                 if ((i < 4)) {
+>                                         /*underlay landscape tiling mode =
+is only supported*/
+> -                                       if ((data->underlay_micro_tile_mo=
+de =3D=3D bw_def_display_micro_tiling)) {
+> +                                       if (data->underlay_micro_tile_mod=
+e =3D=3D bw_def_display_micro_tiling) {
+>                                                 data->orthogonal_rotation=
+[i] =3D 0;
+>                                         }
+>                                         else {
+> @@ -643,7 +643,7 @@ static void calculate_bandwidth(
+>                                 }
+>                                 else {
+>                                         /*graphics landscape tiling mode*=
+/
+> -                                       if ((data->graphics_micro_tile_mo=
+de =3D=3D bw_def_display_micro_tiling)) {
+> +                                       if (data->graphics_micro_tile_mod=
+e =3D=3D bw_def_display_micro_tiling) {
+>                                                 data->orthogonal_rotation=
+[i] =3D 0;
+>                                         }
+>                                         else {
+> @@ -947,14 +947,14 @@ static void calculate_bandwidth(
+>         }
+>         for (i =3D 0; i <=3D maximum_number_of_surfaces - 1; i++) {
+>                 if (data->enable[i]) {
+> -                       if ((data->number_of_displays =3D=3D 1 && data->n=
+umber_of_underlay_surfaces =3D=3D 0)) {
+> +                       if (data->number_of_displays =3D=3D 1 && data->nu=
+mber_of_underlay_surfaces =3D=3D 0) {
+>                                 /*set maximum chunk limit if only one gra=
+phic pipe is enabled*/
+>                                 data->outstanding_chunk_request_limit[i] =
+=3D bw_int_to_fixed(127);
+>                         }
+>                         else {
+>                                 data->outstanding_chunk_request_limit[i] =
+=3D bw_ceil2(bw_div(data->adjusted_data_buffer_size[i], data->pipe_chunk_si=
+ze_in_bytes[i]), bw_int_to_fixed(1));
+>                                 /*clamp maximum chunk limit in the graphi=
+c display pipe*/
+> -                               if ((i >=3D 4)) {
+> +                               if (i >=3D 4) {
+>                                         data->outstanding_chunk_request_l=
+imit[i] =3D bw_max2(bw_int_to_fixed(127), data->outstanding_chunk_request_l=
+imit[i]);
+>                                 }
+>                         }
+> @@ -1337,7 +1337,7 @@ static void calculate_bandwidth(
+>         /*if stutter and dram clock state change are gated before cursor =
+then the cursor latency hiding does not limit stutter or dram clock state c=
+hange*/
+>         for (i =3D 0; i <=3D maximum_number_of_surfaces - 1; i++) {
+>                 if (data->enable[i]) {
+> -                       if ((dceip->graphics_lb_nodownscaling_multi_line_=
+prefetching =3D=3D 1)) {
+> +                       if (dceip->graphics_lb_nodownscaling_multi_line_p=
+refetching =3D=3D 1) {
+>                                 data->maximum_latency_hiding[i] =3D bw_ad=
+d(data->minimum_latency_hiding[i], bw_mul(bw_frc_to_fixed(8, 10), data->tot=
+al_dmifmc_urgent_latency));
+>                         }
+>                         else {
+> @@ -1396,7 +1396,7 @@ static void calculate_bandwidth(
+>         }
+>         /*determine the number of displays with margin to switch in the v=
+_active region*/
+>         for (k =3D 0; k <=3D maximum_number_of_surfaces - 1; k++) {
+> -               if ((data->enable[k] =3D=3D 1 && data->display_pstate_cha=
+nge_enable[k] =3D=3D 1)) {
+> +               if (data->enable[k] =3D=3D 1 && data->display_pstate_chan=
+ge_enable[k] =3D=3D 1) {
+>                         number_of_displays_enabled_with_margin =3D number=
+_of_displays_enabled_with_margin + 1;
+>                 }
+>         }
+> @@ -1442,7 +1442,7 @@ static void calculate_bandwidth(
+>                 data->nbp_state_change_enable =3D bw_def_no;
+>         }
+>         /*dram clock change is possible only in vblank if all displays ar=
+e aligned and have no margin*/
+> -       if ((number_of_aligned_displays_with_no_margin =3D=3D number_of_d=
+isplays_enabled)) {
+> +       if (number_of_aligned_displays_with_no_margin =3D=3D number_of_di=
+splays_enabled) {
+>                 nbp_state_change_enable_blank =3D bw_def_yes;
+>         }
+>         else {
+> @@ -1470,7 +1470,7 @@ static void calculate_bandwidth(
+>                 }
+>         }
+>         /*compute minimum time to read one chunk from the dmif buffer*/
+> -       if ((number_of_displays_enabled > 2)) {
+> +       if (number_of_displays_enabled > 2) {
+>                 data->chunk_request_delay =3D 0;
+>         }
+>         else {
+> @@ -1804,7 +1804,7 @@ static void calculate_bandwidth(
+>                                 data->stutter_exit_watermark[i] =3D bw_ad=
+d(bw_sub(vbios->stutter_self_refresh_exit_latency, data->total_dmifmc_urgen=
+t_latency), data->urgent_watermark[i]);
+>                                 data->stutter_entry_watermark[i] =3D bw_a=
+dd(bw_sub(bw_add(vbios->stutter_self_refresh_exit_latency, vbios->stutter_s=
+elf_refresh_entry_latency), data->total_dmifmc_urgent_latency), data->urgen=
+t_watermark[i]);
+>                                 /*unconditionally remove black out time f=
+rom the nb p_state watermark*/
+> -                               if ((data->display_pstate_change_enable[i=
+] =3D=3D 1)) {
+> +                               if (data->display_pstate_change_enable[i]=
+ =3D=3D 1) {
+>                                         data->nbp_state_change_watermark[=
+i] =3D bw_add(bw_add(vbios->nbp_state_change_latency, data->dmif_burst_time=
+[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_tr=
+ansfer_time, data->dram_speed_change_line_source_transfer_time[i][data->y_c=
+lk_level][data->sclk_level]));
+>                                 }
+>                                 else {
+> @@ -1816,7 +1816,7 @@ static void calculate_bandwidth(
+>                                 data->urgent_watermark[i] =3D bw_add(bw_a=
+dd(bw_add(bw_add(bw_add(vbios->mcifwrmc_urgent_latency, data->mcifwr_burst_=
+time[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixel=
+s_transfer_time, data->line_source_transfer_time[i][data->y_clk_level][data=
+->sclk_level])), vbios->blackout_duration), data->chunk_request_time), data=
+->cursor_request_time);
+>                                 data->stutter_exit_watermark[i] =3D bw_in=
+t_to_fixed(0);
+>                                 data->stutter_entry_watermark[i] =3D bw_i=
+nt_to_fixed(0);
+> -                               if ((data->display_pstate_change_enable[i=
+] =3D=3D 1)) {
+> +                               if (data->display_pstate_change_enable[i]=
+ =3D=3D 1) {
+>                                         data->nbp_state_change_watermark[=
+i] =3D bw_add(bw_add(vbios->nbp_state_change_latency, data->mcifwr_burst_ti=
+me[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_=
+transfer_time, data->dram_speed_change_line_source_transfer_time[i][data->y=
+_clk_level][data->sclk_level]));
+>                                 }
+>                                 else {
+> --
+> 2.16.0.rc1.238.g530d649a79-goog
+>
