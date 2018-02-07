@@ -1,127 +1,38 @@
-From: Matthias Kaehlcke <mka@chromium.org>
-Subject: [PATCH] drm/amd/display: Remove extra pairs of parentheses in dce_calcs.c
-Date: Wed,  7 Feb 2018 11:49:28 -0800
-Message-ID: <20180207194928.93869-1-mka@chromium.org>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <tony.cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Joshua Aberback <Joshua.Aberback@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>, Matthias Kaehlcke <mka@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+From: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Double the timeout count on emulation mode
+Date: Wed,  7 Feb 2018 14:53:19 -0500
+Message-ID: <1518033199-29350-1-git-send-email-Shaoyun.Liu@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-The double parentheses are not needed. Removing them fixes multiple
-warnings like this when building with clang:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dce_calcs.c:617:42:
-  error: equality comparison with extraneous parentheses
-    [-Werror,-Wparentheses-equality]
-  if ((data->graphics_micro_tile_mode == bw_def_rotated_micro_tiling)) {
-
-Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
----
- drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-index 2e11fac2a63d..bb03a9c64d5a 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
-@@ -623,7 +623,7 @@ static void calculate_bandwidth(
- 				}
- 				else {
- 					/*graphics portrait tiling mode*/
--					if ((data->graphics_micro_tile_mode == bw_def_rotated_micro_tiling)) {
-+					if (data->graphics_micro_tile_mode == bw_def_rotated_micro_tiling) {
- 						data->orthogonal_rotation[i] = 0;
- 					}
- 					else {
-@@ -634,7 +634,7 @@ static void calculate_bandwidth(
- 			else {
- 				if ((i < 4)) {
- 					/*underlay landscape tiling mode is only supported*/
--					if ((data->underlay_micro_tile_mode == bw_def_display_micro_tiling)) {
-+					if (data->underlay_micro_tile_mode == bw_def_display_micro_tiling) {
- 						data->orthogonal_rotation[i] = 0;
- 					}
- 					else {
-@@ -643,7 +643,7 @@ static void calculate_bandwidth(
- 				}
- 				else {
- 					/*graphics landscape tiling mode*/
--					if ((data->graphics_micro_tile_mode == bw_def_display_micro_tiling)) {
-+					if (data->graphics_micro_tile_mode == bw_def_display_micro_tiling) {
- 						data->orthogonal_rotation[i] = 0;
- 					}
- 					else {
-@@ -947,14 +947,14 @@ static void calculate_bandwidth(
- 	}
- 	for (i = 0; i <= maximum_number_of_surfaces - 1; i++) {
- 		if (data->enable[i]) {
--			if ((data->number_of_displays == 1 && data->number_of_underlay_surfaces == 0)) {
-+			if (data->number_of_displays == 1 && data->number_of_underlay_surfaces == 0) {
- 				/*set maximum chunk limit if only one graphic pipe is enabled*/
- 				data->outstanding_chunk_request_limit[i] = bw_int_to_fixed(127);
- 			}
- 			else {
- 				data->outstanding_chunk_request_limit[i] = bw_ceil2(bw_div(data->adjusted_data_buffer_size[i], data->pipe_chunk_size_in_bytes[i]), bw_int_to_fixed(1));
- 				/*clamp maximum chunk limit in the graphic display pipe*/
--				if ((i >= 4)) {
-+				if (i >= 4) {
- 					data->outstanding_chunk_request_limit[i] = bw_max2(bw_int_to_fixed(127), data->outstanding_chunk_request_limit[i]);
- 				}
- 			}
-@@ -1337,7 +1337,7 @@ static void calculate_bandwidth(
- 	/*if stutter and dram clock state change are gated before cursor then the cursor latency hiding does not limit stutter or dram clock state change*/
- 	for (i = 0; i <= maximum_number_of_surfaces - 1; i++) {
- 		if (data->enable[i]) {
--			if ((dceip->graphics_lb_nodownscaling_multi_line_prefetching == 1)) {
-+			if (dceip->graphics_lb_nodownscaling_multi_line_prefetching == 1) {
- 				data->maximum_latency_hiding[i] = bw_add(data->minimum_latency_hiding[i], bw_mul(bw_frc_to_fixed(8, 10), data->total_dmifmc_urgent_latency));
- 			}
- 			else {
-@@ -1396,7 +1396,7 @@ static void calculate_bandwidth(
- 	}
- 	/*determine the number of displays with margin to switch in the v_active region*/
- 	for (k = 0; k <= maximum_number_of_surfaces - 1; k++) {
--		if ((data->enable[k] == 1 && data->display_pstate_change_enable[k] == 1)) {
-+		if (data->enable[k] == 1 && data->display_pstate_change_enable[k] == 1) {
- 			number_of_displays_enabled_with_margin = number_of_displays_enabled_with_margin + 1;
- 		}
- 	}
-@@ -1442,7 +1442,7 @@ static void calculate_bandwidth(
- 		data->nbp_state_change_enable = bw_def_no;
- 	}
- 	/*dram clock change is possible only in vblank if all displays are aligned and have no margin*/
--	if ((number_of_aligned_displays_with_no_margin == number_of_displays_enabled)) {
-+	if (number_of_aligned_displays_with_no_margin == number_of_displays_enabled) {
- 		nbp_state_change_enable_blank = bw_def_yes;
- 	}
- 	else {
-@@ -1470,7 +1470,7 @@ static void calculate_bandwidth(
- 		}
- 	}
- 	/*compute minimum time to read one chunk from the dmif buffer*/
--	if ((number_of_displays_enabled > 2)) {
-+	if (number_of_displays_enabled > 2) {
- 		data->chunk_request_delay = 0;
- 	}
- 	else {
-@@ -1804,7 +1804,7 @@ static void calculate_bandwidth(
- 				data->stutter_exit_watermark[i] = bw_add(bw_sub(vbios->stutter_self_refresh_exit_latency, data->total_dmifmc_urgent_latency), data->urgent_watermark[i]);
- 				data->stutter_entry_watermark[i] = bw_add(bw_sub(bw_add(vbios->stutter_self_refresh_exit_latency, vbios->stutter_self_refresh_entry_latency), data->total_dmifmc_urgent_latency), data->urgent_watermark[i]);
- 				/*unconditionally remove black out time from the nb p_state watermark*/
--				if ((data->display_pstate_change_enable[i] == 1)) {
-+				if (data->display_pstate_change_enable[i] == 1) {
- 					data->nbp_state_change_watermark[i] = bw_add(bw_add(vbios->nbp_state_change_latency, data->dmif_burst_time[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_transfer_time, data->dram_speed_change_line_source_transfer_time[i][data->y_clk_level][data->sclk_level]));
- 				}
- 				else {
-@@ -1816,7 +1816,7 @@ static void calculate_bandwidth(
- 				data->urgent_watermark[i] = bw_add(bw_add(bw_add(bw_add(bw_add(vbios->mcifwrmc_urgent_latency, data->mcifwr_burst_time[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_transfer_time, data->line_source_transfer_time[i][data->y_clk_level][data->sclk_level])), vbios->blackout_duration), data->chunk_request_time), data->cursor_request_time);
- 				data->stutter_exit_watermark[i] = bw_int_to_fixed(0);
- 				data->stutter_entry_watermark[i] = bw_int_to_fixed(0);
--				if ((data->display_pstate_change_enable[i] == 1)) {
-+				if (data->display_pstate_change_enable[i] == 1) {
- 					data->nbp_state_change_watermark[i] = bw_add(bw_add(vbios->nbp_state_change_latency, data->mcifwr_burst_time[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_transfer_time, data->dram_speed_change_line_source_transfer_time[i][data->y_clk_level][data->sclk_level]));
- 				}
- 				else {
--- 
-2.16.0.rc1.238.g530d649a79-goog
+Q2hhbmdlLUlkOiBJZjczZDllNWYxZjJmOTk4ZDkyN2Y1MDZjYTRiN2E5NjFkYjM2ODcxNgpTaWdu
+ZWQtb2ZmLWJ5OiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAyICsrCiAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
+dmljZS5jCmluZGV4IGY2ZWMzNmYuLjc5Njg5NDQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTE4MTMsNiArMTgxMyw4IEBAIGludCBhbWRncHVfZGV2
+aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJYWRldi0+ZmxhZ3MgPSBmbGFn
+czsKIAlhZGV2LT5hc2ljX3R5cGUgPSBmbGFncyAmIEFNRF9BU0lDX01BU0s7CiAJYWRldi0+dXNl
+Y190aW1lb3V0ID0gQU1ER1BVX01BWF9VU0VDX1RJTUVPVVQ7CisJaWYgKGFtZGdwdV9lbXVfbW9k
+ZSA9PSAxKQorCQlhZGV2LT51c2VjX3RpbWVvdXQgKj0gMjsKIAlhZGV2LT5nbWMuZ2FydF9zaXpl
+ID0gNTEyICogMTAyNCAqIDEwMjQ7CiAJYWRldi0+YWNjZWxfd29ya2luZyA9IGZhbHNlOwogCWFk
+ZXYtPm51bV9yaW5ncyA9IDA7Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
