@@ -1,71 +1,86 @@
-From: Matthias Kaehlcke <mka@chromium.org>
-Subject: [PATCH] drm/amd/powerplay: Fix enum mismatch
-Date: Wed,  7 Feb 2018 10:58:43 -0800
-Message-ID: <20180207185843.75983-1-mka@chromium.org>
+From: Guenter Roeck <groeck@google.com>
+Subject: Re: [PATCH] drm/amd/powerplay: Fix enum mismatch
+Date: Wed, 7 Feb 2018 11:01:06 -0800
+Message-ID: <CABXOdTefUzvLFd-QeQ_NBBwxiAD+AfoKhdJp_vmeBx8WULaf-A@mail.gmail.com>
+References: <20180207185843.75983-1-mka@chromium.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>
-Cc: Craig Bergstrom <craigb@chromium.org>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Justin TerAvest <teravest@chromium.org>, Matthias Kaehlcke <mka@chromium.org>, amd-gfx@lists.freedesktop.org, Guenter Roeck <groeck@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180207185843.75983-1-mka@chromium.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Matthias Kaehlcke <mka@chromium.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-kernel <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SW4gc2V2ZXJhbCBsb2NhdGlvbnMgdGhlIGRyaXZlciB1c2VzIEFNRF9DR19TVEFURV9VTkdBVEUg
-KHR5cGUgZW51bQphbWRfY2xvY2tnYXRpbmdfc3RhdGUpIGluc3RlYWQgb2YgQU1EX1BHX1NUQVRF
-X1VOR0FURSAodHlwZSBlbnVtCmFtZF9wb3dlcmdhdGluZ19zdGF0KSBhbmQgdmljZSB2ZXJzYS4g
-Qm90aCBjb25zdGFudHMgaGF2ZSB0aGUgc2FtZQp2YWx1ZSwgc28gdGhpcyBkb2Vzbid0IGNhdXNl
-IGFueSBwcm9ibGVtcywgYnV0IHdlIHN0aWxsIHdhbnQgdG8gcGFzcwp0aGUgY29ycmVjdCB0eXBl
-LgoKRml4aW5nIHRoZSBtaXNtYXRjaCByZXNvbHZlcyBtdWx0aXBsZSB3YXJuaW5ncyBsaWtlIHRo
-aXMgd2hlbiBidWlsZGluZwp3aXRoIGNsYW5nOgoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Li4vcG93ZXJwbGF5L2h3bWdyL2N6X2Nsb2NrcG93ZXJnYXRpbmcuYzoxNjk6NzoKICBlcnJvcjog
-aW1wbGljaXQgY29udmVyc2lvbiBmcm9tIGVudW1lcmF0aW9uIHR5cGUgJ2VudW0KICBhbWRfcG93
-ZXJnYXRpbmdfc3RhdGUnIHRvIGRpZmZlcmVudCBlbnVtZXJhdGlvbiB0eXBlICdlbnVtCiAgYW1k
-X2Nsb2NrZ2F0aW5nX3N0YXRlJyBbLVdlcnJvciwtV2VudW0tY29udmVyc2lvbl0KICAgIEFNRF9Q
-R19TVEFURV9VTkdBVEUpOwoKU2lnbmVkLW9mZi1ieTogTWF0dGhpYXMgS2FlaGxja2UgPG1rYUBj
-aHJvbWl1bS5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pf
-Y2xvY2twb3dlcmdhdGluZy5jICAgfCA4ICsrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9zbXU3X2Nsb2NrcG93ZXJnYXRpbmcuYyB8IDIgKy0KIDIgZmlsZXMgY2hh
-bmdlZCwgNSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2Nsb2NrcG93ZXJnYXRpbmcuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2Nsb2NrcG93ZXJnYXRpbmcuYwpp
-bmRleCA0NGRlMDg3NDYyOWYuLjQxNmFiZWJiOGI4NiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfY2xvY2twb3dlcmdhdGluZy5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2Nsb2NrcG93ZXJnYXRpbmcuYwpAQCAt
-MTY2LDEwICsxNjYsMTAgQEAgdm9pZCBjel9kcG1fcG93ZXJnYXRlX3V2ZChzdHJ1Y3QgcHBfaHdt
-Z3IgKmh3bWdyLCBib29sIGJnYXRlKQogCQljel9kcG1fcG93ZXJ1cF91dmQoaHdtZ3IpOwogCQlj
-Z3Nfc2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKGh3bWdyLT5kZXZpY2UsCiAJCQkJCQlBTURfSVBfQkxP
-Q0tfVFlQRV9VVkQsCi0JCQkJCQlBTURfUEdfU1RBVEVfVU5HQVRFKTsKKwkJCQkJCUFNRF9DR19T
-VEFURV9VTkdBVEUpOwogCQljZ3Nfc2V0X3Bvd2VyZ2F0aW5nX3N0YXRlKGh3bWdyLT5kZXZpY2Us
-CiAJCQkJCQlBTURfSVBfQkxPQ0tfVFlQRV9VVkQsCi0JCQkJCQlBTURfQ0dfU1RBVEVfVU5HQVRF
-KTsKKwkJCQkJCUFNRF9QR19TVEFURV9VTkdBVEUpOwogCQljel9kcG1fdXBkYXRlX3V2ZF9kcG0o
-aHdtZ3IsIGZhbHNlKTsKIAl9CiAKQEAgLTE5NywxMSArMTk3LDExIEBAIHZvaWQgY3pfZHBtX3Bv
-d2VyZ2F0ZV92Y2Uoc3RydWN0IHBwX2h3bWdyICpod21nciwgYm9vbCBiZ2F0ZSkKIAkJY2dzX3Nl
-dF9jbG9ja2dhdGluZ19zdGF0ZSgKIAkJCQkJaHdtZ3ItPmRldmljZSwKIAkJCQkJQU1EX0lQX0JM
-T0NLX1RZUEVfVkNFLAotCQkJCQlBTURfUEdfU1RBVEVfVU5HQVRFKTsKKwkJCQkJQU1EX0NHX1NU
-QVRFX1VOR0FURSk7CiAJCWNnc19zZXRfcG93ZXJnYXRpbmdfc3RhdGUoCiAJCQkJCWh3bWdyLT5k
-ZXZpY2UsCiAJCQkJCUFNRF9JUF9CTE9DS19UWVBFX1ZDRSwKLQkJCQkJQU1EX0NHX1NUQVRFX1VO
-R0FURSk7CisJCQkJCUFNRF9QR19TVEFURV9VTkdBVEUpOwogCQljel9kcG1fdXBkYXRlX3ZjZV9k
-cG0oaHdtZ3IpOwogCQljel9lbmFibGVfZGlzYWJsZV92Y2VfZHBtKGh3bWdyLCB0cnVlKTsKIAl9
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2Ns
-b2NrcG93ZXJnYXRpbmcuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Nt
-dTdfY2xvY2twb3dlcmdhdGluZy5jCmluZGV4IDY5YTA2NzhhY2U5OC4uNDAyYWE5Y2IxZjc4IDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2Nsb2Nr
-cG93ZXJnYXRpbmcuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9z
-bXU3X2Nsb2NrcG93ZXJnYXRpbmcuYwpAQCAtMTYyLDcgKzE2Miw3IEBAIHZvaWQgc211N19wb3dl
-cmdhdGVfdXZkKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGJvb2wgYmdhdGUpCiAJCQkJQU1EX0NH
-X1NUQVRFX1VOR0FURSk7CiAJCWNnc19zZXRfcG93ZXJnYXRpbmdfc3RhdGUoaHdtZ3ItPmRldmlj
-ZSwKIAkJCQkJCUFNRF9JUF9CTE9DS19UWVBFX1VWRCwKLQkJCQkJCUFNRF9DR19TVEFURV9VTkdB
-VEUpOworCQkJCQkJQU1EX1BHX1NUQVRFX1VOR0FURSk7CiAJCXNtdTdfdXBkYXRlX3V2ZF9kcG0o
-aHdtZ3IsIGZhbHNlKTsKIAl9CiAKLS0gCjIuMTYuMC5yYzEuMjM4Lmc1MzBkNjQ5YTc5LWdvb2cK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZl
-bCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+On Wed, Feb 7, 2018 at 10:58 AM, Matthias Kaehlcke <mka@chromium.org> wrote:
+> In several locations the driver uses AMD_CG_STATE_UNGATE (type enum
+> amd_clockgating_state) instead of AMD_PG_STATE_UNGATE (type enum
+> amd_powergating_stat) and vice versa. Both constants have the same
+> value, so this doesn't cause any problems, but we still want to pass
+> the correct type.
+>
+> Fixing the mismatch resolves multiple warnings like this when building
+> with clang:
+>
+> drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/cz_clockpowergating.c:169:7:
+>   error: implicit conversion from enumeration type 'enum
+>   amd_powergating_state' to different enumeration type 'enum
+>   amd_clockgating_state' [-Werror,-Wenum-conversion]
+>     AMD_PG_STATE_UNGATE);
+>
+> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+
+Reviewed-by: Guenter Roeck <groeck@chromium.org>
+
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c   | 8 ++++----
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_clockpowergating.c | 2 +-
+>  2 files changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c
+> index 44de0874629f..416abebb8b86 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c
+> @@ -166,10 +166,10 @@ void cz_dpm_powergate_uvd(struct pp_hwmgr *hwmgr, bool bgate)
+>                 cz_dpm_powerup_uvd(hwmgr);
+>                 cgs_set_clockgating_state(hwmgr->device,
+>                                                 AMD_IP_BLOCK_TYPE_UVD,
+> -                                               AMD_PG_STATE_UNGATE);
+> +                                               AMD_CG_STATE_UNGATE);
+>                 cgs_set_powergating_state(hwmgr->device,
+>                                                 AMD_IP_BLOCK_TYPE_UVD,
+> -                                               AMD_CG_STATE_UNGATE);
+> +                                               AMD_PG_STATE_UNGATE);
+>                 cz_dpm_update_uvd_dpm(hwmgr, false);
+>         }
+>
+> @@ -197,11 +197,11 @@ void cz_dpm_powergate_vce(struct pp_hwmgr *hwmgr, bool bgate)
+>                 cgs_set_clockgating_state(
+>                                         hwmgr->device,
+>                                         AMD_IP_BLOCK_TYPE_VCE,
+> -                                       AMD_PG_STATE_UNGATE);
+> +                                       AMD_CG_STATE_UNGATE);
+>                 cgs_set_powergating_state(
+>                                         hwmgr->device,
+>                                         AMD_IP_BLOCK_TYPE_VCE,
+> -                                       AMD_CG_STATE_UNGATE);
+> +                                       AMD_PG_STATE_UNGATE);
+>                 cz_dpm_update_vce_dpm(hwmgr);
+>                 cz_enable_disable_vce_dpm(hwmgr, true);
+>         }
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_clockpowergating.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_clockpowergating.c
+> index 69a0678ace98..402aa9cb1f78 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_clockpowergating.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_clockpowergating.c
+> @@ -162,7 +162,7 @@ void smu7_powergate_uvd(struct pp_hwmgr *hwmgr, bool bgate)
+>                                 AMD_CG_STATE_UNGATE);
+>                 cgs_set_powergating_state(hwmgr->device,
+>                                                 AMD_IP_BLOCK_TYPE_UVD,
+> -                                               AMD_CG_STATE_UNGATE);
+> +                                               AMD_PG_STATE_UNGATE);
+>                 smu7_update_uvd_dpm(hwmgr, false);
+>         }
+>
+> --
+> 2.16.0.rc1.238.g530d649a79-goog
+>
