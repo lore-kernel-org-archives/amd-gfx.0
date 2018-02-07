@@ -1,113 +1,127 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: cleanup VCN IB generation
-Date: Wed,  7 Feb 2018 20:48:22 +0100
-Message-ID: <20180207194822.7878-2-christian.koenig@amd.com>
-References: <20180207194822.7878-1-christian.koenig@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180207194822.7878-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Matthias Kaehlcke <mka@chromium.org>
+Subject: [PATCH] drm/amd/display: Remove extra pairs of parentheses in dce_calcs.c
+Date: Wed,  7 Feb 2018 11:49:28 -0800
+Message-ID: <20180207194928.93869-1-mka@chromium.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <tony.cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Joshua Aberback <Joshua.Aberback@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>, Matthias Kaehlcke <mka@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U3RhcnQgdG8gdXNlIGFtZGdwdV9ib19jcmVhdGVfcmVzZXJ2ZWQuCgpTaWduZWQtb2ZmLWJ5OiBD
-aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jIHwgOTEgKysrKysrKystLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgNzAgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zj
-bi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jCmluZGV4IGU4NmQw
-YjJlOWI3YS4uOTdiZGRlOWE3MzllIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdmNuLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3Zjbi5jCkBAIC0yNzAsNDMgKzI3MCwyOCBAQCBpbnQgYW1kZ3B1X3Zjbl9kZWNfcmluZ190ZXN0
-X3Jpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogCXJldHVybiByOwogfQogCi1zdGF0aWMg
-aW50IGFtZGdwdV92Y25fZGVjX3NlbmRfbXNnKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgc3Ry
-dWN0IGFtZGdwdV9ibyAqYm8sCi0JCQkgICAgICAgYm9vbCBkaXJlY3QsIHN0cnVjdCBkbWFfZmVu
-Y2UgKipmZW5jZSkKK3N0YXRpYyBpbnQgYW1kZ3B1X3Zjbl9kZWNfc2VuZF9tc2coc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nLAorCQkJCSAgIHN0cnVjdCBhbWRncHVfYm8gKmJvLCBib29sIGRpcmVj
-dCwKKwkJCQkgICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpCiB7Ci0Jc3RydWN0IHR0bV9vcGVy
-YXRpb25fY3R4IGN0eCA9IHsgdHJ1ZSwgZmFsc2UgfTsKLQlzdHJ1Y3QgdHRtX3ZhbGlkYXRlX2J1
-ZmZlciB0djsKLQlzdHJ1Y3Qgd3dfYWNxdWlyZV9jdHggdGlja2V0OwotCXN0cnVjdCBsaXN0X2hl
-YWQgaGVhZDsKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7CisJc3Ry
-dWN0IGRtYV9mZW5jZSAqZiA9IE5VTEw7CiAJc3RydWN0IGFtZGdwdV9qb2IgKmpvYjsKIAlzdHJ1
-Y3QgYW1kZ3B1X2liICppYjsKLQlzdHJ1Y3QgZG1hX2ZlbmNlICpmID0gTlVMTDsKLQlzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7CiAJdWludDY0X3QgYWRkcjsKIAlpbnQg
-aSwgcjsKIAotCW1lbXNldCgmdHYsIDAsIHNpemVvZih0dikpOwotCXR2LmJvID0gJmJvLT50Ym87
-Ci0KLQlJTklUX0xJU1RfSEVBRCgmaGVhZCk7Ci0JbGlzdF9hZGQoJnR2LmhlYWQsICZoZWFkKTsK
-LQotCXIgPSB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJzKCZ0aWNrZXQsICZoZWFkLCB0cnVlLCBOVUxM
-KTsKLQlpZiAocikKLQkJcmV0dXJuIHI7Ci0KLQlyID0gdHRtX2JvX3ZhbGlkYXRlKCZiby0+dGJv
-LCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7Ci0JaWYgKHIpCi0JCWdvdG8gZXJyOwotCiAJciA9IGFt
-ZGdwdV9qb2JfYWxsb2Nfd2l0aF9pYihhZGV2LCA2NCwgJmpvYik7CiAJaWYgKHIpCiAJCWdvdG8g
-ZXJyOwogCiAJaWIgPSAmam9iLT5pYnNbMF07CiAJYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0
-KGJvKTsKLQlpYi0+cHRyWzBdID0gUEFDS0VUMChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgMCwgbW1V
-VkRfR1BDT01fVkNQVV9EQVRBMCksIDApOworCWliLT5wdHJbMF0gPSBQQUNLRVQwKFNPQzE1X1JF
-R19PRkZTRVQoVVZELCAwLCBtbVVWRF9HUENPTV9WQ1BVX0RBVEEwKSwKKwkJCSAgICAgMCk7CiAJ
-aWItPnB0clsxXSA9IGFkZHI7Ci0JaWItPnB0clsyXSA9IFBBQ0tFVDAoU09DMTVfUkVHX09GRlNF
-VChVVkQsIDAsIG1tVVZEX0dQQ09NX1ZDUFVfREFUQTEpLCAwKTsKKwlpYi0+cHRyWzJdID0gUEFD
-S0VUMChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgMCwgbW1VVkRfR1BDT01fVkNQVV9EQVRBMSksCisJ
-CQkgICAgIDApOwogCWliLT5wdHJbM10gPSBhZGRyID4+IDMyOwogCWliLT5wdHJbNF0gPSBQQUNL
-RVQwKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9HUENPTV9WQ1BVX0NNRCksIDApOwog
-CWliLT5wdHJbNV0gPSAwOwpAQCAtMzMwLDExICszMTUsMTIgQEAgc3RhdGljIGludCBhbWRncHVf
-dmNuX2RlY19zZW5kX21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHN0cnVjdCBhbWRncHVf
-Ym8gKmIKIAkJCWdvdG8gZXJyX2ZyZWU7CiAJfQogCi0JdHRtX2V1X2ZlbmNlX2J1ZmZlcl9vYmpl
-Y3RzKCZ0aWNrZXQsICZoZWFkLCBmKTsKKwlhbWRncHVfYm9fZmVuY2UoYm8sIGYsIGZhbHNlKTsK
-KwlhbWRncHVfYm9fdW5yZXNlcnZlKGJvKTsKKwlhbWRncHVfYm9fdW5yZWYoJmJvKTsKIAogCWlm
-IChmZW5jZSkKIAkJKmZlbmNlID0gZG1hX2ZlbmNlX2dldChmKTsKLQlhbWRncHVfYm9fdW5yZWYo
-JmJvKTsKIAlkbWFfZmVuY2VfcHV0KGYpOwogCiAJcmV0dXJuIDA7CkBAIC0zNDMsNyArMzI5LDgg
-QEAgc3RhdGljIGludCBhbWRncHVfdmNuX2RlY19zZW5kX21zZyhzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
-KnJpbmcsIHN0cnVjdCBhbWRncHVfYm8gKmIKIAlhbWRncHVfam9iX2ZyZWUoam9iKTsKIAogZXJy
-OgotCXR0bV9ldV9iYWNrb2ZmX3Jlc2VydmF0aW9uKCZ0aWNrZXQsICZoZWFkKTsKKwlhbWRncHVf
-Ym9fdW5yZXNlcnZlKGJvKTsKKwlhbWRncHVfYm9fdW5yZWYoJmJvKTsKIAlyZXR1cm4gcjsKIH0K
-IApAQCAtMzUxLDMxICszMzgsMTYgQEAgc3RhdGljIGludCBhbWRncHVfdmNuX2RlY19nZXRfY3Jl
-YXRlX21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhhbmQKIAkJCSAgICAg
-IHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSkKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diA9IHJpbmctPmFkZXY7Ci0Jc3RydWN0IGFtZGdwdV9ibyAqYm87CisJc3RydWN0IGFtZGdwdV9i
-byAqYm8gPSBOVUxMOwogCXVpbnQzMl90ICptc2c7CiAJaW50IHIsIGk7CiAKLQlyID0gYW1kZ3B1
-X2JvX2NyZWF0ZShhZGV2LCAxMDI0LCBQQUdFX1NJWkUsIHRydWUsCi0JCQkgICAgIEFNREdQVV9H
-RU1fRE9NQUlOX1ZSQU0sCi0JCQkgICAgIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVR
-VUlSRUQgfAotCQkJICAgICBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VPVVMsCi0JCQkg
-ICAgIE5VTEwsIE5VTEwsICZibyk7CisJciA9IGFtZGdwdV9ib19jcmVhdGVfcmVzZXJ2ZWQoYWRl
-diwgMTAyNCwgUEFHRV9TSVpFLAorCQkJCSAgICAgIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCisJ
-CQkJICAgICAgJmJvLCBOVUxMLCAodm9pZCAqKikmbXNnKTsKIAlpZiAocikKIAkJcmV0dXJuIHI7
-CiAKLQlyID0gYW1kZ3B1X2JvX3Jlc2VydmUoYm8sIGZhbHNlKTsKLQlpZiAocikgewotCQlhbWRn
-cHVfYm9fdW5yZWYoJmJvKTsKLQkJcmV0dXJuIHI7Ci0JfQotCi0JciA9IGFtZGdwdV9ib19rbWFw
-KGJvLCAodm9pZCAqKikmbXNnKTsKLQlpZiAocikgewotCQlhbWRncHVfYm9fdW5yZXNlcnZlKGJv
-KTsKLQkJYW1kZ3B1X2JvX3VucmVmKCZibyk7Ci0JCXJldHVybiByOwotCX0KLQogCW1zZ1swXSA9
-IGNwdV90b19sZTMyKDB4MDAwMDAwMjgpOwogCW1zZ1sxXSA9IGNwdV90b19sZTMyKDB4MDAwMDAw
-MzgpOwogCW1zZ1syXSA9IGNwdV90b19sZTMyKDB4MDAwMDAwMDEpOwpAQCAtMzkzLDkgKzM2NSw2
-IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Zjbl9kZWNfZ2V0X2NyZWF0ZV9tc2coc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nLCB1aW50MzJfdCBoYW5kCiAJZm9yIChpID0gMTQ7IGkgPCAxMDI0OyArK2kp
-CiAJCW1zZ1tpXSA9IGNwdV90b19sZTMyKDB4MCk7CiAKLQlhbWRncHVfYm9fa3VubWFwKGJvKTsK
-LQlhbWRncHVfYm9fdW5yZXNlcnZlKGJvKTsKLQogCXJldHVybiBhbWRncHVfdmNuX2RlY19zZW5k
-X21zZyhyaW5nLCBibywgdHJ1ZSwgZmVuY2UpOwogfQogCkBAIC00MDcsMjcgKzM3NiwxMiBAQCBz
-dGF0aWMgaW50IGFtZGdwdV92Y25fZGVjX2dldF9kZXN0cm95X21zZyhzdHJ1Y3QgYW1kZ3B1X3Jp
-bmcgKnJpbmcsIHVpbnQzMl90IGhhbgogCXVpbnQzMl90ICptc2c7CiAJaW50IHIsIGk7CiAKLQly
-ID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LCAxMDI0LCBQQUdFX1NJWkUsIHRydWUsCi0JCQkgICAg
-IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCi0JCQkgICAgIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9B
-Q0NFU1NfUkVRVUlSRUQgfAotCQkJICAgICBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VP
-VVMsCi0JCQkgICAgIE5VTEwsIE5VTEwsICZibyk7CisJciA9IGFtZGdwdV9ib19jcmVhdGVfcmVz
-ZXJ2ZWQoYWRldiwgMTAyNCwgUEFHRV9TSVpFLAorCQkJCSAgICAgIEFNREdQVV9HRU1fRE9NQUlO
-X1ZSQU0sCisJCQkJICAgICAgJmJvLCBOVUxMLCAodm9pZCAqKikmbXNnKTsKIAlpZiAocikKIAkJ
-cmV0dXJuIHI7CiAKLQlyID0gYW1kZ3B1X2JvX3Jlc2VydmUoYm8sIGZhbHNlKTsKLQlpZiAocikg
-ewotCQlhbWRncHVfYm9fdW5yZWYoJmJvKTsKLQkJcmV0dXJuIHI7Ci0JfQotCi0JciA9IGFtZGdw
-dV9ib19rbWFwKGJvLCAodm9pZCAqKikmbXNnKTsKLQlpZiAocikgewotCQlhbWRncHVfYm9fdW5y
-ZXNlcnZlKGJvKTsKLQkJYW1kZ3B1X2JvX3VucmVmKCZibyk7Ci0JCXJldHVybiByOwotCX0KLQog
-CW1zZ1swXSA9IGNwdV90b19sZTMyKDB4MDAwMDAwMjgpOwogCW1zZ1sxXSA9IGNwdV90b19sZTMy
-KDB4MDAwMDAwMTgpOwogCW1zZ1syXSA9IGNwdV90b19sZTMyKDB4MDAwMDAwMDApOwpAQCAtNDM3
-LDkgKzM5MSw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Zjbl9kZWNfZ2V0X2Rlc3Ryb3lfbXNnKHN0
-cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgaGFuCiAJZm9yIChpID0gNjsgaSA8IDEw
-MjQ7ICsraSkKIAkJbXNnW2ldID0gY3B1X3RvX2xlMzIoMHgwKTsKIAotCWFtZGdwdV9ib19rdW5t
-YXAoYm8pOwotCWFtZGdwdV9ib191bnJlc2VydmUoYm8pOwotCiAJcmV0dXJuIGFtZGdwdV92Y25f
-ZGVjX3NlbmRfbXNnKHJpbmcsIGJvLCBkaXJlY3QsIGZlbmNlKTsKIH0KIAotLSAKMi4xNC4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+The double parentheses are not needed. Removing them fixes multiple
+warnings like this when building with clang:
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dce_calcs.c:617:42:
+  error: equality comparison with extraneous parentheses
+    [-Werror,-Wparentheses-equality]
+  if ((data->graphics_micro_tile_mode == bw_def_rotated_micro_tiling)) {
+
+Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+---
+ drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
+index 2e11fac2a63d..bb03a9c64d5a 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/calcs/dce_calcs.c
+@@ -623,7 +623,7 @@ static void calculate_bandwidth(
+ 				}
+ 				else {
+ 					/*graphics portrait tiling mode*/
+-					if ((data->graphics_micro_tile_mode == bw_def_rotated_micro_tiling)) {
++					if (data->graphics_micro_tile_mode == bw_def_rotated_micro_tiling) {
+ 						data->orthogonal_rotation[i] = 0;
+ 					}
+ 					else {
+@@ -634,7 +634,7 @@ static void calculate_bandwidth(
+ 			else {
+ 				if ((i < 4)) {
+ 					/*underlay landscape tiling mode is only supported*/
+-					if ((data->underlay_micro_tile_mode == bw_def_display_micro_tiling)) {
++					if (data->underlay_micro_tile_mode == bw_def_display_micro_tiling) {
+ 						data->orthogonal_rotation[i] = 0;
+ 					}
+ 					else {
+@@ -643,7 +643,7 @@ static void calculate_bandwidth(
+ 				}
+ 				else {
+ 					/*graphics landscape tiling mode*/
+-					if ((data->graphics_micro_tile_mode == bw_def_display_micro_tiling)) {
++					if (data->graphics_micro_tile_mode == bw_def_display_micro_tiling) {
+ 						data->orthogonal_rotation[i] = 0;
+ 					}
+ 					else {
+@@ -947,14 +947,14 @@ static void calculate_bandwidth(
+ 	}
+ 	for (i = 0; i <= maximum_number_of_surfaces - 1; i++) {
+ 		if (data->enable[i]) {
+-			if ((data->number_of_displays == 1 && data->number_of_underlay_surfaces == 0)) {
++			if (data->number_of_displays == 1 && data->number_of_underlay_surfaces == 0) {
+ 				/*set maximum chunk limit if only one graphic pipe is enabled*/
+ 				data->outstanding_chunk_request_limit[i] = bw_int_to_fixed(127);
+ 			}
+ 			else {
+ 				data->outstanding_chunk_request_limit[i] = bw_ceil2(bw_div(data->adjusted_data_buffer_size[i], data->pipe_chunk_size_in_bytes[i]), bw_int_to_fixed(1));
+ 				/*clamp maximum chunk limit in the graphic display pipe*/
+-				if ((i >= 4)) {
++				if (i >= 4) {
+ 					data->outstanding_chunk_request_limit[i] = bw_max2(bw_int_to_fixed(127), data->outstanding_chunk_request_limit[i]);
+ 				}
+ 			}
+@@ -1337,7 +1337,7 @@ static void calculate_bandwidth(
+ 	/*if stutter and dram clock state change are gated before cursor then the cursor latency hiding does not limit stutter or dram clock state change*/
+ 	for (i = 0; i <= maximum_number_of_surfaces - 1; i++) {
+ 		if (data->enable[i]) {
+-			if ((dceip->graphics_lb_nodownscaling_multi_line_prefetching == 1)) {
++			if (dceip->graphics_lb_nodownscaling_multi_line_prefetching == 1) {
+ 				data->maximum_latency_hiding[i] = bw_add(data->minimum_latency_hiding[i], bw_mul(bw_frc_to_fixed(8, 10), data->total_dmifmc_urgent_latency));
+ 			}
+ 			else {
+@@ -1396,7 +1396,7 @@ static void calculate_bandwidth(
+ 	}
+ 	/*determine the number of displays with margin to switch in the v_active region*/
+ 	for (k = 0; k <= maximum_number_of_surfaces - 1; k++) {
+-		if ((data->enable[k] == 1 && data->display_pstate_change_enable[k] == 1)) {
++		if (data->enable[k] == 1 && data->display_pstate_change_enable[k] == 1) {
+ 			number_of_displays_enabled_with_margin = number_of_displays_enabled_with_margin + 1;
+ 		}
+ 	}
+@@ -1442,7 +1442,7 @@ static void calculate_bandwidth(
+ 		data->nbp_state_change_enable = bw_def_no;
+ 	}
+ 	/*dram clock change is possible only in vblank if all displays are aligned and have no margin*/
+-	if ((number_of_aligned_displays_with_no_margin == number_of_displays_enabled)) {
++	if (number_of_aligned_displays_with_no_margin == number_of_displays_enabled) {
+ 		nbp_state_change_enable_blank = bw_def_yes;
+ 	}
+ 	else {
+@@ -1470,7 +1470,7 @@ static void calculate_bandwidth(
+ 		}
+ 	}
+ 	/*compute minimum time to read one chunk from the dmif buffer*/
+-	if ((number_of_displays_enabled > 2)) {
++	if (number_of_displays_enabled > 2) {
+ 		data->chunk_request_delay = 0;
+ 	}
+ 	else {
+@@ -1804,7 +1804,7 @@ static void calculate_bandwidth(
+ 				data->stutter_exit_watermark[i] = bw_add(bw_sub(vbios->stutter_self_refresh_exit_latency, data->total_dmifmc_urgent_latency), data->urgent_watermark[i]);
+ 				data->stutter_entry_watermark[i] = bw_add(bw_sub(bw_add(vbios->stutter_self_refresh_exit_latency, vbios->stutter_self_refresh_entry_latency), data->total_dmifmc_urgent_latency), data->urgent_watermark[i]);
+ 				/*unconditionally remove black out time from the nb p_state watermark*/
+-				if ((data->display_pstate_change_enable[i] == 1)) {
++				if (data->display_pstate_change_enable[i] == 1) {
+ 					data->nbp_state_change_watermark[i] = bw_add(bw_add(vbios->nbp_state_change_latency, data->dmif_burst_time[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_transfer_time, data->dram_speed_change_line_source_transfer_time[i][data->y_clk_level][data->sclk_level]));
+ 				}
+ 				else {
+@@ -1816,7 +1816,7 @@ static void calculate_bandwidth(
+ 				data->urgent_watermark[i] = bw_add(bw_add(bw_add(bw_add(bw_add(vbios->mcifwrmc_urgent_latency, data->mcifwr_burst_time[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_transfer_time, data->line_source_transfer_time[i][data->y_clk_level][data->sclk_level])), vbios->blackout_duration), data->chunk_request_time), data->cursor_request_time);
+ 				data->stutter_exit_watermark[i] = bw_int_to_fixed(0);
+ 				data->stutter_entry_watermark[i] = bw_int_to_fixed(0);
+-				if ((data->display_pstate_change_enable[i] == 1)) {
++				if (data->display_pstate_change_enable[i] == 1) {
+ 					data->nbp_state_change_watermark[i] = bw_add(bw_add(vbios->nbp_state_change_latency, data->mcifwr_burst_time[data->y_clk_level][data->sclk_level]), bw_max2(data->line_source_pixels_transfer_time, data->dram_speed_change_line_source_transfer_time[i][data->y_clk_level][data->sclk_level]));
+ 				}
+ 				else {
+-- 
+2.16.0.rc1.238.g530d649a79-goog
