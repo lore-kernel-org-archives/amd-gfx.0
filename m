@@ -1,15 +1,12 @@
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v3 4/4] amdgpu/dc/calcs: Support clang option for stack
- alignment
-Date: Thu, 8 Feb 2018 16:03:57 -0500
-Message-ID: <953daf8c-b195-e983-ecc4-4b369515e9ac@amd.com>
-References: <20180208205316.93330-1-mka@chromium.org>
- <20180208205316.93330-4-mka@chromium.org>
+From: SF Markus Elfring <elfring@users.sourceforge.net>
+Subject: [PATCH] drm/amdkfd: Delete an error message for a failed memory
+ allocation in kfd_topology_init()
+Date: Thu, 8 Feb 2018 22:33:22 +0100
+Message-ID: <94b486c9-92ce-dae8-3d5e-db1943fc0119@users.sourceforge.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180208205316.93330-4-mka@chromium.org>
 Content-Language: en-US
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
@@ -20,40 +17,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Matthias Kaehlcke <mka@chromium.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Cc: Craig Bergstrom <craigb@chromium.org>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Justin TerAvest <teravest@chromium.org>, amd-gfx@lists.freedesktop.org, Guenter Roeck <groeck@chromium.org>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Oded Gabbay <oded.gabbay@gmail.com>
+Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wMi0wOCAwMzo1MyBQTSwgTWF0dGhpYXMgS2FlaGxja2Ugd3JvdGU6Cj4gY2FsY3Mg
-dXNlcyB0aGUgY29tcGlsZXIgb3B0aW9uIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQgdG8g
-Y29uZmlndXJlCj4gYSBzdGFjayBhbGlnbm1lbnQgb2YgMTYgYnl0ZXMuIENsYW5nIHVzZXMgdGhl
-IG9wdGlvbiAtbXN0YWNrLWFsaWdubWVudAo+IGluc3RlYWQsIHdoaWNoIGV4cGVjdHMgYXMgcGFy
-YW1ldGVyIHRoZSBhbGlnbm1lbnQgaW4gYnl0ZXMsIGFuZCBub3QgYQo+IHBvd2VyIG9mIHR3byBs
-aWtlIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5Lgo+IAo+IFByb2JlIGZvciBib3RoIGNvbXBp
-bGVyIG9wdGlvbnMgYW5kIHVzZSB0aGUgY29ycmVjdCBvbmUsIHNpbWlsYXIgdG8KPiB3aGF0IGlz
-IGRvbmUgaW4gYXJjaC94ODYvTWFrZWZpbGUuCj4gCj4gU2lnbmVkLW9mZi1ieTogTWF0dGhpYXMg
-S2FlaGxja2UgPG1rYUBjaHJvbWl1bS5vcmc+CgpTZXJpZXMgaXMKUmV2aWV3ZWQtYnk6IEhhcnJ5
-IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoKSGFycnkKCj4gLS0tCj4gQ2hhbmdl
-cyBpbiB2MzoKPiAtIHBhdGNoIGFkZGVkCj4gCj4gTm90ZSB0byBzZWxmOiBpZiB0aGlzIHBhdHRl
-cm5zIHByb2xpZmVyYXRlcyBmdXJ0aGVyIHdlIHByb2JhYmx5IHdhbnQgdG8KPiBwdXQgdGhlIGV2
-YWx1YXRpb24gb2YgdGhlIGNvcnJlY3QgY29tcGlsZXIgZmxhZyBpbiBzb21lIGNvbW1vbiBwbGFj
-ZS4KPiAKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlIHwg
-OCArKysrKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxj
-cy9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmls
-ZQo+IGluZGV4IGFmMGY0NTJmM2M5Zi4uOTVmMzMyZWUzZTdlIDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQo+IEBAIC0yNCw3ICsyNCwxMyBA
-QAo+ICAjIEl0IGNhbGN1bGF0ZXMgQmFuZHdpZHRoIGFuZCBXYXRlcm1hcmtzIHZhbHVlcyBmb3Ig
-SFcgcHJvZ3JhbW1pbmcKPiAgIwo+ICAKPiAtY2FsY3NfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQg
-LW1zc2UgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+ICtpZm5lcSAoJChjYWxsIGNjLW9w
-dGlvbiwgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NCksKQo+ICsJY2Nfc3RhY2tfYWxpZ24g
-Oj0gLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+ICtlbHNlIGlmbmVxICgkKGNhbGwgY2Mt
-b3B0aW9uLCAtbXN0YWNrLWFsaWdubWVudD0xNiksKQo+ICsJY2Nfc3RhY2tfYWxpZ24gOj0gLW1z
-dGFjay1hbGlnbm1lbnQ9MTYKPiArZW5kaWYKPiArCj4gK2NhbGNzX2NjZmxhZ3MgOj0gLW1oYXJk
-LWZsb2F0IC1tc3NlICQoY2Nfc3RhY2tfYWxpZ24pCj4gIAo+ICBDRkxBR1NfZGNuX2NhbGNzLm8g
-Oj0gJChjYWxjc19jY2ZsYWdzKQo+ICBDRkxBR1NfZGNuX2NhbGNfYXV0by5vIDo9ICQoY2FsY3Nf
-Y2NmbGFncykKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-Cg==
+RnJvbTogTWFya3VzIEVsZnJpbmcgPGVsZnJpbmdAdXNlcnMuc291cmNlZm9yZ2UubmV0PgpEYXRl
+OiBUaHUsIDggRmViIDIwMTggMjI6MjM6NTcgKzAxMDAKCk9taXQgYW4gZXh0cmEgbWVzc2FnZSBm
+b3IgYSBtZW1vcnkgYWxsb2NhdGlvbiBmYWlsdXJlIGluIHRoaXMgZnVuY3Rpb24uCgpUaGlzIGlz
+c3VlIHdhcyBkZXRlY3RlZCBieSB1c2luZyB0aGUgQ29jY2luZWxsZSBzb2Z0d2FyZS4KClNpZ25l
+ZC1vZmYtYnk6IE1hcmt1cyBFbGZyaW5nIDxlbGZyaW5nQHVzZXJzLnNvdXJjZWZvcmdlLm5ldD4K
+LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYyB8IDEgLQogMSBm
+aWxlIGNoYW5nZWQsIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
+ZF90b3BvbG9neS5jCmluZGV4IDE5Y2U1OTAyOGQ2Yi4uNjEwZTNkNGFjNTc1IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYwpAQCAtMTAxOSw3ICsxMDE5LDYgQEAg
+aW50IGtmZF90b3BvbG9neV9pbml0KHZvaWQpCiAJCWNyYXRfaW1hZ2UgPSBrbWFsbG9jKGltYWdl
+X3NpemUsIEdGUF9LRVJORUwpOwogCQlpZiAoIWNyYXRfaW1hZ2UpIHsKIAkJCXJldCA9IC1FTk9N
+RU07Ci0JCQlwcl9lcnIoIk5vIG1lbW9yeSBmb3IgYWxsb2NhdGluZyBDUkFUIGltYWdlXG4iKTsK
+IAkJCWdvdG8gZXJyOwogCQl9CiAJCXJldCA9IGtmZF90b3BvbG9neV9nZXRfY3JhdF9hY3BpKGNy
+YXRfaW1hZ2UsICZpbWFnZV9zaXplKTsKLS0gCjIuMTYuMQoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2
+ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
