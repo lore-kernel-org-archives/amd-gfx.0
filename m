@@ -1,14 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 06/10] drm/amd/pp: Implement set_power_profile_mode on smu7
-Date: Thu, 8 Feb 2018 10:14:29 -0500
-Message-ID: <CADnq5_Pw1OPnCP6kyOCygY+v+8q-JdeKZd8mkpqcpbNvfNvoyQ@mail.gmail.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 10/10] drm/amd/pp: Enable auto automan feature on Polaris
+Date: Thu, 8 Feb 2018 15:14:37 +0000
+Message-ID: <CY4PR12MB1687A05815EB945E39F139F1FBF30@CY4PR12MB1687.namprd12.prod.outlook.com>
 References: <1518081259-18120-1-git-send-email-Rex.Zhu@amd.com>
- <1518081259-18120-7-git-send-email-Rex.Zhu@amd.com>
+ <1518081259-18120-11-git-send-email-Rex.Zhu@amd.com>,
+ <CADnq5_Pme6WORs8Ns1DOhmXMSWWQHBkzkr=kWSF2_XqUakKQyg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0140444446=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1518081259-18120-7-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_Pme6WORs8Ns1DOhmXMSWWQHBkzkr=kWSF2_XqUakKQyg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,96 +20,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBGZWIgOCwgMjAxOCBhdCA0OjE0IEFNLCBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
-IHdyb3RlOgo+IFVzZXIgY2FuIHNldCBzbXU3IGRwbSBwYW1hbWV0ZXJzIHRocm91Z2ggc3lzZnMK
-Pgo+IERlcGVuZGluZyBvbiB0aGUgd29ya2xvYWRzLAo+IHVzZXIgY2FuIGVjaG8gIjAvMS8yLzMv
-NCI+cHBfcG93ZXJfcHJvZmlsZV9tb2RlCj4gdG8gc2VsZWN0IDNEX0ZVTExfU0NSRUVOL1BPV0VS
-X1NBVklORy9WSURFTy9WUi9DT01QVVRFCj4gbW9kZS4KPgo+IGVjaG8gIjUgKiAqICogKiAqICog
-KiAqIj5wcF9wb3dlcl9wcm9maWxlX21vZGUKPiB0byBjb25maWcgY3VzdG9tIG1vZGUuCj4gIjUg
-KiAqICogKiAqICogKiAqIiBtZWFuICJDVVNUT00gZW5hYmxlX3NjbGsgU0NMS19VUF9IWVNUCj4g
-U0NMS19ET1dOX0hZU1QgU0NMS19BQ1RJVkVfTEVWRUwgZW5hYmxlX21jbGsgTUNMS19VUF9IWVNU
-Cj4gTUNMS19ET1dOX0hZU1QgTUNMS19BQ1RJVkVfTEVWRUwiCj4KPiBpZiB0aGUgcGFyYW1ldGVy
-IGVuYWJsZV9zY2xrL2VuYWJsZV9tY2xrIGlzIHRydWUsCj4gZHJpdmVyIHdpbGwgdXBkYXRlIHRo
-ZSBmb2xsb3dpbmcgcGFyYW1ldGVycyB0byBkcG0gdGFibGUuCj4gaWYgZmFsc2UsIGlnbm9yZSB0
-aGUgZm9sbG93aW5nIHBhcmFtZXRlcnMuCj4KPiBDaGFuZ2UtSWQ6IEk4YjVmYzZmYjJlMjBlNmNk
-NTBiNDE4NDQ1ODQ1MmFjMjJjNTYyNDY5Cj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4Llpo
-dUBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9z
-bXU3X2h3bWdyLmMgfCA1MiArKysrKysrKysrKysrKysrKysrKysrKysKPiAgMSBmaWxlIGNoYW5n
-ZWQsIDUyIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9zbXU3X2h3bWdyLmMKPiBpbmRleCA4Y2Y5NWQ5Li4wOGU5ZTQ0IDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+
-IEBAIC01MDE5LDYgKzUwMTksNTcgQEAgc3RhdGljIGludCBzbXU3X2dldF9wb3dlcl9wcm9maWxl
-X21vZGUoc3RydWN0IHBwX2h3bWdyICpod21nciwgY2hhciAqYnVmKQo+ICAgICAgICAgcmV0dXJu
-IHNpemU7Cj4gIH0KPgo+ICtzdGF0aWMgaW50IHNtdTdfc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZShz
-dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBsb25nICppbnB1dCwgdWludDMyX3Qgc2l6ZSkKPiArewo+
-ICsgICAgICAgc3RydWN0IHNtdTdfaHdtZ3IgKmRhdGEgPSAoc3RydWN0IHNtdTdfaHdtZ3IgKiko
-aHdtZ3ItPmJhY2tlbmQpOwo+ICsgICAgICAgc3RydWN0IHByb2ZpbGVfbW9kZV9zZXR0aW5nIHRt
-cDsKPiArCj4gKyAgICAgICBod21nci0+cG93ZXJfcHJvZmlsZV9tb2RlID0gaW5wdXRbc2l6ZV07
-Cj4gKwo+ICsgICAgICAgc3dpdGNoIChod21nci0+cG93ZXJfcHJvZmlsZV9tb2RlKSB7Cj4gKyAg
-ICAgICBjYXNlIFBQX1NNQ19QT1dFUl9QUk9GSUxFX0NVU1RPTToKPiArICAgICAgICAgICAgICAg
-aWYgKHNpemUgPCA4KQo+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+
-ICsKPiArICAgICAgICAgICAgICAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5idXBkYXRl
-X3NjbGsgPSBpbnB1dFswXTsKPiArICAgICAgICAgICAgICAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVf
-c2V0dGluZy5zY2xrX3VwX2h5c3QgPSBpbnB1dFsxXTsKPiArICAgICAgICAgICAgICAgZGF0YS0+
-Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5zY2xrX2Rvd25faHlzdCA9IGlucHV0WzJdOwo+ICsgICAg
-ICAgICAgICAgICBkYXRhLT5jdXN0b21fcHJvZmlsZV9zZXR0aW5nLnNjbGtfYWN0aXZpdHkgPSAg
-aW5wdXRbM107Cj4gKyAgICAgICAgICAgICAgIGRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcu
-YnVwZGF0ZV9tY2xrID0gaW5wdXRbNF07Cj4gKyAgICAgICAgICAgICAgIGRhdGEtPmN1c3RvbV9w
-cm9maWxlX3NldHRpbmcubWNsa191cF9oeXN0ID0gaW5wdXRbNV07Cj4gKyAgICAgICAgICAgICAg
-IGRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcubWNsa19kb3duX2h5c3QgPSBpbnB1dFs2XTsK
-PiArICAgICAgICAgICAgICAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5tY2xrX2FjdGl2
-aXR5ID0gIGlucHV0WzddOwo+ICsgICAgICAgICAgICAgICBpZiAoIXNtdW1fdXBkYXRlX2RwbV9z
-ZXR0aW5ncyhod21nciwgJmRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcpKQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIG1lbWNweSgmZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcsICZk
-YXRhLT5jdXN0b21fcHJvZmlsZV9zZXR0aW5nLCBzaXplb2Yoc3RydWN0IHByb2ZpbGVfbW9kZV9z
-ZXR0aW5nKSk7Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSBQUF9TTUNf
-UE9XRVJfUFJPRklMRV9GVUxMU0NSRUVOM0Q6Cj4gKyAgICAgICBjYXNlIFBQX1NNQ19QT1dFUl9Q
-Uk9GSUxFX1BPV0VSU0FWSU5HOgo+ICsgICAgICAgY2FzZSBQUF9TTUNfUE9XRVJfUFJPRklMRV9W
-SURFTzoKPiArICAgICAgIGNhc2UgUFBfU01DX1BPV0VSX1BST0ZJTEVfVlI6Cj4gKyAgICAgICBj
-YXNlIFBQX1NNQ19QT1dFUl9QUk9GSUxFX0NPTVBVVEU6Cj4gKyAgICAgICAgICAgICAgIG1lbWNw
-eSgmdG1wLCAmc211N19wcm9maWxpbmdbaHdtZ3ItPnBvd2VyX3Byb2ZpbGVfbW9kZV0sIHNpemVv
-ZihzdHJ1Y3QgcHJvZmlsZV9tb2RlX3NldHRpbmcpKTsKPiArICAgICAgICAgICAgICAgaWYgKCFz
-bXVtX3VwZGF0ZV9kcG1fc2V0dGluZ3MoaHdtZ3IsICZ0bXApKSB7CgpXb24ndCB0aGUgbGFjayBv
-ZiBhbiB1cGRhdGVfZHBtX3NldHRpbmdzIG1lYW4gd2UgY2FuJ3QgbWFudWFsbHkgc2VsZWN0CnBv
-d2VyIHByb2ZpbGVzIG9uIG5vbi1wb2xhcmlzIGFzaWNzPyAgRGlkbid0IHlvdXIgcHJldmlvdXMg
-cGF0Y2hlcwphbGxvdyB0aGlzIG9uIG5vbi1wb2xhcmlzIHBhcnRzPwoKQWxleAoKPiArICAgICAg
-ICAgICAgICAgICAgICAgICBpZiAodG1wLmJ1cGRhdGVfc2Nsaykgewo+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcuYnVwZGF0ZV9z
-Y2xrID0gdG1wLmJ1cGRhdGVfc2NsazsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLnNjbGtfdXBfaHlzdCA9IHRtcC5zY2xrX3Vw
-X2h5c3Q7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLT5jdXJyZW50X3By
-b2ZpbGVfc2V0dGluZy5zY2xrX2Rvd25faHlzdCA9IHRtcC5zY2xrX2Rvd25faHlzdDsKPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5n
-LnNjbGtfYWN0aXZpdHkgPSB0bXAuc2Nsa19hY3Rpdml0eTsKPiArICAgICAgICAgICAgICAgICAg
-ICAgICB9Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKHRtcC5idXBkYXRlX21jbGspIHsK
-PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmlsZV9z
-ZXR0aW5nLmJ1cGRhdGVfbWNsayA9IHRtcC5idXBkYXRlX21jbGs7Cj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBkYXRhLT5jdXJyZW50X3Byb2ZpbGVfc2V0dGluZy5tY2xrX3VwX2h5
-c3QgPSB0bXAubWNsa191cF9oeXN0Owo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcubWNsa19kb3duX2h5c3QgPSB0bXAubWNsa19k
-b3duX2h5c3Q7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLT5jdXJyZW50
-X3Byb2ZpbGVfc2V0dGluZy5tY2xrX2FjdGl2aXR5ID0gdG1wLm1jbGtfYWN0aXZpdHk7Cj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICB9Cj4gKyAgICAgICAgICAg
-ICAgIGJyZWFrOwo+ICsgICAgICAgZGVmYXVsdDoKPiArICAgICAgICAgICAgICAgcmV0dXJuIC1F
-SU5WQUw7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgcmV0dXJuIDA7Cj4gK30KPiArCj4gIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyBzbXU3X2h3bWdyX2Z1bmNzID0gewo+ICAg
-ICAgICAgLmJhY2tlbmRfaW5pdCA9ICZzbXU3X2h3bWdyX2JhY2tlbmRfaW5pdCwKPiAgICAgICAg
-IC5iYWNrZW5kX2ZpbmkgPSAmc211N19od21ncl9iYWNrZW5kX2ZpbmksCj4gQEAgLTUwNzUsNiAr
-NTEyNiw3IEBAIHN0YXRpYyBpbnQgc211N19nZXRfcG93ZXJfcHJvZmlsZV9tb2RlKHN0cnVjdCBw
-cF9od21nciAqaHdtZ3IsIGNoYXIgKmJ1ZikKPiAgICAgICAgIC5vZG5fZWRpdF9kcG1fdGFibGUg
-PSBzbXU3X29kbl9lZGl0X2RwbV90YWJsZSwKPiAgICAgICAgIC5zZXRfcG93ZXJfbGltaXQgPSBz
-bXU3X3NldF9wb3dlcl9saW1pdCwKPiAgICAgICAgIC5nZXRfcG93ZXJfcHJvZmlsZV9tb2RlID0g
-c211N19nZXRfcG93ZXJfcHJvZmlsZV9tb2RlLAo+ICsgICAgICAgLnNldF9wb3dlcl9wcm9maWxl
-X21vZGUgPSBzbXU3X3NldF9wb3dlcl9wcm9maWxlX21vZGUsCj4gIH07Cj4KPiAgdWludDhfdCBz
-bXU3X2dldF9zbGVlcF9kaXZpZGVyX2lkX2Zyb21fY2xvY2sodWludDMyX3QgY2xvY2ssCj4gLS0K
-PiAxLjkuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0140444446==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687A05815EB945E39F139F1FBF30CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB1687A05815EB945E39F139F1FBF30CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+if user select manual dpm mode=1B$B!$=1B(Bwe will disabe autowattman.
+When switch to auto, we will restart the auto wattman on Polaris,
+Restore to default profile mode on other ASICS.
+
+
+Best Regards
+Rex
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Thursday, February 8, 2018 11:02:21 PM
+To: Zhu, Rex
+Cc: amd-gfx list
+Subject: Re: [PATCH 10/10] drm/amd/pp: Enable auto automan feature on Polar=
+is
+
+On Thu, Feb 8, 2018 at 4:14 AM, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> wrote:
+> Change-Id: I69b24ce65ddb361a89e5ac9b197ae6df9b60a9e5
+> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+
+Would be good to give a brief description of what autowattman actually
+does in the patch description.  Also, we may need to manually select a
+profile in some cases (e.g., VR).  Would that be a problem with
+autowattman?
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/dr=
+m/amd/powerplay/hwmgr/hwmgr.c
+> index f50b6cd..549e830 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+> @@ -1023,6 +1023,10 @@ int polaris_set_asic_special_caps(struct pp_hwmgr =
+*hwmgr)
+>                 phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+>                                                         PHM_PlatformCaps_=
+TCPRamping);
+>         }
+> +
+> +       if (hwmgr->feature_mask & PP_AUTOWATTMAN_MASK)
+> +               hwmgr->autowattman_enabled =3D true; /* currently only en=
+abled on polaris */
+> +
+>         return 0;
+>  }
+>
+> --
+> 1.9.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR12MB1687A05815EB945E39F139F1FBF30CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+</head>
+<body>
+if user select manual dpm mode=1B$B!$=1B(Bwe will disabe autowattman.<br>
+When switch to auto, we will restart the auto wattman on Polaris,<br>
+Restore to default profile mode on other ASICS.<br>
+<br>
+<br>
+Best Regards<br>
+Rex
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
+deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, February 8, 2018 11:02:21 PM<br>
+<b>To:</b> Zhu, Rex<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 10/10] drm/amd/pp: Enable auto automan feature o=
+n Polaris</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Thu, Feb 8, 2018 at 4:14 AM, Rex Zhu &lt;Rex.Zh=
+u@amd.com&gt; wrote:<br>
+&gt; Change-Id: I69b24ce65ddb361a89e5ac9b197ae6df9b60a9e5<br>
+&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Would be good to give a brief description of what autowattman actually<br>
+does in the patch description.&nbsp; Also, we may need to manually select a=
+<br>
+profile in some cases (e.g., VR).&nbsp; Would that be a problem with<br>
+autowattman?<br>
+<br>
+Alex<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c | 4 &#43;&#43;&#43;&=
+#43;<br>
+&gt;&nbsp; 1 file changed, 4 insertions(&#43;)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/hwmgr.c<br>
+&gt; index f50b6cd..549e830 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
+&gt; @@ -1023,6 &#43;1023,10 @@ int polaris_set_asic_special_caps(struct pp=
+_hwmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;platform_descriptor.platfor=
+mCaps,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_PlatformCaps_TCPRamping);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;feature_mask &=
+amp; PP_AUTOWATTMAN_MASK)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hwmgr-&gt;autowattman_enabled =3D true; /* currently on=
+ly enabled on polaris */<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; --<br>
+&gt; 1.9.1<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB1687A05815EB945E39F139F1FBF30CY4PR12MB1687namp_--
+
+--===============0140444446==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0140444446==--
