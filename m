@@ -1,18 +1,17 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/9] drm/amdgpu: add amdgpu module parameter for zfb
-Date: Thu, 8 Feb 2018 09:09:50 +0100
-Message-ID: <c138007b-81e1-dee5-6cbb-479e65e948f6@amd.com>
-References: <1518006892-14121-1-git-send-email-Feifei.Xu@amd.com>
- <1518006892-14121-4-git-send-email-Feifei.Xu@amd.com>
- <1af9466c-df71-4484-fc5d-9409e08c84d7@gmail.com>
- <b8912e67-6522-4526-99db-719f2af3a8ad@gmail.com>
- <df90d619-bba6-370f-0aba-3e2e5de0923e@amd.com>
- <DM5PR1201MB247506F18FE9FF309194AAA0FCF30@DM5PR1201MB2475.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 11/25] drm/amdkfd: Centralize IOMMUv2 code and make it
+ conditional
+Date: Thu, 8 Feb 2018 09:16:33 +0100
+Message-ID: <50866577-97a4-2786-18af-ddb60a435aea@gmail.com>
+References: <1517967174-21709-1-git-send-email-Felix.Kuehling@amd.com>
+ <1517967174-21709-12-git-send-email-Felix.Kuehling@amd.com>
+ <281bede7-0ae6-c7d1-3d3a-a3e0497244c1@gmail.com>
+ <bfe03de8-63fb-efb4-94e5-5eaf4628bfc1@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0323347389=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR1201MB247506F18FE9FF309194AAA0FCF30-grEf7a3NxMAyj5E7E3lLiWrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <bfe03de8-63fb-efb4-94e5-5eaf4628bfc1-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,101 +23,2465 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
-QW0gMDguMDIuMjAxOCB1bSAwNTo1MSBzY2hyaWViIFpoYW5nLCBIYXdraW5nOgo+IEFwYXJ0IGZy
-b20gdGhlIGFsbG9jYXRpb24gZmFpbHVyZSwgcmVzZXJ2aW5nIDEwMjRNIGNtYSBpcyBhbHNvIG5v
-dCByZWFsaXN0aWMuLi4uCgpTdXJlIGl0IGlzLCBJIGp1c3QgdHJpZWQgaXQgYW5kIGl0IHdvcmtz
-IHBlcmZlY3RseSBmaW5lLiBUaGUgb3B0aW9uIGV2ZW4gCmFjY2VwdHMgYSBHIHBvc3RmaXggZm9y
-IGdpZ2FieXRlcywgZS5nLiBJIGNhbiBzcGVjaWZ5IGNtYT04RyBvbiBteSAzMkdCIApSeXplbiBi
-b3ggYW5kIGdldCBleGFjdGx5IDhHQiBDTUEgc3BhY2UgcmVzZXJ2ZWQuCgpSZWdhcmRpbmcgdGhl
-IGFsbG9jYXRpb24gZmFpbHVyZSB1c2luZyB0aGUgRE1BIHBhdGggdGhlcmUgd2FzIGEgdGhyZWFk
-IApxdWl0ZSBzb21lIHRpbWUgYWdvLiBJSVJDIHRoZSBhcmd1bWVudCB3YXMgdGhhdCBUVE0gb25s
-eSBhbGxvY2F0ZXMgYSAKc2luZ2xlIHBhZ2UgYXQgYSB0aW1lIGFuZCBzbyBzaG91bGQgbmV2ZXIg
-cnVuIGludG8gYW55IENNQSBhbGxvY2F0b3IgYW5kIAphY2NvcmRpbmcgdG8gbXkgdGVzdHMgYXQg
-bGVhc3Qgd2l0aCBJT01NVSBlbmFibGVkIHRoYXQgc2VlbXMgdG8gYmUgZml4ZWQgCm5vdy4KClRo
-ZSBrZXkgcG9pbnQgaXMgdGhhdCBDTUEgd2FzIHNwZWNpYWxseSBjcmFmdGVkIHRvIGF2b2lkIGFs
-bCB0aG9zZSBtZW09IAp3b3JrYXJvdW5kcyBhbmQgSSB0aGluayB0aGlzIGlzIG5vdyBhIG11c3Qg
-aGF2ZS4gU2VlIGhlcmUgCmh0dHBzOi8vZGUuc2xpZGVzaGFyZS5uZXQva2VybmVsdGx2L2NvbnRp
-bmd1b3VzLW1lbW9yeS1hbGxvY2F0b3ItaW4tdGhlLWxpbnV4LWtlcm5lbCAKYXMgd2VsbC4KClJl
-Z2FyZHMsCkNocmlzdGlhbi4KCj4KPiBSZWdhcmRzLAo+IEhhd2tpbmcKPgo+IC0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0Bs
-aXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBDaHVubWluZyBaaG91Cj4gU2VudDog
-VGh1cnNkYXksIEZlYnJ1YXJ5IDA4LCAyMDE4IDEyOjM1Cj4gVG86IEtvZW5pZywgQ2hyaXN0aWFu
-IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBYdSwgRmVpZmVpIDxGZWlmZWkuWHVAYW1kLmNv
-bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gU3ViamVjdDogUmU6IFtQQVRDSCAz
-LzldIGRybS9hbWRncHU6IGFkZCBhbWRncHUgbW9kdWxlIHBhcmFtZXRlciBmb3IgemZiCj4KPgo+
-Cj4gT24gMjAxOOW5tDAy5pyIMDjml6UgMDI6NDgsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+
-IEhpIEZlaWZlaSwKPj4KPj4gb2sgdGhlIGNvcnJlY3QgYXBwcm9hY2ggb2YgZG9pbmcgdGhpczoK
-Pj4gMS4gQ29tcGlsZSB0aGUga2VybmVsIHdpdGggQ09ORklHX0RNQV9DTUEuCj4+IDIuIFNwZWNp
-ZnkgY21hPTEwMjVNIG9uIHRoZSBrZXJuZWwgY29tbWFuZCBsaW5lLgo+PiAzLiBDYWxsIGRtYV9h
-bGxvY19jb2hlcmVudCgpIHRvIGFsbG9jYXRlIHVwIHRvIDFHQiBvZiBtZW1vcnkgZm9yIFpGQi4K
-PiBIYXZlIHlvdSB0cmllZCBDTUE/IEluIGVhcmx5IHRpbWUsIEkgdHJpZWQgaXQuIElmIENNQSBp
-cyBlbmFibGVkLCB0aGVuIHR0bSBkbWEgcG9vbCBhbGxvY2F0aW9uIHdpbGwgdXNlIGNtYSwgYW5k
-IHdoZW4gY21hIGlzIHVzZWQgdXAsIHRoZW4gdHRtIGRtYSBwb29sIGFsbG9jYXRpb24gd2lsbCBm
-YWlsLgo+IE5vdCBzdXJlIGlmIHRoZSBpc3N1ZSBpcyBmaXhlZCBub3cuCj4KPiBSZWdhcmRzLAo+
-IERhdmlkIFpob3UKPj4gQ291bGRuJ3QgZmlndXJlIG91dCBvZiBoYW5kIHdoYXQgYWxpZ25tZW50
-IGlzIG5lY2Vzc2FyeSBoZXJlLCBidXQgdGhhdAo+PiBzaG91bGQganVzdCBiZSBhIHR5cGluZyBl
-eGVyY2lzZS4KPj4KPj4gUmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+PiBBbSAwNy4wMi4yMDE4
-IHVtIDE0OjE4IHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoKPj4+IEhpIEZlaWZlaSwKPj4+Cj4+
-PiBtaG0sIHNvIHlvdSdyZSBhcHByb2FjaCBpcyB0byBsaW1pdCB0aGUgbWVtb3J5IHRoZSBMaW51
-eCBrZXJuZWwgZ3JhYgo+Pj4gdXNpbmcgdGhlIG1lbT0gcGFyYW1ldGVyIGFuZCB0aGVuIGdpdmUg
-dGhhdCBtZW1vcnkgdG8gYW1kZ3B1LCBjb3JyZWN0Pwo+Pj4KPj4+IElmIHRoYXQncyB0aGUgY2Fz
-ZSB0aGVuIHRoaXMgaXMgbW9zdCBsaWtlbHkgYSBOQUsuIENhdXNlIHRoaXMgc291bmRzCj4+PiBs
-aWtlIGEgcGVyZmVjdCBleGFtcGxlIGZvciB0aGUgQ01BLgo+Pj4KPj4+IE5ldmVyIHdvcmtlZCB3
-aXRoIHRoYXQgc3Vic3lzdGVtIGJlZm9yZSwgYnV0IGluIHRoZW9yeSB5b3Ugc2hvdWxkIGJlCj4+
-PiBhYmxlIHRvIGdpdmUgdGhlIGNtYT0xRyBwYXJhbWV0ZXIgdG8gdGhlIGtlcm5lbCBhbmQgYnkg
-ZG9pbmcgc28geW91Cj4+PiByZXNlcnZlIDFHQiBvZiBjb250aWd1b3VzIG1lbW9yeSBmb3IgdXNl
-IGJ5IGRldmljZSBkcml2ZXJzLgo+Pj4KPj4+IEdvaW5nIHRvIGRpZyBhIGJpdCBkZWVwZXIgaW50
-byB0aGF0IGFuZCB0cnlpbmcgdG8gZmluZCB0bwo+Pj4gZG9jdW1lbnRhdGlvbiBhYm91dCBpdCwg
-Q2hyaXN0aWFuLgo+Pj4KPj4+IEFtIDA3LjAyLjIwMTggdW0gMTM6MzQgc2NocmllYiBGZWlmZWkg
-WHU6Cj4+Pj4gVXNlcnMgY2FuIHBhc3MgaW4gYW4gYXJyYXkgdG8gZGVjaWRlIGVuYWJsZS9kaXNh
-YmxlIFplcm8gRnJhbWUgQnVmZmVyLgo+Pj4+IHpmYlswXSA9IHpmYl9zaXplKE1CKSwgemZiWzFd
-ID0gemZiX3BoeXNfYWRkcihNQikuCj4+Pj4gSWYgemJmX3NpemUgPiAwLCB6ZmIgaXMgZW5hYmxl
-ZC4gT3RoZXJ3aXNlIGRpc2FibGVkLgo+Pj4+IFVzYWdlIGZvciBleGFtcGxlOgo+Pj4+ICDCoMKg
-wqDCoCBtb2Rwcm9iZSBhbWRncHUgemZiPXsyNTYsNDA5Nn0KPj4+Pgo+Pj4+IENoYW5nZS1JZDog
-STM0MGZjYjM2YjU2NTVmMjQ1NTEwNTZlNjg1Yjc0NTU5ZDc1OTk2ODAKPj4+PiBTaWduZWQtb2Zm
-LWJ5OiBGZWlmZWkgWHUgPEZlaWZlaS5YdUBhbWQuY29tPgo+Pj4+IC0tLQo+Pj4+ICDCoCBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaMKgwqDCoMKgIHwgMSArCj4+Pj4gIMKgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyB8IDUgKysrKysKPj4+PiAgwqAg
-MiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4+PiBpbmRleCAxYjRjNWFkLi5iZTc5Y2IxIDEwMDY0NAo+
-Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+Pj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4+PiBAQCAtMTI5LDYgKzEyOSw3
-IEBAIGV4dGVybiBpbnQgYW1kZ3B1X2pvYl9oYW5nX2xpbWl0Owo+Pj4+ICDCoCBleHRlcm4gaW50
-IGFtZGdwdV9sYnB3Owo+Pj4+ICDCoCBleHRlcm4gaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlw
-ZTsKPj4+PiAgwqAgZXh0ZXJuIGludCBhbWRncHVfZ3B1X3JlY292ZXJ5Owo+Pj4+ICtleHRlcm4g
-dWxvbmcgYW1kZ3B1X3pmYltdOwo+Pj4+ICDCoCDCoCAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVf
-U0kKPj4+PiAgwqAgZXh0ZXJuIGludCBhbWRncHVfc2lfc3VwcG9ydDsKPj4+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4+Pj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPj4+PiBpbmRleCAzODk3MTc5Li5hZjg0
-ODE1IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-cnYuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+
-Pj4+IEBAIC0xMzIsNiArMTMyLDcgQEAgaW50IGFtZGdwdV9qb2JfaGFuZ19saW1pdCA9IDA7Cj4+
-Pj4gIMKgIGludCBhbWRncHVfbGJwdyA9IC0xOwo+Pj4+ICDCoCBpbnQgYW1kZ3B1X2NvbXB1dGVf
-bXVsdGlwaXBlID0gLTE7Cj4+Pj4gIMKgIGludCBhbWRncHVfZ3B1X3JlY292ZXJ5ID0gLTE7IC8q
-IGF1dG8gKi8KPj4+PiArdWxvbmcgYW1kZ3B1X3pmYlsyXSA9IHswLDQwOTZVTH07IC8qIHswLDB4
-MTAwMDAwMDAwfSAqLwo+Pj4+ICDCoCDCoCBNT0RVTEVfUEFSTV9ERVNDKHZyYW1saW1pdCwgIlJl
-c3RyaWN0IFZSQU0gZm9yIHRlc3RpbmcsIGluCj4+Pj4gbWVnYWJ5dGVzIik7Cj4+Pj4gIMKgIG1v
-ZHVsZV9wYXJhbV9uYW1lZCh2cmFtbGltaXQsIGFtZGdwdV92cmFtX2xpbWl0LCBpbnQsIDA2MDAp
-OyBAQAo+Pj4+IC0yOTAsNiArMjkxLDEwIEBAIG1vZHVsZV9wYXJhbV9uYW1lZChjb21wdXRlX211
-bHRpcGlwZSwKPj4+PiBhbWRncHVfY29tcHV0ZV9tdWx0aXBpcGUsIGludCwgMDQ0NCk7Cj4+Pj4g
-IMKgIE1PRFVMRV9QQVJNX0RFU0MoZ3B1X3JlY292ZXJ5LCAiRW5hYmxlIEdQVSByZWNvdmVyeSBt
-ZWNoYW5pc20sICgxCj4+Pj4gPSBlbmFibGUsIDAgPSBkaXNhYmxlLCAtMSA9IGF1dG8iKTsKPj4+
-PiAgwqAgbW9kdWxlX3BhcmFtX25hbWVkKGdwdV9yZWNvdmVyeSwgYW1kZ3B1X2dwdV9yZWNvdmVy
-eSwgaW50LCAwNDQ0KTsKPj4+PiAgwqAgK01PRFVMRV9QQVJNX0RFU0MoemZiLAo+Pj4+ICvCoMKg
-wqDCoMKgwqDCoMKgICJFbmFibGUgWmVybyBGcmFtZSBCdWZmZXIgZmVhdHVyZSAoemZiIHdpbGwg
-YmUgc2V0IGxpa2UKPj4+PiB4eHh4LHh4eHgoemZiX3NpemUgTUIsemZiX3BoeXNfYWRkciBNQiks
-ZGVmYXVsdCBkaXNhYmxlZCkiKTsKPj4+PiArbW9kdWxlX3BhcmFtX2FycmF5X25hbWVkKHpmYiwg
-YW1kZ3B1X3pmYiwgdWxvbmcsIE5VTEwsIDA0NDQpOwo+Pj4+ICsKPj4+PiAgwqAgI2lmZGVmIENP
-TkZJR19EUk1fQU1ER1BVX1NJCj4+Pj4gIMKgIMKgIGludCBhbWRncHVfc2lfc3VwcG9ydCA9IDE7
-Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFt
-ZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0323347389==
+Content-Type: multipart/alternative;
+ boundary="------------D3282ED8987CC3E12B613F87"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------D3282ED8987CC3E12B613F87
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 07.02.2018 um 21:51 schrieb Felix Kuehling:
+> On 2018-02-07 06:20 AM, Christian König wrote:
+>> Am 07.02.2018 um 02:32 schrieb Felix Kuehling:
+>>> dGPUs work without IOMMUv2. Make IOMMUv2 initialization dependent on
+>>> ASIC information. Also allow building KFD without IOMMUv2 support.
+>>> This is still useful for dGPUs and prepares for enabling KFD on
+>>> architectures that don't support AMD IOMMUv2.
+>>>
+>>> v2:
+>>> * Centralize IOMMUv2 code to avoid #ifdefs in too many places
+>>>
+>>> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdkfd/Kconfig        |   2 +-
+>>>    drivers/gpu/drm/amd/amdkfd/Makefile       |   4 +
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |  14 +-
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_device.c   | 127 +++--------
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_events.c   |   3 +
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_iommu.c    | 356
+>>> ++++++++++++++++++++++++++++++
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_iommu.h    |  78 +++++++
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  14 +-
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_process.c  | 138 +-----------
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  16 +-
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   6 +-
+>>>    11 files changed, 493 insertions(+), 265 deletions(-)
+>>>    create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+>>>    create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig
+>>> b/drivers/gpu/drm/amd/amdkfd/Kconfig
+>>> index bc5a294..5bbeb95 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+>>> @@ -4,6 +4,6 @@
+>>>      config HSA_AMD
+>>>        tristate "HSA kernel driver for AMD GPU devices"
+>>> -    depends on DRM_AMDGPU && AMD_IOMMU_V2 && X86_64
+>>> +    depends on DRM_AMDGPU && X86_64
+>> You still need a weak dependency on AMD_IOMMU_V2 here, in other words
+>> add "imply AMD_IOMMU_V2".
+>>
+>> This prevents illegal combinations like linking amdkfd into the kernel
+>> while amd_iommu_v2 is a module.
+>>
+>> But it should still allow to completely disable amd_iommu_v2 and
+>> compile amdkfd without support for it.
+> Thanks, that's good to know. An updated patch is attached (to avoid
+> resending the whole series).
+
+Patch is Acked-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>    Felix
+>
+>> Christian.
+>>
+>>>        help
+>>>          Enable this if you want to use HSA features on AMD GPU devices.
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile
+>>> b/drivers/gpu/drm/amd/amdkfd/Makefile
+>>> index a317e76..0d02422 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/Makefile
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/Makefile
+>>> @@ -37,6 +37,10 @@ amdkfd-y    := kfd_module.o kfd_device.o
+>>> kfd_chardev.o kfd_topology.o \
+>>>            kfd_interrupt.o kfd_events.o cik_event_interrupt.o \
+>>>            kfd_dbgdev.o kfd_dbgmgr.o kfd_crat.o
+>>>    +ifneq ($(CONFIG_AMD_IOMMU_V2),)
+>>> +amdkfd-y += kfd_iommu.o
+>>> +endif
+>>> +
+>>>    amdkfd-$(CONFIG_DEBUG_FS) += kfd_debugfs.o
+>>>      obj-$(CONFIG_HSA_AMD)    += amdkfd.o
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>> index 2bc2816..7493f47 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>>> @@ -22,10 +22,10 @@
+>>>      #include <linux/pci.h>
+>>>    #include <linux/acpi.h>
+>>> -#include <linux/amd-iommu.h>
+>>>    #include "kfd_crat.h"
+>>>    #include "kfd_priv.h"
+>>>    #include "kfd_topology.h"
+>>> +#include "kfd_iommu.h"
+>>>      /* GPU Processor ID base for dGPUs for which VCRAT needs to be
+>>> created.
+>>>     * GPU processor ID are expressed with Bit[31]=1.
+>>> @@ -1037,15 +1037,11 @@ static int kfd_create_vcrat_image_gpu(void
+>>> *pcrat_image,
+>>>        struct crat_subtype_generic *sub_type_hdr;
+>>>        struct crat_subtype_computeunit *cu;
+>>>        struct kfd_cu_info cu_info;
+>>> -    struct amd_iommu_device_info iommu_info;
+>>>        int avail_size = *size;
+>>>        uint32_t total_num_of_cu;
+>>>        int num_of_cache_entries = 0;
+>>>        int cache_mem_filled = 0;
+>>>        int ret = 0;
+>>> -    const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+>>> -                     AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
+>>> -                     AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
+>>>        struct kfd_local_mem_info local_mem_info;
+>>>          if (!pcrat_image || avail_size < VCRAT_SIZE_FOR_GPU)
+>>> @@ -1106,12 +1102,8 @@ static int kfd_create_vcrat_image_gpu(void
+>>> *pcrat_image,
+>>>        /* Check if this node supports IOMMU. During parsing this flag
+>>> will
+>>>         * translate to HSA_CAP_ATS_PRESENT
+>>>         */
+>>> -    iommu_info.flags = 0;
+>>> -    if (amd_iommu_device_info(kdev->pdev, &iommu_info) == 0) {
+>>> -        if ((iommu_info.flags & required_iommu_flags) ==
+>>> -                required_iommu_flags)
+>>> -            cu->hsa_capability |= CRAT_CU_FLAGS_IOMMU_PRESENT;
+>>> -    }
+>>> +    if (!kfd_iommu_check_device(kdev))
+>>> +        cu->hsa_capability |= CRAT_CU_FLAGS_IOMMU_PRESENT;
+>>>          crat_table->length += sub_type_hdr->length;
+>>>        crat_table->total_entries++;
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> index 83d6f41..4ac2d61 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>> @@ -20,7 +20,9 @@
+>>>     * OTHER DEALINGS IN THE SOFTWARE.
+>>>     */
+>>>    +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) ||
+>>> defined(CONFIG_AMD_IOMMU_V2)
+>>>    #include <linux/amd-iommu.h>
+>>> +#endif
+>>>    #include <linux/bsearch.h>
+>>>    #include <linux/pci.h>
+>>>    #include <linux/slab.h>
+>>> @@ -28,9 +30,11 @@
+>>>    #include "kfd_device_queue_manager.h"
+>>>    #include "kfd_pm4_headers_vi.h"
+>>>    #include "cwsr_trap_handler_gfx8.asm"
+>>> +#include "kfd_iommu.h"
+>>>      #define MQD_SIZE_ALIGNED 768
+>>>    +#ifdef KFD_SUPPORT_IOMMU_V2
+>>>    static const struct kfd_device_info kaveri_device_info = {
+>>>        .asic_family = CHIP_KAVERI,
+>>>        .max_pasid_bits = 16,
+>>> @@ -41,6 +45,7 @@ static const struct kfd_device_info
+>>> kaveri_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = false,
+>>> +    .needs_iommu_device = true,
+>>>        .needs_pci_atomics = false,
+>>>    };
+>>>    @@ -54,8 +59,10 @@ static const struct kfd_device_info
+>>> carrizo_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = true,
+>>> +    .needs_iommu_device = true,
+>>>        .needs_pci_atomics = false,
+>>>    };
+>>> +#endif
+>>>      static const struct kfd_device_info hawaii_device_info = {
+>>>        .asic_family = CHIP_HAWAII,
+>>> @@ -67,6 +74,7 @@ static const struct kfd_device_info
+>>> hawaii_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = false,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = false,
+>>>    };
+>>>    @@ -79,6 +87,7 @@ static const struct kfd_device_info
+>>> tonga_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = false,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = true,
+>>>    };
+>>>    @@ -91,6 +100,7 @@ static const struct kfd_device_info
+>>> tonga_vf_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = false,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = false,
+>>>    };
+>>>    @@ -103,6 +113,7 @@ static const struct kfd_device_info
+>>> fiji_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = true,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = true,
+>>>    };
+>>>    @@ -115,6 +126,7 @@ static const struct kfd_device_info
+>>> fiji_vf_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = true,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = false,
+>>>    };
+>>>    @@ -128,6 +140,7 @@ static const struct kfd_device_info
+>>> polaris10_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = true,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = true,
+>>>    };
+>>>    @@ -140,6 +153,7 @@ static const struct kfd_device_info
+>>> polaris10_vf_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = true,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = false,
+>>>    };
+>>>    @@ -152,6 +166,7 @@ static const struct kfd_device_info
+>>> polaris11_device_info = {
+>>>        .num_of_watch_points = 4,
+>>>        .mqd_size_aligned = MQD_SIZE_ALIGNED,
+>>>        .supports_cwsr = true,
+>>> +    .needs_iommu_device = false,
+>>>        .needs_pci_atomics = true,
+>>>    };
+>>>    @@ -162,6 +177,7 @@ struct kfd_deviceid {
+>>>    };
+>>>      static const struct kfd_deviceid supported_devices[] = {
+>>> +#ifdef KFD_SUPPORT_IOMMU_V2
+>>>        { 0x1304, &kaveri_device_info },    /* Kaveri */
+>>>        { 0x1305, &kaveri_device_info },    /* Kaveri */
+>>>        { 0x1306, &kaveri_device_info },    /* Kaveri */
+>>> @@ -189,6 +205,7 @@ static const struct kfd_deviceid
+>>> supported_devices[] = {
+>>>        { 0x9875, &carrizo_device_info },    /* Carrizo */
+>>>        { 0x9876, &carrizo_device_info },    /* Carrizo */
+>>>        { 0x9877, &carrizo_device_info },    /* Carrizo */
+>>> +#endif
+>>>        { 0x67A0, &hawaii_device_info },    /* Hawaii */
+>>>        { 0x67A1, &hawaii_device_info },    /* Hawaii */
+>>>        { 0x67A2, &hawaii_device_info },    /* Hawaii */
+>>> @@ -302,77 +319,6 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+>>>        return kfd;
+>>>    }
+>>>    -static bool device_iommu_pasid_init(struct kfd_dev *kfd)
+>>> -{
+>>> -    const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+>>> -                    AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
+>>> -                    AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
+>>> -
+>>> -    struct amd_iommu_device_info iommu_info;
+>>> -    unsigned int pasid_limit;
+>>> -    int err;
+>>> -
+>>> -    err = amd_iommu_device_info(kfd->pdev, &iommu_info);
+>>> -    if (err < 0) {
+>>> -        dev_err(kfd_device,
+>>> -            "error getting iommu info. is the iommu enabled?\n");
+>>> -        return false;
+>>> -    }
+>>> -
+>>> -    if ((iommu_info.flags & required_iommu_flags) !=
+>>> required_iommu_flags) {
+>>> -        dev_err(kfd_device, "error required iommu flags ats %i, pri
+>>> %i, pasid %i\n",
+>>> -               (iommu_info.flags & AMD_IOMMU_DEVICE_FLAG_ATS_SUP) != 0,
+>>> -               (iommu_info.flags & AMD_IOMMU_DEVICE_FLAG_PRI_SUP) != 0,
+>>> -               (iommu_info.flags & AMD_IOMMU_DEVICE_FLAG_PASID_SUP)
+>>> -                                    != 0);
+>>> -        return false;
+>>> -    }
+>>> -
+>>> -    pasid_limit = min_t(unsigned int,
+>>> -            (unsigned int)(1 << kfd->device_info->max_pasid_bits),
+>>> -            iommu_info.max_pasids);
+>>> -
+>>> -    if (!kfd_set_pasid_limit(pasid_limit)) {
+>>> -        dev_err(kfd_device, "error setting pasid limit\n");
+>>> -        return false;
+>>> -    }
+>>> -
+>>> -    return true;
+>>> -}
+>>> -
+>>> -static void iommu_pasid_shutdown_callback(struct pci_dev *pdev, int
+>>> pasid)
+>>> -{
+>>> -    struct kfd_dev *dev = kfd_device_by_pci_dev(pdev);
+>>> -
+>>> -    if (dev)
+>>> -        kfd_process_iommu_unbind_callback(dev, pasid);
+>>> -}
+>>> -
+>>> -/*
+>>> - * This function called by IOMMU driver on PPR failure
+>>> - */
+>>> -static int iommu_invalid_ppr_cb(struct pci_dev *pdev, int pasid,
+>>> -        unsigned long address, u16 flags)
+>>> -{
+>>> -    struct kfd_dev *dev;
+>>> -
+>>> -    dev_warn(kfd_device,
+>>> -            "Invalid PPR device %x:%x.%x pasid %d address 0x%lX
+>>> flags 0x%X",
+>>> -            PCI_BUS_NUM(pdev->devfn),
+>>> -            PCI_SLOT(pdev->devfn),
+>>> -            PCI_FUNC(pdev->devfn),
+>>> -            pasid,
+>>> -            address,
+>>> -            flags);
+>>> -
+>>> -    dev = kfd_device_by_pci_dev(pdev);
+>>> -    if (!WARN_ON(!dev))
+>>> -        kfd_signal_iommu_event(dev, pasid, address,
+>>> -            flags & PPR_FAULT_WRITE, flags & PPR_FAULT_EXEC);
+>>> -
+>>> -    return AMD_IOMMU_INV_PRI_RSP_INVALID;
+>>> -}
+>>> -
+>>>    static void kfd_cwsr_init(struct kfd_dev *kfd)
+>>>    {
+>>>        if (cwsr_enable && kfd->device_info->supports_cwsr) {
+>>> @@ -462,11 +408,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>>>            goto device_queue_manager_error;
+>>>        }
+>>>    -    if (!device_iommu_pasid_init(kfd)) {
+>>> -        dev_err(kfd_device,
+>>> -            "Error initializing iommuv2 for device %x:%x\n",
+>>> -            kfd->pdev->vendor, kfd->pdev->device);
+>>> -        goto device_iommu_pasid_error;
+>>> +    if (kfd_iommu_device_init(kfd)) {
+>>> +        dev_err(kfd_device, "Error initializing iommuv2\n");
+>>> +        goto device_iommu_error;
+>>>        }
+>>>          kfd_cwsr_init(kfd);
+>>> @@ -486,7 +430,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>>>        goto out;
+>>>      kfd_resume_error:
+>>> -device_iommu_pasid_error:
+>>> +device_iommu_error:
+>>>        device_queue_manager_uninit(kfd->dqm);
+>>>    device_queue_manager_error:
+>>>        kfd_interrupt_exit(kfd);
+>>> @@ -527,11 +471,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd)
+>>>          kfd->dqm->ops.stop(kfd->dqm);
+>>>    -    kfd_unbind_processes_from_device(kfd);
+>>> -
+>>> -    amd_iommu_set_invalidate_ctx_cb(kfd->pdev, NULL);
+>>> -    amd_iommu_set_invalid_ppr_cb(kfd->pdev, NULL);
+>>> -    amd_iommu_free_device(kfd->pdev);
+>>> +    kfd_iommu_suspend(kfd);
+>>>    }
+>>>      int kgd2kfd_resume(struct kfd_dev *kfd)
+>>> @@ -546,19 +486,14 @@ int kgd2kfd_resume(struct kfd_dev *kfd)
+>>>    static int kfd_resume(struct kfd_dev *kfd)
+>>>    {
+>>>        int err = 0;
+>>> -    unsigned int pasid_limit = kfd_get_pasid_limit();
+>>> -
+>>> -    err = amd_iommu_init_device(kfd->pdev, pasid_limit);
+>>> -    if (err)
+>>> -        return -ENXIO;
+>>> -    amd_iommu_set_invalidate_ctx_cb(kfd->pdev,
+>>> -                    iommu_pasid_shutdown_callback);
+>>> -    amd_iommu_set_invalid_ppr_cb(kfd->pdev,
+>>> -                     iommu_invalid_ppr_cb);
+>>>    -    err = kfd_bind_processes_to_device(kfd);
+>>> -    if (err)
+>>> -        goto processes_bind_error;
+>>> +    err = kfd_iommu_resume(kfd);
+>>> +    if (err) {
+>>> +        dev_err(kfd_device,
+>>> +            "Failed to resume IOMMU for device %x:%x\n",
+>>> +            kfd->pdev->vendor, kfd->pdev->device);
+>>> +        return err;
+>>> +    }
+>>>          err = kfd->dqm->ops.start(kfd->dqm);
+>>>        if (err) {
+>>> @@ -571,9 +506,7 @@ static int kfd_resume(struct kfd_dev *kfd)
+>>>        return err;
+>>>      dqm_start_error:
+>>> -processes_bind_error:
+>>> -    amd_iommu_free_device(kfd->pdev);
+>>> -
+>>> +    kfd_iommu_suspend(kfd);
+>>>        return err;
+>>>    }
+>>>    diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> index 93aae5c..6fb9c0d 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> @@ -30,6 +30,7 @@
+>>>    #include <linux/memory.h>
+>>>    #include "kfd_priv.h"
+>>>    #include "kfd_events.h"
+>>> +#include "kfd_iommu.h"
+>>>    #include <linux/device.h>
+>>>      /*
+>>> @@ -837,6 +838,7 @@ static void
+>>> lookup_events_by_type_and_signal(struct kfd_process *p,
+>>>        }
+>>>    }
+>>>    +#ifdef KFD_SUPPORT_IOMMU_V2
+>>>    void kfd_signal_iommu_event(struct kfd_dev *dev, unsigned int pasid,
+>>>            unsigned long address, bool is_write_requested,
+>>>            bool is_execute_requested)
+>>> @@ -905,6 +907,7 @@ void kfd_signal_iommu_event(struct kfd_dev *dev,
+>>> unsigned int pasid,
+>>>        mutex_unlock(&p->event_mutex);
+>>>        kfd_unref_process(p);
+>>>    }
+>>> +#endif /* KFD_SUPPORT_IOMMU_V2 */
+>>>      void kfd_signal_hw_exception_event(unsigned int pasid)
+>>>    {
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+>>> new file mode 100644
+>>> index 0000000..81dee34
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+>>> @@ -0,0 +1,356 @@
+>>> +/*
+>>> + * Copyright 2018 Advanced Micro Devices, Inc.
+>>> + *
+>>> + * Permission is hereby granted, free of charge, to any person
+>>> obtaining a
+>>> + * copy of this software and associated documentation files (the
+>>> "Software"),
+>>> + * to deal in the Software without restriction, including without
+>>> limitation
+>>> + * the rights to use, copy, modify, merge, publish, distribute,
+>>> sublicense,
+>>> + * and/or sell copies of the Software, and to permit persons to whom
+>>> the
+>>> + * Software is furnished to do so, subject to the following conditions:
+>>> + *
+>>> + * The above copyright notice and this permission notice shall be
+>>> included in
+>>> + * all copies or substantial portions of the Software.
+>>> + *
+>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+>>> EXPRESS OR
+>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+>>> MERCHANTABILITY,
+>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+>>> EVENT SHALL
+>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+>>> DAMAGES OR
+>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+>>> OTHERWISE,
+>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+>>> USE OR
+>>> + * OTHER DEALINGS IN THE SOFTWARE.
+>>> + */
+>>> +
+>>> +#include <linux/printk.h>
+>>> +#include <linux/device.h>
+>>> +#include <linux/slab.h>
+>>> +#include <linux/pci.h>
+>>> +#include <linux/amd-iommu.h>
+>>> +#include "kfd_priv.h"
+>>> +#include "kfd_dbgmgr.h"
+>>> +#include "kfd_topology.h"
+>>> +#include "kfd_iommu.h"
+>>> +
+>>> +static const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+>>> +                    AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
+>>> +                    AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
+>>> +
+>>> +/** kfd_iommu_check_device - Check whether IOMMU is available for
+>>> device
+>>> + */
+>>> +int kfd_iommu_check_device(struct kfd_dev *kfd)
+>>> +{
+>>> +    struct amd_iommu_device_info iommu_info;
+>>> +    int err;
+>>> +
+>>> +    if (!kfd->device_info->needs_iommu_device)
+>>> +        return -ENODEV;
+>>> +
+>>> +    iommu_info.flags = 0;
+>>> +    err = amd_iommu_device_info(kfd->pdev, &iommu_info);
+>>> +    if (err)
+>>> +        return err;
+>>> +
+>>> +    if ((iommu_info.flags & required_iommu_flags) !=
+>>> required_iommu_flags)
+>>> +        return -ENODEV;
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +/** kfd_iommu_device_init - Initialize IOMMU for device
+>>> + */
+>>> +int kfd_iommu_device_init(struct kfd_dev *kfd)
+>>> +{
+>>> +    struct amd_iommu_device_info iommu_info;
+>>> +    unsigned int pasid_limit;
+>>> +    int err;
+>>> +
+>>> +    if (!kfd->device_info->needs_iommu_device)
+>>> +        return 0;
+>>> +
+>>> +    iommu_info.flags = 0;
+>>> +    err = amd_iommu_device_info(kfd->pdev, &iommu_info);
+>>> +    if (err < 0) {
+>>> +        dev_err(kfd_device,
+>>> +            "error getting iommu info. is the iommu enabled?\n");
+>>> +        return -ENODEV;
+>>> +    }
+>>> +
+>>> +    if ((iommu_info.flags & required_iommu_flags) !=
+>>> required_iommu_flags) {
+>>> +        dev_err(kfd_device, "error required iommu flags ats %i, pri
+>>> %i, pasid %i\n",
+>>> +               (iommu_info.flags & AMD_IOMMU_DEVICE_FLAG_ATS_SUP) != 0,
+>>> +               (iommu_info.flags & AMD_IOMMU_DEVICE_FLAG_PRI_SUP) != 0,
+>>> +               (iommu_info.flags & AMD_IOMMU_DEVICE_FLAG_PASID_SUP)
+>>> +                                    != 0);
+>>> +        return -ENODEV;
+>>> +    }
+>>> +
+>>> +    pasid_limit = min_t(unsigned int,
+>>> +            (unsigned int)(1 << kfd->device_info->max_pasid_bits),
+>>> +            iommu_info.max_pasids);
+>>> +
+>>> +    if (!kfd_set_pasid_limit(pasid_limit)) {
+>>> +        dev_err(kfd_device, "error setting pasid limit\n");
+>>> +        return -EBUSY;
+>>> +    }
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +/** kfd_iommu_bind_process_to_device - Have the IOMMU bind a process
+>>> + *
+>>> + * Binds the given process to the given device using its PASID. This
+>>> + * enables IOMMUv2 address translation for the process on the device.
+>>> + *
+>>> + * This function assumes that the process mutex is held.
+>>> + */
+>>> +int kfd_iommu_bind_process_to_device(struct kfd_process_device *pdd)
+>>> +{
+>>> +    struct kfd_dev *dev = pdd->dev;
+>>> +    struct kfd_process *p = pdd->process;
+>>> +    int err;
+>>> +
+>>> +    if (!dev->device_info->needs_iommu_device || pdd->bound ==
+>>> PDD_BOUND)
+>>> +        return 0;
+>>> +
+>>> +    if (unlikely(pdd->bound == PDD_BOUND_SUSPENDED)) {
+>>> +        pr_err("Binding PDD_BOUND_SUSPENDED pdd is unexpected!\n");
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    err = amd_iommu_bind_pasid(dev->pdev, p->pasid, p->lead_thread);
+>>> +    if (!err)
+>>> +        pdd->bound = PDD_BOUND;
+>>> +
+>>> +    return err;
+>>> +}
+>>> +
+>>> +/** kfd_iommu_unbind_process - Unbind process from all devices
+>>> + *
+>>> + * This removes all IOMMU device bindings of the process. To be used
+>>> + * before process termination.
+>>> + */
+>>> +void kfd_iommu_unbind_process(struct kfd_process *p)
+>>> +{
+>>> +    struct kfd_process_device *pdd;
+>>> +
+>>> +    list_for_each_entry(pdd, &p->per_device_data, per_device_list)
+>>> +        if (pdd->bound == PDD_BOUND)
+>>> +            amd_iommu_unbind_pasid(pdd->dev->pdev, p->pasid);
+>>> +}
+>>> +
+>>> +/* Callback for process shutdown invoked by the IOMMU driver */
+>>> +static void iommu_pasid_shutdown_callback(struct pci_dev *pdev, int
+>>> pasid)
+>>> +{
+>>> +    struct kfd_dev *dev = kfd_device_by_pci_dev(pdev);
+>>> +    struct kfd_process *p;
+>>> +    struct kfd_process_device *pdd;
+>>> +
+>>> +    if (!dev)
+>>> +        return;
+>>> +
+>>> +    /*
+>>> +     * Look for the process that matches the pasid. If there is no such
+>>> +     * process, we either released it in amdkfd's own notifier, or
+>>> there
+>>> +     * is a bug. Unfortunately, there is no way to tell...
+>>> +     */
+>>> +    p = kfd_lookup_process_by_pasid(pasid);
+>>> +    if (!p)
+>>> +        return;
+>>> +
+>>> +    pr_debug("Unbinding process %d from IOMMU\n", pasid);
+>>> +
+>>> +    mutex_lock(kfd_get_dbgmgr_mutex());
+>>> +
+>>> +    if (dev->dbgmgr && dev->dbgmgr->pasid == p->pasid) {
+>>> +        if (!kfd_dbgmgr_unregister(dev->dbgmgr, p)) {
+>>> +            kfd_dbgmgr_destroy(dev->dbgmgr);
+>>> +            dev->dbgmgr = NULL;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    mutex_unlock(kfd_get_dbgmgr_mutex());
+>>> +
+>>> +    mutex_lock(&p->mutex);
+>>> +
+>>> +    pdd = kfd_get_process_device_data(dev, p);
+>>> +    if (pdd)
+>>> +        /* For GPU relying on IOMMU, we need to dequeue here
+>>> +         * when PASID is still bound.
+>>> +         */
+>>> +        kfd_process_dequeue_from_device(pdd);
+>>> +
+>>> +    mutex_unlock(&p->mutex);
+>>> +
+>>> +    kfd_unref_process(p);
+>>> +}
+>>> +
+>>> +/* This function called by IOMMU driver on PPR failure */
+>>> +static int iommu_invalid_ppr_cb(struct pci_dev *pdev, int pasid,
+>>> +        unsigned long address, u16 flags)
+>>> +{
+>>> +    struct kfd_dev *dev;
+>>> +
+>>> +    dev_warn(kfd_device,
+>>> +            "Invalid PPR device %x:%x.%x pasid %d address 0x%lX
+>>> flags 0x%X",
+>>> +            PCI_BUS_NUM(pdev->devfn),
+>>> +            PCI_SLOT(pdev->devfn),
+>>> +            PCI_FUNC(pdev->devfn),
+>>> +            pasid,
+>>> +            address,
+>>> +            flags);
+>>> +
+>>> +    dev = kfd_device_by_pci_dev(pdev);
+>>> +    if (!WARN_ON(!dev))
+>>> +        kfd_signal_iommu_event(dev, pasid, address,
+>>> +            flags & PPR_FAULT_WRITE, flags & PPR_FAULT_EXEC);
+>>> +
+>>> +    return AMD_IOMMU_INV_PRI_RSP_INVALID;
+>>> +}
+>>> +
+>>> +/*
+>>> + * Bind processes do the device that have been temporarily unbound
+>>> + * (PDD_BOUND_SUSPENDED) in kfd_unbind_processes_from_device.
+>>> + */
+>>> +static int kfd_bind_processes_to_device(struct kfd_dev *kfd)
+>>> +{
+>>> +    struct kfd_process_device *pdd;
+>>> +    struct kfd_process *p;
+>>> +    unsigned int temp;
+>>> +    int err = 0;
+>>> +
+>>> +    int idx = srcu_read_lock(&kfd_processes_srcu);
+>>> +
+>>> +    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>> +        mutex_lock(&p->mutex);
+>>> +        pdd = kfd_get_process_device_data(kfd, p);
+>>> +
+>>> +        if (WARN_ON(!pdd) || pdd->bound != PDD_BOUND_SUSPENDED) {
+>>> +            mutex_unlock(&p->mutex);
+>>> +            continue;
+>>> +        }
+>>> +
+>>> +        err = amd_iommu_bind_pasid(kfd->pdev, p->pasid,
+>>> +                p->lead_thread);
+>>> +        if (err < 0) {
+>>> +            pr_err("Unexpected pasid %d binding failure\n",
+>>> +                    p->pasid);
+>>> +            mutex_unlock(&p->mutex);
+>>> +            break;
+>>> +        }
+>>> +
+>>> +        pdd->bound = PDD_BOUND;
+>>> +        mutex_unlock(&p->mutex);
+>>> +    }
+>>> +
+>>> +    srcu_read_unlock(&kfd_processes_srcu, idx);
+>>> +
+>>> +    return err;
+>>> +}
+>>> +
+>>> +/*
+>>> + * Mark currently bound processes as PDD_BOUND_SUSPENDED. These
+>>> + * processes will be restored to PDD_BOUND state in
+>>> + * kfd_bind_processes_to_device.
+>>> + */
+>>> +static void kfd_unbind_processes_from_device(struct kfd_dev *kfd)
+>>> +{
+>>> +    struct kfd_process_device *pdd;
+>>> +    struct kfd_process *p;
+>>> +    unsigned int temp;
+>>> +
+>>> +    int idx = srcu_read_lock(&kfd_processes_srcu);
+>>> +
+>>> +    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>> +        mutex_lock(&p->mutex);
+>>> +        pdd = kfd_get_process_device_data(kfd, p);
+>>> +
+>>> +        if (WARN_ON(!pdd)) {
+>>> +            mutex_unlock(&p->mutex);
+>>> +            continue;
+>>> +        }
+>>> +
+>>> +        if (pdd->bound == PDD_BOUND)
+>>> +            pdd->bound = PDD_BOUND_SUSPENDED;
+>>> +        mutex_unlock(&p->mutex);
+>>> +    }
+>>> +
+>>> +    srcu_read_unlock(&kfd_processes_srcu, idx);
+>>> +}
+>>> +
+>>> +/** kfd_iommu_suspend - Prepare IOMMU for suspend
+>>> + *
+>>> + * This unbinds processes from the device and disables the IOMMU for
+>>> + * the device.
+>>> + */
+>>> +void kfd_iommu_suspend(struct kfd_dev *kfd)
+>>> +{
+>>> +    if (!kfd->device_info->needs_iommu_device)
+>>> +        return;
+>>> +
+>>> +    kfd_unbind_processes_from_device(kfd);
+>>> +
+>>> +    amd_iommu_set_invalidate_ctx_cb(kfd->pdev, NULL);
+>>> +    amd_iommu_set_invalid_ppr_cb(kfd->pdev, NULL);
+>>> +    amd_iommu_free_device(kfd->pdev);
+>>> +}
+>>> +
+>>> +/** kfd_iommu_resume - Restore IOMMU after resume
+>>> + *
+>>> + * This reinitializes the IOMMU for the device and re-binds previously
+>>> + * suspended processes to the device.
+>>> + */
+>>> +int kfd_iommu_resume(struct kfd_dev *kfd)
+>>> +{
+>>> +    unsigned int pasid_limit;
+>>> +    int err;
+>>> +
+>>> +    if (!kfd->device_info->needs_iommu_device)
+>>> +        return 0;
+>>> +
+>>> +    pasid_limit = kfd_get_pasid_limit();
+>>> +
+>>> +    err = amd_iommu_init_device(kfd->pdev, pasid_limit);
+>>> +    if (err)
+>>> +        return -ENXIO;
+>>> +
+>>> +    amd_iommu_set_invalidate_ctx_cb(kfd->pdev,
+>>> +                    iommu_pasid_shutdown_callback);
+>>> +    amd_iommu_set_invalid_ppr_cb(kfd->pdev,
+>>> +                     iommu_invalid_ppr_cb);
+>>> +
+>>> +    err = kfd_bind_processes_to_device(kfd);
+>>> +    if (err) {
+>>> +        amd_iommu_set_invalidate_ctx_cb(kfd->pdev, NULL);
+>>> +        amd_iommu_set_invalid_ppr_cb(kfd->pdev, NULL);
+>>> +        amd_iommu_free_device(kfd->pdev);
+>>> +        return err;
+>>> +    }
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +extern bool amd_iommu_pc_supported(void);
+>>> +extern u8 amd_iommu_pc_get_max_banks(u16 devid);
+>>> +extern u8 amd_iommu_pc_get_max_counters(u16 devid);
+>>> +
+>>> +/** kfd_iommu_add_perf_counters - Add IOMMU performance counters to
+>>> topology
+>>> + */
+>>> +int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev)
+>>> +{
+>>> +    struct kfd_perf_properties *props;
+>>> +
+>>> +    if (!(kdev->node_props.capability & HSA_CAP_ATS_PRESENT))
+>>> +        return 0;
+>>> +
+>>> +    if (!amd_iommu_pc_supported())
+>>> +        return 0;
+>>> +
+>>> +    props = kfd_alloc_struct(props);
+>>> +    if (!props)
+>>> +        return -ENOMEM;
+>>> +    strcpy(props->block_name, "iommu");
+>>> +    props->max_concurrent = amd_iommu_pc_get_max_banks(0) *
+>>> +        amd_iommu_pc_get_max_counters(0); /* assume one iommu */
+>>> +    list_add_tail(&props->list, &kdev->perf_props);
+>>> +
+>>> +    return 0;
+>>> +}
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+>>> new file mode 100644
+>>> index 0000000..dd23d9f
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+>>> @@ -0,0 +1,78 @@
+>>> +/*
+>>> + * Copyright 2018 Advanced Micro Devices, Inc.
+>>> + *
+>>> + * Permission is hereby granted, free of charge, to any person
+>>> obtaining a
+>>> + * copy of this software and associated documentation files (the
+>>> "Software"),
+>>> + * to deal in the Software without restriction, including without
+>>> limitation
+>>> + * the rights to use, copy, modify, merge, publish, distribute,
+>>> sublicense,
+>>> + * and/or sell copies of the Software, and to permit persons to whom
+>>> the
+>>> + * Software is furnished to do so, subject to the following conditions:
+>>> + *
+>>> + * The above copyright notice and this permission notice shall be
+>>> included in
+>>> + * all copies or substantial portions of the Software.
+>>> + *
+>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+>>> EXPRESS OR
+>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+>>> MERCHANTABILITY,
+>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+>>> EVENT SHALL
+>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+>>> DAMAGES OR
+>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+>>> OTHERWISE,
+>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+>>> USE OR
+>>> + * OTHER DEALINGS IN THE SOFTWARE.
+>>> + */
+>>> +
+>>> +#ifndef __KFD_IOMMU_H__
+>>> +#define __KFD_IOMMU_H__
+>>> +
+>>> +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
+>>> +
+>>> +#define KFD_SUPPORT_IOMMU_V2
+>>> +
+>>> +int kfd_iommu_check_device(struct kfd_dev *kfd);
+>>> +int kfd_iommu_device_init(struct kfd_dev *kfd);
+>>> +
+>>> +int kfd_iommu_bind_process_to_device(struct kfd_process_device *pdd);
+>>> +void kfd_iommu_unbind_process(struct kfd_process *p);
+>>> +
+>>> +void kfd_iommu_suspend(struct kfd_dev *kfd);
+>>> +int kfd_iommu_resume(struct kfd_dev *kfd);
+>>> +
+>>> +int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev);
+>>> +
+>>> +#else
+>>> +
+>>> +static inline int kfd_iommu_check_device(struct kfd_dev *kfd)
+>>> +{
+>>> +    return -ENODEV;
+>>> +}
+>>> +static inline int kfd_iommu_device_init(struct kfd_dev *kfd)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static inline int kfd_iommu_bind_process_to_device(
+>>> +    struct kfd_process_device *pdd)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +static inline void kfd_iommu_unbind_process(struct kfd_process *p)
+>>> +{
+>>> +    /* empty */
+>>> +}
+>>> +
+>>> +static inline void kfd_iommu_suspend(struct kfd_dev *kfd)
+>>> +{
+>>> +    /* empty */
+>>> +}
+>>> +static inline int kfd_iommu_resume(struct kfd_dev *kfd)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static inline int kfd_iommu_add_perf_counters(struct
+>>> kfd_topology_device *kdev)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +#endif /* defined(CONFIG_AMD_IOMMU_V2) */
+>>> +
+>>> +#endif /* __KFD_IOMMU_H__ */
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> index 594f853..f12eb5d 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>> @@ -158,6 +158,7 @@ struct kfd_device_info {
+>>>        uint8_t num_of_watch_points;
+>>>        uint16_t mqd_size_aligned;
+>>>        bool supports_cwsr;
+>>> +    bool needs_iommu_device;
+>>>        bool needs_pci_atomics;
+>>>    };
+>>>    @@ -517,15 +518,15 @@ struct kfd_process_device {
+>>>        uint64_t scratch_base;
+>>>        uint64_t scratch_limit;
+>>>    -    /* Is this process/pasid bound to this device?
+>>> (amd_iommu_bind_pasid) */
+>>> -    enum kfd_pdd_bound bound;
+>>> -
+>>>        /* Flag used to tell the pdd has dequeued from the dqm.
+>>>         * This is used to prevent dev->dqm->ops.process_termination()
+>>> from
+>>>         * being called twice when it is already called in IOMMU callback
+>>>         * function.
+>>>         */
+>>>        bool already_dequeued;
+>>> +
+>>> +    /* Is this process/pasid bound to this device?
+>>> (amd_iommu_bind_pasid) */
+>>> +    enum kfd_pdd_bound bound;
+>>>    };
+>>>      #define qpd_to_pdd(x) container_of(x, struct kfd_process_device,
+>>> qpd)
+>>> @@ -590,6 +591,10 @@ struct kfd_process {
+>>>        bool signal_event_limit_reached;
+>>>    };
+>>>    +#define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
+>>> +extern DECLARE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
+>>> +extern struct srcu_struct kfd_processes_srcu;
+>>> +
+>>>    /**
+>>>     * Ioctl function type.
+>>>     *
+>>> @@ -617,9 +622,6 @@ void kfd_unref_process(struct kfd_process *p);
+>>>      struct kfd_process_device *kfd_bind_process_to_device(struct
+>>> kfd_dev *dev,
+>>>                            struct kfd_process *p);
+>>> -int kfd_bind_processes_to_device(struct kfd_dev *dev);
+>>> -void kfd_unbind_processes_from_device(struct kfd_dev *dev);
+>>> -void kfd_process_iommu_unbind_callback(struct kfd_dev *dev, unsigned
+>>> int pasid);
+>>>    struct kfd_process_device *kfd_get_process_device_data(struct
+>>> kfd_dev *dev,
+>>>                                struct kfd_process *p);
+>>>    struct kfd_process_device *kfd_create_process_device_data(struct
+>>> kfd_dev *dev,
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> index 4ff5f0f..e9aee76 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> @@ -35,16 +35,16 @@ struct mm_struct;
+>>>      #include "kfd_priv.h"
+>>>    #include "kfd_dbgmgr.h"
+>>> +#include "kfd_iommu.h"
+>>>      /*
+>>>     * List of struct kfd_process (field kfd_process).
+>>>     * Unique/indexed by mm_struct*
+>>>     */
+>>> -#define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
+>>> -static DEFINE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
+>>> +DEFINE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
+>>>    static DEFINE_MUTEX(kfd_processes_mutex);
+>>>    -DEFINE_STATIC_SRCU(kfd_processes_srcu);
+>>> +DEFINE_SRCU(kfd_processes_srcu);
+>>>      static struct workqueue_struct *kfd_process_wq;
+>>>    @@ -173,14 +173,8 @@ static void kfd_process_wq_release(struct
+>>> work_struct *work)
+>>>    {
+>>>        struct kfd_process *p = container_of(work, struct kfd_process,
+>>>                             release_work);
+>>> -    struct kfd_process_device *pdd;
+>>>    -    pr_debug("Releasing process (pasid %d) in workqueue\n",
+>>> p->pasid);
+>>> -
+>>> -    list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
+>>> -        if (pdd->bound == PDD_BOUND)
+>>> -            amd_iommu_unbind_pasid(pdd->dev->pdev, p->pasid);
+>>> -    }
+>>> +    kfd_iommu_unbind_process(p);
+>>>          kfd_process_destroy_pdds(p);
+>>>    @@ -429,133 +423,13 @@ struct kfd_process_device
+>>> *kfd_bind_process_to_device(struct kfd_dev *dev,
+>>>            return ERR_PTR(-ENOMEM);
+>>>        }
+>>>    -    if (pdd->bound == PDD_BOUND) {
+>>> -        return pdd;
+>>> -    } else if (unlikely(pdd->bound == PDD_BOUND_SUSPENDED)) {
+>>> -        pr_err("Binding PDD_BOUND_SUSPENDED pdd is unexpected!\n");
+>>> -        return ERR_PTR(-EINVAL);
+>>> -    }
+>>> -
+>>> -    err = amd_iommu_bind_pasid(dev->pdev, p->pasid, p->lead_thread);
+>>> -    if (err < 0)
+>>> +    err = kfd_iommu_bind_process_to_device(pdd);
+>>> +    if (err)
+>>>            return ERR_PTR(err);
+>>>    -    pdd->bound = PDD_BOUND;
+>>> -
+>>>        return pdd;
+>>>    }
+>>>    -/*
+>>> - * Bind processes do the device that have been temporarily unbound
+>>> - * (PDD_BOUND_SUSPENDED) in kfd_unbind_processes_from_device.
+>>> - */
+>>> -int kfd_bind_processes_to_device(struct kfd_dev *dev)
+>>> -{
+>>> -    struct kfd_process_device *pdd;
+>>> -    struct kfd_process *p;
+>>> -    unsigned int temp;
+>>> -    int err = 0;
+>>> -
+>>> -    int idx = srcu_read_lock(&kfd_processes_srcu);
+>>> -
+>>> -    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>> -        mutex_lock(&p->mutex);
+>>> -        pdd = kfd_get_process_device_data(dev, p);
+>>> -
+>>> -        if (WARN_ON(!pdd) || pdd->bound != PDD_BOUND_SUSPENDED) {
+>>> -            mutex_unlock(&p->mutex);
+>>> -            continue;
+>>> -        }
+>>> -
+>>> -        err = amd_iommu_bind_pasid(dev->pdev, p->pasid,
+>>> -                p->lead_thread);
+>>> -        if (err < 0) {
+>>> -            pr_err("Unexpected pasid %d binding failure\n",
+>>> -                    p->pasid);
+>>> -            mutex_unlock(&p->mutex);
+>>> -            break;
+>>> -        }
+>>> -
+>>> -        pdd->bound = PDD_BOUND;
+>>> -        mutex_unlock(&p->mutex);
+>>> -    }
+>>> -
+>>> -    srcu_read_unlock(&kfd_processes_srcu, idx);
+>>> -
+>>> -    return err;
+>>> -}
+>>> -
+>>> -/*
+>>> - * Mark currently bound processes as PDD_BOUND_SUSPENDED. These
+>>> - * processes will be restored to PDD_BOUND state in
+>>> - * kfd_bind_processes_to_device.
+>>> - */
+>>> -void kfd_unbind_processes_from_device(struct kfd_dev *dev)
+>>> -{
+>>> -    struct kfd_process_device *pdd;
+>>> -    struct kfd_process *p;
+>>> -    unsigned int temp;
+>>> -
+>>> -    int idx = srcu_read_lock(&kfd_processes_srcu);
+>>> -
+>>> -    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>> -        mutex_lock(&p->mutex);
+>>> -        pdd = kfd_get_process_device_data(dev, p);
+>>> -
+>>> -        if (WARN_ON(!pdd)) {
+>>> -            mutex_unlock(&p->mutex);
+>>> -            continue;
+>>> -        }
+>>> -
+>>> -        if (pdd->bound == PDD_BOUND)
+>>> -            pdd->bound = PDD_BOUND_SUSPENDED;
+>>> -        mutex_unlock(&p->mutex);
+>>> -    }
+>>> -
+>>> -    srcu_read_unlock(&kfd_processes_srcu, idx);
+>>> -}
+>>> -
+>>> -void kfd_process_iommu_unbind_callback(struct kfd_dev *dev, unsigned
+>>> int pasid)
+>>> -{
+>>> -    struct kfd_process *p;
+>>> -    struct kfd_process_device *pdd;
+>>> -
+>>> -    /*
+>>> -     * Look for the process that matches the pasid. If there is no such
+>>> -     * process, we either released it in amdkfd's own notifier, or
+>>> there
+>>> -     * is a bug. Unfortunately, there is no way to tell...
+>>> -     */
+>>> -    p = kfd_lookup_process_by_pasid(pasid);
+>>> -    if (!p)
+>>> -        return;
+>>> -
+>>> -    pr_debug("Unbinding process %d from IOMMU\n", pasid);
+>>> -
+>>> -    mutex_lock(kfd_get_dbgmgr_mutex());
+>>> -
+>>> -    if (dev->dbgmgr && dev->dbgmgr->pasid == p->pasid) {
+>>> -        if (!kfd_dbgmgr_unregister(dev->dbgmgr, p)) {
+>>> -            kfd_dbgmgr_destroy(dev->dbgmgr);
+>>> -            dev->dbgmgr = NULL;
+>>> -        }
+>>> -    }
+>>> -
+>>> -    mutex_unlock(kfd_get_dbgmgr_mutex());
+>>> -
+>>> -    mutex_lock(&p->mutex);
+>>> -
+>>> -    pdd = kfd_get_process_device_data(dev, p);
+>>> -    if (pdd)
+>>> -        /* For GPU relying on IOMMU, we need to dequeue here
+>>> -         * when PASID is still bound.
+>>> -         */
+>>> -        kfd_process_dequeue_from_device(pdd);
+>>> -
+>>> -    mutex_unlock(&p->mutex);
+>>> -
+>>> -    kfd_unref_process(p);
+>>> -}
+>>> -
+>>>    struct kfd_process_device *kfd_get_first_process_device_data(
+>>>                            struct kfd_process *p)
+>>>    {
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> index 7783250..2506155 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> @@ -35,6 +35,7 @@
+>>>    #include "kfd_crat.h"
+>>>    #include "kfd_topology.h"
+>>>    #include "kfd_device_queue_manager.h"
+>>> +#include "kfd_iommu.h"
+>>>      /* topology_device_list - Master list of all topology devices */
+>>>    static struct list_head topology_device_list;
+>>> @@ -875,19 +876,8 @@ static void find_system_memory(const struct
+>>> dmi_header *dm,
+>>>     */
+>>>    static int kfd_add_perf_to_topology(struct kfd_topology_device *kdev)
+>>>    {
+>>> -    struct kfd_perf_properties *props;
+>>> -
+>>> -    if (amd_iommu_pc_supported()) {
+>>> -        props = kfd_alloc_struct(props);
+>>> -        if (!props)
+>>> -            return -ENOMEM;
+>>> -        strcpy(props->block_name, "iommu");
+>>> -        props->max_concurrent = amd_iommu_pc_get_max_banks(0) *
+>>> -            amd_iommu_pc_get_max_counters(0); /* assume one iommu */
+>>> -        list_add_tail(&props->list, &kdev->perf_props);
+>>> -    }
+>>> -
+>>> -    return 0;
+>>> +    /* These are the only counters supported so far */
+>>> +    return kfd_iommu_add_perf_counters(kdev);
+>>>    }
+>>>      /* kfd_add_non_crat_information - Add information that is not
+>>> currently
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>> index 53fca1f..c0be2be 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>> @@ -25,7 +25,7 @@
+>>>      #include <linux/types.h>
+>>>    #include <linux/list.h>
+>>> -#include "kfd_priv.h"
+>>> +#include "kfd_crat.h"
+>>>      #define KFD_TOPOLOGY_PUBLIC_NAME_SIZE 128
+>>>    @@ -183,8 +183,4 @@ struct kfd_topology_device
+>>> *kfd_create_topology_device(
+>>>            struct list_head *device_list);
+>>>    void kfd_release_topology_device_list(struct list_head *device_list);
+>>>    -extern bool amd_iommu_pc_supported(void);
+>>> -extern u8 amd_iommu_pc_get_max_banks(u16 devid);
+>>> -extern u8 amd_iommu_pc_get_max_counters(u16 devid);
+>>> -
+>>>    #endif /* __KFD_TOPOLOGY_H__ */
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------D3282ED8987CC3E12B613F87
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 07.02.2018 um 21:51 schrieb Felix
+      Kuehling:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:bfe03de8-63fb-efb4-94e5-5eaf4628bfc1-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">On 2018-02-07 06:20 AM, Christian König wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">Am 07.02.2018 um 02:32 schrieb Felix Kuehling:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">dGPUs work without IOMMUv2. Make IOMMUv2 initialization dependent on
+ASIC information. Also allow building KFD without IOMMUv2 support.
+This is still useful for dGPUs and prepares for enabling KFD on
+architectures that don't support AMD IOMMUv2.
+
+v2:
+* Centralize IOMMUv2 code to avoid #ifdefs in too many places
+
+Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+  drivers/gpu/drm/amd/amdkfd/Kconfig        |   2 +-
+  drivers/gpu/drm/amd/amdkfd/Makefile       |   4 +
+  drivers/gpu/drm/amd/amdkfd/kfd_crat.c     |  14 +-
+  drivers/gpu/drm/amd/amdkfd/kfd_device.c   | 127 +++--------
+  drivers/gpu/drm/amd/amdkfd/kfd_events.c   |   3 +
+  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c    | 356
+++++++++++++++++++++++++++++++
+  drivers/gpu/drm/amd/amdkfd/kfd_iommu.h    |  78 +++++++
+  drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  14 +-
+  drivers/gpu/drm/amd/amdkfd/kfd_process.c  | 138 +-----------
+  drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  16 +-
+  drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   6 +-
+  11 files changed, 493 insertions(+), 265 deletions(-)
+  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig
+b/drivers/gpu/drm/amd/amdkfd/Kconfig
+index bc5a294..5bbeb95 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Kconfig
++++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+@@ -4,6 +4,6 @@
+    config HSA_AMD
+      tristate "HSA kernel driver for AMD GPU devices"
+-    depends on DRM_AMDGPU &amp;&amp; AMD_IOMMU_V2 &amp;&amp; X86_64
++    depends on DRM_AMDGPU &amp;&amp; X86_64
+</pre>
+        </blockquote>
+        <pre wrap="">
+You still need a weak dependency on AMD_IOMMU_V2 here, in other words
+add "imply AMD_IOMMU_V2".
+
+This prevents illegal combinations like linking amdkfd into the kernel
+while amd_iommu_v2 is a module.
+
+But it should still allow to completely disable amd_iommu_v2 and
+compile amdkfd without support for it.
+</pre>
+      </blockquote>
+      <pre wrap="">
+Thanks, that's good to know. An updated patch is attached (to avoid
+resending the whole series).</pre>
+    </blockquote>
+    <br>
+    Patch is Acked-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:bfe03de8-63fb-efb4-94e5-5eaf4628bfc1-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">
+
+Regards,
+  Felix
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">
+Christian.
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">      help
+        Enable this if you want to use HSA features on AMD GPU devices.
+diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile
+b/drivers/gpu/drm/amd/amdkfd/Makefile
+index a317e76..0d02422 100644
+--- a/drivers/gpu/drm/amd/amdkfd/Makefile
++++ b/drivers/gpu/drm/amd/amdkfd/Makefile
+@@ -37,6 +37,10 @@ amdkfd-y    := kfd_module.o kfd_device.o
+kfd_chardev.o kfd_topology.o \
+          kfd_interrupt.o kfd_events.o cik_event_interrupt.o \
+          kfd_dbgdev.o kfd_dbgmgr.o kfd_crat.o
+  +ifneq ($(CONFIG_AMD_IOMMU_V2),)
++amdkfd-y += kfd_iommu.o
++endif
++
+  amdkfd-$(CONFIG_DEBUG_FS) += kfd_debugfs.o
+    obj-$(CONFIG_HSA_AMD)    += amdkfd.o
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 2bc2816..7493f47 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -22,10 +22,10 @@
+    #include &lt;linux/pci.h&gt;
+  #include &lt;linux/acpi.h&gt;
+-#include &lt;linux/amd-iommu.h&gt;
+  #include "kfd_crat.h"
+  #include "kfd_priv.h"
+  #include "kfd_topology.h"
++#include "kfd_iommu.h"
+    /* GPU Processor ID base for dGPUs for which VCRAT needs to be
+created.
+   * GPU processor ID are expressed with Bit[31]=1.
+@@ -1037,15 +1037,11 @@ static int kfd_create_vcrat_image_gpu(void
+*pcrat_image,
+      struct crat_subtype_generic *sub_type_hdr;
+      struct crat_subtype_computeunit *cu;
+      struct kfd_cu_info cu_info;
+-    struct amd_iommu_device_info iommu_info;
+      int avail_size = *size;
+      uint32_t total_num_of_cu;
+      int num_of_cache_entries = 0;
+      int cache_mem_filled = 0;
+      int ret = 0;
+-    const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+-                     AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
+-                     AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
+      struct kfd_local_mem_info local_mem_info;
+        if (!pcrat_image || avail_size &lt; VCRAT_SIZE_FOR_GPU)
+@@ -1106,12 +1102,8 @@ static int kfd_create_vcrat_image_gpu(void
+*pcrat_image,
+      /* Check if this node supports IOMMU. During parsing this flag
+will
+       * translate to HSA_CAP_ATS_PRESENT
+       */
+-    iommu_info.flags = 0;
+-    if (amd_iommu_device_info(kdev-&gt;pdev, &amp;iommu_info) == 0) {
+-        if ((iommu_info.flags &amp; required_iommu_flags) ==
+-                required_iommu_flags)
+-            cu-&gt;hsa_capability |= CRAT_CU_FLAGS_IOMMU_PRESENT;
+-    }
++    if (!kfd_iommu_check_device(kdev))
++        cu-&gt;hsa_capability |= CRAT_CU_FLAGS_IOMMU_PRESENT;
+        crat_table-&gt;length += sub_type_hdr-&gt;length;
+      crat_table-&gt;total_entries++;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 83d6f41..4ac2d61 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -20,7 +20,9 @@
+   * OTHER DEALINGS IN THE SOFTWARE.
+   */
+  +#if defined(CONFIG_AMD_IOMMU_V2_MODULE) ||
+defined(CONFIG_AMD_IOMMU_V2)
+  #include &lt;linux/amd-iommu.h&gt;
++#endif
+  #include &lt;linux/bsearch.h&gt;
+  #include &lt;linux/pci.h&gt;
+  #include &lt;linux/slab.h&gt;
+@@ -28,9 +30,11 @@
+  #include "kfd_device_queue_manager.h"
+  #include "kfd_pm4_headers_vi.h"
+  #include "cwsr_trap_handler_gfx8.asm"
++#include "kfd_iommu.h"
+    #define MQD_SIZE_ALIGNED 768
+  +#ifdef KFD_SUPPORT_IOMMU_V2
+  static const struct kfd_device_info kaveri_device_info = {
+      .asic_family = CHIP_KAVERI,
+      .max_pasid_bits = 16,
+@@ -41,6 +45,7 @@ static const struct kfd_device_info
+kaveri_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = false,
++    .needs_iommu_device = true,
+      .needs_pci_atomics = false,
+  };
+  @@ -54,8 +59,10 @@ static const struct kfd_device_info
+carrizo_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = true,
++    .needs_iommu_device = true,
+      .needs_pci_atomics = false,
+  };
++#endif
+    static const struct kfd_device_info hawaii_device_info = {
+      .asic_family = CHIP_HAWAII,
+@@ -67,6 +74,7 @@ static const struct kfd_device_info
+hawaii_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = false,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = false,
+  };
+  @@ -79,6 +87,7 @@ static const struct kfd_device_info
+tonga_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = false,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = true,
+  };
+  @@ -91,6 +100,7 @@ static const struct kfd_device_info
+tonga_vf_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = false,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = false,
+  };
+  @@ -103,6 +113,7 @@ static const struct kfd_device_info
+fiji_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = true,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = true,
+  };
+  @@ -115,6 +126,7 @@ static const struct kfd_device_info
+fiji_vf_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = true,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = false,
+  };
+  @@ -128,6 +140,7 @@ static const struct kfd_device_info
+polaris10_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = true,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = true,
+  };
+  @@ -140,6 +153,7 @@ static const struct kfd_device_info
+polaris10_vf_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = true,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = false,
+  };
+  @@ -152,6 +166,7 @@ static const struct kfd_device_info
+polaris11_device_info = {
+      .num_of_watch_points = 4,
+      .mqd_size_aligned = MQD_SIZE_ALIGNED,
+      .supports_cwsr = true,
++    .needs_iommu_device = false,
+      .needs_pci_atomics = true,
+  };
+  @@ -162,6 +177,7 @@ struct kfd_deviceid {
+  };
+    static const struct kfd_deviceid supported_devices[] = {
++#ifdef KFD_SUPPORT_IOMMU_V2
+      { 0x1304, &amp;kaveri_device_info },    /* Kaveri */
+      { 0x1305, &amp;kaveri_device_info },    /* Kaveri */
+      { 0x1306, &amp;kaveri_device_info },    /* Kaveri */
+@@ -189,6 +205,7 @@ static const struct kfd_deviceid
+supported_devices[] = {
+      { 0x9875, &amp;carrizo_device_info },    /* Carrizo */
+      { 0x9876, &amp;carrizo_device_info },    /* Carrizo */
+      { 0x9877, &amp;carrizo_device_info },    /* Carrizo */
++#endif
+      { 0x67A0, &amp;hawaii_device_info },    /* Hawaii */
+      { 0x67A1, &amp;hawaii_device_info },    /* Hawaii */
+      { 0x67A2, &amp;hawaii_device_info },    /* Hawaii */
+@@ -302,77 +319,6 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+      return kfd;
+  }
+  -static bool device_iommu_pasid_init(struct kfd_dev *kfd)
+-{
+-    const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
+-                    AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
+-                    AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
+-
+-    struct amd_iommu_device_info iommu_info;
+-    unsigned int pasid_limit;
+-    int err;
+-
+-    err = amd_iommu_device_info(kfd-&gt;pdev, &amp;iommu_info);
+-    if (err &lt; 0) {
+-        dev_err(kfd_device,
+-            "error getting iommu info. is the iommu enabled?\n");
+-        return false;
+-    }
+-
+-    if ((iommu_info.flags &amp; required_iommu_flags) !=
+required_iommu_flags) {
+-        dev_err(kfd_device, "error required iommu flags ats %i, pri
+%i, pasid %i\n",
+-               (iommu_info.flags &amp; AMD_IOMMU_DEVICE_FLAG_ATS_SUP) != 0,
+-               (iommu_info.flags &amp; AMD_IOMMU_DEVICE_FLAG_PRI_SUP) != 0,
+-               (iommu_info.flags &amp; AMD_IOMMU_DEVICE_FLAG_PASID_SUP)
+-                                    != 0);
+-        return false;
+-    }
+-
+-    pasid_limit = min_t(unsigned int,
+-            (unsigned int)(1 &lt;&lt; kfd-&gt;device_info-&gt;max_pasid_bits),
+-            iommu_info.max_pasids);
+-
+-    if (!kfd_set_pasid_limit(pasid_limit)) {
+-        dev_err(kfd_device, "error setting pasid limit\n");
+-        return false;
+-    }
+-
+-    return true;
+-}
+-
+-static void iommu_pasid_shutdown_callback(struct pci_dev *pdev, int
+pasid)
+-{
+-    struct kfd_dev *dev = kfd_device_by_pci_dev(pdev);
+-
+-    if (dev)
+-        kfd_process_iommu_unbind_callback(dev, pasid);
+-}
+-
+-/*
+- * This function called by IOMMU driver on PPR failure
+- */
+-static int iommu_invalid_ppr_cb(struct pci_dev *pdev, int pasid,
+-        unsigned long address, u16 flags)
+-{
+-    struct kfd_dev *dev;
+-
+-    dev_warn(kfd_device,
+-            "Invalid PPR device %x:%x.%x pasid %d address 0x%lX
+flags 0x%X",
+-            PCI_BUS_NUM(pdev-&gt;devfn),
+-            PCI_SLOT(pdev-&gt;devfn),
+-            PCI_FUNC(pdev-&gt;devfn),
+-            pasid,
+-            address,
+-            flags);
+-
+-    dev = kfd_device_by_pci_dev(pdev);
+-    if (!WARN_ON(!dev))
+-        kfd_signal_iommu_event(dev, pasid, address,
+-            flags &amp; PPR_FAULT_WRITE, flags &amp; PPR_FAULT_EXEC);
+-
+-    return AMD_IOMMU_INV_PRI_RSP_INVALID;
+-}
+-
+  static void kfd_cwsr_init(struct kfd_dev *kfd)
+  {
+      if (cwsr_enable &amp;&amp; kfd-&gt;device_info-&gt;supports_cwsr) {
+@@ -462,11 +408,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+          goto device_queue_manager_error;
+      }
+  -    if (!device_iommu_pasid_init(kfd)) {
+-        dev_err(kfd_device,
+-            "Error initializing iommuv2 for device %x:%x\n",
+-            kfd-&gt;pdev-&gt;vendor, kfd-&gt;pdev-&gt;device);
+-        goto device_iommu_pasid_error;
++    if (kfd_iommu_device_init(kfd)) {
++        dev_err(kfd_device, "Error initializing iommuv2\n");
++        goto device_iommu_error;
+      }
+        kfd_cwsr_init(kfd);
+@@ -486,7 +430,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+      goto out;
+    kfd_resume_error:
+-device_iommu_pasid_error:
++device_iommu_error:
+      device_queue_manager_uninit(kfd-&gt;dqm);
+  device_queue_manager_error:
+      kfd_interrupt_exit(kfd);
+@@ -527,11 +471,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd)
+        kfd-&gt;dqm-&gt;ops.stop(kfd-&gt;dqm);
+  -    kfd_unbind_processes_from_device(kfd);
+-
+-    amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev, NULL);
+-    amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev, NULL);
+-    amd_iommu_free_device(kfd-&gt;pdev);
++    kfd_iommu_suspend(kfd);
+  }
+    int kgd2kfd_resume(struct kfd_dev *kfd)
+@@ -546,19 +486,14 @@ int kgd2kfd_resume(struct kfd_dev *kfd)
+  static int kfd_resume(struct kfd_dev *kfd)
+  {
+      int err = 0;
+-    unsigned int pasid_limit = kfd_get_pasid_limit();
+-
+-    err = amd_iommu_init_device(kfd-&gt;pdev, pasid_limit);
+-    if (err)
+-        return -ENXIO;
+-    amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev,
+-                    iommu_pasid_shutdown_callback);
+-    amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev,
+-                     iommu_invalid_ppr_cb);
+  -    err = kfd_bind_processes_to_device(kfd);
+-    if (err)
+-        goto processes_bind_error;
++    err = kfd_iommu_resume(kfd);
++    if (err) {
++        dev_err(kfd_device,
++            "Failed to resume IOMMU for device %x:%x\n",
++            kfd-&gt;pdev-&gt;vendor, kfd-&gt;pdev-&gt;device);
++        return err;
++    }
+        err = kfd-&gt;dqm-&gt;ops.start(kfd-&gt;dqm);
+      if (err) {
+@@ -571,9 +506,7 @@ static int kfd_resume(struct kfd_dev *kfd)
+      return err;
+    dqm_start_error:
+-processes_bind_error:
+-    amd_iommu_free_device(kfd-&gt;pdev);
+-
++    kfd_iommu_suspend(kfd);
+      return err;
+  }
+  diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index 93aae5c..6fb9c0d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -30,6 +30,7 @@
+  #include &lt;linux/memory.h&gt;
+  #include "kfd_priv.h"
+  #include "kfd_events.h"
++#include "kfd_iommu.h"
+  #include &lt;linux/device.h&gt;
+    /*
+@@ -837,6 +838,7 @@ static void
+lookup_events_by_type_and_signal(struct kfd_process *p,
+      }
+  }
+  +#ifdef KFD_SUPPORT_IOMMU_V2
+  void kfd_signal_iommu_event(struct kfd_dev *dev, unsigned int pasid,
+          unsigned long address, bool is_write_requested,
+          bool is_execute_requested)
+@@ -905,6 +907,7 @@ void kfd_signal_iommu_event(struct kfd_dev *dev,
+unsigned int pasid,
+      mutex_unlock(&amp;p-&gt;event_mutex);
+      kfd_unref_process(p);
+  }
++#endif /* KFD_SUPPORT_IOMMU_V2 */
+    void kfd_signal_hw_exception_event(unsigned int pasid)
+  {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+new file mode 100644
+index 0000000..81dee34
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+@@ -0,0 +1,356 @@
++/*
++ * Copyright 2018 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person
+obtaining a
++ * copy of this software and associated documentation files (the
+"Software"),
++ * to deal in the Software without restriction, including without
+limitation
++ * the rights to use, copy, modify, merge, publish, distribute,
+sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom
+the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be
+included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include &lt;linux/printk.h&gt;
++#include &lt;linux/device.h&gt;
++#include &lt;linux/slab.h&gt;
++#include &lt;linux/pci.h&gt;
++#include &lt;linux/amd-iommu.h&gt;
++#include "kfd_priv.h"
++#include "kfd_dbgmgr.h"
++#include "kfd_topology.h"
++#include "kfd_iommu.h"
++
++static const u32 required_iommu_flags = AMD_IOMMU_DEVICE_FLAG_ATS_SUP |
++                    AMD_IOMMU_DEVICE_FLAG_PRI_SUP |
++                    AMD_IOMMU_DEVICE_FLAG_PASID_SUP;
++
++/** kfd_iommu_check_device - Check whether IOMMU is available for
+device
++ */
++int kfd_iommu_check_device(struct kfd_dev *kfd)
++{
++    struct amd_iommu_device_info iommu_info;
++    int err;
++
++    if (!kfd-&gt;device_info-&gt;needs_iommu_device)
++        return -ENODEV;
++
++    iommu_info.flags = 0;
++    err = amd_iommu_device_info(kfd-&gt;pdev, &amp;iommu_info);
++    if (err)
++        return err;
++
++    if ((iommu_info.flags &amp; required_iommu_flags) !=
+required_iommu_flags)
++        return -ENODEV;
++
++    return 0;
++}
++
++/** kfd_iommu_device_init - Initialize IOMMU for device
++ */
++int kfd_iommu_device_init(struct kfd_dev *kfd)
++{
++    struct amd_iommu_device_info iommu_info;
++    unsigned int pasid_limit;
++    int err;
++
++    if (!kfd-&gt;device_info-&gt;needs_iommu_device)
++        return 0;
++
++    iommu_info.flags = 0;
++    err = amd_iommu_device_info(kfd-&gt;pdev, &amp;iommu_info);
++    if (err &lt; 0) {
++        dev_err(kfd_device,
++            "error getting iommu info. is the iommu enabled?\n");
++        return -ENODEV;
++    }
++
++    if ((iommu_info.flags &amp; required_iommu_flags) !=
+required_iommu_flags) {
++        dev_err(kfd_device, "error required iommu flags ats %i, pri
+%i, pasid %i\n",
++               (iommu_info.flags &amp; AMD_IOMMU_DEVICE_FLAG_ATS_SUP) != 0,
++               (iommu_info.flags &amp; AMD_IOMMU_DEVICE_FLAG_PRI_SUP) != 0,
++               (iommu_info.flags &amp; AMD_IOMMU_DEVICE_FLAG_PASID_SUP)
++                                    != 0);
++        return -ENODEV;
++    }
++
++    pasid_limit = min_t(unsigned int,
++            (unsigned int)(1 &lt;&lt; kfd-&gt;device_info-&gt;max_pasid_bits),
++            iommu_info.max_pasids);
++
++    if (!kfd_set_pasid_limit(pasid_limit)) {
++        dev_err(kfd_device, "error setting pasid limit\n");
++        return -EBUSY;
++    }
++
++    return 0;
++}
++
++/** kfd_iommu_bind_process_to_device - Have the IOMMU bind a process
++ *
++ * Binds the given process to the given device using its PASID. This
++ * enables IOMMUv2 address translation for the process on the device.
++ *
++ * This function assumes that the process mutex is held.
++ */
++int kfd_iommu_bind_process_to_device(struct kfd_process_device *pdd)
++{
++    struct kfd_dev *dev = pdd-&gt;dev;
++    struct kfd_process *p = pdd-&gt;process;
++    int err;
++
++    if (!dev-&gt;device_info-&gt;needs_iommu_device || pdd-&gt;bound ==
+PDD_BOUND)
++        return 0;
++
++    if (unlikely(pdd-&gt;bound == PDD_BOUND_SUSPENDED)) {
++        pr_err("Binding PDD_BOUND_SUSPENDED pdd is unexpected!\n");
++        return -EINVAL;
++    }
++
++    err = amd_iommu_bind_pasid(dev-&gt;pdev, p-&gt;pasid, p-&gt;lead_thread);
++    if (!err)
++        pdd-&gt;bound = PDD_BOUND;
++
++    return err;
++}
++
++/** kfd_iommu_unbind_process - Unbind process from all devices
++ *
++ * This removes all IOMMU device bindings of the process. To be used
++ * before process termination.
++ */
++void kfd_iommu_unbind_process(struct kfd_process *p)
++{
++    struct kfd_process_device *pdd;
++
++    list_for_each_entry(pdd, &amp;p-&gt;per_device_data, per_device_list)
++        if (pdd-&gt;bound == PDD_BOUND)
++            amd_iommu_unbind_pasid(pdd-&gt;dev-&gt;pdev, p-&gt;pasid);
++}
++
++/* Callback for process shutdown invoked by the IOMMU driver */
++static void iommu_pasid_shutdown_callback(struct pci_dev *pdev, int
+pasid)
++{
++    struct kfd_dev *dev = kfd_device_by_pci_dev(pdev);
++    struct kfd_process *p;
++    struct kfd_process_device *pdd;
++
++    if (!dev)
++        return;
++
++    /*
++     * Look for the process that matches the pasid. If there is no such
++     * process, we either released it in amdkfd's own notifier, or
+there
++     * is a bug. Unfortunately, there is no way to tell...
++     */
++    p = kfd_lookup_process_by_pasid(pasid);
++    if (!p)
++        return;
++
++    pr_debug("Unbinding process %d from IOMMU\n", pasid);
++
++    mutex_lock(kfd_get_dbgmgr_mutex());
++
++    if (dev-&gt;dbgmgr &amp;&amp; dev-&gt;dbgmgr-&gt;pasid == p-&gt;pasid) {
++        if (!kfd_dbgmgr_unregister(dev-&gt;dbgmgr, p)) {
++            kfd_dbgmgr_destroy(dev-&gt;dbgmgr);
++            dev-&gt;dbgmgr = NULL;
++        }
++    }
++
++    mutex_unlock(kfd_get_dbgmgr_mutex());
++
++    mutex_lock(&amp;p-&gt;mutex);
++
++    pdd = kfd_get_process_device_data(dev, p);
++    if (pdd)
++        /* For GPU relying on IOMMU, we need to dequeue here
++         * when PASID is still bound.
++         */
++        kfd_process_dequeue_from_device(pdd);
++
++    mutex_unlock(&amp;p-&gt;mutex);
++
++    kfd_unref_process(p);
++}
++
++/* This function called by IOMMU driver on PPR failure */
++static int iommu_invalid_ppr_cb(struct pci_dev *pdev, int pasid,
++        unsigned long address, u16 flags)
++{
++    struct kfd_dev *dev;
++
++    dev_warn(kfd_device,
++            "Invalid PPR device %x:%x.%x pasid %d address 0x%lX
+flags 0x%X",
++            PCI_BUS_NUM(pdev-&gt;devfn),
++            PCI_SLOT(pdev-&gt;devfn),
++            PCI_FUNC(pdev-&gt;devfn),
++            pasid,
++            address,
++            flags);
++
++    dev = kfd_device_by_pci_dev(pdev);
++    if (!WARN_ON(!dev))
++        kfd_signal_iommu_event(dev, pasid, address,
++            flags &amp; PPR_FAULT_WRITE, flags &amp; PPR_FAULT_EXEC);
++
++    return AMD_IOMMU_INV_PRI_RSP_INVALID;
++}
++
++/*
++ * Bind processes do the device that have been temporarily unbound
++ * (PDD_BOUND_SUSPENDED) in kfd_unbind_processes_from_device.
++ */
++static int kfd_bind_processes_to_device(struct kfd_dev *kfd)
++{
++    struct kfd_process_device *pdd;
++    struct kfd_process *p;
++    unsigned int temp;
++    int err = 0;
++
++    int idx = srcu_read_lock(&amp;kfd_processes_srcu);
++
++    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
++        mutex_lock(&amp;p-&gt;mutex);
++        pdd = kfd_get_process_device_data(kfd, p);
++
++        if (WARN_ON(!pdd) || pdd-&gt;bound != PDD_BOUND_SUSPENDED) {
++            mutex_unlock(&amp;p-&gt;mutex);
++            continue;
++        }
++
++        err = amd_iommu_bind_pasid(kfd-&gt;pdev, p-&gt;pasid,
++                p-&gt;lead_thread);
++        if (err &lt; 0) {
++            pr_err("Unexpected pasid %d binding failure\n",
++                    p-&gt;pasid);
++            mutex_unlock(&amp;p-&gt;mutex);
++            break;
++        }
++
++        pdd-&gt;bound = PDD_BOUND;
++        mutex_unlock(&amp;p-&gt;mutex);
++    }
++
++    srcu_read_unlock(&amp;kfd_processes_srcu, idx);
++
++    return err;
++}
++
++/*
++ * Mark currently bound processes as PDD_BOUND_SUSPENDED. These
++ * processes will be restored to PDD_BOUND state in
++ * kfd_bind_processes_to_device.
++ */
++static void kfd_unbind_processes_from_device(struct kfd_dev *kfd)
++{
++    struct kfd_process_device *pdd;
++    struct kfd_process *p;
++    unsigned int temp;
++
++    int idx = srcu_read_lock(&amp;kfd_processes_srcu);
++
++    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
++        mutex_lock(&amp;p-&gt;mutex);
++        pdd = kfd_get_process_device_data(kfd, p);
++
++        if (WARN_ON(!pdd)) {
++            mutex_unlock(&amp;p-&gt;mutex);
++            continue;
++        }
++
++        if (pdd-&gt;bound == PDD_BOUND)
++            pdd-&gt;bound = PDD_BOUND_SUSPENDED;
++        mutex_unlock(&amp;p-&gt;mutex);
++    }
++
++    srcu_read_unlock(&amp;kfd_processes_srcu, idx);
++}
++
++/** kfd_iommu_suspend - Prepare IOMMU for suspend
++ *
++ * This unbinds processes from the device and disables the IOMMU for
++ * the device.
++ */
++void kfd_iommu_suspend(struct kfd_dev *kfd)
++{
++    if (!kfd-&gt;device_info-&gt;needs_iommu_device)
++        return;
++
++    kfd_unbind_processes_from_device(kfd);
++
++    amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev, NULL);
++    amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev, NULL);
++    amd_iommu_free_device(kfd-&gt;pdev);
++}
++
++/** kfd_iommu_resume - Restore IOMMU after resume
++ *
++ * This reinitializes the IOMMU for the device and re-binds previously
++ * suspended processes to the device.
++ */
++int kfd_iommu_resume(struct kfd_dev *kfd)
++{
++    unsigned int pasid_limit;
++    int err;
++
++    if (!kfd-&gt;device_info-&gt;needs_iommu_device)
++        return 0;
++
++    pasid_limit = kfd_get_pasid_limit();
++
++    err = amd_iommu_init_device(kfd-&gt;pdev, pasid_limit);
++    if (err)
++        return -ENXIO;
++
++    amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev,
++                    iommu_pasid_shutdown_callback);
++    amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev,
++                     iommu_invalid_ppr_cb);
++
++    err = kfd_bind_processes_to_device(kfd);
++    if (err) {
++        amd_iommu_set_invalidate_ctx_cb(kfd-&gt;pdev, NULL);
++        amd_iommu_set_invalid_ppr_cb(kfd-&gt;pdev, NULL);
++        amd_iommu_free_device(kfd-&gt;pdev);
++        return err;
++    }
++
++    return 0;
++}
++
++extern bool amd_iommu_pc_supported(void);
++extern u8 amd_iommu_pc_get_max_banks(u16 devid);
++extern u8 amd_iommu_pc_get_max_counters(u16 devid);
++
++/** kfd_iommu_add_perf_counters - Add IOMMU performance counters to
+topology
++ */
++int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev)
++{
++    struct kfd_perf_properties *props;
++
++    if (!(kdev-&gt;node_props.capability &amp; HSA_CAP_ATS_PRESENT))
++        return 0;
++
++    if (!amd_iommu_pc_supported())
++        return 0;
++
++    props = kfd_alloc_struct(props);
++    if (!props)
++        return -ENOMEM;
++    strcpy(props-&gt;block_name, "iommu");
++    props-&gt;max_concurrent = amd_iommu_pc_get_max_banks(0) *
++        amd_iommu_pc_get_max_counters(0); /* assume one iommu */
++    list_add_tail(&amp;props-&gt;list, &amp;kdev-&gt;perf_props);
++
++    return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+new file mode 100644
+index 0000000..dd23d9f
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+@@ -0,0 +1,78 @@
++/*
++ * Copyright 2018 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person
+obtaining a
++ * copy of this software and associated documentation files (the
+"Software"),
++ * to deal in the Software without restriction, including without
+limitation
++ * the rights to use, copy, modify, merge, publish, distribute,
+sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom
+the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be
+included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#ifndef __KFD_IOMMU_H__
++#define __KFD_IOMMU_H__
++
++#if defined(CONFIG_AMD_IOMMU_V2_MODULE) || defined(CONFIG_AMD_IOMMU_V2)
++
++#define KFD_SUPPORT_IOMMU_V2
++
++int kfd_iommu_check_device(struct kfd_dev *kfd);
++int kfd_iommu_device_init(struct kfd_dev *kfd);
++
++int kfd_iommu_bind_process_to_device(struct kfd_process_device *pdd);
++void kfd_iommu_unbind_process(struct kfd_process *p);
++
++void kfd_iommu_suspend(struct kfd_dev *kfd);
++int kfd_iommu_resume(struct kfd_dev *kfd);
++
++int kfd_iommu_add_perf_counters(struct kfd_topology_device *kdev);
++
++#else
++
++static inline int kfd_iommu_check_device(struct kfd_dev *kfd)
++{
++    return -ENODEV;
++}
++static inline int kfd_iommu_device_init(struct kfd_dev *kfd)
++{
++    return 0;
++}
++
++static inline int kfd_iommu_bind_process_to_device(
++    struct kfd_process_device *pdd)
++{
++    return 0;
++}
++static inline void kfd_iommu_unbind_process(struct kfd_process *p)
++{
++    /* empty */
++}
++
++static inline void kfd_iommu_suspend(struct kfd_dev *kfd)
++{
++    /* empty */
++}
++static inline int kfd_iommu_resume(struct kfd_dev *kfd)
++{
++    return 0;
++}
++
++static inline int kfd_iommu_add_perf_counters(struct
+kfd_topology_device *kdev)
++{
++    return 0;
++}
++
++#endif /* defined(CONFIG_AMD_IOMMU_V2) */
++
++#endif /* __KFD_IOMMU_H__ */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 594f853..f12eb5d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -158,6 +158,7 @@ struct kfd_device_info {
+      uint8_t num_of_watch_points;
+      uint16_t mqd_size_aligned;
+      bool supports_cwsr;
++    bool needs_iommu_device;
+      bool needs_pci_atomics;
+  };
+  @@ -517,15 +518,15 @@ struct kfd_process_device {
+      uint64_t scratch_base;
+      uint64_t scratch_limit;
+  -    /* Is this process/pasid bound to this device?
+(amd_iommu_bind_pasid) */
+-    enum kfd_pdd_bound bound;
+-
+      /* Flag used to tell the pdd has dequeued from the dqm.
+       * This is used to prevent dev-&gt;dqm-&gt;ops.process_termination()
+from
+       * being called twice when it is already called in IOMMU callback
+       * function.
+       */
+      bool already_dequeued;
++
++    /* Is this process/pasid bound to this device?
+(amd_iommu_bind_pasid) */
++    enum kfd_pdd_bound bound;
+  };
+    #define qpd_to_pdd(x) container_of(x, struct kfd_process_device,
+qpd)
+@@ -590,6 +591,10 @@ struct kfd_process {
+      bool signal_event_limit_reached;
+  };
+  +#define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
++extern DECLARE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
++extern struct srcu_struct kfd_processes_srcu;
++
+  /**
+   * Ioctl function type.
+   *
+@@ -617,9 +622,6 @@ void kfd_unref_process(struct kfd_process *p);
+    struct kfd_process_device *kfd_bind_process_to_device(struct
+kfd_dev *dev,
+                          struct kfd_process *p);
+-int kfd_bind_processes_to_device(struct kfd_dev *dev);
+-void kfd_unbind_processes_from_device(struct kfd_dev *dev);
+-void kfd_process_iommu_unbind_callback(struct kfd_dev *dev, unsigned
+int pasid);
+  struct kfd_process_device *kfd_get_process_device_data(struct
+kfd_dev *dev,
+                              struct kfd_process *p);
+  struct kfd_process_device *kfd_create_process_device_data(struct
+kfd_dev *dev,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 4ff5f0f..e9aee76 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -35,16 +35,16 @@ struct mm_struct;
+    #include "kfd_priv.h"
+  #include "kfd_dbgmgr.h"
++#include "kfd_iommu.h"
+    /*
+   * List of struct kfd_process (field kfd_process).
+   * Unique/indexed by mm_struct*
+   */
+-#define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
+-static DEFINE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
++DEFINE_HASHTABLE(kfd_processes_table, KFD_PROCESS_TABLE_SIZE);
+  static DEFINE_MUTEX(kfd_processes_mutex);
+  -DEFINE_STATIC_SRCU(kfd_processes_srcu);
++DEFINE_SRCU(kfd_processes_srcu);
+    static struct workqueue_struct *kfd_process_wq;
+  @@ -173,14 +173,8 @@ static void kfd_process_wq_release(struct
+work_struct *work)
+  {
+      struct kfd_process *p = container_of(work, struct kfd_process,
+                           release_work);
+-    struct kfd_process_device *pdd;
+  -    pr_debug("Releasing process (pasid %d) in workqueue\n",
+p-&gt;pasid);
+-
+-    list_for_each_entry(pdd, &amp;p-&gt;per_device_data, per_device_list) {
+-        if (pdd-&gt;bound == PDD_BOUND)
+-            amd_iommu_unbind_pasid(pdd-&gt;dev-&gt;pdev, p-&gt;pasid);
+-    }
++    kfd_iommu_unbind_process(p);
+        kfd_process_destroy_pdds(p);
+  @@ -429,133 +423,13 @@ struct kfd_process_device
+*kfd_bind_process_to_device(struct kfd_dev *dev,
+          return ERR_PTR(-ENOMEM);
+      }
+  -    if (pdd-&gt;bound == PDD_BOUND) {
+-        return pdd;
+-    } else if (unlikely(pdd-&gt;bound == PDD_BOUND_SUSPENDED)) {
+-        pr_err("Binding PDD_BOUND_SUSPENDED pdd is unexpected!\n");
+-        return ERR_PTR(-EINVAL);
+-    }
+-
+-    err = amd_iommu_bind_pasid(dev-&gt;pdev, p-&gt;pasid, p-&gt;lead_thread);
+-    if (err &lt; 0)
++    err = kfd_iommu_bind_process_to_device(pdd);
++    if (err)
+          return ERR_PTR(err);
+  -    pdd-&gt;bound = PDD_BOUND;
+-
+      return pdd;
+  }
+  -/*
+- * Bind processes do the device that have been temporarily unbound
+- * (PDD_BOUND_SUSPENDED) in kfd_unbind_processes_from_device.
+- */
+-int kfd_bind_processes_to_device(struct kfd_dev *dev)
+-{
+-    struct kfd_process_device *pdd;
+-    struct kfd_process *p;
+-    unsigned int temp;
+-    int err = 0;
+-
+-    int idx = srcu_read_lock(&amp;kfd_processes_srcu);
+-
+-    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+-        mutex_lock(&amp;p-&gt;mutex);
+-        pdd = kfd_get_process_device_data(dev, p);
+-
+-        if (WARN_ON(!pdd) || pdd-&gt;bound != PDD_BOUND_SUSPENDED) {
+-            mutex_unlock(&amp;p-&gt;mutex);
+-            continue;
+-        }
+-
+-        err = amd_iommu_bind_pasid(dev-&gt;pdev, p-&gt;pasid,
+-                p-&gt;lead_thread);
+-        if (err &lt; 0) {
+-            pr_err("Unexpected pasid %d binding failure\n",
+-                    p-&gt;pasid);
+-            mutex_unlock(&amp;p-&gt;mutex);
+-            break;
+-        }
+-
+-        pdd-&gt;bound = PDD_BOUND;
+-        mutex_unlock(&amp;p-&gt;mutex);
+-    }
+-
+-    srcu_read_unlock(&amp;kfd_processes_srcu, idx);
+-
+-    return err;
+-}
+-
+-/*
+- * Mark currently bound processes as PDD_BOUND_SUSPENDED. These
+- * processes will be restored to PDD_BOUND state in
+- * kfd_bind_processes_to_device.
+- */
+-void kfd_unbind_processes_from_device(struct kfd_dev *dev)
+-{
+-    struct kfd_process_device *pdd;
+-    struct kfd_process *p;
+-    unsigned int temp;
+-
+-    int idx = srcu_read_lock(&amp;kfd_processes_srcu);
+-
+-    hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+-        mutex_lock(&amp;p-&gt;mutex);
+-        pdd = kfd_get_process_device_data(dev, p);
+-
+-        if (WARN_ON(!pdd)) {
+-            mutex_unlock(&amp;p-&gt;mutex);
+-            continue;
+-        }
+-
+-        if (pdd-&gt;bound == PDD_BOUND)
+-            pdd-&gt;bound = PDD_BOUND_SUSPENDED;
+-        mutex_unlock(&amp;p-&gt;mutex);
+-    }
+-
+-    srcu_read_unlock(&amp;kfd_processes_srcu, idx);
+-}
+-
+-void kfd_process_iommu_unbind_callback(struct kfd_dev *dev, unsigned
+int pasid)
+-{
+-    struct kfd_process *p;
+-    struct kfd_process_device *pdd;
+-
+-    /*
+-     * Look for the process that matches the pasid. If there is no such
+-     * process, we either released it in amdkfd's own notifier, or
+there
+-     * is a bug. Unfortunately, there is no way to tell...
+-     */
+-    p = kfd_lookup_process_by_pasid(pasid);
+-    if (!p)
+-        return;
+-
+-    pr_debug("Unbinding process %d from IOMMU\n", pasid);
+-
+-    mutex_lock(kfd_get_dbgmgr_mutex());
+-
+-    if (dev-&gt;dbgmgr &amp;&amp; dev-&gt;dbgmgr-&gt;pasid == p-&gt;pasid) {
+-        if (!kfd_dbgmgr_unregister(dev-&gt;dbgmgr, p)) {
+-            kfd_dbgmgr_destroy(dev-&gt;dbgmgr);
+-            dev-&gt;dbgmgr = NULL;
+-        }
+-    }
+-
+-    mutex_unlock(kfd_get_dbgmgr_mutex());
+-
+-    mutex_lock(&amp;p-&gt;mutex);
+-
+-    pdd = kfd_get_process_device_data(dev, p);
+-    if (pdd)
+-        /* For GPU relying on IOMMU, we need to dequeue here
+-         * when PASID is still bound.
+-         */
+-        kfd_process_dequeue_from_device(pdd);
+-
+-    mutex_unlock(&amp;p-&gt;mutex);
+-
+-    kfd_unref_process(p);
+-}
+-
+  struct kfd_process_device *kfd_get_first_process_device_data(
+                          struct kfd_process *p)
+  {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 7783250..2506155 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -35,6 +35,7 @@
+  #include "kfd_crat.h"
+  #include "kfd_topology.h"
+  #include "kfd_device_queue_manager.h"
++#include "kfd_iommu.h"
+    /* topology_device_list - Master list of all topology devices */
+  static struct list_head topology_device_list;
+@@ -875,19 +876,8 @@ static void find_system_memory(const struct
+dmi_header *dm,
+   */
+  static int kfd_add_perf_to_topology(struct kfd_topology_device *kdev)
+  {
+-    struct kfd_perf_properties *props;
+-
+-    if (amd_iommu_pc_supported()) {
+-        props = kfd_alloc_struct(props);
+-        if (!props)
+-            return -ENOMEM;
+-        strcpy(props-&gt;block_name, "iommu");
+-        props-&gt;max_concurrent = amd_iommu_pc_get_max_banks(0) *
+-            amd_iommu_pc_get_max_counters(0); /* assume one iommu */
+-        list_add_tail(&amp;props-&gt;list, &amp;kdev-&gt;perf_props);
+-    }
+-
+-    return 0;
++    /* These are the only counters supported so far */
++    return kfd_iommu_add_perf_counters(kdev);
+  }
+    /* kfd_add_non_crat_information - Add information that is not
+currently
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index 53fca1f..c0be2be 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -25,7 +25,7 @@
+    #include &lt;linux/types.h&gt;
+  #include &lt;linux/list.h&gt;
+-#include "kfd_priv.h"
++#include "kfd_crat.h"
+    #define KFD_TOPOLOGY_PUBLIC_NAME_SIZE 128
+  @@ -183,8 +183,4 @@ struct kfd_topology_device
+*kfd_create_topology_device(
+          struct list_head *device_list);
+  void kfd_release_topology_device_list(struct list_head *device_list);
+  -extern bool amd_iommu_pc_supported(void);
+-extern u8 amd_iommu_pc_get_max_banks(u16 devid);
+-extern u8 amd_iommu_pc_get_max_counters(u16 devid);
+-
+  #endif /* __KFD_TOPOLOGY_H__ */
+</pre>
+        </blockquote>
+        <pre wrap="">
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------D3282ED8987CC3E12B613F87--
+
+--===============0323347389==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0323347389==--
