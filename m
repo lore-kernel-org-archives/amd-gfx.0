@@ -1,17 +1,14 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: Expose new interface to DC to ctrl auto
- wattman
-Date: Thu, 8 Feb 2018 15:58:56 +0000
-Message-ID: <CY4PR12MB1687747073E0E3B90E2DB090FBF30@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1518088825-4744-1-git-send-email-Rex.Zhu@amd.com>
- <1a93901f-528c-b28e-d0c0-57809543a759@amd.com>
- <CY4PR12MB16870B662724C2F6BD1A8014FBF30@CY4PR12MB1687.namprd12.prod.outlook.com>
- <064c9f69-c87e-34c4-b55e-1a9fb43b6075@amd.com>,
- <d1fde114-78ea-3a79-986a-b6292dde8115@amd.com>
+From: Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 04/10] drm/amd/pp: Implement update_dpm_settings on Polaris
+Date: Thu, 8 Feb 2018 11:02:04 -0500
+Message-ID: <2b8cb01c-fa05-c414-d5e3-785aab9c263d@amd.com>
+References: <1518081259-18120-1-git-send-email-Rex.Zhu@amd.com>
+ <1518081259-18120-5-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0964347212=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d1fde114-78ea-3a79-986a-b6292dde8115-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1518081259-18120-5-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,460 +20,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Cyr, Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, "Koo, Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0964347212==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687747073E0E3B90E2DB090FBF30CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687747073E0E3B90E2DB090FBF30CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks Harry for clarify this question thoroughly.
-
-
->We'll still need a patch to call this interface from DC. Is that on your p=
-late or is this something we should hook up?
-
-No, I just implemented the interface in pp. DC need to call this function t=
-o enable/disable the auto wattman feature when  Freesync disable/enable.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Wentland, Harry
-Sent: Thursday, February 8, 2018 11:28 PM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Koo, Anthony; Cyr, Aric
-Subject: Re: [PATCH] drm/amd/pp: Expose new interface to DC to ctrl auto wa=
-ttman
-
-On 2018-02-08 10:10 AM, Harry Wentland wrote:
-> On 2018-02-08 10:07 AM, Zhu, Rex wrote:
->> when autowattman enabled=1B$B!$=1B(Bwe will update uphyst/downhyst/min-s=
-clk/mclk activity  value to smu based on the workload.
->>
->
-> Why is this incompatible with Freesync?
->
-
-Just had a chat with the Windows guys. Apparently AutoWattman changes clock=
-s quite aggressively which can make framerates jump significantly and lead =
-to a subpar experience when using Freesync.
-
-We'll still need a patch to call this interface from DC. Is that on your pl=
-ate or is this something we should hook up?
-
-Harry
-
-> Harry
->
->> Best Regards
->> Rex
->>
->> ------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
-------------------
->> *From:* Wentland, Harry
->> *Sent:* Thursday, February 8, 2018 10:22:16 PM
->> *To:* Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> *Subject:* Re: [PATCH] drm/amd/pp: Expose new interface to DC to ctrl au=
-to wattman
->>
->> On 2018-02-08 06:20 AM, Rex Zhu wrote:
->>> Disable AutoWattman (if enabled) when FreeSync is enabled.
->>
->> Do you have a DC change calling this?
->>
->> What's the use case for this and why do we need to disable AutoWattman w=
-hen Freesync is enabled?
->>
->> What does AutoWattman do?
->>
->> Harry
->>
->>>
->>> Change-Id: I9a531321d7913b8b40e60070c569a01c4f202002
->>> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
->>> ---
->>>   drivers/gpu/drm/amd/include/kgd_pp_interface.h |  1 +
->>>   drivers/gpu/drm/amd/powerplay/amd_powerplay.c  | 25 +++++++++++++++++=
-++++++++
->>>   2 files changed, 26 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/g=
-pu/drm/amd/include/kgd_pp_interface.h
->>> index 22c2fa3..f7bb565 100644
->>> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
->>> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
->>> @@ -313,6 +313,7 @@ struct amd_pm_funcs {
->>>         int (*set_power_profile_mode)(void *handle, long *input, uint32=
-_t size);
->>>         int (*odn_edit_dpm_table)(void *handle, uint32_t type, long *in=
-put, uint32_t size);
->>>         int (*set_mmhub_powergating_by_smu)(void *handle);
->>> +     int (*notify_free_sync_change)(void *handle, bool en);
->>>   };
->>>
->>>   #endif
->>> diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gp=
-u/drm/amd/powerplay/amd_powerplay.c
->>> index 376ed2d..d0306b6 100644
->>> --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
->>> +++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
->>> @@ -1555,6 +1555,30 @@ static int pp_set_mmhub_powergating_by_smu(void =
-*handle)
->>>         return hwmgr->hwmgr_func->set_mmhub_powergating_by_smu(hwmgr);
->>>   }
->>>
->>> +static int pp_notify_free_sync_change(void *handle, bool en)
->>> +{
->>> +     struct pp_hwmgr *hwmgr;
->>> +     struct pp_instance *pp_handle =3D (struct pp_instance *)handle;
->>> +     int ret =3D 0;
->>> +
->>> +     ret =3D pp_check(pp_handle);
->>> +
->>> +     if (ret)
->>> +             return ret;
->>> +
->>> +     hwmgr =3D pp_handle->hwmgr;
->>> +
->>> +     mutex_lock(&pp_handle->pp_lock);
->>> +     if (hwmgr->autowattman_enabled) {
->>> +             if (hwmgr->hwmgr_func->start_auto_wattman !=3D NULL) {
->>> +                     if (!cancel_delayed_work_sync(&hwmgr->wattman_upd=
-ate_work))
->>> +                             hwmgr->hwmgr_func->start_auto_wattman(hwm=
-gr, en);
->>> +             }
->>> +     }
->>> +     mutex_unlock(&pp_handle->pp_lock);
->>> +     return 0;
->>> +}
->>> +
->>>   const struct amd_pm_funcs pp_dpm_funcs =3D {
->>>         .load_firmware =3D pp_dpm_load_fw,
->>>         .wait_for_fw_loading_complete =3D pp_dpm_fw_loading_complete,
->>> @@ -1604,4 +1628,5 @@ static int pp_set_mmhub_powergating_by_smu(void *=
-handle)
->>>         .display_clock_voltage_request =3D pp_display_clock_voltage_req=
-uest,
->>>         .get_display_mode_validation_clocks =3D pp_get_display_mode_val=
-idation_clocks,
->>>         .set_mmhub_powergating_by_smu =3D pp_set_mmhub_powergating_by_s=
-mu,
->>> +     .notify_free_sync_change =3D pp_notify_free_sync_change,
->>>   };
->>>
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...
-
-
-
->
-
---_000_CY4PR12MB1687747073E0E3B90E2DB090FBF30CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Thanks Harry for&nbsp;<span style=
-=3D"color: rgb(51, 51, 51); font-family: arial; font-size: 13px;">clarify t=
-his question thoroughly.</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(51, 51,=
- 51); font-family: arial; font-size: 13px;"><br>
-</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(51, 51,=
- 51); font-family: arial; font-size: 13px;"><span style=3D"font-family: Cal=
-ibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;, &quo=
-t;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;=
-Android Emoji&quot;, EmojiSymbols; font-size: 14.6667px;">&gt;We'll
- still need a patch to call this interface from DC. Is that on your plate o=
-r is this something we should hook up?</span></span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(51, 51,=
- 51); font-family: arial; font-size: 13px;"><span style=3D"font-family: Cal=
-ibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;, &quo=
-t;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;=
-Android Emoji&quot;, EmojiSymbols; font-size: 14.6667px;"></span>No,
- I just implemented the interface in pp. DC need to call this function to e=
-nable/disable the auto&nbsp;wattman feature
-<span style=3D"font-family: Calibri, Helvetica, sans-serif, EmojiFont, &quo=
-t;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quo=
-t;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; font-size=
-: 14.6667px;">
-when &nbsp;Freesync disable/enable.</span></span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(51, 51,=
- 51);"><font face=3D"arial"><span style=3D"font-size: 13px;"><br>
-</span></font></span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(51, 51,=
- 51);"><font face=3D"arial"><span style=3D"font-size: 13px;"><br>
-</span></font>Best Regards</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font color=3D"#333333">Rex</font=
-></p>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wentland, Harry<br>
-<b>Sent:</b> Thursday, February 8, 2018 11:28 PM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Koo, Anthony; Cyr, Aric<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/pp: Expose new interface to DC to ctrl =
-auto wattman</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2018-02-08 10:10 AM, Harry Wentland wrote:<br>
-&gt; On 2018-02-08 10:07 AM, Zhu, Rex wrote:<br>
-&gt;&gt; when autowattman enabled=1B$B!$=1B(Bwe will update uphyst/downhyst=
-/min-sclk/mclk activity&nbsp; value to smu based on the workload.<br>
-&gt;&gt;<br>
-&gt; <br>
-&gt; Why is this incompatible with Freesync?<br>
-&gt; <br>
-<br>
-Just had a chat with the Windows guys. Apparently AutoWattman changes clock=
-s quite aggressively which can make framerates jump significantly and lead =
-to a subpar experience when using Freesync.<br>
-<br>
-We'll still need a patch to call this interface from DC. Is that on your pl=
-ate or is this something we should hook up?<br>
-<br>
-Harry<br>
-<br>
-&gt; Harry<br>
-&gt; <br>
-&gt;&gt; Best Regards<br>
-&gt;&gt; Rex<br>
-&gt;&gt;<br>
-&gt;&gt; ------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
-------------------------<br>
-&gt;&gt; *From:* Wentland, Harry<br>
-&gt;&gt; *Sent:* Thursday, February 8, 2018 10:22:16 PM<br>
-&gt;&gt; *To:* Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt;&gt; *Subject:* Re: [PATCH] drm/amd/pp: Expose new interface to DC to c=
-trl auto wattman<br>
-&gt;&gt; &nbsp;<br>
-&gt;&gt; On 2018-02-08 06:20 AM, Rex Zhu wrote:<br>
-&gt;&gt;&gt; Disable AutoWattman (if enabled) when FreeSync is enabled.<br>
-&gt;&gt;<br>
-&gt;&gt; Do you have a DC change calling this?<br>
-&gt;&gt;<br>
-&gt;&gt; What's the use case for this and why do we need to disable AutoWat=
-tman when Freesync is enabled?<br>
-&gt;&gt;<br>
-&gt;&gt; What does AutoWattman do?<br>
-&gt;&gt;<br>
-&gt;&gt; Harry<br>
-&gt;&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Change-Id: I9a531321d7913b8b40e60070c569a01c4f202002<br>
-&gt;&gt;&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;&gt;&gt; ---<br>
-&gt;&gt;&gt; &nbsp; drivers/gpu/drm/amd/include/kgd_pp_interface.h |&nbsp; =
-1 &#43;<br>
-&gt;&gt;&gt; &nbsp; drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp; | 2=
-5 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&gt;&gt; &nbsp; 2 files changed, 26 insertions(&#43;)<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/=
-drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-&gt;&gt;&gt; index 22c2fa3..f7bb565 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface=
-.h<br>
-&gt;&gt;&gt; @@ -313,6 &#43;313,7 @@ struct amd_pm_funcs {<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_power_pro=
-file_mode)(void *handle, long *input, uint32_t size);<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*odn_edit_dpm_=
-table)(void *handle, uint32_t type, long *input, uint32_t size);<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_mmhub_pow=
-ergating_by_smu)(void *handle);<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int (*notify_free_sync_change)(v=
-oid *handle, bool en);<br>
-&gt;&gt;&gt; &nbsp; };<br>
-&gt;&gt;&gt; &nbsp; <br>
-&gt;&gt;&gt; &nbsp; #endif<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/d=
-rivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&gt;&gt;&gt; index 376ed2d..d0306b6 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.=
-c<br>
-&gt;&gt;&gt; @@ -1555,6 &#43;1555,30 @@ static int pp_set_mmhub_powergating=
-_by_smu(void *handle)<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hw=
-mgr_func-&gt;set_mmhub_powergating_by_smu(hwmgr);<br>
-&gt;&gt;&gt; &nbsp; }<br>
-&gt;&gt;&gt; &nbsp; <br>
-&gt;&gt;&gt; &#43;static int pp_notify_free_sync_change(void *handle, bool =
-en)<br>
-&gt;&gt;&gt; &#43;{<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_instance *pp_handle =
-=3D (struct pp_instance *)handle;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D pp_check(pp_handle);<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return ret;<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr =3D pp_handle-&gt;hwmgr;<b=
-r>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;pp_handle-&gt;pp=
-_lock);<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;autowattman_enable=
-d) {<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;start_auto_wattman !=3D NULL) =
-{<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!cancel=
-_delayed_work_sync(&amp;hwmgr-&gt;wattman_update_work))<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;start_auto_wa=
-ttman(hwmgr, en);<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;pp_handle-&gt;=
-pp_lock);<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt;&gt; &#43;}<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &nbsp; const struct amd_pm_funcs pp_dpm_funcs =3D {<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .load_firmware =3D =
-pp_dpm_load_fw,<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .wait_for_fw_loadin=
-g_complete =3D pp_dpm_fw_loading_complete,<br>
-&gt;&gt;&gt; @@ -1604,4 &#43;1628,5 @@ static int pp_set_mmhub_powergating_=
-by_smu(void *handle)<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_volt=
-age_request =3D pp_display_clock_voltage_request,<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_display_mode_v=
-alidation_clocks =3D pp_get_display_mode_validation_clocks,<br>
-&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mmhub_powergat=
-ing_by_smu =3D pp_set_mmhub_powergating_by_smu,<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .notify_free_sync_change =3D pp_=
-notify_free_sync_change,<br>
-&gt;&gt;&gt; &nbsp; };<br>
-&gt;&gt;&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
-=3D"LPlnk958748" previewremoved=3D"true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15181049861350.4060229547431593" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15181049861300.22911283410047023" role=3D"presenta=
-tion" cellspacing=3D"0" style=3D"width: 90%; background-color: rgb(255, 255=
-, 255); position: relative; overflow: auto; padding-top: 20px; padding-bott=
-om: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200); bord=
-er-bottom: 1px dotted rgb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_15181049861330.12137092720321419" colspan=3D"2" style=3D=
-"vertical-align: top; position: relative; padding: 0px; display: table-cell=
-;">
-<div id=3D"LPRemovePreviewContainer_15181049861330.8856657762314699"></div>
-<div id=3D"LPTitle_15181049861330.9856724405077941" style=3D"top: 0px; colo=
-r: rgb(0, 120, 215); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
-<a id=3D"LPUrlAnchor_15181049861340.6964929520917347" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15181049861340.46317979394903386" style=3D"margin: 10=
-px 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: w=
-f_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Aria=
-l, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15181049861350.5957188687150226" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-&gt; <br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1687747073E0E3B90E2DB090FBF30CY4PR12MB1687namp_--
-
---===============0964347212==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0964347212==--
+QWdhaW4sIGl0IHN0aWxsIGhhcyByaXNrIHdoZW4gdXBkYXRpbmcgc21jIHRhYmxlIHdpdGhvdXQg
+Y2FsbGluZyAKc211N19mcmVlemUvdW5mcmVlemVfc2Nsa19tY2xrX2RwbSgpLgoKUmVnYXJkcywK
+RXJpYwoKCk9uIDIwMTgtMDItMDggMDQ6MTQgQU0sIFJleCBaaHUgd3JvdGU6Cj4gQ2hhbmdlLUlk
+OiBJNDUzMzgyNmVmNmUxOGRmMTI1YWU0NDQ1MDE2ODczYmUzYjVmZTBjZQo+IFNpZ25lZC1vZmYt
+Ynk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KPiAtLS0KPiAgIC4uLi9kcm0vYW1kL3Bvd2Vy
+cGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jICAgIHwgMTA0ICsrKysrKysrKysrKysrKysr
+KysrKwo+ICAgMSBmaWxlIGNoYW5nZWQsIDEwNCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3Iu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdy
+LmMKPiBpbmRleCBiZmIyYzg1Li41NTk1NzJkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCj4gQEAgLTI1
+NzUsNiArMjU3NSwxMDkgQEAgc3RhdGljIGludCBwb2xhcmlzMTBfcG9wdWxhdGVfcmVxdWVzdGVk
+X2dyYXBoaWNfbGV2ZWxzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gICAJCQkJYXJyYXlfc2l6
+ZSwgU01DX1JBTV9FTkQpOwo+ICAgfQo+ICAgCj4gK3VpbnQzMl90IHBvbGFyaXMxMF9zZXRfZmll
+bGRfdG9fdTMyKHUzMiBvZmZzZXQsIHUzMiBvcmlnaW5hbF9kYXRhLCB1MzIgZmllbGQsIHUzMiBz
+aXplKQo+ICt7Cj4gKwl1MzIgbWFzayA9IDA7Cj4gKwl1MzIgc2hpZnQgPSAwOwo+ICsKPiArCXNo
+aWZ0ID0gKG9mZnNldCAlIDQpIDw8IDM7Cj4gKwlpZiAoc2l6ZSA9PSBzaXplb2YodWludDhfdCkp
+Cj4gKwkJbWFzayA9IDB4RkYgPDwgc2hpZnQ7Cj4gKwllbHNlIGlmIChzaXplID09IHNpemVvZih1
+aW50MTZfdCkpCj4gKwkJbWFzayA9IDB4RkZGRiA8PCBzaGlmdDsKPiArCj4gKwlvcmlnaW5hbF9k
+YXRhICY9IH5tYXNrOwo+ICsJb3JpZ2luYWxfZGF0YSB8PSAoZmllbGQgPDwgc2hpZnQpOwo+ICsJ
+cmV0dXJuIG9yaWdpbmFsX2RhdGE7Cj4gK30KPiArCj4gK3N0YXRpYyBpbnQgcG9sYXJpczEwX3Vw
+ZGF0ZV9kcG1fc2V0dGluZ3Moc3RydWN0IHBwX2h3bWdyICpod21nciwKPiArCQkJCXZvaWQgKnBy
+b2ZpbGVfc2V0dGluZykKPiArewo+ICsJc3RydWN0IHBvbGFyaXMxMF9zbXVtZ3IgKnNtdV9kYXRh
+ID0gKHN0cnVjdCBwb2xhcmlzMTBfc211bWdyICopCj4gKwkJCShod21nci0+c211X2JhY2tlbmQp
+Owo+ICsJc3RydWN0IHByb2ZpbGVfbW9kZV9zZXR0aW5nICpzZXR0aW5nOwo+ICsJc3RydWN0IFNN
+VTc0X0Rpc2NyZXRlX0dyYXBoaWNzTGV2ZWwgKmxldmVscyA9Cj4gKwkJCXNtdV9kYXRhLT5zbWNf
+c3RhdGVfdGFibGUuR3JhcGhpY3NMZXZlbDsKPiArCXVpbnQzMl90IGFycmF5ID0gc211X2RhdGEt
+PnNtdTdfZGF0YS5kcG1fdGFibGVfc3RhcnQgKwo+ICsJCQlvZmZzZXRvZihTTVU3NF9EaXNjcmV0
+ZV9EcG1UYWJsZSwgR3JhcGhpY3NMZXZlbCk7Cj4gKwo+ICsJdWludDMyX3QgbWNsa19hcnJheSA9
+IHNtdV9kYXRhLT5zbXU3X2RhdGEuZHBtX3RhYmxlX3N0YXJ0ICsKPiArCQkJb2Zmc2V0b2YoU01V
+NzRfRGlzY3JldGVfRHBtVGFibGUsIE1lbW9yeUxldmVsKTsKPiArCXN0cnVjdCBTTVU3NF9EaXNj
+cmV0ZV9NZW1vcnlMZXZlbCAqbWNsa19sZXZlbHMgPQo+ICsJCQlzbXVfZGF0YS0+c21jX3N0YXRl
+X3RhYmxlLk1lbW9yeUxldmVsOwo+ICsJdWludDMyX3QgaTsKPiArCXVpbnQzMl90IG9mZnNldCwg
+dXBfaHlzdF9vZmZzZXQsIGRvd25faHlzdF9vZmZzZXQsIGNsa19hY3Rpdml0eV9vZmZzZXQsIHRt
+cDsKPiArCj4gKwlpZiAocHJvZmlsZV9zZXR0aW5nID09IE5VTEwpCj4gKwkJcmV0dXJuIC1FSU5W
+QUw7Cj4gKwo+ICsJc2V0dGluZyA9IChzdHJ1Y3QgcHJvZmlsZV9tb2RlX3NldHRpbmcgKilwcm9m
+aWxlX3NldHRpbmc7Cj4gKwo+ICsJaWYgKHNldHRpbmctPmJ1cGRhdGVfc2Nsaykgewo+ICsJCWZv
+ciAoaSA9IDA7IGkgPCBzbXVfZGF0YS0+c21jX3N0YXRlX3RhYmxlLkdyYXBoaWNzRHBtTGV2ZWxD
+b3VudDsgaSsrKSB7Cj4gKwkJCWlmIChsZXZlbHNbaV0uQWN0aXZpdHlMZXZlbCAhPQo+ICsJCQkJ
+Y3B1X3RvX2JlMTYoc2V0dGluZy0+c2Nsa19hY3Rpdml0eSkpIHsKPiArCQkJCWxldmVsc1tpXS5B
+Y3Rpdml0eUxldmVsID0gY3B1X3RvX2JlMTYoc2V0dGluZy0+c2Nsa19hY3Rpdml0eSk7Cj4gKwo+
+ICsJCQkJY2xrX2FjdGl2aXR5X29mZnNldCA9IGFycmF5ICsgKHNpemVvZihTTVU3NF9EaXNjcmV0
+ZV9HcmFwaGljc0xldmVsKSAqIGkpCj4gKwkJCQkJCSsgb2Zmc2V0b2YoU01VNzRfRGlzY3JldGVf
+R3JhcGhpY3NMZXZlbCwgQWN0aXZpdHlMZXZlbCk7Cj4gKwkJCQlvZmZzZXQgPSBjbGtfYWN0aXZp
+dHlfb2Zmc2V0ICYgfjB4MzsKPiArCQkJCXRtcCA9IFBQX0hPU1RfVE9fU01DX1VMKGNnc19yZWFk
+X2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLCBDR1NfSU5EX1JFR19fU01DLCBvZmZzZXQpKTsK
+PiArCQkJCXRtcCA9IHBvbGFyaXMxMF9zZXRfZmllbGRfdG9fdTMyKGNsa19hY3Rpdml0eV9vZmZz
+ZXQsIHRtcCwgbGV2ZWxzW2ldLkFjdGl2aXR5TGV2ZWwsIHNpemVvZih1aW50MTZfdCkpOwo+ICsJ
+CQkJY2dzX3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLCBDR1NfSU5EX1JFR19fU01D
+LCBvZmZzZXQsIFBQX0hPU1RfVE9fU01DX1VMKHRtcCkpOwo+ICsKPiArCQkJfQo+ICsJCQlpZiAo
+bGV2ZWxzW2ldLlVwSHlzdCAhPSBzZXR0aW5nLT5zY2xrX3VwX2h5c3QgfHwKPiArCQkJCWxldmVs
+c1tpXS5Eb3duSHlzdCAhPSBzZXR0aW5nLT5zY2xrX2Rvd25faHlzdCkgewo+ICsJCQkJbGV2ZWxz
+W2ldLlVwSHlzdCA9IHNldHRpbmctPnNjbGtfdXBfaHlzdDsKPiArCQkJCWxldmVsc1tpXS5Eb3du
+SHlzdCA9IHNldHRpbmctPnNjbGtfZG93bl9oeXN0Owo+ICsJCQkJdXBfaHlzdF9vZmZzZXQgPSBh
+cnJheSArIChzaXplb2YoU01VNzRfRGlzY3JldGVfR3JhcGhpY3NMZXZlbCkgKiBpKQo+ICsJCQkJ
+CQkrIG9mZnNldG9mKFNNVTc0X0Rpc2NyZXRlX0dyYXBoaWNzTGV2ZWwsIFVwSHlzdCk7Cj4gKwkJ
+CQlkb3duX2h5c3Rfb2Zmc2V0ID0gYXJyYXkgKyAoc2l6ZW9mKFNNVTc0X0Rpc2NyZXRlX0dyYXBo
+aWNzTGV2ZWwpICogaSkKPiArCQkJCQkJKyBvZmZzZXRvZihTTVU3NF9EaXNjcmV0ZV9HcmFwaGlj
+c0xldmVsLCBEb3duSHlzdCk7Cj4gKwkJCQlvZmZzZXQgPSB1cF9oeXN0X29mZnNldCAmIH4weDM7
+Cj4gKwkJCQl0bXAgPSBQUF9IT1NUX1RPX1NNQ19VTChjZ3NfcmVhZF9pbmRfcmVnaXN0ZXIoaHdt
+Z3ItPmRldmljZSwgQ0dTX0lORF9SRUdfX1NNQywgb2Zmc2V0KSk7Cj4gKwkJCQl0bXAgPSBwb2xh
+cmlzMTBfc2V0X2ZpZWxkX3RvX3UzMih1cF9oeXN0X29mZnNldCwgdG1wLCBsZXZlbHNbaV0uVXBI
+eXN0LCBzaXplb2YodWludDhfdCkpOwo+ICsJCQkJdG1wID0gcG9sYXJpczEwX3NldF9maWVsZF90
+b191MzIoZG93bl9oeXN0X29mZnNldCwgdG1wLCBsZXZlbHNbaV0uRG93bkh5c3QsIHNpemVvZih1
+aW50OF90KSk7Cj4gKwkJCQljZ3Nfd3JpdGVfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsIENH
+U19JTkRfUkVHX19TTUMsIG9mZnNldCwgUFBfSE9TVF9UT19TTUNfVUwodG1wKSk7Cj4gKwkJCX0K
+PiArCQl9Cj4gKwl9Cj4gKwo+ICsJaWYgKHNldHRpbmctPmJ1cGRhdGVfbWNsaykgewo+ICsJCWZv
+ciAoaSA9IDA7IGkgPCBzbXVfZGF0YS0+c21jX3N0YXRlX3RhYmxlLk1lbW9yeURwbUxldmVsQ291
+bnQ7IGkrKykgewo+ICsJCQlpZiAobWNsa19sZXZlbHNbaV0uQWN0aXZpdHlMZXZlbCAhPQo+ICsJ
+CQkJY3B1X3RvX2JlMTYoc2V0dGluZy0+bWNsa19hY3Rpdml0eSkpIHsKPiArCQkJCW1jbGtfbGV2
+ZWxzW2ldLkFjdGl2aXR5TGV2ZWwgPSBjcHVfdG9fYmUxNihzZXR0aW5nLT5tY2xrX2FjdGl2aXR5
+KTsKPiArCj4gKwkJCQljbGtfYWN0aXZpdHlfb2Zmc2V0ID0gbWNsa19hcnJheSArIChzaXplb2Yo
+U01VNzRfRGlzY3JldGVfTWVtb3J5TGV2ZWwpICogaSkKPiArCQkJCQkJKyBvZmZzZXRvZihTTVU3
+NF9EaXNjcmV0ZV9NZW1vcnlMZXZlbCwgQWN0aXZpdHlMZXZlbCk7Cj4gKwkJCQlvZmZzZXQgPSBj
+bGtfYWN0aXZpdHlfb2Zmc2V0ICYgfjB4MzsKPiArCQkJCXRtcCA9IFBQX0hPU1RfVE9fU01DX1VM
+KGNnc19yZWFkX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLCBDR1NfSU5EX1JFR19fU01DLCBv
+ZmZzZXQpKTsKPiArCQkJCXRtcCA9IHBvbGFyaXMxMF9zZXRfZmllbGRfdG9fdTMyKGNsa19hY3Rp
+dml0eV9vZmZzZXQsIHRtcCwgbWNsa19sZXZlbHNbaV0uQWN0aXZpdHlMZXZlbCwgc2l6ZW9mKHVp
+bnQxNl90KSk7Cj4gKwkJCQljZ3Nfd3JpdGVfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsIENH
+U19JTkRfUkVHX19TTUMsIG9mZnNldCwgUFBfSE9TVF9UT19TTUNfVUwodG1wKSk7Cj4gKwo+ICsJ
+CQl9Cj4gKwkJCWlmIChtY2xrX2xldmVsc1tpXS5VcEh5c3QgIT0gc2V0dGluZy0+bWNsa191cF9o
+eXN0IHx8Cj4gKwkJCQltY2xrX2xldmVsc1tpXS5Eb3duSHlzdCAhPSBzZXR0aW5nLT5tY2xrX2Rv
+d25faHlzdCkgewo+ICsJCQkJbWNsa19sZXZlbHNbaV0uVXBIeXN0ID0gc2V0dGluZy0+bWNsa191
+cF9oeXN0Owo+ICsJCQkJbWNsa19sZXZlbHNbaV0uRG93bkh5c3QgPSBzZXR0aW5nLT5tY2xrX2Rv
+d25faHlzdDsKPiArCQkJCXVwX2h5c3Rfb2Zmc2V0ID0gbWNsa19hcnJheSArIChzaXplb2YoU01V
+NzRfRGlzY3JldGVfTWVtb3J5TGV2ZWwpICogaSkKPiArCQkJCQkJKyBvZmZzZXRvZihTTVU3NF9E
+aXNjcmV0ZV9NZW1vcnlMZXZlbCwgVXBIeXN0KTsKPiArCQkJCWRvd25faHlzdF9vZmZzZXQgPSBt
+Y2xrX2FycmF5ICsgKHNpemVvZihTTVU3NF9EaXNjcmV0ZV9NZW1vcnlMZXZlbCkgKiBpKQo+ICsJ
+CQkJCQkrIG9mZnNldG9mKFNNVTc0X0Rpc2NyZXRlX01lbW9yeUxldmVsLCBEb3duSHlzdCk7Cj4g
+KwkJCQlvZmZzZXQgPSB1cF9oeXN0X29mZnNldCAmIH4weDM7Cj4gKwkJCQl0bXAgPSBQUF9IT1NU
+X1RPX1NNQ19VTChjZ3NfcmVhZF9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwgQ0dTX0lORF9S
+RUdfX1NNQywgb2Zmc2V0KSk7Cj4gKwkJCQl0bXAgPSBwb2xhcmlzMTBfc2V0X2ZpZWxkX3RvX3Uz
+Mih1cF9oeXN0X29mZnNldCwgdG1wLCBtY2xrX2xldmVsc1tpXS5VcEh5c3QsIHNpemVvZih1aW50
+OF90KSk7Cj4gKwkJCQl0bXAgPSBwb2xhcmlzMTBfc2V0X2ZpZWxkX3RvX3UzMihkb3duX2h5c3Rf
+b2Zmc2V0LCB0bXAsIG1jbGtfbGV2ZWxzW2ldLkRvd25IeXN0LCBzaXplb2YodWludDhfdCkpOwo+
+ICsJCQkJY2dzX3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLCBDR1NfSU5EX1JFR19f
+U01DLCBvZmZzZXQsIFBQX0hPU1RfVE9fU01DX1VMKHRtcCkpOwo+ICsJCQl9Cj4gKwkJfQo+ICsJ
+fQo+ICsJcmV0dXJuIDA7Cj4gK30KPiArCj4gICBjb25zdCBzdHJ1Y3QgcHBfc211bWdyX2Z1bmMg
+cG9sYXJpczEwX3NtdV9mdW5jcyA9IHsKPiAgIAkuc211X2luaXQgPSBwb2xhcmlzMTBfc211X2lu
+aXQsCj4gICAJLnNtdV9maW5pID0gc211N19zbXVfZmluaSwKPiBAQCAtMjU5OSw0ICsyNzAyLDUg
+QEAgc3RhdGljIGludCBwb2xhcmlzMTBfcG9wdWxhdGVfcmVxdWVzdGVkX2dyYXBoaWNfbGV2ZWxz
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gICAJLmlzX2RwbV9ydW5uaW5nID0gcG9sYXJpczEw
+X2lzX2RwbV9ydW5uaW5nLAo+ICAgCS5wb3B1bGF0ZV9yZXF1ZXN0ZWRfZ3JhcGhpY19sZXZlbHMg
+PSBwb2xhcmlzMTBfcG9wdWxhdGVfcmVxdWVzdGVkX2dyYXBoaWNfbGV2ZWxzLAo+ICAgCS5pc19o
+d19hdmZzX3ByZXNlbnQgPSBwb2xhcmlzMTBfaXNfaHdfYXZmc19wcmVzZW50LAo+ICsJLnVwZGF0
+ZV9kcG1fc2V0dGluZ3MgPSBwb2xhcmlzMTBfdXBkYXRlX2RwbV9zZXR0aW5ncywKPiAgIH07Cgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
