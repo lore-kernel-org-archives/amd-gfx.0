@@ -1,78 +1,37 @@
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v3 4/4] amdgpu/dc/calcs: Support clang option for stack
- alignment
-Date: Thu, 8 Feb 2018 16:44:21 -0500
-Message-ID: <dc344f23-663e-0e61-0b89-c4e358811e23@amd.com>
-References: <20180208205316.93330-1-mka@chromium.org>
- <20180208205316.93330-4-mka@chromium.org>
- <953daf8c-b195-e983-ecc4-4b369515e9ac@amd.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Remove unused CFLAGS entry in DML Makefile
+Date: Thu, 8 Feb 2018 16:47:28 -0500
+Message-ID: <20180208214728.19140-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <953daf8c-b195-e983-ecc4-4b369515e9ac@amd.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Matthias Kaehlcke <mka@chromium.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Cc: Craig Bergstrom <craigb@chromium.org>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Justin TerAvest <teravest@chromium.org>, amd-gfx@lists.freedesktop.org, Guenter Roeck <groeck@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-On 2018-02-08 04:03 PM, Harry Wentland wrote:
-> On 2018-02-08 03:53 PM, Matthias Kaehlcke wrote:
->> calcs uses the compiler option -mpreferred-stack-boundary=4 to configure
->> a stack alignment of 16 bytes. Clang uses the option -mstack-alignment
->> instead, which expects as parameter the alignment in bytes, and not a
->> power of two like -mpreferred-stack-boundary.
->>
->> Probe for both compiler options and use the correct one, similar to
->> what is done in arch/x86/Makefile.
->>
->> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
-> 
-> Series is
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-... and merged to amd-staging-drm-next.
-
-I had to resolve a small conflict with patches 1 & 2. Not a big deal but curious what development branch you use. We normally use this for amd-gfx development: https://cgit.freedesktop.org/~agd5f/linux/log/?h=amd-staging-drm-next (although it might be a bit behind our internal dev tree).
-
-Harry
-
-> 
-> Harry
-> 
->> ---
->> Changes in v3:
->> - patch added
->>
->> Note to self: if this patterns proliferates further we probably want to
->> put the evaluation of the correct compiler flag in some common place.
->>
->>  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 8 +++++++-
->>  1 file changed, 7 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
->> index af0f452f3c9f..95f332ee3e7e 100644
->> --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
->> +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
->> @@ -24,7 +24,13 @@
->>  # It calculates Bandwidth and Watermarks values for HW programming
->>  #
->>  
->> -calcs_ccflags := -mhard-float -msse -mpreferred-stack-boundary=4
->> +ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
->> +	cc_stack_align := -mpreferred-stack-boundary=4
->> +else ifneq ($(call cc-option, -mstack-alignment=16),)
->> +	cc_stack_align := -mstack-alignment=16
->> +endif
->> +
->> +calcs_ccflags := -mhard-float -msse $(cc_stack_align)
->>  
->>  CFLAGS_dcn_calcs.o := $(calcs_ccflags)
->>  CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
->>
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> 
+TWlzc2VkIHRoYXQgd2l0aCBhIHByZXZpb3VzIGNoYW5nZSB0aGF0IHJlbW92ZWQgdW51c2VkIGZp
+bGVzLgoKU2lnbmVkLW9mZi1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5j
+b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZSB8IDEg
+LQogMSBmaWxlIGNoYW5nZWQsIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RtbC9NYWtlZmlsZQppbmRleCAwMjcxMDQzY2Y2YTIuLmY4M2E2MDhmOTNlOSAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCkBAIC0zMiw3
+ICszMiw2IEBAIGVuZGlmCiAKIGRtbF9jY2ZsYWdzIDo9IC1taGFyZC1mbG9hdCAtbXNzZSAkKGNj
+X3N0YWNrX2FsaWduKQogCi1DRkxBR1NfZGlzcGxheV9tb2RlX3ZiYS5vIDo9ICQoZG1sX2NjZmxh
+Z3MpCiBDRkxBR1NfZGlzcGxheV9tb2RlX2xpYi5vIDo9ICQoZG1sX2NjZmxhZ3MpCiBDRkxBR1Nf
+ZGlzcGxheV9waXBlX2Nsb2Nrcy5vIDo9ICQoZG1sX2NjZmxhZ3MpCiBDRkxBR1NfZG1sMV9kaXNw
+bGF5X3JxX2RsZ19jYWxjLm8gOj0gJChkbWxfY2NmbGFncykKLS0gCjIuMTQuMQoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
