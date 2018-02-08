@@ -1,80 +1,150 @@
-From: Matthias Kaehlcke <mka@chromium.org>
-Subject: Re: [PATCH v3 4/4] amdgpu/dc/calcs: Support clang option for stack
- alignment
-Date: Thu, 8 Feb 2018 14:07:23 -0800
-Message-ID: <20180208220723.GE116483@google.com>
-References: <20180208205316.93330-1-mka@chromium.org>
- <20180208205316.93330-4-mka@chromium.org>
- <953daf8c-b195-e983-ecc4-4b369515e9ac@amd.com>
- <dc344f23-663e-0e61-0b89-c4e358811e23@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Remove unused CFLAGS entry in DML
+ Makefile
+Date: Thu, 8 Feb 2018 22:10:58 +0000
+Message-ID: <BN6PR12MB1652AC493950CDF3579BA369F7F30@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <20180208214728.19140-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="===============1258396350=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180208214728.19140-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+
+--===============1258396350==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
+ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, February 8, 2018 4:47:28 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Wentland, Harry
+Subject: [PATCH] drm/amd/display: Remove unused CFLAGS entry in DML Makefil=
+e
+
+Missed that with a previous change that removed unused files.
+
+Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/dc/dml/Makefile | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/=
+amd/display/dc/dml/Makefile
+index 0271043cf6a2..f83a608f93e9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -32,7 +32,6 @@ endif
+
+ dml_ccflags :=3D -mhard-float -msse $(cc_stack_align)
+
+-CFLAGS_display_mode_vba.o :=3D $(dml_ccflags)
+ CFLAGS_display_mode_lib.o :=3D $(dml_ccflags)
+ CFLAGS_display_pipe_clocks.o :=3D $(dml_ccflags)
+ CFLAGS_dml1_display_rq_dlg_calc.o :=3D $(dml_ccflags)
+--
+2.14.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.went=
+land-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, February 8, 2018 4:47:28 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Wentland, Harry<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Remove unused CFLAGS entry in DML =
+Makefile</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Missed that with a previous change that removed un=
+used files.<br>
+<br>
+Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/dc/dml/Makefile | 1 -<br>
+&nbsp;1 file changed, 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/=
+amd/display/dc/dml/Makefile<br>
+index 0271043cf6a2..f83a608f93e9 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dml/Makefile<br>
+@@ -32,7 &#43;32,6 @@ endif<br>
+&nbsp;<br>
+&nbsp;dml_ccflags :=3D -mhard-float -msse $(cc_stack_align)<br>
+&nbsp;<br>
+-CFLAGS_display_mode_vba.o :=3D $(dml_ccflags)<br>
+&nbsp;CFLAGS_display_mode_lib.o :=3D $(dml_ccflags)<br>
+&nbsp;CFLAGS_display_pipe_clocks.o :=3D $(dml_ccflags)<br>
+&nbsp;CFLAGS_dml1_display_rq_dlg_calc.o :=3D $(dml_ccflags)<br>
+-- <br>
+2.14.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_--
+
+--===============1258396350==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 Content-Disposition: inline
-In-Reply-To: <dc344f23-663e-0e61-0b89-c4e358811e23@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Craig Bergstrom <craigb@chromium.org>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Justin TerAvest <teravest@chromium.org>, amd-gfx@lists.freedesktop.org, Guenter Roeck <groeck@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
 
-El Thu, Feb 08, 2018 at 04:44:21PM -0500 Harry Wentland ha dit:
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
-> On 2018-02-08 04:03 PM, Harry Wentland wrote:
-> > On 2018-02-08 03:53 PM, Matthias Kaehlcke wrote:
-> >> calcs uses the compiler option -mpreferred-stack-boundary=4 to configure
-> >> a stack alignment of 16 bytes. Clang uses the option -mstack-alignment
-> >> instead, which expects as parameter the alignment in bytes, and not a
-> >> power of two like -mpreferred-stack-boundary.
-> >>
-> >> Probe for both compiler options and use the correct one, similar to
-> >> what is done in arch/x86/Makefile.
-> >>
-> >> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
-> > 
-> > Series is
-> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> 
-> ... and merged to amd-staging-drm-next.
-
-Thanks!
-
-> I had to resolve a small conflict with patches 1 & 2. Not a big deal but curious what development branch you use. We normally use this for amd-gfx development: https://cgit.freedesktop.org/~agd5f/linux/log/?h=amd-staging-drm-next (although it might be a bit behind our internal dev tree).
-
-I typically use Linus' tree as base, will try to remember to check
-future patches against amd-staging-drm-next.
-
-> >> ---
-> >> Changes in v3:
-> >> - patch added
-> >>
-> >> Note to self: if this patterns proliferates further we probably want to
-> >> put the evaluation of the correct compiler flag in some common place.
-> >>
-> >>  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 8 +++++++-
-> >>  1 file changed, 7 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> >> index af0f452f3c9f..95f332ee3e7e 100644
-> >> --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> >> +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> >> @@ -24,7 +24,13 @@
-> >>  # It calculates Bandwidth and Watermarks values for HW programming
-> >>  #
-> >>  
-> >> -calcs_ccflags := -mhard-float -msse -mpreferred-stack-boundary=4
-> >> +ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
-> >> +	cc_stack_align := -mpreferred-stack-boundary=4
-> >> +else ifneq ($(call cc-option, -mstack-alignment=16),)
-> >> +	cc_stack_align := -mstack-alignment=16
-> >> +endif
-> >> +
-> >> +calcs_ccflags := -mhard-float -msse $(cc_stack_align)
-> >>  
-> >>  CFLAGS_dcn_calcs.o := $(calcs_ccflags)
-> >>  CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
-> >>
-> > _______________________________________________
-> > dri-devel mailing list
-> > dri-devel@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> > 
+--===============1258396350==--
