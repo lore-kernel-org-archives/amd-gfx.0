@@ -1,59 +1,96 @@
-From: Guenter Roeck <groeck@google.com>
-Subject: Re: [PATCH v2 2/2] amdgpu/dc/dml: Support clang option for stack alignment
-Date: Wed, 7 Feb 2018 18:04:43 -0800
-Message-ID: <CABXOdTey_CktTkW=GD9W8GLJyJ=fbmLETLpVJzrywdmWBHDDbQ@mail.gmail.com>
-References: <20180208015103.169603-1-mka@chromium.org> <20180208015103.169603-2-mka@chromium.org>
+From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/9] drm/amdgpu: add amdgpu module parameter for zfb
+Date: Thu, 8 Feb 2018 12:34:59 +0800
+Message-ID: <df90d619-bba6-370f-0aba-3e2e5de0923e@amd.com>
+References: <1518006892-14121-1-git-send-email-Feifei.Xu@amd.com>
+ <1518006892-14121-4-git-send-email-Feifei.Xu@amd.com>
+ <1af9466c-df71-4484-fc5d-9409e08c84d7@gmail.com>
+ <b8912e67-6522-4526-99db-719f2af3a8ad@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180208015103.169603-2-mka@chromium.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Matthias Kaehlcke <mka@chromium.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-kernel <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <b8912e67-6522-4526-99db-719f2af3a8ad-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Wed, Feb 7, 2018 at 5:51 PM, Matthias Kaehlcke <mka@chromium.org> wrote:
-> DML uses the compiler option -mpreferred-stack-boundary=4 to configure
-> a stack alignment of 16 bytes. Clang uses the option -mstack-alignment
-> instead, which expects as parameter the alignment in bytes, and not a
-> power of two like -mpreferred-stack-boundary.
->
-> Probe for both compiler options and use the correct one, similar to
-> what is done in arch/x86/Makefile.
->
-> Reported-by: Guenter Roeck <groeck@chromium.org>
-> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
-
-Reviewed-by: Guenter Roeck <groeck@chromium.org>
-
-Guenter
-
-> ---
-> Changes in v2:
-> - use consistent syntax and formatting for assignment of cc_stack_align
->
->  drivers/gpu/drm/amd/display/dc/dml/Makefile | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index b8cadf833e71..a92189eddab0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -24,7 +24,13 @@
->  # It provides the general basic services required by other DAL
->  # subcomponents.
->
-> -subdir-ccflags-y += -mhard-float -msse -mpreferred-stack-boundary=4
-> +ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
-> +       cc_stack_align := -mpreferred-stack-boundary=4
-> +else ifneq ($(call cc-option, -mstack-alignment=16),)
-> +       cc_stack_align := -mstack-alignment=16
-> +endif
-> +
-> +subdir-ccflags-y += -mhard-float -msse $(cc_stack_align)
->
->  DML = display_mode_lib.o display_rq_dlg_calc.o \
->           display_rq_dlg_helpers.o dml1_display_rq_dlg_calc.o \
-> --
-> 2.16.0.rc1.238.g530d649a79-goog
->
+CgpPbiAyMDE45bm0MDLmnIgwOOaXpSAwMjo0OCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBI
+aSBGZWlmZWksCj4KPiBvayB0aGUgY29ycmVjdCBhcHByb2FjaCBvZiBkb2luZyB0aGlzOgo+IDEu
+IENvbXBpbGUgdGhlIGtlcm5lbCB3aXRoIENPTkZJR19ETUFfQ01BLgo+IDIuIFNwZWNpZnkgY21h
+PTEwMjVNIG9uIHRoZSBrZXJuZWwgY29tbWFuZCBsaW5lLgo+IDMuIENhbGwgZG1hX2FsbG9jX2Nv
+aGVyZW50KCkgdG8gYWxsb2NhdGUgdXAgdG8gMUdCIG9mIG1lbW9yeSBmb3IgWkZCLgpIYXZlIHlv
+dSB0cmllZCBDTUE/IEluIGVhcmx5IHRpbWUsIEkgdHJpZWQgaXQuIElmIENNQSBpcyBlbmFibGVk
+LCB0aGVuIAp0dG0gZG1hIHBvb2wgYWxsb2NhdGlvbiB3aWxsIHVzZSBjbWEsIGFuZCB3aGVuIGNt
+YSBpcyB1c2VkIHVwLCB0aGVuIHR0bSAKZG1hIHBvb2wgYWxsb2NhdGlvbiB3aWxsIGZhaWwuCk5v
+dCBzdXJlIGlmIHRoZSBpc3N1ZSBpcyBmaXhlZCBub3cuCgpSZWdhcmRzLApEYXZpZCBaaG91Cj4K
+PiBDb3VsZG4ndCBmaWd1cmUgb3V0IG9mIGhhbmQgd2hhdCBhbGlnbm1lbnQgaXMgbmVjZXNzYXJ5
+IGhlcmUsIGJ1dCB0aGF0IAo+IHNob3VsZCBqdXN0IGJlIGEgdHlwaW5nIGV4ZXJjaXNlLgo+Cj4g
+UmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPiBBbSAwNy4wMi4yMDE4IHVtIDE0OjE4IHNjaHJpZWIg
+Q2hyaXN0aWFuIEvDtm5pZzoKPj4gSGkgRmVpZmVpLAo+Pgo+PiBtaG0sIHNvIHlvdSdyZSBhcHBy
+b2FjaCBpcyB0byBsaW1pdCB0aGUgbWVtb3J5IHRoZSBMaW51eCBrZXJuZWwgZ3JhYiAKPj4gdXNp
+bmcgdGhlIG1lbT0gcGFyYW1ldGVyIGFuZCB0aGVuIGdpdmUgdGhhdCBtZW1vcnkgdG8gYW1kZ3B1
+LCBjb3JyZWN0Pwo+Pgo+PiBJZiB0aGF0J3MgdGhlIGNhc2UgdGhlbiB0aGlzIGlzIG1vc3QgbGlr
+ZWx5IGEgTkFLLiBDYXVzZSB0aGlzIHNvdW5kcyAKPj4gbGlrZSBhIHBlcmZlY3QgZXhhbXBsZSBm
+b3IgdGhlIENNQS4KPj4KPj4gTmV2ZXIgd29ya2VkIHdpdGggdGhhdCBzdWJzeXN0ZW0gYmVmb3Jl
+LCBidXQgaW4gdGhlb3J5IHlvdSBzaG91bGQgYmUgCj4+IGFibGUgdG8gZ2l2ZSB0aGUgY21hPTFH
+IHBhcmFtZXRlciB0byB0aGUga2VybmVsIGFuZCBieSBkb2luZyBzbyB5b3UgCj4+IHJlc2VydmUg
+MUdCIG9mIGNvbnRpZ3VvdXMgbWVtb3J5IGZvciB1c2UgYnkgZGV2aWNlIGRyaXZlcnMuCj4+Cj4+
+IEdvaW5nIHRvIGRpZyBhIGJpdCBkZWVwZXIgaW50byB0aGF0IGFuZCB0cnlpbmcgdG8gZmluZCB0
+byAKPj4gZG9jdW1lbnRhdGlvbiBhYm91dCBpdCwKPj4gQ2hyaXN0aWFuLgo+Pgo+PiBBbSAwNy4w
+Mi4yMDE4IHVtIDEzOjM0IHNjaHJpZWIgRmVpZmVpIFh1Ogo+Pj4gVXNlcnMgY2FuIHBhc3MgaW4g
+YW4gYXJyYXkgdG8gZGVjaWRlIGVuYWJsZS9kaXNhYmxlIFplcm8gRnJhbWUgQnVmZmVyLgo+Pj4g
+emZiWzBdID0gemZiX3NpemUoTUIpLCB6ZmJbMV0gPSB6ZmJfcGh5c19hZGRyKE1CKS4KPj4+IElm
+IHpiZl9zaXplID4gMCwgemZiIGlzIGVuYWJsZWQuIE90aGVyd2lzZSBkaXNhYmxlZC4KPj4+IFVz
+YWdlIGZvciBleGFtcGxlOgo+Pj4gwqDCoMKgwqAgbW9kcHJvYmUgYW1kZ3B1IHpmYj17MjU2LDQw
+OTZ9Cj4+Pgo+Pj4gQ2hhbmdlLUlkOiBJMzQwZmNiMzZiNTY1NWYyNDU1MTA1NmU2ODViNzQ1NTlk
+NzU5OTY4MAo+Pj4gU2lnbmVkLW9mZi1ieTogRmVpZmVpIFh1IDxGZWlmZWkuWHVAYW1kLmNvbT4K
+Pj4+IC0tLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmjCoMKgwqDC
+oCB8IDEgKwo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwg
+NSArKysrKwo+Pj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykKPj4+Cj4+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggCj4+PiBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBpbmRleCAxYjRjNWFkLi5iZTc5
+Y2IxIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgK
+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBAQCAtMTI5
+LDYgKzEyOSw3IEBAIGV4dGVybiBpbnQgYW1kZ3B1X2pvYl9oYW5nX2xpbWl0Owo+Pj4gwqAgZXh0
+ZXJuIGludCBhbWRncHVfbGJwdzsKPj4+IMKgIGV4dGVybiBpbnQgYW1kZ3B1X2NvbXB1dGVfbXVs
+dGlwaXBlOwo+Pj4gwqAgZXh0ZXJuIGludCBhbWRncHVfZ3B1X3JlY292ZXJ5Owo+Pj4gK2V4dGVy
+biB1bG9uZyBhbWRncHVfemZiW107Cj4+PiDCoCDCoCAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVf
+U0kKPj4+IMKgIGV4dGVybiBpbnQgYW1kZ3B1X3NpX3N1cHBvcnQ7Cj4+PiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIAo+Pj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPj4+IGluZGV4IDM4OTcxNzkuLmFmODQ4MTUg
+MTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMK
+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+Pj4gQEAg
+LTEzMiw2ICsxMzIsNyBAQCBpbnQgYW1kZ3B1X2pvYl9oYW5nX2xpbWl0ID0gMDsKPj4+IMKgIGlu
+dCBhbWRncHVfbGJwdyA9IC0xOwo+Pj4gwqAgaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlwZSA9
+IC0xOwo+Pj4gwqAgaW50IGFtZGdwdV9ncHVfcmVjb3ZlcnkgPSAtMTsgLyogYXV0byAqLwo+Pj4g
+K3Vsb25nIGFtZGdwdV96ZmJbMl0gPSB7MCw0MDk2VUx9OyAvKiB7MCwweDEwMDAwMDAwMH0gKi8K
+Pj4+IMKgIMKgIE1PRFVMRV9QQVJNX0RFU0ModnJhbWxpbWl0LCAiUmVzdHJpY3QgVlJBTSBmb3Ig
+dGVzdGluZywgaW4gCj4+PiBtZWdhYnl0ZXMiKTsKPj4+IMKgIG1vZHVsZV9wYXJhbV9uYW1lZCh2
+cmFtbGltaXQsIGFtZGdwdV92cmFtX2xpbWl0LCBpbnQsIDA2MDApOwo+Pj4gQEAgLTI5MCw2ICsy
+OTEsMTAgQEAgbW9kdWxlX3BhcmFtX25hbWVkKGNvbXB1dGVfbXVsdGlwaXBlLCAKPj4+IGFtZGdw
+dV9jb21wdXRlX211bHRpcGlwZSwgaW50LCAwNDQ0KTsKPj4+IMKgIE1PRFVMRV9QQVJNX0RFU0Mo
+Z3B1X3JlY292ZXJ5LCAiRW5hYmxlIEdQVSByZWNvdmVyeSBtZWNoYW5pc20sICgxIAo+Pj4gPSBl
+bmFibGUsIDAgPSBkaXNhYmxlLCAtMSA9IGF1dG8iKTsKPj4+IMKgIG1vZHVsZV9wYXJhbV9uYW1l
+ZChncHVfcmVjb3ZlcnksIGFtZGdwdV9ncHVfcmVjb3ZlcnksIGludCwgMDQ0NCk7Cj4+PiDCoCAr
+TU9EVUxFX1BBUk1fREVTQyh6ZmIsCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAiRW5hYmxlIFplcm8g
+RnJhbWUgQnVmZmVyIGZlYXR1cmUgKHpmYiB3aWxsIGJlIHNldCBsaWtlIAo+Pj4geHh4eCx4eHh4
+KHpmYl9zaXplIE1CLHpmYl9waHlzX2FkZHIgTUIpLGRlZmF1bHQgZGlzYWJsZWQpIik7Cj4+PiAr
+bW9kdWxlX3BhcmFtX2FycmF5X25hbWVkKHpmYiwgYW1kZ3B1X3pmYiwgdWxvbmcsIE5VTEwsIDA0
+NDQpOwo+Pj4gKwo+Pj4gwqAgI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX1NJCj4+PiDCoCDCoCBp
+bnQgYW1kZ3B1X3NpX3N1cHBvcnQgPSAxOwo+Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
