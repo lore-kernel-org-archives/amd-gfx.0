@@ -1,704 +1,80 @@
-From: Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 10/10] drm/amd/pp: Enable auto automan feature on Polaris
-Date: Thu, 8 Feb 2018 11:58:19 -0500
-Message-ID: <53db2f8b-e62c-9df1-329d-0b7c1f458a80@amd.com>
-References: <1518081259-18120-1-git-send-email-Rex.Zhu@amd.com>
- <1518081259-18120-11-git-send-email-Rex.Zhu@amd.com>
- <CADnq5_Pme6WORs8Ns1DOhmXMSWWQHBkzkr=kWSF2_XqUakKQyg@mail.gmail.com>
- <CY4PR12MB1687A05815EB945E39F139F1FBF30@CY4PR12MB1687.namprd12.prod.outlook.com>
- <CADnq5_M14etkDm6oZjDa+AF6eHgvjddy2-BZHZdXtWUd_+67AQ@mail.gmail.com>
- <CY4PR12MB16870E53F3BC925170DD3F60FBF30@CY4PR12MB1687.namprd12.prod.outlook.com>
- <e7fa8f4e-ec12-d953-8541-681d94ca0961@amd.com>
- <CY4PR12MB168768111AC1FCBB4D0C8E72FBF30@CY4PR12MB1687.namprd12.prod.outlook.com>
+From: Matthias Kaehlcke <mka@chromium.org>
+Subject: Re: [PATCH v2 1/2] amdgpu/dc/dml: Consolidate redundant CFLAGS
+Date: Thu, 8 Feb 2018 10:48:27 -0800
+Message-ID: <20180208184827.GD116483@google.com>
+References: <20180208015103.169603-1-mka@chromium.org>
+ <ef9de5a5-a5b3-63a3-7ddb-5d9338019e71@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0968565655=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB168768111AC1FCBB4D0C8E72FBF30-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============0968565655==
-Content-Type: multipart/alternative;
- boundary="------------61B32BCD4F85128E06808873"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------61B32BCD4F85128E06808873
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Is the switching automatically by driver or manually by user?
-
-
-Regards,
-
-Eric
-
-
-On 2018-02-08 11:54 AM, Zhu, Rex wrote:
->
-> >In case of compute, we have auto switching mechanism. when compute ring 
-> is coming, it switches to the default compute profile or user set 
-> profile, >and switches back when it's done. So VR should be doing the 
-> same thing with compute. Auto wattman will be disabled when profile 
-> auto switching >happens.
->
->
-> Rex: Ok, the logic is same.
->
-> when computer ring begins,  set manual dpm mode(pp do nothing except 
-> disable auto wattman feature), and set compute profile or  custom profile.
->
-> set clock range. and set auto dpm mode, switch back
->
->
-> Best Regards
->
-> Rex
->
->
->
->
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
-> Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
-> *Sent:* Friday, February 9, 2018 12:47 AM
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* Re: [PATCH 10/10] drm/amd/pp: Enable auto automan feature 
-> on Polaris
->
->
->
-> On 2018-02-08 11:35 AM, Zhu, Rex wrote:
->>
->> >But in auto mode, we may want to force a particular profile within the
->> >driver for a specific use case.  E.g., for VR, we may want to select
->> >the VR profile when the user sets the priority to high in the context
->> >ioctl, and then switch it back to autowattman or the default profile
->> >when the context if freed or the priority is changes.  We may want to
->> >do something similar for video when the user submits work to the
->> >multi-media engines.
->>
->> >  I guess it should just be
->> >a matter of disabling autowattman and switching to a profile when the
->> >driver needs it and then switching back when it's done.
->>
->>
->> Rex:
->>
->>        For MM, we can disable auto wattman (if enabled), and set 
->> video profile mode when enable uvd/vce dpm on smu7.
->>
->>       restore to default when disable uvd/vce dpm when engine idle.
->>
->>          VR, may be similar to compute case Eric have implemented, 
->> need user ctrl through sysfs.
->>
->
-> In case of compute, we have auto switching mechanism. when compute 
-> ring is coming, it switches to the default compute profile or user set 
-> profile, and switches back when it's done. So VR should be doing the 
-> same thing with compute. Auto wattman will be disabled when profile 
-> auto switching happens.
->
-> Regards,
-> Eric
->
->>            Enter manual dpm mode(driver disable auto wattman), and 
->> select prefered profile mode, set sclk/mclk range(smu7).
->>
->>             when enter auto dpm mode, restore default value.
->>
->>
->> >It's possible autowattman will perform ok and we
->> >don't need to manually change the profile in the driver, but we'll
->> >have to do some profiling to sorhat out.
->>
->>
->> Rex: Idealy, if autowan feature enabled, the proflling mode should be 
->> adjusted based on workload with  some time delay caused by the work 
->> queue.
->>
->> But need some time to verify.
->>
->>
->> Best Regards
->>
->> Rex
->>
->>
->>
->> ------------------------------------------------------------------------
->> *From:* Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> 
->> <mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->> *Sent:* Thursday, February 8, 2018 11:28 PM
->> *To:* Zhu, Rex
->> *Cc:* amd-gfx list
->> *Subject:* Re: [PATCH 10/10] drm/amd/pp: Enable auto automan feature 
->> on Polaris
->> On Thu, Feb 8, 2018 at 10:14 AM, Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> 
->> <mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org> wrote:
->> > if user select manual dpm mode，we will disabe autowattman.
->> > When switch to auto, we will restart the auto wattman on Polaris,
->> > Restore to default profile mode on other ASICS.
->> >
->>
->> But in auto mode, we may want to force a particular profile within the
->> driver for a specific use case.  E.g., for VR, we may want to select
->> the VR profile when the user sets the priority to high in the context
->> ioctl, and then switch it back to autowattman or the default profile
->> when the context if freed or the priority is changes.  We may want to
->> do something similar for video when the user submits work to the
->> multi-media engines.  It's possible autowattman will perform ok and we
->> don't need to manually change the profile in the driver, but we'll
->> have to do some profiling to sort that out.  I guess it should just be
->> a matter of disabling autowattman and switching to a profile when the
->> driver needs it and then switching back when it's done.
->>
->> Alex
->>
->> >
->> > Best Regards
->> > Rex
->> > ________________________________
->> > From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> 
->> <mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->> > Sent: Thursday, February 8, 2018 11:02:21 PM
->> > To: Zhu, Rex
->> > Cc: amd-gfx list
->> > Subject: Re: [PATCH 10/10] drm/amd/pp: Enable auto automan feature on
->> > Polaris
->> >
->> > On Thu, Feb 8, 2018 at 4:14 AM, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> 
->> <mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org> wrote:
->> >> Change-Id: I69b24ce65ddb361a89e5ac9b197ae6df9b60a9e5
->> >> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> <mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
->> >
->> > Would be good to give a brief description of what autowattman actually
->> > does in the patch description.  Also, we may need to manually select a
->> > profile in some cases (e.g., VR).  Would that be a problem with
->> > autowattman?
->> >
->> > Alex
->> >
->> >> ---
->> >> drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c | 4 ++++
->> >>  1 file changed, 4 insertions(+)
->> >>
->> >> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
->> >> b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
->> >> index f50b6cd..549e830 100644
->> >> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
->> >> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
->> >> @@ -1023,6 +1023,10 @@ int polaris_set_asic_special_caps(struct 
->> pp_hwmgr
->> >> *hwmgr)
->> >> phm_cap_set(hwmgr->platform_descriptor.platformCaps,
->> >>
->> >> PHM_PlatformCaps_TCPRamping);
->> >>         }
->> >> +
->> >> +       if (hwmgr->feature_mask & PP_AUTOWATTMAN_MASK)
->> >> + hwmgr->autowattman_enabled = true; /* currently only
->> >> enabled on polaris */
->> >> +
->> >>         return 0;
->> >>  }
->> >>
->> >> --
->> >> 1.9.1
->> >>
->> >> _______________________________________________
->> >> amd-gfx mailing list
->> >> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->> amd-gfx Info Page - freedesktop.org 
->> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->> lists.freedesktop.org
->> Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the 
->> following form. Use of all freedesktop.org lists is subject to our 
->> Code of ...
->>
->>
->>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------61B32BCD4F85128E06808873
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Is the switching automatically by driver or manually by user?</p>
-    <p><br>
-    </p>
-    <p>Regards,</p>
-    <p>Eric<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 2018-02-08 11:54 AM, Zhu, Rex wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CY4PR12MB168768111AC1FCBB4D0C8E72FBF30-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <p style="margin-top:0;margin-bottom:0"><span
-            style="font-family: Calibri, Helvetica, sans-serif,
-            EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-            Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-            &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;">&gt;In
-            case of compute, we have auto switching mechanism. when
-            compute ring is coming, it switches to the default compute
-            profile or user set profile, &gt;and switches back when it's
-            done. So VR should be doing the same thing with compute.
-            Auto wattman will be disabled when profile auto switching
-            &gt;happens.</span><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0"><span
-            style="font-family: Calibri, Helvetica, sans-serif,
-            EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-            Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-            &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;"><br>
-          </span></p>
-        <p style="margin-top:0;margin-bottom:0"><span
-            style="font-family: Calibri, Helvetica, sans-serif,
-            EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-            Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-            &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;">Rex:
-            Ok, the logic is same.</span></p>
-        <p style="margin-top:0;margin-bottom:0"><span
-            style="font-family: Calibri, Helvetica, sans-serif,
-            EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-            Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-            &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;"> </span></p>
-        <p style="margin-top:0;margin-bottom:0"><span
-            style="font-family: Calibri, Helvetica, sans-serif,
-            EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-            Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-            &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;"></span><span
-            style="font-size: 12pt;">when computer ring begins,  set
-            manual dpm mode(pp do nothing except <span
-              style="font-family: Calibri, Helvetica, sans-serif,
-              EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-              Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-              &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;">disable
-              auto wattman feature), and set compute profile or  custom
-              profile.</span></span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            12pt;"><span style="font-family: Calibri, Helvetica,
-              sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
-              &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-              Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-              font-size: 16px;">set clock range. and set auto dpm mode,
-              switch back</span></span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            12pt;"><span style="font-family: Calibri, Helvetica,
-              sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
-              &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-              Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-              font-size: 16px;"><br>
-            </span></span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            12pt;"><span style="font-family: Calibri, Helvetica,
-              sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
-              &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-              Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-              font-size: 16px;">Best Regards</span></span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            12pt;"><span style="font-family: Calibri, Helvetica,
-              sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
-              &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-              Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-              font-size: 16px;">Rex</span></span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            12pt;"><span style="font-family: Calibri, Helvetica,
-              sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
-              &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-              Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-              font-size: 16px;"><br>
-            </span></span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            12pt;"><span style="font-family: Calibri, Helvetica,
-              sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
-              &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-              Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-              font-size: 16px;"> </span></span></p>
-        <br>
-        <br>
-        <div style="color: rgb(0, 0, 0);">
-          <hr style="display:inline-block;width:98%" tabindex="-1">
-          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-              face="Calibri, sans-serif" color="#000000"><b>From:</b>
-              amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
-              behalf of Eric Huang <a class="moz-txt-link-rfc2396E" href="mailto:jinhuieric.huang-5C7GfCeVMHo@public.gmane.org">&lt;jinhuieric.huang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              <b>Sent:</b> Friday, February 9, 2018 12:47 AM<br>
-              <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-              <b>Subject:</b> Re: [PATCH 10/10] drm/amd/pp: Enable auto
-              automan feature on Polaris</font>
-            <div> </div>
-          </div>
-          <div style="background-color:#FFFFFF">
-            <p><br>
-            </p>
-            <br>
-            <div class="x_moz-cite-prefix">On 2018-02-08 11:35 AM, Zhu,
-              Rex wrote:<br>
-            </div>
-            <blockquote type="cite">
-              <div id="x_divtagdefaultwrapper" dir="ltr"
-                style="font-size:12pt; color:#000000;
-                font-family:Calibri,Helvetica,sans-serif">
-                <p style="margin-top:0; margin-bottom:0"><span style="">&gt;But
-                    in auto mode, we may want to force a particular
-                    profile within the</span><br style="">
-                  <span style=""><span style="">&gt;</span>driver for a
-                    specific use case.  E.g., for VR, we may want to
-                    select</span><br style="">
-                  <span style=""><span style="">&gt;</span>the VR
-                    profile when the user sets the priority to high in
-                    the context</span><br style="">
-                  <span style=""><span style="">&gt;</span>ioctl, and
-                    then switch it back to autowattman or the default
-                    profile</span><br style="">
-                  <span style=""><span style="">&gt;</span>when the
-                    context if freed or the priority is changes.  We may
-                    want to</span><br style="">
-                  <span style=""><span style="">&gt;</span>do something
-                    similar for video when the user submits work to the</span><br
-                    style="">
-                  <span style=""><span style="">&gt;</span>multi-media
-                    engines. </span><br>
-                </p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><span
-                      style="">&gt;  I guess it should just be</span><br
-                      style="">
-                    <span style="">&gt;a matter of disabling autowattman
-                      and switching to a profile when the</span><br
-                      style="">
-                    <span style="">&gt;driver needs it and then
-                      switching back when it's done.</span><br>
-                  </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><span
-                      style=""><br>
-                    </span></span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style="">Rex: </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""> 
-                           For MM, we can disable auto wattman (if
-                    enabled), and set video profile mode when enable
-                    uvd/vce dpm on smu7.</span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""> 
-                          restore to default when disable uvd/vce dpm
-                    when engine idle.</span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""> </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><span
-                      style="">         VR, may be similar to compute
-                      case Eric have </span><span style="">implemented, </span></span><span
-                    style="font-size:14.6667px">need user ctrl through
-                    sysfs.</span></p>
-              </div>
-            </blockquote>
-            <br>
-            In case of compute, we have auto switching mechanism. when
-            compute ring is coming, it switches to the default compute
-            profile or user set profile, and switches back when it's
-            done. So VR should be doing the same thing with compute.
-            Auto wattman will be disabled when profile auto switching
-            happens.<br>
-            <br>
-            Regards,<br>
-            Eric<br>
-            <span style=""><span style="">       <br>
-              </span></span>
-            <blockquote type="cite">
-              <div id="x_divtagdefaultwrapper" dir="ltr"
-                style="font-size:12pt; color:#000000;
-                font-family:Calibri,Helvetica,sans-serif">
-                <p style="margin-top:0; margin-bottom:0"><span style=""><span
-                      style="">           Enter manual dpm mode(driver
-                      disable auto wattman), and select prefered profile
-                      mode, set sclk/mclk range(smu7).</span></span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><span
-                      style="">            when enter auto dpm mode,
-                      restore default value. </span></span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><br>
-                  </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><span
-                      style="">&gt;It's possible autowattman will
-                      perform ok and we</span><br style="">
-                    <span style="">&gt;don't need to manually change the
-                      profile in the driver, but we'll</span><br
-                      style="">
-                    <span style="">&gt;have to do some profiling to
-                      sorhat out. </span>       </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><br>
-                  </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style="">Rex:
-                    Idealy, if autowan feature enabled, the proflling
-                    mode should be adjusted based on workload with
-                     some time delay caused by the work queue.</span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style="">But
-                    need some time to verify.</span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><br>
-                  </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style="">Best
-                    Regards</span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style="">Rex</span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><br>
-                  </span></p>
-                <p style="margin-top:0; margin-bottom:0"><span style=""><span
-                      style=""> </span><br>
-                  </span></p>
-                <div style="color:rgb(0,0,0)">
-                  <hr tabindex="-1" style="display:inline-block;
-                    width:98%">
-                  <div id="x_divRplyFwdMsg" dir="ltr"><font
-                      style="font-size:11pt" face="Calibri, sans-serif"
-                      color="#000000"><b>From:</b> Alex Deucher
-                      <a class="x_moz-txt-link-rfc2396E"
-                        href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                        moz-do-not-send="true">&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-                      <b>Sent:</b> Thursday, February 8, 2018 11:28 PM<br>
-                      <b>To:</b> Zhu, Rex<br>
-                      <b>Cc:</b> amd-gfx list<br>
-                      <b>Subject:</b> Re: [PATCH 10/10] drm/amd/pp:
-                      Enable auto automan feature on Polaris</font>
-                    <div> </div>
-                  </div>
-                  <div class="x_BodyFragment"><font size="2"><span
-                        style="font-size:11pt">
-                        <div class="x_PlainText">On Thu, Feb 8, 2018 at
-                          10:14 AM, Zhu, Rex <a
-                            class="x_moz-txt-link-rfc2396E"
-                            href="mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org"
-                            moz-do-not-send="true">
-                            &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:<br>
-                          &gt; if user select manual dpm mode，we will
-                          disabe autowattman.<br>
-                          &gt; When switch to auto, we will restart the
-                          auto wattman on Polaris,<br>
-                          &gt; Restore to default profile mode on other
-                          ASICS.<br>
-                          &gt;<br>
-                          <br>
-                          But in auto mode, we may want to force a
-                          particular profile within the<br>
-                          driver for a specific use case.  E.g., for VR,
-                          we may want to select<br>
-                          the VR profile when the user sets the priority
-                          to high in the context<br>
-                          ioctl, and then switch it back to autowattman
-                          or the default profile<br>
-                          when the context if freed or the priority is
-                          changes.  We may want to<br>
-                          do something similar for video when the user
-                          submits work to the<br>
-                          multi-media engines.  It's possible
-                          autowattman will perform ok and we<br>
-                          don't need to manually change the profile in
-                          the driver, but we'll<br>
-                          have to do some profiling to sort that out.  I
-                          guess it should just be<br>
-                          a matter of disabling autowattman and
-                          switching to a profile when the<br>
-                          driver needs it and then switching back when
-                          it's done.<br>
-                          <br>
-                          Alex<br>
-                          <br>
-                          &gt;<br>
-                          &gt; Best Regards<br>
-                          &gt; Rex<br>
-                          &gt; ________________________________<br>
-                          &gt; From: Alex Deucher <a
-                            class="x_moz-txt-link-rfc2396E"
-                            href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                            moz-do-not-send="true">
-                            &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-                          &gt; Sent: Thursday, February 8, 2018 11:02:21
-                          PM<br>
-                          &gt; To: Zhu, Rex<br>
-                          &gt; Cc: amd-gfx list<br>
-                          &gt; Subject: Re: [PATCH 10/10] drm/amd/pp:
-                          Enable auto automan feature on<br>
-                          &gt; Polaris<br>
-                          &gt;<br>
-                          &gt; On Thu, Feb 8, 2018 at 4:14 AM, Rex Zhu <a
-                            class="x_moz-txt-link-rfc2396E"
-                            href="mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org"
-                            moz-do-not-send="true">
-                            &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:<br>
-                          &gt;&gt; Change-Id:
-                          I69b24ce65ddb361a89e5ac9b197ae6df9b60a9e5<br>
-                          &gt;&gt; Signed-off-by: Rex Zhu <a
-                            class="x_moz-txt-link-rfc2396E"
-                            href="mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org"
-                            moz-do-not-send="true">
-                            &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                          &gt;<br>
-                          &gt; Would be good to give a brief description
-                          of what autowattman actually<br>
-                          &gt; does in the patch description.  Also, we
-                          may need to manually select a<br>
-                          &gt; profile in some cases (e.g., VR).  Would
-                          that be a problem with<br>
-                          &gt; autowattman?<br>
-                          &gt;<br>
-                          &gt; Alex<br>
-                          &gt;<br>
-                          &gt;&gt; ---<br>
-                          &gt;&gt; 
-                          drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c |
-                          4 ++++<br>
-                          &gt;&gt;  1 file changed, 4 insertions(+)<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; diff --git
-                          a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-                          &gt;&gt;
-                          b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-                          &gt;&gt; index f50b6cd..549e830 100644<br>
-                          &gt;&gt; ---
-                          a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-                          &gt;&gt; +++
-                          b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-                          &gt;&gt; @@ -1023,6 +1023,10 @@ int
-                          polaris_set_asic_special_caps(struct pp_hwmgr<br>
-                          &gt;&gt; *hwmgr)<br>
-                          &gt;&gt;                
-                          phm_cap_set(hwmgr-&gt;platform_descriptor.platformCaps,<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; PHM_PlatformCaps_TCPRamping);<br>
-                          &gt;&gt;         }<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +       if (hwmgr-&gt;feature_mask
-                          &amp; PP_AUTOWATTMAN_MASK)<br>
-                          &gt;&gt; +              
-                          hwmgr-&gt;autowattman_enabled = true; /*
-                          currently only<br>
-                          &gt;&gt; enabled on polaris */<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt;         return 0;<br>
-                          &gt;&gt;  }<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; --<br>
-                          &gt;&gt; 1.9.1<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;
-                          _______________________________________________<br>
-                          &gt;&gt; amd-gfx mailing list<br>
-                          &gt;&gt; <a
-                            class="x_moz-txt-link-abbreviated"
-                            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                            moz-do-not-send="true">
-                            amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                          &gt;&gt; <a
-                            href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                            id="LPlnk701098" previewremoved="true"
-                            moz-do-not-send="true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-                          <div
-                            id="LPBorder_GT_15181063864470.00843799685583213"
-                            style="margin-bottom:20px; overflow:auto;
-                            width:100%; text-indent:0px"
-                            contenteditable="false">
-                            <table
-                              id="LPContainer_15181063864440.7826349524682992"
-                              style="width:90%;
-                              background-color:rgb(255,255,255);
-                              overflow:auto; padding-top:20px;
-                              padding-bottom:20px; margin-top:20px;
-                              border-top:1px dotted rgb(200,200,200);
-                              border-bottom:1px dotted rgb(200,200,200)"
-                              cellspacing="0">
-                              <tbody>
-                                <tr style="border-spacing:0px"
-                                  valign="top">
-                                  <td
-                                    id="x_TextCell_15181063864450.20973627117231164"
-                                    colspan="2"
-                                    style="vertical-align:top;
-                                    padding:0px; display:table-cell">
-                                    <div
-                                      id="LPTitle_15181063864450.5421321631930409"
-                                      style=""><a
-                                        id="LPUrlAnchor_15181063864460.047752596355657095"
-href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                        target="_blank"
-                                        style="text-decoration:none"
-                                        moz-do-not-send="true">amd-gfx
-                                        Info Page - freedesktop.org</a></div>
-                                    <div
-                                      id="LPMetadata_15181063864460.030891965966879598"
-                                      style="">lists.freedesktop.org</div>
-                                    <div
-                                      id="LPDescription_15181063864460.8458243757989772"
-                                      style="">Subscribing to amd-gfx:
-                                      Subscribe to amd-gfx by filling
-                                      out the following form. Use of all
-                                      freedesktop.org lists is subject
-                                      to our Code of ...</div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <br>
-                          <br>
-                        </div>
-                      </span></font></div>
-                </div>
-              </div>
-              <br>
-              <fieldset class="x_mimeAttachmentHeader"></fieldset>
-              <br>
-              <pre>_______________________________________________
-amd-gfx mailing list
-<a class="x_moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="x_moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-            </blockquote>
-            <br>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------61B32BCD4F85128E06808873--
-
---===============0968565655==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=utf-8
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
+In-Reply-To: <ef9de5a5-a5b3-63a3-7ddb-5d9338019e71@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+El Thu, Feb 08, 2018 at 09:33:53AM -0500 Harry Wentland ha dit:
 
---===============0968565655==--
+> On 2018-02-07 08:51 PM, Matthias Kaehlcke wrote:
+> > Use subdir-ccflags instead of specifying the same flags for every source
+> > file.
+> > 
+> > Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+> > Reviewed-by: Guenter Roeck <groeck@chromium.org>
+> > ---
+> > Changes in v2:
+> > - added 'Reviewed-by: Guenter Roeck <groeck@chromium.org>' tag
+> > 
+> >  drivers/gpu/drm/amd/display/dc/dml/Makefile | 10 +---------
+> >  1 file changed, 1 insertion(+), 9 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > index 3488af2b5786..b8cadf833e71 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > @@ -24,15 +24,7 @@
+> >  # It provides the general basic services required by other DAL
+> >  # subcomponents.
+> >  
+> > -CFLAGS_display_mode_vba.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -CFLAGS_display_mode_lib.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -CFLAGS_display_pipe_clocks.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -CFLAGS_display_rq_dlg_calc.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -CFLAGS_dml1_display_rq_dlg_calc.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -CFLAGS_display_rq_dlg_helpers.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -CFLAGS_soc_bounding_box.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -CFLAGS_dml_common_defs.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> > -
+> > +subdir-ccflags-y += -mhard-float -msse -mpreferred-stack-boundary=4
+> 
+> Are you sure this will only apply to dc/dml?
+> 
+> The way the amdgpu build is setup I've seen this flag apply to all of amdgpu, even if specified in a subdirectories build file. The reason being that amdgpu/Makefile recursively includes all other Makefiles in the module.
+> 
+> According to kbuild/makefiles.txt this will have effect for the kbuild file where it's present and all subdirectories:
+> 
+> https://www.kernel.org/doc/Documentation/kbuild/makefiles.txt:
+> >     subdir-ccflags-y, subdir-asflags-y
+> > 	The two flags listed above are similar to ccflags-y and asflags-y.
+> > 	The difference is that the subdir- variants have effect for the kbuild
+> > 	file where they are present and all subdirectories.
+> > 	Options specified using subdir-* are added to the commandline before
+> > 	the options specified using the non-subdir variants.
+> > 
+> > 	Example:
+> > 		subdir-ccflags-y := -Werror
+
+Thanks, I didn't realize the recursive inclusion from amdgpu/Makefile,
+in this case using subdir-ccflags-y indeed isn't a good idea.
+
+> For your 2nd patch you probably want to make a dml_cflags variable
+> that's set different for clang and gcc, and then still set it for
+> all files in DML individually.
+
+Yep, that was my first impulse and then I remembered
+subdir-ccflags-y. Will go back to that.
+
+> You'll probably also have to do the same for dc/calcs/Makefile.
+
+Thanks for the heads up!
