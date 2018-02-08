@@ -1,14 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 04/10] drm/amd/pp: Implement update_dpm_settings on Polaris
-Date: Thu, 8 Feb 2018 10:06:07 -0500
-Message-ID: <CADnq5_OBifwZnyS7COadNMzRg1+1HF_9qkQspgJNZNNV56egOw@mail.gmail.com>
-References: <1518081259-18120-1-git-send-email-Rex.Zhu@amd.com>
- <1518081259-18120-5-git-send-email-Rex.Zhu@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Expose new interface to DC to ctrl auto
+ wattman
+Date: Thu, 8 Feb 2018 15:07:41 +0000
+Message-ID: <CY4PR12MB16870B662724C2F6BD1A8014FBF30@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1518088825-4744-1-git-send-email-Rex.Zhu@amd.com>,
+ <1a93901f-528c-b28e-d0c0-57809543a759@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1457762782=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1518081259-18120-5-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1a93901f-528c-b28e-d0c0-57809543a759-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,150 +20,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBGZWIgOCwgMjAxOCBhdCA0OjE0IEFNLCBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
-IHdyb3RlOgo+IENoYW5nZS1JZDogSTQ1MzM4MjZlZjZlMThkZjEyNWFlNDQ0NTAxNjg3M2JlM2I1
-ZmUwY2UKPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+CgpQbGVhc2Ug
-cHJvdmlkZSBhIHBhdGNoIGRlc2NyaXB0aW9uLCB3aXRoIHRoYXQgZml4ZWQ6ClJldmlld2VkLWJ5
-OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICAuLi4v
-ZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyAgICB8IDEwNCArKysr
-KysrKysrKysrKysrKysrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDEwNCBpbnNlcnRpb25zKCspCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFy
-aXMxMF9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xh
-cmlzMTBfc211bWdyLmMKPiBpbmRleCBiZmIyYzg1Li41NTk1NzJkIDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1n
-ci5jCj4gQEAgLTI1NzUsNiArMjU3NSwxMDkgQEAgc3RhdGljIGludCBwb2xhcmlzMTBfcG9wdWxh
-dGVfcmVxdWVzdGVkX2dyYXBoaWNfbGV2ZWxzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcnJheV9zaXplLCBTTUNfUkFNX0VORCk7Cj4g
-IH0KPgo+ICt1aW50MzJfdCBwb2xhcmlzMTBfc2V0X2ZpZWxkX3RvX3UzMih1MzIgb2Zmc2V0LCB1
-MzIgb3JpZ2luYWxfZGF0YSwgdTMyIGZpZWxkLCB1MzIgc2l6ZSkKPiArewo+ICsgICAgICAgdTMy
-IG1hc2sgPSAwOwo+ICsgICAgICAgdTMyIHNoaWZ0ID0gMDsKPiArCj4gKyAgICAgICBzaGlmdCA9
-IChvZmZzZXQgJSA0KSA8PCAzOwo+ICsgICAgICAgaWYgKHNpemUgPT0gc2l6ZW9mKHVpbnQ4X3Qp
-KQo+ICsgICAgICAgICAgICAgICBtYXNrID0gMHhGRiA8PCBzaGlmdDsKPiArICAgICAgIGVsc2Ug
-aWYgKHNpemUgPT0gc2l6ZW9mKHVpbnQxNl90KSkKPiArICAgICAgICAgICAgICAgbWFzayA9IDB4
-RkZGRiA8PCBzaGlmdDsKPiArCj4gKyAgICAgICBvcmlnaW5hbF9kYXRhICY9IH5tYXNrOwo+ICsg
-ICAgICAgb3JpZ2luYWxfZGF0YSB8PSAoZmllbGQgPDwgc2hpZnQpOwo+ICsgICAgICAgcmV0dXJu
-IG9yaWdpbmFsX2RhdGE7Cj4gK30KPiArCj4gK3N0YXRpYyBpbnQgcG9sYXJpczEwX3VwZGF0ZV9k
-cG1fc2V0dGluZ3Moc3RydWN0IHBwX2h3bWdyICpod21nciwKPiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHZvaWQgKnByb2ZpbGVfc2V0dGluZykKPiArewo+ICsgICAgICAgc3RydWN0
-IHBvbGFyaXMxMF9zbXVtZ3IgKnNtdV9kYXRhID0gKHN0cnVjdCBwb2xhcmlzMTBfc211bWdyICop
-Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgKGh3bWdyLT5zbXVfYmFja2VuZCk7Cj4gKyAgICAg
-ICBzdHJ1Y3QgcHJvZmlsZV9tb2RlX3NldHRpbmcgKnNldHRpbmc7Cj4gKyAgICAgICBzdHJ1Y3Qg
-U01VNzRfRGlzY3JldGVfR3JhcGhpY3NMZXZlbCAqbGV2ZWxzID0KPiArICAgICAgICAgICAgICAg
-ICAgICAgICBzbXVfZGF0YS0+c21jX3N0YXRlX3RhYmxlLkdyYXBoaWNzTGV2ZWw7Cj4gKyAgICAg
-ICB1aW50MzJfdCBhcnJheSA9IHNtdV9kYXRhLT5zbXU3X2RhdGEuZHBtX3RhYmxlX3N0YXJ0ICsK
-PiArICAgICAgICAgICAgICAgICAgICAgICBvZmZzZXRvZihTTVU3NF9EaXNjcmV0ZV9EcG1UYWJs
-ZSwgR3JhcGhpY3NMZXZlbCk7Cj4gKwo+ICsgICAgICAgdWludDMyX3QgbWNsa19hcnJheSA9IHNt
-dV9kYXRhLT5zbXU3X2RhdGEuZHBtX3RhYmxlX3N0YXJ0ICsKPiArICAgICAgICAgICAgICAgICAg
-ICAgICBvZmZzZXRvZihTTVU3NF9EaXNjcmV0ZV9EcG1UYWJsZSwgTWVtb3J5TGV2ZWwpOwo+ICsg
-ICAgICAgc3RydWN0IFNNVTc0X0Rpc2NyZXRlX01lbW9yeUxldmVsICptY2xrX2xldmVscyA9Cj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgc211X2RhdGEtPnNtY19zdGF0ZV90YWJsZS5NZW1vcnlM
-ZXZlbDsKPiArICAgICAgIHVpbnQzMl90IGk7Cj4gKyAgICAgICB1aW50MzJfdCBvZmZzZXQsIHVw
-X2h5c3Rfb2Zmc2V0LCBkb3duX2h5c3Rfb2Zmc2V0LCBjbGtfYWN0aXZpdHlfb2Zmc2V0LCB0bXA7
-Cj4gKwo+ICsgICAgICAgaWYgKHByb2ZpbGVfc2V0dGluZyA9PSBOVUxMKQo+ICsgICAgICAgICAg
-ICAgICByZXR1cm4gLUVJTlZBTDsKPiArCj4gKyAgICAgICBzZXR0aW5nID0gKHN0cnVjdCBwcm9m
-aWxlX21vZGVfc2V0dGluZyAqKXByb2ZpbGVfc2V0dGluZzsKPiArCj4gKyAgICAgICBpZiAoc2V0
-dGluZy0+YnVwZGF0ZV9zY2xrKSB7Cj4gKyAgICAgICAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBz
-bXVfZGF0YS0+c21jX3N0YXRlX3RhYmxlLkdyYXBoaWNzRHBtTGV2ZWxDb3VudDsgaSsrKSB7Cj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGxldmVsc1tpXS5BY3Rpdml0eUxldmVsICE9Cj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjcHVfdG9fYmUxNihzZXR0aW5nLT5zY2xr
-X2FjdGl2aXR5KSkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGV2ZWxzW2ld
-LkFjdGl2aXR5TGV2ZWwgPSBjcHVfdG9fYmUxNihzZXR0aW5nLT5zY2xrX2FjdGl2aXR5KTsKPiAr
-Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGtfYWN0aXZpdHlfb2Zmc2V0ID0g
-YXJyYXkgKyAoc2l6ZW9mKFNNVTc0X0Rpc2NyZXRlX0dyYXBoaWNzTGV2ZWwpICogaSkKPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArIG9mZnNldG9mKFNN
-VTc0X0Rpc2NyZXRlX0dyYXBoaWNzTGV2ZWwsIEFjdGl2aXR5TGV2ZWwpOwo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgb2Zmc2V0ID0gY2xrX2FjdGl2aXR5X29mZnNldCAmIH4weDM7
-Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgPSBQUF9IT1NUX1RPX1NNQ19V
-TChjZ3NfcmVhZF9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwgQ0dTX0lORF9SRUdfX1NNQywg
-b2Zmc2V0KSk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgPSBwb2xhcmlz
-MTBfc2V0X2ZpZWxkX3RvX3UzMihjbGtfYWN0aXZpdHlfb2Zmc2V0LCB0bXAsIGxldmVsc1tpXS5B
-Y3Rpdml0eUxldmVsLCBzaXplb2YodWludDE2X3QpKTsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGNnc193cml0ZV9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwgQ0dTX0lORF9S
-RUdfX1NNQywgb2Zmc2V0LCBQUF9IT1NUX1RPX1NNQ19VTCh0bXApKTsKPiArCj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChsZXZlbHNbaV0u
-VXBIeXN0ICE9IHNldHRpbmctPnNjbGtfdXBfaHlzdCB8fAo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgbGV2ZWxzW2ldLkRvd25IeXN0ICE9IHNldHRpbmctPnNjbGtfZG93bl9oeXN0
-KSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsZXZlbHNbaV0uVXBIeXN0ID0g
-c2V0dGluZy0+c2Nsa191cF9oeXN0Owo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-bGV2ZWxzW2ldLkRvd25IeXN0ID0gc2V0dGluZy0+c2Nsa19kb3duX2h5c3Q7Cj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICB1cF9oeXN0X29mZnNldCA9IGFycmF5ICsgKHNpemVvZihT
-TVU3NF9EaXNjcmV0ZV9HcmFwaGljc0xldmVsKSAqIGkpCj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgKyBvZmZzZXRvZihTTVU3NF9EaXNjcmV0ZV9HcmFw
-aGljc0xldmVsLCBVcEh5c3QpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZG93
-bl9oeXN0X29mZnNldCA9IGFycmF5ICsgKHNpemVvZihTTVU3NF9EaXNjcmV0ZV9HcmFwaGljc0xl
-dmVsKSAqIGkpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgKyBvZmZzZXRvZihTTVU3NF9EaXNjcmV0ZV9HcmFwaGljc0xldmVsLCBEb3duSHlzdCk7Cj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvZmZzZXQgPSB1cF9oeXN0X29mZnNldCAm
-IH4weDM7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgPSBQUF9IT1NUX1RP
-X1NNQ19VTChjZ3NfcmVhZF9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwgQ0dTX0lORF9SRUdf
-X1NNQywgb2Zmc2V0KSk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgPSBw
-b2xhcmlzMTBfc2V0X2ZpZWxkX3RvX3UzMih1cF9oeXN0X29mZnNldCwgdG1wLCBsZXZlbHNbaV0u
-VXBIeXN0LCBzaXplb2YodWludDhfdCkpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgdG1wID0gcG9sYXJpczEwX3NldF9maWVsZF90b191MzIoZG93bl9oeXN0X29mZnNldCwgdG1w
-LCBsZXZlbHNbaV0uRG93bkh5c3QsIHNpemVvZih1aW50OF90KSk7Cj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBjZ3Nfd3JpdGVfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsIENH
-U19JTkRfUkVHX19TTUMsIG9mZnNldCwgUFBfSE9TVF9UT19TTUNfVUwodG1wKSk7Cj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICB9Cj4gKyAgICAgICB9Cj4gKwo+
-ICsgICAgICAgaWYgKHNldHRpbmctPmJ1cGRhdGVfbWNsaykgewo+ICsgICAgICAgICAgICAgICBm
-b3IgKGkgPSAwOyBpIDwgc211X2RhdGEtPnNtY19zdGF0ZV90YWJsZS5NZW1vcnlEcG1MZXZlbENv
-dW50OyBpKyspIHsKPiArICAgICAgICAgICAgICAgICAgICAgICBpZiAobWNsa19sZXZlbHNbaV0u
-QWN0aXZpdHlMZXZlbCAhPQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3B1X3Rv
-X2JlMTYoc2V0dGluZy0+bWNsa19hY3Rpdml0eSkpIHsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIG1jbGtfbGV2ZWxzW2ldLkFjdGl2aXR5TGV2ZWwgPSBjcHVfdG9fYmUxNihzZXR0
-aW5nLT5tY2xrX2FjdGl2aXR5KTsKPiArCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBjbGtfYWN0aXZpdHlfb2Zmc2V0ID0gbWNsa19hcnJheSArIChzaXplb2YoU01VNzRfRGlzY3Jl
-dGVfTWVtb3J5TGV2ZWwpICogaSkKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICArIG9mZnNldG9mKFNNVTc0X0Rpc2NyZXRlX01lbW9yeUxldmVsLCBBY3Rp
-dml0eUxldmVsKTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9mZnNldCA9IGNs
-a19hY3Rpdml0eV9vZmZzZXQgJiB+MHgzOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgdG1wID0gUFBfSE9TVF9UT19TTUNfVUwoY2dzX3JlYWRfaW5kX3JlZ2lzdGVyKGh3bWdyLT5k
-ZXZpY2UsIENHU19JTkRfUkVHX19TTUMsIG9mZnNldCkpOwo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgdG1wID0gcG9sYXJpczEwX3NldF9maWVsZF90b191MzIoY2xrX2FjdGl2aXR5
-X29mZnNldCwgdG1wLCBtY2xrX2xldmVsc1tpXS5BY3Rpdml0eUxldmVsLCBzaXplb2YodWludDE2
-X3QpKTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNnc193cml0ZV9pbmRfcmVn
-aXN0ZXIoaHdtZ3ItPmRldmljZSwgQ0dTX0lORF9SRUdfX1NNQywgb2Zmc2V0LCBQUF9IT1NUX1RP
-X1NNQ19VTCh0bXApKTsKPiArCj4gKyAgICAgICAgICAgICAgICAgICAgICAgfQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIGlmIChtY2xrX2xldmVsc1tpXS5VcEh5c3QgIT0gc2V0dGluZy0+bWNs
-a191cF9oeXN0IHx8Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtY2xrX2xldmVs
-c1tpXS5Eb3duSHlzdCAhPSBzZXR0aW5nLT5tY2xrX2Rvd25faHlzdCkgewo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgbWNsa19sZXZlbHNbaV0uVXBIeXN0ID0gc2V0dGluZy0+bWNs
-a191cF9oeXN0Owo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbWNsa19sZXZlbHNb
-aV0uRG93bkh5c3QgPSBzZXR0aW5nLT5tY2xrX2Rvd25faHlzdDsKPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHVwX2h5c3Rfb2Zmc2V0ID0gbWNsa19hcnJheSArIChzaXplb2YoU01V
-NzRfRGlzY3JldGVfTWVtb3J5TGV2ZWwpICogaSkKPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICArIG9mZnNldG9mKFNNVTc0X0Rpc2NyZXRlX01lbW9yeUxl
-dmVsLCBVcEh5c3QpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZG93bl9oeXN0
-X29mZnNldCA9IG1jbGtfYXJyYXkgKyAoc2l6ZW9mKFNNVTc0X0Rpc2NyZXRlX01lbW9yeUxldmVs
-KSAqIGkpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-KyBvZmZzZXRvZihTTVU3NF9EaXNjcmV0ZV9NZW1vcnlMZXZlbCwgRG93bkh5c3QpOwo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgb2Zmc2V0ID0gdXBfaHlzdF9vZmZzZXQgJiB+MHgz
-Owo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdG1wID0gUFBfSE9TVF9UT19TTUNf
-VUwoY2dzX3JlYWRfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsIENHU19JTkRfUkVHX19TTUMs
-IG9mZnNldCkpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdG1wID0gcG9sYXJp
-czEwX3NldF9maWVsZF90b191MzIodXBfaHlzdF9vZmZzZXQsIHRtcCwgbWNsa19sZXZlbHNbaV0u
-VXBIeXN0LCBzaXplb2YodWludDhfdCkpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgdG1wID0gcG9sYXJpczEwX3NldF9maWVsZF90b191MzIoZG93bl9oeXN0X29mZnNldCwgdG1w
-LCBtY2xrX2xldmVsc1tpXS5Eb3duSHlzdCwgc2l6ZW9mKHVpbnQ4X3QpKTsKPiArICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGNnc193cml0ZV9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmlj
-ZSwgQ0dTX0lORF9SRUdfX1NNQywgb2Zmc2V0LCBQUF9IT1NUX1RPX1NNQ19VTCh0bXApKTsKPiAr
-ICAgICAgICAgICAgICAgICAgICAgICB9Cj4gKyAgICAgICAgICAgICAgIH0KPiArICAgICAgIH0K
-PiArICAgICAgIHJldHVybiAwOwo+ICt9Cj4gKwo+ICBjb25zdCBzdHJ1Y3QgcHBfc211bWdyX2Z1
-bmMgcG9sYXJpczEwX3NtdV9mdW5jcyA9IHsKPiAgICAgICAgIC5zbXVfaW5pdCA9IHBvbGFyaXMx
-MF9zbXVfaW5pdCwKPiAgICAgICAgIC5zbXVfZmluaSA9IHNtdTdfc211X2ZpbmksCj4gQEAgLTI1
-OTksNCArMjcwMiw1IEBAIHN0YXRpYyBpbnQgcG9sYXJpczEwX3BvcHVsYXRlX3JlcXVlc3RlZF9n
-cmFwaGljX2xldmVscyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+ICAgICAgICAgLmlzX2RwbV9y
-dW5uaW5nID0gcG9sYXJpczEwX2lzX2RwbV9ydW5uaW5nLAo+ICAgICAgICAgLnBvcHVsYXRlX3Jl
-cXVlc3RlZF9ncmFwaGljX2xldmVscyA9IHBvbGFyaXMxMF9wb3B1bGF0ZV9yZXF1ZXN0ZWRfZ3Jh
-cGhpY19sZXZlbHMsCj4gICAgICAgICAuaXNfaHdfYXZmc19wcmVzZW50ID0gcG9sYXJpczEwX2lz
-X2h3X2F2ZnNfcHJlc2VudCwKPiArICAgICAgIC51cGRhdGVfZHBtX3NldHRpbmdzID0gcG9sYXJp
-czEwX3VwZGF0ZV9kcG1fc2V0dGluZ3MsCj4gIH07Cj4gLS0KPiAxLjkuMQo+Cj4gX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcg
-bGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1457762782==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB16870B662724C2F6BD1A8014FBF30CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB16870B662724C2F6BD1A8014FBF30CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+when autowattman enabled=1B$B!$=1B(Bwe will update uphyst/downhyst/min-sclk=
+/mclk activity  value to smu based on the workload.
+
+Best Regards
+Rex
+
+________________________________
+From: Wentland, Harry
+Sent: Thursday, February 8, 2018 10:22:16 PM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amd/pp: Expose new interface to DC to ctrl auto wa=
+ttman
+
+On 2018-02-08 06:20 AM, Rex Zhu wrote:
+> Disable AutoWattman (if enabled) when FreeSync is enabled.
+
+Do you have a DC change calling this?
+
+What's the use case for this and why do we need to disable AutoWattman when=
+ Freesync is enabled?
+
+What does AutoWattman do?
+
+Harry
+
+>
+> Change-Id: I9a531321d7913b8b40e60070c569a01c4f202002
+> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/include/kgd_pp_interface.h |  1 +
+>  drivers/gpu/drm/amd/powerplay/amd_powerplay.c  | 25 ++++++++++++++++++++=
++++++
+>  2 files changed, 26 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu=
+/drm/amd/include/kgd_pp_interface.h
+> index 22c2fa3..f7bb565 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> @@ -313,6 +313,7 @@ struct amd_pm_funcs {
+>        int (*set_power_profile_mode)(void *handle, long *input, uint32_t =
+size);
+>        int (*odn_edit_dpm_table)(void *handle, uint32_t type, long *input=
+, uint32_t size);
+>        int (*set_mmhub_powergating_by_smu)(void *handle);
+> +     int (*notify_free_sync_change)(void *handle, bool en);
+>  };
+>
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/=
+drm/amd/powerplay/amd_powerplay.c
+> index 376ed2d..d0306b6 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+> @@ -1555,6 +1555,30 @@ static int pp_set_mmhub_powergating_by_smu(void *h=
+andle)
+>        return hwmgr->hwmgr_func->set_mmhub_powergating_by_smu(hwmgr);
+>  }
+>
+> +static int pp_notify_free_sync_change(void *handle, bool en)
+> +{
+> +     struct pp_hwmgr *hwmgr;
+> +     struct pp_instance *pp_handle =3D (struct pp_instance *)handle;
+> +     int ret =3D 0;
+> +
+> +     ret =3D pp_check(pp_handle);
+> +
+> +     if (ret)
+> +             return ret;
+> +
+> +     hwmgr =3D pp_handle->hwmgr;
+> +
+> +     mutex_lock(&pp_handle->pp_lock);
+> +     if (hwmgr->autowattman_enabled) {
+> +             if (hwmgr->hwmgr_func->start_auto_wattman !=3D NULL) {
+> +                     if (!cancel_delayed_work_sync(&hwmgr->wattman_updat=
+e_work))
+> +                             hwmgr->hwmgr_func->start_auto_wattman(hwmgr=
+, en);
+> +             }
+> +     }
+> +     mutex_unlock(&pp_handle->pp_lock);
+> +     return 0;
+> +}
+> +
+>  const struct amd_pm_funcs pp_dpm_funcs =3D {
+>        .load_firmware =3D pp_dpm_load_fw,
+>        .wait_for_fw_loading_complete =3D pp_dpm_fw_loading_complete,
+> @@ -1604,4 +1628,5 @@ static int pp_set_mmhub_powergating_by_smu(void *ha=
+ndle)
+>        .display_clock_voltage_request =3D pp_display_clock_voltage_reques=
+t,
+>        .get_display_mode_validation_clocks =3D pp_get_display_mode_valida=
+tion_clocks,
+>        .set_mmhub_powergating_by_smu =3D pp_set_mmhub_powergating_by_smu,
+> +     .notify_free_sync_change =3D pp_notify_free_sync_change,
+>  };
+>
+
+--_000_CY4PR12MB16870B662724C2F6BD1A8014FBF30CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+</head>
+<body>
+when autowattman enabled=1B$B!$=1B(Bwe will update uphyst/downhyst/min-sclk=
+/mclk activity&nbsp; value to smu based on the workload.
+<br>
+<br>
+Best Regards<br>
+Rex<br>
+<br>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wentland, Harry<br>
+<b>Sent:</b> Thursday, February 8, 2018 10:22:16 PM<br>
+<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/pp: Expose new interface to DC to ctrl =
+auto wattman</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 2018-02-08 06:20 AM, Rex Zhu wrote:<br>
+&gt; Disable AutoWattman (if enabled) when FreeSync is enabled.<br>
+<br>
+Do you have a DC change calling this?<br>
+<br>
+What's the use case for this and why do we need to disable AutoWattman when=
+ Freesync is enabled?<br>
+<br>
+What does AutoWattman do?<br>
+<br>
+Harry<br>
+<br>
+&gt; <br>
+&gt; Change-Id: I9a531321d7913b8b40e60070c569a01c4f202002<br>
+&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/include/kgd_pp_interface.h |&nbsp; 1 &#43;<b=
+r>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp; | 25 &#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; 2 files changed, 26 insertions(&#43;)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/=
+gpu/drm/amd/include/kgd_pp_interface.h<br>
+&gt; index 22c2fa3..f7bb565 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+&gt; @@ -313,6 &#43;313,7 @@ struct amd_pm_funcs {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_power_profile_mode=
+)(void *handle, long *input, uint32_t size);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*odn_edit_dpm_table)(vo=
+id *handle, uint32_t type, long *input, uint32_t size);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_mmhub_powergating_=
+by_smu)(void *handle);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int (*notify_free_sync_change)(void *han=
+dle, bool en);<br>
+&gt;&nbsp; };<br>
+&gt;&nbsp; <br>
+&gt;&nbsp; #endif<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/g=
+pu/drm/amd/powerplay/amd_powerplay.c<br>
+&gt; index 376ed2d..d0306b6 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&gt; @@ -1555,6 &#43;1555,30 @@ static int pp_set_mmhub_powergating_by_smu(=
+void *handle)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_func-=
+&gt;set_mmhub_powergating_by_smu(hwmgr);<br>
+&gt;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt; &#43;static int pp_notify_free_sync_change(void *handle, bool en)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_instance *pp_handle =3D (struc=
+t pp_instance *)handle;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D pp_check(pp_handle);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; return ret;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr =3D pp_handle-&gt;hwmgr;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;pp_handle-&gt;pp_lock);<=
+br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;autowattman_enabled) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;start_auto_wattman !=3D NULL) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!cancel_delayed=
+_work_sync(&amp;hwmgr-&gt;wattman_update_work))<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;start_auto_wattman(hw=
+mgr, en);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;pp_handle-&gt;pp_lock)=
+;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp; const struct amd_pm_funcs pp_dpm_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .load_firmware =3D pp_dpm_lo=
+ad_fw,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .wait_for_fw_loading_complet=
+e =3D pp_dpm_fw_loading_complete,<br>
+&gt; @@ -1604,4 &#43;1628,5 @@ static int pp_set_mmhub_powergating_by_smu(v=
+oid *handle)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_voltage_reque=
+st =3D pp_display_clock_voltage_request,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_display_mode_validation=
+_clocks =3D pp_get_display_mode_validation_clocks,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mmhub_powergating_by_sm=
+u =3D pp_set_mmhub_powergating_by_smu,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .notify_free_sync_change =3D pp_notify_f=
+ree_sync_change,<br>
+&gt;&nbsp; };<br>
+&gt; <br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB16870B662724C2F6BD1A8014FBF30CY4PR12MB1687namp_--
+
+--===============1457762782==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1457762782==--
