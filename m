@@ -1,52 +1,59 @@
-From: Matthias Kaehlcke <mka@chromium.org>
-Subject: [PATCH v3 4/4] amdgpu/dc/calcs: Support clang option for stack alignment
-Date: Thu,  8 Feb 2018 12:53:16 -0800
-Message-ID: <20180208205316.93330-4-mka@chromium.org>
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v3 4/4] amdgpu/dc/calcs: Support clang option for stack
+ alignment
+Date: Thu, 8 Feb 2018 16:03:57 -0500
+Message-ID: <953daf8c-b195-e983-ecc4-4b369515e9ac@amd.com>
 References: <20180208205316.93330-1-mka@chromium.org>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180208205316.93330-1-mka@chromium.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>, Matthias Kaehlcke <mka@chromium.org>
+ <20180208205316.93330-4-mka@chromium.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180208205316.93330-4-mka@chromium.org>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Matthias Kaehlcke <mka@chromium.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Cc: Craig Bergstrom <craigb@chromium.org>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Justin TerAvest <teravest@chromium.org>, amd-gfx@lists.freedesktop.org, Guenter Roeck <groeck@chromium.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-calcs uses the compiler option -mpreferred-stack-boundary=4 to configure
-a stack alignment of 16 bytes. Clang uses the option -mstack-alignment
-instead, which expects as parameter the alignment in bytes, and not a
-power of two like -mpreferred-stack-boundary.
-
-Probe for both compiler options and use the correct one, similar to
-what is done in arch/x86/Makefile.
-
-Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
----
-Changes in v3:
-- patch added
-
-Note to self: if this patterns proliferates further we probably want to
-put the evaluation of the correct compiler flag in some common place.
-
- drivers/gpu/drm/amd/display/dc/calcs/Makefile | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-index af0f452f3c9f..95f332ee3e7e 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-@@ -24,7 +24,13 @@
- # It calculates Bandwidth and Watermarks values for HW programming
- #
- 
--calcs_ccflags := -mhard-float -msse -mpreferred-stack-boundary=4
-+ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
-+	cc_stack_align := -mpreferred-stack-boundary=4
-+else ifneq ($(call cc-option, -mstack-alignment=16),)
-+	cc_stack_align := -mstack-alignment=16
-+endif
-+
-+calcs_ccflags := -mhard-float -msse $(cc_stack_align)
- 
- CFLAGS_dcn_calcs.o := $(calcs_ccflags)
- CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
--- 
-2.16.0.rc1.238.g530d649a79-goog
+T24gMjAxOC0wMi0wOCAwMzo1MyBQTSwgTWF0dGhpYXMgS2FlaGxja2Ugd3JvdGU6Cj4gY2FsY3Mg
+dXNlcyB0aGUgY29tcGlsZXIgb3B0aW9uIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQgdG8g
+Y29uZmlndXJlCj4gYSBzdGFjayBhbGlnbm1lbnQgb2YgMTYgYnl0ZXMuIENsYW5nIHVzZXMgdGhl
+IG9wdGlvbiAtbXN0YWNrLWFsaWdubWVudAo+IGluc3RlYWQsIHdoaWNoIGV4cGVjdHMgYXMgcGFy
+YW1ldGVyIHRoZSBhbGlnbm1lbnQgaW4gYnl0ZXMsIGFuZCBub3QgYQo+IHBvd2VyIG9mIHR3byBs
+aWtlIC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5Lgo+IAo+IFByb2JlIGZvciBib3RoIGNvbXBp
+bGVyIG9wdGlvbnMgYW5kIHVzZSB0aGUgY29ycmVjdCBvbmUsIHNpbWlsYXIgdG8KPiB3aGF0IGlz
+IGRvbmUgaW4gYXJjaC94ODYvTWFrZWZpbGUuCj4gCj4gU2lnbmVkLW9mZi1ieTogTWF0dGhpYXMg
+S2FlaGxja2UgPG1rYUBjaHJvbWl1bS5vcmc+CgpTZXJpZXMgaXMKUmV2aWV3ZWQtYnk6IEhhcnJ5
+IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoKSGFycnkKCj4gLS0tCj4gQ2hhbmdl
+cyBpbiB2MzoKPiAtIHBhdGNoIGFkZGVkCj4gCj4gTm90ZSB0byBzZWxmOiBpZiB0aGlzIHBhdHRl
+cm5zIHByb2xpZmVyYXRlcyBmdXJ0aGVyIHdlIHByb2JhYmx5IHdhbnQgdG8KPiBwdXQgdGhlIGV2
+YWx1YXRpb24gb2YgdGhlIGNvcnJlY3QgY29tcGlsZXIgZmxhZyBpbiBzb21lIGNvbW1vbiBwbGFj
+ZS4KPiAKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlIHwg
+OCArKysrKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxj
+cy9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmls
+ZQo+IGluZGV4IGFmMGY0NTJmM2M5Zi4uOTVmMzMyZWUzZTdlIDEwMDY0NAo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQo+IEBAIC0yNCw3ICsyNCwxMyBA
+QAo+ICAjIEl0IGNhbGN1bGF0ZXMgQmFuZHdpZHRoIGFuZCBXYXRlcm1hcmtzIHZhbHVlcyBmb3Ig
+SFcgcHJvZ3JhbW1pbmcKPiAgIwo+ICAKPiAtY2FsY3NfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQg
+LW1zc2UgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+ICtpZm5lcSAoJChjYWxsIGNjLW9w
+dGlvbiwgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NCksKQo+ICsJY2Nfc3RhY2tfYWxpZ24g
+Oj0gLW1wcmVmZXJyZWQtc3RhY2stYm91bmRhcnk9NAo+ICtlbHNlIGlmbmVxICgkKGNhbGwgY2Mt
+b3B0aW9uLCAtbXN0YWNrLWFsaWdubWVudD0xNiksKQo+ICsJY2Nfc3RhY2tfYWxpZ24gOj0gLW1z
+dGFjay1hbGlnbm1lbnQ9MTYKPiArZW5kaWYKPiArCj4gK2NhbGNzX2NjZmxhZ3MgOj0gLW1oYXJk
+LWZsb2F0IC1tc3NlICQoY2Nfc3RhY2tfYWxpZ24pCj4gIAo+ICBDRkxBR1NfZGNuX2NhbGNzLm8g
+Oj0gJChjYWxjc19jY2ZsYWdzKQo+ICBDRkxBR1NfZGNuX2NhbGNfYXV0by5vIDo9ICQoY2FsY3Nf
+Y2NmbGFncykKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+Cg==
