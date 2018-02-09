@@ -1,49 +1,49 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Fix potential uninitialized use of 'idle'
- in amdgpu_ids.c
-Date: Fri, 9 Feb 2018 15:31:50 -0500
-Message-ID: <CADnq5_NERkHKMaZ+nhHzDq33J4=Em_4uUGXs7rj5A=bJmZpepA@mail.gmail.com>
-References: <20180209184910.21679-1-harry.wentland@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180209184910.21679-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Matthias Kaehlcke <mka@chromium.org>
+Subject: [PATCH v3 1/4] ASoC: dapm: fix debugfs read using path->connected
+Date: Fri,  9 Feb 2018 13:22:13 -0800
+Message-ID: <20180209212216.71447-1-mka@chromium.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>, KaiChieh Chuang <kaichieh.chuang@mediatek.com>, Mark Brown <broonie@kernel.org>, Matthias Kaehlcke <mka@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBGZWIgOSwgMjAxOCBhdCAxOjQ5IFBNLCBIYXJyeSBXZW50bGFuZCA8aGFycnkud2Vu
-dGxhbmRAYW1kLmNvbT4gd3JvdGU6Cj4gdjI6IFVzZSBOVUxMIGFuZCByZXZlcnNlIGNocmlzdG1h
-cyB0cmVlIG9yZGVyaW5nCj4KPiBTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnku
-d2VudGxhbmRAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfaWRzLmMgfCAzICsrLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2lkcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lkcy5jCj4gaW5k
-ZXggN2QyODA1NzI5YzIwLi41NjNlNzQ3NTVhYWIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lkcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2lkcy5jCj4gQEAgLTQwNiw3ICs0MDYsOCBAQCBpbnQgYW1kZ3B1X3ZtaWRf
-Z3JhYihzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+ICAg
-ICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Owo+ICAgICAgICAg
-dW5zaWduZWQgdm1odWIgPSByaW5nLT5mdW5jcy0+dm1odWI7Cj4gICAgICAgICBzdHJ1Y3QgYW1k
-Z3B1X3ZtaWRfbWdyICppZF9tZ3IgPSAmYWRldi0+dm1fbWFuYWdlci5pZF9tZ3Jbdm1odWJdOwo+
-IC0gICAgICAgc3RydWN0IGFtZGdwdV92bWlkICppZCwgKmlkbGU7Cj4gKyAgICAgICBzdHJ1Y3Qg
-YW1kZ3B1X3ZtaWQgKmlkbGUgPSBOVUxMOwo+ICsgICAgICAgc3RydWN0IGFtZGdwdV92bWlkICpp
-ZCA9IE5VTEw7Cj4gICAgICAgICBpbnQgciA9IDA7Cj4KPiAgICAgICAgIG11dGV4X2xvY2soJmlk
-X21nci0+bG9jayk7Cj4gLS0KPiAyLjE0LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+From: KaiChieh Chuang <kaichieh.chuang@mediatek.com>
+
+This fix a bug in dapm_widget_power_read_file(),
+where it may sent opposite order of source/sink widget
+into the p->connected().
+
+for example,
+static int connected_check(source, sink);
+{"w_sink", NULL, "w_source", connected_check}
+
+the dapm_widget_power_read_file() will query p->connected()
+in following case
+	p->conneted("w_source", "w_sink")
+	p->conneted("w_sink", "w_source")
+we should avoid the last case, since it's the wrong order (source/sink)
+as declared in snd_soc_dapm_route.
+
+Signed-off-by: KaiChieh Chuang <kaichieh.chuang@mediatek.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+---
+ sound/soc/soc-dapm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index a10b21cfc31e..ee6d9d9a3c5e 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -2026,7 +2026,7 @@ static ssize_t dapm_widget_power_read_file(struct file *file,
+ 	snd_soc_dapm_for_each_direction(dir) {
+ 		rdir = SND_SOC_DAPM_DIR_REVERSE(dir);
+ 		snd_soc_dapm_widget_for_each_path(w, dir, p) {
+-			if (p->connected && !p->connected(w, p->node[rdir]))
++			if (p->connected && !p->connected(p->source, p->sink))
+ 				continue;
+ 
+ 			if (!p->connect)
+-- 
+2.16.0.rc1.238.g530d649a79-goog
