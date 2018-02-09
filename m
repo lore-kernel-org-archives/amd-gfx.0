@@ -1,150 +1,51 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Remove unused CFLAGS entry in DML
- Makefile
-Date: Thu, 8 Feb 2018 22:10:58 +0000
-Message-ID: <BN6PR12MB1652AC493950CDF3579BA369F7F30@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <20180208214728.19140-1-harry.wentland@amd.com>
+From: Chunming Zhou <david1.zhou@amd.com>
+Subject: [PATCH 1/3] drm: add func to get max iomem address v2
+Date: Fri, 9 Feb 2018 10:44:08 +0800
+Message-ID: <20180209024410.1469-1-david1.zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1258396350=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180208214728.19140-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1258396350==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
-ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, February 8, 2018 4:47:28 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Wentland, Harry
-Subject: [PATCH] drm/amd/display: Remove unused CFLAGS entry in DML Makefil=
-e
-
-Missed that with a previous change that removed unused files.
-
-Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/dml/Makefile | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/=
-amd/display/dc/dml/Makefile
-index 0271043cf6a2..f83a608f93e9 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -32,7 +32,6 @@ endif
-
- dml_ccflags :=3D -mhard-float -msse $(cc_stack_align)
-
--CFLAGS_display_mode_vba.o :=3D $(dml_ccflags)
- CFLAGS_display_mode_lib.o :=3D $(dml_ccflags)
- CFLAGS_display_pipe_clocks.o :=3D $(dml_ccflags)
- CFLAGS_dml1_display_rq_dlg_calc.o :=3D $(dml_ccflags)
---
-2.14.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.went=
-land-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, February 8, 2018 4:47:28 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Wentland, Harry<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Remove unused CFLAGS entry in DML =
-Makefile</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Missed that with a previous change that removed un=
-used files.<br>
-<br>
-Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dml/Makefile | 1 -<br>
-&nbsp;1 file changed, 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/=
-amd/display/dc/dml/Makefile<br>
-index 0271043cf6a2..f83a608f93e9 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dml/Makefile<br>
-@@ -32,7 &#43;32,6 @@ endif<br>
-&nbsp;<br>
-&nbsp;dml_ccflags :=3D -mhard-float -msse $(cc_stack_align)<br>
-&nbsp;<br>
--CFLAGS_display_mode_vba.o :=3D $(dml_ccflags)<br>
-&nbsp;CFLAGS_display_mode_lib.o :=3D $(dml_ccflags)<br>
-&nbsp;CFLAGS_display_pipe_clocks.o :=3D $(dml_ccflags)<br>
-&nbsp;CFLAGS_dml1_display_rq_dlg_calc.o :=3D $(dml_ccflags)<br>
--- <br>
-2.14.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1652AC493950CDF3579BA369F7F30BN6PR12MB1652namp_--
-
---===============1258396350==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: michel@daenzer.net, christian.koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1258396350==--
+aXQgd2lsbCBiZSB1c2VkIHRvIGNoZWNrIGlmIHRoZSBkcml2ZXIgbmVlZHMgc3dpb3RsYgp2Mjog
+RG9uJ3QgdXNlIGlubGluZSwgaW5zdGVhZCwgbW92ZSBmdW5jdGlvbiB0byBkcm1fbWVtb3J5LmMg
+KE1lY2hlbCBEYWVuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+KQoKQ2hhbmdlLUlkOiBJZGJlNDdh
+ZjhmMTIwMzJkNDgwM2JiM2Q0NzI3M2U4MDdmMTkxNjljMwpTaWduZWQtb2ZmLWJ5OiBDaHVubWlu
+ZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgpSZXZpZXdlZC1ieTogTW9uayBMaXUgPG1vbmsu
+bGl1QGFtZC5jb20+ClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
+bmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9tZW1vcnkuYyB8IDEzICsrKysr
+KysrKysrKysKIGluY2x1ZGUvZHJtL2RybV9jYWNoZS5oICAgICAgfCAgMiArKwogMiBmaWxlcyBj
+aGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ry
+bV9tZW1vcnkuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fbWVtb3J5LmMKaW5kZXggZmMwZWJkMjcz
+ZWY4Li43Y2E1MDBiOGMzOTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fbWVtb3J5
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9tZW1vcnkuYwpAQCAtMTQ5LDMgKzE0OSwxNiBA
+QCB2b2lkIGRybV9sZWdhY3lfaW9yZW1hcGZyZWUoc3RydWN0IGRybV9sb2NhbF9tYXAgKm1hcCwg
+c3RydWN0IGRybV9kZXZpY2UgKmRldikKIAkJaW91bm1hcChtYXAtPmhhbmRsZSk7CiB9CiBFWFBP
+UlRfU1lNQk9MKGRybV9sZWdhY3lfaW9yZW1hcGZyZWUpOworCit1NjQgZHJtX2dldF9tYXhfaW9t
+ZW0odm9pZCkKK3sKKwlzdHJ1Y3QgcmVzb3VyY2UgKnRtcDsKKwl1NjQgbWF4X2lvbWVtID0gMDsK
+KworCWZvciAodG1wID0gaW9tZW1fcmVzb3VyY2UuY2hpbGQ7IHRtcDsgdG1wID0gdG1wLT5zaWJs
+aW5nKSB7CisJCW1heF9pb21lbSA9IG1heChtYXhfaW9tZW0sICB0bXAtPmVuZCk7CisJfQorCisJ
+cmV0dXJuIG1heF9pb21lbTsKK30KK0VYUE9SVF9TWU1CT0woZHJtX2dldF9tYXhfaW9tZW0pOwpk
+aWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2NhY2hlLmggYi9pbmNsdWRlL2RybS9kcm1fY2Fj
+aGUuaAppbmRleCBiZWFiMGYwZDBjZmIuLmJmZTE2MzlkZjAyZCAxMDA2NDQKLS0tIGEvaW5jbHVk
+ZS9kcm0vZHJtX2NhY2hlLmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX2NhY2hlLmgKQEAgLTM4LDYg
+KzM4LDggQEAKIHZvaWQgZHJtX2NsZmx1c2hfcGFnZXMoc3RydWN0IHBhZ2UgKnBhZ2VzW10sIHVu
+c2lnbmVkIGxvbmcgbnVtX3BhZ2VzKTsKIHZvaWQgZHJtX2NsZmx1c2hfc2coc3RydWN0IHNnX3Rh
+YmxlICpzdCk7CiB2b2lkIGRybV9jbGZsdXNoX3ZpcnRfcmFuZ2Uodm9pZCAqYWRkciwgdW5zaWdu
+ZWQgbG9uZyBsZW5ndGgpOwordTY0IGRybV9nZXRfbWF4X2lvbWVtKHZvaWQpOworCiAKIHN0YXRp
+YyBpbmxpbmUgYm9vbCBkcm1fYXJjaF9jYW5fd2NfbWVtb3J5KHZvaWQpCiB7Ci0tIAoyLjE0LjEK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZl
+bCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
