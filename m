@@ -1,48 +1,35 @@
-From: Guenter Roeck <groeck@google.com>
-Subject: Re: [PATCH] amdgpu/dc: Remove unnecessary initialization in dc_link_handle_hpd_rx_irq()
-Date: Fri, 9 Feb 2018 16:06:15 -0800
-Message-ID: <CABXOdTfpCuiCRprv4YR7LU0863fsGd3_xyqHK_t3p9rbfkj12Q@mail.gmail.com>
-References: <20180209231233.107711-1-mka@chromium.org>
+From: sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Subject: mmDPREFCLK_CNTL, max_clks_by_state missing for dce60
+Date: Sat, 10 Feb 2018 21:25:58 +0000
+Message-ID: <20180210212558.GA1470@freedom>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180209231233.107711-1-mka@chromium.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Matthias Kaehlcke <mka@chromium.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-kernel <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Fri, Feb 9, 2018 at 3:12 PM, Matthias Kaehlcke <mka@chromium.org> wrote:
-> The initialization of 'result' is unnecessary, the variable is assigned
-> unconditionally a few lines below. Removing the initialization also fixes
-> the following warning when building with clang:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:1931:26:
->   error: implicit conversion from enumeration type 'enum ddc_result'
->   to different enumeration type 'enum dc_status' [-Werror,-Wenum-conversion]
->     enum dc_status result = DDC_RESULT_UNKNOWN;
->
-> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
-
-Reviewed-by: Guenter Roeck <groeck@chromium.org>
-
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> index 4ee4c03a6724..8e3a8c1395a3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-> @@ -1926,7 +1926,7 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
->  {
->         union hpd_irq_data hpd_irq_dpcd_data = {{{{0}}}};
->         union device_service_irq device_service_clear = { { 0 } };
-> -       enum dc_status result = DDC_RESULT_UNKNOWN;
-> +       enum dc_status result;
->         bool status = false;
->         /* For use cases related to down stream connection status change,
->          * PSR and device auto test, refer to function handle_sst_hpd_irq
-> --
-> 2.16.0.rc1.238.g530d649a79-goog
->
+SGksCgpJbiBteSBhdHRlbXB0IHRvIGFkZCB0aGUgY29kZSBmb3IgZGNlNiBpbiBkYyAoSSBiYXNl
+IG15c2VsZiBvbiBkY2U4MCBjb2RlKSwgaXQKc2VlbXMgSSBtaXNzIHRoZSBtbURQUkVGQ0xLX0NO
+VEwgKGRjL2RjZS9kY2VfY2xvY2tzLmgpIHJlZ2lzdGVyIGRlc2NyaXB0aW9uIGZvcgpkY2U2MC4g
+SSBoYXZlIG1tREVOVElTVF9ESVNQQ0xLX0NOVEwgdGhvdWdoLgoKSSBtaXNzIHRvbyB0aGUgIm1h
+eF9jbGtzX2J5X3N0YXRlIiBwZXIgcG93ZXIgc3RhdGUgbGltaXRzIChkYy9kY2UvZGNlX2Nsb2Nr
+cy5jKQpmb3IgZGNlNjAgYXMgSSBjb3VsZCBub3QgZmluZCBhbnkgaW4gYW1kZ3B1IGRpcmVjdCBk
+aXNwbGF5IGNvZGUuIEEgd2lsZCBndWVzcwp3b3VsZCBiZSB0aG9zZSBsaW1pdHMgYXJlIHRoZSBz
+YW1lIHRoYW4gdGhvc2UgZm9yIGRjZTgwLgoKTW9yZSBJIGdldCBpbnRvIERDIGNvZGUsIG1vcmUg
+SSBnZXQgcHV6emxlZCBhYm91dCB3aGF0IGJlbmVmaXRzIHdvdWxkIGJyaW5nIERDCmNvZGUgZm9y
+IHRoZSBjdXJyZW50IGRjZTYwIGhhcmR3YXJlOiBJcyBkY2U2MCBfcmVhbGx5XyBhYmxlIHRvIGRv
+IERQIGFkYXB0aXZlCnN5bmMgKGZyZWVzeW5jKT8KCnJlZ2FyZHMsCgotLSAKU3lsdmFpbgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
