@@ -1,49 +1,48 @@
-From: Matthias Kaehlcke <mka@chromium.org>
-Subject: [PATCH] amdgpu/dc: Remove unnecessary initialization in
- dc_link_handle_hpd_rx_irq()
-Date: Fri,  9 Feb 2018 15:12:33 -0800
-Message-ID: <20180209231233.107711-1-mka@chromium.org>
+From: Guenter Roeck <groeck@google.com>
+Subject: Re: [PATCH] amdgpu/dc: Remove unnecessary initialization in dc_link_handle_hpd_rx_irq()
+Date: Fri, 9 Feb 2018 16:06:15 -0800
+Message-ID: <CABXOdTfpCuiCRprv4YR7LU0863fsGd3_xyqHK_t3p9rbfkj12Q@mail.gmail.com>
+References: <20180209231233.107711-1-mka@chromium.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>
-Cc: Craig Bergstrom <craigb@chromium.org>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Justin TerAvest <teravest@chromium.org>, Matthias Kaehlcke <mka@chromium.org>, amd-gfx@lists.freedesktop.org, Guenter Roeck <groeck@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180209231233.107711-1-mka@chromium.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Matthias Kaehlcke <mka@chromium.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-kernel <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>, Justin TerAvest <teravest@chromium.org>, Craig Bergstrom <craigb@chromium.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIGluaXRpYWxpemF0aW9uIG9mICdyZXN1bHQnIGlzIHVubmVjZXNzYXJ5LCB0aGUgdmFyaWFi
-bGUgaXMgYXNzaWduZWQKdW5jb25kaXRpb25hbGx5IGEgZmV3IGxpbmVzIGJlbG93LiBSZW1vdmlu
-ZyB0aGUgaW5pdGlhbGl6YXRpb24gYWxzbyBmaXhlcwp0aGUgZm9sbG93aW5nIHdhcm5pbmcgd2hl
-biBidWlsZGluZyB3aXRoIGNsYW5nOgoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlz
-cGxheS9kYy9jb3JlL2RjX2xpbmtfZHAuYzoxOTMxOjI2OgogIGVycm9yOiBpbXBsaWNpdCBjb252
-ZXJzaW9uIGZyb20gZW51bWVyYXRpb24gdHlwZSAnZW51bSBkZGNfcmVzdWx0JwogIHRvIGRpZmZl
-cmVudCBlbnVtZXJhdGlvbiB0eXBlICdlbnVtIGRjX3N0YXR1cycgWy1XZXJyb3IsLVdlbnVtLWNv
-bnZlcnNpb25dCiAgICBlbnVtIGRjX3N0YXR1cyByZXN1bHQgPSBERENfUkVTVUxUX1VOS05PV047
-CgpTaWduZWQtb2ZmLWJ5OiBNYXR0aGlhcyBLYWVobGNrZSA8bWthQGNocm9taXVtLm9yZz4KLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RwLmMgfCAyICst
-CiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RwLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RwLmMKaW5kZXggNGVl
-NGMwM2E2NzI0Li44ZTNhOGMxMzk1YTMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9jb3JlL2RjX2xpbmtfZHAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvY29yZS9kY19saW5rX2RwLmMKQEAgLTE5MjYsNyArMTkyNiw3IEBAIGJvb2wgZGNf
-bGlua19oYW5kbGVfaHBkX3J4X2lycShzdHJ1Y3QgZGNfbGluayAqbGluaywgdW5pb24gaHBkX2ly
-cV9kYXRhICpvdXRfaHBkCiB7CiAJdW5pb24gaHBkX2lycV9kYXRhIGhwZF9pcnFfZHBjZF9kYXRh
-ID0ge3t7ezB9fX19OwogCXVuaW9uIGRldmljZV9zZXJ2aWNlX2lycSBkZXZpY2Vfc2VydmljZV9j
-bGVhciA9IHsgeyAwIH0gfTsKLQllbnVtIGRjX3N0YXR1cyByZXN1bHQgPSBERENfUkVTVUxUX1VO
-S05PV047CisJZW51bSBkY19zdGF0dXMgcmVzdWx0OwogCWJvb2wgc3RhdHVzID0gZmFsc2U7CiAJ
-LyogRm9yIHVzZSBjYXNlcyByZWxhdGVkIHRvIGRvd24gc3RyZWFtIGNvbm5lY3Rpb24gc3RhdHVz
-IGNoYW5nZSwKIAkgKiBQU1IgYW5kIGRldmljZSBhdXRvIHRlc3QsIHJlZmVyIHRvIGZ1bmN0aW9u
-IGhhbmRsZV9zc3RfaHBkX2lycQotLSAKMi4xNi4wLnJjMS4yMzguZzUzMGQ2NDlhNzktZ29vZwoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+On Fri, Feb 9, 2018 at 3:12 PM, Matthias Kaehlcke <mka@chromium.org> wrote:
+> The initialization of 'result' is unnecessary, the variable is assigned
+> unconditionally a few lines below. Removing the initialization also fixes
+> the following warning when building with clang:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:1931:26:
+>   error: implicit conversion from enumeration type 'enum ddc_result'
+>   to different enumeration type 'enum dc_status' [-Werror,-Wenum-conversion]
+>     enum dc_status result = DDC_RESULT_UNKNOWN;
+>
+> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+
+Reviewed-by: Guenter Roeck <groeck@chromium.org>
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> index 4ee4c03a6724..8e3a8c1395a3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+> @@ -1926,7 +1926,7 @@ bool dc_link_handle_hpd_rx_irq(struct dc_link *link, union hpd_irq_data *out_hpd
+>  {
+>         union hpd_irq_data hpd_irq_dpcd_data = {{{{0}}}};
+>         union device_service_irq device_service_clear = { { 0 } };
+> -       enum dc_status result = DDC_RESULT_UNKNOWN;
+> +       enum dc_status result;
+>         bool status = false;
+>         /* For use cases related to down stream connection status change,
+>          * PSR and device auto test, refer to function handle_sst_hpd_irq
+> --
+> 2.16.0.rc1.238.g530d649a79-goog
+>
