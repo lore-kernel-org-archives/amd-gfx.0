@@ -1,88 +1,331 @@
-From: Tom St Denis <tom.stdenis@amd.com>
-Subject: [PATCH] drm/amdgpu: replace iova debugfs file with iomem (v3)
-Date: Mon, 12 Feb 2018 10:18:36 -0500
-Message-ID: <20180212151836.15088-1-tom.stdenis@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Add error handling when smu return failed on
+ Vega10.
+Date: Mon, 12 Feb 2018 15:31:06 +0000
+Message-ID: <CY4PR12MB1653F31B646062DC15E8ABB2F7F70@CY4PR12MB1653.namprd12.prod.outlook.com>
+References: <1518324770-22051-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org
-Cc: Tom St Denis <tom.stdenis@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0680101858=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1518324770-22051-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+
-CgpUaGlzIGFsbG93cyBhY2Nlc3MgdG8gcGFnZXMgYWxsb2NhdGVkIHRocm91Z2ggdGhlIGRyaXZl
-ciB3aXRoIG9wdGlvbmFsCklPTU1VIG1hcHBpbmcuCgp2MjogRml4IG51bWJlciBvZiBieXRlcyBj
-b3BpZWQgYW5kIGFkZCB3cml0ZSBtZXRob2QKdjM6IGRyb3AgY2hlY2sgZm9yIGttYXAgcmV0dXJu
-CgpPcmlnaW5hbC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-PgpTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIHwgMTAyICsrKysrKysrKysr
-KysrKysrKysrKysrKystLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgODEgaW5zZXJ0aW9ucygrKSwg
-MjEgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCmlu
-ZGV4IGIzNzJkOGQ2NTBhNS4uMTMzOGM5MDgwNTZmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3R0bS5jCkBAIC0xOTI5LDM4ICsxOTI5LDk4IEBAIHN0YXRpYyBjb25zdCBzdHJ1
-Y3QgZmlsZV9vcGVyYXRpb25zIGFtZGdwdV90dG1fZ3R0X2ZvcHMgPSB7CiAKICNlbmRpZgogCi1z
-dGF0aWMgc3NpemVfdCBhbWRncHVfaW92YV90b19waHlzX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNo
-YXIgX191c2VyICpidWYsCi0JCQkJICAgc2l6ZV90IHNpemUsIGxvZmZfdCAqcG9zKQorc3RhdGlj
-IHNzaXplX3QgYW1kZ3B1X2lvbWVtX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNoYXIgX191c2VyICpi
-dWYsCisJCQkJIHNpemVfdCBzaXplLCBsb2ZmX3QgKnBvcykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiA9IGZpbGVfaW5vZGUoZiktPmlfcHJpdmF0ZTsKLQlpbnQgcjsKLQl1aW50NjRf
-dCBwaHlzOwogCXN0cnVjdCBpb21tdV9kb21haW4gKmRvbTsKKwlzc2l6ZV90IHJlc3VsdCA9IDA7
-CisJaW50IHI7CiAKLQkvLyBhbHdheXMgcmV0dXJuIDggYnl0ZXMKLQlpZiAoc2l6ZSAhPSA4KQot
-CQlyZXR1cm4gLUVJTlZBTDsKKwlkb20gPSBpb21tdV9nZXRfZG9tYWluX2Zvcl9kZXYoYWRldi0+
-ZGV2KTsKIAotCS8vIG9ubHkgYWNjZXB0IHBhZ2UgYWRkcmVzc2VzCi0JaWYgKCpwb3MgJiAweEZG
-RikKLQkJcmV0dXJuIC1FSU5WQUw7CisJd2hpbGUgKHNpemUpIHsKKwkJcGh5c19hZGRyX3QgYWRk
-ciA9ICpwb3MgJiBQQUdFX01BU0s7CisJCWxvZmZfdCBvZmYgPSAqcG9zICYgflBBR0VfTUFTSzsK
-KwkJc2l6ZV90IGJ5dGVzID0gUEFHRV9TSVpFIC0gb2ZmOworCQl1bnNpZ25lZCBsb25nIHBmbjsK
-KwkJc3RydWN0IHBhZ2UgKnA7CisJCXZvaWQgKnB0cjsKKworCQlieXRlcyA9IGJ5dGVzIDwgc2l6
-ZSA/IGJ5dGVzIDogc2l6ZTsKKworCQlhZGRyID0gZG9tID8gaW9tbXVfaW92YV90b19waHlzKGRv
-bSwgYWRkcikgOiBhZGRyOworCisJCXBmbiA9IGFkZHIgPj4gUEFHRV9TSElGVDsKKwkJaWYgKCFw
-Zm5fdmFsaWQocGZuKSkKKwkJCXJldHVybiAtRVBFUk07CisKKwkJcCA9IHBmbl90b19wYWdlKHBm
-bik7CisJCWlmIChwLT5tYXBwaW5nICE9IGFkZXYtPm1tYW4uYmRldi5kZXZfbWFwcGluZykKKwkJ
-CXJldHVybiAtRVBFUk07CisKKwkJcHRyID0ga21hcChwKTsKKwkJciA9IGNvcHlfdG9fdXNlcihi
-dWYsIHB0ciwgYnl0ZXMpOworCQlrdW5tYXAocCk7CisJCWlmIChyKQorCQkJcmV0dXJuIC1FRkFV
-TFQ7CisKKwkJc2l6ZSAtPSBieXRlczsKKwkJKnBvcyArPSBieXRlczsKKwkJcmVzdWx0ICs9IGJ5
-dGVzOworCX0KKworCXJldHVybiByZXN1bHQ7Cit9CisKK3N0YXRpYyBzc2l6ZV90IGFtZGdwdV9p
-b21lbV93cml0ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3QgY2hhciBfX3VzZXIgKmJ1ZiwKKwkJCQkg
-c2l6ZV90IHNpemUsIGxvZmZfdCAqcG9zKQoreworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-ID0gZmlsZV9pbm9kZShmKS0+aV9wcml2YXRlOworCXN0cnVjdCBpb21tdV9kb21haW4gKmRvbTsK
-Kwlzc2l6ZV90IHJlc3VsdCA9IDA7CisJaW50IHI7CiAKIAlkb20gPSBpb21tdV9nZXRfZG9tYWlu
-X2Zvcl9kZXYoYWRldi0+ZGV2KTsKLQlpZiAoZG9tKQotCQlwaHlzID0gaW9tbXVfaW92YV90b19w
-aHlzKGRvbSwgKnBvcyk7Ci0JZWxzZQotCQlwaHlzID0gKnBvczsKIAotCXIgPSBjb3B5X3RvX3Vz
-ZXIoYnVmLCAmcGh5cywgOCk7Ci0JaWYgKHIpCi0JCXJldHVybiAtRUZBVUxUOworCXdoaWxlIChz
-aXplKSB7CisJCXBoeXNfYWRkcl90IGFkZHIgPSAqcG9zICYgUEFHRV9NQVNLOworCQlsb2ZmX3Qg
-b2ZmID0gKnBvcyAmIH5QQUdFX01BU0s7CisJCXNpemVfdCBieXRlcyA9IFBBR0VfU0laRSAtIG9m
-ZjsKKwkJdW5zaWduZWQgbG9uZyBwZm47CisJCXN0cnVjdCBwYWdlICpwOworCQl2b2lkICpwdHI7
-CisKKwkJYnl0ZXMgPSBieXRlcyA8IHNpemUgPyBieXRlcyA6IHNpemU7CiAKLQlyZXR1cm4gODsK
-KwkJYWRkciA9IGRvbSA/IGlvbW11X2lvdmFfdG9fcGh5cyhkb20sIGFkZHIpIDogYWRkcjsKKwor
-CQlwZm4gPSBhZGRyID4+IFBBR0VfU0hJRlQ7CisJCWlmICghcGZuX3ZhbGlkKHBmbikpCisJCQly
-ZXR1cm4gLUVQRVJNOworCisJCXAgPSBwZm5fdG9fcGFnZShwZm4pOworCQlpZiAocC0+bWFwcGlu
-ZyAhPSBhZGV2LT5tbWFuLmJkZXYuZGV2X21hcHBpbmcpCisJCQlyZXR1cm4gLUVQRVJNOworCisJ
-CXB0ciA9IGttYXAocCk7CisJCXIgPSBjb3B5X2Zyb21fdXNlcihwdHIsIGJ1ZiwgYnl0ZXMpOwor
-CQlrdW5tYXAocCk7CisJCWlmIChyKQorCQkJcmV0dXJuIC1FRkFVTFQ7CisKKwkJc2l6ZSAtPSBi
-eXRlczsKKwkJKnBvcyArPSBieXRlczsKKwkJcmVzdWx0ICs9IGJ5dGVzOworCX0KKworCXJldHVy
-biByZXN1bHQ7CiB9CiAKLXN0YXRpYyBjb25zdCBzdHJ1Y3QgZmlsZV9vcGVyYXRpb25zIGFtZGdw
-dV90dG1faW92YV9mb3BzID0geworc3RhdGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJhdGlvbnMg
-YW1kZ3B1X3R0bV9pb21lbV9mb3BzID0gewogCS5vd25lciA9IFRISVNfTU9EVUxFLAotCS5yZWFk
-ID0gYW1kZ3B1X2lvdmFfdG9fcGh5c19yZWFkLAorCS5yZWFkID0gYW1kZ3B1X2lvbWVtX3JlYWQs
-CisJLndyaXRlID0gYW1kZ3B1X2lvbWVtX3dyaXRlLAogCS5sbHNlZWsgPSBkZWZhdWx0X2xsc2Vl
-awogfTsKIApAQCAtMTk3Myw3ICsyMDMzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCB7CiAjaWZk
-ZWYgQ09ORklHX0RSTV9BTURHUFVfR0FSVF9ERUJVR0ZTCiAJeyAiYW1kZ3B1X2d0dCIsICZhbWRn
-cHVfdHRtX2d0dF9mb3BzLCBUVE1fUExfVFQgfSwKICNlbmRpZgotCXsgImFtZGdwdV9pb3ZhIiwg
-JmFtZGdwdV90dG1faW92YV9mb3BzLCBUVE1fUExfU1lTVEVNIH0sCisJeyAiYW1kZ3B1X2lvbWVt
-IiwgJmFtZGdwdV90dG1faW9tZW1fZm9wcywgVFRNX1BMX1NZU1RFTSB9LAogfTsKIAogI2VuZGlm
-Ci0tIAoyLjE0LjMKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
-bAo=
+--===============0680101858==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1653F31B646062DC15E8ABB2F7F70CY4PR12MB1653namp_"
+
+--_000_CY4PR12MB1653F31B646062DC15E8ABB2F7F70CY4PR12MB1653namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Please include a commit message.  E.g.,
+
+
+Clamp the clock index to a valid range when reading it back.
+
+
+Or something like that.  With that fixed:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Saturday, February 10, 2018 11:52:50 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amd/pp: Add error handling when smu return failed on V=
+ega10.
+
+Change-Id: I98032904fbb67db1d6b8a37842b340a5be339001
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 35 ++++++++++++------=
+----
+ 1 file changed, 19 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 1a701c3..0430906 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -3945,28 +3945,31 @@ static int vega10_read_sensor(struct pp_hwmgr *hwmg=
+r, int idx,
+
+         switch (idx) {
+         case AMDGPU_PP_SENSOR_GFX_SCLK:
+-               ret =3D smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentGfx=
+clkIndex);
+-               if (!ret) {
++                       smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentGfx=
+clkIndex);
+                         vega10_read_arg_from_smc(hwmgr, &sclk_idx);
+-                       *((uint32_t *)value) =3D dpm_table->gfx_table.dpm_l=
+evels[sclk_idx].value;
+-                       *size =3D 4;
++                       if (sclk_idx <  dpm_table->gfx_table.count) {
++                               *((uint32_t *)value) =3D dpm_table->gfx_tab=
+le.dpm_levels[sclk_idx].value;
++                               *size =3D 4;
++                       } else {
++                               ret =3D -EINVAL;
++                       }
+                 }
+                 break;
+         case AMDGPU_PP_SENSOR_GFX_MCLK:
+-               ret =3D smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUcl=
+kIndex);
+-               if (!ret) {
+-                       vega10_read_arg_from_smc(hwmgr, &mclk_idx);
+-                       *((uint32_t *)value) =3D dpm_table->mem_table.dpm_l=
+evels[mclk_idx].value;
+-                       *size =3D 4;
+-               }
++               smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkIndex);
++               vega10_read_arg_from_smc(hwmgr, &mclk_idx);
++                       if (mclk_idx <  dpm_table->gfx_table.count) {
++                               *((uint32_t *)value) =3D dpm_table->mem_tab=
+le.dpm_levels[mclk_idx].value;
++                               *size =3D 4;
++                       } else {
++                               ret =3D -EINVAL;
++                       }
+                 break;
+         case AMDGPU_PP_SENSOR_GPU_LOAD:
+-               ret =3D smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MS=
+G_GetAverageGfxActivity, 0);
+-               if (!ret) {
+-                       vega10_read_arg_from_smc(hwmgr, &activity_percent);
+-                       *((uint32_t *)value) =3D activity_percent > 100 ? 1=
+00 : activity_percent;
+-                       *size =3D 4;
+-               }
++               smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_GetAve=
+rageGfxActivity, 0);
++               vega10_read_arg_from_smc(hwmgr, &activity_percent);
++               *((uint32_t *)value) =3D activity_percent > 100 ? 100 : act=
+ivity_percent;
++               *size =3D 4;
+                 break;
+         case AMDGPU_PP_SENSOR_GPU_TEMP:
+                 *((uint32_t *)value) =3D vega10_thermal_get_temperature(hw=
+mgr);
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR12MB1653F31B646062DC15E8ABB2F7F70CY4PR12MB1653namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Please include a commit message.&=
+nbsp; E.g.,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Clamp the clock index to a valid =
+range when reading it back.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Or something like that.&nbsp; Wit=
+h that fixed:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Saturday, February 10, 2018 11:52:50 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Add error handling when smu return fail=
+ed on Vega10.</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Change-Id: I98032904fbb67db1d6b8a37842b340a5be3390=
+01<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 35 &#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----------<br>
+&nbsp;1 file changed, 19 insertions(&#43;), 16 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+index 1a701c3..0430906 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+@@ -3945,28 &#43;3945,31 @@ static int vega10_read_sensor(struct pp_hwmgr *=
+hwmgr, int idx,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (idx) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_=
+SCLK:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentGfxclkIn=
+dex);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!ret) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smum_send_ms=
+g_to_smc(hwmgr, PPSMC_MSG_GetCurrentGfxclkIndex);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega1=
+0_read_arg_from_smc(hwmgr, &amp;sclk_idx);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *((uint32_t *)va=
+lue) =3D dpm_table-&gt;gfx_table.dpm_levels[sclk_idx].value;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sclk_idx=
+ &lt;&nbsp; dpm_table-&gt;gfx_table.count) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D dpm_table-&gt;=
+gfx_table.dpm_levels[sclk_idx].value;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_=
+MCLK:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkInde=
+x);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!ret) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_read_arg_=
+from_smc(hwmgr, &amp;mclk_idx);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *((uint32_t *)va=
+lue) =3D dpm_table-&gt;mem_table.dpm_levels[mclk_idx].value;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrentUclkIndex);<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; vega10_read_arg_from_smc(hwmgr, &amp;mclk_idx);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mclk_idx=
+ &lt;&nbsp; dpm_table-&gt;gfx_table.count) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D dpm_table-&gt;=
+mem_table.dpm_levels[mclk_idx].value;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
+LOAD:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_Get=
+AverageGfxActivity, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!ret) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_read_arg_=
+from_smc(hwmgr, &amp;activity_percent);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *((uint32_t *)va=
+lue) =3D activity_percent &gt; 100 ? 100 : activity_percent;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_GetAver=
+ageGfxActivity, 0);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; vega10_read_arg_from_smc(hwmgr, &amp;activity_percent);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; *((uint32_t *)value) =3D activity_percent &gt; 100 ? 100 : a=
+ctivity_percent;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; *size =3D 4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
+TEMP:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D vega10_thermal_get_temperatu=
+re(hwmgr);<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB1653F31B646062DC15E8ABB2F7F70CY4PR12MB1653namp_--
+
+--===============0680101858==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0680101858==--
