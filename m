@@ -1,7 +1,7 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/2] drm/amdgpu: cleanup VCN IB generation
-Date: Tue, 13 Feb 2018 09:02:37 -0500
-Message-ID: <cd3f18e5-94f8-7437-a87d-6fa53c6d4378@amd.com>
+Date: Tue, 13 Feb 2018 09:14:18 -0500
+Message-ID: <a5d933ce-c35b-09b5-722f-592d6e9712fd@amd.com>
 References: <20180207194822.7878-1-christian.koenig@amd.com>
  <20180207194822.7878-2-christian.koenig@amd.com>
  <839e2b57-edf4-d389-56ab-1a97dd84c832@amd.com>
@@ -10,10 +10,10 @@ References: <20180207194822.7878-1-christian.koenig@amd.com>
  <2992ee3b-c077-9222-b1e1-79ea9cb3c143@amd.com>
  <64b53d0a-62d6-cfe5-341d-2aa5548c4f8d@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0473330955=="
+Content-Type: multipart/mixed; boundary="===============1836220552=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <64b53d0a-62d6-cfe5-341d-2aa5548c4f8d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+Content-Language: en-GB
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,29 +24,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
 This is a multi-part message in MIME format.
---===============0473330955==
+--===============1836220552==
 Content-Type: multipart/alternative;
- boundary="------------BBD013D7AE9B966E12F2670D"
-Content-Language: en-US
+ boundary="------------FC0D94C8AC547DDC039A3D3B"
+Content-Language: en-GB
 
 This is a multi-part message in MIME format.
---------------BBD013D7AE9B966E12F2670D
+--------------FC0D94C8AC547DDC039A3D3B
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Sure
-
-Andrey
 
 
 On 02/13/2018 08:57 AM, Christian König wrote:
 > It's always the obvious. Leo any more comments on this?
 >
 > If not can we get your rb on this patch as well?
+
+Tested-and-Reviewed-by: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+
+
 >
 > Andrey if Leo gives his ok can you commit both? I'm on vacation and 
 > don't want to mess with this at the moment.
@@ -94,7 +94,7 @@ On 02/13/2018 08:57 AM, Christian König wrote:
 >
 
 
---------------BBD013D7AE9B966E12F2670D
+--------------FC0D94C8AC547DDC039A3D3B
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
@@ -103,8 +103,7 @@ Content-Transfer-Encoding: 8bit
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body text="#000000" bgcolor="#FFFFFF">
-    <p>Sure</p>
-    <p>Andrey<br>
+    <p><br>
     </p>
     <br>
     <div class="moz-cite-prefix">On 02/13/2018 08:57 AM, Christian König
@@ -117,7 +116,15 @@ Content-Transfer-Encoding: 8bit
         comments on this?<br>
         <br>
         If not can we get your rb on this patch as well?<br>
-        <br>
+      </div>
+    </blockquote>
+    <br>
+    Tested-and-Reviewed-by: Leo Liu <a class="moz-txt-link-rfc2396E" href="mailto:leo.liu-5C7GfCeVMHo@public.gmane.org">&lt;leo.liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+    <br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:64b53d0a-62d6-cfe5-341d-2aa5548c4f8d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+      <div class="moz-cite-prefix"> <br>
         Andrey if Leo gives his ok can you commit both? I'm on vacation
         and don't want to mess with this at the moment.<br>
         <br>
@@ -176,9 +183,9 @@ amd-gfx mailing list
   </body>
 </html>
 
---------------BBD013D7AE9B966E12F2670D--
+--------------FC0D94C8AC547DDC039A3D3B--
 
---===============0473330955==
+--===============1836220552==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -188,4 +195,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0473330955==--
+--===============1836220552==--
