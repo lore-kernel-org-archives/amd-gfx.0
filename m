@@ -1,14 +1,13 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix and cleanup UVD IB generation
-Date: Tue, 13 Feb 2018 09:19:00 -0500
-Message-ID: <58cf3a1b-a07b-b7d4-c15e-5708fc413923@amd.com>
-References: <20180207194822.7878-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Documentation about AMD's HSA implementation?
+Date: Tue, 13 Feb 2018 14:40:33 +0000
+Message-ID: <BN6PR12MB1652082F493EA92A38CD969FF7F60@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <CAEVNDXv8__4bYKLZc1zWYSdeK_0VkgTUeD-ex=vpLzyCgK88fg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1075721916=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180207194822.7878-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-GB
+In-Reply-To: <CAEVNDXv8__4bYKLZc1zWYSdeK_0VkgTUeD-ex=vpLzyCgK88fg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,117 +18,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Ming Yang <minos.future-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IExlbyBMaXUgPGxlby5saXVAYW1kLmNvbT4KCgpPbiAwMi8wNy8yMDE4IDAy
-OjQ4IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IFdlIGRpZG4ndCBzeW5jZWQgdGhlIEJP
-IGFmdGVyIHZhbGlkYXRpbmcgaXQuIEFsc28gc2FydCB0byB1c2UKPiBhbWRncHVfYm9fY3JlYXRl
-X3Jlc2VydmVkIHRvIHNpbXBsaWZ5IHRoaW5ncy4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYyB8IDEwNiArKysrKysrKysrKystLS0tLS0tLS0t
-LS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDM4IGluc2VydGlvbnMoKyksIDY4IGRlbGV0
-aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV91dmQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYwo+IGluZGV4
-IDdjZGJlMGMxNDQ5Ni4uOWNkNTUxN2E0ZmE5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV91dmQuYwo+IEBAIC05NTIsMzcgKzk1MiwyOCBAQCBpbnQgYW1kZ3B1X3V2ZF9y
-aW5nX3BhcnNlX2NzKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwYXJzZXIsIHVpbnQzMl90IGli
-X2lkeCkKPiAgIHN0YXRpYyBpbnQgYW1kZ3B1X3V2ZF9zZW5kX21zZyhzdHJ1Y3QgYW1kZ3B1X3Jp
-bmcgKnJpbmcsIHN0cnVjdCBhbWRncHVfYm8gKmJvLAo+ICAgCQkJICAgICAgIGJvb2wgZGlyZWN0
-LCBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpCj4gICB7Cj4gLQlzdHJ1Y3QgdHRtX29wZXJhdGlv
-bl9jdHggY3R4ID0geyB0cnVlLCBmYWxzZSB9Owo+IC0Jc3RydWN0IHR0bV92YWxpZGF0ZV9idWZm
-ZXIgdHY7Cj4gLQlzdHJ1Y3Qgd3dfYWNxdWlyZV9jdHggdGlja2V0Owo+IC0Jc3RydWN0IGxpc3Rf
-aGVhZCBoZWFkOwo+ICsJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Owo+
-ICsJc3RydWN0IGRtYV9mZW5jZSAqZiA9IE5VTEw7Cj4gICAJc3RydWN0IGFtZGdwdV9qb2IgKmpv
-YjsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2liICppYjsKPiAtCXN0cnVjdCBkbWFfZmVuY2UgKmYgPSBO
-VUxMOwo+IC0Jc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Owo+IC0JdWlu
-dDY0X3QgYWRkcjsKPiAgIAl1aW50MzJfdCBkYXRhWzRdOwo+IC0JaW50IGksIHI7Cj4gLQo+IC0J
-bWVtc2V0KCZ0diwgMCwgc2l6ZW9mKHR2KSk7Cj4gLQl0di5ibyA9ICZiby0+dGJvOwo+IC0KPiAt
-CUlOSVRfTElTVF9IRUFEKCZoZWFkKTsKPiAtCWxpc3RfYWRkKCZ0di5oZWFkLCAmaGVhZCk7Cj4g
-Kwl1aW50NjRfdCBhZGRyOwo+ICsJbG9uZyByOwo+ICsJaW50IGk7Cj4gICAKPiAtCXIgPSB0dG1f
-ZXVfcmVzZXJ2ZV9idWZmZXJzKCZ0aWNrZXQsICZoZWFkLCB0cnVlLCBOVUxMKTsKPiAtCWlmIChy
-KQo+IC0JCXJldHVybiByOwo+ICsJYW1kZ3B1X2JvX2t1bm1hcChibyk7Cj4gKwlhbWRncHVfYm9f
-dW5waW4oYm8pOwo+ICAgCj4gICAJaWYgKCFyaW5nLT5hZGV2LT51dmQuYWRkcmVzc182NF9iaXQp
-IHsKPiArCQlzdHJ1Y3QgdHRtX29wZXJhdGlvbl9jdHggY3R4ID0geyB0cnVlLCBmYWxzZSB9Owo+
-ICsKPiAgIAkJYW1kZ3B1X3R0bV9wbGFjZW1lbnRfZnJvbV9kb21haW4oYm8sIEFNREdQVV9HRU1f
-RE9NQUlOX1ZSQU0pOwo+ICAgCQlhbWRncHVfdXZkX2ZvcmNlX2ludG9fdXZkX3NlZ21lbnQoYm8p
-Owo+ICsJCXIgPSB0dG1fYm9fdmFsaWRhdGUoJmJvLT50Ym8sICZiby0+cGxhY2VtZW50LCAmY3R4
-KTsKPiArCQlpZiAocikKPiArCQkJZ290byBlcnI7Cj4gICAJfQo+ICAgCj4gLQlyID0gdHRtX2Jv
-X3ZhbGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7Cj4gLQlpZiAocikKPiAt
-CQlnb3RvIGVycjsKPiAtCj4gICAJciA9IGFtZGdwdV9qb2JfYWxsb2Nfd2l0aF9pYihhZGV2LCA2
-NCwgJmpvYik7Cj4gICAJaWYgKHIpCj4gICAJCWdvdG8gZXJyOwo+IEBAIC0xMDE0LDYgKzEwMDUs
-MTQgQEAgc3RhdGljIGludCBhbWRncHVfdXZkX3NlbmRfbXNnKHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywgc3RydWN0IGFtZGdwdV9ibyAqYm8sCj4gICAJaWItPmxlbmd0aF9kdyA9IDE2Owo+ICAg
-Cj4gICAJaWYgKGRpcmVjdCkgewo+ICsJCXIgPSByZXNlcnZhdGlvbl9vYmplY3Rfd2FpdF90aW1l
-b3V0X3JjdShiby0+dGJvLnJlc3YsCj4gKwkJCQkJCQl0cnVlLCBmYWxzZSwKPiArCQkJCQkJCW1z
-ZWNzX3RvX2ppZmZpZXMoMTApKTsKPiArCQlpZiAociA9PSAwKQo+ICsJCQlyID0gLUVUSU1FRE9V
-VDsKPiArCQlpZiAociA8IDApCj4gKwkJCWdvdG8gZXJyX2ZyZWU7Cj4gKwo+ICAgCQlyID0gYW1k
-Z3B1X2liX3NjaGVkdWxlKHJpbmcsIDEsIGliLCBOVUxMLCAmZik7Cj4gICAJCWpvYi0+ZmVuY2Ug
-PSBkbWFfZmVuY2VfZ2V0KGYpOwo+ICAgCQlpZiAocikKPiBAQCAtMTAyMSwxNyArMTAyMCwyMyBA
-QCBzdGF0aWMgaW50IGFtZGdwdV91dmRfc2VuZF9tc2coc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
-LCBzdHJ1Y3QgYW1kZ3B1X2JvICpibywKPiAgIAo+ICAgCQlhbWRncHVfam9iX2ZyZWUoam9iKTsK
-PiAgIAl9IGVsc2Ugewo+ICsJCXIgPSBhbWRncHVfc3luY19yZXN2KGFkZXYsICZqb2ItPnN5bmMs
-IGJvLT50Ym8ucmVzdiwKPiArCQkJCSAgICAgQU1ER1BVX0ZFTkNFX09XTkVSX1VOREVGSU5FRCwg
-ZmFsc2UpOwo+ICsJCWlmIChyKQo+ICsJCQlnb3RvIGVycl9mcmVlOwo+ICsKPiAgIAkJciA9IGFt
-ZGdwdV9qb2Jfc3VibWl0KGpvYiwgcmluZywgJmFkZXYtPnV2ZC5lbnRpdHksCj4gICAJCQkJICAg
-ICAgQU1ER1BVX0ZFTkNFX09XTkVSX1VOREVGSU5FRCwgJmYpOwo+ICAgCQlpZiAocikKPiAgIAkJ
-CWdvdG8gZXJyX2ZyZWU7Cj4gICAJfQo+ICAgCj4gLQl0dG1fZXVfZmVuY2VfYnVmZmVyX29iamVj
-dHMoJnRpY2tldCwgJmhlYWQsIGYpOwo+ICsJYW1kZ3B1X2JvX2ZlbmNlKGJvLCBmLCBmYWxzZSk7
-Cj4gKwlhbWRncHVfYm9fdW5yZXNlcnZlKGJvKTsKPiArCWFtZGdwdV9ib191bnJlZigmYm8pOwo+
-ICAgCj4gICAJaWYgKGZlbmNlKQo+ICAgCQkqZmVuY2UgPSBkbWFfZmVuY2VfZ2V0KGYpOwo+IC0J
-YW1kZ3B1X2JvX3VucmVmKCZibyk7Cj4gICAJZG1hX2ZlbmNlX3B1dChmKTsKPiAgIAo+ICAgCXJl
-dHVybiAwOwo+IEBAIC0xMDQwLDcgKzEwNDUsOCBAQCBzdGF0aWMgaW50IGFtZGdwdV91dmRfc2Vu
-ZF9tc2coc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1kZ3B1X2JvICpibywKPiAg
-IAlhbWRncHVfam9iX2ZyZWUoam9iKTsKPiAgIAo+ICAgZXJyOgo+IC0JdHRtX2V1X2JhY2tvZmZf
-cmVzZXJ2YXRpb24oJnRpY2tldCwgJmhlYWQpOwo+ICsJYW1kZ3B1X2JvX3VucmVzZXJ2ZShibyk7
-Cj4gKwlhbWRncHVfYm9fdW5yZWYoJmJvKTsKPiAgIAlyZXR1cm4gcjsKPiAgIH0KPiAgIAo+IEBA
-IC0xMDUxLDMxICsxMDU3LDE2IEBAIGludCBhbWRncHVfdXZkX2dldF9jcmVhdGVfbXNnKHN0cnVj
-dCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgaGFuZGxlLAo+ICAgCQkJICAgICAgc3RydWN0
-IGRtYV9mZW5jZSAqKmZlbmNlKQo+ICAgewo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-ID0gcmluZy0+YWRldjsKPiAtCXN0cnVjdCBhbWRncHVfYm8gKmJvOwo+ICsJc3RydWN0IGFtZGdw
-dV9ibyAqYm8gPSBOVUxMOwo+ICAgCXVpbnQzMl90ICptc2c7Cj4gICAJaW50IHIsIGk7Cj4gICAK
-PiAtCXIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIDEwMjQsIFBBR0VfU0laRSwgdHJ1ZSwKPiAt
-CQkJICAgICBBTURHUFVfR0VNX0RPTUFJTl9WUkFNLAo+IC0JCQkgICAgIEFNREdQVV9HRU1fQ1JF
-QVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQgfAo+IC0JCQkgICAgIEFNREdQVV9HRU1fQ1JFQVRFX1ZS
-QU1fQ09OVElHVU9VUywKPiAtCQkJICAgICBOVUxMLCBOVUxMLCAmYm8pOwo+ICsJciA9IGFtZGdw
-dV9ib19jcmVhdGVfcmVzZXJ2ZWQoYWRldiwgMTAyNCwgUEFHRV9TSVpFLAo+ICsJCQkJICAgICAg
-QU1ER1BVX0dFTV9ET01BSU5fVlJBTSwKPiArCQkJCSAgICAgICZibywgTlVMTCwgKHZvaWQgKiop
-Jm1zZyk7Cj4gICAJaWYgKHIpCj4gICAJCXJldHVybiByOwo+ICAgCj4gLQlyID0gYW1kZ3B1X2Jv
-X3Jlc2VydmUoYm8sIGZhbHNlKTsKPiAtCWlmIChyKSB7Cj4gLQkJYW1kZ3B1X2JvX3VucmVmKCZi
-byk7Cj4gLQkJcmV0dXJuIHI7Cj4gLQl9Cj4gLQo+IC0JciA9IGFtZGdwdV9ib19rbWFwKGJvLCAo
-dm9pZCAqKikmbXNnKTsKPiAtCWlmIChyKSB7Cj4gLQkJYW1kZ3B1X2JvX3VucmVzZXJ2ZShibyk7
-Cj4gLQkJYW1kZ3B1X2JvX3VucmVmKCZibyk7Cj4gLQkJcmV0dXJuIHI7Cj4gLQl9Cj4gLQo+ICAg
-CS8qIHN0aXRjaCB0b2dldGhlciBhbiBVVkQgY3JlYXRlIG1zZyAqLwo+ICAgCW1zZ1swXSA9IGNw
-dV90b19sZTMyKDB4MDAwMDBkZTQpOwo+ICAgCW1zZ1sxXSA9IGNwdV90b19sZTMyKDB4MDAwMDAw
-MDApOwo+IEBAIC0xMDkxLDkgKzEwODIsNiBAQCBpbnQgYW1kZ3B1X3V2ZF9nZXRfY3JlYXRlX21z
-ZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhhbmRsZSwKPiAgIAlmb3IgKGkg
-PSAxMTsgaSA8IDEwMjQ7ICsraSkKPiAgIAkJbXNnW2ldID0gY3B1X3RvX2xlMzIoMHgwKTsKPiAg
-IAo+IC0JYW1kZ3B1X2JvX2t1bm1hcChibyk7Cj4gLQlhbWRncHVfYm9fdW5yZXNlcnZlKGJvKTsK
-PiAtCj4gICAJcmV0dXJuIGFtZGdwdV91dmRfc2VuZF9tc2cocmluZywgYm8sIHRydWUsIGZlbmNl
-KTsKPiAgIH0KPiAgIAo+IEBAIC0xMTAxLDMxICsxMDg5LDE2IEBAIGludCBhbWRncHVfdXZkX2dl
-dF9kZXN0cm95X21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhhbmRsZSwK
-PiAgIAkJCSAgICAgICBib29sIGRpcmVjdCwgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQo+ICAg
-ewo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gcmluZy0+YWRldjsKPiAtCXN0cnVj
-dCBhbWRncHVfYm8gKmJvOwo+ICsJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBOVUxMOwo+ICAgCXVp
-bnQzMl90ICptc2c7Cj4gICAJaW50IHIsIGk7Cj4gICAKPiAtCXIgPSBhbWRncHVfYm9fY3JlYXRl
-KGFkZXYsIDEwMjQsIFBBR0VfU0laRSwgdHJ1ZSwKPiAtCQkJICAgICBBTURHUFVfR0VNX0RPTUFJ
-Tl9WUkFNLAo+IC0JCQkgICAgIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQg
-fAo+IC0JCQkgICAgIEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ09OVElHVU9VUywKPiAtCQkJICAg
-ICBOVUxMLCBOVUxMLCAmYm8pOwo+ICsJciA9IGFtZGdwdV9ib19jcmVhdGVfcmVzZXJ2ZWQoYWRl
-diwgMTAyNCwgUEFHRV9TSVpFLAo+ICsJCQkJICAgICAgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwK
-PiArCQkJCSAgICAgICZibywgTlVMTCwgKHZvaWQgKiopJm1zZyk7Cj4gICAJaWYgKHIpCj4gICAJ
-CXJldHVybiByOwo+ICAgCj4gLQlyID0gYW1kZ3B1X2JvX3Jlc2VydmUoYm8sIGZhbHNlKTsKPiAt
-CWlmIChyKSB7Cj4gLQkJYW1kZ3B1X2JvX3VucmVmKCZibyk7Cj4gLQkJcmV0dXJuIHI7Cj4gLQl9
-Cj4gLQo+IC0JciA9IGFtZGdwdV9ib19rbWFwKGJvLCAodm9pZCAqKikmbXNnKTsKPiAtCWlmIChy
-KSB7Cj4gLQkJYW1kZ3B1X2JvX3VucmVzZXJ2ZShibyk7Cj4gLQkJYW1kZ3B1X2JvX3VucmVmKCZi
-byk7Cj4gLQkJcmV0dXJuIHI7Cj4gLQl9Cj4gLQo+ICAgCS8qIHN0aXRjaCB0b2dldGhlciBhbiBV
-VkQgZGVzdHJveSBtc2cgKi8KPiAgIAltc2dbMF0gPSBjcHVfdG9fbGUzMigweDAwMDAwZGU0KTsK
-PiAgIAltc2dbMV0gPSBjcHVfdG9fbGUzMigweDAwMDAwMDAyKTsKPiBAQCAtMTEzNCw5ICsxMTA3
-LDYgQEAgaW50IGFtZGdwdV91dmRfZ2V0X2Rlc3Ryb3lfbXNnKHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywgdWludDMyX3QgaGFuZGxlLAo+ICAgCWZvciAoaSA9IDQ7IGkgPCAxMDI0OyArK2kpCj4g
-ICAJCW1zZ1tpXSA9IGNwdV90b19sZTMyKDB4MCk7Cj4gICAKPiAtCWFtZGdwdV9ib19rdW5tYXAo
-Ym8pOwo+IC0JYW1kZ3B1X2JvX3VucmVzZXJ2ZShibyk7Cj4gLQo+ICAgCXJldHVybiBhbWRncHVf
-dXZkX3NlbmRfbXNnKHJpbmcsIGJvLCBkaXJlY3QsIGZlbmNlKTsKPiAgIH0KPiAgIAoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1075721916==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652082F493EA92A38CD969FF7F60BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652082F493EA92A38CD969FF7F60BN6PR12MB1652namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+The ROCm documentation is probably a good place to start:
+
+https://rocm.github.io/documentation.html
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Ming Yan=
+g <minos.future-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Tuesday, February 13, 2018 12:00 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Documentation about AMD's HSA implementation?
+
+Hi,
+
+I'm interested in HSA and excited when I found AMD's fully open-stack ROCm =
+supporting it. Before digging into the code, I wonder if there's any docume=
+ntation available about AMD's HSA implementation, either book, whitepaper, =
+paper, or documentation.
+
+I did find helpful materials about HSA, including HSA standards on this pag=
+e (http://www.hsafoundation.com/standards/) and a nice book about HSA (Hete=
+rogeneous System Architecture A New Compute Platform Infrastructure). But r=
+egarding the documentation about AMD's implementation, I haven't found anyt=
+hing yet.
+
+Please let me know if there are ones publicly accessible. If no, any sugges=
+tions on learning the implementation of specific system components, e.g., q=
+ueue scheduling.
+
+Best,
+Mark
+
+--_000_BN6PR12MB1652082F493EA92A38CD969FF7F60BN6PR12MB1652namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">The ROCm documentation is probabl=
+y a good place to start:</p>
+<p style=3D"margin-top:0;margin-bottom:0"><a href=3D"https://rocm.github.io=
+/documentation.html" class=3D"OWAAutoLink" id=3D"LPlnk727369" previewremove=
+d=3D"true">https://rocm.github.io/documentation.html</a><br>
+</p>
+<br>
+Alex<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Ming Yang &lt;minos.future@=
+gmail.com&gt;<br>
+<b>Sent:</b> Tuesday, February 13, 2018 12:00 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Documentation about AMD's HSA implementation?</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"ltr">Hi,
+<div><br>
+</div>
+<div>I'm interested in HSA and excited when I found AMD's fully open-stack =
+ROCm supporting it. Before digging into the code, I wonder if there's any d=
+ocumentation available about AMD's HSA implementation, either book, whitepa=
+per, paper, or documentation.</div>
+<div><br>
+</div>
+<div>I did find helpful materials about HSA, including HSA standards on thi=
+s page (<a href=3D"http://www.hsafoundation.com/standards/" id=3D"LPlnk4809=
+96" previewremoved=3D"true">http://www.hsafoundation.com/standards/</a>) an=
+d a nice book about HSA (Heterogeneous
+ System Architecture A New Compute Platform Infrastructure). But regarding =
+the documentation about AMD's implementation, I haven't found anything yet.=
+</div>
+<div><br>
+</div>
+<div>Please let me know if there are ones publicly accessible. If no, any s=
+uggestions on learning the implementation of specific system components, e.=
+g., queue scheduling.</div>
+<div><br>
+</div>
+<div>Best,</div>
+<div>Mark</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652082F493EA92A38CD969FF7F60BN6PR12MB1652namp_--
+
+--===============1075721916==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1075721916==--
