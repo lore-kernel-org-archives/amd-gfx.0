@@ -1,31 +1,110 @@
 From: Corentin Labbe <clabbe@baylibre.com>
-Subject: [PATCH v3 09/13] drm/amd/include: remove unused asic_reg/vce headers
-Date: Wed, 14 Feb 2018 14:46:13 +0000
-Message-ID: <1518619577-19771-10-git-send-email-clabbe@baylibre.com>
-References: <1518619577-19771-1-git-send-email-clabbe@baylibre.com>
+Subject: [PATCH v3 00/13] gpu: drm: amd: remove unused headers
+Date: Wed, 14 Feb 2018 14:46:04 +0000
+Message-ID: <1518619577-19771-1-git-send-email-clabbe@baylibre.com>
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1518619577-19771-1-git-send-email-clabbe@baylibre.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: David1.Zhou@amd.com, airlied@linux.ie, alexander.deucher@amd.com, christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Corentin Labbe <clabbe@baylibre.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-All thoses headers are not used by any source files.
-Lets just remove them.
+Hello
 
-Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
----
- .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   | 64 --------------
- .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h | 99 ----------------------
- 2 files changed, 163 deletions(-)
+This patchset remove several headers which are not used by any source
+file.
+
+Regards
+
+Change since v1:
+- splited in multiple patchs
+
+Change since v2
+- Use --irreversible-delete for format-patch
+
+Corentin Labbe (13):
+  drm/amd/include: remove unused asic_reg/oss headers
+  drm/amd/include: remove unused asic_reg/bif headers
+  drm/amd/include: remove unused asic_reg/dce headers
+  drm/amd/include: remove unused asic_reg/gca headers
+  drm/amd/include: remove unused asic_reg/gmc headers
+  drm/amd/include: remove unused asic_reg/smu headers
+  drm/amd/include: remove unused asic_reg/umc headers
+  drm/amd/include: remove unused asic_reg/uvd headers
+  drm/amd/include: remove unused asic_reg/vce headers
+  drm/amd/include: remove unused asic_reg/sdma headers
+  drm/amd/include: remove unused asic_reg/nbif headers
+  drm/amd/include: remove unused displayobject.h header
+  drm/amd/powerplay: remove unused headers
+
+ .../drm/amd/include/asic_reg/bif/bif_5_0_enum.h    |  1198 --
+ .../drm/amd/include/asic_reg/bif/bif_5_1_enum.h    |  1068 -
+ .../drm/amd/include/asic_reg/dce/dce_11_2_enum.h   |  6813 ------
+ .../drm/amd/include/asic_reg/dce/dce_8_0_enum.h    |  1117 -
+ .../gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h   |  2791 ---
+ .../drm/amd/include/asic_reg/gca/gfx_8_1_enum.h    |  6808 ------
+ .../drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h | 21368 -------------------
+ .../drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h    |  1198 --
+ .../drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h    |  1068 -
+ .../amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h   | 10281 ---------
+ .../drm/amd/include/asic_reg/oss/oss_2_4_enum.h    |  1340 --
+ .../drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h  |  1464 --
+ .../drm/amd/include/asic_reg/oss/oss_3_0_enum.h    |  1497 --
+ .../amd/include/asic_reg/sdma0/sdma0_4_0_default.h |   286 -
+ .../amd/include/asic_reg/sdma1/sdma1_4_0_default.h |   282 -
+ .../gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h   |   148 -
+ .../drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h |   715 -
+ .../gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h |  1344 --
+ .../drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h  |  1191 --
+ .../amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h   |  5648 -----
+ .../drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h  |  1205 --
+ .../drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h  |  1246 --
+ .../drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h  |  1282 --
+ .../drm/amd/include/asic_reg/smu/smu_8_0_enum.h    |  1072 -
+ .../drm/amd/include/asic_reg/umc/umc_6_0_default.h |    31 -
+ .../drm/amd/include/asic_reg/umc/umc_6_0_offset.h  |    52 -
+ .../drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h |   795 -
+ .../drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h    |  1211 --
+ .../drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h    |  1081 -
+ .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   |    64 -
+ .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |    99 -
+ drivers/gpu/drm/amd/include/displayobject.h        |   249 -
+ .../gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h    |   412 -
+ drivers/gpu/drm/amd/powerplay/inc/pp_feature.h     |    67 -
+ 34 files changed, 76491 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_2_4_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_8_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_default.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_offset.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h
  delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
  delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/displayobject.h
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/pp_feature.h
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
-deleted file mode 100644
-index 2176548e9203..000000000000
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
-deleted file mode 100644
-index ea5b26b11cb1..000000000000
 -- 
 2.13.6
