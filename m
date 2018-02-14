@@ -1,52 +1,107 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 14/25] drm/amdkfd: Populate DRM render device minor
-Date: Wed, 14 Feb 2018 09:50:22 +0100
-Message-ID: <255915a6-f101-554a-9087-1fd792ee1de3@daenzer.net>
-References: <1517967174-21709-1-git-send-email-Felix.Kuehling@amd.com>
- <1517967174-21709-15-git-send-email-Felix.Kuehling@amd.com>
- <16aa5300-7ddc-518a-2080-70cb31b6ad56@gmail.com>
- <5f1c33b3-b3ed-f627-9b5c-347b2399d90f@amd.com>
- <dd476550-9a48-3adc-30e6-8a94bd04833b@gmail.com>
- <d11c598a-b51f-b957-7dae-485025a1ad34@amd.com>
- <ce14b4cd-2bb7-8f19-b464-ddf9f68f45ad@amd.com>
- <cbd18308-c464-125e-ef9f-180c12a9926a@amd.com>
- <a2e39184-8db8-407d-6608-6ae211563459@amd.com>
- <8424282f-d196-3cb6-9a6e-a26f8be7d198@amd.com>
- <ebf4d6d7-2424-764f-0bc0-615240c82483@amd.com>
- <9f078a60-0cca-ba43-3e1c-c67c2b758988@amd.com>
- <c991529e-2489-169c-cc34-96ed5bb94a12@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c991529e-2489-169c-cc34-96ed5bb94a12-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Corentin Labbe <clabbe@baylibre.com>
+Subject: [PATCH v2 00/13] gpu: drm: amd: remove unused headers
+Date: Wed, 14 Feb 2018 12:28:38 +0000
+Message-ID: <1518611331-13144-1-git-send-email-clabbe@baylibre.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: David1.Zhou@amd.com, airlied@linux.ie, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Corentin Labbe <clabbe@baylibre.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wMi0xMyAwODoxOCBQTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4gT24gMjAxOC0w
-Mi0xMyAwMToxNSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMTMuMDIuMjAxOCB1
-bSAxODoxOCBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+Pgo+Pj4gSSBkb24ndCBzZWUgaG93IHlv
-dSBjYW4gaGF2ZSBzZXBhcmF0ZSBUVE0gb2JqZWN0cyByZWZlcnJpbmcgdG8gdGhlCj4+PiBzYW1l
-IG1lbW9yeS4KPj4KPj4gV2VsbCB0aGF0IGlzIHRyaXZpYWwsIHdlIGRvIHRoaXMgYWxsIHRoZSB0
-aW1lIHdpdGggcHJpbWUgYW5kIEkrQSBsYXB0b3BzLgo+IAo+IEFzIEkgdW5kZXJzdGFuZCBpdCwg
-eW91IHVzZSBETUFCdWYgdG8gZXhwb3J0L2ltcG9ydCBidWZmZXJzIG9uIG11bHRpcGxlCj4gZGV2
-aWNlcy4gSSBiZWxpZXZlIGFsbCBkZXZpY2VzIHNoYXJlIGEgc2luZ2xlIGFtZGdwdV9ibywgd2hp
-Y2ggY29udGFpbnMKPiB0aGUgdHRtX2J1ZmZlcl9vYmplY3QuCgpUaGUgZG1hLWJ1ZiBleHBvcnRl
-ciBhbmQgaW1wb3J0ZXIgY2FuIGJlIGRpZmZlcmVudCBkcml2ZXJzLCBzbyB0aGlzIGlzCm5vdCBw
-b3NzaWJsZS4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAg
-ICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0
-ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Hello
+
+This patchset remove several headers which are not used by any source
+file.
+
+Regards
+
+Changes since v1:
+- splited in multiple patchs
+
+Corentin Labbe (13):
+  drm/amd/include: remove unused asic_reg/oss headers
+  drm/amd/include: remove unused asic_reg/bif headers
+  drm/amd/include: remove unused asic_reg/dce headers
+  drm/amd/include: remove unused asic_reg/gca headers
+  drm/amd/include: remove unused asic_reg/gmc headers
+  drm/amd/include: remove unused asic_reg/smu headers
+  drm/amd/include: remove unused asic_reg/umc headers
+  drm/amd/include: remove unused asic_reg/uvd headers
+  drm/amd/include: remove unused asic_reg/vce headers
+  drm/amd/include: remove unused asic_reg/sdma headers
+  drm/amd/include: remove unused asic_reg/nbif headers
+  drm/amd/include: remove unused displayobject.h header
+  drm/amd/powerplay: remove unused headers
+
+ .../drm/amd/include/asic_reg/bif/bif_5_0_enum.h    |  1198 --
+ .../drm/amd/include/asic_reg/bif/bif_5_1_enum.h    |  1068 -
+ .../drm/amd/include/asic_reg/dce/dce_11_2_enum.h   |  6813 ------
+ .../drm/amd/include/asic_reg/dce/dce_8_0_enum.h    |  1117 -
+ .../gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h   |  2791 ---
+ .../drm/amd/include/asic_reg/gca/gfx_8_1_enum.h    |  6808 ------
+ .../drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h | 21368 -------------------
+ .../drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h    |  1198 --
+ .../drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h    |  1068 -
+ .../amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h   | 10281 ---------
+ .../drm/amd/include/asic_reg/oss/oss_2_4_enum.h    |  1340 --
+ .../drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h  |  1464 --
+ .../drm/amd/include/asic_reg/oss/oss_3_0_enum.h    |  1497 --
+ .../amd/include/asic_reg/sdma0/sdma0_4_0_default.h |   286 -
+ .../amd/include/asic_reg/sdma1/sdma1_4_0_default.h |   282 -
+ .../gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h   |   148 -
+ .../drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h |   715 -
+ .../gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h |  1344 --
+ .../drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h  |  1191 --
+ .../amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h   |  5648 -----
+ .../drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h  |  1205 --
+ .../drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h  |  1246 --
+ .../drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h  |  1282 --
+ .../drm/amd/include/asic_reg/smu/smu_8_0_enum.h    |  1072 -
+ .../drm/amd/include/asic_reg/umc/umc_6_0_default.h |    31 -
+ .../drm/amd/include/asic_reg/umc/umc_6_0_offset.h  |    52 -
+ .../drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h |   795 -
+ .../drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h    |  1211 --
+ .../drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h    |  1081 -
+ .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   |    64 -
+ .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |    99 -
+ drivers/gpu/drm/amd/include/displayobject.h        |   249 -
+ .../gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h    |   412 -
+ drivers/gpu/drm/amd/powerplay/inc/pp_feature.h     |    67 -
+ 34 files changed, 76491 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_2_4_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_8_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_default.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_offset.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
+ delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
+ delete mode 100644 drivers/gpu/drm/amd/include/displayobject.h
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/pp_feature.h
+
+-- 
+2.13.6
