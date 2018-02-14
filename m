@@ -1,94 +1,127 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 14/25] drm/amdkfd: Populate DRM render device minor
-Date: Wed, 14 Feb 2018 14:04:59 -0500
-Message-ID: <3bca8bf9-da75-be3f-4241-efcb59d2cc12@amd.com>
-References: <1517967174-21709-1-git-send-email-Felix.Kuehling@amd.com>
- <1517967174-21709-15-git-send-email-Felix.Kuehling@amd.com>
- <16aa5300-7ddc-518a-2080-70cb31b6ad56@gmail.com>
- <5f1c33b3-b3ed-f627-9b5c-347b2399d90f@amd.com>
- <dd476550-9a48-3adc-30e6-8a94bd04833b@gmail.com>
- <d11c598a-b51f-b957-7dae-485025a1ad34@amd.com>
- <ce14b4cd-2bb7-8f19-b464-ddf9f68f45ad@amd.com>
- <cbd18308-c464-125e-ef9f-180c12a9926a@amd.com>
- <a2e39184-8db8-407d-6608-6ae211563459@amd.com>
- <8424282f-d196-3cb6-9a6e-a26f8be7d198@amd.com>
- <ebf4d6d7-2424-764f-0bc0-615240c82483@amd.com>
- <9f078a60-0cca-ba43-3e1c-c67c2b758988@amd.com>
- <c991529e-2489-169c-cc34-96ed5bb94a12@amd.com>
- <b28b0e4c-f16b-0751-7957-45196c26da82@amd.com>
- <ca973468-f1af-b510-a6db-af29e279f5ca@amd.com>
- <50befcd2-6a1a-534e-1699-8556c4977b76@amd.com>
- <df9f32ce-7cfe-8684-1090-48f37863a3c7@amd.com>
- <78274290-eaf9-0f79-eb2b-ec7866a4cb70@amd.com>
- <e236e458-5114-49ec-9266-945d11f29035@amd.com>
- <2421ca47-773e-d9c7-0fec-d573812df2c4@amd.com>
+From: Tom St Denis <tom.stdenis@amd.com>
+Subject: Re: [PATCH v3 00/13] gpu: drm: amd: remove unused headers
+Date: Wed, 14 Feb 2018 14:35:58 -0500
+Message-ID: <3746a404-0811-0529-1e6a-faab5aaffe2e@amd.com>
+References: <1518619577-19771-1-git-send-email-clabbe@baylibre.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2421ca47-773e-d9c7-0fec-d573812df2c4-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1518619577-19771-1-git-send-email-clabbe@baylibre.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Corentin Labbe <clabbe@baylibre.com>, David1.Zhou@amd.com, airlied@linux.ie, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Ck9uIDIwMTgtMDItMTQgMDI6MDEgUE0sIEZlbGl4IEt1ZWhsaW5nIHdyb3RlOgo+IE9uIDIwMTgt
-MDItMTQgMDE6MzMgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDE0LjAyLjIwMTgg
-dW0gMTk6MjQgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4+IE9uIDIwMTgtMDItMTQgMDE6MTUg
-UE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pgo+Pj4+IEFzIEkgc2FpZCB0aGF0IGNvbmNl
-cHQgaXMgaW5jb21wYXRpYmxlIHdpdGggdGhlIHJlcXVpcmVtZW50cyBvbiBBK0EKPj4+PiBzeXN0
-ZW1zLCBzbyB3ZSBuZWVkIHRvIGZpbmQgYW5vdGhlciBzb2x1dGlvbiB0byBwcm92aWRlIHRoZQo+
-Pj4+IGZ1bmN0aW9uYWxpdHkuCj4+PiBEbyB5b3UgbWVhbiB5b3UgbmVlZCB0byBmaW5kIGFub3Ro
-ZXIgc29sdXRpb24gZm9yIEErQSBidWZmZXIgc2hhcmluZwo+Pj4gc3BlY2lmaWNhbGx5PyBPciBp
-cyB0aGlzIGEgbW9yZSBnZW5lcmFsIHN0YXRlbWVudCB0aGF0IGluY2x1ZGVzIHRoZQo+Pj4gbWFw
-cGluZyBvZiBCT3MgdG8gbXVsdGlwbGUgVk1zIG9uIGRpZmZlcmVudCBkZXZpY2VzPwo+PiBBIG1v
-cmUgZ2VuZXJhbCBzdGF0ZW1lbnQuIFdlIG5lZWQgdG8gZmluZCBhIHNvbHV0aW9uIHdoaWNoIHdv
-cmtzIGZvcgo+PiBldmVyeWJvZHkgYW5kIG5vdCBqdXN0IHdvcmtzIGxpa2UgdGhpcyBpbiB0aGUg
-S0ZEIGJ1dCBicmVha3MgQStBCj4+IGJ1ZmZlciBzaGFyaW5nIGFuZCBzbyBuZWVkcyB0byBiZSBk
-aXNhYmxlZCB0aGVyZS4KPiBXZWxsLCBLRkQgc2hhcmluZyBzeXN0ZW0gbWVtb3J5IEJPcyBiZXR3
-ZWVuIEdQVXMgZG9lc24ndCBicmVhayBBK0EuCj4gSW1wbGVtZW50aW5nIGEgc29sdXRpb24gZm9y
-IEErQSB0aGF0IGludm9sdmVzIERNQUJ1ZnMgd2lsbCBub3QgYWZmZWN0Cj4gS0ZELiBBbmQgS0ZE
-IGlzbid0IGFjdHVhbGx5IGJyb2tlbiBhcyBmYXIgYXMgSSBrbm93LiBPbmNlIHlvdSBoYXZlIGEK
-PiBzb2x1dGlvbiBmb3IgQStBLCBtYXliZSBpdCB3aWxsIGhlbHAgbWUgdW5kZXJzdGFuZCB0aGUg
-cHJvYmxlbSBhbmQgSSBjYW4KPiBldmFsdWF0ZSB3aGV0aGVyIHRoZSBzb2x1dGlvbiBpcyBhcHBs
-aWNhYmxlIHRvIEtGRCBhbmQgd29ydGggYWRvcHRpbmcuCj4gQnV0IGZvciBub3cgSSBoYXZlIG5l
-aXRoZXIgYSBnb29kIHVuZGVyc3RhbmRpbmcgb2YgdGhlIHByb2JsZW0sIG5vCj4gZXZpZGVuY2Ug
-dGhhdCB0aGVyZSBpcyBhIHByb2JsZW0gYWZmZWN0aW5nIEtGRCwgYW5kIG5vIHdheSB0b3dhcmRz
-IGEKPiBzb2x1dGlvbi4KCkxldCBtZSBhZGQsIEknbSBkZWZpbml0ZWx5IGludGVyZXN0ZWQgaW4g
-eW91ciBzb2x1dGlvbiBmb3IgUDJQLCBiZWNhdXNlCndlIHdhbnQgdG8gZW5hYmxlIHRoYXQgZm9y
-IEtGRCBmb3IgbGFyZ2UtQkFSIHN5c3RlbXMuIEZvciBub3cgSSdtIG5vdAp1cHN0cmVhbWluZyBh
-bnkgUDJQIHN1cHBvcnQsIGJlY2F1c2UgSSBrbm93IHRoYXQgb3VyIGN1cnJlbnQgaGFjayBpcwpn
-b2luZyB0byBiZSBzdXBlcnNlZGVkIGJ5IHRoZSBzb2x1dGlvbiB5b3UncmUgd29ya2luZyBvbi4K
-ClRoYW5rcywKwqAgRmVsaXgKCj4KPj4+PiBXaGF0J3Mgb24gbXkgVE9ETyBsaXN0IGFueXdheSBp
-cyB0byBleHRlbmQgRE1BLWJ1ZiB0byBub3QgcmVxdWlyZQo+Pj4+IHBpbm5pbmcgYW5kIHRvIGJl
-IGFibGUgdG8gZGVhbCB3aXRoIFAyUC4KPj4+IFNvdW5kcyBnb29kLiBUaGF0IHNhaWQsIEtGRCBp
-cyBub3QgdXNpbmcgRE1BQnVmcyBoZXJlLgo+Pj4KPj4+PiBUaGUgZm9ybWVyIGlzIGFjdHVhbGx5
-IHJhdGhlciBlYXN5IGFuZCBhbHJlYWR5IG1vc3RseSBkb25lIGJ5IHNoYXJpbmcKPj4+PiB0aGUg
-cmVzZXJ2YXRpb24gb2JqZWN0IGJldHdlZW4gZXhwb3J0ZXIgYW5kIGltcG9ydGVyLgo+Pj4+Cj4+
-Pj4gVGhlIGxhdGVyIGlzIGEgYml0IG1vcmUgdHJpY2t5IGJlY2F1c2UgSSBuZWVkIHRvIGNyZWF0
-ZSB0aGUgbmVjZXNzYXJ5Cj4+Pj4gUDJQIGluZnJhc3RydWN0dXJlLCBidXQgZXZlbiB0aGF0IGlz
-IGRvYWJsZSBpbiB0aGUgbWlkIHRlcm0uCj4+PiBUaGUgc29vbmVyIHlvdSBjYW4gc2hhcmUgeW91
-ciBwbGFucywgdGhlIGJldHRlci4gUmlnaHQgbm93IEknbSBpbiBhIGJpdAo+Pj4gb2YgbGltYm8u
-IEkgZmVlbCB5b3UncmUgYmxvY2tpbmcgS0ZEIHVwc3RyZWFtaW5nIGJhc2VkIG9uIEFNREdQVSBw
-bGFucwo+Pj4gYW5kIGNoYW5nZXMgdGhhdCBubyBvbmUgaGFzIHNlZW4geWV0Lgo+PiBXZWxsIGFz
-IGZhciBhcyBJIHVuZGVyc3RhbmQgaXQgdGhhdCBpcyBub3QgYmxvY2tpbmcgZm9yIHRoZSBjdXJy
-ZW50Cj4+IHVwc3RyZWFtaW5nIGJlY2F1c2UgeW91IGRpZG4ndCBwbGFubmVkIHRvIHVwc3RyZWFt
-IHRoaXMgdXNlIGNhc2UKPj4gYW55d2F5LCBkaWRuJ3QgeW91Pwo+IFdoaWNoIHVzZSBjYXNlPyBU
-aGUgY3VycmVudCBwYXRjaCBzZXJpZXMgZW5hYmxlcyBtdWx0aS1HUFUgYnVmZmVyCj4gc2hhcmlu
-ZyBvZiBzeXN0ZW0gbWVtb3J5IEJPcy4gSWYgaXQgaXMgYWN0dWFsbHkgYnJva2VuLCBJIGNhbiBy
-ZWR1Y2UgdGhlCj4gc2NvcGUgdG8gc2luZ2xlLUdQVSBzdXBwb3J0LiBCdXQgSSBoYXZlIG5vIGV2
-aWRlbmNlIHRoYXQgbXVsdGktR1BVIGlzCj4gYWN0dWFsbHkgYnJva2VuLgo+Cj4gUmVnYXJkcywK
-PiDCoCBGZWxpeAo+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4+IFRoYW5rcywKPj4+
-IMKgwqAgRmVsaXgKPj4+Cj4+Pj4gUmVnYXJkcywKPj4+PiBDaHJpc3RpYW4uCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This will break umr since we source the headers from the kernel.  The 
+kernel might not use them but the different IP blocks have deltas that 
+umr is aware of.
+
+One might argue that we should then publish the headers somewhere else 
+that is public but the kernel is our vehicle right now.
+
+Thoughts Alex/Christian?
+
+Tom
+
+
+On 14/02/18 09:46 AM, Corentin Labbe wrote:
+> Hello
+> 
+> This patchset remove several headers which are not used by any source
+> file.
+> 
+> Regards
+> 
+> Change since v1:
+> - splited in multiple patchs
+> 
+> Change since v2
+> - Use --irreversible-delete for format-patch
+> 
+> Corentin Labbe (13):
+>    drm/amd/include: remove unused asic_reg/oss headers
+>    drm/amd/include: remove unused asic_reg/bif headers
+>    drm/amd/include: remove unused asic_reg/dce headers
+>    drm/amd/include: remove unused asic_reg/gca headers
+>    drm/amd/include: remove unused asic_reg/gmc headers
+>    drm/amd/include: remove unused asic_reg/smu headers
+>    drm/amd/include: remove unused asic_reg/umc headers
+>    drm/amd/include: remove unused asic_reg/uvd headers
+>    drm/amd/include: remove unused asic_reg/vce headers
+>    drm/amd/include: remove unused asic_reg/sdma headers
+>    drm/amd/include: remove unused asic_reg/nbif headers
+>    drm/amd/include: remove unused displayobject.h header
+>    drm/amd/powerplay: remove unused headers
+> 
+>   .../drm/amd/include/asic_reg/bif/bif_5_0_enum.h    |  1198 --
+>   .../drm/amd/include/asic_reg/bif/bif_5_1_enum.h    |  1068 -
+>   .../drm/amd/include/asic_reg/dce/dce_11_2_enum.h   |  6813 ------
+>   .../drm/amd/include/asic_reg/dce/dce_8_0_enum.h    |  1117 -
+>   .../gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h   |  2791 ---
+>   .../drm/amd/include/asic_reg/gca/gfx_8_1_enum.h    |  6808 ------
+>   .../drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h | 21368 -------------------
+>   .../drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h    |  1198 --
+>   .../drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h    |  1068 -
+>   .../amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h   | 10281 ---------
+>   .../drm/amd/include/asic_reg/oss/oss_2_4_enum.h    |  1340 --
+>   .../drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h  |  1464 --
+>   .../drm/amd/include/asic_reg/oss/oss_3_0_enum.h    |  1497 --
+>   .../amd/include/asic_reg/sdma0/sdma0_4_0_default.h |   286 -
+>   .../amd/include/asic_reg/sdma1/sdma1_4_0_default.h |   282 -
+>   .../gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h   |   148 -
+>   .../drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h |   715 -
+>   .../gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h |  1344 --
+>   .../drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h  |  1191 --
+>   .../amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h   |  5648 -----
+>   .../drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h  |  1205 --
+>   .../drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h  |  1246 --
+>   .../drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h  |  1282 --
+>   .../drm/amd/include/asic_reg/smu/smu_8_0_enum.h    |  1072 -
+>   .../drm/amd/include/asic_reg/umc/umc_6_0_default.h |    31 -
+>   .../drm/amd/include/asic_reg/umc/umc_6_0_offset.h  |    52 -
+>   .../drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h |   795 -
+>   .../drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h    |  1211 --
+>   .../drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h    |  1081 -
+>   .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   |    64 -
+>   .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |    99 -
+>   drivers/gpu/drm/amd/include/displayobject.h        |   249 -
+>   .../gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h    |   412 -
+>   drivers/gpu/drm/amd/powerplay/inc/pp_feature.h     |    67 -
+>   34 files changed, 76491 deletions(-)
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_0_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_1_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_2_4_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_8_0_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_default.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_offset.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
+>   delete mode 100644 drivers/gpu/drm/amd/include/displayobject.h
+>   delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h
+>   delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/pp_feature.h
+> 
