@@ -1,7 +1,7 @@
 From: Corentin Labbe <clabbe@baylibre.com>
-Subject: [PATCH v2 10/13] drm/amd/include: remove unused asic_reg/sdma headers
-Date: Wed, 14 Feb 2018 12:28:48 +0000
-Message-ID: <1518611331-13144-11-git-send-email-clabbe@baylibre.com>
+Subject: [PATCH v2 13/13] drm/amd/powerplay: remove unused headers
+Date: Wed, 14 Feb 2018 12:28:51 +0000
+Message-ID: <1518611331-13144-14-git-send-email-clabbe@baylibre.com>
 References: <1518611331-13144-1-git-send-email-clabbe@baylibre.com>
 Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <1518611331-13144-1-git-send-email-clabbe@baylibre.com>
@@ -15,20 +15,20 @@ Lets just remove them.
 
 Signed-off-by: Corentin Labbe <clabbe@baylibre.com>
 ---
- .../amd/include/asic_reg/sdma0/sdma0_4_0_default.h | 286 ---------------------
- .../amd/include/asic_reg/sdma1/sdma1_4_0_default.h | 282 --------------------
- 2 files changed, 568 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h
- delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h
+ .../gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h    | 412 ---------------------
+ drivers/gpu/drm/amd/powerplay/inc/pp_feature.h     |  67 ----
+ 2 files changed, 479 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/pp_feature.h
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h b/drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h b/drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h
 deleted file mode 100644
-index 4be3cb5c4556..000000000000
---- a/drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h
+index b8f4b73c322e..000000000000
+--- a/drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h
 +++ /dev/null
-@@ -1,286 +0,0 @@
+@@ -1,412 +0,0 @@
 -/*
-- * Copyright (C) 2017  Advanced Micro Devices, Inc.
+- * Copyright 2015 Advanced Micro Devices, Inc.
 - *
 - * Permission is hereby granted, free of charge, to any person obtaining a
 - * copy of this software and associated documentation files (the "Software"),
@@ -37,290 +37,416 @@ index 4be3cb5c4556..000000000000
 - * and/or sell copies of the Software, and to permit persons to whom the
 - * Software is furnished to do so, subject to the following conditions:
 - *
-- * The above copyright notice and this permission notice shall be included
-- * in all copies or substantial portions of the Software.
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
 - *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
-- * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
 - */
--#ifndef _sdma0_4_0_DEFAULT_HEADER
--#define _sdma0_4_0_DEFAULT_HEADER
+-
+-#ifndef POLARIS10_PP_SMC_H
+-#define POLARIS10_PP_SMC_H
 -
 -
--// addressBlock: sdma0_sdma0dec
--#define mmSDMA0_UCODE_ADDR_DEFAULT	0x00000000
--#define mmSDMA0_UCODE_DATA_DEFAULT	0x00000000
--#define mmSDMA0_VM_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_VM_CTX_LO_DEFAULT	0x00000000
--#define mmSDMA0_VM_CTX_HI_DEFAULT	0x00000000
--#define mmSDMA0_ACTIVE_FCN_ID_DEFAULT	0x00000000
--#define mmSDMA0_VM_CTX_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_VIRT_RESET_REQ_DEFAULT	0x00000000
--#define mmSDMA0_VF_ENABLE_DEFAULT	0x00000000
--#define mmSDMA0_CONTEXT_REG_TYPE0_DEFAULT	0xfffdf79f
--#define mmSDMA0_CONTEXT_REG_TYPE1_DEFAULT	0x003fbcff
--#define mmSDMA0_CONTEXT_REG_TYPE2_DEFAULT	0x000003ff
--#define mmSDMA0_CONTEXT_REG_TYPE3_DEFAULT	0x00000000
--#define mmSDMA0_PUB_REG_TYPE0_DEFAULT	0x3c000000
--#define mmSDMA0_PUB_REG_TYPE1_DEFAULT	0x30003882
--#define mmSDMA0_PUB_REG_TYPE2_DEFAULT	0x0fc6e880
--#define mmSDMA0_PUB_REG_TYPE3_DEFAULT	0x00000000
--#define mmSDMA0_MMHUB_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_CONTEXT_GROUP_BOUNDARY_DEFAULT	0x00000000
--#define mmSDMA0_POWER_CNTL_DEFAULT	0x0003c000
--#define mmSDMA0_CLK_CTRL_DEFAULT	0xff000100
--#define mmSDMA0_CNTL_DEFAULT	0x00000002
--#define mmSDMA0_CHICKEN_BITS_DEFAULT	0x00831f07
--#define mmSDMA0_GB_ADDR_CONFIG_DEFAULT	0x00100012
--#define mmSDMA0_GB_ADDR_CONFIG_READ_DEFAULT	0x00100012
--#define mmSDMA0_RB_RPTR_FETCH_HI_DEFAULT	0x00000000
--#define mmSDMA0_SEM_WAIT_FAIL_TIMER_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_RB_RPTR_FETCH_DEFAULT	0x00000000
--#define mmSDMA0_IB_OFFSET_FETCH_DEFAULT	0x00000000
--#define mmSDMA0_PROGRAM_DEFAULT	0x00000000
--#define mmSDMA0_STATUS_REG_DEFAULT	0x46dee557
--#define mmSDMA0_STATUS1_REG_DEFAULT	0x000003ff
--#define mmSDMA0_RD_BURST_CNTL_DEFAULT	0x00000003
--#define mmSDMA0_HBM_PAGE_CONFIG_DEFAULT	0x00000000
--#define mmSDMA0_UCODE_CHECKSUM_DEFAULT	0x00000000
--#define mmSDMA0_F32_CNTL_DEFAULT	0x00000001
--#define mmSDMA0_FREEZE_DEFAULT	0x00000000
--#define mmSDMA0_PHASE0_QUANTUM_DEFAULT	0x00010002
--#define mmSDMA0_PHASE1_QUANTUM_DEFAULT	0x00010002
--#define mmSDMA_POWER_GATING_DEFAULT	0x00000000
--#define mmSDMA_PGFSM_CONFIG_DEFAULT	0x00000000
--#define mmSDMA_PGFSM_WRITE_DEFAULT	0x00000000
--#define mmSDMA_PGFSM_READ_DEFAULT	0x00000000
--#define mmSDMA0_EDC_CONFIG_DEFAULT	0x00000002
--#define mmSDMA0_BA_THRESHOLD_DEFAULT	0x03ff03ff
--#define mmSDMA0_ID_DEFAULT	0x00000001
--#define mmSDMA0_VERSION_DEFAULT	0x00000400
--#define mmSDMA0_EDC_COUNTER_DEFAULT	0x00000000
--#define mmSDMA0_EDC_COUNTER_CLEAR_DEFAULT	0x00000000
--#define mmSDMA0_STATUS2_REG_DEFAULT	0x00000000
--#define mmSDMA0_ATOMIC_CNTL_DEFAULT	0x00000200
--#define mmSDMA0_ATOMIC_PREOP_LO_DEFAULT	0x00000000
--#define mmSDMA0_ATOMIC_PREOP_HI_DEFAULT	0x00000000
--#define mmSDMA0_UTCL1_CNTL_DEFAULT	0xd0003019
--#define mmSDMA0_UTCL1_WATERMK_DEFAULT	0xfffbe1fe
--#define mmSDMA0_UTCL1_RD_STATUS_DEFAULT	0x201001ff
--#define mmSDMA0_UTCL1_WR_STATUS_DEFAULT	0x503001ff
--#define mmSDMA0_UTCL1_INV0_DEFAULT	0x00000600
--#define mmSDMA0_UTCL1_INV1_DEFAULT	0x00000000
--#define mmSDMA0_UTCL1_INV2_DEFAULT	0x00000000
--#define mmSDMA0_UTCL1_RD_XNACK0_DEFAULT	0x00000000
--#define mmSDMA0_UTCL1_RD_XNACK1_DEFAULT	0x00000000
--#define mmSDMA0_UTCL1_WR_XNACK0_DEFAULT	0x00000000
--#define mmSDMA0_UTCL1_WR_XNACK1_DEFAULT	0x00000000
--#define mmSDMA0_UTCL1_TIMEOUT_DEFAULT	0x00010001
--#define mmSDMA0_UTCL1_PAGE_DEFAULT	0x000003e0
--#define mmSDMA0_POWER_CNTL_IDLE_DEFAULT	0x06060200
--#define mmSDMA0_RELAX_ORDERING_LUT_DEFAULT	0xc0000006
--#define mmSDMA0_CHICKEN_BITS_2_DEFAULT	0x00000005
--#define mmSDMA0_STATUS3_REG_DEFAULT	0x00100000
--#define mmSDMA0_PHYSICAL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_PHYSICAL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_PHASE2_QUANTUM_DEFAULT	0x00010002
--#define mmSDMA0_ERROR_LOG_DEFAULT	0x0000000f
--#define mmSDMA0_PUB_DUMMY_REG0_DEFAULT	0x00000000
--#define mmSDMA0_PUB_DUMMY_REG1_DEFAULT	0x00000000
--#define mmSDMA0_PUB_DUMMY_REG2_DEFAULT	0x00000000
--#define mmSDMA0_PUB_DUMMY_REG3_DEFAULT	0x00000000
--#define mmSDMA0_F32_COUNTER_DEFAULT	0x00000000
--#define mmSDMA0_UNBREAKABLE_DEFAULT	0x00000000
--#define mmSDMA0_PERFMON_CNTL_DEFAULT	0x000ff7fd
--#define mmSDMA0_PERFCOUNTER0_RESULT_DEFAULT	0x00000000
--#define mmSDMA0_PERFCOUNTER1_RESULT_DEFAULT	0x00000000
--#define mmSDMA0_PERFCOUNTER_TAG_DELAY_RANGE_DEFAULT	0x00640000
--#define mmSDMA0_CRD_CNTL_DEFAULT	0x000085c0
--#define mmSDMA0_MMHUB_TRUSTLVL_DEFAULT	0x00000000
--#define mmSDMA0_GPU_IOV_VIOLATION_LOG_DEFAULT	0x00000000
--#define mmSDMA0_ULV_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_EA_DBIT_ADDR_DATA_DEFAULT	0x00000000
--#define mmSDMA0_EA_DBIT_ADDR_INDEX_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA0_GFX_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA0_GFX_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_GFX_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA0_GFX_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_GFX_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_GFX_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA0_GFX_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_GFX_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA0_GFX_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_GFX_CONTEXT_STATUS_DEFAULT	0x00000005
--#define mmSDMA0_GFX_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA0_GFX_CONTEXT_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_GFX_STATUS_DEFAULT	0x00000000
--#define mmSDMA0_GFX_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA0_GFX_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA0_GFX_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_GFX_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_GFX_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_GFX_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA0_GFX_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA0_GFX_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_GFX_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA0_GFX_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA0_GFX_MIDCMD_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA0_PAGE_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA0_PAGE_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA0_PAGE_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_CONTEXT_STATUS_DEFAULT	0x00000004
--#define mmSDMA0_PAGE_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_STATUS_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA0_PAGE_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA0_PAGE_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA0_PAGE_MIDCMD_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA0_RLC0_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA0_RLC0_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA0_RLC0_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_CONTEXT_STATUS_DEFAULT	0x00000004
--#define mmSDMA0_RLC0_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_STATUS_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA0_RLC0_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA0_RLC0_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA0_RLC0_MIDCMD_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA0_RLC1_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA0_RLC1_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA0_RLC1_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_CONTEXT_STATUS_DEFAULT	0x00000004
--#define mmSDMA0_RLC1_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_STATUS_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA0_RLC1_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA0_RLC1_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA0_RLC1_MIDCMD_CNTL_DEFAULT	0x00000000
+-#pragma pack(push, 1)
+-
+-#define PPSMC_MSG_SetGBDroopSettings          ((uint16_t) 0x305)
+-
+-#define PPSMC_SWSTATE_FLAG_DC                           0x01
+-#define PPSMC_SWSTATE_FLAG_UVD                          0x02
+-#define PPSMC_SWSTATE_FLAG_VCE                          0x04
+-
+-#define PPSMC_THERMAL_PROTECT_TYPE_INTERNAL             0x00
+-#define PPSMC_THERMAL_PROTECT_TYPE_EXTERNAL             0x01
+-#define PPSMC_THERMAL_PROTECT_TYPE_NONE                 0xff
+-
+-#define PPSMC_SYSTEMFLAG_GPIO_DC                        0x01
+-#define PPSMC_SYSTEMFLAG_STEPVDDC                       0x02
+-#define PPSMC_SYSTEMFLAG_GDDR5                          0x04
+-
+-#define PPSMC_SYSTEMFLAG_DISABLE_BABYSTEP               0x08
+-
+-#define PPSMC_SYSTEMFLAG_REGULATOR_HOT                  0x10
+-#define PPSMC_SYSTEMFLAG_REGULATOR_HOT_ANALOG           0x20
+-
+-#define PPSMC_EXTRAFLAGS_AC2DC_ACTION_MASK              0x07
+-#define PPSMC_EXTRAFLAGS_AC2DC_DONT_WAIT_FOR_VBLANK     0x08
+-
+-#define PPSMC_EXTRAFLAGS_AC2DC_ACTION_GOTODPMLOWSTATE   0x00
+-#define PPSMC_EXTRAFLAGS_AC2DC_ACTION_GOTOINITIALSTATE  0x01
+-
+-
+-#define PPSMC_DPM2FLAGS_TDPCLMP                         0x01
+-#define PPSMC_DPM2FLAGS_PWRSHFT                         0x02
+-#define PPSMC_DPM2FLAGS_OCP                             0x04
+-
+-
+-#define PPSMC_DISPLAY_WATERMARK_LOW                     0
+-#define PPSMC_DISPLAY_WATERMARK_HIGH                    1
+-
+-
+-#define PPSMC_STATEFLAG_AUTO_PULSE_SKIP    0x01
+-#define PPSMC_STATEFLAG_POWERBOOST         0x02
+-#define PPSMC_STATEFLAG_PSKIP_ON_TDP_FAULT 0x04
+-#define PPSMC_STATEFLAG_POWERSHIFT         0x08
+-#define PPSMC_STATEFLAG_SLOW_READ_MARGIN   0x10
+-#define PPSMC_STATEFLAG_DEEPSLEEP_THROTTLE 0x20
+-#define PPSMC_STATEFLAG_DEEPSLEEP_BYPASS   0x40
+-
+-
+-#define FDO_MODE_HARDWARE 0
+-#define FDO_MODE_PIECE_WISE_LINEAR 1
+-
+-enum FAN_CONTROL {
+-	FAN_CONTROL_FUZZY,
+-	FAN_CONTROL_TABLE
+-};
+-
+-
+-#define PPSMC_Result_OK             ((uint16_t)0x01)
+-#define PPSMC_Result_NoMore         ((uint16_t)0x02)
+-
+-#define PPSMC_Result_NotNow         ((uint16_t)0x03)
+-#define PPSMC_Result_Failed         ((uint16_t)0xFF)
+-#define PPSMC_Result_UnknownCmd     ((uint16_t)0xFE)
+-#define PPSMC_Result_UnknownVT      ((uint16_t)0xFD)
+-
+-typedef uint16_t PPSMC_Result;
+-
+-#define PPSMC_isERROR(x) ((uint16_t)0x80 & (x))
+-
+-
+-#define PPSMC_MSG_Halt                      ((uint16_t)0x10)
+-#define PPSMC_MSG_Resume                    ((uint16_t)0x11)
+-#define PPSMC_MSG_EnableDPMLevel            ((uint16_t)0x12)
+-#define PPSMC_MSG_ZeroLevelsDisabled        ((uint16_t)0x13)
+-#define PPSMC_MSG_OneLevelsDisabled         ((uint16_t)0x14)
+-#define PPSMC_MSG_TwoLevelsDisabled         ((uint16_t)0x15)
+-#define PPSMC_MSG_EnableThermalInterrupt    ((uint16_t)0x16)
+-#define PPSMC_MSG_RunningOnAC               ((uint16_t)0x17)
+-#define PPSMC_MSG_LevelUp                   ((uint16_t)0x18)
+-#define PPSMC_MSG_LevelDown                 ((uint16_t)0x19)
+-#define PPSMC_MSG_ResetDPMCounters          ((uint16_t)0x1a)
+-#define PPSMC_MSG_SwitchToSwState           ((uint16_t)0x20)
+-#define PPSMC_MSG_SwitchToSwStateLast       ((uint16_t)0x3f)
+-#define PPSMC_MSG_SwitchToInitialState      ((uint16_t)0x40)
+-#define PPSMC_MSG_NoForcedLevel             ((uint16_t)0x41)
+-#define PPSMC_MSG_ForceHigh                 ((uint16_t)0x42)
+-#define PPSMC_MSG_ForceMediumOrHigh         ((uint16_t)0x43)
+-#define PPSMC_MSG_SwitchToMinimumPower      ((uint16_t)0x51)
+-#define PPSMC_MSG_ResumeFromMinimumPower    ((uint16_t)0x52)
+-#define PPSMC_MSG_EnableCac                 ((uint16_t)0x53)
+-#define PPSMC_MSG_DisableCac                ((uint16_t)0x54)
+-#define PPSMC_DPMStateHistoryStart          ((uint16_t)0x55)
+-#define PPSMC_DPMStateHistoryStop           ((uint16_t)0x56)
+-#define PPSMC_CACHistoryStart               ((uint16_t)0x57)
+-#define PPSMC_CACHistoryStop                ((uint16_t)0x58)
+-#define PPSMC_TDPClampingActive             ((uint16_t)0x59)
+-#define PPSMC_TDPClampingInactive           ((uint16_t)0x5A)
+-#define PPSMC_StartFanControl               ((uint16_t)0x5B)
+-#define PPSMC_StopFanControl                ((uint16_t)0x5C)
+-#define PPSMC_NoDisplay                     ((uint16_t)0x5D)
+-#define PPSMC_HasDisplay                    ((uint16_t)0x5E)
+-#define PPSMC_MSG_UVDPowerOFF               ((uint16_t)0x60)
+-#define PPSMC_MSG_UVDPowerON                ((uint16_t)0x61)
+-#define PPSMC_MSG_EnableULV                 ((uint16_t)0x62)
+-#define PPSMC_MSG_DisableULV                ((uint16_t)0x63)
+-#define PPSMC_MSG_EnterULV                  ((uint16_t)0x64)
+-#define PPSMC_MSG_ExitULV                   ((uint16_t)0x65)
+-#define PPSMC_PowerShiftActive              ((uint16_t)0x6A)
+-#define PPSMC_PowerShiftInactive            ((uint16_t)0x6B)
+-#define PPSMC_OCPActive                     ((uint16_t)0x6C)
+-#define PPSMC_OCPInactive                   ((uint16_t)0x6D)
+-#define PPSMC_CACLongTermAvgEnable          ((uint16_t)0x6E)
+-#define PPSMC_CACLongTermAvgDisable         ((uint16_t)0x6F)
+-#define PPSMC_MSG_InferredStateSweep_Start  ((uint16_t)0x70)
+-#define PPSMC_MSG_InferredStateSweep_Stop   ((uint16_t)0x71)
+-#define PPSMC_MSG_SwitchToLowestInfState    ((uint16_t)0x72)
+-#define PPSMC_MSG_SwitchToNonInfState       ((uint16_t)0x73)
+-#define PPSMC_MSG_AllStateSweep_Start       ((uint16_t)0x74)
+-#define PPSMC_MSG_AllStateSweep_Stop        ((uint16_t)0x75)
+-#define PPSMC_MSG_SwitchNextLowerInfState   ((uint16_t)0x76)
+-#define PPSMC_MSG_SwitchNextHigherInfState  ((uint16_t)0x77)
+-#define PPSMC_MSG_MclkRetrainingTest        ((uint16_t)0x78)
+-#define PPSMC_MSG_ForceTDPClamping          ((uint16_t)0x79)
+-#define PPSMC_MSG_CollectCAC_PowerCorreln   ((uint16_t)0x7A)
+-#define PPSMC_MSG_CollectCAC_WeightCalib    ((uint16_t)0x7B)
+-#define PPSMC_MSG_CollectCAC_SQonly         ((uint16_t)0x7C)
+-#define PPSMC_MSG_CollectCAC_TemperaturePwr ((uint16_t)0x7D)
+-
+-#define PPSMC_MSG_ExtremitiesTest_Start     ((uint16_t)0x7E)
+-#define PPSMC_MSG_ExtremitiesTest_Stop      ((uint16_t)0x7F)
+-#define PPSMC_FlushDataCache                ((uint16_t)0x80)
+-#define PPSMC_FlushInstrCache               ((uint16_t)0x81)
+-
+-#define PPSMC_MSG_SetEnabledLevels          ((uint16_t)0x82)
+-#define PPSMC_MSG_SetForcedLevels           ((uint16_t)0x83)
+-
+-#define PPSMC_MSG_ResetToDefaults           ((uint16_t)0x84)
+-
+-#define PPSMC_MSG_SetForcedLevelsAndJump      ((uint16_t)0x85)
+-#define PPSMC_MSG_SetCACHistoryMode           ((uint16_t)0x86)
+-#define PPSMC_MSG_EnableDTE                   ((uint16_t)0x87)
+-#define PPSMC_MSG_DisableDTE                  ((uint16_t)0x88)
+-
+-#define PPSMC_MSG_SmcSpaceSetAddress          ((uint16_t)0x89)
+-#define PPSM_MSG_SmcSpaceWriteDWordInc        ((uint16_t)0x8A)
+-#define PPSM_MSG_SmcSpaceWriteWordInc         ((uint16_t)0x8B)
+-#define PPSM_MSG_SmcSpaceWriteByteInc         ((uint16_t)0x8C)
+-
+-#define PPSMC_MSG_BREAK                       ((uint16_t)0xF8)
+-
+-#define PPSMC_MSG_Test                        ((uint16_t) 0x100)
+-#define PPSMC_MSG_DPM_Voltage_Pwrmgt          ((uint16_t) 0x101)
+-#define PPSMC_MSG_DPM_Config                  ((uint16_t) 0x102)
+-#define PPSMC_MSG_PM_Controller_Start         ((uint16_t) 0x103)
+-#define PPSMC_MSG_DPM_ForceState              ((uint16_t) 0x104)
+-#define PPSMC_MSG_PG_PowerDownSIMD            ((uint16_t) 0x105)
+-#define PPSMC_MSG_PG_PowerUpSIMD              ((uint16_t) 0x106)
+-#define PPSMC_MSG_PM_Controller_Stop          ((uint16_t) 0x107)
+-#define PPSMC_MSG_PG_SIMD_Config              ((uint16_t) 0x108)
+-#define PPSMC_MSG_Voltage_Cntl_Enable         ((uint16_t) 0x109)
+-#define PPSMC_MSG_Thermal_Cntl_Enable         ((uint16_t) 0x10a)
+-#define PPSMC_MSG_Reset_Service               ((uint16_t) 0x10b)
+-#define PPSMC_MSG_VCEPowerOFF                 ((uint16_t) 0x10e)
+-#define PPSMC_MSG_VCEPowerON                  ((uint16_t) 0x10f)
+-#define PPSMC_MSG_DPM_Disable_VCE_HS          ((uint16_t) 0x110)
+-#define PPSMC_MSG_DPM_Enable_VCE_HS           ((uint16_t) 0x111)
+-#define PPSMC_MSG_DPM_N_LevelsDisabled        ((uint16_t) 0x112)
+-#define PPSMC_MSG_DCEPowerOFF                 ((uint16_t) 0x113)
+-#define PPSMC_MSG_DCEPowerON                  ((uint16_t) 0x114)
+-#define PPSMC_MSG_PCIE_DDIPowerDown           ((uint16_t) 0x117)
+-#define PPSMC_MSG_PCIE_DDIPowerUp             ((uint16_t) 0x118)
+-#define PPSMC_MSG_PCIE_CascadePLLPowerDown    ((uint16_t) 0x119)
+-#define PPSMC_MSG_PCIE_CascadePLLPowerUp      ((uint16_t) 0x11a)
+-#define PPSMC_MSG_SYSPLLPowerOff              ((uint16_t) 0x11b)
+-#define PPSMC_MSG_SYSPLLPowerOn               ((uint16_t) 0x11c)
+-#define PPSMC_MSG_DCE_RemoveVoltageAdjustment ((uint16_t) 0x11d)
+-#define PPSMC_MSG_DCE_AllowVoltageAdjustment  ((uint16_t) 0x11e)
+-#define PPSMC_MSG_DISPLAYPHYStatusNotify      ((uint16_t) 0x11f)
+-#define PPSMC_MSG_EnableBAPM                  ((uint16_t) 0x120)
+-#define PPSMC_MSG_DisableBAPM                 ((uint16_t) 0x121)
+-#define PPSMC_MSG_Spmi_Enable                 ((uint16_t) 0x122)
+-#define PPSMC_MSG_Spmi_Timer                  ((uint16_t) 0x123)
+-#define PPSMC_MSG_LCLK_DPM_Config             ((uint16_t) 0x124)
+-#define PPSMC_MSG_VddNB_Request               ((uint16_t) 0x125)
+-#define PPSMC_MSG_PCIE_DDIPhyPowerDown        ((uint32_t) 0x126)
+-#define PPSMC_MSG_PCIE_DDIPhyPowerUp          ((uint32_t) 0x127)
+-#define PPSMC_MSG_MCLKDPM_Config              ((uint16_t) 0x128)
+-
+-#define PPSMC_MSG_UVDDPM_Config               ((uint16_t) 0x129)
+-#define PPSMC_MSG_VCEDPM_Config               ((uint16_t) 0x12A)
+-#define PPSMC_MSG_ACPDPM_Config               ((uint16_t) 0x12B)
+-#define PPSMC_MSG_SAMUDPM_Config              ((uint16_t) 0x12C)
+-#define PPSMC_MSG_UVDDPM_SetEnabledMask       ((uint16_t) 0x12D)
+-#define PPSMC_MSG_VCEDPM_SetEnabledMask       ((uint16_t) 0x12E)
+-#define PPSMC_MSG_ACPDPM_SetEnabledMask       ((uint16_t) 0x12F)
+-#define PPSMC_MSG_SAMUDPM_SetEnabledMask      ((uint16_t) 0x130)
+-#define PPSMC_MSG_MCLKDPM_ForceState          ((uint16_t) 0x131)
+-#define PPSMC_MSG_MCLKDPM_NoForcedLevel       ((uint16_t) 0x132)
+-#define PPSMC_MSG_Thermal_Cntl_Disable        ((uint16_t) 0x133)
+-#define PPSMC_MSG_SetTDPLimit                 ((uint16_t) 0x134)
+-#define PPSMC_MSG_Voltage_Cntl_Disable        ((uint16_t) 0x135)
+-#define PPSMC_MSG_PCIeDPM_Enable              ((uint16_t) 0x136)
+-#define PPSMC_MSG_ACPPowerOFF                 ((uint16_t) 0x137)
+-#define PPSMC_MSG_ACPPowerON                  ((uint16_t) 0x138)
+-#define PPSMC_MSG_SAMPowerOFF                 ((uint16_t) 0x139)
+-#define PPSMC_MSG_SAMPowerON                  ((uint16_t) 0x13a)
+-#define PPSMC_MSG_SDMAPowerOFF                ((uint16_t) 0x13b)
+-#define PPSMC_MSG_SDMAPowerON                 ((uint16_t) 0x13c)
+-#define PPSMC_MSG_PCIeDPM_Disable             ((uint16_t) 0x13d)
+-#define PPSMC_MSG_IOMMUPowerOFF               ((uint16_t) 0x13e)
+-#define PPSMC_MSG_IOMMUPowerON                ((uint16_t) 0x13f)
+-#define PPSMC_MSG_NBDPM_Enable                ((uint16_t) 0x140)
+-#define PPSMC_MSG_NBDPM_Disable               ((uint16_t) 0x141)
+-#define PPSMC_MSG_NBDPM_ForceNominal          ((uint16_t) 0x142)
+-#define PPSMC_MSG_NBDPM_ForcePerformance      ((uint16_t) 0x143)
+-#define PPSMC_MSG_NBDPM_UnForce               ((uint16_t) 0x144)
+-#define PPSMC_MSG_SCLKDPM_SetEnabledMask      ((uint16_t) 0x145)
+-#define PPSMC_MSG_MCLKDPM_SetEnabledMask      ((uint16_t) 0x146)
+-#define PPSMC_MSG_PCIeDPM_ForceLevel          ((uint16_t) 0x147)
+-#define PPSMC_MSG_PCIeDPM_UnForceLevel        ((uint16_t) 0x148)
+-#define PPSMC_MSG_EnableACDCGPIOInterrupt     ((uint16_t) 0x149)
+-#define PPSMC_MSG_EnableVRHotGPIOInterrupt    ((uint16_t) 0x14a)
+-#define PPSMC_MSG_SwitchToAC                  ((uint16_t) 0x14b)
+-#define PPSMC_MSG_XDMAPowerOFF                ((uint16_t) 0x14c)
+-#define PPSMC_MSG_XDMAPowerON                 ((uint16_t) 0x14d)
+-
+-#define PPSMC_MSG_DPM_Enable                  ((uint16_t) 0x14e)
+-#define PPSMC_MSG_DPM_Disable                 ((uint16_t) 0x14f)
+-#define PPSMC_MSG_MCLKDPM_Enable              ((uint16_t) 0x150)
+-#define PPSMC_MSG_MCLKDPM_Disable             ((uint16_t) 0x151)
+-#define PPSMC_MSG_LCLKDPM_Enable              ((uint16_t) 0x152)
+-#define PPSMC_MSG_LCLKDPM_Disable             ((uint16_t) 0x153)
+-#define PPSMC_MSG_UVDDPM_Enable               ((uint16_t) 0x154)
+-#define PPSMC_MSG_UVDDPM_Disable              ((uint16_t) 0x155)
+-#define PPSMC_MSG_SAMUDPM_Enable              ((uint16_t) 0x156)
+-#define PPSMC_MSG_SAMUDPM_Disable             ((uint16_t) 0x157)
+-#define PPSMC_MSG_ACPDPM_Enable               ((uint16_t) 0x158)
+-#define PPSMC_MSG_ACPDPM_Disable              ((uint16_t) 0x159)
+-#define PPSMC_MSG_VCEDPM_Enable               ((uint16_t) 0x15a)
+-#define PPSMC_MSG_VCEDPM_Disable              ((uint16_t) 0x15b)
+-#define PPSMC_MSG_LCLKDPM_SetEnabledMask      ((uint16_t) 0x15c)
+-#define PPSMC_MSG_DPM_FPS_Mode                ((uint16_t) 0x15d)
+-#define PPSMC_MSG_DPM_Activity_Mode           ((uint16_t) 0x15e)
+-#define PPSMC_MSG_VddC_Request                ((uint16_t) 0x15f)
+-#define PPSMC_MSG_MCLKDPM_GetEnabledMask      ((uint16_t) 0x160)
+-#define PPSMC_MSG_LCLKDPM_GetEnabledMask      ((uint16_t) 0x161)
+-#define PPSMC_MSG_SCLKDPM_GetEnabledMask      ((uint16_t) 0x162)
+-#define PPSMC_MSG_UVDDPM_GetEnabledMask       ((uint16_t) 0x163)
+-#define PPSMC_MSG_SAMUDPM_GetEnabledMask      ((uint16_t) 0x164)
+-#define PPSMC_MSG_ACPDPM_GetEnabledMask       ((uint16_t) 0x165)
+-#define PPSMC_MSG_VCEDPM_GetEnabledMask       ((uint16_t) 0x166)
+-#define PPSMC_MSG_PCIeDPM_SetEnabledMask      ((uint16_t) 0x167)
+-#define PPSMC_MSG_PCIeDPM_GetEnabledMask      ((uint16_t) 0x168)
+-#define PPSMC_MSG_TDCLimitEnable              ((uint16_t) 0x169)
+-#define PPSMC_MSG_TDCLimitDisable             ((uint16_t) 0x16a)
+-#define PPSMC_MSG_DPM_AutoRotate_Mode         ((uint16_t) 0x16b)
+-#define PPSMC_MSG_DISPCLK_FROM_FCH            ((uint16_t) 0x16c)
+-#define PPSMC_MSG_DISPCLK_FROM_DFS            ((uint16_t) 0x16d)
+-#define PPSMC_MSG_DPREFCLK_FROM_FCH           ((uint16_t) 0x16e)
+-#define PPSMC_MSG_DPREFCLK_FROM_DFS           ((uint16_t) 0x16f)
+-#define PPSMC_MSG_PmStatusLogStart            ((uint16_t) 0x170)
+-#define PPSMC_MSG_PmStatusLogSample           ((uint16_t) 0x171)
+-#define PPSMC_MSG_SCLK_AutoDPM_ON             ((uint16_t) 0x172)
+-#define PPSMC_MSG_MCLK_AutoDPM_ON             ((uint16_t) 0x173)
+-#define PPSMC_MSG_LCLK_AutoDPM_ON             ((uint16_t) 0x174)
+-#define PPSMC_MSG_UVD_AutoDPM_ON              ((uint16_t) 0x175)
+-#define PPSMC_MSG_SAMU_AutoDPM_ON             ((uint16_t) 0x176)
+-#define PPSMC_MSG_ACP_AutoDPM_ON              ((uint16_t) 0x177)
+-#define PPSMC_MSG_VCE_AutoDPM_ON              ((uint16_t) 0x178)
+-#define PPSMC_MSG_PCIe_AutoDPM_ON             ((uint16_t) 0x179)
+-#define PPSMC_MSG_MASTER_AutoDPM_ON           ((uint16_t) 0x17a)
+-#define PPSMC_MSG_MASTER_AutoDPM_OFF          ((uint16_t) 0x17b)
+-#define PPSMC_MSG_DYNAMICDISPPHYPOWER         ((uint16_t) 0x17c)
+-#define PPSMC_MSG_CAC_COLLECTION_ON           ((uint16_t) 0x17d)
+-#define PPSMC_MSG_CAC_COLLECTION_OFF          ((uint16_t) 0x17e)
+-#define PPSMC_MSG_CAC_CORRELATION_ON          ((uint16_t) 0x17f)
+-#define PPSMC_MSG_CAC_CORRELATION_OFF         ((uint16_t) 0x180)
+-#define PPSMC_MSG_PM_STATUS_TO_DRAM_ON        ((uint16_t) 0x181)
+-#define PPSMC_MSG_PM_STATUS_TO_DRAM_OFF       ((uint16_t) 0x182)
+-#define PPSMC_MSG_ALLOW_LOWSCLK_INTERRUPT     ((uint16_t) 0x184)
+-#define PPSMC_MSG_PkgPwrLimitEnable           ((uint16_t) 0x185)
+-#define PPSMC_MSG_PkgPwrLimitDisable          ((uint16_t) 0x186)
+-#define PPSMC_MSG_PkgPwrSetLimit              ((uint16_t) 0x187)
+-#define PPSMC_MSG_OverDriveSetTargetTdp       ((uint16_t) 0x188)
+-#define PPSMC_MSG_SCLKDPM_FreezeLevel         ((uint16_t) 0x189)
+-#define PPSMC_MSG_SCLKDPM_UnfreezeLevel       ((uint16_t) 0x18A)
+-#define PPSMC_MSG_MCLKDPM_FreezeLevel         ((uint16_t) 0x18B)
+-#define PPSMC_MSG_MCLKDPM_UnfreezeLevel       ((uint16_t) 0x18C)
+-#define PPSMC_MSG_START_DRAM_LOGGING          ((uint16_t) 0x18D)
+-#define PPSMC_MSG_STOP_DRAM_LOGGING           ((uint16_t) 0x18E)
+-#define PPSMC_MSG_MASTER_DeepSleep_ON         ((uint16_t) 0x18F)
+-#define PPSMC_MSG_MASTER_DeepSleep_OFF        ((uint16_t) 0x190)
+-#define PPSMC_MSG_Remove_DC_Clamp             ((uint16_t) 0x191)
+-#define PPSMC_MSG_DisableACDCGPIOInterrupt    ((uint16_t) 0x192)
+-#define PPSMC_MSG_OverrideVoltageControl_SetVddc       ((uint16_t) 0x193)
+-#define PPSMC_MSG_OverrideVoltageControl_SetVddci      ((uint16_t) 0x194)
+-#define PPSMC_MSG_SetVidOffset_1              ((uint16_t) 0x195)
+-#define PPSMC_MSG_SetVidOffset_2              ((uint16_t) 0x207)
+-#define PPSMC_MSG_GetVidOffset_1              ((uint16_t) 0x196)
+-#define PPSMC_MSG_GetVidOffset_2              ((uint16_t) 0x208)
+-#define PPSMC_MSG_THERMAL_OVERDRIVE_Enable    ((uint16_t) 0x197)
+-#define PPSMC_MSG_THERMAL_OVERDRIVE_Disable   ((uint16_t) 0x198)
+-#define PPSMC_MSG_SetTjMax                    ((uint16_t) 0x199)
+-#define PPSMC_MSG_SetFanPwmMax                ((uint16_t) 0x19A)
+-#define PPSMC_MSG_WaitForMclkSwitchFinish     ((uint16_t) 0x19B)
+-#define PPSMC_MSG_ENABLE_THERMAL_DPM          ((uint16_t) 0x19C)
+-#define PPSMC_MSG_DISABLE_THERMAL_DPM         ((uint16_t) 0x19D)
+-
+-#define PPSMC_MSG_API_GetSclkFrequency        ((uint16_t) 0x200)
+-#define PPSMC_MSG_API_GetMclkFrequency        ((uint16_t) 0x201)
+-#define PPSMC_MSG_API_GetSclkBusy             ((uint16_t) 0x202)
+-#define PPSMC_MSG_API_GetMclkBusy             ((uint16_t) 0x203)
+-#define PPSMC_MSG_API_GetAsicPower            ((uint16_t) 0x204)
+-#define PPSMC_MSG_SetFanRpmMax                ((uint16_t) 0x205)
+-#define PPSMC_MSG_SetFanSclkTarget            ((uint16_t) 0x206)
+-#define PPSMC_MSG_SetFanMinPwm                ((uint16_t) 0x209)
+-#define PPSMC_MSG_SetFanTemperatureTarget     ((uint16_t) 0x20A)
+-
+-#define PPSMC_MSG_BACO_StartMonitor           ((uint16_t) 0x240)
+-#define PPSMC_MSG_BACO_Cancel                 ((uint16_t) 0x241)
+-#define PPSMC_MSG_EnableVddGfx                ((uint16_t) 0x242)
+-#define PPSMC_MSG_DisableVddGfx               ((uint16_t) 0x243)
+-#define PPSMC_MSG_UcodeAddressLow             ((uint16_t) 0x244)
+-#define PPSMC_MSG_UcodeAddressHigh            ((uint16_t) 0x245)
+-#define PPSMC_MSG_UcodeLoadStatus             ((uint16_t) 0x246)
+-
+-#define PPSMC_MSG_DRV_DRAM_ADDR_HI            ((uint16_t) 0x250)
+-#define PPSMC_MSG_DRV_DRAM_ADDR_LO            ((uint16_t) 0x251)
+-#define PPSMC_MSG_SMU_DRAM_ADDR_HI            ((uint16_t) 0x252)
+-#define PPSMC_MSG_SMU_DRAM_ADDR_LO            ((uint16_t) 0x253)
+-#define PPSMC_MSG_LoadUcodes                  ((uint16_t) 0x254)
+-#define PPSMC_MSG_PowerStateNotify            ((uint16_t) 0x255)
+-#define PPSMC_MSG_COND_EXEC_DRAM_ADDR_HI      ((uint16_t) 0x256)
+-#define PPSMC_MSG_COND_EXEC_DRAM_ADDR_LO      ((uint16_t) 0x257)
+-#define PPSMC_MSG_VBIOS_DRAM_ADDR_HI          ((uint16_t) 0x258)
+-#define PPSMC_MSG_VBIOS_DRAM_ADDR_LO          ((uint16_t) 0x259)
+-#define PPSMC_MSG_LoadVBios                   ((uint16_t) 0x25A)
+-#define PPSMC_MSG_GetUcodeVersion             ((uint16_t) 0x25B)
+-#define DMCUSMC_MSG_PSREntry                  ((uint16_t) 0x25C)
+-#define DMCUSMC_MSG_PSRExit                   ((uint16_t) 0x25D)
+-#define PPSMC_MSG_EnableClockGatingFeature    ((uint16_t) 0x260)
+-#define PPSMC_MSG_DisableClockGatingFeature   ((uint16_t) 0x261)
+-#define PPSMC_MSG_IsDeviceRunning             ((uint16_t) 0x262)
+-#define PPSMC_MSG_LoadMetaData                ((uint16_t) 0x263)
+-#define PPSMC_MSG_TMON_AutoCaliberate_Enable  ((uint16_t) 0x264)
+-#define PPSMC_MSG_TMON_AutoCaliberate_Disable ((uint16_t) 0x265)
+-#define PPSMC_MSG_GetTelemetry1Slope          ((uint16_t) 0x266)
+-#define PPSMC_MSG_GetTelemetry1Offset         ((uint16_t) 0x267)
+-#define PPSMC_MSG_GetTelemetry2Slope          ((uint16_t) 0x268)
+-#define PPSMC_MSG_GetTelemetry2Offset         ((uint16_t) 0x269)
+-#define PPSMC_MSG_EnableAvfs                  ((uint16_t) 0x26A)
+-#define PPSMC_MSG_DisableAvfs                 ((uint16_t) 0x26B)
+-
+-#define PPSMC_MSG_PerformBtc                  ((uint16_t) 0x26C)
+-#define PPSMC_MSG_VftTableIsValid             ((uint16_t) 0x275)
+-#define PPSMC_MSG_UseNewGPIOScheme            ((uint16_t) 0x277)
+-#define PPSMC_MSG_GetEnabledPsm               ((uint16_t) 0x400)
+-#define PPSMC_MSG_AgmStartPsm                 ((uint16_t) 0x401)
+-#define PPSMC_MSG_AgmReadPsm                  ((uint16_t) 0x402)
+-#define PPSMC_MSG_AgmResetPsm                 ((uint16_t) 0x403)
+-#define PPSMC_MSG_ReadVftCell                 ((uint16_t) 0x404)
+-
+-#define PPSMC_MSG_GFX_CU_PG_ENABLE            ((uint16_t) 0x280)
+-#define PPSMC_MSG_GFX_CU_PG_DISABLE           ((uint16_t) 0x281)
+-#define PPSMC_MSG_GetCurrPkgPwr               ((uint16_t) 0x282)
+-
+-#define PPSMC_MSG_SetGpuPllDfsForSclk         ((uint16_t) 0x300)
+-#define PPSMC_MSG_Didt_Block_Function		  ((uint16_t) 0x301)
+-
+-#define PPSMC_MSG_SetVBITimeout               ((uint16_t) 0x306)
+-
+-#define PPSMC_MSG_SecureSRBMWrite             ((uint16_t) 0x600)
+-#define PPSMC_MSG_SecureSRBMRead              ((uint16_t) 0x601)
+-#define PPSMC_MSG_SetAddress                  ((uint16_t) 0x800)
+-#define PPSMC_MSG_GetData                     ((uint16_t) 0x801)
+-#define PPSMC_MSG_SetData                     ((uint16_t) 0x802)
+-
+-typedef uint16_t PPSMC_Msg;
+-
+-#define PPSMC_EVENT_STATUS_THERMAL          0x00000001
+-#define PPSMC_EVENT_STATUS_REGULATORHOT     0x00000002
+-#define PPSMC_EVENT_STATUS_DC               0x00000004
+-
+-#pragma pack(pop)
 -
 -#endif
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h b/drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h
+-
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/pp_feature.h b/drivers/gpu/drm/amd/powerplay/inc/pp_feature.h
 deleted file mode 100644
-index 934733762ddf..000000000000
---- a/drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h
+index 0faf6a25c18b..000000000000
+--- a/drivers/gpu/drm/amd/powerplay/inc/pp_feature.h
 +++ /dev/null
-@@ -1,282 +0,0 @@
+@@ -1,67 +0,0 @@
 -/*
-- * Copyright (C) 2017  Advanced Micro Devices, Inc.
+- * Copyright 2015 Advanced Micro Devices, Inc.
 - *
 - * Permission is hereby granted, free of charge, to any person obtaining a
 - * copy of this software and associated documentation files (the "Software"),
@@ -329,277 +455,62 @@ index 934733762ddf..000000000000
 - * and/or sell copies of the Software, and to permit persons to whom the
 - * Software is furnished to do so, subject to the following conditions:
 - *
-- * The above copyright notice and this permission notice shall be included
-- * in all copies or substantial portions of the Software.
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
 - *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
-- * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
 - */
--#ifndef _sdma1_4_0_DEFAULT_HEADER
--#define _sdma1_4_0_DEFAULT_HEADER
 -
+-#ifndef _PP_FEATURE_H_
+-#define _PP_FEATURE_H_
 -
--// addressBlock: sdma1_sdma1dec
--#define mmSDMA1_UCODE_ADDR_DEFAULT	0x00000000
--#define mmSDMA1_UCODE_DATA_DEFAULT	0x00000000
--#define mmSDMA1_VM_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_VM_CTX_LO_DEFAULT	0x00000000
--#define mmSDMA1_VM_CTX_HI_DEFAULT	0x00000000
--#define mmSDMA1_ACTIVE_FCN_ID_DEFAULT	0x00000000
--#define mmSDMA1_VM_CTX_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_VIRT_RESET_REQ_DEFAULT	0x00000000
--#define mmSDMA1_VF_ENABLE_DEFAULT	0x00000000
--#define mmSDMA1_CONTEXT_REG_TYPE0_DEFAULT	0xfffdf79f
--#define mmSDMA1_CONTEXT_REG_TYPE1_DEFAULT	0x003fbcff
--#define mmSDMA1_CONTEXT_REG_TYPE2_DEFAULT	0x000003ff
--#define mmSDMA1_CONTEXT_REG_TYPE3_DEFAULT	0x00000000
--#define mmSDMA1_PUB_REG_TYPE0_DEFAULT	0x3c000000
--#define mmSDMA1_PUB_REG_TYPE1_DEFAULT	0x30003882
--#define mmSDMA1_PUB_REG_TYPE2_DEFAULT	0x0fc6e880
--#define mmSDMA1_PUB_REG_TYPE3_DEFAULT	0x00000000
--#define mmSDMA1_MMHUB_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_CONTEXT_GROUP_BOUNDARY_DEFAULT	0x00000000
--#define mmSDMA1_POWER_CNTL_DEFAULT	0x0003c000
--#define mmSDMA1_CLK_CTRL_DEFAULT	0xff000100
--#define mmSDMA1_CNTL_DEFAULT	0x00000002
--#define mmSDMA1_CHICKEN_BITS_DEFAULT	0x00831f07
--#define mmSDMA1_GB_ADDR_CONFIG_DEFAULT	0x00100012
--#define mmSDMA1_GB_ADDR_CONFIG_READ_DEFAULT	0x00100012
--#define mmSDMA1_RB_RPTR_FETCH_HI_DEFAULT	0x00000000
--#define mmSDMA1_SEM_WAIT_FAIL_TIMER_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_RB_RPTR_FETCH_DEFAULT	0x00000000
--#define mmSDMA1_IB_OFFSET_FETCH_DEFAULT	0x00000000
--#define mmSDMA1_PROGRAM_DEFAULT	0x00000000
--#define mmSDMA1_STATUS_REG_DEFAULT	0x46dee557
--#define mmSDMA1_STATUS1_REG_DEFAULT	0x000003ff
--#define mmSDMA1_RD_BURST_CNTL_DEFAULT	0x00000003
--#define mmSDMA1_HBM_PAGE_CONFIG_DEFAULT	0x00000000
--#define mmSDMA1_UCODE_CHECKSUM_DEFAULT	0x00000000
--#define mmSDMA1_F32_CNTL_DEFAULT	0x00000001
--#define mmSDMA1_FREEZE_DEFAULT	0x00000000
--#define mmSDMA1_PHASE0_QUANTUM_DEFAULT	0x00010002
--#define mmSDMA1_PHASE1_QUANTUM_DEFAULT	0x00010002
--#define mmSDMA1_EDC_CONFIG_DEFAULT	0x00000002
--#define mmSDMA1_BA_THRESHOLD_DEFAULT	0x03ff03ff
--#define mmSDMA1_ID_DEFAULT	0x00000001
--#define mmSDMA1_VERSION_DEFAULT	0x00000400
--#define mmSDMA1_EDC_COUNTER_DEFAULT	0x00000000
--#define mmSDMA1_EDC_COUNTER_CLEAR_DEFAULT	0x00000000
--#define mmSDMA1_STATUS2_REG_DEFAULT	0x00000001
--#define mmSDMA1_ATOMIC_CNTL_DEFAULT	0x00000200
--#define mmSDMA1_ATOMIC_PREOP_LO_DEFAULT	0x00000000
--#define mmSDMA1_ATOMIC_PREOP_HI_DEFAULT	0x00000000
--#define mmSDMA1_UTCL1_CNTL_DEFAULT	0xd0003019
--#define mmSDMA1_UTCL1_WATERMK_DEFAULT	0xfffbe1fe
--#define mmSDMA1_UTCL1_RD_STATUS_DEFAULT	0x201001ff
--#define mmSDMA1_UTCL1_WR_STATUS_DEFAULT	0x503001ff
--#define mmSDMA1_UTCL1_INV0_DEFAULT	0x00000600
--#define mmSDMA1_UTCL1_INV1_DEFAULT	0x00000000
--#define mmSDMA1_UTCL1_INV2_DEFAULT	0x00000000
--#define mmSDMA1_UTCL1_RD_XNACK0_DEFAULT	0x00000000
--#define mmSDMA1_UTCL1_RD_XNACK1_DEFAULT	0x00000000
--#define mmSDMA1_UTCL1_WR_XNACK0_DEFAULT	0x00000000
--#define mmSDMA1_UTCL1_WR_XNACK1_DEFAULT	0x00000000
--#define mmSDMA1_UTCL1_TIMEOUT_DEFAULT	0x00010001
--#define mmSDMA1_UTCL1_PAGE_DEFAULT	0x000003e0
--#define mmSDMA1_POWER_CNTL_IDLE_DEFAULT	0x06060200
--#define mmSDMA1_RELAX_ORDERING_LUT_DEFAULT	0xc0000006
--#define mmSDMA1_CHICKEN_BITS_2_DEFAULT	0x00000005
--#define mmSDMA1_STATUS3_REG_DEFAULT	0x00100000
--#define mmSDMA1_PHYSICAL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_PHYSICAL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_PHASE2_QUANTUM_DEFAULT	0x00010002
--#define mmSDMA1_ERROR_LOG_DEFAULT	0x0000000f
--#define mmSDMA1_PUB_DUMMY_REG0_DEFAULT	0x00000000
--#define mmSDMA1_PUB_DUMMY_REG1_DEFAULT	0x00000000
--#define mmSDMA1_PUB_DUMMY_REG2_DEFAULT	0x00000000
--#define mmSDMA1_PUB_DUMMY_REG3_DEFAULT	0x00000000
--#define mmSDMA1_F32_COUNTER_DEFAULT	0x00000000
--#define mmSDMA1_UNBREAKABLE_DEFAULT	0x00000000
--#define mmSDMA1_PERFMON_CNTL_DEFAULT	0x000ff7fd
--#define mmSDMA1_PERFCOUNTER0_RESULT_DEFAULT	0x00000000
--#define mmSDMA1_PERFCOUNTER1_RESULT_DEFAULT	0x00000000
--#define mmSDMA1_PERFCOUNTER_TAG_DELAY_RANGE_DEFAULT	0x00640000
--#define mmSDMA1_CRD_CNTL_DEFAULT	0x000085c0
--#define mmSDMA1_MMHUB_TRUSTLVL_DEFAULT	0x00000000
--#define mmSDMA1_GPU_IOV_VIOLATION_LOG_DEFAULT	0x00000000
--#define mmSDMA1_ULV_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_EA_DBIT_ADDR_DATA_DEFAULT	0x00000000
--#define mmSDMA1_EA_DBIT_ADDR_INDEX_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA1_GFX_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA1_GFX_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_GFX_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA1_GFX_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_GFX_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_GFX_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA1_GFX_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_GFX_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA1_GFX_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_GFX_CONTEXT_STATUS_DEFAULT	0x00000005
--#define mmSDMA1_GFX_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA1_GFX_CONTEXT_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_GFX_STATUS_DEFAULT	0x00000000
--#define mmSDMA1_GFX_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA1_GFX_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA1_GFX_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_GFX_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_GFX_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_GFX_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA1_GFX_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA1_GFX_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA1_GFX_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_GFX_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA1_GFX_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA1_GFX_MIDCMD_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA1_PAGE_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA1_PAGE_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA1_PAGE_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_CONTEXT_STATUS_DEFAULT	0x00000004
--#define mmSDMA1_PAGE_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_STATUS_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA1_PAGE_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA1_PAGE_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA1_PAGE_MIDCMD_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA1_RLC0_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA1_RLC0_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA1_RLC0_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_CONTEXT_STATUS_DEFAULT	0x00000004
--#define mmSDMA1_RLC0_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_STATUS_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA1_RLC0_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA1_RLC0_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA1_RLC0_MIDCMD_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_CNTL_DEFAULT	0x00040000
--#define mmSDMA1_RLC1_RB_BASE_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_RPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_WPTR_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_WPTR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_WPTR_POLL_CNTL_DEFAULT	0x00401000
--#define mmSDMA1_RLC1_RB_RPTR_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_RPTR_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_IB_CNTL_DEFAULT	0x00000100
--#define mmSDMA1_RLC1_IB_RPTR_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_IB_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_IB_BASE_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_IB_BASE_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_IB_SIZE_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_SKIP_CNTL_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_CONTEXT_STATUS_DEFAULT	0x00000004
--#define mmSDMA1_RLC1_DOORBELL_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_STATUS_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_DOORBELL_LOG_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_WATERMARK_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_DOORBELL_OFFSET_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_CSA_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_CSA_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_IB_SUB_REMAIN_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_PREEMPT_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_DUMMY_REG_DEFAULT	0x0000000f
--#define mmSDMA1_RLC1_RB_WPTR_POLL_ADDR_HI_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_WPTR_POLL_ADDR_LO_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_RB_AQL_CNTL_DEFAULT	0x00004000
--#define mmSDMA1_RLC1_MINOR_PTR_UPDATE_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA0_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA1_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA2_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA3_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA4_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA5_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA6_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA7_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_DATA8_DEFAULT	0x00000000
--#define mmSDMA1_RLC1_MIDCMD_CNTL_DEFAULT	0x00000000
+-/**
+- * PowerPlay feature ids.
+- */
+-enum pp_feature {
+-	PP_Feature_PowerPlay = 0,
+-	PP_Feature_User2DPerformance,
+-	PP_Feature_User3DPerformance,
+-	PP_Feature_VariBright,
+-	PP_Feature_VariBrightOnPowerXpress,
+-	PP_Feature_ReducedRefreshRate,
+-	PP_Feature_GFXClockGating,
+-	PP_Feature_OverdriveTest,
+-	PP_Feature_OverDrive,
+-	PP_Feature_PowerBudgetWaiver,
+-	PP_Feature_PowerControl,
+-	PP_Feature_PowerControl_2,
+-	PP_Feature_MultiUVDState,
+-	PP_Feature_Force3DClock,
+-	PP_Feature_BACO,
+-	PP_Feature_PowerDown,
+-	PP_Feature_DynamicUVDState,
+-	PP_Feature_VCEDPM,
+-	PP_Feature_PPM,
+-	PP_Feature_ACP_POWERGATING,
+-	PP_Feature_FFC,
+-	PP_Feature_FPS,
+-	PP_Feature_ViPG,
+-	PP_Feature_Max
+-};
 -
--#endif
+-/**
+- * Struct for PowerPlay feature info.
+- */
+-struct pp_feature_info {
+-	bool supported;               /* feature supported by PowerPlay */
+-	bool enabled;                 /* feature enabled in PowerPlay */
+-	bool enabled_default;        /* default enable status of the feature */
+-	uint32_t version;             /* feature version */
+-};
+-
+-#endif /* _PP_FEATURE_H_ */
 -- 
 2.13.6
