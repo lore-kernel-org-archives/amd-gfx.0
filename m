@@ -1,127 +1,153 @@
-From: Tom St Denis <tom.stdenis@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH v3 00/13] gpu: drm: amd: remove unused headers
-Date: Wed, 14 Feb 2018 14:35:58 -0500
-Message-ID: <3746a404-0811-0529-1e6a-faab5aaffe2e@amd.com>
+Date: Wed, 14 Feb 2018 14:48:03 -0500
+Message-ID: <CADnq5_ONUjBJEwpcEEiwUUC9NefLzc4KbwjYYz=NsoRtGtyCbg@mail.gmail.com>
 References: <1518619577-19771-1-git-send-email-clabbe@baylibre.com>
+ <3746a404-0811-0529-1e6a-faab5aaffe2e@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1518619577-19771-1-git-send-email-clabbe@baylibre.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Corentin Labbe <clabbe@baylibre.com>, David1.Zhou@amd.com, airlied@linux.ie, alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <3746a404-0811-0529-1e6a-faab5aaffe2e-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Corentin Labbe <clabbe-rdvid1DuHRBWk0Htik3J/w@public.gmane.org>, "Deucher,
+ Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-This will break umr since we source the headers from the kernel.  The 
-kernel might not use them but the different IP blocks have deltas that 
-umr is aware of.
-
-One might argue that we should then publish the headers somewhere else 
-that is public but the kernel is our vehicle right now.
-
-Thoughts Alex/Christian?
-
-Tom
-
-
-On 14/02/18 09:46 AM, Corentin Labbe wrote:
-> Hello
-> 
-> This patchset remove several headers which are not used by any source
-> file.
-> 
-> Regards
-> 
-> Change since v1:
-> - splited in multiple patchs
-> 
-> Change since v2
-> - Use --irreversible-delete for format-patch
-> 
-> Corentin Labbe (13):
->    drm/amd/include: remove unused asic_reg/oss headers
->    drm/amd/include: remove unused asic_reg/bif headers
->    drm/amd/include: remove unused asic_reg/dce headers
->    drm/amd/include: remove unused asic_reg/gca headers
->    drm/amd/include: remove unused asic_reg/gmc headers
->    drm/amd/include: remove unused asic_reg/smu headers
->    drm/amd/include: remove unused asic_reg/umc headers
->    drm/amd/include: remove unused asic_reg/uvd headers
->    drm/amd/include: remove unused asic_reg/vce headers
->    drm/amd/include: remove unused asic_reg/sdma headers
->    drm/amd/include: remove unused asic_reg/nbif headers
->    drm/amd/include: remove unused displayobject.h header
->    drm/amd/powerplay: remove unused headers
-> 
->   .../drm/amd/include/asic_reg/bif/bif_5_0_enum.h    |  1198 --
->   .../drm/amd/include/asic_reg/bif/bif_5_1_enum.h    |  1068 -
->   .../drm/amd/include/asic_reg/dce/dce_11_2_enum.h   |  6813 ------
->   .../drm/amd/include/asic_reg/dce/dce_8_0_enum.h    |  1117 -
->   .../gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h   |  2791 ---
->   .../drm/amd/include/asic_reg/gca/gfx_8_1_enum.h    |  6808 ------
->   .../drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h | 21368 -------------------
->   .../drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h    |  1198 --
->   .../drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h    |  1068 -
->   .../amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h   | 10281 ---------
->   .../drm/amd/include/asic_reg/oss/oss_2_4_enum.h    |  1340 --
->   .../drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h  |  1464 --
->   .../drm/amd/include/asic_reg/oss/oss_3_0_enum.h    |  1497 --
->   .../amd/include/asic_reg/sdma0/sdma0_4_0_default.h |   286 -
->   .../amd/include/asic_reg/sdma1/sdma1_4_0_default.h |   282 -
->   .../gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h   |   148 -
->   .../drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h |   715 -
->   .../gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h |  1344 --
->   .../drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h  |  1191 --
->   .../amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h   |  5648 -----
->   .../drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h  |  1205 --
->   .../drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h  |  1246 --
->   .../drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h  |  1282 --
->   .../drm/amd/include/asic_reg/smu/smu_8_0_enum.h    |  1072 -
->   .../drm/amd/include/asic_reg/umc/umc_6_0_default.h |    31 -
->   .../drm/amd/include/asic_reg/umc/umc_6_0_offset.h  |    52 -
->   .../drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h |   795 -
->   .../drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h    |  1211 --
->   .../drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h    |  1081 -
->   .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   |    64 -
->   .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |    99 -
->   drivers/gpu/drm/amd/include/displayobject.h        |   249 -
->   .../gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h    |   412 -
->   drivers/gpu/drm/amd/powerplay/inc/pp_feature.h     |    67 -
->   34 files changed, 76491 deletions(-)
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_0_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/bif/bif_5_1_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_d.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gca/gfx_8_1_sh_mask.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_1_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/gmc/gmc_8_2_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_sh_mask.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_2_4_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_1_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/oss_3_0_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma0/sdma0_4_0_default.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/sdma1/sdma1_4_0_default.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_d.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_6_0_sh_mask.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_d.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_0_sh_mask.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_1_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_2_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_7_1_3_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/smu/smu_8_0_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_default.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/umc/umc_6_0_offset.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_4_0_sh_mask.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_5_0_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/uvd/uvd_6_0_enum.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
->   delete mode 100644 drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
->   delete mode 100644 drivers/gpu/drm/amd/include/displayobject.h
->   delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/polaris10_ppsmc.h
->   delete mode 100644 drivers/gpu/drm/amd/powerplay/inc/pp_feature.h
-> 
+T24gV2VkLCBGZWIgMTQsIDIwMTggYXQgMjozNSBQTSwgVG9tIFN0IERlbmlzIDx0b20uc3RkZW5p
+c0BhbWQuY29tPiB3cm90ZToKPiBUaGlzIHdpbGwgYnJlYWsgdW1yIHNpbmNlIHdlIHNvdXJjZSB0
+aGUgaGVhZGVycyBmcm9tIHRoZSBrZXJuZWwuICBUaGUga2VybmVsCj4gbWlnaHQgbm90IHVzZSB0
+aGVtIGJ1dCB0aGUgZGlmZmVyZW50IElQIGJsb2NrcyBoYXZlIGRlbHRhcyB0aGF0IHVtciBpcyBh
+d2FyZQo+IG9mLgo+Cj4gT25lIG1pZ2h0IGFyZ3VlIHRoYXQgd2Ugc2hvdWxkIHRoZW4gcHVibGlz
+aCB0aGUgaGVhZGVycyBzb21ld2hlcmUgZWxzZSB0aGF0Cj4gaXMgcHVibGljIGJ1dCB0aGUga2Vy
+bmVsIGlzIG91ciB2ZWhpY2xlIHJpZ2h0IG5vdy4KPgo+IFRob3VnaHRzIEFsZXgvQ2hyaXN0aWFu
+PwoKSSBhbHNvIGxpa2UgaGF2aW5nIHRoZW0gdGhlcmUgZm9yIGRlYnVnZ2luZyBzbyBJIGNhbiB1
+c2UgdGhlIGRlZmluZXMKZm9yIGFjY2Vzc2luZyByZWdpc3RlcnMgYW5kIGJpdGZpZWxkcyB3aXRo
+b3V0IGhhdmluZyB0byBsb29rIHRoZW0gdXAKYW5kIGFkZCBsb2NhbCBkZWZpbmVzIG9yIG1hZ2lj
+IG51bWJlcnMuICBUaGUgbm9uLXJlZ2lzdGVyIGhlYWRlcnMgY2FuCmJlIHJlbW92ZWQgaG93ZXZl
+ciBzaW5jZSB0aGV5IGFyZSBtb3N0bHkgbGVmdG92ZXIgZnJvbSBjb2RlIGNsZWFudXBzLgoKQWxl
+eAoKPgo+IFRvbQo+Cj4KPgo+IE9uIDE0LzAyLzE4IDA5OjQ2IEFNLCBDb3JlbnRpbiBMYWJiZSB3
+cm90ZToKPj4KPj4gSGVsbG8KPj4KPj4gVGhpcyBwYXRjaHNldCByZW1vdmUgc2V2ZXJhbCBoZWFk
+ZXJzIHdoaWNoIGFyZSBub3QgdXNlZCBieSBhbnkgc291cmNlCj4+IGZpbGUuCj4+Cj4+IFJlZ2Fy
+ZHMKPj4KPj4gQ2hhbmdlIHNpbmNlIHYxOgo+PiAtIHNwbGl0ZWQgaW4gbXVsdGlwbGUgcGF0Y2hz
+Cj4+Cj4+IENoYW5nZSBzaW5jZSB2Mgo+PiAtIFVzZSAtLWlycmV2ZXJzaWJsZS1kZWxldGUgZm9y
+IGZvcm1hdC1wYXRjaAo+Pgo+PiBDb3JlbnRpbiBMYWJiZSAoMTMpOgo+PiAgICBkcm0vYW1kL2lu
+Y2x1ZGU6IHJlbW92ZSB1bnVzZWQgYXNpY19yZWcvb3NzIGhlYWRlcnMKPj4gICAgZHJtL2FtZC9p
+bmNsdWRlOiByZW1vdmUgdW51c2VkIGFzaWNfcmVnL2JpZiBoZWFkZXJzCj4+ICAgIGRybS9hbWQv
+aW5jbHVkZTogcmVtb3ZlIHVudXNlZCBhc2ljX3JlZy9kY2UgaGVhZGVycwo+PiAgICBkcm0vYW1k
+L2luY2x1ZGU6IHJlbW92ZSB1bnVzZWQgYXNpY19yZWcvZ2NhIGhlYWRlcnMKPj4gICAgZHJtL2Ft
+ZC9pbmNsdWRlOiByZW1vdmUgdW51c2VkIGFzaWNfcmVnL2dtYyBoZWFkZXJzCj4+ICAgIGRybS9h
+bWQvaW5jbHVkZTogcmVtb3ZlIHVudXNlZCBhc2ljX3JlZy9zbXUgaGVhZGVycwo+PiAgICBkcm0v
+YW1kL2luY2x1ZGU6IHJlbW92ZSB1bnVzZWQgYXNpY19yZWcvdW1jIGhlYWRlcnMKPj4gICAgZHJt
+L2FtZC9pbmNsdWRlOiByZW1vdmUgdW51c2VkIGFzaWNfcmVnL3V2ZCBoZWFkZXJzCj4+ICAgIGRy
+bS9hbWQvaW5jbHVkZTogcmVtb3ZlIHVudXNlZCBhc2ljX3JlZy92Y2UgaGVhZGVycwo+PiAgICBk
+cm0vYW1kL2luY2x1ZGU6IHJlbW92ZSB1bnVzZWQgYXNpY19yZWcvc2RtYSBoZWFkZXJzCj4+ICAg
+IGRybS9hbWQvaW5jbHVkZTogcmVtb3ZlIHVudXNlZCBhc2ljX3JlZy9uYmlmIGhlYWRlcnMKPj4g
+ICAgZHJtL2FtZC9pbmNsdWRlOiByZW1vdmUgdW51c2VkIGRpc3BsYXlvYmplY3QuaCBoZWFkZXIK
+Pj4gICAgZHJtL2FtZC9wb3dlcnBsYXk6IHJlbW92ZSB1bnVzZWQgaGVhZGVycwo+Pgo+PiAgIC4u
+Li9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvYmlmL2JpZl81XzBfZW51bS5oICAgIHwgIDExOTgg
+LS0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2JpZi9iaWZfNV8xX2VudW0uaCAg
+ICB8ICAxMDY4IC0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2RjZS9kY2VfMTFf
+Ml9lbnVtLmggICB8ICA2ODEzIC0tLS0tLQo+PiAgIC4uLi9kcm0vYW1kL2luY2x1ZGUvYXNpY19y
+ZWcvZGNlL2RjZV84XzBfZW51bS5oICAgIHwgIDExMTcgLQo+PiAgIC4uLi9ncHUvZHJtL2FtZC9p
+bmNsdWRlL2FzaWNfcmVnL2djYS9nZnhfOF8xX2QuaCAgIHwgIDI3OTEgLS0tCj4+ICAgLi4uL2Ry
+bS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9nY2EvZ2Z4XzhfMV9lbnVtLmggICAgfCAgNjgwOCAtLS0t
+LS0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2djYS9nZnhfOF8xX3NoX21hc2su
+aCB8IDIxMzY4Cj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRl
+L2FzaWNfcmVnL2dtYy9nbWNfOF8xX2VudW0uaCAgICB8ICAxMTk4IC0tCj4+ICAgLi4uL2RybS9h
+bWQvaW5jbHVkZS9hc2ljX3JlZy9nbWMvZ21jXzhfMl9lbnVtLmggICAgfCAgMTA2OCAtCj4+ICAg
+Li4uL2FtZC9pbmNsdWRlL2FzaWNfcmVnL25iaWYvbmJpZl82XzFfc2hfbWFzay5oICAgfCAxMDI4
+MSAtLS0tLS0tLS0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL29zcy9vc3NfMl80
+X2VudW0uaCAgICB8ICAxMzQwIC0tCj4+ICAgLi4uL2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9v
+c3Mvb3NzXzNfMF8xX2VudW0uaCAgfCAgMTQ2NCAtLQo+PiAgIC4uLi9kcm0vYW1kL2luY2x1ZGUv
+YXNpY19yZWcvb3NzL29zc18zXzBfZW51bS5oICAgIHwgIDE0OTcgLS0KPj4gICAuLi4vYW1kL2lu
+Y2x1ZGUvYXNpY19yZWcvc2RtYTAvc2RtYTBfNF8wX2RlZmF1bHQuaCB8ICAgMjg2IC0KPj4gICAu
+Li4vYW1kL2luY2x1ZGUvYXNpY19yZWcvc2RtYTEvc2RtYTFfNF8wX2RlZmF1bHQuaCB8ICAgMjgy
+IC0KPj4gICAuLi4vZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXUvc211XzZfMF9kLmgg
+ICB8ICAgMTQ4IC0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3NtdS9zbXVfNl8w
+X3NoX21hc2suaCB8ICAgNzE1IC0KPj4gICAuLi4vZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3Jl
+Zy9zbXUvc211XzdfMV8wX2QuaCB8ICAxMzQ0IC0tCj4+ICAgLi4uL2RybS9hbWQvaW5jbHVkZS9h
+c2ljX3JlZy9zbXUvc211XzdfMV8wX2VudW0uaCAgfCAgMTE5MSAtLQo+PiAgIC4uLi9hbWQvaW5j
+bHVkZS9hc2ljX3JlZy9zbXUvc211XzdfMV8wX3NoX21hc2suaCAgIHwgIDU2NDggLS0tLS0KPj4g
+ICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3NtdS9zbXVfN18xXzFfZW51bS5oICB8ICAx
+MjA1IC0tCj4+ICAgLi4uL2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXUvc211XzdfMV8yX2Vu
+dW0uaCAgfCAgMTI0NiAtLQo+PiAgIC4uLi9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc211L3Nt
+dV83XzFfM19lbnVtLmggIHwgIDEyODIgLS0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNf
+cmVnL3NtdS9zbXVfOF8wX2VudW0uaCAgICB8ICAxMDcyIC0KPj4gICAuLi4vZHJtL2FtZC9pbmNs
+dWRlL2FzaWNfcmVnL3VtYy91bWNfNl8wX2RlZmF1bHQuaCB8ICAgIDMxIC0KPj4gICAuLi4vZHJt
+L2FtZC9pbmNsdWRlL2FzaWNfcmVnL3VtYy91bWNfNl8wX29mZnNldC5oICB8ICAgIDUyIC0KPj4g
+ICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3V2ZC91dmRfNF8wX3NoX21hc2suaCB8ICAg
+Nzk1IC0KPj4gICAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3V2ZC91dmRfNV8wX2VudW0u
+aCAgICB8ICAxMjExIC0tCj4+ICAgLi4uL2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy91dmQvdXZk
+XzZfMF9lbnVtLmggICAgfCAgMTA4MSAtCj4+ICAgLi4uL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNp
+Y19yZWcvdmNlL3ZjZV8xXzBfZC5oICAgfCAgICA2NCAtCj4+ICAgLi4uL2RybS9hbWQvaW5jbHVk
+ZS9hc2ljX3JlZy92Y2UvdmNlXzFfMF9zaF9tYXNrLmggfCAgICA5OSAtCj4+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9pbmNsdWRlL2Rpc3BsYXlvYmplY3QuaCAgICAgICAgfCAgIDI0OSAtCj4+ICAg
+Li4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvcG9sYXJpczEwX3Bwc21jLmggICAgfCAgIDQx
+MiAtCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3BwX2ZlYXR1cmUuaCAg
+ICAgfCAgICA2NyAtCj4+ICAgMzQgZmlsZXMgY2hhbmdlZCwgNzY0OTEgZGVsZXRpb25zKC0pCj4+
+ICAgZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2lj
+X3JlZy9iaWYvYmlmXzVfMF9lbnVtLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQKPj4gZHJpdmVy
+cy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2JpZi9iaWZfNV8xX2VudW0uaAo+PiAgIGRl
+bGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcv
+ZGNlL2RjZV8xMV8yX2VudW0uaAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvZGNlL2RjZV84XzBfZW51bS5oCj4+ICAgZGVsZXRl
+IG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9nY2EvZ2Z4
+XzhfMV9kLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQKPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9p
+bmNsdWRlL2FzaWNfcmVnL2djYS9nZnhfOF8xX2VudW0uaAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0
+NAo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvZ2NhL2dmeF84XzFfc2hf
+bWFzay5oCj4+ICAgZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5j
+bHVkZS9hc2ljX3JlZy9nbWMvZ21jXzhfMV9lbnVtLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQK
+Pj4gZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL2dtYy9nbWNfOF8yX2VudW0u
+aAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUv
+YXNpY19yZWcvbmJpZi9uYmlmXzZfMV9zaF9tYXNrLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQK
+Pj4gZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL29zcy9vc3NfMl80X2VudW0u
+aAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUv
+YXNpY19yZWcvb3NzL29zc18zXzBfMV9lbnVtLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQKPj4g
+ZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL29zcy9vc3NfM18wX2VudW0uaAo+
+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNp
+Y19yZWcvc2RtYTAvc2RtYTBfNF8wX2RlZmF1bHQuaAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+
+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc2RtYTEvc2RtYTFfNF8wX2Rl
+ZmF1bHQuaAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1
+ZGUvYXNpY19yZWcvc211L3NtdV82XzBfZC5oCj4+ICAgZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRy
+aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXUvc211XzZfMF9zaF9tYXNrLmgK
+Pj4gICBkZWxldGUgbW9kZSAxMDA2NDQKPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2Fz
+aWNfcmVnL3NtdS9zbXVfN18xXzBfZC5oCj4+ICAgZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9zbXUvc211XzdfMV8wX2VudW0uaAo+PiAg
+IGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19y
+ZWcvc211L3NtdV83XzFfMF9zaF9tYXNrLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQKPj4gZHJp
+dmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3NtdS9zbXVfN18xXzFfZW51bS5oCj4+
+ICAgZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2lj
+X3JlZy9zbXUvc211XzdfMV8yX2VudW0uaAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvc211L3NtdV83XzFfM19lbnVtLmgKPj4g
+ICBkZWxldGUgbW9kZSAxMDA2NDQKPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNf
+cmVnL3NtdS9zbXVfOF8wX2VudW0uaAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvdW1jL3VtY182XzBfZGVmYXVsdC5oCj4+ICAg
+ZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3Jl
+Zy91bWMvdW1jXzZfMF9vZmZzZXQuaAo+PiAgIGRlbGV0ZSBtb2RlIDEwMDY0NAo+PiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvdXZkL3V2ZF80XzBfc2hfbWFzay5oCj4+ICAg
+ZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3Jl
+Zy91dmQvdXZkXzVfMF9lbnVtLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQKPj4gZHJpdmVycy9n
+cHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVnL3V2ZC91dmRfNl8wX2VudW0uaAo+PiAgIGRlbGV0
+ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvdmNlL3Zj
+ZV8xXzBfZC5oCj4+ICAgZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+aW5jbHVkZS9hc2ljX3JlZy92Y2UvdmNlXzFfMF9zaF9tYXNrLmgKPj4gICBkZWxldGUgbW9kZSAx
+MDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2Rpc3BsYXlvYmplY3QuaAo+PiAgIGRl
+bGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvcG9sYXJp
+czEwX3Bwc21jLmgKPj4gICBkZWxldGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaW5jL3BwX2ZlYXR1cmUuaAo+Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
