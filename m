@@ -1,84 +1,55 @@
-From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: Re: [PATCH] drm/amdkfd: Use ARRAY_SIZE macro in
- kfd_build_sysfs_node_entry
-Date: Thu, 15 Feb 2018 10:10:57 -0600
-Message-ID: <ea676cf7-622e-1ba7-18ff-3510410261e8@embeddedor.com>
-References: <20180119003955.GA28885@embeddedor.com>
- <1fea2528-11a5-0210-6350-e916ebfebbdf@amd.com>
- <422e897f-4b65-10f6-4184-36b78b6ea274@embeddedor.com>
- <CAFCwf13TGeBGiS_4KiTWwbY3T23JZkWod6DJE-Mi=RmYXRr54w@mail.gmail.com>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH xf86-video-ati 1/2] If glamor is too old for depth 30,
+ fall back to EXA or ShadowFB
+Date: Thu, 15 Feb 2018 17:50:23 +0100
+Message-ID: <20180215165024.9736-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAFCwf13TGeBGiS_4KiTWwbY3T23JZkWod6DJE-Mi=RmYXRr54w@mail.gmail.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Oded Gabbay <oded.gabbay@gmail.com>
-Cc: Felix Kuehling <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Hi Oded,
-
-On 02/15/2018 04:08 AM, Oded Gabbay wrote:
-> Hi Gustavo,
-> The patch is queued for the merge window of kernel 4.17 (opens in
-> about 7 weeks from now).
-> 
-
-Awesome.
-
-Thanks for the info.
---
-Gustavo
-
-> Oded
-> 
-> On Wed, Feb 14, 2018 at 11:30 PM, Gustavo A. R. Silva
-> <garsilva@embeddedor.com> wrote:
->> Hi all,
->>
->> I was just wondering about the status of this patch.
->>
->> Thanks
->> --
->> Gustavo
->>
->>
->> On 01/19/2018 04:18 PM, Felix Kuehling wrote:
->>>
->>> Looks good. This change is Reviewed-by: Felix Kuehling
->>> <Felix.Kuehling@amd.com>
->>>
->>> Regards,
->>>     Felix
->>>
->>>
->>> On 2018-01-18 07:39 PM, Gustavo A. R. Silva wrote:
->>>>
->>>> Use ARRAY_SIZE instead of dividing sizeof array with sizeof an element.
->>>>
->>>> This issue was detected with the help of Coccinelle.
->>>>
->>>> Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>> index c6a7609..7783250 100644
->>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
->>>> @@ -677,7 +677,7 @@ static int kfd_build_sysfs_node_entry(struct
->>>> kfd_topology_device *dev,
->>>>          }
->>>>          /* All hardware blocks have the same number of attributes. */
->>>> -       num_attrs = sizeof(perf_attr_iommu)/sizeof(struct kfd_perf_attr);
->>>> +       num_attrs = ARRAY_SIZE(perf_attr_iommu);
->>>>          list_for_each_entry(perf, &dev->perf_props, list) {
->>>>                  perf->attr_group = kzalloc(sizeof(struct kfd_perf_attr)
->>>>                          * num_attrs + sizeof(struct attribute_group),
->>>
->>>
->>
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpJbnN0ZWFkIG9m
+IG5vdCBzdGFydGluZyB1cCBhdCBhbGwuCgpDb3JyZXNwb25kaW5nIHRvIGFtZGdwdSBjb21taXQg
+MzdjNzI2MGJkZWYzYTUzYjBmMDI5NWE1MzFmMzM5MzhlOWFhZDhjZi4KClNpZ25lZC1vZmYtYnk6
+IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0KIHNyYy9yYWRlb25f
+Z2xhbW9yLmMgfCA4ICsrKysrKysrCiBzcmMvcmFkZW9uX2ttcy5jICAgIHwgOSAtLS0tLS0tLS0K
+IDIgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL3NyYy9yYWRlb25fZ2xhbW9yLmMgYi9zcmMvcmFkZW9uX2dsYW1vci5jCmluZGV4IDVm
+Mzc4NzQzNy4uN2MwOWFiYmE1IDEwMDY0NAotLS0gYS9zcmMvcmFkZW9uX2dsYW1vci5jCisrKyBi
+L3NyYy9yYWRlb25fZ2xhbW9yLmMKQEAgLTExOSw2ICsxMTksMTQgQEAgcmFkZW9uX2dsYW1vcl9w
+cmVfaW5pdChTY3JuSW5mb1B0ciBzY3JuKQogCQlyZXR1cm4gRkFMU0U7CiAJfQogCisJaWYgKHNj
+cm4tPmRlcHRoID09IDMwICYmCisJICAgIHhvcmdHZXRWZXJzaW9uKCkgPCBYT1JHX1ZFUlNJT05f
+TlVNRVJJQygxLDE5LDk5LDEsMCkpIHsKKwkJeGY4NkRydk1zZyhzY3JuLT5zY3JuSW5kZXgsIFhf
+V0FSTklORywKKwkJCSAgICJEZXB0aCAzMCBpcyBub3Qgc3VwcG9ydGVkIGJ5IEdMQU1PUiB3aXRo
+IFhvcmcgPCAiCisJCQkgICAiMS4xOS45OS4xXG4iKTsKKwkJcmV0dXJuIEZBTFNFOworCX0KKwog
+I2lmIFhPUkdfVkVSU0lPTl9DVVJSRU5UIDwgWE9SR19WRVJTSU9OX05VTUVSSUMoMSwxNSwwLDAs
+MCkKIAlpZiAoIXhmODZMb2FkZXJDaGVja1N5bWJvbCgiZ2xhbW9yX2VnbF9pbml0IikpIHsKIAkJ
+eGY4NkRydk1zZyhzY3JuLT5zY3JuSW5kZXgsIHMgPyBYX0VSUk9SIDogWF9XQVJOSU5HLApkaWZm
+IC0tZ2l0IGEvc3JjL3JhZGVvbl9rbXMuYyBiL3NyYy9yYWRlb25fa21zLmMKaW5kZXggNmU1YmY3
+ODE0Li5iMjY4ZjdlYTcgMTAwNjQ0Ci0tLSBhL3NyYy9yYWRlb25fa21zLmMKKysrIGIvc3JjL3Jh
+ZGVvbl9rbXMuYwpAQCAtMTc3NSwxNSArMTc3NSw2IEBAIEJvb2wgUkFERU9OUHJlSW5pdF9LTVMo
+U2NybkluZm9QdHIgcFNjcm4sIGludCBmbGFncykKICAgICBpZiAoIVJBREVPTlByZUluaXRBY2Nl
+bF9LTVMocFNjcm4pKQogCXJldHVybiBGQUxTRTsKIAotICAgIC8qIERlcHRoIDMwIG5vdCB5ZXQg
+c3VwcG9ydGVkIHVuZGVyIGdsYW1vci4gKi8KLSAgICBpZiAocFNjcm4tPmRlcHRoID09IDMwICYm
+IGluZm8tPnVzZV9nbGFtb3IgJiYKLQl4b3JnR2V0VmVyc2lvbigpIDwgWE9SR19WRVJTSU9OX05V
+TUVSSUMoMSwxOSw5OSwxLDApKSB7Ci0JeGY4NkRydk1zZyhwU2Nybi0+c2NybkluZGV4LCBYX0VS
+Uk9SLAotCQkgICAiR2l2ZW4gZGVwdGggKCVkKSBpcyBub3Qgc3VwcG9ydGVkIHVuZGVyIEdMQU1P
+UiBhY2NlbC4gU2VsZWN0IEVYQS5cbiIsCi0JCSAgIHBTY3JuLT5kZXB0aCk7Ci0JcmV0dXJuIEZB
+TFNFOwotICAgIH0KLQogICAgIC8qIERlcHRoIDMwIG9ubHkgc3VwcG9ydGVkIHNpbmNlIExpbnV4
+IDMuMTYgLyBrbXMgZHJpdmVyIG1pbm9yIHZlcnNpb24gMzkgKi8KICAgICBpZiAocFNjcm4tPmRl
+cHRoID09IDMwICYmIGluZm8tPmRyaTIucEtlcm5lbERSTVZlcnNpb24tPnZlcnNpb25fbWlub3Ig
+PCAzOSkgewogCXhmODZEcnZNc2cocFNjcm4tPnNjcm5JbmRleCwgWF9FUlJPUiwKLS0gCjIuMTYu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
