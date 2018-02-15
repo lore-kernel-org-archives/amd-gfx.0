@@ -1,78 +1,91 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?="
-        <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH 2/3] drm/ttm: handle already locked BOs during eviction and swapout.
-Date: Thu, 15 Feb 2018 15:19:43 +0100
-Message-ID: <20180215141944.4332-2-christian.koenig@amd.com>
-References: <20180215141944.4332-1-christian.koenig@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu: update the PASID mapping only on demand
+Date: Thu, 15 Feb 2018 15:24:04 +0100
+Message-ID: <20180215142404.5141-2-christian.koenig@amd.com>
+References: <20180215142404.5141-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180215141944.4332-1-christian.koenig@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180215142404.5141-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This solves the problem that when we swapout a BO from a domain we
-sometimes couldn't make room for it because holding the lock blocks all
-other BOs with this reservation object.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c | 33 ++++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index d90b1cf10b27..fba40e22d088 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -713,31 +713,30 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- EXPORT_SYMBOL(ttm_bo_eviction_valuable);
- 
- /**
-- * Check the target bo is allowable to be evicted or swapout, including cases:
-- *
-- * a. if share same reservation object with ctx->resv, have assumption
-- * reservation objects should already be locked, so not lock again and
-- * return true directly when either the opreation allow_reserved_eviction
-- * or the target bo already is in delayed free list;
-- *
-- * b. Otherwise, trylock it.
-+ * Check if the target bo is allowed to be evicted or swapedout.
-  */
- static bool ttm_bo_evict_swapout_allowable(struct ttm_buffer_object *bo,
--			struct ttm_operation_ctx *ctx, bool *locked)
-+					   struct ttm_operation_ctx *ctx,
-+					   bool *locked)
- {
--	bool ret = false;
-+	/* First check if we can lock it */
-+	*locked = reservation_object_trylock(bo->resv);
-+	if (*locked)
-+		return true;
- 
--	*locked = false;
-+	/* Check if it's locked because it is part of the current operation */
- 	if (bo->resv == ctx->resv) {
- 		reservation_object_assert_held(bo->resv);
--		if (ctx->allow_reserved_eviction || !list_empty(&bo->ddestroy))
--			ret = true;
--	} else {
--		*locked = reservation_object_trylock(bo->resv);
--		ret = *locked;
-+		return ctx->allow_reserved_eviction ||
-+			!list_empty(&bo->ddestroy);
- 	}
- 
--	return ret;
-+	/* Check if it's locked because it was already evicted */
-+	if (ww_mutex_is_owned_by(&bo->resv->lock, current, NULL))
-+		return true;
-+
-+	/* Some other thread is using it, don't touch it */
-+	return false;
- }
- 
- static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
--- 
-2.14.1
+VXBkYXRpbmcgdGhlIFBBU0lEIGlzIHJhdGhlciBoZWF2eXdlaWdodCBhbmQgc2hvdWxkbid0IGJl
+IGRvbmUgYWxsIHRoZQp0aW1lLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hy
+aXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9pZHMuYyB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pZHMu
+aCB8ICAzICsrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgIHwgMzcg
+KysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDMyIGlu
+c2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2lkcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2lkcy5jCmluZGV4IDdkMjgwNTcyOWMyMC4uNmY0NDczNGRkMzVmIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWRzLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lkcy5jCkBAIC02MDYsNiArNjA2LDcgQEAgdm9pZCBhbWRn
+cHVfdm1pZF9tZ3JfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJCWFtZGdwdV9z
+eW5jX2ZyZWUoJmlkLT5hY3RpdmUpOwogCQkJZG1hX2ZlbmNlX3B1dChpZC0+Zmx1c2hlZF91cGRh
+dGVzKTsKIAkJCWRtYV9mZW5jZV9wdXQoaWQtPmxhc3RfZmx1c2gpOworCQkJZG1hX2ZlbmNlX3B1
+dChpZC0+cGFzaWRfbWFwcGluZyk7CiAJCX0KIAl9CiB9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWRzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfaWRzLmgKaW5kZXggMjBkNGVjYTZjZDZhLi43NjI1NDE5ZjBmYzIgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pZHMuaAorKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWRzLmgKQEAgLTU3LDYgKzU3LDkgQEAgc3RydWN0
+IGFtZGdwdV92bWlkIHsKIAl1aW50MzJfdAkJZ3dzX3NpemU7CiAJdWludDMyX3QJCW9hX2Jhc2U7
+CiAJdWludDMyX3QJCW9hX3NpemU7CisKKwl1bnNpZ25lZAkJcGFzaWQ7CisJc3RydWN0IGRtYV9m
+ZW5jZQkqcGFzaWRfbWFwcGluZzsKIH07CiAKIHN0cnVjdCBhbWRncHVfdm1pZF9tZ3IgewpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCBhZmExNmE4NjJlYWEuLjBiMjM3
+ZTAyN2NhYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTU5MSwx
+NCArNTkxLDI0IEBAIGludCBhbWRncHVfdm1fZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
+LCBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLCBib29sIG5lZWRfCiAJCWlkLT5vYV9iYXNlICE9IGpv
+Yi0+b2FfYmFzZSB8fAogCQlpZC0+b2Ffc2l6ZSAhPSBqb2ItPm9hX3NpemUpOwogCWJvb2wgdm1f
+Zmx1c2hfbmVlZGVkID0gam9iLT52bV9uZWVkc19mbHVzaDsKKwlib29sIHBhc2lkX21hcHBpbmdf
+bmVlZGVkID0gaWQtPnBhc2lkICE9IGpvYi0+cGFzaWQgfHwKKwkJIWlkLT5wYXNpZF9tYXBwaW5n
+IHx8CisJCSFkbWFfZmVuY2VfaXNfc2lnbmFsZWQoaWQtPnBhc2lkX21hcHBpbmcpOworCXN0cnVj
+dCBkbWFfZmVuY2UgKmZlbmNlID0gTlVMTDsKIAl1bnNpZ25lZCBwYXRjaF9vZmZzZXQgPSAwOwog
+CWludCByOwogCiAJaWYgKGFtZGdwdV92bWlkX2hhZF9ncHVfcmVzZXQoYWRldiwgaWQpKSB7CiAJ
+CWdkc19zd2l0Y2hfbmVlZGVkID0gdHJ1ZTsKIAkJdm1fZmx1c2hfbmVlZGVkID0gdHJ1ZTsKKwkJ
+cGFzaWRfbWFwcGluZ19uZWVkZWQgPSB0cnVlOwogCX0KIAorCWdkc19zd2l0Y2hfbmVlZGVkICY9
+ICEhcmluZy0+ZnVuY3MtPmVtaXRfZ2RzX3N3aXRjaDsKKwl2bV9mbHVzaF9uZWVkZWQgJj0gISFy
+aW5nLT5mdW5jcy0+ZW1pdF92bV9mbHVzaDsKKwlwYXNpZF9tYXBwaW5nX25lZWRlZCAmPSBhZGV2
+LT5nbWMuZ21jX2Z1bmNzLT5lbWl0X3Bhc2lkX21hcHBpbmcgJiYKKwkJcmluZy0+ZnVuY3MtPmVt
+aXRfd3JlZzsKKwogCWlmICghdm1fZmx1c2hfbmVlZGVkICYmICFnZHNfc3dpdGNoX25lZWRlZCAm
+JiAhbmVlZF9waXBlX3N5bmMpCiAJCXJldHVybiAwOwogCkBAIC02MDgsMjcgKzYxOCwzNiBAQCBp
+bnQgYW1kZ3B1X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgc3RydWN0IGFtZGdw
+dV9qb2IgKmpvYiwgYm9vbCBuZWVkXwogCWlmIChuZWVkX3BpcGVfc3luYykKIAkJYW1kZ3B1X3Jp
+bmdfZW1pdF9waXBlbGluZV9zeW5jKHJpbmcpOwogCi0JaWYgKHJpbmctPmZ1bmNzLT5lbWl0X3Zt
+X2ZsdXNoICYmIHZtX2ZsdXNoX25lZWRlZCkgewotCQlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZTsK
+LQorCWlmICh2bV9mbHVzaF9uZWVkZWQpIHsKIAkJdHJhY2VfYW1kZ3B1X3ZtX2ZsdXNoKHJpbmcs
+IGpvYi0+dm1pZCwgam9iLT52bV9wZF9hZGRyKTsKIAkJYW1kZ3B1X3JpbmdfZW1pdF92bV9mbHVz
+aChyaW5nLCBqb2ItPnZtaWQsIGpvYi0+dm1fcGRfYWRkcik7Ci0JCWlmIChhZGV2LT5nbWMuZ21j
+X2Z1bmNzLT5lbWl0X3Bhc2lkX21hcHBpbmcgJiYKLQkJICAgIHJpbmctPmZ1bmNzLT5lbWl0X3dy
+ZWcpCi0JCQlhbWRncHVfZ21jX2VtaXRfcGFzaWRfbWFwcGluZyhyaW5nLCBqb2ItPnZtaWQsCi0J
+CQkJCQkgICAgICBqb2ItPnBhc2lkKTsKKwl9CiAKKwlpZiAocGFzaWRfbWFwcGluZ19uZWVkZWQp
+CisJCWFtZGdwdV9nbWNfZW1pdF9wYXNpZF9tYXBwaW5nKHJpbmcsIGpvYi0+dm1pZCwgam9iLT5w
+YXNpZCk7CisKKwlpZiAodm1fZmx1c2hfbmVlZGVkIHx8IHBhc2lkX21hcHBpbmdfbmVlZGVkKSB7
+CiAJCXIgPSBhbWRncHVfZmVuY2VfZW1pdChyaW5nLCAmZmVuY2UpOwogCQlpZiAocikKIAkJCXJl
+dHVybiByOworCX0KIAorCWlmICh2bV9mbHVzaF9uZWVkZWQpIHsKIAkJbXV0ZXhfbG9jaygmaWRf
+bWdyLT5sb2NrKTsKIAkJZG1hX2ZlbmNlX3B1dChpZC0+bGFzdF9mbHVzaCk7Ci0JCWlkLT5sYXN0
+X2ZsdXNoID0gZmVuY2U7Ci0JCWlkLT5jdXJyZW50X2dwdV9yZXNldF9jb3VudCA9IGF0b21pY19y
+ZWFkKCZhZGV2LT5ncHVfcmVzZXRfY291bnRlcik7CisJCWlkLT5sYXN0X2ZsdXNoID0gZG1hX2Zl
+bmNlX2dldChmZW5jZSk7CisJCWlkLT5jdXJyZW50X2dwdV9yZXNldF9jb3VudCA9CisJCQlhdG9t
+aWNfcmVhZCgmYWRldi0+Z3B1X3Jlc2V0X2NvdW50ZXIpOwogCQltdXRleF91bmxvY2soJmlkX21n
+ci0+bG9jayk7CiAJfQogCisJaWYgKHBhc2lkX21hcHBpbmdfbmVlZGVkKSB7CisJCWlkLT5wYXNp
+ZCA9IGpvYi0+cGFzaWQ7CisJCWRtYV9mZW5jZV9wdXQoaWQtPnBhc2lkX21hcHBpbmcpOworCQlp
+ZC0+cGFzaWRfbWFwcGluZyA9IGRtYV9mZW5jZV9nZXQoZmVuY2UpOworCX0KKwlkbWFfZmVuY2Vf
+cHV0KGZlbmNlKTsKKwogCWlmIChyaW5nLT5mdW5jcy0+ZW1pdF9nZHNfc3dpdGNoICYmIGdkc19z
+d2l0Y2hfbmVlZGVkKSB7CiAJCWlkLT5nZHNfYmFzZSA9IGpvYi0+Z2RzX2Jhc2U7CiAJCWlkLT5n
+ZHNfc2l6ZSA9IGpvYi0+Z2RzX3NpemU7Ci0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
