@@ -1,89 +1,78 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 3/3] drm/ttm: keep BOs reserved until end of eviction
-Date: Thu, 15 Feb 2018 15:19:44 +0100
-Message-ID: <20180215141944.4332-3-christian.koenig@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?="
+        <ckoenig.leichtzumerken@gmail.com>
+Subject: [PATCH 2/3] drm/ttm: handle already locked BOs during eviction and swapout.
+Date: Thu, 15 Feb 2018 15:19:43 +0100
+Message-ID: <20180215141944.4332-2-christian.koenig@amd.com>
 References: <20180215141944.4332-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180215141944.4332-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180215141944.4332-1-christian.koenig@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyBhdm9pZHMgcHJvYmxlbXMgd2hlbiBCT3MgYXJlIGV2aWN0ZWQgYnV0IGRpcmVjdGx5IG1v
-dmVkIGJhY2sgaW50bwp0aGUgZG9tYWluIGZyb20gb3RoZXIgdGhyZWFkcy4KClNpZ25lZC1vZmYt
-Ynk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIHwgMzcgKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KystLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDI5IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyBiL2RyaXZlcnMv
-Z3B1L2RybS90dG0vdHRtX2JvLmMKaW5kZXggZmJhNDBlMjJkMDg4Li41NjhjZjIxNmIzNzQgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL3R0bS90dG1fYm8uYwpAQCAtNzQyLDcgKzc0Miw4IEBAIHN0YXRpYyBib29sIHR0bV9ib19l
-dmljdF9zd2Fwb3V0X2FsbG93YWJsZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAogc3Rh
-dGljIGludCB0dG1fbWVtX2V2aWN0X2ZpcnN0KHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAog
-CQkJICAgICAgIHVpbnQzMl90IG1lbV90eXBlLAogCQkJICAgICAgIGNvbnN0IHN0cnVjdCB0dG1f
-cGxhY2UgKnBsYWNlLAotCQkJICAgICAgIHN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAqY3R4KQor
-CQkJICAgICAgIHN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAqY3R4LAorCQkJICAgICAgIHN0cnVj
-dCBsaXN0X2hlYWQgKmV2aWN0ZWQpCiB7CiAJc3RydWN0IHR0bV9ib19nbG9iYWwgKmdsb2IgPSBi
-ZGV2LT5nbG9iOwogCXN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuID0gJmJkZXYtPm1h
-blttZW1fdHlwZV07CkBAIC03OTIsMTcgKzc5MywyOCBAQCBzdGF0aWMgaW50IHR0bV9tZW1fZXZp
-Y3RfZmlyc3Qoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCiAKIAlyZXQgPSB0dG1fYm9fZXZp
-Y3QoYm8sIGN0eCk7CiAJaWYgKGxvY2tlZCkgewotCQl0dG1fYm9fdW5yZXNlcnZlKGJvKTsKKwkJ
-bGlzdF9hZGRfdGFpbCgmYm8tPmxydSwgZXZpY3RlZCk7CiAJfSBlbHNlIHsKIAkJc3Bpbl9sb2Nr
-KCZnbG9iLT5scnVfbG9jayk7CiAJCXR0bV9ib19hZGRfdG9fbHJ1KGJvKTsKIAkJc3Bpbl91bmxv
-Y2soJmdsb2ItPmxydV9sb2NrKTsKKwkJa3JlZl9wdXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19y
-ZWxlYXNlX2xpc3QpOwogCX0KIAotCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVs
-ZWFzZV9saXN0KTsKIAlyZXR1cm4gcmV0OwogfQogCitzdGF0aWMgdm9pZCB0dG1fbWVtX2V2aWN0
-X2NsZWFudXAoc3RydWN0IGxpc3RfaGVhZCAqZXZpY3RlZCkKK3sKKwlzdHJ1Y3QgdHRtX2J1ZmZl
-cl9vYmplY3QgKmJvLCAqdG1wOworCisJbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlKGJvLCB0bXAs
-IGV2aWN0ZWQsIGxydSkgeworCQlsaXN0X2RlbF9pbml0KCZiby0+bHJ1KTsKKwkJdHRtX2JvX3Vu
-cmVzZXJ2ZShibyk7CisJCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVsZWFzZV9s
-aXN0KTsKKwl9Cit9CisKIHZvaWQgdHRtX2JvX21lbV9wdXQoc3RydWN0IHR0bV9idWZmZXJfb2Jq
-ZWN0ICpibywgc3RydWN0IHR0bV9tZW1fcmVnICptZW0pCiB7CiAJc3RydWN0IHR0bV9tZW1fdHlw
-ZV9tYW5hZ2VyICptYW4gPSAmYm8tPmJkZXYtPm1hblttZW0tPm1lbV90eXBlXTsKQEAgLTg1Miwy
-MCArODY0LDI2IEBAIHN0YXRpYyBpbnQgdHRtX2JvX21lbV9mb3JjZV9zcGFjZShzdHJ1Y3QgdHRt
-X2J1ZmZlcl9vYmplY3QgKmJvLAogewogCXN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2ID0gYm8t
-PmJkZXY7CiAJc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4gPSAmYmRldi0+bWFuW21l
-bV90eXBlXTsKKwlzdHJ1Y3QgbGlzdF9oZWFkIGV2aWN0ZWQ7CiAJaW50IHJldDsKIAorCUlOSVRf
-TElTVF9IRUFEKCZldmljdGVkKTsKIAlkbyB7CiAJCXJldCA9ICgqbWFuLT5mdW5jLT5nZXRfbm9k
-ZSkobWFuLCBibywgcGxhY2UsIG1lbSk7CiAJCWlmICh1bmxpa2VseShyZXQgIT0gMCkpCiAJCQly
-ZXR1cm4gcmV0OwogCQlpZiAobWVtLT5tbV9ub2RlKQogCQkJYnJlYWs7Ci0JCXJldCA9IHR0bV9t
-ZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVtX3R5cGUsIHBsYWNlLCBjdHgpOworCQlyZXQgPSB0dG1f
-bWVtX2V2aWN0X2ZpcnN0KGJkZXYsIG1lbV90eXBlLCBwbGFjZSwgY3R4LCAmZXZpY3RlZCk7CiAJ
-CWlmICh1bmxpa2VseShyZXQgIT0gMCkpCi0JCQlyZXR1cm4gcmV0OworCQkJZ290byBlcnJvcjsK
-IAl9IHdoaWxlICgxKTsKIAltZW0tPm1lbV90eXBlID0gbWVtX3R5cGU7Ci0JcmV0dXJuIHR0bV9i
-b19hZGRfbW92ZV9mZW5jZShibywgbWFuLCBtZW0pOworCXJldCA9IHR0bV9ib19hZGRfbW92ZV9m
-ZW5jZShibywgbWFuLCBtZW0pOworCitlcnJvcjoKKwl0dG1fbWVtX2V2aWN0X2NsZWFudXAoJmV2
-aWN0ZWQpOworCXJldHVybiByZXQ7CiB9CiAKIHN0YXRpYyB1aW50MzJfdCB0dG1fYm9fc2VsZWN0
-X2NhY2hpbmcoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCkBAIC0xMzQ1LDYgKzEz
-NjMsNyBAQCBzdGF0aWMgaW50IHR0bV9ib19mb3JjZV9saXN0X2NsZWFuKHN0cnVjdCB0dG1fYm9f
-ZGV2aWNlICpiZGV2LAogCXN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCBjdHggPSB7IGZhbHNlLCBm
-YWxzZSB9OwogCXN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuID0gJmJkZXYtPm1hbltt
-ZW1fdHlwZV07CiAJc3RydWN0IHR0bV9ib19nbG9iYWwgKmdsb2IgPSBiZGV2LT5nbG9iOworCXN0
-cnVjdCBsaXN0X2hlYWQgZXZpY3RlZDsKIAlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZTsKIAlpbnQg
-cmV0OwogCXVuc2lnbmVkIGk7CkBAIC0xMzUyLDE4ICsxMzcxLDIwIEBAIHN0YXRpYyBpbnQgdHRt
-X2JvX2ZvcmNlX2xpc3RfY2xlYW4oc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCiAJLyoKIAkg
-KiBDYW4ndCB1c2Ugc3RhbmRhcmQgbGlzdCB0cmF2ZXJzYWwgc2luY2Ugd2UncmUgdW5sb2NraW5n
-LgogCSAqLwotCisJSU5JVF9MSVNUX0hFQUQoJmV2aWN0ZWQpOwogCXNwaW5fbG9jaygmZ2xvYi0+
-bHJ1X2xvY2spOwogCWZvciAoaSA9IDA7IGkgPCBUVE1fTUFYX0JPX1BSSU9SSVRZOyArK2kpIHsK
-IAkJd2hpbGUgKCFsaXN0X2VtcHR5KCZtYW4tPmxydVtpXSkpIHsKIAkJCXNwaW5fdW5sb2NrKCZn
-bG9iLT5scnVfbG9jayk7Ci0JCQlyZXQgPSB0dG1fbWVtX2V2aWN0X2ZpcnN0KGJkZXYsIG1lbV90
-eXBlLCBOVUxMLCAmY3R4KTsKKwkJCXJldCA9IHR0bV9tZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVt
-X3R5cGUsIE5VTEwsICZjdHgsCisJCQkJCQkgICZldmljdGVkKTsKIAkJCWlmIChyZXQpCiAJCQkJ
-cmV0dXJuIHJldDsKIAkJCXNwaW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOwogCQl9CiAJfQogCXNw
-aW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7CisJdHRtX21lbV9ldmljdF9jbGVhbnVwKCZldmlj
-dGVkKTsKIAogCXNwaW5fbG9jaygmbWFuLT5tb3ZlX2xvY2spOwogCWZlbmNlID0gZG1hX2ZlbmNl
-X2dldChtYW4tPm1vdmUpOwotLSAKMi4xNC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+This solves the problem that when we swapout a BO from a domain we
+sometimes couldn't make room for it because holding the lock blocks all
+other BOs with this reservation object.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 33 ++++++++++++++++-----------------
+ 1 file changed, 16 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index d90b1cf10b27..fba40e22d088 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -713,31 +713,30 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ EXPORT_SYMBOL(ttm_bo_eviction_valuable);
+ 
+ /**
+- * Check the target bo is allowable to be evicted or swapout, including cases:
+- *
+- * a. if share same reservation object with ctx->resv, have assumption
+- * reservation objects should already be locked, so not lock again and
+- * return true directly when either the opreation allow_reserved_eviction
+- * or the target bo already is in delayed free list;
+- *
+- * b. Otherwise, trylock it.
++ * Check if the target bo is allowed to be evicted or swapedout.
+  */
+ static bool ttm_bo_evict_swapout_allowable(struct ttm_buffer_object *bo,
+-			struct ttm_operation_ctx *ctx, bool *locked)
++					   struct ttm_operation_ctx *ctx,
++					   bool *locked)
+ {
+-	bool ret = false;
++	/* First check if we can lock it */
++	*locked = reservation_object_trylock(bo->resv);
++	if (*locked)
++		return true;
+ 
+-	*locked = false;
++	/* Check if it's locked because it is part of the current operation */
+ 	if (bo->resv == ctx->resv) {
+ 		reservation_object_assert_held(bo->resv);
+-		if (ctx->allow_reserved_eviction || !list_empty(&bo->ddestroy))
+-			ret = true;
+-	} else {
+-		*locked = reservation_object_trylock(bo->resv);
+-		ret = *locked;
++		return ctx->allow_reserved_eviction ||
++			!list_empty(&bo->ddestroy);
+ 	}
+ 
+-	return ret;
++	/* Check if it's locked because it was already evicted */
++	if (ww_mutex_is_owned_by(&bo->resv->lock, current, NULL))
++		return true;
++
++	/* Some other thread is using it, don't touch it */
++	return false;
+ }
+ 
+ static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
+-- 
+2.14.1
