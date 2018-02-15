@@ -1,64 +1,84 @@
 From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: Re: [PATCH] drm/amdgpu_gem: fix error handling path in
- amdgpu_gem_va_update_vm
-Date: Thu, 15 Feb 2018 10:11:40 -0600
-Message-ID: <fcd63cde-c593-32d5-5b7a-0ffd0a602bb3@embeddedor.com>
-References: <20180215052000.GA25691@embeddedgus>
- <b3638ffe-b29f-b30b-4a2c-ccc50f7562b0@gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Use ARRAY_SIZE macro in
+ kfd_build_sysfs_node_entry
+Date: Thu, 15 Feb 2018 10:10:57 -0600
+Message-ID: <ea676cf7-622e-1ba7-18ff-3510410261e8@embeddedor.com>
+References: <20180119003955.GA28885@embeddedor.com>
+ <1fea2528-11a5-0210-6350-e916ebfebbdf@amd.com>
+ <422e897f-4b65-10f6-4184-36b78b6ea274@embeddedor.com>
+ <CAFCwf13TGeBGiS_4KiTWwbY3T23JZkWod6DJE-Mi=RmYXRr54w@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <b3638ffe-b29f-b30b-4a2c-ccc50f7562b0@gmail.com>
+In-Reply-To: <CAFCwf13TGeBGiS_4KiTWwbY3T23JZkWod6DJE-Mi=RmYXRr54w@mail.gmail.com>
 Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: christian.koenig@amd.com, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: Oded Gabbay <oded.gabbay@gmail.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
+Hi Oded,
 
-
-On 02/15/2018 06:32 AM, Christian König wrote:
-> Am 15.02.2018 um 06:20 schrieb Gustavo A. R. Silva:
->> Currently, if amdgpu_vm_bo_update() fails, the returned error
->> is being ignored.
->>
->> Fix this by properly checking _r_ after calling amdgpu_vm_bo_update.
->> Also, remove redundant code just before label _error_.
->>
->> Addresses-Coverity-ID: 1464280 ("Unused value")
->> Fixes: 0abc6878fc2d ("drm/amdgpu: update VM PDs after the PTs")
->> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
-> 
-> Reviewed-by: Christian König <christian.koenig@amd.com>
+On 02/15/2018 04:08 AM, Oded Gabbay wrote:
+> Hi Gustavo,
+> The patch is queued for the merge window of kernel 4.17 (opens in
+> about 7 weeks from now).
 > 
 
-Thanks, Christian
+Awesome.
+
+Thanks for the info.
 --
 Gustavo
 
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 7 ++++---
->>   1 file changed, 4 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index e48b4ec..db85fc0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -523,12 +523,13 @@ static void amdgpu_gem_va_update_vm(struct 
->> amdgpu_device *adev,
->>           goto error;
->>       if (operation == AMDGPU_VA_OP_MAP ||
->> -        operation == AMDGPU_VA_OP_REPLACE)
->> +        operation == AMDGPU_VA_OP_REPLACE) {
->>           r = amdgpu_vm_bo_update(adev, bo_va, false);
->> +        if (r)
->> +            goto error;
->> +    }
->>       r = amdgpu_vm_update_directories(adev, vm);
->> -    if (r)
->> -        goto error;
->>   error:
->>       if (r && r != -ERESTARTSYS)
+> Oded
 > 
+> On Wed, Feb 14, 2018 at 11:30 PM, Gustavo A. R. Silva
+> <garsilva@embeddedor.com> wrote:
+>> Hi all,
+>>
+>> I was just wondering about the status of this patch.
+>>
+>> Thanks
+>> --
+>> Gustavo
+>>
+>>
+>> On 01/19/2018 04:18 PM, Felix Kuehling wrote:
+>>>
+>>> Looks good. This change is Reviewed-by: Felix Kuehling
+>>> <Felix.Kuehling@amd.com>
+>>>
+>>> Regards,
+>>>     Felix
+>>>
+>>>
+>>> On 2018-01-18 07:39 PM, Gustavo A. R. Silva wrote:
+>>>>
+>>>> Use ARRAY_SIZE instead of dividing sizeof array with sizeof an element.
+>>>>
+>>>> This issue was detected with the help of Coccinelle.
+>>>>
+>>>> Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>> index c6a7609..7783250 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>>> @@ -677,7 +677,7 @@ static int kfd_build_sysfs_node_entry(struct
+>>>> kfd_topology_device *dev,
+>>>>          }
+>>>>          /* All hardware blocks have the same number of attributes. */
+>>>> -       num_attrs = sizeof(perf_attr_iommu)/sizeof(struct kfd_perf_attr);
+>>>> +       num_attrs = ARRAY_SIZE(perf_attr_iommu);
+>>>>          list_for_each_entry(perf, &dev->perf_props, list) {
+>>>>                  perf->attr_group = kzalloc(sizeof(struct kfd_perf_attr)
+>>>>                          * num_attrs + sizeof(struct attribute_group),
+>>>
+>>>
+>>
