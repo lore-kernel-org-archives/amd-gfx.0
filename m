@@ -1,21 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: amdgpu with 8+ cards for GPU mining?
-Date: Mon, 19 Feb 2018 14:21:16 +0100
-Message-ID: <064a018e-9b61-4559-e4af-929b0bccd841@amd.com>
-References: <CAPoeEY80EyzCrRfTFp7E9VreZAzEUC4SQ6Kuqynn2Q3oL9CB5A@mail.gmail.com>
- <2c8f8862-9884-fd90-b8bb-0949ecd18185@gmail.com>
- <CAPoeEY8F_uHAZbh2o12X7JME8oG_y18CxoJhs3_Q4mxku-_F2Q@mail.gmail.com>
- <98480e52-41aa-1aa5-deee-e72ac3338310@amd.com>
- <CAPoeEY9w63K4JsgcGH7b7X7VCjDZwTKFUPxbjrSH=_62kJP7Yg@mail.gmail.com>
- <5bad2ebd-2de3-028e-e8e5-918d04e3dfb5@gmail.com>
- <a7ba184a-d45e-8d5e-6ecb-417f6143dbd1@amd.com>
- <CAPoeEY8uEOt2PR5raz0Y10=xqJvxObh52UvLJQGsBMw-DhzC7A@mail.gmail.com>
- <5025ec18-0343-019c-29d4-43dee75c5113@gmail.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu: mitigate workaround for i915
+Date: Mon, 19 Feb 2018 14:57:55 +0100
+Message-ID: <20180219135755.1714-2-christian.koenig@amd.com>
+References: <20180219135755.1714-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------C0DBA12949F15BA913621626"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5025ec18-0343-019c-29d4-43dee75c5113-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180219135755.1714-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,212 +18,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Joseph Wang <joequant-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---------------C0DBA12949F15BA913621626
-Content-Type: multipart/alternative;
- boundary="------------2F09C55235A091D82C48DCD2"
-
---------------2F09C55235A091D82C48DCD2
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Joseph,
-
-as a band aid you can try the attached patch. It should at least fix the 
-crash at hand and allow amdgpu to continue with the boot process.
-
-Regards,
-Christian.
-
-Am 19.02.2018 um 14:13 schrieb Christian König:
-> Hi Joseph,
->
-> and here is the root cause of the problem:
->> 0b:00.0 VGA compatible controller: Advanced Micro Devices, Inc. 
->> [AMD/ATI] Ellesmere [Radeon RX 470/480/570/580] (rev ef) (prog-if 00 
->> [VGA controller])
->>     Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Device 0b31
->>     Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- 
->> ParErr- Stepping- SERR- FastB2B- DisINTx-
->>     Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- 
->> <TAbort- <MAbort- >SERR- <PERR- INTx-
->>     Interrupt: pin A routed to IRQ 11
->>     Region 0: Memory at <ignored> (64-bit, prefetchable) [disabled]
->>     Region 2: Memory at b0000000 (64-bit, prefetchable) [disabled] 
->> [size=2M]
->
-> The BIOS is not able to assign resources to one of the VGA adapters 
-> when there are more than eight installed.
->
-> You could try with pci=realloc, but I doubt that there is much we can 
-> do in the operating system when the BIOS messed things up like that.
->
-> What we should do is to prevent amdgpu from crashing so badly, e.g. 
-> allow to cleanly continue with the working hardware even when one of 
-> the devices doesn't work.
->
->> when I load in amdgpu, everything froze, so I don't have the log.
-> You can work around that using netconsole, see 
-> Documentation/networking/netconsole.txt.
->
-> Going to try to fix that by just using the screen shot you send 
-> earlier, but it would be better if I can get a full log.
->
-> Regards,
-> Christian.
->
-> Am 19.02.2018 um 12:55 schrieb Joseph Wang:
->> Here is the lspci without amdgpu loaded.  when I load in amdgpu, 
->> everything froze, so I don't have the log.
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------2F09C55235A091D82C48DCD2
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi Joseph,<br>
-      <br>
-      as a band aid you can try the attached patch. It should at least
-      fix the crash at hand and allow amdgpu to continue with the boot
-      process.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 19.02.2018 um 14:13 schrieb Christian König:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:5025ec18-0343-019c-29d4-43dee75c5113-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div class="moz-cite-prefix">Hi Joseph,<br>
-        <br>
-        and here is the root cause of the problem:<br>
-        <blockquote type="cite">0b:00.0 VGA compatible controller:
-          Advanced Micro Devices, Inc. [AMD/ATI] Ellesmere [Radeon RX
-          470/480/570/580] (rev ef) (prog-if 00 [VGA controller])<br>
-              Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Device
-          0b31<br>
-              Control: I/O- Mem- BusMaster- SpecCycle- MemWINV-
-          VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-<br>
-              Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast
-          &gt;TAbort- &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-<br>
-              Interrupt: pin A routed to IRQ 11<br>
-              Region 0: Memory at &lt;ignored&gt; (64-bit, prefetchable)
-          [disabled]<br>
-              Region 2: Memory at b0000000 (64-bit, prefetchable)
-          [disabled] [size=2M]<br>
-        </blockquote>
-        <br>
-        The BIOS is not able to assign resources to one of the VGA
-        adapters when there are more than eight installed.<br>
-        <br>
-        You could try with pci=realloc, but I doubt that there is much
-        we can do in the operating system when the BIOS messed things up
-        like that.<br>
-        <br>
-        What we should do is to prevent amdgpu from crashing so badly,
-        e.g. allow to cleanly continue with the working hardware even
-        when one of the devices doesn't work.<br>
-        <br>
-        <blockquote type="cite">when I load in amdgpu, everything froze,
-          so I don't have the log.</blockquote>
-        You can work around that using netconsole, see
-        Documentation/networking/netconsole.txt.<br>
-        <br>
-        Going to try to fix that by just using the screen shot you send
-        earlier, but it would be better if I can get a full log.<br>
-        <br>
-        Regards,<br>
-        Christian.<br>
-        <br>
-        Am 19.02.2018 um 12:55 schrieb Joseph Wang:<br>
-      </div>
-      <blockquote type="cite"
-cite="mid:CAPoeEY8uEOt2PR5raz0Y10=xqJvxObh52UvLJQGsBMw-DhzC7A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-        <div dir="ltr">Here is the lspci without amdgpu loaded.  when I
-          load in amdgpu, everything froze, so I don't have the log.<br>
-        </div>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <br>
-        <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-      </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------2F09C55235A091D82C48DCD2--
-
---------------C0DBA12949F15BA913621626
-Content-Type: text/x-patch;
- name="0001-PCI-stop-crashing-in-pci_release_resource.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
- filename="0001-PCI-stop-crashing-in-pci_release_resource.patch"
-
->From 9a90837362d8620d247d943b0e8ed93250a3ad3c Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Date: Mon, 19 Feb 2018 14:17:18 +0100
-Subject: [PATCH] PCI: stop crashing in pci_release_resource
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Is it entirely possible that the BIOS wasn't able to assign resources to
-a device. In this case don't crash in pci_release_resource() when we try
-to resize the resource.
-
-Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
----
- drivers/pci/setup-res.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
-index e815111f3f81..fd72c87a9b72 100644
---- a/drivers/pci/setup-res.c
-+++ b/drivers/pci/setup-res.c
-@@ -401,6 +401,9 @@ void pci_release_resource(struct pci_dev *dev, int resno)
- {
- 	struct resource *res = dev->resource + resno;
- 
-+	if (!res->parent)
-+		return;
-+
- 	dev_info(&dev->dev, "BAR %d: releasing %pR\n", resno, res);
- 	release_resource(res);
- 	res->end = resource_size(res) - 1;
--- 
-2.14.1
-
-
---------------C0DBA12949F15BA913621626
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------C0DBA12949F15BA913621626--
+VG8gYmUgYWJsZSB0byB1c2UgRFJJX1BSSU1FIHdpdGggYW1kZ3B1IGFuZCBpOTE1IHdlIGFkZCBh
+bGwgb3VyIGZlbmNlcwpvbmx5IGFzIGV4Y2x1c2l2ZSBvbmVzLgoKRGlzYWJsZSB0aGF0IGJlaGF2
+aW9yIHdoZW4gc2hhcmluZyBiZXR3ZWVuIGFtZGdwdSBpdHNlbGYgY2F1c2UgaXQKaGluZGVycyBj
+b25jdXJyZW50IGV4ZWN1dGlvbi4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcHJpbWUuYyB8IDMxICsrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0KIDEgZmls
+ZSBjaGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCmluZGV4IGY2ZDdmNjQwNGEwNy4uOGNlNzRh
+MWQ5OTY2IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJp
+bWUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYwpAQCAt
+MzAsNiArMzAsOCBAQAogI2luY2x1ZGUgPGRybS9hbWRncHVfZHJtLmg+CiAjaW5jbHVkZSA8bGlu
+dXgvZG1hLWJ1Zi5oPgogCitzdGF0aWMgY29uc3Qgc3RydWN0IGRtYV9idWZfb3BzIGFtZGdwdV9k
+bWFidWZfb3BzOworCiBzdHJ1Y3Qgc2dfdGFibGUgKmFtZGdwdV9nZW1fcHJpbWVfZ2V0X3NnX3Rh
+YmxlKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQogewogCXN0cnVjdCBhbWRncHVfYm8gKmJv
+ID0gZ2VtX3RvX2FtZGdwdV9ibyhvYmopOwpAQCAtMTI5LDIwICsxMzEsMjcgQEAgc3RhdGljIGlu
+dCBhbWRncHVfZ2VtX21hcF9hdHRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCiAJaWYgKHVu
+bGlrZWx5KHIgIT0gMCkpCiAJCWdvdG8gZXJyb3JfZGV0YWNoOwogCi0JLyoKLQkgKiBXYWl0IGZv
+ciBhbGwgc2hhcmVkIGZlbmNlcyB0byBjb21wbGV0ZSBiZWZvcmUgd2Ugc3dpdGNoIHRvIGZ1dHVy
+ZQotCSAqIHVzZSBvZiBleGNsdXNpdmUgZmVuY2Ugb24gdGhpcyBwcmltZSBzaGFyZWQgYm8uCi0J
+ICovCi0JciA9IHJlc2VydmF0aW9uX29iamVjdF93YWl0X3RpbWVvdXRfcmN1KGJvLT50Ym8ucmVz
+diwgdHJ1ZSwgZmFsc2UsCi0JCQkJCQlNQVhfU0NIRURVTEVfVElNRU9VVCk7Ci0JaWYgKHVubGlr
+ZWx5KHIgPCAwKSkgewotCQlEUk1fREVCVUdfUFJJTUUoIkZlbmNlIHdhaXQgZmFpbGVkOiAlbGlc
+biIsIHIpOwotCQlnb3RvIGVycm9yX3VucmVzZXJ2ZTsKKworCWlmIChkbWFfYnVmLT5vcHMgIT0g
+JmFtZGdwdV9kbWFidWZfb3BzKSB7CisJCS8qCisJCSAqIFdhaXQgZm9yIGFsbCBzaGFyZWQgZmVu
+Y2VzIHRvIGNvbXBsZXRlIGJlZm9yZSB3ZSBzd2l0Y2ggdG8gZnV0dXJlCisJCSAqIHVzZSBvZiBl
+eGNsdXNpdmUgZmVuY2Ugb24gdGhpcyBwcmltZSBzaGFyZWQgYm8uCisJCSAqLworCQlyID0gcmVz
+ZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGltZW91dF9yY3UoYm8tPnRiby5yZXN2LAorCQkJCQkJCXRy
+dWUsIGZhbHNlLAorCQkJCQkJCU1BWF9TQ0hFRFVMRV9USU1FT1VUKTsKKwkJaWYgKHVubGlrZWx5
+KHIgPCAwKSkgeworCQkJRFJNX0RFQlVHX1BSSU1FKCJGZW5jZSB3YWl0IGZhaWxlZDogJWxpXG4i
+LCByKTsKKwkJCWdvdG8gZXJyb3JfdW5yZXNlcnZlOworCQl9CiAJfQogCiAJLyogcGluIGJ1ZmZl
+ciBpbnRvIEdUVCAqLwogCXIgPSBhbWRncHVfYm9fcGluKGJvLCBBTURHUFVfR0VNX0RPTUFJTl9H
+VFQsIE5VTEwpOwotCWlmIChsaWtlbHkociA9PSAwKSkKKwlpZiAocikKKwkJZ290byBlcnJvcl91
+bnJlc2VydmU7CisKKwlpZiAoZG1hX2J1Zi0+b3BzICE9ICZhbWRncHVfZG1hYnVmX29wcykKIAkJ
+Ym8tPnByaW1lX3NoYXJlZF9jb3VudCsrOwogCiBlcnJvcl91bnJlc2VydmU6CkBAIC0xNjYsNyAr
+MTc1LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2dlbV9tYXBfZGV0YWNoKHN0cnVjdCBkbWFfYnVm
+ICpkbWFfYnVmLAogCQlnb3RvIGVycm9yOwogCiAJYW1kZ3B1X2JvX3VucGluKGJvKTsKLQlpZiAo
+Ym8tPnByaW1lX3NoYXJlZF9jb3VudCkKKwlpZiAoZG1hX2J1Zi0+b3BzICE9ICZhbWRncHVfZG1h
+YnVmX29wcyAmJiBiby0+cHJpbWVfc2hhcmVkX2NvdW50KQogCQliby0+cHJpbWVfc2hhcmVkX2Nv
+dW50LS07CiAJYW1kZ3B1X2JvX3VucmVzZXJ2ZShibyk7CiAKLS0gCjIuMTQuMQoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
