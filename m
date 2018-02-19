@@ -1,18 +1,18 @@
 From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH libdrm 2/2] libdrm: clean up non list code path for vamgr
-Date: Sun, 18 Feb 2018 03:41:20 -0500
-Message-ID: <881720e0-3225-dd36-23f7-146b9bfb919d@amd.com>
+Date: Mon, 19 Feb 2018 02:25:09 -0500
+Message-ID: <dcb5a4b1-f959-107b-d4af-18758fbf74cd@amd.com>
 References: <20180112054554.19585-1-david1.zhou@amd.com>
  <20180112054554.19585-2-david1.zhou@amd.com>
  <e3722edc-8ca4-4730-d649-2b5a959b92c1@daenzer.net>
  <4a2036e5-820f-d62a-a773-2da1f575e1bc@amd.com>
  <c6b30b81-8b6f-3b5a-5654-e8075939143e@amd.com>
  <c7eaf026-f0f5-fab3-4bab-c11b39701e6a@daenzer.net>
+ <881720e0-3225-dd36-23f7-146b9bfb919d@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------770F5E41F38EDBE9AF30EE0F"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c7eaf026-f0f5-fab3-4bab-c11b39701e6a-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <881720e0-3225-dd36-23f7-146b9bfb919d-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,34 +25,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hui.Deng-5C7GfCeVMHo@public.gmane.org
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hui.Deng-5C7GfCeVMHo@public.gmane.org
 
-SGkgRGF2aWQsIEkgaGF2ZSBhbiBpc3N1ZSBvbiBWZWdhIDEwIHdoZXJlIHN1ZG8geGluaXQgZmFp
-bHMgd2l0aAoKW8KgIDU4MDEuMjI3XSBGYWlsZWQgdG8gYWxsb2NhdGUgZnJvbnQgYnVmZmVyIG1l
-bW9yeQpbwqAgNTgwMS4yMjddIChFRSkgQU1ER1BVKDApOiBhbWRncHVfc2V0dXBfa2VybmVsX21l
-bSBmYWlsZWQKW8KgIDU4MDEuMjI3XSAoRUUpCkZhdGFsIHNlcnZlciBlcnJvcjoKW8KgIDU4MDEu
-MjI3XSAoRUUpIEFkZFNjcmVlbi9TY3JlZW5Jbml0IGZhaWxlZCBmb3IgZHJpdmVyIDAKW8KgIDU4
-MDEuMjI3XSAoRUUpClvCoCA1ODAxLjIyN10gKEVFKQoKQWxzb8KgIGluIE1FU0EgY29kZSAKc2lf
-Y3JlYXRlX2NvbnRleHQtPnNpX2NvbW1vbl9jb250ZXh0X2luaXQtPnBpcGVfYnVmZmVyX2NyZWF0
-ZSByZXR1cm5zIE5VTEwuCgpFbGxzbWlyZSB3b3JrcyBmaW5lLCBvbiBWZWdhIDEwIHJldmVydGlu
-ZyB0aGlzIHBhdGNoIG1ha2VzIGl0IHdvcmsuCgpJIGFtIGR1cmluZyBteSB0ZXN0IHN5c3RlbSB1
-cGdyYWRlIHJpZ2h0IG5vdyB3aXRoIHNvbWUgbW9yZSBpc3N1ZXMgYWZ0ZXIgCnRoaXMgb25lLCBz
-byBJIGNhbiBzcGVuZCB0aW1lIG9uIGRlYnVnZ2luZyB0aGlzIG9uY2UgbXkgc3lzdGVtIGlzIGlu
-IApnb29kIHNoYXBlLCB1bmxlc3MgeW91IGhhdmUgYW4gYW5zd2VyIHRvIHRoaXMgcHJvYmxlbSBy
-aWdodCBhd2F5LgoKVGhhbmtzLAoKQW5kcmV5CgoKT24gMDIvMDkvMjAxOCAwMzo1OCBBTSwgTWlj
-aGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxOC0wMi0wOSAwNzowMSBBTSwgQ2h1bm1pbmcgWmhv
-dSB3cm90ZToKPj4gT24gMjAxOOW5tDAy5pyIMDjml6UgMTc6MTMsIENodW5taW5nIFpob3Ugd3Jv
-dGU6Cj4+PiBPbiAyMDE45bm0MDLmnIgwOOaXpSAxNzowMSwgTWljaGVsIETDpG56ZXIgd3JvdGU6
-Cj4+Pj4gdGhpcyBjaGFuZ2UgY29tcGxldGVseSBicm9rZSByYWRlb25zaSBkdWUgdG8gbWVtb3J5
-IG1hbmFnZW1lbnQgZXJyb3JzCj4+Pj4gKHNlZSB2YWxncmluZCBvdXRwdXQgZm9yIGdseGdlYXJz
-IGJlbG93KSwgc28gSSBoYWQgdG8gcmV2ZXJ0IGl0Lgo+Pj4gb2ssIEkgd2lsbCBsb29rIGludG8g
-d2hhdCBoYXBwZW5zLiBTb3JyeSBmb3IgYnJva2VuLgo+PiBUaGUgcGF0Y2ggbG9zdCBhICJnb3Rv
-IG91dCIgaW4gZnJlZV92YSB3aGVuIGFwcGx5aW5nIHBhdGNoIGZyb20gaHlicmlkCj4+IHRvIG9w
-ZW5zb3VyY2UuCj4+IFRoZSBhdHRhY2hlZCBmaXhlcyB0aGF0LCBJIHRlc3RlZCBzdWNjZXNzZnVs
-bHkgaW4gbXkgbG9jYWwgc2lkZS4KPj4gIMKgcGxlYXNlIHJldmlldyBvciB0ZXN0LCBpZiBubyBw
-cm9ibGVtLCBJIHdpbGwgc3VibWl0IGl0IGFnYWluLgo+IFBsZWFzZSBhZGQ6Cj4KPiB2MjogQWRk
-IG1pc3NpbmcgImdvdG8gb3V0Igo+IFRlc3RlZC1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5k
-YWVuemVyQGFtZC5jb20+Cj4KPiB0byB0aGUgY29tbWl0IGxvZyBiZWZvcmUgcHVzaGluZy4KPgo+
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--------------770F5E41F38EDBE9AF30EE0F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Found time to do some debugging and found error in assigning   of 
+initial VA hole size, attached patch makes this issue go away, otherwise 
+amdgpu_vamgr_find_va would always fail.
+
+Thanks,
+
+Andrey
+
+
+On 02/18/2018 03:41 AM, Andrey Grodzovsky wrote:
+> Hi David, I have an issue on Vega 10 where sudo xinit fails with
+>
+> [  5801.227] Failed to allocate front buffer memory
+> [  5801.227] (EE) AMDGPU(0): amdgpu_setup_kernel_mem failed
+> [  5801.227] (EE)
+> Fatal server error:
+> [  5801.227] (EE) AddScreen/ScreenInit failed for driver 0
+> [  5801.227] (EE)
+> [  5801.227] (EE)
+>
+> Also  in MESA code 
+> si_create_context->si_common_context_init->pipe_buffer_create returns 
+> NULL.
+>
+> Ellsmire works fine, on Vega 10 reverting this patch makes it work.
+>
+> I am during my test system upgrade right now with some more issues 
+> after this one, so I can spend time on debugging this once my system 
+> is in good shape, unless you have an answer to this problem right away.
+>
+> Thanks,
+>
+> Andrey
+>
+>
+> On 02/09/2018 03:58 AM, Michel Dänzer wrote:
+>> On 2018-02-09 07:01 AM, Chunming Zhou wrote:
+>>> On 2018年02月08日 17:13, Chunming Zhou wrote:
+>>>> On 2018年02月08日 17:01, Michel Dänzer wrote:
+>>>>> this change completely broke radeonsi due to memory management errors
+>>>>> (see valgrind output for glxgears below), so I had to revert it.
+>>>> ok, I will look into what happens. Sorry for broken.
+>>> The patch lost a "goto out" in free_va when applying patch from hybrid
+>>> to opensource.
+>>> The attached fixes that, I tested successfully in my local side.
+>>>   please review or test, if no problem, I will submit it again.
+>> Please add:
+>>
+>> v2: Add missing "goto out"
+>> Tested-by: Michel Dänzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>
+>> to the commit log before pushing.
+>>
+>>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------770F5E41F38EDBE9AF30EE0F
+Content-Type: text/x-patch;
+ name="0001-amdgpu-Fix-mistake-in-initial-hole-size-calculation.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-amdgpu-Fix-mistake-in-initial-hole-size-calculation.pat";
+ filename*1="ch"
+
+>From 020b68cf0f5a3c5a1ea4dc48df6a895904da28b6 Mon Sep 17 00:00:00 2001
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Date: Mon, 19 Feb 2018 02:18:36 -0500
+Subject: amdgpu: Fix mistake in initial hole size calculation.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+---
+ amdgpu/amdgpu_vamgr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/amdgpu/amdgpu_vamgr.c b/amdgpu/amdgpu_vamgr.c
+index 722067f..5840042 100644
+--- a/amdgpu/amdgpu_vamgr.c
++++ b/amdgpu/amdgpu_vamgr.c
+@@ -57,7 +57,7 @@ drm_private void amdgpu_vamgr_init(struct amdgpu_bo_va_mgr *mgr, uint64_t start,
+ 	pthread_mutex_init(&mgr->bo_va_mutex, NULL);
+ 	pthread_mutex_lock(&mgr->bo_va_mutex);
+ 	n = calloc(1, sizeof(struct amdgpu_bo_va_hole));
+-	n->size = mgr->va_max;
++	n->size = mgr->va_max - start;
+ 	n->offset = start;
+ 	list_add(&n->list, &mgr->va_holes);
+ 	pthread_mutex_unlock(&mgr->bo_va_mutex);
+@@ -80,6 +80,7 @@ amdgpu_vamgr_find_va(struct amdgpu_bo_va_mgr *mgr, uint64_t size,
+ 	struct amdgpu_bo_va_hole *hole, *n;
+ 	uint64_t offset = 0, waste = 0;
+ 
++
+ 	alignment = MAX2(alignment, mgr->va_alignment);
+ 	size = ALIGN(size, mgr->va_alignment);
+ 
+-- 
+2.7.4
+
+
+--------------770F5E41F38EDBE9AF30EE0F
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------770F5E41F38EDBE9AF30EE0F--
