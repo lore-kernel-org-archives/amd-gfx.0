@@ -1,18 +1,20 @@
-From: Peter Zijlstra <peterz@infradead.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [PATCH 1/4] locking/ww_mutex: add ww_mutex_is_owned_by function v3
-Date: Tue, 20 Feb 2018 15:54:13 +0100
-Message-ID: <20180220145413.GF25201@hirez.programming.kicks-ass.net>
+Date: Tue, 20 Feb 2018 16:05:49 +0100
+Message-ID: <2dac8ec9-c54a-7dd1-af4e-62f2bc1a959c@gmail.com>
 References: <20180220125829.27060-1-christian.koenig@amd.com>
  <20180220131253.GF25314@hirez.programming.kicks-ass.net>
  <8fd80334-4d0e-8ed0-8a09-02a7e36a0eae@gmail.com>
  <20180220135709.GD25201@hirez.programming.kicks-ass.net>
  <b625cbca-c05a-afd1-fe97-a7a0760383c1@amd.com>
+ <20180220145413.GF25201@hirez.programming.kicks-ass.net>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <b625cbca-c05a-afd1-fe97-a7a0760383c1@amd.com>
+In-Reply-To: <20180220145413.GF25201@hirez.programming.kicks-ass.net>
+Content-Language: en-US
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -22,26 +24,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: dev@mblankhorst.nl, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: Peter Zijlstra <peterz@infradead.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: dev@mblankhorst.nl, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBGZWIgMjAsIDIwMTggYXQgMDM6MzQ6MDdQTSArMDEwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiA+IE9LLCBidXQgbmVpdGhlciBjYXNlIHdvdWxkIGluIGZhY3QgbmVlZCB0aGUg
-IWN0eCBjYXNlIHJpZ2h0PyBUaGF0J3MganVzdAo+ID4gdGhlcmUgZm9yIGNvbXBsZXRlbmVzcyBz
-YWtlPwo+IAo+IFVuZm9ydHVuYXRlbHkgbm90LiBUVE0gdXNlcyB0cnlsb2NrIHRvIGxvY2sgQk9z
-IHdoaWNoIGFyZSBhYm91dCB0byBiZQo+IGV2aWN0ZWQgdG8gbWFrZSByb29tIGZvciBhbGwgdGhl
-IEJPcyBsb2NrZWQgd2l0aCBhIGN0eC4KPiAKPiBJIG5lZWQgdG8gYmUgYWJsZSB0byBkaXN0aW5j
-dCBiZXR3ZWVuIHRoZSBCT3Mgd2hpY2ggYXJlIHRyeWxvY2tlZCBhbmQgdGhvc2UKPiB3aGljaCBh
-cmUgbG9ja2VkIHdpdGggYSBjdHguCj4gCj4gV3JpdGluZyB0aGlzIEkgYWN0dWFsbHkgbm90aWNl
-ZCB0aGUgY3VycmVudCB2ZXJzaW9uIGlzIGJ1Z2d5LCBjYXVzZSBldmVuCj4gd2hlbiB3ZSBjaGVj
-ayB0aGUgbXV0ZXggb3duZXIgd2Ugc3RpbGwgbmVlZCB0byBtYWtlIHN1cmUgdGhhdCB0aGUgY3R4
-IGluIHRoZQo+IGxvY2sgaXMgTlVMTC4KCkh1cm0uLi4gSSBjYW4ndCByZW1lbWJlciB3aHkgdHJ5
-bG9ja3MgYmVoYXZlIGxpa2UgdGhhdCwgYW5kIGl0IHNlZW1zCnJhdGhlciB1bmZvcnR1bmF0ZSAv
-IGluY29uc2lzdGVudC4KCkNocmlzLCBNYWFydGVuLCBkbyBlaXRoZXIgb25lIG9mIHlvdSByZW1l
-bWJlcj8KCkknbSB0aGlua2luZyB0aGF0IGlmIHdlIGRvIGFjcXVpcmUgdGhlIHRyeWxvY2ssIHRo
-ZSB0aGluZyBzaG91bGQgam9pbgp0aGUgY3R4IHN1Y2ggdGhhdCBhIHN1YnNlcXVlbnQgY29udGVu
-ZGluZyBtdXRleF9sb2NrKCkgY2FuIHd3IHJpZ2h0LgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9kcmktZGV2ZWwK
+QW0gMjAuMDIuMjAxOCB1bSAxNTo1NCBzY2hyaWViIFBldGVyIFppamxzdHJhOgo+IE9uIFR1ZSwg
+RmViIDIwLCAyMDE4IGF0IDAzOjM0OjA3UE0gKzAxMDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6
+Cj4+PiBPSywgYnV0IG5laXRoZXIgY2FzZSB3b3VsZCBpbiBmYWN0IG5lZWQgdGhlICFjdHggY2Fz
+ZSByaWdodD8gVGhhdCdzIGp1c3QKPj4+IHRoZXJlIGZvciBjb21wbGV0ZW5lc3Mgc2FrZT8KPj4g
+VW5mb3J0dW5hdGVseSBub3QuIFRUTSB1c2VzIHRyeWxvY2sgdG8gbG9jayBCT3Mgd2hpY2ggYXJl
+IGFib3V0IHRvIGJlCj4+IGV2aWN0ZWQgdG8gbWFrZSByb29tIGZvciBhbGwgdGhlIEJPcyBsb2Nr
+ZWQgd2l0aCBhIGN0eC4KPj4KPj4gSSBuZWVkIHRvIGJlIGFibGUgdG8gZGlzdGluY3QgYmV0d2Vl
+biB0aGUgQk9zIHdoaWNoIGFyZSB0cnlsb2NrZWQgYW5kIHRob3NlCj4+IHdoaWNoIGFyZSBsb2Nr
+ZWQgd2l0aCBhIGN0eC4KPj4KPj4gV3JpdGluZyB0aGlzIEkgYWN0dWFsbHkgbm90aWNlZCB0aGUg
+Y3VycmVudCB2ZXJzaW9uIGlzIGJ1Z2d5LCBjYXVzZSBldmVuCj4+IHdoZW4gd2UgY2hlY2sgdGhl
+IG11dGV4IG93bmVyIHdlIHN0aWxsIG5lZWQgdG8gbWFrZSBzdXJlIHRoYXQgdGhlIGN0eCBpbiB0
+aGUKPj4gbG9jayBpcyBOVUxMLgo+IEh1cm0uLi4gSSBjYW4ndCByZW1lbWJlciB3aHkgdHJ5bG9j
+a3MgYmVoYXZlIGxpa2UgdGhhdCwgYW5kIGl0IHNlZW1zCj4gcmF0aGVyIHVuZm9ydHVuYXRlIC8g
+aW5jb25zaXN0ZW50LgoKQWN0dWFsbHkgZm9yIG1lIHRoYXQgaXMgcmF0aGVyIGZvcnR1bmF0ZSwg
+Y2F1c2UgSSBuZWVkIHRvIGRpc3RpbmN0IApiZXR3ZWVuIHRoZSBsb2NrcyBhY3F1aXJlZCB0aHJv
+dWdoIHRyeWxvY2sgYW5kIGxvY2suCgpJbiBvdGhlciB3b3JkcyB3aGVuIHRoZSBhbWRncHUgZG9l
+cyBpdCdzIGNoZWNraW5nIGlmIHVzZXJzcGFjZSBzZW5kcyAKbm9uc2Vuc2UgdG8gdGhlIGtlcm5l
+bCBpdCBzaG91bGQgb25seSBnZXQgYSBncmVlbiBzaWduYWwgd2hlbiB0aGUgbG9jayAKd2FzIGlu
+dGVudGlvbmFsbHkgbG9ja2VkIHVzaW5nIHRoZSBjb250ZXh0LgoKSWYgdGhlIGxvY2sgd2FzIGp1
+c3QgdGFrZW4gYmVjYXVzZSBUVE0gdHJ5bG9ja2VkIGl0IGJlY2F1c2UgVFRNIGhhZCB0byAKZXZp
+Y3QgdGhlIEJPIHRvIG1ha2Ugcm9vbSB0aGVuIHRoZSBjaGVjayBzaG91bGQgZmFpbCBhbmQgd2Ug
+bmVlZCB0byB0ZWxsIAp1c2Vyc3BhY2UgdGhhdCBpdCBkaWQgc29tZXRoaW5nIHdyb25nLgoKUmVn
+YXJkcywKQ2hyaXN0aWFuLgoKPiBDaHJpcywgTWFhcnRlbiwgZG8gZWl0aGVyIG9uZSBvZiB5b3Ug
+cmVtZW1iZXI/Cj4KPiBJJ20gdGhpbmtpbmcgdGhhdCBpZiB3ZSBkbyBhY3F1aXJlIHRoZSB0cnls
+b2NrLCB0aGUgdGhpbmcgc2hvdWxkIGpvaW4KPiB0aGUgY3R4IHN1Y2ggdGhhdCBhIHN1YnNlcXVl
+bnQgY29udGVuZGluZyBtdXRleF9sb2NrKCkgY2FuIHd3IHJpZ2h0Lgo+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlz
+dAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmkt
+ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
