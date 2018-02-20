@@ -1,15 +1,13 @@
-From: Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>
+From: Vineet Gupta <Vineet.Gupta1-HKixBCOQz3hWk0Htik3J/w@public.gmane.org>
 Subject: Re: [PATCH] fix double ;;s in code
-Date: Tue, 20 Feb 2018 17:19:31 +1100
-Message-ID: <87vaesrxn0.fsf@concordia.ellerman.id.au>
+Date: Mon, 19 Feb 2018 21:33:49 -0800
+Message-ID: <f81083a2-4c64-b694-2059-16894e19a79e__49313.3922377185$1519122602$gmane$org@synopsys.com>
 References: <20180217211955.GE9640@amd>
- <187435d4-5017-edb5-9b6a-b433a148bfcc@c-s.fr>
- <20180219154135.GV22199@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2113243061=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180219154135.GV22199-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+In-Reply-To: <20180217211955.GE9640@amd>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,55 +18,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Christophe LEROY <christophe.leroy-GgN8y9CXRhA@public.gmane.org>
-Cc: daniel.lezcano-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, heiko-4mtYJXux2i+zQB+pC5nmwQ@public.gmane.org, narmstrong-rdvid1DuHRBWk0Htik3J/w@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, benh-XVmvHMARGAS8U2dJNN8I7kB+6BGkLq7r@public.gmane.org, linus.walleij-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, Alexey.Brodkin-HKixBCOQz3hWk0Htik3J/w@public.gmane.org, will.deacon-5wv7dgnIgG8@public.gmane.org, fbarrat-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org, kernel list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, paulus-mnsaURCQ41sdnm+yROfE0A@public.gmane.org, yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org, mhocko-IBi9RG/b67k@public.gmane.org, viresh.kumar-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, Pavel Machek <pavel-+ZI9xUNit7I@public.gmane.org>, hpa-YMNOUZJC4hwAvxtiuMwx3w@public.gmane.org, JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org, Rex.Zhu-5C7GfCeVMHo@public.gmane.org, elfring-Rn4VEauK+AKRv+LV9MX5uipxlwaOVQ5f@public.gmane.org, scott.bauer-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org, architt-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org, x86-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, Wenjing.Liu-5C7GfCeVMHo@public.gmane.org, linux-I+IVW8TIWO2tmTQ+vhA3Yw@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ding.Wang-5C7GfCeVMHo@public.gmane.org, aik-sLpHqDYs0B2HXe+LvDLADg@public.gmane.org, wens-jdAy2FN1RRM@public.gmane.org, mingo-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, vbabka-AlSwsSmVLrQ@public.gmane.org, catalin.marinas-5wv7dgnIgG8@public.gmane.org, airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, ruscur-3Su/lFKaw5ejKv3TNrM5DQ@public.gmane.org, shli-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org, andresx7@
+To: Pavel Machek <pavel-+ZI9xUNit7I@public.gmane.org>, elfring-Rn4VEauK+AKRv+LV9MX5uipxlwaOVQ5f@public.gmane.org, kernel list <linux-kernel-u79uwXL29TZUIDd8j+nm9g@public.gmane.org>, linux-I+IVW8TIWO2tmTQ+vhA3Yw@public.gmane.org, oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, catalin.marinas-5wv7dgnIgG8@public.gmane.org, will.deacon-5wv7dgnIgG8@public.gmane.org, paulus-mnsaURCQ41sdnm+yROfE0A@public.gmane.org, benh-XVmvHMARGAS8U2dJNN8I7kB+6BGkLq7r@public.gmane.org, mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org, ard.biesheuvel-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, tglx-hfZtesqFncYOwBW4kG4KsQ@public.gmane.org, mingo-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, hpa-YMNOUZJC4hwAvxtiuMwx3w@public.gmane.org, x86-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, scott.bauer-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, jonathan.derrick-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, axboe-tSWWG44O7X1aa/9Udqfwiw@public.gmane.org, daniel.lezcano-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, maxime.ripard-wi1+55ScJUtKEb57/3fJTNBPR1lH4CV8@public.gmane.org, wens-jdAy2FN1RRM@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org, shli-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, shawnguo-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, kernel-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, fabio.estevam-3arQi8VN3Tc@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Alexey.Brodkin-HKixBCOQz3hWk0Htik3J/w@public.gmane.org, mhocko-IBi9RG/b67k@public.gmane.org, vbabka-AlSwsSmVLrQ@public.gmane.org, Vladislav.Zakharov@s
+Cc: Luis de Bethencourt <luisbg-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 
-RGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPiB3cml0ZXM6Cj4gT24gU3VuLCBGZWIgMTgs
-IDIwMTggYXQgMTE6MDA6NTZBTSArMDEwMCwgQ2hyaXN0b3BoZSBMRVJPWSB3cm90ZToKPj4gTGUg
-MTcvMDIvMjAxOCDDoCAyMjoxOSwgUGF2ZWwgTWFjaGVrIGEgw6ljcml0wqA6Cj4+ID4gCj4+ID4g
-Rml4IGRvdWJsZSA7OydzIGluIGNvZGUuCj4+ID4gCj4+ID4gU2lnbmVkLW9mZi1ieTogUGF2ZWwg
-TWFjaGVrIDxwYXZlbEB1Y3cuY3o+Cj4+IAo+PiBBIHN1bW1hcnkgb2YgdGhlIGZpbGVzIG1vZGlm
-aWVkIG9uIHRvcCBvZiB0aGUgcGF0Y2ggd291bGQgaGVscCB1bmRlcnN0YW5kCj4+IHRoZSBpbXBh
-Y3QuCj4+IAo+PiBBIG1heWJlIHRoZXJlIHNob3VsZCBiZSBvbmUgcGF0Y2ggYnkgYXJlYSwgZWcg
-b25lIGZvciBlYWNoIGFyY2ggc3BlY2lmaWMKPj4gbW9kaWYgYW5kIG9uZSBmb3IgZHJpdmVycy8g
-YW5kIG9uZSBmb3IgYmxvY2svID8KPgo+IFllYWgsIHBscyBzcGxpdCB0aGlzIGludG8gb25lIHBh
-dGNoIHBlciBhcmVhLCB3aXRoIGEgc3VpdGFibGUgcGF0Y2gKPiBzdWJqZWN0IHByZWZpeC4gTG9v
-ayBhdCBnaXQgbG9nIG9mIGVhY2ggZmlsZSB0byBnZXQgYSBmZWVsaW5nIGZvciB3aGF0J3MKPiB0
-aGUgc3RhbmRhcmQgaW4gZWFjaCBhcmVhLgoKVGhpcyBwYXJ0IGlzIGFjdHVhbGx5IHByZXR0eSBh
-bm5veWluZy4KCkkgaGFja2VkIHVwIGEgc2NyaXB0IChiZWxvdykgd2hpY2ggc2VlbXMgdG8gZG8g
-YSByZWFzb25hYmxlIGpvYiBpbiBtb3N0CmNhc2VzLgoKRm9yIHRoaXMgcGF0Y2ggaXQgZ2l2ZXM6
-CgogICQgZm9yIGYgaW4gJChnaXQgbHMtZmlsZXMgLW0pOyBkbyAuL2d1ZXNzLXByZWZpeC5weSAk
-ZjsgZG9uZQogIEFSQzogCiAgQVJDOiAKICBBUk06IAogIGFybTY0OiBwdHJhY2U6IAogIEtWTTog
-UFBDOiAKICBwb3dlcnBjL3Bvd2VybnY6CiAgeDg2L2VmaToKICBibG9jay9zZWQtb3BhbDoKICBj
-bG9ja3NvdXJjZTogbWlwcy1naWM6IAogIGNsb2Nrc291cmNlL2RyaXZlcnMvc3VuNWk6CiAgZHJt
-L2FtZC9kaXNwbGF5OgogIGRybS9hbWQvcG93ZXJwbGF5OgogIGRybS9tc20vbWRwNToKICBkcm06
-IAogIGlvbW11L3Z0LWQ6CiAgbWQ6IAogIHNvYzogaW14OiBncGM6IAoKSSB0aGluayB0aG9zZSBh
-cmUgY29ycmVjdCBleGNlcHQgZm9yOgogLSAiZHJtOiIgZm9yICJkcml2ZXJzL2dwdS9kcm0vc2No
-ZWR1bGVyIiB3aGljaCBoYXMgb25seSBhIHNpbmdsZSBjb21taXQuCiAtICJtZDoiIGZvciAiZHJp
-dmVycy9tZC9yYWlkMS5jIiB3aGljaCBpcyB0cmlja2VkIGJ5IGluY29uc2lzdGVudAogICAgdXNh
-Z2Ugb2YgIm1kOiByYWlkMToiIGFuZCAibWQvcmFpZDE6Ii4KCkJ1dCB0aGF0IHNlZW1zIGxpa2Ug
-YSByZWFzb25hYmxlIGhpdCByYXRlLgoKQW5vdGhlciBhcHByb2FjaCB3b3VsZCBiZSB0byBoYXZl
-IGEgZmlsZSB0aGF0IGRlZmluZXMgZm9yIGVhY2ggc3Vic3lzdGVtCndoYXQgdGhlIHByZWZlcnJl
-ZCBzdHlsZSBpcywgYnV0IHRoYXQgaXMgbGlrZWx5IHRvIGJlIGEgUElUQSB0bwptYWludGFpbi4K
-CmNoZWVycwoKCiMhL3Vzci9iaW4vcHl0aG9uMwoKaW1wb3J0IHN5cwppbXBvcnQgcmUKZnJvbSBz
-dWJwcm9jZXNzIGltcG9ydCBjaGVja19vdXRwdXQKZnJvbSBjb2xsZWN0aW9ucyBpbXBvcnQgQ291
-bnRlcgoKaWYgbGVuKHN5cy5hcmd2KSAhPSAyOgogICAgcHJpbnQoJ1VzYWdlOiAlcyA8cGF0aD4n
-ICUgc3lzLmFyZ3ZbMF0sIGZpbGU9c3lzLnN0ZGVycikKICAgIHN5cy5leGl0KDEpCgpmbmFtZSA9
-IHN5cy5hcmd2WzFdCgpjbWQgPSBbJ2dpdCcsICdsb2cnLCAnLS1mb3JtYXQ9JXMnLCAnLW4nLCAn
-MTAwJywgZm5hbWVdCm91dHB1dCA9IGNoZWNrX291dHB1dChjbWQpLmRlY29kZSgndXRmLTgnKQoK
-aWdub3JlID0gWydMaWNlbnNlJywgJ01lcmdlJ10KCiMgT3JkZXJlZCBsaXN0IG9mIHBhdHRlcm5z
-CnBhdHRlcm5zID0gWwogICAgIyBDb21tb24gc3R5bGUgImZvby9iYXIvYmF6OiBGaXggdGhlIGZv
-byIKICAgIHJlLmNvbXBpbGUoJ14oW1x3XC1fXSs6ICkrJyksCiAgICAjIExlc3MgY29tbW9uICJm
-b28gYmFyIGJhejogRml4IHRoZSBmb28iCiAgICByZS5jb21waWxlKCdeKFtcd1wtX10rOj8gKSs6
-ICcpCl0KCndvcmRzID0gW10KZm9yIGxpbmUgaW4gb3V0cHV0LnNwbGl0bGluZXMoKToKICAgIHBy
-ZWZpeCA9IGxpbmUuc3BsaXQoKVswXQogICAgZm9yIHBhdHQgaW4gcGF0dGVybnM6CiAgICAgICAg
-bWF0Y2ggPSBwYXR0LnNlYXJjaChsaW5lKQogICAgICAgIGlmIG1hdGNoOgogICAgICAgICAgICBw
-cmVmaXggPSBtYXRjaC5ncm91cCgwKQogICAgICAgICAgICBicmVhawoKICAgIGlmIHByZWZpeCBp
-biBpZ25vcmU6CiAgICAgICAgY29udGludWUKCiAgICB3b3Jkcy5hcHBlbmQocHJlZml4KQoKIyBX
-YXJuIGlmIHdlIGRpZG4ndCBmaW5kIG1hbnkgZXhhbXBsZXMKaWYgbGVuKHdvcmRzKSA8IDU6CiAg
-ICBwcmludCgiV2FybmluZzogb25seSBmb3VuZCAlZCBwcmV2aW91cyBjb21taXRzIHRvIGd1ZXNz
-IGZyb20gZm9yIiAlIGxlbih3b3JkcyksCiAgICAgICAgICBmbmFtZSwgZmlsZT1zeXMuc3RkZXJy
-KQoKY291bnRzID0gQ291bnRlcih3b3JkcykKcHJpbnQoY291bnRzLm1vc3RfY29tbW9uKDEpWzBd
-WzBdKQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============2113243061==
+Content-Type: multipart/alternative;
+	boundary="------------5F0C80F3EF0A744020863B16"
+Content-Language: en-US
+
+--------------5F0C80F3EF0A744020863B16
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 02/17/2018 01:19 PM, Pavel Machek wrote:
+> Fix double ;;'s in code.
+>
+> Signed-off-by: Pavel Machek<pavel-+ZI9xUNit7I@public.gmane.org>
+>
+> diff --git a/arch/arc/kernel/setup.c b/arch/arc/kernel/setup.c
+> index 9d27331..ec12fe1 100644
+> --- a/arch/arc/kernel/setup.c
+> +++ b/arch/arc/kernel/setup.c
+> @@ -373,7 +373,7 @@ static void arc_chk_core_config(void)
+>   {
+>   	struct cpuinfo_arc *cpu = &cpuinfo_arc700[smp_processor_id()];
+>   	int saved = 0, present = 0;
+> -	char *opt_nm = NULL;;
+> +	char *opt_nm = NULL;
+>   
+>   	if (!cpu->extn.timer0)
+>   		panic("Timer0 is not present!\n");
+> diff --git a/arch/arc/kernel/unwind.c b/arch/arc/kernel/unwind.c
+> index 333daab..183391d 100644
+> --- a/arch/arc/kernel/unwind.c
+> +++ b/arch/arc/kernel/unwind.c
+> @@ -366,7 +366,7 @@ static void init_unwind_hdr(struct unwind_table *table,
+>   	return;
+>   
+>   ret_err:
+> -	panic("Attention !!! Dwarf FDE parsing errors\n");;
+> +	panic("Attention !!! Dwarf FDE parsing errors\n");
+>   }
+>   
+
+I have a fix from Luis to same effect from Jan sitting in my for-curr
+
+Thx for it anyways.
+
+-Vineet
+
+--------------5F0C80F3EF0A744020863B16
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 02/17/2018 01:19 PM, Pavel Machek
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20180217211955.GE9640@amd">
+      <pre wrap="">Fix double ;;'s in code.
+
+Signed-off-by: Pavel Machek <a class="moz-txt-link-rfc2396E" href="mailto:pavel-+ZI9xUNit7I@public.gmane.org" moz-do-not-send="true">&lt;pavel-+ZI9xUNit7I@public.gmane.org&gt;</a>
+
+diff --git a/arch/arc/kernel/setup.c b/arch/arc/kernel/setup.c
+index 9d27331..ec12fe1 100644
+--- a/arch/arc/kernel/setup.c
++++ b/arch/arc/kernel/setup.c
+@@ -373,7 +373,7 @@ static void arc_chk_core_config(void)
+ {
+ 	struct cpuinfo_arc *cpu = &amp;cpuinfo_arc700[smp_processor_id()];
+ 	int saved = 0, present = 0;
+-	char *opt_nm = NULL;;
++	char *opt_nm = NULL;
+ 
+ 	if (!cpu-&gt;extn.timer0)
+ 		panic("Timer0 is not present!\n");
+diff --git a/arch/arc/kernel/unwind.c b/arch/arc/kernel/unwind.c
+index 333daab..183391d 100644
+--- a/arch/arc/kernel/unwind.c
++++ b/arch/arc/kernel/unwind.c
+@@ -366,7 +366,7 @@ static void init_unwind_hdr(struct unwind_table *table,
+ 	return;
+ 
+ ret_err:
+-	panic("Attention !!! Dwarf FDE parsing errors\n");;
++	panic("Attention !!! Dwarf FDE parsing errors\n");
+ }
+ </pre>
+    </blockquote>
+    <br>
+    <font face="DejaVu Sans">I have a fix from Luis to same effect from
+      Jan sitting in my for-curr<br>
+      <br>
+      Thx for it anyways.<br>
+      <br>
+      -Vineet<br>
+    </font>
+  </body>
+</html>
+
+--------------5F0C80F3EF0A744020863B16--
+
+--===============2113243061==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2113243061==--
