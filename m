@@ -1,76 +1,86 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH 1/4] locking/ww_mutex: add ww_mutex_is_owned_by function v3
-Date: Wed, 21 Feb 2018 00:56:21 +0100
-Message-ID: <20180220235621.GD22199@phenom.ffwll.local>
-References: <20180220125829.27060-1-christian.koenig@amd.com>
- <20180220131253.GF25314@hirez.programming.kicks-ass.net>
- <8fd80334-4d0e-8ed0-8a09-02a7e36a0eae@gmail.com>
- <20180220135709.GD25201@hirez.programming.kicks-ass.net>
- <b625cbca-c05a-afd1-fe97-a7a0760383c1@amd.com>
- <20180220145413.GF25201@hirez.programming.kicks-ass.net>
- <2dac8ec9-c54a-7dd1-af4e-62f2bc1a959c@gmail.com>
- <20180220152158.GH25201@hirez.programming.kicks-ass.net>
+From: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
+Subject: AMD E8860 on PowerPC with u-boot (T2080)
+Date: Wed, 21 Feb 2018 09:49:54 +0100
+Message-ID: <CAGtoiRjxS7mgQKG_yib9-5tVkD9_yAkp3P8PxYvipy3bFnV9Rg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <20180220152158.GH25201@hirez.programming.kicks-ass.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: dri-devel@lists.freedesktop.org, dev@mblankhorst.nl, christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1692047797=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gVHVlLCBGZWIgMjAsIDIwMTggYXQgMDQ6MjE6NThQTSArMDEwMCwgUGV0ZXIgWmlqbHN0cmEg
-d3JvdGU6Cj4gT24gVHVlLCBGZWIgMjAsIDIwMTggYXQgMDQ6MDU6NDlQTSArMDEwMCwgQ2hyaXN0
-aWFuIEvDtm5pZyB3cm90ZToKPiA+IEFtIDIwLjAyLjIwMTggdW0gMTU6NTQgc2NocmllYiBQZXRl
-ciBaaWpsc3RyYToKPiA+ID4gT24gVHVlLCBGZWIgMjAsIDIwMTggYXQgMDM6MzQ6MDdQTSArMDEw
-MCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiA+ID4gPiA+IE9LLCBidXQgbmVpdGhlciBjYXNl
-IHdvdWxkIGluIGZhY3QgbmVlZCB0aGUgIWN0eCBjYXNlIHJpZ2h0PyBUaGF0J3MganVzdAo+ID4g
-PiA+ID4gdGhlcmUgZm9yIGNvbXBsZXRlbmVzcyBzYWtlPwo+ID4gPiA+IFVuZm9ydHVuYXRlbHkg
-bm90LiBUVE0gdXNlcyB0cnlsb2NrIHRvIGxvY2sgQk9zIHdoaWNoIGFyZSBhYm91dCB0byBiZQo+
-ID4gPiA+IGV2aWN0ZWQgdG8gbWFrZSByb29tIGZvciBhbGwgdGhlIEJPcyBsb2NrZWQgd2l0aCBh
-IGN0eC4KPiA+ID4gPiAKPiA+ID4gPiBJIG5lZWQgdG8gYmUgYWJsZSB0byBkaXN0aW5jdCBiZXR3
-ZWVuIHRoZSBCT3Mgd2hpY2ggYXJlIHRyeWxvY2tlZCBhbmQgdGhvc2UKPiA+ID4gPiB3aGljaCBh
-cmUgbG9ja2VkIHdpdGggYSBjdHguCj4gPiA+ID4gCj4gPiA+ID4gV3JpdGluZyB0aGlzIEkgYWN0
-dWFsbHkgbm90aWNlZCB0aGUgY3VycmVudCB2ZXJzaW9uIGlzIGJ1Z2d5LCBjYXVzZSBldmVuCj4g
-PiA+ID4gd2hlbiB3ZSBjaGVjayB0aGUgbXV0ZXggb3duZXIgd2Ugc3RpbGwgbmVlZCB0byBtYWtl
-IHN1cmUgdGhhdCB0aGUgY3R4IGluIHRoZQo+ID4gPiA+IGxvY2sgaXMgTlVMTC4KPiA+ID4gSHVy
-bS4uLiBJIGNhbid0IHJlbWVtYmVyIHdoeSB0cnlsb2NrcyBiZWhhdmUgbGlrZSB0aGF0LCBhbmQg
-aXQgc2VlbXMKPiA+ID4gcmF0aGVyIHVuZm9ydHVuYXRlIC8gaW5jb25zaXN0ZW50Lgo+ID4gCj4g
-PiBBY3R1YWxseSBmb3IgbWUgdGhhdCBpcyByYXRoZXIgZm9ydHVuYXRlLCBjYXVzZSBJIG5lZWQg
-dG8gZGlzdGluY3QgYmV0d2Vlbgo+ID4gdGhlIGxvY2tzIGFjcXVpcmVkIHRocm91Z2ggdHJ5bG9j
-ayBhbmQgbG9jay4KPiAKPiBJIHN1cHBvc2UgdGhhdCB3b3VsZCBhbHdheXMgYmUgcG9zc2libGUg
-dXNpbmc6Cj4gd3dfbXV0ZXhfdHJ5bG9jayguY3R4PU5VTEwpLCBhbmQgaXQgY291bGQgYmUgdGhh
-dCB0aGVyZSBzaW1wbHkgd2VyZW4ndAo+IGFueSBpbW1lZGlhdGUgdXNlcyBmb3IgYSAhTlVMTCB0
-cnlsb2NrIGFuZCBpdCB3YXMgdGh1cyBub3QgaW1wbGVtZW50ZWQuCj4gCj4gQnV0IHRoYXQgaXMg
-YWxsIHZlcnkgbG9uZyBhZ28uLgoKSSB0aGluayB3ZSBzaW1wbGUgbmV2ZXIgaGFkIGEgdXNlLWNh
-c2UgZm9yIGludGVybGVhdmluZyB3d19tdXRleF9sb2NrKGN0eCkKYW5kIHd3X211dGV4X3RyeWxv
-Y2soY3R4KS4gTmVzdGluZyBtdWx0aXBsZSB0cnlsb2NrcyBpbiBjdHgtbG9ja3MgaGFwcGVucwpw
-bGVudHksIGJ1dCBub3QgZnVydGhlcjoKClRoZSBjb21tb24gdXNlLWNhc2UgZm9yIHRoYXQgaXMg
-bG9ja2luZyBhIGJ1bmNoIG9mIGJ1ZmZlcnMgeW91IG5lZWQgKGZvcgpjb21tYW5kIHN1Ym1pc3Np
-b24gb3Igd2hhdGV2ZXIpLCBhbmQgdGhlbiB0cnlsb2NraW5nIG90aGVyIGJ1ZmZlcnMgdG8gbWFr
-ZQpzcGFjZSBmb3IgdGhlIGJ1ZmZlcnMgeW91IG5lZWQgdG8gbW92ZSBpbnRvIFZSQU0uIEkgZ3Vl
-c3MgaWYgb25seQp0cnlsb2NraW5nIGJ1ZmZlcnMgZG9lc24ndCBzdWNjZWVkIGluIGZyZWVpbmcg
-dXAgZW5vdWdoIFZSQU0gdGhlbiB3ZSBjb3VsZApnbyBpbnRvIGJsb2NraW5nIHd3X211dGV4X2xv
-Y2tzIHdoaWNoIG5lZWQgdGhlIGN0eCAoYW5kIHdoaWNoIHdvdWxkIG5lZWQKYWxsIHRoZSB0cnls
-b2NrLWFjcXVpcmVkIGJ1ZmZlcnMgdG8gYmUgYW5ub3RhdGVkIHdpdGggdGhlIGN0eCB0b28pLiBU
-VE0KY3VycmVudGx5IHRyaWVzIHRvIGJlIGZhciBlbm91Z2ggYXdheSBmcm9tIHRoYXQgY29ybmVy
-IGNhc2UgKHVzaW5nIGEKZGVmZW5zaXZlICJuZXZlciB1c2UgbW9yZSB0aGFuIDUwJSBvZiBhbGwg
-bWVtb3J5IGZvciBnZngiIGFwcHJvYWNoKSB0aGF0Cml0IGRvZXNuJ3Qgc2VlbSB0byBuZWVkIHRo
-YXQuCgpPbmNlIHdlIGdldCB0aGVyZSBpdCBzaG91bGQgaW5kZWVkIGJlIHNpbXBseSB0byBhZGQg
-YSBjdHggcGFyYW1ldGVyIHRvCnd3X211dGV4X3RyeWxvY2sgdG8gZml4IHRoaXMgY2FzZS4gVGhl
-IFRUTSBzaWRlIHJld29yayBpcyBkZWZpbml0ZWx5IGdvaW5nCnRvIGJlIHRoZSBtdWNoIGJpZ2dl
-ciBpc3N1ZSBoZXJlIC4uLgotRGFuaWVsCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2lu
-ZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0
-CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+--===============1692047797==
+Content-Type: multipart/alternative; boundary="001a1147c9e6d719c50565b502f7"
+
+--001a1147c9e6d719c50565b502f7
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+I am unsure if this is the right place to ask, but it seems relevant.
+
+I am trying to use an AMD E8860 (SI) board connected to an E6500 PowerPC
+board (T2080RDB from NXP).
+The T2080RDB does not use a BIOS, and uses u-boot to bootstrap Linux.
+
+I have the E8860 connected to a PCIe x4 slot with an adapter. The kernel is
+a 4.1, with DRM included in the kernel and the radeon as a module. The
+radeon driver detects the card, notices the BIOS hasn't posted and starts
+things up.
+After that, the ring tests get run, and fails on the ring 0 test, disabling
+acceleration. The graphics card is (or seems to be) working apart from
+that, the driver starts up and sees the connectors on the board.
+
+When I compare dmesg on an x86 machine and the PPC machine, I see that the
+x86 machine loads a lot more firmware from the kernel (probably the
+acceleration parts?).
+
+My question is, what do I need to do to correctly initialize the E8860
+board on my powerpc machine?
+Is there some documentation you can point me to, or someone to ask?
+
+Bas Vermeulen
+
+--001a1147c9e6d719c50565b502f7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>I am unsure if this is the right pl=
+ace to ask, but it seems relevant.</div><div><br></div><div>I am trying to =
+use an AMD E8860 (SI) board connected to an E6500 PowerPC board (T2080RDB f=
+rom NXP).</div><div>The T2080RDB does not use a BIOS, and uses u-boot to bo=
+otstrap Linux.</div><div><br></div><div>I have the E8860 connected to a PCI=
+e x4 slot with an adapter. The kernel is a 4.1, with DRM included in the ke=
+rnel and the radeon as a module. The radeon driver detects the card, notice=
+s the BIOS hasn&#39;t posted and starts things up.</div><div>After that, th=
+e ring tests get run, and fails on the ring 0 test, disabling acceleration.=
+ The graphics card is (or seems to be) working apart from that, the driver =
+starts up and sees the connectors on the board.</div><div><br></div><div>Wh=
+en I compare dmesg on an x86 machine and the PPC machine, I see that the x8=
+6 machine loads a lot more firmware from the kernel (probably the accelerat=
+ion parts?).</div><div><br></div><div>My question is, what do I need to do =
+to correctly initialize the E8860 board on my powerpc machine?</div><div>Is=
+ there some documentation you can point me to, or someone to ask?</div><div=
+><br></div><div>Bas Vermeulen</div></div>
+
+--001a1147c9e6d719c50565b502f7--
+
+--===============1692047797==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1692047797==--
