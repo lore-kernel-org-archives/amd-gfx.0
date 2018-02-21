@@ -1,7 +1,7 @@
-From: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: AMD E8860 on PowerPC with u-boot (T2080)
-Date: Wed, 21 Feb 2018 13:13:55 +0100
-Message-ID: <CAGtoiRhjUShyxeHRuhx_g4zoTYLig=5R_9f-bHAUOcfVO7C0FQ@mail.gmail.com>
+Date: Wed, 21 Feb 2018 13:43:25 +0100
+Message-ID: <0f2a9449-b81a-2103-cd6b-df8e7e4b1d60@amd.com>
 References: <CAGtoiRjxS7mgQKG_yib9-5tVkD9_yAkp3P8PxYvipy3bFnV9Rg@mail.gmail.com>
  <62565c2f-a57f-9a2b-8277-ca94937bbe0f@daenzer.net>
  <CAGtoiRjqaseQSw7utV5Ncru1ggrq+p2OAg7weULzzSt0DWNoaA@mail.gmail.com>
@@ -10,10 +10,13 @@ References: <CAGtoiRjxS7mgQKG_yib9-5tVkD9_yAkp3P8PxYvipy3bFnV9Rg@mail.gmail.com>
  <8950aedc-29db-ae1b-96c9-20be3c8177eb@gmail.com>
  <CAGtoiRhivO8WtafLy-LC=h9VOsOUrwR7=_Uze9pTBAk=FfiVsA@mail.gmail.com>
  <4b7d2add-456f-5e0e-5aea-15439d2b76e3@amd.com>
+ <CAGtoiRhjUShyxeHRuhx_g4zoTYLig=5R_9f-bHAUOcfVO7C0FQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2077117230=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4b7d2add-456f-5e0e-5aea-15439d2b76e3-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAGtoiRhjUShyxeHRuhx_g4zoTYLig=5R_9f-bHAUOcfVO7C0FQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,210 +27,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============2077117230==
-Content-Type: multipart/alternative; boundary="001a114cde247111480565b7dc97"
-
---001a114cde247111480565b7dc97
-Content-Type: text/plain; charset="UTF-8"
-
-I got a 4.15.0 up and running on the board; it needs pci=noaer, but boots
-up and sees the E8860 apart from that.
-
-The relevant dmesg output:
-
-[   10.888426] [drm] radeon kernel modesetting enabled.
-[   10.892170] radeon 0001:01:00.0: runtime IRQ mapping not provided by arch
-[   10.892407] [drm] initializing kernel modesetting (VERDE 0x1002:0x6822
-0x1002:0x031E 0x00).
-[   11.138410] ATOM BIOS: E268
-[   11.139916] [drm] GPU not posted. posting now...
-[   11.168970] radeon 0001:01:00.0: VRAM: 2048M 0x0000000000000000 -
-0x000000007FFFFFFF (2048M used)
-[   11.176546] radeon 0001:01:00.0: GTT: 2048M 0x0000000080000000 -
-0x00000000FFFFFFFF
-[   11.182909] [drm] Detected VRAM RAM=2048M, BAR=256M
-[   11.186488] [drm] RAM width 128bits DDR
-[   11.189121] [TTM] Zone  kernel: Available graphics memory: 1978102 kiB
-[   11.194350] [TTM] Initializing pool allocator
-[   11.197407] [TTM] Initializing DMA pool allocator
-[   11.200858] [drm] radeon: 2048M of VRAM memory ready
-[   11.204527] [drm] radeon: 2048M of GTT memory ready.
-[   11.208211] [drm] Loading verde Microcode
-[   11.225907] [drm] Internal thermal controller with fan control
-[   11.230575] [drm] probing gen 2 caps for device 1957:830 = 73f443/e
-[   11.247750] [drm] radeon: dpm initialized
-[   11.268255] [drm] Found VCE firmware/feedback version 50.0.1 / 17!
-[   11.273152] [drm] GART: num cpu pages 524288, num gpu pages 524288
-[   11.281061] [drm] probing gen 2 caps for device 1957:830 = 73f443/e
-[   11.286060] [drm] PCIE gen 3 link speeds already enabled
-[   11.342009] [drm] PCIE GART of 2048M enabled (table at
-0x00000000001D6000).
-[   11.347883] radeon 0001:01:00.0: WB enabled
-[   11.350779] radeon 0001:01:00.0: fence driver on ring 0 use gpu addr
-0x0000000080000c00 and cpu addr 0x000000007408d6c9
-[   11.360274] radeon 0001:01:00.0: fence driver on ring 1 use gpu addr
-0x0000000080000c04 and cpu addr 0x0000000013c11aeb
-[   11.369770] radeon 0001:01:00.0: fence driver on ring 2 use gpu addr
-0x0000000080000c08 and cpu addr 0x00000000d4ddd131
-[   11.379267] radeon 0001:01:00.0: fence driver on ring 3 use gpu addr
-0x0000000080000c0c and cpu addr 0x00000000263a4d29
-[   11.388763] radeon 0001:01:00.0: fence driver on ring 4 use gpu addr
-0x0000000080000c10 and cpu addr 0x000000006ceb1503
-[   11.399277] radeon 0001:01:00.0: fence driver on ring 5 use gpu addr
-0x0000000000075a18 and cpu addr 0x000000008935a463
-[   11.419084] radeon 0001:01:00.0: failed VCE resume (-22).
-[   11.423181] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
-[   11.428502] [drm] Driver supports precise vblank timestamp query.
-[   11.433301] radeon 0001:01:00.0: radeon: MSI limited to 32-bit
-[   11.437896] radeon 0001:01:00.0: radeon: using MSI.
-[   11.441499] [drm] radeon: irq initialized.
-[   12.127423] [drm:.r600_ring_test [radeon]] *ERROR* radeon: ring 0 test
-failed (scratch(0x850C)=0xCAFEDEAD)
-[   12.135788] radeon 0001:01:00.0: disabling GPU acceleration
-[   12.320848] [drm] Radeon Display Connectors
-[   12.323733] [drm] Connector 0:
-[   12.325476] [drm]   DP-1
-[   12.326711] [drm]   HPD1
-[   12.327935] [drm]   DDC: 0x6530 0x6530 0x6534 0x6534 0x6538 0x6538
-0x653c 0x653c
-[   12.334035] [drm]   Encoders:
-[   12.335691] [drm]     DFP1: INTERNAL_UNIPHY1
-[   12.338662] [drm] Connector 1:
-[   12.340405] [drm]   DP-2
-[   12.341625] [drm]   HPD4
-[   12.342857] [drm]   DDC: 0x6560 0x6560 0x6564 0x6564 0x6568 0x6568
-0x656c 0x656c
-[   12.348957] [drm]   Encoders:
-[   12.350622] [drm]     DFP2: INTERNAL_UNIPHY1
-[   12.353583] [drm] Connector 2:
-[   12.355335] [drm]   DP-3
-[   12.356557] [drm]   HPD5
-[   12.357788] [drm]   DDC: 0x6540 0x6540 0x6544 0x6544 0x6548 0x6548
-0x654c 0x654c
-[   12.363888] [drm]   Encoders:
-[   12.365543] [drm]     DFP3: INTERNAL_UNIPHY2
-[   12.368514] [drm] Connector 3:
-[   12.370267] [drm]   DP-4
-[   12.371487] [drm]   HPD6
-[   12.372709] [drm]   DDC: 0x6570 0x6570 0x6574 0x6574 0x6578 0x6578
-0x657c 0x657c
-[   12.378808] [drm]   Encoders:
-[   12.380464] [drm]     DFP4: INTERNAL_UNIPHY2
-[   12.508848] [drm] Cannot find any crtc or sizes
-[   12.512716] [drm] Initialized radeon 2.50.0 20080528 for 0001:01:00.0 on
-minor 0
-[   13.636810] [drm] Cannot find any crtc or sizes
-
-The failed VCE resume (-22) seems to be caused by
-
-        if (rdev->vce.vcpu_bo == NULL)
-                return -EINVAL;
-
-in radeon_vce.c line 226. Any idea where to look from there?
-
-Bas Vermeulen
-
---001a114cde247111480565b7dc97
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I got a 4.15.0 up and running on the board; it needs pci=
-=3Dnoaer, but boots up and sees the E8860 apart from that.<div><br></div><d=
-iv>The relevant dmesg output:</div><div><br></div><div><div>[=C2=A0 =C2=A01=
-0.888426] [drm] radeon kernel modesetting enabled.</div><div>[=C2=A0 =C2=A0=
-10.892170] radeon 0001:01:00.0: runtime IRQ mapping not provided by arch</d=
-iv><div>[=C2=A0 =C2=A010.892407] [drm] initializing kernel modesetting (VER=
-DE 0x1002:0x6822 0x1002:0x031E 0x00).</div><div>[=C2=A0 =C2=A011.138410] AT=
-OM BIOS: E268</div><div>[=C2=A0 =C2=A011.139916] [drm] GPU not posted. post=
-ing now...</div><div>[=C2=A0 =C2=A011.168970] radeon 0001:01:00.0: VRAM: 20=
-48M 0x0000000000000000 - 0x000000007FFFFFFF (2048M used)</div><div>[=C2=A0 =
-=C2=A011.176546] radeon 0001:01:00.0: GTT: 2048M 0x0000000080000000 - 0x000=
-00000FFFFFFFF</div><div>[=C2=A0 =C2=A011.182909] [drm] Detected VRAM RAM=3D=
-2048M, BAR=3D256M</div><div>[=C2=A0 =C2=A011.186488] [drm] RAM width 128bit=
-s DDR</div><div>[=C2=A0 =C2=A011.189121] [TTM] Zone=C2=A0 kernel: Available=
- graphics memory: 1978102 kiB</div><div>[=C2=A0 =C2=A011.194350] [TTM] Init=
-ializing pool allocator</div><div>[=C2=A0 =C2=A011.197407] [TTM] Initializi=
-ng DMA pool allocator</div><div>[=C2=A0 =C2=A011.200858] [drm] radeon: 2048=
-M of VRAM memory ready</div><div>[=C2=A0 =C2=A011.204527] [drm] radeon: 204=
-8M of GTT memory ready.</div><div>[=C2=A0 =C2=A011.208211] [drm] Loading ve=
-rde Microcode</div><div>[=C2=A0 =C2=A011.225907] [drm] Internal thermal con=
-troller with fan control</div><div>[=C2=A0 =C2=A011.230575] [drm] probing g=
-en 2 caps for device 1957:830 =3D 73f443/e</div><div>[=C2=A0 =C2=A011.24775=
-0] [drm] radeon: dpm initialized</div><div>[=C2=A0 =C2=A011.268255] [drm] F=
-ound VCE firmware/feedback version 50.0.1 / 17!</div><div>[=C2=A0 =C2=A011.=
-273152] [drm] GART: num cpu pages 524288, num gpu pages 524288</div><div>[=
-=C2=A0 =C2=A011.281061] [drm] probing gen 2 caps for device 1957:830 =3D 73=
-f443/e</div><div>[=C2=A0 =C2=A011.286060] [drm] PCIE gen 3 link speeds alre=
-ady enabled</div><div>[=C2=A0 =C2=A011.342009] [drm] PCIE GART of 2048M ena=
-bled (table at 0x00000000001D6000).</div><div>[=C2=A0 =C2=A011.347883] rade=
-on 0001:01:00.0: WB enabled</div><div>[=C2=A0 =C2=A011.350779] radeon 0001:=
-01:00.0: fence driver on ring 0 use gpu addr 0x0000000080000c00 and cpu add=
-r 0x000000007408d6c9</div><div>[=C2=A0 =C2=A011.360274] radeon 0001:01:00.0=
-: fence driver on ring 1 use gpu addr 0x0000000080000c04 and cpu addr 0x000=
-0000013c11aeb</div><div>[=C2=A0 =C2=A011.369770] radeon 0001:01:00.0: fence=
- driver on ring 2 use gpu addr 0x0000000080000c08 and cpu addr 0x00000000d4=
-ddd131</div><div>[=C2=A0 =C2=A011.379267] radeon 0001:01:00.0: fence driver=
- on ring 3 use gpu addr 0x0000000080000c0c and cpu addr 0x00000000263a4d29<=
-/div><div>[=C2=A0 =C2=A011.388763] radeon 0001:01:00.0: fence driver on rin=
-g 4 use gpu addr 0x0000000080000c10 and cpu addr 0x000000006ceb1503</div><d=
-iv>[=C2=A0 =C2=A011.399277] radeon 0001:01:00.0: fence driver on ring 5 use=
- gpu addr 0x0000000000075a18 and cpu addr 0x000000008935a463</div><div>[=C2=
-=A0 =C2=A011.419084] radeon 0001:01:00.0: failed VCE resume (-22).</div><di=
-v>[=C2=A0 =C2=A011.423181] [drm] Supports vblank timestamp caching Rev 2 (2=
-1.10.2013).</div><div>[=C2=A0 =C2=A011.428502] [drm] Driver supports precis=
-e vblank timestamp query.</div><div>[=C2=A0 =C2=A011.433301] radeon 0001:01=
-:00.0: radeon: MSI limited to 32-bit</div><div>[=C2=A0 =C2=A011.437896] rad=
-eon 0001:01:00.0: radeon: using MSI.</div><div>[=C2=A0 =C2=A011.441499] [dr=
-m] radeon: irq initialized.</div><div>[=C2=A0 =C2=A012.127423] [drm:.r600_r=
-ing_test [radeon]] *ERROR* radeon: ring 0 test failed (scratch(0x850C)=3D0x=
-CAFEDEAD)</div><div>[=C2=A0 =C2=A012.135788] radeon 0001:01:00.0: disabling=
- GPU acceleration</div><div>[=C2=A0 =C2=A012.320848] [drm] Radeon Display C=
-onnectors</div><div>[=C2=A0 =C2=A012.323733] [drm] Connector 0:</div><div>[=
-=C2=A0 =C2=A012.325476] [drm]=C2=A0 =C2=A0DP-1</div><div>[=C2=A0 =C2=A012.3=
-26711] [drm]=C2=A0 =C2=A0HPD1</div><div>[=C2=A0 =C2=A012.327935] [drm]=C2=
-=A0 =C2=A0DDC: 0x6530 0x6530 0x6534 0x6534 0x6538 0x6538 0x653c 0x653c</div=
-><div>[=C2=A0 =C2=A012.334035] [drm]=C2=A0 =C2=A0Encoders:</div><div>[=C2=
-=A0 =C2=A012.335691] [drm]=C2=A0 =C2=A0 =C2=A0DFP1: INTERNAL_UNIPHY1</div><=
-div>[=C2=A0 =C2=A012.338662] [drm] Connector 1:</div><div>[=C2=A0 =C2=A012.=
-340405] [drm]=C2=A0 =C2=A0DP-2</div><div>[=C2=A0 =C2=A012.341625] [drm]=C2=
-=A0 =C2=A0HPD4</div><div>[=C2=A0 =C2=A012.342857] [drm]=C2=A0 =C2=A0DDC: 0x=
-6560 0x6560 0x6564 0x6564 0x6568 0x6568 0x656c 0x656c</div><div>[=C2=A0 =C2=
-=A012.348957] [drm]=C2=A0 =C2=A0Encoders:</div><div>[=C2=A0 =C2=A012.350622=
-] [drm]=C2=A0 =C2=A0 =C2=A0DFP2: INTERNAL_UNIPHY1</div><div>[=C2=A0 =C2=A01=
-2.353583] [drm] Connector 2:</div><div>[=C2=A0 =C2=A012.355335] [drm]=C2=A0=
- =C2=A0DP-3</div><div>[=C2=A0 =C2=A012.356557] [drm]=C2=A0 =C2=A0HPD5</div>=
-<div>[=C2=A0 =C2=A012.357788] [drm]=C2=A0 =C2=A0DDC: 0x6540 0x6540 0x6544 0=
-x6544 0x6548 0x6548 0x654c 0x654c</div><div>[=C2=A0 =C2=A012.363888] [drm]=
-=C2=A0 =C2=A0Encoders:</div><div>[=C2=A0 =C2=A012.365543] [drm]=C2=A0 =C2=
-=A0 =C2=A0DFP3: INTERNAL_UNIPHY2</div><div>[=C2=A0 =C2=A012.368514] [drm] C=
-onnector 3:</div><div>[=C2=A0 =C2=A012.370267] [drm]=C2=A0 =C2=A0DP-4</div>=
-<div>[=C2=A0 =C2=A012.371487] [drm]=C2=A0 =C2=A0HPD6</div><div>[=C2=A0 =C2=
-=A012.372709] [drm]=C2=A0 =C2=A0DDC: 0x6570 0x6570 0x6574 0x6574 0x6578 0x6=
-578 0x657c 0x657c</div><div>[=C2=A0 =C2=A012.378808] [drm]=C2=A0 =C2=A0Enco=
-ders:</div><div>[=C2=A0 =C2=A012.380464] [drm]=C2=A0 =C2=A0 =C2=A0DFP4: INT=
-ERNAL_UNIPHY2</div><div>[=C2=A0 =C2=A012.508848] [drm] Cannot find any crtc=
- or sizes</div><div>[=C2=A0 =C2=A012.512716] [drm] Initialized radeon 2.50.=
-0 20080528 for 0001:01:00.0 on minor 0</div><div>[=C2=A0 =C2=A013.636810] [=
-drm] Cannot find any crtc or sizes</div></div><div><br></div><div>The faile=
-d VCE resume (-22) seems to be caused by</div><div><br></div><div><div>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 if (rdev-&gt;vce.vcpu_bo =3D=3D NULL)</div><div>=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;</di=
-v></div><div><br></div><div>in radeon_vce.c line 226. Any idea where to loo=
-k from there?</div><div><br></div><div>Bas Vermeulen</div></div>
-
---001a114cde247111480565b7dc97--
-
---===============2077117230==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+PiBUaGUgZmFpbGVkIFZDRSByZXN1bWUgKC0yMikgc2VlbXMgdG8gYmUgY2F1c2VkIGJ5Cj4KPiDC
+oCDCoCDCoCDCoCBpZiAocmRldi0+dmNlLnZjcHVfYm8gPT0gTlVMTCkKPiDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCByZXR1cm4gLUVJTlZBTDsKPgo+IGluIHJhZGVvbl92Y2UuYyBsaW5lIDIyNi4K
+ClllYWgsIHlvdSBkb24ndCBzZWVtIHRvIGhhdmUgdGhlIFZDRSBmaXJtd2FyZSBpbnN0YWxsZWQu
+IEJ1dCBhcyBsb25nIGFzIAp5b3UgZG9uJ3Qgd2FudCB0byBkbyBhbnkgYWR2YW5jZWQgdmlkZW8g
+ZW5jb2Rpbmcgd2l0aCB0aGUgaGFyZHdhcmUgd2UgCmNhbiBzaW1wbHkgaWdub3JlIHRoYXQgZm9y
+IG5vdy4KCj4gQW55IGlkZWEgd2hlcmUgdG8gbG9vayBmcm9tIHRoZXJlPwoKVW5mb3J0dW5hdGVs
+eSBub3QgdGhlIHNsaWdodGVzdC4KCldoYXQncyBhIGJpdCBzdXNwaWNpb3VzIGlzIHRoYXQgdGhl
+IENQVSBhZGRyZXNzZXMgZm9yIHRoZSBmZW5jZSAKbG9jYXRpb25zIGxvb2sgb2RkOgo+IFvCoCDC
+oDExLjM1MDc3OV0gcmFkZW9uIDAwMDE6MDE6MDAuMDogZmVuY2UgZHJpdmVyIG9uIHJpbmcgMCB1
+c2UgZ3B1IAo+IGFkZHIgMHgwMDAwMDAwMDgwMDAwYzAwIGFuZCBjcHUgYWRkciAweDAwMDAwMDAw
+NzQwOGQ2YzkKPiBbwqAgwqAxMS4zNjAyNzRdIHJhZGVvbiAwMDAxOjAxOjAwLjA6IGZlbmNlIGRy
+aXZlciBvbiByaW5nIDEgdXNlIGdwdSAKPiBhZGRyIDB4MDAwMDAwMDA4MDAwMGMwNCBhbmQgY3B1
+IGFkZHIgMHgwMDAwMDAwMDEzYzExYWViCj4gW8KgIMKgMTEuMzY5NzcwXSByYWRlb24gMDAwMTow
+MTowMC4wOiBmZW5jZSBkcml2ZXIgb24gcmluZyAyIHVzZSBncHUgCj4gYWRkciAweDAwMDAwMDAw
+ODAwMDBjMDggYW5kIGNwdSBhZGRyIDB4MDAwMDAwMDBkNGRkZDEzMQo+IFvCoCDCoDExLjM3OTI2
+N10gcmFkZW9uIDAwMDE6MDE6MDAuMDogZmVuY2UgZHJpdmVyIG9uIHJpbmcgMyB1c2UgZ3B1IAo+
+IGFkZHIgMHgwMDAwMDAwMDgwMDAwYzBjIGFuZCBjcHUgYWRkciAweDAwMDAwMDAwMjYzYTRkMjkK
+PiBbwqAgwqAxMS4zODg3NjNdIHJhZGVvbiAwMDAxOjAxOjAwLjA6IGZlbmNlIGRyaXZlciBvbiBy
+aW5nIDQgdXNlIGdwdSAKPiBhZGRyIDB4MDAwMDAwMDA4MDAwMGMxMCBhbmQgY3B1IGFkZHIgMHgw
+MDAwMDAwMDZjZWIxNTAzCj4gW8KgIMKgMTEuMzk5Mjc3XSByYWRlb24gMDAwMTowMTowMC4wOiBm
+ZW5jZSBkcml2ZXIgb24gcmluZyA1IHVzZSBncHUgCj4gYWRkciAweDAwMDAwMDAwMDAwNzVhMTgg
+YW5kIGNwdSBhZGRyIDB4MDAwMDAwMDA4OTM1YTQ2MwpCdXQgY291bGQgYXMgd2VsbCBiZSB0aGF0
+IHdlIGRvbid0IGNvcnJlY3RseSBwcmludCB0aGVtLgoKQXBhcnQgZnJvbSB0aGF0IEkgZG9uJ3Qg
+aGF2ZSBhbnkgZ29vZCBpZGVhIGFueSBtb3JlIHdoeSB0aGF0IHNob3VsZG4ndCB3b3JrLgoKU29y
+cnksCkNocmlzdGlhbi4KCkFtIDIxLjAyLjIwMTggdW0gMTM6MTMgc2NocmllYiBCYXMgVmVybWV1
+bGVuOgo+IEkgZ290IGEgNC4xNS4wIHVwIGFuZCBydW5uaW5nIG9uIHRoZSBib2FyZDsgaXQgbmVl
+ZHMgcGNpPW5vYWVyLCBidXQgCj4gYm9vdHMgdXAgYW5kIHNlZXMgdGhlIEU4ODYwIGFwYXJ0IGZy
+b20gdGhhdC4KPgo+IFRoZSByZWxldmFudCBkbWVzZyBvdXRwdXQ6Cj4KPiBbwqAgwqAxMC44ODg0
+MjZdIFtkcm1dIHJhZGVvbiBrZXJuZWwgbW9kZXNldHRpbmcgZW5hYmxlZC4KPiBbwqAgwqAxMC44
+OTIxNzBdIHJhZGVvbiAwMDAxOjAxOjAwLjA6IHJ1bnRpbWUgSVJRIG1hcHBpbmcgbm90IHByb3Zp
+ZGVkIAo+IGJ5IGFyY2gKPiBbwqAgwqAxMC44OTI0MDddIFtkcm1dIGluaXRpYWxpemluZyBrZXJu
+ZWwgbW9kZXNldHRpbmcgKFZFUkRFIAo+IDB4MTAwMjoweDY4MjIgMHgxMDAyOjB4MDMxRSAweDAw
+KS4KPiBbwqAgwqAxMS4xMzg0MTBdIEFUT00gQklPUzogRTI2OAo+IFvCoCDCoDExLjEzOTkxNl0g
+W2RybV0gR1BVIG5vdCBwb3N0ZWQuIHBvc3Rpbmcgbm93Li4uCj4gW8KgIMKgMTEuMTY4OTcwXSBy
+YWRlb24gMDAwMTowMTowMC4wOiBWUkFNOiAyMDQ4TSAweDAwMDAwMDAwMDAwMDAwMDAgLSAKPiAw
+eDAwMDAwMDAwN0ZGRkZGRkYgKDIwNDhNIHVzZWQpCj4gW8KgIMKgMTEuMTc2NTQ2XSByYWRlb24g
+MDAwMTowMTowMC4wOiBHVFQ6IDIwNDhNIDB4MDAwMDAwMDA4MDAwMDAwMCAtIAo+IDB4MDAwMDAw
+MDBGRkZGRkZGRgo+IFvCoCDCoDExLjE4MjkwOV0gW2RybV0gRGV0ZWN0ZWQgVlJBTSBSQU09MjA0
+OE0sIEJBUj0yNTZNCj4gW8KgIMKgMTEuMTg2NDg4XSBbZHJtXSBSQU0gd2lkdGggMTI4Yml0cyBE
+RFIKPiBbwqAgwqAxMS4xODkxMjFdIFtUVE1dIFpvbmXCoCBrZXJuZWw6IEF2YWlsYWJsZSBncmFw
+aGljcyBtZW1vcnk6IDE5NzgxMDIga2lCCj4gW8KgIMKgMTEuMTk0MzUwXSBbVFRNXSBJbml0aWFs
+aXppbmcgcG9vbCBhbGxvY2F0b3IKPiBbwqAgwqAxMS4xOTc0MDddIFtUVE1dIEluaXRpYWxpemlu
+ZyBETUEgcG9vbCBhbGxvY2F0b3IKPiBbwqAgwqAxMS4yMDA4NThdIFtkcm1dIHJhZGVvbjogMjA0
+OE0gb2YgVlJBTSBtZW1vcnkgcmVhZHkKPiBbwqAgwqAxMS4yMDQ1MjddIFtkcm1dIHJhZGVvbjog
+MjA0OE0gb2YgR1RUIG1lbW9yeSByZWFkeS4KPiBbwqAgwqAxMS4yMDgyMTFdIFtkcm1dIExvYWRp
+bmcgdmVyZGUgTWljcm9jb2RlCj4gW8KgIMKgMTEuMjI1OTA3XSBbZHJtXSBJbnRlcm5hbCB0aGVy
+bWFsIGNvbnRyb2xsZXIgd2l0aCBmYW4gY29udHJvbAo+IFvCoCDCoDExLjIzMDU3NV0gW2RybV0g
+cHJvYmluZyBnZW4gMiBjYXBzIGZvciBkZXZpY2UgMTk1Nzo4MzAgPSA3M2Y0NDMvZQo+IFvCoCDC
+oDExLjI0Nzc1MF0gW2RybV0gcmFkZW9uOiBkcG0gaW5pdGlhbGl6ZWQKPiBbwqAgwqAxMS4yNjgy
+NTVdIFtkcm1dIEZvdW5kIFZDRSBmaXJtd2FyZS9mZWVkYmFjayB2ZXJzaW9uIDUwLjAuMSAvIDE3
+IQo+IFvCoCDCoDExLjI3MzE1Ml0gW2RybV0gR0FSVDogbnVtIGNwdSBwYWdlcyA1MjQyODgsIG51
+bSBncHUgcGFnZXMgNTI0Mjg4Cj4gW8KgIMKgMTEuMjgxMDYxXSBbZHJtXSBwcm9iaW5nIGdlbiAy
+IGNhcHMgZm9yIGRldmljZSAxOTU3OjgzMCA9IDczZjQ0My9lCj4gW8KgIMKgMTEuMjg2MDYwXSBb
+ZHJtXSBQQ0lFIGdlbiAzIGxpbmsgc3BlZWRzIGFscmVhZHkgZW5hYmxlZAo+IFvCoCDCoDExLjM0
+MjAwOV0gW2RybV0gUENJRSBHQVJUIG9mIDIwNDhNIGVuYWJsZWQgKHRhYmxlIGF0IAo+IDB4MDAw
+MDAwMDAwMDFENjAwMCkuCj4gW8KgIMKgMTEuMzQ3ODgzXSByYWRlb24gMDAwMTowMTowMC4wOiBX
+QiBlbmFibGVkCj4gW8KgIMKgMTEuMzUwNzc5XSByYWRlb24gMDAwMTowMTowMC4wOiBmZW5jZSBk
+cml2ZXIgb24gcmluZyAwIHVzZSBncHUgCj4gYWRkciAweDAwMDAwMDAwODAwMDBjMDAgYW5kIGNw
+dSBhZGRyIDB4MDAwMDAwMDA3NDA4ZDZjOQo+IFvCoCDCoDExLjM2MDI3NF0gcmFkZW9uIDAwMDE6
+MDE6MDAuMDogZmVuY2UgZHJpdmVyIG9uIHJpbmcgMSB1c2UgZ3B1IAo+IGFkZHIgMHgwMDAwMDAw
+MDgwMDAwYzA0IGFuZCBjcHUgYWRkciAweDAwMDAwMDAwMTNjMTFhZWIKPiBbwqAgwqAxMS4zNjk3
+NzBdIHJhZGVvbiAwMDAxOjAxOjAwLjA6IGZlbmNlIGRyaXZlciBvbiByaW5nIDIgdXNlIGdwdSAK
+PiBhZGRyIDB4MDAwMDAwMDA4MDAwMGMwOCBhbmQgY3B1IGFkZHIgMHgwMDAwMDAwMGQ0ZGRkMTMx
+Cj4gW8KgIMKgMTEuMzc5MjY3XSByYWRlb24gMDAwMTowMTowMC4wOiBmZW5jZSBkcml2ZXIgb24g
+cmluZyAzIHVzZSBncHUgCj4gYWRkciAweDAwMDAwMDAwODAwMDBjMGMgYW5kIGNwdSBhZGRyIDB4
+MDAwMDAwMDAyNjNhNGQyOQo+IFvCoCDCoDExLjM4ODc2M10gcmFkZW9uIDAwMDE6MDE6MDAuMDog
+ZmVuY2UgZHJpdmVyIG9uIHJpbmcgNCB1c2UgZ3B1IAo+IGFkZHIgMHgwMDAwMDAwMDgwMDAwYzEw
+IGFuZCBjcHUgYWRkciAweDAwMDAwMDAwNmNlYjE1MDMKPiBbwqAgwqAxMS4zOTkyNzddIHJhZGVv
+biAwMDAxOjAxOjAwLjA6IGZlbmNlIGRyaXZlciBvbiByaW5nIDUgdXNlIGdwdSAKPiBhZGRyIDB4
+MDAwMDAwMDAwMDA3NWExOCBhbmQgY3B1IGFkZHIgMHgwMDAwMDAwMDg5MzVhNDYzCj4gW8KgIMKg
+MTEuNDE5MDg0XSByYWRlb24gMDAwMTowMTowMC4wOiBmYWlsZWQgVkNFIHJlc3VtZSAoLTIyKS4K
+PiBbwqAgwqAxMS40MjMxODFdIFtkcm1dIFN1cHBvcnRzIHZibGFuayB0aW1lc3RhbXAgY2FjaGlu
+ZyBSZXYgMiAoMjEuMTAuMjAxMykuCj4gW8KgIMKgMTEuNDI4NTAyXSBbZHJtXSBEcml2ZXIgc3Vw
+cG9ydHMgcHJlY2lzZSB2YmxhbmsgdGltZXN0YW1wIHF1ZXJ5Lgo+IFvCoCDCoDExLjQzMzMwMV0g
+cmFkZW9uIDAwMDE6MDE6MDAuMDogcmFkZW9uOiBNU0kgbGltaXRlZCB0byAzMi1iaXQKPiBbwqAg
+wqAxMS40Mzc4OTZdIHJhZGVvbiAwMDAxOjAxOjAwLjA6IHJhZGVvbjogdXNpbmcgTVNJLgo+IFvC
+oCDCoDExLjQ0MTQ5OV0gW2RybV0gcmFkZW9uOiBpcnEgaW5pdGlhbGl6ZWQuCj4gW8KgIMKgMTIu
+MTI3NDIzXSBbZHJtOi5yNjAwX3JpbmdfdGVzdCBbcmFkZW9uXV0gKkVSUk9SKiByYWRlb246IHJp
+bmcgMCAKPiB0ZXN0IGZhaWxlZCAoc2NyYXRjaCgweDg1MEMpPTB4Q0FGRURFQUQpCj4gW8KgIMKg
+MTIuMTM1Nzg4XSByYWRlb24gMDAwMTowMTowMC4wOiBkaXNhYmxpbmcgR1BVIGFjY2VsZXJhdGlv
+bgo+IFvCoCDCoDEyLjMyMDg0OF0gW2RybV0gUmFkZW9uIERpc3BsYXkgQ29ubmVjdG9ycwo+IFvC
+oCDCoDEyLjMyMzczM10gW2RybV0gQ29ubmVjdG9yIDA6Cj4gW8KgIMKgMTIuMzI1NDc2XSBbZHJt
+XcKgIMKgRFAtMQo+IFvCoCDCoDEyLjMyNjcxMV0gW2RybV3CoCDCoEhQRDEKPiBbwqAgwqAxMi4z
+Mjc5MzVdIFtkcm1dwqAgwqBEREM6IDB4NjUzMCAweDY1MzAgMHg2NTM0IDB4NjUzNCAweDY1Mzgg
+MHg2NTM4IAo+IDB4NjUzYyAweDY1M2MKPiBbwqAgwqAxMi4zMzQwMzVdIFtkcm1dwqAgwqBFbmNv
+ZGVyczoKPiBbwqAgwqAxMi4zMzU2OTFdIFtkcm1dwqAgwqAgwqBERlAxOiBJTlRFUk5BTF9VTklQ
+SFkxCj4gW8KgIMKgMTIuMzM4NjYyXSBbZHJtXSBDb25uZWN0b3IgMToKPiBbwqAgwqAxMi4zNDA0
+MDVdIFtkcm1dwqAgwqBEUC0yCj4gW8KgIMKgMTIuMzQxNjI1XSBbZHJtXcKgIMKgSFBENAo+IFvC
+oCDCoDEyLjM0Mjg1N10gW2RybV3CoCDCoEREQzogMHg2NTYwIDB4NjU2MCAweDY1NjQgMHg2NTY0
+IDB4NjU2OCAweDY1NjggCj4gMHg2NTZjIDB4NjU2Ywo+IFvCoCDCoDEyLjM0ODk1N10gW2RybV3C
+oCDCoEVuY29kZXJzOgo+IFvCoCDCoDEyLjM1MDYyMl0gW2RybV3CoCDCoCDCoERGUDI6IElOVEVS
+TkFMX1VOSVBIWTEKPiBbwqAgwqAxMi4zNTM1ODNdIFtkcm1dIENvbm5lY3RvciAyOgo+IFvCoCDC
+oDEyLjM1NTMzNV0gW2RybV3CoCDCoERQLTMKPiBbwqAgwqAxMi4zNTY1NTddIFtkcm1dwqAgwqBI
+UEQ1Cj4gW8KgIMKgMTIuMzU3Nzg4XSBbZHJtXcKgIMKgRERDOiAweDY1NDAgMHg2NTQwIDB4NjU0
+NCAweDY1NDQgMHg2NTQ4IDB4NjU0OCAKPiAweDY1NGMgMHg2NTRjCj4gW8KgIMKgMTIuMzYzODg4
+XSBbZHJtXcKgIMKgRW5jb2RlcnM6Cj4gW8KgIMKgMTIuMzY1NTQzXSBbZHJtXcKgIMKgIMKgREZQ
+MzogSU5URVJOQUxfVU5JUEhZMgo+IFvCoCDCoDEyLjM2ODUxNF0gW2RybV0gQ29ubmVjdG9yIDM6
+Cj4gW8KgIMKgMTIuMzcwMjY3XSBbZHJtXcKgIMKgRFAtNAo+IFvCoCDCoDEyLjM3MTQ4N10gW2Ry
+bV3CoCDCoEhQRDYKPiBbwqAgwqAxMi4zNzI3MDldIFtkcm1dwqAgwqBEREM6IDB4NjU3MCAweDY1
+NzAgMHg2NTc0IDB4NjU3NCAweDY1NzggMHg2NTc4IAo+IDB4NjU3YyAweDY1N2MKPiBbwqAgwqAx
+Mi4zNzg4MDhdIFtkcm1dwqAgwqBFbmNvZGVyczoKPiBbwqAgwqAxMi4zODA0NjRdIFtkcm1dwqAg
+wqAgwqBERlA0OiBJTlRFUk5BTF9VTklQSFkyCj4gW8KgIMKgMTIuNTA4ODQ4XSBbZHJtXSBDYW5u
+b3QgZmluZCBhbnkgY3J0YyBvciBzaXplcwo+IFvCoCDCoDEyLjUxMjcxNl0gW2RybV0gSW5pdGlh
+bGl6ZWQgcmFkZW9uIDIuNTAuMCAyMDA4MDUyOCBmb3IgCj4gMDAwMTowMTowMC4wIG9uIG1pbm9y
+IDAKPiBbwqAgwqAxMy42MzY4MTBdIFtkcm1dIENhbm5vdCBmaW5kIGFueSBjcnRjIG9yIHNpemVz
+Cj4KPiBUaGUgZmFpbGVkIFZDRSByZXN1bWUgKC0yMikgc2VlbXMgdG8gYmUgY2F1c2VkIGJ5Cj4K
+PiDCoCDCoCDCoCDCoCBpZiAocmRldi0+dmNlLnZjcHVfYm8gPT0gTlVMTCkKPiDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCByZXR1cm4gLUVJTlZBTDsKPgo+IGluIHJhZGVvbl92Y2UuYyBsaW5lIDIy
+Ni4gQW55IGlkZWEgd2hlcmUgdG8gbG9vayBmcm9tIHRoZXJlPwo+Cj4gQmFzIFZlcm1ldWxlbgoK
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2077117230==--
