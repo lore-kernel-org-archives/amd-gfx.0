@@ -1,10 +1,14 @@
-From: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
-Subject: AMD E8860 on PowerPC with u-boot (T2080)
-Date: Wed, 21 Feb 2018 09:49:54 +0100
-Message-ID: <CAGtoiRjxS7mgQKG_yib9-5tVkD9_yAkp3P8PxYvipy3bFnV9Rg@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: AMD E8860 on PowerPC with u-boot (T2080)
+Date: Wed, 21 Feb 2018 10:06:45 +0100
+Message-ID: <62565c2f-a57f-9a2b-8277-ca94937bbe0f@daenzer.net>
+References: <CAGtoiRjxS7mgQKG_yib9-5tVkD9_yAkp3P8PxYvipy3bFnV9Rg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1692047797=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAGtoiRjxS7mgQKG_yib9-5tVkD9_yAkp3P8PxYvipy3bFnV9Rg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,72 +19,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1692047797==
-Content-Type: multipart/alternative; boundary="001a1147c9e6d719c50565b502f7"
-
---001a1147c9e6d719c50565b502f7
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-I am unsure if this is the right place to ask, but it seems relevant.
-
-I am trying to use an AMD E8860 (SI) board connected to an E6500 PowerPC
-board (T2080RDB from NXP).
-The T2080RDB does not use a BIOS, and uses u-boot to bootstrap Linux.
-
-I have the E8860 connected to a PCIe x4 slot with an adapter. The kernel is
-a 4.1, with DRM included in the kernel and the radeon as a module. The
-radeon driver detects the card, notices the BIOS hasn't posted and starts
-things up.
-After that, the ring tests get run, and fails on the ring 0 test, disabling
-acceleration. The graphics card is (or seems to be) working apart from
-that, the driver starts up and sees the connectors on the board.
-
-When I compare dmesg on an x86 machine and the PPC machine, I see that the
-x86 machine loads a lot more firmware from the kernel (probably the
-acceleration parts?).
-
-My question is, what do I need to do to correctly initialize the E8860
-board on my powerpc machine?
-Is there some documentation you can point me to, or someone to ask?
-
-Bas Vermeulen
-
---001a1147c9e6d719c50565b502f7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<div><br></div><div>I am unsure if this is the right pl=
-ace to ask, but it seems relevant.</div><div><br></div><div>I am trying to =
-use an AMD E8860 (SI) board connected to an E6500 PowerPC board (T2080RDB f=
-rom NXP).</div><div>The T2080RDB does not use a BIOS, and uses u-boot to bo=
-otstrap Linux.</div><div><br></div><div>I have the E8860 connected to a PCI=
-e x4 slot with an adapter. The kernel is a 4.1, with DRM included in the ke=
-rnel and the radeon as a module. The radeon driver detects the card, notice=
-s the BIOS hasn&#39;t posted and starts things up.</div><div>After that, th=
-e ring tests get run, and fails on the ring 0 test, disabling acceleration.=
- The graphics card is (or seems to be) working apart from that, the driver =
-starts up and sees the connectors on the board.</div><div><br></div><div>Wh=
-en I compare dmesg on an x86 machine and the PPC machine, I see that the x8=
-6 machine loads a lot more firmware from the kernel (probably the accelerat=
-ion parts?).</div><div><br></div><div>My question is, what do I need to do =
-to correctly initialize the E8860 board on my powerpc machine?</div><div>Is=
- there some documentation you can point me to, or someone to ask?</div><div=
-><br></div><div>Bas Vermeulen</div></div>
-
---001a1147c9e6d719c50565b502f7--
-
---===============1692047797==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1692047797==--
+T24gMjAxOC0wMi0yMSAwOTo0OSBBTSwgQmFzIFZlcm1ldWxlbiB3cm90ZToKPiBIaSwKPiAKPiBJ
+IGFtIHVuc3VyZSBpZiB0aGlzIGlzIHRoZSByaWdodCBwbGFjZSB0byBhc2ssIGJ1dCBpdCBzZWVt
+cyByZWxldmFudC4KPiAKPiBJIGFtIHRyeWluZyB0byB1c2UgYW4gQU1EIEU4ODYwIChTSSkgYm9h
+cmQgY29ubmVjdGVkIHRvIGFuIEU2NTAwIFBvd2VyUEMKPiBib2FyZCAoVDIwODBSREIgZnJvbSBO
+WFApLgo+IFRoZSBUMjA4MFJEQiBkb2VzIG5vdCB1c2UgYSBCSU9TLCBhbmQgdXNlcyB1LWJvb3Qg
+dG8gYm9vdHN0cmFwIExpbnV4Lgo+IAo+IEkgaGF2ZSB0aGUgRTg4NjAgY29ubmVjdGVkIHRvIGEg
+UENJZSB4NCBzbG90IHdpdGggYW4gYWRhcHRlci4gVGhlIGtlcm5lbAo+IGlzIGEgNC4xLCB3aXRo
+IERSTSBpbmNsdWRlZCBpbiB0aGUga2VybmVsIGFuZCB0aGUgcmFkZW9uIGFzIGEgbW9kdWxlLgo+
+IFRoZSByYWRlb24gZHJpdmVyIGRldGVjdHMgdGhlIGNhcmQsIG5vdGljZXMgdGhlIEJJT1MgaGFz
+bid0IHBvc3RlZCBhbmQKPiBzdGFydHMgdGhpbmdzIHVwLgo+IEFmdGVyIHRoYXQsIHRoZSByaW5n
+IHRlc3RzIGdldCBydW4sIGFuZCBmYWlscyBvbiB0aGUgcmluZyAwIHRlc3QsCj4gZGlzYWJsaW5n
+IGFjY2VsZXJhdGlvbi4gVGhlIGdyYXBoaWNzIGNhcmQgaXMgKG9yIHNlZW1zIHRvIGJlKSB3b3Jr
+aW5nCj4gYXBhcnQgZnJvbSB0aGF0LCB0aGUgZHJpdmVyIHN0YXJ0cyB1cCBhbmQgc2VlcyB0aGUg
+Y29ubmVjdG9ycyBvbiB0aGUgYm9hcmQuCj4gCj4gV2hlbiBJIGNvbXBhcmUgZG1lc2cgb24gYW4g
+eDg2IG1hY2hpbmUgYW5kIHRoZSBQUEMgbWFjaGluZSwgSSBzZWUgdGhhdAo+IHRoZSB4ODYgbWFj
+aGluZSBsb2FkcyBhIGxvdCBtb3JlIGZpcm13YXJlIGZyb20gdGhlIGtlcm5lbCAocHJvYmFibHkg
+dGhlCj4gYWNjZWxlcmF0aW9uIHBhcnRzPykuCgpGV0lXLCB0aGF0J3MgcHJvYmFibHkganVzdCBh
+IHN1YnNlcXVlbnQgc3ltcHRvbSBkdWUgdG8gdGhlIHJpbmcgdGVzdApmYWlsdXJlLgoKCj4gTXkg
+cXVlc3Rpb24gaXMsIHdoYXQgZG8gSSBuZWVkIHRvIGRvIHRvIGNvcnJlY3RseSBpbml0aWFsaXpl
+IHRoZSBFODg2MAo+IGJvYXJkIG9uIG15IHBvd2VycGMgbWFjaGluZT8KClN0YXJ0IGJ5IHNoYXJp
+bmcgdGhlIGRtZXNnIG91dHB1dCwgYW5kIG1heWJlIGFsc28gdGhlIGtlcm5lbCBidWlsZApjb25m
+aWd1cmF0aW9uIGZpbGUuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAg
+ICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50
+aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
