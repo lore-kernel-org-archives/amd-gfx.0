@@ -1,14 +1,16 @@
-From: Ben Crocker <bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/radeon: insist on 32-bit DMA for Cedar
-Date: Thu, 22 Feb 2018 10:55:58 -0500
-Message-ID: <CALk+eRcPH+g-eBMKWyO4FrPwuc_VLnp_w89WYKNE51=iV5Y=wg@mail.gmail.com>
+Date: Thu, 22 Feb 2018 11:07:43 -0500
+Message-ID: <CADnq5_N8Qp6JCRxGQk6NF5T3CD+jGtwox7K=qO1cLwp3C++jHg@mail.gmail.com>
 References: <20180221234154.6877-1-bcrocker@redhat.com>
  <CADnq5_M8ZiV2b+LW5oKu0XSQOJvg9idvZ6eBOaHMJRPC2iMj3w@mail.gmail.com>
  <7d6a06dc-9e88-2427-ec6a-4f48b9aa8f6b@gmail.com>
+ <CALk+eRcPH+g-eBMKWyO4FrPwuc_VLnp_w89WYKNE51=iV5Y=wg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2003661887=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7d6a06dc-9e88-2427-ec6a-4f48b9aa8f6b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CALk+eRcPH+g-eBMKWyO4FrPwuc_VLnp_w89WYKNE51=iV5Y=wg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,233 +21,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ben Crocker <bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2003661887==
-Content-Type: multipart/alternative; boundary="94eb2c065f48d17a590565cf1677"
-
---94eb2c065f48d17a590565cf1677
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Alex, Christian, et al.
-
-Thanks for your rapid response!
-
-I can certainly make the change PPC-only (#ifdef CONFIG_PPC64...) and I
-think
-that's the safest way to go right now.  It makes the patch very specific to
-Cedar
-on PowerPC64, so it doesn't break anything that may have come to depend on
-Russell's and Alistair's changes, and my timetable for getting a fix in is
-very short.
-
--- Ben
-
-
-
-On Thu, Feb 22, 2018 at 2:25 AM, Christian K=C3=B6nig <
-ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> Am 22.02.2018 um 03:05 schrieb Alex Deucher:
->
->> On Wed, Feb 21, 2018 at 6:41 PM, Ben Crocker <bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org> wrote=
-:
->>
->>> In radeon_device_init, set the need_dma32 flag for Cedar chips
->>> (e.g. FirePro 2270).  This fixes, or at least works around, a bug
->>> on PowerPC exposed by last year's commits
->>>
->>> 8e3f1b1d8255105f31556aacf8aeb6071b00d469 (Russell Currey)
->>>
->>> and
->>>
->>> 253fd51e2f533552ae35a0c661705da6c4842c1b (Alistair Popple)
->>>
->>> which enabled the 64-bit DMA iommu bypass.
->>>
->>> This caused the device to freeze, in some cases unrecoverably, and is
->>> the subject of several bug reports internal to Red Hat.
->>>
->> Can we make this ppc only?  40 bit DMA works fine on x86.
->>
->
-> Yeah and at least when the dma_coherent allocator path is used it should
-> work fine on PPC as well.
->
-> So that is not really a driver bug, but a platform bug and we should thin=
-k
-> about reverting or at least disabling those two patches instead.
->
-> Christian.
->
->
->> Alex
->>
->> Signed-off-by: Ben Crocker <bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
->>> ---
->>>   drivers/gpu/drm/radeon/radeon_device.c | 5 ++++-
->>>   1 file changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/radeon/radeon_device.c
->>> b/drivers/gpu/drm/radeon/radeon_device.c
->>> index ffc10cadcf34..02538903830d 100644
->>> --- a/drivers/gpu/drm/radeon/radeon_device.c
->>> +++ b/drivers/gpu/drm/radeon/radeon_device.c
->>> @@ -1395,7 +1395,10 @@ int radeon_device_init(struct radeon_device *rde=
-v,
->>>          if (rdev->flags & RADEON_IS_AGP)
->>>                  rdev->need_dma32 =3D true;
->>>          if ((rdev->flags & RADEON_IS_PCI) &&
->>> -           (rdev->family <=3D CHIP_RS740))
->>> +           (rdev->family <=3D CHIP_RS740 || rdev->family =3D=3D CHIP_C=
-EDAR))
->>> +               rdev->need_dma32 =3D true;
->>> +       if ((rdev->flags & RADEON_IS_PCIE) &&
->>> +           (rdev->family =3D=3D CHIP_CEDAR))
->>>                  rdev->need_dma32 =3D true;
->>>
->>>          dma_bits =3D rdev->need_dma32 ? 32 : 40;
->>> --
->>> 2.13.6
->>>
->>> _______________________________________________
->>> dri-devel mailing list
->>> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->>>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->
->
-
---94eb2c065f48d17a590565cf1677
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div><div><div><div>Alex, Christian, et al.<br><=
-br></div>Thanks for your rapid response!<br><br></div>I can certainly make =
-the change PPC-only (#ifdef CONFIG_PPC64...) and I think<br></div>that&#39;=
-s the safest way to go right now.=C2=A0 It makes the patch very specific to=
- Cedar<br></div>on PowerPC64, so it doesn&#39;t break anything that may hav=
-e come to depend on<br></div>Russell&#39;s and Alistair&#39;s changes, and =
-my timetable for getting a fix in is very short.<br><br></div>-- Ben<br><br=
-><div><br></div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_qu=
-ote">On Thu, Feb 22, 2018 at 2:25 AM, Christian K=C3=B6nig <span dir=3D"ltr=
-">&lt;<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank"=
->ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
-ding-left:1ex"><span class=3D"">Am 22.02.2018 um 03:05 schrieb Alex Deucher=
-:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-On Wed, Feb 21, 2018 at 6:41 PM, Ben Crocker &lt;<a href=3D"mailto:bcrocker=
-@redhat.com" target=3D"_blank">bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt; wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-In radeon_device_init, set the need_dma32 flag for Cedar chips<br>
-(e.g. FirePro 2270).=C2=A0 This fixes, or at least works around, a bug<br>
-on PowerPC exposed by last year&#39;s commits<br>
-<br>
-8e3f1b1d8255105f31556aacf8aeb6<wbr>071b00d469 (Russell Currey)<br>
-<br>
-and<br>
-<br>
-253fd51e2f533552ae35a0c661705d<wbr>a6c4842c1b (Alistair Popple)<br>
-<br>
-which enabled the 64-bit DMA iommu bypass.<br>
-<br>
-This caused the device to freeze, in some cases unrecoverably, and is<br>
-the subject of several bug reports internal to Red Hat.<br>
-</blockquote>
-Can we make this ppc only?=C2=A0 40 bit DMA works fine on x86.<br>
-</blockquote>
-<br></span>
-Yeah and at least when the dma_coherent allocator path is used it should wo=
-rk fine on PPC as well.<br>
-<br>
-So that is not really a driver bug, but a platform bug and we should think =
-about reverting or at least disabling those two patches instead.<br>
-<br>
-Christian.<br>
-<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex"><div><div class=3D"h5">
-<br>
-Alex<br>
-<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-Signed-off-by: Ben Crocker &lt;<a href=3D"mailto:bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" targe=
-t=3D"_blank">bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0 drivers/gpu/drm/radeon/radeon_<wbr>device.c | 5 ++++-<br>
-=C2=A0 1 file changed, 4 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/radeon/radeo<wbr>n_device.c b/drivers/gpu/drm/=
-radeon/radeo<wbr>n_device.c<br>
-index ffc10cadcf34..02538903830d 100644<br>
---- a/drivers/gpu/drm/radeon/radeo<wbr>n_device.c<br>
-+++ b/drivers/gpu/drm/radeon/radeo<wbr>n_device.c<br>
-@@ -1395,7 +1395,10 @@ int radeon_device_init(struct radeon_device *rdev,<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rdev-&gt;flags &amp; RADEON_IS_AGP)<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev-&gt;need=
-_dma32 =3D true;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ((rdev-&gt;flags &amp; RADEON_IS_PCI) =
-&amp;&amp;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(rdev-&gt;family &lt;=3D CHIP_RS7=
-40))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(rdev-&gt;family &lt;=3D CHIP_RS7=
-40 || rdev-&gt;family =3D=3D CHIP_CEDAR))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev-&gt;need_dma32=
- =3D true;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if ((rdev-&gt;flags &amp; RADEON_IS_PCIE) &amp;=
-&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(rdev-&gt;family =3D=3D CHIP_CEDA=
-R))<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev-&gt;need=
-_dma32 =3D true;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_bits =3D rdev-&gt;need_dma32 ? 32 : 4=
-0;<br>
---<br>
-2.13.6<br>
-<br>
-______________________________<wbr>_________________<br>
-dri-devel mailing list<br>
-<a href=3D"mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">dri-de=
-vel-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org<wbr>g</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/l=
-istinfo/dri-devel</a><br>
-</blockquote></div></div>
-______________________________<wbr>_________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
-tinfo/amd-gfx</a><br>
-</blockquote>
-<br>
-</blockquote></div><br></div>
-
---94eb2c065f48d17a590565cf1677--
-
---===============2003661887==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2003661887==--
+T24gVGh1LCBGZWIgMjIsIDIwMTggYXQgMTA6NTUgQU0sIEJlbiBDcm9ja2VyIDxiY3JvY2tlckBy
+ZWRoYXQuY29tPiB3cm90ZToKPiBBbGV4LCBDaHJpc3RpYW4sIGV0IGFsLgo+Cj4gVGhhbmtzIGZv
+ciB5b3VyIHJhcGlkIHJlc3BvbnNlIQo+Cj4gSSBjYW4gY2VydGFpbmx5IG1ha2UgdGhlIGNoYW5n
+ZSBQUEMtb25seSAoI2lmZGVmIENPTkZJR19QUEM2NC4uLikgYW5kIEkKPiB0aGluawo+IHRoYXQn
+cyB0aGUgc2FmZXN0IHdheSB0byBnbyByaWdodCBub3cuICBJdCBtYWtlcyB0aGUgcGF0Y2ggdmVy
+eSBzcGVjaWZpYyB0bwo+IENlZGFyCj4gb24gUG93ZXJQQzY0LCBzbyBpdCBkb2Vzbid0IGJyZWFr
+IGFueXRoaW5nIHRoYXQgbWF5IGhhdmUgY29tZSB0byBkZXBlbmQgb24KPiBSdXNzZWxsJ3MgYW5k
+IEFsaXN0YWlyJ3MgY2hhbmdlcywgYW5kIG15IHRpbWV0YWJsZSBmb3IgZ2V0dGluZyBhIGZpeCBp
+biBpcwo+IHZlcnkgc2hvcnQuCgpJZiB5b3Ugd2FudCB0byBnbyB0aGlzIHJvdXRlLCB5b3UgbWln
+aHQganVzdCBzZXQgbmVlZF9kbWEzMgp1bmNvbmRpdGlvbmFsbHkgZm9yIFBQQzY0LiAgVGhlIGJ1
+cyBpbnRlcmZhY2UgaHcgaXMgcHJldHR5IG11Y2ggdGhlCnNhbWUgYWNyb3NzIGFsbCBhc2ljcyBp
+biB0aGlzIHRpbWUgcGVyaW9kLgoKQWxleAoKCj4KPiAtLSBCZW4KPgo+Cj4KPiBPbiBUaHUsIEZl
+YiAyMiwgMjAxOCBhdCAyOjI1IEFNLCBDaHJpc3RpYW4gS8O2bmlnCj4gPGNrb2VuaWcubGVpY2h0
+enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPj4KPj4gQW0gMjIuMDIuMjAxOCB1bSAwMzowNSBz
+Y2hyaWViIEFsZXggRGV1Y2hlcjoKPj4+Cj4+PiBPbiBXZWQsIEZlYiAyMSwgMjAxOCBhdCA2OjQx
+IFBNLCBCZW4gQ3JvY2tlciA8YmNyb2NrZXJAcmVkaGF0LmNvbT4gd3JvdGU6Cj4+Pj4KPj4+PiBJ
+biByYWRlb25fZGV2aWNlX2luaXQsIHNldCB0aGUgbmVlZF9kbWEzMiBmbGFnIGZvciBDZWRhciBj
+aGlwcwo+Pj4+IChlLmcuIEZpcmVQcm8gMjI3MCkuICBUaGlzIGZpeGVzLCBvciBhdCBsZWFzdCB3
+b3JrcyBhcm91bmQsIGEgYnVnCj4+Pj4gb24gUG93ZXJQQyBleHBvc2VkIGJ5IGxhc3QgeWVhcidz
+IGNvbW1pdHMKPj4+Pgo+Pj4+IDhlM2YxYjFkODI1NTEwNWYzMTU1NmFhY2Y4YWViNjA3MWIwMGQ0
+NjkgKFJ1c3NlbGwgQ3VycmV5KQo+Pj4+Cj4+Pj4gYW5kCj4+Pj4KPj4+PiAyNTNmZDUxZTJmNTMz
+NTUyYWUzNWEwYzY2MTcwNWRhNmM0ODQyYzFiIChBbGlzdGFpciBQb3BwbGUpCj4+Pj4KPj4+PiB3
+aGljaCBlbmFibGVkIHRoZSA2NC1iaXQgRE1BIGlvbW11IGJ5cGFzcy4KPj4+Pgo+Pj4+IFRoaXMg
+Y2F1c2VkIHRoZSBkZXZpY2UgdG8gZnJlZXplLCBpbiBzb21lIGNhc2VzIHVucmVjb3ZlcmFibHks
+IGFuZCBpcwo+Pj4+IHRoZSBzdWJqZWN0IG9mIHNldmVyYWwgYnVnIHJlcG9ydHMgaW50ZXJuYWwg
+dG8gUmVkIEhhdC4KPj4+Cj4+PiBDYW4gd2UgbWFrZSB0aGlzIHBwYyBvbmx5PyAgNDAgYml0IERN
+QSB3b3JrcyBmaW5lIG9uIHg4Ni4KPj4KPj4KPj4gWWVhaCBhbmQgYXQgbGVhc3Qgd2hlbiB0aGUg
+ZG1hX2NvaGVyZW50IGFsbG9jYXRvciBwYXRoIGlzIHVzZWQgaXQgc2hvdWxkCj4+IHdvcmsgZmlu
+ZSBvbiBQUEMgYXMgd2VsbC4KPj4KPj4gU28gdGhhdCBpcyBub3QgcmVhbGx5IGEgZHJpdmVyIGJ1
+ZywgYnV0IGEgcGxhdGZvcm0gYnVnIGFuZCB3ZSBzaG91bGQgdGhpbmsKPj4gYWJvdXQgcmV2ZXJ0
+aW5nIG9yIGF0IGxlYXN0IGRpc2FibGluZyB0aG9zZSB0d28gcGF0Y2hlcyBpbnN0ZWFkLgo+Pgo+
+PiBDaHJpc3RpYW4uCj4+Cj4+Pgo+Pj4gQWxleAo+Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBCZW4g
+Q3JvY2tlciA8YmNyb2NrZXJAcmVkaGF0LmNvbT4KPj4+PiAtLS0KPj4+PiAgIGRyaXZlcnMvZ3B1
+L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jIHwgNSArKysrLQo+Pj4+ICAgMSBmaWxlIGNoYW5n
+ZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Pj4+Cj4+Pj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jCj4+Pj4gYi9kcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYwo+Pj4+IGluZGV4IGZmYzEwY2FkY2YzNC4uMDI1
+Mzg5MDM4MzBkIDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
+X2RldmljZS5jCj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNl
+LmMKPj4+PiBAQCAtMTM5NSw3ICsxMzk1LDEwIEBAIGludCByYWRlb25fZGV2aWNlX2luaXQoc3Ry
+dWN0IHJhZGVvbl9kZXZpY2UKPj4+PiAqcmRldiwKPj4+PiAgICAgICAgICBpZiAocmRldi0+Zmxh
+Z3MgJiBSQURFT05fSVNfQUdQKQo+Pj4+ICAgICAgICAgICAgICAgICAgcmRldi0+bmVlZF9kbWEz
+MiA9IHRydWU7Cj4+Pj4gICAgICAgICAgaWYgKChyZGV2LT5mbGFncyAmIFJBREVPTl9JU19QQ0kp
+ICYmCj4+Pj4gLSAgICAgICAgICAgKHJkZXYtPmZhbWlseSA8PSBDSElQX1JTNzQwKSkKPj4+PiAr
+ICAgICAgICAgICAocmRldi0+ZmFtaWx5IDw9IENISVBfUlM3NDAgfHwgcmRldi0+ZmFtaWx5ID09
+IENISVBfQ0VEQVIpKQo+Pj4+ICsgICAgICAgICAgICAgICByZGV2LT5uZWVkX2RtYTMyID0gdHJ1
+ZTsKPj4+PiArICAgICAgIGlmICgocmRldi0+ZmxhZ3MgJiBSQURFT05fSVNfUENJRSkgJiYKPj4+
+PiArICAgICAgICAgICAocmRldi0+ZmFtaWx5ID09IENISVBfQ0VEQVIpKQo+Pj4+ICAgICAgICAg
+ICAgICAgICAgcmRldi0+bmVlZF9kbWEzMiA9IHRydWU7Cj4+Pj4KPj4+PiAgICAgICAgICBkbWFf
+Yml0cyA9IHJkZXYtPm5lZWRfZG1hMzIgPyAzMiA6IDQwOwo+Pj4+IC0tCj4+Pj4gMi4xMy42Cj4+
+Pj4KPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
+Pj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9kcmktZGV2ZWwKPj4+Cj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngKPj4KPj4KPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
