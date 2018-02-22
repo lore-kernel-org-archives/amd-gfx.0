@@ -1,13 +1,14 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/pp: Refine code in powerplay for Cz/Vega10
-Date: Thu, 22 Feb 2018 09:35:39 -0500
-Message-ID: <CADnq5_MiX_8v_M3krKGWRueouQ-BqNZ70u=ovO8BRR6kR6FSRA@mail.gmail.com>
-References: <1519303717-24123-1-git-send-email-Rex.Zhu@amd.com>
+From: Ben Crocker <bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH] drm/radeon: insist on 32-bit DMA for Cedar
+Date: Thu, 22 Feb 2018 10:55:58 -0500
+Message-ID: <CALk+eRcPH+g-eBMKWyO4FrPwuc_VLnp_w89WYKNE51=iV5Y=wg@mail.gmail.com>
+References: <20180221234154.6877-1-bcrocker@redhat.com>
+ <CADnq5_M8ZiV2b+LW5oKu0XSQOJvg9idvZ6eBOaHMJRPC2iMj3w@mail.gmail.com>
+ <7d6a06dc-9e88-2427-ec6a-4f48b9aa8f6b@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2003661887=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1519303717-24123-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <7d6a06dc-9e88-2427-ec6a-4f48b9aa8f6b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,154 +19,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBGZWIgMjIsIDIwMTggYXQgNzo0OCBBTSwgUmV4IFpodSA8UmV4LlpodUBhbWQuY29t
-PiB3cm90ZToKPiBNb3ZlIGRwbSBjaGVjayBmdW5jdGlvbnMgb24gQ1ovVmVnYTEwIHRvIHNtdSBi
-YWNrZW5kCj4gZnVuY3Rpb24gdGFibGUuCj4KPiBDaGFuZ2UtSWQ6IEkwODRmNTg2Y2VkNWRiYmNk
-ZWQ1NDE3NmEwNmI4NTdjNzUzMDNlNTUzCj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4Llpo
-dUBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9j
-el9od21nci5jICAgICB8IDI3ICsrLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuaCAgICAgfCAgMSAtCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIHwgMTUgKystLS0tLS0t
-LS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9jel9zbXVtZ3IuYyAg
-IHwgMjQgKysrKysrKysrKysrKysrKysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVtZ3IvY3pfc211bWdyLmggICB8ICAyICsrCj4gIC4uLi9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvc211bWdyL3ZlZ2ExMF9zbXVtZ3IuYyAgIHwgMTMgKysrKysrKysrKysKPiAgNiBmaWxlcyBj
-aGFuZ2VkLCA0MyBpbnNlcnRpb25zKCspLCAzOSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jel9od21nci5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYwo+IGluZGV4IDVhN2I5OWYu
-LjRiNDg3NjUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
-Z3IvY3pfaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
-L2N6X2h3bWdyLmMKPiBAQCAtMTAwOSwzMiArMTAwOSw5IEBAIHN0YXRpYyB2b2lkIGN6X3Jlc2V0
-X2FjcF9ib290X2xldmVsKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gICAgICAgICBjel9od21n
-ci0+YWNwX2Jvb3RfbGV2ZWwgPSAweGZmOwo+ICB9Cj4KPiAtc3RhdGljIGJvb2wgY3pfZHBtX2No
-ZWNrX3NtdV9mZWF0dXJlcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+IC0gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBjaGVja19mZWF0dXJlKQo+IC17Cj4gLSAg
-ICAgICBpbnQgcmVzdWx0Owo+IC0gICAgICAgdW5zaWduZWQgbG9uZyBmZWF0dXJlczsKPiAtCj4g
-LSAgICAgICByZXN1bHQgPSBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21n
-ciwgUFBTTUNfTVNHX0dldEZlYXR1cmVTdGF0dXMsIDApOwo+IC0gICAgICAgaWYgKHJlc3VsdCA9
-PSAwKSB7Cj4gLSAgICAgICAgICAgICAgIGZlYXR1cmVzID0gc211bV9nZXRfYXJndW1lbnQoaHdt
-Z3IpOwo+IC0gICAgICAgICAgICAgICBpZiAoZmVhdHVyZXMgJiBjaGVja19mZWF0dXJlKQo+IC0g
-ICAgICAgICAgICAgICAgICAgICAgIHJldHVybiB0cnVlOwo+IC0gICAgICAgfQo+IC0KPiAtICAg
-ICAgIHJldHVybiBmYWxzZTsKPiAtfQo+IC0KPiAtc3RhdGljIGJvb2wgY3pfY2hlY2tfZm9yX2Rw
-bV9lbmFibGVkKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gLXsKPiAtICAgICAgIGlmIChjel9k
-cG1fY2hlY2tfc211X2ZlYXR1cmVzKGh3bWdyLCBTTVVfRW5hYmxlZEZlYXR1cmVTY29yZWJvYXJk
-X1NjbGtEcG1PbikpCj4gLSAgICAgICAgICAgICAgIHJldHVybiB0cnVlOwo+IC0gICAgICAgcmV0
-dXJuIGZhbHNlOwo+IC19Cj4gLQo+ICBzdGF0aWMgaW50IGN6X2Rpc2FibGVfZHBtX3Rhc2tzKHN0
-cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gIHsKPiAtICAgICAgIGlmICghY3pfY2hlY2tfZm9yX2Rw
-bV9lbmFibGVkKGh3bWdyKSkgewo+ICsgICAgICAgaWYgKCFzbXVtX2lzX2RwbV9ydW5uaW5nKGh3
-bWdyKSkgewo+ICAgICAgICAgICAgICAgICBwcl9pbmZvKCJkcG0gaGFzIGJlZW4gZGlzYWJsZWRc
-biIpOwo+ICAgICAgICAgICAgICAgICByZXR1cm4gMDsKPiAgICAgICAgIH0KPiBAQCAtMTA0OSw3
-ICsxMDI2LDcgQEAgc3RhdGljIGludCBjel9kaXNhYmxlX2RwbV90YXNrcyhzdHJ1Y3QgcHBfaHdt
-Z3IgKmh3bWdyKQo+Cj4gIHN0YXRpYyBpbnQgY3pfZW5hYmxlX2RwbV90YXNrcyhzdHJ1Y3QgcHBf
-aHdtZ3IgKmh3bWdyKQo+ICB7Cj4gLSAgICAgICBpZiAoY3pfY2hlY2tfZm9yX2RwbV9lbmFibGVk
-KGh3bWdyKSkgewo+ICsgICAgICAgaWYgKHNtdW1faXNfZHBtX3J1bm5pbmcoaHdtZ3IpKSB7Cj4g
-ICAgICAgICAgICAgICAgIHByX2luZm8oImRwbSBoYXMgYmVlbiBlbmFibGVkXG4iKTsKPiAgICAg
-ICAgICAgICAgICAgcmV0dXJuIDA7Cj4gICAgICAgICB9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmggYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci9jel9od21nci5oCj4gaW5kZXggNDY4YzczOS4uYjU2NzIwYSAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jel9od21n
-ci5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3Iu
-aAo+IEBAIC0xNzEsNyArMTcxLDYgQEAgc3RydWN0IGN6X3Bvd2VyX3N0YXRlIHsKPiAgI2RlZmlu
-ZSBEUE1GbGFnc19EZWJ1ZyAgICAgICAgICAgICAgICAgICAgICAgICAweDgwMDAwMDAwCj4KPiAg
-I2RlZmluZSBTTVVfRW5hYmxlZEZlYXR1cmVTY29yZWJvYXJkX0FjcERwbU9uICAgMHgwMDAwMDAw
-MSAvKiBiaXQgMCAqLwo+IC0jZGVmaW5lIFNNVV9FbmFibGVkRmVhdHVyZVNjb3JlYm9hcmRfU2Ns
-a0RwbU9uICAgIDB4MDAyMDAwMDAKPiAgI2RlZmluZSBTTVVfRW5hYmxlZEZlYXR1cmVTY29yZWJv
-YXJkX1V2ZERwbU9uICAgMHgwMDgwMDAwMCAvKiBiaXQgMjMgKi8KPiAgI2RlZmluZSBTTVVfRW5h
-YmxlZEZlYXR1cmVTY29yZWJvYXJkX1ZjZURwbU9uICAgMHgwMTAwMDAwMCAvKiBiaXQgMjQgKi8K
-Pgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdh
-MTBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9o
-d21nci5jCj4gaW5kZXggYmQ3N2E5MS4uZWNlYTY3NyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gQEAgLTk0OSwxNyAr
-OTQ5LDYgQEAgc3RhdGljIGludCB2ZWdhMTBfc2V0dXBfYXNpY190YXNrKHN0cnVjdCBwcF9od21n
-ciAqaHdtZ3IpCj4gICAgICAgICByZXR1cm4gMDsKPiAgfQo+Cj4gLXN0YXRpYyBib29sIHZlZ2Ex
-MF9pc19kcG1fcnVubmluZyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+IC17Cj4gLSAgICAgICB1
-aW50MzJfdCBmZWF0dXJlc19lbmFibGVkOwo+IC0KPiAtICAgICAgIGlmICghdmVnYTEwX2dldF9z
-bWNfZmVhdHVyZXMoaHdtZ3IsICZmZWF0dXJlc19lbmFibGVkKSkgewo+IC0gICAgICAgICAgICAg
-ICBpZiAoZmVhdHVyZXNfZW5hYmxlZCAmIFNNQ19EUE1fRkVBVFVSRVMpCj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgcmV0dXJuIHRydWU7Cj4gLSAgICAgICB9Cj4gLSAgICAgICByZXR1cm4gZmFs
-c2U7Cj4gLX0KPiAtCj4gIC8qKgo+ICAqIFJlbW92ZSByZXBlYXRlZCB2b2x0YWdlIHZhbHVlcyBh
-bmQgY3JlYXRlIHRhYmxlIHdpdGggdW5pcXVlIHZhbHVlcy4KPiAgKgo+IEBAIC0yOTEyLDcgKzI5
-MDEsNyBAQCBzdGF0aWMgaW50IHZlZ2ExMF9lbmFibGVfZHBtX3Rhc2tzKHN0cnVjdCBwcF9od21n
-ciAqaHdtZ3IpCj4KPiAgICAgICAgIHZlZ2ExMF9lbmFibGVfZGlzYWJsZV9QQ0NfbGltaXRfZmVh
-dHVyZShod21nciwgdHJ1ZSk7Cj4KPiAtICAgICAgIHRtcF9yZXN1bHQgPSAoIXZlZ2ExMF9pc19k
-cG1fcnVubmluZyhod21ncikpID8gMCA6IC0xOwo+ICsgICAgICAgdG1wX3Jlc3VsdCA9ICghc211
-bV9pc19kcG1fcnVubmluZyhod21ncikpID8gMCA6IC0xOwo+ICAgICAgICAgUFBfQVNTRVJUX1dJ
-VEhfQ09ERSghdG1wX3Jlc3VsdCwKPiAgICAgICAgICAgICAgICAgICAgICAgICAiRFBNIGlzIGFs
-cmVhZHkgcnVubmluZyByaWdodCAsIHNraXBwaW5nIHJlLWVuYWJsZW1lbnQhIiwKPiAgICAgICAg
-ICAgICAgICAgICAgICAgICByZXR1cm4gMCk7Cj4gQEAgLTQ3NDAsNyArNDcyOSw3IEBAIHN0YXRp
-YyBpbnQgdmVnYTEwX2Rpc2FibGVfZHBtX3Rhc2tzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4g
-IHsKPiAgICAgICAgIGludCB0bXBfcmVzdWx0LCByZXN1bHQgPSAwOwo+Cj4gLSAgICAgICB0bXBf
-cmVzdWx0ID0gKHZlZ2ExMF9pc19kcG1fcnVubmluZyhod21ncikpID8gMCA6IC0xOwo+ICsgICAg
-ICAgdG1wX3Jlc3VsdCA9IChzbXVtX2lzX2RwbV9ydW5uaW5nKGh3bWdyKSkgPyAwIDogLTE7Cj4g
-ICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKHRtcF9yZXN1bHQgPT0gMCwKPiAgICAgICAgICAg
-ICAgICAgICAgICAgICAiRFBNIGlzIG5vdCBydW5uaW5nIHJpZ2h0IG5vdywgbm8gbmVlZCB0byBk
-aXNhYmxlIERQTSEiLAo+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwKTsKPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2N6X3NtdW1nci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2N6X3NtdW1nci5jCj4gaW5k
-ZXggNGQzYWZmMy4uMWVhZGQ2NCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9zbXVtZ3IvY3pfc211bWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9zbXVtZ3IvY3pfc211bWdyLmMKPiBAQCAtODU1LDYgKzg1NSwyOSBAQCBzdGF0aWMg
-aW50IGN6X3NtdV9maW5pKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gICAgICAgICByZXR1cm4g
-MDsKPiAgfQo+Cj4gK3N0YXRpYyBib29sIGN6X2RwbV9jaGVja19zbXVfZmVhdHVyZXMoc3RydWN0
-IHBwX2h3bWdyICpod21nciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2ln
-bmVkIGxvbmcgY2hlY2tfZmVhdHVyZSkKPiArewo+ICsgICAgICAgaW50IHJlc3VsdDsKPiArICAg
-ICAgIHVuc2lnbmVkIGxvbmcgZmVhdHVyZXM7Cj4gKwo+ICsgICAgICAgcmVzdWx0ID0gY3pfc2Vu
-ZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLCBQUFNNQ19NU0dfR2V0RmVhdHVyZVN0
-YXR1cywgMCk7Cj4gKyAgICAgICBpZiAocmVzdWx0ID09IDApIHsKPiArICAgICAgICAgICAgICAg
-ZmVhdHVyZXMgPSBzbXVtX2dldF9hcmd1bWVudChod21ncik7Cj4gKyAgICAgICAgICAgICAgIGlm
-IChmZWF0dXJlcyAmIGNoZWNrX2ZlYXR1cmUpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0
-dXJuIHRydWU7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgcmV0dXJuIGZhbHNlOwo+ICt9Cj4g
-Kwo+ICtzdGF0aWMgYm9vbCBjel9jaGVja19mb3JfZHBtX2VuYWJsZWQoc3RydWN0IHBwX2h3bWdy
-ICpod21ncikKClJlbmFtZSB0aGlzIGZ1bmN0aW9uIGN6X2lzX2RwbV9ydW5uaW5nKCkgZm9yIGNv
-bnNpc3RlbmN5LiAgV2l0aCB0aGF0LAp0aGUgc2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBE
-ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiArewo+ICsgICAgICAgaWYgKGN6
-X2RwbV9jaGVja19zbXVfZmVhdHVyZXMoaHdtZ3IsIFNNVV9FbmFibGVkRmVhdHVyZVNjb3JlYm9h
-cmRfU2Nsa0RwbU9uKSkKPiArICAgICAgICAgICAgICAgcmV0dXJuIHRydWU7Cj4gKyAgICAgICBy
-ZXR1cm4gZmFsc2U7Cj4gK30KPiArCj4gIGNvbnN0IHN0cnVjdCBwcF9zbXVtZ3JfZnVuYyBjel9z
-bXVfZnVuY3MgPSB7Cj4gICAgICAgICAuc211X2luaXQgPSBjel9zbXVfaW5pdCwKPiAgICAgICAg
-IC5zbXVfZmluaSA9IGN6X3NtdV9maW5pLAo+IEBAIC04NjcsNSArODkwLDYgQEAgc3RhdGljIGlu
-dCBjel9zbXVfZmluaShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICAgICAgICAgLnNlbmRfbXNn
-X3RvX3NtY193aXRoX3BhcmFtZXRlciA9IGN6X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRl
-ciwKPiAgICAgICAgIC5kb3dubG9hZF9wcHRhYmxlX3NldHRpbmdzID0gY3pfZG93bmxvYWRfcHB0
-YWJsZV9zZXR0aW5ncywKPiAgICAgICAgIC51cGxvYWRfcHB0YWJsZV9zZXR0aW5ncyA9IGN6X3Vw
-bG9hZF9wcHRhYmxlX3NldHRpbmdzLAo+ICsgICAgICAgLmlzX2RwbV9ydW5uaW5nID0gY3pfY2hl
-Y2tfZm9yX2RwbV9lbmFibGVkLAo+ICB9Owo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L3NtdW1nci9jel9zbXVtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L3NtdW1nci9jel9zbXVtZ3IuaAo+IGluZGV4IDdjM2EyOTAuLjc1NmIyYzQgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2N6X3NtdW1n
-ci5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2N6X3NtdW1n
-ci5oCj4gQEAgLTMxLDYgKzMxLDggQEAKPiAgI2RlZmluZSBDWl9TQ1JBVENIX1NJWkVfU0RNQV9N
-RVRBREFUQSAgICAgICAgICAgMTAyNAo+ICAjZGVmaW5lIENaX1NDUkFUQ0hfU0laRV9JSCAgICAg
-ICAgICAgICAgICAgICAgICAoKDIqMjU2KzEpKjQpCj4KPiArI2RlZmluZSBTTVVfRW5hYmxlZEZl
-YXR1cmVTY29yZWJvYXJkX1NjbGtEcG1PbiAgICAweDAwMjAwMDAwCj4gKwo+ICBlbnVtIGN6X3Nj
-cmF0Y2hfZW50cnkgewo+ICAgICAgICAgQ1pfU0NSQVRDSF9FTlRSWV9VQ09ERV9JRF9TRE1BMCA9
-IDAsCj4gICAgICAgICBDWl9TQ1JBVENIX0VOVFJZX1VDT0RFX0lEX1NETUExLAo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYTEwX3NtdW1nci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3ZlZ2ExMF9zbXVtZ3IuYwo+
-IGluZGV4IGRkODQyYWUuLjcwZGQ1ZjggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvc211bWdyL3ZlZ2ExMF9zbXVtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhMTBfc211bWdyLmMKPiBAQCAtMzE3LDYgKzMxNywx
-OCBAQCBpbnQgdmVnYTEwX2dldF9zbWNfZmVhdHVyZXMoc3RydWN0IHBwX2h3bWdyICpod21nciwK
-PiAgICAgICAgIHJldHVybiAwOwo+ICB9Cj4KPiArc3RhdGljIGJvb2wgdmVnYTEwX2lzX2RwbV9y
-dW5uaW5nKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gK3sKPiArICAgICAgIHVpbnQzMl90IGZl
-YXR1cmVzX2VuYWJsZWQgPSAwOwo+ICsKPiArICAgICAgIHZlZ2ExMF9nZXRfc21jX2ZlYXR1cmVz
-KGh3bWdyLCAmZmVhdHVyZXNfZW5hYmxlZCk7Cj4gKwo+ICsgICAgICAgaWYgKGZlYXR1cmVzX2Vu
-YWJsZWQgJiBTTUNfRFBNX0ZFQVRVUkVTKQo+ICsgICAgICAgICAgICAgICByZXR1cm4gdHJ1ZTsK
-PiArICAgICAgIGVsc2UKPiArICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlOwo+ICt9Cj4gKwo+
-ICBpbnQgdmVnYTEwX3NldF90b29sc19hZGRyZXNzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4g
-IHsKPiAgICAgICAgIHN0cnVjdCB2ZWdhMTBfc211bWdyICpwcml2ID0KPiBAQCAtNTgzLDQgKzU5
-NSw1IEBAIHN0YXRpYyBpbnQgdmVnYTEwX3N0YXJ0X3NtdShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
-KQo+ICAgICAgICAgLnNlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlciA9ICZ2ZWdhMTBfc2Vu
-ZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyLAo+ICAgICAgICAgLmRvd25sb2FkX3BwdGFibGVf
-c2V0dGluZ3MgPSBOVUxMLAo+ICAgICAgICAgLnVwbG9hZF9wcHRhYmxlX3NldHRpbmdzID0gTlVM
-TCwKPiArICAgICAgIC5pc19kcG1fcnVubmluZyA9IHZlZ2ExMF9pc19kcG1fcnVubmluZywKPiAg
-fTsKPiAtLQo+IDEuOS4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============2003661887==
+Content-Type: multipart/alternative; boundary="94eb2c065f48d17a590565cf1677"
+
+--94eb2c065f48d17a590565cf1677
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Alex, Christian, et al.
+
+Thanks for your rapid response!
+
+I can certainly make the change PPC-only (#ifdef CONFIG_PPC64...) and I
+think
+that's the safest way to go right now.  It makes the patch very specific to
+Cedar
+on PowerPC64, so it doesn't break anything that may have come to depend on
+Russell's and Alistair's changes, and my timetable for getting a fix in is
+very short.
+
+-- Ben
+
+
+
+On Thu, Feb 22, 2018 at 2:25 AM, Christian K=C3=B6nig <
+ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> Am 22.02.2018 um 03:05 schrieb Alex Deucher:
+>
+>> On Wed, Feb 21, 2018 at 6:41 PM, Ben Crocker <bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org> wrote=
+:
+>>
+>>> In radeon_device_init, set the need_dma32 flag for Cedar chips
+>>> (e.g. FirePro 2270).  This fixes, or at least works around, a bug
+>>> on PowerPC exposed by last year's commits
+>>>
+>>> 8e3f1b1d8255105f31556aacf8aeb6071b00d469 (Russell Currey)
+>>>
+>>> and
+>>>
+>>> 253fd51e2f533552ae35a0c661705da6c4842c1b (Alistair Popple)
+>>>
+>>> which enabled the 64-bit DMA iommu bypass.
+>>>
+>>> This caused the device to freeze, in some cases unrecoverably, and is
+>>> the subject of several bug reports internal to Red Hat.
+>>>
+>> Can we make this ppc only?  40 bit DMA works fine on x86.
+>>
+>
+> Yeah and at least when the dma_coherent allocator path is used it should
+> work fine on PPC as well.
+>
+> So that is not really a driver bug, but a platform bug and we should thin=
+k
+> about reverting or at least disabling those two patches instead.
+>
+> Christian.
+>
+>
+>> Alex
+>>
+>> Signed-off-by: Ben Crocker <bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+>>> ---
+>>>   drivers/gpu/drm/radeon/radeon_device.c | 5 ++++-
+>>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/radeon/radeon_device.c
+>>> b/drivers/gpu/drm/radeon/radeon_device.c
+>>> index ffc10cadcf34..02538903830d 100644
+>>> --- a/drivers/gpu/drm/radeon/radeon_device.c
+>>> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+>>> @@ -1395,7 +1395,10 @@ int radeon_device_init(struct radeon_device *rde=
+v,
+>>>          if (rdev->flags & RADEON_IS_AGP)
+>>>                  rdev->need_dma32 =3D true;
+>>>          if ((rdev->flags & RADEON_IS_PCI) &&
+>>> -           (rdev->family <=3D CHIP_RS740))
+>>> +           (rdev->family <=3D CHIP_RS740 || rdev->family =3D=3D CHIP_C=
+EDAR))
+>>> +               rdev->need_dma32 =3D true;
+>>> +       if ((rdev->flags & RADEON_IS_PCIE) &&
+>>> +           (rdev->family =3D=3D CHIP_CEDAR))
+>>>                  rdev->need_dma32 =3D true;
+>>>
+>>>          dma_bits =3D rdev->need_dma32 ? 32 : 40;
+>>> --
+>>> 2.13.6
+>>>
+>>> _______________________________________________
+>>> dri-devel mailing list
+>>> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>
+>
+>
+
+--94eb2c065f48d17a590565cf1677
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div><div><div><div><div>Alex, Christian, et al.<br><=
+br></div>Thanks for your rapid response!<br><br></div>I can certainly make =
+the change PPC-only (#ifdef CONFIG_PPC64...) and I think<br></div>that&#39;=
+s the safest way to go right now.=C2=A0 It makes the patch very specific to=
+ Cedar<br></div>on PowerPC64, so it doesn&#39;t break anything that may hav=
+e come to depend on<br></div>Russell&#39;s and Alistair&#39;s changes, and =
+my timetable for getting a fix in is very short.<br><br></div>-- Ben<br><br=
+><div><br></div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_qu=
+ote">On Thu, Feb 22, 2018 at 2:25 AM, Christian K=C3=B6nig <span dir=3D"ltr=
+">&lt;<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank"=
+>ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
+ding-left:1ex"><span class=3D"">Am 22.02.2018 um 03:05 schrieb Alex Deucher=
+:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On Wed, Feb 21, 2018 at 6:41 PM, Ben Crocker &lt;<a href=3D"mailto:bcrocker=
+@redhat.com" target=3D"_blank">bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt; wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+In radeon_device_init, set the need_dma32 flag for Cedar chips<br>
+(e.g. FirePro 2270).=C2=A0 This fixes, or at least works around, a bug<br>
+on PowerPC exposed by last year&#39;s commits<br>
+<br>
+8e3f1b1d8255105f31556aacf8aeb6<wbr>071b00d469 (Russell Currey)<br>
+<br>
+and<br>
+<br>
+253fd51e2f533552ae35a0c661705d<wbr>a6c4842c1b (Alistair Popple)<br>
+<br>
+which enabled the 64-bit DMA iommu bypass.<br>
+<br>
+This caused the device to freeze, in some cases unrecoverably, and is<br>
+the subject of several bug reports internal to Red Hat.<br>
+</blockquote>
+Can we make this ppc only?=C2=A0 40 bit DMA works fine on x86.<br>
+</blockquote>
+<br></span>
+Yeah and at least when the dma_coherent allocator path is used it should wo=
+rk fine on PPC as well.<br>
+<br>
+So that is not really a driver bug, but a platform bug and we should think =
+about reverting or at least disabling those two patches instead.<br>
+<br>
+Christian.<br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex"><div><div class=3D"h5">
+<br>
+Alex<br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+Signed-off-by: Ben Crocker &lt;<a href=3D"mailto:bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" targe=
+t=3D"_blank">bcrocker-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0 drivers/gpu/drm/radeon/radeon_<wbr>device.c | 5 ++++-<br>
+=C2=A0 1 file changed, 4 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/radeon/radeo<wbr>n_device.c b/drivers/gpu/drm/=
+radeon/radeo<wbr>n_device.c<br>
+index ffc10cadcf34..02538903830d 100644<br>
+--- a/drivers/gpu/drm/radeon/radeo<wbr>n_device.c<br>
++++ b/drivers/gpu/drm/radeon/radeo<wbr>n_device.c<br>
+@@ -1395,7 +1395,10 @@ int radeon_device_init(struct radeon_device *rdev,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rdev-&gt;flags &amp; RADEON_IS_AGP)<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev-&gt;need=
+_dma32 =3D true;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ((rdev-&gt;flags &amp; RADEON_IS_PCI) =
+&amp;&amp;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(rdev-&gt;family &lt;=3D CHIP_RS7=
+40))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(rdev-&gt;family &lt;=3D CHIP_RS7=
+40 || rdev-&gt;family =3D=3D CHIP_CEDAR))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev-&gt;need_dma32=
+ =3D true;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if ((rdev-&gt;flags &amp; RADEON_IS_PCIE) &amp;=
+&amp;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(rdev-&gt;family =3D=3D CHIP_CEDA=
+R))<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rdev-&gt;need=
+_dma32 =3D true;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_bits =3D rdev-&gt;need_dma32 ? 32 : 4=
+0;<br>
+--<br>
+2.13.6<br>
+<br>
+______________________________<wbr>_________________<br>
+dri-devel mailing list<br>
+<a href=3D"mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">dri-de=
+vel-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org<wbr>g</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
+"noreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/l=
+istinfo/dri-devel</a><br>
+</blockquote></div></div>
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
+tinfo/amd-gfx</a><br>
+</blockquote>
+<br>
+</blockquote></div><br></div>
+
+--94eb2c065f48d17a590565cf1677--
+
+--===============2003661887==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2003661887==--
