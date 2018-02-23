@@ -1,7 +1,7 @@
 From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 0/1] radeon and amdgpu drm-fixes-4.16
-Date: Thu, 22 Feb 2018 23:57:22 -0500
-Message-ID: <20180223045722.3234-1-alexander.deucher@amd.com>
+Subject: [pull] radeon and amdgpu drm-fixes-4.16
+Date: Thu, 22 Feb 2018 23:58:12 -0500
+Message-ID: <20180223045812.3322-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
