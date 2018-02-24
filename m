@@ -1,109 +1,98 @@
-From: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/4] drm/ttm: handle already locked BOs during eviction
- and swapout.
-Date: Sat, 24 Feb 2018 03:46:03 +0000
-Message-ID: <MWHPR1201MB0127B30637C83130A8167C12FDC30@MWHPR1201MB0127.namprd12.prod.outlook.com>
-References: <20180220125829.27060-1-christian.koenig@amd.com>
- <20180220125829.27060-3-christian.koenig@amd.com>
- <MWHPR1201MB0127CE75F5FD6DE84A0B93C6FDCC0@MWHPR1201MB0127.namprd12.prod.outlook.com>
- <6eadbbea-8eca-a1ab-93bb-d37ae6e5f29d@gmail.com>
- <MWHPR1201MB01278E573419210283D68640FDC30@MWHPR1201MB0127.namprd12.prod.outlook.com>
+From: Pavel Machek <pavel@ucw.cz>
+Subject: Re: [PATCH] fix double ;;s in code
+Date: Sat, 24 Feb 2018 09:52:27 +0100
+Message-ID: <20180224085227.GA12996@amd>
+References: <20180217211955.GE9640@amd>
+ <20180222090932.GJ3217@dragon>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB01278E573419210283D68640FDC30-3iK1xFAIwjq9imrIu4W8xGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "He, Roger" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1757324298=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180222090932.GJ3217@dragon>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Shawn Guo <shawnguo@kernel.org>
+Cc: daniel.lezcano@linaro.org, narmstrong@baylibre.com, airlied@linux.ie, Alexey.Brodkin@synopsys.com, will.deacon@arm.com, fbarrat@linux.vnet.ibm.com, kernel list <linux-kernel@vger.kernel.org>, paulus@ozlabs.org, yamada.masahiro@socionext.com, mhocko@suse.com, viresh.kumar@linaro.org, hpa@zytor.com, JinHuiEric.Huang@amd.com, iommu@lists.linux-foundation.org, elfring@users.sourceforge.net, scott.bauer@intel.com, linux-arm-kernel@lists.infradead.org, mpe@ellerman.id.au, x86@kernel.org, Wenjing.Liu@amd.com, linux@armlinux.org.uk, amd-gfx@lists.freedesktop.org, Ding.Wang@amd.com, aik@ozlabs.ru, wens@csie.org, mingo@redhat.com, vbabka@suse.cz, catalin.marinas@arm.com, airlied@redhat.com, ruscur@russell.cc, shli@kernel.org, dan.carpenter@oracle.com, andresx7@gmail.com, linux-arm-msm@vger.kernel.org, linux-efi@vger.kernel.org, alistair@popple.id.au, linuxppc-dev@lists.ozlabs.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SSBtaXNzZWQgdGhlIFBlci1WTS1CTyBzaGFyZSB0aGUgcmVzZXJ2YXRpb24gb2JqZWN0IHdpdGgg
-cm9vdCBiby4gU28gY29udGV4dCBpcyBub3QgTlVMTCBoZXJlLg0KU28sICB0aGlzIHBhdGNoIGlz
-Og0KDQpSZXZpZXdlZC1ieTogUm9nZXIgSGUgPEhvbmdiby5IZUBhbWQuY29tPg0KDQpUaGFua3MN
-ClJvZ2VyKEhvbmdiby5IZSkNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBDaHJp
-c3RpYW4gS8O2bmlnIFttYWlsdG86Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb21dDQpT
-ZW50OiBGcmlkYXksIEZlYnJ1YXJ5IDIzLCAyMDE4IDg6MDYgUE0NClRvOiBIZSwgUm9nZXIgPEhv
-bmdiby5IZUBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGRyaS1kZXZl
-bEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcNClN1
-YmplY3Q6IFJlOiBbUEFUQ0ggMy80XSBkcm0vdHRtOiBoYW5kbGUgYWxyZWFkeSBsb2NrZWQgQk9z
-IGR1cmluZyBldmljdGlvbiBhbmQgc3dhcG91dC4NCg0KQW0gMjMuMDIuMjAxOCB1bSAxMDo0NiBz
-Y2hyaWViIEhlLCBSb2dlcjoNCj4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJv
-bTogZHJpLWRldmVsIFttYWlsdG86ZHJpLWRldmVsLWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnXSBPbiANCj4gQmVoYWxmIE9mIENocmlzdGlhbiBLP25pZw0KPiBTZW50OiBUdWVzZGF5LCBG
-ZWJydWFyeSAyMCwgMjAxOCA4OjU4IFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgDQo+IGxpbnV4LWtlcm5lbEB2
-Z2VyLmtlcm5lbC5vcmcNCj4gU3ViamVjdDogW1BBVENIIDMvNF0gZHJtL3R0bTogaGFuZGxlIGFs
-cmVhZHkgbG9ja2VkIEJPcyBkdXJpbmcgZXZpY3Rpb24gYW5kIHN3YXBvdXQuDQo+DQo+IFRoaXMg
-c29sdmVzIHRoZSBwcm9ibGVtIHRoYXQgd2hlbiB3ZSBzd2Fwb3V0IGEgQk8gZnJvbSBhIGRvbWFp
-biB3ZSBzb21ldGltZXMgY291bGRuJ3QgbWFrZSByb29tIGZvciBpdCBiZWNhdXNlIGhvbGRpbmcg
-dGhlIGxvY2sgYmxvY2tzIGFsbCBvdGhlciBCT3Mgd2l0aCB0aGlzIHJlc2VydmF0aW9uIG9iamVj
-dC4NCj4NCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
-Z0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIHwgMzMg
-KysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDE2
-IGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL3R0bS90dG1fYm8uYyANCj4gYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5j
-IGluZGV4IGQ5MGIxY2YxMGIyNy4uM2E0NGMyZWU0MTU1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vdHRtL3R0bV9iby5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2Jv
-LmMNCj4gQEAgLTcxMywzMSArNzEzLDMwIEBAIGJvb2wgdHRtX2JvX2V2aWN0aW9uX3ZhbHVhYmxl
-KHN0cnVjdCANCj4gdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCAgRVhQT1JUX1NZTUJPTCh0dG1fYm9f
-ZXZpY3Rpb25fdmFsdWFibGUpOw0KPiAgIA0KPiAgIC8qKg0KPiAtICogQ2hlY2sgdGhlIHRhcmdl
-dCBibyBpcyBhbGxvd2FibGUgdG8gYmUgZXZpY3RlZCBvciBzd2Fwb3V0LCBpbmNsdWRpbmcgY2Fz
-ZXM6DQo+IC0gKg0KPiAtICogYS4gaWYgc2hhcmUgc2FtZSByZXNlcnZhdGlvbiBvYmplY3Qgd2l0
-aCBjdHgtPnJlc3YsIGhhdmUgDQo+IGFzc3VtcHRpb24NCj4gLSAqIHJlc2VydmF0aW9uIG9iamVj
-dHMgc2hvdWxkIGFscmVhZHkgYmUgbG9ja2VkLCBzbyBub3QgbG9jayBhZ2FpbiANCj4gYW5kDQo+
-IC0gKiByZXR1cm4gdHJ1ZSBkaXJlY3RseSB3aGVuIGVpdGhlciB0aGUgb3ByZWF0aW9uIA0KPiBh
-bGxvd19yZXNlcnZlZF9ldmljdGlvbg0KPiAtICogb3IgdGhlIHRhcmdldCBibyBhbHJlYWR5IGlz
-IGluIGRlbGF5ZWQgZnJlZSBsaXN0Ow0KPiAtICoNCj4gLSAqIGIuIE90aGVyd2lzZSwgdHJ5bG9j
-ayBpdC4NCj4gKyAqIENoZWNrIGlmIHRoZSB0YXJnZXQgYm8gaXMgYWxsb3dlZCB0byBiZSBldmlj
-dGVkIG9yIHN3YXBlZG91dC4NCj4gICAgKi8NCj4gICBzdGF0aWMgYm9vbCB0dG1fYm9fZXZpY3Rf
-c3dhcG91dF9hbGxvd2FibGUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywNCj4gLQkJCXN0
-cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAqY3R4LCBib29sICpsb2NrZWQpDQo+ICsJCQkJCSAgIHN0
-cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAqY3R4LA0KPiArCQkJCQkgICBib29sICpsb2NrZWQpDQo+
-ICAgew0KPiAtCWJvb2wgcmV0ID0gZmFsc2U7DQo+ICsJLyogRmlyc3QgY2hlY2sgaWYgd2UgY2Fu
-IGxvY2sgaXQgKi8NCj4gKwkqbG9ja2VkID0gcmVzZXJ2YXRpb25fb2JqZWN0X3RyeWxvY2soYm8t
-PnJlc3YpOw0KPiArCWlmICgqbG9ja2VkKQ0KPiArCQlyZXR1cm4gdHJ1ZTsNCj4gICANCj4gLQkq
-bG9ja2VkID0gZmFsc2U7DQo+ICsJLyogQ2hlY2sgaWYgaXQncyBsb2NrZWQgYmVjYXVzZSBpdCBp
-cyBwYXJ0IG9mIHRoZSBjdXJyZW50IG9wZXJhdGlvbiANCj4gKyovDQo+ICAgCWlmIChiby0+cmVz
-diA9PSBjdHgtPnJlc3YpIHsNCj4gICAJCXJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVsZChi
-by0+cmVzdik7DQo+IC0JCWlmIChjdHgtPmFsbG93X3Jlc2VydmVkX2V2aWN0aW9uIHx8ICFsaXN0
-X2VtcHR5KCZiby0+ZGRlc3Ryb3kpKQ0KPiAtCQkJcmV0ID0gdHJ1ZTsNCj4gLQl9IGVsc2Ugew0K
-PiAtCQkqbG9ja2VkID0gcmVzZXJ2YXRpb25fb2JqZWN0X3RyeWxvY2soYm8tPnJlc3YpOw0KPiAt
-CQlyZXQgPSAqbG9ja2VkOw0KPiArCQlyZXR1cm4gY3R4LT5hbGxvd19yZXNlcnZlZF9ldmljdGlv
-biB8fA0KPiArCQkJIWxpc3RfZW1wdHkoJmJvLT5kZGVzdHJveSk7DQo+ICAgCX0NCj4gICANCj4g
-LQlyZXR1cm4gcmV0Ow0KPiArCS8qIENoZWNrIGlmIGl0J3MgbG9ja2VkIGJlY2F1c2UgaXQgd2Fz
-IGFscmVhZHkgZXZpY3RlZCAqLw0KPiArCWlmICh3d19tdXRleF9pc19vd25lZF9ieSgmYm8tPnJl
-c3YtPmxvY2ssIE5VTEwpKQ0KPiArCQlyZXR1cm4gdHJ1ZTsNCj4NCj4gRm9yIHRoZSBzcGVjaWFs
-IGNhc2U6IHdoZW4gY29tbWFuZCBzdWJtaXNzaW9uIHdpdGggUGVyLVZNLUJPIGVuYWJsZWQsIA0K
-PiBBbGwgQk9zICBhL2IvYyBhcmUgYWx3YXlzIHZhbGlkIEJPLiBBZnRlciB0aGUgdmFsaWRhdGlv
-biBvZiBCT3MgYSBhbmQgDQo+IGIsIHdoZW4gdmFsaWRhdGlvbiBvZiBCTyBjLCBpcyBpdCBwb3Nz
-aWJsZSB0byByZXR1cm4gdHJ1ZSBhbmQgdGhlbiBldmljdCBCTyBhIGFuZCBiIGJ5IG1pc3Rha2Ug
-Pw0KPiBCZWNhdXNlIGEvYi9jIHNoYXJlIHNhbWUgdGFza19zdHJ1Y3QuDQoNCglObywgdGhhdCdz
-IHdoeSBJIGNoZWNrIHRoZSBjb250ZXh0IGFzIHdlbGwuIEJPcyBleHBsaWNpdGx5IHJlc2VydmVk
-IGhhdmUgYSBub24gTlVMTCBjb250ZXh0IHdoaWxlIEJPcyB0cnlsb2NrZWQgZm9yIHN3YXBvdXQg
-aGF2ZSAJYSBOVUxMIGNvbnRleHQuDQoNCglCT3MgaGF2ZSBhIG5vbiBOVUxMIGNvbnRleHQgb25s
-eSB3aGVuIGNvbW1hbmQgc3VibWlzc2lvbiBhbmQgcmVzZXJ2ZWQgYnkgdHRtX2V1X3JlNnNlcnZl
-X2J1ZmZlcnMgIC4NCglCdXQgZm9yIFBlci1WTS1CTyBhL2IvYyB0aGV5IGFsd2F5cyBhcmUgbm90
-IGluIEJPIGxpc3QsIHNvIHRoZXkgd2lsbCBiZSBub3QgcmVzZXJ2ZWQgYW5kIGhhdmUgYWx3YXlz
-IE5VTEwgY29udGV4dC4NCglTbyBhYm92ZSBjYXNlIGFsc28gY2FuIGhhcHBlbi4gQW55dGhpbmcg
-bWlzc2luZyBoZXJlPyAgDQoNCj4NCj4gKwkvKiBTb21lIG90aGVyIHRocmVhZCBpcyB1c2luZyBp
-dCwgZG9uJ3QgdG91Y2ggaXQgKi8NCj4gKwlyZXR1cm4gZmFsc2U7DQo+ICAgfQ0KPiAgIA0KPiAg
-IHN0YXRpYyBpbnQgdHRtX21lbV9ldmljdF9maXJzdChzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRl
-diwNCj4gLS0NCj4gMi4xNC4xDQo+DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fDQo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QNCj4gZHJpLWRldmVsQGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2RyaS1kZXZlbA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXw0KZHJpLWRldmVsIG1haWxpbmcgbGlzdA0KZHJpLWRldmVsQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9kcmktZGV2ZWwNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+
+--===============1757324298==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="qDbXVdCdHGoSgWSk"
+Content-Disposition: inline
+
+
+--qDbXVdCdHGoSgWSk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi!
+
+> > diff --git a/drivers/soc/imx/gpc.c b/drivers/soc/imx/gpc.c
+> > index 53f7275..cfb42f5 100644
+> > --- a/drivers/soc/imx/gpc.c
+> > +++ b/drivers/soc/imx/gpc.c
+> > @@ -348,7 +348,7 @@ static int imx_gpc_old_dt_init(struct device *dev, =
+struct regmap *regmap,
+> >  		if (i =3D=3D 1) {
+> >  			domain->supply =3D devm_regulator_get(dev, "pu");
+> >  			if (IS_ERR(domain->supply))
+> > -				return PTR_ERR(domain->supply);;
+> > +				return PTR_ERR(domain->supply);
+> > =20
+> >  			ret =3D imx_pgc_get_clocks(dev, domain);
+> >  			if (ret)
+> >=20
+>=20
+> Considering the controversy how the changes should be merged, I'm going
+> to send a separate patch just for IMX GPC driver with a reported-by-you
+> tag.  Thanks for catching this.
+
+That works for me.
+
+Alternatively... Andrew Morton merged the patch to his -mm tree
+(thanks!), so you don't need to take any action, and it will be
+eventually fixed.
+
+If you merge your own version of the patch, that's ok, too, since
+Andrew will just drop his version.
+
+Best regards,
+									Pavel
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--qDbXVdCdHGoSgWSk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAlqRJ8sACgkQMOfwapXb+vJnFQCfWSkka/liG8y+QlhIsWXlYlju
+LMwAoKeeuJ1utbSPd+SNFlihXcdggiAP
+=Ejo3
+-----END PGP SIGNATURE-----
+
+--qDbXVdCdHGoSgWSk--
+
+--===============1757324298==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1757324298==--
