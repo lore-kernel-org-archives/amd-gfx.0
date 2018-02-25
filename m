@@ -1,14 +1,15 @@
-From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: Delete an error message for a failed memory
- allocation in kfd_topology_init()
-Date: Sun, 25 Feb 2018 13:10:34 +0200
-Message-ID: <CAFCwf131ahZi1VLLzHG189DAGOVm_u8MmLCGAMoALJoBv-2CSg@mail.gmail.com>
-References: <94b486c9-92ce-dae8-3d5e-db1943fc0119@users.sourceforge.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 01/10] drm/amdgpu: bump version for new power profile sysfs
+Date: Sun, 25 Feb 2018 14:19:20 +0100
+Message-ID: <01527bb2-ea10-60a2-46e5-b635bda11ae7@gmail.com>
+References: <1519480567-23858-1-git-send-email-Rex.Zhu@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <94b486c9-92ce-dae8-3d5e-db1943fc0119-Rn4VEauK+AKRv+LV9MX5uipxlwaOVQ5f@public.gmane.org>
+In-Reply-To: <1519480567-23858-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,32 +20,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: SF Markus Elfring <elfring-Rn4VEauK+AKRv+LV9MX5uipxlwaOVQ5f@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gVGh1LCBGZWIgOCwgMjAxOCBhdCAxMTozMyBQTSwgU0YgTWFya3VzIEVsZnJpbmcKPGVsZnJp
-bmdAdXNlcnMuc291cmNlZm9yZ2UubmV0PiB3cm90ZToKPiBGcm9tOiBNYXJrdXMgRWxmcmluZyA8
-ZWxmcmluZ0B1c2Vycy5zb3VyY2Vmb3JnZS5uZXQ+Cj4gRGF0ZTogVGh1LCA4IEZlYiAyMDE4IDIy
-OjIzOjU3ICswMTAwCj4KPiBPbWl0IGFuIGV4dHJhIG1lc3NhZ2UgZm9yIGEgbWVtb3J5IGFsbG9j
-YXRpb24gZmFpbHVyZSBpbiB0aGlzIGZ1bmN0aW9uLgo+Cj4gVGhpcyBpc3N1ZSB3YXMgZGV0ZWN0
-ZWQgYnkgdXNpbmcgdGhlIENvY2NpbmVsbGUgc29mdHdhcmUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBN
-YXJrdXMgRWxmcmluZyA8ZWxmcmluZ0B1c2Vycy5zb3VyY2Vmb3JnZS5uZXQ+Cj4gLS0tCj4gIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jIHwgMSAtCj4gIDEgZmlsZSBj
-aGFuZ2VkLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-dG9wb2xvZ3kuYwo+IGluZGV4IDE5Y2U1OTAyOGQ2Yi4uNjEwZTNkNGFjNTc1IDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMKPiBAQCAtMTAxOSw3ICsxMDE5
-LDYgQEAgaW50IGtmZF90b3BvbG9neV9pbml0KHZvaWQpCj4gICAgICAgICAgICAgICAgIGNyYXRf
-aW1hZ2UgPSBrbWFsbG9jKGltYWdlX3NpemUsIEdGUF9LRVJORUwpOwo+ICAgICAgICAgICAgICAg
-ICBpZiAoIWNyYXRfaW1hZ2UpIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICByZXQgPSAtRU5P
-TUVNOwo+IC0gICAgICAgICAgICAgICAgICAgICAgIHByX2VycigiTm8gbWVtb3J5IGZvciBhbGxv
-Y2F0aW5nIENSQVQgaW1hZ2VcbiIpOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJy
-Owo+ICAgICAgICAgICAgICAgICB9Cj4gICAgICAgICAgICAgICAgIHJldCA9IGtmZF90b3BvbG9n
-eV9nZXRfY3JhdF9hY3BpKGNyYXRfaW1hZ2UsICZpbWFnZV9zaXplKTsKPiAtLQo+IDIuMTYuMQo+
-CgpIaSwKVGhhbmtzIGZvciB0aGUgcGF0Y2ggYnV0IHRoaXMgY29kZSBibG9jayBpcyBnb2luZyB0
-byBiZSByZWZhY3RvcmVkIGluCnRoZSBuZXh0IG1lcmdlIHdpbmRvdyBhbmQgdGhlIHBhdGNoIHdp
-bGwgbm8gbG9uZ2VyIGJlIHJlbGV2YW50LgoKT2RlZApfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+QW0gMjQuMDIuMjAxOCB1bSAxNDo1NSBzY2hyaWViIFJleCBaaHU6Cj4gQWRkIG5ldyBwb3dlciBw
+cm9maWxlIHN5c2ZzOiBwcF9wb3dlcl9wcm9maWxlX21vZGUKPiBvbGQgc3lzZnM6IHBwX2NvbXB1
+dGVfcG93ZXJfcHJvZmlsZS9wcF9nZnhfcG93ZXJfcHJvZmlsZQo+IHdpbGwgYmUgcmVtb3ZlZAoK
+V2VsbCBzeXNmcyBpcyBzdXBwb3NlZCB0byBiZSBzdGFibGUsIHNvIHJlbW92aW5nIHRoZSBvbGQg
+aW50ZXJmYWNlIHdvbid0IApiZSBhbGxvd2VkLgoKPgo+IENoYW5nZS1JZDogSWVmMzVlZmI4MWIz
+MTMxMTViMzNjNDMwZGZiMzI4YWQ4M2NlNzk3NWQKPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxS
+ZXguWmh1QGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZHJ2LmMgfCAxICsKPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQo+Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+IGluZGV4IDY5Y2Y0OTAuLjRjOTIy
+MzkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5j
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gQEAgLTc1
+LDYgKzc1LDcgQEAKPiAgICAqIC0gMy4yMy4wIC0gQWRkIHF1ZXJ5IGZvciBWUkFNIGxvc3QgY291
+bnRlcgo+ICAgICogLSAzLjI0LjAgLSBBZGQgaGlnaCBwcmlvcml0eSBjb21wdXRlIHN1cHBvcnQg
+Zm9yIGdmeDkKPiAgICAqIC0gMy4yNS4wIC0gQWRkIHN1cHBvcnQgZm9yIHNlbnNvciBxdWVyeSBp
+bmZvIChzdGFibGUgcHN0YXRlIHNjbGsvbWNsaykuCj4gKyAqIC0gMy4yNi4wIC0gRGVsZXRlIG9s
+ZCBnZngvY29tcHV0ZSBwcm9maWxlIHN5c2ZzLCBhZGQgY29tbW9uIHByb2ZpbGUgc3lzZnMuCj4g
+ICAgKi8KPiAgICNkZWZpbmUgS01TX0RSSVZFUl9NQUpPUgkzCj4gICAjZGVmaW5lIEtNU19EUklW
+RVJfTUlOT1IJMjUKCldlbGwgeW91IGFjdHVhbGx5IGFsc28gbmVlZCB0byBidW1wIHRoZSB2ZXJz
+aW9uLCBlLmcuIG1vZGlmeSAKS01TX0RSSVZFUl9NSU5PUi4KCkNocmlzdGlhbi4KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
