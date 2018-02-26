@@ -1,183 +1,105 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Correct VRAM width for APUs with GMC9
-Date: Mon, 26 Feb 2018 16:28:53 +0000
-Message-ID: <BN6PR12MB165250EB03D0DBEC3856AFB0F7C10@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <20180226141832.17318-1-tom.stdenis@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Subject: Re: [PATCH libdrm 2/2] amdgpu: add AMDGPU_VA_RANGE_HIGH
+Date: Mon, 26 Feb 2018 17:35:42 +0100
+Message-ID: <CAAxE2A6Gw1A+UjK_wSC1S7eNLCgkj-QHsSwtofVdA=Jo_H12DQ@mail.gmail.com>
+References: <20180226131635.54635-1-christian.koenig@amd.com>
+ <20180226131635.54635-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1369057261=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180226141832.17318-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1369057261==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB165250EB03D0DBEC3856AFB0F7C10BN6PR12MB1652namp_"
-
---_000_BN6PR12MB165250EB03D0DBEC3856AFB0F7C10BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tom St D=
-enis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, February 26, 2018 9:18 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: StDenis, Tom
-Subject: [PATCH] drm/amd/amdgpu: Correct VRAM width for APUs with GMC9
-
-DDR4 has a 64-bit width not 128-bits.  It was reporting
-twice the width.  Tested with my Ryzen 2400G.
-
-Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c
-index bc4bd5e7ac94..4dd469188e2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -722,7 +722,10 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev=
-)
-                 adev->gmc.vram_width =3D amdgpu_atomfirmware_get_vram_widt=
-h(adev);
-         if (!adev->gmc.vram_width) {
-                 /* hbm memory channel size */
--               chansize =3D 128;
-+               if (adev->flags & AMD_IS_APU)
-+                       chansize =3D 64;
-+               else
-+                       chansize =3D 128;
-
-                 tmp =3D RREG32_SOC15(DF, 0, mmDF_CS_AON0_DramBaseAddress0)=
-;
-                 tmp &=3D DF_CS_AON0_DramBaseAddress0__IntLvNumChan_MASK;
---
-2.14.3
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB165250EB03D0DBEC3856AFB0F7C10BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Tom St Denis &lt;tom.stdeni=
-s@amd.com&gt;<br>
-<b>Sent:</b> Monday, February 26, 2018 9:18 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> StDenis, Tom<br>
-<b>Subject:</b> [PATCH] drm/amd/amdgpu: Correct VRAM width for APUs with GM=
-C9</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">DDR4 has a 64-bit width not 128-bits.&nbsp; It was=
- reporting<br>
-twice the width.&nbsp; Tested with my Ryzen 2400G.<br>
-<br>
-Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 5 &#43;&#43;&#43;&#43;-<br>
-&nbsp;1 file changed, 4 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c<br>
-index bc4bd5e7ac94..4dd469188e2b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-@@ -722,7 &#43;722,10 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *=
-adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.vram_width =3D amdgpu_atomfirmware_get_v=
-ram_width(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;gmc.vram_wid=
-th) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* hbm memory channel size */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; chansize =3D 128;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;flags &amp; AMD_IS_APU)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chansize =3D=
- 64;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chansize =3D=
- 128;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(DF, 0, mmDF_CS_AON0_DramBaseAddr=
-ess0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D DF_CS_AON0_DramBaseAddress0__IntLvNumCha=
-n_MASK;<br>
--- <br>
-2.14.3<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk914329" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB165250EB03D0DBEC3856AFB0F7C10BN6PR12MB1652namp_--
-
---===============1369057261==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180226131635.54635-2-christian.koenig@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1369057261==--
+Rm9yIHRoZSBzZXJpZXM6CgpSZXZpZXdlZC1ieTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtA
+YW1kLmNvbT4KCk1hcmVrCgpPbiBNb24sIEZlYiAyNiwgMjAxOCBhdCAyOjE2IFBNLCBDaHJpc3Rp
+YW4gS8O2bmlnCjxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4gUmV0
+dXJuIGhpZ2ggYWRkcmVzc2VzIGlmIHJlcXVlc3RlZCBhbmQgYXZhaWxhYmxlLgo+Cj4gU2lnbmVk
+LW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0t
+LQo+ICBhbWRncHUvYW1kZ3B1LmggICAgICAgICAgfCAgMSArCj4gIGFtZGdwdS9hbWRncHVfZGV2
+aWNlLmMgICB8ICA2ICsrKystLQo+ICBhbWRncHUvYW1kZ3B1X2ludGVybmFsLmggfCAgMSAtCj4g
+IGFtZGdwdS9hbWRncHVfdmFtZ3IuYyAgICB8IDI0ICsrKysrKysrKysrKysrKysrKystLS0tLQo+
+ICA0IGZpbGVzIGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCj4KPiBk
+aWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdwdS5oIGIvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggOTI4
+YjJhNjguLjM2ZjkxMDU4IDEwMDY0NAo+IC0tLSBhL2FtZGdwdS9hbWRncHUuaAo+ICsrKyBiL2Ft
+ZGdwdS9hbWRncHUuaAo+IEBAIC0xMTYyLDYgKzExNjIsNyBAQCBpbnQgYW1kZ3B1X3JlYWRfbW1f
+cmVnaXN0ZXJzKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwgdW5zaWduZWQgZHdvcmRfb2Zmc2V0
+LAo+ICAgKiBGbGFnIHRvIHJlcXVlc3QgVkEgYWRkcmVzcyByYW5nZSBpbiB0aGUgMzJiaXQgYWRk
+cmVzcyBzcGFjZQo+ICAqLwo+ICAjZGVmaW5lIEFNREdQVV9WQV9SQU5HRV8zMl9CSVQgICAgICAg
+ICAweDEKPiArI2RlZmluZSBBTURHUFVfVkFfUkFOR0VfSElHSCAgICAgICAgICAgMHgyCj4KPiAg
+LyoqCj4gICAqIEFsbG9jYXRlIHZpcnR1YWwgYWRkcmVzcyByYW5nZQo+IGRpZmYgLS1naXQgYS9h
+bWRncHUvYW1kZ3B1X2RldmljZS5jIGIvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IGNh
+MGM3OTg3Li45ZmY2YWQxNiAxMDA2NDQKPiAtLS0gYS9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4g
+KysrIGIvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0yNjgsNyArMjY4LDYgQEAgaW50IGFt
+ZGdwdV9kZXZpY2VfaW5pdGlhbGl6ZShpbnQgZmQsCj4gICAgICAgICBtYXggPSBNSU4yKGRldi0+
+ZGV2X2luZm8udmlydHVhbF9hZGRyZXNzX21heCwgMHgxMDAwMDAwMDBVTEwpOwo+ICAgICAgICAg
+YW1kZ3B1X3ZhbWdyX2luaXQoJmRldi0+dmFtZ3JfMzIsIHN0YXJ0LCBtYXgsCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICBkZXYtPmRldl9pbmZvLnZpcnR1YWxfYWRkcmVzc19hbGlnbm1lbnQp
+Owo+IC0gICAgICAgZGV2LT5hZGRyZXNzMzJfaGkgPSBzdGFydCA+PiAzMjsKPgo+ICAgICAgICAg
+c3RhcnQgPSBtYXg7Cj4gICAgICAgICBtYXggPSBNQVgyKGRldi0+ZGV2X2luZm8udmlydHVhbF9h
+ZGRyZXNzX21heCwgMHgxMDAwMDAwMDBVTEwpOwo+IEBAIC0zMjMsNyArMzIyLDEwIEBAIGludCBh
+bWRncHVfcXVlcnlfc3dfaW5mbyhhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsIGVudW0gYW1kZ3B1
+X3N3X2luZm8gaW5mbywKPgo+ICAgICAgICAgc3dpdGNoIChpbmZvKSB7Cj4gICAgICAgICBjYXNl
+IGFtZGdwdV9zd19pbmZvX2FkZHJlc3MzMl9oaToKPiAtICAgICAgICAgICAgICAgKnZhbDMyID0g
+ZGV2LT5hZGRyZXNzMzJfaGk7Cj4gKyAgICAgICAgICAgICAgIGlmIChkZXYtPnZhbWdyX2hpZ2hf
+MzIudmFfbWF4KQo+ICsgICAgICAgICAgICAgICAgICAgICAgICp2YWwzMiA9IGRldi0+dmFtZ3Jf
+aGlnaF8zMi52YV9tYXggPj4gMzI7Cj4gKyAgICAgICAgICAgICAgIGVsc2UKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAqdmFsMzIgPSBkZXYtPnZhbWdyXzMyLnZhX21heCA+PiAzMjsKPiAgICAg
+ICAgICAgICAgICAgcmV0dXJuIDA7Cj4gICAgICAgICB9Cj4gICAgICAgICByZXR1cm4gLUVJTlZB
+TDsKPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5oIGIvYW1kZ3B1L2FtZGdw
+dV9pbnRlcm5hbC5oCj4gaW5kZXggNDIzODgwZWQuLmFlYjVkNjUxIDEwMDY0NAo+IC0tLSBhL2Ft
+ZGdwdS9hbWRncHVfaW50ZXJuYWwuaAo+ICsrKyBiL2FtZGdwdS9hbWRncHVfaW50ZXJuYWwuaAo+
+IEBAIC03Myw3ICs3Myw2IEBAIHN0cnVjdCBhbWRncHVfZGV2aWNlIHsKPiAgICAgICAgIGludCBm
+bGlua19mZDsKPiAgICAgICAgIHVuc2lnbmVkIG1ham9yX3ZlcnNpb247Cj4gICAgICAgICB1bnNp
+Z25lZCBtaW5vcl92ZXJzaW9uOwo+IC0gICAgICAgdWludDMyX3QgYWRkcmVzczMyX2hpOwo+Cj4g
+ICAgICAgICBjaGFyICptYXJrZXRpbmdfbmFtZTsKPiAgICAgICAgIC8qKiBMaXN0IG9mIGJ1ZmZl
+ciBoYW5kbGVzLiBQcm90ZWN0ZWQgYnkgYm9fdGFibGVfbXV0ZXguICovCj4gZGlmZiAtLWdpdCBh
+L2FtZGdwdS9hbWRncHVfdmFtZ3IuYyBiL2FtZGdwdS9hbWRncHVfdmFtZ3IuYwo+IGluZGV4IDU4
+NDAwNDI4Li5hYzEyMDJkZSAxMDA2NDQKPiAtLS0gYS9hbWRncHUvYW1kZ3B1X3ZhbWdyLmMKPiAr
+KysgYi9hbWRncHUvYW1kZ3B1X3ZhbWdyLmMKPiBAQCAtMjAxLDEwICsyMDEsMjEgQEAgaW50IGFt
+ZGdwdV92YV9yYW5nZV9hbGxvYyhhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gIHsKPiAgICAg
+ICAgIHN0cnVjdCBhbWRncHVfYm9fdmFfbWdyICp2YW1ncjsKPgo+IC0gICAgICAgaWYgKGZsYWdz
+ICYgQU1ER1BVX1ZBX1JBTkdFXzMyX0JJVCkKPiAtICAgICAgICAgICAgICAgdmFtZ3IgPSAmZGV2
+LT52YW1ncl8zMjsKPiAtICAgICAgIGVsc2UKPiAtICAgICAgICAgICAgICAgdmFtZ3IgPSAmZGV2
+LT52YW1ncjsKPiArICAgICAgIC8qIENsZWFyIHRoZSBmbGFnIHdoZW4gdGhlIGhpZ2ggVkEgbWFu
+YWdlciBpcyBub3QgaW5pdGlhbGl6ZWQgKi8KPiArICAgICAgIGlmIChmbGFncyAmIEFNREdQVV9W
+QV9SQU5HRV9ISUdIICYmICFkZXYtPnZhbWdyX2hpZ2hfMzIudmFfbWF4KQo+ICsgICAgICAgICAg
+ICAgICBmbGFncyAmPSB+QU1ER1BVX1ZBX1JBTkdFX0hJR0g7Cj4gKwo+ICsgICAgICAgaWYgKGZs
+YWdzICYgQU1ER1BVX1ZBX1JBTkdFX0hJR0gpIHsKPiArICAgICAgICAgICAgICAgaWYgKGZsYWdz
+ICYgQU1ER1BVX1ZBX1JBTkdFXzMyX0JJVCkKPiArICAgICAgICAgICAgICAgICAgICAgICB2YW1n
+ciA9ICZkZXYtPnZhbWdyX2hpZ2hfMzI7Cj4gKyAgICAgICAgICAgICAgIGVsc2UKPiArICAgICAg
+ICAgICAgICAgICAgICAgICB2YW1nciA9ICZkZXYtPnZhbWdyX2hpZ2g7Cj4gKyAgICAgICB9IGVs
+c2Ugewo+ICsgICAgICAgICAgICAgICBpZiAoZmxhZ3MgJiBBTURHUFVfVkFfUkFOR0VfMzJfQklU
+KQo+ICsgICAgICAgICAgICAgICAgICAgICAgIHZhbWdyID0gJmRldi0+dmFtZ3JfMzI7Cj4gKyAg
+ICAgICAgICAgICAgIGVsc2UKPiArICAgICAgICAgICAgICAgICAgICAgICB2YW1nciA9ICZkZXYt
+PnZhbWdyOwo+ICsgICAgICAgfQo+Cj4gICAgICAgICB2YV9iYXNlX2FsaWdubWVudCA9IE1BWDIo
+dmFfYmFzZV9hbGlnbm1lbnQsIHZhbWdyLT52YV9hbGlnbm1lbnQpOwo+ICAgICAgICAgc2l6ZSA9
+IEFMSUdOKHNpemUsIHZhbWdyLT52YV9hbGlnbm1lbnQpOwo+IEBAIC0yMTUsNyArMjI2LDEwIEBA
+IGludCBhbWRncHVfdmFfcmFuZ2VfYWxsb2MoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+ICAg
+ICAgICAgaWYgKCEoZmxhZ3MgJiBBTURHUFVfVkFfUkFOR0VfMzJfQklUKSAmJgo+ICAgICAgICAg
+ICAgICgqdmFfYmFzZV9hbGxvY2F0ZWQgPT0gQU1ER1BVX0lOVkFMSURfVkFfQUREUkVTUykpIHsK
+PiAgICAgICAgICAgICAgICAgLyogZmFsbGJhY2sgdG8gMzJiaXQgYWRkcmVzcyAqLwo+IC0gICAg
+ICAgICAgICAgICB2YW1nciA9ICZkZXYtPnZhbWdyXzMyOwo+ICsgICAgICAgICAgICAgICBpZiAo
+ZmxhZ3MgJiBBTURHUFVfVkFfUkFOR0VfSElHSCkKPiArICAgICAgICAgICAgICAgICAgICAgICB2
+YW1nciA9ICZkZXYtPnZhbWdyX2hpZ2hfMzI7Cj4gKyAgICAgICAgICAgICAgIGVsc2UKPiArICAg
+ICAgICAgICAgICAgICAgICAgICB2YW1nciA9ICZkZXYtPnZhbWdyXzMyOwo+ICAgICAgICAgICAg
+ICAgICAqdmFfYmFzZV9hbGxvY2F0ZWQgPSBhbWRncHVfdmFtZ3JfZmluZF92YSh2YW1nciwgc2l6
+ZSwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFfYmFzZV9hbGln
+bm1lbnQsIHZhX2Jhc2VfcmVxdWlyZWQpOwo+ICAgICAgICAgfQo+IC0tCj4gMi4xNC4xCj4KPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZngg
+bWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlz
+dApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
