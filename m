@@ -1,7 +1,7 @@
 From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 07/33] drm/amd/display: dal 3.1.35
-Date: Mon, 26 Feb 2018 15:15:37 -0500
-Message-ID: <20180226201603.28609-8-harry.wentland@amd.com>
+Subject: [PATCH 17/33] drm/amd/display: dal 3.1.36
+Date: Mon, 26 Feb 2018 15:15:47 -0500
+Message-ID: <20180226201603.28609-18-harry.wentland@amd.com>
 References: <20180226201603.28609-1-harry.wentland@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -21,17 +21,17 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogVG9ueSBDaGVuZyA8dG9ueS5jaGVuZ0BhbWQuY29tPgoKU2lnbmVkLW9mZi1ieTogVG9u
+RnJvbTogVG9ueSBDaGVuZyA8VG9ueS5DaGVuZ0BhbWQuY29tPgoKU2lnbmVkLW9mZi1ieTogVG9u
 eSBDaGVuZyA8dG9ueS5jaGVuZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogVG9ueSBDaGVuZyA8VG9u
 eS5DaGVuZ0BhbWQuY29tPgpBY2tlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5k
 QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjLmggfCAyICst
 CiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
 aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGMuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9kYy5oCmluZGV4IDViYjBlNWRlZmFmNC4uYTY0MDJjNjUxMjUxIDEw
+bS9hbWQvZGlzcGxheS9kYy9kYy5oCmluZGV4IDE0Y2M0YmViMTJjMS4uZTk1NDcwNWY3ZjBmIDEw
 MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGMuaAorKysgYi9kcml2
 ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGMuaApAQCAtMzgsNyArMzgsNyBAQAogI2luY2x1
 ZGUgImluYy9jb21wcmVzc29yLmgiCiAjaW5jbHVkZSAiZG1sL2Rpc3BsYXlfbW9kZV9saWIuaCIK
-IAotI2RlZmluZSBEQ19WRVIgIjMuMS4zNCIKKyNkZWZpbmUgRENfVkVSICIzLjEuMzUiCiAKICNk
+IAotI2RlZmluZSBEQ19WRVIgIjMuMS4zNSIKKyNkZWZpbmUgRENfVkVSICIzLjEuMzYiCiAKICNk
 ZWZpbmUgTUFYX1NVUkZBQ0VTIDMKICNkZWZpbmUgTUFYX1NUUkVBTVMgNgotLSAKMi4xNC4xCgpf
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
 aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
