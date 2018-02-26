@@ -1,12 +1,11 @@
-From: tom <tstdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: gmc9 vram width
-Date: Mon, 26 Feb 2018 08:24:47 -0500
-Message-ID: <c7186771-c1d5-79ab-97e2-6c00b31e0d46@amd.com>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/amdgpu: Correct VRAM width for APUs with GMC9
+Date: Mon, 26 Feb 2018 09:18:32 -0500
+Message-ID: <20180226141832.17318-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,16 +17,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-SW4gdGhlIGluaXQgc2VxdWVuY2Ugd2UgaGF2ZQoKc3RhdGljIGludCBnbWNfdjlfMF9tY19pbml0
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQp7Cgl1MzIgdG1wOwoJaW50IGNoYW5zaXplLCBu
-dW1jaGFuOwoJaW50IHI7CgoJaWYgKGFtZGdwdV9lbXVfbW9kZSAhPSAxKQoJCWFkZXYtPmdtYy52
-cmFtX3dpZHRoID0gYW1kZ3B1X2F0b21maXJtd2FyZV9nZXRfdnJhbV93aWR0aChhZGV2KTsKCWlm
-ICghYWRldi0+Z21jLnZyYW1fd2lkdGgpIHsKCQkvKiBoYm0gbWVtb3J5IGNoYW5uZWwgc2l6ZSAq
-LwoJCWNoYW5zaXplID0gMTI4OwoKYnV0IG9uIEFQVXMgdGhlIGNoYW5zaXplIHNob3VsZCBiZSA2
-NCByaWdodD8KCldpdGggb25lIERJTU0gaW5zdGFsbGVkIGl0IHByaW50cyBvdXQgMTI4IGFzIHRo
-ZSB3aWR0aCBhbmQgd2l0aCAyIGRpbW1zIAooaW4gZHVhbCBjaGFubmVsIGNvbmZpZykgaXQgcHJp
-bnRzIDI1NiBiaXRzLgoKUmlnaHQ/CgpUb20KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+RERSNCBoYXMgYSA2NC1iaXQgd2lkdGggbm90IDEyOC1iaXRzLiAgSXQgd2FzIHJlcG9ydGluZwp0
+d2ljZSB0aGUgd2lkdGguICBUZXN0ZWQgd2l0aCBteSBSeXplbiAyNDAwRy4KClNpZ25lZC1vZmYt
+Ynk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwgNSArKysrLQogMSBmaWxlIGNoYW5nZWQsIDQgaW5z
+ZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlf
+MC5jCmluZGV4IGJjNGJkNWU3YWM5NC4uNGRkNDY5MTg4ZTJiIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dtY192OV8wLmMKQEAgLTcyMiw3ICs3MjIsMTAgQEAgc3RhdGljIGludCBnbWNfdjlf
+MF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQlhZGV2LT5nbWMudnJhbV93
+aWR0aCA9IGFtZGdwdV9hdG9tZmlybXdhcmVfZ2V0X3ZyYW1fd2lkdGgoYWRldik7CiAJaWYgKCFh
+ZGV2LT5nbWMudnJhbV93aWR0aCkgewogCQkvKiBoYm0gbWVtb3J5IGNoYW5uZWwgc2l6ZSAqLwot
+CQljaGFuc2l6ZSA9IDEyODsKKwkJaWYgKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkKKwkJCWNo
+YW5zaXplID0gNjQ7CisJCWVsc2UKKwkJCWNoYW5zaXplID0gMTI4OwogCiAJCXRtcCA9IFJSRUcz
+Ml9TT0MxNShERiwgMCwgbW1ERl9DU19BT04wX0RyYW1CYXNlQWRkcmVzczApOwogCQl0bXAgJj0g
+REZfQ1NfQU9OMF9EcmFtQmFzZUFkZHJlc3MwX19JbnRMdk51bUNoYW5fTUFTSzsKLS0gCjIuMTQu
+MwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
