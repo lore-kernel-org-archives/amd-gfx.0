@@ -1,14 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/ttm: add ttm_sg_tt_init
-Date: Tue, 27 Feb 2018 13:07:06 +0100
-Message-ID: <b5cb1980-7865-f45a-bc9d-9569f860fb50@gmail.com>
-References: <20180227115000.4105-1-christian.koenig@amd.com>
- <20180227115000.4105-4-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 17/22] drm/amdgpu: disable GFX ring and disable PQ wptr in
+ hw_fini
+Date: Tue, 27 Feb 2018 14:28:56 +0000
+Message-ID: <BN6PR12MB1652350D8779D98B8CC3E502F7C00@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1519622300-8990-1-git-send-email-Monk.Liu@amd.com>
+ <1519622300-8990-18-git-send-email-Monk.Liu@amd.com>
+ <CADnq5_M1BkpZzNURswAh1fTpm1rZbspkZ4qq+g2pbdVjWyR2eQ@mail.gmail.com>,
+ <BLUPR12MB044966DA7194FE030265D15D84C00@BLUPR12MB0449.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1959412962=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180227115000.4105-4-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BLUPR12MB044966DA7194FE030265D15D84C00-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,90 +22,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>, nouveau <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgZ3V5cywKCmF0IGxlYXN0IG9uIGFtZGdwdSBhbmQgcmFkZW9uIHRoZSBwYWdlIGFycmF5IGFs
-bG9jYXRlZCBieSAKdHRtX2RtYV90dF9pbml0IGlzIGNvbXBsZXRlbHkgdW51c2VkIGluIHRoZSBj
-YXNlIG9mIERNQS1idWYgc2hhcmluZy4gU28gCkknbSB0cnlpbmcgdG8gZ2V0IHJpZCBvZiB0aGF0
-IGJ5IG9ubHkgYWxsb2NhdGluZyB0aGUgRE1BIGFkZHJlc3MgYXJyYXkuCgpOb3cgdGhlIG9ubHkg
-b3RoZXIgdXNlciBvZiBETUEtYnVmIHRvZ2V0aGVyIHdpdGggdHRtX2RtYV90dF9pbml0IGlzIApO
-b3V2ZWF1LiBTbyBteSBxdWVzdGlvbiBpcyBhcmUgeW91IGd1eXMgdXNpbmcgdGhlIHBhZ2UgYXJy
-YXkgYW55d2hlcmUgaW4gCnlvdXIga2VybmVsIGRyaXZlciBpbiBjYXNlIG9mIGEgRE1BLWJ1ZiBz
-aGFyaW5nPwoKSWYgbm8gdGhlbiBJIGNvdWxkIGp1c3QgbWFrZSB0aGlzIHRoZSBkZWZhdWx0IGJl
-aGF2aW9yIGZvciBhbGwgZHJpdmVycyAKYW5kIHNhdmUgcXVpdGUgYSBiaXQgb2YgbWVtb3J5IGZv
-ciBldmVyeWJvZHkuCgpUaGFua3MsCkNocmlzdGlhbi4KCkFtIDI3LjAyLjIwMTggdW0gMTI6NDkg
-c2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+IFRoaXMgYWxsb3dzIGRyaXZlcnMgdG8gb25seSBh
-bGxvY2F0ZSBkbWEgYWRkcmVzc2VzLCBidXQgbm90IGEgcGFnZQo+IGFycmF5Lgo+Cj4gU2lnbmVk
-LW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0t
-LQo+ICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYyB8IDU0ICsrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKy0tLS0tLS0tCj4gICBpbmNsdWRlL2RybS90dG0vdHRtX3R0Lmgg
-ICAgIHwgIDIgKysKPiAgIDIgZmlsZXMgY2hhbmdlZCwgNDcgaW5zZXJ0aW9ucygrKSwgOSBkZWxl
-dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV90dC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+IGluZGV4IDhlMGI1MjVjZGEwMC4uOTcxMTMz
-MTA2ZWMyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV90dC5jCj4gQEAgLTEwOCw2ICsxMDgsMTYgQEAgc3Rh
-dGljIGludCB0dG1fZG1hX3R0X2FsbG9jX3BhZ2VfZGlyZWN0b3J5KHN0cnVjdCB0dG1fZG1hX3R0
-ICp0dG0pCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiArc3RhdGljIGludCB0dG1fc2dfdHRf
-YWxsb2NfcGFnZV9kaXJlY3Rvcnkoc3RydWN0IHR0bV9kbWFfdHQgKnR0bSkKPiArewo+ICsJdHRt
-LT5kbWFfYWRkcmVzcyA9IGt2bWFsbG9jX2FycmF5KHR0bS0+dHRtLm51bV9wYWdlcywKPiArCQkJ
-CQkgIHNpemVvZigqdHRtLT5kbWFfYWRkcmVzcyksCj4gKwkJCQkJICBHRlBfS0VSTkVMIHwgX19H
-RlBfWkVSTyk7Cj4gKwlpZiAoIXR0bS0+ZG1hX2FkZHJlc3MpCj4gKwkJcmV0dXJuIC1FTk9NRU07
-Cj4gKwlyZXR1cm4gMDsKPiArfQo+ICsKPiAgICNpZmRlZiBDT05GSUdfWDg2Cj4gICBzdGF0aWMg
-aW5saW5lIGludCB0dG1fdHRfc2V0X3BhZ2VfY2FjaGluZyhzdHJ1Y3QgcGFnZSAqcCwKPiAgIAkJ
-CQkJICBlbnVtIHR0bV9jYWNoaW5nX3N0YXRlIGNfb2xkLAo+IEBAIC0yMjcsOCArMjM3LDggQEAg
-dm9pZCB0dG1fdHRfZGVzdHJveShzdHJ1Y3QgdHRtX3R0ICp0dG0pCj4gICAJdHRtLT5mdW5jLT5k
-ZXN0cm95KHR0bSk7Cj4gICB9Cj4gICAKPiAtaW50IHR0bV90dF9pbml0KHN0cnVjdCB0dG1fdHQg
-KnR0bSwgc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4gLQkJdW5zaWduZWQgbG9uZyBzaXpl
-LCB1aW50MzJfdCBwYWdlX2ZsYWdzKQo+ICt2b2lkIHR0bV90dF9pbml0X2ZpZWxkcyhzdHJ1Y3Qg
-dHRtX3R0ICp0dG0sIHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAo+ICsJCQl1bnNpZ25lZCBs
-b25nIHNpemUsIHVpbnQzMl90IHBhZ2VfZmxhZ3MpCj4gICB7Cj4gICAJdHRtLT5iZGV2ID0gYmRl
-djsKPiAgIAl0dG0tPm51bV9wYWdlcyA9IChzaXplICsgUEFHRV9TSVpFIC0gMSkgPj4gUEFHRV9T
-SElGVDsKPiBAQCAtMjM2LDYgKzI0NiwxMiBAQCBpbnQgdHRtX3R0X2luaXQoc3RydWN0IHR0bV90
-dCAqdHRtLCBzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiAgIAl0dG0tPnBhZ2VfZmxhZ3Mg
-PSBwYWdlX2ZsYWdzOwo+ICAgCXR0bS0+c3RhdGUgPSB0dF91bnBvcHVsYXRlZDsKPiAgIAl0dG0t
-PnN3YXBfc3RvcmFnZSA9IE5VTEw7Cj4gK30KPiArCj4gK2ludCB0dG1fdHRfaW5pdChzdHJ1Y3Qg
-dHRtX3R0ICp0dG0sIHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAo+ICsJCXVuc2lnbmVkIGxv
-bmcgc2l6ZSwgdWludDMyX3QgcGFnZV9mbGFncykKPiArewo+ICsJdHRtX3R0X2luaXRfZmllbGRz
-KHR0bSwgYmRldiwgc2l6ZSwgcGFnZV9mbGFncyk7Cj4gICAKPiAgIAlpZiAodHRtX3R0X2FsbG9j
-X3BhZ2VfZGlyZWN0b3J5KHR0bSkpIHsKPiAgIAkJdHRtX3R0X2Rlc3Ryb3kodHRtKTsKPiBAQCAt
-MjU4LDEyICsyNzQsNyBAQCBpbnQgdHRtX2RtYV90dF9pbml0KHN0cnVjdCB0dG1fZG1hX3R0ICp0
-dG1fZG1hLCBzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiAgIHsKPiAgIAlzdHJ1Y3QgdHRt
-X3R0ICp0dG0gPSAmdHRtX2RtYS0+dHRtOwo+ICAgCj4gLQl0dG0tPmJkZXYgPSBiZGV2Owo+IC0J
-dHRtLT5udW1fcGFnZXMgPSAoc2l6ZSArIFBBR0VfU0laRSAtIDEpID4+IFBBR0VfU0hJRlQ7Cj4g
-LQl0dG0tPmNhY2hpbmdfc3RhdGUgPSB0dF9jYWNoZWQ7Cj4gLQl0dG0tPnBhZ2VfZmxhZ3MgPSBw
-YWdlX2ZsYWdzOwo+IC0JdHRtLT5zdGF0ZSA9IHR0X3VucG9wdWxhdGVkOwo+IC0JdHRtLT5zd2Fw
-X3N0b3JhZ2UgPSBOVUxMOwo+ICsJdHRtX3R0X2luaXRfZmllbGRzKHR0bSwgYmRldiwgc2l6ZSwg
-cGFnZV9mbGFncyk7Cj4gICAKPiAgIAlJTklUX0xJU1RfSEVBRCgmdHRtX2RtYS0+cGFnZXNfbGlz
-dCk7Cj4gICAJaWYgKHR0bV9kbWFfdHRfYWxsb2NfcGFnZV9kaXJlY3RvcnkodHRtX2RtYSkpIHsK
-PiBAQCAtMjc1LDExICsyODYsMzYgQEAgaW50IHR0bV9kbWFfdHRfaW5pdChzdHJ1Y3QgdHRtX2Rt
-YV90dCAqdHRtX2RtYSwgc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4gICB9Cj4gICBFWFBP
-UlRfU1lNQk9MKHR0bV9kbWFfdHRfaW5pdCk7Cj4gICAKPiAraW50IHR0bV9zZ190dF9pbml0KHN0
-cnVjdCB0dG1fZG1hX3R0ICp0dG1fZG1hLCBzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiAr
-CQkgICB1bnNpZ25lZCBsb25nIHNpemUsIHVpbnQzMl90IHBhZ2VfZmxhZ3MpCj4gK3sKPiArCXN0
-cnVjdCB0dG1fdHQgKnR0bSA9ICZ0dG1fZG1hLT50dG07Cj4gKwlpbnQgcmV0Owo+ICsKPiArCXR0
-bV90dF9pbml0X2ZpZWxkcyh0dG0sIGJkZXYsIHNpemUsIHBhZ2VfZmxhZ3MpOwo+ICsKPiArCUlO
-SVRfTElTVF9IRUFEKCZ0dG1fZG1hLT5wYWdlc19saXN0KTsKPiArCWlmIChwYWdlX2ZsYWdzICYg
-VFRNX1BBR0VfRkxBR19TRykKPiArCQlyZXQgPSB0dG1fc2dfdHRfYWxsb2NfcGFnZV9kaXJlY3Rv
-cnkodHRtX2RtYSk7Cj4gKwllbHNlCj4gKwkJcmV0ID0gdHRtX2RtYV90dF9hbGxvY19wYWdlX2Rp
-cmVjdG9yeSh0dG1fZG1hKTsKPiArCWlmIChyZXQpIHsKPiArCQl0dG1fdHRfZGVzdHJveSh0dG0p
-Owo+ICsJCXByX2VycigiRmFpbGVkIGFsbG9jYXRpbmcgcGFnZSB0YWJsZVxuIik7Cj4gKwkJcmV0
-dXJuIC1FTk9NRU07Cj4gKwl9Cj4gKwlyZXR1cm4gMDsKPiArfQo+ICtFWFBPUlRfU1lNQk9MKHR0
-bV9zZ190dF9pbml0KTsKPiArCj4gICB2b2lkIHR0bV9kbWFfdHRfZmluaShzdHJ1Y3QgdHRtX2Rt
-YV90dCAqdHRtX2RtYSkKPiAgIHsKPiAgIAlzdHJ1Y3QgdHRtX3R0ICp0dG0gPSAmdHRtX2RtYS0+
-dHRtOwo+ICAgCj4gLQlrdmZyZWUodHRtLT5wYWdlcyk7Cj4gKwlpZiAodHRtLT5wYWdlcykKPiAr
-CQlrdmZyZWUodHRtLT5wYWdlcyk7Cj4gKwllbHNlCj4gKwkJa3ZmcmVlKHR0bV9kbWEtPmRtYV9h
-ZGRyZXNzKTsKPiAgIAl0dG0tPnBhZ2VzID0gTlVMTDsKPiAgIAl0dG1fZG1hLT5kbWFfYWRkcmVz
-cyA9IE5VTEw7Cj4gICB9Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL3R0bS90dG1fdHQuaCBi
-L2luY2x1ZGUvZHJtL3R0bS90dG1fdHQuaAo+IGluZGV4IDljNzg1NTZiNDg4ZS4uMWNmMzE2YTQy
-NTdjIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJtL3R0bS90dG1fdHQuaAo+ICsrKyBiL2luY2x1
-ZGUvZHJtL3R0bS90dG1fdHQuaAo+IEBAIC0xNjMsNiArMTYzLDggQEAgaW50IHR0bV90dF9pbml0
-KHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4gICAJCXVu
-c2lnbmVkIGxvbmcgc2l6ZSwgdWludDMyX3QgcGFnZV9mbGFncyk7Cj4gICBpbnQgdHRtX2RtYV90
-dF9pbml0KHN0cnVjdCB0dG1fZG1hX3R0ICp0dG1fZG1hLCBzdHJ1Y3QgdHRtX2JvX2RldmljZSAq
-YmRldiwKPiAgIAkJICAgIHVuc2lnbmVkIGxvbmcgc2l6ZSwgdWludDMyX3QgcGFnZV9mbGFncyk7
-Cj4gK2ludCB0dG1fc2dfdHRfaW5pdChzdHJ1Y3QgdHRtX2RtYV90dCAqdHRtX2RtYSwgc3RydWN0
-IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4gKwkJICAgdW5zaWduZWQgbG9uZyBzaXplLCB1aW50MzJf
-dCBwYWdlX2ZsYWdzKTsKPiAgIAo+ICAgLyoqCj4gICAgKiB0dG1fdHRfZmluaQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1959412962==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652350D8779D98B8CC3E502F7C00BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652350D8779D98B8CC3E502F7C00BN6PR12MB1652namp_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+Please add a comment above the CP_PQ_WPTR_POLL_CNTL write to explain that i=
+t's to disable the polling.  WIth that fixed:
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Liu, Mon=
+k <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, February 27, 2018 12:31:35 AM
+To: Alex Deucher
+Cc: amd-gfx list
+Subject: RE: [PATCH 17/22] drm/amdgpu: disable GFX ring and disable PQ wptr=
+ in hw_fini
+
+This is only for virtualization, for bare-metal it go another path
+
+-----Original Message-----
+From: Alex Deucher [mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+Sent: 2018=1B$BG/=1B(B2=1B$B7n=1B(B27=1B$BF|=1B(B 1:40
+To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH 17/22] drm/amdgpu: disable GFX ring and disable PQ wptr=
+ in hw_fini
+
+On Mon, Feb 26, 2018 at 12:18 AM, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org> wrote:
+> otherwise there will be DMAR reading error comes out from CP since GFX
+> is still alive and CPC's WPTR_POLL is still enabled, which would lead
+> to DMAR read error.
+>
+> fix:
+> we can hault CPG after hw_fini, but cannot halt CPC becaues KIQ stil
+> need to be alive to let RLCV invoke, but its WPTR_POLL could be
+> disabled.
+>
+> Change-Id: Ia60ee54901531f737d09063bf2037630e7c94771
+> Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+
+Is this handled properly for bare metal as well?
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index e9cc03e..793db9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -2961,7 +2961,8 @@ static int gfx_v9_0_hw_fini(void *handle)
+>                 gfx_v9_0_kcq_disable(&adev->gfx.kiq.ring,
+> &adev->gfx.compute_ring[i]);
+>
+>         if (amdgpu_sriov_vf(adev)) {
+> -               pr_debug("For SRIOV client, shouldn't do anything.\n");
+> +               gfx_v9_0_cp_gfx_enable(adev, false);
+> +               WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL_CNTL, EN, 0);
+>                 return 0;
+>         }
+>         gfx_v9_0_cp_enable(adev, false);
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1652350D8779D98B8CC3E502F7C00BN6PR12MB1652namp_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Please add a comment above the <f=
+ont size=3D"2">
+<span style=3D"font-size:11pt;">CP_PQ_WPTR_POLL_CNTL write to explain that =
+it's to disable the polling.&nbsp; WIth that fixed:</span></font><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Liu, Monk &lt;Monk.Liu-urvtwAKJhsc@public.gmane.org=
+m&gt;<br>
+<b>Sent:</b> Tuesday, February 27, 2018 12:31:35 AM<br>
+<b>To:</b> Alex Deucher<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> RE: [PATCH 17/22] drm/amdgpu: disable GFX ring and disable =
+PQ wptr in hw_fini</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This is only for virtualization, for bare-metal it=
+ go another path<br>
+<br>
+-----Original Message-----<br>
+From: Alex Deucher [<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mailto:alexdeu=
+cher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]
+<br>
+Sent: 2018=1B$BG/=1B(B2=1B$B7n=1B(B27=1B$BF|=1B(B 1:40<br>
+To: Liu, Monk &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Cc: amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+Subject: Re: [PATCH 17/22] drm/amdgpu: disable GFX ring and disable PQ wptr=
+ in hw_fini<br>
+<br>
+On Mon, Feb 26, 2018 at 12:18 AM, Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt; wrote:<=
+br>
+&gt; otherwise there will be DMAR reading error comes out from CP since GFX=
+ <br>
+&gt; is still alive and CPC's WPTR_POLL is still enabled, which would lead =
+<br>
+&gt; to DMAR read error.<br>
+&gt;<br>
+&gt; fix:<br>
+&gt; we can hault CPG after hw_fini, but cannot halt CPC becaues KIQ stil <=
+br>
+&gt; need to be alive to let RLCV invoke, but its WPTR_POLL could be <br>
+&gt; disabled.<br>
+&gt;<br>
+&gt; Change-Id: Ia60ee54901531f737d09063bf2037630e7c94771<br>
+&gt; Signed-off-by: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Is this handled properly for bare metal as well?<br>
+<br>
+Alex<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 3 &#43;&#43;-<br>
+&gt;&nbsp; 1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; index e9cc03e..793db9f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; @@ -2961,7 &#43;2961,8 @@ static int gfx_v9_0_hw_fini(void *handle)<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_kcq_disable(&amp;adev-&gt;gfx.kiq.ring, =
+<br>
+&gt; &amp;adev-&gt;gfx.compute_ring[i]);<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(ad=
+ev)) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pr_debug(&quot;For SRIOV client, shouldn't do anything.\n&q=
+uot;);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; gfx_v9_0_cp_gfx_enable(adev, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL_CNTL, EN, 0);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_cp_enable(ade=
+v, false);<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652350D8779D98B8CC3E502F7C00BN6PR12MB1652namp_--
+
+--===============1959412962==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1959412962==--
