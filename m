@@ -1,13 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Problems with graphics
-Date: Wed, 28 Feb 2018 13:26:31 +0100
-Message-ID: <c31c573a-4cff-c791-fe6f-e0cb5676d263@gmail.com>
-References: <CAK9bBM21Yht4k6TH1kq_KhUN3dY1BKvfcSeXykAtp9=Dv+6E4A@mail.gmail.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 3/4] drm/amdgpu: don't return when ring not ready for
+ fill_buffer
+Date: Wed, 28 Feb 2018 12:34:45 +0000
+Message-ID: <BLUPR12MB0449BEDBC1FCE72C0021C88184C70@BLUPR12MB0449.namprd12.prod.outlook.com>
+References: <1519802463-9090-1-git-send-email-Monk.Liu@amd.com>
+ <1519802463-9090-3-git-send-email-Monk.Liu@amd.com>
+ <01879d0d-edea-680e-c9f2-1005d94f1dfd@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1221855416=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAK9bBM21Yht4k6TH1kq_KhUN3dY1BKvfcSeXykAtp9=Dv+6E4A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <01879d0d-edea-680e-c9f2-1005d94f1dfd-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,110 +22,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Anton Kashcheev <antonkachsheev-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1221855416==
-Content-Type: multipart/alternative;
- boundary="------------14BF10D32D8DD3C246812144"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------14BF10D32D8DD3C246812144
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Please try a newer kernel and/or branch amd-staging-drm-next and test of 
-the problem still exists.
-
-If it is still around please open a bug report on bugs.freedesktop.org.
-
-Regards,
-Christian.
-
-Am 27.02.2018 um 23:17 schrieb Anton Kashcheev:
-> Good day,
->
-> I have problems with graphics -- from time to time kernel show errors. 
-> Kernel 4.14.20
->
-> Log attached.
->
-> Sincerely,
-> Anton Kashcheev.
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------14BF10D32D8DD3C246812144
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Please try a newer kernel and/or branch
-      amd-staging-drm-next and test of the problem still exists.<br>
-      <br>
-      If it is still around please open a bug report on
-      bugs.freedesktop.org.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 27.02.2018 um 23:17 schrieb Anton Kashcheev:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAK9bBM21Yht4k6TH1kq_KhUN3dY1BKvfcSeXykAtp9=Dv+6E4A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <div dir="ltr">
-        <div>
-          <div>Good day,<br>
-            <br>
-          </div>
-          I have problems with graphics -- <span
-            class="gmail-gt-baf-word-clickable">from time to time</span>
-          kernel show errors. Kernel 4.14.20<br>
-        </div>
-        <div><br>
-        </div>
-        Log attached.<br>
-        <div>
-          <div><br>
-            Sincerely,<br>
-          </div>
-          <div>Anton Kashcheev.<br>
-          </div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------14BF10D32D8DD3C246812144--
-
---===============1221855416==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1221855416==--
+QmVjYXVzZSB3aGVuIFNETUEgd2FzIGhhbmcgYnkgbGlrZSBwcm9jZXNzIEEsIGFuZCBtZWFud2hp
+bGUgYW5vdGhlciBwcm9jZXNzIEIgaXMgYWxyZWFkeSBydW5uaW5nIGludG8gdGhlIGNvZGUgb2Yg
+ZmlsbF9idWZmZXIoKQ0KU28ganVzdCBsZXQgcHJvY2VzcyBCIGNvbnRpbnVlLCBkb24ndCBibG9j
+ayBpdCBvdGhlcndpc2UgcHJvY2VzcyBCIHdvdWxkIGZhaWwgYnkgc29mdHdhcmUgcmVhc29uIC4N
+Cg0KTGV0IGl0IHJ1biBhbmQgZmluYWxseSBwcm9jZXNzIEIncyBqb2Igd291bGQgZmFpbCBhbmQg
+R1BVIHJlY292ZXIgd2lsbCByZXBlYXQgaXQgYWdhaW4gKHNpbmNlIGl0IGlzIGEga2VybmVsIGpv
+YikgDQoNCldpdGhvdXQgdGhpcyBzb2x1dGlvbiBvdGhlciBwcm9jZXNzIHdpbGwgYmUgZ3JlYXRs
+eSBoYXJtZWQgYnkgb25lIGJsYWNrIHNoZWVwIHRoYXQgdHJpZ2dlcmluZyBHUFUgcmVjb3ZlciAN
+Cg0KL01vbmsNCg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBDaHJpc3Rp
+YW4gS8O2bmlnIFttYWlsdG86Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb21dIA0KU2Vu
+dDogMjAxOOW5tDLmnIgyOOaXpSAyMDoyNA0KVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNv
+bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIDMv
+NF0gZHJtL2FtZGdwdTogZG9uJ3QgcmV0dXJuIHdoZW4gcmluZyBub3QgcmVhZHkgZm9yIGZpbGxf
+YnVmZmVyDQoNCkFtIDI4LjAyLjIwMTggdW0gMDg6MjEgc2NocmllYiBNb25rIExpdToNCj4gYmVj
+YXVzZSB0aGlzIHRpbWUgU0RNQSBtYXkgdW5kZXIgR1BVIFJFU0VUIHNvIGl0cyByaW5nLT5yZWFk
+eSBtYXkgbm90IA0KPiB0cnVlLCBrZWVwIGdvaW5nIGFuZCBHUFUgc2NoZWR1bGVyIHdpbGwgcmVz
+Y2hlZHVsZSB0aGlzIGpvYiBpZiBpdCANCj4gZmFpbGVkLg0KPg0KPiBnaXZlIGEgd2FybmluZyBv
+biBjb3B5X2J1ZmZlciB3aGVuIGdvIHRocm91Z2ggZGlyZWN0X3N1Ym1pdCB3aGlsZSANCj4gcmlu
+Zy0+cmVhZHkgaXMgZmFsc2UNCg0KTkFLLCB0aGF0IHRlc3QgaGFzIGFscmVhZHkgc2F2ZWQgdXMg
+cXVpdGUgYSBidW5jaCBvZiB0cm91YmxlIHdpdGggdGhlIGZiIGxheWVyLg0KDQpXaHkgZXhhY3Rs
+eSBhcmUgeW91IHJ1bm5pbmcgaW50byBpc3N1ZXMgd2l0aCB0aGF0Pw0KDQpDaHJpc3RpYW4uDQoN
+Cj4NCj4gQ2hhbmdlLUlkOiBJZmU2Y2Q1NWUwZTg0M2Q5OTkwMGU1YmVkNTQxODQ5OWU4ODYzMzY4
+NQ0KPiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4NCj4gLS0tDQo+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIHwgNiArLS0tLS0NCj4g
+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDUgZGVsZXRpb25zKC0pDQo+DQo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgDQo+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+IGluZGV4IGUzOGU2ZGIu
+LjdiNzVhYzkgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV90dG0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMN
+Cj4gQEAgLTE2NTYsNiArMTY1Niw3IEBAIGludCBhbWRncHVfY29weV9idWZmZXIoc3RydWN0IGFt
+ZGdwdV9yaW5nICpyaW5nLCB1aW50NjRfdCBzcmNfb2Zmc2V0LA0KPiAgIAlhbWRncHVfcmluZ19w
+YWRfaWIocmluZywgJmpvYi0+aWJzWzBdKTsNCj4gICAJV0FSTl9PTihqb2ItPmlic1swXS5sZW5n
+dGhfZHcgPiBudW1fZHcpOw0KPiAgIAlpZiAoZGlyZWN0X3N1Ym1pdCkgew0KPiArCQlXQVJOX09O
+KCFyaW5nLT5yZWFkeSk7DQo+ICAgCQlyID0gYW1kZ3B1X2liX3NjaGVkdWxlKHJpbmcsIGpvYi0+
+bnVtX2licywgam9iLT5pYnMsDQo+ICAgCQkJCSAgICAgICBOVUxMLCBmZW5jZSk7DQo+ICAgCQlq
+b2ItPmZlbmNlID0gZG1hX2ZlbmNlX2dldCgqZmVuY2UpOyBAQCAtMTY5MiwxMSArMTY5Myw2IEBA
+IGludCANCj4gYW1kZ3B1X2ZpbGxfYnVmZmVyKHN0cnVjdCBhbWRncHVfYm8gKmJvLA0KPiAgIAlz
+dHJ1Y3QgYW1kZ3B1X2pvYiAqam9iOw0KPiAgIAlpbnQgcjsNCj4gICANCj4gLQlpZiAoIXJpbmct
+PnJlYWR5KSB7DQo+IC0JCURSTV9FUlJPUigiVHJ5aW5nIHRvIGNsZWFyIG1lbW9yeSB3aXRoIHJp
+bmcgdHVybmVkIG9mZi5cbiIpOw0KPiAtCQlyZXR1cm4gLUVJTlZBTDsNCj4gLQl9DQo+IC0NCj4g
+ICAJaWYgKGJvLT50Ym8ubWVtLm1lbV90eXBlID09IFRUTV9QTF9UVCkgew0KPiAgIAkJciA9IGFt
+ZGdwdV90dG1fYWxsb2NfZ2FydCgmYm8tPnRibyk7DQo+ICAgCQlpZiAocikNCg0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
