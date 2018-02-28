@@ -1,16 +1,13 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amdgpu: don't return when ring not ready for
- fill_buffer
-Date: Wed, 28 Feb 2018 13:23:54 +0100
-Message-ID: <01879d0d-edea-680e-c9f2-1005d94f1dfd@gmail.com>
-References: <1519802463-9090-1-git-send-email-Monk.Liu@amd.com>
- <1519802463-9090-3-git-send-email-Monk.Liu@amd.com>
+Subject: Re: Problems with graphics
+Date: Wed, 28 Feb 2018 13:26:31 +0100
+Message-ID: <c31c573a-4cff-c791-fe6f-e0cb5676d263@gmail.com>
+References: <CAK9bBM21Yht4k6TH1kq_KhUN3dY1BKvfcSeXykAtp9=Dv+6E4A@mail.gmail.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1221855416=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1519802463-9090-3-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAK9bBM21Yht4k6TH1kq_KhUN3dY1BKvfcSeXykAtp9=Dv+6E4A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,36 +19,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Anton Kashcheev <antonkachsheev-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMjguMDIuMjAxOCB1bSAwODoyMSBzY2hyaWViIE1vbmsgTGl1Ogo+IGJlY2F1c2UgdGhpcyB0
-aW1lIFNETUEgbWF5IHVuZGVyIEdQVSBSRVNFVCBzbyBpdHMgcmluZy0+cmVhZHkKPiBtYXkgbm90
-IHRydWUsIGtlZXAgZ29pbmcgYW5kIEdQVSBzY2hlZHVsZXIgd2lsbCByZXNjaGVkdWxlCj4gdGhp
-cyBqb2IgaWYgaXQgZmFpbGVkLgo+Cj4gZ2l2ZSBhIHdhcm5pbmcgb24gY29weV9idWZmZXIgd2hl
-biBnbyB0aHJvdWdoIGRpcmVjdF9zdWJtaXQKPiB3aGlsZSByaW5nLT5yZWFkeSBpcyBmYWxzZQoK
-TkFLLCB0aGF0IHRlc3QgaGFzIGFscmVhZHkgc2F2ZWQgdXMgcXVpdGUgYSBidW5jaCBvZiB0cm91
-YmxlIHdpdGggdGhlIGZiIApsYXllci4KCldoeSBleGFjdGx5IGFyZSB5b3UgcnVubmluZyBpbnRv
-IGlzc3VlcyB3aXRoIHRoYXQ/CgpDaHJpc3RpYW4uCgo+Cj4gQ2hhbmdlLUlkOiBJZmU2Y2Q1NWUw
-ZTg0M2Q5OTkwMGU1YmVkNTQxODQ5OWU4ODYzMzY4NQo+IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1
-IDxNb25rLkxpdUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jIHwgNiArLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigr
-KSwgNSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRt
-LmMKPiBpbmRleCBlMzhlNmRiLi43Yjc1YWM5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV90dG0uYwo+IEBAIC0xNjU2LDYgKzE2NTYsNyBAQCBpbnQgYW1kZ3B1X2NvcHlf
-YnVmZmVyKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDY0X3Qgc3JjX29mZnNldCwKPiAg
-IAlhbWRncHVfcmluZ19wYWRfaWIocmluZywgJmpvYi0+aWJzWzBdKTsKPiAgIAlXQVJOX09OKGpv
-Yi0+aWJzWzBdLmxlbmd0aF9kdyA+IG51bV9kdyk7Cj4gICAJaWYgKGRpcmVjdF9zdWJtaXQpIHsK
-PiArCQlXQVJOX09OKCFyaW5nLT5yZWFkeSk7Cj4gICAJCXIgPSBhbWRncHVfaWJfc2NoZWR1bGUo
-cmluZywgam9iLT5udW1faWJzLCBqb2ItPmlicywKPiAgIAkJCQkgICAgICAgTlVMTCwgZmVuY2Up
-Owo+ICAgCQlqb2ItPmZlbmNlID0gZG1hX2ZlbmNlX2dldCgqZmVuY2UpOwo+IEBAIC0xNjkyLDEx
-ICsxNjkzLDYgQEAgaW50IGFtZGdwdV9maWxsX2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X2JvICpibywK
-PiAgIAlzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iOwo+ICAgCWludCByOwo+ICAgCj4gLQlpZiAoIXJp
-bmctPnJlYWR5KSB7Cj4gLQkJRFJNX0VSUk9SKCJUcnlpbmcgdG8gY2xlYXIgbWVtb3J5IHdpdGgg
-cmluZyB0dXJuZWQgb2ZmLlxuIik7Cj4gLQkJcmV0dXJuIC1FSU5WQUw7Cj4gLQl9Cj4gLQo+ICAg
-CWlmIChiby0+dGJvLm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfVFQpIHsKPiAgIAkJciA9IGFtZGdw
-dV90dG1fYWxsb2NfZ2FydCgmYm8tPnRibyk7Cj4gICAJCWlmIChyKQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============1221855416==
+Content-Type: multipart/alternative;
+ boundary="------------14BF10D32D8DD3C246812144"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------14BF10D32D8DD3C246812144
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Please try a newer kernel and/or branch amd-staging-drm-next and test of 
+the problem still exists.
+
+If it is still around please open a bug report on bugs.freedesktop.org.
+
+Regards,
+Christian.
+
+Am 27.02.2018 um 23:17 schrieb Anton Kashcheev:
+> Good day,
+>
+> I have problems with graphics -- from time to time kernel show errors. 
+> Kernel 4.14.20
+>
+> Log attached.
+>
+> Sincerely,
+> Anton Kashcheev.
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------14BF10D32D8DD3C246812144
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Please try a newer kernel and/or branch
+      amd-staging-drm-next and test of the problem still exists.<br>
+      <br>
+      If it is still around please open a bug report on
+      bugs.freedesktop.org.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 27.02.2018 um 23:17 schrieb Anton Kashcheev:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAK9bBM21Yht4k6TH1kq_KhUN3dY1BKvfcSeXykAtp9=Dv+6E4A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <div dir="ltr">
+        <div>
+          <div>Good day,<br>
+            <br>
+          </div>
+          I have problems with graphics -- <span
+            class="gmail-gt-baf-word-clickable">from time to time</span>
+          kernel show errors. Kernel 4.14.20<br>
+        </div>
+        <div><br>
+        </div>
+        Log attached.<br>
+        <div>
+          <div><br>
+            Sincerely,<br>
+          </div>
+          <div>Anton Kashcheev.<br>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------14BF10D32D8DD3C246812144--
+
+--===============1221855416==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1221855416==--
