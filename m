@@ -1,18 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH libdrm] Revert "tests/amdgpu: add bo eviction test"
-Date: Thu, 1 Mar 2018 10:57:10 +0100
-Message-ID: <89814cc5-4b13-0156-0f9e-123c7eb49366@daenzer.net>
-References: <20180301093735.24073-1-david1.zhou@amd.com>
- <e2290d6d-cc4b-8acf-5b50-bf520f0a83f4@gmail.com>
- <5c46490f-8558-4b1b-0715-d108beae66f0@amd.com>
- <ff7355f1-c969-beba-99f9-ae2189fdafd1@amd.com>
- <b697456a-e1c4-ae8c-7777-410747f17d72@amd.com>
+From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH libdrm] test/amdgpu: disable bo eviction test by default
+Date: Thu, 1 Mar 2018 18:10:21 +0800
+Message-ID: <20180301101021.6349-1-david1.zhou@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b697456a-e1c4-ae8c-7777-410747f17d72-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,16 +16,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, michel-otUistvHUpPR7s880joybQ@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-T24gMjAxOC0wMy0wMSAxMDo1NSBBTSwgemhvdWNtMSB3cm90ZToKPiBZZXMsIE1pY2hlbCBhbHNv
-IHBvaW50ZWQgdGhhdCwgd2lsbCBkbyB0aGF0LgoKVGhvdWdoIGJhc2VkIG9uIENocmlzdGlhbidz
-IGVhcmxpZXIgZmVlZGJhY2ssIG1heWJlIHlvdSBzaG91bGQgcmF0aGVyCmp1c3QgZXhwbGljaXRs
-eSBkaXNhYmxlIGl0IGluIHRoZSBhdXRvbWF0aW9uIHdoZXJlIGl0J3MgY2F1c2luZyB0cm91Ymxl
-LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAg
-ICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAg
-ICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+aWYgc29tZSBzeXN0ZW0gaGFzZSBubyBzd2FwIHNwYWNlIGFuZCBtZW1vcnkgaXMgbGVzcywgdGhh
+biB0aGUgdGVzdApjb3VsZCBmYWlsLgpBbmQgYm8gZXZpY3Rpb24gdGVzdCB0YWtlcyBtdWNoIG1v
+cmUgdGltZSBpbiBzb21lIHN5c3RlbSwgd2hpY2ggZWZmZWN0cwphdXRvbWF0aW9uIHRlc3QgcmVz
+dWx0IGFuZCBlZmZpY2llbmN5LgpTbyBkaXNhYmxlIGl0IGJ5IGRlZmF1bHQgbm93LCBvbmx5IGJl
+IHVzZWQgYnkgZGV2ZWxvcGVyIG1hbnVhbGx5LgoKU2lnbmVkLW9mZi1ieTogQ2h1bm1pbmcgWmhv
+dSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KLS0tCiB0ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuYyB8
+IDIgKysKIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS90ZXN0
+cy9hbWRncHUvYW1kZ3B1X3Rlc3QuYyBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCmluZGV4
+IDRmNzY2YWFmLi4zNWNiMzdhNCAxMDA2NDQKLS0tIGEvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0
+LmMKKysrIGIvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmMKQEAgLTQzMiw2ICs0MzIsOCBAQCBz
+dGF0aWMgdm9pZCBhbWRncHVfZGlzYWJsZV9zdWl0cygpCiAJaWYgKGFtZGdwdV9zZXRfdGVzdF9h
+Y3RpdmUoQk9fVEVTVFNfU1RSLCAiTWV0YWRhdGEiLCBDVV9GQUxTRSkpCiAJCWZwcmludGYoc3Rk
+ZXJyLCAidGVzdCBkZWFjdGl2YXRpb24gZmFpbGVkIC0gJXNcbiIsIENVX2dldF9lcnJvcl9tc2co
+KSk7CiAKKwlpZiAoYW1kZ3B1X3NldF90ZXN0X2FjdGl2ZShCQVNJQ19URVNUU19TVFIsICJibyBl
+dmljdGlvbiBUZXN0IiwgQ1VfRkFMU0UpKQorCQlmcHJpbnRmKHN0ZGVyciwgInRlc3QgZGVhY3Rp
+dmF0aW9uIGZhaWxlZCAtICVzXG4iLCBDVV9nZXRfZXJyb3JfbXNnKCkpOwogCiAJLyogVGhpcyB0
+ZXN0IHdhcyByYW4gb24gR0ZYOCBhbmQgR0ZYOSBvbmx5ICovCiAJaWYgKGZhbWlseV9pZCA8IEFN
+REdQVV9GQU1JTFlfVkkgfHwgZmFtaWx5X2lkID4gQU1ER1BVX0ZBTUlMWV9SVikKLS0gCjIuMTQu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
