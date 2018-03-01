@@ -1,501 +1,71 @@
-From: Guenter Roeck <groeck@google.com>
-Subject: Re: [PATCH] drm/radeon/mkregtable: Delete unused list functions and macros
-Date: Thu, 1 Mar 2018 07:41:40 -0800
-Message-ID: <CABXOdTeMf623LG-tJSwF9ZoWGmSLcMMOvNpaY2zYXVjb__bQfw@mail.gmail.com>
-References: <20180228221703.92391-1-mka@chromium.org>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: try again kiq access if not in IRQ(v2)
+Date: Thu, 1 Mar 2018 10:50:25 -0500
+Message-ID: <3d12195d-44d3-d9b1-82cd-482f49534ec5@amd.com>
+References: <1519802862-9513-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180228221703.92391-1-mka@chromium.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Matthias Kaehlcke <mka@chromium.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-kernel <linux-kernel@vger.kernel.org>, Guenter Roeck <groeck@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1519802862-9513-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Feb 28, 2018 at 2:17 PM, Matthias Kaehlcke <mka@chromium.org> wrote:
-> The util mkregtable includes a copy of the kernel API for linked lists,
-> only a small subset of it is used. Delete the unused functions and macros.
->
-> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
-
-Reviewed-by: Guenter Roeck <groeck@chromium.org>
-
-> ---
->  drivers/gpu/drm/radeon/mkregtable.c | 433 ----------------------------
->  1 file changed, 433 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/mkregtable.c b/drivers/gpu/drm/radeon/mkregtable.c
-> index c21d8fa591ef..ba704633b072 100644
-> --- a/drivers/gpu/drm/radeon/mkregtable.c
-> +++ b/drivers/gpu/drm/radeon/mkregtable.c
-> @@ -43,10 +43,6 @@ struct list_head {
->         struct list_head *next, *prev;
->  };
->
-> -#define LIST_HEAD_INIT(name) { &(name), &(name) }
-> -
-> -#define LIST_HEAD(name) \
-> -       struct list_head name = LIST_HEAD_INIT(name)
->
->  static inline void INIT_LIST_HEAD(struct list_head *list)
->  {
-> @@ -74,19 +70,6 @@ extern void __list_add(struct list_head *new,
->                        struct list_head *prev, struct list_head *next);
->  #endif
->
-> -/**
-> - * list_add - add a new entry
-> - * @new: new entry to be added
-> - * @head: list head to add it after
-> - *
-> - * Insert a new entry after the specified head.
-> - * This is good for implementing stacks.
-> - */
-> -static inline void list_add(struct list_head *new, struct list_head *head)
-> -{
-> -       __list_add(new, head, head->next);
-> -}
-> -
->  /**
->   * list_add_tail - add a new entry
->   * @new: new entry to be added
-> @@ -100,250 +83,6 @@ static inline void list_add_tail(struct list_head *new, struct list_head *head)
->         __list_add(new, head->prev, head);
->  }
->
-> -/*
-> - * Delete a list entry by making the prev/next entries
-> - * point to each other.
-> - *
-> - * This is only for internal list manipulation where we know
-> - * the prev/next entries already!
-> - */
-> -static inline void __list_del(struct list_head *prev, struct list_head *next)
-> -{
-> -       next->prev = prev;
-> -       prev->next = next;
-> -}
-> -
-> -/**
-> - * list_del - deletes entry from list.
-> - * @entry: the element to delete from the list.
-> - * Note: list_empty() on entry does not return true after this, the entry is
-> - * in an undefined state.
-> - */
-> -#ifndef CONFIG_DEBUG_LIST
-> -static inline void list_del(struct list_head *entry)
-> -{
-> -       __list_del(entry->prev, entry->next);
-> -       entry->next = (void *)0xDEADBEEF;
-> -       entry->prev = (void *)0xBEEFDEAD;
-> -}
-> -#else
-> -extern void list_del(struct list_head *entry);
-> -#endif
-> -
-> -/**
-> - * list_replace - replace old entry by new one
-> - * @old : the element to be replaced
-> - * @new : the new element to insert
-> - *
-> - * If @old was empty, it will be overwritten.
-> - */
-> -static inline void list_replace(struct list_head *old, struct list_head *new)
-> -{
-> -       new->next = old->next;
-> -       new->next->prev = new;
-> -       new->prev = old->prev;
-> -       new->prev->next = new;
-> -}
-> -
-> -static inline void list_replace_init(struct list_head *old,
-> -                                    struct list_head *new)
-> -{
-> -       list_replace(old, new);
-> -       INIT_LIST_HEAD(old);
-> -}
-> -
-> -/**
-> - * list_del_init - deletes entry from list and reinitialize it.
-> - * @entry: the element to delete from the list.
-> - */
-> -static inline void list_del_init(struct list_head *entry)
-> -{
-> -       __list_del(entry->prev, entry->next);
-> -       INIT_LIST_HEAD(entry);
-> -}
-> -
-> -/**
-> - * list_move - delete from one list and add as another's head
-> - * @list: the entry to move
-> - * @head: the head that will precede our entry
-> - */
-> -static inline void list_move(struct list_head *list, struct list_head *head)
-> -{
-> -       __list_del(list->prev, list->next);
-> -       list_add(list, head);
-> -}
-> -
-> -/**
-> - * list_move_tail - delete from one list and add as another's tail
-> - * @list: the entry to move
-> - * @head: the head that will follow our entry
-> - */
-> -static inline void list_move_tail(struct list_head *list,
-> -                                 struct list_head *head)
-> -{
-> -       __list_del(list->prev, list->next);
-> -       list_add_tail(list, head);
-> -}
-> -
-> -/**
-> - * list_is_last - tests whether @list is the last entry in list @head
-> - * @list: the entry to test
-> - * @head: the head of the list
-> - */
-> -static inline int list_is_last(const struct list_head *list,
-> -                              const struct list_head *head)
-> -{
-> -       return list->next == head;
-> -}
-> -
-> -/**
-> - * list_empty - tests whether a list is empty
-> - * @head: the list to test.
-> - */
-> -static inline int list_empty(const struct list_head *head)
-> -{
-> -       return head->next == head;
-> -}
-> -
-> -/**
-> - * list_empty_careful - tests whether a list is empty and not being modified
-> - * @head: the list to test
-> - *
-> - * Description:
-> - * tests whether a list is empty _and_ checks that no other CPU might be
-> - * in the process of modifying either member (next or prev)
-> - *
-> - * NOTE: using list_empty_careful() without synchronization
-> - * can only be safe if the only activity that can happen
-> - * to the list entry is list_del_init(). Eg. it cannot be used
-> - * if another CPU could re-list_add() it.
-> - */
-> -static inline int list_empty_careful(const struct list_head *head)
-> -{
-> -       struct list_head *next = head->next;
-> -       return (next == head) && (next == head->prev);
-> -}
-> -
-> -/**
-> - * list_is_singular - tests whether a list has just one entry.
-> - * @head: the list to test.
-> - */
-> -static inline int list_is_singular(const struct list_head *head)
-> -{
-> -       return !list_empty(head) && (head->next == head->prev);
-> -}
-> -
-> -static inline void __list_cut_position(struct list_head *list,
-> -                                      struct list_head *head,
-> -                                      struct list_head *entry)
-> -{
-> -       struct list_head *new_first = entry->next;
-> -       list->next = head->next;
-> -       list->next->prev = list;
-> -       list->prev = entry;
-> -       entry->next = list;
-> -       head->next = new_first;
-> -       new_first->prev = head;
-> -}
-> -
-> -/**
-> - * list_cut_position - cut a list into two
-> - * @list: a new list to add all removed entries
-> - * @head: a list with entries
-> - * @entry: an entry within head, could be the head itself
-> - *     and if so we won't cut the list
-> - *
-> - * This helper moves the initial part of @head, up to and
-> - * including @entry, from @head to @list. You should
-> - * pass on @entry an element you know is on @head. @list
-> - * should be an empty list or a list you do not care about
-> - * losing its data.
-> - *
-> - */
-> -static inline void list_cut_position(struct list_head *list,
-> -                                    struct list_head *head,
-> -                                    struct list_head *entry)
-> -{
-> -       if (list_empty(head))
-> -               return;
-> -       if (list_is_singular(head) && (head->next != entry && head != entry))
-> -               return;
-> -       if (entry == head)
-> -               INIT_LIST_HEAD(list);
-> -       else
-> -               __list_cut_position(list, head, entry);
-> -}
-> -
-> -static inline void __list_splice(const struct list_head *list,
-> -                                struct list_head *prev, struct list_head *next)
-> -{
-> -       struct list_head *first = list->next;
-> -       struct list_head *last = list->prev;
-> -
-> -       first->prev = prev;
-> -       prev->next = first;
-> -
-> -       last->next = next;
-> -       next->prev = last;
-> -}
-> -
-> -/**
-> - * list_splice - join two lists, this is designed for stacks
-> - * @list: the new list to add.
-> - * @head: the place to add it in the first list.
-> - */
-> -static inline void list_splice(const struct list_head *list,
-> -                              struct list_head *head)
-> -{
-> -       if (!list_empty(list))
-> -               __list_splice(list, head, head->next);
-> -}
-> -
-> -/**
-> - * list_splice_tail - join two lists, each list being a queue
-> - * @list: the new list to add.
-> - * @head: the place to add it in the first list.
-> - */
-> -static inline void list_splice_tail(struct list_head *list,
-> -                                   struct list_head *head)
-> -{
-> -       if (!list_empty(list))
-> -               __list_splice(list, head->prev, head);
-> -}
-> -
-> -/**
-> - * list_splice_init - join two lists and reinitialise the emptied list.
-> - * @list: the new list to add.
-> - * @head: the place to add it in the first list.
-> - *
-> - * The list at @list is reinitialised
-> - */
-> -static inline void list_splice_init(struct list_head *list,
-> -                                   struct list_head *head)
-> -{
-> -       if (!list_empty(list)) {
-> -               __list_splice(list, head, head->next);
-> -               INIT_LIST_HEAD(list);
-> -       }
-> -}
-> -
-> -/**
-> - * list_splice_tail_init - join two lists and reinitialise the emptied list
-> - * @list: the new list to add.
-> - * @head: the place to add it in the first list.
-> - *
-> - * Each of the lists is a queue.
-> - * The list at @list is reinitialised
-> - */
-> -static inline void list_splice_tail_init(struct list_head *list,
-> -                                        struct list_head *head)
-> -{
-> -       if (!list_empty(list)) {
-> -               __list_splice(list, head->prev, head);
-> -               INIT_LIST_HEAD(list);
-> -       }
-> -}
-> -
->  /**
->   * list_entry - get the struct for this entry
->   * @ptr:       the &struct list_head pointer.
-> @@ -353,56 +92,6 @@ static inline void list_splice_tail_init(struct list_head *list,
->  #define list_entry(ptr, type, member) \
->         container_of(ptr, type, member)
->
-> -/**
-> - * list_first_entry - get the first element from a list
-> - * @ptr:       the list head to take the element from.
-> - * @type:      the type of the struct this is embedded in.
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Note, that list is expected to be not empty.
-> - */
-> -#define list_first_entry(ptr, type, member) \
-> -       list_entry((ptr)->next, type, member)
-> -
-> -/**
-> - * list_for_each       -       iterate over a list
-> - * @pos:       the &struct list_head to use as a loop cursor.
-> - * @head:      the head for your list.
-> - */
-> -#define list_for_each(pos, head) \
-> -       for (pos = (head)->next; prefetch(pos->next), pos != (head); \
-> -               pos = pos->next)
-> -
-> -/**
-> - * list_for_each_prev  -       iterate over a list backwards
-> - * @pos:       the &struct list_head to use as a loop cursor.
-> - * @head:      the head for your list.
-> - */
-> -#define list_for_each_prev(pos, head) \
-> -       for (pos = (head)->prev; prefetch(pos->prev), pos != (head); \
-> -               pos = pos->prev)
-> -
-> -/**
-> - * list_for_each_safe - iterate over a list safe against removal of list entry
-> - * @pos:       the &struct list_head to use as a loop cursor.
-> - * @n:         another &struct list_head to use as temporary storage
-> - * @head:      the head for your list.
-> - */
-> -#define list_for_each_safe(pos, n, head) \
-> -       for (pos = (head)->next, n = pos->next; pos != (head); \
-> -               pos = n, n = pos->next)
-> -
-> -/**
-> - * list_for_each_prev_safe - iterate over a list backwards safe against removal of list entry
-> - * @pos:       the &struct list_head to use as a loop cursor.
-> - * @n:         another &struct list_head to use as temporary storage
-> - * @head:      the head for your list.
-> - */
-> -#define list_for_each_prev_safe(pos, n, head) \
-> -       for (pos = (head)->prev, n = pos->prev; \
-> -            prefetch(pos->prev), pos != (head); \
-> -            pos = n, n = pos->prev)
-> -
->  /**
->   * list_for_each_entry -       iterate over list of given type
->   * @pos:       the type * to use as a loop cursor.
-> @@ -414,128 +103,6 @@ static inline void list_splice_tail_init(struct list_head *list,
->              &pos->member != (head);    \
->              pos = list_entry(pos->member.next, typeof(*pos), member))
->
-> -/**
-> - * list_for_each_entry_reverse - iterate backwards over list of given type.
-> - * @pos:       the type * to use as a loop cursor.
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - */
-> -#define list_for_each_entry_reverse(pos, head, member)                 \
-> -       for (pos = list_entry((head)->prev, typeof(*pos), member);      \
-> -            prefetch(pos->member.prev), &pos->member != (head);        \
-> -            pos = list_entry(pos->member.prev, typeof(*pos), member))
-> -
-> -/**
-> - * list_prepare_entry - prepare a pos entry for use in list_for_each_entry_continue()
-> - * @pos:       the type * to use as a start point
-> - * @head:      the head of the list
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Prepares a pos entry for use as a start point in list_for_each_entry_continue().
-> - */
-> -#define list_prepare_entry(pos, head, member) \
-> -       ((pos) ? : list_entry(head, typeof(*pos), member))
-> -
-> -/**
-> - * list_for_each_entry_continue - continue iteration over list of given type
-> - * @pos:       the type * to use as a loop cursor.
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Continue to iterate over list of given type, continuing after
-> - * the current position.
-> - */
-> -#define list_for_each_entry_continue(pos, head, member)                \
-> -       for (pos = list_entry(pos->member.next, typeof(*pos), member);  \
-> -            prefetch(pos->member.next), &pos->member != (head);        \
-> -            pos = list_entry(pos->member.next, typeof(*pos), member))
-> -
-> -/**
-> - * list_for_each_entry_continue_reverse - iterate backwards from the given point
-> - * @pos:       the type * to use as a loop cursor.
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Start to iterate over list of given type backwards, continuing after
-> - * the current position.
-> - */
-> -#define list_for_each_entry_continue_reverse(pos, head, member)                \
-> -       for (pos = list_entry(pos->member.prev, typeof(*pos), member);  \
-> -            prefetch(pos->member.prev), &pos->member != (head);        \
-> -            pos = list_entry(pos->member.prev, typeof(*pos), member))
-> -
-> -/**
-> - * list_for_each_entry_from - iterate over list of given type from the current point
-> - * @pos:       the type * to use as a loop cursor.
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Iterate over list of given type, continuing from current position.
-> - */
-> -#define list_for_each_entry_from(pos, head, member)                    \
-> -       for (; prefetch(pos->member.next), &pos->member != (head);      \
-> -            pos = list_entry(pos->member.next, typeof(*pos), member))
-> -
-> -/**
-> - * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
-> - * @pos:       the type * to use as a loop cursor.
-> - * @n:         another type * to use as temporary storage
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - */
-> -#define list_for_each_entry_safe(pos, n, head, member)                 \
-> -       for (pos = list_entry((head)->next, typeof(*pos), member),      \
-> -               n = list_entry(pos->member.next, typeof(*pos), member); \
-> -            &pos->member != (head);                                    \
-> -            pos = n, n = list_entry(n->member.next, typeof(*n), member))
-> -
-> -/**
-> - * list_for_each_entry_safe_continue
-> - * @pos:       the type * to use as a loop cursor.
-> - * @n:         another type * to use as temporary storage
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Iterate over list of given type, continuing after current point,
-> - * safe against removal of list entry.
-> - */
-> -#define list_for_each_entry_safe_continue(pos, n, head, member)                \
-> -       for (pos = list_entry(pos->member.next, typeof(*pos), member),          \
-> -               n = list_entry(pos->member.next, typeof(*pos), member);         \
-> -            &pos->member != (head);                                            \
-> -            pos = n, n = list_entry(n->member.next, typeof(*n), member))
-> -
-> -/**
-> - * list_for_each_entry_safe_from
-> - * @pos:       the type * to use as a loop cursor.
-> - * @n:         another type * to use as temporary storage
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Iterate over list of given type from current point, safe against
-> - * removal of list entry.
-> - */
-> -#define list_for_each_entry_safe_from(pos, n, head, member)                    \
-> -       for (n = list_entry(pos->member.next, typeof(*pos), member);            \
-> -            &pos->member != (head);                                            \
-> -            pos = n, n = list_entry(n->member.next, typeof(*n), member))
-> -
-> -/**
-> - * list_for_each_entry_safe_reverse
-> - * @pos:       the type * to use as a loop cursor.
-> - * @n:         another type * to use as temporary storage
-> - * @head:      the head for your list.
-> - * @member:    the name of the list_head within the struct.
-> - *
-> - * Iterate backwards over list of given type, safe against removal
-> - * of list entry.
-> - */
-> -#define list_for_each_entry_safe_reverse(pos, n, head, member)         \
-> -       for (pos = list_entry((head)->prev, typeof(*pos), member),      \
-> -               n = list_entry(pos->member.prev, typeof(*pos), member); \
-> -            &pos->member != (head);                                    \
-> -            pos = n, n = list_entry(n->member.prev, typeof(*n), member))
-> -
->  struct offset {
->         struct list_head list;
->         unsigned offset;
-> --
-> 2.16.2.395.g2e18187dfd-goog
->
+T24gMjAxOC0wMi0yOCAwMjoyNyBBTSwgTW9uayBMaXUgd3JvdGU6Cj4gc29tZXRpbWVzIEdQVSBp
+cyBzd2l0Y2hlZCB0byBvdGhlciBWRnMgYW5kIHdvbid0IHN3aWNoCj4gYmFjayBzb29uLCBzbyB0
+aGUga2lxIHJlZyBhY2Nlc3Mgd2lsbCBub3Qgc2lnbmFsIHdpdGhpbgo+IGEgc2hvcnQgcGVyaW9k
+LCBpbnN0ZWFkIG9mIGJ1c3kgd2FpdGluZyBhIGxvbmcgdGltZShNQVhfS0VRX1JFR19XQUlUKQo+
+IGFuZCByZXR1cm5pbmcgVE1PIHdlIGNhbiBpc3RlYWQgc2xlZXAgNW1zIGFuZCB0cnkgYWdhaW4K
+PiBsYXRlciAobm9uIGlycSBjb250ZXh0KQo+Cj4gQW5kIHNpbmNlIHRoZSB3YWl0aW5nIGluIGtp
+cV9yL3dlZyBpcyBidXN5IHdhaXQsIHNvIE1BWF9LSVFfUkVHX1dBSVQKPiBzaG91bGRuJ3Qgc2V0
+IHRvIGEgbG9uZyB0aW1lLCBzZXQgaXQgdG8gMTBtcyBpcyBtb3JlIGFwcHJvcHJpYXRlLgo+Cj4g
+aWYgZ3B1IGFscmVhZHkgaW4gcmVzZXQgc3RhdGUsIGRvbid0IHJldHJ5IHRoZSBLSVEgcmVnIGFj
+Y2Vzcwo+IG90aGVyd2lzZSBpdCB3b3VsZCBhbHdheXMgaGFuZyBiZWNhdXNlIEtJUSB3YXMgYWxy
+ZWFkeSBkaWUgdXN1YWxseS4KPgo+IHYyOgo+IHJlcGxhY2Ugc2NoZWR1bGUoKSB3aXRoIG1zbGVl
+cCgpIGZvciB0aGUgd2FpdAo+Cj4gQ2hhbmdlLUlkOiBJOGZjODA3Y2U4NWE4ZDMwZDJiNTAxNTNm
+M2YzYTZlZGEzNDRlZjk5NAo+IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1IDxNb25rLkxpdUBhbWQu
+Y29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jIHwg
+MTUgKysrKysrKysrKysrKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAy
+IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92aXJ0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5j
+Cj4gaW5kZXggYjgzMjY1MS4uMTY3MmY1YiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdmlydC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ZpcnQuYwo+IEBAIC0yMiw3ICsyMiw3IEBACj4gICAqLwo+ICAKPiAgI2luY2x1
+ZGUgImFtZGdwdS5oIgo+IC0jZGVmaW5lIE1BWF9LSVFfUkVHX1dBSVQJMTAwMDAwMDAwIC8qIGlu
+IHVzZWNzICovCj4gKyNkZWZpbmUgTUFYX0tJUV9SRUdfV0FJVAkxMDAwMCAvKiBpbiB1c2Vjcywg
+MTBtcyAqLwo+ICAKPiAgdWludDY0X3QgYW1kZ3B1X2NzYV92YWRkcihzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikKPiAgewo+IEBAIC0xNTIsOSArMTUyLDE0IEBAIHVpbnQzMl90IGFtZGdwdV92
+aXJ0X2tpcV9ycmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcpCj4g
+IAlhbWRncHVfcmluZ19jb21taXQocmluZyk7Cj4gIAlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZr
+aXEtPnJpbmdfbG9jaywgZmxhZ3MpOwo+ICAKPiArcmV0cnlfcmVhZDoKPiAgCXIgPSBhbWRncHVf
+ZmVuY2Vfd2FpdF9wb2xsaW5nKHJpbmcsIHNlcSwgTUFYX0tJUV9SRUdfV0FJVCk7Cj4gIAlpZiAo
+ciA8IDEpIHsKPiAgCQlEUk1fRVJST1IoIndhaXQgZm9yIGtpcSBmZW5jZSBlcnJvcjogJWxkXG4i
+LCByKTsKPiArCQlpZiAoIWluX2ludGVycnVwdCgpICYmICFhZGV2LT5pbl9ncHVfcmVzZXQpIHsK
+CllvdSBzaG91bGQgY2hlY2sgaW5fYXRvbWljIGhlcmUuIEJlY2F1c2UgaXQncyBpbnZhbGlkIHRv
+IHNsZWVwIGluIGF0b21pYwpjb250ZXh0IChlLmcuIHdoaWxlIGhvbGRpbmcgYSBzcGluIGxvY2sp
+IGV2ZW4gd2hlbiBub3QgaW4gYW4gaW50ZXJydXB0LgpUaGlzIHNlZW1zIHRvIGhhcHBlbiBhIGxv
+dCBmb3IgaW5kaXJlY3QgcmVnaXN0ZXIgYWNjZXNzLCBlLmcuCnNvYzE1X3BjaWVfcnJlZy4KClJl
+Z2FyZHMsCsKgIEZlbGl4Cgo+ICsJCQltc2xlZXAoNSk7Cj4gKwkJCWdvdG8gcmV0cnlfcmVhZDsK
+PiArCQl9Cj4gIAkJcmV0dXJuIH4wOwo+ICAJfQo+ICAJdmFsID0gYWRldi0+d2Iud2JbYWRldi0+
+dmlydC5yZWdfdmFsX29mZnNdOwo+IEBAIC0xNzksOSArMTg0LDE1IEBAIHZvaWQgYW1kZ3B1X3Zp
+cnRfa2lxX3dyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZywgdWlu
+dDMyX3QgdikKPiAgCWFtZGdwdV9yaW5nX2NvbW1pdChyaW5nKTsKPiAgCXNwaW5fdW5sb2NrX2ly
+cXJlc3RvcmUoJmtpcS0+cmluZ19sb2NrLCBmbGFncyk7Cj4gIAo+ICtyZXRyeV93cml0ZToKPiAg
+CXIgPSBhbWRncHVfZmVuY2Vfd2FpdF9wb2xsaW5nKHJpbmcsIHNlcSwgTUFYX0tJUV9SRUdfV0FJ
+VCk7Cj4gLQlpZiAociA8IDEpCj4gKwlpZiAociA8IDEpIHsKPiAgCQlEUk1fRVJST1IoIndhaXQg
+Zm9yIGtpcSBmZW5jZSBlcnJvcjogJWxkXG4iLCByKTsKPiArCQlpZiAoIWluX2ludGVycnVwdCgp
+ICYmICFhZGV2LT5pbl9ncHVfcmVzZXQpIHsKPiArCQkJbXNsZWVwKDUpOwo+ICsJCQlnb3RvIHJl
+dHJ5X3dyaXRlOwo+ICsJCX0KPiArCX0KPiAgfQo+ICAKPiAgLyoqCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
