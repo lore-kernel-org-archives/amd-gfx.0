@@ -1,14 +1,12 @@
-From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: use separate status for buffer funcs
- availability v2
-Date: Fri, 2 Mar 2018 02:44:44 +0000
-Message-ID: <MWHPR1201MB020666B809668B92864EB0D0B4C50@MWHPR1201MB0206.namprd12.prod.outlook.com>
-References: <20180301115237.1979-1-christian.koenig@amd.com>
+From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Changes to let KFD use render node VMs
+Date: Fri, 2 Mar 2018 11:18:15 +0800
+Message-ID: <55806a4d-c80f-6b1b-a90b-c8fe6bbfdfaa@amd.com>
+References: <22204b36-3974-2853-f3f8-2fbd30b05418@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1085547160=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180301115237.1979-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <22204b36-3974-2853-f3f8-2fbd30b05418-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,82 +18,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-UGF0Y2gjMSBpcyBSZXZpZXdlZC1ieTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNv
-bT4NClBhdGNoIzJ+IzQgYXJlIEFja2VkLWJ5OiBDaHVubWluZyB6aG91IDxkYXZpZDEuemhvdUBh
-bWQuY29tPg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCBbbWFp
-bHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBD
-aHJpc3RpYW4gSz9uaWcNClNlbnQ6IFRodXJzZGF5LCBNYXJjaCAwMSwgMjAxOCA3OjUzIFBNDQpU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBja29lbmlnLmxlaWNodHp1bWVy
-a2VuQGdtYWlsLmNvbQ0KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiB1c2Ugc2VwYXJhdGUg
-c3RhdHVzIGZvciBidWZmZXIgZnVuY3MgYXZhaWxhYmlsaXR5IHYyDQoNClRoZSByaW5nIHN0YXR1
-cyBjYW4gY2hhbmdlIGR1cmluZyBHUFUgcmVzZXQsIGJ1dCB3ZSBzdGlsbCBuZWVkIHRvIGJlIGFi
-bGUgdG8gc2NoZWR1bGUgVFRNIGJ1ZmZlciBtb3ZlcyBpbiB0aGUgbWVhbnRpbWUuDQoNCk90aGVy
-d2lzZSB3ZSBjYW4gcmFuIGludG8gcHJvYmxlbXMgYmVjYXVzZSBvZiBhYm9ydGVkIG1vdmUvZmls
-bCBvcGVyYXRpb25zIGR1cmluZyBHUFUgcmVzZXRzLg0KDQp2Mjogc3RpbGwgY2hlY2sgaWYgcmlu
-ZyBpcyBhdmFpbGFibGUgZHVyaW5nIGRpcmVjdCBzdWJtaXQuDQoNClNpZ25lZC1vZmYtYnk6IENo
-cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8IDIxICsrKysrKysrKysrLS0tLS0tLS0t
-LSAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIHwgIDEgKw0KIDIgZmls
-ZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCmluZGV4IDJhYTY4MjNlZjUwMy4uNjE0ODEx
-MDYxZDNkIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
-bS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCkBAIC0y
-MTMsOSArMjEzLDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2V2aWN0X2ZsYWdzKHN0cnVjdCB0dG1f
-YnVmZmVyX29iamVjdCAqYm8sDQogCWFibyA9IHR0bV90b19hbWRncHVfYm8oYm8pOw0KIAlzd2l0
-Y2ggKGJvLT5tZW0ubWVtX3R5cGUpIHsNCiAJY2FzZSBUVE1fUExfVlJBTToNCi0JCWlmIChhZGV2
-LT5tbWFuLmJ1ZmZlcl9mdW5jcyAmJg0KLQkJICAgIGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3Jp
-bmcgJiYNCi0JCSAgICBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nLT5yZWFkeSA9PSBmYWxz
-ZSkgew0KKwkJaWYgKCFhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19lbmFibGVkKSB7DQogCQkJYW1k
-Z3B1X3R0bV9wbGFjZW1lbnRfZnJvbV9kb21haW4oYWJvLCBBTURHUFVfR0VNX0RPTUFJTl9DUFUp
-Ow0KIAkJfSBlbHNlIGlmIChhZGV2LT5nbWMudmlzaWJsZV92cmFtX3NpemUgPCBhZGV2LT5nbWMu
-cmVhbF92cmFtX3NpemUgJiYNCiAJCQkgICAhKGFiby0+ZmxhZ3MgJiBBTURHUFVfR0VNX0NSRUFU
-RV9DUFVfQUNDRVNTX1JFUVVJUkVEKSkgeyBAQCAtMzMxLDcgKzMyOSw3IEBAIGludCBhbWRncHVf
-dHRtX2NvcHlfbWVtX3RvX21lbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCiAJY29uc3Qg
-dWludDY0X3QgR1RUX01BWF9CWVRFUyA9IChBTURHUFVfR1RUX01BWF9UUkFOU0ZFUl9TSVpFICoN
-CiAJCQkJCUFNREdQVV9HUFVfUEFHRV9TSVpFKTsNCiANCi0JaWYgKCFyaW5nLT5yZWFkeSkgew0K
-KwlpZiAoIWFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX2VuYWJsZWQpIHsNCiAJCURSTV9FUlJPUigi
-VHJ5aW5nIHRvIG1vdmUgbWVtb3J5IHdpdGggcmluZyB0dXJuZWQgb2ZmLlxuIik7DQogCQlyZXR1
-cm4gLUVJTlZBTDsNCiAJfQ0KQEAgLTU3NywxMiArNTc1LDkgQEAgc3RhdGljIGludCBhbWRncHVf
-Ym9fbW92ZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBib29sIGV2aWN0LA0KIAkJYW1k
-Z3B1X21vdmVfbnVsbChibywgbmV3X21lbSk7DQogCQlyZXR1cm4gMDsNCiAJfQ0KLQlpZiAoYWRl
-di0+bW1hbi5idWZmZXJfZnVuY3MgPT0gTlVMTCB8fA0KLQkgICAgYWRldi0+bW1hbi5idWZmZXJf
-ZnVuY3NfcmluZyA9PSBOVUxMIHx8DQotCSAgICAhYWRldi0+bW1hbi5idWZmZXJfZnVuY3Nfcmlu
-Zy0+cmVhZHkpIHsNCi0JCS8qIHVzZSBtZW1jcHkgKi8NCisNCisJaWYgKCFhZGV2LT5tbWFuLmJ1
-ZmZlcl9mdW5jc19lbmFibGVkKQ0KIAkJZ290byBtZW1jcHk7DQotCX0NCiANCiAJaWYgKG9sZF9t
-ZW0tPm1lbV90eXBlID09IFRUTV9QTF9WUkFNICYmDQogCSAgICBuZXdfbWVtLT5tZW1fdHlwZSA9
-PSBUVE1fUExfU1lTVEVNKSB7IEBAIC0xNTQ5LDYgKzE1NDQsNyBAQCB2b2lkIGFtZGdwdV90dG1f
-c2V0X2J1ZmZlcl9mdW5jc19zdGF0dXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wg
-ZW5hYmxlKQ0KIAllbHNlDQogCQlzaXplID0gYWRldi0+Z21jLnZpc2libGVfdnJhbV9zaXplOw0K
-IAltYW4tPnNpemUgPSBzaXplID4+IFBBR0VfU0hJRlQ7DQorCWFkZXYtPm1tYW4uYnVmZmVyX2Z1
-bmNzX2VuYWJsZWQgPSBlbmFibGU7DQogfQ0KIA0KIGludCBhbWRncHVfbW1hcChzdHJ1Y3QgZmls
-ZSAqZmlscCwgc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEpIEBAIC0xNjQ3LDYgKzE2NDMsMTEg
-QEAgaW50IGFtZGdwdV9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQ2
-NF90IHNyY19vZmZzZXQsDQogCXVuc2lnbmVkIGk7DQogCWludCByOw0KIA0KKwlpZiAoZGlyZWN0
-X3N1Ym1pdCAmJiAhcmluZy0+cmVhZHkpIHsNCisJCURSTV9FUlJPUigiVHJ5aW5nIHRvIG1vdmUg
-bWVtb3J5IHdpdGggcmluZyB0dXJuZWQgb2ZmLlxuIik7DQorCQlyZXR1cm4gLUVJTlZBTDsNCisJ
-fQ0KKw0KIAltYXhfYnl0ZXMgPSBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jcy0+Y29weV9tYXhfYnl0
-ZXM7DQogCW51bV9sb29wcyA9IERJVl9ST1VORF9VUChieXRlX2NvdW50LCBtYXhfYnl0ZXMpOw0K
-IAludW1fZHcgPSBudW1fbG9vcHMgKiBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jcy0+Y29weV9udW1f
-ZHc7DQpAQCAtMTcyMCw3ICsxNzIxLDcgQEAgaW50IGFtZGdwdV9maWxsX2J1ZmZlcihzdHJ1Y3Qg
-YW1kZ3B1X2JvICpibywNCiAJc3RydWN0IGFtZGdwdV9qb2IgKmpvYjsNCiAJaW50IHI7DQogDQot
-CWlmICghcmluZy0+cmVhZHkpIHsNCisJaWYgKCFhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19lbmFi
-bGVkKSB7DQogCQlEUk1fRVJST1IoIlRyeWluZyB0byBjbGVhciBtZW1vcnkgd2l0aCByaW5nIHR1
-cm5lZCBvZmYuXG4iKTsNCiAJCXJldHVybiAtRUlOVkFMOw0KIAl9DQpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3R0bS5oDQppbmRleCBiODExN2M2ZTUxZjEuLjZlYTdkZTg2MzA0MSAx
-MDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaA0KKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oDQpAQCAtNTMsNiArNTMs
-NyBAQCBzdHJ1Y3QgYW1kZ3B1X21tYW4gew0KIAkvKiBidWZmZXIgaGFuZGxpbmcgKi8NCiAJY29u
-c3Qgc3RydWN0IGFtZGdwdV9idWZmZXJfZnVuY3MJKmJ1ZmZlcl9mdW5jczsNCiAJc3RydWN0IGFt
-ZGdwdV9yaW5nCQkJKmJ1ZmZlcl9mdW5jc19yaW5nOw0KKwlib29sCQkJCQlidWZmZXJfZnVuY3Nf
-ZW5hYmxlZDsNCiANCiAJc3RydWN0IG11dGV4CQkJCWd0dF93aW5kb3dfbG9jazsNCiAJLyogU2No
-ZWR1bGVyIGVudGl0eSBmb3IgYnVmZmVyIG1vdmVzICovDQotLQ0KMi4xNC4xDQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcg
-bGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1085547160==
+Content-Type: multipart/alternative;
+	boundary="------------6ED85072580874A2A93FCDEB"
+Content-Language: en-US
+
+--------------6ED85072580874A2A93FCDEB
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Felix,
+
+Out of patches, Could I ask what the difference of 
+AMDGPU_VM_CONTEXT_COMPUTE/GFX is?
+
+After you merge kfd_vm to amdgpu_vm, does the difference still exist?
+
+
+Thanks,
+
+David Zhou
+
+
+On 2018年03月02日 06:58, Felix Kuehling wrote:
+> Hi Christian,
+>
+> I have a working patch series against amd-kfg-staging that lets KFD use
+> VMs from render node FDs, as we discussed. There are two patches in that
+> series that touch amdgpu_vm.[ch] that I'd like your feedback on before I
+> commit the changes to amd-kfd-staging and include them in my upstream
+> patch series for KFD GPUVM support. See attached.
+>
+> Thanks,
+>    Felix
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------6ED85072580874A2A93FCDEB
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi Felix,</p>
+    <p>Out of patches, Could I ask what the difference of 
+      AMDGPU_VM_CONTEXT_COMPUTE/GFX is?</p>
+    <p>After you merge kfd_vm to amdgpu_vm, does the difference still
+      exist?</p>
+    <p><br>
+    </p>
+    <p>Thanks,</p>
+    <p>David Zhou<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 2018年03月02日 06:58, Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:22204b36-3974-2853-f3f8-2fbd30b05418-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">Hi Christian,
+
+I have a working patch series against amd-kfg-staging that lets KFD use
+VMs from render node FDs, as we discussed. There are two patches in that
+series that touch amdgpu_vm.[ch] that I'd like your feedback on before I
+commit the changes to amd-kfd-staging and include them in my upstream
+patch series for KFD GPUVM support. See attached.
+
+Thanks,
+  Felix
+
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------6ED85072580874A2A93FCDEB--
+
+--===============1085547160==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1085547160==--
