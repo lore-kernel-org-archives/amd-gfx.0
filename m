@@ -1,13 +1,11 @@
-From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Changes to let KFD use render node VMs
-Date: Fri, 2 Mar 2018 11:18:15 +0800
-Message-ID: <55806a4d-c80f-6b1b-a90b-c8fe6bbfdfaa@amd.com>
-References: <22204b36-3974-2853-f3f8-2fbd30b05418@amd.com>
+From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] Revert "drm/amdgpu: use polling mem to set SDMA3 wptr for VF"
+Date: Fri, 2 Mar 2018 11:31:30 +0800
+Message-ID: <1519961490-2813-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1085547160=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <22204b36-3974-2853-f3f8-2fbd30b05418-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,110 +16,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 
---===============1085547160==
-Content-Type: multipart/alternative;
-	boundary="------------6ED85072580874A2A93FCDEB"
-Content-Language: en-US
-
---------------6ED85072580874A2A93FCDEB
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Felix,
-
-Out of patches, Could I ask what the difference of 
-AMDGPU_VM_CONTEXT_COMPUTE/GFX is?
-
-After you merge kfd_vm to amdgpu_vm, does the difference still exist?
-
-
-Thanks,
-
-David Zhou
-
-
-On 2018年03月02日 06:58, Felix Kuehling wrote:
-> Hi Christian,
->
-> I have a working patch series against amd-kfg-staging that lets KFD use
-> VMs from render node FDs, as we discussed. There are two patches in that
-> series that touch amdgpu_vm.[ch] that I'd like your feedback on before I
-> commit the changes to amd-kfd-staging and include them in my upstream
-> patch series for KFD GPUVM support. See attached.
->
-> Thanks,
->    Felix
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------6ED85072580874A2A93FCDEB
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Hi Felix,</p>
-    <p>Out of patches, Could I ask what the difference of 
-      AMDGPU_VM_CONTEXT_COMPUTE/GFX is?</p>
-    <p>After you merge kfd_vm to amdgpu_vm, does the difference still
-      exist?</p>
-    <p><br>
-    </p>
-    <p>Thanks,</p>
-    <p>David Zhou<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 2018年03月02日 06:58, Felix Kuehling
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:22204b36-3974-2853-f3f8-2fbd30b05418-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">Hi Christian,
-
-I have a working patch series against amd-kfg-staging that lets KFD use
-VMs from render node FDs, as we discussed. There are two patches in that
-series that touch amdgpu_vm.[ch] that I'd like your feedback on before I
-commit the changes to amd-kfd-staging and include them in my upstream
-patch series for KFD GPUVM support. See attached.
-
-Thanks,
-  Felix
-
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------6ED85072580874A2A93FCDEB--
-
---===============1085547160==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1085547160==--
+VGhpcyByZXZlcnRzIGNvbW1pdCAyZmZlMzFkZWIyNzU3OWUyZjJjOTQ0NGUwMWY0ZDhhYmYzODVk
+MTQ1LgpUaGUgc2RtYSB3cHRyIHBvbGwgbWVtb215IGRvZXNuJ3QgaGF2ZSB0aGUgc2FtZSBlZmZp
+Y2llbmN5IGFzCmRvb3JiZWxsLCBhbmQgaXQgd2lsbCBtYWtlIHNkbWEgaGFuZyB3aGVuIHJ1bm5p
+bmcgdGVzdHMuCgpDaGFuZ2UtSWQ6IEk2ZTMzNDQzMGIzMDliMGMyMWFhMThhMDg3NjQzMjBjN2Zm
+NTFlMzUzClNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4KLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oIHwgIDEgLQogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMgICB8IDI3ICsrKysrKysrLS0tLS0tLS0t
+LS0tLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDIwIGRlbGV0aW9u
+cygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5n
+LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oCmluZGV4IDEwMmRh
+ZDMuLjVkY2Y5OGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9yaW5nLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaApA
+QCAtMTg2LDcgKzE4Niw2IEBAIHN0cnVjdCBhbWRncHVfcmluZyB7CiAJdWludDY0X3QgICAgICAg
+ICAgICAgICAgZW9wX2dwdV9hZGRyOwogCXUzMgkJCWRvb3JiZWxsX2luZGV4OwogCWJvb2wJCQl1
+c2VfZG9vcmJlbGw7Ci0JYm9vbAkJCXVzZV9wb2xsbWVtOwogCXVuc2lnbmVkCQl3cHRyX29mZnM7
+CiAJdW5zaWduZWQJCWZlbmNlX29mZnM7CiAJdWludDY0X3QJCWN1cnJlbnRfY3R4OwpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYwppbmRleCA1MjE5NzhjLi5kM2ZiM2NhIDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYwpAQCAtMzU1LDcgKzM1NSw3IEBAIHN0
+YXRpYyB1aW50NjRfdCBzZG1hX3YzXzBfcmluZ19nZXRfd3B0cihzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcpCiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2OwogCXUzMiB3
+cHRyOwogCi0JaWYgKHJpbmctPnVzZV9kb29yYmVsbCB8fCByaW5nLT51c2VfcG9sbG1lbSkgewor
+CWlmIChyaW5nLT51c2VfZG9vcmJlbGwpIHsKIAkJLyogWFhYIGNoZWNrIGlmIHN3YXBwaW5nIGlz
+IG5lY2Vzc2FyeSBvbiBCRSAqLwogCQl3cHRyID0gcmluZy0+YWRldi0+d2Iud2JbcmluZy0+d3B0
+cl9vZmZzXSA+PiAyOwogCX0gZWxzZSB7CkBAIC0zODAsMTMgKzM4MCwxMCBAQCBzdGF0aWMgdm9p
+ZCBzZG1hX3YzXzBfcmluZ19zZXRfd3B0cihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiAKIAlp
+ZiAocmluZy0+dXNlX2Rvb3JiZWxsKSB7CiAJCXUzMiAqd2IgPSAodTMyICopJmFkZXYtPndiLndi
+W3JpbmctPndwdHJfb2Zmc107CisKIAkJLyogWFhYIGNoZWNrIGlmIHN3YXBwaW5nIGlzIG5lY2Vz
+c2FyeSBvbiBCRSAqLwogCQlXUklURV9PTkNFKCp3YiwgKGxvd2VyXzMyX2JpdHMocmluZy0+d3B0
+cikgPDwgMikpOwogCQlXRE9PUkJFTEwzMihyaW5nLT5kb29yYmVsbF9pbmRleCwgbG93ZXJfMzJf
+Yml0cyhyaW5nLT53cHRyKSA8PCAyKTsKLQl9IGVsc2UgaWYgKHJpbmctPnVzZV9wb2xsbWVtKSB7
+Ci0JCXUzMiAqd2IgPSAodTMyICopJmFkZXYtPndiLndiW3JpbmctPndwdHJfb2Zmc107Ci0KLQkJ
+V1JJVEVfT05DRSgqd2IsIChsb3dlcl8zMl9iaXRzKHJpbmctPndwdHIpIDw8IDIpKTsKIAl9IGVs
+c2UgewogCQlpbnQgbWUgPSAocmluZyA9PSAmcmluZy0+YWRldi0+c2RtYS5pbnN0YW5jZVswXS5y
+aW5nKSA/IDAgOiAxOwogCkBAIC03MTksMTQgKzcxNiwxMCBAQCBzdGF0aWMgaW50IHNkbWFfdjNf
+MF9nZnhfcmVzdW1lKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQlXUkVHMzIobW1TRE1B
+MF9HRlhfUkJfV1BUUl9QT0xMX0FERFJfSEkgKyBzZG1hX29mZnNldHNbaV0sCiAJCSAgICAgICB1
+cHBlcl8zMl9iaXRzKHdwdHJfZ3B1X2FkZHIpKTsKIAkJd3B0cl9wb2xsX2NudGwgPSBSUkVHMzIo
+bW1TRE1BMF9HRlhfUkJfV1BUUl9QT0xMX0NOVEwgKyBzZG1hX29mZnNldHNbaV0pOwotCQlpZiAo
+cmluZy0+dXNlX3BvbGxtZW0pCi0JCQl3cHRyX3BvbGxfY250bCA9IFJFR19TRVRfRklFTEQod3B0
+cl9wb2xsX2NudGwsCi0JCQkJCQkgICAgICAgU0RNQTBfR0ZYX1JCX1dQVFJfUE9MTF9DTlRMLAot
+CQkJCQkJICAgICAgIEVOQUJMRSwgMSk7CisJCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpCisJ
+CQl3cHRyX3BvbGxfY250bCA9IFJFR19TRVRfRklFTEQod3B0cl9wb2xsX2NudGwsIFNETUEwX0dG
+WF9SQl9XUFRSX1BPTExfQ05UTCwgRjMyX1BPTExfRU5BQkxFLCAxKTsKIAkJZWxzZQotCQkJd3B0
+cl9wb2xsX2NudGwgPSBSRUdfU0VUX0ZJRUxEKHdwdHJfcG9sbF9jbnRsLAotCQkJCQkJICAgICAg
+IFNETUEwX0dGWF9SQl9XUFRSX1BPTExfQ05UTCwKLQkJCQkJCSAgICAgICBFTkFCTEUsIDApOwor
+CQkJd3B0cl9wb2xsX2NudGwgPSBSRUdfU0VUX0ZJRUxEKHdwdHJfcG9sbF9jbnRsLCBTRE1BMF9H
+RlhfUkJfV1BUUl9QT0xMX0NOVEwsIEYzMl9QT0xMX0VOQUJMRSwgMCk7CiAJCVdSRUczMihtbVNE
+TUEwX0dGWF9SQl9XUFRSX1BPTExfQ05UTCArIHNkbWFfb2Zmc2V0c1tpXSwgd3B0cl9wb2xsX2Nu
+dGwpOwogCiAJCS8qIGVuYWJsZSBETUEgUkIgKi8KQEAgLTEyMDgsMTMgKzEyMDEsOSBAQCBzdGF0
+aWMgaW50IHNkbWFfdjNfMF9zd19pbml0KHZvaWQgKmhhbmRsZSkKIAlmb3IgKGkgPSAwOyBpIDwg
+YWRldi0+c2RtYS5udW1faW5zdGFuY2VzOyBpKyspIHsKIAkJcmluZyA9ICZhZGV2LT5zZG1hLmlu
+c3RhbmNlW2ldLnJpbmc7CiAJCXJpbmctPnJpbmdfb2JqID0gTlVMTDsKLQkJaWYgKCFhbWRncHVf
+c3Jpb3ZfdmYoYWRldikpIHsKLQkJCXJpbmctPnVzZV9kb29yYmVsbCA9IHRydWU7Ci0JCQlyaW5n
+LT5kb29yYmVsbF9pbmRleCA9IChpID09IDApID8KLQkJCQlBTURHUFVfRE9PUkJFTExfc0RNQV9F
+TkdJTkUwIDogQU1ER1BVX0RPT1JCRUxMX3NETUFfRU5HSU5FMTsKLQkJfSBlbHNlIHsKLQkJCXJp
+bmctPnVzZV9wb2xsbWVtID0gdHJ1ZTsKLQkJfQorCQlyaW5nLT51c2VfZG9vcmJlbGwgPSB0cnVl
+OworCQlyaW5nLT5kb29yYmVsbF9pbmRleCA9IChpID09IDApID8KKwkJCUFNREdQVV9ET09SQkVM
+TF9zRE1BX0VOR0lORTAgOiBBTURHUFVfRE9PUkJFTExfc0RNQV9FTkdJTkUxOwogCiAJCXNwcmlu
+dGYocmluZy0+bmFtZSwgInNkbWElZCIsIGkpOwogCQlyID0gYW1kZ3B1X3JpbmdfaW5pdChhZGV2
+LCByaW5nLCAxMDI0LAotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
