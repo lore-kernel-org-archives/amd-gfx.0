@@ -1,15 +1,12 @@
-From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [ANNOUNCE] xf86-video-amdgpu 18.0.0
-Date: Sun, 4 Mar 2018 08:25:03 +0100
-Message-ID: <bca9b6ef-c675-95ba-fe02-4e5821902066@gmail.com>
-References: <20180122021437.9361-1-mario.kleiner.de@gmail.com>
- <04923fbb-dffb-b849-2f59-16e1f993a728@daenzer.net>
+From: "Luke A. Guest" <laguest-z/KZkw/0wg5BDgjK7y7TUQ@public.gmane.org>
+Subject: AMDGPU reverting to hard lockup after KVM session
+Date: Sun, 4 Mar 2018 17:39:10 +0000
+Message-ID: <a117957a-f0cf-756a-cfde-853b8a626fd6@archeia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <04923fbb-dffb-b849-2f59-16e1f993a728-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+Content-Language: en-GB
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,29 +17,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGkgTWljaGVsLAoKd3J0LiBvdXIgY29udmVyc2F0aW9uIGZyb20gfiAxIG1vbnRoIGFnbzoKCk9u
-IDAxLzIyLzIwMTggMDc6MDEgUE0sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+IE9uIDIwMTgtMDEt
-MjIgMDM6MTQgQU0sIE1hcmlvIEtsZWluZXIgd3JvdGU6Cj4gCj4+IFdoZW4gdGVzdGluZyBhZ2Fp
-bnN0IGN1cnJlbnQgbWFzdGVyIGluIGR1YWwteC1zY3JlZW4gbW9kZSwKPj4gaSBmb3VuZCBvdXQg
-dGhhdCB0aGUgY3VycmVudCBhdGktZGR4IGNvbW1pdCBhdCB0aGUgdG9wIDFmZThjYTc1OTc0YzUy
-Cj4+ICJLZWVwIHRyYWNrIG9mIGhvdyBtYW55IFNXIGN1cnNvcnMgYXJlIHZpc2libGUgb24gZWFj
-aCBzY3JlZW4iCj4+IGJyZWFrcyBtdWx0aSB4LXNjcmVlbiBzZXR1cHMgYnkgc2NyZXdpbmcgdXAg
-Y3Vyc29yIGhhbmRsaW5nLgo+IAo+IEkgc3R1bWJsZWQgb3ZlciB0aGlzIG15c2VsZiB0aGUgb3Ro
-ZXIgZGF5LiBUaGVyZSdzIGFuIGlzc3VlIHdpdGggdGhlCj4gKHVuKXdyYXBwaW5nIG9mIG1pUG9p
-bnRlclNwcml0ZUZ1bmNSZWMgZW50cmllcy4gTm90IHN1cmUgeWV0IHdoYXQKPiBleGFjdGx5J3Mg
-d3Jvbmcgd2l0aCBpdCB0aG91Z2guIEknbGwgbG9vayBpbnRvIGl0Lgo+IAoKSGFzIHRoZSBtdWx0
-aS14LXNjcmVlbiBicmVha2FnZSBiZWVuIGZpeGVkIGZvciBhbWRncHUgMTguMC4wPyBJIGNhbid0
-IApzZWUgYSBjb21taXQgaGludGluZyBhdCBhIGZpeCwgYW5kIGkgYXNzdW1lIGl0IHdhcyBicm9r
-ZW4gYnkgdGhlIG5ldyBIVyAKY3Vyc29yICsgcGFnZWZsaXAgbG9naWMsIGp1c3QgYXMgaW4gdGhl
-IHhmODYtdmlkZW8tYXRpIGNhc2U/IEkgY2FuJ3QgCnRlc3QgYW55dGhpbmcgbXlzZWxmIGF0bS4g
-YXMgbXkgb25seSAgYW1kZ3B1IGNhcGFibGUgZ3B1IGhhcyBsZWZ0IG1lIDooCgpCcm9rZW4gbXVs
-dGkteC1zY3JlZW4gZnJvbSBhbiBvZmZpY2lhbCBkcml2ZXIgcmVsZWFzZSBlbmRpbmcgaW4gYSBk
-aXN0cm8gCndvdWxkIGJlIGEgYmlnIHByb2JsZW0gZm9yIG1hbnkgdmlzaW9uIHNjaWVudGlzdHMs
-IGFzIHRoZXkgZGVwZW5kIG9uIEFNRCAKKyBkdWFsLXgtc2NyZWVuIHN1cHBvcnQgZm9yIHRoZWly
-IHdvcmsuCgpUaGFua3MsCi1tYXJpbwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+SGksCgpJdCBsb29rcyBsaWtlIGFtZGdwdSBoYXMgZ29uZSBiYWNrIHRvIGhhcmQgaGFuZ2luZyB0
+aGUgbWFjaGluZSBhZnRlcgpzaHV0dGluZyBkb3duIGEga3ZtIHNlc3Npb24gd2l0aCBncHUgcGFz
+c2VkIHRocm91Z2ggdG8gdGhlIGd1ZXN0LiBUaGVyZQphcmUgbm8gZG1lc2cgb3IgL3Zhci9sb2cv
+bWVzc2FnZXMKCgpHdWVzdCBHUFUgaXMgYSBTYXBwaGlyZSBOaXRybyBSOSAzODAsIDRHQi4KCgp1
+bmFtZSAtYQoKTGludXggcm9ndWUgNC4xNi4wLXJjMyAjMSBTTVAgUFJFRU1QVCBUdWUgRmViIDI3
+IDE0OjU0OjU4IEdNVCAyMDE4Cng4Nl82NCBBTUQgRlgodG0pLTgzNTAgRWlnaHQtQ29yZSBQcm9j
+ZXNzb3IgQXV0aGVudGljQU1EIEdOVS9MaW51eAoKCkx1a2UuCgoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
