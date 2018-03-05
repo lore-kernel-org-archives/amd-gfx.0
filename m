@@ -1,15 +1,13 @@
-From: Samuel Li <samuel.li-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-Date: Mon, 5 Mar 2018 10:31:02 -0500
-Message-ID: <1a7473df-7dfe-75f9-af1a-4633cb516ed7@amd.com>
-References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
- <67ca0059-9cde-d92f-3127-dc832c2cba98@daenzer.net>
+From: "Keith Packard" <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+Subject: Re:
+Date: Mon, 05 Mar 2018 08:41:26 -0800
+Message-ID: <877eqqlbk9.fsf@keithp.com>
+References: <20180303044931.6902-1-keithp@keithp.com>
+ <82fc592b-f680-c663-1a0f-7b522ca932d2@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0567587605=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <67ca0059-9cde-d92f-3127-dc832c2cba98-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <82fc592b-f680-c663-1a0f-7b522ca932d2-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,23 +18,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: Michel =?utf-8?Q?D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-VGhlcmUgYXJlIHRocmVlIG1ham9yIG9wdGlvbnMgd2hlbiBTRyBjYXBhYmlsaXR5IGlzIGVuYWJs
-ZWQsCjEpIEFsbG9jYXRlIGV2ZXJ5dGhpbmcgd2hlbiBwb3NzaWJsZSBmcm9tIEdUVCBtZW1vcnkK
-MikgQWxsb2NhdGUgZXZlcnl0aGluZyB3aGVuIHBvc3NpYmxlIGZyb20gVlJBTQozKSBBbGxvdyBi
-b3RoIFZSQU0vR1RUIHRvIGJlIGF2YWlsYWJsZQpFYWNoIGhhcyBpdHMgb3duIHByb3MvY29ucywg
-YW5kIGl0IGhhcyBub3QgYmVlbiBkZWNpZGVkIHdoaWNoIGRpcmVjdGlvbiBpcyBnb2luZyB0byBi
-ZSB1c2VkIGZvciBhbGwgUENzLiBTbyBpdCBzZWVtcyBiZW5lZmljaWFsIHRvIHByb3ZpZGUgYWxs
-IHRoZSBvcHRpb25zLgoKU2FtCgpPbiAyMDE4LTAzLTA1IDA1OjE3IEFNLCBNaWNoZWwgRMOkbnpl
-ciB3cm90ZToKPiBPbiAyMDE4LTAzLTAzIDEyOjI1IEFNLCBTYW11ZWwgTGkgd3JvdGU6Cj4+IEl0
-J3MgZW5hYmxlZCBieSBkZWZhdWx0LiAtMSBpcyBhdXRvLCB0byBhbGxvdyBib3RoIHZyYW0gYW5k
-IGd0dAo+PiBtZW1vcnkgYmUgYXZhaWxhYmxlLCBmb3IgdGVzdGluZyBwdXJwb3NlIG9ubHkuCj4g
-Cj4gRG8gd2UgcmVhbGx5IG5lZWQgYSBtb2R1bGUgcGFyYW1ldGVyIGZvciB0aGlzPyBUaGVyZSdz
-IGFscmVhZHkgdG9vIG1hbnkKPiBvZiB0aGVtLiBUaGUgZHJpdmVyIHNob3VsZCBrbm93IHdoaWNo
-IHRvIHVzZSBpbiB3aGljaCBjYXNlcywgYW5kCj4gZGV2ZWxvcGVycyBjYW4gZWFzaWx5IHR3ZWFr
-IHRoZSBjb2RlLiBVc2VycyBzaG91bGQgbmV2ZXIgbmVlZCB0byBjaGFuZ2UKPiB0aGlzLgo+IAo+
-IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0567587605==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> writes:
+
+> On 2018-03-03 05:49 AM, Keith Packard wrote:
+>> Here are the patches to the modesetting driver amended for the amdgpu
+>> driver.
+>
+> Thanks for the patches. Unfortunately, since this driver still has to
+> compile and work with xserver >=3D 1.13, at least patches 1 & 3 cannot be
+> applied as is.
+>
+> I was going to port these and take care of that anyway, though I might
+> not get around to it before April. If it can't wait that long, I can
+> give you details about what needs to be done.
+
+I'm good with that -- I needed this to test amdgpu vs modesetting for
+some applications, and just having the patches with support is good
+enough for me.
+
+=2D-=20
+=2Dkeith
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEw4O3eCVWE9/bQJ2R2yIaaQAAABEFAlqdczYACgkQ2yIaaQAA
+ABEEnRAAmTRNkHzIEt79exerXekbISXQRHYXpEaXun1jJeQyPRGhIUbrCgvEShvE
+0nMpZ41s0PMuF95LuaWermosS5b1kNfBwNZ6/TSchLmD7akxASzsYzCV+5sz1RJ3
+nFF1SnLQpdMw1eCZ9jL2YpV0HdZ1HWbbldK0E6F0DmXXvsT2zwJT3KS9z6+KUTiE
+RqjoAPa3OypObpPuXSBXlTfelUr5HtOXoaxFKYCa5nXZxXzx//B8q3jZ4FbyPZyR
+BBqNpvdFX8GxVxoOTXIik3G2dMYf3d1rvJcZx9h51KeFkCQC9CLm11ErQmmTScmN
+w9Q/J4YBxf+ctJgkMrhGajVPGAG7hNSJraQFmVkl8BpE+ojSyGVqvl45pM/Bn23d
+mxKBeXJljKwGCTrQvoRMo0lSXPPq9ltCm6HTk3GIL/WmGGsBWJOc7wlHZa1enkB0
+/fnHwohcgWAougzeEJx2Yl6cLvbgJKrENUZ17F5Wz23Hl6avKgYM93h3/QMjZOzo
+8tl7IcP/u0Kx2hnCX5o4kNDsSC9jtvcjb5mBGlijRzYfdHjUJju41PCYmeV5d7yu
+xHwhp3cHrsP5Fb5o2nf45s/fNaQjqsNMHg0GBXj8OKJJXfcpCFvwV8uJLna+1j+x
+i4kcBqIWUM/GC0ONn1oGC+TwChtD76pkyFhWJZY03HSfKxdkfLc=
+=ivsV
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============0567587605==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0567587605==--
