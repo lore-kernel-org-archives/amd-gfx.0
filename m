@@ -1,10 +1,8 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 2/2] drm/amdgpu: fix KV harvesting
-Date: Mon,  5 Mar 2018 13:30:14 -0500
-Message-ID: <20180305183014.4861-2-alexander.deucher@amd.com>
-References: <20180305183014.4861-1-alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/radeon: fix KV harvesting
+Date: Mon,  5 Mar 2018 13:30:13 -0500
+Message-ID: <20180305183014.4861-1-alexander.deucher@amd.com>
 Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20180305183014.4861-1-alexander.deucher@amd.com>
 Sender: stable-owner@vger.kernel.org
 To: amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
@@ -18,49 +16,50 @@ Fixes: https://bugs.freedesktop.org/show_bug.cgi?id=99353
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 30 ++----------------------------
- 1 file changed, 2 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/radeon/cik.c | 31 ++-----------------------------
+ 1 file changed, 2 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 972d421caada..e13d9d83767b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4358,34 +4358,8 @@ static void gfx_v7_0_gpu_early_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index d3045a371a55..7c73bc7e2f85 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -3221,35 +3221,8 @@ static void cik_gpu_init(struct radeon_device *rdev)
  	case CHIP_KAVERI:
- 		adev->gfx.config.max_shader_engines = 1;
- 		adev->gfx.config.max_tile_pipes = 4;
--		if ((adev->pdev->device == 0x1304) ||
--		    (adev->pdev->device == 0x1305) ||
--		    (adev->pdev->device == 0x130C) ||
--		    (adev->pdev->device == 0x130F) ||
--		    (adev->pdev->device == 0x1310) ||
--		    (adev->pdev->device == 0x1311) ||
--		    (adev->pdev->device == 0x131C)) {
--			adev->gfx.config.max_cu_per_sh = 8;
--			adev->gfx.config.max_backends_per_se = 2;
--		} else if ((adev->pdev->device == 0x1309) ||
--			   (adev->pdev->device == 0x130A) ||
--			   (adev->pdev->device == 0x130D) ||
--			   (adev->pdev->device == 0x1313) ||
--			   (adev->pdev->device == 0x131D)) {
--			adev->gfx.config.max_cu_per_sh = 6;
--			adev->gfx.config.max_backends_per_se = 2;
--		} else if ((adev->pdev->device == 0x1306) ||
--			   (adev->pdev->device == 0x1307) ||
--			   (adev->pdev->device == 0x130B) ||
--			   (adev->pdev->device == 0x130E) ||
--			   (adev->pdev->device == 0x1315) ||
--			   (adev->pdev->device == 0x131B)) {
--			adev->gfx.config.max_cu_per_sh = 4;
--			adev->gfx.config.max_backends_per_se = 1;
+ 		rdev->config.cik.max_shader_engines = 1;
+ 		rdev->config.cik.max_tile_pipes = 4;
+-		if ((rdev->pdev->device == 0x1304) ||
+-		    (rdev->pdev->device == 0x1305) ||
+-		    (rdev->pdev->device == 0x130C) ||
+-		    (rdev->pdev->device == 0x130F) ||
+-		    (rdev->pdev->device == 0x1310) ||
+-		    (rdev->pdev->device == 0x1311) ||
+-		    (rdev->pdev->device == 0x131C)) {
+-			rdev->config.cik.max_cu_per_sh = 8;
+-			rdev->config.cik.max_backends_per_se = 2;
+-		} else if ((rdev->pdev->device == 0x1309) ||
+-			   (rdev->pdev->device == 0x130A) ||
+-			   (rdev->pdev->device == 0x130D) ||
+-			   (rdev->pdev->device == 0x1313) ||
+-			   (rdev->pdev->device == 0x131D)) {
+-			rdev->config.cik.max_cu_per_sh = 6;
+-			rdev->config.cik.max_backends_per_se = 2;
+-		} else if ((rdev->pdev->device == 0x1306) ||
+-			   (rdev->pdev->device == 0x1307) ||
+-			   (rdev->pdev->device == 0x130B) ||
+-			   (rdev->pdev->device == 0x130E) ||
+-			   (rdev->pdev->device == 0x1315) ||
+-			   (rdev->pdev->device == 0x1318) ||
+-			   (rdev->pdev->device == 0x131B)) {
+-			rdev->config.cik.max_cu_per_sh = 4;
+-			rdev->config.cik.max_backends_per_se = 1;
 -		} else {
--			adev->gfx.config.max_cu_per_sh = 3;
--			adev->gfx.config.max_backends_per_se = 1;
+-			rdev->config.cik.max_cu_per_sh = 3;
+-			rdev->config.cik.max_backends_per_se = 1;
 -		}
-+		adev->gfx.config.max_cu_per_sh = 8;
-+		adev->gfx.config.max_backends_per_se = 2;
- 		adev->gfx.config.max_sh_per_se = 1;
- 		adev->gfx.config.max_texture_channel_caches = 4;
- 		adev->gfx.config.max_gprs = 256;
++		rdev->config.cik.max_cu_per_sh = 8;
++		rdev->config.cik.max_backends_per_se = 2;
+ 		rdev->config.cik.max_sh_per_se = 1;
+ 		rdev->config.cik.max_texture_channel_caches = 4;
+ 		rdev->config.cik.max_gprs = 256;
 -- 
 2.13.6
