@@ -1,16 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amdgpu: give warning before sleep in kiq_r/wreg
-Date: Tue, 6 Mar 2018 09:35:48 +0100
-Message-ID: <cde75208-b713-da7d-14f3-db48979000f6@gmail.com>
-References: <1520306150-29325-1-git-send-email-Monk.Liu@amd.com>
- <1520306150-29325-3-git-send-email-Monk.Liu@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Subject: Re: [PATCH] drm/atomic: Add new reverse iterator over all plane state
+ (V2)
+Date: Tue, 06 Mar 2018 10:38:32 +0200
+Message-ID: <87zi3lsinr.fsf@intel.com>
+References: <1519890811-3638-1-git-send-email-shirish.s@amd.com>
+ <BN6PR12MB18262C0DE9B5F07B9A42EAE7F2C60@BN6PR12MB1826.namprd12.prod.outlook.com>
+ <3498cf6f-384b-44c9-1924-ccbfa96f3704@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1520306150-29325-3-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <3498cf6f-384b-44c9-1924-ccbfa96f3704-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,33 +21,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMDYuMDMuMjAxOCB1bSAwNDoxNSBzY2hyaWViIE1vbmsgTGl1Ogo+IHRvIGNhdGNoIGVycm9y
-IHRoYXQgbWF5IHNjaGVkdWxlIGluIGF0b21pYyBjb250ZXh0IGVhcmx5IG9uCj4KPiBDaGFuZ2Ut
-SWQ6IEk0OWRlYzdjNTU0NzAwMTE3MjliN2ZhN2QzZTFlY2ZlMWYzOGVkODlmCj4gU2lnbmVkLW9m
-Zi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFu
-IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMgfCA3ICsrKysrKysKPiAgIDEgZmlsZSBjaGFu
-Z2VkLCA3IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdmlydC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZpcnQuYwo+IGluZGV4IDQyYzE0MDEuLjIxYWRiMWI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdmlydC5jCj4gQEAgLTE2Nyw2ICsxNjcsOSBAQCB1aW50MzJfdCBh
-bWRncHVfdmlydF9raXFfcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qg
-cmVnKQo+ICAgCWlmIChyIDwgMSAmJiAoYWRldi0+aW5fZ3B1X3Jlc2V0IHx8IGluX2ludGVycnVw
-dCgpKSkKPiAgIAkJZ290byBmYWlsZWRfa2lxX3JlYWQ7Cj4gICAKPiArCWlmIChpbl9pbnRlcnJ1
-cHQoKSkKPiArCQltaWdodF9zbGVlcCgpOwo+ICsKPiAgIAl3aGlsZSAociA8IDEgJiYgY250Kysg
-PCBNQVhfS0lRX1JFR19UUlkpIHsKPiAgIAkJbXNsZWVwKE1BWF9LSVFfUkVHX0JBSUxPVVRfSU5U
-RVJWQUwpOwo+ICAgCQlyID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsIE1B
-WF9LSVFfUkVHX1dBSVQpOwo+IEBAIC0yMTIsNyArMjE1LDExIEBAIHZvaWQgYW1kZ3B1X3ZpcnRf
-a2lxX3dyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZywgdWludDMy
-X3QgdikKPiAgIAlpZiAociA8IDEgJiYgKGFkZXYtPmluX2dwdV9yZXNldCB8fCBpbl9pbnRlcnJ1
-cHQoKSkpCj4gICAJCWdvdG8gZmFpbGVkX2tpcV93cml0ZTsKPiAgIAo+ICsJaWYgKGluX2ludGVy
-cnVwdCgpKQo+ICsJCW1pZ2h0X3NsZWVwKCk7Cj4gKwo+ICAgCXdoaWxlIChyIDwgMSAmJiBjbnQr
-KyA8IE1BWF9LSVFfUkVHX1RSWSkgewo+ICsKPiAgIAkJbXNsZWVwKE1BWF9LSVFfUkVHX0JBSUxP
-VVRfSU5URVJWQUwpOwo+ICAgCQlyID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBz
-ZXEsIE1BWF9LSVFfUkVHX1dBSVQpOwo+ICAgCX0KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+T24gTW9uLCAwNSBNYXIgMjAxOCwgSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5j
+b20+IHdyb3RlOgo+IAltYWtlIERPQ0JPT0tTPSIiIGh0bWxkb2NzCgpET0NCT09LUyBpcyBubyBt
+b3JlLiBTaW1wbHkgJ21ha2UgaHRtbGRvY3MnIHdpbGwgZG8gdGhlIHNhbWUuCgpCUiwKSmFuaS4K
+Ci0tIApKYW5pIE5pa3VsYSwgSW50ZWwgT3BlbiBTb3VyY2UgVGVjaG5vbG9neSBDZW50ZXIKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
