@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: Add #ifdef checks for CONFIG_ACPI
-Date: Tue, 6 Mar 2018 15:24:32 +0000
-Message-ID: <BN6PR12MB16522241C13474F321320524F7D90@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1520318844-31378-1-git-send-email-Rex.Zhu@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Modesetting (amdgpudrmfb) artifacts on RAVEN APU
+Date: Tue, 6 Mar 2018 11:13:40 -0500
+Message-ID: <CADnq5_PHLLUqmZEnJwvpiYeJNRWT3VXnUGG63G-isLiAW0mjow@mail.gmail.com>
+References: <58ac616f-a10a-3452-03c9-a85e6bd88626@gmail.com>
+ <6919064d-1d4e-0497-b362-930385386817@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0850299618=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1520318844-31378-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <6919064d-1d4e-0497-b362-930385386817-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,222 +19,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Tom St Denis <tstdenis-5C7GfCeVMHo@public.gmane.org>
+Cc: KARBOWSKI Piotr <piotr.karbowski-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Wentland,
+ Harry" <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0850299618==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16522241C13474F321320524F7D90BN6PR12MB1652namp_"
-
---_000_BN6PR12MB16522241C13474F321320524F7D90BN6PR12MB1652namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, March 6, 2018 1:47:24 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH] drm/amd/pp: Add #ifdef checks for CONFIG_ACPI
-
-Fix compiling error when CONFIG_ACPI not enabled.
-
-Change-Id: I20d3f55bbd2ad68e65363cde7452802b063643f0
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c      | 2 ++
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 2 ++
- 2 files changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
-amd/powerplay/hwmgr/hwmgr.c
-index 8a37c80..aa83114 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -902,8 +902,10 @@ void hwmgr_init_default_caps(struct pp_hwmgr *hwmgr)
-         phm_cap_set(hwmgr->platform_descriptor.platformCaps, PHM_PlatformC=
-aps_UVDDPM);
-         phm_cap_set(hwmgr->platform_descriptor.platformCaps, PHM_PlatformC=
-aps_VCEDPM);
-
-+#if defined(CONFIG_ACPI)
-         if (amdgpu_acpi_is_pcie_performance_request_supported(hwmgr->adev)=
-)
-                 phm_cap_set(hwmgr->platform_descriptor.platformCaps, PHM_P=
-latformCaps_PCIEPerformanceRequest);
-+#endif
-
-         phm_cap_set(hwmgr->platform_descriptor.platformCaps,
-                 PHM_PlatformCaps_DynamicPatchPowerState);
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index 62ebe15..4f26014 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3596,6 +3596,7 @@ static int smu7_request_link_speed_change_before_stat=
-e_change(
-
-         if (target_link_speed > current_link_speed) {
-                 switch (target_link_speed) {
-+#ifdef CONFIG_ACPI
-                 case PP_PCIEGen3:
-                         if (0 =3D=3D amdgpu_acpi_pcie_performance_request(=
-hwmgr->adev, PCIE_PERF_REQ_GEN3, false))
-                                 break;
-@@ -3605,6 +3606,7 @@ static int smu7_request_link_speed_change_before_stat=
-e_change(
-                 case PP_PCIEGen2:
-                         if (0 =3D=3D amdgpu_acpi_pcie_performance_request(=
-hwmgr->adev, PCIE_PERF_REQ_GEN2, false))
-                                 break;
-+#endif
-                 default:
-                         data->force_pcie_gen =3D smu7_get_current_pcie_spe=
-ed(hwmgr);
-                         break;
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB16522241C13474F321320524F7D90BN6PR12MB1652namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Tuesday, March 6, 2018 1:47:24 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH] drm/amd/pp: Add #ifdef checks for CONFIG_ACPI</font=
->
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Fix compiling error when CONFIG_ACPI not enabled.<=
-br>
-<br>
-Change-Id: I20d3f55bbd2ad68e65363cde7452802b063643f0<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; | 2 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 2 &#43;&#43;<br>
-&nbsp;2 files changed, 4 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
-amd/powerplay/hwmgr/hwmgr.c<br>
-index 8a37c80..aa83114 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-@@ -902,8 &#43;902,10 @@ void hwmgr_init_default_caps(struct pp_hwmgr *hwmg=
-r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;plat=
-form_descriptor.platformCaps, PHM_PlatformCaps_UVDDPM);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;plat=
-form_descriptor.platformCaps, PHM_PlatformCaps_VCEDPM);<br>
-&nbsp;<br>
-&#43;#if defined(CONFIG_ACPI)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_acpi_is_pcie_pe=
-rformance_request_supported(hwmgr-&gt;adev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;platform_descriptor.platformCap=
-s, PHM_PlatformCaps_PCIEPerformanceRequest);<br>
-&#43;#endif<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;plat=
-form_descriptor.platformCaps,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; PHM_PlatformCaps_DynamicPatchPowerState);<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-index 62ebe15..4f26014 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -3596,6 &#43;3596,7 @@ static int smu7_request_link_speed_change_before_=
-state_change(<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (target_link_speed &gt;=
- current_link_speed) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; switch (target_link_speed) {<br>
-&#43;#ifdef CONFIG_ACPI<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; case PP_PCIEGen3:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (0=
- =3D=3D amdgpu_acpi_pcie_performance_request(hwmgr-&gt;adev, PCIE_PERF_REQ_=
-GEN3, false))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-@@ -3605,6 &#43;3606,7 @@ static int smu7_request_link_speed_change_before_=
-state_change(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; case PP_PCIEGen2:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (0=
- =3D=3D amdgpu_acpi_pcie_performance_request(hwmgr-&gt;adev, PCIE_PERF_REQ_=
-GEN2, false))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;#endif<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-=
-&gt;force_pcie_gen =3D smu7_get_current_pcie_speed(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
-;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB16522241C13474F321320524F7D90BN6PR12MB1652namp_--
-
---===============0850299618==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0850299618==--
+T24gVHVlLCBNYXIgNiwgMjAxOCBhdCA2OjE4IEFNLCBUb20gU3QgRGVuaXMgPHRzdGRlbmlzQGFt
+ZC5jb20+IHdyb3RlOgo+IEkgYmVsaWV2ZSB0aGlzIGlzIHRoZSBzYW1lIGlzc3VlIEkgaGFkIHdo
+aWNoIGlzIGEgVkdBIGhhbmRvZmYgcHJvYmxlbS4KPgo+IENhbiB5b3UgdHJ5IHRoaXMgcGF0Y2gg
+dGhlIGRpc3BsYXkgdGVhbSBzZW50IG1lPwo+Cj4gSGFycnk6ICBXaWxsIHRoaXMgcGF0Y2ggYmUg
+cHJvbW90ZWQgaW4gdGhlIG5leHQgY3ljbGU/CgpJIHRoaW5rIGl0IHdpbGwgZXZlbnR1YWxseS4g
+IElJUkMsIHRoZXJlIHdlcmUgc29tZSByZWdyZXNzaW9ucyB3aXRoIGl0CnRoYXQgYXJlIHN0aWxs
+IGJlaW5nIHdvcmtlZCBvdXQuCgpBbGV4Cgo+Cj4gVG9tCj4KPgo+IE9uIDAzLzA1LzIwMTggMTE6
+NDAgQU0sIEtBUkJPV1NLSSBQaW90ciB3cm90ZToKPj4KPj4gSGkgbGlzdCwKPj4KPj4gSSdkIGxp
+a2UgdG8gcmVwb3J0IGEgdmVyeSBvZGQgc2NyZWVuIGFydGlmYWN0cyB3aGlsZSBydW5uaW5nIGJv
+dGgKPj4gNC4xNi1yYzMsIGFzIHdlbGwgYXMgbGF0ZXN0IDQuMTYtcmM0IHdpdGggZ2l0IGxpbnV4
+LWZpcm13YXJlLgo+Pgo+PiBJIGFtIHVzaW5nIFJ5emVuIDI0MDBHIHdpdGggdGhlIGludGVncmF0
+ZSBWZWdhLgo+Pgo+PiBJIGFtIGF3YXJlIHRoYXQgUkFWRU4gc3VwcG9ydCBpcyB5ZXQgdG8gYmUg
+ZmluaXNoZWQsIGhvd2V2ZXIgSSd2ZSByZWFkCj4+IHRoYXQgc29tZSBwZW9wbGUgZG8gcnVuIGl0
+IGFscmVhZHksIHNvIEkgZmlndXJlZCBJIHdpbGwgcmVwb3J0IHRoZSBpc3N1ZXMsCj4+IHNpbmNl
+IG90aGVyIGRvZXMgbm90IHNlZW1zIHRvIGhpdCBpdC4KPj4KPj4gSSBoYXZlIGFtZGdwdSBhbmQg
+YWxsIGl0J3Mgc3ltYm9scyBidWlsdCBpbnRvIHRoZSBrZXJuZWwgaW1hZ2UsIGFuZCB0aGUKPj4g
+ZmlybXdhcmUgYWRkZWQgdG8gaW5pdHJhbW1mcy4gVGhlIG1vbWVudCBtb2Rlc2V0dGluZyBpcyBp
+bml0aWFsaXppbmcgSSBjYW4KPj4gc2VlIHRoYXQgbmF0aXZlIHNjcmVlbiByZXNvbHV0aW9uIGdv
+ZXMsIGhvd2V2ZXIsIEkgY2FuIHNlZSBvbmx5IGxpa2UgMjUlIG9mCj4+IHRoZSBzY3JlZW4gYW5k
+IHRoaXMgdmVyeSB0b3AtbGVmdCAyNSUgb2Ygc2NyZWVuIGlzIGR1cGxpY2F0ZWQgdG8gdG9wLXJp
+Z2h0Lgo+PiBXaGlsZSB0aGUgYm90dG9tIGhhbGYgb2Ygc2NyZWVuIGlzIGVpdGhlciBibGFjayBv
+ciBoYXZlIGxpbmVzLCB1c3VhbGx5IGdyYXksCj4+IHVubGVzcyBzb21lIHRleHQgb24gc2NyZWVu
+IGhhZCBhbm90aGVyIGNvbG9yIHRoZW4gaXQncyBncmVlbiwgYmx1ZSwgZXRjLgo+Pgo+PiBTY3Jl
+ZW5zaG90czoKPj4KPj4gICAgICBodHRwczovL2kuaW1ndXIuY29tL3FuRE9LWTcuanBnCj4+ICAg
+ICAgaHR0cHM6Ly9pLmltZ3VyLmNvbS9YSDQyeml0LmpwZwo+Pgo+PiBUaGUgQU1EIHN5bWJvbHMg
+dGhhdCBJJ3ZlIGVuYWJsZWQgaW4ga2VybmVsOgo+Pgo+PiAgICAgIENPTkZJR19DUFVfU1VQX0FN
+RD15Cj4+ICAgICAgQ09ORklHX1g4Nl9NQ0VfQU1EPXkKPj4gICAgICBDT05GSUdfQU1EX05CPXkK
+Pj4gICAgICBDT05GSUdfTkVUX1ZFTkRPUl9BTUQ9eQo+PiAgICAgIENPTkZJR19EUk1fQU1ER1BV
+PXkKPj4gICAgICBDT05GSUdfRFJNX0FNREdQVV9TST15Cj4+ICAgICAgQ09ORklHX0RSTV9BTURH
+UFVfQ0lLPXkKPj4gICAgICBDT05GSUdfRFJNX0FNRF9BQ1A9eQo+PiAgICAgIENPTkZJR19EUk1f
+QU1EX0RDPXkKPj4gICAgICBDT05GSUdfRFJNX0FNRF9EQ19GQkM9eQo+PiAgICAgIENPTkZJR19E
+Uk1fQU1EX0RDX0RDTjFfMD15Cj4+ICAgICAgQ09ORklHX0hTQV9BTUQ9eQo+PiAgICAgIENPTkZJ
+R19BTURfSU9NTVU9eQo+PiAgICAgIENPTkZJR19BTURfSU9NTVVfVjI9eQo+Pgo+PiBUaGUga2Vy
+bmVsIGxvZyB0aGF0IGhhZCBlaXRoZXIgZHJtLCBhbWQgb3IgZmlybXdhcmUgaW4gdGhlcmU6Cj4+
+Cj4+ICAgICAgWyAgICAwLjAwMDAwMF0gUkFNRElTSzogW21lbSAweDdmODhjMDAwLTB4N2ZmZmZm
+ZmZdCj4+ICAgICAgWyAgICAwLjAwMDAwMF0gQUNQSTogU1NEVCAweDAwMDAwMDAwOUJEOTQ5MDgg
+MDA1MzY3ICh2MDIgQU1EIEFtZFRhYmxlCj4+IDAwMDAwMDAyIE1TRlQgMDIwMDAwMDIpCj4+ICAg
+ICAgWyAgICAwLjAwMDAwMF0gQUNQSTogU1NEVCAweDAwMDAwMDAwOUJEOTlDNzAgMDAxMTlDICh2
+MDEgQU1EICAgIEFNRAo+PiBDUFUgIDAwMDAwMDAxIEFNRCAgMDAwMDAwMDEpCj4+ICAgICAgWyAg
+ICAwLjAwMDAwMF0gQUNQSTogQ1JBVCAweDAwMDAwMDAwOUJEOUFFMTAgMDAwODEwICh2MDEgQU1E
+ICAgIEFNRAo+PiBDUkFUIDAwMDAwMDAxIEFNRCAgMDAwMDAwMDEpCj4+ICAgICAgWyAgICAwLjAw
+MDAwMF0gQUNQSTogQ0RJVCAweDAwMDAwMDAwOUJEOUI2MjAgMDAwMDI5ICh2MDEgQU1EICAgIEFN
+RAo+PiBDRElUIDAwMDAwMDAxIEFNRCAgMDAwMDAwMDEpCj4+ICAgICAgWyAgICAwLjAwMDAwMF0g
+QUNQSTogU1NEVCAweDAwMDAwMDAwOUJEOUI2NTAgMDAyRTZFICh2MDEgQU1EICAgIEFNRAo+PiBB
+T0QgIDAwMDAwMDAxIElOVEwgMjAxMjA5MTMpCj4+ICAgICAgWyAgICAwLjAwMDAwMF0gQUNQSTog
+SVZSUyAweDAwMDAwMDAwOUJEOUU1ODAgMDAwMEQwICh2MDIgQU1EICAgIEFNRAo+PiBJVlJTIDAw
+MDAwMDAxIEFNRCAgMDAwMDAwMDApCj4+ICAgICAgWyAgICAwLjAwMDAwMF0gQUNQSTogU1NEVCAw
+eDAwMDAwMDAwOUJEOUU2NTAgMDAwMEY4ICh2MDEgQU1EICAgIEFNRAo+PiBQVCAgIDAwMDAxMDAw
+IElOVEwgMjAxMjA5MTMpCj4+ICAgICAgWyAgICAwLjAwMDAwMF0gQUNQSTogU1NEVCAweDAwMDAw
+MDAwOUJEOUU3NDggMDAwRTk2ICh2MDEgQU1EIEFtZFRhYmxlCj4+IDAwMDAwMDAxIElOVEwgMjAx
+MjA5MTMpCj4+ICAgICAgWyAgICAwLjAwMDAwMF0gQUNQSTogU1NEVCAweDAwMDAwMDAwOUJEOUY1
+RTAgMDAwODUwICh2MDEgQU1EIEFtZFRhYmxlCj4+IDAwMDAwMDAxIElOVEwgMjAxMjA5MTMpCj4+
+ICAgICAgWyAgICAwLjAwMDAwMF0gQUNQSTogU1NEVCAweDAwMDAwMDAwOUJEOUZFMzAgMDAxOTkz
+ICh2MDEgQU1EIEFtZFRhYmxlCj4+IDAwMDAwMDAxIElOVEwgMjAxMjA5MTMpCj4+ICAgICAgWyAg
+ICAwLjAwMDAwMF0gS2VybmVsIGNvbW1hbmQgbGluZTogQk9PVF9JTUFHRT0vYnpJbWFnZS00LjE2
+LjAtcmM0Cj4+IHJvb3Rmc3R5cGU9ZXh0NCBsdWtzIGVuY19yb290PS9kZXYvc2RhMiBsdm0gcm9v
+dD0vZGV2L21hcHBlci9tZWd1bWluLXJvb3Rmcwo+PiBpbml0cmQ9L2luaXRyYW1mcy5jcGlvLmd6
+LC9maXJtd2FyZS1pbml0cmFtZnMuY3Bpby5nego+PiAgICAgIFsgICAgMC4wMDAwMDBdIEFDUEkg
+RXJyb3I6IEFFX0FMUkVBRFlfRVhJU1RTLCAoU1NEVDogIEFNRCBQVCkgd2hpbGUKPj4gbG9hZGlu
+ZyB0YWJsZSAoMjAxODAxMDUvdGJ4ZmxvYWQtMjI4KQo+PiAgICAgIFsgICAgMC4wODAwMDBdIHNt
+cGJvb3Q6IENQVTA6IEFNRCBSeXplbiA1IDI0MDBHIHdpdGggUmFkZW9uIFZlZ2EKPj4gR3JhcGhp
+Y3MgKGZhbWlseTogMHgxNywgbW9kZWw6IDB4MTEsIHN0ZXBwaW5nOiAweDApCj4+ICAgICAgWyAg
+ICAwLjA4MDAwMF0gUGVyZm9ybWFuY2UgRXZlbnRzOiBGYW0xN2ggY29yZSBwZXJmY3RyLCBBTUQg
+UE1VCj4+IGRyaXZlci4KPj4gICAgICBbICAgIDAuMTAxNzg2XSBBQ1BJOiBbRmlybXdhcmUgQnVn
+XTogQklPUyBfT1NJKExpbnV4KSBxdWVyeSBpZ25vcmVkCj4+ICAgICAgWyAgICAwLjYxNTc4Ml0g
+QU1ELVZpOiBJT01NVSBwZXJmb3JtYW5jZSBjb3VudGVycyBzdXBwb3J0ZWQKPj4gICAgICBbICAg
+IDAuNjIzMTc5XSBBTUQtVmk6IEZvdW5kIElPTU1VIGF0IDAwMDA6MDA6MDAuMiBjYXAgMHg0MAo+
+PiAgICAgIFsgICAgMC42MjMzMTRdIEFNRC1WaTogRXh0ZW5kZWQgZmVhdHVyZXMgKDB4NGY3N2Vm
+MjIyOTRhZGEpOgo+PiAgICAgIFsgICAgMC42MjM2ODRdIEFNRC1WaTogTGF6eSBJTy9UTEIgZmx1
+c2hpbmcgZW5hYmxlZAo+PiAgICAgIFsgICAgMC42MjQ1MzNdIGFtZF91bmNvcmU6IEFNRCBOQiBj
+b3VudGVycyBkZXRlY3RlZAo+PiAgICAgIFsgICAgMC42MjQ2NjZdIGFtZF91bmNvcmU6IEFNRCBM
+TEMgY291bnRlcnMgZGV0ZWN0ZWQKPj4gICAgICBbICAgIDAuNjI1MDc2XSBwZXJmL2FtZF9pb21t
+dTogRGV0ZWN0ZWQgQU1EIElPTU1VICMwICgyIGJhbmtzLCA0Cj4+IGNvdW50ZXJzL2JhbmspLgo+
+PiAgICAgIFsgICAgMC42MzYyMjldIEFNRCBJT01NVXYyIGRyaXZlciBieSBKb2VyZyBSb2VkZWwg
+PGpyb2VkZWxAc3VzZS5kZT4KPj4gICAgICBbICAgIDAuNjM3MTc5XSBbZHJtXSBhbWRncHUga2Vy
+bmVsIG1vZGVzZXR0aW5nIGVuYWJsZWQuCj4+ICAgICAgWyAgICAwLjYzNzQwOV0gW2RybV0gaW5p
+dGlhbGl6aW5nIGtlcm5lbCBtb2Rlc2V0dGluZyAoUkFWRU4KPj4gMHgxMDAyOjB4MTVERCAweDE0
+NTg6MHhEMDAwIDB4QzYpLgo+PiAgICAgIFsgICAgMC42Mzc1ODNdIFtkcm1dIHJlZ2lzdGVyIG1t
+aW8gYmFzZTogMHhGRTUwMDAwMAo+PiAgICAgIFsgICAgMC42Mzc3MDldIFtkcm1dIHJlZ2lzdGVy
+IG1taW8gc2l6ZTogNTI0Mjg4Cj4+ICAgICAgWyAgICAwLjYzNzg1Ml0gW2RybV0gcHJvYmluZyBn
+ZW4gMiBjYXBzIGZvciBkZXZpY2UgMTAyMjoxNWRiID0KPj4gNzAwZDAzL2UKPj4gICAgICBbICAg
+IDAuNjM4MDA1XSBbZHJtXSBwcm9iaW5nIG1sdyBmb3IgZGV2aWNlIDEwMjI6MTVkYiA9IDcwMGQw
+Mwo+PiAgICAgIFsgICAgMC42MzgyMTNdIFtkcm1dIFZDTiBkZWNvZGUgaXMgZW5hYmxlZCBpbiBW
+TSBtb2RlCj4+ICAgICAgWyAgICAwLjYzODM0MV0gW2RybV0gVkNOIGVuY29kZSBpcyBlbmFibGVk
+IGluIFZNIG1vZGUKPj4gICAgICBbICAgIDAuNjYwMjY1XSBbZHJtXSBCSU9TIHNpZ25hdHVyZSBp
+bmNvcnJlY3QgNzQgNwo+PiAgICAgIFsgICAgMC42NjA0MjJdIFtkcm1dIHZtIHNpemUgaXMgMjYy
+MTQ0IEdCLCA0IGxldmVscywgYmxvY2sgc2l6ZSBpcwo+PiA5LWJpdCwgZnJhZ21lbnQgc2l6ZSBp
+cyA5LWJpdAo+PiAgICAgIFsgICAgMC42NjA1MTVdIGFtZGdwdSAwMDAwOjA5OjAwLjA6IFZSQU06
+IDEwMjRNIDB4MDAwMDAwRjQwMDAwMDAwMCAtCj4+IDB4MDAwMDAwRjQzRkZGRkZGRiAoMTAyNE0g
+dXNlZCkKPj4gICAgICBbICAgIDAuNjYwNjA3XSBhbWRncHUgMDAwMDowOTowMC4wOiBHVFQ6IDEw
+MjRNIDB4MDAwMDAwRjUwMDAwMDAwMCAtCj4+IDB4MDAwMDAwRjUzRkZGRkZGRgo+PiAgICAgIFsg
+ICAgMC42NjA2ODldIFtkcm1dIERldGVjdGVkIFZSQU0gUkFNPTEwMjRNLCBCQVI9MjU2TQo+PiAg
+ICAgIFsgICAgMC42NjA3NTZdIFtkcm1dIFJBTSB3aWR0aCAxMjhiaXRzIFVOS05PV04KPj4gICAg
+ICBbICAgIDAuNjYxNjUzXSBbZHJtXSBhbWRncHU6IDEwMjRNIG9mIFZSQU0gbWVtb3J5IHJlYWR5
+Cj4+ICAgICAgWyAgICAwLjY2MTcyMF0gW2RybV0gYW1kZ3B1OiAzMDcyTSBvZiBHVFQgbWVtb3J5
+IHJlYWR5Lgo+PiAgICAgIFsgICAgMC42NjE3OTNdIFtkcm1dIEdBUlQ6IG51bSBjcHUgcGFnZXMg
+MjYyMTQ0LCBudW0gZ3B1IHBhZ2VzIDI2MjE0NAo+PiAgICAgIFsgICAgMC42NjIwMjddIFtkcm1d
+IFBDSUUgR0FSVCBvZiAxMDI0TSBlbmFibGVkICh0YWJsZSBhdAo+PiAweDAwMDAwMEY0MDA4MDAw
+MDApLgo+PiAgICAgIFsgICAgMC42NjMwOTNdIFtkcm1dIHVzZV9kb29yYmVsbCBiZWluZyBzZXQg
+dG86IFt0cnVlXQo+PiAgICAgIFsgICAgMC42NjMyMjldIFtkcm1dIEZvdW5kIFZDTiBmaXJtd2Fy
+ZSBWZXJzaW9uOiAxLjczIEZhbWlseSBJRDogMTgKPj4gICAgICBbICAgIDEuMDExNzQ1XSBbZHJt
+OmNvbnN0cnVjdF0gKkVSUk9SKiBjb25zdHJ1Y3Q6IEludmFsaWQgQ29ubmVjdG9yCj4+IE9iamVj
+dElEIGZyb20gQWRhcHRlciBTZXJ2aWNlIGZvciBjb25uZWN0b3IgaW5kZXg6MSEgdHlwZSAwIGV4
+cGVjdGVkIDMKPj4gICAgICBbICAgIDEuMDExOTY5XSBbZHJtOmNvbnN0cnVjdF0gKkVSUk9SKiBj
+b25zdHJ1Y3Q6IEludmFsaWQgQ29ubmVjdG9yCj4+IE9iamVjdElEIGZyb20gQWRhcHRlciBTZXJ2
+aWNlIGZvciBjb25uZWN0b3IgaW5kZXg6MiEgdHlwZSAwIGV4cGVjdGVkIDMKPj4gICAgICBbICAg
+IDEuMDI1OTU5XSBbZHJtXSBEaXNwbGF5IENvcmUgaW5pdGlhbGl6ZWQgd2l0aCB2My4xLjI3IQo+
+PiAgICAgIFsgICAgMS4wNTEwNTNdIFtkcm1dIFN1cHBvcnRzIHZibGFuayB0aW1lc3RhbXAgY2Fj
+aGluZyBSZXYgMgo+PiAoMjEuMTAuMjAxMykuCj4+ICAgICAgWyAgICAxLjA1MTEyOF0gW2RybV0g
+RHJpdmVyIHN1cHBvcnRzIHByZWNpc2UgdmJsYW5rIHRpbWVzdGFtcCBxdWVyeS4KPj4gICAgICBb
+ICAgIDEuMDc0MjMxXSBbZHJtXSBWQ04gZGVjb2RlIGFuZCBlbmNvZGUgaW5pdGlhbGl6ZWQgc3Vj
+Y2Vzc2Z1bGx5Lgo+PiAgICAgIFsgICAgMS4wODE5NjVdIFtkcm1dIGZiIG1hcHBhYmxlIGF0IDB4
+RTEwMDAwMDAKPj4gICAgICBbICAgIDEuMDgyMDI5XSBbZHJtXSB2cmFtIGFwcGVyIGF0IDB4RTAw
+MDAwMDAKPj4gICAgICBbICAgIDEuMDgyMDk1XSBbZHJtXSBzaXplIDgyOTQ0MDAKPj4gICAgICBb
+ICAgIDEuMDgyMTU1XSBbZHJtXSBmYiBkZXB0aCBpcyAyNAo+PiAgICAgIFsgICAgMS4wODIyMTZd
+IFtkcm1dICAgIHBpdGNoIGlzIDc2ODAKPj4gICAgICBbICAgIDEuMDgyMzIzXSBmYmNvbjogYW1k
+Z3B1ZHJtZmIgKGZiMCkgaXMgcHJpbWFyeSBkZXZpY2UKPj4gICAgICBbICAgIDEuMjAwNjg3XSBh
+bWRncHUgMDAwMDowOTowMC4wOiBmYjA6IGFtZGdwdWRybWZiIGZyYW1lIGJ1ZmZlcgo+PiBkZXZp
+Y2UKPj4gICAgICBbICAgIDEuMjAwNzM0XSBhbWRncHUgMDAwMDowOTowMC4wOiByaW5nIDAoZ2Z4
+KSB1c2VzIFZNIGludiBlbmcgNCBvbgo+PiBodWIgMAo+PiAgICAgIFsgICAgMS4yMDA3NTJdIGFt
+ZGdwdSAwMDAwOjA5OjAwLjA6IHJpbmcgMShjb21wXzEuMC4wKSB1c2VzIFZNIGludgo+PiBlbmcg
+NSBvbiBodWIgMAo+PiAgICAgIFsgICAgMS4yMDA3NzBdIGFtZGdwdSAwMDAwOjA5OjAwLjA6IHJp
+bmcgMihjb21wXzEuMS4wKSB1c2VzIFZNIGludgo+PiBlbmcgNiBvbiBodWIgMAo+PiAgICAgIFsg
+ICAgMS4yMDA3ODhdIGFtZGdwdSAwMDAwOjA5OjAwLjA6IHJpbmcgMyhjb21wXzEuMi4wKSB1c2Vz
+IFZNIGludgo+PiBlbmcgNyBvbiBodWIgMAo+PiAgICAgIFsgICAgMS4yMDA4MDZdIGFtZGdwdSAw
+MDAwOjA5OjAwLjA6IHJpbmcgNChjb21wXzEuMy4wKSB1c2VzIFZNIGludgo+PiBlbmcgOCBvbiBo
+dWIgMAo+PiAgICAgIFsgICAgMS4yMDA4MjRdIGFtZGdwdSAwMDAwOjA5OjAwLjA6IHJpbmcgNShj
+b21wXzEuMC4xKSB1c2VzIFZNIGludgo+PiBlbmcgOSBvbiBodWIgMAo+PiAgICAgIFsgICAgMS4y
+MDA4NDVdIGFtZGdwdSAwMDAwOjA5OjAwLjA6IHJpbmcgNihjb21wXzEuMS4xKSB1c2VzIFZNIGlu
+dgo+PiBlbmcgMTAgb24gaHViIDAKPj4gICAgICBbICAgIDEuMjAwODYzXSBhbWRncHUgMDAwMDow
+OTowMC4wOiByaW5nIDcoY29tcF8xLjIuMSkgdXNlcyBWTSBpbnYKPj4gZW5nIDExIG9uIGh1YiAw
+Cj4+ICAgICAgWyAgICAxLjIwMDg4MV0gYW1kZ3B1IDAwMDA6MDk6MDAuMDogcmluZyA4KGNvbXBf
+MS4zLjEpIHVzZXMgVk0gaW52Cj4+IGVuZyAxMiBvbiBodWIgMAo+PiAgICAgIFsgICAgMS4yMDA5
+MDBdIGFtZGdwdSAwMDAwOjA5OjAwLjA6IHJpbmcgOShraXFfMi4xLjApIHVzZXMgVk0gaW52IGVu
+Zwo+PiAxMyBvbiBodWIgMAo+PiAgICAgIFsgICAgMS4yMDA5MThdIGFtZGdwdSAwMDAwOjA5OjAw
+LjA6IHJpbmcgMTAoc2RtYTApIHVzZXMgVk0gaW52IGVuZyA0Cj4+IG9uIGh1YiAxCj4+ICAgICAg
+WyAgICAxLjIwMDkzNV0gYW1kZ3B1IDAwMDA6MDk6MDAuMDogcmluZyAxMSh2Y25fZGVjKSB1c2Vz
+IFZNIGludiBlbmcKPj4gNSBvbiBodWIgMQo+PiAgICAgIFsgICAgMS4yMDA5NTJdIGFtZGdwdSAw
+MDAwOjA5OjAwLjA6IHJpbmcgMTIodmNuX2VuYzApIHVzZXMgVk0gaW52IGVuZwo+PiA2IG9uIGh1
+YiAxCj4+ICAgICAgWyAgICAxLjIwMDk3MF0gYW1kZ3B1IDAwMDA6MDk6MDAuMDogcmluZyAxMyh2
+Y25fZW5jMSkgdXNlcyBWTSBpbnYgZW5nCj4+IDcgb24gaHViIDEKPj4gICAgICBbICAgIDEuMjA0
+NDUzXSBbZHJtXSBJbml0aWFsaXplZCBhbWRncHUgMy4yMy4wIDIwMTUwMTAxIGZvcgo+PiAwMDAw
+OjA5OjAwLjAgb24gbWlub3IgMAo+Pgo+PiAtLSBQaW90ci4KPj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
