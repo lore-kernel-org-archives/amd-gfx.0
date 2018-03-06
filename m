@@ -1,13 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Disable sdma wptr polling memory for sriov
-Date: Tue, 6 Mar 2018 03:17:08 +0000
-Message-ID: <BN6PR12MB1652228A05BA9E5A90DD213EF7D90@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1520302493-20759-1-git-send-email-Emily.Deng@amd.com>
+From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/4] drm/amdgpu: imlement mmio byte access helpers
+Date: Tue, 6 Mar 2018 11:15:47 +0800
+Message-ID: <1520306150-29325-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0943414412=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1520302493-20759-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,180 +16,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0943414412==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652228A05BA9E5A90DD213EF7D90BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652228A05BA9E5A90DD213EF7D90BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Emily De=
-ng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, March 5, 2018 9:14 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deng, Emily
-Subject: [PATCH] drm/amdgpu: Disable sdma wptr polling memory for sriov
+Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-The sdma wptr polling memory will introduce serious issue sdma hang for
-sriov environment on sdma v3.
-And the sdma wptr polling memory is only to fix the FLR cornner case, the
-issue's probabity is very low.
-
-Change-Id: I2c447533aac6b16d541f58644d141228dd75dfb3
-Signed-off-by: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v3_0.c
-index ec885ff..44d7d08 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -716,10 +716,7 @@ static int sdma_v3_0_gfx_resume(struct amdgpu_device *=
-adev)
-                 WREG32(mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI + sdma_offsets[i],
-                        upper_32_bits(wptr_gpu_addr));
-                 wptr_poll_cntl =3D RREG32(mmSDMA0_GFX_RB_WPTR_POLL_CNTL + =
-sdma_offsets[i]);
--               if (amdgpu_sriov_vf(adev))
--                       wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl, SD=
-MA0_GFX_RB_WPTR_POLL_CNTL, F32_POLL_ENABLE, 1);
--               else
--                       wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl, SD=
-MA0_GFX_RB_WPTR_POLL_CNTL, F32_POLL_ENABLE, 0);
-+               wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl, SDMA0_GFX_=
-RB_WPTR_POLL_CNTL, F32_POLL_ENABLE, 0);
-                 WREG32(mmSDMA0_GFX_RB_WPTR_POLL_CNTL + sdma_offsets[i], wp=
-tr_poll_cntl);
-
-                 /* enable DMA RB */
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1652228A05BA9E5A90DD213EF7D90BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Emily Deng &lt;Emily.Deng@a=
-md.com&gt;<br>
-<b>Sent:</b> Monday, March 5, 2018 9:14 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deng, Emily<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Disable sdma wptr polling memory for sr=
-iov</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The sdma wptr polling memory will introduce seriou=
-s issue sdma hang for<br>
-sriov environment on sdma v3.<br>
-And the sdma wptr polling memory is only to fix the FLR cornner case, the<b=
-r>
-issue's probabity is very low.<br>
-<br>
-Change-Id: I2c447533aac6b16d541f58644d141228dd75dfb3<br>
-Signed-off-by: Emily Deng &lt;Emily.Deng-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 5 &#43;----<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v3_0.c<br>
-index ec885ff..44d7d08 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-@@ -716,10 &#43;716,7 @@ static int sdma_v3_0_gfx_resume(struct amdgpu_devi=
-ce *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32(mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI &#43; sdma_of=
-fsets[i],<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bi=
-ts(wptr_gpu_addr));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =3D RREG32(mmSDMA0_GFX_RB_WPTR_POLL_CN=
-TL &#43; sdma_offsets[i]);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =
-=3D REG_SET_FIELD(wptr_poll_cntl, SDMA0_GFX_RB_WPTR_POLL_CNTL, F32_POLL_ENA=
-BLE, 1);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =
-=3D REG_SET_FIELD(wptr_poll_cntl, SDMA0_GFX_RB_WPTR_POLL_CNTL, F32_POLL_ENA=
-BLE, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl, SDMA0_GFX_R=
-B_WPTR_POLL_CNTL, F32_POLL_ENABLE, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32(mmSDMA0_GFX_RB_WPTR_POLL_CNTL &#43; sdma_offse=
-ts[i], wptr_poll_cntl);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* enable DMA RB */<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk353796" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1652228A05BA9E5A90DD213EF7D90BN6PR12MB1652namp_--
-
---===============0943414412==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0943414412==--
+bWFpbGJveCByZWdpc3RlciBjYW4gYmUgYWNjZXNzZWQgd2l0aCBhIGJ5dGUgYm91bmRyeSBhY2Nv
+cmRpbmcKdG8gQklGIHRlYW0sIHNvIHRoaXMgcGF0Y2ggcHJlcGFyZXMgcmVnaXN0ZXIgYnl0ZSBh
+Y2Nlc3MKYW5kIHdpbGwgYmUgdXNlZCBieSBmb2xsb3dpbmcgcGF0Y2hlcwoKQ2hhbmdlLUlkOiBJ
+MWU4NGYxYzZlOGU3NWRjNDJlYjViZTA5YzQ5MmZhNWU3ZWI3NTAyYQpTaWduZWQtb2ZmLWJ5OiBN
+b25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHUuaCAgICAgICAgfCAgNiArKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kZXZpY2UuYyB8IDI2ICsrKysrKysrKysrKysrKysrKysrKysrKysrCiAyIGZpbGVz
+IGNoYW5nZWQsIDMyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+CmluZGV4IDI5MmM3ZTcuLjcyMzg1YmIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+CkBAIC0xNjM1LDYgKzE2MzUsOSBAQCB1aW50MzJfdCBhbWRncHVfbW1fcnJlZyhzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnLAogCQkJdWludDMyX3QgYWNjX2ZsYWdzKTsK
+IHZvaWQgYW1kZ3B1X21tX3dyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90
+IHJlZywgdWludDMyX3QgdiwKIAkJICAgIHVpbnQzMl90IGFjY19mbGFncyk7Cit2b2lkIGFtZGdw
+dV9tbV93cmVnOChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgb2Zmc2V0LCB1
+aW50OF90IHZhbHVlKTsKK3VpbnQ4X3QgYW1kZ3B1X21tX3JyZWc4KHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LCB1aW50MzJfdCBvZmZzZXQpOworCiB1MzIgYW1kZ3B1X2lvX3JyZWcoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiByZWcpOwogdm9pZCBhbWRncHVfaW9fd3JlZyhzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHJlZywgdTMyIHYpOwogCkBAIC0xNjU4LDYgKzE2
+NjEsOSBAQCBpbnQgZW11X3NvY19hc2ljX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
+OwogI2RlZmluZSBSUkVHMzJfTk9fS0lRKHJlZykgYW1kZ3B1X21tX3JyZWcoYWRldiwgKHJlZyks
+IEFNREdQVV9SRUdTX05PX0tJUSkKICNkZWZpbmUgV1JFRzMyX05PX0tJUShyZWcsIHYpIGFtZGdw
+dV9tbV93cmVnKGFkZXYsIChyZWcpLCAodiksIEFNREdQVV9SRUdTX05PX0tJUSkKIAorI2RlZmlu
+ZSBSUkVHOChyZWcpIGFtZGdwdV9tbV9ycmVnOChhZGV2LCAocmVnKSkKKyNkZWZpbmUgV1JFRzgo
+cmVnLCB2KSBhbWRncHVfbW1fd3JlZzgoYWRldiwgKHJlZyksICh2KSkKKwogI2RlZmluZSBSUkVH
+MzIocmVnKSBhbWRncHVfbW1fcnJlZyhhZGV2LCAocmVnKSwgMCkKICNkZWZpbmUgUlJFRzMyX0lE
+WChyZWcpIGFtZGdwdV9tbV9ycmVnKGFkZXYsIChyZWcpLCBBTURHUFVfUkVHU19JRFgpCiAjZGVm
+aW5lIERSRUczMihyZWcpIHByaW50ayhLRVJOX0lORk8gIlJFR0lTVEVSOiAiICNyZWcgIiA6IDB4
+JTA4WFxuIiwgYW1kZ3B1X21tX3JyZWcoYWRldiwgKHJlZyksIDApKQpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDY1NTg0ZjYuLmM4ZTE5NDAgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTEyMSw2ICsxMjEs
+MzIgQEAgdWludDMyX3QgYW1kZ3B1X21tX3JyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+IHVpbnQzMl90IHJlZywKIAlyZXR1cm4gcmV0OwogfQogCisvKgorICogTU1JTyByZWdpc3RlciBy
+ZWFkIHdpdGggYnl0ZXMgaGVscGVyIGZ1bmN0aW9ucworICogQG9mZnNldDpieXRlcyBvZmZzZXQg
+ZnJvbSBNTUlPIHN0YXJ0CisgKgorKi8KKwordWludDhfdCBhbWRncHVfbW1fcnJlZzgoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IG9mZnNldCkgeworCWlmIChvZmZzZXQgPCBh
+ZGV2LT5ybW1pb19zaXplKQorCQlyZXR1cm4gKHJlYWRiKGFkZXYtPnJtbWlvICsgb2Zmc2V0KSk7
+CisJQlVHKCk7Cit9CisKKy8qCisgKiBNTUlPIHJlZ2lzdGVyIHdyaXRlIHdpdGggYnl0ZXMgaGVs
+cGVyIGZ1bmN0aW9ucworICogQG9mZnNldDpieXRlcyBvZmZzZXQgZnJvbSBNTUlPIHN0YXJ0Cisg
+KiBAdmFsdWU6IHRoZSB2YWx1ZSB3YW50IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIHJlZ2lzdGVyCisg
+KgorKi8KK3ZvaWQgYW1kZ3B1X21tX3dyZWc4KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1
+aW50MzJfdCBvZmZzZXQsIHVpbnQ4X3QgdmFsdWUpIHsKKwlpZiAob2Zmc2V0IDwgYWRldi0+cm1t
+aW9fc2l6ZSkKKwkJd3JpdGViKHZhbHVlLCBhZGV2LT5ybW1pbyArIG9mZnNldCk7CisJZWxzZQor
+CQlCVUcoKTsKK30KKworCiB2b2lkIGFtZGdwdV9tbV93cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LCB1aW50MzJfdCByZWcsIHVpbnQzMl90IHYsCiAJCSAgICB1aW50MzJfdCBhY2NfZmxh
+Z3MpCiB7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
