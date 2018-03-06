@@ -1,12 +1,13 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Clean sdma wptr register when only enable
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Clean sdma wptr register when only enable
  wptr polling
-Date: Tue, 6 Mar 2018 10:05:04 +0000
-Message-ID: <BLUPR12MB0449BACEBCE7B5F773D0A87E84D90@BLUPR12MB0449.namprd12.prod.outlook.com>
-References: <1520330398-23639-1-git-send-email-Emily.Deng@amd.com>,
+Date: Tue, 6 Mar 2018 10:05:16 +0000
+Message-ID: <CY4PR12MB112563F448B47DD161717DF88FD90@CY4PR12MB1125.namprd12.prod.outlook.com>
+References: <1520330398-23639-1-git-send-email-Emily.Deng@amd.com>
  <c67969e5-465f-6cf6-f463-35ed70df7124@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0412914670=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <c67969e5-465f-6cf6-f463-35ed70df7124-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
@@ -20,199 +21,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0412914670==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB0449BACEBCE7B5F773D0A87E84D90BLUPR12MB0449namp_"
-
---_000_BLUPR12MB0449BACEBCE7B5F773D0A87E84D90BLUPR12MB0449namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-looks we didn't hit similar issues during vega10 testing ...
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of zhoucm1 =
-<zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, March 6, 2018 6:02:35 PM
-To: Deng, Emily; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amdgpu: Clean sdma wptr register when only enable =
-wptr polling
-
-How about other sdma version? like sdma v4 etc.
-
-
-Regards,
-
-David Zhou
-
-
-On 2018=1B$BG/=1B(B03=1B$B7n=1B(B06=1B$BF|=1B(B 17:59, Emily Deng wrote:
-> The sdma wptr polling memory is not fast enough, then the sdma
-> wptr register will be random, and not equal to sdma rptr, which
-> will cause sdma engine hang when load driver, so clean up the sdma
-> wptr directly to fix this issue.
->
-> Signed-off-by: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v3_0.c
-> index 521978c..2a27928 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -719,11 +719,12 @@ static int sdma_v3_0_gfx_resume(struct amdgpu_devic=
-e *adev)
->                WREG32(mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI + sdma_offsets[i],
->                       upper_32_bits(wptr_gpu_addr));
->                wptr_poll_cntl =3D RREG32(mmSDMA0_GFX_RB_WPTR_POLL_CNTL + =
-sdma_offsets[i]);
-> -             if (ring->use_pollmem)
-> +             if (ring->use_pollmem) {
-> +                     WREG32(mmSDMA0_GFX_RB_WPTR + sdma_offsets[i], 0);
->                        wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl,
->                                                       SDMA0_GFX_RB_WPTR_P=
-OLL_CNTL,
->                                                       ENABLE, 1);
-> -             else
-> +             } else
->                        wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl,
->                                                       SDMA0_GFX_RB_WPTR_P=
-OLL_CNTL,
->                                                       ENABLE, 0);
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BLUPR12MB0449BACEBCE7B5F773D0A87E84D90BLUPR12MB0449namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-looks we didn't hit similar issues during vega10 testing ...</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of zhoucm1 &lt;zhoucm1-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Tuesday, March 6, 2018 6:02:35 PM<br>
-<b>To:</b> Deng, Emily; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Clean sdma wptr register when only =
-enable wptr polling</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">How about other sdma version? like sdma v4 etc.<br=
->
-<br>
-<br>
-Regards,<br>
-<br>
-David Zhou<br>
-<br>
-<br>
-On 2018=1B$BG/=1B(B03=1B$B7n=1B(B06=1B$BF|=1B(B 17:59, Emily Deng wrote:<br=
->
-&gt; The sdma wptr polling memory is not fast enough, then the sdma<br>
-&gt; wptr register will be random, and not equal to sdma rptr, which<br>
-&gt; will cause sdma engine hang when load driver, so clean up the sdma<br>
-&gt; wptr directly to fix this issue.<br>
-&gt;<br>
-&gt; Signed-off-by: Emily Deng &lt;Emily.Deng-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 5 &#43;&#43;&#43;=
---<br>
-&gt;&nbsp;&nbsp; 1 file changed, 3 insertions(&#43;), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/=
-amd/amdgpu/sdma_v3_0.c<br>
-&gt; index 521978c..2a27928 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; @@ -719,11 &#43;719,12 @@ static int sdma_v3_0_gfx_resume(struct amdgp=
-u_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; WREG32(mmSDMA0_GFX_RB_WPTR_POLL_ADDR_HI &#43; sdma_offs=
-ets[i],<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits=
-(wptr_gpu_addr));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =3D RREG32(mmSDMA0_GFX_RB_WPTR_POLL_CNTL=
- &#43; sdma_offsets[i]);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (ring-&gt;use_pollmem)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (ring-&gt;use_pollmem) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmSDMA0_GFX_=
-RB_WPTR &#43; sdma_offsets[i], 0);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_po=
-ll_cntl =3D REG_SET_FIELD(wptr_poll_cntl,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; SDMA0_GFX_RB_WPTR_POLL_CNTL,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ENABLE, 1);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; else<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; } else<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_po=
-ll_cntl =3D REG_SET_FIELD(wptr_poll_cntl,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; SDMA0_GFX_RB_WPTR_POLL_CNTL,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ENABLE, 0);<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BLUPR12MB0449BACEBCE7B5F773D0A87E84D90BLUPR12MB0449namp_--
-
---===============0412914670==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0412914670==--
+VGhlIHNkbWEgdjQgZG9lc24ndCBoYXZlIHRoZSBpc3N1ZSBhYm91dCB0aGUgY29uZmxpY3QgYmV0
+d2VlbiBkb29yYmVsbCBhbmQgc2RtYSB3cHRyIHBvbGxpbmcuDQoNCkJlc3QgV2lzaGVzLA0KRW1p
+bHkgRGVuZw0KDQoNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQt
+Z2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVo
+YWxmDQo+IE9mIHpob3VjbTENCj4gU2VudDogVHVlc2RheSwgTWFyY2ggMDYsIDIwMTggNjowMyBQ
+TQ0KPiBUbzogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IENsZWFu
+IHNkbWEgd3B0ciByZWdpc3RlciB3aGVuIG9ubHkNCj4gZW5hYmxlIHdwdHIgcG9sbGluZw0KPiAN
+Cj4gSG93IGFib3V0IG90aGVyIHNkbWEgdmVyc2lvbj8gbGlrZSBzZG1hIHY0IGV0Yy4NCj4gDQo+
+IA0KPiBSZWdhcmRzLA0KPiANCj4gRGF2aWQgWmhvdQ0KPiANCj4gDQo+IE9uIDIwMTjlubQwM+ac
+iDA25pelIDE3OjU5LCBFbWlseSBEZW5nIHdyb3RlOg0KPiA+IFRoZSBzZG1hIHdwdHIgcG9sbGlu
+ZyBtZW1vcnkgaXMgbm90IGZhc3QgZW5vdWdoLCB0aGVuIHRoZSBzZG1hIHdwdHINCj4gPiByZWdp
+c3RlciB3aWxsIGJlIHJhbmRvbSwgYW5kIG5vdCBlcXVhbCB0byBzZG1hIHJwdHIsIHdoaWNoIHdp
+bGwgY2F1c2UNCj4gPiBzZG1hIGVuZ2luZSBoYW5nIHdoZW4gbG9hZCBkcml2ZXIsIHNvIGNsZWFu
+IHVwIHRoZSBzZG1hIHdwdHIgZGlyZWN0bHkNCj4gPiB0byBmaXggdGhpcyBpc3N1ZS4NCj4gPg0K
+PiA+IFNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4NCj4gPiAt
+LS0NCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jIHwgNSArKyst
+LQ0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkN
+Cj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Yz
+XzAuYw0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMNCj4gPiBp
+bmRleCA1MjE5NzhjLi4yYTI3OTI4IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3NkbWFfdjNfMC5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc2RtYV92M18wLmMNCj4gPiBAQCAtNzE5LDExICs3MTksMTIgQEAgc3RhdGljIGludCBzZG1h
+X3YzXzBfZ2Z4X3Jlc3VtZShzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldikNCj4gPiAgIAkJ
+V1JFRzMyKG1tU0RNQTBfR0ZYX1JCX1dQVFJfUE9MTF9BRERSX0hJICsNCj4gc2RtYV9vZmZzZXRz
+W2ldLA0KPiA+ICAgCQkgICAgICAgdXBwZXJfMzJfYml0cyh3cHRyX2dwdV9hZGRyKSk7DQo+ID4g
+ICAJCXdwdHJfcG9sbF9jbnRsID0NCj4gUlJFRzMyKG1tU0RNQTBfR0ZYX1JCX1dQVFJfUE9MTF9D
+TlRMICsgc2RtYV9vZmZzZXRzW2ldKTsNCj4gPiAtCQlpZiAocmluZy0+dXNlX3BvbGxtZW0pDQo+
+ID4gKwkJaWYgKHJpbmctPnVzZV9wb2xsbWVtKSB7DQo+ID4gKwkJCVdSRUczMihtbVNETUEwX0dG
+WF9SQl9XUFRSICsNCj4gc2RtYV9vZmZzZXRzW2ldLCAwKTsNCj4gPiAgIAkJCXdwdHJfcG9sbF9j
+bnRsID0gUkVHX1NFVF9GSUVMRCh3cHRyX3BvbGxfY250bCwNCj4gPg0KPiBTRE1BMF9HRlhfUkJf
+V1BUUl9QT0xMX0NOVEwsDQo+ID4gICAJCQkJCQkgICAgICAgRU5BQkxFLCAxKTsNCj4gPiAtCQll
+bHNlDQo+ID4gKwkJfSBlbHNlDQo+ID4gICAJCQl3cHRyX3BvbGxfY250bCA9IFJFR19TRVRfRklF
+TEQod3B0cl9wb2xsX2NudGwsDQo+ID4NCj4gU0RNQTBfR0ZYX1JCX1dQVFJfUE9MTF9DTlRMLA0K
+PiA+ICAgCQkJCQkJICAgICAgIEVOQUJMRSwgMCk7DQo+IA0KPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
