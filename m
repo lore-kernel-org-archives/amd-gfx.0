@@ -1,15 +1,13 @@
-From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH xf86-video-ati] Only change Set/MoveCursor hooks from what
- we expect
-Date: Wed, 7 Mar 2018 04:45:18 +0100
-Message-ID: <aac0c084-812e-5994-bea8-0690ce90ede8@gmail.com>
-References: <20180305174459.18765-1-michel@daenzer.net>
- <CADnq5_Me0zYe3sLJ3j8kkr7mw6X6nQQCUHzVgYsXh=u9FtGvnw@mail.gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Fix "Add auto power profilng switch based on
+ workloads"
+Date: Wed, 7 Mar 2018 04:24:57 +0000
+Message-ID: <BN6PR12MB1652EBB7E57567AB8758E5B6F7D80@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1520391365-26884-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2095148446=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Me0zYe3sLJ3j8kkr7mw6X6nQQCUHzVgYsXh=u9FtGvnw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1520391365-26884-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,103 +19,433 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMDMvMDUvMjAxOCAxMDo1NiBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IE9uIE1vbiwgTWFy
-IDUsIDIwMTggYXQgMTI6NDQgUE0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+
-IHdyb3RlOgo+PiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4K
-Pj4KPj4gU2luY2UgeGY4NkN1cnNvckNsb3NlU2NyZWVuIHJ1bnMgYWZ0ZXIgUkFERU9OQ2xvc2VT
-Y3JlZW5fS01TLAo+PiBQb2ludFByaXYtPnNwcml0ZUZ1bmNzIGRvZXNuJ3QgcG9pbnQgdG8gdGhl
-IHNhbWUgc3RydWN0IGluIHRoZSBsYXR0ZXIgYXMKPj4gaW4gUkFERU9OQ3Vyc29ySW5pdF9LTVMu
-IFNvIHdlIHdlcmUgcmVzdG9yaW5nIGluZm8tPlNldC9Nb3ZlQ3Vyc29yIHRvCj4+IHRoZSB3cm9u
-ZyBzdHJ1Y3QuIFRoZW4gaW4gdGhlIG5leHQgc2VydmVyIGdlbmVyYXRpb24sCj4+IGluZm8tPlNl
-dC9Nb3ZlQ3Vyc29yIHdvdWxkIGVuZCB1cCBwb2ludGluZyB0bwo+PiBkcm1tb2RlX3Nwcml0ZV9z
-ZXQvbW92ZV9jdXJzb3IsIHJlc3VsdGluZyBpbiBhbiBpbmZpbml0ZSBsb29wIGlmIG9uZSBvZgo+
-PiB0aGVtIHdhcyBjYWxsZWQuCj4+Cj4+IFRvIGF2b2lkIHRoaXMsIG9ubHkgY2hhbmdlIHRoZSBT
-ZXQvTW92ZUN1cnNvciBob29rcyBpZiB0aGVpciB2YWx1ZXMKPj4gbWF0Y2ggb3VyIGV4cGVjdGF0
-aW9ucywgb3RoZXJ3aXNlIGxlYXZlIHRoZW0gYXMgaXMuIFRoaXMgaXMga2luZCBvZiBhCj4+IGhh
-Y2ssIGJ1dCB0aGUgYWx0ZXJuYXRpdmUgd291bGQgYmUgaW52YXNpdmUgYW5kIHRodXMgcmlza3kg
-Y2hhbmdlcyB0bwo+PiB0aGUgd2F5IHdlJ3JlIHdyYXBwaW5nIENsb3NlU2NyZWVuLCBhbmQgaXQn
-cyBub3QgZXZlbiBjbGVhciB0aGF0IGNhbgo+PiB3b3JrIHdpdGhvdXQgY2hhbmdpbmcgeHNlcnZl
-ciBjb2RlLgo+Pgo+PiBGaXhlczogMWZlOGNhNzU5NzRjICgiS2VlcCB0cmFjayBvZiBob3cgbWFu
-eSBTVyBjdXJzb3JzIGFyZSB2aXNpYmxlIG9uCj4+ICAgICAgICAgICAgICAgICAgICAgICAgZWFj
-aCBzY3JlZW4iKQo+PiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56
-ZXJAYW1kLmNvbT4KPiAKPiBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
-ckBhbWQuY29tPgo+IAoKTm9wZSwgbm90IHF1aXRlLCB1bmZvcnR1bmF0ZWx5LiBUZXN0ZWQgYWdh
-aW5zdCB4LXNlcnZlciBtYXN0ZXIsIG1lc2EgCm1hc3RlciwgYXRpLWRkeCBtYXN0ZXIsIHdpdGgg
-c2RkbSBsb2dpbiBtYW5hZ2VyLiBXaXRoIGEgZnJlc2hseSBzdGFydGVkIApzZXJ2ZXIsIG5vdyBv
-biBhIGR1YWwteC1zY3JlZW4gc2V0dXAsIGluc3RlYWQgb2YgYW4gaW5maW5pdGUgbG9vcCwgaSBn
-ZXQgCmEgc2VydmVyIGNyYXNoIGFzIHNvb24gYXMgaSBtb3ZlIHRoZSBtb3VzZSBjdXJzb3IgZnJv
-bSBYLVNjcmVlbiAwIHRvIApYLVNjcmVlbiAxOgoKKGdkYikgYwpDb250aW51aW5nLgoKVGhyZWFk
-IDEgIlgiIHJlY2VpdmVkIHNpZ25hbCBTSUdTRUdWLCBTZWdtZW50YXRpb24gZmF1bHQuCjB4MDAw
-MDAwMDAwMDAwMDAwMCBpbiA/PyAoKQooZ2RiKSBidAojMCAgMHgwMDAwMDAwMDAwMDAwMDAwIGlu
-ID8/ICgpCiMxICAweDAwMDAwMDAwMDA0YmNhZDIgaW4geGY4NkN1cnNvclNldEN1cnNvciAocERl
-dj0weDExOTEyZTAsIApwU2NyZWVuPTB4ZjlhNTEwLCBwQ3Vycz0weDExNzc2MTAsIHg9MzIsIHk9
-MzU4KSBhdCB4Zjg2Q3Vyc29yUkQuYzozNDUKIzIgIDB4MDAwMDAwMDAwMDU3YTc1OCBpbiBtaVBv
-aW50ZXJVcGRhdGVTcHJpdGUgKHBEZXY9MHgxMTkxMmUwKSBhdCAKbWlwb2ludGVyLmM6NDUzCiMz
-ICAweDAwMDAwMDAwMDA1N2FhZGEgaW4gbWlQb2ludGVyRGlzcGxheUN1cnNvciAocERldj0weDEx
-OTEyZTAsIApwU2NyZWVuPTB4ZjlhNTEwLCBwQ3Vyc29yPTB4MTE3NzYxMCkgYXQgbWlwb2ludGVy
-LmM6MjA2CiM0ICAweDAwMDAwMDAwMDA0Y2IxYjYgaW4gQ3Vyc29yRGlzcGxheUN1cnNvciAocERl
-dj08b3B0aW1pemVkIG91dD4sIApwU2NyZWVuPTB4ZjlhNTEwLCBwQ3Vyc29yPTB4MTE3NzYxMCkg
-YXQgY3Vyc29yLmM6MTY4CiM1ICAweDAwMDAwMDAwMDA1MGY3OGIgaW4gQW5pbUN1ckRpc3BsYXlD
-dXJzb3IgKHBEZXY9MHgxMTkxMmUwLCAKcFNjcmVlbj0weGY5YTUxMCwgcEN1cnNvcj0weDExNzc2
-MTApIGF0IGFuaW1jdXIuYzoxOTYKIzYgIDB4MDAwMDAwMDAwMDQ0NzNiOCBpbiBDaGFuZ2VUb0N1
-cnNvciAocERldj0weDExOTEyZTAsIApjdXJzb3I9MHgxMTc3NjEwKSBhdCBldmVudHMuYzo5MzYK
-IzcgIDB4MDAwMDAwMDAwMDQ0YjIwYSBpbiBDaGVja01vdGlvbiAoZXY9ZXZAZW50cnk9MHg3ZmZk
-YWQ3YTcwNjAsIApwRGV2PXBEZXZAZW50cnk9MHgxMTkxMmUwKSBhdCBldmVudHMuYzozMDgxCiM4
-ICAweDAwMDAwMDAwMDA1MWVlNmIgaW4gUHJvY2Vzc0RldmljZUV2ZW50IAooZXY9ZXZAZW50cnk9
-MHg3ZmZkYWQ3YTcwNjAsIGRldmljZT1kZXZpY2VAZW50cnk9MHgxMTkxMmUwKSBhdCAKZXhldmVu
-dHMuYzoxNzE2CiM5ICAweDAwMDAwMDAwMDA1MWY1ZmIgaW4gUHJvY2Vzc090aGVyRXZlbnQgKGV2
-PTB4N2ZmZGFkN2E3MDYwLCAKZGV2aWNlPTB4MTE5MTJlMCkgYXQgZXhldmVudHMuYzoxODczCiMx
-MCAweDAwMDAwMDAwMDA1NDAzYTIgaW4gUHJvY2Vzc1BvaW50ZXJFdmVudCAoZXY9MHg3ZmZkYWQ3
-YTcwNjAsIAptb3VzZT0weDExOTEyZTApIGF0IHhrYkFjY2Vzc1guYzo3NTYKIzExIDB4MDAwMDAw
-MDAwMDU3MTcxMiBpbiBtaWVxUHJvY2Vzc0RldmljZUV2ZW50IChkZXY9MHgxMzY4ZTEwLCAKZXZl
-bnQ9MHg3ZmZkYWQ3YTdjYzAsIHNjcmVlbj0weGY5YTUxMCkgYXQgbWllcS5jOjQ5NgojMTIgMHgw
-MDAwMDAwMDAwNTcxODRhIGluIG1pZXFQcm9jZXNzSW5wdXRFdmVudHMgKCkgYXQgbWllcS5jOjU1
-MQojMTMgMHgwMDAwMDAwMDAwNDdhOGE5IGluIFByb2Nlc3NJbnB1dEV2ZW50cyAoKSBhdCB4Zjg2
-RXZlbnRzLmM6MTUxCiMxNCAweDAwMDAwMDAwMDA0M2UyYTcgaW4gRGlzcGF0Y2ggKCkgYXQgZGlz
-cGF0Y2guYzo0MTcKIzE1IDB4MDAwMDAwMDAwMDQ0MjU2OCBpbiBkaXhfbWFpbiAoYXJnYz0xMSwg
-YXJndj0weDdmZmRhZDdhOGFkOCwgCmVudnA9PG9wdGltaXplZCBvdXQ+KSBhdCBtYWluLmM6Mjc2
-CiMxNiAweDAwMDA3ZjIwZmRmNjA4MzAgaW4gX19saWJjX3N0YXJ0X21haW4gKG1haW49MHg0MmM1
-MjAgPG1haW4+LCAKYXJnYz0xMSwgYXJndj0weDdmZmRhZDdhOGFkOCwgaW5pdD08b3B0aW1pemVk
-IG91dD4sIGZpbmk9PG9wdGltaXplZCAKb3V0PiwgcnRsZF9maW5pPTxvcHRpbWl6ZWQgb3V0Piwg
-c3RhY2tfZW5kPTB4N2ZmZGFkN2E4YWM4KSBhdCAKLi4vY3N1L2xpYmMtc3RhcnQuYzoyOTEKCi1t
-YXJpbwoKCj4+IC0tLQo+PiAgIHNyYy9yYWRlb25fa21zLmMgfCAxNiArKysrKysrKysrLS0tLS0t
-Cj4+ICAgMSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4+
-Cj4+IGRpZmYgLS1naXQgYS9zcmMvcmFkZW9uX2ttcy5jIGIvc3JjL3JhZGVvbl9rbXMuYwo+PiBp
-bmRleCA4NTM5MGUzMDYuLjc5MGQ0YmUxNiAxMDA2NDQKPj4gLS0tIGEvc3JjL3JhZGVvbl9rbXMu
-Ywo+PiArKysgYi9zcmMvcmFkZW9uX2ttcy5jCj4+IEBAIC0yMDE3LDEwICsyMDE3LDEyIEBAIHN0
-YXRpYyBCb29sIFJBREVPTkN1cnNvckluaXRfS01TKFNjcmVlblB0ciBwU2NyZWVuKQo+PiAgICAg
-ICAgICAgICAgcmV0dXJuIEZBTFNFOwo+PiAgICAgICAgICB9Cj4+Cj4+IC0gICAgICAgaW5mby0+
-U2V0Q3Vyc29yID0gUG9pbnRQcml2LT5zcHJpdGVGdW5jcy0+U2V0Q3Vyc29yOwo+PiAtICAgICAg
-IGluZm8tPk1vdmVDdXJzb3IgPSBQb2ludFByaXYtPnNwcml0ZUZ1bmNzLT5Nb3ZlQ3Vyc29yOwo+
-PiAtICAgICAgIFBvaW50UHJpdi0+c3ByaXRlRnVuY3MtPlNldEN1cnNvciA9IGRybW1vZGVfc3By
-aXRlX3NldF9jdXJzb3I7Cj4+IC0gICAgICAgUG9pbnRQcml2LT5zcHJpdGVGdW5jcy0+TW92ZUN1
-cnNvciA9IGRybW1vZGVfc3ByaXRlX21vdmVfY3Vyc29yOwo+PiArICAgICAgIGlmIChQb2ludFBy
-aXYtPnNwcml0ZUZ1bmNzLT5TZXRDdXJzb3IgIT0gZHJtbW9kZV9zcHJpdGVfc2V0X2N1cnNvcikg
-ewo+PiArICAgICAgICAgICBpbmZvLT5TZXRDdXJzb3IgPSBQb2ludFByaXYtPnNwcml0ZUZ1bmNz
-LT5TZXRDdXJzb3I7Cj4+ICsgICAgICAgICAgIGluZm8tPk1vdmVDdXJzb3IgPSBQb2ludFByaXYt
-PnNwcml0ZUZ1bmNzLT5Nb3ZlQ3Vyc29yOwo+PiArICAgICAgICAgICBQb2ludFByaXYtPnNwcml0
-ZUZ1bmNzLT5TZXRDdXJzb3IgPSBkcm1tb2RlX3Nwcml0ZV9zZXRfY3Vyc29yOwo+PiArICAgICAg
-ICAgICBQb2ludFByaXYtPnNwcml0ZUZ1bmNzLT5Nb3ZlQ3Vyc29yID0gZHJtbW9kZV9zcHJpdGVf
-bW92ZV9jdXJzb3I7Cj4+ICsgICAgICAgfQo+PiAgICAgICB9Cj4+Cj4+ICAgICAgIGlmICh4Zjg2
-UmV0dXJuT3B0VmFsQm9vbChpbmZvLT5PcHRpb25zLCBPUFRJT05fU1dfQ1VSU09SLCBGQUxTRSkp
-Cj4+IEBAIC0yMTg0LDggKzIxODYsMTAgQEAgc3RhdGljIEJvb2wgUkFERU9OQ2xvc2VTY3JlZW5f
-S01TKFNjcmVlblB0ciBwU2NyZWVuKQo+PiAgICAgICAgICBtaVBvaW50ZXJTY3JlZW5QdHIgUG9p
-bnRQcml2ID0KPj4gICAgICAgICAgICAgIGRpeExvb2t1cFByaXZhdGUoJnBTY3JlZW4tPmRldlBy
-aXZhdGVzLCBtaVBvaW50ZXJTY3JlZW5LZXkpOwo+Pgo+PiAtICAgICAgIFBvaW50UHJpdi0+c3By
-aXRlRnVuY3MtPlNldEN1cnNvciA9IGluZm8tPlNldEN1cnNvcjsKPj4gLSAgICAgICBQb2ludFBy
-aXYtPnNwcml0ZUZ1bmNzLT5Nb3ZlQ3Vyc29yID0gaW5mby0+TW92ZUN1cnNvcjsKPj4gKyAgICAg
-ICBpZiAoUG9pbnRQcml2LT5zcHJpdGVGdW5jcy0+U2V0Q3Vyc29yID09IGRybW1vZGVfc3ByaXRl
-X3NldF9jdXJzb3IpIHsKPj4gKyAgICAgICAgICAgUG9pbnRQcml2LT5zcHJpdGVGdW5jcy0+U2V0
-Q3Vyc29yID0gaW5mby0+U2V0Q3Vyc29yOwo+PiArICAgICAgICAgICBQb2ludFByaXYtPnNwcml0
-ZUZ1bmNzLT5Nb3ZlQ3Vyc29yID0gaW5mby0+TW92ZUN1cnNvcjsKPj4gKyAgICAgICB9Cj4+ICAg
-ICAgIH0KPj4KPj4gICAgICAgcFNjcmVlbi0+QmxvY2tIYW5kbGVyID0gaW5mby0+QmxvY2tIYW5k
-bGVyOwo+PiAtLQo+PiAyLjE2LjIKPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+--===============2095148446==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652EBB7E57567AB8758E5B6F7D80BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652EBB7E57567AB8758E5B6F7D80BN6PR12MB1652namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, March 6, 2018 9:56 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amd/pp: Fix "Add auto power profilng switch based on w=
+orkloads"
+
+1. fix typo "<" should be "<<"
+2. fix code style
+3. fix uninitialized point *workload
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+
+Change-Id: I35d03d19360c75e8eb2021bd3db63e52c93e1e61
+---
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c      | 14 +++++++-------
+ drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        | 10 +++++-----
+ drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c       |  2 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   |  2 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c |  2 +-
+ 5 files changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c
+index 84e65df..b989bf3 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -1081,7 +1081,7 @@ static int pp_dpm_switch_power_profile(void *handle,
+ {
+         struct pp_hwmgr *hwmgr;
+         struct pp_instance *pp_handle =3D (struct pp_instance *)handle;
+-       long *workload;
++       long workload;
+         uint32_t index;
+
+         if (pp_check(pp_handle))
+@@ -1100,19 +1100,19 @@ static int pp_dpm_switch_power_profile(void *handle=
+,
+         mutex_lock(&pp_handle->pp_lock);
+
+         if (!en) {
+-               hwmgr->workload_mask &=3D ~(1 < hwmgr->workload_prority[typ=
+e]);
++               hwmgr->workload_mask &=3D ~(1 << hwmgr->workload_prority[ty=
+pe]);
+                 index =3D fls(hwmgr->workload_mask);
+-               index =3D index > 0 && index <=3D Workload_Policy_Max? inde=
+x - 1 : 0;
+-               *workload =3D hwmgr->workload_setting[index];
++               index =3D index > 0 && index <=3D Workload_Policy_Max ? ind=
+ex - 1 : 0;
++               workload =3D hwmgr->workload_setting[index];
+         } else {
+-               hwmgr->workload_mask |=3D (1 < hwmgr->workload_prority[type=
+]);
++               hwmgr->workload_mask |=3D (1 << hwmgr->workload_prority[typ=
+e]);
+                 index =3D fls(hwmgr->workload_mask);
+                 index =3D index <=3D Workload_Policy_Max ? index - 1 : 0;
+-               *workload =3D hwmgr->workload_setting[index];
++               workload =3D hwmgr->workload_setting[index];
+         }
+
+         if (hwmgr->dpm_level !=3D AMD_DPM_FORCED_LEVEL_MANUAL)
+-               hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, workload, =
+0);
++               hwmgr->hwmgr_func->set_power_profile_mode(hwmgr, &workload,=
+ 0);
+         mutex_unlock(&pp_handle->pp_lock);
+
+         return 0;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
+amd/powerplay/hwmgr/hwmgr.c
+index aa83114..af1b22d 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+@@ -133,11 +133,11 @@ static void hwmgr_init_workload_prority(struct pp_hwm=
+gr *hwmgr)
+         hwmgr->workload_prority[PP_SMC_POWER_PROFILE_VR] =3D 3;
+         hwmgr->workload_prority[PP_SMC_POWER_PROFILE_COMPUTE] =3D 4;
+
+-       hwmgr->workload_setting[0]=3D PP_SMC_POWER_PROFILE_POWERSAVING;
+-       hwmgr->workload_setting[1]=3D PP_SMC_POWER_PROFILE_VIDEO;
+-       hwmgr->workload_setting[2]=3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+-       hwmgr->workload_setting[3]=3D PP_SMC_POWER_PROFILE_VR;
+-       hwmgr->workload_setting[4]=3D PP_SMC_POWER_PROFILE_COMPUTE;
++       hwmgr->workload_setting[0] =3D PP_SMC_POWER_PROFILE_POWERSAVING;
++       hwmgr->workload_setting[1] =3D PP_SMC_POWER_PROFILE_VIDEO;
++       hwmgr->workload_setting[2] =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
++       hwmgr->workload_setting[3] =3D PP_SMC_POWER_PROFILE_VR;
++       hwmgr->workload_setting[4] =3D PP_SMC_POWER_PROFILE_COMPUTE;
+ }
+
+ int hwmgr_early_init(struct pp_instance *handle)
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c b/drivers/gpu/drm=
+/amd/powerplay/hwmgr/pp_psm.c
+index 51439a1..d0ef8f9 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c
+@@ -251,7 +251,7 @@ int psm_adjust_power_state_dynamic(struct pp_hwmgr *hwm=
+gr, bool skip,
+
+         if (hwmgr->dpm_level !=3D AMD_DPM_FORCED_LEVEL_MANUAL) {
+                 index =3D fls(hwmgr->workload_mask);
+-               index =3D index > 0 && index <=3D Workload_Policy_Max? inde=
+x - 1 : 0;
++               index =3D index > 0 && index <=3D Workload_Policy_Max ? ind=
+ex - 1 : 0;
+                 workload =3D hwmgr->workload_setting[index];
+
+                 if (hwmgr->power_profile_mode !=3D workload && hwmgr->hwmg=
+r_func->set_power_profile_mode)
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index 4f26014..d4d1d2e 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -1510,7 +1510,7 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *h=
+wmgr)
+         data->current_profile_setting.mclk_up_hyst =3D 0;
+         data->current_profile_setting.mclk_down_hyst =3D 100;
+         data->current_profile_setting.mclk_activity =3D SMU7_MCLK_TARGETAC=
+TIVITY_DFLT;
+-       hwmgr->workload_mask =3D 1 < hwmgr->workload_prority[PP_SMC_POWER_P=
+ROFILE_FULLSCREEN3D];
++       hwmgr->workload_mask =3D 1 << hwmgr->workload_prority[PP_SMC_POWER_=
+PROFILE_FULLSCREEN3D];
+         hwmgr->power_profile_mode =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+         hwmgr->default_power_profile_mode =3D PP_SMC_POWER_PROFILE_FULLSCR=
+EEN3D;
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 25165b4..f23861f 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -766,7 +766,7 @@ static int vega10_hwmgr_backend_init(struct pp_hwmgr *h=
+wmgr)
+
+         hwmgr->backend =3D data;
+
+-       hwmgr->workload_mask =3D 1 < hwmgr->workload_prority[PP_SMC_POWER_P=
+ROFILE_VIDEO];
++       hwmgr->workload_mask =3D 1 << hwmgr->workload_prority[PP_SMC_POWER_=
+PROFILE_VIDEO];
+         hwmgr->power_profile_mode =3D PP_SMC_POWER_PROFILE_VIDEO;
+         hwmgr->default_power_profile_mode =3D PP_SMC_POWER_PROFILE_VIDEO;
+
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1652EBB7E57567AB8758E5B6F7D80BN6PR12MB1652namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
+&gt;<br>
+<b>Sent:</b> Tuesday, March 6, 2018 9:56 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Fix &quot;Add auto power profilng switc=
+h based on workloads&quot;</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">1. fix typo &quot;&lt;&quot; should be &quot;&lt;&=
+lt;&quot;<br>
+2. fix code style<br>
+3. fix uninitialized point *workload<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Change-Id: I35d03d19360c75e8eb2021bd3db63e52c93e1e61<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; | 14 &#43;&#43;&#43;&#43;&#43;&#43;&#43;-------<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; | 10 &#43;&#43;&#43;&#43;&#43;-----<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; |&nbsp; 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp; |&nbsp; =
+2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c |&nbsp; 2 &#43;-<b=
+r>
+&nbsp;5 files changed, 15 insertions(&#43;), 15 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c<br>
+index 84e65df..b989bf3 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+@@ -1081,7 &#43;1081,7 @@ static int pp_dpm_switch_power_profile(void *hand=
+le,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_instance *pp_han=
+dle =3D (struct pp_instance *)handle;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long *workload;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long workload;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pp_check(pp_handle))<b=
+r>
+@@ -1100,19 &#43;1100,19 @@ static int pp_dpm_switch_power_profile(void *ha=
+ndle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;pp_handle-=
+&gt;pp_lock);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!en) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; hwmgr-&gt;workload_mask &amp;=3D ~(1 &lt; hwmgr-&gt;workload_pro=
+rity[type]);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hwmgr-&gt;workload_mask &amp;=3D ~(1 &lt;&lt; hwmgr-&gt;work=
+load_prority[type]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; index =3D fls(hwmgr-&gt;workload_mask);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; index =3D index &gt; 0 &amp;&amp; index &lt;=3D Workload_Policy_=
+Max? index - 1 : 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *workload =3D hwmgr-&gt;workload_setting[index];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; index =3D index &gt; 0 &amp;&amp; index &lt;=3D Workload_Pol=
+icy_Max ? index - 1 : 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; workload =3D hwmgr-&gt;workload_setting[index];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; hwmgr-&gt;workload_mask |=3D (1 &lt; hwmgr-&gt;workload_prority[=
+type]);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hwmgr-&gt;workload_mask |=3D (1 &lt;&lt; hwmgr-&gt;workload_=
+prority[type]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; index =3D fls(hwmgr-&gt;workload_mask);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; index =3D index &lt;=3D Workload_Policy_Max ? index -=
+ 1 : 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *workload =3D hwmgr-&gt;workload_setting[index];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; workload =3D hwmgr-&gt;workload_setting[index];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level !=
+=3D AMD_DPM_FORCED_LEVEL_MANUAL)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_power_profile_mode(hwmgr, workload,=
+ 0);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_power_profile_mode(hwmgr, &amp;=
+workload, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;pp_handl=
+e-&gt;pp_lock);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
+amd/powerplay/hwmgr/hwmgr.c<br>
+index aa83114..af1b22d 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
+@@ -133,11 &#43;133,11 @@ static void hwmgr_init_workload_prority(struct pp=
+_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_prority=
+[PP_SMC_POWER_PROFILE_VR] =3D 3;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_prority=
+[PP_SMC_POWER_PROFILE_COMPUTE] =3D 4;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[0]=3D PP_S=
+MC_POWER_PROFILE_POWERSAVING;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[1]=3D PP_S=
+MC_POWER_PROFILE_VIDEO;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[2]=3D PP_S=
+MC_POWER_PROFILE_FULLSCREEN3D;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[3]=3D PP_S=
+MC_POWER_PROFILE_VR;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[4]=3D PP_S=
+MC_POWER_PROFILE_COMPUTE;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[0] =3D=
+ PP_SMC_POWER_PROFILE_POWERSAVING;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[1] =3D=
+ PP_SMC_POWER_PROFILE_VIDEO;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[2] =3D=
+ PP_SMC_POWER_PROFILE_FULLSCREEN3D;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[3] =3D=
+ PP_SMC_POWER_PROFILE_VR;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_setting[4] =3D=
+ PP_SMC_POWER_PROFILE_COMPUTE;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;int hwmgr_early_init(struct pp_instance *handle)<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c b/drivers/gpu/drm=
+/amd/powerplay/hwmgr/pp_psm.c<br>
+index 51439a1..d0ef8f9 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c<br>
+@@ -251,7 &#43;251,7 @@ int psm_adjust_power_state_dynamic(struct pp_hwmgr =
+*hwmgr, bool skip,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level !=
+=3D AMD_DPM_FORCED_LEVEL_MANUAL) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; index =3D fls(hwmgr-&gt;workload_mask);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; index =3D index &gt; 0 &amp;&amp; index &lt;=3D Workload_Policy_=
+Max? index - 1 : 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; index =3D index &gt; 0 &amp;&amp; index &lt;=3D Workload_Pol=
+icy_Max ? index - 1 : 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; workload =3D hwmgr-&gt;workload_setting[index];<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;power_profile_mode !=3D workload &amp;&=
+amp; hwmgr-&gt;hwmgr_func-&gt;set_power_profile_mode)<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+index 4f26014..d4d1d2e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+@@ -1510,7 &#43;1510,7 @@ static void smu7_init_dpm_defaults(struct pp_hwmg=
+r *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.mclk_up_hyst =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.mclk_down_hyst =3D 100;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.mclk_activity =3D SMU7_MCLK_TARGETACTIVITY_DFLT;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_mask =3D 1 &lt; hw=
+mgr-&gt;workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_mask =3D 1 &lt=
+;&lt; hwmgr-&gt;workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mo=
+de =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;default_power_pr=
+ofile_mode =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+index 25165b4..f23861f 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+@@ -766,7 &#43;766,7 @@ static int vega10_hwmgr_backend_init(struct pp_hwmg=
+r *hwmgr)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;backend =3D data=
+;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_mask =3D 1 &lt; hw=
+mgr-&gt;workload_prority[PP_SMC_POWER_PROFILE_VIDEO];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_mask =3D 1 &lt=
+;&lt; hwmgr-&gt;workload_prority[PP_SMC_POWER_PROFILE_VIDEO];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mo=
+de =3D PP_SMC_POWER_PROFILE_VIDEO;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;default_power_pr=
+ofile_mode =3D PP_SMC_POWER_PROFILE_VIDEO;<br>
+&nbsp;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk623810" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
+stinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652EBB7E57567AB8758E5B6F7D80BN6PR12MB1652namp_--
+
+--===============2095148446==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2095148446==--
