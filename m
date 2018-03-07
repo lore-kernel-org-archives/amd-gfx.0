@@ -1,17 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: deprecated register issues
-Date: Wed, 7 Mar 2018 15:13:25 +0000
-Message-ID: <DM5PR12MB1660D5E735D17FEEC2E5E51CF7D80@DM5PR12MB1660.namprd12.prod.outlook.com>
-References: <BLUPR12MB04496DB9A508E4AEE114AF2484D80@BLUPR12MB0449.namprd12.prod.outlook.com>
- <0258a141-8849-623b-9949-de14026e76a8@amd.com>
- <BLUPR12MB044941D93445D001B482655984D80@BLUPR12MB0449.namprd12.prod.outlook.com>
- <58B0701E-D93F-417B-816C-0616F364789A@amd.com>,
- <8ccdd2af-4520-866b-9b55-fa41b05c1fa1@amd.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 6/6] drm/amdgpu: explicit give BO type to amdgpu_bo_create
+Date: Wed, 7 Mar 2018 10:14:46 -0500
+Message-ID: <54f12f2e-6eca-0a5c-6245-d96223991e51@amd.com>
+References: <20180306144347.1702-1-christian.koenig@amd.com>
+ <20180306144347.1702-6-christian.koenig@amd.com>
+ <bcaf984a-70c0-7e55-edd5-f3e683169d67@amd.com>
+ <aab33ec3-fc17-5910-64c3-2ec6432a7971@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1199555763=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8ccdd2af-4520-866b-9b55-fa41b05c1fa1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <aab33ec3-fc17-5910-64c3-2ec6432a7971-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,526 +22,403 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: "Jin, Jian-Rong" <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1199555763==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1660D5E735D17FEEC2E5E51CF7D80DM5PR12MB1660namp_"
-
---_000_DM5PR12MB1660D5E735D17FEEC2E5E51CF7D80DM5PR12MB1660namp_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-UmlnaHQuICBXZSByYW4gaW50byBpc3N1ZXMgd2l0aCByZWFkaW5nIGJhY2sgdGhhdCByZWdpc3Rl
-ciBhdCBydW50aW1lIHdoZW4gVU1EcyBxdWVyaWVkIGl0IHdoZW4gb3RoZXIgc3R1ZmYgd2FzIGlu
-IGZsaWdodCwgc28gd2UganVzdCByZWFkIGl0IG9uY2UgYXQgc3RhcnR1cCBhbmQgY2FjaGUgdGhl
-IHJlc3VsdHMuIE5vdyB3aGVuIFVNRHMgcmVxdWVzdCBpdCwgd2UgcmV0dXJuIHRoZSBjYWNoZWQg
-dmFsdWUuDQoNCg0KQWxleA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KRnJv
-bTogS29lbmlnLCBDaHJpc3RpYW4NClNlbnQ6IFdlZG5lc2RheSwgTWFyY2ggNywgMjAxOCA5OjMx
-OjEzIEFNDQpUbzogTWFvLCBEYXZpZDsgTGl1LCBNb25rDQpDYzogRGV1Y2hlciwgQWxleGFuZGVy
-OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgSmluLCBKaWFuLVJvbmcNClN1YmplY3Q6
-IFJlOiBkZXByZWNhdGVkIHJlZ2lzdGVyIGlzc3Vlcw0KDQpIaSBEYXZpZCwNCg0Kd2VsbCBJIGp1
-c3QgZmlndXJlZCB0aGF0IHRoaXMgaXMgYSBtaXN1bmRlcnN0YW5kaW5nLg0KDQpBY2Nlc3Npbmcg
-dGhpcyByZWdpc3RlciBhbmQgc29tZSBvdGhlciBkZXByZWNhdGVkIHJlZ2lzdGVycyBjYW4gY2F1
-c2UgcHJvYmxlbSB3aGVuIGludmFsaWRhdGluZyBWTUhVQnMuDQoNClRoaXMgcmVnaXN0ZXIgaXRz
-ZWxmIGlzbid0IGRlcHJlY2F0ZWQsIHRoZSB3b3JkaW5nIGluIGEgcGF0Y2ggZml4aW5nIHRoaW5n
-cyBpcyBqdXN0IGEgYml0IHVuY2xlYXIuDQoNClF1ZXN0aW9uIGlzIGlzIHRoYXQgcmVnaXN0ZXIg
-c3RpbGwgYWNjZXNzZWQgcmVndWxhcmx5IG9yIGlzIGl0IHZhbHVlIGNhY2hlZCBhZnRlciBzdGFy
-dHVwPw0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAwNy4wMy4yMDE4IHVtIDE1OjI1IHNj
-aHJpZWIgTWFvLCBEYXZpZDoNCldlIHJlcXVpcmVzIGJhc2UgZHJpdmVyIHRvIHByb3ZpZGUgdGhl
-IG1hc2sgb2YgZGlzYWJsZWQgUkIuDQpUaGlzIGlzIHdoeSBrZXJuZWwgcmVhZCB0aGUgQ0NfUkJf
-QkFDS0VORF9ESVNBQkxFIHRvIGNvbGxlY3QgdGhlIGhhcnZlc3QgY29uZmlndXJhdGlvbi4NCldo
-ZXJlIGRpZCB5b3UgZ2V0IHRvIGtub3cgdGhhdCB0aGUgcmVnaXN0ZXIgaXMgZGVwcmVjYXRlZD8N
-CkkgdGhpbmsgaXQgc2hvdWxkIHN0aWxsIGJlIHRoZXJlLg0KDQpCZXN0IFJlZ2FyZHMsDQpEYXZp
-ZA0KDQpPbiBNYXIgNywgMjAxOCwgYXQgOTo0OSBQTSwgTGl1LCBNb25rIDxNb25rLkxpdUBhbWQu
-Y29tPG1haWx0bzpNb25rLkxpdUBhbWQuY29tPj4gd3JvdGU6DQoNCisgVU1EIGd1eXMNCg0KSGkg
-RGF2aWQNCg0KRG8geW91IGtub3cgaWYgR0NfVVNFUl9SQl9CQUNLRU5EX0RJU0FCTEUgaXMgc3Rp
-bGwgZXhpc3QgZm9yIGdmeDkvdmVnYTEwID8NCg0KV2UgZm91bmQgQ0NfUkJfQkFDS0VORF9ESVNB
-QkxFIHdhcyBkZXByZWNhdGVkIGJ1dCBsb29rcyBpdCBpcyBzdGlsbCBpbiB1c2UgaW4ga21kLCBz
-bw0KSSB3YW50IHRvIGNoZWNrIHdpdGggeW91IGJvdGggb2YgYWJvdmUgcmVnaXN0ZXJzDQoNClRo
-YW5rcw0KL01vbmsNCg0KRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0
-cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBDaHJpc3RpYW4gSz9uaWcNClNlbnQ6IDIw
-MTjE6jPUwjfI1SAyMDoyNg0KVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbTxtYWlsdG86
-TW9uay5MaXVAYW1kLmNvbT4+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVy
-QGFtZC5jb208bWFpbHRvOkFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+Pg0KQ2M6IGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zz4NClN1YmplY3Q6IFJlOiBkZXByZWNhdGVkIHJlZ2lzdGVyIGlzc3Vlcw0KDQpIaSBNb25rLA0K
-DQpJIGhvbmVzdGx5IGRvbid0IGhhdmUgdGhlIHNsaWdodGVzdCBpZGVhIHdoeSB3ZSBhcmUgc3Rp
-bGwgYWNjZXNzaW5nIENDX1JCX0JBQ0tFTkRfRElTQUJMRS4gTWF5YmUgaXQgc3RpbGwgY29udGFp
-bnMgc29tZSB1c2VmdWwgdmFsdWVzPw0KDQpLZXkgcG9pbnQgd2FzIHRoYXQgd2UgbmVlZGVkIHRv
-IHN0b3AgYWNjZXNzaW5nIGl0IGFsbCB0aGUgdGltZSB0byBhdm9pZCB0cmlnZ2VyaW5nIHByb2Js
-ZW1zLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAwNy4wMy4yMDE4IHVtIDEzOjExIHNj
-aHJpZWIgTGl1LCBNb25rOg0KDQpIaSBDaHJpc3RpYW4NCg0KDQoNCkkgcmVtZW1iZXIgeW91IGFu
-ZCBBbGV4RCBtZW50aW9uZWQgdGhhdCBhIGhhbmRmdWwgcmVnaXN0ZXJzIGFyZSBkZXByZWNhdGVk
-IGZvciBncmVlbmxhbmQgKGdmeDkpDQoNCmUuZy4gQ0NfUkJfQkFDS0VORF9ESVNBQkxFDQoNCg0K
-DQpkbyB5b3Uga25vdyB3aHkgd2Ugc3RpbGwgaGF2ZSB0aGlzIHJvdXRpbmUgPw0KDQoNCnN0YXRp
-YyB1MzINCmdmeF92OV8wX2dldF9yYl9hY3RpdmVfYml0bWFwKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQ0KDQp7DQoNCiAgICB1MzIgZGF0YSwgbWFzazsNCg0KDQoNCiAgICBkYXRhID0gUlJF
-RzMyX1NPQzE1KEdDLA0KMCwgbW1DQ19SQl9CQUNLRU5EX0RJU0FCTEUpOw0KDQogICAgZGF0YSB8
-PSBSUkVHMzJfU09DMTUoR0MsDQowLCBtbUdDX1VTRVJfUkJfQkFDS0VORF9ESVNBQkxFKTsNCg0K
-DQoNCiAgICBkYXRhICY9IENDX1JCX0JBQ0tFTkRfRElTQUJMRV9fQkFDS0VORF9ESVNBQkxFX01B
-U0s7DQoNCiAgICBkYXRhID4+PSBHQ19VU0VSX1JCX0JBQ0tFTkRfRElTQUJMRV9fQkFDS0VORF9E
-SVNBQkxFX19TSElGVDsNCg0KDQoNCiAgICBtYXNrID0gYW1kZ3B1X2dmeF9jcmVhdGVfYml0bWFz
-ayhhZGV2LT5nZnguY29uZmlnLm1heF9iYWNrZW5kc19wZXJfc2UgLw0KDQogICAgICAgICAgICAg
-ICAgICAgICBhZGV2LT5nZnguY29uZmlnLm1heF9zaF9wZXJfc2UpOw0KDQoNCg0KICAgIHJldHVy
-biAofmRhdGEpICYgbWFzazsNCg0KfQ0KDQoNCg0Kc2VlIHRoYXQgaXQgc3RpbGwgcmVhZCBDQ19S
-Ql9CQUNLRU5EX0RJU0FCTEUNCg0KDQoNCnRoYW5rcw0KDQoNCg0KL01vbmsNCg0KDQoNCg0KDQoN
-Cg==
-
---_000_DM5PR12MB1660D5E735D17FEEC2E5E51CF7D80DM5PR12MB1660namp_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Right.&nbsp; We ran into issues w=
-ith reading back that register at runtime when UMDs queried it when other s=
-tuff was in flight, so we just read it once at startup and cache the result=
-s. Now when UMDs request it, we return
- the cached value.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian<br>
-<b>Sent:</b> Wednesday, March 7, 2018 9:31:13 AM<br>
-<b>To:</b> Mao, David; Liu, Monk<br>
-<b>Cc:</b> Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Jin, Jian-Ron=
-g<br>
-<b>Subject:</b> Re: deprecated register issues</font>
-<div>&nbsp;</div>
-</div>
-<div style=3D"background-color:#FFFFFF">
-<div class=3D"x_moz-cite-prefix">Hi David,<br>
-<br>
-well I just figured that this is a misunderstanding.<br>
-<br>
-Accessing this register and some other deprecated registers can cause probl=
-em when invalidating VMHUBs.<br>
-<br>
-This register itself isn't deprecated, the wording in a patch fixing things=
- is just a bit unclear.<br>
-<br>
-Question is is that register still accessed regularly or is it value cached=
- after startup?
-<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 07.03.2018 um 15:25 schrieb Mao, David:<br>
-</div>
-<blockquote type=3D"cite">We requires base driver to provide the mask of di=
-sabled RB.
-<div class=3D"">This is why kernel read the CC_RB_BACKEND_DISABLE to collec=
-t the harvest configuration.</div>
-<div class=3D"">Where did you get to know that the register is deprecated?<=
-/div>
-<div class=3D"">I think it should still be there.</div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D"">Best Regards,</div>
-<div class=3D"">David<br class=3D"">
-<div><br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">On Mar 7, 2018, at 9:49 PM, Liu, Monk &lt;<a href=3D"mailto=
-:Monk.Liu-5C7GfCeVMHo@public.gmane.org" class=3D"">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:</div>
-<br class=3D"x_Apple-interchange-newline">
-<div class=3D"">
-<div class=3D"x_WordSection1" style=3D"font-family:Helvetica; font-size:12p=
-x; font-style:normal; font-weight:normal; letter-spacing:normal; text-align=
-:start; text-indent:0px; text-transform:none; white-space:normal; word-spac=
-ing:0px; background-color:rgb(255,255,255); text-decoration:none">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt;=
- font-family:=B5=C8=CF=DF; color:windowtext">&#43; UMD guys</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt;=
- font-family:=B5=C8=CF=DF; color:windowtext">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt;=
- font-family:=B5=C8=CF=DF; color:windowtext">Hi David</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt;=
- font-family:=B5=C8=CF=DF; color:windowtext">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt;=
- font-family:=B5=C8=CF=DF; color:windowtext">Do you know if<span class=3D"x=
-_Apple-converted-space">&nbsp;</span></span><b class=3D""><span class=3D"" =
-lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quo=
-t;; color:windowtext">GC_USER_RB_BACKEND_DISABLE
- is still exist for gfx9/vega10 ?</span></b></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><b class=3D""><span class=3D"" lang=3D"EN-US" style=3D"fon=
-t-size:10.5pt; font-family:&quot;Courier New&quot;; color:windowtext">&nbsp=
-;</span></b></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><b class=3D""><span class=3D"" lang=3D"EN-US" style=3D"fon=
-t-size:10.5pt; font-family:&quot;Courier New&quot;; color:windowtext">We fo=
-und<span class=3D"x_Apple-converted-space">&nbsp;</span></span></b><span cl=
-ass=3D"" lang=3D"EN-US" style=3D"color:windowtext">CC_RB_BACKEND_DISABLE
- was deprecated but looks it is still in use in kmd, so</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US">I want to check with you b=
-oth of above registers</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US">Thanks<span class=3D"x_App=
-le-converted-space">&nbsp;</span></span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US">/Monk</span><span class=3D=
-"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:=B5=C8=CF=DF; colo=
-r:windowtext"></span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt;=
- font-family:=B5=C8=CF=DF; color:windowtext">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"border-style:solid none none; border-top-width:1pt=
-; border-top-color:rgb(225,225,225); padding:3pt 0cm 0cm">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><b class=3D""><span class=3D"" lang=3D"EN-US" style=3D"fon=
-t-size:11pt; font-family:Calibri,sans-serif; color:windowtext">From:</span>=
-</b><span class=3D"" lang=3D"EN-US" style=3D"font-size:11pt; font-family:Ca=
-libri,sans-serif; color:windowtext"><span class=3D"x_Apple-converted-space"=
->&nbsp;</span>amd-gfx
- [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"">mailt=
-o:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]<span class=3D"x_Apple-converte=
-d-space">&nbsp;</span><b class=3D"">On Behalf Of<span class=3D"x_Apple-conv=
-erted-space">&nbsp;</span></b>Christian K?nig<br class=3D"">
-<b class=3D"">Sent:</b><span class=3D"x_Apple-converted-space">&nbsp;</span=
->2018</span><span class=3D"" style=3D"font-size:11pt; color:windowtext">=C4=
-=EA</span><span class=3D"" lang=3D"EN-US" style=3D"font-size:11pt; font-fam=
-ily:Calibri,sans-serif; color:windowtext">3</span><span class=3D"" style=3D=
-"font-size:11pt; color:windowtext">=D4=C2</span><span class=3D"" lang=3D"EN=
--US" style=3D"font-size:11pt; font-family:Calibri,sans-serif; color:windowt=
-ext">7</span><span class=3D"" style=3D"font-size:11pt; color:windowtext">=
-=C8=D5</span><span class=3D"" lang=3D"EN-US" style=3D"font-size:11pt; font-=
-family:Calibri,sans-serif; color:windowtext"><span class=3D"x_Apple-convert=
-ed-space">&nbsp;</span>20:26<br class=3D"">
-<b class=3D"">To:</b><span class=3D"x_Apple-converted-space">&nbsp;</span>L=
-iu, Monk &lt;<a href=3D"mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org" class=3D"">Monk.Liu-urvtwAKJhsc@public.gmane.org=
-m</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om" class=3D"">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br class=3D"">
-<b class=3D"">Cc:</b><span class=3D"x_Apple-converted-space">&nbsp;</span><=
-a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"">amd-gfx-PD4FTy7X32k@public.gmane.org=
-eedesktop.org</a><br class=3D"">
-<b class=3D"">Subject:</b><span class=3D"x_Apple-converted-space">&nbsp;</s=
-pan>Re: deprecated register issues</span></div>
-</div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US">Hi Monk,<br class=3D"">
-<br class=3D"">
-I honestly don't have the slightest idea why we are still accessing CC_RB_B=
-ACKEND_DISABLE. Maybe it still contains some useful values?<br class=3D"">
-<br class=3D"">
-Key point was that we needed to stop accessing it all the time to avoid tri=
-ggering problems.<br class=3D"">
-<br class=3D"">
-Regards,<br class=3D"">
-Christian.<br class=3D"">
-<br class=3D"">
-Am 07.03.2018 um 13:11 schrieb Liu, Monk:</span></div>
-</div>
-<blockquote class=3D"" style=3D"margin-top:5pt; margin-bottom:5pt">
-<div id=3D"x_divtagdefaultwrapper" class=3D"">
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">Hi Christian</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">&nbsp;</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">I remember you and AlexD mentioned that a handful registers are=
- deprecated for greenland (gfx9)</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">e.g. CC_RB_BACKEND_DISABLE</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">&nbsp;</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">do you know why we still have this routine ?</span></p>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(86,156,214)">static</span><span class=3D"" l=
-ang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot=
-;; color:rgb(212,212,212)"><span class=3D"x_Apple-converted-space">&nbsp;</=
-span>u32</span><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; f=
-ont-family:&quot;Courier New&quot;; color:rgb(220,220,170)"></span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(220,220,170)">gfx_v9_0_get_rb_active_bitmap<=
-/span><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-famil=
-y:&quot;Courier New&quot;; color:rgb(212,212,212)">(</span><span class=3D""=
- lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&qu=
-ot;; color:rgb(86,156,214)">struct</span><span class=3D"" lang=3D"EN-US" st=
-yle=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; color:rgb(212=
-,212,212)"><span class=3D"x_Apple-converted-space">&nbsp;</span>amdgpu_devi=
-ce
- *adev)</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">{</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;u32 da=
-ta, mask;</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;data =
-=3D<span class=3D"x_Apple-converted-space">&nbsp;</span></span><span class=
-=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier N=
-ew&quot;; color:rgb(220,220,170)">RREG32_SOC15</span><span class=3D"" lang=
-=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; =
-color:rgb(212,212,212)">(GC,</span><span class=3D"" lang=3D"EN-US" style=3D=
-"font-size:10.5pt; font-family:&quot;Courier New&quot;; color:rgb(181,206,1=
-68)"></span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(181,206,168)">0</span><span class=3D"" lang=
-=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; =
-color:rgb(212,212,212)">, mmCC_RB_BACKEND_DISABLE);</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;data |=
-=3D<span class=3D"x_Apple-converted-space">&nbsp;</span></span><span class=
-=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier N=
-ew&quot;; color:rgb(220,220,170)">RREG32_SOC15</span><span class=3D"" lang=
-=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; =
-color:rgb(212,212,212)">(GC,</span><span class=3D"" lang=3D"EN-US" style=3D=
-"font-size:10.5pt; font-family:&quot;Courier New&quot;; color:rgb(181,206,1=
-68)"></span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(181,206,168)">0</span><span class=3D"" lang=
-=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; =
-color:rgb(212,212,212)">, mmGC_USER_RB_BACKEND_DISABLE);</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;data &=
-amp;=3D CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;data &=
-gt;&gt;=3D GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;mask =
-=3D<span class=3D"x_Apple-converted-space">&nbsp;</span></span><span class=
-=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier N=
-ew&quot;; color:rgb(220,220,170)">amdgpu_gfx_create_bitmask</span><span cla=
-ss=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier=
- New&quot;; color:rgb(212,212,212)">(adev-&gt;</span><span class=3D"" lang=
-=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; =
-color:rgb(156,220,254)">gfx</span><span class=3D"" lang=3D"EN-US" style=3D"=
-font-size:10.5pt; font-family:&quot;Courier New&quot;; color:rgb(212,212,21=
-2)">.</span><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font=
--family:&quot;Courier New&quot;; color:rgb(156,220,254)">config</span><span=
- class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Cou=
-rier New&quot;; color:rgb(212,212,212)">.</span><span class=3D"" lang=3D"EN=
--US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; color:=
-rgb(156,220,254)">max_backends_per_se</span><span class=3D"" lang=3D"EN-US"=
- style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; color:rgb(=
-212,212,212)"><span class=3D"x_Apple-converted-space">&nbsp;</span>/</span>=
-</div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; adev-&gt;</span><span class=3D"" lang=3D"EN-US" style=3D"">=
-gfx</span><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-f=
-amily:&quot;Courier New&quot;; color:rgb(212,212,212)">.</span><span class=
-=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier N=
-ew&quot;; color:rgb(156,220,254)">config</span><span class=3D"" lang=3D"EN-=
-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&quot;; color:r=
-gb(212,212,212)">.</span><span class=3D"" lang=3D"EN-US" style=3D"font-size=
-:10.5pt; font-family:&quot;Courier New&quot;; color:rgb(156,220,254)">max_s=
-h_per_se</span><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; f=
-ont-family:&quot;Courier New&quot;; color:rgb(212,212,212)">);</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;&nbsp;&nbsp;&nbsp;</span=
-><span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&qu=
-ot;Courier New&quot;; color:rgb(197,134,192)">return</span><span class=3D""=
- lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quot;Courier New&qu=
-ot;; color:rgb(212,212,212)"><span class=3D"x_Apple-converted-space">&nbsp;=
-</span>(~data)
- &amp; mask;</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-<div class=3D"">
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">}</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5; line-height:14.25pt; background-color:rgb(30,30,30)">
-<span class=3D"" lang=3D"EN-US" style=3D"font-size:10.5pt; font-family:&quo=
-t;Courier New&quot;; color:rgb(212,212,212)">&nbsp;</span></div>
-</div>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calib=
-ri,sans-serif">&nbsp;</span></div>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">see that it still read&nbsp;CC_RB_BACKEND_DISABLE</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">&nbsp;</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">thanks</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">&nbsp;</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">/Monk</span></p>
-<p class=3D""><span class=3D"" lang=3D"EN-US" style=3D"font-family:Calibri,=
-sans-serif">&nbsp;</span></p>
-</div>
-</blockquote>
-<div class=3D"" style=3D"margin:0cm 0cm 0.0001pt; font-size:12pt; font-fami=
-ly:=CB=CE=CC=E5"><span class=3D"" lang=3D"EN-US">&nbsp;</span></div>
-</div>
-</div>
-</blockquote>
-</div>
-<br class=3D"">
-</div>
-</blockquote>
-<br>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB1660D5E735D17FEEC2E5E51CF7D80DM5PR12MB1660namp_--
-
---===============1199555763==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1199555763==--
+T24gMjAxOC0wMy0wNyAwNDoxNiBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAwNi4w
+My4yMDE4IHVtIDIyOjI5IHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4+IE5BSy4KPj4KPj4gRm9y
+IEtGRCB3ZSBuZWVkIHRoZSBhYmlsaXR5IHRvIGNyZWF0ZSBhIEJPIGZyb20gYW4gU0cgbGlzdCB0
+aGF0IGRvZXNuJ3QKPj4gY29tZSBmcm9tIGFub3RoZXIgQk8uIFdlIHVzZSB0aGlzIGZvciBtYXBw
+aW5nIHBhZ2VzIGZyb20gdGhlIGRvb3JiZWxsCj4+IGFwZXJ0dXJlIGludG8gR1BVVk0gZm9yIEdQ
+VSBzZWxmLWRpc3BhdGNoLgo+IFlvdSBjYW4gc3RpbGwgZG8gdGhpcywgc2VlIGFtZGdwdV9nZW1f
+cHJpbWVfaW1wb3J0X3NnX3RhYmxlLgo+Cj4gSnVzdCBzZXQgdGhlIEJPIHR5cGUgdG8gU0cgYW5k
+IHRoZW4gc2V0dGluZyB0aGUgU0cgdGFibGUgYWZ0ZXIKPiBjcmVhdGluZyBpdDoKPj4gwqDCoMKg
+wqByZXQgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIGF0dGFjaC0+ZG1hYnVmLT5zaXplLCBQQUdF
+X1NJWkUsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBBTURHUFVfR0VN
+X0RPTUFJTl9DUFUsIDAsIHR0bV9ib190eXBlX3NnLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgcmVzdiwgJmJvKTsKPj4gwqDCoMKgwqDCoCBpZiAocmV0KQo+PiDCoMKg
+wqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcjsKPj4gwqAgwqDCoMKgwqBiby0+dGJvLnNnID0gc2c7
+Cj4+IMKgwqDCoMKgYm8tPnRiby50dG0tPnNnID0gc2c7Cj4KPiBUaGVuIHZhbGlkYXRlIHRoZSBy
+ZXN1bHQgaW50byB0aGUgR1RUIGRvbWFpbiB0byBhY3R1YWxseSB1c2UgdGhlIFNHCj4gdGFibGUu
+CgpPSywgSSdsbCB0cnkgaW1wbGVtZW50aW5nIHRoYXQgYmVmb3JlIHdlIG1lcmdlIHlvdXIgY2hh
+bmdlLgoKPgo+IEJUVzogSG93IGRvIHlvdSBjcmVhdGUgYW4gU0cgdGFibGUgZm9yIHRoZSBkb29y
+YmVsbD8KCktGRCBtYW5hZ2VzIHRoZSBkb29yYmVsbCBhcGVydHVyZSBhbmQgYXNzaWducyBvbmUg
+b3IgdHdvIHBhZ2VzIG9mCmRvb3JiZWxscyB0byBlYWNoIHByb2Nlc3MuIEtGRCBrbm93cyB0aGUg
+YnVzIGFkZHJlc3Mgb2YgdGhlIGRvb3JiZWxscwphbmQgcGFzc2VzIGl0IHRvIGFtZGdwdSwgd2hp
+Y2ggY3JlYXRlcyB0aGUgU0cgbGlrZSB0aGlzOgoKc3RhdGljIHN0cnVjdCBzZ190YWJsZSAqY3Jl
+YXRlX2Rvb3JiZWxsX3NnKHVpbnQ2NF90IGFkZHIsIHVpbnQzMl90IHNpemUpCnsKICAgICAgICBz
+dHJ1Y3Qgc2dfdGFibGUgKnNnID0ga21hbGxvYyhzaXplb2YoKnNnKSwgR0ZQX0tFUk5FTCk7Cgog
+ICAgICAgIGlmICghc2cpCiAgICAgICAgICAgICAgICByZXR1cm4gTlVMTDsKICAgICAgICBpZiAo
+c2dfYWxsb2NfdGFibGUoc2csIDEsIEdGUF9LRVJORUwpKSB7CiAgICAgICAgICAgICAgICBrZnJl
+ZShzZyk7CiAgICAgICAgICAgICAgICByZXR1cm4gTlVMTDsKICAgICAgICB9CiAgICAgICAgc2ct
+PnNnbC0+ZG1hX2FkZHJlc3MgPSBhZGRyOwogICAgICAgIHNnLT5zZ2wtPmxlbmd0aCA9IHNpemU7
+CiNpZmRlZiBDT05GSUdfTkVFRF9TR19ETUFfTEVOR1RICiAgICAgICAgc2ctPnNnbC0+ZG1hX2xl
+bmd0aCA9IHNpemU7CiNlbmRpZgogICAgICAgIHJldHVybiBzZzsKfQoKUmVnYXJkcywKwqAgRmVs
+aXgKCgo+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPj4KPj4gSWYgeW91IHJlbW92ZSB0aGlz
+IG5vdywgSSdsbCBuZWVkIHRvIGFkZCBpdCBiYWNrIGluIHNvbWUgZm9ybSBpbiBhIG1vbnRoCj4+
+IG9yIHR3byB3aGVuIEkgZ2V0IHRvIHRoYXQgcGFydCBvZiB1cHN0cmVhbWluZyBLRkQuCj4+Cj4+
+IFRoZXJlIG1heSBiZSBvdGhlciB3YXlzIHRvIGltcGxlbWVudCB0aGlzLiBDdXJyZW50bHkgd2Ug
+bmVlZCB0byBjcmVhdGUgYQo+PiBCTyBmb3IgYW55dGhpbmcgd2Ugd2FudCB0byBtYXAgaW50byBh
+IEdQVVZNIHBhZ2UgdGFibGUsIGJlY2F1c2UgdGhlCj4+IGFtZGdwdV92bSBjb2RlIGlzIGJhc2Vk
+IGFyb3VuZCBCT3MuIElmIHRoZXJlIHdhcyBhIHdheSB0byBtYXAgcGh5c2ljYWwKPj4gYWRkcmVz
+c2VzIGludG8gR1BVVk0gd2l0aG91dCBjcmVhdGluZyBhIGJ1ZmZlciBvYmplY3QsIHRoYXQgd291
+bGQKPj4gd29yayB0b28uCj4+Cj4+IFJlZ2FyZHMsCj4+IMKgwqAgRmVsaXgKPj4KPj4KPj4gT24g
+MjAxOC0wMy0wNiAwOTo0MyBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+IERyb3AgdGhl
+ICJrZXJuZWwiIGFuZCBzZyBwYXJhbWV0ZXIgYW5kIGdpdmUgdGhlIEJPIHR5cGUgdG8gY3JlYXRl
+Cj4+PiBleHBsaWNpdCB0byBhbWRncHVfYm9fY3JlYXRlIGluc3RlYWQgb2YgZmlndXJpbmcgaXQg
+b3V0IGZyb20gdGhlCj4+PiBwYXJhbWV0ZXJzLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IENocmlz
+dGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4+IC0tLQo+Pj4gwqAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmjCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAg
+MiArLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jwqDC
+oMKgIHzCoCA1ICstLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Jl
+bmNobWFyay5jIHzCoCA4ICsrLS0tCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZ2FydC5jwqDCoMKgwqDCoCB8wqAgNyArKy0tCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZ2VtLmPCoMKgwqDCoMKgwqAgfMKgIDYgKystLQo+Pj4gwqAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jwqDCoMKgIHwgNDYKPj4+ICsr
+KysrKysrKysrLS0tLS0tLS0tLS0tLS0tLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X29iamVjdC5owqDCoMKgIHwgMTEgKysrLS0tLQo+Pj4gwqAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmPCoMKgwqDCoCB8wqAgNyArKy0tCj4+PiDCoCBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdGVzdC5jwqDCoMKgwqDCoCB8IDExICsr
+Ky0tLS0KPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uY8KgwqDC
+oMKgwqDCoCB8IDExICsrKystLS0KPj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jwqDCoMKgwqDCoMKgwqAgfMKgIDggKystLS0KPj4+IMKgIDExIGZpbGVzIGNoYW5n
+ZWQsIDU4IGluc2VydGlvbnMoKyksIDY0IGRlbGV0aW9ucygtKQo+Pj4KPj4+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+Pj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+Pj4gaW5kZXggMjkyYzdlNzI4MjBjLi5iMTExNmI3NzM1
+MTYgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+
+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4+IEBAIC00NDEs
+NyArNDQxLDcgQEAgc3RydWN0IGFtZGdwdV9zYV9ibyB7Cj4+PiDCoCB2b2lkIGFtZGdwdV9nZW1f
+Zm9yY2VfcmVsZWFzZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4+PiDCoCBpbnQgYW1k
+Z3B1X2dlbV9vYmplY3RfY3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25l
+ZAo+Pj4gbG9uZyBzaXplLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGludCBhbGlnbm1lbnQsIHUzMiBpbml0aWFsX2RvbWFpbiwKPj4+IC3CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB1NjQgZmxhZ3MsIGJvb2wga2VybmVsLAo+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHU2NCBmbGFncywgZW51bSB0dG1fYm9fdHlwZSB0eXBlLAo+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCByZXNlcnZhdGlv
+bl9vYmplY3QgKnJlc3YsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+c3RydWN0IGRybV9nZW1fb2JqZWN0ICoqb2JqKTsKPj4+IMKgIGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jCj4+PiBpbmRleCA0NTA0MjZkYmVkOTIuLjdmMDk2
+ZWQ2ZTgzZCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9hbWRrZmQuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
+ZGtmZC5jCj4+PiBAQCAtMjE1LDggKzIxNSw5IEBAIGludCBhbGxvY19ndHRfbWVtKHN0cnVjdCBr
+Z2RfZGV2ICprZ2QsIHNpemVfdCBzaXplLAo+Pj4gwqDCoMKgwqDCoCBpZiAoKCptZW0pID09IE5V
+TEwpCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9NRU07Cj4+PiDCoCAtwqDCoMKg
+IHIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIHNpemUsIFBBR0VfU0laRSwgdHJ1ZSwKPj4+IEFN
+REdQVV9HRU1fRE9NQUlOX0dUVCwKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBBTURHUFVfR0VNX0NSRUFURV9DUFVfR1RUX1VTV0MsIE5VTEwsIE5VTEwsCj4+PiAmKCptZW0p
+LT5ibyk7Cj4+PiArwqDCoMKgIHIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIHNpemUsIFBBR0Vf
+U0laRSwgQU1ER1BVX0dFTV9ET01BSU5fR1RULAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNXQywgdHRtX2JvX3R5cGVfa2Vy
+bmVsLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIE5VTEwsICYoKm1lbSkt
+PmJvKTsKPj4+IMKgwqDCoMKgwqAgaWYgKHIpIHsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZf
+ZXJyKGFkZXYtPmRldiwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJmYWlsZWQgdG8g
+YWxsb2NhdGUgQk8gZm9yIGFtZGtmZCAoJWQpXG4iLCByKTsKPj4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYmVuY2htYXJrLmMKPj4+IGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JlbmNobWFyay5jCj4+PiBpbmRleCAyZmIyOTlhZmMx
+MmIuLjAyYjg0OWJlMDgzYiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9iZW5jaG1hcmsuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2JlbmNobWFyay5jCj4+PiBAQCAtODAsOCArODAsOCBAQCBzdGF0aWMgdm9pZCBh
+bWRncHVfYmVuY2htYXJrX21vdmUoc3RydWN0Cj4+PiBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNp
+Z25lZCBzaXplLAo+Pj4gwqDCoMKgwqDCoCBpbnQgdGltZTsKPj4+IMKgIMKgwqDCoMKgwqAgbiA9
+IEFNREdQVV9CRU5DSE1BUktfSVRFUkFUSU9OUzsKPj4+IC3CoMKgwqAgciA9IGFtZGdwdV9ib19j
+cmVhdGUoYWRldiwgc2l6ZSwgUEFHRV9TSVpFLCB0cnVlLCBzZG9tYWluLCAwLAo+Pj4gTlVMTCwK
+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBOVUxMLCAmc29iaik7Cj4+PiAr
+wqDCoMKgIHIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIHNpemUsIFBBR0VfU0laRSxzZG9tYWlu
+LCAwLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHR0bV9ib190eXBlX2tl
+cm5lbCwgTlVMTCwgJnNvYmopOwo+Pj4gwqDCoMKgwqDCoCBpZiAocikgewo+Pj4gwqDCoMKgwqDC
+oMKgwqDCoMKgIGdvdG8gb3V0X2NsZWFudXA7Cj4+PiDCoMKgwqDCoMKgIH0KPj4+IEBAIC05Myw4
+ICs5Myw4IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9iZW5jaG1hcmtfbW92ZShzdHJ1Y3QKPj4+IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsIHVuc2lnbmVkIHNpemUsCj4+PiDCoMKgwqDCoMKgIGlmIChyKSB7
+Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBvdXRfY2xlYW51cDsKPj4+IMKgwqDCoMKgwqAg
+fQo+Pj4gLcKgwqDCoCByID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LCBzaXplLCBQQUdFX1NJWkUs
+IHRydWUsIGRkb21haW4sIDAsCj4+PiBOVUxMLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIE5VTEwsICZkb2JqKTsKPj4+ICvCoMKgwqAgciA9IGFtZGdwdV9ib19jcmVhdGUo
+YWRldiwgc2l6ZSwgUEFHRV9TSVpFLCBkZG9tYWluLCAwLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHR0bV9ib190eXBlX2tlcm5lbCwgTlVMTCwgJmRvYmopOwo+Pj4gwqDC
+oMKgwqDCoCBpZiAocikgewo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gb3V0X2NsZWFudXA7
+Cj4+PiDCoMKgwqDCoMKgIH0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZ2FydC5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9nYXJ0LmMKPj4+IGluZGV4IGRjOGQ5ZjMyMTZmYS4uY2YwZjE4NmM2MDkyIDEwMDY0NAo+Pj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuYwo+Pj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuYwo+Pj4gQEAgLTExMywxMSAr
+MTEzLDEyIEBAIGludCBhbWRncHVfZ2FydF90YWJsZV92cmFtX2FsbG9jKHN0cnVjdAo+Pj4gYW1k
+Z3B1X2RldmljZSAqYWRldikKPj4+IMKgwqDCoMKgwqAgaW50IHI7Cj4+PiDCoCDCoMKgwqDCoMKg
+IGlmIChhZGV2LT5nYXJ0LnJvYmogPT0gTlVMTCkgewo+Pj4gLcKgwqDCoMKgwqDCoMKgIHIgPSBh
+bWRncHVfYm9fY3JlYXRlKGFkZXYsIGFkZXYtPmdhcnQudGFibGVfc2l6ZSwKPj4+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFBBR0VfU0laRSwgdHJ1ZSwgQU1ER1BV
+X0dFTV9ET01BSU5fVlJBTSwKPj4+ICvCoMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X2JvX2NyZWF0
+ZShhZGV2LCBhZGV2LT5nYXJ0LnRhYmxlX3NpemUsIFBBR0VfU0laRSwKPj4+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCj4+
+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBBTURHUFVfR0VN
+X0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEIHwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ09OVElHVU9VUywK
+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIE5VTEwsIE5VTEws
+ICZhZGV2LT5nYXJ0LnJvYmopOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgdHRtX2JvX3R5cGVfa2VybmVsLCBOVUxMLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmFkZXYtPmdhcnQucm9iaik7Cj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqAgaWYgKHIpIHsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBy
+Owo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIH0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2dlbS5jCj4+PiBpbmRleCA1NWE4NDBhZTZkNjguLmJiOWIyMTI2NmI2NyAxMDA2
+NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwo+Pj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCj4+PiBAQCAtNDUs
+NyArNDUsNyBAQCB2b2lkIGFtZGdwdV9nZW1fb2JqZWN0X2ZyZWUoc3RydWN0IGRybV9nZW1fb2Jq
+ZWN0Cj4+PiAqZ29iaikKPj4+IMKgIMKgIGludCBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiB1bnNpZ25lZCBsb25nIHNpemUsCj4+PiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaW50IGFsaWdubWVudCwgdTMyIGluaXRp
+YWxfZG9tYWluLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHU2NCBmbGFn
+cywgYm9vbCBrZXJuZWwsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdTY0
+IGZsYWdzLCBlbnVtIHR0bV9ib190eXBlIHR5cGUsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdiwKPj4+IMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKipv
+YmopCj4+PiDCoCB7Cj4+PiBAQCAtNTksOCArNTksOCBAQCBpbnQgYW1kZ3B1X2dlbV9vYmplY3Rf
+Y3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlCj4+PiAqYWRldiwgdW5zaWduZWQgbG9uZyBzaXpl
+LAo+Pj4gwqDCoMKgwqDCoCB9Cj4+PiDCoCDCoCByZXRyeToKPj4+IC3CoMKgwqAgciA9IGFtZGdw
+dV9ib19jcmVhdGUoYWRldiwgc2l6ZSwgYWxpZ25tZW50LCBrZXJuZWwsCj4+PiBpbml0aWFsX2Rv
+bWFpbiwKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmbGFncywgTlVMTCwg
+cmVzdiwgJmJvKTsKPj4+ICvCoMKgwqAgciA9IGFtZGdwdV9ib19jcmVhdGUoYWRldiwgc2l6ZSwg
+YWxpZ25tZW50LCBpbml0aWFsX2RvbWFpbiwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBmbGFncywgdHlwZSwgcmVzdiwgJmJvKTsKPj4+IMKgwqDCoMKgwqAgaWYgKHIpIHsK
+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAociAhPSAtRVJFU1RBUlRTWVMpIHsKPj4+IMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChmbGFncyAmIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9B
+Q0NFU1NfUkVRVUlSRUQpIHsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfb2JqZWN0LmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X29iamVjdC5jCj4+PiBpbmRleCAyMTY3OTljY2I1NDUuLjhmNTAyN2U4MjQxYSAxMDA2NDQK
+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+Pj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+PiBAQCAt
+MTg3LDEwICsxODcsMTAgQEAgaW50IGFtZGdwdV9ib19jcmVhdGVfcmVzZXJ2ZWQoc3RydWN0Cj4+
+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gwqDCoMKgwqDCoCBpbnQgcjsKPj4+IMKgIMKgwqDC
+oMKgwqAgaWYgKCEqYm9fcHRyKSB7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV9ib19j
+cmVhdGUoYWRldiwgc2l6ZSwgYWxpZ24sIHRydWUsIGRvbWFpbiwKPj4+ICvCoMKgwqDCoMKgwqDC
+oCByID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LCBzaXplLCBhbGlnbiwgZG9tYWluLAo+Pj4gwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX0dFTV9DUkVB
+VEVfQ1BVX0FDQ0VTU19SRVFVSVJFRCB8Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VPVVMsCj4+PiAt
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBOVUxMLCBOVUxMLCBib19w
+dHIpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdHRtX2Jv
+X3R5cGVfa2VybmVsLCBOVUxMLCBib19wdHIpOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChy
+KSB7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfZXJyKGFkZXYtPmRldiwgIigl
+ZCkgZmFpbGVkIHRvIGFsbG9jYXRlIGtlcm5lbCBib1xuIiwKPj4+IMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgcik7Cj4+PiBAQCAtMzMxLDIxICszMzEsMTkgQEAgc3RhdGljIGJv
+b2wgYW1kZ3B1X2JvX3ZhbGlkYXRlX3NpemUoc3RydWN0Cj4+PiBhbWRncHVfZGV2aWNlICphZGV2
+LAo+Pj4gwqDCoMKgwqDCoCByZXR1cm4gZmFsc2U7Cj4+PiDCoCB9Cj4+PiDCoCAtc3RhdGljIGlu
+dCBhbWRncHVfYm9fZG9fY3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gLcKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIHNpemUsIGlu
+dCBieXRlX2FsaWduLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBi
+b29sIGtlcm5lbCwgdTMyIGRvbWFpbiwgdTY0IGZsYWdzLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qgc2dfdGFibGUgKnNnLAo+Pj4gK3N0YXRpYyBpbnQg
+YW1kZ3B1X2JvX2RvX2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQK
+Pj4+IGxvbmcgc2l6ZSwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+aW50IGJ5dGVfYWxpZ24sIHUzMiBkb21haW4sCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHU2NCBmbGFncywgZW51bSB0dG1fYm9fdHlwZSB0eXBlLAo+Pj4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2Jq
+ZWN0ICpyZXN2LAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBz
+dHJ1Y3QgYW1kZ3B1X2JvICoqYm9fcHRyKQo+Pj4gwqAgewo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3Qg
+dHRtX29wZXJhdGlvbl9jdHggY3R4ID0gewo+Pj4gLcKgwqDCoMKgwqDCoMKgIC5pbnRlcnJ1cHRp
+YmxlID0gIWtlcm5lbCwKPj4+ICvCoMKgwqDCoMKgwqDCoCAuaW50ZXJydXB0aWJsZSA9ICh0eXBl
+ICE9IHR0bV9ib190eXBlX2tlcm5lbCksCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLm5vX3dhaXRf
+Z3B1ID0gZmFsc2UsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLnJlc3YgPSByZXN2LAo+Pj4gwqDC
+oMKgwqDCoMKgwqDCoMKgIC5mbGFncyA9IFRUTV9PUFRfRkxBR19BTExPV19SRVNfRVZJQ1QKPj4+
+IMKgwqDCoMKgwqAgfTsKPj4+IMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9ibyAqYm87Cj4+PiAt
+wqDCoMKgIGVudW0gdHRtX2JvX3R5cGUgdHlwZTsKPj4+IMKgwqDCoMKgwqAgdW5zaWduZWQgbG9u
+ZyBwYWdlX2FsaWduOwo+Pj4gwqDCoMKgwqDCoCBzaXplX3QgYWNjX3NpemU7Cj4+PiDCoMKgwqDC
+oMKgIGludCByOwo+Pj4gQEAgLTM1NiwxMyArMzU0LDYgQEAgc3RhdGljIGludCBhbWRncHVfYm9f
+ZG9fY3JlYXRlKHN0cnVjdAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+IMKgwqDCoMKgwqAg
+aWYgKCFhbWRncHVfYm9fdmFsaWRhdGVfc2l6ZShhZGV2LCBzaXplLCBkb21haW4pKQo+Pj4gwqDC
+oMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOwo+Pj4gwqAgLcKgwqDCoCBpZiAoa2VybmVs
+KSB7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgdHlwZSA9IHR0bV9ib190eXBlX2tlcm5lbDsKPj4+IC3C
+oMKgwqAgfSBlbHNlIGlmIChzZykgewo+Pj4gLcKgwqDCoMKgwqDCoMKgIHR5cGUgPSB0dG1fYm9f
+dHlwZV9zZzsKPj4+IC3CoMKgwqAgfSBlbHNlIHsKPj4+IC3CoMKgwqDCoMKgwqDCoCB0eXBlID0g
+dHRtX2JvX3R5cGVfZGV2aWNlOwo+Pj4gLcKgwqDCoCB9Cj4+PiDCoMKgwqDCoMKgICpib19wdHIg
+PSBOVUxMOwo+Pj4gwqAgwqDCoMKgwqDCoCBhY2Nfc2l6ZSA9IHR0bV9ib19kbWFfYWNjX3NpemUo
+JmFkZXYtPm1tYW4uYmRldiwgc2l6ZSwKPj4+IEBAIC0zODEsNyArMzcyLDggQEAgc3RhdGljIGlu
+dCBhbWRncHVfYm9fZG9fY3JlYXRlKHN0cnVjdAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9HRU1f
+RE9NQUlOX0dXUyB8Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBBTURHUFVfR0VNX0RPTUFJTl9PQSk7Cj4+PiDCoMKgwqDCoMKgIGJvLT5hbGxvd2VkX2Rv
+bWFpbnMgPSBiby0+cHJlZmVycmVkX2RvbWFpbnM7Cj4+PiAtwqDCoMKgIGlmICgha2VybmVsICYm
+IGJvLT5hbGxvd2VkX2RvbWFpbnMgPT0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTSkKPj4+ICvCoMKg
+wqAgaWYgKHR5cGUgIT0gdHRtX2JvX3R5cGVfa2VybmVsICYmCj4+PiArwqDCoMKgwqDCoMKgwqAg
+Ym8tPmFsbG93ZWRfZG9tYWlucyA9PSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKQo+Pj4gwqDCoMKg
+wqDCoMKgwqDCoMKgIGJvLT5hbGxvd2VkX2RvbWFpbnMgfD0gQU1ER1BVX0dFTV9ET01BSU5fR1RU
+Owo+Pj4gwqAgwqDCoMKgwqDCoCBiby0+ZmxhZ3MgPSBmbGFnczsKPj4+IEBAIC00MTksNyArNDEx
+LDcgQEAgc3RhdGljIGludCBhbWRncHVfYm9fZG9fY3JlYXRlKHN0cnVjdAo+Pj4gYW1kZ3B1X2Rl
+dmljZSAqYWRldiwKPj4+IMKgIMKgwqDCoMKgwqAgciA9IHR0bV9ib19pbml0X3Jlc2VydmVkKCZh
+ZGV2LT5tbWFuLmJkZXYsICZiby0+dGJvLCBzaXplLAo+Pj4gdHlwZSwKPj4+IMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAmYm8tPnBsYWNlbWVudCwgcGFnZV9hbGlnbiwgJmN0
+eCwgYWNjX3NpemUsCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2csIHJl
+c3YsICZhbWRncHVfdHRtX2JvX2Rlc3Ryb3kpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIE5VTEwsIHJlc3YsICZhbWRncHVfdHRtX2JvX2Rlc3Ryb3kpOwo+Pj4gwqDCoMKg
+wqDCoCBpZiAodW5saWtlbHkociAhPSAwKSkKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4g
+cjsKPj4+IMKgIEBAIC00MzEsNyArNDIzLDcgQEAgc3RhdGljIGludCBhbWRncHVfYm9fZG9fY3Jl
+YXRlKHN0cnVjdAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+IMKgwqDCoMKgwqAgZWxzZQo+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9jc19yZXBvcnRfbW92ZWRfYnl0ZXMoYWRldiwg
+Y3R4LmJ5dGVzX21vdmVkLCAwKTsKPj4+IMKgIC3CoMKgwqAgaWYgKGtlcm5lbCkKPj4+ICvCoMKg
+wqAgaWYgKHR5cGUgPT0gdHRtX2JvX3R5cGVfa2VybmVsKQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
+IGJvLT50Ym8ucHJpb3JpdHkgPSAxOwo+Pj4gwqAgwqDCoMKgwqDCoCBpZiAoZmxhZ3MgJiBBTURH
+UFVfR0VNX0NSRUFURV9WUkFNX0NMRUFSRUQgJiYKPj4+IEBAIC00NzUsMTIgKzQ2NywxMSBAQCBz
+dGF0aWMgaW50IGFtZGdwdV9ib19jcmVhdGVfc2hhZG93KHN0cnVjdAo+Pj4gYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKPj4+IMKgwqDCoMKgwqAgaWYgKGJvLT5zaGFkb3cpCj4+PiDCoMKgwqDCoMKgwqDC
+oMKgwqAgcmV0dXJuIDA7Cj4+PiDCoCAtwqDCoMKgIHIgPSBhbWRncHVfYm9fZG9fY3JlYXRlKGFk
+ZXYsIHNpemUsIGJ5dGVfYWxpZ24sIHRydWUsCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIEFNREdQVV9HRU1fRE9NQUlOX0dUVCwKPj4+ICvCoMKgwqAgciA9IGFtZGdwdV9ib19k
+b19jcmVhdGUoYWRldiwgc2l6ZSwgYnl0ZV9hbGlnbiwKPj4+IEFNREdQVV9HRU1fRE9NQUlOX0dU
+VCwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX0dFTV9DUkVB
+VEVfQ1BVX0dUVF9VU1dDIHwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+QU1ER1BVX0dFTV9DUkVBVEVfU0hBRE9XLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBOVUxMLCBiby0+dGJvLnJlc3YsCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgICZiby0+c2hhZG93KTsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdHRt
+X2JvX3R5cGVfa2VybmVsLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBiby0+
+dGJvLnJlc3YsICZiby0+c2hhZG93KTsKPj4+IMKgwqDCoMKgwqAgaWYgKCFyKSB7Cj4+PiDCoMKg
+wqDCoMKgwqDCoMKgwqAgYm8tPnNoYWRvdy0+cGFyZW50ID0gYW1kZ3B1X2JvX3JlZihibyk7Cj4+
+PiDCoMKgwqDCoMKgwqDCoMKgwqAgbXV0ZXhfbG9jaygmYWRldi0+c2hhZG93X2xpc3RfbG9jayk7
+Cj4+PiBAQCAtNDkxLDE4ICs0ODIsMTcgQEAgc3RhdGljIGludCBhbWRncHVfYm9fY3JlYXRlX3No
+YWRvdyhzdHJ1Y3QKPj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiDCoMKgwqDCoMKgIHJldHVy
+biByOwo+Pj4gwqAgfQo+Pj4gwqAgLWludCBhbWRncHVfYm9fY3JlYXRlKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2LAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25n
+IHNpemUsIGludCBieXRlX2FsaWduLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBib29s
+IGtlcm5lbCwgdTMyIGRvbWFpbiwgdTY0IGZsYWdzLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBzdHJ1Y3Qgc2dfdGFibGUgKnNnLAo+Pj4gK2ludCBhbWRncHVfYm9fY3JlYXRlKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBsb25nIHNpemUsCj4+PiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGludCBieXRlX2FsaWduLCB1MzIgZG9tYWluLAo+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB1NjQgZmxhZ3MsIGVudW0gdHRtX2JvX3R5cGUgdHlwZSwKPj4+IMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVz
+diwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9ibyAqKmJv
+X3B0cikKPj4+IMKgIHsKPj4+IMKgwqDCoMKgwqAgdWludDY0X3QgcGFyZW50X2ZsYWdzID0gZmxh
+Z3MgJiB+QU1ER1BVX0dFTV9DUkVBVEVfU0hBRE9XOwo+Pj4gwqDCoMKgwqDCoCBpbnQgcjsKPj4+
+IMKgIC3CoMKgwqAgciA9IGFtZGdwdV9ib19kb19jcmVhdGUoYWRldiwgc2l6ZSwgYnl0ZV9hbGln
+biwga2VybmVsLCBkb21haW4sCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBh
+cmVudF9mbGFncywgc2csIHJlc3YsIGJvX3B0cik7Cj4+PiArwqDCoMKgIHIgPSBhbWRncHVfYm9f
+ZG9fY3JlYXRlKGFkZXYsIHNpemUsIGJ5dGVfYWxpZ24sIGRvbWFpbiwKPj4+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgcGFyZW50X2ZsYWdzLCB0eXBlLCByZXN2LCBib19wdHIpOwo+
+Pj4gwqDCoMKgwqDCoCBpZiAocikKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4+
+IMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0
+LmgKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCj4+PiBp
+bmRleCAxY2VmOTQ0ZWY5OGQuLmRlYjEwZWNkODlhMSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaAo+Pj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCj4+PiBAQCAtMjAxLDEyICsyMDEsMTEgQEAg
+c3RhdGljIGlubGluZSBib29sCj4+PiBhbWRncHVfYm9fZXhwbGljaXRfc3luYyhzdHJ1Y3QgYW1k
+Z3B1X2JvICpibykKPj4+IMKgwqDCoMKgwqAgcmV0dXJuIGJvLT5mbGFncyAmIEFNREdQVV9HRU1f
+Q1JFQVRFX0VYUExJQ0lUX1NZTkM7Cj4+PiDCoCB9Cj4+PiDCoCAtaW50IGFtZGdwdV9ib19jcmVh
+dGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgc2l6ZSwgaW50IGJ5dGVfYWxpZ24sCj4+PiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wga2VybmVsLCB1MzIgZG9tYWluLCB1NjQgZmxh
+Z3MsCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBzZ190YWJsZSAq
+c2csCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCByZXNlcnZhdGlv
+bl9vYmplY3QgKnJlc3YsCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVj
+dCBhbWRncHVfYm8gKipib19wdHIpOwo+Pj4gK2ludCBhbWRncHVfYm9fY3JlYXRlKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBsb25nIHNpemUsCj4+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGludCBieXRlX2FsaWduLCB1MzIgZG9tYWluLAo+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB1NjQgZmxhZ3MsIGVudW0gdHRtX2JvX3R5cGUgdHlwZSwKPj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdiwKPj4+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9ibyAqKmJvX3B0cik7Cj4+
+PiDCoCBpbnQgYW1kZ3B1X2JvX2NyZWF0ZV9yZXNlcnZlZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVk
+IGxvbmcgc2l6ZSwgaW50IGFsaWduLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgdTMyIGRvbWFpbiwgc3RydWN0IGFtZGdwdV9ibyAqKmJvX3B0ciwKPj4+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYwo+Pj4gYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYwo+Pj4gaW5kZXggNDQyMzAx
+NjVlMTgxLi4xYzk5OTE3Mzg0NzcgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfcHJpbWUuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ByaW1lLmMKPj4+IEBAIC0xMDUsMTEgKzEwNSwxNCBAQCBhbWRncHVfZ2VtX3By
+aW1lX2ltcG9ydF9zZ190YWJsZShzdHJ1Y3QKPj4+IGRybV9kZXZpY2UgKmRldiwKPj4+IMKgwqDC
+oMKgwqAgaW50IHJldDsKPj4+IMKgIMKgwqDCoMKgwqAgd3dfbXV0ZXhfbG9jaygmcmVzdi0+bG9j
+aywgTlVMTCk7Cj4+PiAtwqDCoMKgIHJldCA9IGFtZGdwdV9ib19jcmVhdGUoYWRldiwgYXR0YWNo
+LT5kbWFidWYtPnNpemUsIFBBR0VfU0laRSwKPj4+IGZhbHNlLAo+Pj4gLcKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBBTURHUFVfR0VNX0RPTUFJTl9DUFUsIDAsIHNnLCByZXN2
+LCAmYm8pOwo+Pj4gK8KgwqDCoCByZXQgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIGF0dGFjaC0+
+ZG1hYnVmLT5zaXplLCBQQUdFX1NJWkUsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIEFNREdQVV9HRU1fRE9NQUlOX0NQVSwgMCwgdHRtX2JvX3R5cGVfc2csCj4+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlc3YsICZibyk7Cj4+PiDCoMKg
+wqDCoMKgIGlmIChyZXQpCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcjsKPj4+IMKg
+ICvCoMKgwqAgYm8tPnRiby5zZyA9IHNnOwo+Pj4gK8KgwqDCoCBiby0+dGJvLnR0bS0+c2cgPSBz
+ZzsKPj4+IMKgwqDCoMKgwqAgYm8tPmFsbG93ZWRfZG9tYWlucyA9IEFNREdQVV9HRU1fRE9NQUlO
+X0dUVDsKPj4+IMKgwqDCoMKgwqAgYm8tPnByZWZlcnJlZF9kb21haW5zID0gQU1ER1BVX0dFTV9E
+T01BSU5fR1RUOwo+Pj4gwqDCoMKgwqDCoCBpZiAoYXR0YWNoLT5kbWFidWYtPm9wcyAhPSAmYW1k
+Z3B1X2RtYWJ1Zl9vcHMpCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3Rlc3QuYwo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dGVzdC5jCj4+PiBpbmRleCBmM2Q4MWI2ZmI0OTkuLjJkYmU4NzU5MWY4MSAxMDA2NDQKPj4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90ZXN0LmMKPj4+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90ZXN0LmMKPj4+IEBAIC01OSw5ICs1OSw4
+IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kb190ZXN0X21vdmVzKHN0cnVjdAo+Pj4gYW1kZ3B1X2Rl
+dmljZSAqYWRldikKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIG91dF9jbGVhbnVwOwo+Pj4g
+wqDCoMKgwqDCoCB9Cj4+PiDCoCAtwqDCoMKgIHIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIHNp
+emUsIFBBR0VfU0laRSwgdHJ1ZSwKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBBTURHUFVfR0VNX0RPTUFJTl9WUkFNLCAwLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIE5VTEwsIE5VTEwsICZ2cmFtX29iaik7Cj4+PiArwqDCoMKgIHIgPSBhbWRncHVf
+Ym9fY3JlYXRlKGFkZXYsIHNpemUsIFBBR0VfU0laRSwKPj4+IEFNREdQVV9HRU1fRE9NQUlOX1ZS
+QU0sIDAsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdHRtX2JvX3R5cGVf
+a2VybmVsLCBOVUxMLCAmdnJhbV9vYmopOwo+Pj4gwqDCoMKgwqDCoCBpZiAocikgewo+Pj4gwqDC
+oMKgwqDCoMKgwqDCoMKgIERSTV9FUlJPUigiRmFpbGVkIHRvIGNyZWF0ZSBWUkFNIG9iamVjdFxu
+Iik7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBvdXRfY2xlYW51cDsKPj4+IEBAIC04MCw5
+ICs3OSw5IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kb190ZXN0X21vdmVzKHN0cnVjdAo+Pj4gYW1k
+Z3B1X2RldmljZSAqYWRldikKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCB2b2lkICoqdnJhbV9zdGFy
+dCwgKip2cmFtX2VuZDsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpm
+ZW5jZSA9IE5VTEw7Cj4+PiDCoCAtwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV9ib19jcmVhdGUo
+YWRldiwgc2l6ZSwgUEFHRV9TSVpFLCB0cnVlLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX0dFTV9ET01BSU5fR1RULCAwLCBOVUxMLAo+Pj4gLcKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgTlVMTCwgZ3R0X29iaiArIGkp
+Owo+Pj4gK8KgwqDCoMKgwqDCoMKgIHIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsIHNpemUsIFBB
+R0VfU0laRSwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFN
+REdQVV9HRU1fRE9NQUlOX0dUVCwgMCwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHR0bV9ib190eXBlX2tlcm5lbCwgTlVMTCwgZ3R0X29iaiArIGkpOwo+Pj4g
+wqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyKSB7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBEUk1fRVJST1IoIkZhaWxlZCB0byBjcmVhdGUgR1RUIG9iamVjdCAlZFxuIiwgaSk7Cj4+PiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIG91dF9sY2xlYW47Cj4+PiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+PiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+Pj4gaW5kZXggZWViYzlmNzdiNjExLi4x
+ZWM1NDYyOWYyNzcgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdHRtLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uYwo+Pj4gQEAgLTEzMTcsMTEgKzEzMTcsMTIgQEAgc3RhdGljIGludAo+Pj4gYW1kZ3B1X3R0
+bV9md19yZXNlcnZlX3ZyYW1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4+IMKg
+wqDCoMKgwqAgaWYgKGFkZXYtPmZ3X3ZyYW1fdXNhZ2Uuc2l6ZSA+IDAgJiYKPj4+IMKgwqDCoMKg
+wqDCoMKgwqDCoCBhZGV2LT5md192cmFtX3VzYWdlLnNpemUgPD0gdnJhbV9zaXplKSB7Cj4+PiDC
+oCAtwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV9ib19jcmVhdGUoYWRldiwgYWRldi0+ZndfdnJh
+bV91c2FnZS5zaXplLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgUEFHRV9TSVpFLCB0cnVl
+LCBBTURHUFVfR0VNX0RPTUFJTl9WUkFNLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1E
+R1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFVSVJFRCB8Cj4+PiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VPVVMsIE5VTEwsIE5VTEwsCj4+
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAmYWRldi0+ZndfdnJhbV91c2FnZS5yZXNlcnZlZF9i
+byk7Cj4+PiArwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV9ib19jcmVhdGUoYWRldiwgYWRldi0+
+ZndfdnJhbV91c2FnZS5zaXplLAo+Pj4gUEFHRV9TSVpFLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwKPj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9HRU1fQ1JFQVRFX0NQ
+VV9BQ0NFU1NfUkVRVUlSRUQgfAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DT05USUdVT1VTLAo+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdHRtX2JvX3R5cGVfa2VybmVsLCBOVUxM
+LAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmFkZXYtPmZ3
+X3ZyYW1fdXNhZ2UucmVzZXJ2ZWRfYm8pOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyKQo+
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl9jcmVhdGU7Cj4+PiDCoCBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+IGluZGV4IDBiMjM3ZTAy
+N2NhYi4uMjQ0NzQyOTRjOTJhIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZtLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jCj4+PiBAQCAtNDEzLDkgKzQxMyw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2Fs
+bG9jX2xldmVscyhzdHJ1Y3QKPj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqAgaWYgKCFlbnRyeS0+YmFzZS5ibykgewo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgciA9IGFtZGdwdV9ib19jcmVhdGUoYWRldiwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X3ZtX2JvX3NpemUoYWRldiwg
+bGV2ZWwpLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBBTURHUFVfR1BVX1BBR0VfU0laRSwgdHJ1ZSwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX0dQVV9QQUdFX1NJWkUsCj4+PiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQ
+VV9HRU1fRE9NQUlOX1ZSQU0sIGZsYWdzLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBOVUxMLCByZXN2LCAmcHQpOwo+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0dG1fYm9fdHlwZV9rZXJuZWws
+IHJlc3YsICZwdCk7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAocikKPj4+IMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7Cj4+PiDCoCBAQCAtMjQw
+OSw4ICsyNDA5LDggQEAgaW50IGFtZGdwdV92bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlCj4+
+PiAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIEFNREdQVV9HRU1fQ1JFQVRFX1NIQURPVyk7Cj4+PiDCoCDCoMKgwqDCoMKg
+IHNpemUgPSBhbWRncHVfdm1fYm9fc2l6ZShhZGV2LCBhZGV2LT52bV9tYW5hZ2VyLnJvb3RfbGV2
+ZWwpOwo+Pj4gLcKgwqDCoCByID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LCBzaXplLCBhbGlnbiwg
+dHJ1ZSwKPj4+IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgZmxhZ3MsIE5VTEwsIE5VTEwsICZ2bS0+cm9vdC5iYXNlLmJvKTsKPj4+
+ICvCoMKgwqAgciA9IGFtZGdwdV9ib19jcmVhdGUoYWRldiwgc2l6ZSwgYWxpZ24sIEFNREdQVV9H
+RU1fRE9NQUlOX1ZSQU0sCj4+PiBmbGFncywKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCB0dG1fYm9fdHlwZV9rZXJuZWwsIE5VTEwsICZ2bS0+cm9vdC5iYXNlLmJvKTsKPj4+
+IMKgwqDCoMKgwqAgaWYgKHIpCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl9mcmVl
+X3NjaGVkX2VudGl0eTsKPj4+IMKgIAo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
