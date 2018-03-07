@@ -1,18 +1,17 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: amdgpu with 8+ cards for GPU mining?
-Date: Wed, 7 Mar 2018 09:47:29 +0100
-Message-ID: <1dd10a53-eba5-995e-24a1-d582f8d80025@amd.com>
-References: <CAPoeEY80EyzCrRfTFp7E9VreZAzEUC4SQ6Kuqynn2Q3oL9CB5A@mail.gmail.com>
- <2c8f8862-9884-fd90-b8bb-0949ecd18185@gmail.com>
- <CAPoeEY_Nqif6j2c2TRqvgKCL4MBmqB0--yDjjAPakm0-7o71kQ@mail.gmail.com>
- <62af83ae-cd5d-3b70-b301-4afa01fcf947@amd.com>
- <CAPoeEY_-5khODYiUj_n8LWLKamBByEx98VGLdOU=RZmhZgDV8g@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati] Only change Set/MoveCursor hooks from what
+ we expect
+Date: Wed, 7 Mar 2018 09:50:35 +0100
+Message-ID: <5d491770-6af9-687e-c387-e95f70ad9d68@daenzer.net>
+References: <20180305174459.18765-1-michel@daenzer.net>
+ <CADnq5_Me0zYe3sLJ3j8kkr7mw6X6nQQCUHzVgYsXh=u9FtGvnw@mail.gmail.com>
+ <aac0c084-812e-5994-bea8-0690ce90ede8@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAPoeEY_-5khODYiUj_n8LWLKamBByEx98VGLdOU=RZmhZgDV8g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <aac0c084-812e-5994-bea8-0690ce90ede8-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,20 +22,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Joseph Wang <joequant-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dev-Kfi0mlvI6tSGglJvpFV4uA@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-V2VsbCB0aGF0IGlzIHZlcnkgaW50ZXJlc3RpbmcgdXNlIGNhc2UgeW91IGdvdCB0aGVyZS4KCkp1
-c3Qgb3V0IG9mIGN1cmlvc2l0eSwgY2FuIHdlIGdldCBhIGRtZXNnIGFuZCB0aGUgY29udGVudCBv
-ZiAvcHJvYy9pb21lbSAKZnJvbSB0aGF0IHdvcmtpbmcgc3lzdGVtPwoKVGhhbmtzLApDaHJpc3Rp
-YW4uCgpBbSAwNy4wMy4yMDE4IHVtIDAyOjAyIHNjaHJpZWIgSm9zZXBoIFdhbmc6Cj4gVGhhbmtz
-IGZvciBhbGwgb2YgdGhlIGhlbHAuwqAgSSd2ZSBwdXJjaGFzZWQgYSBHaWdhYnl0ZSBHQS1CMjUw
-LUZpbnRlY2ggCj4gbW90aGVyYm9hcmQsIGFuZCB3YXMgYWJsZSB0byBnZXQgOSBjYXJkcyBydW5u
-aW5nIG9uIHRoZSBzeXN0ZW0uwqAgU28gCj4gdGhlIDggY2FyZCBsaW1pdCBkb2VzIGFwcGVhciB0
-byBiZSBhIEJJT1MgaXNzdWUgd2l0aCB0aGUgQVNVUyBCMjUwIAo+IE1pbmluZyBFeHBlcnQKPgo+
-IEhlcmUgYXJlIHNvbWUgb2YgbXkgZXhwZXJpZW5jZXMgd2l0aCBtaW5pbmcgbW90aGVyYm9hcmRz
-Lgo+Cj4gaHR0cHM6Ly9iaXRxdWFudC53b3JkcHJlc3MuY29tLzIwMTgvMDMvMDcvbWluaW5nLW1v
-dGhlcmJvYXJkcy1ub3Rlcy8KPgo+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+T24gMjAxOC0wMy0wNyAwNDo0NSBBTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPiBPbiAwMy8wNS8y
+MDE4IDEwOjU2IFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+IE9uIE1vbiwgTWFyIDUsIDIwMTgg
+YXQgMTI6NDQgUE0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+Cj4+IHdyb3Rl
+Ogo+Pj4gRnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4+Pgo+
+Pj4gU2luY2UgeGY4NkN1cnNvckNsb3NlU2NyZWVuIHJ1bnMgYWZ0ZXIgUkFERU9OQ2xvc2VTY3Jl
+ZW5fS01TLAo+Pj4gUG9pbnRQcml2LT5zcHJpdGVGdW5jcyBkb2Vzbid0IHBvaW50IHRvIHRoZSBz
+YW1lIHN0cnVjdCBpbiB0aGUgbGF0dGVyIGFzCj4+PiBpbiBSQURFT05DdXJzb3JJbml0X0tNUy4g
+U28gd2Ugd2VyZSByZXN0b3JpbmcgaW5mby0+U2V0L01vdmVDdXJzb3IgdG8KPj4+IHRoZSB3cm9u
+ZyBzdHJ1Y3QuIFRoZW4gaW4gdGhlIG5leHQgc2VydmVyIGdlbmVyYXRpb24sCj4+PiBpbmZvLT5T
+ZXQvTW92ZUN1cnNvciB3b3VsZCBlbmQgdXAgcG9pbnRpbmcgdG8KPj4+IGRybW1vZGVfc3ByaXRl
+X3NldC9tb3ZlX2N1cnNvciwgcmVzdWx0aW5nIGluIGFuIGluZmluaXRlIGxvb3AgaWYgb25lIG9m
+Cj4+PiB0aGVtIHdhcyBjYWxsZWQuCj4+Pgo+Pj4gVG8gYXZvaWQgdGhpcywgb25seSBjaGFuZ2Ug
+dGhlIFNldC9Nb3ZlQ3Vyc29yIGhvb2tzIGlmIHRoZWlyIHZhbHVlcwo+Pj4gbWF0Y2ggb3VyIGV4
+cGVjdGF0aW9ucywgb3RoZXJ3aXNlIGxlYXZlIHRoZW0gYXMgaXMuIFRoaXMgaXMga2luZCBvZiBh
+Cj4+PiBoYWNrLCBidXQgdGhlIGFsdGVybmF0aXZlIHdvdWxkIGJlIGludmFzaXZlIGFuZCB0aHVz
+IHJpc2t5IGNoYW5nZXMgdG8KPj4+IHRoZSB3YXkgd2UncmUgd3JhcHBpbmcgQ2xvc2VTY3JlZW4s
+IGFuZCBpdCdzIG5vdCBldmVuIGNsZWFyIHRoYXQgY2FuCj4+PiB3b3JrIHdpdGhvdXQgY2hhbmdp
+bmcgeHNlcnZlciBjb2RlLgo+Pj4KPj4+IEZpeGVzOiAxZmU4Y2E3NTk3NGMgKCJLZWVwIHRyYWNr
+IG9mIGhvdyBtYW55IFNXIGN1cnNvcnMgYXJlIHZpc2libGUgb24KPj4+IMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVhY2ggc2NyZWVuIikKPj4+IFNpZ25lZC1v
+ZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Pgo+PiBBY2tl
+ZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pgo+IAo+IE5v
+cGUsIG5vdCBxdWl0ZSwgdW5mb3J0dW5hdGVseS4gVGVzdGVkIGFnYWluc3QgeC1zZXJ2ZXIgbWFz
+dGVyLCBtZXNhCj4gbWFzdGVyLCBhdGktZGR4IG1hc3Rlciwgd2l0aCBzZGRtIGxvZ2luIG1hbmFn
+ZXIuIFdpdGggYSBmcmVzaGx5IHN0YXJ0ZWQKPiBzZXJ2ZXIsIG5vdyBvbiBhIGR1YWwteC1zY3Jl
+ZW4gc2V0dXAsIGluc3RlYWQgb2YgYW4gaW5maW5pdGUgbG9vcCwgaSBnZXQKPiBhIHNlcnZlciBj
+cmFzaCBhcyBzb29uIGFzIGkgbW92ZSB0aGUgbW91c2UgY3Vyc29yIGZyb20gWC1TY3JlZW4gMCB0
+bwo+IFgtU2NyZWVuIDE6CgpXZWxsLCB0aGF0J3Mgbm90IHRoZSBzYW1lIGlzc3VlIEkgd2FzIHNl
+ZWluZyBhZnRlciBhbGwuIEknbGwgdGFrZQphbm90aGVyIGxvb2suCgoKLS0gCkVhcnRobGluZyBN
+aWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFt
+ZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAg
+IE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
