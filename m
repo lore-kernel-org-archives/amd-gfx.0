@@ -1,22 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: deprecated register issues
-Date: Thu, 8 Mar 2018 10:40:36 +0100
-Message-ID: <7e01679a-81fe-3e1d-9eb1-c7668145a87a@gmail.com>
-References: <BLUPR12MB04496DB9A508E4AEE114AF2484D80@BLUPR12MB0449.namprd12.prod.outlook.com>
- <0258a141-8849-623b-9949-de14026e76a8@amd.com>
- <BLUPR12MB044941D93445D001B482655984D80@BLUPR12MB0449.namprd12.prod.outlook.com>
- <58B0701E-D93F-417B-816C-0616F364789A@amd.com>
- <8ccdd2af-4520-866b-9b55-fa41b05c1fa1@amd.com>
- <DM5PR12MB1660D5E735D17FEEC2E5E51CF7D80@DM5PR12MB1660.namprd12.prod.outlook.com>
- <BLUPR12MB04499E74336A32888737C2B584DF0@BLUPR12MB0449.namprd12.prod.outlook.com>
- <BN6PR12MB165241AC2937FA73FE9E95C6F7DF0@BN6PR12MB1652.namprd12.prod.outlook.com>
- <BLUPR12MB044941CA8B586506C47EF57184DF0@BLUPR12MB0449.namprd12.prod.outlook.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 4/8] drm/amd/pp: Clean up the code for RV in powerplay
+Date: Thu, 8 Mar 2018 08:37:57 -0500
+Message-ID: <CADnq5_PkhuDZKLxyT=u4_cmqWSok0rLm5xvtWsP9pU_su0FwMg@mail.gmail.com>
+References: <1520419570-28831-1-git-send-email-Rex.Zhu@amd.com>
+ <1520419570-28831-4-git-send-email-Rex.Zhu@amd.com>
+ <CADnq5_Nf-hZLLYiOOc96EiP4amYo+nZodfQWrsi7LLL5zZCLdw@mail.gmail.com>
+ <CY4PR12MB16876C89FC2C08EB2197FE62FBDF0@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1409692106=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB044941CA8B586506C47EF57184DF0-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB16876C89FC2C08EB2197FE62FBDF0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -27,1550 +21,302 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
-Cc: "Jin, Jian-Rong" <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1409692106==
-Content-Type: multipart/alternative;
- boundary="------------A90022607724C835746DF1C1"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------A90022607724C835746DF1C1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Monk,
-
-> While we can avoid such vm flush failure by stitch together of the 
-> sending REQ and reading ACK part, at least for compute ring this is 
-> confirmed.
-Well there are two misunderstanding here.
-
-First of all this solution doesn't really work, it just hides the 
-problem because we don't do a world switch in between those two packets 
-any more. And while we could change the SDMA, UVD and VCE firmware do to 
-something similar you can't apply this solution to CPU based flushes.
-
-The second issue is that this isn't related to VMHUB flushing at all, 
-it's just that VMHUB flushing is the first thing where you notice that 
-something is wrong.
-
-The real problem is that when you access CC_RB_BACKEND_DISABLE and a 
-bunch of other registers the bus on Vega10 sometimes gets a hickup and 
-drops other reads and writes.
-
-So we need to identify those registers and removes all accesses to them, 
-otherwise working with the hardware will just be horrible unreliable in 
-general.
-
-Regards,
-Christian.
-
-Am 08.03.2018 um 04:05 schrieb Liu, Monk:
->
-> Hi Alex
->
-> While we can avoid such vm flush failure by stitch together of the 
-> sending REQ and reading ACK part, at least for compute ring this is 
-> confirmed.
->
-> And I believe for SDMA ring (even UVD/VCE ring) it could also be achieved.
->
-> But @Koenig, Christian <mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org> insist 
-> stitching together the REQ AND ACK part is not a formal way to fix the 
-> issue, instead just a walkaround and I cannot debate that
->
-> What make me worry more is what if there are more registers like Alex 
-> said that behaves like this CC_RB_BACKEND_DISABLE,
->
-> since we don’t know their names(too hard to filter them out!) so we 
-> couldn’t remove them all from SR list,
->
-> So I still think we need plan B to handle above case,  A.K.A use one 
-> package for the REQ and ACK job
->
-> /Monk
->
-> *From:*Deucher, Alexander
-> *Sent:* 2018年3月8日10:53
-> *To:* Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian 
-> <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; Mao, David <David.Mao-5C7GfCeVMHo@public.gmane.org>
-> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Jin, Jian-Rong 
-> <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org>
-> *Subject:* Re: deprecated register issues
->
-> I think there are more than just CC_RB_BACKEND_DISABLE that could 
-> cause this problem. IIRC, some entire class of gfx registers could 
-> cause it, it just happened that this was one of the only ones we 
-> readback via mmio.  Also for the save and restore list, I think the 
-> RLC uses a different interface to read back the registers so it may 
-> not be affected the same way.
->
-> Alex
->
-> ------------------------------------------------------------------------
->
-> *From:*Liu, Monk
-> *Sent:* Wednesday, March 7, 2018 9:42:41 PM
-> *To:* Deucher, Alexander; Koenig, Christian; Mao, David
-> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
-> <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jin, Jian-Rong
-> *Subject:* RE: deprecated register issues
->
-> Hi guys
->
-> According to Christian’s found, reading this register would make vm 
-> hub failed to finish the vm flush request , e.g.: sdma is doing vm 
-> flush which first write data to vm_invalidat_req and read result from 
-> vm_invalidate_ack, but found driver will forever failed to get the 
-> correct value from vm_invalidate_ack if the meantime BIF is reading 
-> this CC_RB_BACKEND_DISABLE register.
->
-> Now SR-IOV world switch also may get such similar trouble, see below 
-> save_restore_list ( during world_switch, RLCV will save current VF’s 
-> register according to this list and restore all those registers when 
-> loading back this VF)
->
-> uint32 register_restore[] = {
->
-> (uint32)((0x3000 << 18) | mmPA_SC_FIFO_SIZE),   /* SC   */
->
-> 0x00000001,
->
-> *(uint32)((0x3000 << 18) | mmCC_RB_BACKEND_DISABLE),   /* SC SC 
-> PER_SE  */*
->
-> *0x00000000,*
->
-> *(uint32)((0x3400 << 18) | mmCC_RB_BACKEND_DISABLE),   /* SC SC 
-> PER_SE  */*
->
-> *0x00000000,*
->
-> *(uint32)((0x3800 << 18) | mmCC_RB_BACKEND_DISABLE),   /* SC SC 
-> PER_SE  */*
->
-> *0x00000000,*
->
-> *(uint32)((0x3c00 << 18) | mmCC_RB_BACKEND_DISABLE),   /* SC SC 
-> PER_SE  */*
->
-> *0x00000000,*
->
-> (uint32)((0x3000 << 18) | mmVGT_VTX_VECT_EJECT_REG),
->
-> 0x00000001,
->
-> (uint32)((0x3000 << 18) | mmVGT_DMA_DATA_FIFO_DEPTH),   /* IA WD  */
->
-> 0x00000001,
->
-> (uint32)((0x3000 << 18) | mmVGT_DMA_REQ_FIFO_DEPTH),   /* WD   */
->
-> 0x00000001,
->
-> (uint32)((0x3000 << 18) | mmVGT_DRAW_INIT_FIFO_DEPTH),   /* WD   */
->
-> 0x00000001,
->
-> (uint32)((0x3000 << 18) | mmVGT_CACHE_INVALIDATION),   /*  IA  */
->
-> 0x00000001,
->
-> (uint32)((0x3000 << 18) | mmVGT_RESET_DEBUG), /*  WD  */
->
-> 0x00000001,
->
-> (uint32)((0x3000 << 18) | mmVGT_FIFO_DEPTHS),
->
-> I will do some test against this CC_RB_BACKEND_DISABLE register, see 
-> if vm flush failure issue could be avoided by removing those four 
-> register from SR list
->
-> Thanks
->
-> /Monk
->
-> *From:*Deucher, Alexander
-> *Sent:* 2018年3月7日23:13
-> *To:* Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org 
-> <mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org>>; Mao, David <David.Mao-5C7GfCeVMHo@public.gmane.org 
-> <mailto:David.Mao-5C7GfCeVMHo@public.gmane.org>>; Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org 
-> <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>
-> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
-> <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jin, Jian-Rong 
-> <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org <mailto:Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org>>
-> *Subject:* Re: deprecated register issues
->
-> Right.  We ran into issues with reading back that register at runtime 
-> when UMDs queried it when other stuff was in flight, so we just read 
-> it once at startup and cache the results. Now when UMDs request it, we 
-> return the cached value.
->
-> Alex
->
-> ------------------------------------------------------------------------
->
-> *From:*Koenig, Christian
-> *Sent:* Wednesday, March 7, 2018 9:31:13 AM
-> *To:* Mao, David; Liu, Monk
-> *Cc:* Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
-> <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jin, Jian-Rong
-> *Subject:* Re: deprecated register issues
->
-> Hi David,
->
-> well I just figured that this is a misunderstanding.
->
-> Accessing this register and some other deprecated registers can cause 
-> problem when invalidating VMHUBs.
->
-> This register itself isn't deprecated, the wording in a patch fixing 
-> things is just a bit unclear.
->
-> Question is is that register still accessed regularly or is it value 
-> cached after startup?
->
-> Regards,
-> Christian.
->
-> Am 07.03.2018 um 15:25 schrieb Mao, David:
->
->     We requires base driver to provide the mask of disabled RB.
->
->     This is why kernel read the CC_RB_BACKEND_DISABLE to collect the
->     harvest configuration.
->
->     Where did you get to know that the register is deprecated?
->
->     I think it should still be there.
->
->     Best Regards,
->
->     David
->
->         On Mar 7, 2018, at 9:49 PM, Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org
->         <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>> wrote:
->
->         + UMD guys
->
->         Hi David
->
->         Do you know if*GC_USER_RB_BACKEND_DISABLE is still exist for
->         gfx9/vega10 ?*
->
->         **
->
->         *We found*CC_RB_BACKEND_DISABLE was deprecated but looks it is
->         still in use in kmd, so
->
->         I want to check with you both of above registers
->
->         Thanks
->
->         /Monk
->
->         *From:*amd-gfx
->         [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]*On Behalf
->         Of*Christian K?nig
->         *Sent:*2018年3月7日20:26
->         *To:*Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>;
->         Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org
->         <mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>>
->         *Cc:*amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->         *Subject:*Re: deprecated register issues
->
->         Hi Monk,
->
->         I honestly don't have the slightest idea why we are still
->         accessing CC_RB_BACKEND_DISABLE. Maybe it still contains some
->         useful values?
->
->         Key point was that we needed to stop accessing it all the time
->         to avoid triggering problems.
->
->         Regards,
->         Christian.
->
->         Am 07.03.2018 um 13:11 schrieb Liu, Monk:
->
->             Hi Christian
->
->             I remember you and AlexD mentioned that a handful
->             registers are deprecated for greenland (gfx9)
->
->             e.g. CC_RB_BACKEND_DISABLE
->
->             do you know why we still have this routine ?
->
->             staticu32
->
->             gfx_v9_0_get_rb_active_bitmap(structamdgpu_device *adev)
->
->             {
->
->                 u32 data, mask;
->
->                 data =RREG32_SOC15(GC,
->
->             0, mmCC_RB_BACKEND_DISABLE);
->
->                 data |=RREG32_SOC15(GC,
->
->             0, mmGC_USER_RB_BACKEND_DISABLE);
->
->                 data &= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
->
->                 data >>=
->             GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
->
->                 mask
->             =amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se/
->
->             adev->gfx.config.max_sh_per_se);
->
->             return(~data) & mask;
->
->             }
->
->             see that it still read CC_RB_BACKEND_DISABLE
->
->             thanks
->
->             /Monk
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------A90022607724C835746DF1C1
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi Monk,<br>
-      <br>
-      <blockquote type="cite"><span
-          style="font-size:10.5pt;font-family:等线" lang="EN-US">While we
-          can avoid such vm flush failure by stitch together of the
-          sending REQ and reading ACK part, at least for compute ring
-          this is confirmed.</span></blockquote>
-      Well there are two misunderstanding here. <br>
-      <br>
-      First of all this solution doesn't really work, it just hides the
-      problem because we don't do a world switch in between those two
-      packets any more. And while we could change the SDMA, UVD and VCE
-      firmware do to something similar you can't apply this solution to
-      CPU based flushes.<br>
-      <br>
-      The second issue is that this isn't related to VMHUB flushing at
-      all, it's just that VMHUB flushing is the first thing where you
-      notice that something is wrong.<br>
-      <br>
-      The real problem is that when you access <span
-        style="font-family:&quot;Calibri&quot;,sans-serif;color:black"
-        lang="EN-US">CC_RB_BACKEND_DISABLE and a bunch of other
-        registers the bus on Vega10 sometimes gets a hickup and drops
-        other reads and writes.<br>
-        <br>
-        So we need to identify those registers and removes all accesses
-        to them, otherwise working with the hardware will just be
-        horrible unreliable in general.<br>
-        <br>
-        Regards,<br>
-        Christian.<br>
-      </span><br>
-      Am 08.03.2018 um 04:05 schrieb Liu, Monk:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BLUPR12MB044941CA8B586506C47EF57184DF0-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]-->
-      <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:宋体;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:等线;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@宋体";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@等线";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:宋体;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:宋体;}
-p.xmsonormal, li.xmsonormal, div.xmsonormal
-	{mso-style-name:x_msonormal;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:宋体;}
-p.xmsonormal0, li.xmsonormal0, div.xmsonormal0
-	{mso-style-name:x_msonormal0;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:宋体;}
-p.xmsochpdefault, li.xmsochpdefault, div.xmsochpdefault
-	{mso-style-name:x_msochpdefault;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:宋体;}
-span.xemailstyle21
-	{mso-style-name:x_emailstyle21;
-	font-family:等线;
-	color:windowtext;}
-span.xxapple-converted-space
-	{mso-style-name:x_xapple-converted-space;}
-span.EmailStyle25
-	{mso-style-type:personal-reply;
-	font-family:等线;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">Hi Alex<o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">While
-            we can avoid such vm flush failure by stitch together of the
-            sending REQ and reading ACK part, at least for compute ring
-            this is confirmed.<o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">And I
-            believe for SDMA ring (even UVD/VCE ring) it could also be
-            achieved.<o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">But
-            <a id="OWAAM88494E83DC8949F581E2AEBF1FC603DA"
-              href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org"
-              moz-do-not-send="true">
-              <span style="font-family:等线;text-decoration:none">@Koenig,
-                Christian</span></a> insist stitching together the REQ
-            AND ACK part is not a formal way to fix the issue, instead
-            just a walkaround and I cannot debate that<o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">What
-            make me worry more is what if there are more registers like
-            Alex said that behaves like this CC_RB_BACKEND_DISABLE,
-            <o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">since
-            we don’t know their names(too hard to filter them out!) so
-            we couldn’t remove them all from SR list,
-            <o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">So I
-            still think we need plan B to handle above case,  A.K.A use
-            one package for the REQ and ACK job<o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US">/Monk<o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:10.5pt;font-family:等线" lang="EN-US"><o:p> </o:p></span></p>
-        <div>
-          <div style="border:none;border-top:solid #E1E1E1
-            1.0pt;padding:3.0pt 0cm 0cm 0cm">
-            <p class="MsoNormal"><b><span
-                  style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                  lang="EN-US">From:</span></b><span
-                style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                lang="EN-US"> Deucher, Alexander
-                <br>
-                <b>Sent:</b> 2018</span><span style="font-size:11.0pt">年</span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                lang="EN-US">3</span><span style="font-size:11.0pt">月</span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                lang="EN-US">8</span><span style="font-size:11.0pt">日</span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                lang="EN-US"> 10:53<br>
-                <b>To:</b> Liu, Monk <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>; Koenig,
-                Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>; Mao, David
-                <a class="moz-txt-link-rfc2396E" href="mailto:David.Mao-5C7GfCeVMHo@public.gmane.org">&lt;David.Mao-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <b>Cc:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Jin, Jian-Rong
-                <a class="moz-txt-link-rfc2396E" href="mailto:Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org">&lt;Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <b>Subject:</b> Re: deprecated register issues<o:p></o:p></span></p>
-          </div>
-        </div>
-        <p class="MsoNormal"><span lang="EN-US"><o:p> </o:p></span></p>
-        <div id="divtagdefaultwrapper">
-          <p><span
-              style="font-family:&quot;Calibri&quot;,sans-serif;color:black"
-              lang="EN-US">I think there are more than just
-              CC_RB_BACKEND_DISABLE that could cause this problem. 
-              IIRC, some entire class of gfx registers could cause it,
-              it just happened that this was one of the only ones we
-              readback via mmio.  Also for the save and restore list, I
-              think the RLC uses a different interface to read back the
-              registers so it may not be affected the same way.<o:p></o:p></span></p>
-          <p><span
-              style="font-family:&quot;Calibri&quot;,sans-serif;color:black"
-              lang="EN-US"><o:p> </o:p></span></p>
-          <p><span
-              style="font-family:&quot;Calibri&quot;,sans-serif;color:black"
-              lang="EN-US">Alex<o:p></o:p></span></p>
-        </div>
-        <div class="MsoNormal" style="text-align:center" align="center"><span
-            lang="EN-US">
-            <hr align="center" size="3" width="98%">
-          </span></div>
-        <div id="divRplyFwdMsg">
-          <p class="MsoNormal"><b><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"
-                lang="EN-US">From:</span></b><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"
-              lang="EN-US"> Liu, Monk<br>
-              <b>Sent:</b> Wednesday, March 7, 2018 9:42:41 PM<br>
-              <b>To:</b> Deucher, Alexander; Koenig, Christian; Mao,
-              David<br>
-              <b>Cc:</b> <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>;
-              Jin, Jian-Rong<br>
-              <b>Subject:</b> RE: deprecated register issues</span><span
-              lang="EN-US"> <o:p></o:p></span></p>
-          <div>
-            <p class="MsoNormal"><span lang="EN-US"> <o:p></o:p></span></p>
-          </div>
-        </div>
-        <div>
-          <div>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">Hi
-                guys
-              </span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US"> </span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">According
-                to Christian</span><span
-                style="font-size:10.5pt;font-family:等线">’<span
-                  lang="EN-US">s found, reading this register would make
-                  vm hub failed to finish the vm flush request , e.g.:
-                  sdma is doing vm flush which first write data to
-                  vm_invalidat_req and read result from
-                  vm_invalidate_ack, but found driver will forever
-                  failed to get the correct value from vm_invalidate_ack
-                  if the meantime BIF is reading this
-                  CC_RB_BACKEND_DISABLE register.</span></span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US"> </span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">Now
-                SR-IOV world switch also may get such similar trouble,
-                see below save_restore_list ( during world_switch, RLCV
-                will save current VF</span><span
-                style="font-size:10.5pt;font-family:等线">’<span
-                  lang="EN-US">s register according to this list and
-                  restore all those registers when loading back this VF)</span></span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US"> </span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">uint32
-                register_restore[] = {</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) | mmPA_SC_FIFO_SIZE),   /*
-                SC   */</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                0x00000001,</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  (uint32)((0x3000 &lt;&lt; 18) |
-                  mmCC_RB_BACKEND_DISABLE),   /* SC SC PER_SE  */</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  0x00000000,</span></b><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  (uint32)((0x3400 &lt;&lt; 18) |
-                  mmCC_RB_BACKEND_DISABLE),   /* SC SC PER_SE  */</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  0x00000000,</span></b><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  (uint32)((0x3800 &lt;&lt; 18) |
-                  mmCC_RB_BACKEND_DISABLE),   /* SC SC PER_SE  */</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  0x00000000,</span></b><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  (uint32)((0x3c00 &lt;&lt; 18) |
-                  mmCC_RB_BACKEND_DISABLE),   /* SC SC PER_SE  */</span></b><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><b><span
-                  style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                  0x00000000,</span></b><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) |
-                mmVGT_VTX_VECT_EJECT_REG),      
-              </span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                0x00000001,</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) |
-                mmVGT_DMA_DATA_FIFO_DEPTH),   /* IA WD  */</span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                0x00000001,</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) |
-                mmVGT_DMA_REQ_FIFO_DEPTH),   /* WD   */</span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                0x00000001,</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) |
-                mmVGT_DRAW_INIT_FIFO_DEPTH),   /* WD   */</span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                0x00000001,</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) |
-                mmVGT_CACHE_INVALIDATION),   /*  IA  */</span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                0x00000001,</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) | mmVGT_RESET_DEBUG),  
-                /*  WD  */</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                0x00000001,</span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">      
-                (uint32)((0x3000 &lt;&lt; 18) |
-                mmVGT_FIFO_DEPTHS),      
-              </span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US"> </span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">I
-                will do some test against this CC_RB_BACKEND_DISABLE
-                register, see if vm flush failure issue could be avoided
-                by removing those four register from SR list
-              </span><span lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US"> </span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">Thanks</span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US"> </span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US">/Monk</span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <p class="xmsonormal"><span
-                style="font-size:10.5pt;font-family:等线" lang="EN-US"> </span><span
-                lang="EN-US"><o:p></o:p></span></p>
-            <div>
-              <div style="border:none;border-top:solid #E1E1E1
-                1.0pt;padding:3.0pt 0cm 0cm 0cm">
-                <p class="xmsonormal"><b><span
-                      style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                      lang="EN-US">From:</span></b><span
-                    style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                    lang="EN-US"> Deucher, Alexander
-                    <br>
-                    <b>Sent:</b> 2018</span><span
-                    style="font-size:11.0pt">年</span><span
-                    style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                    lang="EN-US">3</span><span style="font-size:11.0pt">月</span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                    lang="EN-US">7</span><span style="font-size:11.0pt">日</span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                    lang="EN-US"> 23:13<br>
-                    <b>To:</b> Koenig, Christian &lt;<a
-                      href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org"
-                      moz-do-not-send="true">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-                    Mao, David &lt;<a href="mailto:David.Mao-5C7GfCeVMHo@public.gmane.org"
-                      moz-do-not-send="true">David.Mao-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-                    Liu, Monk &lt;<a href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org"
-                      moz-do-not-send="true">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-                    <b>Cc:</b> <a
-                      href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                      moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>;
-                    Jin, Jian-Rong &lt;<a
-                      href="mailto:Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org"
-                      moz-do-not-send="true">Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-                    <b>Subject:</b> Re: deprecated register issues</span><span
-                    lang="EN-US"><o:p></o:p></span></p>
-              </div>
-            </div>
-            <p class="xmsonormal"><span lang="EN-US"> <o:p></o:p></span></p>
-            <div id="x_divtagdefaultwrapper">
-              <p><span
-                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black"
-                  lang="EN-US">Right.  We ran into issues with reading
-                  back that register at runtime when UMDs queried it
-                  when other stuff was in flight, so we just read it
-                  once at startup and cache the results. Now when UMDs
-                  request it, we return the cached value.</span><span
-                  lang="EN-US"><o:p></o:p></span></p>
-              <p><span
-                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black"
-                  lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
-              <p><span
-                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black"
-                  lang="EN-US">Alex</span><span lang="EN-US"><o:p></o:p></span></p>
-            </div>
-            <div class="MsoNormal" style="text-align:center"
-              align="center"><span lang="EN-US">
-                <hr align="center" size="3" width="98%">
-              </span></div>
-            <div id="x_divRplyFwdMsg">
-              <p class="xmsonormal"><b><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"
-                    lang="EN-US">From:</span></b><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"
-                  lang="EN-US"> Koenig, Christian<br>
-                  <b>Sent:</b> Wednesday, March 7, 2018 9:31:13 AM<br>
-                  <b>To:</b> Mao, David; Liu, Monk<br>
-                  <b>Cc:</b> Deucher, Alexander; <a
-                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>;
-                  Jin, Jian-Rong<br>
-                  <b>Subject:</b> Re: deprecated register issues</span><span
-                  lang="EN-US"> <o:p></o:p></span></p>
-              <div>
-                <p class="xmsonormal"><span lang="EN-US"> <o:p></o:p></span></p>
-              </div>
-            </div>
-            <div>
-              <div>
-                <p class="xmsonormal" style="background:white"><span
-                    lang="EN-US">Hi David,<br>
-                    <br>
-                    well I just figured that this is a misunderstanding.<br>
-                    <br>
-                    Accessing this register and some other deprecated
-                    registers can cause problem when invalidating
-                    VMHUBs.<br>
-                    <br>
-                    This register itself isn't deprecated, the wording
-                    in a patch fixing things is just a bit unclear.<br>
-                    <br>
-                    Question is is that register still accessed
-                    regularly or is it value cached after startup?
-                    <br>
-                    <br>
-                    Regards,<br>
-                    Christian.<br>
-                    <br>
-                    Am 07.03.2018 um 15:25 schrieb Mao, David:<o:p></o:p></span></p>
-              </div>
-              <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                <p class="xmsonormal" style="background:white"><span
-                    lang="EN-US">We requires base driver to provide the
-                    mask of disabled RB.
-                    <o:p></o:p></span></p>
-                <div>
-                  <p class="xmsonormal" style="background:white"><span
-                      lang="EN-US">This is why kernel read the
-                      CC_RB_BACKEND_DISABLE to collect the harvest
-                      configuration.<o:p></o:p></span></p>
-                </div>
-                <div>
-                  <p class="xmsonormal" style="background:white"><span
-                      lang="EN-US">Where did you get to know that the
-                      register is deprecated?<o:p></o:p></span></p>
-                </div>
-                <div>
-                  <p class="xmsonormal" style="background:white"><span
-                      lang="EN-US">I think it should still be there.<o:p></o:p></span></p>
-                </div>
-                <div>
-                  <p class="xmsonormal" style="background:white"><span
-                      lang="EN-US"> <o:p></o:p></span></p>
-                </div>
-                <div>
-                  <p class="xmsonormal" style="background:white"><span
-                      lang="EN-US">Best Regards,<o:p></o:p></span></p>
-                </div>
-                <div>
-                  <p class="xmsonormal" style="background:white"><span
-                      lang="EN-US">David<o:p></o:p></span></p>
-                  <div>
-                    <p class="xmsonormal"
-                      style="margin-bottom:12.0pt;background:white"><span
-                        lang="EN-US"><o:p> </o:p></span></p>
-                    <blockquote
-                      style="margin-top:5.0pt;margin-bottom:5.0pt">
-                      <div>
-                        <p class="xmsonormal" style="background:white"><span
-                            lang="EN-US">On Mar 7, 2018, at 9:49 PM,
-                            Liu, Monk &lt;<a
-                              href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org"
-                              moz-do-not-send="true">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;
-                            wrote:<o:p></o:p></span></p>
-                      </div>
-                      <p class="xmsonormal" style="background:white"><span
-                          lang="EN-US"> <o:p></o:p></span></p>
-                      <div>
-                        <div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                style="font-size:10.5pt;font-family:等线"
-                                lang="EN-US">+ UMD guys</span><span
-                                lang="EN-US"><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                style="font-size:10.5pt;font-family:等线"
-                                lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                style="font-size:10.5pt;font-family:等线"
-                                lang="EN-US">Hi David</span><span
-                                lang="EN-US"><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                style="font-size:10.5pt;font-family:等线"
-                                lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                style="font-size:10.5pt;font-family:等线"
-                                lang="EN-US">Do you know if<span
-                                  class="xxapple-converted-space"> </span></span><b><span
-style="font-size:10.5pt;font-family:&quot;Courier New&quot;"
-                                  lang="EN-US">GC_USER_RB_BACKEND_DISABLE
-                                  is still exist for gfx9/vega10 ?</span></b><span
-                                lang="EN-US"><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><b><span
-                                  style="font-size:10.5pt;font-family:&quot;Courier
-                                  New&quot;" lang="EN-US"> </span></b><span
-                                lang="EN-US"><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><b><span
-                                  style="font-size:10.5pt;font-family:&quot;Courier
-                                  New&quot;" lang="EN-US">We found<span
-                                    class="xxapple-converted-space"> </span></span></b><span
-                                lang="EN-US">CC_RB_BACKEND_DISABLE was
-                                deprecated but looks it is still in use
-                                in kmd, so<o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                lang="EN-US">I want to check with you
-                                both of above registers<o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                lang="EN-US"> <o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                lang="EN-US">Thanks<span
-                                  class="xxapple-converted-space"> </span><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                lang="EN-US">/Monk<o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                style="font-size:10.5pt;font-family:等线"
-                                lang="EN-US"> </span><span lang="EN-US"><o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <div style="border:none;border-top:solid
-                              #E1E1E1 1.0pt;padding:3.0pt 0cm 0cm 0cm">
-                              <div>
-                                <p class="xmsonormal"
-                                  style="background:white"><b><span
-                                      style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                      lang="EN-US">From:</span></b><span
-                                    class="xxapple-converted-space"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                      lang="EN-US"> </span></span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                    lang="EN-US">amd-gfx [<a
-                                      href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                                      moz-do-not-send="true">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]<span
-                                      class="xxapple-converted-space"> </span><b>On
-                                      Behalf Of<span
-                                        class="xxapple-converted-space"> </span></b>Christian
-                                    K?nig<br>
-                                    <b>Sent:</b><span
-                                      class="xxapple-converted-space"> </span>2018</span><span
-                                    style="font-size:11.0pt">年</span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                    lang="EN-US">3</span><span
-                                    style="font-size:11.0pt">月</span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                    lang="EN-US">7</span><span
-                                    style="font-size:11.0pt">日</span><span
-                                    class="xxapple-converted-space"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                      lang="EN-US"> </span></span><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                    lang="EN-US">20:26<br>
-                                    <b>To:</b><span
-                                      class="xxapple-converted-space"> </span>Liu,
-                                    Monk &lt;<a
-                                      href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org"
-                                      moz-do-not-send="true">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-                                    Deucher, Alexander &lt;<a
-                                      href="mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org"
-                                      moz-do-not-send="true">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-                                    <b>Cc:</b><span
-                                      class="xxapple-converted-space"> </span><a
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                                    <b>Subject:</b><span
-                                      class="xxapple-converted-space"> </span>Re:
-                                    deprecated register issues</span><span
-                                    lang="EN-US"><o:p></o:p></span></p>
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                lang="EN-US"> <o:p></o:p></span></p>
-                          </div>
-                          <div>
-                            <div>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  lang="EN-US">Hi Monk,<br>
-                                  <br>
-                                  I honestly don't have the slightest
-                                  idea why we are still accessing
-                                  CC_RB_BACKEND_DISABLE. Maybe it still
-                                  contains some useful values?<br>
-                                  <br>
-                                  Key point was that we needed to stop
-                                  accessing it all the time to avoid
-                                  triggering problems.<br>
-                                  <br>
-                                  Regards,<br>
-                                  Christian.<br>
-                                  <br>
-                                  Am 07.03.2018 um 13:11 schrieb Liu,
-                                  Monk:<o:p></o:p></span></p>
-                            </div>
-                          </div>
-                          <blockquote
-                            style="margin-top:5.0pt;margin-bottom:5.0pt">
-                            <div id="x_x_divtagdefaultwrapper">
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US">Hi Christian</span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US"> </span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US">I remember you and AlexD
-                                  mentioned that a handful registers are
-                                  deprecated for greenland (gfx9)</span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US">e.g.
-                                  CC_RB_BACKEND_DISABLE</span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US"> </span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US">do you know why we still
-                                  have this routine ?</span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#569CD6"
-                                        lang="EN-US">static</span><span
-                                        class="xxapple-converted-space"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                          New&quot;;color:#D4D4D4"
-                                          lang="EN-US"> </span></span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">u32</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#DCDCAA"
-                                        lang="EN-US">gfx_v9_0_get_rb_active_bitmap</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">(</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#569CD6"
-                                        lang="EN-US">struct</span><span
-                                        class="xxapple-converted-space"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                          New&quot;;color:#D4D4D4"
-                                          lang="EN-US"> </span></span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">amdgpu_device
-                                        *adev)</span><span lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">{</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">    u32 data, mask;</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">    data =<span
-                                          class="xxapple-converted-space"> </span></span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#DCDCAA"
-                                        lang="EN-US">RREG32_SOC15</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">(GC,</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#B5CEA8"
-                                        lang="EN-US">0</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">,
-                                        mmCC_RB_BACKEND_DISABLE);</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">    data |=<span
-                                          class="xxapple-converted-space"> </span></span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#DCDCAA"
-                                        lang="EN-US">RREG32_SOC15</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">(GC,</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#B5CEA8"
-                                        lang="EN-US">0</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">,
-                                        mmGC_USER_RB_BACKEND_DISABLE);</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">    data &amp;=
-                                        CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">    data &gt;&gt;=
-GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">    mask =<span
-                                          class="xxapple-converted-space"> </span></span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#DCDCAA"
-                                        lang="EN-US">amdgpu_gfx_create_bitmask</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">(adev-&gt;</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#9CDCFE"
-                                        lang="EN-US">gfx</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">.</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#9CDCFE"
-                                        lang="EN-US">config</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">.</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#9CDCFE"
-                                        lang="EN-US">max_backends_per_se</span><span
-                                        class="xxapple-converted-space"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                          New&quot;;color:#D4D4D4"
-                                          lang="EN-US"> </span></span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">/</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">                    
-                                        adev-&gt;</span><span
-                                        lang="EN-US">gfx</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">.</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#9CDCFE"
-                                        lang="EN-US">config</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">.</span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#9CDCFE"
-                                        lang="EN-US">max_sh_per_se</span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">);</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">    </span><span
-                                        style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#C586C0"
-                                        lang="EN-US">return</span><span
-                                        class="xxapple-converted-space"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                          New&quot;;color:#D4D4D4"
-                                          lang="EN-US"> </span></span><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">(~data) &amp; mask;</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                                <div>
-                                  <div>
-                                    <p class="xmsonormal"
-                                      style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                        New&quot;;color:#D4D4D4"
-                                        lang="EN-US">}</span><span
-                                        lang="EN-US"><o:p></o:p></span></p>
-                                  </div>
-                                </div>
-                                <div>
-                                  <p class="xmsonormal"
-                                    style="line-height:14.25pt;background:#1E1E1E"><span
-style="font-size:10.5pt;font-family:&quot;Courier
-                                      New&quot;;color:#D4D4D4"
-                                      lang="EN-US"> </span><span
-                                      lang="EN-US"><o:p></o:p></span></p>
-                                </div>
-                              </div>
-                              <div>
-                                <p class="xmsonormal"
-                                  style="background:white"><span
-                                    style="font-family:&quot;Calibri&quot;,sans-serif"
-                                    lang="EN-US"> </span><span
-                                    lang="EN-US"><o:p></o:p></span></p>
-                              </div>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US">see that it still
-                                  read CC_RB_BACKEND_DISABLE</span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US"> </span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US">thanks</span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US"> </span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US">/Monk</span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                              <p class="xmsonormal"
-                                style="background:white"><span
-                                  style="font-size:9.0pt;font-family:&quot;Calibri&quot;,sans-serif"
-                                  lang="EN-US"> </span><span
-                                  lang="EN-US"><o:p></o:p></span></p>
-                            </div>
-                          </blockquote>
-                          <div>
-                            <p class="xmsonormal"
-                              style="background:white"><span
-                                lang="EN-US"> <o:p></o:p></span></p>
-                          </div>
-                        </div>
-                      </div>
-                    </blockquote>
-                  </div>
-                  <p class="xmsonormal" style="background:white"><span
-                      lang="EN-US"> <o:p></o:p></span></p>
-                </div>
-              </blockquote>
-              <p class="xmsonormal" style="background:white"><span
-                  lang="EN-US"> <o:p></o:p></span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------A90022607724C835746DF1C1--
-
---===============1409692106==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1409692106==--
+T24gV2VkLCBNYXIgNywgMjAxOCBhdCAxMTo0MiBQTSwgWmh1LCBSZXggPFJleC5aaHVAYW1kLmNv
+bT4gd3JvdGU6Cj4+SXMgdGhpcyBjb25zaXN0ZW50IHdpdGggb3VyIG90aGVyIHNtdSBpbXBsZW1l
+bnRhdGlvbnM/ICBJZiB3ZSBuZXZlciB1c2UgdGhlIGVycm9ycywgSSdtIG9rIHdpdGggcmVtb3Zp
+bmcgdGhlbSwgYnV0IEkgZG9uJ3Qgd2FudCB0byBoYXZlIHRvIGFkZCB0aGVtIGFnYWluIGxhdGVy
+IGlmIHdlIGRlY2lkZSB3ZQo+PmFjdHVhbGx5IG5lZWQgdGhlbS4KPgo+IFJleDogdW50aWwgdmVn
+YTEwL3JhdmVuLCB3ZSBkbyBub3QgaGFuZGxlIHRoZSBlcnJvcnMgaW4gd2luZG93cy9saW51eCwg
+anVzdCBwcmludCBvdXQgdGhlIHJlc3BvbnNlIGNvZGUgZm9yIGRlYnVnLiBBbmQgdGhlIHNtdSBk
+aXNwYXRjaCBmdW5jdGlvbnMgYWx3YXlzIHJldHVybiB0cnVlLiBTbyB0aGUgY2hlY2sgY29kZSBp
+cyBtZWFubGVzcy4KPgo+Cj4gVGhlcmUgYXJlIGZpdmUgcmVzcG9uc2VzIGZyb20gc211LiAgU3Vj
+Y2Vzcy9ub3Qgc3VwcG9ydC9idXN5L25vIHJlc3BvbnNlL25lZWQgcHJlcmVxLgo+Cj4gRm9yIG5v
+dCBzdXBwb3J0LCBzbXUganVzdCBub3QgcmVjb2duaXplIHRoZSBjb21tYW5kLCBodyBzdGlsbCB3
+b3JrIG5vcm1hbGx5LiBzbyBwcmludCBvdXQgYSBtZXNzYWdlIGlzIGVub3VnaCBmb3IgZGVidWcg
+b3Igbm90aWZ5IHVzZXIuCj4gRm9yIGJ1c3kgb3Igbm90IHJlc3BvbnNlLCBpbiBtb3N0IGNhc2Us
+IHRoZSBodyBpcyBodW5nLiBhbmQgc2VlbXMgbm8gd2F5IHRvIHJlc2V0L3JlY292ZXJ5IHNtdSBl
+bmdpbmUgY3VycmVudGx5Lgo+IEZvciBuZWVkIHByZXJlcSwgSSB0aGluayBwcmludCB0aGUgZXJy
+b3IgbWVzc2FnZSBpcyBlbm91Z2ggZm9yIGRlYnVnLgo+Cj4gSW4gdGhlIGZ1dHVyZSwgaWYgd2Ug
+Y2FuIGhhbmRsZSB0aGUgZXJyb3JzLCB3ZSBjYW4gYWRkIGluIHRoZSBkaXNwYXRjaCBmdW5jdGlv
+bnMuCgpTb3VuZHMgZ29vZC4gIFBhdGNoIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxh
+bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPgo+IEJlc3QgUmVnYXJkcwo+IFJleAo+Cj4KPiAt
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IEFsZXggRGV1Y2hlciBbbWFpbHRvOmFs
+ZXhkZXVjaGVyQGdtYWlsLmNvbV0KPiBTZW50OiBUaHVyc2RheSwgTWFyY2ggMDgsIDIwMTggMToy
+MyBBTQo+IFRvOiBaaHUsIFJleAo+IENjOiBhbWQtZ2Z4IGxpc3QKPiBTdWJqZWN0OiBSZTogW1BB
+VENIIDQvOF0gZHJtL2FtZC9wcDogQ2xlYW4gdXAgdGhlIGNvZGUgZm9yIFJWIGluIHBvd2VycGxh
+eQo+Cj4gT24gV2VkLCBNYXIgNywgMjAxOCBhdCA1OjQ2IEFNLCBSZXggWmh1IDxSZXguWmh1QGFt
+ZC5jb20+IHdyb3RlOgo+PiBJbiBzZW5kX21lc3NhZ2VfdG9fc211IGhlbHBlciBmdW5jdGlvbnMs
+IFByaW50IG91dCB0aGUgZXJyb3IgY29kZSBmb3IKPj4gZGVidWcgaWYgc211IGZhaWxlZCB0byBy
+ZXNwb25zZS4KPj4KPj4gYW5kIHRoZSBoZWxwZXIgZnVuY3Rpb25zIGFsd2F5cyByZXR1cm4gdHJ1
+ZSwgc28gbm8gbmVlZCB0byBjaGVjayB0aGVpcgo+PiByZXR1cm4gdmFsdWUuCj4+Cj4+IFNpZ25l
+ZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KPgo+IElzIHRoaXMgY29uc2lzdGVu
+dCB3aXRoIG91ciBvdGhlciBzbXUgaW1wbGVtZW50YXRpb25zPyAgSWYgd2UgbmV2ZXIgdXNlIHRo
+ZSBlcnJvcnMsIEknbSBvayB3aXRoIHJlbW92aW5nIHRoZW0sIGJ1dCBJIGRvbid0IHdhbnQgdG8g
+aGF2ZSB0byBhZGQgdGhlbSBhZ2FpbiBsYXRlciBpZiB3ZSBkZWNpZGUgd2UgYWN0dWFsbHkgbmVl
+ZCB0aGVtLgo+Cj4gQWxleAo+Cj4+Cj4+IENoYW5nZS1JZDogSTI3ZGE4YmYyMmQzY2VhMGRmOTY4
+ZGY3YjA4MDlkYzcyNzQ2MTc2MmYKPj4gLS0tCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9od21nci9ydl9od21nci5jICAgfCA3MiArKysrKy0tLS0tLS0tLS0tLQo+PiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3J2X3NtdW1nci5jIHwgOTgKPj4gKysrKysr
+KystLS0tLS0tLS0tLS0tLS0tCj4+ICAyIGZpbGVzIGNoYW5nZWQsIDUzIGluc2VydGlvbnMoKyks
+IDExNyBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9od21nci9ydl9od21nci5jCj4+IGluZGV4IDhkZGZiNzguLjRiNWM1ZmMgMTAwNjQ0Cj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmMKPj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcnZfaHdtZ3IuYwo+PiBA
+QCAtMjQzLDggKzI0Myw3IEBAIHN0YXRpYyBpbnQgcnZfZGlzYWJsZV9nZnhfb2ZmKHN0cnVjdCBw
+cF9od21nciAqaHdtZ3IpCj4+ICAgICAgICAgc3RydWN0IHJ2X2h3bWdyICpydl9kYXRhID0gKHN0
+cnVjdCBydl9od21ncgo+PiAqKShod21nci0+YmFja2VuZCk7Cj4+Cj4+ICAgICAgICAgaWYgKHJ2
+X2RhdGEtPmdmeF9vZmZfY29udHJvbGVkX2J5X2RyaXZlcikKPj4gLSAgICAgICAgICAgICAgIHNt
+dW1fc2VuZF9tc2dfdG9fc21jKGh3bWdyLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfRGlzYWJsZUdmeE9mZik7Cj4+ICsgICAgICAg
+ICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nciwgUFBTTUNfTVNHX0Rpc2FibGVHZnhP
+ZmYpOwo+Pgo+PiAgICAgICAgIHJldHVybiAwOwo+PiAgfQo+PiBAQCAtMjU5LDggKzI1OCw3IEBA
+IHN0YXRpYyBpbnQgcnZfZW5hYmxlX2dmeF9vZmYoc3RydWN0IHBwX2h3bWdyICpod21ncikKPj4g
+ICAgICAgICBzdHJ1Y3QgcnZfaHdtZ3IgKnJ2X2RhdGEgPSAoc3RydWN0IHJ2X2h3bWdyCj4+ICop
+KGh3bWdyLT5iYWNrZW5kKTsKPj4KPj4gICAgICAgICBpZiAocnZfZGF0YS0+Z2Z4X29mZl9jb250
+cm9sZWRfYnlfZHJpdmVyKQo+PiAtICAgICAgICAgICAgICAgc211bV9zZW5kX21zZ190b19zbWMo
+aHdtZ3IsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IFBQU01DX01TR19FbmFibGVHZnhPZmYpOwo+PiArICAgICAgICAgICAgICAgc211bV9zZW5kX21z
+Z190b19zbWMoaHdtZ3IsIFBQU01DX01TR19FbmFibGVHZnhPZmYpOwo+Pgo+PiAgICAgICAgIHJl
+dHVybiAwOwo+PiAgfQo+PiBAQCAtMzg3LDI0ICszODUsMTIgQEAgc3RhdGljIGludCBydl9wb3B1
+bGF0ZV9jbG9ja190YWJsZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+PiAgICAgICAgIHJ2X2dl
+dF9jbG9ja192b2x0YWdlX2RlcGVuZGVuY3lfdGFibGUoaHdtZ3IsICZwaW5mby0+dmRkX2RlcF9v
+bl9waHljbGssCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBUlJB
+WV9TSVpFKFZkZFBoeUNsayksCj4+ICZWZGRQaHlDbGtbMF0pOwo+Pgo+PiAtICAgICAgIFBQX0FT
+U0VSVF9XSVRIX0NPREUoIXNtdW1fc2VuZF9tc2dfdG9fc21jKGh3bWdyLAo+PiAtICAgICAgICAg
+ICAgICAgICAgICAgICBQUFNNQ19NU0dfR2V0TWluR2Z4Y2xrRnJlcXVlbmN5KSwKPj4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgIkF0dGVtcHQgdG8gZ2V0IG1pbiBHRlhDTEsgRmFpbGVkISIsCj4+
+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtMSk7Cj4+IC0gICAgICAgUFBfQVNTRVJU
+X1dJVEhfQ09ERSghcnZfcmVhZF9hcmdfZnJvbV9zbWMoaHdtZ3IsCj4+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICZyZXN1bHQpLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAiQXR0ZW1wdCB0
+byBnZXQgbWluIEdGWENMSyBGYWlsZWQhIiwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0
+dXJuIC0xKTsKPj4gKyAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nciwgUFBTTUNfTVNH
+X0dldE1pbkdmeGNsa0ZyZXF1ZW5jeSk7Cj4+ICsgICAgICAgcnZfcmVhZF9hcmdfZnJvbV9zbWMo
+aHdtZ3IsICZyZXN1bHQpOwo+PiAgICAgICAgIHJ2X2RhdGEtPmdmeF9taW5fZnJlcV9saW1pdCA9
+IHJlc3VsdCAqIDEwMDsKPj4KPj4gLSAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKCFzbXVtX3Nl
+bmRfbXNnX3RvX3NtYyhod21nciwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNH
+X0dldE1heEdmeGNsa0ZyZXF1ZW5jeSksCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICJBdHRl
+bXB0IHRvIGdldCBtYXggR0ZYQ0xLIEZhaWxlZCEiLAo+PiAtICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm4gLTEpOwo+PiAtICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUoIXJ2X3JlYWRfYXJn
+X2Zyb21fc21jKGh3bWdyLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAmcmVzdWx0KSwKPj4g
+LSAgICAgICAgICAgICAgICAgICAgICAgIkF0dGVtcHQgdG8gZ2V0IG1heCBHRlhDTEsgRmFpbGVk
+ISIsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtMSk7Cj4+ICsgICAgICAgc211
+bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsIFBQU01DX01TR19HZXRNYXhHZnhjbGtGcmVxdWVuY3kp
+Owo+PiArICAgICAgIHJ2X3JlYWRfYXJnX2Zyb21fc21jKGh3bWdyLCAmcmVzdWx0KTsKPj4gICAg
+ICAgICBydl9kYXRhLT5nZnhfbWF4X2ZyZXFfbGltaXQgPSByZXN1bHQgKiAxMDA7Cj4+Cj4+ICAg
+ICAgICAgcmV0dXJuIDA7Cj4+IEBAIC03MzksMTQgKzcyNSw4IEBAIHN0YXRpYyBpbnQgcnZfcHJp
+bnRfY2xvY2tfbGV2ZWxzKHN0cnVjdCBwcF9od21ncgo+PiAqaHdtZ3IsCj4+Cj4+ICAgICAgICAg
+c3dpdGNoICh0eXBlKSB7Cj4+ICAgICAgICAgY2FzZSBQUF9TQ0xLOgo+PiAtICAgICAgICAgICAg
+ICAgUFBfQVNTRVJUX1dJVEhfQ09ERSghc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsCj4+IC0g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX0dldEdmeGNsa0ZyZXF1ZW5j
+eSksCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkF0dGVtcHQgdG8gZ2V0IGN1
+cnJlbnQgR0ZYQ0xLIEZhaWxlZCEiLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHJldHVybiAtMSk7Cj4+IC0gICAgICAgICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKCFydl9y
+ZWFkX2FyZ19mcm9tX3NtYyhod21nciwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAmbm93KSwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiQXR0ZW1wdCB0byBn
+ZXQgY3VycmVudCBHRlhDTEsgRmFpbGVkISIsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcmV0dXJuIC0xKTsKPj4gKyAgICAgICAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21j
+KGh3bWdyLCBQUFNNQ19NU0dfR2V0R2Z4Y2xrRnJlcXVlbmN5KTsKPj4gKyAgICAgICAgICAgICAg
+IHJ2X3JlYWRfYXJnX2Zyb21fc21jKGh3bWdyLCAmbm93KTsKPj4KPj4gICAgICAgICAgICAgICAg
+IHNpemUgKz0gc3ByaW50ZihidWYgKyBzaXplLCAiMDogJXVNaHogJXNcbiIsCj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZGF0YS0+Z2Z4X21pbl9mcmVxX2xpbWl0IC8gMTAwLCBA
+QAo+PiAtNzU4LDE0ICs3MzgsOCBAQCBzdGF0aWMgaW50IHJ2X3ByaW50X2Nsb2NrX2xldmVscyhz
+dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICA9PSBub3cpID8gIioiIDogIiIpOwo+PiAgICAgICAgICAgICAgICAgYnJlYWs7Cj4+ICAgICAg
+ICAgY2FzZSBQUF9NQ0xLOgo+PiAtICAgICAgICAgICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERSgh
+c211bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgUFBTTUNfTVNHX0dldEZjbGtGcmVxdWVuY3kpLAo+PiAtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICJBdHRlbXB0IHRvIGdldCBjdXJyZW50IE1FTUNMSyBGYWlsZWQhIiwKPj4g
+LSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLTEpOwo+PiAtICAgICAgICAg
+ICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERSghcnZfcmVhZF9hcmdfZnJvbV9zbWMoaHdtZ3IsCj4+
+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJm5vdyksCj4+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIkF0dGVtcHQgdG8gZ2V0IGN1cnJlbnQgTUVNQ0xLIEZhaWxlZCEi
+LAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtMSk7Cj4+ICsgICAg
+ICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nciwgUFBTTUNfTVNHX0dldEZjbGtG
+cmVxdWVuY3kpOwo+PiArICAgICAgICAgICAgICAgcnZfcmVhZF9hcmdfZnJvbV9zbWMoaHdtZ3Is
+ICZub3cpOwo+Pgo+PiAgICAgICAgICAgICAgICAgZm9yIChpID0gMDsgaSA8IG1jbGtfdGFibGUt
+PmNvdW50OyBpKyspCj4+ICAgICAgICAgICAgICAgICAgICAgICAgIHNpemUgKz0gc3ByaW50Zihi
+dWYgKyBzaXplLCAiJWQ6ICV1TWh6ICVzXG4iLAo+PiBAQCAtOTM1LDcgKzkwOSw2IEBAIHN0YXRp
+YyBpbnQKPj4gcnZfZ2V0X2Nsb2NrX2J5X3R5cGVfd2l0aF92b2x0YWdlKHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IsICBpbnQgcnZfZGlzcGxheV9jbG9ja192b2x0YWdlX3JlcXVlc3Qoc3RydWN0IHBw
+X2h3bWdyICpod21nciwKPj4gICAgICAgICAgICAgICAgIHN0cnVjdCBwcF9kaXNwbGF5X2Nsb2Nr
+X3JlcXVlc3QgKmNsb2NrX3JlcSkgIHsKPj4gLSAgICAgICBpbnQgcmVzdWx0ID0gMDsKPj4gICAg
+ICAgICBzdHJ1Y3QgcnZfaHdtZ3IgKnJ2X2RhdGEgPSAoc3RydWN0IHJ2X2h3bWdyICopKGh3bWdy
+LT5iYWNrZW5kKTsKPj4gICAgICAgICBlbnVtIGFtZF9wcF9jbG9ja190eXBlIGNsa190eXBlID0g
+Y2xvY2tfcmVxLT5jbG9ja190eXBlOwo+PiAgICAgICAgIHVpbnQzMl90IGNsa19mcmVxID0gY2xv
+Y2tfcmVxLT5jbG9ja19mcmVxX2luX2toeiAvIDEwMDA7IEBACj4+IC05NjIsMTAgKzkzNSw5IEBA
+IGludCBydl9kaXNwbGF5X2Nsb2NrX3ZvbHRhZ2VfcmVxdWVzdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3
+bWdyLAo+PiAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+ICAgICAgICAgfQo+Pgo+
+PiAtICAgICAgIHJlc3VsdCA9IHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3
+bWdyLCBtc2csCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgY2xrX2ZyZXEpOwo+PiArICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dp
+dGhfcGFyYW1ldGVyKGh3bWdyLCBtc2csIGNsa19mcmVxKTsKPj4KPj4gLSAgICAgICByZXR1cm4g
+cmVzdWx0Owo+PiArICAgICAgIHJldHVybiAwOwo+PiAgfQo+Pgo+PiAgc3RhdGljIGludCBydl9n
+ZXRfbWF4X2hpZ2hfY2xvY2tzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHN0cnVjdAo+PiBhbWRf
+cHBfc2ltcGxlX2Nsb2NrX2luZm8gKmNsb2NrcykgQEAgLTk5OCwyMiArOTcwLDE4IEBAIHN0YXRp
+YyBpbnQKPj4gcnZfcmVhZF9zZW5zb3Ioc3RydWN0IHBwX2h3bWdyICpod21nciwgaW50IGlkeCwK
+Pj4KPj4gICAgICAgICBzd2l0Y2ggKGlkeCkgewo+PiAgICAgICAgIGNhc2UgQU1ER1BVX1BQX1NF
+TlNPUl9HRlhfU0NMSzoKPj4gLSAgICAgICAgICAgICAgIHJldCA9IHNtdW1fc2VuZF9tc2dfdG9f
+c21jKGh3bWdyLCBQUFNNQ19NU0dfR2V0R2Z4Y2xrRnJlcXVlbmN5KTsKPj4gLSAgICAgICAgICAg
+ICAgIGlmICghcmV0KSB7Cj4+IC0gICAgICAgICAgICAgICAgICAgICAgIHJ2X3JlYWRfYXJnX2Zy
+b21fc21jKGh3bWdyLCAmc2Nsayk7Cj4+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3Rv
+X3NtYyhod21nciwgUFBTTUNfTVNHX0dldEdmeGNsa0ZyZXF1ZW5jeSk7Cj4+ICsgICAgICAgICAg
+ICAgICBydl9yZWFkX2FyZ19mcm9tX3NtYyhod21nciwgJnNjbGspOwo+PiAgICAgICAgICAgICAg
+ICAgICAgICAgICAvKiBpbiB1bml0cyBvZiAxMEtIWiAqLwo+PiAtICAgICAgICAgICAgICAgICAg
+ICAgICAqKCh1aW50MzJfdCAqKXZhbHVlKSA9IHNjbGsgKiAxMDA7Cj4+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICpzaXplID0gNDsKPj4gLSAgICAgICAgICAgICAgIH0KPj4gKyAgICAgICAgICAg
+ICAgICooKHVpbnQzMl90ICopdmFsdWUpID0gc2NsayAqIDEwMDsKPj4gKyAgICAgICAgICAgICAg
+ICpzaXplID0gNDsKPj4gICAgICAgICAgICAgICAgIGJyZWFrOwo+PiAgICAgICAgIGNhc2UgQU1E
+R1BVX1BQX1NFTlNPUl9HRlhfTUNMSzoKPj4gLSAgICAgICAgICAgICAgIHJldCA9IHNtdW1fc2Vu
+ZF9tc2dfdG9fc21jKGh3bWdyLCBQUFNNQ19NU0dfR2V0RmNsa0ZyZXF1ZW5jeSk7Cj4+IC0gICAg
+ICAgICAgICAgICBpZiAoIXJldCkgewo+PiAtICAgICAgICAgICAgICAgICAgICAgICBydl9yZWFk
+X2FyZ19mcm9tX3NtYyhod21nciwgJm1jbGspOwo+PiArICAgICAgICAgICAgICAgc211bV9zZW5k
+X21zZ190b19zbWMoaHdtZ3IsIFBQU01DX01TR19HZXRGY2xrRnJlcXVlbmN5KTsKPj4gKyAgICAg
+ICAgICAgICAgIHJ2X3JlYWRfYXJnX2Zyb21fc21jKGh3bWdyLCAmbWNsayk7Cj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgIC8qIGluIHVuaXRzIG9mIDEwS0haICovCj4+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICooKHVpbnQzMl90ICopdmFsdWUpID0gbWNsayAqIDEwMDsKPj4gLSAgICAgICAg
+ICAgICAgICAgICAgICAgKnNpemUgPSA0Owo+PiAtICAgICAgICAgICAgICAgfQo+PiArICAgICAg
+ICAgICAgICAgKigodWludDMyX3QgKil2YWx1ZSkgPSBtY2xrICogMTAwOwo+PiArICAgICAgICAg
+ICAgICAgKnNpemUgPSA0Owo+PiAgICAgICAgICAgICAgICAgYnJlYWs7Cj4+ICAgICAgICAgY2Fz
+ZSBBTURHUFVfUFBfU0VOU09SX0dQVV9URU1QOgo+PiAgICAgICAgICAgICAgICAgKigodWludDMy
+X3QgKil2YWx1ZSkgPQo+PiBydl90aGVybWFsX2dldF90ZW1wZXJhdHVyZShod21ncik7Cj4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcnZfc211bWdy
+LmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcnZfc211bWdyLmMK
+Pj4gaW5kZXggZTYzMTdmZC4uYjY0YmZlMyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvc211bWdyL3J2X3NtdW1nci5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdW1nci9ydl9zbXVtZ3IuYwo+PiBAQCAtMTM5LDIwICsxMzksMTUg
+QEAgaW50IHJ2X2NvcHlfdGFibGVfZnJvbV9zbWMoc3RydWN0IHBwX2h3bWdyICpod21nciwKPj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgIkludmFsaWQgU01VIFRhYmxlIHZlcnNpb24hIiwgcmV0
+dXJuIC1FSU5WQUw7KTsKPj4gICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKHByaXYtPnNtdV90
+YWJsZXMuZW50cnlbdGFibGVfaWRdLnNpemUgIT0gMCwKPj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgIkludmFsaWQgU01VIFRhYmxlIExlbmd0aCEiLCByZXR1cm4gLUVJTlZBTDspOwo+PiAtICAg
+ICAgIFBQX0FTU0VSVF9XSVRIX0NPREUocnZfc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVy
+KGh3bWdyLAo+PiArICAgICAgIHJ2X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21n
+ciwKPj4gICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldERyaXZlckRyYW1BZGRy
+SGlnaCwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgdXBwZXJfMzJfYml0cyhwcml2LT5zbXVf
+dGFibGVzLmVudHJ5W3RhYmxlX2lkXS5tY19hZGRyKSkgPT0gMCwKPj4gLSAgICAgICAgICAgICAg
+ICAgICAgICAgIltDb3B5VGFibGVGcm9tU01DXSBBdHRlbXB0IHRvIFNldCBEcmFtIEFkZHIgSGln
+aCBGYWlsZWQhIiwgcmV0dXJuIC1FSU5WQUw7KTsKPj4gLSAgICAgICBQUF9BU1NFUlRfV0lUSF9D
+T0RFKHJ2X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwKPj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgdXBwZXJfMzJfYml0cyhwcml2LT5zbXVfdGFibGVzLmVudHJ5W3RhYmxl
+X2lkXS5tY19hZGRyKSk7Cj4+ICsgICAgICAgcnZfc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1l
+dGVyKGh3bWdyLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfU2V0RHJpdmVy
+RHJhbUFkZHJMb3csCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIGxvd2VyXzMyX2JpdHMocHJp
+di0+c211X3RhYmxlcy5lbnRyeVt0YWJsZV9pZF0ubWNfYWRkcikpID09IDAsCj4+IC0gICAgICAg
+ICAgICAgICAgICAgICAgICJbQ29weVRhYmxlRnJvbVNNQ10gQXR0ZW1wdCB0byBTZXQgRHJhbSBB
+ZGRyIExvdyBGYWlsZWQhIiwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7KTsKPj4gLSAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKHJ2X3NlbmRfbXNnX3RvX3NtY193
+aXRoX3BhcmFtZXRlcihod21nciwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgbG93ZXJfMzJf
+Yml0cyhwcml2LT5zbXVfdGFibGVzLmVudHJ5W3RhYmxlX2lkXS5tY19hZGRyKSk7Cj4+ICsgICAg
+ICAgcnZfc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+PiAgICAgICAgICAg
+ICAgICAgICAgICAgICBQUFNNQ19NU0dfVHJhbnNmZXJUYWJsZVNtdTJEcmFtLAo+PiAtICAgICAg
+ICAgICAgICAgICAgICAgICBwcml2LT5zbXVfdGFibGVzLmVudHJ5W3RhYmxlX2lkXS50YWJsZV9p
+ZCkgPT0gMCwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgIltDb3B5VGFibGVGcm9tU01DXSBB
+dHRlbXB0IHRvIFRyYW5zZmVyIFRhYmxlIEZyb20gU01VIEZhaWxlZCEiLAo+PiAtICAgICAgICAg
+ICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDspOwo+PiArICAgICAgICAgICAgICAgICAgICAg
+ICBwcml2LT5zbXVfdGFibGVzLmVudHJ5W3RhYmxlX2lkXS50YWJsZV9pZCk7Cj4+Cj4+ICAgICAg
+ICAgbWVtY3B5KHRhYmxlLCAodWludDhfdCAqKXByaXYtPnNtdV90YWJsZXMuZW50cnlbdGFibGVf
+aWRdLnRhYmxlLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICBwcml2LT5zbXVfdGFibGVzLmVu
+dHJ5W3RhYmxlX2lkXS5zaXplKTsKPj4gQEAgLTE3NiwyMSArMTcxLDE1IEBAIGludCBydl9jb3B5
+X3RhYmxlX3RvX3NtYyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+PiAgICAgICAgIG1lbWNweShw
+cml2LT5zbXVfdGFibGVzLmVudHJ5W3RhYmxlX2lkXS50YWJsZSwgdGFibGUsCj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgIHByaXYtPnNtdV90YWJsZXMuZW50cnlbdGFibGVfaWRdLnNpemUpOwo+
+Pgo+PiAtICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUocnZfc2VuZF9tc2dfdG9fc21jX3dpdGhf
+cGFyYW1ldGVyKGh3bWdyLAo+PiArICAgICAgIHJ2X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFt
+ZXRlcihod21nciwKPj4gICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldERyaXZl
+ckRyYW1BZGRySGlnaCwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgdXBwZXJfMzJfYml0cyhw
+cml2LT5zbXVfdGFibGVzLmVudHJ5W3RhYmxlX2lkXS5tY19hZGRyKSkgPT0gMCwKPj4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgIltDb3B5VGFibGVUb1NNQ10gQXR0ZW1wdCB0byBTZXQgRHJhbSBB
+ZGRyIEhpZ2ggRmFpbGVkISIsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlO
+VkFMOyk7Cj4+IC0gICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERShydl9zZW5kX21zZ190b19zbWNf
+d2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHVwcGVyXzMy
+X2JpdHMocHJpdi0+c211X3RhYmxlcy5lbnRyeVt0YWJsZV9pZF0ubWNfYWRkcikpOwo+PiArICAg
+ICAgIHJ2X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwKPj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldERyaXZlckRyYW1BZGRyTG93LAo+PiAtICAgICAg
+ICAgICAgICAgICAgICAgICBsb3dlcl8zMl9iaXRzKHByaXYtPnNtdV90YWJsZXMuZW50cnlbdGFi
+bGVfaWRdLm1jX2FkZHIpKSA9PSAwLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAiW0NvcHlU
+YWJsZVRvU01DXSBBdHRlbXB0IHRvIFNldCBEcmFtIEFkZHIgTG93IEZhaWxlZCEiLAo+PiAtICAg
+ICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDspOwo+PiAtICAgICAgIFBQX0FTU0VS
+VF9XSVRIX0NPREUocnZfc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAo+PiAr
+ICAgICAgICAgICAgICAgICAgICAgICBsb3dlcl8zMl9iaXRzKHByaXYtPnNtdV90YWJsZXMuZW50
+cnlbdGFibGVfaWRdLm1jX2FkZHIpKTsKPj4gKyAgICAgICBydl9zZW5kX21zZ190b19zbWNfd2l0
+aF9wYXJhbWV0ZXIoaHdtZ3IsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgIFBQU01DX01TR19U
+cmFuc2ZlclRhYmxlRHJhbTJTbXUsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIHByaXYtPnNt
+dV90YWJsZXMuZW50cnlbdGFibGVfaWRdLnRhYmxlX2lkKSA9PSAwLAo+PiAtICAgICAgICAgICAg
+ICAgICAgICAgICAiW0NvcHlUYWJsZVRvU01DXSBBdHRlbXB0IHRvIFRyYW5zZmVyIFRhYmxlIFRv
+IFNNVSBGYWlsZWQhIiwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7
+KTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgcHJpdi0+c211X3RhYmxlcy5lbnRyeVt0YWJs
+ZV9pZF0udGFibGVfaWQpOwo+Pgo+PiAgICAgICAgIHJldHVybiAwOwo+PiAgfQo+PiBAQCAtMTk5
+LDYxICsxODgsNDMgQEAgc3RhdGljIGludCBydl92ZXJpZnlfc21jX2ludGVyZmFjZShzdHJ1Y3QK
+Pj4gcHBfaHdtZ3IgKmh3bWdyKSAgewo+PiAgICAgICAgIHVpbnQzMl90IHNtY19kcml2ZXJfaWZf
+dmVyc2lvbjsKPj4KPj4gLSAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKCFydl9zZW5kX21zZ190
+b19zbWMoaHdtZ3IsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIFBQU01DX01TR19HZXREcml2
+ZXJJZlZlcnNpb24pLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAiQXR0ZW1wdCB0byBnZXQg
+U01DIElGIFZlcnNpb24gTnVtYmVyIEZhaWxlZCEiLAo+PiAtICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm4gLUVJTlZBTCk7Cj4+IC0gICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERSghcnZfcmVh
+ZF9hcmdfZnJvbV9zbWMoaHdtZ3IsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICZzbWNfZHJp
+dmVyX2lmX3ZlcnNpb24pLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAiQXR0ZW1wdCB0byBy
+ZWFkIFNNQyBJRiBWZXJzaW9uIE51bWJlciBGYWlsZWQhIiwKPj4gLSAgICAgICAgICAgICAgICAg
+ICAgICAgcmV0dXJuIC1FSU5WQUwpOwo+PiArICAgICAgIHJ2X3NlbmRfbXNnX3RvX3NtYyhod21n
+ciwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX0dldERyaXZlcklmVmVyc2lv
+bik7Cj4+ICsgICAgICAgcnZfcmVhZF9hcmdfZnJvbV9zbWMoaHdtZ3IsCj4+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICZzbWNfZHJpdmVyX2lmX3ZlcnNpb24pOwo+Pgo+PiAtICAgICAgIGlmIChz
+bWNfZHJpdmVyX2lmX3ZlcnNpb24gIT0gU01VMTBfRFJJVkVSX0lGX1ZFUlNJT04pCj4+ICsgICAg
+ICAgaWYgKHNtY19kcml2ZXJfaWZfdmVyc2lvbiAhPSBTTVUxMF9EUklWRVJfSUZfVkVSU0lPTikg
+ewo+PiArICAgICAgICAgICAgICAgcHJfZXJyKCJBdHRlbXB0IHRvIHJlYWQgU01DIElGIFZlcnNp
+b24gTnVtYmVyCj4+ICsgRmFpbGVkIVxuIik7Cj4+ICAgICAgICAgICAgICAgICByZXR1cm4gLUVJ
+TlZBTDsKPj4gKyAgICAgICB9Cj4+Cj4+ICAgICAgICAgcmV0dXJuIDA7Cj4+ICB9Cj4+Cj4+ICAv
+KiBzZG1hIGlzIGRpc2FibGVkIGJ5IGRlZmF1bHQgaW4gdmJpb3MsIG5lZWQgdG8gcmUtZW5hYmxl
+IGluIGRyaXZlcgo+PiAqLyAtc3RhdGljIGludCBydl9zbWNfZW5hYmxlX3NkbWEoc3RydWN0IHBw
+X2h3bWdyICpod21ncikKPj4gK3N0YXRpYyB2b2lkIHJ2X3NtY19lbmFibGVfc2RtYShzdHJ1Y3Qg
+cHBfaHdtZ3IgKmh3bWdyKQo+PiAgewo+PiAtICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUoIXJ2
+X3NlbmRfbXNnX3RvX3NtYyhod21nciwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNf
+TVNHX1Bvd2VyVXBTZG1hKSwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgIkF0dGVtcHQgdG8g
+cG93ZXIgdXAgc2RtYSBGYWlsZWQhIiwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
+IC1FSU5WQUwpOwo+PiAtCj4+IC0gICAgICAgcmV0dXJuIDA7Cj4+ICsgICAgICAgcnZfc2VuZF9t
+c2dfdG9fc21jKGh3bWdyLAo+PiArICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfUG93
+ZXJVcFNkbWEpOwo+PiAgfQo+Pgo+PiAtc3RhdGljIGludCBydl9zbWNfZGlzYWJsZV9zZG1hKHN0
+cnVjdCBwcF9od21nciAqaHdtZ3IpCj4+ICtzdGF0aWMgdm9pZCBydl9zbWNfZGlzYWJsZV9zZG1h
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4+ICB7Cj4+IC0gICAgICAgUFBfQVNTRVJUX1dJVEhf
+Q09ERSghcnZfc2VuZF9tc2dfdG9fc21jKGh3bWdyLAo+PiAtICAgICAgICAgICAgICAgICAgICAg
+ICBQUFNNQ19NU0dfUG93ZXJEb3duU2RtYSksCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICJB
+dHRlbXB0IHRvIHBvd2VyIGRvd24gc2RtYSBGYWlsZWQhIiwKPj4gLSAgICAgICAgICAgICAgICAg
+ICAgICAgcmV0dXJuIC1FSU5WQUwpOwo+PiAtCj4+IC0gICAgICAgcmV0dXJuIDA7Cj4+ICsgICAg
+ICAgcnZfc2VuZF9tc2dfdG9fc21jKGh3bWdyLAo+PiArICAgICAgICAgICAgICAgICAgICAgICBQ
+UFNNQ19NU0dfUG93ZXJEb3duU2RtYSk7Cj4+ICB9Cj4+Cj4+ICAvKiB2Y24gaXMgZGlzYWJsZWQg
+YnkgZGVmYXVsdCBpbiB2YmlvcywgbmVlZCB0byByZS1lbmFibGUgaW4gZHJpdmVyCj4+ICovIC1z
+dGF0aWMgaW50IHJ2X3NtY19lbmFibGVfdmNuKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4+ICtz
+dGF0aWMgdm9pZCBydl9zbWNfZW5hYmxlX3ZjbihzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+PiAg
+ewo+PiAtICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUoIXJ2X3NlbmRfbXNnX3RvX3NtY193aXRo
+X3BhcmFtZXRlcihod21nciwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1Bv
+d2VyVXBWY24sIDApLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICAiQXR0ZW1wdCB0byBwb3dl
+ciB1cCB2Y24gRmFpbGVkISIsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlO
+VkFMKTsKPj4gLQo+PiAtICAgICAgIHJldHVybiAwOwo+PiArICAgICAgIHJ2X3NlbmRfbXNnX3Rv
+X3NtY193aXRoX3BhcmFtZXRlcihod21nciwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgUFBT
+TUNfTVNHX1Bvd2VyVXBWY24sIDApOwo+PiAgfQo+Pgo+PiAtc3RhdGljIGludCBydl9zbWNfZGlz
+YWJsZV92Y24oc3RydWN0IHBwX2h3bWdyICpod21ncikKPj4gK3N0YXRpYyB2b2lkIHJ2X3NtY19k
+aXNhYmxlX3ZjbihzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+PiAgewo+PiAtICAgICAgIFBQX0FT
+U0VSVF9XSVRIX0NPREUoIXJ2X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwK
+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1Bvd2VyRG93blZjbiwgMCksCj4+
+IC0gICAgICAgICAgICAgICAgICAgICAgICJBdHRlbXB0IHRvIHBvd2VyIGRvd24gdmNuIEZhaWxl
+ZCEiLAo+PiAtICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTCk7Cj4+IC0KPj4g
+LSAgICAgICByZXR1cm4gMDsKPj4gKyAgICAgICBydl9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJh
+bWV0ZXIoaHdtZ3IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIFBQU01DX01TR19Qb3dlckRv
+d25WY24sIDApOwo+PiAgfQo+Pgo+PiAgc3RhdGljIGludCBydl9zbXVfZmluaShzdHJ1Y3QgcHBf
+aHdtZ3IgKmh3bWdyKSBAQCAtMjg5LDExICsyNjAsOCBAQAo+PiBzdGF0aWMgaW50IHJ2X3N0YXJ0
+X3NtdShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+Pgo+PiAgICAgICAgIGlmIChydl92ZXJpZnlf
+c21jX2ludGVyZmFjZShod21ncikpCj4+ICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsK
+Pj4gLSAgICAgICBpZiAocnZfc21jX2VuYWJsZV9zZG1hKGh3bWdyKSkKPj4gLSAgICAgICAgICAg
+ICAgIHJldHVybiAtRUlOVkFMOwo+PiAtICAgICAgIGlmIChydl9zbWNfZW5hYmxlX3Zjbihod21n
+cikpCj4+IC0gICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPj4gLQo+PiArICAgICAgIHJ2
+X3NtY19lbmFibGVfc2RtYShod21ncik7Cj4+ICsgICAgICAgcnZfc21jX2VuYWJsZV92Y24oaHdt
+Z3IpOwo+PiAgICAgICAgIHJldHVybiAwOwo+PiAgfQo+Pgo+PiAtLQo+PiAxLjkuMQo+Pgo+PiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4
+IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
