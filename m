@@ -1,11 +1,14 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] radeon and amdgpu drm-fixes-4.16
-Date: Wed,  7 Mar 2018 17:06:47 -0500
-Message-ID: <20180307220647.3185-1-alexander.deucher@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Correct the amdgpu_ucode_fini_bo place for
+ Tonga
+Date: Thu, 8 Mar 2018 02:59:24 +0000
+Message-ID: <BN6PR12MB16527B26D9438D68D212E777F7DF0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1520477702-6291-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0068508840=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1520477702-6291-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,104 +19,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgRGF2ZSwKCkZpeGVzIGZvciA0LjE2LiAgQSBiaXQgYmlnZ2VyIHRoYW4gSSB3b3VsZCBoYXZl
-IGxpa2VkLCBidXQgbW9zdCBvZiB0aGF0CmlzIERDIGZpeGVzIHdoaWNoIEhhcnJ5IGhlbHBlZCBt
-ZSBwdWxsIHRvZ2V0aGVyIGZyb20gdGhlIHBhc3QgZmV3IHdlZWtzLgpIaWdobGlnaHRzOgotIEZp
-eCBETCBEVkkgd2l0aCBEQwotIFZhcmlvdXMgUlYgZml4ZXMgZm9yIERDCi0gT3ZlcmxheSBmaXhl
-cyBmb3IgREMKLSBGaXggSERNSTIgaGFuZGxpbmcgb24gYm9hcmRzIHdpdGhvdXQgSEJSIHRhYmxl
-cyBpbiB0aGUgdmJpb3MKLSBGaXggY3Jhc2ggd2l0aCBwYXNzLXRocm91Z2ggb24gU0kgb24gYW1k
-Z3B1Ci0gRml4IFJCIGhhcnZlc3Rpbmcgb24gS1YKLSBGaXggaGliZXJuYXRpb24gZmFpbHVyZXMg
-b24gVVZEIHdpdGggY2VydGFpbiBjYXJkcwoKVGhlIGZvbGxvd2luZyBjaGFuZ2VzIHNpbmNlIGNv
-bW1pdCA5M2RmZGY5ZmRlOWYyMGYxYzQ2NzM4YmYxODRhZGVlYmM3ZDdkNjZlOgoKICBNZXJnZSBi
-cmFuY2ggJ2RybS1maXhlcy00LjE2JyBvZiBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35h
-Z2Q1Zi9saW51eCBpbnRvIGRybS1maXhlcyAoMjAxOC0wMy0wMSAxNDowMzoxNCArMTAwMCkKCmFy
-ZSBhdmFpbGFibGUgaW4gdGhlIGdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6Ly9wZW9wbGUuZnJl
-ZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tZml4ZXMtNC4xNgoKZm9yIHlvdSB0byBmZXRj
-aCBjaGFuZ2VzIHVwIHRvIDRhNTNkOTA0NWVjMzFmM2Y5NzcxOWMyZTQxY2M4YjJlNzE1MWExZmU6
-CgogIGRybS9hbWQvZGlzcGxheTogdmFsaWRhdGUgcGxhbmUgZm9ybWF0IG9uIHByaW1hcnkgcGxh
-bmUgKDIwMTgtMDMtMDcgMTY6MzE6MTkgLTA1MDApCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCkFsZXggRGV1Y2hlciAoMyk6
-CiAgICAgIGRybS9hbWRncHU6IHVzZWQgY2FjaGVkIHBjaWUgZ2VuIGluZm8gZm9yIFNJICh2MikK
-ICAgICAgZHJtL3JhZGVvbjogZml4IEtWIGhhcnZlc3RpbmcKICAgICAgZHJtL2FtZGdwdTogZml4
-IEtWIGhhcnZlc3RpbmcKCkJoYXdhbnByZWV0IExha2hhICgxKToKICAgICAgZHJtL2FtZC9kaXNw
-bGF5OiBGaXggdGFrb3ZlciBmcm9tIFZHQSBtb2RlCgpFcmljIFlhbmcgKDMpOgogICAgICBkcm0v
-YW1kL2Rpc3BsYXk6IGZpeCBjdXJzb3IgcmVsYXRlZCBQc3RhdGUgaGFuZwogICAgICBkcm0vYW1k
-L2Rpc3BsYXk6IHVwZGF0ZSBpbmZvZnJhbWUgYWZ0ZXIgZGlnIGZlIGlzIHR1cm5lZCBvbgogICAg
-ICBkcm0vYW1kL2Rpc3BsYXk6IGVhcmx5IHJldHVybiBpZiBub3QgaW4gdmdhIG1vZGUgaW4gZGlz
-YWJsZV92Z2EKCkhhcnJ5IFdlbnRsYW5kICgxMSk6CiAgICAgIGRybS9hbWQvZGlzcGxheTogRG9u
-J3QgYmxvdyB1cCBpZiBURyBpcyBOVUxMIGluIGRjZTExMF92Ymxhbmtfc2V0CiAgICAgIGRybS9h
-bWQvZGlzcGxheTogRGVmYXVsdCBIRE1JNkcgc3VwcG9ydCB0byB0cnVlLiBMb2cgVkJJT1MgdGFi
-bGUgZXJyb3IuCiAgICAgIGRybS9hbWQvZGlzcGxheTogTW92ZSBNQVhfVE1EU19DTE9DSyBkZWZp
-bmUgdG8gaGVhZGVyCiAgICAgIGRybS9hbWQvZGlzcGxheTogUmVtb3ZlIHVubmVjZXNzYXJ5IGZh
-aWwgbGFiZWxzIGluIGNyZWF0ZV9zdHJlYW1fZm9yX3NpbmsKICAgICAgZHJtL2FtZC9kaXNwbGF5
-OiBQYXNzIHNpZ25hbCBkaXJlY3RseSB0byBlbmFibGVfdG1kc19vdXRwdXQKICAgICAgZHJtL2Ft
-ZC9kaXNwbGF5OiBEb24ndCBhbGxvdyBkdWFsLWxpbmsgRFZJIG9uIGFsbCBBU0lDcy4KICAgICAg
-ZHJtL2FtZC9kaXNwbGF5OiBEb24ndCBibG9jayBkdWFsLWxpbmsgRFZJIG1vZGVzCiAgICAgIGRy
-bS9hbWQvZGlzcGxheTogTWFrZSBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rIG1vcmUgY29uc2lzdGVu
-dAogICAgICBkcm0vYW1kL2Rpc3BsYXk6IENhbGwgdXBkYXRlX3N0cmVhbV9zaWduYWwgZGlyZWN0
-bHkgZnJvbSBhbWRncHVfZG0KICAgICAgZHJtL2FtZC9kaXNwbGF5OiBVc2UgY3J0YyBlbmFibGUv
-ZGlzYWJsZV92YmxhbmsgaG9va3MKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBSZXR1cm4gc3VjY2Vz
-cyB3aGVuIGVuYWJsaW5nIGludGVycnVwdAoKSmFtZXMgWmh1ICgyKToKICAgICAgZHJtL2FtZGdw
-dTpDb3JyZWN0IG1heCB1dmQgaGFuZGxlcwogICAgICBkcm0vYW1kZ3B1OkFsd2F5cyBzYXZlIHV2
-ZCB2Y3B1X2JvIGluIFZNIE1vZGUKCkplcnJ5IChGYW5nemhpKSBadW8gKDIpOgogICAgICBkcm0v
-YW1kL2Rpc3BsYXk6IEZpeCB0b3BvbG9neSBjaGFuZ2UgaXNzdWUgaW4gTVNUIHJlaG9vawogICAg
-ICBkcm0vYW1kL2Rpc3BsYXk6IEZpeGVkIG5vbi1uYXRpdmUgbW9kZXMgbm90IGxpZ2h0aW5nIHVw
-CgpMZW8gKFN1bnBlbmcpIExpICgxKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBGaXggbWVtbGVh
-a3Mgd2hlbiBhdG9taWMgY2hlY2sgZmFpbHMuCgpNaWNoZWwgRMOkbnplciAoMSk6CiAgICAgIGRy
-bS9hbWRncHUvZGNlNjogVXNlIERSTV9ERUJVRyBpbnN0ZWFkIG9mIERSTV9JTkZPIGZvciBIUEQg
-SVJRIGluZm8KCk1pa2l0YSBMaXBza2kgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IFNldCBp
-cnEgc3RhdGUgb25seSBvbiBleGlzdGluZyBjcnRjcwoKUmV4IFpodSAoMSk6CiAgICAgIGRybS9h
-bWRncHU6IE5vdGlmeSBzYmlvcyBkZXZpY2UgcmVhZHkgYmVmb3JlIHNlbmQgcmVxdWVzdAoKUm9t
-YW4gTGkgKDMpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBhY3RpdmUgZG9uZ2xlIGhvdHBs
-dWcKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBGaXggRkJDIHRvcG9sb2d5IGNoYW5nZQogICAgICBk
-cm0vYW1kL2Rpc3BsYXk6IGZpeCBib290LXVwIG9uIHZlZ2ExMAoKU2hpcmlzaCBTICg1KToKICAg
-ICAgZHJtL2FtZC9kaXNwbGF5OiBkZWZlciBtb2Rlc2V0IGNoZWNrIGluIGRtX3VwZGF0ZV9wbGFu
-ZXNfc3RhdGUKICAgICAgZHJtL2FtZC9kaXNwbGF5OiB2YWxpZGF0ZSBwbGFuZSBpbiBkY2UxMTAg
-Zm9yIHNjYWxpbmcKICAgICAgZHJtL2FtZC9kaXNwbGF5OiB1cGRhdGUgcGxhbmUgcGFyYW1zIGJl
-Zm9yZSB2YWxpZGF0aW9uCiAgICAgIGRybS9hbWQvZGlzcGxheTogZGlzYWJsZSBDUlRDcyB3aXRo
-IE5VTEwgRkIgb24gdGhlaXIgcHJpbWFyeSBwbGFuZSAoVjIpCiAgICAgIGRybS9hbWQvZGlzcGxh
-eTogdmFsaWRhdGUgcGxhbmUgZm9ybWF0IG9uIHByaW1hcnkgcGxhbmUKClRvbSBTdCBEZW5pcyAo
-MSk6CiAgICAgIGRybS9hbWQvYW1kZ3B1OiBNYXNrIHJwdHIgYXMgd2VsbCBpbiByaW5nIGRlYnVn
-ZnMKCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYWNwaS5jICAgICAgICAgICB8
-ICAgMyArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jICAgICAgICAg
-ICB8ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jICAgICAg
-ICAgICAgfCAgMTMgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92Nl8wLmMgICAg
-ICAgICAgICAgIHwgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5j
-ICAgICAgICAgICAgICB8ICAzMCArLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5j
-ICAgICAgICAgICAgICAgICAgICB8ICAyMiArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3NpX2RwbS5jICAgICAgICAgICAgICAgIHwgIDUwICsrLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgIHwgMTY1ICsrKysrKysrKysrKysrKy0t
-LS0tLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9pcnEuYyAg
-fCAgIDYgKy0KIC4uLi9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5j
-ICAgIHwgICA2ICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgICAg
-ICAgICAgIHwgICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19s
-aW5rLmMgICAgICB8ICAgMyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUv
-ZGNfcmVzb3VyY2UuYyAgfCAgIDMgLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nv
-cmUvZGNfc3RyZWFtLmMgICAgfCAgNzYgKy0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjLmggICAgICAgICAgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9kYy9kY19zdHJlYW0uaCAgICAgICAgIHwgICAyICsKIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2h3c2VxLmggICAgIHwgIDEwICstCiAuLi4vZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2xpbmtfZW5jb2Rlci5jICB8ICAzOCArKystLQogLi4u
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9saW5rX2VuY29kZXIuaCAgfCAgIDMgKy0K
-IC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTAwL2RjZTEwMF9yZXNvdXJjZS5jICAgIHwgICAx
-ICsKIC4uLi9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNlci5jICAgIHwg
-IDkxICsrKysrKysrKystLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX3Jl
-c291cmNlLmMgICAgfCAgMTggKysrCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMi9kY2Ux
-MTJfcmVzb3VyY2UuYyAgICB8ICAgMiArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9k
-Y2UxMjBfcmVzb3VyY2UuYyAgICB8ICAgMiArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
-Y2U4MC9kY2U4MF9yZXNvdXJjZS5jICB8ICAgMSArCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
-bjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jICB8ICA2NSArKysrKysrLQogLi4uL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvaW5jL2h3L2xpbmtfZW5jb2Rlci5oICAgfCAgIDMgKy0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvaHdfc2VxdWVuY2VyLmggIHwgICAzICsKIC4uLi9hbWQv
-ZGlzcGxheS9kYy9pcnEvZGNlMTEwL2lycV9zZXJ2aWNlX2RjZTExMC5jIHwgICAyICstCiAuLi4v
-YW1kL2Rpc3BsYXkvZGMvdmlydHVhbC92aXJ0dWFsX2xpbmtfZW5jb2Rlci5jICB8ICAgMyArLQog
-Li4uL2FtZC9kaXNwbGF5L2luY2x1ZGUvZ3JwaF9vYmplY3RfY3RybF9kZWZzLmggICAgfCAgIDUg
-LQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2luY2x1ZGUvc2lnbmFsX3R5cGVzLmggfCAg
-IDUgKwogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9jaWsuYyAgICAgICAgICAgICAgICAgICAgICAg
-fCAgMzEgKy0tLQogMzMgZmlsZXMgY2hhbmdlZCwgMzgxIGluc2VydGlvbnMoKyksIDI5NCBkZWxl
-dGlvbnMoLSkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0068508840==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB16527B26D9438D68D212E777F7DF0BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB16527B26D9438D68D212E777F7DF0BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Emily De=
+ng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, March 7, 2018 9:55:02 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deng, Emily
+Subject: [PATCH] drm/amdgpu: Correct the amdgpu_ucode_fini_bo place for Ton=
+ga
+
+The amdgpu_ucode_fini_bo should be called after gfx_v8_0_hw_fini,
+or it will have KCQ disable failed issue.
+
+For Tonga, as it firstly finishes SMC block, and the SMC hw fini
+will call amdgpu_ucode_fini, which will lead the amdgpu_ucode_fini_bo
+called before gfx_v8_0_hw_fini, this is incorrect.
+
+Signed-off-by: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c | 3 ---
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index aa1e517..ac76983 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1457,6 +1457,9 @@ static int amdgpu_device_ip_fini(struct amdgpu_device=
+ *adev)
+         }
+
+         for (i =3D adev->num_ip_blocks - 1; i >=3D 0; i--) {
++               if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_TY=
+PE_SMC &&
++                       adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_SMU)
++                       amdgpu_ucode_fini_bo(adev);
+                 if (!adev->ip_blocks[i].status.hw)
+                         continue;
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_powerplay.c
+index 5c2e2d5..825c9b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c
+@@ -162,9 +162,6 @@ static int amdgpu_pp_hw_fini(void *handle)
+                 ret =3D adev->powerplay.ip_funcs->hw_fini(
+                                         adev->powerplay.pp_handle);
+
+-       if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_SMU)
+-               amdgpu_ucode_fini_bo(adev);
+-
+         return ret;
+ }
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB16527B26D9438D68D212E777F7DF0BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Emily Deng &lt;Emily.Deng@amd=
+.com&gt;<br>
+<b>Sent:</b> Wednesday, March 7, 2018 9:55:02 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deng, Emily<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Correct the amdgpu_ucode_fini_bo place =
+for Tonga</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The amdgpu_ucode_fini_bo should be called after gf=
+x_v8_0_hw_fini,<br>
+or it will have KCQ disable failed issue.<br>
+<br>
+For Tonga, as it firstly finishes SMC block, and the SMC hw fini<br>
+will call amdgpu_ucode_fini, which will lead the amdgpu_ucode_fini_bo<br>
+called before gfx_v8_0_hw_fini, this is incorrect.<br>
+<br>
+Signed-off-by: Emily Deng &lt;Emily.Deng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&nbsp;&nbsp; | 3 &#43=
+;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c | 3 ---<br>
+&nbsp;2 files changed, 3 insertions(&#43;), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index aa1e517..ac76983 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -1457,6 &#43;1457,9 @@ static int amdgpu_device_ip_fini(struct amdgpu_de=
+vice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D adev-&gt;num_ip=
+_blocks - 1; i &gt;=3D 0; i--) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (adev-&gt;ip_blocks[i].version-&gt;type =3D=3D AMD_IP_BLO=
+CK_TYPE_SMC &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;fir=
+mware.load_type =3D=3D AMDGPU_FW_LOAD_SMU)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ucode=
+_fini_bo(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;ip_blocks[i].status.hw)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_powerplay.c<br>
+index 5c2e2d5..825c9b9 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_powerplay.c<br>
+@@ -162,9 &#43;162,6 @@ static int amdgpu_pp_hw_fini(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D adev-&gt;powerplay.ip_funcs-&gt;hw_fini(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; adev-&gt;powerplay.pp_handle);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=
+=3D AMDGPU_FW_LOAD_SMU)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_ucode_fini_bo(adev);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB16527B26D9438D68D212E777F7DF0BN6PR12MB1652namp_--
+
+--===============0068508840==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0068508840==--
