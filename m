@@ -1,14 +1,19 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Ryzen 5 2400g - colors/contrast messed up on amd-staging-drm-next
- and drm-next-4.17-wip
-Date: Thu, 8 Mar 2018 14:28:27 +0000
-Message-ID: <BN6PR12MB16523CC0AC34F2ABF75ADEB2F7DF0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <CABKQyRqt=jucZHmaDN9xdDeb-mWRmKDTL0yh9jmwDL=GqLzXeg@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati] Only change Set/MoveCursor hooks from what
+ we expect
+Date: Thu, 8 Mar 2018 18:00:03 +0100
+Message-ID: <42976fb8-c1c3-f685-1426-d3ff164dc062@daenzer.net>
+References: <20180305174459.18765-1-michel@daenzer.net>
+ <CADnq5_Me0zYe3sLJ3j8kkr7mw6X6nQQCUHzVgYsXh=u9FtGvnw@mail.gmail.com>
+ <aac0c084-812e-5994-bea8-0690ce90ede8@gmail.com>
+ <5d491770-6af9-687e-c387-e95f70ad9d68@daenzer.net>
+ <fddd98e1-f560-3892-8fa3-21a239425021@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1323352493=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CABKQyRqt=jucZHmaDN9xdDeb-mWRmKDTL0yh9jmwDL=GqLzXeg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <fddd98e1-f560-3892-8fa3-21a239425021-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,190 +24,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-2?Q?Hubert_=A3=EApicki?= <hubert.lepicki-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1323352493==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16523CC0AC34F2ABF75ADEB2F7DF0BN6PR12MB1652namp_"
-
---_000_BN6PR12MB16523CC0AC34F2ABF75ADEB2F7DF0BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
-
-+ Harry, Leo
-
-
-I saw this as well with tonga.  It seems to be related to the CTM/regamma c=
-hanges.
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Hubert =
-=A3=EApicki <hubert.lepicki-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Thursday, March 8, 2018 7:03:06 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Ryzen 5 2400g - colors/contrast messed up on amd-staging-drm-next =
-and drm-next-4.17-wip
-
-Hey,
-
-I was giving a shot your work in progress branch for the AMDGPU
-driver, hoping maybe it brings some fixes to Ryzen 5 2400g. It does
-not look like it, but I might have discovered a bug (or you may be
-well aware of it since it's work in progress...). Either way, just to
-let you know:
-
-Graphics is sort of messed up on drm-next-4.17-wip and
-amd-staging-drm-next branches on my Ryzen 5 2400g. I am attaching
-screenshots.
-
-Correct colors/contrast on Ubuntu 18.04 / stock 4.15 kernel:
-https://photos.app.goo.gl/3IXkgOXh955vygff2
-https://photos.app.goo.gl/rD2aw7jvO6cbbTLh2
-https://photos.app.goo.gl/3IXkgOXh955vygff2
-https://photos.app.goo.gl/xLYC9N7drU687L8o2
-
-Incorrect colors/contrast on Ubuntu 18.04 / amd-staging-drm-next branch:
-https://photos.app.goo.gl/nDXM7LFgnkRDMtoh1
-https://photos.app.goo.gl/aG94pY4o4L1zaLAj2
-https://photos.app.goo.gl/FogNie21obF9w0ek2
-https://photos.app.goo.gl/PHiQ9Npgo24DnoDD2
-
-
-These are photos taken with a phone camera, as on any captured
-screenshots everything is fine.
-
-I can provide better / detailed photos if you need me to.
-
-This has been observed on Ubuntu 18.04, and Arch Linux, Gigabyte
-AB350m-gaming3, Ryzen 5 2400g, on both Wayland and Xorg.
-
-Hope that helps,
-All the best,
-Hubert =A3epicki
-
---
-Pozdrawiam,
-Hubert =A3=EApicki
- -----------------------------------------------
-[ http://hubertlepicki.com ]
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB16523CC0AC34F2ABF75ADEB2F7DF0BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-2">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">&#43; Harry, Leo</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">I saw this as well with tonga.&nb=
-sp; It seems to be related to the CTM/regamma changes.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Hubert =A3=EApicki &lt;hubert=
-.lepicki-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, March 8, 2018 7:03:06 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Ryzen 5 2400g - colors/contrast messed up on amd-staging-dr=
-m-next and drm-next-4.17-wip</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Hey,<br>
-<br>
-I was giving a shot your work in progress branch for the AMDGPU<br>
-driver, hoping maybe it brings some fixes to Ryzen 5 2400g. It does<br>
-not look like it, but I might have discovered a bug (or you may be<br>
-well aware of it since it's work in progress...). Either way, just to<br>
-let you know:<br>
-<br>
-Graphics is sort of messed up on drm-next-4.17-wip and<br>
-amd-staging-drm-next branches on my Ryzen 5 2400g. I am attaching<br>
-screenshots.<br>
-<br>
-Correct colors/contrast on Ubuntu 18.04 / stock 4.15 kernel:<br>
-<a href=3D"https://photos.app.goo.gl/3IXkgOXh955vygff2">https://photos.app.=
-goo.gl/3IXkgOXh955vygff2</a><br>
-<a href=3D"https://photos.app.goo.gl/rD2aw7jvO6cbbTLh2">https://photos.app.=
-goo.gl/rD2aw7jvO6cbbTLh2</a><br>
-<a href=3D"https://photos.app.goo.gl/3IXkgOXh955vygff2">https://photos.app.=
-goo.gl/3IXkgOXh955vygff2</a><br>
-<a href=3D"https://photos.app.goo.gl/xLYC9N7drU687L8o2">https://photos.app.=
-goo.gl/xLYC9N7drU687L8o2</a><br>
-<br>
-Incorrect colors/contrast on Ubuntu 18.04 / amd-staging-drm-next branch:<br=
->
-<a href=3D"https://photos.app.goo.gl/nDXM7LFgnkRDMtoh1">https://photos.app.=
-goo.gl/nDXM7LFgnkRDMtoh1</a><br>
-<a href=3D"https://photos.app.goo.gl/aG94pY4o4L1zaLAj2">https://photos.app.=
-goo.gl/aG94pY4o4L1zaLAj2</a><br>
-<a href=3D"https://photos.app.goo.gl/FogNie21obF9w0ek2">https://photos.app.=
-goo.gl/FogNie21obF9w0ek2</a><br>
-<a href=3D"https://photos.app.goo.gl/PHiQ9Npgo24DnoDD2">https://photos.app.=
-goo.gl/PHiQ9Npgo24DnoDD2</a><br>
-<br>
-<br>
-These are photos taken with a phone camera, as on any captured<br>
-screenshots everything is fine.<br>
-<br>
-I can provide better / detailed photos if you need me to.<br>
-<br>
-This has been observed on Ubuntu 18.04, and Arch Linux, Gigabyte<br>
-AB350m-gaming3, Ryzen 5 2400g, on both Wayland and Xorg.<br>
-<br>
-Hope that helps,<br>
-All the best,<br>
-Hubert =A3epicki<br>
-<br>
--- <br>
-Pozdrawiam,<br>
-Hubert =A3=EApicki<br>
-&nbsp;-----------------------------------------------<br>
-[ <a href=3D"http://hubertlepicki.com">http://hubertlepicki.com</a> ]<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB16523CC0AC34F2ABF75ADEB2F7DF0BN6PR12MB1652namp_--
-
---===============1323352493==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1323352493==--
+T24gMjAxOC0wMy0wNyAxMDozMyBBTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPiBPbiAwMy8wNy8y
+MDE4IDA5OjUwIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4gT24gMjAxOC0wMy0wNyAwNDo0
+NSBBTSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPj4+IE9uIDAzLzA1LzIwMTggMTA6NTYgUE0sIEFs
+ZXggRGV1Y2hlciB3cm90ZToKPj4+PiBPbiBNb24sIE1hciA1LCAyMDE4IGF0IDEyOjQ0IFBNLCBN
+aWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0Pgo+Pj4+IHdyb3RlOgo+Pj4+PiBGcm9t
+OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPj4+Pj4KPj4+Pj4gU2lu
+Y2UgeGY4NkN1cnNvckNsb3NlU2NyZWVuIHJ1bnMgYWZ0ZXIgUkFERU9OQ2xvc2VTY3JlZW5fS01T
+LAo+Pj4+PiBQb2ludFByaXYtPnNwcml0ZUZ1bmNzIGRvZXNuJ3QgcG9pbnQgdG8gdGhlIHNhbWUg
+c3RydWN0IGluIHRoZQo+Pj4+PiBsYXR0ZXIgYXMKPj4+Pj4gaW4gUkFERU9OQ3Vyc29ySW5pdF9L
+TVMuIFNvIHdlIHdlcmUgcmVzdG9yaW5nIGluZm8tPlNldC9Nb3ZlQ3Vyc29yIHRvCj4+Pj4+IHRo
+ZSB3cm9uZyBzdHJ1Y3QuIFRoZW4gaW4gdGhlIG5leHQgc2VydmVyIGdlbmVyYXRpb24sCj4+Pj4+
+IGluZm8tPlNldC9Nb3ZlQ3Vyc29yIHdvdWxkIGVuZCB1cCBwb2ludGluZyB0bwo+Pj4+PiBkcm1t
+b2RlX3Nwcml0ZV9zZXQvbW92ZV9jdXJzb3IsIHJlc3VsdGluZyBpbiBhbiBpbmZpbml0ZSBsb29w
+IGlmCj4+Pj4+IG9uZSBvZgo+Pj4+PiB0aGVtIHdhcyBjYWxsZWQuCj4+Pj4+Cj4+Pj4+IFRvIGF2
+b2lkIHRoaXMsIG9ubHkgY2hhbmdlIHRoZSBTZXQvTW92ZUN1cnNvciBob29rcyBpZiB0aGVpciB2
+YWx1ZXMKPj4+Pj4gbWF0Y2ggb3VyIGV4cGVjdGF0aW9ucywgb3RoZXJ3aXNlIGxlYXZlIHRoZW0g
+YXMgaXMuIFRoaXMgaXMga2luZCBvZiBhCj4+Pj4+IGhhY2ssIGJ1dCB0aGUgYWx0ZXJuYXRpdmUg
+d291bGQgYmUgaW52YXNpdmUgYW5kIHRodXMgcmlza3kgY2hhbmdlcyB0bwo+Pj4+PiB0aGUgd2F5
+IHdlJ3JlIHdyYXBwaW5nIENsb3NlU2NyZWVuLCBhbmQgaXQncyBub3QgZXZlbiBjbGVhciB0aGF0
+IGNhbgo+Pj4+PiB3b3JrIHdpdGhvdXQgY2hhbmdpbmcgeHNlcnZlciBjb2RlLgo+Pj4+Pgo+Pj4+
+PiBGaXhlczogMWZlOGNhNzU5NzRjICgiS2VlcCB0cmFjayBvZiBob3cgbWFueSBTVyBjdXJzb3Jz
+IGFyZSB2aXNpYmxlIG9uCj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgZWFjaCBzY3JlZW4iKQo+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOk
+bnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPj4+Pgo+Pj4+IEFja2VkLWJ5OiBBbGV4IERl
+dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4+Pj4KPj4+Cj4+PiBOb3BlLCBub3Qg
+cXVpdGUsIHVuZm9ydHVuYXRlbHkuIFRlc3RlZCBhZ2FpbnN0IHgtc2VydmVyIG1hc3RlciwgbWVz
+YQo+Pj4gbWFzdGVyLCBhdGktZGR4IG1hc3Rlciwgd2l0aCBzZGRtIGxvZ2luIG1hbmFnZXIuIFdp
+dGggYSBmcmVzaGx5IHN0YXJ0ZWQKPj4+IHNlcnZlciwgbm93IG9uIGEgZHVhbC14LXNjcmVlbiBz
+ZXR1cCwgaW5zdGVhZCBvZiBhbiBpbmZpbml0ZSBsb29wLCBpIGdldAo+Pj4gYSBzZXJ2ZXIgY3Jh
+c2ggYXMgc29vbiBhcyBpIG1vdmUgdGhlIG1vdXNlIGN1cnNvciBmcm9tIFgtU2NyZWVuIDAgdG8K
+Pj4+IFgtU2NyZWVuIDE6Cj4+Cj4+IFdlbGwsIHRoYXQncyBub3QgdGhlIHNhbWUgaXNzdWUgSSB3
+YXMgc2VlaW5nIGFmdGVyIGFsbC4gSSdsbCB0YWtlCj4+IGFub3RoZXIgbG9vay4KPiAKPiBCZWR0
+aW1lIGhlcmUsIGJ1dCBmd2l3IGZyb20gc29tZSBkZWJ1ZyBzdGF0ZW1lbnRzIGkgYWRkZWQsIGl0
+IHNlZW1zIGFzCj4gaWYgb24gZHVhbC14LXNjcmVlbiBpbml0LCB4LXNjcmVlbiAxIHNvbWVob3cg
+aW5oZXJpdHMgdGhlCj4gUG9pbnRQcml2LT5zcHJpdGVGdW5jcy0+U2V0Q3Vyc29yID0gZHJtbW9k
+ZV9zcHJpdGVfc2V0X2N1cnNvciBhc3NpZ25tZW50Cj4gZG9uZSBvbiB4LXNjcmVlbiAwLCBhbmQg
+dGhlcmVmb3JlIGFscmVhZHkgaGFzIGl0ID09Cj4gZHJtbW9kZV9zcHJpdGVfc2V0X2N1cnNvciwg
+c28gZHVyaW5nIFJBREVPTkN1cnNvckluaXRfS01TIGZvciB4LXNjcmVlbiAxCj4gdGhlIGFzc2ln
+bm1lbnRzIGdldCBza2lwcGVkLCB3aGljaCBsZWF2ZXMgdGhlIGluZm8tPlNldEN1cnNvciBmb3IK
+PiB4LXNjcmVlbiAxID09IE5VTEwuIFRoZXJlZm9yZSBjdXJzb3IgdXBkYXRlIGZvciB4LXNjcmVl
+biAxID0gYm9vbSEKClllYWgsIEkgd2FzIGFscmVhZHkgc3VzcGVjdGluZyBzb21ldGhpbmcgbGlr
+ZSB0aGF0LgoKCkkndmUgcHVzaGVkIGZpeGVzIGZvciB0aGlzIHRvIGJvdGggZHJpdmVycy4gSWYg
+eW91J3JlIHN0aWxsIHNlZWluZyBhbgppc3N1ZSB3aXRoIHRob3NlLCBJIG5lZWQgdG8ga25vdyBi
+eSBlYXJseSBuZXh0IHdlZWssIG90aGVyd2lzZSBJIG1heSBub3QKYmUgYWJsZSB0byBtYWtlIHJl
+bGVhc2VzIHdpdGggYSBmaXggYmVmb3JlIEFwcmlsLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETD
+pG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxp
+YnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFu
+ZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
