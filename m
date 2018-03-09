@@ -1,14 +1,13 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu/soc15: always load the psp IP module
-Date: Fri, 9 Mar 2018 05:10:48 +0000
-Message-ID: <CY4PR12MB1687F2F0D4288F02D750C755FBDE0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20180308205409.3203-1-alexander.deucher@amd.com>,
- <20180308205409.3203-2-alexander.deucher@amd.com>
+From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Move IH clientid defs to separate file
+Date: Fri, 9 Mar 2018 13:17:06 +0800
+Message-ID: <2dfe34c2-9ef6-92a5-9dba-8443f80111d7@amd.com>
+References: <1520551491-29948-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="_004_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180308205409.3203-2-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1520551491-29948-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,291 +19,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: Oak Zeng <zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 
---_004_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
-
-How about keep the firmware type checking in set_ip_blocks.
-
-and remove the same check code in psp module.
-
-also no need to change load type if psp load firmware failed in psp module.
-
-
-Please review the attached patch.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Friday, March 9, 2018 4:54 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: [PATCH 2/2] drm/amdgpu/soc15: always load the psp IP module
-
-We already handle the firmware loading type checks in the
-psp module directly, no need for an additional check.
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/soc15.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index 8dc8b72ed49b..ecf58a68cf66 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -531,8 +531,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
-                 amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
-                 amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
-                 amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
--               if (amdgpu_fw_load_type =3D=3D 2 || amdgpu_fw_load_type =3D=
-=3D -1)
--                       amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block=
-);
-+               amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
-                 if (!amdgpu_sriov_vf(adev))
-                         amdgpu_device_ip_block_add(adev, &amdgpu_pp_ip_blo=
-ck);
-                 if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
---
-2.13.6
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...
-
-
-
---_000_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Hi Alex,</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">How about keep the firmware type =
-checking in
-<font size=3D"2"><span style=3D"font-size:11pt;">set_ip_blocks</span></font=
->.</p>
-<p style=3D"margin-top:0;margin-bottom:0">and remove the same check code in=
- psp module.</p>
-<p style=3D"margin-top:0;margin-bottom:0">also no need to change load type =
-if psp load firmware failed in psp module.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Please review the attached patch.=
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block;width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx-=
-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher=
-@gmail.com&gt;<br>
-<b>Sent:</b> Friday, March 9, 2018 4:54 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu/soc15: always load the psp IP module=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">We already handle the firmware loading type checks=
- in the<br>
-psp module directly, no need for an additional check.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c | 3 &#43;--<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index 8dc8b72ed49b..ecf58a68cf66 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -531,8 &#43;531,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;vega10_common_i=
-p_block);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;gmc_v9_0_ip_blo=
-ck);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;vega10_ih_ip_bl=
-ock);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (amdgpu_fw_load_type =3D=3D 2 || amdgpu_fw_load_type =3D=3D -=
-1)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
-_block_add(adev, &amp;psp_v3_1_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;psp_v3_1_ip_block);<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_block_add(adev, &amp;amdgpu_pp_ip_block);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;enable_virtual_display || amdgpu_sriov_v=
-f(adev))<br>
--- <br>
-2.13.6<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a previewremoved=3D"true" id=3D"LPlnk123469" href=3D"https://lists.freedes=
-ktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div style=3D"margin-bottom: 20px; overflow: auto; width: 100%; text-indent=
-: 0px;" id=3D"LPBorder_GT_15205709349260.10638474698232214">
-<table role=3D"presentation" style=3D"width: 90%; background-color: rgb(255=
-, 255, 255); position: relative; overflow: auto; padding-top: 20px; padding=
--bottom: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200);=
- border-bottom: 1px dotted rgb(200, 200, 200);" id=3D"LPContainer_152057093=
-49240.2808290117558123" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing: 0px;" valign=3D"top">
-<td colspan=3D"2" style=3D"vertical-align: top; position: relative; padding=
-: 0px; display: table-cell;" id=3D"TextCell_15205709349240.5375816182761378=
-">
-<div id=3D"LPRemovePreviewContainer_15205709349250.20990631388199998"></div=
->
-<div style=3D"top: 0px; color: rgb(0, 120, 215); font-weight: 400; font-siz=
-e: 21px; font-family: &quot;wf_segoe-ui_light&quot;,&quot;Segoe UI Light&qu=
-ot;,&quot;Segoe WP Light&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Ta=
-homa,Arial,sans-serif; line-height: 21px;" id=3D"LPTitle_15205709349250.744=
-041292827629">
-<a target=3D"_blank" href=3D"https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx" style=3D"text-decoration: none;" id=3D"LPUrlAnchor_15205709349250=
-.5260705269625694">amd-gfx Info Page - freedesktop.org</a></div>
-<div style=3D"margin: 10px 0px 16px; color: rgb(102, 102, 102); font-weight=
-: 400; font-family: &quot;wf_segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&qu=
-ot;Segoe WP&quot;,Tahoma,Arial,sans-serif; font-size: 14px; line-height: 14=
-px;" id=3D"LPMetadata_15205709349250.4352603789039715">
-lists.freedesktop.org</div>
-<div style=3D"display: block; color: rgb(102, 102, 102); font-weight: 400; =
-font-family: &quot;wf_segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Sego=
-e WP&quot;,Tahoma,Arial,sans-serif; font-size: 14px; line-height: 20px; max=
--height: 100px; overflow: hidden;" id=3D"LPDescription_15205709349260.44569=
-05619796764">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_--
-
---_004_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_
-Content-Type: text/x-patch;
-	name="0001-drm-amdgpu-Remove-additional-firmware-loading-type-c.patch"
-Content-Description: 0001-drm-amdgpu-Remove-additional-firmware-loading-type-c.patch
-Content-Disposition: attachment;
-	filename="0001-drm-amdgpu-Remove-additional-firmware-loading-type-c.patch";
-	size=2261; creation-date="Fri, 09 Mar 2018 05:09:32 GMT";
-	modification-date="Fri, 09 Mar 2018 05:09:32 GMT"
-Content-Transfer-Encoding: base64
-
-RnJvbSAyOWI3NzE3Yjk3ZmZmODFmMGRjZDgwYjRiZGEyNGNlYTNkNjkwM2JiIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+CkRhdGU6IEZyaSwg
-OSBNYXIgMjAxOCAxMjozNDowNSArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IFJl
-bW92ZSBhZGRpdGlvbmFsIGZpcm13YXJlIGxvYWRpbmcgdHlwZSBjaGVjayBpbgogcHNwIG1vZHVs
-ZQoKUFNQIGlwIG9ubHkgYmUgYWRkZWQgYW5kIGluaXRpYWxpemVkIGluIFBTUCBsb2FkIGZpcm13
-YXJlIGNhc2UuCndoZW4gUFNQIGxvYWQgZmFpbGVkLCBjaGFuZ2UgdGhlIGxvYWQgdHlwZSBpcyBt
-ZWFubGVzcywgYmVjYXVzZQppbiB0aGlzIGNhc2UsIGRyaXZlciBkbyBub3Qgc3VwcG9ydCBvdGhl
-ciBsb2FkIHR5cGUgYW5kCndpbGwgcmV0dXJuIGZhaWxlZCBkaXJlY3RseS4KCkNoYW5nZS1JZDog
-SWViZTgwNjQyZmNiYjBjODAyZDI1MDA1YmU1ZWY2MDczNWE1NzU4ZWUKU2lnbmVkLW9mZi1ieTog
-UmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9wc3AuYyB8IDE1IC0tLS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE1IGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9wc3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwppbmRleCA2
-ZTcxMmYxLi4xOTk3Zjc5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfcHNwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5j
-CkBAIC0zOTEsMTAgKzM5MSw2IEBAIHN0YXRpYyBpbnQgcHNwX2h3X2luaXQodm9pZCAqaGFuZGxl
-KQogCWludCByZXQ7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKiloYW5kbGU7CiAKLQotCWlmIChhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgIT0g
-QU1ER1BVX0ZXX0xPQURfUFNQKQotCQlyZXR1cm4gMDsKLQogCW11dGV4X2xvY2soJmFkZXYtPmZp
-cm13YXJlLm11dGV4KTsKIAkvKgogCSAqIFRoaXMgc2VxdWVuY2UgaXMganVzdCB1c2VkIG9uIGh3
-X2luaXQgb25seSBvbmNlLCBubyBuZWVkIG9uCkBAIC00MTQsNyArNDEwLDYgQEAgc3RhdGljIGlu
-dCBwc3BfaHdfaW5pdCh2b2lkICpoYW5kbGUpCiAJcmV0dXJuIDA7CiAKIGZhaWxlZDoKLQlhZGV2
-LT5maXJtd2FyZS5sb2FkX3R5cGUgPSBBTURHUFVfRldfTE9BRF9ESVJFQ1Q7CiAJbXV0ZXhfdW5s
-b2NrKCZhZGV2LT5maXJtd2FyZS5tdXRleCk7CiAJcmV0dXJuIC1FSU5WQUw7CiB9CkBAIC00MjQs
-OSArNDE5LDYgQEAgc3RhdGljIGludCBwc3BfaHdfZmluaSh2b2lkICpoYW5kbGUpCiAJc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7CiAJ
-c3RydWN0IHBzcF9jb250ZXh0ICpwc3AgPSAmYWRldi0+cHNwOwogCi0JaWYgKGFkZXYtPmZpcm13
-YXJlLmxvYWRfdHlwZSAhPSBBTURHUFVfRldfTE9BRF9QU1ApCi0JCXJldHVybiAwOwotCiAJYW1k
-Z3B1X3Vjb2RlX2ZpbmlfYm8oYWRldik7CiAKIAlwc3BfcmluZ19kZXN0cm95KHBzcCwgUFNQX1JJ
-TkdfVFlQRV9fS00pOwpAQCAtNDY4LDggKzQ2MCw2IEBAIHN0YXRpYyBpbnQgcHNwX3Jlc3VtZSh2
-b2lkICpoYW5kbGUpCiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKiloYW5kbGU7CiAJc3RydWN0IHBzcF9jb250ZXh0ICpwc3AgPSAmYWRldi0+cHNw
-OwogCi0JaWYgKGFkZXYtPmZpcm13YXJlLmxvYWRfdHlwZSAhPSBBTURHUFVfRldfTE9BRF9QU1Ap
-Ci0JCXJldHVybiAwOwogCiAJRFJNX0lORk8oIlBTUCBpcyByZXN1bWluZy4uLlxuIik7CiAKQEAg
-LTUwMywxMSArNDkzLDYgQEAgc3RhdGljIGJvb2wgcHNwX2NoZWNrX2Z3X2xvYWRpbmdfc3RhdHVz
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogewogCXN0cnVjdCBhbWRncHVfZmlybXdhcmVf
-aW5mbyAqdWNvZGUgPSBOVUxMOwogCi0JaWYgKGFkZXYtPmZpcm13YXJlLmxvYWRfdHlwZSAhPSBB
-TURHUFVfRldfTE9BRF9QU1ApIHsKLQkJRFJNX0lORk8oImZpcm13YXJlIGlzIG5vdCBsb2FkZWQg
-YnkgUFNQXG4iKTsKLQkJcmV0dXJuIHRydWU7Ci0JfQotCiAJaWYgKCFhZGV2LT5maXJtd2FyZS5m
-d19zaXplKQogCQlyZXR1cm4gZmFsc2U7CiAKLS0gCjEuOS4xCgo=
-
---_004_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---_004_CY4PR12MB1687F2F0D4288F02D750C755FBDE0CY4PR12MB1687namp_--
+CgpPbiAyMDE45bm0MDPmnIgwOeaXpSAwNzoyNCwgT2FrIFplbmcgd3JvdGU6Cj4gVGhpcyBpcyBw
+cmVwYXJhdGlvbiBmb3Igc2hhcmluZyBjbGllbnQgSUQgZGVmaW5pdGlvbnMKPiBiZXR3ZWVuIGFt
+ZGdwdSBhbmQgYW1ka2ZkCj4KPiBDaGFuZ2UtSWQ6IEllMGI3YjE0YzljMjM2NmZkODk2NzQ1YTUx
+Yjc0YTliYTk3ZWUzMjI0Cj4gU2lnbmVkLW9mZi1ieTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5j
+b20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWguaCAgICAg
+ICAgICB8IDQ0ICstLS0tLS0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRl
+L3NvYzE1X2loX2NsaWVudGlkLmggfCA3MiArKysrKysrKysrKysrKysrKysrKysrKysrCj4gICAy
+IGZpbGVzIGNoYW5nZWQsIDczIGluc2VydGlvbnMoKyksIDQzIGRlbGV0aW9ucygtKQo+ICAgY3Jl
+YXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9zb2MxNV9paF9jbGll
+bnRpZC5oCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2loLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWguaAo+IGluZGV4IGI4
+YTdkYmEuLjYyYTk4NjkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2loLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWgu
+aAo+IEBAIC0yNSw1MSArMjUsOSBAQAo+ICAgI2RlZmluZSBfX0FNREdQVV9JSF9IX18KPiAgIAo+
+ICAgI2luY2x1ZGUgPGxpbnV4L2NoYXNoLmg+Cj4gKyNpbmNsdWRlICJzb2MxNV9paF9jbGllbnRp
+ZC5oIgo+ICAgCj4gICBzdHJ1Y3QgYW1kZ3B1X2RldmljZTsKPiAtIC8qCj4gLSAgKiB2ZWdhMTAr
+IElIIGNsaWVudHMKPiAtICovCj4gLWVudW0gYW1kZ3B1X2loX2NsaWVudGlkCj4gLXsKPiAtICAg
+IEFNREdQVV9JSF9DTElFTlRJRF9JSAkgICAgPSAweDAwLAo+IC0gICAgQU1ER1BVX0lIX0NMSUVO
+VElEX0FDUAkgICAgPSAweDAxLAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX0FUSFVCCSAgICA9
+IDB4MDIsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfQklGCSAgICA9IDB4MDMsCj4gLSAgICBB
+TURHUFVfSUhfQ0xJRU5USURfRENFCSAgICA9IDB4MDQsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5U
+SURfSVNQCSAgICA9IDB4MDUsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfUENJRTAJICAgID0g
+MHgwNiwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9STEMJICAgID0gMHgwNywKPiAtICAgIEFN
+REdQVV9JSF9DTElFTlRJRF9TRE1BMAkgICAgPSAweDA4LAo+IC0gICAgQU1ER1BVX0lIX0NMSUVO
+VElEX1NETUExCSAgICA9IDB4MDksCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfU0UwU0gJICAg
+ID0gMHgwYSwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9TRTFTSAkgICAgPSAweDBiLAo+IC0g
+ICAgQU1ER1BVX0lIX0NMSUVOVElEX1NFMlNICSAgICA9IDB4MGMsCj4gLSAgICBBTURHUFVfSUhf
+Q0xJRU5USURfU0UzU0gJICAgID0gMHgwZCwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9TWVNI
+VUIJICAgID0gMHgwZSwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9USE0JICAgID0gMHgwZiwK
+PiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9VVkQJICAgID0gMHgxMCwKPiAtICAgIEFNREdQVV9J
+SF9DTElFTlRJRF9WQ0UwCSAgICA9IDB4MTEsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfVk1D
+CSAgICA9IDB4MTIsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfWERNQQkgICAgPSAweDEzLAo+
+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX0dSQk1fQ1AJICAgID0gMHgxNCwKPiAtICAgIEFNREdQ
+VV9JSF9DTElFTlRJRF9BVFMJICAgID0gMHgxNSwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9S
+T01fU01VSU8gICAgPSAweDE2LAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX0RGCSAgICA9IDB4
+MTcsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfVkNFMQkgICAgPSAweDE4LAo+IC0gICAgQU1E
+R1BVX0lIX0NMSUVOVElEX1BXUgkgICAgPSAweDE5LAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElE
+X1VUQ0wyCSAgICA9IDB4MWIsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfRUEJICAgID0gMHgx
+YywKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9VVENMMkxPRwkgICAgPSAweDFkLAo+IC0gICAg
+QU1ER1BVX0lIX0NMSUVOVElEX01QMAkgICAgPSAweDFlLAo+IC0gICAgQU1ER1BVX0lIX0NMSUVO
+VElEX01QMQkgICAgPSAweDFmLAo+IC0KPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9NQVgsCj4g
+LQo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX1ZDTgkgICAgPSBBTURHUFVfSUhfQ0xJRU5USURf
+VVZECj4gLX07Cj4gLQo+IC0jZGVmaW5lIEFNREdQVV9JSF9DTElFTlRJRF9MRUdBQ1kgMAo+ICAg
+Cj4gICAjZGVmaW5lIEFNREdQVV9QQUdFRkFVTFRfSEFTSF9CSVRTIDgKPiAgIHN0cnVjdCBhbWRn
+cHVfcmV0cnlmYXVsdF9oYXNodGFibGUgewo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2luY2x1ZGUvc29jMTVfaWhfY2xpZW50aWQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5j
+bHVkZS9zb2MxNV9paF9jbGllbnRpZC5oCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCAw
+MDAwMDAwLi5lMmU4YzYzCj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvaW5jbHVkZS9zb2MxNV9paF9jbGllbnRpZC5oCj4gQEAgLTAsMCArMSw3MiBAQAo+ICsvKgo+
+ICsgKiBDb3B5cmlnaHQgMjAxOCBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCj4gKyAqCj4g
+KyAqIFBlcm1pc3Npb24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkg
+cGVyc29uIG9idGFpbmluZyBhCj4gKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2Np
+YXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUgIlNvZnR3YXJlIiksCj4gKyAqIHRvIGRlYWwg
+aW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxp
+bWl0YXRpb24KPiArICogdGhlIHJpZ2h0cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1
+Ymxpc2gsIGRpc3RyaWJ1dGUsIHN1YmxpY2Vuc2UsCj4gKyAqIGFuZC9vciBzZWxsIGNvcGllcyBv
+ZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZQo+ICsgKiBT
+b2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBj
+b25kaXRpb25zOgo+ICsgKgo+ICsgKiBUaGUgYWJvdmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhp
+cyBwZXJtaXNzaW9uIG5vdGljZSBzaGFsbCBiZSBpbmNsdWRlZCBpbgo+ICsgKiBhbGwgY29waWVz
+IG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4KPiArICoKPiArICogVEhF
+IFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJ
+TkQsIEVYUFJFU1MgT1IKPiArICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBU
+TyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCj4gKyAqIEZJVE5FU1MgRk9SIEEg
+UEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1FTlQuICBJTiBOTyBFVkVOVCBTSEFM
+TAo+ICsgKiBUSEUgQ09QWVJJR0hUIEhPTERFUihTKSBPUiBBVVRIT1IoUykgQkUgTElBQkxFIEZP
+UiBBTlkgQ0xBSU0sIERBTUFHRVMgT1IKPiArICogT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElO
+IEFOIEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCj4gKyAqIEFSSVNJTkcg
+RlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09GVFdBUkUgT1IgVEhFIFVT
+RSBPUgo+ICsgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCj4gKyAqCj4gKyAqLwo+
+ICsKPiArI2lmbmRlZiBfX1NPQzE1X0lIX0NMSUVOVElEX0hfXwo+ICsjZGVmaW5lIF9fU09DMTVf
+SUhfQ0xJRU5USURfSF9fCj4gKwo+ICsgLyoKPiArICAqIHZlZ2ExMCsgSUggY2xpZW50cwo+ICsg
+Ki8KPiArZW51bSBhbWRncHVfaWhfY2xpZW50aWQgewpJZiB0aGlzIGlzIHZlZ2ExMCsgc2VwZWNp
+ZmljLCBob3cgYWJvdXQgbmFtZSBpdCAic29jMTVfaWhfY2xpZW50aWQiPwoKCj4gKwlBTURHUFVf
+SUhfQ0xJRU5USURfSUgJCT0gMHgwMCwKU09DMTVfSUhfQ0xJRU5USURfSUg/CgpSZWdhcmRzLApE
+YXZpZCBaaG91Cj4gKwlBTURHUFVfSUhfQ0xJRU5USURfQUNQCQk9IDB4MDEsCj4gKwlBTURHUFVf
+SUhfQ0xJRU5USURfQVRIVUIJPSAweDAyLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX0JJRgkJPSAw
+eDAzLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX0RDRQkJPSAweDA0LAo+ICsJQU1ER1BVX0lIX0NM
+SUVOVElEX0lTUAkJPSAweDA1LAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX1BDSUUwCT0gMHgwNiwK
+PiArCUFNREdQVV9JSF9DTElFTlRJRF9STEMJCT0gMHgwNywKPiArCUFNREdQVV9JSF9DTElFTlRJ
+RF9TRE1BMAk9IDB4MDgsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfU0RNQTEJPSAweDA5LAo+ICsJ
+QU1ER1BVX0lIX0NMSUVOVElEX1NFMFNICT0gMHgwYSwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9T
+RTFTSAk9IDB4MGIsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfU0UyU0gJPSAweDBjLAo+ICsJQU1E
+R1BVX0lIX0NMSUVOVElEX1NFM1NICT0gMHgwZCwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9TWVNI
+VUIJPSAweDBlLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX1RITQkJPSAweDBmLAo+ICsJQU1ER1BV
+X0lIX0NMSUVOVElEX1VWRAkJPSAweDEwLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX1ZDRTAJCT0g
+MHgxMSwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9WTUMJCT0gMHgxMiwKPiArCUFNREdQVV9JSF9D
+TElFTlRJRF9YRE1BCQk9IDB4MTMsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfR1JCTV9DUAk9IDB4
+MTQsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfQVRTCQk9IDB4MTUsCj4gKwlBTURHUFVfSUhfQ0xJ
+RU5USURfUk9NX1NNVUlPCT0gMHgxNiwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9ERgkJPSAweDE3
+LAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX1ZDRTEJCT0gMHgxOCwKPiArCUFNREdQVV9JSF9DTElF
+TlRJRF9QV1IJCT0gMHgxOSwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9VVENMMgk9IDB4MWIsCj4g
+KwlBTURHUFVfSUhfQ0xJRU5USURfRUEJCT0gMHgxYywKPiArCUFNREdQVV9JSF9DTElFTlRJRF9V
+VENMMkxPRwk9IDB4MWQsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfTVAwCQk9IDB4MWUsCj4gKwlB
+TURHUFVfSUhfQ0xJRU5USURfTVAxCQk9IDB4MWYsCj4gKwo+ICsJQU1ER1BVX0lIX0NMSUVOVElE
+X01BWCwKPiArCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfVkNOCQk9IEFNREdQVV9JSF9DTElFTlRJ
+RF9VVkQKPiArfTsKPiArCj4gKyNkZWZpbmUgQU1ER1BVX0lIX0NMSUVOVElEX0xFR0FDWSAwCj4g
+Kwo+ICsjZW5kaWYKPiArCj4gKwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
