@@ -1,15 +1,14 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu/soc15: always load the psp IP module
-Date: Fri, 9 Mar 2018 08:45:55 +0100
-Message-ID: <b6999bc4-1fae-c293-42f4-2929b08d1821@gmail.com>
-References: <20180308205409.3203-1-alexander.deucher@amd.com>
- <20180308205409.3203-2-alexander.deucher@amd.com>
- <CY4PR12MB1687F2F0D4288F02D750C755FBDE0@CY4PR12MB1687.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amdgpu: Move IH clientid defs to separate file
+Date: Fri, 9 Mar 2018 08:48:40 +0100
+Message-ID: <4107d6b6-d969-478f-6b25-b9cf693292b2@gmail.com>
+References: <1520551491-29948-1-git-send-email-Oak.Zeng@amd.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1105941083=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1687F2F0D4288F02D750C755FBDE0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1520551491-29948-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,301 +20,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: Oak Zeng <zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1105941083==
-Content-Type: multipart/alternative;
- boundary="------------847A898A204D0B1527AB86D7"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------847A898A204D0B1527AB86D7
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Rex,
-
-I think still initializing the PSP even when you don't need it for 
-firmware upload sounds like a good idea to me.
-
-But take that with a grain of salt since I really on don't know that 
-part of the hardware so well.
-
-Christian.
-
-Am 09.03.2018 um 06:10 schrieb Zhu, Rex:
->
-> Hi Alex,
->
->
-> How about keep the firmware type checking in set_ip_blocks.
->
-> and remove the same check code in psp module.
->
-> also no need to change load type if psp load firmware failed in psp 
-> module.
->
->
-> Please review the attached patch.
->
->
-> Best Regards
->
-> Rex
->
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
-> Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> *Sent:* Friday, March 9, 2018 4:54 AM
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Cc:* Deucher, Alexander
-> *Subject:* [PATCH 2/2] drm/amdgpu/soc15: always load the psp IP module
-> We already handle the firmware loading type checks in the
-> psp module directly, no need for an additional check.
->
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c 
-> b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 8dc8b72ed49b..ecf58a68cf66 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -531,8 +531,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
->                  amdgpu_device_ip_block_add(adev, 
-> &vega10_common_ip_block);
->                  amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
->                  amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
-> -               if (amdgpu_fw_load_type == 2 || amdgpu_fw_load_type == -1)
-> - amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
-> +               amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
->                  if (!amdgpu_sriov_vf(adev))
-> amdgpu_device_ip_block_add(adev, &amdgpu_pp_ip_block);
->                  if (adev->enable_virtual_display || 
-> amdgpu_sriov_vf(adev))
-> -- 
-> 2.13.6
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> amd-gfx Info Page - freedesktop.org 
-> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
-> lists.freedesktop.org
-> Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the 
-> following form. Use of all freedesktop.org lists is subject to our 
-> Code of ...
->
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------847A898A204D0B1527AB86D7
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi Rex,<br>
-      <br>
-      I think still initializing the PSP even when you don't need it for
-      firmware upload sounds like a good idea to me.<br>
-      <br>
-      But take that with a grain of salt since I really on don't know
-      that part of the hardware so well.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 09.03.2018 um 06:10 schrieb Zhu, Rex:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CY4PR12MB1687F2F0D4288F02D750C755FBDE0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <p style="margin-top:0;margin-bottom:0">Hi Alex,</p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">How about keep the
-          firmware type checking in
-          <font size="2"><span style="font-size:11pt;">set_ip_blocks</span></font>.</p>
-        <p style="margin-top:0;margin-bottom:0">and remove the same
-          check code in psp module.</p>
-        <p style="margin-top:0;margin-bottom:0">also no need to change
-          load type if psp load firmware failed in psp module.</p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">Please review the
-          attached patch.</p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">Best Regards</p>
-        <p style="margin-top:0;margin-bottom:0">Rex<br>
-        </p>
-        <div style="color: rgb(0, 0, 0);">
-          <hr tabindex="-1" style="display:inline-block;width:98%">
-          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-              face="Calibri, sans-serif" color="#000000"><b>From:</b>
-              amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
-              behalf of Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-              <b>Sent:</b> Friday, March 9, 2018 4:54 AM<br>
-              <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-              <b>Cc:</b> Deucher, Alexander<br>
-              <b>Subject:</b> [PATCH 2/2] drm/amdgpu/soc15: always load
-              the psp IP module</font>
-            <div> </div>
-          </div>
-          <div class="BodyFragment"><font size="2"><span
-                style="font-size:11pt;">
-                <div class="PlainText">We already handle the firmware
-                  loading type checks in the<br>
-                  psp module directly, no need for an additional check.<br>
-                  <br>
-                  Signed-off-by: Alex Deucher
-                  <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                  ---<br>
-                   drivers/gpu/drm/amd/amdgpu/soc15.c | 3 +--<br>
-                   1 file changed, 1 insertion(+), 2 deletions(-)<br>
-                  <br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
-                  b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-                  index 8dc8b72ed49b..ecf58a68cf66 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-                  @@ -531,8 +531,7 @@ int soc15_set_ip_blocks(struct
-                  amdgpu_device *adev)<br>
-                                   amdgpu_device_ip_block_add(adev,
-                  &amp;vega10_common_ip_block);<br>
-                                   amdgpu_device_ip_block_add(adev,
-                  &amp;gmc_v9_0_ip_block);<br>
-                                   amdgpu_device_ip_block_add(adev,
-                  &amp;vega10_ih_ip_block);<br>
-                  -               if (amdgpu_fw_load_type == 2 ||
-                  amdgpu_fw_load_type == -1)<br>
-                  -                      
-                  amdgpu_device_ip_block_add(adev,
-                  &amp;psp_v3_1_ip_block);<br>
-                  +               amdgpu_device_ip_block_add(adev,
-                  &amp;psp_v3_1_ip_block);<br>
-                                   if (!amdgpu_sriov_vf(adev))<br>
-                                          
-                  amdgpu_device_ip_block_add(adev,
-                  &amp;amdgpu_pp_ip_block);<br>
-                                   if (adev-&gt;enable_virtual_display
-                  || amdgpu_sriov_vf(adev))<br>
-                  -- <br>
-                  2.13.6<br>
-                  <br>
-                  _______________________________________________<br>
-                  amd-gfx mailing list<br>
-                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                  <a previewremoved="true" id="LPlnk123469"
-                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                    moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-                  <div style="margin-bottom: 20px; overflow: auto;
-                    width: 100%; text-indent: 0px;"
-                    id="LPBorder_GT_15205709349260.10638474698232214">
-                    <table role="presentation" style="width: 90%;
-                      background-color: rgb(255, 255, 255); position:
-                      relative; overflow: auto; padding-top: 20px;
-                      padding-bottom: 20px; margin-top: 20px;
-                      border-top: 1px dotted rgb(200, 200, 200);
-                      border-bottom: 1px dotted rgb(200, 200, 200);"
-                      id="LPContainer_15205709349240.2808290117558123"
-                      cellspacing="0">
-                      <tbody>
-                        <tr style="border-spacing: 0px;" valign="top">
-                          <td colspan="2" style="vertical-align: top;
-                            position: relative; padding: 0px; display:
-                            table-cell;"
-                            id="TextCell_15205709349240.5375816182761378">
-                            <div style="top: 0px; color: rgb(0, 120,
-                              215); font-weight: 400; font-size: 21px;
-                              font-family:
-                              &quot;wf_segoe-ui_light&quot;,&quot;Segoe
-                              UI Light&quot;,&quot;Segoe WP
-                              Light&quot;,&quot;Segoe
-                              UI&quot;,&quot;Segoe
-                              WP&quot;,Tahoma,Arial,sans-serif;
-                              line-height: 21px;"
-                              id="LPTitle_15205709349250.744041292827629">
-                              <a target="_blank"
-                                href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                style="text-decoration: none;"
-                                id="LPUrlAnchor_15205709349250.5260705269625694"
-                                moz-do-not-send="true">amd-gfx Info Page
-                                - freedesktop.org</a></div>
-                            <div style="margin: 10px 0px 16px; color:
-                              rgb(102, 102, 102); font-weight: 400;
-                              font-family:
-                              &quot;wf_segoe-ui_normal&quot;,&quot;Segoe
-                              UI&quot;,&quot;Segoe
-                              WP&quot;,Tahoma,Arial,sans-serif;
-                              font-size: 14px; line-height: 14px;"
-                              id="LPMetadata_15205709349250.4352603789039715">
-                              lists.freedesktop.org</div>
-                            <div style="display: block; color: rgb(102,
-                              102, 102); font-weight: 400; font-family:
-                              &quot;wf_segoe-ui_normal&quot;,&quot;Segoe
-                              UI&quot;,&quot;Segoe
-                              WP&quot;,Tahoma,Arial,sans-serif;
-                              font-size: 14px; line-height: 20px;
-                              max-height: 100px; overflow: hidden;"
-                              id="LPDescription_15205709349260.4456905619796764">
-                              Subscribing to amd-gfx: Subscribe to
-                              amd-gfx by filling out the following form.
-                              Use of all freedesktop.org lists is
-                              subject to our Code of ...</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <br>
-                </div>
-              </span></font></div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------847A898A204D0B1527AB86D7--
-
---===============1105941083==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1105941083==--
+QW0gMDkuMDMuMjAxOCB1bSAwMDoyNCBzY2hyaWViIE9hayBaZW5nOgo+IFRoaXMgaXMgcHJlcGFy
+YXRpb24gZm9yIHNoYXJpbmcgY2xpZW50IElEIGRlZmluaXRpb25zCj4gYmV0d2VlbiBhbWRncHUg
+YW5kIGFtZGtmZAo+Cj4gQ2hhbmdlLUlkOiBJZTBiN2IxNGM5YzIzNjZmZDg5Njc0NWE1MWI3NGE5
+YmE5N2VlMzIyNAo+IFNpZ25lZC1vZmYtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPgo+
+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2loLmggICAgICAgICAg
+fCA0NCArLS0tLS0tLS0tLS0tLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9zb2Mx
+NV9paF9jbGllbnRpZC5oIHwgNzIgKysrKysrKysrKysrKysrKysrKysrKysrKwo+ICAgMiBmaWxl
+cyBjaGFuZ2VkLCA3MyBpbnNlcnRpb25zKCspLCA0MyBkZWxldGlvbnMoLSkKPiAgIGNyZWF0ZSBt
+b2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvc29jMTVfaWhfY2xpZW50aWQu
+aAo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9paC5o
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2loLmgKPiBpbmRleCBiOGE3ZGJh
+Li42MmE5ODY5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9paC5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2loLmgKPiBA
+QCAtMjUsNTEgKzI1LDkgQEAKPiAgICNkZWZpbmUgX19BTURHUFVfSUhfSF9fCj4gICAKPiAgICNp
+bmNsdWRlIDxsaW51eC9jaGFzaC5oPgo+ICsjaW5jbHVkZSAic29jMTVfaWhfY2xpZW50aWQuaCIK
+PiAgIAo+ICAgc3RydWN0IGFtZGdwdV9kZXZpY2U7Cj4gLSAvKgo+IC0gICogdmVnYTEwKyBJSCBj
+bGllbnRzCj4gLSAqLwo+IC1lbnVtIGFtZGdwdV9paF9jbGllbnRpZAo+IC17Cj4gLSAgICBBTURH
+UFVfSUhfQ0xJRU5USURfSUgJICAgID0gMHgwMCwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9B
+Q1AJICAgID0gMHgwMSwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9BVEhVQgkgICAgPSAweDAy
+LAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX0JJRgkgICAgPSAweDAzLAo+IC0gICAgQU1ER1BV
+X0lIX0NMSUVOVElEX0RDRQkgICAgPSAweDA0LAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX0lT
+UAkgICAgPSAweDA1LAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX1BDSUUwCSAgICA9IDB4MDYs
+Cj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfUkxDCSAgICA9IDB4MDcsCj4gLSAgICBBTURHUFVf
+SUhfQ0xJRU5USURfU0RNQTAJICAgID0gMHgwOCwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9T
+RE1BMQkgICAgPSAweDA5LAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX1NFMFNICSAgICA9IDB4
+MGEsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfU0UxU0gJICAgID0gMHgwYiwKPiAtICAgIEFN
+REdQVV9JSF9DTElFTlRJRF9TRTJTSAkgICAgPSAweDBjLAo+IC0gICAgQU1ER1BVX0lIX0NMSUVO
+VElEX1NFM1NICSAgICA9IDB4MGQsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfU1lTSFVCCSAg
+ICA9IDB4MGUsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfVEhNCSAgICA9IDB4MGYsCj4gLSAg
+ICBBTURHUFVfSUhfQ0xJRU5USURfVVZECSAgICA9IDB4MTAsCj4gLSAgICBBTURHUFVfSUhfQ0xJ
+RU5USURfVkNFMAkgICAgPSAweDExLAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX1ZNQwkgICAg
+PSAweDEyLAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX1hETUEJICAgID0gMHgxMywKPiAtICAg
+IEFNREdQVV9JSF9DTElFTlRJRF9HUkJNX0NQCSAgICA9IDB4MTQsCj4gLSAgICBBTURHUFVfSUhf
+Q0xJRU5USURfQVRTCSAgICA9IDB4MTUsCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfUk9NX1NN
+VUlPICAgID0gMHgxNiwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9ERgkgICAgPSAweDE3LAo+
+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX1ZDRTEJICAgID0gMHgxOCwKPiAtICAgIEFNREdQVV9J
+SF9DTElFTlRJRF9QV1IJICAgID0gMHgxOSwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9VVENM
+MgkgICAgPSAweDFiLAo+IC0gICAgQU1ER1BVX0lIX0NMSUVOVElEX0VBCSAgICA9IDB4MWMsCj4g
+LSAgICBBTURHUFVfSUhfQ0xJRU5USURfVVRDTDJMT0cJICAgID0gMHgxZCwKPiAtICAgIEFNREdQ
+VV9JSF9DTElFTlRJRF9NUDAJICAgID0gMHgxZSwKPiAtICAgIEFNREdQVV9JSF9DTElFTlRJRF9N
+UDEJICAgID0gMHgxZiwKPiAtCj4gLSAgICBBTURHUFVfSUhfQ0xJRU5USURfTUFYLAo+IC0KPiAt
+ICAgIEFNREdQVV9JSF9DTElFTlRJRF9WQ04JICAgID0gQU1ER1BVX0lIX0NMSUVOVElEX1VWRAo+
+IC19Owo+IC0KPiAtI2RlZmluZSBBTURHUFVfSUhfQ0xJRU5USURfTEVHQUNZIDAKPiAgIAo+ICAg
+I2RlZmluZSBBTURHUFVfUEFHRUZBVUxUX0hBU0hfQklUUyA4Cj4gICBzdHJ1Y3QgYW1kZ3B1X3Jl
+dHJ5ZmF1bHRfaGFzaHRhYmxlIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9p
+bmNsdWRlL3NvYzE1X2loX2NsaWVudGlkLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUv
+c29jMTVfaWhfY2xpZW50aWQuaAo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAw
+MC4uZTJlOGM2Mwo+IC0tLSAvZGV2L251bGwKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2lu
+Y2x1ZGUvc29jMTVfaWhfY2xpZW50aWQuaAo+IEBAIC0wLDAgKzEsNzIgQEAKPiArLyoKPiArICog
+Q29weXJpZ2h0IDIwMTggQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgo+ICsgKgo+ICsgKiBQ
+ZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNv
+biBvYnRhaW5pbmcgYQo+ICsgKiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQg
+ZG9jdW1lbnRhdGlvbiBmaWxlcyAodGhlICJTb2Z0d2FyZSIpLAo+ICsgKiB0byBkZWFsIGluIHRo
+ZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0
+aW9uCj4gKyAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNo
+LCBkaXN0cmlidXRlLCBzdWJsaWNlbnNlLAo+ICsgKiBhbmQvb3Igc2VsbCBjb3BpZXMgb2YgdGhl
+IFNvZnR3YXJlLCBhbmQgdG8gcGVybWl0IHBlcnNvbnMgdG8gd2hvbSB0aGUKPiArICogU29mdHdh
+cmUgaXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0
+aW9uczoKPiArICoKPiArICogVGhlIGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVy
+bWlzc2lvbiBub3RpY2Ugc2hhbGwgYmUgaW5jbHVkZWQgaW4KPiArICogYWxsIGNvcGllcyBvciBz
+dWJzdGFudGlhbCBwb3J0aW9ucyBvZiB0aGUgU29mdHdhcmUuCj4gKyAqCj4gKyAqIFRIRSBTT0ZU
+V0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBF
+WFBSRVNTIE9SCj4gKyAqIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhF
+IFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLAo+ICsgKiBGSVRORVNTIEZPUiBBIFBBUlRJ
+Q1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgU0hBTEwKPiAr
+ICogVEhFIENPUFlSSUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMpIEJFIExJQUJMRSBGT1IgQU5Z
+IENMQUlNLCBEQU1BR0VTIE9SCj4gKyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBB
+Q1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLAo+ICsgKiBBUklTSU5HIEZST00s
+IE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IK
+PiArICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLgo+ICsgKgo+ICsgKi8KPiArCj4g
+KyNpZm5kZWYgX19TT0MxNV9JSF9DTElFTlRJRF9IX18KPiArI2RlZmluZSBfX1NPQzE1X0lIX0NM
+SUVOVElEX0hfXwo+ICsKPiArIC8qCj4gKyAgKiB2ZWdhMTArIElIIGNsaWVudHMKPiArICovCj4g
+K2VudW0gYW1kZ3B1X2loX2NsaWVudGlkIHsKPiArCUFNREdQVV9JSF9DTElFTlRJRF9JSAkJPSAw
+eDAwLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX0FDUAkJPSAweDAxLAo+ICsJQU1ER1BVX0lIX0NM
+SUVOVElEX0FUSFVCCT0gMHgwMiwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9CSUYJCT0gMHgwMywK
+PiArCUFNREdQVV9JSF9DTElFTlRJRF9EQ0UJCT0gMHgwNCwKPiArCUFNREdQVV9JSF9DTElFTlRJ
+RF9JU1AJCT0gMHgwNSwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9QQ0lFMAk9IDB4MDYsCj4gKwlB
+TURHUFVfSUhfQ0xJRU5USURfUkxDCQk9IDB4MDcsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfU0RN
+QTAJPSAweDA4LAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX1NETUExCT0gMHgwOSwKPiArCUFNREdQ
+VV9JSF9DTElFTlRJRF9TRTBTSAk9IDB4MGEsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfU0UxU0gJ
+PSAweDBiLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX1NFMlNICT0gMHgwYywKPiArCUFNREdQVV9J
+SF9DTElFTlRJRF9TRTNTSAk9IDB4MGQsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfU1lTSFVCCT0g
+MHgwZSwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9USE0JCT0gMHgwZiwKPiArCUFNREdQVV9JSF9D
+TElFTlRJRF9VVkQJCT0gMHgxMCwKPiArCUFNREdQVV9JSF9DTElFTlRJRF9WQ0UwCQk9IDB4MTEs
+Cj4gKwlBTURHUFVfSUhfQ0xJRU5USURfVk1DCQk9IDB4MTIsCj4gKwlBTURHUFVfSUhfQ0xJRU5U
+SURfWERNQQkJPSAweDEzLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX0dSQk1fQ1AJPSAweDE0LAo+
+ICsJQU1ER1BVX0lIX0NMSUVOVElEX0FUUwkJPSAweDE1LAo+ICsJQU1ER1BVX0lIX0NMSUVOVElE
+X1JPTV9TTVVJTwk9IDB4MTYsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfREYJCT0gMHgxNywKPiAr
+CUFNREdQVV9JSF9DTElFTlRJRF9WQ0UxCQk9IDB4MTgsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURf
+UFdSCQk9IDB4MTksCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfVVRDTDIJPSAweDFiLAo+ICsJQU1E
+R1BVX0lIX0NMSUVOVElEX0VBCQk9IDB4MWMsCj4gKwlBTURHUFVfSUhfQ0xJRU5USURfVVRDTDJM
+T0cJPSAweDFkLAo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX01QMAkJPSAweDFlLAo+ICsJQU1ER1BV
+X0lIX0NMSUVOVElEX01QMQkJPSAweDFmLAo+ICsKPiArCUFNREdQVV9JSF9DTElFTlRJRF9NQVgs
+Cj4gKwo+ICsJQU1ER1BVX0lIX0NMSUVOVElEX1ZDTgkJPSBBTURHUFVfSUhfQ0xJRU5USURfVVZE
+Cj4gK307Cj4gKwo+ICsjZGVmaW5lIEFNREdQVV9JSF9DTElFTlRJRF9MRUdBQ1kgMAoKUGxlYXNl
+IGtlZXAgQU1ER1BVX0lIX0NMSUVOVElEX0xFR0FDWSBpbiBhbWRncHVfaWguaCwgc2luY2UgdGhh
+dCBpc24ndCAKcmVsYXRlZCB0byBTT0MxNSBpbiBhbnkgd2F5LgoKQWRkaXRpb25hbCB0byB0aGF0
+IHRoZSBvdGhlciBjbGllbnQgSURzIGNvdWxkIHVzZSBhIG5ldyBwcmVmaXggaWYgeW91IAptb3Zl
+IHRoZW0gYXJvdW5kLCBidXQgdGhhdCBpc24ndCBtYW5kYXRvcnkuCgpDaHJpc3RpYW4uCgo+ICsK
+PiArI2VuZGlmCj4gKwo+ICsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
