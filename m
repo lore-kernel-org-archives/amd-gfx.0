@@ -1,13 +1,13 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix prime teardown order
-Date: Fri, 9 Mar 2018 15:05:45 +0100
-Message-ID: <d0c896ef-de5f-ff95-ea2b-14eb51064c4d@daenzer.net>
-References: <20180309134604.2390-1-christian.koenig@amd.com>
+Subject: Re: Ryzen 5 2400G Stuttering since 2018-03-07
+Date: Fri, 9 Mar 2018 15:06:47 +0100
+Message-ID: <4c5134a0-0207-1fea-18d0-fe6c10711624@daenzer.net>
+References: <CAFuwKQO7yO4UAjrtdfc2kHJ+wOYdsURyCvSdPx7FmxVQ__kjtA@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180309134604.2390-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAFuwKQO7yO4UAjrtdfc2kHJ+wOYdsURyCvSdPx7FmxVQ__kjtA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,17 +19,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wMy0wOSAwMjo0NiBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBXZSB1bm1h
-cHBlZCBpbXBvcnRlZCBETUEtYnVmcyB3aGVuIHRoZSBHRU0gaGFuZGxlIHdhcyBkcm9wcGVkLCBu
-b3Qgd2hlbiB0aGUKPiBoYXJkd2FyZSB3YXMgZG9uZSB3aXRoIHRoZSBidWZmZXJlLgoKR29vZCBj
-YXRjaCEgSSBndWVzcyB0aGF0IGV4cGxhaW5zIHNvbWUgb2RkaXRpZXMgSSBzb21ldGltZXMgc2F3
-IHdpdGgKUFJJTUUuIEJvdGggcGF0Y2hlcyBhcmUKClJldmlld2VkLWJ5OiBNaWNoZWwgRMOkbnpl
-ciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVy
-ICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBz
-b2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBk
-ZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMjAxOC0wMy0wOSAxMjozMCBQTSwgRGF3c29uIERpYXMgd3JvdGU6Cj4gSGVsbG8KPiAKPiBJ
+J20gZXhwZXJpZW5jaW5nIGV4dHJlbWUgc3R1dHRlcmluZyBpbiBYIG9uIG15IFJ5emVuIDI0MDBH
+LiBUaGlzCj4gc3R1dHRlcmluZyBjYW4gYmUgbm90aWNlZCBldmVuIHdoaWxlIG9ubHkgbW92aW5n
+IHRoZSBtb3VzZS4KPiBTYWlkIHN0dXR0ZXJpbmcgZG9lcyBub3QgZXhpc3QgdW5kZXIgV2F5bGFu
+ZC4KPiAKPiBUaGlzIGNvbnN0YW50IHN0dXR0ZXJpbmcgc3RhcnRlZCBvbiAyMDE4LTAzLTA3IHdp
+dGggdGhlIHBhdGNoZXMgdGhhdAo+IHdlcmUgcHVzaGVkIG9uIHRoYXQgZGF5LiBTdHV0dGVyaW5n
+IG9jY3VycyBvbiBib3RoIGJyYW5jaGVzCj4gZHJtLW5leHQtNC4xNyAoZjZjM2I2MDFiZDQ5MGVk
+YTA4YzI3YjAzNjA3NDQ4YWJkNGI0ODQxYikgYW5kCj4gZHJtLW5leHQtNC4xNy13aXAgKDY4OTZh
+NjZiYzZkMGZjYjY5YjZiZTU2NGZhNDNmMDJjMDkzNDhiNzIpLgo+IAo+IGRtZXNnLmxvZyA8aHR0
+cHM6Ly9icGFzdGUubmV0L3Jhdy8wNmU2ZGNjNDU0NWI+Cj4gam91cm5hbGN0bC5sb2cgPGh0dHBz
+Oi8vYnBhc3RlLm5ldC9yYXcvZjZmM2RjOGQxMDhkPgoKSW4gdGhlIGZ1dHVyZSwgcGxlYXNlIGF0
+dGFjaCBmaWxlcyBkaXJlY3RseSBpbnN0ZWFkIG9mIHJlZmVyZW5jaW5nIGEKcGFzdGUgc2l0ZS4K
+Cgo+IFdoYXQgc29ydCBvZiBpbmZvcm1hdGlvbiBkbyB3ZSByZXF1aXJlIHRvIHBpbnBvaW50IHRo
+ZSBzb3VyY2Ugb2YgdGhpcwo+IHJlZ3Jlc3Npb24gYW5kIGZpeCBpdD8KCklkZWFsIHdvdWxkIGJl
+IGlmIHlvdSBjYW4gdXNlIGdpdCBiaXNlY3QgdG8gaXNvbGF0ZSB0aGUgaW5kaXZpZHVhbApjb21t
+aXQgd2hpY2ggaW50cm9kdWNlZCB0aGUgc3R1dHRlcmluZy4KCgotLSAKRWFydGhsaW5nIE1pY2hl
+bCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNv
+bQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVz
+YSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
