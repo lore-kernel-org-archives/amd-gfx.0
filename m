@@ -1,14 +1,10 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/amdgpu/soc15: always load the psp module
-Date: Sat, 10 Mar 2018 00:32:42 +0000
-Message-ID: <CY4PR12MB16872FA6E043916F900C166FFBDD0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20180309202523.5269-1-alexander.deucher@amd.com>,
- <20180309202523.5269-4-alexander.deucher@amd.com>
+From: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Ryzen 5 2400G Stuttering since 2018-03-07
+Date: Sat, 10 Mar 2018 11:32:48 +0530
+Message-ID: <CAFuwKQPrQ7WJFmuxqnTGvAx5uXJ6MU7g7wVp7wYfjDfW_r1vAQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0461272689=="
+Content-Type: multipart/mixed; boundary="===============1433324953=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180309202523.5269-4-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,224 +15,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0461272689==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB16872FA6E043916F900C166FFBDD0CY4PR12MB1687namp_"
+--===============1433324953==
+Content-Type: multipart/alternative; boundary="94eb2c05b5f4c29d8f056708a9f0"
 
---_000_CY4PR12MB16872FA6E043916F900C166FFBDD0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--94eb2c05b5f4c29d8f056708a9f0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Rex Zhu<rezhu-5C7GfCeVMHo@public.gmane.org>
+Got it. Attachments next time.
 
-Best Regards
-Rex
+I started a git bisect but noticed there were updates pushed to the tree,
+so I built HEAD instead (d1eeebbd78fd185988c3c90e3dab304cc8b86c4e). The
+stuttering is now gone!
 
+-Dawson Dias
 
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Saturday, March 10, 2018 4:25 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: [PATCH 4/5] drm/amdgpu/soc15: always load the psp module
+On Fri, Mar 9, 2018 at 7:36 PM, Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wro=
+te:
 
-Regardless of whether the user has selected psp fw loading or
-not.  It's still needed for GPU reset among other things.
-There are already guards in place to avoid setting up the full
-psp if PSP fw loading is not enabled.
+> On 2018-03-09 12:30 PM, Dawson Dias wrote:
+> > Hello
+> >
+> > I'm experiencing extreme stuttering in X on my Ryzen 2400G. This
+> > stuttering can be noticed even while only moving the mouse.
+> > Said stuttering does not exist under Wayland.
+> >
+> > This constant stuttering started on 2018-03-07 with the patches that
+> > were pushed on that day. Stuttering occurs on both branches
+> > drm-next-4.17 (f6c3b601bd490eda08c27b03607448abd4b4841b) and
+> > drm-next-4.17-wip (6896a66bc6d0fcb69b6be564fa43f02c09348b72).
+> >
+> > dmesg.log <https://bpaste.net/raw/06e6dcc4545b>
+> > journalctl.log <https://bpaste.net/raw/f6f3dc8d108d>
+>
+> In the future, please attach files directly instead of referencing a
+> paste site.
+>
+>
+> > What sort of information do we require to pinpoint the source of this
+> > regression and fix it?
+>
+> Ideal would be if you can use git bisect to isolate the individual
+> commit which introduced the stuttering.
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer               |               http://www.amd=
+.com
+> Libre software enthusiast             |             Mesa and X developer
+>
 
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/soc15.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index 5b2019b7972d..b2cf0bea41d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -531,8 +531,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
-                 amdgpu_device_ip_block_add(adev, &vega10_common_ip_block);
-                 amdgpu_device_ip_block_add(adev, &gmc_v9_0_ip_block);
-                 amdgpu_device_ip_block_add(adev, &vega10_ih_ip_block);
--               if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP)
--                       amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block=
-);
-+               amdgpu_device_ip_block_add(adev, &psp_v3_1_ip_block);
-                 if (!amdgpu_sriov_vf(adev))
-                         amdgpu_device_ip_block_add(adev, &amdgpu_pp_ip_blo=
-ck);
-                 if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
---
-2.13.6
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...
-
-
-
-
---_000_CY4PR12MB16872FA6E043916F900C166FFBDD0CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
+--94eb2c05b5f4c29d8f056708a9f0
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><font face=3D"wf_segoe-ui_normal,=
-Segoe UI,Segoe WP,Tahoma,Arial,sans-serif,serif,EmojiFont" size=3D"2" color=
-=3D"#212121"><span style=3D"font-size: 14.67px;">Reviewed-by: Rex Zhu&lt;re=
-zhu-5C7GfCeVMHo@public.gmane.org&gt;</span></font><br style=3D"font-size: 16px; font-family: Cal=
-ibri, Helvetica, sans-serif;">
-<br style=3D"font-size: 16px; font-family: Calibri, Helvetica, sans-serif;"=
->
-<font face=3D"wf_segoe-ui_normal,Segoe UI,Segoe WP,Tahoma,Arial,sans-serif,=
-serif,EmojiFont" size=3D"2" color=3D"#212121"><span style=3D"font-size: 14.=
-67px;">Best Regards</span></font><br style=3D"font-size: 16px; font-family:=
- Calibri, Helvetica, sans-serif;">
-<font face=3D"wf_segoe-ui_normal,Segoe UI,Segoe WP,Tahoma,Arial,sans-serif,=
-serif,EmojiFont" size=3D"2" color=3D"#212121"><span style=3D"font-size: 14.=
-67px;">Rex</span></font><br>
-</p>
+<div dir=3D"ltr">Got it. Attachments next time.<div><br></div><div>I starte=
+d a git bisect but noticed there were updates pushed to the tree, so I buil=
+t HEAD instead (d1eeebbd78fd185988c3c90e3dab304cc8b86c4e). The stuttering i=
+s now gone!</div><div><div class=3D"gmail_extra"><br clear=3D"all"><div><di=
+v class=3D"gmail-m_-4667922223938059029gmail_signature"><div dir=3D"ltr"><d=
+iv><div dir=3D"ltr"><font face=3D"arial, helvetica, sans-serif">-Dawson Dia=
+s</font><br></div></div></div></div></div>
+<br><div class=3D"gmail_quote">On Fri, Mar 9, 2018 at 7:36 PM, Michel D=C3=
+=A4nzer <span dir=3D"ltr">&lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org" target=
+=3D"_blank">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex"><span class=3D"gmail-m_-466792222393805902=
+9gmail-">On 2018-03-09 12:30 PM, Dawson Dias wrote:<br>
+&gt; Hello<br>
+&gt;<br>
+&gt; I&#39;m experiencing extreme stuttering in X on my Ryzen 2400G. This<b=
+r>
+&gt; stuttering can be noticed even while only moving the mouse.<br>
+&gt; Said stuttering does not exist under Wayland.<br>
+&gt;<br>
+&gt; This constant stuttering started on 2018-03-07 with the patches that<b=
+r>
+&gt; were pushed on that day. Stuttering occurs on both branches<br>
+&gt; drm-next-4.17 (f6c3b601bd490eda08c27b0360744<wbr>8abd4b4841b) and<br>
+&gt; drm-next-4.17-wip (6896a66bc6d0fcb69b6be564fa43f<wbr>02c09348b72).<br>
+&gt;<br>
+</span>&gt; dmesg.log &lt;<a href=3D"https://bpaste.net/raw/06e6dcc4545b" r=
+el=3D"noreferrer" target=3D"_blank">https://bpaste.net/raw/06e6dc<wbr>c4545=
+b</a>&gt;<br>
+&gt; journalctl.log &lt;<a href=3D"https://bpaste.net/raw/f6f3dc8d108d" rel=
+=3D"noreferrer" target=3D"_blank">https://bpaste.net/raw/f6f3dc<wbr>8d108d<=
+/a>&gt;<br>
 <br>
+In the future, please attach files directly instead of referencing a<br>
+paste site.<br>
+<span class=3D"gmail-m_-4667922223938059029gmail-"><br>
 <br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
-gmail.com&gt;<br>
-<b>Sent:</b> Saturday, March 10, 2018 4:25 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH 4/5] drm/amdgpu/soc15: always load the psp module</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Regardless of whether the user has selected psp fw=
- loading or<br>
-not.&nbsp; It's still needed for GPU reset among other things.<br>
-There are already guards in place to avoid setting up the full<br>
-psp if PSP fw loading is not enabled.<br>
+&gt; What sort of information do we require to pinpoint the source of this<=
+br>
+&gt; regression and fix it?<br>
 <br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c | 3 &#43;--<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 2 deletions(-)<br>
+</span>Ideal would be if you can use git bisect to isolate the individual<b=
+r>
+commit which introduced the stuttering.<br>
+<span class=3D"gmail-m_-4667922223938059029gmail-HOEnZb"><font color=3D"#88=
+8888"><br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index 5b2019b7972d..b2cf0bea41d2 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -531,8 &#43;531,7 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;vega10_common_i=
-p_block);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;gmc_v9_0_ip_blo=
-ck);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;vega10_ih_ip_bl=
-ock);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
-_block_add(adev, &amp;psp_v3_1_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;psp_v3_1_ip_block);<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_block_add(adev, &amp;amdgpu_pp_ip_block);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;enable_virtual_display || amdgpu_sriov_v=
-f(adev))<br>
--- <br>
-2.13.6<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk246361" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15206419528020.10371973649707011" style=3D"margin-bo=
-ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15206419527910.3291423298214047" role=3D"presentat=
-ion" cellspacing=3D"0" style=3D"width: 90%; background-color: rgb(255, 255,=
- 255); position: relative; overflow: auto; padding-top: 20px; padding-botto=
-m: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200); borde=
-r-bottom: 1px dotted rgb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_15206419527950.3521811111096187" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
-">
-<div id=3D"LPRemovePreviewContainer_15206419527950.04016986136783274"></div=
->
-<div id=3D"LPTitle_15206419527950.1654052137441835" style=3D"top: 0px; colo=
-r: rgb(0, 120, 215); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
-<a id=3D"LPUrlAnchor_15206419527970.06087135653187725" href=3D"https://list=
-s.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text=
--decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15206419527980.7176623240887825" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15206419528000.09474498681460086" style=3D"display=
-: block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_se=
-goe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, s=
-ans-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow:=
- hidden;">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
+--<br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</font></span></blockquote></div><br></div></div></div>
 
---_000_CY4PR12MB16872FA6E043916F900C166FFBDD0CY4PR12MB1687namp_--
+--94eb2c05b5f4c29d8f056708a9f0--
 
---===============0461272689==
+--===============1433324953==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -246,4 +140,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0461272689==--
+--===============1433324953==--
