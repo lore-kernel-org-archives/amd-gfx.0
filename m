@@ -1,14 +1,12 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/dce: Don't turn off DP sink when disconnected
-Date: Sat, 10 Mar 2018 12:07:30 +0100
-Message-ID: <1ffe3714-fd14-934a-801a-c5121ed76db2@daenzer.net>
-References: <20180309172731.2256-1-michel@daenzer.net>
- <CADnq5_NA2OHe6eeiwou-HNNKNW0yt02_2dy3RUV2ouiDN7GjXw@mail.gmail.com>
+From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: ROCm installation from source
+Date: Sat, 10 Mar 2018 15:55:38 +0000
+Message-ID: <BN6PR12MB13484D59AFFD8279B99B55DEE8DD0@BN6PR12MB1348.namprd12.prod.outlook.com>
+References: <CAPoeEY92bxTGp_2PJ0obHJX8gr0Z7Qb+xswVqc4cv7nd_-K-bA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0133764880=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NA2OHe6eeiwou-HNNKNW0yt02_2dy3RUV2ouiDN7GjXw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAPoeEY92bxTGp_2PJ0obHJX8gr0Z7Qb+xswVqc4cv7nd_-K-bA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,25 +18,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Joseph Wang <joequant-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOC0wMy0wOSAwOToyNiBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IE9uIEZyaSwgTWFy
-IDksIDIwMTggYXQgMTI6MjcgUE0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+
-IHdyb3RlOgo+PiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4K
-Pj4KPj4gVHVybmluZyBvZmYgdGhlIHNpbmsgaW4gdGhpcyBjYXNlIGNhdXNlcyB2YXJpb3VzIGlz
-c3VlcywgYmVjYXVzZQo+PiB1c2Vyc3BhY2UgZXhwZWN0cyBpdCB0byBzdGF5IG9uIHVudGlsIGl0
-IHR1cm5zIGl0IG9mZiBleHBsaWNpdGx5Lgo+Pgo+PiBJbnN0ZWFkLCB0dXJuIHRoZSBzaW5rIG9m
-ZiBhbmQgYmFjayBvbiB3aGVuIGEgZGlzcGxheSBpcyBjb25uZWN0ZWQKPj4gYWdhaW4uIFRoaXMg
-ZGFuY2Ugc2VlbXMgbmVjZXNzYXJ5IGZvciBsaW5rIHRyYWluaW5nIHRvIHdvcmsgY29ycmVjdGx5
-Lgo+Pgo+PiBCdWd6aWxsYTogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy8xMDUzMDgKPj4g
-U2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4g
-Cj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
-ClRoYW5rcyEgSXMgaXQgb2theSB0byBhZGQgQ2M6IHN0YWJsZSBhcyB3ZWxsPwoKCj4gQ2FyZSB0
-byBzZW5kIGEgc2ltaWxhciBwYXRjaCBmb3IgcmFkZW9uIGFzIHdlbGw/CgpXaWxsIGRvLgoKCi0t
-IApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAg
-aHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAg
-fCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+--===============0133764880==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_"
+
+--_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+If you look about half way down this page under "The latest ROCm platform -=
+ ROCm 1.7" you should see a list of links to component repos. Each of those=
+ component repos has information on building:
+
+
+https://github.com/RadeonOpenCompute/ROCm
+
+
+If you have questions or problems building/installing you can use the "Issu=
+es" button at the top level repo or the component level repo to contact the=
+ ROC development team.
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Joseph W=
+ang <joequant-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: March 10, 2018 5:30 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: ROCm installation from source
+
+Is there a document that describes the steps necessary to run an ROCm setup=
+ from source?
+
+Thanks.
+
+--_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">If you look about half way down t=
+his page under &quot;<span>The latest ROCm platform - ROCm 1.7</span>&quot;=
+ you should see a list of links to component repos. Each of those component=
+ repos has information on building:<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><a href=3D"https://github.com/Rad=
+eonOpenCompute/ROCm" class=3D"OWAAutoLink">https://github.com/RadeonOpenCom=
+pute/ROCm</a><br>
+</p>
+<br>
+<p style=3D"margin-top:0;margin-bottom:0">If you have questions or problems=
+ building/installing you can use the &quot;Issues&quot; button at the top l=
+evel repo or the component level repo to contact the ROC development team.<=
+/p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Joseph Wang &lt;joequant@gm=
+ail.com&gt;<br>
+<b>Sent:</b> March 10, 2018 5:30 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> ROCm installation from source</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"ltr">
+<div>Is there a document that describes the steps necessary to run an ROCm =
+setup from source?</div>
+<div><br>
+</div>
+<div>Thanks.<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_--
+
+--===============0133764880==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0133764880==--
