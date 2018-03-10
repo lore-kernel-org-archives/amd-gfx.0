@@ -1,13 +1,20 @@
-From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: ROCm installation from source
-Date: Sat, 10 Mar 2018 15:55:38 +0000
-Message-ID: <BN6PR12MB13484D59AFFD8279B99B55DEE8DD0@BN6PR12MB1348.namprd12.prod.outlook.com>
-References: <CAPoeEY92bxTGp_2PJ0obHJX8gr0Z7Qb+xswVqc4cv7nd_-K-bA@mail.gmail.com>
+From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati] Only change Set/MoveCursor hooks from what
+ we expect
+Date: Sat, 10 Mar 2018 19:54:13 +0100
+Message-ID: <6575e61c-26e4-04f2-a99d-40e29f7d07f1@gmail.com>
+References: <20180305174459.18765-1-michel@daenzer.net>
+ <CADnq5_Me0zYe3sLJ3j8kkr7mw6X6nQQCUHzVgYsXh=u9FtGvnw@mail.gmail.com>
+ <aac0c084-812e-5994-bea8-0690ce90ede8@gmail.com>
+ <5d491770-6af9-687e-c387-e95f70ad9d68@daenzer.net>
+ <fddd98e1-f560-3892-8fa3-21a239425021@gmail.com>
+ <42976fb8-c1c3-f685-1426-d3ff164dc062@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0133764880=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAPoeEY92bxTGp_2PJ0obHJX8gr0Z7Qb+xswVqc4cv7nd_-K-bA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <42976fb8-c1c3-f685-1426-d3ff164dc062-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,110 +25,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Joseph Wang <joequant-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0133764880==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_"
-
---_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-If you look about half way down this page under "The latest ROCm platform -=
- ROCm 1.7" you should see a list of links to component repos. Each of those=
- component repos has information on building:
-
-
-https://github.com/RadeonOpenCompute/ROCm
-
-
-If you have questions or problems building/installing you can use the "Issu=
-es" button at the top level repo or the component level repo to contact the=
- ROC development team.
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Joseph W=
-ang <joequant-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: March 10, 2018 5:30 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: ROCm installation from source
-
-Is there a document that describes the steps necessary to run an ROCm setup=
- from source?
-
-Thanks.
-
---_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">If you look about half way down t=
-his page under &quot;<span>The latest ROCm platform - ROCm 1.7</span>&quot;=
- you should see a list of links to component repos. Each of those component=
- repos has information on building:<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><a href=3D"https://github.com/Rad=
-eonOpenCompute/ROCm" class=3D"OWAAutoLink">https://github.com/RadeonOpenCom=
-pute/ROCm</a><br>
-</p>
-<br>
-<p style=3D"margin-top:0;margin-bottom:0">If you have questions or problems=
- building/installing you can use the &quot;Issues&quot; button at the top l=
-evel repo or the component level repo to contact the ROC development team.<=
-/p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Joseph Wang &lt;joequant@gm=
-ail.com&gt;<br>
-<b>Sent:</b> March 10, 2018 5:30 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> ROCm installation from source</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"ltr">
-<div>Is there a document that describes the steps necessary to run an ROCm =
-setup from source?</div>
-<div><br>
-</div>
-<div>Thanks.<br>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB13484D59AFFD8279B99B55DEE8DD0BN6PR12MB1348namp_--
-
---===============0133764880==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0133764880==--
+CgpPbiAwMy8wOC8yMDE4IDA2OjAwIFBNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyMDE4
+LTAzLTA3IDEwOjMzIEFNLCBNYXJpbyBLbGVpbmVyIHdyb3RlOgo+PiBPbiAwMy8wNy8yMDE4IDA5
+OjUwIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4+IE9uIDIwMTgtMDMtMDcgMDQ6NDUgQU0s
+IE1hcmlvIEtsZWluZXIgd3JvdGU6Cj4+Pj4gT24gMDMvMDUvMjAxOCAxMDo1NiBQTSwgQWxleCBE
+ZXVjaGVyIHdyb3RlOgo+Pj4+PiBPbiBNb24sIE1hciA1LCAyMDE4IGF0IDEyOjQ0IFBNLCBNaWNo
+ZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0Pgo+Pj4+PiB3cm90ZToKPj4+Pj4+IEZyb206
+IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Pj4+Pj4KPj4+Pj4+IFNp
+bmNlIHhmODZDdXJzb3JDbG9zZVNjcmVlbiBydW5zIGFmdGVyIFJBREVPTkNsb3NlU2NyZWVuX0tN
+UywKPj4+Pj4+IFBvaW50UHJpdi0+c3ByaXRlRnVuY3MgZG9lc24ndCBwb2ludCB0byB0aGUgc2Ft
+ZSBzdHJ1Y3QgaW4gdGhlCj4+Pj4+PiBsYXR0ZXIgYXMKPj4+Pj4+IGluIFJBREVPTkN1cnNvcklu
+aXRfS01TLiBTbyB3ZSB3ZXJlIHJlc3RvcmluZyBpbmZvLT5TZXQvTW92ZUN1cnNvciB0bwo+Pj4+
+Pj4gdGhlIHdyb25nIHN0cnVjdC4gVGhlbiBpbiB0aGUgbmV4dCBzZXJ2ZXIgZ2VuZXJhdGlvbiwK
+Pj4+Pj4+IGluZm8tPlNldC9Nb3ZlQ3Vyc29yIHdvdWxkIGVuZCB1cCBwb2ludGluZyB0bwo+Pj4+
+Pj4gZHJtbW9kZV9zcHJpdGVfc2V0L21vdmVfY3Vyc29yLCByZXN1bHRpbmcgaW4gYW4gaW5maW5p
+dGUgbG9vcCBpZgo+Pj4+Pj4gb25lIG9mCj4+Pj4+PiB0aGVtIHdhcyBjYWxsZWQuCj4+Pj4+Pgo+
+Pj4+Pj4gVG8gYXZvaWQgdGhpcywgb25seSBjaGFuZ2UgdGhlIFNldC9Nb3ZlQ3Vyc29yIGhvb2tz
+IGlmIHRoZWlyIHZhbHVlcwo+Pj4+Pj4gbWF0Y2ggb3VyIGV4cGVjdGF0aW9ucywgb3RoZXJ3aXNl
+IGxlYXZlIHRoZW0gYXMgaXMuIFRoaXMgaXMga2luZCBvZiBhCj4+Pj4+PiBoYWNrLCBidXQgdGhl
+IGFsdGVybmF0aXZlIHdvdWxkIGJlIGludmFzaXZlIGFuZCB0aHVzIHJpc2t5IGNoYW5nZXMgdG8K
+Pj4+Pj4+IHRoZSB3YXkgd2UncmUgd3JhcHBpbmcgQ2xvc2VTY3JlZW4sIGFuZCBpdCdzIG5vdCBl
+dmVuIGNsZWFyIHRoYXQgY2FuCj4+Pj4+PiB3b3JrIHdpdGhvdXQgY2hhbmdpbmcgeHNlcnZlciBj
+b2RlLgo+Pj4+Pj4KPj4+Pj4+IEZpeGVzOiAxZmU4Y2E3NTk3NGMgKCJLZWVwIHRyYWNrIG9mIGhv
+dyBtYW55IFNXIGN1cnNvcnMgYXJlIHZpc2libGUgb24KPj4+Pj4+ICDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVhY2ggc2NyZWVuIikKPj4+Pj4+IFNpZ25l
+ZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Pj4+Pgo+
+Pj4+PiBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+
+Pj4+Pgo+Pj4+Cj4+Pj4gTm9wZSwgbm90IHF1aXRlLCB1bmZvcnR1bmF0ZWx5LiBUZXN0ZWQgYWdh
+aW5zdCB4LXNlcnZlciBtYXN0ZXIsIG1lc2EKPj4+PiBtYXN0ZXIsIGF0aS1kZHggbWFzdGVyLCB3
+aXRoIHNkZG0gbG9naW4gbWFuYWdlci4gV2l0aCBhIGZyZXNobHkgc3RhcnRlZAo+Pj4+IHNlcnZl
+ciwgbm93IG9uIGEgZHVhbC14LXNjcmVlbiBzZXR1cCwgaW5zdGVhZCBvZiBhbiBpbmZpbml0ZSBs
+b29wLCBpIGdldAo+Pj4+IGEgc2VydmVyIGNyYXNoIGFzIHNvb24gYXMgaSBtb3ZlIHRoZSBtb3Vz
+ZSBjdXJzb3IgZnJvbSBYLVNjcmVlbiAwIHRvCj4+Pj4gWC1TY3JlZW4gMToKPj4+Cj4+PiBXZWxs
+LCB0aGF0J3Mgbm90IHRoZSBzYW1lIGlzc3VlIEkgd2FzIHNlZWluZyBhZnRlciBhbGwuIEknbGwg
+dGFrZQo+Pj4gYW5vdGhlciBsb29rLgo+Pgo+PiBCZWR0aW1lIGhlcmUsIGJ1dCBmd2l3IGZyb20g
+c29tZSBkZWJ1ZyBzdGF0ZW1lbnRzIGkgYWRkZWQsIGl0IHNlZW1zIGFzCj4+IGlmIG9uIGR1YWwt
+eC1zY3JlZW4gaW5pdCwgeC1zY3JlZW4gMSBzb21laG93IGluaGVyaXRzIHRoZQo+PiBQb2ludFBy
+aXYtPnNwcml0ZUZ1bmNzLT5TZXRDdXJzb3IgPSBkcm1tb2RlX3Nwcml0ZV9zZXRfY3Vyc29yIGFz
+c2lnbm1lbnQKPj4gZG9uZSBvbiB4LXNjcmVlbiAwLCBhbmQgdGhlcmVmb3JlIGFscmVhZHkgaGFz
+IGl0ID09Cj4+IGRybW1vZGVfc3ByaXRlX3NldF9jdXJzb3IsIHNvIGR1cmluZyBSQURFT05DdXJz
+b3JJbml0X0tNUyBmb3IgeC1zY3JlZW4gMQo+PiB0aGUgYXNzaWdubWVudHMgZ2V0IHNraXBwZWQs
+IHdoaWNoIGxlYXZlcyB0aGUgaW5mby0+U2V0Q3Vyc29yIGZvcgo+PiB4LXNjcmVlbiAxID09IE5V
+TEwuIFRoZXJlZm9yZSBjdXJzb3IgdXBkYXRlIGZvciB4LXNjcmVlbiAxID0gYm9vbSEKPiAKPiBZ
+ZWFoLCBJIHdhcyBhbHJlYWR5IHN1c3BlY3Rpbmcgc29tZXRoaW5nIGxpa2UgdGhhdC4KPiAKPiAK
+PiBJJ3ZlIHB1c2hlZCBmaXhlcyBmb3IgdGhpcyB0byBib3RoIGRyaXZlcnMuIElmIHlvdSdyZSBz
+dGlsbCBzZWVpbmcgYW4KPiBpc3N1ZSB3aXRoIHRob3NlLCBJIG5lZWQgdG8ga25vdyBieSBlYXJs
+eSBuZXh0IHdlZWssIG90aGVyd2lzZSBJIG1heSBub3QKPiBiZSBhYmxlIHRvIG1ha2UgcmVsZWFz
+ZXMgd2l0aCBhIGZpeCBiZWZvcmUgQXByaWwuCj4gCj4gCgpXb3JrcyBub3csIGFzIHRlc3RlZCBv
+biB0aGUgYXRpLWRkeCwgY2FuJ3QgdGVzdCBvbiBhbWRncHUtZGR4IGF0bS4gClRoYW5rcyBmb3Ig
+Zml4aW5nIHRoaXMgcXVpY2tseSEKCi1tYXJpbwpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
