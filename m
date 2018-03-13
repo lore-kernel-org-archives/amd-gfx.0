@@ -1,391 +1,134 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/5] drm/amd/pp: Delete dead code on cz_clockpowergating.c
-Date: Tue, 13 Mar 2018 15:16:52 +0000
-Message-ID: <BN6PR12MB1652B62FCCCCE5F6ACD34CF9F7D20@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1520935279-17471-1-git-send-email-Rex.Zhu@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 1/4] dma-buf: add optional invalidate_mappings callback
+Date: Tue, 13 Mar 2018 16:17:21 +0100
+Message-ID: <20180313151721.GH4788@phenom.ffwll.local>
+References: <20180309191144.1817-1-christian.koenig@amd.com>
+ <20180309191144.1817-2-christian.koenig@amd.com>
+ <20180312170710.GL8589@phenom.ffwll.local>
+ <f3986703-75de-4ce3-a828-1687291bb618@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0417458406=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1520935279-17471-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0417458406==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1652B62FCCCCE5F6ACD34CF9F7D20BN6PR12MB1652namp_"
-
---_000_BN6PR12MB1652B62FCCCCE5F6ACD34CF9F7D20BN6PR12MB1652namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, March 13, 2018 6:01 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 1/5] drm/amd/pp: Delete dead code on cz_clockpowergating.c
-
-Change-Id: Ia4a121435c4860b1703d3647ef7220ee97f52d03
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- .../drm/amd/powerplay/hwmgr/cz_clockpowergating.c  | 78 ------------------=
-----
- .../drm/amd/powerplay/hwmgr/cz_clockpowergating.h  |  3 -
- 2 files changed, 81 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c b/dr=
-ivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c
-index 416abeb..01e5612 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c
-@@ -25,84 +25,6 @@
- #include "cz_clockpowergating.h"
- #include "cz_ppsmc.h"
-
--/* PhyID -> Status Mapping in DDI_PHY_GEN_STATUS
--    0    GFX0L (3:0),                  (27:24),
--    1    GFX0H (7:4),                  (31:28),
--    2    GFX1L (3:0),                  (19:16),
--    3    GFX1H (7:4),                  (23:20),
--    4    DDIL   (3:0),                   (11: 8),
--    5    DDIH  (7:4),                   (15:12),
--    6    DDI2L (3:0),                   ( 3: 0),
--    7    DDI2H (7:4),                   ( 7: 4),
--*/
--#define DDI_PHY_GEN_STATUS_VAL(phyID)   (1 << ((3 - ((phyID & 0x07)/2))*8 =
-+ (phyID & 0x01)*4))
--#define IS_PHY_ID_USED_BY_PLL(PhyID)    (((0xF3 & (1 << PhyID)) & 0xFF) ? =
-true : false)
--
--
--int cz_phm_set_asic_block_gating(struct pp_hwmgr *hwmgr, enum PHM_AsicBloc=
-k block, enum PHM_ClockGateSetting gating)
--{
--       int ret =3D 0;
--
--       switch (block) {
--       case PHM_AsicBlock_UVD_MVC:
--       case PHM_AsicBlock_UVD:
--       case PHM_AsicBlock_UVD_HD:
--       case PHM_AsicBlock_UVD_SD:
--               if (gating =3D=3D PHM_ClockGateSetting_StaticOff)
--                       ret =3D cz_dpm_powerdown_uvd(hwmgr);
--               else
--                       ret =3D cz_dpm_powerup_uvd(hwmgr);
--               break;
--       case PHM_AsicBlock_GFX:
--       default:
--               break;
--       }
--
--       return ret;
--}
--
--
--bool cz_phm_is_safe_for_asic_block(struct pp_hwmgr *hwmgr, const struct pp=
-_hw_power_state *state, enum PHM_AsicBlock block)
--{
--       return true;
--}
--
--
--int cz_phm_enable_disable_gfx_power_gating(struct pp_hwmgr *hwmgr, bool en=
-able)
--{
--       return 0;
--}
--
--int cz_phm_smu_power_up_down_pcie(struct pp_hwmgr *hwmgr, uint32_t target,=
- bool up, uint32_t args)
--{
--       /* TODO */
--       return 0;
--}
--
--int cz_phm_initialize_display_phy_access(struct pp_hwmgr *hwmgr, bool init=
-ialize, bool accesshw)
--{
--       /* TODO */
--       return 0;
--}
--
--int cz_phm_get_display_phy_access_info(struct pp_hwmgr *hwmgr)
--{
--       /* TODO */
--       return 0;
--}
--
--int cz_phm_gate_unused_display_phys(struct pp_hwmgr *hwmgr)
--{
--       /* TODO */
--       return 0;
--}
--
--int cz_phm_ungate_all_display_phys(struct pp_hwmgr *hwmgr)
--{
--       /* TODO */
--       return 0;
--}
--
- int cz_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)
- {
-         struct cz_hwmgr *cz_hwmgr =3D (struct cz_hwmgr *)(hwmgr->backend);
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h b/dr=
-ivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h
-index 92f707b..08d393f 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h
-@@ -25,10 +25,7 @@
- #define _CZ_CLOCK_POWER_GATING_H_
-
- #include "cz_hwmgr.h"
--#include "pp_asicblocks.h"
-
--extern int cz_phm_set_asic_block_gating(struct pp_hwmgr *hwmgr, enum PHM_A=
-sicBlock block, enum PHM_ClockGateSetting gating);
--extern const struct phm_master_table_header cz_phm_enable_clock_power_gati=
-ngs_master;
- extern void cz_dpm_powergate_vce(struct pp_hwmgr *hwmgr, bool bgate);
- extern void cz_dpm_powergate_uvd(struct pp_hwmgr *hwmgr, bool bgate);
- extern int cz_enable_disable_vce_dpm(struct pp_hwmgr *hwmgr, bool enable);
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1652B62FCCCCE5F6ACD34CF9F7D20BN6PR12MB1652namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-Series is:<br>
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Sent:</b> Tuesday, March 13, 2018 6:01 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 1/5] drm/amd/pp: Delete dead code on cz_clockpowerga=
-ting.c</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Change-Id: Ia4a121435c4860b1703d3647ef7220ee97f52d=
-03<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/cz_clockpowergating.c&nbsp; | 78 --------=
---------------<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/cz_clockpowergating.h&nbsp; |&nbsp; 3 -<b=
-r>
-&nbsp;2 files changed, 81 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c b/dr=
-ivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c<br>
-index 416abeb..01e5612 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.c=
-<br>
-@@ -25,84 &#43;25,6 @@<br>
-&nbsp;#include &quot;cz_clockpowergating.h&quot;<br>
-&nbsp;#include &quot;cz_ppsmc.h&quot;<br>
-&nbsp;<br>
--/* PhyID -&gt; Status Mapping in DDI_PHY_GEN_STATUS<br>
--&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; GFX0L (3:0),&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (27:24),<br>
--&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; GFX0H (7:4),&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (31:28),<br>
--&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp; GFX1L (3:0),&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (19:16),<br>
--&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp; GFX1H (7:4),&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (23:20),<br>
--&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp; DDIL&nbsp;&nbsp; (3:0),&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; (11: 8),<br>
--&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp; DDIH&nbsp; (7:4),&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; (15:12),<br>
--&nbsp;&nbsp;&nbsp; 6&nbsp;&nbsp;&nbsp; DDI2L (3:0),&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ( 3: 0),<br>
--&nbsp;&nbsp;&nbsp; 7&nbsp;&nbsp;&nbsp; DDI2H (7:4),&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ( 7: 4),<br>
--*/<br>
--#define DDI_PHY_GEN_STATUS_VAL(phyID)&nbsp;&nbsp; (1 &lt;&lt; ((3 - ((phyI=
-D &amp; 0x07)/2))*8 &#43; (phyID &amp; 0x01)*4))<br>
--#define IS_PHY_ID_USED_BY_PLL(PhyID)&nbsp;&nbsp;&nbsp; (((0xF3 &amp; (1 &l=
-t;&lt; PhyID)) &amp; 0xFF) ? true : false)<br>
--<br>
--<br>
--int cz_phm_set_asic_block_gating(struct pp_hwmgr *hwmgr, enum PHM_AsicBloc=
-k block, enum PHM_ClockGateSetting gating)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (block) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PHM_AsicBlock_UVD_MVC:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PHM_AsicBlock_UVD:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PHM_AsicBlock_UVD_HD:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PHM_AsicBlock_UVD_SD:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (gating =3D=3D PHM_ClockGateSetting_StaticOff)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D cz_dpm_p=
-owerdown_uvd(hwmgr);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D cz_dpm_p=
-owerup_uvd(hwmgr);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PHM_AsicBlock_GFX:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--}<br>
--<br>
--<br>
--bool cz_phm_is_safe_for_asic_block(struct pp_hwmgr *hwmgr, const struct pp=
-_hw_power_state *state, enum PHM_AsicBlock block)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
--}<br>
--<br>
--<br>
--int cz_phm_enable_disable_gfx_power_gating(struct pp_hwmgr *hwmgr, bool en=
-able)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
--int cz_phm_smu_power_up_down_pcie(struct pp_hwmgr *hwmgr, uint32_t target,=
- bool up, uint32_t args)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
--int cz_phm_initialize_display_phy_access(struct pp_hwmgr *hwmgr, bool init=
-ialize, bool accesshw)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
--int cz_phm_get_display_phy_access_info(struct pp_hwmgr *hwmgr)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
--int cz_phm_gate_unused_display_phys(struct pp_hwmgr *hwmgr)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
--int cz_phm_ungate_all_display_phys(struct pp_hwmgr *hwmgr)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
-&nbsp;int cz_enable_disable_uvd_dpm(struct pp_hwmgr *hwmgr, bool enable)<br=
->
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct cz_hwmgr *cz_hwmgr =
-=3D (struct cz_hwmgr *)(hwmgr-&gt;backend);<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h b/dr=
-ivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h<br>
-index 92f707b..08d393f 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_clockpowergating.h=
-<br>
-@@ -25,10 &#43;25,7 @@<br>
-&nbsp;#define _CZ_CLOCK_POWER_GATING_H_<br>
-&nbsp;<br>
-&nbsp;#include &quot;cz_hwmgr.h&quot;<br>
--#include &quot;pp_asicblocks.h&quot;<br>
-&nbsp;<br>
--extern int cz_phm_set_asic_block_gating(struct pp_hwmgr *hwmgr, enum PHM_A=
-sicBlock block, enum PHM_ClockGateSetting gating);<br>
--extern const struct phm_master_table_header cz_phm_enable_clock_power_gati=
-ngs_master;<br>
-&nbsp;extern void cz_dpm_powergate_vce(struct pp_hwmgr *hwmgr, bool bgate);=
-<br>
-&nbsp;extern void cz_dpm_powergate_uvd(struct pp_hwmgr *hwmgr, bool bgate);=
-<br>
-&nbsp;extern int cz_enable_disable_vce_dpm(struct pp_hwmgr *hwmgr, bool ena=
-ble);<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk570250" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1652B62FCCCCE5F6ACD34CF9F7D20BN6PR12MB1652namp_--
-
---===============0417458406==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
+In-Reply-To: <f3986703-75de-4ce3-a828-1687291bb618@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: christian.koenig@amd.com
+Cc: linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0417458406==--
+T24gTW9uLCBNYXIgMTIsIDIwMTggYXQgMDg6MTM6MTVQTSArMDEwMCwgQ2hyaXN0aWFuIEs/P25p
+ZyB3cm90ZToKPiBBbSAxMi4wMy4yMDE4IHVtIDE4OjA3IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoK
+PiA+IE9uIEZyaSwgTWFyIDA5LCAyMDE4IGF0IDA4OjExOjQxUE0gKzAxMDAsIENocmlzdGlhbiBL
+Pz9uaWcgd3JvdGU6Cj4gPiA+IFtTTklQXQo+ID4gPiArLyoqCj4gPiA+ICsgKiBkbWFfYnVmX2lu
+dmFsaWRhdGVfbWFwcGluZ3MgLSBpbnZhbGlkYXRlIGFsbCBtYXBwaW5ncyBvZiB0aGlzIGRtYV9i
+dWYKPiA+ID4gKyAqCj4gPiA+ICsgKiBAZG1hYnVmOglbaW5dCWJ1ZmZlciB3aGljaCBtYXBwaW5n
+cyBzaG91bGQgYmUgaW52YWxpZGF0ZWQKPiA+ID4gKyAqCj4gPiA+ICsgKiBJbmZvcm1zIGFsbCBh
+dHRhY2htZW5zdCB0aGF0IHRoZXkgbmVlZCB0byBkZXN0cm95IGFuZCByZWNyZWF0ZWQgYWxsIHRo
+ZWlyCj4gPiA+ICsgKiBtYXBwaW5ncy4KPiA+ID4gKyAqLwo+ID4gPiArdm9pZCBkbWFfYnVmX2lu
+dmFsaWRhdGVfbWFwcGluZ3Moc3RydWN0IGRtYV9idWYgKmRtYWJ1ZikKPiA+ID4gK3sKPiA+ID4g
+KwlzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2g7Cj4gPiA+ICsKPiA+ID4gKwlyZXNl
+cnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hlbGQoZG1hYnVmLT5yZXN2KTsKPiA+ID4gKwo+ID4gPiAr
+CWxpc3RfZm9yX2VhY2hfZW50cnkoYXR0YWNoLCAmZG1hYnVmLT5hdHRhY2htZW50cywgbm9kZSkK
+PiA+ID4gKwkJYXR0YWNoLT5pbnZhbGlkYXRlX21hcHBpbmdzKGF0dGFjaCk7Cj4gPiBUbyBtYWtl
+IHRoZSBsb2NraW5nIHdvcmsgSSB0aGluayB3ZSBhbHNvIG5lZWQgdG8gcmVxdWlyZSBpbXBvcnRl
+cnMgdG8gaG9sZAo+ID4gdGhlIHJlc2VydmF0aW9uIG9iamVjdCB3aGlsZSBhdHRhY2hpbmcvZGV0
+YWNoaW5nLiBPdGhlcndpc2UgdGhlIGxpc3Qgd2Fsawo+ID4gYWJvdmUgY291bGQgZ28gYm9vbS4K
+PiAKPiBPaCwgZ29vZCBwb2ludC4gR29pbmcsIHRvIGZpeCB0aGlzLgo+IAo+ID4gW1NOSVBdCj4g
+PiA+ICsJLyoqCj4gPiA+ICsJICogQHN1cHBvcnRzX21hcHBpbmdfaW52YWxpZGF0aW9uOgo+ID4g
+PiArCSAqCj4gPiA+ICsJICogVHJ1ZSBmb3IgZXhwb3J0ZXJzIHdoaWNoIHN1cHBvcnRzIHVucGlu
+bmVkIERNQS1idWYgb3BlcmF0aW9uIHVzaW5nCj4gPiA+ICsJICogdGhlIHJlc2VydmF0aW9uIGxv
+Y2suCj4gPiA+ICsJICoKPiA+ID4gKwkgKiBXaGVuIGF0dGFjaG1lbnQtPmludmFsaWRhdGVfbWFw
+cGluZ3MgaXMgc2V0IHRoZSBAbWFwX2RtYV9idWYgYW5kCj4gPiA+ICsJICogQHVubWFwX2RtYV9i
+dWYgY2FsbGJhY2tzIGNhbiBiZSBjYWxsZWQgd2l0aCB0aGUgcmVzZXJ2YXRpb24gbG9jawo+ID4g
+PiArCSAqIGhlbGQuCj4gPiA+ICsJICovCj4gPiA+ICsJYm9vbCBzdXBwb3J0c19tYXBwaW5nX2lu
+dmFsaWRhdGlvbjsKPiA+IFdoeSBkbyB3ZSBuZWVkIHRoaXM/IEltcG9ydGVyIGNvdWxkIHNpbXBs
+eSBhbHdheXMgcmVnaXN0ZXIgd2l0aCB0aGUKPiA+IGludmFsaWRhdGVfbWFwcGluZyBob29rIHJl
+Z2lzdGVyZWQsIGFuZCBleHBvcnRlcnMgY291bGQgdXNlIGl0IHdoZW4gdGhleQo+ID4gc2VlIGZp
+dC4gVGhhdCBnaXZlcyB1cyBtb3JlIGxvY2tkZXAgY292ZXJhZ2UgdG8gbWFrZSBzdXJlIGltcG9y
+dGVycyB1c2UKPiA+IHRoZWlyIGF0dGFjaG1lbnQgY2FsbGJhY2tzIGNvcnJlY3RseSAoYWthIHRo
+ZXkgaG9sZCB0aGUgcmVzZXJ2YXRpb24KPiA+IG9iamVjdCkuCj4gCj4gT25lIHNvbGUgcmVhc29u
+OiBCYWNrd2FyZCBjb21wYWJpbGl0eS4KPiAKPiBJIGRpZG4ndCB3YW50ZWQgdG8gYXVkaXQgYWxs
+IHRob3NlIGRpZmZlcmVudCBkcml2ZXJzIGlmIHRoZXkgY2FuIGhhbmRsZQo+IGJlaW5nIGNhbGxl
+ZCB3aXRoIHRoZSByZXNlcnZhdGlvbiBsb2NrIGhlbGQuCj4gCj4gPiAKPiA+ID4gKwo+ID4gPiAg
+IAkvKioKPiA+ID4gICAJICogQG1hcF9kbWFfYnVmOgo+ID4gPiAgIAkgKgo+ID4gPiBAQCAtMzI2
+LDYgKzMzOCwyOSBAQCBzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50IHsKPiA+ID4gICAJc3RydWN0
+IGRldmljZSAqZGV2Owo+ID4gPiAgIAlzdHJ1Y3QgbGlzdF9oZWFkIG5vZGU7Cj4gPiA+ICAgCXZv
+aWQgKnByaXY7Cj4gPiA+ICsKPiA+ID4gKwkvKioKPiA+ID4gKwkgKiBAaW52YWxpZGF0ZV9tYXBw
+aW5nczoKPiA+ID4gKwkgKgo+ID4gPiArCSAqIE9wdGlvbmFsIGNhbGxiYWNrIHByb3ZpZGVkIGJ5
+IHRoZSBpbXBvcnRlciBvZiB0aGUgYXR0YWNobWVudCB3aGljaAo+ID4gPiArCSAqIG11c3QgYmUg
+c2V0IGJlZm9yZSBtYXBwaW5ncyBhcmUgY3JlYXRlZC4KPiA+IFRoaXMgZG9lc24ndCB3b3JrLCBp
+dCBtdXN0IGJlIHNldCBiZWZvcmUgdGhlIGF0dGFjaG1lbnQgaXMgY3JlYXRlZCwKPiA+IG90aGVy
+d2lzZSB5b3UgcmFjZSB3aXRoIHlvdXIgaW52YWxpZGF0ZSBjYWxsYmFjay4KPiAKPiBBbm90aGVy
+IGdvb2QgcG9pbnQuCj4gCj4gPiAKPiA+IEkgdGhpbmsgdGhlIHNpbXBsZXN0IG9wdGlvbiB3b3Vs
+ZCBiZSB0byBhZGQgYSBuZXcgZG1hX2J1Zl9hdHRhY2hfZHluYW1pYwo+ID4gKHdlbGwgZXhjZXB0
+IGEgbGVzcyBjcmFwcHkgbmFtZSkuCj4gCj4gV2VsbCBob3cgYWJvdXQgYWRkaW5nIGFuIG9wdGlv
+bmFsIGludmFsaWRhdGVfbWFwcGluZ3MgcGFyYW1ldGVyIHRvIHRoZQo+IGV4aXN0aW5nIGRtYV9i
+dWZfYXR0YWNoPwoKTm90IHN1cmUgdGhhdCdzIGJlc3QsIGl0IG1pZ2h0IGNvbmZ1c2UgZHVtYiBp
+bXBvcnRlcnMgYW5kIHlvdSBuZWVkIHRvCmNoYW5nZSBhbGwgdGhlIGNhbGxlcnMuIEJ1dCB1cCB0
+byB5b3UuCgo+ID4gPiArCSAqCj4gPiA+ICsJICogSWYgcHJvdmlkZWQgdGhlIGV4cG9ydGVyIGNh
+biBhdm9pZCBwaW5uaW5nIHRoZSBiYWNraW5nIHN0b3JlIHdoaWxlCj4gPiA+ICsJICogbWFwcGlu
+Z3MgZXhpc3RzLgo+ID4gPiArCSAqCj4gPiA+ICsJICogVGhlIGZ1bmN0aW9uIGlzIGNhbGxlZCB3
+aXRoIHRoZSBsb2NrIG9mIHRoZSByZXNlcnZhdGlvbiBvYmplY3QKPiA+ID4gKwkgKiBhc3NvY2lh
+dGVkIHdpdGggdGhlIGRtYV9idWYgaGVsZCBhbmQgdGhlIG1hcHBpbmcgZnVuY3Rpb24gbXVzdCBi
+ZQo+ID4gPiArCSAqIGNhbGxlZCB3aXRoIHRoaXMgbG9jayBoZWxkIGFzIHdlbGwuIFRoaXMgbWFr
+ZXMgc3VyZSB0aGF0IG5vIG1hcHBpbmcKPiA+ID4gKwkgKiBpcyBjcmVhdGVkIGNvbmN1cnJlbnRs
+eSB3aXRoIGFuIG9uZ29pbmcgaW52YWxpZGF0aW9uLgo+ID4gPiArCSAqCj4gPiA+ICsJICogQWZ0
+ZXIgdGhlIGNhbGxiYWNrIGFsbCBleGlzdGluZyBtYXBwaW5ncyBhcmUgc3RpbGwgdmFsaWQgdW50
+aWwgYWxsCj4gPiA+ICsJICogZmVuY2VzIGluIHRoZSBkbWFfYnVmcyByZXNlcnZhdGlvbiBvYmpl
+Y3QgYXJlIHNpZ25hbGVkLCBidXQgc2hvdWxkIGJlCj4gPiA+ICsJICogZGVzdHJveWVkIGJ5IHRo
+ZSBpbXBvcnRlciBhcyBzb29uIGFzIHBvc3NpYmxlLgo+ID4gRG8gd2UgZ3VhcmFudGVlIHRoYXQg
+dGhlIGltcG9ydGVyIHdpbGwgYXR0YWNoIGEgZmVuY2UsIGFmdGVyIHdoaWNoIHRoZQo+ID4gbWFw
+cGluZyB3aWxsIGJlIGdvbmU/IFdoYXQgYWJvdXQgcmUtdHJ5aW5nPyBPciBqdXN0IGJlc3QgZWZm
+b3J0IChpLmUuIG9ubHkKPiA+IHVzZWZ1bCBmb3IgZXZpY3RpbmcgdG8gdHJ5IHRvIG1ha2Ugcm9v
+bSkuCj4gCj4gVGhlIGltcG9ydGVyIHNob3VsZCBhdHRhY2ggZmVuY2VzIGZvciBhbGwgaXQncyBv
+cGVyYXRpb25zIHdpdGggdGhlIERNQS1idWYuCj4gCj4gPiBJIHRoaW5rIGEgaGVscGVyIHdoaWNo
+IGJvdGggdW5tYXBzIF9hbmRfIHdhaXRzIGZvciBhbGwgdGhlIGZlbmNlcyB0byBjbGVhcgo+ID4g
+d291bGQgYmUgYmVzdCwgd2l0aCBzb21lIGd1YXJhbnRlZXMgdGhhdCBpdCdsbCBlaXRoZXIgZmFp
+bCBvciBhbGwgdGhlCj4gPiBtYXBwaW5ncyBfd2lsbF8gYmUgZ29uZS4gVGhlIGxvY2tpbmcgZm9y
+IHRoYXQgb25lIHdpbGwgYmUgaGlsYXJpb3VzLCBzaW5jZQo+ID4gd2UgbmVlZCB0byBmaWd1cmUg
+b3V0IGRtYWJ1Zi0+bG9jayB2cy4gdGhlIHJlc2VydmF0aW9uLiBJIGtpbmRhIHByZWZlciB3ZQo+
+ID4gdGhyb3cgYXdheSB0aGUgZG1hYnVmLT5sb2NrIGFuZCBzdXBlcnNlZWQgaXQgZW50aXJlbHkg
+YnkgdGhlIHJlc2VydmF0aW9uCj4gPiBsb2NrLgo+IAo+IEJpZyBOQUsgb24gdGhhdC4gVGhlIHdo
+b2xlIEFQSSBpcyBhc3luY2hyb25vdXNseSwgZS5nLiB3ZSBuZXZlciBibG9jayBmb3IKPiBhbnkg
+b3BlcmF0aW9uIHRvIGZpbmlzaC4KPiAKPiBPdGhlcndpc2UgeW91IHJ1biBpbnRvIGJpZyB0cm91
+YmxlIHdpdGggY3Jvc3MgZGV2aWNlIEdQVSByZXNldHMgYW5kIHN0dWZmCj4gbGlrZSB0aGF0LgoK
+QnV0IGhvdyB3aWxsIHRoZSB1bm1hcHBpbmcgd29yayB0aGVuPyBZb3UgY2FuJ3QgdGhyb3cgdGhl
+IHNnIGxpc3QgYXdheQpiZWZvcmUgdGhlIGRtYSBzdG9wcGVkLiBUaGUgZG1hIG9ubHkgc3RvcHMg
+b25jZSB0aGUgZmVuY2UgaXMgc2lnbmFsbGVkLgpUaGUgaW1wb3J0ZXIgY2FuJ3QgY2FsbCBkbWFf
+YnVmX2RldGFjaCBiZWNhdXNlIHRoZSByZXNlcnZhdGlvbiBsb2NrIGlzCmhvZ2dlZCBhbHJlYWR5
+IGJ5IHRoZSBleHBvcnRlciB0cnlpbmcgdG8gdW5tYXAgZXZlcnl0aGluZy4KCkhvdyBpcyB0aGlz
+IHN1cHBvc2VkIHRvIHdvcms/CgpSZSBHUFUgbWlnaHQgY2F1c2UgYSBkZWFkbG9jazogSXNuJ3Qg
+dGhhdCBhbHJlYWR5IGEgcHJvYmxlbSBpZiB5b3UgaG9sZApyZXNlcnZhdGlvbnMgb2YgYnVmZmVy
+cyB1c2VkIG9uIG90aGVyIGdwdXMsIHdoaWNoIHdhbnQgdGhvc2UgcmVzZXJ2YXRpb25zCnRvIGNv
+bXBsZXRlIHRoZSBncHUgcmVzZXQsIGJ1dCB0aGF0IGdwdSByZXNldCBibG9ja3Mgc29tZSBmZW5j
+ZSB0aGF0IHRoZQpyZXNlcnZhdGlvbiBob2xkZXIgaXMgd2FpdGluZyBmb3I/CgpXZSBoYXZlIHRv
+bnMgb2YgZnVuIHdpdGggZGVhZGxvY2tzIGFnYWluc3QgR1BVIHJlc2V0cywgYW5kIGxvb29vb290
+cyBvZgp0ZXN0Y2FzZXMsIGFuZCBJIGtpbmRhIGdldCB0aGUgaW1wcmVzc2lvbiBhbWRncHUgaXMg
+dGhyb3dpbmcgYSBsb3Qgb2YKaXNzdWVzIHVuZGVyIHRoZSBydWcgdGhyb3VnaCB0cnlsb2NrIHRy
+aWNrcyB0aGF0IHNodXQgdXAgbG9ja2RlcCwgYnV0CmRvbid0IGZpeCBtdWNoIHJlYWxseS4KCmJ0
+dyBhZGRpbmcgY3Jvc3MtcmVsZWFzZSBsb2NrZGVwIGFubm90YXRpb25zIGZvciBmZW5jZXMgd2ls
+bCBwcm9iYWJseSB0dXJuCnVwIF9sb3RzXyBtb3JlIGJ1Z3MgaW4gdGhpcyBhcmVhLgoKPiA+ID4g
+KwkgKgo+ID4gPiArCSAqIE5ldyBtYXBwaW5ncyBjYW4gYmUgY3JlYXRlZCBpbW1lZGlhdGVseSwg
+YnV0IGNhbid0IGJlIHVzZWQgYmVmb3JlIHRoZQo+ID4gPiArCSAqIGV4Y2x1c2l2ZSBmZW5jZSBp
+biB0aGUgZG1hX2J1ZnMgcmVzZXJ2YXRpb24gb2JqZWN0IGlzIHNpZ25hbGVkLgo+ID4gPiArCSAq
+Lwo+ID4gPiArCXZvaWQgKCppbnZhbGlkYXRlX21hcHBpbmdzKShzdHJ1Y3QgZG1hX2J1Zl9hdHRh
+Y2htZW50ICphdHRhY2gpOwo+ID4gQnVuY2ggb2YgcXVlc3Rpb25zIGFib3V0IGV4YWN0IHNlbWFu
+dGljcywgYnV0IEkgdmVyeSBtdWNoIGxpa2UgdGhpcy4gQW5kIEkKPiA+IHRoaW5rIGJlc2lkZXMg
+dGhvc2UgdGVjaG5pY2FsIGRldGFpbHMsIHRoZSBvdmVyYWxsIGFwcHJvYWNoIHNlZW1zIHNvdW5k
+Lgo+IAo+IFllYWggdGhpcyBpbml0aWFsIGltcGxlbWVudGF0aW9uIHdhcyBidWdneSBsaWtlIGhl
+bGwuIEp1c3Qgd2FudGVkIHRvIGNvbmZpcm0KPiB0aGF0IHRoZSBpZGVhIGlzIGdvaW5nIGluIHRo
+ZSByaWdodCBkaXJlY3Rpb24uCgpJIHdhbnRlZCB0aGlzIDcgeWVhcnMgYWdvLCBpZGVhIHZlcnkg
+bXVjaCBhY2tlZCA6LSkKCkNoZWVycywgRGFuaWVsCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJl
+IEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGlu
+ZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
