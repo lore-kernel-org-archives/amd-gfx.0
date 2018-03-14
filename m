@@ -1,54 +1,86 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [pull] radeon and amdgpu drm-fixes-4.16
-Date: Wed, 14 Mar 2018 15:58:30 -0500
-Message-ID: <20180314205830.3164-1-alexander.deucher@amd.com>
+From: Jona Stubbe <gpg2025-ilhm+zE510QR3TpqV4T2kg@public.gmane.org>
+Subject: Debugging modesetting problem
+Date: Thu, 15 Mar 2018 00:52:55 +0100
+Message-ID: <3135989.9rTpBQRE1N@jona-m500>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com
-Cc: Alex Deucher <alexander.deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1574543915=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGkgRGF2ZSwKCkEgZmV3IGZpeGVzIGZvciA0LjE2OgotIEZpeCBhIGJhY2tsaWdodCBTL1IgcmVn
-cmVzc2lvbiBvbiBhbWRncHUKLSBGaXggcHJpbWUgdGVhcmRvd24gb24gcmFkZW9uIGFuZCBhbWRn
-cHUKLSBEUCBmaXggZm9yIGFtZGdwdQoKVGhlIGZvbGxvd2luZyBjaGFuZ2VzIHNpbmNlIGNvbW1p
-dCBiMDY1NWQ2NjhmYzRmYWYwYzE5ODVlODI4ODIwZjliOWNhMTNhYmU2OgoKICBNZXJnZSBicmFu
-Y2ggJ2RybS1maXhlcy00LjE2JyBvZiBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1
-Zi9saW51eCBpbnRvIGRybS1maXhlcyAoMjAxOC0wMy0wOSAwOToyMzowMiArMTAwMCkKCmFyZSBh
-dmFpbGFibGUgaW4gdGhlIGdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6Ly9wZW9wbGUuZnJlZWRl
-c2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tZml4ZXMtNC4xNgoKZm9yIHlvdSB0byBmZXRjaCBj
-aGFuZ2VzIHVwIHRvIDdkNjE3MjY0ZWIyMmIxOGQ5NzllYWM2ZTg1ODc3YTE0MTI1MzAzNGU6Cgog
-IGRybS9hbWRncHUvZGNlOiBEb24ndCB0dXJuIG9mZiBEUCBzaW5rIHdoZW4gZGlzY29ubmVjdGVk
-ICgyMDE4LTAzLTE0IDE1OjQwOjAwIC0wNTAwKQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpBbGV4IERldWNoZXIgKDEpOgog
-ICAgICBkcm0vYW1kZ3B1OiBzYXZlL3Jlc3RvcmUgYmFja2xpZ2h0IGxldmVsIGluIGxlZ2FjeSBk
-Y2UgY29kZQoKQ2hyaXN0aWFuIEvDtm5pZyAoMik6CiAgICAgIGRybS9hbWRncHU6IGZpeCBwcmlt
-ZSB0ZWFyZG93biBvcmRlcgogICAgICBkcm0vcmFkZW9uOiBmaXggcHJpbWUgdGVhcmRvd24gb3Jk
-ZXIKCk1pY2hlbCBEw6RuemVyICgxKToKICAgICAgZHJtL2FtZGdwdS9kY2U6IERvbid0IHR1cm4g
-b2ZmIERQIHNpbmsgd2hlbiBkaXNjb25uZWN0ZWQKCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfY29ubmVjdG9ycy5jIHwgMzEgKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyAgICAgICAgfCAgMiAtLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCAgICAgICB8ICAxICsKIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyAgICAgfCAgMiArKwogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfZW5jb2RlcnMuYyB8ICA0ICsrLS0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2F0b21iaW9zX2VuY29kZXJzLmggfCAgNSArKysrKwogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMgICAgICAgICB8ICA4ICsrKysrKysK
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTFfMC5jICAgICAgICAgfCAgOCArKysr
-KysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jICAgICAgICAgIHwgIDgg
-KysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYyAgICAgICAgICB8
-ICA4ICsrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2dlbS5jICAgICAgICAg
-ICAgfCAgMiAtLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMgICAgICAg
-ICB8ICAyICsrCiAxMiBmaWxlcyBjaGFuZ2VkLCA1NiBpbnNlcnRpb25zKCspLCAyNSBkZWxldGlv
-bnMoLSkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
-LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+--===============1574543915==
+Content-Type: multipart/signed; boundary="nextPart6103326.OHJuSJLdTY"; micalg="pgp-sha512"; protocol="application/pgp-signature"
+
+--nextPart6103326.OHJuSJLdTY
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+
+Hi AMD graphics developers,
+
+I've recently hit a modesetting problem: when I used the DisplayPort KVM 
+switch that I got yesterday to connect my PC (running Arch Linux) to my 4K 
+monitor, it only worked in 3 out of about 60 times of switching/replugging the 
+cable (the BIOS always manages to put something onscreen, though).
+I've tried both graphics cards available to me right now: a Polaris (RX 480) 
+and a Cayman (HD 6950/6970) and neither of them modesets properly and 
+reliably.
+I wouldn't be opposed to doing some work to fix this myself, as this is a good 
+opportunity for me to get into system development, however I don't know where 
+to start.
+I have full (root if required) access to the system, so building/running 
+custom kernels or whatever is necessary is not a big problem. However, logic 
+analysers (or whatever you may need to find out what actually goes over the 
+wire) are out of my reach. Is this something I can tackle?
+
+Yours faithfully
+Jona Stubbe
+
+PS: if there is a shorter-latency way of asking this kind of question (like an 
+IRC channel), I'd be interested too :)
+--nextPart6103326.OHJuSJLdTY
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE/5FapFcPE+aNCRTJE83Pxj8bWXAFAlqptdcACgkQE83Pxj8b
+WXAvyxAAzdGzTEBh8v3T8j4wmgEeVI8TdFwiIl0AvE/T4dpITJ5ZdUZI0jEO0Fq7
+Oxb9YgG6l1bJjkq+DZUKQueg/q5hK6wwpO+yW9Eaa6S70rbiWgQMjZuejvxR3Poh
+7+OjUM47TgiP/VP+b9ccMGoT838I0XddgAuyj2p6AXVDyGykk+MA9NJZKy2nuttT
+kFaDhGEu7D2f899EvyVyCr9pvE19xAnZkzGBj8UdaOWl6Lp7Ips/qn8bufTJFjVR
+iOntHRAdCSal/6mLL+2MKwgTH4z2l059kJXp7B7kaX1yn9cK4mmnX9vTMihj/d0a
+jQbF1psTSj1tm7GXN0tDKTRlRgcl5QVp4ioD/UCRRJ1r+3Bm1h7VNj1TuUbImVxH
+KQHBnD0SX4ew3j0xzqkV90R3g7lQgZ6YuMiMDs6ZkCBU3o/blgEKNvdNz0uxMtRJ
+H+wtfsinNKfSuVzeXtxTA933ji0NCMuM7lsmLPQycB79igEcVxkK2irPslUHbKnW
+gSR2Y0Vpu1zr6NDNNU7GDFKUiKjcEW0LDqnqF7kfBHj6d6DAeomAWUf6EkxQhDnX
++ZHbbRjiu0hdTWlLftv6pTEcJWqEZeDgJ4IS30k48HoTQv4lxb6yfjgkB8dSoDRK
+2eHVi+7mCeGDPcXKnLT1rWrCDczETIwVarHtKlFdGTGU+LtMA4U=
+=pzlX
+-----END PGP SIGNATURE-----
+
+--nextPart6103326.OHJuSJLdTY--
+
+
+
+
+--===============1574543915==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1574543915==--
