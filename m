@@ -1,11 +1,13 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amd/pp: Fix memory leak in error path in smumgr
-Date: Wed, 14 Mar 2018 18:12:15 +0800
-Message-ID: <1521022335-4552-1-git-send-email-Rex.Zhu@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH][next] drm/amd/pp: remove redundant pointer internal_buf
+Date: Wed, 14 Mar 2018 11:52:26 +0000
+Message-ID: <MWHPR12MB1694DF65C8C3F26DC1F33312FBD10@MWHPR12MB1694.namprd12.prod.outlook.com>
+References: <20180313132217.31025-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1298782668=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180313132217.31025-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,127 +18,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-djI6IG5vdCBjaGFuZ2UgdGhlIHNlcXVlbmNlIG9mIHNtdSBiYWNrZW5kIGFzc2lnbm1lbnQKCkZy
-ZWUgdGhlIGJhY2tlbmQgc3RydWN0dXJlIGlmIHdlIGZhaWwgdG8gYWxsb2NhdGUgZGV2aWNlIG1l
-bW9yeS4KCkNoYW5nZS1JZDogSWIyMDA3ZDgzZjNkOTlkY2M2YzRhMGM5ZmU5YTlmMTQ0YmI3NDY5
-ZTkKU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9jel9zbXVtZ3IuYyAgIHwgMzIgKysrKysrKysr
-KysrKystLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Zpamlf
-c211bWdyLmMgfCAgNCArKy0KIC4uLi9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2ljZWxh
-bmRfc211bWdyLmMgIHwgIDQgKystCiAuLi4vZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFy
-aXMxMF9zbXVtZ3IuYyAgICB8ICA0ICsrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-c211bWdyL3J2X3NtdW1nci5jICAgfCAxOCArKysrKysrLS0tLS0KIC4uLi9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvc211bWdyL3RvbmdhX3NtdW1nci5jICAgIHwgIDQgKystCiA2IGZpbGVzIGNoYW5n
-ZWQsIDQzIGluc2VydGlvbnMoKyksIDIzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9jel9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9jel9zbXVtZ3IuYwppbmRleCA5NTc3MzlhLi42Njlj
-MWJlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvY3pf
-c211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2N6X3Nt
-dW1nci5jCkBAIC03NjQsNyArNzY0LDcgQEAgc3RhdGljIGludCBjel9zbXVfaW5pdChzdHJ1Y3Qg
-cHBfaHdtZ3IgKmh3bWdyKQogCQkJCSZjel9zbXUtPnRvY19idWZmZXIubWNfYWRkciwKIAkJCQkm
-Y3pfc211LT50b2NfYnVmZmVyLmthZGRyKTsKIAlpZiAocmV0KQotCQlyZXR1cm4gLUVJTlZBTDsK
-KwkJZ290byBlcnIyOwogCiAJcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICopaHdtZ3ItPmFkZXYsCiAJCQkJY3pfc211LT5zbXVfYnVmZmVyLmRhdGFf
-c2l6ZSwKQEAgLTc3MywxOSArNzczLDE1IEBAIHN0YXRpYyBpbnQgY3pfc211X2luaXQoc3RydWN0
-IHBwX2h3bWdyICpod21ncikKIAkJCQkmY3pfc211LT5zbXVfYnVmZmVyLmhhbmRsZSwKIAkJCQkm
-Y3pfc211LT5zbXVfYnVmZmVyLm1jX2FkZHIsCiAJCQkJJmN6X3NtdS0+c211X2J1ZmZlci5rYWRk
-cik7Ci0JaWYgKHJldCkgewotCQlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJmN6X3NtdS0+dG9jX2J1
-ZmZlci5oYW5kbGUsCi0JCQkJCSZjel9zbXUtPnRvY19idWZmZXIubWNfYWRkciwKLQkJCQkJJmN6
-X3NtdS0+dG9jX2J1ZmZlci5rYWRkcik7Ci0JCXJldHVybiAtRUlOVkFMOwotCX0KKwlpZiAocmV0
-KQorCQlnb3RvIGVycjE7CiAKIAlpZiAoMCAhPSBjel9zbXVfcG9wdWxhdGVfc2luZ2xlX3NjcmF0
-Y2hfZW50cnkoaHdtZ3IsCiAJCUNaX1NDUkFUQ0hfRU5UUllfVUNPREVfSURfUkxDX1NDUkFUQ0gs
-CiAJCVVDT0RFX0lEX1JMQ19TQ1JBVENIX1NJWkVfQllURSwKIAkJJmN6X3NtdS0+c2NyYXRjaF9i
-dWZmZXJbY3pfc211LT5zY3JhdGNoX2J1ZmZlcl9sZW5ndGgrK10pKSB7CiAJCXByX2VycigiRXJy
-b3Igd2hlbiBQb3B1bGF0ZSBGaXJtd2FyZSBFbnRyeS5cbiIpOwotCQlyZXR1cm4gLTE7CisJCWdv
-dG8gZXJyMDsKIAl9CiAKIAlpZiAoMCAhPSBjel9zbXVfcG9wdWxhdGVfc2luZ2xlX3NjcmF0Y2hf
-ZW50cnkoaHdtZ3IsCkBAIC03OTMsMTQgKzc4OSwxNCBAQCBzdGF0aWMgaW50IGN6X3NtdV9pbml0
-KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJCVVDT0RFX0lEX1JMQ19TUk1fQVJBTV9TSVpFX0JZ
-VEUsCiAJCSZjel9zbXUtPnNjcmF0Y2hfYnVmZmVyW2N6X3NtdS0+c2NyYXRjaF9idWZmZXJfbGVu
-Z3RoKytdKSkgewogCQlwcl9lcnIoIkVycm9yIHdoZW4gUG9wdWxhdGUgRmlybXdhcmUgRW50cnku
-XG4iKTsKLQkJcmV0dXJuIC0xOworCQlnb3RvIGVycjA7CiAJfQogCWlmICgwICE9IGN6X3NtdV9w
-b3B1bGF0ZV9zaW5nbGVfc2NyYXRjaF9lbnRyeShod21nciwKIAkJQ1pfU0NSQVRDSF9FTlRSWV9V
-Q09ERV9JRF9STENfU1JNX0RSQU0sCiAJCVVDT0RFX0lEX1JMQ19TUk1fRFJBTV9TSVpFX0JZVEUs
-CiAJCSZjel9zbXUtPnNjcmF0Y2hfYnVmZmVyW2N6X3NtdS0+c2NyYXRjaF9idWZmZXJfbGVuZ3Ro
-KytdKSkgewogCQlwcl9lcnIoIkVycm9yIHdoZW4gUG9wdWxhdGUgRmlybXdhcmUgRW50cnkuXG4i
-KTsKLQkJcmV0dXJuIC0xOworCQlnb3RvIGVycjA7CiAJfQogCiAJaWYgKDAgIT0gY3pfc211X3Bv
-cHVsYXRlX3NpbmdsZV9zY3JhdGNoX2VudHJ5KGh3bWdyLApAQCAtODA4LDcgKzgwNCw3IEBAIHN0
-YXRpYyBpbnQgY3pfc211X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAkJc2l6ZW9mKHN0
-cnVjdCBTTVU4X011bHRpbWVkaWFQb3dlckxvZ0RhdGEpLAogCQkmY3pfc211LT5zY3JhdGNoX2J1
-ZmZlcltjel9zbXUtPnNjcmF0Y2hfYnVmZmVyX2xlbmd0aCsrXSkpIHsKIAkJcHJfZXJyKCJFcnJv
-ciB3aGVuIFBvcHVsYXRlIEZpcm13YXJlIEVudHJ5LlxuIik7Ci0JCXJldHVybiAtMTsKKwkJZ290
-byBlcnIwOwogCX0KIAogCWlmICgwICE9IGN6X3NtdV9wb3B1bGF0ZV9zaW5nbGVfc2NyYXRjaF9l
-bnRyeShod21nciwKQEAgLTgxNiwxMCArODEyLDIyIEBAIHN0YXRpYyBpbnQgY3pfc211X2luaXQo
-c3RydWN0IHBwX2h3bWdyICpod21ncikKIAkJc2l6ZW9mKHN0cnVjdCBTTVU4X0Z1c2lvbl9DbGtU
-YWJsZSksCiAJCSZjel9zbXUtPnNjcmF0Y2hfYnVmZmVyW2N6X3NtdS0+c2NyYXRjaF9idWZmZXJf
-bGVuZ3RoKytdKSkgewogCQlwcl9lcnIoIkVycm9yIHdoZW4gUG9wdWxhdGUgRmlybXdhcmUgRW50
-cnkuXG4iKTsKLQkJcmV0dXJuIC0xOworCQlnb3RvIGVycjA7CiAJfQogCiAJcmV0dXJuIDA7CisK
-K2VycjA6CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZjel9zbXUtPnNtdV9idWZmZXIuaGFuZGxl
-LAorCQkJCSZjel9zbXUtPnNtdV9idWZmZXIubWNfYWRkciwKKwkJCQkmY3pfc211LT5zbXVfYnVm
-ZmVyLmthZGRyKTsKK2VycjE6CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZjel9zbXUtPnRvY19i
-dWZmZXIuaGFuZGxlLAorCQkJCSZjel9zbXUtPnRvY19idWZmZXIubWNfYWRkciwKKwkJCQkmY3pf
-c211LT50b2NfYnVmZmVyLmthZGRyKTsKK2VycjI6CisJa2ZyZWUoY3pfc211KTsKKwlyZXR1cm4g
-LUVJTlZBTDsKIH0KIAogc3RhdGljIGludCBjel9zbXVfZmluaShzdHJ1Y3QgcHBfaHdtZ3IgKmh3
-bWdyKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Zp
-amlfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9z
-bXVtZ3IuYwppbmRleCBlZDJlMmU5Li45NWZjZGEzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYwpAQCAtMzU0LDggKzM1NCwxMCBA
-QCBzdGF0aWMgaW50IGZpamlfc211X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAogCWh3
-bWdyLT5zbXVfYmFja2VuZCA9IGZpamlfcHJpdjsKIAotCWlmIChzbXU3X2luaXQoaHdtZ3IpKQor
-CWlmIChzbXU3X2luaXQoaHdtZ3IpKSB7CisJCWtmcmVlKGZpamlfcHJpdik7CiAJCXJldHVybiAt
-RUlOVkFMOworCX0KIAogCXJldHVybiAwOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvc211bWdyL2ljZWxhbmRfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9zbXVtZ3IvaWNlbGFuZF9zbXVtZ3IuYwppbmRleCA2MjU1ZWRmLi40ZTJm
-NjJlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvaWNl
-bGFuZF9zbXVtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Iv
-aWNlbGFuZF9zbXVtZ3IuYwpAQCAtMjcxLDggKzI3MSwxMCBAQCBzdGF0aWMgaW50IGljZWxhbmRf
-c211X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAogCWh3bWdyLT5zbXVfYmFja2VuZCA9
-IGljZWxhbmRfcHJpdjsKIAotCWlmIChzbXU3X2luaXQoaHdtZ3IpKQorCWlmIChzbXU3X2luaXQo
-aHdtZ3IpKSB7CisJCWtmcmVlKGljZWxhbmRfcHJpdik7CiAJCXJldHVybiAtRUlOVkFMOworCX0K
-IAogCXJldHVybiAwOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKaW5kZXggMDYwOWFjZi4uMDNlYzFlNSAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9z
-bXVtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJp
-czEwX3NtdW1nci5jCkBAIC0zNDksOCArMzQ5LDEwIEBAIHN0YXRpYyBpbnQgcG9sYXJpczEwX3Nt
-dV9pbml0KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAKIAlod21nci0+c211X2JhY2tlbmQgPSBz
-bXVfZGF0YTsKIAotCWlmIChzbXU3X2luaXQoaHdtZ3IpKQorCWlmIChzbXU3X2luaXQoaHdtZ3Ip
-KSB7CisJCWtmcmVlKHNtdV9kYXRhKTsKIAkJcmV0dXJuIC1FSU5WQUw7CisJfQogCiAJcmV0dXJu
-IDA7CiB9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Iv
-cnZfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcnZfc211
-bWdyLmMKaW5kZXggZTJlZTIzYS4uMTU5MmNkZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvc211bWdyL3J2X3NtdW1nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L3NtdW1nci9ydl9zbXVtZ3IuYwpAQCAtMzUwLDcgKzM1MCw3IEBAIHN0YXRp
-YyBpbnQgcnZfc211X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAkJCSZrYWRkcik7CiAK
-IAlpZiAocikKLQkJcmV0dXJuIC1FSU5WQUw7CisJCWdvdG8gZXJyMDsKIAogCXByaXYtPnNtdV90
-YWJsZXMuZW50cnlbV01UQUJMRV0udmVyc2lvbiA9IDB4MDE7CiAJcHJpdi0+c211X3RhYmxlcy5l
-bnRyeVtXTVRBQkxFXS5zaXplID0gc2l6ZW9mKFdhdGVybWFya3NfdCk7CkBAIC0zNjgsMTIgKzM2
-OCw4IEBAIHN0YXRpYyBpbnQgcnZfc211X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAkJ
-CSZtY19hZGRyLAogCQkJJmthZGRyKTsKIAotCWlmIChyKSB7Ci0JCWFtZGdwdV9ib19mcmVlX2tl
-cm5lbCgmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS5oYW5kbGUsCi0JCQkJCSZwcml2
-LT5zbXVfdGFibGVzLmVudHJ5W1dNVEFCTEVdLm1jX2FkZHIsCi0JCQkJCSZwcml2LT5zbXVfdGFi
-bGVzLmVudHJ5W1dNVEFCTEVdLnRhYmxlKTsKLQkJcmV0dXJuIC1FSU5WQUw7Ci0JfQorCWlmIChy
-KQorCQlnb3RvIGVycjE7CiAKIAlwcml2LT5zbXVfdGFibGVzLmVudHJ5W0NMT0NLVEFCTEVdLnZl
-cnNpb24gPSAweDAxOwogCXByaXYtPnNtdV90YWJsZXMuZW50cnlbQ0xPQ0tUQUJMRV0uc2l6ZSA9
-IHNpemVvZihEcG1DbG9ja3NfdCk7CkBAIC0zODMsNiArMzc5LDE0IEBAIHN0YXRpYyBpbnQgcnZf
-c211X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAlwcml2LT5zbXVfdGFibGVzLmVudHJ5
-W0NMT0NLVEFCTEVdLmhhbmRsZSA9IGhhbmRsZTsKIAogCXJldHVybiAwOworCitlcnIxOgorCWFt
-ZGdwdV9ib19mcmVlX2tlcm5lbCgmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS5oYW5k
-bGUsCisJCQkJJnByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJMRV0ubWNfYWRkciwKKwkJCQkm
-cHJpdi0+c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS50YWJsZSk7CitlcnIwOgorCWtmcmVlKHBy
-aXYpOworCXJldHVybiAtRUlOVkFMOwogfQogCiBjb25zdCBzdHJ1Y3QgcHBfc211bWdyX2Z1bmMg
-cnZfc211X2Z1bmNzID0gewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvc211bWdyL3RvbmdhX3NtdW1nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-c211bWdyL3RvbmdhX3NtdW1nci5jCmluZGV4IDM5ZDZmNGUuLjI2Y2NhOGMgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci90b25nYV9zbXVtZ3IuYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdG9uZ2Ffc211bWdyLmMKQEAg
-LTIyOSw4ICsyMjksMTAgQEAgc3RhdGljIGludCB0b25nYV9zbXVfaW5pdChzdHJ1Y3QgcHBfaHdt
-Z3IgKmh3bWdyKQogCiAJaHdtZ3ItPnNtdV9iYWNrZW5kID0gdG9uZ2FfcHJpdjsKIAotCWlmIChz
-bXU3X2luaXQoaHdtZ3IpKQorCWlmIChzbXU3X2luaXQoaHdtZ3IpKSB7CisJCWtmcmVlKHRvbmdh
-X3ByaXYpOwogCQlyZXR1cm4gLUVJTlZBTDsKKwl9CiAKIAlyZXR1cm4gMDsKIH0KLS0gCjEuOS4x
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1298782668==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_"
+
+--_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Apply it and thanks.
+
+
+Best Regards
+
+Rex
+
+
+
+
+________________________________
+From: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Sent: Tuesday, March 13, 2018 9:22 PM
+To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); David Air=
+lie; Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp93rCq3LdnpKM@public.gmane.org=
+rg
+Cc: kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Subject: [PATCH][next] drm/amd/pp: remove redundant pointer internal_buf
+
+From: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+
+The pointer internal_buf is assigned a value but the pointer is never
+read, hence it is redundant and can be removed.
+
+Cleans up clang warning:
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:630:2:
+warning: Value stored to 'internal_buf' is never read
+
+Signed-off-by: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+index 7394bb46b8b2..dcb151cabc00 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+@@ -585,7 +585,6 @@ int smu7_setup_pwr_virus(struct pp_hwmgr *hwmgr)
+ int smu7_init(struct pp_hwmgr *hwmgr)
+ {
+         struct smu7_smumgr *smu_data;
+-       uint8_t *internal_buf;
+         uint64_t mc_addr =3D 0;
+         int r;
+         /* Allocate memory for backend private data */
+@@ -627,7 +626,6 @@ int smu7_init(struct pp_hwmgr *hwmgr)
+                                         &smu_data->header_buffer.kaddr);
+                 return -EINVAL;
+         }
+-       internal_buf =3D smu_data->smu_buffer.kaddr;
+         smu_data->smu_buffer.mc_addr =3D mc_addr;
+
+         if (smum_is_hw_avfs_present(hwmgr))
+--
+2.15.1
+
+
+--_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Apply it and thanks.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Colin King &lt;colin=
+.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, March 13, 2018 9:22 PM<br>
+<b>To:</b> Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); Da=
+vid Airlie; Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
+sktop.org<br>
+<b>Cc:</b> kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br=
+>
+<b>Subject:</b> [PATCH][next] drm/amd/pp: remove redundant pointer internal=
+_buf</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&=
+gt;<br>
+<br>
+The pointer internal_buf is assigned a value but the pointer is never<br>
+read, hence it is redundant and can be removed.<br>
+<br>
+Cleans up clang warning:<br>
+drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:630:2:<br>
+warning: Value stored to 'internal_buf' is never read<br>
+<br>
+Signed-off-by: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 2 --<br>
+&nbsp;1 file changed, 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
+index 7394bb46b8b2..dcb151cabc00 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
+@@ -585,7 &#43;585,6 @@ int smu7_setup_pwr_virus(struct pp_hwmgr *hwmgr)<br=
+>
+&nbsp;int smu7_init(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_smumgr *smu_da=
+ta;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t *internal_buf;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t mc_addr =3D 0;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Allocate memory for bac=
+kend private data */<br>
+@@ -627,7 &#43;626,6 @@ int smu7_init(struct pp_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; &amp;smu_data-&gt;header_buffer.kaddr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; internal_buf =3D smu_data-&gt;smu_buf=
+fer.kaddr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_data-&gt;smu_buffer.mc=
+_addr =3D mc_addr;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smum_is_hw_avfs_presen=
+t(hwmgr))<br>
+-- <br>
+2.15.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_--
+
+--===============1298782668==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1298782668==--
