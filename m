@@ -1,13 +1,14 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH][next] drm/amd/pp: remove redundant pointer internal_buf
-Date: Wed, 14 Mar 2018 11:52:26 +0000
-Message-ID: <MWHPR12MB1694DF65C8C3F26DC1F33312FBD10@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <20180313132217.31025-1-colin.king@canonical.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: How to enable Radeon Pro Duo with mesa
+Date: Wed, 14 Mar 2018 09:38:11 -0400
+Message-ID: <CADnq5_NdRu4hemZY-7c_mNUta3R5G4qTHMCrfBLP7WMu20XonA@mail.gmail.com>
+References: <EB021AE3BDDC1742A899855D00BABEB0010451CE@DGGEMM506-MBX.china.huawei.com>
+ <E7DD0E9246072C4A9CA8F1C79F816696018E7743@dggemi505-mbx.china.huawei.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1298782668=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180313132217.31025-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <E7DD0E9246072C4A9CA8F1C79F816696018E7743-k9ZYk3Ba6VKEZbDCDsDlKQK1hpo4iccwjNknBlVQO8k@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,186 +19,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: "Lvzhihong (ReJohn)" <lvzhihong1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, sunnanyong <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
 
---===============1298782668==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_"
-
---_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Apply it and thanks.
-
-
-Best Regards
-
-Rex
-
-
-
-
-________________________________
-From: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Sent: Tuesday, March 13, 2018 9:22 PM
-To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); David Air=
-lie; Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp93rCq3LdnpKM@public.gmane.org=
-rg
-Cc: kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Subject: [PATCH][next] drm/amd/pp: remove redundant pointer internal_buf
-
-From: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-
-The pointer internal_buf is assigned a value but the pointer is never
-read, hence it is redundant and can be removed.
-
-Cleans up clang warning:
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:630:2:
-warning: Value stored to 'internal_buf' is never read
-
-Signed-off-by: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-index 7394bb46b8b2..dcb151cabc00 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-@@ -585,7 +585,6 @@ int smu7_setup_pwr_virus(struct pp_hwmgr *hwmgr)
- int smu7_init(struct pp_hwmgr *hwmgr)
- {
-         struct smu7_smumgr *smu_data;
--       uint8_t *internal_buf;
-         uint64_t mc_addr =3D 0;
-         int r;
-         /* Allocate memory for backend private data */
-@@ -627,7 +626,6 @@ int smu7_init(struct pp_hwmgr *hwmgr)
-                                         &smu_data->header_buffer.kaddr);
-                 return -EINVAL;
-         }
--       internal_buf =3D smu_data->smu_buffer.kaddr;
-         smu_data->smu_buffer.mc_addr =3D mc_addr;
-
-         if (smum_is_hw_avfs_present(hwmgr))
---
-2.15.1
-
-
---_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Apply it and thanks.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Colin King &lt;colin=
-.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, March 13, 2018 9:22 PM<br>
-<b>To:</b> Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); Da=
-vid Airlie; Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org<br>
-<b>Cc:</b> kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br=
->
-<b>Subject:</b> [PATCH][next] drm/amd/pp: remove redundant pointer internal=
-_buf</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&=
-gt;<br>
-<br>
-The pointer internal_buf is assigned a value but the pointer is never<br>
-read, hence it is redundant and can be removed.<br>
-<br>
-Cleans up clang warning:<br>
-drivers/gpu/drm/amd/amdgpu/../powerplay/smumgr/smu7_smumgr.c:630:2:<br>
-warning: Value stored to 'internal_buf' is never read<br>
-<br>
-Signed-off-by: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 2 --<br>
-&nbsp;1 file changed, 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-index 7394bb46b8b2..dcb151cabc00 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-@@ -585,7 &#43;585,6 @@ int smu7_setup_pwr_virus(struct pp_hwmgr *hwmgr)<br=
->
-&nbsp;int smu7_init(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_smumgr *smu_da=
-ta;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint8_t *internal_buf;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t mc_addr =3D 0;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Allocate memory for bac=
-kend private data */<br>
-@@ -627,7 &#43;626,6 @@ int smu7_init(struct pp_hwmgr *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; &amp;smu_data-&gt;header_buffer.kaddr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; internal_buf =3D smu_data-&gt;smu_buf=
-fer.kaddr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_data-&gt;smu_buffer.mc=
-_addr =3D mc_addr;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smum_is_hw_avfs_presen=
-t(hwmgr))<br>
--- <br>
-2.15.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MWHPR12MB1694DF65C8C3F26DC1F33312FBD10MWHPR12MB1694namp_--
-
---===============1298782668==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+T24gV2VkLCBNYXIgMTQsIDIwMTggYXQgNTo0MSBBTSwgTHZ6aGlob25nIChSZUpvaG4pCjxsdnpo
+aWhvbmcxQGh1YXdlaS5jb20+IHdyb3RlOgo+IEhpIEFsbCAsCj4KPiBEb2VzIG1lc2Egc3VwcG9y
+dCBSYWRlb24gUHJvIER1bz8gSSBkb27igJl0IGtub3cgaG93IHRvIGNvbmZpZ3VyZSB4b3JnLmNv
+bmYgdG8KPiB1c2UgdHdvIFdYNzEwMCBjYXJkIG9mIERVTyAsIGFuZCBub3cgSSBjYW4gb25seSB1
+c2UgdGhlIGZpcnN0IGNhcmQgb2YgRFVPLgoKV2hhdCBhcmUgeW91IHRyeWluZyB0byBkbz8gIEEg
+bGFyZ2UgZGVza3RvcCBzcHJlYWQgYWNyb3NzIGJvdGggY2hpcHM/ClVzZSB0aGUgY2hpcHMgaW5k
+ZXBlbmRlbnRseT8gIFRoZXJlIGlzIG5vIHN1cHBvcnQgZm9yIGNyb3NzZmlyZSBvbgpMaW51eC4g
+IElmIHlvdSB3YW50IHRvIHVzZSBhIGRlc2t0b3AgYWNyb3NzIG11bHRpcGxlIGNoaXBzIG9yIHNl
+bGVjdAp3aGljaCBjaGlwIGlzIHVzZWQgZm9yIHJlbmRlcmluZywgeW91IGNhbiB1c2UgeHJhbmRy
+IGFuZCB0aGUgcHJpbWUKc3VwcG9ydCBpbiBYOgpodHRwczovL3dpa2kuYXJjaGxpbnV4Lm9yZy9p
+bmRleC5waHAvUFJJTUUKCkFsZXgKCgo+Cj4gSW5zdGFsbGVkIHNvZnR3YXJlIHBhY2thZ2VzOiB4
+c2VydmVyLXhvcmcgIHhmY2U0ICB4aW5pdAo+Cj4gTWVzYSB2ZXJzaW9uOiAxNy4yLjggIGtlcm5l
+bCB2ZXJzaW9uOiA0LjE1Cj4KPgo+Cj4gUGNpIGluZm9ybWF0aW9uOgo+Cj4gMDAwZDozMTowMC4w
+IFBDSSBicmlkZ2U6IFBMWCBUZWNobm9sb2d5LCBJbmMuIFBFWCA4NzQ3IDQ4LUxhbmUsIDUtUG9y
+dCBQQ0kKPiBFeHByZXNzIEdlbiAzICg4LjAgR1QvcykgU3dpdGNoIChyZXYgY2EpCj4KPiAwMDBk
+OjMyOjA4LjAgUENJIGJyaWRnZTogUExYIFRlY2hub2xvZ3ksIEluYy4gUEVYIDg3NDcgNDgtTGFu
+ZSwgNS1Qb3J0IFBDSQo+IEV4cHJlc3MgR2VuIDMgKDguMCBHVC9zKSBTd2l0Y2ggKHJldiBjYSkK
+Pgo+IDAwMGQ6MzI6MTAuMCBQQ0kgYnJpZGdlOiBQTFggVGVjaG5vbG9neSwgSW5jLiBQRVggODc0
+NyA0OC1MYW5lLCA1LVBvcnQgUENJCj4gRXhwcmVzcyBHZW4gMyAoOC4wIEdUL3MpIFN3aXRjaCAo
+cmV2IGNhKQo+Cj4gMDAwZDozMzowMC4wIFZHQSBjb21wYXRpYmxlIGNvbnRyb2xsZXI6IEFkdmFu
+Y2VkIE1pY3JvIERldmljZXMsIEluYy4KPiBbQU1EL0FUSV0gRWxsZXNtZXJlIFtSYWRlb24gUHJv
+IFdYIDcxMDBdCj4KPiAwMDBkOjMzOjAwLjEgQXVkaW8gZGV2aWNlOiBBZHZhbmNlZCBNaWNybyBE
+ZXZpY2VzLCBJbmMuIFtBTUQvQVRJXSBEZXZpY2UKPiBhYWYwCj4KPiAwMDBkOjM0OjAwLjAgRGlz
+cGxheSBjb250cm9sbGVyOiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuIFtBTUQvQVRJXQo+
+IEVsbGVzbWVyZSBbUmFkZW9uIFBybyBXWCA3MTAwXQo+Cj4KPgo+IE15IHhvcmcuY29uZjoKPgo+
+IFNlY3Rpb24gIkRldmljZSIKPgo+ICAgICAgICBJZGVudGlmaWVyICJBTUQiCj4KPiAgICAgICAg
+RHJpdmVyICJhbWRncHUiCj4KPiAgICAgICAgQnVzSUQgInBjaTo1MUAxMzowMDowMCIKPgo+IEVu
+ZFNlY3Rpb24KPgo+IFNlY3Rpb24gIk1vbml0b3IiCj4KPiAgICAgICAgIElkZW50aWZpZXIgIm1v
+bml0b3IwIgo+Cj4gICAgICAgICBPcHRpb24gImVuYWJsZSIgInRydWUiCj4KPiBFbmRTZWN0aW9u
+Cj4KPiBTZWN0aW9uICJTY3JlZW4iCj4KPiAgICAgICAgIElkZW50aWZpZXIgInNjcmVlbjAiCj4K
+PiAgICAgICAgIERldmljZSAiQU1EIgo+Cj4gICAgICAgICBNb25pdG9yICJtb25pdG9yMCIKPgo+
+ICAgICAgICAgRGVmYXVsdERlcHRoIDI0Cj4KPiAgICAgICAgIFN1YlNlY3Rpb24gIkRpc3BsYXki
+Cj4KPiAgICAgICAgICAgICAgICAgRGVwdGggMjQKPgo+ICAgICAgICAgRW5kU3ViU2VjdGlvbgo+
+Cj4gRW5kU2VjdGlvbgo+Cj4KPgo+IEkgdXNlIOKAnHN0YXJ0eOKAnSB0byBzdGFydCBkZXNrdG9w
+ICwgYW5kIG9ubHkgdGhlIGZpcnN0IFdYNzEwMChQQ0kgQnVzIElEOgo+IDAwMGQ6MzM6MDAuMCkg
+YmVpbmcgdXNlZCAsIHRoZSBzZWNvbmQgV1g3MTAwKFBDSSBCdXMgSUQ6IDAwMGQ6MzQ6MDAuMCkg
+aGFzCj4gbm8gbG9hZCAuCj4KPiAgICAgICAgICBFdmVuIGlmIEkgc2V0IEJ1c0lEIGFzICJwY2k6
+NTJAMTM6MDA6MDAiICh0aGUgc2Vjb25kIFdYNzEwMCksIGl0Cj4gc3RpbGwgb25seSB0aGUgZmly
+c3QgV1g3MTAwIGJlaW5nIHVzZWQuCj4KPgo+Cj4gICAgICAgU28gLCBIb3cgdG8gZW5hYmxlIFJh
+ZGVvbiBQcm8gRHVvIHdpdGggb3BlbnNvdXJjZSBkcml2ZXIgLCBkb2VzIG15Cj4geG9yZy5jb25m
+IGlzIHdyb25nIG9yIG1lc2EgZG9lc27igJl0IHN1cHBvcnQgUmFkZW9uIFBybyBEdW8/Cj4KPgo+
+Cj4KPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4g
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4K
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1298782668==--
