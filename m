@@ -1,24 +1,17 @@
-From: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
-Subject: Re: AMD E8860 on PowerPC with u-boot (T2080)
-Date: Wed, 14 Mar 2018 17:35:14 +0100
-Message-ID: <CAGtoiRgQEZnz_QynL9Jo6z8iHL0vb3bw0qGb0a1KjbccAWdoLA@mail.gmail.com>
-References: <CAGtoiRjxS7mgQKG_yib9-5tVkD9_yAkp3P8PxYvipy3bFnV9Rg@mail.gmail.com>
- <62565c2f-a57f-9a2b-8277-ca94937bbe0f@daenzer.net>
- <CAGtoiRjqaseQSw7utV5Ncru1ggrq+p2OAg7weULzzSt0DWNoaA@mail.gmail.com>
- <9b9704ee-05ae-8586-bdf8-0e37171d8829@daenzer.net>
- <CAGtoiRgJsoETCpE7R+LwQ-941vgifCWQ+9GdDe_-NiNaJK-78A@mail.gmail.com>
- <8950aedc-29db-ae1b-96c9-20be3c8177eb@gmail.com>
- <CAGtoiRhivO8WtafLy-LC=h9VOsOUrwR7=_Uze9pTBAk=FfiVsA@mail.gmail.com>
- <4b7d2add-456f-5e0e-5aea-15439d2b76e3@amd.com>
- <CAGtoiRhjUShyxeHRuhx_g4zoTYLig=5R_9f-bHAUOcfVO7C0FQ@mail.gmail.com>
- <0f2a9449-b81a-2103-cd6b-df8e7e4b1d60@amd.com>
- <CADnq5_MDSKX8M+seffLxjdNaF3c6WtwY5Pz03YqBSdg6zG=QkA@mail.gmail.com>
- <CAGtoiRiSNHOVUnHDrD9_E41Zunciy_3sMTWFpD_RowZ_D7mAcA@mail.gmail.com>
- <808b67da-30df-ed8b-f266-34a449d3f4ab@amd.com>
+From: Tom St Denis <tstdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: vga handover for raven
+Date: Wed, 14 Mar 2018 12:35:41 -0400
+Message-ID: <8ec70ac4-9264-8ee1-2906-9ee459df9396@amd.com>
+References: <88d196cc-2f72-30e9-7d3c-9e893b3556ca@amd.com>
+ <0d69d418-e6fe-d6fe-5480-44bfa2e25813@amd.com>
+ <60f6563b-317d-1bdb-0911-c48ff0727cba@amd.com>
+ <DM5PR1201MB013900ED845EBA9FBB8A0F06CDD10@DM5PR1201MB0139.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1789304825=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <808b67da-30df-ed8b-f266-34a449d3f4ab-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR1201MB013900ED845EBA9FBB8A0F06CDD10-grEf7a3NxMCNejYrQpXuzmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -29,226 +22,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yang, Eric" <Eric.Yang2-5C7GfCeVMHo@public.gmane.org>
+Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Cheng,
+ Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1789304825==
-Content-Type: multipart/alternative; boundary="f403045d585aa7c8b8056761f5f6"
-
---f403045d585aa7c8b8056761f5f6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I have the radeon driver working on the T2080, and am currently running
-into a problem with gallium/mesa. My problem was a mismatch
-between u-boot and my device-tree that caused PCI Express to misbehave.
-
-When I run a program calling OpenCL, I get a segfault. The cause for this
-particular crash in src/gallium/drivers/radeonsi/si_state_draw.c:474
-is the use of bit fields in union si_vgt_param_key
-(from src/gallium/drivers/radeonsi/si_pipe.h:310). I'm fairly sure there
-will be other instances.
-
-Is there a best practice on resolving this? Point me in the right direction
-and I'll create some patches to get this fixed.
-
-Bas Vermeulen
-
-On Thu, Feb 22, 2018 at 9:51 AM, Christian K=C3=B6nig <christian.koenig@amd=
-.com>
-wrote:
-
-> Am 22.02.2018 um 09:37 schrieb Bas Vermeulen:
->
-> On Wed, Feb 21, 2018 at 6:22 PM, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> wrote:
->
->> On Wed, Feb 21, 2018 at 7:43 AM, Christian K=C3=B6nig
->> [SNIP]
->> > Apart from that I don't have any good idea any more why that shouldn't
->> work.
->>
->> Does your platform properly handle DMA masks?  Most radeon hw only
->> supports a 40 bit DMA mask.  If there are relevant bits in the upper
->> bits of the address, they will be lost when the hw tries to use the
->> address.  On at least some powerpc hw, I believe there is some memory
->> routing related info in the high bits.
->>
->
-> On 4.1 (without the hashing algorithm when printing pointers), The rings
-> are placed thus:
->
-> [   11.002673] radeon 0002:01:00.0: fence driver on ring 0 use gpu addr
-> 0x0000000080000c00 and cpu addr 0xc00000007c0c8c00
-> [   11.012165] radeon 0002:01:00.0: fence driver on ring 1 use gpu addr
-> 0x0000000080000c04 and cpu addr 0xc00000007c0c8c04
-> [   11.021657] radeon 0002:01:00.0: fence driver on ring 2 use gpu addr
-> 0x0000000080000c08 and cpu addr 0xc00000007c0c8c08
-> [   11.031152] radeon 0002:01:00.0: fence driver on ring 3 use gpu addr
-> 0x0000000080000c0c and cpu addr 0xc00000007c0c8c0c
-> [   11.040644] radeon 0002:01:00.0: fence driver on ring 4 use gpu addr
-> 0x0000000080000c10 and cpu addr 0xc00000007c0c8c10
-> [   11.051919] radeon 0002:01:00.0: fence driver on ring 5 use gpu addr
-> 0x0000000000075a18 and cpu addr 0x8000080088db5a18
->
-> It's also using bit 63 & 62. So this might be something to look into.
->
->
-> No, that is just the virtual address of the buffer in kernel space and
-> perfectly ok.
->
-> What you could try is to force the need_dma32 flag to true, see
-> drivers/gpu/drm/radeon/radeon_ttm.c and search for need_dma32.
->
-> Regards,
-> Christian.
->
->
-> Bas Vermeulen
->
->
->
-
---f403045d585aa7c8b8056761f5f6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I have the radeon driver working on the T2080, and am curr=
-ently running into a problem with gallium/mesa. My problem was a mismatch<d=
-iv>between u-boot and my device-tree that caused PCI Express to misbehave.<=
-br><div><br></div><div>When I run a program calling OpenCL, I get a segfaul=
-t. The cause for this particular crash in=C2=A0src/gallium/drivers/radeonsi=
-/si_state_draw.c:474=C2=A0</div><div>is the use of bit fields in=C2=A0union=
- si_vgt_param_key (from=C2=A0src/gallium/drivers/radeonsi/si_pipe.h:310). I=
-&#39;m fairly sure there will be other instances.</div><div><br></div><div>=
-Is there a best practice on resolving this? Point me in the right direction=
- and I&#39;ll create some patches to get this fixed.</div><div><br></div><d=
-iv>Bas Vermeulen</div></div></div><div class=3D"gmail_extra"><br><div class=
-=3D"gmail_quote">On Thu, Feb 22, 2018 at 9:51 AM, Christian K=C3=B6nig <spa=
-n dir=3D"ltr">&lt;<a href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target=3D"_bl=
-ank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex">
- =20
-   =20
- =20
-  <div text=3D"#000000" bgcolor=3D"#FFFFFF"><span class=3D"">
-    <div class=3D"m_7914511615307514869moz-cite-prefix">Am 22.02.2018 um 09=
-:37 schrieb Bas
-      Vermeulen:<br>
-    </div>
-    </span><blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div class=3D"gmail_extra">
-          <div class=3D"gmail_quote"><span class=3D"">On Wed, Feb 21, 2018 =
-at 6:22 PM, Alex
-            Deucher <span dir=3D"ltr">&lt;<a href=3D"mailto:alexdeucher@gma=
-il.com" target=3D"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>
-            wrote:<br>
-            </span><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-              <div class=3D"m_7914511615307514869gmail-HOEnZb">
-                <div class=3D"m_7914511615307514869gmail-h5"><span class=3D=
-"">On Wed, Feb 21, 2018 at 7:43 AM,
-                  Christian K=C3=B6nig<br></span>
-                  [SNIP]<span class=3D""><br>
-                  &gt; Apart from that I don&#39;t have any good idea any
-                  more why that shouldn&#39;t work.<br>
-                  <br>
-                </span></div>
-              </div><span class=3D"">
-              Does your platform properly handle DMA masks?=C2=A0 Most rade=
-on
-              hw only<br>
-              supports a 40 bit DMA mask.=C2=A0 If there are relevant bits =
-in
-              the upper<br>
-              bits of the address, they will be lost when the hw tries
-              to use the<br>
-              address.=C2=A0 On at least some powerpc hw, I believe there i=
-s
-              some memory<br>
-              routing related info in the high bits.<br>
-            </span></blockquote><span class=3D"">
-            <div><br>
-            </div>
-            <div>On 4.1 (without the hashing algorithm when printing
-              pointers), The rings are placed thus:</div>
-            <div><br>
-            </div>
-            <div>
-              <div>[=C2=A0 =C2=A011.002673] radeon 0002:01:00.0: fence driv=
-er on
-                ring 0 use gpu addr 0x0000000080000c00 and cpu addr
-                0xc00000007c0c8c00</div>
-              <div>[=C2=A0 =C2=A011.012165] radeon 0002:01:00.0: fence driv=
-er on
-                ring 1 use gpu addr 0x0000000080000c04 and cpu addr
-                0xc00000007c0c8c04</div>
-              <div>[=C2=A0 =C2=A011.021657] radeon 0002:01:00.0: fence driv=
-er on
-                ring 2 use gpu addr 0x0000000080000c08 and cpu addr
-                0xc00000007c0c8c08</div>
-              <div>[=C2=A0 =C2=A011.031152] radeon 0002:01:00.0: fence driv=
-er on
-                ring 3 use gpu addr 0x0000000080000c0c and cpu addr
-                0xc00000007c0c8c0c</div>
-              <div>[=C2=A0 =C2=A011.040644] radeon 0002:01:00.0: fence driv=
-er on
-                ring 4 use gpu addr 0x0000000080000c10 and cpu addr
-                0xc00000007c0c8c10</div>
-              <div>[=C2=A0 =C2=A011.051919] radeon 0002:01:00.0: fence driv=
-er on
-                ring 5 use gpu addr 0x0000000000075a18 and cpu addr
-                0x8000080088db5a18</div>
-            </div>
-            <div><br>
-            </div>
-            <div>It&#39;s also using bit 63 &amp; 62. So this might be
-              something to look into.</div>
-          </span></div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    No, that is just the virtual address of the buffer in kernel space
-    and perfectly ok.<br>
-    <br>
-    What you could try is to force the need_dma32 flag to true, see
-    drivers/gpu/drm/radeon/radeon_<wbr>ttm.c and search for need_dma32.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div class=3D"gmail_extra">
-          <div class=3D"gmail_quote">
-            <div><br>
-            </div>
-            <div>Bas Vermeulen</div>
-            <div><br>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </div>
-
-</blockquote></div><br></div>
-
---f403045d585aa7c8b8056761f5f6--
-
---===============1789304825==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1789304825==--
+VGhpcyBkaWZmIG9uIHRvcCBvZiBkcm0tbmV4dCB3b3JrcyBmaW5lCgpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jIApi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9od19zZXF1ZW5jZXIu
+YwppbmRleCA0MzY1OTA2YjE0ZWUuLjc2ODhlZDU3MjRiOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9od19zZXF1ZW5jZXIuYwpA
+QCAtMjI4LDYgKzIyOCw5IEBAIHN0YXRpYyB2b2lkIGRpc2FibGVfdmdhKAogICAgICAgICAgICAg
+ICAgIHJldHVybjsKCiAgICAgICAgIFJFR19XUklURShEMVZHQV9DT05UUk9MLCAwKTsKKyAgICAg
+ICBSRUdfV1JJVEUoRDJWR0FfQ09OVFJPTCwgMCk7CisgICAgICAgUkVHX1dSSVRFKEQzVkdBX0NP
+TlRST0wsIDApOworICAgICAgIFJFR19XUklURShENFZHQV9DT05UUk9MLCAwKTsKCiAgICAgICAg
+IC8qIEhXIEVuZ2luZWVyJ3MgTm90ZXM6CiAgICAgICAgICAqICBEdXJpbmcgc3dpdGNoIGZyb20g
+dmdhLT5leHRlbmRlZCwgaWYgd2Ugc2V0IHRoZSAKVkdBX1RFU1RfRU5BQkxFIGFuZAoKCkkgY2Fu
+J3QgdGVzdCBzdXNwZW5kL3Jlc3VtZSByaWdodCBub3cgc2luY2UgSSBkb24ndCBoYXZlIHRoZSBn
+ZnhvZmYgCmJyYW5jaCBoYW5keS4KClRvbQoKT24gMDMvMTQvMjAxOCAxMDo1NSBBTSwgWWFuZywg
+RXJpYyB3cm90ZToKPiBJZiB0aGVyZSBpcyBubyBWR0EgaGFuZCBvdmVyLCB0aGUgY2hhbmdlIHNo
+b3VsZCBtYWtlIG5vIGRpZmZlcmVuY2UuIEluIHRoZSBWR0EgaGFuZCBvdmVyIGNhc2UsIHRoZSBk
+aWZmZXJlbmNlIGludHJvZHVjZWQgaXMgdGhlIGZvbGxvd2luZywgd2UgY2FuIHRyeSB0byByZXZl
+cnQgdGhpcyBwYXJ0IG9mIHRoZSBjb21taXQsIHdoaWNoIHNob3VsZCBub3QgYnJlYWsgUzMuCj4g
+Cj4gICAgICAgICAgUkVHX1dSSVRFKEQxVkdBX0NPTlRST0wsIDApOwo+IC0gICAgICAgUkVHX1dS
+SVRFKEQyVkdBX0NPTlRST0wsIDApOwo+IC0gICAgICAgUkVHX1dSSVRFKEQzVkdBX0NPTlRST0ws
+IDApOwo+IC0gICAgICAgUkVHX1dSSVRFKEQ0VkdBX0NPTlRST0wsIDApOwo+IAo+IC0tLS0tT3Jp
+Z2luYWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogU3REZW5pcywgVG9tCj4gU2VudDogV2VkbmVzZGF5
+LCBNYXJjaCAxNCwgMjAxOCAxMDoxMiBBTQo+IFRvOiBXZW50bGFuZCwgSGFycnkgPEhhcnJ5Lldl
+bnRsYW5kQGFtZC5jb20+OyBMYWtoYSwgQmhhd2FucHJlZXQgPEJoYXdhbnByZWV0Lkxha2hhQGFt
+ZC5jb20+Cj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBDaGVuZywgVG9ueSA8
+VG9ueS5DaGVuZ0BhbWQuY29tPjsgWWFuZywgRXJpYyA8RXJpYy5ZYW5nMkBhbWQuY29tPgo+IFN1
+YmplY3Q6IFJlOiB2Z2EgaGFuZG92ZXIgZm9yIHJhdmVuCj4gCj4gSGkgSGFycnksCj4gCj4gUmV2
+ZXJ0aW5nIHRoYXQgb24gdG9wIG9mIHRoZSBjdXJyZW50IGFtZC1zdGFnaW5nLWRybS1uZXh0IHNl
+ZW1zIHRvIGhhdmUgZml4ZWQgdGhlIGlzc3VlLgo+IAo+IFRoYW5rcywKPiBUb20KPiAKPiBPbiAw
+My8xNC8yMDE4IDEwOjA4IEFNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPj4gT24gMjAxOC0wMy0x
+NCAwOTo1NCBBTSwgVG9tIFN0IERlbmlzIHdyb3RlOgo+Pj4gSGksCj4+Pgo+Pj4gSW4gdGhlIG9y
+aWdpbmFsIHZlcnNpb24gb2YgdGhlIHBhdGNoIHdlIGhhZDoKPj4+Cj4+PiBAQCAtMzU4LDcgKzM2
+MCw5IEBAIHN0cnVjdCBkY2VfaHdzZXFfcmVnaXN0ZXJzIHsKPj4+Cj4+PiAgIMKgwqDCoMKgwqDC
+oMKgIEhXU0VRX1BJWEVMX1JBVEVfTUFTS19TSF9MSVNUKG1hc2tfc2gsIE9URzBfKSxcCj4+PiAg
+IMKgwqDCoMKgwqDCoMKgIEhXU19TRjEoT1RHMF8sIFBIWVBMTF9QSVhFTF9SQVRFX0NOVEwsCj4+
+PiBQSFlQTExfUElYRUxfUkFURV9TT1VSQ0UsIG1hc2tfc2gpLCBcCj4+PiAgIMKgwqDCoMKgwqDC
+oMKgIEhXU19TRigsIERDSFVCQlVCX0dMT0JBTF9USU1FUl9DTlRMLAo+Pj4gRENIVUJCVUJfR0xP
+QkFMX1RJTUVSX0VOQUJMRSwgbWFza19zaCksIFwKPj4+IC3CoMKgwqDCoMKgwqAgSFdTX1NGKCwg
+RENGQ0xLX0NOVEwsIERDRkNMS19HQVRFX0RJUywgbWFza19zaCkKPj4+Cj4+PiArwqDCoMKgwqDC
+oMKgIEhXU19TRigsIERDRkNMS19DTlRMLCBEQ0ZDTEtfR0FURV9ESVMsIG1hc2tfc2gpLFwKPj4+
+Cj4+PiArwqDCoMKgwqDCoMKgIEhXU19TRigsIFZHQV9URVNUX0NPTlRST0wsIFZHQV9URVNUX0VO
+QUJMRSwgbWFza19zaCksXAo+Pj4KPj4+ICvCoMKgwqDCoMKgwqAgSFdTX1NGKCwgVkdBX1RFU1Rf
+Q09OVFJPTCwgVkdBX1RFU1RfUkVOREVSX1NUQVJULCBtYXNrX3NoKQo+Pj4KPj4+Cj4+Pgo+Pj4g
+V2hpY2ggc29tZWhvdyBjaGFuZ2VkIGludG8KPj4+Cj4+PiBAQCAtNDA0LDcgKzQwNiw5IEBAIHN0
+cnVjdCBkY2VfaHdzZXFfcmVnaXN0ZXJzIHsKPj4+ICAgwqDCoMKgwqDCoMKgwqAgSFdTX1NGKCwg
+RE9NQUlON19QR19TVEFUVVMsIERPTUFJTjdfUEdGU01fUFdSX1NUQVRVUywKPj4+IG1hc2tfc2gp
+LCBcCj4+PiAgIMKgwqDCoMKgwqDCoMKgIEhXU19TRigsIERDX0lQX1JFUVVFU1RfQ05UTCwgSVBf
+UkVRVUVTVF9FTiwgbWFza19zaCksIFwKPj4+ICAgwqDCoMKgwqDCoMKgwqAgSFdTX1NGKCwgTFZU
+TUFfUFdSU0VRX0NOVEwsIExWVE1BX0JMT04sIG1hc2tfc2gpLCBcCj4+PiAtwqDCoMKgwqDCoMKg
+IEhXU19TRigsIExWVE1BX1BXUlNFUV9TVEFURSwgTFZUTUFfUFdSU0VRX1RBUkdFVF9TVEFURV9S
+LAo+Pj4gbWFza19zaCkKPj4+ICvCoMKgwqDCoMKgwqAgSFdTX1NGKCwgTFZUTUFfUFdSU0VRX1NU
+QVRFLCBMVlRNQV9QV1JTRVFfVEFSR0VUX1NUQVRFX1IsCj4+PiArbWFza19zaCksIFwKPj4+ICvC
+oMKgwqDCoMKgwqAgSFdTX1NGKCwgVkdBX1RFU1RfQ09OVFJPTCwgVkdBX1RFU1RfRU5BQkxFLCBt
+YXNrX3NoKSxcCj4+PiArwqDCoMKgwqDCoMKgIEhXU19TRigsIFZHQV9URVNUX0NPTlRST0wsIFZH
+QV9URVNUX1JFTkRFUl9TVEFSVCwgbWFza19zaCkKPj4+Cj4+Cj4+IFRoaXMgaXMganVzdCBkZWZp
+bmluZyB0aGUgVkdBX1RFU1QgcmVnaXN0ZXJzIGZvciB1c2UgYnkgREMuIEl0IHNob3VsZG4ndCBo
+YXZlIGFuIGltcGFjdCBvbiB0aGF0IHBhdGNoLgo+Pgo+Pj4gQW5kIHRoZSBuZXQgcmVzdWx0IGlz
+IHRoZSBkaXNwbGF5IGRvZXNuJ3Qgd29yayAoc2FtZSBnbGl0Y2hlcyBhcyBiZWZvcmUpIG9uIGEg
+cmF2ZW4xIGRldmljZS4KPj4+Cj4+Cj4+IENhbiB5b3Ugc2VlIGlmIHJldmVydGluZyB0aGlzIGNv
+bW1pdCBmaXhlcyBpdD8KPj4gCTFiMGZmNjZiYzBiZiBkcm0vYW1kL2Rpc3BsYXk6IGVhcmx5IHJl
+dHVybiBpZiBub3QgaW4gdmdhIG1vZGUgaW4KPj4gZGlzYWJsZV92Z2EKPj4KPj4gSWYgaW50cm9k
+dWNlZCBhIGNoZWNrIHRvIHNlZSBpZiB3ZSdyZSBhY3R1YWxseSBpbiBWR0EgbW9kZSBhbmQgb25s
+eSB0aGVuIGFwcGxpZWQgdGhlIHdvcmthcm91bmQuIEkgYmVsaWV2ZSBpdCdzIHRvIGF2b2lkIHBy
+b2JsZW1zIHJlc3VtaW5nIGZyb20gUzMuCj4+Cj4+IEhhcnJ5Cj4+Cj4+PiBUb20KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
