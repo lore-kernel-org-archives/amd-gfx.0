@@ -1,15 +1,15 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2 2/2] drm/amd/powerplay: Fix KASAN user after after free on
- driver unload.
-Date: Thu, 15 Mar 2018 12:15:11 -0400
-Message-ID: <1521130511-10816-2-git-send-email-andrey.grodzovsky@amd.com>
-References: <992da07d-1f19-3a1d-c065-10824871f756@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: Improve documentation of bo_ptr in
+ amdgpu_bo_create_kernel
+Date: Thu, 15 Mar 2018 16:18:55 +0000
+Message-ID: <BN6PR12MB1652922737FD3A6CBA7EA323F7D00@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <992da07d-1f19-3a1d-c065-10824871f756@gmail.com>,
  <1521130511-10816-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1441626468=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1521130511-10816-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,134 +20,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Rex.Zhu-5C7GfCeVMHo@public.gmane.org
-Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Zhu,
+ Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-UmV1c2luZyBsb2NhbCBoYW5kbGUgdG8gaW5pdGlhbGl6ZSBCTyB3aXRob3V0IHJlc2V0dGluZyBp
-dCB0bwpOVUxMIGlzIHdyb25nIHNpbmNlIGl0IGNhdXNlcyBhbWRncHVfYm9fY3JlYXRlX3Jlc2Vy
-dmVkIHRvIHNraXAKbmV3IEJPIGNyZWF0aW9uIGFuZCBqdXN0IHJldXNlIHRoZSBnaXZlbiBwb2lu
-dGVyIGZvciBwaW5uaW5nLgoKdjI6CkdldCByaWQgb2YgbWNfYWRkciBhbmQga2FkZHIuCgpTaWdu
-ZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcnZfc211bWdyLmMgICB8
-IDIxICsrKy0tLS0tLS0KIC4uLi9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3ZlZ2ExMF9z
-bXVtZ3IuYyAgIHwgNDggKysrKysrKy0tLS0tLS0tLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAy
-MSBpbnNlcnRpb25zKCspLCA0OCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcnZfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9zbXVtZ3IvcnZfc211bWdyLmMKaW5kZXggZTJlZTIzYS4uMDFmY2ZiOSAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3J2X3NtdW1n
-ci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9ydl9zbXVtZ3Iu
-YwpAQCAtMzI3LDEwICszMjcsNyBAQCBzdGF0aWMgaW50IHJ2X3N0YXJ0X3NtdShzdHJ1Y3QgcHBf
-aHdtZ3IgKmh3bWdyKQogCiBzdGF0aWMgaW50IHJ2X3NtdV9pbml0KHN0cnVjdCBwcF9od21nciAq
-aHdtZ3IpCiB7Ci0Jc3RydWN0IGFtZGdwdV9ibyAqaGFuZGxlID0gTlVMTDsKIAlzdHJ1Y3QgcnZf
-c211bWdyICpwcml2OwotCXVpbnQ2NF90IG1jX2FkZHI7Ci0Jdm9pZCAqa2FkZHIgPSBOVUxMOwog
-CWludCByOwogCiAJcHJpdiA9IGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCBydl9zbXVtZ3IpLCBHRlBf
-S0VSTkVMKTsKQEAgLTM0NSw5ICszNDIsOSBAQCBzdGF0aWMgaW50IHJ2X3NtdV9pbml0KHN0cnVj
-dCBwcF9od21nciAqaHdtZ3IpCiAJCQlzaXplb2YoV2F0ZXJtYXJrc190KSwKIAkJCVBBR0VfU0la
-RSwKIAkJCUFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCi0JCQkmaGFuZGxlLAotCQkJJm1jX2FkZHIs
-Ci0JCQkma2FkZHIpOworCQkJJnByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJMRV0uaGFuZGxl
-LAorCQkJJnByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJMRV0ubWNfYWRkciwKKwkJCSZwcml2
-LT5zbXVfdGFibGVzLmVudHJ5W1dNVEFCTEVdLnRhYmxlKTsKIAogCWlmIChyKQogCQlyZXR1cm4g
-LUVJTlZBTDsKQEAgLTM1NSwxOCArMzUyLDE1IEBAIHN0YXRpYyBpbnQgcnZfc211X2luaXQoc3Ry
-dWN0IHBwX2h3bWdyICpod21ncikKIAlwcml2LT5zbXVfdGFibGVzLmVudHJ5W1dNVEFCTEVdLnZl
-cnNpb24gPSAweDAxOwogCXByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJMRV0uc2l6ZSA9IHNp
-emVvZihXYXRlcm1hcmtzX3QpOwogCXByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJMRV0udGFi
-bGVfaWQgPSBUQUJMRV9XQVRFUk1BUktTOwotCXByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJM
-RV0ubWNfYWRkciA9IG1jX2FkZHI7Ci0JcHJpdi0+c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS50
-YWJsZSA9IGthZGRyOwotCXByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJMRV0uaGFuZGxlID0g
-aGFuZGxlOwogCiAJLyogYWxsb2NhdGUgc3BhY2UgZm9yIHdhdGVybWFya3MgdGFibGUgKi8KIAly
-ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaHdtZ3It
-PmFkZXYsCiAJCQlzaXplb2YoRHBtQ2xvY2tzX3QpLAogCQkJUEFHRV9TSVpFLAogCQkJQU1ER1BV
-X0dFTV9ET01BSU5fVlJBTSwKLQkJCSZoYW5kbGUsCi0JCQkmbWNfYWRkciwKLQkJCSZrYWRkcik7
-CisJCQkmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtDTE9DS1RBQkxFXS5oYW5kbGUsCisJCQkmcHJp
-di0+c211X3RhYmxlcy5lbnRyeVtDTE9DS1RBQkxFXS5tY19hZGRyLAorCQkJJnByaXYtPnNtdV90
-YWJsZXMuZW50cnlbQ0xPQ0tUQUJMRV0udGFibGUpOwogCiAJaWYgKHIpIHsKIAkJYW1kZ3B1X2Jv
-X2ZyZWVfa2VybmVsKCZwcml2LT5zbXVfdGFibGVzLmVudHJ5W1dNVEFCTEVdLmhhbmRsZSwKQEAg
-LTM3OCw5ICszNzIsNiBAQCBzdGF0aWMgaW50IHJ2X3NtdV9pbml0KHN0cnVjdCBwcF9od21nciAq
-aHdtZ3IpCiAJcHJpdi0+c211X3RhYmxlcy5lbnRyeVtDTE9DS1RBQkxFXS52ZXJzaW9uID0gMHgw
-MTsKIAlwcml2LT5zbXVfdGFibGVzLmVudHJ5W0NMT0NLVEFCTEVdLnNpemUgPSBzaXplb2YoRHBt
-Q2xvY2tzX3QpOwogCXByaXYtPnNtdV90YWJsZXMuZW50cnlbQ0xPQ0tUQUJMRV0udGFibGVfaWQg
-PSBUQUJMRV9EUE1DTE9DS1M7Ci0JcHJpdi0+c211X3RhYmxlcy5lbnRyeVtDTE9DS1RBQkxFXS5t
-Y19hZGRyID0gbWNfYWRkcjsKLQlwcml2LT5zbXVfdGFibGVzLmVudHJ5W0NMT0NLVEFCTEVdLnRh
-YmxlID0ga2FkZHI7Ci0JcHJpdi0+c211X3RhYmxlcy5lbnRyeVtDTE9DS1RBQkxFXS5oYW5kbGUg
-PSBoYW5kbGU7CiAKIAlyZXR1cm4gMDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhMTBfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9zbXVtZ3IvdmVnYTEwX3NtdW1nci5jCmluZGV4IDE1ZTFhZmEuLmMxM2NmNGUg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhMTBf
-c211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3ZlZ2Ex
-MF9zbXVtZ3IuYwpAQCAtMzc3LDEwICszNzcsNyBAQCBzdGF0aWMgaW50IHZlZ2ExMF92ZXJpZnlf
-c21jX2ludGVyZmFjZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCiBzdGF0aWMgaW50IHZlZ2Ex
-MF9zbXVfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogewotCXN0cnVjdCBhbWRncHVfYm8g
-KmhhbmRsZSA9IE5VTEw7CiAJc3RydWN0IHZlZ2ExMF9zbXVtZ3IgKnByaXY7Ci0JdWludDY0X3Qg
-bWNfYWRkcjsKLQl2b2lkICprYWRkciA9IE5VTEw7CiAJdW5zaWduZWQgbG9uZyB0b29sc19zaXpl
-OwogCWludCByZXQ7CiAJc3RydWN0IGNnc19maXJtd2FyZV9pbmZvIGluZm8gPSB7MH07CkBAIC00
-MDMsOSArNDAwLDkgQEAgc3RhdGljIGludCB2ZWdhMTBfc211X2luaXQoc3RydWN0IHBwX2h3bWdy
-ICpod21ncikKIAkJCXNpemVvZihQUFRhYmxlX3QpLAogCQkJUEFHRV9TSVpFLAogCQkJQU1ER1BV
-X0dFTV9ET01BSU5fVlJBTSwKLQkJCSZoYW5kbGUsCi0JCQkmbWNfYWRkciwKLQkJCSZrYWRkcik7
-CisJCQkmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtQUFRBQkxFXS5oYW5kbGUsCisJCQkmcHJpdi0+
-c211X3RhYmxlcy5lbnRyeVtQUFRBQkxFXS5tY19hZGRyLAorCQkJJnByaXYtPnNtdV90YWJsZXMu
-ZW50cnlbUFBUQUJMRV0udGFibGUpOwogCiAJaWYgKHJldCkKIAkJcmV0dXJuIC1FSU5WQUw7CkBA
-IC00MTMsMTggKzQxMCwxNSBAQCBzdGF0aWMgaW50IHZlZ2ExMF9zbXVfaW5pdChzdHJ1Y3QgcHBf
-aHdtZ3IgKmh3bWdyKQogCXByaXYtPnNtdV90YWJsZXMuZW50cnlbUFBUQUJMRV0udmVyc2lvbiA9
-IDB4MDE7CiAJcHJpdi0+c211X3RhYmxlcy5lbnRyeVtQUFRBQkxFXS5zaXplID0gc2l6ZW9mKFBQ
-VGFibGVfdCk7CiAJcHJpdi0+c211X3RhYmxlcy5lbnRyeVtQUFRBQkxFXS50YWJsZV9pZCA9IFRB
-QkxFX1BQVEFCTEU7Ci0JcHJpdi0+c211X3RhYmxlcy5lbnRyeVtQUFRBQkxFXS5tY19hZGRyID0g
-bWNfYWRkcjsKLQlwcml2LT5zbXVfdGFibGVzLmVudHJ5W1BQVEFCTEVdLnRhYmxlID0ga2FkZHI7
-Ci0JcHJpdi0+c211X3RhYmxlcy5lbnRyeVtQUFRBQkxFXS5oYW5kbGUgPSBoYW5kbGU7CiAKIAkv
-KiBhbGxvY2F0ZSBzcGFjZSBmb3Igd2F0ZXJtYXJrcyB0YWJsZSAqLwogCXJldCA9IGFtZGdwdV9i
-b19jcmVhdGVfa2VybmVsKChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWh3bWdyLT5hZGV2LAogCQkJ
-c2l6ZW9mKFdhdGVybWFya3NfdCksCiAJCQlQQUdFX1NJWkUsCiAJCQlBTURHUFVfR0VNX0RPTUFJ
-Tl9WUkFNLAotCQkJJmhhbmRsZSwKLQkJCSZtY19hZGRyLAotCQkJJmthZGRyKTsKKwkJCSZwcml2
-LT5zbXVfdGFibGVzLmVudHJ5W1dNVEFCTEVdLmhhbmRsZSwKKwkJCSZwcml2LT5zbXVfdGFibGVz
-LmVudHJ5W1dNVEFCTEVdLm1jX2FkZHIsCisJCQkmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtXTVRB
-QkxFXS50YWJsZSk7CiAKIAlpZiAocmV0KQogCQlnb3RvIGVycjA7CkBAIC00MzIsMTggKzQyNiwx
-NSBAQCBzdGF0aWMgaW50IHZlZ2ExMF9zbXVfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQog
-CXByaXYtPnNtdV90YWJsZXMuZW50cnlbV01UQUJMRV0udmVyc2lvbiA9IDB4MDE7CiAJcHJpdi0+
-c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS5zaXplID0gc2l6ZW9mKFdhdGVybWFya3NfdCk7CiAJ
-cHJpdi0+c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS50YWJsZV9pZCA9IFRBQkxFX1dBVEVSTUFS
-S1M7Ci0JcHJpdi0+c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS5tY19hZGRyID0gbWNfYWRkcjsK
-LQlwcml2LT5zbXVfdGFibGVzLmVudHJ5W1dNVEFCTEVdLnRhYmxlID0ga2FkZHI7Ci0JcHJpdi0+
-c211X3RhYmxlcy5lbnRyeVtXTVRBQkxFXS5oYW5kbGUgPSBoYW5kbGU7CiAKIAkvKiBhbGxvY2F0
-ZSBzcGFjZSBmb3IgQVZGUyB0YWJsZSAqLwogCXJldCA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVs
-KChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWh3bWdyLT5hZGV2LAogCQkJc2l6ZW9mKEF2ZnNUYWJs
-ZV90KSwKIAkJCVBBR0VfU0laRSwKIAkJCUFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCi0JCQkmaGFu
-ZGxlLAotCQkJJm1jX2FkZHIsCi0JCQkma2FkZHIpOworCQkJJnByaXYtPnNtdV90YWJsZXMuZW50
-cnlbQVZGU1RBQkxFXS5oYW5kbGUsCisJCQkmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtBVkZTVEFC
-TEVdLm1jX2FkZHIsCisJCQkmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtBVkZTVEFCTEVdLnRhYmxl
-KTsKIAogCWlmIChyZXQpCiAJCWdvdG8gZXJyMTsKQEAgLTQ1MSw5ICs0NDIsNiBAQCBzdGF0aWMg
-aW50IHZlZ2ExMF9zbXVfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCXByaXYtPnNtdV90
-YWJsZXMuZW50cnlbQVZGU1RBQkxFXS52ZXJzaW9uID0gMHgwMTsKIAlwcml2LT5zbXVfdGFibGVz
-LmVudHJ5W0FWRlNUQUJMRV0uc2l6ZSA9IHNpemVvZihBdmZzVGFibGVfdCk7CiAJcHJpdi0+c211
-X3RhYmxlcy5lbnRyeVtBVkZTVEFCTEVdLnRhYmxlX2lkID0gVEFCTEVfQVZGUzsKLQlwcml2LT5z
-bXVfdGFibGVzLmVudHJ5W0FWRlNUQUJMRV0ubWNfYWRkciA9IG1jX2FkZHI7Ci0JcHJpdi0+c211
-X3RhYmxlcy5lbnRyeVtBVkZTVEFCTEVdLnRhYmxlID0ga2FkZHI7Ci0JcHJpdi0+c211X3RhYmxl
-cy5lbnRyeVtBVkZTVEFCTEVdLmhhbmRsZSA9IGhhbmRsZTsKIAogCXRvb2xzX3NpemUgPSAweDE5
-MDAwOwogCWlmICh0b29sc19zaXplKSB7CkBAIC00NjEsMTcgKzQ0OSwxNCBAQCBzdGF0aWMgaW50
-IHZlZ2ExMF9zbXVfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCQkJCXRvb2xzX3NpemUs
-CiAJCQkJUEFHRV9TSVpFLAogCQkJCUFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sCi0JCQkJJmhhbmRs
-ZSwKLQkJCQkmbWNfYWRkciwKLQkJCQkma2FkZHIpOworCQkJCSZwcml2LT5zbXVfdGFibGVzLmVu
-dHJ5W1RPT0xTVEFCTEVdLmhhbmRsZSwKKwkJCQkmcHJpdi0+c211X3RhYmxlcy5lbnRyeVtUT09M
-U1RBQkxFXS5tY19hZGRyLAorCQkJCSZwcml2LT5zbXVfdGFibGVzLmVudHJ5W1RPT0xTVEFCTEVd
-LnRhYmxlKTsKIAkJaWYgKHJldCkKIAkJCWdvdG8gZXJyMjsKIAkJcHJpdi0+c211X3RhYmxlcy5l
-bnRyeVtUT09MU1RBQkxFXS52ZXJzaW9uID0gMHgwMTsKIAkJcHJpdi0+c211X3RhYmxlcy5lbnRy
-eVtUT09MU1RBQkxFXS5zaXplID0gdG9vbHNfc2l6ZTsKIAkJcHJpdi0+c211X3RhYmxlcy5lbnRy
-eVtUT09MU1RBQkxFXS50YWJsZV9pZCA9IFRBQkxFX1BNU1RBVFVTTE9HOwotCQlwcml2LT5zbXVf
-dGFibGVzLmVudHJ5W1RPT0xTVEFCTEVdLm1jX2FkZHIgPSBtY19hZGRyOwotCQlwcml2LT5zbXVf
-dGFibGVzLmVudHJ5W1RPT0xTVEFCTEVdLnRhYmxlID0ga2FkZHI7Ci0JCXByaXYtPnNtdV90YWJs
-ZXMuZW50cnlbVE9PTFNUQUJMRV0uaGFuZGxlID0gaGFuZGxlOwogCX0KIAogCS8qIGFsbG9jYXRl
-IHNwYWNlIGZvciBBVkZTIEZ1c2UgdGFibGUgKi8KQEAgLTQ3OSwxOCArNDY0LDE1IEBAIHN0YXRp
-YyBpbnQgdmVnYTEwX3NtdV9pbml0KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJCQlzaXplb2Yo
-QXZmc0Z1c2VPdmVycmlkZV90KSwKIAkJCVBBR0VfU0laRSwKIAkJCUFNREdQVV9HRU1fRE9NQUlO
-X1ZSQU0sCi0JCQkmaGFuZGxlLAotCQkJJm1jX2FkZHIsCi0JCQkma2FkZHIpOworCQkJJnByaXYt
-PnNtdV90YWJsZXMuZW50cnlbQVZGU0ZVU0VUQUJMRV0uaGFuZGxlLAorCQkJJnByaXYtPnNtdV90
-YWJsZXMuZW50cnlbQVZGU0ZVU0VUQUJMRV0ubWNfYWRkciwKKwkJCSZwcml2LT5zbXVfdGFibGVz
-LmVudHJ5W0FWRlNGVVNFVEFCTEVdLnRhYmxlKTsKIAlpZiAocmV0KQogCQlnb3RvIGVycjM7CiAK
-IAlwcml2LT5zbXVfdGFibGVzLmVudHJ5W0FWRlNGVVNFVEFCTEVdLnZlcnNpb24gPSAweDAxOwog
-CXByaXYtPnNtdV90YWJsZXMuZW50cnlbQVZGU0ZVU0VUQUJMRV0uc2l6ZSA9IHNpemVvZihBdmZz
-RnVzZU92ZXJyaWRlX3QpOwogCXByaXYtPnNtdV90YWJsZXMuZW50cnlbQVZGU0ZVU0VUQUJMRV0u
-dGFibGVfaWQgPSBUQUJMRV9BVkZTX0ZVU0VfT1ZFUlJJREU7Ci0JcHJpdi0+c211X3RhYmxlcy5l
-bnRyeVtBVkZTRlVTRVRBQkxFXS5tY19hZGRyID0gbWNfYWRkcjsKLQlwcml2LT5zbXVfdGFibGVz
-LmVudHJ5W0FWRlNGVVNFVEFCTEVdLnRhYmxlID0ga2FkZHI7Ci0JcHJpdi0+c211X3RhYmxlcy5l
-bnRyeVtBVkZTRlVTRVRBQkxFXS5oYW5kbGUgPSBoYW5kbGU7CiAKIAlyZXR1cm4gMDsKIAotLSAK
-Mi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1441626468==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652922737FD3A6CBA7EA323F7D00BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652922737FD3A6CBA7EA323F7D00BN6PR12MB1652namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+For the series:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+I think Rex already applied the second one.
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Andrey G=
+rodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, March 15, 2018 12:15 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; Zhu, R=
+ex
+Cc: Grodzovsky, Andrey
+Subject: [PATCH v2 1/2] drm/amdgpu: Improve documentation of bo_ptr in amdg=
+pu_bo_create_kernel
+
+and amdgpu_bo_create_reserved.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.c
+index 48e0115..ac1fa33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -171,13 +171,15 @@ void amdgpu_ttm_placement_from_domain(struct amdgpu_b=
+o *abo, u32 domain)
+  * @size: size for the new BO
+  * @align: alignment for the new BO
+  * @domain: where to place it
+- * @bo_ptr: resulting BO
++ * @bo_ptr: used to initialize BOs in structures
+  * @gpu_addr: GPU addr of the pinned BO
+  * @cpu_addr: optional CPU address mapping
+  *
+  * Allocates and pins a BO for kernel internal use, and returns it still
+  * reserved.
+  *
++ * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.
++ *
+  * Returns 0 on success, negative error code otherwise.
+  */
+ int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
+@@ -240,12 +242,14 @@ int amdgpu_bo_create_reserved(struct amdgpu_device *a=
+dev,
+  * @size: size for the new BO
+  * @align: alignment for the new BO
+  * @domain: where to place it
+- * @bo_ptr: resulting BO
++ * @bo_ptr:  used to initialize BOs in structures
+  * @gpu_addr: GPU addr of the pinned BO
+  * @cpu_addr: optional CPU address mapping
+  *
+  * Allocates and pins a BO for kernel internal use.
+  *
++ * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.
++ *
+  * Returns 0 on success, negative error code otherwise.
+  */
+ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1652922737FD3A6CBA7EA323F7D00BN6PR12MB1652namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">For the series:<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+I think Rex already applied the second one.<br>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Andrey Grodzovsky &lt;andre=
+y.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, March 15, 2018 12:15 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org;=
+ Zhu, Rex<br>
+<b>Cc:</b> Grodzovsky, Andrey<br>
+<b>Subject:</b> [PATCH v2 1/2] drm/amdgpu: Improve documentation of bo_ptr =
+in amdgpu_bo_create_kernel</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">and amdgpu_bo_create_reserved.<br>
+<br>
+Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 8 &#43;&#43;&#43;&#43;&#=
+43;&#43;--<br>
+&nbsp;1 file changed, 6 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.c<br>
+index 48e0115..ac1fa33 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+@@ -171,13 &#43;171,15 @@ void amdgpu_ttm_placement_from_domain(struct amdg=
+pu_bo *abo, u32 domain)<br>
+&nbsp; * @size: size for the new BO<br>
+&nbsp; * @align: alignment for the new BO<br>
+&nbsp; * @domain: where to place it<br>
+- * @bo_ptr: resulting BO<br>
+&#43; * @bo_ptr: used to initialize BOs in structures<br>
+&nbsp; * @gpu_addr: GPU addr of the pinned BO<br>
+&nbsp; * @cpu_addr: optional CPU address mapping<br>
+&nbsp; *<br>
+&nbsp; * Allocates and pins a BO for kernel internal use, and returns it st=
+ill<br>
+&nbsp; * reserved.<br>
+&nbsp; *<br>
+&#43; * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.<b=
+r>
+&#43; *<br>
+&nbsp; * Returns 0 on success, negative error code otherwise.<br>
+&nbsp; */<br>
+&nbsp;int amdgpu_bo_create_reserved(struct amdgpu_device *adev,<br>
+@@ -240,12 &#43;242,14 @@ int amdgpu_bo_create_reserved(struct amdgpu_devic=
+e *adev,<br>
+&nbsp; * @size: size for the new BO<br>
+&nbsp; * @align: alignment for the new BO<br>
+&nbsp; * @domain: where to place it<br>
+- * @bo_ptr: resulting BO<br>
+&#43; * @bo_ptr:&nbsp; used to initialize BOs in structures<br>
+&nbsp; * @gpu_addr: GPU addr of the pinned BO<br>
+&nbsp; * @cpu_addr: optional CPU address mapping<br>
+&nbsp; *<br>
+&nbsp; * Allocates and pins a BO for kernel internal use.<br>
+&nbsp; *<br>
+&#43; * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.<b=
+r>
+&#43; *<br>
+&nbsp; * Returns 0 on success, negative error code otherwise.<br>
+&nbsp; */<br>
+&nbsp;int amdgpu_bo_create_kernel(struct amdgpu_device *adev,<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk582111" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
+stinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652922737FD3A6CBA7EA323F7D00BN6PR12MB1652namp_--
+
+--===============1441626468==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1441626468==--
