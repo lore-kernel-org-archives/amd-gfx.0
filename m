@@ -1,15 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH V2] drm/amdgpu: Disable irq on device before destroying it
-Date: Thu, 15 Mar 2018 15:54:53 +0100
-Message-ID: <3cb7d115-67f6-78df-f9f4-133768be3ffb@gmail.com>
-References: <1521125401-22324-1-git-send-email-mikita.lipski@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: Ryzen 5 2400G Stuttering since 2018-03-07
+Date: Thu, 15 Mar 2018 16:01:46 +0100
+Message-ID: <c385c81d-0c2c-89e8-7698-bb325dfca359@daenzer.net>
+References: <CAFuwKQPBQSbEgKSXOOuJtbGxTJPESo3XuDeOMufej6vbcVFLsw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1521125401-22324-1-git-send-email-mikita.lipski-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAFuwKQPBQSbEgKSXOOuJtbGxTJPESo3XuDeOMufej6vbcVFLsw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,33 +19,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: mikita.lipski-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org
+To: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTUuMDMuMjAxOCB1bSAxNTo1MCBzY2hyaWViIG1pa2l0YS5saXBza2lAYW1kLmNvbToKPiBG
-cm9tOiBNaWtpdGEgTGlwc2tpIDxtaWtpdGEubGlwc2tpQGFtZC5jb20+Cj4KPiBEaXNhYmxlIGly
-cSBvbiBkZXZpY2VzIGJlZm9yZSBkZXN0cm95aW5nIHRoZW0uIFRoYXQgcHJldmVudHMKPiB1c2Ut
-YWZ0ZXItZnJlZSBtZW1vcnkgYWNjZXNzIHdoZW4gdW5sb2FkaW5nIHRoZSBkcml2ZXIuCj4KPiBT
-aWduZWQtb2ZmLWJ5OiBNaWtpdGEgTGlwc2tpIDxtaWtpdGEubGlwc2tpQGFtZC5jb20+Cj4gUmV2
-aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCkFja2Vk
-LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgNSArKystLQo+
-ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCBiNDkxMTkx
-MS4uMGI3OThjYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2
-aWNlLmMKPiBAQCAtMTQzMiw2ICsxNDMyLDkgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX2lw
-X2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJaW50IGksIHI7Cj4gICAKPiAg
-IAlhbWRncHVfYW1ka2ZkX2RldmljZV9maW5pKGFkZXYpOwo+ICsJLyogZGlzYWJsZSBhbGwgaW50
-ZXJydXB0cyAqLwo+ICsJYW1kZ3B1X2lycV9kaXNhYmxlX2FsbChhZGV2KTsKPiArCj4gICAJLyog
-bmVlZCB0byBkaXNhYmxlIFNNQyBmaXJzdCAqLwo+ICAgCWZvciAoaSA9IDA7IGkgPCBhZGV2LT5u
-dW1faXBfYmxvY2tzOyBpKyspIHsKPiAgIAkJaWYgKCFhZGV2LT5pcF9ibG9ja3NbaV0uc3RhdHVz
-Lmh3KQo+IEBAIC0xNDgyLDggKzE0ODUsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBf
-ZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkJYWRldi0+aXBfYmxvY2tzW2ld
-LnN0YXR1cy5odyA9IGZhbHNlOwo+ICAgCX0KPiAgIAo+IC0JLyogZGlzYWJsZSBhbGwgaW50ZXJy
-dXB0cyAqLwo+IC0JYW1kZ3B1X2lycV9kaXNhYmxlX2FsbChhZGV2KTsKPiAgIAo+ICAgCWZvciAo
-aSA9IGFkZXYtPm51bV9pcF9ibG9ja3MgLSAxOyBpID49IDA7IGktLSkgewo+ICAgCQlpZiAoIWFk
-ZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMuc3cpCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+T24gMjAxOC0wMy0xNSAwMzo0NyBQTSwgRGF3c29uIERpYXMgd3JvdGU6Cj4gSGVyZSB3ZSBnbyEg
+VGhlIGxvZ3MgYXJlIGF0dGFjaGVkLiBJIHR1cm5lZCBUZWFyRnJlZSB0byBgb25gIGZyb20KPiBg
+YXV0b2AsIGRyYWdnZWQgc29tZSB3aW5kb3dzIGFyb3VuZCwgYW5kIGNhcHR1cmVkIHRoZW0uCj4g
+QUZBSUssIEkgaGF2ZW4ndCBtYWRlIGFueSBjaGFuZ2VzIHZpYSB4cmFuZHIsIGV4Y2VwdCBmb3Ig
+dG9nZ2xpbmcgdGhlCj4gVGVhckZyZWUgcHJvcGVydHkuCgpUaGFua3MuIEkgZG9uJ3Qgc2VlIGFu
+eSBvYnZpb3VzIGlzc3VlIGluIHlvdXIgYXR0YWNobWVudHMuIEkgdGhpbmsgaXQncwptb3N0IGxp
+a2VseSBhIGtlcm5lbCBEQyBpc3N1ZS4gSSBzYXcgSGFycnkganVzdCBmaWxlZCBhbiBpbnRlcm5h
+bCBidWcKcmVwb3J0IHRoYXQgbWlnaHQgYmUgcmVsYXRlZC4KCgotLSAKRWFydGhsaW5nIE1pY2hl
+bCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNv
+bQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVz
+YSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
