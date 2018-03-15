@@ -1,10 +1,14 @@
-From: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: Ryzen 5 2400G Stuttering since 2018-03-07
-Date: Fri, 16 Mar 2018 00:17:46 +0530
-Message-ID: <CAFuwKQOzsAXk8AJm+CNs3M3mcYoWsW+PxxgBO79ePST3C5kgBQ@mail.gmail.com>
+Date: Thu, 15 Mar 2018 15:46:11 -0400
+Message-ID: <94942da6-f0c3-ebd2-a6a4-819cd956b46a@amd.com>
+References: <CAFuwKQOzsAXk8AJm+CNs3M3mcYoWsW+PxxgBO79ePST3C5kgBQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1513115215=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAFuwKQOzsAXk8AJm+CNs3M3mcYoWsW+PxxgBO79ePST3C5kgBQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,112 +19,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1513115215==
-Content-Type: multipart/alternative; boundary="000000000000ba80ed056777eed1"
-
---000000000000ba80ed056777eed1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I created a ticket: https://bugs.freedesktop.org/show_bug.cgi?id=3D105530
-Let me know if there is any additional information I need to add.
-
-Thanks!
-
--Dawson Dias
-
-On Thu, Mar 15, 2018 at 8:44 PM, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-wrote:
-
-> On 2018-03-15 11:01 AM, Michel D=C3=A4nzer wrote:
-> > On 2018-03-15 03:47 PM, Dawson Dias wrote:
-> >> Here we go! The logs are attached. I turned TearFree to `on` from
-> >> `auto`, dragged some windows around, and captured them.
-> >> AFAIK, I haven't made any changes via xrandr, except for toggling the
-> >> TearFree property.
-> >
-> > Thanks. I don't see any obvious issue in your attachments. I think it's
-> > most likely a kernel DC issue. I saw Harry just filed an internal bug
-> > report that might be related.
-> >
->
-> I'm not sure the internal bug is related here, but it could be. I noticed
-> problems when Freesync testing but I assume it was a much older regressio=
-n.
-> I haven't seen flickering on normal desktop but I haven't played with Rav=
-en
-> recently or tried TearFree recently.
->
-> Dawson, mind opening a ticket on https://bugs.freedesktop.org/ to track
-> this?
->
-> Harry
->
-> >
->
-
---000000000000ba80ed056777eed1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><font face=3D"arial, helvetica, sans-serif">I created a ti=
-cket:=C2=A0<a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D105530=
-">https://bugs.freedesktop.org/show_bug.cgi?id=3D105530</a></font><div><fon=
-t face=3D"arial, helvetica, sans-serif">Let me know if there is any additio=
-nal information I need to add.</font></div><div><font face=3D"arial, helvet=
-ica, sans-serif"><br></font></div><div><font face=3D"arial, helvetica, sans=
--serif">Thanks!<br></font><div><div class=3D"gmail_extra"><font face=3D"ari=
-al, helvetica, sans-serif"><br clear=3D"all"></font><div><div class=3D"gmai=
-l_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><font face=3D"arial, he=
-lvetica, sans-serif">-Dawson Dias</font><br></div></div></div></div></div>
-<br><div class=3D"gmail_quote">On Thu, Mar 15, 2018 at 8:44 PM, Harry Wentl=
-and <span dir=3D"ltr">&lt;<a href=3D"mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org" target=
-=3D"_blank">harry.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> wrote:<br><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
-rgb(204,204,204);padding-left:1ex"><span class=3D"gmail-">On 2018-03-15 11:=
-01 AM, Michel D=C3=A4nzer wrote:<br>
-&gt; On 2018-03-15 03:47 PM, Dawson Dias wrote:<br>
-&gt;&gt; Here we go! The logs are attached. I turned TearFree to `on` from<=
-br>
-&gt;&gt; `auto`, dragged some windows around, and captured them.<br>
-&gt;&gt; AFAIK, I haven&#39;t made any changes via xrandr, except for toggl=
-ing the<br>
-&gt;&gt; TearFree property.<br>
-&gt;<br>
-&gt; Thanks. I don&#39;t see any obvious issue in your attachments. I think=
- it&#39;s<br>
-&gt; most likely a kernel DC issue. I saw Harry just filed an internal bug<=
-br>
-&gt; report that might be related.<br>
-&gt;<br>
-<br>
-</span>I&#39;m not sure the internal bug is related here, but it could be. =
-I noticed problems when Freesync testing but I assume it was a much older r=
-egression. I haven&#39;t seen flickering on normal desktop but I haven&#39;=
-t played with Raven recently or tried TearFree recently.<br>
-<br>
-Dawson, mind opening a ticket on <a href=3D"https://bugs.freedesktop.org/" =
-rel=3D"noreferrer" target=3D"_blank">https://bugs.freedesktop.org/</a> to t=
-rack this?<br>
-<br>
-Harry<br>
-<br>
-&gt;<br>
-</blockquote></div><br></div></div></div></div>
-
---000000000000ba80ed056777eed1--
-
---===============1513115215==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1513115215==--
+T24gMjAxOC0wMy0xNSAwMjo0NyBQTSwgRGF3c29uIERpYXMgd3JvdGU6Cj4gSSBjcmVhdGVkIGEg
+dGlja2V0OsKgaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTA1
+NTMwCj4gTGV0IG1lIGtub3cgaWYgdGhlcmUgaXMgYW55IGFkZGl0aW9uYWwgaW5mb3JtYXRpb24g
+SSBuZWVkIHRvIGFkZC4KPiAKClRoYW5rcywgRGF3c29uLgoKSGFycnkKCj4gVGhhbmtzIQo+IAo+
+IC1EYXdzb24gRGlhcwo+IAo+IE9uIFRodSwgTWFyIDE1LCAyMDE4IGF0IDg6NDQgUE0sIEhhcnJ5
+IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tIDxtYWlsdG86aGFycnkud2VudGxhbmRA
+YW1kLmNvbT4+IHdyb3RlOgo+IAo+ICAgICBPbiAyMDE4LTAzLTE1IDExOjAxIEFNLCBNaWNoZWwg
+RMOkbnplciB3cm90ZToKPiAgICAgPiBPbiAyMDE4LTAzLTE1IDAzOjQ3IFBNLCBEYXdzb24gRGlh
+cyB3cm90ZToKPiAgICAgPj4gSGVyZSB3ZSBnbyEgVGhlIGxvZ3MgYXJlIGF0dGFjaGVkLiBJIHR1
+cm5lZCBUZWFyRnJlZSB0byBgb25gIGZyb20KPiAgICAgPj4gYGF1dG9gLCBkcmFnZ2VkIHNvbWUg
+d2luZG93cyBhcm91bmQsIGFuZCBjYXB0dXJlZCB0aGVtLgo+ICAgICA+PiBBRkFJSywgSSBoYXZl
+bid0IG1hZGUgYW55IGNoYW5nZXMgdmlhIHhyYW5kciwgZXhjZXB0IGZvciB0b2dnbGluZyB0aGUK
+PiAgICAgPj4gVGVhckZyZWUgcHJvcGVydHkuCj4gICAgID4KPiAgICAgPiBUaGFua3MuIEkgZG9u
+J3Qgc2VlIGFueSBvYnZpb3VzIGlzc3VlIGluIHlvdXIgYXR0YWNobWVudHMuIEkgdGhpbmsgaXQn
+cwo+ICAgICA+IG1vc3QgbGlrZWx5IGEga2VybmVsIERDIGlzc3VlLiBJIHNhdyBIYXJyeSBqdXN0
+IGZpbGVkIGFuIGludGVybmFsIGJ1Zwo+ICAgICA+IHJlcG9ydCB0aGF0IG1pZ2h0IGJlIHJlbGF0
+ZWQuCj4gICAgID4KPiAKPiAgICAgSSdtIG5vdCBzdXJlIHRoZSBpbnRlcm5hbCBidWcgaXMgcmVs
+YXRlZCBoZXJlLCBidXQgaXQgY291bGQgYmUuIEkgbm90aWNlZCBwcm9ibGVtcyB3aGVuIEZyZWVz
+eW5jIHRlc3RpbmcgYnV0IEkgYXNzdW1lIGl0IHdhcyBhIG11Y2ggb2xkZXIgcmVncmVzc2lvbi4g
+SSBoYXZlbid0IHNlZW4gZmxpY2tlcmluZyBvbiBub3JtYWwgZGVza3RvcCBidXQgSSBoYXZlbid0
+IHBsYXllZCB3aXRoIFJhdmVuIHJlY2VudGx5IG9yIHRyaWVkIFRlYXJGcmVlIHJlY2VudGx5Lgo+
+IAo+ICAgICBEYXdzb24sIG1pbmQgb3BlbmluZyBhIHRpY2tldCBvbiBodHRwczovL2J1Z3MuZnJl
+ZWRlc2t0b3Aub3JnLyB0byB0cmFjayB0aGlzPwo+IAo+ICAgICBIYXJyeQo+IAo+ICAgICA+Cj4g
+Cj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
