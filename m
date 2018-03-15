@@ -1,305 +1,49 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu: Improve documentation of bo_ptr in
- amdgpu_bo_create_kernel
-Date: Thu, 15 Mar 2018 17:30:54 +0100
-Message-ID: <8436cf05-a319-db6e-bce5-21c95ca1d1bf@gmail.com>
-References: <992da07d-1f19-3a1d-c065-10824871f756@gmail.com>
- <1521130511-10816-1-git-send-email-andrey.grodzovsky@amd.com>
- <BN6PR12MB1652922737FD3A6CBA7EA323F7D00@BN6PR12MB1652.namprd12.prod.outlook.com>
- <32eb92c9-2e79-cb1a-7757-825183be8365@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] drm/amdkfd: fix uninitialized variable use
+Date: Thu, 15 Mar 2018 17:49:40 +0100
+Message-ID: <20180315164952.2168794-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1411427205=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <32eb92c9-2e79-cb1a-7757-825183be8365-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============1411427205==
-Content-Type: multipart/alternative;
- boundary="------------70D573DF5D14414541D5F818"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------70D573DF5D14414541D5F818
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Yeah, not really the usually flow.
-
-Either way Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org> for both.
-
-Christian.
-
-Am 15.03.2018 um 17:19 schrieb Andrey Grodzovsky:
->
-> That explains the merge conflict that surprised me :)
->
->
-> Thanks,
->
-> Andrey
->
->
-> On 03/15/2018 12:18 PM, Deucher, Alexander wrote:
->>
->> For the series:
->>
->> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
->>
->> I think Rex already applied the second one.
->>
->>
->> ------------------------------------------------------------------------
->> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
->> Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
->> *Sent:* Thursday, March 15, 2018 12:15 PM
->> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; 
->> ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; Zhu, Rex
->> *Cc:* Grodzovsky, Andrey
->> *Subject:* [PATCH v2 1/2] drm/amdgpu: Improve documentation of bo_ptr 
->> in amdgpu_bo_create_kernel
->> and amdgpu_bo_create_reserved.
->>
->> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 8 ++++++--
->>  1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index 48e0115..ac1fa33 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -171,13 +171,15 @@ void amdgpu_ttm_placement_from_domain(struct 
->> amdgpu_bo *abo, u32 domain)
->>   * @size: size for the new BO
->>   * @align: alignment for the new BO
->>   * @domain: where to place it
->> - * @bo_ptr: resulting BO
->> + * @bo_ptr: used to initialize BOs in structures
->>   * @gpu_addr: GPU addr of the pinned BO
->>   * @cpu_addr: optional CPU address mapping
->>   *
->>   * Allocates and pins a BO for kernel internal use, and returns it still
->>   * reserved.
->>   *
->> + * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.
->> + *
->>   * Returns 0 on success, negative error code otherwise.
->>   */
->>  int amdgpu_bo_create_reserved(struct amdgpu_device *adev,
->> @@ -240,12 +242,14 @@ int amdgpu_bo_create_reserved(struct 
->> amdgpu_device *adev,
->>   * @size: size for the new BO
->>   * @align: alignment for the new BO
->>   * @domain: where to place it
->> - * @bo_ptr: resulting BO
->> + * @bo_ptr:  used to initialize BOs in structures
->>   * @gpu_addr: GPU addr of the pinned BO
->>   * @cpu_addr: optional CPU address mapping
->>   *
->>   * Allocates and pins a BO for kernel internal use.
->>   *
->> + * Note: For bo_ptr new BO is only created if bo_ptr points to NULL.
->> + *
->>   * Returns 0 on success, negative error code otherwise.
->>   */
->>  int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
->> -- 
->> 2.7.4
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------70D573DF5D14414541D5F818
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Yeah, not really the usually flow.<br>
-      <br>
-      Either way Reviewed-by: Christian König
-      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> for both.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 15.03.2018 um 17:19 schrieb Andrey Grodzovsky:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:32eb92c9-2e79-cb1a-7757-825183be8365-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <p>That explains the merge conflict that surprised me :)</p>
-      <p><br>
-      </p>
-      <p>Thanks,</p>
-      <p>Andrey<br>
-      </p>
-      <br>
-      <div class="moz-cite-prefix">On 03/15/2018 12:18 PM, Deucher,
-        Alexander wrote:<br>
-      </div>
-      <blockquote type="cite"
-cite="mid:BN6PR12MB1652922737FD3A6CBA7EA323F7D00-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-        <meta http-equiv="Content-Type" content="text/html;
-          charset=utf-8">
-        <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-        <div id="divtagdefaultwrapper" style="font-size: 12pt; color:
-          rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif,
-          &quot;EmojiFont&quot;, &quot;Apple Color Emoji&quot;,
-          &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-          Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;"
-          dir="ltr">
-          <p style="margin-top:0;margin-bottom:0">For the series:<br>
-          </p>
-          <p style="margin-top:0;margin-bottom:0">Reviewed-by: Alex
-            Deucher <a class="moz-txt-link-rfc2396E"
-              href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org"
-              moz-do-not-send="true">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-          </p>
-          I think Rex already applied the second one.<br>
-          <br>
-          <br>
-          <div style="color: rgb(0, 0, 0);">
-            <hr style="display:inline-block;width:98%" tabindex="-1">
-            <div id="divRplyFwdMsg" dir="ltr"><font
-                style="font-size:11pt" face="Calibri, sans-serif"
-                color="#000000"><b>From:</b> amd-gfx <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>
-                on behalf of Andrey Grodzovsky <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
-                  moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <b>Sent:</b> Thursday, March 15, 2018 12:15 PM<br>
-                <b>To:</b> <a class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>;
-                <a class="moz-txt-link-abbreviated"
-                  href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                  moz-do-not-send="true">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>;
-                Zhu, Rex<br>
-                <b>Cc:</b> Grodzovsky, Andrey<br>
-                <b>Subject:</b> [PATCH v2 1/2] drm/amdgpu: Improve
-                documentation of bo_ptr in amdgpu_bo_create_kernel</font>
-              <div> </div>
-            </div>
-            <div class="BodyFragment"><font size="2"><span
-                  style="font-size:11pt;">
-                  <div class="PlainText">and amdgpu_bo_create_reserved.<br>
-                    <br>
-                    Signed-off-by: Andrey Grodzovsky <a
-                      class="moz-txt-link-rfc2396E"
-                      href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
-                      moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                    ---<br>
-                     drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 8
-                    ++++++--<br>
-                     1 file changed, 6 insertions(+), 2 deletions(-)<br>
-                    <br>
-                    diff --git
-                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-                    index 48e0115..ac1fa33 100644<br>
-                    --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-                    +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-                    @@ -171,13 +171,15 @@ void
-                    amdgpu_ttm_placement_from_domain(struct amdgpu_bo
-                    *abo, u32 domain)<br>
-                      * @size: size for the new BO<br>
-                      * @align: alignment for the new BO<br>
-                      * @domain: where to place it<br>
-                    - * @bo_ptr: resulting BO<br>
-                    + * @bo_ptr: used to initialize BOs in structures<br>
-                      * @gpu_addr: GPU addr of the pinned BO<br>
-                      * @cpu_addr: optional CPU address mapping<br>
-                      *<br>
-                      * Allocates and pins a BO for kernel internal use,
-                    and returns it still<br>
-                      * reserved.<br>
-                      *<br>
-                    + * Note: For bo_ptr new BO is only created if
-                    bo_ptr points to NULL.<br>
-                    + *<br>
-                      * Returns 0 on success, negative error code
-                    otherwise.<br>
-                      */<br>
-                     int amdgpu_bo_create_reserved(struct amdgpu_device
-                    *adev,<br>
-                    @@ -240,12 +242,14 @@ int
-                    amdgpu_bo_create_reserved(struct amdgpu_device
-                    *adev,<br>
-                      * @size: size for the new BO<br>
-                      * @align: alignment for the new BO<br>
-                      * @domain: where to place it<br>
-                    - * @bo_ptr: resulting BO<br>
-                    + * @bo_ptr:  used to initialize BOs in structures<br>
-                      * @gpu_addr: GPU addr of the pinned BO<br>
-                      * @cpu_addr: optional CPU address mapping<br>
-                      *<br>
-                      * Allocates and pins a BO for kernel internal use.<br>
-                      *<br>
-                    + * Note: For bo_ptr new BO is only created if
-                    bo_ptr points to NULL.<br>
-                    + *<br>
-                      * Returns 0 on success, negative error code
-                    otherwise.<br>
-                      */<br>
-                     int amdgpu_bo_create_kernel(struct amdgpu_device
-                    *adev,<br>
-                    -- <br>
-                    2.7.4<br>
-                    <br>
-                    _______________________________________________<br>
-                    amd-gfx mailing list<br>
-                    <a class="moz-txt-link-abbreviated"
-                      href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                      moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                    <a
-                      href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                      id="LPlnk582111" previewremoved="true"
-                      moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-                  </div>
-                </span></font></div>
-          </div>
-        </div>
-      </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------70D573DF5D14414541D5F818--
-
---===============1411427205==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>, Amber Lin <Amber.Lin@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Kent Russell <kent.russell@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1411427205==--
+V2hlbiBDT05GSUdfQUNQSSBpcyBkaXNhYmxlZCwgd2UgbmV2ZXIgaW5pdGlhbGl6ZSB0aGUgYWNw
+aV90YWJsZQpzdHJ1Y3R1cmUgaW4ga2ZkX2NyZWF0ZV9jcmF0X2ltYWdlX3ZpcnR1YWw6Cgpkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jOiBJbiBmdW5jdGlvbiAna2ZkX2NyZWF0
+ZV9jcmF0X2ltYWdlX3ZpcnR1YWwnOgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3Jh
+dC5jOjg4ODo0MDogZXJyb3I6ICdhY3BpX3RhYmxlJyBtYXkgYmUgdXNlZCB1bmluaXRpYWxpemVk
+IGluIHRoaXMgZnVuY3Rpb24gWy1XZXJyb3I9bWF5YmUtdW5pbml0aWFsaXplZF0KClRoZSB1bmRl
+ZmluZWQgYmVoYXZpb3IgYWxzbyBoYXBwZW5zIGZvciBhbnkgb3RoZXIgYWNwaV9nZXRfdGFibGUo
+KQpmYWlsdXJlLCBidXQgdGhlbiB0aGUgY29tcGlsZXIgY2FuJ3Qgd2FybiBhYm91dCBpdC4KClRo
+aXMgYWRkcyBhbiBlcnJvciBjaGVjayB0aGF0IHByZXZlbnRzIHRoZSBzdHJ1Y3R1cmUgZnJvbQpi
+ZWluZyB1c2VkIGluIGVycm9yLCBhdm9pZGluZyBib3RoIHRoZSB1bmRlZmluZWQgYmVoYXZpb3Ig
+YW5kCnRoZSB3YXJuaW5nIGFib3V0IGl0LgoKRml4ZXM6IDUyMGI4ZmI3NTVjYyAoImRybS9hbWRr
+ZmQ6IEFkZCB0b3BvbG9neSBzdXBwb3J0IGZvciBDUFVzIikKU2lnbmVkLW9mZi1ieTogQXJuZCBC
+ZXJnbWFubiA8YXJuZEBhcm5kYi5kZT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfY3JhdC5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMKaW5kZXggNzQ5M2Y0N2U3
+ZmUxLi5kODUxMTIyMjRmMWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9jcmF0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuYwpA
+QCAtODgyLDcgKzg4Miw3IEBAIHN0YXRpYyBpbnQga2ZkX2NyZWF0ZV92Y3JhdF9pbWFnZV9jcHUo
+dm9pZCAqcGNyYXRfaW1hZ2UsIHNpemVfdCAqc2l6ZSkKIAljcmF0X3RhYmxlLT5sZW5ndGggPSBz
+aXplb2Yoc3RydWN0IGNyYXRfaGVhZGVyKTsKIAogCXN0YXR1cyA9IGFjcGlfZ2V0X3RhYmxlKCJE
+U0RUIiwgMCwgJmFjcGlfdGFibGUpOwotCWlmIChzdGF0dXMgPT0gQUVfTk9UX0ZPVU5EKQorCWlm
+IChzdGF0dXMgIT0gQUVfT0spCiAJCXByX3dhcm4oIkRTRFQgdGFibGUgbm90IGZvdW5kIGZvciBP
+RU0gaW5mb3JtYXRpb25cbiIpOwogCWVsc2UgewogCQljcmF0X3RhYmxlLT5vZW1fcmV2aXNpb24g
+PSBhY3BpX3RhYmxlLT5yZXZpc2lvbjsKLS0gCjIuOS4wCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZl
+bEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
