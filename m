@@ -1,12 +1,10 @@
-From: "Lvzhihong (ReJohn)" <lvzhihong1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Subject: re: How to enable Radeon Pro Duo with mesa
-Date: Thu, 15 Mar 2018 07:09:15 +0000
-Message-ID: <E7DD0E9246072C4A9CA8F1C79F816696018E7B51@dggemi505-mbx.china.huawei.com>
+From: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Ryzen 5 2400G Stuttering since 2018-03-07
+Date: Thu, 15 Mar 2018 13:21:56 +0530
+Message-ID: <CAFuwKQNqgPf0b65r4adT-e50ZChOJnoZR74O4MuV3od4r6UnjQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0362619659=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,79 +15,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, sunnanyong <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiBXaGF0IGFyZSB5b3UgdHJ5aW5nIHRvIGRvPyAgQSBsYXJnZSBkZXNrdG9wIHNwcmVhZCBhY3Jv
-c3MgYm90aCBjaGlwcz8NCj4gVXNlIHRoZSBjaGlwcyBpbmRlcGVuZGVudGx5PyAgVGhlcmUgaXMg
-bm8gc3VwcG9ydCBmb3IgY3Jvc3NmaXJlIG9uIExpbnV4LiAgSWYgeW91IHdhbnQgdG8gdXNlIGEg
-ZGVza3RvcCBhY3Jvc3MgbXVsdGlwbGUgY2hpcHMgb3Igc2VsZWN0IHdoaWNoIGNoaXAgaXMgdXNl
-ZCBmb3IgcmVuZGVyaW5nLCB5b3UgY2FuIHVzZSB4cmFuZHIgYW5kIHRoZSBwcmltZSBzdXBwb3J0
-IGluIFg6DQo+IGh0dHBzOi8vd2lraS5hcmNobGludXgub3JnL2luZGV4LnBocC9QUklNRQ0KDQpJ
-IHdhbnQgdG8gc2VsZWN0IG9uZSBjaGlwIHRvIHJlbmRlciBmb3IgbXkgYXBwbGljYXRpb24uIEFu
-ZCBub3cgSSBrbm93IGhvdyB0byBzZWxlY3Qgd2hpY2ggY2hpcDogYWZ0ZXIgc2V0IGVudiBEUklf
-UFJJTUU9MSAsIHRoZSBzZWNvbmQgY2hpcCB3aWxsIGJlIHVzZWQuIEJ1dCB0aGVyZSBpcyBhbm90
-aGVyIHByb2JsZW06IHRoZSBzZWNvbmQgY2hpcCdzIHBlcmZvcm1hbmNlIGlzIHZlcnkgYmFkICwg
-b25seSAxLzQgb2YgdGhlIGZpcnN0IGNoaXAuIA0KDQp4cmFuZHIgLS1saXN0cHJvdmlkZXJzOg0K
-UHJvdmlkZXJzOiBudW1iZXIgOiAyDQpQcm92aWRlciAwOiBpZDogMHg3ZiBjYXA6IDB4OSwgU291
-cmNlIE91dHB1dCwgU2luayBPZmZsb2FkIGNydGNzOiA2IG91dHB1dHM6IDQgYXNzb2NpYXRlZCBw
-cm92aWRlcnM6IDEgbmFtZTpBTUQgUmFkZW9uIChUTSkgUHJvIFdYIDcxMDAgR3JhcGhpY3MgQCBw
-Y2k6MDAwZDozMzowMC4wIFByb3ZpZGVyIDE6IGlkOiAweDQ1IGNhcDogMHg2LCBTaW5rIE91dHB1
-dCwgU291cmNlIE9mZmxvYWQgY3J0Y3M6IDYgb3V0cHV0czogMCBhc3NvY2lhdGVkIHByb3ZpZGVy
-czogMSBuYW1lOkFNRCBSYWRlb24gKFRNKSBQcm8gV1ggNzEwMCBHcmFwaGljcyBAIHBjaTowMDBk
-OjM0OjAwLjANCg0KSGVyZSBpcyB0aGUgcmVzdWx0cyBvZiBydW5uaW5nIGdseGdlYXJzOiANCkRS
-SV9QUklNRT0xIHZibGFua19tb2RlPTAgIGdseGdlYXJzDQpBVFRFTlRJT046IGRlZmF1bHQgdmFs
-dWUgb2Ygb3B0aW9uIHZibGFua19tb2RlIG92ZXJyaWRkZW4gYnkgZW52aXJvbm1lbnQuDQo1NDg2
-IGZyYW1lcyBpbiA1LjAgc2Vjb25kcyA9IDEwOTcuMjAwIEZQUw0KDQpEUklfUFJJTUU9MCB2Ymxh
-bmtfbW9kZT0wICBnbHhnZWFycw0KQVRURU5USU9OOiBkZWZhdWx0IHZhbHVlIG9mIG9wdGlvbiB2
-YmxhbmtfbW9kZSBvdmVycmlkZGVuIGJ5IGVudmlyb25tZW50Lg0KMTk4NDYgZnJhbWVzIGluIDUu
-MCBzZWNvbmRzID0gMzk2OS4wNTggRlBTDQoNCkhvdyB0byByZXNvbHZlIHRoaXM/DQoNCg0KPiBP
-biBXZWQsIE1hciAxNCwgMjAxOCBhdCA1OjQxIEFNLCBMdnpoaWhvbmcgKFJlSm9obikgPGx2emhp
-aG9uZzFAaHVhd2VpLmNvbT4gd3JvdGU6DQo+IEhpIEFsbCAsDQo+DQo+IERvZXMgbWVzYSBzdXBw
-b3J0IFJhZGVvbiBQcm8gRHVvPyBJIGRvbuKAmXQga25vdyBob3cgdG8gY29uZmlndXJlIA0KPiB4
-b3JnLmNvbmYgdG8gdXNlIHR3byBXWDcxMDAgY2FyZCBvZiBEVU8gLCBhbmQgbm93IEkgY2FuIG9u
-bHkgdXNlIHRoZSBmaXJzdCBjYXJkIG9mIERVTy4NCj4NCj4gV2hhdCBhcmUgeW91IHRyeWluZyB0
-byBkbz8gIEEgbGFyZ2UgZGVza3RvcCBzcHJlYWQgYWNyb3NzIGJvdGggY2hpcHM/DQo+IFVzZSB0
-aGUgY2hpcHMgaW5kZXBlbmRlbnRseT8gIFRoZXJlIGlzIG5vIHN1cHBvcnQgZm9yIGNyb3NzZmly
-ZSBvbiBMaW51eC4gIElmIHlvdSB3YW50IHRvIHVzZSBhIGRlc2t0b3AgYWNyb3NzIG11bHRpcGxl
-IGNoaXBzIG9yIHNlbGVjdCB3aGljaCBjaGlwIGlzIHVzZWQgZm9yIHJlbmRlcmluZywgeW91IGNh
-biB1c2UgeHJhbmRyIGFuZCB0aGUgcHJpbWUgc3VwcG9ydCBpbiBYOg0KPiBodHRwczovL3dpa2ku
-YXJjaGxpbnV4Lm9yZy9pbmRleC5waHAvUFJJTUUNCj4NCj4gQWxleA0KDQoNCj4NCj4gSW5zdGFs
-bGVkIHNvZnR3YXJlIHBhY2thZ2VzOiB4c2VydmVyLXhvcmcgIHhmY2U0ICB4aW5pdA0KPg0KPiBN
-ZXNhIHZlcnNpb246IDE3LjIuOCAga2VybmVsIHZlcnNpb246IDQuMTUNCj4NCj4NCj4NCj4gUGNp
-IGluZm9ybWF0aW9uOg0KPg0KPiAwMDBkOjMxOjAwLjAgUENJIGJyaWRnZTogUExYIFRlY2hub2xv
-Z3ksIEluYy4gUEVYIDg3NDcgNDgtTGFuZSwgNS1Qb3J0IA0KPiBQQ0kgRXhwcmVzcyBHZW4gMyAo
-OC4wIEdUL3MpIFN3aXRjaCAocmV2IGNhKQ0KPg0KPiAwMDBkOjMyOjA4LjAgUENJIGJyaWRnZTog
-UExYIFRlY2hub2xvZ3ksIEluYy4gUEVYIDg3NDcgNDgtTGFuZSwgNS1Qb3J0IA0KPiBQQ0kgRXhw
-cmVzcyBHZW4gMyAoOC4wIEdUL3MpIFN3aXRjaCAocmV2IGNhKQ0KPg0KPiAwMDBkOjMyOjEwLjAg
-UENJIGJyaWRnZTogUExYIFRlY2hub2xvZ3ksIEluYy4gUEVYIDg3NDcgNDgtTGFuZSwgNS1Qb3J0
-IA0KPiBQQ0kgRXhwcmVzcyBHZW4gMyAoOC4wIEdUL3MpIFN3aXRjaCAocmV2IGNhKQ0KPg0KPiAw
-MDBkOjMzOjAwLjAgVkdBIGNvbXBhdGlibGUgY29udHJvbGxlcjogQWR2YW5jZWQgTWljcm8gRGV2
-aWNlcywgSW5jLg0KPiBbQU1EL0FUSV0gRWxsZXNtZXJlIFtSYWRlb24gUHJvIFdYIDcxMDBdDQo+
-DQo+IDAwMGQ6MzM6MDAuMSBBdWRpbyBkZXZpY2U6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIElu
-Yy4gW0FNRC9BVEldIA0KPiBEZXZpY2UNCj4gYWFmMA0KPg0KPiAwMDBkOjM0OjAwLjAgRGlzcGxh
-eSBjb250cm9sbGVyOiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuIA0KPiBbQU1EL0FUSV0g
-RWxsZXNtZXJlIFtSYWRlb24gUHJvIFdYIDcxMDBdDQo+DQo+DQo+DQo+IE15IHhvcmcuY29uZjoN
-Cj4NCj4gU2VjdGlvbiAiRGV2aWNlIg0KPg0KPiAgICAgICAgSWRlbnRpZmllciAiQU1EIg0KPg0K
-PiAgICAgICAgRHJpdmVyICJhbWRncHUiDQo+DQo+ICAgICAgICBCdXNJRCAicGNpOjUxQDEzOjAw
-OjAwIg0KPg0KPiBFbmRTZWN0aW9uDQo+DQo+IFNlY3Rpb24gIk1vbml0b3IiDQo+DQo+ICAgICAg
-ICAgSWRlbnRpZmllciAibW9uaXRvcjAiDQo+DQo+ICAgICAgICAgT3B0aW9uICJlbmFibGUiICJ0
-cnVlIg0KPg0KPiBFbmRTZWN0aW9uDQo+DQo+IFNlY3Rpb24gIlNjcmVlbiINCj4NCj4gICAgICAg
-ICBJZGVudGlmaWVyICJzY3JlZW4wIg0KPg0KPiAgICAgICAgIERldmljZSAiQU1EIg0KPg0KPiAg
-ICAgICAgIE1vbml0b3IgIm1vbml0b3IwIg0KPg0KPiAgICAgICAgIERlZmF1bHREZXB0aCAyNA0K
-Pg0KPiAgICAgICAgIFN1YlNlY3Rpb24gIkRpc3BsYXkiDQo+DQo+ICAgICAgICAgICAgICAgICBE
-ZXB0aCAyNA0KPg0KPiAgICAgICAgIEVuZFN1YlNlY3Rpb24NCj4NCj4gRW5kU2VjdGlvbg0KPg0K
-Pg0KPg0KPiBJIHVzZSDigJxzdGFydHjigJ0gdG8gc3RhcnQgZGVza3RvcCAsIGFuZCBvbmx5IHRo
-ZSBmaXJzdCBXWDcxMDAoUENJIEJ1cyBJRDoNCj4gMDAwZDozMzowMC4wKSBiZWluZyB1c2VkICwg
-dGhlIHNlY29uZCBXWDcxMDAoUENJIEJ1cyBJRDogMDAwZDozNDowMC4wKSANCj4gaGFzIG5vIGxv
-YWQgLg0KPg0KPiAgICAgICAgICBFdmVuIGlmIEkgc2V0IEJ1c0lEIGFzICJwY2k6NTJAMTM6MDA6
-MDAiICh0aGUgc2Vjb25kIFdYNzEwMCksIA0KPiBpdCBzdGlsbCBvbmx5IHRoZSBmaXJzdCBXWDcx
-MDAgYmVpbmcgdXNlZC4NCj4NCj4NCj4NCj4gICAgICAgU28gLCBIb3cgdG8gZW5hYmxlIFJhZGVv
-biBQcm8gRHVvIHdpdGggb3BlbnNvdXJjZSBkcml2ZXIgLCBkb2VzIA0KPiBteSB4b3JnLmNvbmYg
-aXMgd3Jvbmcgb3IgbWVzYSBkb2VzbuKAmXQgc3VwcG9ydCBSYWRlb24gUHJvIER1bz8NCj4NCj4N
-Cj4NCj4NCj4NCj4NCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4DQo+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0362619659==
+Content-Type: multipart/alternative; boundary="94eb2c0971404103f605676ec5b9"
+
+--94eb2c0971404103f605676ec5b9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+I managed to pinpoint the issue. The stuttering is caused by enabling
+TearFree via xrandr. When on `auto`, there is no stuttering, but when
+enabled by setting it to `on`, there is intense stuttering noticeable when
+dragging windows around, but it's also very noticeable when just moving the
+mouse around on the desktop with no windows open.
+I use Openbox with Compton for compositing.
+
+-Dawson Dias
+
+On Sat, Mar 10, 2018 at 11:32 AM, Dawson Dias <
+thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> Got it. Attachments next time.
+>
+> I started a git bisect but noticed there were updates pushed to the tree,
+> so I built HEAD instead (d1eeebbd78fd185988c3c90e3dab304cc8b86c4e). The
+> stuttering is now gone!
+>
+> -Dawson Dias
+>
+> On Fri, Mar 9, 2018 at 7:36 PM, Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> w=
+rote:
+>
+>> On 2018-03-09 12:30 PM, Dawson Dias wrote:
+>> > Hello
+>> >
+>> > I'm experiencing extreme stuttering in X on my Ryzen 2400G. This
+>> > stuttering can be noticed even while only moving the mouse.
+>> > Said stuttering does not exist under Wayland.
+>> >
+>> > This constant stuttering started on 2018-03-07 with the patches that
+>> > were pushed on that day. Stuttering occurs on both branches
+>> > drm-next-4.17 (f6c3b601bd490eda08c27b03607448abd4b4841b) and
+>> > drm-next-4.17-wip (6896a66bc6d0fcb69b6be564fa43f02c09348b72).
+>> >
+>> > dmesg.log <https://bpaste.net/raw/06e6dcc4545b>
+>> > journalctl.log <https://bpaste.net/raw/f6f3dc8d108d>
+>>
+>> In the future, please attach files directly instead of referencing a
+>> paste site.
+>>
+>>
+>> > What sort of information do we require to pinpoint the source of this
+>> > regression and fix it?
+>>
+>> Ideal would be if you can use git bisect to isolate the individual
+>> commit which introduced the stuttering.
+>>
+>>
+>> --
+>> Earthling Michel D=C3=A4nzer               |               http://www.am=
+d.com
+>> Libre software enthusiast             |             Mesa and X developer
+>>
+>
+>
+
+--94eb2c0971404103f605676ec5b9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I managed to pinpoint the issue. The stuttering is caused =
+by enabling TearFree via xrandr. When on `auto`, there is no stuttering, bu=
+t when enabled by setting it to `on`, there is intense stuttering noticeabl=
+e when dragging windows around, but it&#39;s also very noticeable when just=
+ moving the mouse around on the desktop with no windows open.<div>I use Ope=
+nbox with Compton for compositing.<br><div class=3D"gmail_extra"><br clear=
+=3D"all"><div><div class=3D"gmail_signature" data-smartmail=3D"gmail_signat=
+ure"><div dir=3D"ltr"><div><div dir=3D"ltr"><font face=3D"arial, helvetica,=
+ sans-serif">-Dawson Dias</font><br></div></div></div></div></div>
+<br><div class=3D"gmail_quote">On Sat, Mar 10, 2018 at 11:32 AM, Dawson Dia=
+s <span dir=3D"ltr">&lt;<a href=3D"mailto:thexerothermicsclerodermoid@gmail=
+.com" target=3D"_blank">thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span=
+> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr">Got it. Attachm=
+ents next time.<div><br></div><div>I started a git bisect but noticed there=
+ were updates pushed to the tree, so I built HEAD instead (<wbr>d1eeebbd78f=
+d185988c3c90e3dab30<wbr>4cc8b86c4e). The stuttering is now gone!</div><div>=
+<div class=3D"gmail_extra"><span class=3D"HOEnZb"><font color=3D"#888888"><=
+br clear=3D"all"><div><div class=3D"m_1361116894601055033gmail-m_-466792222=
+3938059029gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><font fac=
+e=3D"arial, helvetica, sans-serif">-Dawson Dias</font><br></div></div></div=
+></div></div></font></span><div><div class=3D"h5">
+<br><div class=3D"gmail_quote">On Fri, Mar 9, 2018 at 7:36 PM, Michel D=C3=
+=A4nzer <span dir=3D"ltr">&lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org" target=
+=3D"_blank">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex"><span class=3D"m_1361116894601055033gmail-=
+m_-4667922223938059029gmail-">On 2018-03-09 12:30 PM, Dawson Dias wrote:<br=
+>
+&gt; Hello<br>
+&gt;<br>
+&gt; I&#39;m experiencing extreme stuttering in X on my Ryzen 2400G. This<b=
+r>
+&gt; stuttering can be noticed even while only moving the mouse.<br>
+&gt; Said stuttering does not exist under Wayland.<br>
+&gt;<br>
+&gt; This constant stuttering started on 2018-03-07 with the patches that<b=
+r>
+&gt; were pushed on that day. Stuttering occurs on both branches<br>
+&gt; drm-next-4.17 (f6c3b601bd490eda08c27b0360744<wbr>8abd4b4841b) and<br>
+&gt; drm-next-4.17-wip (6896a66bc6d0fcb69b6be564fa43f<wbr>02c09348b72).<br>
+&gt;<br>
+</span>&gt; dmesg.log &lt;<a href=3D"https://bpaste.net/raw/06e6dcc4545b" r=
+el=3D"noreferrer" target=3D"_blank">https://bpaste.net/raw/06e6dc<wbr>c4545=
+b</a>&gt;<br>
+&gt; journalctl.log &lt;<a href=3D"https://bpaste.net/raw/f6f3dc8d108d" rel=
+=3D"noreferrer" target=3D"_blank">https://bpaste.net/raw/f6f3dc<wbr>8d108d<=
+/a>&gt;<br>
+<br>
+In the future, please attach files directly instead of referencing a<br>
+paste site.<br>
+<span class=3D"m_1361116894601055033gmail-m_-4667922223938059029gmail-"><br=
+>
+<br>
+&gt; What sort of information do we require to pinpoint the source of this<=
+br>
+&gt; regression and fix it?<br>
+<br>
+</span>Ideal would be if you can use git bisect to isolate the individual<b=
+r>
+commit which introduced the stuttering.<br>
+<span class=3D"m_1361116894601055033gmail-m_-4667922223938059029gmail-HOEnZ=
+b"><font color=3D"#888888"><br>
+<br>
+--<br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</font></span></blockquote></div><br></div></div></div></div></div>
+</blockquote></div><br></div></div></div>
+
+--94eb2c0971404103f605676ec5b9--
+
+--===============0362619659==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0362619659==--
