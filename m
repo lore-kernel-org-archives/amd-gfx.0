@@ -1,14 +1,12 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: Ryzen 5 2400G Stuttering since 2018-03-07
-Date: Thu, 15 Mar 2018 10:17:01 +0100
-Message-ID: <168c533a-c898-71e8-3818-d62e286c9c38@daenzer.net>
-References: <CAFuwKQNqgPf0b65r4adT-e50ZChOJnoZR74O4MuV3od4r6UnjQ@mail.gmail.com>
+Subject: Re: Debugging modesetting problem
+Date: Thu, 15 Mar 2018 10:20:04 +0100
+Message-ID: <c10432fb-0110-73d5-0f77-0dc278dabb60@daenzer.net>
+References: <3135989.9rTpBQRE1N@jona-m500>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1166693360=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAFuwKQNqgPf0b65r4adT-e50ZChOJnoZR74O4MuV3od4r6UnjQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <3135989.9rTpBQRE1N@jona-m500>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,25 +17,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Jona Stubbe <gpg2025-ilhm+zE510QR3TpqV4T2kg@public.gmane.org>
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wMy0xNSAwODo1MSBBTSwgRGF3c29uIERpYXMgd3JvdGU6Cj4gSSBtYW5hZ2VkIHRv
-IHBpbnBvaW50IHRoZSBpc3N1ZS4gVGhlIHN0dXR0ZXJpbmcgaXMgY2F1c2VkIGJ5IGVuYWJsaW5n
-Cj4gVGVhckZyZWUgdmlhIHhyYW5kci4gV2hlbiBvbiBgYXV0b2AsIHRoZXJlIGlzIG5vIHN0dXR0
-ZXJpbmcsIGJ1dCB3aGVuCj4gZW5hYmxlZCBieSBzZXR0aW5nIGl0IHRvIGBvbmAsIHRoZXJlIGlz
-IGludGVuc2Ugc3R1dHRlcmluZyBub3RpY2VhYmxlCj4gd2hlbiBkcmFnZ2luZyB3aW5kb3dzIGFy
-b3VuZCwgYnV0IGl0J3MgYWxzbyB2ZXJ5IG5vdGljZWFibGUgd2hlbiBqdXN0Cj4gbW92aW5nIHRo
-ZSBtb3VzZSBhcm91bmQgb24gdGhlIGRlc2t0b3Agd2l0aCBubyB3aW5kb3dzIG9wZW4uCgpQbGVh
-c2Ugc2hhcmUgdGhlIFhvcmcgbG9nIGFuZCBvdXRwdXQgb2YgZG1lc2cgYW5kCgogeHJhbmRyIC0t
-dmVyYm9zZQoKY2FwdHVyZWQgd2hpbGUgdGhlIHN0dXR0ZXJpbmcgaXMgb2NjdXJyaW5nLgoKCj4g
-SSB1c2UgT3BlbmJveCB3aXRoIENvbXB0b24gZm9yIGNvbXBvc2l0aW5nLgoKRldJVywgd2l0aCBj
-b21wdG9uIHlvdSBzaG91bGRuJ3QgbmVlZCBUZWFyRnJlZSAodW5sZXNzIHlvdSB1c2Ugcm90YXRp
-b24Kb3Igb3RoZXIgUmFuZFIgdHJhbnNmb3JtYXRpb25zLCBidXQgaW4gdGhhdCBjYXNlIGl0J3Mg
-YWN0aXZlIHdpdGggYXV0bwphcyB3ZWxsKS4gQnV0IGl0J3Mgc3VwcG9zZWQgdG8gd29yayB3aXRo
-b3V0IHN0dXR0ZXJpbmcgYW55d2F5LCBvYnZpb3VzbHkuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwg
-RMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20K
-TGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2Eg
-YW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1166693360==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="GEjzQhN1P2iBJGpXLgbkOFDb49KvnzOFr"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--GEjzQhN1P2iBJGpXLgbkOFDb49KvnzOFr
+Content-Type: multipart/mixed; boundary="AerSHsU7j1NMy8Lh0d7vYQMtuN0Y4I23j";
+ protected-headers="v1"
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: Jona Stubbe <gpg2025-ilhm+zE510QR3TpqV4T2kg@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <c10432fb-0110-73d5-0f77-0dc278dabb60-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: Debugging modesetting problem
+References: <3135989.9rTpBQRE1N@jona-m500>
+In-Reply-To: <3135989.9rTpBQRE1N@jona-m500>
+
+--AerSHsU7j1NMy8Lh0d7vYQMtuN0Y4I23j
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-CA
+Content-Transfer-Encoding: quoted-printable
+
+On 2018-03-15 12:52 AM, Jona Stubbe wrote:
+> Hi AMD graphics developers,
+>=20
+> I've recently hit a modesetting problem: when I used the DisplayPort KV=
+M=20
+> switch that I got yesterday to connect my PC (running Arch Linux) to my=
+ 4K=20
+> monitor, it only worked in 3 out of about 60 times of switching/replugg=
+ing the=20
+> cable (the BIOS always manages to put something onscreen, though).
+> I've tried both graphics cards available to me right now: a Polaris (RX=
+ 480)=20
+> and a Cayman (HD 6950/6970) and neither of them modesets properly and=20
+> reliably.
+
+With the Polaris card, does enabling DC help? (kernel >=3D 4.15,
+CONFIG_DRM_AMD_DC=3Dy, amdgpu.dc=3D1 on the kernel command line)
+
+
+> PS: if there is a shorter-latency way of asking this kind of question (=
+like an=20
+> IRC channel), I'd be interested too :)
+
+There is #radeon on FreeNode.
+
+
+--=20
+Earthling Michel D=C3=A4nzer               |               http://www.amd=
+=2Ecom
+Libre software enthusiast             |             Mesa and X developer
+
+
+--AerSHsU7j1NMy8Lh0d7vYQMtuN0Y4I23j--
+
+--GEjzQhN1P2iBJGpXLgbkOFDb49KvnzOFr
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHEEARECADEWIQSwn681vpFFIZgJURRaga+OatuyAAUCWqo6xRMcbWljaGVsQGRh
+ZW56ZXIubmV0AAoJEFqBr45q27IAYLsAn0Q4YAfFcnEq1zw/uqrnRW9Lav6dAJ0S
+rmtS78d//4EiX9a5FmijwCH79A==
+=j9W5
+-----END PGP SIGNATURE-----
+
+--GEjzQhN1P2iBJGpXLgbkOFDb49KvnzOFr--
+
+--===============1166693360==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1166693360==--
