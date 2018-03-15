@@ -1,10 +1,13 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-amdgpu 18.0.1
-Date: Thu, 15 Mar 2018 16:54:51 +0100
-Message-ID: <9a2eeaae-c7c3-98b6-f9c2-f655d0de8efd@daenzer.net>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Refine disable VGA
+Date: Thu, 15 Mar 2018 11:56:08 -0400
+Message-ID: <CADnq5_NT11Pn4HBhauASGchNM9Po6safGJaHsvmBL5W+gb3oMw@mail.gmail.com>
+References: <20180315150729.8691-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0185450954=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180315150729.8691-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,117 +18,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-Cc: "xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Clark Zheng <clark.zheng-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0185450954==
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="tC5zKoJodhemJcLBBiAx7dCcmEs3zImiR"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---tC5zKoJodhemJcLBBiAx7dCcmEs3zImiR
-Content-Type: multipart/mixed; boundary="zQqHczr9AT9pVjtvPu6dTTmOlzjVBGdhA";
- protected-headers="v1"
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-To: "xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-Cc: "xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org>,
- "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Message-ID: <9a2eeaae-c7c3-98b6-f9c2-f655d0de8efd-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-amdgpu 18.0.1
-
---zQqHczr9AT9pVjtvPu6dTTmOlzjVBGdhA
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-CA
-Content-Transfer-Encoding: quoted-printable
-
-
-I'm pleased to announce the 18.0.1 release of xf86-video-amdgpu, the
-Xorg driver for AMD Radeon GPUs supported by the amdgpu kernel driver.
-This release supports xserver versions 1.13-1.19. It also works with
-xserver 1.20 RC1, so unless something unexpected happens, it should work
-with xserver 1.20 as well.
-
-This is a bug-fix release addressing issues in 18.0.0. While those
-issues shouldn't affect most users, I recommend that all users of 18.0.0
-update to 18.0.1.
-
-* The Xorg process could enter an infinite loop after a server reset (in
-  configurations where Xorg doesn't terminate when the last client
-  disconnects)
-* The Xorg process could crash when multiple primary screens are
-  configured in xorg.conf.
-* TearFree could trigger debugging messages in the pixman library
-
-
-Michel D=C3=A4nzer (4):
-      Only change Set/MoveCursor hooks from what we expect
-      Wrap the whole miPointerScreenFuncRec, instead of only Set/MoveCurs=
-or
-      Pass extents to amdgpu_scanout_do_update by value
-      Bump version for 18.0.1 release
-
-git tag: xf86-video-amdgpu-18.0.1
-
-https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-=
-18.0.1.tar.bz2
-MD5:  d8368d204cb98d4387c8890562db1143  xf86-video-amdgpu-18.0.1.tar.bz2
-SHA1: a9c7125eae9870f26afa5167d5683f8d5e1b43c0  xf86-video-amdgpu-18.0.1.=
-tar.bz2
-SHA256: 7484682ccb403b3ca9e26d1c980572f08cdfa3469e2b2c9a9affc3d51b52691b =
- xf86-video-amdgpu-18.0.1.tar.bz2
-SHA512: eb3b76240d4e5084d68b5063b5b19ad5f5bb1f93ea9929301d9e17a48ddc1cb71=
-3b76529cb93d133b3547fe78ae8a4455f6b15f6ddf88c29349f82bb1a0db1c4  xf86-vid=
-eo-amdgpu-18.0.1.tar.bz2
-PGP:  https://xorg.freedesktop.org/archive/individual/driver/xf86-video-a=
-mdgpu-18.0.1.tar.bz2.sig
-
-https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-=
-18.0.1.tar.gz
-MD5:  b47ac1d853a5c9327c526b6ad858dfd0  xf86-video-amdgpu-18.0.1.tar.gz
-SHA1: 6de47bf590bb3c931da323341c326ab19e159f27  xf86-video-amdgpu-18.0.1.=
-tar.gz
-SHA256: 5cbbc37aeb6c451e0d446e6e653ae2bf9269727c6394f0751507bb23ad6c16b2 =
- xf86-video-amdgpu-18.0.1.tar.gz
-SHA512: 857b9cf817f3cb676abd850b05286037f6c236fbdf7012af5f25424cd2436bc85=
-2cd08e3bfdd8f401e827824158344f1243f6f79aeffffd07e28c5ca6769f806  xf86-vid=
-eo-amdgpu-18.0.1.tar.gz
-PGP:  https://xorg.freedesktop.org/archive/individual/driver/xf86-video-a=
-mdgpu-18.0.1.tar.gz.sig
-
-
---=20
-Earthling Michel D=C3=A4nzer               |               http://www.amd=
-=2Ecom
-Libre software enthusiast             |             Mesa and X developer
-
-
---zQqHczr9AT9pVjtvPu6dTTmOlzjVBGdhA--
-
---tC5zKoJodhemJcLBBiAx7dCcmEs3zImiR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHEEARECADEWIQSwn681vpFFIZgJURRaga+OatuyAAUCWqqXSxMcbWljaGVsQGRh
-ZW56ZXIubmV0AAoJEFqBr45q27IACBwAmwcn2nnB6kSDEIcOjnesniaWAAsQAJ4l
-4xqa3pafcAGMrSUcZ8nGKPqdjg==
-=/Mu7
------END PGP SIGNATURE-----
-
---tC5zKoJodhemJcLBBiAx7dCcmEs3zImiR--
-
---===============0185450954==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0185450954==--
+T24gVGh1LCBNYXIgMTUsIDIwMTggYXQgMTE6MDcgQU0sIEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53
+ZW50bGFuZEBhbWQuY29tPiB3cm90ZToKPiBGcm9tOiBDbGFyayBaaGVuZyA8Y2xhcmsuemhlbmdA
+YW1kLmNvbT4KPgo+IGJhZCBjYXNlIHdvbid0IGZvbGxvdyBub3JtYWwgc2Vuc2UsIGl0IHdpbGwg
+bm90IGVuYWJsZSB2Z2ExIGFzIHVzdWFsLCBidXQgdmdhMiwzLDQgaXMgb24uCj4KPiBTaWduZWQt
+b2ZmLWJ5OiBDbGFyayBaaGVuZyA8Y2xhcmsuemhlbmdAYW1kLmNvbT4KPiBSZXZpZXdlZC1ieTog
+VG9ueSBDaGVuZyA8dG9ueS5jaGVuZ0BhbWQuY29tPgoKQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8
+YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9kY2UvZGNlX2h3c2VxLmggICAgICAgfCAgOCArKysrKysrLQo+ICAuLi4vZHJt
+L2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jICAgIHwgMjAgKysrKysr
+KysrKysrKysrLS0tLS0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspLCA2IGRl
+bGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9kY2UvZGNlX2h3c2VxLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2Rj
+ZV9od3NlcS5oCj4gaW5kZXggMThkYmQwYmQ3ODc0Li4wNTdiOGFmZDc0YmMgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfaHdzZXEuaAo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2h3c2VxLmgKPiBAQCAtNDA4
+LDYgKzQwOCw5IEBAIHN0cnVjdCBkY2VfaHdzZXFfcmVnaXN0ZXJzIHsKPiAgICAgICAgIEhXU19T
+RigsIERPTUFJTjdfUEdfU1RBVFVTLCBET01BSU43X1BHRlNNX1BXUl9TVEFUVVMsIG1hc2tfc2gp
+LCBcCj4gICAgICAgICBIV1NfU0YoLCBEQ19JUF9SRVFVRVNUX0NOVEwsIElQX1JFUVVFU1RfRU4s
+IG1hc2tfc2gpLCBcCj4gICAgICAgICBIV1NfU0YoLCBEMVZHQV9DT05UUk9MLCBEMVZHQV9NT0RF
+X0VOQUJMRSwgbWFza19zaCksXAo+ICsgICAgICAgSFdTX1NGKCwgRDJWR0FfQ09OVFJPTCwgRDJW
+R0FfTU9ERV9FTkFCTEUsIG1hc2tfc2gpLFwKPiArICAgICAgIEhXU19TRigsIEQzVkdBX0NPTlRS
+T0wsIEQzVkdBX01PREVfRU5BQkxFLCBtYXNrX3NoKSxcCj4gKyAgICAgICBIV1NfU0YoLCBENFZH
+QV9DT05UUk9MLCBENFZHQV9NT0RFX0VOQUJMRSwgbWFza19zaCksXAo+ICAgICAgICAgSFdTX1NG
+KCwgVkdBX1RFU1RfQ09OVFJPTCwgVkdBX1RFU1RfRU5BQkxFLCBtYXNrX3NoKSxcCj4gICAgICAg
+ICBIV1NfU0YoLCBWR0FfVEVTVF9DT05UUk9MLCBWR0FfVEVTVF9SRU5ERVJfU1RBUlQsIG1hc2tf
+c2gpLFwKPiAgICAgICAgIEhXU19TRigsIExWVE1BX1BXUlNFUV9DTlRMLCBMVlRNQV9CTE9OLCBt
+YXNrX3NoKSwgXAo+IEBAIC00OTcsNyArNTAwLDEwIEBAIHN0cnVjdCBkY2VfaHdzZXFfcmVnaXN0
+ZXJzIHsKPiAgICAgICAgIHR5cGUgREVOVElTVF9ESVNQQ0xLX1dESVZJREVSOyBcCj4gICAgICAg
+ICB0eXBlIFZHQV9URVNUX0VOQUJMRTsgXAo+ICAgICAgICAgdHlwZSBWR0FfVEVTVF9SRU5ERVJf
+U1RBUlQ7IFwKPiAtICAgICAgIHR5cGUgRDFWR0FfTU9ERV9FTkFCTEU7Cj4gKyAgICAgICB0eXBl
+IEQxVkdBX01PREVfRU5BQkxFOyBcCj4gKyAgICAgICB0eXBlIEQyVkdBX01PREVfRU5BQkxFOyBc
+Cj4gKyAgICAgICB0eXBlIEQzVkdBX01PREVfRU5BQkxFOyBcCj4gKyAgICAgICB0eXBlIEQ0VkdB
+X01PREVfRU5BQkxFOwo+Cj4gIHN0cnVjdCBkY2VfaHdzZXFfc2hpZnQgewo+ICAgICAgICAgSFdT
+RVFfUkVHX0ZJRUxEX0xJU1QodWludDhfdCkKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jCj4gaW5kZXggNDM2
+NTkwNmIxNGVlLi44YjBmNmI4YTU2MjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jCj4gQEAgLTIy
+MCwxNCArMjIwLDI0IEBAIHN0YXRpYyB2b2lkIGVuYWJsZV9wb3dlcl9nYXRpbmdfcGxhbmUoCj4g
+IHN0YXRpYyB2b2lkIGRpc2FibGVfdmdhKAo+ICAgICAgICAgc3RydWN0IGRjZV9od3NlcSAqaHdz
+KQo+ICB7Cj4gLSAgICAgICB1bnNpZ25lZCBpbnQgaW5fdmdhX21vZGUgPSAwOwo+IC0KPiAtICAg
+ICAgIFJFR19HRVQoRDFWR0FfQ09OVFJPTCwgRDFWR0FfTU9ERV9FTkFCTEUsICZpbl92Z2FfbW9k
+ZSk7Cj4gLQo+IC0gICAgICAgaWYgKGluX3ZnYV9tb2RlID09IDApCj4gKyAgICAgICB1bnNpZ25l
+ZCBpbnQgaW5fdmdhMV9tb2RlID0gMDsKPiArICAgICAgIHVuc2lnbmVkIGludCBpbl92Z2EyX21v
+ZGUgPSAwOwo+ICsgICAgICAgdW5zaWduZWQgaW50IGluX3ZnYTNfbW9kZSA9IDA7Cj4gKyAgICAg
+ICB1bnNpZ25lZCBpbnQgaW5fdmdhNF9tb2RlID0gMDsKPiArCj4gKyAgICAgICBSRUdfR0VUKEQx
+VkdBX0NPTlRST0wsIEQxVkdBX01PREVfRU5BQkxFLCAmaW5fdmdhMV9tb2RlKTsKPiArICAgICAg
+IFJFR19HRVQoRDJWR0FfQ09OVFJPTCwgRDJWR0FfTU9ERV9FTkFCTEUsICZpbl92Z2EyX21vZGUp
+Owo+ICsgICAgICAgUkVHX0dFVChEM1ZHQV9DT05UUk9MLCBEM1ZHQV9NT0RFX0VOQUJMRSwgJmlu
+X3ZnYTNfbW9kZSk7Cj4gKyAgICAgICBSRUdfR0VUKEQ0VkdBX0NPTlRST0wsIEQ0VkdBX01PREVf
+RU5BQkxFLCAmaW5fdmdhNF9tb2RlKTsKPiArCj4gKyAgICAgICBpZiAoaW5fdmdhMV9tb2RlID09
+IDAgJiYgaW5fdmdhMl9tb2RlID09IDAgJiYKPiArICAgICAgICAgICAgICAgICAgICAgICBpbl92
+Z2EzX21vZGUgPT0gMCAmJiBpbl92Z2E0X21vZGUgPT0gMCkKPiAgICAgICAgICAgICAgICAgcmV0
+dXJuOwo+Cj4gICAgICAgICBSRUdfV1JJVEUoRDFWR0FfQ09OVFJPTCwgMCk7Cj4gKyAgICAgICBS
+RUdfV1JJVEUoRDJWR0FfQ09OVFJPTCwgMCk7Cj4gKyAgICAgICBSRUdfV1JJVEUoRDNWR0FfQ09O
+VFJPTCwgMCk7Cj4gKyAgICAgICBSRUdfV1JJVEUoRDRWR0FfQ09OVFJPTCwgMCk7Cj4KPiAgICAg
+ICAgIC8qIEhXIEVuZ2luZWVyJ3MgTm90ZXM6Cj4gICAgICAgICAgKiAgRHVyaW5nIHN3aXRjaCBm
+cm9tIHZnYS0+ZXh0ZW5kZWQsIGlmIHdlIHNldCB0aGUgVkdBX1RFU1RfRU5BQkxFIGFuZAo+IC0t
+Cj4gMi4xNC4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
