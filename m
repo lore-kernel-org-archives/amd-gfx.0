@@ -1,10 +1,8 @@
-From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-Date: Mon, 19 Mar 2018 19:42:08 +0000
-Message-ID: <BY1PR12MB0504183ED35A54559D22E041F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
+Date: Mon, 19 Mar 2018 20:41:56 +0100
+Message-ID: <05512033-177f-f960-50bb-5db63adb8b36@amd.com>
 References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
- <3f0a85f6-ac67-cd8c-716e-1c1655d40226@gmail.com>
- <c23ddc4b-c785-be3b-8321-416bb8417b6d@amd.com>
  <CADnq5_OAnM2p2NHnOAduCd+yomFXKqKhrag+JaayZD1Ri9z_2Q@mail.gmail.com>
  <BY1PR12MB05044ACBE8424866B3CCA243F5D90@BY1PR12MB0504.namprd12.prod.outlook.com>
  <898d3377-ee2b-a33d-dbff-b4cb692d650d@amd.com>
@@ -22,7 +20,7 @@ References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
  <2c995c37-0d0b-8fde-0118-57d7a62630ef@amd.com>
  <CAAxE2A5kq2oZtJRm2df1fjtb_p1m2_nvCmzv9y8mbO-GS8cGrw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1356565168=="
+Content-Type: multipart/mixed; boundary="===============1363364177=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <CAAxE2A5kq2oZtJRm2df1fjtb_p1m2_nvCmzv9y8mbO-GS8cGrw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
@@ -36,268 +34,366 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 
---===============1356565168==
-Content-Language: en-US
+This is a multi-part message in MIME format.
+--===============1363364177==
 Content-Type: multipart/alternative;
-	boundary="_000_BY1PR12MB0504183ED35A54559D22E041F5D40BY1PR12MB0504namp_"
+ boundary="------------9E839B0C481E4268978555FD"
+Content-Language: en-US
 
---_000_BY1PR12MB0504183ED35A54559D22E041F5D40BY1PR12MB0504namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------9E839B0C481E4268978555FD
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-QWdyZWVkLg0KDQo+SSB0aGluayB0aGF0IHRoZSBjb25zZW5zdXMgd2l0aCBBbGV4IGFuZCBtZSBp
-cyB0aGF0IHdlIHNob3VsZCBhdm9pZCBleGFjdGx5IHRoYXQuDQpDaHJpc3RpYW4sIEFsZXjigJlz
-IGNvbmNlcm4gaXMgYWJvdXQgcGluZy1wb25nLCBub3QgYWJvdXQgdGhlIHByZWZlcnJlZCBkb21h
-aW4uDQoNClJlZ2FyZHMsDQpTYW11ZWwgTGkNCg0KRnJvbTogTWFyZWsgT2zFocOhayBbbWFpbHRv
-Om1hcmFlb0BnbWFpbC5jb21dDQpTZW50OiBNb25kYXksIE1hcmNoIDE5LCAyMDE4IDM6MzkgUE0N
-ClRvOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KQ2M6IExp
-LCBTYW11ZWwgPFNhbXVlbC5MaUBhbWQuY29tPjsgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVu
-emVyLm5ldD47IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPjsgYW1kLWdmeCBs
-aXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NClN1YmplY3Q6IFJlOiBbUEFUQ0gg
-MS8yXSBkcm0vYW1kZ3B1OiBFbmFibGUgc2NhdHRlciBnYXRoZXIgZGlzcGxheSBzdXBwb3J0DQoN
-Ck9uIE1vbiwgTWFyIDE5LCAyMDE4IGF0IDM6MjcgUE0sIENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbTxtYWlsdG86Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPj4gd3Jv
-dGU6DQpJIHRoaW5rIHRoYXQgdGhlIGNvbnNlbnN1cyB3aXRoIEFsZXggYW5kIG1lIGlzIHRoYXQg
-d2Ugc2hvdWxkIGF2b2lkIGV4YWN0bHkgdGhhdC4NCg0KT3ZlcnJpZGluZyB0aGUgcHJlZmVycmVk
-IGRvbWFpbiBpbiB0aGUga2VybmVsIGlzIGEgbm8tZ28gZm9yIHRoYXQgcGF0Y2ggc2V0LCBzbyBw
-bGVhc2UgaW1wbGVtZW50IHRoZSBkaXNjdXNzZWQgY2hhbmdlcyBpbiBNZXNhLg0KDQpJIGRvbid0
-IHNlZSBob3cgTWVzYSBjYW4gbWFrZSBhIHNtYXJ0ZXIgZGVjaXNpb24gdGhhbiB0aGUga2VybmVs
-LiBJZiB5b3Ugb3ZlcndyaXRlIHRoZSBwcmVmZXJyZWQgZG9tYWluIG9mIHRoZSBidWZmZXIgaW4g
-dGhlIGtlcm5lbCwgdGhlcmUgd2lsbCBiZSBubyBwaW5nLXBvbmdpbmcgYmV0d2VlbiBkb21haW5z
-LiBNZXNhIG5ldmVyIGNoYW5nZXMgdGhlIGluaXRpYWwgcHJlZmVycmVkIGRvbWFpbi4NCg0KTWFy
-ZWsNCg0KDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCg0KQW0gMTkuMDMuMjAxOCB1bSAyMDoy
-MiBzY2hyaWViIExpLCBTYW11ZWw6DQpJIGFncmVlIHdpdGggTWFyZWsvTWljaGVsOiBzaW5jZSBr
-ZXJuZWwgc2V0cyB0aGUgZG9tYWluIGJlZm9yZSBzY2FubmluZyBvdXQsIGl0IHNoYWxsIHVwZGF0
-ZSB0aGUgcHJlZmVycmVkIGRvbWFpbiBoZXJlIHRvby4NCg0KUmVnYXJkcywNClNhbXVlbCBMaQ0K
-DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogS29lbmlnLCBDaHJpc3RpYW4NClNl
-bnQ6IFRodXJzZGF5LCBNYXJjaCAwOCwgMjAxOCA0OjA3IEFNDQpUbzogTWljaGVsIETDpG56ZXIg
-PG1pY2hlbEBkYWVuemVyLm5ldDxtYWlsdG86bWljaGVsQGRhZW56ZXIubmV0Pj47IExpLCBTYW11
-ZWwNCjxTYW11ZWwuTGlAYW1kLmNvbTxtYWlsdG86U2FtdWVsLkxpQGFtZC5jb20+PjsgQWxleCBE
-ZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb208bWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNv
-bT4+DQpDYzogYW1kLWdmeCBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWls
-dG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Pg0KU3ViamVjdDogUmU6IFtQQVRDSCAx
-LzJdIGRybS9hbWRncHU6IEVuYWJsZSBzY2F0dGVyIGdhdGhlciBkaXNwbGF5IHN1cHBvcnQNCg0K
-QW0gMDguMDMuMjAxOCB1bSAwOTozNSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOg0KT24gMjAxOC0w
-My0wNyAxMDo0NyBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCkFtIDA3LjAzLjIwMTggdW0g
-MDk6NDIgc2NocmllYiBNaWNoZWwgRMOkbnplcjoNCk9uIDIwMTgtMDMtMDYgMDc6MjMgUE0sIENo
-cmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQpFLmcuIHRoZSBsYXN0IHRpbWUgSSB0ZXN0ZWQgaXQgcGxh
-Y2luZyB0aGluZ3MgaW50byBHVFQgc3RpbGwNCnJlc3VsdGVkIGluIHF1aXRlIGEgcGVyZm9ybWFu
-Y2UgcGVuYWx0eSBmb3IgcmVuZGVyaW5nLg0KRldJVywgSSB0aGluayB0aGUgcGVuYWx0eSBpcyBt
-b3N0IGxpa2VseSBJT01NVSByZWxhdGVkLiBMYXN0IHRpbWUgSQ0KdGVzdGVkLCBJIGNvdWxkbid0
-IG1lYXN1cmUgYSBiaWcgZGlmZmVyZW5jZSB3aXRoIElPTU1VIGRpc2FibGVkLg0KTm8sIHRoZSBw
-ZW5hbHR5IEknbSB0YWxraW5nIGFib3V0IGNhbWUgZnJvbSB0aGUgcGluZy9wb25nIHdlIGRpZCB3
-aXRoDQp0aGUgc2Nhbm91dCBidWZmZXJzLg0KDQpTZWUgd2hlbiBJIHRlc3RlZCB0aGlzIHRoZSBE
-RFggYW5kIE1lc2Egd2hlcmUgdW5tb2RpZmllZCwgc28gYm90aA0Kc3RpbGwgYXNzdW1lZCBWUkFN
-IGFzIHBsYWNlbWVudCBmb3Igc2Nhbm91dCBCT3MsIGJ1dCB0aGUga2VybmVsDQpmb3JjZWQgc2Nh
-bm91dCBCT3MgaW50byBHVFQgZm9yIHRlc3RpbmcuDQoNClNvIHdoYXQgaGFwcGVuZWQgd2FzIHRo
-YXQgb24gc2Nhbm91dCB3ZSBtb3ZlZCB0aGUgVlJBTSBCTyB0byBHVFQNCmFuZA0KYWZ0ZXIgdW5w
-aW5uaW5nIGl0IG9uIHRoZSBmaXJzdCBjb21tYW5kIHN1Ym1pc3Npb24gd2hpY2ggdXNlZCB0aGUg
-Qk8NCndlIG1vdmVkIGl0IGJhY2sgdG8gVlJBTSBhZ2Fpbi4NCkluIHRoZSBtZWFudGltZSwgSSd2
-ZSBoYWQgdGhlIHNhbWUgaWRlYSBhcyBNYXJlazogQ2FuJ3QgdGhlIGtlcm5lbA0KZHJpdmVyIHNp
-bXBseSBjaGFuZ2UgdGhlIEJPJ3MgcHJlZmVycmVkIGRvbWFpbiB0byBHVFQgd2hlbiBzY2Fubmlu
-Zw0Kb3V0IGZyb20gaXQ/IFRoZW4gaXQgd29uJ3QgbW92ZSBiYWNrIHRvIFZSQU0uDQpZZXMsIEkn
-dmUgY29uc2lkZXJlZCB0aGlzIGFzIHdlbGwuDQoNCkJ1dCBJIHRoaW5rIG1ha2luZyB0aGUgZGVj
-aXNpb24gaW4gTWVzYSBpcyB0aGUgY2xlYW5lciBhcHByb2FjaC4NCg0KRS5nLiBzbyBmYXIgd2Ug
-b25seSBvdmVycmlkZSB0aGUgcGxhY2VtZW50IGRlY2lzaW9uIG9mIHVzZXJzcGFjZSBmb3IgdHdv
-DQpyZWFzb25zOg0KMS4gV2Ugd2hlcmUgcnVubmluZyBvdXQgb2YgbWVtb3J5IGluIFZSQU0uDQoy
-LiBXZSBoYXZlIGEgaGFyZHdhcmUgcmVzdHJpY3Rpb24gd2hpY2ggbWFrZXMgVlJBTSB1c2FnZSBt
-YW5kYXRvcnkuDQoNCkFuZCBldmVuIHRoZW4gd2UgbmV2ZXIgYWRqdXN0IHRoZSBwbGFjZW1lbnQg
-cGVybWFuZW50bHksIHdlIGp1c3QNCnRlbXBvcmFyeSBtb3ZlZCB0aGUgYnVmZmVyIHdoZXJlIGl0
-IHdhcyBuZWVkZWQgYW5kIG1vdmVkIGl0IGJhY2sgYWZ0ZXINCnRoZSBvcGVyYXRpb24gY29tcGxl
-dGVkLg0KDQpBZGRpdGlvbmFsIHRvIHRoYXQgTWVzYSBtaWdodCB3YW50IHRvIHNldCBldmVuIG1v
-cmUgZmxhZ3MgYW5kL29yIGNoYW5nZXMNCml0J3MgYmVoYXZpb3IuIEUuZy4gdXNlIGEgdGlsbGlu
-ZyBtb2RlIHdoaWNoIGJvdGggaW1wb3J0ZXIgYW5kIGV4cG9ydCBpbiBhbg0KQStBIGxhcHRvcCB1
-bmRlcnN0YW5kcyBldGMuLi4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0
-DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmc+DQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngNCg0K
+Am 19.03.2018 um 20:39 schrieb Marek Olšák:
+> On Mon, Mar 19, 2018 at 3:27 PM, Christian König 
+> <christian.koenig-5C7GfCeVMHo@public.gmane.org <mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org>> wrote:
+>
+>     I think that the consensus with Alex and me is that we should
+>     avoid exactly that.
+>
+>     Overriding the preferred domain in the kernel is a no-go for that
+>     patch set, so please implement the discussed changes in Mesa.
+>
+>
+> I don't see how Mesa can make a smarter decision than the kernel. If 
+> you overwrite the preferred domain of the buffer in the kernel, there 
+> will be no ping-ponging between domains. Mesa never changes the 
+> initial preferred domain.
 
---_000_BY1PR12MB0504183ED35A54559D22E041F5D40BY1PR12MB0504namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Yeah, but it can set the initial domain based on what it knows how the 
+buffer will be used.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-U2ltU3VuOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZvbnQtZmFjZQ0KCXtm
-b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
-O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
-MiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJcQFNpbVN1biI7DQoJ
-cGFub3NlLTE6MiAxIDYgMCAzIDEgMSAxIDEgMTt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0K
-cC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0K
-CW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5
-OiJUaW1lcyBOZXcgUm9tYW4iLHNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7
-bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVu
-ZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0
-eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJs
-aW5lO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5
-Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOiMyRjU0OTY7fQ0K
-Lk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1p
-bHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41
-aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNl
-Y3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNv
-IDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAv
-Pg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxh
-eW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwv
-bzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVO
-LVVTIiBsaW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9u
-MSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
-b250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzJGNTQ5NiI+
-QWdyZWVkLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
-IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDss
-c2Fucy1zZXJpZjtjb2xvcjojMkY1NDk2Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj4mZ3Q7SSB0aGluayB0aGF0IHRoZSBjb25zZW5zdXMgd2l0aCBB
-bGV4IGFuZCBtZSBpcyB0aGF0IHdlIHNob3VsZCBhdm9pZCBleGFjdGx5IHRoYXQuPGJyPg0KQ2hy
-aXN0aWFuLCBBbGV44oCZcyBjb25jZXJuIGlzIGFib3V0IHBpbmctcG9uZywgbm90IGFib3V0IHRo
-ZSBwcmVmZXJyZWQgZG9tYWluLiA8YnI+DQo8YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
-LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzJG
-NTQ5NiI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
-c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90Oyxz
-YW5zLXNlcmlmO2NvbG9yOiMyRjU0OTYiPlJlZ2FyZHMsPG86cD48L286cD48L3NwYW4+PC9wPg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1m
-YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMyRjU0OTYiPlNhbXVl
-bCBMaTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0
-eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fu
-cy1zZXJpZjtjb2xvcjojMkY1NDk2Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2
-IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCBibHVlIDEuNXB0O3BhZGRpbmc6
-MGluIDBpbiAwaW4gNC4wcHQiPg0KPGRpdj4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRl
-ci10b3A6c29saWQgI0UxRTFFMSAxLjBwdDtwYWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxw
-IGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQt
-ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+RnJvbTo8L3NwYW4+PC9iPjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
-dDssc2Fucy1zZXJpZiI+IE1hcmVrIE9sxaHDoWsgW21haWx0bzptYXJhZW9AZ21haWwuY29tXQ0K
-PGJyPg0KPGI+U2VudDo8L2I+IE1vbmRheSwgTWFyY2ggMTksIDIwMTggMzozOSBQTTxicj4NCjxi
-PlRvOjwvYj4gS29lbmlnLCBDaHJpc3RpYW4gJmx0O0NocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbSZn
-dDs8YnI+DQo8Yj5DYzo8L2I+IExpLCBTYW11ZWwgJmx0O1NhbXVlbC5MaUBhbWQuY29tJmd0Ozsg
-TWljaGVsIETDpG56ZXIgJmx0O21pY2hlbEBkYWVuemVyLm5ldCZndDs7IEFsZXggRGV1Y2hlciAm
-bHQ7YWxleGRldWNoZXJAZ21haWwuY29tJmd0OzsgYW1kLWdmeCBsaXN0ICZsdDthbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZyZndDs8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFtQQVRDSCAx
-LzJdIGRybS9hbWRncHU6IEVuYWJsZSBzY2F0dGVyIGdhdGhlciBkaXNwbGF5IHN1cHBvcnQ8bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj5PbiBNb24sIE1hciAxOSwgMjAxOCBhdCAzOjI3IFBNLCBDaHJpc3RpYW4gS8O2bmln
-ICZsdDs8YSBocmVmPSJtYWlsdG86Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tIiB0YXJnZXQ9Il9i
-bGFuayI+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPC9hPiZndDsgd3JvdGU6PG86cD48L286cD48
-L3A+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0ND
-Q0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21h
-cmdpbi1yaWdodDowaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+SSB0aGluayB0aGF0IHRoZSBj
-b25zZW5zdXMgd2l0aCBBbGV4IGFuZCBtZSBpcyB0aGF0IHdlIHNob3VsZCBhdm9pZCBleGFjdGx5
-IHRoYXQuPGJyPg0KPGJyPg0KT3ZlcnJpZGluZyB0aGUgcHJlZmVycmVkIGRvbWFpbiBpbiB0aGUg
-a2VybmVsIGlzIGEgbm8tZ28gZm9yIHRoYXQgcGF0Y2ggc2V0LCBzbyBwbGVhc2UgaW1wbGVtZW50
-IHRoZSBkaXNjdXNzZWQgY2hhbmdlcyBpbiBNZXNhLjxvOnA+PC9vOnA+PC9wPg0KPC9ibG9ja3F1
-b3RlPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0K
-PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+SSBkb24ndCBzZWUgaG93IE1lc2Eg
-Y2FuIG1ha2UgYSBzbWFydGVyIGRlY2lzaW9uIHRoYW4gdGhlIGtlcm5lbC4gSWYgeW91IG92ZXJ3
-cml0ZSB0aGUgcHJlZmVycmVkIGRvbWFpbiBvZiB0aGUgYnVmZmVyIGluIHRoZSBrZXJuZWwsIHRo
-ZXJlIHdpbGwgYmUgbm8gcGluZy1wb25naW5nIGJldHdlZW4gZG9tYWlucy4gTWVzYSBuZXZlciBj
-aGFuZ2VzIHRoZSBpbml0aWFsIHByZWZlcnJlZCBkb21haW4uPG86cD48L286cD48L3A+DQo8L2Rp
-dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwv
-ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk1hcmVrPG86cD48L286cD48L3A+DQo8
-L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4N
-CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9w
-Pg0KPC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29s
-aWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQu
-OHB0O21hcmdpbi1yaWdodDowaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGJyPg0KUmVnYXJk
-cyw8YnI+DQpDaHJpc3RpYW4uPG86cD48L286cD48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxicj4NCjxicj4NCkFtIDE5LjAzLjIwMTggdW0gMjA6MjIgc2NocmllYiBM
-aSwgU2FtdWVsOjxvOnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25l
-O2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBw
-dDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiIHN0eWxlPSJtYXJnaW4tYm90dG9tOjEyLjBwdCI+SSBhZ3JlZSB3aXRoIE1hcmVrL01pY2hl
-bDogc2luY2Uga2VybmVsIHNldHMgdGhlIGRvbWFpbiBiZWZvcmUgc2Nhbm5pbmcgb3V0LCBpdCBz
-aGFsbCB1cGRhdGUgdGhlIHByZWZlcnJlZCBkb21haW4gaGVyZSB0b28uPGJyPg0KPGJyPg0KUmVn
-YXJkcyw8YnI+DQpTYW11ZWwgTGk8YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1
-b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3Bh
-ZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFyZ2luLWxlZnQ6NC44cHQ7bWFyZ2luLXJpZ2h0OjBp
-biI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLTxicj4N
-CkZyb206IEtvZW5pZywgQ2hyaXN0aWFuPGJyPg0KU2VudDogVGh1cnNkYXksIE1hcmNoIDA4LCAy
-MDE4IDQ6MDcgQU08YnI+DQpUbzogTWljaGVsIETDpG56ZXIgJmx0OzxhIGhyZWY9Im1haWx0bzpt
-aWNoZWxAZGFlbnplci5uZXQiIHRhcmdldD0iX2JsYW5rIj5taWNoZWxAZGFlbnplci5uZXQ8L2E+
-Jmd0OzsgTGksIFNhbXVlbDxicj4NCiZsdDs8YSBocmVmPSJtYWlsdG86U2FtdWVsLkxpQGFtZC5j
-b20iIHRhcmdldD0iX2JsYW5rIj5TYW11ZWwuTGlAYW1kLmNvbTwvYT4mZ3Q7OyBBbGV4IERldWNo
-ZXIgJmx0OzxhIGhyZWY9Im1haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20iIHRhcmdldD0iX2Js
-YW5rIj5hbGV4ZGV1Y2hlckBnbWFpbC5jb208L2E+Jmd0Ozxicj4NCkNjOiBhbWQtZ2Z4IGxpc3Qg
-Jmx0OzxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIgdGFyZ2V0
-PSJfYmxhbmsiPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPiZndDs8YnI+DQpTdWJq
-ZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogRW5hYmxlIHNjYXR0ZXIgZ2F0aGVyIGRp
-c3BsYXkgc3VwcG9ydDxicj4NCjxicj4NCkFtIDA4LjAzLjIwMTggdW0gMDk6MzUgc2NocmllYiBN
-aWNoZWwgRMOkbnplcjo8bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6
-bm9uZTtib3JkZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3BhZGRpbmc6MGluIDBpbiAwaW4g
-Ni4wcHQ7bWFyZ2luLWxlZnQ6NC44cHQ7bWFyZ2luLXJpZ2h0OjBpbiI+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj5PbiAyMDE4LTAzLTA3IDEwOjQ3IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOjxv
-OnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0
-OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVm
-dDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkFtIDA3LjAz
-LjIwMTggdW0gMDk6NDIgc2NocmllYiBNaWNoZWwgRMOkbnplcjo8bzpwPjwvbzpwPjwvcD4NCjxi
-bG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEu
-MHB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFyZ2luLWxlZnQ6NC44cHQ7bWFyZ2luLXJp
-Z2h0OjBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4w
-cHQiPk9uIDIwMTgtMDMtMDYgMDc6MjMgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6PG86cD48
-L286cD48L3A+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29s
-aWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQu
-OHB0O21hcmdpbi1yaWdodDowaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+RS5nLiB0aGUgbGFz
-dCB0aW1lIEkgdGVzdGVkIGl0IHBsYWNpbmcgdGhpbmdzIGludG8gR1RUIHN0aWxsPGJyPg0KcmVz
-dWx0ZWQgaW4gcXVpdGUgYSBwZXJmb3JtYW5jZSBwZW5hbHR5IGZvciByZW5kZXJpbmcuPG86cD48
-L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5GV0lXLCBJIHRo
-aW5rIHRoZSBwZW5hbHR5IGlzIG1vc3QgbGlrZWx5IElPTU1VIHJlbGF0ZWQuIExhc3QgdGltZSBJ
-PGJyPg0KdGVzdGVkLCBJIGNvdWxkbid0IG1lYXN1cmUgYSBiaWcgZGlmZmVyZW5jZSB3aXRoIElP
-TU1VIGRpc2FibGVkLjxvOnA+PC9vOnA+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+Tm8sIHRoZSBwZW5hbHR5IEknbSB0YWxraW5nIGFib3V0IGNhbWUgZnJvbSB0aGUg
-cGluZy9wb25nIHdlIGRpZCB3aXRoPGJyPg0KdGhlIHNjYW5vdXQgYnVmZmVycy48YnI+DQo8YnI+
-DQpTZWUgd2hlbiBJIHRlc3RlZCB0aGlzIHRoZSBERFggYW5kIE1lc2Egd2hlcmUgdW5tb2RpZmll
-ZCwgc28gYm90aDxicj4NCnN0aWxsIGFzc3VtZWQgVlJBTSBhcyBwbGFjZW1lbnQgZm9yIHNjYW5v
-dXQgQk9zLCBidXQgdGhlIGtlcm5lbDxicj4NCmZvcmNlZCBzY2Fub3V0IEJPcyBpbnRvIEdUVCBm
-b3IgdGVzdGluZy48YnI+DQo8YnI+DQpTbyB3aGF0IGhhcHBlbmVkIHdhcyB0aGF0IG9uIHNjYW5v
-dXQgd2UgbW92ZWQgdGhlIFZSQU0gQk8gdG8gR1RUPG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVv
-dGU+DQo8L2Jsb2NrcXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5hbmQ8bzpwPjwvbzpwPjwv
-cD4NCjxibG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCAjQ0ND
-Q0NDIDEuMHB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFyZ2luLWxlZnQ6NC44cHQ7bWFy
-Z2luLXJpZ2h0OjBpbiI+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxl
-ZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1s
-ZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+YWZ0ZXIg
-dW5waW5uaW5nIGl0IG9uIHRoZSBmaXJzdCBjb21tYW5kIHN1Ym1pc3Npb24gd2hpY2ggdXNlZCB0
-aGUgQk88YnI+DQp3ZSBtb3ZlZCBpdCBiYWNrIHRvIFZSQU0gYWdhaW4uPG86cD48L286cD48L3A+
-DQo8L2Jsb2NrcXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5JbiB0aGUgbWVhbnRpbWUsIEkn
-dmUgaGFkIHRoZSBzYW1lIGlkZWEgYXMgTWFyZWs6IENhbid0IHRoZSBrZXJuZWw8YnI+DQpkcml2
-ZXIgc2ltcGx5IGNoYW5nZSB0aGUgQk8ncyBwcmVmZXJyZWQgZG9tYWluIHRvIEdUVCB3aGVuIHNj
-YW5uaW5nPGJyPg0Kb3V0IGZyb20gaXQ/IFRoZW4gaXQgd29uJ3QgbW92ZSBiYWNrIHRvIFZSQU0u
-PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5ZZXMs
-IEkndmUgY29uc2lkZXJlZCB0aGlzIGFzIHdlbGwuPGJyPg0KPGJyPg0KQnV0IEkgdGhpbmsgbWFr
-aW5nIHRoZSBkZWNpc2lvbiBpbiBNZXNhIGlzIHRoZSBjbGVhbmVyIGFwcHJvYWNoLjxicj4NCjxi
-cj4NCkUuZy4gc28gZmFyIHdlIG9ubHkgb3ZlcnJpZGUgdGhlIHBsYWNlbWVudCBkZWNpc2lvbiBv
-ZiB1c2Vyc3BhY2UgZm9yIHR3bzxicj4NCnJlYXNvbnM6PGJyPg0KMS4gV2Ugd2hlcmUgcnVubmlu
-ZyBvdXQgb2YgbWVtb3J5IGluIFZSQU0uPGJyPg0KMi4gV2UgaGF2ZSBhIGhhcmR3YXJlIHJlc3Ry
-aWN0aW9uIHdoaWNoIG1ha2VzIFZSQU0gdXNhZ2UgbWFuZGF0b3J5Ljxicj4NCjxicj4NCkFuZCBl
-dmVuIHRoZW4gd2UgbmV2ZXIgYWRqdXN0IHRoZSBwbGFjZW1lbnQgcGVybWFuZW50bHksIHdlIGp1
-c3Q8YnI+DQp0ZW1wb3JhcnkgbW92ZWQgdGhlIGJ1ZmZlciB3aGVyZSBpdCB3YXMgbmVlZGVkIGFu
-ZCBtb3ZlZCBpdCBiYWNrIGFmdGVyPGJyPg0KdGhlIG9wZXJhdGlvbiBjb21wbGV0ZWQuPGJyPg0K
-PGJyPg0KQWRkaXRpb25hbCB0byB0aGF0IE1lc2EgbWlnaHQgd2FudCB0byBzZXQgZXZlbiBtb3Jl
-IGZsYWdzIGFuZC9vciBjaGFuZ2VzPGJyPg0KaXQncyBiZWhhdmlvci4gRS5nLiB1c2UgYSB0aWxs
-aW5nIG1vZGUgd2hpY2ggYm90aCBpbXBvcnRlciBhbmQgZXhwb3J0IGluIGFuPGJyPg0KQSYjNDM7
-QSBsYXB0b3AgdW5kZXJzdGFuZHMgZXRjLi4uPGJyPg0KPGJyPg0KUmVnYXJkcyw8YnI+DQpDaHJp
-c3RpYW4uPG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8L2Jsb2NrcXVvdGU+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48YnI+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXzxicj4NCmFtZC1nZnggbWFpbGluZyBsaXN0PGJyPg0KPGEgaHJlZj0ibWFp
-bHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiB0YXJnZXQ9Il9ibGFuayI+YW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8L2E+PGJyPg0KPGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4IiB0YXJnZXQ9Il9ibGFuayI+
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4PC9h
-PjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjwvZGl2Pg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2
-Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+E.g. when scanout from GTT is supported we would like to always set the 
+initial domain as GTT instead of VRAM.
 
---_000_BY1PR12MB0504183ED35A54559D22E041F5D40BY1PR12MB0504namp_--
+Christian.
 
---===============1356565168==
+>
+> Marek
+>
+>
+>     Regards,
+>     Christian.
+>
+>
+>     Am 19.03.2018 um 20:22 schrieb Li, Samuel:
+>
+>         I agree with Marek/Michel: since kernel sets the domain before
+>         scanning out, it shall update the preferred domain here too.
+>
+>         Regards,
+>         Samuel Li
+>
+>
+>             -----Original Message-----
+>             From: Koenig, Christian
+>             Sent: Thursday, March 08, 2018 4:07 AM
+>             To: Michel Dänzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org
+>             <mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org>>; Li, Samuel
+>             <Samuel.Li-5C7GfCeVMHo@public.gmane.org <mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>; Alex
+>             Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+>             Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>             <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
+>             Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather
+>             display support
+>
+>             Am 08.03.2018 um 09:35 schrieb Michel Dänzer:
+>
+>                 On 2018-03-07 10:47 AM, Christian König wrote:
+>
+>                     Am 07.03.2018 um 09:42 schrieb Michel Dänzer:
+>
+>                         On 2018-03-06 07:23 PM, Christian König wrote:
+>
+>                             E.g. the last time I tested it placing
+>                             things into GTT still
+>                             resulted in quite a performance penalty
+>                             for rendering.
+>
+>                         FWIW, I think the penalty is most likely IOMMU
+>                         related. Last time I
+>                         tested, I couldn't measure a big difference
+>                         with IOMMU disabled.
+>
+>                     No, the penalty I'm talking about came from the
+>                     ping/pong we did with
+>                     the scanout buffers.
+>
+>                     See when I tested this the DDX and Mesa where
+>                     unmodified, so both
+>                     still assumed VRAM as placement for scanout BOs,
+>                     but the kernel
+>                     forced scanout BOs into GTT for testing.
+>
+>                     So what happened was that on scanout we moved the
+>                     VRAM BO to GTT
+>
+>             and
+>
+>                     after unpinning it on the first command submission
+>                     which used the BO
+>                     we moved it back to VRAM again.
+>
+>                 In the meantime, I've had the same idea as Marek:
+>                 Can't the kernel
+>                 driver simply change the BO's preferred domain to GTT
+>                 when scanning
+>                 out from it? Then it won't move back to VRAM.
+>
+>             Yes, I've considered this as well.
+>
+>             But I think making the decision in Mesa is the cleaner
+>             approach.
+>
+>             E.g. so far we only override the placement decision of
+>             userspace for two
+>             reasons:
+>             1. We where running out of memory in VRAM.
+>             2. We have a hardware restriction which makes VRAM usage
+>             mandatory.
+>
+>             And even then we never adjust the placement permanently,
+>             we just
+>             temporary moved the buffer where it was needed and moved
+>             it back after
+>             the operation completed.
+>
+>             Additional to that Mesa might want to set even more flags
+>             and/or changes
+>             it's behavior. E.g. use a tilling mode which both importer
+>             and export in an
+>             A+A laptop understands etc...
+>
+>             Regards,
+>             Christian.
+>
+>
+>     _______________________________________________
+>     amd-gfx mailing list
+>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+>
+>
+
+
+--------------9E839B0C481E4268978555FD
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 19.03.2018 um 20:39 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAxE2A5kq2oZtJRm2df1fjtb_p1m2_nvCmzv9y8mbO-GS8cGrw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <div dir="ltr">
+        <div class="gmail_extra">
+          <div class="gmail_quote">On Mon, Mar 19, 2018 at 3:27 PM,
+            Christian König <span dir="ltr">&lt;<a
+                href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target="_blank"
+                moz-do-not-send="true">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
+            wrote:<br>
+            <blockquote class="gmail_quote" style="margin:0 0 0
+              .8ex;border-left:1px #ccc solid;padding-left:1ex">I think
+              that the consensus with Alex and me is that we should
+              avoid exactly that.<br>
+              <br>
+              Overriding the preferred domain in the kernel is a no-go
+              for that patch set, so please implement the discussed
+              changes in Mesa.<br>
+            </blockquote>
+            <div><br>
+            </div>
+            <div>I don't see how Mesa can make a smarter decision than
+              the kernel. If you overwrite the preferred domain of the
+              buffer in the kernel, there will be no ping-ponging
+              between domains. Mesa never changes the initial preferred
+              domain.</div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    Yeah, but it can set the initial domain based on what it knows how
+    the buffer will be used.<br>
+    <br>
+    E.g. when scanout from GTT is supported we would like to always set
+    the initial domain as GTT instead of VRAM.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAAxE2A5kq2oZtJRm2df1fjtb_p1m2_nvCmzv9y8mbO-GS8cGrw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <div dir="ltr">
+        <div class="gmail_extra">
+          <div class="gmail_quote">
+            <div><br>
+            </div>
+            <div>Marek<br>
+            </div>
+            <div><br>
+            </div>
+            <div> </div>
+            <blockquote class="gmail_quote" style="margin:0 0 0
+              .8ex;border-left:1px #ccc solid;padding-left:1ex">
+              <br>
+              Regards,<br>
+              Christian.
+              <div class="m_-5064514954187404218HOEnZb">
+                <div class="m_-5064514954187404218h5"><br>
+                  <br>
+                  Am 19.03.2018 um 20:22 schrieb Li, Samuel:<br>
+                  <blockquote class="gmail_quote" style="margin:0 0 0
+                    .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                    I agree with Marek/Michel: since kernel sets the
+                    domain before scanning out, it shall update the
+                    preferred domain here too.<br>
+                    <br>
+                    Regards,<br>
+                    Samuel Li<br>
+                    <br>
+                    <br>
+                    <blockquote class="gmail_quote" style="margin:0 0 0
+                      .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                      -----Original Message-----<br>
+                      From: Koenig, Christian<br>
+                      Sent: Thursday, March 08, 2018 4:07 AM<br>
+                      To: Michel Dänzer &lt;<a
+                        href="mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org" target="_blank"
+                        moz-do-not-send="true">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;;
+                      Li, Samuel<br>
+                      &lt;<a href="mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org"
+                        target="_blank" moz-do-not-send="true">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+                      Alex Deucher &lt;<a
+                        href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                        target="_blank" moz-do-not-send="true">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+                      Cc: amd-gfx list &lt;<a
+                        href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                        target="_blank" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><wbr>&gt;<br>
+                      Subject: Re: [PATCH 1/2] drm/amdgpu: Enable
+                      scatter gather display support<br>
+                      <br>
+                      Am 08.03.2018 um 09:35 schrieb Michel Dänzer:<br>
+                      <blockquote class="gmail_quote" style="margin:0 0
+                        0 .8ex;border-left:1px #ccc
+                        solid;padding-left:1ex">
+                        On 2018-03-07 10:47 AM, Christian König wrote:<br>
+                        <blockquote class="gmail_quote" style="margin:0
+                          0 0 .8ex;border-left:1px #ccc
+                          solid;padding-left:1ex">
+                          Am 07.03.2018 um 09:42 schrieb Michel Dänzer:<br>
+                          <blockquote class="gmail_quote"
+                            style="margin:0 0 0 .8ex;border-left:1px
+                            #ccc solid;padding-left:1ex">
+                            On 2018-03-06 07:23 PM, Christian König
+                            wrote:<br>
+                            <br>
+                            <blockquote class="gmail_quote"
+                              style="margin:0 0 0 .8ex;border-left:1px
+                              #ccc solid;padding-left:1ex">
+                              E.g. the last time I tested it placing
+                              things into GTT still<br>
+                              resulted in quite a performance penalty
+                              for rendering.<br>
+                            </blockquote>
+                            FWIW, I think the penalty is most likely
+                            IOMMU related. Last time I<br>
+                            tested, I couldn't measure a big difference
+                            with IOMMU disabled.<br>
+                          </blockquote>
+                          No, the penalty I'm talking about came from
+                          the ping/pong we did with<br>
+                          the scanout buffers.<br>
+                          <br>
+                          See when I tested this the DDX and Mesa where
+                          unmodified, so both<br>
+                          still assumed VRAM as placement for scanout
+                          BOs, but the kernel<br>
+                          forced scanout BOs into GTT for testing.<br>
+                          <br>
+                          So what happened was that on scanout we moved
+                          the VRAM BO to GTT<br>
+                        </blockquote>
+                      </blockquote>
+                      and<br>
+                      <blockquote class="gmail_quote" style="margin:0 0
+                        0 .8ex;border-left:1px #ccc
+                        solid;padding-left:1ex">
+                        <blockquote class="gmail_quote" style="margin:0
+                          0 0 .8ex;border-left:1px #ccc
+                          solid;padding-left:1ex">
+                          after unpinning it on the first command
+                          submission which used the BO<br>
+                          we moved it back to VRAM again.<br>
+                        </blockquote>
+                        In the meantime, I've had the same idea as
+                        Marek: Can't the kernel<br>
+                        driver simply change the BO's preferred domain
+                        to GTT when scanning<br>
+                        out from it? Then it won't move back to VRAM.<br>
+                      </blockquote>
+                      Yes, I've considered this as well.<br>
+                      <br>
+                      But I think making the decision in Mesa is the
+                      cleaner approach.<br>
+                      <br>
+                      E.g. so far we only override the placement
+                      decision of userspace for two<br>
+                      reasons:<br>
+                      1. We where running out of memory in VRAM.<br>
+                      2. We have a hardware restriction which makes VRAM
+                      usage mandatory.<br>
+                      <br>
+                      And even then we never adjust the placement
+                      permanently, we just<br>
+                      temporary moved the buffer where it was needed and
+                      moved it back after<br>
+                      the operation completed.<br>
+                      <br>
+                      Additional to that Mesa might want to set even
+                      more flags and/or changes<br>
+                      it's behavior. E.g. use a tilling mode which both
+                      importer and export in an<br>
+                      A+A laptop understands etc...<br>
+                      <br>
+                      Regards,<br>
+                      Christian.<br>
+                    </blockquote>
+                  </blockquote>
+                  <br>
+                  ______________________________<wbr>_________________<br>
+                  amd-gfx mailing list<br>
+                  <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                    target="_blank" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <a
+                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                    rel="noreferrer" target="_blank"
+                    moz-do-not-send="true">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
+                </div>
+              </div>
+            </blockquote>
+          </div>
+          <br>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------9E839B0C481E4268978555FD--
+
+--===============1363364177==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -307,4 +403,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1356565168==--
+--===============1363364177==--
