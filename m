@@ -1,7 +1,7 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-Date: Mon, 19 Mar 2018 19:54:25 +0000
-Message-ID: <BN6PR12MB18099E7295CB0301EF536924F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
+Date: Mon, 19 Mar 2018 19:58:52 +0000
+Message-ID: <BY1PR12MB05042F8034B375BAB507EB03F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
 References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
  <898d3377-ee2b-a33d-dbff-b4cb692d650d@amd.com>
  <BY1PR12MB050407EA9472CB2B6E101CE7F5D90@BY1PR12MB0504.namprd12.prod.outlook.com>
@@ -20,10 +20,11 @@ References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
  <BY1PR12MB0504183ED35A54559D22E041F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
  <f25ebe1d-0b19-e972-5eba-84570e625456@gmail.com>,
  <BY1PR12MB05044A2A50F2580904C8AFB5F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
+ <BN6PR12MB18099E7295CB0301EF536924F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1061247716=="
+Content-Type: multipart/mixed; boundary="===============1113975179=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY1PR12MB05044A2A50F2580904C8AFB5F5D40-PicGAnIBOoZIlHzfMOeg3gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BN6PR12MB18099E7295CB0301EF536924F7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -35,29 +36,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, =?Windows-1252?Q?Marek_Ol=9A=E1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?Windows-1252?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-2?Q?Marek_Ol=B9=E1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?iso-8859-2?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1061247716==
+--===============1113975179==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18099E7295CB0301EF536924F7D40BN6PR12MB1809namp_"
+	boundary="_000_BY1PR12MB05042F8034B375BAB507EB03F5D40BY1PR12MB0504namp_"
 
---_000_BN6PR12MB18099E7295CB0301EF536924F7D40BN6PR12MB1809namp_
-Content-Type: text/plain; charset="Windows-1252"
+--_000_BY1PR12MB05042F8034B375BAB507EB03F5D40BY1PR12MB0504namp_
+Content-Type: text/plain; charset="iso-8859-2"
 Content-Transfer-Encoding: quoted-printable
+
+Alex,
+
+I assume you are talking the three scenarios here, 1)VRAM, 2)GTT, 3)VRAM/GT=
+T.
+But kernel will need the decision too(amdgpufb). I think it shall be better=
+ to do it in kernel, instead of different clients(mesa, ddx, kernel ...)
+
+Regards,
+Samuel Li
+
+From: Deucher, Alexander
+Sent: Monday, March 19, 2018 3:54 PM
+To: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian <Christian.Koenig@amd=
+.com>; Marek Ol=B9=E1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Michel D=E4nzer <michel@daenzer.n=
+et>; amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
+
 
 My personal preference is still to plumb this through to mesa rather than f=
 orcing it in the kernel.
 
 
+
 Alex
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Li, Samu=
-el <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org<mailto:=
+Samuel.Li-5C7GfCeVMHo@public.gmane.org>>
 Sent: Monday, March 19, 2018 3:50:34 PM
-To: Koenig, Christian; Marek Ol=9A=E1k
+To: Koenig, Christian; Marek Ol=B9=E1k
 Cc: Alex Deucher; Michel D=E4nzer; amd-gfx list
 Subject: RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
 
@@ -66,7 +88,7 @@ Christian,
 
 
 
-You misunderstood Alex=92s comments,
+You misunderstood Alex's comments,
 
 
 
@@ -96,16 +118,17 @@ Samuel Li
 
 From: Christian K=F6nig [mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
 Sent: Monday, March 19, 2018 3:45 PM
-To: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org>; Marek Ol=9A=E1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Koe=
-nig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Michel D=E4nzer <michel@daenzer.n=
-et>; amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org<mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>; Marek Ol=B9=
+=E1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; Koenig, Christian <Christ=
+ian.Koenig-5C7GfCeVMHo@public.gmane.org<mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org>>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; Mic=
+hel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org<mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org>>; amd-gfx list =
+<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
 Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
 
 
 
 Quoting Alex:
-
 
 Regardless of which scenarios we need to support, I think we also need
 
@@ -136,9 +159,8 @@ Agreed.
 
 >I think that the consensus with Alex and me is that we should avoid exactl=
 y that.
-Christian, Alex=92s concern is about ping-pong, not about the preferred dom=
-ain.
-
+Christian, Alex's concern is about ping-pong, not about the preferred domai=
+n.
 
 
 Regards,
@@ -147,7 +169,7 @@ Samuel Li
 
 
 
-From: Marek Ol=9A=E1k [mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+From: Marek Ol=B9=E1k [mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
 Sent: Monday, March 19, 2018 3:39 PM
 To: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org><mailto:Christian.Koenig@am=
 d.com>
@@ -194,7 +216,6 @@ I agree with Marek/Michel: since kernel sets the domain before scanning out=
 
 Regards,
 Samuel Li
-
 
 
 -----Original Message-----
@@ -269,7 +290,6 @@ https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
 
-
 _______________________________________________
 
 amd-gfx mailing list
@@ -280,167 +300,281 @@ https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
 
---_000_BN6PR12MB18099E7295CB0301EF536924F7D40BN6PR12MB1809namp_
-Content-Type: text/html; charset="Windows-1252"
+--_000_BY1PR12MB05042F8034B375BAB507EB03F5D40BY1PR12MB0504namp_
+Content-Type: text/html; charset="iso-8859-2"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">My personal preference is still t=
-o plumb this through to mesa rather than forcing it in the kernel.<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Li, Samuel &lt;Samuel.Li@amd.=
-com&gt;<br>
-<b>Sent:</b> Monday, March 19, 2018 3:50:34 PM<br>
-<b>To:</b> Koenig, Christian; Marek Ol=9A=E1k<br>
-<b>Cc:</b> Alex Deucher; Michel D=E4nzer; amd-gfx list<br>
-<b>Subject:</b> RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
-upport</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+2">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
 @font-face
-	{font-family:SimSun}
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:"Cambria Math"}
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:Calibri}
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:Consolas}
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
 @font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black}
-a:x_link, span.x_MsoHyperlink
-	{color:blue;
-	text-decoration:underline}
-a:x_visited, span.x_MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline}
+	font-family:"Times New Roman",serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
 pre
-	{margin:0in;
+	{mso-style-priority:99;
+	mso-style-link:"HTML Preformatted Char";
+	margin:0in;
 	margin-bottom:.0001pt;
 	font-size:10.0pt;
 	font-family:"Courier New";
-	color:black}
-span.x_HTMLPreformattedChar
-	{font-family:Consolas;
-	color:black}
-span.x_EmailStyle19
-	{font-family:"Calibri",sans-serif;
-	color:#2F5496}
-span.x_EmailStyle20
-	{font-family:"Calibri",sans-serif;
-	color:#2F5496}
-.x_MsoChpDefault
-	{font-size:10.0pt}
+	color:black;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-priority:99;
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+p.xmsochpdefault, li.xmsochpdefault, div.xmsochpdefault
+	{mso-style-name:x_msochpdefault;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+span.xhtmlpreformattedchar
+	{mso-style-name:x_htmlpreformattedchar;
+	font-family:Consolas;
+	color:black;}
+span.xemailstyle19
+	{mso-style-name:x_emailstyle19;
+	font-family:"Calibri",sans-serif;
+	color:#2F5496;}
+span.xemailstyle20
+	{mso-style-name:x_emailstyle20;
+	font-family:"Calibri",sans-serif;
+	color:#2F5496;}
+span.EmailStyle25
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#2F5496;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
 @page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"background-colo=
-r:white">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">Christian,</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">You misunderstood Alex=92s commen=
-ts,</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">&nbsp;</span></p>
-<pre>&gt;Regardless of which scenarios we need to support, I think we also =
-need</pre>
-<pre>&gt;to really plumb this through to mesa however since user space is w=
-ho</pre>
-<pre>&gt;ultimately requests the location.&nbsp; Overriding it in the kerne=
-l gets</pre>
-<pre>&gt;tricky and can lead to ping-ponging as others have noted.&nbsp; Be=
-tter to</pre>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">Here Alex mentioned the scenarios=
- is 1)VRAM, 2)GTT, 3)VRAM/GTT.</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">His concern is this might cause p=
-ing-pong, not about preferred domain. Since preferred domain can solve the =
-ping-pong issue, it shall address his concern
- here.</span></p>
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496">Alex,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496">I assume you are talking the three sc=
+enarios here,
+</span><span style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,sans=
+-serif;color:#2F5496">1)VRAM, 2)GTT, 3)VRAM/GTT.</span><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496"><o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496">But kernel will need the decision too=
+(amdgpufb). I think it shall be better to do it in kernel, instead of diffe=
+rent clients(mesa, ddx, kernel &#8230;)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496">Regards,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496">Samuel Li<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
 <div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">Regards,</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">Samuel Li</span></p>
-</div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">&nbsp;</span></p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
-uot;Calibri&quot;,sans-serif; color:windowtext">From:</span></b><span style=
-=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:win=
-dowtext"> Christian K=F6nig [mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Deucher, Alexander
 <br>
-<b>Sent:</b> Monday, March 19, 2018 3:45 PM<br>
-<b>To:</b> Li, Samuel &lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;; Marek Ol=9A=E1k &lt;maraeo=
-@gmail.com&gt;; Koenig, Christian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, March 19, 2018 3:54 PM<br>
+<b>To:</b> Li, Samuel &lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian &lt;Chri=
+stian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;; Marek Ol=B9=E1k &lt;maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
 <b>Cc:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Michel D=E4nzer &lt;=
 michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;; amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<=
 br>
 <b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
-upport</span></p>
+upport<o:p></o:p></span></p>
 </div>
 </div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">M=
+y personal preference is still to plumb this through to mesa rather than fo=
+rcing it in the kernel.<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
+o:p>&nbsp;</o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">A=
+lex<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> amd-gf=
+x &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-boun=
+ces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+ on behalf of Li, Samuel &lt;<a href=3D"mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org">Samuel.Li=
+@amd.com</a>&gt;<br>
+<b>Sent:</b> Monday, March 19, 2018 3:50:34 PM<br>
+<b>To:</b> Koenig, Christian; Marek Ol=B9=E1k<br>
+<b>Cc:</b> Alex Deucher; Michel D=E4nzer; amd-gfx list<br>
+<b>Subject:</b> RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
+upport</span>
+<o:p></o:p></p>
 <div>
-<p class=3D"x_MsoNormal">Quoting Alex:<br>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Christian=
+,</span><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">&nbsp;</s=
+pan><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">You misun=
+derstood Alex&#8217;s comments,</span><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">&nbsp;</s=
+pan><o:p></o:p></p>
+<pre style=3D"background:white">&gt;Regardless of which scenarios we need t=
+o support, I think we also need<o:p></o:p></pre>
+<pre style=3D"background:white">&gt;to really plumb this through to mesa ho=
+wever since user space is who<o:p></o:p></pre>
+<pre style=3D"background:white">&gt;ultimately requests the location.&nbsp;=
+ Overriding it in the kernel gets<o:p></o:p></pre>
+<pre style=3D"background:white">&gt;tricky and can lead to ping-ponging as =
+others have noted.&nbsp; Better to<o:p></o:p></pre>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">&nbsp;</s=
+pan><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Here Alex=
+ mentioned the scenarios is 1)VRAM, 2)GTT, 3)VRAM/GTT.</span><o:p></o:p></p=
+>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">His conce=
+rn is this might cause ping-pong, not about preferred domain. Since preferr=
+ed domain can solve the ping-pong issue, it shall
+ address his concern here.</span><o:p></o:p></p>
+<div>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">&nbsp;</s=
+pan><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Regards,<=
+/span><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Samuel Li=
+</span><o:p></o:p></p>
+</div>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">&nbsp;</s=
+pan><o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal" style=3D"background:white"><b><span style=3D"font-s=
+ize:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext">Fro=
+m:</span></b><span style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot=
+;,sans-serif;color:windowtext"> Christian K=F6nig [<a href=3D"mailto:ckoeni=
+g.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]
 <br>
-</p>
-<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
-<pre>Regardless of which scenarios we need to support, I think we also need=
-</pre>
-<pre>to really plumb this through to mesa however since user space is who</=
-pre>
-<pre>ultimately requests the location.&nbsp; Overriding it in the kernel ge=
-ts</pre>
-<pre>tricky and can lead to ping-ponging as others have noted.&nbsp; Better=
- to</pre>
-<pre>have user space know what chips support it or not and request display<=
-/pre>
-<pre>buffers in GTT or VRAM from the start.</pre>
+<b>Sent:</b> Monday, March 19, 2018 3:45 PM<br>
+<b>To:</b> Li, Samuel &lt;<a href=3D"mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org">Samuel.Li@am=
+d.com</a>&gt;; Marek Ol=B9=E1k &lt;<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mara=
+eo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Christian.Koe=
+nig-5C7GfCeVMHo@public.gmane.org">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>Cc:</b> Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexde=
+ucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;; Michel D=E4nzer &lt;<a href=3D"mailto:michel@daenz=
+er.net">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;; amd-gfx list &lt;<a href=3D"mailto:amd-=
+gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
+upport</span><o:p></o:p></p>
+</div>
+</div>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<div>
+<p class=3D"xmsonormal" style=3D"margin-bottom:12.0pt;background:white">Quo=
+ting Alex:<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<pre style=3D"background:white">Regardless of which scenarios we need to su=
+pport, I think we also need<o:p></o:p></pre>
+<pre style=3D"background:white">to really plumb this through to mesa howeve=
+r since user space is who<o:p></o:p></pre>
+<pre style=3D"background:white">ultimately requests the location.&nbsp; Ove=
+rriding it in the kernel gets<o:p></o:p></pre>
+<pre style=3D"background:white">tricky and can lead to ping-ponging as othe=
+rs have noted.&nbsp; Better to<o:p></o:p></pre>
+<pre style=3D"background:white">have user space know what chips support it =
+or not and request display<o:p></o:p></pre>
+<pre style=3D"background:white">buffers in GTT or VRAM from the start.<o:p>=
+</o:p></pre>
 </blockquote>
-<p class=3D"x_MsoNormal">And I completely agree with Alex here. So overridi=
-ng the domain in the kernel is a serious NAK from my side as well.<br>
+<p class=3D"xmsonormal" style=3D"background:white">And I completely agree w=
+ith Alex here. So overriding the domain in the kernel is a serious NAK from=
+ my side as well.<br>
 <br>
 Please implement the necessary bits in Mesa, shouldn't be more than a few l=
 ines of code anyway.<br>
@@ -448,35 +582,41 @@ ines of code anyway.<br>
 Regards,<br>
 Christian.<br>
 <br>
-Am 19.03.2018 um 20:42 schrieb Li, Samuel:</p>
+Am 19.03.2018 um 20:42 schrieb Li, Samuel:<o:p></o:p></p>
 </div>
-<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">Agreed.</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">&nbsp;</span></p>
-<p class=3D"x_MsoNormal">&gt;I think that the consensus with Alex and me is=
- that we should avoid exactly that.<br>
-Christian, Alex=92s concern is about ping-pong, not about the preferred dom=
-ain. <br>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Agreed.</=
+span><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">&nbsp;</s=
+pan><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"margin-bottom:12.0pt;background:white">&gt=
+;I think that the consensus with Alex and me is that we should avoid exactl=
+y that.<br>
+Christian, Alex&#8217;s concern is about ping-pong, not about the preferred=
+ domain. <br>
 <br>
-<br>
-</p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">Regards,</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">Samuel Li</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
-;Calibri&quot;,sans-serif; color:#2F5496">&nbsp;</span></p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
+<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Regards,<=
+/span><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">Samuel Li=
+</span><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white"><span style=3D"font-size=
+:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#2F5496">&nbsp;</s=
+pan><o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
 <div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
-uot;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0=
-pt; font-family:&quot;Calibri&quot;,sans-serif"> Marek Ol=9A=E1k [<a href=
-=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal" style=3D"background:white"><b><span style=3D"font-s=
+ize:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><spa=
+n style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif"> Ma=
+rek Ol=B9=E1k [<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<=
+/a>]
 <br>
 <b>Sent:</b> Monday, March 19, 2018 3:39 PM<br>
 <b>To:</b> Koenig, Christian <a href=3D"mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&l=
@@ -489,73 +629,74 @@ Deucher <a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
 ists.freedesktop.org">
 &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
 <b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
-upport</span></p>
+upport</span><o:p></o:p></p>
 </div>
 </div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
 <div>
 <div>
 <div>
-<p class=3D"x_MsoNormal">On Mon, Mar 19, 2018 at 3:27 PM, Christian K=F6nig=
- &lt;<a href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">christia=
-n.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:</p>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal">I think that the consensus with Alex and me is tha=
-t we should avoid exactly that.<br>
+<p class=3D"xmsonormal" style=3D"background:white">On Mon, Mar 19, 2018 at =
+3:27 PM, Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" =
+target=3D"_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white">I think that the consens=
+us with Alex and me is that we should avoid exactly that.<br>
 <br>
 Overriding the preferred domain in the kernel is a no-go for that patch set=
-, so please implement the discussed changes in Mesa.</p>
+, so please implement the discussed changes in Mesa.<o:p></o:p></p>
 </blockquote>
 <div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal">I don't see how Mesa can make a smarter decision t=
-han the kernel. If you overwrite the preferred domain of the buffer in the =
-kernel, there will be no ping-ponging between domains. Mesa never changes t=
-he initial preferred domain.</p>
+<p class=3D"xmsonormal" style=3D"background:white">I don't see how Mesa can=
+ make a smarter decision than the kernel. If you overwrite the preferred do=
+main of the buffer in the kernel, there will be no ping-ponging between dom=
+ains. Mesa never changes the initial
+ preferred domain.<o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal">Marek</p>
+<p class=3D"xmsonormal" style=3D"background:white">Marek<o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
 </div>
 <div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
 </div>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal"><br>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white"><br>
 Regards,<br>
-Christian.</p>
+Christian.<o:p></o:p></p>
 <div>
 <div>
-<p class=3D"x_MsoNormal"><br>
+<p class=3D"xmsonormal" style=3D"background:white"><br>
 <br>
-Am 19.03.2018 um 20:22 schrieb Li, Samuel:</p>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt">I agree with Marek/=
-Michel: since kernel sets the domain before scanning out, it shall update t=
-he preferred domain here too.<br>
+Am 19.03.2018 um 20:22 schrieb Li, Samuel:<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"margin-bottom:12.0pt;background:white">I a=
+gree with Marek/Michel: since kernel sets the domain before scanning out, i=
+t shall update the preferred domain here too.<br>
 <br>
 Regards,<br>
 Samuel Li<br>
 <br>
-<br>
-</p>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal">-----Original Message-----<br>
+<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white">-----Original Message---=
+--<br>
 From: Koenig, Christian<br>
 Sent: Thursday, March 08, 2018 4:07 AM<br>
 To: Michel D=E4nzer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org" target=3D"_bl=
@@ -568,61 +709,64 @@ t=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<b
 Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support<=
 br>
 <br>
-Am 08.03.2018 um 09:35 schrieb Michel D=E4nzer:</p>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal">On 2018-03-07 10:47 AM, Christian K=F6nig wrote:</=
-p>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal">Am 07.03.2018 um 09:42 schrieb Michel D=E4nzer:</p=
->
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt">On 2018-03-06 07:23=
- PM, Christian K=F6nig wrote:</p>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal">E.g. the last time I tested it placing things into=
- GTT still<br>
-resulted in quite a performance penalty for rendering.</p>
+Am 08.03.2018 um 09:35 schrieb Michel D=E4nzer:<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white">On 2018-03-07 10:47 AM, =
+Christian K=F6nig wrote:<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white">Am 07.03.2018 um 09:42 s=
+chrieb Michel D=E4nzer:<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"margin-bottom:12.0pt;background:white">On =
+2018-03-06 07:23 PM, Christian K=F6nig wrote:<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white">E.g. the last time I tes=
+ted it placing things into GTT still<br>
+resulted in quite a performance penalty for rendering.<o:p></o:p></p>
 </blockquote>
-<p class=3D"x_MsoNormal">FWIW, I think the penalty is most likely IOMMU rel=
-ated. Last time I<br>
-tested, I couldn't measure a big difference with IOMMU disabled.</p>
+<p class=3D"xmsonormal" style=3D"background:white">FWIW, I think the penalt=
+y is most likely IOMMU related. Last time I<br>
+tested, I couldn't measure a big difference with IOMMU disabled.<o:p></o:p>=
+</p>
 </blockquote>
-<p class=3D"x_MsoNormal">No, the penalty I'm talking about came from the pi=
-ng/pong we did with<br>
+<p class=3D"xmsonormal" style=3D"background:white">No, the penalty I'm talk=
+ing about came from the ping/pong we did with<br>
 the scanout buffers.<br>
 <br>
 See when I tested this the DDX and Mesa where unmodified, so both<br>
 still assumed VRAM as placement for scanout BOs, but the kernel<br>
 forced scanout BOs into GTT for testing.<br>
 <br>
-So what happened was that on scanout we moved the VRAM BO to GTT</p>
+So what happened was that on scanout we moved the VRAM BO to GTT<o:p></o:p>=
+</p>
 </blockquote>
 </blockquote>
-<p class=3D"x_MsoNormal">and</p>
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<blockquote style=3D"border:none; border-left:solid #CCCCCC 1.0pt; padding:=
-0in 0in 0in 6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; m=
-argin-bottom:5.0pt">
-<p class=3D"x_MsoNormal">after unpinning it on the first command submission=
- which used the BO<br>
-we moved it back to VRAM again.</p>
+<p class=3D"xmsonormal" style=3D"background:white">and<o:p></o:p></p>
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
+bottom:5.0pt">
+<p class=3D"xmsonormal" style=3D"background:white">after unpinning it on th=
+e first command submission which used the BO<br>
+we moved it back to VRAM again.<o:p></o:p></p>
 </blockquote>
-<p class=3D"x_MsoNormal">In the meantime, I've had the same idea as Marek: =
-Can't the kernel<br>
+<p class=3D"xmsonormal" style=3D"background:white">In the meantime, I've ha=
+d the same idea as Marek: Can't the kernel<br>
 driver simply change the BO's preferred domain to GTT when scanning<br>
-out from it? Then it won't move back to VRAM.</p>
+out from it? Then it won't move back to VRAM.<o:p></o:p></p>
 </blockquote>
-<p class=3D"x_MsoNormal">Yes, I've considered this as well.<br>
+<p class=3D"xmsonormal" style=3D"background:white">Yes, I've considered thi=
+s as well.<br>
 <br>
 But I think making the decision in Mesa is the cleaner approach.<br>
 <br>
@@ -643,45 +787,50 @@ it's behavior. E.g. use a tilling mode which both importer and export in an=
 A&#43;A laptop understands etc...<br>
 <br>
 Regards,<br>
-Christian.</p>
+Christian.<o:p></o:p></p>
 </blockquote>
 </blockquote>
-<p class=3D"x_MsoNormal"><br>
+<p class=3D"xmsonormal" style=3D"background:white"><br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
 <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
 lists.freedesktop.org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target=
-=3D"_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></p>
+=3D"_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p>=
+</o:p></p>
 </div>
 </div>
 </blockquote>
 </div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
 </div>
 </div>
 </div>
-<p class=3D"x_MsoNormal"><br>
+<p class=3D"xmsonormal" style=3D"margin-bottom:12.0pt;background:white"><br=
+>
 <br>
-<br>
-</p>
-<pre>_______________________________________________</pre>
-<pre>amd-gfx mailing list</pre>
-<pre><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org</a></pre>
-<pre><a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
+<o:p></o:p></p>
+<pre style=3D"background:white">___________________________________________=
+____<o:p></o:p></pre>
+<pre style=3D"background:white">amd-gfx mailing list<o:p></o:p></pre>
+<pre style=3D"background:white"><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
+.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><o:p></o:p></pre>
+<pre style=3D"background:white"><a href=3D"https://lists.freedesktop.org/ma=
+ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
+gfx</a><o:p></o:p></pre>
 </blockquote>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </body>
 </html>
 
---_000_BN6PR12MB18099E7295CB0301EF536924F7D40BN6PR12MB1809namp_--
+--_000_BY1PR12MB05042F8034B375BAB507EB03F5D40BY1PR12MB0504namp_--
 
---===============1061247716==
+--===============1113975179==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -691,4 +840,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1061247716==--
+--===============1113975179==--
