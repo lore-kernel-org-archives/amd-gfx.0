@@ -1,7 +1,7 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-Date: Mon, 19 Mar 2018 20:27:34 +0100
-Message-ID: <2c995c37-0d0b-8fde-0118-57d7a62630ef@amd.com>
+Date: Mon, 19 Mar 2018 15:39:07 -0400
+Message-ID: <CAAxE2A5kq2oZtJRm2df1fjtb_p1m2_nvCmzv9y8mbO-GS8cGrw@mail.gmail.com>
 References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
  <3f0a85f6-ac67-cd8c-716e-1c1655d40226@gmail.com>
  <c23ddc4b-c785-be3b-8321-416bb8417b6d@amd.com>
@@ -19,12 +19,11 @@ References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
  <1b643a78-d86a-b3bf-5f92-089a43201dd5@daenzer.net>
  <06e9160c-b4d4-6c3a-ff9f-04b40b94c7a0@amd.com>
  <BY1PR12MB0504A300C476CC31C59BFE97F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
+ <2c995c37-0d0b-8fde-0118-57d7a62630ef@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0976878024=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY1PR12MB0504A300C476CC31C59BFE97F5D40-PicGAnIBOoZIlHzfMOeg3gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <2c995c37-0d0b-8fde-0118-57d7a62630ef-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -35,56 +34,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 
-SSB0aGluayB0aGF0IHRoZSBjb25zZW5zdXMgd2l0aCBBbGV4IGFuZCBtZSBpcyB0aGF0IHdlIHNo
-b3VsZCBhdm9pZCAKZXhhY3RseSB0aGF0LgoKT3ZlcnJpZGluZyB0aGUgcHJlZmVycmVkIGRvbWFp
-biBpbiB0aGUga2VybmVsIGlzIGEgbm8tZ28gZm9yIHRoYXQgcGF0Y2ggCnNldCwgc28gcGxlYXNl
-IGltcGxlbWVudCB0aGUgZGlzY3Vzc2VkIGNoYW5nZXMgaW4gTWVzYS4KClJlZ2FyZHMsCkNocmlz
-dGlhbi4KCkFtIDE5LjAzLjIwMTggdW0gMjA6MjIgc2NocmllYiBMaSwgU2FtdWVsOgo+IEkgYWdy
-ZWUgd2l0aCBNYXJlay9NaWNoZWw6IHNpbmNlIGtlcm5lbCBzZXRzIHRoZSBkb21haW4gYmVmb3Jl
-IHNjYW5uaW5nIG91dCwgaXQgc2hhbGwgdXBkYXRlIHRoZSBwcmVmZXJyZWQgZG9tYWluIGhlcmUg
-dG9vLgo+Cj4gUmVnYXJkcywKPiBTYW11ZWwgTGkKPgo+Cj4+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tCj4+IEZyb206IEtvZW5pZywgQ2hyaXN0aWFuCj4+IFNlbnQ6IFRodXJzZGF5LCBNYXJj
-aCAwOCwgMjAxOCA0OjA3IEFNCj4+IFRvOiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIu
-bmV0PjsgTGksIFNhbXVlbAo+PiA8U2FtdWVsLkxpQGFtZC5jb20+OyBBbGV4IERldWNoZXIgPGFs
-ZXhkZXVjaGVyQGdtYWlsLmNvbT4KPj4gQ2M6IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmc+Cj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiBF
-bmFibGUgc2NhdHRlciBnYXRoZXIgZGlzcGxheSBzdXBwb3J0Cj4+Cj4+IEFtIDA4LjAzLjIwMTgg
-dW0gMDk6MzUgc2NocmllYiBNaWNoZWwgRMOkbnplcjoKPj4+IE9uIDIwMTgtMDMtMDcgMTA6NDcg
-QU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gQW0gMDcuMDMuMjAxOCB1bSAwOTo0MiBz
-Y2hyaWViIE1pY2hlbCBEw6RuemVyOgo+Pj4+PiBPbiAyMDE4LTAzLTA2IDA3OjIzIFBNLCBDaHJp
-c3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pgo+Pj4+Pj4gRS5nLiB0aGUgbGFzdCB0aW1lIEkgdGVz
-dGVkIGl0IHBsYWNpbmcgdGhpbmdzIGludG8gR1RUIHN0aWxsCj4+Pj4+PiByZXN1bHRlZCBpbiBx
-dWl0ZSBhIHBlcmZvcm1hbmNlIHBlbmFsdHkgZm9yIHJlbmRlcmluZy4KPj4+Pj4gRldJVywgSSB0
-aGluayB0aGUgcGVuYWx0eSBpcyBtb3N0IGxpa2VseSBJT01NVSByZWxhdGVkLiBMYXN0IHRpbWUg
-SQo+Pj4+PiB0ZXN0ZWQsIEkgY291bGRuJ3QgbWVhc3VyZSBhIGJpZyBkaWZmZXJlbmNlIHdpdGgg
-SU9NTVUgZGlzYWJsZWQuCj4+Pj4gTm8sIHRoZSBwZW5hbHR5IEknbSB0YWxraW5nIGFib3V0IGNh
-bWUgZnJvbSB0aGUgcGluZy9wb25nIHdlIGRpZCB3aXRoCj4+Pj4gdGhlIHNjYW5vdXQgYnVmZmVy
-cy4KPj4+Pgo+Pj4+IFNlZSB3aGVuIEkgdGVzdGVkIHRoaXMgdGhlIEREWCBhbmQgTWVzYSB3aGVy
-ZSB1bm1vZGlmaWVkLCBzbyBib3RoCj4+Pj4gc3RpbGwgYXNzdW1lZCBWUkFNIGFzIHBsYWNlbWVu
-dCBmb3Igc2Nhbm91dCBCT3MsIGJ1dCB0aGUga2VybmVsCj4+Pj4gZm9yY2VkIHNjYW5vdXQgQk9z
-IGludG8gR1RUIGZvciB0ZXN0aW5nLgo+Pj4+Cj4+Pj4gU28gd2hhdCBoYXBwZW5lZCB3YXMgdGhh
-dCBvbiBzY2Fub3V0IHdlIG1vdmVkIHRoZSBWUkFNIEJPIHRvIEdUVAo+PiBhbmQKPj4+PiBhZnRl
-ciB1bnBpbm5pbmcgaXQgb24gdGhlIGZpcnN0IGNvbW1hbmQgc3VibWlzc2lvbiB3aGljaCB1c2Vk
-IHRoZSBCTwo+Pj4+IHdlIG1vdmVkIGl0IGJhY2sgdG8gVlJBTSBhZ2Fpbi4KPj4+IEluIHRoZSBt
-ZWFudGltZSwgSSd2ZSBoYWQgdGhlIHNhbWUgaWRlYSBhcyBNYXJlazogQ2FuJ3QgdGhlIGtlcm5l
-bAo+Pj4gZHJpdmVyIHNpbXBseSBjaGFuZ2UgdGhlIEJPJ3MgcHJlZmVycmVkIGRvbWFpbiB0byBH
-VFQgd2hlbiBzY2FubmluZwo+Pj4gb3V0IGZyb20gaXQ/IFRoZW4gaXQgd29uJ3QgbW92ZSBiYWNr
-IHRvIFZSQU0uCj4+IFllcywgSSd2ZSBjb25zaWRlcmVkIHRoaXMgYXMgd2VsbC4KPj4KPj4gQnV0
-IEkgdGhpbmsgbWFraW5nIHRoZSBkZWNpc2lvbiBpbiBNZXNhIGlzIHRoZSBjbGVhbmVyIGFwcHJv
-YWNoLgo+Pgo+PiBFLmcuIHNvIGZhciB3ZSBvbmx5IG92ZXJyaWRlIHRoZSBwbGFjZW1lbnQgZGVj
-aXNpb24gb2YgdXNlcnNwYWNlIGZvciB0d28KPj4gcmVhc29uczoKPj4gMS4gV2Ugd2hlcmUgcnVu
-bmluZyBvdXQgb2YgbWVtb3J5IGluIFZSQU0uCj4+IDIuIFdlIGhhdmUgYSBoYXJkd2FyZSByZXN0
-cmljdGlvbiB3aGljaCBtYWtlcyBWUkFNIHVzYWdlIG1hbmRhdG9yeS4KPj4KPj4gQW5kIGV2ZW4g
-dGhlbiB3ZSBuZXZlciBhZGp1c3QgdGhlIHBsYWNlbWVudCBwZXJtYW5lbnRseSwgd2UganVzdAo+
-PiB0ZW1wb3JhcnkgbW92ZWQgdGhlIGJ1ZmZlciB3aGVyZSBpdCB3YXMgbmVlZGVkIGFuZCBtb3Zl
-ZCBpdCBiYWNrIGFmdGVyCj4+IHRoZSBvcGVyYXRpb24gY29tcGxldGVkLgo+Pgo+PiBBZGRpdGlv
-bmFsIHRvIHRoYXQgTWVzYSBtaWdodCB3YW50IHRvIHNldCBldmVuIG1vcmUgZmxhZ3MgYW5kL29y
-IGNoYW5nZXMKPj4gaXQncyBiZWhhdmlvci4gRS5nLiB1c2UgYSB0aWxsaW5nIG1vZGUgd2hpY2gg
-Ym90aCBpbXBvcnRlciBhbmQgZXhwb3J0IGluIGFuCj4+IEErQSBsYXB0b3AgdW5kZXJzdGFuZHMg
-ZXRjLi4uCj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0976878024==
+Content-Type: multipart/alternative; boundary="001a113f139ceacf630567c91e85"
+
+--001a113f139ceacf630567c91e85
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Mar 19, 2018 at 3:27 PM, Christian K=C3=B6nig <christian.koenig@amd=
+.com>
+wrote:
+
+> I think that the consensus with Alex and me is that we should avoid
+> exactly that.
+>
+> Overriding the preferred domain in the kernel is a no-go for that patch
+> set, so please implement the discussed changes in Mesa.
+>
+
+I don't see how Mesa can make a smarter decision than the kernel. If you
+overwrite the preferred domain of the buffer in the kernel, there will be
+no ping-ponging between domains. Mesa never changes the initial preferred
+domain.
+
+Marek
+
+
+
+>
+> Regards,
+> Christian.
+>
+>
+> Am 19.03.2018 um 20:22 schrieb Li, Samuel:
+>
+>> I agree with Marek/Michel: since kernel sets the domain before scanning
+>> out, it shall update the preferred domain here too.
+>>
+>> Regards,
+>> Samuel Li
+>>
+>>
+>> -----Original Message-----
+>>> From: Koenig, Christian
+>>> Sent: Thursday, March 08, 2018 4:07 AM
+>>> To: Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>; Li, Samuel
+>>> <Samuel.Li-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>> Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>>> Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display
+>>> support
+>>>
+>>> Am 08.03.2018 um 09:35 schrieb Michel D=C3=A4nzer:
+>>>
+>>>> On 2018-03-07 10:47 AM, Christian K=C3=B6nig wrote:
+>>>>
+>>>>> Am 07.03.2018 um 09:42 schrieb Michel D=C3=A4nzer:
+>>>>>
+>>>>>> On 2018-03-06 07:23 PM, Christian K=C3=B6nig wrote:
+>>>>>>
+>>>>>> E.g. the last time I tested it placing things into GTT still
+>>>>>>> resulted in quite a performance penalty for rendering.
+>>>>>>>
+>>>>>> FWIW, I think the penalty is most likely IOMMU related. Last time I
+>>>>>> tested, I couldn't measure a big difference with IOMMU disabled.
+>>>>>>
+>>>>> No, the penalty I'm talking about came from the ping/pong we did with
+>>>>> the scanout buffers.
+>>>>>
+>>>>> See when I tested this the DDX and Mesa where unmodified, so both
+>>>>> still assumed VRAM as placement for scanout BOs, but the kernel
+>>>>> forced scanout BOs into GTT for testing.
+>>>>>
+>>>>> So what happened was that on scanout we moved the VRAM BO to GTT
+>>>>>
+>>>> and
+>>>
+>>>> after unpinning it on the first command submission which used the BO
+>>>>> we moved it back to VRAM again.
+>>>>>
+>>>> In the meantime, I've had the same idea as Marek: Can't the kernel
+>>>> driver simply change the BO's preferred domain to GTT when scanning
+>>>> out from it? Then it won't move back to VRAM.
+>>>>
+>>> Yes, I've considered this as well.
+>>>
+>>> But I think making the decision in Mesa is the cleaner approach.
+>>>
+>>> E.g. so far we only override the placement decision of userspace for tw=
+o
+>>> reasons:
+>>> 1. We where running out of memory in VRAM.
+>>> 2. We have a hardware restriction which makes VRAM usage mandatory.
+>>>
+>>> And even then we never adjust the placement permanently, we just
+>>> temporary moved the buffer where it was needed and moved it back after
+>>> the operation completed.
+>>>
+>>> Additional to that Mesa might want to set even more flags and/or change=
+s
+>>> it's behavior. E.g. use a tilling mode which both importer and export i=
+n
+>>> an
+>>> A+A laptop understands etc...
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--001a113f139ceacf630567c91e85
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
+on, Mar 19, 2018 at 3:27 PM, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a =
+href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">christian.koenig=
+@amd.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">I think =
+that the consensus with Alex and me is that we should avoid exactly that.<b=
+r>
+<br>
+Overriding the preferred domain in the kernel is a no-go for that patch set=
+, so please implement the discussed changes in Mesa.<br></blockquote><div><=
+br></div><div>I don&#39;t see how Mesa can make a smarter decision than the=
+ kernel. If you overwrite the preferred domain of the buffer in the kernel,=
+ there will be no ping-ponging between domains. Mesa never changes the init=
+ial preferred domain.</div><div><br></div><div></div><div>Marek<br></div><d=
+iv><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+Regards,<br>
+Christian.<div class=3D"m_-5064514954187404218HOEnZb"><div class=3D"m_-5064=
+514954187404218h5"><br>
+<br>
+Am 19.03.2018 um 20:22 schrieb Li, Samuel:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+I agree with Marek/Michel: since kernel sets the domain before scanning out=
+, it shall update the preferred domain here too.<br>
+<br>
+Regards,<br>
+Samuel Li<br>
+<br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+-----Original Message-----<br>
+From: Koenig, Christian<br>
+Sent: Thursday, March 08, 2018 4:07 AM<br>
+To: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org" target=3D"=
+_blank">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;; Li, Samuel<br>
+&lt;<a href=3D"mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Samuel.Li-urvtwAKJhsc@public.gmane.org=
+m</a>&gt;; Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=
+=3D"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+Cc: amd-gfx list &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" targe=
+t=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><wbr>&gt;<br>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support<=
+br>
+<br>
+Am 08.03.2018 um 09:35 schrieb Michel D=C3=A4nzer:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On 2018-03-07 10:47 AM, Christian K=C3=B6nig wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+Am 07.03.2018 um 09:42 schrieb Michel D=C3=A4nzer:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On 2018-03-06 07:23 PM, Christian K=C3=B6nig wrote:<br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+E.g. the last time I tested it placing things into GTT still<br>
+resulted in quite a performance penalty for rendering.<br>
+</blockquote>
+FWIW, I think the penalty is most likely IOMMU related. Last time I<br>
+tested, I couldn&#39;t measure a big difference with IOMMU disabled.<br>
+</blockquote>
+No, the penalty I&#39;m talking about came from the ping/pong we did with<b=
+r>
+the scanout buffers.<br>
+<br>
+See when I tested this the DDX and Mesa where unmodified, so both<br>
+still assumed VRAM as placement for scanout BOs, but the kernel<br>
+forced scanout BOs into GTT for testing.<br>
+<br>
+So what happened was that on scanout we moved the VRAM BO to GTT<br>
+</blockquote></blockquote>
+and<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex"><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+after unpinning it on the first command submission which used the BO<br>
+we moved it back to VRAM again.<br>
+</blockquote>
+In the meantime, I&#39;ve had the same idea as Marek: Can&#39;t the kernel<=
+br>
+driver simply change the BO&#39;s preferred domain to GTT when scanning<br>
+out from it? Then it won&#39;t move back to VRAM.<br>
+</blockquote>
+Yes, I&#39;ve considered this as well.<br>
+<br>
+But I think making the decision in Mesa is the cleaner approach.<br>
+<br>
+E.g. so far we only override the placement decision of userspace for two<br=
+>
+reasons:<br>
+1. We where running out of memory in VRAM.<br>
+2. We have a hardware restriction which makes VRAM usage mandatory.<br>
+<br>
+And even then we never adjust the placement permanently, we just<br>
+temporary moved the buffer where it was needed and moved it back after<br>
+the operation completed.<br>
+<br>
+Additional to that Mesa might want to set even more flags and/or changes<br=
+>
+it&#39;s behavior. E.g. use a tilling mode which both importer and export i=
+n an<br>
+A+A laptop understands etc...<br>
+<br>
+Regards,<br>
+Christian.<br>
+</blockquote></blockquote>
+<br>
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
+tinfo/amd-gfx</a><br>
+</div></div></blockquote></div><br></div></div>
+
+--001a113f139ceacf630567c91e85--
+
+--===============0976878024==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0976878024==--
