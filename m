@@ -1,17 +1,25 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: disable job timeout on GPU reset disabled
-Date: Tue, 20 Mar 2018 15:21:59 +0100
-Message-ID: <50d6c9f3-4652-d733-586e-c0a80724a4e6@amd.com>
-References: <1521439692-14823-1-git-send-email-evan.quan@amd.com>
- <d7a88e66-6533-9c12-c36c-9b3ea569e354@gmail.com>
- <DM5PR1201MB248999A09FAAC36F90204EF9E4AB0@DM5PR1201MB2489.namprd12.prod.outlook.com>
- <fffd20df-cbcb-51ae-7de2-915804fce17f@amd.com>
- <DM5PR12MB1820FEE50DE4EBD1E44B676BF7AB0@DM5PR12MB1820.namprd12.prod.outlook.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
+Date: Tue, 20 Mar 2018 10:51:52 -0400
+Message-ID: <CAAxE2A7ffe2fkOQG0mFpPfP4uRKZ1BVTKWQ3Q+FhLWQnYU4nww@mail.gmail.com>
+References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
+ <CAAxE2A5kq2oZtJRm2df1fjtb_p1m2_nvCmzv9y8mbO-GS8cGrw@mail.gmail.com>
+ <BY1PR12MB0504183ED35A54559D22E041F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
+ <f25ebe1d-0b19-e972-5eba-84570e625456@gmail.com>
+ <BY1PR12MB05044A2A50F2580904C8AFB5F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
+ <BN6PR12MB18099E7295CB0301EF536924F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <BY1PR12MB05042F8034B375BAB507EB03F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
+ <BN6PR12MB180952A68A8AF256197D1177F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <BN6PR12MB1809A2A1591C19CC6E0C952FF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <CAAxE2A4V0=1w_aybBq0dXc3w+D=eJR-dY7Tq=7g3rnj94OY7XQ@mail.gmail.com>
+ <BY1PR12MB050483D06AA7D7B08247B1D0F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
+ <CADnq5_O0p30CC0JAnqvrrspXapdN5ZpXGBChGmt+14ekmPHkQw@mail.gmail.com>
+ <CAAxE2A4fiM5KjfxOSTTT3Soew8S-EGE7OVWBh-7565+rahMaOg@mail.gmail.com>
+ <13996c5e-dc4c-5a9a-b6c3-7fe6bb63ec5d@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0822990624=="
+Content-Type: multipart/mixed; boundary="===============2045032314=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB1820FEE50DE4EBD1E44B676BF7AB0-2J9CzHegvk8qWyLXlBb1HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <13996c5e-dc4c-5a9a-b6c3-7fe6bb63ec5d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,287 +30,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Li,
+ Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0822990624==
-Content-Type: multipart/alternative;
- boundary="------------BC0523B78852FE3714AFC743"
-Content-Language: en-US
+--===============2045032314==
+Content-Type: multipart/alternative; boundary="001a11405f16735ff20567d9390b"
 
-This is a multi-part message in MIME format.
---------------BC0523B78852FE3714AFC743
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--001a11405f16735ff20567d9390b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-That's a good point as well, maybe we should have separate timeouts for 
-gfx and compute?
+On Tue, Mar 20, 2018 at 9:55 AM, Christian K=C3=B6nig <
+ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
 
-Something like 5 seconds for gfx and 1 minute (or even longer) for compute?
+> Yes, exactly. And if I remember correctly Mesa used to always set GTT as
+> fallback on APUs, correct?
+>
 
-Anyway I agree that we can worry about that later on, patch is 
-Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org> for now.
+"used to" is the key part. Mesa doesn't force GTT on APUs anymore. It
+expects that the combination of BO priorities and BO move throttling will
+result in optimal BO placements over time.
 
-Regards,
-Christian.
+Marek
 
-Am 20.03.2018 um 15:16 schrieb Deucher, Alexander:
+
 >
-> My concern was that compute will always have the timeout disabled with 
-> no way to override it even if you enable GPU reset.  I guess we can 
-> address that down the road.
+> The problem seems to be that this fallback isn't set for displayable BOs.
 >
+> So what needs to be done is to just enable this fallback for displayable
+> BOs as well if the kernel can handle it.
 >
-> Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
->
-> ------------------------------------------------------------------------
-> *From:* Koenig, Christian
-> *Sent:* Tuesday, March 20, 2018 6:14:29 AM
-> *To:* Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Cc:* Deucher, Alexander
-> *Subject:* Re: [PATCH] drm/amdgpu: disable job timeout on GPU reset 
-> disabled
-> Hi Evan,
->
-> that one is perfect if you ask me. Just reading up on the history of
-> that patch, Alex what was your concern with that?
->
-> Regarding printing this as error, that's a really good point as well. We
-> should probably reduce it to a warning or even info severity.
->
-> Regards,
 > Christian.
 >
-> Am 20.03.2018 um 03:11 schrieb Quan, Evan:
-> > Hi Christian,
-> >
-> > The messages prompted on timeout are Errors not just Warnings 
-> although we did not see any real problem(for the dgemm special case). 
-> That's why we say it confusing.
-> > And i suppose you want a fix like my previous patch(see attachment).
-> >
-> > Regards,
-> > Evan
-> >> -----Original Message-----
-> >> From: Christian König [mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
-> >> Sent: Monday, March 19, 2018 5:42 PM
-> >> To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> >> Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-> >> Subject: Re: [PATCH] drm/amdgpu: disable job timeout on GPU reset
-> >> disabled
-> >>
-> >> Am 19.03.2018 um 07:08 schrieb Evan Quan:
-> >>> Since under some heavy computing environment(dgemm test), it takes the
-> >>> asic over 10+ seconds to finish the dispatched single job which will
-> >>> trigger the timeout. It's quite confusing although it does not seem to
-> >>> bring any real problems.
-> >>> As a quick workround, we choose to disable timeout when GPU reset is
-> >>> disabled.
-> >> NAK, I enabled those warning intentionally even when the GPU 
-> recovery is
-> >> disabled to have a hint in the logs what goes wrong.
-> >>
-> >> Please only increase the timeout for the compute queue and/or add a
-> >> separate timeout for them.
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>
-> >>> Change-Id: I3a95d856ba4993094dc7b6269649e470c5b053d2
-> >>> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> >>> ---
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
-> >>>    1 file changed, 7 insertions(+)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>> index 8bd9c3f..9d6a775 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>> @@ -861,6 +861,13 @@ static void
-> >> amdgpu_device_check_arguments(struct amdgpu_device *adev)
-> >>>              amdgpu_lockup_timeout = 10000;
-> >>>      }
-> >>>
-> >>> +   /*
-> >>> +    * Disable timeout when GPU reset is disabled to avoid confusing
-> >>> +    * timeout messages in the kernel log.
-> >>> +    */
-> >>> +   if (amdgpu_gpu_recovery == 0 || amdgpu_gpu_recovery == -1)
-> >>> +           amdgpu_lockup_timeout = INT_MAX;
-> >>> +
-> >>>      adev->firmware.load_type = amdgpu_ucode_get_load_type(adev,
-> >> amdgpu_fw_load_type);
-> >>>    }
-> >>>
+>
+> Am 20.03.2018 um 00:01 schrieb Marek Ol=C5=A1=C3=A1k:
+>
+> In theory, Mesa doesn't have to do anything. It can continue setting VRAM
+> and if the kernel has to put a display buffer into GTT, it doesn't matter
+> (for Mesa). Whether the VRAM placement is really used is largely determin=
+ed
+> by BO priorities.
+>
+> The way I understand scather/gather is that it only allows the GTT
+> placement. It doesn't force the GTT placement. Mesa also doesn't force th=
+e
+> GTT placement.
+>
+> Marek
+>
+> On Mon, Mar 19, 2018 at 5:12 PM, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> wrote:
+>
+>> On Mon, Mar 19, 2018 at 4:29 PM, Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org> wrote:
+>> >>to my earlier point, there may be cases where it is advantageous to pu=
+t
+>> >> display buffers in vram even if s/g display is supported
+>> >
+>> > Agreed. That is also why the patch has the options to let user select
+>> where
+>> > to put display buffers.
+>> >
+>> > As whether to put the option in Mesa or kernel, it seems the differenc=
+e
+>> is
+>> > not much. Also, since amdgpufb can request even without mesa, kernel
+>> might
+>> > be a better choice. In addition, putting in the kernel can save client=
+=E2=80=99s
+>> > duplicate work(mesa, ogl, vulkan, 2d, kernel=E2=80=A6)
+>>
+>> Why do we even expose different memory pools to the UMDs in the first
+>> place ;)  Each pool has performance characteristics that may be
+>> relevant for a particular work load.  Only the UMDs really know the
+>> finer points of those workloads. In general, you don't want the kernel
+>> dictating policy if you can avoid it.  The kernel exposes
+>> functionality and userspace sets the policy.  With the location set in
+>> userspace, each app/user can have whatever policy makes sense for
+>> their use case all at the same time without needing to tweak their
+>> kernel for every use case.
+>>
+>> Alex
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing listamd-gfx-PD4FTy7X32lNgt0PjOBp934avgP/u3fG0wdF1cv0I5s@public.gmane.org://lists.freedeskto=
+p.org/mailman/listinfo/amd-gfx
+>
+>
 >
 
+--001a11405f16735ff20567d9390b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---------------BC0523B78852FE3714AFC743
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">That's a good point as well, maybe we
-      should have separate timeouts for gfx and compute?<br>
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On T=
+ue, Mar 20, 2018 at 9:55 AM, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a =
+href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ckoenig.=
+leichtzumerken@gmail.<wbr>com</a>&gt;</span> wrote:<br><blockquote class=3D=
+"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
+-left:1ex">
+ =20
+   =20
+ =20
+  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <div class=3D"m_-3838486020630618689m_8572536124089128592moz-cite-prefi=
+x">Yes, exactly. And if I remember
+      correctly Mesa used to always set GTT as fallback on APUs,
+      correct?<br></div></div></blockquote><div><br></div><div>&quot;used t=
+o&quot; is the key part. Mesa doesn&#39;t force GTT on APUs anymore. It exp=
+ects that the combination of BO priorities and BO move throttling will resu=
+lt in optimal BO placements over time.<br><br></div><div>Marek<br></div><di=
+v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
+border-left:1px #ccc solid;padding-left:1ex"><div text=3D"#000000" bgcolor=
+=3D"#FFFFFF"><div class=3D"m_-3838486020630618689m_8572536124089128592moz-c=
+ite-prefix">
       <br>
-      Something like 5 seconds for gfx and 1 minute (or even longer) for
-      compute?<br>
+      The problem seems to be that this fallback isn&#39;t set for
+      displayable BOs.<br>
       <br>
-      Anyway I agree that we can worry about that later on, patch is
-      Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> for
-      now.<br>
+      So what needs to be done is to just enable this fallback for
+      displayable BOs as well if the kernel can handle it.<span class=3D"m_=
+-3838486020630618689HOEnZb"><font color=3D"#888888"><br>
       <br>
-      Regards,<br>
-      Christian.<br>
+      Christian.</font></span><div><div class=3D"m_-3838486020630618689h5">=
+<br>
       <br>
-      Am 20.03.2018 um 15:16 schrieb Deucher, Alexander:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:DM5PR12MB1820FEE50DE4EBD1E44B676BF7AB0-2J9CzHegvk8qWyLXlBb1HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <p style="margin-top:0;margin-bottom:0">My concern was that
-          compute will always have the timeout disabled with no way to
-          override it even if you enable GPU reset.  I guess we can
-          address that down the road.</p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">Acked-by: Alex Deucher
-          <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-        </p>
+      Am 20.03.2018 um 00:01 schrieb Marek Ol=C5=A1=C3=A1k:<br>
+    </div></div></div>
+    <blockquote type=3D"cite"><div><div class=3D"m_-3838486020630618689h5">
+      <div dir=3D"ltr">
+        <div class=3D"gmail_extra">
+          <div class=3D"gmail_quote">In theory, Mesa doesn&#39;t have to do
+            anything. It can continue setting VRAM and if the kernel has
+            to put a display buffer into GTT, it doesn&#39;t matter (for
+            Mesa). Whether the VRAM placement is really used is largely
+            determined by BO priorities.<br>
+          </div>
+          <div class=3D"gmail_quote"><br>
+          </div>
+          <div class=3D"gmail_quote">The way I understand scather/gather
+            is that it only allows the GTT placement. It doesn&#39;t force
+            the GTT placement. Mesa also doesn&#39;t force the GTT
+            placement.<br>
+          </div>
+          <div class=3D"gmail_quote"><br>
+          </div>
+          <div class=3D"gmail_quote">Marek<br>
+          </div>
+          <div class=3D"gmail_quote"><br>
+          </div>
+          <div class=3D"gmail_quote">On Mon, Mar 19, 2018 at 5:12 PM, Alex
+            Deucher <span dir=3D"ltr">&lt;<a href=3D"mailto:alexdeucher@gma=
+il.com" target=3D"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>
+            wrote:<br>
+            <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><span>On
+                Mon, Mar 19, 2018 at 4:29 PM, Li, Samuel &lt;<a href=3D"mai=
+lto:Samuel.Li-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;
+                wrote:<br>
+                &gt;&gt;to my earlier point, there may be cases where it
+                is advantageous to put<br>
+                &gt;&gt; display buffers in vram even if s/g display is
+                supported<br>
+                &gt;<br>
+                &gt; Agreed. That is also why the patch has the options
+                to let user select where<br>
+                &gt; to put display buffers.<br>
+                &gt;<br>
+                &gt; As whether to put the option in Mesa or kernel, it
+                seems the difference is<br>
+                &gt; not much. Also, since amdgpufb can request even
+                without mesa, kernel might<br>
+                &gt; be a better choice. In addition, putting in the
+                kernel can save client=E2=80=99s<br>
+                &gt; duplicate work(mesa, ogl, vulkan, 2d, kernel=E2=80=A6)=
+<br>
+                <br>
+              </span>Why do we even expose different memory pools to the
+              UMDs in the first<br>
+              place ;)=C2=A0 Each pool has performance characteristics that
+              may be<br>
+              relevant for a particular work load.=C2=A0 Only the UMDs real=
+ly
+              know the<br>
+              finer points of those workloads. In general, you don&#39;t
+              want the kernel<br>
+              dictating policy if you can avoid it.=C2=A0 The kernel expose=
+s<br>
+              functionality and userspace sets the policy.=C2=A0 With the
+              location set in<br>
+              userspace, each app/user can have whatever policy makes
+              sense for<br>
+              their use case all at the same time without needing to
+              tweak their<br>
+              kernel for every use case.<br>
+              <span class=3D"m_-3838486020630618689m_8572536124089128592m_4=
+947926278827078055HOEnZb"><font color=3D"#888888"><br>
+                  Alex</font></span><br>
+            </blockquote>
+          </div>
+        </div>
       </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          face="Calibri, sans-serif" color="#000000"><b>From:</b>
-          Koenig, Christian<br>
-          <b>Sent:</b> Tuesday, March 20, 2018 6:14:29 AM<br>
-          <b>To:</b> Quan, Evan; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-          <b>Cc:</b> Deucher, Alexander<br>
-          <b>Subject:</b> Re: [PATCH] drm/amdgpu: disable job timeout on
-          GPU reset disabled</font>
-        <div> </div>
-      </div>
-      <div class="BodyFragment"><font size="2"><span
-            style="font-size:11pt;">
-            <div class="PlainText">Hi Evan,<br>
-              <br>
-              that one is perfect if you ask me. Just reading up on the
-              history of <br>
-              that patch, Alex what was your concern with that?<br>
-              <br>
-              Regarding printing this as error, that's a really good
-              point as well. We <br>
-              should probably reduce it to a warning or even info
-              severity.<br>
-              <br>
-              Regards,<br>
-              Christian.<br>
-              <br>
-              Am 20.03.2018 um 03:11 schrieb Quan, Evan:<br>
-              &gt; Hi Christian,<br>
-              &gt;<br>
-              &gt; The messages prompted on timeout are Errors not just
-              Warnings although we did not see any real problem(for the
-              dgemm special case). That's why we say it confusing.<br>
-              &gt; And i suppose you want a fix like my previous
-              patch(see attachment).<br>
-              &gt;<br>
-              &gt; Regards,<br>
-              &gt; Evan<br>
-              &gt;&gt; -----Original Message-----<br>
-              &gt;&gt; From: Christian König [<a
-                href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                moz-do-not-send="true">mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]<br>
-              &gt;&gt; Sent: Monday, March 19, 2018 5:42 PM<br>
-              &gt;&gt; To: Quan, Evan <a class="moz-txt-link-rfc2396E" href="mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">&lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;</a>;
-              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-              &gt;&gt; Cc: Deucher, Alexander
-              <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              &gt;&gt; Subject: Re: [PATCH] drm/amdgpu: disable job
-              timeout on GPU reset<br>
-              &gt;&gt; disabled<br>
-              &gt;&gt;<br>
-              &gt;&gt; Am 19.03.2018 um 07:08 schrieb Evan Quan:<br>
-              &gt;&gt;&gt; Since under some heavy computing
-              environment(dgemm test), it takes the<br>
-              &gt;&gt;&gt; asic over 10+ seconds to finish the
-              dispatched single job which will<br>
-              &gt;&gt;&gt; trigger the timeout. It's quite confusing
-              although it does not seem to<br>
-              &gt;&gt;&gt; bring any real problems.<br>
-              &gt;&gt;&gt; As a quick workround, we choose to disable
-              timeout when GPU reset is<br>
-              &gt;&gt;&gt; disabled.<br>
-              &gt;&gt; NAK, I enabled those warning intentionally even
-              when the GPU recovery is<br>
-              &gt;&gt; disabled to have a hint in the logs what goes
-              wrong.<br>
-              &gt;&gt;<br>
-              &gt;&gt; Please only increase the timeout for the compute
-              queue and/or add a<br>
-              &gt;&gt; separate timeout for them.<br>
-              &gt;&gt;<br>
-              &gt;&gt; Regards,<br>
-              &gt;&gt; Christian.<br>
-              &gt;&gt;<br>
-              &gt;&gt;<br>
-              &gt;&gt;&gt; Change-Id:
-              I3a95d856ba4993094dc7b6269649e470c5b053d2<br>
-              &gt;&gt;&gt; Signed-off-by: Evan Quan
-              <a class="moz-txt-link-rfc2396E" href="mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">&lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              &gt;&gt;&gt; ---<br>
-              &gt;&gt;&gt;    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-              | 7 +++++++<br>
-              &gt;&gt;&gt;    1 file changed, 7 insertions(+)<br>
-              &gt;&gt;&gt;<br>
-              &gt;&gt;&gt; diff --git
-              a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-              &gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-              &gt;&gt;&gt; index 8bd9c3f..9d6a775 100644<br>
-              &gt;&gt;&gt; ---
-              a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-              &gt;&gt;&gt; +++
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-              &gt;&gt;&gt; @@ -861,6 +861,13 @@ static void<br>
-              &gt;&gt; amdgpu_device_check_arguments(struct
-              amdgpu_device *adev)<br>
-              &gt;&gt;&gt;              amdgpu_lockup_timeout = 10000;<br>
-              &gt;&gt;&gt;      }<br>
-              &gt;&gt;&gt;<br>
-              &gt;&gt;&gt; +   /*<br>
-              &gt;&gt;&gt; +    * Disable timeout when GPU reset is
-              disabled to avoid confusing<br>
-              &gt;&gt;&gt; +    * timeout messages in the kernel log.<br>
-              &gt;&gt;&gt; +    */<br>
-              &gt;&gt;&gt; +   if (amdgpu_gpu_recovery == 0 ||
-              amdgpu_gpu_recovery == -1)<br>
-              &gt;&gt;&gt; +           amdgpu_lockup_timeout = INT_MAX;<br>
-              &gt;&gt;&gt; +<br>
-              &gt;&gt;&gt;      adev-&gt;firmware.load_type =
-              amdgpu_ucode_get_load_type(adev,<br>
-              &gt;&gt; amdgpu_fw_load_type);<br>
-              &gt;&gt;&gt;    }<br>
-              &gt;&gt;&gt;<br>
-              <br>
-            </div>
-          </span></font></div>
-    </blockquote>
+      <br>
+      <fieldset class=3D"m_-3838486020630618689m_8572536124089128592mimeAtt=
+achmentHeader"></fieldset>
+      <br>
+      </div></div><span><pre>______________________________<wbr>___________=
+______
+amd-gfx mailing list
+<a class=3D"m_-3838486020630618689m_8572536124089128592moz-txt-link-abbrevi=
+ated" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-g=
+fx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class=3D"m_-3838486020630618689m_8572536124089128592moz-txt-link-freetex=
+t" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target=
+=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a>
+</pre>
+    </span></blockquote>
     <br>
-  </body>
-</html>
+  </div>
 
---------------BC0523B78852FE3714AFC743--
+</blockquote></div><br></div></div>
 
---===============0822990624==
+--001a11405f16735ff20567d9390b--
+
+--===============2045032314==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -312,4 +266,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0822990624==--
+--===============2045032314==--
