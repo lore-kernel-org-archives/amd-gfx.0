@@ -1,22 +1,15 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [Linaro-mm-sig] [PATCH 1/5] dma-buf: add optional
- invalidate_mappings callback v2
-Date: Tue, 20 Mar 2018 15:08:10 +0100
-Message-ID: <20180320140810.GU14155@phenom.ffwll.local>
-References: <20180316132049.1748-1-christian.koenig@amd.com>
- <20180316132049.1748-2-christian.koenig@amd.com>
- <152120831102.25315.4326885184264378830@mail.alporthouse.com>
- <21879456-db47-589c-b5e2-dfe8333d9e4c@gmail.com>
- <152147480241.18954.4556582215766884582@mail.alporthouse.com>
- <0bd85f69-c64c-70d1-a4a0-10ae0ed8b4e8@gmail.com>
- <CAKMK7uH3xNkx3UFBMdcJ415F2WsC7s_D+CDAjLAh1p-xo5RfSA@mail.gmail.com>
- <19ed21a5-805d-271f-9120-49e0c00f510f@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix kernel NULL pointer dereference in
+ dpm functions
+Date: Tue, 20 Mar 2018 14:11:33 +0000
+Message-ID: <DM5PR12MB18208D5631DE0C5328D215E0F7AB0@DM5PR12MB1820.namprd12.prod.outlook.com>
+References: <1521535031-3100-1-git-send-email-Rex.Zhu@amd.com>,
+ <1521535031-3100-2-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0258217538=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <19ed21a5-805d-271f-9120-49e0c00f510f-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1521535031-3100-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -27,134 +20,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBNYXIgMjAsIDIwMTggYXQgMTE6NTQ6MThBTSArMDEwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiBBbSAyMC4wMy4yMDE4IHVtIDA4OjQ0IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoK
-PiA+IE9uIE1vbiwgTWFyIDE5LCAyMDE4IGF0IDU6MjMgUE0sIENocmlzdGlhbiBLw7ZuaWcKPiA+
-IDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4gPiA+IEFtIDE5LjAz
-LjIwMTggdW0gMTY6NTMgc2NocmllYiBDaHJpcyBXaWxzb246Cj4gPiA+ID4gUXVvdGluZyBDaHJp
-c3RpYW4gS8O2bmlnICgyMDE4LTAzLTE2IDE0OjIyOjMyKQo+ID4gPiA+IFtzbmlwLCBwcm9iYWJs
-eSBsb3N0IHRvbyBtdXN0IGNvbnRleHRdCj4gPiA+ID4gPiBUaGlzIGFsbG93cyBmb3IgZnVsbCBn
-cm93biBwaXBlbGluaW5nLCBlLmcuIHRoZSBleHBvcnRlciBjYW4gc2F5IEkgbmVlZAo+ID4gPiA+
-ID4gdG8gbW92ZSB0aGUgYnVmZmVyIGZvciBzb21lIG9wZXJhdGlvbi4gVGhlbiBsZXQgdGhlIG1v
-dmUgb3BlcmF0aW9uIHdhaXQKPiA+ID4gPiA+IGZvciBhbGwgZXhpc3RpbmcgZmVuY2VzIGluIHRo
-ZSByZXNlcnZhdGlvbiBvYmplY3QgYW5kIGluc3RhbGwgdGhlIGZlbmNlCj4gPiA+ID4gPiBvZiB0
-aGUgbW92ZSBvcGVyYXRpb24gYXMgZXhjbHVzaXZlIGZlbmNlLgo+ID4gPiA+IE9rLCB0aGUgc2l0
-dWF0aW9uIEkgaGF2ZSBpbiBtaW5kIGlzIHRoZSBub24tcGlwZWxpbmVkIGNhc2U6IHJldm9raW5n
-Cj4gPiA+ID4gZG1hLWJ1ZiBmb3IgbW11X2ludmFsaWRhdGVfcmFuZ2Ugb3Igc2hyaW5rX3NsYWIu
-IEkgd291bGQgbmVlZCBhCj4gPiA+ID4gY29tcGxldGlvbiBldmVudCB0aGF0IGNhbiBiZSB3YWl0
-ZWQgb24gdGhlIGNwdSBmb3IgYWxsIHRoZSBpbnZhbGlkYXRlCj4gPiA+ID4gY2FsbGJhY2tzLiAo
-RXNzZW50aWFsbHkgYW4gYXRvbWljX3QgY291bnRlciBwbHVzIHN0cnVjdCBjb21wbGV0aW9uOyBh
-Cj4gPiA+ID4gbGlnaHRlciB2ZXJzaW9uIG9mIGRtYV9mZW5jZSwgSSB3b25kZXIgd2hlcmUgSSd2
-ZSBzZWVuIHRoYXQgYmVmb3JlIDspCj4gPiA+IAo+ID4gPiBBY3R1YWxseSB0aGF0IGlzIGhhcm1s
-ZXNzLgo+ID4gPiAKPiA+ID4gV2hlbiB5b3UgbmVlZCB0byB1bm1hcCBhIERNQS1idWYgYmVjYXVz
-ZSBvZiBtbXVfaW52YWxpZGF0ZV9yYW5nZSBvcgo+ID4gPiBzaHJpbmtfc2xhYiB5b3UgbmVlZCB0
-byB3YWl0IGZvciBpdCdzIHJlc2VydmF0aW9uIG9iamVjdCBhbnl3YXkuCj4gPiByZXNlcnZhdGlv
-bl9vYmplY3Qgb25seSBwcmV2ZW50cyBhZGRpbmcgbmV3IGZlbmNlcywgeW91IHN0aWxsIGhhdmUg
-dG8KPiA+IHdhaXQgZm9yIGFsbCB0aGUgY3VycmVudCBvbmVzIHRvIHNpZ25hbC4gQWxzbywgd2Ug
-aGF2ZSBkbWEtYWNjZXNzCj4gPiB3aXRob3V0IGZlbmNlcyBpbiBpOTE1LiAiSSBob2xkIHRoZSBy
-ZXNlcnZhdGlvbl9vYmplY3QiIGRvZXMgbm90IGltcGx5Cj4gPiB5b3UgY2FuIGp1c3QgZ28gYW5k
-IG51a2UgdGhlIGJhY2tpbmcgc3RvcmFnZS4KPiAKPiBJIHdhcyBub3QgdGFsa2luZyBhYm91dCB0
-YWtpbmcgdGhlIGxvY2ssIGJ1dCByYXRoZXIgdXNpbmcKPiByZXNlcnZhdGlvbl9vYmplY3Rfd2Fp
-dF90aW1lb3V0X3JjdSgpLgo+IAo+IFRvIGJlIG1vcmUgcHJlY2lzZSB5b3UgYWN0dWFsbHkgY2Fu
-J3QgdGFrZSB0aGUgcmVzZXJ2YXRpb24gb2JqZWN0IGxvY2sgaW4gYW4KPiBtbXVfaW52YWxpZGF0
-ZV9yYW5nZSBjYWxsYmFjayBhbmQgeW91IGNhbiBvbmx5IHRyeWxvY2sgaXQgaW4gYSBzaHJpbmtf
-c2xhYgo+IGNhbGxiYWNrLgoKQWggb2ssIGFuZCB5ZXMgYWdyZWVkLiBLaW5kYS4gU2VlIGJlbG93
-LgoKPiA+ID4gVGhpcyBuZWVkcyB0byBiZSBkb25lIHRvIG1ha2Ugc3VyZSB0aGF0IHRoZSBiYWNr
-aW5nIG1lbW9yeSBpcyBub3cgaWRsZSwgaXQKPiA+ID4gZG9lc24ndCBtYXR0ZXIgaWYgdGhlIGpv
-YnMgd2hlcmUgc3VibWl0dGVkIGJ5IERNQS1idWYgaW1wb3J0ZXJzIG9yIHlvdXIgb3duCj4gPiA+
-IGRyaXZlci4KPiA+ID4gCj4gPiA+IFRoZSBzZyB0YWJsZXMgcG9pbnRpbmcgdG8gdGhlIG5vdyBy
-ZWxlYXNlZCBtZW1vcnkgbWlnaHQgbGl2ZSBhIGJpdCBsb25nZXIsCj4gPiA+IGJ1dCB0aGF0IGlz
-IHVucHJvYmxlbWF0aWMgYW5kIGFjdHVhbGx5IGludGVuZGVkLgo+ID4gSSB0aGluayB0aGF0J3Mg
-dmVyeSBwcm9ibGVtYXRpYy4gT25lIHJlYXNvbiBmb3IgYW4gSU9NTVUgaXMgdGhhdCB5b3UKPiA+
-IGhhdmUgZGV2aWNlIGFjY2VzcyBpc29sYXRpb24sIGFuZCBhIGJyb2tlbiBkZXZpY2UgY2FuJ3Qg
-YWNjZXNzIG1lbW9yeQo+ID4gaXQgc2hvdWxkbid0IGJlIGFibGUgdG8gYWNjZXNzLiBGcm9tIHRo
-YXQgc2VjdXJpdHktaW4tZGVwdGggcG9pbnQgb2YKPiA+IHZpZXcgaXQncyBub3QgY29vbCB0aGF0
-IHRoZXJlJ3Mgc29tZSBzZyB0YWJsZXMgaGFuZ2luZyBhcm91bmQgc3RpbGwKPiA+IHRoYXQgYSBi
-cm9rZW4gR1BVIGNvdWxkIHVzZS4gQW5kIGxldCdzIG5vdCBwcmV0ZW5kIGh3IGlzIHBlcmZlY3Qs
-Cj4gPiBlc3BlY2lhbGx5IEdQVXMgOi0pCj4gCj4gSSBjb21wbGV0ZWx5IGFncmVlIG9uIHRoYXQs
-IGJ1dCB0aGVyZSBpcyB1bmZvcnR1bmF0ZWx5IG5vIG90aGVyIHdheS4KPiAKPiBTZWUgeW91IHNp
-bXBseSBjYW4ndCB0YWtlIGEgcmVzZXJ2YXRpb24gb2JqZWN0IGxvY2sgaW4gYW4gbW11IG9yIHNs
-YWIKPiBjYWxsYmFjaywgeW91IGNhbiBvbmx5IHRyeWxvY2sgdGhlbS4KPiAKPiBGb3IgZXhhbXBs
-ZSBpdCB3b3VsZCByZXF1aXJlIGNoYW5naW5nIGFsbCBhbGxvY2F0aW9ucyBkb25lIHdoaWxlIGhv
-bGRpbmcgYW55Cj4gcmVzZXJ2YXRpb24gbG9jayB0byBHRlBfTk9JTy4KClllYWggbW11IGFuZCBz
-bGFiIGNhbiBvbmx5IHRyeWxvY2ssIGFuZCB0aGV5IG5lZWQgdG8gc2tpcCB0byB0aGUgbmV4dApv
-YmplY3Qgd2hlbiB0aGUgdHJ5bG9jayBmYWlscy4gQnV0IG9uY2UgeW91IGhhdmUgdGhlIGxvY2sg
-eW91IGltbyBzaG91bGQKYmUgYWJsZSB0byBjbGVhbiB1cCB0aGUgZW50aXJlIG1lc3Mgc3RpbGwu
-IFdlIGRlZmluaXRlbHkgZG8gdGhhdCBmb3IgdGhlCmk5MTUgc2hyaW5rZXJzLCBhbmQgSSBkb24n
-dCBzZWUgaG93IGdvaW5nIHRvIGltcG9ydGVycyB0aHJvdWdoIHRoZQotPmludmFsaWRhdGVfbWFw
-cGluZyBjYWxsYmFjayBjaGFuZ2VzIGFueXRoaW5nIHdpdGggdGhhdC4KCkZvciB0aGUgaW4tZHJp
-dmVyIHJlc2VydmF0aW9uIHBhdGggKENTKSBoYXZpbmcgYSBzbG93LXBhdGggdGhhdCBncmFicyBh
-CnRlbXBvcmFyeSByZWZlcmVuY2UsIGRyb3BzIHRoZSB2cmFtIGxvY2sgYW5kIHRoZW4gbG9ja3Mg
-dGhlIHJlc2VydmF0aW9uCm5vcm1hbGx5ICh1c2luZyB0aGUgYWNxdWlyZSBjb250ZXh0IHVzZWQg
-YWxyZWFkeSBmb3IgdGhlIGVudGlyZSBDUykgaXMgYQpiaXQgdHJpY2t5LCBidXQgdG90YWxseSBm
-ZWFzaWJsZS4gVHRtIGRvZXNuJ3QgZG8gdGhhdCB0aG91Z2guCgpTbyB0aGVyZSdzIGNvbXBsZXRl
-bHkgZmVhc2libGUgd2F5cyB0byBtYWtlIHN1cmUgdGhlIHNnIGxpc3QgaXMgYWxsCnByb3Blcmx5
-IHJlbGVhc2VkLCBhbGwgRE1BIGdvbmUgYW5kIHRoZSBJT01NVSBtYXBwaW5ncyB0b3JuIGRvd24u
-IEFueXRoaW5nCmVsc2UgaXMganVzdCBhIGJpdCBzaG9kZHkgZGV2aWNlIGRyaXZlciBwcm9ncmFt
-bWluZyBpbW8uCgo+ID4gPiBXaGVuIHdlIHdvdWxkIHRyeSB0byBkZXN0cm95IHRoZSBzZyB0YWJs
-ZXMgaW4gYW4gbW11X2ludmFsaWRhdGVfcmFuZ2Ugb3IKPiA+ID4gc2hyaW5rX3NsYWIgY2FsbGJh
-Y2sgd2Ugd291bGQgcnVuIGludG8gYSBsb2NrZGVwIGhvcnJvci4KPiA+IFNvIEknbSBubyBleHBl
-cnQgb24gdGhpcywgYnV0IEkgdGhpbmsgdGhpcyBpcyBleGFjdGx5IHdoYXQgd2UncmUgZG9pbmcK
-PiA+IGluIGk5MTUuIEtpbmRhIG5vIG90aGVyIHdheSB0byBhY3R1YWxseSBmcmVlIHRoZSBtZW1v
-cnkgd2l0aG91dAo+ID4gdGhyb3dpbmcgYWxsIHRoZSBuaWNlIGlzb2xhdGlvbiBhc3BlY3RzIG9m
-IGFuIElPTU1VIGludG8gdGhlIHdpbmQuIENhbgo+ID4geW91IHBsZWFzZSBwYXN0ZSB0aGUgbG9j
-a2RlcHMgeW91J3ZlIHNlZW4gd2l0aCBhbWRncHUgd2hlbiB0cnlpbmcgdG8KPiA+IGRvIHRoYXQ/
-Cj4gCj4gVGFraW5nIGEgcXVpY2sgbG9vayBhdCBpOTE1IEkgY2FuIGRlZmluaXRlbHkgc2F5IHRo
-YXQgdGhpcyBpcyBhY3R1YWxseSBxdWl0ZQo+IGJ1Z2d5IHdoYXQgeW91IGd1eXMgZG8gaGVyZS4K
-Ck5vdGUgdGhhdCB0aGVyZSBhcmUgMiBwYXRocyBmb3IgaTkxNSB1c2VycHRyLiBPbmUgaXMgdGhl
-IG1tdSBub3RpZmllciwgdGhlCm90aGVyIG9uZSBpcyB0aGUgcm9vdC1vbmx5IGhhY2sgd2UgaGF2
-ZSBmb3IgZHViaW91cyByZWFzb25zIChvciB0aGF0IEkKcmVhbGx5IGRvbid0IHNlZSB0aGUgcG9p
-bnQgaW4gbXlzZWxmKS4KCj4gRm9yIGNvaGVyZW50IHVzYWdlIHlvdSBuZWVkIHRvIGluc3RhbGwg
-c29tZSBsb2NrIHRvIHByZXZlbnQgY29uY3VycmVudAo+IGdldF91c2VyX3BhZ2VzKCksIGNvbW1h
-bmQgc3VibWlzc2lvbiBhbmQKPiBpbnZhbGlkYXRlX3JhbmdlX3N0YXJ0L2ludmFsaWRhdGVfcmFu
-Z2VfZW5kIGZyb20gdGhlIE1NVSBub3RpZmllci4KPiAKPiBPdGhlcndpc2UgeW91IGNhbid0IGd1
-YXJhbnRlZSB0aGF0IHlvdSBhcmUgYWN0dWFsbHkgYWNjZXNzaW5nIHRoZSByaWdodCBwYWdlCj4g
-aW4gdGhlIGNhc2Ugb2YgYSBmb3JrKCkgb3IgbXByb3RlY3QoKS4KClllYWggZG9pbmcgdGhhdCB3
-aXRoIGEgZnVsbCBsb2NrIHdpbGwgY3JlYXRlIGVuZGxlc3MgYW1vdW50cyBvZiBpc3N1ZXMsCmJ1
-dCBJIGRvbid0IHNlZSB3aHkgd2UgbmVlZCB0aGF0LiBVc2Vyc3BhY2UgcmFjaW5nIHN0dWZmIHdp
-dGggaXRzZWxmIGdldHMKdG8ga2VlcCBhbGwgdGhlIHBpZWNlcy4gVGhpcyBpcyBsaWtlIHJhY2lu
-ZyBESVJFQ1RfSU8gYWdhaW5zdCBtcHJvdGVjdCBhbmQKZm9yay4KCkxlYWtpbmcgdGhlIElPTU1V
-IG1hcHBpbmdzIG90b2ggbWVhbnMgcm9ndWUgdXNlcnNwYWNlIGNvdWxkIGRvIGEgYnVuY2ggb2YK
-c3RyYXkgd3JpdGVzIChJIGRvbid0IHNlZSBhbnl3aGVyZSBjb2RlIGluIGFtZGdwdV9tbi5jIHRv
-IHVubWFwIGF0IGxlYXN0CnRoZSBncHUgc2lkZSBQVEVzIHRvIG1ha2Ugc3R1ZmYgaW5hY2Nlc3Np
-YmxlKSBhbmQgd3JlYWsgdGhlIGNvcmUga2VybmVsJ3MKYm9vay1rZWVwaW5nLgoKSW4gaTkxNSB3
-ZSBndWFyYW50ZWUgdGhhdCB3ZSBjYWxsIHNldF9wYWdlX2RpcnR5L21hcmtfcGFnZV9hY2Nlc3Nl
-ZCBvbmx5CmFmdGVyIGFsbCB0aGUgbWFwcGluZ3MgYXJlIHJlYWxseSBnb25lIChib3RoIEdQVSBQ
-VEVzIGFuZCBzZyBtYXBwaW5nKSwKZ3VhcmFudGVlaW5nIHRoYXQgYW55IHN0cmF5IHdyaXRlcyBm
-cm9tIGVpdGhlciB0aGUgR1BVIG9yIElPTU1VIHdpbGwKcmVzdWx0IGluIGZhdWx0cyAoZXhjZXB0
-IGJ1Z3MgaW4gdGhlIElPTU1VLCBidXQgY2FuJ3QgaGF2ZSBpdCBhbGwsICJJT01NVQphY3R1YWxs
-eSB3b3JrcyIgaXMgYW4gYXNzdW1wdGlvbiBiZWhpbmQgZGV2aWNlIGlzb2xhdGlvbikuCgo+IEZl
-bGl4IGFuZCBJIGhhbW1lcmVkIGZvciBxdWl0ZSBzb21lIHRpbWUgb24gYW1kZ3B1IHVudGlsIGFs
-bCBvZiB0aGlzIHdhcwo+IGhhbmRsZWQgY29ycmVjdGx5LCBzZWUgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X21uLmMuCgpNYXliZSB3ZSBzaG91bGQgaGF2ZSBtb3JlIHNoYXJlZCBj
-b2RlIGluIHRoaXMsIGl0IHNlZW1zIHRvIGJlIGEgc291cmNlIG9mCmVuZGxlc3MgYW1vdW50cyBv
-ZiBmdW4gLi4uCgo+IEkgY2FuIHRyeSB0byBnYXRoZXIgdGhlIGxvY2tkZXAgc3BsYXQgZnJvbSBt
-eSBtYWlsIGhpc3RvcnksIGJ1dCBpdAo+IGVzc2VudGlhbGx5IHRvb2sgdXMgbXVsdGlwbGUgeWVh
-cnMgdG8gZ2V0IHJpZCBvZiBhbGwgb2YgdGhlbS4KCkknbSB2ZXJ5IG11Y2ggaW50ZXJlc3RlZCBp
-biBzcGVjaWZpY2FsbHkgdGhlIHNwbGF0IHRoYXQgbWFrZXMgaXQKaW1wb3NzaWJsZSBmb3IgeW91
-IGZvbGtzIHRvIHJlbW92ZSB0aGUgc2cgbWFwcGluZ3MuIFRoYXQgb25lIHNvdW5kcyBiYWQuCkFu
-ZCB3b3VsZCBlc3NlbnRpYWxseSBtYWtlIG1tdV9ub3RpZmllcnMgdXNlbGVzcyBmb3IgdGhlaXIg
-cHJpbWFyeSB1c2UKY2FzZSwgd2hpY2ggaXMgaGFuZGxpbmcgdmlydHVhbCBtYWNoaW5lcyB3aGVy
-ZSB5b3UgcmVhbGx5IGhhdmUgdG8gbWFrZQpzdXJlIHRoZSBJT01NVSBtYXBwaW5nIGlzIGdvbmUg
-YmVmb3JlIHlvdSBjbGFpbSBpdCdzIGdvbmUsIGJlY2F1c2UgdGhlcmUncwpubyAybmQgbGV2ZWwg
-b2YgZGV2aWNlIGNoZWNrcyAobGlrZSBHUFUgUFRFcywgb3IgY29tbWFuZCBjaGVja2VyKSBjYXRj
-aGluZwpzdHJheSB3cml0ZXMuCgpDaGVlcnMsIERhbmllbAoKPiAKPiBSZWdhcmRzLAo+IENocmlz
-dGlhbi4KPiAKPiA+IC1EYW5pZWwKPiA+IAo+ID4gPiBSZWdhcmRzLAo+ID4gPiBDaHJpc3RpYW4u
-Cj4gPiA+IAo+ID4gPiA+IEV2ZW4gc28sIGl0IGJhc2ljYWxseSBtZWFucyBwYXNzaW5nIGEgZmVu
-Y2Ugb2JqZWN0IGRvd24gdG8gdGhlIGFzeW5jCj4gPiA+ID4gY2FsbGJhY2tzIGZvciB0aGVtIHRv
-IHNpZ25hbCB3aGVuIHRoZXkgYXJlIGNvbXBsZXRlLiBKdXN0IHRvIGhhbmRsZSB0aGUKPiA+ID4g
-PiBub24tcGlwZWxpbmVkIHZlcnNpb24uIDp8Cj4gPiA+ID4gLUNocmlzCj4gPiA+ID4gX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiA+ID4gPiBkcmktZGV2
-ZWwgbWFpbGluZyBsaXN0Cj4gPiA+ID4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-ID4gPiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVsCj4gPiA+IAo+ID4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwo+ID4gPiBMaW5hcm8tbW0tc2lnIG1haWxpbmcgbGlzdAo+ID4gPiBMaW5hcm8t
-bW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKPiA+ID4gaHR0cHM6Ly9saXN0cy5saW5hcm8ub3JnL21h
-aWxtYW4vbGlzdGluZm8vbGluYXJvLW1tLXNpZwo+ID4gCj4gPiAKPiAKCi0tIApEYW5pZWwgVmV0
-dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZnds
-bC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0258217538==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB18208D5631DE0C5328D215E0F7AB0DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB18208D5631DE0C5328D215E0F7AB0DM5PR12MB1820namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, March 20, 2018 4:37:11 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 2/2] drm/amdgpu: Fix kernel NULL pointer dereference in dpm=
+ functions
+
+caused by
+'commit 83e3c4615872 ("drm/amdgpu: Remove wrapper layer of smu ip functions=
+")'
+
+BUG: unable to handle kernel NULL pointer dereference at 00000000000005d8
+[  313.241459] IP: ci_dpm_read_sensor+0x37/0xf0 [amdgpu]
+
+Change-Id: Iac0cf26264ccbc60181ccd9bba79fe3c4e420456
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/kv_dpm.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/si_dpm.c | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/ci_dpm.c
+index 98d1dd2..47ef3e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
+@@ -6244,6 +6244,7 @@ static int ci_dpm_early_init(void *handle)
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+
+         adev->powerplay.pp_funcs =3D &ci_dpm_funcs;
++       adev->powerplay.pp_handle =3D adev;
+         ci_dpm_set_irq_funcs(adev);
+
+         return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/kv_dpm.c
+index 81babe0..26ba984 100644
+--- a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c
+@@ -2963,6 +2963,7 @@ static int kv_dpm_early_init(void *handle)
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+
+         adev->powerplay.pp_funcs =3D &kv_dpm_funcs;
++       adev->powerplay.pp_handle =3D adev;
+         kv_dpm_set_irq_funcs(adev);
+
+         return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/si_dpm.c
+index 3bfcf0d..672eaff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+@@ -7917,6 +7917,7 @@ static int si_dpm_early_init(void *handle)
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+
+         adev->powerplay.pp_funcs =3D &si_dpm_funcs;
++       adev->powerplay.pp_handle =3D adev;
+         si_dpm_set_irq_funcs(adev);
+         return 0;
+ }
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB18208D5631DE0C5328D215E0F7AB0DM5PR12MB1820namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Tuesday, March 20, 2018 4:37:11 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: Fix kernel NULL pointer dereference=
+ in dpm functions</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">caused by<br>
+'commit 83e3c4615872 (&quot;drm/amdgpu: Remove wrapper layer of smu ip func=
+tions&quot;)'<br>
+<br>
+BUG: unable to handle kernel NULL pointer dereference at 00000000000005d8<b=
+r>
+[&nbsp; 313.241459] IP: ci_dpm_read_sensor&#43;0x37/0xf0 [amdgpu]<br>
+<br>
+Change-Id: Iac0cf26264ccbc60181ccd9bba79fe3c4e420456<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/kv_dpm.c | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/si_dpm.c | 1 &#43;<br>
+&nbsp;3 files changed, 3 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/ci_dpm.c<br>
+index 98d1dd2..47ef3e6 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
+@@ -6244,6 &#43;6244,7 @@ static int ci_dpm_early_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_func=
+s =3D &amp;ci_dpm_funcs;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_handle =3D =
+adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci_dpm_set_irq_funcs(adev)=
+;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/kv_dpm.c<br>
+index 81babe0..26ba984 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/kv_dpm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/kv_dpm.c<br>
+@@ -2963,6 &#43;2963,7 @@ static int kv_dpm_early_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_func=
+s =3D &amp;kv_dpm_funcs;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_handle =3D =
+adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kv_dpm_set_irq_funcs(adev)=
+;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/si_dpm.c<br>
+index 3bfcf0d..672eaff 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
+@@ -7917,6 &#43;7917,7 @@ static int si_dpm_early_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_func=
+s =3D &amp;si_dpm_funcs;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_handle =3D =
+adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; si_dpm_set_irq_funcs(adev)=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB18208D5631DE0C5328D215E0F7AB0DM5PR12MB1820namp_--
+
+--===============0258217538==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0258217538==--
