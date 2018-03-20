@@ -1,36 +1,23 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-Date: Mon, 19 Mar 2018 19:01:46 -0400
-Message-ID: <CAAxE2A4fiM5KjfxOSTTT3Soew8S-EGE7OVWBh-7565+rahMaOg@mail.gmail.com>
-References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
- <898d3377-ee2b-a33d-dbff-b4cb692d650d@amd.com>
- <BY1PR12MB050407EA9472CB2B6E101CE7F5D90@BY1PR12MB0504.namprd12.prod.outlook.com>
- <e416ff00-018b-f206-123e-90b09b4ccd9f@gmail.com>
- <ebe01500-9fa5-e541-86c3-30ff0168e792@daenzer.net>
- <cd4659cb-f030-4938-af44-2fa1389ccdfb@gmail.com>
- <6febc0d1-0171-3cc1-ff22-69aa4ef36036@daenzer.net>
- <12178e4c-6b48-2c3b-9970-2ca30624a5bb@gmail.com>
- <29dba5ab-f4f3-551b-ec94-2d6433e8aa21@daenzer.net>
- <1141c511-597e-c81b-6ffd-800ff846f2c1@gmail.com>
- <1b643a78-d86a-b3bf-5f92-089a43201dd5@daenzer.net>
- <06e9160c-b4d4-6c3a-ff9f-04b40b94c7a0@amd.com>
- <BY1PR12MB0504A300C476CC31C59BFE97F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <2c995c37-0d0b-8fde-0118-57d7a62630ef@amd.com>
- <CAAxE2A5kq2oZtJRm2df1fjtb_p1m2_nvCmzv9y8mbO-GS8cGrw@mail.gmail.com>
- <BY1PR12MB0504183ED35A54559D22E041F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <f25ebe1d-0b19-e972-5eba-84570e625456@gmail.com>
- <BY1PR12MB05044A2A50F2580904C8AFB5F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <BN6PR12MB18099E7295CB0301EF536924F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <BY1PR12MB05042F8034B375BAB507EB03F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <BN6PR12MB180952A68A8AF256197D1177F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <BN6PR12MB1809A2A1591C19CC6E0C952FF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <CAAxE2A4V0=1w_aybBq0dXc3w+D=eJR-dY7Tq=7g3rnj94OY7XQ@mail.gmail.com>
- <BY1PR12MB050483D06AA7D7B08247B1D0F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <CADnq5_O0p30CC0JAnqvrrspXapdN5ZpXGBChGmt+14ekmPHkQw@mail.gmail.com>
+From: Ming Yang <minos.future-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Documentation about AMD's HSA implementation?
+Date: Mon, 19 Mar 2018 21:06:59 -0400
+Message-ID: <CAEVNDXu=Vr+DoXgv=L+aRW1u=AxUcP+HkjC2GCBr-a6pxmzdqg@mail.gmail.com>
+References: <CAEVNDXv8__4bYKLZc1zWYSdeK_0VkgTUeD-ex=vpLzyCgK88fg@mail.gmail.com>
+ <BN6PR12MB1652082F493EA92A38CD969FF7F60@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <CAEVNDXvb3T_WeocZri=7Q1ihsARV+esOgqeZ=uEQnAKJe7Q1Cg@mail.gmail.com>
+ <4b128f4a-065e-fccd-fe92-baefeda66017@amd.com>
+ <CAEVNDXvqQdZgP-YrgWqGpOkCDSNz6uJ0Ggrz_MRopOHZL31XpQ@mail.gmail.com>
+ <BN6PR12MB13483BBA577C518F18F7B100E8F60@BN6PR12MB1348.namprd12.prod.outlook.com>
+ <BN6PR12MB1348A514CAD6F24EF5AE7B58E8F60@BN6PR12MB1348.namprd12.prod.outlook.com>
+ <BN6PR12MB11720563598A3218601AE2C995F50@BN6PR12MB1172.namprd12.prod.outlook.com>
+ <CAEVNDXv0CwU9et6KzM1X70x+8SDac0F4kPv1t3XPvuBs=gzzdg@mail.gmail.com>
+ <CAEVNDXswb36_KsTychd-q_U69Km2qVBGD6oerGCioAK8A+52Dg@mail.gmail.com>
+ <BN6PR12MB13481F9FFE9BB463B218C08CE8D60@BN6PR12MB1348.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1442304323=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_O0p30CC0JAnqvrrspXapdN5ZpXGBChGmt+14ekmPHkQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <BN6PR12MB13481F9FFE9BB463B218C08CE8D60-/b2+HYfkarQX0pEhCR5T8QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -41,122 +28,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+To: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1442304323==
-Content-Type: multipart/alternative; boundary="001a113f139ca55b150567cbf333"
-
---001a113f139ca55b150567cbf333
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-In theory, Mesa doesn't have to do anything. It can continue setting VRAM
-and if the kernel has to put a display buffer into GTT, it doesn't matter
-(for Mesa). Whether the VRAM placement is really used is largely determined
-by BO priorities.
-
-The way I understand scather/gather is that it only allows the GTT
-placement. It doesn't force the GTT placement. Mesa also doesn't force the
-GTT placement.
-
-Marek
-
-On Mon, Mar 19, 2018 at 5:12 PM, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote=
-:
-
-> On Mon, Mar 19, 2018 at 4:29 PM, Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org> wrote:
-> >>to my earlier point, there may be cases where it is advantageous to put
-> >> display buffers in vram even if s/g display is supported
-> >
-> > Agreed. That is also why the patch has the options to let user select
-> where
-> > to put display buffers.
-> >
-> > As whether to put the option in Mesa or kernel, it seems the difference
-> is
-> > not much. Also, since amdgpufb can request even without mesa, kernel
-> might
-> > be a better choice. In addition, putting in the kernel can save client=
-=E2=80=99s
-> > duplicate work(mesa, ogl, vulkan, 2d, kernel=E2=80=A6)
->
-> Why do we even expose different memory pools to the UMDs in the first
-> place ;)  Each pool has performance characteristics that may be
-> relevant for a particular work load.  Only the UMDs really know the
-> finer points of those workloads. In general, you don't want the kernel
-> dictating policy if you can avoid it.  The kernel exposes
-> functionality and userspace sets the policy.  With the location set in
-> userspace, each app/user can have whatever policy makes sense for
-> their use case all at the same time without needing to tweak their
-> kernel for every use case.
->
-> Alex
->
-
---001a113f139ca55b150567cbf333
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">In t=
-heory, Mesa doesn&#39;t have to do anything. It can continue setting VRAM a=
-nd if the kernel has to put a display buffer into GTT, it doesn&#39;t matte=
-r (for Mesa). Whether the VRAM placement is really used is largely determin=
-ed by BO priorities.<br></div><div class=3D"gmail_quote"><br></div><div cla=
-ss=3D"gmail_quote">The way I understand scather/gather is that it only allo=
-ws the GTT placement. It doesn&#39;t force the GTT placement. Mesa also doe=
-sn&#39;t force the GTT placement.<br></div><div class=3D"gmail_quote"><br><=
-/div><div class=3D"gmail_quote">Marek<br></div><div class=3D"gmail_quote"><=
-br></div><div class=3D"gmail_quote">On Mon, Mar 19, 2018 at 5:12 PM, Alex D=
-eucher <span dir=3D"ltr">&lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" targe=
-t=3D"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pa=
-dding-left:1ex"><span>On Mon, Mar 19, 2018 at 4:29 PM, Li, Samuel &lt;<a hr=
-ef=3D"mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;=
- wrote:<br>
-&gt;&gt;to my earlier point, there may be cases where it is advantageous to=
- put<br>
-&gt;&gt; display buffers in vram even if s/g display is supported<br>
-&gt;<br>
-&gt; Agreed. That is also why the patch has the options to let user select =
-where<br>
-&gt; to put display buffers.<br>
-&gt;<br>
-&gt; As whether to put the option in Mesa or kernel, it seems the differenc=
-e is<br>
-&gt; not much. Also, since amdgpufb can request even without mesa, kernel m=
-ight<br>
-&gt; be a better choice. In addition, putting in the kernel can save client=
-=E2=80=99s<br>
-&gt; duplicate work(mesa, ogl, vulkan, 2d, kernel=E2=80=A6)<br>
-<br>
-</span>Why do we even expose different memory pools to the UMDs in the firs=
-t<br>
-place ;)=C2=A0 Each pool has performance characteristics that may be<br>
-relevant for a particular work load.=C2=A0 Only the UMDs really know the<br=
->
-finer points of those workloads. In general, you don&#39;t want the kernel<=
-br>
-dictating policy if you can avoid it.=C2=A0 The kernel exposes<br>
-functionality and userspace sets the policy.=C2=A0 With the location set in=
-<br>
-userspace, each app/user can have whatever policy makes sense for<br>
-their use case all at the same time without needing to tweak their<br>
-kernel for every use case.<br>
-<span class=3D"m_4947926278827078055HOEnZb"><font color=3D"#888888"><br>
-Alex</font></span><br></blockquote></div></div></div>
-
---001a113f139ca55b150567cbf333--
-
---===============1442304323==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1442304323==--
+VGhhbmtzLCBKb2huIQoKT24gU2F0LCBNYXIgMTcsIDIwMTggYXQgNDoxNyBQTSwgQnJpZGdtYW4s
+IEpvaG4gPEpvaG4uQnJpZGdtYW5AYW1kLmNvbT4gd3JvdGU6Cj4KPj4tLS0tLU9yaWdpbmFsIE1l
+c3NhZ2UtLS0tLQo+PkZyb206IE1pbmcgWWFuZyBbbWFpbHRvOm1pbm9zLmZ1dHVyZUBnbWFpbC5j
+b21dCj4+U2VudDogU2F0dXJkYXksIE1hcmNoIDE3LCAyMDE4IDEyOjM1IFBNCj4+VG86IEt1ZWhs
+aW5nLCBGZWxpeDsgQnJpZGdtYW4sIEpvaG4KPj5DYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPj5TdWJqZWN0OiBSZTogRG9jdW1lbnRhdGlvbiBhYm91dCBBTUQncyBIU0EgaW1wbGVt
+ZW50YXRpb24/Cj4+Cj4+SGksCj4+Cj4+QWZ0ZXIgZGlnZ2luZyBpbnRvIGRvY3VtZW50cyBhbmQg
+Y29kZSwgb3VyIHByZXZpb3VzIGRpc2N1c3Npb24gYWJvdXQgR1BVCj4+d29ya2xvYWQgc2NoZWR1
+bGluZyAobWFpbmx5IEhXUyBhbmQgQUNFIHNjaGVkdWxpbmcpIG1ha2VzIGEgbG90IG1vcmUKPj5z
+ZW5zZSB0byBtZSBub3cuICBUaGFua3MgYSBsb3QhICBJJ20gd3JpdGluZyB0aGlzIGVtYWlsIHRv
+IGFzayBtb3JlIHF1ZXN0aW9ucy4KPj5CZWZvcmUgYXNraW5nLCBJIGZpcnN0IHNoYXJlIGEgZmV3
+IGxpbmtzIHRvIHRoZSBkb2N1bWVudHMgdGhhdCBhcmUgbW9zdCBoZWxwZnVsCj4+dG8gbWUuCj4+
+Cj4+R0NOICgxc3QgZ2VuLj8pIGFyY2hpdGVjdHVyZSB3aGl0ZXBhcGVyCj4+aHR0cHM6Ly93d3cu
+YW1kLmNvbS9Eb2N1bWVudHMvR0NOX0FyY2hpdGVjdHVyZV93aGl0ZXBhcGVyLnBkZgo+Pk5vdGVz
+OiBBQ0Ugc2NoZWR1bGluZy4KPj4KPj5Qb2xhcmlzIGFyY2hpdGVjdHVyZSB3aGl0ZXBhcGVyICg0
+dGggZ2VuLiBHQ04pCj4+aHR0cDovL3JhZGVvbi5jb20vX2Rvd25sb2Fkcy9wb2xhcmlzLXdoaXRl
+cGFwZXItNC44LjE2LnBkZgo+Pk5vdGVzOiBBQ0Ugc2NoZWR1bGluZzsgSFdTOyBxdWljayByZXNw
+b25zZSBxdWV1ZSAocHJpb3JpdHkgYXNzaWdubWVudCk7Cj4+Y29tcHV0ZSB1bml0cyByZXNlcnZh
+dGlvbi4KPj4KPj5BTURLRkQgcGF0Y2ggY292ZXIgbGV0dGVyczoKPj52NTogaHR0cHM6Ly9sd24u
+bmV0L0FydGljbGVzLzYxOTU4MS8KPj52MTogaHR0cHM6Ly9sd24ubmV0L0FydGljbGVzLzYwNTE1
+My8KPj4KPj5BIGNvbXByZWhlbnNpdmUgcGVyZm9ybWFuY2UgYW5hbHlzaXMgb2YgSFNBIGFuZCBP
+cGVuQ0wgMi4wOgo+Pmh0dHA6Ly9pZWVleHBsb3JlLmllZWUub3JnL2RvY3VtZW50Lzc0ODIwOTMv
+Cj4+Cj4+UGFydGl0aW9uaW5nIHJlc291cmNlcyBvZiBhIHByb2Nlc3NvciAoQU1EIHBhdGVudCkK
+Pj5odHRwczovL3BhdGVudHMuZ29vZ2xlLmNvbS9wYXRlbnQvVVM4OTMzOTQyQjIvCj4+Tm90ZXM6
+IENvbXB1dGUgcmVzb3VyY2VzIGFyZSBhbGxvY2F0ZWQgYWNjb3JkaW5nIHRvIHRoZSByZXNvdXJj
+ZQo+PnJlcXVpcmVtZW50IHBlcmNlbnRhZ2Ugb2YgdGhlIGNvbW1hbmQuCj4+Cj4+SGVyZSBjb21l
+IG15IHF1ZXN0aW9ucyBhYm91dCBBQ0Ugc2NoZWR1bGluZzoKPj5NYW55IG9mIG15IHF1ZXN0aW9u
+cyBhcmUgYWJvdXQgQUNFIHNjaGVkdWxpbmcgYmVjYXVzZSB0aGUgZmlybXdhcmUgaXMKPj5jbG9z
+ZWQtc291cmNlIGFuZCBob3cgQUNFIHNjaGVkdWxlcyBjb21tYW5kcyAocXVldWVzKSBpcyBub3Qg
+ZGV0YWlsZWQKPj5lbm91Z2ggaW4gdGhlc2UgZG9jdW1lbnRzLiAgSSdtIG5vdCBhYmxlIHRvIHJ1
+biBleHBlcmltZW50cyBvbiBSYXZlbiBSaWRnZQo+PnlldC4KPj4KPj4xLiBXYXZlZnJvbnRzIG9m
+IG9uZSBjb21tYW5kIHNjaGVkdWxlZCBieSBhbiBBQ0UgY2FuIGJlIHNwcmVhZCBvdXQgdG8KPj5t
+dWx0aXBsZSBjb21wdXRlIGVuZ2luZXMgKHNoYWRlciBhcnJheXMpPyAgVGhpcyBpcyBxdWl0ZSBj
+b25maXJtZWQgYnkgdGhlCj4+Y3VfbWFzayBzZXR0aW5nLCBhcyBjdV9tYXNrIGZvciBvbmUgcXVl
+dWUgY2FuIGNvdmVyIENVcyBvdmVyIG11bHRpcGxlCj4+Y29tcHV0ZSBlbmdpbmVzLgo+Cj4gQ29y
+cmVjdCwgYXNzdW1pbmcgdGhlIHdvcmsgYXNzb2NpYXRlZCB3aXRoIHRoZSBjb21tYW5kIGlzIG5v
+dCB0cml2aWFsbHkgc21hbGwKPiBhbmQgc28gZ2VuZXJhdGVzIGVub3VnaCB3YXZlZnJvbnRzIHRv
+IHJlcXVpcmUgbXVsdGlwbGUgQ1Uncy4KPgo+Pgo+PjIuICBJZiBzbywgaG93IGlzIHRoZSBjb21w
+ZXRpdGlvbiByZXNvbHZlZCBiZXR3ZWVuIGNvbW1hbmRzIHNjaGVkdWxlZCBieQo+PkFDRXM/ICBX
+aGF0J3MgdGhlIHNjaGVkdWxpbmcgc2NoZW1lPyAgRm9yIGV4YW1wbGUsIHdoZW4gZWFjaCBBQ0Ug
+aGFzIGEKPj5jb21tYW5kIHJlYWR5IHRvIG9jY3VweSA1MCUgY29tcHV0ZSByZXNvdXJjZXMsIGFy
+ZSB0aGVzZSA0IGNvbW1hbmRzCj4+ZWFjaCBvY2N1cGllcyAyNSUsIG9yIHRoZXkgZXhlY3V0ZSBp
+biB0aGUgcm91bmQtcm9iaW4gd2l0aCA1MCUgcmVzb3VyY2VzIGF0Cj4+YSB0aW1lPyAgT3IganVz
+dCB0aGUgZmlyc3QgdHdvIHNjaGVkdWxlZCBjb21tYW5kcyBleGVjdXRlIGFuZCB0aGUgbGF0ZXIg
+dHdvCj4+d2FpdD8KPgo+IERlcGVuZHMgb24gaG93IHlvdSBtZWFzdXJlIGNvbXB1dGUgcmVzb3Vy
+Y2VzLCBzaW5jZSBlYWNoIFNJTUQgaW4gYSBDVSBjYW4KPiBoYXZlIHVwIHRvIDEwIHNlcGFyYXRl
+IHdhdmVmcm9udHMgcnVubmluZyBvbiBpdCBhcyBsb25nIGFzIHRvdGFsIHJlZ2lzdGVyIHVzYWdl
+Cj4gZm9yIGFsbCB0aGUgdGhyZWFkcyBkb2VzIG5vdCBleGNlZWQgdGhlIG51bWJlciBhdmFpbGFi
+bGUgaW4gSFcuCj4KPiBJZiBlYWNoIEFDRSAobGV0J3Mgc2F5IHBpcGUgZm9yIGNsYXJpdHkpIGhh
+cyBlbm91Z2ggd29yayB0byBwdXQgYSBzaW5nbGUgd2F2ZWZyb250Cj4gb24gNTAlIG9mIHRoZSBT
+SU1EcyB0aGVuIGFsbCBvZiB0aGUgd29yayB3b3VsZCBnZXQgc2NoZWR1bGVkIHRvIHRoZSBTSU1E
+cyAoNAo+IFNJTURzIHBlciBDVSkgYW5kIHJ1biBpbiBhIHJvdW5kLXJvYmluLWlzaCBtYW5uZXIg
+YXMgZWFjaCB3YXZlZnJvbnQgd2FzCj4gYmxvY2tlZCB3YWl0aW5nIGZvciBtZW1vcnkgYWNjZXNz
+Lgo+Cj4gSWYgZWFjaCBwaXBlIGhhcyBlbm91Z2ggd29yayB0byBmaWxsIDUwJSBvZiB0aGUgQ1BV
+cyBhbmQgYWxsIHBpcGVzL3F1ZXVlcyB3ZXJlCj4gYXNzaWduZWQgdGhlIHNhbWUgcHJpb3JpdHkg
+KHNlZSBiZWxvdykgdGhlbiB0aGUgYmVoYXZpb3VyIHdvdWxkIGJlIG1vcmUgbGlrZQo+ICJlYWNo
+IG9uZSB3b3VsZCBnZXQgMjUlIGFuZCBlYWNoIHRpbWUgYSB3YXZlZnJvbnQgZmluaXNoZWQgYW5v
+dGhlciBvbmUgd291bGQKPiBiZSBzdGFydGVkIi4KPgoKVGhpcyBtYWtlcyBzZW5zZSB0byBtZS4g
+IEkgd2lsbCB0cnkgc29tZSBleHBlcmltZW50cyBvbmNlIFJhdmVuIFJpZGdlIGlzIHJlYWR5LgoK
+Pj4KPj4zLiBJZiB0aGUgYmFycmllciBiaXQgb2YgdGhlIEFRTCBwYWNrZXQgaXMgbm90IHNldCwg
+ZG9lcyBBQ0Ugc2NoZWR1bGUgdGhlCj4+Zm9sbG93aW5nIGNvbW1hbmQgdXNpbmcgdGhlIHNhbWUg
+c2NoZWR1bGluZyBzY2hlbWUgaW4gIzI/Cj4KPiBOb3Qgc3VyZSwgYmFycmllciBiZWhhdmlvdXIg
+aGFzIHBhZ2VkIHNvIGZhciBvdXQgb2YgbXkgaGVhZCB0aGF0IEknbGwgaGF2ZSB0byBza2lwCj4g
+dGhpcyBvbmUuCj4KClRoaXMgYmFycmllciBiaXQgaXMgZGVmaW5lZCBpbiBIU0EuICBJZiBpdCBp
+cyBzZXQsIHRoZSBmb2xsb3dpbmcKcGFja2V0IHNob3VsZCB3YWl0IHVudGlsIHRoZSBjdXJyZW50
+IHBhY2tldCBmaW5pc2guICBJdCdzIHByb2JhYmx5IHRoZQprZXkgaW1wbGVtZW50aW5nIG91dC1v
+Zi1vcmRlciBleGVjdXRpb24gb2YgT3BlbkNMLCBJJ20gbm90IHN1cmUuICBJCnNob3VsZCBiZSBh
+YmxlIHRvIHVzZSB0aGUgcHJvZmlsZXIgdG8gZmluZCBvdXQgdGhlIGFuc3dlciBvbmNlIEkgY2Fu
+CnJ1biBPcGVuQ0wgb24gUmF2ZW4gUmlkZ2UuCgo+Pgo+PjQuIEFDRSB0YWtlcyAzIHBpcGUgcHJp
+b3JpdGllczogbG93LCBtZWRpdW0sIGFuZCBoaWdoLCBldmVuIHRob3VnaCBBUUwgcXVldWUKPj5o
+YXMgNyBwcmlvcml0eSBsZXZlbHMsIHJpZ2h0Pwo+Cj4gWWVzLWlzaC4gUmVtZW1iZXIgdGhhdCB0
+aGVyZSBhcmUgbXVsdGlwbGUgbGV2ZWxzIG9mIHNjaGVkdWxpbmcgZ29pbmcgb24gaGVyZS4gQXQK
+PiBhbnkgZ2l2ZW4gdGltZSBhIHBpcGUgaXMgb25seSBwcm9jZXNzaW5nIHdvcmsgZnJvbSBvbmUg
+b2YgdGhlIHF1ZXVlczsgcXVldWUKPiBwcmlvcml0aWVzIGFmZmVjdCB0aGUgcGlwZSdzIHJvdW5k
+LXJvYmluLWluZyBiZXR3ZWVuIHF1ZXVlcyBpbiBhIHdheSB0aGF0IEkgaGF2ZQo+IG1hbmFnZWQg
+dG8gZm9yZ2V0IChidXQgd2lsbCB0cnkgdG8gZmluZCkuIFRoZXJlIGlzIGEgc2VwYXJhdGUgcGlw
+ZSBwcmlvcml0eSwgd2hpY2gKPiBJSVJDIGlzIGFjdHVhbGx5IHByb2dyYW1tZWQgcGVyIHF1ZXVl
+IGFuZCB0YWtlcyBlZmZlY3Qgd2hlbiB0aGUgcGlwZSBpcyBhY3RpdmUKPiBvbiB0aGF0IHF1ZXVl
+LiBUaGVyZSBpcyBhbHNvIGEgZ2xvYmFsIChJSVJDKSBzZXR0aW5nIHdoaWNoIGFkanVzdHMgaG93
+IGNvbXB1dGUKPiB3b3JrIGFuZCBncmFwaGljcyB3b3JrIGFyZSBwcmlvcml0aXplZCBhZ2FpbnN0
+IGVhY2ggb3RoZXIsIGdpdmluZyBvcHRpb25zIGxpa2UKPiBtYWtpbmcgYWxsIGNvbXB1dGUgbG93
+ZXIgcHJpb3JpdHkgdGhhbiBncmFwaGljcyBvciBtYWtpbmcgb25seSBoaWdoIHByaW9yaXR5Cj4g
+Y29tcHV0ZSBnZXQgYWhlYWQgb2YgZ3JhcGhpY3MuCj4KPiBJIGJlbGlldmUgdGhlIHBpcGUgcHJp
+b3JpdHkgaXMgYWxzbyByZWZlcnJlZCB0byBhcyBTUEkgcHJpb3JpdHksIHNpbmNlIGl0IGFmZmVj
+dHMKPiB0aGUgd2F5IFNQSSBkZWNpZGVzIHdoaWNoIHBpcGUgKGdyYXBoaWNzL2NvbXB1dGUpIHRv
+IGFjY2VwdCB3b3JrIGZyb20KPiBuZXh0Lgo+Cj4gVGhpcyBpcyBhbGwgYSBiaXQgY29tcGxpY2F0
+ZWQgYnkgYSBzZXBhcmF0ZSAoZ2xvYmFsIElJUkMpIG9wdGlvbiB3aGljaCByYW5kb21pemVzCj4g
+cHJpb3JpdHkgc2V0dGluZ3MgaW4gb3JkZXIgdG8gYXZvaWQgZGVhZGxvY2sgaW4gY2VydGFpbiBj
+b25kaXRpb25zLiBXZSB1c2VkIHRvCj4gaGF2ZSB0aGF0IGVuYWJsZWQgYnkgZGVmYXVsdCAoYmVs
+aWV2ZSBpdCB3YXMgbmVlZGVkIGZvciBzcGVjaWZpYyBPcGVuQ0wKPiBwcm9ncmFtcykgYnV0IG5v
+dCBzdXJlIGlmIGl0IGlzIHN0aWxsIGVuYWJsZWQgLSBpZiBzbyB0aGVuIG1vc3Qgb2YgdGhlIGFi
+b3ZlIGdldHMKPiBtdXJreSBiZWNhdXNlIG9mIHRoZSByYW5kb21pemF0aW9uLgo+Cj4gQXQgZmly
+c3QgZ2xhbmNlIHdlIGRvIG5vdCBlbmFibGUgcmFuZG9taXphdGlvbiBmb3IgUG9sYXJpcyBvciBW
+ZWdhIGJ1dCBkbyBmb3IKPiBhbGwgb2YgdGhlIG9sZGVyIHBhcnRzLiBIYXZlbid0IGxvb2tlZCBh
+dCBSYXZlbiB5ZXQuCgpUaGFua3MgZm9yIHByb3ZpZGluZyB0aGVzZSBkZXRhaWxzIQoKPgo+Pgo+
+PjUuIElzIHRoaXMgcGF0ZW50IChodHRwczovL3BhdGVudHMuZ29vZ2xlLmNvbS9wYXRlbnQvVVM4
+OTMzOTQyQjIvKQo+PmltcGxlbWVudGVkPyAgSG93IHRvIHNldCByZXNvdXJjZSBhbGxvY2F0aW9u
+IHBlcmNlbnRhZ2UgZm9yCj4+Y29tbWFuZHMvcXVldWVzPwo+Cj4gSSBkb24ndCByZW1lbWJlciBz
+ZWVpbmcgdGhhdCBiZWluZyBpbXBsZW1lbnRlZCBpbiB0aGUgZHJpdmVycy4KPgo+Pgo+PklmIHRo
+ZXNlIGZlYXR1cmVzIHdvcmsgd2VsbCwgSSBoYXZlIGNvbmZpZGVuY2UgaW4gQU1EIEdQVXMgb2Yg
+cHJvdmlkaW5nIHZlcnkKPj5uaWNlIHJlYWwtdGltZSBwcmVkaWN0YWJpbGl0eS4KPj4KPj4KPj5U
+aGFua3MsCj4+TWluZwoKVGhhbmtzLApNaW5nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
