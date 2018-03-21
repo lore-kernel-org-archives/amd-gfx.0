@@ -1,14 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/pp: Register smu irq for legacy asics
-Date: Wed, 21 Mar 2018 06:36:23 +0000
-Message-ID: <BN6PR12MB18090EFACA62F6132927EDC9F7AA0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1521611488-22447-1-git-send-email-Rex.Zhu@amd.com>,
- <1521611488-22447-2-git-send-email-Rex.Zhu@amd.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 00/20] Add KFD GPUVM support for dGPUs v4
+Date: Wed, 21 Mar 2018 09:52:00 +0200
+Message-ID: <CAFCwf10KtqTzC47iKU=MLwXbLU6C5qa7PqMmFXWbPah0U23xQw@mail.gmail.com>
+References: <1521149279-31892-1-git-send-email-Felix.Kuehling@amd.com>
+ <41ef23e5-53a0-676f-3726-54fa6fc34126@gmail.com>
+ <cc84ba71-96fd-1763-fd13-8e04b0b7df1f@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1940284724=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1521611488-22447-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <cc84ba71-96fd-1763-fd13-8e04b0b7df1f-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,240 +20,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1940284724==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18090EFACA62F6132927EDC9F7AA0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18090EFACA62F6132927EDC9F7AA0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, March 21, 2018 1:51:28 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 2/2] drm/amd/pp: Register smu irq for legacy asics
-
-Change-Id: I1927175adfecbcfe99908f06959f8c0a507d3278
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 33 ++++++++++++++++++++=
-++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index 8a81360..5323f74 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3996,8 +3996,41 @@ static int smu7_set_max_fan_rpm_output(struct pp_hwm=
-gr *hwmgr, uint16_t us_max_f
-                         PPSMC_MSG_SetFanRpmMax, us_max_fan_rpm);
- }
-
-+static const struct amdgpu_irq_src_funcs smu7_irq_funcs =3D {
-+       .process =3D phm_irq_process,
-+};
-+
- static int smu7_register_irq_handlers(struct pp_hwmgr *hwmgr)
- {
-+       struct amdgpu_irq_src *source =3D
-+               kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);
-+
-+       if (!source)
-+               return -ENOMEM;
-+
-+       source->funcs =3D &smu7_irq_funcs;
-+
-+       if (hwmgr->thermal_controller.ucType =3D=3D
-+                       hwmgr->default_thermal_ctrl_type ||
-+               hwmgr->thermal_controller.ucType =3D=3D
-+                       ATOM_TONGA_PP_THERMALCONTROLLER_EMC2103_WITH_INTERN=
-AL) {
-+
-+               amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+                               AMDGPU_IH_CLIENTID_LEGACY,
-+                               230,
-+                               source);
-+               amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+                               AMDGPU_IH_CLIENTID_LEGACY,
-+                               231,
-+                               source);
-+       }
-+
-+       /* Register CTF(GPIO_19) interrupt */
-+       amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr->adev),
-+                       AMDGPU_IH_CLIENTID_LEGACY,
-+                       83,
-+                       source);
-+
-         return 0;
- }
-
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18090EFACA62F6132927EDC9F7AA0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Wednesday, March 21, 2018 1:51:28 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/pp: Register smu irq for legacy asics</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Change-Id: I1927175adfecbcfe99908f06959f8c0a507d32=
-78<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 33 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 33 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-index 8a81360..5323f74 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -3996,8 &#43;3996,41 @@ static int smu7_set_max_fan_rpm_output(struct pp=
-_hwmgr *hwmgr, uint16_t us_max_f<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC=
-_MSG_SetFanRpmMax, us_max_fan_rpm);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static const struct amdgpu_irq_src_funcs smu7_irq_funcs =3D {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .process =3D phm_irq_process,<br>
-&#43;};<br>
-&#43;<br>
-&nbsp;static int smu7_register_irq_handlers(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_irq_src *source =3D=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!source)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -ENOMEM;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; source-&gt;funcs =3D &amp;smu7_ir=
-q_funcs;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;thermal_controller.=
-ucType =3D=3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;de=
-fault_thermal_ctrl_type ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; hwmgr-&gt;thermal_controller.ucType =3D=3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ATOM_TONGA_P=
-P_THERMALCONTROLLER_EMC2103_WITH_INTERNAL) {<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr-&gt;adev),<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_IH_CLIENTID_LEGACY,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 230,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; source);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_irq_add_id((struct amdgpu_device *)(hwmgr-&gt;adev),<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_IH_CLIENTID_LEGACY,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 231,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; source);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Register CTF(GPIO_19) interrup=
-t */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_irq_add_id((struct amdgpu_=
-device *)(hwmgr-&gt;adev),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_IH_CL=
-IENTID_LEGACY,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 83,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; source);<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18090EFACA62F6132927EDC9F7AA0BN6PR12MB1809namp_--
-
---===============1940284724==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1940284724==--
+T24gTW9uLCBNYXIgMTksIDIwMTggYXQgOTowNSBQTSwgRmVsaXggS3VlaGxpbmcgPGZlbGl4Lmt1
+ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+IE9uIDIwMTgtMDMtMTkgMTI6MzkgUE0sIENocmlzdGlh
+biBLw7ZuaWcgd3JvdGU6Cj4+IFNvIGNvbWluZyBiYWNrIHRvIHRoaXMgc2VyaWVzIG9uY2UgbW9y
+ZS4KPj4KPj4gUGF0Y2ggIzEsICMzIGFyZSBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KPj4KPj4gUGF0Y2ggIzIsICM0IC0gIzEzIGFuZCAj
+MTgtIzE5IGFyZSBBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZwo+PiA8Y2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tPi4KPj4KPj4gUGF0Y2ggIzE0OiBXaGF0J3MgdGhlIGRpZmZlcmVuY2UgdG8gc2V0
+dGluZyB2cmFtbGltaXQ9JHNpemVfb2ZfYmFyID8KPgo+IFRoZSBkZWJ1Z19sYXJnZWJhciBvcHRp
+b24gb25seSBhZmZlY3RzIEtGRC4gR3JhcGhpY3MgY2FuIHN0aWxsIHVzZSBhbGwKPiBtZW1vcnku
+Cj4KPj4KPj4gUGF0Y2ggIzE1ICYgIzIwOiBXaHkgaXMgdGhhdCBhY3R1YWxseSBzdGlsbCBuZWVk
+ZWQ/IEkgdGhvdWdodCB3ZSBoYXZlCj4+IGZpeGVkIGFsbCBkZXBlbmRlbmNpZXMgYW5kIGNhbiBu
+b3cgdXNlIHRoZSAic3RhbmRhcmQiIHdheSBvZiBhdHRhY2hpbmcKPj4gZmVuY2VzIHRvIHJlc2Vy
+dmF0aW9uIG9iamVjdHMgdG8gZG8gdGhpcy4KPgo+IFBhdGNoIDE1IGFkZHMgYSBLRkQtc3BlY2lm
+aWMgTU1VIG5vdGlmaWVyLCBiZWNhdXNlIHRoZSBncmFwaGljcyBNTVUKPiBub3RpZmllciBkZWFs
+cyB3aXRoIGFtZGdwdV9jcyBjb21tYW5kIHN1Ym1pc3Npb24uIFdlIG5lZWQgYSBjb21wbGV0ZWx5
+Cj4gZGlmZmVyZW50IHRyZWF0bWVudCBvZiBNTVUgbm90aWZpZXJzIGZvciBLRkQuIFdlIG5lZWQg
+dG8gc3RvcCB1c2VyIG1vZGUKPiBxdWV1ZXMuCj4KPiBQYXRjaCAyMCBpbXBsZW1lbnRzIHRoZSB1
+c2VyIG1vZGUgcXVldWUgcHJlZW1wdGlvbiBtZWNoYW5pc20sIGFuZCB0aGUKPiBjb3JyZXNwb25k
+aW5nIHJlc3RvcmUgZnVuY3Rpb24gdGhhdCByZS12YWxpZGF0ZXMgdXNlcnB0ciBCT3MgYmVmb3Jl
+Cj4gcmVzdGFydGluZyB1c2VyIG1vZGUgcXVldWVzLgo+Cj4gSSB0aGluayB5b3UncmUgaW1wbHlp
+bmcgdGhhdCB0aGUgZ3JhcGhpY3MgTU1VIG5vdGlmaWVyIHdvdWxkIHdhaXQgZm9yCj4gdGhlIGV2
+aWN0aW9uIGZlbmNlIGFuZCB0cmlnZ2VyIGEgcmVndWxhciBldmljdGlvbiBpbiBLRkQuIEkgaGF2
+ZW4ndAo+IHRyaWVkIHRoYXQuIFRoZSBNTVUgbm90aWZpZXIgYW5kIHVzZXJwdHIgZXZpY3Rpb24g
+bWVjaGFuaXNtIHdhcwo+IGltcGxlbWVudGVkIGluIEtGRCBiZWZvcmUgd2UgaGFkIHRoZSBUVE0g
+ZXZpY3Rpb25zLiBXZSBkaWRuJ3QgZ28gYmFjawo+IGFuZCByZXZpc2l0IGl0IGFmdGVyIHRoYXQu
+IFRoZXJlIGFyZSBhIGZldyBtYWpvciBkaWZmZXJlbmNlcyB0aGF0IG1ha2UKPiBtZSB3YW50IHRv
+IGtlZXAgdGhlIHR3byB0eXBlcyBvZiBldmljdGlvbnMgc2VwYXJhdGUsIHRob3VnaDoKPgo+ICAg
+KiBUVE0gZXZpY3Rpb25zIGFyZSB0aGUgcmVzdWx0IG9mIG1lbW9yeSBwcmVzc3VyZSAodHJpZ2dl
+cmVkIGJ5Cj4gICAgIGFub3RoZXIgcHJvY2VzcykKPiAgICAgICBvIE1vc3QgTU1VIG5vdGlmaWVy
+cyBhcmUgdHJpZ2dlcmVkIGJ5IHNvbWV0aGluZyBpbiB0aGUgc2FtZQo+ICAgICAgICAgcHJvY2Vz
+cyAoZm9yaywgbXByb3RlY3QsIGV0Yy4pCj4gICAgICAgbyBUaHVzIHRoZSByZXN0b3JlIGRlbGF5
+IGFmdGVyIE1NVSBub3RpZmllcnMgY2FuIGJlIG11Y2ggc2hvcnRlcgo+ICAgKiBUVE0gZXZpY3Rp
+b25zIGFyZSBkb25lIGFzeW5jaHJvbm91c2x5IGluIGEgZGVsYXllZCB3b3JrZXIKPiAgICAgICBv
+IE1NVSBub3RpZmllcnMgYXJlIHN5bmNocm9ub3VzLCBxdWV1ZXMgbmVlZCB0byBiZSBzdG9wcGVk
+IGJlZm9yZQo+ICAgICAgICAgcmV0dXJuaW5nCj4gICAqIEtGRCdzIFRUTSBldmljdGlvbi9yZXN0
+b3JlIGNvZGUgZG9lc24ndCBoYW5kbGUgdXNlcnB0cnMKPiAgICAgKGdldF91c2VyX3BhZ2VzLCBl
+dGMpCj4gICAgICAgbyBNTVUgbm90aWZpZXIgcmVzdG9yZSB3b3JrZXIgaXMgc3BlY2lhbGl6ZWQg
+dG8gaGFuZGxlIGp1c3QgdXNlcnB0cnMKPgo+Cj4+Cj4+IFNheWluZyBzbyBJIHN0aWxsIG5lZWQg
+dG8gdGFrZSBhIGNsb3NlciBsb29rIGF0IHBhdGNoICMyMC4KPj4KPj4gUGF0Y2ggIzE2OiBMb29r
+cyBnb29kIHRvIG1lIGluIGdlbmVyYWwsIGJ1dCBJIHRoaW5rIGl0IHdvdWxkIGJlIHNhZmVyCj4+
+IGlmIHdlIGdyYWIgYSByZWZlcmVuY2UgdG8gdGhlIHRhc2sgc3RydWN0dXJlLiBPdGhlcndpc2Ug
+Z3JhYmJpbmcgcGFnZXMKPj4gZnJvbSBhIG1tX3N0cnVjdCBzb3VuZHMgYSBiaXQgc2NhcnkgdG8g
+bWUuCj4KPiBZb3UncmUgcmlnaHQuIEkndmUgbmV2ZXIgc2VlbiBpdCBjYXVzZSBwcm9ibGVtcyB3
+aGVuIHRlc3RpbmcgcHJvY2Vzcwo+IHRlcm1pbmF0aW9uLCBwcm9iYWJseSBiZWNhdXNlIGR1cmlu
+ZyBwcm9jZXNzIHRlcm1pbmF0aW9uIEtGRCBjYW5jZWxzIHRoZQo+IGRlbGF5ZWQgd29ya2VyIHRo
+YXQgY2FsbHMgdGhpcyBmdW5jdGlvbi4gQnV0IEknbGwgZml4IHRoaXMgYW5kIHRha2UgYQo+IHBy
+b3BlciByZWZlcmVuY2UuCj4KPj4KPj4gUGF0Y2ggIzE3OiBJIHRoaW5rIGl0IHdvdWxkIGJlIGJl
+dHRlciB0byBhbGxvY2F0ZSB0aGUgbm9kZSB3aGVuIHRoZQo+PiBsb2NrcyBhcmUgbm90IGhlbGQg
+YW5kIGZyZWUgaXQgd2hlbiB3ZSBmaW5kIHRoYXQgaXQgaXNuJ3QgdXNlZCwgYnV0IG5vCj4+IGJp
+ZyBkZWFsLgo+Cj4gT0suIEknbGwgY2hhbmdlIHRoYXQuCj4KPiBUaGFua3MsCj4gICBGZWxpeAo+
+Cj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4gQW0gMTUuMDMuMjAxOCB1bSAyMjoy
+NyBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+Pj4gUmViYXNlZCBhbmQgaW50ZWdyYXRlZCByZXZp
+ZXcgZmVlZGJhY2sgZnJvbSB2MzoKPj4+ICogUmVtb3ZlZCB2bS0+dm1fY29udGV4dCBmaWVsZAo+
+Pj4gKiBVc2UgdW5pbnRlcnJ1cHRpYmxlIHdhaXRpbmcgaW4gaW5pdGlhbCBQRCB2YWxpZGF0aW9u
+IHRvIGF2b2lkCj4+PiBFUkVTVEFSVFNZUwo+Pj4gKiBSZXR1cm4gbnVtYmVyIG9mIHN1Y2Nlc3Nm
+dWwgbWFwL3VubWFwIG9wZXJhdGlvbnMgaW4gZmFpbHVyZSBjYXNlcwo+Pj4gKiBGYWNpbGl0YXRl
+IHBhcnRpYWwgcmV0cnkgYWZ0ZXIgZmFpbGVkIG1hcC91bm1hcAo+Pj4gKiBBZGRlZCBjb21tZW50
+cyB3aXRoIHBhcmFtZXRlciBkZXNjcmlwdGlvbnMgdG8gbmV3IEFQSXMKPj4+ICogRGVmaW5lZCBB
+TURLRkRfSU9DX0ZSRUVfTUVNT1JZX09GX0dQVSB3cml0ZS1vbmx5Cj4+Pgo+Pj4gVGhpcyBwYXRj
+aCBzZXJpZXMgYWxzbyBhZGRzIFVzZXJwdHIgc3VwcG9ydCBpbiBwYXRjaGVzIDE1LTIwLgo+Pj4K
+Pj4+IEZlbGl4IEt1ZWhsaW5nICgxOSk6Cj4+PiAgICBkcm0vYW1kZ3B1OiBNb3ZlIEtGRC1zcGVj
+aWZpYyBmaWVsZHMgaW50byBzdHJ1Y3QgYW1kZ3B1X3ZtCj4+PiAgICBkcm0vYW1kZ3B1OiBGaXgg
+aW5pdGlhbCB2YWxpZGF0aW9uIG9mIFBEIEJPIGZvciBLRkQgVk1zCj4+PiAgICBkcm0vYW1kZ3B1
+OiBBZGQgaGVscGVyIHRvIHR1cm4gYW4gZXhpc3RpbmcgVk0gaW50byBhIGNvbXB1dGUgVk0KPj4+
+ICAgIGRybS9hbWRncHU6IEFkZCBrZmQya2dkIGludGVyZmFjZSB0byBhY3F1aXJlIGFuIGV4aXN0
+aW5nIFZNCj4+PiAgICBkcm0vYW1ka2ZkOiBDcmVhdGUgS0ZEIFZNcyBvbiBkZW1hbmQKPj4+ICAg
+IGRybS9hbWRrZmQ6IFJlbW92ZSBsaW1pdCBvbiBudW1iZXIgb2YgR1BVcwo+Pj4gICAgZHJtL2Ft
+ZGtmZDogQXBlcnR1cmUgc2V0dXAgZm9yIGRHUFVzCj4+PiAgICBkcm0vYW1ka2ZkOiBBZGQgcGVy
+LXByb2Nlc3MgSURSIGZvciBidWZmZXIgaGFuZGxlcwo+Pj4gICAgZHJtL2FtZGtmZDogQWxsb2Nh
+dGUgQ1dTUiB0cmFwIGhhbmRsZXIgbWVtb3J5IGZvciBkR1BVcwo+Pj4gICAgZHJtL2FtZGtmZDog
+QWRkIFRDIGZsdXNoIG9uIFZNSUQgZGVhbGxvY2F0aW9uIGZvciBIYXdhaWkKPj4+ICAgIGRybS9h
+bWRrZmQ6IEFkZCBpb2N0bHMgZm9yIEdQVVZNIG1lbW9yeSBtYW5hZ2VtZW50Cj4+PiAgICBkcm0v
+YW1ka2ZkOiBLbWFwIGV2ZW50IHBhZ2UgZm9yIGRHUFVzCj4+PiAgICBkcm0vYW1ka2ZkOiBBZGQg
+bW9kdWxlIG9wdGlvbiBmb3IgdGVzdGluZyBsYXJnZS1CQVIgZnVuY3Rpb25hbGl0eQo+Pj4gICAg
+ZHJtL2FtZGdwdTogQWRkIE1NVSBub3RpZmllciB0eXBlIGZvciBLRkQgdXNlcnB0cgo+Pj4gICAg
+ZHJtL2FtZGdwdTogRW5hYmxlIGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXMgaW4gd29ya2Vy
+IHRocmVhZHMKPj4+ICAgIGRybS9hbWRncHU6IEdGUF9OT0lPIHdoaWxlIGhvbGRpbmcgbG9ja3Mg
+dGFrZW4gaW4gTU1VIG5vdGlmaWVyCj4+PiAgICBkcm0vYW1ka2ZkOiBHRlBfTk9JTyB3aGlsZSBo
+b2xkaW5nIGxvY2tzIHRha2VuIGluIE1NVSBub3RpZmllcgo+Pj4gICAgZHJtL2FtZGtmZDogQWRk
+IHF1aWVzY2VfbW0gYW5kIHJlc3VtZV9tbSB0byBrZ2Qya2ZkX2NhbGxzCj4+PiAgICBkcm0vYW1k
+Z3B1OiBBZGQgdXNlcnB0ciBzdXBwb3J0IGZvciBLRkQKPj4+Cj4+PiBPYWsgWmVuZyAoMSk6Cj4+
+PiAgICBkcm0vYW1ka2ZkOiBQb3B1bGF0ZSBEUk0gcmVuZGVyIGRldmljZSBtaW5vcgo+Pj4KPj4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oICAgICAgICAgfCAg
+MzcgKy0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhf
+djcuYyAgfCAgIDEgKwo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
+a2ZkX2dmeF92OC5jICB8ICAgMSArCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9hbWRrZmRfZ3B1dm0uYyAgIHwgODE4Cj4+PiArKysrKysrKysrKysrKysrKystLS0KPj4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgICAgICAgICAgfCAg
+IDIgKy0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21uLmMgICAgICAg
+ICAgICAgfCAgOTYgKystCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9t
+bi5oICAgICAgICAgICAgIHwgIDExICstCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90dG0uYyAgICAgICAgICAgIHwgIDMwICstCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgICAgICAgICAgIHwgIDcwICsrCj4+PiAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oICAgICAgICAgICAgIHwgIDEwICsKPj4+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyAgICAgICAgICAgfCA1MzIK
+Pj4+ICsrKysrKysrKysrKysrCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9j
+cmF0LmMgICAgICAgICAgICAgIHwgICAzICsKPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
+ZmQva2ZkX2RldmljZS5jICAgICAgICAgICAgfCAgNDAgKy0KPj4+ICAgLi4uL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYyAgfCAgMjIgKy0KPj4+ICAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jICAgICAgICAgICAgfCAgMzEgKy0KPj4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ZsYXRfbWVtb3J5LmMgICAgICAgfCAg
+NTkgKy0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21vZHVsZS5jICAgICAg
+ICAgICAgfCAgIDcgKwo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21h
+bmFnZXJfY2lrLmMgICB8ICAgMiArLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfbXFkX21hbmFnZXJfdmkuYyAgICB8ICAgMiArLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfcGFja2V0X21hbmFnZXIuYyAgICB8ICAzNyArCj4+PiAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgICAgICAgICAgIHwgIDQxICsrCj4+PiAgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMgICAgICAgICAgIHwgMzE0ICsr
+KysrKystCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jICAg
+ICAgICAgIHwgICA0ICsKPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9s
+b2d5LmggICAgICAgICAgfCAgIDEgKwo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUv
+a2dkX2tmZF9pbnRlcmZhY2UuaCAgICB8ICAxMCArCj4+PiAgIGluY2x1ZGUvdWFwaS9saW51eC9r
+ZmRfaW9jdGwuaCAgICAgICAgICAgICAgICAgICAgIHwgMTIyICsrLQo+Pj4gICAyNiBmaWxlcyBj
+aGFuZ2VkLCAyMDkwIGluc2VydGlvbnMoKyksIDIxMyBkZWxldGlvbnMoLSkKPj4+Cj4+Cj4KCkhp
+IEZlbGl4LApJIGRpZCBhIHF1aWNrIHBhc3Mgb24gdGhlIHBhdGNoLXNldCBhbmQgZGlkbid0IHNl
+ZSBhbnl0aGluZyBzY2FyeS4KUGF0Y2hlcyAxLTE0IGFyZSBhbHJlYWR5IGFwcGxpZWQgdG8gbXkg
+LW5leHQgdHJlZS4gSWYgSSB3aWxsIHNlbmQgaXQKbm93IHRvIERhdmUgSSBiZWxpZXZlIHdlIHdv
+dWxkIGJlIG9rIGZyb20gc2NoZWR1bGUgUE9WLgpJIHN1Z2dlc3Qgd2UgZGVsYXkgdXNlcnB0ciBz
+dXBwb3J0IGZvciB0aGUgbmV4dCBrZXJuZWwgcmVsZWFzZSBiZWNhdXNlCnlvdSBuZWVkIHRvIGFk
+ZHJlc3Mgd2hhdCBDaHJpc3RpYW4gc2FpZCBhbmQgSSBhbHNvIHdhbnQgdG8gdGFrZSBhCmNsb3Nl
+ciBsb29rIGF0IGl0LgpXaGF0IGRvIHlvdSB0aGluayA/CgpUaGFua3MsCk9kZWQKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
