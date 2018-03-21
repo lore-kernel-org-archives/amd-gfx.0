@@ -1,25 +1,14 @@
-From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-Date: Tue, 20 Mar 2018 20:50:21 +0000
-Message-ID: <BY1PR12MB0504A15F2DC48E238A896433F5AB0@BY1PR12MB0504.namprd12.prod.outlook.com>
-References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
- <BN6PR12MB18099E7295CB0301EF536924F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <BY1PR12MB05042F8034B375BAB507EB03F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <BN6PR12MB180952A68A8AF256197D1177F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <BN6PR12MB1809A2A1591C19CC6E0C952FF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <CAAxE2A4V0=1w_aybBq0dXc3w+D=eJR-dY7Tq=7g3rnj94OY7XQ@mail.gmail.com>
- <BY1PR12MB050483D06AA7D7B08247B1D0F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <CADnq5_O0p30CC0JAnqvrrspXapdN5ZpXGBChGmt+14ekmPHkQw@mail.gmail.com>
- <CAAxE2A4fiM5KjfxOSTTT3Soew8S-EGE7OVWBh-7565+rahMaOg@mail.gmail.com>
- <13996c5e-dc4c-5a9a-b6c3-7fe6bb63ec5d@gmail.com>
- <CAAxE2A7ffe2fkOQG0mFpPfP4uRKZ1BVTKWQ3Q+FhLWQnYU4nww@mail.gmail.com>
- <f7bce36e-d9c6-dc13-6b1f-0e2bf91aaff0@gmail.com>
- <DM5PR12MB18205326885F0857CEC4FAA6F7AB0@DM5PR12MB1820.namprd12.prod.outlook.com>
- <7bbc4bc8-1b44-efc3-44b7-47ebcb4b9c76@amd.com>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 09/34] drm/amd/display: fix lexa bw bounding box
+Date: Wed, 21 Mar 2018 09:27:35 +0800
+Message-ID: <5AB1B507.6060208@amd.com>
+References: <20180320191259.14453-1-harry.wentland@amd.com>
+ <20180320191259.14453-10-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1835263696=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180320191259.14453-10-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -30,692 +19,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?iso-8859-2?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?iso-8859-2?Q?Marek_Ol=B9=E1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Laktyushkin, Dmytro" <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>
 
---===============1835263696==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BY1PR12MB0504A15F2DC48E238A896433F5AB0BY1PR12MB0504namp_"
-
---_000_BY1PR12MB0504A15F2DC48E238A896433F5AB0BY1PR12MB0504namp_
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
-
-Also, the change here is only for display buffer, so it is not really a "bi=
-g" waste.
-
-Regards,
-Samuel Li
-
-From: Li, Samuel
-Sent: Tuesday, March 20, 2018 4:38 PM
-To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Michel D=E4nzer <michel@daenzer.n=
-et>; amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Marek Ol=B9=E1k <maraeo@=
-gmail.com>; Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-
-
-O  I think we can also have the case of systems with similar amounts of car=
-ve out and system ram.  E.g., on a system with 4 GB of system memory with 1=
- GB carved out for vram.  It would be a big waste not to use VRAM.  We'll p=
-robably need a heuristic at some point.
-Agreed. But for CZ/ST, due to hardware limitation as discussed before, we e=
-ither use VRAM or GTT, not both. That might be changed for later ASICs, but=
- it is beyond the scope of this patch.
-
-
-Regards,
-Samuel Li
-
-From: Koenig, Christian
-Sent: Tuesday, March 20, 2018 4:17 PM
-To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher@=
-amd.com>>; Marek Ol=B9=E1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; Mic=
-hel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org<mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org>>; Li, Samuel <S=
-amuel.Li-5C7GfCeVMHo@public.gmane.org<mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>; amd-gfx list <amd-gfx-PD4FTy7X32k@public.gmane.org=
-eedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-
-That's what I meant with use up the otherwise unused VRAM. I don't see any =
-disadvantage of always setting GTT as second domain on APUs.
-
-My assumption was that we dropped this in userspace for displayable surface=
-s, but Marek proved that wrong.
-
-So what we should do is actually to add GTT as fallback to all BOs on APUs =
-in Mesa and only make sure that the kernel is capable of handling GTT with =
-optimal performance (e.g. have user huge pages etc..).
-
-Christian.
-
-Am 20.03.2018 um 21:04 schrieb Deucher, Alexander:
-
-I think we can also have the case of systems with similar amounts of carve =
-out and system ram.  E.g., on a system with 4 GB of system memory with 1 GB=
- carved out for vram.  It would be a big waste not to use VRAM.  We'll prob=
-ably need a heuristic at some point.
-
-
-
-Alex
-
-________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:ckoenig.l=
-eichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Tuesday, March 20, 2018 2:32:49 PM
-To: Marek Ol=B9=E1k; Koenig, Christian
-Cc: Alex Deucher; Deucher, Alexander; Michel D=E4nzer; Li, Samuel; amd-gfx =
-list
-Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-
-I don't think that is a good idea.
-
-Ideally GTT should now have the same performance as VRAM on APUs and we sho=
-uld use VRAM only for things where we absolutely have to and to actually us=
-e up the otherwise unused VRAM.
-
-Can you run some tests with all BOs forced to GTT and see if there is any p=
-erformance regression?
-
-Christian.
-
-Am 20.03.2018 um 15:51 schrieb Marek Ol=B9=E1k:
-On Tue, Mar 20, 2018 at 9:55 AM, Christian K=F6nig <ckoenig.leichtzumerken@=
-gmail.com<mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
-Yes, exactly. And if I remember correctly Mesa used to always set GTT as fa=
-llback on APUs, correct?
-
-"used to" is the key part. Mesa doesn't force GTT on APUs anymore. It expec=
-ts that the combination of BO priorities and BO move throttling will result=
- in optimal BO placements over time.
-Marek
-
-
-The problem seems to be that this fallback isn't set for displayable BOs.
-
-So what needs to be done is to just enable this fallback for displayable BO=
-s as well if the kernel can handle it.
-
-Christian.
-
-
-Am 20.03.2018 um 00:01 schrieb Marek Ol=B9=E1k:
-In theory, Mesa doesn't have to do anything. It can continue setting VRAM a=
-nd if the kernel has to put a display buffer into GTT, it doesn't matter (f=
-or Mesa). Whether the VRAM placement is really used is largely determined b=
-y BO priorities.
-
-The way I understand scather/gather is that it only allows the GTT placemen=
-t. It doesn't force the GTT placement. Mesa also doesn't force the GTT plac=
-ement.
-
-Marek
-
-On Mon, Mar 19, 2018 at 5:12 PM, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto=
-:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
-On Mon, Mar 19, 2018 at 4:29 PM, Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org<mailto:Samue=
-l.Li-5C7GfCeVMHo@public.gmane.org>> wrote:
->>to my earlier point, there may be cases where it is advantageous to put
->> display buffers in vram even if s/g display is supported
->
-> Agreed. That is also why the patch has the options to let user select whe=
-re
-> to put display buffers.
->
-> As whether to put the option in Mesa or kernel, it seems the difference i=
-s
-> not much. Also, since amdgpufb can request even without mesa, kernel migh=
-t
-> be a better choice. In addition, putting in the kernel can save client's
-> duplicate work(mesa, ogl, vulkan, 2d, kernel...)
-
-Why do we even expose different memory pools to the UMDs in the first
-place ;)  Each pool has performance characteristics that may be
-relevant for a particular work load.  Only the UMDs really know the
-finer points of those workloads. In general, you don't want the kernel
-dictating policy if you can avoid it.  The kernel exposes
-functionality and userspace sets the policy.  With the location set in
-userspace, each app/user can have whatever policy makes sense for
-their use case all at the same time without needing to tweak their
-kernel for every use case.
-
-Alex
-
-
-_______________________________________________
-
-amd-gfx mailing list
-
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
-
-_______________________________________________
-
-amd-gfx mailing list
-
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---_000_BY1PR12MB0504A15F2DC48E238A896433F5AB0BY1PR12MB0504namp_
-Content-Type: text/html; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-2">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;}
-pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:"Courier New";
-	color:black;}
-span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;
-	color:black;}
-span.xm-3838486020630618689hoenzb
-	{mso-style-name:x_m_-3838486020630618689hoenzb;}
-span.xm-3838486020630618689m8572536124089128592m4947926278827078055hoenzb
-	{mso-style-name:x_m_-3838486020630618689m_8572536124089128592m_49479262788=
-27078055hoenzb;}
-span.EmailStyle22
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:#2F5496;}
-span.EmailStyle23
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:#2F5496;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:1133061508;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1982298110 -203232636 67698691 67698693 67698689 67=
-698691 67698693 67698689 67698691 67698693;}
-@list l0:level1
-	{mso-level-start-at:0;
-	mso-level-number-format:bullet;
-	mso-level-text:\F0D8;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;
-	mso-fareast-font-family:SimSun;
-	mso-bidi-font-family:"Times New Roman";}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Also, the change here is only for dis=
-play buffer, so it is not really a &#8220;big&#8221; waste.<o:p></o:p></spa=
-n></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Regards,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Samuel Li<o:p></o:p></span></p>
-</div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:windowtext">From:</span></b><span style=3D"=
-font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtex=
-t"> Li, Samuel
-<br>
-<b>Sent:</b> Tuesday, March 20, 2018 4:38 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Michel D=E4nzer &lt;=
-michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;; amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;;=
- Marek Ol=B9=E1k &lt;maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Koenig, Christian &lt;Christian.=
-Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
-upport<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin-left:.5in;text-indent:-.25in;mso-list:l0 level1 lfo2"><!=
-[if !supportLists]><span style=3D"font-family:Wingdings"><span style=3D"mso=
--list:Ignore">&Oslash;<span style=3D"font:7.0pt &quot;Times New Roman&quot;=
-">&nbsp;
-</span></span></span><![endif]><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif">I think we can also have the case of systems with similar am=
-ounts of carve out and system ram.&nbsp; E.g., on a system with 4 GB of sys=
-tem memory with 1 GB carved out for vram.&nbsp; It would
- be a big waste not to use VRAM.&nbsp; We'll probably need a heuristic at s=
-ome point.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Agreed. But for CZ/ST, due to hardwar=
-e limitation as discussed before, we either use VRAM or GTT, not both. That=
- might be changed for later ASICs, but it is beyond
- the scope of this patch.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Regards,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Samuel Li<o:p></o:p></span></p>
-</div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:windowtext">From:</span></b><span style=3D"=
-font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtex=
-t"> Koenig, Christian
-<br>
-<b>Sent:</b> Tuesday, March 20, 2018 4:17 PM<br>
-<b>To:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;; Marek Ol=B9=E1k &lt;<a href=3D"mailt=
-o:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-<b>Cc:</b> Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexde=
-ucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;; Michel D=E4nzer &lt;<a href=3D"mailto:michel@daenz=
-er.net">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;; Li, Samuel &lt;<a href=3D"mailto:Samuel=
-.Li-5C7GfCeVMHo@public.gmane.org">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;; amd-gfx list &lt;<a href=3D"mailto:=
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
-upport<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">That's what I meant with use up the otherwise unused=
- VRAM. I don't see any disadvantage of always setting GTT as second domain =
-on APUs.<br>
-<br>
-My assumption was that we dropped this in userspace for displayable surface=
-s, but Marek proved that wrong.<br>
-<br>
-So what we should do is actually to add GTT as fallback to all BOs on APUs =
-in Mesa and only make sure that the kernel is capable of handling GTT with =
-optimal performance (e.g. have user huge pages etc..).<br>
-<br>
-Christian.<br>
-<br>
-Am 20.03.2018 um 21:04 schrieb Deucher, Alexander:<o:p></o:p></p>
-</div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<div id=3D"divtagdefaultwrapper">
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">I think we ca=
-n also have the case of systems with similar amounts of carve out and syste=
-m ram.&nbsp; E.g., on a system with 4 GB of system memory with 1 GB carved =
-out for vram.&nbsp; It would be a big waste not to use
- VRAM.&nbsp; We'll probably need a heuristic at some point.<o:p></o:p></spa=
-n></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</=
-o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Alex<o:p></o:=
-p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Christian K=F6nig
-<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;ckoenig.leichtzumer=
-ken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Tuesday, March 20, 2018 2:32:49 PM<br>
-<b>To:</b> Marek Ol=B9=E1k; Koenig, Christian<br>
-<b>Cc:</b> Alex Deucher; Deucher, Alexander; Michel D=E4nzer; Li, Samuel; a=
-md-gfx list<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display s=
-upport</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">I don't think that is a g=
-ood idea.<br>
-<br>
-Ideally GTT should now have the same performance as VRAM on APUs and we sho=
-uld use VRAM only for things where we absolutely have to and to actually us=
-e up the otherwise unused VRAM.<br>
-<br>
-Can you run some tests with all BOs forced to GTT and see if there is any p=
-erformance regression?<br>
-<br>
-Christian.<br>
-<br>
-Am 20.03.2018 um 15:51 schrieb Marek Ol=B9=E1k:<o:p></o:p></p>
-</div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">On Tue, Mar 20, 2018 at 9=
-:55 AM, Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmai=
-l.com" target=3D"_blank">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<o:=
-p></o:p></p>
-<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
-bottom:5.0pt">
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">Yes, exactly. And if I re=
-member correctly Mesa used to always set GTT as fallback on APUs, correct?<=
-o:p></o:p></p>
-</div>
-</div>
-</blockquote>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white">&quo=
-t;used to&quot; is the key part. Mesa doesn't force GTT on APUs anymore. It=
- expects that the combination of BO priorities and BO move throttling will =
-result in optimal BO placements over time.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">Marek<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
-</div>
-<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
-bottom:5.0pt">
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><br>
-The problem seems to be that this fallback isn't set for displayable BOs.<b=
-r>
-<br>
-So what needs to be done is to just enable this fallback for displayable BO=
-s as well if the kernel can handle it.<span style=3D"color:#888888"><br>
-<br>
-<span class=3D"xm-3838486020630618689hoenzb">Christian.</span></span> <o:p>=
-</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><br>
-<br>
-Am 20.03.2018 um 00:01 schrieb Marek Ol=B9=E1k:<o:p></o:p></p>
-</div>
-</div>
-</div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<div>
-<div>
-<div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">In theory, Mesa doesn't h=
-ave to do anything. It can continue setting VRAM and if the kernel has to p=
-ut a display buffer into GTT, it doesn't matter (for Mesa). Whether the VRA=
-M placement is really used is largely
- determined by BO priorities.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">The way I understand scat=
-her/gather is that it only allows the GTT placement. It doesn't force the G=
-TT placement. Mesa also doesn't force the GTT placement.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">Marek<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white">On Mon, Mar 19, 2018 at 5=
-:12 PM, Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D=
-"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<o:p></o:p></p>
-<blockquote style=3D"border:none;border-left:solid #CCCCCC 1.0pt;padding:0i=
-n 0in 0in 6.0pt;margin-left:4.8pt;margin-top:5.0pt;margin-right:0in;margin-=
-bottom:5.0pt">
-<p class=3D"MsoNormal" style=3D"background:white">On Mon, Mar 19, 2018 at 4=
-:29 PM, Li, Samuel &lt;<a href=3D"mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org" target=3D"_blan=
-k">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
-&gt;&gt;to my earlier point, there may be cases where it is advantageous to=
- put<br>
-&gt;&gt; display buffers in vram even if s/g display is supported<br>
-&gt;<br>
-&gt; Agreed. That is also why the patch has the options to let user select =
-where<br>
-&gt; to put display buffers.<br>
-&gt;<br>
-&gt; As whether to put the option in Mesa or kernel, it seems the differenc=
-e is<br>
-&gt; not much. Also, since amdgpufb can request even without mesa, kernel m=
-ight<br>
-&gt; be a better choice. In addition, putting in the kernel can save client=
-&#8217;s<br>
-&gt; duplicate work(mesa, ogl, vulkan, 2d, kernel&#8230;)<br>
-<br>
-Why do we even expose different memory pools to the UMDs in the first<br>
-place ;)&nbsp; Each pool has performance characteristics that may be<br>
-relevant for a particular work load.&nbsp; Only the UMDs really know the<br=
->
-finer points of those workloads. In general, you don't want the kernel<br>
-dictating policy if you can avoid it.&nbsp; The kernel exposes<br>
-functionality and userspace sets the policy.&nbsp; With the location set in=
-<br>
-userspace, each app/user can have whatever policy makes sense for<br>
-their use case all at the same time without needing to tweak their<br>
-kernel for every use case.<br>
-<span style=3D"color:#888888"><br>
-<span class=3D"xm-3838486020630618689m8572536124089128592m49479262788270780=
-55hoenzb">Alex</span></span><o:p></o:p></p>
-</blockquote>
-</div>
-</div>
-</div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><o:p=
->&nbsp;</o:p></p>
-</div>
-</div>
-<pre style=3D"background:white">___________________________________________=
-____<o:p></o:p></pre>
-<pre style=3D"background:white">amd-gfx mailing list<o:p></o:p></pre>
-<pre style=3D"background:white"><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
-.org" target=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><o:p></o:p></pre>
-<pre style=3D"background:white"><a href=3D"https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx" target=3D"_blank">https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx</a><o:p></o:p></pre>
-</blockquote>
-<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
-</div>
-</blockquote>
-</div>
-<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><o:p=
->&nbsp;</o:p></p>
-<pre style=3D"background:white">___________________________________________=
-____<o:p></o:p></pre>
-<pre style=3D"background:white">amd-gfx mailing list<o:p></o:p></pre>
-<pre style=3D"background:white"><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
-.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><o:p></o:p></pre>
-<pre style=3D"background:white"><a href=3D"https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
-gfx</a><o:p></o:p></pre>
-</blockquote>
-<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
-</div>
-</blockquote>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BY1PR12MB0504A15F2DC48E238A896433F5AB0BY1PR12MB0504namp_--
-
---===============1835263696==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1835263696==--
+UGxlYXNlIGFkaGVyZSB0byB0aGUgbmFtaW5nIG9mIFBvbGFyaXMxMiBpbiBjb21taXQgbG9nIGFz
+IHdlbGwuCnRoYW5rcy4KCkplcnJ5CgpPbiAwMy8yMS8yMDE4IDAzOjEyIEFNLCBIYXJyeSBXZW50
+bGFuZCB3cm90ZToKPiBGcm9tOiBEbXl0cm8gTGFrdHl1c2hraW4gPERteXRyby5MYWt0eXVzaGtp
+bkBhbWQuY29tPgo+Cj4gU2lnbmVkLW9mZi1ieTogRG15dHJvIExha3R5dXNoa2luIDxEbXl0cm8u
+TGFrdHl1c2hraW5AYW1kLmNvbT4KPiBSZXZpZXdlZC1ieTogQmhhd2FucHJlZXQgTGFraGEgPEJo
+YXdhbnByZWV0Lkxha2hhQGFtZC5jb20+Cj4gQWNrZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJy
+eS53ZW50bGFuZEBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2NhbGNzL2RjZV9jYWxjcy5jIHwgMTIxICsrKysrKysrKysrKysrKysrKysrKystCj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2RjZV9jYWxjcy5oICAgfCAgIDEgKwo+
+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxMjAgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2Nh
+bGNzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2NhbGNzLmMK
+PiBpbmRleCAwY2JhYjgxYWIzMDQuLjNkMDVlODI2NTJhZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2NhbGNzLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZGNlX2NhbGNzLmMKPiBAQCAtNTIsMTAgKzUy
+LDExIEBAIHN0YXRpYyBlbnVtIGJ3X2NhbGNzX3ZlcnNpb24gYndfY2FsY3NfdmVyc2lvbl9mcm9t
+X2FzaWNfaWQoc3RydWN0IGh3X2FzaWNfaWQgYXNpCj4gICAJCXJldHVybiBCV19DQUxDU19WRVJT
+SU9OX0NBUlJJWk87Cj4KPiAgIAljYXNlIEZBTUlMWV9WSToKPiArCQlpZiAoQVNJQ19SRVZfSVNf
+UE9MQVJJUzEyX1YoYXNpY19pZC5od19pbnRlcm5hbF9yZXYpKQo+ICsJCQlyZXR1cm4gQldfQ0FM
+Q1NfVkVSU0lPTl9MRVhBOwo+ICAgCQlpZiAoQVNJQ19SRVZfSVNfUE9MQVJJUzEwX1AoYXNpY19p
+ZC5od19pbnRlcm5hbF9yZXYpKQo+ICAgCQkJcmV0dXJuIEJXX0NBTENTX1ZFUlNJT05fUE9MQVJJ
+UzEwOwo+IC0JCWlmIChBU0lDX1JFVl9JU19QT0xBUklTMTFfTShhc2ljX2lkLmh3X2ludGVybmFs
+X3JldikgfHwKPiAtCQkJCUFTSUNfUkVWX0lTX1BPTEFSSVMxMl9WKGFzaWNfaWQuaHdfaW50ZXJu
+YWxfcmV2KSkKPiArCQlpZiAoQVNJQ19SRVZfSVNfUE9MQVJJUzExX00oYXNpY19pZC5od19pbnRl
+cm5hbF9yZXYpKQo+ICAgCQkJcmV0dXJuIEJXX0NBTENTX1ZFUlNJT05fUE9MQVJJUzExOwo+ICAg
+CQlyZXR1cm4gQldfQ0FMQ1NfVkVSU0lPTl9JTlZBTElEOwo+Cj4gQEAgLTIzNzMsNiArMjM3NCwx
+MjIgQEAgdm9pZCBid19jYWxjc19pbml0KHN0cnVjdCBid19jYWxjc19kY2VpcCAqYndfZGNlaXAs
+Cj4gICAJCWRjZWlwLnNjYXR0ZXJfZ2F0aGVyX3B0ZV9yZXF1ZXN0X3Jvd3NfaW5fdGlsaW5nX21v
+ZGUgPSAyOwo+ICAgCQlkY2VpcC5tY2lmd3JfYWxsX3N1cmZhY2VzX2J1cnN0X3RpbWUgPSBid19p
+bnRfdG9fZml4ZWQoMCk7Cj4gICAJCWJyZWFrOwo+ICsJY2FzZSBCV19DQUxDU19WRVJTSU9OX0xF
+WEE6Cj4gKwkJdmJpb3MubWVtb3J5X3R5cGUgPSBid19kZWZfZ2RkcjU7Cj4gKwkJdmJpb3MuZHJh
+bV9jaGFubmVsX3dpZHRoX2luX2JpdHMgPSAzMjsKPiArCQl2Ymlvcy5udW1iZXJfb2ZfZHJhbV9j
+aGFubmVscyA9IGFzaWNfaWQudnJhbV93aWR0aCAvIHZiaW9zLmRyYW1fY2hhbm5lbF93aWR0aF9p
+bl9iaXRzOwo+ICsJCXZiaW9zLm51bWJlcl9vZl9kcmFtX2JhbmtzID0gODsKPiArCQl2Ymlvcy5o
+aWdoX3ljbGsgPSBid19pbnRfdG9fZml4ZWQoNjAwMCk7Cj4gKwkJdmJpb3MubWlkX3ljbGsgPSBi
+d19pbnRfdG9fZml4ZWQoMzIwMCk7Cj4gKwkJdmJpb3MubG93X3ljbGsgPSBid19pbnRfdG9fZml4
+ZWQoMTAwMCk7Cj4gKwkJdmJpb3MubG93X3NjbGsgPSBid19pbnRfdG9fZml4ZWQoNjc4KTsKPiAr
+CQl2Ymlvcy5taWQxX3NjbGsgPSBid19pbnRfdG9fZml4ZWQoODY0KTsKPiArCQl2Ymlvcy5taWQy
+X3NjbGsgPSBid19pbnRfdG9fZml4ZWQoOTAwKTsKPiArCQl2Ymlvcy5taWQzX3NjbGsgPSBid19p
+bnRfdG9fZml4ZWQoOTIwKTsKPiArCQl2Ymlvcy5taWQ0X3NjbGsgPSBid19pbnRfdG9fZml4ZWQo
+OTQwKTsKPiArCQl2Ymlvcy5taWQ1X3NjbGsgPSBid19pbnRfdG9fZml4ZWQoOTYwKTsKPiArCQl2
+Ymlvcy5taWQ2X3NjbGsgPSBid19pbnRfdG9fZml4ZWQoOTgwKTsKPiArCQl2Ymlvcy5oaWdoX3Nj
+bGsgPSBid19pbnRfdG9fZml4ZWQoMTA0OSk7Cj4gKwkJdmJpb3MubG93X3ZvbHRhZ2VfbWF4X2Rp
+c3BjbGsgPSBid19pbnRfdG9fZml4ZWQoNDU5KTsKPiArCQl2Ymlvcy5taWRfdm9sdGFnZV9tYXhf
+ZGlzcGNsayA9IGJ3X2ludF90b19maXhlZCg2NTQpOwo+ICsJCXZiaW9zLmhpZ2hfdm9sdGFnZV9t
+YXhfZGlzcGNsayA9IGJ3X2ludF90b19maXhlZCgxMTA4KTsKPiArCQl2Ymlvcy5sb3dfdm9sdGFn
+ZV9tYXhfcGh5Y2xrID0gYndfaW50X3RvX2ZpeGVkKDU0MCk7Cj4gKwkJdmJpb3MubWlkX3ZvbHRh
+Z2VfbWF4X3BoeWNsayA9IGJ3X2ludF90b19maXhlZCg4MTApOwo+ICsJCXZiaW9zLmhpZ2hfdm9s
+dGFnZV9tYXhfcGh5Y2xrID0gYndfaW50X3RvX2ZpeGVkKDgxMCk7Cj4gKwkJdmJpb3MuZGF0YV9y
+ZXR1cm5fYnVzX3dpZHRoID0gYndfaW50X3RvX2ZpeGVkKDMyKTsKPiArCQl2Ymlvcy50cmMgPSBi
+d19pbnRfdG9fZml4ZWQoNDgpOwo+ICsJCWlmICh2Ymlvcy5udW1iZXJfb2ZfZHJhbV9jaGFubmVs
+cyA9PSAyKSAvLyA2NC1iaXQKPiArCQkJdmJpb3MuZG1pZm1jX3VyZ2VudF9sYXRlbmN5ID0gYndf
+aW50X3RvX2ZpeGVkKDQpOwo+ICsJCWVsc2UKPiArCQkJdmJpb3MuZG1pZm1jX3VyZ2VudF9sYXRl
+bmN5ID0gYndfaW50X3RvX2ZpeGVkKDMpOwo+ICsJCXZiaW9zLnN0dXR0ZXJfc2VsZl9yZWZyZXNo
+X2V4aXRfbGF0ZW5jeSA9IGJ3X2ludF90b19maXhlZCg1KTsKPiArCQl2Ymlvcy5zdHV0dGVyX3Nl
+bGZfcmVmcmVzaF9lbnRyeV9sYXRlbmN5ID0gYndfaW50X3RvX2ZpeGVkKDApOwo+ICsJCXZiaW9z
+Lm5icF9zdGF0ZV9jaGFuZ2VfbGF0ZW5jeSA9IGJ3X2ludF90b19maXhlZCgyNTApOwo+ICsJCXZi
+aW9zLm1jaWZ3cm1jX3VyZ2VudF9sYXRlbmN5ID0gYndfaW50X3RvX2ZpeGVkKDEwKTsKPiArCQl2
+Ymlvcy5zY2F0dGVyX2dhdGhlcl9lbmFibGUgPSBmYWxzZTsKPiArCQl2Ymlvcy5kb3duX3NwcmVh
+ZF9wZXJjZW50YWdlID0gYndfZnJjX3RvX2ZpeGVkKDUsIDEwKTsKPiArCQl2Ymlvcy5jdXJzb3Jf
+d2lkdGggPSAzMjsKPiArCQl2Ymlvcy5hdmVyYWdlX2NvbXByZXNzaW9uX3JhdGUgPSA0Owo+ICsJ
+CXZiaW9zLm51bWJlcl9vZl9yZXF1ZXN0X3Nsb3RzX2dtY19yZXNlcnZlc19mb3JfZG1pZl9wZXJf
+Y2hhbm5lbCA9IDI1NjsKPiArCQl2Ymlvcy5ibGFja291dF9kdXJhdGlvbiA9IGJ3X2ludF90b19m
+aXhlZCgwKTsgLyogdXMgKi8KPiArCQl2Ymlvcy5tYXhpbXVtX2JsYWNrb3V0X3JlY292ZXJ5X3Rp
+bWUgPSBid19pbnRfdG9fZml4ZWQoMCk7Cj4gKwo+ICsJCWRjZWlwLm1heF9hdmVyYWdlX3BlcmNl
+bnRfb2ZfaWRlYWxfcG9ydF9id19kaXNwbGF5X2Nhbl91c2VfaW5fbm9ybWFsX3N5c3RlbV9vcGVy
+YXRpb24gPSAxMDA7Cj4gKwkJZGNlaXAubWF4X2F2ZXJhZ2VfcGVyY2VudF9vZl9pZGVhbF9kcmFt
+YndfZGlzcGxheV9jYW5fdXNlX2luX25vcm1hbF9zeXN0ZW1fb3BlcmF0aW9uID0gMTAwOwo+ICsJ
+CWRjZWlwLnBlcmNlbnRfb2ZfaWRlYWxfcG9ydF9id19yZWNlaXZlZF9hZnRlcl91cmdlbnRfbGF0
+ZW5jeSA9IDEwMDsKPiArCQlkY2VpcC5sYXJnZV9jdXJzb3IgPSBmYWxzZTsKPiArCQlkY2VpcC5k
+bWlmX3JlcXVlc3RfYnVmZmVyX3NpemUgPSBid19pbnRfdG9fZml4ZWQoNzY4KTsKPiArCQlkY2Vp
+cC5kbWlmX3BpcGVfZW5fZmJjX2NodW5rX3RyYWNrZXIgPSBmYWxzZTsKPiArCQlkY2VpcC5jdXJz
+b3JfbWF4X291dHN0YW5kaW5nX2dyb3VwX251bSA9IDE7Cj4gKwkJZGNlaXAubGluZXNfaW50ZXJs
+ZWF2ZWRfaW50b19sYiA9IDI7Cj4gKwkJZGNlaXAuY2h1bmtfd2lkdGggPSAyNTY7Cj4gKwkJZGNl
+aXAubnVtYmVyX29mX2dyYXBoaWNzX3BpcGVzID0gNTsKPiArCQlkY2VpcC5udW1iZXJfb2ZfdW5k
+ZXJsYXlfcGlwZXMgPSAwOwo+ICsJCWRjZWlwLmxvd19wb3dlcl90aWxpbmdfbW9kZSA9IDA7Cj4g
+KwkJZGNlaXAuZGlzcGxheV93cml0ZV9iYWNrX3N1cHBvcnRlZCA9IHRydWU7Cj4gKwkJZGNlaXAu
+YXJnYl9jb21wcmVzc2lvbl9zdXBwb3J0ID0gdHJ1ZTsKPiArCQlkY2VpcC51bmRlcmxheV92c2Nh
+bGVyX2VmZmljaWVuY3k2X2JpdF9wZXJfY29tcG9uZW50ID0KPiArCQkJYndfZnJjX3RvX2ZpeGVk
+KDM1NTU2LCAxMDAwMCk7Cj4gKwkJZGNlaXAudW5kZXJsYXlfdnNjYWxlcl9lZmZpY2llbmN5OF9i
+aXRfcGVyX2NvbXBvbmVudCA9Cj4gKwkJCWJ3X2ZyY190b19maXhlZCgzNDI4NiwgMTAwMDApOwo+
+ICsJCWRjZWlwLnVuZGVybGF5X3ZzY2FsZXJfZWZmaWNpZW5jeTEwX2JpdF9wZXJfY29tcG9uZW50
+ID0KPiArCQkJYndfZnJjX3RvX2ZpeGVkKDMyLCAxMCk7Cj4gKwkJZGNlaXAudW5kZXJsYXlfdnNj
+YWxlcl9lZmZpY2llbmN5MTJfYml0X3Blcl9jb21wb25lbnQgPQo+ICsJCQlid19pbnRfdG9fZml4
+ZWQoMyk7Cj4gKwkJZGNlaXAuZ3JhcGhpY3NfdnNjYWxlcl9lZmZpY2llbmN5Nl9iaXRfcGVyX2Nv
+bXBvbmVudCA9Cj4gKwkJCWJ3X2ZyY190b19maXhlZCgzNSwgMTApOwo+ICsJCWRjZWlwLmdyYXBo
+aWNzX3ZzY2FsZXJfZWZmaWNpZW5jeThfYml0X3Blcl9jb21wb25lbnQgPQo+ICsJCQlid19mcmNf
+dG9fZml4ZWQoMzQyODYsIDEwMDAwKTsKPiArCQlkY2VpcC5ncmFwaGljc192c2NhbGVyX2VmZmlj
+aWVuY3kxMF9iaXRfcGVyX2NvbXBvbmVudCA9Cj4gKwkJCWJ3X2ZyY190b19maXhlZCgzMiwgMTAp
+Owo+ICsJCWRjZWlwLmdyYXBoaWNzX3ZzY2FsZXJfZWZmaWNpZW5jeTEyX2JpdF9wZXJfY29tcG9u
+ZW50ID0KPiArCQkJYndfaW50X3RvX2ZpeGVkKDMpOwo+ICsJCWRjZWlwLmFscGhhX3ZzY2FsZXJf
+ZWZmaWNpZW5jeSA9IGJ3X2ludF90b19maXhlZCgzKTsKPiArCQlkY2VpcC5tYXhfZG1pZl9idWZm
+ZXJfYWxsb2NhdGVkID0gNDsKPiArCQlkY2VpcC5ncmFwaGljc19kbWlmX3NpemUgPSAxMjI4ODsK
+PiArCQlkY2VpcC51bmRlcmxheV9sdW1hX2RtaWZfc2l6ZSA9IDE5NDU2Owo+ICsJCWRjZWlwLnVu
+ZGVybGF5X2Nocm9tYV9kbWlmX3NpemUgPSAyMzU1MjsKPiArCQlkY2VpcC5wcmVfZG93bnNjYWxl
+cl9lbmFibGVkID0gdHJ1ZTsKPiArCQlkY2VpcC51bmRlcmxheV9kb3duc2NhbGVfcHJlZmV0Y2hf
+ZW5hYmxlZCA9IHRydWU7Cj4gKwkJZGNlaXAubGJfd3JpdGVfcGl4ZWxzX3Blcl9kaXNwY2xrID0g
+YndfaW50X3RvX2ZpeGVkKDEpOwo+ICsJCWRjZWlwLmxiX3NpemVfcGVyX2NvbXBvbmVudDQ0NCA9
+IGJ3X2ludF90b19maXhlZCgyNDU5NTIpOwo+ICsJCWRjZWlwLmdyYXBoaWNzX2xiX25vZG93bnNj
+YWxpbmdfbXVsdGlfbGluZV9wcmVmZXRjaGluZyA9IHRydWU7Cj4gKwkJZGNlaXAuc3R1dHRlcl9h
+bmRfZHJhbV9jbG9ja19zdGF0ZV9jaGFuZ2VfZ2F0ZWRfYmVmb3JlX2N1cnNvciA9Cj4gKwkJCWJ3
+X2ludF90b19maXhlZCgxKTsKPiArCQlkY2VpcC51bmRlcmxheTQyMF9sdW1hX2xiX3NpemVfcGVy
+X2NvbXBvbmVudCA9IGJ3X2ludF90b19maXhlZCgKPiArCQkJODIxNzYpOwo+ICsJCWRjZWlwLnVu
+ZGVybGF5NDIwX2Nocm9tYV9sYl9zaXplX3Blcl9jb21wb25lbnQgPQo+ICsJCQlid19pbnRfdG9f
+Zml4ZWQoMTY0MzUyKTsKPiArCQlkY2VpcC51bmRlcmxheTQyMl9sYl9zaXplX3Blcl9jb21wb25l
+bnQgPSBid19pbnRfdG9fZml4ZWQoCj4gKwkJCTgyMTc2KTsKPiArCQlkY2VpcC5jdXJzb3JfY2h1
+bmtfd2lkdGggPSBid19pbnRfdG9fZml4ZWQoNjQpOwo+ICsJCWRjZWlwLmN1cnNvcl9kY3BfYnVm
+ZmVyX2xpbmVzID0gYndfaW50X3RvX2ZpeGVkKDQpOwo+ICsJCWRjZWlwLnVuZGVybGF5X21heGlt
+dW1fd2lkdGhfZWZmaWNpZW50X2Zvcl90aWxpbmcgPQo+ICsJCQlid19pbnRfdG9fZml4ZWQoMTky
+MCk7Cj4gKwkJZGNlaXAudW5kZXJsYXlfbWF4aW11bV9oZWlnaHRfZWZmaWNpZW50X2Zvcl90aWxp
+bmcgPQo+ICsJCQlid19pbnRfdG9fZml4ZWQoMTA4MCk7Cj4gKwkJZGNlaXAucGVha19wdGVfcmVx
+dWVzdF90b19ldmljdGlvbl9yYXRpb19saW1pdGluZ19tdWx0aXBsZV9kaXNwbGF5c19vcl9zaW5n
+bGVfcm90YXRlZF9kaXNwbGF5ID0KPiArCQkJYndfZnJjX3RvX2ZpeGVkKDMsIDEwKTsKPiArCQlk
+Y2VpcC5wZWFrX3B0ZV9yZXF1ZXN0X3RvX2V2aWN0aW9uX3JhdGlvX2xpbWl0aW5nX3NpbmdsZV9k
+aXNwbGF5X25vX3JvdGF0aW9uID0KPiArCQkJYndfaW50X3RvX2ZpeGVkKDI1KTsKPiArCQlkY2Vp
+cC5taW5pbXVtX291dHN0YW5kaW5nX3B0ZV9yZXF1ZXN0X2xpbWl0ID0gYndfaW50X3RvX2ZpeGVk
+KAo+ICsJCQkyKTsKPiArCQlkY2VpcC5tYXhpbXVtX3RvdGFsX291dHN0YW5kaW5nX3B0ZV9yZXF1
+ZXN0c19hbGxvd2VkX2J5X3NhdyA9Cj4gKwkJCWJ3X2ludF90b19maXhlZCgxMjgpOwo+ICsJCWRj
+ZWlwLmxpbWl0X2V4Y2Vzc2l2ZV9vdXRzdGFuZGluZ19kbWlmX3JlcXVlc3RzID0gdHJ1ZTsKPiAr
+CQlkY2VpcC5saW5lYXJfbW9kZV9saW5lX3JlcXVlc3RfYWx0ZXJuYXRpb25fc2xpY2UgPQo+ICsJ
+CQlid19pbnRfdG9fZml4ZWQoNjQpOwo+ICsJCWRjZWlwLnNjYXR0ZXJfZ2F0aGVyX2xpbmVzX29m
+X3B0ZV9wcmVmZXRjaGluZ19pbl9saW5lYXJfbW9kZSA9Cj4gKwkJCTMyOwo+ICsJCWRjZWlwLmRp
+c3BsYXlfd3JpdGVfYmFjazQyMF9sdW1hX21jaWZ3cl9idWZmZXJfc2l6ZSA9IDEyMjg4Owo+ICsJ
+CWRjZWlwLmRpc3BsYXlfd3JpdGVfYmFjazQyMF9jaHJvbWFfbWNpZndyX2J1ZmZlcl9zaXplID0g
+ODE5MjsKPiArCQlkY2VpcC5yZXF1ZXN0X2VmZmljaWVuY3kgPSBid19mcmNfdG9fZml4ZWQoOCwg
+MTApOwo+ICsJCWRjZWlwLmRpc3BjbGtfcGVyX3JlcXVlc3QgPSBid19pbnRfdG9fZml4ZWQoMik7
+Cj4gKwkJZGNlaXAuZGlzcGNsa19yYW1waW5nX2ZhY3RvciA9IGJ3X2ZyY190b19maXhlZCgxMDUs
+IDEwMCk7Cj4gKwkJZGNlaXAuZGlzcGxheV9waXBlX3Rocm91Z2hwdXRfZmFjdG9yID0gYndfZnJj
+X3RvX2ZpeGVkKDEwNSwgMTAwKTsKPiArCQlkY2VpcC5zY2F0dGVyX2dhdGhlcl9wdGVfcmVxdWVz
+dF9yb3dzX2luX3RpbGluZ19tb2RlID0gMjsKPiArCQlkY2VpcC5tY2lmd3JfYWxsX3N1cmZhY2Vz
+X2J1cnN0X3RpbWUgPSBid19pbnRfdG9fZml4ZWQoMCk7Cj4gKwkJYnJlYWs7Cj4gICAJY2FzZSBC
+V19DQUxDU19WRVJTSU9OX1NUT05FWToKPiAgIAkJdmJpb3MubWVtb3J5X3R5cGUgPSBid19kZWZf
+Z2RkcjU7Cj4gICAJCXZiaW9zLmRyYW1fY2hhbm5lbF93aWR0aF9pbl9iaXRzID0gNjQ7Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvZGNlX2NhbGNzLmgg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2RjZV9jYWxjcy5oCj4gaW5kZXgg
+YTliZmU5ZmY4Y2U2Li5jODQwMWI5MmI4YWYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2RjL2luYy9kY2VfY2FsY3MuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9pbmMvZGNlX2NhbGNzLmgKPiBAQCAtNDIsNiArNDIsNyBAQCBlbnVtIGJ3
+X2NhbGNzX3ZlcnNpb24gewo+ICAgCUJXX0NBTENTX1ZFUlNJT05fQ0FSUklaTywKPiAgIAlCV19D
+QUxDU19WRVJTSU9OX1BPTEFSSVMxMCwKPiAgIAlCV19DQUxDU19WRVJTSU9OX1BPTEFSSVMxMSwK
+PiArCUJXX0NBTENTX1ZFUlNJT05fTEVYQSwKPiAgIAlCV19DQUxDU19WRVJTSU9OX1NUT05FWSwK
+PiAgIAlCV19DQUxDU19WRVJTSU9OX1ZFR0ExMAo+ICAgfTsKPgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
