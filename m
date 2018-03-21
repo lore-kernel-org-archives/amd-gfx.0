@@ -1,11 +1,13 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix "mitigate workaround for i915"
-Date: Wed, 21 Mar 2018 14:08:18 +0100
-Message-ID: <20180321130818.10130-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Fix set wrong temperature range on smu7
+Date: Wed, 21 Mar 2018 13:21:35 +0000
+Message-ID: <BN6PR12MB18090AA979CDDCD2629B2879F7AA0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1521618979-15694-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1808166767=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1521618979-15694-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,44 +18,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-TWl4ZWQgdXAgZXhwb3J0ZXIgYW5kIGltcG9ydGVyIGhlcmUuIEUuZy4gd2hpbGUgbWFwcGluZyB0
-aGUgQk8gd2UgbmVlZAp0byBjaGVjayB0aGUgaW1wb3J0ZXIgbm90IHRoZSBleHBvcnRlci4KClNp
-Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYyB8IDggKysrKyst
-LS0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYwppbmRleCAxYzk5OTE3Mzg0Nzcu
-LjRiNTg0Y2I3NWJmNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ByaW1lLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1l
-LmMKQEAgLTEzMiw2ICsxMzIsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9nZW1fbWFwX2F0dGFjaChz
-dHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKIHsKIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9
-IGRtYV9idWYtPnByaXY7CiAJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBnZW1fdG9fYW1kZ3B1X2Jv
-KG9iaik7CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYoYm8t
-PnRiby5iZGV2KTsKIAlsb25nIHI7CiAKIAlyID0gZHJtX2dlbV9tYXBfYXR0YWNoKGRtYV9idWYs
-IHRhcmdldF9kZXYsIGF0dGFjaCk7CkBAIC0xNDMsNyArMTQ0LDcgQEAgc3RhdGljIGludCBhbWRn
-cHVfZ2VtX21hcF9hdHRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCiAJCWdvdG8gZXJyb3Jf
-ZGV0YWNoOwogCiAKLQlpZiAoZG1hX2J1Zi0+b3BzICE9ICZhbWRncHVfZG1hYnVmX29wcykgewor
-CWlmIChhdHRhY2gtPmRldi0+ZHJpdmVyICE9IGFkZXYtPmRldi0+ZHJpdmVyKSB7CiAJCS8qCiAJ
-CSAqIFdhaXQgZm9yIGFsbCBzaGFyZWQgZmVuY2VzIHRvIGNvbXBsZXRlIGJlZm9yZSB3ZSBzd2l0
-Y2ggdG8gZnV0dXJlCiAJCSAqIHVzZSBvZiBleGNsdXNpdmUgZmVuY2Ugb24gdGhpcyBwcmltZSBz
-aGFyZWQgYm8uCkBAIC0xNjIsNyArMTYzLDcgQEAgc3RhdGljIGludCBhbWRncHVfZ2VtX21hcF9h
-dHRhY2goc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCiAJaWYgKHIpCiAJCWdvdG8gZXJyb3JfdW5y
-ZXNlcnZlOwogCi0JaWYgKGRtYV9idWYtPm9wcyAhPSAmYW1kZ3B1X2RtYWJ1Zl9vcHMpCisJaWYg
-KGF0dGFjaC0+ZGV2LT5kcml2ZXIgIT0gYWRldi0+ZGV2LT5kcml2ZXIpCiAJCWJvLT5wcmltZV9z
-aGFyZWRfY291bnQrKzsKIAogZXJyb3JfdW5yZXNlcnZlOgpAQCAtMTc5LDYgKzE4MCw3IEBAIHN0
-YXRpYyB2b2lkIGFtZGdwdV9nZW1fbWFwX2RldGFjaChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwK
-IHsKIAlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiA9IGRtYV9idWYtPnByaXY7CiAJc3RydWN0
-IGFtZGdwdV9ibyAqYm8gPSBnZW1fdG9fYW1kZ3B1X2JvKG9iaik7CisJc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYoYm8tPnRiby5iZGV2KTsKIAlpbnQgcmV0ID0g
-MDsKIAogCXJldCA9IGFtZGdwdV9ib19yZXNlcnZlKGJvLCB0cnVlKTsKQEAgLTE4Niw3ICsxODgs
-NyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZ2VtX21hcF9kZXRhY2goc3RydWN0IGRtYV9idWYgKmRt
-YV9idWYsCiAJCWdvdG8gZXJyb3I7CiAKIAlhbWRncHVfYm9fdW5waW4oYm8pOwotCWlmIChkbWFf
-YnVmLT5vcHMgIT0gJmFtZGdwdV9kbWFidWZfb3BzICYmIGJvLT5wcmltZV9zaGFyZWRfY291bnQp
-CisJaWYgKGF0dGFjaC0+ZGV2LT5kcml2ZXIgIT0gYWRldi0+ZGV2LT5kcml2ZXIgJiYgYm8tPnBy
-aW1lX3NoYXJlZF9jb3VudCkKIAkJYm8tPnByaW1lX3NoYXJlZF9jb3VudC0tOwogCWFtZGdwdV9i
-b191bnJlc2VydmUoYm8pOwogCi0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+--===============1808166767==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18090AA979CDDCD2629B2879F7AA0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18090AA979CDDCD2629B2879F7AA0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, March 21, 2018 3:56:19 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amd/pp: Fix set wrong temperature range on smu7
+
+Fix the issue thermal irq was always triggered
+for GPU under temperature range detected
+
+The low temp in default thermal policy
+was set to -273. so need to use int type for the low temp.
+
+Change-Id: I1141b2698233ecd1e984b80eaf371966ab1aeef0
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_thermal.c
+index 4dd26eb..44527755 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
+@@ -308,7 +308,7 @@ int smu7_thermal_get_temperature(struct pp_hwmgr *hwmgr=
+)
+ * @exception PP_Result_BadInput if the input data is not valid.
+ */
+ static int smu7_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,
+-               uint32_t low_temp, uint32_t high_temp)
++               int low_temp, int high_temp)
+ {
+         int low =3D SMU7_THERMAL_MINIMUM_ALERT_TEMP *
+                         PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18090AA979CDDCD2629B2879F7AA0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Wednesday, March 21, 2018 3:56:19 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Fix set wrong temperature range on smu7=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Fix the issue thermal irq was always triggered<br>
+for GPU under temperature range detected<br>
+<br>
+The low temp in default thermal policy<br>
+was set to -273. so need to use int type for the low temp.<br>
+<br>
+Change-Id: I1141b2698233ecd1e984b80eaf371966ab1aeef0<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+index 4dd26eb..44527755 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+@@ -308,7 &#43;308,7 @@ int smu7_thermal_get_temperature(struct pp_hwmgr *h=
+wmgr)<br>
+&nbsp;* @exception PP_Result_BadInput if the input data is not valid.<br>
+&nbsp;*/<br>
+&nbsp;static int smu7_thermal_set_temperature_range(struct pp_hwmgr *hwmgr,=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; uint32_t low_temp, uint32_t high_temp)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; int low_temp, int high_temp)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int low =3D SMU7_THERMAL_M=
+INIMUM_ALERT_TEMP *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_TE=
+MPERATURE_UNITS_PER_CENTIGRADES;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18090AA979CDDCD2629B2879F7AA0BN6PR12MB1809namp_--
+
+--===============1808166767==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1808166767==--
