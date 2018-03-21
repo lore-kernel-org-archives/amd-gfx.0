@@ -1,25 +1,11 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Enable scatter gather display support
-Date: Wed, 21 Mar 2018 01:08:50 -0400
-Message-ID: <CAAxE2A4gcwdGiApoh=sa-SMPtMpm6M2+LmvafhVVnW=kntPPKw@mail.gmail.com>
-References: <1520033110-29964-1-git-send-email-Samuel.Li@amd.com>
- <BN6PR12MB18099E7295CB0301EF536924F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <BY1PR12MB05042F8034B375BAB507EB03F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <BN6PR12MB180952A68A8AF256197D1177F7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <BN6PR12MB1809A2A1591C19CC6E0C952FF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
- <CAAxE2A4V0=1w_aybBq0dXc3w+D=eJR-dY7Tq=7g3rnj94OY7XQ@mail.gmail.com>
- <BY1PR12MB050483D06AA7D7B08247B1D0F5D40@BY1PR12MB0504.namprd12.prod.outlook.com>
- <CADnq5_O0p30CC0JAnqvrrspXapdN5ZpXGBChGmt+14ekmPHkQw@mail.gmail.com>
- <CAAxE2A4fiM5KjfxOSTTT3Soew8S-EGE7OVWBh-7565+rahMaOg@mail.gmail.com>
- <13996c5e-dc4c-5a9a-b6c3-7fe6bb63ec5d@gmail.com>
- <CAAxE2A7ffe2fkOQG0mFpPfP4uRKZ1BVTKWQ3Q+FhLWQnYU4nww@mail.gmail.com>
- <f7bce36e-d9c6-dc13-6b1f-0e2bf91aaff0@gmail.com>
- <DM5PR12MB18205326885F0857CEC4FAA6F7AB0@DM5PR12MB1820.namprd12.prod.outlook.com>
- <7bbc4bc8-1b44-efc3-44b7-47ebcb4b9c76@amd.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/pp: Refine add irq logic in powerplay
+Date: Wed, 21 Mar 2018 12:54:43 +0800
+Message-ID: <1521608083-12837-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0134674721=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7bbc4bc8-1b44-efc3-44b7-47ebcb4b9c76-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -30,82 +16,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
---===============0134674721==
-Content-Type: multipart/alternative; boundary="001a113fbf5438fbec0567e532f0"
-
---001a113fbf5438fbec0567e532f0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Mar 20, 2018 at 4:16 PM, Christian K=C3=B6nig <christian.koenig@amd=
-.com>
-wrote:
-
-> That's what I meant with use up the otherwise unused VRAM. I don't see an=
-y
-> disadvantage of always setting GTT as second domain on APUs.
->
-> My assumption was that we dropped this in userspace for displayable
-> surfaces, but Marek proved that wrong.
->
-> So what we should do is actually to add GTT as fallback to all BOs on APU=
-s
-> in Mesa and only make sure that the kernel is capable of handling GTT wit=
-h
-> optimal performance (e.g. have user huge pages etc..).
->
-
-VRAM|GTT is practically as good as GTT. VRAM with BO priorities and
-eviction throttling is the true "VRAM|GTT".
-
-I don't know how else to make use of VRAM intelligently.
-
-Marek
-
---001a113fbf5438fbec0567e532f0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On T=
-ue, Mar 20, 2018 at 4:16 PM, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a =
-href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">christian.koenig=
-@amd.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <div class=3D"m_4643584645760816653moz-cite-prefix">That&#39;s what I m=
-eant with use up the
-      otherwise unused VRAM. I don&#39;t see any disadvantage of always
-      setting GTT as second domain on APUs.<br>
-      <br>
-      My assumption was that we dropped this in userspace for
-      displayable surfaces, but Marek proved that wrong.<br>
-      <br>
-      So what we should do is actually to add GTT as fallback to all BOs
-      on APUs in Mesa and only make sure that the kernel is capable of
-      handling GTT with optimal performance (e.g. have user huge pages
-      etc..).<span class=3D"HOEnZb"><font color=3D"#888888"><br></font></sp=
-an></div></div></blockquote><div><br></div><div>VRAM|GTT is practically as =
-good as GTT. VRAM with BO priorities and eviction throttling is the true &q=
-uot;VRAM|GTT&quot;.<br><br></div><div>I don&#39;t know how else to make use=
- of VRAM intelligently.</div><div><br></div><div>Marek<br></div></div></div=
-></div>
-
---001a113fbf5438fbec0567e532f0--
-
---===============0134674721==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+MS4gcmVnaXN0ZXIgc211IGlycSB3aGVuIHN3IGluaXQuCjIuIGRlbGV0ZSB1c2VsZXNzIGZ1bmN0
+aW9uIGFyZ3VtZW50LgoKQ2hhbmdlLUlkOiBJZTgxN2U1MjQzMjdmMTRlZGZkZTYyODQzZmJkZDJh
+Nzk5OTQ4OTgxOQpTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jICAgICAgICAgfCAy
+ICsrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIu
+YyB8IDYgKysrLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5j
+ICAgICAgICAgICB8IDQgLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Iv
+c211N19od21nci5jICAgICAgfCA1ICsrLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9od21nci92ZWdhMTBfaHdtZ3IuYyAgICB8IDUgKystLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2luYy9oYXJkd2FyZW1hbmFnZXIuaCAgIHwgMiArLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmggICAgICAgICAgICAgfCAzICstLQogNyBmaWxlcyBj
+aGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKaW5kZXggMDM4MTMxNy4uN2U4YWQz
+MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxh
+eS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwpA
+QCAtMTE3LDYgKzExNyw4IEBAIHN0YXRpYyBpbnQgcHBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCiAK
+IAkJcmV0ID0gaHdtZ3ItPnNtdW1ncl9mdW5jcy0+c211X2luaXQoaHdtZ3IpOwogCisJCXBobV9y
+ZWdpc3Rlcl9pcnFfaGFuZGxlcnMoaHdtZ3IpOworCiAJCXByX2RlYnVnKCJhbWRncHU6IHBvd2Vy
+cGxheSBzdyBpbml0aWFsaXplZFxuIik7CiAJfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFuYWdlci5jCmluZGV4IGI3ODQxMzEuLmFl
+MmU5MzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hh
+cmR3YXJlbWFuYWdlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
+L2hhcmR3YXJlbWFuYWdlci5jCkBAIC0yMDIsMTIgKzIwMiwxMiBAQCBpbnQgcGhtX3N0b3BfdGhl
+cm1hbF9jb250cm9sbGVyKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJcmV0dXJuIGh3bWdyLT5o
+d21ncl9mdW5jLT5zdG9wX3RoZXJtYWxfY29udHJvbGxlcihod21ncik7CiB9CiAKLWludCBwaG1f
+cmVnaXN0ZXJfdGhlcm1hbF9pbnRlcnJ1cHQoc3RydWN0IHBwX2h3bWdyICpod21nciwgY29uc3Qg
+dm9pZCAqaW5mbykKK2ludCBwaG1fcmVnaXN0ZXJfaXJxX2hhbmRsZXJzKHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IpCiB7CiAJUEhNX0ZVTkNfQ0hFQ0soaHdtZ3IpOwogCi0JaWYgKGh3bWdyLT5od21n
+cl9mdW5jLT5yZWdpc3Rlcl9pbnRlcm5hbF90aGVybWFsX2ludGVycnVwdCAhPSBOVUxMKQotCQly
+ZXR1cm4gaHdtZ3ItPmh3bWdyX2Z1bmMtPnJlZ2lzdGVyX2ludGVybmFsX3RoZXJtYWxfaW50ZXJy
+dXB0KGh3bWdyLCBpbmZvKTsKKwlpZiAoaHdtZ3ItPmh3bWdyX2Z1bmMtPnJlZ2lzdGVyX2lycV9o
+YW5kbGVycyAhPSBOVUxMKQorCQlyZXR1cm4gaHdtZ3ItPmh3bWdyX2Z1bmMtPnJlZ2lzdGVyX2ly
+cV9oYW5kbGVycyhod21ncik7CiAKIAlyZXR1cm4gMDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci9od21nci5jCmluZGV4IGZiY2RkYTUuLjYzMTg0MzggMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwpAQCAtMjAwLDEwICsyMDAs
+NiBAQCBpbnQgaHdtZ3JfaHdfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCWlmIChyZXQp
+CiAJCWdvdG8gZXJyMjsKIAotCXJldCA9IHBobV9yZWdpc3Rlcl90aGVybWFsX2ludGVycnVwdCho
+d21nciwgTlVMTCk7Ci0JaWYgKHJldCkKLQkJZ290byBlcnIyOwotCiAJcmV0dXJuIDA7CiBlcnIy
+OgogCWlmIChod21nci0+aHdtZ3JfZnVuYy0+YmFja2VuZF9maW5pKQpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCmluZGV4IDQwODMzODcuLjhh
+ODEzNjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Nt
+dTdfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3
+X2h3bWdyLmMKQEAgLTM5OTYsOCArMzk5Niw3IEBAIHN0YXRpYyBpbnQgc211N19zZXRfbWF4X2Zh
+bl9ycG1fb3V0cHV0KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHVpbnQxNl90IHVzX21heF9mCiAJ
+CQlQUFNNQ19NU0dfU2V0RmFuUnBtTWF4LCB1c19tYXhfZmFuX3JwbSk7CiB9CiAKLXN0YXRpYyBp
+bnQgc211N19yZWdpc3Rlcl9pbnRlcm5hbF90aGVybWFsX2ludGVycnVwdChzdHJ1Y3QgcHBfaHdt
+Z3IgKmh3bWdyLAotCQkJCQljb25zdCB2b2lkICp0aGVybWFsX2ludGVycnVwdF9pbmZvKQorc3Rh
+dGljIGludCBzbXU3X3JlZ2lzdGVyX2lycV9oYW5kbGVycyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
+KQogewogCXJldHVybiAwOwogfQpAQCAtNDk4Miw3ICs0OTgxLDcgQEAgc3RhdGljIGludCBzbXU3
+X3NldF9wb3dlcl9wcm9maWxlX21vZGUoc3RydWN0IHBwX2h3bWdyICpod21nciwgbG9uZyAqaW5w
+dXQsIHVpbnQKIAkuZ2V0X2Zhbl9zcGVlZF9ycG0gPSBzbXU3X2Zhbl9jdHJsX2dldF9mYW5fc3Bl
+ZWRfcnBtLAogCS5zZXRfZmFuX3NwZWVkX3JwbSA9IHNtdTdfZmFuX2N0cmxfc2V0X2Zhbl9zcGVl
+ZF9ycG0sCiAJLnVuaW5pdGlhbGl6ZV90aGVybWFsX2NvbnRyb2xsZXIgPSBzbXU3X3RoZXJtYWxf
+Y3RybF91bmluaXRpYWxpemVfdGhlcm1hbF9jb250cm9sbGVyLAotCS5yZWdpc3Rlcl9pbnRlcm5h
+bF90aGVybWFsX2ludGVycnVwdCA9IHNtdTdfcmVnaXN0ZXJfaW50ZXJuYWxfdGhlcm1hbF9pbnRl
+cnJ1cHQsCisJLnJlZ2lzdGVyX2lycV9oYW5kbGVycyA9IHNtdTdfcmVnaXN0ZXJfaXJxX2hhbmRs
+ZXJzLAogCS5jaGVja19zbWNfdXBkYXRlX3JlcXVpcmVkX2Zvcl9kaXNwbGF5X2NvbmZpZ3VyYXRp
+b24gPSBzbXU3X2NoZWNrX3NtY191cGRhdGVfcmVxdWlyZWRfZm9yX2Rpc3BsYXlfY29uZmlndXJh
+dGlvbiwKIAkuY2hlY2tfc3RhdGVzX2VxdWFsID0gc211N19jaGVja19zdGF0ZXNfZXF1YWwsCiAJ
+LnNldF9mYW5fY29udHJvbF9tb2RlID0gc211N19zZXRfZmFuX2NvbnRyb2xfbW9kZSwKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKaW5k
+ZXggZWI5ODg0ZS4uN2JiOWRkOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKQEAgLTQ4MTksOCArNDgxOSw3IEBAIHN0YXRpYyBp
+bnQgdmVnYTEwX2dldF90aGVybWFsX3RlbXBlcmF0dXJlX3JhbmdlKHN0cnVjdCBwcF9od21nciAq
+aHdtZ3IsCiAJLnByb2Nlc3MgPSBwaG1faXJxX3Byb2Nlc3MsCiB9OwogCi1zdGF0aWMgaW50IHZl
+Z2ExMF9yZWdpc3Rlcl90aGVybWFsX2ludGVycnVwdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAot
+CQljb25zdCB2b2lkICppbmZvKQorc3RhdGljIGludCB2ZWdhMTBfcmVnaXN0ZXJfaXJxX2hhbmRs
+ZXJzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiB7CiAJc3RydWN0IGFtZGdwdV9pcnFfc3JjICpz
+b3VyY2UgPQogCQlremFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMpLCBHRlBfS0VS
+TkVMKTsKQEAgLTQ5NzgsNyArNDk3Nyw3IEBAIHN0YXRpYyBpbnQgdmVnYTEwX3NldF9wb3dlcl9w
+cm9maWxlX21vZGUoc3RydWN0IHBwX2h3bWdyICpod21nciwgbG9uZyAqaW5wdXQsIHVpCiAJLmF2
+ZnNfY29udHJvbCA9IHZlZ2ExMF9hdmZzX2VuYWJsZSwKIAkubm90aWZ5X2NhY19idWZmZXJfaW5m
+byA9IHZlZ2ExMF9ub3RpZnlfY2FjX2J1ZmZlcl9pbmZvLAogCS5nZXRfdGhlcm1hbF90ZW1wZXJh
+dHVyZV9yYW5nZSA9IHZlZ2ExMF9nZXRfdGhlcm1hbF90ZW1wZXJhdHVyZV9yYW5nZSwKLQkucmVn
+aXN0ZXJfaW50ZXJuYWxfdGhlcm1hbF9pbnRlcnJ1cHQgPSB2ZWdhMTBfcmVnaXN0ZXJfdGhlcm1h
+bF9pbnRlcnJ1cHQsCisJLnJlZ2lzdGVyX2lycV9oYW5kbGVycyA9IHZlZ2ExMF9yZWdpc3Rlcl9p
+cnFfaGFuZGxlcnMsCiAJLnN0YXJ0X3RoZXJtYWxfY29udHJvbGxlciA9IHZlZ2ExMF9zdGFydF90
+aGVybWFsX2NvbnRyb2xsZXIsCiAJLmdldF9wb3dlcl9wcm9maWxlX21vZGUgPSB2ZWdhMTBfZ2V0
+X3Bvd2VyX3Byb2ZpbGVfbW9kZSwKIAkuc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSA9IHZlZ2ExMF9z
+ZXRfcG93ZXJfcHJvZmlsZV9tb2RlLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaW5jL2hhcmR3YXJlbWFuYWdlci5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvaW5jL2hhcmR3YXJlbWFuYWdlci5oCmluZGV4IGIzNjZhNWIuLmY2OTU0N2YgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9oYXJkd2FyZW1hbmFnZXIu
+aAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaGFyZHdhcmVtYW5hZ2Vy
+LmgKQEAgLTQwMyw3ICs0MDMsNyBAQCBleHRlcm4gaW50IHBobV9hcHBseV9zdGF0ZV9hZGp1c3Rf
+cnVsZXMoc3RydWN0IHBwX2h3bWdyICpod21nciwKIGV4dGVybiBpbnQgcGhtX2ZvcmNlX2RwbV9s
+ZXZlbHMoc3RydWN0IHBwX2h3bWdyICpod21nciwgZW51bSBhbWRfZHBtX2ZvcmNlZF9sZXZlbCBs
+ZXZlbCk7CiBleHRlcm4gaW50IHBobV9kaXNwbGF5X2NvbmZpZ3VyYXRpb25fY2hhbmdlZChzdHJ1
+Y3QgcHBfaHdtZ3IgKmh3bWdyKTsKIGV4dGVybiBpbnQgcGhtX25vdGlmeV9zbWNfZGlzcGxheV9j
+b25maWdfYWZ0ZXJfcHNfYWRqdXN0bWVudChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKTsKLWV4dGVy
+biBpbnQgcGhtX3JlZ2lzdGVyX3RoZXJtYWxfaW50ZXJydXB0KHN0cnVjdCBwcF9od21nciAqaHdt
+Z3IsIGNvbnN0IHZvaWQgKmluZm8pOworZXh0ZXJuIGludCBwaG1fcmVnaXN0ZXJfaXJxX2hhbmRs
+ZXJzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpOwogZXh0ZXJuIGludCBwaG1fc3RhcnRfdGhlcm1h
+bF9jb250cm9sbGVyKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpOwogZXh0ZXJuIGludCBwaG1fc3Rv
+cF90aGVybWFsX2NvbnRyb2xsZXIoc3RydWN0IHBwX2h3bWdyICpod21ncik7CiBleHRlcm4gYm9v
+bCBwaG1fY2hlY2tfc21jX3VwZGF0ZV9yZXF1aXJlZF9mb3JfZGlzcGxheV9jb25maWd1cmF0aW9u
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9p
+bmMvaHdtZ3IuaAppbmRleCAyNjY3Nzc1Li5lZmRjZjMxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9pbmMvaHdtZ3IuaApAQCAtMjg3LDggKzI4Nyw3IEBAIHN0cnVjdCBwcF9od21n
+cl9mdW5jIHsKIAlpbnQgKCpnZXRfZmFuX3NwZWVkX3JwbSkoc3RydWN0IHBwX2h3bWdyICpod21n
+ciwgdWludDMyX3QgKnNwZWVkKTsKIAlpbnQgKCpyZXNldF9mYW5fc3BlZWRfdG9fZGVmYXVsdCko
+c3RydWN0IHBwX2h3bWdyICpod21ncik7CiAJaW50ICgqdW5pbml0aWFsaXplX3RoZXJtYWxfY29u
+dHJvbGxlcikoc3RydWN0IHBwX2h3bWdyICpod21ncik7Ci0JaW50ICgqcmVnaXN0ZXJfaW50ZXJu
+YWxfdGhlcm1hbF9pbnRlcnJ1cHQpKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCi0JCQkJCWNvbnN0
+IHZvaWQgKnRoZXJtYWxfaW50ZXJydXB0X2luZm8pOworCWludCAoKnJlZ2lzdGVyX2lycV9oYW5k
+bGVycykoc3RydWN0IHBwX2h3bWdyICpod21ncik7CiAJYm9vbCAoKmNoZWNrX3NtY191cGRhdGVf
+cmVxdWlyZWRfZm9yX2Rpc3BsYXlfY29uZmlndXJhdGlvbikoc3RydWN0IHBwX2h3bWdyICpod21n
+cik7CiAJaW50ICgqY2hlY2tfc3RhdGVzX2VxdWFsKShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAog
+CQkJCQljb25zdCBzdHJ1Y3QgcHBfaHdfcG93ZXJfc3RhdGUgKnBzdGF0ZTEsCi0tIAoxLjkuMQoK
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0134674721==--
