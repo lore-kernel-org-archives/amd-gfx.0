@@ -1,50 +1,89 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix NULL ptr on driver unload due to init
- failure.
-Date: Wed, 21 Mar 2018 14:54:22 -0400
-Message-ID: <CADnq5_M+22+4CB28Fe87OjtDFHFQiLgGN8t73UQZ8Gh-L2xC6A@mail.gmail.com>
-References: <1521656572-19414-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Joe Perches <joe@perches.com>
+Subject: Re: [PATCH] drm/amd/pp: use mlck_table.count for array loop index
+ limit
+Date: Wed, 21 Mar 2018 12:02:10 -0700
+Message-ID: <1521658930.7999.25.camel@perches.com>
+References: <20180321182653.3150-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1521656572-19414-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180321182653.3150-1-colin.king@canonical.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin King <colin.king@canonical.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBNYXIgMjEsIDIwMTggYXQgMjoyMiBQTSwgQW5kcmV5IEdyb2R6b3Zza3kKPGFuZHJl
-eS5ncm9kem92c2t5QGFtZC5jb20+IHdyb3RlOgo+IFByb2JsZW06Cj4gV2hlbiB1bmxvYWRpbmcg
-ZHVlIHRvIGZhaWx1cmUgYW1kZ3B1X2RldmljZV9maW5pIHdhcyBjYWxsZWQgdHdpY2UKPiB3aGlj
-aCB3YXMgbGVhZGluZyB0byBOVUxMIHB0ciBpbiBhbWRncHVfaXJxX2Rpc2FibGVfYWxsLgo+Cj4g
-Rml4Ogo+IENhbGwgYW1kZ3B1X2RldmljZV9maW5pIG9ubHkgb25jZSBmcm9tIGFtZGdwdV9kcml2
-ZXJfdW5sb2FkX2ttcy4KPgo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRy
-ZXkuZ3JvZHpvdnNreUBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZXZpY2UuYyB8IDEgLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IDYw
-ZTU3N2MuLmM1MWJlMDUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2RldmljZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jCj4gQEAgLTIwMjMsNyArMjAyMyw2IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAgICAgICAgICAgICAgIH0KPiAgICAgICAg
-ICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICJhbWRncHVfZGV2aWNlX2lwX2luaXQgZmFpbGVk
-XG4iKTsKPiAgICAgICAgICAgICAgICAgYW1kZ3B1X3ZmX2Vycm9yX3B1dChhZGV2LCBBTURHSU1f
-RVJST1JfVkZfQU1ER1BVX0lOSVRfRkFJTCwgMCwgMCk7Cj4gLSAgICAgICAgICAgICAgIGFtZGdw
-dV9kZXZpY2VfaXBfZmluaShhZGV2KTsKPiAgICAgICAgICAgICAgICAgZ290byBmYWlsZWQ7Cj4g
-ICAgICAgICB9Cj4KPiAtLQo+IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+On Wed, 2018-03-21 at 18:26 +0000, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> The for-loops process data in the mclk_table but use slck_table.count
+> as the loop index limit.  I believe these are cut-n-paste errors from
+> the previous almost identical loops as indicated by static analysis.
+> Fix these.
+
+Nice tool.
+
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+[]
+> @@ -855,7 +855,7 @@ static int smu7_odn_initial_default_setting(struct pp_hwmgr *hwmgr)
+>  
+>  	odn_table->odn_memory_clock_dpm_levels.num_of_pl =
+>  						data->golden_dpm_table.mclk_table.count;
+> -	for (i=0; i<data->golden_dpm_table.sclk_table.count; i++) {
+> +	for (i=0; i<data->golden_dpm_table.mclk_table.count; i++) {
+>  		odn_table->odn_memory_clock_dpm_levels.entries[i].clock =
+>  					data->golden_dpm_table.mclk_table.dpm_levels[i].value;
+>  		odn_table->odn_memory_clock_dpm_levels.entries[i].enabled = true;
+
+Probably more sensible to use temporaries too.
+Maybe something like the below (also trivially reduces object size)
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index df2a312ca6c9..339b897146af 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -834,6 +834,7 @@ static int smu7_odn_initial_default_setting(struct pp_hwmgr *hwmgr)
+ 
+ 	struct phm_ppt_v1_clock_voltage_dependency_table *dep_sclk_table;
+ 	struct phm_ppt_v1_clock_voltage_dependency_table *dep_mclk_table;
++	struct phm_odn_performance_level *entries;
+ 
+ 	if (table_info == NULL)
+ 		return -EINVAL;
+@@ -843,11 +844,11 @@ static int smu7_odn_initial_default_setting(struct pp_hwmgr *hwmgr)
+ 
+ 	odn_table->odn_core_clock_dpm_levels.num_of_pl =
+ 						data->golden_dpm_table.sclk_table.count;
++	entries = odn_table->odn_core_clock_dpm_levels.entries;
+ 	for (i=0; i<data->golden_dpm_table.sclk_table.count; i++) {
+-		odn_table->odn_core_clock_dpm_levels.entries[i].clock =
+-					data->golden_dpm_table.sclk_table.dpm_levels[i].value;
+-		odn_table->odn_core_clock_dpm_levels.entries[i].enabled = true;
+-		odn_table->odn_core_clock_dpm_levels.entries[i].vddc = dep_sclk_table->entries[i].vddc;
++		entries[i].clock = data->golden_dpm_table.sclk_table.dpm_levels[i].value;
++		entries[i].enabled = true;
++		entries[i].vddc = dep_sclk_table->entries[i].vddc;
+ 	}
+ 
+ 	smu7_get_voltage_dependency_table(dep_sclk_table,
+@@ -855,11 +856,11 @@ static int smu7_odn_initial_default_setting(struct pp_hwmgr *hwmgr)
+ 
+ 	odn_table->odn_memory_clock_dpm_levels.num_of_pl =
+ 						data->golden_dpm_table.mclk_table.count;
+-	for (i=0; i<data->golden_dpm_table.sclk_table.count; i++) {
+-		odn_table->odn_memory_clock_dpm_levels.entries[i].clock =
+-					data->golden_dpm_table.mclk_table.dpm_levels[i].value;
+-		odn_table->odn_memory_clock_dpm_levels.entries[i].enabled = true;
+-		odn_table->odn_memory_clock_dpm_levels.entries[i].vddc = dep_mclk_table->entries[i].vddc;
++	entries = odn_table->odn_memory_clock_dpm_levels.entries;
++	for (i=0; i<data->golden_dpm_table.mclk_table.count; i++) {
++		entries[i].clock = data->golden_dpm_table.mclk_table.dpm_levels[i].value;
++		entries[i].enabled = true;
++		entries[i].vddc = dep_mclk_table->entries[i].vddc;
+ 	}
+ 
+ 	smu7_get_voltage_dependency_table(dep_mclk_table,
