@@ -1,58 +1,39 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [pull] radeon and amdgpu drm-fixes-4.16
-Date: Wed, 21 Mar 2018 17:44:08 -0500
-Message-ID: <20180321224408.3198-1-alexander.deucher@amd.com>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+Subject: Re: [trivial PATCH V2] treewide: Align function definition open/close
+	braces
+Date: Wed, 21 Mar 2018 18:53:46 -0400
+Message-ID: <yq1370trqf9.fsf@oracle.com>
+References: <5ccbbf083e26bddfb4ea4f819ed62347ce266f39.1521669820.git.joe@perches.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-audit-bounces@redhat.com>
+In-Reply-To: <5ccbbf083e26bddfb4ea4f819ed62347ce266f39.1521669820.git.joe@perches.com>
+	(Joe Perches's message of "Wed, 21 Mar 2018 15:09:32 -0700")
+List-Unsubscribe: <https://www.redhat.com/mailman/options/linux-audit>,
+	<mailto:linux-audit-request@redhat.com?subject=unsubscribe>
+List-Archive: <https://www.redhat.com/archives/linux-audit>
+List-Post: <mailto:linux-audit@redhat.com>
+List-Help: <mailto:linux-audit-request@redhat.com?subject=help>
+List-Subscribe: <https://www.redhat.com/mailman/listinfo/linux-audit>,
+	<mailto:linux-audit-request@redhat.com?subject=subscribe>
+Sender: linux-audit-bounces@redhat.com
+Errors-To: linux-audit-bounces@redhat.com
+To: Joe Perches <joe@perches.com>
+Cc: linux-wireless@vger.kernel.org, Alexandre Belloni <alexandre.belloni@bootlin.com>, x86@kernel.org, Jeff, Peter Zijlstra <peterz@infradead.org>, Layton <jlayton@kernel.org>, Will Deacon <will.deacon@arm.com>, Timur Tabi <timur@tabi.org>, dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>, "J. Bruce Fields" <bfields@fieldses.org>, Solutions <aacraid@adaptec.com>, "H. Peter Anvin" <hpa@zytor.com>, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, Mauro, linux-rtc@vger.kernel.org, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, "James E.J. Bottomley" <jejb@linux.vnet.ibm.com>, linux-scsi@vger.kernel.org, "Darrick J. Wong" <darrick.wong@oracle.com>, Dept-GELinuxNICDev@cavium.com, Mark Fasheh <mark@fasheh.com>, Sathya Prakash <sathya.prakash@broadcom.com>, amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Andy, Darren Hart <dvhart@inf>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkEgZmV3IG1vcmUgZml4ZXMgZm9yIDQuMTYuICBNb3N0bHkgZm9yIGRpc3BsYXlz
-OgotIEEgZml4IGZvciBEUCBoYW5kbGluZyBvbiByYWRlb24KLSBGaXggYmFuZGluZyBvbiBlRFAg
-cGFuZWxzCi0gRml4IEhCUiBhdWRpbwotIEZpeCBmb3IgZGlzYWJsaW5nIFZHQSBtb2RlIG9uIFJh
-dmVuIHRoYXQgbGVhZHMgdG8gYSBjb3JydXB0IG9yCiAgYmxhbmsgZGlzcGxheSBvbiBzb21lIHBs
-YXRmb3JtcwoKClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQgNjdmMTk3NjY2NTkw
-MGM4Njk4OWNmZTk5Yjg4NGRjNTFiZGRmYjBlOToKCiAgTWVyZ2UgdGFnICdkcm0taW50ZWwtZml4
-ZXMtMjAxOC0wMy0xNCcgb2YgZ2l0Oi8vYW5vbmdpdC5mcmVlZGVza3RvcC5vcmcvZHJtL2RybS1p
-bnRlbCBpbnRvIGRybS1maXhlcyAoMjAxOC0wMy0xNSAwOToyNjoxMSArMTAwMCkKCmFyZSBhdmFp
-bGFibGUgaW4gdGhlIGdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0
-b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tZml4ZXMtNC4xNgoKZm9yIHlvdSB0byBmZXRjaCBjaGFu
-Z2VzIHVwIHRvIDczMWEzNzM2OThjOTY3NWQ1YWVkOGEzMGQ4Yzk4NjFiZWE5YzQxYTI6CgogIGRy
-bS9hbWQvZGlzcGxheTogQWRkIG9uZSB0byBFRElEJ3MgYXVkaW8gY2hhbm5lbCBjb3VudCB3aGVu
-IHBhc3NpbmcgdG8gREMgKDIwMTgtMDMtMjEgMDA6MjQ6NDcgLTA1MDApCgotLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCkNsYXJr
-IFpoZW5nICgxKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBSZWZpbmUgZGlzYWJsZSBWR0EKCkhh
-cnJ5IFdlbnRsYW5kICgyKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBXZSBzaG91bGRuJ3Qgc2V0
-IGZvcm1hdF9kZWZhdWx0IG9uIHBsYW5lIGFzIGF0b21pYyBkcml2ZXIKICAgICAgZHJtL2FtZC9k
-aXNwbGF5OiBBZGQgb25lIHRvIEVESUQncyBhdWRpbyBjaGFubmVsIGNvdW50IHdoZW4gcGFzc2lu
-ZyB0byBEQwoKTWljaGVsIETDpG56ZXIgKDEpOgogICAgICBkcm0vcmFkZW9uOiBEb24ndCB0dXJu
-IG9mZiBEUCBzaW5rIHdoZW4gZGlzY29ubmVjdGVkCgpNaWtpdGEgTGlwc2tpICgzKToKICAgICAg
-ZHJtL2FtZGdwdTogVXNlIGF0b21pYyBmdW5jdGlvbiB0byBkaXNhYmxlIGNydGNzIHdpdGggZGMg
-ZW5hYmxlZAogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEFsbG93IHRydW5jYXRpb24gdG8gMTAgYml0
-cwogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBGTVQgdHJ1bmNhdGlvbiBwcm9ncmFtbWluZwoK
-U2hpcmlzaCBTICgxKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBmaXggZGVyZWZlcmVuY2luZyBw
-b3NzaWJsZSBFUlJfUFRSKCkKCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2
-aWNlLmMgICAgICAgICB8ICA5ICsrKystLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMgIHwgIDUgKystLQogLi4uL2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYyAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjZS9kY2VfaHdzZXEuaCAgICAgfCAgOCArKysrKy0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX29wcC5jICAgICAgIHwgIDkgKysrLS0tLQogLi4uL2Ry
-bS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9od19zZXF1ZW5jZXIuYyAgfCAyMCArKysrKysr
-KysrLS0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY29ubmVjdG9ycy5jICAgICAg
-ICAgfCAzMSArKysrKysrKystLS0tLS0tLS0tLS0tCiA3IGZpbGVzIGNoYW5nZWQsIDQ4IGluc2Vy
-dGlvbnMoKyksIDM2IGRlbGV0aW9ucygtKQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWwK
+
+Joe,
+
+> Some functions definitions have either the initial open brace and/or
+> the closing brace outside of column 1.
+>
+> Move those braces to column 1.
+
+drivers/scsi and drivers/message/fusion parts look fine.
+
+Acked-by: Martin K. Petersen <martin.petersen@oracle.com>
+
+-- 
+Martin K. Petersen	Oracle Linux Engineering
