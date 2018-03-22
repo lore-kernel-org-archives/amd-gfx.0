@@ -1,45 +1,39 @@
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-Subject: [PATCH 16/23] drm/amdgpu/dc: Stop updating plane->fb
-Date: Thu, 22 Mar 2018 17:23:06 +0200
-Message-ID: <20180322152313.6561-17-ville.syrjala@linux.intel.com>
-References: <20180322152313.6561-1-ville.syrjala@linux.intel.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu: fix spelling mistake: "asssert" -> "assert"
+Date: Thu, 22 Mar 2018 15:41:44 +0000
+Message-ID: <20180322154144.31363-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-In-Reply-To: <20180322152313.6561-1-ville.syrjala@linux.intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org
-Cc: "David (ChunMing) Zhou" <David1.Zhou@amd.com>, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCldl
-IHdhbnQgdG8gZ2V0IHJpZCBvZiBwbGFuZS0+ZmIgb24gYXRvbWljIGRyaXZlcnMuIFN0b3Agc2V0
-dGluZyBpdC4KCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkNj
-OiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6ICJEYXZp
-ZCAoQ2h1bk1pbmcpIFpob3UiIDxEYXZpZDEuWmhvdUBhbWQuY29tPgpDYzogSGFycnkgV2VudGxh
-bmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+CkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
-aW50ZWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmMgfCAyIC0tCiAxIGZpbGUgY2hhbmdlZCwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwppbmRleCBh
-ZTUxMmVjYjY1ZWUuLmE4MTI5ZWNhNmU2ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC0zOTQxLDggKzM5NDEsNiBAQCBzdGF0
-aWMgdm9pZCBhbWRncHVfZG1fZG9fZmxpcChzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCiAKIAkvKiBG
-bGlwICovCiAJc3Bpbl9sb2NrX2lycXNhdmUoJmNydGMtPmRldi0+ZXZlbnRfbG9jaywgZmxhZ3Mp
-OwotCS8qIHVwZGF0ZSBjcnRjIGZiICovCi0JY3J0Yy0+cHJpbWFyeS0+ZmIgPSBmYjsKIAogCVdB
-Uk5fT04oYWNydGMtPnBmbGlwX3N0YXR1cyAhPSBBTURHUFVfRkxJUF9OT05FKTsKIAlXQVJOX09O
-KCFhY3J0Y19zdGF0ZS0+c3RyZWFtKTsKLS0gCjIuMTYuMQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4IG1haWxpbmcgbGlzdApJbnRlbC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+RnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KClRyaXZpYWwg
+Zml4IHRvIHNwZWxsaW5nIG1pc3Rha2UgaW4gcHJfZXJyIGVycm9yIG1lc3NhZ2UgdGV4dAoKU2ln
+bmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9haS5jIHwgMiArLQogMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvbXhncHVfYWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L214Z3B1X2FpLmMKaW5kZXggOGZiOTMzYzYyY2Y1Li40OTMzNDg2NzI0NzUgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X2FpLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvbXhncHVfYWkuYwpAQCAtMTI5LDcgKzEyOSw3IEBAIHN0YXRpYyB2
+b2lkIHhncHVfYWlfbWFpbGJveF90cmFuc19tc2cgKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LAogCQl4Z3B1X2FpX21haWxib3hfc2V0X3ZhbGlkKGFkZXYsIGZhbHNlKTsKIAkJdHJuID0geGdw
+dV9haV9wZWVrX2FjayhhZGV2KTsKIAkJaWYgKHRybikgewotCQkJcHJfZXJyKCJ0cm49JXggQUNL
+IHNob3VsZCBub3QgYXNzc2VydCEgd2FpdCBhZ2FpbiAhXG4iLCB0cm4pOworCQkJcHJfZXJyKCJ0
+cm49JXggQUNLIHNob3VsZCBub3QgYXNzZXJ0ISB3YWl0IGFnYWluICFcbiIsIHRybik7CiAJCQlt
+c2xlZXAoMSk7CiAJCX0KIAl9IHdoaWxlKHRybik7Ci0tIAoyLjE1LjEKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QK
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
