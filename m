@@ -1,15 +1,11 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: use mlck_table.count for array loop index
- limit
-Date: Thu, 22 Mar 2018 15:03:41 +0000
-Message-ID: <CY4PR12MB168776DA4105C73E1C979C64FBA90@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20180321182653.3150-1-colin.king@canonical.com>,
- <1521658930.7999.25.camel@perches.com>
+From: Ville Syrjala <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Subject: [PATCH 00/23] drm: Eliminate plane->fb/crtc usage for atomic drivers
+Date: Thu, 22 Mar 2018 17:22:50 +0200
+Message-ID: <20180322152313.6561-1-ville.syrjala@linux.intel.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2015286484=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1521658930.7999.25.camel-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,328 +16,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Joe Perches <joe-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org>, Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Benjamin Gaignard <benjamin.gaignard-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Boris Brezillon <boris.brezillon-wi1+55ScJUtKEb57/3fJTNBPR1lH4CV8@public.gmane.org>, Thomas Hellstrom <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, Joonyoung Shim <jy0922.shim-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org>, Sinclair Yeh <syeh-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, Rob Clark <robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, martin.peres-GANU6spQydw@public.gmane.org, VMware Graphics <linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Inki Dae <inki.dae-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org>, virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, Vincent Abriou <vincent.abriou-lpHj6iFQ3dU@public.gmane.org>
 
---===============2015286484==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB168776DA4105C73E1C979C64FBA90CY4PR12MB1687namp_"
-
---_000_CY4PR12MB168776DA4105C73E1C979C64FBA90CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks.  Will apply the patch to drm-next.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Joe Perches <joe-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org>
-Sent: Thursday, March 22, 2018 3:02 AM
-To: Colin King; Koenig, Christian; Zhou, David(ChunMing); David Airlie; Zhu=
-, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Subject: Re: [PATCH] drm/amd/pp: use mlck_table.count for array loop index =
-limit
-
-On Wed, 2018-03-21 at 18:26 +0000, Colin King wrote:
-> From: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
->
-> The for-loops process data in the mclk_table but use slck_table.count
-> as the loop index limit.  I believe these are cut-n-paste errors from
-> the previous almost identical loops as indicated by static analysis.
-> Fix these.
-
-Nice tool.
-
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-[]
-> @@ -855,7 +855,7 @@ static int smu7_odn_initial_default_setting(struct pp=
-_hwmgr *hwmgr)
->
->        odn_table->odn_memory_clock_dpm_levels.num_of_pl =3D
->                                                data->golden_dpm_table.mcl=
-k_table.count;
-> -     for (i=3D0; i<data->golden_dpm_table.sclk_table.count; i++) {
-> +     for (i=3D0; i<data->golden_dpm_table.mclk_table.count; i++) {
->                odn_table->odn_memory_clock_dpm_levels.entries[i].clock =
-=3D
->                                        data->golden_dpm_table.mclk_table.=
-dpm_levels[i].value;
->                odn_table->odn_memory_clock_dpm_levels.entries[i].enabled =
-=3D true;
-
-Probably more sensible to use temporaries too.
-Maybe something like the below (also trivially reduces object size)
----
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index df2a312ca6c9..339b897146af 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -834,6 +834,7 @@ static int smu7_odn_initial_default_setting(struct pp_h=
-wmgr *hwmgr)
-
-         struct phm_ppt_v1_clock_voltage_dependency_table *dep_sclk_table;
-         struct phm_ppt_v1_clock_voltage_dependency_table *dep_mclk_table;
-+       struct phm_odn_performance_level *entries;
-
-         if (table_info =3D=3D NULL)
-                 return -EINVAL;
-@@ -843,11 +844,11 @@ static int smu7_odn_initial_default_setting(struct pp=
-_hwmgr *hwmgr)
-
-         odn_table->odn_core_clock_dpm_levels.num_of_pl =3D
-                                                 data->golden_dpm_table.scl=
-k_table.count;
-+       entries =3D odn_table->odn_core_clock_dpm_levels.entries;
-         for (i=3D0; i<data->golden_dpm_table.sclk_table.count; i++) {
--               odn_table->odn_core_clock_dpm_levels.entries[i].clock =3D
--                                       data->golden_dpm_table.sclk_table.d=
-pm_levels[i].value;
--               odn_table->odn_core_clock_dpm_levels.entries[i].enabled =3D=
- true;
--               odn_table->odn_core_clock_dpm_levels.entries[i].vddc =3D de=
-p_sclk_table->entries[i].vddc;
-+               entries[i].clock =3D data->golden_dpm_table.sclk_table.dpm_=
-levels[i].value;
-+               entries[i].enabled =3D true;
-+               entries[i].vddc =3D dep_sclk_table->entries[i].vddc;
-         }
-
-         smu7_get_voltage_dependency_table(dep_sclk_table,
-@@ -855,11 +856,11 @@ static int smu7_odn_initial_default_setting(struct pp=
-_hwmgr *hwmgr)
-
-         odn_table->odn_memory_clock_dpm_levels.num_of_pl =3D
-                                                 data->golden_dpm_table.mcl=
-k_table.count;
--       for (i=3D0; i<data->golden_dpm_table.sclk_table.count; i++) {
--               odn_table->odn_memory_clock_dpm_levels.entries[i].clock =3D
--                                       data->golden_dpm_table.mclk_table.d=
-pm_levels[i].value;
--               odn_table->odn_memory_clock_dpm_levels.entries[i].enabled =
-=3D true;
--               odn_table->odn_memory_clock_dpm_levels.entries[i].vddc =3D =
-dep_mclk_table->entries[i].vddc;
-+       entries =3D odn_table->odn_memory_clock_dpm_levels.entries;
-+       for (i=3D0; i<data->golden_dpm_table.mclk_table.count; i++) {
-+               entries[i].clock =3D data->golden_dpm_table.mclk_table.dpm_=
-levels[i].value;
-+               entries[i].enabled =3D true;
-+               entries[i].vddc =3D dep_mclk_table->entries[i].vddc;
-         }
-
-         smu7_get_voltage_dependency_table(dep_mclk_table,
-
---_000_CY4PR12MB168776DA4105C73E1C979C64FBA90CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Thanks. &nbsp;Will apply the patc=
-h to drm-next.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex</p>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Joe Perches &lt;joe@p=
-erches.com&gt;<br>
-<b>Sent:</b> Thursday, March 22, 2018 3:02 AM<br>
-<b>To:</b> Colin King; Koenig, Christian; Zhou, David(ChunMing); David Airl=
-ie; Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org=
-g<br>
-<b>Cc:</b> kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br=
->
-<b>Subject:</b> Re: [PATCH] drm/amd/pp: use mlck_table.count for array loop=
- index limit</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Wed, 2018-03-21 at 18:26 &#43;0000, Colin King =
-wrote:<br>
-&gt; From: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
-&gt; <br>
-&gt; The for-loops process data in the mclk_table but use slck_table.count<=
-br>
-&gt; as the loop index limit.&nbsp; I believe these are cut-n-paste errors =
-from<br>
-&gt; the previous almost identical loops as indicated by static analysis.<b=
-r>
-&gt; Fix these.<br>
-<br>
-Nice tool.<br>
-<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/driver=
-s/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-[]<br>
-&gt; @@ -855,7 &#43;855,7 @@ static int smu7_odn_initial_default_setting(st=
-ruct pp_hwmgr *hwmgr)<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_table-&gt;odn_memory_clo=
-ck_dpm_levels.num_of_pl =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;gold=
-en_dpm_table.mclk_table.count;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;data-&gt;golden_dpm_table.s=
-clk_table.count; i&#43;&#43;) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;data-&gt;golden_dpm_tab=
-le.mclk_table.count; i&#43;&#43;) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; odn_table-&gt;odn_memory_clock_dpm_levels.entries[i].cl=
-ock =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; data-&gt;golden_dpm_table.mclk_table.dpm_levels[i].value;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; odn_table-&gt;odn_memory_clock_dpm_levels.entries[i].en=
-abled =3D true;<br>
-<br>
-Probably more sensible to use temporaries too.<br>
-Maybe something like the below (also trivially reduces object size)<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 19 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;---------<br>
-&nbsp;1 file changed, 10 insertions(&#43;), 9 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-index df2a312ca6c9..339b897146af 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -834,6 &#43;834,7 @@ static int smu7_odn_initial_default_setting(struct =
-pp_hwmgr *hwmgr)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_ppt_v1_clock_vo=
-ltage_dependency_table *dep_sclk_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_ppt_v1_clock_vo=
-ltage_dependency_table *dep_mclk_table;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_odn_performance_level =
-*entries;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (table_info =3D=3D NULL=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-@@ -843,11 &#43;844,11 @@ static int smu7_odn_initial_default_setting(struc=
-t pp_hwmgr *hwmgr)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_table-&gt;odn_core_clo=
-ck_dpm_levels.num_of_pl =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;go=
-lden_dpm_table.sclk_table.count;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; entries =3D odn_table-&gt;odn_cor=
-e_clock_dpm_levels.entries;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;data-&gt;=
-golden_dpm_table.sclk_table.count; i&#43;&#43;) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; odn_table-&gt;odn_core_clock_dpm_levels.entries[i].clock =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; data-&gt;golden_dpm_table.sclk_table.dpm_levels[i].value;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; odn_table-&gt;odn_core_clock_dpm_levels.entries[i].enabled =3D t=
-rue;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; odn_table-&gt;odn_core_clock_dpm_levels.entries[i].vddc =3D dep_=
-sclk_table-&gt;entries[i].vddc;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; entries[i].clock =3D data-&gt;golden_dpm_table.sclk_table.dp=
-m_levels[i].value;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; entries[i].enabled =3D true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; entries[i].vddc =3D dep_sclk_table-&gt;entries[i].vddc;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_get_voltage_dependenc=
-y_table(dep_sclk_table,<br>
-@@ -855,11 &#43;856,11 @@ static int smu7_odn_initial_default_setting(struc=
-t pp_hwmgr *hwmgr)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; odn_table-&gt;odn_memory_c=
-lock_dpm_levels.num_of_pl =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;go=
-lden_dpm_table.mclk_table.count;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;data-&gt;golden_dpm_=
-table.sclk_table.count; i&#43;&#43;) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; odn_table-&gt;odn_memory_clock_dpm_levels.entries[i].clock =3D<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; data-&gt;golden_dpm_table.mclk_table.dpm_levels[i].value;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; odn_table-&gt;odn_memory_clock_dpm_levels.entries[i].enabled =3D=
- true;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; odn_table-&gt;odn_memory_clock_dpm_levels.entries[i].vddc =3D de=
-p_mclk_table-&gt;entries[i].vddc;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; entries =3D odn_table-&gt;odn_mem=
-ory_clock_dpm_levels.entries;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i=3D0; i&lt;data-&gt;golden_=
-dpm_table.mclk_table.count; i&#43;&#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; entries[i].clock =3D data-&gt;golden_dpm_table.mclk_table.dp=
-m_levels[i].value;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; entries[i].enabled =3D true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; entries[i].vddc =3D dep_mclk_table-&gt;entries[i].vddc;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_get_voltage_dependenc=
-y_table(dep_mclk_table,<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB168776DA4105C73E1C979C64FBA90CY4PR12MB1687namp_--
-
---===============2015286484==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2015286484==--
+RnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4KCkkg
+cmVhbGx5IGp1c3Qgd2FudGVkIHRvIGZpeCBpOTE1IHRvIHJlLWVuYWJsZSBpdHMgcGxhbmVzIGFm
+ZXIgbG9hZApkZXRlY3Rpb24gKGEgdHdvIGxpbmUgcGF0Y2gpLiBUaGlzIGlzIHdoYXQgSSBhY3R1
+YWxseSBlbmRlZCB1cCB3aXRoCmFmdGVyIEkgcmFuIGludG8gYSBmcmFtZWJ1ZmZlciByZWZjb3Vu
+dCBsZWFrIHdpdGggc2FpZCB0d28gbGluZSBwYXRjaC4KCkkndmUgdGVzdGVkIHRoaXMgb24gYSBm
+ZXcgaTkxNSBib3hlcyBhbmQgc28gZmFyIGl0J3MgbG9va2luZwpnb29kLiBFdmVyeXRoaW5nIGVs
+c2UgaXMganVzdCBjb21waWxlIHRlc3RlZC4KCkVudGlyZSBzZXJpZXMgYXZhaWxhYmxlIGhlcmU6
+CmdpdDovL2dpdGh1Yi5jb20vdnN5cmphbGEvbGludXguZ2l0IHBsYW5lX2ZiX2NydGNfbnVrZQoK
+Q2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBCZW5qYW1pbiBHYWlnbmFyZCA8YmVuamFtaW4uZ2Fp
+Z25hcmRAbGluYXJvLm9yZz4KQ2M6IEJvcmlzIEJyZXppbGxvbiA8Ym9yaXMuYnJlemlsbG9uQGZy
+ZWUtZWxlY3Ryb25zLmNvbT4KQ2M6IGNocmlzQGNocmlzLXdpbHNvbi5jby51awpDYzogIkNocmlz
+dGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CkNjOiBEYW5pZWwgVmV0dGVy
+IDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgpDYzogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAZ21haWwu
+Y29tPgpDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPgpDYzogIkRhdmlkIChDaHVu
+TWluZykgWmhvdSIgPERhdmlkMS5aaG91QGFtZC5jb20+CkNjOiBFcmljIEFuaG9sdCA8ZXJpY0Bh
+bmhvbHQubmV0PgpDYzogZnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogR2VyZCBI
+b2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+CkNjOiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2Vu
+dGxhbmRAYW1kLmNvbT4KQ2M6IElua2kgRGFlIDxpbmtpLmRhZUBzYW1zdW5nLmNvbT4KQ2M6IEpv
+b255b3VuZyBTaGltIDxqeTA5MjIuc2hpbUBzYW1zdW5nLmNvbT4KQ2M6IEt5dW5nbWluIFBhcmsg
+PGt5dW5nbWluLnBhcmtAc2Ftc3VuZy5jb20+CkNjOiBsaW51eC1hcm0tbXNtQHZnZXIua2VybmVs
+Lm9yZwpDYzogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVs
+LmNvbT4KQ2M6IG1hcnRpbi5wZXJlc0BmcmVlLmZyCkNjOiBSb2IgQ2xhcmsgPHJvYmRjbGFya0Bn
+bWFpbC5jb20+CkNjOiBTZXVuZy1Xb28gS2ltIDxzdzAzMTIua2ltQHNhbXN1bmcuY29tPgpDYzog
+U2hhd24gR3VvIDxzaGF3bmd1b0BrZXJuZWwub3JnPgpDYzogU2luY2xhaXIgWWVoIDxzeWVoQHZt
+d2FyZS5jb20+CkNjOiBUaG9tYXMgSGVsbHN0cm9tIDx0aGVsbHN0cm9tQHZtd2FyZS5jb20+CkNj
+OiBWaW5jZW50IEFicmlvdSA8dmluY2VudC5hYnJpb3VAc3QuY29tPgpDYzogdmlydHVhbGl6YXRp
+b25AbGlzdHMubGludXgtZm91bmRhdGlvbi5vcmcKQ2M6IFZNd2FyZSBHcmFwaGljcyA8bGludXgt
+Z3JhcGhpY3MtbWFpbnRhaW5lckB2bXdhcmUuY29tPgoKVmlsbGUgU3lyasOkbMOkICgyMyk6CiAg
+UmV2ZXJ0ICJkcm0vYXRvbWljLWhlbHBlcjogRml4IGxlYWsgaW4gZGlzYWJsZV9hbGwiCiAgZHJt
+L2F0b21pYy1oZWxwZXI6IE1ha2UgZHJtX2F0b21pY19oZWxwZXJfZGlzYWJsZV9hbGwoKSB1cGRh
+dGUgdGhlCiAgICBwbGFuZS0+ZmIgcG9pbnRlcnMKICBkcm06IENsZWFyIGNydGMtPnByaW1hcnkt
+PmNydGMgd2hlbiBkaXNhYmxpbmcgdGhlIGNydGMgdmlhIHNldGNydGMoKQogIGRybS9hdG9taWMt
+aGVscGVyOiBXQVJOIGlmIGxlZ2FjeSBwbGFuZSBmYiBwb2ludGVycyBhcmUgYm9ndXMgd2hlbgog
+ICAgY29tbWl0dGluZyBkdXBsaWNhdGVkIHN0YXRlCiAgZHJtOiBBZGQgbG9jYWwgJ3BsYW5lJyB2
+YXJpYWJsZSBmb3IgcHJpbWFyeS9jdXJzb3IgcGxhbmVzCiAgZHJtOiBBZGp1c3Qgd2hpdGVzcGFj
+ZSBmb3IgbGVnaWJpbGl0eQogIGRybTogTWFrZSB0aGUgZmIgcmVmY291bnQgaGFuZG92ZXIgbGVz
+cyBtYWdpYwogIGRybTogVXNlIHBsYW5lLT5zdGF0ZS0+ZmIgb3ZlciBwbGFuZS0+ZmIKICBkcm0v
+aTkxNTogU3RvcCBjb25zdWx0aW5nIHBsYW5lLT5mYgogIGRybS9tc206IFN0b3AgY29uc3VsdGlu
+ZyBwbGFuZS0+ZmIKICBkcm0vc3RpOiBTdG9wIGNvbnN1bHRpbmcgcGxhbmUtPmZiCiAgZHJtL3Zt
+d2dmeDogU3RvcCBjb25zdWx0aW5nIHBsYW5lLT5mYgogIGRybS96dGU6IFN0b3AgY29uc3VsdGlu
+ZyBwbGFuZS0+ZmIKICBkcm0vYXRtZWwtaGxjZGM6IFN0b3AgdXNpbmcgcGxhbmUtPmZiCiAgZHJt
+OiBTdG9wIHVwZGF0aW5nIHBsYW5lLT5jcnRjL2ZiL29sZF9mYiBvbiBhdG9taWMgZHJpdmVycwog
+IGRybS9hbWRncHUvZGM6IFN0b3AgdXBkYXRpbmcgcGxhbmUtPmZiCiAgZHJtL2k5MTU6IFN0b3Ag
+dXBkYXRpbmcgcGxhbmUtPmZiL2NydGMKICBkcm0vZXh5bm9zOiBTdG9wIHVwZGF0aW5nIHBsYW5l
+LT5jcnRjCiAgZHJtL21zbTogU3RvcCB1cGRhdGluZyBwbGFuZS0+ZmIvY3J0YwogIGRybS92aXJ0
+aW86IFN0b3AgdXBkYXRpbmcgcGxhbmUtPmZiCiAgZHJtL3ZjNDogU3RvcCB1cGRhdGluZyBwbGFu
+ZS0+ZmIvY3J0YwogIGRybS9pOTE1OiBSZXN0b3JlIHBsYW5lcyBhZnRlciBsb2FkIGRldGVjdGlv
+bgogIGRybS9pOTE1OiBNYWtlIGZvcmNlX2xvYWRfZGV0ZWN0IGVmZmVjdGl2ZSBldmVuIHcvIERN
+SSBxdWlya3MvaG90cGx1ZwoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
+YW1kZ3B1X2RtLmMgfCAgMiAtCiBkcml2ZXJzL2dwdS9kcm0vYXRtZWwtaGxjZGMvYXRtZWxfaGxj
+ZGNfcGxhbmUuYyAgIHwgMTIgKy0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYyAgICAg
+ICAgICAgICAgICAgICAgICB8IDU1ICsrLS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9k
+cm1fYXRvbWljX2hlbHBlci5jICAgICAgICAgICAgICAgfCA3OSArKysrKysrKysrLS0tLS0tLS0t
+LS0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjLmMgICAgICAgICAgICAgICAgICAgICAgICB8
+IDUxICsrKysrKysrKystLS0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9mYl9oZWxwZXIuYyAgICAg
+ICAgICAgICAgICAgICB8ICA3IC0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2ZyYW1lYnVmZmVyLmMg
+ICAgICAgICAgICAgICAgIHwgIDUgLS0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fcGxhbmUuYyAgICAg
+ICAgICAgICAgICAgICAgICAgfCA2NCArKysrKysrKysrKy0tLS0tLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9kcm1fcGxhbmVfaGVscGVyLmMgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9ncHUv
+ZHJtL2V4eW5vcy9leHlub3NfZHJtX3BsYW5lLmMgICAgICAgICB8ICAyIC0KIGRyaXZlcnMvZ3B1
+L2RybS9pOTE1L2ludGVsX2NydC5jICAgICAgICAgICAgICAgICAgfCAgNiArKwogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaW50ZWxfZGlzcGxheS5jICAgICAgICAgICAgICB8ICA5ICstLQogZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvaW50ZWxfZmJkZXYuYyAgICAgICAgICAgICAgICB8ICAyICstCiBkcml2
+ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvbWRwNC9tZHA0X2NydGMuYyAgICAgICAgIHwgIDMgKy0KIGRy
+aXZlcnMvZ3B1L2RybS9tc20vZGlzcC9tZHA0L21kcDRfcGxhbmUuYyAgICAgICAgfCAgMiAtCiBk
+cml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvbWRwNS9tZHA1X3BsYW5lLmMgICAgICAgIHwgIDIgLQog
+ZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfcGxhbmUuYyAgICAgICAgICAgICAgICAgICB8ICA5ICst
+LQogZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfY3J0Yy5jICAgICAgICAgICAgICAgICAgICB8ICAz
+IC0KIGRyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9kaXNwbGF5LmMgICAgICAgICAgfCAg
+MiAtCiBkcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9rbXMuYyAgICAgICAgICAgICAgIHwg
+IDYgKy0KIGRyaXZlcnMvZ3B1L2RybS96dGUvenhfdm91LmMgICAgICAgICAgICAgICAgICAgICAg
+fCAgMiArLQogaW5jbHVkZS9kcm0vZHJtX2F0b21pYy5oICAgICAgICAgICAgICAgICAgICAgICAg
+ICB8ICAzIC0KIDIyIGZpbGVzIGNoYW5nZWQsIDE0MyBpbnNlcnRpb25zKCspLCAxODcgZGVsZXRp
+b25zKC0pCgotLSAKMi4xNi4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
