@@ -1,44 +1,45 @@
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: [PATCH] drm/amd/pp: silence a static checker warning
-Date: Fri, 23 Mar 2018 14:39:03 +0300
-Message-ID: <20180323113903.GD28518@mwanda>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix typo of domain fallback
+Date: Fri, 23 Mar 2018 12:56:37 +0100
+Message-ID: <8e990df6-f9ca-434c-106f-4627cf8cc49c@gmail.com>
+References: <20180323104315.31050-1-david1.zhou@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Tom St Denis <tom.stdenis@amd.com>, David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Evan Quan <evan.quan@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180323104315.31050-1-david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-VGhpcyBoYXMgYSBzdGF0aWMgY2hlY2tlciB3YXJuaW5nIGJlY2F1c2UgImZyZXYiIGFuZCAiY3Jl
-diIgY2FuIGJlCnVuaW5pdGlhbGl6ZWQgaWYgImluZm8iIGlzIE5VTEwuICBJIGp1c3QgY2hhbmdl
-ZCB0aGUgb3JkZXIgb2YgdGhlIGNoZWNrcwpzbyB0aGF0IHdlIGNoZWNrICJpbmZvIiBmaXJzdC4K
-ClNpZ25lZC1vZmYtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbT4K
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU4X2h3
-bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU4X2h3bWdyLmMK
-aW5kZXggNzVhNDY1Zjc3MWYwLi43YjI2NjA3YzY0NmEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdThfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU4X2h3bWdyLmMKQEAgLTMxOSwxMyArMzE5LDEzIEBA
-IHN0YXRpYyBpbnQgc211OF9nZXRfc3lzdGVtX2luZm9fZGF0YShzdHJ1Y3QgcHBfaHdtZ3IgKmh3
-bWdyKQogCQkJR2V0SW5kZXhJbnRvTWFzdGVyVGFibGUoREFUQSwgSW50ZWdyYXRlZFN5c3RlbUlu
-Zm8pLAogCQkJJnNpemUsICZmcmV2LCAmY3Jldik7CiAKLQlpZiAoY3JldiAhPSA5KSB7Ci0JCXBy
-X2VycigiVW5zdXBwb3J0ZWQgSUdQIHRhYmxlOiAlZCAlZFxuIiwgZnJldiwgY3Jldik7CisJaWYg
-KGluZm8gPT0gTlVMTCkgeworCQlwcl9lcnIoIkNvdWxkIG5vdCByZXRyaWV2ZSB0aGUgSW50ZWdy
-YXRlZCBTeXN0ZW0gSW5mbyBUYWJsZSFcbiIpOwogCQlyZXR1cm4gLUVJTlZBTDsKIAl9CiAKLQlp
-ZiAoaW5mbyA9PSBOVUxMKSB7Ci0JCXByX2VycigiQ291bGQgbm90IHJldHJpZXZlIHRoZSBJbnRl
-Z3JhdGVkIFN5c3RlbSBJbmZvIFRhYmxlIVxuIik7CisJaWYgKGNyZXYgIT0gOSkgeworCQlwcl9l
-cnIoIlVuc3VwcG9ydGVkIElHUCB0YWJsZTogJWQgJWRcbiIsIGZyZXYsIGNyZXYpOwogCQlyZXR1
-cm4gLUVJTlZBTDsKIAl9CiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVsCg==
+QW0gMjMuMDMuMjAxOCB1bSAxMTo0MyBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gQ2hhbmdlLUlk
+OiBJNzFjMDFmMTUyNmRiNzg1NDYzYWYwYmEzNzQ3ZmJkMmFiODI5MWQxZgo+IFNpZ25lZC1vZmYt
+Ynk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+CgpVcHMsIHBhdGNoIGlzIFJl
+dmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LgoK
+PiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8IDIg
+Ky0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IGluZGV4IGVhN2M3
+ZjA1ZjMwNi4uMDFkN2NlYjE1NDFkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9vYmplY3QuYwo+IEBAIC00MjUsNyArNDI1LDcgQEAgc3RhdGljIGludCBhbWRncHVf
+Ym9fZG9fY3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBsb25nIHNp
+emUsCj4gICAJCWlmIChiby0+ZmxhZ3MgJiBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JF
+UVVJUkVEKSB7Cj4gICAJCQliby0+ZmxhZ3MgJj0gfkFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NF
+U1NfUkVRVUlSRUQ7Cj4gICAJCQlnb3RvIHJldHJ5Owo+IC0JCX0gZWxzZSBpZiAoZG9tYWlucyAh
+PSBiby0+cHJlZmVycmVkX2RvbWFpbnMpIHsKPiArCQl9IGVsc2UgaWYgKGRvbWFpbnMgIT0gYm8t
+PmFsbG93ZWRfZG9tYWlucykgewo+ICAgCQkJZG9tYWlucyA9IGJvLT5hbGxvd2VkX2RvbWFpbnM7
+Cj4gICAJCQlnb3RvIHJldHJ5Owo+ICAgCQl9CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
