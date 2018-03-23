@@ -1,75 +1,47 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH] drm/amd/display: don't pass large struct stream_res by value
-Date: Thu, 22 Mar 2018 23:31:25 +0000
-Message-ID: <20180322233125.17251-1-colin.king@canonical.com>
+From: Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add an ATPX quirk for hybrid laptop
+Date: Fri, 23 Mar 2018 09:35:46 +0800
+Message-ID: <20180323013545.GA12224@hr-amur2>
+References: <20180322143718.26686-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Tony Cheng <tony.cheng@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Return-path: <stable-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20180322143718.26686-1-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KClBhc3Npbmcg
-c3RyZWFtX3JlcyBieSB2YWx1ZSBpcyBpbmVmZmljaWVudCBhcyBpdCByZXF1aXJlcyBhIGxhcmdl
-IGNvcHkKb2YgMzIwIGJ5dGVzLiAgSW5zdGVhZCwgcGFzcyBpdCBieSByZWZlcmVuY2UgYW5kIGFs
-c28gdXNlIGEgcG9pbnRlciB0bwpzdHJlYW1fcmVzLT50ZyBhbmQgYWxzbyBzdHJlYW1fcmVzLT5h
-Ym0gdG8gY2xlYW4gdXAgdGhlIGNvZGUgYSBsaXR0bGUuCgpEZXRlY3RlZCBieSBDb3Zlcml0eVNj
-YW4sIENJRCMxNDY2NDMyICgiQmlnIHBhcmFtZXRlciBwYXNzZWQgYnkgdmFsdWUiKQoKU2lnbmVk
-LW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KLS0tCiAu
-Li4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jICB8IDMwICsr
-KysrKysrKysrLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCAx
-NSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyLmMKaW5kZXggOGIwZjZiOGE1NjI3Li4yMjJk
-NzhmYzczM2QgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24x
-MC9kY24xMF9od19zZXF1ZW5jZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyLmMKQEAgLTE4MTIsMzIgKzE4MTIsMzIgQEAgc3Rh
-dGljIHZvaWQgdXBkYXRlX2RjaHVicF9kcHAoCiAKIHN0YXRpYyB2b2lkIGRjbjEwX290Z19ibGFu
-aygKIAkJc3RydWN0IGRjICpkYywKLQkJc3RydWN0IHN0cmVhbV9yZXNvdXJjZSBzdHJlYW1fcmVz
-LAorCQlzdHJ1Y3Qgc3RyZWFtX3Jlc291cmNlICpzdHJlYW1fcmVzLAogCQlzdHJ1Y3QgZGNfc3Ry
-ZWFtX3N0YXRlICpzdHJlYW0sCiAJCWJvb2wgYmxhbmspCiB7CiAJZW51bSBkY19jb2xvcl9zcGFj
-ZSBjb2xvcl9zcGFjZTsKIAlzdHJ1Y3QgdGdfY29sb3IgYmxhY2tfY29sb3IgPSB7MH07CisJc3Ry
-dWN0IHRpbWluZ19nZW5lcmF0b3IgKnRnID0gc3RyZWFtX3Jlcy0+dGc7CisJc3RydWN0IGFibSAq
-YWJtID0gc3RyZWFtX3Jlcy0+YWJtOwogCiAJLyogcHJvZ3JhbSBvdGcgYmxhbmsgY29sb3IgKi8K
-IAljb2xvcl9zcGFjZSA9IHN0cmVhbS0+b3V0cHV0X2NvbG9yX3NwYWNlOwogCWNvbG9yX3NwYWNl
-X3RvX2JsYWNrX2NvbG9yKGRjLCBjb2xvcl9zcGFjZSwgJmJsYWNrX2NvbG9yKTsKIAotCWlmIChz
-dHJlYW1fcmVzLnRnLT5mdW5jcy0+c2V0X2JsYW5rX2NvbG9yKQotCQlzdHJlYW1fcmVzLnRnLT5m
-dW5jcy0+c2V0X2JsYW5rX2NvbG9yKAotCQkJCXN0cmVhbV9yZXMudGcsCi0JCQkJJmJsYWNrX2Nv
-bG9yKTsKKwlpZiAodGctPmZ1bmNzLT5zZXRfYmxhbmtfY29sb3IpCisJCXRnLT5mdW5jcy0+c2V0
-X2JsYW5rX2NvbG9yKHRnLCAmYmxhY2tfY29sb3IpOwogCiAJaWYgKCFibGFuaykgewotCQlpZiAo
-c3RyZWFtX3Jlcy50Zy0+ZnVuY3MtPnNldF9ibGFuaykKLQkJCXN0cmVhbV9yZXMudGctPmZ1bmNz
-LT5zZXRfYmxhbmsoc3RyZWFtX3Jlcy50ZywgYmxhbmspOwotCQlpZiAoc3RyZWFtX3Jlcy5hYm0p
-Ci0JCQlzdHJlYW1fcmVzLmFibS0+ZnVuY3MtPnNldF9hYm1fbGV2ZWwoc3RyZWFtX3Jlcy5hYm0s
-IHN0cmVhbS0+YWJtX2xldmVsKTsKKwkJaWYgKHRnLT5mdW5jcy0+c2V0X2JsYW5rKQorCQkJdGct
-PmZ1bmNzLT5zZXRfYmxhbmsodGcsIGJsYW5rKTsKKwkJaWYgKGFibSkKKwkJCWFibS0+ZnVuY3Mt
-PnNldF9hYm1fbGV2ZWwoYWJtLCBzdHJlYW0tPmFibV9sZXZlbCk7CiAJfSBlbHNlIGlmIChibGFu
-aykgewotCQlpZiAoc3RyZWFtX3Jlcy5hYm0pCi0JCQlzdHJlYW1fcmVzLmFibS0+ZnVuY3MtPnNl
-dF9hYm1faW1tZWRpYXRlX2Rpc2FibGUoc3RyZWFtX3Jlcy5hYm0pOwotCQlpZiAoc3RyZWFtX3Jl
-cy50Zy0+ZnVuY3MtPnNldF9ibGFuaykKLQkJCXN0cmVhbV9yZXMudGctPmZ1bmNzLT5zZXRfYmxh
-bmsoc3RyZWFtX3Jlcy50ZywgYmxhbmspOworCQlpZiAoYWJtKQorCQkJYWJtLT5mdW5jcy0+c2V0
-X2FibV9pbW1lZGlhdGVfZGlzYWJsZShhYm0pOworCQlpZiAodGctPmZ1bmNzLT5zZXRfYmxhbmsp
-CisJCQl0Zy0+ZnVuY3MtPnNldF9ibGFuayh0ZywgYmxhbmspOwogCX0KIH0KIApAQCAtMTg3Niw3
-ICsxODc2LDcgQEAgc3RhdGljIHZvaWQgcHJvZ3JhbV9hbGxfcGlwZV9pbl90cmVlKAogCQlwaXBl
-X2N0eC0+c3RyZWFtX3Jlcy50Zy0+ZnVuY3MtPnByb2dyYW1fZ2xvYmFsX3N5bmMoCiAJCQkJcGlw
-ZV9jdHgtPnN0cmVhbV9yZXMudGcpOwogCi0JCWRjbjEwX290Z19ibGFuayhkYywgcGlwZV9jdHgt
-PnN0cmVhbV9yZXMsCisJCWRjbjEwX290Z19ibGFuayhkYywgJnBpcGVfY3R4LT5zdHJlYW1fcmVz
-LAogCQkJCXBpcGVfY3R4LT5zdHJlYW0sIGJsYW5rKTsKIAl9CiAKQEAgLTE5OTYsNyArMTk5Niw3
-IEBAIHN0YXRpYyB2b2lkIGRjbjEwX2FwcGx5X2N0eF9mb3Jfc3VyZmFjZSgKIAogCWlmIChudW1f
-cGxhbmVzID09IDApIHsKIAkJLyogT1RHIGJsYW5rIGJlZm9yZSByZW1vdmUgYWxsIGZyb250IGVu
-ZCAqLwotCQlkY24xMF9vdGdfYmxhbmsoZGMsIHRvcF9waXBlX3RvX3Byb2dyYW0tPnN0cmVhbV9y
-ZXMsIHRvcF9waXBlX3RvX3Byb2dyYW0tPnN0cmVhbSwgdHJ1ZSk7CisJCWRjbjEwX290Z19ibGFu
-ayhkYywgJnRvcF9waXBlX3RvX3Byb2dyYW0tPnN0cmVhbV9yZXMsIHRvcF9waXBlX3RvX3Byb2dy
-YW0tPnN0cmVhbSwgdHJ1ZSk7CiAJfQogCiAJLyogRGlzY29ubmVjdCB1bnVzZWQgbXBjYyAqLwot
-LSAKMi4xNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+On Thu, Mar 22, 2018 at 09:37:18AM -0500, Alex Deucher wrote:
+> _PR3 doesn't seem to work properly, use ATPX instead.
+> 
+> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=104064
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+
+Reviewed-by: Huang Rui <ray.huang@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> index c53095b3b0fb..1ae5ae8c45a4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> @@ -569,6 +569,7 @@ static const struct amdgpu_px_quirk amdgpu_px_quirk_list[] = {
+>  	{ 0x1002, 0x6900, 0x1002, 0x0124, AMDGPU_PX_QUIRK_FORCE_ATPX },
+>  	{ 0x1002, 0x6900, 0x1028, 0x0812, AMDGPU_PX_QUIRK_FORCE_ATPX },
+>  	{ 0x1002, 0x6900, 0x1028, 0x0813, AMDGPU_PX_QUIRK_FORCE_ATPX },
+> +	{ 0x1002, 0x67DF, 0x1028, 0x0774, AMDGPU_PX_QUIRK_FORCE_ATPX },
+>  	{ 0, 0, 0, 0, 0 },
+>  };
+>  
+> -- 
+> 2.13.6
+> 
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
