@@ -1,12 +1,15 @@
-From: Will Wagner <willw-gILxO7K/lrlWk0Htik3J/w@public.gmane.org>
-Subject: admgpu consulting services
-Date: Mon, 26 Mar 2018 19:11:11 +0100
-Message-ID: <d38a7799-2114-9c91-40b8-4186475bd4fc@carallon.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: refresh per vm bo lru
+Date: Tue, 27 Mar 2018 15:44:50 +0200
+Message-ID: <a9d42a8a-b9b5-1d89-f95e-e678829a8260@amd.com>
+References: <20180327101654.1118-1-david1.zhou@amd.com>
+ <20180327101654.1118-2-david1.zhou@amd.com>
+ <6afa6cca-d59c-9e64-f891-c43a741069d4@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0220337388=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-GB
+In-Reply-To: <6afa6cca-d59c-9e64-f891-c43a741069d4-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,16 +20,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGVsbG8sCgpEb2VzIGFueW9uZSBrbm93IGlmIHRoZXJlIGFyZSBwZW9wbGUgb3V0IHRoZXJlIG9m
-ZmVyaW5nIGNvbnN1bHRpbmcgCnNlcnZpY2VzIGZvciB0aGUgYW1kZ3B1IGtlcm5lbCBkcml2ZXI/
-CgpXZSBhcmUgcnVubmluZyBpbnRvIHByb2JsZW1zIHJ1bm5pbmcgb3BlbmNsIHZpYSBhbWRncHUg
-b24gYW4gYXB1IApwbGF0Zm9ybS4gSSBrbm93IHRoaXMgaXNuJ3Qgb2ZmaWNpYWxseSBzdXBwb3J0
-ZWQgYnkgYW1kLCBidXQgaXQncyB2ZXJ5IApjbG9zZSB0byB3b3JraW5nIGdyZWF0LiBJbnN0ZWFk
-IG9mIGxlYXJuaW5nIGhvdyBhbWRncHUgd29ya2VkIChhIHJhdGhlciAKc3Vic3RhbnRpYWwgcGll
-Y2Ugb2Ygd29yayEpIEkgd29uZGVyIGlmIHRoZXJlIGlzIGFueW9uZSBvZmZlcmluZyAKY29uc3Vs
-dGluZyBzZXJ2aWNlcyBpbiB0aGlzIGFyZWEuCgpUaGFua3MKV2lsbAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0220337388==
+Content-Type: multipart/alternative;
+ boundary="------------F9FC43A5D8ED5CE67EE97595"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------F9FC43A5D8ED5CE67EE97595
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+How about we update the LRU only when we need to re-validate at least 
+one BO?
+
+BTW: We can easily walk all BOs which belong to a VM, skipping over the 
+few which aren't per VM BOs should be trivial.
+
+Christian.
+
+Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):
+> then how to keep unique lru order? any ideas?
+>
+> To stable performance, we have to keep unique lru order, otherwise 
+> like the issue I look into, sometimes F1game is 40fps, sometimes 
+> 28fps...even re-validate allowed domains BO.
+>
+> The left root cause is the moved BOs are not same.
+>
+> send from Smartisan Pro
+>
+> Christian K鰊ig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> 于 2018年3月27日 
+> 下午6:50写道：
+>
+> NAK, we already tried that and it is really not a good idea because it
+> massively increases the per submission overhead.
+>
+> Christian.
+>
+> Am 27.03.2018 um 12:16 schrieb Chunming Zhou:
+> > Change-Id: Ibad84ed585b0746867a5f4cd1eadc2273e7cf596
+> > Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2 ++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15 +++++++++++++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +
+> >   3 files changed, 18 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > index 383bf2d31c92..414e61799236 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -919,6 +919,8 @@ static int amdgpu_bo_vm_update_pte(struct 
+> amdgpu_cs_parser *p)
+> >                }
+> >        }
+> >
+> > +     amdgpu_vm_refresh_lru(adev, vm);
+> > +
+> >        return r;
+> >   }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > index 5e35e23511cf..8ad2bb705765 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct 
+> amdgpu_device *adev,
+> >        return bo_va;
+> >   }
+> >
+> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
+> amdgpu_vm *vm)
+> > +{
+> > +     struct ttm_bo_global *glob = adev->mman.bdev.glob;
+> > +     struct amdgpu_vm_bo_base *bo_base;
+> > +
+> > +     spin_lock(&vm->status_lock);
+> > +     list_for_each_entry(bo_base, &vm->vm_bo_list, vm_bo) {
+> > +             spin_lock(&glob->lru_lock);
+> > + ttm_bo_move_to_lru_tail(&bo_base->bo->tbo);
+> > +             if (bo_base->bo->shadow)
+> > + ttm_bo_move_to_lru_tail(&bo_base->bo->shadow->tbo);
+> > +             spin_unlock(&glob->lru_lock);
+> > +     }
+> > +     spin_unlock(&vm->status_lock);
+> > +}
+> >
+> >   /**
+> >    * amdgpu_vm_bo_insert_mapping - insert a new mapping
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > index 1886a561c84e..e01895581489 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > @@ -285,6 +285,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device 
+> *adev,
+> >                          struct dma_fence **fence);
+> >   int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+> >                           struct amdgpu_vm *vm);
+> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
+> amdgpu_vm *vm);
+> >   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+> >                        struct amdgpu_bo_va *bo_va,
+> >                        bool clear);
+>
+
+
+--------------F9FC43A5D8ED5CE67EE97595
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">How about we update the LRU only when
+      we need to re-validate at least one BO?<br>
+      <br>
+      BTW: We can easily walk all BOs which belong to a VM, skipping
+      over the few which aren't per VM BOs should be trivial.<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):<br>
+    </div>
+    <blockquote type="cite" cite="mid:smartisan1522151762126">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <div>
+        <font color="#333333">then how to keep unique lru order? any
+          ideas?<br>
+        </font><br>
+        To stable performance, we have to keep unique lru order,
+        otherwise like the issue I look into, sometimes F1game is 40fps,
+        sometimes 28fps...even re-validate allowed domains BO.<br>
+        <br>
+        The left root cause is the moved BOs are not same.<br>
+        <br>
+        <span id="x_smartisan_signature" style="font-size:0.8em;
+          display:inline; color:#888888">
+          <p dir="ltr">send from Smartisan Pro</p>
+        </span>
+        <style type="text/css">
+<!--
+* body
+	{padding:0 16px 30px!important;
+	margin:0!important;
+	background-color:#ffffff;
+	line-height:1.4;
+	word-wrap:break-word;
+	word-break:normal}
+div
+	{word-wrap:break-word;
+	word-break:normal}
+p
+	{word-wrap:break-word;
+	word-break:normal;
+	text-indent:0pt!important}
+span
+	{word-wrap:break-word;
+	word-break:normal}
+a
+	{word-wrap:break-word;
+	word-break:normal}
+td
+	{word-wrap:break-word;
+	word-break:break-all}
+-->
+</style>
+        <div class="x_quote">
+          <div style="margin:0 0px; font-size:105%"><font
+              style="line-height:1.4" color="#629140"><span>Christian
+                K鰊ig <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a> 于
+                2018年3月27日 下午6:50写道：</span></font></div>
+          <br type="attribution">
+        </div>
+      </div>
+      <font size="2"><span style="font-size:11pt;">
+          <div class="PlainText">NAK, we already tried that and it is
+            really not a good idea because it
+            <br>
+            massively increases the per submission overhead.<br>
+            <br>
+            Christian.<br>
+            <br>
+            Am 27.03.2018 um 12:16 schrieb Chunming Zhou:<br>
+            &gt; Change-Id: Ibad84ed585b0746867a5f4cd1eadc2273e7cf596<br>
+            &gt; Signed-off-by: Chunming Zhou
+            <a class="moz-txt-link-rfc2396E" href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            &gt; ---<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2 ++<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15
+            +++++++++++++++<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +<br>
+            &gt;   3 files changed, 18 insertions(+)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+            &gt; index 383bf2d31c92..414e61799236 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+            &gt; @@ -919,6 +919,8 @@ static int
+            amdgpu_bo_vm_update_pte(struct amdgpu_cs_parser *p)<br>
+            &gt;                }<br>
+            &gt;        }<br>
+            &gt;   <br>
+            &gt; +     amdgpu_vm_refresh_lru(adev, vm);<br>
+            &gt; +<br>
+            &gt;        return r;<br>
+            &gt;   }<br>
+            &gt;   <br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; index 5e35e23511cf..8ad2bb705765 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va
+            *amdgpu_vm_bo_add(struct amdgpu_device *adev,<br>
+            &gt;        return bo_va;<br>
+            &gt;   }<br>
+            &gt;   <br>
+            &gt; +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev,
+            struct amdgpu_vm *vm)<br>
+            &gt; +{<br>
+            &gt; +     struct ttm_bo_global *glob =
+            adev-&gt;mman.bdev.glob;<br>
+            &gt; +     struct amdgpu_vm_bo_base *bo_base;<br>
+            &gt; +<br>
+            &gt; +     spin_lock(&amp;vm-&gt;status_lock);<br>
+            &gt; +     list_for_each_entry(bo_base,
+            &amp;vm-&gt;vm_bo_list, vm_bo) {<br>
+            &gt; +             spin_lock(&amp;glob-&gt;lru_lock);<br>
+            &gt; +            
+            ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;tbo);<br>
+            &gt; +             if (bo_base-&gt;bo-&gt;shadow)<br>
+            &gt; +                    
+            ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;shadow-&gt;tbo);<br>
+            &gt; +             spin_unlock(&amp;glob-&gt;lru_lock);<br>
+            &gt; +     }<br>
+            &gt; +     spin_unlock(&amp;vm-&gt;status_lock);<br>
+            &gt; +}<br>
+            &gt;   <br>
+            &gt;   /**<br>
+            &gt;    * amdgpu_vm_bo_insert_mapping - insert a new mapping<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+            &gt; index 1886a561c84e..e01895581489 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+            &gt; @@ -285,6 +285,7 @@ int amdgpu_vm_clear_freed(struct
+            amdgpu_device *adev,<br>
+            &gt;                          struct dma_fence **fence);<br>
+            &gt;   int amdgpu_vm_handle_moved(struct amdgpu_device
+            *adev,<br>
+            &gt;                           struct amdgpu_vm *vm);<br>
+            &gt; +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev,
+            struct amdgpu_vm *vm);<br>
+            &gt;   int amdgpu_vm_bo_update(struct amdgpu_device *adev,<br>
+            &gt;                        struct amdgpu_bo_va *bo_va,<br>
+            &gt;                        bool clear);<br>
+            <br>
+          </div>
+        </span></font>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------F9FC43A5D8ED5CE67EE97595--
+
+--===============0220337388==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0220337388==--
