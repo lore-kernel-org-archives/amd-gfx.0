@@ -1,14 +1,13 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH][next] drm/amd/pp: Fix spelling mistake: "suppported" ->
- "supported"
-Date: Tue, 27 Mar 2018 09:03:21 +0000
-Message-ID: <CY4PR12MB16870BE7909D5DAE0EA0F146FBAC0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20180327083257.28777-1-colin.king@canonical.com>
+From: rezhu <rezhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: silence a static checker warning
+Date: Tue, 27 Mar 2018 16:59:44 +0800
+Message-ID: <d09148ee-c7d7-7248-d1e5-08d349a58199@amd.com>
+References: <20180323113903.GD28518@mwanda> <20180326033024.GC27239@hr-amur2>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1597273306=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180327083257.28777-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180326033024.GC27239@hr-amur2>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,162 +18,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=ef=bf=bdnig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============1597273306==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB16870BE7909D5DAE0EA0F146FBAC0CY4PR12MB1687namp_"
-
---_000_CY4PR12MB16870BE7909D5DAE0EA0F146FBAC0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Applied and thanks.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Sent: Tuesday, March 27, 2018 4:32 PM
-To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); David Air=
-lie; Zhu, Rex; Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel@lists.f=
-reedesktop.org
-Cc: kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Subject: [PATCH][next] drm/amd/pp: Fix spelling mistake: "suppported" -> "s=
-upported"
-
-From: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-
-Trivial fix to spelling mistake in pr_warn warning message text
-
-Signed-off-by: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c b/drivers/gpu/drm=
-/amd/powerplay/hwmgr/pp_psm.c
-index 0f2851b5b368..308bff2b5d1d 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c
-@@ -46,7 +46,7 @@ int psm_init_power_state_table(struct pp_hwmgr *hwmgr)
-                                           sizeof(struct pp_power_state);
-
-         if (table_entries =3D=3D 0 || size =3D=3D 0) {
--               pr_warn("Please check whether power state management is sup=
-pported on this asic\n");
-+               pr_warn("Please check whether power state management is sup=
-ported on this asic\n");
-                 return 0;
-         }
-
---
-2.15.1
-
-
---_000_CY4PR12MB16870BE7909D5DAE0EA0F146FBAC0CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2">Applied and than=
-ks.</font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><br>
-</font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2">Best Regards</fo=
-nt></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2">Rex</font><br>
-</p>
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri,Helvetica,sans-serif,&quot;EmojiFont&quot;,&quot;=
-Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Seg=
-oe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols;" dir=3D"ltr">
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Colin King &lt;colin=
-.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, March 27, 2018 4:32 PM<br>
-<b>To:</b> Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); Da=
-vid Airlie; Zhu, Rex; Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel@=
-lists.freedesktop.org<br>
-<b>Cc:</b> kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br=
->
-<b>Subject:</b> [PATCH][next] drm/amd/pp: Fix spelling mistake: &quot;suppp=
-orted&quot; -&gt; &quot;supported&quot;</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&=
-gt;<br>
-<br>
-Trivial fix to spelling mistake in pr_warn warning message text<br>
-<br>
-Signed-off-by: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c b/drivers/gpu/drm=
-/amd/powerplay/hwmgr/pp_psm.c<br>
-index 0f2851b5b368..308bff2b5d1d 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_psm.c<br>
-@@ -46,7 &#43;46,7 @@ int psm_init_power_state_table(struct pp_hwmgr *hwmgr=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(struct pp_power_state);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (table_entries =3D=3D 0=
- || size =3D=3D 0) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_warn(&quot;Please check whether power state management is sup=
-pported on this asic\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; pr_warn(&quot;Please check whether power state management is=
- supported on this asic\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--- <br>
-2.15.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB16870BE7909D5DAE0EA0F146FBAC0CY4PR12MB1687namp_--
-
---===============1597273306==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1597273306==--
+QXBwbGllZC4gVGhhbmtzLgoKQmVzdCBSZWdhcmRzCgpSZXgKCk9uIDIwMTjlubQwM+aciDI25pel
+IDExOjMwLCBIdWFuZyBSdWkgd3JvdGU6Cj4gT24gRnJpLCBNYXIgMjMsIDIwMTggYXQgMDI6Mzk6
+MDNQTSArMDMwMCwgRGFuIENhcnBlbnRlciB3cm90ZToKPj4gVGhpcyBoYXMgYSBzdGF0aWMgY2hl
+Y2tlciB3YXJuaW5nIGJlY2F1c2UgImZyZXYiIGFuZCAiY3JldiIgY2FuIGJlCj4+IHVuaW5pdGlh
+bGl6ZWQgaWYgImluZm8iIGlzIE5VTEwuICBJIGp1c3QgY2hhbmdlZCB0aGUgb3JkZXIgb2YgdGhl
+IGNoZWNrcwo+PiBzbyB0aGF0IHdlIGNoZWNrICJpbmZvIiBmaXJzdC4KPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogRGFuIENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tPgo+IFJldmlld2Vk
+LWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+Cj4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU4X2h3bWdyLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU4X2h3bWdyLmMKPj4gaW5kZXggNzVhNDY1Zjc3
+MWYwLi43YjI2NjA3YzY0NmEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2h3bWdyL3NtdThfaHdtZ3IuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9od21nci9zbXU4X2h3bWdyLmMKPj4gQEAgLTMxOSwxMyArMzE5LDEzIEBAIHN0YXRp
+YyBpbnQgc211OF9nZXRfc3lzdGVtX2luZm9fZGF0YShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+
+PiAgIAkJCUdldEluZGV4SW50b01hc3RlclRhYmxlKERBVEEsIEludGVncmF0ZWRTeXN0ZW1JbmZv
+KSwKPj4gICAJCQkmc2l6ZSwgJmZyZXYsICZjcmV2KTsKPj4gICAKPj4gLQlpZiAoY3JldiAhPSA5
+KSB7Cj4+IC0JCXByX2VycigiVW5zdXBwb3J0ZWQgSUdQIHRhYmxlOiAlZCAlZFxuIiwgZnJldiwg
+Y3Jldik7Cj4+ICsJaWYgKGluZm8gPT0gTlVMTCkgewo+PiArCQlwcl9lcnIoIkNvdWxkIG5vdCBy
+ZXRyaWV2ZSB0aGUgSW50ZWdyYXRlZCBTeXN0ZW0gSW5mbyBUYWJsZSFcbiIpOwo+PiAgIAkJcmV0
+dXJuIC1FSU5WQUw7Cj4+ICAgCX0KPj4gICAKPj4gLQlpZiAoaW5mbyA9PSBOVUxMKSB7Cj4+IC0J
+CXByX2VycigiQ291bGQgbm90IHJldHJpZXZlIHRoZSBJbnRlZ3JhdGVkIFN5c3RlbSBJbmZvIFRh
+YmxlIVxuIik7Cj4+ICsJaWYgKGNyZXYgIT0gOSkgewo+PiArCQlwcl9lcnIoIlVuc3VwcG9ydGVk
+IElHUCB0YWJsZTogJWQgJWRcbiIsIGZyZXYsIGNyZXYpOwo+PiAgIAkJcmV0dXJuIC1FSU5WQUw7
+Cj4+ICAgCX0KPj4gICAKPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
