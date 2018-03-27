@@ -1,75 +1,109 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amdgpu/sdma: fix mask in emit_pipeline_sync
-Date: Tue, 27 Mar 2018 16:33:55 -0500
-Message-ID: <20180327213355.18249-1-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2 1/1] drm/amdgpu: Enable scatter gather display support
+Date: Tue, 27 Mar 2018 18:22:51 -0400
+Message-ID: <1522189371-13767-1-git-send-email-Samuel.Li@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 
-Needs to be a 32 bit mask.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index f48ea0dad875..a7576255cc30 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -859,7 +859,7 @@ static void cik_sdma_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, addr & 0xfffffffc);
- 	amdgpu_ring_write(ring, upper_32_bits(addr) & 0xffffffff);
- 	amdgpu_ring_write(ring, seq); /* reference */
--	amdgpu_ring_write(ring, 0xfffffff); /* mask */
-+	amdgpu_ring_write(ring, 0xffffffff); /* mask */
- 	amdgpu_ring_write(ring, (0xfff << 16) | 4); /* retry count, poll interval */
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 6452101c7aab..c7190c39c4f5 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -837,7 +837,7 @@ static void sdma_v2_4_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, addr & 0xfffffffc);
- 	amdgpu_ring_write(ring, upper_32_bits(addr) & 0xffffffff);
- 	amdgpu_ring_write(ring, seq); /* reference */
--	amdgpu_ring_write(ring, 0xfffffff); /* mask */
-+	amdgpu_ring_write(ring, 0xffffffff); /* mask */
- 	amdgpu_ring_write(ring, SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |
- 			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count, poll interval */
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index ecaef084dab1..be20a387d961 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -1105,7 +1105,7 @@ static void sdma_v3_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, addr & 0xfffffffc);
- 	amdgpu_ring_write(ring, upper_32_bits(addr) & 0xffffffff);
- 	amdgpu_ring_write(ring, seq); /* reference */
--	amdgpu_ring_write(ring, 0xfffffff); /* mask */
-+	amdgpu_ring_write(ring, 0xffffffff); /* mask */
- 	amdgpu_ring_write(ring, SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |
- 			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count, poll interval */
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 2a8184082cd1..399f876f9cad 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1121,7 +1121,7 @@ static void sdma_v4_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, addr & 0xfffffffc);
- 	amdgpu_ring_write(ring, upper_32_bits(addr) & 0xffffffff);
- 	amdgpu_ring_write(ring, seq); /* reference */
--	amdgpu_ring_write(ring, 0xfffffff); /* mask */
-+	amdgpu_ring_write(ring, 0xffffffff); /* mask */
- 	amdgpu_ring_write(ring, SDMA_PKT_POLL_REGMEM_DW5_RETRY_COUNT(0xfff) |
- 			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count, poll interval */
- }
--- 
-2.13.6
+SXQncyBhdXRvIGJ5IGRlZmF1bHQuIEZvciBDWi9TVCwgYXV0byBzZXR0aW5nIGVuYWJsZXMgc2cg
+ZGlzcGxheQp3aGVuIHZyYW0gc2l6ZSBpcyBzbWFsbDsgb3RoZXJ3aXNlIHN0aWxsIHVzZXMgdnJh
+bS4KVGhpcyBwYXRjaCBmaXhlZCBzb21lIHBvdGVudGlhbCBoYW5nIGlzc3VlIGludHJvZHVjZWQg
+YnkgY2hhbmdlCiJhbGxvdyBmcmFtZWJ1ZmZlciBpbiBHQVJUIG1lbW9yeSBhcyB3ZWxsIiBkdWUg
+dG8gQ1ovU1QgaGFyZHdhcmUKbGltaXRhdGlvbi4KCnYyOiBDaGFuZ2UgZGVmYXVsdCBzZXR0aW5n
+IHRvIGF1dG8sIGFsc28gc29tZSBtaXNjIGNoYW5nZXMuClNpZ25lZC1vZmYtYnk6IFNhbXVlbCBM
+aSA8U2FtdWVsLkxpQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1LmggICAgICAgICAgICAgICB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kaXNwbGF5LmMgICAgICAgfCAxMCArKysrKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGlzcGxheS5oICAgICAgIHwgIDIgKysKIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgICAgICAgfCAgNCArKysrCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYyAgICAgICAgICAgIHwgIDIgKysKIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAgMyArKy0KIDYgZmlsZXMg
+Y2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdS5oCmluZGV4IGE3ZTIyMjkuLmM5NDIzNjIgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdS5oCkBAIC0xMjksNiArMTI5LDcgQEAgZXh0ZXJuIGludCBhbWRncHVfbGJw
+dzsKIGV4dGVybiBpbnQgYW1kZ3B1X2NvbXB1dGVfbXVsdGlwaXBlOwogZXh0ZXJuIGludCBhbWRn
+cHVfZ3B1X3JlY292ZXJ5OwogZXh0ZXJuIGludCBhbWRncHVfZW11X21vZGU7CitleHRlcm4gaW50
+IGFtZGdwdV9zZ19kaXNwbGF5OwogCiAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfU0kKIGV4dGVy
+biBpbnQgYW1kZ3B1X3NpX3N1cHBvcnQ7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rpc3BsYXkuYwppbmRleCA1NDk1YjI5Li4xZTdiOTUwIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKQEAgLTUxMyw4ICs1MTMsMTQgQEAgdWludDMy
+X3QgYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldikKICNpZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX0RDKQogCWlmIChhZGV2LT5hc2lj
+X3R5cGUgPj0gQ0hJUF9DQVJSSVpPICYmIGFkZXYtPmFzaWNfdHlwZSA8IENISVBfUkFWRU4gJiYK
+IAkgICAgYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVICYmCi0JICAgIGFtZGdwdV9kZXZpY2VfYXNp
+Y19oYXNfZGNfc3VwcG9ydChhZGV2LT5hc2ljX3R5cGUpKQotCQlkb21haW4gfD0gQU1ER1BVX0dF
+TV9ET01BSU5fR1RUOworCSAgICBhbWRncHVfZGV2aWNlX2FzaWNfaGFzX2RjX3N1cHBvcnQoYWRl
+di0+YXNpY190eXBlKSkgeworCQlpZiAoYW1kZ3B1X3NnX2Rpc3BsYXkgPT0gMSkKKwkJCWRvbWFp
+biA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsKKwkJZWxzZSBpZiAoYW1kZ3B1X3NnX2Rpc3BsYXkg
+PT0gLTEpIHsKKwkJCWlmIChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPCBBTURHUFVfU0dfVEhS
+RVNIT0xEKQorCQkJCWRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsKKwkJfQorCX0KICNl
+bmRpZgogCiAJcmV0dXJuIGRvbWFpbjsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGlzcGxheS5oCmluZGV4IDJiMTFkODAuLjJiMjUzOTMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmgKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuaApAQCAtMjMsNiArMjMsOCBAQAogI2lmbmRlZiBf
+X0FNREdQVV9ESVNQTEFZX0hfXwogI2RlZmluZSBfX0FNREdQVV9ESVNQTEFZX0hfXwogCisjZGVm
+aW5lIEFNREdQVV9TR19USFJFU0hPTEQgICgyNTYqMTAyNCoxMDI0KQorCiB1aW50MzJfdCBhbWRn
+cHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KTsKIHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKgogYW1kZ3B1X2Rpc3BsYXlfdXNlcl9mcmFtZWJ1
+ZmZlcl9jcmVhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kcnYuYwppbmRleCAxYmZjZTc5Li4xOWYxMWE1IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCkBAIC0xMzIsNiArMTMyLDcgQEAgaW50IGFtZGdwdV9s
+YnB3ID0gLTE7CiBpbnQgYW1kZ3B1X2NvbXB1dGVfbXVsdGlwaXBlID0gLTE7CiBpbnQgYW1kZ3B1
+X2dwdV9yZWNvdmVyeSA9IC0xOyAvKiBhdXRvICovCiBpbnQgYW1kZ3B1X2VtdV9tb2RlID0gMDsK
+K2ludCBhbWRncHVfc2dfZGlzcGxheSA9IC0xOwogCiBNT0RVTEVfUEFSTV9ERVNDKHZyYW1saW1p
+dCwgIlJlc3RyaWN0IFZSQU0gZm9yIHRlc3RpbmcsIGluIG1lZ2FieXRlcyIpOwogbW9kdWxlX3Bh
+cmFtX25hbWVkKHZyYW1saW1pdCwgYW1kZ3B1X3ZyYW1fbGltaXQsIGludCwgMDYwMCk7CkBAIC0y
+OTAsNiArMjkxLDkgQEAgbW9kdWxlX3BhcmFtX25hbWVkKGdwdV9yZWNvdmVyeSwgYW1kZ3B1X2dw
+dV9yZWNvdmVyeSwgaW50LCAwNDQ0KTsKIE1PRFVMRV9QQVJNX0RFU0MoZW11X21vZGUsICJFbXVs
+YXRpb24gbW9kZSwgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlKSIpOwogbW9kdWxlX3BhcmFtX25h
+bWVkKGVtdV9tb2RlLCBhbWRncHVfZW11X21vZGUsIGludCwgMDQ0NCk7CiAKK01PRFVMRV9QQVJN
+X0RFU0Moc2dfZGlzcGxheSwgIkVuYWJsZSBzY2F0dGVyIGdhdGhlciBkaXNwbGF5LCAoMSA9IGVu
+YWJsZSwgMCA9IGRpc2FibGUsIC0xID0gYXV0byIpOworbW9kdWxlX3BhcmFtX25hbWVkKHNnX2Rp
+c3BsYXksIGFtZGdwdV9zZ19kaXNwbGF5LCBpbnQsIDA0NDQpOworCiAjaWZkZWYgQ09ORklHX0RS
+TV9BTURHUFVfU0kKIAogI2lmIGRlZmluZWQoQ09ORklHX0RSTV9SQURFT04pIHx8IGRlZmluZWQo
+Q09ORklHX0RSTV9SQURFT05fTU9EVUxFKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2ZiLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZmIuYwppbmRleCAxMjA2MzAxLi5mNTdjMzU1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZmIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZmIuYwpAQCAtMTM4LDYgKzEzOCw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1ZmJfY3JlYXRl
+X3Bpbm5lZF9vYmplY3Qoc3RydWN0IGFtZGdwdV9mYmRldiAqcmZiZGV2LAogCW1vZGVfY21kLT5w
+aXRjaGVzWzBdID0gYW1kZ3B1X2FsaWduX3BpdGNoKGFkZXYsIG1vZGVfY21kLT53aWR0aCwgY3Bw
+LAogCQkJCQkJICBmYl90aWxlZCk7CiAJZG9tYWluID0gYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZm
+ZXJfZG9tYWlucyhhZGV2KTsKKwlpZiAoZG9tYWluICYgQU1ER1BVX0dFTV9ET01BSU5fR1RUKQor
+CQlEUk1fREVCVUdfRFJJVkVSKCJTY2F0dGVyIGdhdGhlciBkaXNwbGF5OiBlbmFibGVkXG4iKTsK
+IAogCWhlaWdodCA9IEFMSUdOKG1vZGVfY21kLT5oZWlnaHQsIDgpOwogCXNpemUgPSBtb2RlX2Nt
+ZC0+cGl0Y2hlc1swXSAqIGhlaWdodDsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IDY4YWIzMjUuLjdlOWYyNDcgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAt
+MzA3NCw3ICszMDc0LDggQEAgc3RhdGljIGludCBkbV9wbGFuZV9oZWxwZXJfcHJlcGFyZV9mYihz
+dHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKIAkJZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJB
+TTsKIAogCXIgPSBhbWRncHVfYm9fcGluKHJibywgZG9tYWluLCAmYWZiLT5hZGRyZXNzKTsKLQor
+CXJiby0+cHJlZmVycmVkX2RvbWFpbnMgPSBkb21haW47CisJcmJvLT5hbGxvd2VkX2RvbWFpbnMg
+PSBkb21haW47CiAJYW1kZ3B1X2JvX3VucmVzZXJ2ZShyYm8pOwogCiAJaWYgKHVubGlrZWx5KHIg
+IT0gMCkpIHsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
