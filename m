@@ -1,151 +1,89 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: for sriov timeout is still enforced on
- compute rings
-Date: Tue, 27 Mar 2018 09:51:51 +0200
-Message-ID: <32b69fa9-c0be-db27-03a9-97eb3585083e@gmail.com>
-References: <1522133191-31247-1-git-send-email-evan.quan@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [Linaro-mm-sig] [PATCH 1/5] dma-buf: add optional
+ invalidate_mappings callback v2
+Date: Tue, 27 Mar 2018 09:53:34 +0200
+Message-ID: <20180327075334.GK14155@phenom.ffwll.local>
+References: <19ed21a5-805d-271f-9120-49e0c00f510f@amd.com>
+ <20180320140810.GU14155@phenom.ffwll.local>
+ <37ba7394-2a5c-a0bc-cc51-c8a0edc2991d@gmail.com>
+ <20180321082839.GA14155@phenom.ffwll.local>
+ <327c4bc1-5813-16e8-62fc-4301b19a1a22@gmail.com>
+ <20180322071804.GH14155@phenom.ffwll.local>
+ <ef9fa9a2-c368-1fca-a8ac-8ee8d522b6ab@gmail.com>
+ <20180326080121.GO14155@phenom.ffwll.local>
+ <20180326154224.GA11930@gmail.com>
+ <f8ff3993-6605-4f8e-5ac2-c40f0450c1c6@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0891237224=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1522133191-31247-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Monk.Liu-5C7GfCeVMHo@public.gmane.org
-
-This is a multi-part message in MIME format.
---===============0891237224==
-Content-Type: multipart/alternative;
- boundary="------------9A6905CA5240D3BA4ACF5A87"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------9A6905CA5240D3BA4ACF5A87
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 27.03.2018 um 08:46 schrieb Evan Quan:
-> Sriov still wants these error messags on timeout. So, for sriov
-> use case, the timeout setting on compute rings is kept.
->
-> Change-Id: Id0af6959a8023c8d683ff680de7c583f84cfeab3
-> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 455a81e..2cc5a75 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -435,7 +435,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
->   	if (ring->funcs->type != AMDGPU_RING_TYPE_KIQ) {
->   		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
->   				   num_hw_submission, amdgpu_job_hang_limit,
-> -				   (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ?
-> +				   /* for non-sriov case, no timeout enforce on compute ring */
-> +				   ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) && !amdgpu_sriov_vf(ring->adev)) ?
-
-This starts to look a bit messy, can you add a local variable and 
-separate the exceptions, e.g. something like:
-
-long timeout = msecs_to_jiffies(amdgpu_lockup_timeout);
-
-if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) && 
-!amdgpu_sriov_vf(ring->adev))
-     timeout = MAX_SCHEDULE_TIMEOUT;
-
-....
-
-Apart from that the patch looks good to me,
-Christian.
-
->   				   MAX_SCHEDULE_TIMEOUT : msecs_to_jiffies(amdgpu_lockup_timeout),
->   				   ring->name);
->   		if (r) {
-
-
---------------9A6905CA5240D3BA4ACF5A87
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 27.03.2018 um 08:46 schrieb Evan
-      Quan:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1522133191-31247-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">Sriov still wants these error messags on timeout. So, for sriov
-use case, the timeout setting on compute rings is kept.
-
-Change-Id: Id0af6959a8023c8d683ff680de7c583f84cfeab3
-Signed-off-by: Evan Quan <a class="moz-txt-link-rfc2396E" href="mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">&lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 455a81e..2cc5a75 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -435,7 +435,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
- 	if (ring-&gt;funcs-&gt;type != AMDGPU_RING_TYPE_KIQ) {
- 		r = drm_sched_init(&amp;ring-&gt;sched, &amp;amdgpu_sched_ops,
- 				   num_hw_submission, amdgpu_job_hang_limit,
--				   (ring-&gt;funcs-&gt;type == AMDGPU_RING_TYPE_COMPUTE) ?
-+				   /* for non-sriov case, no timeout enforce on compute ring */
-+				   ((ring-&gt;funcs-&gt;type == AMDGPU_RING_TYPE_COMPUTE) &amp;&amp; !amdgpu_sriov_vf(ring-&gt;adev)) ?</pre>
-    </blockquote>
-    <br>
-    This starts to look a bit messy, can you add a local variable and
-    separate the exceptions, e.g. something like:<br>
-    <br>
-    long timeout = <span class="pl-c1">msecs_to_jiffies</span>(amdgpu_lockup_timeout);<br>
-    <br>
-    if (ring-&gt;funcs-&gt;type == AMDGPU_RING_TYPE_COMPUTE) &amp;&amp;
-    !amdgpu_sriov_vf(ring-&gt;adev))<br>
-        timeout = MAX_SCHEDULE_TIMEOUT;<br>
-    <br>
-    ....<br>
-    <br>
-    Apart from that the patch looks good to me,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:1522133191-31247-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap=""> 				   MAX_SCHEDULE_TIMEOUT : msecs_to_jiffies(amdgpu_lockup_timeout),
- 				   ring-&gt;name);
- 		if (r) {
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------9A6905CA5240D3BA4ACF5A87--
-
---===============0891237224==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
+In-Reply-To: <f8ff3993-6605-4f8e-5ac2-c40f0450c1c6@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: christian.koenig@amd.com
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, dri-devel <dri-devel@lists.freedesktop.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0891237224==--
+T24gVHVlLCBNYXIgMjcsIDIwMTggYXQgMDk6MzU6MTdBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBBbSAyNi4wMy4yMDE4IHVtIDE3OjQyIHNjaHJpZWIgSmVyb21lIEdsaXNzZToK
+PiA+IE9uIE1vbiwgTWFyIDI2LCAyMDE4IGF0IDEwOjAxOjIxQU0gKzAyMDAsIERhbmllbCBWZXR0
+ZXIgd3JvdGU6Cj4gPiA+IE9uIFRodSwgTWFyIDIyLCAyMDE4IGF0IDEwOjU4OjU1QU0gKzAxMDAs
+IENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gPiA+ID4gQW0gMjIuMDMuMjAxOCB1bSAwODoxOCBz
+Y2hyaWViIERhbmllbCBWZXR0ZXI6Cj4gPiA+ID4gW1NOSVBdCj4gPiA+ID4gS2V5IHRha2UgYXdh
+eSBmcm9tIHRoYXQgd2FzIHRoYXQgeW91IGNhbid0IHRha2UgYW55IGxvY2tzIGZyb20gbmVpdGhl
+ciB0aGUKPiA+ID4gPiBNTVUgbm90aWZpZXIgbm9yIHRoZSBzaHJpbmtlciB5b3UgYWxzbyB0YWtl
+IHdoaWxlIGNhbGxpbmcga21hbGxvYyAob3IKPiA+ID4gPiBzaW1wbGVyIHNwZWFraW5nIGdldF91
+c2VyX3BhZ2VzKCkpLgo+ID4gPiA+IAo+ID4gPiA+IEFkZGl0aW9uYWwgdG8gdGhhdCBpbiB0aGUg
+TU1VIG9yIHNocmlua2VyIGNhbGxiYWNrIGFsbCBkaWZmZXJlbnQga2luZHMgb2YKPiA+ID4gPiBs
+b2NrcyBtaWdodCBiZSBoZWxkLCBzbyB5b3UgYmFzaWNhbGx5IGNhbid0IGFzc3VtZSB0aGF0IHlv
+dSBkbyB0aGlua3MgbGlrZQo+ID4gPiA+IHJlY3Vyc2l2ZSBwYWdlIHRhYmxlIHdhbGtzIG9yIGNh
+bGwgZG1hX3VubWFwX2FueXRoaW5nLgo+ID4gPiBUaGF0IHNvdW5kcyBsaWtlIGEgZGVzaWduIGJ1
+ZyBpbiBtbXVfbm90aWZpZXJzLCBzaW5jZSBpdCB3b3VsZCByZW5kZXIgdGhlbQo+ID4gPiB1c2Vs
+ZXNzIGZvciBLVk0uIEFuZCB0aGV5IHdlcmUgZGV2ZWxvcGVkIGZvciB0aGF0IG9yaWdpbmFsbHku
+IEkgdGhpbmsgSSdsbAo+ID4gPiBjaGF0IHdpdGggSmVyb21lIHRvIHVuZGVyc3RhbmQgdGhpcywg
+c2luY2UgaXQncyBhbGwgcmF0aGVyIGNvbmZ1c2luZy4KPiA+IERvaW5nIGRtYV91bm1hcCgpIGR1
+cmluZyBtbXVfbm90aWZpZXIgY2FsbGJhY2sgc2hvdWxkIGJlIGZpbmUsIGl0IHdhcyBsYXN0Cj4g
+PiB0aW1lIGkgY2hlY2suIEhvd2V2ZXIgdGhlcmUgaXMgbm8gZm9ybWFsIGNvbnRyYWN0IHRoYXQg
+aXQgaXMgb2sgdG8gZG8gc28uCj4gCj4gQXMgSSBzYWlkIGJlZm9yZSBkbWFfdW5tYXAoKSBpc24n
+dCB0aGUgcmVhbCBwcm9ibGVtIGhlcmUuCj4gCj4gVGhlIGlzc3VlcyBpcyBtb3JlIHRoYXQgeW91
+IGNhbid0IHRha2UgYSBsb2NrIGluIHRoZSBNTVUgbm90aWZpZXIgd2hpY2ggeW91Cj4gd291bGQg
+YWxzbyB0YWtlIHdoaWxlIGFsbG9jYXRpbmcgbWVtb3J5IHdpdGhvdXQgR0ZQX05PSU8uCj4gCj4g
+VGhhdCBtYWtlcyBpdCByYXRoZXIgdHJpY2t5IHRvIGRvIGFueSBjb21tYW5kIHN1Ym1pc3Npb24s
+IGUuZy4geW91IG5lZWQgdG8KPiBncmFiIGFsbCB0aGUgcGFnZXMvbWVtb3J5L3Jlc291cmNlcyBw
+cmVoYW5kLCB0aGVuIG1ha2Ugc3VyZSB0aGF0IHlvdSBkb24ndAo+IGhhdmUgYSBNTVUgbm90aWZp
+ZXIgcnVubmluZyBjb25jdXJyZW50bHkgYW5kIGRvIHRoZSBzdWJtaXNzaW9uLgo+IAo+IElmIGFu
+eSBvZiB0aGUgcHJlcmVxdWlzaXRlcyBpc24ndCBmdWxmaWxsZWQgd2UgbmVlZCB0byByZXN0YXJ0
+IHRoZQo+IG9wZXJhdGlvbi4KClllYWggd2UncmUgaGl0dGluZyBhbGwgdGhhdCBlcGljIGFtb3Vu
+dCBvZiBmdW4gbm93LCBhZnRlciBhIGNoYXQgd2l0aApKZXJvbWUgeWVzdGVyYWR5LiBJIGd1ZXNz
+IHdlJ2xsIGZpZ3VyZSBvdXQgd2hhdCB3ZSdyZSBjb21pbmcgdXAgd2l0aC4KCj4gPiBbU05JUF0K
+PiA+IEEgc2xpZ2h0bHkgYmV0dGVyIHNvbHV0aW9uIGlzIHVzaW5nIGF0b21pYyBjb3VudGVyOgo+
+ID4gICAgZHJpdmVyX3JhbmdlX3N0YXJ0KCkgewo+ID4gICAgICBhdG9taWNfaW5jKCZteWRldi0+
+bm90aWZpZXJfY291bnQpOwo+IC4uLgo+IAo+IFllYWgsIHRoYXQgaXMgZXhhY3RseSB3aGF0IGFt
+ZGdwdSBpcyBkb2luZyBub3cuIFNvcnJ5IGlmIG15IGRlc2NyaXB0aW9uCj4gZGlkbid0IG1hZGUg
+dGhhdCBjbGVhci4KPiAKPiA+IEkgd291bGQgbGlrZSB0byBzZWUgZHJpdmVyIHVzaW5nIHNhbWUg
+Y29kZSwgYXMgaXQgbWVhbnMgb25lIHBsYWNlIHRvIGZpeAo+ID4gaXNzdWVzLiBJIGhhZCBmb3Ig
+YSBsb25nIHRpbWUgb24gbXkgVE9ETyBsaXN0IGRvaW5nIHRoZSBhYm92ZSBjb252ZXJzaW9uCj4g
+PiB0byBhbWQgb3IgcmFkZW9uIGtlcm5lbCBkcml2ZXIuIEkgYW0gcHVzaGluZyB1cCBteSB0b2Rv
+IGxpc3QgaG9wZWZ1bGx5IGluCj4gPiBuZXh0IGZldyB3ZWVrcyBpIGNhbiBzZW5kIGFuIHJmYyBz
+byBwZW9wbGUgY2FuIGhhdmUgYSByZWFsIHNlbnNlIG9mIGhvdwo+ID4gaXQgY2FuIGxvb2suCj4g
+Cj4gQ2VydGFpbmx5IGEgZ29vZCBpZGVhLCBidXQgSSB0aGluayB3ZSBtaWdodCBoYXZlIHRoYXQg
+c2VwYXJhdGUgdG8gSE1NLgo+IAo+IFRUTSBzdWZmZXJlZCByZWFsbHkgZnJvbSBmZWF0dXJlIG92
+ZXJsb2FkLCBlLmcuIHRyeWluZyB0byBkbyBldmVyeXRoaW5nIGluIGEKPiBzaW5nbGUgc3Vic3lz
+dGVtLiBBbmQgaXQgd291bGQgYmUgcmF0aGVyIG5pY2UgdG8gaGF2ZSBjb2hlcmVudCB1c2VycHRy
+Cj4gaGFuZGxpbmcgZm9yIEdQVXMgYXMgc2VwYXJhdGUgZmVhdHVyZS4KClRUTSBzdWZmZXJlZCBm
+cm9tIGJlaW5nIGEgbWlkbGF5ZXIgaW1vLCBub3QgZnJvbSBkb2luZyB0b28gbXVjaC4gSE1NIGlz
+CmFwcGFyZW50bHkgc3RydWN0dXJlZCBsaWtlIGEgdG9vbGJveCAoZGVzcGl0ZSBpdHMgZG9jdW1l
+bnRhdGlvbiBjbGFpbWluZwpvdGhlcndpc2UpLCBzbyB5b3UgY2FuIHBpY2smY2hvb3NlIGZyZWVs
+eS4KLURhbmllbAotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29y
+cG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vZHJpLWRldmVsCg==
