@@ -1,15 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdgpu: refresh per vm bo lru
-Date: Tue, 27 Mar 2018 15:44:50 +0200
-Message-ID: <a9d42a8a-b9b5-1d89-f95e-e678829a8260@amd.com>
-References: <20180327101654.1118-1-david1.zhou@amd.com>
- <20180327101654.1118-2-david1.zhou@amd.com>
- <6afa6cca-d59c-9e64-f891-c43a741069d4@gmail.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdkfd: Use ordered workqueue to restore processes
+Date: Tue, 27 Mar 2018 16:56:04 +0300
+Message-ID: <CAFCwf11=2rFwmUSOm5jcgT2239ui_t0=GKMWHtfUO8L3p5otZA@mail.gmail.com>
+References: <1521833436-31511-1-git-send-email-Felix.Kuehling@amd.com>
+ <1521833436-31511-5-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0220337388=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6afa6cca-d59c-9e64-f891-c43a741069d4-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1521833436-31511-5-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,292 +19,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0220337388==
-Content-Type: multipart/alternative;
- boundary="------------F9FC43A5D8ED5CE67EE97595"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------F9FC43A5D8ED5CE67EE97595
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-How about we update the LRU only when we need to re-validate at least 
-one BO?
-
-BTW: We can easily walk all BOs which belong to a VM, skipping over the 
-few which aren't per VM BOs should be trivial.
-
-Christian.
-
-Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):
-> then how to keep unique lru order? any ideas?
->
-> To stable performance, we have to keep unique lru order, otherwise 
-> like the issue I look into, sometimes F1game is 40fps, sometimes 
-> 28fps...even re-validate allowed domains BO.
->
-> The left root cause is the moved BOs are not same.
->
-> send from Smartisan Pro
->
-> Christian K鰊ig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> 于 2018年3月27日 
-> 下午6:50写道：
->
-> NAK, we already tried that and it is really not a good idea because it
-> massively increases the per submission overhead.
->
-> Christian.
->
-> Am 27.03.2018 um 12:16 schrieb Chunming Zhou:
-> > Change-Id: Ibad84ed585b0746867a5f4cd1eadc2273e7cf596
-> > Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2 ++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15 +++++++++++++++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +
-> >   3 files changed, 18 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > index 383bf2d31c92..414e61799236 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -919,6 +919,8 @@ static int amdgpu_bo_vm_update_pte(struct 
-> amdgpu_cs_parser *p)
-> >                }
-> >        }
-> >
-> > +     amdgpu_vm_refresh_lru(adev, vm);
-> > +
-> >        return r;
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > index 5e35e23511cf..8ad2bb705765 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct 
-> amdgpu_device *adev,
-> >        return bo_va;
-> >   }
-> >
-> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
-> amdgpu_vm *vm)
-> > +{
-> > +     struct ttm_bo_global *glob = adev->mman.bdev.glob;
-> > +     struct amdgpu_vm_bo_base *bo_base;
-> > +
-> > +     spin_lock(&vm->status_lock);
-> > +     list_for_each_entry(bo_base, &vm->vm_bo_list, vm_bo) {
-> > +             spin_lock(&glob->lru_lock);
-> > + ttm_bo_move_to_lru_tail(&bo_base->bo->tbo);
-> > +             if (bo_base->bo->shadow)
-> > + ttm_bo_move_to_lru_tail(&bo_base->bo->shadow->tbo);
-> > +             spin_unlock(&glob->lru_lock);
-> > +     }
-> > +     spin_unlock(&vm->status_lock);
-> > +}
-> >
-> >   /**
-> >    * amdgpu_vm_bo_insert_mapping - insert a new mapping
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > index 1886a561c84e..e01895581489 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > @@ -285,6 +285,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device 
-> *adev,
-> >                          struct dma_fence **fence);
-> >   int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
-> >                           struct amdgpu_vm *vm);
-> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
-> amdgpu_vm *vm);
-> >   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
-> >                        struct amdgpu_bo_va *bo_va,
-> >                        bool clear);
->
-
-
---------------F9FC43A5D8ED5CE67EE97595
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">How about we update the LRU only when
-      we need to re-validate at least one BO?<br>
-      <br>
-      BTW: We can easily walk all BOs which belong to a VM, skipping
-      over the few which aren't per VM BOs should be trivial.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):<br>
-    </div>
-    <blockquote type="cite" cite="mid:smartisan1522151762126">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from text -->
-      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-      <div>
-        <font color="#333333">then how to keep unique lru order? any
-          ideas?<br>
-        </font><br>
-        To stable performance, we have to keep unique lru order,
-        otherwise like the issue I look into, sometimes F1game is 40fps,
-        sometimes 28fps...even re-validate allowed domains BO.<br>
-        <br>
-        The left root cause is the moved BOs are not same.<br>
-        <br>
-        <span id="x_smartisan_signature" style="font-size:0.8em;
-          display:inline; color:#888888">
-          <p dir="ltr">send from Smartisan Pro</p>
-        </span>
-        <style type="text/css">
-<!--
-* body
-	{padding:0 16px 30px!important;
-	margin:0!important;
-	background-color:#ffffff;
-	line-height:1.4;
-	word-wrap:break-word;
-	word-break:normal}
-div
-	{word-wrap:break-word;
-	word-break:normal}
-p
-	{word-wrap:break-word;
-	word-break:normal;
-	text-indent:0pt!important}
-span
-	{word-wrap:break-word;
-	word-break:normal}
-a
-	{word-wrap:break-word;
-	word-break:normal}
-td
-	{word-wrap:break-word;
-	word-break:break-all}
--->
-</style>
-        <div class="x_quote">
-          <div style="margin:0 0px; font-size:105%"><font
-              style="line-height:1.4" color="#629140"><span>Christian
-                K鰊ig <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a> 于
-                2018年3月27日 下午6:50写道：</span></font></div>
-          <br type="attribution">
-        </div>
-      </div>
-      <font size="2"><span style="font-size:11pt;">
-          <div class="PlainText">NAK, we already tried that and it is
-            really not a good idea because it
-            <br>
-            massively increases the per submission overhead.<br>
-            <br>
-            Christian.<br>
-            <br>
-            Am 27.03.2018 um 12:16 schrieb Chunming Zhou:<br>
-            &gt; Change-Id: Ibad84ed585b0746867a5f4cd1eadc2273e7cf596<br>
-            &gt; Signed-off-by: Chunming Zhou
-            <a class="moz-txt-link-rfc2396E" href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            &gt; ---<br>
-            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2 ++<br>
-            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15
-            +++++++++++++++<br>
-            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +<br>
-            &gt;   3 files changed, 18 insertions(+)<br>
-            &gt;<br>
-            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-            &gt; index 383bf2d31c92..414e61799236 100644<br>
-            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-            &gt; @@ -919,6 +919,8 @@ static int
-            amdgpu_bo_vm_update_pte(struct amdgpu_cs_parser *p)<br>
-            &gt;                }<br>
-            &gt;        }<br>
-            &gt;   <br>
-            &gt; +     amdgpu_vm_refresh_lru(adev, vm);<br>
-            &gt; +<br>
-            &gt;        return r;<br>
-            &gt;   }<br>
-            &gt;   <br>
-            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-            &gt; index 5e35e23511cf..8ad2bb705765 100644<br>
-            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-            &gt; @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va
-            *amdgpu_vm_bo_add(struct amdgpu_device *adev,<br>
-            &gt;        return bo_va;<br>
-            &gt;   }<br>
-            &gt;   <br>
-            &gt; +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev,
-            struct amdgpu_vm *vm)<br>
-            &gt; +{<br>
-            &gt; +     struct ttm_bo_global *glob =
-            adev-&gt;mman.bdev.glob;<br>
-            &gt; +     struct amdgpu_vm_bo_base *bo_base;<br>
-            &gt; +<br>
-            &gt; +     spin_lock(&amp;vm-&gt;status_lock);<br>
-            &gt; +     list_for_each_entry(bo_base,
-            &amp;vm-&gt;vm_bo_list, vm_bo) {<br>
-            &gt; +             spin_lock(&amp;glob-&gt;lru_lock);<br>
-            &gt; +            
-            ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;tbo);<br>
-            &gt; +             if (bo_base-&gt;bo-&gt;shadow)<br>
-            &gt; +                    
-            ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;shadow-&gt;tbo);<br>
-            &gt; +             spin_unlock(&amp;glob-&gt;lru_lock);<br>
-            &gt; +     }<br>
-            &gt; +     spin_unlock(&amp;vm-&gt;status_lock);<br>
-            &gt; +}<br>
-            &gt;   <br>
-            &gt;   /**<br>
-            &gt;    * amdgpu_vm_bo_insert_mapping - insert a new mapping<br>
-            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-            &gt; index 1886a561c84e..e01895581489 100644<br>
-            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-            &gt; @@ -285,6 +285,7 @@ int amdgpu_vm_clear_freed(struct
-            amdgpu_device *adev,<br>
-            &gt;                          struct dma_fence **fence);<br>
-            &gt;   int amdgpu_vm_handle_moved(struct amdgpu_device
-            *adev,<br>
-            &gt;                           struct amdgpu_vm *vm);<br>
-            &gt; +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev,
-            struct amdgpu_vm *vm);<br>
-            &gt;   int amdgpu_vm_bo_update(struct amdgpu_device *adev,<br>
-            &gt;                        struct amdgpu_bo_va *bo_va,<br>
-            &gt;                        bool clear);<br>
-            <br>
-          </div>
-        </span></font>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------F9FC43A5D8ED5CE67EE97595--
-
---===============0220337388==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0220337388==--
+T24gRnJpLCBNYXIgMjMsIDIwMTggYXQgMTA6MzAgUE0sIEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5L
+dWVobGluZ0BhbWQuY29tPiB3cm90ZToKPgo+IFJlc3RvcmluZyBtdWx0aXBsZSBwcm9jZXNzZXMg
+Y29uY3VycmVudGx5IGNhbiBsZWFkIHRvIGxpdmUtbG9ja3MKPiB3aGVyZSBlYWNoIHByb2Nlc3Mg
+cHJldmVudHMgdGhlIG90aGVyIGZyb20gdmFsaWRhdGluZyBhbGwgaXRzIEJPcy4KPgo+IFNpZ25l
+ZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+IC0tLQo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9kdWxlLmMgIHwgIDYgKysrKystCj4g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgfCAgMiArLQo+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIHwgMzAgKysrKysrKysrKysrKysr
+KysrKysrKysrKystLS0tCj4gIDMgZmlsZXMgY2hhbmdlZCwgMzIgaW5zZXJ0aW9ucygrKSwgNiBk
+ZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfbW9kdWxlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9kdWxlLmMKPiBp
+bmRleCBiMGFjYjA2Li5lMGMwN2QyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9tb2R1bGUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
+ZF9tb2R1bGUuYwo+IEBAIC0xMzMsNyArMTMzLDkgQEAgc3RhdGljIGludCBfX2luaXQga2ZkX21v
+ZHVsZV9pbml0KHZvaWQpCj4gICAgICAgICBpZiAoZXJyIDwgMCkKPiAgICAgICAgICAgICAgICAg
+Z290byBlcnJfdG9wb2xvZ3k7Cj4KPiAtICAgICAgIGtmZF9wcm9jZXNzX2NyZWF0ZV93cSgpOwo+
+ICsgICAgICAgZXJyID0ga2ZkX3Byb2Nlc3NfY3JlYXRlX3dxKCk7Cj4gKyAgICAgICBpZiAoZXJy
+IDwgMCkKPiArICAgICAgICAgICAgICAgZ290byBlcnJfY3JlYXRlX3dxOwo+Cj4gICAgICAgICBr
+ZmRfZGVidWdmc19pbml0KCk7Cj4KPiBAQCAtMTQzLDYgKzE0NSw4IEBAIHN0YXRpYyBpbnQgX19p
+bml0IGtmZF9tb2R1bGVfaW5pdCh2b2lkKQo+Cj4gICAgICAgICByZXR1cm4gMDsKPgo+ICtlcnJf
+Y3JlYXRlX3dxOgo+ICsgICAgICAga2ZkX3RvcG9sb2d5X3NodXRkb3duKCk7Cj4gIGVycl90b3Bv
+bG9neToKPiAgICAgICAgIGtmZF9jaGFyZGV2X2V4aXQoKTsKPiAgZXJyX2lvY3RsOgo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaAo+IGluZGV4IGRiMjdmOWYuLjk2YTljYzAgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaAo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgKPiBAQCAtNjc0LDcgKzY3NCw3
+IEBAIHN0cnVjdCBhbWRrZmRfaW9jdGxfZGVzYyB7Cj4gICAgICAgICBjb25zdCBjaGFyICpuYW1l
+Owo+ICB9Owo+Cj4gLXZvaWQga2ZkX3Byb2Nlc3NfY3JlYXRlX3dxKHZvaWQpOwo+ICtpbnQga2Zk
+X3Byb2Nlc3NfY3JlYXRlX3dxKHZvaWQpOwo+ICB2b2lkIGtmZF9wcm9jZXNzX2Rlc3Ryb3lfd3Eo
+dm9pZCk7Cj4gIHN0cnVjdCBrZmRfcHJvY2VzcyAqa2ZkX2NyZWF0ZV9wcm9jZXNzKHN0cnVjdCBm
+aWxlICpmaWxlcCk7Cj4gIHN0cnVjdCBrZmRfcHJvY2VzcyAqa2ZkX2dldF9wcm9jZXNzKGNvbnN0
+IHN0cnVjdCB0YXNrX3N0cnVjdCAqKTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9w
+cm9jZXNzLmMKPiBpbmRleCA0NWVmMmQwLi43NWZkYzE4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4gQEAgLTQ4LDggKzQ4LDE3IEBAIHN0YXRpYyBERUZJ
+TkVfTVVURVgoa2ZkX3Byb2Nlc3Nlc19tdXRleCk7Cj4KPiAgREVGSU5FX1NSQ1Uoa2ZkX3Byb2Nl
+c3Nlc19zcmN1KTsKPgo+ICsvKiBGb3IgcHJvY2VzcyB0ZXJtaW5hdGlvbiBoYW5kbGluZyAqLwo+
+ICBzdGF0aWMgc3RydWN0IHdvcmtxdWV1ZV9zdHJ1Y3QgKmtmZF9wcm9jZXNzX3dxOwo+Cj4gKy8q
+IE9yZGVyZWQsIHNpbmdsZS10aHJlYWRlZCB3b3JrcXVldWUgZm9yIHJlc3RvcmluZyBldmljdGVk
+Cj4gKyAqIHByb2Nlc3Nlcy4gUmVzdG9yaW5nIG11bHRpcGxlIHByb2Nlc3NlcyBjb25jdXJyZW50
+bHkgdW5kZXIgbWVtb3J5Cj4gKyAqIHByZXNzdXJlIGNhbiBsZWFkIHRvIHByb2Nlc3NlcyBibG9j
+a2luZyBlYWNoIG90aGVyIGZyb20gdmFsaWRhdGluZwo+ICsgKiB0aGVpciBCT3MgYW5kIHJlc3Vs
+dCBpbiBhIGxpdmUtbG9jayBzaXR1YXRpb24gd2hlcmUgcHJvY2Vzc2VzCj4gKyAqIHJlbWFpbiBl
+dmljdGVkIGluZGVmaW5pdGVseS4KPiArICovCj4gK3N0YXRpYyBzdHJ1Y3Qgd29ya3F1ZXVlX3N0
+cnVjdCAqa2ZkX3Jlc3RvcmVfd3E7Cj4gKwo+ICBzdGF0aWMgc3RydWN0IGtmZF9wcm9jZXNzICpm
+aW5kX3Byb2Nlc3MoY29uc3Qgc3RydWN0IHRhc2tfc3RydWN0ICp0aHJlYWQpOwo+ICBzdGF0aWMg
+dm9pZCBrZmRfcHJvY2Vzc19yZWZfcmVsZWFzZShzdHJ1Y3Qga3JlZiAqcmVmKTsKPiAgc3RhdGlj
+IHN0cnVjdCBrZmRfcHJvY2VzcyAqY3JlYXRlX3Byb2Nlc3MoY29uc3Qgc3RydWN0IHRhc2tfc3Ry
+dWN0ICp0aHJlYWQsCj4gQEAgLTU5LDEwICs2OCwxOSBAQCBzdGF0aWMgdm9pZCBldmljdF9wcm9j
+ZXNzX3dvcmtlcihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspOwo+ICBzdGF0aWMgdm9pZCByZXN0
+b3JlX3Byb2Nlc3Nfd29ya2VyKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yayk7Cj4KPgo+IC12b2lk
+IGtmZF9wcm9jZXNzX2NyZWF0ZV93cSh2b2lkKQo+ICtpbnQga2ZkX3Byb2Nlc3NfY3JlYXRlX3dx
+KHZvaWQpCj4gIHsKPiAgICAgICAgIGlmICgha2ZkX3Byb2Nlc3Nfd3EpCj4gICAgICAgICAgICAg
+ICAgIGtmZF9wcm9jZXNzX3dxID0gYWxsb2Nfd29ya3F1ZXVlKCJrZmRfcHJvY2Vzc193cSIsIDAs
+IDApOwo+ICsgICAgICAgaWYgKCFrZmRfcmVzdG9yZV93cSkKPiArICAgICAgICAgICAgICAga2Zk
+X3Jlc3RvcmVfd3EgPSBhbGxvY19vcmRlcmVkX3dvcmtxdWV1ZSgia2ZkX3Jlc3RvcmVfd3EiLCAw
+KTsKPiArCj4gKyAgICAgICBpZiAoIWtmZF9yZXN0b3JlX3dxIHx8ICFrZmRfcmVzdG9yZV93cSkg
+ewoKU2hvdWxkIGJlCmlmICgha2ZkX3Byb2Nlc3Nfd3F8fCAha2ZkX3Jlc3RvcmVfd3EpIHsKCj4K
+PiArICAgICAgICAgICAgICAga2ZkX3Byb2Nlc3NfZGVzdHJveV93cSgpOwo+ICsgICAgICAgICAg
+ICAgICByZXR1cm4gLUVOT01FTTsKPiArICAgICAgIH0KPiArCj4gKyAgICAgICByZXR1cm4gMDsK
+PiAgfQo+Cj4gIHZvaWQga2ZkX3Byb2Nlc3NfZGVzdHJveV93cSh2b2lkKQo+IEBAIC03MSw2ICs4
+OSwxMCBAQCB2b2lkIGtmZF9wcm9jZXNzX2Rlc3Ryb3lfd3Eodm9pZCkKPiAgICAgICAgICAgICAg
+ICAgZGVzdHJveV93b3JrcXVldWUoa2ZkX3Byb2Nlc3Nfd3EpOwo+ICAgICAgICAgICAgICAgICBr
+ZmRfcHJvY2Vzc193cSA9IE5VTEw7Cj4gICAgICAgICB9Cj4gKyAgICAgICBpZiAoa2ZkX3Jlc3Rv
+cmVfd3EpIHsKPiArICAgICAgICAgICAgICAgZGVzdHJveV93b3JrcXVldWUoa2ZkX3Jlc3RvcmVf
+d3EpOwo+ICsgICAgICAgICAgICAgICBrZmRfcmVzdG9yZV93cSA9IE5VTEw7Cj4gKyAgICAgICB9
+Cj4gIH0KPgo+ICBzdGF0aWMgdm9pZCBrZmRfcHJvY2Vzc19mcmVlX2dwdXZtKHN0cnVjdCBrZ2Rf
+bWVtICptZW0sCj4gQEAgLTg2OSw3ICs4OTEsNyBAQCBzdGF0aWMgdm9pZCBldmljdF9wcm9jZXNz
+X3dvcmtlcihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCj4gICAgICAgICAgICAgICAgIGRtYV9m
+ZW5jZV9zaWduYWwocC0+ZWYpOwo+ICAgICAgICAgICAgICAgICBkbWFfZmVuY2VfcHV0KHAtPmVm
+KTsKPiAgICAgICAgICAgICAgICAgcC0+ZWYgPSBOVUxMOwo+IC0gICAgICAgICAgICAgICBzY2hl
+ZHVsZV9kZWxheWVkX3dvcmsoJnAtPnJlc3RvcmVfd29yaywKPiArICAgICAgICAgICAgICAgcXVl
+dWVfZGVsYXllZF93b3JrKGtmZF9yZXN0b3JlX3dxLCAmcC0+cmVzdG9yZV93b3JrLAo+ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgbXNlY3NfdG9famlmZmllcyhQUk9DRVNTX1JFU1RP
+UkVfVElNRV9NUykpOwo+Cj4gICAgICAgICAgICAgICAgIHByX2RlYnVnKCJGaW5pc2hlZCBldmlj
+dGluZyBwYXNpZCAlZFxuIiwgcC0+cGFzaWQpOwo+IEBAIC05MTgsNyArOTQwLDcgQEAgc3RhdGlj
+IHZvaWQgcmVzdG9yZV9wcm9jZXNzX3dvcmtlcihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCj4g
+ICAgICAgICBpZiAocmV0KSB7Cj4gICAgICAgICAgICAgICAgIHByX2RlYnVnKCJGYWlsZWQgdG8g
+cmVzdG9yZSBCT3Mgb2YgcGFzaWQgJWQsIHJldHJ5IGFmdGVyICVkIG1zXG4iLAo+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwLT5wYXNpZCwgUFJPQ0VTU19CQUNLX09GRl9USU1FX01TKTsKPiAt
+ICAgICAgICAgICAgICAgcmV0ID0gc2NoZWR1bGVfZGVsYXllZF93b3JrKCZwLT5yZXN0b3JlX3dv
+cmssCj4gKyAgICAgICAgICAgICAgIHJldCA9IHF1ZXVlX2RlbGF5ZWRfd29yayhrZmRfcmVzdG9y
+ZV93cSwgJnAtPnJlc3RvcmVfd29yaywKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IG1zZWNzX3RvX2ppZmZpZXMoUFJPQ0VTU19CQUNLX09GRl9USU1FX01TKSk7Cj4gICAgICAgICAg
+ICAgICAgIFdBUk4oIXJldCwgInJlc2NoZWR1bGUgcmVzdG9yZSB3b3JrIGZhaWxlZFxuIik7Cj4g
+ICAgICAgICAgICAgICAgIHJldHVybjsKPiBAQCAtOTU3LDcgKzk3OSw3IEBAIGludCBrZmRfcmVz
+dW1lX2FsbF9wcm9jZXNzZXModm9pZCkKPiAgICAgICAgIGludCByZXQgPSAwLCBpZHggPSBzcmN1
+X3JlYWRfbG9jaygma2ZkX3Byb2Nlc3Nlc19zcmN1KTsKPgo+ICAgICAgICAgaGFzaF9mb3JfZWFj
+aF9yY3Uoa2ZkX3Byb2Nlc3Nlc190YWJsZSwgdGVtcCwgcCwga2ZkX3Byb2Nlc3Nlcykgewo+IC0g
+ICAgICAgICAgICAgICBpZiAoIXNjaGVkdWxlX2RlbGF5ZWRfd29yaygmcC0+cmVzdG9yZV93b3Jr
+LCAwKSkgewo+ICsgICAgICAgICAgICAgICBpZiAoIXF1ZXVlX2RlbGF5ZWRfd29yayhrZmRfcmVz
+dG9yZV93cSwgJnAtPnJlc3RvcmVfd29yaywgMCkpIHsKPiAgICAgICAgICAgICAgICAgICAgICAg
+ICBwcl9lcnIoIlJlc3RvcmUgcHJvY2VzcyAlZCBmYWlsZWQgZHVyaW5nIHJlc3VtZVxuIiwKPiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcC0+cGFzaWQpOwo+ICAgICAgICAgICAgICAg
+ICAgICAgICAgIHJldCA9IC1FRkFVTFQ7Cj4gLS0KPiAyLjcuNAo+CkkgZml4ZWQgdGhlIGNvbW1l
+bnQgYWJvdmUuIE5vIG5lZWQgdG8gcmVzZW5kLgoKVGhpcyBwYXRjaCBpczoKUmV2aWV3ZWQtYnk6
+IE9kZWQgR2FiYmF5IDxvZGVkLmdhYmJheUBnbWFpbC5jb20+Cl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
