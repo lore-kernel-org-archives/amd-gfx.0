@@ -1,14 +1,14 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix a kcq hang issue for SRIOV
-Date: Tue, 27 Mar 2018 09:48:07 +0200
-Message-ID: <04acc6d7-680b-861d-2a3e-e4206b72345c@gmail.com>
-References: <1522130286-25401-1-git-send-email-Emily.Deng@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: for sriov timeout is still enforced on
+ compute rings
+Date: Tue, 27 Mar 2018 09:51:51 +0200
+Message-ID: <32b69fa9-c0be-db27-03a9-97eb3585083e@gmail.com>
+References: <1522133191-31247-1-git-send-email-evan.quan@amd.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0891237224=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1522130286-25401-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1522133191-31247-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,110 +20,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Monk.Liu-5C7GfCeVMHo@public.gmane.org
 
-QW0gMjcuMDMuMjAxOCB1bSAwNzo1OCBzY2hyaWViIEVtaWx5IERlbmc6Cj4gaXNzdWU6Cj4gdGhl
-IHZtZmx1c2ggaW4gS0NRIGNvdWxkIGJlIHByZWVtcHRlZCAobm90IGxpa2UgR0ZYIHJpbmcKPiB3
-aGljaCBkb2Vzbid0IGFsbG93IHByZWVtcHRpb24gaW4gcmluZyBidWZmZXIpIGFuZCB0aGlzIGxl
-YWQKPiB0byB2bSBmbHVzaCBmYWlsIHdoZW4gdGhlcmUgaXMgYSB3b3JsZCBzd2l0Y2ggZHVyaW5n
-Cj4gdGhlIHZtIGZsdXNoIHByb2NlZHVyZSAoYmV0d2VlbiB3cml0ZSBpbnZhbGlkYXRlIHJlcXVl
-c3QKPiBhbmQgcXVlcnkgaW52YWxpZGF0ZSBhY2spCj4KPiBmaXg6Cj4gc2VwYXJhdGUgdm0gZmx1
-c2ggZm9yIGdmeCBhbmQgY29tcHV0ZSByaW5nLCBhbmQgdXNlCj4gdGhlIG5ldyBmb3JtYXQgY29t
-bWFuZCBpbiBjb21wdXRlJ3Mgdm0gZmx1c2ggd2hpY2gKPiB1c2Ugb25seSBvbmUgcGFja2FnZSBz
-byBubyBwcmVlbXB0aW9uIGNvdWxkIGFsbG93ZWQKCk5BSywgYXMgYWxyZWFkeSBkaXNjdXNzZWQg
-bXVsdGlwbGUgdGltZXMgbm93IHRoYXQgb25seSBjaXJjdW12ZW50cyB0aGUgCnByb2JsZW0sIGJ1
-dCBub3QgcmVhbGx5IGZpeGVzIGl0LgoKSnVzdCBleGVjdXRpbmcgdGhlICJhbWRncHVfcmluZ19l
-bWl0X3dyZWcocmluZywgaHViLT52bV9pbnZfZW5nMF9yZXEgKyAKZW5nLCByZXEpOyIgbXVsdGlw
-bGUgdGltZXMgaGFzIHRoZSBzYW1lIGVmZmVjdCBhbmQgd2UgbmVlZCB0byBmaWd1cmUgb3V0IAp3
-aHkuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4gU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1v
-bmsuTGl1QGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0Bh
-bWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAg
-ICB8ICAxICsKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmggfCAg
-MiArKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgICB8IDEwICsr
-KysrKysrKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgfCAx
-OCArKysrKysrKysrKysrLS0tLS0KPiAgIDQgZmlsZXMgY2hhbmdlZCwgMjUgaW5zZXJ0aW9ucygr
-KSwgNiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5k
-ZXggYTdlMjIyOS4uOTg2NjU5ZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHUuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
-Cj4gQEAgLTE3OTAsNiArMTc5MCw3IEBAIGFtZGdwdV9nZXRfc2RtYV9pbnN0YW5jZShzdHJ1Y3Qg
-YW1kZ3B1X3JpbmcgKnJpbmcpCj4gICAjZGVmaW5lIGFtZGdwdV9yaW5nX2VtaXRfcnJlZyhyLCBk
-KSAociktPmZ1bmNzLT5lbWl0X3JyZWcoKHIpLCAoZCkpCj4gICAjZGVmaW5lIGFtZGdwdV9yaW5n
-X2VtaXRfd3JlZyhyLCBkLCB2KSAociktPmZ1bmNzLT5lbWl0X3dyZWcoKHIpLCAoZCksICh2KSkK
-PiAgICNkZWZpbmUgYW1kZ3B1X3JpbmdfZW1pdF9yZWdfd2FpdChyLCBkLCB2LCBtKSAociktPmZ1
-bmNzLT5lbWl0X3JlZ193YWl0KChyKSwgKGQpLCAodiksIChtKSkKPiArI2RlZmluZSBhbWRncHVf
-cmluZ19lbWl0X3JlZ193YWl0MShyLCBkMCwgZDEsIHYsIG0pIChyKS0+ZnVuY3MtPmVtaXRfcmVn
-X3dhaXQxKChyKSwgKGQwKSwgKGQxKSwgKHYpLCAobSkpCj4gICAjZGVmaW5lIGFtZGdwdV9yaW5n
-X2VtaXRfdG16KHIsIGIpIChyKS0+ZnVuY3MtPmVtaXRfdG16KChyKSwgKGIpKQo+ICAgI2RlZmlu
-ZSBhbWRncHVfcmluZ19wYWRfaWIociwgaWIpICgociktPmZ1bmNzLT5wYWRfaWIoKHIpLCAoaWIp
-KSkKPiAgICNkZWZpbmUgYW1kZ3B1X3JpbmdfaW5pdF9jb25kX2V4ZWMocikgKHIpLT5mdW5jcy0+
-aW5pdF9jb25kX2V4ZWMoKHIpKQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfcmluZy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jp
-bmcuaAo+IGluZGV4IDFkMGQyNTAuLmQ4NWRmNWQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9yaW5nLmgKPiBAQCAtMTUyLDYgKzE1Miw4IEBAIHN0cnVjdCBhbWRncHVf
-cmluZ19mdW5jcyB7Cj4gICAJdm9pZCAoKmVtaXRfd3JlZykoc3RydWN0IGFtZGdwdV9yaW5nICpy
-aW5nLCB1aW50MzJfdCByZWcsIHVpbnQzMl90IHZhbCk7Cj4gICAJdm9pZCAoKmVtaXRfcmVnX3dh
-aXQpKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgcmVnLAo+ICAgCQkJICAgICAg
-dWludDMyX3QgdmFsLCB1aW50MzJfdCBtYXNrKTsKPiArCXZvaWQgKCplbWl0X3JlZ193YWl0MSko
-c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCByZWcwLAo+ICsJCQkJdWludDMyX3Qg
-cmVnMSwgdWludDMyX3QgdmFsLCB1aW50MzJfdCBtYXNrKTsKPiAgIAl2b2lkICgqZW1pdF90bXop
-KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgYm9vbCBzdGFydCk7Cj4gICAJLyogcHJpb3JpdHkg
-ZnVuY3Rpb25zICovCj4gICAJdm9pZCAoKnNldF9wcmlvcml0eSkgKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZywKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBpbmRleCAxYWUz
-ZGUxLi41MDljOWQyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4g
-QEAgLTQwNzgsNiArNDA3OCwxMyBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfcmVn
-X3dhaXQoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCByZWcsCj4gICAJZ2Z4X3Y5
-XzBfd2FpdF9yZWdfbWVtKHJpbmcsIDAsIDAsIDAsIHJlZywgMCwgdmFsLCBtYXNrLCAweDIwKTsK
-PiAgIH0KPiAgIAo+ICtzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfcmVnX3dhaXRfY29t
-cHV0ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4gKwkJCQkJdWludDMyX3QgcmVnMCwgdWlu
-dDMyX3QgcmVnMSwKPiArCQkJCQl1aW50MzJfdCB2YWwsIHVpbnQzMl90IG1hc2spCj4gK3sKPiAr
-CWdmeF92OV8wX3dhaXRfcmVnX21lbShyaW5nLCAwLCAwLCAxLCByZWcwLCByZWcxLCB2YWwsIG1h
-c2ssIDB4MjApOwo+ICt9Cj4gKwo+ICAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfc2V0X2dmeF9lb3Bf
-aW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCQkJCQkJIGVu
-dW0gYW1kZ3B1X2ludGVycnVwdF9zdGF0ZSBzdGF0ZSkKPiAgIHsKPiBAQCAtNDQxNSw3ICs0NDIy
-LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBnZnhfdjlfMF9yaW5n
-X2Z1bmNzX2NvbXB1dGUgPSB7Cj4gICAJCTcgKyAvKiBnZnhfdjlfMF9yaW5nX2VtaXRfaGRwX2Zs
-dXNoICovCj4gICAJCTUgKyAvKiBoZHAgaW52YWxpZGF0ZSAqLwo+ICAgCQk3ICsgLyogZ2Z4X3Y5
-XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMgKi8KPiAtCQlTT0MxNV9GTFVTSF9HUFVfVExCX05V
-TV9XUkVHICogNSArCj4gKwkJKFNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcgLSAxKSAqIDUg
-Kwo+ICAgCQlTT0MxNV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJVCAqIDcgKwo+ICAgCQkyICsg
-LyogZ2Z4X3Y5XzBfcmluZ19lbWl0X3ZtX2ZsdXNoICovCj4gICAJCTggKyA4ICsgOCwgLyogZ2Z4
-X3Y5XzBfcmluZ19lbWl0X2ZlbmNlIHgzIGZvciB1c2VyIGZlbmNlLCB2bSBmZW5jZSAqLwo+IEBA
-IC00NDMzLDYgKzQ0NDAsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNz
-IGdmeF92OV8wX3JpbmdfZnVuY3NfY29tcHV0ZSA9IHsKPiAgIAkuc2V0X3ByaW9yaXR5ID0gZ2Z4
-X3Y5XzBfcmluZ19zZXRfcHJpb3JpdHlfY29tcHV0ZSwKPiAgIAkuZW1pdF93cmVnID0gZ2Z4X3Y5
-XzBfcmluZ19lbWl0X3dyZWcsCj4gICAJLmVtaXRfcmVnX3dhaXQgPSBnZnhfdjlfMF9yaW5nX2Vt
-aXRfcmVnX3dhaXQsCj4gKwkuZW1pdF9yZWdfd2FpdDEgPSBnZnhfdjlfMF9yaW5nX2VtaXRfcmVn
-X3dhaXRfY29tcHV0ZSwKPiAgIH07Cj4gICAKPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1
-X3JpbmdfZnVuY3MgZ2Z4X3Y5XzBfcmluZ19mdW5jc19raXEgPSB7Cj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjlfMC5jCj4gaW5kZXggZTY4NzM2My4uOTY4NDQ3ZCAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwo+IEBAIC0zODUsMTEgKzM4NSwxOSBAQCBzdGF0
-aWMgdWludDY0X3QgZ21jX3Y5XzBfZW1pdF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZywKPiAgIAlhbWRncHVfcmluZ19lbWl0X3dyZWcocmluZywgaHViLT5jdHgwX3B0Yl9h
-ZGRyX2hpMzIgKyAoMiAqIHZtaWQpLAo+ICAgCQkJICAgICAgdXBwZXJfMzJfYml0cyhwZF9hZGRy
-KSk7Cj4gICAKPiAtCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCBodWItPnZtX2ludl9lbmcw
-X3JlcSArIGVuZywgcmVxKTsKPiAtCj4gLQkvKiB3YWl0IGZvciB0aGUgaW52YWxpZGF0ZSB0byBj
-b21wbGV0ZSAqLwo+IC0JYW1kZ3B1X3JpbmdfZW1pdF9yZWdfd2FpdChyaW5nLCBodWItPnZtX2lu
-dl9lbmcwX2FjayArIGVuZywKPiAtCQkJCSAgMSA8PCB2bWlkLCAxIDw8IHZtaWQpOwo+ICsgICAg
-LyogVGhlIHdvcmxkIHN3aXRjaCBjYW5ub3QgYmUgYWxsb3dlZCB0byBvY2N1ciB3aGlsZQo+ICsg
-ICAgICAgc29tZSBpbnZhbGlkYXRpb24gY29udHJvbGxlciBjb2RlIGlzIHdhaXRpbmcgZm9yIGFu
-IGFjay4KPiArICAgICAgIFRvIHdvcmthcm91bmQgdGhlIGhhcmR3YXJlIHJlc3RyaWN0aW9uLCBy
-ZXBsYWNlIHRoZSBvcmlnaW5hbAo+ICsgICAgICAgdHdvIGNvbW1hbmQgd2l0aCBvbmUgY29tbWFu
-ZCBmb3IgY29tcHV0ZSByaW5nICovCj4gKwlpZiAocmluZy0+ZnVuY3MtPnR5cGUgPT0gQU1ER1BV
-X1JJTkdfVFlQRV9DT01QVVRFICYmIGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgewo+ICsJCWFtZGdw
-dV9yaW5nX2VtaXRfcmVnX3dhaXQxKHJpbmcsIGh1Yi0+dm1faW52X2VuZzBfcmVxICsgZW5nLAo+
-ICsJCQkJICAgaHViLT52bV9pbnZfZW5nMF9hY2sgKyBlbmcsIHJlcSwgMSA8PCB2bWlkKTsKPiAr
-CX0gZWxzZSB7Cj4gKwkJYW1kZ3B1X3JpbmdfZW1pdF93cmVnKHJpbmcsIGh1Yi0+dm1faW52X2Vu
-ZzBfcmVxICsgZW5nLCByZXEpOwo+ICsJCS8qIHdhaXQgZm9yIHRoZSBpbnZhbGlkYXRlIHRvIGNv
-bXBsZXRlICovCj4gKwkJYW1kZ3B1X3JpbmdfZW1pdF9yZWdfd2FpdChyaW5nLCBodWItPnZtX2lu
-dl9lbmcwX2FjayArIGVuZywKPiArCQkJICAgMSA8PCB2bWlkLCAxIDw8IHZtaWQpOwo+ICsJfQo+
-ICAgCj4gICAJcmV0dXJuIHBkX2FkZHI7Cj4gICB9CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============0891237224==
+Content-Type: multipart/alternative;
+ boundary="------------9A6905CA5240D3BA4ACF5A87"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------9A6905CA5240D3BA4ACF5A87
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 27.03.2018 um 08:46 schrieb Evan Quan:
+> Sriov still wants these error messags on timeout. So, for sriov
+> use case, the timeout setting on compute rings is kept.
+>
+> Change-Id: Id0af6959a8023c8d683ff680de7c583f84cfeab3
+> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index 455a81e..2cc5a75 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -435,7 +435,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+>   	if (ring->funcs->type != AMDGPU_RING_TYPE_KIQ) {
+>   		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+>   				   num_hw_submission, amdgpu_job_hang_limit,
+> -				   (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ?
+> +				   /* for non-sriov case, no timeout enforce on compute ring */
+> +				   ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) && !amdgpu_sriov_vf(ring->adev)) ?
+
+This starts to look a bit messy, can you add a local variable and 
+separate the exceptions, e.g. something like:
+
+long timeout = msecs_to_jiffies(amdgpu_lockup_timeout);
+
+if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) && 
+!amdgpu_sriov_vf(ring->adev))
+     timeout = MAX_SCHEDULE_TIMEOUT;
+
+....
+
+Apart from that the patch looks good to me,
+Christian.
+
+>   				   MAX_SCHEDULE_TIMEOUT : msecs_to_jiffies(amdgpu_lockup_timeout),
+>   				   ring->name);
+>   		if (r) {
+
+
+--------------9A6905CA5240D3BA4ACF5A87
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 27.03.2018 um 08:46 schrieb Evan
+      Quan:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1522133191-31247-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">Sriov still wants these error messags on timeout. So, for sriov
+use case, the timeout setting on compute rings is kept.
+
+Change-Id: Id0af6959a8023c8d683ff680de7c583f84cfeab3
+Signed-off-by: Evan Quan <a class="moz-txt-link-rfc2396E" href="mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">&lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 455a81e..2cc5a75 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -435,7 +435,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+ 	if (ring-&gt;funcs-&gt;type != AMDGPU_RING_TYPE_KIQ) {
+ 		r = drm_sched_init(&amp;ring-&gt;sched, &amp;amdgpu_sched_ops,
+ 				   num_hw_submission, amdgpu_job_hang_limit,
+-				   (ring-&gt;funcs-&gt;type == AMDGPU_RING_TYPE_COMPUTE) ?
++				   /* for non-sriov case, no timeout enforce on compute ring */
++				   ((ring-&gt;funcs-&gt;type == AMDGPU_RING_TYPE_COMPUTE) &amp;&amp; !amdgpu_sriov_vf(ring-&gt;adev)) ?</pre>
+    </blockquote>
+    <br>
+    This starts to look a bit messy, can you add a local variable and
+    separate the exceptions, e.g. something like:<br>
+    <br>
+    long timeout = <span class="pl-c1">msecs_to_jiffies</span>(amdgpu_lockup_timeout);<br>
+    <br>
+    if (ring-&gt;funcs-&gt;type == AMDGPU_RING_TYPE_COMPUTE) &amp;&amp;
+    !amdgpu_sriov_vf(ring-&gt;adev))<br>
+        timeout = MAX_SCHEDULE_TIMEOUT;<br>
+    <br>
+    ....<br>
+    <br>
+    Apart from that the patch looks good to me,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:1522133191-31247-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap=""> 				   MAX_SCHEDULE_TIMEOUT : msecs_to_jiffies(amdgpu_lockup_timeout),
+ 				   ring-&gt;name);
+ 		if (r) {
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------9A6905CA5240D3BA4ACF5A87--
+
+--===============0891237224==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0891237224==--
