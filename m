@@ -1,45 +1,62 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] amdkfd: always select MMU_NOTIFIER
-Date: Wed, 28 Mar 2018 18:04:33 +0200
-Message-ID: <664e2827-5237-160b-6ecf-c2da163569e1@amd.com>
-References: <20180328155340.2253343-1-arnd@arndb.de>
+From: Logan Gunthorpe <logang@deltatee.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Wed, 28 Mar 2018 10:25:43 -0600
+Message-ID: <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
+References: <20180325110000.2238-1-christian.koenig@amd.com>
+ <20180325110000.2238-2-christian.koenig@amd.com>
+ <20180328123830.GB25060@infradead.org>
+ <613a6c91-7e72-5589-77e6-587ec973d553@gmail.com>
+ <c81df70d-191d-bf8e-293a-413dd633e1fc@deltatee.com>
+ <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180328155340.2253343-1-arnd-r2nGTMty4D4@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>
-Cc: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>
+Cc: linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjguMDMuMjAxOCB1bSAxNzo1MyBzY2hyaWViIEFybmQgQmVyZ21hbm46Cj4gQnVpbGRpbmcg
-YW1ka2ZkIHdpdGhvdXQgTU1VIG5vdGlmaWVycyBpcyBicm9rZW46Cj4KPiBJbiBmaWxlIGluY2x1
-ZGVkIGZyb20gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3ZpLmM6
-Mjg6Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaDo1ODQ6MjI6IGVycm9y
-OiBmaWVsZCAnbW11X25vdGlmaWVyJyBoYXMgaW5jb21wbGV0ZSB0eXBlCj4KPiBUaGlzIGFkZHMg
-dGhlIG1pc3NpbmcgJ3NlbGVjdCBNTVVfTk9USUZJRVInIGxpbmUgdG8gbWFrZSBpdCBidWlsZAo+
-IGNsZWFubHkgYWxsIHRoZSB0aW1lLgo+Cj4gU2lnbmVkLW9mZi1ieTogQXJuZCBCZXJnbWFubiA8
-YXJuZEBhcm5kYi5kZT4KCkFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+LCBidXQgSSB3b3VsZCB3YWl0IApvbiB3aGF0IEZlbGl4IHNheXMgdG8gdGhh
-dC4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnIHwgMSArCj4g
-ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-S2NvbmZpZwo+IGluZGV4IGVkMmYwNmM5ZjM0Ni4uNWEyNmFjYjkwZTE5IDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL0tjb25maWcKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9LY29uZmlnCj4gQEAgLTQsNiArNCw3IEBACj4gICAKPiAgIGNvbmZpZyBI
-U0FfQU1ECj4gICAJdHJpc3RhdGUgIkhTQSBrZXJuZWwgZHJpdmVyIGZvciBBTUQgR1BVIGRldmlj
-ZXMiCj4gKwlzZWxlY3QgTU1VX05PVElGSUVSCj4gICAJZGVwZW5kcyBvbiBEUk1fQU1ER1BVICYm
-IFg4Nl82NAo+ICAgCWltcGx5IEFNRF9JT01NVV9WMgo+ICAgCWhlbHAKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+
+On 28/03/18 10:02 AM, Christian König wrote:
+> Yeah, that looks very similar to what I picked up from the older 
+> patches, going to read up on that after my vacation.
+
+Yeah, I was just reading through your patchset and there are a lot of
+similarities. Though, I'm not sure what you're trying to accomplish as I
+could not find a cover letter and it seems to only enable one driver. Is
+it meant to enable DMA transactions only between two AMD GPUs?
+
+I also don't see where you've taken into account the PCI bus address. On
+some architectures this is not the same as the CPU physical address.
+
+> Just in general why are you interested in the "distance" of the devices?
+
+We've taken a general approach where some drivers may provide p2p memory
+(ie. an NVMe card or an RDMA NIC) and other drivers make use of it (ie.
+the NVMe-of driver). The orchestrator driver needs to find the most
+applicable provider device for a transaction in a situation that may
+have multiple providers and multiple clients. So the most applicable
+provider is the one that's closest ("distance"-wise) to all the clients
+for the P2P transaction.
+
+> And BTW: At least for writes that Peer 2 Peer transactions between 
+> different root complexes work is actually more common than the other way 
+> around.
+
+Maybe on x86 with hardware made in the last few years. But on PowerPC,
+ARM64, and likely a lot more the chance of support is *much* less. Also,
+hardware that only supports P2P stores is hardly full support and is
+insufficient for our needs.
+
+> So I'm a bit torn between using a blacklist or a whitelist. A whitelist 
+> is certainly more conservative approach, but that could get a bit long.
+
+I think a whitelist approach is correct. Given old hardware and other
+architectures, a black list is going to be too long and too difficult to
+comprehensively populate.
+
+Logan
