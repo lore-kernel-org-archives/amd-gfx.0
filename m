@@ -1,73 +1,25 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Fix KIQ hang on bare metal for device unbind/bind
- back.
-Date: Wed, 28 Mar 2018 08:37:38 -0400
-Message-ID: <1522240658-2648-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Wed, 28 Mar 2018 05:38:30 -0700
+Message-ID: <20180328123830.GB25060@infradead.org>
+References: <20180325110000.2238-1-christian.koenig@amd.com>
+ <20180325110000.2238-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Pixel.Ding-5C7GfCeVMHo@public.gmane.org, Rex.Zhu-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20180325110000.2238-2-christian.koenig@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Logan Gunthorpe <logang@deltatee.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UHJvYmxlbTogV2hlbiB1bmJpbmQgYW5kIHRoZW4gYmluZCBiYWNrIHRoZSBkZXZpY2UgS0lRIGhh
-bmdzIG9uIFZlZ2EKYWZ0ZXIgbWFwcGluZyBLQ1FzIHJlcXVlc3QuCgpGaXg6IEFkZGluZyBkZWlu
-aXRpYWx6aWUgY29kZSBmcm9tIENBSUwgZHVyaW5nIEhXIGZpbmkgc29sdmVzIHRoZQpoYW5nLgoK
-U2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDUyICsrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgNTEgaW5zZXJ0
-aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
-CmluZGV4IDFhZTNkZTEuLmZkMTMwNjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYwpAQCAtMjc1Nyw2ICsyNzU3LDQ1IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2luaXRf
-cmVnaXN0ZXIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogCXJldHVybiAwOwogfQogCitzdGF0
-aWMgaW50IGdmeF92OV8wX2tpcV9maW5pX3JlZ2lzdGVyKHN0cnVjdCBhbWRncHVfcmluZyAqcmlu
-ZykKK3sKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7CisJaW50IGo7
-CisKKwkvKiBkaXNhYmxlIHRoZSBxdWV1ZSBpZiBpdCdzIGFjdGl2ZSAqLworCWlmIChSUkVHMzJf
-U09DMTUoR0MsIDAsIG1tQ1BfSFFEX0FDVElWRSkgJiAxKSB7CisKKwkJV1JFRzMyX1NPQzE1KEdD
-LCAwLCBtbUNQX0hRRF9ERVFVRVVFX1JFUVVFU1QsIDEpOworCisJCWZvciAoaiA9IDA7IGogPCBh
-ZGV2LT51c2VjX3RpbWVvdXQ7IGorKykgeworCQkJaWYgKCEoUlJFRzMyX1NPQzE1KEdDLCAwLCBt
-bUNQX0hRRF9BQ1RJVkUpICYgMSkpCisJCQkJYnJlYWs7CisJCQl1ZGVsYXkoMSk7CisJCX0KKwor
-CQlpZiAoYWRldi0+dXNlY190aW1lb3V0ID09IEFNREdQVV9NQVhfVVNFQ19USU1FT1VUKSB7CisJ
-CQlEUk1fREVCVUcoIktJUSBkZXF1ZXVlIHJlcXVlc3QgZmFpbGVkLlxuIik7CisKKwkJCVdSRUcz
-Ml9TT0MxNShHQywgMCwgbW1DUF9IUURfQUNUSVZFLCAwKTsKKwkJfQorCisJCS8qIE1hbnVhbCBk
-aXNhYmxlIGlmIGRlcXVldWUgcmVxdWVzdCB0aW1lcyBvdXQgKi8KKwkJV1JFRzMyX1NPQzE1KEdD
-LCAwLCBtbUNQX0hRRF9ERVFVRVVFX1JFUVVFU1QsCisJCSAgICAgIDApOworCX0KKworCVdSRUcz
-Ml9TT0MxNShHQywgMCwgbW1DUF9IUURfSVFfVElNRVIsIDApOworCVdSRUczMl9TT0MxNShHQywg
-MCwgbW1DUF9IUURfSUJfQ09OVFJPTCwgMCk7CisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hR
-RF9QRVJTSVNURU5UX1NUQVRFLCAwKTsKKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BR
-X0RPT1JCRUxMX0NPTlRST0wsIDB4NDAwMDAwMDApOworCVdSRUczMl9TT0MxNShHQywgMCwgbW1D
-UF9IUURfUFFfRE9PUkJFTExfQ09OVFJPTCwgMCk7CisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQ
-X0hRRF9QUV9SUFRSLCAwKTsKKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX1dQVFJf
-SEksIDApOworCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfUFFfV1BUUl9MTywgMCk7CisK
-KwlyZXR1cm4gMDsKK30KKwogc3RhdGljIGludCBnZnhfdjlfMF9raXFfaW5pdF9xdWV1ZShzdHJ1
-Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiB7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBy
-aW5nLT5hZGV2OwpAQCAtMzAxMCw3ICszMDQ5LDYgQEAgc3RhdGljIGludCBnZnhfdjlfMF9rY3Ff
-ZGlzYWJsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKmtpcV9yaW5nLHN0cnVjdCBhbWRncHVfcmluZwog
-CXJldHVybiByOwogfQogCi0KIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfaHdfZmluaSh2b2lkICpoYW5k
-bGUpCiB7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKiloYW5kbGU7CkBAIC0zMDMzLDYgKzMwNzEsMTggQEAgc3RhdGljIGludCBnZnhfdjlfMF9o
-d19maW5pKHZvaWQgKmhhbmRsZSkKIAkJV1JFRzMyX0ZJRUxEMTUoR0MsIDAsIENQX1BRX1dQVFJf
-UE9MTF9DTlRMLCBFTiwgMCk7CiAJCXJldHVybiAwOwogCX0KKworCS8qIFVzZSBkZWluaXRpYWxp
-emUgc2VxdWVuY2UgZnJvbSBDQUlMIHdoZW4gdW5iaW5kaW5nIGRldmljZSBmcm9tIGRyaXZlciwK
-KwkgKiBvdGhlcndpc2UgS0lRIGlzIGhhbmdpbmcgd2hlbiBiaW5kaW5nIGJhY2sKKwkgKi8KKwlp
-ZiAoIWFkZXYtPmluX2dwdV9yZXNldCAmJiAhYWRldi0+Z2Z4LmluX3N1c3BlbmQpIHsKKwkJc29j
-MTVfZ3JibV9zZWxlY3QoYWRldiwgYWRldi0+Z2Z4LmtpcS5yaW5nLm1lLAorCQkJCWFkZXYtPmdm
-eC5raXEucmluZy5waXBlLAorCQkJCWFkZXYtPmdmeC5raXEucmluZy5xdWV1ZSwgMCk7CisJCWdm
-eF92OV8wX2tpcV9maW5pX3JlZ2lzdGVyKCZhZGV2LT5nZngua2lxLnJpbmcpOworCQlzb2MxNV9n
-cmJtX3NlbGVjdChhZGV2LCAwLCAwLCAwLCAwKTsKKwl9CisKIAlnZnhfdjlfMF9jcF9lbmFibGUo
-YWRldiwgZmFsc2UpOwogCWdmeF92OV8wX3JsY19zdG9wKGFkZXYpOwogCi0tIAoyLjcuNAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Sun, Mar 25, 2018 at 12:59:54PM +0200, Christian König wrote:
+> From: "wdavis@nvidia.com" <wdavis@nvidia.com>
+> 
+> Add an interface to find the first device which is upstream of both
+> devices.
+
+Please work with Logan and base this on top of the outstanding peer
+to peer patchset.
