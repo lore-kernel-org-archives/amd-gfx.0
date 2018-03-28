@@ -1,54 +1,39 @@
-From: Logan Gunthorpe <logang@deltatee.com>
-Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Wed, 28 Mar 2018 09:47:48 -0600
-Message-ID: <c81df70d-191d-bf8e-293a-413dd633e1fc@deltatee.com>
-References: <20180325110000.2238-1-christian.koenig@amd.com>
- <20180325110000.2238-2-christian.koenig@amd.com>
- <20180328123830.GB25060@infradead.org>
- <613a6c91-7e72-5589-77e6-587ec973d553@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] amdkfd: always select MMU_NOTIFIER
+Date: Wed, 28 Mar 2018 17:53:32 +0200
+Message-ID: <20180328155340.2253343-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <613a6c91-7e72-5589-77e6-587ec973d553@gmail.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: christian.koenig@amd.com, Christoph Hellwig <hch@infradead.org>
-Cc: linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-
-
-On 28/03/18 09:07 AM, Christian König wrote:
-> Am 28.03.2018 um 14:38 schrieb Christoph Hellwig:
->> On Sun, Mar 25, 2018 at 12:59:54PM +0200, Christian König wrote:
->>> From: "wdavis@nvidia.com" <wdavis@nvidia.com>
->>>
->>> Add an interface to find the first device which is upstream of both
->>> devices.
->> Please work with Logan and base this on top of the outstanding peer
->> to peer patchset.
-> 
-> Can you point me to that? The last code I could find about that was from 
-> 2015.
-
-The latest posted series is here:
-
-https://lkml.org/lkml/2018/3/12/830
-
-However, we've made some significant changes to the area that's similar
-to what you are doing. You can find lasted un-posted here:
-
-https://github.com/sbates130272/linux-p2pmem/tree/pci-p2p-v4-pre2
-
-Specifically this function would be of interest to you:
-
-https://github.com/sbates130272/linux-p2pmem/blob/0e9468ae2a5a5198513dd12990151e09105f0351/drivers/pci/p2pdma.c#L239
-
-However, the difference between what we are doing is that we are
-interested in the distance through the common upstream device and you
-appear to be finding the actual common device.
-
-Thanks,
-
-Logan
+QnVpbGRpbmcgYW1ka2ZkIHdpdGhvdXQgTU1VIG5vdGlmaWVycyBpcyBicm9rZW46CgpJbiBmaWxl
+IGluY2x1ZGVkIGZyb20gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2Vy
+X3ZpLmM6Mjg6CmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2Lmg6NTg0OjIyOiBl
+cnJvcjogZmllbGQgJ21tdV9ub3RpZmllcicgaGFzIGluY29tcGxldGUgdHlwZQoKVGhpcyBhZGRz
+IHRoZSBtaXNzaW5nICdzZWxlY3QgTU1VX05PVElGSUVSJyBsaW5lIHRvIG1ha2UgaXQgYnVpbGQK
+Y2xlYW5seSBhbGwgdGhlIHRpbWUuCgpTaWduZWQtb2ZmLWJ5OiBBcm5kIEJlcmdtYW5uIDxhcm5k
+QGFybmRiLmRlPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL0tjb25maWcgfCAxICsK
+IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29u
+ZmlnCmluZGV4IGVkMmYwNmM5ZjM0Ni4uNWEyNmFjYjkwZTE5IDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL0tjb25maWcKQEAgLTQsNiArNCw3IEBACiAKIGNvbmZpZyBIU0FfQU1ECiAJdHJpc3RhdGUg
+IkhTQSBrZXJuZWwgZHJpdmVyIGZvciBBTUQgR1BVIGRldmljZXMiCisJc2VsZWN0IE1NVV9OT1RJ
+RklFUgogCWRlcGVuZHMgb24gRFJNX0FNREdQVSAmJiBYODZfNjQKIAlpbXBseSBBTURfSU9NTVVf
+VjIKIAloZWxwCi0tIAoyLjkuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+ZHJpLWRldmVsCg==
