@@ -1,62 +1,69 @@
-From: Logan Gunthorpe <logang@deltatee.com>
-Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Wed, 28 Mar 2018 13:53:25 -0600
-Message-ID: <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
-References: <20180325110000.2238-1-christian.koenig@amd.com>
- <20180325110000.2238-2-christian.koenig@amd.com>
- <20180328123830.GB25060@infradead.org>
- <613a6c91-7e72-5589-77e6-587ec973d553@gmail.com>
- <c81df70d-191d-bf8e-293a-413dd633e1fc@deltatee.com>
- <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
- <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
- <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
- <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
- <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 1/1] drm: add parameter explanation for some gem dmabuf_ops
+Date: Wed, 28 Mar 2018 16:25:05 -0400
+Message-ID: <CADnq5_P1QDV9oP-1egFynpX9oF_HANYMH0ORz9XO1QtCSm7Rsg@mail.gmail.com>
+References: <1522092145-12645-1-git-send-email-Samuel.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>
-Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1522092145-12645-1-git-send-email-Samuel.Li@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Samuel Li <Samuel.Li@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-
-
-On 28/03/18 01:44 PM, Christian König wrote:
-> Well, isn't that exactly what dma_map_resource() is good for? As far as 
-> I can see it makes sure IOMMU is aware of the access route and 
-> translates a CPU address into a PCI Bus address.
-
-> I'm using that with the AMD IOMMU driver and at least there it works 
-> perfectly fine.
-
-Yes, it would be nice, but no arch has implemented this yet. We are just
-lucky in the x86 case because that arch is simple and doesn't need to do
-anything for P2P (partially due to the Bus and CPU addresses being the
-same). But in the general case, you can't rely on it.
-
->>> Yeah, but not for ours. See if you want to do real peer 2 peer you need
->>> to keep both the operation as well as the direction into account.
->> Not sure what you are saying here... I'm pretty sure we are doing "real"
->> peer 2 peer...
->>
->>> For example when you can do writes between A and B that doesn't mean
->>> that writes between B and A work. And reads are generally less likely to
->>> work than writes. etc...
->> If both devices are behind a switch then the PCI spec guarantees that A
->> can both read and write B and vice versa.
-> 
-> Sorry to say that, but I know a whole bunch of PCI devices which 
-> horrible ignores that.
-
-Can you elaborate? As far as the device is concerned it shouldn't know
-whether a request comes from a peer or from the host. If it does do
-crazy stuff like that it's well out of spec. It's up to the switch (or
-root complex if good support exists) to route the request to the device
-and it's the root complex that tends to be what drops the load requests
-which causes the asymmetries.
-
-Logan
+T24gTW9uLCBNYXIgMjYsIDIwMTggYXQgMzoyMiBQTSwgU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1k
+LmNvbT4gd3JvdGU6Cj4gVG8gcmVkdWNlIHNvbWUgd2FybmluZ3MuCj4KPiBTaWduZWQtb2ZmLWJ5
+OiBTYW11ZWwgTGkgPFNhbXVlbC5MaUBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCkFuZCBwdXNoZWQuCgpBbGV4Cgo+IC0tLQo+
+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX3ByaW1lLmMgfCAxMyArKysrKysrKysrKysrCj4gIDEgZmls
+ZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2RybV9wcmltZS5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9wcmltZS5jCj4gaW5kZXggNzg1
+NmE5Yi4uY2FmNjc1ZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3ByaW1lLmMK
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3ByaW1lLmMKPiBAQCAtMzMxLDYgKzMzMSw5IEBA
+IEVYUE9SVF9TWU1CT0woZHJtX2dlbV9tYXBfZG1hX2J1Zik7Cj4KPiAgLyoqCj4gICAqIGRybV9n
+ZW1fdW5tYXBfZG1hX2J1ZiAtIHVubWFwX2RtYV9idWYgaW1wbGVtZW50YXRpb24gZm9yIEdFTQo+
+ICsgKiBAYXR0YWNoOiBhdHRhY2htZW50IHRvIHVubWFwIGJ1ZmZlciBmcm9tCj4gKyAqIEBzZ3Q6
+IHNjYXR0ZXJsaXN0IGluZm8gb2YgdGhlIGJ1ZmZlciB0byB1bm1hcAo+ICsgKiBAZGlyOiBkaXJl
+Y3Rpb24gb2YgRE1BIHRyYW5zZmVyCj4gICAqCj4gICAqIE5vdCBpbXBsZW1lbnRlZC4gVGhlIHVu
+bWFwIGlzIGRvbmUgYXQgZHJtX2dlbV9tYXBfZGV0YWNoKCkuICBUaGlzIGNhbiBiZQo+ICAgKiB1
+c2VkIGFzIHRoZSAmZG1hX2J1Zl9vcHMudW5tYXBfZG1hX2J1ZiBjYWxsYmFjay4KPiBAQCAtNDI5
+LDYgKzQzMiw4IEBAIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFidWZfdnVubWFwKTsKPgo+ICAv
+KioKPiAgICogZHJtX2dlbV9kbWFidWZfa21hcF9hdG9taWMgLSBtYXBfYXRvbWljIGltcGxlbWVu
+dGF0aW9uIGZvciBHRU0KPiArICogQGRtYV9idWY6IGJ1ZmZlciB0byBiZSBtYXBwZWQKPiArICog
+QHBhZ2VfbnVtOiBwYWdlIG51bWJlciB3aXRoaW4gdGhlIGJ1ZmZlcgo+ICAgKgo+ICAgKiBOb3Qg
+aW1wbGVtZW50ZWQuIFRoaXMgY2FuIGJlIHVzZWQgYXMgdGhlICZkbWFfYnVmX29wcy5tYXBfYXRv
+bWljIGNhbGxiYWNrLgo+ICAgKi8KPiBAQCAtNDQxLDYgKzQ0Niw5IEBAIEVYUE9SVF9TWU1CT0wo
+ZHJtX2dlbV9kbWFidWZfa21hcF9hdG9taWMpOwo+Cj4gIC8qKgo+ICAgKiBkcm1fZ2VtX2RtYWJ1
+Zl9rdW5tYXBfYXRvbWljIC0gdW5tYXBfYXRvbWljIGltcGxlbWVudGF0aW9uIGZvciBHRU0KPiAr
+ICogQGRtYV9idWY6IGJ1ZmZlciB0byBiZSB1bm1hcHBlZAo+ICsgKiBAcGFnZV9udW06IHBhZ2Ug
+bnVtYmVyIHdpdGhpbiB0aGUgYnVmZmVyCj4gKyAqIEBhZGRyOiB2aXJ0dWFsIGFkZHJlc3Mgb2Yg
+dGhlIGJ1ZmZlcgo+ICAgKgo+ICAgKiBOb3QgaW1wbGVtZW50ZWQuIFRoaXMgY2FuIGJlIHVzZWQg
+YXMgdGhlICZkbWFfYnVmX29wcy51bm1hcF9hdG9taWMgY2FsbGJhY2suCj4gICAqLwo+IEBAIC00
+NTMsNiArNDYxLDggQEAgRVhQT1JUX1NZTUJPTChkcm1fZ2VtX2RtYWJ1Zl9rdW5tYXBfYXRvbWlj
+KTsKPgo+ICAvKioKPiAgICogZHJtX2dlbV9kbWFidWZfa21hcCAtIG1hcCBpbXBsZW1lbnRhdGlv
+biBmb3IgR0VNCj4gKyAqIEBkbWFfYnVmOiBidWZmZXIgdG8gYmUgbWFwcGVkCj4gKyAqIEBwYWdl
+X251bTogcGFnZSBudW1iZXIgd2l0aGluIHRoZSBidWZmZXIKPiAgICoKPiAgICogTm90IGltcGxl
+bWVudGVkLiBUaGlzIGNhbiBiZSB1c2VkIGFzIHRoZSAmZG1hX2J1Zl9vcHMubWFwIGNhbGxiYWNr
+Lgo+ICAgKi8KPiBAQCAtNDY0LDYgKzQ3NCw5IEBAIEVYUE9SVF9TWU1CT0woZHJtX2dlbV9kbWFi
+dWZfa21hcCk7Cj4KPiAgLyoqCj4gICAqIGRybV9nZW1fZG1hYnVmX2t1bm1hcCAtIHVubWFwIGlt
+cGxlbWVudGF0aW9uIGZvciBHRU0KPiArICogQGRtYV9idWY6IGJ1ZmZlciB0byBiZSB1bm1hcHBl
+ZAo+ICsgKiBAcGFnZV9udW06IHBhZ2UgbnVtYmVyIHdpdGhpbiB0aGUgYnVmZmVyCj4gKyAqIEBh
+ZGRyOiB2aXJ0dWFsIGFkZHJlc3Mgb2YgdGhlIGJ1ZmZlcgo+ICAgKgo+ICAgKiBOb3QgaW1wbGVt
+ZW50ZWQuIFRoaXMgY2FuIGJlIHVzZWQgYXMgdGhlICZkbWFfYnVmX29wcy51bm1hcCBjYWxsYmFj
+ay4KPiAgICovCj4gLS0KPiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2RyaS1kZXZlbAo=
