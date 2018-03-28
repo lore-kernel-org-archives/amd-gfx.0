@@ -1,7 +1,7 @@
-From: Logan Gunthorpe <logang@deltatee.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Wed, 28 Mar 2018 12:57:57 -0600
-Message-ID: <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
+Date: Wed, 28 Mar 2018 21:44:11 +0200
+Message-ID: <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
 References: <20180325110000.2238-1-christian.koenig@amd.com>
  <20180325110000.2238-2-christian.koenig@amd.com>
  <20180328123830.GB25060@infradead.org>
@@ -10,59 +10,76 @@ References: <20180325110000.2238-1-christian.koenig@amd.com>
  <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
  <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
  <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
+ <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <e751cd28-f115-569f-5248-d24f30dee3cb-OTvnGxWRz7hWk0Htik3J/w@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>
-Cc: linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Logan Gunthorpe <logang-OTvnGxWRz7hWk0Htik3J/w@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Cc: linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-
-
-On 28/03/18 12:28 PM, Christian König wrote:
-> I'm just using amdgpu as blueprint because I'm the co-maintainer of it 
-> and know it mostly inside out.
-
-Ah, I see.
-
-> The resource addresses are translated using dma_map_resource(). As far 
-> as I know that should be sufficient to offload all the architecture 
-> specific stuff to the DMA subsystem.
-
-It's not. The dma_map infrastructure currently has no concept of
-peer-to-peer mappings and is designed for system memory only. No
-architecture I'm aware of will translate PCI CPU addresses into PCI Bus
-addresses which is necessary for any transfer that doesn't go through
-the root complex (though on arches like x86 the CPU and Bus address
-happen to be the same). There's a lot of people that would like to see
-this change but it's likely going to be a long road before it does.
-
-Furthermore, one of the reasons our patch-set avoids going through the
-root complex at all is that IOMMU drivers will need to be made aware
-that it is operating on P2P memory and do arch-specific things
-accordingly. There will also need to be flags that indicate whether a
-given IOMMU driver supports this. None of this work is done or easy.
-
-> Yeah, but not for ours. See if you want to do real peer 2 peer you need 
-> to keep both the operation as well as the direction into account.
-
-Not sure what you are saying here... I'm pretty sure we are doing "real"
-peer 2 peer...
-
-> For example when you can do writes between A and B that doesn't mean 
-> that writes between B and A work. And reads are generally less likely to 
-> work than writes. etc...
-
-If both devices are behind a switch then the PCI spec guarantees that A
-can both read and write B and vice versa. Only once you involve root
-complexes do you have this problem. Ie. you have unknown support which
-may be no support, or partial support (stores but not loads); or
-sometimes bad performance; or a combination of both... and you need some
-way to figure out all this mess and that is hard. Whoever tries to
-implement a white list will have to sort all this out.
-
-Logan
+QW0gMjguMDMuMjAxOCB1bSAyMDo1NyBzY2hyaWViIExvZ2FuIEd1bnRob3JwZToKPgo+IE9uIDI4
+LzAzLzE4IDEyOjI4IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBJJ20ganVzdCB1c2lu
+ZyBhbWRncHUgYXMgYmx1ZXByaW50IGJlY2F1c2UgSSdtIHRoZSBjby1tYWludGFpbmVyIG9mIGl0
+Cj4+IGFuZCBrbm93IGl0IG1vc3RseSBpbnNpZGUgb3V0Lgo+IEFoLCBJIHNlZS4KPgo+PiBUaGUg
+cmVzb3VyY2UgYWRkcmVzc2VzIGFyZSB0cmFuc2xhdGVkIHVzaW5nIGRtYV9tYXBfcmVzb3VyY2Uo
+KS4gQXMgZmFyCj4+IGFzIEkga25vdyB0aGF0IHNob3VsZCBiZSBzdWZmaWNpZW50IHRvIG9mZmxv
+YWQgYWxsIHRoZSBhcmNoaXRlY3R1cmUKPj4gc3BlY2lmaWMgc3R1ZmYgdG8gdGhlIERNQSBzdWJz
+eXN0ZW0uCj4gSXQncyBub3QuIFRoZSBkbWFfbWFwIGluZnJhc3RydWN0dXJlIGN1cnJlbnRseSBo
+YXMgbm8gY29uY2VwdCBvZgo+IHBlZXItdG8tcGVlciBtYXBwaW5ncyBhbmQgaXMgZGVzaWduZWQg
+Zm9yIHN5c3RlbSBtZW1vcnkgb25seS4gTm8KPiBhcmNoaXRlY3R1cmUgSSdtIGF3YXJlIG9mIHdp
+bGwgdHJhbnNsYXRlIFBDSSBDUFUgYWRkcmVzc2VzIGludG8gUENJIEJ1cwo+IGFkZHJlc3NlcyB3
+aGljaCBpcyBuZWNlc3NhcnkgZm9yIGFueSB0cmFuc2ZlciB0aGF0IGRvZXNuJ3QgZ28gdGhyb3Vn
+aAo+IHRoZSByb290IGNvbXBsZXggKHRob3VnaCBvbiBhcmNoZXMgbGlrZSB4ODYgdGhlIENQVSBh
+bmQgQnVzIGFkZHJlc3MKPiBoYXBwZW4gdG8gYmUgdGhlIHNhbWUpLiBUaGVyZSdzIGEgbG90IG9m
+IHBlb3BsZSB0aGF0IHdvdWxkIGxpa2UgdG8gc2VlCj4gdGhpcyBjaGFuZ2UgYnV0IGl0J3MgbGlr
+ZWx5IGdvaW5nIHRvIGJlIGEgbG9uZyByb2FkIGJlZm9yZSBpdCBkb2VzLgoKV2VsbCwgaXNuJ3Qg
+dGhhdCBleGFjdGx5IHdoYXQgZG1hX21hcF9yZXNvdXJjZSgpIGlzIGdvb2QgZm9yPyBBcyBmYXIg
+YXMgCkkgY2FuIHNlZSBpdCBtYWtlcyBzdXJlIElPTU1VIGlzIGF3YXJlIG9mIHRoZSBhY2Nlc3Mg
+cm91dGUgYW5kIAp0cmFuc2xhdGVzIGEgQ1BVIGFkZHJlc3MgaW50byBhIFBDSSBCdXMgYWRkcmVz
+cy4KCj4gRnVydGhlcm1vcmUsIG9uZSBvZiB0aGUgcmVhc29ucyBvdXIgcGF0Y2gtc2V0IGF2b2lk
+cyBnb2luZyB0aHJvdWdoIHRoZQo+IHJvb3QgY29tcGxleCBhdCBhbGwgaXMgdGhhdCBJT01NVSBk
+cml2ZXJzIHdpbGwgbmVlZCB0byBiZSBtYWRlIGF3YXJlCj4gdGhhdCBpdCBpcyBvcGVyYXRpbmcg
+b24gUDJQIG1lbW9yeSBhbmQgZG8gYXJjaC1zcGVjaWZpYyB0aGluZ3MKPiBhY2NvcmRpbmdseS4g
+VGhlcmUgd2lsbCBhbHNvIG5lZWQgdG8gYmUgZmxhZ3MgdGhhdCBpbmRpY2F0ZSB3aGV0aGVyIGEK
+PiBnaXZlbiBJT01NVSBkcml2ZXIgc3VwcG9ydHMgdGhpcy4gTm9uZSBvZiB0aGlzIHdvcmsgaXMg
+ZG9uZSBvciBlYXN5LgoKSSdtIHVzaW5nIHRoYXQgd2l0aCB0aGUgQU1EIElPTU1VIGRyaXZlciBh
+bmQgYXQgbGVhc3QgdGhlcmUgaXQgd29ya3MgCnBlcmZlY3RseSBmaW5lLgoKPj4gWWVhaCwgYnV0
+IG5vdCBmb3Igb3Vycy4gU2VlIGlmIHlvdSB3YW50IHRvIGRvIHJlYWwgcGVlciAyIHBlZXIgeW91
+IG5lZWQKPj4gdG8ga2VlcCBib3RoIHRoZSBvcGVyYXRpb24gYXMgd2VsbCBhcyB0aGUgZGlyZWN0
+aW9uIGludG8gYWNjb3VudC4KPiBOb3Qgc3VyZSB3aGF0IHlvdSBhcmUgc2F5aW5nIGhlcmUuLi4g
+SSdtIHByZXR0eSBzdXJlIHdlIGFyZSBkb2luZyAicmVhbCIKPiBwZWVyIDIgcGVlci4uLgo+Cj4+
+IEZvciBleGFtcGxlIHdoZW4geW91IGNhbiBkbyB3cml0ZXMgYmV0d2VlbiBBIGFuZCBCIHRoYXQg
+ZG9lc24ndCBtZWFuCj4+IHRoYXQgd3JpdGVzIGJldHdlZW4gQiBhbmQgQSB3b3JrLiBBbmQgcmVh
+ZHMgYXJlIGdlbmVyYWxseSBsZXNzIGxpa2VseSB0bwo+PiB3b3JrIHRoYW4gd3JpdGVzLiBldGMu
+Li4KPiBJZiBib3RoIGRldmljZXMgYXJlIGJlaGluZCBhIHN3aXRjaCB0aGVuIHRoZSBQQ0kgc3Bl
+YyBndWFyYW50ZWVzIHRoYXQgQQo+IGNhbiBib3RoIHJlYWQgYW5kIHdyaXRlIEIgYW5kIHZpY2Ug
+dmVyc2EuCgpTb3JyeSB0byBzYXkgdGhhdCwgYnV0IEkga25vdyBhIHdob2xlIGJ1bmNoIG9mIFBD
+SSBkZXZpY2VzIHdoaWNoIApob3JyaWJsZSBpZ25vcmVzIHRoYXQuCgpGb3IgZXhhbXBsZSBhbGwg
+QU1EIEFQVXMgZmFsbCB1bmRlciB0aGF0IGNhdGVnb3J5Li4uCgo+IE9ubHkgb25jZSB5b3UgaW52
+b2x2ZSByb290Cj4gY29tcGxleGVzIGRvIHlvdSBoYXZlIHRoaXMgcHJvYmxlbS4gSWUuIHlvdSBo
+YXZlIHVua25vd24gc3VwcG9ydCB3aGljaAo+IG1heSBiZSBubyBzdXBwb3J0LCBvciBwYXJ0aWFs
+IHN1cHBvcnQgKHN0b3JlcyBidXQgbm90IGxvYWRzKTsgb3IKPiBzb21ldGltZXMgYmFkIHBlcmZv
+cm1hbmNlOyBvciBhIGNvbWJpbmF0aW9uIG9mIGJvdGguLi4gYW5kIHlvdSBuZWVkIHNvbWUKPiB3
+YXkgdG8gZmlndXJlIG91dCBhbGwgdGhpcyBtZXNzIGFuZCB0aGF0IGlzIGhhcmQuIFdob2V2ZXIg
+dHJpZXMgdG8KPiBpbXBsZW1lbnQgYSB3aGl0ZSBsaXN0IHdpbGwgaGF2ZSB0byBzb3J0IGFsbCB0
+aGlzIG91dC4KClllcywgZXhhY3RseSBhbmQgdW5mb3J0dW5hdGVseSBpdCBsb29rcyBsaWtlIEkn
+bSB0aGUgcG9vciBndXkgd2hvIG5lZWRzIAp0byBkbyB0aGlzIDopCgpSZWdhcmRzLApDaHJpc3Rp
+YW4uCgo+Cj4gTG9nYW4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
