@@ -1,11 +1,16 @@
-From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/gpu-sched: fix force APP kill hang
-Date: Wed, 28 Mar 2018 16:07:29 +0800
-Message-ID: <1522224449-8825-1-git-send-email-Emily.Deng@amd.com>
+From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: refresh per vm bo lru
+Date: Wed, 28 Mar 2018 16:13:19 +0800
+Message-ID: <192b6077-88e7-f0f0-6923-b91e3ad5e97b@amd.com>
+References: <20180327101654.1118-1-david1.zhou@amd.com>
+ <20180327101654.1118-2-david1.zhou@amd.com>
+ <6afa6cca-d59c-9e64-f891-c43a741069d4@gmail.com>
+ <a9d42a8a-b9b5-1d89-f95e-e678829a8260@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0244670222=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <a9d42a8a-b9b5-1d89-f95e-e678829a8260-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,67 +21,336 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou,
+ David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-aXNzdWU6CnRoZXJlIGFyZSBWTUMgcGFnZSBmYXVsdCBvY2N1cmVkIGlmIGZvcmNlIEFQUCBraWxs
-IGR1cmluZwozZG1hcmsgdGVzdCwgdGhlIGNhdXNlIGlzIGluIGVudGl0eV9maW5pIHdlIG1hbnVh
-bGx5IHNpZ25hbAphbGwgdGhvc2Ugam9icyBpbiBlbnRpdHkncyBxdWV1ZSB3aGljaCBjb25mdXNl
-IHRoZSBzeW5jL2RlcAptZWNoYW5pc206CgoxKXBhZ2UgZmF1bHQgb2NjdXJlZCBpbiBzZG1hJ3Mg
-Y2xlYXIgam9iIHdoaWNoIG9wZXJhdGUgb24Kc2hhZG93IGJ1ZmZlciwgYW5kIHNoYWRvdyBidWZm
-ZXIncyBHYXJ0IHRhYmxlIGlzIGNsZWFuZWQgYnkKdHRtX2JvX3JlbGVhc2Ugc2luY2UgdGhlIGZl
-bmNlIGluIGl0cyByZXNlcnZhdGlvbiB3YXMgZmFrZSBzaWduYWxlZApieSBlbnRpdHlfZmluaSgp
-IHVuZGVyIHRoZSBjYXNlIG9mIFNJR0tJTEwgcmVjZWl2ZWQuCgoyKXBhZ2UgZmF1bHQgb2NjdXJl
-ZCBpbiBnZngnIGpvYiBiZWNhdXNlIGR1cmluZyB0aGUgbGlmZXRpbWUKb2YgZ2Z4IGpvYiB3ZSBt
-YW51YWxseSBmYWtlIHNpZ25hbCBhbGwgam9icyBmcm9tIGl0cyBlbnRpdHkKaW4gZW50aXR5X2Zp
-bmkoKSwgdGh1cyB0aGUgdW5tYXBwaW5nL2NsZWFyIFBURSBqb2IgZGVwZW5kIG9uIHRob3NlCnJl
-c3VsdCBmZW5jZSBpcyBzYXRpc2ZpZWQgYW5kIHNkbWEgc3RhcnQgY2xlYXJpbmcgdGhlIFBURSBh
-bmQgbGVhZAp0byBHRlggcGFnZSBmYXVsdC4KCmZpeDoKMSlzaG91bGQgYXQgbGVhc3Qgd2FpdCBh
-bGwgam9icyBhbHJlYWR5IHNjaGVkdWxlZCBjb21wbGV0ZSBpbiBlbnRpdHlfZmluaSgpCmlmIFNJ
-R0tJTEwgaXMgdGhlIGNhc2UuCgoyKWlmIGEgZmVuY2Ugc2lnbmFsZWQgYW5kIHRyeSB0byBjbGVh
-ciBzb21lIGVudGl0eSdzIGRlcGVuZGVuY3ksIHNob3VsZApzZXQgdGhpcyBlbnRpdHkgZ3VpbHR5
-IHRvIHByZXZlbnQgaXRzIGpvYiByZWFsbHkgcnVuIHNpbmNlIHRoZSBkZXBlbmRlbmN5CmlzIGZh
-a2Ugc2lnbmFsZWQuCgpyZWxhdGVkIGlzc3VlIHRpY2tldDoKaHR0cDovL29udHJhY2staW50ZXJu
-YWwuYW1kLmNvbS9icm93c2UvU1dERVYtMTQ3NTY0P2ZpbHRlcj0tMQoKU2lnbmVkLW9mZi1ieTog
-TW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxl
-ci9ncHVfc2NoZWR1bGVyLmMgfCAzNiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAx
-IGZpbGUgY2hhbmdlZCwgMzYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxl
-ci9ncHVfc2NoZWR1bGVyLmMKaW5kZXggMmJkNjljNC4uOWIzMDZkMyAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKQEAgLTE5OCw2ICsxOTgsMjggQEAgc3RhdGlj
-IGJvb2wgZHJtX3NjaGVkX2VudGl0eV9pc19yZWFkeShzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAq
-ZW50aXR5KQogCXJldHVybiB0cnVlOwogfQogCitzdGF0aWMgdm9pZCBkcm1fc2NoZWRfZW50aXR5
-X3dhaXRfb3RmX3NpZ25hbChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAorCQkJCXN0
-cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpCit7CisJc3RydWN0IGRybV9zY2hlZF9qb2Ig
-Kmxhc3Q7CisJc2lnbmVkIGxvbmcgcjsKKworCXNwaW5fbG9jaygmc2NoZWQtPmpvYl9saXN0X2xv
-Y2spOworCWxpc3RfZm9yX2VhY2hfZW50cnlfcmV2ZXJzZShsYXN0LCAmc2NoZWQtPnJpbmdfbWly
-cm9yX2xpc3QsIG5vZGUpCisJCWlmIChsYXN0LT5zX2ZlbmNlLT5zY2hlZHVsZWQuY29udGV4dCA9
-PSBlbnRpdHktPmZlbmNlX2NvbnRleHQpIHsKKwkJCWRtYV9mZW5jZV9nZXQoJmxhc3QtPnNfZmVu
-Y2UtPmZpbmlzaGVkKTsKKwkJCWJyZWFrOworCQl9CisJc3Bpbl91bmxvY2soJnNjaGVkLT5qb2Jf
-bGlzdF9sb2NrKTsKKworCWlmICgmbGFzdC0+bm9kZSAhPSAmc2NoZWQtPnJpbmdfbWlycm9yX2xp
-c3QpIHsKKwkJciA9IGRtYV9mZW5jZV93YWl0X3RpbWVvdXQoJmxhc3QtPnNfZmVuY2UtPmZpbmlz
-aGVkLCBmYWxzZSwgbXNlY3NfdG9famlmZmllcyg1MDApKTsKKwkJaWYgKHIgPT0gMCkKKwkJCURS
-TV9XQVJOKCJ3YWl0IG9uIHRoZSBmbHkgam9iIHRpbWVvdXRcbiIpOworCQlkbWFfZmVuY2VfcHV0
-KCZsYXN0LT5zX2ZlbmNlLT5maW5pc2hlZCk7CisJfQorfQorCiAvKioKICAqIERlc3Ryb3kgYSBj
-b250ZXh0IGVudGl0eQogICoKQEAgLTIzOCw2ICsyNjAsMTIgQEAgdm9pZCBkcm1fc2NoZWRfZW50
-aXR5X2Zpbmkoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKIAkJCWVudGl0eS0+ZGVw
-ZW5kZW5jeSA9IE5VTEw7CiAJCX0KIAorCQkvKiBXYWl0IHRpbGwgYWxsIGpvYnMgZnJvbSB0aGlz
-IGVudGl0eSByZWFsbHkgZmluaXNoZWQgb3RoZXJ3aXNlIGJlbG93CisJCSAqIGZha2Ugc2lnbmFs
-aW5nIHdvdWxkIGtpY2tzdGFydCBzZG1hJ3MgY2xlYXIgUFRFIGpvYnMgYW5kIGxlYWQgdG8KKwkJ
-ICogdm0gZmF1bHQKKwkJICovCisJCWRybV9zY2hlZF9lbnRpdHlfd2FpdF9vdGZfc2lnbmFsKHNj
-aGVkLCBlbnRpdHkpOworCiAJCXdoaWxlICgoam9iID0gdG9fZHJtX3NjaGVkX2pvYihzcHNjX3F1
-ZXVlX3BvcCgmZW50aXR5LT5qb2JfcXVldWUpKSkpIHsKIAkJCXN0cnVjdCBkcm1fc2NoZWRfZmVu
-Y2UgKnNfZmVuY2UgPSBqb2ItPnNfZmVuY2U7CiAJCQlkcm1fc2NoZWRfZmVuY2Vfc2NoZWR1bGVk
-KHNfZmVuY2UpOwpAQCAtMjU1LDYgKzI4MywxNCBAQCBzdGF0aWMgdm9pZCBkcm1fc2NoZWRfZW50
-aXR5X3dha2V1cChzdHJ1Y3QgZG1hX2ZlbmNlICpmLCBzdHJ1Y3QgZG1hX2ZlbmNlX2NiICpjYgog
-ewogCXN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkgPQogCQljb250YWluZXJfb2YoY2Is
-IHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5LCBjYik7CisKKwkvKiBzZXQgdGhlIGVudGl0eSBndWl0
-eSBzaW5jZSBpdHMgZGVwZW5kZW5jeSBpcworCSAqIG5vdCByZWFsbHkgY2xlYXJlZCBidXQgZmFr
-ZSBzaWduYWxlZCAoYnkgU0lHS0lMTAorCSAqIG9yIEdQVSByZWNvdmVyKQorCSAqLworCWlmIChm
-LT5lcnJvciAmJiBlbnRpdHktPmd1aWx0eSkKKwkJYXRvbWljX3NldChlbnRpdHktPmd1aWx0eSwg
-MSk7CisKIAllbnRpdHktPmRlcGVuZGVuY3kgPSBOVUxMOwogCWRtYV9mZW5jZV9wdXQoZik7CiAJ
-ZHJtX3NjaGVkX3dha2V1cChlbnRpdHktPnNjaGVkKTsKLS0gCjIuNy40CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0244670222==
+Content-Type: multipart/alternative;
+	boundary="------------69CA30AB6BA679658F4342AF"
+Content-Language: en-US
+
+--------------69CA30AB6BA679658F4342AF
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+On 2018年03月27日 21:44, Christian König wrote:
+
+> How about we update the LRU only when we need to re-validate at least 
+> one BO?
+I tried this just now, performance still isn't stable, sometime drop to 
+28fps by accident.
+
+I also tried to check num_evictions, if eviction happens, then update 
+LRU, also sometime drop to 28fps by accident.
+
+When BOs change, we not only need keep LRU order, but also validation 
+order in vm->evicted list. Any other ideas which can keep these order 
+but not increase submission overhead?
+
+Regards,
+David Zhou
+>
+> BTW: We can easily walk all BOs which belong to a VM, skipping over 
+> the few which aren't per VM BOs should be trivial.
+>
+> Christian.
+>
+> Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):
+>> then how to keep unique lru order? any ideas?
+>>
+>> To stable performance, we have to keep unique lru order, otherwise 
+>> like the issue I look into, sometimes F1game is 40fps, sometimes 
+>> 28fps...even re-validate allowed domains BO.
+>>
+>> The left root cause is the moved BOs are not same.
+>>
+>> send from Smartisan Pro
+>>
+>> Christian K鰊ig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> 于 2018年3月27日 
+>> 下午6:50写道：
+>>
+>> NAK, we already tried that and it is really not a good idea because it
+>> massively increases the per submission overhead.
+>>
+>> Christian.
+>>
+>> Am 27.03.2018 um 12:16 schrieb Chunming Zhou:
+>> > Change-Id: Ibad84ed585b0746867a5f4cd1eadc2273e7cf596
+>> > Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+>> > ---
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2 ++
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15 +++++++++++++++
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +
+>> >   3 files changed, 18 insertions(+)
+>> >
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> > index 383bf2d31c92..414e61799236 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>> > @@ -919,6 +919,8 @@ static int amdgpu_bo_vm_update_pte(struct 
+>> amdgpu_cs_parser *p)
+>> >                }
+>> >        }
+>> >
+>> > +     amdgpu_vm_refresh_lru(adev, vm);
+>> > +
+>> >        return r;
+>> >   }
+>> >
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> > index 5e35e23511cf..8ad2bb705765 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> > @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct 
+>> amdgpu_device *adev,
+>> >        return bo_va;
+>> >   }
+>> >
+>> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
+>> amdgpu_vm *vm)
+>> > +{
+>> > +     struct ttm_bo_global *glob = adev->mman.bdev.glob;
+>> > +     struct amdgpu_vm_bo_base *bo_base;
+>> > +
+>> > +     spin_lock(&vm->status_lock);
+>> > +     list_for_each_entry(bo_base, &vm->vm_bo_list, vm_bo) {
+>> > +             spin_lock(&glob->lru_lock);
+>> > + ttm_bo_move_to_lru_tail(&bo_base->bo->tbo);
+>> > +             if (bo_base->bo->shadow)
+>> > + ttm_bo_move_to_lru_tail(&bo_base->bo->shadow->tbo);
+>> > +             spin_unlock(&glob->lru_lock);
+>> > +     }
+>> > +     spin_unlock(&vm->status_lock);
+>> > +}
+>> >
+>> >   /**
+>> >    * amdgpu_vm_bo_insert_mapping - insert a new mapping
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> > index 1886a561c84e..e01895581489 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> > @@ -285,6 +285,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device 
+>> *adev,
+>> >                          struct dma_fence **fence);
+>> >   int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+>> >                           struct amdgpu_vm *vm);
+>> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
+>> amdgpu_vm *vm);
+>> >   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+>> >                        struct amdgpu_bo_va *bo_va,
+>> >                        bool clear);
+>>
+>
+
+
+--------------69CA30AB6BA679658F4342AF
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 2018年03月27日 21:44, Christian König
+      wrote:<font size="2"><span style="font-size:11pt;"><br>
+          <br>
+        </span></font></div>
+    <blockquote type="cite"
+      cite="mid:a9d42a8a-b9b5-1d89-f95e-e678829a8260-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <div class="moz-cite-prefix">How about we update the LRU only when
+        we need to re-validate at least one BO?<br>
+      </div>
+    </blockquote>
+    I tried this just now, performance still isn't stable, sometime drop
+    to 28fps by accident.<br>
+    <br>
+    I also tried to check num_evictions, if eviction happens, then
+    update LRU, also sometime drop to 28fps by accident.<br>
+    <br>
+    When BOs change, we not only need keep LRU order, but also
+    validation order in vm-&gt;evicted list. Any other ideas which can
+    keep these order but not increase submission overhead?<br>
+    <br>
+    Regards,<br>
+    David Zhou<br>
+    <blockquote type="cite"
+      cite="mid:a9d42a8a-b9b5-1d89-f95e-e678829a8260-5C7GfCeVMHo@public.gmane.org">
+      <div class="moz-cite-prefix"> <br>
+        BTW: We can easily walk all BOs which belong to a VM, skipping
+        over the few which aren't per VM BOs should be trivial.<br>
+        <br>
+        Christian.<br>
+        <br>
+        Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):<br>
+      </div>
+      <blockquote type="cite" cite="mid:smartisan1522151762126">
+        <meta name="Generator" content="Microsoft Exchange Server">
+        <!-- converted from text -->
+        <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+        <div> <font color="#333333">then how to keep unique lru order?
+            any ideas?<br>
+          </font><br>
+          To stable performance, we have to keep unique lru order,
+          otherwise like the issue I look into, sometimes F1game is
+          40fps, sometimes 28fps...even re-validate allowed domains BO.<br>
+          <br>
+          The left root cause is the moved BOs are not same.<br>
+          <br>
+          <span id="x_smartisan_signature" style="font-size:0.8em;
+            display:inline; color:#888888">
+            <p dir="ltr">send from Smartisan Pro</p>
+          </span>
+          <style type="text/css">
+<!--
+* body
+	{padding:0 16px 30px!important;
+	margin:0!important;
+	background-color:#ffffff;
+	line-height:1.4;
+	word-wrap:break-word;
+	word-break:normal}
+div
+	{word-wrap:break-word;
+	word-break:normal}
+p
+	{word-wrap:break-word;
+	word-break:normal;
+	text-indent:0pt!important}
+span
+	{word-wrap:break-word;
+	word-break:normal}
+a
+	{word-wrap:break-word;
+	word-break:normal}
+td
+	{word-wrap:break-word;
+	word-break:break-all}
+-->
+</style>
+          <div class="x_quote">
+            <div style="margin:0 0px; font-size:105%"><font
+                style="line-height:1.4" color="#629140"><span>Christian
+                  K鰊ig <a class="moz-txt-link-rfc2396E"
+                    href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                    moz-do-not-send="true">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
+                  于 2018年3月27日 下午6:50写道：</span></font></div>
+            <br type="attribution">
+          </div>
+        </div>
+        <font size="2"><span style="font-size:11pt;">
+            <div class="PlainText">NAK, we already tried that and it is
+              really not a good idea because it <br>
+              massively increases the per submission overhead.<br>
+              <br>
+              Christian.<br>
+              <br>
+              Am 27.03.2018 um 12:16 schrieb Chunming Zhou:<br>
+              &gt; Change-Id: Ibad84ed585b0746867a5f4cd1eadc2273e7cf596<br>
+              &gt; Signed-off-by: Chunming Zhou <a
+                class="moz-txt-link-rfc2396E"
+                href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+              &gt; ---<br>
+              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2 ++<br>
+              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15
+              +++++++++++++++<br>
+              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +<br>
+              &gt;   3 files changed, 18 insertions(+)<br>
+              &gt;<br>
+              &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+              &gt; index 383bf2d31c92..414e61799236 100644<br>
+              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+              &gt; @@ -919,6 +919,8 @@ static int
+              amdgpu_bo_vm_update_pte(struct amdgpu_cs_parser *p)<br>
+              &gt;                }<br>
+              &gt;        }<br>
+              &gt;   <br>
+              &gt; +     amdgpu_vm_refresh_lru(adev, vm);<br>
+              &gt; +<br>
+              &gt;        return r;<br>
+              &gt;   }<br>
+              &gt;   <br>
+              &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+              &gt; index 5e35e23511cf..8ad2bb705765 100644<br>
+              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+              &gt; @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va
+              *amdgpu_vm_bo_add(struct amdgpu_device *adev,<br>
+              &gt;        return bo_va;<br>
+              &gt;   }<br>
+              &gt;   <br>
+              &gt; +void amdgpu_vm_refresh_lru(struct amdgpu_device
+              *adev, struct amdgpu_vm *vm)<br>
+              &gt; +{<br>
+              &gt; +     struct ttm_bo_global *glob =
+              adev-&gt;mman.bdev.glob;<br>
+              &gt; +     struct amdgpu_vm_bo_base *bo_base;<br>
+              &gt; +<br>
+              &gt; +     spin_lock(&amp;vm-&gt;status_lock);<br>
+              &gt; +     list_for_each_entry(bo_base,
+              &amp;vm-&gt;vm_bo_list, vm_bo) {<br>
+              &gt; +             spin_lock(&amp;glob-&gt;lru_lock);<br>
+              &gt; +            
+              ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;tbo);<br>
+              &gt; +             if (bo_base-&gt;bo-&gt;shadow)<br>
+              &gt; +                    
+              ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;shadow-&gt;tbo);<br>
+              &gt; +             spin_unlock(&amp;glob-&gt;lru_lock);<br>
+              &gt; +     }<br>
+              &gt; +     spin_unlock(&amp;vm-&gt;status_lock);<br>
+              &gt; +}<br>
+              &gt;   <br>
+              &gt;   /**<br>
+              &gt;    * amdgpu_vm_bo_insert_mapping - insert a new
+              mapping<br>
+              &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+              &gt; index 1886a561c84e..e01895581489 100644<br>
+              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+              &gt; @@ -285,6 +285,7 @@ int amdgpu_vm_clear_freed(struct
+              amdgpu_device *adev,<br>
+              &gt;                          struct dma_fence **fence);<br>
+              &gt;   int amdgpu_vm_handle_moved(struct amdgpu_device
+              *adev,<br>
+              &gt;                           struct amdgpu_vm *vm);<br>
+              &gt; +void amdgpu_vm_refresh_lru(struct amdgpu_device
+              *adev, struct amdgpu_vm *vm);<br>
+              &gt;   int amdgpu_vm_bo_update(struct amdgpu_device *adev,<br>
+              &gt;                        struct amdgpu_bo_va *bo_va,<br>
+              &gt;                        bool clear);<br>
+              <br>
+            </div>
+          </span></font> </blockquote>
+      <br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------69CA30AB6BA679658F4342AF--
+
+--===============0244670222==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0244670222==--
