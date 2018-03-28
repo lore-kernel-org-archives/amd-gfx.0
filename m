@@ -1,11 +1,18 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] amdkfd: always select MMU_NOTIFIER
-Date: Wed, 28 Mar 2018 17:53:32 +0200
-Message-ID: <20180328155340.2253343-1-arnd@arndb.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Wed, 28 Mar 2018 18:02:46 +0200
+Message-ID: <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
+References: <20180325110000.2238-1-christian.koenig@amd.com>
+ <20180325110000.2238-2-christian.koenig@amd.com>
+ <20180328123830.GB25060@infradead.org>
+ <613a6c91-7e72-5589-77e6-587ec973d553@gmail.com>
+ <c81df70d-191d-bf8e-293a-413dd633e1fc@deltatee.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <c81df70d-191d-bf8e-293a-413dd633e1fc@deltatee.com>
+Content-Language: en-US
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -15,25 +22,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org
+To: Logan Gunthorpe <logang@deltatee.com>, Christoph Hellwig <hch@infradead.org>
+Cc: linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-QnVpbGRpbmcgYW1ka2ZkIHdpdGhvdXQgTU1VIG5vdGlmaWVycyBpcyBicm9rZW46CgpJbiBmaWxl
-IGluY2x1ZGVkIGZyb20gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2Vy
-X3ZpLmM6Mjg6CmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2Lmg6NTg0OjIyOiBl
-cnJvcjogZmllbGQgJ21tdV9ub3RpZmllcicgaGFzIGluY29tcGxldGUgdHlwZQoKVGhpcyBhZGRz
-IHRoZSBtaXNzaW5nICdzZWxlY3QgTU1VX05PVElGSUVSJyBsaW5lIHRvIG1ha2UgaXQgYnVpbGQK
-Y2xlYW5seSBhbGwgdGhlIHRpbWUuCgpTaWduZWQtb2ZmLWJ5OiBBcm5kIEJlcmdtYW5uIDxhcm5k
-QGFybmRiLmRlPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL0tjb25maWcgfCAxICsK
-IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29u
-ZmlnCmluZGV4IGVkMmYwNmM5ZjM0Ni4uNWEyNmFjYjkwZTE5IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL0tjb25maWcKQEAgLTQsNiArNCw3IEBACiAKIGNvbmZpZyBIU0FfQU1ECiAJdHJpc3RhdGUg
-IkhTQSBrZXJuZWwgZHJpdmVyIGZvciBBTUQgR1BVIGRldmljZXMiCisJc2VsZWN0IE1NVV9OT1RJ
-RklFUgogCWRlcGVuZHMgb24gRFJNX0FNREdQVSAmJiBYODZfNjQKIAlpbXBseSBBTURfSU9NTVVf
-VjIKIAloZWxwCi0tIAoyLjkuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZHJpLWRldmVsCg==
+QW0gMjguMDMuMjAxOCB1bSAxNzo0NyBzY2hyaWViIExvZ2FuIEd1bnRob3JwZToKPgo+IE9uIDI4
+LzAzLzE4IDA5OjA3IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAyOC4wMy4yMDE4
+IHVtIDE0OjM4IHNjaHJpZWIgQ2hyaXN0b3BoIEhlbGx3aWc6Cj4+PiBPbiBTdW4sIE1hciAyNSwg
+MjAxOCBhdCAxMjo1OTo1NFBNICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+IEZy
+b206ICJ3ZGF2aXNAbnZpZGlhLmNvbSIgPHdkYXZpc0BudmlkaWEuY29tPgo+Pj4+Cj4+Pj4gQWRk
+IGFuIGludGVyZmFjZSB0byBmaW5kIHRoZSBmaXJzdCBkZXZpY2Ugd2hpY2ggaXMgdXBzdHJlYW0g
+b2YgYm90aAo+Pj4+IGRldmljZXMuCj4+PiBQbGVhc2Ugd29yayB3aXRoIExvZ2FuIGFuZCBiYXNl
+IHRoaXMgb24gdG9wIG9mIHRoZSBvdXRzdGFuZGluZyBwZWVyCj4+PiB0byBwZWVyIHBhdGNoc2V0
+Lgo+PiBDYW4geW91IHBvaW50IG1lIHRvIHRoYXQ/IFRoZSBsYXN0IGNvZGUgSSBjb3VsZCBmaW5k
+IGFib3V0IHRoYXQgd2FzIGZyb20KPj4gMjAxNS4KPiBUaGUgbGF0ZXN0IHBvc3RlZCBzZXJpZXMg
+aXMgaGVyZToKPgo+IGh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDE4LzMvMTIvODMwCj4KPiBIb3dl
+dmVyLCB3ZSd2ZSBtYWRlIHNvbWUgc2lnbmlmaWNhbnQgY2hhbmdlcyB0byB0aGUgYXJlYSB0aGF0
+J3Mgc2ltaWxhcgo+IHRvIHdoYXQgeW91IGFyZSBkb2luZy4gWW91IGNhbiBmaW5kIGxhc3RlZCB1
+bi1wb3N0ZWQgaGVyZToKPgo+IGh0dHBzOi8vZ2l0aHViLmNvbS9zYmF0ZXMxMzAyNzIvbGludXgt
+cDJwbWVtL3RyZWUvcGNpLXAycC12NC1wcmUyCj4KPiBTcGVjaWZpY2FsbHkgdGhpcyBmdW5jdGlv
+biB3b3VsZCBiZSBvZiBpbnRlcmVzdCB0byB5b3U6Cj4KPiBodHRwczovL2dpdGh1Yi5jb20vc2Jh
+dGVzMTMwMjcyL2xpbnV4LXAycG1lbS9ibG9iLzBlOTQ2OGFlMmE1YTUxOTg1MTNkZDEyOTkwMTUx
+ZTA5MTA1ZjAzNTEvZHJpdmVycy9wY2kvcDJwZG1hLmMjTDIzOQo+Cj4gSG93ZXZlciwgdGhlIGRp
+ZmZlcmVuY2UgYmV0d2VlbiB3aGF0IHdlIGFyZSBkb2luZyBpcyB0aGF0IHdlIGFyZQo+IGludGVy
+ZXN0ZWQgaW4gdGhlIGRpc3RhbmNlIHRocm91Z2ggdGhlIGNvbW1vbiB1cHN0cmVhbSBkZXZpY2Ug
+YW5kIHlvdQo+IGFwcGVhciB0byBiZSBmaW5kaW5nIHRoZSBhY3R1YWwgY29tbW9uIGRldmljZS4K
+ClllYWgsIHRoYXQgbG9va3MgdmVyeSBzaW1pbGFyIHRvIHdoYXQgSSBwaWNrZWQgdXAgZnJvbSB0
+aGUgb2xkZXIgCnBhdGNoZXMsIGdvaW5nIHRvIHJlYWQgdXAgb24gdGhhdCBhZnRlciBteSB2YWNh
+dGlvbi4KCkp1c3QgaW4gZ2VuZXJhbCB3aHkgYXJlIHlvdSBpbnRlcmVzdGVkIGluIHRoZSAiZGlz
+dGFuY2UiIG9mIHRoZSBkZXZpY2VzPwoKQW5kIEJUVzogQXQgbGVhc3QgZm9yIHdyaXRlcyB0aGF0
+IFBlZXIgMiBQZWVyIHRyYW5zYWN0aW9ucyBiZXR3ZWVuIApkaWZmZXJlbnQgcm9vdCBjb21wbGV4
+ZXMgd29yayBpcyBhY3R1YWxseSBtb3JlIGNvbW1vbiB0aGFuIHRoZSBvdGhlciB3YXkgCmFyb3Vu
+ZC4KClNvIEknbSBhIGJpdCB0b3JuIGJldHdlZW4gdXNpbmcgYSBibGFja2xpc3Qgb3IgYSB3aGl0
+ZWxpc3QuIEEgd2hpdGVsaXN0IAppcyBjZXJ0YWlubHkgbW9yZSBjb25zZXJ2YXRpdmUgYXBwcm9h
+Y2gsIGJ1dCB0aGF0IGNvdWxkIGdldCBhIGJpdCBsb25nLgoKVGhhbmtzLApDaHJpc3RpYW4uCgo+
+Cj4gVGhhbmtzLAo+Cj4gTG9nYW4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2RyaS1kZXZlbAo=
