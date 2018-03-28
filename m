@@ -1,62 +1,94 @@
-From: Logan Gunthorpe <logang@deltatee.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Wed, 28 Mar 2018 10:25:43 -0600
-Message-ID: <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
+Date: Wed, 28 Mar 2018 20:28:30 +0200
+Message-ID: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
 References: <20180325110000.2238-1-christian.koenig@amd.com>
  <20180325110000.2238-2-christian.koenig@amd.com>
  <20180328123830.GB25060@infradead.org>
  <613a6c91-7e72-5589-77e6-587ec973d553@gmail.com>
  <c81df70d-191d-bf8e-293a-413dd633e1fc@deltatee.com>
  <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
+ <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <16c7bef8-5f03-9e89-1f50-b62fb139a36f-OTvnGxWRz7hWk0Htik3J/w@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>
-Cc: linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Logan Gunthorpe <logang-OTvnGxWRz7hWk0Htik3J/w@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Cc: linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-
-
-On 28/03/18 10:02 AM, Christian König wrote:
-> Yeah, that looks very similar to what I picked up from the older 
-> patches, going to read up on that after my vacation.
-
-Yeah, I was just reading through your patchset and there are a lot of
-similarities. Though, I'm not sure what you're trying to accomplish as I
-could not find a cover letter and it seems to only enable one driver. Is
-it meant to enable DMA transactions only between two AMD GPUs?
-
-I also don't see where you've taken into account the PCI bus address. On
-some architectures this is not the same as the CPU physical address.
-
-> Just in general why are you interested in the "distance" of the devices?
-
-We've taken a general approach where some drivers may provide p2p memory
-(ie. an NVMe card or an RDMA NIC) and other drivers make use of it (ie.
-the NVMe-of driver). The orchestrator driver needs to find the most
-applicable provider device for a transaction in a situation that may
-have multiple providers and multiple clients. So the most applicable
-provider is the one that's closest ("distance"-wise) to all the clients
-for the P2P transaction.
-
-> And BTW: At least for writes that Peer 2 Peer transactions between 
-> different root complexes work is actually more common than the other way 
-> around.
-
-Maybe on x86 with hardware made in the last few years. But on PowerPC,
-ARM64, and likely a lot more the chance of support is *much* less. Also,
-hardware that only supports P2P stores is hardly full support and is
-insufficient for our needs.
-
-> So I'm a bit torn between using a blacklist or a whitelist. A whitelist 
-> is certainly more conservative approach, but that could get a bit long.
-
-I think a whitelist approach is correct. Given old hardware and other
-architectures, a black list is going to be too long and too difficult to
-comprehensively populate.
-
-Logan
+QW0gMjguMDMuMjAxOCB1bSAxODoyNSBzY2hyaWViIExvZ2FuIEd1bnRob3JwZToKPgo+IE9uIDI4
+LzAzLzE4IDEwOjAyIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBZZWFoLCB0aGF0IGxv
+b2tzIHZlcnkgc2ltaWxhciB0byB3aGF0IEkgcGlja2VkIHVwIGZyb20gdGhlIG9sZGVyCj4+IHBh
+dGNoZXMsIGdvaW5nIHRvIHJlYWQgdXAgb24gdGhhdCBhZnRlciBteSB2YWNhdGlvbi4KPiBZZWFo
+LCBJIHdhcyBqdXN0IHJlYWRpbmcgdGhyb3VnaCB5b3VyIHBhdGNoc2V0IGFuZCB0aGVyZSBhcmUg
+YSBsb3Qgb2YKPiBzaW1pbGFyaXRpZXMuIFRob3VnaCwgSSdtIG5vdCBzdXJlIHdoYXQgeW91J3Jl
+IHRyeWluZyB0byBhY2NvbXBsaXNoIGFzIEkKPiBjb3VsZCBub3QgZmluZCBhIGNvdmVyIGxldHRl
+ciBhbmQgaXQgc2VlbXMgdG8gb25seSBlbmFibGUgb25lIGRyaXZlci4KClllYWgsIGl0IHdhcyB0
+aGUgbGFzdCBkYXkgYmVmb3JlIG15IGVhc3RlciB2YWNhdGlvbiBhbmQgSSB3YW50ZWQgaXQgb3V0
+IApvZiB0aGUgZG9vci4KCj4gSXMgaXQgbWVhbnQgdG8gZW5hYmxlIERNQSB0cmFuc2FjdGlvbnMg
+b25seSBiZXR3ZWVuIHR3byBBTUQgR1BVcz8KCk5vdCByZWFsbHksIERNQS1idWYgaXMgYSBnZW5l
+cmFsIGZyYW1ld29yayBmb3Igc2hhcmluZyBidWZmZXJzIGJldHdlZW4gCmRldmljZSBkcml2ZXJz
+LgoKSXQgaXMgd2lkZWx5IHVzZWQgaW4gdGhlIEdGWCBzdGFjayBvbiBsYXB0b3BzIHdpdGggYm90
+aCBJbnRlbCtBTUQsIApJbnRlbCtOVklESUEgb3IgQU1EK0FNRCBncmFwaGljcyBkZXZpY2VzLgoK
+QWRkaXRpb25hbCB0byB0aGF0IEFSTSB1c2VzIGl0IHF1aXRlIG1hc3NpdmVseSBmb3IgdGhlaXIg
+R0ZYIHN0YWNrcyAKYmVjYXVzZSB0aGV5IGhhdmUgcmVuZGVyaW5nIGFuZCBkaXNwbGF5aW5nIGRl
+dmljZSBzZXBhcmF0ZWQuCgpJJ20ganVzdCB1c2luZyBhbWRncHUgYXMgYmx1ZXByaW50IGJlY2F1
+c2UgSSdtIHRoZSBjby1tYWludGFpbmVyIG9mIGl0IAphbmQga25vdyBpdCBtb3N0bHkgaW5zaWRl
+IG91dC4KCj4gSSBhbHNvIGRvbid0IHNlZSB3aGVyZSB5b3UndmUgdGFrZW4gaW50byBhY2NvdW50
+IHRoZSBQQ0kgYnVzIGFkZHJlc3MuIE9uCj4gc29tZSBhcmNoaXRlY3R1cmVzIHRoaXMgaXMgbm90
+IHRoZSBzYW1lIGFzIHRoZSBDUFUgcGh5c2ljYWwgYWRkcmVzcy4KClRoZSByZXNvdXJjZSBhZGRy
+ZXNzZXMgYXJlIHRyYW5zbGF0ZWQgdXNpbmcgZG1hX21hcF9yZXNvdXJjZSgpLiBBcyBmYXIgCmFz
+IEkga25vdyB0aGF0IHNob3VsZCBiZSBzdWZmaWNpZW50IHRvIG9mZmxvYWQgYWxsIHRoZSBhcmNo
+aXRlY3R1cmUgCnNwZWNpZmljIHN0dWZmIHRvIHRoZSBETUEgc3Vic3lzdGVtLgoKPgo+PiBKdXN0
+IGluIGdlbmVyYWwgd2h5IGFyZSB5b3UgaW50ZXJlc3RlZCBpbiB0aGUgImRpc3RhbmNlIiBvZiB0
+aGUgZGV2aWNlcz8KPiBXZSd2ZSB0YWtlbiBhIGdlbmVyYWwgYXBwcm9hY2ggd2hlcmUgc29tZSBk
+cml2ZXJzIG1heSBwcm92aWRlIHAycCBtZW1vcnkKPiAoaWUuIGFuIE5WTWUgY2FyZCBvciBhbiBS
+RE1BIE5JQykgYW5kIG90aGVyIGRyaXZlcnMgbWFrZSB1c2Ugb2YgaXQgKGllLgo+IHRoZSBOVk1l
+LW9mIGRyaXZlcikuIFRoZSBvcmNoZXN0cmF0b3IgZHJpdmVyIG5lZWRzIHRvIGZpbmQgdGhlIG1v
+c3QKPiBhcHBsaWNhYmxlIHByb3ZpZGVyIGRldmljZSBmb3IgYSB0cmFuc2FjdGlvbiBpbiBhIHNp
+dHVhdGlvbiB0aGF0IG1heQo+IGhhdmUgbXVsdGlwbGUgcHJvdmlkZXJzIGFuZCBtdWx0aXBsZSBj
+bGllbnRzLiBTbyB0aGUgbW9zdCBhcHBsaWNhYmxlCj4gcHJvdmlkZXIgaXMgdGhlIG9uZSB0aGF0
+J3MgY2xvc2VzdCAoImRpc3RhbmNlIi13aXNlKSB0byBhbGwgdGhlIGNsaWVudHMKPiBmb3IgdGhl
+IFAyUCB0cmFuc2FjdGlvbi4KClRoYXQgc2VlbXMgdG8gbWFrZSBzZW5zZS4KCj4KPj4gQW5kIEJU
+VzogQXQgbGVhc3QgZm9yIHdyaXRlcyB0aGF0IFBlZXIgMiBQZWVyIHRyYW5zYWN0aW9ucyBiZXR3
+ZWVuCj4+IGRpZmZlcmVudCByb290IGNvbXBsZXhlcyB3b3JrIGlzIGFjdHVhbGx5IG1vcmUgY29t
+bW9uIHRoYW4gdGhlIG90aGVyIHdheQo+PiBhcm91bmQuCj4gTWF5YmUgb24geDg2IHdpdGggaGFy
+ZHdhcmUgbWFkZSBpbiB0aGUgbGFzdCBmZXcgeWVhcnMuIEJ1dCBvbiBQb3dlclBDLAo+IEFSTTY0
+LCBhbmQgbGlrZWx5IGEgbG90IG1vcmUgdGhlIGNoYW5jZSBvZiBzdXBwb3J0IGlzICptdWNoKiBs
+ZXNzLiBBbHNvLAo+IGhhcmR3YXJlIHRoYXQgb25seSBzdXBwb3J0cyBQMlAgc3RvcmVzIGlzIGhh
+cmRseSBmdWxsIHN1cHBvcnQgYW5kIGlzCj4gaW5zdWZmaWNpZW50IGZvciBvdXIgbmVlZHMuCgpZ
+ZWFoLCBidXQgbm90IGZvciBvdXJzLiBTZWUgaWYgeW91IHdhbnQgdG8gZG8gcmVhbCBwZWVyIDIg
+cGVlciB5b3UgbmVlZCAKdG8ga2VlcCBib3RoIHRoZSBvcGVyYXRpb24gYXMgd2VsbCBhcyB0aGUg
+ZGlyZWN0aW9uIGludG8gYWNjb3VudC4KCkZvciBleGFtcGxlIHdoZW4geW91IGNhbiBkbyB3cml0
+ZXMgYmV0d2VlbiBBIGFuZCBCIHRoYXQgZG9lc24ndCBtZWFuIAp0aGF0IHdyaXRlcyBiZXR3ZWVu
+IEIgYW5kIEEgd29yay4gQW5kIHJlYWRzIGFyZSBnZW5lcmFsbHkgbGVzcyBsaWtlbHkgdG8gCndv
+cmsgdGhhbiB3cml0ZXMuIGV0Yy4uLgoKU2luY2UgdGhlIHVzZSBjYXNlIEknbSB0YXJnZXRpbmcg
+Zm9yIGlzIEdGWCBvciBHRlgrVjRMIChvciBHRlgrTklDIGluIAp0aGUgZnV0dXJlKSBJIHJlYWxs
+eSBuZWVkIHRvIGhhbmRsZSBhbGwgc3VjaCB1c2UgY2FzZXMgYXMgd2VsbC4KCj4KPj4gU28gSSdt
+IGEgYml0IHRvcm4gYmV0d2VlbiB1c2luZyBhIGJsYWNrbGlzdCBvciBhIHdoaXRlbGlzdC4gQSB3
+aGl0ZWxpc3QKPj4gaXMgY2VydGFpbmx5IG1vcmUgY29uc2VydmF0aXZlIGFwcHJvYWNoLCBidXQg
+dGhhdCBjb3VsZCBnZXQgYSBiaXQgbG9uZy4KPiBJIHRoaW5rIGEgd2hpdGVsaXN0IGFwcHJvYWNo
+IGlzIGNvcnJlY3QuIEdpdmVuIG9sZCBoYXJkd2FyZSBhbmQgb3RoZXIKPiBhcmNoaXRlY3R1cmVz
+LCBhIGJsYWNrIGxpc3QgaXMgZ29pbmcgdG8gYmUgdG9vIGxvbmcgYW5kIHRvbyBkaWZmaWN1bHQg
+dG8KPiBjb21wcmVoZW5zaXZlbHkgcG9wdWxhdGUuCgpZZWFoLCBpdCB3b3VsZCBjZXJ0YWlubHkg
+YmUgYmV0dGVyIGlmIHdlIGhhdmUgc29tZXRoaW5nIGluIHRoZSByb290IApjb21wbGV4IGNhcGFi
+aWxpdGllcy4gQnV0IHlvdSdyZSByaWdodCB0aGF0IGEgd2hpdGVsaXN0IHNvdW5kcyB0aGUgbGVz
+cyAKcGFpbmZ1bCB3YXkuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgoKPgo+IExvZ2FuCj4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxp
+bmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
