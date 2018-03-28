@@ -1,15 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/gpu-sched: fix force APP kill hang
-Date: Wed, 28 Mar 2018 13:56:34 +0200
-Message-ID: <cc7b1727-0cd6-bef0-11e6-486fb18a709e@gmail.com>
-References: <1522224449-8825-1-git-send-email-Emily.Deng@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Raven Ridge Ryzen 2500U hang reproduced
+Date: Wed, 28 Mar 2018 12:10:10 +0000
+Message-ID: <CAJri6_uMm082CKap-qiWAcR_sYm5CmhXjeKDm-xKk4CSLOVz=g@mail.gmail.com>
+References: <CAJri6_tTnk6Q0VCFRR-4GFw+3QVo9iyXpFtQS6uLLcXgPNEeGw@mail.gmail.com>
+ <CAHbf0-GyHStsECye3yJnGjTZCYcupEyXdeuRY0Vfcs+iEgRYPA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1844165293=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1522224449-8825-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAHbf0-GyHStsECye3yJnGjTZCYcupEyXdeuRY0Vfcs+iEgRYPA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,80 +18,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjguMDMuMjAxOCB1bSAxMDowNyBzY2hyaWViIEVtaWx5IERlbmc6Cj4gaXNzdWU6Cj4gdGhl
-cmUgYXJlIFZNQyBwYWdlIGZhdWx0IG9jY3VyZWQgaWYgZm9yY2UgQVBQIGtpbGwgZHVyaW5nCj4g
-M2RtYXJrIHRlc3QsIHRoZSBjYXVzZSBpcyBpbiBlbnRpdHlfZmluaSB3ZSBtYW51YWxseSBzaWdu
-YWwKPiBhbGwgdGhvc2Ugam9icyBpbiBlbnRpdHkncyBxdWV1ZSB3aGljaCBjb25mdXNlIHRoZSBz
-eW5jL2RlcAo+IG1lY2hhbmlzbToKPgo+IDEpcGFnZSBmYXVsdCBvY2N1cmVkIGluIHNkbWEncyBj
-bGVhciBqb2Igd2hpY2ggb3BlcmF0ZSBvbgo+IHNoYWRvdyBidWZmZXIsIGFuZCBzaGFkb3cgYnVm
-ZmVyJ3MgR2FydCB0YWJsZSBpcyBjbGVhbmVkIGJ5Cj4gdHRtX2JvX3JlbGVhc2Ugc2luY2UgdGhl
-IGZlbmNlIGluIGl0cyByZXNlcnZhdGlvbiB3YXMgZmFrZSBzaWduYWxlZAo+IGJ5IGVudGl0eV9m
-aW5pKCkgdW5kZXIgdGhlIGNhc2Ugb2YgU0lHS0lMTCByZWNlaXZlZC4KPgo+IDIpcGFnZSBmYXVs
-dCBvY2N1cmVkIGluIGdmeCcgam9iIGJlY2F1c2UgZHVyaW5nIHRoZSBsaWZldGltZQo+IG9mIGdm
-eCBqb2Igd2UgbWFudWFsbHkgZmFrZSBzaWduYWwgYWxsIGpvYnMgZnJvbSBpdHMgZW50aXR5Cj4g
-aW4gZW50aXR5X2ZpbmkoKSwgdGh1cyB0aGUgdW5tYXBwaW5nL2NsZWFyIFBURSBqb2IgZGVwZW5k
-IG9uIHRob3NlCj4gcmVzdWx0IGZlbmNlIGlzIHNhdGlzZmllZCBhbmQgc2RtYSBzdGFydCBjbGVh
-cmluZyB0aGUgUFRFIGFuZCBsZWFkCj4gdG8gR0ZYIHBhZ2UgZmF1bHQuCgpOaWNlIGNhdGNoLCBi
-dXQgdGhlIGZpeGVzIHdvbid0IHdvcmsgbGlrZSB0aGlzLgoKPiBmaXg6Cj4gMSlzaG91bGQgYXQg
-bGVhc3Qgd2FpdCBhbGwgam9icyBhbHJlYWR5IHNjaGVkdWxlZCBjb21wbGV0ZSBpbiBlbnRpdHlf
-ZmluaSgpCj4gaWYgU0lHS0lMTCBpcyB0aGUgY2FzZS4KCldlbGwgdGhhdCBpcyBub3QgYSBnb29k
-IGlkZWEgYmVjYXVzZSB3aGVuIHdlIGtpbGwgYSBwcm9jZXNzIHdlIGFjdHVhbGx5IAp3YW50IHRv
-IHRlYXIgZG93biB0aGUgdGFzayBhcyBmYXN0IGFzIHBvc3NpYmxlIGFuZCBub3Qgd2FpdCBmb3Ig
-CmFueXRoaW5nLiBUaGF0IGlzIGFjdHVhbGx5IHRoZSByZWFzb24gd2h5IHdlIGhhdmUgdGhpcyBo
-YW5kbGluZy4KCj4gMilpZiBhIGZlbmNlIHNpZ25hbGVkIGFuZCB0cnkgdG8gY2xlYXIgc29tZSBl
-bnRpdHkncyBkZXBlbmRlbmN5LCBzaG91bGQKPiBzZXQgdGhpcyBlbnRpdHkgZ3VpbHR5IHRvIHBy
-ZXZlbnQgaXRzIGpvYiByZWFsbHkgcnVuIHNpbmNlIHRoZSBkZXBlbmRlbmN5Cj4gaXMgZmFrZSBz
-aWduYWxlZC4KCldlbGwsIHRoYXQgaXMgYSBjbGVhciBOQUsuIEl0IHdvdWxkIG1lYW4gdGhhdCB5
-b3UgbWFyayB0aGluZ3MgbGlrZSB0aGUgWCAKc2VydmVyIG9yIFdheWxhbmQgcXVldWUgaXMgbWFy
-a2VkIGd1aWx0eSBiZWNhdXNlIHNvbWUgY2xpZW50IGlzIGtpbGxlZC4KCkFuZCBzaW5jZSB1bm1h
-cHBpbmcvY2xlYXIgam9icyBkb24ndCBoYXZlIGEgZ3VpbHR5IHBvaW50ZXIgaXQgc2hvdWxkIAph
-Y3R1YWxseSBub3QgaGF2ZSBhbnkgZWZmZWN0IG9uIHRoZSBpc3N1ZS4KClJlZ2FyZHMsCkNocmlz
-dGlhbi4KCgo+Cj4gcmVsYXRlZCBpc3N1ZSB0aWNrZXQ6Cj4gaHR0cDovL29udHJhY2staW50ZXJu
-YWwuYW1kLmNvbS9icm93c2UvU1dERVYtMTQ3NTY0P2ZpbHRlcj0tMQo+Cj4gU2lnbmVkLW9mZi1i
-eTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0v
-c2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYyB8IDM2ICsrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCAzNiBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+IGluZGV4IDJiZDY5YzQuLjliMzA2ZDMg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+IEBAIC0x
-OTgsNiArMTk4LDI4IEBAIHN0YXRpYyBib29sIGRybV9zY2hlZF9lbnRpdHlfaXNfcmVhZHkoc3Ry
-dWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKPiAgIAlyZXR1cm4gdHJ1ZTsKPiAgIH0KPiAg
-IAo+ICtzdGF0aWMgdm9pZCBkcm1fc2NoZWRfZW50aXR5X3dhaXRfb3RmX3NpZ25hbChzdHJ1Y3Qg
-ZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICsJCQkJc3RydWN0IGRybV9zY2hlZF9lbnRpdHkg
-KmVudGl0eSkKPiArewo+ICsJc3RydWN0IGRybV9zY2hlZF9qb2IgKmxhc3Q7Cj4gKwlzaWduZWQg
-bG9uZyByOwo+ICsKPiArCXNwaW5fbG9jaygmc2NoZWQtPmpvYl9saXN0X2xvY2spOwo+ICsJbGlz
-dF9mb3JfZWFjaF9lbnRyeV9yZXZlcnNlKGxhc3QsICZzY2hlZC0+cmluZ19taXJyb3JfbGlzdCwg
-bm9kZSkKPiArCQlpZiAobGFzdC0+c19mZW5jZS0+c2NoZWR1bGVkLmNvbnRleHQgPT0gZW50aXR5
-LT5mZW5jZV9jb250ZXh0KSB7Cj4gKwkJCWRtYV9mZW5jZV9nZXQoJmxhc3QtPnNfZmVuY2UtPmZp
-bmlzaGVkKTsKPiArCQkJYnJlYWs7Cj4gKwkJfQo+ICsJc3Bpbl91bmxvY2soJnNjaGVkLT5qb2Jf
-bGlzdF9sb2NrKTsKPiArCj4gKwlpZiAoJmxhc3QtPm5vZGUgIT0gJnNjaGVkLT5yaW5nX21pcnJv
-cl9saXN0KSB7Cj4gKwkJciA9IGRtYV9mZW5jZV93YWl0X3RpbWVvdXQoJmxhc3QtPnNfZmVuY2Ut
-PmZpbmlzaGVkLCBmYWxzZSwgbXNlY3NfdG9famlmZmllcyg1MDApKTsKPiArCQlpZiAociA9PSAw
-KQo+ICsJCQlEUk1fV0FSTigid2FpdCBvbiB0aGUgZmx5IGpvYiB0aW1lb3V0XG4iKTsKPiArCQlk
-bWFfZmVuY2VfcHV0KCZsYXN0LT5zX2ZlbmNlLT5maW5pc2hlZCk7Cj4gKwl9Cj4gK30KPiArCj4g
-ICAvKioKPiAgICAqIERlc3Ryb3kgYSBjb250ZXh0IGVudGl0eQo+ICAgICoKPiBAQCAtMjM4LDYg
-KzI2MCwxMiBAQCB2b2lkIGRybV9zY2hlZF9lbnRpdHlfZmluaShzdHJ1Y3QgZHJtX2dwdV9zY2hl
-ZHVsZXIgKnNjaGVkLAo+ICAgCQkJZW50aXR5LT5kZXBlbmRlbmN5ID0gTlVMTDsKPiAgIAkJfQo+
-ICAgCj4gKwkJLyogV2FpdCB0aWxsIGFsbCBqb2JzIGZyb20gdGhpcyBlbnRpdHkgcmVhbGx5IGZp
-bmlzaGVkIG90aGVyd2lzZSBiZWxvdwo+ICsJCSAqIGZha2Ugc2lnbmFsaW5nIHdvdWxkIGtpY2tz
-dGFydCBzZG1hJ3MgY2xlYXIgUFRFIGpvYnMgYW5kIGxlYWQgdG8KPiArCQkgKiB2bSBmYXVsdAo+
-ICsJCSAqLwo+ICsJCWRybV9zY2hlZF9lbnRpdHlfd2FpdF9vdGZfc2lnbmFsKHNjaGVkLCBlbnRp
-dHkpOwo+ICsKPiAgIAkJd2hpbGUgKChqb2IgPSB0b19kcm1fc2NoZWRfam9iKHNwc2NfcXVldWVf
-cG9wKCZlbnRpdHktPmpvYl9xdWV1ZSkpKSkgewo+ICAgCQkJc3RydWN0IGRybV9zY2hlZF9mZW5j
-ZSAqc19mZW5jZSA9IGpvYi0+c19mZW5jZTsKPiAgIAkJCWRybV9zY2hlZF9mZW5jZV9zY2hlZHVs
-ZWQoc19mZW5jZSk7Cj4gQEAgLTI1NSw2ICsyODMsMTQgQEAgc3RhdGljIHZvaWQgZHJtX3NjaGVk
-X2VudGl0eV93YWtldXAoc3RydWN0IGRtYV9mZW5jZSAqZiwgc3RydWN0IGRtYV9mZW5jZV9jYiAq
-Y2IKPiAgIHsKPiAgIAlzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5ID0KPiAgIAkJY29u
-dGFpbmVyX29mKGNiLCBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSwgY2IpOwo+ICsKPiArCS8qIHNl
-dCB0aGUgZW50aXR5IGd1aXR5IHNpbmNlIGl0cyBkZXBlbmRlbmN5IGlzCj4gKwkgKiBub3QgcmVh
-bGx5IGNsZWFyZWQgYnV0IGZha2Ugc2lnbmFsZWQgKGJ5IFNJR0tJTEwKPiArCSAqIG9yIEdQVSBy
-ZWNvdmVyKQo+ICsJICovCj4gKwlpZiAoZi0+ZXJyb3IgJiYgZW50aXR5LT5ndWlsdHkpCj4gKwkJ
-YXRvbWljX3NldChlbnRpdHktPmd1aWx0eSwgMSk7Cj4gKwo+ICAgCWVudGl0eS0+ZGVwZW5kZW5j
-eSA9IE5VTEw7Cj4gICAJZG1hX2ZlbmNlX3B1dChmKTsKPiAgIAlkcm1fc2NoZWRfd2FrZXVwKGVu
-dGl0eS0+c2NoZWQpOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1844165293==
+Content-Type: multipart/alternative; boundary="0000000000002c622b056877e4f4"
+
+--0000000000002c622b056877e4f4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Mar 28, 2018 at 8:46 AM Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org> wrote:
+
+> On Tue, 27 Mar 2018, 00:30 Br=C3=A1ulio Bhavamitra, <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> wrote:
+>
+>> Hi all,
+>>
+>> Following the random crashes happenning with many users (e.g.
+>> https://www.phoronix.com/scan.php?page=3Dnews_item&px=3DRaven-Ridge-Marc=
+h-Update),
+>> not only on Linux but also Windows, I've been struggling to reproduce an=
+d
+>> generate any error log.
+>>
+>> After discovering that the error only happenned with KDE and games (at
+>> least for me, see https://bugs.kde.org/show_bug.cgi?id=3D392378), I coul=
+d
+>> reproduce after a failing suspend.
+>>
+>> The crash most of the times allows the mouse to keep moving, but anythin=
+g
+>> else works. Except for this time the keyboard worked so I could switch t=
+he
+>> tty and save the dmesg messages. After this I had to force reboot as it =
+got
+>> stuck trying to kill the lightdm service (gpu hanged?).
+>>
+>> The errors are, see attached the full dmesg:
+>> [ 2899.525650] amdgpu 0000:03:00.0: couldn't schedule ib on ring <sdma0>
+>> [ 2899.525769] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IB=
+s
+>> (-22)
+>> [ 2909.125047] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
+>> timeout, last signaled seq=3D174624, last emitted seq=3D174627
+>> [ 2909.125060] [drm] IP block:psp is hung!
+>> [ 2909.125063] [drm] GPU recovery disabled.
+>> [ 2914.756931] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+>> amdgpu_cs_list_validate(validated) failed.
+>> [ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+>> the buffer list -16!
+>> [ 2914.997372] amdgpu 0000:03:00.0: couldn't schedule ib on ring <sdma0>
+>> [ 2914.997498] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IB=
+s
+>> (-22)
+>> [ 2930.117275] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+>> amdgpu_cs_list_validate(validated) failed.
+>> [ 2930.117405] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+>> the buffer list -16!
+>> [ 2930.152015] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+>> memory with ring turned off.
+>> [ 2930.157940] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+>> memory with ring turned off.
+>> [ 2930.180535] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+>> memory with ring turned off.
+>> [ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANGE): wlp2s0: link becomes ready
+>> [ 2945.477205] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+>> amdgpu_cs_list_validate(validated) failed.
+>> [ 2945.477348] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+>> the buffer list -16!
+>>
+>> System details:
+>> HP Envy x360 Ryzen 2500U
+>> ArchLinux, kernel 4.16rc6 and 4.15.12
+>>
+>> Cheers,
+>> br=C3=A1ulio
+>>
+> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+> Hi
+>
+> I think I've seen that issue in KDE too, where the mouse moves but nothin=
+g
+> else works. I found that switching VT's and back again fixes things for m=
+e
+>
+> The weird thing is I'm seeing this on i965 (amdgpu is used for games only
+> with PRIME)
+>
+> What version of X, Qt, KDE Frameworks and Plasma are you using?
+>
+The stable latest, from archlinux:
+https://www.archlinux.org/packages/?sort=3D&q=3Dkde&maintainer=3D&flagged=
+=3D
+
+I could reproduce the freeze on XFCE, so it is definetely not KDE specific,
+
+Cheers,
+Br=C3=A1ulio
+
+
+> Cheers
+>
+> Mike
+>
+
+--0000000000002c622b056877e4f4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed=
+, Mar 28, 2018 at 8:46 AM Mike Lothian &lt;<a href=3D"mailto:mike@fireburn.=
+co.uk">mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-lef=
+t:1ex"><div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Tue,=
+ 27 Mar 2018, 00:30 Br=C3=A1ulio Bhavamitra, &lt;<a href=3D"mailto:brauliob=
+o@gmail.com" target=3D"_blank">brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div>=
+</div></div><div dir=3D"ltr"><div class=3D"gmail_quote"><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex"><div dir=3D"ltr">Hi all,<div><br></div><div>Following the ran=
+dom crashes happenning with many users (e.g.=C2=A0<a href=3D"https://www.ph=
+oronix.com/scan.php?page=3Dnews_item&amp;px=3DRaven-Ridge-March-Update" tar=
+get=3D"_blank">https://www.phoronix.com/scan.php?page=3Dnews_item&amp;px=3D=
+Raven-Ridge-March-Update</a>), not only on Linux but also Windows, I&#39;ve=
+ been struggling to reproduce and generate any error log.</div><div><br></d=
+iv><div>After discovering that the error only happenned with KDE and games =
+(at least for me, see=C2=A0<a href=3D"https://bugs.kde.org/show_bug.cgi?id=
+=3D392378" target=3D"_blank">https://bugs.kde.org/show_bug.cgi?id=3D392378<=
+/a>), I could reproduce after a failing suspend.</div><div><br></div><div>T=
+he crash most of the times allows the mouse to keep moving, but anything el=
+se works. Except for this time the keyboard worked so I could switch the tt=
+y and save the dmesg messages. After this I had to force reboot as it got s=
+tuck trying to kill the lightdm service (gpu hanged?).</div><div><br></div>=
+<div>The errors are, see attached the full dmesg:</div><div><div>[ 2899.525=
+650] amdgpu 0000:03:00.0: couldn&#39;t schedule ib on ring &lt;sdma0&gt;</d=
+iv><div>[ 2899.525769] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduli=
+ng IBs (-22)</div><div>[ 2909.125047] [drm:amdgpu_job_timedout [amdgpu]] *E=
+RROR* ring gfx timeout, last signaled seq=3D174624, last emitted seq=3D1746=
+27</div><div>[ 2909.125060] [drm] IP block:psp is hung!</div><div>[ 2909.12=
+5063] [drm] GPU recovery disabled.</div><div>[ 2914.756931] [drm:amdgpu_cs_=
+ioctl [amdgpu]] *ERROR* amdgpu_cs_list_validate(validated) failed.</div><di=
+v>[ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process t=
+he buffer list -16!</div><div>[ 2914.997372] amdgpu 0000:03:00.0: couldn&#3=
+9;t schedule ib on ring &lt;sdma0&gt;</div><div>[ 2914.997498] [drm:amdgpu_=
+job_run [amdgpu]] *ERROR* Error scheduling IBs (-22)</div><div>[ 2930.11727=
+5] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* amdgpu_cs_list_validate(validated=
+) failed.</div><div>[ 2930.117405] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* F=
+ailed to process the buffer list -16!</div><div>[ 2930.152015] [drm:amdgpu_=
+fill_buffer [amdgpu]] *ERROR* Trying to clear memory with ring turned off.<=
+/div><div>[ 2930.157940] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying t=
+o clear memory with ring turned off.</div><div>[ 2930.180535] [drm:amdgpu_f=
+ill_buffer [amdgpu]] *ERROR* Trying to clear memory with ring turned off.</=
+div><div>[ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANGE): wlp2s0: link becomes=
+ ready</div><div>[ 2945.477205] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* amdg=
+pu_cs_list_validate(validated) failed.</div><div>[ 2945.477348] [drm:amdgpu=
+_cs_ioctl [amdgpu]] *ERROR* Failed to process the buffer list -16!</div></d=
+iv><div><br></div><div>System details:</div><div>HP Envy x360 Ryzen 2500U</=
+div><div>ArchLinux, kernel 4.16rc6 and 4.15.12</div><div><br></div><div>Che=
+ers,</div><div>br=C3=A1ulio</div></div></blockquote></div></div><div dir=3D=
+"ltr"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D=
+"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a></blockquote></div><div class=3D"gmail_quote"><div><br></div><d=
+iv>Hi</div><div><br></div><div>I think I&#39;ve seen that issue in KDE too,=
+ where the mouse moves but nothing else works. I found that switching VT&#3=
+9;s and back again fixes things for me</div><div><br></div><div>The weird t=
+hing is I&#39;m seeing this on i965 (amdgpu is used for games only with PRI=
+ME)</div><div><br></div><div>What version of X, Qt, KDE Frameworks and Plas=
+ma are you using?</div></div></div></blockquote><div>The stable latest, fro=
+m archlinux:=C2=A0<a href=3D"https://www.archlinux.org/packages/?sort=3D&am=
+p;q=3Dkde&amp;maintainer=3D&amp;flagged=3D">https://www.archlinux.org/packa=
+ges/?sort=3D&amp;q=3Dkde&amp;maintainer=3D&amp;flagged=3D</a></div><div><br=
+></div><div>I could reproduce the freeze on XFCE, so it is definetely not K=
+DE specific,</div><div><br></div><div>Cheers,</div><div>Br=C3=A1ulio</div><=
+div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
+x;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div class=
+=3D"gmail_quote"><div></div><div>Cheers</div></div></div><div dir=3D"ltr"><=
+div class=3D"gmail_quote"><div><br></div><div>Mike=C2=A0<br></div></div></d=
+iv></blockquote></div></div>
+
+--0000000000002c622b056877e4f4--
+
+--===============1844165293==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1844165293==--
