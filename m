@@ -1,7 +1,7 @@
-From: Logan Gunthorpe <logang@deltatee.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Thu, 29 Mar 2018 09:45:23 -0600
-Message-ID: <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
+Date: Thu, 29 Mar 2018 18:10:06 +0200
+Message-ID: <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
 References: <20180325110000.2238-1-christian.koenig@amd.com>
  <20180325110000.2238-2-christian.koenig@amd.com>
  <20180328123830.GB25060@infradead.org>
@@ -14,47 +14,69 @@ References: <20180325110000.2238-1-christian.koenig@amd.com>
  <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
  <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
  <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
+ <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <98ce6cfd-bcf3-811e-a0f1-757b60da467a-OTvnGxWRz7hWk0Htik3J/w@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: christian.koenig@amd.com, Christoph Hellwig <hch@infradead.org>
-Cc: linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Logan Gunthorpe <logang-OTvnGxWRz7hWk0Htik3J/w@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Cc: linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-
-
-On 29/03/18 05:44 AM, Christian König wrote:
-> Am 28.03.2018 um 21:53 schrieb Logan Gunthorpe:
->>
->> On 28/03/18 01:44 PM, Christian König wrote:
->>> Well, isn't that exactly what dma_map_resource() is good for? As far as
->>> I can see it makes sure IOMMU is aware of the access route and
->>> translates a CPU address into a PCI Bus address.
->>> I'm using that with the AMD IOMMU driver and at least there it works
->>> perfectly fine.
->> Yes, it would be nice, but no arch has implemented this yet. We are just
->> lucky in the x86 case because that arch is simple and doesn't need to do
->> anything for P2P (partially due to the Bus and CPU addresses being the
->> same). But in the general case, you can't rely on it.
-> 
-> Well, that an arch hasn't implemented it doesn't mean that we don't have 
-> the right interface to do it.
-
-Yes, but right now we don't have a performant way to check if we are
-doing P2P or not in the dma_map_X() wrappers. And this is necessary to
-check if the DMA ops in use support it or not. We can't have the
-dma_map_X() functions do the wrong thing because they don't support it yet.
-
-> Devices integrated in the CPU usually only "claim" to be PCIe devices. 
-> In reality their memory request path go directly through the integrated 
-> north bridge. The reason for this is simple better throughput/latency.
-
-These are just more reasons why our patchset restricts to devices behind
-a switch. And more mess for someone to deal with if they need to relax
-that restriction.
-
-Logan
+QW0gMjkuMDMuMjAxOCB1bSAxNzo0NSBzY2hyaWViIExvZ2FuIEd1bnRob3JwZToKPgo+IE9uIDI5
+LzAzLzE4IDA1OjQ0IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAyOC4wMy4yMDE4
+IHVtIDIxOjUzIHNjaHJpZWIgTG9nYW4gR3VudGhvcnBlOgo+Pj4gT24gMjgvMDMvMTggMDE6NDQg
+UE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gV2VsbCwgaXNuJ3QgdGhhdCBleGFjdGx5
+IHdoYXQgZG1hX21hcF9yZXNvdXJjZSgpIGlzIGdvb2QgZm9yPyBBcyBmYXIgYXMKPj4+PiBJIGNh
+biBzZWUgaXQgbWFrZXMgc3VyZSBJT01NVSBpcyBhd2FyZSBvZiB0aGUgYWNjZXNzIHJvdXRlIGFu
+ZAo+Pj4+IHRyYW5zbGF0ZXMgYSBDUFUgYWRkcmVzcyBpbnRvIGEgUENJIEJ1cyBhZGRyZXNzLgo+
+Pj4+IEknbSB1c2luZyB0aGF0IHdpdGggdGhlIEFNRCBJT01NVSBkcml2ZXIgYW5kIGF0IGxlYXN0
+IHRoZXJlIGl0IHdvcmtzCj4+Pj4gcGVyZmVjdGx5IGZpbmUuCj4+PiBZZXMsIGl0IHdvdWxkIGJl
+IG5pY2UsIGJ1dCBubyBhcmNoIGhhcyBpbXBsZW1lbnRlZCB0aGlzIHlldC4gV2UgYXJlIGp1c3QK
+Pj4+IGx1Y2t5IGluIHRoZSB4ODYgY2FzZSBiZWNhdXNlIHRoYXQgYXJjaCBpcyBzaW1wbGUgYW5k
+IGRvZXNuJ3QgbmVlZCB0byBkbwo+Pj4gYW55dGhpbmcgZm9yIFAyUCAocGFydGlhbGx5IGR1ZSB0
+byB0aGUgQnVzIGFuZCBDUFUgYWRkcmVzc2VzIGJlaW5nIHRoZQo+Pj4gc2FtZSkuIEJ1dCBpbiB0
+aGUgZ2VuZXJhbCBjYXNlLCB5b3UgY2FuJ3QgcmVseSBvbiBpdC4KPj4gV2VsbCwgdGhhdCBhbiBh
+cmNoIGhhc24ndCBpbXBsZW1lbnRlZCBpdCBkb2Vzbid0IG1lYW4gdGhhdCB3ZSBkb24ndCBoYXZl
+Cj4+IHRoZSByaWdodCBpbnRlcmZhY2UgdG8gZG8gaXQuCj4gWWVzLCBidXQgcmlnaHQgbm93IHdl
+IGRvbid0IGhhdmUgYSBwZXJmb3JtYW50IHdheSB0byBjaGVjayBpZiB3ZSBhcmUKPiBkb2luZyBQ
+MlAgb3Igbm90IGluIHRoZSBkbWFfbWFwX1goKSB3cmFwcGVycy4KCldoeSBub3Q/IEkgbWVhbiB0
+aGUgZG1hX21hcF9yZXNvdXJjZSgpIGZ1bmN0aW9uIGlzIGZvciBQMlAgd2hpbGUgb3RoZXIgCmRt
+YV9tYXBfKiBmdW5jdGlvbnMgYXJlIG9ubHkgZm9yIHN5c3RlbSBtZW1vcnkuCgo+IEFuZCB0aGlz
+IGlzIG5lY2Vzc2FyeSB0bwo+IGNoZWNrIGlmIHRoZSBETUEgb3BzIGluIHVzZSBzdXBwb3J0IGl0
+IG9yIG5vdC4gV2UgY2FuJ3QgaGF2ZSB0aGUKPiBkbWFfbWFwX1goKSBmdW5jdGlvbnMgZG8gdGhl
+IHdyb25nIHRoaW5nIGJlY2F1c2UgdGhleSBkb24ndCBzdXBwb3J0IGl0IHlldC4KCldlbGwgdGhh
+dCBzb3VuZHMgbGlrZSB3ZSBzaG91bGQganVzdCByZXR1cm4gYW4gZXJyb3IgZnJvbSAKZG1hX21h
+cF9yZXNvdXJjZXMoKSB3aGVuIGFuIGFyY2hpdGVjdHVyZSBkb2Vzbid0IHN1cHBvcnQgUDJQIHll
+dCBhcyBBbGV4IApzdWdnZXN0ZWQuCgo+PiBEZXZpY2VzIGludGVncmF0ZWQgaW4gdGhlIENQVSB1
+c3VhbGx5IG9ubHkgImNsYWltIiB0byBiZSBQQ0llIGRldmljZXMuCj4+IEluIHJlYWxpdHkgdGhl
+aXIgbWVtb3J5IHJlcXVlc3QgcGF0aCBnbyBkaXJlY3RseSB0aHJvdWdoIHRoZSBpbnRlZ3JhdGVk
+Cj4+IG5vcnRoIGJyaWRnZS4gVGhlIHJlYXNvbiBmb3IgdGhpcyBpcyBzaW1wbGUgYmV0dGVyIHRo
+cm91Z2hwdXQvbGF0ZW5jeS4KPiBUaGVzZSBhcmUganVzdCBtb3JlIHJlYXNvbnMgd2h5IG91ciBw
+YXRjaHNldCByZXN0cmljdHMgdG8gZGV2aWNlcyBiZWhpbmQKPiBhIHN3aXRjaC4gQW5kIG1vcmUg
+bWVzcyBmb3Igc29tZW9uZSB0byBkZWFsIHdpdGggaWYgdGhleSBuZWVkIHRvIHJlbGF4Cj4gdGhh
+dCByZXN0cmljdGlvbi4KCllvdSBkb24ndCBzZWVtIHRvIHVuZGVyc3RhbmQgdGhlIGltcGxpY2F0
+aW9uczogVGhlIGRldmljZXMgZG8gaGF2ZSBhIApjb21tb24gdXBzdHJlYW0gYnJpZGdlISBJbiBv
+dGhlciB3b3JkcyB5b3VyIGNvZGUgd291bGQgY3VycmVudGx5IGNsYWltIAp0aGF0IFAyUCBpcyBz
+dXBwb3J0ZWQsIGJ1dCBpbiBwcmFjdGljZSBpdCBkb2Vzbid0IHdvcmsuCgpZb3UgbmVlZCB0byBp
+bmNsdWRlIGJvdGggZHJpdmVycyB3aGljaCBwYXJ0aWNpcGF0ZSBpbiB0aGUgUDJQIAp0cmFuc2Fj
+dGlvbiB0byBtYWtlIHN1cmUgdGhhdCBib3RoIHN1cHBvcnRzIHRoaXMgYW5kIGdpdmUgdGhlbSAK
+b3Bwb3J0dW5pdHkgdG8gY2hpY2tlbiBvdXQgYW5kIGluIHRoZSBjYXNlIG9mIEFNRCBBUFVzIGV2
+ZW4gcmVkaXJlY3QgdGhlIApyZXF1ZXN0IHRvIGFub3RoZXIgbG9jYXRpb24gKGUuZy4gcGFydGlj
+aXBhdGUgaW4gdGhlIERNQSB0cmFuc2xhdGlvbikuCgpETUEtYnVmIGZvcnR1bmF0ZWx5IHNlZW1z
+IHRvIGhhbmRsZSBhbGwgdGhpcyBhbHJlYWR5LCB0aGF0J3Mgd2h5IHdlIApjaG9vc2UgaXQgYXMg
+YmFzZSBmb3Igb3VyIGltcGxlbWVudGF0aW9uLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
