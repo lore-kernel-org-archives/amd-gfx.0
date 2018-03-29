@@ -1,23 +1,18 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/gpu-sched: fix force APP kill hang
-Date: Thu, 29 Mar 2018 13:46:52 +0200
-Message-ID: <1abbebca-aaf3-0bd1-be74-da0c0f014bd2@gmail.com>
-References: <1522224449-8825-1-git-send-email-Emily.Deng@amd.com>
- <cc7b1727-0cd6-bef0-11e6-486fb18a709e@gmail.com>
- <BLUPR12MB04493516B59CC6575BF8324B84A20@BLUPR12MB0449.namprd12.prod.outlook.com>
- <52cdb460-8c02-e6a7-560a-655b8d41fa2b@amd.com>
- <BLUPR12MB04496DC8EF5B03E152D28AB584A20@BLUPR12MB0449.namprd12.prod.outlook.com>
- <9ed7412a-ea8b-0a92-6587-24eab168d69c@gmail.com>
- <BLUPR12MB04498B7847A85C6C09134B0484A20@BLUPR12MB0449.namprd12.prod.outlook.com>
- <cfa26e05-90c4-0a4b-9975-e1b93285ea7d@amd.com>
- <BLUPR12MB0449E7EF18E5CC5EEB2B459084A20@BLUPR12MB0449.namprd12.prod.outlook.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: refresh per vm bo lru
+Date: Thu, 29 Mar 2018 20:46:46 +0800
+Message-ID: <b3040d09-1901-11a1-1090-7acb529c139e@amd.com>
+References: <20180327101654.1118-1-david1.zhou@amd.com>
+ <20180327101654.1118-2-david1.zhou@amd.com>
+ <6afa6cca-d59c-9e64-f891-c43a741069d4@gmail.com>
+ <a9d42a8a-b9b5-1d89-f95e-e678829a8260@amd.com>
+ <192b6077-88e7-f0f0-6923-b91e3ad5e97b@amd.com>
+ <14672700-82d7-c9d8-1086-84a4d8a711bc@amd.com>
+ <d7dad640-edd0-5aa3-9165-b19d44525a5b@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0558480891=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB0449E7EF18E5CC5EEB2B459084A20-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <d7dad640-edd0-5aa3-9165-b19d44525a5b-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -28,176 +23,496 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: "dri-devel-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org" <dri-devel-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiB5b3Ugd2lsbCBmYWtlIHNpZ25hbCBhbGwgZmVuY2VzIGV2ZW50dWFsbHkgLApUaGF0IGlzIG5v
-dCBjb3JyZWN0LiBXZSBmYWtlIHNpZ25hbCBhbGwgKnBlbmRpbmcqIGZlbmNlcywgZS5nLiBmZW5j
-ZXMgCndoaWNoIGFyZSBub3QgcHVzaGVkIHRvIHRoZSBoYXJkd2FyZSByaW5nLgoKRmVuY2VzL2pv
-YnMgd2hpY2ggYXJlIGFscmVhZHkgcnVubmluZyBvbiB0aGUgaGFyZHdhcmUgcmluZyBhcmUgbm90
-IAp0b3VjaGVkIGluIGFueSB3YXkuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAyOS4wMy4yMDE4
-IHVtIDEzOjMxIHNjaHJpZWIgTGl1LCBNb25rOgo+IFRoaXMgc2RtYSBqb2IgaXMgcnVubmluZywg
-YW5kIHlvdSB3aWxsIGZha2Ugc2lnbmFsIGFsbCBmZW5jZXMgZXZlbnR1YWxseSAsCj4gV2hpY2gg
-bGVhZCB0byB0aGlzIHByb2Nlc3MncyBQRCByZXNlcnZhdGlvbiBvYmplY3QgZnJlZSBhbmQgYW1k
-Z3B1X2JvX3VuZGVmKCkgY2FuIGNhbGwgYW1kZ3B1X2dhcnRfdW5iaW5kKCkgb24gdGhlIHNoYWRv
-dyBidWZmZXIncyB0dG0KPiBBbmQgbGVhZCB0byBzZG1hIGpvYiBoaXQgVk1DIHBhZ2UgZmF1bHQg
-b24gdm1pZDAKPgo+IC9Nb25rCj4KPgo+Cj4KPgo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-Cj4gRnJvbTogS29lbmlnLCBDaHJpc3RpYW4KPiBTZW50OiAyMDE45bm0M+aciDI55pelIDE5OjI0
-Cj4gVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IERlbmcsIEVtaWx5IDxFbWlseS5E
-ZW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IFN1YmplY3Q6IFJl
-OiBbUEFUQ0hdIGRybS9ncHUtc2NoZWQ6IGZpeCBmb3JjZSBBUFAga2lsbCBoYW5nCj4KPiBBbSAy
-OS4wMy4yMDE4IHVtIDEzOjE0IHNjaHJpZWIgTGl1LCBNb25rOgo+PiBIaSBDaHJpc3RpYW4KPj4K
-Pj4+IFRoaXMgd2F5IHdlIHdvbid0IGV2ZW4gc3RhcnQgcnVubmluZyB0aGUgdW5tYXBwaW5nL2Ns
-ZWFyLXB0ZSBqb2IgaW4gdGhlIGZpcnN0IHBsYWNlLgo+PiBXaGF0IGlmIHRoZXJlIGlzIGFscmVh
-ZHkgYW4gdW5tYXBwaW5nL2NsZWFyLXB0ZSBqb2IgcnVubmluZyBiZWZvcmUgeW91Cj4+IGtpbGwg
-YXBwID8gbGlrZSBhcHAgaXMgbmF0dXJhbGx5IHJlbGVhc2Ugc29tZSByZXNvdXJjZSBBbmQgYnkg
-Y29pbmNpZGVuY2UgeW91IG1lYW53aGlsZSBraWxsIHRoZSBhcHAgPwo+IEF0IGxlYXN0IG5vdGhp
-bmcgcHJvYmxlbWF0aWMuIFNpbmNlIHRoZSBqb2IgaXMgYWxyZWFkeSBydW5uaW5nIHdlIHdvbid0
-IGRvIGFueXRoaW5nIHdpdGggaXRzIGZlbmNlLgo+Cj4gQ2hyaXN0aWFuLgo+Cj4+IC9Nb25rCj4+
-Cj4+Cj4+Cj4+Cj4+Cj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4+IEZyb206IENocmlz
-dGlhbiBLw7ZuaWcgW21haWx0bzpja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbV0KPj4g
-U2VudDogMjAxOOW5tDPmnIgyOeaXpSAxODoxNgo+PiBUbzogTGl1LCBNb25rIDxNb25rLkxpdUBh
-bWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4KPj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47
-IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+Owo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+PiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vZ3B1LXNjaGVkOiBmaXggZm9y
-Y2UgQVBQIGtpbGwgaGFuZwo+Pgo+PiBIaSBNb25rLAo+Pgo+PiB3ZWxsIHRoYXQgaXNuJ3QgYSBw
-cm9ibGVtLgo+Pgo+PiBUaGUgaWRlYSBpcyB0aGF0IHdlIGZpcnN0IHN0b3AgdGhlIEFMTCBlbnRp
-dGllcyBhbmQgdGhlbiBtYXJrIGFsbCBmZW5jZXMgYXMgc2lnbmFsZWQgd2l0aCBlcnJvci4gVGhp
-cyB3YXkgd2Ugd29uJ3QgZXZlbiBzdGFydCBydW5uaW5nIHRoZSB1bm1hcHBpbmcvY2xlYXItcHRl
-IGpvYiBpbiB0aGUgZmlyc3QgcGxhY2UuCj4+Cj4+IEkgbWVhbiBhcyBJIHdyb3RlIHdoZW4gdGhl
-IHByb2Nlc3MgaXMga2lsbGVkIHdlIHNob3VsZCBjYW5jZWwgQUxMIHN0aWxsIHBlbmRpbmcgam9i
-cyBvZiB0aGF0IHByb2Nlc3MgaW5jbHVkaW5nIHBlbmRpbmcgc3VibWlzc2lvbnMgYW5kIHBhZ2Ug
-dGFibGUgdXBkYXRlcy4KPj4KPj4gUmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+PiBBbSAyOS4w
-My4yMDE4IHVtIDEyOjExIHNjaHJpZWIgTGl1LCBNb25rOgo+Pj4gRmlyc3QgbGV0J3MgY29uc2lk
-ZXIgdGhlIHNoYWRvdyBidWZmZXIgY2FzZToKPj4+Cj4+PiBBZnRlciB5b3Ugc2lnbmFsIGFsbCBq
-b2JzIHdpdGggYW4gZXJyb3IgY29kZSwgZS5nLiB5b3Ugc2lnbmFscyBhbgo+Pj4gdW5tYXBwaW5n
-L2NsZWFyLXB0ZSBqb2Igb24gc2RtYSByaW5nIChpdCBpcyBydW5uaW5nIG9uIHNkbWEpLCB0aGUK
-Pj4+IHJlc2VydmF0aW9uIGFyZSB0aGVuIGFsbCBjbGVhcmVkLCB0aGlzIHdheSBkdXJpbmcgYW1k
-Z3B1X2JvX3VuZGVmKCkKPj4+IG9uIHRoZSBTSEFET1cgQlVGRkVSLCBhYm92ZSBzZG1hIGpvYiB3
-b3VsZCBoaXQgVk1DIFBBR0UgRkFVTFQKPj4+Cj4+PiAvTW9uawo+Pj4gLS0tLS1PcmlnaW5hbCBN
-ZXNzYWdlLS0tLS0KPj4+IEZyb206IEtvZW5pZywgQ2hyaXN0aWFuCj4+PiBTZW50OiAyMDE45bm0
-M+aciDI55pelIDE3OjA1Cj4+PiBUbzogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPjsgRGVu
-ZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT47Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+Pj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2dwdS1zY2hlZDogZml4IGZvcmNl
-IEFQUCBraWxsIGhhbmcKPj4+Cj4+PiBJIHRoaW5rIHRoZSBjb3JlIG9mIHRoZSBwcm9ibGVtIGlz
-IHRoYXQgd2UgZG9uJ3QgYWJvcnQgYWxsIGVudGl0aWVzIG9mIHRoZSBwcm9jZXNzIGF0IHRoZSBz
-YW1lIHRpbWUuCj4+Pgo+Pj4gSG93IGFib3V0IHNwbGl0dGluZyBkcm1fc2NoZWRfZW50aXR5X2Zp
-bmkoKSBpbnRvIHR3byBmdW5jdGlvbnM/Cj4+Pgo+Pj4gVGhlIGZpcnN0IG9uZSBpcyBkb2VzIHRo
-ZSB3YWl0aW5nLCByZW1vdmVzIHRoZSBlbnRpdHkgZnJvbSB0aGUgcnVucXVldWUgYW5kIHJldHVy
-bnMgYW4gZXJyb3Igd2hlbiB0aGUgcHJvY2VzcyB3YXMga2lsbGVkLgo+Pj4KPj4+IER1cmluZyBk
-ZXN0cnVjdGlvbiB0aGlzIG9uZSBpcyBjYWxsZWQgZmlyc3QgZm9yIGFsbCBjb250ZXh0cyBhcyB3
-ZWxsIGFzIHRoZSBlbnRpdHkgZm9yIFZNIHVwZGF0ZXMuCj4+Pgo+Pj4gVGhlIHNlY29uZCBvbmUg
-dGhlbiBnb2VzIG92ZXIgdGhlIGVudGl0eSBhbmQgc2lnbmFscyBhbGwgam9icyB3aXRoIGFuIGVy
-cm9yIGNvZGUuCj4+Pgo+Pj4gVGhpcyB3YXkgbm8gVk0gdXBkYXRlcyBzaG91bGQgYmUgZXhlY3V0
-ZWQgYW55IGxvbmdlciBhZnRlciB0aGUgcHJvY2VzcyBpcyBraWxsZWQgKHNvbWV0aGluZyB3aGlj
-aCBkb2Vzbid0IG1ha2VzIHNlbnNlIGFueXdheSBhbmQganVzdCBjb3N0cyB1cyB0aW1lKS4KPj4+
-Cj4+PiBSZWdhcmRzLAo+Pj4gQ2hyaXN0aWFuLgo+Pj4KPj4+IEFtIDI5LjAzLjIwMTggdW0gMDY6
-MTQgc2NocmllYiBMaXUsIE1vbms6Cj4+Pj4+IDIpaWYgYSBmZW5jZSBzaWduYWxlZCBhbmQgdHJ5
-IHRvIGNsZWFyIHNvbWUgZW50aXR5J3MgZGVwZW5kZW5jeSwKPj4+Pj4gc2hvdWxkIHNldCB0aGlz
-IGVudGl0eSBndWlsdHkgdG8gcHJldmVudCBpdHMgam9iIHJlYWxseSBydW4gc2luY2UKPj4+Pj4g
-dGhlIGRlcGVuZGVuY3kgaXMgZmFrZSBzaWduYWxlZC4KPj4+PiBXZWxsLCB0aGF0IGlzIGEgY2xl
-YXIgTkFLLiBJdCB3b3VsZCBtZWFuIHRoYXQgeW91IG1hcmsgdGhpbmdzIGxpa2UgdGhlIFggc2Vy
-dmVyIG9yIFdheWxhbmQgcXVldWUgaXMgbWFya2VkIGd1aWx0eSBiZWNhdXNlIHNvbWUgY2xpZW50
-IGlzIGtpbGxlZC4KPj4+Pgo+Pj4+IEFuZCBzaW5jZSB1bm1hcHBpbmcvY2xlYXIgam9icyBkb24n
-dCBoYXZlIGEgZ3VpbHR5IHBvaW50ZXIgaXQgc2hvdWxkIGFjdHVhbGx5IG5vdCBoYXZlIGFueSBl
-ZmZlY3Qgb24gdGhlIGlzc3VlLgo+Pj4+Cj4+Pj4KPj4+PiBbTUxdLCB5ZWFoIHRoYXQncyBhIGdv
-b2QgcG9pbnQsIGhvdyBhYm91dCB0aGlzIHdheTogaWYgYSBmZW5jZSBpcwo+Pj4+IGZha2Ugc2ln
-bmFsZWQgYW5kIHRyeSB0byBjbGVhciBvdGhlciBlbnRpdHkncyBkZXBlbmRlbmN5IHdlIG9ubHkg
-YWxsb3cgZW50aXR5IG1hcmtlZCBhcyBndWlsdHkgSWYgdGhpcyBlbnRpdHkgc2hhcmUgdGhlIHNh
-bWUgY3R4IChvciBldmVuIHByb2Nlc3M/KSBvZiB0aGUgZW50aXR5IG9mIHRoZSBqb2Igb2YgdGhh
-dCBmYWtlIHNpZ25hbGVkIGZlbmNlID8KPj4+PiBUaGlzIHdheSBmb3IgYSBjZXJ0YWluIHByb2Nl
-c3MgYSBmYWtlZCBzaWduYWxlZCBHRlggZmVuY2Ugd29uJ3QgYmUKPj4+PiBhYmxlIHRvIHdha2Ug
-YW5vdGhlciBWQ0UvU0RNQSBqb2IKPj4+Pgo+Pj4+IC9Nb25rCj4+Pj4KPj4+PiAtLS0tLU9yaWdp
-bmFsIE1lc3NhZ2UtLS0tLQo+Pj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgW21haWx0bzpja29l
-bmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbV0KPj4+PiBTZW50OiAyMDE45bm0M+aciDI45pel
-IDE5OjU3Cj4+Pj4gVG86IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+IENjOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5j
-b20+Cj4+Pj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2dwdS1zY2hlZDogZml4IGZvcmNlIEFQ
-UCBraWxsIGhhbmcKPj4+Pgo+Pj4+IEFtIDI4LjAzLjIwMTggdW0gMTA6MDcgc2NocmllYiBFbWls
-eSBEZW5nOgo+Pj4+PiBpc3N1ZToKPj4+Pj4gdGhlcmUgYXJlIFZNQyBwYWdlIGZhdWx0IG9jY3Vy
-ZWQgaWYgZm9yY2UgQVBQIGtpbGwgZHVyaW5nIDNkbWFyawo+Pj4+PiB0ZXN0LCB0aGUgY2F1c2Ug
-aXMgaW4gZW50aXR5X2Zpbmkgd2UgbWFudWFsbHkgc2lnbmFsIGFsbCB0aG9zZSBqb2JzCj4+Pj4+
-IGluIGVudGl0eSdzIHF1ZXVlIHdoaWNoIGNvbmZ1c2UgdGhlIHN5bmMvZGVwCj4+Pj4+IG1lY2hh
-bmlzbToKPj4+Pj4KPj4+Pj4gMSlwYWdlIGZhdWx0IG9jY3VyZWQgaW4gc2RtYSdzIGNsZWFyIGpv
-YiB3aGljaCBvcGVyYXRlIG9uIHNoYWRvdwo+Pj4+PiBidWZmZXIsIGFuZCBzaGFkb3cgYnVmZmVy
-J3MgR2FydCB0YWJsZSBpcyBjbGVhbmVkIGJ5IHR0bV9ib19yZWxlYXNlCj4+Pj4+IHNpbmNlIHRo
-ZSBmZW5jZSBpbiBpdHMgcmVzZXJ2YXRpb24gd2FzIGZha2Ugc2lnbmFsZWQgYnkKPj4+Pj4gZW50
-aXR5X2ZpbmkoKSB1bmRlciB0aGUgY2FzZSBvZiBTSUdLSUxMIHJlY2VpdmVkLgo+Pj4+Pgo+Pj4+
-PiAyKXBhZ2UgZmF1bHQgb2NjdXJlZCBpbiBnZngnIGpvYiBiZWNhdXNlIGR1cmluZyB0aGUgbGlm
-ZXRpbWUgb2YgZ2Z4Cj4+Pj4+IGpvYiB3ZSBtYW51YWxseSBmYWtlIHNpZ25hbCBhbGwgam9icyBm
-cm9tIGl0cyBlbnRpdHkgaW4KPj4+Pj4gZW50aXR5X2ZpbmkoKSwgdGh1cyB0aGUgdW5tYXBwaW5n
-L2NsZWFyIFBURSBqb2IgZGVwZW5kIG9uIHRob3NlCj4+Pj4+IHJlc3VsdCBmZW5jZSBpcyBzYXRp
-c2ZpZWQgYW5kIHNkbWEgc3RhcnQgY2xlYXJpbmcgdGhlIFBURSBhbmQgbGVhZCB0byBHRlggcGFn
-ZSBmYXVsdC4KPj4+PiBOaWNlIGNhdGNoLCBidXQgdGhlIGZpeGVzIHdvbid0IHdvcmsgbGlrZSB0
-aGlzLgo+Pj4+Cj4+Pj4+IGZpeDoKPj4+Pj4gMSlzaG91bGQgYXQgbGVhc3Qgd2FpdCBhbGwgam9i
-cyBhbHJlYWR5IHNjaGVkdWxlZCBjb21wbGV0ZSBpbgo+Pj4+PiBlbnRpdHlfZmluaSgpIGlmIFNJ
-R0tJTEwgaXMgdGhlIGNhc2UuCj4+Pj4gV2VsbCB0aGF0IGlzIG5vdCBhIGdvb2QgaWRlYSBiZWNh
-dXNlIHdoZW4gd2Uga2lsbCBhIHByb2Nlc3Mgd2UgYWN0dWFsbHkgd2FudCB0byB0ZWFyIGRvd24g
-dGhlIHRhc2sgYXMgZmFzdCBhcyBwb3NzaWJsZSBhbmQgbm90IHdhaXQgZm9yIGFueXRoaW5nLiBU
-aGF0IGlzIGFjdHVhbGx5IHRoZSByZWFzb24gd2h5IHdlIGhhdmUgdGhpcyBoYW5kbGluZy4KPj4+
-Pgo+Pj4+PiAyKWlmIGEgZmVuY2Ugc2lnbmFsZWQgYW5kIHRyeSB0byBjbGVhciBzb21lIGVudGl0
-eSdzIGRlcGVuZGVuY3ksCj4+Pj4+IHNob3VsZCBzZXQgdGhpcyBlbnRpdHkgZ3VpbHR5IHRvIHBy
-ZXZlbnQgaXRzIGpvYiByZWFsbHkgcnVuIHNpbmNlCj4+Pj4+IHRoZSBkZXBlbmRlbmN5IGlzIGZh
-a2Ugc2lnbmFsZWQuCj4+Pj4gV2VsbCwgdGhhdCBpcyBhIGNsZWFyIE5BSy4gSXQgd291bGQgbWVh
-biB0aGF0IHlvdSBtYXJrIHRoaW5ncyBsaWtlIHRoZSBYIHNlcnZlciBvciBXYXlsYW5kIHF1ZXVl
-IGlzIG1hcmtlZCBndWlsdHkgYmVjYXVzZSBzb21lIGNsaWVudCBpcyBraWxsZWQuCj4+Pj4KPj4+
-PiBBbmQgc2luY2UgdW5tYXBwaW5nL2NsZWFyIGpvYnMgZG9uJ3QgaGF2ZSBhIGd1aWx0eSBwb2lu
-dGVyIGl0IHNob3VsZCBhY3R1YWxseSBub3QgaGF2ZSBhbnkgZWZmZWN0IG9uIHRoZSBpc3N1ZS4K
-Pj4+Pgo+Pj4+IFJlZ2FyZHMsCj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Cj4+Pj4KPj4+Pj4gcmVsYXRl
-ZCBpc3N1ZSB0aWNrZXQ6Cj4+Pj4+IGh0dHA6Ly9vbnRyYWNrLWludGVybmFsLmFtZC5jb20vYnJv
-d3NlL1NXREVWLTE0NzU2ND9maWx0ZXI9LTEKPj4+Pj4KPj4+Pj4gU2lnbmVkLW9mZi1ieTogTW9u
-ayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Cj4+Pj4+IC0tLQo+Pj4+PiAgICAgICBkcml2ZXJzL2dw
-dS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYyB8IDM2ICsrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysKPj4+Pj4gICAgICAgMSBmaWxlIGNoYW5nZWQsIDM2IGluc2VydGlvbnMoKykK
-Pj4+Pj4KPj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3Nj
-aGVkdWxlci5jCj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
-LmMKPj4+Pj4gaW5kZXggMmJkNjljNC4uOWIzMDZkMyAxMDA2NDQKPj4+Pj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPj4+Pj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPj4+Pj4gQEAgLTE5OCw2ICsxOTgsMjgg
-QEAgc3RhdGljIGJvb2wgZHJtX3NjaGVkX2VudGl0eV9pc19yZWFkeShzdHJ1Y3QgZHJtX3NjaGVk
-X2VudGl0eSAqZW50aXR5KQo+Pj4+PiAgICAgICAJcmV0dXJuIHRydWU7Cj4+Pj4+ICAgICAgIH0K
-Pj4+Pj4gICAgICAgCj4+Pj4+ICtzdGF0aWMgdm9pZCBkcm1fc2NoZWRfZW50aXR5X3dhaXRfb3Rm
-X3NpZ25hbChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+Pj4+PiArCQkJCXN0cnVj
-dCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpIHsKPj4+Pj4gKwlzdHJ1Y3QgZHJtX3NjaGVkX2pv
-YiAqbGFzdDsKPj4+Pj4gKwlzaWduZWQgbG9uZyByOwo+Pj4+PiArCj4+Pj4+ICsJc3Bpbl9sb2Nr
-KCZzY2hlZC0+am9iX2xpc3RfbG9jayk7Cj4+Pj4+ICsJbGlzdF9mb3JfZWFjaF9lbnRyeV9yZXZl
-cnNlKGxhc3QsICZzY2hlZC0+cmluZ19taXJyb3JfbGlzdCwgbm9kZSkKPj4+Pj4gKwkJaWYgKGxh
-c3QtPnNfZmVuY2UtPnNjaGVkdWxlZC5jb250ZXh0ID09IGVudGl0eS0+ZmVuY2VfY29udGV4dCkg
-ewo+Pj4+PiArCQkJZG1hX2ZlbmNlX2dldCgmbGFzdC0+c19mZW5jZS0+ZmluaXNoZWQpOwo+Pj4+
-PiArCQkJYnJlYWs7Cj4+Pj4+ICsJCX0KPj4+Pj4gKwlzcGluX3VubG9jaygmc2NoZWQtPmpvYl9s
-aXN0X2xvY2spOwo+Pj4+PiArCj4+Pj4+ICsJaWYgKCZsYXN0LT5ub2RlICE9ICZzY2hlZC0+cmlu
-Z19taXJyb3JfbGlzdCkgewo+Pj4+PiArCQlyID0gZG1hX2ZlbmNlX3dhaXRfdGltZW91dCgmbGFz
-dC0+c19mZW5jZS0+ZmluaXNoZWQsIGZhbHNlLCBtc2Vjc190b19qaWZmaWVzKDUwMCkpOwo+Pj4+
-PiArCQlpZiAociA9PSAwKQo+Pj4+PiArCQkJRFJNX1dBUk4oIndhaXQgb24gdGhlIGZseSBqb2Ig
-dGltZW91dFxuIik7Cj4+Pj4+ICsJCWRtYV9mZW5jZV9wdXQoJmxhc3QtPnNfZmVuY2UtPmZpbmlz
-aGVkKTsKPj4+Pj4gKwl9Cj4+Pj4+ICt9Cj4+Pj4+ICsKPj4+Pj4gICAgICAgLyoqCj4+Pj4+ICAg
-ICAgICAqIERlc3Ryb3kgYSBjb250ZXh0IGVudGl0eQo+Pj4+PiAgICAgICAgKgo+Pj4+PiBAQCAt
-MjM4LDYgKzI2MCwxMiBAQCB2b2lkIGRybV9zY2hlZF9lbnRpdHlfZmluaShzdHJ1Y3QgZHJtX2dw
-dV9zY2hlZHVsZXIgKnNjaGVkLAo+Pj4+PiAgICAgICAJCQllbnRpdHktPmRlcGVuZGVuY3kgPSBO
-VUxMOwo+Pj4+PiAgICAgICAJCX0KPj4+Pj4gICAgICAgCj4+Pj4+ICsJCS8qIFdhaXQgdGlsbCBh
-bGwgam9icyBmcm9tIHRoaXMgZW50aXR5IHJlYWxseSBmaW5pc2hlZCBvdGhlcndpc2UgYmVsb3cK
-Pj4+Pj4gKwkJICogZmFrZSBzaWduYWxpbmcgd291bGQga2lja3N0YXJ0IHNkbWEncyBjbGVhciBQ
-VEUgam9icyBhbmQgbGVhZCB0bwo+Pj4+PiArCQkgKiB2bSBmYXVsdAo+Pj4+PiArCQkgKi8KPj4+
-Pj4gKwkJZHJtX3NjaGVkX2VudGl0eV93YWl0X290Zl9zaWduYWwoc2NoZWQsIGVudGl0eSk7Cj4+
-Pj4+ICsKPj4+Pj4gICAgICAgCQl3aGlsZSAoKGpvYiA9IHRvX2RybV9zY2hlZF9qb2Ioc3BzY19x
-dWV1ZV9wb3AoJmVudGl0eS0+am9iX3F1ZXVlKSkpKSB7Cj4+Pj4+ICAgICAgIAkJCXN0cnVjdCBk
-cm1fc2NoZWRfZmVuY2UgKnNfZmVuY2UgPSBqb2ItPnNfZmVuY2U7Cj4+Pj4+ICAgICAgIAkJCWRy
-bV9zY2hlZF9mZW5jZV9zY2hlZHVsZWQoc19mZW5jZSk7Cj4+Pj4+IEBAIC0yNTUsNiArMjgzLDE0
-IEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9lbnRpdHlfd2FrZXVwKHN0cnVjdCBkbWFfZmVuY2Ug
-KmYsIHN0cnVjdCBkbWFfZmVuY2VfY2IgKmNiCj4+Pj4+ICAgICAgIHsKPj4+Pj4gICAgICAgCXN0
-cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkgPQo+Pj4+PiAgICAgICAJCWNvbnRhaW5lcl9v
-ZihjYiwgc3RydWN0IGRybV9zY2hlZF9lbnRpdHksIGNiKTsKPj4+Pj4gKwo+Pj4+PiArCS8qIHNl
-dCB0aGUgZW50aXR5IGd1aXR5IHNpbmNlIGl0cyBkZXBlbmRlbmN5IGlzCj4+Pj4+ICsJICogbm90
-IHJlYWxseSBjbGVhcmVkIGJ1dCBmYWtlIHNpZ25hbGVkIChieSBTSUdLSUxMCj4+Pj4+ICsJICog
-b3IgR1BVIHJlY292ZXIpCj4+Pj4+ICsJICovCj4+Pj4+ICsJaWYgKGYtPmVycm9yICYmIGVudGl0
-eS0+Z3VpbHR5KQo+Pj4+PiArCQlhdG9taWNfc2V0KGVudGl0eS0+Z3VpbHR5LCAxKTsKPj4+Pj4g
-Kwo+Pj4+PiAgICAgICAJZW50aXR5LT5kZXBlbmRlbmN5ID0gTlVMTDsKPj4+Pj4gICAgICAgCWRt
-YV9mZW5jZV9wdXQoZik7Cj4+Pj4+ICAgICAgIAlkcm1fc2NoZWRfd2FrZXVwKGVudGl0eS0+c2No
-ZWQpOwo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
-bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============0558480891==
+Content-Type: multipart/alternative;
+ boundary="------------B73A9429760229B8D30F696C"
+
+This is a multi-part message in MIME format.
+--------------B73A9429760229B8D30F696C
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+在 2018/3/29 16:59, Christian König 写道:
+> Am 29.03.2018 um 10:37 schrieb zhoucm1:
+>>
+>>
+>>
+>> On 2018年03月28日 16:13, zhoucm1 wrote:
+>>>
+>>>
+>>>
+>>> On 2018年03月27日 21:44, Christian König wrote:
+>>>
+>>>> How about we update the LRU only when we need to re-validate at 
+>>>> least one BO?
+>>> I tried this just now, performance still isn't stable, sometime drop 
+>>> to 28fps by accident.
+>
+> Can you give me the code for that? I probably can't work this week on 
+> that, but I can take a look next week.
+just git send-mail to your amd mail.
+
+>
+>>>
+>>> I also tried to check num_evictions, if eviction happens, then 
+>>> update LRU, also sometime drop to 28fps by accident.
+>>>
+>>> When BOs change, we not only need keep LRU order, but also 
+>>> validation order in vm->evicted list. Any other ideas which can keep 
+>>> these order but not increase submission overhead?
+>>
+>> With more thinking, we need to add new LRU design for per vm bo, we 
+>> need to make sure the order when adding to LRU. How about the below idea:
+>> 0. separate traditional bo list lru and per-vm-bo lru. Traditional 
+>> lru keeps old way, per-vm-lru follows below design.
+>> 1. TTM bdev maintains a vm/process list.
+>> 2. Every vm_list node contains its own per-vm-bo LRU[priority]
+>> 3. To manage the vm_list lru in specific driver, we will need add 
+>> callback for it.
+>> 4. We will add an order for every per-vm-bo in that vm/process.
+>> 5. To speed up per-vm-lru sort, we will introduce RB tree for it in 
+>> callback. The RB tree key is order.
+>>
+>> This way, we will be able to keep the per-vm-bo LRU order.
+>>
+>> What do you think of it?
+>
+> No, we need a single LRU for per VM and not per VM BOs to maintain 
+> eviction fairness, so we don't really win anything with that.
+If following original LRU design, the bo should be moved to lru tail 
+when bo is used, so that keep the last used bo is in lru tail.
+All per vm BOs are used for every command submission, then after every 
+CS, we should refresh the lru, that is required by original LRU design, 
+but as your NAK on it, it will introduce much CPU overhead for CS, they 
+are inconsistencies.
+
+For per vm case, if we don't want to introduce extra overhead, the 
+per-vm-bo order shoud fixed in lru to avoid refresh LRU for every CS.
+so my thinking for lru is:
+VM1-BO1---->BO2--->BO3--->BOn--->VM2-BO1--->BO2--->BO3--->BOn--->VM3-BO...
+
+Regards,
+David
+>
+> Regards,
+> Christian.
+>
+>>
+>> Regards,
+>> David Zhou
+>>>
+>>> Regards,
+>>> David Zhou
+>>>>
+>>>> BTW: We can easily walk all BOs which belong to a VM, skipping over 
+>>>> the few which aren't per VM BOs should be trivial.
+>>>>
+>>>> Christian.
+>>>>
+>>>> Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):
+>>>>> then how to keep unique lru order? any ideas?
+>>>>>
+>>>>> To stable performance, we have to keep unique lru order, otherwise 
+>>>>> like the issue I look into, sometimes F1game is 40fps, sometimes 
+>>>>> 28fps...even re-validate allowed domains BO.
+>>>>>
+>>>>> The left root cause is the moved BOs are not same.
+>>>>>
+>>>>> send from Smartisan Pro
+>>>>>
+>>>>> Christian K鰊ig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> 于 2018年3月27日 
+>>>>> 下午6:50写道：
+>>>>>
+>>>>> NAK, we already tried that and it is really not a good idea 
+>>>>> because it
+>>>>> massively increases the per submission overhead.
+>>>>>
+>>>>> Christian.
+>>>>>
+>>>>> Am 27.03.2018 um 12:16 schrieb Chunming Zhou:
+>>>>> > Change-Id: Ibad84ed585b0746867a5f4cd1eadc2273e7cf596
+>>>>> > Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+>>>>> > ---
+>>>>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2 ++
+>>>>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15 +++++++++++++++
+>>>>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +
+>>>>> >   3 files changed, 18 insertions(+)
+>>>>> >
+>>>>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>>> > index 383bf2d31c92..414e61799236 100644
+>>>>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>>>> > @@ -919,6 +919,8 @@ static int amdgpu_bo_vm_update_pte(struct 
+>>>>> amdgpu_cs_parser *p)
+>>>>> >                }
+>>>>> >        }
+>>>>> >
+>>>>> > +     amdgpu_vm_refresh_lru(adev, vm);
+>>>>> > +
+>>>>> >        return r;
+>>>>> >   }
+>>>>> >
+>>>>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> > index 5e35e23511cf..8ad2bb705765 100644
+>>>>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>> > @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va 
+>>>>> *amdgpu_vm_bo_add(struct amdgpu_device *adev,
+>>>>> >        return bo_va;
+>>>>> >   }
+>>>>> >
+>>>>> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
+>>>>> amdgpu_vm *vm)
+>>>>> > +{
+>>>>> > +     struct ttm_bo_global *glob = adev->mman.bdev.glob;
+>>>>> > +     struct amdgpu_vm_bo_base *bo_base;
+>>>>> > +
+>>>>> > +     spin_lock(&vm->status_lock);
+>>>>> > +     list_for_each_entry(bo_base, &vm->vm_bo_list, vm_bo) {
+>>>>> > + spin_lock(&glob->lru_lock);
+>>>>> > + ttm_bo_move_to_lru_tail(&bo_base->bo->tbo);
+>>>>> > +             if (bo_base->bo->shadow)
+>>>>> > + ttm_bo_move_to_lru_tail(&bo_base->bo->shadow->tbo);
+>>>>> > + spin_unlock(&glob->lru_lock);
+>>>>> > +     }
+>>>>> > +     spin_unlock(&vm->status_lock);
+>>>>> > +}
+>>>>> >
+>>>>> >   /**
+>>>>> >    * amdgpu_vm_bo_insert_mapping - insert a new mapping
+>>>>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> > index 1886a561c84e..e01895581489 100644
+>>>>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> > @@ -285,6 +285,7 @@ int amdgpu_vm_clear_freed(struct 
+>>>>> amdgpu_device *adev,
+>>>>> >                          struct dma_fence **fence);
+>>>>> >   int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+>>>>> >                           struct amdgpu_vm *vm);
+>>>>> > +void amdgpu_vm_refresh_lru(struct amdgpu_device *adev, struct 
+>>>>> amdgpu_vm *vm);
+>>>>> >   int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+>>>>> >                        struct amdgpu_bo_va *bo_va,
+>>>>> >                        bool clear);
+>>>>>
+>>>>
+>>>
+>>
+>
+
+
+--------------B73A9429760229B8D30F696C
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">在 2018/3/29 16:59, Christian König 写道:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:d7dad640-edd0-5aa3-9165-b19d44525a5b-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <div class="moz-cite-prefix">Am 29.03.2018 um 10:37 schrieb
+        zhoucm1:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:14672700-82d7-c9d8-1086-84a4d8a711bc-5C7GfCeVMHo@public.gmane.org">
+        <p><br>
+        </p>
+        <br>
+        <div class="moz-cite-prefix">On 2018年03月28日 16:13, zhoucm1
+          wrote:<br>
+        </div>
+        <blockquote type="cite"
+          cite="mid:192b6077-88e7-f0f0-6923-b91e3ad5e97b-5C7GfCeVMHo@public.gmane.org">
+          <p><br>
+          </p>
+          <br>
+          <div class="moz-cite-prefix">On 2018年03月27日 21:44, Christian
+            König wrote:<font size="2"><span style="font-size:11pt;"><br>
+                <br>
+              </span></font></div>
+          <blockquote type="cite"
+            cite="mid:a9d42a8a-b9b5-1d89-f95e-e678829a8260-5C7GfCeVMHo@public.gmane.org">
+            <div class="moz-cite-prefix">How about we update the LRU
+              only when we need to re-validate at least one BO?<br>
+            </div>
+          </blockquote>
+          I tried this just now, performance still isn't stable,
+          sometime drop to 28fps by accident.<br>
+        </blockquote>
+      </blockquote>
+      <br>
+      Can you give me the code for that? I probably can't work this week
+      on that, but I can take a look next week.<br>
+    </blockquote>
+    just git send-mail to your amd mail.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:d7dad640-edd0-5aa3-9165-b19d44525a5b-5C7GfCeVMHo@public.gmane.org"> <br>
+      <blockquote type="cite"
+        cite="mid:14672700-82d7-c9d8-1086-84a4d8a711bc-5C7GfCeVMHo@public.gmane.org">
+        <blockquote type="cite"
+          cite="mid:192b6077-88e7-f0f0-6923-b91e3ad5e97b-5C7GfCeVMHo@public.gmane.org"> <br>
+          I also tried to check num_evictions, if eviction happens, then
+          update LRU, also sometime drop to 28fps by accident.<br>
+          <br>
+          When BOs change, we not only need keep LRU order, but also
+          validation order in vm-&gt;evicted list. Any other ideas which
+          can keep these order but not increase submission overhead?<br>
+        </blockquote>
+        <br>
+        With more thinking, we need to add new LRU design for per vm bo,
+        we need to make sure the order when adding to LRU. How about the
+        below idea:<br>
+        0. separate traditional bo list lru and per-vm-bo lru.
+        Traditional lru keeps old way, per-vm-lru follows below design.<br>
+        1. TTM bdev maintains a vm/process list.<br>
+        2. Every vm_list node contains its own per-vm-bo LRU[priority]<br>
+        3. To manage the vm_list lru in specific driver, we will need
+        add callback for it.<br>
+        4. We will add an order for every per-vm-bo in that vm/process.<br>
+        5. To speed up per-vm-lru sort, we will introduce RB tree for it
+        in callback. The RB tree key is order.<br>
+        <br>
+        This way, we will be able to keep the per-vm-bo LRU order.<br>
+        <br>
+        What do you think of it?<br>
+      </blockquote>
+      <br>
+      No, we need a single LRU for per VM and not per VM BOs to maintain
+      eviction fairness, so we don't really win anything with that.<br>
+    </blockquote>
+    If following original LRU design, the bo should be moved to lru tail
+    when bo is used, so that keep the last used bo is in lru tail.<br>
+    All per vm BOs are used for every command submission, then after
+    every CS, we should refresh the lru, that is required by original
+    LRU design, but as your NAK on it, it will introduce much CPU
+    overhead for CS, they are inconsistencies.<br>
+    <br>
+    For per vm case, if we don't want to introduce extra overhead, the
+    per-vm-bo order shoud fixed in lru to avoid refresh LRU for every
+    CS.<br>
+    so my thinking for lru is:<br>
+VM1-BO1----&gt;BO2---&gt;BO3---&gt;BOn---&gt;VM2-BO1---&gt;BO2---&gt;BO3---&gt;BOn---&gt;VM3-BO...<br>
+    <br>
+    Regards,<br>
+    David<br>
+    <blockquote type="cite"
+      cite="mid:d7dad640-edd0-5aa3-9165-b19d44525a5b-5C7GfCeVMHo@public.gmane.org"> <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      <blockquote type="cite"
+        cite="mid:14672700-82d7-c9d8-1086-84a4d8a711bc-5C7GfCeVMHo@public.gmane.org"> <br>
+        Regards,<br>
+        David Zhou<br>
+        <blockquote type="cite"
+          cite="mid:192b6077-88e7-f0f0-6923-b91e3ad5e97b-5C7GfCeVMHo@public.gmane.org"> <br>
+          Regards,<br>
+          David Zhou<br>
+          <blockquote type="cite"
+            cite="mid:a9d42a8a-b9b5-1d89-f95e-e678829a8260-5C7GfCeVMHo@public.gmane.org">
+            <div class="moz-cite-prefix"> <br>
+              BTW: We can easily walk all BOs which belong to a VM,
+              skipping over the few which aren't per VM BOs should be
+              trivial.<br>
+              <br>
+              Christian.<br>
+              <br>
+              Am 27.03.2018 um 13:56 schrieb Zhou, David(ChunMing):<br>
+            </div>
+            <blockquote type="cite" cite="mid:smartisan1522151762126">
+              <meta name="Generator" content="Microsoft Exchange Server">
+              <!-- converted from text -->
+              <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+              <div> <font color="#333333">then how to keep unique lru
+                  order? any ideas?<br>
+                </font><br>
+                To stable performance, we have to keep unique lru order,
+                otherwise like the issue I look into, sometimes F1game
+                is 40fps, sometimes 28fps...even re-validate allowed
+                domains BO.<br>
+                <br>
+                The left root cause is the moved BOs are not same.<br>
+                <br>
+                <span id="x_smartisan_signature" style="font-size:0.8em;
+                  display:inline; color:#888888">
+                  <p dir="ltr">send from Smartisan Pro</p>
+                </span>
+                <style type="text/css">
+<!--
+* body
+	{padding:0 16px 30px!important;
+	margin:0!important;
+	background-color:#ffffff;
+	line-height:1.4;
+	word-wrap:break-word;
+	word-break:normal}
+div
+	{word-wrap:break-word;
+	word-break:normal}
+p
+	{word-wrap:break-word;
+	word-break:normal;
+	text-indent:0pt!important}
+span
+	{word-wrap:break-word;
+	word-break:normal}
+a
+	{word-wrap:break-word;
+	word-break:normal}
+td
+	{word-wrap:break-word;
+	word-break:break-all}
+-->
+</style>
+                <div class="x_quote">
+                  <div style="margin:0 0px; font-size:105%"><font
+                      style="line-height:1.4" color="#629140"><span>Christian
+                        K鰊ig <a class="moz-txt-link-rfc2396E"
+                          href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                          moz-do-not-send="true">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
+                        于 2018年3月27日 下午6:50写道：</span></font></div>
+                  <br type="attribution">
+                </div>
+              </div>
+              <font size="2"><span style="font-size:11pt;">
+                  <div class="PlainText">NAK, we already tried that and
+                    it is really not a good idea because it <br>
+                    massively increases the per submission overhead.<br>
+                    <br>
+                    Christian.<br>
+                    <br>
+                    Am 27.03.2018 um 12:16 schrieb Chunming Zhou:<br>
+                    &gt; Change-Id:
+                    Ibad84ed585b0746867a5f4cd1eadc2273e7cf596<br>
+                    &gt; Signed-off-by: Chunming Zhou <a
+                      class="moz-txt-link-rfc2396E"
+                      href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org"
+                      moz-do-not-send="true">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                    &gt; ---<br>
+                    &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  2
+                    ++<br>
+                    &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 15
+                    +++++++++++++++<br>
+                    &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  1 +<br>
+                    &gt;   3 files changed, 18 insertions(+)<br>
+                    &gt;<br>
+                    &gt; diff --git
+                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+                    &gt; index 383bf2d31c92..414e61799236 100644<br>
+                    &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+                    &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+                    &gt; @@ -919,6 +919,8 @@ static int
+                    amdgpu_bo_vm_update_pte(struct amdgpu_cs_parser *p)<br>
+                    &gt;                }<br>
+                    &gt;        }<br>
+                    &gt;   <br>
+                    &gt; +     amdgpu_vm_refresh_lru(adev, vm);<br>
+                    &gt; +<br>
+                    &gt;        return r;<br>
+                    &gt;   }<br>
+                    &gt;   <br>
+                    &gt; diff --git
+                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+                    &gt; index 5e35e23511cf..8ad2bb705765 100644<br>
+                    &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+                    &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+                    &gt; @@ -1902,6 +1902,21 @@ struct amdgpu_bo_va
+                    *amdgpu_vm_bo_add(struct amdgpu_device *adev,<br>
+                    &gt;        return bo_va;<br>
+                    &gt;   }<br>
+                    &gt;   <br>
+                    &gt; +void amdgpu_vm_refresh_lru(struct
+                    amdgpu_device *adev, struct amdgpu_vm *vm)<br>
+                    &gt; +{<br>
+                    &gt; +     struct ttm_bo_global *glob =
+                    adev-&gt;mman.bdev.glob;<br>
+                    &gt; +     struct amdgpu_vm_bo_base *bo_base;<br>
+                    &gt; +<br>
+                    &gt; +     spin_lock(&amp;vm-&gt;status_lock);<br>
+                    &gt; +     list_for_each_entry(bo_base,
+                    &amp;vm-&gt;vm_bo_list, vm_bo) {<br>
+                    &gt; +            
+                    spin_lock(&amp;glob-&gt;lru_lock);<br>
+                    &gt; +            
+                    ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;tbo);<br>
+                    &gt; +             if (bo_base-&gt;bo-&gt;shadow)<br>
+                    &gt; +                    
+                    ttm_bo_move_to_lru_tail(&amp;bo_base-&gt;bo-&gt;shadow-&gt;tbo);<br>
+                    &gt; +            
+                    spin_unlock(&amp;glob-&gt;lru_lock);<br>
+                    &gt; +     }<br>
+                    &gt; +     spin_unlock(&amp;vm-&gt;status_lock);<br>
+                    &gt; +}<br>
+                    &gt;   <br>
+                    &gt;   /**<br>
+                    &gt;    * amdgpu_vm_bo_insert_mapping - insert a new
+                    mapping<br>
+                    &gt; diff --git
+                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                    &gt; index 1886a561c84e..e01895581489 100644<br>
+                    &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                    &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                    &gt; @@ -285,6 +285,7 @@ int
+                    amdgpu_vm_clear_freed(struct amdgpu_device *adev,<br>
+                    &gt;                          struct dma_fence
+                    **fence);<br>
+                    &gt;   int amdgpu_vm_handle_moved(struct
+                    amdgpu_device *adev,<br>
+                    &gt;                           struct amdgpu_vm
+                    *vm);<br>
+                    &gt; +void amdgpu_vm_refresh_lru(struct
+                    amdgpu_device *adev, struct amdgpu_vm *vm);<br>
+                    &gt;   int amdgpu_vm_bo_update(struct amdgpu_device
+                    *adev,<br>
+                    &gt;                        struct amdgpu_bo_va
+                    *bo_va,<br>
+                    &gt;                        bool clear);<br>
+                    <br>
+                  </div>
+                </span></font> </blockquote>
+            <br>
+          </blockquote>
+          <br>
+        </blockquote>
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------B73A9429760229B8D30F696C--
+
+--===============0558480891==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0558480891==--
