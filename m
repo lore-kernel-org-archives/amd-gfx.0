@@ -1,102 +1,82 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 4/8] dma-buf: add peer2peer flag
-Date: Thu, 29 Mar 2018 13:34:24 +0200
-Message-ID: <8b823458-8bdc-3217-572b-509a28aae742@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Thu, 29 Mar 2018 13:44:59 +0200
+Message-ID: <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
 References: <20180325110000.2238-1-christian.koenig@amd.com>
- <20180325110000.2238-4-christian.koenig@amd.com>
- <20180329065753.GD3881@phenom.ffwll.local>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <20180325110000.2238-2-christian.koenig@amd.com>
+ <20180328123830.GB25060@infradead.org>
+ <613a6c91-7e72-5589-77e6-587ec973d553@gmail.com>
+ <c81df70d-191d-bf8e-293a-413dd633e1fc@deltatee.com>
+ <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
+ <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
+ <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
+ <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
+ <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
+ <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180329065753.GD3881-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Sender: linux-kernel-owner@vger.kernel.org
+To: Logan Gunthorpe <logang@deltatee.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>
+Cc: linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjkuMDMuMjAxOCB1bSAwODo1NyBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4gT24gU3VuLCBN
-YXIgMjUsIDIwMTggYXQgMTI6NTk6NTZQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
-Pj4gQWRkIGEgcGVlcjJwZWVyIGZsYWcgbm90aW5nIHRoYXQgdGhlIGltcG9ydGVyIGNhbiBkZWFs
-IHdpdGggZGV2aWNlCj4+IHJlc291cmNlcyB3aGljaCBhcmUgbm90IGJhY2tlZCBieSBwYWdlcy4K
-Pj4KPj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0Bh
-bWQuY29tPgo+IFVtIHN0cmljdGx5IHNwZWFraW5nIHRoZXkgYWxsIHNob3VsZCwgYnV0IHR0bSBu
-ZXZlciBib3RoZXJlZCB0byB1c2UgdGhlCj4gcmVhbCBpbnRlcmZhY2VzIGJ1dCBqdXN0IGhhY2tl
-ZCBhcm91bmQgdGhlIHByb3ZpZGVkIHNnIGxpc3QsIGdyYWJiaW5nIHRoZQo+IHVuZGVybHlpbmcg
-c3RydWN0IHBhZ2VzLCB0aGVuIHJlYnVpbGRpbmcmcmVtYXBwaW5nIHRoZSBzZyBsaXN0IGFnYWlu
-LgoKQWN0dWFsbHkgdGhhdCBpc24ndCBjb3JyZWN0LiBUVE0gY29udmVydHMgdGhlbSB0byBhIGRt
-YSBhZGRyZXNzIGFycmF5IApiZWNhdXNlIGRyaXZlcnMgbmVlZCBpdCBsaWtlIHRoaXMgKGF0IGxl
-YXN0IG5vdXZlYXUsIHJhZGVvbiBhbmQgYW1kZ3B1KS4KCkkndmUgZml4ZWQgcmFkZW9uIGFuZCBh
-bWRncHUgdG8gYmUgYWJsZSB0byBkZWFsIHdpdGhvdXQgaXQgYW5kIG1haWxlZCAKd2l0aCBCZW4g
-YWJvdXQgbm91dmVhdSwgYnV0IHRoZSBvdXRjb21lIGlzIHRoZXkgZG9uJ3QgcmVhbGx5IGtub3cu
-CgpUVE0gaXRzZWxmIGRvZXNuJ3QgaGF2ZSBhbnkgbmVlZCBmb3IgdGhlIHBhZ2VzIG9uIGltcG9y
-dGVkIEJPcyAoeW91IApjYW4ndCBtbWFwIHRoZW0gYW55d2F5KSwgdGhlIHJlYWwgdW5kZXJseWlu
-ZyBwcm9ibGVtIGlzIHRoYXQgc2cgdGFibGVzIApkb2Vzbid0IHByb3ZpZGUgd2hhdCBkcml2ZXJz
-IG5lZWQuCgpJIHRoaW5rIHdlIGNvdWxkIHJhdGhlciBlYXNpbHkgZml4IHNnIHRhYmxlcywgYnV0
-IHRoYXQgaXMgYSB0b3RhbGx5IApzZXBhcmF0ZSB0YXNrLgoKPiBUaGUgZW50aXJlIHBvaW50IG9m
-IHVzaW5nIHNnIGxpc3RzIHdhcyBleGFjdGx5IHRvIGFsbG93IHRoaXMgdXNlIGNhc2Ugb2YKPiBw
-ZWVyMnBlZXIgZG1hIChvciB3ZWxsIGluIGdlbmVyYWwgaGF2ZSBzcGVjaWFsIGV4cG9ydGVycyB3
-aGljaCBtYW5hZ2VkCj4gbWVtb3J5L0lPIHJhbmdlcyBub3QgYmFja2VkIGJ5IHN0cnVjdCBwYWdl
-KS4gU28gZXNzZW50aWFsbHkgeW91J3JlIGhhdmluZwo+IGEgIkknbSB0b3RhbGx5IG5vdCBicm9r
-ZW4gZmxhZyIgaGVyZS4KCk5vLCBpbmRlcGVuZGVudCBvZiBuZWVkZWQgc3RydWN0IHBhZ2UgcG9p
-bnRlcnMgd2UgbmVlZCB0byBub3RlIGlmIHRoZSAKZXhwb3J0ZXIgY2FuIGhhbmRsZSBwZWVyMnBl
-ZXIgc3R1ZmYgZnJvbSB0aGUgaGFyZHdhcmUgc2lkZSBpbiBnZW5lcmFsLgoKU28gd2hhdCBJJ3Zl
-IGRpZCBpcyBqdXN0IHRvIHNldCBwZWVyMnBlZXIgYWxsb3dlZCBvbiB0aGUgaW1wb3J0ZXIgCmJl
-Y2F1c2Ugb2YgdGhlIGRyaXZlciBuZWVkcyBhbmQgY2xlYXIgaXQgaW4gdGhlIGV4cG9ydGVyIGlm
-IHRoZSBoYXJkd2FyZSAKY2FuJ3QgaGFuZGxlIHRoYXQuCgo+IEkgdGhpbmsgYSBiZXR0ZXIgYXBw
-cm9hY2ggd291bGQgYmUgaWYgd2UgYWRkIGEgcmVxdWlyZXNfc3RydWN0X3BhZ2Ugb3Igc28sCj4g
-YW5kIGFubm90YXRlIHRoZSBjdXJyZW50IGltcG9ydGVycyBhY2NvcmRpbmdseS4gT3Igd2UganVz
-dCBmaXggdGhlbSB1cCAoaXQKPiBpcyBhbGwgaW4gc2hhcmVkIHR0bSBjb2RlIGFmdGVyIGFsbCwg
-SSB0aGluayBldmVyeW9uZSBlbHNlIGdvdCB0aGlzCj4gcmlnaHQpLgoKSSB3b3VsZCByYXRoZXIg
-bm90IGJlZCBvbiB0aGF0LgoKQ2hyaXN0aWFuLgoKPiAtRGFuaWVsCj4KPj4gLS0tCj4+ICAgZHJp
-dmVycy9kbWEtYnVmL2RtYS1idWYuYyB8IDEgKwo+PiAgIGluY2x1ZGUvbGludXgvZG1hLWJ1Zi5o
-ICAgfCA0ICsrKysKPj4gICAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo+Pgo+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYuYyBiL2RyaXZlcnMvZG1hLWJ1Zi9k
-bWEtYnVmLmMKPj4gaW5kZXggZmZhYTJmOWE5YzJjLi5mNDIwMjI1ZjkzYzYgMTAwNjQ0Cj4+IC0t
-LSBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMKPj4gKysrIGIvZHJpdmVycy9kbWEtYnVmL2Rt
-YS1idWYuYwo+PiBAQCAtNTY1LDYgKzU2NSw3IEBAIHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQg
-KmRtYV9idWZfYXR0YWNoKGNvbnN0IHN0cnVjdCBkbWFfYnVmX2F0dGFjaF9pbmZvICppbmZvCj4+
-ICAgCj4+ICAgCWF0dGFjaC0+ZGV2ID0gaW5mby0+ZGV2Owo+PiAgIAlhdHRhY2gtPmRtYWJ1ZiA9
-IGRtYWJ1ZjsKPj4gKwlhdHRhY2gtPnBlZXIycGVlciA9IGluZm8tPnBlZXIycGVlcjsKPj4gICAJ
-YXR0YWNoLT5wcml2ID0gaW5mby0+cHJpdjsKPj4gICAJYXR0YWNoLT5pbnZhbGlkYXRlID0gaW5m
-by0+aW52YWxpZGF0ZTsKPj4gICAKPj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvZG1hLWJ1
-Zi5oIGIvaW5jbHVkZS9saW51eC9kbWEtYnVmLmgKPj4gaW5kZXggMTVkZDg1OThiZmYxLi4xZWY1
-MGJkOWJjNWIgMTAwNjQ0Cj4+IC0tLSBhL2luY2x1ZGUvbGludXgvZG1hLWJ1Zi5oCj4+ICsrKyBi
-L2luY2x1ZGUvbGludXgvZG1hLWJ1Zi5oCj4+IEBAIC0zMTMsNiArMzEzLDcgQEAgc3RydWN0IGRt
-YV9idWYgewo+PiAgICAqIEBkbWFidWY6IGJ1ZmZlciBmb3IgdGhpcyBhdHRhY2htZW50Lgo+PiAg
-ICAqIEBkZXY6IGRldmljZSBhdHRhY2hlZCB0byB0aGUgYnVmZmVyLgo+PiAgICAqIEBub2RlOiBs
-aXN0IG9mIGRtYV9idWZfYXR0YWNobWVudC4KPj4gKyAqIEBwZWVyMnBlZXI6IHRydWUgaWYgdGhl
-IGltcG9ydGVyIGNhbiBoYW5kbGUgcGVlciByZXNvdXJjZXMgd2l0aG91dCBwYWdlcy4KPj4gICAg
-KiBAcHJpdjogZXhwb3J0ZXIgc3BlY2lmaWMgYXR0YWNobWVudCBkYXRhLgo+PiAgICAqCj4+ICAg
-ICogVGhpcyBzdHJ1Y3R1cmUgaG9sZHMgdGhlIGF0dGFjaG1lbnQgaW5mb3JtYXRpb24gYmV0d2Vl
-biB0aGUgZG1hX2J1ZiBidWZmZXIKPj4gQEAgLTMyOCw2ICszMjksNyBAQCBzdHJ1Y3QgZG1hX2J1
-Zl9hdHRhY2htZW50IHsKPj4gICAJc3RydWN0IGRtYV9idWYgKmRtYWJ1ZjsKPj4gICAJc3RydWN0
-IGRldmljZSAqZGV2Owo+PiAgIAlzdHJ1Y3QgbGlzdF9oZWFkIG5vZGU7Cj4+ICsJYm9vbCBwZWVy
-MnBlZXI7Cj4+ICAgCXZvaWQgKnByaXY7Cj4+ICAgCj4+ICAgCS8qKgo+PiBAQCAtMzkyLDYgKzM5
-NCw3IEBAIHN0cnVjdCBkbWFfYnVmX2V4cG9ydF9pbmZvIHsKPj4gICAgKiBAZG1hYnVmOgl0aGUg
-ZXhwb3J0ZWQgZG1hX2J1Zgo+PiAgICAqIEBkZXY6CXRoZSBkZXZpY2Ugd2hpY2ggd2FudHMgdG8g
-aW1wb3J0IHRoZSBhdHRhY2htZW50Cj4+ICAgICogQHByaXY6CXByaXZhdGUgZGF0YSBvZiBpbXBv
-cnRlciB0byB0aGlzIGF0dGFjaG1lbnQKPj4gKyAqIEBwZWVyMnBlZXI6CXRydWUgaWYgdGhlIGlt
-cG9ydGVyIGNhbiBoYW5kbGUgcGVlciByZXNvdXJjZXMgd2l0aG91dCBwYWdlcwo+PiAgICAqIEBp
-bnZhbGlkYXRlOgljYWxsYmFjayB0byB1c2UgZm9yIGludmFsaWRhdGluZyBtYXBwaW5ncwo+PiAg
-ICAqCj4+ICAgICogVGhpcyBzdHJ1Y3R1cmUgaG9sZHMgdGhlIGluZm9ybWF0aW9uIHJlcXVpcmVk
-IHRvIGF0dGFjaCB0byBhIGJ1ZmZlci4gVXNlZAo+PiBAQCAtNDAxLDYgKzQwNCw3IEBAIHN0cnVj
-dCBkbWFfYnVmX2F0dGFjaF9pbmZvIHsKPj4gICAJc3RydWN0IGRtYV9idWYgKmRtYWJ1ZjsKPj4g
-ICAJc3RydWN0IGRldmljZSAqZGV2Owo+PiAgIAl2b2lkICpwcml2Owo+PiArCWJvb2wgcGVlcjJw
-ZWVyOwo+PiAgIAl2b2lkICgqaW52YWxpZGF0ZSkoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAq
-YXR0YWNoKTsKPj4gICB9Owo+PiAgIAo+PiAtLSAKPj4gMi4xNC4xCj4+Cj4+IF9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGRyaS1kZXZlbCBtYWlsaW5n
-IGxpc3QKPj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 28.03.2018 um 21:53 schrieb Logan Gunthorpe:
+>
+> On 28/03/18 01:44 PM, Christian König wrote:
+>> Well, isn't that exactly what dma_map_resource() is good for? As far as
+>> I can see it makes sure IOMMU is aware of the access route and
+>> translates a CPU address into a PCI Bus address.
+>> I'm using that with the AMD IOMMU driver and at least there it works
+>> perfectly fine.
+> Yes, it would be nice, but no arch has implemented this yet. We are just
+> lucky in the x86 case because that arch is simple and doesn't need to do
+> anything for P2P (partially due to the Bus and CPU addresses being the
+> same). But in the general case, you can't rely on it.
+
+Well, that an arch hasn't implemented it doesn't mean that we don't have 
+the right interface to do it.
+
+>>>> Yeah, but not for ours. See if you want to do real peer 2 peer you need
+>>>> to keep both the operation as well as the direction into account.
+>>> Not sure what you are saying here... I'm pretty sure we are doing "real"
+>>> peer 2 peer...
+>>>
+>>>> For example when you can do writes between A and B that doesn't mean
+>>>> that writes between B and A work. And reads are generally less likely to
+>>>> work than writes. etc...
+>>> If both devices are behind a switch then the PCI spec guarantees that A
+>>> can both read and write B and vice versa.
+>> Sorry to say that, but I know a whole bunch of PCI devices which
+>> horrible ignores that.
+> Can you elaborate? As far as the device is concerned it shouldn't know
+> whether a request comes from a peer or from the host. If it does do
+> crazy stuff like that it's well out of spec. It's up to the switch (or
+> root complex if good support exists) to route the request to the device
+> and it's the root complex that tends to be what drops the load requests
+> which causes the asymmetries.
+
+Devices integrated in the CPU usually only "claim" to be PCIe devices. 
+In reality their memory request path go directly through the integrated 
+north bridge. The reason for this is simple better throughput/latency.
+
+That is hidden from the software, for example the BIOS just allocates 
+address space for the BARs as if it's a normal PCIe device.
+
+The only crux is when you then do peer2peer your request simply go into 
+nirvana and are not handled by anything because the BARs are only 
+visible from the CPU side of the northbridge.
+
+Regards,
+Christian.
+
+>
+> Logan
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
