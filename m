@@ -1,68 +1,35 @@
-From: "Yu, Qiang" <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH libdrm] headers: sync up amdgpu_drm.h with drm-next
-Date: Fri, 30 Mar 2018 02:04:56 +0000
-Message-ID: <CY4PR1201MB011768509DAFED221933D7528FA10@CY4PR1201MB0117.namprd12.prod.outlook.com>
-References: <1521526089-2706-1-git-send-email-Qiang.Yu@amd.com>
- <DM5PR1201MB0121EF299ABC93EE458A11688FA20@DM5PR1201MB0121.namprd12.prod.outlook.com>,
- <1778cdc5-1e8a-9395-76b0-23f4d3c15451@amd.com>
+From: Wei Yongjun <weiyongjun1@huawei.com>
+Subject: [PATCH -next] drm/amdkfd: Fix the error return code in kfd_ioctl_unmap_memory_from_gpu()
+Date: Fri, 30 Mar 2018 02:25:17 +0000
+Message-ID: <1522376717-136486-1-git-send-email-weiyongjun1@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1778cdc5-1e8a-9395-76b0-23f4d3c15451-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: oded.gabbay@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Wei Yongjun <weiyongjun1@huawei.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGksIENhbiBhbnlvbmUgc3VibWl0IGl0PwoKVGhhbmtzLApRaWFuZwoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpGcm9tOiBaaG91LCBEYXZpZChDaHVuTWluZykKU2Vu
-dDogVGh1cnNkYXksIE1hcmNoIDI5LCAyMDE4IDExOjA3OjA5IEFNClRvOiBZdSwgUWlhbmc7IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBaaHUsIFJleApTdWJqZWN0OiBSZTogW1BB
-VENIIGxpYmRybV0gaGVhZGVyczogc3luYyB1cCBhbWRncHVfZHJtLmggd2l0aCBkcm0tbmV4dAoK
-QWNrZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+CgoKT24gMjAxOOW5
-tDAz5pyIMjnml6UgMDk6MTAsIFl1LCBRaWFuZyB3cm90ZToKPiBIaSBndXlzLAo+Cj4gUGluZy4K
-Pgo+IFJlZ2FyZHMsCj4gUWlhbmcKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnPiBvbiBiZWhhbGYgb2YgUWlhbmcgWXUgPFFpYW5nLll1QGFtZC5jb20+Cj4gU2VudDog
-VHVlc2RheSwgTWFyY2ggMjAsIDIwMTggMjowODowOSBQTQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+IENjOiBaaHUsIFJleAo+IFN1YmplY3Q6IFtQQVRDSCBsaWJkcm1dIGhl
-YWRlcnM6IHN5bmMgdXAgYW1kZ3B1X2RybS5oIHdpdGggZHJtLW5leHQKPgo+IEZyb206IFJleCBa
-aHUgPFJleC5aaHVAYW1kLmNvbT4KPgo+IEFkZCBzZW5zb3JfaW5mbyB0eXBlCj4gQU1ER1BVX0lO
-Rk9fU0VOU09SX1NUQUJMRV9QU1RBVEVfR0ZYX01DTEsKPiBBTURHUFVfSU5GT19TRU5TT1JfU1RB
-QkxFX1BTVEFURV9HRlhfU0NMSwo+Cj4gUmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFu
-QGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgo+IC0t
-LQo+ICAgaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oIHwgNCArKysrCj4gICAxIGZpbGUgY2hhbmdl
-ZCwgNCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vYW1kZ3B1X2Ry
-bS5oIGIvaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oCj4gaW5kZXggZjlkODFiZi4uYzUxOTc3NiAx
-MDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9hbWRncHVfZHJtLmgKPiArKysgYi9pbmNsdWRlL2Ry
-bS9hbWRncHVfZHJtLmgKPiBAQCAtNzIzLDYgKzcyMywxMCBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9j
-c19jaHVua19kYXRhIHsKPiAgICAgICAgICAjZGVmaW5lIEFNREdQVV9JTkZPX1NFTlNPUl9WRERO
-QiAgICAgICAgICAgICAgICAweDYKPiAgICAgICAgICAvKiBTdWJxdWVyeSBpZDogUXVlcnkgZ3Jh
-cGhpY3Mgdm9sdGFnZSAqLwo+ICAgICAgICAgICNkZWZpbmUgQU1ER1BVX0lORk9fU0VOU09SX1ZE
-REdGWCAgICAgICAgICAgICAgIDB4Nwo+ICsgICAgICAgLyogU3VicXVlcnkgaWQ6IFF1ZXJ5IEdQ
-VSBzdGFibGUgcHN0YXRlIHNoYWRlciBjbG9jayAqLwo+ICsgICAgICAgI2RlZmluZSBBTURHUFVf
-SU5GT19TRU5TT1JfU1RBQkxFX1BTVEFURV9HRlhfU0NMSyAgICAgICAgICAgICAgIDB4OAo+ICsg
-ICAgICAgLyogU3VicXVlcnkgaWQ6IFF1ZXJ5IEdQVSBzdGFibGUgcHN0YXRlIG1lbW9yeSBjbG9j
-ayAqLwo+ICsgICAgICAgI2RlZmluZSBBTURHUFVfSU5GT19TRU5TT1JfU1RBQkxFX1BTVEFURV9H
-RlhfTUNMSyAgICAgICAgICAgICAgIDB4OQo+ICAgLyogTnVtYmVyIG9mIFZSQU0gcGFnZSBmYXVs
-dHMgb24gQ1BVIGFjY2Vzcy4gKi8KPiAgICNkZWZpbmUgQU1ER1BVX0lORk9fTlVNX1ZSQU1fQ1BV
-X1BBR0VfRkFVTFRTICAgMHgxRQo+ICAgI2RlZmluZSBBTURHUFVfSU5GT19WUkFNX0xPU1RfQ09V
-TlRFUiAgICAgICAgICAweDFGCj4gLS0KPiAxLjkuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Passing NULL pointer to PTR_ERR will result in return value of 0
+indicating success which is clearly not what it is intended here.
+This patch returns -EINVAL instead.
+
+Fixes: 5ec7e02854b3 ("drm/amdkfd: Add ioctls for GPUVM memory management")
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index cd679cf..c32a341 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1421,7 +1421,7 @@ static int kfd_ioctl_unmap_memory_from_gpu(struct file *filep,
+ 
+ 	pdd = kfd_get_process_device_data(dev, p);
+ 	if (!pdd) {
+-		err = PTR_ERR(pdd);
++		err = -EINVAL;
+ 		goto bind_process_to_device_failed;
+ 	}
