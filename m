@@ -1,51 +1,46 @@
-From: Jerome Glisse <jglisse@redhat.com>
-Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Fri, 30 Mar 2018 11:25:13 -0400
-Message-ID: <20180330152513.GA3198@redhat.com>
-References: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
- <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
- <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
- <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
- <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
- <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
- <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
- <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
- <20180330015854.GA3572@redhat.com>
- <20180330063334.GA8634@infradead.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/powerplay: whitespace cleanup
+Date: Fri, 30 Mar 2018 10:29:15 -0500
+Message-ID: <20180330152915.393-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20180330063334.GA8634@infradead.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Will Davis <wdavis@nvidia.com>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Mar 29, 2018 at 11:33:34PM -0700, Christoph Hellwig wrote:
-> On Thu, Mar 29, 2018 at 09:58:54PM -0400, Jerome Glisse wrote:
-> > dma_map_resource() is the right API (thought its current implementation
-> > is fill with x86 assumptions). So i would argue that arch can decide to
-> > implement it or simply return dma error address which trigger fallback
-> > path into the caller (at least for GPU drivers). SG variant can be added
-> > on top.
-> 
-> It isn't in general.  It doesn't integrate with scatterlists (see my
-> comment to page one), and it doesn't integrate with all the subsystems
-> that also need a kernel virtual address.
-
-IIRC SG variant was proposed at the time dma_map_resource() was added,
-dunno why they did not make it (again from memory i think it was because
-it grows the scatterlist struct size). My point is more than people that
-need SG variant should work on adding it. People who do not, should not
-be stop by the lack of it. There is something there upstream, it does
-not make sense to not use it. The dma-buf infrastructure is useful to
-many drivers.
-
-If you do not want to share the underlying logic of dma_map_resource()
-fine (ie not sharing code inside drivers/iommu/*). I thought it would
-be a good thing to share code ...
-
-Cheers,
-Jérôme
+Rml4IGNvbmZ1c2luZyBpbmRlbnRhdGlvbi4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8
+YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9od21nci9wcGF0b21md2N0cmwuYyB8IDggKysrKy0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0
+IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHBhdG9tZndjdHJsLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci9wcGF0b21md2N0cmwuYwppbmRleCA4YWVhODhhZWQxZDMuLjBh
+ZGFmMzZiNmQ2OCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
+Z3IvcHBhdG9tZndjdHJsLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
+Z3IvcHBhdG9tZndjdHJsLmMKQEAgLTM4LDExICszOCwxMSBAQCBzdGF0aWMgY29uc3QgdW5pb24g
+YXRvbV92b2x0YWdlX29iamVjdF92NCAqcHBfYXRvbWZ3Y3RybF9sb29rdXBfdm9sdGFnZV90eXBl
+X3Y0KAogCiAJd2hpbGUgKG9mZnNldCA8IHNpemUpIHsKIAkJY29uc3QgdW5pb24gYXRvbV92b2x0
+YWdlX29iamVjdF92NCAqdm9sdGFnZV9vYmplY3QgPQotCQkJCShjb25zdCB1bmlvbiBhdG9tX3Zv
+bHRhZ2Vfb2JqZWN0X3Y0ICopKHN0YXJ0ICsgb2Zmc2V0KTsKKwkJCShjb25zdCB1bmlvbiBhdG9t
+X3ZvbHRhZ2Vfb2JqZWN0X3Y0ICopKHN0YXJ0ICsgb2Zmc2V0KTsKIAotCWlmICh2b2x0YWdlX3R5
+cGUgPT0gdm9sdGFnZV9vYmplY3QtPmdwaW9fdm9sdGFnZV9vYmouaGVhZGVyLnZvbHRhZ2VfdHlw
+ZSAmJgotCQl2b2x0YWdlX21vZGUgPT0gdm9sdGFnZV9vYmplY3QtPmdwaW9fdm9sdGFnZV9vYmou
+aGVhZGVyLnZvbHRhZ2VfbW9kZSkKLQkJcmV0dXJuIHZvbHRhZ2Vfb2JqZWN0OworCQlpZiAodm9s
+dGFnZV90eXBlID09IHZvbHRhZ2Vfb2JqZWN0LT5ncGlvX3ZvbHRhZ2Vfb2JqLmhlYWRlci52b2x0
+YWdlX3R5cGUgJiYKKwkJICAgIHZvbHRhZ2VfbW9kZSA9PSB2b2x0YWdlX29iamVjdC0+Z3Bpb192
+b2x0YWdlX29iai5oZWFkZXIudm9sdGFnZV9tb2RlKQorCQkJcmV0dXJuIHZvbHRhZ2Vfb2JqZWN0
+OwogCiAJCW9mZnNldCArPSBsZTE2X3RvX2NwdSh2b2x0YWdlX29iamVjdC0+Z3Bpb192b2x0YWdl
+X29iai5oZWFkZXIub2JqZWN0X3NpemUpOwogCi0tIAoyLjEzLjYKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
