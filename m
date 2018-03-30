@@ -1,107 +1,77 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amdgpu/si: implement get/set pcie_lanes asic callback
-Date: Fri, 30 Mar 2018 13:37:11 -0500
-Message-ID: <20180330183711.8836-1-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+From: Logan Gunthorpe <logang@deltatee.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Fri, 30 Mar 2018 12:46:42 -0600
+Message-ID: <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
+References: <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
+ <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
+ <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
+ <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
+ <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
+ <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
+ <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
+ <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
+ <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
+ <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
+ <20180330015854.GA3572@redhat.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180330015854.GA3572@redhat.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jerome Glisse <jglisse@redhat.com>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Required for dpm setup on some asics. Fixes a NULL dereference
-on asics that require it.
 
-Bug: https://bugs.freedesktop.org/show_bug.cgi?id=102553
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/si.c | 67 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 775cacfe9917..c364ef94cc36 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1258,6 +1258,71 @@ static bool si_need_full_reset(struct amdgpu_device *adev)
- 	return true;
- }
- 
-+static int si_get_pcie_lanes(struct amdgpu_device *adev)
-+{
-+	u32 link_width_cntl;
-+
-+	if (adev->flags & AMD_IS_APU)
-+		return 0;
-+
-+	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
-+
-+	switch ((link_width_cntl & LC_LINK_WIDTH_RD_MASK) >> LC_LINK_WIDTH_RD_SHIFT) {
-+	case LC_LINK_WIDTH_X1:
-+		return 1;
-+	case LC_LINK_WIDTH_X2:
-+		return 2;
-+	case LC_LINK_WIDTH_X4:
-+		return 4;
-+	case LC_LINK_WIDTH_X8:
-+		return 8;
-+	case LC_LINK_WIDTH_X0:
-+	case LC_LINK_WIDTH_X16:
-+	default:
-+		return 16;
-+	}
-+}
-+
-+static void si_set_pcie_lanes(struct amdgpu_device *adev, int lanes)
-+{
-+	u32 link_width_cntl, mask;
-+
-+	if (adev->flags & AMD_IS_APU)
-+		return;
-+
-+	switch (lanes) {
-+	case 0:
-+		mask = LC_LINK_WIDTH_X0;
-+		break;
-+	case 1:
-+		mask = LC_LINK_WIDTH_X1;
-+		break;
-+	case 2:
-+		mask = LC_LINK_WIDTH_X2;
-+		break;
-+	case 4:
-+		mask = LC_LINK_WIDTH_X4;
-+		break;
-+	case 8:
-+		mask = LC_LINK_WIDTH_X8;
-+		break;
-+	case 16:
-+		mask = LC_LINK_WIDTH_X16;
-+		break;
-+	default:
-+		DRM_ERROR("invalid pcie lane request: %d\n", lanes);
-+		return;
-+	}
-+
-+	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
-+	link_width_cntl &= ~LC_LINK_WIDTH_MASK;
-+	link_width_cntl |= mask << LC_LINK_WIDTH_SHIFT;
-+	link_width_cntl |= (LC_RECONFIG_NOW |
-+			    LC_RECONFIG_ARC_MISSING_ESCAPE);
-+
-+	WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, link_width_cntl);
-+}
-+
- static const struct amdgpu_asic_funcs si_asic_funcs =
- {
- 	.read_disabled_bios = &si_read_disabled_bios,
-@@ -1268,6 +1333,8 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
- 	.get_xclk = &si_get_xclk,
- 	.set_uvd_clocks = &si_set_uvd_clocks,
- 	.set_vce_clocks = NULL,
-+	.get_pcie_lanes = &si_get_pcie_lanes,
-+	.set_pcie_lanes = &si_set_pcie_lanes,
- 	.get_config_memsize = &si_get_config_memsize,
- 	.flush_hdp = &si_flush_hdp,
- 	.invalidate_hdp = &si_invalidate_hdp,
--- 
-2.13.6
+On 29/03/18 07:58 PM, Jerome Glisse wrote:
+> On Thu, Mar 29, 2018 at 10:25:52AM -0600, Logan Gunthorpe wrote:
+>>
+>>
+>> On 29/03/18 10:10 AM, Christian König wrote:
+>>> Why not? I mean the dma_map_resource() function is for P2P while other 
+>>> dma_map_* functions are only for system memory.
+>>
+>> Oh, hmm, I wasn't aware dma_map_resource was exclusively for mapping
+>> P2P. Though it's a bit odd seeing we've been working under the
+>> assumption that PCI P2P is different as it has to translate the PCI bus
+>> address. Where as P2P for devices on other buses is a big unknown.
+> 
+> dma_map_resource() is the right API (thought its current implementation
+> is fill with x86 assumptions). So i would argue that arch can decide to
+> implement it or simply return dma error address which trigger fallback
+> path into the caller (at least for GPU drivers). SG variant can be added
+> on top.
+> 
+> dma_map_resource() is the right API because it has all the necessary
+> informations. It use the CPU physical address as the common address
+> "language" with CPU physical address of PCIE bar to map to another
+> device you can find the corresponding bus address from the IOMMU code
+> (NOP on x86). So dma_map_resource() knows both the source device which
+> export its PCIE bar and the destination devices.
+
+Well, as it is today, it doesn't look very sane to me. The default is to
+just return the physical address if the architecture doesn't support it.
+So if someone tries this on an arch that hasn't added itself to return
+an error they're very likely going to just end up DMAing to an invalid
+address and loosing the data or causing a machine check.
+
+Furthermore, the API does not have all the information it needs to do
+sane things. A phys_addr_t doesn't really tell you anything about the
+memory behind it or what needs to be done with it. For example, on some
+arm64 implementations if the physical address points to a PCI BAR and
+that BAR is behind a switch with the DMA device then the address must be
+converted to the PCI BUS address. On the other hand, if it's a physical
+address of a device in an SOC it might need to  be handled in a
+completely different way. And right now all the implementations I can
+find seem to just assume that phys_addr_t points to regular memory and
+can be treated as such.
+
+This is one of the reasons that, based on feedback, our work went from
+being general P2P with any device to being restricted to only P2P with
+PCI devices. The dream that we can just grab the physical address of any
+device and use it in a DMA request is simply not realistic.
+
+Logan
