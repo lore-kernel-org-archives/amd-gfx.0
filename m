@@ -1,13 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/sdma4:fix sdma engine hang
-Date: Fri, 30 Mar 2018 12:55:12 +0000
-Message-ID: <BN6PR12MB1809BFA58237B2C3C27FE1E3F7A10@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1522398248-9518-1-git-send-email-Emily.Deng@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm] headers: sync up amdgpu_drm.h with drm-next
+Date: Fri, 30 Mar 2018 09:21:32 -0400
+Message-ID: <CADnq5_MPW9NbW-a4HdfcSP-6A_hMJBGYVN7cAgT8rf=c8PVzVg@mail.gmail.com>
+References: <1521526089-2706-1-git-send-email-Qiang.Yu@amd.com>
+ <DM5PR1201MB0121EF299ABC93EE458A11688FA20@DM5PR1201MB0121.namprd12.prod.outlook.com>
+ <1778cdc5-1e8a-9395-76b0-23f4d3c15451@amd.com>
+ <CY4PR1201MB011768509DAFED221933D7528FA10@CY4PR1201MB0117.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2111556876=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1522398248-9518-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR1201MB011768509DAFED221933D7528FA10-1iTaO6aE1DAP/tBwSbHU42rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,192 +21,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yu, Qiang" <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Zhu,
+ Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2111556876==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809BFA58237B2C3C27FE1E3F7A10BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809BFA58237B2C3C27FE1E3F7A10BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-The spec claims it does and we use it for HDP flush...
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Emily De=
-ng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, March 30, 2018 4:24:08 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deng, Emily
-Subject: [PATCH] drm/amdgpu/sdma4:fix sdma engine hang
-
-The sdma doesn't support register write and wait in one command.
-Use this will make sdma engine hang.
-
-Signed-off-by: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v4_0.c
-index 9ac28b2..84d148d 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1178,13 +1178,6 @@ static void sdma_v4_0_ring_emit_reg_wait(struct amdg=
-pu_ring *ring, uint32_t reg,
-         sdma_v4_0_wait_reg_mem(ring, 0, 0, reg, 0, val, mask, 10);
- }
-
--static void sdma_v4_0_ring_emit_reg_write_reg_wait(struct amdgpu_ring *rin=
-g,
--                                                  uint32_t reg0, uint32_t =
-reg1,
--                                                  uint32_t ref, uint32_t m=
-ask)
--{
--       sdma_v4_0_wait_reg_mem(ring, 0, 1, reg0, reg1, ref, mask, 10);
--}
--
- static int sdma_v4_0_early_init(void *handle)
- {
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-@@ -1626,7 +1619,7 @@ static const struct amdgpu_ring_funcs sdma_v4_0_ring_=
-funcs =3D {
-         .pad_ib =3D sdma_v4_0_ring_pad_ib,
-         .emit_wreg =3D sdma_v4_0_ring_emit_wreg,
-         .emit_reg_wait =3D sdma_v4_0_ring_emit_reg_wait,
--       .emit_reg_write_reg_wait =3D sdma_v4_0_ring_emit_reg_write_reg_wait=
-,
-+       .emit_reg_write_reg_wait =3D amdgpu_ring_emit_reg_write_reg_wait_he=
-lper,
- };
-
- static void sdma_v4_0_set_ring_funcs(struct amdgpu_device *adev)
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809BFA58237B2C3C27FE1E3F7A10BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">The spec claims it does and we us=
-e it for HDP flush...</p>
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Emily Deng &lt;Emily.Deng@amd=
-.com&gt;<br>
-<b>Sent:</b> Friday, March 30, 2018 4:24:08 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deng, Emily<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/sdma4:fix sdma engine hang</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The sdma doesn't support register write and wait i=
-n one command.<br>
-Use this will make sdma engine hang.<br>
-<br>
-Signed-off-by: Emily Deng &lt;Emily.Deng-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 9 &#43;--------<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 8 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v4_0.c<br>
-index 9ac28b2..84d148d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-@@ -1178,13 &#43;1178,6 @@ static void sdma_v4_0_ring_emit_reg_wait(struct =
-amdgpu_ring *ring, uint32_t reg,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_v4_0_wait_reg_mem(rin=
-g, 0, 0, reg, 0, val, mask, 10);<br>
-&nbsp;}<br>
-&nbsp;<br>
--static void sdma_v4_0_ring_emit_reg_write_reg_wait(struct amdgpu_ring *rin=
-g,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t reg0, uint32_t reg1,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t ref, uint32_t mask)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_v4_0_wait_reg_mem(ring, 0, 1, re=
-g0, reg1, ref, mask, 10);<br>
--}<br>
--<br>
-&nbsp;static int sdma_v4_0_early_init(void *handle)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)handle;<br>
-@@ -1626,7 &#43;1619,7 @@ static const struct amdgpu_ring_funcs sdma_v4_0_r=
-ing_funcs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .pad_ib =3D sdma_v4_0_ring=
-_pad_ib,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .emit_wreg =3D sdma_v4_0_r=
-ing_emit_wreg,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .emit_reg_wait =3D sdma_v4=
-_0_ring_emit_reg_wait,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .emit_reg_write_reg_wait =3D sdma_v4_=
-0_ring_emit_reg_write_reg_wait,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .emit_reg_write_reg_wait =3D amdg=
-pu_ring_emit_reg_write_reg_wait_helper,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;static void sdma_v4_0_set_ring_funcs(struct amdgpu_device *adev)<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809BFA58237B2C3C27FE1E3F7A10BN6PR12MB1809namp_--
-
---===============2111556876==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2111556876==--
+Q2h1bm1pbmcgc3VibWl0dGVkIGl0OgpodHRwczovL2NnaXQuZnJlZWRlc2t0b3Aub3JnL21lc2Ev
+ZHJtL2NvbW1pdC9pbmNsdWRlL2RybS9hbWRncHVfZHJtLmg/aWQ9MmZhNThjNzdmYjllNTYzMjE5
+ZjhlYzY0N2I5ZGRmNTJmMzM5MGVkMgoKQWxleAoKT24gVGh1LCBNYXIgMjksIDIwMTggYXQgMTA6
+MDQgUE0sIFl1LCBRaWFuZyA8UWlhbmcuWXVAYW1kLmNvbT4gd3JvdGU6Cj4gSGksIENhbiBhbnlv
+bmUgc3VibWl0IGl0Pwo+Cj4gVGhhbmtzLAo+IFFpYW5nCj4KPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCj4gRnJvbTogWmhvdSwgRGF2aWQoQ2h1bk1pbmcpCj4gU2Vu
+dDogVGh1cnNkYXksIE1hcmNoIDI5LCAyMDE4IDExOjA3OjA5IEFNCj4gVG86IFl1LCBRaWFuZzsg
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogWmh1LCBSZXgKPiBTdWJqZWN0OiBS
+ZTogW1BBVENIIGxpYmRybV0gaGVhZGVyczogc3luYyB1cCBhbWRncHVfZHJtLmggd2l0aCBkcm0t
+bmV4dAo+Cj4gQWNrZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+Cj4K
+Pgo+IE9uIDIwMTjlubQwM+aciDI55pelIDA5OjEwLCBZdSwgUWlhbmcgd3JvdGU6Cj4+IEhpIGd1
+eXMsCj4+Cj4+IFBpbmcuCj4+Cj4+IFJlZ2FyZHMsCj4+IFFpYW5nCj4+Cj4+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1i
+b3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIFFpYW5nIFl1IDxRaWFu
+Zy5ZdUBhbWQuY29tPgo+PiBTZW50OiBUdWVzZGF5LCBNYXJjaCAyMCwgMjAxOCAyOjA4OjA5IFBN
+Cj4+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBDYzogWmh1LCBSZXgKPj4g
+U3ViamVjdDogW1BBVENIIGxpYmRybV0gaGVhZGVyczogc3luYyB1cCBhbWRncHVfZHJtLmggd2l0
+aCBkcm0tbmV4dAo+Pgo+PiBGcm9tOiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Cj4+Cj4+IEFk
+ZCBzZW5zb3JfaW5mbyB0eXBlCj4+IEFNREdQVV9JTkZPX1NFTlNPUl9TVEFCTEVfUFNUQVRFX0dG
+WF9NQ0xLCj4+IEFNREdQVV9JTkZPX1NFTlNPUl9TVEFCTEVfUFNUQVRFX0dGWF9TQ0xLCj4+Cj4+
+IFJldmlld2VkLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgo+PiBTaWduZWQtb2Zm
+LWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Cj4+IC0tLQo+PiAgIGluY2x1ZGUvZHJtL2Ft
+ZGdwdV9kcm0uaCB8IDQgKysrKwo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykK
+Pj4KPj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvZHJt
+L2FtZGdwdV9kcm0uaAo+PiBpbmRleCBmOWQ4MWJmLi5jNTE5Nzc2IDEwMDY0NAo+PiAtLS0gYS9p
+bmNsdWRlL2RybS9hbWRncHVfZHJtLmgKPj4gKysrIGIvaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5o
+Cj4+IEBAIC03MjMsNiArNzIzLDEwIEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rX2RhdGEg
+ewo+PiAgICAgICAgICAjZGVmaW5lIEFNREdQVV9JTkZPX1NFTlNPUl9WREROQiAgICAgICAgICAg
+ICAgICAweDYKPj4gICAgICAgICAgLyogU3VicXVlcnkgaWQ6IFF1ZXJ5IGdyYXBoaWNzIHZvbHRh
+Z2UgKi8KPj4gICAgICAgICAgI2RlZmluZSBBTURHUFVfSU5GT19TRU5TT1JfVkRER0ZYICAgICAg
+ICAgICAgICAgMHg3Cj4+ICsgICAgICAgLyogU3VicXVlcnkgaWQ6IFF1ZXJ5IEdQVSBzdGFibGUg
+cHN0YXRlIHNoYWRlciBjbG9jayAqLwo+PiArICAgICAgICNkZWZpbmUgQU1ER1BVX0lORk9fU0VO
+U09SX1NUQUJMRV9QU1RBVEVfR0ZYX1NDTEsgICAgICAgICAgICAgICAweDgKPj4gKyAgICAgICAv
+KiBTdWJxdWVyeSBpZDogUXVlcnkgR1BVIHN0YWJsZSBwc3RhdGUgbWVtb3J5IGNsb2NrICovCj4+
+ICsgICAgICAgI2RlZmluZSBBTURHUFVfSU5GT19TRU5TT1JfU1RBQkxFX1BTVEFURV9HRlhfTUNM
+SyAgICAgICAgICAgICAgIDB4OQo+PiAgIC8qIE51bWJlciBvZiBWUkFNIHBhZ2UgZmF1bHRzIG9u
+IENQVSBhY2Nlc3MuICovCj4+ICAgI2RlZmluZSBBTURHUFVfSU5GT19OVU1fVlJBTV9DUFVfUEFH
+RV9GQVVMVFMgICAweDFFCj4+ICAgI2RlZmluZSBBTURHUFVfSU5GT19WUkFNX0xPU1RfQ09VTlRF
+UiAgICAgICAgICAweDFGCj4+IC0tCj4+IDEuOS4xCj4+Cj4+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+PiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
