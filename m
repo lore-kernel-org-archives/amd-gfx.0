@@ -1,13 +1,14 @@
-From: Alex Deucher <alexdeucher@gmail.com>
+From: Daniel Stone <daniels@collabora.com>
 Subject: Re: [PATCH 00/24] drm_framebuffer boilerplate removal
-Date: Fri, 30 Mar 2018 10:47:53 -0400
-Message-ID: <CADnq5_MSsXgUdGNPu76c0qE1As5wmTbJr147KfTeG8E-LGG5ig@mail.gmail.com>
+Date: Fri, 30 Mar 2018 16:00:39 +0100
+Message-ID: <CAPj87rOfg18u1xBioeu1D0MoD4My2rZy1Nw3yfA4DhdX2R7g7w@mail.gmail.com>
 References: <CAPj87rPKDwBK7qoOoY2zXoS6T02toATPRsk=39m_OBr=s1kXTw@mail.gmail.com>
+ <CADnq5_MSsXgUdGNPu76c0qE1As5wmTbJr147KfTeG8E-LGG5ig@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CAPj87rPKDwBK7qoOoY2zXoS6T02toATPRsk=39m_OBr=s1kXTw@mail.gmail.com>
+In-Reply-To: <CADnq5_MSsXgUdGNPu76c0qE1As5wmTbJr147KfTeG8E-LGG5ig@mail.gmail.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -17,43 +18,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Daniel Stone <daniels@collabora.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, "open list:VIRTIO CORE,
- NET..." <virtualization@lists.linux-foundation.org>, Thierry Reding <thierry.reding@gmail.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, Russell King <linux@armlinux.org.uk>, Tomi Valkeinen <tomi.valkeinen@ti.com>, Dave Airlie <airlied@redhat.com>, David Lechner <david@lechnology.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>, intel-gfx <intel-gfx@lists.freedesktop.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Gerd Hoffmann <kraxel@redhat.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBNYXIgMzAsIDIwMTggYXQgMTA6MTEgQU0sIERhbmllbCBTdG9uZSA8ZGFuaWVsc0Bj
-b2xsYWJvcmEuY29tPiB3cm90ZToKPiBIaSwKPiBJJ3ZlIGJlZW4gd29ya2luZyBvbiBhIGdldGZi
-MlswXSBpb2N0bCwgd2hpY2ggYW1vbmdzdCBvdGhlciB0aGluZ3MKPiBzdXBwb3J0cyBtdWx0aS1w
-bGFuYXIgZnJhbWVidWZmZXJzIGFzIHdlbGwgYXMgbW9kaWZpZXJzLiBnZXRmYgo+IGN1cnJlbnRs
-eSBjYWxscyB0aGUgZnJhbWVidWZmZXIncyBoYW5kbGVfY3JlYXRlIGhvb2ssIHdoaWNoIGRvZXNu
-J3QKPiBzdXBwb3J0IG11bHRpcGxlIHBsYW5lcy4KPgo+IFRoYW5rcyB0byBOb3JhbGYncyByZWNl
-bnQgd29yaywgZHJpdmVycyBjYW4ganVzdCBzdG9yZSBHRU0gb2JqZWN0cwo+IGRpcmVjdGx5IGlu
-IGRybV9mcmFtZWJ1ZmZlci4gSSB1c2UgdGhpcyBkaXJlY3RseSBpbiBnZXRmYjI6IHdlIG5lZWQK
-PiBkaXJlY3QgYWNjZXNzIHRvIHRoZSBHRU0gb2JqZWN0cyBhbmQgbm90IGEgdmZ1bmMgaW4gb3Jk
-ZXIgdG8gbm90IGhhbmQKPiBvdXQgZHVwbGljYXRlIEdFTSBuYW1lcyBmb3IgdGhlIHNhbWUgb2Jq
-ZWN0Lgo+Cj4gVGhpcyBzZXJpZXMgY29udmVydHMgYWxsIGRyaXZlcnMgZXhjZXB0IGZvciBub3V2
-ZWF1LCB3aGljaCB3YXMgYQo+IGxpdHRsZSB0b28gbm9uLXRyaXZpYWwgZm9yIG15IGNvbWZvcnQs
-IHRvIHN0b3JpbmcgR0VNIG9iamVjdHMgZGlyZWN0bHkKPiBpbiBkcm1fZnJhbWVidWZmZXIuIEZv
-ciB0aG9zZSBkcml2ZXJzIHdob3NlIGRyaXZlcl9mcmFtZWJ1ZmZlciBzdHJ1Y3QKPiB3YXMgbm90
-aGluZyBidXQgZHJtX2ZyYW1lYnVmZmVyICsgQk8sIGl0IGRlbGV0ZXMgdGhlIGRyaXZlci1zcGVj
-aWZpYwo+IHN0cnVjdC4gSXQgYWxzbyBtYWtlcyB1c2Ugb2YgTm9yYWxmJ3MgZ2VuZXJpYyBmcmFt
-ZWJ1ZmZlciBoZWxwZXJzIGZvcgo+IGNyZWF0ZV9oYW5kbGUgYW5kIGRlc3Ryb3kgd2hlcmUgcG9z
-c2libGUuCj4KPiBJIGRvbid0IGhhdmUgdGhlIGhhcmR3YXJlIGZvciBtb3N0IG9mIHRoZXNlIGRy
-aXZlcnMsIHNvIGhhdmUgaGFkIHRvCj4gc2V0dGxlIGZvciBqdXN0IHN0YXJpbmcgcmVhbGx5IGhh
-cmQgYXQgdGhlIGRpZmYuCj4KPiBJIGludGVuZCB0byByZW1vdmUgY3JlYXRlX2hhbmRsZSB3aGVu
-IGFsbCBkcml2ZXJzIGFyZSBjb252ZXJ0ZWQgb3Zlcgo+IHRvIHBsYWNpbmcgQk9zIGRpcmVjdGx5
-IGluc2lkZSBkcm1fZnJhbWVidWZmZXIuIEZvciBtb3N0IGRyaXZlcnMKPiB0aGVyZSdzIGEgcmVs
-YXRpdmVseSBlYXN5IGNvbnZlcnNpb24gdG8gdXNpbmcgdGhlIGhlbHBlcnMgZm9yCj4gYmFzaWNh
-bGx5IGFsbCBmcmFtZWJ1ZmZlciBoYW5kbGluZyBhbmQgZmJkZXYgZW11bGF0aW9uIGFzIHdlbGws
-IHRob3VnaAo+IHRoYXQncyBhIGJpdCBmdXJ0aGVyIHRoYW4gSSB3YXMgd2lsbGluZyB0byBnbyB3
-aXRob3V0IGhhcmR3YXJlIHRvIHRlc3QKPiBvbiAuLi4KClNlcmllcyBpczoKQWNrZWQtYnk6IEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCj4KPiBDaGVlcnMsCj4gRGFu
-aWVsCj4KPiBbMF06IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2RyaS1k
-ZXZlbC8yMDE4LU1hcmNoLzE3MDUxMi5odG1sCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
-aS1kZXZlbAo=
+SGkgQWxleCwKCk9uIDMwIE1hcmNoIDIwMTggYXQgMTU6NDcsIEFsZXggRGV1Y2hlciA8YWxleGRl
+dWNoZXJAZ21haWwuY29tPiB3cm90ZToKPiBPbiBGcmksIE1hciAzMCwgMjAxOCBhdCAxMDoxMSBB
+TSwgRGFuaWVsIFN0b25lIDxkYW5pZWxzQGNvbGxhYm9yYS5jb20+IHdyb3RlOgo+PiBJIGludGVu
+ZCB0byByZW1vdmUgY3JlYXRlX2hhbmRsZSB3aGVuIGFsbCBkcml2ZXJzIGFyZSBjb252ZXJ0ZWQg
+b3Zlcgo+PiB0byBwbGFjaW5nIEJPcyBkaXJlY3RseSBpbnNpZGUgZHJtX2ZyYW1lYnVmZmVyLiBG
+b3IgbW9zdCBkcml2ZXJzCj4+IHRoZXJlJ3MgYSByZWxhdGl2ZWx5IGVhc3kgY29udmVyc2lvbiB0
+byB1c2luZyB0aGUgaGVscGVycyBmb3IKPj4gYmFzaWNhbGx5IGFsbCBmcmFtZWJ1ZmZlciBoYW5k
+bGluZyBhbmQgZmJkZXYgZW11bGF0aW9uIGFzIHdlbGwsIHRob3VnaAo+PiB0aGF0J3MgYSBiaXQg
+ZnVydGhlciB0aGFuIEkgd2FzIHdpbGxpbmcgdG8gZ28gd2l0aG91dCBoYXJkd2FyZSB0byB0ZXN0
+Cj4+IG9uIC4uLgo+Cj4gU2VyaWVzIGlzOgo+IEFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhh
+bmRlci5kZXVjaGVyQGFtZC5jb20+CgpUaGFua3MgYSBsb3QgZm9yIHRoZSByZXZpZXchIEFyZSB5
+b3UgdGFraW5nIHRoZSByYWRlb24vYW1kZ3B1IHBhdGNoZXMKdGhyb3VnaCB5b3VyIHRyZWU/IFRo
+ZXkgZG9uJ3QgaGF2ZSBhbnkgZGVwZW5kZW5jaWVzIG9uIGNvcmUgY29kZS4KCkNoZWVycywKRGFu
+aWVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
