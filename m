@@ -1,46 +1,41 @@
-From: Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Thu, 29 Mar 2018 23:33:34 -0700
-Message-ID: <20180330063334.GA8634@infradead.org>
-References: <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
- <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
- <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
- <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
- <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
- <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
- <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
- <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
- <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
- <20180330015854.GA3572@redhat.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/pp: Clean register first to avoid read original value
+Date: Fri, 30 Mar 2018 15:33:26 +0800
+Message-ID: <1522395206-5860-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <20180330015854.GA3572@redhat.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Jerome Glisse <jglisse@redhat.com>
-Cc: linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, dri-devel@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-media@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-T24gVGh1LCBNYXIgMjksIDIwMTggYXQgMDk6NTg6NTRQTSAtMDQwMCwgSmVyb21lIEdsaXNzZSB3
-cm90ZToKPiBkbWFfbWFwX3Jlc291cmNlKCkgaXMgdGhlIHJpZ2h0IEFQSSAodGhvdWdodCBpdHMg
-Y3VycmVudCBpbXBsZW1lbnRhdGlvbgo+IGlzIGZpbGwgd2l0aCB4ODYgYXNzdW1wdGlvbnMpLiBT
-byBpIHdvdWxkIGFyZ3VlIHRoYXQgYXJjaCBjYW4gZGVjaWRlIHRvCj4gaW1wbGVtZW50IGl0IG9y
-IHNpbXBseSByZXR1cm4gZG1hIGVycm9yIGFkZHJlc3Mgd2hpY2ggdHJpZ2dlciBmYWxsYmFjawo+
-IHBhdGggaW50byB0aGUgY2FsbGVyIChhdCBsZWFzdCBmb3IgR1BVIGRyaXZlcnMpLiBTRyB2YXJp
-YW50IGNhbiBiZSBhZGRlZAo+IG9uIHRvcC4KCkl0IGlzbid0IGluIGdlbmVyYWwuICBJdCBkb2Vz
-bid0IGludGVncmF0ZSB3aXRoIHNjYXR0ZXJsaXN0cyAoc2VlIG15CmNvbW1lbnQgdG8gcGFnZSBv
-bmUpLCBhbmQgaXQgZG9lc24ndCBpbnRlZ3JhdGUgd2l0aCBhbGwgdGhlIHN1YnN5c3RlbXMKdGhh
-dCBhbHNvIG5lZWQgYSBrZXJuZWwgdmlydHVhbCBhZGRyZXNzLgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1k
-ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+U2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyB8IDEzICsrKysrKysrKysrKysK
+IDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCmluZGV4IGFhYTlmNWIuLjM4Y2YzYTEg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdt
+Z3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdy
+LmMKQEAgLTMzNjgsNiArMzM2OCwxOSBAQCBzdGF0aWMgaW50IHNtdTdfZ2V0X2dwdV9wb3dlcihz
+dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCQkJIkZhaWxlZCB0byBzdGFydCBwbSBzdGF0dXMgbG9n
+ISIsCiAJCQlyZXR1cm4gLTEpOwogCisJY2dzX3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2
+aWNlLAorCQkJQ0dTX0lORF9SRUdfX1NNQywKKwkJCWl4U01VX1BNX1NUQVRVU180MCwgMCk7CisJ
+Y2dzX3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLAorCQkJQ0dTX0lORF9SRUdfX1NN
+QywKKwkJCWl4U01VX1BNX1NUQVRVU180OSwgMCk7CisJY2dzX3dyaXRlX2luZF9yZWdpc3Rlciho
+d21nci0+ZGV2aWNlLAorCQkJQ0dTX0lORF9SRUdfX1NNQywKKwkJCWl4U01VX1BNX1NUQVRVU185
+NCwgMCk7CisJY2dzX3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLAorCQkJQ0dTX0lO
+RF9SRUdfX1NNQywKKwkJCWl4U01VX1BNX1NUQVRVU185NSwgMCk7CisKIAkvKiBTYW1wbGluZyBw
+ZXJpb2QgZnJvbSA1MG1zIHRvIDRzZWMgKi8KIAltc2xlZXBfaW50ZXJydXB0aWJsZSgyMDApOwog
+Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
