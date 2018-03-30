@@ -1,57 +1,51 @@
-From: Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: Clean register first to avoid read original
- value
-Date: Fri, 30 Mar 2018 11:22:14 -0400
-Message-ID: <9bac98b9-4add-6214-f461-bfd91d5636ad@amd.com>
-References: <1522395206-5860-1-git-send-email-Rex.Zhu@amd.com>
- <c42b3004-8b75-60d2-0f2b-45e1e9a2f1f6@amd.com>
+From: Jerome Glisse <jglisse@redhat.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Fri, 30 Mar 2018 11:25:13 -0400
+Message-ID: <20180330152513.GA3198@redhat.com>
+References: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
+ <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
+ <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
+ <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
+ <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
+ <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
+ <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
+ <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
+ <20180330015854.GA3572@redhat.com>
+ <20180330063334.GA8634@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c42b3004-8b75-60d2-0f2b-45e1e9a2f1f6-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20180330063334.GA8634@infradead.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Will Davis <wdavis@nvidia.com>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Ck9uIDAzLzMwLzIwMTggMTA6MzYgQU0sIEVyaWMgSHVhbmcgd3JvdGU6Cj4gSXQgaXMgbm90IG5l
-Y2Vzc2FyeSB0byBkbyB0aGF0LiBUaGUgcmVnaXN0ZXIgd2lsbCByZXNldCB0byAwIGFmdGVyIAo+
-IHJlYWRpbmcuClRoZSByZWdpc3RlciBpcyBub3QgcmVzZXQgYWZ0ZXIgcmVhZGluZy4gQWN0dWFs
-bHkgYWZ0ZXIgClBQU01DX01TR19QbVN0YXR1c0xvZ1NhbXBsZSBzZW50LCB0aGUgcmVnaXN0ZXIg
-d2lsbCBiZSB1cGRhdGVkLiBTbyBpdCBpcyAKc3RpbGwgbm90IG5lY2Vzc2FyeSB0byBkbyB0aGF0
-LgoKRXJpYwo+Cj4gRXJpYwo+Cj4KPiBPbiAwMy8zMC8yMDE4IDAzOjMzIEFNLCBSZXggWmh1IHdy
-b3RlOgo+PiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Cj4+IC0tLQo+
-PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgfCAx
-MyArKysrKysrKysrKysrCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspCj4+
-Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3
-X2h3bWdyLmMgCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19o
-d21nci5jCj4+IGluZGV4IGFhYTlmNWIuLjM4Y2YzYTEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPj4gQEAgLTMzNjgsNiAr
-MzM2OCwxOSBAQCBzdGF0aWMgaW50IHNtdTdfZ2V0X2dwdV9wb3dlcihzdHJ1Y3QgcHBfaHdtZ3Ig
-Cj4+ICpod21nciwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIkZhaWxlZCB0byBzdGFy
-dCBwbSBzdGF0dXMgbG9nISIsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAt
-MSk7Cj4+IMKgICvCoMKgwqAgY2dzX3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLAo+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBDR1NfSU5EX1JFR19fU01DLAo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBpeFNNVV9QTV9TVEFUVVNfNDAsIDApOwo+PiArwqDCoMKgIGNnc193cml0
-ZV9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-Q0dTX0lORF9SRUdfX1NNQywKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaXhTTVVfUE1fU1RB
-VFVTXzQ5LCAwKTsKPj4gK8KgwqDCoCBjZ3Nfd3JpdGVfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZp
-Y2UsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIENHU19JTkRfUkVHX19TTUMsCj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIGl4U01VX1BNX1NUQVRVU185NCwgMCk7Cj4+ICvCoMKgwqAgY2dz
-X3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBDR1NfSU5EX1JFR19fU01DLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpeFNNVV9Q
-TV9TVEFUVVNfOTUsIDApOwo+PiArCj4+IMKgwqDCoMKgwqAgLyogU2FtcGxpbmcgcGVyaW9kIGZy
-b20gNTBtcyB0byA0c2VjICovCj4+IMKgwqDCoMKgwqAgbXNsZWVwX2ludGVycnVwdGlibGUoMjAw
-KTsKPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Mar 29, 2018 at 11:33:34PM -0700, Christoph Hellwig wrote:
+> On Thu, Mar 29, 2018 at 09:58:54PM -0400, Jerome Glisse wrote:
+> > dma_map_resource() is the right API (thought its current implementation
+> > is fill with x86 assumptions). So i would argue that arch can decide to
+> > implement it or simply return dma error address which trigger fallback
+> > path into the caller (at least for GPU drivers). SG variant can be added
+> > on top.
+> 
+> It isn't in general.  It doesn't integrate with scatterlists (see my
+> comment to page one), and it doesn't integrate with all the subsystems
+> that also need a kernel virtual address.
+
+IIRC SG variant was proposed at the time dma_map_resource() was added,
+dunno why they did not make it (again from memory i think it was because
+it grows the scatterlist struct size). My point is more than people that
+need SG variant should work on adding it. People who do not, should not
+be stop by the lack of it. There is something there upstream, it does
+not make sense to not use it. The dma-buf infrastructure is useful to
+many drivers.
+
+If you do not want to share the underlying logic of dma_map_resource()
+fine (ie not sharing code inside drivers/iommu/*). I thought it would
+be a good thing to share code ...
+
+Cheers,
+Jérôme
