@@ -1,10 +1,8 @@
-From: Logan Gunthorpe <logang@deltatee.com>
+From: Jerome Glisse <jglisse@redhat.com>
 Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Fri, 30 Mar 2018 12:46:42 -0600
-Message-ID: <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
-References: <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
- <16c7bef8-5f03-9e89-1f50-b62fb139a36f@deltatee.com>
- <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
+Date: Fri, 30 Mar 2018 15:45:19 -0400
+Message-ID: <20180330194519.GC3198@redhat.com>
+References: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
  <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
  <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
  <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
@@ -13,65 +11,100 @@ References: <5498e9b5-8fe5-8999-a44e-f7dc483bc9ce@amd.com>
  <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
  <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
  <20180330015854.GA3572@redhat.com>
+ <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180330015854.GA3572@redhat.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jerome Glisse <jglisse@redhat.com>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Disposition: inline
+In-Reply-To: <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Logan Gunthorpe <logang@deltatee.com>
+Cc: linaro-mm-sig@lists.linaro.org, Will Davis <wdavis@nvidia.com>, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>, dri-devel@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-media@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-
-
-On 29/03/18 07:58 PM, Jerome Glisse wrote:
-> On Thu, Mar 29, 2018 at 10:25:52AM -0600, Logan Gunthorpe wrote:
->>
->>
->> On 29/03/18 10:10 AM, Christian König wrote:
->>> Why not? I mean the dma_map_resource() function is for P2P while other 
->>> dma_map_* functions are only for system memory.
->>
->> Oh, hmm, I wasn't aware dma_map_resource was exclusively for mapping
->> P2P. Though it's a bit odd seeing we've been working under the
->> assumption that PCI P2P is different as it has to translate the PCI bus
->> address. Where as P2P for devices on other buses is a big unknown.
-> 
-> dma_map_resource() is the right API (thought its current implementation
-> is fill with x86 assumptions). So i would argue that arch can decide to
-> implement it or simply return dma error address which trigger fallback
-> path into the caller (at least for GPU drivers). SG variant can be added
-> on top.
-> 
-> dma_map_resource() is the right API because it has all the necessary
-> informations. It use the CPU physical address as the common address
-> "language" with CPU physical address of PCIE bar to map to another
-> device you can find the corresponding bus address from the IOMMU code
-> (NOP on x86). So dma_map_resource() knows both the source device which
-> export its PCIE bar and the destination devices.
-
-Well, as it is today, it doesn't look very sane to me. The default is to
-just return the physical address if the architecture doesn't support it.
-So if someone tries this on an arch that hasn't added itself to return
-an error they're very likely going to just end up DMAing to an invalid
-address and loosing the data or causing a machine check.
-
-Furthermore, the API does not have all the information it needs to do
-sane things. A phys_addr_t doesn't really tell you anything about the
-memory behind it or what needs to be done with it. For example, on some
-arm64 implementations if the physical address points to a PCI BAR and
-that BAR is behind a switch with the DMA device then the address must be
-converted to the PCI BUS address. On the other hand, if it's a physical
-address of a device in an SOC it might need to  be handled in a
-completely different way. And right now all the implementations I can
-find seem to just assume that phys_addr_t points to regular memory and
-can be treated as such.
-
-This is one of the reasons that, based on feedback, our work went from
-being general P2P with any device to being restricted to only P2P with
-PCI devices. The dream that we can just grab the physical address of any
-device and use it in a DMA request is simply not realistic.
-
-Logan
+T24gRnJpLCBNYXIgMzAsIDIwMTggYXQgMTI6NDY6NDJQTSAtMDYwMCwgTG9nYW4gR3VudGhvcnBl
+IHdyb3RlOgo+IAo+IAo+IE9uIDI5LzAzLzE4IDA3OjU4IFBNLCBKZXJvbWUgR2xpc3NlIHdyb3Rl
+Ogo+ID4gT24gVGh1LCBNYXIgMjksIDIwMTggYXQgMTA6MjU6NTJBTSAtMDYwMCwgTG9nYW4gR3Vu
+dGhvcnBlIHdyb3RlOgo+ID4+Cj4gPj4KPiA+PiBPbiAyOS8wMy8xOCAxMDoxMCBBTSwgQ2hyaXN0
+aWFuIEvDtm5pZyB3cm90ZToKPiA+Pj4gV2h5IG5vdD8gSSBtZWFuIHRoZSBkbWFfbWFwX3Jlc291
+cmNlKCkgZnVuY3Rpb24gaXMgZm9yIFAyUCB3aGlsZSBvdGhlciAKPiA+Pj4gZG1hX21hcF8qIGZ1
+bmN0aW9ucyBhcmUgb25seSBmb3Igc3lzdGVtIG1lbW9yeS4KPiA+Pgo+ID4+IE9oLCBobW0sIEkg
+d2Fzbid0IGF3YXJlIGRtYV9tYXBfcmVzb3VyY2Ugd2FzIGV4Y2x1c2l2ZWx5IGZvciBtYXBwaW5n
+Cj4gPj4gUDJQLiBUaG91Z2ggaXQncyBhIGJpdCBvZGQgc2VlaW5nIHdlJ3ZlIGJlZW4gd29ya2lu
+ZyB1bmRlciB0aGUKPiA+PiBhc3N1bXB0aW9uIHRoYXQgUENJIFAyUCBpcyBkaWZmZXJlbnQgYXMg
+aXQgaGFzIHRvIHRyYW5zbGF0ZSB0aGUgUENJIGJ1cwo+ID4+IGFkZHJlc3MuIFdoZXJlIGFzIFAy
+UCBmb3IgZGV2aWNlcyBvbiBvdGhlciBidXNlcyBpcyBhIGJpZyB1bmtub3duLgo+ID4gCj4gPiBk
+bWFfbWFwX3Jlc291cmNlKCkgaXMgdGhlIHJpZ2h0IEFQSSAodGhvdWdodCBpdHMgY3VycmVudCBp
+bXBsZW1lbnRhdGlvbgo+ID4gaXMgZmlsbCB3aXRoIHg4NiBhc3N1bXB0aW9ucykuIFNvIGkgd291
+bGQgYXJndWUgdGhhdCBhcmNoIGNhbiBkZWNpZGUgdG8KPiA+IGltcGxlbWVudCBpdCBvciBzaW1w
+bHkgcmV0dXJuIGRtYSBlcnJvciBhZGRyZXNzIHdoaWNoIHRyaWdnZXIgZmFsbGJhY2sKPiA+IHBh
+dGggaW50byB0aGUgY2FsbGVyIChhdCBsZWFzdCBmb3IgR1BVIGRyaXZlcnMpLiBTRyB2YXJpYW50
+IGNhbiBiZSBhZGRlZAo+ID4gb24gdG9wLgo+ID4gCj4gPiBkbWFfbWFwX3Jlc291cmNlKCkgaXMg
+dGhlIHJpZ2h0IEFQSSBiZWNhdXNlIGl0IGhhcyBhbGwgdGhlIG5lY2Vzc2FyeQo+ID4gaW5mb3Jt
+YXRpb25zLiBJdCB1c2UgdGhlIENQVSBwaHlzaWNhbCBhZGRyZXNzIGFzIHRoZSBjb21tb24gYWRk
+cmVzcwo+ID4gImxhbmd1YWdlIiB3aXRoIENQVSBwaHlzaWNhbCBhZGRyZXNzIG9mIFBDSUUgYmFy
+IHRvIG1hcCB0byBhbm90aGVyCj4gPiBkZXZpY2UgeW91IGNhbiBmaW5kIHRoZSBjb3JyZXNwb25k
+aW5nIGJ1cyBhZGRyZXNzIGZyb20gdGhlIElPTU1VIGNvZGUKPiA+IChOT1Agb24geDg2KS4gU28g
+ZG1hX21hcF9yZXNvdXJjZSgpIGtub3dzIGJvdGggdGhlIHNvdXJjZSBkZXZpY2Ugd2hpY2gKPiA+
+IGV4cG9ydCBpdHMgUENJRSBiYXIgYW5kIHRoZSBkZXN0aW5hdGlvbiBkZXZpY2VzLgo+IAo+IFdl
+bGwsIGFzIGl0IGlzIHRvZGF5LCBpdCBkb2Vzbid0IGxvb2sgdmVyeSBzYW5lIHRvIG1lLiBUaGUg
+ZGVmYXVsdCBpcyB0bwo+IGp1c3QgcmV0dXJuIHRoZSBwaHlzaWNhbCBhZGRyZXNzIGlmIHRoZSBh
+cmNoaXRlY3R1cmUgZG9lc24ndCBzdXBwb3J0IGl0Lgo+IFNvIGlmIHNvbWVvbmUgdHJpZXMgdGhp
+cyBvbiBhbiBhcmNoIHRoYXQgaGFzbid0IGFkZGVkIGl0c2VsZiB0byByZXR1cm4KPiBhbiBlcnJv
+ciB0aGV5J3JlIHZlcnkgbGlrZWx5IGdvaW5nIHRvIGp1c3QgZW5kIHVwIERNQWluZyB0byBhbiBp
+bnZhbGlkCj4gYWRkcmVzcyBhbmQgbG9vc2luZyB0aGUgZGF0YSBvciBjYXVzaW5nIGEgbWFjaGlu
+ZSBjaGVjay4KCkxvb2tpbmcgYXQgdXBzdHJlYW0gY29kZSBpdCBzZWVtcyB0aGF0IHRoZSB4ODYg
+Yml0cyBuZXZlciBtYWRlIGl0IHVwc3RyZWFtCmFuZCB0aHVzIHdoYXQgaXMgbm93IHVwc3RyZWFt
+IGlzIG9ubHkgZm9yIEFSTS4gU2VlIFsxXSBmb3IgeDg2IGNvZGUuIER1bm5vCndoYXQgaGFwcGVu
+LCBpIHdhcyBjb252aW5jZSBpdCBnb3QgbWVyZ2UuIFNvIHllcyBjdXJyZW50IGNvZGUgaXMgYnJv
+a2VuIG9uCng4Ni4gY2NpbmcgSm9lcmcgbWF5YmUgaGUgcmVtZW1iZXJzIHdoYXQgaGFwcGVuZWQg
+dGhlcmUuCgpbMV0gaHR0cHM6Ly9sd24ubmV0L0FydGljbGVzLzY0NjYwNS8KCj4gCj4gRnVydGhl
+cm1vcmUsIHRoZSBBUEkgZG9lcyBub3QgaGF2ZSBhbGwgdGhlIGluZm9ybWF0aW9uIGl0IG5lZWRz
+IHRvIGRvCj4gc2FuZSB0aGluZ3MuIEEgcGh5c19hZGRyX3QgZG9lc24ndCByZWFsbHkgdGVsbCB5
+b3UgYW55dGhpbmcgYWJvdXQgdGhlCj4gbWVtb3J5IGJlaGluZCBpdCBvciB3aGF0IG5lZWRzIHRv
+IGJlIGRvbmUgd2l0aCBpdC4gRm9yIGV4YW1wbGUsIG9uIHNvbWUKPiBhcm02NCBpbXBsZW1lbnRh
+dGlvbnMgaWYgdGhlIHBoeXNpY2FsIGFkZHJlc3MgcG9pbnRzIHRvIGEgUENJIEJBUiBhbmQKPiB0
+aGF0IEJBUiBpcyBiZWhpbmQgYSBzd2l0Y2ggd2l0aCB0aGUgRE1BIGRldmljZSB0aGVuIHRoZSBh
+ZGRyZXNzIG11c3QgYmUKPiBjb252ZXJ0ZWQgdG8gdGhlIFBDSSBCVVMgYWRkcmVzcy4gT24gdGhl
+IG90aGVyIGhhbmQsIGlmIGl0J3MgYSBwaHlzaWNhbAo+IGFkZHJlc3Mgb2YgYSBkZXZpY2UgaW4g
+YW4gU09DIGl0IG1pZ2h0IG5lZWQgdG8gIGJlIGhhbmRsZWQgaW4gYQo+IGNvbXBsZXRlbHkgZGlm
+ZmVyZW50IHdheS4gQW5kIHJpZ2h0IG5vdyBhbGwgdGhlIGltcGxlbWVudGF0aW9ucyBJIGNhbgo+
+IGZpbmQgc2VlbSB0byBqdXN0IGFzc3VtZSB0aGF0IHBoeXNfYWRkcl90IHBvaW50cyB0byByZWd1
+bGFyIG1lbW9yeSBhbmQKPiBjYW4gYmUgdHJlYXRlZCBhcyBzdWNoLgoKR2l2ZW4gaXQgaXMgY3Vy
+cmVudGx5IG9ubHkgdXNlZCBieSBBUk0gZm9sa3MgaXQgYXBwZWFyIHRvIGF0IGxlYXN0IHdvcmsK
+Zm9yIHRoZW0gKHRtKSA6KSBOb3RlIHRoYXQgQ2hyaXN0aWFuIGlzIGRvaW5nIHRoaXMgaW4gUENJ
+RSBvbmx5IGNvbnRleHQKYW5kIGFnYWluIGRtYV9tYXBfcmVzb3VyY2UgY2FuIGVhc2lseSBmaWd1
+cmUgdGhhdCBvdXQgaWYgdGhlIGFkZHJlc3MgaXMKYSBQQ0lFIG9yIHNvbWV0aGluZyBlbHNlLiBO
+b3RlIHRoYXQgdGhlIGV4cG9ydGVyIGV4cG9ydCB0aGUgQ1BVIGJ1cwphZGRyZXNzLiBTbyBhZ2Fp
+biBkbWFfbWFwX3Jlc291cmNlIGhhcyBhbGwgdGhlIGluZm9ybWF0aW9ucyBpdCB3aWxsIGV2ZXIK
+bmVlZCwgaWYgdGhlIHBlZXIgdG8gcGVlciBpcyBmdW5kYW1lbnRhbHkgdW4tZG9hYmxlIGl0IGNh
+biByZXR1cm4gZG1hCmVycm9yIGFuZCBpdCBpcyB1cCB0byB0aGUgY2FsbGVyIHRvIGhhbmRsZSB0
+aGlzLCBqdXN0IGxpa2UgR1BVIGNvZGUgZG8uCgpEbyB5b3UgY2xhaW0gdGhhdCBkbWFfbWFwX3Jl
+c291cmNlIGlzIG1pc3NpbmcgYW55IGluZm9ybWF0aW9uID8KCgo+IAo+IFRoaXMgaXMgb25lIG9m
+IHRoZSByZWFzb25zIHRoYXQsIGJhc2VkIG9uIGZlZWRiYWNrLCBvdXIgd29yayB3ZW50IGZyb20K
+PiBiZWluZyBnZW5lcmFsIFAyUCB3aXRoIGFueSBkZXZpY2UgdG8gYmVpbmcgcmVzdHJpY3RlZCB0
+byBvbmx5IFAyUCB3aXRoCj4gUENJIGRldmljZXMuIFRoZSBkcmVhbSB0aGF0IHdlIGNhbiBqdXN0
+IGdyYWIgdGhlIHBoeXNpY2FsIGFkZHJlc3Mgb2YgYW55Cj4gZGV2aWNlIGFuZCB1c2UgaXQgaW4g
+YSBETUEgcmVxdWVzdCBpcyBzaW1wbHkgbm90IHJlYWxpc3RpYy4KCkkgYWdyZWUgYW5kIHVuZGVy
+c3RhbmQgdGhhdCBidXQgZm9yIHBsYXRmb3JtIHdoZXJlIHN1Y2ggZmVhdHVyZSBtYWtlIHNlbnNl
+CnRoaXMgd2lsbCB3b3JrLiBGb3IgbWUgaXQgaXMgUG93ZXJQQyBhbmQgeDg2IGFuZCBnaXZlbiBQ
+b3dlclBDIGhhcyBDQVBJCndoaWNoIGhhcyBmYXIgbW9yZSBhZHZhbmNlIGZlYXR1cmUgd2hlbiBp
+dCBjb21lcyB0byBwZWVyIHRvIHBlZXIsIGkgZG9uJ3QKc2VlIHNvbWV0aGluZyBtb3JlIGJhc2lj
+IG5vdCB3b3JraW5nLiBPbiB4ODYsIEludGVsIGlzIGEgYml0IG9mIGxvbmUgd29sZiwKZHVubm8g
+aWYgdGhleSBnb25uYSBzdXBwb3J0IHRoaXMgdXNlY2FzZSBwcm8tYWN0aXZlbHkuIEFNRCBkZWZp
+bml0bHkgd2lsbC4KCklmIHlvdSBmZWVsIGxpa2UgZG1hX21hcF9yZXNvdXJjZSgpIGNhbiBiZSBp
+bnRlcnByZXRlZCB0b28gYnJvYWRseSwgbW9yZQpzdHJpY3QgcGhyYXNpbmcvd29yZGluZyBjYW4g
+YmUgYWRkZWQgdG8gaXQgc28gcGVvcGxlIGJldHRlciB1bmRlcnN0YW5kIGl0cwpsaW1pdGF0aW9u
+IGFuZCBnb3RjaGEuCgpDaGVlcnMsCkrDqXLDtG1lCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2RyaS1kZXZlbAo=
