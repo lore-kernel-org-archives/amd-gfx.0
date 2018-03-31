@@ -1,16 +1,14 @@
-From: Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: Clean register first to avoid read original
- value
-Date: Fri, 30 Mar 2018 21:45:41 -0400
-Message-ID: <55b19db8-1396-fd5a-e5b2-ea28672920fc@amd.com>
-References: <1522395206-5860-1-git-send-email-Rex.Zhu@amd.com>
- <c42b3004-8b75-60d2-0f2b-45e1e9a2f1f6@amd.com>
- <9bac98b9-4add-6214-f461-bfd91d5636ad@amd.com>
- <CY4PR12MB16872AF3D8207BF4ACBC023FFBA00@CY4PR12MB1687.namprd12.prod.outlook.com>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix KIQ hang on bare metal for device
+ unbind/bind back.
+Date: Sat, 31 Mar 2018 11:05:33 +0000
+Message-ID: <BLUPR12MB044980331171FE27298FD39684A00@BLUPR12MB0449.namprd12.prod.outlook.com>
+References: <1522240658-2648-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1183110531=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB16872AF3D8207BF4ACBC023FFBA00-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1522240658-2648-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,319 +20,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky,
+ Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "Zhu,
+ Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1183110531==
-Content-Type: multipart/alternative;
- boundary="------------3428B6C548F02779EA4B594A"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------3428B6C548F02779EA4B594A
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Please confirm this with SMU team about your assumption.
-
-
-Regards,
-
-Eric
-
-
-On 03/30/2018 08:28 PM, Zhu, Rex wrote:
->
-> when PPSMC_MSG_PmStatusLogSample sent, firmware will clean the temp 
-> sampling date, and add the sample task to dpm loop.
->
-> but firmware not  clean the registers.  if firmware not update the 
-> registers, we will read out the original value.
->
->
-> Best Regards
->
-> Rex
->
->
->
->
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
-> Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
-> *Sent:* Friday, March 30, 2018 11:22 PM
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* Re: [PATCH] drm/amd/pp: Clean register first to avoid read 
-> original value
->
-> On 03/30/2018 10:36 AM, Eric Huang wrote:
-> > It is not necessary to do that. The register will reset to 0 after
-> > reading.
-> The register is not reset after reading. Actually after
-> PPSMC_MSG_PmStatusLogSample sent, the register will be updated. So it is
-> still not necessary to do that.
->
-> Eric
-> >
-> > Eric
-> >
-> >
-> > On 03/30/2018 03:33 AM, Rex Zhu wrote:
-> >> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> >> ---
-> >> drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 13 +++++++++++++
-> >>   1 file changed, 13 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> >> b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> >> index aaa9f5b..38cf3a1 100644
-> >> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> >> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> >> @@ -3368,6 +3368,19 @@ static int smu7_get_gpu_power(struct pp_hwmgr
-> >> *hwmgr,
-> >>               "Failed to start pm status log!",
-> >>               return -1);
-> >>   + cgs_write_ind_register(hwmgr->device,
-> >> +            CGS_IND_REG__SMC,
-> >> +            ixSMU_PM_STATUS_40, 0);
-> >> +    cgs_write_ind_register(hwmgr->device,
-> >> +            CGS_IND_REG__SMC,
-> >> +            ixSMU_PM_STATUS_49, 0);
-> >> +    cgs_write_ind_register(hwmgr->device,
-> >> +            CGS_IND_REG__SMC,
-> >> +            ixSMU_PM_STATUS_94, 0);
-> >> +    cgs_write_ind_register(hwmgr->device,
-> >> +            CGS_IND_REG__SMC,
-> >> +            ixSMU_PM_STATUS_95, 0);
-> >> +
-> >>       /* Sampling period from 50ms to 4sec */
-> >>       msleep_interruptible(200);
-> >
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> amd-gfx Info Page - freedesktop.org 
-> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
-> lists.freedesktop.org
-> Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the 
-> following form. Use of all freedesktop.org lists is subject to our 
-> Code of Conduct.
->
->
->
-
-
---------------3428B6C548F02779EA4B594A
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Please confirm this with SMU team about your assumption.</p>
-    <p><br>
-    </p>
-    <p>Regards,</p>
-    <p>Eric<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 03/30/2018 08:28 PM, Zhu, Rex wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CY4PR12MB16872AF3D8207BF4ACBC023FFBA00-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <p style="margin-top:0;margin-bottom:0">when <span
-            style="font-family: Calibri, Helvetica, sans-serif,
-            EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-            Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-            &quot;Android Emoji&quot;, EmojiSymbols; font-size:
-            14.6667px;">PPSMC_MSG_PmStatusLogSample sent, firmware will
-            clean the temp sampling date, and add the sample task to dpm
-            loop.</span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            14.6667px;">but firmware not  clean the registers.  if
-            firmware not update the registers, we will read out the
-            original value.</span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            14.6667px;"><br>
-          </span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            14.6667px;">Best Regards</span></p>
-        <p style="margin-top:0;margin-bottom:0"><span style="font-size:
-            14.6667px;">Rex</span></p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <br>
-        <br>
-        <div style="color: rgb(0, 0, 0);">
-          <hr style="display:inline-block;width:98%" tabindex="-1">
-          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-              face="Calibri, sans-serif" color="#000000"><b>From:</b>
-              amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
-              behalf of Eric Huang <a class="moz-txt-link-rfc2396E" href="mailto:jinhuieric.huang-5C7GfCeVMHo@public.gmane.org">&lt;jinhuieric.huang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              <b>Sent:</b> Friday, March 30, 2018 11:22 PM<br>
-              <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-              <b>Subject:</b> Re: [PATCH] drm/amd/pp: Clean register
-              first to avoid read original value</font>
-            <div> </div>
-          </div>
-          <div class="BodyFragment"><font size="2"><span
-                style="font-size:11pt;">
-                <div class="PlainText"><br>
-                  On 03/30/2018 10:36 AM, Eric Huang wrote:<br>
-                  &gt; It is not necessary to do that. The register will
-                  reset to 0 after <br>
-                  &gt; reading.<br>
-                  The register is not reset after reading. Actually
-                  after <br>
-                  PPSMC_MSG_PmStatusLogSample sent, the register will be
-                  updated. So it is <br>
-                  still not necessary to do that.<br>
-                  <br>
-                  Eric<br>
-                  &gt;<br>
-                  &gt; Eric<br>
-                  &gt;<br>
-                  &gt;<br>
-                  &gt; On 03/30/2018 03:33 AM, Rex Zhu wrote:<br>
-                  &gt;&gt; Signed-off-by: Rex Zhu
-                  <a class="moz-txt-link-rfc2396E" href="mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">&lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                  &gt;&gt; ---<br>
-                  &gt;&gt;  
-                  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 13
-                  +++++++++++++<br>
-                  &gt;&gt;   1 file changed, 13 insertions(+)<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; diff --git
-                  a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c <br>
-                  &gt;&gt;
-                  b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-                  &gt;&gt; index aaa9f5b..38cf3a1 100644<br>
-                  &gt;&gt; ---
-                  a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-                  &gt;&gt; +++
-                  b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-                  &gt;&gt; @@ -3368,6 +3368,19 @@ static int
-                  smu7_get_gpu_power(struct pp_hwmgr <br>
-                  &gt;&gt; *hwmgr,<br>
-                  &gt;&gt;               "Failed to start pm status
-                  log!",<br>
-                  &gt;&gt;               return -1);<br>
-                  &gt;&gt;   +   
-                  cgs_write_ind_register(hwmgr-&gt;device,<br>
-                  &gt;&gt; +            CGS_IND_REG__SMC,<br>
-                  &gt;&gt; +            ixSMU_PM_STATUS_40, 0);<br>
-                  &gt;&gt; +    cgs_write_ind_register(hwmgr-&gt;device,<br>
-                  &gt;&gt; +            CGS_IND_REG__SMC,<br>
-                  &gt;&gt; +            ixSMU_PM_STATUS_49, 0);<br>
-                  &gt;&gt; +    cgs_write_ind_register(hwmgr-&gt;device,<br>
-                  &gt;&gt; +            CGS_IND_REG__SMC,<br>
-                  &gt;&gt; +            ixSMU_PM_STATUS_94, 0);<br>
-                  &gt;&gt; +    cgs_write_ind_register(hwmgr-&gt;device,<br>
-                  &gt;&gt; +            CGS_IND_REG__SMC,<br>
-                  &gt;&gt; +            ixSMU_PM_STATUS_95, 0);<br>
-                  &gt;&gt; +<br>
-                  &gt;&gt;       /* Sampling period from 50ms to 4sec */<br>
-                  &gt;&gt;       msleep_interruptible(200);<br>
-                  &gt;<br>
-                  <br>
-                  _______________________________________________<br>
-                  amd-gfx mailing list<br>
-                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                  <a
-                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                    id="LPlnk194206" previewremoved="true"
-                    moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-                  <div id="LPBorder_GT_15224555838300.6305618541058784"
-                    style="margin-bottom: 20px; overflow: auto; width:
-                    100%; text-indent: 0px;">
-                    <table
-                      id="LPContainer_15224555838230.7487087610706571"
-                      role="presentation" style="width: 90%;
-                      background-color: rgb(255, 255, 255); position:
-                      relative; overflow: auto; padding-top: 20px;
-                      padding-bottom: 20px; margin-top: 20px;
-                      border-top: 1px dotted rgb(200, 200, 200);
-                      border-bottom: 1px dotted rgb(200, 200, 200);"
-                      cellspacing="0">
-                      <tbody>
-                        <tr style="border-spacing: 0px;" valign="top">
-                          <td
-                            id="TextCell_15224555838250.5092558814385109"
-                            colspan="2" style="vertical-align: top;
-                            position: relative; padding: 0px; display:
-                            table-cell;">
-                            <div
-                              id="LPTitle_15224555838260.8317841949999445"
-                              style="top: 0px; color: rgb(0, 120, 215);
-                              font-weight: normal; font-size: 21px;
-                              font-family: wf_segoe-ui_light,
-                              &quot;Segoe UI Light&quot;, &quot;Segoe WP
-                              Light&quot;, &quot;Segoe UI&quot;,
-                              &quot;Segoe WP&quot;, Tahoma, Arial,
-                              sans-serif; line-height: 21px;">
-                              <a
-                                id="LPUrlAnchor_15224555838270.3536369120415084"
-href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                target="_blank" style="text-decoration:
-                                none;" moz-do-not-send="true">amd-gfx
-                                Info Page - freedesktop.org</a></div>
-                            <div
-                              id="LPMetadata_15224555838270.8339160024590055"
-                              style="margin: 10px 0px 16px; color:
-                              rgb(102, 102, 102); font-weight: normal;
-                              font-family: wf_segoe-ui_normal,
-                              &quot;Segoe UI&quot;, &quot;Segoe
-                              WP&quot;, Tahoma, Arial, sans-serif;
-                              font-size: 14px; line-height: 14px;">
-                              lists.freedesktop.org</div>
-                            <div
-                              id="LPDescription_15224555838290.8158871495654998"
-                              style="display: block; color: rgb(102,
-                              102, 102); font-weight: normal;
-                              font-family: wf_segoe-ui_normal,
-                              &quot;Segoe UI&quot;, &quot;Segoe
-                              WP&quot;, Tahoma, Arial, sans-serif;
-                              font-size: 14px; line-height: 20px;
-                              max-height: 100px; overflow: hidden;">
-                              Subscribing to amd-gfx: Subscribe to
-                              amd-gfx by filling out the following form.
-                              Use of all freedesktop.org lists is
-                              subject to our Code of Conduct.</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <br>
-                  <br>
-                </div>
-              </span></font></div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------3428B6C548F02779EA4B594A--
-
---===============1183110531==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1183110531==--
+KwkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9ERVFVRVVFX1JFUVVFU1QsIDEpOw0KKw0K
+KwkJZm9yIChqID0gMDsgaiA8IGFkZXYtPnVzZWNfdGltZW91dDsgaisrKSB7DQorCQkJaWYgKCEo
+UlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9BQ1RJVkUpICYgMSkpDQorCQkJCWJyZWFrOw0K
+KwkJCXVkZWxheSgxKTsNCisJCX0NCisNCisJCWlmIChhZGV2LT51c2VjX3RpbWVvdXQgPT0gQU1E
+R1BVX01BWF9VU0VDX1RJTUVPVVQpIHsNCisJCQlEUk1fREVCVUcoIktJUSBkZXF1ZXVlIHJlcXVl
+c3QgZmFpbGVkLlxuIik7DQorDQorCQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9BQ1RJ
+VkUsIDApOw0KKwkJfQ0KDQoNCkkgZG9uJ3QgdW5kZXJzdGFuZCB3aHkgeW91IGNvbXBhcmUgYWRl
+di0+dXNlY190aW1lb3V0ICA/IHNob3VsZG4ndCBpdCBiZSBqID8NCg0KL01vbmsNCg0KLS0tLS1P
+cmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5j
+ZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYgT2YgQW5kcmV5IEdyb2R6b3Zza3kN
+ClNlbnQ6IDIwMTjlubQz5pyIMjjml6UgMjA6MzgNClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZw0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNv
+bT47IEdyb2R6b3Zza3ksIEFuZHJleSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT47IERpbmcs
+IFBpeGVsIDxQaXhlbC5EaW5nQGFtZC5jb20+OyBaaHUsIFJleCA8UmV4LlpodUBhbWQuY29tPg0K
+U3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBGaXggS0lRIGhhbmcgb24gYmFyZSBtZXRhbCBm
+b3IgZGV2aWNlIHVuYmluZC9iaW5kIGJhY2suDQoNClByb2JsZW06IFdoZW4gdW5iaW5kIGFuZCB0
+aGVuIGJpbmQgYmFjayB0aGUgZGV2aWNlIEtJUSBoYW5ncyBvbiBWZWdhIGFmdGVyIG1hcHBpbmcg
+S0NRcyByZXF1ZXN0Lg0KDQpGaXg6IEFkZGluZyBkZWluaXRpYWx6aWUgY29kZSBmcm9tIENBSUwg
+ZHVyaW5nIEhXIGZpbmkgc29sdmVzIHRoZSBoYW5nLg0KDQpTaWduZWQtb2ZmLWJ5OiBBbmRyZXkg
+R3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCA1MiArKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrLQ0KIDEgZmlsZSBjaGFuZ2VkLCA1MSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KaW5kZXggMWFlM2RlMS4u
+ZmQxMzA2NSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
+LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCkBAIC0yNzU3
+LDYgKzI3NTcsNDUgQEAgc3RhdGljIGludCBnZnhfdjlfMF9raXFfaW5pdF9yZWdpc3RlcihzdHJ1
+Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQogCXJldHVybiAwOw0KIH0NCiANCitzdGF0aWMgaW50IGdm
+eF92OV8wX2tpcV9maW5pX3JlZ2lzdGVyKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykgew0KKwlz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7DQorCWludCBqOw0KKw0KKwkv
+KiBkaXNhYmxlIHRoZSBxdWV1ZSBpZiBpdCdzIGFjdGl2ZSAqLw0KKwlpZiAoUlJFRzMyX1NPQzE1
+KEdDLCAwLCBtbUNQX0hRRF9BQ1RJVkUpICYgMSkgew0KKw0KKwkJV1JFRzMyX1NPQzE1KEdDLCAw
+LCBtbUNQX0hRRF9ERVFVRVVFX1JFUVVFU1QsIDEpOw0KKw0KKwkJZm9yIChqID0gMDsgaiA8IGFk
+ZXYtPnVzZWNfdGltZW91dDsgaisrKSB7DQorCQkJaWYgKCEoUlJFRzMyX1NPQzE1KEdDLCAwLCBt
+bUNQX0hRRF9BQ1RJVkUpICYgMSkpDQorCQkJCWJyZWFrOw0KKwkJCXVkZWxheSgxKTsNCisJCX0N
+CisNCisJCWlmIChhZGV2LT51c2VjX3RpbWVvdXQgPT0gQU1ER1BVX01BWF9VU0VDX1RJTUVPVVQp
+IHsNCisJCQlEUk1fREVCVUcoIktJUSBkZXF1ZXVlIHJlcXVlc3QgZmFpbGVkLlxuIik7DQorDQor
+CQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9BQ1RJVkUsIDApOw0KKwkJfQ0KKw0KKwkJ
+LyogTWFudWFsIGRpc2FibGUgaWYgZGVxdWV1ZSByZXF1ZXN0IHRpbWVzIG91dCAqLw0KKwkJV1JF
+RzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9ERVFVRVVFX1JFUVVFU1QsDQorCQkgICAgICAwKTsN
+CisJfQ0KKw0KKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX0lRX1RJTUVSLCAwKTsNCisJ
+V1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9JQl9DT05UUk9MLCAwKTsNCisJV1JFRzMyX1NP
+QzE1KEdDLCAwLCBtbUNQX0hRRF9QRVJTSVNURU5UX1NUQVRFLCAwKTsNCisJV1JFRzMyX1NPQzE1
+KEdDLCAwLCBtbUNQX0hRRF9QUV9ET09SQkVMTF9DT05UUk9MLCAweDQwMDAwMDAwKTsNCisJV1JF
+RzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9ET09SQkVMTF9DT05UUk9MLCAwKTsNCisJV1JF
+RzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9SUFRSLCAwKTsNCisJV1JFRzMyX1NPQzE1KEdD
+LCAwLCBtbUNQX0hRRF9QUV9XUFRSX0hJLCAwKTsNCisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQ
+X0hRRF9QUV9XUFRSX0xPLCAwKTsNCisNCisJcmV0dXJuIDA7DQorfQ0KKw0KIHN0YXRpYyBpbnQg
+Z2Z4X3Y5XzBfa2lxX2luaXRfcXVldWUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKSAgew0KIAlz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7IEBAIC0zMDEwLDcgKzMwNDks
+NiBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2tjcV9kaXNhYmxlKHN0cnVjdCBhbWRncHVfcmluZyAq
+a2lxX3Jpbmcsc3RydWN0IGFtZGdwdV9yaW5nDQogCXJldHVybiByOw0KIH0NCiANCi0NCiBzdGF0
+aWMgaW50IGdmeF92OV8wX2h3X2Zpbmkodm9pZCAqaGFuZGxlKSAgew0KIAlzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsgQEAgLTMwMzMs
+NiArMzA3MSwxOCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2h3X2Zpbmkodm9pZCAqaGFuZGxlKQ0K
+IAkJV1JFRzMyX0ZJRUxEMTUoR0MsIDAsIENQX1BRX1dQVFJfUE9MTF9DTlRMLCBFTiwgMCk7DQog
+CQlyZXR1cm4gMDsNCiAJfQ0KKw0KKwkvKiBVc2UgZGVpbml0aWFsaXplIHNlcXVlbmNlIGZyb20g
+Q0FJTCB3aGVuIHVuYmluZGluZyBkZXZpY2UgZnJvbSBkcml2ZXIsDQorCSAqIG90aGVyd2lzZSBL
+SVEgaXMgaGFuZ2luZyB3aGVuIGJpbmRpbmcgYmFjaw0KKwkgKi8NCisJaWYgKCFhZGV2LT5pbl9n
+cHVfcmVzZXQgJiYgIWFkZXYtPmdmeC5pbl9zdXNwZW5kKSB7DQorCQlzb2MxNV9ncmJtX3NlbGVj
+dChhZGV2LCBhZGV2LT5nZngua2lxLnJpbmcubWUsDQorCQkJCWFkZXYtPmdmeC5raXEucmluZy5w
+aXBlLA0KKwkJCQlhZGV2LT5nZngua2lxLnJpbmcucXVldWUsIDApOw0KKwkJZ2Z4X3Y5XzBfa2lx
+X2ZpbmlfcmVnaXN0ZXIoJmFkZXYtPmdmeC5raXEucmluZyk7DQorCQlzb2MxNV9ncmJtX3NlbGVj
+dChhZGV2LCAwLCAwLCAwLCAwKTsNCisJfQ0KKw0KIAlnZnhfdjlfMF9jcF9lbmFibGUoYWRldiwg
+ZmFsc2UpOw0KIAlnZnhfdjlfMF9ybGNfc3RvcChhZGV2KTsNCiANCi0tDQoyLjcuNA0KDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWls
+aW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
