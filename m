@@ -1,113 +1,69 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH umr 2/2] Simplify the ability to read multiple registers at
- once
-Date: Mon,  2 Apr 2018 11:44:50 -0400
-Message-ID: <20180402154450.13168-2-tom.stdenis@amd.com>
-References: <20180402154450.13168-1-tom.stdenis@amd.com>
+From: Logan Gunthorpe <logang@deltatee.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Mon, 2 Apr 2018 11:02:10 -0600
+Message-ID: <31266710-f6bb-99ee-c73d-6e58afe5c38c@deltatee.com>
+References: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
+ <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
+ <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
+ <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
+ <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
+ <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
+ <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
+ <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
+ <20180330015854.GA3572@redhat.com>
+ <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
+ <20180330194519.GC3198@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180402154450.13168-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180330194519.GC3198@redhat.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jerome Glisse <jglisse@redhat.com>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, Will Davis <wdavis@nvidia.com>, Joerg Roedel <joro@8bytes.org>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UHJldmlvdXNseSB0aGUgIm1hbnkiIG9wdGlvbiB3b3VsZCBiZSBuZWVkZWQgdG8gcmVhZCByZWxh
-dGVkCnJlZ2lzdGVycyBhdCBvbmNlLiAgVGhpcyBhZGRzIHRoZSBhYmlsaXR5IHRvIHNpbXBseSB1
-c2luZyBhIHRyYWlsaW5nCnN0YXIgb24gdGhlIG5hbWUsIGZvciBpbnN0YW5jZSwKCiQgdW1yIC1y
-ICoudmNuMTAuQUREUioKdmNuMTAubW1VVkRfSlBFR19BRERSX0NPTkZJRyA9PiAweDIyMDEwMDEw
-CnZjbjEwLm1tVVZEX0pQRUdfVVZfQUREUl9DT05GSUcgPT4gMHgyMjAxMDAxMAp2Y24xMC5tbVVW
-RF9TRU1BX0FERFJfTE9XID0+IDB4MDAwMDAwMDAKdmNuMTAubW1VVkRfU0VNQV9BRERSX0hJR0gg
-PT4gMHgwMDAwMDAwMAp2Y24xMC5tbVVWRF9VREVDX0RCV19VVl9BRERSX0NPTkZJRyA9PiAweDIy
-MDEwMDEwCi4uLjxzbmlwPi4uLgoKU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3Rk
-ZW5pc0BhbWQuY29tPgotLS0KIGRvYy9zcGhpbngvc291cmNlL3JlZ2lzdGVyX2FjY2Vzcy5yc3Qg
-fCAgOSArKysrKysrKysKIGRvYy91bXIuMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAg
-NyArKysrKystCiBzcmMvYXBwL21haW4uYyAgICAgICAgICAgICAgICAgICAgICAgIHwgIDQgKysr
-LQogc3JjL2FwcC9zY2FuLmMgICAgICAgICAgICAgICAgICAgICAgICB8IDE4ICsrKysrKysrKysr
-KystLS0tLQogNCBmaWxlcyBjaGFuZ2VkLCAzMSBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RvYy9zcGhpbngvc291cmNlL3JlZ2lzdGVyX2FjY2Vzcy5yc3QgYi9k
-b2Mvc3BoaW54L3NvdXJjZS9yZWdpc3Rlcl9hY2Nlc3MucnN0CmluZGV4IDU4ZGQ3ODNkMmUxOS4u
-OGVhOGM0NTk2ZDVlIDEwMDY0NAotLS0gYS9kb2Mvc3BoaW54L3NvdXJjZS9yZWdpc3Rlcl9hY2Nl
-c3MucnN0CisrKyBiL2RvYy9zcGhpbngvc291cmNlL3JlZ2lzdGVyX2FjY2Vzcy5yc3QKQEAgLTYz
-LDYgKzYzLDE1IEBAIGV4YW1wbGU6CiBXaWxsIHJlYWQgYW5kIHByaW50IG91dCBhbnkgcmVnaXN0
-ZXIgd2l0aCB0aGUgd29yZCAnR0FURScgY29udGFpbmVkCiBpbiB0aGUgcmVnaXN0ZXIgbmFtZSBp
-biB0aGUgdXZkNiBJUCBibG9jay4KIAorVGhpcyBjYW4gYWxzbyBiZSBhY2NvbXBsaXNoZWQgYnkg
-dXNpbmcgYSAnKicgYXQgdGhlIGVuZCBvZiB0aGUgcmVnaXN0ZXIKK25hbWUuICBGb3IgZXhhbXBs
-ZToKKworOjoKKworCXVtciAtLXJlYWQgKi51dmQ2LkdBVEUqCisKK3dvdWxkIGFjY29tcGxpc2gg
-dGhlIHNhbWUgYXMgdGhlIHByZXZpb3VzIGV4YW1wbGUuCisKIC0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tCiBSZWFkaW5nIGFuIGVudGlyZSBJUCBibG9jawogLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0KZGlmZiAtLWdpdCBhL2RvYy91bXIuMSBiL2RvYy91bXIuMQppbmRleCBjNjQ4NTVjYTQz
-OWYuLmFiNmRiZDUxZmQ2ZSAxMDA2NDQKLS0tIGEvZG9jL3Vtci4xCisrKyBiL2RvYy91bXIuMQpA
-QCAtNTYsNyArNTYsMTIgQEAgVGhpcyBjb21tYW5kIHVzZXMgdGhlIHNhbWUgc3ludGF4IGFzIHRo
-ZQogLkIgLS13cml0ZQogY29tbWFuZCBidXQgYWxzbyBhbGxvd3MKIC5CICoKLWZvciB0aGUgcmVn
-bmFtZSBmaWVsZC4KK2ZvciB0aGUgcmVnbmFtZSBmaWVsZCB0byByZWFkIGFuIGVudGlyZSBibG9j
-ay4gIEFkZGl0aW9uYWxseSwKK2EKKy5CICoKK2NhbiBiZSBhcHBlbmRlZCB0byBhIHJlZ2lzdGVy
-IG5hbWUgdG8gcmVhZCBhbnkgcmVnaXN0ZXIgdGhhdCBjb250YWlucworYSBwYXJ0aWFsIG1hdGNo
-LiAgRm9yIGluc3RhbmNlLCAiKi52Y24xMC5BRERSKiIgd291bGQgcmVhZCBhbnkgcmVnaXN0ZXIK
-K2Zyb20gdGhlICdWQ04xMCcgYmxvY2sgd2hpY2ggY29udGFpbnMgJ0FERFInIGluIHRoZSBuYW1l
-LgogLklQICItLXNjYW4sIC1zIDxzdHJpbmc+IgogU2NhbiBhbmQgcHJpbnQgYW4gSVAgYmxvY2sg
-YnkgbmFtZSwgZm9yIGV4YW1wbGUsCiAuQiB1dmQ2CmRpZmYgLS1naXQgYS9zcmMvYXBwL21haW4u
-YyBiL3NyYy9hcHAvbWFpbi5jCmluZGV4IGNlYTZhYzJlMTA2OS4uNjE2NWI0NGQyNzk5IDEwMDY0
-NAotLS0gYS9zcmMvYXBwL21haW4uYworKysgYi9zcmMvYXBwL21haW4uYwpAQCAtNTEyLDcgKzUx
-Miw5IEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICoqYXJndikKICJcblx0LS13cml0ZWJpdCwg
-LXdiIDxzdHJpbmc+IDxudW1iZXI+XG5cdFx0V3JpdGUgYSB2YWx1ZSBpbiBoZXggdG8gYSByZWdp
-c3RlciBiaXRmaWVsZCBzcGVjaWZpZWQgYXMgaW4gLS13cml0ZSBidXQiCiAJIlxuXHRcdHRoZSBh
-ZGRpdGlvbiBvZiB0aGUgYml0ZmllbGQgbmFtZS4gIEZvciBpbnN0YW5jZTogXCIqLmdmeDgwLm1t
-UkxDX1BHX0NOVEwuUEdfT1ZFUlJJREVcIlxuIgogIlxuXHQtLXJlYWQsIC1yIDxzdHJpbmc+XG5c
-dFx0UmVhZCBhIHZhbHVlIGZyb20gYSByZWdpc3RlciBhbmQgcHJpbnQgaXQgdG8gc3Rkb3V0LiAg
-VGhpcyBjb21tYW5kIgotCSJcblx0XHR1c2VzIHRoZSBzYW1lIHBhdGggbm90YXRpb24gYXMgLS13
-cml0ZS4gIEl0IGFsc28gYWNjZXB0cyAqIGZvciByZWduYW1lLlxuIgorCSJcblx0XHR1c2VzIHRo
-ZSBzYW1lIHBhdGggbm90YXRpb24gYXMgLS13cml0ZS4gIEl0IGFsc28gYWNjZXB0cyAqIGZvciBy
-ZWduYW1lLiIKKwkiXG5cdFx0QSB0cmFpbGluZyAqIG9uIGEgcmVnbmFtZSB3aWxsIHJlYWQgYW55
-IHJlZ2lzdGVyIHRoYXQgaGFzIGEgbmFtZSB0aGF0IGNvbnRhaW5zIHRoZSIKKwkiXG5cdFx0cmVt
-YWluZGVyIG9mIHRoZSBuYW1lIHNwZWNpZmllZC5cbiIKICJcblx0LS1zY2FuLCAtcyA8c3RyaW5n
-PlxuXHRcdFNjYW4gYW5kIHByaW50IGFuIGlwIGJsb2NrIGJ5IG5hbWUsIGUuZy4gXCJ1dmQ2XCIg
-b3IgXCJjYXJyaXpvLnV2ZDZcIi4iCiAJIlxuXHRcdENhbiBiZSB1c2VkIG11bHRpcGxlIHRpbWVz
-LlxuIgogIlxuXHQtLXJpbmcsIC1SIDxzdHJpbmc+KFtmcm9tOnRvXSlcblx0XHRSZWFkIHRoZSBj
-b250ZW50cyBvZiBhIHJpbmcgbmFtZWQgYnkgdGhlIHN0cmluZyB3aXRob3V0IHRoZSBhbWRncHVf
-cmluZ18gcHJlZml4LiAiCmRpZmYgLS1naXQgYS9zcmMvYXBwL3NjYW4uYyBiL3NyYy9hcHAvc2Nh
-bi5jCmluZGV4IDY4NDQxNzcwNDEyNi4uMjg3Yzc5MWU4ZWM3IDEwMDY0NAotLS0gYS9zcmMvYXBw
-L3NjYW4uYworKysgYi9zcmMvYXBwL3NjYW4uYwpAQCAtMjYsMTAgKzI2LDE4IEBACiAKIGludCB1
-bXJfc2Nhbl9hc2ljKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgY2hhciAqYXNpY25hbWUsIGNoYXIg
-KmlwbmFtZSwgY2hhciAqcmVnbmFtZSkKIHsKLQlpbnQgciwgZmQ7Ci0JaW50IGZpcnN0LCBpLCBq
-LCBrOworCWludCByLCBmZCwgbWFueSA9IGFzaWMtPm9wdGlvbnMubWFueSwgbmFtZWQgPSBhc2lj
-LT5vcHRpb25zLm5hbWVkLAorCSAgICBmaXJzdCwgaSwgaiwgazsKIAl1aW50NjRfdCBhZGRyLCBz
-Y2FsZTsKLQljaGFyIGJ1ZlsyNTZdOworCWNoYXIgYnVmWzI1Nl0sIHJlZ25hbWVfY29weVsyNTZd
-OworCisJLy8gZG9lcyB0aGUgcmVnaXN0ZXIgbmFtZSBjb250YWluIGEgdHJhaWxpbmcgc3Rhcj8K
-KwlzdHJjcHkocmVnbmFtZV9jb3B5LCByZWduYW1lKTsKKwlpZiAoc3RybGVuKHJlZ25hbWUpID4g
-MSAmJiBzdHJzdHIocmVnbmFtZSwgIioiKSkgeworCQltYW55ID0gMTsKKwkJbmFtZWQgPSAxOwor
-CQlyZWduYW1lX2NvcHlbc3RybGVuKHJlZ25hbWVfY29weSktMV0gPSAwOworCX0KIAogCS8qIHNj
-YW4gdGhlbSBhbGwgaW4gb3JkZXIgKi8KIAlpZiAoIWFzaWNuYW1lWzBdIHx8ICFzdHJjbXAoYXNp
-Y25hbWUsICIqIikgfHwgIXN0cmNtcChhc2ljbmFtZSwgYXNpYy0+YXNpY25hbWUpKSB7CkBAIC0z
-OCw3ICs0Niw3IEBAIGludCB1bXJfc2Nhbl9hc2ljKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgY2hh
-ciAqYXNpY25hbWUsIGNoYXIgKmlwbmFtZSwgY2hhciAqcmVnCiAJCQkJZmlyc3QgPSAxOwogCQkJ
-CWZvciAoaiA9IDA7IGogPCBhc2ljLT5ibG9ja3NbaV0tPm5vX3JlZ3M7IGorKykgewogCQkJCQlp
-ZiAoIXJlZ25hbWVbMF0gfHwgIXN0cmNtcChyZWduYW1lLCAiKiIpIHx8ICFzdHJjbXAocmVnbmFt
-ZSwgYXNpYy0+YmxvY2tzW2ldLT5yZWdzW2pdLnJlZ25hbWUpIHx8Ci0JCQkJCShhc2ljLT5vcHRp
-b25zLm1hbnkgJiYgc3Ryc3RyKGFzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS5yZWduYW1lLCByZWdu
-YW1lKSkpIHsKKwkJCQkJKG1hbnkgJiYgc3Ryc3RyKGFzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS5y
-ZWduYW1lLCByZWduYW1lX2NvcHkpKSkgewogCQkJCQkJLy8gb25seSBncmFudCBpZiBhbnkgcmVn
-c3BlYyBtYXRjaGVzIG90aGVyd2lzZSBpdCdzIGEgd2FzdGUKIAkJCQkJCWlmIChmaXJzdCAmJiBh
-c2ljLT5ibG9ja3NbaV0tPmdyYW50KSB7CiAJCQkJCQkJZmlyc3QgPSAwOwpAQCAtOTEsNyArOTks
-NyBAQCBpbnQgdW1yX3NjYW5fYXNpYyhzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIGNoYXIgKmFzaWNu
-YW1lLCBjaGFyICppcG5hbWUsIGNoYXIgKnJlZwogCQkJCQkJCQl1bXJfZ3JibV9zZWxlY3RfaW5k
-ZXgoYXNpYywgMHhGRkZGRkZGRiwgMHhGRkZGRkZGRiwgMHhGRkZGRkZGRik7CiAJCQkJCQl9CiAJ
-CQkJCQlpZiAocmVnbmFtZVswXSkgewotCQkJCQkJCWlmIChhc2ljLT5vcHRpb25zLm5hbWVkKQor
-CQkJCQkJCWlmIChuYW1lZCkKIAkJCQkJCQkJcHJpbnRmKCIlcyVzLiVzJXMgPT4gIiwgQ1lBTiwg
-YXNpYy0+YmxvY2tzW2ldLT5pcG5hbWUsICBhc2ljLT5ibG9ja3NbaV0tPnJlZ3Nbal0ucmVnbmFt
-ZSwgUlNUKTsKIAkJCQkJCQlwcmludGYoIiVzMHglMDhseCVzXG4iLCBZRUxMT1csICh1bnNpZ25l
-ZCBsb25nKWFzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS52YWx1ZSwgUlNUKTsKIAkJCQkJCQlpZiAo
-YXNpYy0+b3B0aW9ucy5iaXRmaWVsZHMpCi0tIAoyLjE0LjMKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+
+On 30/03/18 01:45 PM, Jerome Glisse wrote:
+> Looking at upstream code it seems that the x86 bits never made it upstream
+> and thus what is now upstream is only for ARM. See [1] for x86 code. Dunno
+> what happen, i was convince it got merge. So yes current code is broken on
+> x86. ccing Joerg maybe he remembers what happened there.
+> 
+> [1] https://lwn.net/Articles/646605/
+
+That looks like a significant improvement over what's upstream. But it's
+three years old and looks to have been abandoned. I think I agree with
+Bjorn's comments in that if it's going to be a general P2P API it will
+need the device the resource belongs to in addition to the device that's
+initiating the DMA request.
+
+> Given it is currently only used by ARM folks it appear to at least work
+> for them (tm) :) Note that Christian is doing this in PCIE only context
+> and again dma_map_resource can easily figure that out if the address is
+> a PCIE or something else. Note that the exporter export the CPU bus
+> address. So again dma_map_resource has all the informations it will ever
+> need, if the peer to peer is fundamentaly un-doable it can return dma
+> error and it is up to the caller to handle this, just like GPU code do.
+> 
+> Do you claim that dma_map_resource is missing any information ?
+
+Yes, that's what I said. All the existing ARM code appears to use it for
+platform devices only. I suspect platform P2P is relatively trivial to
+support on ARM. I think it's a big difference from using it for PCI P2P
+or general P2P on any bus.
+
+> I agree and understand that but for platform where such feature make sense
+> this will work. For me it is PowerPC and x86 and given PowerPC has CAPI
+> which has far more advance feature when it comes to peer to peer, i don't
+> see something more basic not working. On x86, Intel is a bit of lone wolf,
+> dunno if they gonna support this usecase pro-actively. AMD definitly will.
+
+Well PowerPC doesn't even support P2P between root ports. And I fail to
+see how CAPI applies unless/until we get this memory mapped into
+userspace and the mappings need to be dynamically managed. Seems like
+that's a long way away.
+
+Logan
