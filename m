@@ -1,10 +1,8 @@
-From: Logan Gunthorpe <logang@deltatee.com>
+From: Jerome Glisse <jglisse@redhat.com>
 Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Mon, 2 Apr 2018 13:32:37 -0600
-Message-ID: <4c672c71-6202-0775-7825-37f8077d1d35@deltatee.com>
-References: <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
- <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
- <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
+Date: Mon, 2 Apr 2018 15:45:53 -0400
+Message-ID: <20180402194553.GC18231@redhat.com>
+References: <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
  <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
  <20180330015854.GA3572@redhat.com>
  <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
@@ -13,47 +11,62 @@ References: <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
  <20180402172027.GA18231@redhat.com>
  <6f796779-0ba3-d056-de33-341ee55d6b38@deltatee.com>
  <20180402191649.GB18231@redhat.com>
+ <4c672c71-6202-0775-7825-37f8077d1d35@deltatee.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180402191649.GB18231@redhat.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jerome Glisse <jglisse@redhat.com>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, Will Davis <wdavis@nvidia.com>, Joerg Roedel <joro@8bytes.org>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Disposition: inline
+In-Reply-To: <4c672c71-6202-0775-7825-37f8077d1d35@deltatee.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Logan Gunthorpe <logang@deltatee.com>
+Cc: linaro-mm-sig@lists.linaro.org, Will Davis <wdavis@nvidia.com>, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>, dri-devel@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-media@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-
-
-On 02/04/18 01:16 PM, Jerome Glisse wrote:
-> There isn't good API at the moment AFAIK, closest thing would either be
-> lookup_resource() or region_intersects(), but a more appropriate one can
-> easily be added, code to walk down the tree is readily available. More-
-> over this can be optimize like vma lookup are, even more as resource are
-> seldomly added so read side (finding a resource) can be heavily favor
-> over write side (adding|registering a new resource).
-
-So someone needs to create a highly optimized tree that registers all
-physical address on the system and maps them to devices? That seems a
-long way from being realized. I'd hardly characterize that as "easily".
-If we can pass both devices to the API I'd suspect it would be preferred
-over the complicated tree. This, of course, depends on what users of the
-API need.
-
-> cache coherency protocol (bit further than PCIE snoop). But also the
-> other direction the CPU access to device memory can also be cache coherent,
-> which is not the case in PCIE.
-
-I was not aware that CAPI allows PCI device memory to be cache coherent.
-That sounds like it would be very tricky...
-
-> Note that with mmu_notifier there isn't any need to pin stuff (even
-> without any special hardware capabilities), as long as you can preempt
-> what is happening on your hardware to update its page table.
-
-I've been told there's a lot of dislike of the mmu_notifier interface.
-And being able to preempt what's happening on hardware, generally, is
-not trivial. But, yes, this is essentially how ODP works.
-
-Logan
+T24gTW9uLCBBcHIgMDIsIDIwMTggYXQgMDE6MzI6MzdQTSAtMDYwMCwgTG9nYW4gR3VudGhvcnBl
+IHdyb3RlOgo+IAo+IAo+IE9uIDAyLzA0LzE4IDAxOjE2IFBNLCBKZXJvbWUgR2xpc3NlIHdyb3Rl
+Ogo+ID4gVGhlcmUgaXNuJ3QgZ29vZCBBUEkgYXQgdGhlIG1vbWVudCBBRkFJSywgY2xvc2VzdCB0
+aGluZyB3b3VsZCBlaXRoZXIgYmUKPiA+IGxvb2t1cF9yZXNvdXJjZSgpIG9yIHJlZ2lvbl9pbnRl
+cnNlY3RzKCksIGJ1dCBhIG1vcmUgYXBwcm9wcmlhdGUgb25lIGNhbgo+ID4gZWFzaWx5IGJlIGFk
+ZGVkLCBjb2RlIHRvIHdhbGsgZG93biB0aGUgdHJlZSBpcyByZWFkaWx5IGF2YWlsYWJsZS4gTW9y
+ZS0KPiA+IG92ZXIgdGhpcyBjYW4gYmUgb3B0aW1pemUgbGlrZSB2bWEgbG9va3VwIGFyZSwgZXZl
+biBtb3JlIGFzIHJlc291cmNlIGFyZQo+ID4gc2VsZG9tbHkgYWRkZWQgc28gcmVhZCBzaWRlIChm
+aW5kaW5nIGEgcmVzb3VyY2UpIGNhbiBiZSBoZWF2aWx5IGZhdm9yCj4gPiBvdmVyIHdyaXRlIHNp
+ZGUgKGFkZGluZ3xyZWdpc3RlcmluZyBhIG5ldyByZXNvdXJjZSkuCj4gCj4gU28gc29tZW9uZSBu
+ZWVkcyB0byBjcmVhdGUgYSBoaWdobHkgb3B0aW1pemVkIHRyZWUgdGhhdCByZWdpc3RlcnMgYWxs
+Cj4gcGh5c2ljYWwgYWRkcmVzcyBvbiB0aGUgc3lzdGVtIGFuZCBtYXBzIHRoZW0gdG8gZGV2aWNl
+cz8gVGhhdCBzZWVtcyBhCj4gbG9uZyB3YXkgZnJvbSBiZWluZyByZWFsaXplZC4gSSdkIGhhcmRs
+eSBjaGFyYWN0ZXJpemUgdGhhdCBhcyAiZWFzaWx5Ii4KPiBJZiB3ZSBjYW4gcGFzcyBib3RoIGRl
+dmljZXMgdG8gdGhlIEFQSSBJJ2Qgc3VzcGVjdCBpdCB3b3VsZCBiZSBwcmVmZXJyZWQKPiBvdmVy
+IHRoZSBjb21wbGljYXRlZCB0cmVlLiBUaGlzLCBvZiBjb3Vyc2UsIGRlcGVuZHMgb24gd2hhdCB1
+c2VycyBvZiB0aGUKPiBBUEkgbmVlZC4KClRoaXMgdHJlZSBhbHJlYWR5IGV4aXN0LCBpdCBpcyBh
+bGwgdGhlcmUgdXBzdHJlYW0gc2VlIGtlcm5lbC9yZXNvdXJjZS5jCldoYXQgaXMgbWlzc2luZyBp
+cyBzb21ldGhpbmcgdGhhdCB0YWtlIGEgc2luZ2xlIGFkZHJlc3MgYW5kIHJldHVybiB0aGUKZGV2
+aWNlIHN0cnVjdC4gVGhlcmUgaXMgZnVuY3Rpb24gdGhhdCB0YWtlIGEgcmFuZ2UgcmVnaW9uX2lu
+dGVyc2VjdHMoKQpvciBvbmUgdGhhdCB0YWtlIHRoZSBzdGFydCBhZGRyZXNzIGxvb2t1cF9yZXNv
+dXJjZSgpLiBJdCBpc24ndCBoYXJkIHRvCnRoaW5rIHRoYXQgdXNpbmcgcm91Z2hseSBzYW1lIGNv
+ZGUgYXMgcmVnaW9uX2ludGVyc2VjdHMoKSBhbiBoZWxwZXIKdGhhdCByZXR1cm4gdGhlIGRldmlj
+ZSBmb3IgYSByZXNvdXJjZSBjYW4gYmUgYWRkZWQuCgpBbmQgeWVzIGN1cnJlbnRseSB0aGlzIGRv
+ZXMgbm90IGhhdmUgYSBwb2ludGVyIGJhY2sgdG8gdGhlIGRldmljZSB0aGF0Cm93biB0aGUgcmVz
+b3VyY2UgYnV0IHRoaXMgY2FuIGJlIGFkZGVkLiBJdCB3YXNuJ3QgbmVlZGVkIHVudGlsIG5vdy4K
+Ckl0IGNhbiBsYXR0ZXIgYmUgb3B0aW1pemUgaWYgZGV2aWNlIGxvb2t1cCBzaG93cyBhcyBhIGJv
+dHRsZW5lY2sgaW4gcGVyZgpwcm9maWxlLgoKCj4gCj4gPiBjYWNoZSBjb2hlcmVuY3kgcHJvdG9j
+b2wgKGJpdCBmdXJ0aGVyIHRoYW4gUENJRSBzbm9vcCkuIEJ1dCBhbHNvIHRoZQo+ID4gb3RoZXIg
+ZGlyZWN0aW9uIHRoZSBDUFUgYWNjZXNzIHRvIGRldmljZSBtZW1vcnkgY2FuIGFsc28gYmUgY2Fj
+aGUgY29oZXJlbnQsCj4gPiB3aGljaCBpcyBub3QgdGhlIGNhc2UgaW4gUENJRS4KPiAKPiBJIHdh
+cyBub3QgYXdhcmUgdGhhdCBDQVBJIGFsbG93cyBQQ0kgZGV2aWNlIG1lbW9yeSB0byBiZSBjYWNo
+ZSBjb2hlcmVudC4KPiBUaGF0IHNvdW5kcyBsaWtlIGl0IHdvdWxkIGJlIHZlcnkgdHJpY2t5Li4u
+CgpBbmQgeWV0IENBUEksIENDSVgsIEdlbi1aLCBOVkxpbmssIC4uLiBhcmUgYWxsIGludGVyLWNv
+bm5lY3QgdGhhdCBhaW0gYXQKYWNoaWV2aW5nIHRoaXMgY2FjaGUgY29oZXJlbmN5IGJldHdlZW4g
+bXVsdGlwbGUgZGV2aWNlcyBhbmQgQ1BVcy4KCkrDqXLDtG1lCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
