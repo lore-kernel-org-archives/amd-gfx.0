@@ -1,10 +1,8 @@
-From: Logan Gunthorpe <logang@deltatee.com>
+From: Jerome Glisse <jglisse@redhat.com>
 Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
-Date: Mon, 2 Apr 2018 11:02:10 -0600
-Message-ID: <31266710-f6bb-99ee-c73d-6e58afe5c38c@deltatee.com>
-References: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
- <e751cd28-f115-569f-5248-d24f30dee3cb@deltatee.com>
- <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
+Date: Mon, 2 Apr 2018 13:20:27 -0400
+Message-ID: <20180402172027.GA18231@redhat.com>
+References: <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
  <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
  <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
  <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
@@ -13,57 +11,84 @@ References: <6a5c9a10-50fe-b03d-dfc1-791d62d79f8e@amd.com>
  <20180330015854.GA3572@redhat.com>
  <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
  <20180330194519.GC3198@redhat.com>
+ <31266710-f6bb-99ee-c73d-6e58afe5c38c@deltatee.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180330194519.GC3198@redhat.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jerome Glisse <jglisse@redhat.com>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, Will Davis <wdavis@nvidia.com>, Joerg Roedel <joro@8bytes.org>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Disposition: inline
+In-Reply-To: <31266710-f6bb-99ee-c73d-6e58afe5c38c@deltatee.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Logan Gunthorpe <logang@deltatee.com>
+Cc: linaro-mm-sig@lists.linaro.org, Will Davis <wdavis@nvidia.com>, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>, dri-devel@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-media@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-
-
-On 30/03/18 01:45 PM, Jerome Glisse wrote:
-> Looking at upstream code it seems that the x86 bits never made it upstream
-> and thus what is now upstream is only for ARM. See [1] for x86 code. Dunno
-> what happen, i was convince it got merge. So yes current code is broken on
-> x86. ccing Joerg maybe he remembers what happened there.
-> 
-> [1] https://lwn.net/Articles/646605/
-
-That looks like a significant improvement over what's upstream. But it's
-three years old and looks to have been abandoned. I think I agree with
-Bjorn's comments in that if it's going to be a general P2P API it will
-need the device the resource belongs to in addition to the device that's
-initiating the DMA request.
-
-> Given it is currently only used by ARM folks it appear to at least work
-> for them (tm) :) Note that Christian is doing this in PCIE only context
-> and again dma_map_resource can easily figure that out if the address is
-> a PCIE or something else. Note that the exporter export the CPU bus
-> address. So again dma_map_resource has all the informations it will ever
-> need, if the peer to peer is fundamentaly un-doable it can return dma
-> error and it is up to the caller to handle this, just like GPU code do.
-> 
-> Do you claim that dma_map_resource is missing any information ?
-
-Yes, that's what I said. All the existing ARM code appears to use it for
-platform devices only. I suspect platform P2P is relatively trivial to
-support on ARM. I think it's a big difference from using it for PCI P2P
-or general P2P on any bus.
-
-> I agree and understand that but for platform where such feature make sense
-> this will work. For me it is PowerPC and x86 and given PowerPC has CAPI
-> which has far more advance feature when it comes to peer to peer, i don't
-> see something more basic not working. On x86, Intel is a bit of lone wolf,
-> dunno if they gonna support this usecase pro-actively. AMD definitly will.
-
-Well PowerPC doesn't even support P2P between root ports. And I fail to
-see how CAPI applies unless/until we get this memory mapped into
-userspace and the mappings need to be dynamically managed. Seems like
-that's a long way away.
-
-Logan
+T24gTW9uLCBBcHIgMDIsIDIwMTggYXQgMTE6MDI6MTBBTSAtMDYwMCwgTG9nYW4gR3VudGhvcnBl
+IHdyb3RlOgo+IAo+IAo+IE9uIDMwLzAzLzE4IDAxOjQ1IFBNLCBKZXJvbWUgR2xpc3NlIHdyb3Rl
+Ogo+ID4gTG9va2luZyBhdCB1cHN0cmVhbSBjb2RlIGl0IHNlZW1zIHRoYXQgdGhlIHg4NiBiaXRz
+IG5ldmVyIG1hZGUgaXQgdXBzdHJlYW0KPiA+IGFuZCB0aHVzIHdoYXQgaXMgbm93IHVwc3RyZWFt
+IGlzIG9ubHkgZm9yIEFSTS4gU2VlIFsxXSBmb3IgeDg2IGNvZGUuIER1bm5vCj4gPiB3aGF0IGhh
+cHBlbiwgaSB3YXMgY29udmluY2UgaXQgZ290IG1lcmdlLiBTbyB5ZXMgY3VycmVudCBjb2RlIGlz
+IGJyb2tlbiBvbgo+ID4geDg2LiBjY2luZyBKb2VyZyBtYXliZSBoZSByZW1lbWJlcnMgd2hhdCBo
+YXBwZW5lZCB0aGVyZS4KPiA+IAo+ID4gWzFdIGh0dHBzOi8vbHduLm5ldC9BcnRpY2xlcy82NDY2
+MDUvCj4gCj4gVGhhdCBsb29rcyBsaWtlIGEgc2lnbmlmaWNhbnQgaW1wcm92ZW1lbnQgb3ZlciB3
+aGF0J3MgdXBzdHJlYW0uIEJ1dCBpdCdzCj4gdGhyZWUgeWVhcnMgb2xkIGFuZCBsb29rcyB0byBo
+YXZlIGJlZW4gYWJhbmRvbmVkLiBJIHRoaW5rIEkgYWdyZWUgd2l0aAo+IEJqb3JuJ3MgY29tbWVu
+dHMgaW4gdGhhdCBpZiBpdCdzIGdvaW5nIHRvIGJlIGEgZ2VuZXJhbCBQMlAgQVBJIGl0IHdpbGwK
+PiBuZWVkIHRoZSBkZXZpY2UgdGhlIHJlc291cmNlIGJlbG9uZ3MgdG8gaW4gYWRkaXRpb24gdG8g
+dGhlIGRldmljZSB0aGF0J3MKPiBpbml0aWF0aW5nIHRoZSBETUEgcmVxdWVzdC4KClRoZSBwb2lu
+dCBpIGhhdmUgYmVlbiB0cnlpbmcgdG8gZ2V0IGFjY3Jvc3MgaXMgdGhhdCB5b3UgZG8gaGF2ZSB0
+aGlzCmluZm9ybWF0aW9uIHdpdGggZG1hX21hcF9yZXNvdXJjZSgpIHlvdSBrbm93IHRoZSBkZXZp
+Y2UgdG8gd2hpY2ggeW91CmFyZSB0cnlpbmcgdG8gbWFwIChkZXYgYXJndW1lbnQgdG8gZG1hX21h
+cF9yZXNvdXJjZSgpKSBhbmQgeW91IGNhbgplYXNpbHkgZ2V0IHRoZSBkZXZpY2UgdG8gd2hpY2gg
+dGhlIG1lbW9yeSBiZWxvbmdzIGJlY2F1c2UgeW91IGhhdmUgdGhlCkNQVSBwaHlzaWNhbCBhZGRy
+ZXNzIG9mIHRoZSBtZW1vcnkgaGVuY2UgeW91IGNhbiBsb29rdXAgdGhlIHJlc291cmNlCmFuZCBn
+ZXQgdGhlIGRldmljZSBmcm9tIHRoYXQuCgoKPiA+IEdpdmVuIGl0IGlzIGN1cnJlbnRseSBvbmx5
+IHVzZWQgYnkgQVJNIGZvbGtzIGl0IGFwcGVhciB0byBhdCBsZWFzdCB3b3JrCj4gPiBmb3IgdGhl
+bSAodG0pIDopIE5vdGUgdGhhdCBDaHJpc3RpYW4gaXMgZG9pbmcgdGhpcyBpbiBQQ0lFIG9ubHkg
+Y29udGV4dAo+ID4gYW5kIGFnYWluIGRtYV9tYXBfcmVzb3VyY2UgY2FuIGVhc2lseSBmaWd1cmUg
+dGhhdCBvdXQgaWYgdGhlIGFkZHJlc3MgaXMKPiA+IGEgUENJRSBvciBzb21ldGhpbmcgZWxzZS4g
+Tm90ZSB0aGF0IHRoZSBleHBvcnRlciBleHBvcnQgdGhlIENQVSBidXMKPiA+IGFkZHJlc3MuIFNv
+IGFnYWluIGRtYV9tYXBfcmVzb3VyY2UgaGFzIGFsbCB0aGUgaW5mb3JtYXRpb25zIGl0IHdpbGwg
+ZXZlcgo+ID4gbmVlZCwgaWYgdGhlIHBlZXIgdG8gcGVlciBpcyBmdW5kYW1lbnRhbHkgdW4tZG9h
+YmxlIGl0IGNhbiByZXR1cm4gZG1hCj4gPiBlcnJvciBhbmQgaXQgaXMgdXAgdG8gdGhlIGNhbGxl
+ciB0byBoYW5kbGUgdGhpcywganVzdCBsaWtlIEdQVSBjb2RlIGRvLgo+ID4gCj4gPiBEbyB5b3Ug
+Y2xhaW0gdGhhdCBkbWFfbWFwX3Jlc291cmNlIGlzIG1pc3NpbmcgYW55IGluZm9ybWF0aW9uID8K
+PiAKPiBZZXMsIHRoYXQncyB3aGF0IEkgc2FpZC4gQWxsIHRoZSBleGlzdGluZyBBUk0gY29kZSBh
+cHBlYXJzIHRvIHVzZSBpdCBmb3IKPiBwbGF0Zm9ybSBkZXZpY2VzIG9ubHkuIEkgc3VzcGVjdCBw
+bGF0Zm9ybSBQMlAgaXMgcmVsYXRpdmVseSB0cml2aWFsIHRvCj4gc3VwcG9ydCBvbiBBUk0uIEkg
+dGhpbmsgaXQncyBhIGJpZyBkaWZmZXJlbmNlIGZyb20gdXNpbmcgaXQgZm9yIFBDSSBQMlAKPiBv
+ciBnZW5lcmFsIFAyUCBvbiBhbnkgYnVzLgo+IAoKSXQgZG9lcyBoYXZlIGFsbCB3ZSBuZWVkIGZv
+ciBQQ0lFIHdoZW4gdXNpbmcgZG1hX2FwaSBhbmQgbm90IHRoZSBTRyBvbmUuClNHIGlzc3VlIElJ
+UkMgaXMgdGhhdCBpdCBhc3N1bWUgc3RydWN0IHBhZ2UgLi4uIFNlZSBhYm92ZSBmb3IgZGV2aWNl
+Cmxvb2t1cC4KCj4gPiBJIGFncmVlIGFuZCB1bmRlcnN0YW5kIHRoYXQgYnV0IGZvciBwbGF0Zm9y
+bSB3aGVyZSBzdWNoIGZlYXR1cmUgbWFrZSBzZW5zZQo+ID4gdGhpcyB3aWxsIHdvcmsuIEZvciBt
+ZSBpdCBpcyBQb3dlclBDIGFuZCB4ODYgYW5kIGdpdmVuIFBvd2VyUEMgaGFzIENBUEkKPiA+IHdo
+aWNoIGhhcyBmYXIgbW9yZSBhZHZhbmNlIGZlYXR1cmUgd2hlbiBpdCBjb21lcyB0byBwZWVyIHRv
+IHBlZXIsIGkgZG9uJ3QKPiA+IHNlZSBzb21ldGhpbmcgbW9yZSBiYXNpYyBub3Qgd29ya2luZy4g
+T24geDg2LCBJbnRlbCBpcyBhIGJpdCBvZiBsb25lIHdvbGYsCj4gPiBkdW5ubyBpZiB0aGV5IGdv
+bm5hIHN1cHBvcnQgdGhpcyB1c2VjYXNlIHByby1hY3RpdmVseS4gQU1EIGRlZmluaXRseSB3aWxs
+Lgo+IAo+IFdlbGwgUG93ZXJQQyBkb2Vzbid0IGV2ZW4gc3VwcG9ydCBQMlAgYmV0d2VlbiByb290
+IHBvcnRzLiBBbmQgSSBmYWlsIHRvCj4gc2VlIGhvdyBDQVBJIGFwcGxpZXMgdW5sZXNzL3VudGls
+IHdlIGdldCB0aGlzIG1lbW9yeSBtYXBwZWQgaW50bwo+IHVzZXJzcGFjZSBhbmQgdGhlIG1hcHBp
+bmdzIG5lZWQgdG8gYmUgZHluYW1pY2FsbHkgbWFuYWdlZC4gU2VlbXMgbGlrZQo+IHRoYXQncyBh
+IGxvbmcgd2F5IGF3YXkuCgpJSVJDIENBUEkgbWFrZSBQMlAgbWFuZGF0b3J5IGJ1dCBtYXliZSB0
+aGlzIGlzIHdpdGggTlZMaW5rLiBXZSBjYW4gYXNrCnRoZSBQb3dlclBDIGZvbGtzIHRvIGNvbmZp
+cm0uIE5vdGUgQ0FQSSBpcyBQb3dlcjggYW5kIG5ld2VyIEFGQUlDVC4KCk1hcHBpbmcgdG8gdXNl
+cnNwYWNlIGhhdmUgbm90aGluZyB0byBkbyBoZXJlLiBJIGFtIHRhbGtpbmcgYXQgaGFyZHdhcmUK
+bGV2ZWwuIEhvdyB0aGluZyBhcmUgZXhwb3NlIHRvIHVzZXJzcGFjZSBpcyBhIGNvbXBsZXRlbHkg
+ZGlmZmVyZW50CnByb2JsZW1zIHRoYXQgZG8gbm90IGhhdmUgb25lIHNvbHV0aW9uIGZpdCBhbGwu
+IEZvciBHUFUgeW91IHdhbnQgdGhpcwp0byBiZSB1bmRlciB0b3RhbCBjb250cm9sIG9mIEdQVSBk
+cml2ZXJzLiBGb3Igc3RvcmFnZSBsaWtlIHBlcnNpc3RlbnQKbWVtb3J5LCB5b3UgbWlnaHQgd2Fu
+dCB0byBleHBvc2UgaXQgdXNlcnNwYWNlIG1vcmUgZGlyZWN0bHkgLi4uCgpDaGVlcnMsCkrDqXLD
+tG1lCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
