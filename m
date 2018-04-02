@@ -1,13 +1,10 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx9: correct the emit_frame_size
-Date: Mon, 2 Apr 2018 11:11:46 -0400
-Message-ID: <CADnq5_OJFsUd25omBFP3pTM2OPOa3sNLJmCZxSPGmGBeZT1ydw@mail.gmail.com>
-References: <1522664350-28887-1-git-send-email-Emily.Deng@amd.com>
+From: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: regression on raven (gmc9)
+Date: Mon, 2 Apr 2018 20:46:52 +0530
+Message-ID: <CAFuwKQNK5xWc=zPGnOjRPLt1+KMdWfdtGbHr1Ci_zTvhS90mLQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0067932291=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1522664350-28887-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,53 +15,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gTW9uLCBBcHIgMiwgMjAxOCBhdCA2OjE5IEFNLCBFbWlseSBEZW5nIDxFbWlseS5EZW5nQGFt
-ZC5jb20+IHdyb3RlOgo+IEFzIHRoZSB0bGIgZmx1c2ggY29tbWFuZHMgYXJlIGNvbWJpbmVkIHRv
-IG9uZSBjb21tYW5kCj4gbm93LCBzbyBuZWVkIHRvIG1vZGlmeSB0aGUgZW1pdCBmcmFtZSBzaXpl
-Lgo+Cj4gU2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPgoKSSd2
-ZSByZXZlcnRlZCB0aGUgcGF0Y2hlcy4gIFRoZXkgc2VlbSB0byByZWdyZXNzIG90aGVyIGdmeDkg
-cGFydHMuCgpBbGV4Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlf
-MC5jIHwgNiArKystLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxl
-dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
-djlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IGluZGV4IDU2
-NmI3ZWIuLmYzODg3NjQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMK
-PiBAQCAtNDM3OSw3ICs0Mzc5LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19m
-dW5jcyBnZnhfdjlfMF9yaW5nX2Z1bmNzX2dmeCA9IHsKPiAgICAgICAgIC5lbWl0X2ZyYW1lX3Np
-emUgPSAvKiB0b3RhbGx5IDI0MiBtYXhpbXVtIGlmIDE2IElCcyAqLwo+ICAgICAgICAgICAgICAg
-ICA1ICsgIC8qIENPTkRfRVhFQyAqLwo+ICAgICAgICAgICAgICAgICA3ICsgIC8qIFBJUEVMSU5F
-X1NZTkMgKi8KPiAtICAgICAgICAgICAgICAgU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fV1JFRyAq
-IDUgKwo+ICsgICAgICAgICAgICAgICAoU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fV1JFRyAtIDEp
-ICogNSArCj4gICAgICAgICAgICAgICAgIFNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1JFR19XQUlU
-ICogNyArCj4gICAgICAgICAgICAgICAgIDIgKyAvKiBWTV9GTFVTSCAqLwo+ICAgICAgICAgICAg
-ICAgICA4ICsgIC8qIEZFTkNFIGZvciBWTV9GTFVTSCAqLwo+IEBAIC00NDMyLDcgKzQ0MzIsNyBA
-QCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIGdmeF92OV8wX3JpbmdfZnVu
-Y3NfY29tcHV0ZSA9IHsKPiAgICAgICAgICAgICAgICAgNyArIC8qIGdmeF92OV8wX3JpbmdfZW1p
-dF9oZHBfZmx1c2ggKi8KPiAgICAgICAgICAgICAgICAgNSArIC8qIGdmeF92OV8wX3JpbmdfZW1p
-dF9oZHBfaW52YWxpZGF0ZSAqLwo+ICAgICAgICAgICAgICAgICA3ICsgLyogZ2Z4X3Y5XzBfcmlu
-Z19lbWl0X3BpcGVsaW5lX3N5bmMgKi8KPiAtICAgICAgICAgICAgICAgU09DMTVfRkxVU0hfR1BV
-X1RMQl9OVU1fV1JFRyAqIDUgKwo+ICsgICAgICAgICAgICAgICAoU09DMTVfRkxVU0hfR1BVX1RM
-Ql9OVU1fV1JFRyAtIDEpICogNSArCj4gICAgICAgICAgICAgICAgIFNPQzE1X0ZMVVNIX0dQVV9U
-TEJfTlVNX1JFR19XQUlUICogNyArCj4gICAgICAgICAgICAgICAgIDIgKyAvKiBnZnhfdjlfMF9y
-aW5nX2VtaXRfdm1fZmx1c2ggKi8KPiAgICAgICAgICAgICAgICAgOCArIDggKyA4LCAvKiBnZnhf
-djlfMF9yaW5nX2VtaXRfZmVuY2UgeDMgZm9yIHVzZXIgZmVuY2UsIHZtIGZlbmNlICovCj4gQEAg
-LTQ0NjgsNyArNDQ2OCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3Mg
-Z2Z4X3Y5XzBfcmluZ19mdW5jc19raXEgPSB7Cj4gICAgICAgICAgICAgICAgIDcgKyAvKiBnZnhf
-djlfMF9yaW5nX2VtaXRfaGRwX2ZsdXNoICovCj4gICAgICAgICAgICAgICAgIDUgKyAvKiBnZnhf
-djlfMF9yaW5nX2VtaXRfaGRwX2ludmFsaWRhdGUgKi8KPiAgICAgICAgICAgICAgICAgNyArIC8q
-IGdmeF92OV8wX3JpbmdfZW1pdF9waXBlbGluZV9zeW5jICovCj4gLSAgICAgICAgICAgICAgIFNP
-QzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcgKiA1ICsKPiArICAgICAgICAgICAgICAgKFNPQzE1
-X0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcgLSAxKSAqIDUgKwo+ICAgICAgICAgICAgICAgICBTT0Mx
-NV9GTFVTSF9HUFVfVExCX05VTV9SRUdfV0FJVCAqIDcgKwo+ICAgICAgICAgICAgICAgICAyICsg
-LyogZ2Z4X3Y5XzBfcmluZ19lbWl0X3ZtX2ZsdXNoICovCj4gICAgICAgICAgICAgICAgIDggKyA4
-ICsgOCwgLyogZ2Z4X3Y5XzBfcmluZ19lbWl0X2ZlbmNlX2tpcSB4MyBmb3IgdXNlciBmZW5jZSwg
-dm0gZmVuY2UgKi8KPiAtLQo+IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+--===============0067932291==
+Content-Type: multipart/alternative; boundary="00000000000099d68e0568df150a"
+
+--00000000000099d68e0568df150a
+Content-Type: text/plain; charset="UTF-8"
+
+Thanks. This was locking up my Raven too.
+
+-Dawson Dias
+
+--00000000000099d68e0568df150a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks. This was locking up my Raven too.<div><br clear=3D=
+"all"><div><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature=
+"><div dir=3D"ltr"><div><div dir=3D"ltr"><font face=3D"arial, helvetica, sa=
+ns-serif">-Dawson Dias</font><br></div></div></div></div></div>
+</div></div>
+
+--00000000000099d68e0568df150a--
+
+--===============0067932291==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0067932291==--
