@@ -1,10 +1,15 @@
-From: Dawson Dias <thexerothermicsclerodermoid-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: regression on raven (gmc9)
-Date: Mon, 2 Apr 2018 20:46:52 +0530
-Message-ID: <CAFuwKQNK5xWc=zPGnOjRPLt1+KMdWfdtGbHr1Ci_zTvhS90mLQ@mail.gmail.com>
+Date: Mon, 2 Apr 2018 17:22:49 +0200
+Message-ID: <7d7bf762-7b6e-47a5-d5d7-860e93a0750d@amd.com>
+References: <2bd09049-695a-ef03-3a45-53610d366b38@amd.com>
+ <CADnq5_PDpDRCGisjyOTybqjSM3CcUjjnR-xZHJ8KnG70E3kohw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0067932291=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_PDpDRCGisjyOTybqjSM3CcUjjnR-xZHJ8KnG70E3kohw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,38 +20,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Tom St Denis <tstdenis-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0067932291==
-Content-Type: multipart/alternative; boundary="00000000000099d68e0568df150a"
-
---00000000000099d68e0568df150a
-Content-Type: text/plain; charset="UTF-8"
-
-Thanks. This was locking up my Raven too.
-
--Dawson Dias
-
---00000000000099d68e0568df150a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks. This was locking up my Raven too.<div><br clear=3D=
-"all"><div><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature=
-"><div dir=3D"ltr"><div><div dir=3D"ltr"><font face=3D"arial, helvetica, sa=
-ns-serif">-Dawson Dias</font><br></div></div></div></div></div>
-</div></div>
-
---00000000000099d68e0568df150a--
-
---===============0067932291==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0067932291==--
+QW0gMDIuMDQuMjAxOCB1bSAxNzowMCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBNb24sIEFw
+ciAyLCAyMDE4IGF0IDc6MTcgQU0sIFRvbSBTdCBEZW5pcyA8dHN0ZGVuaXNAYW1kLmNvbT4gd3Jv
+dGU6Cj4+IFRoaXMgY29tbWl0Cj4+Cj4+IFtyb290QHJhdmVuIGxpbnV4XSMgZ2l0IGJpc2VjdCBi
+YWQKPj4gYzcwNGQ3YTE1ZDI5MmU2ZTIyMmI3ZTk5MGVkN2U5ZjQxNjE3Y2RkOCBpcyB0aGUgZmly
+c3QgYmFkIGNvbW1pdAo+PiBjb21taXQgYzcwNGQ3YTE1ZDI5MmU2ZTIyMmI3ZTk5MGVkN2U5ZjQx
+NjE3Y2RkOAo+PiBBdXRob3I6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
+bT4KPj4gRGF0ZTogICBUdWUgTWFyIDI3IDE3OjEwOjU2IDIwMTggLTA1MDAKPj4KPj4gICAgICBk
+cm0vYW1kZ3B1L2dtYzk6IHVzZSBhbWRncHVfcmluZ19lbWl0X3JlZ193cml0ZV9yZWdfd2FpdCBp
+biBncHUgdGxiCj4+IGZsdXNoCj4+Cj4+ICAgICAgVXNlIGFtZGdwdV9yaW5nX2VtaXRfcmVnX3dy
+aXRlX3JlZ193YWl0LiAgT24gZW5naW5lcyB0aGF0IHN1cHBvcnQgaXQsCj4+ICAgICAgaXQgcHJv
+dmlkZXMgYSB3cml0ZSBhbmQgd2FpdCBpbiBhIHNpbmdsZSBwYWNrZXQgd2hpY2ggYXZvaWRzIGEg
+bWlzc2VkCj4+ICAgICAgYWNrIGlmIGEgd29ybGQgc3dpdGNoIGhhcHBlbnMgYmV0d2VlbiB0aGUg
+cmVxdWVzdCBhbmQgd2FpdGluZyBmb3IgdGhlCj4+ICAgICAgYWNrLgo+Pgo+PiAgICAgIFJldmll
+d2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+PiAgICAgIFJldmlld2VkLWJ5
+OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+ICAgICAgU2ln
+bmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pgo+
+PiA6MDQwMDAwIDA0MDAwMCBhMDhhMTJhMzE2ZDA5ZWEyMzEzMzcxMzZjYzdhYTA3NmQ0ZGE0NGE4
+Cj4+IDUyMWM4YTE4YjBjNjNlMTg1ZTQxNmEyNjc2MTlhOTI4MjJkN2YyNjggTSAgICAgIGRyaXZl
+cnMKPj4KPj4gQ2F1c2VzIG15IHJhdmVuMSB0byBsb2NrdXAgb24gc3RhcnRpbmcgWCB3aXRoIGEg
+Z2Z4IHJpbmcgc3RhbGwuCj4gSSd2ZSByZXZlcnRlZCB0aGUgcGF0Y2hlcy4KClllYWgsIHlvdSBu
+ZWVkIGEgc3BlY2lhbGl6ZWQgZmlybXdhcmUgdmVyc2lvbiBmb3IgdGhpcyB3aGljaCBSYXZlbiAK
+cHJvYmFibHkgZG9lc24ndCBoYXZlLgoKQW55d2F5IHRoZSByb290IGNhdXNlIG9mIHRoZSBpc3N1
+ZSB3aGljaCBzaG91bGQgYmUgZml4ZWQgYnkgdGhpcyBwYXRjaCAKc2V0IHdhcyBmb3VuZCBpbiB0
+aGUgbWVhbnRpbWUsIHNvIHRoZSB3aG9sZSBwYXRjaCBzZXQgc2hvdWxkbid0IGJlIApuZWNlc3Nh
+cnkgYW55IG1vcmUuCgpDaHJpc3RpYW4uCgo+Cj4gQWxleAo+Cj4+IFRvbQo+PiBfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcg
+bGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
