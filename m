@@ -1,44 +1,67 @@
-From: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH -next] drm/amdkfd: Make function kfd_dev_is_large_bar()
- static
-Date: Mon, 2 Apr 2018 14:03:33 -0400
-Message-ID: <623cef28-530e-21af-e90c-64905f5c84b5@amd.com>
-References: <1522376727-136554-1-git-send-email-weiyongjun1@huawei.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: add bo flag that indicates KFD BOs
+Date: Mon, 2 Apr 2018 14:55:54 -0400
+Message-ID: <83ab0822-c19e-9f03-b287-632da4f7d93c@amd.com>
+References: <20180402070032.5306-1-david1.zhou@amd.com>
+ <20180402070032.5306-2-david1.zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1522376727-136554-1-git-send-email-weiyongjun1@huawei.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180402070032.5306-2-david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-CA
-Sender: linux-kernel-owner@vger.kernel.org
-To: Wei Yongjun <weiyongjun1@huawei.com>, oded.gabbay@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This patch is Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-On 2018-03-29 10:25 PM, Wei Yongjun wrote:
-> Fixes the following sparse warning:
->
-> drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:1150:6: warning:
->  symbol 'kfd_dev_is_large_bar' was not declared. Should it be static?
->
-> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index cd679cf..fb5d997 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1147,7 +1147,7 @@ static int kfd_ioctl_acquire_vm(struct file *filep, struct kfd_process *p,
->  	return ret;
->  }
->  
-> -bool kfd_dev_is_large_bar(struct kfd_dev *dev)
-> +static bool kfd_dev_is_large_bar(struct kfd_dev *dev)
->  {
->  	struct kfd_local_mem_info mem_info;
->
+VGhhbmtzIGZvciBmb2xsb3dpbmcgdXAgb24gdGhhdC4gSSdkIHVzZSBhIG1vcmUgZ2VuZXJpYyBu
+YW1lLCBtYXliZQpBTURHUFVfR0VNX0NSRUFURV9OT19GQUxMQkFDSy4gQW5kIEkgdGhpbmsgeW91
+IHNob3VsZCBleGNsdWRlIHRoaXMgZmxhZwppbiBhbWRncHVfZ2VtX2NyZWF0ZV9pb2N0bCBzbyB0
+aGF0IGFsbG9jYXRpb25zIHRocm91Z2ggdGhlIEdFTSBBUEkgY2FuJ3QKdXNlIHRoaXMgb3B0aW9u
+LgoKUmVnYXJkcywKwqAgRmVsaXgKCgpPbiAyMDE4LTA0LTAyIDAzOjAwIEFNLCBDaHVubWluZyBa
+aG91IHdyb3RlOgo+IEtGRCB3cmFwcyBhbWRncHVfYm9fY3JlYXRlLCB0aGV5IGhhdmUgbm8gZmFs
+bGJhY2sgY2FzZSB3aGljaCBpcyBkaWZmZXJlbnQKPiB3aXRoIGFtZGdwdV9nZW1fb2JqZWN0X2Ny
+ZWF0ZS4KPiBzaW5jZSB1cHN0cmVhbSBicmFuY2ggaGFzIG5vIGFtZGdwdV9hbWRrZmRfZ3B1dm0u
+Yywgd2hpY2ggbmVlZCBLRkQKPiBndXlzIGFkZCB0aGlzIGZsYWcgdG8gX19hbGxvY19tZW1vcnlf
+b2ZfZ3B1Ogo+ICsgICAgICAgZmxhZ3MgfD0gQU1ER1BVX0dFTV9DUkVBVEVfS0ZEOwo+Cj4gQ2hh
+bmdlLUlkOiBJZDNhYzFhMGJkZDQ4NjMzMzI4ZDBiMjJjNGMwNTdmYWI0ZTk0ZDBiMwo+IFNpZ25l
+ZC1vZmYtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+Cj4gQ2M6IGZlbGl4
+Lmt1ZWhsaW5nQGFtZC5jb20KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X29iamVjdC5jIHwgMyArKy0KPiAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggICAg
+ICAgICAgICAgIHwgMiArKwo+ICAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBk
+ZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9vYmplY3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3Qu
+Ywo+IGluZGV4IGYwNGJmYWIxZWViZC4uNzJkYWJiOTg4NmJlIDEwMDY0NAo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IEBAIC00MjAsNyArNDIwLDggQEAgc3Rh
+dGljIGludCBhbWRncHVfYm9fZG9fY3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1
+bnNpZ25lZCBsb25nIHNpemUsCj4gIAlyID0gdHRtX2JvX2luaXRfcmVzZXJ2ZWQoJmFkZXYtPm1t
+YW4uYmRldiwgJmJvLT50Ym8sIHNpemUsIHR5cGUsCj4gIAkJCQkgJmJvLT5wbGFjZW1lbnQsIHBh
+Z2VfYWxpZ24sICZjdHgsIGFjY19zaXplLAo+ICAJCQkJIE5VTEwsIHJlc3YsICZhbWRncHVfdHRt
+X2JvX2Rlc3Ryb3kpOwo+IC0JaWYgKHVubGlrZWx5KHIgJiYgciAhPSAtRVJFU1RBUlRTWVMpICYm
+IHR5cGUgPT0gdHRtX2JvX3R5cGVfZGV2aWNlKSB7Cj4gKwlpZiAodW5saWtlbHkociAmJiByICE9
+IC1FUkVTVEFSVFNZUykgJiYgdHlwZSA9PSB0dG1fYm9fdHlwZV9kZXZpY2UgJiYKPiArCSAgICAh
+KGZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfS0ZEKSkgewo+ICAJCWlmIChmbGFncyAmIEFNREdQ
+VV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQpIHsKPiAgCQkJZmxhZ3MgJj0gfkFNREdQ
+VV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQ7Cj4gIAkJCWdvdG8gcmV0cnk7Cj4gZGlm
+ZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS91YXBpL2Ry
+bS9hbWRncHVfZHJtLmgKPiBpbmRleCAwMDg3Nzk5OTYyY2YuLjBiZTk5NGJlMjY5ZiAxMDA2NDQK
+PiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+ICsrKyBiL2luY2x1ZGUvdWFw
+aS9kcm0vYW1kZ3B1X2RybS5oCj4gQEAgLTk4LDYgKzk4LDggQEAgZXh0ZXJuICJDIiB7Cj4gICNk
+ZWZpbmUgQU1ER1BVX0dFTV9DUkVBVEVfVk1fQUxXQVlTX1ZBTElECSgxIDw8IDYpCj4gIC8qIEZs
+YWcgdGhhdCBCTyBzaGFyaW5nIHdpbGwgYmUgZXhwbGljaXRseSBzeW5jaHJvbml6ZWQgKi8KPiAg
+I2RlZmluZSBBTURHUFVfR0VNX0NSRUFURV9FWFBMSUNJVF9TWU5DCQkoMSA8PCA3KQo+ICsvKiBG
+bGFnIHRoYXQgQk8gaXMgY3JlYXRlZCBmcm9tIEtGRCBzaWRlICovCj4gKyNkZWZpbmUgQU1ER1BV
+X0dFTV9DUkVBVEVfS0ZECQkJKDEgPDwgOCkKPiAgCj4gIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV9j
+cmVhdGVfaW4gIHsKPiAgCS8qKiB0aGUgcmVxdWVzdGVkIG1lbW9yeSBzaXplICovCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
