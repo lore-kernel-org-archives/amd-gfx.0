@@ -1,11 +1,13 @@
-From: Ian Bashford <ianbashford-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Tonga Kernel Modesetting Issue
-Date: Mon, 2 Apr 2018 15:29:48 +0100
-Message-ID: <CAMqxyLMt=C5xUNuUCTfvXg9Zh_0CTGBPkPw8TNvs0688+7gqKg@mail.gmail.com>
-Reply-To: ian-/S0389TiWqnk1uMJSBkQmQ@public.gmane.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: regression on raven (gmc9)
+Date: Mon, 2 Apr 2018 11:00:55 -0400
+Message-ID: <CADnq5_PDpDRCGisjyOTybqjSM3CcUjjnR-xZHJ8KnG70E3kohw@mail.gmail.com>
+References: <2bd09049-695a-ef03-3a45-53610d366b38@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1867389936=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2bd09049-695a-ef03-3a45-53610d366b38-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,92 +18,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Tom St Denis <tstdenis-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1867389936==
-Content-Type: multipart/alternative; boundary="94eb2c194f8e1873fa0568de6c6f"
-
---94eb2c194f8e1873fa0568de6c6f
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-I'm investigating an issue with KMS on my graphics card. I'm hoping this
-list might give me some direction/guidance where to look.
-
-Sometime in between kernels 4.9 and 4.14, the KMS on my card stopped
-getting set to 2560x1440 and only sets 1920x1080.  Passing video= as a
-kernel parameter just leads to a black screen.
-I've tried stock kernels on alpine and arch, and also compiled a few as
-well; I can't see any obvious differences in the compile options that might
-lead to the difference.
-My next line of enquiry is to see if there's a change in amdgpu that might
-be the cause.
-Given the size of the codebase and the number of changes, I was hoping
-someone might be able to help me narrow the possible search.
-
-Would you be able to suggest somewhere to begin ?
-
-The card is a Sapphire R9 380X NITRO 4GB  - it identifies as a TONGA.
-
-During the boot, I get this message about the mode setting
-[drm] initializing kernel modesetting (TONGA 0x1002:0x6938 0x174B:0xE308
-0xF1)
-
-thanks
-Ian
-
---94eb2c194f8e1873fa0568de6c6f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<div>I&#39;m investigating an issue with KMS on my grap=
-hics card. I&#39;m hoping this list might give me some direction/guidance w=
-here to look.</div><div><br></div><div>Sometime in between kernels 4.9 and =
-4.14, the KMS on my card stopped getting set to 2560x1440 and only sets 192=
-0x1080.=C2=A0 Passing video=3D as a kernel parameter just leads to a black =
-screen.</div><div>I&#39;ve tried stock kernels on alpine and arch, and also=
- compiled a few as well; I can&#39;t see any obvious differences in the com=
-pile options that might lead to the difference.</div><div><span style=3D"co=
-lor:rgb(34,34,34);font-family:arial,sans-serif;font-size:small;font-style:n=
-ormal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:40=
-0;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:non=
-e;white-space:normal;word-spacing:0px;background-color:rgb(255,255,255);tex=
-t-decoration-style:initial;text-decoration-color:initial;float:none;display=
-:inline">My next line of enquiry is to see if there&#39;s a change in amdgp=
-u that might be the cause.</span></div><div>Given the size of the codebase =
-and the number of changes, I was hoping someone might be able to help me na=
-rrow the possible search.</div><div><br></div><div>Would you be able to sug=
-gest somewhere to begin ?</div><div><br></div><div>The card is a<font color=
-=3D"#000000">=C2=A0</font><span style=3D"font-family:Arial,&quot;Helvetica =
-Neue&quot;,Helvetica,sans-serif;font-size:12px;font-style:normal;font-varia=
-nt-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing=
-:normal;text-align:start;text-indent:0px;text-transform:none;white-space:no=
-rmal;word-spacing:0px;background-color:rgb(255,255,255);text-decoration-sty=
-le:initial;text-decoration-color:initial;float:none;display:inline"><font c=
-olor=3D"#000000">Sapphire R9 380X NITRO 4GB=C2=A0</font><font color=3D"#666=
-666"> </font><font color=3D"#000000">- it identifies as a TONGA.</font></sp=
-an></div><div><font face=3D"Arial, Helvetica Neue, Helvetica, sans-serif" c=
-olor=3D"#000000"><span style=3D"font-size:12px"><br></span></font></div><di=
-v><font face=3D"Arial, Helvetica Neue, Helvetica, sans-serif" color=3D"#000=
-000"><span style=3D"font-size:12px">During the boot, I get this message abo=
-ut the mode setting</span></font></div><div><font face=3D"Arial, Helvetica =
-Neue, Helvetica, sans-serif"><span style=3D"font-size:12px"><font color=3D"=
-#000000">[drm] initializing kernel modesetting (TONGA 0x1002:0x6938 0x174B:=
-0xE308 0xF1)</font></span><br clear=3D"all"></font><div><br></div><div>than=
-ks</div><div class=3D"gmail_signature">Ian</div>
-
-</div></div>
-
---94eb2c194f8e1873fa0568de6c6f--
-
---===============1867389936==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1867389936==--
+T24gTW9uLCBBcHIgMiwgMjAxOCBhdCA3OjE3IEFNLCBUb20gU3QgRGVuaXMgPHRzdGRlbmlzQGFt
+ZC5jb20+IHdyb3RlOgo+IFRoaXMgY29tbWl0Cj4KPiBbcm9vdEByYXZlbiBsaW51eF0jIGdpdCBi
+aXNlY3QgYmFkCj4gYzcwNGQ3YTE1ZDI5MmU2ZTIyMmI3ZTk5MGVkN2U5ZjQxNjE3Y2RkOCBpcyB0
+aGUgZmlyc3QgYmFkIGNvbW1pdAo+IGNvbW1pdCBjNzA0ZDdhMTVkMjkyZTZlMjIyYjdlOTkwZWQ3
+ZTlmNDE2MTdjZGQ4Cj4gQXV0aG9yOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+Cj4gRGF0ZTogICBUdWUgTWFyIDI3IDE3OjEwOjU2IDIwMTggLTA1MDAKPgo+ICAgICBk
+cm0vYW1kZ3B1L2dtYzk6IHVzZSBhbWRncHVfcmluZ19lbWl0X3JlZ193cml0ZV9yZWdfd2FpdCBp
+biBncHUgdGxiCj4gZmx1c2gKPgo+ICAgICBVc2UgYW1kZ3B1X3JpbmdfZW1pdF9yZWdfd3JpdGVf
+cmVnX3dhaXQuICBPbiBlbmdpbmVzIHRoYXQgc3VwcG9ydCBpdCwKPiAgICAgaXQgcHJvdmlkZXMg
+YSB3cml0ZSBhbmQgd2FpdCBpbiBhIHNpbmdsZSBwYWNrZXQgd2hpY2ggYXZvaWRzIGEgbWlzc2Vk
+Cj4gICAgIGFjayBpZiBhIHdvcmxkIHN3aXRjaCBoYXBwZW5zIGJldHdlZW4gdGhlIHJlcXVlc3Qg
+YW5kIHdhaXRpbmcgZm9yIHRoZQo+ICAgICBhY2suCj4KPiAgICAgUmV2aWV3ZWQtYnk6IEh1YW5n
+IFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+Cj4gICAgIFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gICAgIFNpZ25lZC1vZmYtYnk6IEFsZXgg
+RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPgo+IDowNDAwMDAgMDQwMDAwIGEw
+OGExMmEzMTZkMDllYTIzMTMzNzEzNmNjN2FhMDc2ZDRkYTQ0YTgKPiA1MjFjOGExOGIwYzYzZTE4
+NWU0MTZhMjY3NjE5YTkyODIyZDdmMjY4IE0gICAgICBkcml2ZXJzCj4KPiBDYXVzZXMgbXkgcmF2
+ZW4xIHRvIGxvY2t1cCBvbiBzdGFydGluZyBYIHdpdGggYSBnZnggcmluZyBzdGFsbC4KCkkndmUg
+cmV2ZXJ0ZWQgdGhlIHBhdGNoZXMuCgpBbGV4Cgo+Cj4gVG9tCj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
