@@ -1,16 +1,11 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix KIQ hang on bare metal for device
- unbind/bind back.
-Date: Mon, 2 Apr 2018 10:00:25 -0400
-Message-ID: <db5bdeef-8da7-50ec-b433-e554d0c3d029@amd.com>
-References: <1522240658-2648-1-git-send-email-andrey.grodzovsky@amd.com>
- <BLUPR12MB0449BA46452663601FC2959984A00@BLUPR12MB0449.namprd12.prod.outlook.com>
+From: Ian Bashford <ianbashford-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Tonga Kernel Modesetting Issue
+Date: Mon, 2 Apr 2018 15:29:48 +0100
+Message-ID: <CAMqxyLMt=C5xUNuUCTfvXg9Zh_0CTGBPkPw8TNvs0688+7gqKg@mail.gmail.com>
+Reply-To: ian-/S0389TiWqnk1uMJSBkQmQ@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1867389936=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB0449BA46452663601FC2959984A00-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,81 +16,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Ding,
- Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW5vdGhlciBtaXN0YWtlLCB0aGUgY29tbWVudCBpcyBkaXNwbGFjZWQsIHdpbGwgZml4IHRvLgoK
-VGhhbmtzLAoKQW5kcmV5CgoKT24gMDMvMzEvMjAxOCAwNzowOSBBTSwgTGl1LCBNb25rIHdyb3Rl
-Ogo+ICsJCWlmIChhZGV2LT51c2VjX3RpbWVvdXQgPT0gQU1ER1BVX01BWF9VU0VDX1RJTUVPVVQp
-IHsKPiArCQkJRFJNX0RFQlVHKCJLSVEgZGVxdWV1ZSByZXF1ZXN0IGZhaWxlZC5cbiIpOwo+ICsK
-PiArCQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9BQ1RJVkUsIDApOwo+ICsJCX0KPiAr
-Cj4gKwkJLyogTWFudWFsIGRpc2FibGUgaWYgZGVxdWV1ZSByZXF1ZXN0IHRpbWVzIG91dCAqLwo+
-ICsJCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfREVRVUVVRV9SRVFVRVNULAo+ICsJCSAg
-ICAgIDApOwo+Cj4gWW91IHNhaWQgIm1hbnVhbGx5IGRpc2FibGUgaWYgZGVxdWV1ZSByZXF1ZXN0
-IHRpbWUgb3V0LCBidXQgbG9va3MgdGhlIGxvZ2ljIGlzIHlvdSBhbHdheXMKPiBSdW4gdGhpcyBh
-bnl3YXkKPgo+IC9Nb25rCj4KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IGFt
-ZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBC
-ZWhhbGYgT2YgQW5kcmV5IEdyb2R6b3Zza3kKPiBTZW50OiAyMDE45bm0M+aciDI45pelIDIwOjM4
-Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IERldWNoZXIsIEFsZXhh
-bmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEdyb2R6b3Zza3ksIEFuZHJleSA8QW5k
-cmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT47IERpbmcsIFBpeGVsIDxQaXhlbC5EaW5nQGFtZC5jb20+
-OyBaaHUsIFJleCA8UmV4LlpodUBhbWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdw
-dTogRml4IEtJUSBoYW5nIG9uIGJhcmUgbWV0YWwgZm9yIGRldmljZSB1bmJpbmQvYmluZCBiYWNr
-Lgo+Cj4gUHJvYmxlbTogV2hlbiB1bmJpbmQgYW5kIHRoZW4gYmluZCBiYWNrIHRoZSBkZXZpY2Ug
-S0lRIGhhbmdzIG9uIFZlZ2EgYWZ0ZXIgbWFwcGluZyBLQ1FzIHJlcXVlc3QuCj4KPiBGaXg6IEFk
-ZGluZyBkZWluaXRpYWx6aWUgY29kZSBmcm9tIENBSUwgZHVyaW5nIEhXIGZpbmkgc29sdmVzIHRo
-ZSBoYW5nLgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9k
-em92c2t5QGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
-djlfMC5jIHwgNTIgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0KPiAgIDEgZmls
-ZSBjaGFuZ2VkLCA1MSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBpbmRleCAxYWUzZGUxLi5mZDEzMDY1IDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gQEAgLTI3NTcsNiArMjc1Nyw0NSBA
-QCBzdGF0aWMgaW50IGdmeF92OV8wX2tpcV9pbml0X3JlZ2lzdGVyKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZykKPiAgIAlyZXR1cm4gMDsKPiAgIH0KPiAgIAo+ICtzdGF0aWMgaW50IGdmeF92OV8w
-X2tpcV9maW5pX3JlZ2lzdGVyKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykgewo+ICsJc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Owo+ICsJaW50IGo7Cj4gKwo+ICsJLyog
-ZGlzYWJsZSB0aGUgcXVldWUgaWYgaXQncyBhY3RpdmUgKi8KPiArCWlmIChSUkVHMzJfU09DMTUo
-R0MsIDAsIG1tQ1BfSFFEX0FDVElWRSkgJiAxKSB7Cj4gKwo+ICsJCVdSRUczMl9TT0MxNShHQywg
-MCwgbW1DUF9IUURfREVRVUVVRV9SRVFVRVNULCAxKTsKPiArCj4gKwkJZm9yIChqID0gMDsgaiA8
-IGFkZXYtPnVzZWNfdGltZW91dDsgaisrKSB7Cj4gKwkJCWlmICghKFJSRUczMl9TT0MxNShHQywg
-MCwgbW1DUF9IUURfQUNUSVZFKSAmIDEpKQo+ICsJCQkJYnJlYWs7Cj4gKwkJCXVkZWxheSgxKTsK
-PiArCQl9Cj4gKwo+ICsJCWlmIChhZGV2LT51c2VjX3RpbWVvdXQgPT0gQU1ER1BVX01BWF9VU0VD
-X1RJTUVPVVQpIHsKPiArCQkJRFJNX0RFQlVHKCJLSVEgZGVxdWV1ZSByZXF1ZXN0IGZhaWxlZC5c
-biIpOwo+ICsKPiArCQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9BQ1RJVkUsIDApOwo+
-ICsJCX0KPiArCj4gKwkJLyogTWFudWFsIGRpc2FibGUgaWYgZGVxdWV1ZSByZXF1ZXN0IHRpbWVz
-IG91dCAqLwo+ICsJCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfREVRVUVVRV9SRVFVRVNU
-LAo+ICsJCSAgICAgIDApOwo+ICsJfQo+ICsKPiArCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9I
-UURfSVFfVElNRVIsIDApOwo+ICsJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9JQl9DT05U
-Uk9MLCAwKTsKPiArCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfUEVSU0lTVEVOVF9TVEFU
-RSwgMCk7Cj4gKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX0RPT1JCRUxMX0NPTlRS
-T0wsIDB4NDAwMDAwMDApOwo+ICsJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9ET09S
-QkVMTF9DT05UUk9MLCAwKTsKPiArCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfUFFfUlBU
-UiwgMCk7Cj4gKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX1dQVFJfSEksIDApOwo+
-ICsJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9XUFRSX0xPLCAwKTsKPiArCj4gKwly
-ZXR1cm4gMDsKPiArfQo+ICsKPiAgIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2luaXRfcXVldWUo
-c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKSAgewo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2ID0gcmluZy0+YWRldjsgQEAgLTMwMTAsNyArMzA0OSw2IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5
-XzBfa2NxX2Rpc2FibGUoc3RydWN0IGFtZGdwdV9yaW5nICpraXFfcmluZyxzdHJ1Y3QgYW1kZ3B1
-X3JpbmcKPiAgIAlyZXR1cm4gcjsKPiAgIH0KPiAgIAo+IC0KPiAgIHN0YXRpYyBpbnQgZ2Z4X3Y5
-XzBfaHdfZmluaSh2b2lkICpoYW5kbGUpICB7Cj4gICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7IEBAIC0zMDMzLDYgKzMwNzEsMTgg
-QEAgc3RhdGljIGludCBnZnhfdjlfMF9od19maW5pKHZvaWQgKmhhbmRsZSkKPiAgIAkJV1JFRzMy
-X0ZJRUxEMTUoR0MsIDAsIENQX1BRX1dQVFJfUE9MTF9DTlRMLCBFTiwgMCk7Cj4gICAJCXJldHVy
-biAwOwo+ICAgCX0KPiArCj4gKwkvKiBVc2UgZGVpbml0aWFsaXplIHNlcXVlbmNlIGZyb20gQ0FJ
-TCB3aGVuIHVuYmluZGluZyBkZXZpY2UgZnJvbSBkcml2ZXIsCj4gKwkgKiBvdGhlcndpc2UgS0lR
-IGlzIGhhbmdpbmcgd2hlbiBiaW5kaW5nIGJhY2sKPiArCSAqLwo+ICsJaWYgKCFhZGV2LT5pbl9n
-cHVfcmVzZXQgJiYgIWFkZXYtPmdmeC5pbl9zdXNwZW5kKSB7Cj4gKwkJc29jMTVfZ3JibV9zZWxl
-Y3QoYWRldiwgYWRldi0+Z2Z4LmtpcS5yaW5nLm1lLAo+ICsJCQkJYWRldi0+Z2Z4LmtpcS5yaW5n
-LnBpcGUsCj4gKwkJCQlhZGV2LT5nZngua2lxLnJpbmcucXVldWUsIDApOwo+ICsJCWdmeF92OV8w
-X2tpcV9maW5pX3JlZ2lzdGVyKCZhZGV2LT5nZngua2lxLnJpbmcpOwo+ICsJCXNvYzE1X2dyYm1f
-c2VsZWN0KGFkZXYsIDAsIDAsIDAsIDApOwo+ICsJfQo+ICsKPiAgIAlnZnhfdjlfMF9jcF9lbmFi
-bGUoYWRldiwgZmFsc2UpOwo+ICAgCWdmeF92OV8wX3JsY19zdG9wKGFkZXYpOwo+ICAgCj4gLS0K
-PiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1867389936==
+Content-Type: multipart/alternative; boundary="94eb2c194f8e1873fa0568de6c6f"
+
+--94eb2c194f8e1873fa0568de6c6f
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+I'm investigating an issue with KMS on my graphics card. I'm hoping this
+list might give me some direction/guidance where to look.
+
+Sometime in between kernels 4.9 and 4.14, the KMS on my card stopped
+getting set to 2560x1440 and only sets 1920x1080.  Passing video= as a
+kernel parameter just leads to a black screen.
+I've tried stock kernels on alpine and arch, and also compiled a few as
+well; I can't see any obvious differences in the compile options that might
+lead to the difference.
+My next line of enquiry is to see if there's a change in amdgpu that might
+be the cause.
+Given the size of the codebase and the number of changes, I was hoping
+someone might be able to help me narrow the possible search.
+
+Would you be able to suggest somewhere to begin ?
+
+The card is a Sapphire R9 380X NITRO 4GB  - it identifies as a TONGA.
+
+During the boot, I get this message about the mode setting
+[drm] initializing kernel modesetting (TONGA 0x1002:0x6938 0x174B:0xE308
+0xF1)
+
+thanks
+Ian
+
+--94eb2c194f8e1873fa0568de6c6f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div>I&#39;m investigating an issue with KMS on my grap=
+hics card. I&#39;m hoping this list might give me some direction/guidance w=
+here to look.</div><div><br></div><div>Sometime in between kernels 4.9 and =
+4.14, the KMS on my card stopped getting set to 2560x1440 and only sets 192=
+0x1080.=C2=A0 Passing video=3D as a kernel parameter just leads to a black =
+screen.</div><div>I&#39;ve tried stock kernels on alpine and arch, and also=
+ compiled a few as well; I can&#39;t see any obvious differences in the com=
+pile options that might lead to the difference.</div><div><span style=3D"co=
+lor:rgb(34,34,34);font-family:arial,sans-serif;font-size:small;font-style:n=
+ormal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:40=
+0;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:non=
+e;white-space:normal;word-spacing:0px;background-color:rgb(255,255,255);tex=
+t-decoration-style:initial;text-decoration-color:initial;float:none;display=
+:inline">My next line of enquiry is to see if there&#39;s a change in amdgp=
+u that might be the cause.</span></div><div>Given the size of the codebase =
+and the number of changes, I was hoping someone might be able to help me na=
+rrow the possible search.</div><div><br></div><div>Would you be able to sug=
+gest somewhere to begin ?</div><div><br></div><div>The card is a<font color=
+=3D"#000000">=C2=A0</font><span style=3D"font-family:Arial,&quot;Helvetica =
+Neue&quot;,Helvetica,sans-serif;font-size:12px;font-style:normal;font-varia=
+nt-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing=
+:normal;text-align:start;text-indent:0px;text-transform:none;white-space:no=
+rmal;word-spacing:0px;background-color:rgb(255,255,255);text-decoration-sty=
+le:initial;text-decoration-color:initial;float:none;display:inline"><font c=
+olor=3D"#000000">Sapphire R9 380X NITRO 4GB=C2=A0</font><font color=3D"#666=
+666"> </font><font color=3D"#000000">- it identifies as a TONGA.</font></sp=
+an></div><div><font face=3D"Arial, Helvetica Neue, Helvetica, sans-serif" c=
+olor=3D"#000000"><span style=3D"font-size:12px"><br></span></font></div><di=
+v><font face=3D"Arial, Helvetica Neue, Helvetica, sans-serif" color=3D"#000=
+000"><span style=3D"font-size:12px">During the boot, I get this message abo=
+ut the mode setting</span></font></div><div><font face=3D"Arial, Helvetica =
+Neue, Helvetica, sans-serif"><span style=3D"font-size:12px"><font color=3D"=
+#000000">[drm] initializing kernel modesetting (TONGA 0x1002:0x6938 0x174B:=
+0xE308 0xF1)</font></span><br clear=3D"all"></font><div><br></div><div>than=
+ks</div><div class=3D"gmail_signature">Ian</div>
+
+</div></div>
+
+--94eb2c194f8e1873fa0568de6c6f--
+
+--===============1867389936==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1867389936==--
