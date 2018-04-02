@@ -1,56 +1,63 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Fix memory leaks at amdgpu_init() error
- path
-Date: Mon, 2 Apr 2018 13:36:21 -0400
-Message-ID: <CADnq5_N9kyHi9XX=b3=WaT6ygOOnhXm91p2twhTMQHSOk4tHQA@mail.gmail.com>
-References: <20180330204512.16863-1-tiwai@suse.de>
+From: Logan Gunthorpe <logang@deltatee.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Mon, 2 Apr 2018 11:37:07 -0600
+Message-ID: <6f796779-0ba3-d056-de33-341ee55d6b38@deltatee.com>
+References: <73578b4e-664b-141c-3e1f-e1fae1e4db07@amd.com>
+ <1b08c13e-b4a2-08f2-6194-93e6c21b7965@deltatee.com>
+ <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
+ <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
+ <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
+ <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
+ <20180330015854.GA3572@redhat.com>
+ <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
+ <20180330194519.GC3198@redhat.com>
+ <31266710-f6bb-99ee-c73d-6e58afe5c38c@deltatee.com>
+ <20180402172027.GA18231@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180330204512.16863-1-tiwai-l3A5Bk7waGM@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Takashi Iwai <tiwai-l3A5Bk7waGM@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180402172027.GA18231@redhat.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jerome Glisse <jglisse@redhat.com>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, Will Davis <wdavis@nvidia.com>, Joerg Roedel <joro@8bytes.org>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBNYXIgMzAsIDIwMTggYXQgNDo0NSBQTSwgVGFrYXNoaSBJd2FpIDx0aXdhaUBzdXNl
-LmRlPiB3cm90ZToKPiBhbWRncHUgZHJpdmVyIGNoZWNrcyB2Z2Fjb25fdGV4dF9mb3JjZSgpIGFm
-dGVyIHNvbWUgaW5pdGlhbGl6YXRpb25zCj4gYnV0IHdpdGhvdXQgY2xlYW5pbmcgdXAuICBUaGlz
-IHdpbGwgcmVzdWx0IGluIGxlYWtzLgo+Cj4gTW92ZSB0aGUgY2hlY2sgb2YgdmdhY29uX3RleHRf
-Zm9yY2UoKSB0byB0aGUgYmVnaW5uaW5nIG9mCj4gYW1kZ3B1X2luaXQoKSBmb3IgZml4aW5nIGl0
-IGFuZCBhbHNvIGZvciBvcHRpbWl6YXRpb24uCj4KPiBTaWduZWQtb2ZmLWJ5OiBUYWthc2hpIEl3
-YWkgPHRpd2FpQHN1c2UuZGU+CgpBcHBsaWVkLiAgVGhhbmtzIQoKQWxleAoKPiAtLS0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgOSArKysrKy0tLS0KPiAgMSBm
-aWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBpbmRleCA1MGFmY2Y2NTE4MWEuLmU1NTc5
-MmQzY2QxMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBA
-QCAtOTA1LDYgKzkwNSwxMSBAQCBzdGF0aWMgaW50IF9faW5pdCBhbWRncHVfaW5pdCh2b2lkKQo+
-ICB7Cj4gICAgICAgICBpbnQgcjsKPgo+ICsgICAgICAgaWYgKHZnYWNvbl90ZXh0X2ZvcmNlKCkp
-IHsKPiArICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJWR0FDT04gZGlzYWJsZXMgYW1kZ3B1IGtl
-cm5lbCBtb2Rlc2V0dGluZy5cbiIpOwo+ICsgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsK
-PiArICAgICAgIH0KPiArCj4gICAgICAgICByID0gYW1kZ3B1X3N5bmNfaW5pdCgpOwo+ICAgICAg
-ICAgaWYgKHIpCj4gICAgICAgICAgICAgICAgIGdvdG8gZXJyb3Jfc3luYzsKPiBAQCAtOTEzLDEw
-ICs5MTgsNiBAQCBzdGF0aWMgaW50IF9faW5pdCBhbWRncHVfaW5pdCh2b2lkKQo+ICAgICAgICAg
-aWYgKHIpCj4gICAgICAgICAgICAgICAgIGdvdG8gZXJyb3JfZmVuY2U7Cj4KPiAtICAgICAgIGlm
-ICh2Z2Fjb25fdGV4dF9mb3JjZSgpKSB7Cj4gLSAgICAgICAgICAgICAgIERSTV9FUlJPUigiVkdB
-Q09OIGRpc2FibGVzIGFtZGdwdSBrZXJuZWwgbW9kZXNldHRpbmcuXG4iKTsKPiAtICAgICAgICAg
-ICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gLSAgICAgICB9Cj4gICAgICAgICBEUk1fSU5GTygiYW1k
-Z3B1IGtlcm5lbCBtb2Rlc2V0dGluZyBlbmFibGVkLlxuIik7Cj4gICAgICAgICBkcml2ZXIgPSAm
-a21zX2RyaXZlcjsKPiAgICAgICAgIHBkcml2ZXIgPSAmYW1kZ3B1X2ttc19wY2lfZHJpdmVyOwo+
-IC0tCj4gMi4xNi4yCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9kcmktZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+
+On 02/04/18 11:20 AM, Jerome Glisse wrote:
+> The point i have been trying to get accross is that you do have this
+> information with dma_map_resource() you know the device to which you
+> are trying to map (dev argument to dma_map_resource()) and you can
+> easily get the device to which the memory belongs because you have the
+> CPU physical address of the memory hence you can lookup the resource
+> and get the device from that.
+
+How do you go from a physical address to a struct device generally and
+in a performant manner?
+
+> IIRC CAPI make P2P mandatory but maybe this is with NVLink. We can ask
+> the PowerPC folks to confirm. Note CAPI is Power8 and newer AFAICT.
+
+PowerPC folks recently told us specifically that Power9 does not support
+P2P between PCI root ports. I've said this many times. CAPI has nothing
+to do with it.
+
+> Mapping to userspace have nothing to do here. I am talking at hardware
+> level. How thing are expose to userspace is a completely different
+> problems that do not have one solution fit all. For GPU you want this
+> to be under total control of GPU drivers. For storage like persistent
+> memory, you might want to expose it userspace more directly ...
+
+My understanding (and I worked on this a while ago) is that CAPI
+hardware manages memory maps typically for userspace memory. When a
+userspace program changes it's mapping, the CAPI hardware is updated so
+that hardware is coherent with the user address space and it is safe to
+DMA to any address without having to pin memory. (This is very similar
+to ODP in RNICs.) This is *really* nice but doesn't solve *any* of the
+problems we've been discussing. Moreover, many developers want to keep
+P2P in-kernel, for the time being, where the problem of pinning memory
+does not exist.
+
+Logan
