@@ -1,58 +1,59 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Tonga Kernel Modesetting Issue
-Date: Mon, 2 Apr 2018 15:21:40 -0400
-Message-ID: <CADnq5_PeHqAGVeiQkAcwMyLMse9OUA6tk+RcKNPMiKgvk5ZSmQ@mail.gmail.com>
-References: <CAMqxyLMt=C5xUNuUCTfvXg9Zh_0CTGBPkPw8TNvs0688+7gqKg@mail.gmail.com>
+From: Logan Gunthorpe <logang@deltatee.com>
+Subject: Re: [PATCH 2/8] PCI: Add pci_find_common_upstream_dev()
+Date: Mon, 2 Apr 2018 13:32:37 -0600
+Message-ID: <4c672c71-6202-0775-7825-37f8077d1d35@deltatee.com>
+References: <70adc2cc-f7aa-d4b9-7d7a-71f3ae99f16c@gmail.com>
+ <98ce6cfd-bcf3-811e-a0f1-757b60da467a@deltatee.com>
+ <8d050848-8970-b8c4-a657-429fefd31769@amd.com>
+ <d2de0c2e-4c2d-9e46-1c26-bfa40ca662ff@deltatee.com>
+ <20180330015854.GA3572@redhat.com>
+ <0234bc5e-495e-0f68-fb0a-debb17a35761@deltatee.com>
+ <20180330194519.GC3198@redhat.com>
+ <31266710-f6bb-99ee-c73d-6e58afe5c38c@deltatee.com>
+ <20180402172027.GA18231@redhat.com>
+ <6f796779-0ba3-d056-de33-341ee55d6b38@deltatee.com>
+ <20180402191649.GB18231@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAMqxyLMt=C5xUNuUCTfvXg9Zh_0CTGBPkPw8TNvs0688+7gqKg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: ian-/S0389TiWqnk1uMJSBkQmQ@public.gmane.org
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180402191649.GB18231@redhat.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jerome Glisse <jglisse@redhat.com>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, Will Davis <wdavis@nvidia.com>, Joerg Roedel <joro@8bytes.org>, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBBcHIgMiwgMjAxOCBhdCAxMDoyOSBBTSwgSWFuIEJhc2hmb3JkIDxpYW5iYXNoZm9y
-ZEBnbWFpbC5jb20+IHdyb3RlOgo+IEhpLAo+IEknbSBpbnZlc3RpZ2F0aW5nIGFuIGlzc3VlIHdp
-dGggS01TIG9uIG15IGdyYXBoaWNzIGNhcmQuIEknbSBob3BpbmcgdGhpcwo+IGxpc3QgbWlnaHQg
-Z2l2ZSBtZSBzb21lIGRpcmVjdGlvbi9ndWlkYW5jZSB3aGVyZSB0byBsb29rLgo+Cj4gU29tZXRp
-bWUgaW4gYmV0d2VlbiBrZXJuZWxzIDQuOSBhbmQgNC4xNCwgdGhlIEtNUyBvbiBteSBjYXJkIHN0
-b3BwZWQgZ2V0dGluZwo+IHNldCB0byAyNTYweDE0NDAgYW5kIG9ubHkgc2V0cyAxOTIweDEwODAu
-ICBQYXNzaW5nIHZpZGVvPSBhcyBhIGtlcm5lbAo+IHBhcmFtZXRlciBqdXN0IGxlYWRzIHRvIGEg
-YmxhY2sgc2NyZWVuLgo+IEkndmUgdHJpZWQgc3RvY2sga2VybmVscyBvbiBhbHBpbmUgYW5kIGFy
-Y2gsIGFuZCBhbHNvIGNvbXBpbGVkIGEgZmV3IGFzCj4gd2VsbDsgSSBjYW4ndCBzZWUgYW55IG9i
-dmlvdXMgZGlmZmVyZW5jZXMgaW4gdGhlIGNvbXBpbGUgb3B0aW9ucyB0aGF0IG1pZ2h0Cj4gbGVh
-ZCB0byB0aGUgZGlmZmVyZW5jZS4KPiBNeSBuZXh0IGxpbmUgb2YgZW5xdWlyeSBpcyB0byBzZWUg
-aWYgdGhlcmUncyBhIGNoYW5nZSBpbiBhbWRncHUgdGhhdCBtaWdodAo+IGJlIHRoZSBjYXVzZS4K
-PiBHaXZlbiB0aGUgc2l6ZSBvZiB0aGUgY29kZWJhc2UgYW5kIHRoZSBudW1iZXIgb2YgY2hhbmdl
-cywgSSB3YXMgaG9waW5nCj4gc29tZW9uZSBtaWdodCBiZSBhYmxlIHRvIGhlbHAgbWUgbmFycm93
-IHRoZSBwb3NzaWJsZSBzZWFyY2guCj4KPiBXb3VsZCB5b3UgYmUgYWJsZSB0byBzdWdnZXN0IHNv
-bWV3aGVyZSB0byBiZWdpbiA/CgpJZiB5b3UgY2FuIHRyeSBhIG5ld2VyIGtlcm5lbCAoNC4xNiBv
-ciA0LjE3cmMpLCB0cnkgZW5hYmxpbmcgdGhlIG5ldwpkYyBtb2Rlc2V0aW5nIGNvZGUgKGFwcGVu
-ZCBhbWRncHUuZGM9MSBvbiB0aGUga2VybmVsIGNvbW1hbmQgbGluZSBpbgpncnViKS4KCldoYXQg
-dHlwZSBvZiBkaXNwbGF5IChEVkksIERQLCBldGMuKSBpcyB5b3VyIG1vbml0b3IgYW5kIHdoYXQg
-cGh5c2ljYWwKY29ubmVjdG9yIGlzIGl0IGNvbm5lY3RlZCB0byBvbiB5b3VyIGJvYXJkPyAgQXJl
-IHRoZXJlIGFueSBhZGFwdGVycwpiZXR3ZWVuIHRoZSBjYXJkIGFuZCB0aGUgZGlzcGxheT8gIFBy
-b2JhYmx5IGJlc3QgdG8gZmlsZSBhIGJ1ZwooaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZykg
-YW5kIGF0dGFjaCB5b3VyIHhvcmcgbG9nIGFuZCBkbWVzZwpvdXRwdXQgaW4gYm90aCB0aGUgd29y
-a2luZyBhbmQgbm9uIHdvcmtpbmcgY2FzZXMuCgpUaGUgYmVzdCB3YXkgdG8gc29ydCB0aGlzIG91
-dCB3b3VsZCBiZSB0byB1c2UgZ2l0IHRvIGJpc2VjdCB3aGF0CmNvbW1pdCBjYXVzZWQgdGhlIGlz
-c3VlLgoKQWxleAoKPgo+IFRoZSBjYXJkIGlzIGEgU2FwcGhpcmUgUjkgMzgwWCBOSVRSTyA0R0Ig
-IC0gaXQgaWRlbnRpZmllcyBhcyBhIFRPTkdBLgo+Cj4gRHVyaW5nIHRoZSBib290LCBJIGdldCB0
-aGlzIG1lc3NhZ2UgYWJvdXQgdGhlIG1vZGUgc2V0dGluZwo+IFtkcm1dIGluaXRpYWxpemluZyBr
-ZXJuZWwgbW9kZXNldHRpbmcgKFRPTkdBIDB4MTAwMjoweDY5MzggMHgxNzRCOjB4RTMwOAo+IDB4
-RjEpCj4KPiB0aGFua3MKPiBJYW4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+
+On 02/04/18 01:16 PM, Jerome Glisse wrote:
+> There isn't good API at the moment AFAIK, closest thing would either be
+> lookup_resource() or region_intersects(), but a more appropriate one can
+> easily be added, code to walk down the tree is readily available. More-
+> over this can be optimize like vma lookup are, even more as resource are
+> seldomly added so read side (finding a resource) can be heavily favor
+> over write side (adding|registering a new resource).
+
+So someone needs to create a highly optimized tree that registers all
+physical address on the system and maps them to devices? That seems a
+long way from being realized. I'd hardly characterize that as "easily".
+If we can pass both devices to the API I'd suspect it would be preferred
+over the complicated tree. This, of course, depends on what users of the
+API need.
+
+> cache coherency protocol (bit further than PCIE snoop). But also the
+> other direction the CPU access to device memory can also be cache coherent,
+> which is not the case in PCIE.
+
+I was not aware that CAPI allows PCI device memory to be cache coherent.
+That sounds like it would be very tricky...
+
+> Note that with mmu_notifier there isn't any need to pin stuff (even
+> without any special hardware capabilities), as long as you can preempt
+> what is happening on your hardware to update its page table.
+
+I've been told there's a lot of dislike of the mmu_notifier interface.
+And being able to preempt what's happening on hardware, generally, is
+not trivial. But, yes, this is essentially how ODP works.
+
+Logan
