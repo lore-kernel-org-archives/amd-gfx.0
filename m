@@ -1,116 +1,112 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/si: implement get/set pcie_lanes asic callback
-Date: Tue, 3 Apr 2018 15:09:59 +0200
-Message-ID: <8a2f3f18-5b62-694b-c0d2-a8a8c50af863@gmail.com>
-References: <20180330183711.8836-1-alexander.deucher@amd.com>
-Reply-To: christian.koenig@amd.com
+From: Ilia Mirkin <imirkin@alum.mit.edu>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Add modeset module option
+Date: Tue, 3 Apr 2018 09:26:02 -0400
+Message-ID: <CAKb7UvhG5nO9q1M=6fu6mnChObsskxFzgGXQPUJQCk1Q+E9ffQ@mail.gmail.com>
+References: <20180330204512.16863-1-tiwai@suse.de>
+ <20180330204512.16863-2-tiwai@suse.de>
+ <c95f9e61-c921-42de-9e03-851d785ab5fc@amd.com>
+ <CAKb7Uvh_CxE=Zg_F0tentwXK64_baxs0TCQ-K9Mh_Mjf+NV_DA@mail.gmail.com>
+ <706f4d0d-4583-2c8a-447d-f6cdd3429ad5@amd.com> <s5ho9j24wk9.wl-tiwai@suse.de>
+ <0ecce204-6af8-2395-ac40-391e3b655bed@amd.com>
+ <20180403092948.GQ3881@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20180330183711.8836-1-alexander.deucher@amd.com>
-Content-Language: en-US
-Sender: stable-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180403092948.GQ3881@phenom.ffwll.local>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Am 30.03.2018 um 20:37 schrieb Alex Deucher:
-> Required for dpm setup on some asics. Fixes a NULL dereference
-> on asics that require it.
->
-> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=102553
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: stable@vger.kernel.org
-
-Acked-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/si.c | 67 +++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 67 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-> index 775cacfe9917..c364ef94cc36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-> @@ -1258,6 +1258,71 @@ static bool si_need_full_reset(struct amdgpu_device *adev)
->   	return true;
->   }
->   
-> +static int si_get_pcie_lanes(struct amdgpu_device *adev)
-> +{
-> +	u32 link_width_cntl;
-> +
-> +	if (adev->flags & AMD_IS_APU)
-> +		return 0;
-> +
-> +	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
-> +
-> +	switch ((link_width_cntl & LC_LINK_WIDTH_RD_MASK) >> LC_LINK_WIDTH_RD_SHIFT) {
-> +	case LC_LINK_WIDTH_X1:
-> +		return 1;
-> +	case LC_LINK_WIDTH_X2:
-> +		return 2;
-> +	case LC_LINK_WIDTH_X4:
-> +		return 4;
-> +	case LC_LINK_WIDTH_X8:
-> +		return 8;
-> +	case LC_LINK_WIDTH_X0:
-> +	case LC_LINK_WIDTH_X16:
-> +	default:
-> +		return 16;
-> +	}
-> +}
-> +
-> +static void si_set_pcie_lanes(struct amdgpu_device *adev, int lanes)
-> +{
-> +	u32 link_width_cntl, mask;
-> +
-> +	if (adev->flags & AMD_IS_APU)
-> +		return;
-> +
-> +	switch (lanes) {
-> +	case 0:
-> +		mask = LC_LINK_WIDTH_X0;
-> +		break;
-> +	case 1:
-> +		mask = LC_LINK_WIDTH_X1;
-> +		break;
-> +	case 2:
-> +		mask = LC_LINK_WIDTH_X2;
-> +		break;
-> +	case 4:
-> +		mask = LC_LINK_WIDTH_X4;
-> +		break;
-> +	case 8:
-> +		mask = LC_LINK_WIDTH_X8;
-> +		break;
-> +	case 16:
-> +		mask = LC_LINK_WIDTH_X16;
-> +		break;
-> +	default:
-> +		DRM_ERROR("invalid pcie lane request: %d\n", lanes);
-> +		return;
-> +	}
-> +
-> +	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
-> +	link_width_cntl &= ~LC_LINK_WIDTH_MASK;
-> +	link_width_cntl |= mask << LC_LINK_WIDTH_SHIFT;
-> +	link_width_cntl |= (LC_RECONFIG_NOW |
-> +			    LC_RECONFIG_ARC_MISSING_ESCAPE);
-> +
-> +	WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, link_width_cntl);
-> +}
-> +
->   static const struct amdgpu_asic_funcs si_asic_funcs =
->   {
->   	.read_disabled_bios = &si_read_disabled_bios,
-> @@ -1268,6 +1333,8 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
->   	.get_xclk = &si_get_xclk,
->   	.set_uvd_clocks = &si_set_uvd_clocks,
->   	.set_vce_clocks = NULL,
-> +	.get_pcie_lanes = &si_get_pcie_lanes,
-> +	.set_pcie_lanes = &si_set_pcie_lanes,
->   	.get_config_memsize = &si_get_config_memsize,
->   	.flush_hdp = &si_flush_hdp,
->   	.invalidate_hdp = &si_invalidate_hdp,
+T24gVHVlLCBBcHIgMywgMjAxOCBhdCA1OjI5IEFNLCBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3
+bGwuY2g+IHdyb3RlOgo+IE9uIFN1biwgQXByIDAxLCAyMDE4IGF0IDEwOjEyOjEwUE0gKzAyMDAs
+IENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDAxLjA0LjIwMTggdW0gMjA6MjEgc2Nocmll
+YiBUYWthc2hpIEl3YWk6Cj4+ID4gT24gU3VuLCAwMSBBcHIgMjAxOCAxOTo1ODoxMSArMDIwMCwK
+Pj4gPiBDaHJpc3RpYW4gSzZuaWcgd3JvdGU6Cj4+ID4gPiBBbSAwMS4wNC4yMDE4IHVtIDE5OjQ1
+IHNjaHJpZWIgSWxpYSBNaXJraW46Cj4+ID4gPiA+IE9uIFN1biwgQXByIDEsIDIwMTggYXQgMToz
+OSBQTSwgQ2hyaXN0aWFuIEvDtm5pZwo+PiA+ID4gPiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
+PiB3cm90ZToKPj4gPiA+ID4gPiBBbSAzMC4wMy4yMDE4IHVtIDIyOjQ1IHNjaHJpZWIgVGFrYXNo
+aSBJd2FpOgo+PiA+ID4gPiA+ID4gYW1kZ3B1IGRyaXZlciBsYWNrcyBvZiBtb2Rlc2V0IG1vZHVs
+ZSBvcHRpb24gb3RoZXIgZHJtIGRyaXZlcnMgcHJvdmlkZQo+PiA+ID4gPiA+ID4gZm9yIGVuZm9y
+Y2luZyBvciBkaXNhYmxpbmcgdGhlIGRyaXZlciBsb2FkLiAgSW50ZXJlc3RpbmdseSwgdGhlCj4+
+ID4gPiA+ID4gPiBhbWRncHVfbW9kZSB2YXJpYWJsZSBkZWNsYXJhdGlvbiBpcyBhbHJlYWR5IGZv
+dW5kIGluIHRoZSBoZWFkZXIgZmlsZSwKPj4gPiA+ID4gPiA+IGJ1dCB0aGUgYWN0dWFsIGltcGxl
+bWVudGF0aW9uIHNlZW1zIHRvIGhhdmUgYmVlbiBmb3Jnb3R0ZW4uCj4+ID4gPiA+ID4gPgo+PiA+
+ID4gPiA+ID4gVGhpcyBwYXRjaCBhZGRzIHRoZSBtaXNzaW5nIHBpZWNlLgo+PiA+ID4gPiA+IE5B
+SywgbW9kZXNldHRpbmcgaXMgbWFuZGF0b3J5IGZvciBhbWRncHUgYW5kIHdlIHNob3VsZCBwcm9i
+YWJseSByZW1vdmUgdGhlCj4+ID4gPiA+ID4gb3B0aW9uIHRvIGRpc2FibGUgaXQgZnJvbSBvdGhl
+ciBEUk0gZHJpdmVycyB3aXRob3V0IFVNUyBzdXBwb3J0IGFzIHdlbGwKPj4gPiA+ID4gPiAocHJl
+dHR5IG11Y2ggYWxsIG9mIHRoZW0gbm93KS4KPj4gPiA+ID4gPgo+PiA+ID4gPiA+IElmIHlvdSB3
+YW50IHRvIHByZXZlbnQgYSBkcml2ZXIgZnJvbSBsb2FkaW5nIEkgdGhpbmsgdGhlIGNvcnJlY3Qg
+d2F5IHRvIGRvCj4+ID4gPiA+ID4gc28gaXMgdG8gZ2l2ZSBtb2Rwcm9iZS5ibGFja2xpc3Q9YW1k
+Z3B1IG9uIHRoZSBrZXJuZWwgY29tbWFuZGxpbmUuCj4+ID4gPiA+ID4KPj4gPiA+ID4gPiBUaGF0
+IHdvdWxkIHJlbW92ZSB0aGUgcG9zc2liaWxpdHkgdG8gcHJldmVudCB0aGUgZHJpdmVyIGZyb20g
+bG9hZGluZyB3aGVuIGl0Cj4+ID4gPiA+ID4gaXMgY29tcGlsZWQgaW4sIGJ1dCBJIGRvbid0IHNl
+ZSBtdWNoIG9mIGEgcHJvYmxlbSB3aXRoIHRoYXQuCj4+ID4gPiA+IEhhdmluZyBhIHdheSB0byBr
+aWxsIHRoZSBncmFwaGljcyBkcml2ZXIgaXMgYSB2ZXJ5IHVzZWZ1bCBkZWJ1Z2dpbmcKPj4gPiA+
+ID4gdG9vbCwgYW5kIGFsc28gYSBxdWljayBhbmQgZWFzeSB3YXkgdG8gZ2V0IG91dCBvZiBhbiB1
+bnBsZWFzYW50Cj4+ID4gPiA+IHNpdHVhdGlvbiB3aGVyZSBncmFwaGljcyBhcmUgbWVzc2VkIHVw
+IC8gc3lzdGVtIGhhbmdzIC8gZXRjLiBUaGUKPj4gPiA+ID4gbW9kcHJvYmUgYmxhY2tsaXN0IGtl
+cm5lbCBhcmcgb25seSB3b3JrcyBpbiBjZXJ0YWluIGVudmlyb25tZW50cyAoYW5kCj4+ID4gPiA+
+IG9ubHkgaWYgaXQncyBhIG1vZHVsZSkuCj4+ID4gPiA+Cj4+ID4gPiA+IEV2ZXJ5IG90aGVyIERS
+TSBkcml2ZXIgaGFzIHRoaXMgYW5kIHRoaXMgaXMgYSB3ZWxsLWRvY3VtZW50ZWQKPj4gPiA+ID4g
+d29ya2Fyb3VuZCBmb3IgImdyYXBoaWNzIGFyZSBtZXNzZWQgdXAgd2hlbiBJIGluc3RhbGwgbGlu
+dXgiLCB3aHkgbm90Cj4+ID4gPiA+IGFsbG93IGEgdW5pZm9ybSBleHBlcmllbmNlIGZvciB0aGUg
+ZW5kIHVzZXJzIHdobyBhcmUganVzdCB0cnlpbmcgdG8KPj4gPiA+ID4gZ2V0IHRoZWlyIHN5c3Rl
+bXMgdXAgYW5kIHJ1bm5pbmc/Cj4+ID4gPiBCZWNhdXNlIGl0IGlzIG5vdCB3ZWxsIGRvY3VtZW50
+ZWQgYW5kIHJlcGVhdGVkIG92ZXIgYW5kIG92ZXIgYWdhaW4gaW4KPj4gPiA+IGRyaXZlcnMuCj4+
+ID4gPgo+PiA+ID4gVGhlIHByb2JsZW0gaXMgdGhhdCBwZW9wbGUgZG9uJ3QgcmVhbGl6ZWQgdGhh
+dCB0aGUgZHJpdmVyIGlzbid0IGxvYWRlZAo+PiA+ID4gYXQgYWxsIHdpdGhvdXQgdGhlIG1vZGVz
+ZXQ9MCBtb2R1bGUgb3B0aW9uIGFuZCBkZW1hbmQgZml4aW5nIHRoZQo+PiA+ID4gcmVzdWx0aW5n
+IGJhZCBwZXJmb3JtYW5jZSB3aXRob3V0IG1vZGVzZXR0aW5nLgo+PiA+IEhtLCBJIGRvbid0IGdl
+dCBpdC4gIFdoYXQgdGhpcyBvcHRpb25zIGhhcyB0byBkbyB3aXRoIHBlcmZvcm1hbmNlIGZvcgo+
+PiA+IGEgS01TLW9ubHkgZHJpdmVyLi4uPwo+Pgo+PiBXZWxsIGV4YWN0bHkgdGhhdCdzIHRoZSBw
+b2ludCwgbm90aGluZy4KPj4KPj4gVGhlIHByb2JsZW0gaXMgdGhhdCB0aGUgb3B0aW9uIG5hbWUg
+aXMgY29uZnVzaW5nIHRvIHRoZSBlbmQgdXNlciBiZWNhdXNlIHRoZQo+PiBleHBlY3RhdGlvbiBp
+cyB0aGF0ICJub21vZGVzZXQiIGp1c3QgbWVhbnMgdGhhdCB0aGV5IG9ubHkgY2FuJ3QgY2hhbmdl
+IHRoZQo+PiBkaXNwbGF5IG1vZGUuCj4+Cj4+IFNvbWUgKHVuZm9ydHVuYXRlbHkgcXVpdGUgYSBs
+b3QpIHBlb3BsZSBkb24ndCByZWFsaXplIHRoYXQgZm9yIEtNUyBkcml2ZXJzCj4+IHRoaXMgbWVh
+bnMgdGhhdCB0aGUgZHJpdmVyIGlzbid0IGV2ZW4gbG9hZGVkIGFuZCB0aGV5IGFsc28gZG9uJ3Qg
+Z2V0IGFueQo+PiBhY2NlbGVyYXRpb24uCj4+Cj4+IFdlIGhhZCB0byBleHBsYWluIHRoYXQgbnVt
+ZXJvdXMgdGltZXMgbm93LiBJIHRoaW5rIGl0IHdvdWxkIGJlIGJlc3QgdG8gZ2l2ZQo+PiB0aGUg
+b3B0aW9uIGEgbW9yZSBtZWFuaW5nZnVsIG5hbWUuCj4KPiBZZWFoLCBhZ3JlZWQgd2l0aCBDaHJp
+c3RpYW4uIElmIHdlIHdhbnQgYSBnZW5lcmljICJwbHMgZGlzYWJsZSBhbGwgZ2Z4Cj4gYWNjZWwi
+IGtub2IgdGhlbiBwcm9iYWJseSBiZXN0IHRvIHB1dCB0aGF0IGludG8gdGhlIGRybSBjb3JlLiBB
+bmQganVzdAo+IG91dHJpZ2h0IGZhaWwgbG9hZGluZyB0aGUgZHJtIGNvcmUgaWYgdGhhdCBoYXBw
+ZW5zLCB3aGljaCB3aWxsIHByZXZlbnQgYWxsCj4gZ2Z4IGRyaXZlcnMgZnJvbSBsb2FkaW5nLgo+
+Cj4gVGhhdCBsaWtlbHkgbWVhbnMgYSBob2xlIGJ1bmNoIG9mIHN0dWZmIHdvbid0IHdvcmsgKHVz
+dWFsbHkgc291bmQga2VlbHMKPiBvdmVyIHRvbyksIGJ1dCB0aGF0J3Mgd2hhdCB5b3UgZ2V0IGZv
+ciB0aGlzLiBPbmx5IGRpc2FibGluZyBtb2Rlc2V0dGluZwo+IHdpdGhvdXQgZGlzYWJsaW5nIHRo
+ZSBlbnRpcmUgZHJpdmVyIGRvZXNuJ3Qgd29yayAobmV2ZXIgaGFzLCBleGNlcHQgZm9yCj4gdGhp
+cyBVTVMrR0VNIGNvbWJvIG9ubHkgaTkxNSBzdXBwb3J0LCBhbmQgbm90IGZvciBsb25nKS4KPgo+
+IEFuZCBvbmNlIHdlIGhhdmUgdGhhdCBrbm9iLCBwcm9iYWJseSBiZXN0IHRvIHBoYXNlIG91dCBh
+bGwgdGhlIHBlci1kcml2ZXIKPiBvcHRpb25zLgoKQW5vdGhlciB1c2UtY2FzZSB0aGF0IHRoZSBw
+ZXItZHJpdmVyIGRpc2FibGVzIGVuYWJsZSBpcyAiaTkxNSB3b3JrcwpidXQgbm91dmVhdSBpcyBi
+cm9rZW4gZHVlIHRvIGNyYXp5IEFDUEkgLyBQQ0llIFBNIC8gd2hhdGV2ZXIiLiBJdApzZWVtcyBs
+aWtlbHkgdGhpcyBjb3VsZCBoYXBwZW4gd2l0aCBhbWRncHUgYXMgd2VsbC4KClRoZSBjdXJyZW50
+IHNldCBvZiBjYXBhYmlsaXRpZXMgaGFzIHNlcnZlZCBkZXZlbG9wZXJzIGZhaXJseSB3ZWxsIGlu
+CnByb3ZpZGluZyBxdWljayBkZWJ1ZyBpbnN0cnVjdGlvbnMgdG8gbWlsZGx5LWV4cGVyaWVuY2Vk
+IHVzZXJzIChpLmUuCmVub3VnaCB0byBiZSBhYmxlIHRvIGVkaXQga2VybmVsIGNtZGxpbmUpLiBJ
+IGRlZmluaXRlbHkgd291bGRuJ3Qgd2FudAp0byBsb3NlIHRoYXQuCgpUaGUgbmFtZXMgYXJlIGhv
+cnJpZC4gSSB0aGluayBldmVyeW9uZSBhZ3JlZXMuIEluIGZhY3QsIHdoZW4gdGhlCmRyaXZlciBp
+cyBkaXNhYmxlZCBieSBub21vZGVzZXQgb3IgbW9kZXNldD0wLCBJIHRoaW5rIHRoZXkgc2hvdWxk
+CnByaW50IGxpa2UgImRyaXZlciBjb21wbGV0ZWx5IGRpc2FibGVkIGJ5IG1vZGVzZXQgb3B0aW9u
+IiB0byBhdm9pZApzb21lIG9mIHRoZSB1c2VyIGNvbmZ1c2lvbiBDaHJpc3RpYW4gaXMgcmVmZXJy
+aW5nIHRvICh3aGljaCBJJ3ZlIHJ1bgppbnRvIG9uIGEgbnVtYmVyIG9mIG9jY2FzaW9ucyBhcyB3
+ZWxsKS4gQW5kL29yIG1heWJlIGp1c3QgcmVmdXNlIHRoZQpkcml2ZXIgbG9hZCBlbnRpcmVseSBy
+YXRoZXIgdGhhbiBsb2FkLWJ1dC1kby1ub3RoaW5nLiBIb3dldmVyIGJlaW5nCmFibGUgdG8gaGVs
+cCB1c2VycyBkZWJ1ZyB0aGluZ3Mgc2VlbXMgbW9yZSBpbXBvcnRhbnQgdGhhbiB1c2VycyBiZWlu
+ZwpvY2Nhc2lvbmFsbHkgY29uZnVzZWQgYnkgb3B0aW9ucyB0aGV5IGFkZGVkIHRvIGtlcm5lbCBj
+bWRsaW5lLgoKICAtaWxpYQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
+ZGV2ZWwK
