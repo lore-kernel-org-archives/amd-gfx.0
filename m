@@ -1,47 +1,116 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 0/8] The vega10 sriov still need those patches
-Date: Tue, 3 Apr 2018 15:06:58 +0200
-Message-ID: <8abf4f42-54be-4b1c-6208-80ab8c40fe0a@daenzer.net>
-References: <1522746482-31353-1-git-send-email-Emily.Deng@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/si: implement get/set pcie_lanes asic callback
+Date: Tue, 3 Apr 2018 15:09:59 +0200
+Message-ID: <8a2f3f18-5b62-694b-c0d2-a8a8c50af863@gmail.com>
+References: <20180330183711.8836-1-alexander.deucher@amd.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1522746482-31353-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20180330183711.8836-1-alexander.deucher@amd.com>
+Content-Language: en-US
+Sender: stable-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wNC0wMyAxMTowNyBBTSwgRW1pbHkgRGVuZyB3cm90ZToKPiBGb3IgdmVnYTEwIHNy
-aW92LCBzdGlsbCBuZWVkIHRvIHVzZSBvbmUgcGFja2FnZSBmb3IgaW52YWxpZGF0ZSB0bGIKPiBm
-bHVzaAo+IAo+IEVtaWx5IERlbmcgKDgpOgo+ICAgUmV2ZXJ0ICJSZXZlcnQgImRybS9hbWRncHU6
-IGFkZCBlbWl0X3JlZ193cml0ZV9yZWdfd2FpdCByaW5nCj4gICAgIGNhbGxiYWNrIiIKPiAgIFJl
-dmVydCAiUmV2ZXJ0ICJkcm0vYW1kZ3B1L3NkbWE0OiBhZGQgZW1pdF9yZWdfd3JpdGVfcmVnX3dh
-aXQgcmluZwo+ICAgICBjYWxsYmFjayIiCj4gICBSZXZlcnQgIlJldmVydCAiZHJtL2FtZGdwdS91
-dmQ3OiBhZGQgZW1pdF9yZWdfd3JpdGVfcmVnX3dhaXQgcmluZwo+ICAgICBjYWxsYmFjayIiCj4g
-ICBSZXZlcnQgIlJldmVydCAiZHJtL2FtZGdwdS92Y2U0OiBhZGQgZW1pdF9yZWdfd3JpdGVfcmVn
-X3dhaXQgcmluZwo+ICAgICBjYWxsYmFjayIiCj4gICBSZXZlcnQgIlJldmVydCAiZHJtL2FtZGdw
-dS92Y24xOiBhZGQgZW1pdF9yZWdfd3JpdGVfcmVnX3dhaXQgcmluZwo+ICAgICBjYWxsYmFjayIi
-Cj4gICBSZXZlcnQgIlJldmVydCAiZHJtL2FtZGdwdS9nbWM5OiB1c2UKPiAgICAgYW1kZ3B1X3Jp
-bmdfZW1pdF9yZWdfd3JpdGVfcmVnX3dhaXQgaW4gZ3B1IHRsYiBmbHVzaCIiCj4gICBSZXZlcnQg
-IlJldmVydCAiZHJtL2FtZGdwdS9zZG1hNDpmaXggc2RtYSBlbmdpbmUgaGFuZyIiCj4gICBkcm0v
-YW1kZ3B1L2dmeDk6IGFkZCBlbWl0X3JlZ193cml0ZV9yZWdfd2FpdCByaW5nIGNhbGxiYWNrCgon
-UmV2ZXJ0ICJSZXZlcnQgIi4uLiIiJyBpcyBwcmV0dHkgdWdseSwgYmV0dGVyIHRvIHVzZSB0aGUg
-b3JpZ2luYWwKY29tbWl0IGxvZ3MgYWdhaW4gKHBvc3NpYmx5IHdpdGggYW1lbmRtZW50cyBleHBs
-YWluaW5nIHdoeSB0aGV5J3JlIGJlaW5nCmFwcGxpZWQgZ2FpbikuCgoKLS0gCkVhcnRobGluZyBN
-aWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFt
-ZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAg
-IE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+Am 30.03.2018 um 20:37 schrieb Alex Deucher:
+> Required for dpm setup on some asics. Fixes a NULL dereference
+> on asics that require it.
+>
+> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=102553
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+
+Acked-by: Christian König <christian.koenig@amd.com>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/si.c | 67 +++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 67 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+> index 775cacfe9917..c364ef94cc36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si.c
+> @@ -1258,6 +1258,71 @@ static bool si_need_full_reset(struct amdgpu_device *adev)
+>   	return true;
+>   }
+>   
+> +static int si_get_pcie_lanes(struct amdgpu_device *adev)
+> +{
+> +	u32 link_width_cntl;
+> +
+> +	if (adev->flags & AMD_IS_APU)
+> +		return 0;
+> +
+> +	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
+> +
+> +	switch ((link_width_cntl & LC_LINK_WIDTH_RD_MASK) >> LC_LINK_WIDTH_RD_SHIFT) {
+> +	case LC_LINK_WIDTH_X1:
+> +		return 1;
+> +	case LC_LINK_WIDTH_X2:
+> +		return 2;
+> +	case LC_LINK_WIDTH_X4:
+> +		return 4;
+> +	case LC_LINK_WIDTH_X8:
+> +		return 8;
+> +	case LC_LINK_WIDTH_X0:
+> +	case LC_LINK_WIDTH_X16:
+> +	default:
+> +		return 16;
+> +	}
+> +}
+> +
+> +static void si_set_pcie_lanes(struct amdgpu_device *adev, int lanes)
+> +{
+> +	u32 link_width_cntl, mask;
+> +
+> +	if (adev->flags & AMD_IS_APU)
+> +		return;
+> +
+> +	switch (lanes) {
+> +	case 0:
+> +		mask = LC_LINK_WIDTH_X0;
+> +		break;
+> +	case 1:
+> +		mask = LC_LINK_WIDTH_X1;
+> +		break;
+> +	case 2:
+> +		mask = LC_LINK_WIDTH_X2;
+> +		break;
+> +	case 4:
+> +		mask = LC_LINK_WIDTH_X4;
+> +		break;
+> +	case 8:
+> +		mask = LC_LINK_WIDTH_X8;
+> +		break;
+> +	case 16:
+> +		mask = LC_LINK_WIDTH_X16;
+> +		break;
+> +	default:
+> +		DRM_ERROR("invalid pcie lane request: %d\n", lanes);
+> +		return;
+> +	}
+> +
+> +	link_width_cntl = RREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL);
+> +	link_width_cntl &= ~LC_LINK_WIDTH_MASK;
+> +	link_width_cntl |= mask << LC_LINK_WIDTH_SHIFT;
+> +	link_width_cntl |= (LC_RECONFIG_NOW |
+> +			    LC_RECONFIG_ARC_MISSING_ESCAPE);
+> +
+> +	WREG32_PCIE_PORT(PCIE_LC_LINK_WIDTH_CNTL, link_width_cntl);
+> +}
+> +
+>   static const struct amdgpu_asic_funcs si_asic_funcs =
+>   {
+>   	.read_disabled_bios = &si_read_disabled_bios,
+> @@ -1268,6 +1333,8 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
+>   	.get_xclk = &si_get_xclk,
+>   	.set_uvd_clocks = &si_set_uvd_clocks,
+>   	.set_vce_clocks = NULL,
+> +	.get_pcie_lanes = &si_get_pcie_lanes,
+> +	.set_pcie_lanes = &si_set_pcie_lanes,
+>   	.get_config_memsize = &si_get_config_memsize,
+>   	.flush_hdp = &si_flush_hdp,
+>   	.invalidate_hdp = &si_invalidate_hdp,
