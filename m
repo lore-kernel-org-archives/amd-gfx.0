@@ -1,49 +1,46 @@
-From: zhoucm1 <zhoucm1@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Fix PCIe lane width calculation
-Date: Tue, 3 Apr 2018 10:46:12 +0800
-Message-ID: <b464fcce-aa05-ea33-b7f1-85a9ffb8c5bb@amd.com>
-References: <20180402173246.19143-1-alexander.deucher@amd.com>
- <20180402173246.19143-2-alexander.deucher@amd.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/pp: Use forward declaration in ppatomfwctrl.h
+Date: Tue, 3 Apr 2018 14:51:52 +0800
+Message-ID: <1522738312-16851-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20180402173246.19143-2-alexander.deucher@amd.com>
-Content-Language: en-US
-Sender: stable-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-Acked-by: Chunming Zhou <david1.zhou@amd.com> for series.
-
-
-On 2018年04月03日 01:32, Alex Deucher wrote:
-> The calculation of the lane widths via ATOM_PPLIB_PCIE_LINK_WIDTH_MASK and
-> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT macros did not increment the resulting
-> value, per the comment in pptable.h ("lanes - 1"), and per usage elsewhere.
-> Port of the radeon fix to amdgpu.
->
-> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=102553
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: stable@vger.kernel.org
-> ---
->   drivers/gpu/drm/amd/amdgpu/si_dpm.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-> index 6253b272c944..b12d7c9d42a0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-> @@ -6372,9 +6372,9 @@ static void si_set_pcie_lane_width_in_smc(struct amdgpu_device *adev,
->   {
->   	u32 lane_width;
->   	u32 new_lane_width =
-> -		(amdgpu_new_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT;
-> +		((amdgpu_new_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT) + 1;
->   	u32 current_lane_width =
-> -		(amdgpu_current_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT;
-> +		((amdgpu_current_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT) + 1;
->   
->   	if (new_lane_width != current_lane_width) {
->   		amdgpu_set_pcie_lanes(adev, new_lane_width);
+U2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwYXRvbWZ3Y3RybC5jIHwgMiArLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHBhdG9tZndjdHJsLmggfCAyICstCiAyIGZpbGVz
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcGF0b21md2N0cmwuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwYXRvbWZ3Y3RybC5jCmluZGV4IDBhZGFm
+MzYuLjM0NDMyNzQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL3BwYXRvbWZ3Y3RybC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL3BwYXRvbWZ3Y3RybC5jCkBAIC0yMCwxMSArMjAsMTEgQEAKICAqIE9USEVSIERFQUxJTkdT
+IElOIFRIRSBTT0ZUV0FSRS4KICAqCiAgKi8KLQogI2luY2x1ZGUgInBwYXRvbWZ3Y3RybC5oIgog
+I2luY2x1ZGUgImF0b21maXJtd2FyZS5oIgogI2luY2x1ZGUgImF0b20uaCIKICNpbmNsdWRlICJw
+cF9kZWJ1Zy5oIgorI2luY2x1ZGUgImh3bWdyLmgiCiAKIHN0YXRpYyBjb25zdCB1bmlvbiBhdG9t
+X3ZvbHRhZ2Vfb2JqZWN0X3Y0ICpwcF9hdG9tZndjdHJsX2xvb2t1cF92b2x0YWdlX3R5cGVfdjQo
+CiAJCWNvbnN0IHN0cnVjdCBhdG9tX3ZvbHRhZ2Vfb2JqZWN0c19pbmZvX3Y0XzEgKnZvbHRhZ2Vf
+b2JqZWN0X2luZm9fdGFibGUsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9od21nci9wcGF0b21md2N0cmwuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2h3bWdyL3BwYXRvbWZ3Y3RybC5oCmluZGV4IDhkZjFlODRmLi41NWUyOGU0IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcGF0b21md2N0cmwuaAorKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcGF0b21md2N0cmwuaApAQCAt
+MjQsNyArMjQsNyBAQAogI2lmbmRlZiBQUF9BVE9NRldDVFJMX0gKICNkZWZpbmUgUFBfQVRPTUZX
+Q1RSTF9ICiAKLSNpbmNsdWRlICJod21nci5oIgorc3RydWN0IHBwX2h3bWdyOwogCiB0eXBlZGVm
+IGVudW0gYXRvbV9zbXU5X3N5c3BsbDBfY2xvY2tfaWQgQklPU19DTEtJRDsKIAotLSAKMS45LjEK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
