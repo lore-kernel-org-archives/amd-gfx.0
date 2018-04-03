@@ -1,76 +1,49 @@
-From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: regression on raven (gmc9)
-Date: Tue, 3 Apr 2018 01:54:33 +0000
-Message-ID: <CY4PR12MB11257EABAFAD6E913FD3A21C8FA50@CY4PR12MB1125.namprd12.prod.outlook.com>
-References: <2bd09049-695a-ef03-3a45-53610d366b38@amd.com>
- <CADnq5_PDpDRCGisjyOTybqjSM3CcUjjnR-xZHJ8KnG70E3kohw@mail.gmail.com>
- <7d7bf762-7b6e-47a5-d5d7-860e93a0750d@amd.com>
+From: zhoucm1 <zhoucm1@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix PCIe lane width calculation
+Date: Tue, 3 Apr 2018 10:46:12 +0800
+Message-ID: <b464fcce-aa05-ea33-b7f1-85a9ffb8c5bb@amd.com>
+References: <20180402173246.19143-1-alexander.deucher@amd.com>
+ <20180402173246.19143-2-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7d7bf762-7b6e-47a5-d5d7-860e93a0750d-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20180402173246.19143-2-alexander.deucher@amd.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: stable-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgQWxleCBhbmQgQ2hyaXN0aWFuLA0KICAgIFRob3NlIHBhdGNoZXMgYXJlIGltcG9ydGFudCBm
-b3IgdmVnYTEwIFNSSU9WLCB3aXRob3V0IHRoaXMsIHZlZ2ExMCBydW4gbWFueSBnYW1lcyB3aWxs
-IGhhbmcgb24gU1JJT1YsIA0KaG93IGFib3V0IHRvIGFkZCAgImlmIChhbWRncHVfc3Jpb3ZfdmYo
-YWRldikgJiYgYWRldi0+YXNpY190eXBlID09IENISVBfVkVHQTEwKSIgdG8gc2VwYXJhdGUgdGhl
-IA0KYmFyZSBtZXRhbCBhbmQgU1JJT1Y/DQoNCkJlc3QgV2lzaGVzLA0KRW1pbHkgRGVuZw0KDQoN
-Cg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggW21haWx0
-bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYNCj4gT2Yg
-Q2hyaXN0aWFuIEs/bmlnDQo+IFNlbnQ6IE1vbmRheSwgQXByaWwgMDIsIDIwMTggMTE6MjMgUE0N
-Cj4gVG86IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPjsgU3REZW5pcywgVG9t
-DQo+IDxUb20uU3REZW5pc0BhbWQuY29tPg0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4
-YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgSHVhbmcsIFJheQ0KPiA8UmF5Lkh1YW5nQGFtZC5jb20+
-OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogcmVncmVzc2lv
-biBvbiByYXZlbiAoZ21jOSkNCj4gDQo+IEFtIDAyLjA0LjIwMTggdW0gMTc6MDAgc2NocmllYiBB
-bGV4IERldWNoZXI6DQo+ID4gT24gTW9uLCBBcHIgMiwgMjAxOCBhdCA3OjE3IEFNLCBUb20gU3Qg
-RGVuaXMgPHRzdGRlbmlzQGFtZC5jb20+DQo+IHdyb3RlOg0KPiA+PiBUaGlzIGNvbW1pdA0KPiA+
-Pg0KPiA+PiBbcm9vdEByYXZlbiBsaW51eF0jIGdpdCBiaXNlY3QgYmFkDQo+ID4+IGM3MDRkN2Ex
-NWQyOTJlNmUyMjJiN2U5OTBlZDdlOWY0MTYxN2NkZDggaXMgdGhlIGZpcnN0IGJhZCBjb21taXQN
-Cj4gPj4gY29tbWl0IGM3MDRkN2ExNWQyOTJlNmUyMjJiN2U5OTBlZDdlOWY0MTYxN2NkZDgNCj4g
-Pj4gQXV0aG9yOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+ID4+
-IERhdGU6ICAgVHVlIE1hciAyNyAxNzoxMDo1NiAyMDE4IC0wNTAwDQo+ID4+DQo+ID4+ICAgICAg
-ZHJtL2FtZGdwdS9nbWM5OiB1c2UgYW1kZ3B1X3JpbmdfZW1pdF9yZWdfd3JpdGVfcmVnX3dhaXQg
-aW4gZ3B1DQo+ID4+IHRsYiBmbHVzaA0KPiA+Pg0KPiA+PiAgICAgIFVzZSBhbWRncHVfcmluZ19l
-bWl0X3JlZ193cml0ZV9yZWdfd2FpdC4gIE9uIGVuZ2luZXMgdGhhdCBzdXBwb3J0DQo+IGl0LA0K
-PiA+PiAgICAgIGl0IHByb3ZpZGVzIGEgd3JpdGUgYW5kIHdhaXQgaW4gYSBzaW5nbGUgcGFja2V0
-IHdoaWNoIGF2b2lkcyBhIG1pc3NlZA0KPiA+PiAgICAgIGFjayBpZiBhIHdvcmxkIHN3aXRjaCBo
-YXBwZW5zIGJldHdlZW4gdGhlIHJlcXVlc3QgYW5kIHdhaXRpbmcgZm9yIHRoZQ0KPiA+PiAgICAg
-IGFjay4NCj4gPj4NCj4gPj4gICAgICBSZXZpZXdlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdA
-YW1kLmNvbT4NCj4gPj4gICAgICBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiA+PiAgICAgIFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hl
-ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gPj4NCj4gPj4gOjA0MDAwMCAwNDAwMDAg
-YTA4YTEyYTMxNmQwOWVhMjMxMzM3MTM2Y2M3YWEwNzZkNGRhNDRhOA0KPiA+PiA1MjFjOGExOGIw
-YzYzZTE4NWU0MTZhMjY3NjE5YTkyODIyZDdmMjY4IE0gICAgICBkcml2ZXJzDQo+ID4+DQo+ID4+
-IENhdXNlcyBteSByYXZlbjEgdG8gbG9ja3VwIG9uIHN0YXJ0aW5nIFggd2l0aCBhIGdmeCByaW5n
-IHN0YWxsLg0KPiA+IEkndmUgcmV2ZXJ0ZWQgdGhlIHBhdGNoZXMuDQo+IA0KPiBZZWFoLCB5b3Ug
-bmVlZCBhIHNwZWNpYWxpemVkIGZpcm13YXJlIHZlcnNpb24gZm9yIHRoaXMgd2hpY2ggUmF2ZW4g
-cHJvYmFibHkNCj4gZG9lc24ndCBoYXZlLg0KPiANCj4gQW55d2F5IHRoZSByb290IGNhdXNlIG9m
-IHRoZSBpc3N1ZSB3aGljaCBzaG91bGQgYmUgZml4ZWQgYnkgdGhpcyBwYXRjaCBzZXQNCj4gd2Fz
-IGZvdW5kIGluIHRoZSBtZWFudGltZSwgc28gdGhlIHdob2xlIHBhdGNoIHNldCBzaG91bGRuJ3Qg
-YmUgbmVjZXNzYXJ5DQo+IGFueSBtb3JlLg0KPiANCj4gQ2hyaXN0aWFuLg0KPiANCj4gPg0KPiA+
-IEFsZXgNCj4gPg0KPiA+PiBUb20NCj4gPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18NCj4gPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gPj4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+Acked-by: Chunming Zhou <david1.zhou@amd.com> for series.
+
+
+On 2018年04月03日 01:32, Alex Deucher wrote:
+> The calculation of the lane widths via ATOM_PPLIB_PCIE_LINK_WIDTH_MASK and
+> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT macros did not increment the resulting
+> value, per the comment in pptable.h ("lanes - 1"), and per usage elsewhere.
+> Port of the radeon fix to amdgpu.
+>
+> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=102553
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+>   drivers/gpu/drm/amd/amdgpu/si_dpm.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+> index 6253b272c944..b12d7c9d42a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+> @@ -6372,9 +6372,9 @@ static void si_set_pcie_lane_width_in_smc(struct amdgpu_device *adev,
+>   {
+>   	u32 lane_width;
+>   	u32 new_lane_width =
+> -		(amdgpu_new_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT;
+> +		((amdgpu_new_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT) + 1;
+>   	u32 current_lane_width =
+> -		(amdgpu_current_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT;
+> +		((amdgpu_current_state->caps & ATOM_PPLIB_PCIE_LINK_WIDTH_MASK) >> ATOM_PPLIB_PCIE_LINK_WIDTH_SHIFT) + 1;
+>   
+>   	if (new_lane_width != current_lane_width) {
+>   		amdgpu_set_pcie_lanes(adev, new_lane_width);
