@@ -1,17 +1,13 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amd/pp: Refine get_gpu_power for VI
-Date: Wed, 4 Apr 2018 16:05:14 +0000
-Message-ID: <CY4PR12MB1687A15A9D2A5016B6577C17FBA40@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1522830304-15505-1-git-send-email-Rex.Zhu@amd.com>
- <1522830304-15505-2-git-send-email-Rex.Zhu@amd.com>
- <a3566d2f-4b35-00b4-1df1-ab50076f704c@amd.com>
- <CY4PR12MB1687C34CD0753343A795544CFBA40@CY4PR12MB1687.namprd12.prod.outlook.com>,
- <dfcb5127-c6ad-2a09-793e-42ca3cdcff1d@amd.com>
+From: James Zhu <James.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2] tests/amdgpu: add vce mv tests support and sets
+Date: Wed,  4 Apr 2018 12:43:54 -0400
+Message-ID: <1522860234-21784-1-git-send-email-James.Zhu@amd.com>
+References: <1522782139-24945-1-git-send-email-James.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0183769046=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <dfcb5127-c6ad-2a09-793e-42ca3cdcff1d-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1522782139-24945-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,483 +18,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0183769046==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687A15A9D2A5016B6577C17FBA40CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687A15A9D2A5016B6577C17FBA40CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-with this patch, there should be no difference between AGT and sysfs.
-
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Huang, JinHuiEric
-Sent: Thursday, April 5, 2018 12:00 AM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 2/3] drm/amd/pp: Refine get_gpu_power for VI
-
-
-So you didn't compare the result with AGT, but I did. The reality is not li=
-ke your speculation.
-
-
-Regards,
-
-Eric
-
-On 2018-04-04 11:50 AM, Zhu, Rex wrote:
-
-If user send message PPSMC_MSG_GetCurrPkgPwr, firmware will return the pkgp=
-wr immediately as current power value.
-
-as no PPSMC_MSG_GetCurrPkgPwr support, so send message  let firmware write =
-pkgpwr  to ixSMU_PM_STATUS_94,
-
-and driver delay 10ms to read ixSMU_PM_STATUS_94.
-
-
-I don't think there is any problem. otherwise, there is same issue on polar=
-is/vega.
-
-
-I clean ixSMU_PM_STATUS_94 before let smu write it.
-
-The delay time is enough unless we got 0 from ixSMU_PM_STATUS_94 .
-
-
-
-Best Regards
-
-Rex
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> on behalf of Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>=
-<mailto:jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, April 4, 2018 11:36 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amd/pp: Refine get_gpu_power for VI
-
-Sampling period is too short. The power reading value will be not
-aligned with AGT's. It will confuse user that why AMD provides two
-different power results.
-
-Regards,
-Eric
-
-On 2018-04-04 04:25 AM, Rex Zhu wrote:
-> 1. On polaris10/11/12, Sending smu message PPSMC_MSG_GetCurrPkgPwr to
->     read currentpkgpwr directly.
-> 2. On Fiji/tonga/bonaire/hawwii, no PPSMC_MSG_GetCurrPkgPwr support.
->     Send PPSMC_MSG_PmStatusLogStart to let smu write currentpkgpwr
->     to ixSMU_PM_STATUS_94. this is asynchronous. need to delay no less
->     than 1ms.
-> 3. Clean ixSMU_PM_STATUS_94 immediately when send PPSMC_MSG_PmStatusLogSt=
-art
->     to avoid read old value.
-> 4. delay 10 ms instand of 20 ms. so the result will more similar to
->     the output of PPSMC_MSG_GetCurrPkgPwr.
-> 5. remove max power/vddc/vddci output to keep consistent with vega.
-> 6. for vddc/vddci power, we can calculate the average value per
->     [10ms, 4s] in other interface if needed.
->
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org><mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 45 +++++++++++------=
--------
->   1 file changed, 21 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> index 40f2f87..c0ce672 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -3363,30 +3363,27 @@ static int smu7_get_pp_table_entry(struct pp_hwmg=
-r *hwmgr,
->   static int smu7_get_gpu_power(struct pp_hwmgr *hwmgr,
->                struct pp_gpu_power *query)
->   {
-> -     PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr,
-> -                     PPSMC_MSG_PmStatusLogStart),
-> -                     "Failed to start pm status log!",
-> -                     return -1);
-> -
-> -     msleep_interruptible(20);
-> -
-> -     PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hwmgr,
-> -                     PPSMC_MSG_PmStatusLogSample),
-> -                     "Failed to sample pm status log!",
-> -                     return -1);
-> -
-> -     query->vddc_power =3D cgs_read_ind_register(hwmgr->device,
-> -                     CGS_IND_REG__SMC,
-> -                     ixSMU_PM_STATUS_40);
-> -     query->vddci_power =3D cgs_read_ind_register(hwmgr->device,
-> -                     CGS_IND_REG__SMC,
-> -                     ixSMU_PM_STATUS_49);
-> -     query->max_gpu_power =3D cgs_read_ind_register(hwmgr->device,
-> -                     CGS_IND_REG__SMC,
-> -                     ixSMU_PM_STATUS_94);
-> -     query->average_gpu_power =3D cgs_read_ind_register(hwmgr->device,
-> -                     CGS_IND_REG__SMC,
-> -                     ixSMU_PM_STATUS_95);
-> +     if (!query)
-> +             return -EINVAL;
-> +
-> +     memset(query, 0, sizeof *query);
-> +
-> +     if (hwmgr->chip_id >=3D CHIP_POLARIS10) {
-> +             smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrPkgPwr);
-> +             query->average_gpu_power =3D cgs_read_register(hwmgr->devic=
-e, mmSMC_MSG_ARG_0);
-> +     } else {
-> +             smum_send_msg_to_smc(hwmgr, PPSMC_MSG_PmStatusLogStart);
-> +             cgs_write_ind_register(hwmgr->device, CGS_IND_REG__SMC,
-> +                                     ixSMU_PM_STATUS_94, 0);
-> +
-> +             msleep_interruptible(10);
-> +
-> +             smum_send_msg_to_smc(hwmgr, PPSMC_MSG_PmStatusLogSample);
-> +
-> +             query->average_gpu_power =3D cgs_read_ind_register(hwmgr->d=
-evice,
-> +                                                     CGS_IND_REG__SMC,
-> +                                                     ixSMU_PM_STATUS_94)=
-;
-> +     }
->
->        return 0;
->   }
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
-
-
-
-
-
---_000_CY4PR12MB1687A15A9D2A5016B6577C17FBA40CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">with this patch, there should be =
-no difference between&nbsp;AGT and sysfs.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex</p>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, JinHuiEric<br>
-<b>Sent:</b> Thursday, April 5, 2018 12:00 AM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 2/3] drm/amd/pp: Refine get_gpu_power for VI</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div style=3D"background-color:#FFFFFF">
-<p>So you didn't compare the result with AGT, but I did. The reality is not=
- like your speculation.</p>
-<p><br>
-</p>
-<p>Regards,</p>
-<p>Eric<br>
-</p>
-<br>
-<div class=3D"x_moz-cite-prefix">On 2018-04-04 11:50 AM, Zhu, Rex wrote:<br=
->
-</div>
-<blockquote type=3D"cite">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0; margin-bottom:0">If user send&nbsp;<span style=3D=
-"">message PPSMC_MSG_GetCurrPkgPwr, firmware will return the pkgpwr immedia=
-tely as current&nbsp;power value.</span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"">as no&nbsp;<spa=
-n style=3D"">PPSMC_MSG_GetCurrPkgPwr support, so send message &nbsp;let fir=
-mware write&nbsp;<span style=3D"">pkgpwr &nbsp;to&nbsp;<span style=3D"">ixS=
-MU_PM_STATUS_94,</span></span></span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D""><span style=3D"=
-"><span style=3D""><span style=3D"">and driver delay 10ms to read
-<span style=3D"">ixSMU_PM_STATUS_94.</span></span></span></span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">I don't think there is any probl=
-em. otherwise, there is same issue on polaris/vega.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">I clean <span style=3D"">ixSMU_P=
-M_STATUS_94 before let smu write it.</span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"">The delay time =
-is enough unless we got 0 from
-<span style=3D"">ixSMU_PM_STATUS_94&nbsp;</span>.</span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D""><br>
-</span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0; margin-bottom:0">Rex</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<br>
-<div style=3D"color:rgb(0,0,0)">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces@lists.f=
-reedesktop.org" id=3D"LPlnk680627" previewremoved=3D"true">
-&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Eric Huang <=
-a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:jinhuieric.huang-5C7GfCeVMHo@public.gmane.org=
-" id=3D"LPlnk55605" previewremoved=3D"true">
-&lt;jinhuieric.huang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Wednesday, April 4, 2018 11:36 PM<br>
-<b>To:</b> <a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@l=
-ists.freedesktop.org" id=3D"LPlnk367731" previewremoved=3D"true">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Re: [PATCH 2/3] drm/amd/pp: Refine get_gpu_power for VI</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Sampling period is too short. The power reading =
-value will be not
-<br>
-aligned with AGT's. It will confuse user that why AMD provides two <br>
-different power results.<br>
-<br>
-Regards,<br>
-Eric<br>
-<br>
-On 2018-04-04 04:25 AM, Rex Zhu wrote:<br>
-&gt; 1. On polaris10/11/12, Sending smu message PPSMC_MSG_GetCurrPkgPwr to<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; read currentpkgpwr directly.<br>
-&gt; 2. On Fiji/tonga/bonaire/hawwii, no PPSMC_MSG_GetCurrPkgPwr support.<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; Send PPSMC_MSG_PmStatusLogStart to let smu wri=
-te currentpkgpwr<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; to ixSMU_PM_STATUS_94. this is asynchronous. n=
-eed to delay no less<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; than 1ms.<br>
-&gt; 3. Clean ixSMU_PM_STATUS_94 immediately when send PPSMC_MSG_PmStatusLo=
-gStart<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; to avoid read old value.<br>
-&gt; 4. delay 10 ms instand of 20 ms. so the result will more similar to<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; the output of PPSMC_MSG_GetCurrPkgPwr.<br>
-&gt; 5. remove max power/vddc/vddci output to keep consistent with vega.<br=
->
-&gt; 6. for vddc/vddci power, we can calculate the average value per<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; [10ms, 4s] in other interface if needed.<br>
-&gt;<br>
-&gt; Signed-off-by: Rex Zhu <a class=3D"x_moz-txt-link-rfc2396E" href=3D"ma=
-ilto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" id=3D"LPlnk268038" previewremoved=3D"true">
-&lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 45 &#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------------<br>
-&gt;&nbsp;&nbsp; 1 file changed, 21 insertions(&#43;), 24 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/driver=
-s/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt; index 40f2f87..c0ce672 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&gt; @@ -3363,30 &#43;3363,27 @@ static int smu7_get_pp_table_entry(struct =
-pp_hwmgr *hwmgr,<br>
-&gt;&nbsp;&nbsp; static int smu7_get_gpu_power(struct pp_hwmgr *hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct pp_gpu_power *query)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hw=
-mgr,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_PmStatusLogSt=
-art),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to start p=
-m status log!&quot;,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -1);<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; msleep_interruptible(20);<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!smum_send_msg_to_smc(hw=
-mgr,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_PmStatusLogSa=
-mple),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to sample =
-pm status log!&quot;,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -1);<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; query-&gt;vddc_power =3D cgs_read_ind_regist=
-er(hwmgr-&gt;device,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGS_IND_REG__SMC,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ixSMU_PM_STATUS_40);<br=
->
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; query-&gt;vddci_power =3D cgs_read_ind_regis=
-ter(hwmgr-&gt;device,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGS_IND_REG__SMC,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ixSMU_PM_STATUS_49);<br=
->
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; query-&gt;max_gpu_power =3D cgs_read_ind_reg=
-ister(hwmgr-&gt;device,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGS_IND_REG__SMC,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ixSMU_PM_STATUS_94);<br=
->
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; query-&gt;average_gpu_power =3D cgs_read_ind=
-_register(hwmgr-&gt;device,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGS_IND_REG__SMC,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ixSMU_PM_STATUS_95);<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!query)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return -EINVAL;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; memset(query, 0, sizeof *query);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;chip_id &gt;=3D CHIP_POLAR=
-IS10) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetCurrPkgPwr);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; query-&gt;average_gpu_power =3D cgs_read_register(hwmgr-&gt;device,=
- mmSMC_MSG_ARG_0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; smum_send_msg_to_smc(hwmgr, PPSMC_MSG_PmStatusLogStart);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; cgs_write_ind_register(hwmgr-&gt;device, CGS_IND_REG__SMC,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; ixSMU_PM_STATUS_94, 0);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; msleep_interruptible(10);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; smum_send_msg_to_smc(hwmgr, PPSMC_MSG_PmStatusLogSample);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; query-&gt;average_gpu_power =3D cgs_read_ind_register(hwmgr-&gt;dev=
-ice,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; CGS_IND_REG__SMC,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; ixSMU_PM_STATUS_94);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp; }<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org" id=3D"LPlnk801665" previewremoved=3D"true">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk731909" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15228562333390.979542144089784" style=3D"margin-bott=
-om:20px; overflow:auto; width:100%; text-indent:0px" contenteditable=3D"fal=
-se">
-<table id=3D"LPContainer_15228562333280.30238014676002334" cellspacing=3D"0=
-" style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto; pad=
-ding-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dotted =
-rgb(200,200,200); border-bottom:1px dotted rgb(200,200,200)">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing:0px">
-<td id=3D"x_TextCell_15228562333320.0901521230341924" colspan=3D"2" style=
-=3D"vertical-align:top; padding:0px; display:table-cell">
-<div id=3D"LPTitle_15228562333330.17088493377011438" style=3D""><a id=3D"LP=
-UrlAnchor_15228562333350.45851088175032095" href=3D"https://lists.freedeskt=
-op.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-decoration=
-:none">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15228562333360.9650973279775443" style=3D"">lists.fre=
-edesktop.org</div>
-<div id=3D"LPDescription_15228562333370.9839175290800748" style=3D"">Subscr=
-ibing to amd-gfx: Subscribe to amd-gfx by filling out the following form. U=
-se of all freedesktop.org lists is subject to our Code of Conduct.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</blockquote>
-<br>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1687A15A9D2A5016B6577C17FBA40CY4PR12MB1687namp_--
-
---===============0183769046==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0183769046==--
+U2lnbmVkLW9mZi1ieTogSmFtZXMgWmh1IDxKYW1lcy5aaHVAYW1kLmNvbT4KLS0tCiB0ZXN0cy9h
+bWRncHUvdmNlX2liLmggICAgfCAgMjEgKysrKy0KIHRlc3RzL2FtZGdwdS92Y2VfdGVzdHMuYyB8
+IDIyNCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLQogMiBm
+aWxlcyBjaGFuZ2VkLCAyNDAgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS90ZXN0cy9hbWRncHUvdmNlX2liLmggYi90ZXN0cy9hbWRncHUvdmNlX2liLmgKaW5kZXgg
+ODBhYjE3OS4uY2JkY2M3MSAxMDA2NDQKLS0tIGEvdGVzdHMvYW1kZ3B1L3ZjZV9pYi5oCisrKyBi
+L3Rlc3RzL2FtZGdwdS92Y2VfaWIuaApAQCAtNDEsNyArNDEsNyBAQCBzdGF0aWMgdWludDMyX3Qg
+dmNlX3Rhc2tpbmZvWzhdID0gewogCTB4MDAwMDAwMDAsCiB9OwogCi1zdGF0aWMgY29uc3QgdWlu
+dDMyX3QgdmNlX2NyZWF0ZVtdID0geworc3RhdGljIHVpbnQzMl90IHZjZV9jcmVhdGVbXSA9IHsK
+IAkweDAwMDAwMDMwLAogCTB4MDEwMDAwMDEsCiAJMHgwMDAwMDAwMCwKQEAgLTE0NCw3ICsxNDQs
+NyBAQCBzdGF0aWMgY29uc3QgdWludDMyX3QgdmNlX3Jkb1tdID0gewogCTB4MDAwMDAwMDAsCiB9
+OwogCi1zdGF0aWMgY29uc3QgdWludDMyX3QgdmNlX3BpY19jdHJsW10gPSB7CitzdGF0aWMgdWlu
+dDMyX3QgdmNlX3BpY19jdHJsW10gPSB7CiAJMHgwMDAwMDA3NCwKIAkweDA0MDAwMDAyLAogCTB4
+MDAwMDAwMDAsCkBAIC0zMTUsNCArMzE1LDIxIEBAIHN0YXRpYyBjb25zdCB1aW50MzJfdCB2Y2Vf
+ZGVzdHJveVtdID0gewogCTB4MDAwMDAwMDgsCiAJMHgwMjAwMDAwMSwKIH07CisKK3N0YXRpYyBj
+b25zdCB1aW50MzJfdCB2Y2VfbXZfYnVmZmVyW10gPSB7CisJMHgwMDAwMDAzOCwKKwkweDA1MDAw
+MDBkLAorCTB4MDAwMDAwMDAsCisJMHgwMDAwMDAwMCwKKwkweDAwMDAwMDAwLAorCTB4MDAwMDAw
+MDAsCisJMHgwMDAwMDAwMCwKKwkweDAwMDAwMDAwLAorCTB4MDAwMDAwMDAsCisJMHgwMDAwMDAw
+MCwKKwkweDAwMDAwMDAwLAorCTB4MDAwMDAwMDAsCisJMHgwMDAwMDAwMCwKKwkweDAwMDAwMDAw
+LAorfTsKICNlbmRpZiAvKl92Y2VfaWJfaCovCmRpZmYgLS1naXQgYS90ZXN0cy9hbWRncHUvdmNl
+X3Rlc3RzLmMgYi90ZXN0cy9hbWRncHUvdmNlX3Rlc3RzLmMKaW5kZXggMjVjMGIxZi4uN2I1MzUx
+YSAxMDA2NDQKLS0tIGEvdGVzdHMvYW1kZ3B1L3ZjZV90ZXN0cy5jCisrKyBiL3Rlc3RzL2FtZGdw
+dS92Y2VfdGVzdHMuYwpAQCAtMzcsNiArMzcsNyBAQAogCiAjZGVmaW5lIElCX1NJWkUJCTQwOTYK
+ICNkZWZpbmUgTUFYX1JFU09VUkNFUwkxNgorI2RlZmluZSBGV181M18wXzAzICgoNTMgPDwgMjQp
+IHwgKDAgPDwgMTYpIHwgKDAzIDw8IDgpKQogCiBzdHJ1Y3QgYW1kZ3B1X3ZjZV9ibyB7CiAJYW1k
+Z3B1X2JvX2hhbmRsZSBoYW5kbGU7CkBAIC01NSw2ICs1Niw5IEBAIHN0cnVjdCBhbWRncHVfdmNl
+X2VuY29kZSB7CiAJc3RydWN0IGFtZGdwdV92Y2VfYm8gY3BiOwogCXVuc2lnbmVkIGliX2xlbjsK
+IAlib29sIHR3b19pbnN0YW5jZTsKKwlzdHJ1Y3QgYW1kZ3B1X3ZjZV9ibyBtdnJlZmJ1ZjsKKwlz
+dHJ1Y3QgYW1kZ3B1X3ZjZV9ibyBtdmI7CisJdW5zaWduZWQgbXZidWZfc2l6ZTsKIH07CiAKIHN0
+YXRpYyBhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXZpY2VfaGFuZGxlOwpAQCAtNjIsNiArNjYsOSBA
+QCBzdGF0aWMgdWludDMyX3QgbWFqb3JfdmVyc2lvbjsKIHN0YXRpYyB1aW50MzJfdCBtaW5vcl92
+ZXJzaW9uOwogc3RhdGljIHVpbnQzMl90IGZhbWlseV9pZDsKIHN0YXRpYyB1aW50MzJfdCB2Y2Vf
+aGFydmVzdF9jb25maWc7CitzdGF0aWMgdWludDMyX3QgY2hpcF9yZXY7CitzdGF0aWMgdWludDMy
+X3QgY2hpcF9pZDsKK3N0YXRpYyB1aW50MzJfdCBpZHNfZmxhZ3M7CiAKIHN0YXRpYyBhbWRncHVf
+Y29udGV4dF9oYW5kbGUgY29udGV4dF9oYW5kbGU7CiBzdGF0aWMgYW1kZ3B1X2JvX2hhbmRsZSBp
+Yl9oYW5kbGU7CkBAIC03NSwzMyArODIsNjIgQEAgc3RhdGljIHVuc2lnbmVkIG51bV9yZXNvdXJj
+ZXM7CiAKIHN0YXRpYyB2b2lkIGFtZGdwdV9jc192Y2VfY3JlYXRlKHZvaWQpOwogc3RhdGljIHZv
+aWQgYW1kZ3B1X2NzX3ZjZV9lbmNvZGUodm9pZCk7CitzdGF0aWMgdm9pZCBhbWRncHVfY3NfdmNl
+X3ByZXNldF9tdih2b2lkKTsKK3N0YXRpYyB2b2lkIGFtZGdwdV9jc192Y2VfZW5jb2RlX212KHZv
+aWQpOwogc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3ZjZV9kZXN0cm95KHZvaWQpOwogCiBDVV9UZXN0
+SW5mbyB2Y2VfdGVzdHNbXSA9IHsKIAl7ICJWQ0UgY3JlYXRlIiwgIGFtZGdwdV9jc192Y2VfY3Jl
+YXRlIH0sCiAJeyAiVkNFIGVuY29kZSIsICBhbWRncHVfY3NfdmNlX2VuY29kZSB9LAogCXsgIlZD
+RSBkZXN0cm95IiwgIGFtZGdwdV9jc192Y2VfZGVzdHJveSB9LAorCXsgIlZDRSBNViBwcmVzZXQi
+LCAgYW1kZ3B1X2NzX3ZjZV9wcmVzZXRfbXYgfSwKKwl7ICJWQ0UgTVYgY3JlYXRlIiwgIGFtZGdw
+dV9jc192Y2VfY3JlYXRlIH0sCisJeyAiVkNFIE1WIGR1bXAiLCAgYW1kZ3B1X2NzX3ZjZV9lbmNv
+ZGVfbXYgfSwKKwl7ICJWQ0UgTVYgZGVzdHJveSIsICBhbWRncHVfY3NfdmNlX2Rlc3Ryb3kgfSwK
+IAlDVV9URVNUX0lORk9fTlVMTCwKIH07CiAKLQogQ1VfQk9PTCBzdWl0ZV92Y2VfdGVzdHNfZW5h
+YmxlKHZvaWQpCiB7CisJdWludDMyX3QgdmVyc2lvbiwgZmVhdHVyZTsKKwlDVV9CT09MIHJldF9t
+diA9IENVX0ZBTFNFOworCiAJaWYgKGFtZGdwdV9kZXZpY2VfaW5pdGlhbGl6ZShkcm1fYW1kZ3B1
+WzBdLCAmbWFqb3JfdmVyc2lvbiwKIAkJCQkJICAgICAmbWlub3JfdmVyc2lvbiwgJmRldmljZV9o
+YW5kbGUpKQogCQlyZXR1cm4gQ1VfRkFMU0U7CiAKIAlmYW1pbHlfaWQgPSBkZXZpY2VfaGFuZGxl
+LT5pbmZvLmZhbWlseV9pZDsKKwljaGlwX3JldiA9IGRldmljZV9oYW5kbGUtPmluZm8uY2hpcF9y
+ZXY7CisJY2hpcF9pZCA9IGRldmljZV9oYW5kbGUtPmluZm8uY2hpcF9leHRlcm5hbF9yZXY7CisJ
+aWRzX2ZsYWdzID0gZGV2aWNlX2hhbmRsZS0+aW5mby5pZHNfZmxhZ3M7CisKKwlhbWRncHVfcXVl
+cnlfZmlybXdhcmVfdmVyc2lvbihkZXZpY2VfaGFuZGxlLCBBTURHUFVfSU5GT19GV19WQ0UsIDAs
+CisJCQkJCSAgMCwgJnZlcnNpb24sICZmZWF0dXJlKTsKIAogCWlmIChhbWRncHVfZGV2aWNlX2Rl
+aW5pdGlhbGl6ZShkZXZpY2VfaGFuZGxlKSkKIAkJcmV0dXJuIENVX0ZBTFNFOwogCi0KIAlpZiAo
+ZmFtaWx5X2lkID49IEFNREdQVV9GQU1JTFlfUlYgfHwgZmFtaWx5X2lkID09IEFNREdQVV9GQU1J
+TFlfU0kpIHsKIAkJcHJpbnRmKCJcblxuVGhlIEFTSUMgTk9UIHN1cHBvcnQgVkNFLCBzdWl0ZSBk
+aXNhYmxlZFxuIik7CiAJCXJldHVybiBDVV9GQUxTRTsKIAl9CiAKKwlpZiAoIShjaGlwX2lkID09
+IChjaGlwX3JldiArIDB4M0MpIHx8IC8qIEZJSkkgKi8KKwkJCWNoaXBfaWQgPT0gKGNoaXBfcmV2
+ICsgMHg1MCkgfHwgLyogUG9sYXJpcyAxMCovCisJCQljaGlwX2lkID09IChjaGlwX3JldiArIDB4
+NUEpIHx8IC8qIFBvbGFyaXMgMTEqLworCQkJY2hpcF9pZCA9PSAoY2hpcF9yZXYgKyAweDY0KSB8
+fCAvKiBQb2xhcmlzIDEyKi8KKwkJCShmYW1pbHlfaWQgPiBBTURHUFVfRkFNSUxZX1ZJICYmICFp
+ZHNfZmxhZ3MpKSkgLyogZEdQVSA+IFBvbGFyaXMgKi8KKwkJcHJpbnRmKCJcblxuVGhlIEFTSUMg
+Tk9UIHN1cHBvcnQgVkNFIE1WLCBzdWl0ZSBkaXNhYmxlZFxuIik7CisJZWxzZSBpZiAoRldfNTNf
+MF8wMyA+PSB2ZXJzaW9uKQorCQlwcmludGYoIlxuXG5UaGUgQVNJQyBGVyB2ZXJzaW9uIE5PVCBz
+dXBwb3J0IFZDRSBNViwgc3VpdGUgZGlzYWJsZWRcbiIpOworCWVsc2UKKwkJcmV0X212ID0gQ1Vf
+VFJVRTsKKworCWFtZGdwdV9zZXRfdGVzdF9hY3RpdmUoIlZDRSBUZXN0cyIsICJWQ0UgTVYgcHJl
+c2V0IiwgcmV0X212KTsKKwlhbWRncHVfc2V0X3Rlc3RfYWN0aXZlKCJWQ0UgVGVzdHMiLCAiVkNF
+IE1WIGNyZWF0ZSIsIHJldF9tdik7CisJYW1kZ3B1X3NldF90ZXN0X2FjdGl2ZSgiVkNFIFRlc3Rz
+IiwgIlZDRSBNViBkdW1wIiwgcmV0X212KTsKKwlhbWRncHVfc2V0X3Rlc3RfYWN0aXZlKCJWQ0Ug
+VGVzdHMiLCAiVkNFIE1WIGRlc3Ryb3kiLCByZXRfbXYpOworCiAJcmV0dXJuIENVX1RSVUU7CiB9
+CiAKQEAgLTMwNyw3ICszNDMsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY3NfdmNlX2NvbmZpZyh2
+b2lkKQogCUNVX0FTU0VSVF9FUVVBTChyLCAwKTsKIH0KIAotc3RhdGljICB2b2lkIGFtZGdwdV9j
+c192Y2VfZW5jb2RlX2lkcihzdHJ1Y3QgYW1kZ3B1X3ZjZV9lbmNvZGUgKmVuYykKK3N0YXRpYyB2
+b2lkIGFtZGdwdV9jc192Y2VfZW5jb2RlX2lkcihzdHJ1Y3QgYW1kZ3B1X3ZjZV9lbmNvZGUgKmVu
+YykKIHsKIAogCXVpbnQ2NF90IGx1bWFfb2Zmc2V0LCBjaHJvbWFfb2Zmc2V0OwpAQCAtNTIxLDYg
+KzU1NywxODggQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3ZjZV9lbmNvZGUodm9pZCkKIAlmcmVl
+X3Jlc291cmNlKCZlbmMuY3BiKTsKIH0KIAorc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3ZjZV9wcmVz
+ZXRfbXYodm9pZCkKK3sKKwl2Y2VfY3JlYXRlWzExXSA9IDB4MDEwMDAwMDA7ICAgLyogZGlzYWJs
+ZVR3b0luc3RhbmNlICovCisJdmNlX3BpY19jdHJsWzI3XSA9IDB4MDAwMDAwMDE7IC8qIGVuY1Ns
+aWNlTW9kZSAqLworCXZjZV90YXNraW5mb1szXSA9IDA7CisJdmNlX3Rhc2tpbmZvWzRdID0gMDsK
+K30KKworc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3ZjZV9tdihzdHJ1Y3QgYW1kZ3B1X3ZjZV9lbmNv
+ZGUgKmVuYykKK3sKKwl1aW50NjRfdCBsdW1hX29mZnNldCwgY2hyb21hX29mZnNldDsKKwl1aW50
+NjRfdCBtdl9yZWZfbHVtYV9vZmZzZXQ7CisJdW5zaWduZWQgYWxpZ24gPSAoZmFtaWx5X2lkID49
+IEFNREdQVV9GQU1JTFlfQUkpID8gMjU2IDogMTY7CisJdW5zaWduZWQgbHVtYV9zaXplID0gQUxJ
+R04oZW5jLT53aWR0aCwgYWxpZ24pICogQUxJR04oZW5jLT5oZWlnaHQsIDE2KTsKKwlpbnQgbGVu
+ID0gMCwgaSwgcjsKKworCWx1bWFfb2Zmc2V0ID0gZW5jLT52YnVmLmFkZHI7CisJY2hyb21hX29m
+ZnNldCA9IGx1bWFfb2Zmc2V0ICsgbHVtYV9zaXplOworCW12X3JlZl9sdW1hX29mZnNldCA9IGVu
+Yy0+bXZyZWZidWYuYWRkcjsKKworCW1lbWNweSgoaWJfY3B1ICsgbGVuKSwgdmNlX3Nlc3Npb24s
+IHNpemVvZih2Y2Vfc2Vzc2lvbikpOworCWxlbiArPSBzaXplb2YodmNlX3Nlc3Npb24pIC8gNDsK
+KwltZW1jcHkoKGliX2NwdSArIGxlbiksIHZjZV90YXNraW5mbywgc2l6ZW9mKHZjZV90YXNraW5m
+bykpOworCWxlbiArPSBzaXplb2YodmNlX3Rhc2tpbmZvKSAvIDQ7CisJbWVtY3B5KChpYl9jcHUg
+KyBsZW4pLCB2Y2VfYnNfYnVmZmVyLCBzaXplb2YodmNlX2JzX2J1ZmZlcikpOworCWliX2NwdVts
+ZW4gKyAyXSA9IGVuYy0+YnNbMF0uYWRkciA+PiAzMjsKKwlpYl9jcHVbbGVuICsgM10gPSBlbmMt
+PmJzWzBdLmFkZHI7CisJbGVuICs9IHNpemVvZih2Y2VfYnNfYnVmZmVyKSAvIDQ7CisJbWVtY3B5
+KChpYl9jcHUgKyBsZW4pLCB2Y2VfY29udGV4dF9idWZmZXIsIHNpemVvZih2Y2VfY29udGV4dF9i
+dWZmZXIpKTsKKwlpYl9jcHVbbGVuICsgMl0gPSBlbmMtPmNwYi5hZGRyID4+IDMyOworCWliX2Nw
+dVtsZW4gKyAzXSA9IGVuYy0+Y3BiLmFkZHI7CisJbGVuICs9IHNpemVvZih2Y2VfY29udGV4dF9i
+dWZmZXIpIC8gNDsKKwltZW1jcHkoKGliX2NwdSArIGxlbiksIHZjZV9hdXhfYnVmZmVyLCBzaXpl
+b2YodmNlX2F1eF9idWZmZXIpKTsKKwlmb3IgKGkgPSAwOyBpIDwgIDg7ICsraSkKKwkJaWJfY3B1
+W2xlbiArIDIgKyBpXSA9IGx1bWFfc2l6ZSAqIDEuNSAqIChpICsgMik7CisJZm9yIChpID0gMDsg
+aSA8ICA4OyArK2kpCisJCWliX2NwdVtsZW4gKyAxMCArIGldID0gbHVtYV9zaXplICogMS41Owor
+CWxlbiArPSBzaXplb2YodmNlX2F1eF9idWZmZXIpIC8gNDsKKwltZW1jcHkoKGliX2NwdSArIGxl
+biksIHZjZV9mZWVkYmFjaywgc2l6ZW9mKHZjZV9mZWVkYmFjaykpOworCWliX2NwdVtsZW4gKyAy
+XSA9IGVuYy0+ZmJbMF0uYWRkciA+PiAzMjsKKwlpYl9jcHVbbGVuICsgM10gPSBlbmMtPmZiWzBd
+LmFkZHI7CisJbGVuICs9IHNpemVvZih2Y2VfZmVlZGJhY2spIC8gNDsKKwltZW1jcHkoKGliX2Nw
+dSArIGxlbiksIHZjZV9tdl9idWZmZXIsIHNpemVvZih2Y2VfbXZfYnVmZmVyKSk7CisJaWJfY3B1
+W2xlbiArIDJdID0gbXZfcmVmX2x1bWFfb2Zmc2V0ID4+IDMyOworCWliX2NwdVtsZW4gKyAzXSA9
+IG12X3JlZl9sdW1hX29mZnNldDsKKwlpYl9jcHVbbGVuICsgNF0gPSBBTElHTihlbmMtPndpZHRo
+LCBhbGlnbik7CisJaWJfY3B1W2xlbiArIDVdID0gQUxJR04oZW5jLT53aWR0aCwgYWxpZ24pOwor
+CWliX2NwdVtsZW4gKyA2XSA9IGx1bWFfc2l6ZTsKKwlpYl9jcHVbbGVuICsgN10gPSBlbmMtPm12
+Yi5hZGRyID4+IDMyOworCWliX2NwdVtsZW4gKyA4XSA9IGVuYy0+bXZiLmFkZHI7CisJbGVuICs9
+IHNpemVvZih2Y2VfbXZfYnVmZmVyKSAvIDQ7CisJbWVtY3B5KChpYl9jcHUgKyBsZW4pLCB2Y2Vf
+ZW5jb2RlLCBzaXplb2YodmNlX2VuY29kZSkpOworCWliX2NwdVtsZW4gKyAyXSA9IDA7CisJaWJf
+Y3B1W2xlbiArIDNdID0gMDsKKwlpYl9jcHVbbGVuICsgNF0gPSAweDE1NDAwMDsKKwlpYl9jcHVb
+bGVuICsgOV0gPSBsdW1hX29mZnNldCA+PiAzMjsKKwlpYl9jcHVbbGVuICsgMTBdID0gbHVtYV9v
+ZmZzZXQ7CisJaWJfY3B1W2xlbiArIDExXSA9IGNocm9tYV9vZmZzZXQgPj4gMzI7CisJaWJfY3B1
+W2xlbiArIDEyXSA9IGNocm9tYV9vZmZzZXQ7CisJaWJfY3B1W2xlbiArIDEzXSA9IEFMSUdOKGVu
+Yy0+aGVpZ2h0LCAxNik7OworCWliX2NwdVtsZW4gKyAxNF0gPSBBTElHTihlbmMtPndpZHRoLCBh
+bGlnbik7CisJaWJfY3B1W2xlbiArIDE1XSA9IEFMSUdOKGVuYy0+d2lkdGgsIGFsaWduKTsKKwkv
+KiBlbmNEaXNhYmxlTUJPZmZsb2FkaW5nLWVuY0Rpc2FibGVUd29QaXBlTW9kZS1lbmNJbnB1dFBp
+Y0FycmF5TW9kZS1lbmNJbnB1dFBpY0FkZHJNb2RlICovCisJaWJfY3B1W2xlbiArIDE2XSA9IDB4
+MDEwMTAwMDA7CisJaWJfY3B1W2xlbiArIDE4XSA9IDA7IC8qIGVuY1BpY1R5cGUgKi8KKwlpYl9j
+cHVbbGVuICsgMTldID0gMDsgLyogZW5jSWRyRmxhZyAqLworCWliX2NwdVtsZW4gKyAyMF0gPSAw
+OyAvKiBlbmNJZHJQaWNJZCAqLworCWliX2NwdVtsZW4gKyAyMV0gPSAwOyAvKiBlbmNNR1NLZXlQ
+aWMgKi8KKwlpYl9jcHVbbGVuICsgMjJdID0gMDsgLyogZW5jUmVmZXJlbmNlRmxhZyAqLworCWli
+X2NwdVtsZW4gKyAyM10gPSAwOyAvKiBlbmNUZW1wb3JhbExheWVySW5kZXggKi8KKwlpYl9jcHVb
+bGVuICsgNTVdID0gMDsgLyogcGljdHVyZVN0cnVjdHVyZSAqLworCWliX2NwdVtsZW4gKyA1Nl0g
+PSAwOyAvKiBlbmNQaWNUeXBlIC1yZWZbMF0gKi8KKwlpYl9jcHVbbGVuICsgNjFdID0gMDsgLyog
+cGljdHVyZVN0cnVjdHVyZSAqLworCWliX2NwdVtsZW4gKyA2Ml0gPSAwOyAvKiBlbmNQaWNUeXBl
+IC1yZWZbMV0gKi8KKwlpYl9jcHVbbGVuICsgNjddID0gMDsgLyogcGljdHVyZVN0cnVjdHVyZSAq
+LworCWliX2NwdVtsZW4gKyA2OF0gPSAwOyAvKiBlbmNQaWNUeXBlIC1yZWYxICovCisJaWJfY3B1
+W2xlbiArIDgxXSA9IDE7IC8qIGZyYW1lTnVtYmVyICovCisJaWJfY3B1W2xlbiArIDgyXSA9IDI7
+IC8qIHBpY3R1cmVPcmRlckNvdW50ICovCisJaWJfY3B1W2xlbiArIDgzXSA9IDB4ZmZmZmZmZmY7
+IC8qIG51bUlQaWNSZW1haW5JblJDR09QICovCisJaWJfY3B1W2xlbiArIDg0XSA9IDB4ZmZmZmZm
+ZmY7IC8qIG51bVBQaWNSZW1haW5JblJDR09QICovCisJaWJfY3B1W2xlbiArIDg1XSA9IDB4ZmZm
+ZmZmZmY7IC8qIG51bUJQaWNSZW1haW5JblJDR09QICovCisJaWJfY3B1W2xlbiArIDg2XSA9IDB4
+ZmZmZmZmZmY7IC8qIG51bUlSUGljUmVtYWluSW5SQ0dPUCAqLworCWliX2NwdVtsZW4gKyA4N10g
+PSAwOyAvKiByZW1haW5lZEludHJhUmVmcmVzaFBpY3R1cmVzICovCisJbGVuICs9IHNpemVvZih2
+Y2VfZW5jb2RlKSAvIDQ7CisKKwllbmMtPmliX2xlbiA9IGxlbjsKKwlyID0gc3VibWl0KGxlbiwg
+QU1ER1BVX0hXX0lQX1ZDRSk7CisJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOworfQorCitzdGF0aWMg
+dm9pZCBjaGVja19tdl9yZXN1bHQoc3RydWN0IGFtZGdwdV92Y2VfZW5jb2RlICplbmMpCit7CisJ
+dWludDY0X3Qgc3VtOworCXVpbnQzMl90IHMgPSAxNDA3OTA7CisJdWludDMyX3QgKnB0ciwgc2l6
+ZTsKKwlpbnQgaSwgaiwgcjsKKworCXIgPSBhbWRncHVfYm9fY3B1X21hcChlbmMtPmZiWzBdLmhh
+bmRsZSwgKHZvaWQgKiopJmVuYy0+ZmJbMF0ucHRyKTsKKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7
+CisJcHRyID0gKHVpbnQzMl90ICopZW5jLT5mYlswXS5wdHI7CisJciA9IGFtZGdwdV9ib19jcHVf
+dW5tYXAoZW5jLT5mYlswXS5oYW5kbGUpOworCUNVX0FTU0VSVF9FUVVBTChyLCAwKTsKKwlyID0g
+YW1kZ3B1X2JvX2NwdV9tYXAoZW5jLT5tdmIuaGFuZGxlLCAodm9pZCAqKikmZW5jLT5tdmIucHRy
+KTsKKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7CisJZm9yIChqID0gMCwgc3VtID0gMDsgaiA8IGVu
+Yy0+bXZidWZfc2l6ZTsgKytqKQorCQlzdW0gKz0gZW5jLT5tdmIucHRyW2pdOworCUNVX0FTU0VS
+VF9FUVVBTChzdW0sIHMpOworCXIgPSBhbWRncHVfYm9fY3B1X3VubWFwKGVuYy0+bXZiLmhhbmRs
+ZSk7CisJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOworfQorCitzdGF0aWMgdm9pZCBhbWRncHVfY3Nf
+dmNlX2VuY29kZV9tdih2b2lkKQoreworCXVpbnQzMl90IHZidWZfc2l6ZSwgYnNfc2l6ZSA9IDB4
+MTU0MDAwLCBjcGJfc2l6ZTsKKwl1bnNpZ25lZCBhbGlnbiA9IChmYW1pbHlfaWQgPj0gQU1ER1BV
+X0ZBTUlMWV9BSSkgPyAyNTYgOiAxNjsKKwlpbnQgaSwgcjsKKworCXZidWZfc2l6ZSA9IEFMSUdO
+KGVuYy53aWR0aCwgYWxpZ24pICogQUxJR04oZW5jLmhlaWdodCwgMTYpICogMS41OworCWVuYy5t
+dmJ1Zl9zaXplID0gQUxJR04oZW5jLndpZHRoLCAxNikgKiBBTElHTihlbmMuaGVpZ2h0LCAxNikg
+LyA4OworCWNwYl9zaXplID0gdmJ1Zl9zaXplICogMTA7CisJbnVtX3Jlc291cmNlcyA9IDA7CisJ
+YWxsb2NfcmVzb3VyY2UoJmVuYy5mYlswXSwgNDA5NiwgQU1ER1BVX0dFTV9ET01BSU5fR1RUKTsK
+KwlyZXNvdXJjZXNbbnVtX3Jlc291cmNlcysrXSA9IGVuYy5mYlswXS5oYW5kbGU7CisJYWxsb2Nf
+cmVzb3VyY2UoJmVuYy5ic1swXSwgYnNfc2l6ZSwgQU1ER1BVX0dFTV9ET01BSU5fR1RUKTsKKwly
+ZXNvdXJjZXNbbnVtX3Jlc291cmNlcysrXSA9IGVuYy5ic1swXS5oYW5kbGU7CisJYWxsb2NfcmVz
+b3VyY2UoJmVuYy5tdmIsIGVuYy5tdmJ1Zl9zaXplLCBBTURHUFVfR0VNX0RPTUFJTl9HVFQpOwor
+CXJlc291cmNlc1tudW1fcmVzb3VyY2VzKytdID0gZW5jLm12Yi5oYW5kbGU7CisJYWxsb2NfcmVz
+b3VyY2UoJmVuYy52YnVmLCB2YnVmX3NpemUsIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pOworCXJl
+c291cmNlc1tudW1fcmVzb3VyY2VzKytdID0gZW5jLnZidWYuaGFuZGxlOworCWFsbG9jX3Jlc291
+cmNlKCZlbmMubXZyZWZidWYsIHZidWZfc2l6ZSwgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSk7CisJ
+cmVzb3VyY2VzW251bV9yZXNvdXJjZXMrK10gPSBlbmMubXZyZWZidWYuaGFuZGxlOworCWFsbG9j
+X3Jlc291cmNlKCZlbmMuY3BiLCBjcGJfc2l6ZSwgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSk7CisJ
+cmVzb3VyY2VzW251bV9yZXNvdXJjZXMrK10gPSBlbmMuY3BiLmhhbmRsZTsKKwlyZXNvdXJjZXNb
+bnVtX3Jlc291cmNlcysrXSA9IGliX2hhbmRsZTsKKworCXIgPSBhbWRncHVfYm9fY3B1X21hcChl
+bmMudmJ1Zi5oYW5kbGUsICh2b2lkICoqKSZlbmMudmJ1Zi5wdHIpOworCUNVX0FTU0VSVF9FUVVB
+TChyLCAwKTsKKworCW1lbXNldChlbmMudmJ1Zi5wdHIsIDAsIHZidWZfc2l6ZSk7CisJZm9yIChp
+ID0gMDsgaSA8IGVuYy5oZWlnaHQ7ICsraSkgeworCQltZW1jcHkoZW5jLnZidWYucHRyLCAoZnJh
+bWUgKyBpICogZW5jLndpZHRoKSwgZW5jLndpZHRoKTsKKwkJZW5jLnZidWYucHRyICs9IEFMSUdO
+KGVuYy53aWR0aCwgYWxpZ24pOworCX0KKwlmb3IgKGkgPSAwOyBpIDwgZW5jLmhlaWdodCAvIDI7
+ICsraSkgeworCQltZW1jcHkoZW5jLnZidWYucHRyLCAoKGZyYW1lICsgZW5jLmhlaWdodCAqIGVu
+Yy53aWR0aCkgKyBpICogZW5jLndpZHRoKSwgZW5jLndpZHRoKTsKKwkJZW5jLnZidWYucHRyICs9
+IEFMSUdOKGVuYy53aWR0aCwgYWxpZ24pOworCX0KKworCXIgPSBhbWRncHVfYm9fY3B1X3VubWFw
+KGVuYy52YnVmLmhhbmRsZSk7CisJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOworCisJciA9IGFtZGdw
+dV9ib19jcHVfbWFwKGVuYy5tdnJlZmJ1Zi5oYW5kbGUsICh2b2lkICoqKSZlbmMubXZyZWZidWYu
+cHRyKTsKKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7CisKKwltZW1zZXQoZW5jLm12cmVmYnVmLnB0
+ciwgMCwgdmJ1Zl9zaXplKTsKKwlmb3IgKGkgPSAwOyBpIDwgZW5jLmhlaWdodDsgKytpKSB7CisJ
+CW1lbWNweShlbmMubXZyZWZidWYucHRyLCAoZnJhbWUgKyAoZW5jLmhlaWdodCAtIGkgLTEpICog
+ZW5jLndpZHRoKSwgZW5jLndpZHRoKTsKKwkJZW5jLm12cmVmYnVmLnB0ciArPSBBTElHTihlbmMu
+d2lkdGgsIGFsaWduKTsKKwl9CisJZm9yIChpID0gMDsgaSA8IGVuYy5oZWlnaHQgLyAyOyArK2kp
+IHsKKwkJbWVtY3B5KGVuYy5tdnJlZmJ1Zi5wdHIsCisJCSgoZnJhbWUgKyBlbmMuaGVpZ2h0ICog
+ZW5jLndpZHRoKSArIChlbmMuaGVpZ2h0IC8gMiAtIGkgLTEpICogZW5jLndpZHRoKSwgZW5jLndp
+ZHRoKTsKKwkJZW5jLm12cmVmYnVmLnB0ciArPSBBTElHTihlbmMud2lkdGgsIGFsaWduKTsKKwl9
+CisKKwlyID0gYW1kZ3B1X2JvX2NwdV91bm1hcChlbmMubXZyZWZidWYuaGFuZGxlKTsKKwlDVV9B
+U1NFUlRfRVFVQUwociwgMCk7CisKKwlhbWRncHVfY3NfdmNlX2NvbmZpZygpOworCisJdmNlX3Rh
+c2tpbmZvWzNdID0gMzsKKwlhbWRncHVfY3NfdmNlX212KCZlbmMpOworCWNoZWNrX212X3Jlc3Vs
+dCgmZW5jKTsKKworCWZyZWVfcmVzb3VyY2UoJmVuYy5mYlswXSk7CisJZnJlZV9yZXNvdXJjZSgm
+ZW5jLmJzWzBdKTsKKwlmcmVlX3Jlc291cmNlKCZlbmMudmJ1Zik7CisJZnJlZV9yZXNvdXJjZSgm
+ZW5jLmNwYik7CisJZnJlZV9yZXNvdXJjZSgmZW5jLm12cmVmYnVmKTsKKwlmcmVlX3Jlc291cmNl
+KCZlbmMubXZiKTsKK30KKwogc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3ZjZV9kZXN0cm95KHZvaWQp
+CiB7CiAJaW50IGxlbiwgcjsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
