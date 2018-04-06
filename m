@@ -1,15 +1,15 @@
-From: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 32/32] drm/amd/display: Fix dim display on DCE11
-Date: Fri, 6 Apr 2018 16:18:59 -0400
-Message-ID: <52d6f446-a044-40a2-840b-169cd61ea1da@amd.com>
-References: <20180404012747.5651-1-harry.wentland@amd.com>
- <20180404012747.5651-33-harry.wentland@amd.com>
- <BN6PR12MB18095513D4EAE9751423B742F7A40@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu/gmc: steal the appropriate amount of vram
+ for fw hand-over (v2)
+Date: Fri, 6 Apr 2018 16:24:49 -0400
+Message-ID: <0ec1550a-0445-c2e9-d649-7760906d2a38@amd.com>
+References: <20180406195410.5622-1-alexander.deucher@amd.com>
+ <d10bbcec-f423-c6b4-f345-eb415e0d4078@amd.com>
+ <CADnq5_OetksWNrkwqLP4gLanrBExF2X8Stt0XdrXNUrnGPWmTQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1715406329=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB18095513D4EAE9751423B742F7A40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CADnq5_OetksWNrkwqLP4gLanrBExF2X8Stt0XdrXNUrnGPWmTQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,49 +21,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE4LTA0LTA0IDExOjE3IEFNLCBEZXVjaGVyLCBBbGV4YW5kZXIgd3JvdGU6Cj4gRG8g
-b3RoZXIgRENFIGJsb2NrcyBuZWVkIHRoaXMgZml4IGFzIHdlbGw/wqAgT3IgaXMgdGhpcyBjb2Rl
-IHNoYXJlZCB3aXRoIAo+IHNheSBEQ0U4IGFuZCBEQ0UxMD8KClllcywgaXQncyBhbGwgc2hhcmVk
-LiBUaGUgaG9vayBmb3IgdGhpcyBpcyBpbml0aWFsaXplZCBpbgpkY2UxMTBfaHdfc2VxdWVuY2Vy
-X2NvbnN0cnVjdCgpLCB3aGljaCBpcyBjYWxsZWQgZm9yIGFsbCBEQ0UuCgpMZW8KCj4gCj4gCj4g
-QWxleAo+IAo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICpGcm9tOiogYW1kLWdmeCA8YW1kLWdmeC1ib3Vu
-Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIAo+IEhhcnJ5IFdlbnRsYW5k
-IDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgo+ICpTZW50OiogVHVlc2RheSwgQXByaWwgMywgMjAx
-OCA5OjI3IFBNCj4gKlRvOiogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiAqQ2M6KiBM
-aSwgU3VuIHBlbmcgKExlbykKPiAqU3ViamVjdDoqIFtQQVRDSCAzMi8zMl0gZHJtL2FtZC9kaXNw
-bGF5OiBGaXggZGltIGRpc3BsYXkgb24gRENFMTEKPiBGcm9tOiAiTGVvIChTdW5wZW5nKSBMaSIg
-PHN1bnBlbmcubGlAYW1kLmNvbT4KPiAKPiBCZWZvcmUgcHJvZ3JhbW1pbmcgdGhlIGlucHV0IGdh
-bW1hLCBjaGVjayB0aGF0IHdlJ3JlIG5vdCB1c2luZyB0aGUKPiBpZGVudGl0eSBjb3JyZWN0aW9u
-Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IExlbyAoU3VucGVuZykgTGkgPHN1bnBlbmcubGlAYW1kLmNv
-bT4KPiBSZXZpZXdlZC1ieTogQW50aG9ueSBLb28gPEFudGhvbnkuS29vQGFtZC5jb20+Cj4gQWNr
-ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgo+IC0tLQo+ICDC
-oGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNl
-ci5jIHwgNCArKystCj4gIMKgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
-dGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZGNlMTEwL2RjZTExMF9od19zZXF1ZW5jZXIuYyAKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNlci5jCj4gaW5kZXggOTlkMTkyMjAwNzk3
-Li5mMzg1YjE4ZDVjMmUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9od19zZXF1ZW5jZXIuYwo+IEBAIC0yODAsNyAr
-MjgwLDkgQEAgZGNlMTEwX3NldF9pbnB1dF90cmFuc2Zlcl9mdW5jKHN0cnVjdCBwaXBlX2N0eCAK
-PiAqcGlwZV9jdHgsCj4gIMKgwqDCoMKgwqDCoMKgwqAgYnVpbGRfcHJlc2NhbGVfcGFyYW1zKCZw
-cmVzY2FsZV9wYXJhbXMsIHBsYW5lX3N0YXRlKTsKPiAgwqDCoMKgwqDCoMKgwqDCoCBpcHAtPmZ1
-bmNzLT5pcHBfcHJvZ3JhbV9wcmVzY2FsZShpcHAsICZwcmVzY2FsZV9wYXJhbXMpOwo+IAo+IC3C
-oMKgwqDCoMKgwqAgaWYgKHBsYW5lX3N0YXRlLT5nYW1tYV9jb3JyZWN0aW9uICYmIAo+IGRjZV91
-c2VfbHV0KHBsYW5lX3N0YXRlLT5mb3JtYXQpKQo+ICvCoMKgwqDCoMKgwqAgaWYgKHBsYW5lX3N0
-YXRlLT5nYW1tYV9jb3JyZWN0aW9uICYmCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgICFwbGFuZV9zdGF0ZS0+Z2FtbWFfY29ycmVjdGlvbi0+aXNfaWRlbnRp
-dHkgJiYKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGNl
-X3VzZV9sdXQocGxhbmVfc3RhdGUtPmZvcm1hdCkpCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGlwcC0+ZnVuY3MtPmlwcF9wcm9ncmFtX2lucHV0X2x1dChpcHAsIAo+IHBsYW5l
-X3N0YXRlLT5nYW1tYV9jb3JyZWN0aW9uKTsKPiAKPiAgwqDCoMKgwqDCoMKgwqDCoCBpZiAodGYg
-PT0gTlVMTCkgewo+IC0tIAo+IDIuMTUuMQo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+This is a multi-part message in MIME format.
+--===============1715406329==
+Content-Type: multipart/alternative;
+ boundary="------------2308AE6FF229A701ECCDAF3C"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------2308AE6FF229A701ECCDAF3C
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+OK, sorry for the noise.
+
+Andrey
+
+
+On 04/06/2018 04:17 PM, Alex Deucher wrote:
+>> This will not work unless gmc_v6_0_mc_init in gmc_v6_0_sw_init will be moved
+>> before gmc_v6_0_get_vbios_fb_size, real_vram_size
+>> is not initialized in this point. Same for other ASICs.
+> Yeah, I moved it down.  See below.
+>
+> Alex
+>
+
+
+--------------2308AE6FF229A701ECCDAF3C
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>OK, sorry for the noise.</p>
+    <p>Andrey<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 04/06/2018 04:17 PM, Alex Deucher
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CADnq5_OetksWNrkwqLP4gLanrBExF2X8Stt0XdrXNUrnGPWmTQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <blockquote type="cite" style="color: #000000;">
+        <pre wrap="">This will not work unless gmc_v6_0_mc_init in gmc_v6_0_sw_init will be moved
+before gmc_v6_0_get_vbios_fb_size, real_vram_size
+is not initialized in this point. Same for other ASICs.
+</pre>
+      </blockquote>
+      <pre wrap="">Yeah, I moved it down.  See below.
+
+Alex
+
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------2308AE6FF229A701ECCDAF3C--
+
+--===============1715406329==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1715406329==--
