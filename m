@@ -1,17 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amdgpu/gmc: always steal the first 32MB of vram
  for fw hand-over
-Date: Fri, 6 Apr 2018 10:30:25 +0200
-Message-ID: <1c6e6260-10cf-f189-45b3-74fd2d1c991c@gmail.com>
+Date: Fri, 6 Apr 2018 07:23:20 -0400
+Message-ID: <40be8e12-8f2e-449f-d09e-aa46aa396f4c@amd.com>
 References: <1522952800-32300-1-git-send-email-andrey.grodzovsky@amd.com>
  <CADnq5_MFUWDCDtcVXcnF27DAuE3L5kC9EqKFeCPs4V1AM5gL0A@mail.gmail.com>
  <87cc962a-8a35-36d6-6b48-85c156e68f04@daenzer.net>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <1c6e6260-10cf-f189-45b3-74fd2d1c991c@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1070418183=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <87cc962a-8a35-36d6-6b48-85c156e68f04-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <1c6e6260-10cf-f189-45b3-74fd2d1c991c-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,44 +22,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Ranjbar,
  Ramin" <ramin.ranjbar-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMDYuMDQuMjAxOCB1bSAwOTo1MCBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDIwMTgt
-MDQtMDUgMDk6MjcgUE0sIEFsZXggRGV1Y2hlciB3cm90ZToKPj4gT24gVGh1LCBBcHIgNSwgMjAx
-OCBhdCAyOjI2IFBNLCBBbmRyZXkgR3JvZHpvdnNreQo+PiA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1k
-LmNvbT4gd3JvdGU6Cj4+PiBGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+Cj4+Pgo+Pj4gVGhlIHZiaW9zIHVzZXMgbWVtb3J5IGZyb20gdGhlIHN0YXJ0IG9mIHZy
-YW0gZm9yIHRoZSBwcmUtT1MKPj4+IGZyYW1lYnVmZmVyLiBSZXNlcnZlIHRoaXMgYXQgZHJpdmVy
-IGxvYWQgdGltZSB0byBwcmV2ZW50Cj4+PiB0aGUgZHJpdmVyIGZyb20gdXNpbmcgaXQgZm9yIG90
-aGVyIHRoaW5ncyB3aGljaCBtYXkgY2F1c2UKPj4+IGF0cmlmYWN0cyBvbiBzY3JlZW4gYmVmb3Jl
-IHRoZSBjb25zb2xlIGhhcyBraWNrZWQgaW4uCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogQWxleCBE
-ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pj4gU2lnbmVkLW9mZi1ieTogQW5k
-cmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Cj4gWy4uLl0KPgo+Pj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jCj4+PiBpbmRleCBkNzFkNGNiLi5jOGM1
-Y2EyIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAu
-Ywo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwo+Pj4gQEAg
-LTEwOTYsNyArMTA5Niw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y4XzBfc3dfaW5pdCh2b2lkICpoYW5k
-bGUpCj4+PiAgICAgICAgICAgKi8KPj4+ICAgICAgICAgIGFkZXYtPmdtYy5tY19tYXNrID0gMHhm
-ZmZmZmZmZmZmVUxMOyAvKiA0MCBiaXQgTUMgKi8KPj4+Cj4+PiAtICAgICAgIGFkZXYtPmdtYy5z
-dG9sZW5fc2l6ZSA9IDI1NiAqIDEwMjQ7Cj4+PiArICAgICAgIGFkZXYtPmdtYy5zdG9sZW5fc2l6
-ZSA9IDMyICogMTAyNCAqIDEwMjQ7Cj4+IEZvciBwbGF0Zm9ybXMgdGhhdCBtaWdodCBoYXZlIGxp
-bWl0ZWQgY2FydmUgb3V0IChTVCwgQ1osIFJWKSwgd2UgbWF5Cj4+IHdhbnQgdG8gZG8gc29tZXRo
-aW5nIGxpa2U6Cj4+IGlmIChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPD0gMzJNQikgLy8gMTI4
-TUI/Cj4+ICAgICAgc3RvbGVuX3NpemUgPSAyNTZLOwo+IFRoYXQgbWVhbnMgYXJ0aWZhY3RzIGFy
-ZSBsaWtlbHkgdG8gc3RpbGwgb2NjdXIgZHVyaW5nIGluaXRpYWxpemF0aW9uIG9uCj4gc3lzdGVt
-cyB3aGVyZSB3ZSBvbmx5IHJlc2VydmUgMjU2SywgcmlnaHQ/Cj4KPgo+IEkgd29uZGVyIGlmIHRo
-ZXJlJ3Mgbm8gd2F5IHRvIGRldGVybWluZSB3aGljaCBwYXJ0IG9mIFZSQU0gaXMgYmVpbmcKPiBz
-Y2FubmVkIG91dC4gSWYgdGhlcmUgd2FzLCB3ZSBjb3VsZCBqdXN0IGNyZWF0ZSBhIG5vcm1hbCBC
-TyBjb3ZlcmluZwo+IHRoYXQsIHdoaWNoIHdvdWxkIGdldCBkZXN0cm95ZWQgb25jZSBubyBDUlRD
-IHJlZmVyZW5jZXMgaXQgYW55bW9yZS4KClVuZm9ydHVuYXRlbHkgaXQgZ29lcyBmdXJ0aGVyIHRo
-YW4gdGhhdC4gVGhlIHN0b2xlbiBWUkFNIGlzIG5lZWRlZCBmb3IgClZHQSBlbXVsYXRpb24sIG5v
-dCBvbmx5IGZvciBzY2Fub3V0LgoKQnV0IHllcyBJIGFncmVlIHRoYXQgd2Ugc29tZWhvdyBmaWd1
-cmUgdGhhdCB2YWx1ZSBvdXQgZnJvbSB0aGUgQklPUy4gSWYgCkknbSBub3QgY29tcGxldGVseSBt
-aXN0YWtlbiBJJ3ZlIGFsc28gc2VlbiBzb21lIGF0b21iaW9zIHRhYmxlIHdpdGggdGhhdCAKaW5m
-byBpbiBzb21lIGRpc2N1c3Npb24uCgpDaHJpc3RpYW4uCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1070418183==
+Content-Type: multipart/alternative;
+ boundary="------------1C71B3475E02992F5C717C35"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------1C71B3475E02992F5C717C35
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Me and Alex talked to a BIOS guys yesterday exactly about that, a 
+dynamic way to query this info from BIOS, he just told us to reserve 32M 
+to cover 4K display.
+
+Andrey
+
+
+On 04/06/2018 04:30 AM, Christian König wrote:
+>> I wonder if there's no way to determine which part of VRAM is being
+>> scanned out. If there was, we could just create a normal BO covering
+>> that, which would get destroyed once no CRTC references it anymore.
+>
+> Unfortunately it goes further than that. The stolen VRAM is needed for 
+> VGA emulation, not only for scanout.
+>
+> But yes I agree that we somehow figure that value out from the BIOS. 
+> If I'm not completely mistaken I've also seen some atombios table with 
+> that info in some discussion.
+>
+> Christian. 
+
+
+--------------1C71B3475E02992F5C717C35
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Me and Alex talked to a BIOS guys yesterday exactly about that, a
+      dynamic way to query this info from BIOS, he just told us to
+      reserve 32M to cover 4K display.</p>
+    <p>Andrey<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 04/06/2018 04:30 AM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1c6e6260-10cf-f189-45b3-74fd2d1c991c-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+      <blockquote type="cite" style="color: #000000;">I wonder if
+        there's no way to determine which part of VRAM is being
+        <br>
+        scanned out. If there was, we could just create a normal BO
+        covering
+        <br>
+        that, which would get destroyed once no CRTC references it
+        anymore.
+        <br>
+      </blockquote>
+      <br>
+      Unfortunately it goes further than that. The stolen VRAM is needed
+      for VGA emulation, not only for scanout.
+      <br>
+      <br>
+      But yes I agree that we somehow figure that value out from the
+      BIOS. If I'm not completely mistaken I've also seen some atombios
+      table with that info in some discussion.
+      <br>
+      <br>
+      Christian.
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------1C71B3475E02992F5C717C35--
+
+--===============1070418183==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1070418183==--
