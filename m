@@ -1,13 +1,14 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [Advice Request] Trying to debug amdgpu fatal error
-Date: Mon, 9 Apr 2018 00:00:46 -0400
-Message-ID: <d39d4c79-215b-488f-96d0-3ceed05845bf@amd.com>
+Date: Mon, 9 Apr 2018 08:52:33 +0200
+Message-ID: <861cb713-e07b-4e11-8102-b91ba4acebd9@amd.com>
 References: <CAC10gJ0ukuKdXiy6yeOz7T7BrvKZKRMeODTB8oBpvW-73qtHPQ@mail.gmail.com>
  <CAC10gJ0V4cvrHTwm2ANoxJduT-qjEdNMfNBDW332wzBNehGJVw@mail.gmail.com>
+ <d39d4c79-215b-488f-96d0-3ceed05845bf@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1077680036=="
+Content-Type: multipart/mixed; boundary="===============1827114995=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAC10gJ0V4cvrHTwm2ANoxJduT-qjEdNMfNBDW332wzBNehGJVw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <d39d4c79-215b-488f-96d0-3ceed05845bf-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,108 +20,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Moran <xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, Daniel Moran <xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1077680036==
+--===============1827114995==
 Content-Type: multipart/alternative;
- boundary="------------79B70A0E73407BBE999B05C1"
+ boundary="------------CCDFA2F5D78DE179C1D87000"
 Content-Language: en-US
 
---------------79B70A0E73407BBE999B05C1
+--------------CCDFA2F5D78DE179C1D87000
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Just from a quick look it seems to fail in amdgpu_device_init->ioremap 
-with ENOMEM, that would explain why you don't see any more prints - this 
-failure is very early in the device init process.
+Please provide the full dmesg of the system as well as the output of 
+"lspci -s 0000:16:00.0 -vvvv" as attachment.
 
-No idea why ioremap would fail in this case and not even sure which 
-implementation of ioremap to look into for your case.
+Thanks,
+Christian.
 
-Adding Christian for this.
+Am 09.04.2018 um 06:00 schrieb Andrey Grodzovsky:
+>
+> Just from a quick look it seems to fail in amdgpu_device_init->ioremap 
+> with ENOMEM, that would explain why you don't see any more prints - 
+> this failure is very early in the device init process.
+>
+> No idea why ioremap would fail in this case and not even sure which 
+> implementation of ioremap to look into for your case.
+>
+> Adding Christian for this.
+>
+> Andrey
+>
+>
+> On 04/07/2018 03:16 AM, Daniel Moran wrote:
+>> Also, to clarify... if I move it into a regular slot, turn off the 
+>> eGPU it works as expected.
+>> Tested with Intel iGPU enabled and disabled, made sure i915 loaded 
+>> without error and can connect display to it.
+>>
+>>
+>>
+>> Again, thank you in advance for any time/support offered.
+>>
+>> Respectfully,
+>> Daniel S. Moran (garwynn)
+>> PC Hardware Editor - XDA-Developers
+>> Phone: 1-559-316-0760/+81-90-5484-4155
+>> Article Links: http://www.xda-developers.com/author/garwynn
+>> E-mail: xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> | Twitter: 
+>> @xdagarwynn
+>>
+>> On Sat, Apr 7, 2018 at 3:58 PM, Daniel Moran <xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
+>> <mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
+>>
+>>     Hello all,
+>>
+>>     I've got a Powercolor Red Devil Vega 56 here that I'm trying to
+>>     get working in eGPU mode.
+>>     I think on the BIOS/hardware side it's now all fleshed out.
+>>     Now I'm at a point where amdgpu tries to init and reaches a fatal
+>>     error.
+>>
+>>     Set loglevel=8 doesn't get any additional messages.
+>>     Here's what it does report (full dmesg attached):
+>>
+>>     [  429.005909] [drm] amdgpu kernel modesetting enabled.
+>>     [  429.006080] [drm] initializing kernel modesetting (VEGA10
+>>     0x1002:0x687F 0x148C:0x2388 0xC3).
+>>     [  429.006082] amdgpu 0000:16:00.0: Fatal error during GPU init
+>>     [  429.006155] amdgpu: probe of 0000:16:00.0 failed with error -12
+>>
+>>     Using the following commands to unload & reload for testing.
+>>     Since it's as an eGPU I'm using the i7-7700K iGPU (i915 module)
+>>     as the primary and these commands work in terminal without
+>>     requiring a reboot.
+>>
+>>     sudo rmmod amdgpu
+>>     sudo modprobe -v amgpu
+>>
+>>     Pulled the UMR and tried to make, fails on Cmake. I'll attach log
+>>     in a text.
+>>     Also will attach a full dmesg and lspci dump. uname -a below:
+>>     /Linux testbox 4.15.15-041515-generic #201803311331 SMP Sat Mar
+>>     31 17:34:21 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux/
+>>
+>>     Any other ideas on how I can debug this further? Feel I'm so
+>>     close, don't want to let this go.
+>>     Thank you in advance for your time.
+>>
+>>     Respectfully,
+>>     Daniel S. Moran (garwynn)
+>>     PC Hardware Editor - XDA-Developers
+>>     Phone: 1-559-316-0760/+81-90-5484-4155
+>>     Article Links: http://www.xda-developers.com/author/garwynn
+>>     <http://www.xda-developers.com/author/garwynn>
+>>     E-mail: xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> |
+>>     Twitter: @xdagarwynn
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
 
-Andrey
 
-
-On 04/07/2018 03:16 AM, Daniel Moran wrote:
-> Also, to clarify... if I move it into a regular slot, turn off the 
-> eGPU it works as expected.
-> Tested with Intel iGPU enabled and disabled, made sure i915 loaded 
-> without error and can connect display to it.
->
->
->
-> Again, thank you in advance for any time/support offered.
->
-> Respectfully,
-> Daniel S. Moran (garwynn)
-> PC Hardware Editor - XDA-Developers
-> Phone: 1-559-316-0760/+81-90-5484-4155
-> Article Links: http://www.xda-developers.com/author/garwynn
-> E-mail: xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> | Twitter: 
-> @xdagarwynn
->
-> On Sat, Apr 7, 2018 at 3:58 PM, Daniel Moran <xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
-> <mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->
->     Hello all,
->
->     I've got a Powercolor Red Devil Vega 56 here that I'm trying to
->     get working in eGPU mode.
->     I think on the BIOS/hardware side it's now all fleshed out.
->     Now I'm at a point where amdgpu tries to init and reaches a fatal
->     error.
->
->     Set loglevel=8 doesn't get any additional messages.
->     Here's what it does report (full dmesg attached):
->
->     [  429.005909] [drm] amdgpu kernel modesetting enabled.
->     [  429.006080] [drm] initializing kernel modesetting (VEGA10
->     0x1002:0x687F 0x148C:0x2388 0xC3).
->     [  429.006082] amdgpu 0000:16:00.0: Fatal error during GPU init
->     [  429.006155] amdgpu: probe of 0000:16:00.0 failed with error -12
->
->     Using the following commands to unload & reload for testing. Since
->     it's as an eGPU I'm using the i7-7700K iGPU (i915 module) as the
->     primary and these commands work in terminal without requiring a
->     reboot.
->
->     sudo rmmod amdgpu
->     sudo modprobe -v amgpu
->
->     Pulled the UMR and tried to make, fails on Cmake. I'll attach log
->     in a text.
->     Also will attach a full dmesg and lspci dump. uname -a below:
->     /Linux testbox 4.15.15-041515-generic #201803311331 SMP Sat Mar 31
->     17:34:21 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux/
->
->     Any other ideas on how I can debug this further? Feel I'm so
->     close, don't want to let this go.
->     Thank you in advance for your time.
->
->     Respectfully,
->     Daniel S. Moran (garwynn)
->     PC Hardware Editor - XDA-Developers
->     Phone: 1-559-316-0760/+81-90-5484-4155
->     Article Links: http://www.xda-developers.com/author/garwynn
->     <http://www.xda-developers.com/author/garwynn>
->     E-mail: xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> |
->     Twitter: @xdagarwynn
->
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------79B70A0E73407BBE999B05C1
+--------------CCDFA2F5D78DE179C1D87000
 Content-Type: multipart/related;
- boundary="------------4E00243FBA57D643BDD63D37"
+ boundary="------------9C9457C0A35B0D57E5412482"
 
---------------4E00243FBA57D643BDD63D37
+--------------9C9457C0A35B0D57E5412482
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
@@ -129,158 +139,174 @@ Content-Transfer-Encoding: 8bit
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body text="#000000" bgcolor="#FFFFFF">
-    <p>Just from a quick look it seems to fail in
-      amdgpu_device_init-&gt;ioremap with ENOMEM, that would explain why
-      you don't see any more prints - this failure is very early in the
-      device init process.</p>
-    <p>No idea why ioremap would fail in this case and not even sure
-      which implementation of ioremap to look into for your case.</p>
-    <p>Adding Christian for this.</p>
-    <p>Andrey<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 04/07/2018 03:16 AM, Daniel Moran
-      wrote:<br>
+    <div class="moz-cite-prefix">Please provide the full dmesg of the
+      system as well as the output of "lspci -s 0000:16:00.0 -vvvv" as
+      attachment.<br>
+      <br>
+      Thanks,<br>
+      Christian.<br>
+      <br>
+      Am 09.04.2018 um 06:00 schrieb Andrey Grodzovsky:<br>
     </div>
     <blockquote type="cite"
-cite="mid:CAC10gJ0V4cvrHTwm2ANoxJduT-qjEdNMfNBDW332wzBNehGJVw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      cite="mid:d39d4c79-215b-488f-96d0-3ceed05845bf-5C7GfCeVMHo@public.gmane.org">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div dir="ltr">Also, to clarify... if I move it into a regular
-        slot, turn off the eGPU it works as expected. <br>
-        Tested with Intel iGPU enabled and disabled, made sure i915
-        loaded without error and can connect display to it.<br>
-        <br>
-        <img src="cid:part1.727C08C1.27F67FE9-5C7GfCeVMHo@public.gmane.org" class=""
-          height="407" width="562"><br>
-        <br>
-        <div>Again, thank you in advance for any time/support offered.</div>
+      <p>Just from a quick look it seems to fail in
+        amdgpu_device_init-&gt;ioremap with ENOMEM, that would explain
+        why you don't see any more prints - this failure is very early
+        in the device init process.</p>
+      <p>No idea why ioremap would fail in this case and not even sure
+        which implementation of ioremap to look into for your case.</p>
+      <p>Adding Christian for this.</p>
+      <p>Andrey<br>
+      </p>
+      <br>
+      <div class="moz-cite-prefix">On 04/07/2018 03:16 AM, Daniel Moran
+        wrote:<br>
       </div>
-      <div class="gmail_extra"><br clear="all">
-        <div>
-          <div class="gmail_signature" data-smartmail="gmail_signature">
-            <div dir="ltr">
-              <div style="font-size:12.8px"><span
-                  style="font-size:12.8px">Respectfully,</span><br>
-              </div>
-              <div style="font-size:12.8px">
-                <div> </div>
-                <div>Daniel S. Moran (garwynn)</div>
-                <div>PC Hardware Editor - XDA-Developers</div>
-                <div>Phone: 1-559-316-0760/+81-90-5484-4155</div>
-                <div>Article Links: <a
-                    href="http://www.xda-developers.com/author/garwynn"
-                    style="color:rgb(17,85,204)" target="_blank"
-                    moz-do-not-send="true">http://www.xda-developers.com/author/garwynn</a></div>
-                <div>E-mail: <a href="mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                    style="color:rgb(17,85,204)" target="_blank"
-                    moz-do-not-send="true">xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a> |
-                  Twitter: @xdagarwynn</div>
+      <blockquote type="cite"
+cite="mid:CAC10gJ0V4cvrHTwm2ANoxJduT-qjEdNMfNBDW332wzBNehGJVw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+        <div dir="ltr">Also, to clarify... if I move it into a regular
+          slot, turn off the eGPU it works as expected. <br>
+          Tested with Intel iGPU enabled and disabled, made sure i915
+          loaded without error and can connect display to it.<br>
+          <br>
+          <img src="cid:part1.F3E0625F.79D497F3-5C7GfCeVMHo@public.gmane.org" class=""
+            width="562" height="407"><br>
+          <br>
+          <div>Again, thank you in advance for any time/support offered.</div>
+        </div>
+        <div class="gmail_extra"><br clear="all">
+          <div>
+            <div class="gmail_signature"
+              data-smartmail="gmail_signature">
+              <div dir="ltr">
+                <div style="font-size:12.8px"><span
+                    style="font-size:12.8px">Respectfully,</span><br>
+                </div>
+                <div style="font-size:12.8px">
+                  <div> </div>
+                  <div>Daniel S. Moran (garwynn)</div>
+                  <div>PC Hardware Editor - XDA-Developers</div>
+                  <div>Phone: 1-559-316-0760/+81-90-5484-4155</div>
+                  <div>Article Links: <a
+                      href="http://www.xda-developers.com/author/garwynn"
+                      style="color:rgb(17,85,204)" target="_blank"
+                      moz-do-not-send="true">http://www.xda-developers.com/author/garwynn</a></div>
+                  <div>E-mail: <a href="mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                      style="color:rgb(17,85,204)" target="_blank"
+                      moz-do-not-send="true">xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a> |
+                    Twitter: @xdagarwynn</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <br>
-        <div class="gmail_quote">On Sat, Apr 7, 2018 at 3:58 PM, Daniel
-          Moran <span dir="ltr">&lt;<a
-              href="mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target="_blank"
-              moz-do-not-send="true">xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>
-          wrote:<br>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
-            <div dir="ltr">Hello all,
-              <div><br>
-              </div>
-              <div>I've got a Powercolor Red Devil Vega 56 here that I'm
-                trying to get working in eGPU mode.<br>
-                I think on the BIOS/hardware side it's now all fleshed
-                out.</div>
-              <div>Now I'm at a point where amdgpu tries to init and
-                reaches a fatal error.<br>
-                <br>
-                Set loglevel=8 doesn't get any additional messages.</div>
-              <div>Here's what it does report (full dmesg attached):</div>
-              <div><br>
-              </div>
-              <div>
-                <div>[  429.005909] [drm] amdgpu kernel modesetting
-                  enabled.</div>
-                <div>[  429.006080] [drm] initializing kernel
-                  modesetting (VEGA10 0x1002:0x687F 0x148C:0x2388 0xC3).</div>
-                <div>[  429.006082] amdgpu 0000:16:00.0: Fatal error
-                  during GPU init</div>
-                <div>[  429.006155] amdgpu: probe of 0000:16:00.0 failed
-                  with error -12</div>
-                <div><br>
-                  Using the following commands to unload &amp; reload
-                  for testing. Since it's as an eGPU I'm using the
-                  i7-7700K iGPU (i915 module) as the primary and these
-                  commands work in terminal without requiring a reboot.</div>
+          <br>
+          <div class="gmail_quote">On Sat, Apr 7, 2018 at 3:58 PM,
+            Daniel Moran <span dir="ltr">&lt;<a
+                href="mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target="_blank"
+                moz-do-not-send="true">xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>
+            wrote:<br>
+            <blockquote class="gmail_quote" style="margin:0 0 0
+              .8ex;border-left:1px #ccc solid;padding-left:1ex">
+              <div dir="ltr">Hello all,
                 <div><br>
                 </div>
-                <div>sudo rmmod amdgpu</div>
-                <div>sudo modprobe -v amgpu</div>
-                <div><br>
-                </div>
-                <div>Pulled the UMR and tried to make, fails on Cmake.
-                  I'll attach log in a text.<br>
-                  Also will attach a full dmesg and lspci dump. uname -a
-                  below:</div>
-                <div><i>Linux testbox 4.15.15-041515-generic
-                    #201803311331 SMP Sat Mar 31 17:34:21 UTC 2018
-                    x86_64 x86_64 x86_64 GNU/Linux</i><br>
+                <div>I've got a Powercolor Red Devil Vega 56 here that
+                  I'm trying to get working in eGPU mode.<br>
+                  I think on the BIOS/hardware side it's now all fleshed
+                  out.</div>
+                <div>Now I'm at a point where amdgpu tries to init and
+                  reaches a fatal error.<br>
                   <br>
-                  Any other ideas on how I can debug this further? Feel
-                  I'm so close, don't want to let this go.</div>
-                Thank you in advance for your time.<br>
-                <br clear="all">
+                  Set loglevel=8 doesn't get any additional messages.</div>
+                <div>Here's what it does report (full dmesg attached):</div>
+                <div><br>
+                </div>
                 <div>
-                  <div class="m_-3777984591867274688gmail_signature">
-                    <div dir="ltr">
-                      <div style="font-size:12.8px"><span
-                          style="font-size:12.8px">Respectfully,</span><br>
-                      </div>
-                      <div style="font-size:12.8px">
-                        <div> </div>
-                        <div>Daniel S. Moran (garwynn)</div>
-                        <div>PC Hardware Editor - XDA-Developers</div>
-                        <div>Phone: 1-559-316-0760/+81-90-5484-<wbr>4155</div>
-                        <div>Article Links: <a
-                            href="http://www.xda-developers.com/author/garwynn"
-                            style="color:rgb(17,85,204)" target="_blank"
-                            moz-do-not-send="true">http://www.xda-<wbr>developers.com/author/garwynn</a></div>
-                        <div>E-mail: <a
-                            href="mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                            style="color:rgb(17,85,204)" target="_blank"
-                            moz-do-not-send="true">xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a> |
-                          Twitter: @xdagarwynn</div>
+                  <div>[  429.005909] [drm] amdgpu kernel modesetting
+                    enabled.</div>
+                  <div>[  429.006080] [drm] initializing kernel
+                    modesetting (VEGA10 0x1002:0x687F 0x148C:0x2388
+                    0xC3).</div>
+                  <div>[  429.006082] amdgpu 0000:16:00.0: Fatal error
+                    during GPU init</div>
+                  <div>[  429.006155] amdgpu: probe of 0000:16:00.0
+                    failed with error -12</div>
+                  <div><br>
+                    Using the following commands to unload &amp; reload
+                    for testing. Since it's as an eGPU I'm using the
+                    i7-7700K iGPU (i915 module) as the primary and these
+                    commands work in terminal without requiring a
+                    reboot.</div>
+                  <div><br>
+                  </div>
+                  <div>sudo rmmod amdgpu</div>
+                  <div>sudo modprobe -v amgpu</div>
+                  <div><br>
+                  </div>
+                  <div>Pulled the UMR and tried to make, fails on Cmake.
+                    I'll attach log in a text.<br>
+                    Also will attach a full dmesg and lspci dump. uname
+                    -a below:</div>
+                  <div><i>Linux testbox 4.15.15-041515-generic
+                      #201803311331 SMP Sat Mar 31 17:34:21 UTC 2018
+                      x86_64 x86_64 x86_64 GNU/Linux</i><br>
+                    <br>
+                    Any other ideas on how I can debug this further?
+                    Feel I'm so close, don't want to let this go.</div>
+                  Thank you in advance for your time.<br>
+                  <br clear="all">
+                  <div>
+                    <div class="m_-3777984591867274688gmail_signature">
+                      <div dir="ltr">
+                        <div style="font-size:12.8px"><span
+                            style="font-size:12.8px">Respectfully,</span><br>
+                        </div>
+                        <div style="font-size:12.8px">
+                          <div> </div>
+                          <div>Daniel S. Moran (garwynn)</div>
+                          <div>PC Hardware Editor - XDA-Developers</div>
+                          <div>Phone: 1-559-316-0760/+81-90-5484-<wbr>4155</div>
+                          <div>Article Links: <a
+                              href="http://www.xda-developers.com/author/garwynn"
+                              style="color:rgb(17,85,204)"
+                              target="_blank" moz-do-not-send="true">http://www.xda-<wbr>developers.com/author/garwynn</a></div>
+                          <div>E-mail: <a
+                              href="mailto:xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                              style="color:rgb(17,85,204)"
+                              target="_blank" moz-do-not-send="true">xdagarwynn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a> |
+                            Twitter: @xdagarwynn</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </blockquote>
+            </blockquote>
+          </div>
+          <br>
         </div>
         <br>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
+        <fieldset class="mimeAttachmentHeader"></fieldset>
+        <br>
+        <pre wrap="">_______________________________________________
 amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
 </pre>
+      </blockquote>
+      <br>
     </blockquote>
     <br>
   </body>
 </html>
 
---------------4E00243FBA57D643BDD63D37
+--------------9C9457C0A35B0D57E5412482
 Content-Type: image/png;
  name="Screenshot from 2018-04-07 16-08-59.png"
 Content-Transfer-Encoding: base64
-Content-ID: <part1.727C08C1.27F67FE9-5C7GfCeVMHo@public.gmane.org>
+Content-ID: <part1.F3E0625F.79D497F3-5C7GfCeVMHo@public.gmane.org>
 Content-Disposition: inline;
  filename="Screenshot from 2018-04-07 16-08-59.png"
 
@@ -1405,11 +1431,11 @@ AAAA4AKBGgAAAAAAFwjUAAAAAAC4QKAGAAAAAMAFAjUAAAAAAC4QqAEAAAAAcIFADQAAAACA
 CwRqAAAAAABcIFADAAAAAOACgRoAAAAAABcI1AAAAAAAuECgBgAAAADABQI1AAAAAAAuEKgB
 AAAAAHCBQA0AAAAAgAsEagAAAAAAXCBQAwAAAADgAoEaAAAAAAAXCNQAAAAAALhAoAYAAAAA
 wAUCNQAAAAAALhCoAQAAAABwgUANAAAAAIAL/x+JyMGuQHBclQAAAABJRU5ErkJggg==
---------------4E00243FBA57D643BDD63D37--
+--------------9C9457C0A35B0D57E5412482--
 
---------------79B70A0E73407BBE999B05C1--
+--------------CCDFA2F5D78DE179C1D87000--
 
---===============1077680036==
+--===============1827114995==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1419,4 +1445,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1077680036==--
+--===============1827114995==--
