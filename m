@@ -1,124 +1,351 @@
-From: "Cyr, Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: RFC for a render API to support adaptive sync and VRR
-Date: Tue, 10 Apr 2018 15:35:35 +0000
-Message-ID: <MWHPR12MB1837C57016A470A5199E855282BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: RFC for a render API to support adaptive sync and VRR
+Date: Tue, 10 Apr 2018 17:43:03 +0200
+Message-ID: <fc53ce53-f02c-891d-4aa5-e9a11cbe3007@amd.com>
 References: <c79421ce-9408-5cd6-5de3-0fa521146e4b@amd.com>
  <435ebd04-0435-5a6a-9f1e-e4c4fc629aa9@amd.com>
  <20180409214554.GB13967@intel.com>
  <1e8d1857-faba-85da-0136-ea7c29ec1b84@amd.com>
  <b75e31f7-ce59-de97-5445-cb4c03ff7336@daenzer.net>
  <ae9992e5-43ab-9636-13e1-8a5c692480b5@amd.com>
+ <MWHPR12MB1837C57016A470A5199E855282BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ae9992e5-43ab-9636-13e1-8a5c692480b5-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0180586049=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <MWHPR12MB1837C57016A470A5199E855282BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Cc: "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, "Daenzer,
- Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koo, Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Cyr, Aric" <Aric.Cyr@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, Manasi Navare <manasi.d.navare@intel.com>
+Cc: "Haehnle, Nicolai" <Nicolai.Haehnle@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, "Daenzer,
+ Michel" <Michel.Daenzer@amd.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBXZW50bGFuZCwgSGFycnkNCj4g
-U2VudDogVHVlc2RheSwgQXByaWwgMTAsIDIwMTggMTE6MDgNCj4gVG86IE1pY2hlbCBEw6RuemVy
-IDxtaWNoZWxAZGFlbnplci5uZXQ+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5p
-Z0BhbWQuY29tPjsgTWFuYXNpIE5hdmFyZQ0KPiA8bWFuYXNpLmQubmF2YXJlQGludGVsLmNvbT4N
-Cj4gQ2M6IEhhZWhubGUsIE5pY29sYWkgPE5pY29sYWkuSGFlaG5sZUBhbWQuY29tPjsgRGFuaWVs
-IFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD47IERhZW56ZXIsIE1pY2hlbA0KPiA8TWlj
-aGVsLkRhZW56ZXJAYW1kLmNvbT47IGRyaS1kZXZlbCA8ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZz47IGFtZC1nZnggbWFpbGluZyBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZz47DQo+IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47
-IEN5ciwgQXJpYyA8QXJpYy5DeXJAYW1kLmNvbT47IEtvbywgQW50aG9ueSA8QW50aG9ueS5Lb29A
-YW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFJGQyBmb3IgYSByZW5kZXIgQVBJIHRvIHN1cHBvcnQg
-YWRhcHRpdmUgc3luYyBhbmQgVlJSDQo+IA0KPiBPbiAyMDE4LTA0LTEwIDAzOjM3IEFNLCBNaWNo
-ZWwgRMOkbnplciB3cm90ZToNCj4gPiBPbiAyMDE4LTA0LTEwIDA4OjQ1IEFNLCBDaHJpc3RpYW4g
-S8O2bmlnIHdyb3RlOg0KPiA+PiBBbSAwOS4wNC4yMDE4IHVtIDIzOjQ1IHNjaHJpZWIgTWFuYXNp
-IE5hdmFyZToNCj4gPj4+IFRoYW5rcyBmb3IgaW5pdGlhdGluZyB0aGUgZGlzY3Vzc2lvbi4gRmlu
-ZCBteSBjb21tZW50cyBiZWxvdzoNCj4gPj4+IE9uIE1vbiwgQXByIDA5LCAyMDE4IGF0IDA0OjAw
-OjIxUE0gLTA0MDAsIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOg0KPiA+Pj4+IE9uIDIwMTgtMDQtMDkg
-MDM6NTYgUE0sIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOg0KPiA+Pj4+Pg0KPiA+Pj4+PiA9PT0gQSBE
-Uk0gcmVuZGVyIEFQSSB0byBzdXBwb3J0IHZhcmlhYmxlIHJlZnJlc2ggcmF0ZXMgPT09DQo+ID4+
-Pj4+DQo+ID4+Pj4+IEluIG9yZGVyIHRvIGJlbmVmaXQgZnJvbSBhZGFwdGl2ZSBzeW5jIGFuZCBW
-UlIgdXNlcmxhbmQgbmVlZHMgYSB3YXkNCj4gPj4+Pj4gdG8gbGV0IHVzIGtub3cgd2hldGhlciB0
-byB2YXJ5IGZyYW1lIHRpbWluZ3Mgb3IgdG8gdGFyZ2V0IGENCj4gPj4+Pj4gZGlmZmVyZW50IGZy
-YW1lIHRpbWUuIFRoZXNlIGNhbiBiZSBwcm92aWRlZCBhcyBhdG9taWMgcHJvcGVydGllcyBvbg0K
-PiA+Pj4+PiBhIENSVEM6DQo+ID4+Pj4+IMKgICogYm9vbMKgwqDCoCB2YXJpYWJsZV9yZWZyZXNo
-X2NvbXBhdGlibGUNCj4gPj4+Pj4gwqAgKiBpbnTCoMKgwqAgdGFyZ2V0X2ZyYW1lX2R1cmF0aW9u
-X25zIChuYW5vc2Vjb25kIGZyYW1lIGR1cmF0aW9uKQ0KPiA+Pj4+Pg0KPiA+Pj4+PiBUaGlzIGdp
-dmVzIHVzIHRoZSBmb2xsb3dpbmcgY2FzZXM6DQo+ID4+Pj4+DQo+ID4+Pj4+IHZhcmlhYmxlX3Jl
-ZnJlc2hfY29tcGF0aWJsZSA9IDAsIHRhcmdldF9mcmFtZV9kdXJhdGlvbl9ucyA9IDANCj4gPj4+
-Pj4gwqAgKiBkcml2ZSBtb25pdG9yIGF0IHRpbWluZydzIG5vcm1hbCByZWZyZXNoIHJhdGUNCj4g
-Pj4+Pj4NCj4gPj4+Pj4gdmFyaWFibGVfcmVmcmVzaF9jb21wYXRpYmxlID0gMSwgdGFyZ2V0X2Zy
-YW1lX2R1cmF0aW9uX25zID0gMA0KPiA+Pj4+PiDCoCAqIHNlbmQgbmV3IGZyYW1lIHRvIG1vbml0
-b3IgYXMgc29vbiBhcyBpdCdzIGF2YWlsYWJsZSwgaWYgd2l0aGluDQo+ID4+Pj4+IG1pbi9tYXgg
-b2YgbW9uaXRvcidzIHJlcG9ydGVkIGNhcGFiaWxpdGllcw0KPiA+Pj4+Pg0KPiA+Pj4+PiB2YXJp
-YWJsZV9yZWZyZXNoX2NvbXBhdGlibGUgPSAwLzEsIHRhcmdldF9mcmFtZV9kdXJhdGlvbl9ucyA9
-ID4gMA0KPiA+Pj4+PiDCoCAqIHNlbmQgbmV3IGZyYW1lIHRvIG1vbml0b3Igd2l0aCB0aGUgc3Bl
-Y2lmaWVkDQo+ID4+Pj4+IHRhcmdldF9mcmFtZV9kdXJhdGlvbl9ucw0KPiA+Pj4+Pg0KPiA+Pj4+
-PiBXaGVuIGEgdGFyZ2V0X2ZyYW1lX2R1cmF0aW9uX25zIG9yIHZhcmlhYmxlX3JlZnJlc2hfY29t
-cGF0aWJsZQ0KPiA+Pj4+PiBjYW5ub3QgYmUgc3VwcG9ydGVkIHRoZSBhdG9taWMgY2hlY2sgd2ls
-bCByZWplY3QgdGhlIGNvbW1pdC4NCj4gPj4+Pj4NCj4gPj4+IFdoYXQgSSB3b3VsZCBsaWtlIGlz
-IHR3byBzZXRzIG9mIHByb3BlcnRpZXMgb24gYSBDUlRDIG9yIHByZWZlcmFibHkgb24NCj4gPj4+
-IGEgY29ubmVjdG9yOg0KPiA+Pj4NCj4gPj4+IEtNRCBwcm9wZXJ0aWVzIHRoYXQgVU1EIGNhbiBx
-dWVyeToNCj4gPj4+ICogdnJyX2NhcGFibGUgLcKgIFRoaXMgd2lsbCBiZSBhbiBpbW11dGFibGUg
-cHJvcGVydHkgZm9yIGV4cG9zaW5nDQo+ID4+PiBoYXJkd2FyZSdzIGNhcGFiaWxpdHkgb2Ygc3Vw
-cG9ydGluZyBWUlIuIFRoaXMgd2lsbCBiZSBzZXQgYnkgdGhlDQo+ID4+PiBrZXJuZWwgYWZ0ZXIN
-Cj4gPj4+IHJlYWRpbmcgdGhlIEVESUQgbW9kZSBpbmZvcm1hdGlvbiBhbmQgbW9uaXRvciByYW5n
-ZSBjYXBhYmlsaXRpZXMuDQo+ID4+PiAqIHZycl92cmVmcmVzaF9tYXgsIHZycl92cmVmcmVzaF9t
-aW4gLSBUbyBleHBvc2UgdGhlIG1pbiBhbmQgbWF4DQo+ID4+PiByZWZyZXNoIHJhdGVzIHN1cHBv
-cnRlZC4NCj4gPj4+IFRoZXNlIHByb3BlcnRpZXMgYXJlIG9wdGlvbmFsIGFuZCB3aWxsIGJlIGNy
-ZWF0ZWQgYW5kIGF0dGFjaGVkIHRvIHRoZQ0KPiA+Pj4gRFAvZURQIGNvbm5lY3RvciB3aGVuIHRo
-ZSBjb25uZWN0b3INCj4gPj4+IGlzIGdldHRpbmcgaW50aWFsaXplZC4NCj4gPj4NCj4gPj4gTWht
-LCBhcmVuJ3QgdGhvc2UgcHJvcGVydGllcyBhY3R1YWxseSBwZXIgbW9kZSBhbmQgbm90IHBlciBD
-UlRDL2Nvbm5lY3Rvcj8NCj4gPj4NCj4gPj4+IFByb3BlcnRpZXMgdGhhdCB5b3UgbWVudGlvbmVk
-IGFib3ZlIHRoYXQgdGhlIFVNRCBjYW4gc2V0IGJlZm9yZSBrZXJuZWwNCj4gPj4+IGNhbiBlbmFi
-bGUgVlJSIGZ1bmN0aW9uYWxpdHkNCj4gPj4+ICpib29sIHZycl9lbmFibGUgb3IgdnJyX2NvbXBh
-dGlibGUNCj4gPj4+IHRhcmdldF9mcmFtZV9kdXJhdGlvbl9ucw0KPiA+Pg0KPiA+PiBZZWFoLCB0
-aGF0IGNlcnRhaW5seSBtYWtlcyBzZW5zZS4gQnV0IHRhcmdldF9mcmFtZV9kdXJhdGlvbl9ucyBp
-cyBhIGJhZA0KPiA+PiBuYW1lL3NlbWFudGljcy4NCj4gPj4NCj4gPj4gV2Ugc2hvdWxkIHVzZSBh
-biBhYnNvbHV0ZSB0aW1lc3RhbXAgd2hlcmUgdGhlIGZyYW1lIHNob3VsZCBiZSBwcmVzZW50ZWQs
-DQo+ID4+IG90aGVyd2lzZSB5b3UgY291bGQgcnVuIGludG8gYSBidW5jaCBvZiB0cm91YmxlIHdp
-dGggSU9DVEwgcmVzdGFydHMgb3INCj4gPj4gbWlzc2VkIGJsYW5rcy4NCj4gPg0KPiA+IEFsc28s
-IGEgZml4ZWQgdGFyZ2V0IGZyYW1lIGR1cmF0aW9uIGlzbid0IHN1aXRhYmxlIGV2ZW4gZm9yIHZp
-ZGVvDQo+ID4gcGxheWJhY2ssIGR1ZSB0byBkcmlmdCBiZXR3ZWVuIHRoZSB2aWRlbyBhbmQgYXVk
-aW8gY2xvY2tzLg0KDQpXaHk/ICBFdmVuIGlmIHRoZXkgZHJpZnQsIHlvdSBrbm93IHlvdSB3YW50
-IHRvIHNob3cgeW91ciAyNEh6IHZpZGVvIGZyYW1lIGZvciA0MS42NjY2bXMgYW5kIGFkYXB0aXZl
-IHN5bmMgY2FuIGVuc3VyZSB0aGF0IHdpdGggcmVhc29uYWJsZSBhY2N1cmFjeS4gIA0KQWxsIHdl
-J3JlIGRvaW5nIGlzIGVsaW1pbmF0aW5nIHRoZSBuZWVkIGZvciBmcmFtZSByYXRlIGNvbnZlcnRl
-cnMgZnJvbSB0aGUgYXBwbGljYXRpb24gYW5kIG9mZmxvYWRpbmcgdGhhdCB0byBoYXJkd2FyZS4N
-Cg0KPiA+IFRpbWUtYmFzZWQgcHJlc2VudGF0aW9uIHNlZW1zIHRvIGJlIHRoZSByaWdodCBhcHBy
-b2FjaCBmb3IgcHJldmVudGluZw0KPiA+IG1pY3JvLXN0dXR0ZXIgaW4gZ2FtZXMgYXMgd2VsbCwg
-Q3JvdGVhbSBkZXZlbG9wZXJzIGhhdmUgYmVlbiByZXNlYXJjaGluZw0KPiA+IHRoaXMuDQo+ID4N
-Cj4gDQo+IEknbSBub3Qgc3VyZSBpZiB0aGUgZHJpdmVyIGNhbiBldmVyIGdpdmUgYSBndWFyYW50
-ZWUgb2YgdGhlIGV4YWN0IHRpbWUgYSBmbGlwIG9jY3Vycy4gV2hhdCB3ZSBoYXZlIGNvbnRyb2wg
-b3ZlciB3aXRoIG91ciBIVyBpcyBmcmFtZQ0KPiBkdXJhdGlvbi4NCj4gDQo+IEFyZSBDcm90ZWFt
-IGRldnMgdHJ5aW5nIHRvIHByZWRpY3QgcmVuZGVyIHRpbWVzPyBJJ20gbm90IHN1cmUgaG93IHRo
-YXQgd291bGQgd29yay4gV2UndmUgaGFkIGJhZCBleHBlcmllbmNlIGluIHRoZSBwYXN0IHdpdGgN
-Cj4gZ2FtZXMgdGhhdCB0cnkgdG8gZG8gZnJhbWVwYWNpbmcgYXMgdGhhdCdzIHVzdWFsbHkgbm90
-IGFjY3VyYXRlIGFuZCB0ZW5kcyB0byBsZWFkIHRvIG1vcmUgcHJvYmxlbXMgdGhhbiBiZW5lZml0
-cy4NCg0KRm9yIGdhbWluZywgaXQgZG9lc24ndCBtYWtlIHNlbnNlIG5vciBpcyBpdCBmZWFzaWJs
-ZSB0byBrbm93IGhvdyBleGFjdGx5IGhvdyBsb25nIGEgcmVuZGVyIHdpbGwgdGFrZSB3aXRoIG1p
-Y3Jvc2Vjb25kIHByZWNpc2lvbiwgdmVyeSBjb2Fyc2UgZ3Vlc3NlcyBhdCBiZXN0LiAgVGhlIHBv
-aW50IG9mIGFkYXB0aXZlIHN5bmMgaXMgdGhhdCBpdCB3b3JrcyAqdHJhbnNwYXJlbnRseSogZm9y
-IHRoZSBtYWpvcml0eSBvZiBjYXNlcywgd2l0aGluIHRoZSBjYXBhYmlsaXR5IG9mIHRoZSBIVyBh
-bmQgZHJpdmVyLiAgV2UgZG9uJ3Qgd2FudCB0byBoYXZlIGV2ZXJ5IGdhbWUgcmUtd3JpdGUgdGhl
-aXIgZW5naW5lIHRvIHN1cHBvcnQgdGhpcywgYnV0IHdlIGRvIHdhbnQgdGhlIG1ham9yaXR5IHRv
-ICJqdXN0IHdvcmsiLg0KDQpUaGUgb25seSBleGNlcHRpb24gaXMgdGhlIHZpZGVvIGNhc2Ugd2hl
-cmUgYW4gYXBwbGljYXRpb24gbWF5IHdhbnQgdG8gcmVxdWVzdCBhIGZpeGVkIGZyYW1lIGR1cmF0
-aW9uIGFsaWduZWQgdG8gdGhlIHZpZGVvIGNvbnRlbnQuICBUaGlzIHJlcXVpcmVzIGFuIGV4cGxp
-Y2l0IGludGVyZmFjZSBmb3IgdGhlIHZpZGVvIGFwcCwgYW5kIG91ciBwcm9wb3NhbCBpcyB0byBr
-ZWVwIGl0IHNpbXBsZTogIGFwcCBrbm93cyBob3cgbG9uZyBhIGZyYW1lIHNob3VsZCBiZSBwcmVz
-ZW50ZWQgZm9yLCBhbmQgd2UgdHJ5IHRvIGhvbm91ciB0aGF0Lg0KDQotQXJpYw0KX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0180586049==
+Content-Type: multipart/alternative;
+ boundary="------------2A19E94A4CFBE446056EE3AA"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------2A19E94A4CFBE446056EE3AA
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 10.04.2018 um 17:35 schrieb Cyr, Aric:
+>> -----Original Message-----
+>> From: Wentland, Harry
+>> Sent: Tuesday, April 10, 2018 11:08
+>> To: Michel Dänzer <michel@daenzer.net>; Koenig, Christian <Christian.Koenig@amd.com>; Manasi Navare
+>> <manasi.d.navare@intel.com>
+>> Cc: Haehnle, Nicolai <Nicolai.Haehnle@amd.com>; Daniel Vetter <daniel.vetter@ffwll.ch>; Daenzer, Michel
+>> <Michel.Daenzer@amd.com>; dri-devel <dri-devel@lists.freedesktop.org>; amd-gfx mailing list <amd-gfx@lists.freedesktop.org>;
+>> Deucher, Alexander <Alexander.Deucher@amd.com>; Cyr, Aric <Aric.Cyr@amd.com>; Koo, Anthony <Anthony.Koo@amd.com>
+>> Subject: Re: RFC for a render API to support adaptive sync and VRR
+>>
+>> On 2018-04-10 03:37 AM, Michel Dänzer wrote:
+>>> On 2018-04-10 08:45 AM, Christian König wrote:
+>>>> Am 09.04.2018 um 23:45 schrieb Manasi Navare:
+>>>>> Thanks for initiating the discussion. Find my comments below:
+>>>>> On Mon, Apr 09, 2018 at 04:00:21PM -0400, Harry Wentland wrote:
+>>>>>> On 2018-04-09 03:56 PM, Harry Wentland wrote:
+>>>>>>> === A DRM render API to support variable refresh rates ===
+>>>>>>>
+>>>>>>> In order to benefit from adaptive sync and VRR userland needs a way
+>>>>>>> to let us know whether to vary frame timings or to target a
+>>>>>>> different frame time. These can be provided as atomic properties on
+>>>>>>> a CRTC:
+>>>>>>>    * bool    variable_refresh_compatible
+>>>>>>>    * int    target_frame_duration_ns (nanosecond frame duration)
+>>>>>>>
+>>>>>>> This gives us the following cases:
+>>>>>>>
+>>>>>>> variable_refresh_compatible = 0, target_frame_duration_ns = 0
+>>>>>>>    * drive monitor at timing's normal refresh rate
+>>>>>>>
+>>>>>>> variable_refresh_compatible = 1, target_frame_duration_ns = 0
+>>>>>>>    * send new frame to monitor as soon as it's available, if within
+>>>>>>> min/max of monitor's reported capabilities
+>>>>>>>
+>>>>>>> variable_refresh_compatible = 0/1, target_frame_duration_ns = > 0
+>>>>>>>    * send new frame to monitor with the specified
+>>>>>>> target_frame_duration_ns
+>>>>>>>
+>>>>>>> When a target_frame_duration_ns or variable_refresh_compatible
+>>>>>>> cannot be supported the atomic check will reject the commit.
+>>>>>>>
+>>>>> What I would like is two sets of properties on a CRTC or preferably on
+>>>>> a connector:
+>>>>>
+>>>>> KMD properties that UMD can query:
+>>>>> * vrr_capable -  This will be an immutable property for exposing
+>>>>> hardware's capability of supporting VRR. This will be set by the
+>>>>> kernel after
+>>>>> reading the EDID mode information and monitor range capabilities.
+>>>>> * vrr_vrefresh_max, vrr_vrefresh_min - To expose the min and max
+>>>>> refresh rates supported.
+>>>>> These properties are optional and will be created and attached to the
+>>>>> DP/eDP connector when the connector
+>>>>> is getting intialized.
+>>>> Mhm, aren't those properties actually per mode and not per CRTC/connector?
+>>>>
+>>>>> Properties that you mentioned above that the UMD can set before kernel
+>>>>> can enable VRR functionality
+>>>>> *bool vrr_enable or vrr_compatible
+>>>>> target_frame_duration_ns
+>>>> Yeah, that certainly makes sense. But target_frame_duration_ns is a bad
+>>>> name/semantics.
+>>>>
+>>>> We should use an absolute timestamp where the frame should be presented,
+>>>> otherwise you could run into a bunch of trouble with IOCTL restarts or
+>>>> missed blanks.
+>>> Also, a fixed target frame duration isn't suitable even for video
+>>> playback, due to drift between the video and audio clocks.
+> Why?  Even if they drift, you know you want to show your 24Hz video frame for 41.6666ms and adaptive sync can ensure that with reasonable accuracy.
+> All we're doing is eliminating the need for frame rate converters from the application and offloading that to hardware.
+>
+>>> Time-based presentation seems to be the right approach for preventing
+>>> micro-stutter in games as well, Croteam developers have been researching
+>>> this.
+>>>
+>> I'm not sure if the driver can ever give a guarantee of the exact time a flip occurs. What we have control over with our HW is frame
+>> duration.
+>>
+>> Are Croteam devs trying to predict render times? I'm not sure how that would work. We've had bad experience in the past with
+>> games that try to do framepacing as that's usually not accurate and tends to lead to more problems than benefits.
+> For gaming, it doesn't make sense nor is it feasible to know how exactly how long a render will take with microsecond precision, very coarse guesses at best.  The point of adaptive sync is that it works *transparently* for the majority of cases, within the capability of the HW and driver.  We don't want to have every game re-write their engine to support this, but we do want the majority to "just work".
+>
+> The only exception is the video case where an application may want to request a fixed frame duration aligned to the video content.  This requires an explicit interface for the video app, and our proposal is to keep it simple:  app knows how long a frame should be presented for, and we try to honour that.
+
+Well I strongly disagree on that.
+
+See VDPAU for example: 
+https://http.download.nvidia.com/XFree86/vdpau/doxygen/html/group___vdp_presentation_queue.html#ga5bd61ca8ef5d1bc54ca6921aa57f835a
+> [in]
+>
+> 	earliest_presentation_time 	The timestamp associated with the 
+> surface. The presentation queue will not display the surface until the 
+> presentation queue's current time is at least this value.
+>
+
+Especially video players want an interface where they can specify when 
+exactly a frame should show up on the display and then get the feedback 
+when it actually was displayed.
+
+For video games we have a similar situation where a frame is rendered 
+for a certain world time and in the ideal case we would actually display 
+the frame at this world time.
+
+I mean we have the guys from Valve on this mailing list so I think we 
+should just get the feedback from them and see what they prefer.
+
+Regards,
+Christian.
+
+>
+> -Aric
+
+
+--------------2A19E94A4CFBE446056EE3AA
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 10.04.2018 um 17:35 schrieb Cyr,
+      Aric:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:MWHPR12MB1837C57016A470A5199E855282BE0@MWHPR12MB1837.namprd12.prod.outlook.com">
+      <blockquote type="cite">
+        <pre wrap="">-----Original Message-----
+From: Wentland, Harry
+Sent: Tuesday, April 10, 2018 11:08
+To: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel@daenzer.net">&lt;michel@daenzer.net&gt;</a>; Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Manasi Navare
+<a class="moz-txt-link-rfc2396E" href="mailto:manasi.d.navare@intel.com">&lt;manasi.d.navare@intel.com&gt;</a>
+Cc: Haehnle, Nicolai <a class="moz-txt-link-rfc2396E" href="mailto:Nicolai.Haehnle@amd.com">&lt;Nicolai.Haehnle@amd.com&gt;</a>; Daniel Vetter <a class="moz-txt-link-rfc2396E" href="mailto:daniel.vetter@ffwll.ch">&lt;daniel.vetter@ffwll.ch&gt;</a>; Daenzer, Michel
+<a class="moz-txt-link-rfc2396E" href="mailto:Michel.Daenzer@amd.com">&lt;Michel.Daenzer@amd.com&gt;</a>; dri-devel <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a>; amd-gfx mailing list <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>;
+Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Cyr, Aric <a class="moz-txt-link-rfc2396E" href="mailto:Aric.Cyr@amd.com">&lt;Aric.Cyr@amd.com&gt;</a>; Koo, Anthony <a class="moz-txt-link-rfc2396E" href="mailto:Anthony.Koo@amd.com">&lt;Anthony.Koo@amd.com&gt;</a>
+Subject: Re: RFC for a render API to support adaptive sync and VRR
+
+On 2018-04-10 03:37 AM, Michel Dänzer wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">On 2018-04-10 08:45 AM, Christian König wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="">Am 09.04.2018 um 23:45 schrieb Manasi Navare:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="">Thanks for initiating the discussion. Find my comments below:
+On Mon, Apr 09, 2018 at 04:00:21PM -0400, Harry Wentland wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="">On 2018-04-09 03:56 PM, Harry Wentland wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre wrap="">
+=== A DRM render API to support variable refresh rates ===
+
+In order to benefit from adaptive sync and VRR userland needs a way
+to let us know whether to vary frame timings or to target a
+different frame time. These can be provided as atomic properties on
+a CRTC:
+  * bool    variable_refresh_compatible
+  * int    target_frame_duration_ns (nanosecond frame duration)
+
+This gives us the following cases:
+
+variable_refresh_compatible = 0, target_frame_duration_ns = 0
+  * drive monitor at timing's normal refresh rate
+
+variable_refresh_compatible = 1, target_frame_duration_ns = 0
+  * send new frame to monitor as soon as it's available, if within
+min/max of monitor's reported capabilities
+
+variable_refresh_compatible = 0/1, target_frame_duration_ns = &gt; 0
+  * send new frame to monitor with the specified
+target_frame_duration_ns
+
+When a target_frame_duration_ns or variable_refresh_compatible
+cannot be supported the atomic check will reject the commit.
+
+</pre>
+                </blockquote>
+              </blockquote>
+              <pre wrap="">What I would like is two sets of properties on a CRTC or preferably on
+a connector:
+
+KMD properties that UMD can query:
+* vrr_capable -  This will be an immutable property for exposing
+hardware's capability of supporting VRR. This will be set by the
+kernel after
+reading the EDID mode information and monitor range capabilities.
+* vrr_vrefresh_max, vrr_vrefresh_min - To expose the min and max
+refresh rates supported.
+These properties are optional and will be created and attached to the
+DP/eDP connector when the connector
+is getting intialized.
+</pre>
+            </blockquote>
+            <pre wrap="">
+Mhm, aren't those properties actually per mode and not per CRTC/connector?
+
+</pre>
+            <blockquote type="cite">
+              <pre wrap="">Properties that you mentioned above that the UMD can set before kernel
+can enable VRR functionality
+*bool vrr_enable or vrr_compatible
+target_frame_duration_ns
+</pre>
+            </blockquote>
+            <pre wrap="">
+Yeah, that certainly makes sense. But target_frame_duration_ns is a bad
+name/semantics.
+
+We should use an absolute timestamp where the frame should be presented,
+otherwise you could run into a bunch of trouble with IOCTL restarts or
+missed blanks.
+</pre>
+          </blockquote>
+          <pre wrap="">
+Also, a fixed target frame duration isn't suitable even for video
+playback, due to drift between the video and audio clocks.
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre wrap="">
+Why?  Even if they drift, you know you want to show your 24Hz video frame for 41.6666ms and adaptive sync can ensure that with reasonable accuracy.  
+All we're doing is eliminating the need for frame rate converters from the application and offloading that to hardware.
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre wrap="">Time-based presentation seems to be the right approach for preventing
+micro-stutter in games as well, Croteam developers have been researching
+this.
+
+</pre>
+        </blockquote>
+        <pre wrap="">
+I'm not sure if the driver can ever give a guarantee of the exact time a flip occurs. What we have control over with our HW is frame
+duration.
+
+Are Croteam devs trying to predict render times? I'm not sure how that would work. We've had bad experience in the past with
+games that try to do framepacing as that's usually not accurate and tends to lead to more problems than benefits.
+</pre>
+      </blockquote>
+      <pre wrap="">
+For gaming, it doesn't make sense nor is it feasible to know how exactly how long a render will take with microsecond precision, very coarse guesses at best.  The point of adaptive sync is that it works *transparently* for the majority of cases, within the capability of the HW and driver.  We don't want to have every game re-write their engine to support this, but we do want the majority to "just work".
+
+The only exception is the video case where an application may want to request a fixed frame duration aligned to the video content.  This requires an explicit interface for the video app, and our proposal is to keep it simple:  app knows how long a frame should be presented for, and we try to honour that.</pre>
+    </blockquote>
+    <br>
+    Well I strongly disagree on that.<br>
+    <br>
+    See VDPAU for example:
+<a class="moz-txt-link-freetext" href="https://http.download.nvidia.com/XFree86/vdpau/doxygen/html/group___vdp_presentation_queue.html#ga5bd61ca8ef5d1bc54ca6921aa57f835a">https://http.download.nvidia.com/XFree86/vdpau/doxygen/html/group___vdp_presentation_queue.html#ga5bd61ca8ef5d1bc54ca6921aa57f835a</a><br>
+    <blockquote type="cite">[in]
+      <table class="params">
+        <tbody>
+          <tr>
+            <td class="paramdir"><br>
+            </td>
+            <td class="paramname">earliest_presentation_time</td>
+            <td>The timestamp associated with the surface. The
+              presentation queue will not display the surface until the
+              presentation queue's current time is at least this value.</td>
+          </tr>
+        </tbody>
+      </table>
+    </blockquote>
+    <br>
+    Especially video players want an interface where they can specify
+    when exactly a frame should show up on the display and then get the
+    feedback when it actually was displayed.<br>
+    <br>
+    For video games we have a similar situation where a frame is
+    rendered for a certain world time and in the ideal case we would
+    actually display the frame at this world time.<br>
+    <br>
+    I mean we have the guys from Valve on this mailing list so I think
+    we should just get the feedback from them and see what they prefer.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:MWHPR12MB1837C57016A470A5199E855282BE0@MWHPR12MB1837.namprd12.prod.outlook.com">
+      <pre wrap="">
+
+-Aric
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------2A19E94A4CFBE446056EE3AA--
+
+--===============0180586049==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0180586049==--
