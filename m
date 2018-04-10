@@ -1,46 +1,79 @@
-From: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Don't spam debug messages
-Date: Tue, 10 Apr 2018 16:47:06 -0400
-Message-ID: <cb635c75-1324-259a-b369-90a6490f95db@amd.com>
-References: <20180409180615.15900-1-harry.wentland@amd.com>
- <25fa8982-9c92-b23e-d3ab-b86d463c0cd1@amd.com>
+From: Sinan Kaya <okaya@codeaurora.org>
+Subject: [PATCH V2] drm/amdgpu: limit DMA size to PAGE_SIZE for scatter-gather buffers
+Date: Tue, 10 Apr 2018 16:59:55 -0400
+Message-ID: <1523394001-4615-1-git-send-email-okaya@codeaurora.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <25fa8982-9c92-b23e-d3ab-b86d463c0cd1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, tstdenis-5C7GfCeVMHo@public.gmane.org, Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, timur@codeaurora.org, sulrich@codeaurora.org
+Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Sinan Kaya <okaya@codeaurora.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, Monk Liu <Monk.Liu@amd.com>, Roger He <Hongbo.He@amd.com>, Jim Qu <Jim.Qu@amd.com>, Emily Deng <Emily.Deng@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Huang Rui <ray.huang@amd.com>, Tom St Denis <tom.stdenis@amd.com>, David Panariti <David.Panariti@amd.com>, "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAyMDE4LTA0LTEwIDA0OjQ0IFBNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPiBQaW5nCj4g
-Cj4gT24gMjAxOC0wNC0wOSAwMjowNiBQTSwgSGFycnkgV2VudGxhbmQgd3JvdGU6Cj4+IFNpZ25l
-ZC1vZmYtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoKUmV2aWV3
-ZWQtYnk6IExlbyAoU3VucGVuZykgTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KCj4+IC0tLQo+PiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9pbmNsdWRlL2xvZ2dlcl90eXBlcy5oIHwgMiAr
-LQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Pgo+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2luY2x1ZGUvbG9nZ2Vy
-X3R5cGVzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvaW5jbHVkZS9sb2dnZXJfdHlw
-ZXMuaAo+PiBpbmRleCA0ZjMzMmU4MGNlY2MuLmI2MDhhMDgzMDgwMSAxMDA2NDQKPj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2luY2x1ZGUvbG9nZ2VyX3R5cGVzLmgKPj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2luY2x1ZGUvbG9nZ2VyX3R5cGVzLmgKPj4g
-QEAgLTMyLDcgKzMyLDcgQEAKPj4gICAKPj4gICAjZGVmaW5lIERDX0xPR19FUlJPUiguLi4pIERS
-TV9FUlJPUihfX1ZBX0FSR1NfXykKPj4gICAjZGVmaW5lIERDX0xPR19XQVJOSU5HKC4uLikgRFJN
-X1dBUk4oX19WQV9BUkdTX18pCj4+IC0jZGVmaW5lIERDX0xPR19ERUJVRyguLi4pIERSTV9JTkZP
-KF9fVkFfQVJHU19fKQo+PiArI2RlZmluZSBEQ19MT0dfREVCVUcoLi4uKSBEUk1fREVCVUdfS01T
-KF9fVkFfQVJHU19fKQo+PiAgICNkZWZpbmUgRENfTE9HX0RDKC4uLikgRFJNX0RFQlVHX0tNUyhf
-X1ZBX0FSR1NfXykKPj4gICAjZGVmaW5lIERDX0xPR19EVE4oLi4uKSBEUk1fREVCVUdfS01TKF9f
-VkFfQVJHU19fKQo+PiAgICNkZWZpbmUgRENfTE9HX1NVUkZBQ0UoLi4uKSBwcl9kZWJ1ZygiW1NV
-UkZBQ0VdOiJfX1ZBX0FSR1NfXykKPj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+Code is expecing to observe the same number of buffers returned from
+dma_map_sg() function compared to sg_alloc_table_from_pages(). This
+doesn't hold true universally especially for systems with IOMMU.
+
+IOMMU driver tries to combine buffers into a single DMA address as much
+as it can. The right thing is to tell the DMA layer how much combining
+IOMMU can do.
+
+Signed-off-by: Sinan Kaya <okaya@codeaurora.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 1 +
+ 4 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index 8e28270..1b031eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -851,7 +851,7 @@ static int gmc_v6_0_sw_init(void *handle)
+ 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
+ 		dev_warn(adev->dev, "amdgpu: No coherent DMA available.\n");
+ 	}
+-
++	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
+ 	r = gmc_v6_0_init_microcode(adev);
+ 	if (r) {
+ 		dev_err(adev->dev, "Failed to load mc firmware!\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 86e9d682..0a4b2cc1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -999,6 +999,7 @@ static int gmc_v7_0_sw_init(void *handle)
+ 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
+ 		pr_warn("amdgpu: No coherent DMA available\n");
+ 	}
++	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
+ 
+ 	r = gmc_v7_0_init_microcode(adev);
+ 	if (r) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 9a813d8..b171529 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1096,6 +1096,7 @@ static int gmc_v8_0_sw_init(void *handle)
+ 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
+ 		pr_warn("amdgpu: No coherent DMA available\n");
+ 	}
++	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
+ 
+ 	r = gmc_v8_0_init_microcode(adev);
+ 	if (r) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 3b7e7af..36e658ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -855,6 +855,7 @@ static int gmc_v9_0_sw_init(void *handle)
+ 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
+ 		printk(KERN_WARNING "amdgpu: No coherent DMA available.\n");
+ 	}
++	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
+ 
+ 	r = gmc_v9_0_mc_init(adev);
+ 	if (r)
+-- 
+2.7.4
