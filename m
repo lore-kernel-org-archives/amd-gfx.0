@@ -1,77 +1,63 @@
-From: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: remove dummy is_blanked() to optimise boot
- time
-Date: Tue, 10 Apr 2018 11:26:28 +0530
-Message-ID: <1523339788-12893-1-git-send-email-shirish.s@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Remove vla
+Date: Tue, 10 Apr 2018 08:38:59 +0200
+Message-ID: <71ff5078-713c-ff8b-8c8d-6d24a7d84c02@amd.com>
+References: <20180409210620.3647-1-labbott@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180409210620.3647-1-labbott@redhat.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Laura Abbott <labbott@redhat.com>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-hardening@lists.openwall.com, Kees Cook <keescook@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-aXNfYmxhbmtlZCgpIGhvb2sgaXMgYSBkdW1teSBvbmUgZm9yIHVuZGVybGF5IHBpcGUsIGhlbmNl
-CndoZW4gY2FsbGVkLCBpdCBsb29wcyBmb3IgfjMwMG1zIGF0IGJvb3QuCgpUaGlzIHBhdGNoIHJl
-bW92ZXMgdGhpcyBkdW1teSBjYWxsIGFuZCBhZGRzIG1pc3NpbmcgY2hlY2tzLgoKU2lnbmVkLW9m
-Zi1ieTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEhhcnJ5IFdl
-bnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9jb3JlL2RjX2h3X3NlcXVlbmNlci5jICAgICAgICAgICAgIHwgMyArKysKIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2h3c2VxLmMgICAgICAgICAgICAg
-ICAgICAgIHwgMyArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNl
-MTEwX3RpbWluZ19nZW5lcmF0b3Jfdi5jIHwgNyAtLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDUg
-aW5zZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19od19zZXF1ZW5jZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2h3X3NlcXVlbmNlci5jCmluZGV4IGViYzk2YjcuLjQ4
-MWY2OTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2Rj
-X2h3X3NlcXVlbmNlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
-L2RjX2h3X3NlcXVlbmNlci5jCkBAIC0yMzAsNiArMjMwLDkgQEAgYm9vbCBod3NzX3dhaXRfZm9y
-X2JsYW5rX2NvbXBsZXRlKAogewogCWludCBjb3VudGVyOwogCisJLyogTm90IGFwcGxpY2FibGUg
-aWYgdGhlIHBpcGUgaXMgbm90IHByaW1hcnksIHNhdmUgMzAwbXMgb2YgYm9vdCB0aW1lICovCisJ
-aWYgKCF0Zy0+ZnVuY3MtPmlzX2JsYW5rZWQpCisJCXJldHVybiB0cnVlOwogCWZvciAoY291bnRl
-ciA9IDA7IGNvdW50ZXIgPCAxMDA7IGNvdW50ZXIrKykgewogCQlpZiAodGctPmZ1bmNzLT5pc19i
-bGFua2VkKHRnKSkKIAkJCWJyZWFrOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjZS9kY2VfaHdzZXEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY2UvZGNlX2h3c2VxLmMKaW5kZXggNDg3NzI0My4uMDI3NWQ2ZCAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfaHdzZXEuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9od3NlcS5jCkBAIC01Myw3ICs1Myw4IEBA
-IHZvaWQgZGNlX3BpcGVfY29udHJvbF9sb2NrKHN0cnVjdCBkYyAqZGMsCiAJc3RydWN0IGRjZV9o
-d3NlcSAqaHdzID0gZGMtPmh3c2VxOwogCiAJLyogTm90IGxvY2sgcGlwZSB3aGVuIGJsYW5rICov
-Ci0JaWYgKGxvY2sgJiYgcGlwZS0+c3RyZWFtX3Jlcy50Zy0+ZnVuY3MtPmlzX2JsYW5rZWQocGlw
-ZS0+c3RyZWFtX3Jlcy50ZykpCisJaWYgKGxvY2sgJiYgcGlwZS0+c3RyZWFtX3Jlcy50Zy0+ZnVu
-Y3MtPmlzX2JsYW5rZWQgJiYKKwkgICAgcGlwZS0+c3RyZWFtX3Jlcy50Zy0+ZnVuY3MtPmlzX2Js
-YW5rZWQocGlwZS0+c3RyZWFtX3Jlcy50ZykpCiAJCXJldHVybjsKIAogCXZhbCA9IFJFR19HRVRf
-NChCTE5EX1ZfVVBEQVRFX0xPQ0tbcGlwZS0+c3RyZWFtX3Jlcy50Zy0+aW5zdF0sCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF90aW1pbmdf
-Z2VuZXJhdG9yX3YuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNl
-MTEwX3RpbWluZ19nZW5lcmF0b3Jfdi5jCmluZGV4IDhhZDA0ODEuLmEzY2VmNjAgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX3RpbWluZ19n
-ZW5lcmF0b3Jfdi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAv
-ZGNlMTEwX3RpbWluZ19nZW5lcmF0b3Jfdi5jCkBAIC02NDgsMTIgKzY0OCw2IEBAIHN0YXRpYyB2
-b2lkIGRjZTExMF90aW1pbmdfZ2VuZXJhdG9yX3ZfZGlzYWJsZV92Z2EoCiAJcmV0dXJuOwogfQog
-Ci1zdGF0aWMgYm9vbCBkY2UxMTBfdGdfdl9pc19ibGFua2VkKHN0cnVjdCB0aW1pbmdfZ2VuZXJh
-dG9yICp0ZykKLXsKLQkvKiBTaWduYWwgY29tZXMgZnJvbSB0aGUgcHJpbWFyeSBwaXBlLCB1bmRl
-cmxheSBpcyBuZXZlciBibGFua2VkLiAqLwotCXJldHVybiBmYWxzZTsKLX0KLQogLyoqICoqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCiAgKgogICogRENFMTEgVGltaW5nIEdlbmVy
-YXRvciBDb25zdHJ1Y3RvciAvIERlc3RydWN0b3IKQEAgLTY3MCw3ICs2NjQsNiBAQCBzdGF0aWMg
-Y29uc3Qgc3RydWN0IHRpbWluZ19nZW5lcmF0b3JfZnVuY3MgZGNlMTEwX3RnX3ZfZnVuY3MgPSB7
-CiAJCS5zZXRfZWFybHlfY29udHJvbCA9IGRjZTExMF90aW1pbmdfZ2VuZXJhdG9yX3Zfc2V0X2Vh
-cmx5X2NvbnRyb2wsCiAJCS53YWl0X2Zvcl9zdGF0ZSA9IGRjZTExMF90aW1pbmdfZ2VuZXJhdG9y
-X3Zfd2FpdF9mb3Jfc3RhdGUsCiAJCS5zZXRfYmxhbmsgPSBkY2UxMTBfdGltaW5nX2dlbmVyYXRv
-cl92X3NldF9ibGFuaywKLQkJLmlzX2JsYW5rZWQgPSBkY2UxMTBfdGdfdl9pc19ibGFua2VkLAog
-CQkuc2V0X2NvbG9ycyA9IGRjZTExMF90aW1pbmdfZ2VuZXJhdG9yX3Zfc2V0X2NvbG9ycywKIAkJ
-LnNldF9vdmVyc2Nhbl9ibGFua19jb2xvciA9CiAJCQkJZGNlMTEwX3RpbWluZ19nZW5lcmF0b3Jf
-dl9zZXRfb3ZlcnNjYW5fY29sb3JfYmxhY2ssCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 09.04.2018 um 23:06 schrieb Laura Abbott:
+> There's an ongoing effort to remove VLAs[1] from the kernel to eventually
+> turn on -Wvla. The single VLA usage in the amdkfd driver is actually
+> constant across all current platforms.
+
+Actually that isn't correct.
+
+Could be that we haven't upstreamed KFD support for them, but Vega10 
+have a different interrupt ring entry size and so would cause the error 
+message here.
+
+> Switch to a constant size array
+> instead.
+
+I would say to just make make the array bigger.
+
+Regards,
+Christian.
+
+>
+> [1] https://lkml.org/lkml/2018/3/7/621
+>
+> Signed-off-by: Laura Abbott <labbott@redhat.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 8 +++++---
+>   1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+> index 035c351f47c5..c9863858f343 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
+> @@ -139,10 +139,12 @@ static void interrupt_wq(struct work_struct *work)
+>   {
+>   	struct kfd_dev *dev = container_of(work, struct kfd_dev,
+>   						interrupt_work);
+> +	uint32_t ih_ring_entry[4];
+>   
+> -	uint32_t ih_ring_entry[DIV_ROUND_UP(
+> -				dev->device_info->ih_ring_entry_size,
+> -				sizeof(uint32_t))];
+> +	if (dev->device_info->ih_ring_entry_size > (4 * sizeof(uint32_t))) {
+> +		dev_err(kfd_chardev(), "Ring entry too small\n");
+> +		return;
+> +	}
+>   
+>   	while (dequeue_ih_ring_entry(dev, ih_ring_entry))
+>   		dev->device_info->event_interrupt_class->interrupt_wq(dev,
