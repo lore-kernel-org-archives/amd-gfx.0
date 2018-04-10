@@ -1,79 +1,60 @@
-From: Sinan Kaya <okaya@codeaurora.org>
-Subject: [PATCH V2] drm/amdgpu: limit DMA size to PAGE_SIZE for scatter-gather buffers
-Date: Tue, 10 Apr 2018 16:59:55 -0400
-Message-ID: <1523394001-4615-1-git-send-email-okaya@codeaurora.org>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 10/21] drm/amd/display: Add back code to allow for rounding
+ error
+Date: Tue, 10 Apr 2018 17:10:38 -0400
+Message-ID: <20180410211049.7825-11-harry.wentland@amd.com>
+References: <20180410211049.7825-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, timur@codeaurora.org, sulrich@codeaurora.org
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Sinan Kaya <okaya@codeaurora.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, Monk Liu <Monk.Liu@amd.com>, Roger He <Hongbo.He@amd.com>, Jim Qu <Jim.Qu@amd.com>, Emily Deng <Emily.Deng@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Huang Rui <ray.huang@amd.com>, Tom St Denis <tom.stdenis@amd.com>, David Panariti <David.Panariti@amd.com>, "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180410211049.7825-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Anthony Koo <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
 
-Code is expecing to observe the same number of buffers returned from
-dma_map_sg() function compared to sg_alloc_table_from_pages(). This
-doesn't hold true universally especially for systems with IOMMU.
-
-IOMMU driver tries to combine buffers into a single DMA address as much
-as it can. The right thing is to tell the DMA layer how much combining
-IOMMU can do.
-
-Signed-off-by: Sinan Kaya <okaya@codeaurora.org>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 1 +
- 4 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index 8e28270..1b031eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -851,7 +851,7 @@ static int gmc_v6_0_sw_init(void *handle)
- 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
- 		dev_warn(adev->dev, "amdgpu: No coherent DMA available.\n");
- 	}
--
-+	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
- 	r = gmc_v6_0_init_microcode(adev);
- 	if (r) {
- 		dev_err(adev->dev, "Failed to load mc firmware!\n");
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 86e9d682..0a4b2cc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -999,6 +999,7 @@ static int gmc_v7_0_sw_init(void *handle)
- 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
- 		pr_warn("amdgpu: No coherent DMA available\n");
- 	}
-+	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
- 
- 	r = gmc_v7_0_init_microcode(adev);
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 9a813d8..b171529 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1096,6 +1096,7 @@ static int gmc_v8_0_sw_init(void *handle)
- 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
- 		pr_warn("amdgpu: No coherent DMA available\n");
- 	}
-+	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
- 
- 	r = gmc_v8_0_init_microcode(adev);
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 3b7e7af..36e658ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -855,6 +855,7 @@ static int gmc_v9_0_sw_init(void *handle)
- 		pci_set_consistent_dma_mask(adev->pdev, DMA_BIT_MASK(32));
- 		printk(KERN_WARNING "amdgpu: No coherent DMA available.\n");
- 	}
-+	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
- 
- 	r = gmc_v9_0_mc_init(adev);
- 	if (r)
--- 
-2.7.4
+RnJvbTogQW50aG9ueSBLb28gPEFudGhvbnkuS29vQGFtZC5jb20+CgpTaWduZWQtb2ZmLWJ5OiBB
+bnRob255IEtvbyA8QW50aG9ueS5Lb29AYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEFyaWMgQ3lyIDxB
+cmljLkN5ckBhbWQuY29tPgpBY2tlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5k
+QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvZnJlZXN5
+bmMvZnJlZXN5bmMuYyB8IDEzICsrKysrKysrKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNl
+cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L21vZHVsZXMvZnJlZXN5bmMvZnJlZXN5bmMuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9tb2R1bGVzL2ZyZWVzeW5jL2ZyZWVzeW5jLmMKaW5kZXggNDg4N2M4ODhiYmU3
+Li5hYmQ1YzkzNzRlYjMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9t
+b2R1bGVzL2ZyZWVzeW5jL2ZyZWVzeW5jLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L21vZHVsZXMvZnJlZXN5bmMvZnJlZXN5bmMuYwpAQCAtODk2LDYgKzg5NiwxNyBAQCBib29s
+IG1vZF9mcmVlc3luY19pc192YWxpZF9yYW5nZShzdHJ1Y3QgbW9kX2ZyZWVzeW5jICptb2RfZnJl
+ZXN5bmMsCiAJdW5zaWduZWQgbG9uZyBsb25nIG5vbWluYWxfZmllbGRfcmF0ZV9pbl91aHogPQog
+CQkJbW9kX2ZyZWVzeW5jX2NhbGNfbm9taW5hbF9maWVsZF9yYXRlKHN0cmVhbSk7CiAKKwkvKiBB
+bGxvdyBmb3Igc29tZSByb3VuZGluZyBlcnJvciBvZiBhY3R1YWwgdmlkZW8gdGltaW5nIGJ5IHRh
+a2luZyBjZWlsLgorCSAqIEZvciBleGFtcGxlLCAxNDQgSHogbW9kZSB0aW1pbmcgbWF5IGFjdHVh
+bGx5IGJlIDE0My54eHggSHogd2hlbgorCSAqIGNhbGN1bGF0ZWQgZnJvbSBwaXhlbCByYXRlIGFu
+ZCB2ZXJ0aWNhbC9ob3Jpem9udGFsIHRvdGFscywgYnV0CisJICogdGhpcyBzaG91bGQgYmUgYWxs
+b3dlZCBpbnN0ZWFkIG9mIGJsb2NraW5nIEZyZWVTeW5jLgorCSAqLworCW5vbWluYWxfZmllbGRf
+cmF0ZV9pbl91aHogPSBkaXZfdTY0KG5vbWluYWxfZmllbGRfcmF0ZV9pbl91aHosIDEwMDAwMDAp
+OworCW1pbl9yZWZyZXNoX2NhcF9pbl91aHogLz0gMTAwMDAwMDsKKwltYXhfcmVmcmVzaF9jYXBf
+aW5fdWh6IC89IDEwMDAwMDA7CisJbWluX3JlZnJlc2hfcmVxdWVzdF9pbl91aHogLz0gMTAwMDAw
+MDsKKwltYXhfcmVmcmVzaF9yZXF1ZXN0X2luX3VoeiAvPSAxMDAwMDAwOworCiAJLy8gQ2hlY2sg
+bm9taW5hbCBpcyB3aXRoaW4gcmFuZ2UKIAlpZiAobm9taW5hbF9maWVsZF9yYXRlX2luX3VoeiA+
+IG1heF9yZWZyZXNoX2NhcF9pbl91aHogfHwKIAkJbm9taW5hbF9maWVsZF9yYXRlX2luX3VoeiA8
+IG1pbl9yZWZyZXNoX2NhcF9pbl91aHopCkBAIC05MjEsNyArOTMyLDcgQEAgYm9vbCBtb2RfZnJl
+ZXN5bmNfaXNfdmFsaWRfcmFuZ2Uoc3RydWN0IG1vZF9mcmVlc3luYyAqbW9kX2ZyZWVzeW5jLAog
+CiAJLy8gRm9yIHZhcmlhYmxlIHJhbmdlLCBjaGVjayBmb3IgYXQgbGVhc3QgMTAgSHogcmFuZ2UK
+IAlpZiAoKG1heF9yZWZyZXNoX3JlcXVlc3RfaW5fdWh6ICE9IG1pbl9yZWZyZXNoX3JlcXVlc3Rf
+aW5fdWh6KSAmJgotCQkobWF4X3JlZnJlc2hfcmVxdWVzdF9pbl91aHogLSBtaW5fcmVmcmVzaF9y
+ZXF1ZXN0X2luX3VoeiA8IDEwMDAwMDAwKSkKKwkJKG1heF9yZWZyZXNoX3JlcXVlc3RfaW5fdWh6
+IC0gbWluX3JlZnJlc2hfcmVxdWVzdF9pbl91aHogPCAxMCkpCiAJCXJldHVybiBmYWxzZTsKIAog
+CXJldHVybiB0cnVlOwotLSAKMi4xNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
