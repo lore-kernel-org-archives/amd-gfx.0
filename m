@@ -1,114 +1,60 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/pp: remove unnecessary forward declaration
-Date: Tue, 10 Apr 2018 15:17:49 -0400
-Message-ID: <CADnq5_Mmm5L3ZR1ZV6cCwXHONp2MxH7xvmg_GjJXQOnv2oW9Tw@mail.gmail.com>
-References: <1523337505-28027-1-git-send-email-Rex.Zhu@amd.com>
- <1523337505-28027-2-git-send-email-Rex.Zhu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: limit DMA size to PAGE_SIZE for
+ scatter-gather buffers
+Date: Tue, 10 Apr 2018 20:49:14 +0200
+Message-ID: <a267625f-259d-d873-f727-76531d86429b@amd.com>
+References: <1523384705-3976-1-git-send-email-okaya@codeaurora.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1523337505-28027-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+In-Reply-To: <1523384705-3976-1-git-send-email-okaya@codeaurora.org>
+Content-Language: en-US
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Sinan Kaya <okaya@codeaurora.org>, amd-gfx@lists.freedesktop.org, timur@codeaurora.org, sulrich@codeaurora.org
+Cc: Tom St Denis <tom.stdenis@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@amd.com>, open list <linux-kernel@vger.kernel.org>, "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, Roger He <Hongbo.He@amd.com>, Monk Liu <Monk.Liu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, linux-arm-kernel@lists.infradead.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBcHIgMTAsIDIwMTggYXQgMToxOCBBTSwgUmV4IFpodSA8UmV4LlpodUBhbWQuY29t
-PiB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+CgpTZXJp
-ZXMgaXM6ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBf
-aHdtZ3IuYyB8IDg0ICsrKysrKysrKysrLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDQx
-IGluc2VydGlvbnMoKyksIDQzIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKPiBpbmRleCBlOGRlZDIyLi5h
-YzQ0ZjljIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
-L3ZlZ2ExMF9od21nci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
-Z3IvdmVnYTEwX2h3bWdyLmMKPiBAQCAtNzUsOCArNzUsNiBAQAo+ICAjZGVmaW5lIERGX0NTX0FP
-TjBfRHJhbUJhc2VBZGRyZXNzMF9fSW50THZOdW1DaGFuX01BU0sgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwRjBMCj4gICNkZWZp
-bmUgREZfQ1NfQU9OMF9EcmFtQmFzZUFkZHJlc3MwX19JbnRMdkFkZHJTZWxfTUFTSyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDcw
-MEwKPiAgI2RlZmluZSBERl9DU19BT04wX0RyYW1CYXNlQWRkcmVzczBfX0RyYW1CYXNlQWRkcl9N
-QVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAweEZGRkZGMDAwTAo+IC1zdGF0aWMgaW50IHZlZ2ExMF9mb3JjZV9jbG9ja19sZXZlbChzdHJ1
-Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+IC0gICAgICAgICAgICAgICBlbnVtIHBwX2Nsb2NrX3R5cGUg
-dHlwZSwgdWludDMyX3QgbWFzayk7Cj4KPiAgc3RhdGljIGNvbnN0IFVMT05HIFBod1ZlZ2ExMF9N
-YWdpYyA9IChVTE9ORykoUEhNX1ZJc2xhbmRzX01hZ2ljKTsKPgo+IEBAIC00MTA2LDYgKzQxMDQs
-NDcgQEAgc3RhdGljIHZvaWQgdmVnYTEwX3NldF9mYW5fY29udHJvbF9tb2RlKHN0cnVjdCBwcF9o
-d21nciAqaHdtZ3IsIHVpbnQzMl90IG1vZGUpCj4gICAgICAgICB9Cj4gIH0KPgo+ICtzdGF0aWMg
-aW50IHZlZ2ExMF9mb3JjZV9jbG9ja19sZXZlbChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+ICsg
-ICAgICAgICAgICAgICBlbnVtIHBwX2Nsb2NrX3R5cGUgdHlwZSwgdWludDMyX3QgbWFzaykKPiAr
-ewo+ICsgICAgICAgc3RydWN0IHZlZ2ExMF9od21nciAqZGF0YSA9IGh3bWdyLT5iYWNrZW5kOwo+
-ICsKPiArICAgICAgIHN3aXRjaCAodHlwZSkgewo+ICsgICAgICAgY2FzZSBQUF9TQ0xLOgo+ICsg
-ICAgICAgICAgICAgICBkYXRhLT5zbWNfc3RhdGVfdGFibGUuZ2Z4X2Jvb3RfbGV2ZWwgPSBtYXNr
-ID8gKGZmcyhtYXNrKSAtIDEpIDogMDsKPiArICAgICAgICAgICAgICAgZGF0YS0+c21jX3N0YXRl
-X3RhYmxlLmdmeF9tYXhfbGV2ZWwgPSBtYXNrID8gKGZscyhtYXNrKSAtIDEpIDogMDsKPiArCj4g
-KyAgICAgICAgICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUoIXZlZ2ExMF91cGxvYWRfZHBtX2Jv
-b3R1cF9sZXZlbChod21nciksCj4gKyAgICAgICAgICAgICAgICAgICAgICAgIkZhaWxlZCB0byB1
-cGxvYWQgYm9vdCBsZXZlbCB0byBsb3dlc3QhIiwKPiArICAgICAgICAgICAgICAgICAgICAgICBy
-ZXR1cm4gLUVJTlZBTCk7Cj4gKwo+ICsgICAgICAgICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RF
-KCF2ZWdhMTBfdXBsb2FkX2RwbV9tYXhfbGV2ZWwoaHdtZ3IpLAo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICJGYWlsZWQgdG8gdXBsb2FkIGRwbSBtYXggbGV2ZWwgdG8gaGlnaGVzdCEiLAo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMKTsKPiArICAgICAgICAgICAgICAg
-YnJlYWs7Cj4gKwo+ICsgICAgICAgY2FzZSBQUF9NQ0xLOgo+ICsgICAgICAgICAgICAgICBkYXRh
-LT5zbWNfc3RhdGVfdGFibGUubWVtX2Jvb3RfbGV2ZWwgPSBtYXNrID8gKGZmcyhtYXNrKSAtIDEp
-IDogMDsKPiArICAgICAgICAgICAgICAgZGF0YS0+c21jX3N0YXRlX3RhYmxlLm1lbV9tYXhfbGV2
-ZWwgPSBtYXNrID8gKGZscyhtYXNrKSAtIDEpIDogMDsKPiArCj4gKyAgICAgICAgICAgICAgIFBQ
-X0FTU0VSVF9XSVRIX0NPREUoIXZlZ2ExMF91cGxvYWRfZHBtX2Jvb3R1cF9sZXZlbChod21nciks
-Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgIkZhaWxlZCB0byB1cGxvYWQgYm9vdCBsZXZlbCB0
-byBsb3dlc3QhIiwKPiArICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTCk7Cj4g
-Kwo+ICsgICAgICAgICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKCF2ZWdhMTBfdXBsb2FkX2Rw
-bV9tYXhfbGV2ZWwoaHdtZ3IpLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICJGYWlsZWQgdG8g
-dXBsb2FkIGRwbSBtYXggbGV2ZWwgdG8gaGlnaGVzdCEiLAo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIHJldHVybiAtRUlOVkFMKTsKPiArCj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsKPiAr
-ICAgICAgIGNhc2UgUFBfUENJRToKPiArICAgICAgIGRlZmF1bHQ6Cj4gKyAgICAgICAgICAgICAg
-IGJyZWFrOwo+ICsgICAgICAgfQo+ICsKPiArICAgICAgIHJldHVybiAwOwo+ICt9Cj4gKwo+ICBz
-dGF0aWMgaW50IHZlZ2ExMF9kcG1fZm9yY2VfZHBtX2xldmVsKHN0cnVjdCBwcF9od21nciAqaHdt
-Z3IsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbnVtIGFtZF9kcG1fZm9yY2Vk
-X2xldmVsIGxldmVsKQo+ICB7Cj4gQEAgLTQzOTIsNDcgKzQ0MzEsNiBAQCBzdGF0aWMgaW50IHZl
-Z2ExMF9zZXRfd2F0ZXJtYXJrc19mb3JfY2xvY2tzX3JhbmdlcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3
-bWdyLAo+ICAgICAgICAgcmV0dXJuIHJlc3VsdDsKPiAgfQo+Cj4gLXN0YXRpYyBpbnQgdmVnYTEw
-X2ZvcmNlX2Nsb2NrX2xldmVsKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gLSAgICAgICAgICAg
-ICAgIGVudW0gcHBfY2xvY2tfdHlwZSB0eXBlLCB1aW50MzJfdCBtYXNrKQo+IC17Cj4gLSAgICAg
-ICBzdHJ1Y3QgdmVnYTEwX2h3bWdyICpkYXRhID0gaHdtZ3ItPmJhY2tlbmQ7Cj4gLQo+IC0gICAg
-ICAgc3dpdGNoICh0eXBlKSB7Cj4gLSAgICAgICBjYXNlIFBQX1NDTEs6Cj4gLSAgICAgICAgICAg
-ICAgIGRhdGEtPnNtY19zdGF0ZV90YWJsZS5nZnhfYm9vdF9sZXZlbCA9IG1hc2sgPyAoZmZzKG1h
-c2spIC0gMSkgOiAwOwo+IC0gICAgICAgICAgICAgICBkYXRhLT5zbWNfc3RhdGVfdGFibGUuZ2Z4
-X21heF9sZXZlbCA9IG1hc2sgPyAoZmxzKG1hc2spIC0gMSkgOiAwOwo+IC0KPiAtICAgICAgICAg
-ICAgICAgUFBfQVNTRVJUX1dJVEhfQ09ERSghdmVnYTEwX3VwbG9hZF9kcG1fYm9vdHVwX2xldmVs
-KGh3bWdyKSwKPiAtICAgICAgICAgICAgICAgICAgICAgICAiRmFpbGVkIHRvIHVwbG9hZCBib290
-IGxldmVsIHRvIGxvd2VzdCEiLAo+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlO
-VkFMKTsKPiAtCj4gLSAgICAgICAgICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUoIXZlZ2ExMF91
-cGxvYWRfZHBtX21heF9sZXZlbChod21nciksCj4gLSAgICAgICAgICAgICAgICAgICAgICAgIkZh
-aWxlZCB0byB1cGxvYWQgZHBtIG1heCBsZXZlbCB0byBoaWdoZXN0ISIsCj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUwpOwo+IC0gICAgICAgICAgICAgICBicmVhazsKPiAt
-Cj4gLSAgICAgICBjYXNlIFBQX01DTEs6Cj4gLSAgICAgICAgICAgICAgIGRhdGEtPnNtY19zdGF0
-ZV90YWJsZS5tZW1fYm9vdF9sZXZlbCA9IG1hc2sgPyAoZmZzKG1hc2spIC0gMSkgOiAwOwo+IC0g
-ICAgICAgICAgICAgICBkYXRhLT5zbWNfc3RhdGVfdGFibGUubWVtX21heF9sZXZlbCA9IG1hc2sg
-PyAoZmxzKG1hc2spIC0gMSkgOiAwOwo+IC0KPiAtICAgICAgICAgICAgICAgUFBfQVNTRVJUX1dJ
-VEhfQ09ERSghdmVnYTEwX3VwbG9hZF9kcG1fYm9vdHVwX2xldmVsKGh3bWdyKSwKPiAtICAgICAg
-ICAgICAgICAgICAgICAgICAiRmFpbGVkIHRvIHVwbG9hZCBib290IGxldmVsIHRvIGxvd2VzdCEi
-LAo+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMKTsKPiAtCj4gLSAgICAg
-ICAgICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUoIXZlZ2ExMF91cGxvYWRfZHBtX21heF9sZXZl
-bChod21nciksCj4gLSAgICAgICAgICAgICAgICAgICAgICAgIkZhaWxlZCB0byB1cGxvYWQgZHBt
-IG1heCBsZXZlbCB0byBoaWdoZXN0ISIsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUwpOwo+IC0KPiAtICAgICAgICAgICAgICAgYnJlYWs7Cj4gLQo+IC0gICAgICAgY2Fz
-ZSBQUF9QQ0lFOgo+IC0gICAgICAgZGVmYXVsdDoKPiAtICAgICAgICAgICAgICAgYnJlYWs7Cj4g
-LSAgICAgICB9Cj4gLQo+IC0gICAgICAgcmV0dXJuIDA7Cj4gLX0KPiAtCj4gIHN0YXRpYyBpbnQg
-dmVnYTEwX3ByaW50X2Nsb2NrX2xldmVscyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+ICAgICAg
-ICAgICAgICAgICBlbnVtIHBwX2Nsb2NrX3R5cGUgdHlwZSwgY2hhciAqYnVmKQo+ICB7Cj4gLS0K
-PiAxLjkuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Am 10.04.2018 um 20:25 schrieb Sinan Kaya:
+> Code is expecing to observe the same number of buffers returned from
+> dma_map_sg() function compared to sg_alloc_table_from_pages(). This
+> doesn't hold true universally especially for systems with IOMMU.
+>
+> IOMMU driver tries to combine buffers into a single DMA address as much
+> as it can. The right thing is to tell the DMA layer how much combining
+> IOMMU can do.
+
+Good catch, but wrong place to set this.
+
+Please move it into the device initialization functions.
+
+Regards,
+Christian.
+
+>
+> Signed-off-by: Sinan Kaya <okaya@codeaurora.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index e4bb435..02465cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -787,6 +787,8 @@ static int amdgpu_ttm_tt_pin_userptr(struct ttm_tt *ttm)
+>   	enum dma_data_direction direction = write ?
+>   		DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
+>   
+> +	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
+> +
+>   	r = sg_alloc_table_from_pages(ttm->sg, ttm->pages, ttm->num_pages, 0,
+>   				      ttm->num_pages << PAGE_SHIFT,
+>   				      GFP_KERNEL);
