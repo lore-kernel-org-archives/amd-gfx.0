@@ -1,160 +1,287 @@
-From: "Cyr, Aric" <Aric.Cyr@amd.com>
-Subject: RE: RFC for a render API to support adaptive sync and VRR
-Date: Tue, 10 Apr 2018 21:45:41 +0000
-Message-ID: <MWHPR12MB18374597F3FC9BFEB6763ED082BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
-References: <c79421ce-9408-5cd6-5de3-0fa521146e4b@amd.com>
- <435ebd04-0435-5a6a-9f1e-e4c4fc629aa9@amd.com>
- <20180409214554.GB13967@intel.com>
- <1e8d1857-faba-85da-0136-ea7c29ec1b84@amd.com>
- <b75e31f7-ce59-de97-5445-cb4c03ff7336@daenzer.net>
- <ae9992e5-43ab-9636-13e1-8a5c692480b5@amd.com>
- <MWHPR12MB1837C57016A470A5199E855282BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
- <fc53ce53-f02c-891d-4aa5-e9a11cbe3007@amd.com>
- <MWHPR12MB1837488A047C03E955282A4182BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
- <063d6dff-2b97-ef01-12bb-8a24125a58ec@daenzer.net>
- <MWHPR12MB1837201365AE76E07CD906D482BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
- <65006f34-39b9-5aca-e0c0-77a591b69c3a@daenzer.net>
- <MWHPR12MB1837A7FD90202CA5EDF7B34582BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
- <f85e3590-b283-843b-12d0-5f6f0c4c0952@amd.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 00/21] GFXv9/Vega10 support for KFD
+Date: Tue, 10 Apr 2018 21:58:33 +0000
+Message-ID: <CAFCwf12duDgzQ89SLz1cBDCYSyuJD19z=YxTWGE6OS8cN-yTgg@mail.gmail.com>
+References: <1523395998-31314-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <f85e3590-b283-843b-12d0-5f6f0c4c0952@amd.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Haehnle, Nicolai" <Nicolai.Haehnle@amd.com>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel@daenzer.net>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, Manasi Navare <manasi.d.navare@intel.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, "Daenzer,
- Michel" <Michel.Daenzer@amd.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0104995475=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1523395998-31314-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiBGcm9tOiBIYWVobmxlLCBOaWNvbGFpDQo+IFNlbnQ6IFR1ZXNkYXksIEFwcmlsIDEwLCAyMDE4
-IDEzOjQ4DQo+IE9uIDEwLjA0LjIwMTggMTk6MjUsIEN5ciwgQXJpYyB3cm90ZToNCj4gPj4gLS0t
-LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTogTWljaGVsIETDpG56ZXIgW21haWx0
-bzptaWNoZWxAZGFlbnplci5uZXRdDQo+ID4+IFNlbnQ6IFR1ZXNkYXksIEFwcmlsIDEwLCAyMDE4
-IDEzOjE2DQo+ID4+DQo+ID4+IE9uIDIwMTgtMDQtMTAgMDc6MTMgUE0sIEN5ciwgQXJpYyB3cm90
-ZToNCj4gPj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+Pj4+IEZyb206IE1pY2hl
-bCBEw6RuemVyIFttYWlsdG86bWljaGVsQGRhZW56ZXIubmV0XQ0KPiA+Pj4+IFNlbnQ6IFR1ZXNk
-YXksIEFwcmlsIDEwLCAyMDE4IDEzOjA2DQo+ID4+Pj4gT24gMjAxOC0wNC0xMCAwNjoyNiBQTSwg
-Q3lyLCBBcmljIHdyb3RlOg0KPiA+Pj4+PiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbiBTZW50OiBU
-dWVzZGF5LCBBcHJpbCAxMCwgMjAxOCAxMTo0Mw0KPiA+Pj4+Pg0KPiA+Pj4+Pj4gRm9yIHZpZGVv
-IGdhbWVzIHdlIGhhdmUgYSBzaW1pbGFyIHNpdHVhdGlvbiB3aGVyZSBhIGZyYW1lIGlzIHJlbmRl
-cmVkDQo+ID4+Pj4+PiBmb3IgYSBjZXJ0YWluIHdvcmxkIHRpbWUgYW5kIGluIHRoZSBpZGVhbCBj
-YXNlIHdlIHdvdWxkIGFjdHVhbGx5DQo+ID4+Pj4+PiBkaXNwbGF5IHRoZSBmcmFtZSBhdCB0aGlz
-IHdvcmxkIHRpbWUuDQo+ID4+Pj4+DQo+ID4+Pj4+IFRoYXQgc2VlbXMgbGlrZSBpdCB3b3VsZCBi
-ZSBhIHBvb3JseSB3cml0dGVuIGdhbWUgdGhhdCBmbGlwcyBsaWtlDQo+ID4+Pj4+IHRoYXQsIHVu
-bGVzcyB0aGV5IGFyZSBleHBsaWNpdGx5IHRyeWluZyB0byB0aHJvdHRsZSB0aGUgZnJhbWVyYXRl
-IGZvcg0KPiA+Pj4+PiBzb21lIHJlYXNvbi4gIFdoZW4gYSBnYW1lIHByZXNlbnRzIGEgY29tcGxl
-dGVkIGZyYW1lLCB0aGV54oCZZCBsaWtlDQo+ID4+Pj4+IHRoYXQgdG8gaGFwcGVuIGFzIHNvb24g
-YXMgcG9zc2libGUuDQo+ID4+Pj4NCj4gPj4+PiBXaGF0IHlvdSdyZSBkZXNjcmliaW5nIGlzIHdo
-YXQgbW9zdCBnYW1lcyBoYXZlIGJlZW4gZG9pbmcgdHJhZGl0aW9uYWxseS4NCj4gPj4+PiBDcm90
-ZWFtJ3MgcmVzZWFyY2ggc2hvd3MgdGhhdCB0aGlzIHJlc3VsdHMgaW4gbWljcm8tc3R1dHRlcmlu
-ZywgYmVjYXVzZQ0KPiA+Pj4+IGZyYW1lcyBtYXkgYmUgcHJlc2VudGVkIHRvbyBlYXJseS4gVG8g
-YXZvaWQgdGhhdCwgdGhleSB3YW50IHRvDQo+ID4+Pj4gZXhwbGljaXRseSB0aW1lIGVhY2ggcHJl
-c2VudGF0aW9uIGFzIGRlc2NyaWJlZCBieSBDaHJpc3RpYW4uDQo+ID4+Pg0KPiA+Pj4gWWVzLCBJ
-IGFncmVlIGNvbXBsZXRlbHkuICBIb3dldmVyIHRoYXQncyBvbmx5IHRydWx5IHJlbGV2YW50IGZv
-ciBmaXhlZA0KPiA+Pj4gcmVmcmVzaGVkIHJhdGUgZGlzcGxheXMuDQo+ID4+DQo+ID4+IE5vLCBp
-dCBhbHNvIGFmZmVjdHMgdmFyaWFibGUgcmVmcmVzaDsgcG9zc2libHkgZXZlbiBtb3JlIGluIHNv
-bWUgY2FzZXMsDQo+ID4+IGJlY2F1c2UgdGhlIHByZXNlbnRhdGlvbiB0aW1lIGlzIGxlc3MgcHJl
-ZGljdGFibGUuDQo+ID4NCj4gPiBZZXMsIGFuZCB0aGF0J3Mgd2h5IHlvdSBkb24ndCB3YW50IHRv
-IGRvIGl0IHdoZW4geW91IGhhdmUgdmFyaWFibGUgcmVmcmVzaC4gIFRoZSBoYXJkd2FyZSBpbiB0
-aGUgbW9uaXRvciBhbmQgR1BVIHdpbGwgZG8gaXQgZm9yIHlvdSwNCj4gc28gd2h5IGJvdGhlcj8N
-Cj4gDQo+IEkgdGhpbmsgTWljaGVsJ3MgcG9pbnQgaXMgdGhhdCB0aGUgbW9uaXRvciBhbmQgR1BV
-IGhhcmR3YXJlICpjYW5ub3QqDQo+IHJlYWxseSBkbyB0aGlzLCBiZWNhdXNlIHRoZXJlJ3Mgc3lu
-Y2hyb25pemF0aW9uIHdpdGggYXVkaW8gdG8gdGFrZSBpbnRvDQo+IGFjY291bnQsIHdoaWNoIHRo
-ZSBHUFUgb3IgbW9uaXRvciBkb24ndCBrbm93IGFib3V0Lg0KDQpIb3cgZG9lcyBpdCB3b3JrIGZp
-bmUgdG9kYXkgZ2l2ZW4gdGhhdCBhbGwga2VybmVsIHNlZW1zIHRvIGtub3cgaXMgJ2N1cnJlbnQn
-IG9yICdjdXJyZW50KzEnIHZzeW5jcy4gIA0KUHJlc3VtYWJseSB0aGUgYXBwbGljYXRpb25zIHNv
-bWVob3cgc2NoZWR1bGUgYWxsIHRoaXMganVzdCBmaW5lLg0KSWYgdGhpcyB3b3JrcyB3aXRob3V0
-IHZhcmlhYmxlIHJlZnJlc2ggZm9yIDYwSHosIHdpbGwgaXQgbm90IHdvcmsgZm9yIGEgZml4ZWQt
-cmF0ZSAiNDhIeiIgbW9uaXRvciAoYXNzdW1pbmcgYSAyNEh6IHZpZGVvKT8NCg0KPiBBbHNvLCBh
-cyBJIHdyb3RlIHNlcGFyYXRlbHksIHRoZXJlJ3MgdGhlIGNhc2Ugb2Ygc3luY2hyb25pemluZyBt
-dWx0aXBsZQ0KPiBtb25pdG9ycy4NCg0KRm9yIG11bHRpbW9uaXRvciB0byB3b3JrIHdpdGggVlJS
-LCB0aGV5J2xsIGhhdmUgdG8gYmUgdGltaW5nIGFuZCBmbGlwIHN5bmNocm9uaXplZC4NClRoaXMg
-aXMgaW1wb3NzaWJsZSBmb3IgYW4gYXBwbGljYXRpb24gdG8gbWFuYWdlLCBpdCBuZWVkcyBkcml2
-ZXIvSFcgY29udHJvbCBvciB5b3UgZW5kIHVwIHdpdGggb25lIGRpc3BsYXkgZmxpcHBpbmcgYmVm
-b3JlIHRoZSBvdGhlciBhbmQgaXQgbG9va3MgdGVycmlibGUuDQpBbmQgZGVmaW5pdGVseSBmb3Jn
-ZXQgYWJvdXQgbXVsdGlHUFUgd2l0aG91dCBwcm9mZXNzaW9uYWwgd29ya3N0YXRpb24tdHlwZSBz
-dXBwb3J0IG5lZWRlZCB0byBzeW5jIHRoZSBkaXNwbGF5cyBhY3Jvc3MgYWRhcHRlcnMuDQoNCj4g
-PiBUaGUgaW5wdXQgdG8gdGhlaXIgYWxnb3JpdGhtcyB3aWxsIGJlIG5vaXN5IGNhdXNpbmcgd29y
-c3QgZXN0aW1hdGlvbnMuICBJZiB5b3UganVzdCBwcmVzZW50IGFzIGZhc3QgYXMgeW91IGNhbiwg
-aXQnbGwganVzdCB3b3JrICh3aXRoaW4NCj4gcmVhc29uKS4NCj4gPiBUaGUgbWFqb3JpdHkgb2Yg
-Z2FtZXJzIHdhbnQgbWF4aW11bSBGUFMgZm9yIHRoZWlyIGdhbWVzLCBhbmQgdGhlcmUncyBxdWl0
-ZSBmcmVxdWVudGx5IG91dHJhZ2UgYXQgYSBwYXJ0aWN1bGFyIGdhbWUgd2hlbiB0aGV5IGFyZQ0K
-PiBsaW1pdGVkIHRvIHNvbWV0aGluZyBsb3dlciB0aGF0IHdoYXQgdGhlaXIgbW9uaXRvciBjb3Vs
-ZCBvdGhlcndpc2Ugc3VwcG9ydCAoaS5lLiBJIGRvbid0IHdhbnQgbXkgZ2FtZSBsaW1pdGVkIHRv
-IDMwSHogaWYgSSBoYXZlIGEgc2hpbnkNCj4gMTQ0SHogZ2FtaW5nIGRpc3BsYXkgSSBwYWlkIGdv
-b2QgbW9uZXkgZm9yKS4gICBPZiBjb3Vyc2UsIHRoZXJlJ3MgYWx3YXlzIGV4Y2VwdGlvbnMuLi4g
-YnV0IGluIG91ciBleHBlcmllbmNlIHRob3NlIGFyZSBmZXcgYW5kIGZhcg0KPiBiZXR3ZWVuLg0K
-PiANCj4gSSBhZ3JlZSB0aGF0IGdhbWVzIG1vc3QgbGlrZWx5IHNob3VsZG4ndCB0cnkgdG8gYmUg
-c21hcnQuIEknbSBjdXJpb3VzDQo+IGFib3V0IHRoZSBDcm90ZWFtIGZpbmRpbmdzLCBidXQgZXZl
-biBpZiB0aGV5IGRpZCBhIHJlYWxseSBjbGV2ZXIgdGhpbmcNCj4gdGhhdCB3b3JrcyBiZXR0ZXIg
-dGhhbiBqdXN0IHRlbGxpbmcgdGhlIGRpc3BsYXkgZHJpdmVyICJkaXNwbGF5IEFTQVANCj4gcGxl
-YXNlIiwgY2hhbmNlcyBhcmUgdGhhdCAqbW9zdCogZGV2ZWxvcGVycyB3b24ndCBkbyB0aGF0LiBB
-bmQgdGhleSdsbA0KPiBtb3N0IGxpa2VseSBnZXQgaXQgd3JvbmcsIHNvIG91ciBndWlkYW5jZSBz
-aG91bGQgcmVhbGx5IGJlICJnYW1lcyBzaG91bGQNCj4gYXNrIGZvciBBU0FQIHByZXNlbnRhdGlv
-biwgYW5kIG5vdGhpbmcgZWxzZSIuDQoNClJpZ2h0LCBJIHRoaW5rIHRoaXMgaXMgdGhlICdlYXN5
-JyBjYXNlIGFuZCBpcyBjb3ZlcmVkIGluIEhhcnJ5J3MgaW5pdGlhbCBwcm9wb3NhbCB3aGVuIHRh
-cmdldF9mcmFtZV9kdXJhdGlvbl9ucyA9IDAuDQoNCj4gSG93ZXZlciwgdGhlcmUgKmFyZSogbGVn
-aXRpbWF0ZSB1c2UgY2FzZXMgZm9yIHJlcXVlc3RpbmcgYSBzcGVjaWZpYw0KPiBwcmVzZW50YXRp
-b24gdGltZSwgYW5kIHRoZXJlICppcyogcHJlY2VkZW50IG9mIEFQSXMgdGhhdCBleHBvc2Ugc3Vj
-aA0KPiBmZWF0dXJlcy4NCj4NCj4gQXJlIHRoZXJlIGFueSByZWFsIHByb2JsZW1zIHdpdGggZXhw
-b3NpbmcgYW4gYWJzb2x1dGUgdGFyZ2V0IHByZXNlbnQgdGltZT8NCg0KUmVhbGlzdGljYWxseSwg
-aG93IGZhciBpbnRvIHRoZSBmdXR1cmUgYXJlIHlvdSByZXF1ZXN0aW5nIGEgcHJlc2VudGF0aW9u
-IHRpbWU/IFdvbid0IGl0IGFsbW9zdCBhbHdheXMgYmUgc29tZXRoaW5nIGxpa2UgY3VycmVudF90
-aW1lKzEwMDAvdmlkZW9fZnJhbWVfcmF0ZT8NCklmIHNvLCB3aHkgbm90IGp1c3QgdGVsbCB0aGUg
-ZHJpdmVyIHRvIHNldCAxMDAwL3ZpZGVvX2ZyYW1lX3JhdGUgYW5kIGhhdmUgdGhlIEdQVS9tb25p
-dG9yIGNyZWF0ZSBuaWNlbHkgc3BhY2VkIFZTWU5DcyBmb3IgeW91IHRoYXQgbWF0Y2ggdGhlIHNv
-dXJjZSBjb250ZW50Pw0KDQpJbiBmYWN0LCB5b3UgcHJvYmFibHkgd291bGRuJ3QgZXZlbiBuZWVk
-IHRvIGNoYW5nZSB5b3VyIHZpZGVvIHBsYXllciBhdCBhbGwsIG90aGVyIHRoYW4gaGF2aW5nIGl0
-IHBhc3MgdGhlIHRhcmdldF9mcmFtZV9kdXJhdGlvbl9ucy4gIFlvdSBjb3VsZCBjb25zaWRlciB0
-aGlzIGEgJ2hpbnQnIGFzIHlvdSBzdWdnZXN0ZWQsIHNpbmNlIGl0J3MgY2Fubm90IGJlIGd1YXJh
-bnRlZWQgaW4gY2FzZXMgeW91ciBkcml2ZXIgb3IgSFcgZG9lc24ndCBzdXBwb3J0IHZhcmlhYmxl
-IHJlZnJlc2guICBJZiB0aGUgdGFyZ2V0X2ZyYW1lX2R1cmF0aW9uX25zIGhpbnQgaXMgc3VwcG9y
-dGVkL2FwcGxpZWQsIHRoZW4gdGhlIHZpZGVvIGFwcCBzaG91bGQgaGF2ZSBub3RoaW5nIGV4dHJh
-IHRvIGRvIHRoYXQgaXQgd291bGRuJ3QgYWxyZWFkeSBkbyBmb3IgYW55IGFyYml0cmFyeSBmaXhl
-ZC1yZWZyZXNoIHJhdGUgZGlzcGxheS4gIElmIG5vdCBzdXBwb3J0ZWQgKHNheSB0aGUgZHJtX2F0
-b21pY19jaGVjayBmYWlscyB3aXRoIC1FSU5WQUwgb3Igc29tZXRoaW5nKSwgdGhlIHZpZGVvIGFw
-cCBmYWxscyBjYW4gc3RvcCByZXF1ZXN0aW5nIGEgZml4ZWQgdGFyZ2V0X2ZyYW1lX2R1cmF0aW9u
-X25zLg0KDQpBIGZ1bmRhbWVudGFsIHByb2JsZW0gSSBoYXZlIHdpdGggYSB0YXJnZXQgcHJlc2Vu
-dCB0aW1lIHRob3VnaCBpcyBob3cgdG8gYWNjb21tb2RhdGUgcHJlc2VudCB0aW1lcyB0aGF0IGFy
-ZSBsYXJnZXIgdGhhbiBvbmUgVlNZTkMgdGltZT8gIElmIG15IG1vbml0b3IgaGFzIGEgNDBIei02
-MEh6IHZhcmlhYmxlIHJlZnJlc2gsIGl0J3MgZWFzeSB0byB0cmFuc2xhdGUgIm15IGNvbnRlbnQg
-aXMgMjRIeiwgcmVwZWF0IHRoaXMgbmV4dCBmcmFtZSBhbiBpbnRlZ2VyIG11bHRpcGxlIG51bWJl
-ciBvZiB0aW1lcyBzbyB0aGF0IGl0IGxhbmRzIHdpdGhpbiB0aGUgbW9uaXRvciByYW5nZSIuICBE
-cml2ZXIgZml4ZXMgZGlzcGxheSB0byBhbiBldmVuIDQ4SHogYW5kIGV2ZXJ5dGhpbmcgZ29vZCAo
-bm8gd29yc2UgdGhhbiBhIDMwSHogY2xpcCBvbiBhIHRyYWRpdGlvbmFsIDYwSHogZGlzcGxheSBh
-bnl3YXlzKS4gIFRoaXMgZnJhbWUtZG91YmxpbmcgaXMgYWxsIGhhcmR3YXJlIGJhc2VkIGFuZCBk
-b2Vzbid0IHJlcXVpcmUgYW55IHBvbGxpbmcuICANCg0KTm93IGlmIHlvdSBjaGFuZ2UgdGhhdCB0
-byAic2hvdyBteSBjb250ZW50IGluIGF0IGxlYXN0IFggbmFub3NlY29uZHMiIGl0IGNhbiB3b3Jr
-IG9uIGFsbCBkaXNwbGF5cywgYnV0IHRoZSBpbnRlbnQgb2YgdGhlIGFwcCBpcyBnb25lIGFuZCBk
-cml2ZXIvR1BVL2Rpc3BsYXkgY2Fubm90IG9wdGltaXplLiAgRm9yIGV4YW1wbGUsIHRoZSBIRE1J
-IFZSUiBzcGVjIGRlZmluZXMgYSAiQ2luZW1hVlJSIiBtb2RlIHdoZXJlIHRhcmdldCByZWZyZXNo
-IHJhdGUgZXJyb3IgaXMgYWNjb3VudGVkIGZvciBiYXNlZCBvbiAwLjElIGRldmlhdGlvbiBmcm9t
-IHJlcXVlc3RlZCBhbmQgdGhlIHZfdG90YWwgbGluZXMgYXJlIGluY3JlbWVudGVkL2RlY3JlbWVu
-dGVkIHRvIGNvbXBlbnNhdGUuICBJZiB3ZSBkb24ndCBrbm93IHRoZSB0YXJnZXQgcmF0ZSwgd2Ug
-d2lsbCBub3QgYmUgYWJsZSB0byBjb21wbHkgdG8gdGhpcyBpbmR1c3RyeSBzdGFuZGFyZCBzcGVj
-aWZpY2F0aW9uLg0KDQpBbHNvLCBob3cgd291bGQgeW91IG1hbmFnZSBhbiBhYnNvbHV0ZSB0YXJn
-ZXQgcHJlc2VudCB0aW1lIGluIGtlcm5lbD8gIEkgZ3Vlc3MgYXBwIGFuZCBkcml2ZXIgbmVlZCB0
-byB1c2UgYSBjb21tb24gc3lzdGVtIGNsb2NrIG9yIHRpY2sgY291bnQsIGJ1dCB3aGVuIHdvdWxk
-IHlvdSBrbm93IHRvICd3YWtlIHVwJyBhbmQgZXhlY3V0ZSB0aGUgZmxpcD8gIElmIHlvdSB3YWl0
-IGZvciBWU1lOQyB0aGVuIHlvdSdsbCBhbHdheXMgdGltZW91dCBvdXQgb24gdl90b3RhbF9tYXgg
-KGkuZS4gbWluaW11bSByZWZyZXNoIHJhdGUpLCBjaGVjayB5b3VyIHRpbWUgYW5kIHNlZSAieXVw
-LCBuZWVkIHRvIHByZXNlbnQgbm93IiBhbmQgdGhlbiBmbGlwLiAgTm93IHlvdXIgbW9uaXRvciBq
-dXN0IGp1bXBlZCBmcm9tIGxvd2VzdCByZWZyZXNoIHJhdGUgdG8gc29tZXRoaW5nIGVsc2Ugd2hp
-Y2ggY2FuIGNhdXNlIG90aGVyIHByb2JsZW1zLiAgSWYgeW91IHVzZSBzb21lIHRpbWVyLCB0aGVu
-IHlvdSdyZSBidXJuaW5nIG5lZWRsZXNzIHBvd2VyIHBvbGxpbmcgc29tZSBjb3VudGVyIGFuZCBz
-dGlsbCB3b3VsZG4ndCBoYXZlIHRoZSBzYW1lIGFjY3VyYWN5IHlvdSBjb3VsZCBhY2hpZXZlIHdp
-dGggYSBmaXhlZCBkdXJhdGlvbi4NCg0KUmVnYXJkcywNCiAgQXJpYw0KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApk
-cmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+--===============0104995475==
+Content-Type: multipart/alternative; boundary="f403045e64fc4292a5056985a0be"
+
+--f403045e64fc4292a5056985a0be
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Felix,
+Just to let you know that I am currently on vacation and will be back home
+only on 4/21 so all patch reviews from my side will be done after that
+date.
+
+Thanks,
+Oded
+
+On Tue, 10 Apr 2018, 17:33 Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> This patch series adds support for GFXv9 GPUs to KFD. In this series it
+> enables support for Vega10. Raven support requires some extra work that
+> will follow shortly, but Raven support is already included and I didn't
+> go out of my way to keep it out.
+>
+> Felix Kuehling (19):
+>   drm/amdgpu: Remove unused interface from kfd2kgd interface
+>   drm/amd: Update GFXv9 SDMA MQD structure
+>   drm/amdgpu: Add GFXv9 TLB invalidation packet definition
+>   drm/amdgpu: Add GFXv9 kfd2kgd interface functions
+>   drm/amdgpu: Add doorbell routing info to kgd2kfd_shared_resources
+>   drm/amdkfd: Make doorbell size ASIC-dependent
+>   drm/amdkfd: Implement doorbell allocation for SOC15
+>   drm/amdkfd: Move packet writer functions into ASIC-specific file
+>   drm/amdkfd: Add GFXv9 PM4 packet writer functions
+>   drm/amdkfd: Add GFXv9 MQD manager
+>   drm/amdkfd: Add GFXv9 device queue manager
+>   drm/amdkfd: Add SOC15 interrupt processing support
+>   drm/amdkfd: Fix goto usage
+>   drm/amdkfd: Fix kernel queue rollback_packet
+>   drm/amdkfd: Add 64-bit doorbell and wptr support to kernel queue
+>   drm/amdkfd: Remove limit on number of GPUs (follow-up)
+>   drm/amdkfd: Support flat memory apertures for GFXv9
+>   drm/amdkfd: Add GFXv9 CWSR trap handler
+>   drm/amdkfd: Add Vega10 topology and device info
+>
+> Harish Kasiviswanathan (1):
+>   drm/amdkfd: Clean up KFD_MMAP_ offset handling
+>
+> welu (1):
+>   drm/amdkfd: Try to enable atomics for all GPUs
+>
+>  MAINTAINERS                                        |    2 +
+>  drivers/gpu/drm/amd/amdgpu/Makefile                |    3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   26 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |    1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c  |   10 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c  |   10 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  | 1043 ++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |    1 +
+>  drivers/gpu/drm/amd/amdgpu/soc15d.h                |    5 +
+>  drivers/gpu/drm/amd/amdkfd/Makefile                |   10 +-
+>  .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm  | 1495
+> ++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   42 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   11 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c            |   89 +-
+>  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  102 +-
+>  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  |    2 +
+>  .../drm/amd/amdkfd/kfd_device_queue_manager_v9.c   |   84 ++
+>  drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |   65 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_events.c            |    2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c       |  119 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c    |   84 ++
+>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c      |   39 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h      |    7 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c  |    9 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c   |  340 +++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c   |  319 +++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_module.c            |    5 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c       |    3 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |  443 ++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c    |  385 +----
+>  drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h    |  583 ++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  106 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c           |   40 +-
+>  .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |   12 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |    6 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.h          |    1 +
+>  drivers/gpu/drm/amd/amdkfd/soc15_int.h             |   47 +
+>  drivers/gpu/drm/amd/include/kgd_kfd_interface.h    |   20 +-
+>  drivers/gpu/drm/amd/include/v9_structs.h           |   48 +-
+>  39 files changed, 5118 insertions(+), 501 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm
+>  create mode 100644
+> drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/soc15_int.h
+>
+> --
+> 2.7.4
+>
+>
+
+--f403045e64fc4292a5056985a0be
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi Felix,<div dir=3D"auto">Just to let you know that I am=
+ currently on vacation and will be back home only on 4/21 so all patch revi=
+ews from my side will be done after that date.=C2=A0</div><div dir=3D"auto"=
+><br></div><div dir=3D"auto">Thanks,=C2=A0</div><div dir=3D"auto">Oded=C2=
+=A0</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Tue, 10 A=
+pr 2018, 17:33 Felix Kuehling &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org"=
+>Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
+ex">This patch series adds support for GFXv9 GPUs to KFD. In this series it=
+<br>
+enables support for Vega10. Raven support requires some extra work that<br>
+will follow shortly, but Raven support is already included and I didn&#39;t=
+<br>
+go out of my way to keep it out.<br>
+<br>
+Felix Kuehling (19):<br>
+=C2=A0 drm/amdgpu: Remove unused interface from kfd2kgd interface<br>
+=C2=A0 drm/amd: Update GFXv9 SDMA MQD structure<br>
+=C2=A0 drm/amdgpu: Add GFXv9 TLB invalidation packet definition<br>
+=C2=A0 drm/amdgpu: Add GFXv9 kfd2kgd interface functions<br>
+=C2=A0 drm/amdgpu: Add doorbell routing info to kgd2kfd_shared_resources<br=
+>
+=C2=A0 drm/amdkfd: Make doorbell size ASIC-dependent<br>
+=C2=A0 drm/amdkfd: Implement doorbell allocation for SOC15<br>
+=C2=A0 drm/amdkfd: Move packet writer functions into ASIC-specific file<br>
+=C2=A0 drm/amdkfd: Add GFXv9 PM4 packet writer functions<br>
+=C2=A0 drm/amdkfd: Add GFXv9 MQD manager<br>
+=C2=A0 drm/amdkfd: Add GFXv9 device queue manager<br>
+=C2=A0 drm/amdkfd: Add SOC15 interrupt processing support<br>
+=C2=A0 drm/amdkfd: Fix goto usage<br>
+=C2=A0 drm/amdkfd: Fix kernel queue rollback_packet<br>
+=C2=A0 drm/amdkfd: Add 64-bit doorbell and wptr support to kernel queue<br>
+=C2=A0 drm/amdkfd: Remove limit on number of GPUs (follow-up)<br>
+=C2=A0 drm/amdkfd: Support flat memory apertures for GFXv9<br>
+=C2=A0 drm/amdkfd: Add GFXv9 CWSR trap handler<br>
+=C2=A0 drm/amdkfd: Add Vega10 topology and device info<br>
+<br>
+Harish Kasiviswanathan (1):<br>
+=C2=A0 drm/amdkfd: Clean up KFD_MMAP_ offset handling<br>
+<br>
+welu (1):<br>
+=C2=A0 drm/amdkfd: Try to enable atomics for all GPUs<br>
+<br>
+=C2=A0MAINTAINERS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 |=C2=A0 =C2=A0 2 +<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 3 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0|=C2=A0 =C2=A026 +<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0|=C2=A0 =C2=A0 1 +<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c=C2=A0 |=C2=A0 =C2=
+=A010 -<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c=C2=A0 |=C2=A0 =C2=
+=A010 -<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c=C2=A0 | 1043 ++++++=
+++++++++<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 1 +<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/soc15d.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 5 +<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A010 +-<br>
+=C2=A0.../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm=C2=A0 | 1495 ++++++=
+++++++++++++++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_chardev.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 =C2=A042 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_crat.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A011 +<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_device.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 |=C2=A0 =C2=A089 +-<br>
+=C2=A0.../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c=C2=A0 |=C2=A0 102 +=
+-<br>
+=C2=A0.../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h=C2=A0 |=C2=A0 =C2=
+=A0 2 +<br>
+=C2=A0.../drm/amd/amdkfd/kfd_device_queue_manager_v9.c=C2=A0 =C2=A0|=C2=A0 =
+=C2=A084 ++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 |=C2=A0 =C2=A065 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_events.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 |=C2=A0 =C2=A0 2 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0|=C2=A0 119 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c=C2=A0 =C2=A0 |=C2=A0 =
+=C2=A084 ++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c=C2=A0 =C2=A0 =C2=A0 |=
+=C2=A0 =C2=A039 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h=C2=A0 =C2=A0 =C2=A0 |=
+=C2=A0 =C2=A0 7 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c=C2=A0 |=C2=A0 =C2=
+=A0 9 +<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c=C2=A0 =C2=A0|=C2=A0 =
+340 +++++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c=C2=A0 =C2=A0|=C2=A0 =
+319 +++++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_module.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 |=C2=A0 =C2=A0 5 +<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0|=C2=A0 =C2=A0 3 +<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c=C2=A0 =C2=A0 |=C2=A0 =
+443 ++++++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c=C2=A0 =C2=A0 |=C2=A0 =
+385 +----<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h=C2=A0 =C2=A0 |=C2=A0 =
+583 ++++++++<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_priv.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 |=C2=A0 106 +-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_process.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 =C2=A040 +-<br>
+=C2=A0.../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |=C2=A0 =C2=A012 +=
+-<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_topology.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 |=C2=A0 =C2=A0 6 +<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_topology.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 |=C2=A0 =C2=A0 1 +<br>
+=C2=A0drivers/gpu/drm/amd/amdkfd/soc15_int.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A047 +<br>
+=C2=A0drivers/gpu/drm/amd/include/kgd_kfd_interface.h=C2=A0 =C2=A0 |=C2=A0 =
+=C2=A020 +-<br>
+=C2=A0drivers/gpu/drm/amd/include/v9_structs.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 =C2=A048 +-<br>
+=C2=A039 files changed, 5118 insertions(+), 501 deletions(-)<br>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<=
+br>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.=
+asm<br>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manage=
+r_v9.c<br>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c<br=
+>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c<b=
+r>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br=
+>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h<br=
+>
+=C2=A0create mode 100644 drivers/gpu/drm/amd/amdkfd/soc15_int.h<br>
+<br>
+--<br>
+2.7.4<br>
+<br>
+</blockquote></div>
+
+--f403045e64fc4292a5056985a0be--
+
+--===============0104995475==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0104995475==--
