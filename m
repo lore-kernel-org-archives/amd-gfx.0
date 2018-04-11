@@ -1,54 +1,430 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v6 00/10] drm/i915: Implement proper fallback training for MST
-Date: Wed, 11 Apr 2018 15:29:27 -0400
-Message-ID: <20180411192951.21997-1-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH v6 05/10] drm/dp_mst: Make drm_dp_mst_topology_state subclassable
+Date: Wed, 11 Apr 2018 15:29:32 -0400
+Message-ID: <20180411192951.21997-6-lyude@redhat.com>
+References: <20180411192951.21997-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Roman Li <roman.li-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Jerry (Fangzhi) Zuo" <jerry.zuo-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Gustavo Padovan <gustavo-THi1TnShQwVAfugRpC6u6w@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180411192951.21997-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: intel-gfx@lists.freedesktop.org
+Cc: Manasi Navare <manasi.d.navare@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Gustavo Padovan <gustavo@padovan.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Ben Skeggs <bskeggs@redhat.com>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-TGF0ZXN0IHZlcnNpb24gb2YgUFcgc2VyaWVzIDM5NjQyLCBob3BlZnVsbHkgdGhpcyBzaG91bGQg
-YWxzbyBhY3R1YWxseQpjb21lIHVwIG9uIGludGVsLWdmeCBhbmQgZ28gdGhyb3VnaCBDSS4KCk5v
-IGNoYW5nZXMgb3RoZXIgdGhhbiByZWJhc2luZyB0byB0aGUgY3VycmVudCBkcm0taW50ZWwtbmV4
-dC1xdWV1ZWQKCkx5dWRlIFBhdWwgKDEwKToKICBkcm0vYXRvbWljOiBQcmludCBkZWJ1ZyBtZXNz
-YWdlIG9uIGF0b21pYyBjaGVjayBmYWlsdXJlCiAgZHJtL2k5MTU6IE1vdmUgRFAgbW9kZXNldCBy
-ZXRyeSB3b3JrIGludG8gaW50ZWxfZHAKICBkcm0vZHBfbXN0OiBGaXggbmFtaW5nIG9uIGRybV9h
-dG9taWNfZ2V0X21zdF90b3BvbG9neV9zdGF0ZSgpCiAgZHJtL2RwX21zdDogUmVtb3ZlIGFsbCBl
-dmlsIGR1cGxpY2F0ZSBzdGF0ZSBwb2ludGVycwogIGRybS9kcF9tc3Q6IE1ha2UgZHJtX2RwX21z
-dF90b3BvbG9neV9zdGF0ZSBzdWJjbGFzc2FibGUKICBkcm0vZHBfbXN0OiBBZGQgcmVzZXRfc3Rh
-dGUgY2FsbGJhY2sgdG8gdG9wb2xvZ3kgbWdyCiAgZHJtL2k5MTU6IE9ubHkgdXNlIG9uZSBsaW5r
-IGJ3IGNvbmZpZyBmb3IgTVNUIHRvcG9sb2dpZXMKICBkcm0vaTkxNTogTWFrZSBpbnRlbF9kcF9t
-c3RfYXRvbWljX2NoZWNrKCkgaWRlbXBvdGVudAogIGRybS9kcF9tc3Q6IEFkZCBNU1QgZmFsbGJh
-Y2sgcmV0cmFpbmluZyBoZWxwZXJzCiAgZHJtL2k5MTU6IEltcGxlbWVudCBwcm9wZXIgZmFsbGJh
-Y2sgdHJhaW5pbmcgZm9yIE1TVAoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMgIHwgIDE0ICstCiAuLi4vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbV9tc3RfdHlwZXMuYyAgICB8ICAzNSArLQogLi4uL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
-bWRncHVfZG1fbXN0X3R5cGVzLmggICAgfCAgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fYXRv
-bWljLmMgICAgICAgICAgICAgICAgICAgICAgIHwgICA1ICstCiBkcml2ZXJzL2dwdS9kcm0vZHJt
-X2RwX21zdF90b3BvbG9neS5jICAgICAgICAgICAgICB8IDU0OCArKysrKysrKysrKysrKysrKysr
-Ky0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RkaS5jICAgICAgICAgICAgICAgICAgIHwg
-IDEwICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kaXNwbGF5LmMgICAgICAgICAgICAg
-ICB8ICAxNCArLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZHAuYyAgICAgICAgICAgICAg
-ICAgICAgfCAzNjEgKysrKysrKysrKy0tLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2Rw
-X2xpbmtfdHJhaW5pbmcuYyAgICAgIHwgICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRl
-bF9kcF9tc3QuYyAgICAgICAgICAgICAgICB8IDE3NyArKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0v
-aTkxNS9pbnRlbF9kcnYuaCAgICAgICAgICAgICAgICAgICB8ICAyMCArLQogZHJpdmVycy9ncHUv
-ZHJtL25vdXZlYXUvbnY1MF9kaXNwbGF5LmMgICAgICAgICAgICAgfCAgMTUgKy0KIGRyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uX2RwX21zdC5jICAgICAgICAgICAgIHwgIDEzICstCiBpbmNs
-dWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oICAgICAgICAgICAgICAgICAgICB8ICA0MiArLQog
-MTQgZmlsZXMgY2hhbmdlZCwgMTA4NiBpbnNlcnRpb25zKCspLCAxNzggZGVsZXRpb25zKC0pCgot
-LSAKMi4xNC4zCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is useful for drivers (which will probably be all of them soon)
+which need to track state that is exclusive to the topology, and not a
+specific connector on said topology. This includes things such as the
+link rate and lane count that are shared by all of the connectors on the
+topology.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 14 +++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 35 +++++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    |  4 +-
+ drivers/gpu/drm/drm_dp_mst_topology.c              | 94 +++++++++++++++++-----
+ drivers/gpu/drm/i915/intel_dp_mst.c                | 13 ++-
+ drivers/gpu/drm/nouveau/nv50_display.c             | 15 +++-
+ drivers/gpu/drm/radeon/radeon_dp_mst.c             | 13 ++-
+ include/drm/drm_dp_mst_helper.h                    |  8 ++
+ 8 files changed, 165 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e42a28e3adc5..2c3660c36732 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3626,9 +3626,17 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+ 
+ 	drm_connector_register(&aconnector->base);
+ 
+-	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort
+-		|| connector_type == DRM_MODE_CONNECTOR_eDP)
+-		amdgpu_dm_initialize_dp_connector(dm, aconnector);
++	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
++	    connector_type == DRM_MODE_CONNECTOR_eDP) {
++		res = amdgpu_dm_initialize_dp_connector(dm, aconnector);
++		if (res) {
++			drm_connector_unregister(&aconnector->base);
++			drm_connector_cleanup(&aconnector->base);
++			aconnector->connector_id = -1;
++
++			goto out_free;
++		}
++	}
+ 
+ #if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) ||\
+ 	defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 8291d74f26bc..a3a43b1b30df 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -475,22 +475,49 @@ static const struct drm_dp_mst_topology_cbs dm_mst_cbs = {
+ 	.register_connector = dm_dp_mst_register_connector
+ };
+ 
+-void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+-				       struct amdgpu_dm_connector *aconnector)
++static const struct drm_private_state_funcs dm_mst_state_funcs = {
++	.atomic_duplicate_state = drm_atomic_dp_mst_duplicate_topology_state,
++	.atomic_destroy_state = drm_atomic_dp_mst_destroy_topology_state,
++};
++
++int amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
++				      struct amdgpu_dm_connector *aconnector)
+ {
++	struct drm_dp_mst_topology_state *state =
++		kzalloc(sizeof(*state), GFP_KERNEL);
++	int ret = 0;
++
++	if (!state)
++		return -ENOMEM;
++
+ 	aconnector->dm_dp_aux.aux.name = "dmdc";
+ 	aconnector->dm_dp_aux.aux.dev = dm->adev->dev;
+ 	aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
+ 	aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
+ 
+-	drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
++	ret = drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
++	if (ret)
++		goto err_aux;
++
+ 	aconnector->mst_mgr.cbs = &dm_mst_cbs;
+-	drm_dp_mst_topology_mgr_init(
++	aconnector->mst_mgr.funcs = &dm_mst_state_funcs;
++	ret = drm_dp_mst_topology_mgr_init(
+ 		&aconnector->mst_mgr,
++		state,
+ 		dm->adev->ddev,
+ 		&aconnector->dm_dp_aux.aux,
+ 		16,
+ 		4,
+ 		aconnector->connector_id);
++	if (ret)
++		goto err_mst;
++
++	return 0;
++
++err_mst:
++	drm_dp_aux_unregister(&aconnector->dm_dp_aux.aux);
++err_aux:
++	kfree(state);
++	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+index 8cf51da26657..d28fb456d2d5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+@@ -29,8 +29,8 @@
+ struct amdgpu_display_manager;
+ struct amdgpu_dm_connector;
+ 
+-void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+-				       struct amdgpu_dm_connector *aconnector);
++int amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
++				      struct amdgpu_dm_connector *aconnector);
+ void dm_dp_mst_dc_sink_create(struct drm_connector *connector);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index ba67f1782a04..8a72eed0ae05 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -3100,33 +3100,89 @@ static void drm_dp_destroy_connector_work(struct work_struct *work)
+ 		(*mgr->cbs->hotplug)(mgr);
+ }
+ 
+-static struct drm_private_state *
+-drm_dp_mst_duplicate_state(struct drm_private_obj *obj)
++/**
++ * drm_atomic_dp_mst_duplicate_topology_state - default
++ * drm_dp_mst_topology_state duplicate handler
++ *
++ * For drivers which don't yet subclass drm_dp_mst_topology_state
++ *
++ * RETURNS: the duplicated state on success, or an error code embedded into a
++ * pointer value otherwise.
++ */
++struct drm_private_state *
++drm_atomic_dp_mst_duplicate_topology_state(struct drm_private_obj *obj)
+ {
++	struct drm_dp_mst_topology_mgr *mgr = to_dp_mst_topology_mgr(obj);
+ 	struct drm_dp_mst_topology_state *state;
++	int ret;
+ 
+ 	state = kmemdup(obj->state, sizeof(*state), GFP_KERNEL);
+ 	if (!state)
+ 		return NULL;
+ 
+-	__drm_atomic_helper_private_obj_duplicate_state(obj, &state->base);
++	ret = __drm_atomic_dp_mst_duplicate_topology_state(mgr, state);
++	if (ret) {
++		kfree(state);
++		return NULL;
++	}
+ 
+ 	return &state->base;
+ }
++EXPORT_SYMBOL(drm_atomic_dp_mst_duplicate_topology_state);
+ 
+-static void drm_dp_mst_destroy_state(struct drm_private_obj *obj,
+-				     struct drm_private_state *state)
++/**
++ * __drm_atomic_dp_mst_duplicate_topology_state - default
++ * drm_dp_mst_topology_state duplicate hook
++ *
++ * Copies atomic state from an MST topology's current state. This is useful
++ * for drivers that subclass the MST topology state.
++ *
++ * RETURNS: 0 on success, negative error code on failure.
++ */
++int
++__drm_atomic_dp_mst_duplicate_topology_state(struct drm_dp_mst_topology_mgr *mgr,
++					     struct drm_dp_mst_topology_state *state)
++{
++	struct drm_private_obj *obj = &mgr->base;
++
++	memcpy(state, obj->state, sizeof(*state));
++
++	__drm_atomic_helper_private_obj_duplicate_state(&mgr->base,
++							&state->base);
++	return 0;
++}
++EXPORT_SYMBOL(__drm_atomic_dp_mst_duplicate_topology_state);
++
++/**
++ * drm_atomic_dp_mst_destroy_topology_state - default
++ * drm_dp_mst_topology_state destroy handler
++ *
++ * For drivers which don't yet subclass drm_dp_mst_topology_state.
++ */
++void
++drm_atomic_dp_mst_destroy_topology_state(struct drm_private_obj *obj,
++					 struct drm_private_state *state)
+ {
+ 	struct drm_dp_mst_topology_state *mst_state =
+ 		to_dp_mst_topology_state(state);
+ 
++	__drm_atomic_dp_mst_destroy_topology_state(mst_state);
++
+ 	kfree(mst_state);
+ }
++EXPORT_SYMBOL(drm_atomic_dp_mst_destroy_topology_state);
+ 
+-static const struct drm_private_state_funcs mst_state_funcs = {
+-	.atomic_duplicate_state = drm_dp_mst_duplicate_state,
+-	.atomic_destroy_state = drm_dp_mst_destroy_state,
+-};
++/**
++ * __drm_atomic_dp_mst_destroy_topology_state - default
++ * drm_dp_mst_topology_state destroy hook
++ *
++ * Frees the resources associated with the given drm_dp_mst_topology_state.
++ * This is useful for drivers that subclass the MST topology state.
++ */
++void
++__drm_atomic_dp_mst_destroy_topology_state(struct drm_dp_mst_topology_state *state) {
++}
++EXPORT_SYMBOL(__drm_atomic_dp_mst_destroy_topology_state);
+ 
+ /**
+  * drm_atomic_dp_mst_get_topology_state: get MST topology state
+@@ -3157,21 +3213,25 @@ EXPORT_SYMBOL(drm_atomic_dp_mst_get_topology_state);
+ /**
+  * drm_dp_mst_topology_mgr_init - initialise a topology manager
+  * @mgr: manager struct to initialise
++ * @state: atomic topology state to init, allocated by the driver
+  * @dev: device providing this structure - for i2c addition.
+  * @aux: DP helper aux channel to talk to this device
+  * @max_dpcd_transaction_bytes: hw specific DPCD transaction limit
+  * @max_payloads: maximum number of payloads this GPU can source
+  * @conn_base_id: the connector object ID the MST device is connected to.
+  *
++ * Note that this function doesn't take care of allocating the atomic MST
++ * state, this must be handled by the caller before calling
++ * drm_dp_mst_topology_mgr_init().
++ *
+  * Return 0 for success, or negative error code on failure
+  */
+ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
++				 struct drm_dp_mst_topology_state *state,
+ 				 struct drm_device *dev, struct drm_dp_aux *aux,
+ 				 int max_dpcd_transaction_bytes,
+ 				 int max_payloads, int conn_base_id)
+ {
+-	struct drm_dp_mst_topology_state *mst_state;
+-
+ 	mutex_init(&mgr->lock);
+ 	mutex_init(&mgr->qlock);
+ 	mutex_init(&mgr->payload_lock);
+@@ -3200,18 +3260,14 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (test_calc_pbn_mode() < 0)
+ 		DRM_ERROR("MST PBN self-test failed\n");
+ 
+-	mst_state = kzalloc(sizeof(*mst_state), GFP_KERNEL);
+-	if (mst_state == NULL)
+-		return -ENOMEM;
+-
+-	mst_state->mgr = mgr;
++	state->mgr = mgr;
+ 
+ 	/* max. time slots - one slot for MTP header */
+-	mst_state->avail_slots = 63;
++	state->avail_slots = 63;
+ 
+ 	drm_atomic_private_obj_init(&mgr->base,
+-				    &mst_state->base,
+-				    &mst_state_funcs);
++				    &state->base,
++				    mgr->funcs);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/intel_dp_mst.c b/drivers/gpu/drm/i915/intel_dp_mst.c
+index 9e6956c08688..cf844cfd2bb0 100644
+--- a/drivers/gpu/drm/i915/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/intel_dp_mst.c
+@@ -587,19 +587,30 @@ intel_dp_create_fake_mst_encoders(struct intel_digital_port *intel_dig_port)
+ 	return true;
+ }
+ 
++static const struct drm_private_state_funcs mst_state_funcs = {
++	.atomic_destroy_state = drm_atomic_dp_mst_destroy_topology_state,
++	.atomic_duplicate_state = drm_atomic_dp_mst_duplicate_topology_state,
++};
++
+ int
+ intel_dp_mst_encoder_init(struct intel_digital_port *intel_dig_port, int conn_base_id)
+ {
+ 	struct intel_dp *intel_dp = &intel_dig_port->dp;
++	struct drm_dp_mst_topology_state *mst_state;
+ 	struct drm_device *dev = intel_dig_port->base.base.dev;
+ 	int ret;
+ 
++	mst_state = kzalloc(sizeof(*mst_state), GFP_KERNEL);
++	if (!mst_state)
++		return -ENOMEM;
++
+ 	intel_dp->can_mst = true;
+ 	intel_dp->mst_mgr.cbs = &mst_cbs;
++	intel_dp->mst_mgr.funcs = &mst_state_funcs;
+ 
+ 	/* create encoders */
+ 	intel_dp_create_fake_mst_encoders(intel_dig_port);
+-	ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst_mgr, dev,
++	ret = drm_dp_mst_topology_mgr_init(&intel_dp->mst_mgr, mst_state, dev,
+ 					   &intel_dp->aux, 16, 3, conn_base_id);
+ 	if (ret) {
+ 		intel_dp->can_mst = false;
+diff --git a/drivers/gpu/drm/nouveau/nv50_display.c b/drivers/gpu/drm/nouveau/nv50_display.c
+index 8bd739cfd00d..1cacd806eb8d 100644
+--- a/drivers/gpu/drm/nouveau/nv50_display.c
++++ b/drivers/gpu/drm/nouveau/nv50_display.c
+@@ -3310,6 +3310,12 @@ nv50_mstm = {
+ 	.hotplug = nv50_mstm_hotplug,
+ };
+ 
++static const struct drm_private_state_funcs
++nv50_mst_state_funcs = {
++	.atomic_duplicate_state = drm_atomic_dp_mst_duplicate_topology_state,
++	.atomic_destroy_state = drm_atomic_dp_mst_destroy_topology_state,
++};
++
+ void
+ nv50_mstm_service(struct nv50_mstm *mstm)
+ {
+@@ -3438,6 +3444,7 @@ nv50_mstm_new(struct nouveau_encoder *outp, struct drm_dp_aux *aux, int aux_max,
+ {
+ 	const int max_payloads = hweight8(outp->dcb->heads);
+ 	struct drm_device *dev = outp->base.base.dev;
++	struct drm_dp_mst_topology_state *state;
+ 	struct nv50_mstm *mstm;
+ 	int ret, i;
+ 	u8 dpcd;
+@@ -3454,10 +3461,16 @@ nv50_mstm_new(struct nouveau_encoder *outp, struct drm_dp_aux *aux, int aux_max,
+ 
+ 	if (!(mstm = *pmstm = kzalloc(sizeof(*mstm), GFP_KERNEL)))
+ 		return -ENOMEM;
++	if (!(state = kzalloc(sizeof(*state), GFP_KERNEL))) {
++		kfree(mstm);
++		return -ENOMEM;
++	}
+ 	mstm->outp = outp;
+ 	mstm->mgr.cbs = &nv50_mstm;
++	mstm->mgr.funcs = &nv50_mst_state_funcs;
+ 
+-	ret = drm_dp_mst_topology_mgr_init(&mstm->mgr, dev, aux, aux_max,
++	ret = drm_dp_mst_topology_mgr_init(&mstm->mgr, state, dev,
++					   aux, aux_max,
+ 					   max_payloads, conn_base_id);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/radeon/radeon_dp_mst.c b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+index cd8a3ee16649..6edf52404256 100644
+--- a/drivers/gpu/drm/radeon/radeon_dp_mst.c
++++ b/drivers/gpu/drm/radeon/radeon_dp_mst.c
+@@ -335,6 +335,11 @@ static const struct drm_dp_mst_topology_cbs mst_cbs = {
+ 	.hotplug = radeon_dp_mst_hotplug,
+ };
+ 
++static const struct drm_private_state_funcs mst_state_funcs = {
++	.atomic_duplicate_state = drm_atomic_dp_mst_duplicate_topology_state,
++	.atomic_destroy_state = drm_atomic_dp_mst_destroy_topology_state,
++};
++
+ static struct
+ radeon_connector *radeon_mst_find_connector(struct drm_encoder *encoder)
+ {
+@@ -657,12 +662,18 @@ int
+ radeon_dp_mst_init(struct radeon_connector *radeon_connector)
+ {
+ 	struct drm_device *dev = radeon_connector->base.dev;
++	struct drm_dp_mst_topology_state *state =
++		kzalloc(sizeof(*state), GFP_KERNEL);
+ 
++	if (!state)
++		return -ENOMEM;
+ 	if (!radeon_connector->ddc_bus->has_aux)
+ 		return 0;
+ 
+ 	radeon_connector->mst_mgr.cbs = &mst_cbs;
+-	return drm_dp_mst_topology_mgr_init(&radeon_connector->mst_mgr, dev,
++	radeon_connector->mst_mgr.funcs = &mst_state_funcs;
++	return drm_dp_mst_topology_mgr_init(&radeon_connector->mst_mgr,
++					    state, dev,
+ 					    &radeon_connector->ddc_bus->aux, 16, 6,
+ 					    radeon_connector->base.base.id);
+ }
+diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+index 035963fbcd9d..b42922987470 100644
+--- a/include/drm/drm_dp_mst_helper.h
++++ b/include/drm/drm_dp_mst_helper.h
+@@ -565,6 +565,7 @@ struct drm_dp_mst_topology_mgr {
+ };
+ 
+ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
++				 struct drm_dp_mst_topology_state *state,
+ 				 struct drm_device *dev, struct drm_dp_aux *aux,
+ 				 int max_dpcd_transaction_bytes,
+ 				 int max_payloads, int conn_base_id);
+@@ -620,6 +621,13 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr);
+ 
+ struct drm_dp_mst_topology_state *drm_atomic_dp_mst_get_topology_state(struct drm_atomic_state *state,
+ 								       struct drm_dp_mst_topology_mgr *mgr);
++struct drm_private_state *drm_atomic_dp_mst_duplicate_topology_state(struct drm_private_obj *obj);
++int __drm_atomic_dp_mst_duplicate_topology_state(struct drm_dp_mst_topology_mgr *mgr,
++						 struct drm_dp_mst_topology_state *state);
++void drm_atomic_dp_mst_destroy_topology_state(struct drm_private_obj *obj,
++					      struct drm_private_state *state);
++void __drm_atomic_dp_mst_destroy_topology_state(struct drm_dp_mst_topology_state *state);
++
+ int drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
+ 				  struct drm_dp_mst_topology_mgr *mgr,
+ 				  struct drm_dp_mst_port *port, int pbn);
+-- 
+2.14.3
