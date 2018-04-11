@@ -1,41 +1,54 @@
-From: Sinan Kaya <okaya@codeaurora.org>
-Subject: [PATCH V3] drm/amdgpu: limit DMA size to PAGE_SIZE for scatter-gather buffers
-Date: Wed, 11 Apr 2018 18:11:22 -0400
-Message-ID: <1523484684-10426-1-git-send-email-okaya@codeaurora.org>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH v7 00/10] drm/i915: Implement proper fallback training for MST
+Date: Wed, 11 Apr 2018 18:54:37 -0400
+Message-ID: <20180411225501.26751-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, sulrich@codeaurora.org, timur@codeaurora.org
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Sinan Kaya <okaya@codeaurora.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Monk Liu <Monk.Liu@amd.com>, Harry Wentland <harry.wentland@amd.com>, Pixel Ding <Pixel.Ding@amd.com>, Horace Chen <horace.chen@amd.com>, "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Roman Li <roman.li-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Jerry (Fangzhi) Zuo" <jerry.zuo-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Gustavo Padovan <gustavo-THi1TnShQwVAfugRpC6u6w@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-Code is expecing to observe the same number of buffers returned from
-dma_map_sg() function compared to sg_alloc_table_from_pages(). This
-doesn't hold true universally especially for systems with IOMMU.
-
-The hardware actually needs the dma_address on a page by page basis.
-Joining multiple consecutive pages into one entry is just additional
-overhead which we don't need.
-
-Signed-off-by: Sinan Kaya <okaya@codeaurora.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index af1b879..91abe1a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1948,6 +1948,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	/* init the mode config */
- 	drm_mode_config_init(adev->ddev);
- 
-+	/* limit scatter-gather buffer size to PAGE_SIZE */
-+	dma_set_max_seg_size(adev->dev, PAGE_SIZE);
-+
- 	r = amdgpu_device_ip_init(adev);
- 	if (r) {
- 		/* failed in exclusive mode due to timeout */
--- 
-2.7.4
+TmV4dCB2ZXJzaW9uIG9mIGh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9zZXJpZXMv
+NDE1NzYvCgpBbGwgY2hhbmdlcyBpbiB0aGlzIHBhdGNoIHNlcmllcyBhcmUganVzdCB0byBtYWtl
+IGNoZWNrcGF0Y2ggYSBsaXR0bGUKaGFwcGllciwgbm8gZnVuY3Rpb25hbCBjaGFuZ2VzLgoKTHl1
+ZGUgUGF1bCAoMTApOgogIGRybS9hdG9taWM6IFByaW50IGRlYnVnIG1lc3NhZ2Ugb24gYXRvbWlj
+IGNoZWNrIGZhaWx1cmUKICBkcm0vaTkxNTogTW92ZSBEUCBtb2Rlc2V0IHJldHJ5IHdvcmsgaW50
+byBpbnRlbF9kcAogIGRybS9kcF9tc3Q6IEZpeCBuYW1pbmcgb24gZHJtX2F0b21pY19nZXRfbXN0
+X3RvcG9sb2d5X3N0YXRlKCkKICBkcm0vZHBfbXN0OiBSZW1vdmUgYWxsIGV2aWwgZHVwbGljYXRl
+IHN0YXRlIHBvaW50ZXJzCiAgZHJtL2RwX21zdDogTWFrZSBkcm1fZHBfbXN0X3RvcG9sb2d5X3N0
+YXRlIHN1YmNsYXNzYWJsZQogIGRybS9kcF9tc3Q6IEFkZCByZXNldF9zdGF0ZSBjYWxsYmFjayB0
+byB0b3BvbG9neSBtZ3IKICBkcm0vaTkxNTogT25seSB1c2Ugb25lIGxpbmsgYncgY29uZmlnIGZv
+ciBNU1QgdG9wb2xvZ2llcwogIGRybS9pOTE1OiBNYWtlIGludGVsX2RwX21zdF9hdG9taWNfY2hl
+Y2soKSBpZGVtcG90ZW50CiAgZHJtL2RwX21zdDogQWRkIE1TVCBmYWxsYmFjayByZXRyYWluaW5n
+IGhlbHBlcnMKICBkcm0vaTkxNTogSW1wbGVtZW50IHByb3BlciBmYWxsYmFjayB0cmFpbmluZyBm
+b3IgTVNUCgogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
+YyAgfCAgMTQgKy0KIC4uLi9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBl
+cy5jICAgIHwgIDQ2ICstCiAuLi4vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3Rf
+dHlwZXMuaCAgICB8ICAgNCArLQogZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYyAgICAgICAg
+ICAgICAgICAgICAgICAgfCAgIDUgKy0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9s
+b2d5LmMgICAgICAgICAgICAgIHwgNTUwICsrKysrKysrKysrKysrKysrKysrLQogZHJpdmVycy9n
+cHUvZHJtL2k5MTUvaW50ZWxfZGRpLmMgICAgICAgICAgICAgICAgICAgfCAgMTAgKy0KIGRyaXZl
+cnMvZ3B1L2RybS9pOTE1L2ludGVsX2Rpc3BsYXkuYyAgICAgICAgICAgICAgIHwgIDE0ICstCiBk
+cml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kcC5jICAgICAgICAgICAgICAgICAgICB8IDM3NiAr
+KysrKysrKysrLS0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZHBfbGlua190cmFpbmlu
+Zy5jICAgICAgfCAgIDYgKy0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RwX21zdC5jICAg
+ICAgICAgICAgICAgIHwgMTg2ICsrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2Ry
+di5oICAgICAgICAgICAgICAgICAgIHwgIDIwICstCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9u
+djUwX2Rpc3BsYXkuYyAgICAgICAgICAgICB8ICAxNyArLQogZHJpdmVycy9ncHUvZHJtL3JhZGVv
+bi9yYWRlb25fZHBfbXN0LmMgICAgICAgICAgICAgfCAgMTMgKy0KIGluY2x1ZGUvZHJtL2RybV9k
+cF9tc3RfaGVscGVyLmggICAgICAgICAgICAgICAgICAgIHwgIDQzICstCiAxNCBmaWxlcyBjaGFu
+Z2VkLCAxMTIwIGluc2VydGlvbnMoKyksIDE4NCBkZWxldGlvbnMoLSkKCi0tIAoyLjE0LjMKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
