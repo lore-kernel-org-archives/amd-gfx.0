@@ -1,69 +1,51 @@
-From: Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>
-Subject: Re: [PATCH V2] drm/amdgpu: limit DMA size to PAGE_SIZE for
-	scatter-gather buffers
-Date: Wed, 11 Apr 2018 16:32:13 +0100
-Message-ID: <2d812da5-1c0d-0e53-83f2-ba1781a12fe9@arm.com>
-References: <1523394001-4615-1-git-send-email-okaya@codeaurora.org>
-	<32b82296-bba5-b5f1-266b-45c1ed66da94@arm.com>
-	<1a1d0069-c8d3-cc0d-cf1c-8e90e4a2b0d7@codeaurora.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: RFC for a render API to support adaptive sync and VRR
+Date: Wed, 11 Apr 2018 17:45:41 +0200
+Message-ID: <01298e03-3c50-f4a2-591b-cf065cfb3231@daenzer.net>
+References: <c79421ce-9408-5cd6-5de3-0fa521146e4b@amd.com>
+ <435ebd04-0435-5a6a-9f1e-e4c4fc629aa9@amd.com>
+ <20180409214554.GB13967@intel.com>
+ <1e8d1857-faba-85da-0136-ea7c29ec1b84@amd.com>
+ <b75e31f7-ce59-de97-5445-cb4c03ff7336@daenzer.net>
+ <ae9992e5-43ab-9636-13e1-8a5c692480b5@amd.com>
+ <MWHPR12MB1837C57016A470A5199E855282BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
+ <fc53ce53-f02c-891d-4aa5-e9a11cbe3007@amd.com>
+ <MWHPR12MB1837488A047C03E955282A4182BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-In-Reply-To: <1a1d0069-c8d3-cc0d-cf1c-8e90e4a2b0d7-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: Sinan Kaya <okaya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, timur-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, sulrich-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "open list:DRM DRIVERS" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, hch-jcswGhMUV9g@public.gmane.org, Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <MWHPR12MB1837488A047C03E955282A4182BE0@MWHPR12MB1837.namprd12.prod.outlook.com>
+Content-Language: en-CA
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Cyr, Aric" <Aric.Cyr@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, Manasi Navare <manasi.d.navare@intel.com>
+Cc: "Haehnle, Nicolai" <Nicolai.Haehnle@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 11/04/18 15:33, Sinan Kaya wrote:
-> On 4/11/2018 8:03 AM, Robin Murphy wrote:
->> On 10/04/18 21:59, Sinan Kaya wrote:
->>> Code is expecing to observe the same number of buffers returned
->>> from dma_map_sg() function compared to
->>> sg_alloc_table_from_pages(). This doesn't hold true universally
->>> especially for systems with IOMMU.
->> 
->> So why not fix said code? It's clearly not a real hardware
->> limitation, and the map_sg() APIs have potentially returned fewer
->> than nents since forever, so there's really no excuse.
-> 
-> Sure, I'll take a better fix if there is one.
-> 
->> 
->>> IOMMU driver tries to combine buffers into a single DMA address
->>> as much as it can. The right thing is to tell the DMA layer how
->>> much combining IOMMU can do.
->> 
->> Disagree; this is a dodgy hack, since you'll now end up passing
->> scatterlists into dma_map_sg() which already violate max_seg_size
->> to begin with, and I think a conscientious DMA API implementation
->> would be at rights to fail the mapping for that reason (I know
->> arm64 happens not to, but that was a deliberate design decision to
->> make my life easier at the time).
->> 
->> As a short-term fix, at least do something like what i915 does and
->> constrain the table allocation to the desired segment size as well,
->> so things remain self-consistent. But still never claim that faking
->> a hardware constraint as a workaround for a driver shortcoming is
->> "the right thing to do" ;)
-> 
-> You are asking for something like this from here, right?
-> 
-> https://elixir.bootlin.com/linux/v4.16.1/source/drivers/gpu/drm/i915/i915_gem_dmabuf.c#L58
-
-I just looked for callers of __sg_alloc_table_from_pages() with a limit 
-other than SCATTERLIST_MAX_SEGMENT, and found 
-__i915_gem_userptr_alloc_pages(), which at first glance appears to be 
-doing something vaguely similar to amdgpu_ttm_tt_pin_userptr().
-
-Robin.
+T24gMjAxOC0wNC0xMCAwNjoyNiBQTSwgQ3lyLCBBcmljIHdyb3RlOj4gPiBNeSBndWVzcyBpcyB0
+aGV5IHByZWZlciB0bwrigJxkbyBub3RoaW5n4oCdIGFuZCBsZXQgZHJpdmVyL0hXIG1hbmFnZSBp
+dCwKPiBvdGhlcndpc2UgeW91IGV4ZW1wdCBhbGwgZXhpc3RpbmcgZ2FtZXMgZnJvbSBzdXBwb3J0
+aW5nIGFkYXB0aXZlIHN5bmMKPiB3aXRob3V0IGEgcmV3cml0ZSBvciB1cGRhdGUuCk5vYm9keSBp
+cyBzYXlpbmcgYWRhcHRpdmUgc3luYyBzaG91bGQgb25seSB3b3JrIHdpdGggZXhwbGljaXQgdGFy
+Z2V0CnByZXNlbnRhdGlvbiB0aW1lcyBwcm92aWRlZCBieSB0aGUgYXBwbGljYXRpb24uIFdlJ3Jl
+IGp1c3QgYXJndWluZyB0aGF0CnRhcmdldCBwcmVzZW50YXRpb24gdGltZSBhcyBhIG1lY2hhbmlz
+bSBpcyBzdXBlcmlvciB0byB0YXJnZXQgcmVmcmVzaApyYXRlLCBib3RoIGZvciB2aWRlbyBhbmQg
+Z2FtZSB1c2UgY2FzZXMuIEl0IGFsc28gdHJpdmlhbGx5IGFsbG93cwplbXVsYXRpbmcgImFzIGVh
+cmx5IGFzIHBvc3NpYmxlIiAodGFyZ2V0IHByZXNlbnRhdGlvbiB0aW1lID0gMCkgYW5kCiJmaXhl
+ZCByZWZyZXNoIHJhdGUiICh0YXJnZXQgcHJlc2VudGF0aW9uIHRpbWUgPSBzdGFydCArIGkgKiB0
+YXJnZXQKZnJhbWUgZHVyYXRpb24pIGJlaGF2aW91ciwgZXZlbiB0cmFuc3BhcmVudGx5IGZvciB0
+aGUgYXBwbGljYXRpb24uCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAg
+ICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50
+aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBt
+YWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
