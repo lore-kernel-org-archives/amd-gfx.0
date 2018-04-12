@@ -1,46 +1,118 @@
-From: Mathieu Malaterre <malat@debian.org>
-Subject: [PATCH] drm/radeon: change function signature to pass full range
-Date: Thu, 12 Apr 2018 21:33:33 +0200
-Message-ID: <20180412193333.4951-1-malat@debian.org>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v4 2/2] drm/amdgpu: Free VGA stolen memory as soon as
+ possible.
+Date: Thu, 12 Apr 2018 15:59:20 -0400
+Message-ID: <8bb5e2f0-072e-8725-a163-55b275a5ed7d@amd.com>
+References: <1523506110-14002-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1523506110-14002-2-git-send-email-andrey.grodzovsky@amd.com>
+ <CADnq5_PssA-Cz5q1Z-na88REbLn6pzz5T2eby12LUoyTj5F9dQ@mail.gmail.com>
+ <9abad4d7-8ca7-30fa-6bb7-cadb4ae01799@amd.com>
+ <CADnq5_OrReLdTq6-K9ohDXRG7GDUd5MofoMpyOCUTwH2oufosw@mail.gmail.com>
+ <5968a37a-a89c-2c08-dfc4-dd6bc49f29be@daenzer.net>
+ <21a9adee-bec8-f86f-92a3-fcfca185458f@amd.com>
+ <cf801752-d1e7-f8de-3312-c7b4677dcf49@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Mathieu Malaterre <malat@debian.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <cf801752-d1e7-f8de-3312-c7b4677dcf49-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Ranjbar,
+ Ramin" <ramin.ranjbar-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-In function ‘radeon_process_i2c_ch’ a comparison of a u8 value against
-255 is done. Since it is always false, change the signature of this
-function to use an `int` instead, which match the type used in caller:
-`radeon_atom_hw_i2c_xfer`.
-
-Fix the following warning triggered with W=1:
-
-  CC [M]  drivers/gpu/drm/radeon/atombios_i2c.o
-  drivers/gpu/drm/radeon/atombios_i2c.c: In function ‘radeon_process_i2c_ch’:
-  drivers/gpu/drm/radeon/atombios_i2c.c:71:11: warning: comparison is always false due to limited range of data type [-Wtype-limits]
-   if (num > ATOM_MAX_HW_I2C_READ) {
-           ^
-
-Signed-off-by: Mathieu Malaterre <malat@debian.org>
----
- drivers/gpu/drm/radeon/atombios_i2c.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/atombios_i2c.c b/drivers/gpu/drm/radeon/atombios_i2c.c
-index 4157780585a0..9022e9af11a0 100644
---- a/drivers/gpu/drm/radeon/atombios_i2c.c
-+++ b/drivers/gpu/drm/radeon/atombios_i2c.c
-@@ -35,7 +35,7 @@
- 
- static int radeon_process_i2c_ch(struct radeon_i2c_chan *chan,
- 				 u8 slave_addr, u8 flags,
--				 u8 *buf, u8 num)
-+				 u8 *buf, int num)
- {
- 	struct drm_device *dev = chan->dev;
- 	struct radeon_device *rdev = dev->dev_private;
--- 
-2.11.0
+CgpPbiAwNC8xMi8yMDE4IDExOjEwIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyMDE4
+LTA0LTEyIDA0OjU4IFBNLCBBbmRyZXkgR3JvZHpvdnNreSB3cm90ZToKPj4gT24gMDQvMTIvMjAx
+OCAxMDozMyBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+PiBPbiAyMDE4LTA0LTEyIDAzOjMz
+IFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+Pj4gT24gVGh1LCBBcHIgMTIsIDIwMTggYXQgNzox
+NyBBTSwgQW5kcmV5IEdyb2R6b3Zza3kKPj4+PiA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4g
+d3JvdGU6Cj4+Pj4+IE9uIDA0LzEyLzIwMTggMTI6MzIgQU0sIEFsZXggRGV1Y2hlciB3cm90ZToK
+Pj4+Pj4+IE9uIFRodSwgQXByIDEyLCAyMDE4IGF0IDEyOjA4IEFNLCBBbmRyZXkgR3JvZHpvdnNr
+eQo+Pj4+Pj4gPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+IHdyb3RlOgo+Pj4+Pj4+IFJlc2Vy
+dmVkIFZSQU0gaXMgdXNlZCB0byBhdm9pZCBvdmVycmlkaW5nIHByZSBPUyBGQi4KPj4+Pj4+PiBP
+bmNlIG91ciBkaXNwbGF5IHN0YWNrIHRha2VzIG92ZXIgd2UgZG9uJ3QgbmVlZCB0aGUgcmVzZXJ2
+ZWQKPj4+Pj4+PiBWUkFNIGFueW1vcmUuCj4+Pj4+Pj4KPj4+Pj4+PiB2MjoKPj4+Pj4+PiBSZW1v
+dmUgY29tbWVudCwgd2Uga25vdyBhY3R1YWxseSB3aHkgd2UgbmVlZCB0byByZXNlcnZlIHRoZSBz
+dG9sZW4KPj4+Pj4+PiBWUkFNLgo+Pj4+Pj4+IEZpeCByZXR1cm4gdHlwZSBmb3IgYW1kZ3B1X3R0
+bV9sYXRlX2luaXQuCj4+Pj4+Pj4gdjM6Cj4+Pj4+Pj4gUmV0dXJuIDAgaW4gYW1kZ3B1X2JvX2xh
+dGVfaW5pdCwgcmViYXNlIG9uIGNoYW5nZXMgdG8gcHJldmlvdXMgcGF0Y2gKPj4+Pj4+PiB2NDoK
+Pj4+Pj4+PiBEb24ndCByZWxlYXNlIHN0b2xlbiBtZW1vcnkgZm9yIEdNQzkgQVNJQ3MgdW50aWxs
+IEdBUlQgY29ycnVwdGlvbgo+Pj4+Pj4+IG9uIFMzIHJlc3VtZSBpcyByZXNvbHZlZC4KPj4+Pj4+
+Pgo+Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpv
+dnNreUBhbWQuY29tPgo+Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
+ZGVyLmRldWNoZXJAYW1kLmNvbT4KPj4+IFsuLi5dCj4+IE5vdCBzdXJlIHdoYXQgaXQgbWVhbnMg
+Pwo+IEl0IG1lYW5zIEkgdHJpbW1lZCBzb21lIHF1b3RlZCB0ZXh0LiBXb3VsZCBpdCBiZSBjbGVh
+cmVyIGlmIEkgcHV0Cj4gcXVvdGF0aW9uIG1hcmtlcnMgYmVmb3JlIGl0PwoKR290IGl0IG5vdy4K
+Cj4KPgo+Pj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djlfMC5jCj4+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4+
+Pj4+Pj4gaW5kZXggMjUyYTZjNjkuLjA5OWUzY2U1IDEwMDY0NAo+Pj4+Pj4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPj4+Pj4+PiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4+Pj4+Pj4gQEAgLTY1OSw2ICs2NTksMTYgQEAg
+c3RhdGljIGludCBnbWNfdjlfMF9sYXRlX2luaXQodm9pZCAqaGFuZGxlKQo+Pj4+Pj4+ICDCoMKg
+wqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgaTsKPj4+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGlu
+dCByOwo+Pj4+Pj4+Cj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoCAvKgo+Pj4+Pj4+ICvCoMKgwqDCoMKg
+wqDCoCAqIFRPRE86Cj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgICogQ3VycmVudGx5IHRoZXJlIGlz
+IGEgYnVnIHdoZXJlIHNvbWUgbWVtb3J5IGNsaWVudCBvdXRzaWRlCj4+Pj4+Pj4gK8KgwqDCoMKg
+wqDCoMKgICogb2YgdGhlIGRyaXZlciB3cml0ZXMgdG8gZmlyc3QgOE0gb2YgVlJBTSBvbiBTMyBy
+ZXN1bWUsCj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgICogdGhpcyBvdmVycmlkZXMgR0FSVCB3aGlj
+aCBieSBkZWZhdWx0IGdldHMgcGxhY2VkIGluCj4+Pj4+Pj4gZmlyc3QgOE0KPj4+Pj4+PiBhbmQK
+Pj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgKiBjYXVzZXMgVk1fRkFVTFRTIG9uY2UgR1RUIGlzIGFj
+Y2Vzc2VkLgo+Pj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCAqIEtlZXAgdGhlIHN0b2xlbiBtZW1vcnkg
+cmVzZXJ2YXRpb24gdW50aWwgdGhpcyBzb2x2ZWQuCj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgICov
+Cj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoCAvKiBhbWRncHVfYm9fbGF0ZV9pbml0KGFkZXYpOyAvCj4+
+Pj4+Pj4gKwo+Pj4+Pj4gV2Ugc3RpbGwgbmVlZCB0byBmcmVlIHRoaXMgc29tZXdoZXJlLsKgIEkn
+ZCBzdWdnZXN0IGNhbGxpbmcgaXQgaW4KPj4+Pj4+IGdtY192OV8wX3N3X2ZpbmkoKSBhbmQgYWRk
+IGEgY29tbWVudCB0aGVyZSBhYm91dCBtb3ZpbmcgaXQgd2hlbiB3ZSBmaXgKPj4+Pj4+IHRoZSBp
+c3N1ZS4KPj4+Pj4+Cj4+Pj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBmb3IoaSA9IDA7IGkgPCBh
+ZGV2LT5udW1fcmluZ3M7ICsraSkgewo+Pj4+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IGFkZXYtPnJpbmdzW2ldOwo+Pj4+
+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIHZtaHViID0g
+cmluZy0+ZnVuY3MtPnZtaHViOwo+Pj4+Pj4+IEBAIC04ODQsMTAgKzg5NCw2IEBAIHN0YXRpYyBp
+bnQgZ21jX3Y5XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCj4+Pj4+Pj4gIMKgwqDCoMKgwqDCoMKg
+wqDCoMKgICovCj4+Pj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LT5nbWMubWNfbWFzayA9
+IDB4ZmZmZmZmZmZmZmZmVUxMOyAvKiA0OCBiaXQgTUMgKi8KPj4+Pj4+Pgo+Pj4+Pj4+IC3CoMKg
+wqDCoMKgwqAgLyoKPj4+Pj4+PiAtwqDCoMKgwqDCoMKgwqAgKiBJdCBuZWVkcyB0byByZXNlcnZl
+IDhNIHN0b2xlbiBtZW1vcnkgZm9yIHZlZ2ExMAo+Pj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCAqIFRP
+RE86IEZpZ3VyZSBvdXQgaG93IHRvIGF2b2lkIHRoYXQuLi4KPj4+Pj4+PiAtwqDCoMKgwqDCoMKg
+wqAgKi8KPj4+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPmdtYy5zdG9sZW5fc2l6ZSA9
+IGdtY192OV8wX2dldF92Ymlvc19mYl9zaXplKGFkZXYpOwo+Pj4+Pj4gV2UgbWF5IGFsc28ganVz
+dCB3YW50IHRvIHJldHVybiA4TUIgb3IgOU1CIHRlbXBvcmFyaWx5IGluCj4+Pj4+PiBnbWNfdjlf
+MF9nZXRfdmJpb3NfZmJfc2l6ZSB1bnRpbCB3ZSBzb3J0IG91dCB0aGUgcm9vdCBjYXVzZSBvZiB0
+aGUgUzMKPj4+Pj4+IGlzc3VlIG90aGVyd2lzZSB3ZSdyZSBwb3RlbnRpYWxseSB3YXN0aW5nIGEg
+bG90IG1vcmUgbWVtb3J5Lgo+Pj4+PiBCdXQgd2hhdCBpZiB3ZSBoYXZlIDRrIGRpc3BsYXkgPyBJ
+biB0aGlzIGNhc2UgcmV0dXJuaW5nIDlNIHByb2JhYmx5Cj4+Pj4+IHdpbGwgbm90Cj4+Pj4+IGhp
+ZGUgdGhlIGNvcnJ1cHRpb27CoCB3ZSB3ZXJlIG9yaWdpbmFsbHkgZGVhbGluZyB3aXRoLiBJIHJl
+bWVtYmVyIGluCj4+Pj4+IHRoYXQKPj4+Pj4gY2FzZSBwcmUgT1MgRkIgc2l6ZSB3b3VsZCBiZSAz
+Mk0uCj4+Pj4gSSBndWVzcyBpdCdzIGEgdHJhZGUgb2ZmLCBwb3NzaWJsZSBnYXJiYWdlIG1vbmVu
+dGFyeSBkdXJpbmcgYmlvcyB0bwo+Pj4+IGRyaXZlciB0cmFuc2l0aW9uIHZzLiB3YXN0aW5nIGFu
+IGFkZGl0aW9uYWwgMjQgTUIgb2YgQ1BVIGFjY2Vzc2libGUKPj4+PiB2cmFtIGZvciB0aGUgbGlm
+ZSBvZiB0aGUgZHJpdmVyLgo+Pj4gQ2FuIHdlIGZyZWUgdGhlIHJlc2VydmVkIG1lbW9yeSBhZnRl
+ciBpbml0aWFsaXphdGlvbiwgdGhlbiByZXNlcnZlIGl0Cj4+PiBhZ2FpbiBvbiByZXN1bWU/Cj4+
+IFRoZSBpc3N1ZSBoZXJlIHdhcyB0aGF0IHNvbWVvbmUgb3ZlcnJpZGVzIHRoZSBmaXJzdCA4TSBv
+ZiBWUkFNIGFuZAo+PiBjb3JydXB0cyB0aGUgR0FSVCB0YWJsZSwgd2hpY2ggY2F1c2VzIFZNX0ZB
+VUxUUy4gVW50aWwgd2UgZmluZCB3aG8gaXMKPj4gd3JpdGluZyBpbnRvIHRoaXMgYXJlYSBvZiBW
+UkFNIGFuZCB3aGVuIGV4YWN0bHkgSSB0aGluayB3ZSBjYW5ub3QgYWxsb3cKPj4gYW55IGRhdGEg
+dG8gYmUgcGxhY2VkIHRoZXJlIHNpbmNlIGl0J3MgbWlnaHQgZ2V0IGNvcnJ1cHRlZCAoZXZlbiBp
+ZiB3ZQo+PiBhdm9pZCBwbGFjaW5nIHRoZSBHQVJUIHRhYmxlIHRoZXJlKS4KPiBJIHRoaW5rIGl0
+IHNob3VsZG4ndCBiZSB0b28gaGFyZCBpbiBnZW5lcmFsIHRvIG1ha2Ugc3VyZSB0aGUgR0FSVCB0
+YWJsZSwKPiBhbmQgYW55IG90aGVyIEJPcyB3aGljaCBzdGF5IGluIFZSQU0gYWNyb3NzIHN1c3Bl
+bmQvcmVzdW1lLCBkb24ndCBmYWxsCj4gaW4gdGhlIGFmZmVjdGVkIGFyZWEuCgpOb3Qgc3VyZSBJ
+IHVuZGVyc3RhbmQgaG93IGVhc2lseSB0byBzZWFyY2ggZm9yIGFsbCB0aGlzIGtpbmQgb2Ygb2Jq
+ZWN0cyAKYWNyb3NzIGFsbCBJUHMuIEFsc28gaG93IGNhbiB3ZSBiZSBzdXJlIHRoZQplZmZlY3Rl
+ZCByZWdpb24gaXMgcmFuIG92ZXIgb25seSBkdXJpbmcgcmVzdW1lLCB3ZSBrbm93IHRoYXQgR0FS
+VCB0YWJsZSAKaXMgcmFuIG92ZXIgZHVyaW5nIHJlc3VtZSBidXQgd2UgY2FuJ3QgYmUKc3VyZSBv
+dGhlciBhcmVhcyBpbiB0aGF0IHJlZ2lvbiBhcmUgbm90IHJhbiBvdmVyIGR1cmluZyBvdGhlciB0
+aW1lcyBhbmQgCmlmIHNvIGl0J3MgZGFuZ2Vyb3VzIHRvIGFsbG93IGFsbG9jYXRpb25zIHRoZXJl
+LgoKQW5kcmV5Cgo+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
