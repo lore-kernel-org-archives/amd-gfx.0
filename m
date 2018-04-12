@@ -1,72 +1,46 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Allow dma_map_sg() coalescing
-Date: Thu, 12 Apr 2018 21:08:52 +0200
-Message-ID: <a7191315-1b0c-6916-7219-09dda277ce95@amd.com>
-References: <0901c8c3b9adbcb851ba58dfca6b16d12ccbcb0f.1523465719.git.robin.murphy@arm.com>
- <fe9f66a7eb918a3e62473e11c29b973d2c5395ce.1523465719.git.robin.murphy@arm.com>
- <004cd6d9-2675-32c4-38e9-2e1e4f0dc17e@amd.com>
- <24948fc1-ff01-1276-e3fa-c2b0e5713b5b@arm.com>
+From: Mathieu Malaterre <malat@debian.org>
+Subject: [PATCH] drm/radeon: change function signature to pass full range
+Date: Thu, 12 Apr 2018 21:33:33 +0200
+Message-ID: <20180412193333.4951-1-malat@debian.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <24948fc1-ff01-1276-e3fa-c2b0e5713b5b-5wv7dgnIgG8@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: okaya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Mathieu Malaterre <malat@debian.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTIuMDQuMjAxOCB1bSAxOTo1MyBzY2hyaWViIFJvYmluIE11cnBoeToKPiBPbiAxMS8wNC8x
-OCAxOToyOCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMTEuMDQuMjAxOCB1bSAxOTox
-MSBzY2hyaWViIFJvYmluIE11cnBoeToKPj4+IE5vdyB0aGF0IGRybV9wcmltZV9zZ190b19wYWdl
-X2FkZHJfYXJyYXlzKCkgdW5kZXJzdGFuZHMgdGhlIGNhc2Ugd2hlcmUKPj4+IGRtYV9tYXBfc2co
-KSBoYXMgY29hbGVzY2VkIHNlZ21lbnRzIGFuZCByZXR1cm5zIDAgPCBjb3VudCA8IG5lbnRzLCB3
-ZQo+Pj4gY2FuIHJlbGF4IHRoZSBjaGVjayB0byBvbmx5IGNvbnNpZGVyIGdlbnVpbmUgZmFpbHVy
-ZS4KPj4KPj4gVGhhdCBwYXR0ZXJuIGlzIHJlcGVhdGVkIGluIHByZXR0eSBtdWNoIGFsbCBkcml2
-ZXJzIHVzaW5nIFRUTS4KPgo+IEFGQUlDUyBmcm9tIGEgbG9vayB0aHJvdWdoIGRyaXZlcnMvZ3B1
-LyBvbmx5IDMgZHJpdmVycyBjb25zaWRlciB0aGUgCj4gYWN0dWFsIHZhbHVlIG9mIHdoYXQgZG1h
-X21hcF9zZygpIHJldHVybnMgLSBvdGhlcnMgb25seSBoYW5kbGUgdGhlIAo+IGZhaWx1cmUgY2Fz
-ZSBvZiAwLCBhbmQgc29tZSBkb24ndCBjaGVjayBpdCBhdCBhbGwgLSBhbmQgb2YgdGhvc2UgaXQn
-cyAKPiBvbmx5IGFtZGdwdSBhbmQgcmFkZW9uIGJhcmZpbmcgb24gaXQgYmVpbmcgZGlmZmVyZW50
-IGZyb20gbmVudHMgCj4gKHZtd2dmeCBhcHBlYXJzIHRvIGp1c3Qgc3Rhc2ggaXQgdG8gdXNlIHNs
-aWdodGx5IGluY29ycmVjdGx5IGxhdGVyKS4KPgo+PiBTbyB5b3Ugd291bGQgbmVlZCB0byBmaXgg
-YWxsIG9mIHRoZW0sIGJ1dCBhcyBJIHNhaWQgSSBkb24ndCB0aGluayAKPj4gdGhhdCB0aGlzIGFw
-cHJvYWNoIGlzIGEgZ29vZCBpZGVhLgo+Pgo+PiBXZSBlc3NlbnRpYWxseSB3YW50ZWQgdG8gZ2V0
-IHJpZCBvZiB0aGUgZG1hX2FkZHJlc3MgYXJyYXkgaW4gdGhlIG1pZCAKPj4gdGVybSBhbmQgdGhh
-dCBjaGFuZ2UgZ29lcyBpbnRvIHRoZSBleGFjdGx5IG9wcG9zaXRlIGRpcmVjdGlvbi4KPgo+IEJ1
-dCB0aGlzIHBhdGNoIGJlYXJzIG5vIGludGVudGlvbiBvZiBtYWtpbmcgYW55IGZ1bmRhbWVudGFs
-IGNoYW5nZSB0byAKPiB0aGUgZXhpc3RpbmcgYmVoYXZpb3VyIG9mIHRoaXMgcGFydGljdWxhciBk
-cml2ZXIsIGl0IHNpbXBseSBwZXJtaXRzIAo+IHNhaWQgYmVoYXZpb3VyIHRvIHdvcmsgYXQgYWxs
-IG9uIG1vcmUgc3lzdGVtcyB0aGFuIGl0IGN1cnJlbnRseSBkb2VzLiAKPiBJIHdvdWxkIGNvbnNp
-ZGVyIHRoYXQgZW50aXJlbHkgb3J0aG9nb25hbCB0byBmdXR1cmUgVFRNLXdpZGUgCj4gZGV2ZWxv
-cG1lbnQgOi8KClRoYXQncyBhIHJlYWxseSBnb29kIHBvaW50LiBQbGVhc2UgdHJ5IHRvIGZpeCBy
-YWRlb24gYXMgd2VsbCBhbmQgbWF5YmUgCnBpbmcgdGhlIHZtd2dmeCBtYWludGFpbmVycy4KCldp
-dGggdGhhdCBpbiBwbGFjZSBJJ20gcGVyZmVjdGx5IG9rIHdpdGggZ29pbmcgYWhlYWQgd2l0aCB0
-aGF0IGFwcHJvYWNoLgoKQ2hyaXN0aWFuLgoKPgo+IFJvYmluLgo+Cj4+Cj4+IFJlZ2FyZHMsCj4+
-IENocmlzdGlhbi4KPj4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBSb2JpbiBNdXJwaHkgPHJvYmlu
-Lm11cnBoeUBhcm0uY29tPgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdHRtLmMgfCAyICstCj4+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KyksIDEgZGVsZXRpb24oLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3R0bS5jIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdHRtLmMKPj4+IGluZGV4IDIwNWRhM2ZmOWNkMC4uZjgxZTk2YTQyNDJmIDEwMDY0NAo+
-Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+PiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPj4+IEBAIC04MTMsNyAr
-ODEzLDcgQEAgc3RhdGljIGludCBhbWRncHVfdHRtX3R0X3Bpbl91c2VycHRyKHN0cnVjdCAKPj4+
-IHR0bV90dCAqdHRtKQo+Pj4gwqDCoMKgwqDCoCByID0gLUVOT01FTTsKPj4+IMKgwqDCoMKgwqAg
-bmVudHMgPSBkbWFfbWFwX3NnKGFkZXYtPmRldiwgdHRtLT5zZy0+c2dsLCB0dG0tPnNnLT5uZW50
-cywgCj4+PiBkaXJlY3Rpb24pOwo+Pj4gLcKgwqDCoCBpZiAobmVudHMgIT0gdHRtLT5zZy0+bmVu
-dHMpCj4+PiArwqDCoMKgIGlmIChuZW50cyA9PSAwKQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdv
-dG8gcmVsZWFzZV9zZzsKPj4+IMKgwqDCoMKgwqAgZHJtX3ByaW1lX3NnX3RvX3BhZ2VfYWRkcl9h
-cnJheXModHRtLT5zZywgdHRtLT5wYWdlcywKPj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+In function ‘radeon_process_i2c_ch’ a comparison of a u8 value against
+255 is done. Since it is always false, change the signature of this
+function to use an `int` instead, which match the type used in caller:
+`radeon_atom_hw_i2c_xfer`.
+
+Fix the following warning triggered with W=1:
+
+  CC [M]  drivers/gpu/drm/radeon/atombios_i2c.o
+  drivers/gpu/drm/radeon/atombios_i2c.c: In function ‘radeon_process_i2c_ch’:
+  drivers/gpu/drm/radeon/atombios_i2c.c:71:11: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+   if (num > ATOM_MAX_HW_I2C_READ) {
+           ^
+
+Signed-off-by: Mathieu Malaterre <malat@debian.org>
+---
+ drivers/gpu/drm/radeon/atombios_i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/atombios_i2c.c b/drivers/gpu/drm/radeon/atombios_i2c.c
+index 4157780585a0..9022e9af11a0 100644
+--- a/drivers/gpu/drm/radeon/atombios_i2c.c
++++ b/drivers/gpu/drm/radeon/atombios_i2c.c
+@@ -35,7 +35,7 @@
+ 
+ static int radeon_process_i2c_ch(struct radeon_i2c_chan *chan,
+ 				 u8 slave_addr, u8 flags,
+-				 u8 *buf, u8 num)
++				 u8 *buf, int num)
+ {
+ 	struct drm_device *dev = chan->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
+-- 
+2.11.0
