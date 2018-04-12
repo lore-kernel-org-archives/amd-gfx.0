@@ -1,59 +1,90 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH V2] drm/amdgpu: limit DMA size to PAGE_SIZE for
-	scatter-gather buffers
-Date: Thu, 12 Apr 2018 11:42:35 +0200
-Message-ID: <6802bd0c-7da6-659a-7e34-8f05d7c6422c@amd.com>
-References: <1523394001-4615-1-git-send-email-okaya@codeaurora.org>
-	<32b82296-bba5-b5f1-266b-45c1ed66da94@arm.com>
-	<20180412062600.GB30499@lst.de>
+From: Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/prime: Iterate SG DMA addresses separately
+Date: Thu, 12 Apr 2018 11:49:00 +0200
+Message-ID: <1523526540.4981.26.camel@pengutronix.de>
+References: <0901c8c3b9adbcb851ba58dfca6b16d12ccbcb0f.1523465719.git.robin.murphy@arm.com>
+ <67b1875d-9f77-5fb8-bfc6-53d34c15ab16@amd.com>
+ <1523524317.4981.24.camel@pengutronix.de>
+ <58ef1aab-6c3a-8e69-0a7e-98218ba9fe96@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-In-Reply-To: <20180412062600.GB30499-jcswGhMUV9g@public.gmane.org>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, sulrich-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, timur-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Sinan Kaya <okaya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>, Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "open list:DRM DRIVERS" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <58ef1aab-6c3a-8e69-0a7e-98218ba9fe96-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: okaya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org
 
-Am 12.04.2018 um 08:26 schrieb Christoph Hellwig:
-> On Wed, Apr 11, 2018 at 01:03:59PM +0100, Robin Murphy wrote:
->> On 10/04/18 21:59, Sinan Kaya wrote:
->>> Code is expecing to observe the same number of buffers returned from
->>> dma_map_sg() function compared to sg_alloc_table_from_pages(). This
->>> doesn't hold true universally especially for systems with IOMMU.
->> So why not fix said code? It's clearly not a real hardware limitation, and
->> the map_sg() APIs have potentially returned fewer than nents since forever,
->> so there's really no excuse.
-> Yes, relying on dma_map_sg returning the same number of entries as passed
-> it is completely bogus.
-
-I agree that the common DRM functions should be able to deal with both, 
-but we should let the driver side decide if it wants multiple addresses 
-combined or not.
-
->
->>> IOMMU driver tries to combine buffers into a single DMA address as much
->>> as it can. The right thing is to tell the DMA layer how much combining
->>> IOMMU can do.
->> Disagree; this is a dodgy hack, since you'll now end up passing
->> scatterlists into dma_map_sg() which already violate max_seg_size to begin
->> with, and I think a conscientious DMA API implementation would be at rights
->> to fail the mapping for that reason (I know arm64 happens not to, but that
->> was a deliberate design decision to make my life easier at the time).
-> Agreed.
-
-Sounds like my understanding of max_seg_size is incorrect, what exactly 
-should that describe?
-
-Thanks,
-Christian.
+QW0gRG9ubmVyc3RhZywgZGVuIDEyLjA0LjIwMTgsIDExOjM1ICswMjAwIHNjaHJpZWIgQ2hyaXN0
+aWFuIEvDtm5pZzoKPiBBbSAxMi4wNC4yMDE4IHVtIDExOjExIHNjaHJpZWIgTHVjYXMgU3RhY2g6
+Cj4gPiBBbSBNaXR0d29jaCwgZGVuIDExLjA0LjIwMTgsIDIwOjI2ICswMjAwIHNjaHJpZWIgQ2hy
+aXN0aWFuIEvDtm5pZzoKPiA+ID4gQW0gMTEuMDQuMjAxOCB1bSAxOToxMSBzY2hyaWViIFJvYmlu
+IE11cnBoeToKPiA+ID4gPiBGb3IgZG1hX21hcF9zZygpLCBETUEgQVBJIGltcGxlbWVudGF0aW9u
+cyBhcmUgZnJlZSB0byBtZXJnZSBjb25zZWN1dGl2ZQo+ID4gPiA+IHNlZ21lbnRzIGludG8gYSBz
+aW5nbGUgRE1BIG1hcHBpbmcgaWYgY29uZGl0aW9ucyBhcmUgc3VpdGFibGUsIHRodXMgdGhlCj4g
+PiA+ID4gcmVzdWx0aW5nIERNQSBhZGRyZXNzZXMgbWF5IGJlIHBhY2tlZCBpbnRvIGZld2VyIGVu
+dHJpZXMgdGhhbgo+ID4gPiA+IHR0bS0+c2ctPm5lbnRzIGltcGxpZXMuCj4gPiA+ID4gCj4gPiA+
+ID4gZHJtX3ByaW1lX3NnX3RvX3BhZ2VfYWRkcl9hcnJheXMoKSBkb2VzIG5vdCBhY2NvdW50IGZv
+ciB0aGlzLCBtZWFuaW5nCj4gPiA+ID4gaXRzIGNhbGxlcnMgZWl0aGVyIGhhdmUgdG8gcmVqZWN0
+IHRoZSAwIDwgY291bnQgPCBuZW50cyBjYXNlIG9yIHJpc2sKPiA+ID4gPiBnZXR0aW5nIGJvZ3Vz
+IGFkZHJlc3NlcyBiYWNrIGxhdGVyLiBGb3J0dW5hdGVseSB0aGlzIGlzIHJlbGF0aXZlbHkgZWFz
+eQo+ID4gPiA+IHRvIGRlYWwgd2l0aCBoYXZpbmcgdG8gcmVqaWcgc3RydWN0dXJlcyB0byBhbHNv
+IHN0b3JlIHRoZSBtYXBwZWQgY291bnQsCj4gPiA+ID4gc2luY2UgdGhlIHRvdGFsIERNQSBsZW5n
+dGggc2hvdWxkIHN0aWxsIGJlIGVxdWFsIHRvIHRoZSB0b3RhbCBidWZmZXIKPiA+ID4gPiBsZW5n
+dGguIEFsbCB3ZSBuZWVkIGlzIGEgc2VwYXJhdGUgc2NhdHRlcmxpc3QgY3Vyc29yIHRvIGl0ZXJh
+dGUgdGhlIERNQQo+ID4gPiA+IGFkZHJlc3NlcyBzZXBhcmF0ZWx5IGZyb20gdGhlIENQVSBhZGRy
+ZXNzZXMuCj4gPiA+IAo+ID4gPiBNaG0sIEkgdGhpbmsgSSBsaWtlIFNpbmFzIGFwcHJvYWNoIGJl
+dHRlci4KPiA+ID4gCj4gPiA+IFNlZSB0aGUgaGFyZHdhcmUgYWN0dWFsbHkgbmVlZHMgdGhlIGRt
+YV9hZGRyZXNzIG9uIGEgcGFnZSBieSBwYWdlIGJhc2lzLgo+ID4gPiAKPiA+ID4gSm9pbmluZyBt
+dWx0aXBsZSBjb25zZWN1dGl2ZSBwYWdlcyBpbnRvIG9uZSBlbnRyeSBpcyBqdXN0IGFkZGl0aW9u
+YWwKPiA+ID4gb3ZlcmhlYWQgd2hpY2ggd2UgZG9uJ3QgbmVlZC4KPiA+IAo+ID4gQnV0IHNldHRp
+bmcgTUFYX1NFR01FTlRfU0laRSB3aWxsIHByb2JhYmx5IHByZXZlbnQgYW4gSU9NTVUgdGhhdCBt
+aWdodAo+ID4gYmUgaW4gZnJvbnQgb2YgeW91ciBHUFUgdG8gbWFwIGxhcmdlIHBhZ2VzIGFzIHN1
+Y2gsIGNhdXNpbmcgYWRkaXRpb25hbAo+ID4gb3ZlcmhlYWQgYnkgbWVhbnMgb2YgYWRkaXRpb25h
+bCBUTEIgbWlzc2VzIGFuZCBwYWdlIHdhbGtzIG9uIHRoZSBJT01NVQo+ID4gc2lkZS4KPiA+IAo+
+ID4gQW5kIHdvdWxkbid0IHlvdSBsaWtlIHRvIHVzZSBodWdlIHBhZ2VzIGF0IHRoZSBHUFUgc2lk
+ZSwgaWYgdGhlIElPTU1VCj4gPiBhbHJlYWR5IHByb3ZpZGVzIHlvdSB0aGUgc2VydmljZSBvZiBw
+cm9kdWNpbmcgb25lIGxhcmdlIGNvbnNlY3V0aXZlCj4gPiBhZGRyZXNzIHJhbmdlLCByYXRoZXIg
+dGhhbiBtYXBwaW5nIHRoZW0gdmlhIGEgbnVtYmVyIG9mIHNtYWxsIHBhZ2VzPwo+IAo+IE5vLCBJ
+IHdvdWxkbid0IGxpa2UgdG8gdXNlIHRoYXQuIFdlJ3JlIGFscmVhZHkgdXNpbmcgdGhhdCA6KQo+
+IAo+IEJ1dCB3ZSB1c2UgaHVnZSBwYWdlcyBieSBhbGxvY2F0aW5nIGNvbnNlY3V0aXZlIGNodW5r
+cyBvZiBtZW1vcnkgc28gdGhhdMKgCj4gYm90aCB0aGUgQ1BVIGFzIHdlbGwgYXMgdGhlIEdQVSBj
+YW4gaW5jcmVhc2UgdGhlaXIgVExCIGhpdCByYXRlLgoKSSdtIG5vdCBjb252aW5jZWQgdGhhdCB0
+aGlzIGlzIGEgdW5pdmVyc2FsIHdpbi4gTWFueSBHUFUgYnVmZmVycyBhcmVuJ3QKYWNjZXNzZWQg
+YnkgdGhlIENQVSBhbmQgYWxsb2NhdGluZyBodWdlIHBhZ2VzIHB1dHMgbXVjaCBtb3JlIHN0cmFp
+biBvbgp0aGUga2VybmVsIE1NIHN1YnN5c3RlbS4KCj4gV2hhdCBjdXJyZW50bHkgaGFwcGVucyBp
+cyB0aGF0IHRoZSBETUEgc3Vic3lzdGVtIHRyaWVzIHRvIGNvYWxlc2NlwqAKPiBtdWx0aXBsZSBw
+YWdlcyBpbnRvIG9uIFNHIGVudHJ5IGFuZCB3ZSBkZS1jb2FsZXNjZSB0aGF0IGluc2lkZSB0aGXC
+oAo+IGRyaXZlciBhZ2FpbiB0byBjcmVhdGUgb3VyIHJhbmRvbSBhY2Nlc3MgYXJyYXkuCgpJIGd1
+ZXNzIHRoZSByaWdodCB0aGluZyB3b3VsZCBiZSB0byBoYXZlIGEgZmxhZyB0aGF0IHRlbGxzIHRo
+ZSB0aGUgRE1BCmltcGxlbWVudGF0aW9uIHRvIG5vdCBjb2FsZXNjZSB0aGUgZW50cmllcy4gQnV0
+IChhYi0pdXNpbmcgbWF4IHNlZ21lbnQKc2l6ZSB0ZWxscyB0aGUgRE1BIEFQSSB0byBzcGxpdCB0
+aGUgc2VnbWVudHMgaWYgdGhleSBhcmUgbGFyZ2VyIHRoYW4KdGhlIGdpdmVuIHNpemUsIHdoaWNo
+IGlzIHByb2JhYmx5IG5vdCB3aGF0IHlvdSB3YW50IGVpdGhlciBhcyB5b3Ugbm93Cm5lZWQgdG8g
+Y29hbGVzY2UgdGhlIHNlZ21lbnRzIGFnYWluIHdoZW4geW91IGFyZSBtYXBwaW5nIHJlYWwgaHVn
+ZQpwYWdlcy4KCj4gVGhhdCBpcyBhIGh1Z2Ugd2FzdGUgb2YgbWVtb3J5IGFuZCBDUFUgY3ljbGVz
+IGFuZCBJIGFjdHVhbGx5IHdhbnRlZCB0b8KgCj4gZ2V0IHJpZCBvZiBpdCBmb3IgcXVpdGUgc29t
+ZSB0aW1lIG5vdy4gU2luYXMgYXBwcm9hY2ggc2VlbXMgdG8gYmUgYSBnb29kwqAKPiBzdGVwIGlu
+dG8gdGhlIHJpZ2h0IGRpcmVjdGlvbiB0byBtZSB0byBhY3R1YWxseSBjbGVhbiB0aGF0IHVwLgo+
+IAo+ID4gRGV0ZWN0aW5nIHN1Y2ggYSBjb25kaXRpb24gaXMgbXVjaCBlYXNpZXIgaWYgdGhlIERN
+QSBtYXAgaW1wbGVtZW50YXRpb24KPiA+IGdpdmVzIHlvdSB0aGUgY29hbGVzY2VkIHNjYXR0ZXIg
+ZW50cmllcy4KPiAKPiBBIHdheSB3aGljaCBwcmVzZXJ2ZXMgYm90aCBwYXRoIHdvdWxkIGJlIGlu
+ZGVlZCBuaWNlIHRvIGhhdmUsIGJ1dCB0aGF0wqAKPiBvbmx5IGFsbG93cyBmb3IgdGhlIFRMQiBv
+cHRpbWl6YXRpb24gZm9yIHRoZSBHUFUgYW5kIG5vdCB0aGUgQ1BVIGFuecKgCj4gbW9yZS4gU28g
+SSBhY3R1YWxseSBzZWUgdGhhdCBhcyByZWFsbHkgbWlub3IgdXNlIGNhc2UuCgpTb21lIG9mIHRo
+ZSBUZWdyYXMgaGF2ZSBtdWNoIGxhcmdlciBUTEJzIGFuZCBiZXR0ZXIgcGFnZS13YWxrCnBlcmZv
+cm1hbmNlIG9uIHRoZSBzeXN0ZW0gSU9NTVUgY29tcGFyZWQgdG8gdGhlIEdQVSBNTVUsIHNvIHRo
+ZXkgd291bGQKcHJvYmFibHkgYmVuZWZpdCBhIGdvb2QgZGVhbCBldmVuIGlmIHRoZSBodWdlcGFn
+ZSBvcHRpbWl6YXRpb24gb25seQp0YXJnZXRzIHRoZSBHUFUgc2lkZS4KClJlZ2FyZHMsCkx1Y2Fz
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
