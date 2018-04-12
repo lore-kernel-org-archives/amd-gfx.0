@@ -1,17 +1,14 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v4 1/2] drm/amdgpu/gmc: steal the appropriate amount of
- vram for fw hand-over
-Date: Thu, 12 Apr 2018 17:09:40 +0800
-Message-ID: <20180412090939.GA2630@hr-amur2>
-References: <1523506110-14002-1-git-send-email-andrey.grodzovsky@amd.com>
- <CADnq5_Nw0Cwh-pg9==CWLRC2E709b2S8LEWMd93Eo+ZRfZ7GCQ@mail.gmail.com>
- <5e42d9cf-2581-14e1-80fd-0378323617c5@amd.com>
+From: Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/prime: Iterate SG DMA addresses separately
+Date: Thu, 12 Apr 2018 11:11:57 +0200
+Message-ID: <1523524317.4981.24.camel@pengutronix.de>
+References: <0901c8c3b9adbcb851ba58dfca6b16d12ccbcb0f.1523465719.git.robin.murphy@arm.com>
+ <67b1875d-9f77-5fb8-bfc6-53d34c15ab16@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <5e42d9cf-2581-14e1-80fd-0378323617c5-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <67b1875d-9f77-5fb8-bfc6-53d34c15ab16-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,26 +19,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Ranjbar,
- Ramin" <Ramin.Ranjbar-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: okaya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org
 
-T24gVGh1LCBBcHIgMTIsIDIwMTggYXQgMTI6MjU6MDhQTSArMDgwMCwgR3JvZHpvdnNreSwgQW5k
-cmV5IHdyb3RlOgo+IAo+IAo+IE9uIDA0LzEyLzIwMTggMTI6MTYgQU0sIEFsZXggRGV1Y2hlciB3
-cm90ZToKPiA+IE9uIFRodSwgQXByIDEyLCAyMDE4IGF0IDEyOjA4IEFNLCBBbmRyZXkgR3JvZHpv
-dnNreQo+ID4gPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+IHdyb3RlOgo+ID4+IEZyb206IEFs
-ZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPgo+ID4+Cj4gPj4gU3RlYWwgOSBNQiBm
-b3IgdmdhIGVtdWxhdGlvbiBhbmQgZmIgaWYgdmdhIGlzIGVuYWJsZWQsIG90aGVyd2lzZSwKPiA+
-PiBzdGVhbCBlbm91Z2ggdG8gY292ZXIgdGhlIGN1cnJlbnQgZGlzcGxheSBzaXplIGFzIHNldCBi
-eSB0aGUgdmJpb3MuCj4gPj4KPiA+PiBJZiBubyBtZW1vcnkgaXMgdXNlZCAoZS5nLiwgc2Vjb25k
-YXJ5IG9yIGhlYWRsZXNzIGNhcmQpLCBza2lwCj4gPj4gc3RvbGVuIG1lbW9yeSByZXNlcnZlLgo+
-ID4+Cj4gPj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPgo+ID4gTG9va3MgbGlrZSB5b3UgdXNlZCB2MSByYXRoZXIgdGhhbiB2MiBvZiB0aGlz
-IHBhdGNoOgo+ID4gaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzIxNTU2
-Ni8KPiA+Cj4gPiBBbGV4Cj4gCj4gVG8gbXVjaCBwYXRjaGVzIGNpcmNsaW5nIGFyb3VuZCwgTlAs
-IHdpbGwgcmVzcGluIHRvbW9ycm93Lgo+IAoKTmV2ZXJtaW5kLCBndXkuIEkgd2lsbCB2ZXJpZnkg
-dGhlbSBvbmNlIHlvdSBzZW5kIHRoZSBwYXRjaGVzIHRvbW9ycm93LiA6LSkKClRoYW5rcywKUmF5
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+QW0gTWl0dHdvY2gsIGRlbiAxMS4wNC4yMDE4LCAyMDoyNiArMDIwMCBzY2hyaWViIENocmlzdGlh
+biBLw7ZuaWc6Cj4gQW0gMTEuMDQuMjAxOCB1bSAxOToxMSBzY2hyaWViIFJvYmluIE11cnBoeToK
+PiA+IEZvciBkbWFfbWFwX3NnKCksIERNQSBBUEkgaW1wbGVtZW50YXRpb25zIGFyZSBmcmVlIHRv
+IG1lcmdlIGNvbnNlY3V0aXZlCj4gPiBzZWdtZW50cyBpbnRvIGEgc2luZ2xlIERNQSBtYXBwaW5n
+IGlmIGNvbmRpdGlvbnMgYXJlIHN1aXRhYmxlLCB0aHVzIHRoZQo+ID4gcmVzdWx0aW5nIERNQSBh
+ZGRyZXNzZXMgbWF5IGJlIHBhY2tlZCBpbnRvIGZld2VyIGVudHJpZXMgdGhhbgo+ID4gdHRtLT5z
+Zy0+bmVudHMgaW1wbGllcy4KPiA+IAo+ID4gZHJtX3ByaW1lX3NnX3RvX3BhZ2VfYWRkcl9hcnJh
+eXMoKSBkb2VzIG5vdCBhY2NvdW50IGZvciB0aGlzLCBtZWFuaW5nCj4gPiBpdHMgY2FsbGVycyBl
+aXRoZXIgaGF2ZSB0byByZWplY3QgdGhlIDAgPCBjb3VudCA8IG5lbnRzIGNhc2Ugb3Igcmlzawo+
+ID4gZ2V0dGluZyBib2d1cyBhZGRyZXNzZXMgYmFjayBsYXRlci4gRm9ydHVuYXRlbHkgdGhpcyBp
+cyByZWxhdGl2ZWx5IGVhc3kKPiA+IHRvIGRlYWwgd2l0aCBoYXZpbmcgdG8gcmVqaWcgc3RydWN0
+dXJlcyB0byBhbHNvIHN0b3JlIHRoZSBtYXBwZWQgY291bnQsCj4gPiBzaW5jZSB0aGUgdG90YWwg
+RE1BIGxlbmd0aCBzaG91bGQgc3RpbGwgYmUgZXF1YWwgdG8gdGhlIHRvdGFsIGJ1ZmZlcgo+ID4g
+bGVuZ3RoLiBBbGwgd2UgbmVlZCBpcyBhIHNlcGFyYXRlIHNjYXR0ZXJsaXN0IGN1cnNvciB0byBp
+dGVyYXRlIHRoZSBETUEKPiA+IGFkZHJlc3NlcyBzZXBhcmF0ZWx5IGZyb20gdGhlIENQVSBhZGRy
+ZXNzZXMuCj4gCj4gTWhtLCBJIHRoaW5rIEkgbGlrZSBTaW5hcyBhcHByb2FjaCBiZXR0ZXIuCj4g
+Cj4gU2VlIHRoZSBoYXJkd2FyZSBhY3R1YWxseSBuZWVkcyB0aGUgZG1hX2FkZHJlc3Mgb24gYSBw
+YWdlIGJ5IHBhZ2UgYmFzaXMuCj4gCj4gSm9pbmluZyBtdWx0aXBsZSBjb25zZWN1dGl2ZSBwYWdl
+cyBpbnRvIG9uZSBlbnRyeSBpcyBqdXN0IGFkZGl0aW9uYWzCoAo+IG92ZXJoZWFkIHdoaWNoIHdl
+IGRvbid0IG5lZWQuCgpCdXQgc2V0dGluZyBNQVhfU0VHTUVOVF9TSVpFIHdpbGwgcHJvYmFibHkg
+cHJldmVudCBhbiBJT01NVSB0aGF0IG1pZ2h0CmJlIGluIGZyb250IG9mIHlvdXIgR1BVIHRvIG1h
+cCBsYXJnZSBwYWdlcyBhcyBzdWNoLCBjYXVzaW5nIGFkZGl0aW9uYWwKb3ZlcmhlYWQgYnkgbWVh
+bnMgb2YgYWRkaXRpb25hbCBUTEIgbWlzc2VzIGFuZCBwYWdlIHdhbGtzIG9uIHRoZSBJT01NVQpz
+aWRlLgoKQW5kIHdvdWxkbid0IHlvdSBsaWtlIHRvIHVzZSBodWdlIHBhZ2VzIGF0IHRoZSBHUFUg
+c2lkZSwgaWYgdGhlIElPTU1VCmFscmVhZHkgcHJvdmlkZXMgeW91IHRoZSBzZXJ2aWNlIG9mIHBy
+b2R1Y2luZyBvbmUgbGFyZ2UgY29uc2VjdXRpdmUKYWRkcmVzcyByYW5nZSwgcmF0aGVyIHRoYW4g
+bWFwcGluZyB0aGVtIHZpYSBhIG51bWJlciBvZiBzbWFsbCBwYWdlcz8KRGV0ZWN0aW5nIHN1Y2gg
+YSBjb25kaXRpb24gaXMgbXVjaCBlYXNpZXIgaWYgdGhlIERNQSBtYXAgaW1wbGVtZW50YXRpb24K
+Z2l2ZXMgeW91IHRoZSBjb2FsZXNjZWQgc2NhdHRlciBlbnRyaWVzLgoKUmVnYXJkcywKTHVjYXMK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
