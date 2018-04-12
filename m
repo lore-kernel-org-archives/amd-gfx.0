@@ -1,19 +1,14 @@
-From: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu 3/5] Keep CRTC properties consistent
-Date: Thu, 12 Apr 2018 12:48:11 -0400
-Message-ID: <f915a0db-4756-91de-e9dd-336da66060e6@amd.com>
-References: <1522094418-9102-1-git-send-email-sunpeng.li@amd.com>
- <1522094418-9102-4-git-send-email-sunpeng.li@amd.com>
- <2fbbae9b-c874-7187-9b69-0a929dcaf5cf@daenzer.net>
- <0b884ad3-c193-9eab-ca93-ff0ca0672f1e@amd.com>
- <4cd3224e-fd14-e66f-56bf-b983b8f74bc8@daenzer.net>
- <78b780f2-d075-9496-e62a-8f6de989b992@amd.com>
- <cc580a31-0679-5492-afff-2ff683ca975d@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 1/1] drm/amdgpu: Enable scatter gather display support
+Date: Thu, 12 Apr 2018 19:03:00 +0200
+Message-ID: <15196bc3-76cb-0a52-c05f-f23131f77e7f@amd.com>
+References: <1522189371-13767-1-git-send-email-Samuel.Li@amd.com>
+ <7cc47f78-66eb-148d-96a2-b97760f767bf@gmail.com>
+ <CAAxE2A4msxZa19Cvv6giMDDYg57-M_qawgFRM2aaK6sUERuqSA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1894656723=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <cc580a31-0679-5492-afff-2ff683ca975d-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <CAAxE2A4msxZa19Cvv6giMDDYg57-M_qawgFRM2aaK6sUERuqSA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,78 +20,431 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 
-CgpPbiAyMDE4LTA0LTEyIDA2OjMwIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyMDE4
-LTA0LTExIDExOjI2IFBNLCBMZW8gTGkgd3JvdGU6Cj4+IE9uIDIwMTgtMDQtMTEgMDQ6MzkgQU0s
-IE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+Pj4KPj4+IEhtbS4gU28gZWl0aGVyIGxlZ2FjeSBvciBu
-b24tbGVnYWN5IGNsaWVudHMgd29uJ3Qgd29yayBhdCBhbGwsIG9yCj4+PiB0aGV5J2xsIHN0ZXAg
-b24gZWFjaCBvdGhlcidzIHRvZXMsIGNsb2JiZXJpbmcgdGhlIEhXIGdhbW1hIExVVCBmcm9tCj4+
-PiBlYWNoIG90aGVyLgo+Pj4KPj4+IEknbSBhZnJhaWQgbmVpdGhlciBvZiB0aG9zZSBhbHRlcm5h
-dGl2ZXMgc291bmQgbGlrZSBhIGdvb2QgdXNlcgo+Pj4gZXhwZXJpZW5jZSB0byBtZS4KPj4+Cj4+
-PiBDb25zaWRlciBvbiB0aGUgb25lIGhhbmQgc29tZXRoaW5nIGxpa2UgTmlnaHQgTGlnaHQgLyBy
-ZWRzaGlmdCwKPj4+IHVzaW5nIGxlZ2FjeSBBUElzIHRvIGFkanVzdCBjb2xvdXIgdGVtcGVyYXR1
-cmUgdG8gdGhlIHRpbWUgb2YgZGF5Lgo+Pj4gT24gdGhlIG90aGVyIGhhbmQsIGFub3RoZXIgY2xp
-ZW50IHVzaW5nIHRoZSBub24tbGVnYWN5IEFQSSBmb3Igc2F5Cj4+PiBmaW5lLXR1bmluZyBvZiBh
-IGRpc3BsYXkncyBhZHZhbmNlZCBnYW1tYSBjYXBhYmlsaXRpZXMuCj4+Pgo+Pj4gSWRlYWxseSwg
-aW4gdGhpcyBjYXNlIHRoZSBnYW1tYSBMVVRzIGZyb20gdGhlIGxlZ2FjeSBhbmQgbm9uLWxlZ2Fj
-eQo+Pj4gQVBJcyBzaG91bGQgYmUgY29tYmluZWQsIHN1Y2ggdGhhdCB0aGUgaGFyZHdhcmUgTFVU
-IHJlZmxlY3RzIGJvdGgKPj4+IHRoZSBjb2xvdXIgdGVtcGVyYXR1cmUgc2V0IGJ5IE5pZ2h0IExp
-Z2h0IC8gcmVmc2hpZnQgYW5kIHRoZQo+Pj4gZmluZS10dW5pbmcgc2V0IGJ5IHRoZSBub24tbGVn
-YWN5IGNsaWVudC4gSXMgdGhhdCBmZWFzaWJsZT8gSWYgbm90LAo+Pj4gY2FuIHlvdSBleHBsYWlu
-IGEgbGl0dGxlIHdoeT8KPj4KPj4gSG1tLCBjb21iaW5pbmcgTFVUcyBjb3VsZCBiZSBmZWFzaWJs
-ZSwgYnV0IEkgZG9uJ3QgdGhpbmsgdGhhdCdzIHRoZQo+PiByaWdodCBhcHByb2FjaC4KPj4KPj4g
-TFVUcyBjYW4gYmUgY29tYmluZWQgdGhyb3VnaCBjb21wb3NpdGlvbiBoKHgpID0gZihnKHgpKSwg
-d2l0aCBzb21lCj4+IGludGVycG9sYXRpb24gaW52b2x2ZWQuIE9uY2UgY29tYmluZWQsIGl0IGNh
-biBiZSBzZXQgdXNpbmcgdGhlCj4+IG5vbi1sZWdhY3kgQVBJLCBzaW5jZSB0aGF0J2xsIGxpa2Vs
-eSBoYXZlIGEgbGFyZ2VyIExVVCBzaXplLgo+Pgo+PiBCdXQgSSB0aGluayB3aGF0IHlvdSd2ZSBt
-ZW50aW9uZWQgcmFpc2VzIGEgYmlnZ2VyIGlzc3VlIG9mIGNvbG9yCj4+IG1hbmFnZW1lbnQgY29u
-ZmxpY3RzIGluIGdlbmVyYWwuIEl0IGRvZXNuJ3QgaGF2ZSB0byBiZSByZWRzaGlmdCB2cwo+PiBt
-b25pdG9yIGNvcnJlY3Rpb24sIHdoYXQgaWYgdGhlcmUgbW9yZSB0aGFuIDIgYXBwbGljYXRpb25z
-IGNvbnRlbmRpbmcKPj4gdG8gc2V0IGdhbW1hPyB4cmFuZHIncyBicmlnaHRuZXNzIGFscmVhZHkg
-Y29uZmxpY3RzIHdpdGggcmVkc2hpZnQsCj4+IGFuZCBzbyBkb2VzIHNvbWUgYXBwcyBydW5uaW5n
-IG9uIFdJTkUuCj4gCj4gV2hhdCB5b3UncmUgZGVzY3JpYmluZyBpcyBhbiBYMTEgZGVzaWduIGZs
-YXcsIHdoaWNoIHdlIGNhbm5vdCBkbwo+IGFueXRoaW5nIGFib3V0IGluIHRoZSBERFggZHJpdmVy
-Lgo+IAo+IFdoYXQgSSB3YW50IHRvIGF2b2lkIGlzIHJlcGVhdGluZyBhIHNpbWlsYXIgc2l0dWF0
-aW9uIGFzIHdlIGhhZCBiZWZvcmUKPiB4c2VydmVyIDEuMTksIHdoZXJlIG9uZSBjb3VsZCBoYXZl
-IGVpdGhlciB3b3JraW5nIHBlci13aW5kb3cgY29sb3JtYXBzCj4gYW5kIGdsb2JhbCBnYW1tYSwg
-b3IgcGVyLUNSVEMgZ2FtbWEgdmlhIFJhbmRSLCBub3QgYWxsIGF0IHRoZSBzYW1lCj4gdGltZS4g
-KEJlZm9yZSB4c2VydmVyIDEuNywgdGhleSB3b3VsZCBjbG9iYmVyIHRoZSBIVyBMVVQgZnJvbSBl
-YWNoCj4gb3RoZXIpIEkgZml4ZWQgdGhpcyBpbgo+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5v
-cmcveG9yZy94c2VydmVyL2NvbW1pdC8/aWQ9YjRlNDZjMDQ0NGJiMDlmNGFmNTlkOWQxM2FjYzkz
-OWEwZmJiYzZkNgo+IGJ5IGNvbXBvc2luZyB0aGUgTFVUcy4KPiAKPiAKPj4gRm9yIHRoZSBzbWFs
-bCBleGFtcGxlIGF0IGhhbmQsIHRoZSBpZGVhbCBzb2x1dGlvbiBpcyB0byBoYXZlCj4+IHJlZHNo
-aWZ0IHVzZSB0aGUgY29sb3IgdHJhbnNmb3JtYXRpb24gbWF0cml4IChDVE0pLCB3aGljaCB3aWxs
-IGJlCj4+IGV4cG9zZWQgYXMgcGFydCBvZiB0aGUgbm9uLWxlZ2FjeSBjb2xvciBBUEkuIEl0J2xs
-IG5lZWQgbW9kaWZpY2F0aW9uCj4+IG9mIHJlZHNoaWZ0LCBidXQgYXQgbGVhc3QgaXQgd29uJ3Qg
-Y29uZmxpY3Qgd2l0aCBhbnl0aGluZyBnYW1tYQo+PiByZWxhdGVkLgo+IAo+ICBGcm9tIHBhc3Qg
-ZXhwZXJpZW5jZSwgaXQgY2FuIHRha2UgYSBsb25nIHRpbWUgKHVwIHRvIGZvcmV2ZXIpIGZvciBz
-b21lCj4gY2xpZW50cyB0byBiZSB1cGRhdGVkIGxpa2UgdGhpcy4gRS5nLiBpdCdzIHVubGlrZWx5
-IGF0IHRoaXMgcG9pbnQgdGhhdAo+IGxpYnJhcmllcyBzdWNoIGFzIFNETDEgd2lsbCBldmVyIGJl
-IHVwZGF0ZWQgZm9yIHRoZSBuZXcgQVBJLCBzbyBJJ20KPiBhZnJhaWQgdXNlcnMgd291bGQgcnVu
-IGludG8gdGhpbmdzIGxpa2UKPiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVn
-LmNnaT9pZD0yNzIyMiBhZ2Fpbi4KPiAKPiAoQmVzaWRlcywgaXQgd291bGQgY29uZmxpY3Qgd2l0
-aCBhbnl0aGluZyBlbHNlIHVzaW5nIHRoZSBzYW1lIEFQSSwgYXMKPiB5b3UgZGVzY3JpYmVkIGFi
-b3ZlLCBzbyBpdCdzIG5vdCBldmVuIG9idmlvdXNseSB0aGUgaWRlYWwgc29sdXRpb24pCj4gCgpG
-YWlyIGVub3VnaCwgaXQncyBiZXR0ZXIgdG8gaGF2ZSB0aGUgZnJlcXVlbnQgcmVkc2hpZnQrbW9u
-aXRvciBhZGp1c3QKdXNlLWNhc2Ugd29ya2luZyBub3cgaW5zdGVhZCBvZiBwdXNoaW5nIGFuIGVu
-dGlyZWx5IG5ldyBBUEkuCgo+IAo+PiBKdW1waW5nIGJhY2sgb24gc29tZSBwYXRjaCAxIHRvcGlj
-czoKPj4KPj4gQXJlIHRoZXJlIHdheXMgdG8gZ2V0IGFyYml0cmFyaWx5IChubyBtb3JlIHRoYW4g
-NDA5NiBlbGVtZW50cykgc2l6ZWQKPj4gYXJyYXlzIGZyb20gYSBjbGllbnQsIHRvIHRoZSBERFgg
-ZHJpdmVyPwo+IAo+IFNlZW1zIGxpa2UgdGhlIFJSQ2hhbmdlT3V0cHV0UHJvcGVydHkgcmVxdWVz
-dCBjb3VsZCB3b3JrLgo+IAo+IAo+PiBJIGFncmVlLCBpdCB3b3VsZCBkZWZpbml0ZWx5IGJlIG5p
-Y2VyIGZvciBjbGllbnRzIHRvIG5vdCB3b3JyeSBhYm91dAo+PiBEUk0gYmxvYnMgYXQgYWxsLgo+
-IAo+IEluZGVlZC4gRS5nLiBhcyBhIGJvbnVzLCBpdCB3b3VsZCBhbGxvdyB0aGlzIHRvIHdvcmsg
-ZXZlbiB3aXRoIGEgcmVtb3RlCj4gZGlzcGxheSBjb25uZWN0aW9uLgo+IAo+IAo+IEknbSBob2xk
-aW5nIG9mZiBvbiB0aGUgbW9yZSBkZXRhaWxlZCBkaXNjdXNzaW9uIGFib3V0IHRoZSBvdGhlciBw
-YXRjaGVzCj4gdW50aWwgdGhlcmUgaXMgYSBwbGFuIGZvciB0aGlzIGZ1bmRhbWVudGFsIGlzc3Vl
-Lgo+IAo+IAoKSSdsbCB0YWtlIGFub3RoZXIgbG9vayBhdCBSUkNoYW5nZU91dHB1dFByb3BlcnR5
-LiBTZWVtcyBJIG1pc3NlZCB0aGUKJ2xlbmd0aCcgYXJndW1lbnQgd2hlbiBJIGZpcnN0IHdlbnQg
-dGhyb3VnaCBpdC4KCk9uY2UgdGhlIGJsb2JzIGFyZSBnb25lLCB0aGUgb3RoZXIgaXNzdWVzIHNo
-b3VsZCBiZSBtdWNoIHNpbXBsZXIgdG8Kc29sdmUuIEknbGwgc2VlIGlmIEkgY2FuIGNvbWUgdXAg
-d2l0aCBzb21lIHYyJ3MuCgpBIHNpZGUgcXVlc3Rpb246IEhvdyBkb2VzIHhyYW5kciBkaXNwbGF5
-IGxlbmd0aHkgcHJvcGVydGllcywgbGlrZSBMVVRzPwpDYW4gdXNlcnMgc2V0IGl0IHZpYSAtLXNl
-dCBzdGlsbD8KCkxlbwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1894656723==
+Content-Type: multipart/alternative;
+ boundary="------------08E8E92E22B6D728F3B9A6F5"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------08E8E92E22B6D728F3B9A6F5
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+> Can you be more specific, Christian? Mesa has this, I don't think it 
+> needs anything else:
+Completely agree, that's what I suggested to implement.
+
+The point is this kernel change now needs to be reworked and adapted to 
+what Mesa is doing.
+
+Regards,
+Christian.
+
+Am 12.04.2018 um 18:40 schrieb Marek Olšák:
+> Can you be more specific, Christian? Mesa has this, I don't think it 
+> needs anything else:
+> https://cgit.freedesktop.org/mesa/mesa/commit/?id=7d2079908d9ef05ec3f35b7078833e57846cab5b
+>
+> Marek
+>
+> On Wed, Mar 28, 2018 at 3:46 AM, Christian König 
+> <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
+> <mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
+>
+>     Am 28.03.2018 um 00:22 schrieb Samuel Li:
+>
+>         It's auto by default. For CZ/ST, auto setting enables sg display
+>         when vram size is small; otherwise still uses vram.
+>         This patch fixed some potential hang issue introduced by change
+>         "allow framebuffer in GART memory as well" due to CZ/ST hardware
+>         limitation.
+>
+>
+>     Well that is still a NAK.
+>
+>     As discussed now multiple times please implement the necessary
+>     changes in Mesa.
+>
+>     Regards,
+>     Christian.
+>
+>
+>
+>         v2: Change default setting to auto, also some misc changes.
+>         Signed-off-by: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org
+>         <mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>
+>         ---
+>           drivers/gpu/drm/amd/amdgpu/amdgpu.h    |  1 +
+>           drivers/gpu/drm/amd/amdgpu/amdgpu_display.c    | 10 ++++++++--
+>           drivers/gpu/drm/amd/amdgpu/amdgpu_display.h    |  2 ++
+>           drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 ++++
+>           drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c   |  2 ++
+>           drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++-
+>           6 files changed, 19 insertions(+), 3 deletions(-)
+>
+>         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         index a7e2229..c942362 100644
+>         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         @@ -129,6 +129,7 @@ extern int amdgpu_lbpw;
+>           extern int amdgpu_compute_multipipe;
+>           extern int amdgpu_gpu_recovery;
+>           extern int amdgpu_emu_mode;
+>         +extern int amdgpu_sg_display;
+>             #ifdef CONFIG_DRM_AMDGPU_SI
+>           extern int amdgpu_si_support;
+>         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>         index 5495b29..1e7b950 100644
+>         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>         @@ -513,8 +513,14 @@ uint32_t
+>         amdgpu_display_framebuffer_domains(struct amdgpu_device *adev)
+>           #if defined(CONFIG_DRM_AMD_DC)
+>                 if (adev->asic_type >= CHIP_CARRIZO && adev->asic_type
+>         < CHIP_RAVEN &&
+>                     adev->flags & AMD_IS_APU &&
+>         -           amdgpu_device_asic_has_dc_support(adev->asic_type))
+>         -               domain |= AMDGPU_GEM_DOMAIN_GTT;
+>         +           amdgpu_device_asic_has_dc_support(adev->asic_type)) {
+>         +               if (amdgpu_sg_display == 1)
+>         +                       domain = AMDGPU_GEM_DOMAIN_GTT;
+>         +               else if (amdgpu_sg_display == -1) {
+>         +                       if (adev->gmc.real_vram_size <
+>         AMDGPU_SG_THRESHOLD)
+>         +                               domain = AMDGPU_GEM_DOMAIN_GTT;
+>         +               }
+>         +       }
+>           #endif
+>                 return domain;
+>         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+>         index 2b11d80..2b25393 100644
+>         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+>         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+>         @@ -23,6 +23,8 @@
+>           #ifndef __AMDGPU_DISPLAY_H__
+>           #define __AMDGPU_DISPLAY_H__
+>           +#define AMDGPU_SG_THRESHOLD  (256*1024*1024)
+>         +
+>           uint32_t amdgpu_display_framebuffer_domains(struct
+>         amdgpu_device *adev);
+>           struct drm_framebuffer *
+>           amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+>         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>         index 1bfce79..19f11a5 100644
+>         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>         @@ -132,6 +132,7 @@ int amdgpu_lbpw = -1;
+>           int amdgpu_compute_multipipe = -1;
+>           int amdgpu_gpu_recovery = -1; /* auto */
+>           int amdgpu_emu_mode = 0;
+>         +int amdgpu_sg_display = -1;
+>             MODULE_PARM_DESC(vramlimit, "Restrict VRAM for testing, in
+>         megabytes");
+>           module_param_named(vramlimit, amdgpu_vram_limit, int, 0600);
+>         @@ -290,6 +291,9 @@ module_param_named(gpu_recovery,
+>         amdgpu_gpu_recovery, int, 0444);
+>           MODULE_PARM_DESC(emu_mode, "Emulation mode, (1 = enable, 0 =
+>         disable)");
+>           module_param_named(emu_mode, amdgpu_emu_mode, int, 0444);
+>           +MODULE_PARM_DESC(sg_display, "Enable scatter gather
+>         display, (1 = enable, 0 = disable, -1 = auto");
+>         +module_param_named(sg_display, amdgpu_sg_display, int, 0444);
+>         +
+>           #ifdef CONFIG_DRM_AMDGPU_SI
+>             #if defined(CONFIG_DRM_RADEON) ||
+>         defined(CONFIG_DRM_RADEON_MODULE)
+>         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>         index 1206301..f57c355 100644
+>         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>         @@ -138,6 +138,8 @@ static int
+>         amdgpufb_create_pinned_object(struct amdgpu_fbdev *rfbdev,
+>                 mode_cmd->pitches[0] = amdgpu_align_pitch(adev,
+>         mode_cmd->width, cpp,
+>         fb_tiled);
+>                 domain = amdgpu_display_framebuffer_domains(adev);
+>         +       if (domain & AMDGPU_GEM_DOMAIN_GTT)
+>         +               DRM_DEBUG_DRIVER("Scatter gather display:
+>         enabled\n");
+>                 height = ALIGN(mode_cmd->height, 8);
+>                 size = mode_cmd->pitches[0] * height;
+>         diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>         b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>         index 68ab325..7e9f247 100644
+>         --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>         +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>         @@ -3074,7 +3074,8 @@ static int
+>         dm_plane_helper_prepare_fb(struct drm_plane *plane,
+>                         domain = AMDGPU_GEM_DOMAIN_VRAM;
+>                 r = amdgpu_bo_pin(rbo, domain, &afb->address);
+>         -
+>         +       rbo->preferred_domains = domain;
+>         +       rbo->allowed_domains = domain;
+>                 amdgpu_bo_unreserve(rbo);
+>                 if (unlikely(r != 0)) {
+>
+>
+>     _______________________________________________
+>     amd-gfx mailing list
+>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+>
+>
+
+
+--------------08E8E92E22B6D728F3B9A6F5
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">
+      <blockquote type="cite">Can you be more specific, Christian? Mesa
+        has this, I don't think it needs anything else:</blockquote>
+      Completely agree, that's what I suggested to implement.<br>
+      <br>
+      The point is this kernel change now needs to be reworked and
+      adapted to what Mesa is doing.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 12.04.2018 um 18:40 schrieb Marek Olšák:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAxE2A4msxZa19Cvv6giMDDYg57-M_qawgFRM2aaK6sUERuqSA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <div dir="ltr">
+        <div>Can you be more specific, Christian? Mesa has this, I don't
+          think it needs anything else:<br>
+          <a
+href="https://cgit.freedesktop.org/mesa/mesa/commit/?id=7d2079908d9ef05ec3f35b7078833e57846cab5b"
+            moz-do-not-send="true">https://cgit.freedesktop.org/mesa/mesa/commit/?id=7d2079908d9ef05ec3f35b7078833e57846cab5b</a><br>
+          <br>
+        </div>
+        Marek<br>
+      </div>
+      <div class="gmail_extra"><br>
+        <div class="gmail_quote">On Wed, Mar 28, 2018 at 3:46 AM,
+          Christian König <span dir="ltr">&lt;<a
+              href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+              target="_blank" moz-do-not-send="true">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>
+          wrote:<br>
+          <blockquote class="gmail_quote" style="margin:0 0 0
+            .8ex;border-left:1px #ccc solid;padding-left:1ex"><span
+              class="">Am 28.03.2018 um 00:22 schrieb Samuel Li:<br>
+              <blockquote class="gmail_quote" style="margin:0 0 0
+                .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                It's auto by default. For CZ/ST, auto setting enables sg
+                display<br>
+                when vram size is small; otherwise still uses vram.<br>
+                This patch fixed some potential hang issue introduced by
+                change<br>
+                "allow framebuffer in GART memory as well" due to CZ/ST
+                hardware<br>
+                limitation.<br>
+              </blockquote>
+              <br>
+            </span>
+            Well that is still a NAK.<br>
+            <br>
+            As discussed now multiple times please implement the
+            necessary changes in Mesa.<br>
+            <br>
+            Regards,<br>
+            Christian.
+            <div class="HOEnZb">
+              <div class="h5"><br>
+                <br>
+                <blockquote class="gmail_quote" style="margin:0 0 0
+                  .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                  <br>
+                  v2: Change default setting to auto, also some misc
+                  changes.<br>
+                  Signed-off-by: Samuel Li &lt;<a
+                    href="mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org" target="_blank"
+                    moz-do-not-send="true">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+                  ---<br>
+                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu.h           
+                     |  1 +<br>
+                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_display.c   
+                     | 10 ++++++++--<br>
+                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_display.h   
+                     |  2 ++<br>
+                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_drv.c       
+                     |  4 ++++<br>
+                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_fb.c         
+                    |  2 ++<br>
+                    drivers/gpu/drm/amd/display/am<wbr>dgpu_dm/amdgpu_dm.c
+                  |  3 ++-<br>
+                    6 files changed, 19 insertions(+), 3 deletions(-)<br>
+                  <br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h
+                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h<br>
+                  index a7e2229..c942362 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h<br>
+                  @@ -129,6 +129,7 @@ extern int amdgpu_lbpw;<br>
+                    extern int amdgpu_compute_multipipe;<br>
+                    extern int amdgpu_gpu_recovery;<br>
+                    extern int amdgpu_emu_mode;<br>
+                  +extern int amdgpu_sg_display;<br>
+                      #ifdef CONFIG_DRM_AMDGPU_SI<br>
+                    extern int amdgpu_si_support;<br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c
+                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c<br>
+                  index 5495b29..1e7b950 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c<br>
+                  @@ -513,8 +513,14 @@ uint32_t
+                  amdgpu_display_framebuffer_dom<wbr>ains(struct
+                  amdgpu_device *adev)<br>
+                    #if defined(CONFIG_DRM_AMD_DC)<br>
+                          if (adev-&gt;asic_type &gt;= CHIP_CARRIZO
+                  &amp;&amp; adev-&gt;asic_type &lt; CHIP_RAVEN
+                  &amp;&amp;<br>
+                              adev-&gt;flags &amp; AMD_IS_APU &amp;&amp;<br>
+                  -           amdgpu_device_asic_has_dc_sup<wbr>port(adev-&gt;asic_type))<br>
+                  -               domain |= AMDGPU_GEM_DOMAIN_GTT;<br>
+                  +           amdgpu_device_asic_has_dc_sup<wbr>port(adev-&gt;asic_type))
+                  {<br>
+                  +               if (amdgpu_sg_display == 1)<br>
+                  +                       domain =
+                  AMDGPU_GEM_DOMAIN_GTT;<br>
+                  +               else if (amdgpu_sg_display == -1) {<br>
+                  +                       if
+                  (adev-&gt;gmc.real_vram_size &lt; AMDGPU_SG_THRESHOLD)<br>
+                  +                               domain =
+                  AMDGPU_GEM_DOMAIN_GTT;<br>
+                  +               }<br>
+                  +       }<br>
+                    #endif<br>
+                          return domain;<br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h
+                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h<br>
+                  index 2b11d80..2b25393 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h<br>
+                  @@ -23,6 +23,8 @@<br>
+                    #ifndef __AMDGPU_DISPLAY_H__<br>
+                    #define __AMDGPU_DISPLAY_H__<br>
+                    +#define AMDGPU_SG_THRESHOLD  (256*1024*1024)<br>
+                  +<br>
+                    uint32_t amdgpu_display_framebuffer_dom<wbr>ains(struct
+                  amdgpu_device *adev);<br>
+                    struct drm_framebuffer *<br>
+                    amdgpu_display_user_framebuffe<wbr>r_create(struct
+                  drm_device *dev,<br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c
+                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c<br>
+                  index 1bfce79..19f11a5 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c<br>
+                  @@ -132,6 +132,7 @@ int amdgpu_lbpw = -1;<br>
+                    int amdgpu_compute_multipipe = -1;<br>
+                    int amdgpu_gpu_recovery = -1; /* auto */<br>
+                    int amdgpu_emu_mode = 0;<br>
+                  +int amdgpu_sg_display = -1;<br>
+                      MODULE_PARM_DESC(vramlimit, "Restrict VRAM for
+                  testing, in megabytes");<br>
+                    module_param_named(vramlimit, amdgpu_vram_limit,
+                  int, 0600);<br>
+                  @@ -290,6 +291,9 @@ module_param_named(gpu_recover<wbr>y,
+                  amdgpu_gpu_recovery, int, 0444);<br>
+                    MODULE_PARM_DESC(emu_mode, "Emulation mode, (1 =
+                  enable, 0 = disable)");<br>
+                    module_param_named(emu_mode, amdgpu_emu_mode, int,
+                  0444);<br>
+                    +MODULE_PARM_DESC(sg_display, "Enable scatter gather
+                  display, (1 = enable, 0 = disable, -1 = auto");<br>
+                  +module_param_named(sg_display<wbr>,
+                  amdgpu_sg_display, int, 0444);<br>
+                  +<br>
+                    #ifdef CONFIG_DRM_AMDGPU_SI<br>
+                      #if defined(CONFIG_DRM_RADEON) ||
+                  defined(CONFIG_DRM_RADEON_MODU<wbr>LE)<br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c
+                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c<br>
+                  index 1206301..f57c355 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c<br>
+                  @@ -138,6 +138,8 @@ static int
+                  amdgpufb_create_pinned_object(<wbr>struct amdgpu_fbdev
+                  *rfbdev,<br>
+                          mode_cmd-&gt;pitches[0] =
+                  amdgpu_align_pitch(adev, mode_cmd-&gt;width, cpp,<br>
+                                                                   
+                  fb_tiled);<br>
+                          domain = amdgpu_display_framebuffer_dom<wbr>ains(adev);<br>
+                  +       if (domain &amp; AMDGPU_GEM_DOMAIN_GTT)<br>
+                  +               DRM_DEBUG_DRIVER("Scatter gather
+                  display: enabled\n");<br>
+                          height = ALIGN(mode_cmd-&gt;height, 8);<br>
+                          size = mode_cmd-&gt;pitches[0] * height;<br>
+                  diff --git a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c
+                  b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
+                  index 68ab325..7e9f247 100644<br>
+                  --- a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
+                  +++ b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
+                  @@ -3074,7 +3074,8 @@ static int
+                  dm_plane_helper_prepare_fb(str<wbr>uct drm_plane
+                  *plane,<br>
+                                  domain = AMDGPU_GEM_DOMAIN_VRAM;<br>
+                          r = amdgpu_bo_pin(rbo, domain,
+                  &amp;afb-&gt;address);<br>
+                  -<br>
+                  +       rbo-&gt;preferred_domains = domain;<br>
+                  +       rbo-&gt;allowed_domains = domain;<br>
+                          amdgpu_bo_unreserve(rbo);<br>
+                          if (unlikely(r != 0)) {<br>
+                </blockquote>
+                <br>
+              </div>
+            </div>
+            <div class="HOEnZb">
+              <div class="h5">
+                ______________________________<wbr>_________________<br>
+                amd-gfx mailing list<br>
+                <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                  target="_blank" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                <a
+                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                  rel="noreferrer" target="_blank"
+                  moz-do-not-send="true">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
+              </div>
+            </div>
+          </blockquote>
+        </div>
+        <br>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------08E8E92E22B6D728F3B9A6F5--
+
+--===============1894656723==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1894656723==--
