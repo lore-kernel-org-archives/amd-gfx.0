@@ -1,14 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+From: Samuel Li <samuel.li-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v2 1/1] drm/amdgpu: Enable scatter gather display support
-Date: Thu, 12 Apr 2018 19:03:00 +0200
-Message-ID: <15196bc3-76cb-0a52-c05f-f23131f77e7f@amd.com>
+Date: Thu, 12 Apr 2018 13:21:38 -0400
+Message-ID: <20bdb4b1-1986-22e4-b0d1-1713b8794f83@amd.com>
 References: <1522189371-13767-1-git-send-email-Samuel.Li@amd.com>
  <7cc47f78-66eb-148d-96a2-b97760f767bf@gmail.com>
  <CAAxE2A4msxZa19Cvv6giMDDYg57-M_qawgFRM2aaK6sUERuqSA@mail.gmail.com>
+ <15196bc3-76cb-0a52-c05f-f23131f77e7f@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1894656723=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A4msxZa19Cvv6giMDDYg57-M_qawgFRM2aaK6sUERuqSA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <15196bc3-76cb-0a52-c05f-f23131f77e7f-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,431 +22,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Michel.Daenzer-5C7GfCeVMHo@public.gmane.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1894656723==
-Content-Type: multipart/alternative;
- boundary="------------08E8E92E22B6D728F3B9A6F5"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------08E8E92E22B6D728F3B9A6F5
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-> Can you be more specific, Christian? Mesa has this, I don't think it 
-> needs anything else:
-Completely agree, that's what I suggested to implement.
-
-The point is this kernel change now needs to be reworked and adapted to 
-what Mesa is doing.
-
-Regards,
-Christian.
-
-Am 12.04.2018 um 18:40 schrieb Marek Olšák:
-> Can you be more specific, Christian? Mesa has this, I don't think it 
-> needs anything else:
-> https://cgit.freedesktop.org/mesa/mesa/commit/?id=7d2079908d9ef05ec3f35b7078833e57846cab5b
->
-> Marek
->
-> On Wed, Mar 28, 2018 at 3:46 AM, Christian König 
-> <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
-> <mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->
->     Am 28.03.2018 um 00:22 schrieb Samuel Li:
->
->         It's auto by default. For CZ/ST, auto setting enables sg display
->         when vram size is small; otherwise still uses vram.
->         This patch fixed some potential hang issue introduced by change
->         "allow framebuffer in GART memory as well" due to CZ/ST hardware
->         limitation.
->
->
->     Well that is still a NAK.
->
->     As discussed now multiple times please implement the necessary
->     changes in Mesa.
->
->     Regards,
->     Christian.
->
->
->
->         v2: Change default setting to auto, also some misc changes.
->         Signed-off-by: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org
->         <mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>
->         ---
->           drivers/gpu/drm/amd/amdgpu/amdgpu.h    |  1 +
->           drivers/gpu/drm/amd/amdgpu/amdgpu_display.c    | 10 ++++++++--
->           drivers/gpu/drm/amd/amdgpu/amdgpu_display.h    |  2 ++
->           drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  4 ++++
->           drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c   |  2 ++
->           drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++-
->           6 files changed, 19 insertions(+), 3 deletions(-)
->
->         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->         b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->         index a7e2229..c942362 100644
->         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->         @@ -129,6 +129,7 @@ extern int amdgpu_lbpw;
->           extern int amdgpu_compute_multipipe;
->           extern int amdgpu_gpu_recovery;
->           extern int amdgpu_emu_mode;
->         +extern int amdgpu_sg_display;
->             #ifdef CONFIG_DRM_AMDGPU_SI
->           extern int amdgpu_si_support;
->         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->         b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->         index 5495b29..1e7b950 100644
->         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->         @@ -513,8 +513,14 @@ uint32_t
->         amdgpu_display_framebuffer_domains(struct amdgpu_device *adev)
->           #if defined(CONFIG_DRM_AMD_DC)
->                 if (adev->asic_type >= CHIP_CARRIZO && adev->asic_type
->         < CHIP_RAVEN &&
->                     adev->flags & AMD_IS_APU &&
->         -           amdgpu_device_asic_has_dc_support(adev->asic_type))
->         -               domain |= AMDGPU_GEM_DOMAIN_GTT;
->         +           amdgpu_device_asic_has_dc_support(adev->asic_type)) {
->         +               if (amdgpu_sg_display == 1)
->         +                       domain = AMDGPU_GEM_DOMAIN_GTT;
->         +               else if (amdgpu_sg_display == -1) {
->         +                       if (adev->gmc.real_vram_size <
->         AMDGPU_SG_THRESHOLD)
->         +                               domain = AMDGPU_GEM_DOMAIN_GTT;
->         +               }
->         +       }
->           #endif
->                 return domain;
->         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->         b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->         index 2b11d80..2b25393 100644
->         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->         @@ -23,6 +23,8 @@
->           #ifndef __AMDGPU_DISPLAY_H__
->           #define __AMDGPU_DISPLAY_H__
->           +#define AMDGPU_SG_THRESHOLD  (256*1024*1024)
->         +
->           uint32_t amdgpu_display_framebuffer_domains(struct
->         amdgpu_device *adev);
->           struct drm_framebuffer *
->           amdgpu_display_user_framebuffer_create(struct drm_device *dev,
->         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->         b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->         index 1bfce79..19f11a5 100644
->         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->         @@ -132,6 +132,7 @@ int amdgpu_lbpw = -1;
->           int amdgpu_compute_multipipe = -1;
->           int amdgpu_gpu_recovery = -1; /* auto */
->           int amdgpu_emu_mode = 0;
->         +int amdgpu_sg_display = -1;
->             MODULE_PARM_DESC(vramlimit, "Restrict VRAM for testing, in
->         megabytes");
->           module_param_named(vramlimit, amdgpu_vram_limit, int, 0600);
->         @@ -290,6 +291,9 @@ module_param_named(gpu_recovery,
->         amdgpu_gpu_recovery, int, 0444);
->           MODULE_PARM_DESC(emu_mode, "Emulation mode, (1 = enable, 0 =
->         disable)");
->           module_param_named(emu_mode, amdgpu_emu_mode, int, 0444);
->           +MODULE_PARM_DESC(sg_display, "Enable scatter gather
->         display, (1 = enable, 0 = disable, -1 = auto");
->         +module_param_named(sg_display, amdgpu_sg_display, int, 0444);
->         +
->           #ifdef CONFIG_DRM_AMDGPU_SI
->             #if defined(CONFIG_DRM_RADEON) ||
->         defined(CONFIG_DRM_RADEON_MODULE)
->         diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->         b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->         index 1206301..f57c355 100644
->         --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->         +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
->         @@ -138,6 +138,8 @@ static int
->         amdgpufb_create_pinned_object(struct amdgpu_fbdev *rfbdev,
->                 mode_cmd->pitches[0] = amdgpu_align_pitch(adev,
->         mode_cmd->width, cpp,
->         fb_tiled);
->                 domain = amdgpu_display_framebuffer_domains(adev);
->         +       if (domain & AMDGPU_GEM_DOMAIN_GTT)
->         +               DRM_DEBUG_DRIVER("Scatter gather display:
->         enabled\n");
->                 height = ALIGN(mode_cmd->height, 8);
->                 size = mode_cmd->pitches[0] * height;
->         diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->         b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->         index 68ab325..7e9f247 100644
->         --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->         +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->         @@ -3074,7 +3074,8 @@ static int
->         dm_plane_helper_prepare_fb(struct drm_plane *plane,
->                         domain = AMDGPU_GEM_DOMAIN_VRAM;
->                 r = amdgpu_bo_pin(rbo, domain, &afb->address);
->         -
->         +       rbo->preferred_domains = domain;
->         +       rbo->allowed_domains = domain;
->                 amdgpu_bo_unreserve(rbo);
->                 if (unlikely(r != 0)) {
->
->
->     _______________________________________________
->     amd-gfx mailing list
->     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->
->
-
-
---------------08E8E92E22B6D728F3B9A6F5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">
-      <blockquote type="cite">Can you be more specific, Christian? Mesa
-        has this, I don't think it needs anything else:</blockquote>
-      Completely agree, that's what I suggested to implement.<br>
-      <br>
-      The point is this kernel change now needs to be reworked and
-      adapted to what Mesa is doing.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 12.04.2018 um 18:40 schrieb Marek Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4msxZa19Cvv6giMDDYg57-M_qawgFRM2aaK6sUERuqSA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div dir="ltr">
-        <div>Can you be more specific, Christian? Mesa has this, I don't
-          think it needs anything else:<br>
-          <a
-href="https://cgit.freedesktop.org/mesa/mesa/commit/?id=7d2079908d9ef05ec3f35b7078833e57846cab5b"
-            moz-do-not-send="true">https://cgit.freedesktop.org/mesa/mesa/commit/?id=7d2079908d9ef05ec3f35b7078833e57846cab5b</a><br>
-          <br>
-        </div>
-        Marek<br>
-      </div>
-      <div class="gmail_extra"><br>
-        <div class="gmail_quote">On Wed, Mar 28, 2018 at 3:46 AM,
-          Christian König <span dir="ltr">&lt;<a
-              href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-              target="_blank" moz-do-not-send="true">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>
-          wrote:<br>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex"><span
-              class="">Am 28.03.2018 um 00:22 schrieb Samuel Li:<br>
-              <blockquote class="gmail_quote" style="margin:0 0 0
-                .8ex;border-left:1px #ccc solid;padding-left:1ex">
-                It's auto by default. For CZ/ST, auto setting enables sg
-                display<br>
-                when vram size is small; otherwise still uses vram.<br>
-                This patch fixed some potential hang issue introduced by
-                change<br>
-                "allow framebuffer in GART memory as well" due to CZ/ST
-                hardware<br>
-                limitation.<br>
-              </blockquote>
-              <br>
-            </span>
-            Well that is still a NAK.<br>
-            <br>
-            As discussed now multiple times please implement the
-            necessary changes in Mesa.<br>
-            <br>
-            Regards,<br>
-            Christian.
-            <div class="HOEnZb">
-              <div class="h5"><br>
-                <br>
-                <blockquote class="gmail_quote" style="margin:0 0 0
-                  .8ex;border-left:1px #ccc solid;padding-left:1ex">
-                  <br>
-                  v2: Change default setting to auto, also some misc
-                  changes.<br>
-                  Signed-off-by: Samuel Li &lt;<a
-                    href="mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org" target="_blank"
-                    moz-do-not-send="true">Samuel.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-                  ---<br>
-                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu.h           
-                     |  1 +<br>
-                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_display.c   
-                     | 10 ++++++++--<br>
-                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_display.h   
-                     |  2 ++<br>
-                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_drv.c       
-                     |  4 ++++<br>
-                    drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_fb.c         
-                    |  2 ++<br>
-                    drivers/gpu/drm/amd/display/am<wbr>dgpu_dm/amdgpu_dm.c
-                  |  3 ++-<br>
-                    6 files changed, 19 insertions(+), 3 deletions(-)<br>
-                  <br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h
-                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h<br>
-                  index a7e2229..c942362 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu.h<br>
-                  @@ -129,6 +129,7 @@ extern int amdgpu_lbpw;<br>
-                    extern int amdgpu_compute_multipipe;<br>
-                    extern int amdgpu_gpu_recovery;<br>
-                    extern int amdgpu_emu_mode;<br>
-                  +extern int amdgpu_sg_display;<br>
-                      #ifdef CONFIG_DRM_AMDGPU_SI<br>
-                    extern int amdgpu_si_support;<br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c
-                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c<br>
-                  index 5495b29..1e7b950 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.c<br>
-                  @@ -513,8 +513,14 @@ uint32_t
-                  amdgpu_display_framebuffer_dom<wbr>ains(struct
-                  amdgpu_device *adev)<br>
-                    #if defined(CONFIG_DRM_AMD_DC)<br>
-                          if (adev-&gt;asic_type &gt;= CHIP_CARRIZO
-                  &amp;&amp; adev-&gt;asic_type &lt; CHIP_RAVEN
-                  &amp;&amp;<br>
-                              adev-&gt;flags &amp; AMD_IS_APU &amp;&amp;<br>
-                  -           amdgpu_device_asic_has_dc_sup<wbr>port(adev-&gt;asic_type))<br>
-                  -               domain |= AMDGPU_GEM_DOMAIN_GTT;<br>
-                  +           amdgpu_device_asic_has_dc_sup<wbr>port(adev-&gt;asic_type))
-                  {<br>
-                  +               if (amdgpu_sg_display == 1)<br>
-                  +                       domain =
-                  AMDGPU_GEM_DOMAIN_GTT;<br>
-                  +               else if (amdgpu_sg_display == -1) {<br>
-                  +                       if
-                  (adev-&gt;gmc.real_vram_size &lt; AMDGPU_SG_THRESHOLD)<br>
-                  +                               domain =
-                  AMDGPU_GEM_DOMAIN_GTT;<br>
-                  +               }<br>
-                  +       }<br>
-                    #endif<br>
-                          return domain;<br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h
-                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h<br>
-                  index 2b11d80..2b25393 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_display.h<br>
-                  @@ -23,6 +23,8 @@<br>
-                    #ifndef __AMDGPU_DISPLAY_H__<br>
-                    #define __AMDGPU_DISPLAY_H__<br>
-                    +#define AMDGPU_SG_THRESHOLD  (256*1024*1024)<br>
-                  +<br>
-                    uint32_t amdgpu_display_framebuffer_dom<wbr>ains(struct
-                  amdgpu_device *adev);<br>
-                    struct drm_framebuffer *<br>
-                    amdgpu_display_user_framebuffe<wbr>r_create(struct
-                  drm_device *dev,<br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c
-                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c<br>
-                  index 1bfce79..19f11a5 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_drv.c<br>
-                  @@ -132,6 +132,7 @@ int amdgpu_lbpw = -1;<br>
-                    int amdgpu_compute_multipipe = -1;<br>
-                    int amdgpu_gpu_recovery = -1; /* auto */<br>
-                    int amdgpu_emu_mode = 0;<br>
-                  +int amdgpu_sg_display = -1;<br>
-                      MODULE_PARM_DESC(vramlimit, "Restrict VRAM for
-                  testing, in megabytes");<br>
-                    module_param_named(vramlimit, amdgpu_vram_limit,
-                  int, 0600);<br>
-                  @@ -290,6 +291,9 @@ module_param_named(gpu_recover<wbr>y,
-                  amdgpu_gpu_recovery, int, 0444);<br>
-                    MODULE_PARM_DESC(emu_mode, "Emulation mode, (1 =
-                  enable, 0 = disable)");<br>
-                    module_param_named(emu_mode, amdgpu_emu_mode, int,
-                  0444);<br>
-                    +MODULE_PARM_DESC(sg_display, "Enable scatter gather
-                  display, (1 = enable, 0 = disable, -1 = auto");<br>
-                  +module_param_named(sg_display<wbr>,
-                  amdgpu_sg_display, int, 0444);<br>
-                  +<br>
-                    #ifdef CONFIG_DRM_AMDGPU_SI<br>
-                      #if defined(CONFIG_DRM_RADEON) ||
-                  defined(CONFIG_DRM_RADEON_MODU<wbr>LE)<br>
-                  diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c
-                  b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c<br>
-                  index 1206301..f57c355 100644<br>
-                  --- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c<br>
-                  +++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_fb.c<br>
-                  @@ -138,6 +138,8 @@ static int
-                  amdgpufb_create_pinned_object(<wbr>struct amdgpu_fbdev
-                  *rfbdev,<br>
-                          mode_cmd-&gt;pitches[0] =
-                  amdgpu_align_pitch(adev, mode_cmd-&gt;width, cpp,<br>
-                                                                   
-                  fb_tiled);<br>
-                          domain = amdgpu_display_framebuffer_dom<wbr>ains(adev);<br>
-                  +       if (domain &amp; AMDGPU_GEM_DOMAIN_GTT)<br>
-                  +               DRM_DEBUG_DRIVER("Scatter gather
-                  display: enabled\n");<br>
-                          height = ALIGN(mode_cmd-&gt;height, 8);<br>
-                          size = mode_cmd-&gt;pitches[0] * height;<br>
-                  diff --git a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c
-                  b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
-                  index 68ab325..7e9f247 100644<br>
-                  --- a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
-                  +++ b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
-                  @@ -3074,7 +3074,8 @@ static int
-                  dm_plane_helper_prepare_fb(str<wbr>uct drm_plane
-                  *plane,<br>
-                                  domain = AMDGPU_GEM_DOMAIN_VRAM;<br>
-                          r = amdgpu_bo_pin(rbo, domain,
-                  &amp;afb-&gt;address);<br>
-                  -<br>
-                  +       rbo-&gt;preferred_domains = domain;<br>
-                  +       rbo-&gt;allowed_domains = domain;<br>
-                          amdgpu_bo_unreserve(rbo);<br>
-                          if (unlikely(r != 0)) {<br>
-                </blockquote>
-                <br>
-              </div>
-            </div>
-            <div class="HOEnZb">
-              <div class="h5">
-                ______________________________<wbr>_________________<br>
-                amd-gfx mailing list<br>
-                <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  target="_blank" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <a
-                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                  rel="noreferrer" target="_blank"
-                  moz-do-not-send="true">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
-              </div>
-            </div>
-          </blockquote>
-        </div>
-        <br>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------08E8E92E22B6D728F3B9A6F5--
-
---===============1894656723==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1894656723==--
+PiBUaGUgcG9pbnQgaXMgdGhpcyBrZXJuZWwgY2hhbmdlIG5vdyBuZWVkcyB0byBiZSByZXdvcmtl
+ZCBhbmQgYWRhcHRlZCB0byB3aGF0IE1lc2EgaXMgZG9pbmcuClRocmVlIG9wdGlvbnMgaGF2ZSBi
+ZWVuIGJyb3VnaHQgdXAgZm9yIGtlcm5lbCwKMSkgVHVybiBvZmYgaW1tZWRpYXRlIG1vZGUgd2hl
+biBmbGlwcGluZyBiZXR3ZWVuIFZSQU0vR1RULgoyKSBDaGVjayB0aGUgZG9tYWluIG9mIHRoZSBj
+dXJyZW50IGZiIGFuZCB0aGVuIGFkanVzdCB0aGUgbmV3IG9uZSBiZWZvcmUgcGlubmluZyBpdC4K
+MykgVXNlIG9ubHkgVlJBTSBvciBHVFQgZGVwZW5kaW5nIG9uIGEgdGhyZXNoaG9sZC4KCkFzIHBl
+ciBkaXNjdXNzaW9uLCB0aGUgM3JkIG9uZSwgd2hpY2ggaXMgdGhlIGN1cnJlbnQgcGF0Y2gsIHNl
+ZW1zIHRoZSBiZXN0IHNvIGZhci4KClJlZ2FyZHMsClNhbXVlbCBMaQoKCgpPbiAyMDE4LTA0LTEy
+IDAxOjAzIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBDYW4geW91IGJlIG1vcmUgc3Bl
+Y2lmaWMsIENocmlzdGlhbj8gTWVzYSBoYXMgdGhpcywgSSBkb24ndCB0aGluayBpdCBuZWVkcyBh
+bnl0aGluZyBlbHNlOgo+IENvbXBsZXRlbHkgYWdyZWUsIHRoYXQncyB3aGF0IEkgc3VnZ2VzdGVk
+IHRvIGltcGxlbWVudC4KPiAKPiBUaGUgcG9pbnQgaXMgdGhpcyBrZXJuZWwgY2hhbmdlIG5vdyBu
+ZWVkcyB0byBiZSByZXdvcmtlZCBhbmQgYWRhcHRlZCB0byB3aGF0IE1lc2EgaXMgZG9pbmcuCj4g
+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4gCj4gQW0gMTIuMDQuMjAxOCB1bSAxODo0MCBzY2hy
+aWViIE1hcmVrIE9sxaHDoWs6Cj4+IENhbiB5b3UgYmUgbW9yZSBzcGVjaWZpYywgQ2hyaXN0aWFu
+PyBNZXNhIGhhcyB0aGlzLCBJIGRvbid0IHRoaW5rIGl0IG5lZWRzIGFueXRoaW5nIGVsc2U6Cj4+
+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvbWVzYS9tZXNhL2NvbW1pdC8/aWQ9N2QyMDc5
+OTA4ZDllZjA1ZWMzZjM1YjcwNzg4MzNlNTc4NDZjYWI1Ygo+Pgo+PiBNYXJlawo+Pgo+PiBPbiBX
+ZWQsIE1hciAyOCwgMjAxOCBhdCAzOjQ2IEFNLCBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxl
+aWNodHp1bWVya2VuQGdtYWlsLmNvbSA8bWFpbHRvOmNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21h
+aWwuY29tPj4gd3JvdGU6Cj4+Cj4+IMKgwqDCoCBBbSAyOC4wMy4yMDE4IHVtIDAwOjIyIHNjaHJp
+ZWIgU2FtdWVsIExpOgo+Pgo+PiDCoMKgwqDCoMKgwqDCoCBJdCdzIGF1dG8gYnkgZGVmYXVsdC4g
+Rm9yIENaL1NULCBhdXRvIHNldHRpbmcgZW5hYmxlcyBzZyBkaXNwbGF5Cj4+IMKgwqDCoMKgwqDC
+oMKgIHdoZW4gdnJhbSBzaXplIGlzIHNtYWxsOyBvdGhlcndpc2Ugc3RpbGwgdXNlcyB2cmFtLgo+
+PiDCoMKgwqDCoMKgwqDCoCBUaGlzIHBhdGNoIGZpeGVkIHNvbWUgcG90ZW50aWFsIGhhbmcgaXNz
+dWUgaW50cm9kdWNlZCBieSBjaGFuZ2UKPj4gwqDCoMKgwqDCoMKgwqAgImFsbG93IGZyYW1lYnVm
+ZmVyIGluIEdBUlQgbWVtb3J5IGFzIHdlbGwiIGR1ZSB0byBDWi9TVCBoYXJkd2FyZQo+PiDCoMKg
+wqDCoMKgwqDCoCBsaW1pdGF0aW9uLgo+Pgo+Pgo+PiDCoMKgwqAgV2VsbCB0aGF0IGlzIHN0aWxs
+IGEgTkFLLgo+Pgo+PiDCoMKgwqAgQXMgZGlzY3Vzc2VkIG5vdyBtdWx0aXBsZSB0aW1lcyBwbGVh
+c2UgaW1wbGVtZW50IHRoZSBuZWNlc3NhcnkKPj4gwqDCoMKgIGNoYW5nZXMgaW4gTWVzYS4KPj4K
+Pj4gwqDCoMKgIFJlZ2FyZHMsCj4+IMKgwqDCoCBDaHJpc3RpYW4uCj4+Cj4+Cj4+Cj4+IMKgwqDC
+oMKgwqDCoMKgIHYyOiBDaGFuZ2UgZGVmYXVsdCBzZXR0aW5nIHRvIGF1dG8sIGFsc28gc29tZSBt
+aXNjIGNoYW5nZXMuCj4+IMKgwqDCoMKgwqDCoMKgIFNpZ25lZC1vZmYtYnk6IFNhbXVlbCBMaSA8
+U2FtdWVsLkxpQGFtZC5jb20KPj4gwqDCoMKgwqDCoMKgwqAgPG1haWx0bzpTYW11ZWwuTGlAYW1k
+LmNvbT4+Cj4+IMKgwqDCoMKgwqDCoMKgIC0tLQo+PiDCoMKgwqDCoMKgwqDCoCDCoCBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCDCoCDCoHzCoCAxICsKPj4gwqDCoMKgwqDCoMKg
+wqAgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyDCoCDCoHwg
+MTAgKysrKysrKystLQo+PiDCoMKgwqDCoMKgwqDCoCDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGlzcGxheS5oIMKgIMKgfMKgIDIgKysKPj4gwqDCoMKgwqDCoMKgwqAgwqAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIMKgIMKgfMKgIDQgKysrKwo+
+PiDCoMKgwqDCoMKgwqDCoCDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIu
+YyDCoCB8wqAgMiArKwo+PiDCoMKgwqDCoMKgwqDCoCDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHzCoCAzICsrLQo+PiDCoMKgwqDCoMKgwqDCoCDC
+oCA2IGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCj4+Cj4+
+IMKgwqDCoMKgwqDCoMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHUuaAo+PiDCoMKgwqDCoMKgwqDCoCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdS5oCj4+IMKgwqDCoMKgwqDCoMKgIGluZGV4IGE3ZTIyMjkuLmM5NDIzNjIgMTAwNjQ0Cj4+
+IMKgwqDCoMKgwqDCoMKgIC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+Cj4+IMKgwqDCoMKgwqDCoMKgICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dS5oCj4+IMKgwqDCoMKgwqDCoMKgIEBAIC0xMjksNiArMTI5LDcgQEAgZXh0ZXJuIGludCBhbWRn
+cHVfbGJwdzsKPj4gwqDCoMKgwqDCoMKgwqAgwqAgZXh0ZXJuIGludCBhbWRncHVfY29tcHV0ZV9t
+dWx0aXBpcGU7Cj4+IMKgwqDCoMKgwqDCoMKgIMKgIGV4dGVybiBpbnQgYW1kZ3B1X2dwdV9yZWNv
+dmVyeTsKPj4gwqDCoMKgwqDCoMKgwqAgwqAgZXh0ZXJuIGludCBhbWRncHVfZW11X21vZGU7Cj4+
+IMKgwqDCoMKgwqDCoMKgICtleHRlcm4gaW50IGFtZGdwdV9zZ19kaXNwbGF5Owo+PiDCoMKgwqDC
+oMKgwqDCoCDCoCDCoCAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfU0kKPj4gwqDCoMKgwqDCoMKg
+wqAgwqAgZXh0ZXJuIGludCBhbWRncHVfc2lfc3VwcG9ydDsKPj4gwqDCoMKgwqDCoMKgwqAgZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKPj4g
+wqDCoMKgwqDCoMKgwqAgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxh
+eS5jCj4+IMKgwqDCoMKgwqDCoMKgIGluZGV4IDU0OTViMjkuLjFlN2I5NTAgMTAwNjQ0Cj4+IMKg
+wqDCoMKgwqDCoMKgIC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNw
+bGF5LmMKPj4gwqDCoMKgwqDCoMKgwqAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2Rpc3BsYXkuYwo+PiDCoMKgwqDCoMKgwqDCoCBAQCAtNTEzLDggKzUxMywxNCBAQCB1
+aW50MzJfdAo+PiDCoMKgwqDCoMKgwqDCoCBhbWRncHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9kb21h
+aW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+PiDCoMKgwqDCoMKgwqDCoCDCoCAjaWYg
+ZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQykKPj4gwqDCoMKgwqDCoMKgwqAgwqAgwqAgwqAgwqAg
+aWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX0NBUlJJWk8gJiYgYWRldi0+YXNpY190eXBlCj4+
+IMKgwqDCoMKgwqDCoMKgIDwgQ0hJUF9SQVZFTiAmJgo+PiDCoMKgwqDCoMKgwqDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCBhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUgJiYKPj4gwqDCoMKgwqDCoMKgwqAg
+LcKgIMKgIMKgIMKgIMKgIMKgYW1kZ3B1X2RldmljZV9hc2ljX2hhc19kY19zdXBwb3J0KGFkZXYt
+PmFzaWNfdHlwZSkpCj4+IMKgwqDCoMKgwqDCoMKgIC3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGRv
+bWFpbiB8PSBBTURHUFVfR0VNX0RPTUFJTl9HVFQ7Cj4+IMKgwqDCoMKgwqDCoMKgICvCoCDCoCDC
+oCDCoCDCoCDCoGFtZGdwdV9kZXZpY2VfYXNpY19oYXNfZGNfc3VwcG9ydChhZGV2LT5hc2ljX3R5
+cGUpKSB7Cj4+IMKgwqDCoMKgwqDCoMKgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGlmIChhbWRn
+cHVfc2dfZGlzcGxheSA9PSAxKQo+PiDCoMKgwqDCoMKgwqDCoCArwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9HVFQ7Cj4+IMKgwqDC
+oMKgwqDCoMKgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGVsc2UgaWYgKGFtZGdwdV9zZ19kaXNw
+bGF5ID09IC0xKSB7Cj4+IMKgwqDCoMKgwqDCoMKgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoGlmIChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPAo+PiDCoMKgwqDCoMKgwqDC
+oCBBTURHUFVfU0dfVEhSRVNIT0xEKQo+PiDCoMKgwqDCoMKgwqDCoCArwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJ
+Tl9HVFQ7Cj4+IMKgwqDCoMKgwqDCoMKgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoH0KPj4gwqDC
+oMKgwqDCoMKgwqAgK8KgIMKgIMKgIMKgfQo+PiDCoMKgwqDCoMKgwqDCoCDCoCAjZW5kaWYKPj4g
+wqDCoMKgwqDCoMKgwqAgwqAgwqAgwqAgwqAgcmV0dXJuIGRvbWFpbjsKPj4gwqDCoMKgwqDCoMKg
+wqAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5
+LmgKPj4gwqDCoMKgwqDCoMKgwqAgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZGlzcGxheS5oCj4+IMKgwqDCoMKgwqDCoMKgIGluZGV4IDJiMTFkODAuLjJiMjUzOTMgMTAwNjQ0
+Cj4+IMKgwqDCoMKgwqDCoMKgIC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9kaXNwbGF5LmgKPj4gwqDCoMKgwqDCoMKgwqAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2Rpc3BsYXkuaAo+PiDCoMKgwqDCoMKgwqDCoCBAQCAtMjMsNiArMjMsOCBA
+QAo+PiDCoMKgwqDCoMKgwqDCoCDCoCAjaWZuZGVmIF9fQU1ER1BVX0RJU1BMQVlfSF9fCj4+IMKg
+wqDCoMKgwqDCoMKgIMKgICNkZWZpbmUgX19BTURHUFVfRElTUExBWV9IX18KPj4gwqDCoMKgwqDC
+oMKgwqAgwqAgKyNkZWZpbmUgQU1ER1BVX1NHX1RIUkVTSE9MRMKgICgyNTYqMTAyNCoxMDI0KQo+
+PiDCoMKgwqDCoMKgwqDCoCArCj4+IMKgwqDCoMKgwqDCoMKgIMKgIHVpbnQzMl90IGFtZGdwdV9k
+aXNwbGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMoc3RydWN0Cj4+IMKgwqDCoMKgwqDCoMKgIGFtZGdw
+dV9kZXZpY2UgKmFkZXYpOwo+PiDCoMKgwqDCoMKgwqDCoCDCoCBzdHJ1Y3QgZHJtX2ZyYW1lYnVm
+ZmVyICoKPj4gwqDCoMKgwqDCoMKgwqAgwqAgYW1kZ3B1X2Rpc3BsYXlfdXNlcl9mcmFtZWJ1ZmZl
+cl9jcmVhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPj4gwqDCoMKgwqDCoMKgwqAgZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+PiDCoMKgwqDC
+oMKgwqDCoCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+PiDCoMKg
+wqDCoMKgwqDCoCBpbmRleCAxYmZjZTc5Li4xOWYxMWE1IDEwMDY0NAo+PiDCoMKgwqDCoMKgwqDC
+oCAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPj4gwqDCoMKg
+wqDCoMKgwqAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4+
+IMKgwqDCoMKgwqDCoMKgIEBAIC0xMzIsNiArMTMyLDcgQEAgaW50IGFtZGdwdV9sYnB3ID0gLTE7
+Cj4+IMKgwqDCoMKgwqDCoMKgIMKgIGludCBhbWRncHVfY29tcHV0ZV9tdWx0aXBpcGUgPSAtMTsK
+Pj4gwqDCoMKgwqDCoMKgwqAgwqAgaW50IGFtZGdwdV9ncHVfcmVjb3ZlcnkgPSAtMTsgLyogYXV0
+byAqLwo+PiDCoMKgwqDCoMKgwqDCoCDCoCBpbnQgYW1kZ3B1X2VtdV9tb2RlID0gMDsKPj4gwqDC
+oMKgwqDCoMKgwqAgK2ludCBhbWRncHVfc2dfZGlzcGxheSA9IC0xOwo+PiDCoMKgwqDCoMKgwqDC
+oCDCoCDCoCBNT0RVTEVfUEFSTV9ERVNDKHZyYW1saW1pdCwgIlJlc3RyaWN0IFZSQU0gZm9yIHRl
+c3RpbmcsIGluCj4+IMKgwqDCoMKgwqDCoMKgIG1lZ2FieXRlcyIpOwo+PiDCoMKgwqDCoMKgwqDC
+oCDCoCBtb2R1bGVfcGFyYW1fbmFtZWQodnJhbWxpbWl0LCBhbWRncHVfdnJhbV9saW1pdCwgaW50
+LCAwNjAwKTsKPj4gwqDCoMKgwqDCoMKgwqAgQEAgLTI5MCw2ICsyOTEsOSBAQCBtb2R1bGVfcGFy
+YW1fbmFtZWQoZ3B1X3JlY292ZXJ5LAo+PiDCoMKgwqDCoMKgwqDCoCBhbWRncHVfZ3B1X3JlY292
+ZXJ5LCBpbnQsIDA0NDQpOwo+PiDCoMKgwqDCoMKgwqDCoCDCoCBNT0RVTEVfUEFSTV9ERVNDKGVt
+dV9tb2RlLCAiRW11bGF0aW9uIG1vZGUsICgxID0gZW5hYmxlLCAwID0KPj4gwqDCoMKgwqDCoMKg
+wqAgZGlzYWJsZSkiKTsKPj4gwqDCoMKgwqDCoMKgwqAgwqAgbW9kdWxlX3BhcmFtX25hbWVkKGVt
+dV9tb2RlLCBhbWRncHVfZW11X21vZGUsIGludCwgMDQ0NCk7Cj4+IMKgwqDCoMKgwqDCoMKgIMKg
+ICtNT0RVTEVfUEFSTV9ERVNDKHNnX2Rpc3BsYXksICJFbmFibGUgc2NhdHRlciBnYXRoZXIKPj4g
+wqDCoMKgwqDCoMKgwqAgZGlzcGxheSwgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlLCAtMSA9IGF1
+dG8iKTsKPj4gwqDCoMKgwqDCoMKgwqAgK21vZHVsZV9wYXJhbV9uYW1lZChzZ19kaXNwbGF5LCBh
+bWRncHVfc2dfZGlzcGxheSwgaW50LCAwNDQ0KTsKPj4gwqDCoMKgwqDCoMKgwqAgKwo+PiDCoMKg
+wqDCoMKgwqDCoCDCoCAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfU0kKPj4gwqDCoMKgwqDCoMKg
+wqAgwqAgwqAgI2lmIGRlZmluZWQoQ09ORklHX0RSTV9SQURFT04pIHx8Cj4+IMKgwqDCoMKgwqDC
+oMKgIGRlZmluZWQoQ09ORklHX0RSTV9SQURFT05fTU9EVUxFKQo+PiDCoMKgwqDCoMKgwqDCoCBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMKPj4gwqDC
+oMKgwqDCoMKgwqAgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwo+PiDC
+oMKgwqDCoMKgwqDCoCBpbmRleCAxMjA2MzAxLi5mNTdjMzU1IDEwMDY0NAo+PiDCoMKgwqDCoMKg
+wqDCoCAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwo+PiDCoMKg
+wqDCoMKgwqDCoCArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwo+
+PiDCoMKgwqDCoMKgwqDCoCBAQCAtMTM4LDYgKzEzOCw4IEBAIHN0YXRpYyBpbnQKPj4gwqDCoMKg
+wqDCoMKgwqAgYW1kZ3B1ZmJfY3JlYXRlX3Bpbm5lZF9vYmplY3Qoc3RydWN0IGFtZGdwdV9mYmRl
+diAqcmZiZGV2LAo+PiDCoMKgwqDCoMKgwqDCoCDCoCDCoCDCoCDCoCBtb2RlX2NtZC0+cGl0Y2hl
+c1swXSA9IGFtZGdwdV9hbGlnbl9waXRjaChhZGV2LAo+PiDCoMKgwqDCoMKgwqDCoCBtb2RlX2Nt
+ZC0+d2lkdGgsIGNwcCwKPj4gwqDCoMKgwqDCoMKgwqAgZmJfdGlsZWQpOwo+PiDCoMKgwqDCoMKg
+wqDCoCDCoCDCoCDCoCDCoCBkb21haW4gPSBhbWRncHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9kb21h
+aW5zKGFkZXYpOwo+PiDCoMKgwqDCoMKgwqDCoCArwqAgwqAgwqAgwqBpZiAoZG9tYWluICYgQU1E
+R1BVX0dFTV9ET01BSU5fR1RUKQo+PiDCoMKgwqDCoMKgwqDCoCArwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqBEUk1fREVCVUdfRFJJVkVSKCJTY2F0dGVyIGdhdGhlciBkaXNwbGF5Ogo+PiDCoMKgwqDC
+oMKgwqDCoCBlbmFibGVkXG4iKTsKPj4gwqDCoMKgwqDCoMKgwqAgwqAgwqAgwqAgwqAgaGVpZ2h0
+ID0gQUxJR04obW9kZV9jbWQtPmhlaWdodCwgOCk7Cj4+IMKgwqDCoMKgwqDCoMKgIMKgIMKgIMKg
+IMKgIHNpemUgPSBtb2RlX2NtZC0+cGl0Y2hlc1swXSAqIGhlaWdodDsKPj4gwqDCoMKgwqDCoMKg
+wqAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
+Z3B1X2RtLmMKPj4gwqDCoMKgwqDCoMKgwqAgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+YW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4+IMKgwqDCoMKgwqDCoMKgIGluZGV4IDY4YWIzMjUuLjdl
+OWYyNDcgMTAwNjQ0Cj4+IMKgwqDCoMKgwqDCoMKgIC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPj4gwqDCoMKgwqDCoMKgwqAgKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+PiDCoMKgwqDC
+oMKgwqDCoCBAQCAtMzA3NCw3ICszMDc0LDggQEAgc3RhdGljIGludAo+PiDCoMKgwqDCoMKgwqDC
+oCBkbV9wbGFuZV9oZWxwZXJfcHJlcGFyZV9mYihzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKPj4g
+wqDCoMKgwqDCoMKgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgZG9tYWluID0gQU1ER1BVX0dF
+TV9ET01BSU5fVlJBTTsKPj4gwqDCoMKgwqDCoMKgwqAgwqAgwqAgwqAgwqAgciA9IGFtZGdwdV9i
+b19waW4ocmJvLCBkb21haW4sICZhZmItPmFkZHJlc3MpOwo+PiDCoMKgwqDCoMKgwqDCoCAtCj4+
+IMKgwqDCoMKgwqDCoMKgICvCoCDCoCDCoCDCoHJiby0+cHJlZmVycmVkX2RvbWFpbnMgPSBkb21h
+aW47Cj4+IMKgwqDCoMKgwqDCoMKgICvCoCDCoCDCoCDCoHJiby0+YWxsb3dlZF9kb21haW5zID0g
+ZG9tYWluOwo+PiDCoMKgwqDCoMKgwqDCoCDCoCDCoCDCoCDCoCBhbWRncHVfYm9fdW5yZXNlcnZl
+KHJibyk7Cj4+IMKgwqDCoMKgwqDCoMKgIMKgIMKgIMKgIMKgIGlmICh1bmxpa2VseShyICE9IDAp
+KSB7Cj4+Cj4+Cj4+IMKgwqDCoCBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+PiDCoMKgwqAgYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gwqDCoMKgIGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmc+Cj4+IMKgwqDCoCBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngKPj4gwqDCoMKgIDxodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng+Cj4+Cj4+Cj4gCj4gCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
