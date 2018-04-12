@@ -1,74 +1,59 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/prime: Iterate SG DMA addresses separately
-Date: Thu, 12 Apr 2018 11:35:57 +0200
-Message-ID: <58ef1aab-6c3a-8e69-0a7e-98218ba9fe96@amd.com>
-References: <0901c8c3b9adbcb851ba58dfca6b16d12ccbcb0f.1523465719.git.robin.murphy@arm.com>
- <67b1875d-9f77-5fb8-bfc6-53d34c15ab16@amd.com>
- <1523524317.4981.24.camel@pengutronix.de>
+Subject: Re: [PATCH V2] drm/amdgpu: limit DMA size to PAGE_SIZE for
+	scatter-gather buffers
+Date: Thu, 12 Apr 2018 11:42:35 +0200
+Message-ID: <6802bd0c-7da6-659a-7e34-8f05d7c6422c@amd.com>
+References: <1523394001-4615-1-git-send-email-okaya@codeaurora.org>
+	<32b82296-bba5-b5f1-266b-45c1ed66da94@arm.com>
+	<20180412062600.GB30499@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1523524317.4981.24.camel-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <20180412062600.GB30499-jcswGhMUV9g@public.gmane.org>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: okaya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, sulrich-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, timur-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Sinan Kaya <okaya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>, Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "open list:DRM DRIVERS" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTIuMDQuMjAxOCB1bSAxMToxMSBzY2hyaWViIEx1Y2FzIFN0YWNoOgo+IEFtIE1pdHR3b2No
-LCBkZW4gMTEuMDQuMjAxOCwgMjA6MjYgKzAyMDAgc2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+
-PiBBbSAxMS4wNC4yMDE4IHVtIDE5OjExIHNjaHJpZWIgUm9iaW4gTXVycGh5Ogo+Pj4gRm9yIGRt
-YV9tYXBfc2coKSwgRE1BIEFQSSBpbXBsZW1lbnRhdGlvbnMgYXJlIGZyZWUgdG8gbWVyZ2UgY29u
-c2VjdXRpdmUKPj4+IHNlZ21lbnRzIGludG8gYSBzaW5nbGUgRE1BIG1hcHBpbmcgaWYgY29uZGl0
-aW9ucyBhcmUgc3VpdGFibGUsIHRodXMgdGhlCj4+PiByZXN1bHRpbmcgRE1BIGFkZHJlc3NlcyBt
-YXkgYmUgcGFja2VkIGludG8gZmV3ZXIgZW50cmllcyB0aGFuCj4+PiB0dG0tPnNnLT5uZW50cyBp
-bXBsaWVzLgo+Pj4KPj4+IGRybV9wcmltZV9zZ190b19wYWdlX2FkZHJfYXJyYXlzKCkgZG9lcyBu
-b3QgYWNjb3VudCBmb3IgdGhpcywgbWVhbmluZwo+Pj4gaXRzIGNhbGxlcnMgZWl0aGVyIGhhdmUg
-dG8gcmVqZWN0IHRoZSAwIDwgY291bnQgPCBuZW50cyBjYXNlIG9yIHJpc2sKPj4+IGdldHRpbmcg
-Ym9ndXMgYWRkcmVzc2VzIGJhY2sgbGF0ZXIuIEZvcnR1bmF0ZWx5IHRoaXMgaXMgcmVsYXRpdmVs
-eSBlYXN5Cj4+PiB0byBkZWFsIHdpdGggaGF2aW5nIHRvIHJlamlnIHN0cnVjdHVyZXMgdG8gYWxz
-byBzdG9yZSB0aGUgbWFwcGVkIGNvdW50LAo+Pj4gc2luY2UgdGhlIHRvdGFsIERNQSBsZW5ndGgg
-c2hvdWxkIHN0aWxsIGJlIGVxdWFsIHRvIHRoZSB0b3RhbCBidWZmZXIKPj4+IGxlbmd0aC4gQWxs
-IHdlIG5lZWQgaXMgYSBzZXBhcmF0ZSBzY2F0dGVybGlzdCBjdXJzb3IgdG8gaXRlcmF0ZSB0aGUg
-RE1BCj4+PiBhZGRyZXNzZXMgc2VwYXJhdGVseSBmcm9tIHRoZSBDUFUgYWRkcmVzc2VzLgo+PiBN
-aG0sIEkgdGhpbmsgSSBsaWtlIFNpbmFzIGFwcHJvYWNoIGJldHRlci4KPj4KPj4gU2VlIHRoZSBo
-YXJkd2FyZSBhY3R1YWxseSBuZWVkcyB0aGUgZG1hX2FkZHJlc3Mgb24gYSBwYWdlIGJ5IHBhZ2Ug
-YmFzaXMuCj4+Cj4+IEpvaW5pbmcgbXVsdGlwbGUgY29uc2VjdXRpdmUgcGFnZXMgaW50byBvbmUg
-ZW50cnkgaXMganVzdCBhZGRpdGlvbmFsCj4+IG92ZXJoZWFkIHdoaWNoIHdlIGRvbid0IG5lZWQu
-Cj4gQnV0IHNldHRpbmcgTUFYX1NFR01FTlRfU0laRSB3aWxsIHByb2JhYmx5IHByZXZlbnQgYW4g
-SU9NTVUgdGhhdCBtaWdodAo+IGJlIGluIGZyb250IG9mIHlvdXIgR1BVIHRvIG1hcCBsYXJnZSBw
-YWdlcyBhcyBzdWNoLCBjYXVzaW5nIGFkZGl0aW9uYWwKPiBvdmVyaGVhZCBieSBtZWFucyBvZiBh
-ZGRpdGlvbmFsIFRMQiBtaXNzZXMgYW5kIHBhZ2Ugd2Fsa3Mgb24gdGhlIElPTU1VCj4gc2lkZS4K
-Pgo+IEFuZCB3b3VsZG4ndCB5b3UgbGlrZSB0byB1c2UgaHVnZSBwYWdlcyBhdCB0aGUgR1BVIHNp
-ZGUsIGlmIHRoZSBJT01NVQo+IGFscmVhZHkgcHJvdmlkZXMgeW91IHRoZSBzZXJ2aWNlIG9mIHBy
-b2R1Y2luZyBvbmUgbGFyZ2UgY29uc2VjdXRpdmUKPiBhZGRyZXNzIHJhbmdlLCByYXRoZXIgdGhh
-biBtYXBwaW5nIHRoZW0gdmlhIGEgbnVtYmVyIG9mIHNtYWxsIHBhZ2VzPwoKTm8sIEkgd291bGRu
-J3QgbGlrZSB0byB1c2UgdGhhdC4gV2UncmUgYWxyZWFkeSB1c2luZyB0aGF0IDopCgpCdXQgd2Ug
-dXNlIGh1Z2UgcGFnZXMgYnkgYWxsb2NhdGluZyBjb25zZWN1dGl2ZSBjaHVua3Mgb2YgbWVtb3J5
-IHNvIHRoYXQgCmJvdGggdGhlIENQVSBhcyB3ZWxsIGFzIHRoZSBHUFUgY2FuIGluY3JlYXNlIHRo
-ZWlyIFRMQiBoaXQgcmF0ZS4KCldoYXQgY3VycmVudGx5IGhhcHBlbnMgaXMgdGhhdCB0aGUgRE1B
-IHN1YnN5c3RlbSB0cmllcyB0byBjb2FsZXNjZSAKbXVsdGlwbGUgcGFnZXMgaW50byBvbiBTRyBl
-bnRyeSBhbmQgd2UgZGUtY29hbGVzY2UgdGhhdCBpbnNpZGUgdGhlIApkcml2ZXIgYWdhaW4gdG8g
-Y3JlYXRlIG91ciByYW5kb20gYWNjZXNzIGFycmF5LgoKVGhhdCBpcyBhIGh1Z2Ugd2FzdGUgb2Yg
-bWVtb3J5IGFuZCBDUFUgY3ljbGVzIGFuZCBJIGFjdHVhbGx5IHdhbnRlZCB0byAKZ2V0IHJpZCBv
-ZiBpdCBmb3IgcXVpdGUgc29tZSB0aW1lIG5vdy4gU2luYXMgYXBwcm9hY2ggc2VlbXMgdG8gYmUg
-YSBnb29kIApzdGVwIGludG8gdGhlIHJpZ2h0IGRpcmVjdGlvbiB0byBtZSB0byBhY3R1YWxseSBj
-bGVhbiB0aGF0IHVwLgoKPiBEZXRlY3Rpbmcgc3VjaCBhIGNvbmRpdGlvbiBpcyBtdWNoIGVhc2ll
-ciBpZiB0aGUgRE1BIG1hcCBpbXBsZW1lbnRhdGlvbgo+IGdpdmVzIHlvdSB0aGUgY29hbGVzY2Vk
-IHNjYXR0ZXIgZW50cmllcy4KCkEgd2F5IHdoaWNoIHByZXNlcnZlcyBib3RoIHBhdGggd291bGQg
-YmUgaW5kZWVkIG5pY2UgdG8gaGF2ZSwgYnV0IHRoYXQgCm9ubHkgYWxsb3dzIGZvciB0aGUgVExC
-IG9wdGltaXphdGlvbiBmb3IgdGhlIEdQVSBhbmQgbm90IHRoZSBDUFUgYW55IAptb3JlLiBTbyBJ
-IGFjdHVhbGx5IHNlZSB0aGF0IGFzIHJlYWxseSBtaW5vciB1c2UgY2FzZS4KClJlZ2FyZHMsCkNo
-cmlzdGlhbi4KCj4KPiBSZWdhcmRzLAo+IEx1Y2FzCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+Am 12.04.2018 um 08:26 schrieb Christoph Hellwig:
+> On Wed, Apr 11, 2018 at 01:03:59PM +0100, Robin Murphy wrote:
+>> On 10/04/18 21:59, Sinan Kaya wrote:
+>>> Code is expecing to observe the same number of buffers returned from
+>>> dma_map_sg() function compared to sg_alloc_table_from_pages(). This
+>>> doesn't hold true universally especially for systems with IOMMU.
+>> So why not fix said code? It's clearly not a real hardware limitation, and
+>> the map_sg() APIs have potentially returned fewer than nents since forever,
+>> so there's really no excuse.
+> Yes, relying on dma_map_sg returning the same number of entries as passed
+> it is completely bogus.
+
+I agree that the common DRM functions should be able to deal with both, 
+but we should let the driver side decide if it wants multiple addresses 
+combined or not.
+
+>
+>>> IOMMU driver tries to combine buffers into a single DMA address as much
+>>> as it can. The right thing is to tell the DMA layer how much combining
+>>> IOMMU can do.
+>> Disagree; this is a dodgy hack, since you'll now end up passing
+>> scatterlists into dma_map_sg() which already violate max_seg_size to begin
+>> with, and I think a conscientious DMA API implementation would be at rights
+>> to fail the mapping for that reason (I know arm64 happens not to, but that
+>> was a deliberate design decision to make my life easier at the time).
+> Agreed.
+
+Sounds like my understanding of max_seg_size is incorrect, what exactly 
+should that describe?
+
+Thanks,
+Christian.
