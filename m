@@ -1,50 +1,40 @@
-From: Shawn Starr <shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [AMDGPU][DC] Bonaire - Unable to enable DC on Mobile CIK -
- Invalid Connector ObjectID
-Date: Thu, 12 Apr 2018 01:36:08 -0400
-Message-ID: <6c857fa8-ca99-5839-a46e-7ec0a954b278@rogers.com>
-References: <93aa9fa9-284f-8fd0-6e63-65e6d64a9df8@rogers.com>
- <CADnq5_O32HeooFwWvTTtieScZjRQL-qg0ES1mrhPZkV9VT0CMA@mail.gmail.com>
+From: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH V2] drm/amdgpu: limit DMA size to PAGE_SIZE for
+        scatter-gather buffers
+Date: Thu, 12 Apr 2018 08:26:00 +0200
+Message-ID: <20180412062600.GB30499@lst.de>
+References: <1523394001-4615-1-git-send-email-okaya@codeaurora.org> <32b82296-bba5-b5f1-266b-45c1ed66da94@arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_O32HeooFwWvTTtieScZjRQL-qg0ES1mrhPZkV9VT0CMA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <32b82296-bba5-b5f1-266b-45c1ed66da94@arm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Sinan Kaya <okaya@codeaurora.org>, amd-gfx@lists.freedesktop.org, timur@codeaurora.org, sulrich@codeaurora.org, Tom St Denis <tom.stdenis@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Emily Deng <Emily.Deng@amd.com>, David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, open list <linux-kernel@vger.kernel.org>, "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, David Panariti <David.Panariti@amd.com>, Jim Qu <Jim.Qu@amd.com>, Huang Rui <ray.huang@amd.com>, Roger He <Hongbo.He@amd.com>, Monk Liu <Monk.Liu@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-arm-kernel@lists.infradead.org, iomm
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDQvMTIvMjAxOCAxMjo1NCBBTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IE9uIFRodSwgQXBy
-IDEyLCAyMDE4IGF0IDEyOjQ4IEFNLCBTaGF3biBTdGFyciA8c2hhd24uc3RhcnJAcm9nZXJzLmNv
-bT4gd3JvdGU6Cj4+IFdoZW4gdHJ5aW5nIGFuIGVhcmx5IDQuMTctcmMwIFJQTSBmcm9tIEZlZG9y
-YSwKPj4KPj4gSSBnZXQ6Cj4+Cj4+IFsgICAgMi43OTQyNDNdIFtkcm06Y29uc3RydWN0IFthbWRn
-cHVdXSAqRVJST1IqIGNvbnN0cnVjdDogSW52YWxpZCBDb25uZWN0b3IKPj4gT2JqZWN0SUQgZnJv
-bSBBZGFwdGVyIFNlcnZpY2UgZm9yIGNvbm5lY3RvciBpbmRleDoxISB0eXBlIDAgZXhwZWN0ZWQg
-Mwo+Pgo+PiBXZSd2ZSBoYWQgaXNzdWVzIHdpdGggY29ubmVjdG9yIHR5cGVzIG9uIHRoaXMgbGFw
-dG9wIGJlZm9yZSBhbmQgZm91bmQgc29tZQo+PiB3b3JrYXJvdW5kcywgbG9va3MgbGlrZSB0aG9z
-ZSBnb3QgbG9zdCB3aXRoIHRoZSBEQyBjb2RlLgo+Pgo+PiBteSBib290IG9wdGlvbnM6IHJhZGVv
-bi5jaWtfc3VwcG9ydD0wIGFtZGdwdS5jaWtfc3VwcG9ydD0xCj4+IGRybV9rbXNfaGVscGVyLnBv
-bGw9MCBhbWRncHUuZGM9MQo+Pgo+PiBXaGF0IGluZm9ybWF0aW9uIHdvdWxkIHlvdSBsaWtlIG1l
-IHRvIHByb3ZpZGU/Cj4gCj4gT3RoZXIgdGhhbiB0aGUgZXJyb3IgbWVzc2FnZSBpcyB0aGVyZSBh
-biBhY3R1YWwgcHJvYmxlbT8gIFBsZWFzZSBmaWxlCj4gYSBidWcgYW5kIGluY2x1ZGUgeW91ciBk
-bWVzZyBvdXRwdXQgKHdpdGggYW1kZ3B1LmRjX2xvZz0xKSBhbmQgeG9yZwo+IGxvZyAoaWYgdXNp
-bmcgWCkgYW5kIGRlc2NyaWJlIHdoYXQgZGlzcGxheSBjb25uZWN0b3JzIGFyZSBleHBlY3RlZC4K
-PiBBbHNvLCBpZiB0aGlzIGlzIGEgaHlicmlkIGxhcHRvcCB3aXRoIG11bHRpcGxlIEdQVXMgd2hh
-dCBtb2RlIGlzIGl0IGluCj4gYW5kIGlzIHRoZXJlIGEgZGlmZmVyZW5jZSBpZiBzd2l0Y2ggdG8g
-YSBkaWZmZXJlbnQgbW9kZSAoZS5nLiwgaHlicmlkCj4gdnMgZEdQVSBvbmx5KS4KPiAKPiBBbGV4
-Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KCkhpIEFs
-ZXgsCgpObyBkaXNwbGF5KHMpIHR1cm4gb24sIEkgd2lsbCBwcm92aWRlIGFsbCBkZWJ1ZyBhbmQg
-bG9ncy4KClRoYW5rcywKU2hhd24uCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+On Wed, Apr 11, 2018 at 01:03:59PM +0100, Robin Murphy wrote:
+> On 10/04/18 21:59, Sinan Kaya wrote:
+>> Code is expecing to observe the same number of buffers returned from
+>> dma_map_sg() function compared to sg_alloc_table_from_pages(). This
+>> doesn't hold true universally especially for systems with IOMMU.
+>
+> So why not fix said code? It's clearly not a real hardware limitation, and 
+> the map_sg() APIs have potentially returned fewer than nents since forever, 
+> so there's really no excuse.
+
+Yes, relying on dma_map_sg returning the same number of entries as passed
+it is completely bogus.
+
+>> IOMMU driver tries to combine buffers into a single DMA address as much
+>> as it can. The right thing is to tell the DMA layer how much combining
+>> IOMMU can do.
+>
+> Disagree; this is a dodgy hack, since you'll now end up passing 
+> scatterlists into dma_map_sg() which already violate max_seg_size to begin 
+> with, and I think a conscientious DMA API implementation would be at rights 
+> to fail the mapping for that reason (I know arm64 happens not to, but that 
+> was a deliberate design decision to make my life easier at the time).
+
+Agreed.
