@@ -1,11 +1,12 @@
-From: Laura Abbott <labbott-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCHv3] drm/amdkfd: Remove vla
-Date: Fri, 13 Apr 2018 14:24:12 -0700
-Message-ID: <20180413212412.18205-1-labbott@redhat.com>
+From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Raven Ridge Ryzen 2500U hang reproduced
+Date: Fri, 13 Apr 2018 22:24:23 +0000
+Message-ID: <CAJri6_tvPciPBs9JOJ70habzc-RMsnA4Sms3LpsZwR7p=HThvA@mail.gmail.com>
+References: <CAJri6_tTnk6Q0VCFRR-4GFw+3QVo9iyXpFtQS6uLLcXgPNEeGw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1379699912=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAJri6_tTnk6Q0VCFRR-4GFw+3QVo9iyXpFtQS6uLLcXgPNEeGw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,42 +17,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Kees Cook <keescook-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, kernel-hardening-ZwoEplunGu1jrUoiu81ncdBPR1lH4CV8@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Laura Abbott <labbott-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-ClRoZXJlJ3MgYW4gb25nb2luZyBlZmZvcnQgdG8gcmVtb3ZlIFZMQXNbMV0gZnJvbSB0aGUga2Vy
-bmVsIHRvIGV2ZW50dWFsbHkKdHVybiBvbiAtV3ZsYS4gU3dpdGNoIHRvIGEgY29uc3RhbnQgdmFs
-dWUgdGhhdCBjb3ZlcnMgYWxsIGhhcmR3YXJlLgoKWzFdIGh0dHBzOi8vbGttbC5vcmcvbGttbC8y
-MDE4LzMvNy82MjEKClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdA
-YW1kLmNvbT4KQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
-LmNvbT4KU2lnbmVkLW9mZi1ieTogTGF1cmEgQWJib3R0IDxsYWJib3R0QHJlZGhhdC5jb20+Ci0t
-LQp2MzogSW50cm9kdWNlZCBhICNkZWZpbmUgZm9yIHRoZSBtYXggdmFsdWUsIHN3aXRjaGVkIHRv
-IHByX2Vycl9vbmNlIHRvCmF2b2lkIGxvZyBmbG9vZCwgc3dpdGNoZWQgdG8gc2l6ZW9mKGFycmF5
-KSBwZXIgcHJpdmF0ZSBzdWdnZXN0aW9uLgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9pbnRlcnJ1cHQuYyB8IDggKysrKystLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9wcml2LmggICAgICB8IDIgKysKIDIgZmlsZXMgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCsp
-LCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9pbnRlcnJ1cHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9pbnRlcnJ1
-cHQuYwppbmRleCAwMzVjMzUxZjQ3YzUuLmRiNmQ5MzM2YjgwZCAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ludGVycnVwdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9pbnRlcnJ1cHQuYwpAQCAtMTM5LDEwICsxMzksMTIgQEAgc3RhdGlj
-IHZvaWQgaW50ZXJydXB0X3dxKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIHsKIAlzdHJ1Y3Qg
-a2ZkX2RldiAqZGV2ID0gY29udGFpbmVyX29mKHdvcmssIHN0cnVjdCBrZmRfZGV2LAogCQkJCQkJ
-aW50ZXJydXB0X3dvcmspOworCXVpbnQzMl90IGloX3JpbmdfZW50cnlbS0ZEX01BWF9SSU5HX0VO
-VFJZX1NJWkVdOwogCi0JdWludDMyX3QgaWhfcmluZ19lbnRyeVtESVZfUk9VTkRfVVAoCi0JCQkJ
-ZGV2LT5kZXZpY2VfaW5mby0+aWhfcmluZ19lbnRyeV9zaXplLAotCQkJCXNpemVvZih1aW50MzJf
-dCkpXTsKKwlpZiAoZGV2LT5kZXZpY2VfaW5mby0+aWhfcmluZ19lbnRyeV9zaXplID4gc2l6ZW9m
-KGloX3JpbmdfZW50cnkpKSB7CisJCWRldl9lcnJfb25jZShrZmRfY2hhcmRldigpLCAiUmluZyBl
-bnRyeSB0b28gc21hbGxcbiIpOworCQlyZXR1cm47CisJfQogCiAJd2hpbGUgKGRlcXVldWVfaWhf
-cmluZ19lbnRyeShkZXYsIGloX3JpbmdfZW50cnkpKQogCQlkZXYtPmRldmljZV9pbmZvLT5ldmVu
-dF9pbnRlcnJ1cHRfY2xhc3MtPmludGVycnVwdF93cShkZXYsCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
-ZmQva2ZkX3ByaXYuaAppbmRleCA5NmE5Y2MwZjAyYzkuLmE5MGRiMDVkZmU2MSAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaAorKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oCkBAIC0zOSw2ICszOSw4IEBACiAKICNpbmNsdWRl
-ICJhbWRfc2hhcmVkLmgiCiAKKyNkZWZpbmUgS0ZEX01BWF9SSU5HX0VOVFJZX1NJWkUJOAorCiAj
-ZGVmaW5lIEtGRF9TWVNGU19GSUxFX01PREUgMDQ0NAogCiAjZGVmaW5lIEtGRF9NTUFQX0RPT1JC
-RUxMX01BU0sgMHg4MDAwMDAwMDAwMDAwdWxsCi0tIAoyLjE0LjMKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1379699912==
+Content-Type: multipart/alternative; boundary="0000000000003e31540569c256a9"
+
+--0000000000003e31540569c256a9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+It ALWAYS crashes on shader15 of
+http://www.graphicsfuzz.com/benchmark/android-v1.html.
+
+Also reported at https://bugzilla.redhat.com/show_bug.cgi?id=3D1562530
+
+Using kernel 4.16 with options rcu_nocb=3D0-15 and amdgpu.dpm=3D0
+
+Cheers,
+Br=C3=A1ulio
+
+On Mon, Mar 26, 2018 at 8:30 PM Br=C3=A1ulio Bhavamitra <brauliobo-Re5JQEeQqe8@public.gmane.org=
+m>
+wrote:
+
+> Hi all,
+>
+> Following the random crashes happenning with many users (e.g.
+> https://www.phoronix.com/scan.php?page=3Dnews_item&px=3DRaven-Ridge-March=
+-Update),
+> not only on Linux but also Windows, I've been struggling to reproduce and
+> generate any error log.
+>
+> After discovering that the error only happenned with KDE and games (at
+> least for me, see https://bugs.kde.org/show_bug.cgi?id=3D392378), I could
+> reproduce after a failing suspend.
+>
+> The crash most of the times allows the mouse to keep moving, but anything
+> else works. Except for this time the keyboard worked so I could switch th=
+e
+> tty and save the dmesg messages. After this I had to force reboot as it g=
+ot
+> stuck trying to kill the lightdm service (gpu hanged?).
+>
+> The errors are, see attached the full dmesg:
+> [ 2899.525650] amdgpu 0000:03:00.0: couldn't schedule ib on ring <sdma0>
+> [ 2899.525769] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IBs
+> (-22)
+> [ 2909.125047] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
+> timeout, last signaled seq=3D174624, last emitted seq=3D174627
+> [ 2909.125060] [drm] IP block:psp is hung!
+> [ 2909.125063] [drm] GPU recovery disabled.
+> [ 2914.756931] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+> amdgpu_cs_list_validate(validated) failed.
+> [ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+> the buffer list -16!
+> [ 2914.997372] amdgpu 0000:03:00.0: couldn't schedule ib on ring <sdma0>
+> [ 2914.997498] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IBs
+> (-22)
+> [ 2930.117275] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+> amdgpu_cs_list_validate(validated) failed.
+> [ 2930.117405] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+> the buffer list -16!
+> [ 2930.152015] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+> memory with ring turned off.
+> [ 2930.157940] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+> memory with ring turned off.
+> [ 2930.180535] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+> memory with ring turned off.
+> [ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANGE): wlp2s0: link becomes ready
+> [ 2945.477205] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+> amdgpu_cs_list_validate(validated) failed.
+> [ 2945.477348] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+> the buffer list -16!
+>
+> System details:
+> HP Envy x360 Ryzen 2500U
+> ArchLinux, kernel 4.16rc6 and 4.15.12
+>
+> Cheers,
+> br=C3=A1ulio
+>
+
+--0000000000003e31540569c256a9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">It ALWAYS crashes on shader15 of <a href=3D"http://www.gra=
+phicsfuzz.com/benchmark/android-v1.html">http://www.graphicsfuzz.com/benchm=
+ark/android-v1.html</a>.<div><br></div><div>Also reported at=C2=A0<a href=
+=3D"https://bugzilla.redhat.com/show_bug.cgi?id=3D1562530">https://bugzilla=
+.redhat.com/show_bug.cgi?id=3D1562530</a></div><div><br></div><div>Using ke=
+rnel 4.16 with options rcu_nocb=3D0-15 and amdgpu.dpm=3D0</div><div><br></d=
+iv><div>Cheers,</div><div>Br=C3=A1ulio<br><br><div class=3D"gmail_quote"><d=
+iv dir=3D"ltr">On Mon, Mar 26, 2018 at 8:30 PM Br=C3=A1ulio Bhavamitra &lt;=
+<a href=3D"mailto:brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
+-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr">Hi all,<div><br></d=
+iv><div>Following the random crashes happenning with many users (e.g.=C2=A0=
+<a href=3D"https://www.phoronix.com/scan.php?page=3Dnews_item&amp;px=3DRave=
+n-Ridge-March-Update" target=3D"_blank">https://www.phoronix.com/scan.php?p=
+age=3Dnews_item&amp;px=3DRaven-Ridge-March-Update</a>), not only on Linux b=
+ut also Windows, I&#39;ve been struggling to reproduce and generate any err=
+or log.</div><div><br></div><div>After discovering that the error only happ=
+enned with KDE and games (at least for me, see=C2=A0<a href=3D"https://bugs=
+.kde.org/show_bug.cgi?id=3D392378" target=3D"_blank">https://bugs.kde.org/s=
+how_bug.cgi?id=3D392378</a>), I could reproduce after a failing suspend.</d=
+iv><div><br></div><div>The crash most of the times allows the mouse to keep=
+ moving, but anything else works. Except for this time the keyboard worked =
+so I could switch the tty and save the dmesg messages. After this I had to =
+force reboot as it got stuck trying to kill the lightdm service (gpu hanged=
+?).</div><div><br></div><div>The errors are, see attached the full dmesg:</=
+div><div><div>[ 2899.525650] amdgpu 0000:03:00.0: couldn&#39;t schedule ib =
+on ring &lt;sdma0&gt;</div><div>[ 2899.525769] [drm:amdgpu_job_run [amdgpu]=
+] *ERROR* Error scheduling IBs (-22)</div><div>[ 2909.125047] [drm:amdgpu_j=
+ob_timedout [amdgpu]] *ERROR* ring gfx timeout, last signaled seq=3D174624,=
+ last emitted seq=3D174627</div><div>[ 2909.125060] [drm] IP block:psp is h=
+ung!</div><div>[ 2909.125063] [drm] GPU recovery disabled.</div><div>[ 2914=
+.756931] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* amdgpu_cs_list_validate(val=
+idated) failed.</div><div>[ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ER=
+ROR* Failed to process the buffer list -16!</div><div>[ 2914.997372] amdgpu=
+ 0000:03:00.0: couldn&#39;t schedule ib on ring &lt;sdma0&gt;</div><div>[ 2=
+914.997498] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IBs (-22=
+)</div><div>[ 2930.117275] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* amdgpu_cs=
+_list_validate(validated) failed.</div><div>[ 2930.117405] [drm:amdgpu_cs_i=
+octl [amdgpu]] *ERROR* Failed to process the buffer list -16!</div><div>[ 2=
+930.152015] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear memor=
+y with ring turned off.</div><div>[ 2930.157940] [drm:amdgpu_fill_buffer [a=
+mdgpu]] *ERROR* Trying to clear memory with ring turned off.</div><div>[ 29=
+30.180535] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear memory=
+ with ring turned off.</div><div>[ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANG=
+E): wlp2s0: link becomes ready</div><div>[ 2945.477205] [drm:amdgpu_cs_ioct=
+l [amdgpu]] *ERROR* amdgpu_cs_list_validate(validated) failed.</div><div>[ =
+2945.477348] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process the b=
+uffer list -16!</div></div><div><br></div><div>System details:</div><div>HP=
+ Envy x360 Ryzen 2500U</div><div>ArchLinux, kernel 4.16rc6 and 4.15.12</div=
+><div><br></div><div>Cheers,</div><div>br=C3=A1ulio</div></div></blockquote=
+></div></div></div>
+
+--0000000000003e31540569c256a9--
+
+--===============1379699912==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1379699912==--
