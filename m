@@ -1,18 +1,12 @@
 From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] Revert "drm/amd/display: disable CRTCs with NULL FB
- on their primary plane (V2)"
-Date: Mon, 16 Apr 2018 10:05:06 -0400
-Message-ID: <661fdd91-ef44-a0b1-59a1-dd8843568316@amd.com>
-References: <20180412145152.20224-1-harry.wentland@amd.com>
- <20180412145152.20224-2-harry.wentland@amd.com>
- <a0f8eeb2-b1bf-7f31-a37d-52ea4623fd66@daenzer.net>
- <BLUPR12MB0452B66C9CBA14E859DB5DB6F2B30@BLUPR12MB0452.namprd12.prod.outlook.com>
- <557349ff-2d22-887f-0892-acfcd5cca1a5@daenzer.net>
+Subject: Re: Gamma problem after 4096 LUT entries change
+Date: Mon, 16 Apr 2018 10:07:10 -0400
+Message-ID: <7e45e177-ce05-746a-d91d-1917f3257de1@amd.com>
+References: <235ddff0-f299-264b-1d6c-a97a6012e8dc@moshe.nl>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------50C95F466E885816FA9A68C3"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <557349ff-2d22-887f-0892-acfcd5cca1a5-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <235ddff0-f299-264b-1d6c-a97a6012e8dc-A/3C56C7qwM@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,45 +18,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?M=c3=b4she_van_der_Sterre?= <me-A/3C56C7qwM@public.gmane.org>, "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wNC0xMyAwMzoxNSBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxOC0w
-NC0xMyAwNDo1NSBBTSwgUywgU2hpcmlzaCB3cm90ZToKPj4gSGkgSGFycnksIEFsZXgsCj4+Cj4+
-IFRoZSBzb2x1dGlvbiBnaXZlbiB3aGlsZSByZXZpZXdpbmcgbXkgcGF0Y2ggd2FzIHRoYXQgIkRD
-IHNob3VsZCBzdXBwb3J0IGVuYWJsaW5nIGEgQ1JUQyB3aXRob3V0IGEgZnJhbWVidWZmZXIuIgo+
-IAo+IEkgdGhpbmsgaXQncyB3ZWlyZCB0aGF0IGFuIGVuYWJsZWQgQ1JUQyB3b3VsZCBlbmQgdXAg
-aGF2aW5nIGEgTlVMTCBGQgo+IGR1cmluZyBub3JtYWwgb3BlcmF0aW9uIGluIHRoZSBmaXJzdCBw
-bGFjZS4gQW55IGlkZWEgaG93IHRoYXQgaGFwcGVucz8KPiAKCkkgdGhpbmsgd2UndmUgb25seSBz
-ZWVuIHRoYXQgd2l0aCBDaHJvbWVPUyBhbmQgaW4gb25lIGNhc2Ugb24gVWJ1bnR1LiBJZiBJIHJl
-bWVtYmVyIHJpZ2h0IGl0IHdhcyB3aGVuIHJ1bm5pbmcgR0RNIHdpdGggV2F5bGFuZCBhbmQgbG9n
-Z2luZyBpbnRvIFguIEkgaW1hZ2luZSBvdXIgRERYIGRyaXZlciBuZXZlciBwdWxscyB0aGlzIHNj
-ZW5hcmlvIG9uIHVzLgoKVGVjaG5pY2FsbHkgdGhpcyB3b3VsZCBiZSBhIHJlYXNvbmFibGUgY2Fz
-ZSBmb3Igb3VyIEhXLCBpLmUuIHdlIGNvdWxkIGtlZXAgcGlwZSBydW5uaW5nIGFuZCBibGFua2Vk
-IGFuZCBqdXN0IG5vdCBzY2FuLW91dCBhIEZCLgoKPiAKPj4gU2luY2UgdGhlIHJldmVydCBpcyBh
-IHRlbXBvcmFyeSB3b3JrYXJvdW5kIHRvIGFkZHJlc3MgaXNzdWUgYXQgaGFuZCBhbmQgY29uc2lk
-ZXJpbmcgdGhlIGJpZ2dlciByZWdyZXNzaW9uIGl0IHdpbGwgY2F1c2Ugb24gQ2hyb21lT1MoZXhw
-bGFpbmVkIGJlbG93KSwKPj4gSSB3b3VsZCBzdHJvbmdseSByZWNvbW1lbmQgdGhhdCB0aGUgcmV2
-ZXJ0IHNob3VsZCBub3QgYmUgbWFpbmxpbmVkICh0byBsaW51cyB0cmVlKSwgdW50aWwgYSBwcm9w
-ZXIgZml4IGZvciBib3RoIHRoZSBpc3N1ZXMgaS5lLiwgZmxpY2tlcmluZyBhbmQgQlVHIGhpdCBv
-biBhdG9taWMgaXMgZm91bmQuCj4+Cj4+IEZvciB0aGUgc2FrZSBvZiBldmVyeW9uZSdzIHVuZGVy
-c3RhbmRpbmcgaW4gdGhlIGxpc3QgYmVsb3cgaXMgYSBicmllZiBiYWNrZ3JvdW5kLgo+Pgo+PiBN
-YWlubGluZSBwYXRjaCBmcm9tIGludGVsIGZvbGtzLCAiODQ2YzdkZiBkcm0vYXRvbWljOiBUcnkg
-dG8gcHJlc2VydmUgdGhlIGNydGMgZW5hYmxlZCBzdGF0ZSBpbiBkcm1fYXRvbWljX3JlbW92ZV9m
-YiwgdjIuIiAKPj4gaW50cm9kdWNlcyBhIHNsaWdodCBiZWhhdmlvcmFsIGNoYW5nZSB0byBybWZi
-LiBJbnN0ZWFkIG9mIGRpc2FibGluZyBhIGNydGMgd2hlbiB0aGUgcHJpbWFyeSBwbGFuZSBpcyBk
-aXNhYmxlZCwgaXQgbm93IHByZXNlcnZlcyBpdC4KPj4KPj4gVGhpcyBjaGFuZ2UgbGVhZHMgdG8g
-QlVHIGhpdCB3aGlsZSBwZXJmb3JtaW5nIGF0b21pYyBjb21taXQgb24gYW1kIGRyaXZlciBsZWFk
-aW5nIHRvIHJlYm9vdC9zeXN0ZW0gaW5zdGFiaWxpdHkgb24gQ2hyb21lT1Mgd2hpY2ggaGFzIGVu
-YWJsZWQKPj4gZHJtIGF0b21pYyB3YXkgb2YgcmVuZGVyaW5nLCBJIGFsc28gcmVtZW1iZXIgaXQg
-Y2F1c2luZyBzb21lIGlzc3VlIG9uIG90aGVyIE9TIGFzIHdlbGwuCj4gCj4gQ2FuIHlvdSBwcm92
-aWRlIG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgInNvbWUgaXNzdWUgb24gb3RoZXIgT1MiPwo+IE90
-aGVyd2lzZSBJJ20gYWZyYWlkIHRoaXMgaXMgYSBuby1icmFpbmVyLCBzaW5jZSBub2JvZHkncyB1
-c2luZyBDaHJvbWVPUwo+IHdpdGggYW4gQU1EIEdQVSBpbiB0aGUgd2lsZCwgd2hlcmVhcyBtYW55
-IHBlb3BsZSBoYXZlIGJlZW4gcnVubmluZyBpbnRvCj4gaXNzdWVzIHdpdGggdGhlc2UgY29tbWl0
-cyBpbiB0aGUgd2lsZCwgZXNwZWNpYWxseSBzaW5jZSB0aGV5J3JlIGluIHRoZQo+IDQuMTYgcmVs
-ZWFzZS4KPiAKCkkgdGVuZCB0byBhZ3JlZSB3aXRoIE1pY2hlbCBoZXJlLCB0aGVyZSdzIGJlZW4g
-cXVpdGUgdGhlIGZhbGxvdXQgZnJvbSB0aGF0IHBhdGNoIGZvciBwZW9wbGUncyBkYWlseSBkcml2
-ZXJzLgoKSGFycnkKCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--------------50C95F466E885816FA9A68C3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+On 2018-04-15 05:37 AM, Môshe van der Sterre wrote:
+> Hello Leo Li,
+> 
+> The current mainline has a gamma regression for me, running wayland on a Ryzen 5 2400G (integrated gpu). Colors are much too dark after the following commit:
+> 086247a4b2fb "drm/amd/display: Use 4096 lut entries"
+> 
+> From this commit alone I cannot deduce how to properly address the problem. Reverting restores the correct colors. Unfortunately, I have no other amdgpu hardware to test if this is specific to the integrated gpu or not.
+> 
+> I'll gladly test possible fixes or debug a little further if you can point me in the right direction.
+> 
+
+Can you give attached patch a spin. We'll probably merge it or a variant of it soon.
+
+Harry
+
+> Thanks,
+> Môshe van der Sterre
+> 
+> 
+
+--------------50C95F466E885816FA9A68C3
+Content-Type: text/x-patch;
+ name="0001-drm-amd-display-Don-t-program-bypass-on-linear-regam.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-drm-amd-display-Don-t-program-bypass-on-linear-regam.pa";
+ filename*1="tch"
+
+>From 9adc614f258ba021aa70eeed92ecb0613406cf09 Mon Sep 17 00:00:00 2001
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Date: Thu, 12 Apr 2018 16:37:09 -0400
+Subject: [PATCH] drm/amd/display: Don't program bypass on linear regamma LUT
+
+Even though this is required for degamma since DCE HW only supports a
+couple predefined LUTs we can just program the LUT directly.
+
+This fixes dark screens which occurs when we program regamma to bypass
+while degamma is using srgb LUT.
+
+Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index ef5fad8c5aac..59e993ad1209 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -133,19 +133,15 @@ int amdgpu_dm_set_regamma_lut(struct dm_crtc_state *crtc)
+ 		/* By default, use the SRGB predefined curve.*/
+ 		stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
+ 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
++
++		DRM_DEBUG_KMS("Using pre-defined regamma\n");
++
+ 		return 0;
+ 	}
+ 
+ 	lut = (struct drm_color_lut *)blob->data;
+ 	lut_size = blob->length / sizeof(struct drm_color_lut);
+ 
+-	if (__is_lut_linear(lut, lut_size)) {
+-		/* Set to bypass if lut is set to linear */
+-		stream->out_transfer_func->type = TF_TYPE_BYPASS;
+-		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
+-		return 0;
+-	}
+-
+ 	gamma = dc_create_gamma();
+ 	if (!gamma)
+ 		return -ENOMEM;
+@@ -161,6 +157,8 @@ int amdgpu_dm_set_regamma_lut(struct dm_crtc_state *crtc)
+ 		return -EINVAL;
+ 	}
+ 
++	DRM_DEBUG_KMS("Using regamma with %d entries\n", lut_size);
++
+ 	/* Convert drm_lut into dc_gamma */
+ 	__drm_lut_to_dc_gamma(lut, gamma, gamma->type == GAMMA_RGB_256);
+ 
+-- 
+2.17.0
+
+
+--------------50C95F466E885816FA9A68C3
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------50C95F466E885816FA9A68C3--
