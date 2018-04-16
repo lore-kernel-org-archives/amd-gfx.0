@@ -1,13 +1,12 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Gamma problem after 4096 LUT entries change
-Date: Mon, 16 Apr 2018 10:07:10 -0400
-Message-ID: <7e45e177-ce05-746a-d91d-1917f3257de1@amd.com>
-References: <235ddff0-f299-264b-1d6c-a97a6012e8dc@moshe.nl>
+From: <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amd/pp: Adding set_watermarks_for_clocks_ranges for
+ SMU10
+Date: Mon, 16 Apr 2018 11:22:46 -0400
+Message-ID: <1523892166-9037-1-git-send-email-mikita.lipski@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------50C95F466E885816FA9A68C3"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <235ddff0-f299-264b-1d6c-a97a6012e8dc-A/3C56C7qwM@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,106 +17,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?M=c3=b4she_van_der_Sterre?= <me-A/3C56C7qwM@public.gmane.org>, "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, Rex.Zhu-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org
+Cc: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---------------50C95F466E885816FA9A68C3
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-On 2018-04-15 05:37 AM, Môshe van der Sterre wrote:
-> Hello Leo Li,
-> 
-> The current mainline has a gamma regression for me, running wayland on a Ryzen 5 2400G (integrated gpu). Colors are much too dark after the following commit:
-> 086247a4b2fb "drm/amd/display: Use 4096 lut entries"
-> 
-> From this commit alone I cannot deduce how to properly address the problem. Reverting restores the correct colors. Unfortunately, I have no other amdgpu hardware to test if this is specific to the integrated gpu or not.
-> 
-> I'll gladly test possible fixes or debug a little further if you can point me in the right direction.
-> 
-
-Can you give attached patch a spin. We'll probably merge it or a variant of it soon.
-
-Harry
-
-> Thanks,
-> Môshe van der Sterre
-> 
-> 
-
---------------50C95F466E885816FA9A68C3
-Content-Type: text/x-patch;
- name="0001-drm-amd-display-Don-t-program-bypass-on-linear-regam.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-drm-amd-display-Don-t-program-bypass-on-linear-regam.pa";
- filename*1="tch"
-
->From 9adc614f258ba021aa70eeed92ecb0613406cf09 Mon Sep 17 00:00:00 2001
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Date: Thu, 12 Apr 2018 16:37:09 -0400
-Subject: [PATCH] drm/amd/display: Don't program bypass on linear regamma LUT
-
-Even though this is required for degamma since DCE HW only supports a
-couple predefined LUTs we can just program the LUT directly.
-
-This fixes dark screens which occurs when we program regamma to bypass
-while degamma is using srgb LUT.
-
-Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index ef5fad8c5aac..59e993ad1209 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -133,19 +133,15 @@ int amdgpu_dm_set_regamma_lut(struct dm_crtc_state *crtc)
- 		/* By default, use the SRGB predefined curve.*/
- 		stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
- 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
-+
-+		DRM_DEBUG_KMS("Using pre-defined regamma\n");
-+
- 		return 0;
- 	}
- 
- 	lut = (struct drm_color_lut *)blob->data;
- 	lut_size = blob->length / sizeof(struct drm_color_lut);
- 
--	if (__is_lut_linear(lut, lut_size)) {
--		/* Set to bypass if lut is set to linear */
--		stream->out_transfer_func->type = TF_TYPE_BYPASS;
--		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
--		return 0;
--	}
--
- 	gamma = dc_create_gamma();
- 	if (!gamma)
- 		return -ENOMEM;
-@@ -161,6 +157,8 @@ int amdgpu_dm_set_regamma_lut(struct dm_crtc_state *crtc)
- 		return -EINVAL;
- 	}
- 
-+	DRM_DEBUG_KMS("Using regamma with %d entries\n", lut_size);
-+
- 	/* Convert drm_lut into dc_gamma */
- 	__drm_lut_to_dc_gamma(lut, gamma, gamma->type == GAMMA_RGB_256);
- 
--- 
-2.17.0
-
-
---------------50C95F466E885816FA9A68C3
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------50C95F466E885816FA9A68C3--
+RnJvbTogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgoKVGhlIGZ1bmN0aW9u
+IGlzIG5ldmVyIGltcGxlbWVudGVkIGZvciByYXZlbiBvbiBsaW51eC4KSXQgZm9sbG93cyBzaW1p
+bGFpciBpbXBsZW1lbnRhdGlvbiBhcyBvbiB3aW5kb3dzLgoKU01VIHN0aWxsIG5lZWRzIHRvIG5v
+dGlmeSBTTUMgYW5kIGNvcHkgV00gdGFibGUsIHdoaWNoIGlzIGFkZGVkCmhlcmUuIEJ1dCBvbiBv
+dGhlciBBc2ljcyBzdWNoIGFzIFZlZ2EgdGhpcyBzdGVwIGlzIG5vdCBpbXBsZW1lbnRlZC4KClNp
+Z25lZC1vZmYtYnk6IE1pa2l0YSBMaXBza2kgPG1pa2l0YS5saXBza2lAYW1kLmNvbT4KUmV2aWV3
+ZWQtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci9zbXUxMF9od21nci5jIHwgMTMgKysrKysrKysrKysrKwogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211MTBfaHdtZ3IuaCB8ICAxICsKIDIgZmls
+ZXMgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci9zbXUxMF9od21nci5jCmluZGV4IDZiYTNiMWYuLmI3MTJkMTYgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdy
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211MTBfaHdtZ3Iu
+YwpAQCAtOTkyLDYgKzk5MiwxOCBAQCBzdGF0aWMgaW50IHNtdTEwX3JlYWRfc2Vuc29yKHN0cnVj
+dCBwcF9od21nciAqaHdtZ3IsIGludCBpZHgsCiAJcmV0dXJuIHJldDsKIH0KIAorc3RhdGljIGlu
+dCBzbXUxMF9zZXRfd2F0ZXJtYXJrc19mb3JfY2xvY2tzX3JhbmdlcyhzdHJ1Y3QgcHBfaHdtZ3Ig
+Kmh3bWdyLAorCQlzdHJ1Y3QgcHBfd21fc2V0c193aXRoX2Nsb2NrX3Jhbmdlc19zb2MxNSAqd21f
+d2l0aF9jbG9ja19yYW5nZXMpCit7CisJc3RydWN0IHNtdTEwX2h3bWdyICpkYXRhID0gaHdtZ3It
+PmJhY2tlbmQ7CisJV2F0ZXJtYXJrc190ICp0YWJsZSA9ICYoZGF0YS0+d2F0ZXJfbWFya3NfdGFi
+bGUpOworCWludCByZXN1bHQgPSAwOworCisJc211X3NldF93YXRlcm1hcmtzX2Zvcl9jbG9ja3Nf
+cmFuZ2VzKHRhYmxlLHdtX3dpdGhfY2xvY2tfcmFuZ2VzKTsKKwlzbXVtX3NtY190YWJsZV9tYW5h
+Z2VyKGh3bWdyLCAodWludDhfdCAqKXRhYmxlLCAodWludDE2X3QpU01VMTBfV01UQUJMRSwgZmFs
+c2UpOworCWRhdGEtPndhdGVyX21hcmtzX2V4aXN0ID0gdHJ1ZTsKKwlyZXR1cm4gcmVzdWx0Owor
+fQogc3RhdGljIGludCBzbXUxMF9zZXRfbW1odWJfcG93ZXJnYXRpbmdfYnlfc211KHN0cnVjdCBw
+cF9od21nciAqaHdtZ3IpCiB7CiAJcmV0dXJuIHNtdW1fc2VuZF9tc2dfdG9fc21jKGh3bWdyLCBQ
+UFNNQ19NU0dfUG93ZXJHYXRlTW1IdWIpOwpAQCAtMTAyMSw2ICsxMDMzLDcgQEAgc3RhdGljIGNv
+bnN0IHN0cnVjdCBwcF9od21ncl9mdW5jIHNtdTEwX2h3bWdyX2Z1bmNzID0gewogCS5nZXRfY3Vy
+cmVudF9zaGFsbG93X3NsZWVwX2Nsb2NrcyA9IHNtdTEwX2dldF9jdXJyZW50X3NoYWxsb3dfc2xl
+ZXBfY2xvY2tzLAogCS5nZXRfY2xvY2tfYnlfdHlwZV93aXRoX2xhdGVuY3kgPSBzbXUxMF9nZXRf
+Y2xvY2tfYnlfdHlwZV93aXRoX2xhdGVuY3ksCiAJLmdldF9jbG9ja19ieV90eXBlX3dpdGhfdm9s
+dGFnZSA9IHNtdTEwX2dldF9jbG9ja19ieV90eXBlX3dpdGhfdm9sdGFnZSwKKwkuc2V0X3dhdGVy
+bWFya3NfZm9yX2Nsb2Nrc19yYW5nZXMgPSBzbXUxMF9zZXRfd2F0ZXJtYXJrc19mb3JfY2xvY2tz
+X3JhbmdlcywKIAkuZ2V0X21heF9oaWdoX2Nsb2NrcyA9IHNtdTEwX2dldF9tYXhfaGlnaF9jbG9j
+a3MsCiAJLnJlYWRfc2Vuc29yID0gc211MTBfcmVhZF9zZW5zb3IsCiAJLnNldF9hY3RpdmVfZGlz
+cGxheV9jb3VudCA9IHNtdTEwX3NldF9hY3RpdmVfZGlzcGxheV9jb3VudCwKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdyLmggYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXUxMF9od21nci5oCmluZGV4IDE3NWMz
+YTUuLmY2OGIyMTggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL3NtdTEwX2h3bWdyLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
+Z3Ivc211MTBfaHdtZ3IuaApAQCAtMjkwLDYgKzI5MCw3IEBAIHN0cnVjdCBzbXUxMF9od21nciB7
+CiAJYm9vbCAgICAgICAgICAgICAgICAgICAgICAgICAgIHZjbl9kcGdfbW9kZTsKIAogCWJvb2wg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBnZnhfb2ZmX2NvbnRyb2xlZF9ieV9kcml2ZXI7CisJ
+Ym9vbCAgICAgICAgICAgICAgICAgICAgICAgICAgIHdhdGVyX21hcmtzX2V4aXN0OwogCVdhdGVy
+bWFya3NfdCAgICAgICAgICAgICAgICAgICAgICB3YXRlcl9tYXJrc190YWJsZTsKIAlzdHJ1Y3Qg
+c211MTBfY2xvY2tfdm9sdGFnZV9pbmZvcm1hdGlvbiAgIGNsb2NrX3ZvbF9pbmZvOwogCURwbUNs
+b2Nrc190ICAgICAgICAgICAgICAgICAgICAgICBjbG9ja190YWJsZTsKLS0gCjIuNy40CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
