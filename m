@@ -1,13 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: ifdef unused var
-Date: Tue, 17 Apr 2018 14:32:58 +0000
-Message-ID: <DM5PR12MB1820439623669B4034CEBAAEF7B70@DM5PR12MB1820.namprd12.prod.outlook.com>
-References: <20180417142514.3118-1-harry.wentland@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Fix bug voltage can't be OD separately on VI
+Date: Tue, 17 Apr 2018 11:10:31 -0400
+Message-ID: <CADnq5_OGyFduBtPEPUy0-ZGKK=1rRRX8sUYroj-AJ1HdBvaSKQ@mail.gmail.com>
+References: <1523959897-17281-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1298200177=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180417142514.3118-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1523959897-17281-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,138 +18,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1298200177==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1820439623669B4034CEBAAEF7B70DM5PR12MB1820namp_"
-
---_000_DM5PR12MB1820439623669B4034CEBAAEF7B70DM5PR12MB1820namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
-ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, April 17, 2018 10:25:14 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Wentland, Harry
-Subject: [PATCH] drm/amdgpu: ifdef unused var
-
-Code that's using it is guarded with #if 0. Do the same for unused var.
-
-Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c
-index 72fac1f946c2..e6b00b507d4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -806,7 +806,9 @@ static int gmc_v9_0_gart_init(struct amdgpu_device *ade=
-v)
-
- static unsigned gmc_v9_0_get_vbios_fb_size(struct amdgpu_device *adev)
- {
-+#if 0
-         u32 d1vga_control =3D RREG32_SOC15(DCE, 0, mmD1VGA_CONTROL);
-+#endif
-         unsigned size;
-
-         /*
---
-2.17.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM5PR12MB1820439623669B4034CEBAAEF7B70DM5PR12MB1820namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.went=
-land-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, April 17, 2018 10:25:14 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Wentland, Harry<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: ifdef unused var</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Code that's using it is guarded with #if 0. Do the=
- same for unused var.<br>
-<br>
-Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c<br>
-index 72fac1f946c2..e6b00b507d4d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-@@ -806,7 &#43;806,9 @@ static int gmc_v9_0_gart_init(struct amdgpu_device =
-*adev)<br>
-&nbsp;<br>
-&nbsp;static unsigned gmc_v9_0_get_vbios_fb_size(struct amdgpu_device *adev=
-)<br>
-&nbsp;{<br>
-&#43;#if 0<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 d1vga_control =3D RREG=
-32_SOC15(DCE, 0, mmD1VGA_CONTROL);<br>
-&#43;#endif<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned size;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--- <br>
-2.17.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM5PR12MB1820439623669B4034CEBAAEF7B70DM5PR12MB1820namp_--
-
---===============1298200177==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1298200177==--
+T24gVHVlLCBBcHIgMTcsIDIwMTggYXQgNjoxMSBBTSwgUmV4IFpodSA8UmV4LlpodUBhbWQuY29t
+PiB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+CgpQbGVh
+c2UgaW5jbHVkZSBhIHBhdGNoIGRlc2NyaXB0aW9uLiBFLmcuLApNYWtlIHN1cmUgdG8gdXBkYXRl
+IHRoZSBNQ0xLIGFuZCBTQ0xLIGZsYWdzIHdoZW4gc2V0dGluZyB0aGUgVkREQwpmbGFncyBkdWUg
+dG8gZGVwZW5kZW5jaWVzLgpXaXRoIHRoYXQgZml4ZWQ6ClJldmlld2VkLWJ5OiBBbGV4IERldWNo
+ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgfCAxNiArKysrKysrKysrLS0tLS0tCj4g
+IDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3Iu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+IGlu
+ZGV4IDY4YWFlMDkuLjcyMGFjNDcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCj4gQEAgLTQ2NzksMjMgKzQ2NzksMjcgQEAgc3Rh
+dGljIHZvaWQgc211N19jaGVja19kcG1fdGFibGVfdXBkYXRlZChzdHJ1Y3QgcHBfaHdtZ3IgKmh3
+bWdyKQo+Cj4gICAgICAgICBmb3IgKGk9MDsgaSA8IGRlcF90YWJsZS0+Y291bnQ7IGkrKykgewo+
+ICAgICAgICAgICAgICAgICBpZiAoZGVwX3RhYmxlLT5lbnRyaWVzW2ldLnZkZGMgIT0gb2RuX2Rl
+cF90YWJsZS0+ZW50cmllc1tpXS52ZGRjKSB7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgZGF0
+YS0+bmVlZF91cGRhdGVfc211N19kcG1fdGFibGUgfD0gRFBNVEFCTEVfT0RfVVBEQVRFX1ZEREM7
+Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgZGF0YS0+bmVlZF91cGRhdGVfc211N19kcG1fdGFibGUgfD0gRFBNVEFCTEVfT0RfVVBEQVRF
+X1ZEREMgfCBEUE1UQUJMRV9PRF9VUERBVEVfTUNMSzsKPiArICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm47Cj4gICAgICAgICAgICAgICAgIH0KPiAgICAgICAgIH0KPiAtICAgICAgIGlmIChp
+ID09IGRlcF90YWJsZS0+Y291bnQpCj4gKyAgICAgICBpZiAoaSA9PSBkZXBfdGFibGUtPmNvdW50
+ICYmIGRhdGEtPm5lZWRfdXBkYXRlX3NtdTdfZHBtX3RhYmxlICYgRFBNVEFCTEVfT0RfVVBEQVRF
+X1ZEREMpIHsKPiAgICAgICAgICAgICAgICAgZGF0YS0+bmVlZF91cGRhdGVfc211N19kcG1fdGFi
+bGUgJj0gfkRQTVRBQkxFX09EX1VQREFURV9WRERDOwo+ICsgICAgICAgICAgICAgICBkYXRhLT5u
+ZWVkX3VwZGF0ZV9zbXU3X2RwbV90YWJsZSB8PSBEUE1UQUJMRV9PRF9VUERBVEVfTUNMSzsKPiAr
+ICAgICAgIH0KPgo+ICAgICAgICAgZGVwX3RhYmxlID0gdGFibGVfaW5mby0+dmRkX2RlcF9vbl9z
+Y2xrOwo+ICAgICAgICAgb2RuX2RlcF90YWJsZSA9IChzdHJ1Y3QgcGhtX3BwdF92MV9jbG9ja192
+b2x0YWdlX2RlcGVuZGVuY3lfdGFibGUgKikmKG9kbl90YWJsZS0+dmRkX2RlcGVuZGVuY3lfb25f
+c2Nsayk7Cj4gICAgICAgICBmb3IgKGk9MDsgaSA8IGRlcF90YWJsZS0+Y291bnQ7IGkrKykgewo+
+ICAgICAgICAgICAgICAgICBpZiAoZGVwX3RhYmxlLT5lbnRyaWVzW2ldLnZkZGMgIT0gb2RuX2Rl
+cF90YWJsZS0+ZW50cmllc1tpXS52ZGRjKSB7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgZGF0
+YS0+bmVlZF91cGRhdGVfc211N19kcG1fdGFibGUgfD0gRFBNVEFCTEVfT0RfVVBEQVRFX1ZEREM7
+Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgZGF0YS0+bmVlZF91cGRhdGVfc211N19kcG1fdGFibGUgfD0gRFBNVEFCTEVfT0RfVVBEQVRF
+X1ZEREMgfCBEUE1UQUJMRV9PRF9VUERBVEVfU0NMSzsKPiArICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm47Cj4gICAgICAgICAgICAgICAgIH0KPiAgICAgICAgIH0KPiAtICAgICAgIGlmIChp
+ID09IGRlcF90YWJsZS0+Y291bnQpCj4gKyAgICAgICBpZiAoaSA9PSBkZXBfdGFibGUtPmNvdW50
+ICYmIGRhdGEtPm5lZWRfdXBkYXRlX3NtdTdfZHBtX3RhYmxlICYgRFBNVEFCTEVfT0RfVVBEQVRF
+X1ZEREMpIHsKPiAgICAgICAgICAgICAgICAgZGF0YS0+bmVlZF91cGRhdGVfc211N19kcG1fdGFi
+bGUgJj0gfkRQTVRBQkxFX09EX1VQREFURV9WRERDOwo+ICsgICAgICAgICAgICAgICBkYXRhLT5u
+ZWVkX3VwZGF0ZV9zbXU3X2RwbV90YWJsZSB8PSBEUE1UQUJMRV9PRF9VUERBVEVfU0NMSzsKPiAr
+ICAgICAgIH0KPiAgfQo+Cj4gIHN0YXRpYyBpbnQgc211N19vZG5fZWRpdF9kcG1fdGFibGUoc3Ry
+dWN0IHBwX2h3bWdyICpod21nciwKPiAtLQo+IDEuOS4xCj4KPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
