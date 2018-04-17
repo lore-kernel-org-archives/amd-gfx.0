@@ -1,11 +1,13 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: limit reg_write_reg_wait workaround to SRIOV
-Date: Tue, 17 Apr 2018 15:01:35 +0200
-Message-ID: <20180417130135.1895-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: fix compiling error on 32-Bit Linux
+Date: Tue, 17 Apr 2018 13:25:55 +0000
+Message-ID: <DM5PR12MB182092AEE84BBC98535DE934F7B70@DM5PR12MB1820.namprd12.prod.outlook.com>
+References: <1523957879-8726-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0573224650=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1523957879-8726-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,25 +18,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VHVybmVkIG91dCB0aGF0IHRoaXMgbG9ja3MgdXAgc29tZSBiYXJlIG1ldGFsIFZlZ2ExMC4KClNp
-Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgNyArKysrKystCiAx
-IGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKaW5kZXggNTgzZjZmNjE2ZGQzLi41MzI5ZDdlNWZiNzEg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwpAQCAtNDE0NCw3ICs0MTQ0LDEy
-IEBAIHN0YXRpYyB2b2lkIGdmeF92OV8wX3JpbmdfZW1pdF9yZWdfd3JpdGVfcmVnX3dhaXQoc3Ry
-dWN0IGFtZGdwdV9yaW5nICpyaW5nLAogewogCWludCB1c2VwZnAgPSAocmluZy0+ZnVuY3MtPnR5
-cGUgPT0gQU1ER1BVX1JJTkdfVFlQRV9HRlgpOwogCi0JZ2Z4X3Y5XzBfd2FpdF9yZWdfbWVtKHJp
-bmcsIHVzZXBmcCwgMCwgMSwgcmVnMCwgcmVnMSwgcmVmLCBtYXNrLCAweDIwKTsKKwlpZiAoYW1k
-Z3B1X3NyaW92X3ZmKGFkZXYpKQorCQlnZnhfdjlfMF93YWl0X3JlZ19tZW0ocmluZywgdXNlcGZw
-LCAwLCAxLCByZWcwLCByZWcxLAorCQkJCSAgICAgIHJlZiwgbWFzaywgMHgyMCk7CisJZWxzZQor
-CQlhbWRncHVfcmluZ19lbWl0X3JlZ193cml0ZV9yZWdfd2FpdF9oZWxwZXIocmluZywgcmVnMCwg
-cmVnMSwKKwkJCQkJCQkgICByZWYsIG1hc2spOwogfQogCiBzdGF0aWMgdm9pZCBnZnhfdjlfMF9z
-ZXRfZ2Z4X2VvcF9pbnRlcnJ1cHRfc3RhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCi0t
-IAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0573224650==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB182092AEE84BBC98535DE934F7B70DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB182092AEE84BBC98535DE934F7B70DM5PR12MB1820namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I think Harry sent out a similar patch a few days ago.
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, April 17, 2018 5:37:59 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amd/display: fix compiling error on 32-Bit Linux
+
+ERROR: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/driv=
+ers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 5e12e46..d1f57d0 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -616,6 +616,7 @@ void mod_freesync_build_vrr_params(struct mod_freesync =
+*mod_freesync,
+         unsigned int refresh_range =3D 0;
+         unsigned int min_refresh_in_uhz =3D 0;
+         unsigned int max_refresh_in_uhz =3D 0;
++       unsigned long long tmp;
+
+         if (mod_freesync =3D=3D NULL)
+                 return;
+@@ -646,8 +647,8 @@ void mod_freesync_build_vrr_params(struct mod_freesync =
+*mod_freesync,
+          * calculated from pixel rate and vertical/horizontal totals, but
+          * this should be allowed instead of blocking FreeSync.
+          */
+-       if ((min_refresh_in_uhz / 1000000) >
+-                       ((nominal_field_rate_in_uhz + 1000000 - 1) / 100000=
+0))
++       tmp =3D div_u64(nominal_field_rate_in_uhz + 1000000 - 1, 1000000);
++       if ((min_refresh_in_uhz / 1000000) > tmp)
+                 nominal_field_rate_in_range =3D false;
+
+         // Full range may be larger than current video timing, so cap at n=
+ominal
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB182092AEE84BBC98535DE934F7B70DM5PR12MB1820namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">I think Harry sent out a similar =
+patch a few days ago.</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Tuesday, April 17, 2018 5:37:59 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/display: fix compiling error on 32-Bit Linu=
+x</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">ERROR: &quot;__udivdi3&quot; [drivers/gpu/drm/amd/=
+amdgpu/amdgpu.ko] undefined!<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 5 &#43;&#43=
+;&#43;--<br>
+&nbsp;1 file changed, 3 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/driv=
+ers/gpu/drm/amd/display/modules/freesync/freesync.c<br>
+index 5e12e46..d1f57d0 100644<br>
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c<b=
+r>
+@@ -616,6 &#43;616,7 @@ void mod_freesync_build_vrr_params(struct mod_frees=
+ync *mod_freesync,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int refresh_range=
+ =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int min_refresh_i=
+n_uhz =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int max_refresh_i=
+n_uhz =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long long tmp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mod_freesync =3D=3D NU=
+LL)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return;<br>
+@@ -646,8 &#43;647,8 @@ void mod_freesync_build_vrr_params(struct mod_frees=
+ync *mod_freesync,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * calculated from pi=
+xel rate and vertical/horizontal totals, but<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * this should be all=
+owed instead of blocking FreeSync.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((min_refresh_in_uhz / 1000000) &g=
+t;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((nominal_field_=
+rate_in_uhz &#43; 1000000 - 1) / 1000000))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D div_u64(nominal_field_rat=
+e_in_uhz &#43; 1000000 - 1, 1000000);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((min_refresh_in_uhz / 1000000=
+) &gt; tmp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; nominal_field_rate_in_range =3D false;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Full range may be large=
+r than current video timing, so cap at nominal<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB182092AEE84BBC98535DE934F7B70DM5PR12MB1820namp_--
+
+--===============0573224650==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0573224650==--
