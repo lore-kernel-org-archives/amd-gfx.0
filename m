@@ -1,14 +1,11 @@
-From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Raven Ridge Ryzen 2500U hang reproduced
-Date: Wed, 18 Apr 2018 20:37:24 +0000
-Message-ID: <CAJri6_uy+aXe7+X5qJd2GUEYmivLuQ9q+rV5oqd1G4XGciGnrQ@mail.gmail.com>
-References: <CAJri6_tTnk6Q0VCFRR-4GFw+3QVo9iyXpFtQS6uLLcXgPNEeGw@mail.gmail.com>
- <CAJri6_tvPciPBs9JOJ70habzc-RMsnA4Sms3LpsZwR7p=HThvA@mail.gmail.com>
- <bb90a01d-79ec-cbb7-532a-491c0ea13086@gmail.com>
+From: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/3] drm/amdgpu: Rename amdgpu_display_framebuffer_domains()
+Date: Wed, 18 Apr 2018 17:50:42 -0400
+Message-ID: <1524088242-9233-1-git-send-email-Samuel.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1604899581=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bb90a01d-79ec-cbb7-532a-491c0ea13086-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,306 +16,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 
---===============1604899581==
-Content-Type: multipart/alternative; boundary="000000000000cd9bb1056a256c45"
-
---000000000000cd9bb1056a256c45
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Nicolai,
-
-It makes sense.
-
-The easiest way to reproduce the real freeze is to:
-- Run vblank_mode=3D0 glxgears
-- Open https://hangouts.google.com/start
-- Activate KDE compositing
-
-It will freeze within a few minutes.
-
-Cheers,
-Br=C3=A1ulio
-
-On Mon, Apr 16, 2018 at 4:44 AM Nicolai H=C3=A4hnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
-ote:
-
-> On 14.04.2018 00:24, Br=C3=A1ulio Bhavamitra wrote:
-> > It ALWAYS crashes on shader15 of
-> > http://www.graphicsfuzz.com/benchmark/android-v1.html.
->
-> This is very likely an unrelated issue to any kind of desktop hang
-> you're seeing. The graphics fuzz shaders are the result of fuzzing to
-> intentionally generate unusual control flow structures which are likely
-> to trigger shader compiler bugs. Typical desktop workloads don't have
-> such shaders, so any generic desktop hang you're seeing is almost
-> certainly unrelated.
->
-> Cheers,
-> Nicolai
->
->
-> >
-> > Also reported at https://bugzilla.redhat.com/show_bug.cgi?id=3D1562530
-> >
-> > Using kernel 4.16 with options rcu_nocb=3D0-15 and amdgpu.dpm=3D0
-> >
-> > Cheers,
-> > Br=C3=A1ulio
-> >
-> > On Mon, Mar 26, 2018 at 8:30 PM Br=C3=A1ulio Bhavamitra <brauliobo@gmai=
-l.com
-> > <mailto:brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
-> >
-> >     Hi all,
-> >
-> >     Following the random crashes happenning with many users (e.g.
-> >
-> https://www.phoronix.com/scan.php?page=3Dnews_item&px=3DRaven-Ridge-March=
--Update
-> ),
-> >     not only on Linux but also Windows, I've been struggling to
-> >     reproduce and generate any error log.
-> >
-> >     After discovering that the error only happenned with KDE and games
-> >     (at least for me, see https://bugs.kde.org/show_bug.cgi?id=3D392378=
-),
-> >     I could reproduce after a failing suspend.
-> >
-> >     The crash most of the times allows the mouse to keep moving, but
-> >     anything else works. Except for this time the keyboard worked so I
-> >     could switch the tty and save the dmesg messages. After this I had
-> >     to force reboot as it got stuck trying to kill the lightdm service
-> >     (gpu hanged?).
-> >
-> >     The errors are, see attached the full dmesg:
-> >     [ 2899.525650] amdgpu 0000:03:00.0: couldn't schedule ib on ring
-> <sdma0>
-> >     [ 2899.525769] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error
-> >     scheduling IBs (-22)
-> >     [ 2909.125047] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
-> >     timeout, last signaled seq=3D174624, last emitted seq=3D174627
-> >     [ 2909.125060] [drm] IP block:psp is hung!
-> >     [ 2909.125063] [drm] GPU recovery disabled.
-> >     [ 2914.756931] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
-> >     amdgpu_cs_list_validate(validated) failed.
-> >     [ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-> >     process the buffer list -16!
-> >     [ 2914.997372] amdgpu 0000:03:00.0: couldn't schedule ib on ring
-> <sdma0>
-> >     [ 2914.997498] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error
-> >     scheduling IBs (-22)
-> >     [ 2930.117275] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
-> >     amdgpu_cs_list_validate(validated) failed.
-> >     [ 2930.117405] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-> >     process the buffer list -16!
-> >     [ 2930.152015] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to
-> >     clear memory with ring turned off.
-> >     [ 2930.157940] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to
-> >     clear memory with ring turned off.
-> >     [ 2930.180535] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to
-> >     clear memory with ring turned off.
-> >     [ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANGE): wlp2s0: link becomes
-> ready
-> >     [ 2945.477205] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
-> >     amdgpu_cs_list_validate(validated) failed.
-> >     [ 2945.477348] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to
-> >     process the buffer list -16!
-> >
-> >     System details:
-> >     HP Envy x360 Ryzen 2500U
-> >     ArchLinux, kernel 4.16rc6 and 4.15.12
-> >
-> >     Cheers,
-> >     br=C3=A1ulio
-> >
-> >
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> >
->
->
-> --
-> Lerne, wie die Welt wirklich ist,
-> Aber vergiss niemals, wie sie sein sollte.
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---000000000000cd9bb1056a256c45
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Nicolai,<div><br></div><div>It makes sense.</div><div><=
-br></div><div>The easiest way to reproduce the real freeze is to:<br>- Run =
-vblank_mode=3D0 glxgears<br>- Open <a href=3D"https://hangouts.google.com/s=
-tart">https://hangouts.google.com/start</a><br>- Activate KDE compositing<b=
-r><div><br></div><div>It will freeze within a few minutes.</div></div><div>=
-<br></div><div>Cheers,</div><div>Br=C3=A1ulio</div></div><br><div class=3D"=
-gmail_quote"><div dir=3D"ltr">On Mon, Apr 16, 2018 at 4:44 AM Nicolai H=C3=
-=A4hnle &lt;<a href=3D"mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">On 14.04.2018 00:24, Br=C3=
-=A1ulio Bhavamitra wrote:<br>
-&gt; It ALWAYS crashes on shader15 of <br>
-&gt; <a href=3D"http://www.graphicsfuzz.com/benchmark/android-v1.html" rel=
-=3D"noreferrer" target=3D"_blank">http://www.graphicsfuzz.com/benchmark/and=
-roid-v1.html</a>.<br>
-<br>
-This is very likely an unrelated issue to any kind of desktop hang <br>
-you&#39;re seeing. The graphics fuzz shaders are the result of fuzzing to <=
-br>
-intentionally generate unusual control flow structures which are likely <br=
->
-to trigger shader compiler bugs. Typical desktop workloads don&#39;t have <=
-br>
-such shaders, so any generic desktop hang you&#39;re seeing is almost <br>
-certainly unrelated.<br>
-<br>
-Cheers,<br>
-Nicolai<br>
-<br>
-<br>
-&gt; <br>
-&gt; Also reported at <a href=3D"https://bugzilla.redhat.com/show_bug.cgi?i=
-d=3D1562530" rel=3D"noreferrer" target=3D"_blank">https://bugzilla.redhat.c=
-om/show_bug.cgi?id=3D1562530</a><br>
-&gt; <br>
-&gt; Using kernel 4.16 with options rcu_nocb=3D0-15 and amdgpu.dpm=3D0<br>
-&gt; <br>
-&gt; Cheers,<br>
-&gt; Br=C3=A1ulio<br>
-&gt; <br>
-&gt; On Mon, Mar 26, 2018 at 8:30 PM Br=C3=A1ulio Bhavamitra &lt;<a href=3D=
-"mailto:brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a> <br>
-&gt; &lt;mailto:<a href=3D"mailto:brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">br=
-auliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;&gt; wrote:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Hi all,<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Following the random crashes happenning with many u=
-sers (e.g.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://www.phoronix.com/scan.php?page=
-=3Dnews_item&amp;px=3DRaven-Ridge-March-Update" rel=3D"noreferrer" target=
-=3D"_blank">https://www.phoronix.com/scan.php?page=3Dnews_item&amp;px=3DRav=
-en-Ridge-March-Update</a>),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0not only on Linux but also Windows, I&#39;ve been s=
-truggling to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0reproduce and generate any error log.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0After discovering that the error only happenned wit=
-h KDE and games<br>
-&gt;=C2=A0 =C2=A0 =C2=A0(at least for me, see <a href=3D"https://bugs.kde.o=
-rg/show_bug.cgi?id=3D392378" rel=3D"noreferrer" target=3D"_blank">https://b=
-ugs.kde.org/show_bug.cgi?id=3D392378</a>),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0I could reproduce after a failing suspend.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0The crash most of the times allows the mouse to kee=
-p moving, but<br>
-&gt;=C2=A0 =C2=A0 =C2=A0anything else works. Except for this time the keybo=
-ard worked so I<br>
-&gt;=C2=A0 =C2=A0 =C2=A0could switch the tty and save the dmesg messages. A=
-fter this I had<br>
-&gt;=C2=A0 =C2=A0 =C2=A0to force reboot as it got stuck trying to kill the =
-lightdm service<br>
-&gt;=C2=A0 =C2=A0 =C2=A0(gpu hanged?).<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0The errors are, see attached the full dmesg:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2899.525650] amdgpu 0000:03:00.0: couldn&#39;t sc=
-hedule ib on ring &lt;sdma0&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2899.525769] [drm:amdgpu_job_run [amdgpu]] *ERROR=
-* Error<br>
-&gt;=C2=A0 =C2=A0 =C2=A0scheduling IBs (-22)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2909.125047] [drm:amdgpu_job_timedout [amdgpu]] *=
-ERROR* ring gfx<br>
-&gt;=C2=A0 =C2=A0 =C2=A0timeout, last signaled seq=3D174624, last emitted s=
-eq=3D174627<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2909.125060] [drm] IP block:psp is hung!<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2909.125063] [drm] GPU recovery disabled.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2914.756931] [drm:amdgpu_cs_ioctl [amdgpu]] *ERRO=
-R*<br>
-&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_cs_list_validate(validated) failed.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ERRO=
-R* Failed to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0process the buffer list -16!<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2914.997372] amdgpu 0000:03:00.0: couldn&#39;t sc=
-hedule ib on ring &lt;sdma0&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2914.997498] [drm:amdgpu_job_run [amdgpu]] *ERROR=
-* Error<br>
-&gt;=C2=A0 =C2=A0 =C2=A0scheduling IBs (-22)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2930.117275] [drm:amdgpu_cs_ioctl [amdgpu]] *ERRO=
-R*<br>
-&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_cs_list_validate(validated) failed.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2930.117405] [drm:amdgpu_cs_ioctl [amdgpu]] *ERRO=
-R* Failed to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0process the buffer list -16!<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2930.152015] [drm:amdgpu_fill_buffer [amdgpu]] *E=
-RROR* Trying to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0clear memory with ring turned off.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2930.157940] [drm:amdgpu_fill_buffer [amdgpu]] *E=
-RROR* Trying to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0clear memory with ring turned off.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2930.180535] [drm:amdgpu_fill_buffer [amdgpu]] *E=
-RROR* Trying to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0clear memory with ring turned off.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANGE): wlp2s=
-0: link becomes ready<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2945.477205] [drm:amdgpu_cs_ioctl [amdgpu]] *ERRO=
-R*<br>
-&gt;=C2=A0 =C2=A0 =C2=A0amdgpu_cs_list_validate(validated) failed.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0[ 2945.477348] [drm:amdgpu_cs_ioctl [amdgpu]] *ERRO=
-R* Failed to<br>
-&gt;=C2=A0 =C2=A0 =C2=A0process the buffer list -16!<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0System details:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0HP Envy x360 Ryzen 2500U<br>
-&gt;=C2=A0 =C2=A0 =C2=A0ArchLinux, kernel 4.16rc6 and 4.15.12<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0Cheers,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0br=C3=A1ulio<br>
-&gt; <br>
-&gt; <br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
-=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
-tinfo/amd-gfx</a><br>
-&gt; <br>
-<br>
-<br>
--- <br>
-Lerne, wie die Welt wirklich ist,<br>
-Aber vergiss niemals, wie sie sein sollte.<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-
---000000000000cd9bb1056a256c45--
-
---===============1604899581==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1604899581==--
+SXQgcmV0dXJucyBzdXBwb3J0ZWQgZG9tYWlucywgYW5kIGRvbWFpbnMgYWN0dWFsbHkgdXNlZCBh
+cmUgdG8gYmUKZGVjaWRlZCBsYXRlci4KClNpZ25lZC1vZmYtYnk6IFNhbXVlbCBMaSA8U2FtdWVs
+LkxpQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3Bs
+YXkuYyAgICAgICB8IDQgKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rp
+c3BsYXkuaCAgICAgICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9m
+Yi5jICAgICAgICAgICAgfCAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cHJpbWUuYyAgICAgICAgIHwgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG0uYyB8IDMgKy0tCiA1IGZpbGVzIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygr
+KSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rp
+c3BsYXkuYwppbmRleCA1MGY5OGRmLi4wY2FhM2QyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKQEAgLTE4OSw3ICsxODksNyBAQCBpbnQgYW1kZ3B1X2Rp
+c3BsYXlfY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0KHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJZ290
+byBjbGVhbnVwOwogCX0KIAotCXIgPSBhbWRncHVfYm9fcGluKG5ld19hYm8sIGFtZGdwdV9kaXNw
+bGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMoYWRldiksICZiYXNlKTsKKwlyID0gYW1kZ3B1X2JvX3Bp
+bihuZXdfYWJvLCBhbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlucyhhZGV2KSwgJmJhc2Up
+OwogCWlmICh1bmxpa2VseShyICE9IDApKSB7CiAJCURSTV9FUlJPUigiZmFpbGVkIHRvIHBpbiBu
+ZXcgYWJvIGJ1ZmZlciBiZWZvcmUgZmxpcFxuIik7CiAJCWdvdG8gdW5yZXNlcnZlOwpAQCAtNDg0
+LDcgKzQ4NCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyX2Z1bmNzIGFt
+ZGdwdV9mYl9mdW5jcyA9IHsKIAkuY3JlYXRlX2hhbmRsZSA9IGRybV9nZW1fZmJfY3JlYXRlX2hh
+bmRsZSwKIH07CiAKLXVpbnQzMl90IGFtZGdwdV9kaXNwbGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCit1aW50MzJfdCBhbWRncHVfZGlzcGxheV9zdXBw
+b3J0ZWRfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAl1aW50MzJfdCBk
+b21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2Rpc3BsYXkuaAppbmRleCAyYjExZDgwLi5mNjZlM2UzIDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5oCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmgKQEAgLTIzLDcgKzIzLDcgQEAK
+ICNpZm5kZWYgX19BTURHUFVfRElTUExBWV9IX18KICNkZWZpbmUgX19BTURHUFVfRElTUExBWV9I
+X18KIAotdWludDMyX3QgYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldik7Cit1aW50MzJfdCBhbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRf
+ZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiBzdHJ1Y3QgZHJtX2ZyYW1lYnVm
+ZmVyICoKIGFtZGdwdV9kaXNwbGF5X3VzZXJfZnJhbWVidWZmZXJfY3JlYXRlKHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYsCiAJCQkJICAgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2LApkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwppbmRleCBmZjg5ZTg0Li5iYzVmZDhlIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwpAQCAtMTM3LDcgKzEzNyw3IEBA
+IHN0YXRpYyBpbnQgYW1kZ3B1ZmJfY3JlYXRlX3Bpbm5lZF9vYmplY3Qoc3RydWN0IGFtZGdwdV9m
+YmRldiAqcmZiZGV2LAogCS8qIG5lZWQgdG8gYWxpZ24gcGl0Y2ggd2l0aCBjcnRjIGxpbWl0cyAq
+LwogCW1vZGVfY21kLT5waXRjaGVzWzBdID0gYW1kZ3B1X2FsaWduX3BpdGNoKGFkZXYsIG1vZGVf
+Y21kLT53aWR0aCwgY3BwLAogCQkJCQkJICBmYl90aWxlZCk7Ci0JZG9tYWluID0gYW1kZ3B1X2Rp
+c3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhhZGV2KTsKKwlkb21haW4gPSBhbWRncHVfZGlzcGxh
+eV9zdXBwb3J0ZWRfZG9tYWlucyhhZGV2KTsKIAogCWhlaWdodCA9IEFMSUdOKG1vZGVfY21kLT5o
+ZWlnaHQsIDgpOwogCXNpemUgPSBtb2RlX2NtZC0+cGl0Y2hlc1swXSAqIGhlaWdodDsKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKaW5kZXggNGI1ODRjYjcuLmNmMDc0
+OWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5j
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCkBAIC0yMDks
+NyArMjA5LDcgQEAgc3RhdGljIGludCBhbWRncHVfZ2VtX2JlZ2luX2NwdV9hY2Nlc3Moc3RydWN0
+IGRtYV9idWYgKmRtYV9idWYsCiAJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBnZW1fdG9fYW1kZ3B1
+X2JvKGRtYV9idWYtPnByaXYpOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1
+X3R0bV9hZGV2KGJvLT50Ym8uYmRldik7CiAJc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4IGN0eCA9
+IHsgdHJ1ZSwgZmFsc2UgfTsKLQl1MzIgZG9tYWluID0gYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZm
+ZXJfZG9tYWlucyhhZGV2KTsKKwl1MzIgZG9tYWluID0gYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVk
+X2RvbWFpbnMoYWRldik7CiAJaW50IHJldDsKIAlib29sIHJlYWRzID0gKGRpcmVjdGlvbiA9PSBE
+TUFfQklESVJFQ1RJT05BTCB8fAogCQkgICAgICBkaXJlY3Rpb24gPT0gRE1BX0ZST01fREVWSUNF
+KTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
+Z3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
+bS5jCmluZGV4IDZmOTJhMTkuLjFmNTYwM2EgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtMzEwOSwxMiArMzEwOSwxMSBAQCBz
+dGF0aWMgaW50IGRtX3BsYW5lX2hlbHBlcl9wcmVwYXJlX2ZiKHN0cnVjdCBkcm1fcGxhbmUgKnBs
+YW5lLAogCQlyZXR1cm4gcjsKIAogCWlmIChwbGFuZS0+dHlwZSAhPSBEUk1fUExBTkVfVFlQRV9D
+VVJTT1IpCi0JCWRvbWFpbiA9IGFtZGdwdV9kaXNwbGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMoYWRl
+dik7CisJCWRvbWFpbiA9IGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zKGFkZXYpOwog
+CWVsc2UKIAkJZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTTsKIAogCXIgPSBhbWRncHVf
+Ym9fcGluKHJibywgZG9tYWluLCAmYWZiLT5hZGRyZXNzKTsKLQogCWFtZGdwdV9ib191bnJlc2Vy
+dmUocmJvKTsKIAogCWlmICh1bmxpa2VseShyICE9IDApKSB7Ci0tIAoyLjcuNAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
