@@ -1,13 +1,11 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/amdgpu: Enable scatter gather display support
-Date: Wed, 18 Apr 2018 00:14:52 -0400
-Message-ID: <CADnq5_NOVEDmf1Ccgkai_Zeu-SA7yKgturNbobF0VWK9rXcykA@mail.gmail.com>
-References: <1524012025-7244-1-git-send-email-Samuel.Li@amd.com>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: force app kill patch
+Date: Wed, 18 Apr 2018 07:11:07 +0000
+Message-ID: <BLUPR12MB044915BDA633308DF65967BD84B60@BLUPR12MB0449.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1567802632=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1524012025-7244-1-git-send-email-Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,168 +16,278 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBBcHIgMTcsIDIwMTggYXQgODo0MCBQTSwgU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1k
-LmNvbT4gd3JvdGU6Cj4gSXQncyBhdXRvIGJ5IGRlZmF1bHQuIEZvciBDWi9TVCwgYXV0byBzZXR0
-aW5nIGVuYWJsZXMgc2cgZGlzcGxheQo+IHdoZW4gdnJhbSBzaXplIGlzIHNtYWxsOyBvdGhlcndp
-c2Ugc3RpbGwgdXNlcyB2cmFtLgo+IFRoaXMgcGF0Y2ggZml4ZWQgc29tZSBwb3RlbnRpb24gaGFu
-ZyBpc3N1ZSBpbnRyb2R1Y2VkIGJ5IGNoYW5nZQo+ICJhbGxvdyBmcmFtZWJ1ZmZlciBpbiBHQVJU
-IG1lbW9yeSBhcyB3ZWxsIiBkdWUgdG8gQ1ovU1QgaGFyZHdhcmUKPiBsaW1pdGF0aW9uLgo+Cj4g
-djI6IENoYW5nZSBkZWZhdWx0IHNldHRpbmcgdG8gYXV0by4KPiB2MzogTW92ZSBzb21lIGxvZ2lj
-IGZyb20gYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucygpCj4gICAgIHRvIHBpbiBm
-dW5jdGlvbiwgc3VnZ2VzdGVkIGJ5IENocmlzdGlhbi4KPiBTaWduZWQtb2ZmLWJ5OiBTYW11ZWwg
-TGkgPFNhbXVlbC5MaUBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHUuaCAgICAgICAgICAgICAgIHwgIDIgKysKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyAgICAgICB8ICA0ICsrLS0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuaCAgICAgICB8ICAyICstCj4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgICAgICAgfCAgNCArKysrCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jICAgICAgICAgICAgfCAgMiArLQo+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgICAgICAgIHwgMjUgKysr
-KysrKysrKysrKysrKysrKysrLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ByaW1lLmMgICAgICAgICB8ICAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAgMyArLS0KPiAgOCBmaWxlcyBjaGFuZ2VkLCAzNSBpbnNl
-cnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-LmgKPiBpbmRleCBiM2QwNDdkLi4yNjQyOWRlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1LmgKPiBAQCAtMTI5LDYgKzEyOSw3IEBAIGV4dGVybiBpbnQgYW1kZ3B1X2xicHc7Cj4g
-IGV4dGVybiBpbnQgYW1kZ3B1X2NvbXB1dGVfbXVsdGlwaXBlOwo+ICBleHRlcm4gaW50IGFtZGdw
-dV9ncHVfcmVjb3Zlcnk7Cj4gIGV4dGVybiBpbnQgYW1kZ3B1X2VtdV9tb2RlOwo+ICtleHRlcm4g
-aW50IGFtZGdwdV9zZ19kaXNwbGF5Owo+Cj4gICNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9TSQo+
-ICBleHRlcm4gaW50IGFtZGdwdV9zaV9zdXBwb3J0Owo+IEBAIC0xMzcsNiArMTM4LDcgQEAgZXh0
-ZXJuIGludCBhbWRncHVfc2lfc3VwcG9ydDsKPiAgZXh0ZXJuIGludCBhbWRncHVfY2lrX3N1cHBv
-cnQ7Cj4gICNlbmRpZgo+Cj4gKyNkZWZpbmUgQU1ER1BVX1NHX1RIUkVTSE9MRCAgICAgICAgICAg
-ICAgICAgICAgKDI1NioxMDI0KjEwMjQpCj4gICNkZWZpbmUgQU1ER1BVX0RFRkFVTFRfR1RUX1NJ
-WkVfTUIgICAgICAgICAgICAgMzA3MlVMTCAvKiAzR0IgYnkgZGVmYXVsdCAqLwo+ICAjZGVmaW5l
-IEFNREdQVV9XQUlUX0lETEVfVElNRU9VVF9JTl9NUyAgICAgICAgIDMwMDAKPiAgI2RlZmluZSBB
-TURHUFVfTUFYX1VTRUNfVElNRU9VVCAgICAgICAgICAgICAgICAgICAgICAgIDEwMDAwMCAgLyog
-MTAwIG1zICovCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kaXNwbGF5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5j
-Cj4gaW5kZXggNTBmOThkZi4uMGNhYTNkMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+IEBAIC0xODksNyArMTg5LDcgQEAgaW50IGFtZGdwdV9k
-aXNwbGF5X2NydGNfcGFnZV9mbGlwX3RhcmdldChzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCj4gICAg
-ICAgICAgICAgICAgIGdvdG8gY2xlYW51cDsKPiAgICAgICAgIH0KPgo+IC0gICAgICAgciA9IGFt
-ZGdwdV9ib19waW4obmV3X2FibywgYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhh
-ZGV2KSwgJmJhc2UpOwo+ICsgICAgICAgciA9IGFtZGdwdV9ib19waW4obmV3X2FibywgYW1kZ3B1
-X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoYWRldiksICZiYXNlKTsKPiAgICAgICAgIGlmICh1
-bmxpa2VseShyICE9IDApKSB7Cj4gICAgICAgICAgICAgICAgIERSTV9FUlJPUigiZmFpbGVkIHRv
-IHBpbiBuZXcgYWJvIGJ1ZmZlciBiZWZvcmUgZmxpcFxuIik7Cj4gICAgICAgICAgICAgICAgIGdv
-dG8gdW5yZXNlcnZlOwo+IEBAIC00ODQsNyArNDg0LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBk
-cm1fZnJhbWVidWZmZXJfZnVuY3MgYW1kZ3B1X2ZiX2Z1bmNzID0gewo+ICAgICAgICAgLmNyZWF0
-ZV9oYW5kbGUgPSBkcm1fZ2VtX2ZiX2NyZWF0ZV9oYW5kbGUsCj4gIH07Cj4KPiAtdWludDMyX3Qg
-YW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKPiArdWludDMyX3QgYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpCgpUaGlzIGNoYW5nZSBzaG91bGQgYmUgYSBzZXBhcmF0ZSBw
-YXRjaCwKCj4gIHsKPiAgICAgICAgIHVpbnQzMl90IGRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlO
-X1ZSQU07Cj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rpc3BsYXkuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmgK
-PiBpbmRleCAyYjExZDgwLi5mNjZlM2UzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZGlzcGxheS5oCj4gQEAgLTIzLDcgKzIzLDcgQEAKPiAgI2lmbmRlZiBfX0FN
-REdQVV9ESVNQTEFZX0hfXwo+ICAjZGVmaW5lIF9fQU1ER1BVX0RJU1BMQVlfSF9fCj4KPiAtdWlu
-dDMyX3QgYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldik7Cj4gK3VpbnQzMl90IGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5z
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPiAgc3RydWN0IGRybV9mcmFtZWJ1ZmZlciAq
-Cj4gIGFtZGdwdV9kaXNwbGF5X3VzZXJfZnJhbWVidWZmZXJfY3JlYXRlKHN0cnVjdCBkcm1fZGV2
-aWNlICpkZXYsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
-IGRybV9maWxlICpmaWxlX3ByaXYsCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-cnYuYwo+IGluZGV4IDBiMTk0ODIuLjg1ZGNkMWMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rydi5jCj4gQEAgLTEzMiw2ICsxMzIsNyBAQCBpbnQgYW1kZ3B1X2xicHcg
-PSAtMTsKPiAgaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlwZSA9IC0xOwo+ICBpbnQgYW1kZ3B1
-X2dwdV9yZWNvdmVyeSA9IC0xOyAvKiBhdXRvICovCj4gIGludCBhbWRncHVfZW11X21vZGUgPSAw
-Owo+ICtpbnQgYW1kZ3B1X3NnX2Rpc3BsYXkgPSAtMTsKPgo+ICBNT0RVTEVfUEFSTV9ERVNDKHZy
-YW1saW1pdCwgIlJlc3RyaWN0IFZSQU0gZm9yIHRlc3RpbmcsIGluIG1lZ2FieXRlcyIpOwo+ICBt
-b2R1bGVfcGFyYW1fbmFtZWQodnJhbWxpbWl0LCBhbWRncHVfdnJhbV9saW1pdCwgaW50LCAwNjAw
-KTsKPiBAQCAtMjkwLDYgKzI5MSw5IEBAIG1vZHVsZV9wYXJhbV9uYW1lZChncHVfcmVjb3Zlcnks
-IGFtZGdwdV9ncHVfcmVjb3ZlcnksIGludCwgMDQ0NCk7Cj4gIE1PRFVMRV9QQVJNX0RFU0MoZW11
-X21vZGUsICJFbXVsYXRpb24gbW9kZSwgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlKSIpOwo+ICBt
-b2R1bGVfcGFyYW1fbmFtZWQoZW11X21vZGUsIGFtZGdwdV9lbXVfbW9kZSwgaW50LCAwNDQ0KTsK
-Pgo+ICtNT0RVTEVfUEFSTV9ERVNDKHNnX2Rpc3BsYXksICJFbmFibGUgc2NhdHRlciBnYXRoZXIg
-ZGlzcGxheSwgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlLCAtMSA9IGF1dG8iKTsKPiArbW9kdWxl
-X3BhcmFtX25hbWVkKHNnX2Rpc3BsYXksIGFtZGdwdV9zZ19kaXNwbGF5LCBpbnQsIDA0NDQpOwo+
-ICsKPiAgI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX1NJCj4KPiAgI2lmIGRlZmluZWQoQ09ORklH
-X0RSTV9SQURFT04pIHx8IGRlZmluZWQoQ09ORklHX0RSTV9SQURFT05fTU9EVUxFKQo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jCj4gaW5kZXggZmY4OWU4NC4uYmM1ZmQ4ZSAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mYi5jCj4gQEAgLTEzNyw3ICsx
-MzcsNyBAQCBzdGF0aWMgaW50IGFtZGdwdWZiX2NyZWF0ZV9waW5uZWRfb2JqZWN0KHN0cnVjdCBh
-bWRncHVfZmJkZXYgKnJmYmRldiwKPiAgICAgICAgIC8qIG5lZWQgdG8gYWxpZ24gcGl0Y2ggd2l0
-aCBjcnRjIGxpbWl0cyAqLwo+ICAgICAgICAgbW9kZV9jbWQtPnBpdGNoZXNbMF0gPSBhbWRncHVf
-YWxpZ25fcGl0Y2goYWRldiwgbW9kZV9jbWQtPndpZHRoLCBjcHAsCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYl90aWxlZCk7Cj4gLSAgICAgICBk
-b21haW4gPSBhbWRncHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9kb21haW5zKGFkZXYpOwo+ICsgICAg
-ICAgZG9tYWluID0gYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoYWRldik7Cj4KPiAg
-ICAgICAgIGhlaWdodCA9IEFMSUdOKG1vZGVfY21kLT5oZWlnaHQsIDgpOwo+ICAgICAgICAgc2l6
-ZSA9IG1vZGVfY21kLT5waXRjaGVzWzBdICogaGVpZ2h0Owo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiBpbmRleCAyNGY1ODJjLi5mMGYxZjhhIDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IEBAIC02ODksOCAr
-Njg5LDI5IEBAIGludCBhbWRncHVfYm9fcGluX3Jlc3RyaWN0ZWQoc3RydWN0IGFtZGdwdV9ibyAq
-Ym8sIHUzMiBkb21haW4sCj4gICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+Cj4gICAg
-ICAgICAvKiBBIHNoYXJlZCBibyBjYW5ub3QgYmUgbWlncmF0ZWQgdG8gVlJBTSAqLwo+IC0gICAg
-ICAgaWYgKGJvLT5wcmltZV9zaGFyZWRfY291bnQgJiYgKGRvbWFpbiA9PSBBTURHUFVfR0VNX0RP
-TUFJTl9WUkFNKSkKPiAtICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gKyAgICAgICBp
-ZiAoYm8tPnByaW1lX3NoYXJlZF9jb3VudCkgewo+ICsgICAgICAgICAgICAgICBpZiAoZG9tYWlu
-ICYgQU1ER1BVX0dFTV9ET01BSU5fR1RUKQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGRvbWFp
-biA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsKPiArICAgICAgICAgICAgICAgZWxzZQo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+ICsgICAgICAgfQoKVGhpcyBpcyBh
-IGJ1ZyBmaXggYW5kIHNob3VsZCBiZSBzcGxpdCBvdXQgaW50byBhIHNlcGFyYXRlIHBhdGNoLgoK
-PiArCj4gKyAgICAgICAvKiBkaXNwbGF5IGJ1ZmZlciAqLwo+ICsjaWYgZGVmaW5lZChDT05GSUdf
-RFJNX0FNRF9EQykKPiArICAgICAgIGlmIChhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9DQVJSSVpP
-ICYmIGFkZXYtPmFzaWNfdHlwZSA8IENISVBfUkFWRU4gJiYKPiArICAgICAgICAgICBhZGV2LT5m
-bGFncyAmIEFNRF9JU19BUFUgJiYKPiArICAgICAgICAgICBhbWRncHVfZGV2aWNlX2FzaWNfaGFz
-X2RjX3N1cHBvcnQoYWRldi0+YXNpY190eXBlKSAmJgo+ICsgICAgICAgICAgIGRvbWFpbiA9PSAo
-QU1ER1BVX0dFTV9ET01BSU5fVlJBTSB8IEFNREdQVV9HRU1fRE9NQUlOX0dUVCkpIHsKPiArICAg
-ICAgICAgICAgICAgaWYgKGFtZGdwdV9zZ19kaXNwbGF5ID09IDEpCj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fR1RUOwo+ICsgICAgICAgICAgICAg
-ICBlbHNlIGlmIChhbWRncHVfc2dfZGlzcGxheSA9PSAtMSkgewo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgIGlmIChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPCBBTURHUFVfU0dfVEhSRVNIT0xE
-KQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZG9tYWluID0gQU1ER1BVX0dFTV9E
-T01BSU5fR1RUOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIGVsc2UKPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU07Cj4gKyAg
-ICAgICAgICAgICAgIH0KCkkgdGhvdWdodCB3ZSB3ZXJlIGRyb3BwaW5nIHRoZSBtb2R1bGUgcGFy
-YW1ldGVyLiAgQWxzbywgd2UgaGFkIHRhbGtlZAphYm91dCB0YWtpbmcgcHJlZmVycmVkIGRvbWFp
-bnMgaW50byBhY2NvdW50IGhlcmUgYXMgd2VsbCwgYnV0IHRoYXQgY2FuCmJlIGEgZm9sbG93IG9u
-IHBhdGNoLgoKQWxleAoKPiArICAgICAgIH0KPiArI2VuZGlmCj4KPiAgICAgICAgIGlmIChiby0+
-cGluX2NvdW50KSB7Cj4gICAgICAgICAgICAgICAgIHVpbnQzMl90IG1lbV90eXBlID0gYm8tPnRi
-by5tZW0ubWVtX3R5cGU7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9wcmltZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1l
-LmMKPiBpbmRleCA0YjU4NGNiNy4uY2YwNzQ5ZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4gQEAgLTIwOSw3ICsyMDksNyBAQCBzdGF0aWMgaW50IGFt
-ZGdwdV9nZW1fYmVnaW5fY3B1X2FjY2VzcyhzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZiwKPiAgICAg
-ICAgIHN0cnVjdCBhbWRncHVfYm8gKmJvID0gZ2VtX3RvX2FtZGdwdV9ibyhkbWFfYnVmLT5wcml2
-KTsKPiAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1X3R0bV9hZGV2
-KGJvLT50Ym8uYmRldik7Cj4gICAgICAgICBzdHJ1Y3QgdHRtX29wZXJhdGlvbl9jdHggY3R4ID0g
-eyB0cnVlLCBmYWxzZSB9Owo+IC0gICAgICAgdTMyIGRvbWFpbiA9IGFtZGdwdV9kaXNwbGF5X2Zy
-YW1lYnVmZmVyX2RvbWFpbnMoYWRldik7Cj4gKyAgICAgICB1MzIgZG9tYWluID0gYW1kZ3B1X2Rp
-c3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoYWRldik7Cj4gICAgICAgICBpbnQgcmV0Owo+ICAgICAg
-ICAgYm9vbCByZWFkcyA9IChkaXJlY3Rpb24gPT0gRE1BX0JJRElSRUNUSU9OQUwgfHwKPiAgICAg
-ICAgICAgICAgICAgICAgICAgZGlyZWN0aW9uID09IERNQV9GUk9NX0RFVklDRSk7Cj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gaW5k
-ZXggNmY5MmExOS4uMWY1NjAzYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IEBAIC0zMTA5LDEyICszMTA5LDExIEBAIHN0
-YXRpYyBpbnQgZG1fcGxhbmVfaGVscGVyX3ByZXBhcmVfZmIoc3RydWN0IGRybV9wbGFuZSAqcGxh
-bmUsCj4gICAgICAgICAgICAgICAgIHJldHVybiByOwo+Cj4gICAgICAgICBpZiAocGxhbmUtPnR5
-cGUgIT0gRFJNX1BMQU5FX1RZUEVfQ1VSU09SKQo+IC0gICAgICAgICAgICAgICBkb21haW4gPSBh
-bWRncHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9kb21haW5zKGFkZXYpOwo+ICsgICAgICAgICAgICAg
-ICBkb21haW4gPSBhbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlucyhhZGV2KTsKPiAgICAg
-ICAgIGVsc2UKPiAgICAgICAgICAgICAgICAgZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJB
-TTsKPgo+ICAgICAgICAgciA9IGFtZGdwdV9ib19waW4ocmJvLCBkb21haW4sICZhZmItPmFkZHJl
-c3MpOwo+IC0KPiAgICAgICAgIGFtZGdwdV9ib191bnJlc2VydmUocmJvKTsKPgo+ICAgICAgICAg
-aWYgKHVubGlrZWx5KHIgIT0gMCkpIHsKPiAtLQo+IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+--===============1567802632==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BLUPR12MB044915BDA633308DF65967BD84B60BLUPR12MB0449namp_"
+
+--_000_BLUPR12MB044915BDA633308DF65967BD84B60BLUPR12MB0449namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian & Emily
+
+I think the v4 fix for "fix force app kill hang" is still not good enough:
+
+
+First:
+See that in "sched_entity_fini", we only call dma_fence_put(entity->last_sc=
+heduled" under the condition of "If (entity->fini_status)", so
+This way there is memory leak for the case of "entity->fini_stats =3D=3D0"
+
+
+Second:
+If we move dma_fence_put(entity->last_scheduled) out of the condition of "i=
+f (entity->fini_status)", the memory leak issue can be fixed
+But there will be kernel NULL pointer access, I think the time you call dma=
+_fence_put(entity->last_scheduled") may actually executed *not*
+On the last scheduled fence of this entity, because it is run without "thre=
+ad_park/unpark" pair which to make sure scheduler not dealing this entity
+
+So with certain race issue, here is the scenario:
+
+
+1.        scheduler is doing the dma_fence_put() on the 1st fence,
+
+2.        scheduler set entity->last_scheduled to 1st fence
+
+3.        now sched_entity_fini() run, and it call dma_fence_put() on entit=
+y->last_scheduled
+
+4.        now this 1st fence is actually put double time and the real last =
+fence won't get put by expected
+
+
+any idea?
+
+
+/Monk
+
+--_000_BLUPR12MB044915BDA633308DF65967BD84B60BLUPR12MB0449namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:m=3D"http://schema=
+s.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html=
+40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:\7B49\7EBF;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@\7B49\7EBF";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:\7B49\7EBF;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:21.0pt;
+	font-size:10.5pt;
+	font-family:\7B49\7EBF;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:\7B49\7EBF;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:\7B49\7EBF;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:88358435;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-9426188 67698703 67698713 67698715 67698703 6769871=
+3 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:26.4pt;
+	text-indent:-21.0pt;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%2\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:47.4pt;
+	text-indent:-21.0pt;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:68.4pt;
+	text-indent:-21.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:89.4pt;
+	text-indent:-21.0pt;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%5\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:110.4pt;
+	text-indent:-21.0pt;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:131.4pt;
+	text-indent:-21.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:152.4pt;
+	text-indent:-21.0pt;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-text:"%8\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:173.4pt;
+	text-indent:-21.0pt;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:194.4pt;
+	text-indent:-21.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
+fy-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi Christian &amp; Emily<o:p></=
+o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I think the v4 fix for &#8220;f=
+ix force app kill hang&#8221; is still not good enough:<o:p></o:p></span></=
+p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">First:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">See that in &#8220;sched_entity=
+_fini&#8221;, we only call dma_fence_put(entity-&gt;last_scheduled&#8221; u=
+nder the condition of &#8220;If (entity-&gt;fini_status)&#8221;, so
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">This way there is memory leak f=
+or the case of &#8220;entity-&gt;fini_stats =3D=3D0&#8221;<o:p></o:p></span=
+></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Second:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">If we move dma_fence_put(entity=
+-&gt;last_scheduled) out of the condition of &#8220;if (entity-&gt;fini_sta=
+tus)&#8221;, the memory leak issue can be fixed
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">But there will be kernel NULL p=
+ointer access, I think the time you call dma_fence_put(entity-&gt;last_sche=
+duled&#8221;) may actually executed *<b>not</b>*<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">On the last scheduled fence of =
+this entity, because it is run without &#8220;thread_park/unpark&#8221; pai=
+r which to make sure scheduler not dealing this entity<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">So with certain race issue, her=
+e is the scenario:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:26.4pt;text-indent:-21.0=
+pt;mso-list:l0 level1 lfo1">
+<![if !supportLists]><span lang=3D"EN-US"><span style=3D"mso-list:Ignore">1=
+.<span style=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=3D"EN-US">scheduler is doing the =
+dma_fence_put() on the 1<sup>st</sup> fence,
+<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:26.4pt;text-indent:-21.0=
+pt;mso-list:l0 level1 lfo1">
+<![if !supportLists]><span lang=3D"EN-US"><span style=3D"mso-list:Ignore">2=
+.<span style=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=3D"EN-US">scheduler set entity-&g=
+t;last_scheduled to 1<sup>st</sup> fence<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:26.4pt;text-indent:-21.0=
+pt;mso-list:l0 level1 lfo1">
+<![if !supportLists]><span lang=3D"EN-US"><span style=3D"mso-list:Ignore">3=
+.<span style=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=3D"EN-US">now sched_entity_fini()=
+ run, and it call dma_fence_put() on entity-&gt;last_scheduled
+<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"margin-left:26.4pt;text-indent:-21.0=
+pt;mso-list:l0 level1 lfo1">
+<![if !supportLists]><span lang=3D"EN-US"><span style=3D"mso-list:Ignore">4=
+.<span style=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=3D"EN-US">now this 1<sup>st</sup>=
+ fence is actually put double time and the real last fence won&#8217;t get =
+put by expected
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">any idea?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">/Monk<o:p></o:p></span></p>
+</div>
+</body>
+</html>
+
+--_000_BLUPR12MB044915BDA633308DF65967BD84B60BLUPR12MB0449namp_--
+
+--===============1567802632==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1567802632==--
