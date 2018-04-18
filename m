@@ -1,14 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: print DMA-buf status in debugfs
-Date: Wed, 18 Apr 2018 14:15:10 +0000
-Message-ID: <BN6PR12MB1809586926B9FB9D43B8F004F7B60@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20180411130959.1690-1-christian.koenig@amd.com>,
- <1aa486ab-5c15-5f56-9465-0d4bef5d2290@gmail.com>
+From: Andrew Stone <andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: PROBLEM: linux-firmware provided firmware files do not support
+ AMDVLK driver
+Date: Wed, 18 Apr 2018 14:43:51 +0000
+Message-ID: <CABVSYoeR04XNJrrOjru77LppAi-GWt0d5Sfib1vAdzj-tGmcEA@mail.gmail.com>
+References: <CABVSYof5NhbY51LYTqnVcv=TFoVPO1QTWuP2XVJed2wBnv7oQA@mail.gmail.com>
+ <CADnq5_MjEKLVBB13g5F1CE_Fp5x7ZrJvR00_9GT48mQEvLqTZA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1221382921=="
+Content-Type: multipart/mixed; boundary="===============0450286746=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1aa486ab-5c15-5f56-9465-0d4bef5d2290-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CADnq5_MjEKLVBB13g5F1CE_Fp5x7ZrJvR00_9GT48mQEvLqTZA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,179 +19,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1221382921==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809586926B9FB9D43B8F004F7B60BN6PR12MB1809namp_"
+--===============0450286746==
+Content-Type: multipart/alternative; boundary="0000000000005e4f56056a207cfd"
 
---_000_BN6PR12MB1809586926B9FB9D43B8F004F7B60BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--0000000000005e4f56056a207cfd
+Content-Type: text/plain; charset="UTF-8"
+
+Thanks. I wasn't aware of that issue. The updated firmware seems to work
+fine with Radeon drivers on my machine. (After updating the firmware, I
+booted with Radeon.si_support=1 Radeon.cik_support=1 amdgpu.si_support=0
+amdgpu.cik_support=0) though I've messed with my system a lot to get AMDVLK
+working so I'm not sure it's really using radeon. It should be. And the GL
+version is 1.4 now. I obviously can't speak for other cards and I haven't
+done extensive testing by any means, but it seems to work.
+
+On Tue, Apr 17, 2018, 21:58 Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> On Tue, Apr 17, 2018 at 11:16 PM, boomboom psh <andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> wrote:
+> > [1.] linux-firmware provided firmware files do not support AMDVLK driver
+> > [2.] Full description of the problem/report: Vulkan instance fails to
+> load
+> > on the AMDVLK driver, using a radeon HD7770 card. It throws a
+> > VK_ERROR_OUT_OF_HOST_MEMORY. This appears to be due to an outdated
+> > firmware, as replacing the firmware with the firmware provided by the
+> > amdgpu-pro driver fixes the issue (
+> > https://github.com/GPUOpen-Drivers/AMDVLK/issues/17). The issue appears
+> to
+> > also be present on pitcairn cards. (
+> > https://github.com/GPUOpen-Drivers/AMDVLK/issues/25)
+> > [3.] firmware, AMDVLK, vulkan, SI, verde, pitcairn
+> > [4.1.] Linux version 4.15.15-1-ARCH (builduser@heftig-4572) (gcc version
+> > 7.3.1 20180312 (GCC)) #1 SMP PREEMPT Sat Mar 31 23:59:25 UTC 2018
+> > [7.] vulkaninfo from
+> > https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
+> > demonstrates the problem
+> > [8.] AMD Ryzen 3 1200, 8GB DDR4, Radeon HD7770 1GB
+> > [X.] Workaround: copy firmware from amdgpupro driver, however this must
+> be
+> > redone every time there is an update to linux-firmware.
+>
+> The newer SI firmware only works with amdgpu right now.  At the moment
+> the upstream SI firmware is shared with radeon.  We'd need to use
+> separate firmwares for radeon and amdgpu for SI.  No one has gotten
+> around to switching it yet.
+>
+> Alex
+>
+
+--0000000000005e4f56056a207cfd
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
-n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, April 18, 2018 6:13:09 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amdgpu: print DMA-buf status in debugfs
-
-Ping? Could anybody review that?
-
-Thanks,
-Christian.
-
-Am 11.04.2018 um 15:09 schrieb Christian K=F6nig:
-> Just note if a BO was imported/exported.
->
-> Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 28c2706e48d7..93d3f333444b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -765,6 +765,8 @@ static int amdgpu_debugfs_gem_bo_info(int id, void *p=
-tr, void *data)
->        struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(gobj);
->        struct seq_file *m =3D data;
->
-> +     struct dma_buf_attachment *attachment;
-> +     struct dma_buf *dma_buf;
->        unsigned domain;
->        const char *placement;
->        unsigned pin_count;
-> @@ -793,6 +795,15 @@ static int amdgpu_debugfs_gem_bo_info(int id, void *=
-ptr, void *data)
->        pin_count =3D READ_ONCE(bo->pin_count);
->        if (pin_count)
->                seq_printf(m, " pin count %d", pin_count);
-> +
-> +     dma_buf =3D READ_ONCE(bo->gem_base.dma_buf);
-> +     attachment =3D READ_ONCE(bo->gem_base.import_attach);
-> +
-> +     if (attachment)
-> +             seq_printf(m, " imported from %p", dma_buf);
-> +     else if (dma_buf)
-> +             seq_printf(m, " exported as %p", dma_buf);
-> +
->        seq_printf(m, "\n");
->
->        return 0;
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809586926B9FB9D43B8F004F7B60BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
-.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, April 18, 2018 6:13:09 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: print DMA-buf status in debugfs</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Ping? Could anybody review that?<br>
+<div dir=3D"auto">Thanks. I wasn&#39;t aware of that issue. The updated fir=
+mware seems to work fine with Radeon drivers on my machine. (After updating=
+ the firmware, I booted with Radeon.si_support=3D1 Radeon.cik_support=3D1 a=
+mdgpu.si_support=3D0 amdgpu.cik_support=3D0) though I&#39;ve messed with my=
+ system a lot to get AMDVLK working so I&#39;m not sure it&#39;s really usi=
+ng radeon. It should be. And the GL version is 1.4 now. I obviously can&#39=
+;t speak for other cards and I haven&#39;t done extensive testing by any me=
+ans, but it seems to work.</div><br><div class=3D"gmail_quote"><div dir=3D"=
+ltr">On Tue, Apr 17, 2018, 21:58 Alex Deucher &lt;<a href=3D"mailto:alexdeu=
+cher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank" rel=3D"noreferrer">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Tue, Apr 17, 2018=
+ at 11:16 PM, boomboom psh &lt;<a href=3D"mailto:andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" r=
+el=3D"noreferrer noreferrer" target=3D"_blank">andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&=
+gt; wrote:<br>
+&gt; [1.] linux-firmware provided firmware files do not support AMDVLK driv=
+er<br>
+&gt; [2.] Full description of the problem/report: Vulkan instance fails to =
+load<br>
+&gt; on the AMDVLK driver, using a radeon HD7770 card. It throws a<br>
+&gt; VK_ERROR_OUT_OF_HOST_MEMORY. This appears to be due to an outdated<br>
+&gt; firmware, as replacing the firmware with the firmware provided by the<=
+br>
+&gt; amdgpu-pro driver fixes the issue (<br>
+&gt; <a href=3D"https://github.com/GPUOpen-Drivers/AMDVLK/issues/17" rel=3D=
+"noreferrer noreferrer noreferrer" target=3D"_blank">https://github.com/GPU=
+Open-Drivers/AMDVLK/issues/17</a>). The issue appears to<br>
+&gt; also be present on pitcairn cards. (<br>
+&gt; <a href=3D"https://github.com/GPUOpen-Drivers/AMDVLK/issues/25" rel=3D=
+"noreferrer noreferrer noreferrer" target=3D"_blank">https://github.com/GPU=
+Open-Drivers/AMDVLK/issues/25</a>)<br>
+&gt; [3.] firmware, AMDVLK, vulkan, SI, verde, pitcairn<br>
+&gt; [4.1.] Linux version 4.15.15-1-ARCH (builduser@heftig-4572) (gcc versi=
+on<br>
+&gt; 7.3.1 20180312 (GCC)) #1 SMP PREEMPT Sat Mar 31 23:59:25 UTC 2018<br>
+&gt; [7.] vulkaninfo from<br>
+&gt; <a href=3D"https://github.com/KhronosGroup/Vulkan-LoaderAndValidationL=
+ayers" rel=3D"noreferrer noreferrer noreferrer" target=3D"_blank">https://g=
+ithub.com/KhronosGroup/Vulkan-LoaderAndValidationLayers</a><br>
+&gt; demonstrates the problem<br>
+&gt; [8.] AMD Ryzen 3 1200, 8GB DDR4, Radeon HD7770 1GB<br>
+&gt; [X.] Workaround: copy firmware from amdgpupro driver, however this mus=
+t be<br>
+&gt; redone every time there is an update to linux-firmware.<br>
 <br>
-Thanks,<br>
-Christian.<br>
+The newer SI firmware only works with amdgpu right now.=C2=A0 At the moment=
 <br>
-Am 11.04.2018 um 15:09 schrieb Christian K=F6nig:<br>
-&gt; Just note if a BO was imported/exported.<br>
-&gt;<br>
-&gt; Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp;&nbsp; 1 file changed, 11 insertions(&#43;)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gem.c<br>
-&gt; index 28c2706e48d7..93d3f333444b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-&gt; @@ -765,6 &#43;765,8 @@ static int amdgpu_debugfs_gem_bo_info(int id, =
-void *ptr, void *data)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo =3D gem=
-_to_amdgpu_bo(gobj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct seq_file *m =3D data;=
-<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_buf_attachment *attachment;<b=
-r>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_buf *dma_buf;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned domain;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *placement;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned pin_count;<br>
-&gt; @@ -793,6 &#43;795,15 @@ static int amdgpu_debugfs_gem_bo_info(int id,=
- void *ptr, void *data)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pin_count =3D READ_ONCE(bo-&=
-gt;pin_count);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pin_count)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot; pin count %d&quot;, pin_count);<br=
+the upstream SI firmware is shared with radeon.=C2=A0 We&#39;d need to use<=
+br>
+separate firmwares for radeon and amdgpu for SI.=C2=A0 No one has gotten<br=
 >
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; dma_buf =3D READ_ONCE(bo-&gt;gem_base.dm=
-a_buf);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; attachment =3D READ_ONCE(bo-&gt;gem_base=
-.import_attach);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (attachment)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; seq_printf(m, &quot; imported from %p&quot;, dma_buf);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else if (dma_buf)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; seq_printf(m, &quot; exported as %p&quot;, dma_buf);<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;\n&quot;=
-);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+around to switching it yet.<br>
 <br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
+Alex<br>
+</blockquote></div>
 
---_000_BN6PR12MB1809586926B9FB9D43B8F004F7B60BN6PR12MB1809namp_--
+--0000000000005e4f56056a207cfd--
 
---===============1221382921==
+--===============0450286746==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -201,4 +142,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1221382921==--
+--===============0450286746==--
