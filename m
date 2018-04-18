@@ -1,12 +1,14 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Disallow enabling CRTC without primary plane
- with FB
-Date: Wed, 18 Apr 2018 16:26:47 -0400
-Message-ID: <20180418202647.25532-1-harry.wentland@amd.com>
+From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Which branch to test latest support for Raven Ridge?
+Date: Wed, 18 Apr 2018 20:34:03 +0000
+Message-ID: <CAJri6_vMLkUh9L1pNu4OVHM=gqFxF+FAnhE5e9xt6Qh-FiqQ-A@mail.gmail.com>
+References: <CAJri6_tTnk6Q0VCFRR-4GFw+3QVo9iyXpFtQS6uLLcXgPNEeGw@mail.gmail.com>
+ <CAJri6_tvPciPBs9JOJ70habzc-RMsnA4Sms3LpsZwR7p=HThvA@mail.gmail.com>
+ <CAJri6_vg10W2vnz4Ge0NDNe+8xBUWh2c3MFoHQbpZfzmX4PWuA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0808272055=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAJri6_vg10W2vnz4Ge0NDNe+8xBUWh2c3MFoHQbpZfzmX4PWuA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,51 +19,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, michel-otUistvHUpPR7s880joybQ@public.gmane.org, Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Shirish.S-5C7GfCeVMHo@public.gmane.org
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhlIGJlbG93IGNvbW1pdAoKICAgICJkcm0vYXRvbWljOiBUcnkgdG8gcHJlc2VydmUgdGhlIGNy
-dGMgZW5hYmxlZCBzdGF0ZSBpbiBkcm1fYXRvbWljX3JlbW92ZV9mYiwgdjIiCgppbnRyb2R1Y2Vz
-IGEgc2xpZ2h0IGJlaGF2aW9yYWwgY2hhbmdlIHRvIHJtZmIuIEluc3RlYWQgb2YgZGlzYWJsaW5n
-IGEgY3J0Ywp3aGVuIHRoZSBwcmltYXJ5IHBsYW5lIGlzIGRpc2FibGVkLCBpdCBub3cgcHJlc2Vy
-dmVzIGl0LgoKU2luY2UgREMgaXMgY3VycmVudGx5IG5vdCBlcXVpcHBlZCB0byBoYW5kbGUgdGhp
-cyB3ZSBuZWVkIHRvIGZhaWwgc3VjaAphIGNvbW1pdCwgb3RoZXJ3aXNlIHdlIG1pZ2h0IHNlZSBh
-IGNvcnJ1cHRlZCBzY3JlZW4uCgpUaGlzIGlzIGJhc2VkIG9uIFNoaXJpc2gncyBwcmV2aW91cyBh
-cHByb2FjaCBidXQgYXZvaWRzIGFkZGluZyBhbGwKcGxhbmVzIHRvIHRoZSBuZXcgYXRvbWljIHN0
-YXRlIHdoaWNoIGxlYWRzIHRvIGEgZnVsbCB1cGRhdGUgaW4gREMgZm9yCmFueSBjb21taXQsIGFu
-ZCBpcyBub3Qgd2hhdCB3ZSBpbnRlbmQuCgpUaGVvcmV0aWNhbGx5IERNIHNob3VsZCBiZSBhYmxl
-IHRvIGRlYWwgd2l0aCBzdGF0ZXMgd2l0aCBmdWxseSBwb3B1bGF0ZWQgcGxhbmVzLApldmVuIGZv
-ciBzaW1wbGUgdXBkYXRlcywgc3VjaCBhcyBjdXJzb3IgdXBkYXRlcy4gVGhpcyBzaG91bGQgc3Rp
-bGwgYmUKYWRkcmVzc2VkIGluIHRoZSBmdXR1cmUuCgpTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50
-bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcK
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwg
-MTAgKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
-bigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbS5jCmluZGV4IDZmOTJhMTliZWJkNi4uMGJkYzZiNDg0YmFkIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTQ2ODMsNiAr
-NDY4Myw3IEBAIHN0YXRpYyBpbnQgZG1fdXBkYXRlX2NydGNzX3N0YXRlKHN0cnVjdCBhbWRncHVf
-ZGlzcGxheV9tYW5hZ2VyICpkbSwKIAkJc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFjb25u
-ZWN0b3IgPSBOVUxMOwogCQlzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9zdGF0ZSAqbmV3X2Nvbl9zdGF0
-ZSA9IE5VTEw7CiAJCXN0cnVjdCBkbV9jb25uZWN0b3Jfc3RhdGUgKmRtX2Nvbm5fc3RhdGUgPSBO
-VUxMOworCQlzdHJ1Y3QgZHJtX3BsYW5lX3N0YXRlICpuZXdfcGxhbmVfc3RhdGUgPSBOVUxMOwog
-CiAJCW5ld19zdHJlYW0gPSBOVUxMOwogCkBAIC00NjkwLDYgKzQ2OTEsMTMgQEAgc3RhdGljIGlu
-dCBkbV91cGRhdGVfY3J0Y3Nfc3RhdGUoc3RydWN0IGFtZGdwdV9kaXNwbGF5X21hbmFnZXIgKmRt
-LAogCQlkbV9uZXdfY3J0Y19zdGF0ZSA9IHRvX2RtX2NydGNfc3RhdGUobmV3X2NydGNfc3RhdGUp
-OwogCQlhY3J0YyA9IHRvX2FtZGdwdV9jcnRjKGNydGMpOwogCisJCW5ld19wbGFuZV9zdGF0ZSA9
-IGRybV9hdG9taWNfZ2V0X25ld19wbGFuZV9zdGF0ZShzdGF0ZSwgbmV3X2NydGNfc3RhdGUtPmNy
-dGMtPnByaW1hcnkpOworCisJCWlmIChuZXdfY3J0Y19zdGF0ZS0+ZW5hYmxlICYmIG5ld19wbGFu
-ZV9zdGF0ZSAmJiAhbmV3X3BsYW5lX3N0YXRlLT5mYikgeworCQkJcmV0ID0gLUVJTlZBTDsKKwkJ
-CWdvdG8gZmFpbDsKKwkJfQorCiAJCWFjb25uZWN0b3IgPSBhbWRncHVfZG1fZmluZF9maXJzdF9j
-cnRjX21hdGNoaW5nX2Nvbm5lY3RvcihzdGF0ZSwgY3J0Yyk7CiAKIAkJLyogVE9ETyBUaGlzIGhh
-Y2sgc2hvdWxkIGdvIGF3YXkgKi8KQEAgLTQ4OTQsNyArNDkwMiw3IEBAIHN0YXRpYyBpbnQgZG1f
-dXBkYXRlX3BsYW5lc19zdGF0ZShzdHJ1Y3QgZGMgKmRjLAogCQkJaWYgKCFkbV9vbGRfY3J0Y19z
-dGF0ZS0+c3RyZWFtKQogCQkJCWNvbnRpbnVlOwogCi0JCQlEUk1fREVCVUdfRFJJVkVSKCJEaXNh
-YmxpbmcgRFJNIHBsYW5lOiAlZCBvbiBEUk0gY3J0YyAlZFxuIiwKKwkJCURSTV9ERUJVR19BVE9N
-SUMoIkRpc2FibGluZyBEUk0gcGxhbmU6ICVkIG9uIERSTSBjcnRjICVkXG4iLAogCQkJCQlwbGFu
-ZS0+YmFzZS5pZCwgb2xkX3BsYW5lX2NydGMtPmJhc2UuaWQpOwogCiAJCQlpZiAoIWRjX3JlbW92
-ZV9wbGFuZV9mcm9tX2NvbnRleHQoCi0tIAoyLjE3LjAKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+--===============0808272055==
+Content-Type: multipart/alternative; boundary="000000000000d62c56056a256062"
+
+--000000000000d62c56056a256062
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+FYI, getting a blank screen and system freeze when lightdm is loaded with
+both drm-next-4.18-wip
+<https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Ddrm-next-4.18-wip> and
+amd-staging-drm-next
+<https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Damd-staging-drm-next>
+ branches.
+
+On Fri, Apr 13, 2018 at 10:05 PM Br=C3=A1ulio Bhavamitra <brauliobo@gmail.c=
+om>
+wrote:
+
+> Hi all,
+>
+> I've been testing and mitigating the Raven Ridge crashes. I've just
+> compiled the kernel https://cgit.freedesktop.org/~agd5f/linux/ at branch
+> drm-next-4.18-wip to see if it would have the necessary fix for video
+> hangs/freezes. Unfortunetely, it still crashes in the same situations.
+>
+> Which branch should I compile for the latest Raven Ridge support?
+>
+> Cheers,
+> Br=C3=A1ulio
+>
+> ---------- Forwarded message ---------
+> From: Br=C3=A1ulio Bhavamitra <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> Date: Fri, Apr 13, 2018 at 7:24 PM
+> Subject: Re: Raven Ridge Ryzen 2500U hang reproduced
+> To: <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>
+>
+> It ALWAYS crashes on shader15 of
+> http://www.graphicsfuzz.com/benchmark/android-v1.html.
+>
+> Also reported at https://bugzilla.redhat.com/show_bug.cgi?id=3D1562530
+>
+> Using kernel 4.16 with options rcu_nocb=3D0-15 and amdgpu.dpm=3D0
+>
+> Cheers,
+> Br=C3=A1ulio
+>
+>
+> On Mon, Mar 26, 2018 at 8:30 PM Br=C3=A1ulio Bhavamitra <brauliobo@gmail.=
+com>
+> wrote:
+>
+>> Hi all,
+>>
+>> Following the random crashes happenning with many users (e.g.
+>> https://www.phoronix.com/scan.php?page=3Dnews_item&px=3DRaven-Ridge-Marc=
+h-Update),
+>> not only on Linux but also Windows, I've been struggling to reproduce an=
+d
+>> generate any error log.
+>>
+>> After discovering that the error only happenned with KDE and games (at
+>> least for me, see https://bugs.kde.org/show_bug.cgi?id=3D392378), I coul=
+d
+>> reproduce after a failing suspend.
+>>
+>> The crash most of the times allows the mouse to keep moving, but anythin=
+g
+>> else works. Except for this time the keyboard worked so I could switch t=
+he
+>> tty and save the dmesg messages. After this I had to force reboot as it =
+got
+>> stuck trying to kill the lightdm service (gpu hanged?).
+>>
+>> The errors are, see attached the full dmesg:
+>> [ 2899.525650] amdgpu 0000:03:00.0: couldn't schedule ib on ring <sdma0>
+>> [ 2899.525769] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IB=
+s
+>> (-22)
+>> [ 2909.125047] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx
+>> timeout, last signaled seq=3D174624, last emitted seq=3D174627
+>> [ 2909.125060] [drm] IP block:psp is hung!
+>> [ 2909.125063] [drm] GPU recovery disabled.
+>> [ 2914.756931] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+>> amdgpu_cs_list_validate(validated) failed.
+>> [ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+>> the buffer list -16!
+>> [ 2914.997372] amdgpu 0000:03:00.0: couldn't schedule ib on ring <sdma0>
+>> [ 2914.997498] [drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IB=
+s
+>> (-22)
+>> [ 2930.117275] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+>> amdgpu_cs_list_validate(validated) failed.
+>> [ 2930.117405] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+>> the buffer list -16!
+>> [ 2930.152015] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+>> memory with ring turned off.
+>> [ 2930.157940] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+>> memory with ring turned off.
+>> [ 2930.180535] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear
+>> memory with ring turned off.
+>> [ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANGE): wlp2s0: link becomes ready
+>> [ 2945.477205] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR*
+>> amdgpu_cs_list_validate(validated) failed.
+>> [ 2945.477348] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process
+>> the buffer list -16!
+>>
+>> System details:
+>> HP Envy x360 Ryzen 2500U
+>> ArchLinux, kernel 4.16rc6 and 4.15.12
+>>
+>> Cheers,
+>> br=C3=A1ulio
+>>
+>
+
+--000000000000d62c56056a256062
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">FYI, getting a blank screen and system freeze when lightdm=
+ is loaded with both=C2=A0<a href=3D"https://cgit.freedesktop.org/~agd5f/li=
+nux/log/?h=3Ddrm-next-4.18-wip" style=3D"color:rgb(0,0,255);font-size:13.33=
+33px;white-space:nowrap;background-color:rgb(238,238,238)">drm-next-4.18-wi=
+p</a>=C2=A0and=C2=A0<a href=3D"https://cgit.freedesktop.org/~agd5f/linux/lo=
+g/?h=3Damd-staging-drm-next" style=3D"color:rgb(0,0,255);font-size:13.3333p=
+x;white-space:nowrap;background-color:rgb(238,238,238)">amd-staging-drm-nex=
+t</a>=C2=A0branches.</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">O=
+n Fri, Apr 13, 2018 at 10:05 PM Br=C3=A1ulio Bhavamitra &lt;<a href=3D"mail=
+to:brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
+solid;padding-left:1ex"><div dir=3D"ltr">Hi all,<div><br></div><div>I&#39;v=
+e been testing and mitigating the Raven Ridge crashes. I&#39;ve just compil=
+ed the kernel=C2=A0<a href=3D"https://cgit.freedesktop.org/~agd5f/linux/" t=
+arget=3D"_blank">https://cgit.freedesktop.org/~agd5f/linux/</a>=C2=A0at=C2=
+=A0branch drm-next-4.18-wip to see if it would have the necessary fix for v=
+ideo hangs/freezes. Unfortunetely, it still crashes in the same situations.=
+</div><div><br></div><div>Which branch should I compile for the latest Rave=
+n Ridge support?<br><br>Cheers,</div><div>Br=C3=A1ulio</div><div><br><div c=
+lass=3D"gmail_quote"><div dir=3D"ltr">---------- Forwarded message --------=
+-<br>From: Br=C3=A1ulio Bhavamitra &lt;<a href=3D"mailto:brauliobo-Re5JQEeQqe8@public.gmane.org=
+m" target=3D"_blank">brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>Date: Fri, Apr 13, 2018=
+ at 7:24 PM<br>Subject: Re: Raven Ridge Ryzen 2500U hang reproduced<br>To: =
+ &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br></div><br><br><div dir=3D"ltr">It ALW=
+AYS crashes on shader15 of <a href=3D"http://www.graphicsfuzz.com/benchmark=
+/android-v1.html" target=3D"_blank">http://www.graphicsfuzz.com/benchmark/a=
+ndroid-v1.html</a>.<div><br></div><div>Also reported at=C2=A0<a href=3D"htt=
+ps://bugzilla.redhat.com/show_bug.cgi?id=3D1562530" target=3D"_blank">https=
+://bugzilla.redhat.com/show_bug.cgi?id=3D1562530</a></div><div><br></div><d=
+iv>Using kernel 4.16 with options rcu_nocb=3D0-15 and amdgpu.dpm=3D0</div><=
+div><br></div><div>Cheers,</div><div>Br=C3=A1ulio</div></div><div dir=3D"lt=
+r"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, Mar 26,=
+ 2018 at 8:30 PM Br=C3=A1ulio Bhavamitra &lt;<a href=3D"mailto:brauliobo@gm=
+ail.com" target=3D"_blank">brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #c=
+cc solid;padding-left:1ex"><div dir=3D"ltr">Hi all,<div><br></div><div>Foll=
+owing the random crashes happenning with many users (e.g.=C2=A0<a href=3D"h=
+ttps://www.phoronix.com/scan.php?page=3Dnews_item&amp;px=3DRaven-Ridge-Marc=
+h-Update" target=3D"_blank">https://www.phoronix.com/scan.php?page=3Dnews_i=
+tem&amp;px=3DRaven-Ridge-March-Update</a>), not only on Linux but also Wind=
+ows, I&#39;ve been struggling to reproduce and generate any error log.</div=
+><div><br></div><div>After discovering that the error only happenned with K=
+DE and games (at least for me, see=C2=A0<a href=3D"https://bugs.kde.org/sho=
+w_bug.cgi?id=3D392378" target=3D"_blank">https://bugs.kde.org/show_bug.cgi?=
+id=3D392378</a>), I could reproduce after a failing suspend.</div><div><br>=
+</div><div>The crash most of the times allows the mouse to keep moving, but=
+ anything else works. Except for this time the keyboard worked so I could s=
+witch the tty and save the dmesg messages. After this I had to force reboot=
+ as it got stuck trying to kill the lightdm service (gpu hanged?).</div><di=
+v><br></div><div>The errors are, see attached the full dmesg:</div><div><di=
+v>[ 2899.525650] amdgpu 0000:03:00.0: couldn&#39;t schedule ib on ring &lt;=
+sdma0&gt;</div><div>[ 2899.525769] [drm:amdgpu_job_run [amdgpu]] *ERROR* Er=
+ror scheduling IBs (-22)</div><div>[ 2909.125047] [drm:amdgpu_job_timedout =
+[amdgpu]] *ERROR* ring gfx timeout, last signaled seq=3D174624, last emitte=
+d seq=3D174627</div><div>[ 2909.125060] [drm] IP block:psp is hung!</div><d=
+iv>[ 2909.125063] [drm] GPU recovery disabled.</div><div>[ 2914.756931] [dr=
+m:amdgpu_cs_ioctl [amdgpu]] *ERROR* amdgpu_cs_list_validate(validated) fail=
+ed.</div><div>[ 2914.756997] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed =
+to process the buffer list -16!</div><div>[ 2914.997372] amdgpu 0000:03:00.=
+0: couldn&#39;t schedule ib on ring &lt;sdma0&gt;</div><div>[ 2914.997498] =
+[drm:amdgpu_job_run [amdgpu]] *ERROR* Error scheduling IBs (-22)</div><div>=
+[ 2930.117275] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* amdgpu_cs_list_valida=
+te(validated) failed.</div><div>[ 2930.117405] [drm:amdgpu_cs_ioctl [amdgpu=
+]] *ERROR* Failed to process the buffer list -16!</div><div>[ 2930.152015] =
+[drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear memory with ring =
+turned off.</div><div>[ 2930.157940] [drm:amdgpu_fill_buffer [amdgpu]] *ERR=
+OR* Trying to clear memory with ring turned off.</div><div>[ 2930.180535] [=
+drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear memory with ring t=
+urned off.</div><div>[ 2933.781692] IPv6: ADDRCONF(NETDEV_CHANGE): wlp2s0: =
+link becomes ready</div><div>[ 2945.477205] [drm:amdgpu_cs_ioctl [amdgpu]] =
+*ERROR* amdgpu_cs_list_validate(validated) failed.</div><div>[ 2945.477348]=
+ [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to process the buffer list -=
+16!</div></div><div><br></div><div>System details:</div><div>HP Envy x360 R=
+yzen 2500U</div><div>ArchLinux, kernel 4.16rc6 and 4.15.12</div><div><br></=
+div><div>Cheers,</div><div>br=C3=A1ulio</div></div></blockquote></div></div=
+></div></div></div></div></blockquote></div>
+
+--000000000000d62c56056a256062--
+
+--===============0808272055==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0808272055==--
