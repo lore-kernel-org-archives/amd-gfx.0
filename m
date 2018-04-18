@@ -1,14 +1,15 @@
-From: Andrew Stone <andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: PROBLEM: linux-firmware provided firmware files do not support
- AMDVLK driver
-Date: Wed, 18 Apr 2018 14:43:51 +0000
-Message-ID: <CABVSYoeR04XNJrrOjru77LppAi-GWt0d5Sfib1vAdzj-tGmcEA@mail.gmail.com>
-References: <CABVSYof5NhbY51LYTqnVcv=TFoVPO1QTWuP2XVJed2wBnv7oQA@mail.gmail.com>
- <CADnq5_MjEKLVBB13g5F1CE_Fp5x7ZrJvR00_9GT48mQEvLqTZA@mail.gmail.com>
+From: Samuel Li <samuel.li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Enable scatter gather display support
+Date: Wed, 18 Apr 2018 11:29:24 -0400
+Message-ID: <16d5d169-c067-0b4c-1049-1dc9cedf5ddc@amd.com>
+References: <1524012025-7244-1-git-send-email-Samuel.Li@amd.com>
+ <CADnq5_NOVEDmf1Ccgkai_Zeu-SA7yKgturNbobF0VWK9rXcykA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0450286746=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_MjEKLVBB13g5F1CE_Fp5x7ZrJvR00_9GT48mQEvLqTZA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CADnq5_NOVEDmf1Ccgkai_Zeu-SA7yKgturNbobF0VWK9rXcykA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,126 +21,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0450286746==
-Content-Type: multipart/alternative; boundary="0000000000005e4f56056a207cfd"
-
---0000000000005e4f56056a207cfd
-Content-Type: text/plain; charset="UTF-8"
-
-Thanks. I wasn't aware of that issue. The updated firmware seems to work
-fine with Radeon drivers on my machine. (After updating the firmware, I
-booted with Radeon.si_support=1 Radeon.cik_support=1 amdgpu.si_support=0
-amdgpu.cik_support=0) though I've messed with my system a lot to get AMDVLK
-working so I'm not sure it's really using radeon. It should be. And the GL
-version is 1.4 now. I obviously can't speak for other cards and I haven't
-done extensive testing by any means, but it seems to work.
-
-On Tue, Apr 17, 2018, 21:58 Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> On Tue, Apr 17, 2018 at 11:16 PM, boomboom psh <andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> wrote:
-> > [1.] linux-firmware provided firmware files do not support AMDVLK driver
-> > [2.] Full description of the problem/report: Vulkan instance fails to
-> load
-> > on the AMDVLK driver, using a radeon HD7770 card. It throws a
-> > VK_ERROR_OUT_OF_HOST_MEMORY. This appears to be due to an outdated
-> > firmware, as replacing the firmware with the firmware provided by the
-> > amdgpu-pro driver fixes the issue (
-> > https://github.com/GPUOpen-Drivers/AMDVLK/issues/17). The issue appears
-> to
-> > also be present on pitcairn cards. (
-> > https://github.com/GPUOpen-Drivers/AMDVLK/issues/25)
-> > [3.] firmware, AMDVLK, vulkan, SI, verde, pitcairn
-> > [4.1.] Linux version 4.15.15-1-ARCH (builduser@heftig-4572) (gcc version
-> > 7.3.1 20180312 (GCC)) #1 SMP PREEMPT Sat Mar 31 23:59:25 UTC 2018
-> > [7.] vulkaninfo from
-> > https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
-> > demonstrates the problem
-> > [8.] AMD Ryzen 3 1200, 8GB DDR4, Radeon HD7770 1GB
-> > [X.] Workaround: copy firmware from amdgpupro driver, however this must
-> be
-> > redone every time there is an update to linux-firmware.
->
-> The newer SI firmware only works with amdgpu right now.  At the moment
-> the upstream SI firmware is shared with radeon.  We'd need to use
-> separate firmwares for radeon and amdgpu for SI.  No one has gotten
-> around to switching it yet.
->
-> Alex
->
-
---0000000000005e4f56056a207cfd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Thanks. I wasn&#39;t aware of that issue. The updated fir=
-mware seems to work fine with Radeon drivers on my machine. (After updating=
- the firmware, I booted with Radeon.si_support=3D1 Radeon.cik_support=3D1 a=
-mdgpu.si_support=3D0 amdgpu.cik_support=3D0) though I&#39;ve messed with my=
- system a lot to get AMDVLK working so I&#39;m not sure it&#39;s really usi=
-ng radeon. It should be. And the GL version is 1.4 now. I obviously can&#39=
-;t speak for other cards and I haven&#39;t done extensive testing by any me=
-ans, but it seems to work.</div><br><div class=3D"gmail_quote"><div dir=3D"=
-ltr">On Tue, Apr 17, 2018, 21:58 Alex Deucher &lt;<a href=3D"mailto:alexdeu=
-cher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank" rel=3D"noreferrer">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
- 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Tue, Apr 17, 2018=
- at 11:16 PM, boomboom psh &lt;<a href=3D"mailto:andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" r=
-el=3D"noreferrer noreferrer" target=3D"_blank">andrewstone97-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&=
-gt; wrote:<br>
-&gt; [1.] linux-firmware provided firmware files do not support AMDVLK driv=
-er<br>
-&gt; [2.] Full description of the problem/report: Vulkan instance fails to =
-load<br>
-&gt; on the AMDVLK driver, using a radeon HD7770 card. It throws a<br>
-&gt; VK_ERROR_OUT_OF_HOST_MEMORY. This appears to be due to an outdated<br>
-&gt; firmware, as replacing the firmware with the firmware provided by the<=
-br>
-&gt; amdgpu-pro driver fixes the issue (<br>
-&gt; <a href=3D"https://github.com/GPUOpen-Drivers/AMDVLK/issues/17" rel=3D=
-"noreferrer noreferrer noreferrer" target=3D"_blank">https://github.com/GPU=
-Open-Drivers/AMDVLK/issues/17</a>). The issue appears to<br>
-&gt; also be present on pitcairn cards. (<br>
-&gt; <a href=3D"https://github.com/GPUOpen-Drivers/AMDVLK/issues/25" rel=3D=
-"noreferrer noreferrer noreferrer" target=3D"_blank">https://github.com/GPU=
-Open-Drivers/AMDVLK/issues/25</a>)<br>
-&gt; [3.] firmware, AMDVLK, vulkan, SI, verde, pitcairn<br>
-&gt; [4.1.] Linux version 4.15.15-1-ARCH (builduser@heftig-4572) (gcc versi=
-on<br>
-&gt; 7.3.1 20180312 (GCC)) #1 SMP PREEMPT Sat Mar 31 23:59:25 UTC 2018<br>
-&gt; [7.] vulkaninfo from<br>
-&gt; <a href=3D"https://github.com/KhronosGroup/Vulkan-LoaderAndValidationL=
-ayers" rel=3D"noreferrer noreferrer noreferrer" target=3D"_blank">https://g=
-ithub.com/KhronosGroup/Vulkan-LoaderAndValidationLayers</a><br>
-&gt; demonstrates the problem<br>
-&gt; [8.] AMD Ryzen 3 1200, 8GB DDR4, Radeon HD7770 1GB<br>
-&gt; [X.] Workaround: copy firmware from amdgpupro driver, however this mus=
-t be<br>
-&gt; redone every time there is an update to linux-firmware.<br>
-<br>
-The newer SI firmware only works with amdgpu right now.=C2=A0 At the moment=
-<br>
-the upstream SI firmware is shared with radeon.=C2=A0 We&#39;d need to use<=
-br>
-separate firmwares for radeon and amdgpu for SI.=C2=A0 No one has gotten<br=
->
-around to switching it yet.<br>
-<br>
-Alex<br>
-</blockquote></div>
-
---0000000000005e4f56056a207cfd--
-
---===============0450286746==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0450286746==--
+CgpPbiAyMDE4LTA0LTE4IDEyOjE0IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gT24gVHVlLCBB
+cHIgMTcsIDIwMTggYXQgODo0MCBQTSwgU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1kLmNvbT4gd3Jv
+dGU6Cj4+IEl0J3MgYXV0byBieSBkZWZhdWx0LiBGb3IgQ1ovU1QsIGF1dG8gc2V0dGluZyBlbmFi
+bGVzIHNnIGRpc3BsYXkKPj4gd2hlbiB2cmFtIHNpemUgaXMgc21hbGw7IG90aGVyd2lzZSBzdGls
+bCB1c2VzIHZyYW0uCj4+IFRoaXMgcGF0Y2ggZml4ZWQgc29tZSBwb3RlbnRpb24gaGFuZyBpc3N1
+ZSBpbnRyb2R1Y2VkIGJ5IGNoYW5nZQo+PiAiYWxsb3cgZnJhbWVidWZmZXIgaW4gR0FSVCBtZW1v
+cnkgYXMgd2VsbCIgZHVlIHRvIENaL1NUIGhhcmR3YXJlCj4+IGxpbWl0YXRpb24uCj4+Cj4+IHYy
+OiBDaGFuZ2UgZGVmYXVsdCBzZXR0aW5nIHRvIGF1dG8uCj4+IHYzOiBNb3ZlIHNvbWUgbG9naWMg
+ZnJvbSBhbWRncHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9kb21haW5zKCkKPj4gICAgIHRvIHBpbiBm
+dW5jdGlvbiwgc3VnZ2VzdGVkIGJ5IENocmlzdGlhbi4KPj4gU2lnbmVkLW9mZi1ieTogU2FtdWVs
+IExpIDxTYW11ZWwuTGlAYW1kLmNvbT4KPj4gWy4uLl0KPj4gQEAgLTQ4NCw3ICs0ODQsNyBAQCBz
+dGF0aWMgY29uc3Qgc3RydWN0IGRybV9mcmFtZWJ1ZmZlcl9mdW5jcyBhbWRncHVfZmJfZnVuY3Mg
+PSB7Cj4+ICAgICAgICAgLmNyZWF0ZV9oYW5kbGUgPSBkcm1fZ2VtX2ZiX2NyZWF0ZV9oYW5kbGUs
+Cj4+ICB9Owo+Pgo+PiAtdWludDMyX3QgYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlu
+cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4gK3VpbnQzMl90IGFtZGdwdV9kaXNwbGF5
+X3N1cHBvcnRlZF9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+IAo+IFRoaXMg
+Y2hhbmdlIHNob3VsZCBiZSBhIHNlcGFyYXRlIHBhdGNoLAo+IApPSy4KClsuLi5dCgo+PiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+IGluZGV4IDI0ZjU4MmMu
+LmYwZjFmOGEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9vYmplY3QuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
+ZWN0LmMKPj4gQEAgLTY4OSw4ICs2ODksMjkgQEAgaW50IGFtZGdwdV9ib19waW5fcmVzdHJpY3Rl
+ZChzdHJ1Y3QgYW1kZ3B1X2JvICpibywgdTMyIGRvbWFpbiwKPj4gICAgICAgICAgICAgICAgIHJl
+dHVybiAtRUlOVkFMOwo+Pgo+PiAgICAgICAgIC8qIEEgc2hhcmVkIGJvIGNhbm5vdCBiZSBtaWdy
+YXRlZCB0byBWUkFNICovCj4+IC0gICAgICAgaWYgKGJvLT5wcmltZV9zaGFyZWRfY291bnQgJiYg
+KGRvbWFpbiA9PSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSkKPj4gLSAgICAgICAgICAgICAgIHJl
+dHVybiAtRUlOVkFMOwo+PiArICAgICAgIGlmIChiby0+cHJpbWVfc2hhcmVkX2NvdW50KSB7Cj4+
+ICsgICAgICAgICAgICAgICBpZiAoZG9tYWluICYgQU1ER1BVX0dFTV9ET01BSU5fR1RUKQo+PiAr
+ICAgICAgICAgICAgICAgICAgICAgICBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9HVFQ7Cj4+
+ICsgICAgICAgICAgICAgICBlbHNlCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAt
+RUlOVkFMOwo+PiArICAgICAgIH0KPiAKPiBUaGlzIGlzIGEgYnVnIGZpeCBhbmQgc2hvdWxkIGJl
+IHNwbGl0IG91dCBpbnRvIGEgc2VwYXJhdGUgcGF0Y2guCj4gCk9LLgoKPj4gKwo+PiArICAgICAg
+IC8qIGRpc3BsYXkgYnVmZmVyICovCj4+ICsjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQykK
+Pj4gKyAgICAgICBpZiAoYWRldi0+YXNpY190eXBlID49IENISVBfQ0FSUklaTyAmJiBhZGV2LT5h
+c2ljX3R5cGUgPCBDSElQX1JBVkVOICYmCj4+ICsgICAgICAgICAgIGFkZXYtPmZsYWdzICYgQU1E
+X0lTX0FQVSAmJgo+PiArICAgICAgICAgICBhbWRncHVfZGV2aWNlX2FzaWNfaGFzX2RjX3N1cHBv
+cnQoYWRldi0+YXNpY190eXBlKSAmJgo+PiArICAgICAgICAgICBkb21haW4gPT0gKEFNREdQVV9H
+RU1fRE9NQUlOX1ZSQU0gfCBBTURHUFVfR0VNX0RPTUFJTl9HVFQpKSB7Cj4+ICsgICAgICAgICAg
+ICAgICBpZiAoYW1kZ3B1X3NnX2Rpc3BsYXkgPT0gMSkKPj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fR1RUOwo+PiArICAgICAgICAgICAgICAgZWxz
+ZSBpZiAoYW1kZ3B1X3NnX2Rpc3BsYXkgPT0gLTEpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgaWYgKGFkZXYtPmdtYy5yZWFsX3ZyYW1fc2l6ZSA8IEFNREdQVV9TR19USFJFU0hPTEQpCj4+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZG9tYWluID0gQU1ER1BVX0dFTV9ET01B
+SU5fR1RUOwo+PiArICAgICAgICAgICAgICAgICAgICAgICBlbHNlCj4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTTsKPj4gKyAg
+ICAgICAgICAgICAgIH0KPiAKPiBJIHRob3VnaHQgd2Ugd2VyZSBkcm9wcGluZyB0aGUgbW9kdWxl
+IHBhcmFtZXRlci4gIEFsc28sIHdlIGhhZCB0YWxrZWQKPiBhYm91dCB0YWtpbmcgcHJlZmVycmVk
+IGRvbWFpbnMgaW50byBhY2NvdW50IGhlcmUgYXMgd2VsbCwgYnV0IHRoYXQgY2FuCj4gYmUgYSBm
+b2xsb3cgb24gcGF0Y2guCkFzIHBlciB0aGUgZG9jdW1lbnRzLCBTRyBkaXNwbGF5IGZlYXR1cmUg
+Y2FuIGFmZmVjdCBvdGhlciBmZWF0dXJlcy4gVGhlIG9wdGlvbiBoYXMgYmVlbiB1c2VkIGZvciBk
+ZWJ1Z2dpbmcgb24gV2luZG93cyBieSBkZXZlbG9wbWVudCwgdGVzdGluZyBhbmQgc3VwcG9ydGVk
+IHRlYW1zLiBTbyBJIHByZWZlciB0byBrZWVwIGl0LgoKUmVnYXJkcywKU2FtdWVsIExpCgo+IAo+
+IEFsZXgKPiAKPj4gKyAgICAgICB9Cj4+ICsjZW5kaWYKPj4KPj4gICAgICAgICBpZiAoYm8tPnBp
+bl9jb3VudCkgewo+PiAgICAgICAgICAgICAgICAgdWludDMyX3QgbWVtX3R5cGUgPSBiby0+dGJv
+Lm1lbS5tZW1fdHlwZTsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9wcmltZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1l
+LmMKPj4gaW5kZXggNGI1ODRjYjcuLmNmMDc0OWYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4+IEBAIC0yMDksNyArMjA5LDcgQEAgc3RhdGljIGlu
+dCBhbWRncHVfZ2VtX2JlZ2luX2NwdV9hY2Nlc3Moc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4+
+ICAgICAgICAgc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBnZW1fdG9fYW1kZ3B1X2JvKGRtYV9idWYt
+PnByaXYpOwo+PiAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1X3R0
+bV9hZGV2KGJvLT50Ym8uYmRldik7Cj4+ICAgICAgICAgc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4
+IGN0eCA9IHsgdHJ1ZSwgZmFsc2UgfTsKPj4gLSAgICAgICB1MzIgZG9tYWluID0gYW1kZ3B1X2Rp
+c3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhhZGV2KTsKPj4gKyAgICAgICB1MzIgZG9tYWluID0g
+YW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoYWRldik7Cj4+ICAgICAgICAgaW50IHJl
+dDsKPj4gICAgICAgICBib29sIHJlYWRzID0gKGRpcmVjdGlvbiA9PSBETUFfQklESVJFQ1RJT05B
+TCB8fAo+PiAgICAgICAgICAgICAgICAgICAgICAgZGlyZWN0aW9uID09IERNQV9GUk9NX0RFVklD
+RSk7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
+L2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG0uYwo+PiBpbmRleCA2ZjkyYTE5Li4xZjU2MDNhIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPj4gQEAgLTMxMDks
+MTIgKzMxMDksMTEgQEAgc3RhdGljIGludCBkbV9wbGFuZV9oZWxwZXJfcHJlcGFyZV9mYihzdHJ1
+Y3QgZHJtX3BsYW5lICpwbGFuZSwKPj4gICAgICAgICAgICAgICAgIHJldHVybiByOwo+Pgo+PiAg
+ICAgICAgIGlmIChwbGFuZS0+dHlwZSAhPSBEUk1fUExBTkVfVFlQRV9DVVJTT1IpCj4+IC0gICAg
+ICAgICAgICAgICBkb21haW4gPSBhbWRncHVfZGlzcGxheV9mcmFtZWJ1ZmZlcl9kb21haW5zKGFk
+ZXYpOwo+PiArICAgICAgICAgICAgICAgZG9tYWluID0gYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVk
+X2RvbWFpbnMoYWRldik7Cj4+ICAgICAgICAgZWxzZQo+PiAgICAgICAgICAgICAgICAgZG9tYWlu
+ID0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTTsKPj4KPj4gICAgICAgICByID0gYW1kZ3B1X2JvX3Bp
+bihyYm8sIGRvbWFpbiwgJmFmYi0+YWRkcmVzcyk7Cj4+IC0KPj4gICAgICAgICBhbWRncHVfYm9f
+dW5yZXNlcnZlKHJibyk7Cj4+Cj4+ICAgICAgICAgaWYgKHVubGlrZWx5KHIgIT0gMCkpIHsKPj4g
+LS0KPj4gMi43LjQKPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
