@@ -1,11 +1,15 @@
-From: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/1] drm/amdgpu: Enable scatter gather display support
-Date: Tue, 17 Apr 2018 20:40:25 -0400
-Message-ID: <1524012025-7244-1-git-send-email-Samuel.Li@amd.com>
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: limit reg_write_reg_wait workaround to SRIOV
+Date: Wed, 18 Apr 2018 01:59:06 +0000
+Message-ID: <CY4PR12MB1125DD21F2A4E63E2ABE43928FB60@CY4PR12MB1125.namprd12.prod.outlook.com>
+References: <20180417130135.1895-1-christian.koenig@amd.com>
+ <DM5PR12MB1820165CD71A527EAA47C5F4F7B70@DM5PR12MB1820.namprd12.prod.outlook.com>
+ <0cf6dae0-afae-c858-73af-ab47673a7d8a@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0086865491=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <0cf6dae0-afae-c858-73af-ab47673a7d8a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,141 +20,357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-SXQncyBhdXRvIGJ5IGRlZmF1bHQuIEZvciBDWi9TVCwgYXV0byBzZXR0aW5nIGVuYWJsZXMgc2cg
-ZGlzcGxheQp3aGVuIHZyYW0gc2l6ZSBpcyBzbWFsbDsgb3RoZXJ3aXNlIHN0aWxsIHVzZXMgdnJh
-bS4KVGhpcyBwYXRjaCBmaXhlZCBzb21lIHBvdGVudGlvbiBoYW5nIGlzc3VlIGludHJvZHVjZWQg
-YnkgY2hhbmdlCiJhbGxvdyBmcmFtZWJ1ZmZlciBpbiBHQVJUIG1lbW9yeSBhcyB3ZWxsIiBkdWUg
-dG8gQ1ovU1QgaGFyZHdhcmUKbGltaXRhdGlvbi4KCnYyOiBDaGFuZ2UgZGVmYXVsdCBzZXR0aW5n
-IHRvIGF1dG8uCnYzOiBNb3ZlIHNvbWUgbG9naWMgZnJvbSBhbWRncHVfZGlzcGxheV9mcmFtZWJ1
-ZmZlcl9kb21haW5zKCkKICAgIHRvIHBpbiBmdW5jdGlvbiwgc3VnZ2VzdGVkIGJ5IENocmlzdGlh
-bi4KU2lnbmVkLW9mZi1ieTogU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1kLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgICAgICAgIHwgIDIgKysKIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMgICAgICAgfCAgNCArKy0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5oICAgICAgIHwgIDIg
-Ky0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgICAgICAgfCAg
-NCArKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYyAgICAgICAgICAg
-IHwgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyAgICAg
-ICAgfCAyNSArKysrKysrKysrKysrKysrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ByaW1lLmMgICAgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgIDMgKy0tCiA4IGZpbGVzIGNoYW5nZWQsIDM1
-IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHUuaAppbmRleCBiM2QwNDdkLi4yNjQyOWRlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHUuaApAQCAtMTI5LDYgKzEyOSw3IEBAIGV4dGVybiBpbnQgYW1kZ3B1X2xicHc7CiBleHRlcm4g
-aW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlwZTsKIGV4dGVybiBpbnQgYW1kZ3B1X2dwdV9yZWNv
-dmVyeTsKIGV4dGVybiBpbnQgYW1kZ3B1X2VtdV9tb2RlOworZXh0ZXJuIGludCBhbWRncHVfc2df
-ZGlzcGxheTsKIAogI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX1NJCiBleHRlcm4gaW50IGFtZGdw
-dV9zaV9zdXBwb3J0OwpAQCAtMTM3LDYgKzEzOCw3IEBAIGV4dGVybiBpbnQgYW1kZ3B1X3NpX3N1
-cHBvcnQ7CiBleHRlcm4gaW50IGFtZGdwdV9jaWtfc3VwcG9ydDsKICNlbmRpZgogCisjZGVmaW5l
-IEFNREdQVV9TR19USFJFU0hPTEQJCQkoMjU2KjEwMjQqMTAyNCkKICNkZWZpbmUgQU1ER1BVX0RF
-RkFVTFRfR1RUX1NJWkVfTUIJCTMwNzJVTEwgLyogM0dCIGJ5IGRlZmF1bHQgKi8KICNkZWZpbmUg
-QU1ER1BVX1dBSVRfSURMRV9USU1FT1VUX0lOX01TCSAgICAgICAgMzAwMAogI2RlZmluZSBBTURH
-UFVfTUFYX1VTRUNfVElNRU9VVAkJCTEwMDAwMAkvKiAxMDAgbXMgKi8KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCmluZGV4IDUwZjk4ZGYuLjBjYWEzZDIgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwpAQCAtMTg5LDcg
-KzE4OSw3IEBAIGludCBhbWRncHVfZGlzcGxheV9jcnRjX3BhZ2VfZmxpcF90YXJnZXQoc3RydWN0
-IGRybV9jcnRjICpjcnRjLAogCQlnb3RvIGNsZWFudXA7CiAJfQogCi0JciA9IGFtZGdwdV9ib19w
-aW4obmV3X2FibywgYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlucyhhZGV2KSwgJmJh
-c2UpOworCXIgPSBhbWRncHVfYm9fcGluKG5ld19hYm8sIGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRl
-ZF9kb21haW5zKGFkZXYpLCAmYmFzZSk7CiAJaWYgKHVubGlrZWx5KHIgIT0gMCkpIHsKIAkJRFJN
-X0VSUk9SKCJmYWlsZWQgdG8gcGluIG5ldyBhYm8gYnVmZmVyIGJlZm9yZSBmbGlwXG4iKTsKIAkJ
-Z290byB1bnJlc2VydmU7CkBAIC00ODQsNyArNDg0LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBk
-cm1fZnJhbWVidWZmZXJfZnVuY3MgYW1kZ3B1X2ZiX2Z1bmNzID0gewogCS5jcmVhdGVfaGFuZGxl
-ID0gZHJtX2dlbV9mYl9jcmVhdGVfaGFuZGxlLAogfTsKIAotdWludDMyX3QgYW1kZ3B1X2Rpc3Bs
-YXlfZnJhbWVidWZmZXJfZG9tYWlucyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKK3VpbnQz
-Ml90IGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQogewogCXVpbnQzMl90IGRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU07CiAK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5Lmgg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5oCmluZGV4IDJiMTFk
-ODAuLmY2NmUzZTMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kaXNwbGF5LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3Bs
-YXkuaApAQCAtMjMsNyArMjMsNyBAQAogI2lmbmRlZiBfX0FNREdQVV9ESVNQTEFZX0hfXwogI2Rl
-ZmluZSBfX0FNREdQVV9ESVNQTEFZX0hfXwogCi11aW50MzJfdCBhbWRncHVfZGlzcGxheV9mcmFt
-ZWJ1ZmZlcl9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKK3VpbnQzMl90IGFt
-ZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KTsKIHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKgogYW1kZ3B1X2Rpc3BsYXlfdXNlcl9mcmFtZWJ1
-ZmZlcl9jcmVhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKIAkJCQkgICAgICAgc3RydWN0IGRy
-bV9maWxlICpmaWxlX3ByaXYsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMK
-aW5kZXggMGIxOTQ4Mi4uODVkY2QxYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kcnYuYwpAQCAtMTMyLDYgKzEzMiw3IEBAIGludCBhbWRncHVfbGJwdyA9IC0xOwogaW50IGFt
-ZGdwdV9jb21wdXRlX211bHRpcGlwZSA9IC0xOwogaW50IGFtZGdwdV9ncHVfcmVjb3ZlcnkgPSAt
-MTsgLyogYXV0byAqLwogaW50IGFtZGdwdV9lbXVfbW9kZSA9IDA7CitpbnQgYW1kZ3B1X3NnX2Rp
-c3BsYXkgPSAtMTsKIAogTU9EVUxFX1BBUk1fREVTQyh2cmFtbGltaXQsICJSZXN0cmljdCBWUkFN
-IGZvciB0ZXN0aW5nLCBpbiBtZWdhYnl0ZXMiKTsKIG1vZHVsZV9wYXJhbV9uYW1lZCh2cmFtbGlt
-aXQsIGFtZGdwdV92cmFtX2xpbWl0LCBpbnQsIDA2MDApOwpAQCAtMjkwLDYgKzI5MSw5IEBAIG1v
-ZHVsZV9wYXJhbV9uYW1lZChncHVfcmVjb3ZlcnksIGFtZGdwdV9ncHVfcmVjb3ZlcnksIGludCwg
-MDQ0NCk7CiBNT0RVTEVfUEFSTV9ERVNDKGVtdV9tb2RlLCAiRW11bGF0aW9uIG1vZGUsICgxID0g
-ZW5hYmxlLCAwID0gZGlzYWJsZSkiKTsKIG1vZHVsZV9wYXJhbV9uYW1lZChlbXVfbW9kZSwgYW1k
-Z3B1X2VtdV9tb2RlLCBpbnQsIDA0NDQpOwogCitNT0RVTEVfUEFSTV9ERVNDKHNnX2Rpc3BsYXks
-ICJFbmFibGUgc2NhdHRlciBnYXRoZXIgZGlzcGxheSwgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxl
-LCAtMSA9IGF1dG8iKTsKK21vZHVsZV9wYXJhbV9uYW1lZChzZ19kaXNwbGF5LCBhbWRncHVfc2df
-ZGlzcGxheSwgaW50LCAwNDQ0KTsKKwogI2lmZGVmIENPTkZJR19EUk1fQU1ER1BVX1NJCiAKICNp
-ZiBkZWZpbmVkKENPTkZJR19EUk1fUkFERU9OKSB8fCBkZWZpbmVkKENPTkZJR19EUk1fUkFERU9O
-X01PRFVMRSkKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9m
-Yi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMKaW5kZXggZmY4OWU4
-NC4uYmM1ZmQ4ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2ZiLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMKQEAgLTEz
-Nyw3ICsxMzcsNyBAQCBzdGF0aWMgaW50IGFtZGdwdWZiX2NyZWF0ZV9waW5uZWRfb2JqZWN0KHN0
-cnVjdCBhbWRncHVfZmJkZXYgKnJmYmRldiwKIAkvKiBuZWVkIHRvIGFsaWduIHBpdGNoIHdpdGgg
-Y3J0YyBsaW1pdHMgKi8KIAltb2RlX2NtZC0+cGl0Y2hlc1swXSA9IGFtZGdwdV9hbGlnbl9waXRj
-aChhZGV2LCBtb2RlX2NtZC0+d2lkdGgsIGNwcCwKIAkJCQkJCSAgZmJfdGlsZWQpOwotCWRvbWFp
-biA9IGFtZGdwdV9kaXNwbGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMoYWRldik7CisJZG9tYWluID0g
-YW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoYWRldik7CiAKIAloZWlnaHQgPSBBTElH
-Tihtb2RlX2NtZC0+aGVpZ2h0LCA4KTsKIAlzaXplID0gbW9kZV9jbWQtPnBpdGNoZXNbMF0gKiBo
-ZWlnaHQ7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
-ZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKaW5kZXgg
-MjRmNTgyYy4uZjBmMWY4YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X29iamVjdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9v
-YmplY3QuYwpAQCAtNjg5LDggKzY4OSwyOSBAQCBpbnQgYW1kZ3B1X2JvX3Bpbl9yZXN0cmljdGVk
-KHN0cnVjdCBhbWRncHVfYm8gKmJvLCB1MzIgZG9tYWluLAogCQlyZXR1cm4gLUVJTlZBTDsKIAog
-CS8qIEEgc2hhcmVkIGJvIGNhbm5vdCBiZSBtaWdyYXRlZCB0byBWUkFNICovCi0JaWYgKGJvLT5w
-cmltZV9zaGFyZWRfY291bnQgJiYgKGRvbWFpbiA9PSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSkK
-LQkJcmV0dXJuIC1FSU5WQUw7CisJaWYgKGJvLT5wcmltZV9zaGFyZWRfY291bnQpIHsKKwkJaWYg
-KGRvbWFpbiAmIEFNREdQVV9HRU1fRE9NQUlOX0dUVCkKKwkJCWRvbWFpbiA9IEFNREdQVV9HRU1f
-RE9NQUlOX0dUVDsKKwkJZWxzZQorCQkJcmV0dXJuIC1FSU5WQUw7CisJfQorCisJLyogZGlzcGxh
-eSBidWZmZXIgKi8KKyNpZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX0RDKQorCWlmIChhZGV2LT5h
-c2ljX3R5cGUgPj0gQ0hJUF9DQVJSSVpPICYmIGFkZXYtPmFzaWNfdHlwZSA8IENISVBfUkFWRU4g
-JiYKKwkgICAgYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVICYmCisJICAgIGFtZGdwdV9kZXZpY2Vf
-YXNpY19oYXNfZGNfc3VwcG9ydChhZGV2LT5hc2ljX3R5cGUpICYmCisJICAgIGRvbWFpbiA9PSAo
-QU1ER1BVX0dFTV9ET01BSU5fVlJBTSB8IEFNREdQVV9HRU1fRE9NQUlOX0dUVCkpIHsKKwkJaWYg
-KGFtZGdwdV9zZ19kaXNwbGF5ID09IDEpCisJCQlkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9H
-VFQ7CisJCWVsc2UgaWYgKGFtZGdwdV9zZ19kaXNwbGF5ID09IC0xKSB7CisJCQlpZiAoYWRldi0+
-Z21jLnJlYWxfdnJhbV9zaXplIDwgQU1ER1BVX1NHX1RIUkVTSE9MRCkKKwkJCQlkb21haW4gPSBB
-TURHUFVfR0VNX0RPTUFJTl9HVFQ7CisJCQllbHNlCisJCQkJZG9tYWluID0gQU1ER1BVX0dFTV9E
-T01BSU5fVlJBTTsKKwkJfQorCX0KKyNlbmRpZgogCiAJaWYgKGJvLT5waW5fY291bnQpIHsKIAkJ
-dWludDMyX3QgbWVtX3R5cGUgPSBiby0+dGJvLm1lbS5tZW1fdHlwZTsKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKaW5kZXggNGI1ODRjYjcuLmNmMDc0OWYgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCkBAIC0yMDksNyArMjA5LDcg
-QEAgc3RhdGljIGludCBhbWRncHVfZ2VtX2JlZ2luX2NwdV9hY2Nlc3Moc3RydWN0IGRtYV9idWYg
-KmRtYV9idWYsCiAJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBnZW1fdG9fYW1kZ3B1X2JvKGRtYV9i
-dWYtPnByaXYpOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1X3R0bV9hZGV2
-KGJvLT50Ym8uYmRldik7CiAJc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4IGN0eCA9IHsgdHJ1ZSwg
-ZmFsc2UgfTsKLQl1MzIgZG9tYWluID0gYW1kZ3B1X2Rpc3BsYXlfZnJhbWVidWZmZXJfZG9tYWlu
-cyhhZGV2KTsKKwl1MzIgZG9tYWluID0gYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMo
-YWRldik7CiAJaW50IHJldDsKIAlib29sIHJlYWRzID0gKGRpcmVjdGlvbiA9PSBETUFfQklESVJF
-Q1RJT05BTCB8fAogCQkgICAgICBkaXJlY3Rpb24gPT0gRE1BX0ZST01fREVWSUNFKTsKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4
-IDZmOTJhMTkuLjFmNTYwM2EgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtMzEwOSwxMiArMzEwOSwxMSBAQCBzdGF0aWMgaW50
-IGRtX3BsYW5lX2hlbHBlcl9wcmVwYXJlX2ZiKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAogCQly
-ZXR1cm4gcjsKIAogCWlmIChwbGFuZS0+dHlwZSAhPSBEUk1fUExBTkVfVFlQRV9DVVJTT1IpCi0J
-CWRvbWFpbiA9IGFtZGdwdV9kaXNwbGF5X2ZyYW1lYnVmZmVyX2RvbWFpbnMoYWRldik7CisJCWRv
-bWFpbiA9IGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zKGFkZXYpOwogCWVsc2UKIAkJ
-ZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTTsKIAogCXIgPSBhbWRncHVfYm9fcGluKHJi
-bywgZG9tYWluLCAmYWZiLT5hZGRyZXNzKTsKLQogCWFtZGdwdV9ib191bnJlc2VydmUocmJvKTsK
-IAogCWlmICh1bmxpa2VseShyICE9IDApKSB7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0086865491==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1125DD21F2A4E63E2ABE43928FB60CY4PR12MB1125namp_"
+
+--_000_CY4PR12MB1125DD21F2A4E63E2ABE43928FB60CY4PR12MB1125namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+Does this actually work on SR-IOV? Or does it just seem to but nothing bad =
+happens because we get a GPU reset on a world switch?
+I honestly don't know. I think that SR-IOV uses a specialized firmware wher=
+e this packet has a different meaning.
+
+But the real fix would be to get the RLC firmware fix to not reinitialize t=
+hose regs to zero on world switch.
+[Emily]Yes, it actually works on SR-IOV, it fixes lots of engine hang issue=
+.
+
+Best Wishes,
+Emily Deng
+From: Christian K=F6nig [mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+Sent: Tuesday, April 17, 2018 11:27 PM
+To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32nrcLQh/DF6ew@public.gmane.org=
+op.org; Deng, Emily <Emily.Deng-5C7GfCeVMHo@public.gmane.org>; Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: limit reg_write_reg_wait workaround to SRI=
+OV
+
+Does this actually work on SR-IOV? Or does it just seem to but nothing bad =
+happens because we get a GPU reset on a world switch?
+I honestly don't know. I think that SR-IOV uses a specialized firmware wher=
+e this packet has a different meaning.
+
+But the real fix would be to get the RLC firmware fix to not reinitialize t=
+hose regs to zero on world switch.
+
+Christian.
+
+Am 17.04.2018 um 16:02 schrieb Deucher, Alexander:
+
+Does this actually work on SR-IOV?  Or does it just seem to but nothing bad=
+ happens because we get a GPU reset on a world switch?  The behavior of thi=
+s packet should be the same as SDMA and that definitely doesn't work.  I do=
+n't see why this would be any different.
+
+
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org><mailto:alexander.deucher=
+@amd.com>
+
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
+s@lists.freedesktop.org> on behalf of Christian K=F6nig <ckoenig.leichtzume=
+rken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Tuesday, April 17, 2018 9:01:35 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: limit reg_write_reg_wait workaround to SRIOV
+
+Turned out that this locks up some bare metal Vega10.
+
+Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org><mailto:christia=
+n.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c
+index 583f6f616dd3..5329d7e5fb71 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -4144,7 +4144,12 @@ static void gfx_v9_0_ring_emit_reg_write_reg_wait(st=
+ruct amdgpu_ring *ring,
+ {
+         int usepfp =3D (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX);
+
+-       gfx_v9_0_wait_reg_mem(ring, usepfp, 0, 1, reg0, reg1, ref, mask, 0x=
+20);
++       if (amdgpu_sriov_vf(adev))
++               gfx_v9_0_wait_reg_mem(ring, usepfp, 0, 1, reg0, reg1,
++                                     ref, mask, 0x20);
++       else
++               amdgpu_ring_emit_reg_write_reg_wait_helper(ring, reg0, reg1=
+,
++                                                          ref, mask);
+ }
+
+ static void gfx_v9_0_set_gfx_eop_interrupt_state(struct amdgpu_device *ade=
+v,
+--
+2.14.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--_000_CY4PR12MB1125DD21F2A4E63E2ABE43928FB60CY4PR12MB1125namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:\4EFF\5B8B;
+	panose-1:2 1 6 9 6 1 1 1 1 1;}
+@font-face
+	{font-family:"\@\4EFF\5B8B";
+	panose-1:2 1 6 9 6 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1F497D">Hi all,<o:p></o:p></span></p>
+<p class=3D"MsoNormal">Does this actually work on SR-IOV? Or does it just s=
+eem to but nothing bad happens because we get a GPU reset on a world switch=
+?<o:p></o:p></p>
+<p class=3D"MsoNormal">I honestly don't know. I think that SR-IOV uses a sp=
+ecialized firmware where this packet has a different meaning.<br>
+<br>
+But the real fix would be to get the RLC firmware fix to not reinitialize t=
+hose regs to zero on world switch.<br>
+<span style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;=
+color:#1F497D">[Emily]Yes, it actually works on SR-IOV, it fixes lots of en=
+gine hang issue.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:9.0pt;color:#1F497D">Bes=
+t Wishes,<o:p></o:p></span></b></p>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:9.0pt;color:#1F497D">Emi=
+ly Deng</span></b><b><i><span style=3D"font-family:\4EFF\5B8B;color:#1F497D=
+"><o:p></o:p></span></i></b></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:windowtext">From:</span></b><span style=3D"=
+font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtex=
+t"> Christian K=F6nig [mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+<br>
+<b>Sent:</b> Tuesday, April 17, 2018 11:27 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx@li=
+sts.freedesktop.org; Deng, Emily &lt;Emily.Deng-5C7GfCeVMHo@public.gmane.org&gt;; Liu, Monk &lt;=
+Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: limit reg_write_reg_wait workaround=
+ to SRIOV<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">Does this actually work on SR-IOV? Or does it just s=
+eem to but nothing bad happens because we get a GPU reset on a world switch=
+?<o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal">I honestly don't know. I think that SR-IOV uses a sp=
+ecialized firmware where this packet has a different meaning.<br>
+<br>
+But the real fix would be to get the RLC firmware fix to not reinitialize t=
+hose regs to zero on world switch.<br>
+<br>
+Christian.<br>
+<br>
+Am 17.04.2018 um 16:02 schrieb Deucher, Alexander:<o:p></o:p></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Does this act=
+ually work on SR-IOV?&nbsp; Or does it just seem to but nothing bad happens=
+ because we get a GPU reset on a world switch?&nbsp; The behavior of this p=
+acket should be the same as SDMA and that definitely doesn't
+ work.&nbsp; I don't see why this would be any different.<o:p></o:p></span>=
+</p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</=
+o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Acked-by: Ale=
+x Deucher <a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">
+&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</=
+o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif">Alex<o:p></o:=
+p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> amd-gfx
+<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounce=
+s@lists.freedesktop.org&gt;</a> on behalf of Christian K=F6nig
+<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;ckoenig.leichtzumer=
+ken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+<b>Sent:</b> Tuesday, April 17, 2018 9:01:35 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a><br>
+<b>Subject:</b> [PATCH] drm/amdgpu: limit reg_write_reg_wait workaround to =
+SRIOV</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Turned out that thi=
+s locks up some bare metal Vega10.<br>
+<br>
+Signed-off-by: Christian K=F6nig <a href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org=
+">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 7 &#43;&#43;&#43;&#43;&#43;&#=
+43;-<br>
+&nbsp;1 file changed, 6 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c<br>
+index 583f6f616dd3..5329d7e5fb71 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+@@ -4144,7 &#43;4144,12 @@ static void gfx_v9_0_ring_emit_reg_write_reg_wai=
+t(struct amdgpu_ring *ring,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int usepfp =3D (ring-&gt;f=
+uncs-&gt;type =3D=3D AMDGPU_RING_TYPE_GFX);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_wait_reg_mem(ring, usepfp, 0=
+, 1, reg0, reg1, ref, mask, 0x20);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; gfx_v9_0_wait_reg_mem(ring, usepfp, 0, 1, reg0, reg1,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ref=
+, mask, 0x20);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; amdgpu_ring_emit_reg_write_reg_wait_helper(ring, reg0, reg1,=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ref, mask);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static void gfx_v9_0_set_gfx_eop_interrupt_state(struct amdgpu_device=
+ *adev,<br>
+-- <br>
+2.14.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
+</div>
+</div>
+</blockquote>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1125DD21F2A4E63E2ABE43928FB60CY4PR12MB1125namp_--
+
+--===============0086865491==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0086865491==--
