@@ -1,65 +1,104 @@
-From: Anders Roxell <anders.roxell@linaro.org>
-Subject: Re: [PATCH] amdkfd: always select MMU_NOTIFIER
-Date: Thu, 19 Apr 2018 12:56:26 +0200
-Message-ID: <CADYN=9LTmdLzeszPDeLZ1==9g1ciS1ubunC6jdjLJUiv6J6N3Q@mail.gmail.com>
-References: <20180328155340.2253343-1-arnd@arndb.de> <664e2827-5237-160b-6ecf-c2da163569e1@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: dynamically detect number of drm devices
+Date: Thu, 19 Apr 2018 13:06:28 +0200
+Message-ID: <5490ad94-b2b9-c087-d431-ee5ffd4504b0@gmail.com>
+References: <20180419101228.29306-1-Xiaojie.Yuan@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <664e2827-5237-160b-6ecf-c2da163569e1@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180419101228.29306-1-Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 28 March 2018 at 18:04, Christian K=C3=B6nig <christian.koenig@amd.com> =
-wrote:
-> Am 28.03.2018 um 17:53 schrieb Arnd Bergmann:
->>
->> Building amdkfd without MMU notifiers is broken:
->>
->> In file included from drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c:28=
-:
->> drivers/gpu/drm/amd/amdkfd/kfd_priv.h:584:22: error: field 'mmu_notifier=
-'
->> has incomplete type
->>
->> This adds the missing 'select MMU_NOTIFIER' line to make it build
->> cleanly all the time.
->>
->> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>, but I would wa=
-it on
-> what Felix says to that.
-
-Tested-by: Anders Roxell <anders.roxell@linaro.org>
-
-Randy sent the same patch [1] and its still required.
-
-Cheers,
-Anders
-[1] https://patchwork.kernel.org/patch/10340885/
-
->
->
->> ---
->>   drivers/gpu/drm/amd/amdkfd/Kconfig | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig
->> b/drivers/gpu/drm/amd/amdkfd/Kconfig
->> index ed2f06c9f346..5a26acb90e19 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
->> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
->> @@ -4,6 +4,7 @@
->>     config HSA_AMD
->>         tristate "HSA kernel driver for AMD GPU devices"
->> +       select MMU_NOTIFIER
->>         depends on DRM_AMDGPU && X86_64
->>         imply AMD_IOMMU_V2
->>         help
->
->
+V291bGRuJ3QgaXQgYmUgc2ltcGxlciB0byBqdXN0IHNldCBNQVhfQ0FSRFNfU1VQUE9SVEVEIHRv
+IDEyOD8KClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDE5LjA0LjIwMTggdW0gMTI6MTIgc2Nocmll
+YiBYaWFvamllIFl1YW46Cj4gQ2hhbmdlLUlkOiBJMzY3NjQ5NTFiZWJiY2JmMDZjZjg0ZGQ0M2Vl
+OTQ2YTM0ZWM3YjEwMAo+IFNpZ25lZC1vZmYtYnk6IFhpYW9qaWUgWXVhbiA8WGlhb2ppZS5ZdWFu
+QGFtZC5jb20+Cj4gLS0tCj4gICB0ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuYyB8IDQ0ICsrKysr
+KysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tCj4gICB0ZXN0cy9hbWRncHUvYW1kZ3B1
+X3Rlc3QuaCB8ICA3ICstLS0tLQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCsp
+LCAxNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS90ZXN0cy9hbWRncHUvYW1kZ3B1X3Rl
+c3QuYyBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCj4gaW5kZXggOTZmY2Q2ODcuLmY3YWM0
+YWI0IDEwMDY0NAo+IC0tLSBhL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCj4gKysrIGIvdGVz
+dHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmMKPiBAQCAtNjEsNyArNjEsOCBAQAo+ICAgICogIE9wZW4g
+aGFuZGxlcyBmb3IgYW1kZ3B1IGRldmljZXMKPiAgICAqCj4gICAgKi8KPiAtaW50IGRybV9hbWRn
+cHVbTUFYX0NBUkRTX1NVUFBPUlRFRF07Cj4gK2ludCAqZHJtX2FtZGdwdTsKPiArc2l6ZV90IG51
+bV9kcm1fZGV2aWNlczsKPiAgIAo+ICAgLyoqIE9wZW4gcmVuZGVyIG5vZGUgdG8gdGVzdCAqLwo+
+ICAgaW50IG9wZW5fcmVuZGVyX25vZGUgPSAwOwkvKiBCeSBkZWZhdWx0IHJ1biBtb3N0IHRlc3Rz
+IG9uIHByaW1hcnkgbm9kZSAqLwo+IEBAIC0yMzgsMTYgKzIzOSwxNiBAQCBzdGF0aWMgY29uc3Qg
+Y2hhciBvcHRpb25zW10gICA9ICJobHJwczp0OmI6ZDpmIjsKPiAgICAqLwo+ICAgc3RhdGljIGlu
+dCBhbWRncHVfb3Blbl9kZXZpY2VzKGludCBvcGVuX3JlbmRlcl9ub2RlKQo+ICAgewo+IC0JZHJt
+RGV2aWNlUHRyIGRldmljZXNbTUFYX0NBUkRTX1NVUFBPUlRFRF07Cj4gKwlkcm1EZXZpY2VQdHIg
+KmRldmljZXM7Cj4gICAJaW50IGk7Cj4gICAJaW50IGRybV9ub2RlOwo+ICAgCWludCBhbWRfaW5k
+ZXggPSAwOwo+ICAgCWludCBkcm1fY291bnQ7Cj4gKwlpbnQgZHJtX2NvdW50MjsKPiAgIAlpbnQg
+ZmQ7Cj4gICAJZHJtVmVyc2lvblB0ciB2ZXJzaW9uOwo+ICAgCj4gLQlkcm1fY291bnQgPSBkcm1H
+ZXREZXZpY2VzMigwLCBkZXZpY2VzLCBNQVhfQ0FSRFNfU1VQUE9SVEVEKTsKPiAtCj4gKwlkcm1f
+Y291bnQgPSBkcm1HZXREZXZpY2VzMigwLCBOVUxMLCAwKTsKPiAgIAlpZiAoZHJtX2NvdW50IDwg
+MCkgewo+ICAgCQlmcHJpbnRmKHN0ZGVyciwKPiAgIAkJCSJkcm1HZXREZXZpY2VzMigpIHJldHVy
+bmVkIGFuIGVycm9yICVkXG4iLAo+IEBAIC0yNTUsNiArMjU2LDI3IEBAIHN0YXRpYyBpbnQgYW1k
+Z3B1X29wZW5fZGV2aWNlcyhpbnQgb3Blbl9yZW5kZXJfbm9kZSkKPiAgIAkJcmV0dXJuIDA7Cj4g
+ICAJfQo+ICAgCj4gKwlkZXZpY2VzID0gY2FsbG9jKGRybV9jb3VudCwgc2l6ZW9mKGRybURldmlj
+ZVB0cikpOwo+ICsJaWYgKCFkZXZpY2VzKSB7Cj4gKwkJZ290byBlbmQ7Cj4gKwl9Cj4gKwo+ICsJ
+ZHJtX2FtZGdwdSA9IGNhbGxvYyhkcm1fY291bnQsIHNpemVvZihpbnQpKTsKPiArCWlmICghZHJt
+X2FtZGdwdSkgewo+ICsJCWdvdG8gZW5kOwo+ICsJfQo+ICsKPiArCWZvciAoaSA9IDA7IGkgPCBk
+cm1fY291bnQ7IGkrKykKPiArCQlkcm1fYW1kZ3B1W2ldID0gLTE7Cj4gKwo+ICsJZHJtX2NvdW50
+MiA9IGRybUdldERldmljZXMyKDAsIGRldmljZXMsIGRybV9jb3VudCk7Cj4gKwlpZiAoZHJtX2Nv
+dW50MiAhPSBkcm1fY291bnQpIHsKPiArCQlmcHJpbnRmKHN0ZGVyciwgIm51bWJlciBvZiBkcm0g
+ZGV2aWNlcyBjaGFuZ2VkIik7Cj4gKwkJZ290byBlbmQ7Cj4gKwl9Cj4gKwo+ICsJbnVtX2RybV9k
+ZXZpY2VzID0gZHJtX2NvdW50Owo+ICsKPiAgIAlmb3IgKGkgPSAwOyBpIDwgZHJtX2NvdW50OyBp
+KyspIHsKPiAgIAkJLyogSWYgdGhpcyBpcyBub3QgUENJIGRldmljZSwgc2tpcCovCj4gICAJCWlm
+IChkZXZpY2VzW2ldLT5idXN0eXBlICE9IERSTV9CVVNfUENJKQo+IEBAIC0zMDIsNyArMzI0LDkg
+QEAgc3RhdGljIGludCBhbWRncHVfb3Blbl9kZXZpY2VzKGludCBvcGVuX3JlbmRlcl9ub2RlKQo+
+ICAgCQlhbWRfaW5kZXgrKzsKPiAgIAl9Cj4gICAKPiArZW5kOgo+ICAgCWRybUZyZWVEZXZpY2Vz
+KGRldmljZXMsIGRybV9jb3VudCk7Cj4gKwlmcmVlKGRldmljZXMpOwo+ICAgCXJldHVybiBhbWRf
+aW5kZXg7Cj4gICB9Cj4gICAKPiBAQCAtMzExLDkgKzMzNSwxMSBAQCBzdGF0aWMgaW50IGFtZGdw
+dV9vcGVuX2RldmljZXMoaW50IG9wZW5fcmVuZGVyX25vZGUpCj4gICBzdGF0aWMgdm9pZCBhbWRn
+cHVfY2xvc2VfZGV2aWNlcygpCj4gICB7Cj4gICAJaW50IGk7Cj4gLQlmb3IgKGkgPSAwOyBpIDwg
+TUFYX0NBUkRTX1NVUFBPUlRFRDsgaSsrKQo+ICsJZm9yIChpID0gMDsgaSA8IG51bV9kcm1fZGV2
+aWNlczsgaSsrKQo+ICAgCQlpZiAoZHJtX2FtZGdwdVtpXSA+PTApCj4gICAJCQljbG9zZShkcm1f
+YW1kZ3B1W2ldKTsKPiArCj4gKwlmcmVlKGRybV9hbWRncHUpOwo+ICAgfQo+ICAgCj4gICAvKiBQ
+cmludCBBTUQgZGV2aWNlcyBpbmZvcm1hdGlvbiAqLwo+IEBAIC0zMzksNyArMzY1LDcgQEAgc3Rh
+dGljIHZvaWQgYW1kZ3B1X3ByaW50X2RldmljZXMoKQo+ICAgCj4gICAJLyogRGlzcGxheSBpbmZv
+cm1hdGlvbiBvZiBBTUQgZGV2aWNlcyAqLwo+ICAgCXByaW50ZigiRGV2aWNlczpcbiIpOwo+IC0J
+Zm9yIChpID0gMDsgaSA8IE1BWF9DQVJEU19TVVBQT1JURUQgJiYgZHJtX2FtZGdwdVtpXSA+PTA7
+IGkrKykKPiArCWZvciAoaSA9IDA7IGkgPCBudW1fZHJtX2RldmljZXMgJiYgZHJtX2FtZGdwdVtp
+XSA+PTA7IGkrKykKPiAgIAkJaWYgKGRybUdldERldmljZTIoZHJtX2FtZGdwdVtpXSwKPiAgIAkJ
+CURSTV9ERVZJQ0VfR0VUX1BDSV9SRVZJU0lPTiwKPiAgIAkJCSZkZXZpY2UpID09IDApIHsKPiBA
+QCAtMzc3LDcgKzQwMyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2ZpbmRfZGV2aWNlKHVpbnQ4X3Qg
+YnVzLCB1aW50MTZfdCBkZXYpCj4gICAJaW50IGk7Cj4gICAJZHJtRGV2aWNlUHRyIGRldmljZTsK
+PiAgIAo+IC0JZm9yIChpID0gMDsgaSA8IE1BWF9DQVJEU19TVVBQT1JURUQgJiYgZHJtX2FtZGdw
+dVtpXSA+PSAwOyBpKyspIHsKPiArCWZvciAoaSA9IDA7IGkgPCBudW1fZHJtX2RldmljZXMgJiYg
+ZHJtX2FtZGdwdVtpXSA+PSAwOyBpKyspIHsKPiAgIAkJaWYgKGRybUdldERldmljZTIoZHJtX2Ft
+ZGdwdVtpXSwKPiAgIAkJCURSTV9ERVZJQ0VfR0VUX1BDSV9SRVZJU0lPTiwKPiAgIAkJCSZkZXZp
+Y2UpID09IDApIHsKPiBAQCAtNDU2LDEwICs0ODIsNiBAQCBpbnQgbWFpbihpbnQgYXJnYywgY2hh
+ciAqKmFyZ3YpCj4gICAJaW50IGRpc3BsYXlfbGlzdCA9IDA7Cj4gICAJaW50IGZvcmNlX3J1biA9
+IDA7Cj4gICAKPiAtCWZvciAoaSA9IDA7IGkgPCBNQVhfQ0FSRFNfU1VQUE9SVEVEOyBpKyspCj4g
+LQkJZHJtX2FtZGdwdVtpXSA9IC0xOwo+IC0KPiAtCj4gICAJLyogUGFyc2UgY29tbWFuZCBsaW5l
+IHN0cmluZyAqLwo+ICAgCW9wdGVyciA9IDA7CQkvKiBEbyBub3QgcHJpbnQgZXJyb3IgbWVzc2Fn
+ZXMgZnJvbSBnZXRvcHQgKi8KPiAgIAl3aGlsZSAoKGMgPSBnZXRvcHQoYXJnYywgYXJndiwgb3B0
+aW9ucykpICE9IC0xKSB7Cj4gZGlmZiAtLWdpdCBhL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5o
+IGIvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmgKPiBpbmRleCA2Mjg3NTczNi4uOGE2MDRmZTQg
+MTAwNjQ0Cj4gLS0tIGEvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmgKPiArKysgYi90ZXN0cy9h
+bWRncHUvYW1kZ3B1X3Rlc3QuaAo+IEBAIC0yNywxMyArMjcsOCBAQAo+ICAgI2luY2x1ZGUgImFt
+ZGdwdS5oIgo+ICAgI2luY2x1ZGUgImFtZGdwdV9kcm0uaCIKPiAgIAo+IC0vKioKPiAtICogRGVm
+aW5lIG1heC4gbnVtYmVyIG9mIGNhcmQgaW4gc3lzdGVtIHdoaWNoIHdlIGFyZSBhYmxlIHRvIGhh
+bmRsZQo+IC0gKi8KPiAtI2RlZmluZSBNQVhfQ0FSRFNfU1VQUE9SVEVEICAgICA0Cj4gLQo+ICAg
+LyogRm9yd2FyZCByZWZlcmVuY2UgZm9yIGFycmF5IHRvIGtlZXAgImRybSIgaGFuZGxlcyAqLwo+
+IC1leHRlcm4gaW50IGRybV9hbWRncHVbTUFYX0NBUkRTX1NVUFBPUlRFRF07Cj4gK2V4dGVybiBp
+bnQgKmRybV9hbWRncHU7Cj4gICAKPiAgIC8qIEdsb2JhbCB2YXJpYWJsZXMgKi8KPiAgIGV4dGVy
+biBpbnQgb3Blbl9yZW5kZXJfbm9kZTsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
