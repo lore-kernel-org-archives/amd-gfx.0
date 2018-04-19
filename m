@@ -1,92 +1,65 @@
-From: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH libdrm] amdgpu: dynamically detect number of drm devices
-Date: Thu, 19 Apr 2018 18:12:28 +0800
-Message-ID: <20180419101228.29306-1-Xiaojie.Yuan@amd.com>
+From: Anders Roxell <anders.roxell@linaro.org>
+Subject: Re: [PATCH] amdkfd: always select MMU_NOTIFIER
+Date: Thu, 19 Apr 2018 12:56:26 +0200
+Message-ID: <CADYN=9LTmdLzeszPDeLZ1==9g1ciS1ubunC6jdjLJUiv6J6N3Q@mail.gmail.com>
+References: <20180328155340.2253343-1-arnd@arndb.de> <664e2827-5237-160b-6ecf-c2da163569e1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <664e2827-5237-160b-6ecf-c2da163569e1@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2hhbmdlLUlkOiBJMzY3NjQ5NTFiZWJiY2JmMDZjZjg0ZGQ0M2VlOTQ2YTM0ZWM3YjEwMApTaWdu
-ZWQtb2ZmLWJ5OiBYaWFvamllIFl1YW4gPFhpYW9qaWUuWXVhbkBhbWQuY29tPgotLS0KIHRlc3Rz
-L2FtZGdwdS9hbWRncHVfdGVzdC5jIHwgNDQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
-LS0tLS0tLS0KIHRlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5oIHwgIDcgKy0tLS0tCiAyIGZpbGVz
-IGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jIGIvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmMK
-aW5kZXggOTZmY2Q2ODcuLmY3YWM0YWI0IDEwMDY0NAotLS0gYS90ZXN0cy9hbWRncHUvYW1kZ3B1
-X3Rlc3QuYworKysgYi90ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuYwpAQCAtNjEsNyArNjEsOCBA
-QAogICogIE9wZW4gaGFuZGxlcyBmb3IgYW1kZ3B1IGRldmljZXMKICAqCiAgKi8KLWludCBkcm1f
-YW1kZ3B1W01BWF9DQVJEU19TVVBQT1JURURdOworaW50ICpkcm1fYW1kZ3B1Oworc2l6ZV90IG51
-bV9kcm1fZGV2aWNlczsKIAogLyoqIE9wZW4gcmVuZGVyIG5vZGUgdG8gdGVzdCAqLwogaW50IG9w
-ZW5fcmVuZGVyX25vZGUgPSAwOwkvKiBCeSBkZWZhdWx0IHJ1biBtb3N0IHRlc3RzIG9uIHByaW1h
-cnkgbm9kZSAqLwpAQCAtMjM4LDE2ICsyMzksMTYgQEAgc3RhdGljIGNvbnN0IGNoYXIgb3B0aW9u
-c1tdICAgPSAiaGxycHM6dDpiOmQ6ZiI7CiAgKi8KIHN0YXRpYyBpbnQgYW1kZ3B1X29wZW5fZGV2
-aWNlcyhpbnQgb3Blbl9yZW5kZXJfbm9kZSkKIHsKLQlkcm1EZXZpY2VQdHIgZGV2aWNlc1tNQVhf
-Q0FSRFNfU1VQUE9SVEVEXTsKKwlkcm1EZXZpY2VQdHIgKmRldmljZXM7CiAJaW50IGk7CiAJaW50
-IGRybV9ub2RlOwogCWludCBhbWRfaW5kZXggPSAwOwogCWludCBkcm1fY291bnQ7CisJaW50IGRy
-bV9jb3VudDI7CiAJaW50IGZkOwogCWRybVZlcnNpb25QdHIgdmVyc2lvbjsKIAotCWRybV9jb3Vu
-dCA9IGRybUdldERldmljZXMyKDAsIGRldmljZXMsIE1BWF9DQVJEU19TVVBQT1JURUQpOwotCisJ
-ZHJtX2NvdW50ID0gZHJtR2V0RGV2aWNlczIoMCwgTlVMTCwgMCk7CiAJaWYgKGRybV9jb3VudCA8
-IDApIHsKIAkJZnByaW50ZihzdGRlcnIsCiAJCQkiZHJtR2V0RGV2aWNlczIoKSByZXR1cm5lZCBh
-biBlcnJvciAlZFxuIiwKQEAgLTI1NSw2ICsyNTYsMjcgQEAgc3RhdGljIGludCBhbWRncHVfb3Bl
-bl9kZXZpY2VzKGludCBvcGVuX3JlbmRlcl9ub2RlKQogCQlyZXR1cm4gMDsKIAl9CiAKKwlkZXZp
-Y2VzID0gY2FsbG9jKGRybV9jb3VudCwgc2l6ZW9mKGRybURldmljZVB0cikpOworCWlmICghZGV2
-aWNlcykgeworCQlnb3RvIGVuZDsKKwl9CisKKwlkcm1fYW1kZ3B1ID0gY2FsbG9jKGRybV9jb3Vu
-dCwgc2l6ZW9mKGludCkpOworCWlmICghZHJtX2FtZGdwdSkgeworCQlnb3RvIGVuZDsKKwl9CisK
-Kwlmb3IgKGkgPSAwOyBpIDwgZHJtX2NvdW50OyBpKyspCisJCWRybV9hbWRncHVbaV0gPSAtMTsK
-KworCWRybV9jb3VudDIgPSBkcm1HZXREZXZpY2VzMigwLCBkZXZpY2VzLCBkcm1fY291bnQpOwor
-CWlmIChkcm1fY291bnQyICE9IGRybV9jb3VudCkgeworCQlmcHJpbnRmKHN0ZGVyciwgIm51bWJl
-ciBvZiBkcm0gZGV2aWNlcyBjaGFuZ2VkIik7CisJCWdvdG8gZW5kOworCX0KKworCW51bV9kcm1f
-ZGV2aWNlcyA9IGRybV9jb3VudDsKKwogCWZvciAoaSA9IDA7IGkgPCBkcm1fY291bnQ7IGkrKykg
-ewogCQkvKiBJZiB0aGlzIGlzIG5vdCBQQ0kgZGV2aWNlLCBza2lwKi8KIAkJaWYgKGRldmljZXNb
-aV0tPmJ1c3R5cGUgIT0gRFJNX0JVU19QQ0kpCkBAIC0zMDIsNyArMzI0LDkgQEAgc3RhdGljIGlu
-dCBhbWRncHVfb3Blbl9kZXZpY2VzKGludCBvcGVuX3JlbmRlcl9ub2RlKQogCQlhbWRfaW5kZXgr
-KzsKIAl9CiAKK2VuZDoKIAlkcm1GcmVlRGV2aWNlcyhkZXZpY2VzLCBkcm1fY291bnQpOworCWZy
-ZWUoZGV2aWNlcyk7CiAJcmV0dXJuIGFtZF9pbmRleDsKIH0KIApAQCAtMzExLDkgKzMzNSwxMSBA
-QCBzdGF0aWMgaW50IGFtZGdwdV9vcGVuX2RldmljZXMoaW50IG9wZW5fcmVuZGVyX25vZGUpCiBz
-dGF0aWMgdm9pZCBhbWRncHVfY2xvc2VfZGV2aWNlcygpCiB7CiAJaW50IGk7Ci0JZm9yIChpID0g
-MDsgaSA8IE1BWF9DQVJEU19TVVBQT1JURUQ7IGkrKykKKwlmb3IgKGkgPSAwOyBpIDwgbnVtX2Ry
-bV9kZXZpY2VzOyBpKyspCiAJCWlmIChkcm1fYW1kZ3B1W2ldID49MCkKIAkJCWNsb3NlKGRybV9h
-bWRncHVbaV0pOworCisJZnJlZShkcm1fYW1kZ3B1KTsKIH0KIAogLyogUHJpbnQgQU1EIGRldmlj
-ZXMgaW5mb3JtYXRpb24gKi8KQEAgLTMzOSw3ICszNjUsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVf
-cHJpbnRfZGV2aWNlcygpCiAKIAkvKiBEaXNwbGF5IGluZm9ybWF0aW9uIG9mIEFNRCBkZXZpY2Vz
-ICovCiAJcHJpbnRmKCJEZXZpY2VzOlxuIik7Ci0JZm9yIChpID0gMDsgaSA8IE1BWF9DQVJEU19T
-VVBQT1JURUQgJiYgZHJtX2FtZGdwdVtpXSA+PTA7IGkrKykKKwlmb3IgKGkgPSAwOyBpIDwgbnVt
-X2RybV9kZXZpY2VzICYmIGRybV9hbWRncHVbaV0gPj0wOyBpKyspCiAJCWlmIChkcm1HZXREZXZp
-Y2UyKGRybV9hbWRncHVbaV0sCiAJCQlEUk1fREVWSUNFX0dFVF9QQ0lfUkVWSVNJT04sCiAJCQkm
-ZGV2aWNlKSA9PSAwKSB7CkBAIC0zNzcsNyArNDAzLDcgQEAgc3RhdGljIGludCBhbWRncHVfZmlu
-ZF9kZXZpY2UodWludDhfdCBidXMsIHVpbnQxNl90IGRldikKIAlpbnQgaTsKIAlkcm1EZXZpY2VQ
-dHIgZGV2aWNlOwogCi0JZm9yIChpID0gMDsgaSA8IE1BWF9DQVJEU19TVVBQT1JURUQgJiYgZHJt
-X2FtZGdwdVtpXSA+PSAwOyBpKyspIHsKKwlmb3IgKGkgPSAwOyBpIDwgbnVtX2RybV9kZXZpY2Vz
-ICYmIGRybV9hbWRncHVbaV0gPj0gMDsgaSsrKSB7CiAJCWlmIChkcm1HZXREZXZpY2UyKGRybV9h
-bWRncHVbaV0sCiAJCQlEUk1fREVWSUNFX0dFVF9QQ0lfUkVWSVNJT04sCiAJCQkmZGV2aWNlKSA9
-PSAwKSB7CkBAIC00NTYsMTAgKzQ4Miw2IEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICoqYXJn
-dikKIAlpbnQgZGlzcGxheV9saXN0ID0gMDsKIAlpbnQgZm9yY2VfcnVuID0gMDsKIAotCWZvciAo
-aSA9IDA7IGkgPCBNQVhfQ0FSRFNfU1VQUE9SVEVEOyBpKyspCi0JCWRybV9hbWRncHVbaV0gPSAt
-MTsKLQotCiAJLyogUGFyc2UgY29tbWFuZCBsaW5lIHN0cmluZyAqLwogCW9wdGVyciA9IDA7CQkv
-KiBEbyBub3QgcHJpbnQgZXJyb3IgbWVzc2FnZXMgZnJvbSBnZXRvcHQgKi8KIAl3aGlsZSAoKGMg
-PSBnZXRvcHQoYXJnYywgYXJndiwgb3B0aW9ucykpICE9IC0xKSB7CmRpZmYgLS1naXQgYS90ZXN0
-cy9hbWRncHUvYW1kZ3B1X3Rlc3QuaCBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5oCmluZGV4
-IDYyODc1NzM2Li44YTYwNGZlNCAxMDA2NDQKLS0tIGEvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0
-LmgKKysrIGIvdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmgKQEAgLTI3LDEzICsyNyw4IEBACiAj
-aW5jbHVkZSAiYW1kZ3B1LmgiCiAjaW5jbHVkZSAiYW1kZ3B1X2RybS5oIgogCi0vKioKLSAqIERl
-ZmluZSBtYXguIG51bWJlciBvZiBjYXJkIGluIHN5c3RlbSB3aGljaCB3ZSBhcmUgYWJsZSB0byBo
-YW5kbGUKLSAqLwotI2RlZmluZSBNQVhfQ0FSRFNfU1VQUE9SVEVEICAgICA0Ci0KIC8qIEZvcndh
-cmQgcmVmZXJlbmNlIGZvciBhcnJheSB0byBrZWVwICJkcm0iIGhhbmRsZXMgKi8KLWV4dGVybiBp
-bnQgZHJtX2FtZGdwdVtNQVhfQ0FSRFNfU1VQUE9SVEVEXTsKK2V4dGVybiBpbnQgKmRybV9hbWRn
-cHU7CiAKIC8qIEdsb2JhbCB2YXJpYWJsZXMgKi8KIGV4dGVybiBpbnQgb3Blbl9yZW5kZXJfbm9k
-ZTsKLS0gCjIuMTcuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 28 March 2018 at 18:04, Christian K=C3=B6nig <christian.koenig@amd.com> =
+wrote:
+> Am 28.03.2018 um 17:53 schrieb Arnd Bergmann:
+>>
+>> Building amdkfd without MMU notifiers is broken:
+>>
+>> In file included from drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c:28=
+:
+>> drivers/gpu/drm/amd/amdkfd/kfd_priv.h:584:22: error: field 'mmu_notifier=
+'
+>> has incomplete type
+>>
+>> This adds the missing 'select MMU_NOTIFIER' line to make it build
+>> cleanly all the time.
+>>
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>
+>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>, but I would wa=
+it on
+> what Felix says to that.
+
+Tested-by: Anders Roxell <anders.roxell@linaro.org>
+
+Randy sent the same patch [1] and its still required.
+
+Cheers,
+Anders
+[1] https://patchwork.kernel.org/patch/10340885/
+
+>
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/Kconfig | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig
+>> b/drivers/gpu/drm/amd/amdkfd/Kconfig
+>> index ed2f06c9f346..5a26acb90e19 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/Kconfig
+>> +++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
+>> @@ -4,6 +4,7 @@
+>>     config HSA_AMD
+>>         tristate "HSA kernel driver for AMD GPU devices"
+>> +       select MMU_NOTIFIER
+>>         depends on DRM_AMDGPU && X86_64
+>>         imply AMD_IOMMU_V2
+>>         help
+>
+>
