@@ -1,71 +1,144 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v5 1/1] drm/amdgpu: Enable scatter gather display support
-Date: Mon, 23 Apr 2018 13:19:36 -0400
-Message-ID: <CADnq5_O1dbT3+J_wmU5gMYZX=6OR90vBmsARvcw2+i41E82Z1g@mail.gmail.com>
-References: <1524501860-983-1-git-send-email-Samuel.Li@amd.com>
+From: Mathieu Malaterre <malat@debian.org>
+Subject: Tracking: radeon 0000:00:10.0: ring 0 stalled for more than 10240msec
+Date: Mon, 23 Apr 2018 20:50:46 +0200
+Message-ID: <CA+7wUszgY3uFVfMe4T-_5x9KuzWNSgKHXcRKgfcmpE+Keo73Vg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1524501860-983-1-git-send-email-Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBBcHIgMjMsIDIwMTggYXQgMTI6NDQgUE0sIFNhbXVlbCBMaSA8U2FtdWVsLkxpQGFt
-ZC5jb20+IHdyb3RlOgo+IEVuYWJsZXMgc2cgZGlzcGxheSBpZiB2cmFtIHNpemUgPD0gVEhSRVNI
-T0xEKDI1Nk0pOyBvdGhlcndpc2UKPiBzdGlsbCB1c2UgdnJhbSBhcyBkaXNwbGF5IGJ1ZmZlci4K
-PiBUaGlzIHBhdGNoIGZpeGVkIHNvbWUgcG90ZW50aW9uIGlzc3VlcyBpbnRyb2R1Y2VkIGJ5IGNo
-YW5nZQo+ICJhbGxvdyBmcmFtZWJ1ZmZlciBpbiBHQVJUIG1lbW9yeSBhcyB3ZWxsIiBkdWUgdG8g
-Q1ovU1QgaGFyZHdhcmUKPiBsaW1pdGF0aW9uLgo+Cj4gdjI6IENoYW5nZSBkZWZhdWx0IHNldHRp
-bmcgdG8gYXV0by4KPiB2MzogTW92ZSBzb21lIGxvZ2ljIGZyb20gYW1kZ3B1X2Rpc3BsYXlfZnJh
-bWVidWZmZXJfZG9tYWlucygpCj4gICAgIHRvIHBpbiBmdW5jdGlvbiwgc3VnZ2VzdGVkIGJ5IENo
-cmlzdGlhbi4KPiB2NDogU3BsaXQgaW50byBzZXZlcmFsIHBhdGNoZXMuCj4gdjU6IERyb3AgbW9k
-dWxlIHBhcmFtZXRlciBmb3Igbm93Lgo+Cj4gU2lnbmVkLW9mZi1ieTogU2FtdWVsIExpIDxTYW11
-ZWwuTGlAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+CgpXZSBjYW4gYWRkIHRoZSBjaGVja3MgZm9yIHByZWZlcnJlZCBkb21haW5z
-IGFzIGEgZm9sbG93IG9uIHBhdGNoLgoKQWxleAoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgMSArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9vYmplY3QuYyB8IDkgKysrKysrKysrCj4gIDIgZmlsZXMgY2hhbmdlZCwgMTAg
-aW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiBpbmRleCA1
-OWRmNGI3Li4yZDc1MDA5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiBA
-QCAtMTM4LDYgKzEzOCw3IEBAIGV4dGVybiBpbnQgYW1kZ3B1X3NpX3N1cHBvcnQ7Cj4gIGV4dGVy
-biBpbnQgYW1kZ3B1X2Npa19zdXBwb3J0Owo+ICAjZW5kaWYKPgo+ICsjZGVmaW5lIEFNREdQVV9T
-R19USFJFU0hPTEQgICAgICAgICAgICAgICAgICAgICgyNTYqMTAyNCoxMDI0KQo+ICAjZGVmaW5l
-IEFNREdQVV9ERUZBVUxUX0dUVF9TSVpFX01CICAgICAgICAgICAgIDMwNzJVTEwgLyogM0dCIGJ5
-IGRlZmF1bHQgKi8KPiAgI2RlZmluZSBBTURHUFVfV0FJVF9JRExFX1RJTUVPVVRfSU5fTVMgICAg
-ICAgICAzMDAwCj4gICNkZWZpbmUgQU1ER1BVX01BWF9VU0VDX1RJTUVPVVQgICAgICAgICAgICAg
-ICAgICAgICAgICAxMDAwMDAgIC8qIDEwMCBtcyAqLwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfb2JqZWN0LmMKPiBpbmRleCAxOTg1YzA4Li5lNjIxNTNhIDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IEBAIC03MDEsNiArNzAx
-LDE1IEBAIGludCBhbWRncHVfYm9fcGluX3Jlc3RyaWN0ZWQoc3RydWN0IGFtZGdwdV9ibyAqYm8s
-IHUzMiBkb21haW4sCj4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4g
-ICAgICAgICB9Cj4KPiArICAgICAgIC8qIFRoaXMgYXNzdW1lcyBvbmx5IEFQVSBkaXNwbGF5IGJ1
-ZmZlcnMgYXJlIHBpbm5lZCB3aXRoIChWUkFNfEdUVCkuCj4gKyAgICAgICAgKiBTZWUgZnVuY3Rp
-b24gYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoKQo+ICsgICAgICAgICovCj4gKyAg
-ICAgICBpZiAoZG9tYWluID09IChBTURHUFVfR0VNX0RPTUFJTl9WUkFNIHwgQU1ER1BVX0dFTV9E
-T01BSU5fR1RUKSkgewo+ICsgICAgICAgICAgICAgICBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJ
-Tl9WUkFNOwo+ICsgICAgICAgICAgICAgICBpZiAoYWRldi0+Z21jLnJlYWxfdnJhbV9zaXplIDw9
-IEFNREdQVV9TR19USFJFU0hPTEQpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgZG9tYWluID0g
-QU1ER1BVX0dFTV9ET01BSU5fR1RUOwo+ICsgICAgICAgfQo+ICsKPiAgICAgICAgIGlmIChiby0+
-cGluX2NvdW50KSB7Cj4gICAgICAgICAgICAgICAgIHVpbnQzMl90IG1lbV90eXBlID0gYm8tPnRi
-by5tZW0ubWVtX3R5cGU7Cj4KPiAtLQo+IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+Hi there,
+
+I am pretty sure I was able to run kodi on an old Mac Mini G4 (big
+endian) with AMD RV280. Today it is failing to start with:
+
+[  162.971551] radeon 0000:00:10.0: ring 0 stalled for more than 10240msec
+[  162.971568] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  163.482863] radeon 0000:00:10.0: ring 0 stalled for more than 10752msec
+[  163.482880] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  163.994225] radeon 0000:00:10.0: ring 0 stalled for more than 11264msec
+[  163.994241] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  164.505598] radeon 0000:00:10.0: ring 0 stalled for more than 11776msec
+[  164.505614] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  165.016996] radeon 0000:00:10.0: ring 0 stalled for more than 12288msec
+[  165.017013] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  165.528429] radeon 0000:00:10.0: ring 0 stalled for more than 12800msec
+[  165.528446] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  166.039865] radeon 0000:00:10.0: ring 0 stalled for more than 13312msec
+[  166.039882] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  166.551351] radeon 0000:00:10.0: ring 0 stalled for more than 13824msec
+[  166.551368] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  167.062819] radeon 0000:00:10.0: ring 0 stalled for more than 14336msec
+[  167.062836] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  167.574331] radeon 0000:00:10.0: ring 0 stalled for more than 14848msec
+[  167.574348] radeon 0000:00:10.0: GPU lockup (current fence id
+0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
+[  167.798244] [TTM] Buffer eviction failed
+[  167.940488] radeon: wait for empty RBBM fifo failed! Bad things might happen.
+[  168.076053] Failed to wait GUI idle while programming pipes. Bad
+things might happen.
+[  168.092258] radeon 0000:00:10.0: Saved 91 dwords of commands on ring 0.
+[  168.092380] radeon 0000:00:10.0: (r100_asic_reset:2560)
+RBBM_STATUS=0x83F96100
+[  168.589895] radeon 0000:00:10.0: (r100_asic_reset:2581)
+RBBM_STATUS=0x80010140
+[  169.083456] radeon 0000:00:10.0: (r100_asic_reset:2589)
+RBBM_STATUS=0x00000140
+[  169.083482] radeon 0000:00:10.0: GPU reset succeed
+[  169.083487] radeon 0000:00:10.0: GPU reset succeeded, trying to resume
+[  169.083550] radeon 0000:00:10.0: WB disabled
+[  169.083561] radeon 0000:00:10.0: fence driver on ring 0 use gpu
+addr 0x0000000000000000 and cpu addr 0x883a5378
+[  169.083612] [drm] radeon: ring at 0x0000000000001000
+[  169.228838] [drm:r100_ring_test [radeon]] *ERROR* radeon: ring test
+failed (scratch(0x15E8)=0xCAFEDEAD)
+[  169.228910] [drm:r100_cp_init [radeon]] *ERROR* radeon: cp isn't
+working (-22).
+[  169.228919] radeon 0000:00:10.0: failed initializing CP (-22).
+
+
+How should I go and debug this (other than plain git-bisect) ?
+
+For reference:
+
+# modprobe radeon
+
+...
+
+[  100.369890] [drm] radeon kernel modesetting enabled.
+[  100.377816] checking generic (9c008000 5a000) vs hw (98000000 8000000)
+[  100.377824] fb: switching to radeondrmfb from OFfb ATY,RockHo
+[  100.382566] Console: switching to colour dummy device 80x25
+[  100.386224] radeon 0000:00:10.0: enabling device (0006 -> 0007)
+[  100.389596] [drm] initializing kernel modesetting (RV280
+0x1002:0x5962 0x1002:0x5962 0x01).
+[  100.389783] radeon 0000:00:10.0: Invalid PCI ROM header signature:
+expecting 0xaa55, got 0x0000
+[  100.389813] radeon 0000:00:10.0: Invalid PCI ROM header signature:
+expecting 0xaa55, got 0x0000
+[  100.390218] [drm:radeon_get_bios [radeon]] *ERROR* Unable to locate
+a BIOS ROM
+[  100.390247] [drm] Using device-tree clock info
+[  100.390286] agpgart-uninorth 0000:00:0b.0: putting AGP V2 device into 4x mode
+[  100.390300] radeon 0000:00:10.0: putting AGP V2 device into 4x mode
+[  100.390345] radeon 0000:00:10.0: GTT: 256M 0x00000000 - 0x0FFFFFFF
+[  100.390355] [drm] Generation 2 PCI interface, using max accessible memory
+[  100.390368] radeon 0000:00:10.0: VRAM: 128M 0x0000000098000000 -
+0x000000009FFFFFFF (32M used)
+[  100.390406] [drm] Detected VRAM RAM=128M, BAR=128M
+[  100.390415] [drm] RAM width 64bits DDR
+[  100.405414] [TTM] Zone  kernel: Available graphics memory: 254062 kiB
+[  100.405444] [TTM] Initializing pool allocator
+[  100.405542] [drm] radeon: 32M of VRAM memory ready
+[  100.405554] [drm] radeon: 256M of GTT memory ready.
+[  100.406161] radeon 0000:00:10.0: WB disabled
+[  100.406187] radeon 0000:00:10.0: fence driver on ring 0 use gpu
+addr 0x0000000000000000 and cpu addr 0x883a5378
+[  100.406204] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+[  100.406212] [drm] Driver supports precise vblank timestamp query.
+[  100.406252] [drm] radeon: irq initialized.
+[  100.406276] [drm] Loading R200 Microcode
+[  100.446688] radeon 0000:00:10.0: firmware: direct-loading firmware
+radeon/R200_cp.bin
+[  100.447755] [drm] radeon: ring at 0x0000000000001000
+[  100.447800] [drm] ring test succeeded in 0 usecs
+[  100.448435] [drm] ib test succeeded in 0 usecs
+[  100.454640] [drm] Connector Table: 7 (mini internal tmds)
+[  100.454680] [drm] No TMDS info found in BIOS
+[  100.454692] [drm] No TV DAC info found in BIOS
+[  100.454900] [drm] Radeon Display Connectors
+[  100.454910] [drm] Connector 0:
+[  100.454916] [drm]   DVI-I-1
+[  100.454922] [drm]   HPD1
+[  100.454930] [drm]   DDC: 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c
+[  100.454937] [drm]   Encoders:
+[  100.454944] [drm]     DFP1: INTERNAL_TMDS1
+[  100.454951] [drm]     CRT2: INTERNAL_DAC2
+[  100.454958] [drm] Connector 1:
+[  100.454963] [drm]   SVIDEO-1
+[  100.454969] [drm]   Encoders:
+[  100.454975] [drm]     TV1: INTERNAL_DAC2
+[  100.542734] [drm] fb mappable at 0x98040000
+[  100.542764] [drm] vram apper at 0x98000000
+[  100.542770] [drm] size 1572864
+[  100.542777] [drm] fb depth is 16
+[  100.542783] [drm]    pitch is 2048
+[  100.614204] Console: switching to colour frame buffer device 128x48
+[  100.623505] radeon 0000:00:10.0: fb0: radeondrmfb frame buffer device
+[  100.634507] [drm] Initialized radeon 2.50.0 20080528 for
+0000:00:10.0 on minor 0
+
+
+Thanks
