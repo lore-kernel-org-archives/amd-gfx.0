@@ -1,144 +1,126 @@
-From: Mathieu Malaterre <malat@debian.org>
-Subject: Tracking: radeon 0000:00:10.0: ring 0 stalled for more than 10240msec
-Date: Mon, 23 Apr 2018 20:50:46 +0200
-Message-ID: <CA+7wUszgY3uFVfMe4T-_5x9KuzWNSgKHXcRKgfcmpE+Keo73Vg@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: change pp_dpm clk/mclk/pcie input format
+Date: Mon, 23 Apr 2018 16:06:16 -0400
+Message-ID: <CADnq5_NyeoyGQTqq3okvFpjNrRN2CSU+trFSTENT9cor2=aj7w@mail.gmail.com>
+References: <1524171079-657-1-git-send-email-wei.lu2@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1524171079-657-1-git-send-email-wei.lu2-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: welu <wei.lu2-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Hi there,
-
-I am pretty sure I was able to run kodi on an old Mac Mini G4 (big
-endian) with AMD RV280. Today it is failing to start with:
-
-[  162.971551] radeon 0000:00:10.0: ring 0 stalled for more than 10240msec
-[  162.971568] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  163.482863] radeon 0000:00:10.0: ring 0 stalled for more than 10752msec
-[  163.482880] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  163.994225] radeon 0000:00:10.0: ring 0 stalled for more than 11264msec
-[  163.994241] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  164.505598] radeon 0000:00:10.0: ring 0 stalled for more than 11776msec
-[  164.505614] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  165.016996] radeon 0000:00:10.0: ring 0 stalled for more than 12288msec
-[  165.017013] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  165.528429] radeon 0000:00:10.0: ring 0 stalled for more than 12800msec
-[  165.528446] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  166.039865] radeon 0000:00:10.0: ring 0 stalled for more than 13312msec
-[  166.039882] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  166.551351] radeon 0000:00:10.0: ring 0 stalled for more than 13824msec
-[  166.551368] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  167.062819] radeon 0000:00:10.0: ring 0 stalled for more than 14336msec
-[  167.062836] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  167.574331] radeon 0000:00:10.0: ring 0 stalled for more than 14848msec
-[  167.574348] radeon 0000:00:10.0: GPU lockup (current fence id
-0x00000000000001d6 last fence id 0x00000000000001d7 on ring 0)
-[  167.798244] [TTM] Buffer eviction failed
-[  167.940488] radeon: wait for empty RBBM fifo failed! Bad things might happen.
-[  168.076053] Failed to wait GUI idle while programming pipes. Bad
-things might happen.
-[  168.092258] radeon 0000:00:10.0: Saved 91 dwords of commands on ring 0.
-[  168.092380] radeon 0000:00:10.0: (r100_asic_reset:2560)
-RBBM_STATUS=0x83F96100
-[  168.589895] radeon 0000:00:10.0: (r100_asic_reset:2581)
-RBBM_STATUS=0x80010140
-[  169.083456] radeon 0000:00:10.0: (r100_asic_reset:2589)
-RBBM_STATUS=0x00000140
-[  169.083482] radeon 0000:00:10.0: GPU reset succeed
-[  169.083487] radeon 0000:00:10.0: GPU reset succeeded, trying to resume
-[  169.083550] radeon 0000:00:10.0: WB disabled
-[  169.083561] radeon 0000:00:10.0: fence driver on ring 0 use gpu
-addr 0x0000000000000000 and cpu addr 0x883a5378
-[  169.083612] [drm] radeon: ring at 0x0000000000001000
-[  169.228838] [drm:r100_ring_test [radeon]] *ERROR* radeon: ring test
-failed (scratch(0x15E8)=0xCAFEDEAD)
-[  169.228910] [drm:r100_cp_init [radeon]] *ERROR* radeon: cp isn't
-working (-22).
-[  169.228919] radeon 0000:00:10.0: failed initializing CP (-22).
-
-
-How should I go and debug this (other than plain git-bisect) ?
-
-For reference:
-
-# modprobe radeon
-
-...
-
-[  100.369890] [drm] radeon kernel modesetting enabled.
-[  100.377816] checking generic (9c008000 5a000) vs hw (98000000 8000000)
-[  100.377824] fb: switching to radeondrmfb from OFfb ATY,RockHo
-[  100.382566] Console: switching to colour dummy device 80x25
-[  100.386224] radeon 0000:00:10.0: enabling device (0006 -> 0007)
-[  100.389596] [drm] initializing kernel modesetting (RV280
-0x1002:0x5962 0x1002:0x5962 0x01).
-[  100.389783] radeon 0000:00:10.0: Invalid PCI ROM header signature:
-expecting 0xaa55, got 0x0000
-[  100.389813] radeon 0000:00:10.0: Invalid PCI ROM header signature:
-expecting 0xaa55, got 0x0000
-[  100.390218] [drm:radeon_get_bios [radeon]] *ERROR* Unable to locate
-a BIOS ROM
-[  100.390247] [drm] Using device-tree clock info
-[  100.390286] agpgart-uninorth 0000:00:0b.0: putting AGP V2 device into 4x mode
-[  100.390300] radeon 0000:00:10.0: putting AGP V2 device into 4x mode
-[  100.390345] radeon 0000:00:10.0: GTT: 256M 0x00000000 - 0x0FFFFFFF
-[  100.390355] [drm] Generation 2 PCI interface, using max accessible memory
-[  100.390368] radeon 0000:00:10.0: VRAM: 128M 0x0000000098000000 -
-0x000000009FFFFFFF (32M used)
-[  100.390406] [drm] Detected VRAM RAM=128M, BAR=128M
-[  100.390415] [drm] RAM width 64bits DDR
-[  100.405414] [TTM] Zone  kernel: Available graphics memory: 254062 kiB
-[  100.405444] [TTM] Initializing pool allocator
-[  100.405542] [drm] radeon: 32M of VRAM memory ready
-[  100.405554] [drm] radeon: 256M of GTT memory ready.
-[  100.406161] radeon 0000:00:10.0: WB disabled
-[  100.406187] radeon 0000:00:10.0: fence driver on ring 0 use gpu
-addr 0x0000000000000000 and cpu addr 0x883a5378
-[  100.406204] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
-[  100.406212] [drm] Driver supports precise vblank timestamp query.
-[  100.406252] [drm] radeon: irq initialized.
-[  100.406276] [drm] Loading R200 Microcode
-[  100.446688] radeon 0000:00:10.0: firmware: direct-loading firmware
-radeon/R200_cp.bin
-[  100.447755] [drm] radeon: ring at 0x0000000000001000
-[  100.447800] [drm] ring test succeeded in 0 usecs
-[  100.448435] [drm] ib test succeeded in 0 usecs
-[  100.454640] [drm] Connector Table: 7 (mini internal tmds)
-[  100.454680] [drm] No TMDS info found in BIOS
-[  100.454692] [drm] No TV DAC info found in BIOS
-[  100.454900] [drm] Radeon Display Connectors
-[  100.454910] [drm] Connector 0:
-[  100.454916] [drm]   DVI-I-1
-[  100.454922] [drm]   HPD1
-[  100.454930] [drm]   DDC: 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c 0x6c
-[  100.454937] [drm]   Encoders:
-[  100.454944] [drm]     DFP1: INTERNAL_TMDS1
-[  100.454951] [drm]     CRT2: INTERNAL_DAC2
-[  100.454958] [drm] Connector 1:
-[  100.454963] [drm]   SVIDEO-1
-[  100.454969] [drm]   Encoders:
-[  100.454975] [drm]     TV1: INTERNAL_DAC2
-[  100.542734] [drm] fb mappable at 0x98040000
-[  100.542764] [drm] vram apper at 0x98000000
-[  100.542770] [drm] size 1572864
-[  100.542777] [drm] fb depth is 16
-[  100.542783] [drm]    pitch is 2048
-[  100.614204] Console: switching to colour frame buffer device 128x48
-[  100.623505] radeon 0000:00:10.0: fb0: radeondrmfb frame buffer device
-[  100.634507] [drm] Initialized radeon 2.50.0 20080528 for
-0000:00:10.0 on minor 0
-
-
-Thanks
+T24gVGh1LCBBcHIgMTksIDIwMTggYXQgNDo1MSBQTSwgd2VsdSA8d2VpLmx1MkBhbWQuY29tPiB3
+cm90ZToKPiAxLiBzdXBwb3J0IG1vcmUgdGhhbiA4IHZhbHVlcyB3aGVuIHNldHRpbmcgZ2V0X3Bw
+X2RwbV9tY2xrLwo+IHNjbGsvcGNpZSwgdGhlIGZvcm1lciBkZXNpZ24ganVzdCBwYXJzZSBjb21t
+YW5kIGZvcm1hdCBsaWtlCj4gImVjaG8geHh4eCA+44CAcHBfZHBtX3NjbGsiIGFuZCBjdXJyZW50
+IGNhbiBwYXJzZSAiZWNobyB4eCB4eHgKPiAgeHh4eCA+IHBwX2RwbV9zY2xrIiB3aG9zZSBvcGVy
+YXRpb24gaXMgbW9yZSB1c2VyLWZyaWVuZGx5Cj4gYW5kIGNvbnZpbmVudCBhbmQgY2FuIG9mZmVy
+IG1vcmUgdmFsdWVzOwo+IDIuIGJlIGNvbXBhdGlibGUgd2l0aCBmb3JtZXIgZGVzaWduIGxpa2Ug
+Inh4Ii4KPiBCdWc6S0ZELTM4NQoKUGxlYXNlIHVwZGF0ZSB0aGUgZG9jdW1lbnRhdGlvbiBsYWJl
+bGVkICJET0M6IHBwX2RwbV9zY2xrIHBwX2RwbV9tY2xrCnBwX2RwbV9wY2llIiwgV2l0aCB0aGF0
+IGZpeGVkLCBwYXRjaCBpczoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
+dWNoZXJAYW1kLmNvbT4KCj4KPiBDaGFuZ2UtSWQ6IElkN2Q5NWNlNDVmNGVlMDU2NGIxOGViY2Zj
+MTY5NzZmMWE1YzZiZjcyCj4gU2lnbmVkLW9mZi1ieTogd2VsdSA8d2VpLmx1MkBhbWQuY29tPgo+
+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDk1ICsrKysr
+KysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDU1IGluc2Vy
+dGlvbnMoKyksIDQwIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3BtLmMKPiBpbmRleCA3NDRmMTA1Li41OGY0NmY5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3BtLmMKPiBAQCAtNDY2LDIzICs0NjYsMjcgQEAgc3RhdGljIHNzaXpl
+X3QgYW1kZ3B1X3NldF9wcF9kcG1fc2NsayhzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gICAgICAgICBz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRkZXYtPmRldl9wcml2YXRlOwo+ICAgICAgICAg
+aW50IHJldDsKPiAgICAgICAgIGxvbmcgbGV2ZWw7Cj4gLSAgICAgICB1aW50MzJfdCBpLCBtYXNr
+ID0gMDsKPiAtICAgICAgIGNoYXIgc3ViX3N0clsyXTsKPiArICAgICAgIHVpbnQzMl90IG1hc2sg
+PSAwOwo+ICsgICAgICAgY2hhciAqc3ViX3N0ciA9IE5VTEw7Cj4gKyAgICAgICBjaGFyICp0bXA7
+Cj4gKyAgICAgICBjaGFyIGJ1Zl9jcHlbY291bnRdOwo+ICsgICAgICAgY29uc3QgY2hhciBkZWxp
+bWl0ZXJbM10gPSB7JyAnLCAnXG4nLCAnXDAnfTsKPgo+IC0gICAgICAgZm9yIChpID0gMDsgaSA8
+IHN0cmxlbihidWYpOyBpKyspIHsKPiAtICAgICAgICAgICAgICAgaWYgKCooYnVmICsgaSkgPT0g
+J1xuJykKPiAtICAgICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsKPiAtICAgICAgICAgICAg
+ICAgc3ViX3N0clswXSA9ICooYnVmICsgaSk7Cj4gLSAgICAgICAgICAgICAgIHN1Yl9zdHJbMV0g
+PSAnXDAnOwo+IC0gICAgICAgICAgICAgICByZXQgPSBrc3RydG9sKHN1Yl9zdHIsIDAsICZsZXZl
+bCk7Cj4gKyAgICAgICBtZW1jcHkoYnVmX2NweSwgYnVmLCBjb3VudCsxKTsKPiArICAgICAgIHRt
+cCA9IGJ1Zl9jcHk7Cj4gKyAgICAgICB3aGlsZSAodG1wWzBdKSB7Cj4gKyAgICAgICAgICAgICAg
+IHN1Yl9zdHIgPSAgc3Ryc2VwKCZ0bXAsIGRlbGltaXRlcik7Cj4gKyAgICAgICAgICAgICAgIGlm
+IChzdHJsZW4oc3ViX3N0cikpIHsKPiArICAgICAgICAgICAgICAgICAgICAgICByZXQgPSBrc3Ry
+dG9sKHN1Yl9zdHIsIDAsICZsZXZlbCk7Cj4KPiAtICAgICAgICAgICAgICAgaWYgKHJldCkgewo+
+IC0gICAgICAgICAgICAgICAgICAgICAgIGNvdW50ID0gLUVJTlZBTDsKPiAtICAgICAgICAgICAg
+ICAgICAgICAgICBnb3RvIGZhaWw7Cj4gLSAgICAgICAgICAgICAgIH0KPiAtICAgICAgICAgICAg
+ICAgbWFzayB8PSAxIDw8IGxldmVsOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChyZXQp
+IHsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvdW50ID0gLUVJTlZBTDsKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZmFpbDsKPiArICAgICAgICAgICAg
+ICAgICAgICAgICB9Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgbWFzayB8PSAxIDw8IGxldmVs
+Owo+ICsgICAgICAgICAgICAgICB9IGVsc2UKPiArICAgICAgICAgICAgICAgICAgICAgICBicmVh
+azsKPiAgICAgICAgIH0KPiAtCj4gICAgICAgICBpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNz
+LT5mb3JjZV9jbG9ja19sZXZlbCkKPiAgICAgICAgICAgICAgICAgYW1kZ3B1X2RwbV9mb3JjZV9j
+bG9ja19sZXZlbChhZGV2LCBQUF9TQ0xLLCBtYXNrKTsKPgo+IEBAIC01MTIsMjEgKzUxNiwyNiBA
+QCBzdGF0aWMgc3NpemVfdCBhbWRncHVfc2V0X3BwX2RwbV9tY2xrKHN0cnVjdCBkZXZpY2UgKmRl
+diwKPiAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZh
+dGU7Cj4gICAgICAgICBpbnQgcmV0Owo+ICAgICAgICAgbG9uZyBsZXZlbDsKPiAtICAgICAgIHVp
+bnQzMl90IGksIG1hc2sgPSAwOwo+IC0gICAgICAgY2hhciBzdWJfc3RyWzJdOwo+ICsgICAgICAg
+dWludDMyX3QgbWFzayA9IDA7Cj4gKyAgICAgICBjaGFyICpzdWJfc3RyID0gTlVMTDsKPiArICAg
+ICAgIGNoYXIgKnRtcDsKPiArICAgICAgIGNoYXIgYnVmX2NweVtjb3VudF07Cj4gKyAgICAgICBj
+b25zdCBjaGFyIGRlbGltaXRlclszXSA9IHsnICcsICdcbicsICdcMCd9Owo+Cj4gLSAgICAgICBm
+b3IgKGkgPSAwOyBpIDwgc3RybGVuKGJ1Zik7IGkrKykgewo+IC0gICAgICAgICAgICAgICBpZiAo
+KihidWYgKyBpKSA9PSAnXG4nKQo+IC0gICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOwo+
+IC0gICAgICAgICAgICAgICBzdWJfc3RyWzBdID0gKihidWYgKyBpKTsKPiAtICAgICAgICAgICAg
+ICAgc3ViX3N0clsxXSA9ICdcMCc7Cj4gLSAgICAgICAgICAgICAgIHJldCA9IGtzdHJ0b2woc3Vi
+X3N0ciwgMCwgJmxldmVsKTsKPiArICAgICAgIG1lbWNweShidWZfY3B5LCBidWYsIGNvdW50KzEp
+Owo+ICsgICAgICAgdG1wID0gYnVmX2NweTsKPiArICAgICAgIHdoaWxlICh0bXBbMF0pIHsKPiAr
+ICAgICAgICAgICAgICAgc3ViX3N0ciA9ICBzdHJzZXAoJnRtcCwgZGVsaW1pdGVyKTsKPiArICAg
+ICAgICAgICAgICAgaWYgKHN0cmxlbihzdWJfc3RyKSkgewo+ICsgICAgICAgICAgICAgICAgICAg
+ICAgIHJldCA9IGtzdHJ0b2woc3ViX3N0ciwgMCwgJmxldmVsKTsKPgo+IC0gICAgICAgICAgICAg
+ICBpZiAocmV0KSB7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgY291bnQgPSAtRUlOVkFMOwo+
+IC0gICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZmFpbDsKPiAtICAgICAgICAgICAgICAgfQo+
+IC0gICAgICAgICAgICAgICBtYXNrIHw9IDEgPDwgbGV2ZWw7Cj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgaWYgKHJldCkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY291bnQg
+PSAtRUlOVkFMOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBmYWlsOwo+
+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPiArICAgICAgICAgICAgICAgICAgICAgICBtYXNr
+IHw9IDEgPDwgbGV2ZWw7Cj4gKyAgICAgICAgICAgICAgIH0gZWxzZQo+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIGJyZWFrOwo+ICAgICAgICAgfQo+ICAgICAgICAgaWYgKGFkZXYtPnBvd2VycGxh
+eS5wcF9mdW5jcy0+Zm9yY2VfY2xvY2tfbGV2ZWwpCj4gICAgICAgICAgICAgICAgIGFtZGdwdV9k
+cG1fZm9yY2VfY2xvY2tfbGV2ZWwoYWRldiwgUFBfTUNMSywgbWFzayk7Cj4gQEAgLTU1NywyMSAr
+NTY2LDI3IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9zZXRfcHBfZHBtX3BjaWUoc3RydWN0IGRl
+dmljZSAqZGV2LAo+ICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZGV2LT5k
+ZXZfcHJpdmF0ZTsKPiAgICAgICAgIGludCByZXQ7Cj4gICAgICAgICBsb25nIGxldmVsOwo+IC0g
+ICAgICAgdWludDMyX3QgaSwgbWFzayA9IDA7Cj4gLSAgICAgICBjaGFyIHN1Yl9zdHJbMl07Cj4g
+KyAgICAgICB1aW50MzJfdCBtYXNrID0gMDsKPiArICAgICAgIGNoYXIgKnN1Yl9zdHIgPSBOVUxM
+Owo+ICsgICAgICAgY2hhciAqdG1wOwo+ICsgICAgICAgY2hhciBidWZfY3B5W2NvdW50XTsKPiAr
+ICAgICAgIGNvbnN0IGNoYXIgZGVsaW1pdGVyWzNdID0geycgJywgJ1xuJywgJ1wwJ307Cj4KPiAt
+ICAgICAgIGZvciAoaSA9IDA7IGkgPCBzdHJsZW4oYnVmKTsgaSsrKSB7Cj4gLSAgICAgICAgICAg
+ICAgIGlmICgqKGJ1ZiArIGkpID09ICdcbicpCj4gLSAgICAgICAgICAgICAgICAgICAgICAgY29u
+dGludWU7Cj4gLSAgICAgICAgICAgICAgIHN1Yl9zdHJbMF0gPSAqKGJ1ZiArIGkpOwo+IC0gICAg
+ICAgICAgICAgICBzdWJfc3RyWzFdID0gJ1wwJzsKPiAtICAgICAgICAgICAgICAgcmV0ID0ga3N0
+cnRvbChzdWJfc3RyLCAwLCAmbGV2ZWwpOwo+ICsgICAgICAgbWVtY3B5KGJ1Zl9jcHksIGJ1Ziwg
+Y291bnQrMSk7Cj4gKyAgICAgICB0bXAgPSBidWZfY3B5Owo+Cj4gLSAgICAgICAgICAgICAgIGlm
+IChyZXQpIHsKPiAtICAgICAgICAgICAgICAgICAgICAgICBjb3VudCA9IC1FSU5WQUw7Cj4gLSAg
+ICAgICAgICAgICAgICAgICAgICAgZ290byBmYWlsOwo+IC0gICAgICAgICAgICAgICB9Cj4gLSAg
+ICAgICAgICAgICAgIG1hc2sgfD0gMSA8PCBsZXZlbDsKPiArICAgICAgIHdoaWxlICh0bXBbMF0p
+IHsKPiArICAgICAgICAgICAgICAgc3ViX3N0ciA9ICBzdHJzZXAoJnRtcCwgZGVsaW1pdGVyKTsK
+PiArICAgICAgICAgICAgICAgaWYgKHN0cmxlbihzdWJfc3RyKSkgewo+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIHJldCA9IGtzdHJ0b2woc3ViX3N0ciwgMCwgJmxldmVsKTsKPiArCj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgaWYgKHJldCkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgY291bnQgPSAtRUlOVkFMOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+Z290byBmYWlsOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPiArICAgICAgICAgICAgICAg
+ICAgICAgICBtYXNrIHw9IDEgPDwgbGV2ZWw7Cj4gKyAgICAgICAgICAgICAgIH0gZWxzZQo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+ICAgICAgICAgfQo+ICAgICAgICAgaWYgKGFk
+ZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+Zm9yY2VfY2xvY2tfbGV2ZWwpCj4gICAgICAgICAgICAg
+ICAgIGFtZGdwdV9kcG1fZm9yY2VfY2xvY2tfbGV2ZWwoYWRldiwgUFBfUENJRSwgbWFzayk7Cj4g
+LS0KPiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
