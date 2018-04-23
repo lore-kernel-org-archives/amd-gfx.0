@@ -1,18 +1,21 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix the ib test hang when gfx is in "idle"
- state
-Date: Mon, 23 Apr 2018 13:07:15 +0000
-Message-ID: <4bb60ba4-acc6-4c03-a183-cc5ab29c9e53@email.android.com>
-References: <1524217255-25968-1-git-send-email-ray.huang@amd.com>
- <aaaffd0c-96be-29b2-9bd4-df6fa6ea7e8a@amd.com>
- <20180423095228.GA23608@hr-amur2>
- <afda993b-2d50-4181-9378-f3440b5d633c@email.android.com>,
- <20180423121341.GA26730@hr-amur2>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: RFC for a render API to support adaptive sync and VRR
+Date: Mon, 23 Apr 2018 10:40:06 -0400
+Message-ID: <488ba81c-9a40-77d3-fb71-ee0df7f9b42f@amd.com>
+References: <c79421ce-9408-5cd6-5de3-0fa521146e4b@amd.com>
+ <435ebd04-0435-5a6a-9f1e-e4c4fc629aa9@amd.com>
+ <20180409214554.GB13967@intel.com>
+ <1e8d1857-faba-85da-0136-ea7c29ec1b84@amd.com>
+ <b75e31f7-ce59-de97-5445-cb4c03ff7336@daenzer.net>
+ <87o9ihyxl1.fsf@keithp.com>
+ <CAKMK7uFMKEe24-cFuNx8N=JZsCG2qCZHn3orE5Aqyc8mXnuu2A@mail.gmail.com>
+ <20180420203240.GA9472@intel.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1975786471=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180423121341.GA26730@hr-amur2>
-Content-Language: de-DE
+In-Reply-To: <20180420203240.GA9472-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,190 +26,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+To: Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>
+Cc: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, "Cyr,
+ Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koo, Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============1975786471==
-Content-Language: de-DE
-Content-Type: multipart/alternative;
-	boundary="_000_4bb60ba4acc64c03a183cc5ab29c9e53emailandroidcom_"
-
---_000_4bb60ba4acc64c03a183cc5ab29c9e53emailandroidcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Ray,
-
-Am 23.04.2018 14:08 schrieb Huang Rui <ray.huang@amd
-On Mon, Apr 23, 2018 at 05:57:06PM +0800, Koenig, Christian wrote:
-> Hi Ray,
->
-> Am 23.04.2018 11:47 schrieb Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>:
->
->     On Fri, Apr 20, 2018 at 05:59:16PM +0800, Koenig, Christian wrote:
->     > Am 20.04.2018 um 11:40 schrieb Huang Rui:
->     > > "aaabaf4   drm/amdgpu: defer test IBs on the rings at boot (V3)"
->     > > Above patch defers the execution of gfx/compute ib tests. However=
-, at
->     that time,
->     > > the gfx may already go into idle state. If "idle" gfx receives co=
-mmand
->     > > submission, it will get hang in the system. So we must add is_gfx=
-_on
->     checking at
->     > > start of ib tests.
->     >
->     > Do I see that right that you just skip the IB test when the GFX blo=
-ck is
->     > already turned of? In this case that would be a clear NAK.
->     >
->     > BTW: How do you detect that we need to turn GFX on again?
->
->     Christian, I know point. But there is a hang issue if we would like t=
-ry to
->     disable/enable gfxoff with SMC message at runtime. Actually, I am try=
-ing to
->     find a good sequence to fix it. After that, I can even expose an debu=
-gfs
->     interface to configure that. So I have to skip the test for the momen=
-t when
->     gfx is in "idle".
->
->
-> Working around that issue for the moment is ok, but please note that expl=
-icitly
-> in both the commit message and a code comment.
-
-OK. Will add it at V2.
-
->
-> But don't you run into the same problem when the UMD starts to submit com=
-mands?
-
-When UMD starts, RLC firmware will detect the "draw" command, then it will
-power up gfx. So it won't have problem at that time. The mainly state
-machine doesn't expose to driver side yet.
-
->
-> I mean the idea of the IB test is that you "simulate" an userspace comman=
-d
-> submission and see if it works.
->
-
-Yes, agree. Any idea to "simulate" the "draw" command? Or please wait for
-my fix for enabling/disabling gfxoff at runtime.
-
-Thanks,
-Ray
-
---_000_4bb60ba4acc64c03a183cc5ab29c9e53emailandroidcom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<div>
-<div dir=3D"auto">
-<div>Hi Ray,<br>
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">Am 23.04.2018 14:08 schrieb Huang Rui &lt;ray.=
-huang@amd</div>
-</div>
-</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:11pt;">
-<div class=3D"PlainText">On Mon, Apr 23, 2018 at 05:57:06PM &#43;0800, Koen=
-ig, Christian wrote:<br>
-&gt; Hi Ray,<br>
-&gt; <br>
-&gt; Am 23.04.2018 11:47 schrieb Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;:<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; On Fri, Apr 20, 2018 at 05:59:16PM &#43;0800, =
-Koenig, Christian wrote:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; Am 20.04.2018 um 11:40 schrieb Huang Rui:=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; &gt; &quot;aaabaf4&nbsp;&nbsp; drm/amdgpu=
-: defer test IBs on the rings at boot (V3)&quot;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; &gt; Above patch defers the execution of =
-gfx/compute ib tests. However, at<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; that time,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; &gt; the gfx may already go into idle sta=
-te. If &quot;idle&quot; gfx receives command<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; &gt; submission, it will get hang in the =
-system. So we must add is_gfx_on<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; checking at<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; &gt; start of ib tests.<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; Do I see that right that you just skip th=
-e IB test when the GFX block is<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; already turned of? In this case that woul=
-d be a clear NAK.<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; &gt; BTW: How do you detect that we need to tu=
-rn GFX on again?<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; Christian, I know point. But there is a hang i=
-ssue if we would like try to<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; disable/enable gfxoff with SMC message at runt=
-ime. Actually, I am trying to<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; find a good sequence to fix it. After that, I =
-can even expose an debugfs<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; interface to configure that. So I have to skip=
- the test for the moment when<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; gfx is in &quot;idle&quot;.<br>
-&gt; <br>
-&gt; <br>
-&gt; Working around that issue for the moment is ok, but please note that e=
-xplicitly<br>
-&gt; in both the commit message and a code comment.<br>
-<br>
-OK. Will add it at V2.<br>
-<br>
-&gt; <br>
-&gt; But don't you run into the same problem when the UMD starts to submit =
-commands?<br>
-<br>
-When UMD starts, RLC firmware will detect the &quot;draw&quot; command, the=
-n it will<br>
-power up gfx. So it won't have problem at that time. The mainly state<br>
-machine doesn't expose to driver side yet.<br>
-<br>
-&gt; <br>
-&gt; I mean the idea of the IB test is that you &quot;simulate&quot; an use=
-rspace command<br>
-&gt; submission and see if it works.<br>
-&gt; <br>
-<br>
-Yes, agree. Any idea to &quot;simulate&quot; the &quot;draw&quot; command? =
-Or please wait for<br>
-my fix for enabling/disabling gfxoff at runtime.<br>
-<br>
-Thanks,<br>
-Ray<br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_4bb60ba4acc64c03a183cc5ab29c9e53emailandroidcom_--
-
---===============1975786471==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1975786471==--
+T24gMjAxOC0wNC0yMCAwNDozMiBQTSwgTWFuYXNpIE5hdmFyZSB3cm90ZToKPiBPbiBXZWQsIEFw
+ciAxOCwgMjAxOCBhdCAwOTozOTowMkFNICswMjAwLCBEYW5pZWwgVmV0dGVyIHdyb3RlOgo+PiBP
+biBXZWQsIEFwciAxOCwgMjAxOCBhdCA1OjU4IEFNLCBLZWl0aCBQYWNrYXJkIDxrZWl0aHBAa2Vp
+dGhwLmNvbT4gd3JvdGU6Cj4+PiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3
+cml0ZXM6Cj4+Pj4gVGltZS1iYXNlZCBwcmVzZW50YXRpb24gc2VlbXMgdG8gYmUgdGhlIHJpZ2h0
+IGFwcHJvYWNoIGZvciBwcmV2ZW50aW5nCj4+Pj4gbWljcm8tc3R1dHRlciBpbiBnYW1lcyBhcyB3
+ZWxsLCBDcm90ZWFtIGRldmVsb3BlcnMgaGF2ZSBiZWVuIHJlc2VhcmNoaW5nCj4+Pj4gdGhpcy4K
+Pj4+Cj4+PiBCb3RoIHRoZSBWdWxrYW4gR09PR0xFX2Rpc3BsYXlfdGltaW5nIGV4dGVuc2lvbiBh
+bmQgWDExIFByZXNlbnQKPj4+IGV4dGVuc2lvbiBvZmZlciB0aGUgYWJpbGl0eSB0byBzcGVjaWZ5
+IHRoZSBkZXNpcmVkIGRpc3BsYXkgdGltZSBpbgo+Pj4gc2Vjb25kcy4KPj4+Cj4+PiBTaW1pbGFy
+bHksIEknZCBzdWdnZXN0IHRoYXQgdGhlIG1pbi9tYXggZGlzcGxheSByZWZyZXNoIHJhdGUgdmFs
+dWVzIGJlCj4+PiBhZHZlcnRpc2VkIGFzIHRpbWUgYmV0d2VlbiBmcmFtZXMgcmF0aGVyIHRoYW4g
+ZnJhbWVzIHBlciBzZWNvbmQuCj4gCj4gU28gdGhlcmUgaXMgYSBnbG9iYWwgbWluIGFuZCBtYXgg
+cmVmcmVzaCByYXRlIGFzIGFkdmVydGlzZWQgYnkgdGhlIG1vbml0b3IKPiByYW5nZSBkZXNjcmlw
+dG9yLiBUaGF0IEkgZ3Vlc3MgY2FuIGJlIGV4cG9zZWQgYXMgYSBnbG9iYWwgcmFuZ2UgaW4gdGVy
+bXMgb2YKPiBtaW4gYW5kIG1heCB0aW1lIGJldHdlZW4gZnJhbWVzIGFzIGEgZ2xvYmFsIHByb3Bl
+cnR5IG9mIHRoZSBjb25uZWN0b3IuCj4gCj4gV2UgZG9udCBuZWVkIHRoZSBwZXIgbW9kZSBtaW4g
+YW5kIG1heCByZWZyZXNoIHJhdGUgdG8gYmUgZXhwb3NlZCByaWdodD8KCklmIEkgdW5kZXJzdGFu
+ZCBWUlIgcmlnaHQsIHdpdGggQ2luZW1hVlJSIGFjY2VwdGFibGUgcmVmcmVzaCByYXRlcyBtaWdo
+dCBmYWxsIG91dHNpZGUgdGhlIHJhbmdlIGFkdmVydGlzZWQgYnkgdGhlIG1vbml0b3IuIFdvdWxk
+IHdlCiAxKSBhZHZlcnRpc2UgMjQvMS4wMDEgYXMgYSBsb3dlciBib3VuZCwKIDIpIGV4cGVjdCBt
+ZWRpYSBhcHBzIHRvIHVzZSB0aGUgbG93ZXIgYm91bmQgc2ltcGx5IGZvciBpbmZvcm1hdGlvbmFs
+IHB1cnBvc2VzLAogMykgb3Igc2ltcGx5IG5vdCBzdXBwb3J0IENpbmVtYVZSUj8KCigxKSBoYXMg
+dGhlIGFkZGVkIGNhdmVhdCB0aGF0IG5vdCBhbGwgcmVwb3J0ZWQgcmF0ZXMgd291bGQgYmUgc3Vw
+cG9ydGVkLgoKQWx0ZXJuYXRpdmVseSBhIGJpdCBjb3VsZCBpbmRpY2F0ZSB0aGF0IENpbmVtYVZS
+UiBpcyBzdXBwb3J0LCBidXQgSSdtIG5vdCBzdXJlIGlmIHVzZXIgbW9kZSB3b3VsZCBuZWVkIGFs
+bCB0aGVzZSBkZXRhaWxzLgoKSGFycnkKCj4gCj4+Pgo+Pj4gSSdkIGFsc28gZW5jb3VyYWdlIHVz
+aW5nIGEgc2luZ2xlIHVuaXQgZm9yIGFsbCBvZiB0aGVzZSB2YWx1ZXMsCj4+PiBwcmVmZXJhYmx5
+IG5hbm9zZWNvbmRzLiBBYnNvbHV0ZSB0aW1lcyBzaG91bGQgYWxsIGJlIHJlZmVyZW5jZWQgdG8K
+Pj4+IENMT0NLX01PTk9UT05JQy4KPj4KPj4gKzEgb24gZXZlcnl0aGluZyBLZWl0aCBzYWlkLiBJ
+IGdvdCBzb21laG93IGRyYWdnZWQgaW4ga2hyIHZrCj4+IGRpc2N1c3Npb25zIGFyb3VuZCBwcmV2
+ZW50aW5nIG1pY3JvLXN0dXR0ZXJpbmcsIGFuZCBjb25zZW5zdXMgc2VlbXMgdG8KPj4gYmUgdGhh
+dCB0aW1lc3RhbXBzIGZvciBzY2hlZHVsaW5nIGZyYW1lcyBpcyB0aGUgd2F5IHRvIGdvLCBtb3N0
+IGxpa2VseQo+PiBhYnNvbHV0ZSBvbmVzIChub3QgZXZlcnl0aGluZyBpcyBydW5uaW5nIExpbnV4
+IHVuZm9ydHVuYXRlbHksIHNvIGNhbid0Cj4+IGdvIG91dHJpZ2h0IGFuZCBjbGFpbSBpdCdzIGd1
+YXJhbnRlZWQgdG8gYmUgQ0xPQ0tfTU9OT1RPTklDKS4KPj4gLURhbmllbAo+IAo+IEFuZCB5ZXMg
+SSBhbHNvIGdvdCBjb25zZW5zdXMgZnJvbSBNZXNhIGFuZCBtZWRpYSBmb2xrcyBhYm91dCB1c2lu
+ZyB0aGUKPiBhYnNvbHV0ZSB0aW1lc3RhbXAgZm9yIHNjaGVkdWxpbmcgdGhlIGZyYW1lcyBhbmQg
+dGhlbiB0aGUgZHJpdmVyIHdpbGwKPiBtb2RpZnkgdGhlIHZibGFuayBsb2dpYyB0byAicHJlc2Vu
+dCBubyBlYXJsaWVyIHRoYW4gdGhlIHRpbWVzdGFtcCIKPiAKPiBNYW5hc2kKPiAKPj4gLS0gCj4+
+IERhbmllbCBWZXR0ZXIKPj4gU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCj4+
+ICs0MSAoMCkgNzkgMzY1IDU3IDQ4IC0gaHR0cDovL2Jsb2cuZmZ3bGwuY2gKPj4gX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gZHJpLWRldmVsIG1haWxp
+bmcgbGlzdAo+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCj4gX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGlu
+ZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCj4gCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
