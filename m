@@ -1,71 +1,42 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
- signaled process.
-Date: Tue, 24 Apr 2018 21:44:18 +0200
-Message-ID: <20180424194418.GE25142@phenom.ffwll.local>
-References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
- <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
- <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
+From: Mathieu Malaterre <malat@debian.org>
+Subject: [PATCH] drm/radeon: Change the default to PCI on PowerPC
+Date: Tue, 24 Apr 2018 21:55:11 +0200
+Message-ID: <20180424195512.491-1-malat@debian.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <7313704c-0693-0bb9-8818-99cd2b7c0ca0-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, David.Panariti-5C7GfCeVMHo@public.gmane.org, oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Mathieu Malaterre <malat@debian.org>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBcHIgMjQsIDIwMTggYXQgMDU6NDY6NTJQTSArMDIwMCwgTWljaGVsIETDpG56ZXIg
-d3JvdGU6Cj4gCj4gQWRkaW5nIHRoZSBkcmktZGV2ZWwgbGlzdCwgc2luY2UgdGhpcyBpcyBkcml2
-ZXIgaW5kZXBlbmRlbnQgY29kZS4KPiAKPiAKPiBPbiAyMDE4LTA0LTI0IDA1OjMwIFBNLCBBbmRy
-ZXkgR3JvZHpvdnNreSB3cm90ZToKPiA+IEF2b2lkIGNhbGxpbmcgd2FpdF9ldmVudF9raWxsYWJs
-ZSB3aGVuIHlvdSBhcmUgcG9zc2libHkgYmVpbmcgY2FsbGVkCj4gPiBmcm9tIGdldF9zaWduYWwg
-cm91dGluZSBzaW5jZSBpbiB0aGF0IGNhc2UgeW91IGVuZCB1cCBpbiBhIGRlYWRsb2NrCj4gPiB3
-aGVyZSB5b3UgYXJlIGFscmVheSBibG9ja2VkIGluIHNpbmdsYSBwcm9jZXNzaW5nIGFueSB0cnlp
-bmcgdG8gd2FpdAo+IAo+IE11bHRpcGxlIHR5cG9zIGhlcmUsICJbLi4uXSBhbHJlYWR5IGJsb2Nr
-ZWQgaW4gc2lnbmFsIHByb2Nlc3NpbmcgYW5kIFsuLi5dIj8KPiAKPiAKPiA+IG9uIGEgbmV3IHNp
-Z25hbC4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5n
-cm9kem92c2t5QGFtZC5jb20+Cj4gPiAtLS0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVy
-L2dwdV9zY2hlZHVsZXIuYyB8IDUgKysrLS0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRp
-b25zKCspLCAyIGRlbGV0aW9ucygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVy
-L2dwdV9zY2hlZHVsZXIuYwo+ID4gaW5kZXggMDg4ZmYyYi4uMDlmZDI1OCAxMDA2NDQKPiA+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4gPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+ID4gQEAgLTIyNyw5ICsy
-MjcsMTAgQEAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2Uoc3RydWN0IGRybV9ncHVf
-c2NoZWR1bGVyICpzY2hlZCwKPiA+ICAJCXJldHVybjsKPiA+ICAJLyoqCj4gPiAgCSAqIFRoZSBj
-bGllbnQgd2lsbCBub3QgcXVldWUgbW9yZSBJQnMgZHVyaW5nIHRoaXMgZmluaSwgY29uc3VtZSBl
-eGlzdGluZwo+ID4gLQkgKiBxdWV1ZWQgSUJzIG9yIGRpc2NhcmQgdGhlbSBvbiBTSUdLSUxMCj4g
-PiArCSAqIHF1ZXVlZCBJQnMgb3IgZGlzY2FyZCB0aGVtIHdoZW4gaW4gZGVhdGggc2lnbmFsIHN0
-YXRlIHNpbmNlCj4gPiArCSAqIHdhaXRfZXZlbnRfa2lsbGFibGUgY2FuJ3QgcmVjZWl2ZSBzaWdu
-YWxzIGluIHRoYXQgc3RhdGUuCj4gPiAgCSovCj4gPiAtCWlmICgoY3VycmVudC0+ZmxhZ3MgJiBQ
-Rl9TSUdOQUxFRCkgJiYgY3VycmVudC0+ZXhpdF9jb2RlID09IFNJR0tJTEwpCj4gPiArCWlmIChj
-dXJyZW50LT5mbGFncyAmIFBGX1NJR05BTEVEKQoKWW91IHdhbnQgZmF0YWxfc2lnbmFsX3BlbmRp
-bmcoKSBoZXJlLCBpbnN0ZWFkIG9mIGludmVudGluZyB5b3VyIG93biBicm9rZW4KdmVyc2lvbi4K
-PiA+ICAJCWVudGl0eS0+ZmluaV9zdGF0dXMgPSAtRVJFU1RBUlRTWVM7Cj4gPiAgCWVsc2UKPiA+
-ICAJCWVudGl0eS0+ZmluaV9zdGF0dXMgPSB3YWl0X2V2ZW50X2tpbGxhYmxlKHNjaGVkLT5qb2Jf
-c2NoZWR1bGVkLAoKQnV0IHJlYWxseSB0aGlzIHNtZWxscyBsaWtlIGEgYnVnIGluIHdhaXRfZXZl
-bnRfa2lsbGFibGUsIHNpbmNlCndhaXRfZXZlbnRfaW50ZXJydXB0aWJsZSBkb2VzIG5vdCBzdWZm
-ZXIgZnJvbSB0aGUgc2FtZSBidWcuIEl0IHdpbGwgcmV0dXJuCmltbWVkaWF0ZWx5IHdoZW4gdGhl
-cmUncyBhIHNpZ25hbCBwZW5kaW5nLgoKSSB0aGluayB0aGlzIHNob3VsZCBiZSBmaXhlZCBpbiBj
-b3JlIGNvZGUsIG5vdCBwYXBlcmVkIG92ZXIgaW4gc29tZQpzdWJzeXN0ZW0uCi1EYW5pZWwKCj4g
-PiAKPiAKPiAKPiAtLSAKPiBFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8
-ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCj4gTGlicmUgc29mdHdhcmUgZW50aHVz
-aWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwg
-bWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCgotLSAKRGFu
-aWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Js
-b2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+AGP mode is unstable on PowerPC. Symptoms are generally of the form:
+
+[ 1228.795711] radeon 0000:00:10.0: ring 0 stalled for more than 10240msec
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Mathieu Malaterre <malat@debian.org>
+---
+ drivers/gpu/drm/radeon/radeon_drv.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index b28288a781ef..2a7977a23b31 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -168,7 +168,12 @@ int radeon_no_wb;
+ int radeon_modeset = -1;
+ int radeon_dynclks = -1;
+ int radeon_r4xx_atom = 0;
++#ifdef __powerpc__
++/* Default to PCI on PowerPC (fdo #95017) */
++int radeon_agpmode = -1;
++#else
+ int radeon_agpmode = 0;
++#endif
+ int radeon_vram_limit = 0;
+ int radeon_gart_size = -1; /* auto */
+ int radeon_benchmarking = 0;
+-- 
+2.11.0
