@@ -1,63 +1,90 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
-Subject: Re: [PATCH 3/3] drm/amdgpu: Switch to interrupted wait to recover from ring hang.
-Date: Tue, 24 Apr 2018 11:14:24 -0500
-Message-ID: <8736zkd1jz.fsf@xmission.com>
+From: "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Switch to interrupted wait to recover
+ from ring hang.
+Date: Tue, 24 Apr 2018 16:20:16 +0000
+Message-ID: <DM5PR12MB24408FF7C780D95307FB2BAD95880@DM5PR12MB2440.namprd12.prod.outlook.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-4-git-send-email-andrey.grodzovsky@amd.com>
+ <1524583836-12130-4-git-send-email-andrey.grodzovsky@amd.com>
+ <DM5PR12MB244017F98FC732EB5DD86E0395880@DM5PR12MB2440.namprd12.prod.outlook.com>,
+ <b4309ea4-c1a0-5811-040b-4390ce6f297f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1524583836-12130-4-git-send-email-andrey.grodzovsky@amd.com>
-        (Andrey Grodzovsky's message of "Tue, 24 Apr 2018 11:30:36 -0400")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.Panariti@amd.com, oleg@redhat.com, akpm@linux-foundation.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <b4309ea4-c1a0-5811-040b-4390ce6f297f-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org" <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, "ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-Andrey Grodzovsky <andrey.grodzovsky@amd.com> writes:
-
-> If the ring is hanging for some reason allow to recover the waiting
-> by sending fatal signal.
->
-> Originally-by: David Panariti <David.Panariti@amd.com>
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index eb80edf..37a36af 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -421,10 +421,16 @@ int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx, unsigned ring_id)
->  
->  	if (other) {
->  		signed long r;
-> -		r = dma_fence_wait_timeout(other, false, MAX_SCHEDULE_TIMEOUT);
-> -		if (r < 0) {
-> -			DRM_ERROR("Error (%ld) waiting for fence!\n", r);
-> -			return r;
-> +
-> +		while (true) {
-> +			if ((r = dma_fence_wait_timeout(other, true,
-> +					MAX_SCHEDULE_TIMEOUT)) >= 0)
-> +				return 0;
-> +
-> +			if (fatal_signal_pending(current)) {
-> +				DRM_ERROR("Error (%ld) waiting for fence!\n", r);
-> +				return r;
-> +			}
-
-It looks like if you make this code say:
-			if (fatal_signal_pending(current) ||
-			    (current->flags & PF_EXITING)) {
-				DRM_ERROR("Error (%ld) waiting for fence!\n", r);
-				return r;
->  		}
->  	}
-
-Than you would not need the horrible hack want_signal to deliver signals
-to processes who have passed exit_signal() and don't expect to need
-their signal handling mechanisms anymore.
-
-Eric
+PiBLaW5kIG9mIGRtYV9mZW5jZV93YWl0X2tpbGxhYmxlLCBleGNlcHQgdGhhdCB3ZSBkb24ndCBo
+YXZlIHN1Y2ggQVBJCj4gKG1heWJlIHdvcnRoIGFkZGluZyA/KQpEZXBlbmRzIG9uIGhvdyBtYW55
+IHBsYWNlcyBpdCB3b3VsZCBiZSBjYWxsZWQsIG9yIHRoaW5rIGl0IG1pZ2h0IGJlIGNhbGxlZC4g
+IENhbiBhbHdheXMgZmFjdG9yIG9uIHRoZSAybmQgdGltZSBpdCdzIG5lZWRlZC4KRmFjdG9yaW5n
+LCBJTU8sIHJhcmVseSBodXJ0cy4gIFRoZSBmYWN0b3JlZCBmdW5jdGlvbiBjYW4gZWFzaWx5IGJl
+IHZpc2l0ZWQgdXNpbmcgYE0tLicgOy0+CgpBbHNvLCBpZiB0aGUgd2FpdCBjb3VsZCBiZSB2ZXJ5
+IGxvbmcsIHdvdWxkIGEgbG9nIG1lc3NhZ2UsIHNvbWV0aGluZyBsaWtlICJ4eHggaGFzIHJ1biBm
+b3IgWSBzZWNvbmRzLiIgIGhlbHA/CkkgcGVyc29uYWxseSBoYXRlIGhhbmdpbmcgdy9ubyBpbmZv
+LgoKcmVnYXJkcywKZGF2ZXAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KRnJvbTogR3JvZHpvdnNreSwgQW5kcmV5ClNlbnQ6IFR1ZXNkYXksIEFwcmlsIDI0LCAyMDE4
+IDExOjU4OjE5IEFNClRvOiBQYW5hcml0aSwgRGF2aWQ7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5l
+bC5vcmc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBEZXVjaGVyLCBBbGV4YW5k
+ZXI7IEtvZW5pZywgQ2hyaXN0aWFuOyBvbGVnQHJlZGhhdC5jb207IGFrcG1AbGludXgtZm91bmRh
+dGlvbi5vcmc7IGViaWVkZXJtQHhtaXNzaW9uLmNvbQpTdWJqZWN0OiBSZTogW1BBVENIIDMvM10g
+ZHJtL2FtZGdwdTogU3dpdGNoIHRvIGludGVycnVwdGVkIHdhaXQgdG8gcmVjb3ZlciBmcm9tIHJp
+bmcgaGFuZy4KCgoKT24gMDQvMjQvMjAxOCAxMTo1MiBBTSwgUGFuYXJpdGksIERhdmlkIHdyb3Rl
+Ogo+IEhpLAo+Cj4gSXQgbG9va3MgbGlrZSB0aGVyZSBjYW4gYmUgYW4gaW5maW5pdGUgbG9vcCBp
+ZiBuZWl0aGVyIG9mIHRoZSBpZigpJ3MgYmVjb21lIHRydWUuCj4gSXMgdGhhdCBhbiBpbXBvc3Np
+YmxlIGNvbmRpdGlvbj8KClRoYXQgaW50ZW5kZWQsIHdlIHdhbnQgdG8gd2FpdCB1bnRpbCBlaXRo
+ZXIgdGhlIGZlbmNlIHNpZ25hbHMgb3IgZmF0YWwKc2lnbmFsIHJlY2VpdmVkLCB3ZSBkb24ndCB3
+YW50IHRvIHRlcm1pbmF0ZSB0aGUgd2FpdCBpZiBmZW5jZSBpcyBub3QKc2lnbmFsZWQgIGV2ZW4g
+IHdoZW4gaW50ZXJydXB0ZWQgYnkgbm9uIGZhdGFsIHNpZ25hbC4KS2luZCBvZiBkbWFfZmVuY2Vf
+d2FpdF9raWxsYWJsZSwgZXhjZXB0IHRoYXQgd2UgZG9uJ3QgaGF2ZSBzdWNoIEFQSQoobWF5YmUg
+d29ydGggYWRkaW5nID8pCgpBbmRyZXkKCj4KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+
+IEZyb206IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+IFNl
+bnQ6IFR1ZXNkYXksIEFwcmlsIDI0LCAyMDE4IDExOjMxIEFNCj4gVG86IGxpbnV4LWtlcm5lbEB2
+Z2VyLmtlcm5lbC5vcmc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IERldWNo
+ZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0
+aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBQYW5hcml0aSwgRGF2aWQgPERhdmlkLlBh
+bmFyaXRpQGFtZC5jb20+OyBvbGVnQHJlZGhhdC5jb207IGFrcG1AbGludXgtZm91bmRhdGlvbi5v
+cmc7IGViaWVkZXJtQHhtaXNzaW9uLmNvbTsgR3JvZHpvdnNreSwgQW5kcmV5IDxBbmRyZXkuR3Jv
+ZHpvdnNreUBhbWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSCAzLzNdIGRybS9hbWRncHU6IFN3aXRj
+aCB0byBpbnRlcnJ1cHRlZCB3YWl0IHRvIHJlY292ZXIgZnJvbSByaW5nIGhhbmcuCj4KPiBJZiB0
+aGUgcmluZyBpcyBoYW5naW5nIGZvciBzb21lIHJlYXNvbiBhbGxvdyB0byByZWNvdmVyIHRoZSB3
+YWl0aW5nIGJ5IHNlbmRpbmcgZmF0YWwgc2lnbmFsLgo+Cj4gT3JpZ2luYWxseS1ieTogRGF2aWQg
+UGFuYXJpdGkgPERhdmlkLlBhbmFyaXRpQGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5
+IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMgfCAxNCArKysrKysrKysrLS0tLQo+ICAg
+MSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4gaW5kZXggZWI4MGVkZi4uMzdhMzZh
+ZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMK
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKPiBAQCAtNDIx
+LDEwICs0MjEsMTYgQEAgaW50IGFtZGdwdV9jdHhfd2FpdF9wcmV2X2ZlbmNlKHN0cnVjdCBhbWRn
+cHVfY3R4ICpjdHgsIHVuc2lnbmVkIHJpbmdfaWQpCj4KPiAgICAgICBpZiAob3RoZXIpIHsKPiAg
+ICAgICAgICAgICAgIHNpZ25lZCBsb25nIHI7Cj4gLSAgICAgICAgICAgICByID0gZG1hX2ZlbmNl
+X3dhaXRfdGltZW91dChvdGhlciwgZmFsc2UsIE1BWF9TQ0hFRFVMRV9USU1FT1VUKTsKPiAtICAg
+ICAgICAgICAgIGlmIChyIDwgMCkgewo+IC0gICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1Io
+IkVycm9yICglbGQpIHdhaXRpbmcgZm9yIGZlbmNlIVxuIiwgcik7Cj4gLSAgICAgICAgICAgICAg
+ICAgICAgIHJldHVybiByOwo+ICsKPiArICAgICAgICAgICAgIHdoaWxlICh0cnVlKSB7Cj4gKyAg
+ICAgICAgICAgICAgICAgICAgIGlmICgociA9IGRtYV9mZW5jZV93YWl0X3RpbWVvdXQob3RoZXIs
+IHRydWUsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBNQVhfU0NIRURV
+TEVfVElNRU9VVCkpID49IDApCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
+IDA7Cj4gKwo+ICsgICAgICAgICAgICAgICAgICAgICBpZiAoZmF0YWxfc2lnbmFsX3BlbmRpbmco
+Y3VycmVudCkpIHsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoIkVy
+cm9yICglbGQpIHdhaXRpbmcgZm9yIGZlbmNlIVxuIiwgcik7Cj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcmV0dXJuIHI7Cj4gKyAgICAgICAgICAgICAgICAgICAgIH0KPiAgICAgICAg
+ICAgICAgIH0KPiAgICAgICB9Cj4KPiAtLQo+IDIuNy40Cj4KCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
