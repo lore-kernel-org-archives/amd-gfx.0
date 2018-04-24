@@ -1,52 +1,76 @@
-From: Mathieu Malaterre <malat@debian.org>
-Subject: Re: [PATCH] drm/radeon: Change the default to PCI on PowerPC
-Date: Tue, 24 Apr 2018 21:56:42 +0200
-Message-ID: <CA+7wUszw=fF_kUW+Et07nnX1=0VBtrPJU6yfZsuk_uLUJPQsmw@mail.gmail.com>
-References: <20180424195512.491-1-malat@debian.org>
+From: ebiederm@xmission.com (Eric W. Biederman)
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for signaled process.
+Date: Tue, 24 Apr 2018 16:00:32 -0500
+Message-ID: <87tvs0721b.fsf@xmission.com>
+References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
+        <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+        <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
+        <20180424194418.GE25142@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180424195512.491-1-malat@debian.org>
+In-Reply-To: <20180424194418.GE25142@phenom.ffwll.local> (Daniel Vetter's
+        message of "Tue, 24 Apr 2018 21:44:18 +0200")
 Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+To: Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, David.Panariti@amd.com, oleg@redhat.com, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-For reference:
+Daniel Vetter <daniel@ffwll.ch> writes:
 
-https://lists.freedesktop.org/archives/mesa-dev/2016-May/115453.html
+> On Tue, Apr 24, 2018 at 05:46:52PM +0200, Michel Dänzer wrote:
+>> 
+>> Adding the dri-devel list, since this is driver independent code.
+>> 
+>> 
+>> On 2018-04-24 05:30 PM, Andrey Grodzovsky wrote:
+>> > Avoid calling wait_event_killable when you are possibly being called
+>> > from get_signal routine since in that case you end up in a deadlock
+>> > where you are alreay blocked in singla processing any trying to wait
+>> 
+>> Multiple typos here, "[...] already blocked in signal processing and [...]"?
+>> 
+>> 
+>> > on a new signal.
+>> > 
+>> > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>> > ---
+>> >  drivers/gpu/drm/scheduler/gpu_scheduler.c | 5 +++--
+>> >  1 file changed, 3 insertions(+), 2 deletions(-)
+>> > 
+>> > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+>> > index 088ff2b..09fd258 100644
+>> > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+>> > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+>> > @@ -227,9 +227,10 @@ void drm_sched_entity_do_release(struct drm_gpu_scheduler *sched,
+>> >  		return;
+>> >  	/**
+>> >  	 * The client will not queue more IBs during this fini, consume existing
+>> > -	 * queued IBs or discard them on SIGKILL
+>> > +	 * queued IBs or discard them when in death signal state since
+>> > +	 * wait_event_killable can't receive signals in that state.
+>> >  	*/
+>> > -	if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
+>> > +	if (current->flags & PF_SIGNALED)
+>
+> You want fatal_signal_pending() here, instead of inventing your own broken
+> version.
+>> >  		entity->fini_status = -ERESTARTSYS;
+>> >  	else
+>> >  		entity->fini_status = wait_event_killable(sched->job_scheduled,
+>
+> But really this smells like a bug in wait_event_killable, since
+> wait_event_interruptible does not suffer from the same bug. It will return
+> immediately when there's a signal pending.
+>
+> I think this should be fixed in core code, not papered over in some
+> subsystem.
 
-2018-04-24 21:55 GMT+02:00 Mathieu Malaterre <malat@debian.org>:
-> AGP mode is unstable on PowerPC. Symptoms are generally of the form:
->
-> [ 1228.795711] radeon 0000:00:10.0: ring 0 stalled for more than 10240mse=
-c
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Mathieu Malaterre <malat@debian.org>
-> ---
->  drivers/gpu/drm/radeon/radeon_drv.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon=
-/radeon_drv.c
-> index b28288a781ef..2a7977a23b31 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -168,7 +168,12 @@ int radeon_no_wb;
->  int radeon_modeset =3D -1;
->  int radeon_dynclks =3D -1;
->  int radeon_r4xx_atom =3D 0;
-> +#ifdef __powerpc__
-> +/* Default to PCI on PowerPC (fdo #95017) */
-> +int radeon_agpmode =3D -1;
-> +#else
->  int radeon_agpmode =3D 0;
-> +#endif
->  int radeon_vram_limit =3D 0;
->  int radeon_gart_size =3D -1; /* auto */
->  int radeon_benchmarking =3D 0;
-> --
-> 2.11.0
->
+PF_SIGNALED does not mean a signal has been sent.  PF_SIGNALED means
+the process was killed by a signal.
+
+Neither of interruptible or killable makes sense after the process has
+been killed.
+
+Eric
