@@ -1,56 +1,58 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/3] signals: Allow generation of SIGKILL to exiting task.
-Date: Tue, 24 Apr 2018 11:42:47 -0500
-Message-ID: <87y3hca73s.fsf@xmission.com>
+Date: Tue, 24 Apr 2018 12:51:13 -0400
+Message-ID: <e371e586-0859-adb0-6666-d40a909d0b22@amd.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-2-git-send-email-andrey.grodzovsky@amd.com>
+ <1524583836-12130-2-git-send-email-andrey.grodzovsky@amd.com>
+ <87y3hca73s.fsf@xmission.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1524583836-12130-2-git-send-email-andrey.grodzovsky@amd.com>
-        (Andrey Grodzovsky's message of "Tue, 24 Apr 2018 11:30:34 -0400")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.Panariti@amd.com, oleg@redhat.com, akpm@linux-foundation.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <87y3hca73s.fsf-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Eric W. Biederman" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-Andrey Grodzovsky <andrey.grodzovsky@amd.com> writes:
-
-> Currently calling wait_event_killable as part of exiting process
-> will stall forever since SIGKILL generation is suppresed by PF_EXITING.
->
-> In our partilaur case AMDGPU driver wants to flush all GPU jobs in
-> flight before shutting down. But if some job hangs the pipe we still want to
-> be able to kill it and avoid a process in D state.
-
-I should clarify.  This absolutely can not be done.
-PF_EXITING is set just before a task starts tearing down it's signal
-handling.
-
-So delivering any signal, or otherwise depending on signal handling
-after PF_EXITING is set can not be done.  That abstraction is gone.
-
-Eric
-
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->  kernel/signal.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/signal.c b/kernel/signal.c
-> index c6e4c83..c49c706 100644
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -886,10 +886,10 @@ static inline int wants_signal(int sig, struct task_struct *p)
->  {
->  	if (sigismember(&p->blocked, sig))
->  		return 0;
-> -	if (p->flags & PF_EXITING)
-> -		return 0;
->  	if (sig == SIGKILL)
->  		return 1;
-> +	if (p->flags & PF_EXITING)
-> +		return 0;
->  	if (task_is_stopped_or_traced(p))
->  		return 0;
->  	return task_curr(p) || !signal_pending(p);
+CgpPbiAwNC8yNC8yMDE4IDEyOjQyIFBNLCBFcmljIFcuIEJpZWRlcm1hbiB3cm90ZToKPiBBbmRy
+ZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4gd3JpdGVzOgo+Cj4+IEN1
+cnJlbnRseSBjYWxsaW5nIHdhaXRfZXZlbnRfa2lsbGFibGUgYXMgcGFydCBvZiBleGl0aW5nIHBy
+b2Nlc3MKPj4gd2lsbCBzdGFsbCBmb3JldmVyIHNpbmNlIFNJR0tJTEwgZ2VuZXJhdGlvbiBpcyBz
+dXBwcmVzZWQgYnkgUEZfRVhJVElORy4KPj4KPj4gSW4gb3VyIHBhcnRpbGF1ciBjYXNlIEFNREdQ
+VSBkcml2ZXIgd2FudHMgdG8gZmx1c2ggYWxsIEdQVSBqb2JzIGluCj4+IGZsaWdodCBiZWZvcmUg
+c2h1dHRpbmcgZG93bi4gQnV0IGlmIHNvbWUgam9iIGhhbmdzIHRoZSBwaXBlIHdlIHN0aWxsIHdh
+bnQgdG8KPj4gYmUgYWJsZSB0byBraWxsIGl0IGFuZCBhdm9pZCBhIHByb2Nlc3MgaW4gRCBzdGF0
+ZS4KPiBJIHNob3VsZCBjbGFyaWZ5LiAgVGhpcyBhYnNvbHV0ZWx5IGNhbiBub3QgYmUgZG9uZS4K
+PiBQRl9FWElUSU5HIGlzIHNldCBqdXN0IGJlZm9yZSBhIHRhc2sgc3RhcnRzIHRlYXJpbmcgZG93
+biBpdCdzIHNpZ25hbAo+IGhhbmRsaW5nLgo+Cj4gU28gZGVsaXZlcmluZyBhbnkgc2lnbmFsLCBv
+ciBvdGhlcndpc2UgZGVwZW5kaW5nIG9uIHNpZ25hbCBoYW5kbGluZwo+IGFmdGVyIFBGX0VYSVRJ
+TkcgaXMgc2V0IGNhbiBub3QgYmUgZG9uZS4gIFRoYXQgYWJzdHJhY3Rpb24gaXMgZ29uZS4KCkkg
+c2VlLCBzbyB5b3Ugc3VnZ2VzdCBpdCdzIHRoZSBkcml2ZXIgcmVzcG9uc2liaWxpdHkgdG8gYXZv
+aWQgY3JlYXRpbmcgCnN1Y2ggY29kZSBwYXRoIHRoYXQgZW5kcyB1cApjYWxsaW5nIHdhaXRfZXZl
+bnRfa2lsbGFibGUgZnJvbSBleGl0IGNhbGwgc3RhY2sgKFBGX0VYSVRJTkcgPT0gMSkgPwoKQW5k
+cmV5Cgo+Cj4gRXJpYwo+Cj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRy
+ZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+PiAtLS0KPj4gICBrZXJuZWwvc2lnbmFsLmMgfCA0ICsr
+LS0KPj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+
+Pgo+PiBkaWZmIC0tZ2l0IGEva2VybmVsL3NpZ25hbC5jIGIva2VybmVsL3NpZ25hbC5jCj4+IGlu
+ZGV4IGM2ZTRjODMuLmM0OWM3MDYgMTAwNjQ0Cj4+IC0tLSBhL2tlcm5lbC9zaWduYWwuYwo+PiAr
+KysgYi9rZXJuZWwvc2lnbmFsLmMKPj4gQEAgLTg4NiwxMCArODg2LDEwIEBAIHN0YXRpYyBpbmxp
+bmUgaW50IHdhbnRzX3NpZ25hbChpbnQgc2lnLCBzdHJ1Y3QgdGFza19zdHJ1Y3QgKnApCj4+ICAg
+ewo+PiAgIAlpZiAoc2lnaXNtZW1iZXIoJnAtPmJsb2NrZWQsIHNpZykpCj4+ICAgCQlyZXR1cm4g
+MDsKPj4gLQlpZiAocC0+ZmxhZ3MgJiBQRl9FWElUSU5HKQo+PiAtCQlyZXR1cm4gMDsKPj4gICAJ
+aWYgKHNpZyA9PSBTSUdLSUxMKQo+PiAgIAkJcmV0dXJuIDE7Cj4+ICsJaWYgKHAtPmZsYWdzICYg
+UEZfRVhJVElORykKPj4gKwkJcmV0dXJuIDA7Cj4+ICAgCWlmICh0YXNrX2lzX3N0b3BwZWRfb3Jf
+dHJhY2VkKHApKQo+PiAgIAkJcmV0dXJuIDA7Cj4+ICAgCXJldHVybiB0YXNrX2N1cnIocCkgfHwg
+IXNpZ25hbF9wZW5kaW5nKHApOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
