@@ -1,15 +1,22 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 16/21] drm/amdkfd: Add 64-bit doorbell and wptr support to
- kernel queue
-Date: Tue, 24 Apr 2018 17:42:51 -0400
-Message-ID: <ba222e85-d524-d611-0efe-11850ba48ff3@amd.com>
-References: <1523395998-31314-1-git-send-email-Felix.Kuehling@amd.com>
- <1523395998-31314-17-git-send-email-Felix.Kuehling@amd.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: RFC for a render API to support adaptive sync and VRR
+Date: Tue, 24 Apr 2018 23:57:57 +0200
+Message-ID: <CAKMK7uHzLRUwZSFbMb4qDzXBODVSQVTTw6BxgmvJdES4gJmBDg@mail.gmail.com>
+References: <c79421ce-9408-5cd6-5de3-0fa521146e4b@amd.com>
+ <435ebd04-0435-5a6a-9f1e-e4c4fc629aa9@amd.com>
+ <20180409214554.GB13967@intel.com>
+ <1e8d1857-faba-85da-0136-ea7c29ec1b84@amd.com>
+ <b75e31f7-ce59-de97-5445-cb4c03ff7336@daenzer.net> <87o9ihyxl1.fsf@keithp.com>
+ <CAKMK7uFMKEe24-cFuNx8N=JZsCG2qCZHn3orE5Aqyc8mXnuu2A@mail.gmail.com>
+ <20180420203240.GA9472@intel.com>
+ <488ba81c-9a40-77d3-fb71-ee0df7f9b42f@amd.com>
+ <20180423211944.GC9472@intel.com> <20180424120946.GW31310@phenom.ffwll.local>
+ <b9c33eeb-1db8-f782-cfbe-411d94fecb67@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------F219CD68EFA57F240BF3F343"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1523395998-31314-17-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <b9c33eeb-1db8-f782-cfbe-411d94fecb67-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,546 +27,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: "Cyr, Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koo, Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---------------F219CD68EFA57F240BF3F343
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-A minor update to this patch is attached. The rest of the series is
-unchanged and rebased cleanly on 4.17-rc2 on my system.
-
-Regards,
-  Felix
-
-
-On 2018-04-10 05:33 PM, Felix Kuehling wrote:
-> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c         | 10 +++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c     | 25 +++++++++++++++++------
->  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h     |  7 ++++++-
->  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c |  9 ++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c  |  9 ++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c  |  9 ++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h             |  1 +
->  7 files changed, 63 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> index 36c9269e..5d7cccc 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> @@ -214,6 +214,16 @@ void write_kernel_doorbell(void __iomem *db, u32 value)
->  	}
->  }
->  
-> +void write_kernel_doorbell64(void __iomem *db, u64 value)
-> +{
-> +	if (db) {
-> +		WARN(((unsigned long)db & 7) != 0,
-> +		     "Unaligned 64-bit doorbell");
-> +		writeq(value, (u64 __iomem *)db);
-> +		pr_debug("writing %llu to doorbell address 0x%p\n", value, db);+	}
-> +}
-> +
->  unsigned int kfd_doorbell_id_to_offset(struct kfd_dev *kfd,
->  					struct kfd_process *process,
->  					unsigned int doorbell_id)
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-> index 9f38161..476951d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-> @@ -99,7 +99,7 @@ static bool initialize(struct kernel_queue *kq, struct kfd_dev *dev,
->  	kq->rptr_kernel = kq->rptr_mem->cpu_ptr;
->  	kq->rptr_gpu_addr = kq->rptr_mem->gpu_addr;
->  
-> -	retval = kfd_gtt_sa_allocate(dev, sizeof(*kq->wptr_kernel),
-> +	retval = kfd_gtt_sa_allocate(dev, dev->device_info->doorbell_size,
->  					&kq->wptr_mem);
->  
->  	if (retval != 0)
-> @@ -208,6 +208,7 @@ static int acquire_packet_buffer(struct kernel_queue *kq,
->  	size_t available_size;
->  	size_t queue_size_dwords;
->  	uint32_t wptr, rptr;
-> +	uint64_t wptr64;
->  	unsigned int *queue_address;
->  
->  	/* When rptr == wptr, the buffer is empty.
-> @@ -216,7 +217,8 @@ static int acquire_packet_buffer(struct kernel_queue *kq,
->  	 * the opposite. So we can only use up to queue_size_dwords - 1 dwords.
->  	 */
->  	rptr = *kq->rptr_kernel;
-> -	wptr = *kq->wptr_kernel;
-> +	wptr = kq->pending_wptr;
-> +	wptr64 = kq->pending_wptr64;
->  	queue_address = (unsigned int *)kq->pq_kernel_addr;
->  	queue_size_dwords = kq->queue->properties.queue_size / 4;
->  
-> @@ -246,11 +248,13 @@ static int acquire_packet_buffer(struct kernel_queue *kq,
->  		while (wptr > 0) {
->  			queue_address[wptr] = kq->nop_packet;
->  			wptr = (wptr + 1) % queue_size_dwords;
-> +			wptr64++;
->  		}
->  	}
->  
->  	*buffer_ptr = &queue_address[wptr];
->  	kq->pending_wptr = wptr + packet_size_in_dwords;
-> +	kq->pending_wptr64 = wptr64 + packet_size_in_dwords;
->  
->  	return 0;
->  
-> @@ -272,14 +276,18 @@ static void submit_packet(struct kernel_queue *kq)
->  	pr_debug("\n");
->  #endif
->  
-> -	*kq->wptr_kernel = kq->pending_wptr;
-> -	write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
-> -				kq->pending_wptr);
-> +	kq->ops_asic_specific.submit_packet(kq);
->  }
->  
->  static void rollback_packet(struct kernel_queue *kq)
->  {
-> -	kq->pending_wptr = *kq->wptr_kernel;
-> +	if (kq->dev->device_info->doorbell_size == 8) {
-> +		kq->pending_wptr64 = *kq->wptr64_kernel;
-> +		kq->pending_wptr = *kq->wptr_kernel %
-> +			(kq->queue->properties.queue_size / 4);
-> +	} else {
-> +		kq->pending_wptr = *kq->wptr_kernel;
-> +	}
->  }
->  
->  struct kernel_queue *kernel_queue_init(struct kfd_dev *dev,
-> @@ -310,6 +318,11 @@ struct kernel_queue *kernel_queue_init(struct kfd_dev *dev,
->  	case CHIP_HAWAII:
->  		kernel_queue_init_cik(&kq->ops_asic_specific);
->  		break;
-> +
-> +	case CHIP_VEGA10:
-> +	case CHIP_RAVEN:
-> +		kernel_queue_init_v9(&kq->ops_asic_specific);
-> +		break;
->  	default:
->  		WARN(1, "Unexpected ASIC family %u",
->  		     dev->device_info->asic_family);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-> index 5940531..97aff20 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-> @@ -72,6 +72,7 @@ struct kernel_queue {
->  	struct kfd_dev		*dev;
->  	struct mqd_manager	*mqd;
->  	struct queue		*queue;
-> +	uint64_t		pending_wptr64;
->  	uint32_t		pending_wptr;
->  	unsigned int		nop_packet;
->  
-> @@ -79,7 +80,10 @@ struct kernel_queue {
->  	uint32_t		*rptr_kernel;
->  	uint64_t		rptr_gpu_addr;
->  	struct kfd_mem_obj	*wptr_mem;
-> -	uint32_t		*wptr_kernel;
-> +	union {
-> +		uint64_t	*wptr64_kernel;
-> +		uint32_t	*wptr_kernel;
-> +	};
->  	uint64_t		wptr_gpu_addr;
->  	struct kfd_mem_obj	*pq;
->  	uint64_t		pq_gpu_addr;
-> @@ -97,5 +101,6 @@ struct kernel_queue {
->  
->  void kernel_queue_init_cik(struct kernel_queue_ops *ops);
->  void kernel_queue_init_vi(struct kernel_queue_ops *ops);
-> +void kernel_queue_init_v9(struct kernel_queue_ops *ops);
->  
->  #endif /* KFD_KERNEL_QUEUE_H_ */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c
-> index a90eb44..19e54ac 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c
-> @@ -26,11 +26,13 @@
->  static bool initialize_cik(struct kernel_queue *kq, struct kfd_dev *dev,
->  			enum kfd_queue_type type, unsigned int queue_size);
->  static void uninitialize_cik(struct kernel_queue *kq);
-> +static void submit_packet_cik(struct kernel_queue *kq);
->  
->  void kernel_queue_init_cik(struct kernel_queue_ops *ops)
->  {
->  	ops->initialize = initialize_cik;
->  	ops->uninitialize = uninitialize_cik;
-> +	ops->submit_packet = submit_packet_cik;
->  }
->  
->  static bool initialize_cik(struct kernel_queue *kq, struct kfd_dev *dev,
-> @@ -42,3 +44,10 @@ static bool initialize_cik(struct kernel_queue *kq, struct kfd_dev *dev,
->  static void uninitialize_cik(struct kernel_queue *kq)
->  {
->  }
-> +
-> +static void submit_packet_cik(struct kernel_queue *kq)
-> +{
-> +	*kq->wptr_kernel = kq->pending_wptr;
-> +	write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
-> +				kq->pending_wptr);
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-> index ece7d59..684a3bf 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-> @@ -29,11 +29,13 @@
->  static bool initialize_v9(struct kernel_queue *kq, struct kfd_dev *dev,
->  			enum kfd_queue_type type, unsigned int queue_size);
->  static void uninitialize_v9(struct kernel_queue *kq);
-> +static void submit_packet_v9(struct kernel_queue *kq);
->  
->  void kernel_queue_init_v9(struct kernel_queue_ops *ops)
->  {
->  	ops->initialize = initialize_v9;
->  	ops->uninitialize = uninitialize_v9;
-> +	ops->submit_packet = submit_packet_v9;
->  }
->  
->  static bool initialize_v9(struct kernel_queue *kq, struct kfd_dev *dev,
-> @@ -58,6 +60,13 @@ static void uninitialize_v9(struct kernel_queue *kq)
->  	kfd_gtt_sa_free(kq->dev, kq->eop_mem);
->  }
->  
-> +static void submit_packet_v9(struct kernel_queue *kq)
-> +{
-> +	*kq->wptr64_kernel = kq->pending_wptr64;
-> +	write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
-> +				kq->pending_wptr64);
-> +}
-> +
->  static int pm_map_process_v9(struct packet_manager *pm,
->  		uint32_t *buffer, struct qcm_process_device *qpd)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> index f9019ef..bf20c6d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-> @@ -29,11 +29,13 @@
->  static bool initialize_vi(struct kernel_queue *kq, struct kfd_dev *dev,
->  			enum kfd_queue_type type, unsigned int queue_size);
->  static void uninitialize_vi(struct kernel_queue *kq);
-> +static void submit_packet_vi(struct kernel_queue *kq);
->  
->  void kernel_queue_init_vi(struct kernel_queue_ops *ops)
->  {
->  	ops->initialize = initialize_vi;
->  	ops->uninitialize = uninitialize_vi;
-> +	ops->submit_packet = submit_packet_vi;
->  }
->  
->  static bool initialize_vi(struct kernel_queue *kq, struct kfd_dev *dev,
-> @@ -58,6 +60,13 @@ static void uninitialize_vi(struct kernel_queue *kq)
->  	kfd_gtt_sa_free(kq->dev, kq->eop_mem);
->  }
->  
-> +static void submit_packet_vi(struct kernel_queue *kq)
-> +{
-> +	*kq->wptr_kernel = kq->pending_wptr;
-> +	write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
-> +				kq->pending_wptr);
-> +}
-> +
->  unsigned int pm_build_pm4_header(unsigned int opcode, size_t packet_size)
->  {
->  	union PM4_MES_TYPE_3_HEADER header;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 06b210b..10d5b54 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -769,6 +769,7 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
->  void kfd_release_kernel_doorbell(struct kfd_dev *kfd, u32 __iomem *db_addr);
->  u32 read_kernel_doorbell(u32 __iomem *db);
->  void write_kernel_doorbell(void __iomem *db, u32 value);
-> +void write_kernel_doorbell64(void __iomem *db, u64 value);
->  unsigned int kfd_doorbell_id_to_offset(struct kfd_dev *kfd,
->  					struct kfd_process *process,
->  					unsigned int doorbell_id);
-
-
---------------F219CD68EFA57F240BF3F343
-Content-Type: text/x-patch;
- name="0001-drm-amdkfd-Add-64-bit-doorbell-and-wptr-support-to-k.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-drm-amdkfd-Add-64-bit-doorbell-and-wptr-support-to-k.pa";
- filename*1="tch"
-
->From 6ef689698ee1599a5c72e2fbfa3c1b6b5e532cd9 Mon Sep 17 00:00:00 2001
-From: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Date: Sun, 8 Apr 2018 22:03:51 -0400
-Subject: [PATCH 1/1] drm/amdkfd: Add 64-bit doorbell and wptr support to
- kernel queue
-
-v2: Removed redundant 0x before %p.
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c         | 10 +++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c     | 25 +++++++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h     |  7 ++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c |  9 ++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c  |  9 ++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c  |  9 ++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h             |  1 +
- 7 files changed, 63 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index 36c9269e..c3744d8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -214,6 +214,16 @@ void write_kernel_doorbell(void __iomem *db, u32 value)
- 	}
- }
- 
-+void write_kernel_doorbell64(void __iomem *db, u64 value)
-+{
-+	if (db) {
-+		WARN(((unsigned long)db & 7) != 0,
-+		     "Unaligned 64-bit doorbell");
-+		writeq(value, (u64 __iomem *)db);
-+		pr_debug("writing %llu to doorbell address %p\n", value, db);
-+	}
-+}
-+
- unsigned int kfd_doorbell_id_to_offset(struct kfd_dev *kfd,
- 					struct kfd_process *process,
- 					unsigned int doorbell_id)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-index 9f38161..476951d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
-@@ -99,7 +99,7 @@ static bool initialize(struct kernel_queue *kq, struct kfd_dev *dev,
- 	kq->rptr_kernel = kq->rptr_mem->cpu_ptr;
- 	kq->rptr_gpu_addr = kq->rptr_mem->gpu_addr;
- 
--	retval = kfd_gtt_sa_allocate(dev, sizeof(*kq->wptr_kernel),
-+	retval = kfd_gtt_sa_allocate(dev, dev->device_info->doorbell_size,
- 					&kq->wptr_mem);
- 
- 	if (retval != 0)
-@@ -208,6 +208,7 @@ static int acquire_packet_buffer(struct kernel_queue *kq,
- 	size_t available_size;
- 	size_t queue_size_dwords;
- 	uint32_t wptr, rptr;
-+	uint64_t wptr64;
- 	unsigned int *queue_address;
- 
- 	/* When rptr == wptr, the buffer is empty.
-@@ -216,7 +217,8 @@ static int acquire_packet_buffer(struct kernel_queue *kq,
- 	 * the opposite. So we can only use up to queue_size_dwords - 1 dwords.
- 	 */
- 	rptr = *kq->rptr_kernel;
--	wptr = *kq->wptr_kernel;
-+	wptr = kq->pending_wptr;
-+	wptr64 = kq->pending_wptr64;
- 	queue_address = (unsigned int *)kq->pq_kernel_addr;
- 	queue_size_dwords = kq->queue->properties.queue_size / 4;
- 
-@@ -246,11 +248,13 @@ static int acquire_packet_buffer(struct kernel_queue *kq,
- 		while (wptr > 0) {
- 			queue_address[wptr] = kq->nop_packet;
- 			wptr = (wptr + 1) % queue_size_dwords;
-+			wptr64++;
- 		}
- 	}
- 
- 	*buffer_ptr = &queue_address[wptr];
- 	kq->pending_wptr = wptr + packet_size_in_dwords;
-+	kq->pending_wptr64 = wptr64 + packet_size_in_dwords;
- 
- 	return 0;
- 
-@@ -272,14 +276,18 @@ static void submit_packet(struct kernel_queue *kq)
- 	pr_debug("\n");
- #endif
- 
--	*kq->wptr_kernel = kq->pending_wptr;
--	write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
--				kq->pending_wptr);
-+	kq->ops_asic_specific.submit_packet(kq);
- }
- 
- static void rollback_packet(struct kernel_queue *kq)
- {
--	kq->pending_wptr = *kq->wptr_kernel;
-+	if (kq->dev->device_info->doorbell_size == 8) {
-+		kq->pending_wptr64 = *kq->wptr64_kernel;
-+		kq->pending_wptr = *kq->wptr_kernel %
-+			(kq->queue->properties.queue_size / 4);
-+	} else {
-+		kq->pending_wptr = *kq->wptr_kernel;
-+	}
- }
- 
- struct kernel_queue *kernel_queue_init(struct kfd_dev *dev,
-@@ -310,6 +318,11 @@ struct kernel_queue *kernel_queue_init(struct kfd_dev *dev,
- 	case CHIP_HAWAII:
- 		kernel_queue_init_cik(&kq->ops_asic_specific);
- 		break;
-+
-+	case CHIP_VEGA10:
-+	case CHIP_RAVEN:
-+		kernel_queue_init_v9(&kq->ops_asic_specific);
-+		break;
- 	default:
- 		WARN(1, "Unexpected ASIC family %u",
- 		     dev->device_info->asic_family);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-index 5940531..97aff20 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.h
-@@ -72,6 +72,7 @@ struct kernel_queue {
- 	struct kfd_dev		*dev;
- 	struct mqd_manager	*mqd;
- 	struct queue		*queue;
-+	uint64_t		pending_wptr64;
- 	uint32_t		pending_wptr;
- 	unsigned int		nop_packet;
- 
-@@ -79,7 +80,10 @@ struct kernel_queue {
- 	uint32_t		*rptr_kernel;
- 	uint64_t		rptr_gpu_addr;
- 	struct kfd_mem_obj	*wptr_mem;
--	uint32_t		*wptr_kernel;
-+	union {
-+		uint64_t	*wptr64_kernel;
-+		uint32_t	*wptr_kernel;
-+	};
- 	uint64_t		wptr_gpu_addr;
- 	struct kfd_mem_obj	*pq;
- 	uint64_t		pq_gpu_addr;
-@@ -97,5 +101,6 @@ struct kernel_queue {
- 
- void kernel_queue_init_cik(struct kernel_queue_ops *ops);
- void kernel_queue_init_vi(struct kernel_queue_ops *ops);
-+void kernel_queue_init_v9(struct kernel_queue_ops *ops);
- 
- #endif /* KFD_KERNEL_QUEUE_H_ */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c
-index a90eb44..19e54ac 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_cik.c
-@@ -26,11 +26,13 @@
- static bool initialize_cik(struct kernel_queue *kq, struct kfd_dev *dev,
- 			enum kfd_queue_type type, unsigned int queue_size);
- static void uninitialize_cik(struct kernel_queue *kq);
-+static void submit_packet_cik(struct kernel_queue *kq);
- 
- void kernel_queue_init_cik(struct kernel_queue_ops *ops)
- {
- 	ops->initialize = initialize_cik;
- 	ops->uninitialize = uninitialize_cik;
-+	ops->submit_packet = submit_packet_cik;
- }
- 
- static bool initialize_cik(struct kernel_queue *kq, struct kfd_dev *dev,
-@@ -42,3 +44,10 @@ static bool initialize_cik(struct kernel_queue *kq, struct kfd_dev *dev,
- static void uninitialize_cik(struct kernel_queue *kq)
- {
- }
-+
-+static void submit_packet_cik(struct kernel_queue *kq)
-+{
-+	*kq->wptr_kernel = kq->pending_wptr;
-+	write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
-+				kq->pending_wptr);
-+}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-index ece7d59..684a3bf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_v9.c
-@@ -29,11 +29,13 @@
- static bool initialize_v9(struct kernel_queue *kq, struct kfd_dev *dev,
- 			enum kfd_queue_type type, unsigned int queue_size);
- static void uninitialize_v9(struct kernel_queue *kq);
-+static void submit_packet_v9(struct kernel_queue *kq);
- 
- void kernel_queue_init_v9(struct kernel_queue_ops *ops)
- {
- 	ops->initialize = initialize_v9;
- 	ops->uninitialize = uninitialize_v9;
-+	ops->submit_packet = submit_packet_v9;
- }
- 
- static bool initialize_v9(struct kernel_queue *kq, struct kfd_dev *dev,
-@@ -58,6 +60,13 @@ static void uninitialize_v9(struct kernel_queue *kq)
- 	kfd_gtt_sa_free(kq->dev, kq->eop_mem);
- }
- 
-+static void submit_packet_v9(struct kernel_queue *kq)
-+{
-+	*kq->wptr64_kernel = kq->pending_wptr64;
-+	write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
-+				kq->pending_wptr64);
-+}
-+
- static int pm_map_process_v9(struct packet_manager *pm,
- 		uint32_t *buffer, struct qcm_process_device *qpd)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-index f9019ef..bf20c6d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue_vi.c
-@@ -29,11 +29,13 @@
- static bool initialize_vi(struct kernel_queue *kq, struct kfd_dev *dev,
- 			enum kfd_queue_type type, unsigned int queue_size);
- static void uninitialize_vi(struct kernel_queue *kq);
-+static void submit_packet_vi(struct kernel_queue *kq);
- 
- void kernel_queue_init_vi(struct kernel_queue_ops *ops)
- {
- 	ops->initialize = initialize_vi;
- 	ops->uninitialize = uninitialize_vi;
-+	ops->submit_packet = submit_packet_vi;
- }
- 
- static bool initialize_vi(struct kernel_queue *kq, struct kfd_dev *dev,
-@@ -58,6 +60,13 @@ static void uninitialize_vi(struct kernel_queue *kq)
- 	kfd_gtt_sa_free(kq->dev, kq->eop_mem);
- }
- 
-+static void submit_packet_vi(struct kernel_queue *kq)
-+{
-+	*kq->wptr_kernel = kq->pending_wptr;
-+	write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
-+				kq->pending_wptr);
-+}
-+
- unsigned int pm_build_pm4_header(unsigned int opcode, size_t packet_size)
- {
- 	union PM4_MES_TYPE_3_HEADER header;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 06b210b..10d5b54 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -769,6 +769,7 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
- void kfd_release_kernel_doorbell(struct kfd_dev *kfd, u32 __iomem *db_addr);
- u32 read_kernel_doorbell(u32 __iomem *db);
- void write_kernel_doorbell(void __iomem *db, u32 value);
-+void write_kernel_doorbell64(void __iomem *db, u64 value);
- unsigned int kfd_doorbell_id_to_offset(struct kfd_dev *kfd,
- 					struct kfd_process *process,
- 					unsigned int doorbell_id);
--- 
-2.7.4
-
-
---------------F219CD68EFA57F240BF3F343
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------F219CD68EFA57F240BF3F343--
+T24gVHVlLCBBcHIgMjQsIDIwMTggYXQgNDoyOCBQTSwgSGFycnkgV2VudGxhbmQgPGhhcnJ5Lndl
+bnRsYW5kQGFtZC5jb20+IHdyb3RlOgo+Cj4KPiBPbiAyMDE4LTA0LTI0IDA4OjA5IEFNLCBEYW5p
+ZWwgVmV0dGVyIHdyb3RlOgo+PiBPbiBNb24sIEFwciAyMywgMjAxOCBhdCAwMjoxOTo0NFBNIC0w
+NzAwLCBNYW5hc2kgTmF2YXJlIHdyb3RlOgo+Pj4gT24gTW9uLCBBcHIgMjMsIDIwMTggYXQgMTA6
+NDA6MDZBTSAtMDQwMCwgSGFycnkgV2VudGxhbmQgd3JvdGU6Cj4+Pj4gT24gMjAxOC0wNC0yMCAw
+NDozMiBQTSwgTWFuYXNpIE5hdmFyZSB3cm90ZToKPj4+Pj4gT24gV2VkLCBBcHIgMTgsIDIwMTgg
+YXQgMDk6Mzk6MDJBTSArMDIwMCwgRGFuaWVsIFZldHRlciB3cm90ZToKPj4+Pj4+IE9uIFdlZCwg
+QXByIDE4LCAyMDE4IGF0IDU6NTggQU0sIEtlaXRoIFBhY2thcmQgPGtlaXRocEBrZWl0aHAuY29t
+PiB3cm90ZToKPj4+Pj4+PiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3cml0
+ZXM6Cj4+Pj4+Pj4+IFRpbWUtYmFzZWQgcHJlc2VudGF0aW9uIHNlZW1zIHRvIGJlIHRoZSByaWdo
+dCBhcHByb2FjaCBmb3IgcHJldmVudGluZwo+Pj4+Pj4+PiBtaWNyby1zdHV0dGVyIGluIGdhbWVz
+IGFzIHdlbGwsIENyb3RlYW0gZGV2ZWxvcGVycyBoYXZlIGJlZW4gcmVzZWFyY2hpbmcKPj4+Pj4+
+Pj4gdGhpcy4KPj4+Pj4+Pgo+Pj4+Pj4+IEJvdGggdGhlIFZ1bGthbiBHT09HTEVfZGlzcGxheV90
+aW1pbmcgZXh0ZW5zaW9uIGFuZCBYMTEgUHJlc2VudAo+Pj4+Pj4+IGV4dGVuc2lvbiBvZmZlciB0
+aGUgYWJpbGl0eSB0byBzcGVjaWZ5IHRoZSBkZXNpcmVkIGRpc3BsYXkgdGltZSBpbgo+Pj4+Pj4+
+IHNlY29uZHMuCj4+Pj4+Pj4KPj4+Pj4+PiBTaW1pbGFybHksIEknZCBzdWdnZXN0IHRoYXQgdGhl
+IG1pbi9tYXggZGlzcGxheSByZWZyZXNoIHJhdGUgdmFsdWVzIGJlCj4+Pj4+Pj4gYWR2ZXJ0aXNl
+ZCBhcyB0aW1lIGJldHdlZW4gZnJhbWVzIHJhdGhlciB0aGFuIGZyYW1lcyBwZXIgc2Vjb25kLgo+
+Pj4+Pgo+Pj4+PiBTbyB0aGVyZSBpcyBhIGdsb2JhbCBtaW4gYW5kIG1heCByZWZyZXNoIHJhdGUg
+YXMgYWR2ZXJ0aXNlZCBieSB0aGUgbW9uaXRvcgo+Pj4+PiByYW5nZSBkZXNjcmlwdG9yLiBUaGF0
+IEkgZ3Vlc3MgY2FuIGJlIGV4cG9zZWQgYXMgYSBnbG9iYWwgcmFuZ2UgaW4gdGVybXMgb2YKPj4+
+Pj4gbWluIGFuZCBtYXggdGltZSBiZXR3ZWVuIGZyYW1lcyBhcyBhIGdsb2JhbCBwcm9wZXJ0eSBv
+ZiB0aGUgY29ubmVjdG9yLgo+Pj4+Pgo+Pj4+PiBXZSBkb250IG5lZWQgdGhlIHBlciBtb2RlIG1p
+biBhbmQgbWF4IHJlZnJlc2ggcmF0ZSB0byBiZSBleHBvc2VkIHJpZ2h0Pwo+Pj4+Cj4+Pj4gSWYg
+SSB1bmRlcnN0YW5kIFZSUiByaWdodCwgd2l0aCBDaW5lbWFWUlIgYWNjZXB0YWJsZSByZWZyZXNo
+IHJhdGVzIG1pZ2h0IGZhbGwgb3V0c2lkZSB0aGUgcmFuZ2UgYWR2ZXJ0aXNlZCBieSB0aGUgbW9u
+aXRvci4gV291bGQgd2UKPj4+PiAgMSkgYWR2ZXJ0aXNlIDI0LzEuMDAxIGFzIGEgbG93ZXIgYm91
+bmQsCj4+Pj4gIDIpIGV4cGVjdCBtZWRpYSBhcHBzIHRvIHVzZSB0aGUgbG93ZXIgYm91bmQgc2lt
+cGx5IGZvciBpbmZvcm1hdGlvbmFsIHB1cnBvc2VzLAo+Pj4+ICAzKSBvciBzaW1wbHkgbm90IHN1
+cHBvcnQgQ2luZW1hVlJSPwo+Pj4+Cj4+Pj4gKDEpIGhhcyB0aGUgYWRkZWQgY2F2ZWF0IHRoYXQg
+bm90IGFsbCByZXBvcnRlZCByYXRlcyB3b3VsZCBiZSBzdXBwb3J0ZWQuCj4+Pj4KPj4+PiBBbHRl
+cm5hdGl2ZWx5IGEgYml0IGNvdWxkIGluZGljYXRlIHRoYXQgQ2luZW1hVlJSIGlzIHN1cHBvcnQs
+IGJ1dCBJJ20gbm90IHN1cmUgaWYgdXNlciBtb2RlIHdvdWxkIG5lZWQgYWxsIHRoZXNlIGRldGFp
+bHMuCj4+Pj4KPj4+PiBIYXJyeQo+Pj4KPj4+IEFyZSB0aGVyZSBzcGVjaWFsIENpbmVtYVZSUiBz
+dXBvcnRlZCBtb25pdG9ycz8gSW4gdGhhdCBjYXNlIHdlIG5lZWQgdG8gdW5kZXJzdGFuZCBob3cg
+dGhvc2UgbW9uaXRvcnMKPj4+IGFkdmVydGlzZSB0aGUgbW9uaXRvciByYW5nZSBhbmQgaWYgdGhl
+eSBoYXZlIGEgYml0IGluIEVESUQgdGhhdCBpbmRpY2F0ZSB0aGV5IGFyZSBDaW5lbWFWUlIgY2Fw
+YWJsZQo+Pj4gYXMgb3Bwb3NlZCB0byBqdXN0IHRoZSBBZGFwdGl2ZSBTeW5jL1ZSUi4KPj4+IEhh
+cnJ5LCBpZiB5b3UgaGF2ZSBvbmUgb2YgdGhvc2UgbW9uaXRvcnMsIGNvdWxkIHlvdSBzZW5kIHRo
+ZSBFRElEIGR1bXAgZm9yIHRoYXQ/Cj4+Cj4+IEFzIGxvbmcgYXMgdGhlIGFueSBtdWx0aXBsZSBv
+ZiB0aGUgMjQvMS4wMDEgcmVmcmVzaCByYXRlIGlzIHdpdGhpbiB0aGUKPj4gb2ZmaWNpYWxseSBz
+dXBwb3J0ZWQgcmVmcmVzaCByYW5nZSByYXRlIHRoaXMgc2hvdWxkIHdvcmsgb3V0LiBNYXliZSB3
+ZSdsbAo+PiBlbmQgdXAgdXBsb2FkaW5nIDJ4ICh0byBydW4gYXQgfjQ4SHopLCBtYXliZSB0aGUg
+a2VybmVsIG9ubHkgdXBsb2FkcyBhdAo+PiAyNEh6LiBCdXQgc2hvdWxkIGFsbCBiZSBmaW5lLgo+
+Pgo+Cj4gV291bGQga2VybmVsIGRyaXZlciB1cGxvYWQgNDhIeiB3aGVuIFVNRCBhc2tzIGZvciAy
+NEh6IG9yIHdvdWxkIFVNRCBiZSBleHBlY3RlZCB0byBzdWJtaXQgZG91YmxlIGZyYW1lcz8KPgo+
+IElmIGtlcm5lbCBkcml2ZXIgc3VwcG9ydHMgZnJhbWUgZG91YmxpbmcgKGxpa2Ugb3VyIERDIGRy
+aXZlcikgd2Ugd291bGQgcHJvYmFibHkgcmVwb3J0IGhhbGYgb2YgbW9uaXRvci1yZXBvcnRlZCBt
+aW4tcmVmcmVzaCAob3IgcmF0aGVyIGRvdWJsZSBvZiBtb25pdG9yLXJlcG9ydGVkIG1heCBmcmFt
+ZSB0aW1lKS4KCllvdXIgZHJpdmVyIChhbWRncHUpIGFscmVhZHkgc3VwcG9ydHMgZnJhbWUgZG91
+YmxpbmcsIGV4Y2VwdCBvbmx5IGZvcgp2Ymxhbmsgc2Vxbm8gaW5zdGVhZCBvZiB0aW1lc3RhbXBz
+LiBXaGV0aGVyIFZSUiBjYW4gZ2V0IGRvd24gdG8gMjRIegpvciBub3QgaXMgdG90YWxseSBpcnJl
+bGV2YW50IGZyb20gdXNlcnNwYWNlJ3MgcG9pbnQgb2Ygdmlldy4gQnkKZGVmYXVsdCB0aGUga2Vy
+bmVsIGlzIGV4cGVjdGVkIHRvIGtlZXAgZGlzcGxheSB0aGUgY3VycmVudCBmcmFtZSBmb3IKYXMg
+bG9uZyBhcyB1c2Vyc3BhY2UgZ2l2ZXMgaXQgYSBuZXcgb25lLiBUaGVyZSdzIG5vIGV4cGVjdGF0
+aW9uIHRoYXQKdXNlcnNwYWNlIHByb3ZpZGVzIGEgbmV3IGJ1ZmZlciBmb3IgZXZlcnkgdmJsYW5r
+ICh3aGV0aGVyIHRoYXQncyBhCmZpeGVkIG9yIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBkb2Vzbid0
+IG1hdHRlcikuCi1EYW5pZWwKCj4KPiBIYXJyeQo+Cj4+IE9mYyBpZiB3ZSBoYXZlIENpbmVtYVZS
+UiBzY3JlZW5zIHdoaWNoIGRvbid0IGZpdCB0aGlzLCB0aGVuIG1heWJlIHdlIG5lZWQKPj4gdG8g
+ZmlndXJlIG91dCBzb21ldGhpbmcgLi4uCj4+IC1EYW5pZWwKPj4KPj4+Cj4+PiBNYW5hc2kKPj4+
+Cj4+Pj4KPj4+Pj4KPj4+Pj4+Pgo+Pj4+Pj4+IEknZCBhbHNvIGVuY291cmFnZSB1c2luZyBhIHNp
+bmdsZSB1bml0IGZvciBhbGwgb2YgdGhlc2UgdmFsdWVzLAo+Pj4+Pj4+IHByZWZlcmFibHkgbmFu
+b3NlY29uZHMuIEFic29sdXRlIHRpbWVzIHNob3VsZCBhbGwgYmUgcmVmZXJlbmNlZCB0bwo+Pj4+
+Pj4+IENMT0NLX01PTk9UT05JQy4KPj4+Pj4+Cj4+Pj4+PiArMSBvbiBldmVyeXRoaW5nIEtlaXRo
+IHNhaWQuIEkgZ290IHNvbWVob3cgZHJhZ2dlZCBpbiBraHIgdmsKPj4+Pj4+IGRpc2N1c3Npb25z
+IGFyb3VuZCBwcmV2ZW50aW5nIG1pY3JvLXN0dXR0ZXJpbmcsIGFuZCBjb25zZW5zdXMgc2VlbXMg
+dG8KPj4+Pj4+IGJlIHRoYXQgdGltZXN0YW1wcyBmb3Igc2NoZWR1bGluZyBmcmFtZXMgaXMgdGhl
+IHdheSB0byBnbywgbW9zdCBsaWtlbHkKPj4+Pj4+IGFic29sdXRlIG9uZXMgKG5vdCBldmVyeXRo
+aW5nIGlzIHJ1bm5pbmcgTGludXggdW5mb3J0dW5hdGVseSwgc28gY2FuJ3QKPj4+Pj4+IGdvIG91
+dHJpZ2h0IGFuZCBjbGFpbSBpdCdzIGd1YXJhbnRlZWQgdG8gYmUgQ0xPQ0tfTU9OT1RPTklDKS4K
+Pj4+Pj4+IC1EYW5pZWwKPj4+Pj4KPj4+Pj4gQW5kIHllcyBJIGFsc28gZ290IGNvbnNlbnN1cyBm
+cm9tIE1lc2EgYW5kIG1lZGlhIGZvbGtzIGFib3V0IHVzaW5nIHRoZQo+Pj4+PiBhYnNvbHV0ZSB0
+aW1lc3RhbXAgZm9yIHNjaGVkdWxpbmcgdGhlIGZyYW1lcyBhbmQgdGhlbiB0aGUgZHJpdmVyIHdp
+bGwKPj4+Pj4gbW9kaWZ5IHRoZSB2YmxhbmsgbG9naWMgdG8gInByZXNlbnQgbm8gZWFybGllciB0
+aGFuIHRoZSB0aW1lc3RhbXAiCj4+Pj4+Cj4+Pj4+IE1hbmFzaQo+Pj4+Pgo+Pj4+Pj4gLS0KPj4+
+Pj4+IERhbmllbCBWZXR0ZXIKPj4+Pj4+IFNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3Jh
+dGlvbgo+Pj4+Pj4gKzQxICgwKSA3OSAzNjUgNTcgNDggLSBodHRwOi8vYmxvZy5mZndsbC5jaAo+
+Pj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+
+Pj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4+Pj4+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKPj4+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vZHJpLWRldmVsCj4+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCj4+Pj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4+Pj4gZHJpLWRldmVs
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo+Pj4+Pgo+PgoKCgotLSAKRGFuaWVsIFZldHRl
+cgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KKzQxICgwKSA3OSAzNjUgNTcg
+NDggLSBodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
