@@ -1,69 +1,105 @@
-From: "S, Shirish" <sshankar-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: fix return value of dm_dp_aux_transfer()
- (V2)
-Date: Tue, 24 Apr 2018 18:29:56 +0530
-Message-ID: <f4520258-7efc-d19e-49b1-81ff6becc269@amd.com>
-References: <1524020209-8481-1-git-send-email-shirish.s@amd.com>
- <3fa10009-7ef6-666f-a9ba-9888200be8ff@amd.com>
- <f1a2e63b-db81-d24e-9535-1d22af84efb1@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f1a2e63b-db81-d24e-9535-1d22af84efb1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] drm/admgpu: fix mode_valid's return type
+Date: Tue, 24 Apr 2018 15:14:18 +0200
+Message-ID: <20180424131438.1751-1-luc.vanoostenryck@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org
+Cc: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, Dave Airlie <airlied@redhat.com>, Samuel Li <Samuel.Li@amd.com>, Himanshu Jha <himanshujha199640@gmail.com>, Jani Nikula <jani.nikula@intel.com>, Lukas Wunner <lukas@wunner.de>, Keith Packard <keithp@keithp.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Monk Liu <Monk.Liu@amd.com>, Masahiro Yamada <yamada.masahiro@socionext.com>, Peter Rosin <peda@axentia.se>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Tony
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiA0LzIzLzIwMTggOTo1MyBBTSwgUywgU2hpcmlzaCB3cm90ZToKPgo+Cj4gT24gNC8yMC8y
-MDE4IDExOjUyIFBNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPj4gT24gMjAxOC0wNC0xNyAxMDo1
-NiBQTSwgU2hpcmlzaCBTIHdyb3RlOgo+Pj4gQ3VycmVudGx5IHRoZSBkbV9kcF9hdXhfdHJhbnNm
-ZXIoKSBkb2VzIG5vdCBwYXJzZQo+Pj4gdGhlIHJldHVybiB2YWx1ZSBvZiBkYWxfZGRjX3NlcnZp
-Y2VfcmVhZF9kcGNkX2RhdGEoKSwgd2hpY2ggYWxzbwo+Pj4gaGFzIGEgZmFpbHVyZSBjYXNlLgo+
-Pj4gVGhpcyBwYXRjaCBjYXB0dXJlcyB0aGUgc2FtZSBhbmQgZW5zdXJlcyB0aGUgaTJjIG9wZXJh
-dGlvbiBzdGF0dXMgaXMKPj4+IHNlbnQgYXBwcm9wcmlhdGVseSB0byB0aGUgZHJtIGZyYW1ld29y
-ay4KPj4+Cj4+PiBWMjogVXBkYXRlZCBjb21taXQgbWVzc2FnZS4KPj4+Cj4+PiBTaWduZWQtb2Zm
-LWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYyB8IDYg
-Cj4+PiArKysrKy0KPj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IAo+Pj4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYyAKPj4+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMKPj4+IGluZGV4
-IDc4MjQ5MWUuLjdhYzEyNGQgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYwo+Pj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMKPj4+IEBA
-IC0xMTUsNyArMTE1LDExIEBAIHN0YXRpYyBzc2l6ZV90IGRtX2RwX2F1eF90cmFuc2ZlcihzdHJ1
-Y3QgCj4+PiBkcm1fZHBfYXV4ICphdXgsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIG1zZy0+YWRkcmVzcywKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgbXNnLT5idWZmZXIsCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1z
-Zy0+c2l6ZSk7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJlYWRfYnl0ZXM7Cj4+PiArwqDC
-oMKgwqDCoMKgwqAgaWYgKHJlYWRfYnl0ZXMgIT0gbXNnLT5zaXplICYmCj4+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZWFkX2J5dGVzID49IEREQ19SRVNVTFRfRkFJTEVEX09QRVJBVElPTikK
-Pj4gVGhpcyBkb2Vzbid0IGxvb2sgcmlnaHQuIFdlIHNob3VsZG4ndCBiZSByZXR1cm5pbmcgdGhl
-IHNpemUgb3IgZXJyb3IgCj4+IGNvZGUgZnJvbSB0aGUgc2FtZSBmdW5jdGlvbi4gVGhpcyB3aWxs
-IG5vdCB3b3JrIGlmIHdlIHN1Ym1pdCBhIHJlYWQgNyAKPj4gb3IgOCBieXRlcyBhbmQgZ2V0IGFu
-IGVycm9yLgo+IEFncmVlLMKgIGJ1dCBob3BlIHlvdSB1bmRlcnN0b29kIHRoZSBpc3N1ZSwgdG8g
-cmUtaXRlcmF0ZSwgaW4gY2FzZSBvZiAKPiBmYWlsdXJlIHdlIHJldXR1cm4gYSArdmUgbnVtYmVy
-KDcgb3IgOCkgYmFjayBmcm9tIGRtX2RwX2F1eF90cmFuc2ZlcigpIAo+IGxlYWRpbmcgdG8gZWRp
-ZCByZWFkIGZhaWx1cmVzIGxhdGVyLgo+IEkgaGF2ZSAyIHN1Z2dlc3Rpb25zOgo+IDEuIGNoYW5n
-ZSB0aGUgImVudW0gZGRjX3Jlc3VsdCB7IiB0byAjZGVmaW5lcyBvZiAtdmUgZXJyb3IgY29kZXM/
-IG9yCj4gMi4gbWFrZSBlbnVtIHN0YXJ0IHdpdGggMTI5ICg+IHRoYW4gdGhlIG1heCByZWFkX2J5
-dGVzIHBvc3NpYmxlKT8KPiBsZXQgbWUga25vdyB3aGljaCBvbmUgd291bGQgYmUgYmV0dGVyPwpB
-bnkgc3VnZ2VzdGlvbnM/Cj4gVGhhbmtzLAo+IFJlZ2FyZHMsCj4gU2hpcmlzaCBTCj4+Cj4+IEhh
-cnJ5Cj4+Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTzsKPj4+ICvCoMKg
-wqDCoMKgwqDCoCBlbHNlCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmVhZF9i
-eXRlczsKPj4+IMKgwqDCoMKgwqAgY2FzZSBEUF9BVVhfSTJDX1dSSVRFOgo+Pj4gwqDCoMKgwqDC
-oMKgwqDCoMKgIHJlcyA9IGRhbF9kZGNfc2VydmljZV93cml0ZV9kcGNkX2RhdGEoCj4+PiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFRPX0RNX0FVWChhdXgpLT5kZGNfc2Vydmlj
-ZSwKPj4+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+The method struct drm_connector_helper_funcs::mode_valid is defined
+as returning an 'enum drm_mode_status' but the driver implementation
+for this method uses an 'int' for it.
+
+Fix this by using 'enum drm_mode_status' in the driver too.
+
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 8 ++++----
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c          | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+index 96501ff0e..8e66851eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+@@ -691,7 +691,7 @@ static int amdgpu_connector_lvds_get_modes(struct drm_connector *connector)
+ 	return ret;
+ }
+ 
+-static int amdgpu_connector_lvds_mode_valid(struct drm_connector *connector,
++static enum drm_mode_status amdgpu_connector_lvds_mode_valid(struct drm_connector *connector,
+ 					     struct drm_display_mode *mode)
+ {
+ 	struct drm_encoder *encoder = amdgpu_connector_best_single_encoder(connector);
+@@ -843,7 +843,7 @@ static int amdgpu_connector_vga_get_modes(struct drm_connector *connector)
+ 	return ret;
+ }
+ 
+-static int amdgpu_connector_vga_mode_valid(struct drm_connector *connector,
++static enum drm_mode_status amdgpu_connector_vga_mode_valid(struct drm_connector *connector,
+ 					    struct drm_display_mode *mode)
+ {
+ 	struct drm_device *dev = connector->dev;
+@@ -1172,7 +1172,7 @@ static void amdgpu_connector_dvi_force(struct drm_connector *connector)
+ 		amdgpu_connector->use_digital = true;
+ }
+ 
+-static int amdgpu_connector_dvi_mode_valid(struct drm_connector *connector,
++static enum drm_mode_status amdgpu_connector_dvi_mode_valid(struct drm_connector *connector,
+ 					    struct drm_display_mode *mode)
+ {
+ 	struct drm_device *dev = connector->dev;
+@@ -1448,7 +1448,7 @@ amdgpu_connector_dp_detect(struct drm_connector *connector, bool force)
+ 	return ret;
+ }
+ 
+-static int amdgpu_connector_dp_mode_valid(struct drm_connector *connector,
++static enum drm_mode_status amdgpu_connector_dp_mode_valid(struct drm_connector *connector,
+ 					   struct drm_display_mode *mode)
+ {
+ 	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+index b51f05dc9..476c9b987 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+@@ -329,7 +329,7 @@ static int dce_virtual_get_modes(struct drm_connector *connector)
+ 	return 0;
+ }
+ 
+-static int dce_virtual_mode_valid(struct drm_connector *connector,
++static enum drm_mode_status dce_virtual_mode_valid(struct drm_connector *connector,
+ 				  struct drm_display_mode *mode)
+ {
+ 	return MODE_OK;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4e2f379ce..d7e52c4f6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2855,7 +2855,7 @@ static void handle_edid_mgmt(struct amdgpu_dm_connector *aconnector)
+ 	create_eml_sink(aconnector);
+ }
+ 
+-int amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
++enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
+ 				   struct drm_display_mode *mode)
+ {
+ 	int result = MODE_ERROR;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index b68400c11..cb7e20cb3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -246,7 +246,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 				     struct dc_link *link,
+ 				     int link_index);
+ 
+-int amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
++enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
+ 				   struct drm_display_mode *mode);
+ 
+ void dm_restore_drm_connector_state(struct drm_device *dev,
+-- 
+2.17.0
