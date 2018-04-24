@@ -1,11 +1,14 @@
-From: welu <wei.lu2-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: change pp_dpm clk/mclk/pcie input format.
-Date: Tue, 24 Apr 2018 09:20:10 -0400
-Message-ID: <1524576010-11647-1-git-send-email-wei.lu2@amd.com>
+From: "Lu, Wei" <Wei.Lu2-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: change pp_dpm clk/mclk/pcie input format
+Date: Tue, 24 Apr 2018 13:22:22 +0000
+Message-ID: <BL0PR12MB2387B639AC81E7F2E6007490A3880@BL0PR12MB2387.namprd12.prod.outlook.com>
+References: <1524171079-657-1-git-send-email-wei.lu2@amd.com>,
+ <CADnq5_NyeoyGQTqq3okvFpjNrRN2CSU+trFSTENT9cor2=aj7w@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0728709051=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_NyeoyGQTqq3okvFpjNrRN2CSU+trFSTENT9cor2=aj7w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-GB
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,89 +19,529 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: welu <wei.lu2-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-MS4gc3VwcG9ydCBtb3JlIHRoYW4gOCB2YWx1ZXMgd2hlbiBzZXR0aW5nIGdldF9wcF9kcG1fbWNs
-ay8Kc2Nsay9wY2llLCB0aGUgZm9ybWVyIGRlc2lnbiBqdXN0IHBhcnNlIGNvbW1hbmQgZm9ybWF0
-IGxpa2UKImVjaG8geHh4eCA+44CAcHBfZHBtX3NjbGsiIGFuZCBjdXJyZW50IGNhbiBwYXJzZSAi
-ZWNobyB4eCB4eHgKIHh4eHggPiBwcF9kcG1fc2NsayIgd2hvc2Ugb3BlcmF0aW9uIGlzIG1vcmUg
-dXNlci1mcmllbmRseQphbmQgY29udmluZW50IGFuZCBjYW4gb2ZmZXIgbW9yZSB2YWx1ZXM7CjIu
-IGJlIGNvbXBhdGlibGUgd2l0aCBmb3JtZXIgZGVzaWduIGxpa2UgInh4Ii4KMy4gYWRkIERPQzog
-cHBfZHBtX3NjbGsgcHBfZHBtX21jbGsgcHBfZHBtX3BjaWUKQnVnOktGRC0zODUKVGVzdGVkLWJ5
-OiBXZWkgTHUgPHdlaS5sdTJAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxl
-eGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogd2VsdSA8d2VpLmx1MkBhbWQu
-Y29tPgoKQ2hhbmdlLUlkOiBJMjlmMWI2OGZhN2ZjMWY0OTgyODU0MzU5YTNiZDJkNmVhNmU0ODAw
-NQotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgMTAzICsrKysr
-KysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDU5IGluc2VydGlv
-bnMoKyksIDQ0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9wbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bt
-LmMKaW5kZXggMjdkOGRkNy4uZDk4MDJkOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3BtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BtLmMKQEAgLTU3NCwxMCArNTc0LDEwIEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9nZXRf
-cHBfb2RfY2xrX3ZvbHRhZ2Uoc3RydWN0IGRldmljZSAqZGV2LAogICogdGhlIHBvd2VyIHN0YXRl
-IGFuZCB0aGUgY2xvY2sgaW5mb3JtYXRpb24gZm9yIHRob3NlIGxldmVscy4KICAqCiAgKiBUbyBt
-YW51YWxseSBhZGp1c3QgdGhlc2Ugc3RhdGVzLCBmaXJzdCBzZWxlY3QgbWFudWFsIHVzaW5nCi0g
-KiBwb3dlcl9kcG1fZm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwuICBXcml0aW5nIGEgc3RyaW5nIG9m
-IHRoZSBsZXZlbAotICogbnVtYmVycyB0byB0aGUgZmlsZSB3aWxsIHNlbGVjdCB3aGljaCBsZXZl
-bHMgeW91IHdhbnQgdG8gZW5hYmxlLgotICogRS5nLiwgd3JpdGluZyA0NTYgdG8gdGhlIGZpbGUg
-d2lsbCBlbmFibGUgbGV2ZWxzIDQsIDUsIGFuZCA2LgotICoKKyAqIHBvd2VyX2RwbV9mb3JjZV9w
-ZXJmb3JtYW5jZV9sZXZlbC4KKyAqIFNlY29uZGx5LEVudGVyIGEgbmV3IHZhbHVlIGZvciBlYWNo
-IGxldmVsIGJ5IGlucHV0aW5nIGEgc3RyaW5nIHRoYXQKKyAqIGNvbnRhaW5zICIgZWNobyB4eCB4
-eCB4eCA+IHBwX2RwbV9zY2xrL21jbGsvcGNpZSIKKyAqIEUuZy4sIGVjaG8gNCA1IDYgdG8gPiBw
-cF9kcG1fc2NsayB3aWxsIGVuYWJsZSBzY2xrIGxldmVscyA0LCA1LCBhbmQgNi4KICAqLwogCiBz
-dGF0aWMgc3NpemVfdCBhbWRncHVfZ2V0X3BwX2RwbV9zY2xrKHN0cnVjdCBkZXZpY2UgKmRldiwK
-QEAgLTYwMiwyMyArNjAyLDI3IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9zZXRfcHBfZHBtX3Nj
-bGsoc3RydWN0IGRldmljZSAqZGV2LAogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRl
-di0+ZGV2X3ByaXZhdGU7CiAJaW50IHJldDsKIAlsb25nIGxldmVsOwotCXVpbnQzMl90IGksIG1h
-c2sgPSAwOwotCWNoYXIgc3ViX3N0clsyXTsKKwl1aW50MzJfdCBtYXNrID0gMDsKKwljaGFyICpz
-dWJfc3RyID0gTlVMTDsKKwljaGFyICp0bXA7CisJY2hhciBidWZfY3B5W2NvdW50XTsKKwljb25z
-dCBjaGFyIGRlbGltaXRlclszXSA9IHsnICcsICdcbicsICdcMCd9OwogCi0JZm9yIChpID0gMDsg
-aSA8IHN0cmxlbihidWYpOyBpKyspIHsKLQkJaWYgKCooYnVmICsgaSkgPT0gJ1xuJykKLQkJCWNv
-bnRpbnVlOwotCQlzdWJfc3RyWzBdID0gKihidWYgKyBpKTsKLQkJc3ViX3N0clsxXSA9ICdcMCc7
-Ci0JCXJldCA9IGtzdHJ0b2woc3ViX3N0ciwgMCwgJmxldmVsKTsKKwltZW1jcHkoYnVmX2NweSwg
-YnVmLCBjb3VudCsxKTsKKwl0bXAgPSBidWZfY3B5OworCXdoaWxlICh0bXBbMF0pIHsKKwkJc3Vi
-X3N0ciA9ICBzdHJzZXAoJnRtcCwgZGVsaW1pdGVyKTsKKwkJaWYgKHN0cmxlbihzdWJfc3RyKSkg
-eworCQkJcmV0ID0ga3N0cnRvbChzdWJfc3RyLCAwLCAmbGV2ZWwpOwogCi0JCWlmIChyZXQpIHsK
-LQkJCWNvdW50ID0gLUVJTlZBTDsKLQkJCWdvdG8gZmFpbDsKLQkJfQotCQltYXNrIHw9IDEgPDwg
-bGV2ZWw7CisJCQlpZiAocmV0KSB7CisJCQkJY291bnQgPSAtRUlOVkFMOworCQkJCWdvdG8gZmFp
-bDsKKwkJCX0KKwkJCW1hc2sgfD0gMSA8PCBsZXZlbDsKKwkJfSBlbHNlCisJCQlicmVhazsKIAl9
-Ci0KIAlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5mb3JjZV9jbG9ja19sZXZlbCkKIAkJ
-YW1kZ3B1X2RwbV9mb3JjZV9jbG9ja19sZXZlbChhZGV2LCBQUF9TQ0xLLCBtYXNrKTsKIApAQCAt
-NjQ4LDIxICs2NTIsMjYgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X3NldF9wcF9kcG1fbWNsayhz
-dHJ1Y3QgZGV2aWNlICpkZXYsCiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZGV2LT5k
-ZXZfcHJpdmF0ZTsKIAlpbnQgcmV0OwogCWxvbmcgbGV2ZWw7Ci0JdWludDMyX3QgaSwgbWFzayA9
-IDA7Ci0JY2hhciBzdWJfc3RyWzJdOworCXVpbnQzMl90IG1hc2sgPSAwOworCWNoYXIgKnN1Yl9z
-dHIgPSBOVUxMOworCWNoYXIgKnRtcDsKKwljaGFyIGJ1Zl9jcHlbY291bnRdOworCWNvbnN0IGNo
-YXIgZGVsaW1pdGVyWzNdID0geycgJywgJ1xuJywgJ1wwJ307CiAKLQlmb3IgKGkgPSAwOyBpIDwg
-c3RybGVuKGJ1Zik7IGkrKykgewotCQlpZiAoKihidWYgKyBpKSA9PSAnXG4nKQotCQkJY29udGlu
-dWU7Ci0JCXN1Yl9zdHJbMF0gPSAqKGJ1ZiArIGkpOwotCQlzdWJfc3RyWzFdID0gJ1wwJzsKLQkJ
-cmV0ID0ga3N0cnRvbChzdWJfc3RyLCAwLCAmbGV2ZWwpOworCW1lbWNweShidWZfY3B5LCBidWYs
-IGNvdW50KzEpOworCXRtcCA9IGJ1Zl9jcHk7CisJd2hpbGUgKHRtcFswXSkgeworCQlzdWJfc3Ry
-ID0gIHN0cnNlcCgmdG1wLCBkZWxpbWl0ZXIpOworCQlpZiAoc3RybGVuKHN1Yl9zdHIpKSB7CisJ
-CQlyZXQgPSBrc3RydG9sKHN1Yl9zdHIsIDAsICZsZXZlbCk7CiAKLQkJaWYgKHJldCkgewotCQkJ
-Y291bnQgPSAtRUlOVkFMOwotCQkJZ290byBmYWlsOwotCQl9Ci0JCW1hc2sgfD0gMSA8PCBsZXZl
-bDsKKwkJCWlmIChyZXQpIHsKKwkJCQljb3VudCA9IC1FSU5WQUw7CisJCQkJZ290byBmYWlsOwor
-CQkJfQorCQkJbWFzayB8PSAxIDw8IGxldmVsOworCQl9IGVsc2UKKwkJCWJyZWFrOwogCX0KIAlp
-ZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5mb3JjZV9jbG9ja19sZXZlbCkKIAkJYW1kZ3B1
-X2RwbV9mb3JjZV9jbG9ja19sZXZlbChhZGV2LCBQUF9NQ0xLLCBtYXNrKTsKQEAgLTY5MywyMSAr
-NzAyLDI3IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9zZXRfcHBfZHBtX3BjaWUoc3RydWN0IGRl
-dmljZSAqZGV2LAogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZh
-dGU7CiAJaW50IHJldDsKIAlsb25nIGxldmVsOwotCXVpbnQzMl90IGksIG1hc2sgPSAwOwotCWNo
-YXIgc3ViX3N0clsyXTsKKwl1aW50MzJfdCBtYXNrID0gMDsKKwljaGFyICpzdWJfc3RyID0gTlVM
-TDsKKwljaGFyICp0bXA7CisJY2hhciBidWZfY3B5W2NvdW50XTsKKwljb25zdCBjaGFyIGRlbGlt
-aXRlclszXSA9IHsnICcsICdcbicsICdcMCd9OwogCi0JZm9yIChpID0gMDsgaSA8IHN0cmxlbihi
-dWYpOyBpKyspIHsKLQkJaWYgKCooYnVmICsgaSkgPT0gJ1xuJykKLQkJCWNvbnRpbnVlOwotCQlz
-dWJfc3RyWzBdID0gKihidWYgKyBpKTsKLQkJc3ViX3N0clsxXSA9ICdcMCc7Ci0JCXJldCA9IGtz
-dHJ0b2woc3ViX3N0ciwgMCwgJmxldmVsKTsKKwltZW1jcHkoYnVmX2NweSwgYnVmLCBjb3VudCsx
-KTsKKwl0bXAgPSBidWZfY3B5OwogCi0JCWlmIChyZXQpIHsKLQkJCWNvdW50ID0gLUVJTlZBTDsK
-LQkJCWdvdG8gZmFpbDsKLQkJfQotCQltYXNrIHw9IDEgPDwgbGV2ZWw7CisJd2hpbGUgKHRtcFsw
-XSkgeworCQlzdWJfc3RyID0gIHN0cnNlcCgmdG1wLCBkZWxpbWl0ZXIpOworCQlpZiAoc3RybGVu
-KHN1Yl9zdHIpKSB7CisJCQlyZXQgPSBrc3RydG9sKHN1Yl9zdHIsIDAsICZsZXZlbCk7CisKKwkJ
-CWlmIChyZXQpIHsKKwkJCQljb3VudCA9IC1FSU5WQUw7CisJCQkJZ290byBmYWlsOworCQkJfQor
-CQkJbWFzayB8PSAxIDw8IGxldmVsOworCQl9IGVsc2UKKwkJCWJyZWFrOwogCX0KIAlpZiAoYWRl
-di0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5mb3JjZV9jbG9ja19sZXZlbCkKIAkJYW1kZ3B1X2RwbV9m
-b3JjZV9jbG9ja19sZXZlbChhZGV2LCBQUF9QQ0lFLCBtYXNrKTsKLS0gCjIuNy40CgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0728709051==
+Content-Language: en-GB
+Content-Type: multipart/alternative;
+	boundary="_000_BL0PR12MB2387B639AC81E7F2E6007490A3880BL0PR12MB2387namp_"
+
+--_000_BL0PR12MB2387B639AC81E7F2E6007490A3880BL0PR12MB2387namp_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+hi Alex,
+
+
+I have sent the patch with "Add: DOC " and last patch to  amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org already.
+
+please check.
+
+
+Thanks!
+
+
+Wei
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: 23 April 2018 16:06:16
+To: Lu, Wei
+Cc: amd-gfx list
+Subject: Re: [PATCH] drm/amdgpu: change pp_dpm clk/mclk/pcie input format
+
+On Thu, Apr 19, 2018 at 4:51 PM, welu <wei.lu2-5C7GfCeVMHo@public.gmane.org> wrote:
+> 1. support more than 8 values when setting get_pp_dpm_mclk/
+> sclk/pcie, the former design just parse command format like
+> "echo xxxx >=1B$B!!=1B(Bpp_dpm_sclk" and current can parse "echo xx xxx
+>  xxxx > pp_dpm_sclk" whose operation is more user-friendly
+> and convinent and can offer more values;
+> 2. be compatible with former design like "xx".
+> Bug:KFD-385
+
+Please update the documentation labeled "DOC: pp_dpm_sclk pp_dpm_mclk
+pp_dpm_pcie", With that fixed, patch is:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+>
+> Change-Id: Id7d95ce45f4ee0564b18ebcfc16976f1a5c6bf72
+> Signed-off-by: welu <wei.lu2-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 95 ++++++++++++++++++++--------=
+------
+>  1 file changed, 55 insertions(+), 40 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_pm.c
+> index 744f105..58f46f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> @@ -466,23 +466,27 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct device=
+ *dev,
+>         struct amdgpu_device *adev =3D ddev->dev_private;
+>         int ret;
+>         long level;
+> -       uint32_t i, mask =3D 0;
+> -       char sub_str[2];
+> +       uint32_t mask =3D 0;
+> +       char *sub_str =3D NULL;
+> +       char *tmp;
+> +       char buf_cpy[count];
+> +       const char delimiter[3] =3D {' ', '\n', '\0'};
+>
+> -       for (i =3D 0; i < strlen(buf); i++) {
+> -               if (*(buf + i) =3D=3D '\n')
+> -                       continue;
+> -               sub_str[0] =3D *(buf + i);
+> -               sub_str[1] =3D '\0';
+> -               ret =3D kstrtol(sub_str, 0, &level);
+> +       memcpy(buf_cpy, buf, count+1);
+> +       tmp =3D buf_cpy;
+> +       while (tmp[0]) {
+> +               sub_str =3D  strsep(&tmp, delimiter);
+> +               if (strlen(sub_str)) {
+> +                       ret =3D kstrtol(sub_str, 0, &level);
+>
+> -               if (ret) {
+> -                       count =3D -EINVAL;
+> -                       goto fail;
+> -               }
+> -               mask |=3D 1 << level;
+> +                       if (ret) {
+> +                               count =3D -EINVAL;
+> +                               goto fail;
+> +                       }
+> +                       mask |=3D 1 << level;
+> +               } else
+> +                       break;
+>         }
+> -
+>         if (adev->powerplay.pp_funcs->force_clock_level)
+>                 amdgpu_dpm_force_clock_level(adev, PP_SCLK, mask);
+>
+> @@ -512,21 +516,26 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct device=
+ *dev,
+>         struct amdgpu_device *adev =3D ddev->dev_private;
+>         int ret;
+>         long level;
+> -       uint32_t i, mask =3D 0;
+> -       char sub_str[2];
+> +       uint32_t mask =3D 0;
+> +       char *sub_str =3D NULL;
+> +       char *tmp;
+> +       char buf_cpy[count];
+> +       const char delimiter[3] =3D {' ', '\n', '\0'};
+>
+> -       for (i =3D 0; i < strlen(buf); i++) {
+> -               if (*(buf + i) =3D=3D '\n')
+> -                       continue;
+> -               sub_str[0] =3D *(buf + i);
+> -               sub_str[1] =3D '\0';
+> -               ret =3D kstrtol(sub_str, 0, &level);
+> +       memcpy(buf_cpy, buf, count+1);
+> +       tmp =3D buf_cpy;
+> +       while (tmp[0]) {
+> +               sub_str =3D  strsep(&tmp, delimiter);
+> +               if (strlen(sub_str)) {
+> +                       ret =3D kstrtol(sub_str, 0, &level);
+>
+> -               if (ret) {
+> -                       count =3D -EINVAL;
+> -                       goto fail;
+> -               }
+> -               mask |=3D 1 << level;
+> +                       if (ret) {
+> +                               count =3D -EINVAL;
+> +                               goto fail;
+> +                       }
+> +                       mask |=3D 1 << level;
+> +               } else
+> +                       break;
+>         }
+>         if (adev->powerplay.pp_funcs->force_clock_level)
+>                 amdgpu_dpm_force_clock_level(adev, PP_MCLK, mask);
+> @@ -557,21 +566,27 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct device=
+ *dev,
+>         struct amdgpu_device *adev =3D ddev->dev_private;
+>         int ret;
+>         long level;
+> -       uint32_t i, mask =3D 0;
+> -       char sub_str[2];
+> +       uint32_t mask =3D 0;
+> +       char *sub_str =3D NULL;
+> +       char *tmp;
+> +       char buf_cpy[count];
+> +       const char delimiter[3] =3D {' ', '\n', '\0'};
+>
+> -       for (i =3D 0; i < strlen(buf); i++) {
+> -               if (*(buf + i) =3D=3D '\n')
+> -                       continue;
+> -               sub_str[0] =3D *(buf + i);
+> -               sub_str[1] =3D '\0';
+> -               ret =3D kstrtol(sub_str, 0, &level);
+> +       memcpy(buf_cpy, buf, count+1);
+> +       tmp =3D buf_cpy;
+>
+> -               if (ret) {
+> -                       count =3D -EINVAL;
+> -                       goto fail;
+> -               }
+> -               mask |=3D 1 << level;
+> +       while (tmp[0]) {
+> +               sub_str =3D  strsep(&tmp, delimiter);
+> +               if (strlen(sub_str)) {
+> +                       ret =3D kstrtol(sub_str, 0, &level);
+> +
+> +                       if (ret) {
+> +                               count =3D -EINVAL;
+> +                               goto fail;
+> +                       }
+> +                       mask |=3D 1 << level;
+> +               } else
+> +                       break;
+>         }
+>         if (adev->powerplay.pp_funcs->force_clock_level)
+>                 amdgpu_dpm_force_clock_level(adev, PP_PCIE, mask);
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BL0PR12MB2387B639AC81E7F2E6007490A3880BL0PR12MB2387namp_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">hi Alex,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">I have sent the patch with &quot;=
+Add: DOC &quot; and last patch to&nbsp;
+<span>amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org already.</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span>please check.</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span><br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span>Thanks!</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span><br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span>Wei</span><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
+deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> 23 April 2018 16:06:16<br>
+<b>To:</b> Lu, Wei<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: change pp_dpm clk/mclk/pcie input f=
+ormat</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Thu, Apr 19, 2018 at 4:51 PM, welu &lt;wei.lu2@=
+amd.com&gt; wrote:<br>
+&gt; 1. support more than 8 values when setting get_pp_dpm_mclk/<br>
+&gt; sclk/pcie, the former design just parse command format like<br>
+&gt; &quot;echo xxxx &gt;=1B$B!!=1B(Bpp_dpm_sclk&quot; and current can pars=
+e &quot;echo xx xxx<br>
+&gt;&nbsp; xxxx &gt; pp_dpm_sclk&quot; whose operation is more user-friendl=
+y<br>
+&gt; and convinent and can offer more values;<br>
+&gt; 2. be compatible with former design like &quot;xx&quot;.<br>
+&gt; Bug:KFD-385<br>
+<br>
+Please update the documentation labeled &quot;DOC: pp_dpm_sclk pp_dpm_mclk<=
+br>
+pp_dpm_pcie&quot;, With that fixed, patch is:<br>
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+&gt;<br>
+&gt; Change-Id: Id7d95ce45f4ee0564b18ebcfc16976f1a5c6bf72<br>
+&gt; Signed-off-by: welu &lt;wei.lu2-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 95 &#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;--------------<br>
+&gt;&nbsp; 1 file changed, 55 insertions(&#43;), 40 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_pm.c<br>
+&gt; index 744f105..58f46f9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&gt; @@ -466,23 &#43;466,27 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct=
+ device *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *=
+adev =3D ddev-&gt;dev_private;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long level;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i, mask =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char sub_str[2];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mask =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *sub_str =3D NULL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *tmp;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char buf_cpy[count];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char delimiter[3] =3D =
+{' ', '\n', '\0'};<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; strlen(buf)=
+; i&#43;&#43;) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (*(buf &#43; i) =3D=3D '\n')<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; sub_str[0] =3D *(buf &#43; i);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; sub_str[1] =3D '\0';<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D kstrtol(sub_str, 0, &amp;level);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(buf_cpy, buf, count&#=
+43;1);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D buf_cpy;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (tmp[0]) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; sub_str =3D&nbsp; strsep(&amp;tmp, delimiter);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (strlen(sub_str)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D=
+ kstrtol(sub_str, 0, &amp;level);<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (ret) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D -=
+EINVAL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<=
+br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; mask |=3D 1 &lt;&lt; level;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret=
+) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mask |=
+=3D 1 &lt;&lt; level;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; } else<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay=
+.pp_funcs-&gt;force_clock_level)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_force_clock_level(adev, PP_SCLK, mask)=
+;<br>
+&gt;<br>
+&gt; @@ -512,21 &#43;516,26 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct=
+ device *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *=
+adev =3D ddev-&gt;dev_private;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long level;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i, mask =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char sub_str[2];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mask =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *sub_str =3D NULL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *tmp;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char buf_cpy[count];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char delimiter[3] =3D =
+{' ', '\n', '\0'};<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; strlen(buf)=
+; i&#43;&#43;) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (*(buf &#43; i) =3D=3D '\n')<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; sub_str[0] =3D *(buf &#43; i);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; sub_str[1] =3D '\0';<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D kstrtol(sub_str, 0, &amp;level);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(buf_cpy, buf, count&#=
+43;1);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D buf_cpy;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (tmp[0]) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; sub_str =3D&nbsp; strsep(&amp;tmp, delimiter);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (strlen(sub_str)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D=
+ kstrtol(sub_str, 0, &amp;level);<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (ret) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D -=
+EINVAL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<=
+br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; mask |=3D 1 &lt;&lt; level;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret=
+) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mask |=
+=3D 1 &lt;&lt; level;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; } else<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay=
+.pp_funcs-&gt;force_clock_level)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_force_clock_level(adev, PP_MCLK, mask)=
+;<br>
+&gt; @@ -557,21 &#43;566,27 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct=
+ device *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *=
+adev =3D ddev-&gt;dev_private;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long level;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i, mask =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char sub_str[2];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mask =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *sub_str =3D NULL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *tmp;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char buf_cpy[count];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char delimiter[3] =3D =
+{' ', '\n', '\0'};<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; strlen(buf)=
+; i&#43;&#43;) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (*(buf &#43; i) =3D=3D '\n')<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<b=
+r>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; sub_str[0] =3D *(buf &#43; i);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; sub_str[1] =3D '\0';<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; ret =3D kstrtol(sub_str, 0, &amp;level);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(buf_cpy, buf, count&#=
+43;1);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D buf_cpy;<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (ret) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D -=
+EINVAL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<=
+br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; mask |=3D 1 &lt;&lt; level;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (tmp[0]) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; sub_str =3D&nbsp; strsep(&amp;tmp, delimiter);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (strlen(sub_str)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D=
+ kstrtol(sub_str, 0, &amp;level);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret=
+) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mask |=
+=3D 1 &lt;&lt; level;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; } else<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay=
+.pp_funcs-&gt;force_clock_level)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_force_clock_level(adev, PP_PCIE, mask)=
+;<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BL0PR12MB2387B639AC81E7F2E6007490A3880BL0PR12MB2387namp_--
+
+--===============0728709051==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0728709051==--
