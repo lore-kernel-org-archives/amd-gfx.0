@@ -1,69 +1,59 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Switch to interrupted wait to recover
- from ring hang.
-Date: Tue, 24 Apr 2018 11:58:19 -0400
-Message-ID: <b4309ea4-c1a0-5811-040b-4390ce6f297f@amd.com>
+From: ebiederm@xmission.com (Eric W. Biederman)
+Subject: Re: [PATCH 1/3] signals: Allow generation of SIGKILL to exiting task.
+Date: Tue, 24 Apr 2018 11:10:42 -0500
+Message-ID: <87a7tsd1q5.fsf@xmission.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
- <1524583836-12130-4-git-send-email-andrey.grodzovsky@amd.com>
- <DM5PR12MB244017F98FC732EB5DD86E0395880@DM5PR12MB2440.namprd12.prod.outlook.com>
+        <1524583836-12130-2-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB244017F98FC732EB5DD86E0395880-2J9CzHegvk/fqmGed1UJxwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org" <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, "ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1524583836-12130-2-git-send-email-andrey.grodzovsky@amd.com>
+        (Andrey Grodzovsky's message of "Tue, 24 Apr 2018 11:30:34 -0400")
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.Panariti@amd.com, oleg@redhat.com, akpm@linux-foundation.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAwNC8yNC8yMDE4IDExOjUyIEFNLCBQYW5hcml0aSwgRGF2aWQgd3JvdGU6Cj4gSGksCj4K
-PiBJdCBsb29rcyBsaWtlIHRoZXJlIGNhbiBiZSBhbiBpbmZpbml0ZSBsb29wIGlmIG5laXRoZXIg
-b2YgdGhlIGlmKCkncyBiZWNvbWUgdHJ1ZS4KPiBJcyB0aGF0IGFuIGltcG9zc2libGUgY29uZGl0
-aW9uPwoKVGhhdCBpbnRlbmRlZCwgd2Ugd2FudCB0byB3YWl0IHVudGlsIGVpdGhlciB0aGUgZmVu
-Y2Ugc2lnbmFscyBvciBmYXRhbCAKc2lnbmFsIHJlY2VpdmVkLCB3ZSBkb24ndCB3YW50IHRvIHRl
-cm1pbmF0ZSB0aGUgd2FpdCBpZiBmZW5jZSBpcyBub3QgCnNpZ25hbGVkwqAgZXZlbsKgIHdoZW4g
-aW50ZXJydXB0ZWQgYnkgbm9uIGZhdGFsIHNpZ25hbC4KS2luZCBvZiBkbWFfZmVuY2Vfd2FpdF9r
-aWxsYWJsZSwgZXhjZXB0IHRoYXQgd2UgZG9uJ3QgaGF2ZSBzdWNoIEFQSSAKKG1heWJlIHdvcnRo
-IGFkZGluZyA/KQoKQW5kcmV5Cgo+Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9t
-OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPiBTZW50OiBU
-dWVzZGF5LCBBcHJpbCAyNCwgMjAxOCAxMTozMSBBTQo+IFRvOiBsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBEZXVjaGVyLCBB
-bGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbiA8
-Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgUGFuYXJpdGksIERhdmlkIDxEYXZpZC5QYW5hcml0
-aUBhbWQuY29tPjsgb2xlZ0ByZWRoYXQuY29tOyBha3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnOyBl
-YmllZGVybUB4bWlzc2lvbi5jb207IEdyb2R6b3Zza3ksIEFuZHJleSA8QW5kcmV5Lkdyb2R6b3Zz
-a3lAYW1kLmNvbT4KPiBTdWJqZWN0OiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1OiBTd2l0Y2ggdG8g
-aW50ZXJydXB0ZWQgd2FpdCB0byByZWNvdmVyIGZyb20gcmluZyBoYW5nLgo+Cj4gSWYgdGhlIHJp
-bmcgaXMgaGFuZ2luZyBmb3Igc29tZSByZWFzb24gYWxsb3cgdG8gcmVjb3ZlciB0aGUgd2FpdGlu
-ZyBieSBzZW5kaW5nIGZhdGFsIHNpZ25hbC4KPgo+IE9yaWdpbmFsbHktYnk6IERhdmlkIFBhbmFy
-aXRpIDxEYXZpZC5QYW5hcml0aUBhbWQuY29tPgo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9k
-em92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIHwgMTQgKysrKysrKysrKy0tLS0KPiAgIDEgZmls
-ZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+IGluZGV4IGViODBlZGYuLjM3YTM2YWYgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4gQEAgLTQyMSwxMCAr
-NDIxLDE2IEBAIGludCBhbWRncHVfY3R4X3dhaXRfcHJldl9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2N0
-eCAqY3R4LCB1bnNpZ25lZCByaW5nX2lkKQo+ICAgCj4gICAJaWYgKG90aGVyKSB7Cj4gICAJCXNp
-Z25lZCBsb25nIHI7Cj4gLQkJciA9IGRtYV9mZW5jZV93YWl0X3RpbWVvdXQob3RoZXIsIGZhbHNl
-LCBNQVhfU0NIRURVTEVfVElNRU9VVCk7Cj4gLQkJaWYgKHIgPCAwKSB7Cj4gLQkJCURSTV9FUlJP
-UigiRXJyb3IgKCVsZCkgd2FpdGluZyBmb3IgZmVuY2UhXG4iLCByKTsKPiAtCQkJcmV0dXJuIHI7
-Cj4gKwo+ICsJCXdoaWxlICh0cnVlKSB7Cj4gKwkJCWlmICgociA9IGRtYV9mZW5jZV93YWl0X3Rp
-bWVvdXQob3RoZXIsIHRydWUsCj4gKwkJCQkJTUFYX1NDSEVEVUxFX1RJTUVPVVQpKSA+PSAwKQo+
-ICsJCQkJcmV0dXJuIDA7Cj4gKwo+ICsJCQlpZiAoZmF0YWxfc2lnbmFsX3BlbmRpbmcoY3VycmVu
-dCkpIHsKPiArCQkJCURSTV9FUlJPUigiRXJyb3IgKCVsZCkgd2FpdGluZyBmb3IgZmVuY2UhXG4i
-LCByKTsKPiArCQkJCXJldHVybiByOwo+ICsJCQl9Cj4gICAJCX0KPiAgIAl9Cj4gICAKPiAtLQo+
-IDIuNy40Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Andrey Grodzovsky <andrey.grodzovsky@amd.com> writes:
+
+> Currently calling wait_event_killable as part of exiting process
+> will stall forever since SIGKILL generation is suppresed by PF_EXITING.
+>
+> In our partilaur case AMDGPU driver wants to flush all GPU jobs in
+> flight before shutting down. But if some job hangs the pipe we still want to
+> be able to kill it and avoid a process in D state.
+
+This makes me profoundly uncomfotable.  You are changing the linux
+semantics of what it means for a process to be exiting.  Functionally
+this may require all kinds of changes to when we allow processes to stop
+processing signals.
+
+So without a really good thought out explanation that takes into account
+all of the issues involved in process exiting and posix conformance.
+
+Nacked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+
+Eric
+
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>  kernel/signal.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/signal.c b/kernel/signal.c
+> index c6e4c83..c49c706 100644
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -886,10 +886,10 @@ static inline int wants_signal(int sig, struct task_struct *p)
+>  {
+>  	if (sigismember(&p->blocked, sig))
+>  		return 0;
+> -	if (p->flags & PF_EXITING)
+> -		return 0;
+>  	if (sig == SIGKILL)
+>  		return 1;
+> +	if (p->flags & PF_EXITING)
+> +		return 0;
+>  	if (task_is_stopped_or_traced(p))
+>  		return 0;
+>  	return task_curr(p) || !signal_pending(p);
