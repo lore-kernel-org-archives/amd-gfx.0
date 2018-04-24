@@ -1,29 +1,29 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
 Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
  signaled process.
-Date: Tue, 24 Apr 2018 11:51:46 -0400
-Message-ID: <6a4ba810-e00a-6446-f3c8-a3be56f24589@amd.com>
+Date: Tue, 24 Apr 2018 11:52:06 -0400
+Message-ID: <a463c05c-1236-67a1-1ea9-2498647d698c@amd.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
  <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
  <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7313704c-0693-0bb9-8818-99cd2b7c0ca0-otUistvHUpPR7s880joybQ@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: David.Panariti@amd.com, oleg@redhat.com, ebiederm@xmission.com, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
 CgpPbiAwNC8yNC8yMDE4IDExOjQ2IEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBBZGRpbmcg
 dGhlIGRyaS1kZXZlbCBsaXN0LCBzaW5jZSB0aGlzIGlzIGRyaXZlciBpbmRlcGVuZGVudCBjb2Rl
@@ -54,6 +54,6 @@ ICYgUEZfU0lHTkFMRUQpICYmIGN1cnJlbnQtPmV4aXRfY29kZSA9PSBTSUdLSUxMKQo+PiArCWlm
 IChjdXJyZW50LT5mbGFncyAmIFBGX1NJR05BTEVEKQo+PiAgIAkJZW50aXR5LT5maW5pX3N0YXR1
 cyA9IC1FUkVTVEFSVFNZUzsKPj4gICAJZWxzZQo+PiAgIAkJZW50aXR5LT5maW5pX3N0YXR1cyA9
 IHdhaXRfZXZlbnRfa2lsbGFibGUoc2NoZWQtPmpvYl9zY2hlZHVsZWQsCj4+Cj4KCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5n
+IGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
