@@ -1,110 +1,60 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: set COMPUTE_PGM_RSRC1 for SGPR/VGPR clearing
- shaders
-Date: Tue, 24 Apr 2018 11:45:01 -0400
-Message-ID: <CADnq5_O9_0YH3HrBBGyfAH4jS+gPHiLdM-fogf04z1as2eU59Q@mail.gmail.com>
-References: <20180423114106.7511-1-nhaehnle@gmail.com>
- <CADnq5_NX-TQ-1cHDgQ2_29AR0zUh=f=QMfhBejmmFksBXoZfUg@mail.gmail.com>
- <5a83e8a5-fe7e-b4a8-f313-215e8340126d@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
+ signaled process.
+Date: Tue, 24 Apr 2018 17:46:52 +0200
+Message-ID: <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
+References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5a83e8a5-fe7e-b4a8-f313-215e8340126d-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+Content-Language: en-CA
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: David.Panariti@amd.com, oleg@redhat.com, ebiederm@xmission.com, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBcHIgMjQsIDIwMTggYXQgMTE6NDMgQU0sIEFuZHJleSBHcm9kem92c2t5CjxBbmRy
-ZXkuR3JvZHpvdnNreUBhbWQuY29tPiB3cm90ZToKPiBDYW4gSSBwdXNoIHRoaXMgPwoKUGxlYXNl
-LgoKQWxleAoKPgo+IEFuZHJleQo+Cj4KPgo+IE9uIDA0LzIzLzIwMTggMTA6NDggQU0sIEFsZXgg
-RGV1Y2hlciB3cm90ZToKPj4KPj4gT24gTW9uLCBBcHIgMjMsIDIwMTggYXQgNzo0MSBBTSwgTmlj
-b2xhaSBIw6RobmxlIDxuaGFlaG5sZUBnbWFpbC5jb20+Cj4+IHdyb3RlOgo+Pj4KPj4+IEZyb206
-IE5pY29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+Cj4+Pgo+Pj4gT3RoZXJ3
-aXNlLCB0aGUgU1EgbWF5IHNraXAgc29tZSBvZiB0aGUgcmVnaXN0ZXIgd3JpdGVzLCBvciBzaGFk
-ZXIgd2F2ZXMKPj4+IG1heQo+Pj4gYmUgYWxsb2NhdGVkIHdoZXJlIHdlIGRvbid0IGV4cGVjdCB0
-aGVtLCBzbyB0aGF0IGFzIGEgcmVzdWx0IHdlIGRvbid0Cj4+PiBhY3R1YWxseQo+Pj4gcmVzZXQg
-YWxsIG9mIHRoZSByZWdpc3RlciBTUkFNcy4gVGhpcyBjYW4gbGVhZCB0byBzcHVyaW91cyBFQ0Mg
-ZXJyb3JzCj4+PiBsYXRlciBvbgo+Pj4gaWYgYSBzaGFkZXIgdXNlcyBhbiB1bmluaXRpYWxpemVk
-IHJlZ2lzdGVyLgo+Pj4KPj4+IEJ1Z3ppbGxhOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcv
-c2hvd19idWcuY2dpP2lkPTE5ODg4Mwo+Pj4gU2lnbmVkLW9mZi1ieTogTmljb2xhaSBIw6Robmxl
-IDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4KPj4KPj4gU2hvdWxkIHByb2JhYmx5IENDIHN0YWJs
-ZSBhcyB3ZWxsLgo+PiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
-ckBhbWQuY29tPgo+Pgo+Pj4gLS0tCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OF8wLmMgfCA3ICsrKysrLS0KPj4+ICAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygr
-KSwgMiBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
-djhfMC5jCj4+PiBpbmRleCBhMmQ3N2JjZjlhNzguLmJkY2U4NjRhYjhmZSAxMDA2NDQKPj4+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4+IEBAIC0xNDUyLDY0ICsxNDUyLDY3
-IEBAIHN0YXRpYyBjb25zdCB1MzIgc2dwcl9pbml0X2NvbXB1dGVfc2hhZGVyW10gPQo+Pj4gICAg
-ICAgICAgMHhiZWU2MDAwNCwgMHhiZWU3MDAwNSwKPj4+ICAgICAgICAgIDB4YmVlYTAwMDYsIDB4
-YmVlYjAwMDcsCj4+PiAgICAgICAgICAweGJlZTgwMDA4LCAweGJlZTkwMDA5LAo+Pj4gICAgICAg
-ICAgMHhiZWZjMDAwMCwgMHhiZjhhMDAwMCwKPj4+ICAgICAgICAgIDB4YmY4MTAwMDAsIDB4MDAw
-MDAwMDAsCj4+PiAgIH07Cj4+Pgo+Pj4gICBzdGF0aWMgY29uc3QgdTMyIHZncHJfaW5pdF9yZWdz
-W10gPQo+Pj4gICB7Cj4+PiAgICAgICAgICBtbUNPTVBVVEVfU1RBVElDX1RIUkVBRF9NR01UX1NF
-MCwgMHhmZmZmZmZmZiwKPj4+IC0gICAgICAgbW1DT01QVVRFX1JFU09VUkNFX0xJTUlUUywgMCwK
-Pj4+ICsgICAgICAgbW1DT01QVVRFX1JFU09VUkNFX0xJTUlUUywgMHgxMDAwMDAwLCAvKiBDVV9H
-Uk9VUF9DT1VOVD0xICovCj4+PiAgICAgICAgICBtbUNPTVBVVEVfTlVNX1RIUkVBRF9YLCAyNTYq
-NCwKPj4+ICAgICAgICAgIG1tQ09NUFVURV9OVU1fVEhSRUFEX1ksIDEsCj4+PiAgICAgICAgICBt
-bUNPTVBVVEVfTlVNX1RIUkVBRF9aLCAxLAo+Pj4gKyAgICAgICBtbUNPTVBVVEVfUEdNX1JTUkMx
-LCAweDEwMDAwNGYsIC8qIFZHUFJTPTE1ICg2NCBsb2dpY2FsIFZHUFJzKSwKPj4+IFNHUFJTPTEg
-KDE2IFNHUFJzKSwgQlVMS1k9MSAqLwo+Pj4gICAgICAgICAgbW1DT01QVVRFX1BHTV9SU1JDMiwg
-MjAsCj4+PiAgICAgICAgICBtbUNPTVBVVEVfVVNFUl9EQVRBXzAsIDB4ZWRjZWRjMDAsCj4+PiAg
-ICAgICAgICBtbUNPTVBVVEVfVVNFUl9EQVRBXzEsIDB4ZWRjZWRjMDEsCj4+PiAgICAgICAgICBt
-bUNPTVBVVEVfVVNFUl9EQVRBXzIsIDB4ZWRjZWRjMDIsCj4+PiAgICAgICAgICBtbUNPTVBVVEVf
-VVNFUl9EQVRBXzMsIDB4ZWRjZWRjMDMsCj4+PiAgICAgICAgICBtbUNPTVBVVEVfVVNFUl9EQVRB
-XzQsIDB4ZWRjZWRjMDQsCj4+PiAgICAgICAgICBtbUNPTVBVVEVfVVNFUl9EQVRBXzUsIDB4ZWRj
-ZWRjMDUsCj4+PiAgICAgICAgICBtbUNPTVBVVEVfVVNFUl9EQVRBXzYsIDB4ZWRjZWRjMDYsCj4+
-PiAgICAgICAgICBtbUNPTVBVVEVfVVNFUl9EQVRBXzcsIDB4ZWRjZWRjMDcsCj4+PiAgICAgICAg
-ICBtbUNPTVBVVEVfVVNFUl9EQVRBXzgsIDB4ZWRjZWRjMDgsCj4+PiAgICAgICAgICBtbUNPTVBV
-VEVfVVNFUl9EQVRBXzksIDB4ZWRjZWRjMDksCj4+PiAgIH07Cj4+Pgo+Pj4gICBzdGF0aWMgY29u
-c3QgdTMyIHNncHIxX2luaXRfcmVnc1tdID0KPj4+ICAgewo+Pj4gICAgICAgICAgbW1DT01QVVRF
-X1NUQVRJQ19USFJFQURfTUdNVF9TRTAsIDB4MGYsCj4+PiAtICAgICAgIG1tQ09NUFVURV9SRVNP
-VVJDRV9MSU1JVFMsIDB4MTAwMDAwMCwKPj4+ICsgICAgICAgbW1DT01QVVRFX1JFU09VUkNFX0xJ
-TUlUUywgMHgxMDAwMDAwLCAvKiBDVV9HUk9VUF9DT1VOVD0xICovCj4+PiAgICAgICAgICBtbUNP
-TVBVVEVfTlVNX1RIUkVBRF9YLCAyNTYqNSwKPj4+ICAgICAgICAgIG1tQ09NUFVURV9OVU1fVEhS
-RUFEX1ksIDEsCj4+PiAgICAgICAgICBtbUNPTVBVVEVfTlVNX1RIUkVBRF9aLCAxLAo+Pj4gKyAg
-ICAgICBtbUNPTVBVVEVfUEdNX1JTUkMxLCAweDI0MCwgLyogU0dQUlM9OSAoODAgR1BSUykgKi8K
-Pj4+ICAgICAgICAgIG1tQ09NUFVURV9QR01fUlNSQzIsIDIwLAo+Pj4gICAgICAgICAgbW1DT01Q
-VVRFX1VTRVJfREFUQV8wLCAweGVkY2VkYzAwLAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1VTRVJf
-REFUQV8xLCAweGVkY2VkYzAxLAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1VTRVJfREFUQV8yLCAw
-eGVkY2VkYzAyLAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1VTRVJfREFUQV8zLCAweGVkY2VkYzAz
-LAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1VTRVJfREFUQV80LCAweGVkY2VkYzA0LAo+Pj4gICAg
-ICAgICAgbW1DT01QVVRFX1VTRVJfREFUQV81LCAweGVkY2VkYzA1LAo+Pj4gICAgICAgICAgbW1D
-T01QVVRFX1VTRVJfREFUQV82LCAweGVkY2VkYzA2LAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1VT
-RVJfREFUQV83LCAweGVkY2VkYzA3LAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1VTRVJfREFUQV84
-LCAweGVkY2VkYzA4LAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1VTRVJfREFUQV85LCAweGVkY2Vk
-YzA5LAo+Pj4gICB9Owo+Pj4KPj4+ICAgc3RhdGljIGNvbnN0IHUzMiBzZ3ByMl9pbml0X3JlZ3Nb
-XSA9Cj4+PiAgIHsKPj4+ICAgICAgICAgIG1tQ09NUFVURV9TVEFUSUNfVEhSRUFEX01HTVRfU0Uw
-LCAweGYwLAo+Pj4gICAgICAgICAgbW1DT01QVVRFX1JFU09VUkNFX0xJTUlUUywgMHgxMDAwMDAw
-LAo+Pj4gICAgICAgICAgbW1DT01QVVRFX05VTV9USFJFQURfWCwgMjU2KjUsCj4+PiAgICAgICAg
-ICBtbUNPTVBVVEVfTlVNX1RIUkVBRF9ZLCAxLAo+Pj4gICAgICAgICAgbW1DT01QVVRFX05VTV9U
-SFJFQURfWiwgMSwKPj4+ICsgICAgICAgbW1DT01QVVRFX1BHTV9SU1JDMSwgMHgyNDAsIC8qIFNH
-UFJTPTkgKDgwIEdQUlMpICovCj4+PiAgICAgICAgICBtbUNPTVBVVEVfUEdNX1JTUkMyLCAyMCwK
-Pj4+ICAgICAgICAgIG1tQ09NUFVURV9VU0VSX0RBVEFfMCwgMHhlZGNlZGMwMCwKPj4+ICAgICAg
-ICAgIG1tQ09NUFVURV9VU0VSX0RBVEFfMSwgMHhlZGNlZGMwMSwKPj4+ICAgICAgICAgIG1tQ09N
-UFVURV9VU0VSX0RBVEFfMiwgMHhlZGNlZGMwMiwKPj4+ICAgICAgICAgIG1tQ09NUFVURV9VU0VS
-X0RBVEFfMywgMHhlZGNlZGMwMywKPj4+ICAgICAgICAgIG1tQ09NUFVURV9VU0VSX0RBVEFfNCwg
-MHhlZGNlZGMwNCwKPj4+ICAgICAgICAgIG1tQ09NUFVURV9VU0VSX0RBVEFfNSwgMHhlZGNlZGMw
-NSwKPj4+ICAgICAgICAgIG1tQ09NUFVURV9VU0VSX0RBVEFfNiwgMHhlZGNlZGMwNiwKPj4+ICAg
-ICAgICAgIG1tQ09NUFVURV9VU0VSX0RBVEFfNywgMHhlZGNlZGMwNywKPj4+ICAgICAgICAgIG1t
-Q09NUFVURV9VU0VSX0RBVEFfOCwgMHhlZGNlZGMwOCwKPj4+IC0tCj4+PiAyLjE0LjEKPj4+Cj4+
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+PiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPj4K
-Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KPgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+Adding the dri-devel list, since this is driver independent code.
+
+
+On 2018-04-24 05:30 PM, Andrey Grodzovsky wrote:
+> Avoid calling wait_event_killable when you are possibly being called
+> from get_signal routine since in that case you end up in a deadlock
+> where you are alreay blocked in singla processing any trying to wait
+
+Multiple typos here, "[...] already blocked in signal processing and [...]"?
+
+
+> on a new signal.
+> 
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>  drivers/gpu/drm/scheduler/gpu_scheduler.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> index 088ff2b..09fd258 100644
+> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> @@ -227,9 +227,10 @@ void drm_sched_entity_do_release(struct drm_gpu_scheduler *sched,
+>  		return;
+>  	/**
+>  	 * The client will not queue more IBs during this fini, consume existing
+> -	 * queued IBs or discard them on SIGKILL
+> +	 * queued IBs or discard them when in death signal state since
+> +	 * wait_event_killable can't receive signals in that state.
+>  	*/
+> -	if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
+> +	if (current->flags & PF_SIGNALED)
+>  		entity->fini_status = -ERESTARTSYS;
+>  	else
+>  		entity->fini_status = wait_event_killable(sched->job_scheduled,
+> 
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
