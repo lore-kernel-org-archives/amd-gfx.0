@@ -1,60 +1,59 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
  signaled process.
-Date: Tue, 24 Apr 2018 17:46:52 +0200
-Message-ID: <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
+Date: Tue, 24 Apr 2018 11:51:46 -0400
+Message-ID: <6a4ba810-e00a-6446-f3c8-a3be56f24589@amd.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
  <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+ <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
-Content-Language: en-CA
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: David.Panariti@amd.com, oleg@redhat.com, ebiederm@xmission.com, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <7313704c-0693-0bb9-8818-99cd2b7c0ca0-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-
-Adding the dri-devel list, since this is driver independent code.
-
-
-On 2018-04-24 05:30 PM, Andrey Grodzovsky wrote:
-> Avoid calling wait_event_killable when you are possibly being called
-> from get_signal routine since in that case you end up in a deadlock
-> where you are alreay blocked in singla processing any trying to wait
-
-Multiple typos here, "[...] already blocked in signal processing and [...]"?
-
-
-> on a new signal.
-> 
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->  drivers/gpu/drm/scheduler/gpu_scheduler.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> index 088ff2b..09fd258 100644
-> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> @@ -227,9 +227,10 @@ void drm_sched_entity_do_release(struct drm_gpu_scheduler *sched,
->  		return;
->  	/**
->  	 * The client will not queue more IBs during this fini, consume existing
-> -	 * queued IBs or discard them on SIGKILL
-> +	 * queued IBs or discard them when in death signal state since
-> +	 * wait_event_killable can't receive signals in that state.
->  	*/
-> -	if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
-> +	if (current->flags & PF_SIGNALED)
->  		entity->fini_status = -ERESTARTSYS;
->  	else
->  		entity->fini_status = wait_event_killable(sched->job_scheduled,
-> 
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
+CgpPbiAwNC8yNC8yMDE4IDExOjQ2IEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBBZGRpbmcg
+dGhlIGRyaS1kZXZlbCBsaXN0LCBzaW5jZSB0aGlzIGlzIGRyaXZlciBpbmRlcGVuZGVudCBjb2Rl
+LgoKVGhhbmtzLCBzbyBtYW55IGFkZHJlc3NlcyB0aGF0IHRoaXMgb25lIHNsaXBwZWQgb3V0Li4u
+Cj4KPgo+IE9uIDIwMTgtMDQtMjQgMDU6MzAgUE0sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+
+PiBBdm9pZCBjYWxsaW5nIHdhaXRfZXZlbnRfa2lsbGFibGUgd2hlbiB5b3UgYXJlIHBvc3NpYmx5
+IGJlaW5nIGNhbGxlZAo+PiBmcm9tIGdldF9zaWduYWwgcm91dGluZSBzaW5jZSBpbiB0aGF0IGNh
+c2UgeW91IGVuZCB1cCBpbiBhIGRlYWRsb2NrCj4+IHdoZXJlIHlvdSBhcmUgYWxyZWF5IGJsb2Nr
+ZWQgaW4gc2luZ2xhIHByb2Nlc3NpbmcgYW55IHRyeWluZyB0byB3YWl0Cj4gTXVsdGlwbGUgdHlw
+b3MgaGVyZSwgIlsuLi5dIGFscmVhZHkgYmxvY2tlZCBpbiBzaWduYWwgcHJvY2Vzc2luZyBhbmQg
+Wy4uLl0iPwoKSSBkb24ndCB1bmRlcnN0YW5kIHdoZXJlIGFyZSB0aGUgdHlwb3MuCgpBbmRyZXkK
+Cj4KPgo+PiBvbiBhIG5ldyBzaWduYWwuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9k
+em92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dw
+dS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYyB8IDUgKysrLS0KPj4gICAxIGZpbGUgY2hh
+bmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+PiBpbmRleCAwODhmZjJiLi4wOWZkMjU4IDEw
+MDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+PiBAQCAt
+MjI3LDkgKzIyNywxMCBAQCB2b2lkIGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZShzdHJ1Y3Qg
+ZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+PiAgIAkJcmV0dXJuOwo+PiAgIAkvKioKPj4gICAJ
+ICogVGhlIGNsaWVudCB3aWxsIG5vdCBxdWV1ZSBtb3JlIElCcyBkdXJpbmcgdGhpcyBmaW5pLCBj
+b25zdW1lIGV4aXN0aW5nCj4+IC0JICogcXVldWVkIElCcyBvciBkaXNjYXJkIHRoZW0gb24gU0lH
+S0lMTAo+PiArCSAqIHF1ZXVlZCBJQnMgb3IgZGlzY2FyZCB0aGVtIHdoZW4gaW4gZGVhdGggc2ln
+bmFsIHN0YXRlIHNpbmNlCj4+ICsJICogd2FpdF9ldmVudF9raWxsYWJsZSBjYW4ndCByZWNlaXZl
+IHNpZ25hbHMgaW4gdGhhdCBzdGF0ZS4KPj4gICAJKi8KPj4gLQlpZiAoKGN1cnJlbnQtPmZsYWdz
+ICYgUEZfU0lHTkFMRUQpICYmIGN1cnJlbnQtPmV4aXRfY29kZSA9PSBTSUdLSUxMKQo+PiArCWlm
+IChjdXJyZW50LT5mbGFncyAmIFBGX1NJR05BTEVEKQo+PiAgIAkJZW50aXR5LT5maW5pX3N0YXR1
+cyA9IC1FUkVTVEFSVFNZUzsKPj4gICAJZWxzZQo+PiAgIAkJZW50aXR5LT5maW5pX3N0YXR1cyA9
+IHdhaXRfZXZlbnRfa2lsbGFibGUoc2NoZWQtPmpvYl9zY2hlZHVsZWQsCj4+Cj4KCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
