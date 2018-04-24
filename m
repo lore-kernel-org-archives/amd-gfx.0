@@ -1,108 +1,264 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: RFC for a render API to support adaptive sync and VRR
-Date: Tue, 24 Apr 2018 14:09:46 +0200
-Message-ID: <20180424120946.GW31310@phenom.ffwll.local>
-References: <c79421ce-9408-5cd6-5de3-0fa521146e4b@amd.com>
- <435ebd04-0435-5a6a-9f1e-e4c4fc629aa9@amd.com>
- <20180409214554.GB13967@intel.com>
- <1e8d1857-faba-85da-0136-ea7c29ec1b84@amd.com>
- <b75e31f7-ce59-de97-5445-cb4c03ff7336@daenzer.net>
- <87o9ihyxl1.fsf@keithp.com>
- <CAKMK7uFMKEe24-cFuNx8N=JZsCG2qCZHn3orE5Aqyc8mXnuu2A@mail.gmail.com>
- <20180420203240.GA9472@intel.com>
- <488ba81c-9a40-77d3-fb71-ee0df7f9b42f@amd.com>
- <20180423211944.GC9472@intel.com>
+From: "S, Shirish" <sshankar@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Disallow enabling CRTC without primary
+ plane with FB
+Date: Tue, 24 Apr 2018 18:23:29 +0530
+Message-ID: <debcc150-b32b-7fab-1aec-ffad21dbffa1@amd.com>
+References: <20180418202647.25532-1-harry.wentland@amd.com>
+ <9e38b52d-9e9b-b4df-e5bb-9bda1862c18a@daenzer.net>
+ <3c912b9f-6756-e585-c7a7-63170e752688@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20180423211944.GC9472-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Cc: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>, Nicolai =?iso-8859-1?Q?H=E4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, "Cyr,
- Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "Koo,
- Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0628497701=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <3c912b9f-6756-e585-c7a7-63170e752688@amd.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Cc: Bhawanpreet.Lakha@amd.com, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Shirish.S@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBBcHIgMjMsIDIwMTggYXQgMDI6MTk6NDRQTSAtMDcwMCwgTWFuYXNpIE5hdmFyZSB3
-cm90ZToKPiBPbiBNb24sIEFwciAyMywgMjAxOCBhdCAxMDo0MDowNkFNIC0wNDAwLCBIYXJyeSBX
-ZW50bGFuZCB3cm90ZToKPiA+IE9uIDIwMTgtMDQtMjAgMDQ6MzIgUE0sIE1hbmFzaSBOYXZhcmUg
-d3JvdGU6Cj4gPiA+IE9uIFdlZCwgQXByIDE4LCAyMDE4IGF0IDA5OjM5OjAyQU0gKzAyMDAsIERh
-bmllbCBWZXR0ZXIgd3JvdGU6Cj4gPiA+PiBPbiBXZWQsIEFwciAxOCwgMjAxOCBhdCA1OjU4IEFN
-LCBLZWl0aCBQYWNrYXJkIDxrZWl0aHBAa2VpdGhwLmNvbT4gd3JvdGU6Cj4gPiA+Pj4gTWljaGVs
-IETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4gd3JpdGVzOgo+ID4gPj4+PiBUaW1lLWJhc2Vk
-IHByZXNlbnRhdGlvbiBzZWVtcyB0byBiZSB0aGUgcmlnaHQgYXBwcm9hY2ggZm9yIHByZXZlbnRp
-bmcKPiA+ID4+Pj4gbWljcm8tc3R1dHRlciBpbiBnYW1lcyBhcyB3ZWxsLCBDcm90ZWFtIGRldmVs
-b3BlcnMgaGF2ZSBiZWVuIHJlc2VhcmNoaW5nCj4gPiA+Pj4+IHRoaXMuCj4gPiA+Pj4KPiA+ID4+
-PiBCb3RoIHRoZSBWdWxrYW4gR09PR0xFX2Rpc3BsYXlfdGltaW5nIGV4dGVuc2lvbiBhbmQgWDEx
-IFByZXNlbnQKPiA+ID4+PiBleHRlbnNpb24gb2ZmZXIgdGhlIGFiaWxpdHkgdG8gc3BlY2lmeSB0
-aGUgZGVzaXJlZCBkaXNwbGF5IHRpbWUgaW4KPiA+ID4+PiBzZWNvbmRzLgo+ID4gPj4+Cj4gPiA+
-Pj4gU2ltaWxhcmx5LCBJJ2Qgc3VnZ2VzdCB0aGF0IHRoZSBtaW4vbWF4IGRpc3BsYXkgcmVmcmVz
-aCByYXRlIHZhbHVlcyBiZQo+ID4gPj4+IGFkdmVydGlzZWQgYXMgdGltZSBiZXR3ZWVuIGZyYW1l
-cyByYXRoZXIgdGhhbiBmcmFtZXMgcGVyIHNlY29uZC4KPiA+ID4gCj4gPiA+IFNvIHRoZXJlIGlz
-IGEgZ2xvYmFsIG1pbiBhbmQgbWF4IHJlZnJlc2ggcmF0ZSBhcyBhZHZlcnRpc2VkIGJ5IHRoZSBt
-b25pdG9yCj4gPiA+IHJhbmdlIGRlc2NyaXB0b3IuIFRoYXQgSSBndWVzcyBjYW4gYmUgZXhwb3Nl
-ZCBhcyBhIGdsb2JhbCByYW5nZSBpbiB0ZXJtcyBvZgo+ID4gPiBtaW4gYW5kIG1heCB0aW1lIGJl
-dHdlZW4gZnJhbWVzIGFzIGEgZ2xvYmFsIHByb3BlcnR5IG9mIHRoZSBjb25uZWN0b3IuCj4gPiA+
-IAo+ID4gPiBXZSBkb250IG5lZWQgdGhlIHBlciBtb2RlIG1pbiBhbmQgbWF4IHJlZnJlc2ggcmF0
-ZSB0byBiZSBleHBvc2VkIHJpZ2h0Pwo+ID4gCj4gPiBJZiBJIHVuZGVyc3RhbmQgVlJSIHJpZ2h0
-LCB3aXRoIENpbmVtYVZSUiBhY2NlcHRhYmxlIHJlZnJlc2ggcmF0ZXMgbWlnaHQgZmFsbCBvdXRz
-aWRlIHRoZSByYW5nZSBhZHZlcnRpc2VkIGJ5IHRoZSBtb25pdG9yLiBXb3VsZCB3ZQo+ID4gIDEp
-IGFkdmVydGlzZSAyNC8xLjAwMSBhcyBhIGxvd2VyIGJvdW5kLAo+ID4gIDIpIGV4cGVjdCBtZWRp
-YSBhcHBzIHRvIHVzZSB0aGUgbG93ZXIgYm91bmQgc2ltcGx5IGZvciBpbmZvcm1hdGlvbmFsIHB1
-cnBvc2VzLAo+ID4gIDMpIG9yIHNpbXBseSBub3Qgc3VwcG9ydCBDaW5lbWFWUlI/Cj4gPiAKPiA+
-ICgxKSBoYXMgdGhlIGFkZGVkIGNhdmVhdCB0aGF0IG5vdCBhbGwgcmVwb3J0ZWQgcmF0ZXMgd291
-bGQgYmUgc3VwcG9ydGVkLgo+ID4gCj4gPiBBbHRlcm5hdGl2ZWx5IGEgYml0IGNvdWxkIGluZGlj
-YXRlIHRoYXQgQ2luZW1hVlJSIGlzIHN1cHBvcnQsIGJ1dCBJJ20gbm90IHN1cmUgaWYgdXNlciBt
-b2RlIHdvdWxkIG5lZWQgYWxsIHRoZXNlIGRldGFpbHMuCj4gPiAKPiA+IEhhcnJ5Cj4gCj4gQXJl
-IHRoZXJlIHNwZWNpYWwgQ2luZW1hVlJSIHN1cG9ydGVkIG1vbml0b3JzPyBJbiB0aGF0IGNhc2Ug
-d2UgbmVlZCB0byB1bmRlcnN0YW5kIGhvdyB0aG9zZSBtb25pdG9ycwo+IGFkdmVydGlzZSB0aGUg
-bW9uaXRvciByYW5nZSBhbmQgaWYgdGhleSBoYXZlIGEgYml0IGluIEVESUQgdGhhdCBpbmRpY2F0
-ZSB0aGV5IGFyZSBDaW5lbWFWUlIgY2FwYWJsZQo+IGFzIG9wcG9zZWQgdG8ganVzdCB0aGUgQWRh
-cHRpdmUgU3luYy9WUlIuCj4gSGFycnksIGlmIHlvdSBoYXZlIG9uZSBvZiB0aG9zZSBtb25pdG9y
-cywgY291bGQgeW91IHNlbmQgdGhlIEVESUQgZHVtcCBmb3IgdGhhdD8KCkFzIGxvbmcgYXMgdGhl
-IGFueSBtdWx0aXBsZSBvZiB0aGUgMjQvMS4wMDEgcmVmcmVzaCByYXRlIGlzIHdpdGhpbiB0aGUK
-b2ZmaWNpYWxseSBzdXBwb3J0ZWQgcmVmcmVzaCByYW5nZSByYXRlIHRoaXMgc2hvdWxkIHdvcmsg
-b3V0LiBNYXliZSB3ZSdsbAplbmQgdXAgdXBsb2FkaW5nIDJ4ICh0byBydW4gYXQgfjQ4SHopLCBt
-YXliZSB0aGUga2VybmVsIG9ubHkgdXBsb2FkcyBhdAoyNEh6LiBCdXQgc2hvdWxkIGFsbCBiZSBm
-aW5lLgoKT2ZjIGlmIHdlIGhhdmUgQ2luZW1hVlJSIHNjcmVlbnMgd2hpY2ggZG9uJ3QgZml0IHRo
-aXMsIHRoZW4gbWF5YmUgd2UgbmVlZAp0byBmaWd1cmUgb3V0IHNvbWV0aGluZyAuLi4KLURhbmll
-bAoKPiAKPiBNYW5hc2kKPiAKPiA+IAo+ID4gPiAKPiA+ID4+Pgo+ID4gPj4+IEknZCBhbHNvIGVu
-Y291cmFnZSB1c2luZyBhIHNpbmdsZSB1bml0IGZvciBhbGwgb2YgdGhlc2UgdmFsdWVzLAo+ID4g
-Pj4+IHByZWZlcmFibHkgbmFub3NlY29uZHMuIEFic29sdXRlIHRpbWVzIHNob3VsZCBhbGwgYmUg
-cmVmZXJlbmNlZCB0bwo+ID4gPj4+IENMT0NLX01PTk9UT05JQy4KPiA+ID4+Cj4gPiA+PiArMSBv
-biBldmVyeXRoaW5nIEtlaXRoIHNhaWQuIEkgZ290IHNvbWVob3cgZHJhZ2dlZCBpbiBraHIgdmsK
-PiA+ID4+IGRpc2N1c3Npb25zIGFyb3VuZCBwcmV2ZW50aW5nIG1pY3JvLXN0dXR0ZXJpbmcsIGFu
-ZCBjb25zZW5zdXMgc2VlbXMgdG8KPiA+ID4+IGJlIHRoYXQgdGltZXN0YW1wcyBmb3Igc2NoZWR1
-bGluZyBmcmFtZXMgaXMgdGhlIHdheSB0byBnbywgbW9zdCBsaWtlbHkKPiA+ID4+IGFic29sdXRl
-IG9uZXMgKG5vdCBldmVyeXRoaW5nIGlzIHJ1bm5pbmcgTGludXggdW5mb3J0dW5hdGVseSwgc28g
-Y2FuJ3QKPiA+ID4+IGdvIG91dHJpZ2h0IGFuZCBjbGFpbSBpdCdzIGd1YXJhbnRlZWQgdG8gYmUg
-Q0xPQ0tfTU9OT1RPTklDKS4KPiA+ID4+IC1EYW5pZWwKPiA+ID4gCj4gPiA+IEFuZCB5ZXMgSSBh
-bHNvIGdvdCBjb25zZW5zdXMgZnJvbSBNZXNhIGFuZCBtZWRpYSBmb2xrcyBhYm91dCB1c2luZyB0
-aGUKPiA+ID4gYWJzb2x1dGUgdGltZXN0YW1wIGZvciBzY2hlZHVsaW5nIHRoZSBmcmFtZXMgYW5k
-IHRoZW4gdGhlIGRyaXZlciB3aWxsCj4gPiA+IG1vZGlmeSB0aGUgdmJsYW5rIGxvZ2ljIHRvICJw
-cmVzZW50IG5vIGVhcmxpZXIgdGhhbiB0aGUgdGltZXN0YW1wIgo+ID4gPiAKPiA+ID4gTWFuYXNp
-Cj4gPiA+IAo+ID4gPj4gLS0gCj4gPiA+PiBEYW5pZWwgVmV0dGVyCj4gPiA+PiBTb2Z0d2FyZSBF
-bmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPiA+ID4+ICs0MSAoMCkgNzkgMzY1IDU3IDQ4IC0g
-aHR0cDovL2Jsb2cuZmZ3bGwuY2gKPiA+ID4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCj4gPiA+PiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gPiA+PiBk
-cmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiA+PiBodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo+ID4gPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4gPiBkcmktZGV2ZWwgbWFpbGlu
-ZyBsaXN0Cj4gPiA+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+ID4gaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKPiA+ID4g
-CgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24K
-aHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0628497701==
+Content-Type: multipart/alternative;
+ boundary="------------BB2016718FFD79E21001B271"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------BB2016718FFD79E21001B271
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+On 4/19/2018 8:08 PM, Harry Wentland wrote:
+> On 2018-04-19 03:43 AM, Michel Dänzer wrote:
+>> [ Dropping stable@ (fixes with Cc: stable are picked up for stable
+>> branches once they land in Linus' tree, there's no point sending them to
+>> stable@ during review), adding dri-devel ]
+>>
+>> On 2018-04-18 10:26 PM, Harry Wentland wrote:
+>>> The below commit
+>>>
+>>>      "drm/atomic: Try to preserve the crtc enabled state in drm_atomic_remove_fb, v2"
+>>>
+>>> introduces a slight behavioral change to rmfb. Instead of disabling a crtc
+>>> when the primary plane is disabled, it now preserves it.
+>>>
+>>> Since DC is currently not equipped to handle this we need to fail such
+>>> a commit, otherwise we might see a corrupted screen.
+>> How does the caller react to failing such a commit?
+> The caller (drm_atomic_remove_fb in this case) will retry with the old behavior and disable the CRTC.
+>
+> Harry
+That's the fall back logic suggested in the patch that caused this issue.
+
+This patch is  Reviewed-by: Shirish S <shirish.s@amd.com 
+<mailto:harry.wentland@amd.com>>
+
+Regards,
+
+Shirish S
+
+>>
+>>> This is based on Shirish's previous approach but avoids adding all
+>>> planes to the new atomic state which leads to a full update in DC for
+>>> any commit, and is not what we intend.
+>>>
+>>> Theoretically DM should be able to deal with states with fully populated planes,
+>>> even for simple updates, such as cursor updates. This should still be
+>>> addressed in the future.
+>>>
+>>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>>> Cc: stable@vger.kernel.org
+>>> ---
+>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++++-
+>>>   1 file changed, 9 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> index 6f92a19bebd6..0bdc6b484bad 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>> @@ -4683,6 +4683,7 @@ static int dm_update_crtcs_state(struct amdgpu_display_manager *dm,
+>>>   		struct amdgpu_dm_connector *aconnector = NULL;
+>>>   		struct drm_connector_state *new_con_state = NULL;
+>>>   		struct dm_connector_state *dm_conn_state = NULL;
+>>> +		struct drm_plane_state *new_plane_state = NULL;
+>>>   
+>>>   		new_stream = NULL;
+>>>   
+>>> @@ -4690,6 +4691,13 @@ static int dm_update_crtcs_state(struct amdgpu_display_manager *dm,
+>>>   		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+>>>   		acrtc = to_amdgpu_crtc(crtc);
+>>>   
+>>> +		new_plane_state = drm_atomic_get_new_plane_state(state, new_crtc_state->crtc->primary);
+>>> +
+>>> +		if (new_crtc_state->enable && new_plane_state && !new_plane_state->fb) {
+>>> +			ret = -EINVAL;
+>>> +			goto fail;
+>>> +		}
+>>> +
+>>>   		aconnector = amdgpu_dm_find_first_crtc_matching_connector(state, crtc);
+>>>   
+>>>   		/* TODO This hack should go away */
+>>> @@ -4894,7 +4902,7 @@ static int dm_update_planes_state(struct dc *dc,
+>>>   			if (!dm_old_crtc_state->stream)
+>>>   				continue;
+>>>   
+>>> -			DRM_DEBUG_DRIVER("Disabling DRM plane: %d on DRM crtc %d\n",
+>>> +			DRM_DEBUG_ATOMIC("Disabling DRM plane: %d on DRM crtc %d\n",
+>>>   					plane->base.id, old_plane_crtc->base.id);
+>>>   
+>>>   			if (!dc_remove_plane_from_context(
+>>>
+>>
+
+
+--------------BB2016718FFD79E21001B271
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 4/19/2018 8:08 PM, Harry Wentland
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:3c912b9f-6756-e585-c7a7-63170e752688@amd.com">
+      <pre wrap="">On 2018-04-19 03:43 AM, Michel Dänzer wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">
+[ Dropping stable@ (fixes with Cc: stable are picked up for stable
+branches once they land in Linus' tree, there's no point sending them to
+stable@ during review), adding dri-devel ]
+
+On 2018-04-18 10:26 PM, Harry Wentland wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">The below commit
+
+    "drm/atomic: Try to preserve the crtc enabled state in drm_atomic_remove_fb, v2"
+
+introduces a slight behavioral change to rmfb. Instead of disabling a crtc
+when the primary plane is disabled, it now preserves it.
+
+Since DC is currently not equipped to handle this we need to fail such
+a commit, otherwise we might see a corrupted screen.
+</pre>
+        </blockquote>
+        <pre wrap="">
+How does the caller react to failing such a commit?
+</pre>
+      </blockquote>
+      <pre wrap="">
+The caller (drm_atomic_remove_fb in this case) will retry with the old behavior and disable the CRTC.
+
+Harry
+</pre>
+    </blockquote>
+    That's the fall back logic suggested in the patch that caused this
+    issue.<br>
+    <!--[if gte mso 9]><xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+    <p class="MsoPlainText">This patch is  Reviewed-by: Shirish S &lt;<a
+        href="mailto:harry.wentland@amd.com">shirish.s@amd.com</a>&gt;</p>
+    <p class="MsoPlainText">Regards,</p>
+    <p class="MsoPlainText">Shirish S<br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:3c912b9f-6756-e585-c7a7-63170e752688@amd.com">
+      <blockquote type="cite">
+        <pre wrap="">
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">This is based on Shirish's previous approach but avoids adding all
+planes to the new atomic state which leads to a full update in DC for
+any commit, and is not what we intend.
+
+Theoretically DM should be able to deal with states with fully populated planes,
+even for simple updates, such as cursor updates. This should still be
+addressed in the future.
+
+Signed-off-by: Harry Wentland <a class="moz-txt-link-rfc2396E" href="mailto:harry.wentland@amd.com">&lt;harry.wentland@amd.com&gt;</a>
+Cc: <a class="moz-txt-link-abbreviated" href="mailto:stable@vger.kernel.org">stable@vger.kernel.org</a>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6f92a19bebd6..0bdc6b484bad 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4683,6 +4683,7 @@ static int dm_update_crtcs_state(struct amdgpu_display_manager *dm,
+ 		struct amdgpu_dm_connector *aconnector = NULL;
+ 		struct drm_connector_state *new_con_state = NULL;
+ 		struct dm_connector_state *dm_conn_state = NULL;
++		struct drm_plane_state *new_plane_state = NULL;
+ 
+ 		new_stream = NULL;
+ 
+@@ -4690,6 +4691,13 @@ static int dm_update_crtcs_state(struct amdgpu_display_manager *dm,
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 		acrtc = to_amdgpu_crtc(crtc);
+ 
++		new_plane_state = drm_atomic_get_new_plane_state(state, new_crtc_state-&gt;crtc-&gt;primary);
++
++		if (new_crtc_state-&gt;enable &amp;&amp; new_plane_state &amp;&amp; !new_plane_state-&gt;fb) {
++			ret = -EINVAL;
++			goto fail;
++		}
++
+ 		aconnector = amdgpu_dm_find_first_crtc_matching_connector(state, crtc);
+ 
+ 		/* TODO This hack should go away */
+@@ -4894,7 +4902,7 @@ static int dm_update_planes_state(struct dc *dc,
+ 			if (!dm_old_crtc_state-&gt;stream)
+ 				continue;
+ 
+-			DRM_DEBUG_DRIVER("Disabling DRM plane: %d on DRM crtc %d\n",
++			DRM_DEBUG_ATOMIC("Disabling DRM plane: %d on DRM crtc %d\n",
+ 					plane-&gt;base.id, old_plane_crtc-&gt;base.id);
+ 
+ 			if (!dc_remove_plane_from_context(
+
+</pre>
+        </blockquote>
+        <pre wrap="">
+
+</pre>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------BB2016718FFD79E21001B271--
+
+--===============0628497701==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0628497701==--
