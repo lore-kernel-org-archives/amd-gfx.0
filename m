@@ -1,105 +1,36 @@
 From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] drm/admgpu: fix mode_valid's return type
-Date: Tue, 24 Apr 2018 15:14:18 +0200
-Message-ID: <20180424131438.1751-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix amdgpu_atpx_get_client_id()'s return type
+Date: Tue, 24 Apr 2018 15:15:34 +0200
+Message-ID: <20180424131536.2611-1-luc.vanoostenryck@gmail.com>
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org
-Cc: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, Dave Airlie <airlied@redhat.com>, Samuel Li <Samuel.Li@amd.com>, Himanshu Jha <himanshujha199640@gmail.com>, Jani Nikula <jani.nikula@intel.com>, Lukas Wunner <lukas@wunner.de>, Keith Packard <keithp@keithp.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Monk Liu <Monk.Liu@amd.com>, Masahiro Yamada <yamada.masahiro@socionext.com>, Peter Rosin <peda@axentia.se>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Tony
+Cc: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Kai-Heng Feng <kai.heng.feng@canonical.com>, Huang Rui <ray.huang@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-The method struct drm_connector_helper_funcs::mode_valid is defined
-as returning an 'enum drm_mode_status' but the driver implementation
-for this method uses an 'int' for it.
+The method struct vga_switcheroo_handler::get_client_id() is defined
+as returning an 'enum vga_switcheroo_client_id' but the implementation
+in this driver, amdgpu_atpx_get_client_id(), returns an 'int'.
 
-Fix this by using 'enum drm_mode_status' in the driver too.
+Fix this by returning 'enum vga_switcheroo_client_id' in this driver too.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 8 ++++----
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c          | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index 96501ff0e..8e66851eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -691,7 +691,7 @@ static int amdgpu_connector_lvds_get_modes(struct drm_connector *connector)
- 	return ret;
- }
- 
--static int amdgpu_connector_lvds_mode_valid(struct drm_connector *connector,
-+static enum drm_mode_status amdgpu_connector_lvds_mode_valid(struct drm_connector *connector,
- 					     struct drm_display_mode *mode)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+index 1ae5ae8c4..1bcb2b247 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+@@ -550,7 +550,7 @@ static int amdgpu_atpx_init(void)
+  * look up whether we are the integrated or discrete GPU (all asics).
+  * Returns the client id.
+  */
+-static int amdgpu_atpx_get_client_id(struct pci_dev *pdev)
++static enum vga_switcheroo_client_id amdgpu_atpx_get_client_id(struct pci_dev *pdev)
  {
- 	struct drm_encoder *encoder = amdgpu_connector_best_single_encoder(connector);
-@@ -843,7 +843,7 @@ static int amdgpu_connector_vga_get_modes(struct drm_connector *connector)
- 	return ret;
- }
- 
--static int amdgpu_connector_vga_mode_valid(struct drm_connector *connector,
-+static enum drm_mode_status amdgpu_connector_vga_mode_valid(struct drm_connector *connector,
- 					    struct drm_display_mode *mode)
- {
- 	struct drm_device *dev = connector->dev;
-@@ -1172,7 +1172,7 @@ static void amdgpu_connector_dvi_force(struct drm_connector *connector)
- 		amdgpu_connector->use_digital = true;
- }
- 
--static int amdgpu_connector_dvi_mode_valid(struct drm_connector *connector,
-+static enum drm_mode_status amdgpu_connector_dvi_mode_valid(struct drm_connector *connector,
- 					    struct drm_display_mode *mode)
- {
- 	struct drm_device *dev = connector->dev;
-@@ -1448,7 +1448,7 @@ amdgpu_connector_dp_detect(struct drm_connector *connector, bool force)
- 	return ret;
- }
- 
--static int amdgpu_connector_dp_mode_valid(struct drm_connector *connector,
-+static enum drm_mode_status amdgpu_connector_dp_mode_valid(struct drm_connector *connector,
- 					   struct drm_display_mode *mode)
- {
- 	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-index b51f05dc9..476c9b987 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-@@ -329,7 +329,7 @@ static int dce_virtual_get_modes(struct drm_connector *connector)
- 	return 0;
- }
- 
--static int dce_virtual_mode_valid(struct drm_connector *connector,
-+static enum drm_mode_status dce_virtual_mode_valid(struct drm_connector *connector,
- 				  struct drm_display_mode *mode)
- {
- 	return MODE_OK;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 4e2f379ce..d7e52c4f6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2855,7 +2855,7 @@ static void handle_edid_mgmt(struct amdgpu_dm_connector *aconnector)
- 	create_eml_sink(aconnector);
- }
- 
--int amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
-+enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
- 				   struct drm_display_mode *mode)
- {
- 	int result = MODE_ERROR;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index b68400c11..cb7e20cb3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -246,7 +246,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 				     struct dc_link *link,
- 				     int link_index);
- 
--int amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
-+enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connector,
- 				   struct drm_display_mode *mode);
- 
- void dm_restore_drm_connector_state(struct drm_device *dev,
+ 	if (amdgpu_atpx_priv.dhandle == ACPI_HANDLE(&pdev->dev))
+ 		return VGA_SWITCHEROO_IGD;
 -- 
 2.17.0
