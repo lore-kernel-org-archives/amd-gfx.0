@@ -1,76 +1,64 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
-Subject: Re: [PATCH 3/3] drm/amdgpu: Switch to interrupted wait to recover from ring hang.
-Date: Tue, 24 Apr 2018 11:30:03 -0500
-Message-ID: <87bme8bm9g.fsf@xmission.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Switch to interrupted wait to recover
+ from ring hang.
+Date: Tue, 24 Apr 2018 12:38:50 -0400
+Message-ID: <38047e61-6859-14dc-956d-036b26e984e7@amd.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-4-git-send-email-andrey.grodzovsky@amd.com>
-        <DM5PR12MB244017F98FC732EB5DD86E0395880@DM5PR12MB2440.namprd12.prod.outlook.com>
-        <b4309ea4-c1a0-5811-040b-4390ce6f297f@amd.com>
-        <DM5PR12MB24408FF7C780D95307FB2BAD95880@DM5PR12MB2440.namprd12.prod.outlook.com>
+ <1524583836-12130-4-git-send-email-andrey.grodzovsky@amd.com>
+ <8736zkd1jz.fsf@xmission.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <DM5PR12MB24408FF7C780D95307FB2BAD95880@DM5PR12MB2440.namprd12.prod.outlook.com>
-        (David Panariti's message of "Tue, 24 Apr 2018 16:20:16 +0000")
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Panariti, David" <David.Panariti@amd.com>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "oleg@redhat.com" <oleg@redhat.com>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <8736zkd1jz.fsf-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Eric W. Biederman" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-"Panariti, David" <David.Panariti@amd.com> writes:
-
-> Andrey Grodzovsky <andrey.grodzovsky@amd.com> writes:
->> Kind of dma_fence_wait_killable, except that we don't have such API
->> (maybe worth adding ?)
-> Depends on how many places it would be called, or think it might be called.  Can always factor on the 2nd time it's needed.
-> Factoring, IMO, rarely hurts.  The factored function can easily be visited using `M-.' ;->
->
-> Also, if the wait could be very long, would a log message, something like "xxx has run for Y seconds."  help?
-> I personally hate hanging w/no info.
-
-Ugh.  This loop appears susceptible to loosing wake ups.  There are
-races between when a wake-up happens, when we clear the sleeping state,
-and when we test the stat to see if we should stat awake.  So yes
-implementing a dma_fence_wait_killable that handles of all that
-correctly sounds like an very good idea.
-
-Eric
-
-
->> If the ring is hanging for some reason allow to recover the waiting by sending fatal signal.
->>
->> Originally-by: David Panariti <David.Panariti@amd.com>
->> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 14 ++++++++++----
->>   1 file changed, 10 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->> index eb80edf..37a36af 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->> @@ -421,10 +421,16 @@ int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx, unsigned ring_id)
->>
->>       if (other) {
->>               signed long r;
->> -             r = dma_fence_wait_timeout(other, false, MAX_SCHEDULE_TIMEOUT);
->> -             if (r < 0) {
->> -                     DRM_ERROR("Error (%ld) waiting for fence!\n", r);
->> -                     return r;
->> +
->> +             while (true) {
->> +                     if ((r = dma_fence_wait_timeout(other, true,
->> +                                     MAX_SCHEDULE_TIMEOUT)) >= 0)
->> +                             return 0;
->> +
->> +                     if (fatal_signal_pending(current)) {
->> +                             DRM_ERROR("Error (%ld) waiting for fence!\n", r);
->> +                             return r;
->> +                     }
->>               }
->>       }
->>
->> --
->> 2.7.4
->>
-Eric
+CgpPbiAwNC8yNC8yMDE4IDEyOjE0IFBNLCBFcmljIFcuIEJpZWRlcm1hbiB3cm90ZToKPiBBbmRy
+ZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4gd3JpdGVzOgo+Cj4+IElm
+IHRoZSByaW5nIGlzIGhhbmdpbmcgZm9yIHNvbWUgcmVhc29uIGFsbG93IHRvIHJlY292ZXIgdGhl
+IHdhaXRpbmcKPj4gYnkgc2VuZGluZyBmYXRhbCBzaWduYWwuCj4+Cj4+IE9yaWdpbmFsbHktYnk6
+IERhdmlkIFBhbmFyaXRpIDxEYXZpZC5QYW5hcml0aUBhbWQuY29tPgo+PiBTaWduZWQtb2ZmLWJ5
+OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPj4gLS0tCj4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIHwgMTQgKysrKysrKysr
+Ky0tLS0KPj4gICAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMo
+LSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
+dHguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+PiBpbmRleCBl
+YjgwZWRmLi4zN2EzNmFmIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfY3R4LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2N0eC5jCj4+IEBAIC00MjEsMTAgKzQyMSwxNiBAQCBpbnQgYW1kZ3B1X2N0eF93YWl0X3ByZXZf
+ZmVuY2Uoc3RydWN0IGFtZGdwdV9jdHggKmN0eCwgdW5zaWduZWQgcmluZ19pZCkKPj4gICAKPj4g
+ICAJaWYgKG90aGVyKSB7Cj4+ICAgCQlzaWduZWQgbG9uZyByOwo+PiAtCQlyID0gZG1hX2ZlbmNl
+X3dhaXRfdGltZW91dChvdGhlciwgZmFsc2UsIE1BWF9TQ0hFRFVMRV9USU1FT1VUKTsKPj4gLQkJ
+aWYgKHIgPCAwKSB7Cj4+IC0JCQlEUk1fRVJST1IoIkVycm9yICglbGQpIHdhaXRpbmcgZm9yIGZl
+bmNlIVxuIiwgcik7Cj4+IC0JCQlyZXR1cm4gcjsKPj4gKwo+PiArCQl3aGlsZSAodHJ1ZSkgewo+
+PiArCQkJaWYgKChyID0gZG1hX2ZlbmNlX3dhaXRfdGltZW91dChvdGhlciwgdHJ1ZSwKPj4gKwkJ
+CQkJTUFYX1NDSEVEVUxFX1RJTUVPVVQpKSA+PSAwKQo+PiArCQkJCXJldHVybiAwOwo+PiArCj4+
+ICsJCQlpZiAoZmF0YWxfc2lnbmFsX3BlbmRpbmcoY3VycmVudCkpIHsKPj4gKwkJCQlEUk1fRVJS
+T1IoIkVycm9yICglbGQpIHdhaXRpbmcgZm9yIGZlbmNlIVxuIiwgcik7Cj4+ICsJCQkJcmV0dXJu
+IHI7Cj4+ICsJCQl9Cj4gSXQgbG9va3MgbGlrZSBpZiB5b3UgbWFrZSB0aGlzIGNvZGUgc2F5Ogo+
+IAkJCWlmIChmYXRhbF9zaWduYWxfcGVuZGluZyhjdXJyZW50KSB8fAo+IAkJCSAgICAoY3VycmVu
+dC0+ZmxhZ3MgJiBQRl9FWElUSU5HKSkgewo+IAkJCQlEUk1fRVJST1IoIkVycm9yICglbGQpIHdh
+aXRpbmcgZm9yIGZlbmNlIVxuIiwgcik7Cj4gCQkJCXJldHVybiByOwo+PiAgIAkJfQo+PiAgIAl9
+Cj4gVGhhbiB5b3Ugd291bGQgbm90IG5lZWQgdGhlIGhvcnJpYmxlIGhhY2sgd2FudF9zaWduYWwg
+dG8gZGVsaXZlciBzaWduYWxzCj4gdG8gcHJvY2Vzc2VzIHdobyBoYXZlIHBhc3NlZCBleGl0X3Np
+Z25hbCgpIGFuZCBkb24ndCBleHBlY3QgdG8gbmVlZAo+IHRoZWlyIHNpZ25hbCBoYW5kbGluZyBt
+ZWNoYW5pc21zIGFueW1vcmUuCgpMZXQgbWUgY2xhcmlmeSzCoCB0aGUgY2hhbmdlIGluIHdhbnRf
+c2lnbmFsIHdhc24ndCBhZGRyZXNzaW5nIHRoaXMgY29kZSAKYnV0IGhhbmcgaW4KZHJtX3NjaGVk
+X2VudGl0eV9kb19yZWxlYXNlLT53YWl0X2V2ZW50X2tpbGxhYmxlLCB3aGVuIHlvdSB0cnkgdG8g
+CmdyYWNlZnVsbHkgdGVybWluYXRlIGJ5IHdhaXRpbmcKZm9yIGFsbCBqb2IgY29tcGxldGlvbnMg
+b24gdGhlIEdQVSBwaXBlIHlvdSBwcm9jZXNzIGlzIHVzaW5nLgoKQW5kcmV5Cgo+Cj4gRXJpYwo+
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
