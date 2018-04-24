@@ -1,58 +1,61 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
-Subject: Re: [PATCH 1/3] signals: Allow generation of SIGKILL to exiting task.
-Date: Tue, 24 Apr 2018 12:29:32 -0500
-Message-ID: <871sf48qdf.fsf@xmission.com>
-References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-2-git-send-email-andrey.grodzovsky@amd.com>
-        <87y3hca73s.fsf@xmission.com>
-        <e371e586-0859-adb0-6666-d40a909d0b22@amd.com>
+From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu 04/19] Remove
+ drmCheckModesettingSupported and kernel module loading
+Date: Tue, 24 Apr 2018 19:11:02 +0100
+Message-ID: <CACvgo53XGir53tkK_4_3aXVjJUgwV99p7O+ztAaAnkpxNz-6Nw@mail.gmail.com>
+References: <20180404142954.31360-1-emil.l.velikov@gmail.com>
+ <20180404142954.31360-5-emil.l.velikov@gmail.com>
+ <950e27fd-44e4-fc03-409f-467cd15d4287@daenzer.net>
+ <CACvgo537uSgqyBHgEXfFOGNAgToNwwCey63XGhde5hE+A-x0ww@mail.gmail.com>
+ <3743061b-cd8e-be36-ce4c-13ae9cc4a52a@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <e371e586-0859-adb0-6666-d40a909d0b22@amd.com> (Andrey
-        Grodzovsky's message of "Tue, 24 Apr 2018 12:51:13 -0400")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.Panariti@amd.com, oleg@redhat.com, akpm@linux-foundation.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <3743061b-cd8e-be36-ce4c-13ae9cc4a52a-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Robert Millan <rmh-h+KGxgPPiopAfugRpC6u6w@public.gmane.org>
 
-Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
-
-> On 04/24/2018 12:42 PM, Eric W. Biederman wrote:
->> Andrey Grodzovsky <andrey.grodzovsky@amd.com> writes:
->>
->>> Currently calling wait_event_killable as part of exiting process
->>> will stall forever since SIGKILL generation is suppresed by PF_EXITING.
->>>
->>> In our partilaur case AMDGPU driver wants to flush all GPU jobs in
->>> flight before shutting down. But if some job hangs the pipe we still want to
->>> be able to kill it and avoid a process in D state.
->> I should clarify.  This absolutely can not be done.
->> PF_EXITING is set just before a task starts tearing down it's signal
->> handling.
->>
->> So delivering any signal, or otherwise depending on signal handling
->> after PF_EXITING is set can not be done.  That abstraction is gone.
->
-> I see, so you suggest it's the driver responsibility to avoid creating
-> such code path that ends up
-> calling wait_event_killable from exit call stack (PF_EXITING == 1) ?
-
-I don't just suggest.
-
-I am saying clearly that any dependency on receiving SIGKILL after
-PF_EXITING is set is a bug.
-
-It looks safe (the bitmap is not freed) to use wait_event_killable on a
-dual use code path, but you can't expect SIGKILL ever to be delivered
-during fop->release, as f_op->release is called from exit after signal
-handling has been shutdown.
-
-The best generic code could do would be to always have
-fatal_signal_pending return true after PF_EXITING is set.
-
-Increasingly I am thinking that drm_sched_entity_fini should have a
-wait_event_timeout or no wait at all.  The cleanup code should have
-a progress guarantee of it's own.
-
-Eric
+T24gMTAgQXByaWwgMjAxOCBhdCAxMDoyNywgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVy
+Lm5ldD4gd3JvdGU6Cj4gT24gMjAxOC0wNC0xMCAxMToyMCBBTSwgRW1pbCBWZWxpa292IHdyb3Rl
+Ogo+PiBPbiAxMCBBcHJpbCAyMDE4IGF0IDA5OjI2LCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
+ZW56ZXIubmV0PiB3cm90ZToKPj4+IE9uIDIwMTgtMDQtMDQgMDQ6MjkgUE0sIEVtaWwgVmVsaWtv
+diB3cm90ZToKPj4+PiBGcm9tOiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xsYWJvcmEu
+Y29tPgo+Pj4+Cj4+Pj4gVGhlIGZvcm1lciBvZiB0aGVzZSBpcyBhIFVNUyBhcnRlZmFjdCB3aGlj
+aCBnaXZlcyBpbmNvcnJlY3QgYW5kCj4+Pj4gbWlzbGVhZGluZyBwcm9taXNlIHdoZXRoZXIgIktN
+UyIgaXMgc3VwcG9ydGVkLiBOb3QgdG8gbWVudGlvbiB0aGF0Cj4+Pj4gQU1ER1BVIGlzIGEgb25s
+eSBLTVMgZHJpdmVyLgo+Pj4+Cj4+Pj4gSW4gYSBzaW1pbGFyIGZhc2hpb24geGY4NkxvYWRLZXJu
+ZWxNb2R1bGUoKSBpcyBhIHJlbGljIG9mIHRoZSB0aW1lcywKPj4+PiB3aGVyZSBwbGF0Zm9ybXMg
+aGFkIG5vIHNjaGVtZSBvZiBkZXRlY3RpbmcgYW5kIGxvYWRpbmcgdGhlIGFwcHJvcHJpYXRlCj4+
+Pj4ga2VybmVsIG1vZHVsZS4KPj4+Pgo+Pj4+IENjOiBSb2JlcnQgTWlsbGFuIDxybWhAZnJlZWJz
+ZC5vcmc+Cj4+Pj4gU2lnbmVkLW9mZi1ieTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZAY29s
+bGFib3JhLmNvbT4KPj4+PiAtLS0KPj4+PiBSb2JlcnQsIG9mZiB0aGUgdG9wIG9mIG15IGhlYWQg
+dGhpcyBzaG91bGQgd29yayB3aXRoIEZyZWVCU0QuIEFkbWl0dGVkbHkKPj4+PiBJJ20gbm90IGFu
+IGV4cGVydCBvbiB0aGUgcGxhdGZvcm0uIFBsZWFzZSBnaXZlIGl0IGEgdGVzdC4KPj4+Cj4+PiBJ
+IHdhbnQgdG8gZ2V0IGNvbmZpcm1hdGlvbiBmcm9tIFJvYmVydCB0aGF0IHRoaXMgd2lsbCB3b3Jr
+IG9uIEZyZWVCU0QKPj4+IG5vdywgc2luY2UgaGUgZXhwbGljaXRseSByZXN0b3JlZCB0aGUga2Vy
+bmVsIG1vZHVsZSBsb2FkaW5nIGNvZGUgaW4KPj4+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5v
+cmcveG9yZy9kcml2ZXIveGY4Ni12aWRlby1hdGkvY29tbWl0Lz9pZD1iZmJmZjNiMjQ2ZGI1MDlj
+ODIwZGYxN2I4ZmNmNTg5OTg4MmZmY2ZhCj4+PiAuCj4+Pgo+PiBGdWxseSBhZ3JlZWQhLiBUaGF0
+J3Mgd2h5IEkgYWRkZWQgaGltIHRvIHRoZSBDQyBsaXN0Lgo+Pgo+PiBUaHJvd2luZyBzb21lIGlk
+ZWFzOgo+PiAgLSBJZiBpdCdzIHN0aWxsIG5lZWRlZCBjYW4gd2Uga2VlcCBpdCAhTGludXggb25s
+eT8KPgo+IFRoZSBmaXJzdCBkcm1DaGVja01vZGVzZXR0aW5nU3VwcG9ydGVkIGNhbGw/IEZpbmUg
+d2l0aCBtZS4KPgpTaW5jZSBpZm5kZWYgb3V0IHRoZSBkcm1DaGVja01vZGVzZXR0aW5nU3VwcG9y
+dGVkIGNhbGwgbWFrZXMKYW1kZ3B1X2tlcm5lbF9tb2RlX2VuYWJsZWQgZnVuY3Rpb24gYSBuby1v
+cCwgSSB3YXMgdGhpbmtpbmcgYWJvdXQKaWZuZGVmIHRoZSB3aG9sZSB0aGluZy4KWWV0IGFnYWlu
+LCBpdCB3b3VsZCBiZSBzbyBtdWNoIGJldHRlciB0byBhY3R1YWxseSBudWtlIGl0IChpZiBwb3Nz
+aWJsZSkuCgpSb2JlcnQsIGRvZXMgb25lIHN0aWxsIG5lZWQgeGY4NkxvYWRLZXJuZWxNb2R1bGUg
+YW5kL29yCmRybUNoZWNrTW9kZXNldHRpbmdTdXBwb3J0ZWQgZm9yIEZyZWVCU0Q/CgpUaGFua3MK
+RW1pbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
