@@ -1,109 +1,108 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for signaled process.
-Date: Tue, 24 Apr 2018 16:21:07 -0500
-Message-ID: <87tvs05mik.fsf@xmission.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
+ signaled process.
+Date: Tue, 24 Apr 2018 17:37:08 -0400
+Message-ID: <27d7d15b-f7c3-2a0a-af85-eb243526ac88@amd.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
-        <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
-        <20180424194418.GE25142@phenom.ffwll.local>
-        <aa2d8587-651e-2c24-a673-4682e7035a8f@amd.com>
+ <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+ <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
+ <20180424194418.GE25142@phenom.ffwll.local>
+ <aa2d8587-651e-2c24-a673-4682e7035a8f@amd.com> <87tvs05mik.fsf@xmission.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <aa2d8587-651e-2c24-a673-4682e7035a8f@amd.com> (Andrey
-        Grodzovsky's message of "Tue, 24 Apr 2018 17:02:40 -0400")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, David.Panariti@amd.com, oleg@redhat.com, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <87tvs05mik.fsf-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Eric W. Biederman" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
-
-> On 04/24/2018 03:44 PM, Daniel Vetter wrote:
->> On Tue, Apr 24, 2018 at 05:46:52PM +0200, Michel Dänzer wrote:
->>> Adding the dri-devel list, since this is driver independent code.
->>>
->>>
->>> On 2018-04-24 05:30 PM, Andrey Grodzovsky wrote:
->>>> Avoid calling wait_event_killable when you are possibly being called
->>>> from get_signal routine since in that case you end up in a deadlock
->>>> where you are alreay blocked in singla processing any trying to wait
->>> Multiple typos here, "[...] already blocked in signal processing and [...]"?
->>>
->>>
->>>> on a new signal.
->>>>
->>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/scheduler/gpu_scheduler.c | 5 +++--
->>>>   1 file changed, 3 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/drm/scheduler/gpu_scheduler.c
->>>> index 088ff2b..09fd258 100644
->>>> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
->>>> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
->>>> @@ -227,9 +227,10 @@ void drm_sched_entity_do_release(struct drm_gpu_scheduler *sched,
->>>>   		return;
->>>>   	/**
->>>>   	 * The client will not queue more IBs during this fini, consume existing
->>>> -	 * queued IBs or discard them on SIGKILL
->>>> +	 * queued IBs or discard them when in death signal state since
->>>> +	 * wait_event_killable can't receive signals in that state.
->>>>   	*/
->>>> -	if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
->>>> +	if (current->flags & PF_SIGNALED)
->> You want fatal_signal_pending() here, instead of inventing your own broken
->> version.
->
-> I rely on current->flags & PF_SIGNALED because this being set from
-> within get_signal,
-
-It doesn't mean that.  Unless you are called by do_coredump (you
-aren't).  The closing of files does not happen in do_coredump.
-Which means you are being called from do_exit.
-In fact you are being called after exit_files which closes
-the files.  The actual __fput processing happens in task_work_run.
-
-> meaning I am within signal processing  in which case I want to avoid
-> any signal based wait for that task,
-> From what i see in the code, task_struct.pending.signal is being set
-> for other threads in same
-> group (zap_other_threads) or for other scenarios, those task are still
-> able to receive signals
-> so calling wait_event_killable there will not have problem.
-
-Excpet that you are geing called after from do_exit and after exit_files
-which is after exit_signal.  Which means that PF_EXITING has been set.
-Which implies that the kernel signal handling machinery has already
-started being torn down.
-
-Not as much as I would like to happen at that point as we are still
-left with some old CLONE_PTHREAD messes in the code that need to be
-cleaned up.
-
-Still given the fact you are task_work_run it is quite possible even
-release_task has been run on that task before the f_op->release method
-is called.  So you simply can not count on signals working.
-
-Which in practice leaves a timeout for ending your wait.  That code can
-legitimately be in a context that is neither interruptible nor killable.
-
->>>>   		entity->fini_status = -ERESTARTSYS;
->>>>   	else
->>>>   		entity->fini_status = wait_event_killable(sched->job_scheduled,
->> But really this smells like a bug in wait_event_killable, since
->> wait_event_interruptible does not suffer from the same bug. It will return
->> immediately when there's a signal pending.
->
-> Even when wait_event_interruptible is called as following - 
-> ...->do_signal->get_signal->....->wait_event_interruptible ?
-> I haven't tried it but wait_event_interruptible is very much alike to
-> wait_event_killable so I would assume it will also
-> not be interrupted if called like that. (Will give it a try just out
-> of curiosity anyway)
-
-As PF_EXITING is set want_signal should fail and the signal state of the
-task should not be updatable by signals.
-
-Eric
+CgpPbiAwNC8yNC8yMDE4IDA1OjIxIFBNLCBFcmljIFcuIEJpZWRlcm1hbiB3cm90ZToKPiBBbmRy
+ZXkgR3JvZHpvdnNreSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4gd3JpdGVzOgo+Cj4+IE9u
+IDA0LzI0LzIwMTggMDM6NDQgUE0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4+PiBPbiBUdWUsIEFw
+ciAyNCwgMjAxOCBhdCAwNTo0Njo1MlBNICswMjAwLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4+
+PiBBZGRpbmcgdGhlIGRyaS1kZXZlbCBsaXN0LCBzaW5jZSB0aGlzIGlzIGRyaXZlciBpbmRlcGVu
+ZGVudCBjb2RlLgo+Pj4+Cj4+Pj4KPj4+PiBPbiAyMDE4LTA0LTI0IDA1OjMwIFBNLCBBbmRyZXkg
+R3JvZHpvdnNreSB3cm90ZToKPj4+Pj4gQXZvaWQgY2FsbGluZyB3YWl0X2V2ZW50X2tpbGxhYmxl
+IHdoZW4geW91IGFyZSBwb3NzaWJseSBiZWluZyBjYWxsZWQKPj4+Pj4gZnJvbSBnZXRfc2lnbmFs
+IHJvdXRpbmUgc2luY2UgaW4gdGhhdCBjYXNlIHlvdSBlbmQgdXAgaW4gYSBkZWFkbG9jawo+Pj4+
+PiB3aGVyZSB5b3UgYXJlIGFscmVheSBibG9ja2VkIGluIHNpbmdsYSBwcm9jZXNzaW5nIGFueSB0
+cnlpbmcgdG8gd2FpdAo+Pj4+IE11bHRpcGxlIHR5cG9zIGhlcmUsICJbLi4uXSBhbHJlYWR5IGJs
+b2NrZWQgaW4gc2lnbmFsIHByb2Nlc3NpbmcgYW5kIFsuLi5dIj8KPj4+Pgo+Pj4+Cj4+Pj4+IG9u
+IGEgbmV3IHNpZ25hbC4KPj4+Pj4KPj4+Pj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zz
+a3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Cj4+Pj4+IC0tLQo+Pj4+PiAgICBkcml2ZXJz
+L2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYyB8IDUgKysrLS0KPj4+Pj4gICAgMSBm
+aWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4+Pj4KPj4+Pj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIv
+ZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPj4+Pj4gaW5kZXggMDg4
+ZmYyYi4uMDlmZDI1OCAxMDA2NDQKPj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxl
+ci9ncHVfc2NoZWR1bGVyLmMKPj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9n
+cHVfc2NoZWR1bGVyLmMKPj4+Pj4gQEAgLTIyNyw5ICsyMjcsMTAgQEAgdm9pZCBkcm1fc2NoZWRf
+ZW50aXR5X2RvX3JlbGVhc2Uoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKPj4+Pj4g
+ICAgCQlyZXR1cm47Cj4+Pj4+ICAgIAkvKioKPj4+Pj4gICAgCSAqIFRoZSBjbGllbnQgd2lsbCBu
+b3QgcXVldWUgbW9yZSBJQnMgZHVyaW5nIHRoaXMgZmluaSwgY29uc3VtZSBleGlzdGluZwo+Pj4+
+PiAtCSAqIHF1ZXVlZCBJQnMgb3IgZGlzY2FyZCB0aGVtIG9uIFNJR0tJTEwKPj4+Pj4gKwkgKiBx
+dWV1ZWQgSUJzIG9yIGRpc2NhcmQgdGhlbSB3aGVuIGluIGRlYXRoIHNpZ25hbCBzdGF0ZSBzaW5j
+ZQo+Pj4+PiArCSAqIHdhaXRfZXZlbnRfa2lsbGFibGUgY2FuJ3QgcmVjZWl2ZSBzaWduYWxzIGlu
+IHRoYXQgc3RhdGUuCj4+Pj4+ICAgIAkqLwo+Pj4+PiAtCWlmICgoY3VycmVudC0+ZmxhZ3MgJiBQ
+Rl9TSUdOQUxFRCkgJiYgY3VycmVudC0+ZXhpdF9jb2RlID09IFNJR0tJTEwpCj4+Pj4+ICsJaWYg
+KGN1cnJlbnQtPmZsYWdzICYgUEZfU0lHTkFMRUQpCj4+PiBZb3Ugd2FudCBmYXRhbF9zaWduYWxf
+cGVuZGluZygpIGhlcmUsIGluc3RlYWQgb2YgaW52ZW50aW5nIHlvdXIgb3duIGJyb2tlbgo+Pj4g
+dmVyc2lvbi4KPj4gSSByZWx5IG9uIGN1cnJlbnQtPmZsYWdzICYgUEZfU0lHTkFMRUQgYmVjYXVz
+ZSB0aGlzIGJlaW5nIHNldCBmcm9tCj4+IHdpdGhpbiBnZXRfc2lnbmFsLAo+IEl0IGRvZXNuJ3Qg
+bWVhbiB0aGF0LiAgVW5sZXNzIHlvdSBhcmUgY2FsbGVkIGJ5IGRvX2NvcmVkdW1wICh5b3UKPiBh
+cmVuJ3QpLgoKTG9va2luZyBpbiBsYXRlc3QgY29kZSBoZXJlCmh0dHBzOi8vZWxpeGlyLmJvb3Rs
+aW4uY29tL2xpbnV4L3Y0LjE3LXJjMi9zb3VyY2Uva2VybmVsL3NpZ25hbC5jI0wyNDQ5Cmkgc2Vl
+IHRoYXQgY3VycmVudC0+ZmxhZ3MgfD0gUEZfU0lHTkFMRUQ7IGlzIG91dCBzaWRlIG9mCmlmIChz
+aWdfa2VybmVsX2NvcmVkdW1wKHNpZ25yKSkgey4uLn0gc2NvcGUKCkFuZHJleQoKPiBUaGUgY2xv
+c2luZyBvZiBmaWxlcyBkb2VzIG5vdCBoYXBwZW4gaW4gZG9fY29yZWR1bXAuCj4gV2hpY2ggbWVh
+bnMgeW91IGFyZSBiZWluZyBjYWxsZWQgZnJvbSBkb19leGl0Lgo+IEluIGZhY3QgeW91IGFyZSBi
+ZWluZyBjYWxsZWQgYWZ0ZXIgZXhpdF9maWxlcyB3aGljaCBjbG9zZXMKPiB0aGUgZmlsZXMuICBU
+aGUgYWN0dWFsIF9fZnB1dCBwcm9jZXNzaW5nIGhhcHBlbnMgaW4gdGFza193b3JrX3J1bi4KPgo+
+PiBtZWFuaW5nIEkgYW0gd2l0aGluIHNpZ25hbCBwcm9jZXNzaW5nwqAgaW4gd2hpY2ggY2FzZSBJ
+IHdhbnQgdG8gYXZvaWQKPj4gYW55IHNpZ25hbCBiYXNlZCB3YWl0IGZvciB0aGF0IHRhc2ssCj4+
+ICBGcm9tIHdoYXQgaSBzZWUgaW4gdGhlIGNvZGUsIHRhc2tfc3RydWN0LnBlbmRpbmcuc2lnbmFs
+IGlzIGJlaW5nIHNldAo+PiBmb3Igb3RoZXIgdGhyZWFkcyBpbiBzYW1lCj4+IGdyb3VwICh6YXBf
+b3RoZXJfdGhyZWFkcykgb3IgZm9yIG90aGVyIHNjZW5hcmlvcywgdGhvc2UgdGFzayBhcmUgc3Rp
+bGwKPj4gYWJsZSB0byByZWNlaXZlIHNpZ25hbHMKPj4gc28gY2FsbGluZyB3YWl0X2V2ZW50X2tp
+bGxhYmxlIHRoZXJlIHdpbGwgbm90IGhhdmUgcHJvYmxlbS4KPiBFeGNwZXQgdGhhdCB5b3UgYXJl
+IGdlaW5nIGNhbGxlZCBhZnRlciBmcm9tIGRvX2V4aXQgYW5kIGFmdGVyIGV4aXRfZmlsZXMKPiB3
+aGljaCBpcyBhZnRlciBleGl0X3NpZ25hbC4gIFdoaWNoIG1lYW5zIHRoYXQgUEZfRVhJVElORyBo
+YXMgYmVlbiBzZXQuCj4gV2hpY2ggaW1wbGllcyB0aGF0IHRoZSBrZXJuZWwgc2lnbmFsIGhhbmRs
+aW5nIG1hY2hpbmVyeSBoYXMgYWxyZWFkeQo+IHN0YXJ0ZWQgYmVpbmcgdG9ybiBkb3duLgo+Cj4g
+Tm90IGFzIG11Y2ggYXMgSSB3b3VsZCBsaWtlIHRvIGhhcHBlbiBhdCB0aGF0IHBvaW50IGFzIHdl
+IGFyZSBzdGlsbAo+IGxlZnQgd2l0aCBzb21lIG9sZCBDTE9ORV9QVEhSRUFEIG1lc3NlcyBpbiB0
+aGUgY29kZSB0aGF0IG5lZWQgdG8gYmUKPiBjbGVhbmVkIHVwLgo+Cj4gU3RpbGwgZ2l2ZW4gdGhl
+IGZhY3QgeW91IGFyZSB0YXNrX3dvcmtfcnVuIGl0IGlzIHF1aXRlIHBvc3NpYmxlIGV2ZW4KPiBy
+ZWxlYXNlX3Rhc2sgaGFzIGJlZW4gcnVuIG9uIHRoYXQgdGFzayBiZWZvcmUgdGhlIGZfb3AtPnJl
+bGVhc2UgbWV0aG9kCj4gaXMgY2FsbGVkLiAgU28geW91IHNpbXBseSBjYW4gbm90IGNvdW50IG9u
+IHNpZ25hbHMgd29ya2luZy4KPgo+IFdoaWNoIGluIHByYWN0aWNlIGxlYXZlcyBhIHRpbWVvdXQg
+Zm9yIGVuZGluZyB5b3VyIHdhaXQuICBUaGF0IGNvZGUgY2FuCj4gbGVnaXRpbWF0ZWx5IGJlIGlu
+IGEgY29udGV4dCB0aGF0IGlzIG5laXRoZXIgaW50ZXJydXB0aWJsZSBub3Iga2lsbGFibGUuCj4K
+Pj4+Pj4gICAgCQllbnRpdHktPmZpbmlfc3RhdHVzID0gLUVSRVNUQVJUU1lTOwo+Pj4+PiAgICAJ
+ZWxzZQo+Pj4+PiAgICAJCWVudGl0eS0+ZmluaV9zdGF0dXMgPSB3YWl0X2V2ZW50X2tpbGxhYmxl
+KHNjaGVkLT5qb2Jfc2NoZWR1bGVkLAo+Pj4gQnV0IHJlYWxseSB0aGlzIHNtZWxscyBsaWtlIGEg
+YnVnIGluIHdhaXRfZXZlbnRfa2lsbGFibGUsIHNpbmNlCj4+PiB3YWl0X2V2ZW50X2ludGVycnVw
+dGlibGUgZG9lcyBub3Qgc3VmZmVyIGZyb20gdGhlIHNhbWUgYnVnLiBJdCB3aWxsIHJldHVybgo+
+Pj4gaW1tZWRpYXRlbHkgd2hlbiB0aGVyZSdzIGEgc2lnbmFsIHBlbmRpbmcuCj4+IEV2ZW4gd2hl
+biB3YWl0X2V2ZW50X2ludGVycnVwdGlibGUgaXMgY2FsbGVkIGFzIGZvbGxvd2luZyAtCj4+IC4u
+Li0+ZG9fc2lnbmFsLT5nZXRfc2lnbmFsLT4uLi4uLT53YWl0X2V2ZW50X2ludGVycnVwdGlibGUg
+Pwo+PiBJIGhhdmVuJ3QgdHJpZWQgaXQgYnV0IHdhaXRfZXZlbnRfaW50ZXJydXB0aWJsZSBpcyB2
+ZXJ5IG11Y2ggYWxpa2UgdG8KPj4gd2FpdF9ldmVudF9raWxsYWJsZSBzbyBJIHdvdWxkIGFzc3Vt
+ZSBpdCB3aWxsIGFsc28KPj4gbm90IGJlIGludGVycnVwdGVkIGlmIGNhbGxlZCBsaWtlIHRoYXQu
+IChXaWxsIGdpdmUgaXQgYSB0cnkganVzdCBvdXQKPj4gb2YgY3VyaW9zaXR5IGFueXdheSkKPiBB
+cyBQRl9FWElUSU5HIGlzIHNldCB3YW50X3NpZ25hbCBzaG91bGQgZmFpbCBhbmQgdGhlIHNpZ25h
+bCBzdGF0ZSBvZiB0aGUKPiB0YXNrIHNob3VsZCBub3QgYmUgdXBkYXRhYmxlIGJ5IHNpZ25hbHMu
+Cj4KPiBFcmljCj4KPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
