@@ -1,122 +1,118 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: RFC for a render API to support adaptive sync and VRR
-Date: Tue, 24 Apr 2018 23:57:57 +0200
-Message-ID: <CAKMK7uHzLRUwZSFbMb4qDzXBODVSQVTTw6BxgmvJdES4gJmBDg@mail.gmail.com>
-References: <c79421ce-9408-5cd6-5de3-0fa521146e4b@amd.com>
- <435ebd04-0435-5a6a-9f1e-e4c4fc629aa9@amd.com>
- <20180409214554.GB13967@intel.com>
- <1e8d1857-faba-85da-0136-ea7c29ec1b84@amd.com>
- <b75e31f7-ce59-de97-5445-cb4c03ff7336@daenzer.net> <87o9ihyxl1.fsf@keithp.com>
- <CAKMK7uFMKEe24-cFuNx8N=JZsCG2qCZHn3orE5Aqyc8mXnuu2A@mail.gmail.com>
- <20180420203240.GA9472@intel.com>
- <488ba81c-9a40-77d3-fb71-ee0df7f9b42f@amd.com>
- <20180423211944.GC9472@intel.com> <20180424120946.GW31310@phenom.ffwll.local>
- <b9c33eeb-1db8-f782-cfbe-411d94fecb67@amd.com>
+From: ebiederm@xmission.com (Eric W. Biederman)
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for signaled process.
+Date: Tue, 24 Apr 2018 17:11:44 -0500
+Message-ID: <87a7ts2r1b.fsf@xmission.com>
+References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
+        <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+        <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
+        <20180424194418.GE25142@phenom.ffwll.local>
+        <aa2d8587-651e-2c24-a673-4682e7035a8f@amd.com>
+        <87tvs05mik.fsf@xmission.com>
+        <27d7d15b-f7c3-2a0a-af85-eb243526ac88@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b9c33eeb-1db8-f782-cfbe-411d94fecb67-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: "Cyr, Aric" <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koo, Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <27d7d15b-f7c3-2a0a-af85-eb243526ac88@amd.com> (Andrey
+        Grodzovsky's message of "Tue, 24 Apr 2018 17:37:08 -0400")
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Cc: Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, David.Panariti@amd.com, oleg@redhat.com, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBcHIgMjQsIDIwMTggYXQgNDoyOCBQTSwgSGFycnkgV2VudGxhbmQgPGhhcnJ5Lndl
-bnRsYW5kQGFtZC5jb20+IHdyb3RlOgo+Cj4KPiBPbiAyMDE4LTA0LTI0IDA4OjA5IEFNLCBEYW5p
-ZWwgVmV0dGVyIHdyb3RlOgo+PiBPbiBNb24sIEFwciAyMywgMjAxOCBhdCAwMjoxOTo0NFBNIC0w
-NzAwLCBNYW5hc2kgTmF2YXJlIHdyb3RlOgo+Pj4gT24gTW9uLCBBcHIgMjMsIDIwMTggYXQgMTA6
-NDA6MDZBTSAtMDQwMCwgSGFycnkgV2VudGxhbmQgd3JvdGU6Cj4+Pj4gT24gMjAxOC0wNC0yMCAw
-NDozMiBQTSwgTWFuYXNpIE5hdmFyZSB3cm90ZToKPj4+Pj4gT24gV2VkLCBBcHIgMTgsIDIwMTgg
-YXQgMDk6Mzk6MDJBTSArMDIwMCwgRGFuaWVsIFZldHRlciB3cm90ZToKPj4+Pj4+IE9uIFdlZCwg
-QXByIDE4LCAyMDE4IGF0IDU6NTggQU0sIEtlaXRoIFBhY2thcmQgPGtlaXRocEBrZWl0aHAuY29t
-PiB3cm90ZToKPj4+Pj4+PiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3cml0
-ZXM6Cj4+Pj4+Pj4+IFRpbWUtYmFzZWQgcHJlc2VudGF0aW9uIHNlZW1zIHRvIGJlIHRoZSByaWdo
-dCBhcHByb2FjaCBmb3IgcHJldmVudGluZwo+Pj4+Pj4+PiBtaWNyby1zdHV0dGVyIGluIGdhbWVz
-IGFzIHdlbGwsIENyb3RlYW0gZGV2ZWxvcGVycyBoYXZlIGJlZW4gcmVzZWFyY2hpbmcKPj4+Pj4+
-Pj4gdGhpcy4KPj4+Pj4+Pgo+Pj4+Pj4+IEJvdGggdGhlIFZ1bGthbiBHT09HTEVfZGlzcGxheV90
-aW1pbmcgZXh0ZW5zaW9uIGFuZCBYMTEgUHJlc2VudAo+Pj4+Pj4+IGV4dGVuc2lvbiBvZmZlciB0
-aGUgYWJpbGl0eSB0byBzcGVjaWZ5IHRoZSBkZXNpcmVkIGRpc3BsYXkgdGltZSBpbgo+Pj4+Pj4+
-IHNlY29uZHMuCj4+Pj4+Pj4KPj4+Pj4+PiBTaW1pbGFybHksIEknZCBzdWdnZXN0IHRoYXQgdGhl
-IG1pbi9tYXggZGlzcGxheSByZWZyZXNoIHJhdGUgdmFsdWVzIGJlCj4+Pj4+Pj4gYWR2ZXJ0aXNl
-ZCBhcyB0aW1lIGJldHdlZW4gZnJhbWVzIHJhdGhlciB0aGFuIGZyYW1lcyBwZXIgc2Vjb25kLgo+
-Pj4+Pgo+Pj4+PiBTbyB0aGVyZSBpcyBhIGdsb2JhbCBtaW4gYW5kIG1heCByZWZyZXNoIHJhdGUg
-YXMgYWR2ZXJ0aXNlZCBieSB0aGUgbW9uaXRvcgo+Pj4+PiByYW5nZSBkZXNjcmlwdG9yLiBUaGF0
-IEkgZ3Vlc3MgY2FuIGJlIGV4cG9zZWQgYXMgYSBnbG9iYWwgcmFuZ2UgaW4gdGVybXMgb2YKPj4+
-Pj4gbWluIGFuZCBtYXggdGltZSBiZXR3ZWVuIGZyYW1lcyBhcyBhIGdsb2JhbCBwcm9wZXJ0eSBv
-ZiB0aGUgY29ubmVjdG9yLgo+Pj4+Pgo+Pj4+PiBXZSBkb250IG5lZWQgdGhlIHBlciBtb2RlIG1p
-biBhbmQgbWF4IHJlZnJlc2ggcmF0ZSB0byBiZSBleHBvc2VkIHJpZ2h0Pwo+Pj4+Cj4+Pj4gSWYg
-SSB1bmRlcnN0YW5kIFZSUiByaWdodCwgd2l0aCBDaW5lbWFWUlIgYWNjZXB0YWJsZSByZWZyZXNo
-IHJhdGVzIG1pZ2h0IGZhbGwgb3V0c2lkZSB0aGUgcmFuZ2UgYWR2ZXJ0aXNlZCBieSB0aGUgbW9u
-aXRvci4gV291bGQgd2UKPj4+PiAgMSkgYWR2ZXJ0aXNlIDI0LzEuMDAxIGFzIGEgbG93ZXIgYm91
-bmQsCj4+Pj4gIDIpIGV4cGVjdCBtZWRpYSBhcHBzIHRvIHVzZSB0aGUgbG93ZXIgYm91bmQgc2lt
-cGx5IGZvciBpbmZvcm1hdGlvbmFsIHB1cnBvc2VzLAo+Pj4+ICAzKSBvciBzaW1wbHkgbm90IHN1
-cHBvcnQgQ2luZW1hVlJSPwo+Pj4+Cj4+Pj4gKDEpIGhhcyB0aGUgYWRkZWQgY2F2ZWF0IHRoYXQg
-bm90IGFsbCByZXBvcnRlZCByYXRlcyB3b3VsZCBiZSBzdXBwb3J0ZWQuCj4+Pj4KPj4+PiBBbHRl
-cm5hdGl2ZWx5IGEgYml0IGNvdWxkIGluZGljYXRlIHRoYXQgQ2luZW1hVlJSIGlzIHN1cHBvcnQs
-IGJ1dCBJJ20gbm90IHN1cmUgaWYgdXNlciBtb2RlIHdvdWxkIG5lZWQgYWxsIHRoZXNlIGRldGFp
-bHMuCj4+Pj4KPj4+PiBIYXJyeQo+Pj4KPj4+IEFyZSB0aGVyZSBzcGVjaWFsIENpbmVtYVZSUiBz
-dXBvcnRlZCBtb25pdG9ycz8gSW4gdGhhdCBjYXNlIHdlIG5lZWQgdG8gdW5kZXJzdGFuZCBob3cg
-dGhvc2UgbW9uaXRvcnMKPj4+IGFkdmVydGlzZSB0aGUgbW9uaXRvciByYW5nZSBhbmQgaWYgdGhl
-eSBoYXZlIGEgYml0IGluIEVESUQgdGhhdCBpbmRpY2F0ZSB0aGV5IGFyZSBDaW5lbWFWUlIgY2Fw
-YWJsZQo+Pj4gYXMgb3Bwb3NlZCB0byBqdXN0IHRoZSBBZGFwdGl2ZSBTeW5jL1ZSUi4KPj4+IEhh
-cnJ5LCBpZiB5b3UgaGF2ZSBvbmUgb2YgdGhvc2UgbW9uaXRvcnMsIGNvdWxkIHlvdSBzZW5kIHRo
-ZSBFRElEIGR1bXAgZm9yIHRoYXQ/Cj4+Cj4+IEFzIGxvbmcgYXMgdGhlIGFueSBtdWx0aXBsZSBv
-ZiB0aGUgMjQvMS4wMDEgcmVmcmVzaCByYXRlIGlzIHdpdGhpbiB0aGUKPj4gb2ZmaWNpYWxseSBz
-dXBwb3J0ZWQgcmVmcmVzaCByYW5nZSByYXRlIHRoaXMgc2hvdWxkIHdvcmsgb3V0LiBNYXliZSB3
-ZSdsbAo+PiBlbmQgdXAgdXBsb2FkaW5nIDJ4ICh0byBydW4gYXQgfjQ4SHopLCBtYXliZSB0aGUg
-a2VybmVsIG9ubHkgdXBsb2FkcyBhdAo+PiAyNEh6LiBCdXQgc2hvdWxkIGFsbCBiZSBmaW5lLgo+
-Pgo+Cj4gV291bGQga2VybmVsIGRyaXZlciB1cGxvYWQgNDhIeiB3aGVuIFVNRCBhc2tzIGZvciAy
-NEh6IG9yIHdvdWxkIFVNRCBiZSBleHBlY3RlZCB0byBzdWJtaXQgZG91YmxlIGZyYW1lcz8KPgo+
-IElmIGtlcm5lbCBkcml2ZXIgc3VwcG9ydHMgZnJhbWUgZG91YmxpbmcgKGxpa2Ugb3VyIERDIGRy
-aXZlcikgd2Ugd291bGQgcHJvYmFibHkgcmVwb3J0IGhhbGYgb2YgbW9uaXRvci1yZXBvcnRlZCBt
-aW4tcmVmcmVzaCAob3IgcmF0aGVyIGRvdWJsZSBvZiBtb25pdG9yLXJlcG9ydGVkIG1heCBmcmFt
-ZSB0aW1lKS4KCllvdXIgZHJpdmVyIChhbWRncHUpIGFscmVhZHkgc3VwcG9ydHMgZnJhbWUgZG91
-YmxpbmcsIGV4Y2VwdCBvbmx5IGZvcgp2Ymxhbmsgc2Vxbm8gaW5zdGVhZCBvZiB0aW1lc3RhbXBz
-LiBXaGV0aGVyIFZSUiBjYW4gZ2V0IGRvd24gdG8gMjRIegpvciBub3QgaXMgdG90YWxseSBpcnJl
-bGV2YW50IGZyb20gdXNlcnNwYWNlJ3MgcG9pbnQgb2Ygdmlldy4gQnkKZGVmYXVsdCB0aGUga2Vy
-bmVsIGlzIGV4cGVjdGVkIHRvIGtlZXAgZGlzcGxheSB0aGUgY3VycmVudCBmcmFtZSBmb3IKYXMg
-bG9uZyBhcyB1c2Vyc3BhY2UgZ2l2ZXMgaXQgYSBuZXcgb25lLiBUaGVyZSdzIG5vIGV4cGVjdGF0
-aW9uIHRoYXQKdXNlcnNwYWNlIHByb3ZpZGVzIGEgbmV3IGJ1ZmZlciBmb3IgZXZlcnkgdmJsYW5r
-ICh3aGV0aGVyIHRoYXQncyBhCmZpeGVkIG9yIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBkb2Vzbid0
-IG1hdHRlcikuCi1EYW5pZWwKCj4KPiBIYXJyeQo+Cj4+IE9mYyBpZiB3ZSBoYXZlIENpbmVtYVZS
-UiBzY3JlZW5zIHdoaWNoIGRvbid0IGZpdCB0aGlzLCB0aGVuIG1heWJlIHdlIG5lZWQKPj4gdG8g
-ZmlndXJlIG91dCBzb21ldGhpbmcgLi4uCj4+IC1EYW5pZWwKPj4KPj4+Cj4+PiBNYW5hc2kKPj4+
-Cj4+Pj4KPj4+Pj4KPj4+Pj4+Pgo+Pj4+Pj4+IEknZCBhbHNvIGVuY291cmFnZSB1c2luZyBhIHNp
-bmdsZSB1bml0IGZvciBhbGwgb2YgdGhlc2UgdmFsdWVzLAo+Pj4+Pj4+IHByZWZlcmFibHkgbmFu
-b3NlY29uZHMuIEFic29sdXRlIHRpbWVzIHNob3VsZCBhbGwgYmUgcmVmZXJlbmNlZCB0bwo+Pj4+
-Pj4+IENMT0NLX01PTk9UT05JQy4KPj4+Pj4+Cj4+Pj4+PiArMSBvbiBldmVyeXRoaW5nIEtlaXRo
-IHNhaWQuIEkgZ290IHNvbWVob3cgZHJhZ2dlZCBpbiBraHIgdmsKPj4+Pj4+IGRpc2N1c3Npb25z
-IGFyb3VuZCBwcmV2ZW50aW5nIG1pY3JvLXN0dXR0ZXJpbmcsIGFuZCBjb25zZW5zdXMgc2VlbXMg
-dG8KPj4+Pj4+IGJlIHRoYXQgdGltZXN0YW1wcyBmb3Igc2NoZWR1bGluZyBmcmFtZXMgaXMgdGhl
-IHdheSB0byBnbywgbW9zdCBsaWtlbHkKPj4+Pj4+IGFic29sdXRlIG9uZXMgKG5vdCBldmVyeXRo
-aW5nIGlzIHJ1bm5pbmcgTGludXggdW5mb3J0dW5hdGVseSwgc28gY2FuJ3QKPj4+Pj4+IGdvIG91
-dHJpZ2h0IGFuZCBjbGFpbSBpdCdzIGd1YXJhbnRlZWQgdG8gYmUgQ0xPQ0tfTU9OT1RPTklDKS4K
-Pj4+Pj4+IC1EYW5pZWwKPj4+Pj4KPj4+Pj4gQW5kIHllcyBJIGFsc28gZ290IGNvbnNlbnN1cyBm
-cm9tIE1lc2EgYW5kIG1lZGlhIGZvbGtzIGFib3V0IHVzaW5nIHRoZQo+Pj4+PiBhYnNvbHV0ZSB0
-aW1lc3RhbXAgZm9yIHNjaGVkdWxpbmcgdGhlIGZyYW1lcyBhbmQgdGhlbiB0aGUgZHJpdmVyIHdp
-bGwKPj4+Pj4gbW9kaWZ5IHRoZSB2YmxhbmsgbG9naWMgdG8gInByZXNlbnQgbm8gZWFybGllciB0
-aGFuIHRoZSB0aW1lc3RhbXAiCj4+Pj4+Cj4+Pj4+IE1hbmFzaQo+Pj4+Pgo+Pj4+Pj4gLS0KPj4+
-Pj4+IERhbmllbCBWZXR0ZXIKPj4+Pj4+IFNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3Jh
-dGlvbgo+Pj4+Pj4gKzQxICgwKSA3OSAzNjUgNTcgNDggLSBodHRwOi8vYmxvZy5mZndsbC5jaAo+
-Pj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+
-Pj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4+Pj4+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKPj4+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vZHJpLWRldmVsCj4+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCj4+Pj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4+Pj4gZHJpLWRldmVs
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo+Pj4+Pgo+PgoKCgotLSAKRGFuaWVsIFZldHRl
-cgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KKzQxICgwKSA3OSAzNjUgNTcg
-NDggLSBodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
+
+> On 04/24/2018 05:21 PM, Eric W. Biederman wrote:
+>> Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
+>>
+>>> On 04/24/2018 03:44 PM, Daniel Vetter wrote:
+>>>> On Tue, Apr 24, 2018 at 05:46:52PM +0200, Michel Dänzer wrote:
+>>>>> Adding the dri-devel list, since this is driver independent code.
+>>>>>
+>>>>>
+>>>>> On 2018-04-24 05:30 PM, Andrey Grodzovsky wrote:
+>>>>>> Avoid calling wait_event_killable when you are possibly being called
+>>>>>> from get_signal routine since in that case you end up in a deadlock
+>>>>>> where you are alreay blocked in singla processing any trying to wait
+>>>>> Multiple typos here, "[...] already blocked in signal processing and [...]"?
+>>>>>
+>>>>>
+>>>>>> on a new signal.
+>>>>>>
+>>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/scheduler/gpu_scheduler.c | 5 +++--
+>>>>>>    1 file changed, 3 insertions(+), 2 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+>>>>>> index 088ff2b..09fd258 100644
+>>>>>> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+>>>>>> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+>>>>>> @@ -227,9 +227,10 @@ void drm_sched_entity_do_release(struct drm_gpu_scheduler *sched,
+>>>>>>    		return;
+>>>>>>    	/**
+>>>>>>    	 * The client will not queue more IBs during this fini, consume existing
+>>>>>> -	 * queued IBs or discard them on SIGKILL
+>>>>>> +	 * queued IBs or discard them when in death signal state since
+>>>>>> +	 * wait_event_killable can't receive signals in that state.
+>>>>>>    	*/
+>>>>>> -	if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
+>>>>>> +	if (current->flags & PF_SIGNALED)
+>>>> You want fatal_signal_pending() here, instead of inventing your own broken
+>>>> version.
+>>> I rely on current->flags & PF_SIGNALED because this being set from
+>>> within get_signal,
+>> It doesn't mean that.  Unless you are called by do_coredump (you
+>> aren't).
+>
+> Looking in latest code here
+> https://elixir.bootlin.com/linux/v4.17-rc2/source/kernel/signal.c#L2449
+> i see that current->flags |= PF_SIGNALED; is out side of
+> if (sig_kernel_coredump(signr)) {...} scope
+
+In small words.  You showed me the backtrace and I have read
+the code.
+
+PF_SIGNALED means you got killed by a signal.
+get_signal
+  do_coredump
+  do_group_exit
+    do_exit
+       exit_signals
+          sets PF_EXITING
+       exit_mm
+          calls fput on mmaps
+             calls sched_task_work
+       exit_files
+          calls fput on open files
+             calls sched_task_work
+       exit_task_work
+          task_work_run
+             /* you are here */
+
+So strictly speaking you are inside of get_signal it is not
+meaningful to speak of yourself as within get_signal.
+
+I am a little surprised to see task_work_run called so early.
+I was mostly expecting it to happen when the dead task was
+scheduling away, like normally happens.
+
+Testing for PF_SIGNALED does not give you anything at all
+that testing for PF_EXITING (the flag that signal handling
+is shutdown) does not get you.
+
+There is no point in distinguishing PF_SIGNALED from any other
+path to do_exit.  do_exit never returns.
+
+The task is dead.
+
+Blocking indefinitely while shutting down a task is a bad idea.
+Blocking indefinitely while closing a file descriptor is a bad idea.
+
+The task has been killed it can't get more dead.  SIGKILL is meaningless
+at this point.
+
+So you need a timeout, or not to wait at all.
+
+
+Eric
