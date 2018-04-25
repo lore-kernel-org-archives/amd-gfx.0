@@ -1,105 +1,44 @@
-From: Thierry Reding <treding@nvidia.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
-Date: Wed, 25 Apr 2018 09:43:38 +0200
-Message-ID: <20180425074338.GB2271@ulmo>
-References: <20180420124625.GA31078@infradead.org>
- <20180420152111.GR31310@phenom.ffwll.local>
- <20180424184847.GA3247@infradead.org>
- <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
- <20180425054855.GA17038@infradead.org>
- <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
- <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
- <20180425064335.GB28100@infradead.org>
- <CAKMK7uGF7p5ko=i6zL4dn0qR-5TVRKMi6xaCGSao_vyfJU+dWQ@mail.gmail.com>
- <20180425070905.GA24827@infradead.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/sriov: reject kms open if TDR not finished or
+ failed
+Date: Wed, 25 Apr 2018 09:47:59 +0200
+Message-ID: <5bede6f6-24b2-8a3a-d3d8-9a37ac6d13c8@daenzer.net>
+References: <1524638384-31977-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1058799757=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180425070905.GA24827@infradead.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Jerome Glisse <jglisse@redhat.com>, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1058799757==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="tsOsTdHNUZQcU9Ye"
-Content-Disposition: inline
-
---tsOsTdHNUZQcU9Ye
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Apr 25, 2018 at 12:09:05AM -0700, Christoph Hellwig wrote:
-> On Wed, Apr 25, 2018 at 09:02:17AM +0200, Daniel Vetter wrote:
-> > Can we please not nack everything right away? Doesn't really motivate
-> > me to show you all the various things we're doing in gpu to make the
-> > dma layer work for us. That kind of noodling around in lower levels to
-> > get them to do what we want is absolutely par-for-course for gpu
-> > drivers. If you just nack everything I point you at for illustrative
-> > purposes, then I can't show you stuff anymore.
->=20
-> No, it's not.  No driver (and that includes the magic GPUs) has
-> any business messing with dma ops directly.
->=20
-> A GPU driver imght have a very valid reason to disable the IOMMU,
-> but the code to do so needs to be at least in the arch code, maybe
-> in the dma-mapping/iommu code, not in the driver.
->=20
-> As a first step to get the discussion started we'll simply need
-> to move the code Thierry wrote into a helper in arch/arm and that
-> alone would be a massive improvement.  I'm not even talking about
-> minor details like actually using arm_get_dma_map_ops instead
-> of duplicating it.
->=20
-> And doing this basic trivial work really helps to get this whole
-> mess under control.
-
-That's a good idea and I can prepare patches for this, but I'd like to
-make those changes on top of the fix to keep the option of getting this
-into v4.16 if at all possible.
-
-Thierry
-
---tsOsTdHNUZQcU9Ye
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlrgMaoACgkQ3SOs138+
-s6ErIw/9HFD80SMNmmYDdnDExj7GI+wX3JQtrnVIcvE0xhgwvEGghdvwuIitFnhe
-0sSTzNFY1R3uZp+csLeMOjb7aBqI+txD+aX+KmGcdNLT015nMt/gOUjv/msbzuyN
-y6gUXvEqqvByVOTuM/nrjPZhA+8PCB0n2UVfx9V7Z5FkraLvQnCiGxd+ds+tujvy
-WhYItT846t9fgeiuSm2pmN/I7b8pBBMoQrA2y4h8zhuK6DI6hEC5xrd1Ebv2eMNq
-yLPpWYqWokPvvlzcDbVTxQZEAY7PyAjB22DKMnQN5pgh9lrczDSVq89wmzsO4VKz
-ajcglwDU7Z1of7HM1PbmgKGKwaB7zC6d0XD7wF0oUDtMYrnXbRUcAS9Lra2a39xf
-u5I/8ehFct/uEkaDqgguMZDPKBEfeDEZ70DGHuSuebonUyYTupQZCCP4pSw+gPQi
-7zlcoxbfO5Tp44mioLGgoMmwVfb6oIIvPLx5SueBOonSV172x2TqCYM4odsL8B7b
-vYBMQgrcS95kar3smWMRf9VBT7n0EGW8G/3XgJM3hL5j/mMIJca7xXdKjuuc38Fn
-wRIYQ/4znL5J8DQ7mkP2Ujv74O4Qq9nunVm+WL10JEKxbmqExGYwTH8dV/kYqPJy
-Z9O+6FYV7u9PxvUDNIW0Hm/ruE+DqaTg/Vn4Hhd/8lnCmwWrcPo=
-=PmGP
------END PGP SIGNATURE-----
-
---tsOsTdHNUZQcU9Ye--
-
---===============1058799757==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1524638384-31977-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1058799757==--
+T24gMjAxOC0wNC0yNSAwODozOSBBTSwgRW1pbHkgRGVuZyB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5
+OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgMyArKysKPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0
+aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfa21zLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiBpbmRl
+eCA2ZDU1Y2FlLi5hZGVjYTcxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9rbXMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9rbXMuYwo+IEBAIC04NDcsNiArODQ3LDkgQEAgaW50IGFtZGdwdV9kcml2ZXJfb3Blbl9rbXMo
+c3RydWN0IGRybV9kZXZpY2UgKmRldiwgc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXYpCj4gIAlz
+dHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdjsKPiAgCWludCByLCBwYXNpZDsKPiAgCj4gKwlpZiAo
+YWRldi0+aW5fZ3B1X3Jlc2V0KQo+ICsJCXJldHVybiAtRUNBTkNFTEVEOwoKVGhpcyBzZWVtcyBs
+aWtlIGEgYmFkIGlkZWEsIGFzIGl0IHdvdWxkIGNhdXNlIGJhc2ljYWxseSBhbnkgdXNlcnNwYWNl
+CndoaWNoIHdhbnRzIHRvIHVzZSB0aGUgR1BVIHRvIGZhaWwgdG8gc3RhcnQgZHVyaW5nIGEgR1BV
+IHJlc2V0LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAg
+ICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3Qg
+ICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
