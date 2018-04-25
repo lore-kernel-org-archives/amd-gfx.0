@@ -1,100 +1,50 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: noveau vs arm dma ops
-Date: Wed, 25 Apr 2018 12:04:29 +0200
-Message-ID: <20180425100429.GR25142@phenom.ffwll.local>
-References: <20180420124625.GA31078@infradead.org>
- <20180420152111.GR31310@phenom.ffwll.local>
- <20180424184847.GA3247@infradead.org>
- <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
- <20180425054855.GA17038@infradead.org>
- <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
- <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
- <20180425064335.GB28100@infradead.org> <20180425074151.GA2271@ulmo>
- <20180425085439.GA29996@infradead.org>
+From: Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
+ signaled process.
+Date: Wed, 25 Apr 2018 15:05:22 +0200
+Message-ID: <20180425130522.GA7592@redhat.com>
+References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <20180425085439.GA29996@infradead.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Jerome Glisse <jglisse@redhat.com>, iommu@lists.linux-foundation.org, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Thierry Reding <treding@nvidia.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-arm-kernel@lists.infradead.org, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+In-Reply-To: <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.Panariti@amd.com, akpm@linux-foundation.org, ebiederm@xmission.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBBcHIgMjUsIDIwMTggYXQgMDE6NTQ6MzlBTSAtMDcwMCwgQ2hyaXN0b3BoIEhlbGx3
-aWcgd3JvdGU6Cj4gW2Rpc2N1c3Npb24gYWJvdXQgdGhpcyBwYXRjaCwgd2hpY2ggc2hvdWxkIGhh
-dmUgYmVlbiBjY2VkIHRvIHRoZSBpb21tdQo+ICBhbmQgbGludXgtYXJtLWtlcm5lbCBsaXN0cywg
-YnV0IHdhc24ndDoKPiAgaHR0cHM6Ly93d3cuc3Bpbmljcy5uZXQvbGlzdHMvZHJpLWRldmVsL21z
-ZzE3MzYzMC5odG1sXQo+IAo+IE9uIFdlZCwgQXByIDI1LCAyMDE4IGF0IDA5OjQxOjUxQU0gKzAy
-MDAsIFRoaWVycnkgUmVkaW5nIHdyb3RlOgo+ID4gPiBBUEkgZnJvbSB0aGUgaW9tbXUvZG1hLW1h
-cHBpbmcgY29kZS4gIERyaXZlcnMgaGF2ZSBubyBidXNpbmVzcyBwb2tpbmcKPiA+ID4gaW50byB0
-aGVzZSBkZXRhaWxzLgo+ID4gCj4gPiBUaGUgaW50ZXJmYWNlcyB0aGF0IHRoZSBhYm92ZSBwYXRj
-aCB1c2VzIGFyZSBhbGwgRVhQT1JUX1NZTUJPTF9HUEwsCj4gPiB3aGljaCBpcyByYXRoZXIgbWlz
-bGVhZGluZyBpZiB0aGV5IGFyZSBub3QgbWVhbnQgdG8gYmUgdXNlZCBieSBkcml2ZXJzCj4gPiBk
-aXJlY3RseS4KPiAKPiBUaGUgb25seSByZWFzb24gdGhlIERNQSBvcHMgYXJlIGV4cG9ydGVkIGlz
-IGJlY2F1c2UgZ2V0X2FyY2hfZG1hX29wcwo+IHJlZmVyZW5jZXMgKG9yIGluIGNhc2Ugb2YgdGhl
-IGNvaGVyZW50IG9uZXMgdXNlZCB0byByZWZlcmVuY2UpLiAgV2UKPiBkb24ndCBsZXQgZHJpdmVy
-cyBhc3NpZ24gcmFuZG9tIGRtYSBvcHMuCj4gCj4gPiAKPiA+ID4gVGhpZXJyeSwgcGxlYXNlIHJl
-c2VuZCB0aGlzIHdpdGggYXQgbGVhc3QgdGhlIGlvbW11IGxpc3QgYW5kCj4gPiA+IGxpbnV4LWFy
-bS1rZXJuZWwgaW4gQ2MgdG8gaGF2ZSBhIHByb3BlciBkaXNjdXNzaW9uIG9uIHRoZSByaWdodCBB
-UEkuCj4gPiAKPiA+IEknbSBjZXJ0YWlubHkgb3BlbiB0byBoZWxwIHdpdGggZmluZGluZyBhIGNv
-cnJlY3Qgc29sdXRpb24sIGJ1dCB0aGUKPiA+IHBhdGNoIGFib3ZlIHdhcyBwdXJwb3NlZnVsbHkg
-dGVyc2UgYmVjYXVzZSB0aGlzIGlzIHNvbWV0aGluZyB0aGF0IEkKPiA+IGhvcGUgd2UgY2FuIGdl
-dCBiYWNrcG9ydGVkIHRvIHY0LjE2IHRvIHVuYnJlYWsgTm91dmVhdS4gQ29vcmRpbmF0aW5nCj4g
-PiBzdWNoIGEgYmFja3BvcnQgYmV0d2VlbiBBUk0gYW5kIERSTSB0cmVlcyBkb2VzIG5vdCBzb3Vu
-ZCBsaWtlIHNvbWV0aGluZwo+ID4gdGhhdCB3b3VsZCBoZWxwIGdldHRpbmcgdGhpcyBmaXhlZCBp
-biB2NC4xNi4KPiAKPiBDb29yZGluYXRpbmcgdGhlIGJhY2twb3J0IG9mIGEgdHJpdmlhbCBoZWxw
-ZXIgaW4gdGhlIGFybSB0cmVlIGlzIG5vdAo+IHRoZSBlbmQgb2YgdGhlIHdvcmxkLiAgUmVhbGx5
-LCB0aGlzIGNvd2JveSBhdHRpdHVkZSBpcyBhIGdvb2QgcmVhc29uCj4gd2h5IGdyYXBoaWNzIGZv
-bGtzIGhhdmUgc3VjaCBhIGJhZCByZXAuICBZb3Uga2VlcCBwb2tpbmcgaW50byByYW5kb20KPiBr
-ZXJuZWwgaW50ZXJuYWxzLCBkb24ndCB0YWxrIHRvIGFub3lvbmUgYW5kIHRoZW4gY29tcGxhaW4g
-aWYgcGVvcGxlCj4gYXJlIHVwc2V0LiAgVGhpcyBzaG91bGRuJ3QgYmUgc3VycHJpc2luZy4KCk5v
-dCByZWFsbHkgYWdyZWVpbmcgb24gdGhlIGNvd2JveSB0aGluZy4gVGhlIGZ1bmRhbWVudGFsIHBy
-b2JsZW0gaXMgdGhhdAp0aGUgZG1hIGFwaSBwcm92aWRlcyBhYnN0cmFjdGlvbiB0aGF0IHNlcmlv
-dXNseSBnZXRzIGluIHRoZSB3YXkgb2Ygd3JpdGluZwphIGdwdSBkcml2ZXIuIFNvbWUgZXhhbXBs
-ZXM6CgotIFdlIG5ldmVyIHdhbnQgYm91bmNlIGJ1ZmZlcnMsIGV2ZXIuIGRtYV9tYXBfc2cgZ2l2
-ZXMgdXMgdGhhdCwgc28gdGhlcmUncwogIGhhY2tzIHRvIGZhbGwgYmFjayB0byBhIGNhY2hlIG9m
-IHBhZ2VzIGFsbG9jYXRlZCB1c2luZwogIGRtYV9hbGxvY19jb2hlcmVudCBpZiB5b3UgYnVpbGQg
-YSBrZXJuZWwgd2l0aCBib3VuY2UgYnVmZmVycy4KCi0gZG1hIGFwaSBoaWRlcyB0aGUgY2FjaGUg
-Zmx1c2hpbmcgcmVxdWlyZW1lbnRzIGZyb20gdXMuIEdQVXMgbG92ZQogIG5vbi1zbm9vcGVkIGFj
-Y2VzcywgYW5kIHdvcnNlIGdpdmUgdXNlcnNwYWNlIGNvbnRyb2wgb3ZlciB0aGF0LiBXZSB3YW50
-CiAgYSBzdHJpY3Qgc2VwYXJhdGlvbiBiZXR3ZWVuIG1hcHBpbmcgc3R1ZmYgYW5kIGZsdXNoaW5n
-IHN0dWZmLiBXaXRoIHRoZQogIElPTU1VIGFwaSB3ZSBtb3N0bHkgaGF2ZSB0aGUgZm9ybWVyLCBi
-dXQgZm9yIHRoZSBsYXRlciBhcmNoIG1haW50YWluZXJzCiAgcmVndWxhcmx5IHRlbGxzIHRoZXkg
-d29uJ3QgYWxsb3cgdGhhdC4gU28gd2UgaGF2ZSBkcm1fY2xmbHVzaC5jLgoKLSBkbWEgYXBpIGhp
-ZGVzIGhvdy93aGVyZSBtZW1vcnkgaXMgYWxsb2NhdGVkLiBLaW5kYSBzaW1pbGFyIHByb2JsZW0s
-CiAgZXhjZXB0IG5vdyBmb3IgQ01BIG9yIGFkZHJlc3MgbGltaXRzLiBTbyBlaXRoZXIgd2Ugcm9s
-bCBvdXIgb3duCiAgYWxsb2NhdG9ycyBhbmQgdGhlbiBkbWFfbWFwX3NnIChhbmQgcHJheSBpdCBk
-b2Vzbid0IGJvdW5jZSBidWZmZXIpLCBvcgogIHdlIHVzZSBkbWFfYWxsb2NfY29oZXJlbnQgYW5k
-IHRoZW4gZ3JhYiB0aGUgc2d0IHRvIGdldCBhdCB0aGUgQ01BCiAgYWxsb2NhdGlvbnMgYmVjYXVz
-ZSB0aGF0J3MgdGhlIG9ubHkgd2F5LiBXaGljaCBzdWNrcywgYmVjYXVzZSB3ZSBjYW4ndAogIGRp
-cmVjdGx5IHRlbGwgQ01BIGhvdyB0byBiYWNrIG9mZiBpZiB0aGVyZSdzIHNvbWUgd2F5IHRvIG1h
-a2UgQ01BIG1lbW9yeQogIGF2YWlsYWJsZSB0aHJvdWdoIG90aGVyIG1lYW5zIChncHVzIGxvdmUg
-dG8gaG9nIGFsbCBvZiBtZW1vcnksIHNvIHdlCiAgaGF2ZSBzaHJpbmtlcnMgYW5kIGV2ZXJ5dGhp
-bmcpLgoKRm9yIGRpc3BsYXkgZHJpdmVycyB0aGUgZG1hIGFwaSBtb3N0bHkgd29ya3MsIHVudGls
-IHlvdSBzdGFydCBzaGFyaW5nCmJ1ZmZlcnMgd2l0aCBvdGhlciBkZXZpY2VzLgoKU28gZnJvbSBv
-dXIgcGVyc3BlY3RpdmUgaXQgbG9va3MgZmFpcmx5IG9mdGVuIHRoYXQgY29yZSBmb2xrcyBqdXN0
-IGRvbid0CndhbnQgdG8gc3VwcG9ydCBncHUgdXNlLWNhc2VzLCBzbyB3ZSBwbGF5IGEgYml0IG1v
-cmUgY293Ym95IGFuZCBnZXQgdGhpbmdzCmRvbmUgc29tZSBvdGhlciB3YXkuIFNpbmNlIHRoaXMg
-aGFzIGJlZW4gZ29pbmcgb24gZm9yIHllYXJzIG5vdyB3ZSBvZnRlbgpkb24ndCBldmVuIGJvdGhl
-ciB0byBzdGFydCBhIGRpc2N1c3Npb24gZmlyc3QsIHNpbmNlIGl0IHRlbmRlZCB0byBnbwpub3do
-ZXJlIHVzZWZ1bC4KLURhbmllbAoKPiA+IEdyYW50ZWQsIHRoaXMgaXNzdWUgY291bGQndmUgYmVl
-biBjYXVnaHQgd2l0aCBhIGxpdHRsZSBtb3JlIHRlc3RpbmcsIGJ1dAo+ID4gaW4gcmV0cm9zcGVj
-dCBJIHRoaW5rIGl0IHdvdWxkJ3ZlIGJlZW4gYSBsb3QgYmV0dGVyIGlmIEFSTV9ETUFfVVNFX0lP
-TU1VCj4gPiB3YXMganVzdCBlbmFibGVkIHVuY29uZGl0aW9uYWxseSBpZiBpdCBoYXMgc2lkZS1l
-ZmZlY3RzIHRoYXQgcGxhdGZvcm1zCj4gPiBkb24ndCBvcHQgaW4gdG8gYnV0IGhhdmUgdG8gZXhw
-bGljaXRseSBvcHQgb3V0IG9mLgo+IAo+IEFncmVlZCBvbiB0aGF0IGNvdW50LiAgUGxlYXNlIHNl
-bmQgYSBwYXRjaC4KCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBD
-b3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9kcmktZGV2ZWwK
+On 04/24, Andrey Grodzovsky wrote:
+>
+> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> @@ -227,9 +227,10 @@ void drm_sched_entity_do_release(struct drm_gpu_scheduler *sched,
+>  		return;
+>  	/**
+>  	 * The client will not queue more IBs during this fini, consume existing
+> -	 * queued IBs or discard them on SIGKILL
+> +	 * queued IBs or discard them when in death signal state since
+> +	 * wait_event_killable can't receive signals in that state.
+>  	*/
+> -	if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
+> +	if (current->flags & PF_SIGNALED)
+
+please do not use PF_SIGNALED, it must die. Besides you can't rely on this flag
+in multi-threaded case. current->exit_code doesn't look right too.
+
+>  		entity->fini_status = -ERESTARTSYS;
+>  	else
+>  		entity->fini_status = wait_event_killable(sched->job_scheduled,
+
+So afaics the problem is that fatal_signal_pending() is not necessarily true
+after SIGKILL was already dequeued and thus wait_event_killable(), right?
+
+This was already discussed, but it is not clear what we can/should do. We can
+probably change get_signal() to not dequeue SIGKILL or do something else to keep
+fatal_signal_pending() == T for the exiting killed thread.
+
+But in this case we probably also want to discriminate the "real" SIGKILL's from
+group_exit/exec/coredump.
+
+Oleg.
