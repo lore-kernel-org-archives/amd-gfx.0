@@ -1,22 +1,23 @@
 From: Christoph Hellwig <hch@infradead.org>
-Subject: noveau vs arm dma ops
-Date: Wed, 25 Apr 2018 01:54:39 -0700
-Message-ID: <20180425085439.GA29996@infradead.org>
-References: <f1100bd6-dd98-55a9-a92f-1cad919f235f@amd.com>
- <20180420124625.GA31078@infradead.org>
- <20180420152111.GR31310@phenom.ffwll.local>
- <20180424184847.GA3247@infradead.org>
+Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
+Date: Wed, 25 Apr 2018 01:55:59 -0700
+Message-ID: <20180425085559.GB29996@infradead.org>
+References: <20180424184847.GA3247@infradead.org>
  <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
  <20180425054855.GA17038@infradead.org>
  <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
  <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
- <20180425064335.GB28100@infradead.org> <20180425074151.GA2271@ulmo>
+ <20180425064335.GB28100@infradead.org>
+ <CAKMK7uGF7p5ko=i6zL4dn0qR-5TVRKMi6xaCGSao_vyfJU+dWQ@mail.gmail.com>
+ <20180425070905.GA24827@infradead.org>
+ <20180425073039.GO25142@phenom.ffwll.local>
+ <20180425075643.GC2271@ulmo>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-In-Reply-To: <20180425074151.GA2271@ulmo>
+In-Reply-To: <20180425075643.GC2271@ulmo>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -27,41 +28,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: Thierry Reding <treding@nvidia.com>
-Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Jerome Glisse <jglisse@redhat.com>, iommu@lists.linux-foundation.org, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-arm-kernel@lists.infradead.org, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Jerome Glisse <jglisse@redhat.com>, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-W2Rpc2N1c3Npb24gYWJvdXQgdGhpcyBwYXRjaCwgd2hpY2ggc2hvdWxkIGhhdmUgYmVlbiBjY2Vk
-IHRvIHRoZSBpb21tdQogYW5kIGxpbnV4LWFybS1rZXJuZWwgbGlzdHMsIGJ1dCB3YXNuJ3Q6CiBo
-dHRwczovL3d3dy5zcGluaWNzLm5ldC9saXN0cy9kcmktZGV2ZWwvbXNnMTczNjMwLmh0bWxdCgpP
-biBXZWQsIEFwciAyNSwgMjAxOCBhdCAwOTo0MTo1MUFNICswMjAwLCBUaGllcnJ5IFJlZGluZyB3
-cm90ZToKPiA+IEFQSSBmcm9tIHRoZSBpb21tdS9kbWEtbWFwcGluZyBjb2RlLiAgRHJpdmVycyBo
-YXZlIG5vIGJ1c2luZXNzIHBva2luZwo+ID4gaW50byB0aGVzZSBkZXRhaWxzLgo+IAo+IFRoZSBp
-bnRlcmZhY2VzIHRoYXQgdGhlIGFib3ZlIHBhdGNoIHVzZXMgYXJlIGFsbCBFWFBPUlRfU1lNQk9M
-X0dQTCwKPiB3aGljaCBpcyByYXRoZXIgbWlzbGVhZGluZyBpZiB0aGV5IGFyZSBub3QgbWVhbnQg
-dG8gYmUgdXNlZCBieSBkcml2ZXJzCj4gZGlyZWN0bHkuCgpUaGUgb25seSByZWFzb24gdGhlIERN
-QSBvcHMgYXJlIGV4cG9ydGVkIGlzIGJlY2F1c2UgZ2V0X2FyY2hfZG1hX29wcwpyZWZlcmVuY2Vz
-IChvciBpbiBjYXNlIG9mIHRoZSBjb2hlcmVudCBvbmVzIHVzZWQgdG8gcmVmZXJlbmNlKS4gIFdl
-CmRvbid0IGxldCBkcml2ZXJzIGFzc2lnbiByYW5kb20gZG1hIG9wcy4KCj4gCj4gPiBUaGllcnJ5
-LCBwbGVhc2UgcmVzZW5kIHRoaXMgd2l0aCBhdCBsZWFzdCB0aGUgaW9tbXUgbGlzdCBhbmQKPiA+
-IGxpbnV4LWFybS1rZXJuZWwgaW4gQ2MgdG8gaGF2ZSBhIHByb3BlciBkaXNjdXNzaW9uIG9uIHRo
-ZSByaWdodCBBUEkuCj4gCj4gSSdtIGNlcnRhaW5seSBvcGVuIHRvIGhlbHAgd2l0aCBmaW5kaW5n
-IGEgY29ycmVjdCBzb2x1dGlvbiwgYnV0IHRoZQo+IHBhdGNoIGFib3ZlIHdhcyBwdXJwb3NlZnVs
-bHkgdGVyc2UgYmVjYXVzZSB0aGlzIGlzIHNvbWV0aGluZyB0aGF0IEkKPiBob3BlIHdlIGNhbiBn
-ZXQgYmFja3BvcnRlZCB0byB2NC4xNiB0byB1bmJyZWFrIE5vdXZlYXUuIENvb3JkaW5hdGluZwo+
-IHN1Y2ggYSBiYWNrcG9ydCBiZXR3ZWVuIEFSTSBhbmQgRFJNIHRyZWVzIGRvZXMgbm90IHNvdW5k
-IGxpa2Ugc29tZXRoaW5nCj4gdGhhdCB3b3VsZCBoZWxwIGdldHRpbmcgdGhpcyBmaXhlZCBpbiB2
-NC4xNi4KCkNvb3JkaW5hdGluZyB0aGUgYmFja3BvcnQgb2YgYSB0cml2aWFsIGhlbHBlciBpbiB0
-aGUgYXJtIHRyZWUgaXMgbm90CnRoZSBlbmQgb2YgdGhlIHdvcmxkLiAgUmVhbGx5LCB0aGlzIGNv
-d2JveSBhdHRpdHVkZSBpcyBhIGdvb2QgcmVhc29uCndoeSBncmFwaGljcyBmb2xrcyBoYXZlIHN1
-Y2ggYSBiYWQgcmVwLiAgWW91IGtlZXAgcG9raW5nIGludG8gcmFuZG9tCmtlcm5lbCBpbnRlcm5h
-bHMsIGRvbid0IHRhbGsgdG8gYW5veW9uZSBhbmQgdGhlbiBjb21wbGFpbiBpZiBwZW9wbGUKYXJl
-IHVwc2V0LiAgVGhpcyBzaG91bGRuJ3QgYmUgc3VycHJpc2luZy4KCj4gR3JhbnRlZCwgdGhpcyBp
-c3N1ZSBjb3VsZCd2ZSBiZWVuIGNhdWdodCB3aXRoIGEgbGl0dGxlIG1vcmUgdGVzdGluZywgYnV0
-Cj4gaW4gcmV0cm9zcGVjdCBJIHRoaW5rIGl0IHdvdWxkJ3ZlIGJlZW4gYSBsb3QgYmV0dGVyIGlm
-IEFSTV9ETUFfVVNFX0lPTU1VCj4gd2FzIGp1c3QgZW5hYmxlZCB1bmNvbmRpdGlvbmFsbHkgaWYg
-aXQgaGFzIHNpZGUtZWZmZWN0cyB0aGF0IHBsYXRmb3Jtcwo+IGRvbid0IG9wdCBpbiB0byBidXQg
-aGF2ZSB0byBleHBsaWNpdGx5IG9wdCBvdXQgb2YuCgpBZ3JlZWQgb24gdGhhdCBjb3VudC4gIFBs
-ZWFzZSBzZW5kIGEgcGF0Y2guCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
-aS1kZXZlbAo=
+T24gV2VkLCBBcHIgMjUsIDIwMTggYXQgMDk6NTY6NDNBTSArMDIwMCwgVGhpZXJyeSBSZWRpbmcg
+d3JvdGU6Cj4gQW5kIHRvIGFkZCB0byB0aGUgY29uZnVzaW9uLCBub25lIG9mIHRoaXMgc2VlbXMg
+dG8gYmUgYW4gaXNzdWUgb24gNjQtYml0Cj4gQVJNIHdoZXJlIHRoZSBnZW5lcmljIERNQS9JT01N
+VSBjb2RlIGZyb20gZHJpdmVycy9pb21tdS9kbWEtaW9tbXUuYyBpcwo+IHVzZWQuCgpJbiB0aGUg
+bG9uZyB0ZXJtIEkgd2FudCBldmVyeW9uZSB0byB1c2UgdGhhdCBjb2RlLiAgSGVscCB3ZWxjb21l
+IQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2
+ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
