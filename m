@@ -1,7 +1,7 @@
 From: Christoph Hellwig <hch@infradead.org>
 Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
-Date: Tue, 24 Apr 2018 23:41:18 -0700
-Message-ID: <20180425064118.GA28100@infradead.org>
+Date: Tue, 24 Apr 2018 23:43:35 -0700
+Message-ID: <20180425064335.GB28100@infradead.org>
 References: <3e17afc5-7d6c-5795-07bd-f23e34cf8d4b@gmail.com>
  <20180420101755.GA11400@infradead.org>
  <f1100bd6-dd98-55a9-a92f-1cad919f235f@amd.com>
@@ -11,13 +11,13 @@ References: <3e17afc5-7d6c-5795-07bd-f23e34cf8d4b@gmail.com>
  <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
  <20180425054855.GA17038@infradead.org>
  <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
- <CADnq5_P3bT0TStSXpKh11ydifv=KwKtRj-7tDS=GQXey+8tBPw@mail.gmail.com>
+ <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-In-Reply-To: <CADnq5_P3bT0TStSXpKh11ydifv=KwKtRj-7tDS=GQXey+8tBPw@mail.gmail.com>
+In-Reply-To: <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -27,26 +27,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Jerome Glisse <jglisse@redhat.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Jerome Glisse <jglisse@redhat.com>, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Thierry Reding <treding@nvidia.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBBcHIgMjUsIDIwMTggYXQgMDI6MjQ6MzZBTSAtMDQwMCwgQWxleCBEZXVjaGVyIHdy
-b3RlOgo+ID4gSXQgaGFzIGEgbm9uLWNvaGVyZW50IHRyYW5zYWN0aW9uIG1vZGUgKHdoaWNoIHRo
-ZSBjaGlwc2V0IGNhbiBvcHQgdG8KPiA+IG5vdCBpbXBsZW1lbnQgYW5kIHN0aWxsIGZsdXNoKSwg
-dG8gbWFrZSBzdXJlIHRoZSBBR1AgaG9ycm9yIHNob3cKPiA+IGRvZXNuJ3QgaGFwcGVuIGFnYWlu
-IGFuZCBHUFUgZm9sa3MgYXJlIGhhcHB5IHdpdGggUENJZS4gVGhhdCdzIGF0Cj4gPiBsZWFzdCBt
-eSB1bmRlcnN0YW5kaW5nIGZyb20gZGlnZ2luZyBhcm91bmQgaW4gYW1kIHRoZSBsYXN0IHRpbWUg
-d2UgaGFkCj4gPiBjb2hlcmVuY3kgaXNzdWVzIGJldHdlZW4gaW50ZWwgYW5kIGFtZCBncHVzLiBH
-UFVzIGhhdmUgc29tZSBiaXRzCj4gPiBzb21ld2hlcmUgKGluIHRoZSBwYWdldGFibGVzLCBvciBp
-biB0aGUgYnVmZmVyIG9iamVjdCBkZXNjcmlwdGlvbgo+ID4gdGFibGUgY3JlYXRlZCBieSB1c2Vy
-c3BhY2UpIHRvIGNvbnRyb2wgdGhhdCBzdHVmZi4KPiAKPiBSaWdodC4gIFdlIGhhdmUgYSBiaXQg
-aW4gdGhlIEdQVSBwYWdlIHRhYmxlIGVudHJpZXMgdGhhdCBkZXRlcm1pbmVzCj4gd2hldGhlciB3
-ZSBzbm9vcCB0aGUgQ1BVJ3MgY2FjaGUgb3Igbm90LgoKSSBjYW4gc2VlIGhvdyB0aGF0IHdvcmtz
-IHdpdGggdGhlIEdQVSBvbiB0aGUgc2FtZSBTT0Mgb3IgU09DIHNldCBhcyB0aGUKQ1BVLiAgQnV0
-IGhvdyBpcyB0aGF0IGdvaW5nIHRvIHdvcmsgZm9yIGEgR1BVIHRoYXQgaXMgYSBwbGFpbiBvbGQg
-UENJZQpjYXJkPyAgVGhlIGNhY2hlIHNub29waW5nIGluIHRoYXQgY2FzZSBpcyBoYXBwZW5pbmcg
-aW4gdGhlIFBDSWUgcm9vdApjb21wbGV4LgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWwK
+T24gV2VkLCBBcHIgMjUsIDIwMTggYXQgMDg6MjM6MTVBTSArMDIwMCwgRGFuaWVsIFZldHRlciB3
+cm90ZToKPiBGb3IgbW9yZSBmdW46Cj4gCj4gaHR0cHM6Ly93d3cuc3Bpbmljcy5uZXQvbGlzdHMv
+ZHJpLWRldmVsL21zZzE3MzYzMC5odG1sCj4gCj4gWWVhaCwgc29tZXRpbWVzIHdlIHdhbnQgdG8g
+ZGlzYWJsZSB0aGUgaW9tbXUgYmVjYXVzZSB0aGUgb24tZ3B1Cj4gcGFnZXRhYmxlcyBhcmUgZmFz
+dGVyIC4uLgoKSSBhbSBub3Qgb24gdGhpcyBsaXN0LCBidXQgcmVtb3RlIE5BSyBmcm9tIGhlcmUu
+ICBUaGlzIG5lZWRzIGFuCkFQSSBmcm9tIHRoZSBpb21tdS9kbWEtbWFwcGluZyBjb2RlLiAgRHJp
+dmVycyBoYXZlIG5vIGJ1c2luZXNzIHBva2luZwppbnRvIHRoZXNlIGRldGFpbHMuCgpUaGllcnJ5
+LCBwbGVhc2UgcmVzZW5kIHRoaXMgd2l0aCBhdCBsZWFzdCB0aGUgaW9tbXUgbGlzdCBhbmQKbGlu
+dXgtYXJtLWtlcm5lbCBpbiBDYyB0byBoYXZlIGEgcHJvcGVyIGRpc2N1c3Npb24gb24gdGhlIHJp
+Z2h0IEFQSS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+ZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
