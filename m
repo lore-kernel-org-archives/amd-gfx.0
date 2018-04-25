@@ -1,8 +1,10 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+From: Thierry Reding <treding@nvidia.com>
 Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
-Date: Wed, 25 Apr 2018 09:30:39 +0200
-Message-ID: <20180425073039.GO25142@phenom.ffwll.local>
-References: <20180420124625.GA31078@infradead.org>
+Date: Wed, 25 Apr 2018 09:41:51 +0200
+Message-ID: <20180425074151.GA2271@ulmo>
+References: <20180420101755.GA11400@infradead.org>
+ <f1100bd6-dd98-55a9-a92f-1cad919f235f@amd.com>
+ <20180420124625.GA31078@infradead.org>
  <20180420152111.GR31310@phenom.ffwll.local>
  <20180424184847.GA3247@infradead.org>
  <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
@@ -10,64 +12,108 @@ References: <20180420124625.GA31078@infradead.org>
  <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
  <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
  <20180425064335.GB28100@infradead.org>
- <CAKMK7uGF7p5ko=i6zL4dn0qR-5TVRKMi6xaCGSao_vyfJU+dWQ@mail.gmail.com>
- <20180425070905.GA24827@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20180425070905.GA24827-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
-Cc: Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, Jerome Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Dan Williams <dan.j.williams-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Logan Gunthorpe <logang-OTvnGxWRz7hWk0Htik3J/w@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1837299700=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180425064335.GB28100@infradead.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Jerome Glisse <jglisse@redhat.com>, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBBcHIgMjUsIDIwMTggYXQgMTI6MDk6MDVBTSAtMDcwMCwgQ2hyaXN0b3BoIEhlbGx3
-aWcgd3JvdGU6Cj4gT24gV2VkLCBBcHIgMjUsIDIwMTggYXQgMDk6MDI6MTdBTSArMDIwMCwgRGFu
-aWVsIFZldHRlciB3cm90ZToKPiA+IENhbiB3ZSBwbGVhc2Ugbm90IG5hY2sgZXZlcnl0aGluZyBy
-aWdodCBhd2F5PyBEb2Vzbid0IHJlYWxseSBtb3RpdmF0ZQo+ID4gbWUgdG8gc2hvdyB5b3UgYWxs
-IHRoZSB2YXJpb3VzIHRoaW5ncyB3ZSdyZSBkb2luZyBpbiBncHUgdG8gbWFrZSB0aGUKPiA+IGRt
-YSBsYXllciB3b3JrIGZvciB1cy4gVGhhdCBraW5kIG9mIG5vb2RsaW5nIGFyb3VuZCBpbiBsb3dl
-ciBsZXZlbHMgdG8KPiA+IGdldCB0aGVtIHRvIGRvIHdoYXQgd2Ugd2FudCBpcyBhYnNvbHV0ZWx5
-IHBhci1mb3ItY291cnNlIGZvciBncHUKPiA+IGRyaXZlcnMuIElmIHlvdSBqdXN0IG5hY2sgZXZl
-cnl0aGluZyBJIHBvaW50IHlvdSBhdCBmb3IgaWxsdXN0cmF0aXZlCj4gPiBwdXJwb3NlcywgdGhl
-biBJIGNhbid0IHNob3cgeW91IHN0dWZmIGFueW1vcmUuCj4gCj4gTm8sIGl0J3Mgbm90LiAgTm8g
-ZHJpdmVyIChhbmQgdGhhdCBpbmNsdWRlcyB0aGUgbWFnaWMgR1BVcykgaGFzCj4gYW55IGJ1c2lu
-ZXNzIG1lc3Npbmcgd2l0aCBkbWEgb3BzIGRpcmVjdGx5Lgo+IAo+IEEgR1BVIGRyaXZlciBpbWdo
-dCBoYXZlIGEgdmVyeSB2YWxpZCByZWFzb24gdG8gZGlzYWJsZSB0aGUgSU9NTVUsCj4gYnV0IHRo
-ZSBjb2RlIHRvIGRvIHNvIG5lZWRzIHRvIGJlIGF0IGxlYXN0IGluIHRoZSBhcmNoIGNvZGUsIG1h
-eWJlCj4gaW4gdGhlIGRtYS1tYXBwaW5nL2lvbW11IGNvZGUsIG5vdCBpbiB0aGUgZHJpdmVyLgo+
-IAo+IEFzIGEgZmlyc3Qgc3RlcCB0byBnZXQgdGhlIGRpc2N1c3Npb24gc3RhcnRlZCB3ZSdsbCBz
-aW1wbHkgbmVlZAo+IHRvIG1vdmUgdGhlIGNvZGUgVGhpZXJyeSB3cm90ZSBpbnRvIGEgaGVscGVy
-IGluIGFyY2gvYXJtIGFuZCB0aGF0Cj4gYWxvbmUgd291bGQgYmUgYSBtYXNzaXZlIGltcHJvdmVt
-ZW50LiAgSSdtIG5vdCBldmVuIHRhbGtpbmcgYWJvdXQKPiBtaW5vciBkZXRhaWxzIGxpa2UgYWN0
-dWFsbHkgdXNpbmcgYXJtX2dldF9kbWFfbWFwX29wcyBpbnN0ZWFkCj4gb2YgZHVwbGljYXRpbmcg
-aXQuCj4gCj4gQW5kIGRvaW5nIHRoaXMgYmFzaWMgdHJpdmlhbCB3b3JrIHJlYWxseSBoZWxwcyB0
-byBnZXQgdGhpcyB3aG9sZQo+IG1lc3MgdW5kZXIgY29udHJvbC4KCkFoIG9rLiBJdCBkaWQgc291
-bmQgYSBiaXQgbGlrZSBhIG11Y2ggbW9yZSBjYXRoZWdvcmljYWwgTkFLIHRoYW4gYW4gImFjawpp
-biBwcmluY2lwbGUsIGJ1dCB3ZSBuZWVkIHRvIHNodWZmbGUgdGhlIGltcGxlbWVudGF0aW9uIGlu
-dG8gdGhlIHJpZ2h0CnBsYWNlIGZpcnN0Ii4gSW4gdGhlIHBhc3Qgd2UgZ2VuZXJhbGx5IGdvdCBh
-IHByaW5jaXBsZWQgTkFLIG9uIGFueXRoaW5nCmZ1bm55IHdlJ3ZlIGJlZW4gZG9pbmcgd2l0aCB0
-aGUgZG1hIGFwaSwgYW5kIHRoZSBkbWEgYXBpIG1haW50YWluZXIKc3RlYW1pbmcgb2ZmIHRlbGxp
-bmcgdXMgd2UncmUgaW5jb21wZXRlbnQgaWRpb3RzLiBJIGd1ZXNzIEkndmUgYmVlbgpicmFuZGVk
-IGEgYml0IG9uIHRoaXMgdG9waWMgOi0vCgpSZWFsbHkgZ3JlYXQgdGhhdCB0aGlzIGlzIGNoYW5n
-aW5nIG5vdy4KCk9uIHRoZSBwYXRjaCBpdHNlbGY6IEl0IG1pZ2h0IG5vdCBiZSB0aGUgcmlnaHQg
-dGhpbmcgaW4gYWxsIGNhc2VzLCBzaW5jZQpmb3IgY2VydGFpbiBjb21wcmVzc2lvbiBmb3JtYXRz
-IHRoZSBudiBncHUgd2FudHMgbGFyZ2VyIHBhZ2VzIChlYXN5IHRvCmFsbG9jYXRlIGZyb20gdnJh
-bSwgbm90IHNvIGVhc3kgZnJvbSBtYWluIG1lbW9yeSksIHNvIG1pZ2h0IG5lZWQgdGhlIGlvbW11
-CnN0aWxsLiBCdXQgY3VycmVudGx5IHRoYXQncyBub3QgaW1wbGVtZW50ZWQ6CgpodHRwczovL3d3
-dy5zcGluaWNzLm5ldC9saXN0cy9kcmktZGV2ZWwvbXNnMTczOTMyLmh0bWwKCkNoZWVycywgRGFu
-aWVsCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlv
-bgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+--===============1837299700==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="3MwIy2ne0vdjdPXF"
+Content-Disposition: inline
+
+--3MwIy2ne0vdjdPXF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Apr 24, 2018 at 11:43:35PM -0700, Christoph Hellwig wrote:
+> On Wed, Apr 25, 2018 at 08:23:15AM +0200, Daniel Vetter wrote:
+> > For more fun:
+> >=20
+> > https://www.spinics.net/lists/dri-devel/msg173630.html
+> >=20
+> > Yeah, sometimes we want to disable the iommu because the on-gpu
+> > pagetables are faster ...
+>=20
+> I am not on this list, but remote NAK from here.  This needs an
+> API from the iommu/dma-mapping code.  Drivers have no business poking
+> into these details.
+
+The interfaces that the above patch uses are all EXPORT_SYMBOL_GPL,
+which is rather misleading if they are not meant to be used by drivers
+directly.
+
+> Thierry, please resend this with at least the iommu list and
+> linux-arm-kernel in Cc to have a proper discussion on the right API.
+
+I'm certainly open to help with finding a correct solution, but the
+patch above was purposefully terse because this is something that I
+hope we can get backported to v4.16 to unbreak Nouveau. Coordinating
+such a backport between ARM and DRM trees does not sound like something
+that would help getting this fixed in v4.16.
+
+The fundamental issue here is that the DMA/IOMMU integration is
+something that has caused a number of surprising regressions in the past
+because it tends to sneak in unexpectedly. For example the current
+regression shows up only if CONFIG_ARM_DMA_USE_IOMMU=3Dy because the DMA
+API will then transparently create a second mapping and mess things up.
+Everything works fine if that option is disabled. This is ultimately why
+we didn't notice, since we don't enable that option by default. I do
+have a patch that I plan to apply to the Tegra tree that will always
+enable CONFIG_ARM_DMA_USE_IOMMU=3Dy on Tegra to avoid any such surprises
+in the future, but I can obviously only apply that once the above patch
+is applied to Nouveau, otherwise we'll break Nouveau unconditionally.
+
+Granted, this issue could've been caught with a little more testing, but
+in retrospect I think it would've been a lot better if ARM_DMA_USE_IOMMU
+was just enabled unconditionally if it has side-effects that platforms
+don't opt in to but have to explicitly opt out of.
+
+Thierry
+
+--3MwIy2ne0vdjdPXF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlrgMTwACgkQ3SOs138+
+s6FhzxAAhAWFPLKYY1teMqCaHfPUBIUiOMRZJU7ufMMjY28rJFHHZGQoa0Tj3WzZ
+2msD0RZKxdnYuRAs90G3XHtYYULICSYi3XJ31V9pLHHmptLNHmeAbzQ39lLue19L
+Cc+1LozOpc99zmDTW94SdXzzoIqHzaPA0Pm+020+np6ASBxfn5jnkVTbB48Wm4WF
+ug5gt+6n7jCX3jXOomaHJVeZKSCj57SIKb9YxJ7kconRU6J3zgVSaprku2yxKpeV
+/ii6IdAMlb1vpFi126ssD81aJ72e2yWBwegLkn2m+exnz7BzkL2qs82ERiTYJZ8x
+IeKoC8tNQcA1Ev6v8MpeUjpaGJuiTQjXXUvrBj3xh5hG+5yt8gFcRE1h4/hFHz2O
+/GJwPNfWZsESd82c/uOAEGhuYiRkh85mP3JqRZOXt3xryf9tdpqGf6YI0dpE6Yle
+Xc1hNRdDOKPswQxdSKoI75yRWD42fWEr2g3nY2KQO/FMZqPMq8Sp/vGzoBI1ZALH
+W3f6ACLxBzrmUtLcBWWX20FoQ+wwrQefezXXljVIU8i/ZPh1Pcn9u9PCAW3FgGV6
+lSdzTjsupvbC5rFvH/JL0vKcBf1UAZdctbV5preQOGBOv0qyy/mSPDUJCRhZc3M5
+A5Y0hGYKZPw4EyGyA/YzsqcOFj5EmdXS5DQVoeYk/8ENbm+WEHI=
+=wFUj
+-----END PGP SIGNATURE-----
+
+--3MwIy2ne0vdjdPXF--
+
+--===============1837299700==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1837299700==--
