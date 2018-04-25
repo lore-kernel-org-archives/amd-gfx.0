@@ -1,58 +1,86 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for signaled process.
-Date: Wed, 25 Apr 2018 11:31:45 -0500
-Message-ID: <87y3hbtfgu.fsf@xmission.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Switch to interrupted wait to recover
+ from ring hang.
+Date: Wed, 25 Apr 2018 13:17:40 -0400
+Message-ID: <d5a1b82b-a9c2-e6e8-1957-aab8acac242c@amd.com>
 References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
-        <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
-        <20180424194418.GE25142@phenom.ffwll.local>
-        <aa2d8587-651e-2c24-a673-4682e7035a8f@amd.com>
-        <87tvs05mik.fsf@xmission.com>
-        <27d7d15b-f7c3-2a0a-af85-eb243526ac88@amd.com>
-        <20180425071444.GM25142@phenom.ffwll.local>
-        <94828a42-02dd-29ad-a3d0-dc4c0cc82ddb@amd.com>
-        <87a7trwbh0.fsf@xmission.com>
-        <311660b9-9e46-b960-3088-06e16ac3838d@amd.com>
+ <1524583836-12130-4-git-send-email-andrey.grodzovsky@amd.com>
+ <DM5PR12MB244017F98FC732EB5DD86E0395880@DM5PR12MB2440.namprd12.prod.outlook.com>
+ <b4309ea4-c1a0-5811-040b-4390ce6f297f@amd.com>
+ <DM5PR12MB24408FF7C780D95307FB2BAD95880@DM5PR12MB2440.namprd12.prod.outlook.com>
+ <87bme8bm9g.fsf@xmission.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <311660b9-9e46-b960-3088-06e16ac3838d@amd.com> (Andrey
-        Grodzovsky's message of "Wed, 25 Apr 2018 12:13:58 -0400")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: David.Panariti@amd.com, Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, oleg@redhat.com, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <87bme8bm9g.fsf-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Eric W. Biederman" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>, "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>
+Cc: "oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org" <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
-
-> On 04/25/2018 11:29 AM, Eric W. Biederman wrote:
->
->>  Another issue is changing wait_event_killable to wait_event_timeout where I need
->> to understand
->> what TO value is acceptable for all the drivers using the scheduler, or maybe it
->> should come as a property
->> of drm_sched_entity.
->>
->> It would not surprise me if you could pick a large value like 1 second
->> and issue a warning if that time outever triggers.  It sounds like the
->> condition where we wait indefinitely today is because something went
->> wrong in the driver.
->
-> We wait here for all GPU jobs in flight which belong to the dying entity to complete. The driver submits
-> the GPU jobs but the content of the job might be is not under driver's control and could take 
-> long time to finish or even hang (e.g. graphic or compute shader) , I
-> guess that why originally the wait is indefinite.
-
-
-I am ignorant of what user space expect or what the semantics of the
-susbsystem are here, so I might be completely off base.  But this wait
-for a long time behavior I would expect much more from f_op->flush or a
-f_op->fsync method.
-
-fsync so it could be obtained without closing the file descriptor.
-flush so that you could get a return value out to close.
-
-But I honestly don't know semantically what your userspace applications
-expect and/or require so I can really only say.  Those of weird semantics.
-
-Eric
+CgpPbiAwNC8yNC8yMDE4IDEyOjMwIFBNLCBFcmljIFcuIEJpZWRlcm1hbiB3cm90ZToKPiAiUGFu
+YXJpdGksIERhdmlkIiA8RGF2aWQuUGFuYXJpdGlAYW1kLmNvbT4gd3JpdGVzOgo+Cj4+IEFuZHJl
+eSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPiB3cml0ZXM6Cj4+PiBLaW5k
+IG9mIGRtYV9mZW5jZV93YWl0X2tpbGxhYmxlLCBleGNlcHQgdGhhdCB3ZSBkb24ndCBoYXZlIHN1
+Y2ggQVBJCj4+PiAobWF5YmUgd29ydGggYWRkaW5nID8pCj4+IERlcGVuZHMgb24gaG93IG1hbnkg
+cGxhY2VzIGl0IHdvdWxkIGJlIGNhbGxlZCwgb3IgdGhpbmsgaXQgbWlnaHQgYmUgY2FsbGVkLiAg
+Q2FuIGFsd2F5cyBmYWN0b3Igb24gdGhlIDJuZCB0aW1lIGl0J3MgbmVlZGVkLgo+PiBGYWN0b3Jp
+bmcsIElNTywgcmFyZWx5IGh1cnRzLiAgVGhlIGZhY3RvcmVkIGZ1bmN0aW9uIGNhbiBlYXNpbHkg
+YmUgdmlzaXRlZCB1c2luZyBgTS0uJyA7LT4KPj4KPj4gQWxzbywgaWYgdGhlIHdhaXQgY291bGQg
+YmUgdmVyeSBsb25nLCB3b3VsZCBhIGxvZyBtZXNzYWdlLCBzb21ldGhpbmcgbGlrZSAieHh4IGhh
+cyBydW4gZm9yIFkgc2Vjb25kcy4iICBoZWxwPwo+PiBJIHBlcnNvbmFsbHkgaGF0ZSBoYW5naW5n
+IHcvbm8gaW5mby4KPiBVZ2guICBUaGlzIGxvb3AgYXBwZWFycyBzdXNjZXB0aWJsZSB0byBsb29z
+aW5nIHdha2UgdXBzLiAgVGhlcmUgYXJlCj4gcmFjZXMgYmV0d2VlbiB3aGVuIGEgd2FrZS11cCBo
+YXBwZW5zLCB3aGVuIHdlIGNsZWFyIHRoZSBzbGVlcGluZyBzdGF0ZSwKPiBhbmQgd2hlbiB3ZSB0
+ZXN0IHRoZSBzdGF0IHRvIHNlZSBpZiB3ZSBzaG91bGQgc3RhdCBhd2FrZS4gIFNvIHllcwo+IGlt
+cGxlbWVudGluZyBhIGRtYV9mZW5jZV93YWl0X2tpbGxhYmxlIHRoYXQgaGFuZGxlcyBvZiBhbGwg
+dGhhdAo+IGNvcnJlY3RseSBzb3VuZHMgbGlrZSBhbiB2ZXJ5IGdvb2QgaWRlYS4KCkkgYW0gbm90
+IGNsZWFyIGhlcmUgLSBjb3VsZCB5b3UgYmUgbW9yZSBzcGVjaWZpYyBhYm91dCB3aGF0IHJhY2Vz
+IHdpbGwgCmhhcHBlbiBoZXJlLCBtb3JlIGJlbGxvdwo+Cj4gRXJpYwo+Cj4KPj4+IElmIHRoZSBy
+aW5nIGlzIGhhbmdpbmcgZm9yIHNvbWUgcmVhc29uIGFsbG93IHRvIHJlY292ZXIgdGhlIHdhaXRp
+bmcgYnkgc2VuZGluZyBmYXRhbCBzaWduYWwuCj4+Pgo+Pj4gT3JpZ2luYWxseS1ieTogRGF2aWQg
+UGFuYXJpdGkgPERhdmlkLlBhbmFyaXRpQGFtZC5jb20+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBBbmRy
+ZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPj4+IC0tLQo+Pj4gICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIHwgMTQgKysrKysrKysrKy0t
+LS0KPj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygt
+KQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Y3R4LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKPj4+IGluZGV4
+IGViODBlZGYuLjM3YTM2YWYgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfY3R4LmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9jdHguYwo+Pj4gQEAgLTQyMSwxMCArNDIxLDE2IEBAIGludCBhbWRncHVfY3R4X3dhaXRf
+cHJldl9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4LCB1bnNpZ25lZCByaW5nX2lkKQo+Pj4K
+Pj4+ICAgICAgICBpZiAob3RoZXIpIHsKPj4+ICAgICAgICAgICAgICAgIHNpZ25lZCBsb25nIHI7
+Cj4+PiAtICAgICAgICAgICAgIHIgPSBkbWFfZmVuY2Vfd2FpdF90aW1lb3V0KG90aGVyLCBmYWxz
+ZSwgTUFYX1NDSEVEVUxFX1RJTUVPVVQpOwo+Pj4gLSAgICAgICAgICAgICBpZiAociA8IDApIHsK
+Pj4+IC0gICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoIkVycm9yICglbGQpIHdhaXRpbmcg
+Zm9yIGZlbmNlIVxuIiwgcik7Cj4+PiAtICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHI7Cj4+
+PiArCj4+PiArICAgICAgICAgICAgIHdoaWxlICh0cnVlKSB7Cj4+PiArICAgICAgICAgICAgICAg
+ICAgICAgaWYgKChyID0gZG1hX2ZlbmNlX3dhaXRfdGltZW91dChvdGhlciwgdHJ1ZSwKPj4+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTUFYX1NDSEVEVUxFX1RJTUVPVVQp
+KSA+PSAwKQo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4+PiAr
+CgpEbyB5b3UgbWVhbiB0aGF0IGJ5IHRoZSB0aW1lIEkgcmVhY2ggaGVyZSBzb21lIG90aGVyIHRo
+cmVhZCBmcm9tIG15IApncm91cCBhbHJlYWR5IG1pZ2h0IGRlcXVldWVkIFNJR0tJTEwgc2luY2Ug
+aXQncyBhIHNoYXJlZCBzaWduYWwgYW5kIApoZW5jZSBmYXRhbF9zaWduYWxfcGVuZGluZyB3aWxs
+IHJldHVybiBmYWxzZSA/IE9yIGFyZSB5b3UgdGFsa2luZyBhYm91dCAKdGhlIGRtYV9mZW5jZV93
+YWl0X3RpbWVvdXQgaW1wbGVtZW50YXRpb24gaW4gZG1hX2ZlbmNlX2RlZmF1bHRfd2FpdCB3aXRo
+IApzY2hlZHVsZV90aW1lb3V0ID8KCkFuZHJleQoKPj4+ICsgICAgICAgICAgICAgICAgICAgICBp
+ZiAoZmF0YWxfc2lnbmFsX3BlbmRpbmcoY3VycmVudCkpIHsKPj4+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIERSTV9FUlJPUigiRXJyb3IgKCVsZCkgd2FpdGluZyBmb3IgZmVuY2UhXG4i
+LCByKTsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByOwo+Pj4gKyAg
+ICAgICAgICAgICAgICAgICAgIH0KPj4+ICAgICAgICAgICAgICAgIH0KPj4+ICAgICAgICB9Cj4+
+Pgo+Pj4gLS0KPj4+IDIuNy40Cj4+Pgo+IEVyaWMKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
