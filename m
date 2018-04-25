@@ -1,33 +1,61 @@
-From: Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
- signaled process.
-Date: Wed, 25 Apr 2018 19:17:57 +0200
-Message-ID: <20180425171757.GA10441@redhat.com>
-References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
- <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
- <87muxsbmkp.fsf@xmission.com>
- <8840ac96-50c4-f94d-eb7c-f007940163f3@amd.com>
- <877eowa5qh.fsf@xmission.com>
- <20180425135552.GD7592@redhat.com>
- <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
+From: Sami Farin <hvtaifwkbgefbaei-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Ryzen 1600X with mem_encrypt=on
+Date: Wed, 25 Apr 2018 20:13:46 +0300
+Message-ID: <20180425171346.zk6jx466aznegobw@m.mifar.in>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.Panariti@amd.com, akpm@linux-foundation.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 04/25, Andrey Grodzovsky wrote:
->
-> here (drm_sched_entity_fini) is also a bad idea, but we still want to be
-> able to exit immediately
-> and not wait for GPU jobs completion when the reason for reaching this code
-> is because of KILL
-> signal to the user process who opened the device file.
-
-Can you hook f_op->flush method?
-
-Oleg.
+SXMgaXQgc3VwcG9zZWQgdG8gd29yaz8gIE5vdyBpZiBJIHVzZSB0aGF0IG9wdGlvbiwgbW9uaXRv
+ciBwb3dlcnMgb2ZmCihubyBzaWduYWwpIHdoZW4gaXQncyBpbml0aWFsaXppbmcgYW1kZ3B1IGFu
+ZCBJIGhhdmUgdG8gcmVzZXQgdGhlIGNvbXB1dGVyLgpJbnN0ZWFkIG9mIGNyYXNoaW5nLCBjb3Vs
+ZCBpdCBub3QganVzdCBnaXZlIGFuIGVycm9yIG9yIHNvbWV0aGluZz8KCkkgaGF2ZSBBc3JvY2sg
+WDM3MCBUYWljaGkgYW5kIFNhcHBoaXJlIFJYNTUwLgpXaXRoIG1lbV9lbmNyeXB0PW9mZiBpdCB3
+b3JrcyBPSzoKClsgICAgOC4wMTIxMjBdIFtkcm1dIGluaXRpYWxpemluZyBrZXJuZWwgbW9kZXNl
+dHRpbmcgKFBPTEFSSVMxMiAweDEwMDI6MHg2OTlGIDB4MURBMjoweEUzNjcgMHhDNykuClsgICAg
+OC4wMTIxOTldIFtkcm1dIHJlZ2lzdGVyIG1taW8gYmFzZTogMHhGRTkwMDAwMApbICAgIDguMDEy
+MjU4XSBbZHJtXSByZWdpc3RlciBtbWlvIHNpemU6IDI2MjE0NApbICAgIDguMDEyMzIxXSBhbWRn
+cHU6IGFtZGdwdSAwMDAwOjJkOjAwLjA6IGtmZCBub3Qgc3VwcG9ydGVkIG9uIHRoaXMgQVNJQwpb
+ICAgIDguMDEyMzI1XSBbZHJtXSBwcm9iaW5nIGdlbiAyIGNhcHMgZm9yIGRldmljZSAxMDIyOjE0
+NTMgPSA3Mzc5MDMvZQpbICAgIDguMDEyMzg5XSBbZHJtXSBwcm9iaW5nIG1sdyBmb3IgZGV2aWNl
+IDEwMjI6MTQ1MyA9IDczNzkwMwpbICAgIDguMDEyNDY0XSBbZHJtXSBVVkQgaXMgZW5hYmxlZCBp
+biBWTSBtb2RlClsgICAgOC4wMTI1MjJdIFtkcm1dIFVWRCBFTkMgaXMgZW5hYmxlZCBpbiBWTSBt
+b2RlClsgICAgOC4wMTI1ODFdIFtkcm1dIFZDRSBlbmFibGVkIGluIFZNIG1vZGUKWyAgICA4LjAx
+Mjg4OF0gYW1kZ3B1IDAwMDA6MmQ6MDAuMDogSW52YWxpZCBQQ0kgUk9NIGhlYWRlciBzaWduYXR1
+cmU6IGV4cGVjdGluZyAweGFhNTUsIGdvdCAweGZmZmYKWyAgICA4LjAxMjk3N10gQVRPTSBCSU9T
+OiAxMTMtMzY3Nk0tVU8xClsgICAgOC4wMTMwNzNdIFtkcm1dIHZtIHNpemUgaXMgNjQgR0IsIDIg
+bGV2ZWxzLCBibG9jayBzaXplIGlzIDEwLWJpdCwgZnJhZ21lbnQgc2l6ZSBpcyA5LWJpdApbICAg
+IDguMDEzMTQ3XSBhbWRncHUgMDAwMDoyZDowMC4wOiB1c2luZyBidWlsdC1pbiBhbWRncHUvcG9s
+YXJpczEyX21jLmJpbgpbICAgIDguMDEzMTU0XSBhbWRncHUgMDAwMDoyZDowMC4wOiBWUkFNOiA0
+MDk2TSAweDAwMDAwMEY0MDAwMDAwMDAgLSAweDAwMDAwMEY0RkZGRkZGRkYgKDQwOTZNIHVzZWQp
+ClsgICAgOC4wMTMyMjhdIGFtZGdwdSAwMDAwOjJkOjAwLjA6IEdUVDogMjU2TSAweDAwMDAwMDAw
+MDAwMDAwMDAgLSAweDAwMDAwMDAwMEZGRkZGRkYKWyAgICA4LjAxMzMwMF0gW2RybV0gRGV0ZWN0
+ZWQgVlJBTSBSQU09NDA5Nk0sIEJBUj0yNTZNClsgICAgOC4wMTMzNjBdIFtkcm1dIFJBTSB3aWR0
+aCAxMjhiaXRzIEdERFI1ClsgICAgOC4wMTM0ODZdIFtUVE1dIFpvbmUgIGtlcm5lbDogQXZhaWxh
+YmxlIGdyYXBoaWNzIG1lbW9yeTogMTY0NTU4MTgga2lCClsgICAgOC4wMTM1NTFdIFtUVE1dIFpv
+bmUgICBkbWEzMjogQXZhaWxhYmxlIGdyYXBoaWNzIG1lbW9yeTogMjA5NzE1MiBraUIKWyAgICA4
+LjAxMzYxNV0gW1RUTV0gSW5pdGlhbGl6aW5nIHBvb2wgYWxsb2NhdG9yClsgICAgOC4wMTM2NzZd
+IFtUVE1dIEluaXRpYWxpemluZyBETUEgcG9vbCBhbGxvY2F0b3IKWyAgICA4LjAxMzc5OV0gW2Ry
+bV0gYW1kZ3B1OiA0MDk2TSBvZiBWUkFNIG1lbW9yeSByZWFkeQpbICAgIDguMDEzODU5XSBbZHJt
+XSBhbWRncHU6IDQwOTZNIG9mIEdUVCBtZW1vcnkgcmVhZHkuClsgICAgOC4wMTM5MjhdIFtkcm1d
+IEdBUlQ6IG51bSBjcHUgcGFnZXMgNjU1MzYsIG51bSBncHUgcGFnZXMgNjU1MzYKWyAgICA4LjAx
+NDA3NF0gW2RybV0gUENJRSBHQVJUIG9mIDI1Nk0gZW5hYmxlZCAodGFibGUgYXQgMHgwMDAwMDBG
+NDAwMDQwMDAwKS4KWyAgICA4LjAxNDE4Nl0gYW1kZ3B1OiBhbWRncHUgMDAwMDoyZDowMC4wOiBh
+bWRncHU6IHVzaW5nIE1TSS4KWyAgICA4LjAxNDIzMF0gYW1kZ3B1OiBhbWRncHU6IFtwb3dlcnBs
+YXldIGFtZGdwdTogcG93ZXJwbGF5IHN3IGluaXRpYWxpemVkCgotLSAKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
