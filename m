@@ -1,13 +1,12 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix amdgpu_atpx_get_client_id()'s return type
-Date: Wed, 25 Apr 2018 02:29:46 -0400
-Message-ID: <CADnq5_OM3Uvq2vNXdnHGDLWj6e58k7+rm2iaVKNMDsC0_7Ejxg@mail.gmail.com>
-References: <20180424131536.2611-1-luc.vanoostenryck@gmail.com>
+From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu/sriov: Need to set in_gpu_reset flag to back
+ after gpu reset
+Date: Wed, 25 Apr 2018 14:38:13 +0800
+Message-ID: <1524638293-31882-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180424131536.2611-1-luc.vanoostenryck-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,35 +17,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Luc Van Oostenryck <luc.vanoostenryck-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 
-T24gVHVlLCBBcHIgMjQsIDIwMTggYXQgOToxNSBBTSwgTHVjIFZhbiBPb3N0ZW5yeWNrCjxsdWMu
-dmFub29zdGVucnlja0BnbWFpbC5jb20+IHdyb3RlOgo+IFRoZSBtZXRob2Qgc3RydWN0IHZnYV9z
-d2l0Y2hlcm9vX2hhbmRsZXI6OmdldF9jbGllbnRfaWQoKSBpcyBkZWZpbmVkCj4gYXMgcmV0dXJu
-aW5nIGFuICdlbnVtIHZnYV9zd2l0Y2hlcm9vX2NsaWVudF9pZCcgYnV0IHRoZSBpbXBsZW1lbnRh
-dGlvbgo+IGluIHRoaXMgZHJpdmVyLCBhbWRncHVfYXRweF9nZXRfY2xpZW50X2lkKCksIHJldHVy
-bnMgYW4gJ2ludCcuCj4KPiBGaXggdGhpcyBieSByZXR1cm5pbmcgJ2VudW0gdmdhX3N3aXRjaGVy
-b29fY2xpZW50X2lkJyBpbiB0aGlzIGRyaXZlciB0b28uCj4KPiBTaWduZWQtb2ZmLWJ5OiBMdWMg
-VmFuIE9vc3RlbnJ5Y2sgPGx1Yy52YW5vb3N0ZW5yeWNrQGdtYWlsLmNvbT4KCkFwcGxpZWQgdGhl
-IHdob2xlIHNldCBmb3IgcmFkZW9uIGFuZCBhbWRncHUuICBUaGFua3MhCgpBbGV4Cgo+IC0tLQo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRweF9oYW5kbGVyLmMgfCAyICst
-Cj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdHB4X2hhbmRsZXIu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdHB4X2hhbmRsZXIuYwo+IGlu
-ZGV4IDFhZTVhZThjNC4uMWJjYjJiMjQ3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hdHB4X2hhbmRsZXIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hdHB4X2hhbmRsZXIuYwo+IEBAIC01NTAsNyArNTUwLDcgQEAgc3Rh
-dGljIGludCBhbWRncHVfYXRweF9pbml0KHZvaWQpCj4gICAqIGxvb2sgdXAgd2hldGhlciB3ZSBh
-cmUgdGhlIGludGVncmF0ZWQgb3IgZGlzY3JldGUgR1BVIChhbGwgYXNpY3MpLgo+ICAgKiBSZXR1
-cm5zIHRoZSBjbGllbnQgaWQuCj4gICAqLwo+IC1zdGF0aWMgaW50IGFtZGdwdV9hdHB4X2dldF9j
-bGllbnRfaWQoc3RydWN0IHBjaV9kZXYgKnBkZXYpCj4gK3N0YXRpYyBlbnVtIHZnYV9zd2l0Y2hl
-cm9vX2NsaWVudF9pZCBhbWRncHVfYXRweF9nZXRfY2xpZW50X2lkKHN0cnVjdCBwY2lfZGV2ICpw
-ZGV2KQo+ICB7Cj4gICAgICAgICBpZiAoYW1kZ3B1X2F0cHhfcHJpdi5kaGFuZGxlID09IEFDUElf
-SEFORExFKCZwZGV2LT5kZXYpKQo+ICAgICAgICAgICAgICAgICByZXR1cm4gVkdBX1NXSVRDSEVS
-T09fSUdEOwo+IC0tCj4gMi4xNy4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+QWZ0ZXIgaG9zdCBvcyByZXNldCBncHUgcmVzZXQsIG5lZWQgdG8gc2V0IGZsYWcgaW5fZ3B1X3Jl
+c2V0IHRvCnplcm8uCgpTaWduZWQtb2ZmLWJ5OiBFbWlseSBEZW5nIDxFbWlseS5EZW5nQGFtZC5j
+b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbXhncHVfYWkuYyB8IDQgKysrLQog
+MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X2FpLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9teGdwdV9haS5jCmluZGV4IDQ5MzM0ODYuLjA3OGY3MGYgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X2FpLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvbXhncHVfYWkuYwpAQCAtMjYwLDggKzI2MCwxMCBAQCBzdGF0aWMg
+dm9pZCB4Z3B1X2FpX21haWxib3hfZmxyX3dvcmsoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQog
+CX0gd2hpbGUgKHRpbWVvdXQgPiAxKTsKIAogZmxyX2RvbmU6Ci0JaWYgKGxvY2tlZCkKKwlpZiAo
+bG9ja2VkKSB7CisJCWFkZXYtPmluX2dwdV9yZXNldCA9IDA7CiAJCW11dGV4X3VubG9jaygmYWRl
+di0+bG9ja19yZXNldCk7CisJfQogCiAJLyogVHJpZ2dlciByZWNvdmVyeSBmb3Igd29ybGQgc3dp
+dGNoIGZhaWx1cmUgaWYgbm8gVERSICovCiAJaWYgKGFtZGdwdV9sb2NrdXBfdGltZW91dCA9PSAw
+KQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
