@@ -1,69 +1,42 @@
-From: Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
-Date: Wed, 25 Apr 2018 11:38:03 -0700
-Message-ID: <CAPcyv4gvz8hWLiz3wSitoh3546WV7d=LRYzu5nd9MpKKH7C=mg@mail.gmail.com>
-References: <3e17afc5-7d6c-5795-07bd-f23e34cf8d4b@gmail.com>
- <20180420101755.GA11400@infradead.org>
- <f1100bd6-dd98-55a9-a92f-1cad919f235f@amd.com>
- <20180420124625.GA31078@infradead.org>
- <20180420152111.GR31310@phenom.ffwll.local>
- <20180424184847.GA3247@infradead.org>
- <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
- <20180425054855.GA17038@infradead.org>
- <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
- <CADnq5_P3bT0TStSXpKh11ydifv=KwKtRj-7tDS=GQXey+8tBPw@mail.gmail.com>
- <20180425064118.GA28100@infradead.org>
- <CADnq5_O5t8aSJE6SFzyjw-6Pmba7B2aYMztVMOOQCF3drBHR5Q@mail.gmail.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
+ signaled process.
+Date: Wed, 25 Apr 2018 14:40:54 -0400
+Message-ID: <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com>
+References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+ <87muxsbmkp.fsf@xmission.com> <8840ac96-50c4-f94d-eb7c-f007940163f3@amd.com>
+ <877eowa5qh.fsf@xmission.com> <20180425135552.GD7592@redhat.com>
+ <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
+ <20180425171757.GA10441@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CADnq5_O5t8aSJE6SFzyjw-6Pmba7B2aYMztVMOOQCF3drBHR5Q@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Jerome Glisse <jglisse@redhat.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Logan Gunthorpe <logang@deltatee.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180425171757.GA10441-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Oleg Nesterov <oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Eric W. Biederman" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-T24gV2VkLCBBcHIgMjUsIDIwMTggYXQgMTA6NDQgQU0sIEFsZXggRGV1Y2hlciA8YWxleGRldWNo
-ZXJAZ21haWwuY29tPiB3cm90ZToKPiBPbiBXZWQsIEFwciAyNSwgMjAxOCBhdCAyOjQxIEFNLCBD
-aHJpc3RvcGggSGVsbHdpZyA8aGNoQGluZnJhZGVhZC5vcmc+IHdyb3RlOgo+PiBPbiBXZWQsIEFw
-ciAyNSwgMjAxOCBhdCAwMjoyNDozNkFNIC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+PiA+
-IEl0IGhhcyBhIG5vbi1jb2hlcmVudCB0cmFuc2FjdGlvbiBtb2RlICh3aGljaCB0aGUgY2hpcHNl
-dCBjYW4gb3B0IHRvCj4+PiA+IG5vdCBpbXBsZW1lbnQgYW5kIHN0aWxsIGZsdXNoKSwgdG8gbWFr
-ZSBzdXJlIHRoZSBBR1AgaG9ycm9yIHNob3cKPj4+ID4gZG9lc24ndCBoYXBwZW4gYWdhaW4gYW5k
-IEdQVSBmb2xrcyBhcmUgaGFwcHkgd2l0aCBQQ0llLiBUaGF0J3MgYXQKPj4+ID4gbGVhc3QgbXkg
-dW5kZXJzdGFuZGluZyBmcm9tIGRpZ2dpbmcgYXJvdW5kIGluIGFtZCB0aGUgbGFzdCB0aW1lIHdl
-IGhhZAo+Pj4gPiBjb2hlcmVuY3kgaXNzdWVzIGJldHdlZW4gaW50ZWwgYW5kIGFtZCBncHVzLiBH
-UFVzIGhhdmUgc29tZSBiaXRzCj4+PiA+IHNvbWV3aGVyZSAoaW4gdGhlIHBhZ2V0YWJsZXMsIG9y
-IGluIHRoZSBidWZmZXIgb2JqZWN0IGRlc2NyaXB0aW9uCj4+PiA+IHRhYmxlIGNyZWF0ZWQgYnkg
-dXNlcnNwYWNlKSB0byBjb250cm9sIHRoYXQgc3R1ZmYuCj4+Pgo+Pj4gUmlnaHQuICBXZSBoYXZl
-IGEgYml0IGluIHRoZSBHUFUgcGFnZSB0YWJsZSBlbnRyaWVzIHRoYXQgZGV0ZXJtaW5lcwo+Pj4g
-d2hldGhlciB3ZSBzbm9vcCB0aGUgQ1BVJ3MgY2FjaGUgb3Igbm90Lgo+Pgo+PiBJIGNhbiBzZWUg
-aG93IHRoYXQgd29ya3Mgd2l0aCB0aGUgR1BVIG9uIHRoZSBzYW1lIFNPQyBvciBTT0Mgc2V0IGFz
-IHRoZQo+PiBDUFUuICBCdXQgaG93IGlzIHRoYXQgZ29pbmcgdG8gd29yayBmb3IgYSBHUFUgdGhh
-dCBpcyBhIHBsYWluIG9sZCBQQ0llCj4+IGNhcmQ/ICBUaGUgY2FjaGUgc25vb3BpbmcgaW4gdGhh
-dCBjYXNlIGlzIGhhcHBlbmluZyBpbiB0aGUgUENJZSByb290Cj4+IGNvbXBsZXguCj4KPiBJJ20g
-bm90IGEgcGNpIGV4cGVydCwgYnV0IGFzIGZhciBhcyBJIGtub3csIHRoZSBkZXZpY2Ugc2VuZHMg
-ZWl0aGVyIGEKPiBzbm9vcGVkIG9yIG5vbi1zbm9vcGVkIHRyYW5zYWN0aW9uIG9uIHRoZSBidXMu
-ICBJIHRoaW5rIHRoZQo+IHRyYW5zYWN0aW9uIGRlc2NyaXB0b3Igc3VwcG9ydHMgYSBubyBzbm9v
-cCBhdHRyaWJ1dGUuICBPdXIgR1BVcyBoYXZlCj4gc3VwcG9ydGVkIHRoaXMgZmVhdHVyZSBmb3Ig
-cHJvYmFibHkgMjAgeWVhcnMgaWYgbm90IG1vcmUsIGdvaW5nIGJhY2sKPiB0byBQQ0kuICBVc2lu
-ZyBub24tc25vb3BlZCB0cmFuc2FjdGlvbnMgaGF2ZSBsb3dlciBsYXRlbmN5IGFuZCBmYXN0ZXIK
-PiB0aHJvdWdocHV0IGNvbXBhcmVkIHRvIHNub29wZWQgdHJhbnNhY3Rpb25zLgoKUmlnaHQsICdu
-byBzbm9vcCcgYW5kICdyZWxheGVkIG9yZGVyaW5nJyBoYXZlIGJlZW4gcGFydCBvZiB0aGUgUENJ
-CnNwZWMgc2luY2UgZm9yZXZlci4gV2l0aCBhIHBsYWluIG9sZCBQQ0ktRSBjYXJkIHRoZSByb290
-IGNvbXBsZXgKaW5kZWVkIGFycmFuZ2VzIGZvciBjYWNoZXMgdG8gYmUgc25vb3BlZC4gQWx0aG91
-Z2ggaXQncyBub3QgYWx3YXlzCmZhc3RlciBkZXBlbmRpbmcgb24gdGhlIHBsYXRmb3JtLiAnTm8g
-c25vb3AnIHRyYWZmaWMgbWF5IGJlIHJlbGVnYXRlZAp0byBsZXNzIGJ1cyByZXNvdXJjZXMgcmVs
-YXRpdmUgdG8gdGhlIG11Y2ggbW9yZSBjb21tb24gc25vb3BlZAp0cmFmZmljLgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBs
-aXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+CgpPbiAwNC8yNS8yMDE4IDAxOjE3IFBNLCBPbGVnIE5lc3Rlcm92IHdyb3RlOgo+IE9uIDA0LzI1
+LCBBbmRyZXkgR3JvZHpvdnNreSB3cm90ZToKPj4gaGVyZSAoZHJtX3NjaGVkX2VudGl0eV9maW5p
+KSBpcyBhbHNvIGEgYmFkIGlkZWEsIGJ1dCB3ZSBzdGlsbCB3YW50IHRvIGJlCj4+IGFibGUgdG8g
+ZXhpdCBpbW1lZGlhdGVseQo+PiBhbmQgbm90IHdhaXQgZm9yIEdQVSBqb2JzIGNvbXBsZXRpb24g
+d2hlbiB0aGUgcmVhc29uIGZvciByZWFjaGluZyB0aGlzIGNvZGUKPj4gaXMgYmVjYXVzZSBvZiBL
+SUxMCj4+IHNpZ25hbCB0byB0aGUgdXNlciBwcm9jZXNzIHdobyBvcGVuZWQgdGhlIGRldmljZSBm
+aWxlLgo+IENhbiB5b3UgaG9vayBmX29wLT5mbHVzaCBtZXRob2Q/CgpCdXQgdGhpcyBvbmUgaXMg
+Y2FsbGVkIGZvciBlYWNoIHRhc2sgcmVsZWFzaW5nIGEgcmVmZXJlbmNlIHRvIHRoZSB0aGUgCmZp
+bGUsIHNvIG5vdCBzdXJlIEkgc2VlIGhvdyB0aGlzIHNvbHZlcyB0aGUgcHJvYmxlbS4KCkFuZHJl
+eQoKPgo+IE9sZWcuCj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
