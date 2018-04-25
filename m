@@ -1,118 +1,53 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for signaled process.
-Date: Tue, 24 Apr 2018 17:11:44 -0500
-Message-ID: <87a7ts2r1b.fsf@xmission.com>
-References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
-        <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
-        <20180424194418.GE25142@phenom.ffwll.local>
-        <aa2d8587-651e-2c24-a673-4682e7035a8f@amd.com>
-        <87tvs05mik.fsf@xmission.com>
-        <27d7d15b-f7c3-2a0a-af85-eb243526ac88@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 0/6] Reconciling public tree with internal tree
+Date: Tue, 24 Apr 2018 23:26:04 -0400
+Message-ID: <CADnq5_MufxDFfaEYe1NdiTxS-useMigaTwf7_mOTqwr7EPkaug@mail.gmail.com>
+References: <20180424135014.18084-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <27d7d15b-f7c3-2a0a-af85-eb243526ac88@amd.com> (Andrey
-        Grodzovsky's message of "Tue, 24 Apr 2018 17:37:08 -0400")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, David.Panariti@amd.com, oleg@redhat.com, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180424135014.18084-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
-
-> On 04/24/2018 05:21 PM, Eric W. Biederman wrote:
->> Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
->>
->>> On 04/24/2018 03:44 PM, Daniel Vetter wrote:
->>>> On Tue, Apr 24, 2018 at 05:46:52PM +0200, Michel Dänzer wrote:
->>>>> Adding the dri-devel list, since this is driver independent code.
->>>>>
->>>>>
->>>>> On 2018-04-24 05:30 PM, Andrey Grodzovsky wrote:
->>>>>> Avoid calling wait_event_killable when you are possibly being called
->>>>>> from get_signal routine since in that case you end up in a deadlock
->>>>>> where you are alreay blocked in singla processing any trying to wait
->>>>> Multiple typos here, "[...] already blocked in signal processing and [...]"?
->>>>>
->>>>>
->>>>>> on a new signal.
->>>>>>
->>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>>>> ---
->>>>>>    drivers/gpu/drm/scheduler/gpu_scheduler.c | 5 +++--
->>>>>>    1 file changed, 3 insertions(+), 2 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/drm/scheduler/gpu_scheduler.c
->>>>>> index 088ff2b..09fd258 100644
->>>>>> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
->>>>>> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
->>>>>> @@ -227,9 +227,10 @@ void drm_sched_entity_do_release(struct drm_gpu_scheduler *sched,
->>>>>>    		return;
->>>>>>    	/**
->>>>>>    	 * The client will not queue more IBs during this fini, consume existing
->>>>>> -	 * queued IBs or discard them on SIGKILL
->>>>>> +	 * queued IBs or discard them when in death signal state since
->>>>>> +	 * wait_event_killable can't receive signals in that state.
->>>>>>    	*/
->>>>>> -	if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
->>>>>> +	if (current->flags & PF_SIGNALED)
->>>> You want fatal_signal_pending() here, instead of inventing your own broken
->>>> version.
->>> I rely on current->flags & PF_SIGNALED because this being set from
->>> within get_signal,
->> It doesn't mean that.  Unless you are called by do_coredump (you
->> aren't).
->
-> Looking in latest code here
-> https://elixir.bootlin.com/linux/v4.17-rc2/source/kernel/signal.c#L2449
-> i see that current->flags |= PF_SIGNALED; is out side of
-> if (sig_kernel_coredump(signr)) {...} scope
-
-In small words.  You showed me the backtrace and I have read
-the code.
-
-PF_SIGNALED means you got killed by a signal.
-get_signal
-  do_coredump
-  do_group_exit
-    do_exit
-       exit_signals
-          sets PF_EXITING
-       exit_mm
-          calls fput on mmaps
-             calls sched_task_work
-       exit_files
-          calls fput on open files
-             calls sched_task_work
-       exit_task_work
-          task_work_run
-             /* you are here */
-
-So strictly speaking you are inside of get_signal it is not
-meaningful to speak of yourself as within get_signal.
-
-I am a little surprised to see task_work_run called so early.
-I was mostly expecting it to happen when the dead task was
-scheduling away, like normally happens.
-
-Testing for PF_SIGNALED does not give you anything at all
-that testing for PF_EXITING (the flag that signal handling
-is shutdown) does not get you.
-
-There is no point in distinguishing PF_SIGNALED from any other
-path to do_exit.  do_exit never returns.
-
-The task is dead.
-
-Blocking indefinitely while shutting down a task is a bad idea.
-Blocking indefinitely while closing a file descriptor is a bad idea.
-
-The task has been killed it can't get more dead.  SIGKILL is meaningless
-at this point.
-
-So you need a timeout, or not to wait at all.
-
-
-Eric
+T24gVHVlLCBBcHIgMjQsIDIwMTggYXQgOTo1MCBBTSwgSGFycnkgV2VudGxhbmQgPGhhcnJ5Lndl
+bnRsYW5kQGFtZC5jb20+IHdyb3RlOgo+IEkndmUgYmVlbiByZWNvbmNpbGluZyB0aGUgcHVibGlj
+IHRyZWUgd2l0aCBvdXIgaW50ZXJuYWwgdHJlZSBhbmQgbm90aWNlZAo+IGEgZmV3IHRoaW5ncyB0
+aGF0IEkgbWlzc2VkIGFsb25nIHRoZSB3YXkuIFRoaXMgcGF0Y2ggc2V0IGlzIGludGVuZGVkIHRv
+Cj4gcmVjb25jaWxlIHRoYXQuCj4KPiBQYXRjaCAxIHdhcyBtaXNzZWQgd2hlbiBzZW5kaW5nIG91
+dCB0b2RheSdzIHNldCBvZiBEQyBwYXRjaGVzLgoKU2VyaWVzIGlzOgpBY2tlZC1ieTogQWxleCBE
+ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPgo+IEhhcnJ5IFdlbnRsYW5kICg1
+KToKPiAgIGRybS9hbWQvZGlzcGxheTogVXNlIGludCBmb3IgY2FsY3VsYXRpbmcgdmxpbmUgc3Rh
+cnQKPiAgIGRybS9hbWQvZGlzcGxheTogQ291cGxlIGZvcm1hdHRpbmcgZml4ZXMKPiAgIGRybS9h
+bWQvZGlzcGxheTogRG9uJ3QgZm9yY2UgVVBEQVRFX1RZUEVfRlVMTCBpZiBzdHJlYW1fdXBkYXRl
+IGhhcwo+ICAgICBoZHJfc3RhdGljX21ldGFkYXRhCj4gICBkcm0vYW1kL2Rpc3BsYXk6IEFkZCBW
+RzEyIEFTSUMgSURzCj4gICBkcm0vYW1kL2Rpc3BsYXk6IEFkZCBnZXRfZmlybXdhcmVfaW5mb192
+M18yIGZvciBWRzEyCj4KPiBKZXJyeSAoRmFuZ3poaSkgWnVvICgxKToKPiAgIGRybS9hbWQ6IEFk
+ZCBCSU9TIHNtdV9pbmZvIHYzXzMgcmVxdWlyZWQgc3RydWN0IGRlZi4KPgo+ICAuLi4vZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAgIDMgKy0KPiAgLi4uL2RybS9h
+bWQvZGlzcGxheS9kYy9iaW9zL2Jpb3NfcGFyc2VyMi5jICAgIHwgIDg2ICsrKysrKysrLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jICAgICAgfCAgIDMgLQo+ICAu
+Li4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291cmNlLmMgfCAgIDYgKy0KPiAg
+Li4uL2FtZC9kaXNwbGF5L2RjL2RjZTExMi9kY2UxMTJfcmVzb3VyY2UuYyAgIHwgICAyICstCj4g
+IC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX29wdGMuYyB8ICAgOCArLQo+
+ICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9pbmNsdWRlL2RhbF9hc2ljX2lkLmggfCAgIDkgKy0K
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2F0b21maXJtd2FyZS5oICAgIHwgMTcwICsr
+KysrKysrKysrKysrKysrLQo+ICA4IGZpbGVzIGNoYW5nZWQsIDI3MCBpbnNlcnRpb25zKCspLCAx
+NyBkZWxldGlvbnMoLSkKPgo+IC0tCj4gMi4xNy4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
