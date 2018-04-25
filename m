@@ -1,50 +1,58 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] amdgpu drm-fixes-4.17
-Date: Wed, 25 Apr 2018 11:30:12 -0500
-Message-ID: <20180425163012.30171-1-alexander.deucher@amd.com>
+From: ebiederm@xmission.com (Eric W. Biederman)
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for signaled process.
+Date: Wed, 25 Apr 2018 11:31:45 -0500
+Message-ID: <87y3hbtfgu.fsf@xmission.com>
+References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
+        <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
+        <7313704c-0693-0bb9-8818-99cd2b7c0ca0@daenzer.net>
+        <20180424194418.GE25142@phenom.ffwll.local>
+        <aa2d8587-651e-2c24-a673-4682e7035a8f@amd.com>
+        <87tvs05mik.fsf@xmission.com>
+        <27d7d15b-f7c3-2a0a-af85-eb243526ac88@amd.com>
+        <20180425071444.GM25142@phenom.ffwll.local>
+        <94828a42-02dd-29ad-a3d0-dc4c0cc82ddb@amd.com>
+        <87a7trwbh0.fsf@xmission.com>
+        <311660b9-9e46-b960-3088-06e16ac3838d@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <311660b9-9e46-b960-3088-06e16ac3838d@amd.com> (Andrey
+        Grodzovsky's message of "Wed, 25 Apr 2018 12:13:58 -0400")
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Cc: David.Panariti@amd.com, Michel =?utf-8?Q?D=C3=A4nzer?= <michel@daenzer.net>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, oleg@redhat.com, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkEgZmV3IGZpeGVzIGZvciA0LjE3OgotIEZpeCBhIGhhbmcgb24gQ1ogYm9hcmRz
-IHdpdGggRURDIGVuYWJsZWQKLSBGaXggaGFuZ3MgcmVsYXRlZCB0byBEUCBNU1QgaGFuZGxpbmcK
-LSBGaXggYSBkZWFkbG9jayBpbiBpcnEgaGFuZGxpbmcgaW4gREMKClRoZSBmb2xsb3dpbmcgY2hh
-bmdlcyBzaW5jZSBjb21taXQgMjIxYmRhNGI1ZjFhYmZkNzQxNTlkN2JmMzcwM2FmZmE2MjQ2ODAz
-MDoKCiAgTWVyZ2UgYnJhbmNoICdkcm0tbmV4dC00LjE3JyBvZiBnaXQ6Ly9wZW9wbGUuZnJlZWRl
-c2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBpbnRvIGRybS1uZXh0ICgyMDE4LTA0LTIzIDA4OjU0OjA2
-ICsxMDAwKQoKYXJlIGF2YWlsYWJsZSBpbiB0aGUgZ2l0IHJlcG9zaXRvcnkgYXQ6CgogIGdpdDov
-L3Blb3BsZS5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IGRybS1maXhlcy00LjE3Cgpmb3Ig
-eW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gN2FkMzU3MjFlN2Q1YTViNTZhNGVkZGNkZDk5MjBj
-M2MxZTUxYWU0YzoKCiAgZHJtL2FtZC9kaXNwbGF5OiBDaGVjayBkY19zaW5rIGV2ZXJ5IHRpbWUg
-aW4gTVNUIGhvdHBsdWcgKDIwMTgtMDQtMjUgMTA6MDg6MDkgLTA1MDApCgotLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCkhhcnJ5
-IFdlbnRsYW5kICgyKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBEaXNhbGxvdyBlbmFibGluZyBD
-UlRDIHdpdGhvdXQgcHJpbWFyeSBwbGFuZSB3aXRoIEZCCiAgICAgIGRybS9hbWQvZGlzcGxheTog
-RG9uJ3QgcmVhZCBFRElEIGluIGF0b21pY19jaGVjawoKSmVycnkgKEZhbmd6aGkpIFp1byAoMik6
-CiAgICAgIGRybS9hbWQvZGlzcGxheTogVXBkYXRlIE1TVCBlZGlkIHByb3BlcnR5IGV2ZXJ5IHRp
-bWUKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBDaGVjayBkY19zaW5rIGV2ZXJ5IHRpbWUgaW4gTVNU
-IGhvdHBsdWcKCk1pa2l0YSBMaXBza2kgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBk
-ZWFkbG9jayB3aGVuIGZsdXNoaW5nIGlycQoKTmljb2xhaSBIw6RobmxlICgxKToKICAgICAgZHJt
-L2FtZGdwdTogc2V0IENPTVBVVEVfUEdNX1JTUkMxIGZvciBTR1BSL1ZHUFIgY2xlYXJpbmcgc2hh
-ZGVycwoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgICAgICAg
-IHwgIDcgKystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jICB8IDEwICsrKy0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1faXJxLmMgIHwgIDUgKy0KIC4uLi9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21z
-dF90eXBlcy5jICAgIHwgNTQgKysrKysrKysrLS0tLS0tLS0tLS0tLQogNCBmaWxlcyBjaGFuZ2Vk
-LCAzOSBpbnNlcnRpb25zKCspLCAzNyBkZWxldGlvbnMoLSkKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
+
+> On 04/25/2018 11:29 AM, Eric W. Biederman wrote:
+>
+>>  Another issue is changing wait_event_killable to wait_event_timeout where I need
+>> to understand
+>> what TO value is acceptable for all the drivers using the scheduler, or maybe it
+>> should come as a property
+>> of drm_sched_entity.
+>>
+>> It would not surprise me if you could pick a large value like 1 second
+>> and issue a warning if that time outever triggers.  It sounds like the
+>> condition where we wait indefinitely today is because something went
+>> wrong in the driver.
+>
+> We wait here for all GPU jobs in flight which belong to the dying entity to complete. The driver submits
+> the GPU jobs but the content of the job might be is not under driver's control and could take 
+> long time to finish or even hang (e.g. graphic or compute shader) , I
+> guess that why originally the wait is indefinite.
+
+
+I am ignorant of what user space expect or what the semantics of the
+susbsystem are here, so I might be completely off base.  But this wait
+for a long time behavior I would expect much more from f_op->flush or a
+f_op->fsync method.
+
+fsync so it could be obtained without closing the file descriptor.
+flush so that you could get a return value out to close.
+
+But I honestly don't know semantically what your userspace applications
+expect and/or require so I can really only say.  Those of weird semantics.
+
+Eric
