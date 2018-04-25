@@ -1,135 +1,44 @@
-From: Thierry Reding <treding@nvidia.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
-Date: Wed, 25 Apr 2018 09:56:43 +0200
-Message-ID: <20180425075643.GC2271@ulmo>
-References: <20180420152111.GR31310@phenom.ffwll.local>
- <20180424184847.GA3247@infradead.org>
- <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
- <20180425054855.GA17038@infradead.org>
- <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
- <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
- <20180425064335.GB28100@infradead.org>
- <CAKMK7uGF7p5ko=i6zL4dn0qR-5TVRKMi6xaCGSao_vyfJU+dWQ@mail.gmail.com>
- <20180425070905.GA24827@infradead.org>
- <20180425073039.GO25142@phenom.ffwll.local>
+From: Pixel Ding <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/scheduler: don't update last scheduled fence in TDR
+Date: Wed, 25 Apr 2018 16:39:49 +0800
+Message-ID: <1524645589-16162-1-git-send-email-Pixel.Ding@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0211265312=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180425073039.GO25142@phenom.ffwll.local>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Christoph Hellwig <hch@infradead.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Jerome Glisse <jglisse@redhat.com>, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, "open list:DMA BUFFER SHARING
- FRAMEWORK" <linux-media@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============0211265312==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FsscpQKzF/jJk6ya"
-Content-Disposition: inline
-
---FsscpQKzF/jJk6ya
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Apr 25, 2018 at 09:30:39AM +0200, Daniel Vetter wrote:
-> On Wed, Apr 25, 2018 at 12:09:05AM -0700, Christoph Hellwig wrote:
-> > On Wed, Apr 25, 2018 at 09:02:17AM +0200, Daniel Vetter wrote:
-> > > Can we please not nack everything right away? Doesn't really motivate
-> > > me to show you all the various things we're doing in gpu to make the
-> > > dma layer work for us. That kind of noodling around in lower levels to
-> > > get them to do what we want is absolutely par-for-course for gpu
-> > > drivers. If you just nack everything I point you at for illustrative
-> > > purposes, then I can't show you stuff anymore.
-> >=20
-> > No, it's not.  No driver (and that includes the magic GPUs) has
-> > any business messing with dma ops directly.
-> >=20
-> > A GPU driver imght have a very valid reason to disable the IOMMU,
-> > but the code to do so needs to be at least in the arch code, maybe
-> > in the dma-mapping/iommu code, not in the driver.
-> >=20
-> > As a first step to get the discussion started we'll simply need
-> > to move the code Thierry wrote into a helper in arch/arm and that
-> > alone would be a massive improvement.  I'm not even talking about
-> > minor details like actually using arm_get_dma_map_ops instead
-> > of duplicating it.
-> >=20
-> > And doing this basic trivial work really helps to get this whole
-> > mess under control.
->=20
-> Ah ok. It did sound a bit like a much more cathegorical NAK than an "ack
-> in principle, but we need to shuffle the implementation into the right
-> place first". In the past we generally got a principled NAK on anything
-> funny we've been doing with the dma api, and the dma api maintainer
-> steaming off telling us we're incompetent idiots. I guess I've been
-> branded a bit on this topic :-/
->=20
-> Really great that this is changing now.
->=20
-> On the patch itself: It might not be the right thing in all cases, since
-> for certain compression formats the nv gpu wants larger pages (easy to
-> allocate from vram, not so easy from main memory), so might need the iommu
-> still. But currently that's not implemented:
->=20
-> https://www.spinics.net/lists/dri-devel/msg173932.html
-
-To clarify: we do want to use the IOMMU, but we want to use it
-explicitly via the IOMMU API rather than hiding it behind the DMA API.
-We do the same thing in Tegra DRM where we don't want to use the DMA API
-because it doesn't allow us to share the same mapping between multiple
-display controllers in the same way the IOMMU API does. We've also been
-thinking about using the IOMMU API directly in order to support process
-isolation for devices that accept command streams from userspace.
-
-Fortunately the issue I'm seeing with Nouveau doesn't happen with Tegra
-DRM, which seems to be because we have an IOMMU group with multiple
-devices and that prevents the DMA API from "hijacking" the IOMMU domain
-for the group.
-
-And to add to the confusion, none of this seems to be an issue on 64-bit
-ARM where the generic DMA/IOMMU code from drivers/iommu/dma-iommu.c is
-used.
-
-Thierry
-
---FsscpQKzF/jJk6ya
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlrgNLkACgkQ3SOs138+
-s6FElA//Y4UG8175+Ww3Twe0Ng/0nU5D/3QkBRvSl+IZ1fTkAGn3XUtQVX4Ll8Wb
-GbFn/WLFr87S4+E+LMBIJ526piuRzgXbLqL3X7Q8IOvx7JRWtux9iSlxznCr+hDe
-L6u+d8oKoXjGotnmC9bZTWRRGkijAYojYYBkMWCrOS1TkMCgkiKc0g5kb1KisTaK
-ttVUVendpNQsHMWZzPTXhVPfkBMdVvcbHdgaim1VD+NTRJaJ70S0Q0jhIgxqa18L
-thYrCuJkYweE/yjlHezXo2BMGEeNTBp0khA1lXeCOp5dfv6W8Z/BcGS15OZQ+Ufg
-Dl1Dwfq7WPOB7YB/KQdW4V7FI/h8gSzY4c0+oPMNvESrlqmoSGUHIHp7XV/ngL+T
-Bq/pN7eKUImjMXa/wTzEUzjglRMxFpg6WEwV/7q1QDxgyoKWPKp5a3fa4qXonGIB
-Qf43OcYWBqLAlpFpY03u/UUbdjwwOglZRM7Jo2p70sN90ISu6QpV/RNo26KylJJN
-xEjE4CtIDRD/qHUegL6juDcC8tgCO7EPV/pqsvp6R6UmpguH0HT+TkG7TteR7lkh
-CZm6xle9cx/2g7C4QMxgOHXGgFhxYQdJvwzKfm/UzFbBEs4iLk4iClYctRdnJRAz
-3iWTou/HjHB3lArCebHYBEAxXMIUrUGwbFZdF+gm3BeP97e2x5o=
-=M8KY
------END PGP SIGNATURE-----
-
---FsscpQKzF/jJk6ya--
-
---===============0211265312==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Pixel Ding <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============0211265312==--
+VGhlIGN1cnJlbnQgc2VxdWVuY2UgaW4gc2NoZWR1bGVyIHRocmVhZCBpczoKMS4gdXBkYXRlIGxh
+c3Qgc2NoZWQgZmVuY2UKMi4gam9iIGJlZ2luIChhZGRpbmcgdG8gbWlycm9yIGxpc3QpCjMuIGpv
+YiBmaW5pc2ggKHJlbW92ZSBmcm9tIG1pcnJvciBsaXN0KQo0LiBiYWNrIHRvIDEKClNpbmNlIHdl
+IHVwZGF0ZSBsYXN0IHNjaGVkIHByaW9yIHRvIGpvaW5pbmcgbWlycm9yIGxpc3QsIHRoZSBqb2Jz
+CmluIG1pcnJvciBsaXN0IGFscmVhZHkgcGFzcyB0aGUgbGFzdCBzY2hlZCBmZW5jZS4gVERSIGp1
+c3QgcnVuCnRoZSBqb2JzIGluIG1pcnJvciBsaXN0LCBzbyB3ZSBzaG91bGQgbm90IHVwZGF0ZSB0
+aGUgbGFzdCBzY2hlZApmZW5jZXMgaW4gVERSLgoKU2lnbmVkLW9mZi1ieTogUGl4ZWwgRGluZyA8
+UGl4ZWwuRGluZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3Nj
+aGVkdWxlci5jIHwgMyAtLS0KIDEgZmlsZSBjaGFuZ2VkLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIvZHJpdmVy
+cy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKaW5kZXggMDg4ZmYyYi4uMWYxZGQ3
+MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKQEAgLTU3NSw5
+ICs1NzUsNiBAQCB2b2lkIGRybV9zY2hlZF9qb2JfcmVjb3Zlcnkoc3RydWN0IGRybV9ncHVfc2No
+ZWR1bGVyICpzY2hlZCkKIAkJZmVuY2UgPSBzY2hlZC0+b3BzLT5ydW5fam9iKHNfam9iKTsKIAkJ
+YXRvbWljX2luYygmc2NoZWQtPmh3X3JxX2NvdW50KTsKIAotCQlkbWFfZmVuY2VfcHV0KHNfam9i
+LT5lbnRpdHktPmxhc3Rfc2NoZWR1bGVkKTsKLQkJc19qb2ItPmVudGl0eS0+bGFzdF9zY2hlZHVs
+ZWQgPSBkbWFfZmVuY2VfZ2V0KCZzX2ZlbmNlLT5maW5pc2hlZCk7Ci0KIAkJaWYgKGZlbmNlKSB7
+CiAJCQlzX2ZlbmNlLT5wYXJlbnQgPSBkbWFfZmVuY2VfZ2V0KGZlbmNlKTsKIAkJCXIgPSBkbWFf
+ZmVuY2VfYWRkX2NhbGxiYWNrKGZlbmNlLCAmc19mZW5jZS0+Y2IsCi0tIAoyLjcuNAoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
