@@ -1,43 +1,62 @@
-From: ebiederm@xmission.com (Eric W. Biederman)
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for signaled process.
-Date: Wed, 25 Apr 2018 19:01:05 -0500
-Message-ID: <874ljyu98e.fsf@xmission.com>
-References: <1524583836-12130-1-git-send-email-andrey.grodzovsky@amd.com>
-        <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
-        <87muxsbmkp.fsf@xmission.com>
-        <8840ac96-50c4-f94d-eb7c-f007940163f3@amd.com>
-        <877eowa5qh.fsf@xmission.com> <20180425135552.GD7592@redhat.com>
-        <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
-        <20180425171757.GA10441@redhat.com>
-        <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com>
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu/sriov: reject kms open if TDR not finished or
+ failed
+Date: Thu, 26 Apr 2018 02:03:28 +0000
+Message-ID: <CY4PR12MB11254FFDBB4FCCF91CBDE9758F8E0@CY4PR12MB1125.namprd12.prod.outlook.com>
+References: <1524638384-31977-1-git-send-email-Emily.Deng@amd.com>
+ <5bede6f6-24b2-8a3a-d3d8-9a37ac6d13c8@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com> (Andrey
-        Grodzovsky's message of "Wed, 25 Apr 2018 14:40:54 -0400")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: Oleg Nesterov <oleg@redhat.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.Panariti@amd.com, akpm@linux-foundation.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5bede6f6-24b2-8a3a-d3d8-9a37ac6d13c8-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Andrey Grodzovsky <Andrey.Grodzovsky@amd.com> writes:
-
-> On 04/25/2018 01:17 PM, Oleg Nesterov wrote:
->> On 04/25, Andrey Grodzovsky wrote:
->>> here (drm_sched_entity_fini) is also a bad idea, but we still want to be
->>> able to exit immediately
->>> and not wait for GPU jobs completion when the reason for reaching this code
->>> is because of KILL
->>> signal to the user process who opened the device file.
->> Can you hook f_op->flush method?
->
-> But this one is called for each task releasing a reference to the the file, so
-> not sure I see how this solves the problem.
-
-The big question is why do you need to wait during the final closing a
-file?
-
-The wait can be terminated so the wait does not appear to be simply a
-matter of correctness.
-
-Eric
+SGkgTWljaGVsLA0KICAgICA+IFRoaXMgc2VlbXMgbGlrZSBhIGJhZCBpZGVhLCBhcyBpdCB3b3Vs
+ZCBjYXVzZSBiYXNpY2FsbHkgYW55IHVzZXJzcGFjZSB3aGljaA0KPiB3YW50cyB0byB1c2UgdGhl
+IEdQVSB0byBmYWlsIHRvIHN0YXJ0IGR1cmluZyBhIEdQVSByZXNldC4NCltFbWlseV0gWWVzLCB0
+aGlzIGlzIHdoYXQgdGhlIGNoYW5nZSB3YW50IHRvIGRvLCB3aGVuIGRyaXZlciBpcyBkb2luZyBn
+cHUgcmVjb3ZlciBvciBoYXJkd2FyZSBpcyBkb2luZyByZXNldCwNCml0IGRvZXNuJ3Qgd2FudCB0
+byBiZSBpbnRlcnJ1cHRlZCwgYW5kIGR1cmluZyB0aGUgcmVzZXQgYW55IGRyaXZlciBvcGVuIGtt
+cyBpcyBtZWFuaW5nbGVzcy4gVGhpcyBiZWhhdmlvciBjb3VsZA0KbGV0IHRoZSBncHUgcmVjb3Zl
+ciBhbmQgaGFyZHdhcmUgcmVzZXQgYmFjayBtb3JlIHF1aWNrbHkuIEFmdGVyIGZpbmlzaGVkIHRo
+ZSByZXNldCwgd2Ugd2lsbCBzZXQgYWRldi0+aW5fZ3B1X3Jlc2V0PTANCmFnYWluLCB0aGVuIGNv
+dWxkIGFsbG93IHRoZSBhcHBsaWNhdGlvbiBvcGVuIHRoZSBrbXMuDQoNCkJlc3QgV2lzaGVzLA0K
+RW1pbHkgRGVuZw0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IE1pY2hl
+bCBEw6RuemVyIFttYWlsdG86bWljaGVsQGRhZW56ZXIubmV0XQ0KPiBTZW50OiBXZWRuZXNkYXks
+IEFwcmlsIDI1LCAyMDE4IDM6NDggUE0NCj4gVG86IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFt
+ZC5jb20+DQo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgTGl1LCBNb25rIDxN
+b25rLkxpdUBhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1L3NyaW92
+OiByZWplY3Qga21zIG9wZW4gaWYgVERSIG5vdCBmaW5pc2hlZA0KPiBvciBmYWlsZWQNCj4gDQo+
+IE9uIDIwMTgtMDQtMjUgMDg6MzkgQU0sIEVtaWx5IERlbmcgd3JvdGU6DQo+ID4gU2lnbmVkLW9m
+Zi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyB8IDMgKysrDQo+ID4gIDEgZmlsZSBjaGFu
+Z2VkLCAzIGluc2VydGlvbnMoKykNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9rbXMuYw0KPiA+IGluZGV4IDZkNTVjYWUuLmFkZWNhNzEgMTAwNjQ0DQo+ID4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+ID4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+ID4gQEAgLTg0Nyw2ICs4
+NDcsOSBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9vcGVuX2ttcyhzdHJ1Y3QgZHJtX2RldmljZQ0KPiAq
+ZGV2LCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdikNCj4gPiAgCXN0cnVjdCBhbWRncHVfZnBy
+aXYgKmZwcml2Ow0KPiA+ICAJaW50IHIsIHBhc2lkOw0KPiA+DQo+ID4gKwlpZiAoYWRldi0+aW5f
+Z3B1X3Jlc2V0KQ0KPiA+ICsJCXJldHVybiAtRUNBTkNFTEVEOw0KPiANCj4gVGhpcyBzZWVtcyBs
+aWtlIGEgYmFkIGlkZWEsIGFzIGl0IHdvdWxkIGNhdXNlIGJhc2ljYWxseSBhbnkgdXNlcnNwYWNl
+IHdoaWNoDQo+IHdhbnRzIHRvIHVzZSB0aGUgR1BVIHRvIGZhaWwgdG8gc3RhcnQgZHVyaW5nIGEg
+R1BVIHJlc2V0Lg0KPiANCj4gDQo+IC0tDQo+IEVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAg
+ICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20NCj4gTGlicmUgc29m
+dHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2
+ZWxvcGVyDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
