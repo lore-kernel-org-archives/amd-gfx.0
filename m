@@ -1,74 +1,150 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH 2/2] drm/ttm: Use GFP_TRANSHUGE_LIGHT for allocating huge pages
-Date: Thu, 26 Apr 2018 17:06:18 +0200
-Message-ID: <20180426150618.13470-2-michel@daenzer.net>
-References: <20180426150618.13470-1-michel@daenzer.net>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
+Subject: [PATCH 1/2] drm/ttm: Add TTM_PAGE_FLAG_TRANSHUGE
+Date: Thu, 26 Apr 2018 17:06:17 +0200
+Message-ID: <20180426150618.13470-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180426150618.13470-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Roger He <Hongbo.He@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpHRlBfVFJBTlNI
-VUdFIHRyaWVzIHZlcnkgaGFyZCB0byBhbGxvY2F0ZSBodWdlIHBhZ2VzLCB3aGljaCBjYW4gcmVz
-dWx0CmluIGxvbmcgZGVsYXlzIHdpdGggaGlnaCBtZW1vcnkgcHJlc3N1cmUuIEkgaGF2ZSBvYnNl
-cnZlZCBmaXJlZm94CmZyZWV6aW5nIGZvciB1cCB0byBhcm91bmQgYSBtaW51dGUgZHVlIHRvIHRo
-aXMgd2hpbGUgcmVzdGljIHdhcyB0YWtpbmcKYSBmdWxsIHN5c3RlbSBiYWNrdXAuCgpTaW5jZSB3
-ZSBkb24ndCByZWFsbHkgbmVlZCBodWdlIHBhZ2VzLCB1c2UgR0ZQX1RSQU5TSFVHRV9MSUdIVCB8
-Cl9fR0ZQX05PUkVUUlkgaW5zdGVhZCwgaW4gb3JkZXIgdG8gZmFpbCBxdWlja2x5IHdoZW4gdGhl
-cmUgYXJlIG5vIGh1Z2UKcGFnZXMgYXZhaWxhYmxlLgoKU2V0IF9fR0ZQX0tTV0FQRF9SRUNMQUlN
-IGFzIHdlbGwsIGluIG9yZGVyIGZvciBodWdlIHBhZ2VzIHRvIGJlIGZyZWVkCnVwIGluIHRoZSBi
-YWNrZ3JvdW5kIGlmIG5lY2Vzc2FyeS4KCldpdGggdGhlc2UgY2hhbmdlcywgSSdtIG5vIGxvbmdl
-ciBzZWVpbmcgZnJlZXplcyBkdXJpbmcgYSByZXN0aWMgYmFja3VwLgoKQ2M6IHN0YWJsZUB2Z2Vy
-Lmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVy
-QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jICAgICB8
-IDExICsrKysrKysrLS0tCiBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdlX2FsbG9jX2RtYS5j
-IHwgIDMgKystCiAyIGZpbGVzIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jIGIv
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jCmluZGV4IDJjZTkxMjcyYjExMS4u
-Njc5NGYxNTQ2MWQ5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdlX2Fs
-bG9jLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9hbGxvYy5jCkBAIC05MTQs
-NyArOTE0LDggQEAgc3RhdGljIGludCB0dG1fZ2V0X3BhZ2VzKHN0cnVjdCBwYWdlICoqcGFnZXMs
-IHVuc2lnbmVkIG5wYWdlcywgaW50IGZsYWdzLAogCQkJd2hpbGUgKG5wYWdlcyA+PSBIUEFHRV9Q
-TURfTlIpIHsKIAkJCQlnZnBfdCBodWdlX2ZsYWdzID0gZ2ZwX2ZsYWdzOwogCi0JCQkJaHVnZV9m
-bGFncyB8PSBHRlBfVFJBTlNIVUdFOworCQkJCWh1Z2VfZmxhZ3MgfD0gR0ZQX1RSQU5TSFVHRV9M
-SUdIVCB8IF9fR0ZQX05PUkVUUlkgfAorCQkJCQlfX0dGUF9LU1dBUERfUkVDTEFJTTsKIAkJCQlo
-dWdlX2ZsYWdzICY9IH5fX0dGUF9NT1ZBQkxFOwogCQkJCWh1Z2VfZmxhZ3MgJj0gfl9fR0ZQX0NP
-TVA7CiAJCQkJcCA9IGFsbG9jX3BhZ2VzKGh1Z2VfZmxhZ3MsIEhQQUdFX1BNRF9PUkRFUik7CkBA
-IC0xMDMzLDExICsxMDM0LDE1IEBAIGludCB0dG1fcGFnZV9hbGxvY19pbml0KHN0cnVjdCB0dG1f
-bWVtX2dsb2JhbCAqZ2xvYiwgdW5zaWduZWQgbWF4X3BhZ2VzKQogCQkJCSAgR0ZQX1VTRVIgfCBH
-RlBfRE1BMzIsICJ1YyBkbWEiLCAwKTsKIAogCXR0bV9wYWdlX3Bvb2xfaW5pdF9sb2NrZWQoJl9t
-YW5hZ2VyLT53Y19wb29sX2h1Z2UsCi0JCQkJICBHRlBfVFJBTlNIVUdFCSYgfihfX0dGUF9NT1ZB
-QkxFIHwgX19HRlBfQ09NUCksCisJCQkJICAoR0ZQX1RSQU5TSFVHRV9MSUdIVCB8IF9fR0ZQX05P
-UkVUUlkgfAorCQkJCSAgIF9fR0ZQX0tTV0FQRF9SRUNMQUlNKSAmCisJCQkJICB+KF9fR0ZQX01P
-VkFCTEUgfCBfX0dGUF9DT01QKSwKIAkJCQkgICJ3YyBodWdlIiwgb3JkZXIpOwogCiAJdHRtX3Bh
-Z2VfcG9vbF9pbml0X2xvY2tlZCgmX21hbmFnZXItPnVjX3Bvb2xfaHVnZSwKLQkJCQkgIEdGUF9U
-UkFOU0hVR0UJJiB+KF9fR0ZQX01PVkFCTEUgfCBfX0dGUF9DT01QKQorCQkJCSAgKEdGUF9UUkFO
-U0hVR0VfTElHSFQgfCBfX0dGUF9OT1JFVFJZIHwKKwkJCQkgICBfX0dGUF9LU1dBUERfUkVDTEFJ
-TSkgJgorCQkJCSAgfihfX0dGUF9NT1ZBQkxFIHwgX19HRlBfQ09NUCkKIAkJCQkgICwgInVjIGh1
-Z2UiLCBvcmRlcik7CiAKIAlfbWFuYWdlci0+b3B0aW9ucy5tYXhfc2l6ZSA9IG1heF9wYWdlczsK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3BhZ2VfYWxsb2NfZG1hLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdlX2FsbG9jX2RtYS5jCmluZGV4IDI5MWIwNDIxM2Vj
-NS4uNWE1NTExNThjMjg5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdl
-X2FsbG9jX2RtYS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3BhZ2VfYWxsb2NfZG1h
-LmMKQEAgLTkxMCw3ICs5MTAsOCBAQCBzdGF0aWMgZ2ZwX3QgdHRtX2RtYV9wb29sX2dmcF9mbGFn
-cyhzdHJ1Y3QgdHRtX2RtYV90dCAqdHRtX2RtYSwgYm9vbCBodWdlKQogCQlnZnBfZmxhZ3MgfD0g
-X19HRlBfWkVSTzsKIAogCWlmIChodWdlKSB7Ci0JCWdmcF9mbGFncyB8PSBHRlBfVFJBTlNIVUdF
-OworCQlnZnBfZmxhZ3MgfD0gR0ZQX1RSQU5TSFVHRV9MSUdIVCB8IF9fR0ZQX05PUkVUUlkgfAor
-CQkJX19HRlBfS1NXQVBEX1JFQ0xBSU07CiAJCWdmcF9mbGFncyAmPSB+X19HRlBfTU9WQUJMRTsK
-IAkJZ2ZwX2ZsYWdzICY9IH5fX0dGUF9DT01QOwogCX0KLS0gCjIuMTcuMAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Michel Dänzer <michel.daenzer@amd.com>
+
+When it's set, TTM tries to allocate huge pages if possible. Drivers
+which can take advantage of huge pages should set it.
+
+Drivers not setting this flag no longer incur any overhead related to
+allocating or freeing huge pages.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Michel Dänzer <michel.daenzer@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  |  2 +-
+ drivers/gpu/drm/ttm/ttm_page_alloc.c     | 14 ++++++++++----
+ drivers/gpu/drm/ttm/ttm_page_alloc_dma.c |  8 +++++---
+ include/drm/ttm/ttm_tt.h                 |  1 +
+ 4 files changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index dfd22db13fb1..e03e9e361e2a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -988,7 +988,7 @@ static struct ttm_tt *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
+ 		return NULL;
+ 	}
+ 	gtt->ttm.ttm.func = &amdgpu_backend_func;
+-	if (ttm_sg_tt_init(&gtt->ttm, bo, page_flags)) {
++	if (ttm_sg_tt_init(&gtt->ttm, bo, page_flags | TTM_PAGE_FLAG_TRANSHUGE)) {
+ 		kfree(gtt);
+ 		return NULL;
+ 	}
+diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc.c b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+index f0481b7b60c5..2ce91272b111 100644
+--- a/drivers/gpu/drm/ttm/ttm_page_alloc.c
++++ b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+@@ -760,7 +760,7 @@ static void ttm_put_pages(struct page **pages, unsigned npages, int flags,
+ {
+ 	struct ttm_page_pool *pool = ttm_get_pool(flags, false, cstate);
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	struct ttm_page_pool *huge = ttm_get_pool(flags, true, cstate);
++	struct ttm_page_pool *huge = NULL;
+ #endif
+ 	unsigned long irq_flags;
+ 	unsigned i;
+@@ -780,7 +780,8 @@ static void ttm_put_pages(struct page **pages, unsigned npages, int flags,
+ 			}
+ 
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-			if (!(flags & TTM_PAGE_FLAG_DMA32)) {
++			if ((flags & (TTM_PAGE_FLAG_DMA32 | TTM_PAGE_FLAG_TRANSHUGE)) ==
++			    TTM_PAGE_FLAG_TRANSHUGE) {
+ 				for (j = 0; j < HPAGE_PMD_NR; ++j)
+ 					if (p++ != pages[i + j])
+ 					    break;
+@@ -805,6 +806,8 @@ static void ttm_put_pages(struct page **pages, unsigned npages, int flags,
+ 
+ 	i = 0;
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
++	if (flags & TTM_PAGE_FLAG_TRANSHUGE)
++		huge = ttm_get_pool(flags, true, cstate);
+ 	if (huge) {
+ 		unsigned max_size, n2free;
+ 
+@@ -877,7 +880,7 @@ static int ttm_get_pages(struct page **pages, unsigned npages, int flags,
+ {
+ 	struct ttm_page_pool *pool = ttm_get_pool(flags, false, cstate);
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	struct ttm_page_pool *huge = ttm_get_pool(flags, true, cstate);
++	struct ttm_page_pool *huge = NULL;
+ #endif
+ 	struct list_head plist;
+ 	struct page *p = NULL;
+@@ -906,7 +909,8 @@ static int ttm_get_pages(struct page **pages, unsigned npages, int flags,
+ 
+ 		i = 0;
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-		if (!(gfp_flags & GFP_DMA32)) {
++		if ((flags & (TTM_PAGE_FLAG_DMA32 | TTM_PAGE_FLAG_TRANSHUGE)) ==
++		    TTM_PAGE_FLAG_TRANSHUGE) {
+ 			while (npages >= HPAGE_PMD_NR) {
+ 				gfp_t huge_flags = gfp_flags;
+ 
+@@ -946,6 +950,8 @@ static int ttm_get_pages(struct page **pages, unsigned npages, int flags,
+ 	count = 0;
+ 
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
++	if (flags & TTM_PAGE_FLAG_TRANSHUGE)
++		huge = ttm_get_pool(flags, true, cstate);
+ 	if (huge && npages >= HPAGE_PMD_NR) {
+ 		INIT_LIST_HEAD(&plist);
+ 		ttm_page_pool_get_pages(huge, &plist, flags, cstate,
+diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc_dma.c b/drivers/gpu/drm/ttm/ttm_page_alloc_dma.c
+index 8a25d1974385..291b04213ec5 100644
+--- a/drivers/gpu/drm/ttm/ttm_page_alloc_dma.c
++++ b/drivers/gpu/drm/ttm/ttm_page_alloc_dma.c
+@@ -949,7 +949,8 @@ int ttm_dma_populate(struct ttm_dma_tt *ttm_dma, struct device *dev,
+ 	type = ttm_to_type(ttm->page_flags, ttm->caching_state);
+ 
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	if (ttm->page_flags & TTM_PAGE_FLAG_DMA32)
++	if ((ttm->page_flags & (TTM_PAGE_FLAG_DMA32 | TTM_PAGE_FLAG_TRANSHUGE))
++	    != TTM_PAGE_FLAG_TRANSHUGE)
+ 		goto skip_huge;
+ 
+ 	pool = ttm_dma_find_pool(dev, type | IS_HUGE);
+@@ -1035,7 +1036,7 @@ void ttm_dma_unpopulate(struct ttm_dma_tt *ttm_dma, struct device *dev)
+ {
+ 	struct ttm_tt *ttm = &ttm_dma->ttm;
+ 	struct ttm_mem_global *mem_glob = ttm->bdev->glob->mem_glob;
+-	struct dma_pool *pool;
++	struct dma_pool *pool = NULL;
+ 	struct dma_page *d_page, *next;
+ 	enum pool_type type;
+ 	bool is_cached = false;
+@@ -1045,7 +1046,8 @@ void ttm_dma_unpopulate(struct ttm_dma_tt *ttm_dma, struct device *dev)
+ 	type = ttm_to_type(ttm->page_flags, ttm->caching_state);
+ 
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	pool = ttm_dma_find_pool(dev, type | IS_HUGE);
++	if (ttm->page_flags & TTM_PAGE_FLAG_TRANSHUGE)
++		pool = ttm_dma_find_pool(dev, type | IS_HUGE);
+ 	if (pool) {
+ 		count = 0;
+ 		list_for_each_entry_safe(d_page, next, &ttm_dma->pages_list,
+diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
+index c0e928abf592..c7d2120f0362 100644
+--- a/include/drm/ttm/ttm_tt.h
++++ b/include/drm/ttm/ttm_tt.h
+@@ -41,6 +41,7 @@ struct ttm_operation_ctx;
+ #define TTM_PAGE_FLAG_DMA32           (1 << 7)
+ #define TTM_PAGE_FLAG_SG              (1 << 8)
+ #define TTM_PAGE_FLAG_NO_RETRY	      (1 << 9)
++#define TTM_PAGE_FLAG_TRANSHUGE       (1 << 10)
+ 
+ enum ttm_caching_state {
+ 	tt_uncached,
+-- 
+2.17.0
