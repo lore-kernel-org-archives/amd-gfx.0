@@ -1,93 +1,82 @@
-From: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/uvd7: add emit_reg_write_reg_wait ring callback
-Date: Thu, 26 Apr 2018 19:12:07 +0800
-Message-ID: <20180426111207.9678-1-Xiaojie.Yuan@amd.com>
+From: Russell King - ARM Linux <linux@armlinux.org.uk>
+Subject: Re: noveau vs arm dma ops
+Date: Thu, 26 Apr 2018 12:12:41 +0100
+Message-ID: <20180426111240.GS16141@n2100.armlinux.org.uk>
+References: <20180425054855.GA17038@infradead.org>
+ <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
+ <CAKMK7uFx=KB1vup=WhPCyfUFairKQcRR4BEd7aXaX1Pj-vj3Cw@mail.gmail.com>
+ <20180425064335.GB28100@infradead.org>
+ <20180425074151.GA2271@ulmo>
+ <20180425085439.GA29996@infradead.org>
+ <20180425100429.GR25142@phenom.ffwll.local>
+ <20180425153312.GD27076@infradead.org>
+ <CAKMK7uH14qupTYDa1pr8UC434Vs+97eUXj+fYi=+2uijCLayMA@mail.gmail.com>
+ <20180426090942.GA18811@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20180426090942.GA18811@infradead.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Daniel Vetter <daniel@ffwll.ch>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Jerome Glisse <jglisse@redhat.com>, iommu@lists.linux-foundation.org, dri-devel <dri-devel@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Thierry Reding <treding@nvidia.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rml4IHRoZSBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2Ugd2hpbGUgcnVubmluZyBhbWRncHVfdGVz
-dDoKClsgICA1NC45NzIyNDZdIEJVRzogdW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2lu
-dGVyIGRlcmVmZXJlbmNlIGF0IDAwMDAwMDAwMDAwMDAwMDAKWyAgIDU0Ljk3MjI2NV0gSVA6ICAg
-ICAgICAgICAobnVsbCkKWyAgIDU0Ljk3MjI3M10gUEdEIDAgUDREIDAKWyAgIDU0Ljk3MjI4MF0g
-T29wczogMDAxMCBbIzFdIFNNUCBQVEkKWyAgIDU0Ljk3MjI4OF0gTW9kdWxlcyBsaW5rZWQgaW46
-IGFtZGtmZCBhbWRfaW9tbXVfdjIgYW1kZ3B1KE9FKSBjaGFzaCBncHVfc2NoZWQgdHRtIGRybV9r
-bXNfaGVscGVyIGRybSBpMmNfYWxnb19iaXQgZmJfc3lzX2ZvcHMgc3lzY29weWFyZWEgc3lzZmls
-bHJlY3Qgc3lzaW1nYmx0IHNuZF9oZGFfY29kZWNfcmVhbHRlayBzbmRfaGRhX2NvZGVjX2dlbmVy
-aWMgc25kX2hkYV9jb2RlY19oZG1pIHNuZF9oZGFfaW50ZWwgc25kX2hkYV9jb2RlYyBzbmRfaGRh
-X2NvcmUgc25kX2h3ZGVwIGludGVsX3JhcGwgc25kX3BjbSBzbmRfc2VxX21pZGkgc25kX3NlcV9t
-aWRpX2V2ZW50IHNuZF9yYXdtaWRpIHg4Nl9wa2dfdGVtcF90aGVybWFsIGludGVsX3Bvd2VyY2xh
-bXAgY29yZXRlbXAga3ZtX2ludGVsIHNuZF9zZXEgc25kX3NlcV9kZXZpY2Uga3ZtIGlycWJ5cGFz
-cyBzbmRfdGltZXIgY3JjdDEwZGlmX3BjbG11bCBjcmMzMl9wY2xtdWwgZ2hhc2hfY2xtdWxuaV9p
-bnRlbCBwY2JjIHNuZCBzb3VuZGNvcmUgam95ZGV2IGlucHV0X2xlZHMgYWVzbmlfaW50ZWwgYWVz
-X3g4Nl82NCBjcnlwdG9fc2ltZCBnbHVlX2hlbHBlciBjcnlwdGQgaWRtYTY0IHZpcnRfZG1hIG1l
-aV9tZSBpbnRlbF9scHNzX3BjaSBzZXJpb19yYXcgaW50ZWxfY3N0YXRlIGludGVsX3JhcGxfcGVy
-ZiBzaHBjaHAgaW50ZWxfcGNoX3RoZXJtYWwgbWVpIG1hY19oaWQgaW50ZWxfbHBzcyBhY3BpX3Bh
-ZCBwYXJwb3J0X3BjIHBwZGV2IG5mc2QgbHAgYXV0aF9ycGNnc3MgbmZzX2FjbCBsb2NrZCBncmFj
-ZSBzdW5ycGMgcGFycG9ydCBhdXRvZnM0IGhpZF9nZW5lcmljClsgICA1NC45NzI0MzRdICB1c2Jo
-aWQgbXhtX3dtaSBlMTAwMGUgcHNtb3VzZSBhaGNpIGhpZCBsaWJhaGNpIHdtaSBwaW5jdHJsX3N1
-bnJpc2Vwb2ludCB2aWRlbyBwaW5jdHJsX2ludGVsClsgICA1NC45NzI0NTddIENQVTogNiBQSUQ6
-IDEzOTMgQ29tbTogdXZkIFRhaW50ZWQ6IEcgICAgICAgICAgIE9FICAgIDQuMTYuMC1yYzctMjdm
-Yjg0ZmRhNzc3ICMxClsgICA1NC45NzI0NzNdIEhhcmR3YXJlIG5hbWU6IE1TSSBNUy03OTg0L1ox
-NzAgS1JBSVQgR0FNSU5HIChNUy03OTg0KSwgQklPUyBCLjgwIDA1LzExLzIwMTYKWyAgIDU0Ljk3
-MjQ4OV0gUklQOiAwMDEwOiAgICAgICAgICAobnVsbCkKWyAgIDU0Ljk3MjQ5N10gUlNQOiAwMDE4
-OmZmZmZhZWEwMDJjOGJjYzAgRUZMQUdTOiAwMDAxMDIwMgpbICAgNTQuOTcyNTA4XSBSQVg6IDAw
-MDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZmOWQzMGQzYzU2ZjYwIFJDWDogMDAwMDAwMDAwMDdjMDAw
-MgpbICAgNTQuOTcyNTIyXSBSRFg6IDAwMDAwMDAwMDAwMWE2ZmIgUlNJOiAwMDAwMDAwMDAwMDFh
-NmU5IFJESTogZmZmZjlkMzBkM2M1NmY2MApbICAgNTQuOTcyNTM2XSBSQlA6IGZmZmZhZWEwMDJj
-OGJkMTAgUjA4OiAwMDAwMDAwMDAwMDAwMDAyIFIwOTogZmZmZmZmZmZjMDY5NzdkMApbICAgNTQu
-OTcyNTUwXSBSMTA6IDAwMDAwMDAwMDAwMDAwNDAgUjExOiAwMDAwMDAwMDAwMDAwMDAwIFIxMjog
-MDAwMDAwMDAwMDAwMDAwMgpbICAgNTQuOTcyNTY0XSBSMTM6IGZmZmY5ZDMwZDNjNTAwMWMgUjE0
-OiBmZmZmOWQzMGQzYzUwMDAwIFIxNTogMDAwMDAwMDAwMDAwMDAwNgpbICAgNTQuOTcyNTc5XSBG
-UzogIDAwMDAwMDAwMDAwMDAwMDAoMDAwMCkgR1M6ZmZmZjlkMzBlZWQ4MDAwMCgwMDAwKSBrbmxH
-UzowMDAwMDAwMDAwMDAwMDAwClsgICA1NC45NzI1OTRdIENTOiAgMDAxMCBEUzogMDAwMCBFUzog
-MDAwMCBDUjA6IDAwMDAwMDAwODAwNTAwMzMKWyAgIDU0Ljk3MjYwNl0gQ1IyOiAwMDAwMDAwMDAw
-MDAwMDAwIENSMzogMDAwMDAwMDJkYmMwYTAwMSBDUjQ6IDAwMDAwMDAwMDAzNjA2ZTAKWyAgIDU0
-Ljk3MjYyMF0gRFIwOiAwMDAwMDAwMDAwMDAwMDAwIERSMTogMDAwMDAwMDAwMDAwMDAwMCBEUjI6
-IDAwMDAwMDAwMDAwMDAwMDAKWyAgIDU0Ljk3MjYzNF0gRFIzOiAwMDAwMDAwMDAwMDAwMDAwIERS
-NjogMDAwMDAwMDBmZmZlMGZmMCBEUjc6IDAwMDAwMDAwMDAwMDA0MDAKWyAgIDU0Ljk3MjY0OF0g
-Q2FsbCBUcmFjZToKWyAgIDU0Ljk3MjY4NV0gID8gZ21jX3Y5XzBfZW1pdF9mbHVzaF9ncHVfdGxi
-KzB4MTExLzB4MTQwIFthbWRncHVdClsgICA1NC45NzI3MjFdICB1dmRfdjdfMF9yaW5nX2VtaXRf
-dm1fZmx1c2grMHgzMS8weDcwIFthbWRncHVdClsgICA1NC45NzI3NTFdICBhbWRncHVfdm1fZmx1
-c2grMHg1ZGMvMHg2YzAgW2FtZGdwdV0KWyAgIDU0Ljk3Mjc4N10gID8gcHBfZHBtX3Bvd2VyZ2F0
-ZV91dmQrMHg1MC8weDgwIFthbWRncHVdClsgICA1NC45NzI4MTZdICBhbWRncHVfaWJfc2NoZWR1
-bGUrMHgxMjAvMHg0ZTAgW2FtZGdwdV0KWyAgIDU0Ljk3Mjg1MF0gIGFtZGdwdV9qb2JfcnVuKzB4
-MTdiLzB4MWMwIFthbWRncHVdClsgICA1NC45NzI4NjFdICBkcm1fc2NoZWRfbWFpbisweDJjYy8w
-eDQ5MCBbZ3B1X3NjaGVkXQpbICAgNTQuOTcyODczXSAgPyB3YWl0X3dva2VuKzB4ODAvMHg4MApb
-ICAgNTQuOTcyODgyXSAga3RocmVhZCsweDEyMS8weDE0MApbICAgNTQuOTcyODkxXSAgPyBkcm1f
-c2NoZWRfam9iX2ZpbmlzaCsweGYwLzB4ZjAgW2dwdV9zY2hlZF0KWyAgIDU0Ljk3MjkwMl0gID8g
-a3RocmVhZF9jcmVhdGVfd29ya2VyX29uX2NwdSsweDcwLzB4NzAKWyAgIDU0Ljk3MjkxNF0gIHJl
-dF9mcm9tX2ZvcmsrMHgzNS8weDQwClsgICA1NC45NzI5MjJdIENvZGU6ICBCYWQgUklQIHZhbHVl
-LgpbICAgNTQuOTcyOTMyXSBSSVA6ICAgICAgICAgICAobnVsbCkgUlNQOiBmZmZmYWVhMDAyYzhi
-Y2MwClsgICA1NC45NzI5NDNdIENSMjogMDAwMDAwMDAwMDAwMDAwMApbICAgNTQuOTcyOTUxXSAt
-LS1bIGVuZCB0cmFjZSA1ZmViMzQ5MjYzYmJmNjMzIF0tLS0KCkNoYW5nZS1JZDogSTBiYjZkYWY0
-N2I2OTQ2Nzg1ZTdjZWZlYzVkMDVkMDlhNDJjYTlhM2MKU2lnbmVkLW9mZi1ieTogWGlhb2ppZSBZ
-dWFuIDxYaWFvamllLll1YW5AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS91dmRfdjdfMC5jIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYwppbmRleCAyODBjMDgyNmUxODMuLjIyNTFkYjQw
-NDhmNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYwor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jCkBAIC0xNjcxLDYgKzE2
-NzEsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIHV2ZF92N18wX3Jp
-bmdfdm1fZnVuY3MgPSB7CiAJLmVuZF91c2UgPSBhbWRncHVfdXZkX3JpbmdfZW5kX3VzZSwKIAku
-ZW1pdF93cmVnID0gdXZkX3Y3XzBfcmluZ19lbWl0X3dyZWcsCiAJLmVtaXRfcmVnX3dhaXQgPSB1
-dmRfdjdfMF9yaW5nX2VtaXRfcmVnX3dhaXQsCisJLmVtaXRfcmVnX3dyaXRlX3JlZ193YWl0ID0g
-YW1kZ3B1X3JpbmdfZW1pdF9yZWdfd3JpdGVfcmVnX3dhaXRfaGVscGVyLAogfTsKIAogc3RhdGlj
-IGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyB1dmRfdjdfMF9lbmNfcmluZ192bV9mdW5j
-cyA9IHsKLS0gCjIuMTcuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+(While there's a rain shower...)
+
+On Thu, Apr 26, 2018 at 02:09:42AM -0700, Christoph Hellwig wrote:
+> synopsis:
+> 
+> drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c:    pdevinfo.dma_mask       = DMA_BIT_MASK(32);
+> drivers/gpu/drm/bridge/synopsys/dw-hdmi.c:              pdevinfo.dma_mask = DMA_BIT_MASK(32);
+
+This is for the AHB audio driver, and is a correct default on two counts:
+
+1. It is historically usual to initialise DMA masks to 32-bit, and leave
+   it to the device drivers to negotiate via the DMA mask functions if
+   they wish to use higher orders of bits.
+
+2. The AHB audio hardware in the HDMI block only supports 32-bit addresses.
+
+What I've missed from the AHB audio driver is calling the DMA mask
+functions... oops.  Patch below.
+
+> drivers/gpu/drm/bridge/synopsys/dw-hdmi.c:              pdevinfo.dma_mask = DMA_BIT_MASK(32);
+
+This is for the I2S audio driver, and I suspect is wrong - I doubt
+that the I2S sub-device itself does any DMA what so ever.
+
+8<===
+From: Russell King <rmk+kernel@armlinux.org.uk>
+Subject: drm: bridge: dw-hdmi: Negotiate dma mask with DMA API
+
+DMA drivers are supposed to negotiate the DMA mask with the DMA API,
+but this was missing from the AHB audio driver.  Add the necessary
+call.
+
+Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+index cf3f0caf9c63..16c45b6cd6af 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+@@ -539,6 +539,10 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
+ 	unsigned revision;
+ 	int ret;
+ 
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
++	if (ret)
++		return ret;
++
+ 	writeb_relaxed(HDMI_IH_MUTE_AHBDMAAUD_STAT0_ALL,
+ 		       data->base + HDMI_IH_MUTE_AHBDMAAUD_STAT0);
+ 	revision = readb_relaxed(data->base + HDMI_REVISION_ID);
+
+
+-- 
+RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
+FTTC broadband for 0.8mile line in suburbia: sync at 8.8Mbps down 630kbps up
+According to speedtest.net: 8.21Mbps down 510kbps up
