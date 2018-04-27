@@ -1,42 +1,43 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/sriov: reject kms open if TDR not finished or
- failed
-Date: Fri, 27 Apr 2018 10:22:57 +0200
-Message-ID: <fc3f05cd-ed48-c04e-cfcb-59ed5ab224e2@daenzer.net>
-References: <1524638384-31977-1-git-send-email-Emily.Deng@amd.com>
- <5bede6f6-24b2-8a3a-d3d8-9a37ac6d13c8@daenzer.net>
- <CY4PR12MB11254FFDBB4FCCF91CBDE9758F8E0@CY4PR12MB1125.namprd12.prod.outlook.com>
- <e7756d73-aa65-b351-2b1a-81ceea1e013f@daenzer.net>
- <CY4PR12MB112547536CD27B7FE2C330F38F8E0@CY4PR12MB1125.namprd12.prod.outlook.com>
- <9d56b1c3-1e51-f3f1-17d6-c1615dea0a05@daenzer.net>
- <CY4PR12MB1125653A73D8A22533FB3FBE8F8D0@CY4PR12MB1125.namprd12.prod.outlook.com>
- <77a5af30-0371-4816-fcf5-0bbcffa4395c@daenzer.net>
- <CY4PR12MB11253279D4404CF482FD7CF08F8D0@CY4PR12MB1125.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 1/2] drm/ttm: Add TTM_PAGE_FLAG_TRANSHUGE
+Date: Fri, 27 Apr 2018 10:41:54 +0200
+Message-ID: <d6a07516-64bc-003d-946f-09f3cb9ded1c@daenzer.net>
+References: <20180426150618.13470-1-michel@daenzer.net>
+ <a77d7229-e8f7-83bf-2098-8db07cebb117@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB11253279D4404CF482FD7CF08F8D0-rpdhrqHFk07v2MZdTKcfDgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <a77d7229-e8f7-83bf-2098-8db07cebb117@amd.com>
 Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: zhoucm1 <zhoucm1@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wNC0yNyAxMDoxNSBBTSwgRGVuZywgRW1pbHkgd3JvdGU6Cj4gTm8sIEkgbWVhbiBk
-dXJpbmcgR1BVIHJlc2V0LCB0aGUgYXBwIHdpbGwgZmFpbCwgaXQgaXMgcmVhc29uYWJsZS4KCkkg
-dW5kZXJzdGFuZCwgYnV0IEkgZG9uJ3QgYWdyZWUgdGhhdCBpdCdzIHJlYXNvbmFibGUuIDopCgoK
-LS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAg
-ICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAg
-ICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+ClsgRHJvcHBpbmcgUm9nZXIgSGUsIGhpcyBlLW1haWwgYWRkcmVzcyBzZWVtcyB0byBib3VuY2Ug
+XQoKT24gMjAxOC0wNC0yNyAwNDo1MSBBTSwgemhvdWNtMSB3cm90ZToKPiBPbiAyMDE45bm0MDTm
+nIgyNuaXpSAyMzowNiwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+IEZyb206IE1pY2hlbCBEw6Ru
+emVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Pgo+PiBXaGVuIGl0J3Mgc2V0LCBUVE0gdHJp
+ZXMgdG8gYWxsb2NhdGUgaHVnZSBwYWdlcyBpZiBwb3NzaWJsZS4KPiBEbyB5b3UgbWVhbiBvcmln
+aW5hbCBkcml2ZXIgZG9lc24ndCBkbyB0aGlzPwo+IEZyb20gdGhlIGNvZGUsIGRyaXZlciBhbHdh
+eXMgdHJ5IGh1Z2UgcGFnZXMgaWYKPiBDT05GSUdfVFJBTlNQQVJFTlRfSFVHRVBBR0UgaXMgZW5h
+YmxlZC4KClJpZ2h0LCBiZWZvcmUgdGhpcyBjaGFuZ2UsIFRUTSB3b3VsZCBkbyB0aGlzIHVuY29u
+ZGl0aW9uYWxseSBmb3IgYWxsCmRyaXZlcnMuIFRoZSBwb2ludCBvZiB0aGlzIGNoYW5nZSBpcyBu
+b3QgdG8gaW5jdXIgYW55IGh1Z2UgcGFnZSByZWxhdGVkCm92ZXJoZWFkIGZvciBkcml2ZXJzIHdo
+aWNoIGNhbid0IHRha2UgYWR2YW50YWdlIG9mIGh1Z2UgcGFnZXMgYW55d2F5LgpJJ2xsIHRyeSBj
+aGFuZ2luZyB0aGUgY29tbWl0IGxvZyB0byBtYWtlIHRoaXMgY2xlYXJlciBpbiB2Mi4KCgotLSAK
+RWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0
+dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwg
+ICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
 bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+YW4vbGlzdGluZm8vZHJpLWRldmVsCg==
