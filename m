@@ -1,17 +1,14 @@
-From: Sinan Kaya <okaya@codeaurora.org>
-Subject: Re: [PATCH v2 2/3] drm/amdgpu: Allow dma_map_sg() coalescing
-Date: Fri, 27 Apr 2018 15:42:53 -0400
-Message-ID: <438346cf-274f-3ff7-34e9-9ab1440fb26f@codeaurora.org>
-References: <c15119b9e8e18d96fbef6592fd7e827883c7bf59.1523977133.git.robin.murphy@arm.com>
- <622c9ac3784170880dbde6900146e68631df958a.1523977133.git.robin.murphy@arm.com>
- <59bb29d9-da0c-1542-88bf-71bed96f3ed2@codeaurora.org>
- <6338cb4f-6968-c657-212f-6bfd988f880c@codeaurora.org>
- <e6f7aef7-7515-a9c1-a411-2c8865415fc3@arm.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: Tracking: radeon 0000:00:10.0: ring 0 stalled for more than
+ 10240msec
+Date: Sun, 29 Apr 2018 19:16:14 +0200
+Message-ID: <fefee930-1eca-4819-4e02-7ba4a7487dee@amd.com>
+References: <CA+7wUszgY3uFVfMe4T-_5x9KuzWNSgKHXcRKgfcmpE+Keo73Vg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <e6f7aef7-7515-a9c1-a411-2c8865415fc3@arm.com>
+In-Reply-To: <CA+7wUszgY3uFVfMe4T-_5x9KuzWNSgKHXcRKgfcmpE+Keo73Vg@mail.gmail.com>
 Content-Language: en-US
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
@@ -22,32 +19,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Robin Murphy <robin.murphy@arm.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com
+To: Mathieu Malaterre <malat@debian.org>, Alex Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNC8yNy8yMDE4IDExOjU0IEFNLCBSb2JpbiBNdXJwaHkgd3JvdGU6Cj4gCj4+IHVidW50dUB1
-YnVudHU6fi9hbWRncHUkXy4vdmVjdG9yYWRkX2hpcC5leGUKPj4gW8KgIDgzNC4wMDIyMDZdIGNy
-ZWF0ZV9wcm9jZXNzOjYyMAo+PiBbwqAgODM3LjQxMzAyMV0gVW5hYmxlIHRvIGhhbmRsZSBrZXJu
-ZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0IHZpcnR1YWwgYWRkcmVzcyAwMDAwMDAxOAo+
-IAo+IMKjNSBzYXlzIHRoYXQncyBzZ19kbWFfbGVuKE5VTEwpLCB3aGljaCBpbXBsaWVzIGVpdGhl
-ciB0aGF0IHNvbWV0aGluZydzIGdvbmUgaG9ycmlibHkgd3Jvbmcgd2l0aCB0aGUgc2NhdHRlcmxp
-c3QgRE1BIG1hcHBpbmcgc3VjaCB0aGF0IHRoZSBsZW5ndGhzIGRvbid0IG1hdGNoLCBvciBtdWNo
-IG1vcmUgbGlrZWx5IHRoYXQgdHRtLmRtYV9hZGRyZXNzIGlzIE5VTEwgYW5kIEkndmUgbWlzc2Vk
-IHRoZSB0aW55IHN1YnRsZXR5IGJlbG93LiBEb2VzIHRoYXQgZml4IG1hdHRlcnM/CgpUdXJuZWQg
-b3V0IHRvIGJlIGEgbnVsbCBwb2ludGVyIHByb2JsZW0gYWZ0ZXIgc2dfbmV4dCgpLiBUaGUgZm9s
-bG93aW5nIGhlbHBlZC4KCisgICAgICAgICAgICAgICBpZiAoYWRkcnMgJiYgKGRtYV9sZW4gPT0g
-MCkpIHsKICAgICAgICAgICAgICAgICAgICAgICAgZG1hX3NnID0gc2dfbmV4dChkbWFfc2cpOwot
-ICAgICAgICAgICAgICAgICAgICAgICBkbWFfbGVuID0gc2dfZG1hX2xlbihkbWFfc2cpOwotICAg
-ICAgICAgICAgICAgICAgICAgICBhZGRyID0gc2dfZG1hX2FkZHJlc3MoZG1hX3NnKTsKKyAgICAg
-ICAgICAgICAgICAgICAgICAgaWYgKGRtYV9zZykgeworICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGRtYV9sZW4gPSBzZ19kbWFfbGVuKGRtYV9zZyk7CisgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYWRkciA9IHNnX2RtYV9hZGRyZXNzKGRtYV9zZyk7CisgICAgICAgICAgICAg
-ICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KIAoKLS0gClNpbmFuIEtheWEKUXVhbGNvbW0g
-RGF0YWNlbnRlciBUZWNobm9sb2dpZXMsIEluYy4gYXMgYW4gYWZmaWxpYXRlIG9mIFF1YWxjb21t
-IFRlY2hub2xvZ2llcywgSW5jLgpRdWFsY29tbSBUZWNobm9sb2dpZXMsIEluYy4gaXMgYSBtZW1i
-ZXIgb2YgdGhlIENvZGUgQXVyb3JhIEZvcnVtLCBhIExpbnV4IEZvdW5kYXRpb24gQ29sbGFib3Jh
-dGl2ZSBQcm9qZWN0LgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2
-ZWwK
+QW0gMjMuMDQuMjAxOCB1bSAyMDo1MCBzY2hyaWViIE1hdGhpZXUgTWFsYXRlcnJlOgo+IEhpIHRo
+ZXJlLAo+Cj4gSSBhbSBwcmV0dHkgc3VyZSBJIHdhcyBhYmxlIHRvIHJ1biBrb2RpIG9uIGFuIG9s
+ZCBNYWMgTWluaSBHNCAoYmlnCj4gZW5kaWFuKSB3aXRoIEFNRCBSVjI4MC4gVG9kYXkgaXQgaXMg
+ZmFpbGluZyB0byBzdGFydCB3aXRoOgoKV2VsbCwgdGhhdCBpcyByYXRoZXIgb2xkIGhhcmR3YXJl
+LiBJIHN1Z2dlc3QgdG8gbWFrZSBzdXJlIGZpcnN0IHRoYXQgdGhlIApodyBpc24ndCBicm9rZW4g
+aW4gc29tZSB3YXkuCgo+IEhvdyBzaG91bGQgSSBnbyBhbmQgZGVidWcgdGhpcyAob3RoZXIgdGhh
+biBwbGFpbiBnaXQtYmlzZWN0KSA/CgpZb3UgZmlyc3QgbmVlZCB0byBmaWd1cmUgb3V0IHdoYXQn
+cyB0aGUgZmFpbGluZyBjb21wb25lbnQuIEVpdGhlciBNZXNhLCAKRERYIG9yIHRoZSBLZXJuZWwg
+YXJlIHBvc3NpYmxlIGNhbmRpZGF0ZXMuCgpBbm90aGVyIHBvc3NpYmlsaXR5IGlzIHRoYXQgeW91
+IHVwZGF0ZWQga29kaSBhbmQga29kaSBpcyBub3cgZG9pbmcgCnNvbWV0aGluZyB0aGUgaHcgZG9l
+c24ndCBsaWtlLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9kcmktZGV2ZWwK
