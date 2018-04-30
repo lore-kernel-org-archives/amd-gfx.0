@@ -1,59 +1,65 @@
-From: Oleg Nesterov <oleg@redhat.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
  signaled process.
-Date: Mon, 30 Apr 2018 18:00:06 +0200
-Message-ID: <20180430160006.GB10583@redhat.com>
+Date: Mon, 30 Apr 2018 12:10:36 -0400
+Message-ID: <e5b0221d-84ba-10ff-4a58-4fa27c99650f@amd.com>
 References: <87muxsbmkp.fsf@xmission.com>
- <8840ac96-50c4-f94d-eb7c-f007940163f3@amd.com>
- <877eowa5qh.fsf@xmission.com>
+ <8840ac96-50c4-f94d-eb7c-f007940163f3@amd.com> <877eowa5qh.fsf@xmission.com>
  <20180425135552.GD7592@redhat.com>
  <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
  <20180425171757.GA10441@redhat.com>
- <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com>
- <874ljyu98e.fsf@xmission.com>
+ <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com> <874ljyu98e.fsf@xmission.com>
  <c3c9787d-b279-8169-43d1-74eeb666ffbd@gmail.com>
  <bceb1a1b-c453-782d-5a7d-40fa2f22c813@amd.com>
+ <20180430160006.GB10583@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <bceb1a1b-c453-782d-5a7d-40fa2f22c813@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: christian.koenig@amd.com, "Eric W. Biederman" <ebiederm@xmission.com>, David.Panariti@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Alexander.Deucher@amd.com, akpm@linux-foundation.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180430160006.GB10583-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Oleg Nesterov <oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Eric W. Biederman" <ebiederm-aS9lmoZGLiVWk0Htik3J/w@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-On 04/30, Andrey Grodzovsky wrote:
->
-> What about changing PF_SIGNALED to  PF_EXITING in
-> drm_sched_entity_do_release
->
-> -       if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
-> +      if ((current->flags & PF_EXITING) && current->exit_code == SIGKILL)
-
-let me repeat, please don't use task->exit_code. And in fact this check is racy.
-
-But this doesn't matter. Say, we can trivially add SIGNAL_GROUP_KILLED_BY_SIGKILL,
-or do something else, but I fail to understand what are you trying to do. Suppose
-that the check above is correct in that it is true iff the task is exiting and
-it was killed by SIGKILL. What about the "else" branch which does
-
-	r = wait_event_killable(sched->job_scheduled, ...)
-
-?
-
-Once again, fatal_signal_pending() (or even signal_pending()) is not well defined
-after the exiting task passes exit_signals().
-
-So wait_event_killable() can fail because fatal_signal_pending() is true; and this
-can happen even if it was not killed.
-
-Or it can block and SIGKILL won't be able to wake it up.
-
-> If SIGINT was sent then it's SIGINT,
-
-Yes, but see above. in this case fatal_signal_pending() will be likely true so
-wait_event_killable() will fail unless condition is already true.
-
-Oleg.
+CgpPbiAwNC8zMC8yMDE4IDEyOjAwIFBNLCBPbGVnIE5lc3Rlcm92IHdyb3RlOgo+IE9uIDA0LzMw
+LCBBbmRyZXkgR3JvZHpvdnNreSB3cm90ZToKPj4gV2hhdCBhYm91dCBjaGFuZ2luZyBQRl9TSUdO
+QUxFRCB0b8KgIFBGX0VYSVRJTkcgaW4KPj4gZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlCj4+
+Cj4+IC3CoMKgwqDCoMKgwqAgaWYgKChjdXJyZW50LT5mbGFncyAmIFBGX1NJR05BTEVEKSAmJiBj
+dXJyZW50LT5leGl0X2NvZGUgPT0gU0lHS0lMTCkKPj4gK8KgwqDCoMKgwqAgaWYgKChjdXJyZW50
+LT5mbGFncyAmIFBGX0VYSVRJTkcpICYmIGN1cnJlbnQtPmV4aXRfY29kZSA9PSBTSUdLSUxMKQo+
+IGxldCBtZSByZXBlYXQsIHBsZWFzZSBkb24ndCB1c2UgdGFzay0+ZXhpdF9jb2RlLiBBbmQgaW4g
+ZmFjdCB0aGlzIGNoZWNrIGlzIHJhY3kKPgo+IEJ1dCB0aGlzIGRvZXNuJ3QgbWF0dGVyLiBTYXks
+IHdlIGNhbiB0cml2aWFsbHkgYWRkIFNJR05BTF9HUk9VUF9LSUxMRURfQllfU0lHS0lMTCwKPiBv
+ciBkbyBzb21ldGhpbmcgZWxzZSwKCgpDYW4geW91IGV4cGxhaW4gd2hlcmUgaXMgdGhlIHJhY2Ug
+YW5kIHdoYXQgaXMgYSBwb3NzaWJsZSBhbHRlcm5hdGl2ZSB0aGVuID8KCj4gICBidXQgSSBmYWls
+IHRvIHVuZGVyc3RhbmQgd2hhdCBhcmUgeW91IHRyeWluZyB0byBkby4gU3VwcG9zZQo+IHRoYXQg
+dGhlIGNoZWNrIGFib3ZlIGlzIGNvcnJlY3QgaW4gdGhhdCBpdCBpcyB0cnVlIGlmZiB0aGUgdGFz
+ayBpcyBleGl0aW5nIGFuZAo+IGl0IHdhcyBraWxsZWQgYnkgU0lHS0lMTC4gV2hhdCBhYm91dCB0
+aGUgImVsc2UiIGJyYW5jaCB3aGljaCBkb2VzCj4KPiAJciA9IHdhaXRfZXZlbnRfa2lsbGFibGUo
+c2NoZWQtPmpvYl9zY2hlZHVsZWQsIC4uLikKPgo+ID8KPgo+IE9uY2UgYWdhaW4sIGZhdGFsX3Np
+Z25hbF9wZW5kaW5nKCkgKG9yIGV2ZW4gc2lnbmFsX3BlbmRpbmcoKSkgaXMgbm90IHdlbGwgZGVm
+aW5lZAo+IGFmdGVyIHRoZSBleGl0aW5nIHRhc2sgcGFzc2VzIGV4aXRfc2lnbmFscygpLgo+Cj4g
+U28gd2FpdF9ldmVudF9raWxsYWJsZSgpIGNhbiBmYWlsIGJlY2F1c2UgZmF0YWxfc2lnbmFsX3Bl
+bmRpbmcoKSBpcyB0cnVlOyBhbmQgdGhpcwo+IGNhbiBoYXBwZW4gZXZlbiBpZiBpdCB3YXMgbm90
+IGtpbGxlZC4KPgo+IE9yIGl0IGNhbiBibG9jayBhbmQgU0lHS0lMTCB3b24ndCBiZSBhYmxlIHRv
+IHdha2UgaXQgdXAuCj4KPj4gSWYgU0lHSU5UIHdhcyBzZW50IHRoZW4gaXQncyBTSUdJTlQsCj4g
+WWVzLCBidXQgc2VlIGFib3ZlLiBpbiB0aGlzIGNhc2UgZmF0YWxfc2lnbmFsX3BlbmRpbmcoKSB3
+aWxsIGJlIGxpa2VseSB0cnVlIHNvCj4gd2FpdF9ldmVudF9raWxsYWJsZSgpIHdpbGwgZmFpbCB1
+bmxlc3MgY29uZGl0aW9uIGlzIGFscmVhZHkgdHJ1ZS4KCk15IGJhZCwgSSBkaWRuJ3Qgc2hvdyB0
+aGUgZnVsbCBpbnRlbmRlZCBmaXgsIGl0IHdhcyBqdXN0IGEgc25pcHBldCB0byAKYWRkcmVzcyB0
+aGUgZGlmZmVyZW50aWF0aW9uIGJldHdlZW4gZXhpdGluZwpkbyB0byBTSUdLSUxMIGFuZCBhbnkg
+b3RoZXIgZXhpdCwgSSBhbHNvIGludGVuZGVkIHRvIGNoYW5nZSAKd2FpdF9ldmVudF9raWxsYWJs
+ZSB0byB3YWl0X2V2ZW50X3RpbWVvdXQuCgpBbmRyZXkKCj4KPiBPbGVnLgo+CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
