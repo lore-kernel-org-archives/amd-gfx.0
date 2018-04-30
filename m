@@ -1,51 +1,93 @@
-From: Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
- signaled process.
-Date: Mon, 30 Apr 2018 17:29:41 +0200
-Message-ID: <20180430152941.GA10583@redhat.com>
-References: <1524583836-12130-3-git-send-email-andrey.grodzovsky@amd.com>
- <87muxsbmkp.fsf@xmission.com>
- <8840ac96-50c4-f94d-eb7c-f007940163f3@amd.com>
- <877eowa5qh.fsf@xmission.com>
- <20180425135552.GD7592@redhat.com>
- <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
- <20180425171757.GA10441@redhat.com>
- <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com>
- <874ljyu98e.fsf@xmission.com>
- <c3c9787d-b279-8169-43d1-74eeb666ffbd@gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 13/17] drm/radeon: Remove custom
+ dma_fence_ops->wait implementation
+Date: Mon, 30 Apr 2018 17:38:54 +0200
+Message-ID: <20180430153854.GR12521@phenom.ffwll.local>
+References: <20180427061724.28497-1-daniel.vetter@ffwll.ch>
+ <20180427061724.28497-14-daniel.vetter@ffwll.ch>
+ <27a1ffc4-857e-79e1-1d95-40b21709a2b0@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-In-Reply-To: <c3c9787d-b279-8169-43d1-74eeb666ffbd@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, David.Panariti@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Alexander.Deucher@amd.com, akpm@linux-foundation.org, Christian.Koenig@amd.com
+In-Reply-To: <27a1ffc4-857e-79e1-1d95-40b21709a2b0@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, DRI Development <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 04/30, Christian König wrote:
->
-> Well when the process is killed we don't care about correctness any more, we
-> just want to get rid of it as quickly as possible (OOM situation etc...).
-
-OK,
-
-> But it is perfectly possible that a process submits some render commands and
-> then calls exit() or terminates because of a SIGTERM, SIGINT etc..
-
-This doesn't differ from SIGKILL. I mean, any unhandled fatal signal translates
-to SIGKILL and I think this is fine.
-
-but this doesn't really matter,
-
-> So what we essentially need is to distinct between a SIGKILL (which means
-> stop processing as soon as possible) and any other reason because then we
-> don't want to annoy the user with garbage on the screen (even if it's just
-> for a few milliseconds).
-
-For what?
-
-OK, I see another email from Andrey, I'll reply to that email...
-
-Oleg.
+T24gU3VuLCBBcHIgMjksIDIwMTggYXQgMDk6MDg6MzFBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBOQUssIHRoZXJlIGlzIGEgc3VidGl0bGUgYnV0IG1ham9yIGRpZmZlcmVuY2U6
+Cj4gCj4gPiAtCQlpZiAocmRldi0+bmVlZHNfcmVzZXQpIHsKPiA+IC0JCQl0ID0gLUVERUFETEs7
+Cj4gPiAtCQkJYnJlYWs7Cj4gPiAtCQl9Cj4gCj4gV2l0aG91dCB0aGF0IHRoZSB3aG9sZSByYWRl
+b24gR1BVIHJlc2V0IGNvZGUgYnJlYWtzLgoKT29wcyBJJ3ZlIG1pc3NlZCB0aGF0LiBIb3cgZG9l
+cyB0aGlzIHdvcmsgd2hlbiB5b3UgcmVnaXN0ZXIgYSBjYWxsYmFjawp1c2luZyAtPmVuYWJsZV9z
+aWduYWxpbmcgYW5kIHRoZW4gYmxvY2sgb24gaXQ/IEV2ZXJ5dGhpbmcganVzdCBkaWVzPwoKV2Ug
+aGF2ZSBsb3RzIG9mIHVzZXJzIG9mIHRoYXQgZm9yIGJ1ZmZlci9mZW5jZSBzaGFyaW5nLiBBIHJl
+YWxseSB1Z2x5LCBidXQKcHJvYmFibHkgd29ya2luZyBmaXggZm9yIHRoaXMgd291bGQgYmUgYSBr
+dGhyZWFkIHdvcmtlciB0aGF0IGp1c3QgbG9va3MKZm9yIC0+bmVlZHNfcmVzZXQgYW5kIGZvcmNl
+LWNvbXBsZXRlcyBhbGwgZmVuY2VzIHdpdGgKZG1hX2ZlbmNlX3NldF9lcnJvcigtRUlPKSwgd2hp
+Y2ggaXMga2luZGEgd2hhdCdzIHN1cHBvc2VkIHRvIGhhcHBlbiBoZXJlCmFueXdheS4KLURhbmll
+bAoKPiAKPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPiAKPiAKPiBBbSAyNy4wNC4yMDE4IHVtIDA4
+OjE3IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoKPiA+IEl0J3MgYSBjb3B5IG9mIGRtYV9mZW5jZV9k
+ZWZhdWx0X3dhaXQsIHdyaXR0ZW4gc2xpZ2h0bHkgZGlmZmVyZW50bHkuCj4gPiAKPiA+IFNpZ25l
+ZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+Cj4gPiBDYzog
+QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+ID4gQ2M6ICJDaHJpc3Rp
+YW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+ID4gQ2M6ICJEYXZpZCAoQ2h1
+bk1pbmcpIFpob3UiIDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+ID4gQ2M6IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCj4gPiAtLS0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
+b25fZmVuY2UuYyB8IDYzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4gICAxIGZpbGUg
+Y2hhbmdlZCwgNjMgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL3JhZGVvbl9mZW5jZS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
+b25fZmVuY2UuYwo+ID4gaW5kZXggZTg2ZjJiZDM4NDEwLi4zMjY5MGE1MjViZmMgMTAwNjQ0Cj4g
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9mZW5jZS5jCj4gPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9mZW5jZS5jCj4gPiBAQCAtMTA1MSw3MiArMTA1
+MSw5IEBAIHN0YXRpYyBjb25zdCBjaGFyICpyYWRlb25fZmVuY2VfZ2V0X3RpbWVsaW5lX25hbWUo
+c3RydWN0IGRtYV9mZW5jZSAqZikKPiA+ICAgCX0KPiA+ICAgfQo+ID4gLXN0YXRpYyBpbmxpbmUg
+Ym9vbCByYWRlb25fdGVzdF9zaWduYWxlZChzdHJ1Y3QgcmFkZW9uX2ZlbmNlICpmZW5jZSkKPiA+
+IC17Cj4gPiAtCXJldHVybiB0ZXN0X2JpdChETUFfRkVOQ0VfRkxBR19TSUdOQUxFRF9CSVQsICZm
+ZW5jZS0+YmFzZS5mbGFncyk7Cj4gPiAtfQo+ID4gLQo+ID4gLXN0cnVjdCByYWRlb25fd2FpdF9j
+YiB7Cj4gPiAtCXN0cnVjdCBkbWFfZmVuY2VfY2IgYmFzZTsKPiA+IC0Jc3RydWN0IHRhc2tfc3Ry
+dWN0ICp0YXNrOwo+ID4gLX07Cj4gPiAtCj4gPiAtc3RhdGljIHZvaWQKPiA+IC1yYWRlb25fZmVu
+Y2Vfd2FpdF9jYihzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwgc3RydWN0IGRtYV9mZW5jZV9jYiAq
+Y2IpCj4gPiAtewo+ID4gLQlzdHJ1Y3QgcmFkZW9uX3dhaXRfY2IgKndhaXQgPQo+ID4gLQkJY29u
+dGFpbmVyX29mKGNiLCBzdHJ1Y3QgcmFkZW9uX3dhaXRfY2IsIGJhc2UpOwo+ID4gLQo+ID4gLQl3
+YWtlX3VwX3Byb2Nlc3Mod2FpdC0+dGFzayk7Cj4gPiAtfQo+ID4gLQo+ID4gLXN0YXRpYyBzaWdu
+ZWQgbG9uZyByYWRlb25fZmVuY2VfZGVmYXVsdF93YWl0KHN0cnVjdCBkbWFfZmVuY2UgKmYsIGJv
+b2wgaW50ciwKPiA+IC0JCQkJCSAgICAgc2lnbmVkIGxvbmcgdCkKPiA+IC17Cj4gPiAtCXN0cnVj
+dCByYWRlb25fZmVuY2UgKmZlbmNlID0gdG9fcmFkZW9uX2ZlbmNlKGYpOwo+ID4gLQlzdHJ1Y3Qg
+cmFkZW9uX2RldmljZSAqcmRldiA9IGZlbmNlLT5yZGV2Owo+ID4gLQlzdHJ1Y3QgcmFkZW9uX3dh
+aXRfY2IgY2I7Cj4gPiAtCj4gPiAtCWNiLnRhc2sgPSBjdXJyZW50Owo+ID4gLQo+ID4gLQlpZiAo
+ZG1hX2ZlbmNlX2FkZF9jYWxsYmFjayhmLCAmY2IuYmFzZSwgcmFkZW9uX2ZlbmNlX3dhaXRfY2Ip
+KQo+ID4gLQkJcmV0dXJuIHQ7Cj4gPiAtCj4gPiAtCXdoaWxlICh0ID4gMCkgewo+ID4gLQkJaWYg
+KGludHIpCj4gPiAtCQkJc2V0X2N1cnJlbnRfc3RhdGUoVEFTS19JTlRFUlJVUFRJQkxFKTsKPiA+
+IC0JCWVsc2UKPiA+IC0JCQlzZXRfY3VycmVudF9zdGF0ZShUQVNLX1VOSU5URVJSVVBUSUJMRSk7
+Cj4gPiAtCj4gPiAtCQkvKgo+ID4gLQkJICogcmFkZW9uX3Rlc3Rfc2lnbmFsZWQgbXVzdCBiZSBj
+YWxsZWQgYWZ0ZXIKPiA+IC0JCSAqIHNldF9jdXJyZW50X3N0YXRlIHRvIHByZXZlbnQgYSByYWNl
+IHdpdGggd2FrZV91cF9wcm9jZXNzCj4gPiAtCQkgKi8KPiA+IC0JCWlmIChyYWRlb25fdGVzdF9z
+aWduYWxlZChmZW5jZSkpCj4gPiAtCQkJYnJlYWs7Cj4gPiAtCj4gPiAtCQlpZiAocmRldi0+bmVl
+ZHNfcmVzZXQpIHsKPiA+IC0JCQl0ID0gLUVERUFETEs7Cj4gPiAtCQkJYnJlYWs7Cj4gPiAtCQl9
+Cj4gPiAtCj4gPiAtCQl0ID0gc2NoZWR1bGVfdGltZW91dCh0KTsKPiA+IC0KPiA+IC0JCWlmICh0
+ID4gMCAmJiBpbnRyICYmIHNpZ25hbF9wZW5kaW5nKGN1cnJlbnQpKQo+ID4gLQkJCXQgPSAtRVJF
+U1RBUlRTWVM7Cj4gPiAtCX0KPiA+IC0KPiA+IC0JX19zZXRfY3VycmVudF9zdGF0ZShUQVNLX1JV
+Tk5JTkcpOwo+ID4gLQlkbWFfZmVuY2VfcmVtb3ZlX2NhbGxiYWNrKGYsICZjYi5iYXNlKTsKPiA+
+IC0KPiA+IC0JcmV0dXJuIHQ7Cj4gPiAtfQo+ID4gLQo+ID4gICBjb25zdCBzdHJ1Y3QgZG1hX2Zl
+bmNlX29wcyByYWRlb25fZmVuY2Vfb3BzID0gewo+ID4gICAJLmdldF9kcml2ZXJfbmFtZSA9IHJh
+ZGVvbl9mZW5jZV9nZXRfZHJpdmVyX25hbWUsCj4gPiAgIAkuZ2V0X3RpbWVsaW5lX25hbWUgPSBy
+YWRlb25fZmVuY2VfZ2V0X3RpbWVsaW5lX25hbWUsCj4gPiAgIAkuZW5hYmxlX3NpZ25hbGluZyA9
+IHJhZGVvbl9mZW5jZV9lbmFibGVfc2lnbmFsaW5nLAo+ID4gICAJLnNpZ25hbGVkID0gcmFkZW9u
+X2ZlbmNlX2lzX3NpZ25hbGVkLAo+ID4gLQkud2FpdCA9IHJhZGVvbl9mZW5jZV9kZWZhdWx0X3dh
+aXQsCj4gPiAtCS5yZWxlYXNlID0gTlVMTCwKPiA+ICAgfTsKPiAKCi0tIApEYW5pZWwgVmV0dGVy
+ClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5j
+aApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1n
+ZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
