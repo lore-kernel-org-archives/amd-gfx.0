@@ -1,44 +1,59 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [REGRESSION] drm/amd/dc: Add dc display driver (v2)
-Date: Mon, 30 Apr 2018 11:40:44 -0400
-Message-ID: <497193e8-0be8-0353-ff09-7c7a35ac53f7@amd.com>
-References: <fbb549e9-88a9-cc85-f8f3-e4bd0157b58c@canonical.com>
+From: Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
+ signaled process.
+Date: Mon, 30 Apr 2018 18:00:06 +0200
+Message-ID: <20180430160006.GB10583@redhat.com>
+References: <87muxsbmkp.fsf@xmission.com>
+ <8840ac96-50c4-f94d-eb7c-f007940163f3@amd.com>
+ <877eowa5qh.fsf@xmission.com>
+ <20180425135552.GD7592@redhat.com>
+ <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
+ <20180425171757.GA10441@redhat.com>
+ <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com>
+ <874ljyu98e.fsf@xmission.com>
+ <c3c9787d-b279-8169-43d1-74eeb666ffbd@gmail.com>
+ <bceb1a1b-c453-782d-5a7d-40fa2f22c813@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <fbb549e9-88a9-cc85-f8f3-e4bd0157b58c-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Joseph Salisbury <joseph.salisbury-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "1761751-T8XWwAfLipRB/Vz2p19nDaxOck334EZe@public.gmane.org" <1761751-T8XWwAfLipRB/Vz2p19nDaxOck334EZe@public.gmane.org>, alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <bceb1a1b-c453-782d-5a7d-40fa2f22c813@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Cc: christian.koenig@amd.com, "Eric W. Biederman" <ebiederm@xmission.com>, David.Panariti@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Alexander.Deucher@amd.com, akpm@linux-foundation.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmVwbGllZCBvbiB0aGUgdGlja2V0LgoKSWYgdGhpcyBpcyBhYm91dCBub24tZnVuY3Rpb25pbmcg
-TFZEUyBvciBWR0EgSSdtIGF3YXJlIG9mIGl0IGFuZCB0cnlpbmcgdG8gZmluZCB0aW1lIHRvIGZp
-bmQgYSBnb29kIHNvbHV0aW9uLgoKSGFycnkKCk9uIDIwMTgtMDQtMzAgMTE6MTQgQU0sIEpvc2Vw
-aCBTYWxpc2J1cnkgd3JvdGU6Cj4gSGkgSGFycnksCj4KPiBBIGtlcm5lbCBidWcgcmVwb3J0IHdh
-cyBvcGVuZWQgYWdhaW5zdCBVYnVudHUgWzBdLsKgIEFmdGVyIGEga2VybmVsCj4gYmlzZWN0LCBp
-dCB3YXMgZm91bmQgdGhlIGZvbGxvd2luZyBjb21taXQgaW50cm9kdWNlZCB0aGUgYnVnOgo+Cj4K
-PiBjb21taXQgNDU2MjIzNmIzYmMwYTI4YWViNmVlOTNiMmQ4YTg0OWE0YzRlMWM3Ywo+IEF1dGhv
-cjogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4gRGF0ZTrCoMKgIFR1
-ZSBTZXAgMTIgMTU6NTg6MjAgMjAxNyAtMDQwMAo+Cj4gwqDCoMKgIGRybS9hbWQvZGM6IEFkZCBk
-YyBkaXNwbGF5IGRyaXZlciAodjIpCj4KPgo+IFRoZSByZWdyZXNzaW9uIHdhcyBpbnRyb2R1Y2Vk
-IGFzIG9mIHY0LjE1LXJjMSBhbmQgc3RpbGwgZXhpc3RzIGluCj4gY3VycmVudCBtYWlubGluZS7C
-oCBUaGUgY29tbWl0IGRvZXMgbm90IG5lZWQgdG8gYmUgcmV2ZXJ0ZWQgdG8gcmVzb2x2ZQo+IHRo
-ZSBidWcuwqAgRGlzYWJsaW5nIHRoZSBDT05GSUdfRFJNX0FNRF9EQ19QUkVfVkVHQSBvcHRpb24g
-bWFrZXMgdGhlIGJ1Zwo+IGdvIGF3YXkuCj4gwqDCoMKgCj4gSSB3YXMgaG9waW5nIHRvIGdldCB5
-b3VyIGZlZWRiYWNrLCBzaW5jZSB5b3UgYXJlIHRoZSBwYXRjaCBhdXRob3IuwqAgRG8KPiB5b3Ug
-dGhpbmsgZ2F0aGVyaW5nIGFueSBhZGRpdGlvbmFsIGRhdGEgd2lsbCBoZWxwIGRpYWdub3NlIHRo
-aXMgaXNzdWU/Cj4gwqDCoMKgCj4KPiBUaGFua3MsCj4KPiBKb2UKPgo+Cj4gWzBdIGh0dHA6Ly9w
-YWQubHYvMTc2MTc1MQo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On 04/30, Andrey Grodzovsky wrote:
+>
+> What about changing PF_SIGNALED to  PF_EXITING in
+> drm_sched_entity_do_release
+>
+> -       if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
+> +      if ((current->flags & PF_EXITING) && current->exit_code == SIGKILL)
+
+let me repeat, please don't use task->exit_code. And in fact this check is racy.
+
+But this doesn't matter. Say, we can trivially add SIGNAL_GROUP_KILLED_BY_SIGKILL,
+or do something else, but I fail to understand what are you trying to do. Suppose
+that the check above is correct in that it is true iff the task is exiting and
+it was killed by SIGKILL. What about the "else" branch which does
+
+	r = wait_event_killable(sched->job_scheduled, ...)
+
+?
+
+Once again, fatal_signal_pending() (or even signal_pending()) is not well defined
+after the exiting task passes exit_signals().
+
+So wait_event_killable() can fail because fatal_signal_pending() is true; and this
+can happen even if it was not killed.
+
+Or it can block and SIGKILL won't be able to wake it up.
+
+> If SIGINT was sent then it's SIGINT,
+
+Yes, but see above. in this case fatal_signal_pending() will be likely true so
+wait_event_killable() will fail unless condition is already true.
+
+Oleg.
