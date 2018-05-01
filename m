@@ -1,39 +1,63 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/amdgpu: vcn10 Add callback for emit_reg_write_reg_wait
-Date: Tue,  1 May 2018 10:18:00 -0400
-Message-ID: <20180501141800.15091-1-tom.stdenis@amd.com>
+From: Oleg Nesterov <oleg@redhat.com>
+Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
+ signaled process.
+Date: Tue, 1 May 2018 16:35:24 +0200
+Message-ID: <20180501143524.GA13017@redhat.com>
+References: <877eowa5qh.fsf@xmission.com>
+ <20180425135552.GD7592@redhat.com>
+ <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
+ <20180425171757.GA10441@redhat.com>
+ <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com>
+ <874ljyu98e.fsf@xmission.com>
+ <c3c9787d-b279-8169-43d1-74eeb666ffbd@gmail.com>
+ <bceb1a1b-c453-782d-5a7d-40fa2f22c813@amd.com>
+ <20180430160006.GB10583@redhat.com>
+ <e5b0221d-84ba-10ff-4a58-4fa27c99650f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <e5b0221d-84ba-10ff-4a58-4fa27c99650f@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Cc: christian.koenig@amd.com, "Eric W. Biederman" <ebiederm@xmission.com>, David.Panariti@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Alexander.Deucher@amd.com, akpm@linux-foundation.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIGNhbGxiYWNrIC5lbWl0X3JlZ193cml0ZV9yZWdfd2FpdCB3YXMgbWlzc2luZyBmb3IgdmNu
-IGRlY29kZQp3aGljaCByZXN1bHRlZCBpbiBhIGtlcm5lbCBvb3BzLgoKU2lnbmVkLW9mZi1ieTog
-VG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3Zjbl92MV8wLmMgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigr
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCmluZGV4IGQ5YTE1MzM4ZGI3ZS4u
-MDUwMTc0NmI2YzJjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25f
-djFfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKQEAgLTEx
-MDksNiArMTEwOSw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgdmNu
-X3YxXzBfZGVjX3Jpbmdfdm1fZnVuY3MgPSB7CiAJLmVuZF91c2UgPSBhbWRncHVfdmNuX3Jpbmdf
-ZW5kX3VzZSwKIAkuZW1pdF93cmVnID0gdmNuX3YxXzBfZGVjX3JpbmdfZW1pdF93cmVnLAogCS5l
-bWl0X3JlZ193YWl0ID0gdmNuX3YxXzBfZGVjX3JpbmdfZW1pdF9yZWdfd2FpdCwKKwkuZW1pdF9y
-ZWdfd3JpdGVfcmVnX3dhaXQgPSBhbWRncHVfcmluZ19lbWl0X3JlZ193cml0ZV9yZWdfd2FpdF9o
-ZWxwZXIsCiB9OwogCiBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIHZjbl92
-MV8wX2VuY19yaW5nX3ZtX2Z1bmNzID0gewotLSAKMi4xNC4zCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+On 04/30, Andrey Grodzovsky wrote:
+>
+> On 04/30/2018 12:00 PM, Oleg Nesterov wrote:
+> >On 04/30, Andrey Grodzovsky wrote:
+> >>What about changing PF_SIGNALED to  PF_EXITING in
+> >>drm_sched_entity_do_release
+> >>
+> >>-       if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
+> >>+      if ((current->flags & PF_EXITING) && current->exit_code == SIGKILL)
+> >let me repeat, please don't use task->exit_code. And in fact this check is racy
+> >
+> >But this doesn't matter. Say, we can trivially add SIGNAL_GROUP_KILLED_BY_SIGKILL,
+> >or do something else,
+>
+> Can you explain where is the race and what is a possible alternative then ?
+
+Oh. I mentioned this race automatically, because I am pedant ;) Let me repeat
+that this doesn't really matter, and let me remind that the caller of fop->release
+can be completely unrelated process, say $cat /proc/pid/fdinfo. And in any case
+->exit_code should not be used outside of ptrace/exit paths.
+
+OK, the race. Consider a process P with a main thread M and a sub-thread T.
+
+T does pthread_exit(), enters do_exit() and gets a preemption before exit_files().
+
+The process is killed by SIGKILL. M calls do_group_exit(), do_exit() and passes
+exit_files(). However, it doesn't call close_files() because T has another reference.
+
+T resumes, calls close_files(), fput(), etc, and then exit_task_work(), so
+it can finally call ->release() with current->exit_code == 0 desptite the fact
+the process was killed.
+
+Again, again, this doesn't matter. We can distinguish killed-or-not, by SIGKILL-
+or-not. But I still do not think we actually need this. At least in ->release()
+paths, ->flush() may differ.
+
+Oleg.
