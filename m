@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH libdrm] amdgpu: Deinitialize vamgr_high{,_32}
-Date: Tue, 1 May 2018 10:03:35 +0200
-Message-ID: <dc7c9c89-d301-cbd8-1d13-501ce0609b07@daenzer.net>
+Date: Tue, 1 May 2018 07:20:22 -0400
+Message-ID: <f07e3906-72f1-ee3e-b2e2-0f25c44e5fcc@amd.com>
 References: <20180427144445.21127-1-michel@daenzer.net>
+ <dc7c9c89-d301-cbd8-1d13-501ce0609b07@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0147899930=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180427144445.21127-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <dc7c9c89-d301-cbd8-1d13-501ce0609b07-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,26 +19,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wNC0yNyAwNDo0NCBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gRnJvbTogTWlj
-aGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4gCj4gRml4ZXMgbWVtb3J5IGxl
-YWtzLgo+IAo+IFNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBh
-bWQuY29tPgo+IC0tLQo+ICBhbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMiArKwo+ICAxIGZpbGUg
-Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMgYi9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gaW5kZXggZDgxZWZjZjguLjk4M2Ix
-OWFiIDEwMDY0NAo+IC0tLSBhL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysgYi9hbWRncHUv
-YW1kZ3B1X2RldmljZS5jCj4gQEAgLTEyOCw2ICsxMjgsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVf
-ZGV2aWNlX2ZyZWVfaW50ZXJuYWwoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2KQo+ICB7Cj4gIAlh
-bWRncHVfdmFtZ3JfZGVpbml0KCZkZXYtPnZhbWdyXzMyKTsKPiAgCWFtZGdwdV92YW1ncl9kZWlu
-aXQoJmRldi0+dmFtZ3IpOwo+ICsJYW1kZ3B1X3ZhbWdyX2RlaW5pdCgmZGV2LT52YW1ncl9oaWdo
-XzMyKTsKPiArCWFtZGdwdV92YW1ncl9kZWluaXQoJmRldi0+dmFtZ3JfaGlnaCk7Cj4gIAl1dGls
-X2hhc2hfdGFibGVfZGVzdHJveShkZXYtPmJvX2ZsaW5rX25hbWVzKTsKPiAgCXV0aWxfaGFzaF90
-YWJsZV9kZXN0cm95KGRldi0+Ym9faGFuZGxlcyk7Cj4gIAlwdGhyZWFkX211dGV4X2Rlc3Ryb3ko
-JmRldi0+Ym9fdGFibGVfbXV0ZXgpOwo+IAoKQW55IHJldmlld3M/IFdpdGhvdXQgbmVnYXRpdmUg
-ZmVlZGJhY2ssIEknbGwgcHVzaCB0aGlzIHRvbW9ycm93LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVs
-IETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29t
-CkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNh
-IGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============0147899930==
+Content-Type: multipart/alternative;
+ boundary="------------A46D7CDD5CA709A700FC02D1"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------A46D7CDD5CA709A700FC02D1
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+
+Andrey
+
+
+On 05/01/2018 04:03 AM, Michel Dänzer wrote:
+> On 2018-04-27 04:44 PM, Michel Dänzer wrote:
+>> From: Michel Dänzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>
+>> Fixes memory leaks.
+>>
+>> Signed-off-by: Michel Dänzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   amdgpu/amdgpu_device.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c
+>> index d81efcf8..983b19ab 100644
+>> --- a/amdgpu/amdgpu_device.c
+>> +++ b/amdgpu/amdgpu_device.c
+>> @@ -128,6 +128,8 @@ static void amdgpu_device_free_internal(amdgpu_device_handle dev)
+>>   {
+>>   	amdgpu_vamgr_deinit(&dev->vamgr_32);
+>>   	amdgpu_vamgr_deinit(&dev->vamgr);
+>> +	amdgpu_vamgr_deinit(&dev->vamgr_high_32);
+>> +	amdgpu_vamgr_deinit(&dev->vamgr_high);
+>>   	util_hash_table_destroy(dev->bo_flink_names);
+>>   	util_hash_table_destroy(dev->bo_handles);
+>>   	pthread_mutex_destroy(&dev->bo_table_mutex);
+>>
+> Any reviews? Without negative feedback, I'll push this tomorrow.
+>
+>
+
+
+--------------A46D7CDD5CA709A700FC02D1
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E"
+        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a>
+      <br>
+      <br>
+      Andrey
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 05/01/2018 04:03 AM, Michel Dänzer
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:dc7c9c89-d301-cbd8-1d13-501ce0609b07-otUistvHUpPR7s880joybQ@public.gmane.org">
+      <pre wrap="">On 2018-04-27 04:44 PM, Michel Dänzer wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">From: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
+
+Fixes memory leaks.
+
+Signed-off-by: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ amdgpu/amdgpu_device.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c
+index d81efcf8..983b19ab 100644
+--- a/amdgpu/amdgpu_device.c
++++ b/amdgpu/amdgpu_device.c
+@@ -128,6 +128,8 @@ static void amdgpu_device_free_internal(amdgpu_device_handle dev)
+ {
+ 	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_32);
+ 	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr);
++	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_high_32);
++	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_high);
+ 	util_hash_table_destroy(dev-&gt;bo_flink_names);
+ 	util_hash_table_destroy(dev-&gt;bo_handles);
+ 	pthread_mutex_destroy(&amp;dev-&gt;bo_table_mutex);
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+Any reviews? Without negative feedback, I'll push this tomorrow.
+
+
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------A46D7CDD5CA709A700FC02D1--
+
+--===============0147899930==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0147899930==--
