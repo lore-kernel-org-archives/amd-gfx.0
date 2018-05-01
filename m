@@ -1,13 +1,14 @@
-From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: New SPDX-License-Identifier requirement
-Date: Tue, 1 May 2018 23:22:57 +0300
-Message-ID: <CAFCwf12=07j8t57tXxMujiV8KctuSJmxGpX2a8_9hmayK6E7Zw@mail.gmail.com>
-References: <1203b0d1-5e43-290d-797f-36011301e967@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: vcn10 Add callback for
+ emit_reg_write_reg_wait
+Date: Tue, 1 May 2018 16:24:44 -0400
+Message-ID: <8410399e-1417-4125-49ad-693cb8d95479@amd.com>
+References: <20180501141800.15091-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1164254938=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1203b0d1-5e43-290d-797f-36011301e967-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180501141800.15091-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,33 +19,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Bridgman,
- John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SSBiZWxpZXZlIGl0IHNob3VsZCBiZSA6ClNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4w
-IE9SIE1JVAoKQnV0IEpvaG4gcHJvYmFibHkga25vd3MgYmVzdCBhYm91dCB0aGlzCk9kZWQKCk9u
-IFR1ZSwgTWF5IDEsIDIwMTggYXQgMTE6MTQgUE0sIEZlbGl4IEt1ZWhsaW5nIDxmZWxpeC5rdWVo
-bGluZ0BhbWQuY29tPiB3cm90ZToKPiBIaSwKPgo+IEknbSBnZXR0aW5nIGEgY2hlY2twYXRjaCB3
-YXJuaW5nIHdpdGggdGhlIGxhdGVzdCBhbWRrZmQtbmV4dCBicmFuY2gKPiAoNC4xNy1yYzIpIHdo
-ZW4gYWRkaW5nIGEgbmV3IGZpbGU6Cj4KPiBXQVJOSU5HOiBNaXNzaW5nIG9yIG1hbGZvcm1lZCBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllciB0YWcgaW4gbGluZSAxCj4gIzM0OiBGSUxFOiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9jd3NyX3RyYXBfaGFuZGxlci5oOjE6Cj4KPiBJJ3ZlIHJlYWQg
-RG9jdW1lbnRhdGlvbi9wcm9jZXNzL2xpY2Vuc2UtcnVsZXMucnN0IGJ1dCBJJ20gdW5zdXJlIHdo
-YXQKPiB3b3VsZCBiZSB0aGUgY29ycmVjdCBsaWNlbnNlIGlkZW50aWZpZXIgdG8gZ28gd2l0aCB0
-aGUgbGljZW5zZSBoZWFkZXIgd2UKPiB1c2UgaW4gbW9zdCBvZiBvdXIgc291cmNlIGZpbGVzLiBJ
-IHRoaW5rIGl0IHdvdWxkIGJlIG9uZSBvZiB0aGVzZToKPgo+ICAgICAgIC8vIFNQRFgtTGljZW5z
-ZS1JZGVudGlmaWVyOiBHUEwtMi4wIE9SIE1JVAo+ICAgICAgIC8vIFNQRFgtTGljZW5zZS1JZGVu
-dGlmaWVyOiBHUEwtMi4wIE9SIEJTRC0yLUNsYXVzZQo+Cj4gQ2FuIHNvbWVvbmUgY29uZmlybS4K
-Pgo+IE9uY2UgdGhhdCdzIGNsYXJpZmllZCwgd2Ugc2hvdWxkIHByb2JhYmx5IGFkZCB0aGUgYXBw
-cm9wcmlhdGUgbGljZW5zZQo+IGlkZW50aWZpZXIgdG8gYWxsIG91ciBzb3VyY2UgZmlsZXMuCj4K
-PiBUaGFua3MsCj4gICBGZWxpeAo+Cj4gLS0KPiBGIGUgbCBpIHggICBLIHUgZSBoIGwgaSBuIGcK
-PiBQTVRTIFNvZnR3YXJlIERldmVsb3BtZW50IEVuZ2luZWVyIHwgVmVydGljYWwgV29ya3N0YXRp
-b24vQ29tcHV0ZQo+IDEgQ29tbWVyY2UgVmFsbGV5IERyLiBFYXN0LCBNYXJraGFtLCBPTiBMM1Qg
-N1g2IENhbmFkYQo+IChPKSArMSgyODkpNjk1LTE1OTcKPiAgICBfICAgICBfICAgXyAgIF9fX19f
-ICAgX19fX18KPiAgIC8gXCAgIHwgXCAvIHwgfCAgXyAgXCAgXCBfICB8Cj4gIC8gQSBcICB8IFxN
-LyB8IHwgfEQpICkgIC98X3wgfAo+IC9fLyBcX1wgfF98IHxffCB8X19fX18vIHxfXy8gXHwgICBm
-YWNlYm9vay5jb20vQU1EIHwgYW1kLmNvbQo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1164254938==
+Content-Type: multipart/alternative;
+ boundary="------------17389ECBC980A098D155B391"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------17389ECBC980A098D155B391
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+
+Andrey
+
+
+On 05/01/2018 10:18 AM, Tom St Denis wrote:
+> The callback .emit_reg_write_reg_wait was missing for vcn decode
+> which resulted in a kernel oops.
+>
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> index d9a15338db7e..0501746b6c2c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> @@ -1109,6 +1109,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
+>   	.end_use = amdgpu_vcn_ring_end_use,
+>   	.emit_wreg = vcn_v1_0_dec_ring_emit_wreg,
+>   	.emit_reg_wait = vcn_v1_0_dec_ring_emit_reg_wait,
+> +	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
+>   };
+>   
+>   static const struct amdgpu_ring_funcs vcn_v1_0_enc_ring_vm_funcs = {
+
+
+--------------17389ECBC980A098D155B391
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E"
+        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a>
+      <br>
+      <br>
+      Andrey </p>
+    <br>
+    <div class="moz-cite-prefix">On 05/01/2018 10:18 AM, Tom St Denis
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20180501141800.15091-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">The callback .emit_reg_write_reg_wait was missing for vcn decode
+which resulted in a kernel oops.
+
+Signed-off-by: Tom St Denis <a class="moz-txt-link-rfc2396E" href="mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org">&lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index d9a15338db7e..0501746b6c2c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -1109,6 +1109,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
+ 	.end_use = amdgpu_vcn_ring_end_use,
+ 	.emit_wreg = vcn_v1_0_dec_ring_emit_wreg,
+ 	.emit_reg_wait = vcn_v1_0_dec_ring_emit_reg_wait,
++	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
+ };
+ 
+ static const struct amdgpu_ring_funcs vcn_v1_0_enc_ring_vm_funcs = {
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------17389ECBC980A098D155B391--
+
+--===============1164254938==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1164254938==--
