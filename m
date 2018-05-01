@@ -1,63 +1,73 @@
-From: Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH 2/3] drm/scheduler: Don't call wait_event_killable for
- signaled process.
-Date: Tue, 1 May 2018 16:35:24 +0200
-Message-ID: <20180501143524.GA13017@redhat.com>
-References: <877eowa5qh.fsf@xmission.com>
- <20180425135552.GD7592@redhat.com>
- <f45c7017-c75a-7f0c-b6d5-4d79600cdd33@amd.com>
- <20180425171757.GA10441@redhat.com>
- <c39cb438-1e8a-4f2c-50f6-c6e2a144487b@amd.com>
- <874ljyu98e.fsf@xmission.com>
- <c3c9787d-b279-8169-43d1-74eeb666ffbd@gmail.com>
- <bceb1a1b-c453-782d-5a7d-40fa2f22c813@amd.com>
- <20180430160006.GB10583@redhat.com>
- <e5b0221d-84ba-10ff-4a58-4fa27c99650f@amd.com>
+From: =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: remove need of modeset flag for overlay
+ planes
+Date: Tue, 01 May 2018 19:23:57 +0000
+Message-ID: <CADMs+9a0R1dbWyfwK-rtcQ05oTJnUCYa51ZgRDQcUaDfj1znhg@mail.gmail.com>
+References: <1524824823-24271-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <e5b0221d-84ba-10ff-4a58-4fa27c99650f@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: christian.koenig@amd.com, "Eric W. Biederman" <ebiederm@xmission.com>, David.Panariti@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Alexander.Deucher@amd.com, akpm@linux-foundation.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1524824823-24271-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: shirish.s-5C7GfCeVMHo@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 04/30, Andrey Grodzovsky wrote:
->
-> On 04/30/2018 12:00 PM, Oleg Nesterov wrote:
-> >On 04/30, Andrey Grodzovsky wrote:
-> >>What about changing PF_SIGNALED to  PF_EXITING in
-> >>drm_sched_entity_do_release
-> >>
-> >>-       if ((current->flags & PF_SIGNALED) && current->exit_code == SIGKILL)
-> >>+      if ((current->flags & PF_EXITING) && current->exit_code == SIGKILL)
-> >let me repeat, please don't use task->exit_code. And in fact this check is racy
-> >
-> >But this doesn't matter. Say, we can trivially add SIGNAL_GROUP_KILLED_BY_SIGKILL,
-> >or do something else,
->
-> Can you explain where is the race and what is a possible alternative then ?
-
-Oh. I mentioned this race automatically, because I am pedant ;) Let me repeat
-that this doesn't really matter, and let me remind that the caller of fop->release
-can be completely unrelated process, say $cat /proc/pid/fdinfo. And in any case
-->exit_code should not be used outside of ptrace/exit paths.
-
-OK, the race. Consider a process P with a main thread M and a sub-thread T.
-
-T does pthread_exit(), enters do_exit() and gets a preemption before exit_files().
-
-The process is killed by SIGKILL. M calls do_group_exit(), do_exit() and passes
-exit_files(). However, it doesn't call close_files() because T has another reference.
-
-T resumes, calls close_files(), fput(), etc, and then exit_task_work(), so
-it can finally call ->release() with current->exit_code == 0 desptite the fact
-the process was killed.
-
-Again, again, this doesn't matter. We can distinguish killed-or-not, by SIGKILL-
-or-not. But I still do not think we actually need this. At least in ->release()
-paths, ->flush() may differ.
-
-Oleg.
+T24gRnJpLCBBcHIgMjcsIDIwMTggYXQgMzoyNyBBTSBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQu
+Y29tPiB3cm90ZToKCj4gVGhpcyBwYXRjaCBpcyBpbiBjb250aW51YXRpb24gdG8gdGhlCj4gIjg0
+M2UzYzcgZHJtL2FtZC9kaXNwbGF5OiBkZWZlciBtb2Rlc2V0IGNoZWNrIGluIGRtX3VwZGF0ZV9w
+bGFuZXNfc3RhdGUiCj4gd2hlcmUgd2Ugc3RhcnRlZCB0byBlbGltaW5hdGUgdGhlIGRlcGVuZGVu
+Y3kgb24KPiBEUk1fTU9ERV9BVE9NSUNfQUxMT1dfTU9ERVNFVCB0byBiZSBzZXQgYnkgdGhlIHVz
+ZXIgc3BhY2UsCj4gd2hpY2ggYXMgc3VjaCBpcyBub3QgbWFuZGF0b3J5LgoKPiBBZnRlciBkZWZl
+cnJpbmcsIHRoaXMgcGF0Y2ggZWxpbWluYXRlcyB0aGUgZGVwZW5kZW5jeSBvbiB0aGUgZmxhZwo+
+IGZvciBvdmVybGF5IHBsYW5lcy4KCj4gVGhpcyBoYXMgdG8gYmUgZG9uZSBpbiBzdGFnZXMgYXMg
+aXRzIGEgcHJldHR5IGNvbXBsZXggYW5kIHJlcXVpcmVzCnRob3JvdWdoCj4gdGVzdGluZyBiZWZv
+cmUgd2UgZnJlZSBwcmltYXJ5IHBsYW5lcyBhcyB3ZWxsIGZyb20gZGVwZW5kZW5jeSBvbiBtb2Rl
+c2V0Cj4gZmxhZy4KCj4gU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNv
+bT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMgfCA4ICsrKysrLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAz
+IGRlbGV0aW9ucygtKQoKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
+cHVfZG0vYW1kZ3B1X2RtLmMKPiBpbmRleCAxYTYzYzA0Li44N2I2NjFkIDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gQEAg
+LTQxNzQsNyArNDE3NCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0
+cnVjdApkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwKPiAgICAgICAgICAgICAgICAgIH0KPiAgICAg
+ICAgICAgICAgICAgIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmNydGMtPmRldi0+ZXZlbnRfbG9j
+aywgZmxhZ3MpOwoKPiAtICAgICAgICAgICAgICAgaWYgKCFwZmxpcF9uZWVkZWQpIHsKPiArICAg
+ICAgICAgICAgICAgaWYgKCFwZmxpcF9uZWVkZWQgfHwgcGxhbmUtPnR5cGUgPT0KRFJNX1BMQU5F
+X1RZUEVfT1ZFUkxBWSkgewo+ICAgICAgICAgICAgICAgICAgICAgICAgICBXQVJOX09OKCFkbV9u
+ZXdfcGxhbmVfc3RhdGUtPmRjX3N0YXRlKTsKCj4gICAgICAgICAgICAgICAgICAgICAgICAgIHBs
+YW5lX3N0YXRlc19jb25zdHJ1Y3RlZFtwbGFuZXNfY291bnRdID0KZG1fbmV3X3BsYW5lX3N0YXRl
+LT5kY19zdGF0ZTsKPiBAQCAtNDg4NCw3ICs0ODg0LDggQEAgc3RhdGljIGludCBkbV91cGRhdGVf
+cGxhbmVzX3N0YXRlKHN0cnVjdCBkYyAqZGMsCgo+ICAgICAgICAgICAgICAgICAgLyogUmVtb3Zl
+IGFueSBjaGFuZ2VkL3JlbW92ZWQgcGxhbmVzICovCj4gICAgICAgICAgICAgICAgICBpZiAoIWVu
+YWJsZSkgewo+IC0gICAgICAgICAgICAgICAgICAgICAgIGlmIChwZmxpcF9uZWVkZWQpCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgaWYgKHBmbGlwX25lZWRlZCAmJgo+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwbGFuZSAmJiBwbGFuZS0+dHlwZSAhPQpEUk1fUExBTkVfVFlQRV9PVkVS
+TEFZKQoKbml0OiBJIGRvbid0IHRoaW5rIHdlIG5lZWQgdG8gY2hlY2sgdGhhdCBwbGFuZSBpcyBu
+b24tTlVMTAoKU3TDqXBoYW5lCgo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNv
+bnRpbnVlOwoKPiAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCFvbGRfcGxhbmVfY3J0YykK
+PiBAQCAtNDkzMSw3ICs0OTMyLDggQEAgc3RhdGljIGludCBkbV91cGRhdGVfcGxhbmVzX3N0YXRl
+KHN0cnVjdCBkYyAqZGMsCj4gICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghZG1fbmV3X2Ny
+dGNfc3RhdGUtPnN0cmVhbSkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250
+aW51ZTsKCj4gLSAgICAgICAgICAgICAgICAgICAgICAgaWYgKHBmbGlwX25lZWRlZCkKPiArICAg
+ICAgICAgICAgICAgICAgICAgICBpZiAocGZsaXBfbmVlZGVkICYmCj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBsYW5lICYmIHBsYW5lLT50eXBlICE9CkRSTV9QTEFORV9UWVBFX09WRVJM
+QVkpCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cgo+ICAgICAg
+ICAgICAgICAgICAgICAgICAgICBXQVJOX09OKGRtX25ld19wbGFuZV9zdGF0ZS0+ZGNfc3RhdGUp
+Owo+IC0tCj4gMi43LjQKCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
