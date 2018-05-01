@@ -1,14 +1,11 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: vcn10 Add callback for
- emit_reg_write_reg_wait
-Date: Tue, 1 May 2018 16:24:44 -0400
-Message-ID: <8410399e-1417-4125-49ad-693cb8d95479@amd.com>
-References: <20180501141800.15091-1-tom.stdenis@amd.com>
+From: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 00/12] Assorted KFD fixes
+Date: Tue,  1 May 2018 17:56:00 -0400
+Message-ID: <1525211772-19683-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1164254938=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180501141800.15091-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,103 +16,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1164254938==
-Content-Type: multipart/alternative;
- boundary="------------17389ECBC980A098D155B391"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------17389ECBC980A098D155B391
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-
-Andrey
-
-
-On 05/01/2018 10:18 AM, Tom St Denis wrote:
-> The callback .emit_reg_write_reg_wait was missing for vcn decode
-> which resulted in a kernel oops.
->
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> index d9a15338db7e..0501746b6c2c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> @@ -1109,6 +1109,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
->   	.end_use = amdgpu_vcn_ring_end_use,
->   	.emit_wreg = vcn_v1_0_dec_ring_emit_wreg,
->   	.emit_reg_wait = vcn_v1_0_dec_ring_emit_reg_wait,
-> +	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
->   };
->   
->   static const struct amdgpu_ring_funcs vcn_v1_0_enc_ring_vm_funcs = {
-
-
---------------17389ECBC980A098D155B391
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E"
-        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a>
-      <br>
-      <br>
-      Andrey </p>
-    <br>
-    <div class="moz-cite-prefix">On 05/01/2018 10:18 AM, Tom St Denis
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20180501141800.15091-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">The callback .emit_reg_write_reg_wait was missing for vcn decode
-which resulted in a kernel oops.
-
-Signed-off-by: Tom St Denis <a class="moz-txt-link-rfc2396E" href="mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org">&lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index d9a15338db7e..0501746b6c2c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -1109,6 +1109,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
- 	.end_use = amdgpu_vcn_ring_end_use,
- 	.emit_wreg = vcn_v1_0_dec_ring_emit_wreg,
- 	.emit_reg_wait = vcn_v1_0_dec_ring_emit_reg_wait,
-+	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
- };
- 
- static const struct amdgpu_ring_funcs vcn_v1_0_enc_ring_vm_funcs = {
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------17389ECBC980A098D155B391--
-
---===============1164254938==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1164254938==--
+VGhlc2UgYXJlIHNvbWUgcmFuZG9tIHBhdGNoZXMgSSBub3RpY2VkIHdoZW4gY29tcGFyaW5nIGFt
+ZGtmZC1uZXh0IGFnYWluc3QKYW1kLWtmZC1zdGFnaW5nLgoKQmVuIEdveiAoMSk6CiAgZHJtL2Ft
+ZGtmZDogTG9ja2luZyBQTSBtdXRleCB3aGlsZSBhbGxvY2F0aW5nIElCIGJ1ZmZlcgoKRmVsaXgg
+S3VlaGxpbmcgKDQpOgogIGRybS9hbWRrZmQ6IFJlbW92ZSByZWR1bmRhbnQgaW5jbHVkZSBvZiBh
+bWQtaW9tbXUuaAogIGRybS9hbWRrZmQ6IEZpeCBzaWduYWwgaGFuZGxpbmcgcGVyZm9ybWFuY2Ug
+YWdhaW4KICBkcm0vYW1ka2ZkOiBSZW1vdmUgaW5pdGlhbGl6YXRpb24gb2YgY3BfaHFkX2liX2Nv
+bnRyb2wgb24gQ0lLCiAgZHJtL2FtZGtmZDogQWRkIHNhbml0eSBjaGVja3MgaW4gSVJRIGhhbmRs
+ZXJzCgpKYXkgQ29ybndhbGwgKDIpOgogIGRybS9hbWRrZmQ6IFJlZHVjZSBwcmlvcml0eSBvZiBj
+b250ZXh0LXNhdmluZyB3YXZlcyBiZWZvcmUgc3Bpbi13YWl0CiAgZHJtL2FtZGtmZDogVXNlIHZv
+bGF0aWxlIE1UWVBFIGluIGRlZmF1bHQvYWx0ZXJuYXRlIGFwZXJ0dXJlcwoKT2FrIFplbmcgKDEp
+OgogIGRybS9hbWRrZmQ6IER1bXAgSFFEIG9mIEhJUQoKUGhpbGlwIFlhbmcgKDEpOgogIGRybS9h
+bWRrZmQ6IHVzZSAlcHggdG8gcHJpbnQgdXNlciBzcGFjZSBhZGRyZXNzIGluc3RlYWQgb2YgJXAK
+ClNoYW95dW4gTGl1ICgxKToKICBkcm0vYW1ka2ZkOiBSZW1vdmUgcXVldWUgbm9kZSB3aGVuIGRl
+c3Ryb3kgcXVldWUgZmFpbGVkCgpZb25nIFpoYW8gKDIpOgogIGRybS9hbWRrZmQ6IFNlcGFyYXRl
+IHRyYXAgaGFuZGxlciBhc3NlbWJseSBjb2RlIGFuZCBpdHMgaGV4IHZhbHVlcwogIGRybS9hbWRr
+ZmQ6IEZpeCBDUCBzb2Z0IGhhbmcgb24gQVBVcwoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2Npa19ldmVudF9pbnRlcnJ1cHQuYyAgIHwgIDIwICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGtmZC9jaWtfcmVncy5oICAgICAgICAgICAgICB8ICAgMyArLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQvY3dzcl90cmFwX2hhbmRsZXIuaCAgICAgfCA1NjAgKysrKysrKysrKysrKysrKysr
+KysrCiAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2N3c3JfdHJhcF9oYW5kbGVyX2dmeDguYXNtICB8
+IDI3NCArLS0tLS0tLS0tCiAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2N3c3JfdHJhcF9oYW5kbGVy
+X2dmeDkuYXNtICB8IDMwNyArLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
+a2ZkX2NoYXJkZXYuYyAgICAgICAgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9kZXZpY2UuYyAgICAgICAgICAgIHwgICA2ICstCiAuLi4vZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jICB8ICAxMiArCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfZXZlbnRzLmMgICAgICAgICAgICB8ICAgMiArLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRrZmQva2ZkX2ludF9wcm9jZXNzX3Y5LmMgICAgfCAgNDAgKy0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl9jaWsuYyAgIHwgICA0IC0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wYWNrZXRfbWFuYWdlci5jICAgIHwgICA3ICstCiAu
+Li4vZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyB8ICAxMCAr
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3F1ZXVlLmMgICAgICAgICAgICAgfCAg
+IDggKy0KIDE0IGZpbGVzIGNoYW5nZWQsIDY1OSBpbnNlcnRpb25zKCspLCA1OTYgZGVsZXRpb25z
+KC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQvY3dzcl90
+cmFwX2hhbmRsZXIuaAoKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
