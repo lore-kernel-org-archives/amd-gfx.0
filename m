@@ -1,13 +1,11 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH libdrm] amdgpu: Deinitialize vamgr_high{,_32}
-Date: Tue, 1 May 2018 07:20:22 -0400
-Message-ID: <f07e3906-72f1-ee3e-b2e2-0f25c44e5fcc@amd.com>
-References: <20180427144445.21127-1-michel@daenzer.net>
- <dc7c9c89-d301-cbd8-1d13-501ce0609b07@daenzer.net>
+From: Tom St Denis <tstdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: vcn regression on raven1
+Date: Tue, 1 May 2018 09:34:29 -0400
+Message-ID: <86eb81c5-8ec5-8927-71ce-a2794e48721e@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0147899930=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <dc7c9c89-d301-cbd8-1d13-501ce0609b07-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,123 +17,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0147899930==
-Content-Type: multipart/alternative;
- boundary="------------A46D7CDD5CA709A700FC02D1"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------A46D7CDD5CA709A700FC02D1
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-
-Andrey
-
-
-On 05/01/2018 04:03 AM, Michel Dänzer wrote:
-> On 2018-04-27 04:44 PM, Michel Dänzer wrote:
->> From: Michel Dänzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->>
->> Fixes memory leaks.
->>
->> Signed-off-by: Michel Dänzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->> ---
->>   amdgpu/amdgpu_device.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c
->> index d81efcf8..983b19ab 100644
->> --- a/amdgpu/amdgpu_device.c
->> +++ b/amdgpu/amdgpu_device.c
->> @@ -128,6 +128,8 @@ static void amdgpu_device_free_internal(amdgpu_device_handle dev)
->>   {
->>   	amdgpu_vamgr_deinit(&dev->vamgr_32);
->>   	amdgpu_vamgr_deinit(&dev->vamgr);
->> +	amdgpu_vamgr_deinit(&dev->vamgr_high_32);
->> +	amdgpu_vamgr_deinit(&dev->vamgr_high);
->>   	util_hash_table_destroy(dev->bo_flink_names);
->>   	util_hash_table_destroy(dev->bo_handles);
->>   	pthread_mutex_destroy(&dev->bo_table_mutex);
->>
-> Any reviews? Without negative feedback, I'll push this tomorrow.
->
->
-
-
---------------A46D7CDD5CA709A700FC02D1
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Reviewed-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E"
-        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a>
-      <br>
-      <br>
-      Andrey
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 05/01/2018 04:03 AM, Michel Dänzer
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:dc7c9c89-d301-cbd8-1d13-501ce0609b07-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">On 2018-04-27 04:44 PM, Michel Dänzer wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">From: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
-
-Fixes memory leaks.
-
-Signed-off-by: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- amdgpu/amdgpu_device.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c
-index d81efcf8..983b19ab 100644
---- a/amdgpu/amdgpu_device.c
-+++ b/amdgpu/amdgpu_device.c
-@@ -128,6 +128,8 @@ static void amdgpu_device_free_internal(amdgpu_device_handle dev)
- {
- 	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_32);
- 	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr);
-+	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_high_32);
-+	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_high);
- 	util_hash_table_destroy(dev-&gt;bo_flink_names);
- 	util_hash_table_destroy(dev-&gt;bo_handles);
- 	pthread_mutex_destroy(&amp;dev-&gt;bo_table_mutex);
-
-</pre>
-      </blockquote>
-      <pre wrap="">
-Any reviews? Without negative feedback, I'll push this tomorrow.
-
-
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------A46D7CDD5CA709A700FC02D1--
-
---===============0147899930==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0147899930==--
+SGkgYWxsLAoKSSd2ZSBub3RpY2VkIHRoYXQgb24gdGhlIHRpcCBvZiBkcm0tbmV4dCB2Y24gcGxh
+eWJhY2sgb2YgdmlkZW8gaXMgYnJva2VuIAooc2VlIGRtZXNnIGJlbG93KS4gIEkndmUgYmlzZWN0
+ZWQgaXQgdG8gdGhpcyBjb21taXQKCltyb290QHJhdmVuIGxpbnV4XSMgZ2l0IGJpc2VjdCBnb29k
+CjcwMTM3MjM0OWZkNTViNTM5NmIzMzU1ODBlOTc5YWM0ZGRlM2RkMDIgaXMgdGhlIGZpcnN0IGJh
+ZCBjb21taXQKY29tbWl0IDcwMTM3MjM0OWZkNTViNTM5NmIzMzU1ODBlOTc5YWM0ZGRlM2RkMDIK
+QXV0aG9yOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkRhdGU6ICAg
+VHVlIE1hciAyNyAxNzoxMDo1NiAyMDE4IC0wNTAwCgogICAgIGRybS9hbWRncHUvZ21jOTogdXNl
+IGFtZGdwdV9yaW5nX2VtaXRfcmVnX3dyaXRlX3JlZ193YWl0IGluIGdwdSB0bGIgCmZsdXNoCgog
+ICAgIFVzZSBhbWRncHVfcmluZ19lbWl0X3JlZ193cml0ZV9yZWdfd2FpdC4gIE9uIGVuZ2luZXMg
+dGhhdCBzdXBwb3J0IGl0LAogICAgIGl0IHByb3ZpZGVzIGEgd3JpdGUgYW5kIHdhaXQgaW4gYSBz
+aW5nbGUgcGFja2V0IHdoaWNoIGF2b2lkcyBhIG1pc3NlZAogICAgIGFjayBpZiBhIHdvcmxkIHN3
+aXRjaCBoYXBwZW5zIGJldHdlZW4gdGhlIHJlcXVlc3QgYW5kIHdhaXRpbmcgZm9yIHRoZQogICAg
+IGFjay4KCiAgICAgUmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+CiAg
+ICAgUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNv
+bT4KICAgICBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+Cgo6MDQwMDAwIDA0MDAwMCA0ZTQzMTJkZTAzZjRiMzRhYmQ2NWY0YmIxMmRiYTRjNzA5
+MzA1NWJhIApjY2M0YWJjNzhjMGI2ZjI0MzI4ZmQ5OThmOTk4ZmEwNmJmMDYxOGIxIE0gICAgICBk
+cml2ZXJzCgpXaGljaCBpcyBvZGQgYmVjYXVzZSB0aGUgY29tbWl0IGJlZm9yZSB0aGlzIGlzIHRo
+ZSB2Y24gY2hhbmdlIGFuZCBpdCAKd29ya3MgZmluZSAocGxheWluZyBCQkIgcmlnaHQgbm93KS4K
+CkhlcmUncyB0aGUgZG1lc2c6CgpbIDI5MjUuNjQwMTAyXSBCVUc6IHVuYWJsZSB0byBoYW5kbGUg
+a2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBhdCAKMDAwMDAwMDAwMDAwMDAwMApbIDI5
+MjUuNjQwMTEzXSBJUDogICAgICAgICAgIChudWxsKQpbIDI5MjUuNjQwMTE2XSBQR0QgMCBQNEQg
+MApbIDI5MjUuNjQwMTIyXSBPb3BzOiAwMDEwIFsjMV0gU01QIEtBU0FOIE5PUFRJClsgMjkyNS42
+NDAxMjZdIE1vZHVsZXMgbGlua2VkIGluOiB0dW4gZnVzZSBhbWRrZmQgYW1kZ3B1IG1mZF9jb3Jl
+IGNoYXNoIApncHVfc2NoZWQgdHRtIGF4ODgxNzlfMTc4YSB1c2JuZXQKWyAyOTI1LjY0MDEzOV0g
+Q1BVOiA0IFBJRDogMzc5MSBDb21tOiB2Y25fZGVjIE5vdCB0YWludGVkIDQuMTYuMC1yYzcrICMy
+MApbIDI5MjUuNjQwMTQyXSBIYXJkd2FyZSBuYW1lOiBTeXN0ZW0gbWFudWZhY3R1cmVyIFN5c3Rl
+bSBQcm9kdWN0IApOYW1lL1RVRiBCMzUwTS1QTFVTIEdBTUlORywgQklPUyAzODAzIDAxLzIyLzIw
+MTgKWyAyOTI1LjY0MDE0Nl0gUklQOiAwMDEwOiAgICAgICAgICAobnVsbCkKWyAyOTI1LjY0MDE0
+OF0gUlNQOiAwMDE4OmZmZmY4ODAxZDU0Zjc3OTAgRUZMQUdTOiAwMDAxMDIwNgpbIDI5MjUuNjQw
+MTUzXSBSQVg6IDAwMDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZmODgwMWQ4YjM4NDIwIFJDWDogCjAw
+MDAwMDAwMDA3YzAwODAKWyAyOTI1LjY0MDE1Nl0gUkRYOiAwMDAwMDAwMDAwMDFhNmZhIFJTSTog
+MDAwMDAwMDAwMDAxYTZlOCBSREk6IApmZmZmODgwMWQ4YjM4NDIwClsgMjkyNS42NDAxNTldIFJC
+UDogMDAwMDAwMDAwMDAxYTZmYSBSMDg6IDAwMDAwMDAwMDAwMDAwODAgUjA5OiAKZmZmZmVkMDAz
+YWE5ZWVmOQpbIDI5MjUuNjQwMTYyXSBSMTA6IDAwMDAwMDAwMDljNzRmMDggUjExOiBmZmZmZmJm
+ZmYwZjVkMWU3IFIxMjogCmZmZmY4ODAxZDhiMzI3N2MKWyAyOTI1LjY0MDE2NF0gUjEzOiBmZmZm
+ODgwMWQ4YjMwMDFjIFIxNDogMDAwMDAwMDAwMDAwMDAwNSBSMTU6IAowMDAwMDAwMDAwMDAwMDAw
+ClsgMjkyNS42NDAxNjhdIEZTOiAgMDAwMDAwMDAwMDAwMDAwMCgwMDAwKSBHUzpmZmZmODgwMWRj
+ZjAwMDAwKDAwMDApIAprbmxHUzowMDAwMDAwMDAwMDAwMDAwClsgMjkyNS42NDAxNzFdIENTOiAg
+MDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAwODAwNTAwMzMKWyAyOTI1LjY0MDE3
+NF0gQ1IyOiAwMDAwMDAwMDAwMDAwMDAwIENSMzogMDAwMDAwMDFkOTcxMjAwMCBDUjQ6IAowMDAw
+MDAwMDAwMzQwNmUwClsgMjkyNS42NDAxNzZdIENhbGwgVHJhY2U6ClsgMjkyNS42NDAyNzJdICA/
+IGdtY192OV8wX2VtaXRfZmx1c2hfZ3B1X3RsYisweDI2MC8weDJhMCBbYW1kZ3B1XQpbIDI5MjUu
+NjQwMzY4XSAgPyB2Y25fdjFfMF9kZWNfcmluZ19pbnNlcnRfc3RhcnQrMHgzNjAvMHgzNjAgW2Ft
+ZGdwdV0KWyAyOTI1LjY0MDQ1OV0gID8gbW1odWJfdjFfMF9nZXRfY2xvY2tnYXRpbmcrMHhjMC8w
+eGMwIFthbWRncHVdClsgMjkyNS42NDA1NDVdICA/IGFtZGdwdV92bWlkX2hhZF9ncHVfcmVzZXQr
+MHg4OS8weGMwIFthbWRncHVdClsgMjkyNS42NDA2NDBdICA/IHZjbl92MV8wX2RlY19yaW5nX2Vt
+aXRfdm1fZmx1c2grMHg2NC8weGIwIFthbWRncHVdClsgMjkyNS42NDA3MjVdICA/IGFtZGdwdV92
+bV9mbHVzaCsweGI0My8weGNjMCBbYW1kZ3B1XQpbIDI5MjUuNjQwODEwXSAgPyBhbWRncHVfdm1f
+bmVlZF9waXBlbGluZV9zeW5jKzB4MjYwLzB4MjYwIFthbWRncHVdClsgMjkyNS42NDA4OTddICA/
+IGFtZGdwdV92bWlkX2hhZF9ncHVfcmVzZXQrMHhjMC8weGMwIFthbWRncHVdClsgMjkyNS42NDEw
+MDNdICA/IHZjbl92MV8wX2RlY19yaW5nX2luc2VydF9zdGFydCsweDJkNy8weDM2MCBbYW1kZ3B1
+XQpbIDI5MjUuNjQxMDk1XSAgPyBhbWRncHVfaWJfc2NoZWR1bGUrMHgxYjUvMHg4MDAgW2FtZGdw
+dV0KWyAyOTI1LjY0MTEwMl0gID8gZG1hX2ZlbmNlX2FkZF9jYWxsYmFjaysweDE1Zi8weDM2MApb
+IDI5MjUuNjQxMjAxXSAgPyBhbWRncHVfam9iX3J1bisweDMyZi8weDM3MCBbYW1kZ3B1XQpbIDI5
+MjUuNjQxMjk3XSAgPyBhbWRncHVfam9iX2ZyZWVfcmVzb3VyY2VzKzB4ZDAvMHhkMCBbYW1kZ3B1
+XQpbIDI5MjUuNjQxMzAyXSAgPyBfX3F1ZXVlX2RlbGF5ZWRfd29yaysweDE0NC8weDFkMApbIDI5
+MjUuNjQxMzA2XSAgPyBkZWxheWVkX3dvcmtfdGltZXJfZm4rMHg0MC8weDQwClsgMjkyNS42NDEz
+MTJdICA/IHByZXBhcmVfdG9fd2FpdF9leGNsdXNpdmUrMHgxZDAvMHgxZDAKWyAyOTI1LjY0MTMx
+OF0gID8gZHJtX3NjaGVkX21haW4rMHg2OGMvMHg5NDAgW2dwdV9zY2hlZF0KWyAyOTI1LjY0MTMy
+M10gID8gZHJtX3NjaGVkX2VudGl0eV9maW5pKzB4NjAvMHg2MCBbZ3B1X3NjaGVkXQpbIDI5MjUu
+NjQxMzI4XSAgPyBzYXZlX3N0YWNrKzB4ODkvMHhiMApbIDI5MjUuNjQxMzMyXSAgPyB3YWl0X3dv
+a2VuKzB4MTEwLzB4MTEwClsgMjkyNS42NDEzMzddICA/IHJldF9mcm9tX2ZvcmsrMHgyMi8weDQw
+ClsgMjkyNS42NDEzNDNdICA/IF9fc2NoZWR1bGUrMHhkMzAvMHhkMzAKWyAyOTI1LjY0MTM0Nl0g
+ID8gcmVtb3ZlX3dhaXRfcXVldWUrMHgxNTAvMHgxNTAKWyAyOTI1LjY0MTM1M10gID8gcmN1X25v
+dGVfY29udGV4dF9zd2l0Y2grMHgyYTAvMHgyYTAKWyAyOTI1LjY0MTM1OV0gID8gX19sb2NrX3Rl
+eHRfc3RhcnQrMHg4LzB4OApbIDI5MjUuNjQxMzY3XSAgPyBkcm1fc2NoZWRfZW50aXR5X2Zpbmkr
+MHg2MC8weDYwIFtncHVfc2NoZWRdClsgMjkyNS42NDEzNzFdICA/IGt0aHJlYWQrMHgxOWIvMHgx
+YzAKWyAyOTI1LjY0MTM3Nl0gID8ga3RocmVhZF9jcmVhdGVfd29ya2VyX29uX2NwdSsweGMwLzB4
+YzAKWyAyOTI1LjY0MTM4Ml0gID8gcmV0X2Zyb21fZm9yaysweDIyLzB4NDAKWyAyOTI1LjY0MTM4
+N10gQ29kZTogIEJhZCBSSVAgdmFsdWUuClsgMjkyNS42NDEzOTddIFJJUDogICAgICAgICAgIChu
+dWxsKSBSU1A6IGZmZmY4ODAxZDU0Zjc3OTAKWyAyOTI1LjY0MTQwMF0gQ1IyOiAwMDAwMDAwMDAw
+MDAwMDAwClsgMjkyNS42NDE0MDVdIC0tLVsgZW5kIHRyYWNlIDA2ODRjYzA0NjhmNjBmYjEgXS0t
+LQoKCk5vdGUgdGhhdCByZWd1bGFyIGNvbXB1dGUvZ2Z4IHdvcmtmbG93cyB3b3JrIGZpbmUgb24g
+dGhlIHRpcCBvZiBkcm0tbmV4dCAKb25seSB2Y24gcGxheWJhY2sgdHJpZ2dlZXJzIHRoaXMgKGhh
+dmVuJ3QgdHJpZWQgZW5jb2RlIHlldC4uLikuCgpDaGVlcnMsClRvbQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
