@@ -1,14 +1,15 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: remove need of modeset flag for overlay
- planes
-Date: Wed, 2 May 2018 09:51:06 -0400
-Message-ID: <b94fe6bd-5d9b-9f61-42d8-c47df54d9346@amd.com>
-References: <1524824823-24271-1-git-send-email-shirish.s@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: Deinitialize vamgr_high{,_32}
+Date: Wed, 2 May 2018 16:33:20 +0200
+Message-ID: <c836fc38-f306-9c76-23ee-b36dfff5597f@gmail.com>
+References: <20180427144445.21127-1-michel@daenzer.net>
+ <dc7c9c89-d301-cbd8-1d13-501ce0609b07@daenzer.net>
+ <f07e3906-72f1-ee3e-b2e2-0f25c44e5fcc@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2070610028=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1524824823-24271-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <f07e3906-72f1-ee3e-b2e2-0f25c44e5fcc-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,55 +21,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wNC0yNyAwNjoyNyBBTSwgU2hpcmlzaCBTIHdyb3RlOgo+IFRoaXMgcGF0Y2ggaXMg
-aW4gY29udGludWF0aW9uIHRvIHRoZQo+ICI4NDNlM2M3IGRybS9hbWQvZGlzcGxheTogZGVmZXIg
-bW9kZXNldCBjaGVjayBpbiBkbV91cGRhdGVfcGxhbmVzX3N0YXRlIgo+IHdoZXJlIHdlIHN0YXJ0
-ZWQgdG8gZWxpbWluYXRlIHRoZSBkZXBlbmRlbmN5IG9uCj4gRFJNX01PREVfQVRPTUlDX0FMTE9X
-X01PREVTRVQgdG8gYmUgc2V0IGJ5IHRoZSB1c2VyIHNwYWNlLAo+IHdoaWNoIGFzIHN1Y2ggaXMg
-bm90IG1hbmRhdG9yeS4KPiAKPiBBZnRlciBkZWZlcnJpbmcsIHRoaXMgcGF0Y2ggZWxpbWluYXRl
-cyB0aGUgZGVwZW5kZW5jeSBvbiB0aGUgZmxhZwo+IGZvciBvdmVybGF5IHBsYW5lcy4KPiAKCkFw
-b2xvZ2llcyBmb3IgdGhlIGxhdGUgcmVzcG9uc2UuIEkgaGFkIHRvIHRoaW5rIGFib3V0IHRoaXMg
-cGF0Y2ggZm9yIGEgbG9uZyB0aW1lIHNpbmNlIEknbSBub3QgcXVpdGUgY29tZm9ydGFibGUgd2l0
-aCBpdC4KCj4gVGhpcyBoYXMgdG8gYmUgZG9uZSBpbiBzdGFnZXMgYXMgaXRzIGEgcHJldHR5IGNv
-bXBsZXggYW5kIHJlcXVpcmVzIHRob3JvdWdoCj4gdGVzdGluZyBiZWZvcmUgd2UgZnJlZSBwcmlt
-YXJ5IHBsYW5lcyBhcyB3ZWxsIGZyb20gZGVwZW5kZW5jeSBvbiBtb2Rlc2V0Cj4gZmxhZy4KPiAK
-PiBTaWduZWQtb2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPgo+IC0tLQo+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgOCArKysr
-Ky0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+
-IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG0uYwo+IGluZGV4IDFhNjNjMDQuLjg3YjY2MWQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiBAQCAtNDE3NCw3ICs0MTc0
-LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RtX2NvbW1pdF9wbGFuZXMoc3RydWN0IGRybV9hdG9t
-aWNfc3RhdGUgKnN0YXRlLAo+ICAJCX0KPiAgCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZjcnRj
-LT5kZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsKPiAgCj4gLQkJaWYgKCFwZmxpcF9uZWVkZWQpIHsK
-PiArCQlpZiAoIXBmbGlwX25lZWRlZCB8fCBwbGFuZS0+dHlwZSA9PSBEUk1fUExBTkVfVFlQRV9P
-VkVSTEFZKSB7CgpEb2VzIHRoaXMgbWVhbiB0aGF0IHdoZW5ldmVyIHdlIGhhdmUgYW4gb3Zlcmxh
-eSBwbGFuZSB3ZSB3b24ndCBkbyBhbWRncHVfZG1fZG9fZmxpcCBidXQgY29tbWl0X3BsYW5lc190
-b19zdHJlYW0gaW5zdGVhZD8gSXMgdGhpcyByZWFsbHkgdGhlIGJlaGF2aW9yIHdlIHdhbnQ/Cgpj
-b21taXRfcGxhbmVzX3RvX3N0cmVhbSB3YXMgaW50ZW5kZWQgdG8gcHJvZ3JhbSBhIG5ldyBzdXJm
-YWNlIG9uIGEgbW9kZXNldCB3aGVyZWFzIGFtZGdwdV9kbV9kb19mbGlwIHdhcyBpbnRlbmRlZCBm
-b3IgcGFnZWZsaXBzLiBJZiB3ZSB1c2UgY29tbWl0X3BsYW5lc190b19zdHJlYW0gd2UgZW5kIHVw
-IGxvc2luZyB0aGluZ3MgbGlrZSB0aGUgaW1tZWRpYXRlX2ZsaXAgZmxhZywgYXMgd2VsbCBhcyB0
-aGUgd2FpdCBmb3IgdGhlIHJpZ2h0IG1vbWVudCB0byBwcm9ncmFtIHRoZSBmbGlwIHRoYXQgYW1k
-Z3B1X2RtX2RvX2ZsaXAgZG9lcy4gRXZlbiBtb3JlIGltcG9ydGFudGx5IHdlIHdvbid0IHdhaXQg
-Zm9yIGZlbmNlcyAocmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGltZW91dF9yY3UpLgoKSGFycnkK
-Cj4gIAkJCVdBUk5fT04oIWRtX25ld19wbGFuZV9zdGF0ZS0+ZGNfc3RhdGUpOwo+ICAKPiAgCQkJ
-cGxhbmVfc3RhdGVzX2NvbnN0cnVjdGVkW3BsYW5lc19jb3VudF0gPSBkbV9uZXdfcGxhbmVfc3Rh
-dGUtPmRjX3N0YXRlOwo+IEBAIC00ODg0LDcgKzQ4ODQsOCBAQCBzdGF0aWMgaW50IGRtX3VwZGF0
-ZV9wbGFuZXNfc3RhdGUoc3RydWN0IGRjICpkYywKPiAgCj4gIAkJLyogUmVtb3ZlIGFueSBjaGFu
-Z2VkL3JlbW92ZWQgcGxhbmVzICovCj4gIAkJaWYgKCFlbmFibGUpIHsKPiAtCQkJaWYgKHBmbGlw
-X25lZWRlZCkKPiArCQkJaWYgKHBmbGlwX25lZWRlZCAmJgo+ICsJCQkgICAgcGxhbmUgJiYgcGxh
-bmUtPnR5cGUgIT0gRFJNX1BMQU5FX1RZUEVfT1ZFUkxBWSkKPiAgCQkJCWNvbnRpbnVlOwo+ICAK
-PiAgCQkJaWYgKCFvbGRfcGxhbmVfY3J0YykKPiBAQCAtNDkzMSw3ICs0OTMyLDggQEAgc3RhdGlj
-IGludCBkbV91cGRhdGVfcGxhbmVzX3N0YXRlKHN0cnVjdCBkYyAqZGMsCj4gIAkJCWlmICghZG1f
-bmV3X2NydGNfc3RhdGUtPnN0cmVhbSkKPiAgCQkJCWNvbnRpbnVlOwo+ICAKPiAtCQkJaWYgKHBm
-bGlwX25lZWRlZCkKPiArCQkJaWYgKHBmbGlwX25lZWRlZCAmJgo+ICsJCQkgICAgcGxhbmUgJiYg
-cGxhbmUtPnR5cGUgIT0gRFJNX1BMQU5FX1RZUEVfT1ZFUkxBWSkKPiAgCQkJCWNvbnRpbnVlOwo+
-ICAKPiAgCQkJV0FSTl9PTihkbV9uZXdfcGxhbmVfc3RhdGUtPmRjX3N0YXRlKTsKPiAKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============2070610028==
+Content-Type: multipart/alternative;
+ boundary="------------B55DDAA853DE338616E11231"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------B55DDAA853DE338616E11231
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+Am 01.05.2018 um 13:20 schrieb Andrey Grodzovsky:
+>
+> Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+>
+> Andrey
+>
+>
+> On 05/01/2018 04:03 AM, Michel Dänzer wrote:
+>> On 2018-04-27 04:44 PM, Michel Dänzer wrote:
+>>> From: Michel Dänzer<michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>>
+>>> Fixes memory leaks.
+>>>
+>>> Signed-off-by: Michel Dänzer<michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>   amdgpu/amdgpu_device.c | 2 ++
+>>>   1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c
+>>> index d81efcf8..983b19ab 100644
+>>> --- a/amdgpu/amdgpu_device.c
+>>> +++ b/amdgpu/amdgpu_device.c
+>>> @@ -128,6 +128,8 @@ static void amdgpu_device_free_internal(amdgpu_device_handle dev)
+>>>   {
+>>>   	amdgpu_vamgr_deinit(&dev->vamgr_32);
+>>>   	amdgpu_vamgr_deinit(&dev->vamgr);
+>>> +	amdgpu_vamgr_deinit(&dev->vamgr_high_32);
+>>> +	amdgpu_vamgr_deinit(&dev->vamgr_high);
+>>>   	util_hash_table_destroy(dev->bo_flink_names);
+>>>   	util_hash_table_destroy(dev->bo_handles);
+>>>   	pthread_mutex_destroy(&dev->bo_table_mutex);
+>>>
+>> Any reviews? Without negative feedback, I'll push this tomorrow.
+>>
+>>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------B55DDAA853DE338616E11231
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Reviewed-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+      <br>
+      Am 01.05.2018 um 13:20 schrieb Andrey Grodzovsky:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:f07e3906-72f1-ee3e-b2e2-0f25c44e5fcc-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <p>Reviewed-by: Andrey Grodzovsky <a
+          class="moz-txt-link-rfc2396E"
+          href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a>
+        <br>
+        <br>
+        Andrey </p>
+      <br>
+      <div class="moz-cite-prefix">On 05/01/2018 04:03 AM, Michel Dänzer
+        wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:dc7c9c89-d301-cbd8-1d13-501ce0609b07-otUistvHUpPR7s880joybQ@public.gmane.org">
+        <pre wrap="">On 2018-04-27 04:44 PM, Michel Dänzer wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">From: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
+
+Fixes memory leaks.
+
+Signed-off-by: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ amdgpu/amdgpu_device.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c
+index d81efcf8..983b19ab 100644
+--- a/amdgpu/amdgpu_device.c
++++ b/amdgpu/amdgpu_device.c
+@@ -128,6 +128,8 @@ static void amdgpu_device_free_internal(amdgpu_device_handle dev)
+ {
+ 	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_32);
+ 	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr);
++	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_high_32);
++	amdgpu_vamgr_deinit(&amp;dev-&gt;vamgr_high);
+ 	util_hash_table_destroy(dev-&gt;bo_flink_names);
+ 	util_hash_table_destroy(dev-&gt;bo_handles);
+ 	pthread_mutex_destroy(&amp;dev-&gt;bo_table_mutex);
+
+</pre>
+        </blockquote>
+        <pre wrap="">Any reviews? Without negative feedback, I'll push this tomorrow.
+
+
+</pre>
+      </blockquote>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------B55DDAA853DE338616E11231--
+
+--===============2070610028==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2070610028==--
