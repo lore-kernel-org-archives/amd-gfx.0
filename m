@@ -1,49 +1,62 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: invalidate parent bo when shadow bo was
- invalidated
-Date: Fri, 4 May 2018 16:09:47 +0800
-Message-ID: <5AEC154B.3020109@amd.com>
-References: <20180504064408.26471-1-david1.zhou@amd.com>
+From: Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
+Date: Fri, 04 May 2018 14:45:28 +0200
+Message-ID: <1525437928.3373.16.camel@pengutronix.de>
+References: <3e17afc5-7d6c-5795-07bd-f23e34cf8d4b@gmail.com>
+         <20180420101755.GA11400@infradead.org>
+         <f1100bd6-dd98-55a9-a92f-1cad919f235f@amd.com>
+         <20180420124625.GA31078@infradead.org>
+         <20180420152111.GR31310@phenom.ffwll.local>
+         <20180424184847.GA3247@infradead.org>
+         <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
+         <20180425054855.GA17038@infradead.org>
+         <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
+         <CADnq5_P3bT0TStSXpKh11ydifv=KwKtRj-7tDS=GQXey+8tBPw@mail.gmail.com>
+         <20180425064118.GA28100@infradead.org>
+         <CADnq5_O5t8aSJE6SFzyjw-6Pmba7B2aYMztVMOOQCF3drBHR5Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180504064408.26471-1-david1.zhou-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_O5t8aSJE6SFzyjw-6Pmba7B2aYMztVMOOQCF3drBHR5Q@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, Christoph Hellwig <hch@infradead.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Jerome Glisse <jglisse@redhat.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDUvMDQvMjAxOCAwMjo0NCBQTSwgQ2h1bm1pbmcgWmhvdSB3cm90ZToKPiBTaGFkb3cgQk8g
-aXMgbG9jYXRlZCBvbiBHVFQgYW5kIGl0cyBwYXJlbnQgKFBUIGFuZCBQRCkgQk8gY291bGQgbG9j
-YXRlZCBvbiBWUkFNLgo+IEluIHNvbWUgY2FzZSwgdGhlIEJPIG9uIEdUVCBjb3VsZCBiZSBldmlj
-dGVkIGJ1dCB0aGUgcGFyZW50IGRpZCBub3QuIFRoaXMgbWF5Cj4gY2F1c2UgdGhlIHNoYWRvdyBC
-TyBub3QgYmUgcHV0IGluIHRoZSBldmljdCBsaXN0IGFuZCBjb3VsZCBub3QgYmUgaW52YWxpZGF0
-ZQo+IGNvcnJlY3RseS4KPiB2Mjogc3VnZ2VzdGVkIGJ5IENocmlzdGlhbgo+Cj4gQ2hhbmdlLUlk
-OiBJYWQxMGQ5YTMwMzFmYTJiMjQzODc5YjllNThlZTRkOGM1MjdlYjQzMwo+IFNpZ25lZC1vZmYt
-Ynk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+Cj4gUmVwb3J0ZWQtYnk6IFNo
-YW95dW4gTGl1IDxTaGFveXVuLkxpdUBhbWQuY29tPgpSZXZpZXdlZC1ieTogSnVud2VpIFpoYW5n
-IDxKZXJyeS5aaGFuZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jIHwgNCArKysrCj4gICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25z
-KCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+IGluZGV4IDcxZGNk
-ZWZjZTI1NS4uOGU3MWQzOTg0MDE2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMKPiBAQCAtMjI1Miw2ICsyMjUyLDEwIEBAIHZvaWQgYW1kZ3B1X3ZtX2JvX2ludmFs
-aWRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICB7Cj4gICAJc3RydWN0IGFtZGdw
-dV92bV9ib19iYXNlICpib19iYXNlOwo+Cj4gKwkvKiBzaGFkb3cgYm8gZG9lc24ndCBoYXZlIGJv
-IGJhc2UsIGl0cyB2YWxpZGF0aW9uIG5lZWRzIGl0cyBwYXJlbnQgKi8KPiArCWlmIChiby0+cGFy
-ZW50ICYmIGJvLT5wYXJlbnQtPnNoYWRvdyA9PSBibykKPiArCQlibyA9IGJvLT5wYXJlbnQ7Cj4g
-Kwo+ICAgCWxpc3RfZm9yX2VhY2hfZW50cnkoYm9fYmFzZSwgJmJvLT52YSwgYm9fbGlzdCkgewo+
-ICAgCQlzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSA9IGJvX2Jhc2UtPnZtOwo+Cj4KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am Mittwoch, den 25.04.2018, 13:44 -0400 schrieb Alex Deucher:
+> On Wed, Apr 25, 2018 at 2:41 AM, Christoph Hellwig <hch@infradead.org
+> > wrote:
+> > On Wed, Apr 25, 2018 at 02:24:36AM -0400, Alex Deucher wrote:
+> > > > It has a non-coherent transaction mode (which the chipset can opt to
+> > > > not implement and still flush), to make sure the AGP horror show
+> > > > doesn't happen again and GPU folks are happy with PCIe. That's at
+> > > > least my understanding from digging around in amd the last time we had
+> > > > coherency issues between intel and amd gpus. GPUs have some bits
+> > > > somewhere (in the pagetables, or in the buffer object description
+> > > > table created by userspace) to control that stuff.
+> > > 
+> > > Right.  We have a bit in the GPU page table entries that determines
+> > > whether we snoop the CPU's cache or not.
+> > 
+> > I can see how that works with the GPU on the same SOC or SOC set as the
+> > CPU.  But how is that going to work for a GPU that is a plain old PCIe
+> > card?  The cache snooping in that case is happening in the PCIe root
+> > complex.
+> 
+> I'm not a pci expert, but as far as I know, the device sends either a
+> snooped or non-snooped transaction on the bus.  I think the
+> transaction descriptor supports a no snoop attribute.  Our GPUs have
+> supported this feature for probably 20 years if not more, going back
+> to PCI.  Using non-snooped transactions have lower latency and faster
+> throughput compared to snooped transactions.
+
+PCI-X (as in the thing which as all the rage before PCIe) added a
+attribute phase to each transaction where the requestor can enable
+relaxed ordering and/or no-snoop on a transaction basis. As those are
+strictly performance optimizations the root-complex isn't required to
+honor those attributes, but implementations that care about performance
+ usually will.
+
+Regards,
+Lucas
