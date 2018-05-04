@@ -1,62 +1,127 @@
-From: Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linaro-mm-sig] [PATCH 4/8] dma-buf: add peer2peer flag
-Date: Fri, 04 May 2018 14:45:28 +0200
-Message-ID: <1525437928.3373.16.camel@pengutronix.de>
-References: <3e17afc5-7d6c-5795-07bd-f23e34cf8d4b@gmail.com>
-         <20180420101755.GA11400@infradead.org>
-         <f1100bd6-dd98-55a9-a92f-1cad919f235f@amd.com>
-         <20180420124625.GA31078@infradead.org>
-         <20180420152111.GR31310@phenom.ffwll.local>
-         <20180424184847.GA3247@infradead.org>
-         <CAKMK7uFL68pu+-9LODTgz+GQYvxpnXOGhxfz9zorJ_JKsPVw2g@mail.gmail.com>
-         <20180425054855.GA17038@infradead.org>
-         <CAKMK7uEFitkNQrD6cLX5Txe11XhVO=LC4YKJXH=VNdq+CY=DjQ@mail.gmail.com>
-         <CADnq5_P3bT0TStSXpKh11ydifv=KwKtRj-7tDS=GQXey+8tBPw@mail.gmail.com>
-         <20180425064118.GA28100@infradead.org>
-         <CADnq5_O5t8aSJE6SFzyjw-6Pmba7B2aYMztVMOOQCF3drBHR5Q@mail.gmail.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: remove need of modeset flag for overlay
+ planes
+Date: Fri, 4 May 2018 08:57:22 -0400
+Message-ID: <b3d563a3-31a9-45d1-492d-4d2a1ce9d7bb@amd.com>
+References: <1524824823-24271-1-git-send-email-shirish.s@amd.com>
+ <b94fe6bd-5d9b-9f61-42d8-c47df54d9346@amd.com>
+ <42b267f5-93c2-1682-af94-0cb9fc42ebb8@amd.com>
+ <67135740-35e6-4090-8f07-a5247c09a4be@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_O5t8aSJE6SFzyjw-6Pmba7B2aYMztVMOOQCF3drBHR5Q@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>, Christoph Hellwig <hch@infradead.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, Jerome Glisse <jglisse@redhat.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe <logang@deltatee.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <67135740-35e6-4090-8f07-a5247c09a4be-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, "S, Shirish" <sshankar-5C7GfCeVMHo@public.gmane.org>, Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
 
-Am Mittwoch, den 25.04.2018, 13:44 -0400 schrieb Alex Deucher:
-> On Wed, Apr 25, 2018 at 2:41 AM, Christoph Hellwig <hch@infradead.org
-> > wrote:
-> > On Wed, Apr 25, 2018 at 02:24:36AM -0400, Alex Deucher wrote:
-> > > > It has a non-coherent transaction mode (which the chipset can opt to
-> > > > not implement and still flush), to make sure the AGP horror show
-> > > > doesn't happen again and GPU folks are happy with PCIe. That's at
-> > > > least my understanding from digging around in amd the last time we had
-> > > > coherency issues between intel and amd gpus. GPUs have some bits
-> > > > somewhere (in the pagetables, or in the buffer object description
-> > > > table created by userspace) to control that stuff.
-> > > 
-> > > Right.  We have a bit in the GPU page table entries that determines
-> > > whether we snoop the CPU's cache or not.
-> > 
-> > I can see how that works with the GPU on the same SOC or SOC set as the
-> > CPU.  But how is that going to work for a GPU that is a plain old PCIe
-> > card?  The cache snooping in that case is happening in the PCIe root
-> > complex.
-> 
-> I'm not a pci expert, but as far as I know, the device sends either a
-> snooped or non-snooped transaction on the bus.  I think the
-> transaction descriptor supports a no snoop attribute.  Our GPUs have
-> supported this feature for probably 20 years if not more, going back
-> to PCI.  Using non-snooped transactions have lower latency and faster
-> throughput compared to snooped transactions.
-
-PCI-X (as in the thing which as all the rage before PCIe) added a
-attribute phase to each transaction where the requestor can enable
-relaxed ordering and/or no-snoop on a transaction basis. As those are
-strictly performance optimizations the root-complex isn't required to
-honor those attributes, but implementations that care about performance
- usually will.
-
-Regards,
-Lucas
+CgpPbiAwNS8wMy8yMDE4IDAyOjExIFBNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPiBPbiAyMDE4
+LTA1LTAzIDA0OjAwIEFNLCBTLCBTaGlyaXNoIHdyb3RlOgo+Pgo+PiBPbiA1LzIvMjAxOCA3OjIx
+IFBNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPj4+IE9uIDIwMTgtMDQtMjcgMDY6MjcgQU0sIFNo
+aXJpc2ggUyB3cm90ZToKPj4+PiBUaGlzIHBhdGNoIGlzIGluIGNvbnRpbnVhdGlvbiB0byB0aGUK
+Pj4+PiAiODQzZTNjNyBkcm0vYW1kL2Rpc3BsYXk6IGRlZmVyIG1vZGVzZXQgY2hlY2sgaW4gZG1f
+dXBkYXRlX3BsYW5lc19zdGF0ZSIKPj4+PiB3aGVyZSB3ZSBzdGFydGVkIHRvIGVsaW1pbmF0ZSB0
+aGUgZGVwZW5kZW5jeSBvbgo+Pj4+IERSTV9NT0RFX0FUT01JQ19BTExPV19NT0RFU0VUIHRvIGJl
+IHNldCBieSB0aGUgdXNlciBzcGFjZSwKPj4+PiB3aGljaCBhcyBzdWNoIGlzIG5vdCBtYW5kYXRv
+cnkuCj4+Pj4KPj4+PiBBZnRlciBkZWZlcnJpbmcsIHRoaXMgcGF0Y2ggZWxpbWluYXRlcyB0aGUg
+ZGVwZW5kZW5jeSBvbiB0aGUgZmxhZwo+Pj4+IGZvciBvdmVybGF5IHBsYW5lcy4KPj4+Pgo+Pj4g
+QXBvbG9naWVzIGZvciB0aGUgbGF0ZSByZXNwb25zZS4gSSBoYWQgdG8gdGhpbmsgYWJvdXQgdGhp
+cyBwYXRjaCBmb3IgYSBsb25nIHRpbWUgc2luY2UgSSdtIG5vdCBxdWl0ZSBjb21mb3J0YWJsZSB3
+aXRoIGl0Lgo+Pj4KPj4+PiBUaGlzIGhhcyB0byBiZSBkb25lIGluIHN0YWdlcyBhcyBpdHMgYSBw
+cmV0dHkgY29tcGxleCBhbmQgcmVxdWlyZXMgdGhvcm91Z2gKPj4+PiB0ZXN0aW5nIGJlZm9yZSB3
+ZSBmcmVlIHByaW1hcnkgcGxhbmVzIGFzIHdlbGwgZnJvbSBkZXBlbmRlbmN5IG9uIG1vZGVzZXQK
+Pj4+PiBmbGFnLgo+Pj4+Cj4+Pj4gU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxzaGlyaXNoLnNA
+YW1kLmNvbT4KPj4+PiAtLS0KPj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYyB8IDggKysrKystLS0KPj4+PiAgwqAgMSBmaWxlIGNoYW5nZWQs
+IDUgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+Pj4+IGluZGV4IDFh
+NjNjMDQuLjg3YjY2MWQgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPj4+PiBAQCAtNDE3NCw3ICs0MTc0LDcgQEAg
+c3RhdGljIHZvaWQgYW1kZ3B1X2RtX2NvbW1pdF9wbGFuZXMoc3RydWN0IGRybV9hdG9taWNfc3Rh
+dGUgKnN0YXRlLAo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+Pj4+ICDCoMKgwqDCoMKgwqDC
+oMKgwqAgc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmY3J0Yy0+ZGV2LT5ldmVudF9sb2NrLCBmbGFn
+cyk7Cj4+Pj4gIMKgIC3CoMKgwqDCoMKgwqDCoCBpZiAoIXBmbGlwX25lZWRlZCkgewo+Pj4+ICvC
+oMKgwqDCoMKgwqDCoCBpZiAoIXBmbGlwX25lZWRlZCB8fCBwbGFuZS0+dHlwZSA9PSBEUk1fUExB
+TkVfVFlQRV9PVkVSTEFZKSB7Cj4+PiBEb2VzIHRoaXMgbWVhbiB0aGF0IHdoZW5ldmVyIHdlIGhh
+dmUgYW4gb3ZlcmxheSBwbGFuZSB3ZSB3b24ndCBkbyBhbWRncHVfZG1fZG9fZmxpcCBidXQgY29t
+bWl0X3BsYW5lc190b19zdHJlYW0gaW5zdGVhZD8gSXMgdGhpcyByZWFsbHkgdGhlIGJlaGF2aW9y
+IHdlIHdhbnQ/Cj4+Pgo+Pj4gY29tbWl0X3BsYW5lc190b19zdHJlYW0gd2FzIGludGVuZGVkIHRv
+IHByb2dyYW0gYSBuZXcgc3VyZmFjZSBvbiBhIG1vZGVzZXQgd2hlcmVhcyBhbWRncHVfZG1fZG9f
+ZmxpcCB3YXMgaW50ZW5kZWQgZm9yIHBhZ2VmbGlwcy4KPj4gTmVlZCBvZiAibW9kZXNldCIgZmxh
+ZyB0byBwcm9ncmFtIG5ldyBzdXJmYWNlIGlzIHdoYXQgd2Ugd2FudCB0byBmaXggaW4gdGhpcyBw
+YXRjaCBmb3IgdW5kZXJsYXkgcGxhbmUgYW5kIGluIG5leHQgc3RhZ2VzLCBmaXggbWFuaWZlc3Rh
+dGlvbnMgY2F1c2VkIGJ5IHRoaXMgYXBwcm9hY2ggYXMgYW5kIHdoZW4gc2Vlbi4KPj4gU2luY2Ug
+dGhlIHVzZXIgc3BhY2UgZG9lc24ndCBzZW5kIG1vZGVzZXQgZmxhZyBmb3IgbmV3IHN1cmZhY2Us
+IGhlbmNlIHRvIHByb2dyYW0gaXQsIHRoaXMgcGF0Y2ggY2hlY2tzIHRoZSBwbGFuZSB0eXBlIHRv
+IGNvbnN0cnVjdCBwbGFuZXNfY291bnQgYmVmb3JlIGNhbGxpbmcgY29tbWl0X3BsYW5lc190b19z
+dHJlYW0oKS4KPj4KPiBMb29raW5nIGF0IHRoZSBhbGxvd19tb2Rlc2V0IGZsYWcgd2FzIG5ldmVy
+IHF1aXRlIHJpZ2h0IGFuZCB3ZSBhbnRpY2lwYXRlZCBoYXZpbmcgdG8gcmV3b3JrIHRoaXMgd2hl
+biBoYXZpbmcgdG8gZGVhbCB3aXRoIHRoaW5ncyBsaWtlIG11bHRpcGxlIHBsYW5lcy4gV2hhdCBy
+ZWFsbHkgaGFzIHRvIGhhcHBlbiBpcyB0aGF0IHdlIGRldGVybWluZSB0aGUgc3VyZmFjZV91cGRh
+dGVfdHlwZSBpbiBhdG9taWNfY2hlY2sgYW5kIHRoZW4gdXNlIHRoYXQgaW4gYXRvbWljX2NvbW1p
+dCB0byBlaXRoZXIgcHJvZ3JhbSB0aGUgc3VyZmFjZSBvbmx5IChVUERBVEVfVFlQRV9GQVNUKSB3
+aXRob3V0IGhhdmluZyB0byBsb2NrIGFsbCBwaXBlcyBvciB0byBsb2NrIGFsbCBwaXBlcyAoc2Vl
+IGxvY2tfYW5kX3ZhbGlkYXRpb25fbmVlZGVkIGluIGFtZGdwdV9kbV9hdG9taWNfY2hlY2spIGlm
+IHdlIG5lZWQgdG8gcmVwcm9ncmFtIG1vZGUgKFVQREFURV9UWVBFX0ZVTEwpLiBJIGRvbid0IHJl
+bWVtYmVyIGV4YWN0bHkgd2hhdCBVUERBVEVfVFlQRV9NRUQgaXMgdXNlZCBmb3IuCj4KPiBJIGRv
+bid0IGZlZWwgY29tZm9ydGFibGUgdGFraW5nIGEgc2hvcnRjdXQgZm9yIERSTV9QTEFORV9UWVBF
+X09WRVJMQVkgd2l0aG91dCBmaXJzdCBoYXZpbmcgYSBwbGFuIGFuZCBwYXRjaGVzIGZvciBob3cg
+dG8gZGVhbCB3aXRoIHRoZSBhYm92ZS1tZW50aW9uZWQuCj4KPiBCaGF3YW4gYW5kIEFuZHJleSBo
+YWQgYSBsb29rIGF0IHRoaXMgYmVmb3JlIGJ1dCBpdCB3YXMgbmV2ZXIgcXVpdGUgcmVhZHkuIFRo
+ZSB3b3JrIHdhcyBub24tdHJpdmlhbCBhbmQgcG90ZW50aWFsbHkgaW1wYWN0cyBsb3RzIG9mIGNv
+bmZpZ3VyYXRpb25zIGFuZCBzY2VuYXJpb3MgaWYgd2UgZG9uJ3QgZ2V0IGl0IHJpZ2h0LiBJZiB5
+b3UncmUgY3VyaW91cyB5b3UgY2FuIGxvb2sgYXQgdGhpcyBjaGFuZ2UgKGFwb2xvZ2llcyB0byBl
+dmVyeW9uZSBlbHNlIGZvciBwb3N0aW5nIEFNRC1pbnRlcm5hbCBsaW5rKTogaHR0cDovL2dpdC5h
+bWQuY29tOjgwODAvIy9jLzEwMzkzMS8xMQo+Cj4+ICDCoElmIHdlIHVzZSBjb21taXRfcGxhbmVz
+X3RvX3N0cmVhbSB3ZSBlbmQgdXAgbG9zaW5nIHRoaW5ncyBsaWtlIHRoZSBpbW1lZGlhdGVfZmxp
+cCBmbGFnLCBhcyB3ZWxsIGFzIHRoZSB3YWl0IGZvciB0aGUgcmlnaHQgbW9tZW50IHRvIHByb2dy
+YW0gdGhlIGZsaXAgdGhhdCBhbWRncHVfZG1fZG9fZmxpcCBkb2VzLgo+Pgo+PiAgRnJvbSB0aGUg
+Y29kZSwgYW1kZ3B1X2RtX2RvX2ZsaXAgZG9lcyB3aGF0IHlvdSBtZW50aW9uZWQgb25seSBmb3Ig
+cHJpbWFyeSBwbGFuZSBhbmQgaGVuY2UgZWl0aGVyIHdheSBpdHMgbm90IHNldCBmb3IgdW5kZXJs
+YXkuCj4gVGhlIGNvZGUgd2Fzbid0IGRlc2lnbmVkIHdpdGggdW5kZXJsYXkgaW4gbWluZCwgc28g
+aXQgd2lsbCBuZWVkIHdvcmsuCj4KPiBIYXJyeQoKSSBzdXBwb3J0IEhhcnJ5J3MgY29tbWVudHMs
+IHdlIGRlZmluaXRlbHkgbmVlZCB0byBzdHJpdmUgdG8gcmVtb3ZlIApkZXBlbmRlbmN5IG9uIHBh
+Z2VfZmxlZXAgbmVlZGVkIGZsYWcsIEFGQUlLIHdlIGFyZSB0aGUgb25seSBBVE9NSUMgS01TIApk
+cml2ZXIgd2hpY2ggbWFrZXMgYSBkaXN0aW5jdGlvbiBiZXR3ZWVuIHBhZ2UgZmxlZXAgYW5kIG90
+aGVyCnN1cmZhY2UgdXBkYXRlcywgYnV0IGl0J3MgYmV0dGVyIHRvIHNpdCBhbmQgY3JlYXRlIGEg
+Z2VuZXJhbCBwbGFuIG9mIGhvdyAKdG8gYWRkcmVzcyBpdCBmb3IgYWxsIHR5cGUgb2YgcGxhbmVz
+IGluc3RlYWQgb2YgcGF0Y2hpbmcgZm9yIG92ZXJsYXkgb25seS4KCkFuZHJleQoKPgo+PiBSZWdh
+cmRzLAo+PiBTaGlyaXNoIFMKPj4+ICDCoCBFdmVuIG1vcmUgaW1wb3J0YW50bHkgd2Ugd29uJ3Qg
+d2FpdCBmb3IgZmVuY2VzIChyZXNlcnZhdGlvbl9vYmplY3Rfd2FpdF90aW1lb3V0X3JjdSkuCj4+
+Pgo+Pj4gSGFycnkKPj4+Cj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFdBUk5fT04o
+IWRtX25ld19wbGFuZV9zdGF0ZS0+ZGNfc3RhdGUpOwo+Pj4+ICDCoCDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBwbGFuZV9zdGF0ZXNfY29uc3RydWN0ZWRbcGxhbmVzX2NvdW50XSA9IGRtX25l
+d19wbGFuZV9zdGF0ZS0+ZGNfc3RhdGU7Cj4+Pj4gQEAgLTQ4ODQsNyArNDg4NCw4IEBAIHN0YXRp
+YyBpbnQgZG1fdXBkYXRlX3BsYW5lc19zdGF0ZShzdHJ1Y3QgZGMgKmRjLAo+Pj4+ICDCoCDCoMKg
+wqDCoMKgwqDCoMKgwqAgLyogUmVtb3ZlIGFueSBjaGFuZ2VkL3JlbW92ZWQgcGxhbmVzICovCj4+
+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIWVuYWJsZSkgewo+Pj4+IC3CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGlmIChwZmxpcF9uZWVkZWQpCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+aWYgKHBmbGlwX25lZWRlZCAmJgo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+cGxhbmUgJiYgcGxhbmUtPnR5cGUgIT0gRFJNX1BMQU5FX1RZUEVfT1ZFUkxBWSkKPj4+PiAgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPj4+PiAgwqAgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKCFvbGRfcGxhbmVfY3J0YykKPj4+PiBAQCAtNDkzMSw3
+ICs0OTMyLDggQEAgc3RhdGljIGludCBkbV91cGRhdGVfcGxhbmVzX3N0YXRlKHN0cnVjdCBkYyAq
+ZGMsCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghZG1fbmV3X2NydGNfc3Rh
+dGUtPnN0cmVhbSkKPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250
+aW51ZTsKPj4+PiAgwqAgLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHBmbGlwX25lZWRlZCkK
+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAocGZsaXBfbmVlZGVkICYmCj4+Pj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwbGFuZSAmJiBwbGFuZS0+dHlwZSAhPSBEUk1f
+UExBTkVfVFlQRV9PVkVSTEFZKQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGNvbnRpbnVlOwo+Pj4+ICDCoCDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBXQVJOX09O
+KGRtX25ld19wbGFuZV9zdGF0ZS0+ZGNfc3RhdGUpOwo+Pj4+CgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
