@@ -1,15 +1,14 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: invalidate parent bo when shadow bo was
- invalidated
-Date: Fri, 4 May 2018 15:22:16 +0200
-Message-ID: <4c57c5af-1c4b-53de-3004-0a378ef0c7c5@gmail.com>
-References: <20180504064408.26471-1-david1.zhou@amd.com>
+Subject: Re: amdgpu 0000:01:00.0: IH ring buffer overflow (0x00000010,
+ 0x00000000, 0x00000020)
+Date: Fri, 4 May 2018 15:48:23 +0200
+Message-ID: <35373d0f-4a47-68a4-35ca-9b532efb0617@gmail.com>
+References: <1a8d69dc-4a6b-3cfa-a146-38d48b3e031e@molgen.mpg.de>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1065501172=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180504064408.26471-1-david1.zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1a8d69dc-4a6b-3cfa-a146-38d48b3e031e-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,31 +20,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org
+To: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMDQuMDUuMjAxOCB1bSAwODo0NCBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gU2hhZG93IEJP
-IGlzIGxvY2F0ZWQgb24gR1RUIGFuZCBpdHMgcGFyZW50IChQVCBhbmQgUEQpIEJPIGNvdWxkIGxv
-Y2F0ZWQgb24gVlJBTS4KPiBJbiBzb21lIGNhc2UsIHRoZSBCTyBvbiBHVFQgY291bGQgYmUgZXZp
-Y3RlZCBidXQgdGhlIHBhcmVudCBkaWQgbm90LiBUaGlzIG1heQo+IGNhdXNlIHRoZSBzaGFkb3cg
-Qk8gbm90IGJlIHB1dCBpbiB0aGUgZXZpY3QgbGlzdCBhbmQgY291bGQgbm90IGJlIGludmFsaWRh
-dGUKPiBjb3JyZWN0bHkuCj4gdjI6IHN1Z2dlc3RlZCBieSBDaHJpc3RpYW4KPgo+IENoYW5nZS1J
-ZDogSWFkMTBkOWEzMDMxZmEyYjI0Mzg3OWI5ZTU4ZWU0ZDhjNTI3ZWI0MzMKPiBTaWduZWQtb2Zm
-LWJ5OiBDaHVubWluZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgo+IFJlcG9ydGVkLWJ5OiBT
-aGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4g
-S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCA0ICsrKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCA0
-IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4g
-aW5kZXggNzFkY2RlZmNlMjU1Li44ZTcxZDM5ODQwMTYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uYwo+IEBAIC0yMjUyLDYgKzIyNTIsMTAgQEAgdm9pZCBhbWRncHVf
-dm1fYm9faW52YWxpZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIHsKPiAgIAlz
-dHJ1Y3QgYW1kZ3B1X3ZtX2JvX2Jhc2UgKmJvX2Jhc2U7Cj4gICAKPiArCS8qIHNoYWRvdyBibyBk
-b2Vzbid0IGhhdmUgYm8gYmFzZSwgaXRzIHZhbGlkYXRpb24gbmVlZHMgaXRzIHBhcmVudCAqLwo+
-ICsJaWYgKGJvLT5wYXJlbnQgJiYgYm8tPnBhcmVudC0+c2hhZG93ID09IGJvKQo+ICsJCWJvID0g
-Ym8tPnBhcmVudDsKPiArCj4gICAJbGlzdF9mb3JfZWFjaF9lbnRyeShib19iYXNlLCAmYm8tPnZh
-LCBib19saXN0KSB7Cj4gICAJCXN0cnVjdCBhbWRncHVfdm0gKnZtID0gYm9fYmFzZS0+dm07Cj4g
-ICAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1065501172==
+Content-Type: multipart/alternative;
+ boundary="------------A8FD9C6A3B0C737747DB2C08"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------A8FD9C6A3B0C737747DB2C08
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Am 27.04.2018 um 14:02 schrieb Paul Menzel:
+> Dear Linux AMD folks,
+>
+>
+> I get the overrun message below.
+
+Sorry for the delayed response, I was on vacation and then on sick leave :(
+
+>
+>> $ more /proc/version
+>> Linux version 4.14.30.mx64.211 (root-mccexzeWwsejwueTl6BtlECU5h/uR09zhGxnpwIvXIk@public.gmane.org) 
+>> (gcc version 7.3.0 (GCC)) #1 SMP Tue Mar 27 12:40:07 CEST 2018
+
+That one is ancient, please try an up to date kernel as well.
+
+>> [90612.637194] amdgpu 0000:01:00.0: IH ring buffer overflow 
+>> (0x00000010, 0x00000000, 0x00000020)
+>
+> Should this be reported and fixed? How can this be debugged? 
+> (`drm.debug=0xe`?). We do not know how to reproduce it yet.
+
+Yes, that should certainly be fixed. The issue is that your hardware is 
+producing so many interrupts that the CPU can't catch up any more 
+processing them.
+
+That either sounds like a hardware problem or something is blocking the 
+CPU for quite a long time with interrupts disabled.
+
+Regards,
+Christian.
+
+>
+>
+> Kind regards,
+>
+> Paul
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------A8FD9C6A3B0C737747DB2C08
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 27.04.2018 um 14:02 schrieb Paul
+      Menzel:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1a8d69dc-4a6b-3cfa-a146-38d48b3e031e-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">Dear
+      Linux AMD folks,
+      <br>
+      <br>
+      <br>
+      I get the overrun message below.
+      <br>
+    </blockquote>
+    <br>
+    Sorry for the delayed response, I was on vacation and then on sick
+    leave :(<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:1a8d69dc-4a6b-3cfa-a146-38d48b3e031e-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">
+      <br>
+      <blockquote type="cite">$ more /proc/version
+        <br>
+        Linux version 4.14.30.mx64.211
+        (<a class="moz-txt-link-abbreviated" href="mailto:root-mccexzeWwsejwueTl6BtlECU5h/uR09zhGxnpwIvXIk@public.gmane.org">root-mccexzeWwsejwueTl6BtlECU5h/uR09zhGxnpwIvXIk@public.gmane.org</a>) (gcc version 7.3.0 (GCC))
+        #1 SMP Tue Mar 27 12:40:07 CEST 2018
+        <br>
+      </blockquote>
+    </blockquote>
+    <br>
+    That one is ancient, please try an up to date kernel as well.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:1a8d69dc-4a6b-3cfa-a146-38d48b3e031e-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">
+      <blockquote type="cite">[90612.637194] amdgpu 0000:01:00.0: IH
+        ring buffer overflow (0x00000010, 0x00000000, 0x00000020)
+        <br>
+      </blockquote>
+      <br>
+      Should this be reported and fixed? How can this be debugged?
+      (`drm.debug=0xe`?). We do not know how to reproduce it yet.
+      <br>
+    </blockquote>
+    <br>
+    Yes, that should certainly be fixed. The issue is that your hardware
+    is producing so many interrupts that the CPU can't catch up any more
+    processing them.<br>
+    <br>
+    That either sounds like a hardware problem or something is blocking
+    the CPU for quite a long time with interrupts disabled.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:1a8d69dc-4a6b-3cfa-a146-38d48b3e031e-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">
+      <br>
+      <br>
+      Kind regards,
+      <br>
+      <br>
+      Paul
+      <br>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------A8FD9C6A3B0C737747DB2C08--
+
+--===============1065501172==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1065501172==--
