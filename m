@@ -1,11 +1,11 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Don't default to DC support for Kaveri and
  older
-Date: Mon, 7 May 2018 18:38:06 +0000
-Message-ID: <BN6PR12MB18098603FFEA18B60616AFFFF79B0@BN6PR12MB1809.namprd12.prod.outlook.com>
+Date: Mon, 7 May 2018 18:39:02 +0000
+Message-ID: <BN6PR12MB18098E99823B2B201626E160F79B0@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <20180503194530.3150-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0600935597=="
+Content-Type: multipart/mixed; boundary="===============0819053278=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <20180503194530.3150-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
@@ -21,16 +21,20 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0600935597==
+--===============0819053278==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18098603FFEA18B60616AFFFF79B0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB18098E99823B2B201626E160F79B0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB18098603FFEA18B60616AFFFF79B0BN6PR12MB1809namp_
+--_000_BN6PR12MB18098E99823B2B201626E160F79B0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Actually, we could arguably enable hawaii since it does not support a DAC a=
+nd there are no mobile skus.
+
+
+Alex
 
 ________________________________
 From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
@@ -93,7 +97,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB18098603FFEA18B60616AFFFF79B0BN6PR12MB1809namp_
+--_000_BN6PR12MB18098E99823B2B201626E160F79B0BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -107,8 +111,11 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<p style=3D"margin-top:0;margin-bottom:0">Actually, we could arguably enabl=
+e hawaii since it does not support a DAC and there are no mobile skus.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
 </p>
 </div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
@@ -193,9 +200,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_BN6PR12MB18098603FFEA18B60616AFFFF79B0BN6PR12MB1809namp_--
+--_000_BN6PR12MB18098E99823B2B201626E160F79B0BN6PR12MB1809namp_--
 
---===============0600935597==
+--===============0819053278==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -205,4 +212,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0600935597==--
+--===============0819053278==--
