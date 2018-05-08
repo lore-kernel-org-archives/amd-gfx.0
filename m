@@ -1,17 +1,15 @@
-From: Ben Skeggs <skeggsb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/connector: Add generic underscan properties
-Date: Tue, 8 May 2018 10:18:10 +1000
-Message-ID: <CACAvsv7R=kYvG3_2doHhuC9WcVjRnAFBNYb9XpBho8cUq6hUCQ@mail.gmail.com>
-References: <20180507144434.20466-1-boris.brezillon@bootlin.com>
- <20180507144434.20466-2-boris.brezillon@bootlin.com>
- <20180507150144.GE23723@intel.com>
- <20180507181900.39f90334@bbrezillon>
- <bae27de8-aa4d-fc3a-1667-a139e1a9220f@amd.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: =?gb2312?B?tPC4tDogW1BBVENIXSBkcm0vYW1kL3BwOiBSZWZpbmUgdGhlIG91dHB1dCBv?=
+ =?gb2312?B?ZiBwcF9wb3dlcl9wcm9maWxlX21vZGUgb24gVkk=?=
+Date: Tue, 8 May 2018 01:49:20 +0000
+Message-ID: <DM5PR1201MB248954DC7140FA95739627D2E49A0@DM5PR1201MB2489.namprd12.prod.outlook.com>
+References: <1525675062-13286-1-git-send-email-Rex.Zhu@amd.com>,
+ <BN6PR12MB18090D13C3E5307F5693F3D6F79B0@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1838056812=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bae27de8-aa4d-fc3a-1667-a139e1a9220f-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB18090D13C3E5307F5693F3D6F79B0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,122 +20,602 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Boris Brezillon <boris.brezillon-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gOCBNYXkgMjAxOCBhdCAwNDoyNiwgSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFt
-ZC5jb20+IHdyb3RlOgo+Cj4KPiBPbiAyMDE4LTA1LTA3IDEyOjE5IFBNLCBCb3JpcyBCcmV6aWxs
-b24gd3JvdGU6Cj4+IE9uIE1vbiwgNyBNYXkgMjAxOCAxODowMTo0NCArMDMwMAo+PiBWaWxsZSBT
-eXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPiB3cm90ZToKPj4KPj4+IE9u
-IE1vbiwgTWF5IDA3LCAyMDE4IGF0IDA0OjQ0OjMyUE0gKzAyMDAsIEJvcmlzIEJyZXppbGxvbiB3
-cm90ZToKPj4+PiBXZSBoYXZlIDMgZHJpdmVycyBkZWZpbmluZyB0aGUgInVuZGVyc2NhbiIsICJ1
-bmRlcnNjYW4gaGJvcmRlciIgYW5kCj4+Pj4gInVuZGVyc2NhbiB2Ym9yZGVyIiBwcm9wZXJ0aWVz
-IChyYWRlb24sIGFtZCBhbmQgbm91dmVhdSkgYW5kIHdlIGFyZQo+Pj4+IGFib3V0IHRvIGFkZCB0
-aGUgc2FtZSBraW5kIG9mIHRoaW5nIGluIFZDNC4KPj4+Pgo+Pj4+IERlZmluZSBnZW5lcmljIHVu
-ZGVyc2NhbiBwcm9wcyBhbmQgYWRkIG5ldyBmaWVsZHMgdG8gdGhlIGRybV9jb25uZWN0b3IKPj4+
-PiBzdGF0ZSBzbyB0aGF0IHRoZSBwcm9wZXJ0eSBwYXJzaW5nIGxvZ2ljIGNhbiBiZSBzaGFyZWQg
-YnkgYWxsIERSTQo+Pj4+IGRyaXZlcnMuCj4+Pj4KPj4+PiBBIGRyaXZlciBjYW4gbm93IGF0dGFj
-aCB1bmRlcnNjYW4gcHJvcGVydGllcyB0byBpdHMgY29ubmVjdG9yIHRocm91Z2gKPj4+PiB0aGUg
-ZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfdW5kZXJzY2FuX3Byb3BlcnRpZXMoKSBoZWxwZXIsIGFuZCBj
-YW4KPj4+PiBjaGVjay9hcHBseSB0aGUgdW5kZXJzY2FuIHNldHVwIGJhc2VkIG9uIHRoZQo+Pj4+
-IGRybV9jb25uZWN0b3Jfc3RhdGUtPnVuZGVyc2NhbiBmaWVsZHMuCj4+Pj4KPj4+PiBTaWduZWQt
-b2ZmLWJ5OiBCb3JpcyBCcmV6aWxsb24gPGJvcmlzLmJyZXppbGxvbkBib290bGluLmNvbT4KPj4+
-PiAtLS0KPj4+PiAgZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYyAgICB8ICAxMiArKysrCj4+
-Pj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmMgfCAxMjAgKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKwo+Pj4+ICBpbmNsdWRlL2RybS9kcm1fY29ubmVjdG9y
-LmggICAgIHwgIDc4ICsrKysrKysrKysrKysrKysrKysrKysrKysrCj4+Pj4gIDMgZmlsZXMgY2hh
-bmdlZCwgMjEwIGluc2VydGlvbnMoKykKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vZHJtX2F0b21pYy5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYwo+Pj4+IGlu
-ZGV4IGRjODUwYjRiNmUyMS4uYjczMTJiZDE3MmM5IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9kcm1fYXRvbWljLmMKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21p
-Yy5jCj4+Pj4gQEAgLTEyNzgsNiArMTI3OCwxMiBAQCBzdGF0aWMgaW50IGRybV9hdG9taWNfY29u
-bmVjdG9yX3NldF9wcm9wZXJ0eShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLAo+Pj4+
-ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+Pj4gICAgICAgICAgICAgfQo+
-Pj4+ICAgICAgICAgICAgIHN0YXRlLT5jb250ZW50X3Byb3RlY3Rpb24gPSB2YWw7Cj4+Pj4gKyAg
-IH0gZWxzZSBpZiAocHJvcGVydHkgPT0gY29ubmVjdG9yLT51bmRlcnNjYW5fbW9kZV9wcm9wZXJ0
-eSkgewo+Pj4+ICsgICAgICAgICAgIHN0YXRlLT51bmRlcnNjYW4ubW9kZSA9IHZhbDsKPj4+PiAr
-ICAgfSBlbHNlIGlmIChwcm9wZXJ0eSA9PSBjb25uZWN0b3ItPnVuZGVyc2Nhbl9oYm9yZGVyX3By
-b3BlcnR5KSB7Cj4+Pj4gKyAgICAgICAgICAgc3RhdGUtPnVuZGVyc2Nhbi5oYm9yZGVyID0gdmFs
-Owo+Pj4+ICsgICB9IGVsc2UgaWYgKHByb3BlcnR5ID09IGNvbm5lY3Rvci0+dW5kZXJzY2FuX3Zi
-b3JkZXJfcHJvcGVydHkpIHsKPj4+PiArICAgICAgICAgICBzdGF0ZS0+dW5kZXJzY2FuLnZib3Jk
-ZXIgPSB2YWw7Cj4+Pj4gICAgIH0gZWxzZSBpZiAoY29ubmVjdG9yLT5mdW5jcy0+YXRvbWljX3Nl
-dF9wcm9wZXJ0eSkgewo+Pj4+ICAgICAgICAgICAgIHJldHVybiBjb25uZWN0b3ItPmZ1bmNzLT5h
-dG9taWNfc2V0X3Byb3BlcnR5KGNvbm5lY3RvciwKPj4+PiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc3RhdGUsIHByb3BlcnR5LCB2YWwpOwo+Pj4+IEBAIC0xMzU5LDYgKzEzNjUsMTIgQEAg
-ZHJtX2F0b21pY19jb25uZWN0b3JfZ2V0X3Byb3BlcnR5KHN0cnVjdCBkcm1fY29ubmVjdG9yICpj
-b25uZWN0b3IsCj4+Pj4gICAgICAgICAgICAgKnZhbCA9IHN0YXRlLT5zY2FsaW5nX21vZGU7Cj4+
-Pj4gICAgIH0gZWxzZSBpZiAocHJvcGVydHkgPT0gY29ubmVjdG9yLT5jb250ZW50X3Byb3RlY3Rp
-b25fcHJvcGVydHkpIHsKPj4+PiAgICAgICAgICAgICAqdmFsID0gc3RhdGUtPmNvbnRlbnRfcHJv
-dGVjdGlvbjsKPj4+PiArICAgfSBlbHNlIGlmIChwcm9wZXJ0eSA9PSBjb25uZWN0b3ItPnVuZGVy
-c2Nhbl9tb2RlX3Byb3BlcnR5KSB7Cj4+Pj4gKyAgICAgICAgICAgKnZhbCA9IHN0YXRlLT51bmRl
-cnNjYW4ubW9kZTsKPj4+PiArICAgfSBlbHNlIGlmIChwcm9wZXJ0eSA9PSBjb25uZWN0b3ItPnVu
-ZGVyc2Nhbl9oYm9yZGVyX3Byb3BlcnR5KSB7Cj4+Pj4gKyAgICAgICAgICAgKnZhbCA9IHN0YXRl
-LT51bmRlcnNjYW4uaGJvcmRlcjsKPj4+PiArICAgfSBlbHNlIGlmIChwcm9wZXJ0eSA9PSBjb25u
-ZWN0b3ItPnVuZGVyc2Nhbl92Ym9yZGVyX3Byb3BlcnR5KSB7Cj4+Pj4gKyAgICAgICAgICAgKnZh
-bCA9IHN0YXRlLT51bmRlcnNjYW4udmJvcmRlcjsKPj4+PiAgICAgfSBlbHNlIGlmIChjb25uZWN0
-b3ItPmZ1bmNzLT5hdG9taWNfZ2V0X3Byb3BlcnR5KSB7Cj4+Pj4gICAgICAgICAgICAgcmV0dXJu
-IGNvbm5lY3Rvci0+ZnVuY3MtPmF0b21pY19nZXRfcHJvcGVydHkoY29ubmVjdG9yLAo+Pj4+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBzdGF0ZSwgcHJvcGVydHksIHZhbCk7Cj4+Pj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2Nvbm5lY3Rvci5jCj4+Pj4gaW5kZXggZGZjOGNhMWU5NDEzLi45OTM3MzkwYjhhMjUg
-MTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9jb25uZWN0b3IuYwo+Pj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmMKPj4+PiBAQCAtOTE0LDYgKzkxNCwz
-MSBAQCBEUk1fRU5VTV9OQU1FX0ZOKGRybV9nZXRfY29udGVudF9wcm90ZWN0aW9uX25hbWUsIGRy
-bV9jcF9lbnVtX2xpc3QpCj4+Pj4gICAqIGNhbiBhbHNvIGV4cG9zZSB0aGlzIHByb3BlcnR5IHRv
-IGV4dGVybmFsIG91dHB1dHMsIGluIHdoaWNoIGNhc2UgdGhleQo+Pj4+ICAgKiBtdXN0IHN1cHBv
-cnQgIk5vbmUiLCB3aGljaCBzaG91bGQgYmUgdGhlIGRlZmF1bHQgKHNpbmNlIGV4dGVybmFsIHNj
-cmVlbnMKPj4+PiAgICogaGF2ZSBhIGJ1aWx0LWluIHNjYWxlcikuCj4+Pj4gKyAqCj4+Pj4gKyAq
-IHVuZGVyc2NhbjoKPj4+PiArICogVGhpcyBwcm9wZXJ0aWVzIGRlZmluZXMgd2hldGhlciB1bmRl
-cnNjYW4gaXMgYWN0aXZhdGVkIG9yIG5vdCwgYW5kIHdoZW4KPj4+PiArICogaXQgaXMgYWN0aXZh
-dGVkLCBob3cgdGhlIGhvcml6b250YWwgYW5kIHZlcnRpY2FsIGJvcmRlcnMgYXJlIGNhbGN1bGF0
-ZWQ6Cj4+Pj4gKyAqCj4+Pj4gKyAqIG9mZjoKPj4+PiArICogICAgICAgICBVbmRlcnNjYW4gaXMg
-ZGlzYWJsZWQuIFRoZSBvdXRwdXQgaW1hZ2Ugc2hvdWxkbid0IGJlIHNjYWxlZCB0bwo+Pj4+ICsg
-KiAgICAgICAgIHRha2Ugc2NyZWVuIGJvcmRlcnMgaW50byBhY2NvdW50Lgo+Pj4KPj4+PiArICog
-b246Cj4+Pj4gKyAqICAgICAgICAgVW5kZXJzY2FuIGlzIGFjdGl2YXRlZCBhbmQgaG9yaXpvbnRh
-bCBhbmQgdmVydGljYWwgYm9yZGVycyBhcmUKPj4+PiArICogICAgICAgICBzcGVjaWZpZWQgdGhy
-b3VnaCB0aGUgInVuZGVyc2NhbiBoYm9yZGVyIiBhbmQKPj4+PiArICogICAgICAgICAidW5kZXJz
-Y2FuIHZib3JkZXIiIHByb3BlcnRpZXMuCj4+Pgo+Pj4gSG93IGlzIHRoZSBvdXRwdXQgc2NhbGVk
-Pwo+Pgo+PiBJbiBIVy4gVGhlIGZvcm11bGEgaXMKPj4KPj4gICAgICAgaGZhY3RvciA9IChoZGlz
-cGxheSAtIGhib3JkZXIpIC8gaGRpc3BsYXkKPj4gICAgICAgdmZhY3RvciA9ICh2ZGlzcGxheSAt
-IHZib3JkZXIpIC8gdmRpc3BsYXkKPj4KPj4+IFdoYXQgZG9lcyB0aGUgdXNlciBtb2RlIGhkaXNw
-bGF5L3ZkaXNwbGF5IG1lYW4KPj4+IGluIHRoaXMgY2FzZT8KPj4KPj4gVGhlIHNhbWUgYXMgYmVm
-b3JlIHRoaXMgcGF0Y2g6IHRoZSBvdXRwdXQgcmVzb2x1dGlvbi4gWW91IGp1c3QgYWRkCj4+IGJs
-YWNrIG1hcmdpbnMuCj4+Cj4+PiBXaGF0IGlmIEkgd2FudCB1bmRlcnNjYW4gd2l0aG91dCBzY2Fs
-aW5nPwo+Pgo+PiBUaGVuIGRvbid0IGludm9sdmUgdGhlIERSTSBkcml2ZXIgYW5kIGRvIHRoYXQg
-ZnJvbSB1c2Vyc3BhY2U6IGp1c3QKPj4gZmlsbCB0aGUgdmlzaWJsZSBwb3J0aW9uIG9mIHRoZSBm
-cmFtZWJ1ZmZlciBhbmQgbGVhdmUgdGhlIHJlc3QgYmxhY2suCj4+IFRoZXJlIG5vdGhpbmcgdGhl
-IERSTSBkcml2ZXIgY2FuIGRvIHRvIGhlbHAgd2l0aCB0aGF0LCBleGNlcHQgbWF5YmUKPj4gZXhw
-b3NpbmcgdGhlIGluZm9ybWF0aW9uIGFib3V0IHRoZSBhY3RpdmUgYXJlYSBvZiB0aGUgc2NyZWVu
-LiBJdCB3b3VsZAo+PiBiZSBuaWNlIHRvIGRvIHRoYXQsIGJ1dCB0aGF0IG1lYW5zIHBhdGNoaW5n
-IGFsbCB1c2Vyc3BhY2UgbGlicyB0byB0YWtlCj4+IHRoaXMgaW50byBhY2NvdW50Lgo+Pgo+Pj4K
-Pj4+PiArICogYXV0bzoKPj4+PiArICogICAgICAgICBVbmRlcnNjYW4gaXMgYWN0aXZhdGVkIGFu
-ZCBob3Jpem9udGFsIGFuZCB2ZXJ0aWNhbCBib3JkZXJzIGFyZQo+Pj4+ICsgKiAgICAgICAgIGF1
-dG9tYXRpY2FsbHkgY2hvc2VuIGJ5IHRoZSBkcml2ZXIuCj4+Pgo+Pj4gU2VlbXMgb3Zlcmx5IHZh
-Z3VlIHRvIGJlIHVzZWZ1bC4gWW91IGRpZG4ndCBldmVuIHNlZW0gdG8gaW1wbGVtZW50IGl0Cj4+
-PiBmb3IgdmM0Lgo+Pgo+Cj4gRldJVywgYW1kZ3B1IHRyZWF0cyBVTkRFUlNDQU5fQVVUTyBsaWtl
-IFVOREVSU0NBTl9PTi4gcmFkZW9uIGFuZCBub3V2ZWF1IHNlZW0gdG8gZG8gdGhlIHNhbWUuIFNv
-IHRoZXJlJ3MgcHJvYmFibHkgbm8gbmVlZCBmb3IgYXV0by4KVGhleSdyZSBub3QgdGhlIHNhbWUu
-ICBVTkRFUlNDQU5fQVVUTyBpbiBib3RoIG5vdXZlYXUgYW5kIHJhZGVvbgphdHRlbXB0IHRvIGVu
-YWJsZSBpdCBieSBkZWZhdWx0IGZvciBIRE1JIGRpc3BsYXlzIHRoYXQgd291bGQgb3RoZXJ3aXNl
-CmNob3AgdGhlIGVkZ2VzIG9mZiB0aGUgZGlzcGxheWVkIGltYWdlLiAgV2hlcmVhcyBVTkRFUlND
-QU5fT04gaXMKdW5jb25kaXRpb25hbC4KCkJlbi4KCj4KPiBIYXJyeQo+Cj4+IEJlY2F1c2UgSSBk
-b24ndCB1bmRlcnN0YW5kIGl0IGVpdGhlci4gSSB3YXMganVzdCB0cnlpbmcgdG8ga2VlcCB0aGlu
-Z3MKPj4gd29ya2luZyBmb3IgZHJpdmVycyBhbHJlYWR5IGV4cG9zaW5nIHRoZXNlIHByb3BlcnRp
-ZXMuCj4+Cj4+Pgo+Pj4+ICsgKgo+Pj4+ICsgKiB1bmRlcnNjYW4gaGJvcmRlcjoKPj4+PiArICog
-SG9yaXpvbnRhbCBib3JkZXIgZXhwcmVzc2VkIGluIHBpeGVscy4gVGhlIGJvcmRlciBpcyBzeW1t
-ZXRyaWMsIHdoaWNoCj4+Pj4gKyAqIG1lYW5zIHlvdSdsbCBoYXZlIGhhbGYgb2YgdGhpcyB2YWx1
-ZSBwbGFjZWQgb24gdGhlIGxlZnQgYW5kIHRoZSBvdGhlcgo+Pj4+ICsgKiBoYWxmIG9uIHRoZSBy
-aWdodC4KPj4+Cj4+PiBTZWVtcyBsaWtlIGEgc2xpZ2h0bHkgb2RkIHdheSB0byBzcGVjaWZ5IHRo
-aXMuIEkgdGhpbmsgZm9yIHRoZSBUViBtYXJnaW5zCj4+PiB3ZSBoYXZlIG9uZSB2YWx1ZSBmb3Ig
-ZWFjaCBlZGdlLgo+Pgo+PiBBZ2FpbiwgSSBqdXN0IHdhbnRlZCBleGlzdGluZyBkcml2ZXJzIHRv
-IGtlZXAgd29ya2luZyB3aXRoIHRoZSBnZW5lcmljCj4+IHNvbHV0aW9uLCBidXQgbWF5YmUgd2Ug
-c2hvdWxkbid0IGNhcmUuCj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4gZHJpLWRldmVsQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2RyaS1kZXZlbAo+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+--===============1838056812==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR1201MB248954DC7140FA95739627D2E49A0DM5PR1201MB2489_"
+
+--_000_DM5PR1201MB248954DC7140FA95739627D2E49A0DM5PR1201MB2489_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
+
+UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQq3orz+yMs6IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0Bs
+aXN0cy5mcmVlZGVza3RvcC5vcmc+ILT6se0gRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIu
+RGV1Y2hlckBhbWQuY29tPg0Kt6LLzcqxvOQ6IDIwMTjE6jXUwjjI1SA1OjMyOjA2DQrK1bz+yMs6
+IFpodSwgUmV4OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K1vfM4jogUmU6IFtQQVRD
+SF0gZHJtL2FtZC9wcDogUmVmaW5lIHRoZSBvdXRwdXQgb2YgcHBfcG93ZXJfcHJvZmlsZV9tb2Rl
+IG9uIFZJDQoNCg0KQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
+LmNvbT4NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCkZyb206IGFtZC1nZngg
+PGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFsZiBvZiBSZXgg
+Wmh1IDxSZXguWmh1QGFtZC5jb20+DQpTZW50OiBNb25kYXksIE1heSA3LCAyMDE4IDI6Mzc6NDIg
+QU0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IFpodSwgUmV4DQpTdWJq
+ZWN0OiBbUEFUQ0hdIGRybS9hbWQvcHA6IFJlZmluZSB0aGUgb3V0cHV0IG9mIHBwX3Bvd2VyX3By
+b2ZpbGVfbW9kZSBvbiBWSQ0KDQpJbiBvcmRlciB0byBrZWVwIGNvbnNpc3Qgd2l0aCBWZWdhLA0K
+dGhlIG91dHB1dCBmb3JtYXQgb2YgdGhlIHBwX3Bvd2VyX3Byb2ZpbGVfbW9kZSB3b3VsZCBiZQ0K
+PGludGVnZXI+ICA8bW9kZSBuYW1lIHN0cmluZz48IKGwKqGxIGlmIHRoaXMgaXMgdGhlIGN1cnJl
+bnQgcHJvZmlsZT46ImRldGFpbCBzZXR0aW5ncyINCmFuZCByZW1vdmUgdGhlICJDVVJSRU5UIiBt
+b2RlIGxpbmUuDQoNCmZvciBleGFtcGxlOg0KTlVNICAgICAgICBNT0RFX05BTUUgICAgIFNDTEtf
+VVBfSFlTVCAgIFNDTEtfRE9XTl9IWVNUIFNDTEtfQUNUSVZFX0xFVkVMICAgICBNQ0xLX1VQX0hZ
+U1QgICBNQ0xLX0RPV05fSFlTVCBNQ0xLX0FDVElWRV9MRVZFTA0KICAwICAgM0RfRlVMTF9TQ1JF
+RU46ICAgICAgICAwICAgICAgICAgICAgICAxMDAgICAgICAgICAgICAgICAzMCAgICAgICAgICAg
+ICAgICAwICAgICAgICAgICAgICAxMDAgICAgICAgICAgICAgICAxMA0KICAxICAgICBQT1dFUl9T
+QVZJTkc6ICAgICAgIDEwICAgICAgICAgICAgICAgIDAgICAgICAgICAgICAgICAzMCAgICAgICAg
+ICAgICAgICAtICAgICAgICAgICAgICAgIC0gICAgICAgICAgICAgICAgLQ0KICAyICAgICAgICAg
+ICAgVklERU86ICAgICAgICAtICAgICAgICAgICAgICAgIC0gICAgICAgICAgICAgICAgLSAgICAg
+ICAgICAgICAgIDEwICAgICAgICAgICAgICAgMTYgICAgICAgICAgICAgICAzMQ0KICAzICAgICAg
+ICAgICAgICAgVlI6ICAgICAgICAwICAgICAgICAgICAgICAgMTEgICAgICAgICAgICAgICA1MCAg
+ICAgICAgICAgICAgICAwICAgICAgICAgICAgICAxMDAgICAgICAgICAgICAgICAxMA0KICA0ICAg
+ICAgICAgIENPTVBVVEU6ICAgICAgICAwICAgICAgICAgICAgICAgIDUgICAgICAgICAgICAgICAz
+MCAgICAgICAgICAgICAgICAtICAgICAgICAgICAgICAgIC0gICAgICAgICAgICAgICAgLQ0KICA1
+ICAgICAgICAgQ1VTVE9NICo6ICAgICAgICAwICAgICAgICAgICAgICAgIDUgICAgICAgICAgICAg
+ICAzMCAgICAgICAgICAgICAgICAwICAgICAgICAgICAgICAxMDAgICAgICAgICAgICAgICAxMA0K
+TlVNICAgICAgICBNT0RFX05BTUUgICAgIFNDTEtfVVBfSFlTVCAgIFNDTEtfRE9XTl9IWVNUIFND
+TEtfQUNUSVZFX0xFVkVMICAgICBNQ0xLX1VQX0hZU1QgICBNQ0xLX0RPV05fSFlTVCBNQ0xLX0FD
+VElWRV9MRVZFTA0KICAwICAgM0RfRlVMTF9TQ1JFRU46ICAgICAgICAwICAgICAgICAgICAgICAx
+MDAgICAgICAgICAgICAgICAzMCAgICAgICAgICAgICAgICAwICAgICAgICAgICAgICAxMDAgICAg
+ICAgICAgICAgICAxMA0KICAxICAgUE9XRVJfU0FWSU5HICo6ICAgICAgIDEwICAgICAgICAgICAg
+ICAgIDAgICAgICAgICAgICAgICAzMCAgICAgICAgICAgICAgICAwICAgICAgICAgICAgICAxMDAg
+ICAgICAgICAgICAgICAxMA0KICAyICAgICAgICAgICAgVklERU86ICAgICAgICAtICAgICAgICAg
+ICAgICAgIC0gICAgICAgICAgICAgICAgLSAgICAgICAgICAgICAgIDEwICAgICAgICAgICAgICAg
+MTYgICAgICAgICAgICAgICAzMQ0KICAzICAgICAgICAgICAgICAgVlI6ICAgICAgICAwICAgICAg
+ICAgICAgICAgMTEgICAgICAgICAgICAgICA1MCAgICAgICAgICAgICAgICAwICAgICAgICAgICAg
+ICAxMDAgICAgICAgICAgICAgICAxMA0KICA0ICAgICAgICAgIENPTVBVVEU6ICAgICAgICAwICAg
+ICAgICAgICAgICAgIDUgICAgICAgICAgICAgICAzMCAgICAgICAgICAgICAgICAtICAgICAgICAg
+ICAgICAgIC0gICAgICAgICAgICAgICAgLQ0KICA1ICAgICAgICAgICBDVVNUT006ICAgICAgICAt
+ICAgICAgICAgICAgICAgIC0gICAgICAgICAgICAgICAgLSAgICAgICAgICAgICAgICAtICAgICAg
+ICAgICAgICAgIC0gICAgICAgICAgICAgICAgLQ0KDQpTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxS
+ZXguWmh1QGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci9zbXU3X2h3bWdyLmMgfCA1MiArKysrKysrKysrKy0tLS0tLS0tLS0tLS0NCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmggfCAgMSAtDQogMiBmaWxlcyBj
+aGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspLCAzMCBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYw0KaW5kZXggNGM5NGU3
+YS4uMzllNDljZSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL3NtdTdfaHdtZ3IuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
+Z3Ivc211N19od21nci5jDQpAQCAtNzUsMTIgKzc1LDEzIEBADQogI2RlZmluZSBQQ0lFX0JVU19D
+TEsgICAgICAgICAgICAgICAgMTAwMDANCiAjZGVmaW5lIFRDTEsgICAgICAgICAgICAgICAgICAg
+ICAgICAoUENJRV9CVVNfQ0xLIC8gMTApDQoNCi1zdGF0aWMgY29uc3Qgc3RydWN0IHByb2ZpbGVf
+bW9kZV9zZXR0aW5nIHNtdTdfcHJvZmlsaW5nWzVdID0NCitzdGF0aWMgY29uc3Qgc3RydWN0IHBy
+b2ZpbGVfbW9kZV9zZXR0aW5nIHNtdTdfcHJvZmlsaW5nWzZdID0NCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAge3sxLCAwLCAxMDAsIDMwLCAxLCAwLCAxMDAsIDEwfSwN
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHsxLCAxMCwgMCwgMzAs
+IDAsIDAsIDAsIDB9LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ezAsIDAsIDAsIDAsIDEsIDEwLCAxNiwgMzF9LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgezEsIDAsIDExLCA1MCwgMSwgMCwgMTAwLCAxMH0sDQogICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7MSwgMCwgNSwgMzAsIDAsIDAsIDAsIDB9
+LA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7MCwgMCwgMCwgMCwg
+MCwgMCwgMCwgMH0sDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH07
+DQoNCiAjZGVmaW5lIFBQU01DX01TR19TZXRWQklUaW1lb3V0X1ZFR0FNICAgICgodWludDE2X3Qp
+IDB4MzEwKQ0KQEAgLTQ4ODIsNiArNDg4MywxNyBAQCBzdGF0aWMgaW50IHNtdTdfZ2V0X3Bvd2Vy
+X3Byb2ZpbGVfbW9kZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBjaGFyICpidWYpDQogICAgICAg
+ICBsZW4gPSBzaXplb2Yoc211N19wcm9maWxpbmcpIC8gc2l6ZW9mKHN0cnVjdCBwcm9maWxlX21v
+ZGVfc2V0dGluZyk7DQoNCiAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBsZW47IGkrKykgew0KKyAg
+ICAgICAgICAgICAgIGlmIChpID09IGh3bWdyLT5wb3dlcl9wcm9maWxlX21vZGUpIHsNCisgICAg
+ICAgICAgICAgICAgICAgICAgIHNpemUgKz0gc3ByaW50ZihidWYgKyBzaXplLCAiJTNkICUxNHMg
+JXM6ICU4ZCAlMTZkICUxNmQgJTE2ZCAlMTZkICUxNmRcbiIsDQorICAgICAgICAgICAgICAgICAg
+ICAgICBpLCBwcm9maWxlX25hbWVbaV0sICIqIiwNCisgICAgICAgICAgICAgICAgICAgICAgIGRh
+dGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLnNjbGtfdXBfaHlzdCwNCisgICAgICAgICAgICAg
+ICAgICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLnNjbGtfZG93bl9oeXN0LA0K
+KyAgICAgICAgICAgICAgICAgICAgICAgZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcuc2Ns
+a19hY3Rpdml0eSwNCisgICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmls
+ZV9zZXR0aW5nLm1jbGtfdXBfaHlzdCwNCisgICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1
+cnJlbnRfcHJvZmlsZV9zZXR0aW5nLm1jbGtfZG93bl9oeXN0LA0KKyAgICAgICAgICAgICAgICAg
+ICAgICAgZGF0YS0+Y3VycmVudF9wcm9maWxlX3NldHRpbmcubWNsa19hY3Rpdml0eSk7DQorICAg
+ICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsNCisgICAgICAgICAgICAgICB9DQogICAgICAg
+ICAgICAgICAgIGlmIChzbXU3X3Byb2ZpbGluZ1tpXS5idXBkYXRlX3NjbGspDQogICAgICAgICAg
+ICAgICAgICAgICAgICAgc2l6ZSArPSBzcHJpbnRmKGJ1ZiArIHNpemUsICIlM2QgJTE2czogJThk
+ICUxNmQgJTE2ZCAiLA0KICAgICAgICAgICAgICAgICAgICAgICAgIGksIHByb2ZpbGVfbmFtZVtp
+XSwgc211N19wcm9maWxpbmdbaV0uc2Nsa191cF9oeXN0LA0KQEAgLTQ5MDEsMjQgKzQ5MTMsNiBA
+QCBzdGF0aWMgaW50IHNtdTdfZ2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZShzdHJ1Y3QgcHBfaHdtZ3Ig
+Kmh3bWdyLCBjaGFyICpidWYpDQogICAgICAgICAgICAgICAgICAgICAgICAgIi0iLCAiLSIsICIt
+Iik7DQogICAgICAgICB9DQoNCi0gICAgICAgc2l6ZSArPSBzcHJpbnRmKGJ1ZiArIHNpemUsICIl
+M2QgJTE2czogJThkICUxNmQgJTE2ZCAlMTZkICUxNmQgJTE2ZFxuIiwNCi0gICAgICAgICAgICAg
+ICAgICAgICAgIGksIHByb2ZpbGVfbmFtZVtpXSwNCi0gICAgICAgICAgICAgICAgICAgICAgIGRh
+dGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcuc2Nsa191cF9oeXN0LA0KLSAgICAgICAgICAgICAg
+ICAgICAgICAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5zY2xrX2Rvd25faHlzdCwNCi0g
+ICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcuc2Nsa19h
+Y3Rpdml0eSwNCi0gICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1c3RvbV9wcm9maWxlX3Nl
+dHRpbmcubWNsa191cF9oeXN0LA0KLSAgICAgICAgICAgICAgICAgICAgICAgZGF0YS0+Y3VzdG9t
+X3Byb2ZpbGVfc2V0dGluZy5tY2xrX2Rvd25faHlzdCwNCi0gICAgICAgICAgICAgICAgICAgICAg
+IGRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcubWNsa19hY3Rpdml0eSk7DQotDQotICAgICAg
+IHNpemUgKz0gc3ByaW50ZihidWYgKyBzaXplLCAiJTNzICUxNnM6ICU4ZCAlMTZkICUxNmQgJTE2
+ZCAlMTZkICUxNmRcbiIsDQotICAgICAgICAgICAgICAgICAgICAgICAiKiIsICJDVVJSRU5UIiwN
+Ci0gICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLnNj
+bGtfdXBfaHlzdCwNCi0gICAgICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmls
+ZV9zZXR0aW5nLnNjbGtfZG93bl9oeXN0LA0KLSAgICAgICAgICAgICAgICAgICAgICAgZGF0YS0+
+Y3VycmVudF9wcm9maWxlX3NldHRpbmcuc2Nsa19hY3Rpdml0eSwNCi0gICAgICAgICAgICAgICAg
+ICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLm1jbGtfdXBfaHlzdCwNCi0gICAg
+ICAgICAgICAgICAgICAgICAgIGRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLm1jbGtfZG93
+bl9oeXN0LA0KLSAgICAgICAgICAgICAgICAgICAgICAgZGF0YS0+Y3VycmVudF9wcm9maWxlX3Nl
+dHRpbmcubWNsa19hY3Rpdml0eSk7DQotDQogICAgICAgICByZXR1cm4gc2l6ZTsNCiB9DQoNCkBA
+IC00OTU3LDE2ICs0OTUxLDE2IEBAIHN0YXRpYyBpbnQgc211N19zZXRfcG93ZXJfcHJvZmlsZV9t
+b2RlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGxvbmcgKmlucHV0LCB1aW50DQogICAgICAgICAg
+ICAgICAgIGlmIChzaXplIDwgOCkNCiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJ
+TlZBTDsNCg0KLSAgICAgICAgICAgICAgIGRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcuYnVw
+ZGF0ZV9zY2xrID0gaW5wdXRbMF07DQotICAgICAgICAgICAgICAgZGF0YS0+Y3VzdG9tX3Byb2Zp
+bGVfc2V0dGluZy5zY2xrX3VwX2h5c3QgPSBpbnB1dFsxXTsNCi0gICAgICAgICAgICAgICBkYXRh
+LT5jdXN0b21fcHJvZmlsZV9zZXR0aW5nLnNjbGtfZG93bl9oeXN0ID0gaW5wdXRbMl07DQotICAg
+ICAgICAgICAgICAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5zY2xrX2FjdGl2aXR5ID0g
+aW5wdXRbM107DQotICAgICAgICAgICAgICAgZGF0YS0+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZy5i
+dXBkYXRlX21jbGsgPSBpbnB1dFs0XTsNCi0gICAgICAgICAgICAgICBkYXRhLT5jdXN0b21fcHJv
+ZmlsZV9zZXR0aW5nLm1jbGtfdXBfaHlzdCA9IGlucHV0WzVdOw0KLSAgICAgICAgICAgICAgIGRh
+dGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcubWNsa19kb3duX2h5c3QgPSBpbnB1dFs2XTsNCi0g
+ICAgICAgICAgICAgICBkYXRhLT5jdXN0b21fcHJvZmlsZV9zZXR0aW5nLm1jbGtfYWN0aXZpdHkg
+PSBpbnB1dFs3XTsNCi0gICAgICAgICAgICAgICBpZiAoIXNtdW1fdXBkYXRlX2RwbV9zZXR0aW5n
+cyhod21nciwgJmRhdGEtPmN1c3RvbV9wcm9maWxlX3NldHRpbmcpKSB7DQotICAgICAgICAgICAg
+ICAgICAgICAgICBtZW1jcHkoJmRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLCAmZGF0YS0+
+Y3VzdG9tX3Byb2ZpbGVfc2V0dGluZywgc2l6ZW9mKHN0cnVjdCBwcm9maWxlX21vZGVfc2V0dGlu
+ZykpOw0KKyAgICAgICAgICAgICAgIHRtcC5idXBkYXRlX3NjbGsgPSBpbnB1dFswXTsNCisgICAg
+ICAgICAgICAgICB0bXAuc2Nsa191cF9oeXN0ID0gaW5wdXRbMV07DQorICAgICAgICAgICAgICAg
+dG1wLnNjbGtfZG93bl9oeXN0ID0gaW5wdXRbMl07DQorICAgICAgICAgICAgICAgdG1wLnNjbGtf
+YWN0aXZpdHkgPSBpbnB1dFszXTsNCisgICAgICAgICAgICAgICB0bXAuYnVwZGF0ZV9tY2xrID0g
+aW5wdXRbNF07DQorICAgICAgICAgICAgICAgdG1wLm1jbGtfdXBfaHlzdCA9IGlucHV0WzVdOw0K
+KyAgICAgICAgICAgICAgIHRtcC5tY2xrX2Rvd25faHlzdCA9IGlucHV0WzZdOw0KKyAgICAgICAg
+ICAgICAgIHRtcC5tY2xrX2FjdGl2aXR5ID0gaW5wdXRbN107DQorICAgICAgICAgICAgICAgaWYg
+KCFzbXVtX3VwZGF0ZV9kcG1fc2V0dGluZ3MoaHdtZ3IsICZ0bXApKSB7DQorICAgICAgICAgICAg
+ICAgICAgICAgICBtZW1jcHkoJmRhdGEtPmN1cnJlbnRfcHJvZmlsZV9zZXR0aW5nLCAmdG1wLCBz
+aXplb2Yoc3RydWN0IHByb2ZpbGVfbW9kZV9zZXR0aW5nKSk7DQogICAgICAgICAgICAgICAgICAg
+ICAgICAgaHdtZ3ItPnBvd2VyX3Byb2ZpbGVfbW9kZSA9IG1vZGU7DQogICAgICAgICAgICAgICAg
+IH0NCiAgICAgICAgICAgICAgICAgYnJlYWs7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5oDQppbmRleCA1MWE3NzZlLi5jOTFlNzVkIDEwMDY0
+NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5o
+DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmgN
+CkBAIC0zMjcsNyArMzI3LDYgQEAgc3RydWN0IHNtdTdfaHdtZ3Igew0KICAgICAgICAgdWludDE2
+X3QgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtZW1fbGF0ZW5jeV9oaWdoOw0KICAgICAg
+ICAgdWludDE2X3QgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtZW1fbGF0ZW5jeV9sb3c7
+DQogICAgICAgICB1aW50MzJfdCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZyX2NvbmZp
+ZzsNCi0gICAgICAgc3RydWN0IHByb2ZpbGVfbW9kZV9zZXR0aW5nICAgICAgICAgICBjdXN0b21f
+cHJvZmlsZV9zZXR0aW5nOw0KICAgICAgICAgc3RydWN0IHByb2ZpbGVfbW9kZV9zZXR0aW5nICAg
+ICAgICAgICBjdXJyZW50X3Byb2ZpbGVfc2V0dGluZzsNCiB9Ow0KDQotLQ0KMS45LjENCg0KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFp
+bGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo=
+
+--_000_DM5PR1201MB248954DC7140FA95739627D2E49A0DM5PR1201MB2489_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><span>Reviewed-by: Evan Quan &lt;=
+evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>=B7=A2=BC=FE=C8=CB:</b> amd-gfx=
+ &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; =B4=FA=B1=ED Deucher, Alexan=
+der &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2018=C4=EA5=D4=C28=C8=D5 5:32:06<br>
+<b>=CA=D5=BC=FE=C8=CB:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>=D6=F7=CC=E2:</b> Re: [PATCH] drm/amd/pp: Refine the output of pp_power_=
+profile_mode on VI</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3DWindows-1252">
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">Acked-by: Alex Deucher &lt;alexa=
+nder.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
+&gt;<br>
+<b>Sent:</b> Monday, May 7, 2018 2:37:42 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Refine the output of pp_power_profile_m=
+ode on VI</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">In order to keep consist with Vega,<br>
+the output format of the pp_power_profile_mode would be<br>
+&lt;integer&gt;&nbsp; &lt;mode name string&gt;&lt; =A1=B0*=A1=B1 if this is=
+ the current profile&gt;:&quot;detail settings&quot;<br>
+and remove the &quot;CURRENT&quot; mode line.<br>
+<br>
+for example:<br>
+NUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MODE_NAME&nbsp;&nbsp;&nbsp;&n=
+bsp; SCLK_UP_HYST&nbsp;&nbsp; SCLK_DOWN_HYST SCLK_ACTIVE_LEVEL&nbsp;&nbsp;&=
+nbsp;&nbsp; MCLK_UP_HYST&nbsp;&nbsp; MCLK_DOWN_HYST MCLK_ACTIVE_LEVEL<br>
+&nbsp; 0&nbsp;&nbsp; 3D_FULL_SCREEN:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br>
+&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; POWER_SAVING:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; 10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; -<br>
+&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+VIDEO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; 10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 31<br>
+&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; VR:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; 50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br>
+&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; COMPUTE:&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -<br>
+&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CUSTOM *:&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; 10<br>
+NUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MODE_NAME&nbsp;&nbsp;&nbsp;&n=
+bsp; SCLK_UP_HYST&nbsp;&nbsp; SCLK_DOWN_HYST SCLK_ACTIVE_LEVEL&nbsp;&nbsp;&=
+nbsp;&nbsp; MCLK_UP_HYST&nbsp;&nbsp; MCLK_DOWN_HYST MCLK_ACTIVE_LEVEL<br>
+&nbsp; 0&nbsp;&nbsp; 3D_FULL_SCREEN:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br>
+&nbsp; 1&nbsp;&nbsp; POWER_SAVING *:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br>
+&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+VIDEO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; 10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 31<br>
+&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; VR:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; 50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br>
+&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; COMPUTE:&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -<br>
+&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CUSTOM=
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 52 &#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------------<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h |&nbsp; 1 -<br>
+&nbsp;2 files changed, 23 insertions(&#43;), 30 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+index 4c94e7a..39e49ce 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+@@ -75,12 &#43;75,13 @@<br>
+&nbsp;#define PCIE_BUS_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10000<br>
+&nbsp;#define TCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; (PCIE_BUS_CLK / 10)<br>
+&nbsp;<br>
+-static const struct profile_mode_setting smu7_profiling[5] =3D<br>
+&#43;static const struct profile_mode_setting smu7_profiling[6] =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; {{1, 0, 100, 30, 1, 0, 100, 10},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; {1, 10, 0, 30, 0, 0, 0, 0},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; {0, 0, 0, 0, 1, 10, 16, 31},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; {1, 0, 11, 50, 1, 0, 100, 10},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; {1, 0, 5, 30, 0, 0, 0, 0},<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; {0, 0, 0, 0, 0, 0, 0, 0},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; };<br>
+&nbsp;<br>
+&nbsp;#define PPSMC_MSG_SetVBITimeout_VEGAM&nbsp;&nbsp;&nbsp; ((uint16_t) 0=
+x310)<br>
+@@ -4882,6 &#43;4883,17 @@ static int smu7_get_power_profile_mode(struct pp=
+_hwmgr *hwmgr, char *buf)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; len =3D sizeof(smu7_profil=
+ing) / sizeof(struct profile_mode_setting);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; len; =
+i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (i =3D=3D hwmgr-&gt;power_profile_mode) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=
+=3D sprintf(buf &#43; size, &quot;%3d %14s %s: %8d %16d %16d %16d %16d %16d=
+\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i, profile_n=
+ame[i], &quot;*&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;cur=
+rent_profile_setting.sclk_up_hyst,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;cur=
+rent_profile_setting.sclk_down_hyst,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;cur=
+rent_profile_setting.sclk_activity,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;cur=
+rent_profile_setting.mclk_up_hyst,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;cur=
+rent_profile_setting.mclk_down_hyst,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;cur=
+rent_profile_setting.mclk_activity);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (smu7_profiling[i].bupdate_sclk)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size =
+&#43;=3D sprintf(buf &#43; size, &quot;%3d %16s: %8d %16d %16d &quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i, pr=
+ofile_name[i], smu7_profiling[i].sclk_up_hyst,<br>
+@@ -4901,24 &#43;4913,6 @@ static int smu7_get_power_profile_mode(struct pp=
+_hwmgr *hwmgr, char *buf)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
+;-&quot;, &quot;-&quot;, &quot;-&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size,=
+ &quot;%3d %16s: %8d %16d %16d %16d %16d %16d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i, profile_name[=
+i],<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;custom_=
+profile_setting.sclk_up_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;custom_=
+profile_setting.sclk_down_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;custom_=
+profile_setting.sclk_activity,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;custom_=
+profile_setting.mclk_up_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;custom_=
+profile_setting.mclk_down_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;custom_=
+profile_setting.mclk_activity);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size,=
+ &quot;%3s %16s: %8d %16d %16d %16d %16d %16d\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;*&quot;, &=
+quot;CURRENT&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current=
+_profile_setting.sclk_up_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current=
+_profile_setting.sclk_down_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current=
+_profile_setting.sclk_activity,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current=
+_profile_setting.mclk_up_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current=
+_profile_setting.mclk_down_hyst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current=
+_profile_setting.mclk_activity);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -4957,16 &#43;4951,16 @@ static int smu7_set_power_profile_mode(struct p=
+p_hwmgr *hwmgr, long *input, uint<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (size &lt; 8)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n -EINVAL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.bupdate_sclk =3D input[0];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.sclk_up_hyst =3D input[1];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.sclk_down_hyst =3D input[2];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.sclk_activity =3D input[3];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.bupdate_mclk =3D input[4];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.mclk_up_hyst =3D input[5];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.mclk_down_hyst =3D input[6];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; data-&gt;custom_profile_setting.mclk_activity =3D input[7];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!smum_update_dpm_settings(hwmgr, &amp;data-&gt;custom_profil=
+e_setting)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;data=
+-&gt;current_profile_setting, &amp;data-&gt;custom_profile_setting, sizeof(=
+struct profile_mode_setting));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.bupdate_sclk =3D input[0];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.sclk_up_hyst =3D input[1];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.sclk_down_hyst =3D input[2];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.sclk_activity =3D input[3];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.bupdate_mclk =3D input[4];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.mclk_up_hyst =3D input[5];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.mclk_down_hyst =3D input[6];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp.mclk_activity =3D input[7];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!smum_update_dpm_settings(hwmgr, &amp;tmp)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;=
+data-&gt;current_profile_setting, &amp;tmp, sizeof(struct profile_mode_sett=
+ing));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr=
+-&gt;power_profile_mode =3D mode;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+index 51a776e..c91e75d 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+@@ -327,7 &#43;327,6 @@ struct smu7_hwmgr {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; mem_latency_high;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; mem_latency_low;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; vr_config;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct profile_mode_setting&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; custom_profile_setting;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct profile_mode_settin=
+g&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current_profi=
+le_setting;<br>
+&nbsp;};<br>
+&nbsp;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR1201MB248954DC7140FA95739627D2E49A0DM5PR1201MB2489_--
+
+--===============1838056812==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1838056812==--
