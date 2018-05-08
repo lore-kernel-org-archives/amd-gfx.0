@@ -1,11 +1,14 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: add HDP flush dummy for UVD 6/7
-Date: Tue,  8 May 2018 12:30:06 +0200
-Message-ID: <20180508103006.3626-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu: Don't default to DC support for Kaveri and
+ older
+Date: Tue, 8 May 2018 15:28:01 +0000
+Message-ID: <BN6PR12MB18096ADF9B084D707CBA502DF79A0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180507232446.32747-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1059217770=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180507232446.32747-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,78 +19,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhlIFVWRCBmaXJtd2FyZSBkb2Vzbid0IHNlZW0gdG8gbGlrZSB0aGUgSERQIGZsdXNoIGhlcmUu
-CgpUaGlzIHdvcmtlZCBmb3IgeWVhcnMgd2l0aG91dCBIRFAgZmx1c2gsIHNvIGp1c3Qgc2tpcCBp
-dC4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5jIHwgMTYgKysr
-KysrKysrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYyB8IDEz
-ICsrKysrKysrKysrKy0KIDIgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMyBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZf
-MC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y2XzAuYwppbmRleCA2ZDMzNTk4
-ODljMGIuLjgwNDFiMjZhN2EyMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdXZkX3Y2XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5j
-CkBAIC05NjMsNiArOTYzLDE2IEBAIHN0YXRpYyB2b2lkIHV2ZF92Nl8wX2VuY19yaW5nX2VtaXRf
-ZmVuY2Uoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1NjQgYWRkciwKIAlhbWRncHVfcmluZ193
-cml0ZShyaW5nLCBIRVZDX0VOQ19DTURfVFJBUCk7CiB9CiAKKy8qKgorICogdXZkX3Y2XzBfcmlu
-Z19lbWl0X2hkcF9mbHVzaCAtIHNraXAgSERQIGZsdXNoaW5nCisgKgorICogQHJpbmc6IGFtZGdw
-dV9yaW5nIHBvaW50ZXIKKyAqLworc3RhdGljIHZvaWQgdXZkX3Y2XzBfcmluZ19lbWl0X2hkcF9m
-bHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCit7CisJLyogVGhlIGZpcm13YXJlIGRvZXNu
-J3Qgc2VlbSB0byBsaWtlIHRvdWNoaW5nIHJlZ2lzdGVycyBhdCB0aGlzIHBvaW50LiAqLworfQor
-CiAvKioKICAqIHV2ZF92Nl8wX3JpbmdfdGVzdF9yaW5nIC0gcmVnaXN0ZXIgd3JpdGUgdGVzdAog
-ICoKQEAgLTE1MjgsMTIgKzE1MzgsMTMgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmlu
-Z19mdW5jcyB1dmRfdjZfMF9yaW5nX3BoeXNfZnVuY3MgPSB7CiAJLnNldF93cHRyID0gdXZkX3Y2
-XzBfcmluZ19zZXRfd3B0ciwKIAkucGFyc2VfY3MgPSBhbWRncHVfdXZkX3JpbmdfcGFyc2VfY3Ms
-CiAJLmVtaXRfZnJhbWVfc2l6ZSA9Ci0JCTYgKyA2ICsgLyogaGRwIGZsdXNoIC8gaW52YWxpZGF0
-ZSAqLworCQk2ICsgLyogaGRwIGludmFsaWRhdGUgKi8KIAkJMTAgKyAvKiB1dmRfdjZfMF9yaW5n
-X2VtaXRfcGlwZWxpbmVfc3luYyAqLwogCQkxNCwgLyogdXZkX3Y2XzBfcmluZ19lbWl0X2ZlbmNl
-IHgxIG5vIHVzZXIgZmVuY2UgKi8KIAkuZW1pdF9pYl9zaXplID0gOCwgLyogdXZkX3Y2XzBfcmlu
-Z19lbWl0X2liICovCiAJLmVtaXRfaWIgPSB1dmRfdjZfMF9yaW5nX2VtaXRfaWIsCiAJLmVtaXRf
-ZmVuY2UgPSB1dmRfdjZfMF9yaW5nX2VtaXRfZmVuY2UsCisJLmVtaXRfaGRwX2ZsdXNoID0gdXZk
-X3Y2XzBfcmluZ19lbWl0X2hkcF9mbHVzaCwKIAkudGVzdF9yaW5nID0gdXZkX3Y2XzBfcmluZ190
-ZXN0X3JpbmcsCiAJLnRlc3RfaWIgPSBhbWRncHVfdXZkX3JpbmdfdGVzdF9pYiwKIAkuaW5zZXJ0
-X25vcCA9IGFtZGdwdV9yaW5nX2luc2VydF9ub3AsCkBAIC0xNTUyLDcgKzE1NjMsNyBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIHV2ZF92Nl8wX3Jpbmdfdm1fZnVuY3Mg
-PSB7CiAJLmdldF93cHRyID0gdXZkX3Y2XzBfcmluZ19nZXRfd3B0ciwKIAkuc2V0X3dwdHIgPSB1
-dmRfdjZfMF9yaW5nX3NldF93cHRyLAogCS5lbWl0X2ZyYW1lX3NpemUgPQotCQk2ICsgNiArIC8q
-IGhkcCBmbHVzaCAvIGludmFsaWRhdGUgKi8KKwkJNiArIC8qIGhkcCBpbnZhbGlkYXRlICovCiAJ
-CTEwICsgLyogdXZkX3Y2XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMgKi8KIAkJVklfRkxVU0hf
-R1BVX1RMQl9OVU1fV1JFRyAqIDYgKyA4ICsgLyogdXZkX3Y2XzBfcmluZ19lbWl0X3ZtX2ZsdXNo
-ICovCiAJCTE0ICsgMTQsIC8qIHV2ZF92Nl8wX3JpbmdfZW1pdF9mZW5jZSB4MiB2bSBmZW5jZSAq
-LwpAQCAtMTU2MSw2ICsxNTcyLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19m
-dW5jcyB1dmRfdjZfMF9yaW5nX3ZtX2Z1bmNzID0gewogCS5lbWl0X2ZlbmNlID0gdXZkX3Y2XzBf
-cmluZ19lbWl0X2ZlbmNlLAogCS5lbWl0X3ZtX2ZsdXNoID0gdXZkX3Y2XzBfcmluZ19lbWl0X3Zt
-X2ZsdXNoLAogCS5lbWl0X3BpcGVsaW5lX3N5bmMgPSB1dmRfdjZfMF9yaW5nX2VtaXRfcGlwZWxp
-bmVfc3luYywKKwkuZW1pdF9oZHBfZmx1c2ggPSB1dmRfdjZfMF9yaW5nX2VtaXRfaGRwX2ZsdXNo
-LAogCS50ZXN0X3JpbmcgPSB1dmRfdjZfMF9yaW5nX3Rlc3RfcmluZywKIAkudGVzdF9pYiA9IGFt
-ZGdwdV91dmRfcmluZ190ZXN0X2liLAogCS5pbnNlcnRfbm9wID0gYW1kZ3B1X3JpbmdfaW5zZXJ0
-X25vcCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jCmluZGV4IDIyNTFkYjQwNDhm
-NS4uYjBkZTFlMDQwOTNiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91
-dmRfdjdfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMKQEAg
-LTExMzUsNiArMTEzNSwxNiBAQCBzdGF0aWMgdm9pZCB1dmRfdjdfMF9lbmNfcmluZ19lbWl0X2Zl
-bmNlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdTY0IGFkZHIsCiAJYW1kZ3B1X3Jpbmdfd3Jp
-dGUocmluZywgSEVWQ19FTkNfQ01EX1RSQVApOwogfQogCisvKioKKyAqIHV2ZF92N18wX3Jpbmdf
-ZW1pdF9oZHBfZmx1c2ggLSBza2lwIEhEUCBmbHVzaGluZworICoKKyAqIEByaW5nOiBhbWRncHVf
-cmluZyBwb2ludGVyCisgKi8KK3N0YXRpYyB2b2lkIHV2ZF92N18wX3JpbmdfZW1pdF9oZHBfZmx1
-c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQoreworCS8qIFRoZSBmaXJtd2FyZSBkb2Vzbid0
-IHNlZW0gdG8gbGlrZSB0b3VjaGluZyByZWdpc3RlcnMgYXQgdGhpcyBwb2ludC4gKi8KK30KKwog
-LyoqCiAgKiB1dmRfdjdfMF9yaW5nX3Rlc3RfcmluZyAtIHJlZ2lzdGVyIHdyaXRlIHRlc3QKICAq
-CkBAIC0xNjU0LDcgKzE2NjQsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1
-bmNzIHV2ZF92N18wX3Jpbmdfdm1fZnVuY3MgPSB7CiAJLmdldF93cHRyID0gdXZkX3Y3XzBfcmlu
-Z19nZXRfd3B0ciwKIAkuc2V0X3dwdHIgPSB1dmRfdjdfMF9yaW5nX3NldF93cHRyLAogCS5lbWl0
-X2ZyYW1lX3NpemUgPQotCQk2ICsgNiArIC8qIGhkcCBmbHVzaCAvIGludmFsaWRhdGUgKi8KKwkJ
-NiArIC8qIGhkcCBpbnZhbGlkYXRlICovCiAJCVNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcg
-KiA2ICsKIAkJU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fUkVHX1dBSVQgKiA4ICsKIAkJOCArIC8q
-IHV2ZF92N18wX3JpbmdfZW1pdF92bV9mbHVzaCAqLwpAQCAtMTY2Myw2ICsxNjczLDcgQEAgc3Rh
-dGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyB1dmRfdjdfMF9yaW5nX3ZtX2Z1bmNz
-ID0gewogCS5lbWl0X2liID0gdXZkX3Y3XzBfcmluZ19lbWl0X2liLAogCS5lbWl0X2ZlbmNlID0g
-dXZkX3Y3XzBfcmluZ19lbWl0X2ZlbmNlLAogCS5lbWl0X3ZtX2ZsdXNoID0gdXZkX3Y3XzBfcmlu
-Z19lbWl0X3ZtX2ZsdXNoLAorCS5lbWl0X2hkcF9mbHVzaCA9IHV2ZF92N18wX3JpbmdfZW1pdF9o
-ZHBfZmx1c2gsCiAJLnRlc3RfcmluZyA9IHV2ZF92N18wX3JpbmdfdGVzdF9yaW5nLAogCS50ZXN0
-X2liID0gYW1kZ3B1X3V2ZF9yaW5nX3Rlc3RfaWIsCiAJLmluc2VydF9ub3AgPSB1dmRfdjdfMF9y
-aW5nX2luc2VydF9ub3AsCi0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+--===============1059217770==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18096ADF9B084D707CBA502DF79A0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18096ADF9B084D707CBA502DF79A0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+You need to include mullins as well.  It's the same feature set as kabini.
+
+
+Alex
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
+ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, May 7, 2018 7:24 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander
+Cc: Wentland, Harry
+Subject: [PATCH v2] drm/amdgpu: Don't default to DC support for Kaveri and =
+older
+
+We've had a number of users report failures to detect and light up
+display with DC with LVDS and VGA. These connector types are not
+currently supported with DC. I'd like to add support but unfortunately
+don't have a system with LVDS or VGA available.
+
+In order not to cause regressions we should probably fallback to the
+non-DC driver for ASICs that support VGA and LVDS.
+
+These ASICs are:
+ * Bonaire
+ * Kabini
+ * Kaveri
+
+ASIC support can always be force enabled with amdgpu.dc=3D1
+
+v2: Keep Hawaii on DC
+
+Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 887f7c9e84e0..0a23134147b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2141,9 +2141,17 @@ bool amdgpu_device_asic_has_dc_support(enum amd_asic=
+_type asic_type)
+         switch (asic_type) {
+ #if defined(CONFIG_DRM_AMD_DC)
+         case CHIP_BONAIRE:
+-       case CHIP_HAWAII:
+         case CHIP_KAVERI:
+         case CHIP_KABINI:
++               /*
++                * We have systems in the wild with these ASICs that requir=
+e
++                * LVDS and VGA support which is not supported with DC.
++                *
++                * Fallback to the non-DC driver here by default so as not =
+to
++                * cause regressions.
++                */
++               return amdgpu_dc > 0;
++       case CHIP_HAWAII:
+         case CHIP_MULLINS:
+         case CHIP_CARRIZO:
+         case CHIP_STONEY:
+--
+2.17.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18096ADF9B084D707CBA502DF79A0BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">You need to include mullins as we=
+ll.&nbsp; It's the same feature set as kabini.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx-=
+bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.wen=
+tland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, May 7, 2018 7:24 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander<br>
+<b>Cc:</b> Wentland, Harry<br>
+<b>Subject:</b> [PATCH v2] drm/amdgpu: Don't default to DC support for Kave=
+ri and older</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">We've had a number of users report failures to det=
+ect and light up<br>
+display with DC with LVDS and VGA. These connector types are not<br>
+currently supported with DC. I'd like to add support but unfortunately<br>
+don't have a system with LVDS or VGA available.<br>
+<br>
+In order not to cause regressions we should probably fallback to the<br>
+non-DC driver for ASICs that support VGA and LVDS.<br>
+<br>
+These ASICs are:<br>
+&nbsp;* Bonaire<br>
+&nbsp;* Kabini<br>
+&nbsp;* Kaveri<br>
+<br>
+ASIC support can always be force enabled with amdgpu.dc=3D1<br>
+<br>
+v2: Keep Hawaii on DC<br>
+<br>
+Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;-<br>
+&nbsp;1 file changed, 9 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 887f7c9e84e0..0a23134147b7 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -2141,9 &#43;2141,17 @@ bool amdgpu_device_asic_has_dc_support(enum amd_=
+asic_type asic_type)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (asic_type) {<br>
+&nbsp;#if defined(CONFIG_DRM_AMD_DC)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_BONAIRE:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_HAWAII:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_KAVERI:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_KABINI:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /*<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; * We have systems in the wild with these ASICs that re=
+quire<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; * LVDS and VGA support which is not supported with DC.=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; * Fallback to the non-DC driver here by default so as =
+not to<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; * cause regressions.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return amdgpu_dc &gt; 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_HAWAII:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_MULLINS:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_CARRIZO:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_STONEY:<br>
+-- <br>
+2.17.0<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk614702" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB18096ADF9B084D707CBA502DF79A0BN6PR12MB1809namp_--
+
+--===============1059217770==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1059217770==--
