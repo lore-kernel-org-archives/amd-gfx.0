@@ -1,14 +1,11 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogW1BBVENIXSBkcm0vYW1kL3BwOiBJbXBsZW1lbnQgZm9yY2VfY2xv?=
- =?gb2312?Q?ck=5Flevel_for_RV?=
-Date: Tue, 8 May 2018 07:57:25 +0000
-Message-ID: <DM5PR1201MB2489F7F1356E9BCC28E21F91E49A0@DM5PR1201MB2489.namprd12.prod.outlook.com>
-References: <1525760615-4547-1-git-send-email-Rex.Zhu@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: add HDP flush dummy for UVD 6/7
+Date: Tue,  8 May 2018 12:30:06 +0200
+Message-ID: <20180508103006.3626-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0527525777=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1525760615-4547-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,309 +16,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0527525777==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR1201MB2489F7F1356E9BCC28E21F91E49A0DM5PR1201MB2489_"
-
---_000_DM5PR1201MB2489F7F1356E9BCC28E21F91E49A0DM5PR1201MB2489_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fDQq3orz+yMs6IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0Bs
-aXN0cy5mcmVlZGVza3RvcC5vcmc+ILT6se0gUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPg0Kt6LL
-zcqxvOQ6IDIwMTjE6jXUwjjI1SAxNDoyMzozNQ0KytW8/sjLOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0Ks63LzTogWmh1LCBSZXgNCtb3zOI6IFtQQVRDSF0gZHJtL2FtZC9wcDogSW1w
-bGVtZW50IGZvcmNlX2Nsb2NrX2xldmVsIGZvciBSVg0KDQp1bmRlciBtYW51YWwgZHBtIG1vZGUs
-IHVzZXIgY2FuIHNldCBnZngvbWVtIGNsb2NrDQp0aHJvdWdoIHN5c2ZzIHBwX2RwbV9zY2xrL21j
-bGsgb24gUnYuDQoNClNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4NCi0t
-LQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdyLmMgfCA0
-NyArKysrKysrKysrKysrKysrKysrKysrLQ0KIDEgZmlsZSBjaGFuZ2VkLCA0NiBpbnNlcnRpb25z
-KCspLCAxIGRlbGV0aW9uKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9zbXUxMF9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaHdtZ3Ivc211MTBfaHdtZ3IuYw0KaW5kZXggNjhlNzgyNTYuLjIxNTJjZjQgMTAwNjQ0DQot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXUxMF9od21nci5jDQor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXUxMF9od21nci5jDQpA
-QCAtNDA0LDcgKzQwNCw3IEBAIHN0YXRpYyBpbnQgc211MTBfcG9wdWxhdGVfY2xvY2tfdGFibGUo
-c3RydWN0IHBwX2h3bWdyICpod21ncikNCiAgICAgICAgICAgICAgICAgICAgICAgICAiQXR0ZW1w
-dCB0byBjb3B5IGNsb2NrIHRhYmxlIGZyb20gc21jIGZhaWxlZCIsDQogICAgICAgICAgICAgICAg
-ICAgICAgICAgcmV0dXJuIHJlc3VsdCk7DQoNCi0gICAgICAgaWYgKDAgPT0gcmVzdWx0ICYmIHRh
-YmxlLT5EY2VmQ2xvY2tzWzBdLkZyZXEgIT0gMCkgew0KKyAgICAgICBpZiAodGFibGUtPkRjZWZD
-bG9ja3NbMF0uRnJlcSAhPSAwKSB7DQogICAgICAgICAgICAgICAgIHNtdTEwX2dldF9jbG9ja192
-b2x0YWdlX2RlcGVuZGVuY3lfdGFibGUoaHdtZ3IsICZwaW5mby0+dmRkX2RlcF9vbl9kY2VmY2xr
-LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5VTV9E
-Q0VGQ0xLX0RQTV9MRVZFTFMsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgJnNtdTEwX2RhdGEtPmNsb2NrX3RhYmxlLkRjZWZDbG9ja3NbMF0pOw0KQEAg
-LTc3NSw2ICs3NzUsNTEgQEAgc3RhdGljIGludCBzbXUxMF9nZXRfZGFsX3Bvd2VyX2xldmVsKHN0
-cnVjdCBwcF9od21nciAqaHdtZ3IsDQogc3RhdGljIGludCBzbXUxMF9mb3JjZV9jbG9ja19sZXZl
-bChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLA0KICAgICAgICAgICAgICAgICBlbnVtIHBwX2Nsb2Nr
-X3R5cGUgdHlwZSwgdWludDMyX3QgbWFzaykNCiB7DQorICAgICAgIHN0cnVjdCBzbXUxMF9od21n
-ciAqZGF0YSA9IGh3bWdyLT5iYWNrZW5kOw0KKyAgICAgICBzdHJ1Y3Qgc211MTBfdm9sdGFnZV9k
-ZXBlbmRlbmN5X3RhYmxlICptY2xrX3RhYmxlID0NCisgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBkYXRhLT5jbG9ja192b2xfaW5mby52ZGRfZGVwX29uX2ZjbGs7DQorICAg
-ICAgIHVpbnQzMl90IGxvdywgaGlnaDsNCisNCisgICAgICAgbG93ID0gbWFzayA/IChmZnMobWFz
-aykgLSAxKSA6IDA7DQorICAgICAgIGhpZ2ggPSBtYXNrID8gKGZscyhtYXNrKSAtIDEpIDogMDsN
-CisNCisgICAgICAgc3dpdGNoICh0eXBlKSB7DQorICAgICAgIGNhc2UgUFBfU0NMSzoNCisgICAg
-ICAgICAgICAgICBpZiAobG93ID4gMiB8fCBoaWdoID4gMikgew0KKyAgICAgICAgICAgICAgICAg
-ICAgICAgcHJfaW5mbygiQ3VycmVudGx5IHNjbGsgb25seSBzdXBwb3J0IDMgbGV2ZWxzIG9uIFJW
-XG4iKTsNCisgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KKyAgICAgICAg
-ICAgICAgIH0NCisNCisgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3Bh
-cmFtZXRlcihod21nciwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFBQU01DX01TR19TZXRIYXJkTWluR2Z4Q2xrLA0KKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgbG93ID09IDIgPyBkYXRhLT5nZnhfbWF4X2ZyZXFf
-bGltaXQvMTAwIDoNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGxvdyA9PSAxID8gU01VMTBfVU1EX1BTVEFURV9HRlhDTEsgOg0KKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YS0+Z2Z4X21pbl9mcmVxX2xpbWl0
-LzEwMCk7DQorDQorICAgICAgICAgICAgICAgc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJh
-bWV0ZXIoaHdtZ3IsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBQUFNNQ19NU0dfU2V0U29mdE1heEdmeENsaywNCisgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGhpZ2ggPT0gMCA/IGRhdGEtPmdmeF9taW5fZnJlcV9s
-aW1pdC8xMDAgOg0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgaGlnaCA9PSAxID8gU01VMTBfVU1EX1BTVEFURV9HRlhDTEsgOg0KKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YS0+Z2Z4X21heF9mcmVxX2xpbWl0
-LzEwMCk7DQorICAgICAgICAgICAgICAgYnJlYWs7DQorDQorICAgICAgIGNhc2UgUFBfTUNMSzoN
-CisgICAgICAgICAgICAgICBpZiAobG93ID4gbWNsa190YWJsZS0+Y291bnQgLSAxIHx8IGhpZ2gg
-PiBtY2xrX3RhYmxlLT5jb3VudCAtIDEpDQorICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
-LUVJTlZBTDsNCisNCisgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3Bh
-cmFtZXRlcihod21nciwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFBQU01DX01TR19TZXRIYXJkTWluRmNsa0J5RnJlcSwNCisgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1jbGtfdGFibGUtPmVudHJpZXNbbG93XS5j
-bGsvMTAwKTsNCisNCisgICAgICAgICAgICAgICBzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3Bh
-cmFtZXRlcihod21nciwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFBQU01DX01TR19TZXRTb2Z0TWF4RmNsa0J5RnJlcSwNCisgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1jbGtfdGFibGUtPmVudHJpZXNbaGlnaF0u
-Y2xrLzEwMCk7DQorICAgICAgICAgICAgICAgYnJlYWs7DQorDQorICAgICAgIGNhc2UgUFBfUENJ
-RToNCisgICAgICAgZGVmYXVsdDoNCisgICAgICAgICAgICAgICBicmVhazsNCisgICAgICAgfQ0K
-ICAgICAgICAgcmV0dXJuIDA7DQogfQ0KDQotLQ0KMS45LjENCg0KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo=
-
---_000_DM5PR1201MB2489F7F1356E9BCC28E21F91E49A0DM5PR1201MB2489_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><span>Reviewed-by: Evan Quan &lt;=
-evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>=B7=A2=BC=FE=C8=CB:</b> amd-gfx=
- &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; =B4=FA=B1=ED Rex Zhu &lt;Rex=
-.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2018=C4=EA5=D4=C28=C8=D5 14:23:35<br>
-<b>=CA=D5=BC=FE=C8=CB:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>=B3=AD=CB=CD:</b> Zhu, Rex<br>
-<b>=D6=F7=CC=E2:</b> [PATCH] drm/amd/pp: Implement force_clock_level for RV=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">under manual dpm mode, user can set gfx/mem clock<=
-br>
-through sysfs pp_dpm_sclk/mclk on Rv.<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 47 &#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;-<br>
-&nbsp;1 file changed, 46 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
-u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
-index 68e78256..2152cf4 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
-@@ -404,7 &#43;404,7 @@ static int smu10_populate_clock_table(struct pp_hwm=
-gr *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
-;Attempt to copy clock table from smc failed&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n result);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (0 =3D=3D result &amp;&amp; table-=
-&gt;DcefClocks[0].Freq !=3D 0) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (table-&gt;DcefClocks[0].Freq =
-!=3D 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu10_get_clock_voltage_dependency_table(hwmgr, &amp;=
-pinfo-&gt;vdd_dep_on_dcefclk,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NUM_DCEFCLK=
-_DPM_LEVELS,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;smu10_=
-data-&gt;clock_table.DcefClocks[0]);<br>
-@@ -775,6 &#43;775,51 @@ static int smu10_get_dal_power_level(struct pp_hwm=
-gr *hwmgr,<br>
-&nbsp;static int smu10_force_clock_level(struct pp_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; enum pp_clock_type type, uint32_t mask)<br>
-&nbsp;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *data =3D hwmg=
-r-&gt;backend;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_voltage_dependency_t=
-able *mclk_table =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; data-&gt;clock_vol_info.vdd_dep_on_fclk;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t low, high;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low =3D mask ? (ffs(mask) - 1) : =
-0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; high =3D mask ? (fls(mask) - 1) :=
- 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SCLK:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (low &gt; 2 || high &gt; 2) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_info(&quo=
-t;Currently sclk only support 3 levels on RV\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINV=
-AL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_SetHardM=
-inGfxClk,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low =3D=3D 2 ? dat=
-a-&gt;gfx_max_freq_limit/100 :<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low =3D=3D 1 ? SMU=
-10_UMD_PSTATE_GFXCLK :<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;gfx_min_f=
-req_limit/100);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_SetSoftM=
-axGfxClk,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; high =3D=3D 0 ? da=
-ta-&gt;gfx_min_freq_limit/100 :<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; high =3D=3D 1 ? SM=
-U10_UMD_PSTATE_GFXCLK :<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;gfx_max_f=
-req_limit/100);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_MCLK:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (low &gt; mclk_table-&gt;count - 1 || high &gt; mclk_tabl=
-e-&gt;count - 1)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINV=
-AL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_SetHardM=
-inFclkByFreq,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mclk_table-&gt;ent=
-ries[low].clk/100);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_SetSoftM=
-axFclkByFreq,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mclk_table-&gt;ent=
-ries[high].clk/100);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_PCIE:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM5PR1201MB2489F7F1356E9BCC28E21F91E49A0DM5PR1201MB2489_--
-
---===============0527525777==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0527525777==--
+VGhlIFVWRCBmaXJtd2FyZSBkb2Vzbid0IHNlZW0gdG8gbGlrZSB0aGUgSERQIGZsdXNoIGhlcmUu
+CgpUaGlzIHdvcmtlZCBmb3IgeWVhcnMgd2l0aG91dCBIRFAgZmx1c2gsIHNvIGp1c3Qgc2tpcCBp
+dC4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5jIHwgMTYgKysr
+KysrKysrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYyB8IDEz
+ICsrKysrKysrKysrKy0KIDIgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMyBkZWxl
+dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZf
+MC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y2XzAuYwppbmRleCA2ZDMzNTk4
+ODljMGIuLjgwNDFiMjZhN2EyMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdXZkX3Y2XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5j
+CkBAIC05NjMsNiArOTYzLDE2IEBAIHN0YXRpYyB2b2lkIHV2ZF92Nl8wX2VuY19yaW5nX2VtaXRf
+ZmVuY2Uoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1NjQgYWRkciwKIAlhbWRncHVfcmluZ193
+cml0ZShyaW5nLCBIRVZDX0VOQ19DTURfVFJBUCk7CiB9CiAKKy8qKgorICogdXZkX3Y2XzBfcmlu
+Z19lbWl0X2hkcF9mbHVzaCAtIHNraXAgSERQIGZsdXNoaW5nCisgKgorICogQHJpbmc6IGFtZGdw
+dV9yaW5nIHBvaW50ZXIKKyAqLworc3RhdGljIHZvaWQgdXZkX3Y2XzBfcmluZ19lbWl0X2hkcF9m
+bHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCit7CisJLyogVGhlIGZpcm13YXJlIGRvZXNu
+J3Qgc2VlbSB0byBsaWtlIHRvdWNoaW5nIHJlZ2lzdGVycyBhdCB0aGlzIHBvaW50LiAqLworfQor
+CiAvKioKICAqIHV2ZF92Nl8wX3JpbmdfdGVzdF9yaW5nIC0gcmVnaXN0ZXIgd3JpdGUgdGVzdAog
+ICoKQEAgLTE1MjgsMTIgKzE1MzgsMTMgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmlu
+Z19mdW5jcyB1dmRfdjZfMF9yaW5nX3BoeXNfZnVuY3MgPSB7CiAJLnNldF93cHRyID0gdXZkX3Y2
+XzBfcmluZ19zZXRfd3B0ciwKIAkucGFyc2VfY3MgPSBhbWRncHVfdXZkX3JpbmdfcGFyc2VfY3Ms
+CiAJLmVtaXRfZnJhbWVfc2l6ZSA9Ci0JCTYgKyA2ICsgLyogaGRwIGZsdXNoIC8gaW52YWxpZGF0
+ZSAqLworCQk2ICsgLyogaGRwIGludmFsaWRhdGUgKi8KIAkJMTAgKyAvKiB1dmRfdjZfMF9yaW5n
+X2VtaXRfcGlwZWxpbmVfc3luYyAqLwogCQkxNCwgLyogdXZkX3Y2XzBfcmluZ19lbWl0X2ZlbmNl
+IHgxIG5vIHVzZXIgZmVuY2UgKi8KIAkuZW1pdF9pYl9zaXplID0gOCwgLyogdXZkX3Y2XzBfcmlu
+Z19lbWl0X2liICovCiAJLmVtaXRfaWIgPSB1dmRfdjZfMF9yaW5nX2VtaXRfaWIsCiAJLmVtaXRf
+ZmVuY2UgPSB1dmRfdjZfMF9yaW5nX2VtaXRfZmVuY2UsCisJLmVtaXRfaGRwX2ZsdXNoID0gdXZk
+X3Y2XzBfcmluZ19lbWl0X2hkcF9mbHVzaCwKIAkudGVzdF9yaW5nID0gdXZkX3Y2XzBfcmluZ190
+ZXN0X3JpbmcsCiAJLnRlc3RfaWIgPSBhbWRncHVfdXZkX3JpbmdfdGVzdF9pYiwKIAkuaW5zZXJ0
+X25vcCA9IGFtZGdwdV9yaW5nX2luc2VydF9ub3AsCkBAIC0xNTUyLDcgKzE1NjMsNyBAQCBzdGF0
+aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIHV2ZF92Nl8wX3Jpbmdfdm1fZnVuY3Mg
+PSB7CiAJLmdldF93cHRyID0gdXZkX3Y2XzBfcmluZ19nZXRfd3B0ciwKIAkuc2V0X3dwdHIgPSB1
+dmRfdjZfMF9yaW5nX3NldF93cHRyLAogCS5lbWl0X2ZyYW1lX3NpemUgPQotCQk2ICsgNiArIC8q
+IGhkcCBmbHVzaCAvIGludmFsaWRhdGUgKi8KKwkJNiArIC8qIGhkcCBpbnZhbGlkYXRlICovCiAJ
+CTEwICsgLyogdXZkX3Y2XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMgKi8KIAkJVklfRkxVU0hf
+R1BVX1RMQl9OVU1fV1JFRyAqIDYgKyA4ICsgLyogdXZkX3Y2XzBfcmluZ19lbWl0X3ZtX2ZsdXNo
+ICovCiAJCTE0ICsgMTQsIC8qIHV2ZF92Nl8wX3JpbmdfZW1pdF9mZW5jZSB4MiB2bSBmZW5jZSAq
+LwpAQCAtMTU2MSw2ICsxNTcyLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19m
+dW5jcyB1dmRfdjZfMF9yaW5nX3ZtX2Z1bmNzID0gewogCS5lbWl0X2ZlbmNlID0gdXZkX3Y2XzBf
+cmluZ19lbWl0X2ZlbmNlLAogCS5lbWl0X3ZtX2ZsdXNoID0gdXZkX3Y2XzBfcmluZ19lbWl0X3Zt
+X2ZsdXNoLAogCS5lbWl0X3BpcGVsaW5lX3N5bmMgPSB1dmRfdjZfMF9yaW5nX2VtaXRfcGlwZWxp
+bmVfc3luYywKKwkuZW1pdF9oZHBfZmx1c2ggPSB1dmRfdjZfMF9yaW5nX2VtaXRfaGRwX2ZsdXNo
+LAogCS50ZXN0X3JpbmcgPSB1dmRfdjZfMF9yaW5nX3Rlc3RfcmluZywKIAkudGVzdF9pYiA9IGFt
+ZGdwdV91dmRfcmluZ190ZXN0X2liLAogCS5pbnNlcnRfbm9wID0gYW1kZ3B1X3JpbmdfaW5zZXJ0
+X25vcCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jCmluZGV4IDIyNTFkYjQwNDhm
+NS4uYjBkZTFlMDQwOTNiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91
+dmRfdjdfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMKQEAg
+LTExMzUsNiArMTEzNSwxNiBAQCBzdGF0aWMgdm9pZCB1dmRfdjdfMF9lbmNfcmluZ19lbWl0X2Zl
+bmNlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdTY0IGFkZHIsCiAJYW1kZ3B1X3Jpbmdfd3Jp
+dGUocmluZywgSEVWQ19FTkNfQ01EX1RSQVApOwogfQogCisvKioKKyAqIHV2ZF92N18wX3Jpbmdf
+ZW1pdF9oZHBfZmx1c2ggLSBza2lwIEhEUCBmbHVzaGluZworICoKKyAqIEByaW5nOiBhbWRncHVf
+cmluZyBwb2ludGVyCisgKi8KK3N0YXRpYyB2b2lkIHV2ZF92N18wX3JpbmdfZW1pdF9oZHBfZmx1
+c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQoreworCS8qIFRoZSBmaXJtd2FyZSBkb2Vzbid0
+IHNlZW0gdG8gbGlrZSB0b3VjaGluZyByZWdpc3RlcnMgYXQgdGhpcyBwb2ludC4gKi8KK30KKwog
+LyoqCiAgKiB1dmRfdjdfMF9yaW5nX3Rlc3RfcmluZyAtIHJlZ2lzdGVyIHdyaXRlIHRlc3QKICAq
+CkBAIC0xNjU0LDcgKzE2NjQsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1
+bmNzIHV2ZF92N18wX3Jpbmdfdm1fZnVuY3MgPSB7CiAJLmdldF93cHRyID0gdXZkX3Y3XzBfcmlu
+Z19nZXRfd3B0ciwKIAkuc2V0X3dwdHIgPSB1dmRfdjdfMF9yaW5nX3NldF93cHRyLAogCS5lbWl0
+X2ZyYW1lX3NpemUgPQotCQk2ICsgNiArIC8qIGhkcCBmbHVzaCAvIGludmFsaWRhdGUgKi8KKwkJ
+NiArIC8qIGhkcCBpbnZhbGlkYXRlICovCiAJCVNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcg
+KiA2ICsKIAkJU09DMTVfRkxVU0hfR1BVX1RMQl9OVU1fUkVHX1dBSVQgKiA4ICsKIAkJOCArIC8q
+IHV2ZF92N18wX3JpbmdfZW1pdF92bV9mbHVzaCAqLwpAQCAtMTY2Myw2ICsxNjczLDcgQEAgc3Rh
+dGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyB1dmRfdjdfMF9yaW5nX3ZtX2Z1bmNz
+ID0gewogCS5lbWl0X2liID0gdXZkX3Y3XzBfcmluZ19lbWl0X2liLAogCS5lbWl0X2ZlbmNlID0g
+dXZkX3Y3XzBfcmluZ19lbWl0X2ZlbmNlLAogCS5lbWl0X3ZtX2ZsdXNoID0gdXZkX3Y3XzBfcmlu
+Z19lbWl0X3ZtX2ZsdXNoLAorCS5lbWl0X2hkcF9mbHVzaCA9IHV2ZF92N18wX3JpbmdfZW1pdF9o
+ZHBfZmx1c2gsCiAJLnRlc3RfcmluZyA9IHV2ZF92N18wX3JpbmdfdGVzdF9yaW5nLAogCS50ZXN0
+X2liID0gYW1kZ3B1X3V2ZF9yaW5nX3Rlc3RfaWIsCiAJLmluc2VydF9ub3AgPSB1dmRfdjdfMF9y
+aW5nX2luc2VydF9ub3AsCi0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
