@@ -1,9 +1,10 @@
-From: Dawson Dias <thexerothermicsclerodermoid+freedesktop-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Cannot compile with GCC 8.1
-Date: Thu, 10 May 2018 22:27:12 +0530
-Message-ID: <CAFuwKQNiqL_aM=ZTXafej92nJVq1c9uXSd+h=9E24=J8U=041g@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/gmc9: remove unused register defs
+Date: Thu, 10 May 2018 15:21:14 -0500
+Message-ID: <20180510202114.780-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0596429096=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -16,127 +17,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Kent.Russel-5C7GfCeVMHo@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============0596429096==
-Content-Type: multipart/alternative; boundary="0000000000006d0412056bdcea81"
-
---0000000000006d0412056bdcea81
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Wow they're just going to defer it untill GCC 9. So the kernel will be
-unbuildable using GCC 8.x.
-Pity.
-
-On Thu, May 10, 2018 at 5:25 PM, Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org> wrote=
-:
-
-> It=E2=80=99s a bug in GCC, see https://gcc.gnu.org/bugzilla/show_bug.cgi?=
-id=3D84919
->
->
->
-> Kent
->
->
->
-> *From:* amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] *On Behalf
-> Of *Dawson Dias
-> *Sent:* Wednesday, May 09, 2018 8:51 PM
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* Cannot compile with GCC 8.1
->
->
->
-> Here's a log of the output while trying to compile the kernel with GCC 8.=
-1
->
->
->
-> -Dawson Dias
->
-
---0000000000006d0412056bdcea81
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Wow they&#39;re just going to defer it untill GCC 9. =
-So the kernel will be unbuildable using GCC 8.x.</div><div>Pity.<br></div><=
-div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, May 1=
-0, 2018 at 5:25 PM, Russell, Kent <span dir=3D"ltr">&lt;<a href=3D"mailto:K=
-ent.Russell-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Kent.Russell-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> =
-wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">
-
-
-
-
-
-<div link=3D"blue" vlink=3D"purple" lang=3D"EN-US">
-<div class=3D"m_6905283053502227868m_-6814819183225716528WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1f497d">It=E2=80=99s a bug in GCC=
-, see
-<a href=3D"https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D84919" target=3D"=
-_blank">https://gcc.gnu.org/bugzilla/s<wbr>how_bug.cgi?id=3D84919</a><u></u=
-><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
-n></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Kent<u></u><u></u></span>=
-</p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
-n></p>
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
-[mailto:<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"=
-_blank">amd-gfx-bounces@lists.<wbr>freedesktop.org</a>]
-<b>On Behalf Of </b>Dawson Dias<br>
-<b>Sent:</b> Wednesday, May 09, 2018 8:51 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
-k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Cannot compile with GCC 8.1<u></u><u></u></span></p><span>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">Here&#39;s a log of the output while trying to compi=
-le the kernel with GCC 8.1<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<div>
-<div>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Arial&quot;,&quot;s=
-ans-serif&quot;">-Dawson Dias</span><u></u><u></u></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</span></div>
-</div>
-
-</blockquote></div><br></div></div></div>
-
---0000000000006d0412056bdcea81--
-
---===============0596429096==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0596429096==--
+VGhlc2UgZ290IG1vdmVkIHRvIHRoZSBuZXcgZGYgbW9kdWxlIHNvIG5vIGxvbmdlcgp1c2VkIGlu
+IHRoaXMgZmlsZS4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwg
+MTQgLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNCBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwppbmRleCA2YzlmN2Y5OTk1MzIuLjZjY2NmMGUw
+YWNkNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCkBAIC00MywyMCArNDMs
+NiBAQAogI2luY2x1ZGUgImdmeGh1Yl92MV8wLmgiCiAjaW5jbHVkZSAibW1odWJfdjFfMC5oIgog
+Ci0jZGVmaW5lIG1tREZfQ1NfQU9OMF9EcmFtQmFzZUFkZHJlc3MwICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDQ0Ci0j
+ZGVmaW5lIG1tREZfQ1NfQU9OMF9EcmFtQmFzZUFkZHJlc3MwX0JBU0VfSURYICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMAotLy9ERl9DU19B
+T04wX0RyYW1CYXNlQWRkcmVzczAKLSNkZWZpbmUgREZfQ1NfQU9OMF9EcmFtQmFzZUFkZHJlc3Mw
+X19BZGRyUm5nVmFsX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgMHgwCi0jZGVmaW5lIERGX0NTX0FPTjBfRHJhbUJhc2VBZGRyZXNz
+MF9fTGdjeU1taW9Ib2xlRW5fX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDB4MQotI2RlZmluZSBERl9DU19BT04wX0RyYW1CYXNlQWRkcmVz
+czBfX0ludEx2TnVtQ2hhbl9fU0hJRlQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDQKLSNkZWZpbmUgREZfQ1NfQU9OMF9EcmFtQmFzZUFkZHJl
+c3MwX19JbnRMdkFkZHJTZWxfX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHg4Ci0jZGVmaW5lIERGX0NTX0FPTjBfRHJhbUJhc2VBZGRy
+ZXNzMF9fRHJhbUJhc2VBZGRyX19TSElGVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDB4YwotI2RlZmluZSBERl9DU19BT04wX0RyYW1CYXNlQWRk
+cmVzczBfX0FkZHJSbmdWYWxfTUFTSyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDAxTAotI2RlZmluZSBERl9DU19BT04wX0Ry
+YW1CYXNlQWRkcmVzczBfX0xnY3lNbWlvSG9sZUVuX01BU0sgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDAyTAotI2RlZmluZSBERl9D
+U19BT04wX0RyYW1CYXNlQWRkcmVzczBfX0ludEx2TnVtQ2hhbl9NQVNLICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMEYwTAotI2Rl
+ZmluZSBERl9DU19BT04wX0RyYW1CYXNlQWRkcmVzczBfX0ludEx2QWRkclNlbF9NQVNLICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAw
+NzAwTAotI2RlZmluZSBERl9DU19BT04wX0RyYW1CYXNlQWRkcmVzczBfX0RyYW1CYXNlQWRkcl9N
+QVNLICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAweEZGRkZGMDAwTAotCiAvKiBhZGQgdGhlc2UgaGVyZSBzaW5jZSB3ZSBhbHJlYWR5IGluY2x1
+ZGUgZGNlMTIgaGVhZGVycyBhbmQgdGhlc2UgYXJlIGZvciBEQ04gKi8KICNkZWZpbmUgbW1IVUJQ
+MF9EQ1NVUkZfUFJJX1ZJRVdQT1JUX0RJTUVOU0lPTiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDA1NWQKICNkZWZpbmUgbW1IVUJQMF9E
+Q1NVUkZfUFJJX1ZJRVdQT1JUX0RJTUVOU0lPTl9CQVNFX0lEWCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAyCi0tIAoyLjEzLjYKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
