@@ -1,13 +1,17 @@
-From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 00/21] GFXv9/Vega10 support for KFD
-Date: Fri, 11 May 2018 23:08:09 +0300
-Message-ID: <CAFCwf10z9-24Uizvxt0fAhLPViUijcTyEYLoT4f66RYJJgQaiA@mail.gmail.com>
-References: <1523395998-31314-1-git-send-email-Felix.Kuehling@amd.com>
+From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
+Subject: Re: [PATCH v2 2/4] drm/vc4: Take underscan setup into account when
+ updating planes
+Date: Fri, 11 May 2018 13:11:24 -0700
+Message-ID: <87mux6q7f7.fsf@anholt.net>
+References: <20180511145919.22447-1-boris.brezillon@bootlin.com>
+ <20180511145919.22447-3-boris.brezillon@bootlin.com>
+ <20180511153450.GS23723@intel.com> <20180511175256.53a3966a@bbrezillon>
+ <20180511165402.GU23723@intel.com> <20180511191221.185f9e94@bbrezillon>
+ <20180511172948.GV23723@intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1213300805=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1523395998-31314-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180511172948.GV23723-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,93 +22,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Boris Brezillon <boris.brezillon-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-T24gV2VkLCBBcHIgMTEsIDIwMTggYXQgMTI6MzIgQU0sIEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5L
-dWVobGluZ0BhbWQuY29tPiB3cm90ZToKPiBUaGlzIHBhdGNoIHNlcmllcyBhZGRzIHN1cHBvcnQg
-Zm9yIEdGWHY5IEdQVXMgdG8gS0ZELiBJbiB0aGlzIHNlcmllcyBpdAo+IGVuYWJsZXMgc3VwcG9y
-dCBmb3IgVmVnYTEwLiBSYXZlbiBzdXBwb3J0IHJlcXVpcmVzIHNvbWUgZXh0cmEgd29yayB0aGF0
-Cj4gd2lsbCBmb2xsb3cgc2hvcnRseSwgYnV0IFJhdmVuIHN1cHBvcnQgaXMgYWxyZWFkeSBpbmNs
-dWRlZCBhbmQgSSBkaWRuJ3QKPiBnbyBvdXQgb2YgbXkgd2F5IHRvIGtlZXAgaXQgb3V0Lgo+Cj4g
-RmVsaXggS3VlaGxpbmcgKDE5KToKPiAgIGRybS9hbWRncHU6IFJlbW92ZSB1bnVzZWQgaW50ZXJm
-YWNlIGZyb20ga2ZkMmtnZCBpbnRlcmZhY2UKPiAgIGRybS9hbWQ6IFVwZGF0ZSBHRlh2OSBTRE1B
-IE1RRCBzdHJ1Y3R1cmUKPiAgIGRybS9hbWRncHU6IEFkZCBHRlh2OSBUTEIgaW52YWxpZGF0aW9u
-IHBhY2tldCBkZWZpbml0aW9uCj4gICBkcm0vYW1kZ3B1OiBBZGQgR0ZYdjkga2ZkMmtnZCBpbnRl
-cmZhY2UgZnVuY3Rpb25zCj4gICBkcm0vYW1kZ3B1OiBBZGQgZG9vcmJlbGwgcm91dGluZyBpbmZv
-IHRvIGtnZDJrZmRfc2hhcmVkX3Jlc291cmNlcwo+ICAgZHJtL2FtZGtmZDogTWFrZSBkb29yYmVs
-bCBzaXplIEFTSUMtZGVwZW5kZW50Cj4gICBkcm0vYW1ka2ZkOiBJbXBsZW1lbnQgZG9vcmJlbGwg
-YWxsb2NhdGlvbiBmb3IgU09DMTUKPiAgIGRybS9hbWRrZmQ6IE1vdmUgcGFja2V0IHdyaXRlciBm
-dW5jdGlvbnMgaW50byBBU0lDLXNwZWNpZmljIGZpbGUKPiAgIGRybS9hbWRrZmQ6IEFkZCBHRlh2
-OSBQTTQgcGFja2V0IHdyaXRlciBmdW5jdGlvbnMKPiAgIGRybS9hbWRrZmQ6IEFkZCBHRlh2OSBN
-UUQgbWFuYWdlcgo+ICAgZHJtL2FtZGtmZDogQWRkIEdGWHY5IGRldmljZSBxdWV1ZSBtYW5hZ2Vy
-Cj4gICBkcm0vYW1ka2ZkOiBBZGQgU09DMTUgaW50ZXJydXB0IHByb2Nlc3Npbmcgc3VwcG9ydAo+
-ICAgZHJtL2FtZGtmZDogRml4IGdvdG8gdXNhZ2UKPiAgIGRybS9hbWRrZmQ6IEZpeCBrZXJuZWwg
-cXVldWUgcm9sbGJhY2tfcGFja2V0Cj4gICBkcm0vYW1ka2ZkOiBBZGQgNjQtYml0IGRvb3JiZWxs
-IGFuZCB3cHRyIHN1cHBvcnQgdG8ga2VybmVsIHF1ZXVlCj4gICBkcm0vYW1ka2ZkOiBSZW1vdmUg
-bGltaXQgb24gbnVtYmVyIG9mIEdQVXMgKGZvbGxvdy11cCkKPiAgIGRybS9hbWRrZmQ6IFN1cHBv
-cnQgZmxhdCBtZW1vcnkgYXBlcnR1cmVzIGZvciBHRlh2OQo+ICAgZHJtL2FtZGtmZDogQWRkIEdG
-WHY5IENXU1IgdHJhcCBoYW5kbGVyCj4gICBkcm0vYW1ka2ZkOiBBZGQgVmVnYTEwIHRvcG9sb2d5
-IGFuZCBkZXZpY2UgaW5mbwo+Cj4gSGFyaXNoIEthc2l2aXN3YW5hdGhhbiAoMSk6Cj4gICBkcm0v
-YW1ka2ZkOiBDbGVhbiB1cCBLRkRfTU1BUF8gb2Zmc2V0IGhhbmRsaW5nCj4KPiB3ZWx1ICgxKToK
-PiAgIGRybS9hbWRrZmQ6IFRyeSB0byBlbmFibGUgYXRvbWljcyBmb3IgYWxsIEdQVXMKPgo+ICBN
-QUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDIg
-Kwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAgICAgICAgICAgICAgICB8
-ICAgIDMgKy0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jICAg
-ICAgICAgfCAgIDI2ICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
-ZC5oICAgICAgICAgfCAgICAxICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2FtZGtmZF9nZnhfdjcuYyAgfCAgIDEwIC0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2FtZGtmZF9nZnhfdjguYyAgfCAgIDEwIC0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjkuYyAgfCAxMDQzICsrKysrKysrKysrKysrCj4gIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgICAgICAgICAgICAgIHwgICAgMSAr
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1ZC5oICAgICAgICAgICAgICAgIHwg
-ICAgNSArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL01ha2VmaWxlICAgICAgICAgICAg
-ICAgIHwgICAxMCArLQo+ICAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2N3c3JfdHJhcF9oYW5kbGVy
-X2dmeDkuYXNtICB8IDE0OTUgKysrKysrKysrKysrKysrKysrKysKPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyAgICAgICAgICAgfCAgIDQyICstCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMgICAgICAgICAgICAgIHwgICAxMSArCj4gIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyAgICAgICAgICAgIHwgICA4OSAr
-LQo+ICAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jICB8
-ICAxMDIgKy0KPiAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFn
-ZXIuaCAgfCAgICAyICsKPiAgLi4uL2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFu
-YWdlcl92OS5jICAgfCAgIDg0ICsrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9k
-b29yYmVsbC5jICAgICAgICAgIHwgICA2NSArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9rZmRfZXZlbnRzLmMgICAgICAgICAgICB8ICAgIDIgKy0KPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX2ZsYXRfbWVtb3J5LmMgICAgICAgfCAgMTE5ICstCj4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9pbnRfcHJvY2Vzc192OS5jICAgIHwgICA4NCArKwo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlLmMgICAgICB8ICAgMzkgKy0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2tlcm5lbF9xdWV1ZS5oICAgICAgfCAg
-ICA3ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVldWVfY2lr
-LmMgIHwgICAgOSArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9rZXJuZWxfcXVl
-dWVfdjkuYyAgIHwgIDM0MCArKysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-a2VybmVsX3F1ZXVlX3ZpLmMgICB8ICAzMTkgKysrKysKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX21vZHVsZS5jICAgICAgICAgICAgfCAgICA1ICsKPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyLmMgICAgICAgfCAgICAzICsKPiAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3Y5LmMgICAgfCAgNDQzICsrKysrKwo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcGFja2V0X21hbmFnZXIuYyAgICB8ICAz
-ODUgKy0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3BtNF9oZWFkZXJzX2Fp
-LmggICAgfCAgNTgzICsrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9w
-cml2LmggICAgICAgICAgICAgIHwgIDEwNiArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9rZmRfcHJvY2Vzcy5jICAgICAgICAgICB8ICAgNDAgKy0KPiAgLi4uL2dwdS9kcm0vYW1kL2Ft
-ZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMgfCAgIDEyICstCj4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jICAgICAgICAgIHwgICAgNiArCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5oICAgICAgICAgIHwgICAgMSArCj4g
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL3NvYzE1X2ludC5oICAgICAgICAgICAgIHwgICA0
-NyArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2ludGVyZmFjZS5oICAg
-IHwgICAyMCArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvdjlfc3RydWN0cy5oICAg
-ICAgICAgICB8ICAgNDggKy0KPiAgMzkgZmlsZXMgY2hhbmdlZCwgNTExOCBpbnNlcnRpb25zKCsp
-LCA1MDEgZGVsZXRpb25zKC0pCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5jCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9jd3NyX3RyYXBfaGFuZGxlcl9nZng5LmFzbQo+ICBj
-cmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9x
-dWV1ZV9tYW5hZ2VyX3Y5LmMKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL2tmZF9pbnRfcHJvY2Vzc192OS5jCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVlX3Y5LmMKPiAgY3JlYXRlIG1v
-ZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92OS5j
-Cj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcG00
-X2hlYWRlcnNfYWkuaAo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQvc29jMTVfaW50LmgKPgo+IC0tCj4gMi43LjQKPgoKU2VyaWVzIGlzOgpSZXZpZXdlZC1i
-eTogT2RlZCBHYWJiYXkgPG9kZWQuZ2FiYmF5QGdtYWlsLmNvbT4KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1213300805==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> writes:
+
+> On Fri, May 11, 2018 at 07:12:21PM +0200, Boris Brezillon wrote:
+>> On Fri, 11 May 2018 19:54:02 +0300
+>> Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> wrote:
+>>=20
+>> > On Fri, May 11, 2018 at 05:52:56PM +0200, Boris Brezillon wrote:
+>> > > On Fri, 11 May 2018 18:34:50 +0300
+>> > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> wrote:
+>> > >=20=20=20
+>> > > > On Fri, May 11, 2018 at 04:59:17PM +0200, Boris Brezillon wrote:=
+=20=20
+>> > > > > Applying an underscan setup is just a matter of scaling all plan=
+es
+>> > > > > appropriately and adjusting the CRTC X/Y offset to account for t=
+he
+>> > > > > horizontal and vertical border.
+>> > > > >=20
+>> > > > > Create an vc4_plane_underscan_adj() function doing that and call=
+ it from
+>> > > > > vc4_plane_setup_clipping_and_scaling() so that we are ready to a=
+ttach
+>> > > > > underscan properties to the HDMI connector.
+>> > > > >=20
+>> > > > > Signed-off-by: Boris Brezillon <boris.brezillon-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>
+>> > > > > ---
+>> > > > > Changes in v2:
+>> > > > > - Take changes on hborder/vborder meaning into account
+>> > > > > ---
+>> > > > >  drivers/gpu/drm/vc4/vc4_plane.c | 49 ++++++++++++++++++++++++++=
+++++++++++++++-
+>> > > > >  1 file changed, 48 insertions(+), 1 deletion(-)
+>> > > > >=20
+>> > > > > diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/v=
+c4/vc4_plane.c
+>> > > > > index 71d44c357d35..61ed60841cd6 100644
+>> > > > > --- a/drivers/gpu/drm/vc4/vc4_plane.c
+>> > > > > +++ b/drivers/gpu/drm/vc4/vc4_plane.c
+>> > > > > @@ -258,6 +258,49 @@ static u32 vc4_get_scl_field(struct drm_pla=
+ne_state *state, int plane)
+>> > > > >  	}
+>> > > > >  }
+>> > > > >=20=20
+>> > > > > +static int vc4_plane_underscan_adj(struct drm_plane_state *psta=
+te)
+>> > > > > +{
+>> > > > > +	struct vc4_plane_state *vc4_pstate =3D to_vc4_plane_state(psta=
+te);
+>> > > > > +	struct drm_connector_state *conn_state =3D NULL;
+>> > > > > +	struct drm_connector *conn;
+>> > > > > +	struct drm_crtc_state *crtc_state;
+>> > > > > +	int i;
+>> > > > > +
+>> > > > > +	for_each_new_connector_in_state(pstate->state, conn, conn_stat=
+e, i) {
+>> > > > > +		if (conn_state->crtc =3D=3D pstate->crtc)
+>> > > > > +			break;
+>> > > > > +	}
+>> > > > > +
+>> > > > > +	if (i =3D=3D pstate->state->num_connector)
+>> > > > > +		return 0;
+>> > > > > +
+>> > > > > +	if (conn_state->underscan.mode !=3D DRM_UNDERSCAN_ON)
+>> > > > > +		return 0;
+>> > > > > +
+>> > > > > +	crtc_state =3D drm_atomic_get_new_crtc_state(pstate->state,
+>> > > > > +						   pstate->crtc);
+>> > > > > +
+>> > > > > +	if (conn_state->underscan.hborder >=3D crtc_state->mode.hdispl=
+ay ||
+>> > > > > +	    conn_state->underscan.vborder >=3D crtc_state->mode.vdispl=
+ay)
+>> > > > > +		return -EINVAL;=20=20=20=20
+>> > > >=20
+>> > > > border * 2 ?=20=20
+>> > >=20
+>> > > Oops, indeed. I'll fix that.
+>> > >=20=20=20
+>> > > >=20=20=20
+>> > > > > +
+>> > > > > +	vc4_pstate->crtc_x +=3D conn_state->underscan.hborder;
+>> > > > > +	vc4_pstate->crtc_y +=3D conn_state->underscan.vborder;
+>> > > > > +	vc4_pstate->crtc_w =3D (vc4_pstate->crtc_w *
+>> > > > > +			      (crtc_state->mode.hdisplay -
+>> > > > > +			       (conn_state->underscan.hborder * 2))) /
+>> > > > > +			     crtc_state->mode.hdisplay;
+>> > > > > +	vc4_pstate->crtc_h =3D (vc4_pstate->crtc_h *
+>> > > > > +			      (crtc_state->mode.vdisplay -
+>> > > > > +			       (conn_state->underscan.vborder * 2))) /
+>> > > > > +			     crtc_state->mode.vdisplay;=20=20=20=20
+>> > > >=20
+>> > > > So you're now scaling all planes? The code seems to reject scaling=
+ for
+>> > > > the cursor plane, how are you dealing with that? Or just no cursor
+>> > > > allowed when underscanning?=20=20
+>> > >=20
+>> > > No, I just didn't test with a cursor plane. We should probably avoid
+>> > > scaling the cursor plane and just adjust its position. Eric any opin=
+ion
+>> > > on that?=20=20
+>> >=20
+>> > I don't think you can just not scale it. The user asked for the cursor
+>> > to be at a specific place with a specific size. Can't just ignore
+>> > that and do something else. Also eg. i915 would definitely scale the
+>> > cursor since we'd just scale the entire crtc instead of scaling
+>> > individual planes. Different drivers doing different things wouldn't
+>> > be good.
+>>=20
+>> Except in our case the scaling takes place before the composition, so
+>> we don't have a choice.
+>
+> The choice is to either do what userspace asked, or return an error.
+>
+>>=20
+>> >=20
+>> > >=20=20=20
+>> > > >=20
+>> > > > I'm also wondering if there's any way we can reconcile these border
+>> > > > props with the scaling mode prop, should we ever wish to expose
+>> > > > these props on connectors that already have the scaling mode prop.=
+=20=20
+>> > >=20
+>> > > Nouveau seems to expose both, and I don't see why we couldn't.=20=20
+>> >=20
+>> > First of all the interaction of these borders with panels that have
+>> > a fixed mode would need to be properly specified. Do we apply the
+>> > borders against the user mode or the panel's native mode?
+>>=20
+>> Hm, I'm a bit lost. Isn't crtc_state->mode supposed to contain the mode
+>> that is about to be applied, no matter if it's a usermode or one of the
+>> mode returned by the display?=20
+>
+> No. With fixed mode panels the user mode is a lie. Only
+> hdisplay/vdisplay mean anything. The actual timings are known only to
+> the kernel. Well, userspace can perhaps make an educated guess based on
+> the connector's mode list and the presence of the scaling mode property.
+
+Let's just not expose the property on devices with fixed mode panels.
+Problem solved because all this property is is a way to work around HDMI
+monitors doing something awful, and trying to build something more
+general isn't serving anyone.
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlr1+OwACgkQtdYpNtH8
+nujSpRAAhQY2vNMYcYLAk/0eanMKRx+Lx3nAoU+79JVaqQpuCTJhnVcMF3XrYt6Z
+ZMuzf5uBB5ky4+og8VLuj2XAjBU4jKSA63+RDpwMxX6ek5DTHUgc0ghtTg9MXlVH
+YFN3bv163644HusUuE0wSIPhN2GSo/0r8siJjVsBfiur3sqZhxq/4iC5ZqgvgX9x
+iJQzawHzpVfodyxGg6irl7f0XVtvL5qa0zTd4tzur1o3GX3doJ66bLbfuShBgtWO
+6gYg14Id4RdqsPMD7zp68iXZV04YJnUv/HTFXVVIBh40TGZLbPzpip0y1WWl5mLT
+0KwusRkcOO23UehpURPZTBOskr0lK3YTNx0XICkTeiZ2v/Dh03ozVer/Ed4VeFTg
+lQbovF5EKX5UEt9SYlW+5us62dt3rlDgRrVY8dBrXsTMtAYz8TeI4oZKudhJUXxu
+eDM3AR0SY6/WI/rYjA6fr2zGuSJhV++BYiV+H7/x6k1lBjdQepOnbNrW2vDiaauZ
+fAw5IyNNgGtYLoR50ArUcRSgxdF+ConDbPOrcSP4xvYXRzSzd12AvaLylgMrcTy7
+ZtMYGAA1UmrfBmPLa7c1o3S468Nlwt9t5dTo0ri5rndMUqo7zVJ71qE4iQwMQgTU
+deEfvlQcT/Yi9vMDF4yB7cl8wKUdxVUCn/6K/TomHEh/aLKfvQI=
+=X171
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============1213300805==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1213300805==--
