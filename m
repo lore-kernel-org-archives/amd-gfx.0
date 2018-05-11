@@ -1,209 +1,62 @@
-From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
-Subject: Re: [PATCH v2 2/4] drm/vc4: Take underscan setup into account when
- updating planes
-Date: Fri, 11 May 2018 13:11:24 -0700
-Message-ID: <87mux6q7f7.fsf@anholt.net>
-References: <20180511145919.22447-1-boris.brezillon@bootlin.com>
- <20180511145919.22447-3-boris.brezillon@bootlin.com>
- <20180511153450.GS23723@intel.com> <20180511175256.53a3966a@bbrezillon>
- <20180511165402.GU23723@intel.com> <20180511191221.185f9e94@bbrezillon>
- <20180511172948.GV23723@intel.com>
+From: Oded Gabbay <oded.gabbay@gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Integer overflows in ioctl
+Date: Fri, 11 May 2018 23:17:14 +0300
+Message-ID: <CAFCwf11bEc=BF=3M=7gzmA6iDJpG0uJnXS5K5EP2i48XEOaesw@mail.gmail.com>
+References: <20180424133549.GB10167@mwanda>
+ <e2b7b3c1-cadb-330f-53a8-57568d4bc877@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1213300805=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180511172948.GV23723-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Boris Brezillon <boris.brezillon-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-
---===============1213300805==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> writes:
-
-> On Fri, May 11, 2018 at 07:12:21PM +0200, Boris Brezillon wrote:
->> On Fri, 11 May 2018 19:54:02 +0300
->> Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> wrote:
->>=20
->> > On Fri, May 11, 2018 at 05:52:56PM +0200, Boris Brezillon wrote:
->> > > On Fri, 11 May 2018 18:34:50 +0300
->> > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> wrote:
->> > >=20=20=20
->> > > > On Fri, May 11, 2018 at 04:59:17PM +0200, Boris Brezillon wrote:=
-=20=20
->> > > > > Applying an underscan setup is just a matter of scaling all plan=
-es
->> > > > > appropriately and adjusting the CRTC X/Y offset to account for t=
-he
->> > > > > horizontal and vertical border.
->> > > > >=20
->> > > > > Create an vc4_plane_underscan_adj() function doing that and call=
- it from
->> > > > > vc4_plane_setup_clipping_and_scaling() so that we are ready to a=
-ttach
->> > > > > underscan properties to the HDMI connector.
->> > > > >=20
->> > > > > Signed-off-by: Boris Brezillon <boris.brezillon-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>
->> > > > > ---
->> > > > > Changes in v2:
->> > > > > - Take changes on hborder/vborder meaning into account
->> > > > > ---
->> > > > >  drivers/gpu/drm/vc4/vc4_plane.c | 49 ++++++++++++++++++++++++++=
-++++++++++++++-
->> > > > >  1 file changed, 48 insertions(+), 1 deletion(-)
->> > > > >=20
->> > > > > diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/v=
-c4/vc4_plane.c
->> > > > > index 71d44c357d35..61ed60841cd6 100644
->> > > > > --- a/drivers/gpu/drm/vc4/vc4_plane.c
->> > > > > +++ b/drivers/gpu/drm/vc4/vc4_plane.c
->> > > > > @@ -258,6 +258,49 @@ static u32 vc4_get_scl_field(struct drm_pla=
-ne_state *state, int plane)
->> > > > >  	}
->> > > > >  }
->> > > > >=20=20
->> > > > > +static int vc4_plane_underscan_adj(struct drm_plane_state *psta=
-te)
->> > > > > +{
->> > > > > +	struct vc4_plane_state *vc4_pstate =3D to_vc4_plane_state(psta=
-te);
->> > > > > +	struct drm_connector_state *conn_state =3D NULL;
->> > > > > +	struct drm_connector *conn;
->> > > > > +	struct drm_crtc_state *crtc_state;
->> > > > > +	int i;
->> > > > > +
->> > > > > +	for_each_new_connector_in_state(pstate->state, conn, conn_stat=
-e, i) {
->> > > > > +		if (conn_state->crtc =3D=3D pstate->crtc)
->> > > > > +			break;
->> > > > > +	}
->> > > > > +
->> > > > > +	if (i =3D=3D pstate->state->num_connector)
->> > > > > +		return 0;
->> > > > > +
->> > > > > +	if (conn_state->underscan.mode !=3D DRM_UNDERSCAN_ON)
->> > > > > +		return 0;
->> > > > > +
->> > > > > +	crtc_state =3D drm_atomic_get_new_crtc_state(pstate->state,
->> > > > > +						   pstate->crtc);
->> > > > > +
->> > > > > +	if (conn_state->underscan.hborder >=3D crtc_state->mode.hdispl=
-ay ||
->> > > > > +	    conn_state->underscan.vborder >=3D crtc_state->mode.vdispl=
-ay)
->> > > > > +		return -EINVAL;=20=20=20=20
->> > > >=20
->> > > > border * 2 ?=20=20
->> > >=20
->> > > Oops, indeed. I'll fix that.
->> > >=20=20=20
->> > > >=20=20=20
->> > > > > +
->> > > > > +	vc4_pstate->crtc_x +=3D conn_state->underscan.hborder;
->> > > > > +	vc4_pstate->crtc_y +=3D conn_state->underscan.vborder;
->> > > > > +	vc4_pstate->crtc_w =3D (vc4_pstate->crtc_w *
->> > > > > +			      (crtc_state->mode.hdisplay -
->> > > > > +			       (conn_state->underscan.hborder * 2))) /
->> > > > > +			     crtc_state->mode.hdisplay;
->> > > > > +	vc4_pstate->crtc_h =3D (vc4_pstate->crtc_h *
->> > > > > +			      (crtc_state->mode.vdisplay -
->> > > > > +			       (conn_state->underscan.vborder * 2))) /
->> > > > > +			     crtc_state->mode.vdisplay;=20=20=20=20
->> > > >=20
->> > > > So you're now scaling all planes? The code seems to reject scaling=
- for
->> > > > the cursor plane, how are you dealing with that? Or just no cursor
->> > > > allowed when underscanning?=20=20
->> > >=20
->> > > No, I just didn't test with a cursor plane. We should probably avoid
->> > > scaling the cursor plane and just adjust its position. Eric any opin=
-ion
->> > > on that?=20=20
->> >=20
->> > I don't think you can just not scale it. The user asked for the cursor
->> > to be at a specific place with a specific size. Can't just ignore
->> > that and do something else. Also eg. i915 would definitely scale the
->> > cursor since we'd just scale the entire crtc instead of scaling
->> > individual planes. Different drivers doing different things wouldn't
->> > be good.
->>=20
->> Except in our case the scaling takes place before the composition, so
->> we don't have a choice.
->
-> The choice is to either do what userspace asked, or return an error.
->
->>=20
->> >=20
->> > >=20=20=20
->> > > >=20
->> > > > I'm also wondering if there's any way we can reconcile these border
->> > > > props with the scaling mode prop, should we ever wish to expose
->> > > > these props on connectors that already have the scaling mode prop.=
-=20=20
->> > >=20
->> > > Nouveau seems to expose both, and I don't see why we couldn't.=20=20
->> >=20
->> > First of all the interaction of these borders with panels that have
->> > a fixed mode would need to be properly specified. Do we apply the
->> > borders against the user mode or the panel's native mode?
->>=20
->> Hm, I'm a bit lost. Isn't crtc_state->mode supposed to contain the mode
->> that is about to be applied, no matter if it's a usermode or one of the
->> mode returned by the display?=20
->
-> No. With fixed mode panels the user mode is a lie. Only
-> hdisplay/vdisplay mean anything. The actual timings are known only to
-> the kernel. Well, userspace can perhaps make an educated guess based on
-> the connector's mode list and the presence of the scaling mode property.
-
-Let's just not expose the property on devices with fixed mode panels.
-Problem solved because all this property is is a way to work around HDMI
-monitors doing something awful, and trying to build something more
-general isn't serving anyone.
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlr1+OwACgkQtdYpNtH8
-nujSpRAAhQY2vNMYcYLAk/0eanMKRx+Lx3nAoU+79JVaqQpuCTJhnVcMF3XrYt6Z
-ZMuzf5uBB5ky4+og8VLuj2XAjBU4jKSA63+RDpwMxX6ek5DTHUgc0ghtTg9MXlVH
-YFN3bv163644HusUuE0wSIPhN2GSo/0r8siJjVsBfiur3sqZhxq/4iC5ZqgvgX9x
-iJQzawHzpVfodyxGg6irl7f0XVtvL5qa0zTd4tzur1o3GX3doJ66bLbfuShBgtWO
-6gYg14Id4RdqsPMD7zp68iXZV04YJnUv/HTFXVVIBh40TGZLbPzpip0y1WWl5mLT
-0KwusRkcOO23UehpURPZTBOskr0lK3YTNx0XICkTeiZ2v/Dh03ozVer/Ed4VeFTg
-lQbovF5EKX5UEt9SYlW+5us62dt3rlDgRrVY8dBrXsTMtAYz8TeI4oZKudhJUXxu
-eDM3AR0SY6/WI/rYjA6fr2zGuSJhV++BYiV+H7/x6k1lBjdQepOnbNrW2vDiaauZ
-fAw5IyNNgGtYLoR50ArUcRSgxdF+ConDbPOrcSP4xvYXRzSzd12AvaLylgMrcTy7
-ZtMYGAA1UmrfBmPLa7c1o3S468Nlwt9t5dTo0ri5rndMUqo7zVJ71qE4iQwMQgTU
-deEfvlQcT/Yi9vMDF4yB7cl8wKUdxVUCn/6K/TomHEh/aLKfvQI=
-=X171
------END PGP SIGNATURE-----
---=-=-=--
-
---===============1213300805==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <e2b7b3c1-cadb-330f-53a8-57568d4bc877@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1213300805==--
+T24gVHVlLCBBcHIgMjQsIDIwMTggYXQgOTo1OCBQTSwgRmVsaXggS3VlaGxpbmcgPGZlbGl4Lmt1
+ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+IFJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVs
+aXguS3VlaGxpbmdAYW1kLmNvbT4KPgo+IFdlIGNvdWxkIHByb2JhYmx5IGFkZCBhIHNhbml0eSBj
+aGVjayBmb3Igbl9kZXZpY2VzIHRvIGF2b2lkIHVzZXIgbW9kZQo+IGNhdXNpbmcgZXhjZXNzaXZl
+IG1lbW9yeSBhbGxvY2F0aW9ucyBpbiB0aGUga2VybmVsLiBUaGVyZSBpcyBubyBnb29kCj4gcmVh
+c29uIGZvciB0aGlzIHRvIGJlIGJpZ2dlciB0aGFuIHRoZSBudW1iZXIgb2YgR1BVcyBpbiB0aGUg
+c3lzdGVtLiBUaGUKPiBtYXhpbXVtIG51bWJlciBvZiBHUFVzIHN1cHBvcnRlZCBkdWUgdG8gZGV2
+aWNlIG1pbm9yIGxpbWl0IGluIERSTSBpcyAxMjguCj4KPiBSZWdhcmRzLAo+ICAgRmVsaXgKPgo+
+Cj4gT24gMjAxOC0wNC0yNCAwOTozNSBBTSwgRGFuIENhcnBlbnRlciB3cm90ZToKPj4gYXJncy0+
+bl9kZXZpY2VzIGlzIGEgdTMyIHRoYXQgY29tZXMgZnJvbSB0aGUgdXNlci4gIFRoZSBtdWx0aXBs
+aWNhdGlvbgo+PiBjb3VsZCBvdmVyZmxvdyBvbiAzMiBiaXQgc3lzdGVtcyBwb3NzaWJseSBsZWFk
+aW5nIHRvIHByaXZpbGVnZQo+PiBlc2NhbGF0aW9uLgo+Pgo+PiBGaXhlczogNWVjN2UwMjg1NGIz
+ICgiZHJtL2FtZGtmZDogQWRkIGlvY3RscyBmb3IgR1BVVk0gbWVtb3J5IG1hbmFnZW1lbnQiKQo+
+PiBTaWduZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbT4K
+Pj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jCj4+IGluZGV4IGNk
+Njc5Y2YxZmQzMC4uY2UzNmU1NTZkYTM4IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9jaGFyZGV2LmMKPj4gQEAgLTEyOTUsOCArMTI5NSw4IEBAIHN0YXRpYyBpbnQga2Zk
+X2lvY3RsX21hcF9tZW1vcnlfdG9fZ3B1KHN0cnVjdCBmaWxlICpmaWxlcCwKPj4gICAgICAgICAg
+ICAgICByZXR1cm4gLUVJTlZBTDsKPj4gICAgICAgfQo+Pgo+PiAtICAgICBkZXZpY2VzX2FyciA9
+IGttYWxsb2MoYXJncy0+bl9kZXZpY2VzICogc2l6ZW9mKCpkZXZpY2VzX2FyciksCj4+IC0gICAg
+ICAgICAgICAgICAgICAgICAgICAgICBHRlBfS0VSTkVMKTsKPj4gKyAgICAgZGV2aWNlc19hcnIg
+PSBrbWFsbG9jX2FycmF5KGFyZ3MtPm5fZGV2aWNlcywgc2l6ZW9mKCpkZXZpY2VzX2FyciksCj4+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBHRlBfS0VSTkVMKTsKPj4gICAgICAg
+aWYgKCFkZXZpY2VzX2FycikKPj4gICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsKPj4KPj4g
+QEAgLTE0MDQsOCArMTQwNCw4IEBAIHN0YXRpYyBpbnQga2ZkX2lvY3RsX3VubWFwX21lbW9yeV9m
+cm9tX2dwdShzdHJ1Y3QgZmlsZSAqZmlsZXAsCj4+ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7Cj4+ICAgICAgIH0KPj4KPj4gLSAgICAgZGV2aWNlc19hcnIgPSBrbWFsbG9jKGFyZ3MtPm5f
+ZGV2aWNlcyAqIHNpemVvZigqZGV2aWNlc19hcnIpLAo+PiAtICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgR0ZQX0tFUk5FTCk7Cj4+ICsgICAgIGRldmljZXNfYXJyID0ga21hbGxvY19hcnJheShh
+cmdzLT5uX2RldmljZXMsIHNpemVvZigqZGV2aWNlc19hcnIpLAo+PiArICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgR0ZQX0tFUk5FTCk7Cj4+ICAgICAgIGlmICghZGV2aWNlc19hcnIp
+Cj4+ICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4+Cj4KClRoYW5rcyEKUGF0Y2ggYXBw
+bGllZCB0byBhbWRrZmQtZml4ZXMKCk9kZWQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vZHJpLWRldmVsCg==
