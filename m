@@ -1,17 +1,15 @@
-From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: GPU hang trying to run OpenCL kernels on x86_64
-Date: Fri, 11 May 2018 13:15:30 +0100
-Message-ID: <CAEzXK1oM6b1bV3R3ezwD4eYrJXWV9+cdUFMC4q5+1bPkpmJFqQ@mail.gmail.com>
-References: <CAEzXK1p3SnOnduP0nL1D1pNWH1LTWwApEs7QnQPTFDdBBiHLXA@mail.gmail.com>
- <CY4PR12MB13045EA9BCBFAB20D698BA86FE860@CY4PR12MB1304.namprd12.prod.outlook.com>
- <CAEzXK1rJbXSpLUm=XQTLvySM4HJ45G9fQ0WCTPhnvdPETwUaYA@mail.gmail.com>
- <53cc38f2-e94a-1514-0a03-303101db2f88@daenzer.net>
- <CAEzXK1qHtfOBgismLvNy_x+NcMw78288AuwovBR-JmRwqpDmGQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix null pointer for bo unmap trace function
+Date: Fri, 11 May 2018 14:17:37 +0200
+Message-ID: <0cf7ad87-df3b-cccf-9638-756ff263983a@gmail.com>
+References: <1526031003-11476-1-git-send-email-Jerry.Zhang@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAEzXK1qHtfOBgismLvNy_x+NcMw78288AuwovBR-JmRwqpDmGQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1526031003-11476-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,39 +20,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-SGkgTWljaGVsLAoKSnVzdCBtYWRlIGEgZnJlc2ggVWJ1bnR1IDE4LjA0IExUUyBpbnN0YWxsIGZv
-ciBhcm1oZiB3aXRoIHVidW50dQpkZWZhdWx0IG1lc2EsIGxpYmRybSBhbmQgbGliY2xjLCB3aXRo
-IHRoZSBzYW1lIDQuMTYuNyBrZXJuZWwgYW5kIGl0CnJ1bnMgZmluZSB3aXRoIHRoZSBPcGVuQ0wg
-YXBwbGljYXRpb25zIHRoYXQgY2F1c2UgdGhlIGhhbmcgb24geDg2XzY0LgpTbyBpdCBpcyBzdXJl
-bHkgYSBrZXJuZWwgb3IgbWVzYSBpc3N1ZSBleGNsdXNpdmUgdG8geDg2XzY0LCBsaWJyYXJpZXMK
-dmVyc2lvbnMgYXJlIHRoZSBzYW1lIG9uIGJvdGggc3lzdGVtcyBub3csIGFzIHdlbGwgYXMgdGhl
-IGtlcm5lbC4KSSBoYXZlIGV2ZW4gdHJpZWQgYW1kZ3B1LXByby0xOC4yMCB3aXRoIHVidW50dSAx
-OC4wNCBvbiB4ODZfNjQgYW5kIGl0CmhhbmdzIGp1c3QgdGhlIHNhbWUuCgpSZWdhcmRzLApMdcOt
-cwoKT24gTW9uLCBNYXkgNywgMjAxOCBhdCAxOjMxIFBNLCBMdcOtcyBNZW5kZXMgPGx1aXMucC5t
-ZW5kZXNAZ21haWwuY29tPiB3cm90ZToKPiBIaSBNaWNoZWwsCj4KPiBObywgSSBoYXZlbid0IHRy
-aWVkIHRoZSBleGFjdCBzYW1lIHZlcnNpb25zIG9mIE1lc2EsIG5vciBsaWJjbGMsIG5vcgo+IExM
-Vk0gb24geDg2LCBob3dldmVyIG9uIGFybWhmIEkgaGF2ZSBiZWVuIGFibGUgdG8gdXNlIHNldmVy
-YWwKPiBjb21iaW5hdGlvbnMgb2YgTGludXgga2VybmVsIHZlcnNpb25zIGFuZCBtZXNhIHZlcnNp
-b25zIHdoaWNoIGFyZSBhYmxlCj4gdG8gcnVuIHRoZSBPcGVuQ0wga2VybmVscyBpbiBxdWVzdGlv
-bi4gSSB3aWxsIHRyeSB0byBzZWUgaWYgdGhlIHNhbWUKPiBoYXBwZW5zIHdpdGggdGhlIGV4YWN0
-IHNhbWUgVWJ1bnR1IDE4LjA0IExUUyBiYXNlIGluc3RhbGxhdGlvbiBvbgo+IGFybWhmLCBidXQg
-d29uJ3QgYmUgYWJsZSB0byB0ZXN0IGl0IHRvZGF5Lgo+Cj4gTHXDrXMKPgo+IE9uIE1vbiwgTWF5
-IDcsIDIwMTggYXQgMTA6MzggQU0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+
-IHdyb3RlOgo+PiBPbiAyMDE4LTA1LTA1IDAxOjE1IEFNLCBMdcOtcyBNZW5kZXMgd3JvdGU6Cj4+
-Pgo+Pj4gLSBPbiBhbm90aGVyIHN5c3RlbSB3aXRoIGFybWhmIDMyIGJpdHMsIDFHQiByYW0sIDUx
-MkdCIFNTRCwgQU1EIFJYIDQ4MAo+Pj4gb3IgQU1EIFJYIDU1MAo+Pj4gICB3aXRoIFVidW50dSAx
-Ny4xMCwgdmFuaWxsYSBrZXJuZWwgNC4xNi43LCBtZXNhLTE4LjAuMiwKPj4+IGxpYmRybS0yLjQu
-OTItZ2l0LCBsaWJjbGMtZ2l0IGF0IGNvbW1pdAo+Pj4gM2Q5OTRmMmZmMmNiYjQ1MzEyMjNmZTI2
-NTcxNDRjYjE5ZjBjNTMyOCAoMTUvTm92LzIwMTcpCj4+Pgo+Pj4gICBUaGUga2VybmVscyB3b3Jr
-IHByb3Blcmx5IG9uIHRoZSBzYW1lIEFNRCBjYXJkcy4KPj4KPj4gSGF2ZSB5b3UgdHJpZWQgdGhv
-c2UgZXhhY3Qgc2FtZSB2ZXJzaW9ucyBvZiB0aGUga2VybmVsLCBNZXNhLCBsaWJjbGMgYW5kCj4+
-IExMVk0gb24geDg2Pwo+Pgo+Pgo+PiAtLQo+PiBFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAg
-ICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCj4+IExpYnJlIHNv
-ZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRl
-dmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+QW0gMTEuMDUuMjAxOCB1bSAxMTozMCBzY2hyaWViIEp1bndlaSBaaGFuZzoKPiBTaWduZWQtb2Zm
+LWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hy
+aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgMiArLQo+ICAgMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAo+IGluZGV4IDUzMjI2M2EuLmU5NmUyNmQgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAo+IEBAIC0yNzUsNyAr
+Mjc1LDcgQEAKPiAgIAkJCSAgICAgKSwKPiAgIAo+ICAgCSAgICBUUF9mYXN0X2Fzc2lnbigKPiAt
+CQkJICAgX19lbnRyeS0+Ym8gPSBib192YS0+YmFzZS5ibzsKPiArCQkJICAgX19lbnRyeS0+Ym8g
+PSBib192YSA/IGJvX3ZhLT5iYXNlLmJvIDogTlVMTDsKPiAgIAkJCSAgIF9fZW50cnktPnN0YXJ0
+ID0gbWFwcGluZy0+c3RhcnQ7Cj4gICAJCQkgICBfX2VudHJ5LT5sYXN0ID0gbWFwcGluZy0+bGFz
+dDsKPiAgIAkJCSAgIF9fZW50cnktPm9mZnNldCA9IG1hcHBpbmctPm9mZnNldDsKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
