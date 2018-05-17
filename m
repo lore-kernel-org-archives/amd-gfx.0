@@ -1,70 +1,93 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 27/57] drm/amdgpu: Add vega20 soc init sequence on
- emulator (v3)
-Date: Thu, 17 May 2018 11:06:42 -0400
-Message-ID: <CADnq5_N_5zxQbJb6ipksM7r2q3xTmq81c_NXKHbXW=L1Tz_vAQ@mail.gmail.com>
-References: <20180515145933.12063-1-alexander.deucher@amd.com>
- <20180515145933.12063-28-alexander.deucher@amd.com>
- <CANOLnON8VHW7RxDnWNFd8JakFhJgdoWP93U9Eh=fZtT61f91=w@mail.gmail.com>
- <CANOLnOOhG86EuKrDyF7VZauHPgKPhmrLMCSDykHeKYOruMconw@mail.gmail.com>
+From: Thierry Reding <thierry.reding@gmail.com>
+Subject: Re: [PATCH 23/24] drm/radeon: radeon_framebuffer -> drm_framebuffer
+Date: Thu, 17 May 2018 17:07:30 +0200
+Message-ID: <20180517150730.GP26515@ulmo>
+References: <CAPj87rPKDwBK7qoOoY2zXoS6T02toATPRsk=39m_OBr=s1kXTw@mail.gmail.com>
+ <20180330141138.28987-1-daniels@collabora.com>
+ <20180330141138.28987-23-daniels@collabora.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CANOLnOOhG86EuKrDyF7VZauHPgKPhmrLMCSDykHeKYOruMconw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0979215991=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180330141138.28987-23-daniels@collabora.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Daniel Stone <daniels@collabora.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBNYXkgMTYsIDIwMTggYXQgODoyMyBBTSwgR3JhenZ5ZGFzIElnbm90YXMgPG5vdGFz
-YXNAZ21haWwuY29tPiB3cm90ZToKPiBPbiBXZWQsIE1heSAxNiwgMjAxOCBhdCAyOjExIFBNLCBH
-cmF6dnlkYXMgSWdub3RhcyA8bm90YXNhc0BnbWFpbC5jb20+IHdyb3RlOgo+PiBPbiBUdWUsIE1h
-eSAxNSwgMjAxOCBhdCA1OjU5IFBNLCBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNv
-bT4gd3JvdGU6Cj4+PiBGcm9tOiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNvbT4KPj4+
-Cj4+PiB2MjogY2xlYW51cHMgKEFsZXgpCj4+PiB2MzogbWFrZSBpdCB2ZWdhMjAgb25seSAoQWxl
-eCkKPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNv
-bT4KPj4+IEFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-Cj4+PiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+Cj4+PiAtLS0KPj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMgfCAx
-MDA5MSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+ICAxIGZpbGUgY2hhbmdl
-ZCwgMTAwOTEgaW5zZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9lbXVfc29jLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVf
-c29jLmMKPj4+IGluZGV4IGQ3MmMyNWMxYjk4Ny4uOTFmMDBmYmU1NTBhIDEwMDY0NAo+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZW11X3NvYy5jCj4+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMKPj4+IEBAIC0yNiw4ICsyNiwxMDA5OSBAQAo+
-Pj4gICNpbmNsdWRlICJzb2MxNV9jb21tb24uaCIKPj4+ICAjaW5jbHVkZSAic29jMTVfaHdfaXAu
-aCIKPj4+Cj4+PiArc3RhdGljIHZvaWQgd3JlZzMyX2lkeF9ieXRlb2Zmc2V0KHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LCB1MzIgb2Zmc2V0LCB1MzIgdmFsdWUpIHsKPj4+ICsKPj4+ICsgICAg
-ICAgc3RhdGljIHUzMiBtYXhvZmZzZXQgPSAwOwo+Pj4gKyAgICAgICBzdGF0aWMgaW50IGNvdW50
-ID0gMDsKPj4+ICsKPj4+ICsgICAgICAgV1JFRzMyKDB4Yywgb2Zmc2V0KTsKPj4+ICsgICAgICAg
-UlJFRzMyKDB4Yyk7Cj4+PiArICAgICAgIFdSRUczMigweGQsIHZhbHVlKTsKPj4+ICsgICAgICAg
-UlJFRzMyKDB4ZCk7Cj4+PiArCj4+PiArICAgICAgIGlmIChvZmZzZXQgPiBtYXhvZmZzZXQpCj4+
-PiArICAgICAgICAgICAgICAgbWF4b2Zmc2V0ID0gb2Zmc2V0Owo+Pj4gKwo+Pj4gKyAgICAgICBj
-b3VudCsrOwo+Pj4gKyAgICAgICBpZiAoY291bnQgJSAxMDAgPT0gMCkgewo+Pj4gKyAgICAgICAg
-ICAgICAgIERSTV9JTkZPKCIlNWQgcmVnaXN0ZXJzIHdyaXR0ZW4sIG1heCBvZmZzZXQgJTA4eFxu
-IiwgY291bnQsIG1heG9mZnNldCk7Cj4+PiArICAgICAgICAgICAgICAgbXNsZWVwKDEpOwo+Pj4g
-KyAgICAgICB9Cj4+PiArCj4+PiArfQo+Pj4gKwo+Pj4gK3N0YXRpYyB2b2lkIHZnMjBfbHNkX3Nv
-Y19pbml0X3dpdGhfdW1jKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4gK3sKPj4+ICsK
-Pj4+ICsgICAgICAgICAgICAgICB3cmVnMzJfaWR4X2J5dGVvZmZzZXQoYWRldiwgMHgxMDEzMTgw
-MCwgMHg0MGE0MCk7Cj4+PiArICAgICAgICAgICAgICAgd3JlZzMyX2lkeF9ieXRlb2Zmc2V0KGFk
-ZXYsIDB4MTAxNDEwMTAsIDB4MTAwMDAwMDApOwo+Pj4gKyAgICAgICAgICAgICAgIHdyZWczMl9p
-ZHhfYnl0ZW9mZnNldChhZGV2LCAweDEwMTM0MDA4LCAweGZhMDQyMDIxKTsKPj4+ICsgICAgICAg
-ICAgICAgICB3cmVnMzJfaWR4X2J5dGVvZmZzZXQoYWRldiwgMHgzODdDLCAweDMpOwo+Pgo+PiBJ
-bmRlbnRhdGlvbiAoZG91YmxlIHRhYnMpLgo+PiBDb3VsZCB0aGlzIGJlIGRvbmUgaW4gYSBzaW1p
-bGFyIHdheSBhcwo+PiBhbWRncHVfZGV2aWNlX3Byb2dyYW1fcmVnaXN0ZXJfc2VxdWVuY2UoKSBp
-bnN0ZWFkIG9mIHRob3VzYW5kcyBvZgo+PiBmdW5jdGlvbiBjYWxscz8KPgo+IEFjdHVhbGx5IHRo
-aXMgd2lsbCBibG9hdCB0aGUgYW1kZ3B1IG1vZHVsZSBmb3IgZXZlcnlvbmUsIHdoaWxlIGFsbW9z
-dAo+IG5vYm9keSBuZWVkcyB0aGlzLCBwZXJoYXBzIGhpZGUgdGhpcyB1bmRlciBLY29uZmlnIG9w
-dGlvbiBhdCBsZWFzdD8KPgoKRHJvcHBlZCB0aGUgcGF0Y2ggZm9yIHVwc3RyZWFtLgoKQWxleApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+--===============0979215991==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="THYEXwetZJOK3OLY"
+Content-Disposition: inline
+
+
+--THYEXwetZJOK3OLY
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Mar 30, 2018 at 03:11:37PM +0100, Daniel Stone wrote:
+> Since drm_framebuffer can now store GEM objects directly, place them
+> there rather than in our own subclass. As this makes the framebuffer
+> create_handle and destroy functions the same as the GEM framebuffer
+> helper, we can reuse those.
+>=20
+> Signed-off-by: Daniel Stone <daniels@collabora.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: David (ChunMing) Zhou <David1.Zhou@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/radeon/atombios_crtc.c      | 32 ++++++++---------------=
+------
+>  drivers/gpu/drm/radeon/radeon_device.c      |  6 +++---
+>  drivers/gpu/drm/radeon/radeon_display.c     | 30 ++++++++++++-----------=
+----
+>  drivers/gpu/drm/radeon/radeon_fb.c          | 20 +++++++++---------
+>  drivers/gpu/drm/radeon/radeon_legacy_crtc.c | 11 +++-------
+>  drivers/gpu/drm/radeon/radeon_mode.h        |  7 +------
+>  6 files changed, 39 insertions(+), 67 deletions(-)
+
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+
+--THYEXwetZJOK3OLY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlr9mrEACgkQ3SOs138+
+s6F5jRAAjHtizzV8Lz6SR1JLfJ6UZAqmeFYGqK4AuHRTddL4GBbfdKleIkpqQVVQ
+4oOLftVpOiJYIqj98+J71JiL/VpY2i9jNC3k8MWUK2AHCbaRHCP555qf6Squzcng
+b6CcBJ2LkpPVQearz9o3uJ8CF1q4tnHuDnB3sU7HjeddKbMcGlEHzbRYd48XSzpR
+be95YhOtFD4FVMqPtlGhOh2Gv+lI8fGe5ypgE3e0kpPOJB7bmLaS4rcAbX3j8pDh
+NKSBFnmXk7oUI/dJqsbotLPuYhgaL7Q9mWoxuURFHDscSxFgPPat2NFtoWDnePAG
+/5fgqEML8qgI9JsQeW/Ci0/s+RL5BuQg5naYI0zUxleh4jhgYqmWsLsZtUcJMcLb
+wFCsYymcJxkpM3n2YUjhN0FRWmlJ2Otuy55evvr0AohaXYOGHn1G98LsGOnuX7ww
++tahkosddfShkBXYCXReHk4uI6UrkzO69fvkl6JAaULV09rrW4G/omPkza52Tq1o
+hLpdHy6gGmt3nIHfCSS59Fl4UdSBozUnRj1PwHVBcyon3EFl/bhl9tON2dYd9vmx
+u5GuWXiiaO/8hpmK2ufBJZ+N0KJ4G0VJpITx9KYxYlptJ8wAPJO5kmAcvm0DADXa
+ikC86F1vxcWI+F7TplsThvDZTs3JV897JwWqdRbp5jebJUwXw1A=
+=XhYe
+-----END PGP SIGNATURE-----
+
+--THYEXwetZJOK3OLY--
+
+--===============0979215991==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0979215991==--
