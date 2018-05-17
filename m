@@ -1,14 +1,17 @@
-From: Thierry Reding <thierry.reding-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 22/24] drm/radeon: Move GEM BO to drm_framebuffer
-Date: Thu, 17 May 2018 17:06:12 +0200
-Message-ID: <20180517150612.GO26515@ulmo>
-References: <CAPj87rPKDwBK7qoOoY2zXoS6T02toATPRsk=39m_OBr=s1kXTw@mail.gmail.com>
- <20180330141138.28987-1-daniels@collabora.com>
- <20180330141138.28987-22-daniels@collabora.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 27/57] drm/amdgpu: Add vega20 soc init sequence on
+ emulator (v3)
+Date: Thu, 17 May 2018 11:06:42 -0400
+Message-ID: <CADnq5_N_5zxQbJb6ipksM7r2q3xTmq81c_NXKHbXW=L1Tz_vAQ@mail.gmail.com>
+References: <20180515145933.12063-1-alexander.deucher@amd.com>
+ <20180515145933.12063-28-alexander.deucher@amd.com>
+ <CANOLnON8VHW7RxDnWNFd8JakFhJgdoWP93U9Eh=fZtT61f91=w@mail.gmail.com>
+ <CANOLnOOhG86EuKrDyF7VZauHPgKPhmrLMCSDykHeKYOruMconw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1574227925=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180330141138.28987-22-daniels-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
+In-Reply-To: <CANOLnOOhG86EuKrDyF7VZauHPgKPhmrLMCSDykHeKYOruMconw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,74 +22,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Stone <daniels-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian =?utf-8?B?S8O2bmln?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-
---===============1574227925==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="1bhFRg6vL9BT9osV"
-Content-Disposition: inline
-
-
---1bhFRg6vL9BT9osV
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Mar 30, 2018 at 03:11:36PM +0100, Daniel Stone wrote:
-> Since drm_framebuffer can now store GEM objects directly, place them
-> there rather than in our own subclass. As this makes the framebuffer
-> create_handle and destroy functions the same as the GEM framebuffer
-> helper, we can reuse those.
->=20
-> Signed-off-by: Daniel Stone <daniels-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
-> Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> Cc: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> Cc: David (ChunMing) Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-> Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> ---
->  drivers/gpu/drm/radeon/atombios_crtc.c      | 10 +++++-----
->  drivers/gpu/drm/radeon/radeon_device.c      |  4 ++--
->  drivers/gpu/drm/radeon/radeon_display.c     | 31 +++++++----------------=
-------
->  drivers/gpu/drm/radeon/radeon_fb.c          |  8 ++++----
->  drivers/gpu/drm/radeon/radeon_legacy_crtc.c | 11 ++++------
->  drivers/gpu/drm/radeon/radeon_mode.h        |  1 -
->  6 files changed, 22 insertions(+), 43 deletions(-)
-
-Reviewed-by: Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
-
---1bhFRg6vL9BT9osV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlr9mmMACgkQ3SOs138+
-s6H8DA//fSe5OT/BbrFF0WPv+GvQq2gG4bk5fljl+yACqThokaNb0nPjPLtQj0zJ
-6kH6m0OXondz8o8Uj8sXEFxOY3wySMtglTKK27Xfl99NjMtCJ1cUSeKsHXcipAAL
-wvYJzDMe/okeynWYxCAP1izaGr9NVQov/ZFhBUFPcrmQie5zrvqh9oc1hL0rhK1o
-4nqk9O1MbN0n4RES3aOhJzT8OgBjlVEzGYFa3ca0qvlKP4w99dgjRxUHdqraiEwo
-uBgzM2IZ5IKzrSSU1zFw1FJAWbWnQTLteriYuI6i0CcpltgV84FeDatjUShe1phA
-5rmJEJl+OjatA6bNiIWHKonlj3CW0sjw4yTLmmbnPQ4zSpZu7/GoNNMCpgKDF60S
-5JlfrrDgwKRbLF5nWA8L9eZL6P+E1qFM9BTZX/qdVxHPALHpiNe64r4IvcpDQBZb
-RWDEHzBrZgukkVCtl+NdmqD+I8QZCPXTiqeoeqgSqbsLEco3FuwTekpuJJ0ngf4N
-18VZl4jpHnsPHBNBSBmJbik4KiCIqMsOB3HV6CdMoyMZw/osckiDJrB5dCFB5x9B
-FVRxgZo/SIbbXIx05DJPelBzxa0VTwe9Tn0jO5G1I0rlh0d71VfOWnEFIHgaCTZN
-Qhtd2Q13oOyzP0GMjh5qnBbP9JoZZ5+X14HUceetvuyVVN4mrgY=
-=ZJMO
------END PGP SIGNATURE-----
-
---1bhFRg6vL9BT9osV--
-
---===============1574227925==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1574227925==--
+T24gV2VkLCBNYXkgMTYsIDIwMTggYXQgODoyMyBBTSwgR3JhenZ5ZGFzIElnbm90YXMgPG5vdGFz
+YXNAZ21haWwuY29tPiB3cm90ZToKPiBPbiBXZWQsIE1heSAxNiwgMjAxOCBhdCAyOjExIFBNLCBH
+cmF6dnlkYXMgSWdub3RhcyA8bm90YXNhc0BnbWFpbC5jb20+IHdyb3RlOgo+PiBPbiBUdWUsIE1h
+eSAxNSwgMjAxOCBhdCA1OjU5IFBNLCBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNv
+bT4gd3JvdGU6Cj4+PiBGcm9tOiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNvbT4KPj4+
+Cj4+PiB2MjogY2xlYW51cHMgKEFsZXgpCj4+PiB2MzogbWFrZSBpdCB2ZWdhMjAgb25seSAoQWxl
+eCkKPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNv
+bT4KPj4+IEFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+Cj4+PiAtLS0KPj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMgfCAx
+MDA5MSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+ICAxIGZpbGUgY2hhbmdl
+ZCwgMTAwOTEgaW5zZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9lbXVfc29jLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVf
+c29jLmMKPj4+IGluZGV4IGQ3MmMyNWMxYjk4Ny4uOTFmMDBmYmU1NTBhIDEwMDY0NAo+Pj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZW11X3NvYy5jCj4+PiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9lbXVfc29jLmMKPj4+IEBAIC0yNiw4ICsyNiwxMDA5OSBAQAo+
+Pj4gICNpbmNsdWRlICJzb2MxNV9jb21tb24uaCIKPj4+ICAjaW5jbHVkZSAic29jMTVfaHdfaXAu
+aCIKPj4+Cj4+PiArc3RhdGljIHZvaWQgd3JlZzMyX2lkeF9ieXRlb2Zmc2V0KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LCB1MzIgb2Zmc2V0LCB1MzIgdmFsdWUpIHsKPj4+ICsKPj4+ICsgICAg
+ICAgc3RhdGljIHUzMiBtYXhvZmZzZXQgPSAwOwo+Pj4gKyAgICAgICBzdGF0aWMgaW50IGNvdW50
+ID0gMDsKPj4+ICsKPj4+ICsgICAgICAgV1JFRzMyKDB4Yywgb2Zmc2V0KTsKPj4+ICsgICAgICAg
+UlJFRzMyKDB4Yyk7Cj4+PiArICAgICAgIFdSRUczMigweGQsIHZhbHVlKTsKPj4+ICsgICAgICAg
+UlJFRzMyKDB4ZCk7Cj4+PiArCj4+PiArICAgICAgIGlmIChvZmZzZXQgPiBtYXhvZmZzZXQpCj4+
+PiArICAgICAgICAgICAgICAgbWF4b2Zmc2V0ID0gb2Zmc2V0Owo+Pj4gKwo+Pj4gKyAgICAgICBj
+b3VudCsrOwo+Pj4gKyAgICAgICBpZiAoY291bnQgJSAxMDAgPT0gMCkgewo+Pj4gKyAgICAgICAg
+ICAgICAgIERSTV9JTkZPKCIlNWQgcmVnaXN0ZXJzIHdyaXR0ZW4sIG1heCBvZmZzZXQgJTA4eFxu
+IiwgY291bnQsIG1heG9mZnNldCk7Cj4+PiArICAgICAgICAgICAgICAgbXNsZWVwKDEpOwo+Pj4g
+KyAgICAgICB9Cj4+PiArCj4+PiArfQo+Pj4gKwo+Pj4gK3N0YXRpYyB2b2lkIHZnMjBfbHNkX3Nv
+Y19pbml0X3dpdGhfdW1jKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4gK3sKPj4+ICsK
+Pj4+ICsgICAgICAgICAgICAgICB3cmVnMzJfaWR4X2J5dGVvZmZzZXQoYWRldiwgMHgxMDEzMTgw
+MCwgMHg0MGE0MCk7Cj4+PiArICAgICAgICAgICAgICAgd3JlZzMyX2lkeF9ieXRlb2Zmc2V0KGFk
+ZXYsIDB4MTAxNDEwMTAsIDB4MTAwMDAwMDApOwo+Pj4gKyAgICAgICAgICAgICAgIHdyZWczMl9p
+ZHhfYnl0ZW9mZnNldChhZGV2LCAweDEwMTM0MDA4LCAweGZhMDQyMDIxKTsKPj4+ICsgICAgICAg
+ICAgICAgICB3cmVnMzJfaWR4X2J5dGVvZmZzZXQoYWRldiwgMHgzODdDLCAweDMpOwo+Pgo+PiBJ
+bmRlbnRhdGlvbiAoZG91YmxlIHRhYnMpLgo+PiBDb3VsZCB0aGlzIGJlIGRvbmUgaW4gYSBzaW1p
+bGFyIHdheSBhcwo+PiBhbWRncHVfZGV2aWNlX3Byb2dyYW1fcmVnaXN0ZXJfc2VxdWVuY2UoKSBp
+bnN0ZWFkIG9mIHRob3VzYW5kcyBvZgo+PiBmdW5jdGlvbiBjYWxscz8KPgo+IEFjdHVhbGx5IHRo
+aXMgd2lsbCBibG9hdCB0aGUgYW1kZ3B1IG1vZHVsZSBmb3IgZXZlcnlvbmUsIHdoaWxlIGFsbW9z
+dAo+IG5vYm9keSBuZWVkcyB0aGlzLCBwZXJoYXBzIGhpZGUgdGhpcyB1bmRlciBLY29uZmlnIG9w
+dGlvbiBhdCBsZWFzdD8KPgoKRHJvcHBlZCB0aGUgcGF0Y2ggZm9yIHVwc3RyZWFtLgoKQWxleApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
