@@ -1,19 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: consider user preference when pinning for SG
- display
-Date: Sat, 19 May 2018 17:59:19 +0200
-Message-ID: <7d9abb21-8cd9-c860-8fd1-5e8a74278a01@gmail.com>
-References: <20180517165521.8581-1-alexander.deucher@amd.com>
- <4dc6cde7-fb5c-81c2-6678-8e90e1beb78e@daenzer.net>
- <2672d966-febd-6132-a785-01cdd04fea15@amd.com>
- <CADnq5_O+y23n9wKdWNbTk8phx34Tt3Cj3NRQ2AqN=qAmYrxppQ@mail.gmail.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Nils_Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/7] drm/amdgpu: init zfb start address and size
+Date: Sat, 19 May 2018 18:32:11 +0200
+Message-ID: <CA+nq7DsP5kUbe90qXyFxD10zq_NVU34qETG6t_YxNPEfxU3UFQ@mail.gmail.com>
+References: <20180515145008.11937-1-alexander.deucher@amd.com>
+ <20180515145008.11937-4-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1649897343=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_O+y23n9wKdWNbTk8phx34Tt3Cj3NRQ2AqN=qAmYrxppQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180515145008.11937-4-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,62 +18,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Samuel Li <samuel.li-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTguMDUuMjAxOCB1bSAyMToxNiBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBGcmksIE1h
-eSAxOCwgMjAxOCBhdCAyOjIyIFBNLCBTYW11ZWwgTGkgPHNhbXVlbC5saUBhbWQuY29tPiB3cm90
-ZToKPj4KPj4gT24gMjAxOC0wNS0xOCAwNDoyMSBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+
-PiBPbiAyMDE4LTA1LTE3IDA2OjU1IFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+Pj4gSWYgdGhl
-IHBpbiBkb21haW4gaXMgc2V0IHRvIEdUVCB8IFZSQU0sIGxvb2sgYXQgdGhlIHByZWZlcnJlZCBk
-b21haW5zCj4+Pj4gZm9yIHRoZSBibyBhbmQgcmVzcGVjdCB0aGF0IGlmIGl0J3MgYmVlbiBzZXQg
-ZXhwbGljaXRseS4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4KPj4+PiAtLS0KPj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8IDkgKysrKysrKy0tCj4+Pj4gICAxIGZpbGUgY2hhbmdl
-ZCwgNyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Pj4+Cj4+Pj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+Pj4+IGluZGV4IDZhOWU0NmFlN2YwYS4u
-MTYxOTJmMTc2NTNlIDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9vYmplY3QuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9vYmplY3QuYwo+Pj4+IEBAIC03MDQsOSArNzA0LDE0IEBAIGludCBhbWRncHVfYm9fcGlu
-X3Jlc3RyaWN0ZWQoc3RydWN0IGFtZGdwdV9ibyAqYm8sIHUzMiBkb21haW4sCj4+Pj4gICAgICAg
-ICogU2VlIGZ1bmN0aW9uIGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zKCkKPj4+PiAg
-ICAgICAgKi8KPj4+PiAgICAgICBpZiAoZG9tYWluID09IChBTURHUFVfR0VNX0RPTUFJTl9WUkFN
-IHwgQU1ER1BVX0dFTV9ET01BSU5fR1RUKSkgewo+Pj4+IC0gICAgICAgICAgICBkb21haW4gPSBB
-TURHUFVfR0VNX0RPTUFJTl9WUkFNOwo+Pj4+IC0gICAgICAgICAgICBpZiAoYWRldi0+Z21jLnJl
-YWxfdnJhbV9zaXplIDw9IEFNREdQVV9TR19USFJFU0hPTEQpCj4+Pj4gKyAgICAgICAgICAgIGlm
-IChiby0+cHJlZmVycmVkX2RvbWFpbnMgPT0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTSkKPj4+PiAr
-ICAgICAgICAgICAgICAgICAgICBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNOyAvKiBp
-ZiB1c2VyIHJlYWxseSB3YW50cyB2cmFtLCByZXNwZWN0IGl0ICovCj4+Pj4gKyAgICAgICAgICAg
-IGVsc2UgaWYgKGJvLT5wcmVmZXJyZWRfZG9tYWlucyA9PSBBTURHUFVfR0VNX0RPTUFJTl9HVFQp
-Cj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fR1RU
-OyAvKiBpZiB1c2VyIHJlYWxseSB3YW50cyBndHQsIHJlc3BlY3QgaXQgKi8KPj4+IEknZCBzcGVs
-bCBWUkFNIGFuZCBHVFQgaW4gY2FwaXRhbCBsZXR0ZXJzIGluIHRoZSBjb21tZW50cy4KPj4+Cj4+
-Pgo+Pj4+ICsgICAgICAgICAgICBlbHNlIGlmIChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPD0g
-QU1ER1BVX1NHX1RIUkVTSE9MRCkKPj4+PiAgICAgICAgICAgICAgICAgICAgICAgZG9tYWluID0g
-QU1ER1BVX0dFTV9ET01BSU5fR1RUOwo+Pj4+ICsgICAgICAgICAgICBlbHNlCj4+Pj4gKyAgICAg
-ICAgICAgICAgICAgICAgZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTTsKPj4+PiAgICAg
-ICB9Cj4+PiBJcyBldmVyeXRoaW5nIGluIHBsYWNlIHRvIGRlYWwgd2l0aCBhbnkgaXNzdWVzIHRo
-YXQgbWlnaHQgb2NjdXIgd2hlbgo+Pj4gZmxpcHBpbmcgYmV0d2VlbiBidWZmZXJzIGluIFZSQU0g
-YW5kIEdUVD8KPj4+Cj4+IEJlc2lkZXMgdGhpcyBxdWVzdGlvbiwgSSBhbSBhbHNvIHdvbmRlcmlu
-ZyBob3cgdG8gZGVhbCB3aXRoIHRoZSBmaXJzdCBkaXNwbGF5IGJ1ZmZlciBjcmVhdGVkIGluIGtl
-cm5lbCBhdCBhbWRncHVmYl9jcmVhdGVfcGlubmVkX29iamVjdCgpPwo+IGFtZGdwdWZiX2NyZWF0
-ZV9waW5uZWRfb2JqZWN0KCkgY2FsbHMKPiBhbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlu
-cygpIGZvciB0aGUgaW5pdGlhbCBkb21haW4gYW5kCj4gYW1kZ3B1X2dlbV9vYmplY3RfY3JlYXRl
-KCkgdXNlcyB0aGF0IGZvciB0aGUgcHJlZmVycmVkIGRvbWFpbiBzbyBpdAo+IHdvbid0IGNoYW5n
-ZSB0aGUgYmVoYXZpb3IgdGhlcmUuCgpUaGF0IHdhcyBhY3R1YWxseSBzb21ldGhpbmcgSSB3YXMg
-bm90IHN1cmUgYWJvdXQgd2hlbiBJIGluaXRpYWxseSAKY3JlYXRlZCB0aGUgcGF0Y2guCgpTZWUg
-dGhlIEZCIGVtdWxhdGlvbiBleHBlY3RzIHNvbWUgcG9pbnRlciBpbnRvIGEgbGluZWFyIFBDSSBy
-ZXNvdXJjZSAKKFZSQU0pLCBJJ20gbm90IHN1cmUgaWYgdGhhdCBjYW4gYWN0dWFsbHkgZGVhbCB3
-aXRoIHNvbWV0aGluZyBrbWFwcGVkIAppbnRvIHRoZSB2bWFwIChHVFQpLgoKU2luY2UgdGhpcyBp
-cyBzZWxkb20gdXNlZCBhbmQgb25seSB3aXRoIGxvdyByZXNvbHV0aW9uIGl0IG1pZ2h0IGJlIApi
-ZXR0ZXIgdG8gZG8gdGhlIGNvbnNlcnZhdGl2ZSBhcHByb2FjaCBhbmQgdXNlIFZSQU0gaGVyZS4K
-CkFuZCB3ZSBkbyBhIGZ1bGwgbW9kZSBzZXQgd2hlbiBzd2l0Y2hpbmcgYXdheSBmcm9tIEZCIGVt
-dWxhdGlvbiBBRkFJSywgCnNvIHRoZSBtb3ZlIGZyb20gVlJBTSB0byBHVFQgc2hvdWxkbid0IGJl
-IGEgcHJvYmxlbS4KCkNocmlzdGlhbi4KCj4KPiBBbGV4Cj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+--===============1649897343==
+Content-Type: multipart/alternative; boundary="0000000000000139c6056c919d2d"
+
+--0000000000000139c6056c919d2d
+Content-Type: text/plain; charset="UTF-8"
+
+Den tis 15 maj 2018 16:50Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> skrev:
+
+> From: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
+>
+> Use module parameter passed from user to initialize zfb start address
+> and size.
+>
+> Signed-off-by: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+> Acked-by: John Bridgman <john.bridgman-5C7GfCeVMHo@public.gmane.org>
+> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 887f7c9e84e0..b175178345aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1010,6 +1010,15 @@ static void amdgpu_device_check_arguments(struct
+> amdgpu_device *adev)
+>         }
+>
+>         adev->firmware.load_type = amdgpu_ucode_get_load_type(adev,
+> amdgpu_fw_load_type);
+> +
+> +       if (amdgpu_zfb[0] > 0) {
+> +               dev_warn(adev->dev, "Zero Fram Buffer is enabled\n");
+>
+
+s/Fram/Frame/
+
+BR
+Nils
+
++               adev->gmc.zfb_phys_addr = amdgpu_zfb[1] << 20;
+> +               adev->gmc.zfb_size = amdgpu_zfb[0] << 20;
+> +       } else {
+> +               adev->gmc.zfb_phys_addr = 0;
+> +               adev->gmc.zfb_size = 0;
+> +       }
+>  }
+>
+>  /**
+> --
+> 2.13.6
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--0000000000000139c6056c919d2d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">=
+Den tis 15 maj 2018 16:50Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gma=
+il.com">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; skrev:<br></div><blockquote class=3D"=
+gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
+left:1ex">From: Feifei Xu &lt;<a href=3D"mailto:Feifei.Xu-5C7GfCeVMHo@public.gmane.org" target=
+=3D"_blank" rel=3D"noreferrer">Feifei.Xu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+Use module parameter passed from user to initialize zfb start address<br>
+and size.<br>
+<br>
+Signed-off-by: Feifei Xu &lt;<a href=3D"mailto:Feifei.Xu-5C7GfCeVMHo@public.gmane.org" target=3D=
+"_blank" rel=3D"noreferrer">Feifei.Xu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+Signed-off-by: Hawking Zhang &lt;<a href=3D"mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org" t=
+arget=3D"_blank" rel=3D"noreferrer">Hawking.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+Acked-by: John Bridgman &lt;<a href=3D"mailto:john.bridgman-5C7GfCeVMHo@public.gmane.org" target=
+=3D"_blank" rel=3D"noreferrer">john.bridgman-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" =
+target=3D"_blank" rel=3D"noreferrer">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org=
+" target=3D"_blank" rel=3D"noreferrer">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br=
+>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++++++<br>
+=C2=A01 file changed, 9 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 887f7c9e84e0..b175178345aa 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -1010,6 +1010,15 @@ static void amdgpu_device_check_arguments(struct amd=
+gpu_device *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;firmware.load_type =3D amdgpu_ucode_ge=
+t_load_type(adev, amdgpu_fw_load_type);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (amdgpu_zfb[0] &gt; 0) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_warn(adev-&gt;d=
+ev, &quot;Zero Fram Buffer is enabled\n&quot;);<br></blockquote></div></div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">s/Fram/Frame/</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">BR</div><div dir=3D"auto">Nils</div><=
+div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gmc.zfb_ph=
+ys_addr =3D amdgpu_zfb[1] &lt;&lt; 20;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gmc.zfb_si=
+ze =3D amdgpu_zfb[0] &lt;&lt; 20;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gmc.zfb_ph=
+ys_addr =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gmc.zfb_si=
+ze =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0}<br>
+<br>
+=C2=A0/**<br>
+-- <br>
+2.13.6<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank" rel=3D"n=
+oreferrer">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailm=
+an/listinfo/amd-gfx</a><br>
+</blockquote></div></div></div>
+
+--0000000000000139c6056c919d2d--
+
+--===============1649897343==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1649897343==--
