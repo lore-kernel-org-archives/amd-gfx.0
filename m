@@ -1,17 +1,21 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: consider user preference when pinning for SG
- display
-Date: Tue, 22 May 2018 16:24:41 +0200
-Message-ID: <17326a27-caa0-37b1-3ee3-3358a8bd51e9@daenzer.net>
-References: <20180517165521.8581-1-alexander.deucher@amd.com>
- <4dc6cde7-fb5c-81c2-6678-8e90e1beb78e@daenzer.net>
- <CADnq5_OWqfzjtB2XQ4hQB8fb89G=Bmx4LtJvCEHdCKDjnHZkUQ@mail.gmail.com>
+From: Deepak Sharma <deepak.sharma-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Use GTT for dumb buffer if sg display
+ enabled
+Date: Tue, 22 May 2018 13:34:26 -0700
+Message-ID: <1b2ccb3c-54fd-ab37-5179-7f1a49bfa328@amd.com>
+References: <20180521232203.12086-1-Deepak.Sharma@amd.com>
+ <f0e83630-9736-76b1-6489-265882b664d6@daenzer.net>
+ <965c9ef7-44c7-86c7-d797-3bf0b767519f@gmail.com>
+ <000f9d6a-af14-34d0-abfb-51fabad0c29d@daenzer.net>
+ <0d1e4e69-a41f-5432-1d95-2c964051bd41@gmail.com>
+ <cbceb91e-45b3-f998-8b16-c199e1906aab@daenzer.net>
+ <bbf167e1-9053-3800-981f-b8cc9cc4bd22@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_OWqfzjtB2XQ4hQB8fb89G=Bmx4LtJvCEHdCKDjnHZkUQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <bbf167e1-9053-3800-981f-b8cc9cc4bd22-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,34 +26,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wNS0xOCAwOToxMiBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IE9uIEZyaSwgTWF5
-IDE4LCAyMDE4IGF0IDQ6MjEgQU0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+
-IHdyb3RlOgo+PiBPbiAyMDE4LTA1LTE3IDA2OjU1IFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+
-PiBJZiB0aGUgcGluIGRvbWFpbiBpcyBzZXQgdG8gR1RUIHwgVlJBTSwgbG9vayBhdCB0aGUgcHJl
-ZmVycmVkIGRvbWFpbnMKPj4+IGZvciB0aGUgYm8gYW5kIHJlc3BlY3QgdGhhdCBpZiBpdCdzIGJl
-ZW4gc2V0IGV4cGxpY2l0bHkuCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxh
-bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Cj4gWy4uLl0KPgo+Pj4gKyAgICAgICAgICAgICBl
-bHNlIGlmIChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPD0gQU1ER1BVX1NHX1RIUkVTSE9MRCkK
-Pj4+ICAgICAgICAgICAgICAgICAgICAgICBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9HVFQ7
-Cj4+PiArICAgICAgICAgICAgIGVsc2UKPj4+ICsgICAgICAgICAgICAgICAgICAgICBkb21haW4g
-PSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNOwo+Pj4gICAgICAgfQo+Pgo+PiBJcyBldmVyeXRoaW5n
-IGluIHBsYWNlIHRvIGRlYWwgd2l0aCBhbnkgaXNzdWVzIHRoYXQgbWlnaHQgb2NjdXIgd2hlbgo+
-PiBmbGlwcGluZyBiZXR3ZWVuIGJ1ZmZlcnMgaW4gVlJBTSBhbmQgR1RUPwo+IAo+IEFoLCByaWdo
-dCwgSSBmb3Jnb3QgYWJvdXQgdGhhdCwgd2Ugc3RpbGwgbmVlZCB0byBkbyB0aGF0LiAgSW4gcHJh
-Y3RpY2UKPiBJIGRvbid0IHRoaW5rIHRoaXMgd2lsbCBjaGFuZ2UgYW55dGhpbmcgY29tcGFyZWQg
-dGhpbmdzIG5vdyBhdCBsZWFzdAo+IHRoZSB3YXkgbWVzYSBpcyBjdXJyZW50bHkgY29uZmlndXJl
-ZC4gIEkgY2FuIGhvbGQgb2ZmIG9uIHRoaXMgdGhpcwo+IHBhdGNoIGZvciBub3cgdW50aWwgd2Ug
-aGFuZGxlIHRoYXQgaWYgeW91IHRoaW5rIGl0IHdpbGwgYmUgYW4gaXNzdWUuCgpBcGFydCBmcm9t
-IHJlbHlpbmcgb24gdXNlcnNwYWNlIGJlaGF2aW91ciwgaXQgY291bGQgYmUgYW4gaXNzdWUgd2hl
-biBhCkRSSTMgY2xpZW50IHVzaW5nIGEgZGlmZmVyZW50IGRyaXZlciB0aGFuIGdsYW1vciAoZS5n
-LiBWdWxrYW4gb3IKYW1kZ3B1LXBybyBPcGVuR0wpIHN0YXJ0cyBvciBzdG9wcyBwYWdlIGZsaXBw
-aW5nIChib3RoIGNhc2VzIGludm9sdmUgYQpmbGlwIGJldHdlZW4gYSBzZXJ2ZXItYWxsb2NhdGVk
-IGFuZCBhIGNsaWVudC1hbGxvY2F0ZWQgYnVmZmVyKS4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBE
-w6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpM
-aWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBh
-bmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+CgpPbiAwNS8yMi8yMDE4IDA1OjEyIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IFtTTklQ
+XQo+Pj4gSWYgdGhlIEJPIGlzIG1vdmVkIGZyb20gVlJBTSB0byBWUkFNICh0byBtYWtlIGl0IGxp
+bmVhcikgb3IgZnJvbSBWUkFNIHRvCj4+PiBHVFQgZm9yIHNjYW5vdXQgZG9lc24ndCByZWFsbHkg
+bWF0dGVyLgo+PiBOb3Qgc3VyZSB3aGF0IHlvdSBtZWFuLiBEdW1iIEJPcyBhcmUgb25seSB1c2Vk
+IGZvciBDUFUgYWNjZXNzIGFuZAo+PiBzY2Fub3V0LCBhbmQgc2hvdWxkIGJlIGNyZWF0ZWQgYWNj
+b3JkaW5nbHkuCj4gCj4gV2VsbCB3aGF0IEkgd2FudGVkIHRvIHNheSBpcyB0aGF0IGl0IGlzbid0
+IHdvcnNlIHRoYW4gYmVmb3JlLgo+IAo+IE9uIHRoZSBvdGhlciBoYW5kIHRoaW5raW5nIGFib3V0
+IGl0IHNvbWV0aGluZyBsaWtlIDUgbGluZXMgb2YgY29kZSAKPiBzb3VuZHMgdG8gYXZvaWQgdGhl
+IGV4dHJhIGNvcHkgc291bmRzIHJlYXNvbmFibGUgdG8gbWUuCj4gClRoYW5rcywgSSBtaXNzZWQg
+dGhhdCBwb2ludCAsIFdpbGwgdXNlIGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zIAph
+cyBzdWdnZXN0ZWQgYW5kIHB1c2ggdjIuCgo+Pj4gQW5kIEJUVyBHVFQgQk9zIHVzZWQgZm9yIHNj
+YW5vdXQgc2hvdWxkIGJlIGNyZWF0ZWQgVVNXQywgc28gdGhlIGFyZ3VtZW50Cj4+PiB0aGF0IGl0
+IGlzIGZhc3RlciBmb3IgQ1BVIGFjY2VzcyBpc24ndCByZWFsbHkgdHJ1ZSBlaXRoZXIuCj4+IFlv
+dSdyZSBzYXlpbmcgc2Nhbm91dCBkb2Vzbid0IHdvcmsgZnJvbSBjYWNoZWFibGUgR1RUIEJPcz8g
+SWYgaXQgZG9lcwo+PiB3b3JrLCBpdCB3b3VsZCBiZSBwcmVmZXJhYmxlIGZvciBkdW1iIEJPcy4K
+PiAKPiBXZWxsLCBzY2Fub3V0IGRvZXMgc2VlbSB0byB3b3JrIGZyb20gY2FjaGFibGUgR1RUIEJP
+cy4gQnV0IGZyb20gdGhlIAo+IGRvY3VtZW50YXRpb24gZnJvbSB0aGUgaGFyZHdhcmUgdGVhbSBJ
+J20gcHJldHR5IHN1cmUgdGhleSBuZXZlciAKPiB2YWxpZGF0ZWQgdGhpcy4KPiAKPiBBbmQgYXMg
+dXN1YWxseSBub2JvZHkgZnJvbSB0aGUgaGFyZHdhcmUgZ3V5cyBJIGFza2VkIHNvIGZhciBjb3Vs
+ZCBnaXZlIAo+IG1lIGEgY2xlYXIgYW5zd2VyIGlmIGl0IHdvcmtzIG9yIG5vdC4KPiAKRldJVywg
+SSB0ZXN0ZWQgdGhpcyBvbiBTdG9uZXkgd2l0aCBDcm9zIHdoZXJlIGR1bWIgYnVmZmVycyB1c2Vk
+IGZvciAKc3BsYXNoIHNjcmVlbiwgSXRzIHdvcmtpbmcgZmluZS4KCgo+IFJlZ2FyZHMsCj4gQ2hy
+aXN0aWFuLgoKVGhhbmtzLApEZWVwYWsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
