@@ -1,12 +1,15 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Remove unused variable in
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Remove unused variable in
  amdgpu_device_gpu_recover
-Date: Wed, 23 May 2018 13:08:19 -0400
-Message-ID: <20180523170819.18775-1-harry.wentland@amd.com>
+Date: Wed, 23 May 2018 13:11:17 -0400
+Message-ID: <2b4d2215-e1aa-cfa7-2edd-6a7fd1188c02@amd.com>
+References: <20180523170819.18775-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180523170819.18775-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,22 +20,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SXQgdGhyb3dzIGFuIHVudXNlZCB2YXJpYWJsZSB3YXJuaW5nLgoKU2lnbmVkLW9mZi1ieTogSGFy
-cnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMSAtCiAxIGZpbGUgY2hhbmdlZCwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRl
-eCBjMTY1NGE0ZGZkODIuLjU3YTRmMzkzYWRhMyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzE3OSw3ICszMTc5LDYgQEAgc3RhdGljIGludCBhbWRn
-cHVfZGV2aWNlX3Jlc2V0X3NyaW92KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogaW50IGFt
-ZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkg
-ICAgICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLCBib29sIGZvcmNlKQogewotCXN0cnVjdCBkcm1f
-YXRvbWljX3N0YXRlICpzdGF0ZSA9IE5VTEw7CiAJaW50IGksIHIsIHJlc2NoZWQ7CiAKIAlpZiAo
-IWZvcmNlICYmICFhbWRncHVfZGV2aWNlX2lwX2NoZWNrX3NvZnRfcmVzZXQoYWRldikpIHsKLS0g
-CjIuMTcuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+UmV2aWV3ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29t
+PgoKQW5kcmV5CgoKT24gMDUvMjMvMjAxOCAwMTowOCBQTSwgSGFycnkgV2VudGxhbmQgd3JvdGU6
+Cj4gSXQgdGhyb3dzIGFuIHVudXNlZCB2YXJpYWJsZSB3YXJuaW5nLgo+Cj4gU2lnbmVkLW9mZi1i
+eTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxIC0KPiAgIDEgZmlsZSBj
+aGFuZ2VkLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jCj4gaW5kZXggYzE2NTRhNGRmZDgyLi41N2E0ZjM5M2FkYTMgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTMxNzksNyAr
+MzE3OSw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9yZXNldF9zcmlvdihzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwKPiAgIGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCQkJICAgICAgc3RydWN0IGFtZGdwdV9qb2IgKmpv
+YiwgYm9vbCBmb3JjZSkKPiAgIHsKPiAtCXN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSA9
+IE5VTEw7Cj4gICAJaW50IGksIHIsIHJlc2NoZWQ7Cj4gICAKPiAgIAlpZiAoIWZvcmNlICYmICFh
+bWRncHVfZGV2aWNlX2lwX2NoZWNrX3NvZnRfcmVzZXQoYWRldikpIHsKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
