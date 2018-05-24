@@ -1,17 +1,19 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: drm/amdgpu: Use GTT for dumb buffer if sg display enabled (v2)
-Date: Thu, 24 May 2018 09:01:54 +0200
-Message-ID: <76177627-6832-f5d6-fae6-f31f0677e13a@gmail.com>
-References: <20180522223123.5427-1-Deepak.Sharma@amd.com>
- <7471c409-bcee-a72c-5a6d-230153c6823d@gmail.com>
- <1b119b78-60c9-cf44-ea27-3d387e25a6af@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: GPU hang trying to run OpenCL kernels on x86_64
+Date: Thu, 24 May 2018 09:55:04 +0100
+Message-ID: <CAEzXK1q+pMZgg7a7TMkNaDPhe90NkCc7MtAfE98vRY5tGDfW4A@mail.gmail.com>
+References: <CAEzXK1p3SnOnduP0nL1D1pNWH1LTWwApEs7QnQPTFDdBBiHLXA@mail.gmail.com>
+ <CY4PR12MB13045EA9BCBFAB20D698BA86FE860@CY4PR12MB1304.namprd12.prod.outlook.com>
+ <CAEzXK1rJbXSpLUm=XQTLvySM4HJ45G9fQ0WCTPhnvdPETwUaYA@mail.gmail.com>
+ <53cc38f2-e94a-1514-0a03-303101db2f88@daenzer.net>
+ <CAEzXK1qHtfOBgismLvNy_x+NcMw78288AuwovBR-JmRwqpDmGQ@mail.gmail.com>
+ <CAEzXK1oM6b1bV3R3ezwD4eYrJXWV9+cdUFMC4q5+1bPkpmJFqQ@mail.gmail.com>
+ <CAEzXK1qRWkL67rG40jk4Odqm8AjbDvnnaCsDycLPRcPXXPL-KQ@mail.gmail.com>
+ <22178876-688c-b4fe-d40e-1bab28024603@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1664217041=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1b119b78-60c9-cf44-ea27-3d387e25a6af-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <22178876-688c-b4fe-d40e-1bab28024603-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,60 +24,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Deepak Sharma <deepak.sharma-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, michel-otUistvHUpPR7s880joybQ@public.gmane.org
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjMuMDUuMjAxOCB1bSAyMDoxNCBzY2hyaWViIERlZXBhayBTaGFybWE6Cj4KPgo+IE9uIDA1
-LzIzLzIwMTggMTI6MzEgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDIzLjA1LjIw
-MTggdW0gMDA6MzEgc2NocmllYiBEZWVwYWsgU2hhcm1hOgo+Pj4gV2hlbiB2cmFtIHNpemUgPD0g
-VEhSRVNIT0xEKDI1Nk0pIGxldHMgdXNlIEdUVCBmb3IgZHVtYiBidWZmZXIKPj4+IGFsbG9jYXRp
-b24uIEFzIFNHIHdpbGwgYmUgZW5hYmxlZCB3aXRoIHZyYW0gc2l6ZSA8PSAyNTZNCj4+PiBzY2Fu
-IG91dCB3aWxsIG5vdCBiZSBhbiBpc3N1ZS4KPj4+Cj4+PiB2MjogVXNlIGFtZGdwdV9kaXNwbGF5
-X3N1cHBvcnRlZF9kb21haW5zIHRvIGdldCBzdXBwb3J0ZWQgZG9tYWluLgo+Pj4KPj4+IFNpZ25l
-ZC1vZmYtYnk6IERlZXBhayBTaGFybWEgPERlZXBhay5TaGFybWFAYW1kLmNvbT4KPj4+IC0tLQo+
-Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIHwgMTAgKysrKysr
-KystLQo+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
-LSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2dlbS5jIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKPj4+
-IGluZGV4IDJjOGUyNzM3MDI4NC4uNjM3NThkYjVlMmVhIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKPj4+IEBAIC0zMCw2ICszMCw3IEBACj4+PiDCoCAj
-aW5jbHVkZSA8ZHJtL2RybVAuaD4KPj4+IMKgICNpbmNsdWRlIDxkcm0vYW1kZ3B1X2RybS5oPgo+
-Pj4gwqAgI2luY2x1ZGUgImFtZGdwdS5oIgo+Pj4gKyNpbmNsdWRlICJhbWRncHVfZGlzcGxheS5o
-Igo+Pj4gwqAgdm9pZCBhbWRncHVfZ2VtX29iamVjdF9mcmVlKHN0cnVjdCBkcm1fZ2VtX29iamVj
-dCAqZ29iaikKPj4+IMKgIHsKPj4+IEBAIC03NDksMTUgKzc1MCwyMCBAQCBpbnQgYW1kZ3B1X21v
-ZGVfZHVtYl9jcmVhdGUoc3RydWN0IGRybV9maWxlIAo+Pj4gKmZpbGVfcHJpdiwKPj4+IMKgwqDC
-oMKgwqAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOwo+Pj4g
-wqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmdvYmo7Cj4+PiDCoMKgwqDCoMKgIHVp
-bnQzMl90IGhhbmRsZTsKPj4+ICvCoMKgwqAgdTMyIGRvbWFpbiA9IGFtZGdwdV9kaXNwbGF5X3N1
-cHBvcnRlZF9kb21haW5zKGFkZXYpOwo+Pj4gwqDCoMKgwqDCoCBpbnQgcjsKPj4+IMKgwqDCoMKg
-wqAgYXJncy0+cGl0Y2ggPSBhbWRncHVfYWxpZ25fcGl0Y2goYWRldiwgYXJncy0+d2lkdGgsCj4+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBESVZfUk9VTkRf
-VVAoYXJncy0+YnBwLCA4KSwgMCk7Cj4+PiDCoMKgwqDCoMKgIGFyZ3MtPnNpemUgPSAodTY0KWFy
-Z3MtPnBpdGNoICogYXJncy0+aGVpZ2h0Owo+Pj4gwqDCoMKgwqDCoCBhcmdzLT5zaXplID0gQUxJ
-R04oYXJncy0+c2l6ZSwgUEFHRV9TSVpFKTsKPj4+ICvCoMKgwqAgaWYgKGRvbWFpbiA9PSAoQU1E
-R1BVX0dFTV9ET01BSU5fVlJBTSB8IEFNREdQVV9HRU1fRE9NQUlOX0dUVCkpIHsKPj4+ICvCoMKg
-wqDCoMKgwqDCoCBkb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNOwo+Pj4gK8KgwqDCoMKg
-wqDCoMKgIGlmIChhZGV2LT5nbWMucmVhbF92cmFtX3NpemUgPD0gQU1ER1BVX1NHX1RIUkVTSE9M
-RCkKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlO
-X0dUVDsKPj4+ICvCoMKgwqAgfQo+Pgo+PiBBcyBNaWNoZWwgc3VnZ2VzdGVkIGFzIHdlbGwgYmV0
-dGVyIG1ha2UgdGhhdCBhbiBoZWxwZXIgaW4gCj4+IGFtZGdwdV9vYmplY3QuYy4KPj4KPj4gQXBh
-cnQgZnJvbSB0aGF0IGxvb2tzIGdvb2QgdG8gbWUsCj4+IENocmlzdGlhbi4KPgo+IEkgY2FuIHB1
-c2ggYW5vdGhlciBwYXRjaCB0byBjcmVhdGUgaGVscGVyIGZ1bmN0aW9uIGFuZCB1c2UgdGhhdCBo
-ZXJlIAo+IGFzIHdlbGwgYXMgaW4gYW1kZ3B1X2JvX3Bpbl9yZXN0cmljdGVkLgo+Cj4gb3RoZXJ3
-aXNlIEkgY2FuIHB1c2ggdjMgaWYgeW91IHdhbnQgdGhhdCBjaGFuZ2UgaW4gdGhpcyBwYXRjaCBp
-dHNlbGYuCgpTaW5jZSB0aGlzIGlzIGp1c3QgYSBtaW5vciBjbGVhbnVwIGVpdGhlciB3YXkgd29y
-a3Mgd2l0aCBtZS4gVXNlIAp3aGF0ZXZlciBhcHByb2FjaCBzdWl0cyB5b3UgYmV0dGVyLgoKVGhh
-bmtzLApDaHJpc3RpYW4uCgo+Cj4gVGhhbmtzLAo+IERlZXBhawo+Cj4+Cj4+PiAtwqDCoMKgIHIg
-PSBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUoYWRldiwgYXJncy0+c2l6ZSwgMCwKPj4+IC3CoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9HRU1fRE9NQUlOX1ZS
-QU0sCj4+PiArwqDCoMKgIHIgPSBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUoYWRldiwgYXJncy0+
-c2l6ZSwgMCwgZG9tYWluLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFVSVJFRCwKPj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZhbHNlLCBOVUxMLCAmZ29i
-aik7Cj4+PiDCoMKgwqDCoMKgIGlmIChyKQo+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+--===============1664217041==
+Content-Type: multipart/alternative; boundary="000000000000c66b6b056cefce4d"
+
+--000000000000c66b6b056cefce4d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Michel,
+
+I will have to check previous rc releases of 4.17 to see if it wasn't
+already happening, before trying any possible git bisect.
+As an update I can say that an AMD Radeon R7 240 works fine on the same
+system with the same kernel and I am able to run the OpenCL kernels, that I
+couldn't with RX 460/RX 550.
+
+Regards,
+Lu=C3=ADs
+
+On Thu, May 24, 2018 at 9:30 AM, Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wr=
+ote:
+
+> On 2018-05-24 12:06 AM, Lu=C3=ADs Mendes wrote:
+> > I've tried Linux 4.17-rc6 with Ubuntu 18.04 on Tyan S7002 and I am not
+> even
+> > able see lightdm/gdm3 as system hangs when starting X.
+> > Having SR-IOV enabled or disabled makes no difference.
+> > Tested with AMD RX 460.
+> > When X is supposed to start the system hangs and only a rectangular
+> region
+> > on the top left corner screen remains with console text messages from t=
+he
+> > boot process while the remaining of the screen is just black. I am unab=
+le
+> > to do anything with the keyboard, switching to console does not work,
+> > ctrl-alt-del also doesn't work. I've to do a cold reset.
+>
+> Can you isolate which change introduced this new issue with git bisect?
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer               |               http://www.amd=
+.com
+> Libre software enthusiast             |             Mesa and X developer
+>
+
+--000000000000c66b6b056cefce4d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Michel,</div><div><br></div><div>I will have to ch=
+eck previous rc releases of 4.17 to see if it wasn&#39;t already happening,=
+ before trying any possible git bisect.</div><div>As an update I can say th=
+at an AMD Radeon R7 240 works fine on the same system with the same kernel =
+and I am able to run the OpenCL kernels, that I couldn&#39;t with RX 460/RX=
+ 550.</div><div><br></div><div>Regards,</div><div>Lu=C3=ADs<br></div></div>=
+<div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, May 24, 2=
+018 at 9:30 AM, Michel D=C3=A4nzer <span dir=3D"ltr">&lt;<a href=3D"mailto:=
+michel-otUistvHUpPR7s880joybQ@public.gmane.org" target=3D"_blank">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;</span> wro=
+te:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-=
+left:1px #ccc solid;padding-left:1ex"><span class=3D"">On 2018-05-24 12:06 =
+AM, Lu=C3=ADs Mendes wrote:<br>
+&gt; I&#39;ve tried Linux 4.17-rc6 with Ubuntu 18.04 on Tyan S7002 and I am=
+ not even<br>
+&gt; able see lightdm/gdm3 as system hangs when starting X.<br>
+&gt; Having SR-IOV enabled or disabled makes no difference.<br>
+&gt; Tested with AMD RX 460.<br>
+&gt; When X is supposed to start the system hangs and only a rectangular re=
+gion<br>
+&gt; on the top left corner screen remains with console text messages from =
+the<br>
+&gt; boot process while the remaining of the screen is just black. I am una=
+ble<br>
+&gt; to do anything with the keyboard, switching to console does not work,<=
+br>
+&gt; ctrl-alt-del also doesn&#39;t work. I&#39;ve to do a cold reset.<br>
+<br>
+</span>Can you isolate which change introduced this new issue with git bise=
+ct?<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+<br>
+-- <br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</div></div></blockquote></div><br></div>
+
+--000000000000c66b6b056cefce4d--
+
+--===============1664217041==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1664217041==--
