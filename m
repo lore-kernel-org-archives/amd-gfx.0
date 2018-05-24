@@ -1,17 +1,14 @@
-From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: GPU hang trying to run OpenCL kernels on x86_64
-Date: Wed, 23 May 2018 23:06:28 +0100
-Message-ID: <CAEzXK1qRWkL67rG40jk4Odqm8AjbDvnnaCsDycLPRcPXXPL-KQ@mail.gmail.com>
-References: <CAEzXK1p3SnOnduP0nL1D1pNWH1LTWwApEs7QnQPTFDdBBiHLXA@mail.gmail.com>
- <CY4PR12MB13045EA9BCBFAB20D698BA86FE860@CY4PR12MB1304.namprd12.prod.outlook.com>
- <CAEzXK1rJbXSpLUm=XQTLvySM4HJ45G9fQ0WCTPhnvdPETwUaYA@mail.gmail.com>
- <53cc38f2-e94a-1514-0a03-303101db2f88@daenzer.net>
- <CAEzXK1qHtfOBgismLvNy_x+NcMw78288AuwovBR-JmRwqpDmGQ@mail.gmail.com>
- <CAEzXK1oM6b1bV3R3ezwD4eYrJXWV9+cdUFMC4q5+1bPkpmJFqQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Implement
+ dm_pp_get_clock_levels_by_type_with_latency
+Date: Thu, 24 May 2018 00:35:52 -0400
+Message-ID: <CADnq5_P1gntWz1+x0tePmnsF0oA5AdsHPbYNvn9mzyA+ad4bKg@mail.gmail.com>
+References: <20180523175157.22210-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0630725629=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAEzXK1oM6b1bV3R3ezwD4eYrJXWV9+cdUFMC4q5+1bPkpmJFqQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <20180523175157.22210-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,176 +19,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: "Cheng, Tony" <tony.cheng-5C7GfCeVMHo@public.gmane.org>, "Lipski,
+ Mikita" <mikita.lipski-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, hersen.wu-5C7GfCeVMHo@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0630725629==
-Content-Type: multipart/alternative; boundary="0000000000003041a3056ce6bffd"
-
---0000000000003041a3056ce6bffd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I've tried Linux 4.17-rc6 with Ubuntu 18.04 on Tyan S7002 and I am not even
-able see lightdm/gdm3 as system hangs when starting X.
-Having SR-IOV enabled or disabled makes no difference.
-Tested with AMD RX 460.
-When X is supposed to start the system hangs and only a rectangular region
-on the top left corner screen remains with console text messages from the
-boot process while the remaining of the screen is just black. I am unable
-to do anything with the keyboard, switching to console does not work,
-ctrl-alt-del also doesn't work. I've to do a cold reset.
-
-
-Regards,
-Lu=C3=ADs
-
-
-On Fri, May 11, 2018 at 1:15 PM, Lu=C3=ADs Mendes <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-wrote:
-
-> Hi Michel,
->
-> Just made a fresh Ubuntu 18.04 LTS install for armhf with ubuntu
-> default mesa, libdrm and libclc, with the same 4.16.7 kernel and it
-> runs fine with the OpenCL applications that cause the hang on x86_64.
-> So it is surely a kernel or mesa issue exclusive to x86_64, libraries
-> versions are the same on both systems now, as well as the kernel.
-> I have even tried amdgpu-pro-18.20 with ubuntu 18.04 on x86_64 and it
-> hangs just the same.
->
-> Regards,
-> Lu=C3=ADs
->
-> On Mon, May 7, 2018 at 1:31 PM, Lu=C3=ADs Mendes <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
->
-> wrote:
-> > Hi Michel,
-> >
-> > No, I haven't tried the exact same versions of Mesa, nor libclc, nor
-> > LLVM on x86, however on armhf I have been able to use several
-> > combinations of Linux kernel versions and mesa versions which are able
-> > to run the OpenCL kernels in question. I will try to see if the same
-> > happens with the exact same Ubuntu 18.04 LTS base installation on
-> > armhf, but won't be able to test it today.
-> >
-> > Lu=C3=ADs
-> >
-> > On Mon, May 7, 2018 at 10:38 AM, Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org=
->
-> wrote:
-> >> On 2018-05-05 01:15 AM, Lu=C3=ADs Mendes wrote:
-> >>>
-> >>> - On another system with armhf 32 bits, 1GB ram, 512GB SSD, AMD RX 48=
-0
-> >>> or AMD RX 550
-> >>>   with Ubuntu 17.10, vanilla kernel 4.16.7, mesa-18.0.2,
-> >>> libdrm-2.4.92-git, libclc-git at commit
-> >>> 3d994f2ff2cbb4531223fe2657144cb19f0c5328 (15/Nov/2017)
-> >>>
-> >>>   The kernels work properly on the same AMD cards.
-> >>
-> >> Have you tried those exact same versions of the kernel, Mesa, libclc a=
-nd
-> >> LLVM on x86?
-> >>
-> >>
-> >> --
-> >> Earthling Michel D=C3=A4nzer               |
-> http://www.amd.com
-> >> Libre software enthusiast             |             Mesa and X develop=
-er
->
-
---0000000000003041a3056ce6bffd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I&#39;ve tried Linux 4.17-rc6 with Ubuntu 18.04 on Ty=
-an S7002 and I am not even able see lightdm/gdm3 as system hangs when start=
-ing X.</div><div>Having SR-IOV enabled or disabled makes no difference.</di=
-v><div>Tested with AMD RX 460. <br></div><div>When X is supposed to start t=
-he system hangs and only a rectangular region on the top left corner screen=
- remains with console text messages from the boot process while the remaini=
-ng of the screen is just black. I am unable to do anything with the keyboar=
-d, switching to console does not work, ctrl-alt-del also doesn&#39;t work. =
-I&#39;ve to do a cold reset. <br></div><div><br></div><div><br></div><div>R=
-egards,</div><div>Lu=C3=ADs<br></div><div><br></div></div><div class=3D"gma=
-il_extra"><br><div class=3D"gmail_quote">On Fri, May 11, 2018 at 1:15 PM, L=
-u=C3=ADs Mendes <span dir=3D"ltr">&lt;<a href=3D"mailto:luis.p.mendes@gmail=
-.com" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px =
-#ccc solid;padding-left:1ex">Hi Michel,<br>
-<br>
-Just made a fresh Ubuntu 18.04 LTS install for armhf with ubuntu<br>
-default mesa, libdrm and libclc, with the same 4.16.7 kernel and it<br>
-runs fine with the OpenCL applications that cause the hang on x86_64.<br>
-So it is surely a kernel or mesa issue exclusive to x86_64, libraries<br>
-versions are the same on both systems now, as well as the kernel.<br>
-I have even tried amdgpu-pro-18.20 with ubuntu 18.04 on x86_64 and it<br>
-hangs just the same.<br>
-<br>
-Regards,<br>
-Lu=C3=ADs<br>
-<div class=3D"HOEnZb"><div class=3D"h5"><br>
-On Mon, May 7, 2018 at 1:31 PM, Lu=C3=ADs Mendes &lt;<a href=3D"mailto:luis=
-.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-&gt; Hi Michel,<br>
-&gt;<br>
-&gt; No, I haven&#39;t tried the exact same versions of Mesa, nor libclc, n=
-or<br>
-&gt; LLVM on x86, however on armhf I have been able to use several<br>
-&gt; combinations of Linux kernel versions and mesa versions which are able=
-<br>
-&gt; to run the OpenCL kernels in question. I will try to see if the same<b=
-r>
-&gt; happens with the exact same Ubuntu 18.04 LTS base installation on<br>
-&gt; armhf, but won&#39;t be able to test it today.<br>
-&gt;<br>
-&gt; Lu=C3=ADs<br>
-&gt;<br>
-&gt; On Mon, May 7, 2018 at 10:38 AM, Michel D=C3=A4nzer &lt;<a href=3D"mai=
-lto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br>
-&gt;&gt; On 2018-05-05 01:15 AM, Lu=C3=ADs Mendes wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; - On another system with armhf 32 bits, 1GB ram, 512GB SSD, AM=
-D RX 480<br>
-&gt;&gt;&gt; or AMD RX 550<br>
-&gt;&gt;&gt;=C2=A0 =C2=A0with Ubuntu 17.10, vanilla kernel 4.16.7, mesa-18.=
-0.2,<br>
-&gt;&gt;&gt; libdrm-2.4.92-git, libclc-git at commit<br>
-&gt;&gt;&gt; 3d994f2ff2cbb4531223fe2657144c<wbr>b19f0c5328 (15/Nov/2017)<br=
->
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;=C2=A0 =C2=A0The kernels work properly on the same AMD cards.<b=
-r>
-&gt;&gt;<br>
-&gt;&gt; Have you tried those exact same versions of the kernel, Mesa, libc=
-lc and<br>
-&gt;&gt; LLVM on x86?<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; --<br>
-&gt;&gt; Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a=
- href=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://ww=
-w.amd.com</a><br>
-&gt;&gt; Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X develope=
-r<br>
-</div></div></blockquote></div><br></div>
-
---0000000000003041a3056ce6bffd--
-
---===============0630725629==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0630725629==--
+T24gV2VkLCBNYXkgMjMsIDIwMTggYXQgMTo1MSBQTSwgSGFycnkgV2VudGxhbmQgPGhhcnJ5Lndl
+bnRsYW5kQGFtZC5jb20+IHdyb3RlOgo+IFRoaXMgaXMgcmVxdWlyZWQgc28gd2UgdXNlIHRoZSBj
+b3JyZWN0IG1pbmltdW0gY2xvY2tzIGZvciBWZWdhLiBXaXRob3V0Cj4gdGhpcyBwcGxpYiB3aWxs
+IG5ldmVyIGJlIGFibGUgdG8gZW50ZXIgdGhlIGxvd2VzdCBjbG9jayBzdGF0ZXMuCj4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KPiAtLS0K
+PiAgLi4uL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9zZXJ2aWNlcy5jICAgIHwgNDYgKysr
+KysrKysrKysrKysrKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwgNDQgaW5zZXJ0aW9ucygrKSwgMiBk
+ZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+YW1kZ3B1X2RtL2FtZGdwdV9kbV9zZXJ2aWNlcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fc2VydmljZXMuYwo+IGluZGV4IDAyMjljN2VkYjhhZC4u
+MzBkZGQzMjkxMDRkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
+bWRncHVfZG0vYW1kZ3B1X2RtX3NlcnZpY2VzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9zZXJ2aWNlcy5jCj4gQEAgLTIzNCw2ICsyMzQs
+MzQgQEAgc3RhdGljIHZvaWQgcHBfdG9fZGNfY2xvY2tfbGV2ZWxzKAo+ICAgICAgICAgfQo+ICB9
+Cj4KPiArc3RhdGljIHZvaWQgcHBfdG9fZGNfY2xvY2tfbGV2ZWxzX3dpdGhfbGF0ZW5jeSgKPiAr
+ICAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IHBwX2Nsb2NrX2xldmVsc193aXRoX2xhdGVuY3kg
+KnBwX2Nsa3MsCj4gKyAgICAgICAgICAgICAgIHN0cnVjdCBkbV9wcF9jbG9ja19sZXZlbHNfd2l0
+aF9sYXRlbmN5ICpjbGtfbGV2ZWxfaW5mbywKPiArICAgICAgICAgICAgICAgZW51bSBkbV9wcF9j
+bG9ja190eXBlIGRjX2Nsa190eXBlKQo+ICt7Cj4gKyAgICAgICB1aW50MzJfdCBpOwo+ICsKPiAr
+ICAgICAgIGlmIChwcF9jbGtzLT5udW1fbGV2ZWxzID4gRE1fUFBfTUFYX0NMT0NLX0xFVkVMUykg
+ewo+ICsgICAgICAgICAgICAgICBEUk1fSU5GTygiRE1fUFBMSUI6IFdhcm5pbmc6ICVzIGNsb2Nr
+OiBudW1iZXIgb2YgbGV2ZWxzICVkIGV4Y2VlZHMgbWF4aW11bSBvZiAlZCFcbiIsCj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBEQ19ERUNPREVfUFBfQ0xPQ0tfVFlQRShkY19jbGtf
+dHlwZSksCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcF9jbGtzLT5udW1fbGV2
+ZWxzLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRE1fUFBfTUFYX0NMT0NLX0xF
+VkVMUyk7Cj4gKwo+ICsgICAgICAgICAgICAgICBjbGtfbGV2ZWxfaW5mby0+bnVtX2xldmVscyA9
+IERNX1BQX01BWF9DTE9DS19MRVZFTFM7Cj4gKyAgICAgICB9IGVsc2UKPiArICAgICAgICAgICAg
+ICAgY2xrX2xldmVsX2luZm8tPm51bV9sZXZlbHMgPSBwcF9jbGtzLT5udW1fbGV2ZWxzOwo+ICsK
+PiArICAgICAgIERSTV9JTkZPKCJETV9QUExJQjogdmFsdWVzIGZvciAlcyBjbG9ja1xuIiwKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICBEQ19ERUNPREVfUFBfQ0xPQ0tfVFlQRShkY19jbGtfdHlw
+ZSkpOwo+ICsKPiArICAgICAgIGZvciAoaSA9IDA7IGkgPCBjbGtfbGV2ZWxfaW5mby0+bnVtX2xl
+dmVsczsgaSsrKSB7Cj4gKyAgICAgICAgICAgICAgIERSTV9JTkZPKCJETV9QUExJQjpcdCAlZFxu
+IiwgcHBfY2xrcy0+ZGF0YVtpXS5jbG9ja3NfaW5fa2h6KTsKCmxlZnRvdmVyIGRlYnVnZ2luZyBv
+dXRwdXQ/ICBNYXliZSBtYWtlIHRoYXQgRFJNX0RFQlVHPyAgV2l0aCB0aGF0IGFkZHJlc3NlZDoK
+QWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCkFsZXgK
+Cj4gKyAgICAgICAgICAgICAgIC8qIHRyYW5zbGF0ZSAxMGtIeiB0byBrSHogKi8KPiArICAgICAg
+ICAgICAgICAgY2xrX2xldmVsX2luZm8tPmRhdGFbaV0uY2xvY2tzX2luX2toeiA9IHBwX2Nsa3Mt
+PmRhdGFbaV0uY2xvY2tzX2luX2toejsKPiArICAgICAgICAgICAgICAgY2xrX2xldmVsX2luZm8t
+PmRhdGFbaV0ubGF0ZW5jeV9pbl91cyA9IHBwX2Nsa3MtPmRhdGFbaV0uY2xvY2tzX2luX2toejsK
+PiArICAgICAgIH0KPiArfQo+ICsKPiAgYm9vbCBkbV9wcF9nZXRfY2xvY2tfbGV2ZWxzX2J5X3R5
+cGUoCj4gICAgICAgICAgICAgICAgIGNvbnN0IHN0cnVjdCBkY19jb250ZXh0ICpjdHgsCj4gICAg
+ICAgICAgICAgICAgIGVudW0gZG1fcHBfY2xvY2tfdHlwZSBjbGtfdHlwZSwKPiBAQCAtMzExLDgg
+KzMzOSwyMiBAQCBib29sIGRtX3BwX2dldF9jbG9ja19sZXZlbHNfYnlfdHlwZV93aXRoX2xhdGVu
+Y3koCj4gICAgICAgICBlbnVtIGRtX3BwX2Nsb2NrX3R5cGUgY2xrX3R5cGUsCj4gICAgICAgICBz
+dHJ1Y3QgZG1fcHBfY2xvY2tfbGV2ZWxzX3dpdGhfbGF0ZW5jeSAqY2xrX2xldmVsX2luZm8pCj4g
+IHsKPiAtICAgICAgIC8qIFRPRE86IHRvIGJlIGltcGxlbWVudGVkICovCj4gLSAgICAgICByZXR1
+cm4gZmFsc2U7Cj4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGN0eC0+ZHJp
+dmVyX2NvbnRleHQ7Cj4gKyAgICAgICB2b2lkICpwcF9oYW5kbGUgPSBhZGV2LT5wb3dlcnBsYXku
+cHBfaGFuZGxlOwo+ICsgICAgICAgc3RydWN0IHBwX2Nsb2NrX2xldmVsc193aXRoX2xhdGVuY3kg
+cHBfY2xrcyA9IHsgMCB9Owo+ICsgICAgICAgY29uc3Qgc3RydWN0IGFtZF9wbV9mdW5jcyAqcHBf
+ZnVuY3MgPSBhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3M7Cj4gKwo+ICsgICAgICAgaWYgKCFwcF9m
+dW5jcy0+Z2V0X2Nsb2NrX2J5X3R5cGVfd2l0aF9sYXRlbmN5KQo+ICsgICAgICAgICAgICAgICBy
+ZXR1cm4gZmFsc2U7Cj4gKwo+ICsgICAgICAgaWYgKHBwX2Z1bmNzLT5nZXRfY2xvY2tfYnlfdHlw
+ZV93aXRoX2xhdGVuY3kocHBfaGFuZGxlLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZGNfdG9fcHBfY2xvY2tfdHlwZShjbGtfdHlwZSksCj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmcHBf
+Y2xrcykpCj4gKyAgICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKPiArCj4gKyAgICAgICBwcF90
+b19kY19jbG9ja19sZXZlbHNfd2l0aF9sYXRlbmN5KCZwcF9jbGtzLCBjbGtfbGV2ZWxfaW5mbywg
+Y2xrX3R5cGUpOwo+ICsKPiArICAgICAgIHJldHVybiB0cnVlOwo+ICB9Cj4KPiAgYm9vbCBkbV9w
+cF9nZXRfY2xvY2tfbGV2ZWxzX2J5X3R5cGVfd2l0aF92b2x0YWdlKAo+IC0tCj4gMi4xNy4wCj4K
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
