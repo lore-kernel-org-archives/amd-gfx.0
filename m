@@ -1,84 +1,50 @@
-From: Boyuan Zhang <boyzhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 10/17] drm/amdgpu: add patch for fixing a known bug
-Date: Fri, 25 May 2018 11:33:30 -0400
-Message-ID: <74ba52c7-7fee-fa61-02b1-46daaf55a085@amd.com>
-References: <1527192929-2480-1-git-send-email-boyuan.zhang@amd.com>
- <1527192929-2480-10-git-send-email-boyuan.zhang@amd.com>
- <621d4f85-39f8-b998-6b6c-b8e55c93a8c9@gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <621d4f85-39f8-b998-6b6c-b8e55c93a8c9-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, boyuan.zhang-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, leo.liu-5C7GfCeVMHo@public.gmane.org, peter.fang-5C7GfCeVMHo@public.gmane.org
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH 2/8] drm/amdgpu: fix 32-bit build warning
+Date: Fri, 25 May 2018 17:50:09 +0200
+Message-ID: <20180525155030.3667352-2-arnd@arndb.de>
+References: <20180525155030.3667352-1-arnd@arndb.de>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180525155030.3667352-1-arnd@arndb.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
+Cc: Arnd Bergmann <arnd@arndb.de>, Felix Kuehling <Felix.Kuehling@amd.com>, Andres Rodriguez <andresx7@gmail.com>, Kent Russell <kent.russell@amd.com>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, Colin Ian King <colin.king@canonical.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAyMDE4LTA1LTI1IDA1OjA3IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDI0
-LjA1LjIwMTggdW0gMjI6MTUgc2NocmllYiBib3l1YW4uemhhbmdAYW1kLmNvbToKPj4gRnJvbTog
-Qm95dWFuIFpoYW5nIDxib3l1YW4uemhhbmdAYW1kLmNvbT4KPj4KPj4gQWxsb2NhdGUgZXh0cmEg
-c3BhY2UgaW4gdmNuIGpwZWcgcmluZyBidWZmZXIgYW5kIHN0b3JlIHRoZSBqcGVnIHJpbmcgCj4+
-IHBhdGNoCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEJveXVhbiBaaGFuZyA8Ym95dWFuLnpoYW5nQGFt
-ZC5jb20+Cj4+IC0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5j
-IHwgMjcgKysrKysrKysrKysrKysrKysrKysrKysrKystCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAy
-NiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3Zjbl92MV8wLmMKPj4gaW5kZXggZGNkMWE5YS4uMmU0YmQyNiAxMDA2NDQKPj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCj4+IEBAIC0xMTksNyArMTE5LDggQEAgc3Rh
-dGljIGludCB2Y25fdjFfMF9zd19pbml0KHZvaWQgKmhhbmRsZSkKPj4gwqAgwqDCoMKgwqDCoCBy
-aW5nID0gJmFkZXYtPnZjbi5yaW5nX2pwZWc7Cj4+IMKgwqDCoMKgwqAgc3ByaW50ZihyaW5nLT5u
-YW1lLCAidmNuX2pwZWciKTsKPj4gLcKgwqDCoCByID0gYW1kZ3B1X3JpbmdfaW5pdChhZGV2LCBy
-aW5nLCA1MTIsICZhZGV2LT52Y24uaXJxLCAwKTsKPj4gK8KgwqDCoCAvKiBhbGxvY2F0ZSBleHRy
-YSBkdyBpbiByaW5nIGJ1ZmZlciBmb3Igc3RvcmluZyBwYXRjaCBjb21tYW5kcyAqLwo+PiArwqDC
-oMKgIHIgPSBhbWRncHVfcmluZ19pbml0KGFkZXYsIHJpbmcsIDUxMiArIDY0LCAmYWRldi0+dmNu
-LmlycSwgMCk7Cj4+IMKgwqDCoMKgwqAgaWYgKHIpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1
-cm4gcjsKPj4gwqAgQEAgLTY3OSw2ICs2ODAsMzAgQEAgc3RhdGljIGludCB2Y25fdjFfMF9zdGFy
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAKPj4gKmFkZXYpCj4+IMKgwqDCoMKgwqAgV1JFRzMyX1NP
-QzE1KFVWRCwgMCwgbW1VVkRfSlJCQ19SQl9XUFRSLCAwKTsKPj4gwqDCoMKgwqDCoCBXUkVHMzJf
-U09DMTUoVVZELCAwLCBtbVVWRF9KUkJDX1JCX0NOVEwsIDB4MDAwMDAwMDJMKTsKPj4gwqAgK8Kg
-wqDCoCAvKiBzZXQgd3B0ciB0byB0aGUgZXh0cmEgYWxsb2NhdGVkIHNwYWNlIGluIHJpbmcgYnVm
-ZmVyICovCj4+ICvCoMKgwqAgcmluZy0+d3B0ciA9IFJSRUczMl9TT0MxNShVVkQsIDAsIG1tVVZE
-X0pSQkNfUkJfV1BUUik7Cj4+ICvCoMKgwqAgcmluZy0+d3B0ciArPSByaW5nLT5tYXhfZHcgKiBh
-bWRncHVfc2NoZWRfaHdfc3VibWlzc2lvbjsKPj4gKwo+PiArwqDCoMKgIC8qIGluY3JlYXNlIG1h
-c2sgdG8gYWxsb3cgdG8gd3JpdGUgdG8gdGhlIGV4dHJhIHNwYWNlICovCj4+ICvCoMKgwqAgcmlu
-Zy0+YnVmX21hc2sgKz0gNjQgKiA0Owo+PiArwqDCoMKgIHJpbmctPnB0cl9tYXNrICs9IDY0ICog
-NDsKPgo+IFdlbGwgdGhhdCBpcyByYXRoZXIgdWdseS4gYnVmX21hc2sgYW5kIHB0cl9tYXNrIGFy
-ZSBiaXQgbWFza3MsIHlvdSAKPiBjb3VsZCBzZXQgdGhlbSB0byAweGZmZmZmZmZmIGJ1dCB3aGF0
-IHlvdSBkbyBoZXJlIG1pZ2h0IG5vdCB3b3JrIGFzIAo+IGV4cGVjdGVkLgoKT0ssIHNvIG1heWJl
-IHNldHRpbmcgYm90aCBtYXNrIHRvIDB4ZmZmZmZmZmYgdGVtcG9yYXJpbHkgdG8gYWxsb3cgCndy
-aXRpbmcgdG8gZXh0cmEgc3BhY2UgYXMgbXUgYXMgbmVlZGVkLCB0aGVuIGxhdGVyIG9uIHNldCB0
-aGVtIGJhY2s/Cgo+Cj4+ICsKPj4gK8KgwqDCoCAvKiBhbGxvY2F0ZSBleHRyYSBzcGFjZSAqLwo+
-PiArwqDCoMKgIHIgPSBhbWRncHVfcmluZ19hbGxvYyhyaW5nLCA2NCk7Cj4+ICvCoMKgwqAgaWYg
-KHIpIHsKPj4gK8KgwqDCoMKgwqDCoMKgIERSTV9FUlJPUigiYW1kZ3B1OiBjcCBmYWlsZWQgdG8g
-bG9jayByaW5nICVkICglZCkuXG4iLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCByaW5nLT5pZHgsIHIpOwo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7Cj4+ICvCoMKg
-wqAgfQo+PiArCj4+ICvCoMKgwqAgLyogY29weSBwYXRjaCBjb21tYW5kcyB0byB0aGUgZXh0cmEg
-c3BhY2UgKi8KPj4gK8KgwqDCoCB2Y25fdjFfMF9qcGVnX3Jpbmdfc2V0X3BhdGNoX3Jpbmcocmlu
-Zyk7Cj4KPiBDYW4ndCB2Y25fdjFfMF9qcGVnX3Jpbmdfc2V0X3BhdGNoX3JpbmcoKSBqdXN0IHBh
-dGNoIHRoZSBjb21tYW5kIAo+IGRpcmVjdGx5IHRvIGhlIGVuZCBvZiB0aGUgcmluZyBidWZmZXI/
-Cj4KPiBJbiBvdGhlciB3b3JkcyB3aHkgZG8gd2UgbmVlZCB0byB1c2UgYW1kZ3B1X3Jpbmdfd3Jp
-dGUoKSBpbiAKPiB2Y25fdjFfMF9qcGVnX3Jpbmdfc2V0X3BhdGNoX3JpbmcoKT8KPgo+IENocmlz
-dGlhbi4KCkNvdWxkIHlvdSBnaXZlIG1lIHNvbWUgbW9yZSBkZXRhaWxlZCBpbmZvIG9uIGhvdyB0
-byBkbyB0aGF0PyBJIHRob3VnaHQgCmFtZGdwdV9yaW5nX3dyaXRlKCkgaXMgdGhlIGJlc3Qgd2F5
-IHRvIHdyaXRlIGNvbW1hbmRzIHRvIHRoZSByaW5nLCB3aGF0IAppcyB0aGUgb3RoZXIvYmV0dGVy
-IHdheSB0byBkbyBpdCBpbiB0aGlzIGNhc2U/IENvdWxkIHlvdSBwb2ludCBtZSB0byBhIApzaW1w
-bGUgZXhhbXBsZSBob3cgdG8gd3JpdGUgY29tbWFuZCBkaXJlY3RseSB0byB0aGUgZW5kIG9mIHJp
-bmcgKHdpdGhvdXQgCnJpbmdfd3JpdGUpPwoKVGhhbmtzLApCb3l1YW4KCj4KPj4gKwo+PiArwqDC
-oMKgIC8qIHJlc2V0IHdwdHIgYW5kIG1hc2sgKi8KPj4gK8KgwqDCoCByaW5nLT53cHRyID0gUlJF
-RzMyX1NPQzE1KFVWRCwgMCwgbW1VVkRfSlJCQ19SQl9XUFRSKTsKPj4gK8KgwqDCoCByaW5nLT5i
-dWZfbWFzayAtPSAweDEwMDsKPj4gK8KgwqDCoCByaW5nLT5wdHJfbWFzayAtPSAweDEwMDsKPj4g
-Kwo+PiDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiDCoCB9Cj4KCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+Casting a pointer to a 64-bit type causes a warning on 32-bit targets:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c:473:24: error: cast from pointer to integer of different size [-Werror=pointer-to-int-cast]
+          lower_32_bits((uint64_t)wptr));
+                        ^
+drivers/gpu/drm/amd/amdgpu/amdgpu.h:1701:53: note: in definition of macro 'WREG32'
+ #define WREG32(reg, v) amdgpu_mm_wreg(adev, (reg), (v), 0)
+                                                     ^
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c:473:10: note: in expansion of macro 'lower_32_bits'
+          lower_32_bits((uint64_t)wptr));
+          ^~~~~~~~~~~~~
+
+The correct method is to cast to 'uintptr_t'.
+
+Fixes: d5a114a6c5f7 ("drm/amdgpu: Add GFXv9 kfd2kgd interface functions")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index 8f37991df61b..f0c0d3953f69 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -470,9 +470,9 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
+ 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_HI),
+ 		       upper_32_bits(guessed_wptr));
+ 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR),
+-		       lower_32_bits((uint64_t)wptr));
++		       lower_32_bits((uintptr_t)wptr));
+ 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
+-		       upper_32_bits((uint64_t)wptr));
++		       upper_32_bits((uintptr_t)wptr));
+ 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_PQ_WPTR_POLL_CNTL1),
+ 		       get_queue_mask(adev, pipe_id, queue_id));
+ 	}
+-- 
+2.9.0
