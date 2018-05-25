@@ -1,50 +1,79 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH 2/8] drm/amdgpu: fix 32-bit build warning
-Date: Fri, 25 May 2018 17:50:09 +0200
-Message-ID: <20180525155030.3667352-2-arnd@arndb.de>
-References: <20180525155030.3667352-1-arnd@arndb.de>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180525155030.3667352-1-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
-Cc: Arnd Bergmann <arnd@arndb.de>, Felix Kuehling <Felix.Kuehling@amd.com>, Andres Rodriguez <andresx7@gmail.com>, Kent Russell <kent.russell@amd.com>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, Colin Ian King <colin.king@canonical.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 01/34] drm/amd/display: Release fake sink
+Date: Fri, 25 May 2018 12:02:00 -0400
+Message-ID: <20180525160233.21168-2-harry.wentland@amd.com>
+References: <20180525160233.21168-1-harry.wentland@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180525160233.21168-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
 
-Casting a pointer to a 64-bit type causes a warning on 32-bit targets:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c:473:24: error: cast from pointer to integer of different size [-Werror=pointer-to-int-cast]
-          lower_32_bits((uint64_t)wptr));
-                        ^
-drivers/gpu/drm/amd/amdgpu/amdgpu.h:1701:53: note: in definition of macro 'WREG32'
- #define WREG32(reg, v) amdgpu_mm_wreg(adev, (reg), (v), 0)
-                                                     ^
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c:473:10: note: in expansion of macro 'lower_32_bits'
-          lower_32_bits((uint64_t)wptr));
-          ^~~~~~~~~~~~~
-
-The correct method is to cast to 'uintptr_t'.
-
-Fixes: d5a114a6c5f7 ("drm/amdgpu: Add GFXv9 kfd2kgd interface functions")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 8f37991df61b..f0c0d3953f69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -470,9 +470,9 @@ static int kgd_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
- 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_HI),
- 		       upper_32_bits(guessed_wptr));
- 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR),
--		       lower_32_bits((uint64_t)wptr));
-+		       lower_32_bits((uintptr_t)wptr));
- 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
--		       upper_32_bits((uint64_t)wptr));
-+		       upper_32_bits((uintptr_t)wptr));
- 		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_PQ_WPTR_POLL_CNTL1),
- 		       get_queue_mask(adev, pipe_id, queue_id));
- 	}
--- 
-2.9.0
+RnJvbTogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgoKSWYgY29ubmVjdG9y
+IGRvZXNuJ3QgaGF2ZSBhIHNpbmssIGZha2Ugc2luayBpcyBjcmVhdGVkLCBidXQKbmV2ZXIgcmVs
+ZWFzZWQgYXMgaXQgYXNzdW1lZCB0aGF0IGl0cyBkZXN0cm95ZWQgd2l0aCB0aGUKc3RyZWFtIGl0
+IGlzIHVzZWQgZm9yLiBCdXQgbm93IHNpbmsgaXMgcmVsZWFzZWQgYmVmb3JlIHRoZQpzdHJlYW0g
+bWFpbnRhaW5nIHJlZmNvdW50IGNvbnNpc3RlbmN5LgoKVGhpcyB3YXkgd2UgYWxzbyBhdm9pZCBh
+c3NpZ25pbmcgYW55dGhpbmcgdG8gY29ubmVjdG9yIGtlZXBpbmcKYWxsIHRoZSBvcGVyYXRpb24g
+bG9jYWwuCgpTaWduZWQtb2ZmLWJ5OiBNaWtpdGEgTGlwc2tpIDxtaWtpdGEubGlwc2tpQGFtZC5j
+b20+ClJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8SGFycnkuV2VudGxhbmRAYW1kLmNvbT4K
+LS0tCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAzMSAr
+KysrKysrKysrLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMTUg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
+ZG0vYW1kZ3B1X2RtLmMKaW5kZXggNzJmOWE0NjgyZjUwLi45MGY1YTg0MjM2MGUgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAt
+MjM1OCwyNyArMjM1OCwyMiBAQCBkZWNpZGVfY3J0Y190aW1pbmdfZm9yX2RybV9kaXNwbGF5X21v
+ZGUoc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKmRybV9tb2RlLAogCX0KIH0KIAotc3RhdGljIGlu
+dCBjcmVhdGVfZmFrZV9zaW5rKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9y
+KQorc3RhdGljIHN0cnVjdCBkY19zaW5rICoKK2NyZWF0ZV9mYWtlX3Npbmsoc3RydWN0IGFtZGdw
+dV9kbV9jb25uZWN0b3IgKmFjb25uZWN0b3IpCiB7Ci0Jc3RydWN0IGRjX3NpbmsgKnNpbmsgPSBO
+VUxMOwogCXN0cnVjdCBkY19zaW5rX2luaXRfZGF0YSBzaW5rX2luaXRfZGF0YSA9IHsgMCB9Owot
+CisJc3RydWN0IGRjX3NpbmsgKnNpbmsgPSBOVUxMOwogCXNpbmtfaW5pdF9kYXRhLmxpbmsgPSBh
+Y29ubmVjdG9yLT5kY19saW5rOwogCXNpbmtfaW5pdF9kYXRhLnNpbmtfc2lnbmFsID0gYWNvbm5l
+Y3Rvci0+ZGNfbGluay0+Y29ubmVjdG9yX3NpZ25hbDsKIAogCXNpbmsgPSBkY19zaW5rX2NyZWF0
+ZSgmc2lua19pbml0X2RhdGEpOwogCWlmICghc2luaykgewogCQlEUk1fRVJST1IoIkZhaWxlZCB0
+byBjcmVhdGUgc2luayFcbiIpOwotCQlyZXR1cm4gLUVOT01FTTsKKwkJcmV0dXJuIE5VTEw7CiAJ
+fQotCiAJc2luay0+c2lua19zaWduYWwgPSBTSUdOQUxfVFlQRV9WSVJUVUFMOwotCWFjb25uZWN0
+b3ItPmZha2VfZW5hYmxlID0gdHJ1ZTsKIAotCWFjb25uZWN0b3ItPmRjX3NpbmsgPSBzaW5rOwot
+CWFjb25uZWN0b3ItPmRjX2xpbmstPmxvY2FsX3NpbmsgPSBzaW5rOwotCi0JcmV0dXJuIDA7CisJ
+cmV0dXJuIHNpbms7CiB9CiAKIHN0YXRpYyB2b2lkIHNldF9tdWx0aXN5bmNfdHJpZ2dlcl9wYXJh
+bXMoCkBAIC0yNDQxLDcgKzI0MzYsNyBAQCBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rKHN0cnVjdCBh
+bWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAogCXN0cnVjdCBkY19zdHJlYW1fc3RhdGUg
+KnN0cmVhbSA9IE5VTEw7CiAJc3RydWN0IGRybV9kaXNwbGF5X21vZGUgbW9kZSA9ICpkcm1fbW9k
+ZTsKIAlib29sIG5hdGl2ZV9tb2RlX2ZvdW5kID0gZmFsc2U7Ci0KKwlzdHJ1Y3QgZGNfc2luayAq
+c2luayA9IE5VTEw7CiAJaWYgKGFjb25uZWN0b3IgPT0gTlVMTCkgewogCQlEUk1fRVJST1IoImFj
+b25uZWN0b3IgaXMgTlVMTCFcbiIpOwogCQlyZXR1cm4gc3RyZWFtOwpAQCAtMjQ1OSwxNSArMjQ1
+NCwxOCBAQCBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9y
+ICphY29ubmVjdG9yLAogCQkJcmV0dXJuIHN0cmVhbTsKIAkJfQogCi0JCWlmIChjcmVhdGVfZmFr
+ZV9zaW5rKGFjb25uZWN0b3IpKQorCQlzaW5rID0gY3JlYXRlX2Zha2Vfc2luayhhY29ubmVjdG9y
+KTsKKwkJaWYgKCFzaW5rKQogCQkJcmV0dXJuIHN0cmVhbTsKKwl9IGVsc2UgeworCQlzaW5rID0g
+YWNvbm5lY3Rvci0+ZGNfc2luazsKIAl9CiAKLQlzdHJlYW0gPSBkY19jcmVhdGVfc3RyZWFtX2Zv
+cl9zaW5rKGFjb25uZWN0b3ItPmRjX3NpbmspOworCXN0cmVhbSA9IGRjX2NyZWF0ZV9zdHJlYW1f
+Zm9yX3Npbmsoc2luayk7CiAKIAlpZiAoc3RyZWFtID09IE5VTEwpIHsKIAkJRFJNX0VSUk9SKCJG
+YWlsZWQgdG8gY3JlYXRlIHN0cmVhbSBmb3Igc2luayFcbiIpOwotCQlyZXR1cm4gc3RyZWFtOwor
+CQlnb3RvIGZpbmlzaDsKIAl9CiAKIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KHByZWZlcnJlZF9tb2Rl
+LCAmYWNvbm5lY3Rvci0+YmFzZS5tb2RlcywgaGVhZCkgewpAQCAtMjUwNiwxMiArMjUwNCwxNSBA
+QCBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29u
+bmVjdG9yLAogCWZpbGxfYXVkaW9faW5mbygKIAkJJnN0cmVhbS0+YXVkaW9faW5mbywKIAkJZHJt
+X2Nvbm5lY3RvciwKLQkJYWNvbm5lY3Rvci0+ZGNfc2luayk7CisJCXNpbmspOwogCiAJdXBkYXRl
+X3N0cmVhbV9zaWduYWwoc3RyZWFtKTsKIAogCWlmIChkbV9zdGF0ZSAmJiBkbV9zdGF0ZS0+ZnJl
+ZXN5bmNfY2FwYWJsZSkKIAkJc3RyZWFtLT5pZ25vcmVfbXNhX3RpbWluZ19wYXJhbSA9IHRydWU7
+CitmaW5pc2g6CisJaWYgKHNpbmsgJiYgc2luay0+c2lua19zaWduYWwgPT0gU0lHTkFMX1RZUEVf
+VklSVFVBTCkKKwkJZGNfc2lua19yZWxlYXNlKHNpbmspOwogCiAJcmV0dXJuIHN0cmVhbTsKIH0K
+LS0gCjIuMTcuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
