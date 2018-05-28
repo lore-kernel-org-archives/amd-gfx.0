@@ -1,14 +1,15 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove unnecessary scheduler entity for VCN
-Date: Mon, 28 May 2018 08:57:49 +0200
-Message-ID: <bdf68fcb-132b-c680-9b61-a11187b20b12@gmail.com>
-References: <20180525145902.5771-1-leo.liu@amd.com>
+Subject: Re: drm/amdgpu: Add helper function to get buffer domain
+Date: Mon, 28 May 2018 09:07:23 +0200
+Message-ID: <b416465e-0561-8e2c-25b6-1792b4cac970@gmail.com>
+References: <20180526001229.15509-1-Deepak.Sharma@amd.com>
+ <f58bea93-8f1a-bc97-a0c6-a3d2f324275c@amd.com>
+ <BN6PR12MB18092E2599E79AA9FCE2BB48F7680@BN6PR12MB1809.namprd12.prod.outlook.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0286606983=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180525145902.5771-1-leo.liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB18092E2599E79AA9FCE2BB48F7680-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,93 +21,341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Sharma, Deepak" <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "michel-otUistvHUpPR7s880joybQ@public.gmane.org" <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjUuMDUuMjAxOCB1bSAxNjo1OSBzY2hyaWViIExlbyBMaXU6Cj4gSXQgc2hvdWxkIGJlIHN0
-YXRlbGVzcywgYW5kIG5vIG5lZWQgZm9yIHNjaGVkdWxlciB0byB0YWtlIGNhcmUKPgo+IFNpZ25l
-ZC1vZmYtYnk6IExlbyBMaXUgPGxlby5saXVAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3Rp
-YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jIHwgNTEgKysrKysrKy0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmgg
-fCAgMiAtLQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA0MyBkZWxldGlv
-bnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dmNuLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmMKPiBpbmRleCBl
-NWQyMzRjLi42Y2VhYzE3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92Y24uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-Y24uYwo+IEBAIC00OSw4ICs0OSw2IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92Y25faWRsZV93b3Jr
-X2hhbmRsZXIoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKTsKPiAgIAo+ICAgaW50IGFtZGdwdV92
-Y25fc3dfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIHsKPiAtCXN0cnVjdCBh
-bWRncHVfcmluZyAqcmluZzsKPiAtCXN0cnVjdCBkcm1fc2NoZWRfcnEgKnJxOwo+ICAgCXVuc2ln
-bmVkIGxvbmcgYm9fc2l6ZTsKPiAgIAljb25zdCBjaGFyICpmd19uYW1lOwo+ICAgCWNvbnN0IHN0
-cnVjdCBjb21tb25fZmlybXdhcmVfaGVhZGVyICpoZHI7Cj4gQEAgLTEwMiwyNCArMTAwLDYgQEAg
-aW50IGFtZGdwdV92Y25fc3dfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkJ
-cmV0dXJuIHI7Cj4gICAJfQo+ICAgCj4gLQlyaW5nID0gJmFkZXYtPnZjbi5yaW5nX2RlYzsKPiAt
-CXJxID0gJnJpbmctPnNjaGVkLnNjaGVkX3JxW0RSTV9TQ0hFRF9QUklPUklUWV9OT1JNQUxdOwo+
-IC0JciA9IGRybV9zY2hlZF9lbnRpdHlfaW5pdCgmcmluZy0+c2NoZWQsICZhZGV2LT52Y24uZW50
-aXR5X2RlYywKPiAtCQkJCSAgcnEsIE5VTEwpOwo+IC0JaWYgKHIgIT0gMCkgewo+IC0JCURSTV9F
-UlJPUigiRmFpbGVkIHNldHRpbmcgdXAgVkNOIGRlYyBydW4gcXVldWUuXG4iKTsKPiAtCQlyZXR1
-cm4gcjsKPiAtCX0KPiAtCj4gLQlyaW5nID0gJmFkZXYtPnZjbi5yaW5nX2VuY1swXTsKPiAtCXJx
-ID0gJnJpbmctPnNjaGVkLnNjaGVkX3JxW0RSTV9TQ0hFRF9QUklPUklUWV9OT1JNQUxdOwo+IC0J
-ciA9IGRybV9zY2hlZF9lbnRpdHlfaW5pdCgmcmluZy0+c2NoZWQsICZhZGV2LT52Y24uZW50aXR5
-X2VuYywKPiAtCQkJCSAgcnEsIE5VTEwpOwo+IC0JaWYgKHIgIT0gMCkgewo+IC0JCURSTV9FUlJP
-UigiRmFpbGVkIHNldHRpbmcgdXAgVkNOIGVuYyBydW4gcXVldWUuXG4iKTsKPiAtCQlyZXR1cm4g
-cjsKPiAtCX0KPiAtCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiBAQCAtMTI5LDEwICsxMDks
-NiBAQCBpbnQgYW1kZ3B1X3Zjbl9zd19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+
-ICAgCj4gICAJa2ZyZWUoYWRldi0+dmNuLnNhdmVkX2JvKTsKPiAgIAo+IC0JZHJtX3NjaGVkX2Vu
-dGl0eV9maW5pKCZhZGV2LT52Y24ucmluZ19kZWMuc2NoZWQsICZhZGV2LT52Y24uZW50aXR5X2Rl
-Yyk7Cj4gLQo+IC0JZHJtX3NjaGVkX2VudGl0eV9maW5pKCZhZGV2LT52Y24ucmluZ19lbmNbMF0u
-c2NoZWQsICZhZGV2LT52Y24uZW50aXR5X2VuYyk7Cj4gLQo+ICAgCWFtZGdwdV9ib19mcmVlX2tl
-cm5lbCgmYWRldi0+dmNuLnZjcHVfYm8sCj4gICAJCQkgICAgICAmYWRldi0+dmNuLmdwdV9hZGRy
-LAo+ICAgCQkJICAgICAgKHZvaWQgKiopJmFkZXYtPnZjbi5jcHVfYWRkcik7Cj4gQEAgLTI3MSw3
-ICsyNDcsNyBAQCBpbnQgYW1kZ3B1X3Zjbl9kZWNfcmluZ190ZXN0X3Jpbmcoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nKQo+ICAgfQo+ICAgCj4gICBzdGF0aWMgaW50IGFtZGdwdV92Y25fZGVjX3Nl
-bmRfbXNnKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAtCQkJCSAgIHN0cnVjdCBhbWRncHVf
-Ym8gKmJvLCBib29sIGRpcmVjdCwKPiArCQkJCSAgIHN0cnVjdCBhbWRncHVfYm8gKmJvLAo+ICAg
-CQkJCSAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSkKPiAgIHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7Cj4gQEAgLTI5OSwxOSArMjc1LDEyIEBAIHN0YXRp
-YyBpbnQgYW1kZ3B1X3Zjbl9kZWNfc2VuZF9tc2coc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+
-ICAgCX0KPiAgIAlpYi0+bGVuZ3RoX2R3ID0gMTY7Cj4gICAKPiAtCWlmIChkaXJlY3QpIHsKPiAt
-CQlyID0gYW1kZ3B1X2liX3NjaGVkdWxlKHJpbmcsIDEsIGliLCBOVUxMLCAmZik7Cj4gLQkJam9i
-LT5mZW5jZSA9IGRtYV9mZW5jZV9nZXQoZik7Cj4gLQkJaWYgKHIpCj4gLQkJCWdvdG8gZXJyX2Zy
-ZWU7Cj4gKwlyID0gYW1kZ3B1X2liX3NjaGVkdWxlKHJpbmcsIDEsIGliLCBOVUxMLCAmZik7Cj4g
-Kwlqb2ItPmZlbmNlID0gZG1hX2ZlbmNlX2dldChmKTsKPiArCWlmIChyKQo+ICsJCWdvdG8gZXJy
-X2ZyZWU7Cj4gICAKPiAtCQlhbWRncHVfam9iX2ZyZWUoam9iKTsKPiAtCX0gZWxzZSB7Cj4gLQkJ
-ciA9IGFtZGdwdV9qb2Jfc3VibWl0KGpvYiwgcmluZywgJmFkZXYtPnZjbi5lbnRpdHlfZGVjLAo+
-IC0JCQkJICAgICAgQU1ER1BVX0ZFTkNFX09XTkVSX1VOREVGSU5FRCwgJmYpOwo+IC0JCWlmIChy
-KQo+IC0JCQlnb3RvIGVycl9mcmVlOwo+IC0JfQo+ICsJYW1kZ3B1X2pvYl9mcmVlKGpvYik7Cj4g
-ICAKPiAgIAlhbWRncHVfYm9fZmVuY2UoYm8sIGYsIGZhbHNlKTsKPiAgIAlhbWRncHVfYm9fdW5y
-ZXNlcnZlKGJvKTsKPiBAQCAtMzYzLDExICszMzIsMTEgQEAgc3RhdGljIGludCBhbWRncHVfdmNu
-X2RlY19nZXRfY3JlYXRlX21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhh
-bmQKPiAgIAlmb3IgKGkgPSAxNDsgaSA8IDEwMjQ7ICsraSkKPiAgIAkJbXNnW2ldID0gY3B1X3Rv
-X2xlMzIoMHgwKTsKPiAgIAo+IC0JcmV0dXJuIGFtZGdwdV92Y25fZGVjX3NlbmRfbXNnKHJpbmcs
-IGJvLCB0cnVlLCBmZW5jZSk7Cj4gKwlyZXR1cm4gYW1kZ3B1X3Zjbl9kZWNfc2VuZF9tc2cocmlu
-ZywgYm8sIGZlbmNlKTsKPiAgIH0KPiAgIAo+ICAgc3RhdGljIGludCBhbWRncHVfdmNuX2RlY19n
-ZXRfZGVzdHJveV9tc2coc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCBoYW5kbGUs
-Cj4gLQkJCSAgICAgICBib29sIGRpcmVjdCwgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQo+ICsJ
-CQkgICAgICAgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQo+ICAgewo+ICAgCXN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2ID0gcmluZy0+YWRldjsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2JvICpibyA9
-IE5VTEw7Cj4gQEAgLTM4OSw3ICszNTgsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92Y25fZGVjX2dl
-dF9kZXN0cm95X21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhhbgo+ICAg
-CWZvciAoaSA9IDY7IGkgPCAxMDI0OyArK2kpCj4gICAJCW1zZ1tpXSA9IGNwdV90b19sZTMyKDB4
-MCk7Cj4gICAKPiAtCXJldHVybiBhbWRncHVfdmNuX2RlY19zZW5kX21zZyhyaW5nLCBibywgZGly
-ZWN0LCBmZW5jZSk7Cj4gKwlyZXR1cm4gYW1kZ3B1X3Zjbl9kZWNfc2VuZF9tc2cocmluZywgYm8s
-IGZlbmNlKTsKPiAgIH0KPiAgIAo+ICAgaW50IGFtZGdwdV92Y25fZGVjX3JpbmdfdGVzdF9pYihz
-dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIGxvbmcgdGltZW91dCkKPiBAQCAtNDAzLDcgKzM3Miw3
-IEBAIGludCBhbWRncHVfdmNuX2RlY19yaW5nX3Rlc3RfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpy
-aW5nLCBsb25nIHRpbWVvdXQpCj4gICAJCWdvdG8gZXJyb3I7Cj4gICAJfQo+ICAgCj4gLQlyID0g
-YW1kZ3B1X3Zjbl9kZWNfZ2V0X2Rlc3Ryb3lfbXNnKHJpbmcsIDEsIHRydWUsICZmZW5jZSk7Cj4g
-KwlyID0gYW1kZ3B1X3Zjbl9kZWNfZ2V0X2Rlc3Ryb3lfbXNnKHJpbmcsIDEsICZmZW5jZSk7Cj4g
-ICAJaWYgKHIpIHsKPiAgIAkJRFJNX0VSUk9SKCJhbWRncHU6IGZhaWxlZCB0byBnZXQgZGVzdHJv
-eSBpYiAoJWxkKS5cbiIsIHIpOwo+ICAgCQlnb3RvIGVycm9yOwo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdmNuLmgKPiBpbmRleCAyZmQ3ZGI4Li5mOTM0Nzk2IDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uaAo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uaAo+IEBAIC01Niw4ICs1Niw2IEBAIHN0
-cnVjdCBhbWRncHVfdmNuIHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X3JpbmcJcmluZ19kZWM7Cj4gICAJ
-c3RydWN0IGFtZGdwdV9yaW5nCXJpbmdfZW5jW0FNREdQVV9WQ05fTUFYX0VOQ19SSU5HU107Cj4g
-ICAJc3RydWN0IGFtZGdwdV9pcnFfc3JjCWlycTsKPiAtCXN0cnVjdCBkcm1fc2NoZWRfZW50aXR5
-IGVudGl0eV9kZWM7Cj4gLQlzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSBlbnRpdHlfZW5jOwo+ICAg
-CXVuc2lnbmVkCQludW1fZW5jX3JpbmdzOwo+ICAgfTsKPiAgIAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0286606983==
+Content-Type: multipart/alternative;
+ boundary="------------76B9CAC3280C25A0F60314C5"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------76B9CAC3280C25A0F60314C5
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org> for both as well.
+
+Christian.
+
+Am 26.05.2018 um 15:23 schrieb Deucher, Alexander:
+>
+> Both patches are:
+>
+> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+>
+> ------------------------------------------------------------------------
+> *From:* Sharma, Deepak
+> *Sent:* Friday, May 25, 2018 8:19:26 PM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; 
+> michel-otUistvHUpPR7s880joybQ@public.gmane.org; Koenig, Christian
+> *Subject:* Re: drm/amdgpu: Add helper function to get buffer domain
+> If look fine , please give rb for this and
+> https://patchwork.freedesktop.org/patch/224850/
+>
+> Thanks,
+> Deepak
+>
+> On 05/25/2018 05:12 PM, Deepak Sharma wrote:
+> > Move logic of getting supported domain to a helper
+> > function
+> >
+> > Signed-off-by: Deepak Sharma <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 10 +++-------
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 17 ++++++++++++-----
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 ++-
+> >   3 files changed, 17 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > index 63758db5e2ea..556406a44da3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > @@ -750,19 +750,15 @@ int amdgpu_mode_dumb_create(struct drm_file 
+> *file_priv,
+> >        struct amdgpu_device *adev = dev->dev_private;
+> >        struct drm_gem_object *gobj;
+> >        uint32_t handle;
+> > -     u32 domain = amdgpu_display_supported_domains(adev);
+> > +     u32 domain;
+> >        int r;
+> >
+> >        args->pitch = amdgpu_align_pitch(adev, args->width,
+> > DIV_ROUND_UP(args->bpp, 8), 0);
+> >        args->size = (u64)args->pitch * args->height;
+> >        args->size = ALIGN(args->size, PAGE_SIZE);
+> > -     if (domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
+> > -             domain = AMDGPU_GEM_DOMAIN_VRAM;
+> > -             if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
+> > -                     domain = AMDGPU_GEM_DOMAIN_GTT;
+> > -     }
+> > -
+> > +     domain = amdgpu_bo_get_preferred_pin_domain(adev,
+> > + amdgpu_display_supported_domains(adev));
+> >        r = amdgpu_gem_object_create(adev, args->size, 0, domain,
+> > AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED,
+> >                                     false, NULL, &gobj);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > index 6a9e46ae7f0a..5e4e1bd90383 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > @@ -703,11 +703,7 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo 
+> *bo, u32 domain,
+> >        /* This assumes only APU display buffers are pinned with 
+> (VRAM|GTT).
+> >         * See function amdgpu_display_supported_domains()
+> >         */
+> > -     if (domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
+> > -             domain = AMDGPU_GEM_DOMAIN_VRAM;
+> > -             if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
+> > -                     domain = AMDGPU_GEM_DOMAIN_GTT;
+> > -     }
+> > +     domain = amdgpu_bo_get_preferred_pin_domain(adev, domain);
+> >
+> >        if (bo->pin_count) {
+> >                uint32_t mem_type = bo->tbo.mem.mem_type;
+> > @@ -1066,3 +1062,14 @@ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo)
+> >
+> >        return bo->tbo.offset;
+> >   }
+> > +
+> > +uint32_t amdgpu_bo_get_preferred_pin_domain(struct amdgpu_device *adev,
+> > +                                         uint32_t domain)
+> > +{
+> > +     if (domain == (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) {
+> > +             domain = AMDGPU_GEM_DOMAIN_VRAM;
+> > +             if (adev->gmc.real_vram_size <= AMDGPU_SG_THRESHOLD)
+> > +                     domain = AMDGPU_GEM_DOMAIN_GTT;
+> > +     }
+> > +     return domain;
+> > +}
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> > index 540e03fa159f..731748033878 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> > @@ -289,7 +289,8 @@ int amdgpu_bo_restore_from_shadow(struct 
+> amdgpu_device *adev,
+> >                                  struct reservation_object *resv,
+> >                                  struct dma_fence **fence,
+> >                                  bool direct);
+> > -
+> > +uint32_t amdgpu_bo_get_preferred_pin_domain(struct amdgpu_device *adev,
+> > +                                         uint32_t domain);
+> >
+> >   /*
+> >    * sub allocation
+> >
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------76B9CAC3280C25A0F60314C5
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Reviewed-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> for both as well.<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 26.05.2018 um 15:23 schrieb Deucher, Alexander:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BN6PR12MB18092E2599E79AA9FCE2BB48F7680-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <p style="margin-top:0;margin-bottom:0">Both patches are:</p>
+        <p style="margin-top:0;margin-bottom:0">Reviewed-by: Alex
+          Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+        </p>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          face="Calibri, sans-serif" color="#000000"><b>From:</b>
+          Sharma, Deepak<br>
+          <b>Sent:</b> Friday, May 25, 2018 8:19:26 PM<br>
+          <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Deucher, Alexander;
+          <a class="moz-txt-link-abbreviated" href="mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>; Koenig, Christian<br>
+          <b>Subject:</b> Re: drm/amdgpu: Add helper function to get
+          buffer domain</font>
+        <div> </div>
+      </div>
+      <div class="BodyFragment"><font size="2"><span
+            style="font-size:11pt;">
+            <div class="PlainText">If look fine , please give rb for
+              this and <br>
+              <a href="https://patchwork.freedesktop.org/patch/224850/"
+                moz-do-not-send="true">https://patchwork.freedesktop.org/patch/224850/</a><br>
+              <br>
+              Thanks,<br>
+              Deepak<br>
+              <br>
+              On 05/25/2018 05:12 PM, Deepak Sharma wrote:<br>
+              &gt; Move logic of getting supported domain to a helper<br>
+              &gt; function<br>
+              &gt; <br>
+              &gt; Signed-off-by: Deepak Sharma
+              <a class="moz-txt-link-rfc2396E" href="mailto:Deepak.Sharma-5C7GfCeVMHo@public.gmane.org">&lt;Deepak.Sharma-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+              &gt; ---<br>
+              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 10
+              +++-------<br>
+              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 17
+              ++++++++++++-----<br>
+              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 ++-<br>
+              &gt;   3 files changed, 17 insertions(+), 13 deletions(-)<br>
+              &gt; <br>
+              &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+              &gt; index 63758db5e2ea..556406a44da3 100644<br>
+              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+              &gt; @@ -750,19 +750,15 @@ int
+              amdgpu_mode_dumb_create(struct drm_file *file_priv,<br>
+              &gt;        struct amdgpu_device *adev =
+              dev-&gt;dev_private;<br>
+              &gt;        struct drm_gem_object *gobj;<br>
+              &gt;        uint32_t handle;<br>
+              &gt; -     u32 domain =
+              amdgpu_display_supported_domains(adev);<br>
+              &gt; +     u32 domain;<br>
+              &gt;        int r;<br>
+              &gt;   <br>
+              &gt;        args-&gt;pitch = amdgpu_align_pitch(adev,
+              args-&gt;width,<br>
+              &gt;                                        
+              DIV_ROUND_UP(args-&gt;bpp, 8), 0);<br>
+              &gt;        args-&gt;size = (u64)args-&gt;pitch *
+              args-&gt;height;<br>
+              &gt;        args-&gt;size = ALIGN(args-&gt;size,
+              PAGE_SIZE);<br>
+              &gt; -     if (domain == (AMDGPU_GEM_DOMAIN_VRAM |
+              AMDGPU_GEM_DOMAIN_GTT)) {<br>
+              &gt; -             domain = AMDGPU_GEM_DOMAIN_VRAM;<br>
+              &gt; -             if (adev-&gt;gmc.real_vram_size &lt;=
+              AMDGPU_SG_THRESHOLD)<br>
+              &gt; -                     domain = AMDGPU_GEM_DOMAIN_GTT;<br>
+              &gt; -     }<br>
+              &gt; -<br>
+              &gt; +     domain =
+              amdgpu_bo_get_preferred_pin_domain(adev,<br>
+              &gt; +                            
+              amdgpu_display_supported_domains(adev));<br>
+              &gt;        r = amdgpu_gem_object_create(adev,
+              args-&gt;size, 0, domain,<br>
+              &gt;                                    
+              AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED,<br>
+              &gt;                                     false, NULL,
+              &amp;gobj);<br>
+              &gt; diff --git
+              a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              &gt; index 6a9e46ae7f0a..5e4e1bd90383 100644<br>
+              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              &gt; @@ -703,11 +703,7 @@ int
+              amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,<br>
+              &gt;        /* This assumes only APU display buffers are
+              pinned with (VRAM|GTT).<br>
+              &gt;         * See function
+              amdgpu_display_supported_domains()<br>
+              &gt;         */<br>
+              &gt; -     if (domain == (AMDGPU_GEM_DOMAIN_VRAM |
+              AMDGPU_GEM_DOMAIN_GTT)) {<br>
+              &gt; -             domain = AMDGPU_GEM_DOMAIN_VRAM;<br>
+              &gt; -             if (adev-&gt;gmc.real_vram_size &lt;=
+              AMDGPU_SG_THRESHOLD)<br>
+              &gt; -                     domain = AMDGPU_GEM_DOMAIN_GTT;<br>
+              &gt; -     }<br>
+              &gt; +     domain =
+              amdgpu_bo_get_preferred_pin_domain(adev, domain);<br>
+              &gt;   <br>
+              &gt;        if (bo-&gt;pin_count) {<br>
+              &gt;                uint32_t mem_type =
+              bo-&gt;tbo.mem.mem_type;<br>
+              &gt; @@ -1066,3 +1062,14 @@ u64
+              amdgpu_bo_gpu_offset(struct amdgpu_bo *bo)<br>
+              &gt;   <br>
+              &gt;        return bo-&gt;tbo.offset;<br>
+              &gt;   }<br>
+              &gt; +<br>
+              &gt; +uint32_t amdgpu_bo_get_preferred_pin_domain(struct
+              amdgpu_device *adev,<br>
+              &gt; +                                         uint32_t
+              domain)<br>
+              &gt; +{<br>
+              &gt; +     if (domain == (AMDGPU_GEM_DOMAIN_VRAM |
+              AMDGPU_GEM_DOMAIN_GTT)) {<br>
+              &gt; +             domain = AMDGPU_GEM_DOMAIN_VRAM;<br>
+              &gt; +             if (adev-&gt;gmc.real_vram_size &lt;=
+              AMDGPU_SG_THRESHOLD)<br>
+              &gt; +                     domain = AMDGPU_GEM_DOMAIN_GTT;<br>
+              &gt; +     }<br>
+              &gt; +     return domain;<br>
+              &gt; +}<br>
+              &gt; diff --git
+              a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
+              &gt; index 540e03fa159f..731748033878 100644<br>
+              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
+              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
+              &gt; @@ -289,7 +289,8 @@ int
+              amdgpu_bo_restore_from_shadow(struct amdgpu_device *adev,<br>
+              &gt;                                  struct
+              reservation_object *resv,<br>
+              &gt;                                  struct dma_fence
+              **fence,<br>
+              &gt;                                  bool direct);<br>
+              &gt; -<br>
+              &gt; +uint32_t amdgpu_bo_get_preferred_pin_domain(struct
+              amdgpu_device *adev,<br>
+              &gt; +                                         uint32_t
+              domain);<br>
+              &gt;   <br>
+              &gt;   /*<br>
+              &gt;    * sub allocation<br>
+              &gt; <br>
+            </div>
+          </span></font></div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------76B9CAC3280C25A0F60314C5--
+
+--===============0286606983==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0286606983==--
