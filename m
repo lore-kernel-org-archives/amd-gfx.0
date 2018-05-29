@@ -1,12 +1,14 @@
-From: <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/pp: Connect display_clock_voltage_request to a
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Connect display_clock_voltage_request to a
  function pointer
-Date: Tue, 29 May 2018 17:51:15 -0400
-Message-ID: <1527630675-22119-1-git-send-email-mikita.lipski@amd.com>
+Date: Tue, 29 May 2018 22:00:20 +0000
+Message-ID: <BN6PR12MB18093CDCB3277520E53B1A54F76D0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1527630675-22119-1-git-send-email-mikita.lipski@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0443970000=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1527630675-22119-1-git-send-email-mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,72 +19,381 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: rex.zhu-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>, Hersen.wu-5C7GfCeVMHo@public.gmane.org, Harry.Wentland-5C7GfCeVMHo@public.gmane.org
+To: "Lipski, Mikita" <Mikita.Lipski-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Wu,
+ Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgoKR2V0IHJpZCBvZiBh
-biBlbXB0eSBkdWJsaWNhdGUgb2Ygc211MTBfZGlzcGxheV9jbG9ja192b2x0YWdlX3JlcXVlc3QK
-CkFkZCBkaXNwbGF5X2Nsb2NrX3ZvbHRhZ2VfcmVxdWVzdCB0byBzbXUxMCBmdW5jdGlvbnMgc3Ry
-dWN0IHNvIGl0CmNhbiBiZSBjYWxsZWQgZnJvbSBvdXRzaWRlIHRoZSBjbGFzcyBhbmQgY29ubmVj
-dCB0aGUgcG9pbnRlciB0bwp0aGUgZnVuY3Rpb24uCgpUaGF0IHdheSBEaXNwbGF5IGRyaXZlciBj
-YW4gZmluYWxseSBhcHBseSBjbG9jayB2b2x0YWdlIHJlcXVlc3RzCndoZW4gbmVlZGVkLgoKU2ln
-bmVkLW9mZi1ieTogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNraUBhbWQuY29tPgotLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdyLmMgfCA2MyArKysr
-KysrKysrKy0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDMz
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL3NtdTEwX2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci9zbXUxMF9od21nci5jCmluZGV4IGUxNjBiMDUuLjc0MTM2ZWQgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdyLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211MTBfaHdtZ3IuYwpAQCAtNTMsOCArNTMs
-MzYgQEAgc3RhdGljIGNvbnN0IHVuc2lnbmVkIGxvbmcgU01VMTBfTWFnaWMgPSAodW5zaWduZWQg
-bG9uZykgUEhNX1J2X01hZ2ljOwogCiAKIHN0YXRpYyBpbnQgc211MTBfZGlzcGxheV9jbG9ja192
-b2x0YWdlX3JlcXVlc3Qoc3RydWN0IHBwX2h3bWdyICpod21nciwKLQkJc3RydWN0IHBwX2Rpc3Bs
-YXlfY2xvY2tfcmVxdWVzdCAqY2xvY2tfcmVxKTsKKwkJc3RydWN0IHBwX2Rpc3BsYXlfY2xvY2tf
-cmVxdWVzdCAqY2xvY2tfcmVxKQoreworCXN0cnVjdCBzbXUxMF9od21nciAqc211MTBfZGF0YSA9
-IChzdHJ1Y3Qgc211MTBfaHdtZ3IgKikoaHdtZ3ItPmJhY2tlbmQpOworCWVudW0gYW1kX3BwX2Ns
-b2NrX3R5cGUgY2xrX3R5cGUgPSBjbG9ja19yZXEtPmNsb2NrX3R5cGU7CisJdWludDMyX3QgY2xr
-X2ZyZXEgPSBjbG9ja19yZXEtPmNsb2NrX2ZyZXFfaW5fa2h6IC8gMTAwMDsKKwlQUFNNQ19Nc2cg
-ICAgICAgIG1zZzsKKworCXN3aXRjaCAoY2xrX3R5cGUpIHsKKwljYXNlIGFtZF9wcF9kY2ZfY2xv
-Y2s6CisJCWlmIChjbGtfZnJlcSA9PSBzbXUxMF9kYXRhLT5kY2ZfYWN0dWFsX2hhcmRfbWluX2Zy
-ZXEpCisJCQlyZXR1cm4gMDsKKwkJbXNnID0gIFBQU01DX01TR19TZXRIYXJkTWluRGNlZmNsa0J5
-RnJlcTsKKwkJc211MTBfZGF0YS0+ZGNmX2FjdHVhbF9oYXJkX21pbl9mcmVxID0gY2xrX2ZyZXE7
-CisJCWJyZWFrOworCWNhc2UgYW1kX3BwX3NvY19jbG9jazoKKwkJIG1zZyA9IFBQU01DX01TR19T
-ZXRIYXJkTWluU29jY2xrQnlGcmVxOworCQlicmVhazsKKwljYXNlIGFtZF9wcF9mX2Nsb2NrOgor
-CQlpZiAoY2xrX2ZyZXEgPT0gc211MTBfZGF0YS0+Zl9hY3R1YWxfaGFyZF9taW5fZnJlcSkKKwkJ
-CXJldHVybiAwOworCQlzbXUxMF9kYXRhLT5mX2FjdHVhbF9oYXJkX21pbl9mcmVxID0gY2xrX2Zy
-ZXE7CisJCW1zZyA9IFBQU01DX01TR19TZXRIYXJkTWluRmNsa0J5RnJlcTsKKwkJYnJlYWs7CisJ
-ZGVmYXVsdDoKKwkJcmV0dXJuIC1FSU5WQUw7CisJfQorCXNtdW1fc2VuZF9tc2dfdG9fc21jX3dp
-dGhfcGFyYW1ldGVyKGh3bWdyLCBtc2csIGNsa19mcmVxKTsKIAorCXJldHVybiAwOworfQogCiBz
-dGF0aWMgc3RydWN0IHNtdTEwX3Bvd2VyX3N0YXRlICpjYXN0X3NtdTEwX3BzKHN0cnVjdCBwcF9o
-d19wb3dlcl9zdGF0ZSAqaHdfcHMpCiB7CkBAIC0xMDIzLDM5ICsxMDUxLDcgQEAgc3RhdGljIGlu
-dCBzbXUxMF9nZXRfY2xvY2tfYnlfdHlwZV93aXRoX3ZvbHRhZ2Uoc3RydWN0IHBwX2h3bWdyICpo
-d21nciwKIAlyZXR1cm4gMDsKIH0KIAotc3RhdGljIGludCBzbXUxMF9kaXNwbGF5X2Nsb2NrX3Zv
-bHRhZ2VfcmVxdWVzdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAotCQlzdHJ1Y3QgcHBfZGlzcGxh
-eV9jbG9ja19yZXF1ZXN0ICpjbG9ja19yZXEpCi17Ci0Jc3RydWN0IHNtdTEwX2h3bWdyICpzbXUx
-MF9kYXRhID0gKHN0cnVjdCBzbXUxMF9od21nciAqKShod21nci0+YmFja2VuZCk7Ci0JZW51bSBh
-bWRfcHBfY2xvY2tfdHlwZSBjbGtfdHlwZSA9IGNsb2NrX3JlcS0+Y2xvY2tfdHlwZTsKLQl1aW50
-MzJfdCBjbGtfZnJlcSA9IGNsb2NrX3JlcS0+Y2xvY2tfZnJlcV9pbl9raHogLyAxMDAwOwotCVBQ
-U01DX01zZyAgICAgICAgbXNnOwotCi0Jc3dpdGNoIChjbGtfdHlwZSkgewotCWNhc2UgYW1kX3Bw
-X2RjZl9jbG9jazoKLQkJaWYgKGNsa19mcmVxID09IHNtdTEwX2RhdGEtPmRjZl9hY3R1YWxfaGFy
-ZF9taW5fZnJlcSkKLQkJCXJldHVybiAwOwotCQltc2cgPSAgUFBTTUNfTVNHX1NldEhhcmRNaW5E
-Y2VmY2xrQnlGcmVxOwotCQlzbXUxMF9kYXRhLT5kY2ZfYWN0dWFsX2hhcmRfbWluX2ZyZXEgPSBj
-bGtfZnJlcTsKLQkJYnJlYWs7Ci0JY2FzZSBhbWRfcHBfc29jX2Nsb2NrOgotCQkgbXNnID0gUFBT
-TUNfTVNHX1NldEhhcmRNaW5Tb2NjbGtCeUZyZXE7Ci0JCWJyZWFrOwotCWNhc2UgYW1kX3BwX2Zf
-Y2xvY2s6Ci0JCWlmIChjbGtfZnJlcSA9PSBzbXUxMF9kYXRhLT5mX2FjdHVhbF9oYXJkX21pbl9m
-cmVxKQotCQkJcmV0dXJuIDA7Ci0JCXNtdTEwX2RhdGEtPmZfYWN0dWFsX2hhcmRfbWluX2ZyZXEg
-PSBjbGtfZnJlcTsKLQkJbXNnID0gUFBTTUNfTVNHX1NldEhhcmRNaW5GY2xrQnlGcmVxOwotCQli
-cmVhazsKLQlkZWZhdWx0OgotCQlwcl9pbmZvKCJbRGlzcGxheUNsb2NrVm9sdGFnZVJlcXVlc3Rd
-SW52YWxpZCBDbG9jayBUeXBlISIpOwotCQlyZXR1cm4gLUVJTlZBTDsKLQl9Ci0KLQlzbXVtX3Nl
-bmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwgbXNnLCBjbGtfZnJlcSk7CiAKLQly
-ZXR1cm4gMDsKLX0KIAogc3RhdGljIGludCBzbXUxMF9nZXRfbWF4X2hpZ2hfY2xvY2tzKHN0cnVj
-dCBwcF9od21nciAqaHdtZ3IsIHN0cnVjdCBhbWRfcHBfc2ltcGxlX2Nsb2NrX2luZm8gKmNsb2Nr
-cykKIHsKQEAgLTExODgsNiArMTE4NCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3Jf
-ZnVuYyBzbXUxMF9od21ncl9mdW5jcyA9IHsKIAkuc2V0X21taHViX3Bvd2VyZ2F0aW5nX2J5X3Nt
-dSA9IHNtdTEwX3NldF9tbWh1Yl9wb3dlcmdhdGluZ19ieV9zbXUsCiAJLnNtdXNfbm90aWZ5X3B3
-ZSA9IHNtdTEwX3NtdXNfbm90aWZ5X3B3ZSwKIAkuZ2Z4X29mZl9jb250cm9sID0gc211MTBfZ2Z4
-X29mZl9jb250cm9sLAorCS5kaXNwbGF5X2Nsb2NrX3ZvbHRhZ2VfcmVxdWVzdCA9IHNtdTEwX2Rp
-c3BsYXlfY2xvY2tfdm9sdGFnZV9yZXF1ZXN0LAogfTsKIAogaW50IHNtdTEwX2luaXRfZnVuY3Rp
-b25fcG9pbnRlcnMoc3RydWN0IHBwX2h3bWdyICpod21ncikKLS0gCjIuNy40CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0443970000==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18093CDCB3277520E53B1A54F76D0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18093CDCB3277520E53B1A54F76D0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of mikita.l=
+ipski-5C7GfCeVMHo@public.gmane.org <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, May 29, 2018 5:51 PM
+To: Zhu, Rex; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Lipski, Mikita; Wu, Hersen; Wentland, Harry
+Subject: [PATCH] drm/amd/pp: Connect display_clock_voltage_request to a fun=
+ction pointer
+
+From: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+
+Get rid of an empty dublicate of smu10_display_clock_voltage_request
+
+Add display_clock_voltage_request to smu10 functions struct so it
+can be called from outside the class and connect the pointer to
+the function.
+
+That way Display driver can finally apply clock voltage requests
+when needed.
+
+Signed-off-by: Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 63 +++++++++++--------=
+----
+ 1 file changed, 30 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+index e160b05..74136ed 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+@@ -53,8 +53,36 @@ static const unsigned long SMU10_Magic =3D (unsigned lon=
+g) PHM_Rv_Magic;
+
+
+ static int smu10_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
+-               struct pp_display_clock_request *clock_req);
++               struct pp_display_clock_request *clock_req)
++{
++       struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr *)(hwmgr->ba=
+ckend);
++       enum amd_pp_clock_type clk_type =3D clock_req->clock_type;
++       uint32_t clk_freq =3D clock_req->clock_freq_in_khz / 1000;
++       PPSMC_Msg        msg;
++
++       switch (clk_type) {
++       case amd_pp_dcf_clock:
++               if (clk_freq =3D=3D smu10_data->dcf_actual_hard_min_freq)
++                       return 0;
++               msg =3D  PPSMC_MSG_SetHardMinDcefclkByFreq;
++               smu10_data->dcf_actual_hard_min_freq =3D clk_freq;
++               break;
++       case amd_pp_soc_clock:
++                msg =3D PPSMC_MSG_SetHardMinSocclkByFreq;
++               break;
++       case amd_pp_f_clock:
++               if (clk_freq =3D=3D smu10_data->f_actual_hard_min_freq)
++                       return 0;
++               smu10_data->f_actual_hard_min_freq =3D clk_freq;
++               msg =3D PPSMC_MSG_SetHardMinFclkByFreq;
++               break;
++       default:
++               return -EINVAL;
++       }
++       smum_send_msg_to_smc_with_parameter(hwmgr, msg, clk_freq);
+
++       return 0;
++}
+
+ static struct smu10_power_state *cast_smu10_ps(struct pp_hw_power_state *h=
+w_ps)
+ {
+@@ -1023,39 +1051,7 @@ static int smu10_get_clock_by_type_with_voltage(stru=
+ct pp_hwmgr *hwmgr,
+         return 0;
+ }
+
+-static int smu10_display_clock_voltage_request(struct pp_hwmgr *hwmgr,
+-               struct pp_display_clock_request *clock_req)
+-{
+-       struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr *)(hwmgr->ba=
+ckend);
+-       enum amd_pp_clock_type clk_type =3D clock_req->clock_type;
+-       uint32_t clk_freq =3D clock_req->clock_freq_in_khz / 1000;
+-       PPSMC_Msg        msg;
+-
+-       switch (clk_type) {
+-       case amd_pp_dcf_clock:
+-               if (clk_freq =3D=3D smu10_data->dcf_actual_hard_min_freq)
+-                       return 0;
+-               msg =3D  PPSMC_MSG_SetHardMinDcefclkByFreq;
+-               smu10_data->dcf_actual_hard_min_freq =3D clk_freq;
+-               break;
+-       case amd_pp_soc_clock:
+-                msg =3D PPSMC_MSG_SetHardMinSocclkByFreq;
+-               break;
+-       case amd_pp_f_clock:
+-               if (clk_freq =3D=3D smu10_data->f_actual_hard_min_freq)
+-                       return 0;
+-               smu10_data->f_actual_hard_min_freq =3D clk_freq;
+-               msg =3D PPSMC_MSG_SetHardMinFclkByFreq;
+-               break;
+-       default:
+-               pr_info("[DisplayClockVoltageRequest]Invalid Clock Type!");
+-               return -EINVAL;
+-       }
+-
+-       smum_send_msg_to_smc_with_parameter(hwmgr, msg, clk_freq);
+
+-       return 0;
+-}
+
+ static int smu10_get_max_high_clocks(struct pp_hwmgr *hwmgr, struct amd_pp=
+_simple_clock_info *clocks)
+ {
+@@ -1188,6 +1184,7 @@ static const struct pp_hwmgr_func smu10_hwmgr_funcs =
+=3D {
+         .set_mmhub_powergating_by_smu =3D smu10_set_mmhub_powergating_by_s=
+mu,
+         .smus_notify_pwe =3D smu10_smus_notify_pwe,
+         .gfx_off_control =3D smu10_gfx_off_control,
++       .display_clock_voltage_request =3D smu10_display_clock_voltage_requ=
+est,
+ };
+
+ int smu10_init_function_pointers(struct pp_hwmgr *hwmgr)
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18093CDCB3277520E53B1A54F76D0BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of mikita.lipski-5C7GfCeVMHo@public.gmane.org &lt;m=
+ikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, May 29, 2018 5:51 PM<br>
+<b>To:</b> Zhu, Rex; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Lipski, Mikita; Wu, Hersen; Wentland, Harry<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Connect display_clock_voltage_request t=
+o a function pointer</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Mikita Lipski &lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;<=
+br>
+<br>
+Get rid of an empty dublicate of smu10_display_clock_voltage_request<br>
+<br>
+Add display_clock_voltage_request to smu10 functions struct so it<br>
+can be called from outside the class and connect the pointer to<br>
+the function.<br>
+<br>
+That way Display driver can finally apply clock voltage requests<br>
+when needed.<br>
+<br>
+Signed-off-by: Mikita Lipski &lt;mikita.lipski-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 63 &#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------------<br>
+&nbsp;1 file changed, 30 insertions(&#43;), 33 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+index e160b05..74136ed 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+@@ -53,8 &#43;53,36 @@ static const unsigned long SMU10_Magic =3D (unsigned=
+ long) PHM_Rv_Magic;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;static int smu10_display_clock_voltage_request(struct pp_hwmgr *hwmgr=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; struct pp_display_clock_request *clock_req);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; struct pp_display_clock_request *clock_req)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_data =
+=3D (struct smu10_hwmgr *)(hwmgr-&gt;backend);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pp_clock_type clk_type =
+=3D clock_req-&gt;clock_type;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t clk_freq =3D clock_req-&=
+gt;clock_freq_in_khz / 1000;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_Msg&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; msg;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (clk_type) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_dcf_clock:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (clk_freq =3D=3D smu10_data-&gt;dcf_actual_hard_min_freq)=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; msg =3D&nbsp; PPSMC_MSG_SetHardMinDcefclkByFreq;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu10_data-&gt;dcf_actual_hard_min_freq =3D clk_freq;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_soc_clock:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; msg =3D PPSMC_MSG_SetHardMinSocclkByFreq;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_f_clock:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (clk_freq =3D=3D smu10_data-&gt;f_actual_hard_min_freq)<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu10_data-&gt;f_actual_hard_min_freq =3D clk_freq;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; msg =3D PPSMC_MSG_SetHardMinFclkByFreq;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_paramet=
+er(hwmgr, msg, clk_freq);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&nbsp;<br>
+&nbsp;static struct smu10_power_state *cast_smu10_ps(struct pp_hw_power_sta=
+te *hw_ps)<br>
+&nbsp;{<br>
+@@ -1023,39 &#43;1051,7 @@ static int smu10_get_clock_by_type_with_voltage(=
+struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static int smu10_display_clock_voltage_request(struct pp_hwmgr *hwmgr,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; struct pp_display_clock_request *clock_req)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_data =3D (s=
+truct smu10_hwmgr *)(hwmgr-&gt;backend);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pp_clock_type clk_type =3D c=
+lock_req-&gt;clock_type;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t clk_freq =3D clock_req-&gt;c=
+lock_freq_in_khz / 1000;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_Msg&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; msg;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (clk_type) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_dcf_clock:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (clk_freq =3D=3D smu10_data-&gt;dcf_actual_hard_min_freq)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; msg =3D&nbsp; PPSMC_MSG_SetHardMinDcefclkByFreq;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; smu10_data-&gt;dcf_actual_hard_min_freq =3D clk_freq;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_soc_clock:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; msg =3D PPSMC_MSG_SetHardMinSocclkByFreq;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_f_clock:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (clk_freq =3D=3D smu10_data-&gt;f_actual_hard_min_freq)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; smu10_data-&gt;f_actual_hard_min_freq =3D clk_freq;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; msg =3D PPSMC_MSG_SetHardMinFclkByFreq;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; pr_info(&quot;[DisplayClockVoltageRequest]Invalid Clock Type!&qu=
+ot;);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(h=
+wmgr, msg, clk_freq);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-}<br>
+&nbsp;<br>
+&nbsp;static int smu10_get_max_high_clocks(struct pp_hwmgr *hwmgr, struct a=
+md_pp_simple_clock_info *clocks)<br>
+&nbsp;{<br>
+@@ -1188,6 &#43;1184,7 @@ static const struct pp_hwmgr_func smu10_hwmgr_fun=
+cs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mmhub_powergating_by_=
+smu =3D smu10_set_mmhub_powergating_by_smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smus_notify_pwe =3D smu10=
+_smus_notify_pwe,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .gfx_off_control =3D smu10=
+_gfx_off_control,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_voltage_request =
+=3D smu10_display_clock_voltage_request,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;int smu10_init_function_pointers(struct pp_hwmgr *hwmgr)<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk218336" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB18093CDCB3277520E53B1A54F76D0BN6PR12MB1809namp_--
+
+--===============0443970000==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0443970000==--
