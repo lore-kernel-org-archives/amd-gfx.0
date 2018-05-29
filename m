@@ -1,14 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix wrong latency assignment for VEGA
- clock levels
-Date: Tue, 29 May 2018 14:55:58 +0000
-Message-ID: <BN6PR12MB1809B7203AA35BC520D0833AF76D0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20180529140314.15950-1-harry.wentland@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: detect buffer overflow and avoid unnecessary
+ dereference
+Date: Tue, 29 May 2018 11:49:38 -0400
+Message-ID: <CADnq5_M_OENzFeG-ASrmWxxpiA8mTyXbYPJYf7xgAbSxGWQomQ@mail.gmail.com>
+References: <1527589079-29021-1-git-send-email-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0477113384=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180529140314.15950-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1527589079-29021-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,166 +19,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0477113384==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809B7203AA35BC520D0833AF76D0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809B7203AA35BC520D0833AF76D0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
-ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, May 29, 2018 10:03 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Wentland, Harry
-Subject: [PATCH] drm/amd/display: Fix wrong latency assignment for VEGA clo=
-ck levels
-
-Also drop wrong 10kHz comment
-
-Fixes: drm/amd/display: Implement dm_pp_get_clock_levels_by_type_with_laten=
-cy
-Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-index ead3d21545b1..d5e6b45fd6e6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-@@ -256,9 +256,8 @@ static void pp_to_dc_clock_levels_with_latency(
-
-         for (i =3D 0; i < clk_level_info->num_levels; i++) {
-                 DRM_DEBUG("DM_PPLIB:\t %d\n", pp_clks->data[i].clocks_in_k=
-hz);
--               /* translate 10kHz to kHz */
-                 clk_level_info->data[i].clocks_in_khz =3D pp_clks->data[i]=
-.clocks_in_khz;
--               clk_level_info->data[i].latency_in_us =3D pp_clks->data[i].=
-clocks_in_khz;
-+               clk_level_info->data[i].latency_in_us =3D pp_clks->data[i].=
-latency_in_us;
-         }
- }
-
---
-2.17.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809B7203AA35BC520D0833AF76D0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.we=
-ntland-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, May 29, 2018 10:03 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Wentland, Harry<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Fix wrong latency assignment for V=
-EGA clock levels</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Also drop wrong 10kHz comment<br>
-<br>
-Fixes: drm/amd/display: Implement dm_pp_get_clock_levels_by_type_with_laten=
-cy<br>
-Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c | 3 &#43;-=
--<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c<br>
-index ead3d21545b1..d5e6b45fd6e6 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.=
-c<br>
-@@ -256,9 &#43;256,8 @@ static void pp_to_dc_clock_levels_with_latency(<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; clk_l=
-evel_info-&gt;num_levels; i&#43;&#43;) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;DM_PPLIB:\t %d\n&quot;, pp_clks-&gt;d=
-ata[i].clocks_in_khz);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* translate 10kHz to kHz */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; clk_level_info-&gt;data[i].clocks_in_khz =3D pp_clks-=
-&gt;data[i].clocks_in_khz;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; clk_level_info-&gt;data[i].latency_in_us =3D pp_clks-&gt;data[i]=
-.clocks_in_khz;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; clk_level_info-&gt;data[i].latency_in_us =3D pp_clks-&gt;dat=
-a[i].latency_in_us;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.17.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk146839" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
-desktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1809B7203AA35BC520D0833AF76D0BN6PR12MB1809namp_--
-
---===============0477113384==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0477113384==--
+T24gVHVlLCBNYXkgMjksIDIwMTggYXQgNjoxNyBBTSwgRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1k
+LmNvbT4gd3JvdGU6Cj4gQ2hhbmdlLUlkOiBJNjY2NmQ3ZGNmNjBhY2Y1MjRmMjkwNDYwZDJmZmUz
+ZjFmNWY0NjM1NAo+IFNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+
+CgpQbGVhc2UgaW5jbHVkZSBhIHBhdGNoIGRlc2NyaXB0aW9uIGFzIHdlbGwuICBPbmUgY29tbWVu
+dCBiZWxvdy4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMg
+fCAxNSArKysrKysrKystLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwg
+NiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IGlu
+ZGV4IDdjNWE4NTAuLjVhODY3MjYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4X3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
+OV8wLmMKPiBAQCAtMTgzOCwxMyArMTgzOCwxNSBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMV9wYXJz
+ZV9pbmRfcmVnX2xpc3QoaW50ICpyZWdpc3Rlcl9saXN0X2Zvcm1hdCwKPiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGludCBpbmRpcmVjdF9vZmZzZXQsCj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBpbnQgbGlzdF9zaXplLAo+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgaW50ICp1bmlxdWVfaW5kaXJlY3RfcmVncywKPiAtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGludCAqdW5pcXVlX2luZGlyZWN0X3JlZ19jb3VudCwKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGludCB1bmlxdWVfaW5kaXJlY3RfcmVnX2NvdW50LAo+ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50ICppbmRpcmVjdF9zdGFydF9vZmZzZXRz
+LAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50ICppbmRpcmVjdF9zdGFydF9v
+ZmZzZXRzX2NvdW50KQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50ICppbmRp
+cmVjdF9zdGFydF9vZmZzZXRzX2NvdW50LAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgaW50IG1heF9zdGFydF9vZmZzZXRzX2NvdW50KQo+ICB7Cj4gICAgICAgICBpbnQgaWR4Owo+
+Cj4gICAgICAgICBmb3IgKDsgaW5kaXJlY3Rfb2Zmc2V0IDwgbGlzdF9zaXplOyBpbmRpcmVjdF9v
+ZmZzZXQrKykgewo+ICsgICAgICAgICAgICAgICBCVUdfT04oKmluZGlyZWN0X3N0YXJ0X29mZnNl
+dHNfY291bnQgPj0gbWF4X3N0YXJ0X29mZnNldHNfY291bnQpOwoKTWF5YmUgdGhpcyBzaG91bGQg
+YmUgYSBXQVJOX09OIGFuZCB0aGVuIHdlIGNsYW1wIHRoZSByYW5nZT8KCkFsZXgKCj4gICAgICAg
+ICAgICAgICAgIGluZGlyZWN0X3N0YXJ0X29mZnNldHNbKmluZGlyZWN0X3N0YXJ0X29mZnNldHNf
+Y291bnRdID0gaW5kaXJlY3Rfb2Zmc2V0Owo+ICAgICAgICAgICAgICAgICAqaW5kaXJlY3Rfc3Rh
+cnRfb2Zmc2V0c19jb3VudCA9ICppbmRpcmVjdF9zdGFydF9vZmZzZXRzX2NvdW50ICsgMTsKPgo+
+IEBAIC0xODUyLDE0ICsxODU0LDE0IEBAIHN0YXRpYyB2b2lkIGdmeF92OV8xX3BhcnNlX2luZF9y
+ZWdfbGlzdChpbnQgKnJlZ2lzdGVyX2xpc3RfZm9ybWF0LAo+ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGluZGlyZWN0X29mZnNldCArPSAyOwo+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgLyog
+bG9vayBmb3IgdGhlIG1hdGNoaW5nIGluZGljZSAqLwo+IC0gICAgICAgICAgICAgICAgICAgICAg
+IGZvciAoaWR4ID0gMDsgaWR4IDwgKnVuaXF1ZV9pbmRpcmVjdF9yZWdfY291bnQ7IGlkeCsrKSB7
+Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgZm9yIChpZHggPSAwOyBpZHggPCB1bmlxdWVfaW5k
+aXJlY3RfcmVnX2NvdW50OyBpZHgrKykgewo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgaWYgKHVuaXF1ZV9pbmRpcmVjdF9yZWdzW2lkeF0gPT0KPiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcmVnaXN0ZXJfbGlzdF9mb3JtYXRbaW5kaXJlY3Rfb2Zmc2V0
+XSB8fAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAhdW5pcXVlX2lu
+ZGlyZWN0X3JlZ3NbaWR4XSkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgYnJlYWs7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgfQo+Cj4gLSAgICAgICAgICAgICAg
+ICAgICAgICAgQlVHX09OKGlkeCA+PSAqdW5pcXVlX2luZGlyZWN0X3JlZ19jb3VudCk7Cj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgQlVHX09OKGlkeCA+PSB1bmlxdWVfaW5kaXJlY3RfcmVnX2Nv
+dW50KTsKPgo+ICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghdW5pcXVlX2luZGlyZWN0X3Jl
+Z3NbaWR4XSkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuaXF1ZV9pbmRpcmVj
+dF9yZWdzW2lkeF0gPSByZWdpc3Rlcl9saXN0X2Zvcm1hdFtpbmRpcmVjdF9vZmZzZXRdOwo+IEBA
+IC0xODk0LDkgKzE4OTYsMTAgQEAgc3RhdGljIGludCBnZnhfdjlfMV9pbml0X3JsY19zYXZlX3Jl
+c3RvcmVfbGlzdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBhZGV2LT5nZngucmxjLnJlZ19saXN0X2Zvcm1hdF9kaXJlY3Rf
+cmVnX2xpc3RfbGVuZ3RoLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFk
+ZXYtPmdmeC5ybGMucmVnX2xpc3RfZm9ybWF0X3NpemVfYnl0ZXMgPj4gMiwKPiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB1bmlxdWVfaW5kaXJlY3RfcmVncywKPiAtICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmdW5pcXVlX2luZGlyZWN0X3JlZ19jb3VudCwK
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1bmlxdWVfaW5kaXJlY3RfcmVn
+X2NvdW50LAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZGlyZWN0X3N0
+YXJ0X29mZnNldHMsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmluZGly
+ZWN0X3N0YXJ0X29mZnNldHNfY291bnQpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICZpbmRpcmVjdF9zdGFydF9vZmZzZXRzX2NvdW50LAo+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIEFSUkFZX1NJWkUoaW5kaXJlY3Rfc3RhcnRfb2Zmc2V0cykpOwo+
+Cj4gICAgICAgICAvKiBlbmFibGUgYXV0byBpbmMgaW4gY2FzZSBpdCBpcyBkaXNhYmxlZCAqLwo+
+ICAgICAgICAgdG1wID0gUlJFRzMyKFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tUkxDX1NSTV9D
+TlRMKSk7Cj4gLS0KPiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
