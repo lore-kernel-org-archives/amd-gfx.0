@@ -1,41 +1,43 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/display: check if ppfuncs exists before using it
-Date: Wed, 30 May 2018 09:37:12 -0500
-Message-ID: <20180530143712.32269-1-alexander.deucher@amd.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu/df: fix potential array out-of-bounds read
+Date: Wed, 30 May 2018 17:41:44 +0100
+Message-ID: <20180530164144.21526-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rml4ZXMgYSBjcmFzaCBvbiBhc2ljcyB3aXRob3V0IHBvd2VycGxheSB5ZXQgKGUuZy4sIHZlZ2Ey
-MCkuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1f
-c2VydmljZXMuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtX3NlcnZpY2VzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbV9zZXJ2aWNlcy5jCmluZGV4IGQ1ZTZiNDVmZDZlNi4uNWEzMzQ2MTI0
-YTAxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbV9zZXJ2aWNlcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX3NlcnZpY2VzLmMKQEAgLTM0Myw3ICszNDMsNyBAQCBib29sIGRtX3Bw
-X2dldF9jbG9ja19sZXZlbHNfYnlfdHlwZV93aXRoX2xhdGVuY3koCiAJc3RydWN0IHBwX2Nsb2Nr
-X2xldmVsc193aXRoX2xhdGVuY3kgcHBfY2xrcyA9IHsgMCB9OwogCWNvbnN0IHN0cnVjdCBhbWRf
-cG1fZnVuY3MgKnBwX2Z1bmNzID0gYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzOwogCi0JaWYgKCFw
-cF9mdW5jcy0+Z2V0X2Nsb2NrX2J5X3R5cGVfd2l0aF9sYXRlbmN5KQorCWlmICghcHBfZnVuY3Mg
-fHwgIXBwX2Z1bmNzLT5nZXRfY2xvY2tfYnlfdHlwZV93aXRoX2xhdGVuY3kpCiAJCXJldHVybiBm
-YWxzZTsKIAogCWlmIChwcF9mdW5jcy0+Z2V0X2Nsb2NrX2J5X3R5cGVfd2l0aF9sYXRlbmN5KHBw
-X2hhbmRsZSwKLS0gCjIuMTMuNgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+From: Colin Ian King <colin.king@canonical.com>
+
+The comparison with the number of elements in array df_v3_7_channel_number
+is off-by-one and can produce an array out-of-bounds read if
+fb_channel_number is equal to the number of elements of the array. Fix
+this by changing the comparison to >= instead of >.
+
+Detected by CoverityScan, CID#1469489 ("Out-of-bounds read")
+
+Fixes: 13b581502d51 ("drm/amdgpu/df: implement df v3_6 callback functions (v2)")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+index 60608b3df881..d5ebe566809b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+@@ -64,7 +64,7 @@ static u32 df_v3_6_get_hbm_channel_number(struct amdgpu_device *adev)
+ 	int fb_channel_number;
+ 
+ 	fb_channel_number = adev->df_funcs->get_fb_channel_number(adev);
+-	if (fb_channel_number > ARRAY_SIZE(df_v3_6_channel_number))
++	if (fb_channel_number >= ARRAY_SIZE(df_v3_6_channel_number))
+ 		fb_channel_number = 0;
+ 
+ 	return df_v3_6_channel_number[fb_channel_number];
+-- 
+2.17.0
