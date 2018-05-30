@@ -1,13 +1,14 @@
-From: <boyuan.zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 03/18] drm/amdgpu: add jpeg packet defines to soc15d.h
-Date: Wed, 30 May 2018 16:27:18 -0400
-Message-ID: <1527712053-15027-3-git-send-email-boyuan.zhang@amd.com>
-References: <1527712053-15027-1-git-send-email-boyuan.zhang@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix NULL pointer when load kfd driver with PP
+ block is disabled
+Date: Wed, 30 May 2018 21:28:39 +0000
+Message-ID: <BN6PR12MB18095216ECAFA2E647283A45F76C0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1527712191-9838-1-git-send-email-Shaoyun.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1352243149=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1527712053-15027-1-git-send-email-boyuan.zhang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1527712191-9838-1-git-send-email-Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,32 +19,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, Boyuan Zhang <boyuan.zhang-5C7GfCeVMHo@public.gmane.org>, leo.liu-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogQm95dWFuIFpoYW5nIDxib3l1YW4uemhhbmdAYW1kLmNvbT4KCkFkZCBuZXcgcGFja2V0
-IGZvciB2Y24ganBlZywgaW5jbHVkaW5nIGNvbmRpdGlvbiBjaGVja3MsIHR5cGVzIGFuZCBwYWNr
-ZXQKClNpZ25lZC1vZmYtYnk6IEJveXVhbiBaaGFuZyA8Ym95dWFuLnpoYW5nQGFtZC5jb20+Ci0t
-LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTVkLmggfCAyMyArKysrKysrKysrKysr
-KysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNWQuaCBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3NvYzE1ZC5oCmluZGV4IDgzOWExNDQuLjEyYjY0ZmIgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1ZC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3NvYzE1ZC5oCkBAIC01Myw2ICs1MywyOSBAQAogCiAjZGVmaW5lIFBBQ0tFVDNf
-Q09NUFVURShvcCwgbikgKFBBQ0tFVDMob3AsIG4pIHwgMSA8PCAxKQogCisjZGVmaW5lCVBBQ0tF
-VEpfQ09ORElUSU9OX0NIRUNLMAkwCisjZGVmaW5lCVBBQ0tFVEpfQ09ORElUSU9OX0NIRUNLMQkx
-CisjZGVmaW5lCVBBQ0tFVEpfQ09ORElUSU9OX0NIRUNLMgkyCisjZGVmaW5lCVBBQ0tFVEpfQ09O
-RElUSU9OX0NIRUNLMwkzCisjZGVmaW5lCVBBQ0tFVEpfQ09ORElUSU9OX0NIRUNLNAk0CisjZGVm
-aW5lCVBBQ0tFVEpfQ09ORElUSU9OX0NIRUNLNQk1CisjZGVmaW5lCVBBQ0tFVEpfQ09ORElUSU9O
-X0NIRUNLNgk2CisjZGVmaW5lCVBBQ0tFVEpfQ09ORElUSU9OX0NIRUNLNwk3CisKKyNkZWZpbmUJ
-UEFDS0VUSl9UWVBFMAkwCisjZGVmaW5lCVBBQ0tFVEpfVFlQRTEJMQorI2RlZmluZQlQQUNLRVRK
-X1RZUEUyCTIKKyNkZWZpbmUJUEFDS0VUSl9UWVBFMwkzCisjZGVmaW5lCVBBQ0tFVEpfVFlQRTQJ
-NAorI2RlZmluZQlQQUNLRVRKX1RZUEU1CTUKKyNkZWZpbmUJUEFDS0VUSl9UWVBFNgk2CisjZGVm
-aW5lCVBBQ0tFVEpfVFlQRTcJNworCisjZGVmaW5lIFBBQ0tFVEoocmVnLCByLCBjb25kLCB0eXBl
-KQkoKHJlZyAmIDB4M0ZGRkYpIHwJCQlcCisJCQkgKChyICYgMHgzRikgPDwgMTgpIHwJCQlcCisJ
-CQkgKChjb25kICYgMHhGKSA8PCAyNCkgfAkJCQlcCisJCQkgKCh0eXBlICYgMHhGKSA8PCAyOCkp
-CisKIC8qIFBhY2tldCAzIHR5cGVzICovCiAjZGVmaW5lCVBBQ0tFVDNfTk9QCQkJCQkweDEwCiAj
-ZGVmaW5lCVBBQ0tFVDNfU0VUX0JBU0UJCQkJMHgxMQotLSAKMi43LjQKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1352243149==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18095216ECAFA2E647283A45F76C0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18095216ECAFA2E647283A45F76C0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Shaoyun =
+Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, May 30, 2018 4:29:51 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Liu, Shaoyun
+Subject: [PATCH] drm/amdgpu: Fix NULL pointer when load kfd driver with PP =
+block is disabled
+
+Change-Id: If34e3517b6cb6f31e898bbe7921485fbddb79fb9
+Signed-off-by: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.c
+index 887702c..bc55e9a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -310,7 +310,7 @@ void get_local_mem_info(struct kgd_dev *kgd,
+                         mem_info->local_mem_size_public,
+                         mem_info->local_mem_size_private);
+
+-       if (amdgpu_emu_mode =3D=3D 1) {
++       if (!adev->powerplay.pp_funcs) {
+                 mem_info->mem_clk_max =3D 100;
+                 return;
+         }
+@@ -335,7 +335,7 @@ uint32_t get_max_engine_clock_in_mhz(struct kgd_dev *kg=
+d)
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
+
+         /* the sclk is in quantas of 10kHz */
+-       if (amdgpu_emu_mode =3D=3D 1)
++       if (!adev->powerplay.pp_funcs)
+                 return 100;
+
+         if (amdgpu_sriov_vf(adev))
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18095216ECAFA2E647283A45F76C0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Shaoyun Liu &lt;Shaoyun.Liu@a=
+md.com&gt;<br>
+<b>Sent:</b> Wednesday, May 30, 2018 4:29:51 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Liu, Shaoyun<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Fix NULL pointer when load kfd driver w=
+ith PP block is disabled</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Change-Id: If34e3517b6cb6f31e898bbe7921485fbddb79f=
+b9<br>
+Signed-off-by: Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 4 &#43;&#43;--<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.c<br>
+index 887702c..bc55e9a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+@@ -310,7 &#43;310,7 @@ void get_local_mem_info(struct kgd_dev *kgd,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem_i=
+nfo-&gt;local_mem_size_public,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem_i=
+nfo-&gt;local_mem_size_private);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode =3D=3D 1) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;powerplay.pp_funcs)=
+ {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; mem_info-&gt;mem_clk_max =3D 100;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+@@ -335,7 &#43;335,7 @@ uint32_t get_max_engine_clock_in_mhz(struct kgd_dev=
+ *kgd)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)kgd;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* the sclk is in quantas =
+of 10kHz */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode =3D=3D 1)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;powerplay.pp_funcs)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 100;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
+<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18095216ECAFA2E647283A45F76C0BN6PR12MB1809namp_--
+
+--===============1352243149==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1352243149==--
