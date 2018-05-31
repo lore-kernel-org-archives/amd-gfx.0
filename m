@@ -1,13 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix NULL pointer when load kfd driver with PP
- block is disabled
-Date: Wed, 30 May 2018 22:42:05 +0000
-Message-ID: <BN6PR12MB180940C8DDD8C346EAC7D382F76C0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1527717921-28021-1-git-send-email-Shaoyun.Liu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/scheduler: Avoid using wait_event_killable for
+ dying process.
+Date: Thu, 31 May 2018 09:17:59 +0200
+Message-ID: <9e582d73-bc2b-9605-c5c6-09c06eb00169@gmail.com>
+References: <1527710058-11896-1-git-send-email-andrey.grodzovsky@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1990485137=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1527717921-28021-1-git-send-email-Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1527710058-11896-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,221 +21,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
---===============1990485137==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180940C8DDD8C346EAC7D382F76C0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180940C8DDD8C346EAC7D382F76C0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Shaoyun =
-Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, May 30, 2018 6:05:21 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Shaoyun
-Subject: [PATCH] drm/amdgpu: Fix NULL pointer when load kfd driver with PP =
-block is disabled
-
-When PP block is disabled, return a fix value(100M) for mclk and sclk on
-bare-metal mode. This will cover the emulation mode as well.
-
-Change-Id: If34e3517b6cb6f31e898bbe7921485fbddb79fb9
-Signed-off-by: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c
-index 887702c..8fd21cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -310,15 +310,12 @@ void get_local_mem_info(struct kgd_dev *kgd,
-                         mem_info->local_mem_size_public,
-                         mem_info->local_mem_size_private);
-
--       if (amdgpu_emu_mode =3D=3D 1) {
--               mem_info->mem_clk_max =3D 100;
--               return;
--       }
--
-         if (amdgpu_sriov_vf(adev))
-                 mem_info->mem_clk_max =3D adev->clock.default_mclk / 100;
--       else
-+       else if (adev->powerplay.pp_funcs)
-                 mem_info->mem_clk_max =3D amdgpu_dpm_get_mclk(adev, false)=
- / 100;
-+       else
-+               mem_info->mem_clk_max =3D 100;
- }
-
- uint64_t get_gpu_clock_counter(struct kgd_dev *kgd)
-@@ -335,13 +332,12 @@ uint32_t get_max_engine_clock_in_mhz(struct kgd_dev *=
-kgd)
-         struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
-
-         /* the sclk is in quantas of 10kHz */
--       if (amdgpu_emu_mode =3D=3D 1)
--               return 100;
--
-         if (amdgpu_sriov_vf(adev))
-                 return adev->clock.default_sclk / 100;
--
--       return amdgpu_dpm_get_sclk(adev, false) / 100;
-+       else if (adev->powerplay.pp_funcs)
-+               return amdgpu_dpm_get_sclk(adev, false) / 100;
-+       else
-+               return 100;
- }
-
- void get_cu_info(struct kgd_dev *kgd, struct kfd_cu_info *cu_info)
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180940C8DDD8C346EAC7D382F76C0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Shaoyun Liu &lt;Shaoyun.Liu@a=
-md.com&gt;<br>
-<b>Sent:</b> Wednesday, May 30, 2018 6:05:21 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Liu, Shaoyun<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix NULL pointer when load kfd driver w=
-ith PP block is disabled</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">When PP block is disabled, return a fix value(100M=
-) for mclk and sclk on<br>
-bare-metal mode. This will cover the emulation mode as well.<br>
-<br>
-Change-Id: If34e3517b6cb6f31e898bbe7921485fbddb79fb9<br>
-Signed-off-by: Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 18 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;-----------<br>
-&nbsp;1 file changed, 7 insertions(&#43;), 11 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c<br>
-index 887702c..8fd21cd 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-@@ -310,15 &#43;310,12 @@ void get_local_mem_info(struct kgd_dev *kgd,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem_i=
-nfo-&gt;local_mem_size_public,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem_i=
-nfo-&gt;local_mem_size_private);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode =3D=3D 1) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; mem_info-&gt;mem_clk_max =3D 100;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mem_info-&gt;mem_clk_max =3D adev-&gt;clock.default_m=
-clk / 100;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;powerplay.pp_fu=
-ncs)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mem_info-&gt;mem_clk_max =3D amdgpu_dpm_get_mclk(adev=
-, false) / 100;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; mem_info-&gt;mem_clk_max =3D 100;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;uint64_t get_gpu_clock_counter(struct kgd_dev *kgd)<br>
-@@ -335,13 &#43;332,12 @@ uint32_t get_max_engine_clock_in_mhz(struct kgd_d=
-ev *kgd)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *)kgd;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* the sclk is in quantas =
-of 10kHz */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_emu_mode =3D=3D 1)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 100;<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return adev-&gt;clock.default_sclk / 100;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_dpm_get_sclk(adev, fals=
-e) / 100;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;powerplay.pp_fu=
-ncs)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return amdgpu_dpm_get_sclk(adev, false) / 100;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 100;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;void get_cu_info(struct kgd_dev *kgd, struct kfd_cu_info *cu_info)<br=
->
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180940C8DDD8C346EAC7D382F76C0BN6PR12MB1809namp_--
-
---===============1990485137==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1990485137==--
+QW0gMzAuMDUuMjAxOCB1bSAyMTo1NCBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+IER5aW5n
+IHByb2Nlc3MgbWlnaHQgYmUgYmxvY2tlZCBmcm9tIHJlY2VpdmluZyBhbnkgbW9yZSBzaWduYWxz
+Cj4gc28gYXZvaWQgdXNpbmcgaXQuCj4KPiBBbHNvIHJldGlyZSBlbml0eS0+ZmluaV9zdGF0dXMg
+YW5kIGp1c3QgY2hlY2sgdGhlIFNXIHF1ZXVlLAo+IGlmIGl0J3Mgbm90IGVtcHR5IGRvIHRoZSBm
+YWxsYmFjayBjbGVhbnVwLgo+Cj4gQWxzbyBoYW5kbGUgZW50aXR5LT5sYXN0X3NjaGVkdWxlZCA9
+PSBOVUxMIHVzZSBjYXNlIHdoaWNoCj4gaGFwcGVucyB3aGVuIEhXIHJpbmcgaXMgYWxyZWFkeSBo
+YW5nZ2VkIHdoZW0gYSAgbmV3IGVudGl0eQo+IHRyaWVkIHRvIGVucWV1ZSBqb2JzLgo+Cj4gU2ln
+bmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+
+CgpXb3VsZCBiZSBuaWNlIHRvIGhhdmUgdG8gc3BsaXQgdGhhdCBwYXRjaCB1cCBmdXJ0aGVyLCBi
+dXQgbm90IHN1cmUgaWYgCnRoYXQgaXMgYWN0dWFsbHkgZG9hYmxlLgoKQWRkaXRpb25hbCB0byB0
+aGF0IGEgZmV3IG1vcmUgbml0cGlja3MgYmVsb3cuCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
+L3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgfCA0NyArKysrKysrKysrKysrKysrKysrKysrLS0t
+LS0tLS0tCj4gICBpbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggICAgICAgICAgICAgICB8ICAx
+IC0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0p
+Cj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+IGluZGV4IDQ0
+ZDQ4MDcuLjRkMDM4ZjkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9n
+cHVfc2NoZWR1bGVyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hl
+ZHVsZXIuYwo+IEBAIC0xMzUsNyArMTM1LDYgQEAgaW50IGRybV9zY2hlZF9lbnRpdHlfaW5pdChz
+dHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgCWVudGl0eS0+cnEgPSBycTsKPiAg
+IAllbnRpdHktPnNjaGVkID0gc2NoZWQ7Cj4gICAJZW50aXR5LT5ndWlsdHkgPSBndWlsdHk7Cj4g
+LQllbnRpdHktPmZpbmlfc3RhdHVzID0gMDsKPiAgIAllbnRpdHktPmxhc3Rfc2NoZWR1bGVkID0g
+TlVMTDsKPiAgIAo+ICAgCXNwaW5fbG9ja19pbml0KCZlbnRpdHktPnJxX2xvY2spOwo+IEBAIC0x
+NzMsNyArMTcyLDggQEAgc3RhdGljIGJvb2wgZHJtX3NjaGVkX2VudGl0eV9pc19pbml0aWFsaXpl
+ZChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgc3RhdGljIGJvb2wgZHJtX3Nj
+aGVkX2VudGl0eV9pc19pZGxlKHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpCj4gICB7
+Cj4gICAJcm1iKCk7Cj4gLQlpZiAoc3BzY19xdWV1ZV9wZWVrKCZlbnRpdHktPmpvYl9xdWV1ZSkg
+PT0gTlVMTCkKPiArCj4gKwlpZiAoZW50aXR5LT5ycSA9PSBOVUxMIHx8IHNwc2NfcXVldWVfcGVl
+aygmZW50aXR5LT5qb2JfcXVldWUpID09IE5VTEwpCgpVc3VhbCBrZXJuZWwgY29kaW5nIHN0eWxl
+IGlzIG1vcmUgdG8gdXNlICIhZW50aXR5LT5ycSIgaW5zdGVhZCBvZiAKImVudGl0eS0+cnEgPT0g
+TlVMTCIuCgo+ICAgCQlyZXR1cm4gdHJ1ZTsKPiAgIAo+ICAgCXJldHVybiBmYWxzZTsKPiBAQCAt
+MjI3LDEyICsyMjcsMTYgQEAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2Uoc3RydWN0
+IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgIAkgKiBUaGUgY2xpZW50IHdpbGwgbm90IHF1
+ZXVlIG1vcmUgSUJzIGR1cmluZyB0aGlzIGZpbmksIGNvbnN1bWUgZXhpc3RpbmcKPiAgIAkgKiBx
+dWV1ZWQgSUJzIG9yIGRpc2NhcmQgdGhlbSBvbiBTSUdLSUxMCj4gICAJKi8KPiAtCWlmICgoY3Vy
+cmVudC0+ZmxhZ3MgJiBQRl9TSUdOQUxFRCkgJiYgY3VycmVudC0+ZXhpdF9jb2RlID09IFNJR0tJ
+TEwpCj4gLQkJZW50aXR5LT5maW5pX3N0YXR1cyA9IC1FUkVTVEFSVFNZUzsKPiArCWlmICgoY3Vy
+cmVudC0+ZmxhZ3MgJiBQRl9FWElUSU5HKSkKPiArCQl3YWl0X2V2ZW50X3RpbWVvdXQoc2NoZWQt
+PmpvYl9zY2hlZHVsZWQsCj4gKwkJCQlkcm1fc2NoZWRfZW50aXR5X2lzX2lkbGUoZW50aXR5KSwg
+bXNlY3NfdG9famlmZmllcygxMDAwKSk7CgpNaG0sIG1ha2luZyB0aGUgdGltZW91dCBhIHBhcmFt
+ZXRlciBvciBhdCBsZWFzdCB1c2UgYSBkZWZpbmUgd291bGQgYmUgCm5pY2UgdG8gaGF2ZS4KCkFk
+ZGl0aW9uYWwgdG8gdGhhdCBpdCBtaWdodCBiZSBhIGdvb2QgaWRlYSB0byByZXR1cm4gdGhlIHJl
+bWFpbmluZyAKdGltZW91dCBhbmQgdXNlIHRoYXQgYXMgcGFyYW1ldGVyIGZvciB0aGUgbmV4dCBj
+YWxsLgoKRS5nLiB0aGlzIHdheSB3aGVuIHdlIG5lZWQgdG8gY2xlYW51cCBtdWx0aXBsZSBxdWV1
+ZXMgd2UgZG9uJ3Qgd2FpdCBmb3IgCjEwMDAgbXMgZWFjaCwgYnV0IHJhdGhlciBvbmx5IDEwMDAg
+bXMgaW4gdG90YWwuCgo+ICAgCWVsc2UKPiAtCQllbnRpdHktPmZpbmlfc3RhdHVzID0gd2FpdF9l
+dmVudF9raWxsYWJsZShzY2hlZC0+am9iX3NjaGVkdWxlZCwKPiAtCQkJCQlkcm1fc2NoZWRfZW50
+aXR5X2lzX2lkbGUoZW50aXR5KSk7Cj4gLQlkcm1fc2NoZWRfZW50aXR5X3NldF9ycShlbnRpdHks
+IE5VTEwpOwo+ICsJCXdhaXRfZXZlbnRfa2lsbGFibGUoc2NoZWQtPmpvYl9zY2hlZHVsZWQsIGRy
+bV9zY2hlZF9lbnRpdHlfaXNfaWRsZShlbnRpdHkpKTsKPiArCj4gKwo+ICsJLyogRm9yIGtpbGxl
+ZCBwcm9jZXNzIGRpc2FibGUgYW55IG1vcmUgSUJzIGVucXVldWUgcmlnaHQgbm93ICovCj4gKwlp
+ZiAoKGN1cnJlbnQtPmZsYWdzICYgUEZfRVhJVElORykgJiYgKGN1cnJlbnQtPmV4aXRfY29kZSA9
+PSBTSUdLSUxMKSkKPiArCQlkcm1fc2NoZWRfZW50aXR5X3NldF9ycShlbnRpdHksIE5VTEwpOwo+
+ICAgfQo+ICAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2UpOwo+ICAg
+Cj4gQEAgLTI0Nyw3ICsyNTEsMTMgQEAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfZW50aXR5X2Rv
+X3JlbGVhc2UpOwo+ICAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2NsZWFudXAoc3RydWN0IGRybV9n
+cHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgIAkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICpl
+bnRpdHkpCj4gICB7Cj4gLQlpZiAoZW50aXR5LT5maW5pX3N0YXR1cykgewo+ICsKPiArCWRybV9z
+Y2hlZF9lbnRpdHlfc2V0X3JxKGVudGl0eSwgTlVMTCk7Cj4gKwo+ICsJLyogQ29uc3VtcHRpb24g
+b2YgZXhpc3RpbmcgSUJzIHdhc24ndCBjb21wbGV0ZWQuIEZvcmNlZnVsbHkKPiArCSAqIHJlbW92
+ZSB0aGVtIGhlcmUuCj4gKwkgKi8KPiArCWlmIChzcHNjX3F1ZXVlX3BlZWsoJmVudGl0eS0+am9i
+X3F1ZXVlKSkgewo+ICAgCQlzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqam9iOwo+ICAgCQlpbnQgcjsK
+PiAgIAo+IEBAIC0yNjcsMTIgKzI3NywyMiBAQCB2b2lkIGRybV9zY2hlZF9lbnRpdHlfY2xlYW51
+cChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgCQkJc3RydWN0IGRybV9zY2hl
+ZF9mZW5jZSAqc19mZW5jZSA9IGpvYi0+c19mZW5jZTsKPiAgIAkJCWRybV9zY2hlZF9mZW5jZV9z
+Y2hlZHVsZWQoc19mZW5jZSk7Cj4gICAJCQlkbWFfZmVuY2Vfc2V0X2Vycm9yKCZzX2ZlbmNlLT5m
+aW5pc2hlZCwgLUVTUkNIKTsKPiAtCQkJciA9IGRtYV9mZW5jZV9hZGRfY2FsbGJhY2soZW50aXR5
+LT5sYXN0X3NjaGVkdWxlZCwgJmpvYi0+ZmluaXNoX2NiLAo+IC0JCQkJCQkJZHJtX3NjaGVkX2Vu
+dGl0eV9raWxsX2pvYnNfY2IpOwo+IC0JCQlpZiAociA9PSAtRU5PRU5UKQo+ICsKPiArCQkJLyoK
+PiArCQkJICogV2hlbiBwaXBlIGlzIGhhbmdlZCBieSBvbGRlciBlbnRpdHksIG5ldyBlbnRpdHkg
+bWlnaHQKPiArCQkJICogbm90IGV2ZW4gaGF2ZSBjaGFuY2UgdG8gc3VibWl0IGl0J3MgZmlyc3Qg
+am9iIHRvIEhXCj4gKwkJCSAqIGFuZCBzbyBlbnRpdHktPmxhc3Rfc2NoZWR1bGVkIHdpbGwgcmVt
+YWluIE5VTEwKPiArCQkJICovCj4gKwkJCWlmICghZW50aXR5LT5sYXN0X3NjaGVkdWxlZCkKPiAg
+IAkJCQlkcm1fc2NoZWRfZW50aXR5X2tpbGxfam9ic19jYihOVUxMLCAmam9iLT5maW5pc2hfY2Ip
+Owo+IC0JCQllbHNlIGlmIChyKQo+IC0JCQkJRFJNX0VSUk9SKCJmZW5jZSBhZGQgY2FsbGJhY2sg
+ZmFpbGVkICglZClcbiIsIHIpOwo+ICsJCQllbHNlIHsKCkNvZGluZyBzdHlsZSBuaXQgcGljayB3
+aGVuIG9uZSBzaWRlIG9mIGFuIGVsc2UgaGFzIHsgb3IgfSB0aGUgb3RoZXIgc2lkZSAKc2hvdWxk
+IGhhdmUgaXQgYXMgd2VsbC4KCj4gKwkJCQlyID0gZG1hX2ZlbmNlX2FkZF9jYWxsYmFjayhlbnRp
+dHktPmxhc3Rfc2NoZWR1bGVkLCAmam9iLT5maW5pc2hfY2IsCj4gKwkJCQkJCQkJZHJtX3NjaGVk
+X2VudGl0eV9raWxsX2pvYnNfY2IpOwo+ICsJCQkJaWYgKHIgPT0gLUVOT0VOVCkKPiArCQkJCQlk
+cm1fc2NoZWRfZW50aXR5X2tpbGxfam9ic19jYihOVUxMLCAmam9iLT5maW5pc2hfY2IpOwo+ICsJ
+CQkJZWxzZSBpZiAocikKPiArCQkJCQlEUk1fRVJST1IoImZlbmNlIGFkZCBjYWxsYmFjayBmYWls
+ZWQgKCVkKVxuIiwgcik7Cj4gKwkJCX0KPiAgIAkJfQo+ICAgCX0KPiAgIAo+IEBAIC03MTMsNiAr
+NzMzLDcgQEAgc3RhdGljIGludCBkcm1fc2NoZWRfbWFpbih2b2lkICpwYXJhbSkKPiAgIAkJCWNv
+bnRpbnVlOwo+ICAgCj4gICAJCXNjaGVkX2pvYiA9IGRybV9zY2hlZF9lbnRpdHlfcG9wX2pvYihl
+bnRpdHkpOwo+ICsKClVubmVjZXNzYXJ5IGJsYW5rIGxpbmUgYWRkZWQuCgpBcGFydCBmcm9tIHRo
+YXQgdGhhbmtzIGEgbG90IGZvciB0YWtpbmcgY2FyZSBvZiB0aGF0LCB0aGF0IGlzIHJlYWxseSAK
+YXBwcmVjaWF0ZWQuCgpUaGFua3MsCkNocmlzdGlhbi4KCj4gICAJCWlmICghc2NoZWRfam9iKQo+
+ICAgCQkJY29udGludWU7Cj4gICAKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZ3B1X3NjaGVk
+dWxlci5oIGIvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oCj4gaW5kZXggZGVjNjU1OC4uZDIy
+MGFjOSAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiArKysgYi9p
+bmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiBAQCAtNjQsNyArNjQsNiBAQCBzdHJ1Y3QgZHJt
+X3NjaGVkX2VudGl0eSB7Cj4gICAJc3RydWN0IGRtYV9mZW5jZQkJKmRlcGVuZGVuY3k7Cj4gICAJ
+c3RydWN0IGRtYV9mZW5jZV9jYgkJY2I7Cj4gICAJYXRvbWljX3QJCQkqZ3VpbHR5OyAvKiBwb2lu
+dHMgdG8gY3R4J3MgZ3VpbHR5ICovCj4gLQlpbnQgICAgICAgICAgICBmaW5pX3N0YXR1czsKPiAg
+IAlzdHJ1Y3QgZG1hX2ZlbmNlICAgICpsYXN0X3NjaGVkdWxlZDsKPiAgIH07Cj4gICAKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
