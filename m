@@ -1,63 +1,47 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 06/18] drm/amd/display: Stream encoder update
-Date: Thu, 31 May 2018 10:23:35 -0400
-Message-ID: <20180531142347.4086-7-harry.wentland@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH 08/18] drm/amd/display: Update color props when modeset is required
+Date: Thu, 31 May 2018 10:23:37 -0400
+Message-ID: <20180531142347.4086-9-harry.wentland@amd.com>
 References: <20180531142347.4086-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180531142347.4086-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Eric Bernstein <eric.bernstein-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20180531142347.4086-1-harry.wentland@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRXJpYyBCZXJuc3RlaW4gPGVyaWMuYmVybnN0ZWluQGFtZC5jb20+CgpVcGRhdGUgc3Ry
-ZWFtIGVuY29kZXIgYmFzZWQgb24gZmVlZGJhY2sgZnJvbSBIVyB0ZWFtLgoKU2lnbmVkLW9mZi1i
-eTogRXJpYyBCZXJuc3RlaW4gPGVyaWMuYmVybnN0ZWluQGFtZC5jb20+ClJldmlld2VkLWJ5OiBU
-b255IENoZW5nIDxUb255LkNoZW5nQGFtZC5jb20+CkFja2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8
-aGFycnkud2VudGxhbmRAYW1kLmNvbT4KLS0tCiAuLi4vZGlzcGxheS9kYy9kY24xMC9kY24xMF9z
-dHJlYW1fZW5jb2Rlci5jICAgfCAzMCArLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdl
-ZCwgMSBpbnNlcnRpb24oKyksIDI5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9zdHJlYW1fZW5jb2Rlci5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX3N0cmVhbV9lbmNvZGVyLmMK
-aW5kZXggMTQ3ZjYxNDE2ZmE1Li4zMmE0OTk3NzE0YzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9zdHJlYW1fZW5jb2Rlci5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9zdHJlYW1fZW5jb2Rlci5j
-CkBAIC0xMDk3LDI3ICsxMDk3LDYgQEAgc3RhdGljIHVuaW9uIGF1ZGlvX2NlYV9jaGFubmVscyBz
-cGVha2Vyc190b19jaGFubmVscygKIAlyZXR1cm4gY2VhX2NoYW5uZWxzOwogfQogCi1zdGF0aWMg
-dWludDMyX3QgY2FsY19tYXhfYXVkaW9fcGFja2V0c19wZXJfbGluZSgKLQljb25zdCBzdHJ1Y3Qg
-YXVkaW9fY3J0Y19pbmZvICpjcnRjX2luZm8pCi17Ci0JdWludDMyX3QgbWF4X3BhY2tldHNfcGVy
-X2xpbmU7Ci0KLQltYXhfcGFja2V0c19wZXJfbGluZSA9Ci0JCWNydGNfaW5mby0+aF90b3RhbCAt
-IGNydGNfaW5mby0+aF9hY3RpdmU7Ci0KLQlpZiAoY3J0Y19pbmZvLT5waXhlbF9yZXBldGl0aW9u
-KQotCQltYXhfcGFja2V0c19wZXJfbGluZSAqPSBjcnRjX2luZm8tPnBpeGVsX3JlcGV0aXRpb247
-Ci0KLQkvKiBmb3Igb3RoZXIgaGRtaSBmZWF0dXJlcyAqLwotCW1heF9wYWNrZXRzX3Blcl9saW5l
-IC09IDU4OwotCS8qIGZvciBDb250cm9sIFBlcmlvZCAqLwotCW1heF9wYWNrZXRzX3Blcl9saW5l
-IC09IDE2OwotCS8qIE51bWJlciBvZiBBdWRpbyBQYWNrZXRzIHBlciBMaW5lICovCi0JbWF4X3Bh
-Y2tldHNfcGVyX2xpbmUgLz0gMzI7Ci0KLQlyZXR1cm4gbWF4X3BhY2tldHNfcGVyX2xpbmU7Ci19
-Ci0KIHN0YXRpYyB2b2lkIGdldF9hdWRpb19jbG9ja19pbmZvKAogCWVudW0gZGNfY29sb3JfZGVw
-dGggY29sb3JfZGVwdGgsCiAJdWludDMyX3QgY3J0Y19waXhlbF9jbG9ja19pbl9raHosCkBAIC0x
-MjExLDE2ICsxMTkwLDkgQEAgc3RhdGljIHZvaWQgZW5jMV9zZV9zZXR1cF9oZG1pX2F1ZGlvKAog
-CXN0cnVjdCBkY24xMF9zdHJlYW1fZW5jb2RlciAqZW5jMSA9IERDTjEwU1RSRU5DX0ZST01fU1RS
-RU5DKGVuYyk7CiAKIAlzdHJ1Y3QgYXVkaW9fY2xvY2tfaW5mbyBhdWRpb19jbG9ja19pbmZvID0g
-ezB9OwotCXVpbnQzMl90IG1heF9wYWNrZXRzX3Blcl9saW5lOwotCi0JLyogRm9yIG5vdyBzdGls
-bCBkbyBjYWxjdWxhdGlvbiwgYWx0aG91Z2ggdGhpcyBmaWVsZCBpcyBpZ25vcmVkIHdoZW4KLQkg
-KiBhYm92ZSBIRE1JX1BBQ0tFVF9HRU5fVkVSU0lPTiBzZXQgdG8gMQotCSAqLwotCW1heF9wYWNr
-ZXRzX3Blcl9saW5lID0gY2FsY19tYXhfYXVkaW9fcGFja2V0c19wZXJfbGluZShjcnRjX2luZm8p
-OwogCiAJLyogSERNSV9BVURJT19QQUNLRVRfQ09OVFJPTCAqLwotCVJFR19VUERBVEVfMihIRE1J
-X0FVRElPX1BBQ0tFVF9DT05UUk9MLAotCQkJSERNSV9BVURJT19QQUNLRVRTX1BFUl9MSU5FLCBt
-YXhfcGFja2V0c19wZXJfbGluZSwKKwlSRUdfVVBEQVRFKEhETUlfQVVESU9fUEFDS0VUX0NPTlRS
-T0wsCiAJCQlIRE1JX0FVRElPX0RFTEFZX0VOLCAxKTsKIAogCS8qIEFGTVRfQVVESU9fUEFDS0VU
-X0NPTlRST0wgKi8KLS0gCjIuMTcuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+From: "Leo (Sunpeng) Li" <sunpeng.li@amd.com>
+
+This fixes issues where color management properties don't persist
+over DPMS on/off, or when the CRTC is moved across connectors.
+
+Signed-off-by: Leo (Sunpeng) Li <sunpeng.li@amd.com>
+Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b6020a83cdb0..29176d2c5d6e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4848,8 +4848,12 @@ static int dm_update_crtcs_state(struct amdgpu_display_manager *dm,
+ 			update_stream_scaling_settings(
+ 				&new_crtc_state->mode, dm_new_conn_state, dm_new_crtc_state->stream);
+ 
+-		/* Color managment settings */
+-		if (dm_new_crtc_state->base.color_mgmt_changed) {
++		/*
++		 * Color management settings. We also update color properties
++		 * when a modeset is needed, to ensure it gets reprogrammed.
++		 */
++		if (dm_new_crtc_state->base.color_mgmt_changed ||
++		    drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+ 			ret = amdgpu_dm_set_regamma_lut(dm_new_crtc_state);
+ 			if (ret)
+ 				goto fail;
+-- 
+2.17.0
