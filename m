@@ -1,14 +1,16 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Hook up amdgpu_object.c documentation
-Date: Fri, 1 Jun 2018 09:00:21 -0400
-Message-ID: <CADnq5_ODFxSkyjkDSouzveL=UihtR9Net=Ybb50mw9ZKbe5HRQ@mail.gmail.com>
-References: <20180601105407.11123-1-michel@daenzer.net>
- <20180601105407.11123-3-michel@daenzer.net>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Add documentation for PRIME related code
+Date: Fri, 1 Jun 2018 15:40:44 +0200
+Message-ID: <b458561f-b4e5-58bb-eee0-e3451312ae41@daenzer.net>
+References: <20180531161708.5894-1-michel@daenzer.net>
+ <20180531161708.5894-3-michel@daenzer.net>
+ <CADnq5_O5-m_=xqszq41eOAVaLTytHUHmtDaSc1MeEorZML6T5g@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180601105407.11123-3-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <CADnq5_O5-m_=xqszq41eOAVaLTytHUHmtDaSc1MeEorZML6T5g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,28 +21,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, linux-doc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Jonathan Corbet <corbet-T1hC0tSOHrs@public.gmane.org>
 
-T24gRnJpLCBKdW4gMSwgMjAxOCBhdCA2OjU0IEFNLCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
-ZW56ZXIubmV0PiB3cm90ZToKPiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJA
-YW1kLmNvbT4KPgo+IFNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnpl
-ckBhbWQuY29tPgoKU2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
-ZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJz
-dCB8IDkgKysrKysrKysrCj4gIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKykKPgo+IGRp
-ZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2dwdS9hbWRncHUucnN0IGIvRG9jdW1lbnRhdGlvbi9n
-cHUvYW1kZ3B1LnJzdAo+IGluZGV4IGFkMzcxMWZkMmEyOC4uMWZiZjM4NzZhM2Q4IDEwMDY0NAo+
-IC0tLSBhL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QKPiArKysgYi9Eb2N1bWVudGF0aW9u
-L2dwdS9hbWRncHUucnN0Cj4gQEAgLTE4LDYgKzE4LDE1IEBAIE1lbW9yeSBEb21haW5zCj4gIC4u
-IGtlcm5lbC1kb2M6OiBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+ICAgICA6ZG9jOiBt
-ZW1vcnkgZG9tYWlucwo+Cj4gK0J1ZmZlciBPYmplY3RzCj4gKy0tLS0tLS0tLS0tLS0tCj4gKwo+
-ICsuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVj
-dC5jCj4gKyAgIDpkb2M6IGFtZGdwdV9vYmplY3QKPiArCj4gKy4uIGtlcm5lbC1kb2M6OiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiArICAgOmludGVybmFsOgo+
-ICsKPiAgUFJJTUUgQnVmZmVyIFNoYXJpbmcKPiAgLS0tLS0tLS0tLS0tLS0tLS0tLS0KPgo+IC0t
-Cj4gMi4xNy4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMjAxOC0wNi0wMSAwMjo1OCBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IE9uIFRodSwgTWF5
+IDMxLCAyMDE4IGF0IDEyOjE3IFBNLCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0
+PiB3cm90ZToKPj4gRnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+
+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQu
+Y29tPgo+IAo+IFNlcmllcyBpczoKPiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPgoKVGhhbmtzLiBJcyBpdCBva2F5IHRvIG1lcmdlIGFsbCBvZiB0
+aGVzZSB2aWEgdGhlIGFtZGdwdSB0cmVlLCBvciBzaG91bGQKSSB3YWl0IGZvciBhbiBhY2sgZnJv
+bSBKb24gYW5kL29yIGNvcmUgRFJNIG1haW50YWluZXJzIGZvciB0aGF0PwoKCi0tIApFYXJ0aGxp
+bmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3
+dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAg
+ICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
