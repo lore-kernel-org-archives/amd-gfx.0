@@ -1,49 +1,31 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/5] dma_buf: remove device parameter from attach callback
-Date: Fri, 1 Jun 2018 16:02:17 +0200
-Message-ID: <df02be8b-530e-b691-35f1-ed657d71a508@daenzer.net>
-References: <20180601120020.11520-1-christian.koenig@amd.com>
- <651a24e0-ac58-e5cb-d95f-c9a88bf552dc@gmail.com>
+From: Jonathan Corbet <corbet@lwn.net>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Add documentation for PRIME related
+ code
+Date: Fri, 1 Jun 2018 08:12:48 -0600
+Message-ID: <20180601081248.7b65edb2@lwn.net>
+References: <20180531161708.5894-1-michel@daenzer.net>
+        <20180531161708.5894-3-michel@daenzer.net>
+        <CADnq5_O5-m_=xqszq41eOAVaLTytHUHmtDaSc1MeEorZML6T5g@mail.gmail.com>
+        <b458561f-b4e5-58bb-eee0-e3451312ae41@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <651a24e0-ac58-e5cb-d95f-c9a88bf552dc-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <b458561f-b4e5-58bb-eee0-e3451312ae41@daenzer.net>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>
+Cc: Alex Deucher <alexdeucher@gmail.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-doc@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wNi0wMSAwMjoxMSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBTb3JyeSwg
-YWNjaWRlbnRhbGx5IHNlbmQgdGhpcyBzZXJpZXMgd2l0aG91dCBhIGNvdmVyIGxldHRlci4KPiAK
-PiBUaGlzIGlzIGEgY2xlYW51cCB0byB0aGUgRE1BLWJ1ZiBpbnRlcmZhY2UsIHdoaWNoIGlzIGFs
-c28gYSBwcmVyZXF1aXNpdGUKPiB0byB1bnBpbm5lZCBETUEtYnVmIG9wZXJhdGlvbi4KPiAKPiBQ
-YXRjaCAjMSBhbmQgIzIganVzdCByZW1vdmUgdW51c2VkIGZ1bmN0aW9uYWxpdHkgYW5kIGNsZWFu
-IHVwIGNhbGxiYWNrCj4gcGFyYW1ldGVycy4KPiAKPiBQYXRjaCAjMyBhbmQgIzQgaW50cm9kdWNl
-IHRha2luZyB0aGUgcmVzZXJ2YXRpb24gbG9jayBkdXJpbmcKPiBtYXBwaW5nL3VubWFwcGluZyBv
-ZiBETUEtYnVmcy4KPiAKPiBUaGlzIGludHJvZHVjZXMgYSBjb21tb24gbG9jayB3aGVyZSBib3Ro
-IGV4cG9ydGVyIGFzIHdlbGwgYXMgaW1wb3J0ZXIKPiBjYW4gdGhlbiB1c2UgaW4gdGhlIGZ1dHVy
-ZSBmb3IgdW5waW5uZWQgRE1BLWJ1ZiBvcGVyYXRpb24uCj4gCj4gVGhpcyBvZiBjb3Vyc2UgbWVh
-bnMgdGhhdCBleHBvcnRlcnMgc2hvdWxkIG5vdyBub3QgdGFrZSB0aGlzIHJlc2VydmF0aW9uCj4g
-bG9jayBtYW51YWxseSBhbnkgbW9yZS4gVGhlIERSTSBkcml2ZXJzIGRvbid0IHNlZW0gdG8gYWN0
-dWFsbHkgZG8gdGhhdCwKPiBidXQgSSdtIG5vdCAxMDAlIHN1cmUgYWJvdXQgb3RoZXIgaW1wbGVt
-ZW50YXRpb25zLgo+IAo+IFBhdGNoICM1IHRoZW4gbWFrZXMgdXNlIG9mIHRoZSBuZXcgbG9jayB0
-byBzaW1wbGlmeSB0aGUgRE1BLWJ1ZiBpbXBvcnQKPiBoYW5kbGluZyBpbiBhbWRncHUuCgpQbGVh
-c2UgcmViYXNlIHRoaXMgc2VyaWVzIG9uIHRvcCBvZgpodHRwczovL3BhdGNod29yay5mcmVlZGVz
-a3RvcC5vcmcvcGF0Y2gvMjI2MzExLyBhbmQgdXBkYXRlIHRoZQpkb2N1bWVudGF0aW9uIGluIGFt
-ZGdwdV9wcmltZS5jIGFzIG5lZWRlZCBpbiBlYWNoIHBhdGNoLgoKCi0tIApFYXJ0aGxpbmcgTWlj
-aGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQu
-Y29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBN
-ZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+On Fri, 1 Jun 2018 15:40:44 +0200
+Michel Dänzer <michel@daenzer.net> wrote:
+
+> Thanks. Is it okay to merge all of these via the amdgpu tree, or should
+> I wait for an ack from Jon and/or core DRM maintainers for that?
+
+I've been assuming they would go through a DRM tree, no need to wait for
+me.
+
+Thanks,
+
+jon
