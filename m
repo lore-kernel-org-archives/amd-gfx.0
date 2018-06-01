@@ -1,14 +1,11 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/pp: switch the default dpm implementation for
- CI
-Date: Fri, 1 Jun 2018 03:05:32 +0000
-Message-ID: <CY4PR12MB16872AC38180839FB1E607FFFB620@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20180531174819.3796-1-alexander.deucher@amd.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix ib test hang with gfxoff enabled
+Date: Fri, 1 Jun 2018 14:41:04 +0800
+Message-ID: <1527835264-31040-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0965895008=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180531174819.3796-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,287 +16,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============0965895008==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB16872AC38180839FB1E607FFFB620CY4PR12MB1687namp_"
-
---_000_CY4PR12MB16872AC38180839FB1E607FFFB620CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Rex Zhu<rezhu-5C7GfCeVMHo@public.gmane.org>
-
-
-
-Best Regards
-
-Rex
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Friday, June 1, 2018 1:48 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: [PATCH] drm/amdgpu/pp: switch the default dpm implementation for C=
-I
-
-Switch hawaii and bonaire to use powerplay rather than the old
-dpm implementation.  Powerplay supports more features and is
-better maintained.  Ultimately, we can drop the older dpm
-implementation like we did for other older asics.
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/cik.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/=
-cik.c
-index 8ff4c60d1b59..702e257a483f 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -2003,9 +2003,9 @@ int cik_set_ip_blocks(struct amdgpu_device *adev)
-                 amdgpu_device_ip_block_add(adev, &gmc_v7_0_ip_block);
-                 amdgpu_device_ip_block_add(adev, &cik_ih_ip_block);
-                 if (amdgpu_dpm =3D=3D -1)
--                       amdgpu_device_ip_block_add(adev, &ci_smu_ip_block);
--               else
-                         amdgpu_device_ip_block_add(adev, &pp_smu_ip_block)=
-;
-+               else
-+                       amdgpu_device_ip_block_add(adev, &ci_smu_ip_block);
-                 if (adev->enable_virtual_display)
-                         amdgpu_device_ip_block_add(adev, &dce_virtual_ip_b=
-lock);
- #if defined(CONFIG_DRM_AMD_DC)
-@@ -2024,9 +2024,9 @@ int cik_set_ip_blocks(struct amdgpu_device *adev)
-                 amdgpu_device_ip_block_add(adev, &gmc_v7_0_ip_block);
-                 amdgpu_device_ip_block_add(adev, &cik_ih_ip_block);
-                 if (amdgpu_dpm =3D=3D -1)
--                       amdgpu_device_ip_block_add(adev, &ci_smu_ip_block);
--               else
-                         amdgpu_device_ip_block_add(adev, &pp_smu_ip_block)=
-;
-+               else
-+                       amdgpu_device_ip_block_add(adev, &ci_smu_ip_block);
-                 if (adev->enable_virtual_display)
-                         amdgpu_device_ip_block_add(adev, &dce_virtual_ip_b=
-lock);
- #if defined(CONFIG_DRM_AMD_DC)
---
-2.13.6
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
-
-
-
---_000_CY4PR12MB16872AC38180839FB1E607FFFB620CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"3" color=3D"black" =
-face=3D"Calibri,Helvetica,sans-serif"><span style=3D"font-size:12pt;" id=3D=
-"divtagdefaultwrapper"></p>
-<div>Reviewed-by: Rex Zhu&lt;rezhu-5C7GfCeVMHo@public.gmane.org&gt;&nbsp; <br>
-</div>
-</span></font>
-<p></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"3" color=3D"black" =
-face=3D"Calibri,Helvetica,sans-serif"><span style=3D"font-size:12pt;" id=3D=
-"divtagdefaultwrapper"><br>
-</span></font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"3" color=3D"black" =
-face=3D"Calibri,Helvetica,sans-serif"><span style=3D"font-size:12pt;" id=3D=
-"divtagdefaultwrapper"><br>
-</span></font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"3" color=3D"black" =
-face=3D"Calibri,Helvetica,sans-serif"><span style=3D"font-size:12pt;" id=3D=
-"divtagdefaultwrapper">Best Regards</span></font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"3" color=3D"black" =
-face=3D"Calibri,Helvetica,sans-serif"><span style=3D"font-size:12pt;" id=3D=
-"divtagdefaultwrapper">Rex</span></font><br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx-=
-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher=
-@gmail.com&gt;<br>
-<b>Sent:</b> Friday, June 1, 2018 1:48 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/pp: switch the default dpm implementatio=
-n for CI</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Switch hawaii and bonaire to use powerplay rather =
-than the old<br>
-dpm implementation.&nbsp; Powerplay supports more features and is<br>
-better maintained.&nbsp; Ultimately, we can drop the older dpm<br>
-implementation like we did for other older asics.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/cik.c | 8 &#43;&#43;&#43;&#43;----<br>
-&nbsp;1 file changed, 4 insertions(&#43;), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/=
-cik.c<br>
-index 8ff4c60d1b59..702e257a483f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/cik.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/cik.c<br>
-@@ -2003,9 &#43;2003,9 @@ int cik_set_ip_blocks(struct amdgpu_device *adev)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;gmc_v7_0_ip_blo=
-ck);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;cik_ih_ip_block=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (amdgpu_dpm =3D=3D -1)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
-_block_add(adev, &amp;ci_smu_ip_block);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_block_add(adev, &amp;pp_smu_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_devic=
-e_ip_block_add(adev, &amp;ci_smu_ip_block);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;enable_virtual_display)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_block_add(adev, &amp;dce_virtual_ip_block);<br>
-&nbsp;#if defined(CONFIG_DRM_AMD_DC)<br>
-@@ -2024,9 &#43;2024,9 @@ int cik_set_ip_blocks(struct amdgpu_device *adev)=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;gmc_v7_0_ip_blo=
-ck);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;cik_ih_ip_block=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (amdgpu_dpm =3D=3D -1)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip=
-_block_add(adev, &amp;ci_smu_ip_block);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_block_add(adev, &amp;pp_smu_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_devic=
-e_ip_block_add(adev, &amp;ci_smu_ip_block);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;enable_virtual_display)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_device_ip_block_add(adev, &amp;dce_virtual_ip_block);<br>
-&nbsp;#if defined(CONFIG_DRM_AMD_DC)<br>
--- <br>
-2.13.6<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk373730" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
-desktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15278222769520.7963180601898863" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15278222769480.5549004450515355" style=3D"width: 9=
-0%; background-color: rgb(255, 255, 255); position: relative; overflow: aut=
-o; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: 1=
-px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200);=
-" role=3D"presentation" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing: 0px;" valign=3D"top">
-<td id=3D"TextCell_15278222769500.930042975354877" style=3D"vertical-align:=
- top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2"=
->
-<div id=3D"LPRemovePreviewContainer_15278222769500.9392457538432804"></div>
-<div id=3D"LPTitle_15278222769500.942350061124624" style=3D"top: 0px; color=
-: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;w=
-f_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&qu=
-ot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif;=
- line-height: 21px;">
-<a id=3D"LPUrlAnchor_15278222769500.43557172860173976" style=3D"text-decora=
-tion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx=
-" target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15278222769500.2350845128372695" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
-;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Taho=
-ma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15278222769500.8382167637248685" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
-segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, =
-Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; o=
-verflow: hidden;">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
-iv>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB16872AC38180839FB1E607FFFB620CY4PR12MB1687namp_--
-
---===============0965895008==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0965895008==--
+QWZ0ZXIgZGVmZXIgdGhlIGV4ZWN1dGlvbiBvZiBnZngvY29tcHV0ZSBpYiB0ZXN0cy4gSG93ZXZl
+ciwgYXQgdGhhdCB0aW1lLCB0aGUKZ2Z4IGFscmVhZHkgZ28gaW50byAibWlkIHN0YXRlIiBvZiBn
+ZnhvZmYuCgpQV1JfTUlTQ19DTlRMX1NUQVRVUzogUFdSX0dGWE9GRl9TVEFUVVMgZmllbGQgKDI6
+MSBiaXRzKQowID0gR0ZYT0ZGLgoxID0gVHJhbnNpdGlvbiBvdXQgb2YgR0ZYT0ZGIHN0YXRlLgoy
+ID0gTm90IGluIEdGWE9GRi4KMyA9IFRyYW5zaXRpb24gaW50byBHRlhPRkYuCgpJZiBoaXQgdGhl
+IG1pZCBzdGF0ZSAoMSBvciAzKSwgdGhlIGRvb3JiZWxsIHdyaXRpbmcgaW50ZXJydXB0IGNhbm5v
+dCB3YWtlIHVwIHRoZQpnZnggYmFjayBzdWNjZXNzZnVsbHkuIEFuZCB0aGUgZmllbGQgdmFsdWUg
+aXMgMSB3aGVuIHdlIGlzc3VlIHRoZSBpYiB0ZXN0IGF0CnRoYXQsIHNvIHdlIGdvdCB0aGUgaGFu
+Zy4gVGhpcyBpcyB0aGUgcm9vdCBjYXVzZSB0aGF0IHdlIGVuY291bnRlcmVkIHRoZSBpc3N1ZS4K
+Ck1lYW53aGlsZSwgd2UgY2Fubm90IHNldCBjbG9ja2dhdGluZyBvZiBHRlggYWZ0ZXIgZ2Z4IGlz
+IGFscmVhZHkgaW4gIm9mZiIgc3RhdGUuClNvIGhlcmUgd2Ugc2hvdWxkIG1vdmUgdGhlIGdmeCBw
+b3dlcmdhdGluZyBhbmQgZ2Z4b2ZmIGVuYWJsaW5nIGJlaGF2aW9yIGF0IHRoZQplbmQgb2YgaW5p
+dGlhbGl6YXRpb24gYmVoaW5kIGliIHRlc3QgYW5kIGNsb2NrZ2F0aW5nLgoKU2lnbmVkLW9mZi1i
+eTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KQ2M6IEhhd2tpbmcgWmhhbmcgPEhhd2tp
+bmcuWmhhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZGV2aWNlLmMgICAgICAgIHwgMTAgKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3Y5XzAuYyAgICAgICAgICAgICB8ICA1IC0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdyLmMgfCAgNCArKy0tCiA0IGZpbGVzIGNoYW5n
+ZWQsIDEzIGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IGY1MDlkMzIuLmUxYzg4MDYgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTE3MjMsNiArMTcyMywx
+NiBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBfbGF0ZV9zZXRfY2dfc3RhdGUoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCQl9CiAJCX0KIAl9CisKKwlpZiAoYWRldi0+cG93ZXJw
+bGF5LnBwX2ZlYXR1cmUgJiBQUF9HRlhPRkZfTUFTSykgeworCQlhbWRncHVfZGV2aWNlX2lwX3Nl
+dF9wb3dlcmdhdGluZ19zdGF0ZShhZGV2LAorCQkJCQkJICAgICAgIEFNRF9JUF9CTE9DS19UWVBF
+X0dGWCwKKwkJCQkJCSAgICAgICBBTURfQ0dfU1RBVEVfR0FURSk7CisJCWFtZGdwdV9kZXZpY2Vf
+aXBfc2V0X3Bvd2VyZ2F0aW5nX3N0YXRlKGFkZXYsCisJCQkJCQkgICAgICAgQU1EX0lQX0JMT0NL
+X1RZUEVfU01DLAorCQkJCQkJICAgICAgIEFNRF9DR19TVEFURV9HQVRFKTsKKwl9CisKIAlyZXR1
+cm4gMDsKIH0KIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
+XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKaW5kZXggMmM1ZTJh
+NC4uMzFlY2M4NiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
+XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCkBAIC0zMzU4
+LDExICszMzU4LDYgQEAgc3RhdGljIGludCBnZnhfdjlfMF9sYXRlX2luaXQodm9pZCAqaGFuZGxl
+KQogCWlmIChyKQogCQlyZXR1cm4gcjsKIAotCXIgPSBhbWRncHVfZGV2aWNlX2lwX3NldF9wb3dl
+cmdhdGluZ19zdGF0ZShhZGV2LCBBTURfSVBfQkxPQ0tfVFlQRV9HRlgsCi0JCQkJCQkgICBBTURf
+UEdfU1RBVEVfR0FURSk7Ci0JaWYgKHIpCi0JCXJldHVybiByOwotCiAJcmV0dXJuIDA7CiB9CiAK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXku
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwppbmRleCBi
+NDkzMzY5Li5kMGU2ZTJkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9hbWRfcG93ZXJwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1k
+X3Bvd2VycGxheS5jCkBAIC0yNDUsNyArMjQ1LDcgQEAgc3RhdGljIGludCBwcF9zZXRfcG93ZXJn
+YXRpbmdfc3RhdGUodm9pZCAqaGFuZGxlLAogCX0KIAogCWlmIChod21nci0+aHdtZ3JfZnVuYy0+
+ZW5hYmxlX3Blcl9jdV9wb3dlcl9nYXRpbmcgPT0gTlVMTCkgewotCQlwcl9pbmZvKCIlcyB3YXMg
+bm90IGltcGxlbWVudGVkLlxuIiwgX19mdW5jX18pOworCQlwcl9kZWJ1ZygiJXMgd2FzIG5vdCBp
+bXBsZW1lbnRlZC5cbiIsIF9fZnVuY19fKTsKIAkJcmV0dXJuIDA7CiAJfQogCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXUxMF9od21nci5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211MTBfaHdtZ3IuYwppbmRleCA3NzEy
+ZWI2Li5iNzJkMDg5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
+d21nci9zbXUxMF9od21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL3NtdTEwX2h3bWdyLmMKQEAgLTI4NCw3ICsyODQsNyBAQCBzdGF0aWMgaW50IHNtdTEwX2Rp
+c2FibGVfZ2Z4X29mZihzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCiBzdGF0aWMgaW50IHNtdTEw
+X2Rpc2FibGVfZHBtX3Rhc2tzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiB7Ci0JcmV0dXJuIHNt
+dTEwX2Rpc2FibGVfZ2Z4X29mZihod21ncik7CisJcmV0dXJuIDA7CiB9CiAKIHN0YXRpYyBpbnQg
+c211MTBfZW5hYmxlX2dmeF9vZmYoc3RydWN0IHBwX2h3bWdyICpod21ncikKQEAgLTI5OSw3ICsy
+OTksNyBAQCBzdGF0aWMgaW50IHNtdTEwX2VuYWJsZV9nZnhfb2ZmKHN0cnVjdCBwcF9od21nciAq
+aHdtZ3IpCiAKIHN0YXRpYyBpbnQgc211MTBfZW5hYmxlX2RwbV90YXNrcyhzdHJ1Y3QgcHBfaHdt
+Z3IgKmh3bWdyKQogewotCXJldHVybiBzbXUxMF9lbmFibGVfZ2Z4X29mZihod21ncik7CisJcmV0
+dXJuIDA7CiB9CiAKIHN0YXRpYyBpbnQgc211MTBfZ2Z4X29mZl9jb250cm9sKHN0cnVjdCBwcF9o
+d21nciAqaHdtZ3IsIGJvb2wgZW5hYmxlKQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
