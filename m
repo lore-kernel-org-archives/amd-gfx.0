@@ -1,31 +1,60 @@
-From: Jonathan Corbet <corbet@lwn.net>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Add documentation for PRIME related
- code
-Date: Fri, 1 Jun 2018 08:12:48 -0600
-Message-ID: <20180601081248.7b65edb2@lwn.net>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Add documentation for PRIME related code
+Date: Fri, 1 Jun 2018 10:29:37 -0400
+Message-ID: <CADnq5_McUDsTS3DkHWT-xriEm9AZ=zkfZKZ3r0Uxu64bCU1m=Q@mail.gmail.com>
 References: <20180531161708.5894-1-michel@daenzer.net>
-        <20180531161708.5894-3-michel@daenzer.net>
-        <CADnq5_O5-m_=xqszq41eOAVaLTytHUHmtDaSc1MeEorZML6T5g@mail.gmail.com>
-        <b458561f-b4e5-58bb-eee0-e3451312ae41@daenzer.net>
+ <20180531161708.5894-3-michel@daenzer.net>
+ <CADnq5_O5-m_=xqszq41eOAVaLTytHUHmtDaSc1MeEorZML6T5g@mail.gmail.com>
+ <b458561f-b4e5-58bb-eee0-e3451312ae41@daenzer.net>
+ <CADnq5_M-kS58ScgOBVQG7Mxxepae9b9gqUdMdFgaPaaxQ4NkjQ@mail.gmail.com>
+ <494c2768-4ac8-7282-80dd-122add15b2bb@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <b458561f-b4e5-58bb-eee0-e3451312ae41@daenzer.net>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-doc@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <494c2768-4ac8-7282-80dd-122add15b2bb-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, linux-doc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Jonathan Corbet <corbet-T1hC0tSOHrs@public.gmane.org>
 
-On Fri, 1 Jun 2018 15:40:44 +0200
-Michel Dänzer <michel@daenzer.net> wrote:
-
-> Thanks. Is it okay to merge all of these via the amdgpu tree, or should
-> I wait for an ack from Jon and/or core DRM maintainers for that?
-
-I've been assuming they would go through a DRM tree, no need to wait for
-me.
-
-Thanks,
-
-jon
+T24gRnJpLCBKdW4gMSwgMjAxOCBhdCA5OjU2IEFNLCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
+ZW56ZXIubmV0PiB3cm90ZToKPiBPbiAyMDE4LTA2LTAxIDAzOjQ0IFBNLCBBbGV4IERldWNoZXIg
+d3JvdGU6Cj4+IE9uIEZyaSwgSnVuIDEsIDIwMTggYXQgOTo0MCBBTSwgTWljaGVsIETDpG56ZXIg
+PG1pY2hlbEBkYWVuemVyLm5ldD4gd3JvdGU6Cj4+PiBPbiAyMDE4LTA2LTAxIDAyOjU4IFBNLCBB
+bGV4IERldWNoZXIgd3JvdGU6Cj4+Pj4gT24gVGh1LCBNYXkgMzEsIDIwMTggYXQgMTI6MTcgUE0s
+IE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+IHdyb3RlOgo+Pj4+PiBGcm9tOiBN
+aWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPj4+Pj4KPj4+Pj4gU2lnbmVk
+LW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4+Pj4KPj4+
+PiBTZXJpZXMgaXM6Cj4+Pj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
+dWNoZXJAYW1kLmNvbT4KPj4+Cj4+PiBUaGFua3MuIElzIGl0IG9rYXkgdG8gbWVyZ2UgYWxsIG9m
+IHRoZXNlIHZpYSB0aGUgYW1kZ3B1IHRyZWUsIG9yIHNob3VsZAo+Pj4gSSB3YWl0IGZvciBhbiBh
+Y2sgZnJvbSBKb24gYW5kL29yIGNvcmUgRFJNIG1haW50YWluZXJzIGZvciB0aGF0Pwo+Pgo+PiBH
+UFUgZG9jdW1lbnRhdGlvbiB1c3VhbGx5IGdvZXMgdGhyb3VnaCB0aGUgZHJtIHRyZWVzLiAgWW91
+IG1pZ2h0IHdhbnQKPj4gdG8gcHVzaCBwYXRjaCAxIChkcm1fbW0ucnN0IGZpeCkgdmlhIGRybV9t
+aXNjLCBidXQgdGhlIHJlc3QgYXJlIGNhbiBnbwo+PiBpbiB2aWEgdGhlIGFtZGdwdSB0cmVlIHNp
+bmNlIHRoZXkgYXJlIGFtZGdwdSBzcGVjaWZpYy4KPgo+IEknZCBwcmVmZXIgbWVyZ2luZyBhbGwg
+dGhyZWUgcGF0Y2hlcyB0b2dldGhlciwgc2luY2Ugd2l0aG91dCBwYXRjaCAxLAo+IHBhdGNoIDMg
+Z2VuZXJhdGVzIHRoZSB3YXJuaW5nIGJlbG93IHdoaWxlIGdlbmVyYXRpbmcgZG9jdW1lbnRhdGlv
+biwgYW5kCj4gdGhlIHJlZmVyZW5jZSB0byB0aGUgUFJJTUUgQnVmZmVyIFNoYXJpbmcgc2VjdGlv
+biBkb2Vzbid0IHdvcmsuCj4KPiAuLi4vbGludXgvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJz
+dDoyOiBXQVJOSU5HOiB1bmRlZmluZWQgbGFiZWw6Cj4gcHJpbWVfYnVmZmVyX3NoYXJpbmcgKGlm
+IHRoZSBsaW5rIGhhcyBubyBjYXB0aW9uIHRoZSBsYWJlbCBtdXN0IHByZWNlZGUKPiBhIHNlY3Rp
+b24gaGVhZGVyKQoKClRoYXQncyBmaW5lLiAgSSdsbCB0YWtlIHRoZW0gYWxsIHRocm91Z2ggdGhl
+IGFtZGdwdSB0cmVlLgoKQWxleAoKPgo+Cj4gLS0KPiBFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIg
+ICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCj4gTGlicmUg
+c29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFgg
+ZGV2ZWxvcGVyCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
