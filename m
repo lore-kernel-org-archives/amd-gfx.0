@@ -1,155 +1,91 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH v4 1/2] drm/scheduler: Avoid using wait_event_killable for
- dying process.
-Date: Mon, 4 Jun 2018 21:25:17 +0200
-Message-ID: <5bd557b4-a33c-1e0e-5c11-cd92028c6172@amd.com>
-References: <1528137599-2188-1-git-send-email-andrey.grodzovsky@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1528137599-2188-1-git-send-email-andrey.grodzovsky@amd.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH] drm/amdgpu: Grab/put runtime PM references in atomic_commit_tail()
+Date: Mon,  4 Jun 2018 15:35:03 -0400
+Message-ID: <20180604193509.29153-1-lyude@redhat.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, Shirish S <shirish.s@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDQuMDYuMjAxOCB1bSAyMDozOSBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+IER5aW5n
-IHByb2Nlc3MgbWlnaHQgYmUgYmxvY2tlZCBmcm9tIHJlY2VpdmluZyBhbnkgbW9yZSBzaWduYWxz
-Cj4gc28gYXZvaWQgdXNpbmcgaXQuCj4KPiBBbHNvIHJldGlyZSBlbml0eS0+ZmluaV9zdGF0dXMg
-YW5kIGp1c3QgY2hlY2sgdGhlIFNXIHF1ZXVlLAo+IGlmIGl0J3Mgbm90IGVtcHR5IGRvIHRoZSBm
-YWxsYmFjayBjbGVhbnVwLgo+Cj4gQWxzbyBoYW5kbGUgZW50aXR5LT5sYXN0X3NjaGVkdWxlZCA9
-PSBOVUxMIHVzZSBjYXNlIHdoaWNoCj4gaGFwcGVucyB3aGVuIEhXIHJpbmcgaXMgYWxyZWFkeSBo
-YW5nZ2VkIHdoZW0gYSAgbmV3IGVudGl0eQo+IHRyaWVkIHRvIGVucWV1ZSBqb2JzLgo+Cj4gdjI6
-Cj4gUmV0dXJuIHRoZSByZW1haW5pbmcgdGltZW91dCBhbmQgdXNlIHRoYXQgYXMgcGFyYW1ldGVy
-IGZvciB0aGUgbmV4dCBjYWxsLgo+IFRoaXMgd2F5IHdoZW4gd2UgbmVlZCB0byBjbGVhbnVwIG11
-bHRpcGxlIHF1ZXVlcyB3ZSBkb24ndCB3YWl0IGZvciB0aGUKPiBlbnRpcmUgVE8gcGVyaW9kIGZv
-ciBlYWNoIHF1ZXVlIGJ1dCByYXRoZXIgaW4gdG90YWwuCj4gU3R5bGluZyBjb21tZW50cy4KPiBS
-ZWJhc2UuCj4KPiB2MzoKPiBVcGRhdGUgdHlwZXMgZnJvbSB1bnNpZ25lZCB0byBsb25nLgo+IFdv
-cmsgd2l0aCBqaWZmaWVzIGluc3RlYWQgb2YgbXMuCj4gUmV0dXJuIDAgd2hlbiBUTyBleHBpcmVz
-Lgo+IFJlYmFzZS4KPgo+IHY0Ogo+IFJlbW92ZSB1bm5lY2Vzc2FyeSB0aW1lb3V0IGNhbGN1bGF0
-aW9uLgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92
-c2t5QGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtv
-ZW5pZ0BhbWQuY29tPiBmb3IgdGhlIHdob2xlIApzZXJpZXMuCgpUaGFua3MgZm9yIHRoZSBwYXRp
-ZW5jZSBhbmQgdGhlIGdvb2Qgd29yaywKQ2hyaXN0aWFuLgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIHwgNjcgKysrKysrKysrKysrKysrKysrKysr
-Ky0tLS0tLS0tLQo+ICAgaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oICAgICAgICAgICAgICAg
-fCAgNyArKy0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDUzIGluc2VydGlvbnMoKyksIDIxIGRlbGV0
-aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3Nj
-aGVkdWxlci5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPiBp
-bmRleCA4YzFlODBjLi42YTMxNjcwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hl
-ZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9n
-cHVfc2NoZWR1bGVyLmMKPiBAQCAtMTgxLDcgKzE4MSw2IEBAIGludCBkcm1fc2NoZWRfZW50aXR5
-X2luaXQoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgIAllbnRpdHktPnJxID0g
-cnE7Cj4gICAJZW50aXR5LT5zY2hlZCA9IHNjaGVkOwo+ICAgCWVudGl0eS0+Z3VpbHR5ID0gZ3Vp
-bHR5Owo+IC0JZW50aXR5LT5maW5pX3N0YXR1cyA9IDA7Cj4gICAJZW50aXR5LT5sYXN0X3NjaGVk
-dWxlZCA9IE5VTEw7Cj4gICAKPiAgIAlzcGluX2xvY2tfaW5pdCgmZW50aXR5LT5ycV9sb2NrKTsK
-PiBAQCAtMjE5LDcgKzIxOCw4IEBAIHN0YXRpYyBib29sIGRybV9zY2hlZF9lbnRpdHlfaXNfaW5p
-dGlhbGl6ZWQoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgIHN0YXRpYyBib29s
-IGRybV9zY2hlZF9lbnRpdHlfaXNfaWRsZShzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5
-KQo+ICAgewo+ICAgCXJtYigpOwo+IC0JaWYgKHNwc2NfcXVldWVfcGVlaygmZW50aXR5LT5qb2Jf
-cXVldWUpID09IE5VTEwpCj4gKwo+ICsJaWYgKCFlbnRpdHktPnJxIHx8IHNwc2NfcXVldWVfcGVl
-aygmZW50aXR5LT5qb2JfcXVldWUpID09IE5VTEwpCj4gICAJCXJldHVybiB0cnVlOwo+ICAgCj4g
-ICAJcmV0dXJuIGZhbHNlOwo+IEBAIC0yNjAsMjUgKzI2MCwzOSBAQCBzdGF0aWMgdm9pZCBkcm1f
-c2NoZWRfZW50aXR5X2tpbGxfam9ic19jYihzdHJ1Y3QgZG1hX2ZlbmNlICpmLAo+ICAgICoKPiAg
-ICAqIEBzY2hlZDogc2NoZWR1bGVyIGluc3RhbmNlCj4gICAgKiBAZW50aXR5OiBzY2hlZHVsZXIg
-ZW50aXR5Cj4gKyAqIEB0aW1lb3V0OiB0aW1lIHRvIHdhaXQgaW4gZm9yIFEgdG8gYmVjb21lIGVt
-cHR5IGluIGppZmZpZXMuCj4gICAgKgo+ICAgICogU3BsaXR0aW5nIGRybV9zY2hlZF9lbnRpdHlf
-ZmluaSgpIGludG8gdHdvIGZ1bmN0aW9ucywgVGhlIGZpcnN0IG9uZSBkb2VzIHRoZSB3YWl0aW5n
-LAo+ICAgICogcmVtb3ZlcyB0aGUgZW50aXR5IGZyb20gdGhlIHJ1bnF1ZXVlIGFuZCByZXR1cm5z
-IGFuIGVycm9yIHdoZW4gdGhlIHByb2Nlc3Mgd2FzIGtpbGxlZC4KPiArICoKPiArICogUmV0dXJu
-cyB0aGUgcmVtYWluaW5nIHRpbWUgaW4gamlmZmllcyBsZWZ0IGZyb20gdGhlIGlucHV0IHRpbWVv
-dXQKPiAgICAqLwo+IC12b2lkIGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZShzdHJ1Y3QgZHJt
-X2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+IC0JCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAq
-ZW50aXR5KQo+ICtsb25nIGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZShzdHJ1Y3QgZHJtX2dw
-dV9zY2hlZHVsZXIgKnNjaGVkLAo+ICsJCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50
-aXR5LCBsb25nIHRpbWVvdXQpCj4gICB7Cj4gKwlsb25nIHJldCA9IHRpbWVvdXQ7Cj4gKwo+ICAg
-CWlmICghZHJtX3NjaGVkX2VudGl0eV9pc19pbml0aWFsaXplZChzY2hlZCwgZW50aXR5KSkKPiAt
-CQlyZXR1cm47Cj4gKwkJcmV0dXJuIHJldDsKPiAgIAkvKioKPiAgIAkgKiBUaGUgY2xpZW50IHdp
-bGwgbm90IHF1ZXVlIG1vcmUgSUJzIGR1cmluZyB0aGlzIGZpbmksIGNvbnN1bWUgZXhpc3RpbmcK
-PiAgIAkgKiBxdWV1ZWQgSUJzIG9yIGRpc2NhcmQgdGhlbSBvbiBTSUdLSUxMCj4gICAJKi8KPiAt
-CWlmICgoY3VycmVudC0+ZmxhZ3MgJiBQRl9TSUdOQUxFRCkgJiYgY3VycmVudC0+ZXhpdF9jb2Rl
-ID09IFNJR0tJTEwpCj4gLQkJZW50aXR5LT5maW5pX3N0YXR1cyA9IC1FUkVTVEFSVFNZUzsKPiAt
-CWVsc2UKPiAtCQllbnRpdHktPmZpbmlfc3RhdHVzID0gd2FpdF9ldmVudF9raWxsYWJsZShzY2hl
-ZC0+am9iX3NjaGVkdWxlZCwKPiAtCQkJCQlkcm1fc2NoZWRfZW50aXR5X2lzX2lkbGUoZW50aXR5
-KSk7Cj4gLQlkcm1fc2NoZWRfZW50aXR5X3NldF9ycShlbnRpdHksIE5VTEwpOwo+ICsJaWYgKGN1
-cnJlbnQtPmZsYWdzICYgUEZfRVhJVElORykgewo+ICsJCWlmICh0aW1lb3V0KQo+ICsJCQlyZXQg
-PSB3YWl0X2V2ZW50X3RpbWVvdXQoCj4gKwkJCQkJc2NoZWQtPmpvYl9zY2hlZHVsZWQsCj4gKwkJ
-CQkJZHJtX3NjaGVkX2VudGl0eV9pc19pZGxlKGVudGl0eSksCj4gKwkJCQkJdGltZW91dCk7Cj4g
-Kwl9IGVsc2UKPiArCQl3YWl0X2V2ZW50X2tpbGxhYmxlKHNjaGVkLT5qb2Jfc2NoZWR1bGVkLCBk
-cm1fc2NoZWRfZW50aXR5X2lzX2lkbGUoZW50aXR5KSk7Cj4gKwo+ICsKPiArCS8qIEZvciBraWxs
-ZWQgcHJvY2VzcyBkaXNhYmxlIGFueSBtb3JlIElCcyBlbnF1ZXVlIHJpZ2h0IG5vdyAqLwo+ICsJ
-aWYgKChjdXJyZW50LT5mbGFncyAmIFBGX0VYSVRJTkcpICYmIChjdXJyZW50LT5leGl0X2NvZGUg
-PT0gU0lHS0lMTCkpCj4gKwkJZHJtX3NjaGVkX2VudGl0eV9zZXRfcnEoZW50aXR5LCBOVUxMKTsK
-PiArCj4gKwlyZXR1cm4gcmV0Owo+ICAgfQo+ICAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfZW50
-aXR5X2RvX3JlbGVhc2UpOwo+ICAgCj4gQEAgLTI5MCwxMSArMzA0LDE4IEBAIEVYUE9SVF9TWU1C
-T0woZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKTsKPiAgICAqCj4gICAgKiBUaGlzIHNob3Vs
-ZCBiZSBjYWxsZWQgYWZ0ZXIgQGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZS4gSXQgZ29lcyBv
-dmVyIHRoZQo+ICAgICogZW50aXR5IGFuZCBzaWduYWxzIGFsbCBqb2JzIHdpdGggYW4gZXJyb3Ig
-Y29kZSBpZiB0aGUgcHJvY2VzcyB3YXMga2lsbGVkLgo+ICsgKgo+ICAgICovCj4gICB2b2lkIGRy
-bV9zY2hlZF9lbnRpdHlfY2xlYW51cChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+
-ICAgCQkJICAgc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKPiAgIHsKPiAtCWlmIChl
-bnRpdHktPmZpbmlfc3RhdHVzKSB7Cj4gKwo+ICsJZHJtX3NjaGVkX2VudGl0eV9zZXRfcnEoZW50
-aXR5LCBOVUxMKTsKPiArCj4gKwkvKiBDb25zdW1wdGlvbiBvZiBleGlzdGluZyBJQnMgd2Fzbid0
-IGNvbXBsZXRlZC4gRm9yY2VmdWxseQo+ICsJICogcmVtb3ZlIHRoZW0gaGVyZS4KPiArCSAqLwo+
-ICsJaWYgKHNwc2NfcXVldWVfcGVlaygmZW50aXR5LT5qb2JfcXVldWUpKSB7Cj4gICAJCXN0cnVj
-dCBkcm1fc2NoZWRfam9iICpqb2I7Cj4gICAJCWludCByOwo+ICAgCj4gQEAgLTMxNCwxMiArMzM1
-LDIyIEBAIHZvaWQgZHJtX3NjaGVkX2VudGl0eV9jbGVhbnVwKHN0cnVjdCBkcm1fZ3B1X3NjaGVk
-dWxlciAqc2NoZWQsCj4gICAJCQlzdHJ1Y3QgZHJtX3NjaGVkX2ZlbmNlICpzX2ZlbmNlID0gam9i
-LT5zX2ZlbmNlOwo+ICAgCQkJZHJtX3NjaGVkX2ZlbmNlX3NjaGVkdWxlZChzX2ZlbmNlKTsKPiAg
-IAkJCWRtYV9mZW5jZV9zZXRfZXJyb3IoJnNfZmVuY2UtPmZpbmlzaGVkLCAtRVNSQ0gpOwo+IC0J
-CQlyID0gZG1hX2ZlbmNlX2FkZF9jYWxsYmFjayhlbnRpdHktPmxhc3Rfc2NoZWR1bGVkLCAmam9i
-LT5maW5pc2hfY2IsCj4gLQkJCQkJCQlkcm1fc2NoZWRfZW50aXR5X2tpbGxfam9ic19jYik7Cj4g
-LQkJCWlmIChyID09IC1FTk9FTlQpCj4gKwo+ICsJCQkvKgo+ICsJCQkgKiBXaGVuIHBpcGUgaXMg
-aGFuZ2VkIGJ5IG9sZGVyIGVudGl0eSwgbmV3IGVudGl0eSBtaWdodAo+ICsJCQkgKiBub3QgZXZl
-biBoYXZlIGNoYW5jZSB0byBzdWJtaXQgaXQncyBmaXJzdCBqb2IgdG8gSFcKPiArCQkJICogYW5k
-IHNvIGVudGl0eS0+bGFzdF9zY2hlZHVsZWQgd2lsbCByZW1haW4gTlVMTAo+ICsJCQkgKi8KPiAr
-CQkJaWYgKCFlbnRpdHktPmxhc3Rfc2NoZWR1bGVkKSB7Cj4gICAJCQkJZHJtX3NjaGVkX2VudGl0
-eV9raWxsX2pvYnNfY2IoTlVMTCwgJmpvYi0+ZmluaXNoX2NiKTsKPiAtCQkJZWxzZSBpZiAocikK
-PiAtCQkJCURSTV9FUlJPUigiZmVuY2UgYWRkIGNhbGxiYWNrIGZhaWxlZCAoJWQpXG4iLCByKTsK
-PiArCQkJfSBlbHNlIHsKPiArCQkJCXIgPSBkbWFfZmVuY2VfYWRkX2NhbGxiYWNrKGVudGl0eS0+
-bGFzdF9zY2hlZHVsZWQsICZqb2ItPmZpbmlzaF9jYiwKPiArCQkJCQkJCQlkcm1fc2NoZWRfZW50
-aXR5X2tpbGxfam9ic19jYik7Cj4gKwkJCQlpZiAociA9PSAtRU5PRU5UKQo+ICsJCQkJCWRybV9z
-Y2hlZF9lbnRpdHlfa2lsbF9qb2JzX2NiKE5VTEwsICZqb2ItPmZpbmlzaF9jYik7Cj4gKwkJCQll
-bHNlIGlmIChyKQo+ICsJCQkJCURSTV9FUlJPUigiZmVuY2UgYWRkIGNhbGxiYWNrIGZhaWxlZCAo
-JWQpXG4iLCByKTsKPiArCQkJfQo+ICAgCQl9Cj4gICAJfQo+ICAgCj4gQEAgLTMzOSw3ICszNzAs
-NyBAQCBFWFBPUlRfU1lNQk9MKGRybV9zY2hlZF9lbnRpdHlfY2xlYW51cCk7Cj4gICB2b2lkIGRy
-bV9zY2hlZF9lbnRpdHlfZmluaShzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAg
-CQkJCXN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpCj4gICB7Cj4gLQlkcm1fc2NoZWRf
-ZW50aXR5X2RvX3JlbGVhc2Uoc2NoZWQsIGVudGl0eSk7Cj4gKwlkcm1fc2NoZWRfZW50aXR5X2Rv
-X3JlbGVhc2Uoc2NoZWQsIGVudGl0eSwgTUFYX1dBSVRfU0NIRURfRU5USVRZX1FfRU1QVFkpOwo+
-ICAgCWRybV9zY2hlZF9lbnRpdHlfY2xlYW51cChzY2hlZCwgZW50aXR5KTsKPiAgIH0KPiAgIEVY
-UE9SVF9TWU1CT0woZHJtX3NjaGVkX2VudGl0eV9maW5pKTsKPiBkaWZmIC0tZ2l0IGEvaW5jbHVk
-ZS9kcm0vZ3B1X3NjaGVkdWxlci5oIGIvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oCj4gaW5k
-ZXggNDk2NDQyZi4uN2MyZGZkNiAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1
-bGVyLmgKPiArKysgYi9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiBAQCAtMjcsNiArMjcs
-OCBAQAo+ICAgI2luY2x1ZGUgPGRybS9zcHNjX3F1ZXVlLmg+Cj4gICAjaW5jbHVkZSA8bGludXgv
-ZG1hLWZlbmNlLmg+Cj4gICAKPiArI2RlZmluZSBNQVhfV0FJVF9TQ0hFRF9FTlRJVFlfUV9FTVBU
-WSBtc2Vjc190b19qaWZmaWVzKDEwMDApCj4gKwo+ICAgc3RydWN0IGRybV9ncHVfc2NoZWR1bGVy
-Owo+ICAgc3RydWN0IGRybV9zY2hlZF9ycTsKPiAgIAo+IEBAIC04NCw3ICs4Niw2IEBAIHN0cnVj
-dCBkcm1fc2NoZWRfZW50aXR5IHsKPiAgIAlzdHJ1Y3QgZG1hX2ZlbmNlCQkqZGVwZW5kZW5jeTsK
-PiAgIAlzdHJ1Y3QgZG1hX2ZlbmNlX2NiCQljYjsKPiAgIAlhdG9taWNfdAkJCSpndWlsdHk7Cj4g
-LQlpbnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZpbmlfc3RhdHVzOwo+ICAgCXN0cnVj
-dCBkbWFfZmVuY2UgICAgICAgICAgICAgICAgKmxhc3Rfc2NoZWR1bGVkOwo+ICAgfTsKPiAgIAo+
-IEBAIC0yODMsOCArMjg0LDggQEAgaW50IGRybV9zY2hlZF9lbnRpdHlfaW5pdChzdHJ1Y3QgZHJt
-X2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgCQkJICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAq
-ZW50aXR5LAo+ICAgCQkJICBzdHJ1Y3QgZHJtX3NjaGVkX3JxICpycSwKPiAgIAkJCSAgYXRvbWlj
-X3QgKmd1aWx0eSk7Cj4gLXZvaWQgZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHN0cnVjdCBk
-cm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCj4gLQkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5
-ICplbnRpdHkpOwo+ICtsb25nIGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZShzdHJ1Y3QgZHJt
-X2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICsJCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAq
-ZW50aXR5LCBsb25nIHRpbWVvdXQpOwo+ICAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2NsZWFudXAo
-c3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgIAkJCSAgIHN0cnVjdCBkcm1fc2No
-ZWRfZW50aXR5ICplbnRpdHkpOwo+ICAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2Zpbmkoc3RydWN0
-IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2RyaS1kZXZlbAo=
+So, unfortunately I recently made the discovery that in the upstream
+kernel, the only reason that amdgpu is not currently suffering from
+issues with runtime PM putting the GPU into suspend while it's driving
+displays is due to the fact that on most prime systems, we have sound
+devices associated with the GPU that hold their own runtime PM ref for
+the GPU.
+
+What this means however, is that in the event that there isn't any kind
+of sound device active (which can easily be reproduced by building a
+kernel with sound drivers disabled), the GPU will fall asleep even when
+there's displays active. This appears to be in part due to the fact that
+amdgpu has not actually ever relied on it's rpm_idle() function to be
+the only thing keeping it running, and normally grabs it's own power
+references whenever there are displays active (as can be seen with the
+original pre-DC codepath in amdgpu_display_crtc_set_config() in
+amdgpu_display.c). This means it's very likely that this bug was
+introduced during the switch over the DC.
+
+So to fix this, we start grabbing runtime PM references every time we
+enable a previously disabled CRTC in atomic_commit_tail(). This appears
+to be the correct solution, as it matches up with what i915 does in
+i915/intel_runtime_pm.c.
+
+The one sideaffect of this is that we ignore the variable that the
+pre-DC code used to use for tracking when it needed runtime PM refs,
+adev->have_disp_power_ref. This is mainly because there's no way for a
+driver to tell whether or not all of it's CRTCs are enabled or disabled
+when we've begun committing an atomic state, as there may be CRTC
+commits happening in parallel that aren't contained within the atomic
+state being committed. So, it's safer to just get/put a reference for
+each CRTC being enabled or disabled in the new atomic state.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+As a note, I'm not entirely happy with this fix and I wouldn't be
+surprised if I missed something while looking through amdgpu. So, please
+don't hesistate to suggest a better fix :).
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1dd1142246c2..361b81ef6997 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -46,6 +46,7 @@
+ #include <linux/moduleparam.h>
+ #include <linux/version.h>
+ #include <linux/types.h>
++#include <linux/pm_runtime.h>
+ 
+ #include <drm/drmP.h>
+ #include <drm/drm_atomic.h>
+@@ -4211,6 +4212,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 			if (dm_old_crtc_state->stream)
+ 				remove_stream(adev, acrtc, dm_old_crtc_state->stream);
+ 
++			pm_runtime_get_noresume(dev->dev);
++
+ 			acrtc->enabled = true;
+ 			acrtc->hw_mode = new_crtc_state->mode;
+ 			crtc->hwmode = new_crtc_state->mode;
+@@ -4396,6 +4399,16 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		drm_atomic_helper_wait_for_flip_done(dev, state);
+ 
+ 	drm_atomic_helper_cleanup_planes(dev, state);
++
++	/* Finally, drop a runtime PM reference for each newly disabled CRTC,
++	 * so we can put the GPU into runtime suspend if we're not driving any
++	 * displays anymore
++	 */
++	pm_runtime_mark_last_busy(dev->dev);
++	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
++		if (old_crtc_state->active && !new_crtc_state->active)
++			pm_runtime_put_autosuspend(dev->dev);
++	}
+ }
+ 
+ 
+-- 
+2.17.1
