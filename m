@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v3 1/2] drm/scheduler: Avoid using wait_event_killable for
  dying process.
-Date: Mon, 4 Jun 2018 19:53:43 +0200
-Message-ID: <e765149d-99a7-10ce-0669-e978acf7044a@amd.com>
+Date: Mon, 4 Jun 2018 14:03:02 -0400
+Message-ID: <707e5e63-ba88-0cb7-c8b0-5b4bed550d0c@amd.com>
 References: <1528124636-17283-1-git-send-email-andrey.grodzovsky@amd.com>
+ <e765149d-99a7-10ce-0669-e978acf7044a@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1389495162=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1528124636-17283-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <e765149d-99a7-10ce-0669-e978acf7044a-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,137 +20,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMDQuMDYuMjAxOCB1bSAxNzowMyBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+IER5aW5n
-IHByb2Nlc3MgbWlnaHQgYmUgYmxvY2tlZCBmcm9tIHJlY2VpdmluZyBhbnkgbW9yZSBzaWduYWxz
-Cj4gc28gYXZvaWQgdXNpbmcgaXQuCj4KPiBBbHNvIHJldGlyZSBlbml0eS0+ZmluaV9zdGF0dXMg
-YW5kIGp1c3QgY2hlY2sgdGhlIFNXIHF1ZXVlLAo+IGlmIGl0J3Mgbm90IGVtcHR5IGRvIHRoZSBm
-YWxsYmFjayBjbGVhbnVwLgo+Cj4gQWxzbyBoYW5kbGUgZW50aXR5LT5sYXN0X3NjaGVkdWxlZCA9
-PSBOVUxMIHVzZSBjYXNlIHdoaWNoCj4gaGFwcGVucyB3aGVuIEhXIHJpbmcgaXMgYWxyZWFkeSBo
-YW5nZ2VkIHdoZW0gYSAgbmV3IGVudGl0eQo+IHRyaWVkIHRvIGVucWV1ZSBqb2JzLgo+Cj4gdjI6
-Cj4gUmV0dXJuIHRoZSByZW1haW5pbmcgdGltZW91dCBhbmQgdXNlIHRoYXQgYXMgcGFyYW1ldGVy
-IGZvciB0aGUgbmV4dCBjYWxsLgo+IFRoaXMgd2F5IHdoZW4gd2UgbmVlZCB0byBjbGVhbnVwIG11
-bHRpcGxlIHF1ZXVlcyB3ZSBkb24ndCB3YWl0IGZvciB0aGUKPiBlbnRpcmUgVE8gcGVyaW9kIGZv
-ciBlYWNoIHF1ZXVlIGJ1dCByYXRoZXIgaW4gdG90YWwuCj4gU3R5bGluZyBjb21tZW50cy4KPiBS
-ZWJhc2UuCj4KPiB2MzoKPiBVcGRhdGUgdHlwZXMgZnJvbSB1bnNpZ25lZCB0byBsb25nLgo+IFdv
-cmsgd2l0aCBqaWZmaWVzIGluc3RlYWQgb2YgbXMuCj4gUmV0dXJuIDAgd2hlbiBUTyBleHBpcmVz
-Lgo+IFJlYmFzZS4KPgo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXku
-Z3JvZHpvdnNreUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9n
-cHVfc2NoZWR1bGVyLmMgfCA3MCArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tCj4gICBp
-bmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggICAgICAgICAgICAgICB8ICA3ICsrLS0KPiAgIDIg
-ZmlsZXMgY2hhbmdlZCwgNTYgaW5zZXJ0aW9ucygrKSwgMjEgZGVsZXRpb25zKC0pCj4KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+IGluZGV4IDhjMWU4MGMuLjFl
-NjUyMjEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1
-bGVyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+
-IEBAIC0xODEsNyArMTgxLDYgQEAgaW50IGRybV9zY2hlZF9lbnRpdHlfaW5pdChzdHJ1Y3QgZHJt
-X2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgCWVudGl0eS0+cnEgPSBycTsKPiAgIAllbnRpdHkt
-PnNjaGVkID0gc2NoZWQ7Cj4gICAJZW50aXR5LT5ndWlsdHkgPSBndWlsdHk7Cj4gLQllbnRpdHkt
-PmZpbmlfc3RhdHVzID0gMDsKPiAgIAllbnRpdHktPmxhc3Rfc2NoZWR1bGVkID0gTlVMTDsKPiAg
-IAo+ICAgCXNwaW5fbG9ja19pbml0KCZlbnRpdHktPnJxX2xvY2spOwo+IEBAIC0yMTksNyArMjE4
-LDggQEAgc3RhdGljIGJvb2wgZHJtX3NjaGVkX2VudGl0eV9pc19pbml0aWFsaXplZChzdHJ1Y3Qg
-ZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgc3RhdGljIGJvb2wgZHJtX3NjaGVkX2VudGl0
-eV9pc19pZGxlKHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpCj4gICB7Cj4gICAJcm1i
-KCk7Cj4gLQlpZiAoc3BzY19xdWV1ZV9wZWVrKCZlbnRpdHktPmpvYl9xdWV1ZSkgPT0gTlVMTCkK
-PiArCj4gKwlpZiAoIWVudGl0eS0+cnEgfHwgc3BzY19xdWV1ZV9wZWVrKCZlbnRpdHktPmpvYl9x
-dWV1ZSkgPT0gTlVMTCkKPiAgIAkJcmV0dXJuIHRydWU7Cj4gICAKPiAgIAlyZXR1cm4gZmFsc2U7
-Cj4gQEAgLTI2MCwyNSArMjYwLDQyIEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9lbnRpdHlfa2ls
-bF9qb2JzX2NiKHN0cnVjdCBkbWFfZmVuY2UgKmYsCj4gICAgKgo+ICAgICogQHNjaGVkOiBzY2hl
-ZHVsZXIgaW5zdGFuY2UKPiAgICAqIEBlbnRpdHk6IHNjaGVkdWxlciBlbnRpdHkKPiArICogQHRp
-bWVvdXQ6IHRpbWUgdG8gd2FpdCBpbiBmb3IgUSB0byBiZWNvbWUgZW1wdHkgaW4gamlmZmllcy4K
-PiAgICAqCj4gICAgKiBTcGxpdHRpbmcgZHJtX3NjaGVkX2VudGl0eV9maW5pKCkgaW50byB0d28g
-ZnVuY3Rpb25zLCBUaGUgZmlyc3Qgb25lIGRvZXMgdGhlIHdhaXRpbmcsCj4gICAgKiByZW1vdmVz
-IHRoZSBlbnRpdHkgZnJvbSB0aGUgcnVucXVldWUgYW5kIHJldHVybnMgYW4gZXJyb3Igd2hlbiB0
-aGUgcHJvY2VzcyB3YXMga2lsbGVkLgo+ICsgKgo+ICsgKiBSZXR1cm5zIHRoZSByZW1haW5pbmcg
-dGltZSBpbiBqaWZmaWVzIGxlZnQgZnJvbSB0aGUgaW5wdXQgdGltZW91dAo+ICAgICovCj4gLXZv
-aWQgZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAq
-c2NoZWQsCj4gLQkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpCj4gK2xvbmcg
-ZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2No
-ZWQsCj4gKwkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHksIGxvbmcgdGltZW91
-dCkKPiAgIHsKPiArCWxvbmcgcmV0ID0gdGltZW91dDsKPiArCj4gICAJaWYgKCFkcm1fc2NoZWRf
-ZW50aXR5X2lzX2luaXRpYWxpemVkKHNjaGVkLCBlbnRpdHkpKQo+IC0JCXJldHVybjsKPiArCQly
-ZXR1cm4gcmV0Owo+ICAgCS8qKgo+ICAgCSAqIFRoZSBjbGllbnQgd2lsbCBub3QgcXVldWUgbW9y
-ZSBJQnMgZHVyaW5nIHRoaXMgZmluaSwgY29uc3VtZSBleGlzdGluZwo+ICAgCSAqIHF1ZXVlZCBJ
-QnMgb3IgZGlzY2FyZCB0aGVtIG9uIFNJR0tJTEwKPiAgIAkqLwo+IC0JaWYgKChjdXJyZW50LT5m
-bGFncyAmIFBGX1NJR05BTEVEKSAmJiBjdXJyZW50LT5leGl0X2NvZGUgPT0gU0lHS0lMTCkKPiAt
-CQllbnRpdHktPmZpbmlfc3RhdHVzID0gLUVSRVNUQVJUU1lTOwo+IC0JZWxzZQo+IC0JCWVudGl0
-eS0+ZmluaV9zdGF0dXMgPSB3YWl0X2V2ZW50X2tpbGxhYmxlKHNjaGVkLT5qb2Jfc2NoZWR1bGVk
-LAo+IC0JCQkJCWRybV9zY2hlZF9lbnRpdHlfaXNfaWRsZShlbnRpdHkpKTsKPiAtCWRybV9zY2hl
-ZF9lbnRpdHlfc2V0X3JxKGVudGl0eSwgTlVMTCk7Cj4gKwlpZiAoY3VycmVudC0+ZmxhZ3MgJiBQ
-Rl9FWElUSU5HKSB7Cj4gKwkJaWYgKHRpbWVvdXQpIHsKPiArCQkJcmV0ID0gd2FpdF9ldmVudF90
-aW1lb3V0KAo+ICsJCQkJCXNjaGVkLT5qb2Jfc2NoZWR1bGVkLAo+ICsJCQkJCWRybV9zY2hlZF9l
-bnRpdHlfaXNfaWRsZShlbnRpdHkpLAo+ICsJCQkJCXRpbWVvdXQpOwo+ICsKPiArCQkJcmV0ID0g
-cmV0ID8gdGltZW91dCAtIHJldCA6IHJldDsKCk9rIHdlIHN0aWxsIHNlZW0gdG8gaGF2ZSBhIG1p
-c3VuZGVyc3RhbmRpbmcgaGVyZSB3aGF0IAp3YWl0X2V2ZW50X3RpbWVvdXQoKSByZXR1cm5zLgoK
-QXMgZmFyIGFzIEkga25vdyB0aGF0IGxpbmUgc2hvdWxkbid0IGJlIG5lY2Vzc2FyeSBhbmQgaXMg
-YWN0dWFsbHkgcXVpdGUgCmhhcm1mdWwuCgpBcGFydCBmcm9tIHRoYXQgdGhpcyBwYXRjaCBsb29r
-cyBmaW5lIHRvIG1lIG5vdywKQ2hyaXN0aWFuLgoKPiArCQl9Cj4gKwl9IGVsc2UKPiArCQl3YWl0
-X2V2ZW50X2tpbGxhYmxlKHNjaGVkLT5qb2Jfc2NoZWR1bGVkLCBkcm1fc2NoZWRfZW50aXR5X2lz
-X2lkbGUoZW50aXR5KSk7Cj4gKwo+ICsKPiArCS8qIEZvciBraWxsZWQgcHJvY2VzcyBkaXNhYmxl
-IGFueSBtb3JlIElCcyBlbnF1ZXVlIHJpZ2h0IG5vdyAqLwo+ICsJaWYgKChjdXJyZW50LT5mbGFn
-cyAmIFBGX0VYSVRJTkcpICYmIChjdXJyZW50LT5leGl0X2NvZGUgPT0gU0lHS0lMTCkpCj4gKwkJ
-ZHJtX3NjaGVkX2VudGl0eV9zZXRfcnEoZW50aXR5LCBOVUxMKTsKPiArCj4gKwlyZXR1cm4gcmV0
-Owo+ICAgfQo+ICAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2UpOwo+
-ICAgCj4gQEAgLTI5MCwxMSArMzA3LDE4IEBAIEVYUE9SVF9TWU1CT0woZHJtX3NjaGVkX2VudGl0
-eV9kb19yZWxlYXNlKTsKPiAgICAqCj4gICAgKiBUaGlzIHNob3VsZCBiZSBjYWxsZWQgYWZ0ZXIg
-QGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZS4gSXQgZ29lcyBvdmVyIHRoZQo+ICAgICogZW50
-aXR5IGFuZCBzaWduYWxzIGFsbCBqb2JzIHdpdGggYW4gZXJyb3IgY29kZSBpZiB0aGUgcHJvY2Vz
-cyB3YXMga2lsbGVkLgo+ICsgKgo+ICAgICovCj4gICB2b2lkIGRybV9zY2hlZF9lbnRpdHlfY2xl
-YW51cChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgCQkJICAgc3RydWN0IGRy
-bV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKPiAgIHsKPiAtCWlmIChlbnRpdHktPmZpbmlfc3RhdHVz
-KSB7Cj4gKwo+ICsJZHJtX3NjaGVkX2VudGl0eV9zZXRfcnEoZW50aXR5LCBOVUxMKTsKPiArCj4g
-KwkvKiBDb25zdW1wdGlvbiBvZiBleGlzdGluZyBJQnMgd2Fzbid0IGNvbXBsZXRlZC4gRm9yY2Vm
-dWxseQo+ICsJICogcmVtb3ZlIHRoZW0gaGVyZS4KPiArCSAqLwo+ICsJaWYgKHNwc2NfcXVldWVf
-cGVlaygmZW50aXR5LT5qb2JfcXVldWUpKSB7Cj4gICAJCXN0cnVjdCBkcm1fc2NoZWRfam9iICpq
-b2I7Cj4gICAJCWludCByOwo+ICAgCj4gQEAgLTMxNCwxMiArMzM4LDIyIEBAIHZvaWQgZHJtX3Nj
-aGVkX2VudGl0eV9jbGVhbnVwKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCj4gICAJ
-CQlzdHJ1Y3QgZHJtX3NjaGVkX2ZlbmNlICpzX2ZlbmNlID0gam9iLT5zX2ZlbmNlOwo+ICAgCQkJ
-ZHJtX3NjaGVkX2ZlbmNlX3NjaGVkdWxlZChzX2ZlbmNlKTsKPiAgIAkJCWRtYV9mZW5jZV9zZXRf
-ZXJyb3IoJnNfZmVuY2UtPmZpbmlzaGVkLCAtRVNSQ0gpOwo+IC0JCQlyID0gZG1hX2ZlbmNlX2Fk
-ZF9jYWxsYmFjayhlbnRpdHktPmxhc3Rfc2NoZWR1bGVkLCAmam9iLT5maW5pc2hfY2IsCj4gLQkJ
-CQkJCQlkcm1fc2NoZWRfZW50aXR5X2tpbGxfam9ic19jYik7Cj4gLQkJCWlmIChyID09IC1FTk9F
-TlQpCj4gKwo+ICsJCQkvKgo+ICsJCQkgKiBXaGVuIHBpcGUgaXMgaGFuZ2VkIGJ5IG9sZGVyIGVu
-dGl0eSwgbmV3IGVudGl0eSBtaWdodAo+ICsJCQkgKiBub3QgZXZlbiBoYXZlIGNoYW5jZSB0byBz
-dWJtaXQgaXQncyBmaXJzdCBqb2IgdG8gSFcKPiArCQkJICogYW5kIHNvIGVudGl0eS0+bGFzdF9z
-Y2hlZHVsZWQgd2lsbCByZW1haW4gTlVMTAo+ICsJCQkgKi8KPiArCQkJaWYgKCFlbnRpdHktPmxh
-c3Rfc2NoZWR1bGVkKSB7Cj4gICAJCQkJZHJtX3NjaGVkX2VudGl0eV9raWxsX2pvYnNfY2IoTlVM
-TCwgJmpvYi0+ZmluaXNoX2NiKTsKPiAtCQkJZWxzZSBpZiAocikKPiAtCQkJCURSTV9FUlJPUigi
-ZmVuY2UgYWRkIGNhbGxiYWNrIGZhaWxlZCAoJWQpXG4iLCByKTsKPiArCQkJfSBlbHNlIHsKPiAr
-CQkJCXIgPSBkbWFfZmVuY2VfYWRkX2NhbGxiYWNrKGVudGl0eS0+bGFzdF9zY2hlZHVsZWQsICZq
-b2ItPmZpbmlzaF9jYiwKPiArCQkJCQkJCQlkcm1fc2NoZWRfZW50aXR5X2tpbGxfam9ic19jYik7
-Cj4gKwkJCQlpZiAociA9PSAtRU5PRU5UKQo+ICsJCQkJCWRybV9zY2hlZF9lbnRpdHlfa2lsbF9q
-b2JzX2NiKE5VTEwsICZqb2ItPmZpbmlzaF9jYik7Cj4gKwkJCQllbHNlIGlmIChyKQo+ICsJCQkJ
-CURSTV9FUlJPUigiZmVuY2UgYWRkIGNhbGxiYWNrIGZhaWxlZCAoJWQpXG4iLCByKTsKPiArCQkJ
-fQo+ICAgCQl9Cj4gICAJfQo+ICAgCj4gQEAgLTMzOSw3ICszNzMsNyBAQCBFWFBPUlRfU1lNQk9M
-KGRybV9zY2hlZF9lbnRpdHlfY2xlYW51cCk7Cj4gICB2b2lkIGRybV9zY2hlZF9lbnRpdHlfZmlu
-aShzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgCQkJCXN0cnVjdCBkcm1fc2No
-ZWRfZW50aXR5ICplbnRpdHkpCj4gICB7Cj4gLQlkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2Uo
-c2NoZWQsIGVudGl0eSk7Cj4gKwlkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2Uoc2NoZWQsIGVu
-dGl0eSwgTUFYX1dBSVRfU0NIRURfRU5USVRZX1FfRU1QVFkpOwo+ICAgCWRybV9zY2hlZF9lbnRp
-dHlfY2xlYW51cChzY2hlZCwgZW50aXR5KTsKPiAgIH0KPiAgIEVYUE9SVF9TWU1CT0woZHJtX3Nj
-aGVkX2VudGl0eV9maW5pKTsKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxl
-ci5oIGIvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oCj4gaW5kZXggNDk2NDQyZi4uN2MyZGZk
-NiAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiArKysgYi9pbmNs
-dWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiBAQCAtMjcsNiArMjcsOCBAQAo+ICAgI2luY2x1ZGUg
-PGRybS9zcHNjX3F1ZXVlLmg+Cj4gICAjaW5jbHVkZSA8bGludXgvZG1hLWZlbmNlLmg+Cj4gICAK
-PiArI2RlZmluZSBNQVhfV0FJVF9TQ0hFRF9FTlRJVFlfUV9FTVBUWSBtc2Vjc190b19qaWZmaWVz
-KDEwMDApCj4gKwo+ICAgc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyOwo+ICAgc3RydWN0IGRybV9z
-Y2hlZF9ycTsKPiAgIAo+IEBAIC04NCw3ICs4Niw2IEBAIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5
-IHsKPiAgIAlzdHJ1Y3QgZG1hX2ZlbmNlCQkqZGVwZW5kZW5jeTsKPiAgIAlzdHJ1Y3QgZG1hX2Zl
-bmNlX2NiCQljYjsKPiAgIAlhdG9taWNfdAkJCSpndWlsdHk7Cj4gLQlpbnQgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGZpbmlfc3RhdHVzOwo+ICAgCXN0cnVjdCBkbWFfZmVuY2UgICAgICAg
-ICAgICAgICAgKmxhc3Rfc2NoZWR1bGVkOwo+ICAgfTsKPiAgIAo+IEBAIC0yODMsOCArMjg0LDgg
-QEAgaW50IGRybV9zY2hlZF9lbnRpdHlfaW5pdChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNj
-aGVkLAo+ICAgCQkJICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5LAo+ICAgCQkJICBz
-dHJ1Y3QgZHJtX3NjaGVkX3JxICpycSwKPiAgIAkJCSAgYXRvbWljX3QgKmd1aWx0eSk7Cj4gLXZv
-aWQgZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAq
-c2NoZWQsCj4gLQkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpOwo+ICtsb25n
-IGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZShzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNj
-aGVkLAo+ICsJCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5LCBsb25nIHRpbWVv
-dXQpOwo+ICAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2NsZWFudXAoc3RydWN0IGRybV9ncHVfc2No
-ZWR1bGVyICpzY2hlZCwKPiAgIAkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkp
-Owo+ICAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2Zpbmkoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVy
-ICpzY2hlZCwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1389495162==
+Content-Type: multipart/alternative;
+ boundary="------------A90A933482DF2450FBE61D0D"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------A90A933482DF2450FBE61D0D
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+I reread the documentation for wait_event_timeout, my bad, all this time 
+i assumed it returns
+
+amount of jiffies he spent in waiting while actually it returns "the 
+remaining jiffies (at least 1)
+
+if the @condition evaluated
+  * to %true before the @timeout elapsed."
+
+Will fix that, please take a look also at the second patch.
+
+Andrey
+
+
+On 06/04/2018 01:53 PM, Christian König wrote:
+>> +            ret = wait_event_timeout(
+>> +                    sched->job_scheduled,
+>> +                    drm_sched_entity_is_idle(entity),
+>> +                    timeout);
+>> +
+>> +            ret = ret ? timeout - ret : ret;
+>
+> Ok we still seem to have a misunderstanding here what 
+> wait_event_timeout() returns.
+>
+> As far as I know that line shouldn't be necessary and is actually 
+> quite harmful.
+>
+> Apart from that this patch looks fine to me now,
+> Christian.
+
+
+--------------A90A933482DF2450FBE61D0D
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>I reread the documentation for wait_event_timeout, my bad, all
+      this time i assumed it returns</p>
+    <p>amount of jiffies he spent in waiting while actually it returns
+      "the remaining jiffies (at least 1) <br>
+    </p>
+    <p>if the @condition evaluated<br>
+       * to %true before the @timeout elapsed."</p>
+    <p>Will fix that, please take a look also at the second patch.<br>
+    </p>
+    <p>Andrey<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 06/04/2018 01:53 PM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:e765149d-99a7-10ce-0669-e978acf7044a-5C7GfCeVMHo@public.gmane.org">
+      <blockquote type="cite" style="color: #000000;">+            ret =
+        wait_event_timeout(
+        <br>
+        +                    sched-&gt;job_scheduled,
+        <br>
+        +                    drm_sched_entity_is_idle(entity),
+        <br>
+        +                    timeout);
+        <br>
+        +
+        <br>
+        +            ret = ret ? timeout - ret : ret;
+        <br>
+      </blockquote>
+      <br>
+      Ok we still seem to have a misunderstanding here what
+      wait_event_timeout() returns.
+      <br>
+      <br>
+      As far as I know that line shouldn't be necessary and is actually
+      quite harmful.
+      <br>
+      <br>
+      Apart from that this patch looks fine to me now,
+      <br>
+      Christian.</blockquote>
+    <br>
+  </body>
+</html>
+
+--------------A90A933482DF2450FBE61D0D--
+
+--===============1389495162==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1389495162==--
