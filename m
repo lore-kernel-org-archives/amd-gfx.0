@@ -1,14 +1,15 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v3 1/2] drm/scheduler: Avoid using wait_event_killable for
  dying process.
-Date: Mon, 4 Jun 2018 14:03:02 -0400
-Message-ID: <707e5e63-ba88-0cb7-c8b0-5b4bed550d0c@amd.com>
+Date: Mon, 4 Jun 2018 20:20:00 +0200
+Message-ID: <78eb77c1-337e-974d-d4dc-40a382ab8b59@amd.com>
 References: <1528124636-17283-1-git-send-email-andrey.grodzovsky@amd.com>
  <e765149d-99a7-10ce-0669-e978acf7044a@amd.com>
+ <707e5e63-ba88-0cb7-c8b0-5b4bed550d0c@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1389495162=="
+Content-Type: multipart/mixed; boundary="===============0132880508=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e765149d-99a7-10ce-0669-e978acf7044a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <707e5e63-ba88-0cb7-c8b0-5b4bed550d0c-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,52 +21,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
 This is a multi-part message in MIME format.
---===============1389495162==
+--===============0132880508==
 Content-Type: multipart/alternative;
- boundary="------------A90A933482DF2450FBE61D0D"
+ boundary="------------22DD79F7D3465BE3D9839A83"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------A90A933482DF2450FBE61D0D
+--------------22DD79F7D3465BE3D9839A83
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-I reread the documentation for wait_event_timeout, my bad, all this time 
-i assumed it returns
+Ok that explains it. I was already wondering what the heck I was missing :)
 
-amount of jiffies he spent in waiting while actually it returns "the 
-remaining jiffies (at least 1)
+The second patch already looked fine to me as well.
 
-if the @condition evaluated
-  * to %true before the @timeout elapsed."
+Just send it out once more to get an rb,
+Christian.
 
-Will fix that, please take a look also at the second patch.
-
-Andrey
-
-
-On 06/04/2018 01:53 PM, Christian König wrote:
->> +            ret = wait_event_timeout(
->> +                    sched->job_scheduled,
->> +                    drm_sched_entity_is_idle(entity),
->> +                    timeout);
->> +
->> +            ret = ret ? timeout - ret : ret;
+Am 04.06.2018 um 20:03 schrieb Andrey Grodzovsky:
 >
-> Ok we still seem to have a misunderstanding here what 
-> wait_event_timeout() returns.
+> I reread the documentation for wait_event_timeout, my bad, all this 
+> time i assumed it returns
 >
-> As far as I know that line shouldn't be necessary and is actually 
-> quite harmful.
+> amount of jiffies he spent in waiting while actually it returns "the 
+> remaining jiffies (at least 1)
 >
-> Apart from that this patch looks fine to me now,
-> Christian.
+> if the @condition evaluated
+>  * to %true before the @timeout elapsed."
+>
+> Will fix that, please take a look also at the second patch.
+>
+> Andrey
+>
+>
+> On 06/04/2018 01:53 PM, Christian König wrote:
+>>> +            ret = wait_event_timeout(
+>>> +                    sched->job_scheduled,
+>>> +                    drm_sched_entity_is_idle(entity),
+>>> +                    timeout);
+>>> +
+>>> +            ret = ret ? timeout - ret : ret;
+>>
+>> Ok we still seem to have a misunderstanding here what 
+>> wait_event_timeout() returns.
+>>
+>> As far as I know that line shouldn't be necessary and is actually 
+>> quite harmful.
+>>
+>> Apart from that this patch looks fine to me now,
+>> Christian.
+>
 
 
---------------A90A933482DF2450FBE61D0D
+--------------22DD79F7D3465BE3D9839A83
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
@@ -74,56 +85,62 @@ Content-Transfer-Encoding: 8bit
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body text="#000000" bgcolor="#FFFFFF">
-    <p>I reread the documentation for wait_event_timeout, my bad, all
-      this time i assumed it returns</p>
-    <p>amount of jiffies he spent in waiting while actually it returns
-      "the remaining jiffies (at least 1) <br>
-    </p>
-    <p>if the @condition evaluated<br>
-       * to %true before the @timeout elapsed."</p>
-    <p>Will fix that, please take a look also at the second patch.<br>
-    </p>
-    <p>Andrey<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 06/04/2018 01:53 PM, Christian König
-      wrote:<br>
+    <div class="moz-cite-prefix">Ok that explains it. I was already
+      wondering what the heck I was missing :)<br>
+      <br>
+      The second patch already looked fine to me as well.<br>
+      <br>
+      Just send it out once more to get an rb,<br>
+      Christian.<br>
+      <br>
+      Am 04.06.2018 um 20:03 schrieb Andrey Grodzovsky:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:e765149d-99a7-10ce-0669-e978acf7044a-5C7GfCeVMHo@public.gmane.org">
-      <blockquote type="cite" style="color: #000000;">+            ret =
-        wait_event_timeout(
-        <br>
-        +                    sched-&gt;job_scheduled,
-        <br>
-        +                    drm_sched_entity_is_idle(entity),
-        <br>
-        +                    timeout);
-        <br>
-        +
-        <br>
-        +            ret = ret ? timeout - ret : ret;
-        <br>
-      </blockquote>
+      cite="mid:707e5e63-ba88-0cb7-c8b0-5b4bed550d0c-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <p>I reread the documentation for wait_event_timeout, my bad, all
+        this time i assumed it returns</p>
+      <p>amount of jiffies he spent in waiting while actually it returns
+        "the remaining jiffies (at least 1) <br>
+      </p>
+      <p>if the @condition evaluated<br>
+         * to %true before the @timeout elapsed."</p>
+      <p>Will fix that, please take a look also at the second patch.<br>
+      </p>
+      <p>Andrey<br>
+      </p>
       <br>
-      Ok we still seem to have a misunderstanding here what
-      wait_event_timeout() returns.
+      <div class="moz-cite-prefix">On 06/04/2018 01:53 PM, Christian
+        König wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:e765149d-99a7-10ce-0669-e978acf7044a-5C7GfCeVMHo@public.gmane.org">
+        <blockquote type="cite" style="color: #000000;">+            ret
+          = wait_event_timeout( <br>
+          +                    sched-&gt;job_scheduled, <br>
+          +                    drm_sched_entity_is_idle(entity), <br>
+          +                    timeout); <br>
+          + <br>
+          +            ret = ret ? timeout - ret : ret; <br>
+        </blockquote>
+        <br>
+        Ok we still seem to have a misunderstanding here what
+        wait_event_timeout() returns. <br>
+        <br>
+        As far as I know that line shouldn't be necessary and is
+        actually quite harmful. <br>
+        <br>
+        Apart from that this patch looks fine to me now, <br>
+        Christian.</blockquote>
       <br>
-      <br>
-      As far as I know that line shouldn't be necessary and is actually
-      quite harmful.
-      <br>
-      <br>
-      Apart from that this patch looks fine to me now,
-      <br>
-      Christian.</blockquote>
+    </blockquote>
     <br>
   </body>
 </html>
 
---------------A90A933482DF2450FBE61D0D--
+--------------22DD79F7D3465BE3D9839A83--
 
---===============1389495162==
+--===============0132880508==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -133,4 +150,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1389495162==--
+--===============0132880508==--
