@@ -1,16 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v3 1/2] drm/scheduler: Avoid using wait_event_killable for
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v4 1/2] drm/scheduler: Avoid using wait_event_killable for
  dying process.
-Date: Mon, 4 Jun 2018 20:20:00 +0200
-Message-ID: <78eb77c1-337e-974d-d4dc-40a382ab8b59@amd.com>
-References: <1528124636-17283-1-git-send-email-andrey.grodzovsky@amd.com>
- <e765149d-99a7-10ce-0669-e978acf7044a@amd.com>
- <707e5e63-ba88-0cb7-c8b0-5b4bed550d0c@amd.com>
+Date: Mon, 4 Jun 2018 14:39:58 -0400
+Message-ID: <1528137599-2188-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0132880508=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <707e5e63-ba88-0cb7-c8b0-5b4bed550d0c-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,133 +17,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0132880508==
-Content-Type: multipart/alternative;
- boundary="------------22DD79F7D3465BE3D9839A83"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------22DD79F7D3465BE3D9839A83
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Ok that explains it. I was already wondering what the heck I was missing :)
-
-The second patch already looked fine to me as well.
-
-Just send it out once more to get an rb,
-Christian.
-
-Am 04.06.2018 um 20:03 schrieb Andrey Grodzovsky:
->
-> I reread the documentation for wait_event_timeout, my bad, all this 
-> time i assumed it returns
->
-> amount of jiffies he spent in waiting while actually it returns "the 
-> remaining jiffies (at least 1)
->
-> if the @condition evaluated
->  * to %true before the @timeout elapsed."
->
-> Will fix that, please take a look also at the second patch.
->
-> Andrey
->
->
-> On 06/04/2018 01:53 PM, Christian König wrote:
->>> +            ret = wait_event_timeout(
->>> +                    sched->job_scheduled,
->>> +                    drm_sched_entity_is_idle(entity),
->>> +                    timeout);
->>> +
->>> +            ret = ret ? timeout - ret : ret;
->>
->> Ok we still seem to have a misunderstanding here what 
->> wait_event_timeout() returns.
->>
->> As far as I know that line shouldn't be necessary and is actually 
->> quite harmful.
->>
->> Apart from that this patch looks fine to me now,
->> Christian.
->
-
-
---------------22DD79F7D3465BE3D9839A83
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Ok that explains it. I was already
-      wondering what the heck I was missing :)<br>
-      <br>
-      The second patch already looked fine to me as well.<br>
-      <br>
-      Just send it out once more to get an rb,<br>
-      Christian.<br>
-      <br>
-      Am 04.06.2018 um 20:03 schrieb Andrey Grodzovsky:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:707e5e63-ba88-0cb7-c8b0-5b4bed550d0c-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <p>I reread the documentation for wait_event_timeout, my bad, all
-        this time i assumed it returns</p>
-      <p>amount of jiffies he spent in waiting while actually it returns
-        "the remaining jiffies (at least 1) <br>
-      </p>
-      <p>if the @condition evaluated<br>
-         * to %true before the @timeout elapsed."</p>
-      <p>Will fix that, please take a look also at the second patch.<br>
-      </p>
-      <p>Andrey<br>
-      </p>
-      <br>
-      <div class="moz-cite-prefix">On 06/04/2018 01:53 PM, Christian
-        König wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:e765149d-99a7-10ce-0669-e978acf7044a-5C7GfCeVMHo@public.gmane.org">
-        <blockquote type="cite" style="color: #000000;">+            ret
-          = wait_event_timeout( <br>
-          +                    sched-&gt;job_scheduled, <br>
-          +                    drm_sched_entity_is_idle(entity), <br>
-          +                    timeout); <br>
-          + <br>
-          +            ret = ret ? timeout - ret : ret; <br>
-        </blockquote>
-        <br>
-        Ok we still seem to have a misunderstanding here what
-        wait_event_timeout() returns. <br>
-        <br>
-        As far as I know that line shouldn't be necessary and is
-        actually quite harmful. <br>
-        <br>
-        Apart from that this patch looks fine to me now, <br>
-        Christian.</blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------22DD79F7D3465BE3D9839A83--
-
---===============0132880508==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0132880508==--
+RHlpbmcgcHJvY2VzcyBtaWdodCBiZSBibG9ja2VkIGZyb20gcmVjZWl2aW5nIGFueSBtb3JlIHNp
+Z25hbHMKc28gYXZvaWQgdXNpbmcgaXQuCgpBbHNvIHJldGlyZSBlbml0eS0+ZmluaV9zdGF0dXMg
+YW5kIGp1c3QgY2hlY2sgdGhlIFNXIHF1ZXVlLAppZiBpdCdzIG5vdCBlbXB0eSBkbyB0aGUgZmFs
+bGJhY2sgY2xlYW51cC4KCkFsc28gaGFuZGxlIGVudGl0eS0+bGFzdF9zY2hlZHVsZWQgPT0gTlVM
+TCB1c2UgY2FzZSB3aGljaApoYXBwZW5zIHdoZW4gSFcgcmluZyBpcyBhbHJlYWR5IGhhbmdnZWQg
+d2hlbSBhICBuZXcgZW50aXR5CnRyaWVkIHRvIGVucWV1ZSBqb2JzLgoKdjI6ClJldHVybiB0aGUg
+cmVtYWluaW5nIHRpbWVvdXQgYW5kIHVzZSB0aGF0IGFzIHBhcmFtZXRlciBmb3IgdGhlIG5leHQg
+Y2FsbC4KVGhpcyB3YXkgd2hlbiB3ZSBuZWVkIHRvIGNsZWFudXAgbXVsdGlwbGUgcXVldWVzIHdl
+IGRvbid0IHdhaXQgZm9yIHRoZQplbnRpcmUgVE8gcGVyaW9kIGZvciBlYWNoIHF1ZXVlIGJ1dCBy
+YXRoZXIgaW4gdG90YWwuClN0eWxpbmcgY29tbWVudHMuClJlYmFzZS4KCnYzOgpVcGRhdGUgdHlw
+ZXMgZnJvbSB1bnNpZ25lZCB0byBsb25nLgpXb3JrIHdpdGggamlmZmllcyBpbnN0ZWFkIG9mIG1z
+LgpSZXR1cm4gMCB3aGVuIFRPIGV4cGlyZXMuClJlYmFzZS4KCnY0OgpSZW1vdmUgdW5uZWNlc3Nh
+cnkgdGltZW91dCBjYWxjdWxhdGlvbi4KClNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5
+IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVs
+ZXIvZ3B1X3NjaGVkdWxlci5jIHwgNjcgKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLQog
+aW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oICAgICAgICAgICAgICAgfCAgNyArKy0tCiAyIGZp
+bGVzIGNoYW5nZWQsIDUzIGluc2VydGlvbnMoKyksIDIxIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIvZHJpdmVycy9n
+cHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKaW5kZXggOGMxZTgwYy4uNmEzMTY3MCAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKQEAgLTE4MSw3ICsx
+ODEsNiBAQCBpbnQgZHJtX3NjaGVkX2VudGl0eV9pbml0KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxl
+ciAqc2NoZWQsCiAJZW50aXR5LT5ycSA9IHJxOwogCWVudGl0eS0+c2NoZWQgPSBzY2hlZDsKIAll
+bnRpdHktPmd1aWx0eSA9IGd1aWx0eTsKLQllbnRpdHktPmZpbmlfc3RhdHVzID0gMDsKIAllbnRp
+dHktPmxhc3Rfc2NoZWR1bGVkID0gTlVMTDsKIAogCXNwaW5fbG9ja19pbml0KCZlbnRpdHktPnJx
+X2xvY2spOwpAQCAtMjE5LDcgKzIxOCw4IEBAIHN0YXRpYyBib29sIGRybV9zY2hlZF9lbnRpdHlf
+aXNfaW5pdGlhbGl6ZWQoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKIHN0YXRpYyBi
+b29sIGRybV9zY2hlZF9lbnRpdHlfaXNfaWRsZShzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50
+aXR5KQogewogCXJtYigpOwotCWlmIChzcHNjX3F1ZXVlX3BlZWsoJmVudGl0eS0+am9iX3F1ZXVl
+KSA9PSBOVUxMKQorCisJaWYgKCFlbnRpdHktPnJxIHx8IHNwc2NfcXVldWVfcGVlaygmZW50aXR5
+LT5qb2JfcXVldWUpID09IE5VTEwpCiAJCXJldHVybiB0cnVlOwogCiAJcmV0dXJuIGZhbHNlOwpA
+QCAtMjYwLDI1ICsyNjAsMzkgQEAgc3RhdGljIHZvaWQgZHJtX3NjaGVkX2VudGl0eV9raWxsX2pv
+YnNfY2Ioc3RydWN0IGRtYV9mZW5jZSAqZiwKICAqCiAgKiBAc2NoZWQ6IHNjaGVkdWxlciBpbnN0
+YW5jZQogICogQGVudGl0eTogc2NoZWR1bGVyIGVudGl0eQorICogQHRpbWVvdXQ6IHRpbWUgdG8g
+d2FpdCBpbiBmb3IgUSB0byBiZWNvbWUgZW1wdHkgaW4gamlmZmllcy4KICAqCiAgKiBTcGxpdHRp
+bmcgZHJtX3NjaGVkX2VudGl0eV9maW5pKCkgaW50byB0d28gZnVuY3Rpb25zLCBUaGUgZmlyc3Qg
+b25lIGRvZXMgdGhlIHdhaXRpbmcsCiAgKiByZW1vdmVzIHRoZSBlbnRpdHkgZnJvbSB0aGUgcnVu
+cXVldWUgYW5kIHJldHVybnMgYW4gZXJyb3Igd2hlbiB0aGUgcHJvY2VzcyB3YXMga2lsbGVkLgor
+ICoKKyAqIFJldHVybnMgdGhlIHJlbWFpbmluZyB0aW1lIGluIGppZmZpZXMgbGVmdCBmcm9tIHRo
+ZSBpbnB1dCB0aW1lb3V0CiAgKi8KLXZvaWQgZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHN0
+cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCi0JCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2Vu
+dGl0eSAqZW50aXR5KQorbG9uZyBkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2Uoc3RydWN0IGRy
+bV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKKwkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICpl
+bnRpdHksIGxvbmcgdGltZW91dCkKIHsKKwlsb25nIHJldCA9IHRpbWVvdXQ7CisKIAlpZiAoIWRy
+bV9zY2hlZF9lbnRpdHlfaXNfaW5pdGlhbGl6ZWQoc2NoZWQsIGVudGl0eSkpCi0JCXJldHVybjsK
+KwkJcmV0dXJuIHJldDsKIAkvKioKIAkgKiBUaGUgY2xpZW50IHdpbGwgbm90IHF1ZXVlIG1vcmUg
+SUJzIGR1cmluZyB0aGlzIGZpbmksIGNvbnN1bWUgZXhpc3RpbmcKIAkgKiBxdWV1ZWQgSUJzIG9y
+IGRpc2NhcmQgdGhlbSBvbiBTSUdLSUxMCiAJKi8KLQlpZiAoKGN1cnJlbnQtPmZsYWdzICYgUEZf
+U0lHTkFMRUQpICYmIGN1cnJlbnQtPmV4aXRfY29kZSA9PSBTSUdLSUxMKQotCQllbnRpdHktPmZp
+bmlfc3RhdHVzID0gLUVSRVNUQVJUU1lTOwotCWVsc2UKLQkJZW50aXR5LT5maW5pX3N0YXR1cyA9
+IHdhaXRfZXZlbnRfa2lsbGFibGUoc2NoZWQtPmpvYl9zY2hlZHVsZWQsCi0JCQkJCWRybV9zY2hl
+ZF9lbnRpdHlfaXNfaWRsZShlbnRpdHkpKTsKLQlkcm1fc2NoZWRfZW50aXR5X3NldF9ycShlbnRp
+dHksIE5VTEwpOworCWlmIChjdXJyZW50LT5mbGFncyAmIFBGX0VYSVRJTkcpIHsKKwkJaWYgKHRp
+bWVvdXQpCisJCQlyZXQgPSB3YWl0X2V2ZW50X3RpbWVvdXQoCisJCQkJCXNjaGVkLT5qb2Jfc2No
+ZWR1bGVkLAorCQkJCQlkcm1fc2NoZWRfZW50aXR5X2lzX2lkbGUoZW50aXR5KSwKKwkJCQkJdGlt
+ZW91dCk7CisJfSBlbHNlCisJCXdhaXRfZXZlbnRfa2lsbGFibGUoc2NoZWQtPmpvYl9zY2hlZHVs
+ZWQsIGRybV9zY2hlZF9lbnRpdHlfaXNfaWRsZShlbnRpdHkpKTsKKworCisJLyogRm9yIGtpbGxl
+ZCBwcm9jZXNzIGRpc2FibGUgYW55IG1vcmUgSUJzIGVucXVldWUgcmlnaHQgbm93ICovCisJaWYg
+KChjdXJyZW50LT5mbGFncyAmIFBGX0VYSVRJTkcpICYmIChjdXJyZW50LT5leGl0X2NvZGUgPT0g
+U0lHS0lMTCkpCisJCWRybV9zY2hlZF9lbnRpdHlfc2V0X3JxKGVudGl0eSwgTlVMTCk7CisKKwly
+ZXR1cm4gcmV0OwogfQogRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2Up
+OwogCkBAIC0yOTAsMTEgKzMwNCwxOCBAQCBFWFBPUlRfU1lNQk9MKGRybV9zY2hlZF9lbnRpdHlf
+ZG9fcmVsZWFzZSk7CiAgKgogICogVGhpcyBzaG91bGQgYmUgY2FsbGVkIGFmdGVyIEBkcm1fc2No
+ZWRfZW50aXR5X2RvX3JlbGVhc2UuIEl0IGdvZXMgb3ZlciB0aGUKICAqIGVudGl0eSBhbmQgc2ln
+bmFscyBhbGwgam9icyB3aXRoIGFuIGVycm9yIGNvZGUgaWYgdGhlIHByb2Nlc3Mgd2FzIGtpbGxl
+ZC4KKyAqCiAgKi8KIHZvaWQgZHJtX3NjaGVkX2VudGl0eV9jbGVhbnVwKHN0cnVjdCBkcm1fZ3B1
+X3NjaGVkdWxlciAqc2NoZWQsCiAJCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5
+KQogewotCWlmIChlbnRpdHktPmZpbmlfc3RhdHVzKSB7CisKKwlkcm1fc2NoZWRfZW50aXR5X3Nl
+dF9ycShlbnRpdHksIE5VTEwpOworCisJLyogQ29uc3VtcHRpb24gb2YgZXhpc3RpbmcgSUJzIHdh
+c24ndCBjb21wbGV0ZWQuIEZvcmNlZnVsbHkKKwkgKiByZW1vdmUgdGhlbSBoZXJlLgorCSAqLwor
+CWlmIChzcHNjX3F1ZXVlX3BlZWsoJmVudGl0eS0+am9iX3F1ZXVlKSkgewogCQlzdHJ1Y3QgZHJt
+X3NjaGVkX2pvYiAqam9iOwogCQlpbnQgcjsKIApAQCAtMzE0LDEyICszMzUsMjIgQEAgdm9pZCBk
+cm1fc2NoZWRfZW50aXR5X2NsZWFudXAoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwK
+IAkJCXN0cnVjdCBkcm1fc2NoZWRfZmVuY2UgKnNfZmVuY2UgPSBqb2ItPnNfZmVuY2U7CiAJCQlk
+cm1fc2NoZWRfZmVuY2Vfc2NoZWR1bGVkKHNfZmVuY2UpOwogCQkJZG1hX2ZlbmNlX3NldF9lcnJv
+cigmc19mZW5jZS0+ZmluaXNoZWQsIC1FU1JDSCk7Ci0JCQlyID0gZG1hX2ZlbmNlX2FkZF9jYWxs
+YmFjayhlbnRpdHktPmxhc3Rfc2NoZWR1bGVkLCAmam9iLT5maW5pc2hfY2IsCi0JCQkJCQkJZHJt
+X3NjaGVkX2VudGl0eV9raWxsX2pvYnNfY2IpOwotCQkJaWYgKHIgPT0gLUVOT0VOVCkKKworCQkJ
+LyoKKwkJCSAqIFdoZW4gcGlwZSBpcyBoYW5nZWQgYnkgb2xkZXIgZW50aXR5LCBuZXcgZW50aXR5
+IG1pZ2h0CisJCQkgKiBub3QgZXZlbiBoYXZlIGNoYW5jZSB0byBzdWJtaXQgaXQncyBmaXJzdCBq
+b2IgdG8gSFcKKwkJCSAqIGFuZCBzbyBlbnRpdHktPmxhc3Rfc2NoZWR1bGVkIHdpbGwgcmVtYWlu
+IE5VTEwKKwkJCSAqLworCQkJaWYgKCFlbnRpdHktPmxhc3Rfc2NoZWR1bGVkKSB7CiAJCQkJZHJt
+X3NjaGVkX2VudGl0eV9raWxsX2pvYnNfY2IoTlVMTCwgJmpvYi0+ZmluaXNoX2NiKTsKLQkJCWVs
+c2UgaWYgKHIpCi0JCQkJRFJNX0VSUk9SKCJmZW5jZSBhZGQgY2FsbGJhY2sgZmFpbGVkICglZClc
+biIsIHIpOworCQkJfSBlbHNlIHsKKwkJCQlyID0gZG1hX2ZlbmNlX2FkZF9jYWxsYmFjayhlbnRp
+dHktPmxhc3Rfc2NoZWR1bGVkLCAmam9iLT5maW5pc2hfY2IsCisJCQkJCQkJCWRybV9zY2hlZF9l
+bnRpdHlfa2lsbF9qb2JzX2NiKTsKKwkJCQlpZiAociA9PSAtRU5PRU5UKQorCQkJCQlkcm1fc2No
+ZWRfZW50aXR5X2tpbGxfam9ic19jYihOVUxMLCAmam9iLT5maW5pc2hfY2IpOworCQkJCWVsc2Ug
+aWYgKHIpCisJCQkJCURSTV9FUlJPUigiZmVuY2UgYWRkIGNhbGxiYWNrIGZhaWxlZCAoJWQpXG4i
+LCByKTsKKwkJCX0KIAkJfQogCX0KIApAQCAtMzM5LDcgKzM3MCw3IEBAIEVYUE9SVF9TWU1CT0wo
+ZHJtX3NjaGVkX2VudGl0eV9jbGVhbnVwKTsKIHZvaWQgZHJtX3NjaGVkX2VudGl0eV9maW5pKHN0
+cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCiAJCQkJc3RydWN0IGRybV9zY2hlZF9lbnRp
+dHkgKmVudGl0eSkKIHsKLQlkcm1fc2NoZWRfZW50aXR5X2RvX3JlbGVhc2Uoc2NoZWQsIGVudGl0
+eSk7CisJZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHNjaGVkLCBlbnRpdHksIE1BWF9XQUlU
+X1NDSEVEX0VOVElUWV9RX0VNUFRZKTsKIAlkcm1fc2NoZWRfZW50aXR5X2NsZWFudXAoc2NoZWQs
+IGVudGl0eSk7CiB9CiBFWFBPUlRfU1lNQk9MKGRybV9zY2hlZF9lbnRpdHlfZmluaSk7CmRpZmYg
+LS1naXQgYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggYi9pbmNsdWRlL2RybS9ncHVfc2No
+ZWR1bGVyLmgKaW5kZXggNDk2NDQyZi4uN2MyZGZkNiAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0v
+Z3B1X3NjaGVkdWxlci5oCisrKyBiL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaApAQCAtMjcs
+NiArMjcsOCBAQAogI2luY2x1ZGUgPGRybS9zcHNjX3F1ZXVlLmg+CiAjaW5jbHVkZSA8bGludXgv
+ZG1hLWZlbmNlLmg+CiAKKyNkZWZpbmUgTUFYX1dBSVRfU0NIRURfRU5USVRZX1FfRU1QVFkgbXNl
+Y3NfdG9famlmZmllcygxMDAwKQorCiBzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXI7CiBzdHJ1Y3Qg
+ZHJtX3NjaGVkX3JxOwogCkBAIC04NCw3ICs4Niw2IEBAIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5
+IHsKIAlzdHJ1Y3QgZG1hX2ZlbmNlCQkqZGVwZW5kZW5jeTsKIAlzdHJ1Y3QgZG1hX2ZlbmNlX2Ni
+CQljYjsKIAlhdG9taWNfdAkJCSpndWlsdHk7Ci0JaW50ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBmaW5pX3N0YXR1czsKIAlzdHJ1Y3QgZG1hX2ZlbmNlICAgICAgICAgICAgICAgICpsYXN0
+X3NjaGVkdWxlZDsKIH07CiAKQEAgLTI4Myw4ICsyODQsOCBAQCBpbnQgZHJtX3NjaGVkX2VudGl0
+eV9pbml0KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCiAJCQkgIHN0cnVjdCBkcm1f
+c2NoZWRfZW50aXR5ICplbnRpdHksCiAJCQkgIHN0cnVjdCBkcm1fc2NoZWRfcnEgKnJxLAogCQkJ
+ICBhdG9taWNfdCAqZ3VpbHR5KTsKLXZvaWQgZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHN0
+cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCi0JCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2Vu
+dGl0eSAqZW50aXR5KTsKK2xvbmcgZHJtX3NjaGVkX2VudGl0eV9kb19yZWxlYXNlKHN0cnVjdCBk
+cm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCisJCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAq
+ZW50aXR5LCBsb25nIHRpbWVvdXQpOwogdm9pZCBkcm1fc2NoZWRfZW50aXR5X2NsZWFudXAoc3Ry
+dWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKIAkJCSAgIHN0cnVjdCBkcm1fc2NoZWRfZW50
+aXR5ICplbnRpdHkpOwogdm9pZCBkcm1fc2NoZWRfZW50aXR5X2Zpbmkoc3RydWN0IGRybV9ncHVf
+c2NoZWR1bGVyICpzY2hlZCwKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
