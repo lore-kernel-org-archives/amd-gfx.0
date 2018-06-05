@@ -1,91 +1,140 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH] drm/amdgpu: Grab/put runtime PM references in atomic_commit_tail()
-Date: Mon,  4 Jun 2018 15:35:03 -0400
-Message-ID: <20180604193509.29153-1-lyude@redhat.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, Shirish S <shirish.s@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: skip huge page for PRT mapping
+Date: Tue, 5 Jun 2018 09:50:54 +0800
+Message-ID: <5B15EC7E.6010203@amd.com>
+References: <1528077815-32053-1-git-send-email-Jerry.Zhang@amd.com>
+ <BY1PR12MB0502AD59C8B89200345C8CDFB4670@BY1PR12MB0502.namprd12.prod.outlook.com>
+ <648c1eb2-0729-7091-6df5-4795e720f25c@gmail.com> <5B14E41E.8030004@amd.com>
+ <b303b120-e096-6b3f-71f4-6464e1f2a763@amd.com> <5B14F609.7020105@amd.com>
+ <5d5211d6-440b-59a7-1eec-7e6f5d556ecf@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5d5211d6-440b-59a7-1eec-7e6f5d556ecf-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou,
+ David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-So, unfortunately I recently made the discovery that in the upstream
-kernel, the only reason that amdgpu is not currently suffering from
-issues with runtime PM putting the GPU into suspend while it's driving
-displays is due to the fact that on most prime systems, we have sound
-devices associated with the GPU that hold their own runtime PM ref for
-the GPU.
-
-What this means however, is that in the event that there isn't any kind
-of sound device active (which can easily be reproduced by building a
-kernel with sound drivers disabled), the GPU will fall asleep even when
-there's displays active. This appears to be in part due to the fact that
-amdgpu has not actually ever relied on it's rpm_idle() function to be
-the only thing keeping it running, and normally grabs it's own power
-references whenever there are displays active (as can be seen with the
-original pre-DC codepath in amdgpu_display_crtc_set_config() in
-amdgpu_display.c). This means it's very likely that this bug was
-introduced during the switch over the DC.
-
-So to fix this, we start grabbing runtime PM references every time we
-enable a previously disabled CRTC in atomic_commit_tail(). This appears
-to be the correct solution, as it matches up with what i915 does in
-i915/intel_runtime_pm.c.
-
-The one sideaffect of this is that we ignore the variable that the
-pre-DC code used to use for tracking when it needed runtime PM refs,
-adev->have_disp_power_ref. This is mainly because there's no way for a
-driver to tell whether or not all of it's CRTCs are enabled or disabled
-when we've begun committing an atomic state, as there may be CRTC
-commits happening in parallel that aren't contained within the atomic
-state being committed. So, it's safer to just get/put a reference for
-each CRTC being enabled or disabled in the new atomic state.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
-As a note, I'm not entirely happy with this fix and I wouldn't be
-surprised if I missed something while looking through amdgpu. So, please
-don't hesistate to suggest a better fix :).
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1dd1142246c2..361b81ef6997 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -46,6 +46,7 @@
- #include <linux/moduleparam.h>
- #include <linux/version.h>
- #include <linux/types.h>
-+#include <linux/pm_runtime.h>
- 
- #include <drm/drmP.h>
- #include <drm/drm_atomic.h>
-@@ -4211,6 +4212,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 			if (dm_old_crtc_state->stream)
- 				remove_stream(adev, acrtc, dm_old_crtc_state->stream);
- 
-+			pm_runtime_get_noresume(dev->dev);
-+
- 			acrtc->enabled = true;
- 			acrtc->hw_mode = new_crtc_state->mode;
- 			crtc->hwmode = new_crtc_state->mode;
-@@ -4396,6 +4399,16 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		drm_atomic_helper_wait_for_flip_done(dev, state);
- 
- 	drm_atomic_helper_cleanup_planes(dev, state);
-+
-+	/* Finally, drop a runtime PM reference for each newly disabled CRTC,
-+	 * so we can put the GPU into runtime suspend if we're not driving any
-+	 * displays anymore
-+	 */
-+	pm_runtime_mark_last_busy(dev->dev);
-+	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-+		if (old_crtc_state->active && !new_crtc_state->active)
-+			pm_runtime_put_autosuspend(dev->dev);
-+	}
- }
- 
- 
--- 
-2.17.1
+T24gMDYvMDQvMjAxOCAwNTo1MSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAwNC4w
+Ni4yMDE4IHVtIDEwOjE5IHNjaHJpZWIgWmhhbmcsIEplcnJ5IChKdW53ZWkpOgo+PiBPbiAwNi8w
+NC8yMDE4IDAzOjQ4IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gQW0gMDQuMDYuMjAx
+OCB1bSAwOTowMiBzY2hyaWViIFpoYW5nLCBKZXJyeSAoSnVud2VpKToKPj4+PiBPbiAwNi8wNC8y
+MDE4IDAyOjQzIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+PiBBY3R1YWxseSB0aGF0
+IGlzIG5vdCBjb3JyZWN0LiBBY2NvcmRpbmcgdG8gdGhlIGRvY3VtZW50YXRpb24gdGhlIFBSVCBm
+bGFnCj4+Pj4+IHNob3VsZAo+Pj4+PiB3b3JrIGZvciBodWdlIHBhZ2VzIGFzIHdlbGwuCj4+Pj4K
+Pj4+PiBNbW0sIEkgY2hlY2tlZCB0aGUgZG9jIGVhcmxpZXIsIGRpZG4ndCBmaW5kIHRoZSBQUlQg
+ZmxhZyBmb3IgUERFLgo+Pj4KPj4+IFRoZSBQREUgaW5kZWVkIGRvZXNuJ3QgaGF2ZSB0aGUgUFJU
+IGZsYWcsIGJ1dCBpdCBhbHNvIGRvZXNuJ3QgaGF2ZSB0aGUgZnJhZ21lbnQKPj4+IGFuZCBNVFlQ
+RSBmaWVsZHMgYW5kIHRob3NlIHN0aWxsIHdvcmsgbm9ybWFsbHkgd2hlbiB5b3UgZW5hYmxlIGh1
+Z2UgcGFnZQo+Pj4gaGFuZGxpbmcuCj4+Pgo+Pj4gVGhlIHRyaWNrIGlzIHRoYXQgd2hlbiB5b3Ug
+c2V0IHRoZSBodWdlIHBhZ2UgZmxhZyB0aGVuIHRoZSBQREUgaXMgaGFuZGxlZCBsaWtlIGEKPj4+
+IFBURSBhbmQgc28gYWxsIHRoZSBleHRyYSBmaWVsZHMgKFBSVCwgZnJhZ21lbnQgc2l6ZSwgTVRZ
+UEUgZXRjLi4uKSBzaG91bGQgbm93IGJlCj4+PiBoYW5kbGVkIGNvcnJlY3RseS4KPj4+Cj4+PiBD
+b3VsZCBiZSB0aGF0IHRoZXJlIGlzIGEgaGFyZHdhcmUgYnVnIHJlbGF0ZWQgdG8gUFJUIGhhbmRs
+aW5nIGFuZCB0aGUgaHVnZSBwYWdlCj4+PiBmbGFnLCBidXQgYXQgbGVhc3QgaW4gdGhlb3J5IGl0
+IHNob3VsZCB3b3JrIGZpbmUuCj4+Cj4+IFRoZSBkb2MganVzdCBza2lwcyB0aGVzZSBmaWVsZHMg
+aW4gUERFLCBpZiB0aG9zZSBmaWVsZHMgcmVhbGx5IHdvcmtzCj4+IGV4cGVjdGVkbHksIGV2ZW4g
+aWYgaXQgZG9lc24ndCBkZXNjcmliZSB0aGUgZGV0YWlscyhidXQgd2UgY291bGQgcmVmZXIgdG8g
+UFRFCj4+IGZpZWxkcyksIHdlIG1heSBoYXZlIHRvIGNvbmZpcm0gdGhhdCB3aXRoIEhXIGd1eXMu
+Cj4KPiBJJ3ZlIGp1c3QgY29uZmlybWVkIHRoYXQgaHVnZSBwYWdlcyBhbmQgUFJUcyBzaG91bGQg
+d29yayB0b2dldGhlci4gV2UgZXZlbiBoYXZlCj4gYW4gdW5pdCB0ZXN0IGZvciB0aGF0Lgo+Cj4g
+SSBtZWFuIHdlIGNvdWxkIHBpbmcgV2FkZSBhcyB3ZWxsLCBidXQgSSdtIHByZXR0eSBzdXJlIHRo
+YXQgaGUgd2lsbCB0ZWxsIHlvdQo+IGp1c3QgdGhlIHNhbWUuCj4KPiBJIHRoaW5rIGJ5IGRpc2Fi
+bGluZyBodWdlIHBhZ2VzIGZvciBQUlRzIHdlIGFjdHVhbGx5IGhpZGUgdGhlIHJlYWwgaXNzdWUK
+PiBzb21laG93LCBwcm9iYWJseSBzb21lIHByb2JsZW0gd2l0aCB1cGRhdGluZyBQUlRzIGFmdGVy
+IHRoZXkgYXJlIHNwbGl0IHVwLgoKVGhhbmtzIHRvIGNvbmZpcm0gdGhhdC4KTGV0J3MgZmlndXJl
+IGl0IG91dCB0byBzdXBwb3J0IFBSVCB3aXRoIGh1Z2UgcGFnZXMuCgo+Cj4gQ2FuIHlvdSBjaGVj
+ayBpZiB0aGUgcHJvYmxlbSBhbHNvIHZhbmlzaGVzIHdoZW4geW91IGRpc2FibGUgdGhlIGZvbGxv
+d2luZwo+IG9wdGltaXphdGlvbiBpbiBhbWRncHVfdm1fdXBkYXRlX3B0ZXM/Cj4+ICAgICAgICAg
+ICAgICAgICAvKiBXZSBkb24ndCBuZWVkIHRvIHVwZGF0ZSBQVEVzIGZvciBodWdlIHBhZ2VzICov
+Cj4+ICAgICAgICAgICAgICAgICBpZiAoZW50cnktPmh1Z2UpCj4+ICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNvbnRpbnVlOwo+IEp1c3QgY29tbWVudCB0aGlzIG91dCBmb3IgYSB0ZXN0LgoKVGhh
+bmtzIHRvIHBvaW50IGl0IG91dC4KVGhhdCBpbmRlZWQgd29ya3Mgd2VsbCB0b28uCgpUaGUgaXNz
+dWUgaGFwcGVuZWQgYnkgbWlzc2luZyB0byB1cGRhdGUgUFRFIGZvciByZXNlcnZlZCBQUlQgcmFu
+Z2UsIGlmIGh1Z2UgcGFnZSAKaXMgaW50cm9kdWNlZC4KCk5vdCBzdXJlIGlmIGJlbG93IGNoYW5n
+ZSBpcyBleHBlY3RlZCB0byBzYXZlIHRoZSBodWdlIHBhZ2UgZm9yIFBSVCBzdXBwb3J0LgpUaGF0
+IHVwZGF0ZXMgdGhlIGh1Z2UgcGFnZSBhbmQgZmlsbHMgdGhlIGNvcnJlY3QgUFRFIGZvciBQUlQg
+YXMgd2VsbCwgZGlmZmVyZW50IApmcm9tIGN1cnJlbnQgZml4IHBhdGNoLgp7e3sKICAgICAgICAg
+ICAgICAgICAvKiBXZSBkb24ndCBuZWVkIHRvIHVwZGF0ZSBQVEVzIGZvciBodWdlIHBhZ2VzICov
+Ci0gICAgICAgICAgICAgICBpZiAoZW50cnktPmh1Z2UpCisgICAgICAgICAgICAgICBpZiAoZW50
+cnktPmh1Z2UgJiYgIShmbGFncyAmIEFNREdQVV9QVEVfUFJUKSkKICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNvbnRpbnVlOwoKfX19CgoKSmVycnkKCj4KPj4KPj4gSW4gbXkgdmlldyBpbiBjdXJy
+ZW50IHN0YWdlLCBQREUgZG9lc24ndCBzdXBwb3J0IFBSVCBhbmQgaXQgbWF5IG5vdCBtYWtlIG11
+Y2gKPj4gc2Vuc2UgdG8gc3VwcG9ydCBQUlQgZWl0aGVyLgo+PiBUaGUgaHVnZSBwYWdlIGFsd2F5
+cyBoYXBwZW5zIHdoZW4gcmVzZXJ2aW5nIFBSVCByYW5nZSwgYnV0IGxhdGVyIFVNRCBpcyBsaWtl
+bHkKPj4gdG8gYmluZCBhL3NvbWUgdGlsZWQgYm8ocykgaW5zaWRlIHRoaXMgcmFuZ2UsIHRoYXQg
+d2lsbCBicmVhayB0aGUgaHVnZSBwYWdlCj4+IG1hcHBpbmcgYW5kIHNwbGl0IGludG8gc2V2ZXJh
+bCBwaWVjZXMgbWFwcGluZ3MsIHJlcHJlc2VudGluZyBpbiBQVEUgaW5zdGVhZCBvZgo+PiBodWdl
+IHBhZ2UuCj4+IEluIHRoaXMgY2FzZSwganVzdCBza2lwcGluZyB0aGUgaHVnZSBwYWdlIGZvciBQ
+UlQgbWF5IGJlIGFuIGFjY2VwdGFibGUgd2F5Lgo+Cj4gV2VsbCBkaXNhYmxpbmcgaHVnZSBwYWdl
+cyBmb3IgUFJUcyBjYW4gZGVmaW5pdGVseSBjYXVzZSBhIGh1Z2UgcGVyZm9ybWFuY2UKPiBwcm9i
+bGVtIGJlY2F1c2UgaXQgaW5jcmVhc2VzIHRoZSBUTEIgbWlzc2VzIGZvciBQUlRzIGJ5IGEgZmFj
+dG9yIG9mIDUxMi4KPgo+IEFuZCBzaW5jZSBQUlRzIGFyZSB1c3VhbGx5IHVzZWQgZm9yIGxhcmdl
+IG9ubHkgc3BhcnNlIGFsbG9jYXRlZCB0ZXh0dXJlcyB0aGF0IGlzCj4gcmVhbGx5IHJlYWxseSBp
+bXBvcnRhbnQgaGVyZS4KPgo+Pgo+Pj4KPj4+Pgo+Pj4+IEluIENUUyBQUlQgdGVzdCwgdGhlIHJl
+c2VydmVkIFBSVCBtYXBwaW5nIGludHJvZHVjZXMgaHVnZSBwYWdlIG1hcHBpbmcsIHNvCj4+Pj4g
+bGF0ZXIgdGlsZWQgYm8gbWFwcGluZyBjYW5ub3QgbWFrZSBzdXJlIHRoZSBjb3JyZXNwb25kaW5n
+IFBURSBpcyBzZXQgYXMgUFJULgo+Pj4+IFRoZW4gZm9sbG93aW5nIGFjY2VzcyB0cmlnZ2VycyBW
+TSBmYXVsdC4KPj4+Cj4+PiBJbnRlcmVzdGluZywgYnV0IHRoYXQgcmF0aGVyIHNvdW5kcyBsaWtl
+IGEgYnVnIGluIHRoZSBoYW5kbGluZyBpbnN0ZWFkIG9mIGEKPj4+IGhhcmR3YXJlIHByb2JsZW0u
+Cj4+Cj4+IE9uIHRoZSAybmQgdGhpbmtpbmcsIHdlIG1heSBoYW5kbGUgdGhhdCBmb3IgaHVnZSBw
+YWdlLgo+PiBlLmcud2hlbiBiaW5kaW5nIHRpbGVkIGJvIGluIFBSVCByYW5nZSwgd2UgY291bGQg
+c3BsaXQgdGhlIGh1Z2UgcGFnZSBpbnRvCj4+IHBpZWNlcyBQVEUgbWFwcGluZ3MuCj4+IEhvd2V2
+ZXIsIGl0IG1heSBqdXN0IG1ha2UgdGhlIGNvZGUgbW9yZSBjb21wbGV4IGFuZCBnZXQgdGhlIHNh
+bWUgcmVzdWx0cyBhcwo+PiBjdXJyZW50IGZpeC4KPgo+IFRoYXQgc2hvdWxkIGFscmVhZHkgYmUg
+dGhlIGNhc2Ugd2hlbiBldmVyeXRoaW5nIHdvcmtzIGFzIGV4cGVjdGVkLgo+Cj4+Cj4+Pgo+Pj4g
+Q2FuIHlvdSBuYXJyb3cgZG93biB0aGUgQ1RTIHRlc3QgZnVydGhlciBpbnRvIGEgbGliZHJtIHVu
+aXQgdGVzdD8gT3IgaW4gb3RoZXIKPj4+IHdvcmRzIHdoYXQgZXhhY3RseSBkb2VzIHRoZSBDVFMg
+dGVzdCBkbz8KPj4KPj4gVGhlIGlzc3VlIGNvdWxkIGJlIHJlcHJvZHVjZWQgYnkgYmVsb3cgY29t
+bWFuZDoKPj4ge3t7Cj4+IGRlcXAtdmsgLW4gZEVRUC1WSy5zcGFyc2VfcmVzb3VyY2VzLmJ1ZmZl
+ci5zc2JvLnNwYXJzZV9yZXNpZGVuY3kuYnVmZmVyX3NpemVfMl8yNAo+PiB9fX0KPj4KPj4gSW4g
+S01EIHZpZXcsIHRoZSBtYWluIHByb2Nlc3Mod2l0aCBhbWRncHUgbWFpbmxpbmUgZHJpdmVyKSBp
+cyBsaWtlIGJlbG93Ogo+PiAxKSByZXNlcnZlIFBSVCByYW5nZSBbMHgzMDA0MDAwMDAsIDB4MzAw
+NDAwMDAwICsgMHgxMDAwMDAwKQo+PiAyKSBiaW5kIHRpbGVkIGJvcyBlYWNoIG90aGVyIHBhZ2UK
+Pj4gICAgMHgzMDA0MDAwMDAgfiAweDMwMDQwMTAwMCwKPj4gICAgMHgzMDA0MDIwMDAgfiAweDMw
+MDQwMzAwMCwKPj4gICAgMHgzMDA0MDQwMDAgfiAweDMwMDQwNTAwMCwKPj4gICAgLi4uCj4+IDMp
+IGFjY2VzcyB0aGVtIGFsbCwgVk0gZmF1bHQgYXQgMHgzMDA0MDEwMDAKPgo+IFRoYXQgc291bmRz
+IGxpa2Ugc29tZXRoaW5nIEkgc2hvdWxkIGJlIGFibGUgdG8gcmVwcm9kdWNlIHdoZW4geW91ciBx
+dWljayB0ZXN0Cj4gZG9lc24ndCBicmluZyB0aGUgZGVzaXJlZCByZXN1bHQuCj4KPiBDaHJpc3Rp
+YW4uCj4KPj4KPj4gSmVycnkKPj4KPj4+Cj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4+Cj4+Pj4gSmVy
+cnkKPj4+Pgo+Pj4+Pgo+Pj4+PiBDaHJpc3RpYW4uCj4+Pj4+Cj4+Pj4+IEFtIDA0LjA2LjIwMTgg
+dW0gMDc6NTkgc2NocmllYiBaaG91LCBEYXZpZChDaHVuTWluZyk6Cj4+Pj4+PiBHb29kIGNhdGNo
+LCBSZXZpZXdlZC1ieTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KPj4+Pj4+
+Cj4+Pj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4+Pj4gRnJvbTogYW1kLWdmeCBb
+bWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBP
+Zgo+Pj4+Pj4gSnVud2VpIFpoYW5nCj4+Pj4+PiBTZW50OiBNb25kYXksIEp1bmUgMDQsIDIwMTgg
+MTA6MDQgQU0KPj4+Pj4+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4g
+Q2M6IFpoYW5nLCBKZXJyeSA8SmVycnkuWmhhbmdAYW1kLmNvbT4KPj4+Pj4+IFN1YmplY3Q6IFtQ
+QVRDSF0gZHJtL2FtZGdwdTogc2tpcCBodWdlIHBhZ2UgZm9yIFBSVCBtYXBwaW5nCj4+Pj4+Pgo+
+Pj4+Pj4gUFJUIG1hcHBpbmcgZG9lc24ndCBzdXBwb3J0IGh1Z2UgcGFnZSwgc2luY2UgaXQncyBw
+ZXIgUFRFIGJhc2lzLgo+Pj4+Pj4KPj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEp1bndlaSBaaGFuZyA8
+SmVycnkuWmhhbmdAYW1kLmNvbT4KPj4+Pj4+IC0tLQo+Pj4+Pj4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDMgKystCj4+Pj4+PiAgIDEgZmlsZSBjaGFuZ2VkLCAy
+IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4+Pj4+Cj4+Pj4+PiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+Pj4+IGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+Pj4+IGluZGV4IDg1MGNkNjYuLjRjZThi
+YjAgMTAwNjQ0Cj4+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dm0uYwo+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMK
+Pj4+Pj4+IEBAIC0xMTExLDcgKzExMTEsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdm1faGFuZGxl
+X2h1Z2VfcGFnZXMoc3RydWN0Cj4+Pj4+PiBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMgKnAsCj4+
+Pj4+PiAgICAgICAvKiBJbiB0aGUgY2FzZSBvZiBhIG1peGVkIFBUIHRoZSBQREUgbXVzdCBwb2lu
+dCB0byBpdCovCj4+Pj4+PiAgICAgICBpZiAocC0+YWRldi0+YXNpY190eXBlID49IENISVBfVkVH
+QTEwICYmICFwLT5zcmMgJiYKPj4+Pj4+IC0gICAgICAgIG5wdGVzID09IEFNREdQVV9WTV9QVEVf
+Q09VTlQocC0+YWRldikpIHsKPj4+Pj4+ICsgICAgICAgIG5wdGVzID09IEFNREdQVV9WTV9QVEVf
+Q09VTlQocC0+YWRldikgJiYKPj4+Pj4+ICsgICAgICAgICEoZmxhZ3MgJiBBTURHUFVfUFRFX1BS
+VCkpIHsKPj4+Pj4+ICAgICAgICAgICAvKiBTZXQgdGhlIGh1Z2UgcGFnZSBmbGFnIHRvIHN0b3Ag
+c2Nhbm5pbmcgYXQgdGhpcyBQREUgKi8KPj4+Pj4+ICAgICAgICAgICBmbGFncyB8PSBBTURHUFVf
+UERFX1BURTsKPj4+Pj4+ICAgICAgIH0KPj4+Pj4KPj4+Cj4KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
