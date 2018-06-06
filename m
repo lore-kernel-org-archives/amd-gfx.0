@@ -1,68 +1,42 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/amdgpu: Fix NULL pointer OOPS during S3
-Date: Wed, 6 Jun 2018 11:49:53 +0200
-Message-ID: <2cad474b-792b-89be-ceef-cdcc5fbab066@amd.com>
-References: <1528277142-20316-1-git-send-email-Pratik.Vishwakarma@amd.com>
- <1528277142-20316-4-git-send-email-Pratik.Vishwakarma@amd.com>
+From: Borislav Petkov <bp@alien8.de>
+Subject: Re: radeon 0000:1d:00.0: GPU lockup (current fence id
+ 0x00000000010da43f last fence id 0x00000000010da52d on ring 0)
+Date: Wed, 6 Jun 2018 11:52:02 +0200
+Message-ID: <20180606095201.GA10840@zn.tnic>
+References: <20180605144404.GA7389@zn.tnic>
+ <7921bc34-6e63-7869-0695-70baf9d480a1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1528277142-20316-4-git-send-email-Pratik.Vishwakarma-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Pratik Vishwakarma <Pratik.Vishwakarma-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Harry.Wentland-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <7921bc34-6e63-7869-0695-70baf9d480a1@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, lkml <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-TkFLIGFzIHdlbGwuIG1lbS0+bW1fbm9kZSBjYW4ndCBiZSBOVUxMIG9uIGEgY29ycmVjdGx5IGFs
-bG9jYXRlZCBCTy4KCllvdSBhcmUgcnVubmluZyBpbnRvIGEgQk8gY29ycnVwdGlvbiBoZXJlIGFu
-ZCB0cnlpbmcgdG8gd29yayBhcm91bmQgYnkgCm1pdGlnYXRpbmcgdGhlIGVmZmVjdCBhbmQgbm90
-IGZpeGluZyB0aGUgcm9vdCBwcm9ibGVtLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKQW0gMDYuMDYu
-MjAxOCB1bSAxMToyNSBzY2hyaWViIFByYXRpayBWaXNod2FrYXJtYToKPiBGaXhlcyBOVUxMIHBv
-aW50ZXIgZGVyZWZlcmVuY2UgaW4gYW1kZ3B1X3R0bV9jb3B5X21lbV90b19tZW0KPgo+IEJVRzog
-dW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0IDAwMDAw
-MDAwMDAwMDAwMTAKPiBJUDogYW1kZ3B1X3R0bV9jb3B5X21lbV90b19tZW0rMHg4NS8weDQwYwo+
-IFdvcmtxdWV1ZTogZXZlbnRzX3VuYm91bmQgYXN5bmNfcnVuX2VudHJ5X2ZuCj4gQ2FsbCBUcmFj
-ZToKPiA/IF9yYXdfc3Bpbl91bmxvY2srMHhlLzB4MjAKPiA/IHR0bV9jaGVja19zd2FwcGluZysw
-eDRlLzB4NzIKPiA/IHR0bV9tZW1fZ2xvYmFsX3Jlc2VydmUuY29uc3Rwcm9wLjQrMHhiMS8weGMw
-Cj4gYW1kZ3B1X21vdmVfYmxpdCsweDgwLzB4ZTIKPiBhbWRncHVfYm9fbW92ZSsweDExNC8weDE1
-NQo+IHR0bV9ib19oYW5kbGVfbW92ZV9tZW0rMHgxZjcvMHgzNGEKPiA/IHR0bV9ib19tZW1fc3Bh
-Y2UrMHgxNjIvMHgzOGUKPiA/IGRldl92cHJpbnRrX2VtaXQrMHgxMGEvMHgxZjIKPiB0dG1fYm9f
-ZXZpY3QrMHgxM2UvMHgyZTkKPiA/IGRvX3dhaXRfZm9yX2NvbW1vbisweDE1MS8weDE4Nwo+IHR0
-bV9tZW1fZXZpY3RfZmlyc3QrMHgxMzYvMHgxODEKPiB0dG1fYm9fZm9yY2VfbGlzdF9jbGVhbisw
-eDc4LzB4MTBmCj4gYW1kZ3B1X2RldmljZV9zdXNwZW5kKzB4MTY3LzB4MjEwCj4gcGNpX3BtX3N1
-c3BlbmQrMHgxMmEvMHgxYTUKPiA/IHBjaV9kZXZfZHJpdmVyKzB4MzYvMHgzNgo+IGRwbV9ydW5f
-Y2FsbGJhY2srMHg1OS8weGJmCj4gX19kZXZpY2Vfc3VzcGVuZCsweDIxNS8weDMzZgo+IGFzeW5j
-X3N1c3BlbmQrMHgxZi8weDVjCj4gYXN5bmNfcnVuX2VudHJ5X2ZuKzB4M2QvMHhkMgo+IHByb2Nl
-c3Nfb25lX3dvcmsrMHgxYjAvMHgzMTQKPiB3b3JrZXJfdGhyZWFkKzB4MWNiLzB4MmMxCj4gPyBj
-cmVhdGVfd29ya2VyKzB4MWRhLzB4MWRhCj4ga3RocmVhZCsweDE1Ni8weDE1ZQo+ID8ga3RocmVh
-ZF9mbHVzaF93b3JrKzB4ZWEvMHhlYQo+IHJldF9mcm9tX2ZvcmsrMHgyMi8weDQwCj4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBQcmF0aWsgVmlzaHdha2FybWEgPFByYXRpay5WaXNod2FrYXJtYUBhbWQuY29t
-Pgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIHwgNCAr
-KysrCj4gICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gaW5kZXggNTdkNGRhNi4uZjlkZTQyOSAxMDA2NDQK
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBAQCAtNDE0LDEyICs0MTQs
-MTYgQEAgaW50IGFtZGdwdV90dG1fY29weV9tZW1fdG9fbWVtKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAo+ICAgCQlyZXR1cm4gLUVJTlZBTDsKPiAgIAl9Cj4gICAKPiArCWlmICghc3JjLT5t
-ZW0tPm1tX25vZGUpCj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gICAJc3JjX21tID0gYW1kZ3B1X2Zp
-bmRfbW1fbm9kZShzcmMtPm1lbSwgJnNyYy0+b2Zmc2V0KTsKPiAgIAlzcmNfbm9kZV9zdGFydCA9
-IGFtZGdwdV9tbV9ub2RlX2FkZHIoc3JjLT5ibywgc3JjX21tLCBzcmMtPm1lbSkgKwo+ICAgCQkJ
-CQkgICAgIHNyYy0+b2Zmc2V0Owo+ICAgCXNyY19ub2RlX3NpemUgPSAoc3JjX21tLT5zaXplIDw8
-IFBBR0VfU0hJRlQpIC0gc3JjLT5vZmZzZXQ7Cj4gICAJc3JjX3BhZ2Vfb2Zmc2V0ID0gc3JjX25v
-ZGVfc3RhcnQgJiAoUEFHRV9TSVpFIC0gMSk7Cj4gICAKPiArCWlmICghZHN0LT5tZW0tPm1tX25v
-ZGUpCj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gICAJZHN0X21tID0gYW1kZ3B1X2ZpbmRfbW1fbm9k
-ZShkc3QtPm1lbSwgJmRzdC0+b2Zmc2V0KTsKPiAgIAlkc3Rfbm9kZV9zdGFydCA9IGFtZGdwdV9t
-bV9ub2RlX2FkZHIoZHN0LT5ibywgZHN0X21tLCBkc3QtPm1lbSkgKwo+ICAgCQkJCQkgICAgIGRz
-dC0+b2Zmc2V0OwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Wed, Jun 06, 2018 at 10:26:15AM +0200, Christian König wrote:
+> Well what did you do to trigger the lockup? Looks like an application send
+> something to the hardware to crash the GFX block.
+
+So what I observed was (in that order): machine was building a kernel so
+was busy, X didn't respond for a couple of seconds (which it should not
+do) and I switched to tty8 to see what dmesg says (I am routing dmesg to
+tty8).
+
+At that moment it showed the lockup splat and then X restarted showing
+me the login prompt again. I'm guessing the X restart was caused by the
+GPU reset.
+
+So if I had to guess, maybe pressing Ctrl+Alt+F8 caused the modeset
+change and thus reset? Hmm, this is just me guessing with my
+non-knowledge about graphics. :)
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+Good mailing practices for 400: avoid top-posting and trim the reply.
