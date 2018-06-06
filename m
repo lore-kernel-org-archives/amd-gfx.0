@@ -1,51 +1,85 @@
-From: Colin Ian King <colin.king@canonical.com>
-Subject: Re: [PATCH][next] drm/amd/pp: initialized result to zero before
- or'ing in data
-Date: Wed, 6 Jun 2018 13:19:25 +0100
-Message-ID: <530e612b-0b1f-bed6-035e-707bbf745216@canonical.com>
-References: <20180606121831.3347-1-colin.king@canonical.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu 0/7] Enabling Color Management - Round 3
+Date: Wed, 6 Jun 2018 18:01:48 +0200
+Message-ID: <e0a71df1-265b-cb62-1c1f-567b26808b71@daenzer.net>
+References: <1527869017-9209-1-git-send-email-sunpeng.li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180606121831.3347-1-colin.king@canonical.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1527869017-9209-1-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: sunpeng.li-5C7GfCeVMHo@public.gmane.org
+Cc: harry.wentland-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 06/06/18 13:18, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> The current use of result is or'ing in values and checking for
-> a non-zero result, however, result is not initialized to zero
-> so it potentially contains garbage to start with. Fix this by
-> initializing it to the first return from the call to
-> vega10_program_didt_config_registers.
-> 
-> Detected by cppcheck:
-> "(error) Uninitialized variable: result"
-> 
-> Fixes: 9b7b8154cdb8 ("drm/amd/powerplay: added didt support for vega10")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
-> index a9efd8554fbc..dbe4b1f66784 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
-> @@ -1104,7 +1104,7 @@ static int vega10_enable_psm_gc_edc_config(struct pp_hwmgr *hwmgr)
->  	for (count = 0; count < num_se; count++) {
->  		data = GRBM_GFX_INDEX__INSTANCE_BROADCAST_WRITES_MASK | GRBM_GFX_INDEX__SH_BROADCAST_WRITES_MASK | ( count << GRBM_GFX_INDEX__SE_INDEX__SHIFT);
->  		WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
-> -		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCStallPatternConfig_Vega10, VEGA10_CONFIGREG_DIDT);
-> +		result = vega10_program_didt_config_registers(hwmgr, PSMSEEDCStallPatternConfig_Vega10, VEGA10_CONFIGREG_DIDT);
->  		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCStallDelayConfig_Vega10, VEGA10_CONFIGREG_DIDT);
->  		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCCtrlResetConfig_Vega10, VEGA10_CONFIGREG_DIDT);
->  		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCCtrlConfig_Vega10, VEGA10_CONFIGREG_DIDT);
-> 
-
-Oops, subject should be "initialize result to before or'ing in data"
+CkhpIExlbywKCgpPbiAyMDE4LTA2LTAxIDA2OjAzIFBNLCBzdW5wZW5nLmxpQGFtZC5jb20gd3Jv
+dGU6Cj4gRnJvbTogIkxlbyAoU3VucGVuZykgTGkiIDxzdW5wZW5nLmxpQGFtZC5jb20+Cj4gCj4g
+VGhpcyBlbmRlZCB1cCBiZWluZyBkaWZmZXJlbnQgZW5vdWdoIGZyb20gdjIgdG8gd2FycmFudCBh
+IG5ldyBwYXRjaHNldC4gUGVyCj4gTWljaGVsJ3Mgc3VnZ2VzdGlvbnMsIHRoZXJlIGhhdmUgYmVl
+biB2YXJpb3VzIG9wdGltaXphdGlvbnMgYW5kIGNsZWFudXBzLgo+IEhlcmUncyB3aGF0J3MgY2hh
+bmdlZDoKPiAKPiAqIENhY2hlIERSTSBjb2xvciBtYW5hZ2VtZW50IHByb3BlcnR5IElEcyBhdCBw
+cmUtaW5pdCwKPiAgICAgKiBpbnN0ZWFkIG9mIHF1ZXJ5aW5nIERSTSBlYWNoIHRpbWUgd2UgbmVl
+ZCB0byBtb2RpZnkgY29sb3IgcHJvcGVydGllcy4KPiAKPiAqIFJlbW92ZSBkcm1tb2RlX3VwZGF0
+ZV9jbV9wcm9wcygpLgo+ICAgICAqIFVwZGF0ZSBjb2xvciBwcm9wZXJ0aWVzIGluIGRybW1vZGVf
+b3V0cHV0X2dldF9wcm9wZXJ0eSgpIGluc3RlYWQuCj4gICAgICogVGhpcyBhbHNvIG1ha2VzIG9s
+ZCBjYWxscyB0byB1cGRhdGVfY21fcHJvcHMgcmVkdW5kYW50Lgo+IAo+ICogR2V0IHJpZCBvZiBm
+YWtlIENSVENzLgo+ICAgICAqIFByZXZpb3VzbHksIHdlIHdlcmUgYWxsb2NhdGluZyBhIGZha2Ug
+Q1JUQyB0byBjb25maWd1cmUgY29sb3IgcHJvcHMgb24KPiAgICAgICBvdXRwdXRzIHRoYXQgZG9u
+J3QgaGF2ZSBhIENSVEMuCj4gICAgICogSW5zdGVhZCwgcnJfY29uZmlndXJlX2FuZF9jaGFuZ2Vf
+Y21fcHJvcGVydHkoKSBjYW4gYmUgZWFzaWx5IG1vZGlmaWVkIHRvCj4gICAgICAgYWNjZXB0IE5V
+TEwgQ1JUQ3MuCj4gCj4gKiBEcm9wIHBhdGNoZXMgdG8gcGVyc2lzdCBjb2xvciBwcm9wZXJ0aWVz
+IGFjcm9zcyBEUE1TIGV2ZW50cy4KPiAgICAgKiBLZXJuZWwgZHJpdmVyIHNob3VsZCBiZSBwYXRj
+aGVkIGluc3RlYWQ6Cj4gICAgICAgaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2
+ZXMvYW1kLWdmeC8yMDE4LU1heS8wMjI3NDQuaHRtbAo+ICAgICAqIENvbG9yIHByb3BzIGluY2x1
+ZGluZyBsZWdhY3kgZ2FtbWEgbm93IHBlcnNpc3QgYWNyb3NzIGNydGMgZHBtcy4KPiAgICAgKiBO
+b24tbGVnYWN5IHByb3BzIG5vdyBwZXJzaXN0IGFjcm9zcyBvdXRwdXQgZHBtcyBhbmQgaG90cGx1
+ZywgYXMgbG9uZwo+ICAgICAgIGFzIHRoZSBzYW1lIENSVEMgcmVtYWlucyBhdHRhY2hlZCB0byB0
+aGF0IG91dHB1dC4KPiAKPiBBbmQgc29tZSBzbWFsbGVyIGltcHJvdmVtZW50czoKPiAKPiAqIENo
+YW5nZSBDVE0gdG8gYmUgMzItYml0IGZvcm1hdCBpbnN0ZWFkIG9mIDE2LWJpdC4KPiAgICAgKiBU
+aGlzIHJlcXVpcmVzIGNsaWVudHMgdG8gZW5zdXJlIHRoYXQgZWFjaCAzMi1iaXQgZWxlbWVudCBp
+cyBwYWRkZWQgdG8gYmUKPiAgICAgICBsb25nLXNpemVkLCBzaW5jZSBsaWJYcmFuZHIgcGFyc2Vz
+IDMyLWJpdCBmb3JtYXQgYXMgbG9uZy10eXBlZC4KPiAKPiAqIE9wdGltaXplZCBjb2xvciBtYW5h
+Z2VtZW50IGluaXQgZHVyaW5nIENSVEMgaW5pdC4KPiAgICAgKiBRdWVyeSBEUk0gb25jZSBmb3Ig
+dGhlIGxpc3Qgb2YgcHJvcGVydGllcywgaW5zdGVhZCBvZiB0d2ljZS4KClNvdW5kcyBnb29kLiBJ
+J2xsIGJlIGdvaW5nIHRocm91Z2ggdGhlIHBhdGNoZXMgaW4gZGV0YWlsIGZyb20gbm93IG9uLApi
+dXQgSSBkb24ndCBrbm93IHlldCB3aGVuIEknbGwgYmUgYWJsZSB0byBmaW5pc2ggdGhlIHJldmll
+dy4KCgpNZWFud2hpbGUsIGhlYWRzIHVwIG9uIHR3byBpc3N1ZXMgSSBkaXNjb3ZlcmVkIHdoaWxl
+IHNtb2tlLXRlc3RpbmcgdGhlCnNlcmllcyAod2hpY2ggYXJlIHNvcnQgb2YgcmVsYXRlZCwgYnV0
+IG9jY3VyIGV2ZW4gd2l0aG91dCB0aGlzIHNlcmllcyk6CgoKUnVubmluZyBYb3JnIGluIGRlcHRo
+IDMwWzBdIHJlc3VsdHMgaW4gY29tcGxldGVseSB3cm9uZyBjb2xvdXJzCihldmVyeXRoaW5nIGhh
+cyBhIHJlZCB0aW50KSB3aXRoIGN1cnJlbnQga2VybmVscy4gSSB0aGluayB0aGlzIGlzCmJlY2F1
+c2UgREMgbm93IHByZXNlcnZlcyB0aGUgZ2FtbWEgTFVUIHZhbHVlcywgYnV0IHhmODYtdmlkZW8t
+YW1kZ3B1Cm5ldmVyIHNldHMgdGhlbSBhdCBkZXB0aCAzMCwgc28gdGhlIGhhcmR3YXJlIGlzIHN0
+aWxsIHVzaW5nIHZhbHVlcyBmb3IKMjQtYml0IFJHQi4KCkNhbiB5b3UgbG9vayBpbnRvIG1ha2lu
+ZyB4Zjg2LXZpZGVvLWFtZGdwdSBzZXQgdGhlIExVVCB2YWx1ZXMgYXQgZGVwdGgKMzAgYXMgd2Vs
+bD8gSWRlYWxseSBpbiBhIHdheSB3aGljaCBkb2Vzbid0IHJlcXVpcmUgYWxsIHBhdGNoZXMgaW4g
+dGhpcwpzZXJpZXMsIHNvIHRoYXQgaXQgY291bGQgYmUgYmFja3BvcnRlZCBmb3IgYSAxOC4wLjIg
+cG9pbnQgcmVsZWFzZSBpZgpuZWNlc3NhcnkuIChTaW1pbGFybHkgZm9yIHNraXBwaW5nIGRybW1v
+ZGVfY3Vyc29yX2dhbW1hIHdoZW4gdGhlIGtlcm5lbApzdXBwb3J0cyB0aGUgbmV3IGNvbG91ciBt
+YW5hZ2VtZW50IHByb3BlcnRpZXMsIHRvIGZpeApodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3Jn
+LzEwNjU3OCkKCgpUcnlpbmcgdG8gcnVuIFhvcmcgaW4gZGVwdGggMTYgb3IgOFswXSByZXN1bHRz
+IGluIGZhaWx1cmUgdG8gc2V0IGFueSBtb2RlOgoKWyAgICA1Ni4xMzhdIChFRSkgQU1ER1BVKDAp
+OiBmYWlsZWQgdG8gc2V0IG1vZGU6IEludmFsaWQgYXJndW1lbnQKWyAgICA1Ni4xMzhdIChXVykg
+QU1ER1BVKDApOiBGYWlsZWQgdG8gc2V0IG1vZGUgb24gQ1JUQyAwClsgICAgNTYuMTcyXSAoRUUp
+IEFNREdQVSgwKTogRmFpbGVkIHRvIGVuYWJsZSBhbnkgQ1JUQwoKV29ya3MgZmluZSB3aXRoIGFt
+ZGdwdS5kYz0wLiBUaGlzIGhhcyBiZWVuIGJyb2tlbiBhdCBsZWFzdCBzaW5jZSB0aGUKNC4xNiBk
+ZXZlbG9wbWVudCBjeWNsZS4KCgpbMF0gWW91IGNhbiBjaGFuZ2UgWG9yZydzIGNvbG91ciBkZXB0
+aCBlaXRoZXIgdmlhIC1kZXB0aCBvbiBpdHMgY29tbWFuZApsaW5lLCBvciB2aWEgdGhlIHhvcmcu
+Y29uZiBzY3JlZW4gc2VjdGlvbjoKClNlY3Rpb24gIlNjcmVlbiIKICAgICAgICBJZGVudGlmaWVy
+ICJTY3JlZW4wIgogICAgICAgIERlZmF1bHREZXB0aCAzMCAjIG9yIDE2IG9yIDgKRW5kU2VjdGlv
+bgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAg
+ICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAg
+ICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
