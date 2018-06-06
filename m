@@ -1,120 +1,48 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 1/3] drm/v3d: Take a lock across GPU scheduler job
- creation and queuing.
-Date: Wed, 6 Jun 2018 10:52:07 +0200
-Message-ID: <6462aaec-a5f3-3a78-2eb1-fb24faa68e42@gmail.com>
-References: <20180605190302.18279-1-eric@anholt.net>
- <1528274797.26063.6.camel@pengutronix.de>
-Reply-To: christian.koenig@amd.com
+From: Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [PATCH 1/2] drm/scheduler: Rename cleanup functions.
+Date: Wed, 06 Jun 2018 11:09:28 +0200
+Message-ID: <1528276168.26063.8.camel@pengutronix.de>
+References: <1528218155-11638-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1528274797.26063.6.camel@pengutronix.de>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lucas Stach <l.stach@pengutronix.de>, Eric Anholt <eric@anholt.net>, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1528218155-11638-1-git-send-email-andrey.grodzovsky@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Christian.Koenig@amd.com, etnaviv@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Am 06.06.2018 um 10:46 schrieb Lucas Stach:
-> Am Dienstag, den 05.06.2018, 12:03 -0700 schrieb Eric Anholt:
->> Between creation and queueing of a job, you need to prevent any other
->> job from being created and queued.  Otherwise the scheduler's fences
->> may be signaled out of seqno order.
->>
->>> Signed-off-by: Eric Anholt <eric@anholt.net>
->> Fixes: 57692c94dcbe ("drm/v3d: Introduce a new DRM driver for Broadcom V3D V3.x+")
->> ---
->>
->> ccing amd-gfx due to interaction of this series with the scheduler.
->>
->>   drivers/gpu/drm/v3d/v3d_drv.h |  5 +++++
->>   drivers/gpu/drm/v3d/v3d_gem.c | 11 +++++++++--
->>   2 files changed, 14 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
->> index a043ac3aae98..26005abd9c5d 100644
->> --- a/drivers/gpu/drm/v3d/v3d_drv.h
->> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
->> @@ -85,6 +85,11 @@ struct v3d_dev {
->>>   	 */
->>>   	struct mutex reset_lock;
->>   
->>> +	/* Lock taken when creating and pushing the GPU scheduler
->>> +	 * jobs, to keep the sched-fence seqnos in order.
->>> +	 */
->>> +	struct mutex sched_lock;
->> +
->>>   	struct {
->>>   		u32 num_allocated;
->>>   		u32 pages_allocated;
->> diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
->> index b513f9189caf..9ea83bdb9a30 100644
->> --- a/drivers/gpu/drm/v3d/v3d_gem.c
->> +++ b/drivers/gpu/drm/v3d/v3d_gem.c
->> @@ -550,13 +550,16 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->>>   	if (ret)
->>>   		goto fail;
->>   
->>> +	mutex_lock(&v3d->sched_lock);
->>>   	if (exec->bin.start != exec->bin.end) {
->>>   		ret = drm_sched_job_init(&exec->bin.base,
->>>   					 &v3d->queue[V3D_BIN].sched,
->>>   					 &v3d_priv->sched_entity[V3D_BIN],
->>>   					 v3d_priv);
->>> -		if (ret)
->>> +		if (ret) {
->>> +			mutex_unlock(&v3d->sched_lock);
->>   			goto fail_unreserve;
-> I don't see any path where you would go to fail_unreserve with the
-> mutex not yet locked, so you could just fold the mutex_unlock into this
-> error path for a bit less code duplication.
->
-> Otherwise this looks fine.
-
-Yeah, agree that could be cleaned up.
-
-I can't judge the correctness of the driver, but at least the scheduler 
-handling looks good to me.
-
-Regards,
-Christian.
-
->
-> Regards,
-> Lucas
->
->> +		}
->>   
->>>   		exec->bin_done_fence =
->>>   			dma_fence_get(&exec->bin.base.s_fence->finished);
->> @@ -570,12 +573,15 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->>>   				 &v3d->queue[V3D_RENDER].sched,
->>>   				 &v3d_priv->sched_entity[V3D_RENDER],
->>>   				 v3d_priv);
->>> -	if (ret)
->>> +	if (ret) {
->>> +		mutex_unlock(&v3d->sched_lock);
->>>   		goto fail_unreserve;
->>> +	}
->>   
->>>   	kref_get(&exec->refcount); /* put by scheduler job completion */
->>>   	drm_sched_entity_push_job(&exec->render.base,
->>>   				  &v3d_priv->sched_entity[V3D_RENDER]);
->>> +	mutex_unlock(&v3d->sched_lock);
->>   
->>>   	v3d_attach_object_fences(exec);
->>   
->> @@ -615,6 +621,7 @@ v3d_gem_init(struct drm_device *dev)
->>>   	spin_lock_init(&v3d->job_lock);
->>>   	mutex_init(&v3d->bo_lock);
->>>   	mutex_init(&v3d->reset_lock);
->>> +	mutex_init(&v3d->sched_lock);
->>   
->>>   	/* Note: We don't allocate address 0.  Various bits of HW
->>>   	 * treat 0 as special, such as the occlusion query counters
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+QW0gRGllbnN0YWcsIGRlbiAwNS4wNi4yMDE4LCAxMzowMiAtMDQwMCBzY2hyaWViIEFuZHJleSBH
+cm9kem92c2t5Ogo+IEV2ZXJ5dGhpbmcgaW4gdGhlIGZsdXNoIGNvZGUgcGF0aCAoaS5lLiB3YWl0
+aW5nIGZvciBTVyBxdWV1ZQo+IHRvIGJlY29tZSBlbXB0eSkgbmFtZXMgd2l0aCAqX2ZsdXNoKCkK
+PiBhbmQgZXZlcnl0aGluZyBpbiB0aGUgcmVsZWFzZSBjb2RlIHBhdGggbmFtZXMgKl9maW5pKCkK
+PiAKPiBUaGlzIHBhdGNoIGFsc28gZWZmZWN0IHRoZSBhbWRncHUgYW5kIGV0bmF2aXYgZHJpdmVy
+cyB3aGljaAo+IHVzZSB0aG9zZSBmdW5jdGlvbnMuCj4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBBbmRy
+ZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPiA+IFN1Z2dlc3RlZC1i
+eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0tLQpbLi4u
+XQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2X2Rydi5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRuYXZpdl9kcnYuYwo+IGluZGV4IDIzZTczYzIuLjNk
+ZmY0ZDAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRuYXZpdl9kcnYu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfZHJ2LmMKPiBAQCAtMTQw
+LDcgKzE0MCw3IEBAIHN0YXRpYyB2b2lkIGV0bmF2aXZfcG9zdGNsb3NlKHN0cnVjdCBkcm1fZGV2
+aWNlICpkZXYsIHN0cnVjdCBkcm1fZmlsZSAqZmlsZSkKPiA+IMKgCQkJCWdwdS0+bGFzdGN0eCA9
+IE5VTEw7Cj4gPiDCoAkJCW11dGV4X3VubG9jaygmZ3B1LT5sb2NrKTsKPiDCoAo+ID4gLQkJCWRy
+bV9zY2hlZF9lbnRpdHlfZmluaSgmZ3B1LT5zY2hlZCwKPiA+ICsJCQlkcm1fc2NoZWRfZW50aXR5
+X2Rlc3Ryb3koJmdwdS0+c2NoZWQsCj4gwqAJCQkJCcKgwqDCoMKgwqDCoCZjdHgtPnNjaGVkX2Vu
+dGl0eVtpXSk7CgpTdHlsZSBuaXQ6IHRoaXMgZGlzYWxpZ25zIHRoZSBzZWNvbmQgcm93IG9mIHBh
+cmFtZXRlcnMgdG8gdGhlIG9wZW5pbmcKcGFyZW50aGVzaXMgd2hlcmUgaXQgd2FzIHByZXZpb3Vz
+bHkgYWxpZ25lZC4gSSB3b3VsZCBwcmVmZXIgaWYgdGhlCnNlY29uZCBsaW5lIGlzIGFsc28gY2hh
+bmdlZCB0byBrZWVwIHRoZSBhbGlnbm1lbnQuCgpBY2tlZC1ieTogTHVjYXMgU3RhY2ggPGwuc3Rh
+Y2hAcGVuZ3V0cm9uaXguZGU+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
+aS1kZXZlbAo=
