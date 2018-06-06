@@ -1,57 +1,51 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][next] drm/amd/pp: initialized result to zero before or'ing in
- data
-Date: Wed,  6 Jun 2018 13:18:31 +0100
-Message-ID: <20180606121831.3347-1-colin.king@canonical.com>
+From: Colin Ian King <colin.king@canonical.com>
+Subject: Re: [PATCH][next] drm/amd/pp: initialized result to zero before
+ or'ing in data
+Date: Wed, 6 Jun 2018 13:19:25 +0100
+Message-ID: <530e612b-0b1f-bed6-035e-707bbf745216@canonical.com>
+References: <20180606121831.3347-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180606121831.3347-1-colin.king@canonical.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KClRoZSBjdXJy
-ZW50IHVzZSBvZiByZXN1bHQgaXMgb3InaW5nIGluIHZhbHVlcyBhbmQgY2hlY2tpbmcgZm9yCmEg
-bm9uLXplcm8gcmVzdWx0LCBob3dldmVyLCByZXN1bHQgaXMgbm90IGluaXRpYWxpemVkIHRvIHpl
-cm8Kc28gaXQgcG90ZW50aWFsbHkgY29udGFpbnMgZ2FyYmFnZSB0byBzdGFydCB3aXRoLiBGaXgg
-dGhpcyBieQppbml0aWFsaXppbmcgaXQgdG8gdGhlIGZpcnN0IHJldHVybiBmcm9tIHRoZSBjYWxs
-IHRvCnZlZ2ExMF9wcm9ncmFtX2RpZHRfY29uZmlnX3JlZ2lzdGVycy4KCkRldGVjdGVkIGJ5IGNw
-cGNoZWNrOgoiKGVycm9yKSBVbmluaXRpYWxpemVkIHZhcmlhYmxlOiByZXN1bHQiCgpGaXhlczog
-OWI3YjgxNTRjZGI4ICgiZHJtL2FtZC9wb3dlcnBsYXk6IGFkZGVkIGRpZHQgc3VwcG9ydCBmb3Ig
-dmVnYTEwIikKU2lnbmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25p
-Y2FsLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBf
-cG93ZXJ0dW5lLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVs
-ZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci92ZWdhMTBfcG93ZXJ0dW5lLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci92ZWdhMTBfcG93ZXJ0dW5lLmMKaW5kZXggYTllZmQ4NTU0ZmJjLi5kYmU0YjFmNjY3ODQgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wb3dl
-cnR1bmUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBf
-cG93ZXJ0dW5lLmMKQEAgLTExMDQsNyArMTEwNCw3IEBAIHN0YXRpYyBpbnQgdmVnYTEwX2VuYWJs
-ZV9wc21fZ2NfZWRjX2NvbmZpZyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCWZvciAoY291bnQg
-PSAwOyBjb3VudCA8IG51bV9zZTsgY291bnQrKykgewogCQlkYXRhID0gR1JCTV9HRlhfSU5ERVhf
-X0lOU1RBTkNFX0JST0FEQ0FTVF9XUklURVNfTUFTSyB8IEdSQk1fR0ZYX0lOREVYX19TSF9CUk9B
-RENBU1RfV1JJVEVTX01BU0sgfCAoIGNvdW50IDw8IEdSQk1fR0ZYX0lOREVYX19TRV9JTkRFWF9f
-U0hJRlQpOwogCQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tR1JCTV9HRlhfSU5ERVgsIGRhdGEpOwot
-CQlyZXN1bHQgfD0gdmVnYTEwX3Byb2dyYW1fZGlkdF9jb25maWdfcmVnaXN0ZXJzKGh3bWdyLCBQ
-U01TRUVEQ1N0YWxsUGF0dGVybkNvbmZpZ19WZWdhMTAsIFZFR0ExMF9DT05GSUdSRUdfRElEVCk7
-CisJCXJlc3VsdCA9IHZlZ2ExMF9wcm9ncmFtX2RpZHRfY29uZmlnX3JlZ2lzdGVycyhod21nciwg
-UFNNU0VFRENTdGFsbFBhdHRlcm5Db25maWdfVmVnYTEwLCBWRUdBMTBfQ09ORklHUkVHX0RJRFQp
-OwogCQlyZXN1bHQgfD0gdmVnYTEwX3Byb2dyYW1fZGlkdF9jb25maWdfcmVnaXN0ZXJzKGh3bWdy
-LCBQU01TRUVEQ1N0YWxsRGVsYXlDb25maWdfVmVnYTEwLCBWRUdBMTBfQ09ORklHUkVHX0RJRFQp
-OwogCQlyZXN1bHQgfD0gdmVnYTEwX3Byb2dyYW1fZGlkdF9jb25maWdfcmVnaXN0ZXJzKGh3bWdy
-LCBQU01TRUVEQ0N0cmxSZXNldENvbmZpZ19WZWdhMTAsIFZFR0ExMF9DT05GSUdSRUdfRElEVCk7
-CiAJCXJlc3VsdCB8PSB2ZWdhMTBfcHJvZ3JhbV9kaWR0X2NvbmZpZ19yZWdpc3RlcnMoaHdtZ3Is
-IFBTTVNFRURDQ3RybENvbmZpZ19WZWdhMTAsIFZFR0ExMF9DT05GSUdSRUdfRElEVCk7Ci0tIAoy
-LjE3LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRy
-aS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+On 06/06/18 13:18, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> The current use of result is or'ing in values and checking for
+> a non-zero result, however, result is not initialized to zero
+> so it potentially contains garbage to start with. Fix this by
+> initializing it to the first return from the call to
+> vega10_program_didt_config_registers.
+> 
+> Detected by cppcheck:
+> "(error) Uninitialized variable: result"
+> 
+> Fixes: 9b7b8154cdb8 ("drm/amd/powerplay: added didt support for vega10")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
+> index a9efd8554fbc..dbe4b1f66784 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
+> @@ -1104,7 +1104,7 @@ static int vega10_enable_psm_gc_edc_config(struct pp_hwmgr *hwmgr)
+>  	for (count = 0; count < num_se; count++) {
+>  		data = GRBM_GFX_INDEX__INSTANCE_BROADCAST_WRITES_MASK | GRBM_GFX_INDEX__SH_BROADCAST_WRITES_MASK | ( count << GRBM_GFX_INDEX__SE_INDEX__SHIFT);
+>  		WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
+> -		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCStallPatternConfig_Vega10, VEGA10_CONFIGREG_DIDT);
+> +		result = vega10_program_didt_config_registers(hwmgr, PSMSEEDCStallPatternConfig_Vega10, VEGA10_CONFIGREG_DIDT);
+>  		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCStallDelayConfig_Vega10, VEGA10_CONFIGREG_DIDT);
+>  		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCCtrlResetConfig_Vega10, VEGA10_CONFIGREG_DIDT);
+>  		result |= vega10_program_didt_config_registers(hwmgr, PSMSEEDCCtrlConfig_Vega10, VEGA10_CONFIGREG_DIDT);
+> 
+
+Oops, subject should be "initialize result to before or'ing in data"
