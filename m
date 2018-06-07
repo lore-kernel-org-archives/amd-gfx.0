@@ -1,16 +1,15 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/vg20:support new UVD FW version naming
- convention
-Date: Thu, 7 Jun 2018 08:38:31 -0400
-Message-ID: <f6bff7c9-3053-6806-6f37-80a3c9198fbe@amd.com>
-References: <1528311598-6666-1-git-send-email-James.Zhu@amd.com>
- <5fb5ba32-9230-55b5-ba3b-6f0fed2aa71b@gmail.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu 0/7] Enabling Color Management - Round 3
+Date: Thu, 7 Jun 2018 14:26:15 +0100
+Message-ID: <CAHbf0-E=KyYDVj-L5fknEPGL6kUeP--bDOuPXUz5oMjciABXYw@mail.gmail.com>
+References: <1527869017-9209-1-git-send-email-sunpeng.li@amd.com>
+ <e0a71df1-265b-cb62-1c1f-567b26808b71@daenzer.net>
+ <CAHbf0-GW9MDmTBDepJjG-WXdqNPhsHWwQMvHo1Sma+JCDy-1dQ@mail.gmail.com>
+ <64b1e3fc-d267-b1fc-032a-86aebfe2ff1d@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0497260487=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5fb5ba32-9230-55b5-ba3b-6f0fed2aa71b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-GB
+In-Reply-To: <64b1e3fc-d267-b1fc-032a-86aebfe2ff1d-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,60 +20,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, James Zhu <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: sunpeng.li-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-CgpPbiAwNi8wNy8yMDE4IDAzOjEwIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDA2
-LjA2LjIwMTggdW0gMjA6NTkgc2NocmllYiBKYW1lcyBaaHU6Cj4+IFZlZ2EyMCBVVkQgRmlybXdh
-cmUgaGFzIGEgbmV3IHZlcnNpb24gbmFtaW5nIGNvbnZlbnRpb246Cj4+IMKgwqAgWzMxLCAzMF0g
-Zm9yIGVuY29kZSBpbnRlcmZhY2UgbWFqb3IKPj4gwqDCoCBbMjksIDI0XSBmb3IgZW5jb2RlIGlu
-dGVyZmFjZSBtaW5vcgo+PiDCoMKgIFsxNSwgOF0gZm9yIGZpcm13YXJlIHJldmlzaW9uCj4+IMKg
-wqAgWzcsIDBdIGZvciBoYXJkd2FyZSBmYW1pbHkgaWQKPj4gSW5zaWRlIGtlcm5lbCBsb2cgVVZE
-IGZpcm13YXJlIFZlcnNpb246IDEuMS4yIChkZW5vdGUgCj4+IG1ham9yLm1pbm9yLnJldmlzaW9u
-KQo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBaaHUgPEphbWVzLlpodUBhbWQuY29tPgo+PiAt
-LS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jIHwgMTkgKysr
-KysrKysrKysrKysrLS0tLQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwg
-NCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV91dmQuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dXZkLmMKPj4gaW5kZXggYmNmNjhmOC4uNTc1YWZmMWIgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKPj4gQEAgLTIwOCwxMCArMjA4LDIxIEBAIGludCBhbWRn
-cHVfdXZkX3N3X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+IMKgIMKgwqDCoMKg
-wqAgaGRyID0gKGNvbnN0IHN0cnVjdCBjb21tb25fZmlybXdhcmVfaGVhZGVyICopYWRldi0+dXZk
-LmZ3LT5kYXRhOwo+PiDCoMKgwqDCoMKgIGZhbWlseV9pZCA9IGxlMzJfdG9fY3B1KGhkci0+dWNv
-ZGVfdmVyc2lvbikgJiAweGZmOwo+PiAtwqDCoMKgIHZlcnNpb25fbWFqb3IgPSAobGUzMl90b19j
-cHUoaGRyLT51Y29kZV92ZXJzaW9uKSA+PiAyNCkgJiAweGZmOwo+PiAtwqDCoMKgIHZlcnNpb25f
-bWlub3IgPSAobGUzMl90b19jcHUoaGRyLT51Y29kZV92ZXJzaW9uKSA+PiA4KSAmIDB4ZmY7Cj4+
-IC3CoMKgwqAgRFJNX0lORk8oIkZvdW5kIFVWRCBmaXJtd2FyZSBWZXJzaW9uOiAlaHUuJWh1IEZh
-bWlseSBJRDogJWh1XG4iLAo+PiAtwqDCoMKgwqDCoMKgwqAgdmVyc2lvbl9tYWpvciwgdmVyc2lv
-bl9taW5vciwgZmFtaWx5X2lkKTsKPj4gKwo+PiArwqDCoMKgIGlmIChhZGV2LT5hc2ljX3R5cGUg
-IT0gQ0hJUF9WRUdBMjApIHsKPgo+IEkgdGhpbmsgaXQgd291bGQgYmUgYmV0dGVyIHRvIHVzZSAi
-PCBDSElQX1ZFR0EyMCIgaGVyZS4KQWdyZWVkLiBob3BlZnVsbHkgdGhlIGNvbnZlbnRpb24gd2ls
-bCBiZSBrZXB0IGNvbnNpc3RlbnRseS4KCiA+Pkluc2lkZSBrZXJuZWwgbG9nIFVWRCBmaXJtd2Fy
-ZSBWZXJzaW9uOiAxLjEuMiAoZGVub3RlIAptYWpvci5taW5vci5yZXZpc2lvbikKCk5vdyB0aGUg
-bWFqb3IgYW5kIG1pbm9yIGJlY29tZSAxLjEuIGlmIHlvdSBrZWVwIGxvb2tpbmcgdGhlIGNvZGUg
-YWZ0ZXIgCnRoZSBjaGFuZ2VkIHBhcnQsIHRoZSAxLjEgd2lsbCBjYXVzZSBwcm9ibGVtIGZvciBu
-dW1iZXIgb2YgaGFuZGxlcywgCnNpbmNlIHRoYXQgZGVjaWRlcyBob3cgYmlnIG9mIGJvIHNpemUg
-Zm9yIEZXIHJ1bnRpbWUuCgpSZWdhcmRzLApMZW8KCgo+Cj4gQXBhcnQgZnJvbSB0aGF0IGxvb2tz
-IGdvb2QgdG8gbWUsIGJ1dCBMZW8gc2hvdWxkIGhhdmUgdGhlIGxhc3Qgd29yZC4KPgo+IFRoYW5r
-cywKPiBDaHJpc3RpYW4uCj4KPj4gK8KgwqDCoMKgwqDCoMKgIHZlcnNpb25fbWFqb3IgPSAobGUz
-Ml90b19jcHUoaGRyLT51Y29kZV92ZXJzaW9uKSA+PiAyNCkgJiAweGZmOwo+PiArwqDCoMKgwqDC
-oMKgwqAgdmVyc2lvbl9taW5vciA9IChsZTMyX3RvX2NwdShoZHItPnVjb2RlX3ZlcnNpb24pID4+
-IDgpICYgMHhmZjsKPj4gK8KgwqDCoMKgwqDCoMKgIERSTV9JTkZPKCJGb3VuZCBVVkQgZmlybXdh
-cmUgVmVyc2lvbjogJWh1LiVodSBGYW1pbHkgSUQ6IAo+PiAlaHVcbiIsCj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHZlcnNpb25fbWFqb3IsIHZlcnNpb25fbWlub3IsIGZhbWlseV9pZCk7Cj4+
-ICvCoMKgwqAgfSBlbHNlIHsKPj4gK8KgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBmd19yZXY7
-Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgIGZ3X3JldiA9IChsZTMyX3RvX2NwdShoZHItPnVjb2Rl
-X3ZlcnNpb24pID4+IDgpICYgMHhmZjsKPj4gK8KgwqDCoMKgwqDCoMKgIHZlcnNpb25fbWlub3Ig
-PSAobGUzMl90b19jcHUoaGRyLT51Y29kZV92ZXJzaW9uKSA+PiAyNCkgJiAweDNmOwo+PiArwqDC
-oMKgwqDCoMKgwqAgdmVyc2lvbl9tYWpvciA9IChsZTMyX3RvX2NwdShoZHItPnVjb2RlX3ZlcnNp
-b24pID4+IDMwKSAmIDB4MzsKPj4gK8KgwqDCoMKgwqDCoMKgIERSTV9JTkZPKCJGb3VuZCBVVkQg
-ZmlybXdhcmUgVmVyc2lvbjogJWh1LiVodS4laHUgRmFtaWx5IElEOiAKPj4gJWh1XG4iLAo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB2ZXJzaW9uX21ham9yLCB2ZXJzaW9uX21pbm9yLCBmd19y
-ZXYsIGZhbWlseV9pZCk7Cj4+ICvCoMKgwqAgfQo+PiDCoCDCoMKgwqDCoMKgIC8qCj4+IMKgwqDC
-oMKgwqDCoCAqIExpbWl0IHRoZSBudW1iZXIgb2YgVVZEIGhhbmRsZXMgZGVwZW5kaW5nIG9uIG1p
-Y3JvY29kZSBtYWpvcgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0497260487==
+Content-Type: multipart/alternative; boundary="000000000000f9f494056e0d3aa7"
+
+--000000000000f9f494056e0d3aa7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+It seems messy having to create a whole xorg.conf just for one parameter
+
+On Thu, 7 Jun 2018 at 08:31 Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
+
+> On 2018-06-07 09:22 AM, Mike Lothian wrote:
+> > Hi
+> >
+> > Is there a way to set depth using a xorg.conf.d snippet rather than
+> > creating an xorg.conf?
+>
+> Sure (the xorg.conf.d snippets are simply concatenated together with
+> xorg.conf, so anything can go in either of them), but it's the wrong way
+> to do it. :)
+>
+> The xorg.conf.d mechanism is for shipping snippets required for a driver
+> or other Xorg module to work out of the box. xorg.conf is still the
+> place for actual configuration.
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer               |               http://www.amd=
+.com
+> Libre software enthusiast             |             Mesa and X developer
+>
+
+--000000000000f9f494056e0d3aa7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">It seems messy having to create a whole xorg.conf just for=
+ one parameter=C2=A0<br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On =
+Thu, 7 Jun 2018 at 08:31 Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel@da=
+enzer.net">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"=
+gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
+left:1ex">On 2018-06-07 09:22 AM, Mike Lothian wrote:<br>
+&gt; Hi<br>
+&gt; <br>
+&gt; Is there a way to set depth using a xorg.conf.d snippet rather than<br=
+>
+&gt; creating an xorg.conf?<br>
+<br>
+Sure (the xorg.conf.d snippets are simply concatenated together with<br>
+xorg.conf, so anything can go in either of them), but it&#39;s the wrong wa=
+y<br>
+to do it. :)<br>
+<br>
+The xorg.conf.d mechanism is for shipping snippets required for a driver<br=
+>
+or other Xorg module to work out of the box. xorg.conf is still the<br>
+place for actual configuration.<br>
+<br>
+<br>
+-- <br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</blockquote></div></div>
+
+--000000000000f9f494056e0d3aa7--
+
+--===============0497260487==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0497260487==--
