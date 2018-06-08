@@ -1,18 +1,15 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu 0/7] Enabling Color Management - Round 3
-Date: Fri, 8 Jun 2018 16:37:14 +0200
-Message-ID: <88fc5a6e-9bfa-f09e-0259-9b35d4ef4684@daenzer.net>
-References: <1527869017-9209-1-git-send-email-sunpeng.li@amd.com>
- <e0a71df1-265b-cb62-1c1f-567b26808b71@daenzer.net>
- <e47b6ff4-9696-bf20-d299-687b96ab0437@daenzer.net>
- <9392443d-13d4-c1c2-c07b-67a2b6c72556@amd.com>
- <8807a407-352d-3caa-108a-95aadcd6b414@daenzer.net>
+From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/v3d: Add a note about locking of
+ v3d_fence_create().
+Date: Fri, 08 Jun 2018 10:08:02 -0700
+Message-ID: <87vaatxl3h.fsf@anholt.net>
+References: <20180605190302.18279-1-eric@anholt.net>
+ <20180605190302.18279-3-eric@anholt.net>
+ <1528453446.26356.12.camel@pengutronix.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0874374484=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8807a407-352d-3caa-108a-95aadcd6b414-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <1528453446.26356.12.camel-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,44 +20,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Cc: harry.wentland-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOC0wNi0wOCAwNDozMyBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxOC0w
-Ni0wOCAxMjoyMSBBTSwgTGVvIExpIHdyb3RlOgo+PiBPbiAyMDE4LTA2LTA2IDAxOjAzIFBNLCBN
-aWNoZWwgRMOkbnplciB3cm90ZToKPj4+IE9uIDIwMTgtMDYtMDYgMDY6MDEgUE0sIE1pY2hlbCBE
-w6RuemVyIHdyb3RlOgo+Pj4+Cj4+Pj4gUnVubmluZyBYb3JnIGluIGRlcHRoIDMwWzBdIHJlc3Vs
-dHMgaW4gY29tcGxldGVseSB3cm9uZyBjb2xvdXJzCj4+Pj4gKGV2ZXJ5dGhpbmcgaGFzIGEgcmVk
-IHRpbnQpIHdpdGggY3VycmVudCBrZXJuZWxzLiBJIHRoaW5rIHRoaXMgaXMKPj4+PiBiZWNhdXNl
-IERDIG5vdyBwcmVzZXJ2ZXMgdGhlIGdhbW1hIExVVCB2YWx1ZXMsIGJ1dCB4Zjg2LXZpZGVvLWFt
-ZGdwdQo+Pj4+IG5ldmVyIHNldHMgdGhlbSBhdCBkZXB0aCAzMCwgc28gdGhlIGhhcmR3YXJlIGlz
-IHN0aWxsIHVzaW5nIHZhbHVlcyBmb3IKPj4+PiAyNC1iaXQgUkdCLgo+Pj4KPj4+IEFjdHVhbGx5
-LCBsb29rcyBsaWtlIEkgbWFkZSBhIG1pc3Rha2UgaW4gbXkgdGVzdGluZyBiZWZvcmU7IHRoaXMg
-aXNzdWUKPj4+IG9ubHkgb2NjdXJzIGFzIG9mIHBhdGNoIDYgb2YgdGhpcyBzZXJpZXMuCj4+Cj4+
-IEl0IHNlZW1zIHRvIGJlIGNhdXNlZCBieSBsZWdhY3kgZ2FtbWEgYmVpbmcgZGlzYWJsZWQgb24g
-ZGVwdGggMzAuIFdoZW4KPj4gdGhhdCdzIHRoZSBjYXNlLCB0aGUgZ2FtbWFfc2V0KCkgaG9vayBp
-cyBzZXQgdG8gbnVsbC4gUmFuZFIgd29uJ3QKPj4gY29tcHV0ZSB0aGUgbGVnYWN5IExVVCwgY2F1
-c2luZyBMVVQgaW50ZXJwb2xhdGlvbi9jb21wb3NpdGlvbiB0byBzcGl0Cj4+IG91dCBhbiBpbnZh
-bGlkIExVVC4gSSB2ZXJpZmllZCB0aGlzIGJ5IGNvbW1lbnRpbmcgb3V0IHRoZSBgcFNjcm4tPmRl
-cHRoCj4+ID09IDMwYCBjb25kaXRpb25hbHMgZ3VhcmRpbmcgdGhlIGxlZ2FjeSBnYW1tYSBmZWF0
-dXJlcyAoaW4gcHJlX2luaXQsIGFuZAo+PiBtb2RlX21ham9yKS4KPj4KPj4gSSdtIG5vdCBjZXJ0
-YWluIG9mIHRoZSBiZXN0IHdheSB0byBmaXggdGhpcy4gV291bGQgaXQgbWFrZSBzZW5zZSB0bwo+
-PiBlbmFibGUgbGVnYWN5IGdhbW1hIG9uIDMwYnBwIGlmIG5vbi1sZWdhY3kgaXMgc3VwcG9ydGVk
-PyBXZSBjYW4gZG8gdGhhdAo+PiBzaW5jZSBsZWdhY3kgZ2FtbWEgZ2V0cyBpbnRlcnBvbGF0ZWQv
-Y29tcG9zZWQgdG8gbm9uLWxlZ2FjeS4KPj4KPj4gSG93ZXZlciwgaXQgZG9lc24ndCBtYWtlIHNl
-bnNlIHdoZW4geW91IGxvb2sgYXQgdGhlIExVVCBzaXplLCBzaW5jZQo+PiBsZWdhY3kgZ2FtbWEg
-c3VwcG9ydHMgb25seSAyNTYgZWxlbWVudHMgKHNob3VsZCBiZSAxMDI0IG9uIGRlcHRoIDMwPykK
-Pj4gSW4gd2hpY2ggY2FzZSB3ZSBjYW4gc2tpcCBpbnRlcnBvbGF0aW9uL2NvbXBvc2l0aW9uIGFs
-dG9nZXRoZXIuCj4gCj4gUmlnaHQsIHdlJ2xsIHByb2JhYmx5IG5lZWQgdG8gaW5jcmVhc2UgdGhl
-IFJhbmRSIExVVCBzaXplIGFzIHdlbGwgYXQKPiBkZXB0aCAzMC4KPiAKPiAKPiBBbnl3YXksIGxl
-dCdzIG5vdCBob2xkIHVwIHRoaXMgcGF0Y2ggc2VyaWVzIG92ZXIgdGhpcy4gU2ltcGx5IGtlZXAg
-YWxsCj4gdGhpcyBjb2RlIGRpc2FibGVkIChpLmUuIHNhbWUgYXMgaWYgdGhlIGtlcm5lbCBkaWRu
-J3QgZXhwb3NlIHRoZQo+IHByb3BlcnRpZXMpIGF0IGRlcHRoIDMwIGZvciBub3cuCgpPciwgaWYg
-dGhlcmUncyBhIHN0cmFpZ2h0Zm9yd2FyZCB3YXkgdG8gZXhwb3NlIHRoZSBwcm9wZXJ0aWVzIHdo
-aWxlCmlnbm9yaW5nIHRoZSBSYW5kUiBMVVQgYXQgZGVwdGggMzAsIHRoYXQncyBhbm90aGVyIG9w
-dGlvbiBmb3IgdGhpcyBzZXJpZXMuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAg
-ICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdh
-cmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxv
-cGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0874374484==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org> writes:
+
+> Am Dienstag, den 05.06.2018, 12:03 -0700 schrieb Eric Anholt:
+>> This isn't the first time I've had to argue to myself why the '++' was
+>> safe.
+>
+> And now you need to do the same thing with me...
+>
+>> Signed-off-by: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
+>> ---
+>> =C2=A0drivers/gpu/drm/v3d/v3d_fence.c | 3 +++
+>> =C2=A01 file changed, 3 insertions(+)
+>>=20
+>> diff --git a/drivers/gpu/drm/v3d/v3d_fence.c b/drivers/gpu/drm/v3d/v3d_f=
+ence.c
+>> index bfe31a89668b..6265e9ab4a13 100644
+>> --- a/drivers/gpu/drm/v3d/v3d_fence.c
+>> +++ b/drivers/gpu/drm/v3d/v3d_fence.c
+>> @@ -3,6 +3,9 @@
+>> =C2=A0
+>> =C2=A0#include "v3d_drv.h"
+>> =C2=A0
+>> +/* Note that V3D fences are created during v3d_job_run(), so we're
+>> + * already implictly locked.
+>> + */
+> I don't see where you would be locked in the job_run path. I think what
+> you mean is that this path needs no locks, as it is driven by a single
+> scheduler thread, right?
+
+Yeah, it's only called from run_job, and run_job can't reenter.
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlsat/IACgkQtdYpNtH8
+nug0mQ/+IMSetfCyvK+L46SrA8It0CnDp54NK9KeuBk/mjj6CbZG0Ej/Savq5mJN
+xJZSDNx6uMYSe4gpOwlfD8qzAWtXtFf3H8RJMx1ijqRet42e6v6oDHY3y3C/2LtN
+A4sopkjFut7hGdVvahwvR/HiVFO8SSpVPS+HPWlgRECoYAYCc1/9hnYxq+XELCK6
+1ux3ekduqDcDZ/WOTNa3VY0Hr2aDFkKyTYeULkGtamh57IXso3RN7rYnuXuE29Yd
+T3NehonlofNVjhcHau6VEknCaki+lsQjJ5owXgL/Q61HBFMIzdXA3cK5Q2G84Rew
+6Gmo9//vBUfvhg/Dt2rO8ul+N1VvLz77UTUHMdEo3FdfaKGSsIRY2xosBQ268RCk
+g48sKpw90rH3G0Wa0Dc2ycp20c9m0EJXq7rTUD7uSCDzfB3NicVONKATBRTVRw6T
+FtNH4FYi8HzeQS9ydK7tXVlDc4y5YUHCTIo6kbqVlwZLUXSDgZOljzBlQZWwjdc/
+9Elgs3noZeZMytbR9Kv8FYCvjgqFH6lT8MfR3XL3H3RBJxp0+ufHw7TjOy5TgCLC
+TGwr/aKWiQRmgBl1AtYx4Q7c+KhHWyEQ20TmCmQmlF6BMNLnQHbeRa+XaXHvzD5N
+W7l4ltptfQzvMFto2KMPJja8gGB94oJHsnhp9Bv+BVYWVz2wD38=
+=5GKX
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============0874374484==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0874374484==--
