@@ -1,15 +1,14 @@
-From: sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Subject: Re: gitlab migration
-Date: Mon, 11 Jun 2018 13:30:43 +0000
-Message-ID: <20180611133043.GB501@freedom>
-References: <808210bf1264625ac14024daa6e4a7f4a7a83d16.camel@redhat.com>
- <fe6aafe4-a039-6be3-070a-31bfd68888d5@daenzer.net>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Fix stale buffer object (bo) use
+Date: Mon, 11 Jun 2018 10:03:34 -0400
+Message-ID: <185f6af1-52ab-575d-404d-87093f8b6d8f@amd.com>
+References: <1528699583-4873-1-git-send-email-Pratik.Vishwakarma@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <fe6aafe4-a039-6be3-070a-31bfd68888d5-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <1528699583-4873-1-git-send-email-Pratik.Vishwakarma-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,17 +19,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michel-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org, =?iso-8859-1?B?RORuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+?=@freedesktop.org
-Cc: xorg-devel <xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, Adam Jackson <ajax-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Pratik Vishwakarma <Pratik.Vishwakarma-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Harry.Wentland-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-T24gTW9uLCBKdW4gMTEsIDIwMTggYXQgMTI6MzM6NTJQTSArMDIwMCwgTWljaGVsIETDpG56ZXIg
-d3JvdGU6Cj4gQWRkaW5nIHRoZSBhbWQtZ2Z4IGxpc3QsIGluIGNhc2VzIHNvbWVib2R5IHRoZXJl
-IGhhcyBjb25jZXJucyBvciBvdGhlcgo+IGZlZWRiYWNrLgoKRm9yIGZlZWRiYWNrOgpJIGF0dGVt
-cHRlZCBhIG1pZ3JhdGlvbiBvbiBnaXRsYWIgb2YgbXkgcmVwb3MgYnV0IEkgd2FzIGJsb2NrZWQg
-YmVjYXVzZSBpdCdzCm5vdCBub3NjcmlwdC94aHRtbCBiYXNpYyBicm93c2VyIGZyaWVuZGx5LgoK
-SSB3YXMgc3VjY2Vzc2Z1bGwgd2l0aCBsYXVuY2hwYWQubmV0ICh3aGljaCBoYXMgbm93IGdpdCBz
-dXBwb3J0KS4KCkkgZGlkIG5vdCB0ZXN0IGlmIHRoZSBpc3N1ZSBzeXN0ZW0gd2FzIG5vc2NyaXB0
-L3hodG1sIGJhc2ljIGZyaWVuZGx5IHRob3VnaC4KCi0tIApTeWx2YWluCl9fX19fX19fX19fX19f
+UmV2aWV3ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29t
+PgoKQW5kcmV5CgoKT24gMDYvMTEvMjAxOCAwMjo0NiBBTSwgUHJhdGlrIFZpc2h3YWthcm1hIHdy
+b3RlOgo+IEZpeGVzIHN0YWxlIGJ1ZmZlciBvYmplY3QgKGJvKSB1c2FnZSBmb3IgY3Vyc29yIHBs
+YW5lCj4KPiBDdXJzb3IgcGxhbmUncyBibyBvcGVyYXRpb25zIGFyZSBoYW5kbGVkIGluIERDIGNv
+ZGUuCj4gQ3VycmVudGx5LCBhdG9taWNfY29tbWl0KCkgZG9lcyBub3QgaGFuZGxlIGJvIG9wZXJh
+dGlvbnMKPiBmb3IgY3Vyc29yIHBsYW5lLCBhcyBhIHJlc3VsdCB0aGUgYm8gYXNzaWduZWQgZm9y
+IGN1cnNvcgo+IHBsYW5lIGluIGRtX3BsYW5lX2hlbHBlcl9wcmVwYXJlX2ZiKCkgaXMgbm90IGNv
+aGVyZW50Cj4gd2l0aCB0aGUgdXBkYXRlcyB0byB0aGUgc2FtZSBtYWRlIGluIGRjIGNvZGUuVGhp
+cyBtaXNtYXRjaAo+IGxlYWRzIHRvICJibyIgY29ycnVwdGlvbiBhbmQgaGVuY2UgY3Jhc2hlcyBk
+dXJpbmcgUzMgZW50cnkuCj4KPiBUaGlzIHBhdGNoIGNsZWFucyB1cCB0aGUgY29kZSB3aGljaCB3
+YXMgYWRkZWQgYXMgYSBoYWNrCj4gZm9yIDQuOSB2ZXJzaW9uIG9ubHkuCj4KPiBTaWduZWQtb2Zm
+LWJ5OiBQcmF0aWsgVmlzaHdha2FybWEgPFByYXRpay5WaXNod2FrYXJtYUBhbWQuY29tPgo+IC0t
+LQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8
+IDExIC0tLS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMTEgZGVsZXRpb25zKC0pCj4KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
+ZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMK
+PiBpbmRleCBhMjAwOWQ1Li44YzMxYWJmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gQEAgLTMxMzgsMTcgKzMxMzgsNiBA
+QCBzdGF0aWMgaW50IGRtX3BsYW5lX2hlbHBlcl9wcmVwYXJlX2ZiKHN0cnVjdCBkcm1fcGxhbmUg
+KnBsYW5lLAo+ICAgCQl9Cj4gICAJfQo+ICAgCj4gLQkvKiBJdCdzIGEgaGFjayBmb3IgczMgc2lu
+Y2UgaW4gNC45IGtlcm5lbCBmaWx0ZXIgb3V0IGN1cnNvciBidWZmZXIKPiAtCSAqIHByZXBhcmUg
+YW5kIGNsZWFudXAgaW4gZHJtX2F0b21pY19oZWxwZXJfcHJlcGFyZV9wbGFuZXMKPiAtCSAqIGFu
+ZCBkcm1fYXRvbWljX2hlbHBlcl9jbGVhbnVwX3BsYW5lcyBiZWNhdXNlIGZiIGRvZW5zJ3QgaW4g
+czMuCj4gLQkgKiBJTiA0LjEwIGtlcm5lbCB0aGlzIGNvZGUgc2hvdWxkIGJlIHJlbW92ZWQgYW5k
+IGFtZGdwdV9kZXZpY2Vfc3VzcGVuZAo+IC0JICogY29kZSB0b3VjaGluZyBmcmFtIGJ1ZmZlcnMg
+c2hvdWxkIGJlIGF2b2lkZWQgZm9yIERDLgo+IC0JICovCj4gLQlpZiAocGxhbmUtPnR5cGUgPT0g
+RFJNX1BMQU5FX1RZUEVfQ1VSU09SKSB7Cj4gLQkJc3RydWN0IGFtZGdwdV9jcnRjICphY3J0YyA9
+IHRvX2FtZGdwdV9jcnRjKG5ld19zdGF0ZS0+Y3J0Yyk7Cj4gLQo+IC0JCWFjcnRjLT5jdXJzb3Jf
+Ym8gPSBvYmo7Cj4gLQl9Cj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKCl9fX19fX19fX19fX19f
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
 ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
 L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
