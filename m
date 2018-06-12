@@ -1,15 +1,16 @@
-From: Daniel Stone <daniel-rLtY4a/8tF1rovVCs/uTlw@public.gmane.org>
-Subject: Re: gitlab migration
-Date: Tue, 12 Jun 2018 12:34:31 +0100
-Message-ID: <CAPj87rNFrpx0zAsCmS4LcifHK4GTxGbqd4A218fTZ+Nf65gpKw@mail.gmail.com>
-References: <808210bf1264625ac14024daa6e4a7f4a7a83d16.camel@redhat.com>
- <fe6aafe4-a039-6be3-070a-31bfd68888d5@daenzer.net>
- <20180611133043.GB501@freedom>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/powerplay: remove uncessary extra gfxoff
+ control call
+Date: Tue, 12 Jun 2018 19:43:54 +0800
+Message-ID: <20180612114353.GC20499@hr-amur2>
+References: <1528794464-30951-1-git-send-email-evan.quan@amd.com>
+ <1528794464-30951-2-git-send-email-evan.quan@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180611133043.GB501@freedom>
+Content-Disposition: inline
+In-Reply-To: <1528794464-30951-2-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,24 +21,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Adam Jackson <ajax-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, xorg-devel <xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGkgU3lsdmFpbiwKSXQgbG9va3MgbGlrZSBNdXR0IGlzIG1hbmdsaW5nIGVtYWlsIGFkZHJlc3Nl
-cyAtIEkndmUgZml4ZWQgTWljaGVsJ3MuCgpPbiAxMSBKdW5lIDIwMTggYXQgMTQ6MzAsICA8c3ls
-dmFpbi5iZXJ0cmFuZEBnbWFpbC5jb20+IHdyb3RlOgo+IE9uIE1vbiwgSnVuIDExLCAyMDE4IGF0
-IDEyOjMzOjUyUE0gKzAyMDAsIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+PiBBZGRpbmcgdGhlIGFt
-ZC1nZnggbGlzdCwgaW4gY2FzZXMgc29tZWJvZHkgdGhlcmUgaGFzIGNvbmNlcm5zIG9yIG90aGVy
-Cj4+IGZlZWRiYWNrLgo+Cj4gRm9yIGZlZWRiYWNrOgo+IEkgYXR0ZW1wdGVkIGEgbWlncmF0aW9u
-IG9uIGdpdGxhYiBvZiBteSByZXBvcyBidXQgSSB3YXMgYmxvY2tlZCBiZWNhdXNlIGl0J3MKPiBu
-b3Qgbm9zY3JpcHQveGh0bWwgYmFzaWMgYnJvd3NlciBmcmllbmRseS4KPgo+IEkgd2FzIHN1Y2Nl
-c3NmdWxsIHdpdGggbGF1bmNocGFkLm5ldCAod2hpY2ggaGFzIG5vdyBnaXQgc3VwcG9ydCkuCj4K
-PiBJIGRpZCBub3QgdGVzdCBpZiB0aGUgaXNzdWUgc3lzdGVtIHdhcyBub3NjcmlwdC94aHRtbCBi
-YXNpYyBmcmllbmRseSB0aG91Z2guCgpHaXRMYWIgaGFzIGEgcHJldHR5IGNvbXByZWhlbnNpdmUg
-YW5kIHdlbGwtZG9jdW1lbnRlZCBBUEkgd2hpY2ggbWlnaHQKaGVscCBpZiB5b3UgZG9uJ3Qgd2Fu
-dCB0byB1c2UgYSB3ZWIgYnJvd3Nlci4gVGhlcmUgYXJlIGFsc28gY2xpZW50cwpsaWtlICdsYWIn
-OiBodHRwczovL2dpdGxhYi5jb20vemFxdWVzdGlvbi9sYWIgd2hpY2ggcHJvdmlkZSBhIGdvb2Qg
-Q0xJCmludGVyZmFjZS4KCkNoZWVycywKRGFuaWVsCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+T24gVHVlLCBKdW4gMTIsIDIwMTggYXQgMDU6MDc6NDRQTSArMDgwMCwgRXZhbiBRdWFuIHdyb3Rl
+Ogo+IEdmeG9mZiBpcyBhbHJlYWR5IGVuYWJsZWQgaW4gYW1kZ3B1X2RldmljZV9pcF9zZXRfcG93
+ZXJnYXRpbmdfc3RhdGUuCj4gU28sIG5vIG5lZWQgdG8gZW5hYmxlIGl0IGFnYWluIGluIHBwX2xh
+dGVfaW5pdC4KPiAKPiBDaGFuZ2UtSWQ6IElkMzNkMmRhYzE5MjY0NWZjOWRjZGZhZjU4MjU0MjAw
+OTNhODdmODE0Cj4gU2lnbmVkLW9mZi1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4K
+ClJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgoKPiAtLS0KPiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jIHwgOCAtLS0tLS0tLQo+
+ICAxIGZpbGUgY2hhbmdlZCwgOCBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jCj4gaW5kZXggMDk2OWI2NS4uYzZhYTdkMCAx
+MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMK
+PiBAQCAtMTkxLDE0ICsxOTEsNiBAQCBzdGF0aWMgaW50IHBwX2xhdGVfaW5pdCh2b2lkICpoYW5k
+bGUpCj4gIAlpZiAoYWRldi0+cG0uc211X3Bydl9idWZmZXJfc2l6ZSAhPSAwKQo+ICAJCXBwX3Jl
+c2VydmVfdnJhbV9mb3Jfc211KGFkZXYpOwo+ICAKPiAtCWlmIChod21nciAmJiBod21nci0+aHdt
+Z3JfZnVuYyAmJgo+IC0JICAgIGh3bWdyLT5od21ncl9mdW5jLT5nZnhfb2ZmX2NvbnRyb2wgJiYK
+PiAtCSAgICAoaHdtZ3ItPmZlYXR1cmVfbWFzayAmIFBQX0dGWE9GRl9NQVNLKSkgewo+IC0JCXJl
+dCA9IGh3bWdyLT5od21ncl9mdW5jLT5nZnhfb2ZmX2NvbnRyb2woaHdtZ3IsIHRydWUpOwo+IC0J
+CWlmIChyZXQpCj4gLQkJCXByX2VycigiZ2Z4IG9mZiBlbmFibGluZyBmYWlsZWQhXG4iKTsKPiAt
+CX0KPiAtCj4gIAlyZXR1cm4gMDsKPiAgfQo+ICAKPiAtLSAKPiAyLjcuNAo+IAo+IF9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
