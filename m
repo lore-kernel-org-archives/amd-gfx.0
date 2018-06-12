@@ -1,13 +1,12 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/pp: Make sure clock_voltage_limit_table on dc
- is valid
-Date: Tue, 12 Jun 2018 14:21:27 +0000
-Message-ID: <BN6PR12MB180948DB6BF6D333464DE87CF77F0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1528107484-24074-1-git-send-email-Rex.Zhu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Get real power source to initizlize ac_power
+Date: Tue, 12 Jun 2018 14:22:20 +0000
+Message-ID: <BN6PR12MB180989C3739B74812EE5D05BF77F0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1528108334-24757-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0710901752=="
+Content-Type: multipart/mixed; boundary="===============0572496790=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1528107484-24074-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1528108334-24757-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,57 +20,56 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0710901752==
+--===============0572496790==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180948DB6BF6D333464DE87CF77F0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB180989C3739B74812EE5D05BF77F0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB180948DB6BF6D333464DE87CF77F0BN6PR12MB1809namp_
+--_000_BN6PR12MB180989C3739B74812EE5D05BF77F0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-
-Series is:
 
 Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 ________________________________
 From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
 <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, June 4, 2018 6:18:03 AM
+Sent: Monday, June 4, 2018 6:32:14 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Zhu, Rex
-Subject: [PATCH 1/2] drm/amd/pp: Make sure clock_voltage_limit_table on dc =
-is valid
+Subject: [PATCH] drm/amdgpu: Get real power source to initizlize ac_power
 
-if vbios not set the max clock voltage limit table for DC mode,
-Set the table as sama as the table for AC mode.
+driver need to know the real power source to do some power
+related configuration when initialize.
 
 Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index d3649ce..f46d3be 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -2503,6 +2503,11 @@ static int smu7_hwmgr_backend_init(struct pp_hwmgr *=
-hwmgr)
-         } else if (hwmgr->pp_table_version =3D=3D PP_TABLE_V0) {
-                 smu7_patch_dependency_tables_with_leakage(hwmgr);
-                 smu7_set_private_data_based_on_pptable_v0(hwmgr);
-+               /* make sure dc limits are valid */
-+               if ((hwmgr->dyn_state.max_clock_voltage_on_dc.sclk =3D=3D 0=
-) ||
-+                       (hwmgr->dyn_state.max_clock_voltage_on_dc.mclk =3D=
-=3D 0))
-+                       hwmgr->dyn_state.max_clock_voltage_on_dc =3D
-+                                       hwmgr->dyn_state.max_clock_voltage_=
-on_ac;
-         }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 57a4f39..7a085f6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -25,6 +25,7 @@
+  *          Alex Deucher
+  *          Jerome Glisse
+  */
++#include <linux/power_supply.h>
+ #include <linux/kthread.h>
+ #include <linux/console.h>
+ #include <linux/slab.h>
+@@ -2281,6 +2282,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+         INIT_DELAYED_WORK(&adev->late_init_work,
+                           amdgpu_device_ip_late_init_func_handler);
 
-         /* Initalize Dynamic State Adjustment Rule Settings */
++       adev->pm.ac_power =3D power_supply_is_system_supplied() > 0 ? true =
+: false;
++
+         /* Registers mapping */
+         /* TODO: block userspace mapping of io register */
+         if (adev->asic_type >=3D CHIP_BONAIRE) {
 --
 1.9.1
 
@@ -80,7 +78,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB180948DB6BF6D333464DE87CF77F0BN6PR12MB1809namp_
+--_000_BN6PR12MB180989C3739B74812EE5D05BF77F0BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -94,7 +92,6 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
 <p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
 xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 </p>
@@ -104,57 +101,56 @@ xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
 ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
 t;<br>
-<b>Sent:</b> Monday, June 4, 2018 6:18:03 AM<br>
+<b>Sent:</b> Monday, June 4, 2018 6:32:14 AM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 1/2] drm/amd/pp: Make sure clock_voltage_limit_table=
- on dc is valid</font>
+<b>Subject:</b> [PATCH] drm/amdgpu: Get real power source to initizlize ac_=
+power</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">if vbios not set the max clock voltage limit table=
- for DC mode,<br>
-Set the table as sama as the table for AC mode.<br>
+<div class=3D"PlainText">driver need to know the real power source to do so=
+me power<br>
+related configuration when initialize.<br>
 <br>
 Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 5 &#43;&#43;&#43;&=
-#43;&#43;<br>
-&nbsp;1 file changed, 5 insertions(&#43;)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 &#43;&#43;&#43;<br>
+&nbsp;1 file changed, 3 insertions(&#43;)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-index d3649ce..f46d3be 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -2503,6 &#43;2503,11 @@ static int smu7_hwmgr_backend_init(struct pp_hwm=
-gr *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (hwmgr-&gt;pp_ta=
-ble_version =3D=3D PP_TABLE_V0) {<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 57a4f39..7a085f6 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -25,6 &#43;25,7 @@<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Alex Deucher=
+<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jerome Gliss=
+e<br>
+&nbsp; */<br>
+&#43;#include &lt;linux/power_supply.h&gt;<br>
+&nbsp;#include &lt;linux/kthread.h&gt;<br>
+&nbsp;#include &lt;linux/console.h&gt;<br>
+&nbsp;#include &lt;linux/slab.h&gt;<br>
+@@ -2281,6 &#43;2282,8 @@ int amdgpu_device_init(struct amdgpu_device *adev=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;ade=
+v-&gt;late_init_work,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu7_patch_dependency_tables_with_leakage(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; smu7_set_private_data_based_on_pptable_v0(hwmgr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* make sure dc limits are valid */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if ((hwmgr-&gt;dyn_state.max_clock_voltage_on_dc.sclk =3D=3D=
- 0) ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hwmgr-&gt;d=
-yn_state.max_clock_voltage_on_dc.mclk =3D=3D 0))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dy=
-n_state.max_clock_voltage_on_dc =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; hwmgr-&gt;dyn_state.max_clock_voltage_on_ac;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; amdgpu_device_ip_late_init_func_handler);<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Initalize Dynamic State=
- Adjustment Rule Settings */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.ac_power =3D power_su=
+pply_is_system_supplied() &gt; 0 ? true : false;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Registers mapping */<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO: block userspace m=
+apping of io register */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type &gt=
+;=3D CHIP_BONAIRE) {<br>
 -- <br>
 1.9.1<br>
 <br>
@@ -168,9 +164,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_BN6PR12MB180948DB6BF6D333464DE87CF77F0BN6PR12MB1809namp_--
+--_000_BN6PR12MB180989C3739B74812EE5D05BF77F0BN6PR12MB1809namp_--
 
---===============0710901752==
+--===============0572496790==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -180,4 +176,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0710901752==--
+--===============0572496790==--
