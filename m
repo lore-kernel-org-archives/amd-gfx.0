@@ -1,11 +1,15 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Consolidate visible vs. real vram check.
-Date: Tue, 12 Jun 2018 14:37:17 -0400
-Message-ID: <1528828637-23066-1-git-send-email-andrey.grodzovsky@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: Set higher SCLK&MCLK frequency than
+ dpm7 in OD
+Date: Tue, 12 Jun 2018 20:29:56 +0000
+Message-ID: <BN6PR12MB18098444CC5D021EE9985840F77F0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1528815253-14142-1-git-send-email-kenneth.feng@amd.com>,
+ <CY4PR12MB1687467F513BB24796B1FC63FB7F0@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0162731850=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CY4PR12MB1687467F513BB24796B1FC63FB7F0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,105 +20,260 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
-Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-TW92ZSBhbGwgaW5zdG5hY2VzIG9mIHRoaXMgY2hlY2sgaW50byBhIGZ1bmN0aW9uIGluIGFtZGdw
-dV9nbWMuaApSZW5hbWUgdGhlIG9yaWdpbmFsIGZ1bmN0aW9uIHRvIGEgbW9yZSBwcm9wZXIgbmFt
-ZS4KClNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBh
-bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jICB8IDEx
-ICsrKysrKy0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmggfCAx
-NSArKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-ICB8IDIwICsrKystLS0tLS0tLS0tLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDI1IGluc2VydGlv
-bnMoKyksIDIxIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nz
-LmMKaW5kZXggMTJmMGQxOC4uZjk4YmU2OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2NzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2NzLmMKQEAgLTMxLDYgKzMxLDcgQEAKICNpbmNsdWRlIDxkcm0vZHJtX3N5bmNvYmouaD4K
-ICNpbmNsdWRlICJhbWRncHUuaCIKICNpbmNsdWRlICJhbWRncHVfdHJhY2UuaCIKKyNpbmNsdWRl
-ICJhbWRncHVfZ21jLmgiCiAKIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3VzZXJfZmVuY2VfY2h1bmso
-c3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCiAJCQkJICAgICAgc3RydWN0IGRybV9hbWRncHVf
-Y3NfY2h1bmtfZmVuY2UgKmRhdGEsCkBAIC0zMDIsNyArMzAzLDcgQEAgc3RhdGljIHZvaWQgYW1k
-Z3B1X2NzX2dldF90aHJlc2hvbGRfZm9yX21vdmVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LAogCSptYXhfYnl0ZXMgPSB1c190b19ieXRlcyhhZGV2LCBhZGV2LT5tbV9zdGF0cy5hY2N1bV91
-cyk7CiAKIAkvKiBEbyB0aGUgc2FtZSBmb3IgdmlzaWJsZSBWUkFNIGlmIGhhbGYgb2YgaXQgaXMg
-ZnJlZSAqLwotCWlmIChhZGV2LT5nbWMudmlzaWJsZV92cmFtX3NpemUgPCBhZGV2LT5nbWMucmVh
-bF92cmFtX3NpemUpIHsKKwlpZiAoIWFtZGdwdV9nbWNfdnJhbV9mdWxsX3Zpc2libGUoJmFkZXYt
-PmdtYykpIHsKIAkJdTY0IHRvdGFsX3Zpc192cmFtID0gYWRldi0+Z21jLnZpc2libGVfdnJhbV9z
-aXplOwogCQl1NjQgdXNlZF92aXNfdnJhbSA9CiAJCQlhbWRncHVfdnJhbV9tZ3JfdmlzX3VzYWdl
-KCZhZGV2LT5tbWFuLmJkZXYubWFuW1RUTV9QTF9WUkFNXSk7CkBAIC0zNTksNyArMzYwLDcgQEAg
-c3RhdGljIGludCBhbWRncHVfY3NfYm9fdmFsaWRhdGUoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIg
-KnAsCiAJICogdG8gbW92ZSBpdC4gRG9uJ3QgbW92ZSBhbnl0aGluZyBpZiB0aGUgdGhyZXNob2xk
-IGlzIHplcm8uCiAJICovCiAJaWYgKHAtPmJ5dGVzX21vdmVkIDwgcC0+Ynl0ZXNfbW92ZWRfdGhy
-ZXNob2xkKSB7Ci0JCWlmIChhZGV2LT5nbWMudmlzaWJsZV92cmFtX3NpemUgPCBhZGV2LT5nbWMu
-cmVhbF92cmFtX3NpemUgJiYKKwkJaWYgKCFhbWRncHVfZ21jX3ZyYW1fZnVsbF92aXNpYmxlKCZh
-ZGV2LT5nbWMpICYmCiAJCSAgICAoYm8tPmZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FD
-Q0VTU19SRVFVSVJFRCkpIHsKIAkJCS8qIEFuZCBkb24ndCBtb3ZlIGEgQ1BVX0FDQ0VTU19SRVFV
-SVJFRCBCTyB0byBsaW1pdGVkCiAJCQkgKiB2aXNpYmxlIFZSQU0gaWYgd2UndmUgZGVwbGV0ZWQg
-b3VyIGFsbG93YW5jZSB0byBkbwpAQCAtMzgxLDcgKzM4Miw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1
-X2NzX2JvX3ZhbGlkYXRlKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLAogCXIgPSB0dG1fYm9f
-dmFsaWRhdGUoJmJvLT50Ym8sICZiby0+cGxhY2VtZW50LCAmY3R4KTsKIAogCXAtPmJ5dGVzX21v
-dmVkICs9IGN0eC5ieXRlc19tb3ZlZDsKLQlpZiAoYWRldi0+Z21jLnZpc2libGVfdnJhbV9zaXpl
-IDwgYWRldi0+Z21jLnJlYWxfdnJhbV9zaXplICYmCisJaWYgKCFhbWRncHVfZ21jX3ZyYW1fZnVs
-bF92aXNpYmxlKCZhZGV2LT5nbWMpICYmCiAJICAgIGFtZGdwdV9ib19pbl9jcHVfdmlzaWJsZV92
-cmFtKGJvKSkKIAkJcC0+Ynl0ZXNfbW92ZWRfdmlzICs9IGN0eC5ieXRlc19tb3ZlZDsKIApAQCAt
-NDM0LDggKzQzNSw4IEBAIHN0YXRpYyBib29sIGFtZGdwdV9jc190cnlfZXZpY3Qoc3RydWN0IGFt
-ZGdwdV9jc19wYXJzZXIgKnAsCiAKIAkJLyogR29vZCB3ZSBjYW4gdHJ5IHRvIG1vdmUgdGhpcyBC
-TyBzb21ld2hlcmUgZWxzZSAqLwogCQl1cGRhdGVfYnl0ZXNfbW92ZWRfdmlzID0KLQkJCWFkZXYt
-PmdtYy52aXNpYmxlX3ZyYW1fc2l6ZSA8IGFkZXYtPmdtYy5yZWFsX3ZyYW1fc2l6ZSAmJgotCQkJ
-YW1kZ3B1X2JvX2luX2NwdV92aXNpYmxlX3ZyYW0oYm8pOworCQkJCSFhbWRncHVfZ21jX3ZyYW1f
-ZnVsbF92aXNpYmxlKCZhZGV2LT5nbWMpICYmCisJCQkJYW1kZ3B1X2JvX2luX2NwdV92aXNpYmxl
-X3ZyYW0oYm8pOwogCQlhbWRncHVfdHRtX3BsYWNlbWVudF9mcm9tX2RvbWFpbihibywgb3RoZXIp
-OwogCQlyID0gdHRtX2JvX3ZhbGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7
-CiAJCXAtPmJ5dGVzX21vdmVkICs9IGN0eC5ieXRlc19tb3ZlZDsKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nbWMuaAppbmRleCA4OTNjMjQ5Li42Y2I0OTQ4IDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmgKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dtYy5oCkBAIC0xMDksNCArMTA5LDE5IEBAIHN0cnVjdCBh
-bWRncHVfZ21jIHsKIAljb25zdCBzdHJ1Y3QgYW1kZ3B1X2dtY19mdW5jcwkqZ21jX2Z1bmNzOwog
-fTsKIAorLyoqCisgKiBhbWRncHVfZ21jX3ZyYW1fZnVsbF92aXNpYmxlIC0gQ2hlY2sgaWYgZnVs
-bCBWUkFNIGlzIHZpc2libGUgdGhyb3VnaCB0aGUgQkFSCisgKgorICogQGFkZXY6IGFtZGdwdV9k
-ZXZpY2UgcG9pbnRlcgorICoKKyAqIFJldHVybnM6CisgKiBUcnVlIGlmIGZ1bGwgVlJBTSBpcyB2
-aXNpYmxlIHRocm91Z2ggdGhlIEJBUgorICovCitzdGF0aWMgaW5saW5lIGJvb2wgYW1kZ3B1X2dt
-Y192cmFtX2Z1bGxfdmlzaWJsZShzdHJ1Y3QgYW1kZ3B1X2dtYyAqZ21jKQoreworCVdBUk5fT04o
-Z21jLT5yZWFsX3ZyYW1fc2l6ZSA8IGdtYy0+dmlzaWJsZV92cmFtX3NpemUpOworCisJcmV0dXJu
-IChnbWMtPnJlYWxfdnJhbV9zaXplID09IGdtYy0+dmlzaWJsZV92cmFtX3NpemUpOworfQorCiAj
-ZW5kaWYKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKaW5kZXggN2YwM2Y4Yy4u
-NmQyMjk0MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
-LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTMzLDYg
-KzMzLDcgQEAKICNpbmNsdWRlICJhbWRncHUuaCIKICNpbmNsdWRlICJhbWRncHVfdHJhY2UuaCIK
-ICNpbmNsdWRlICJhbWRncHVfYW1ka2ZkLmgiCisjaW5jbHVkZSAiYW1kZ3B1X2dtYy5oIgogCiAv
-KioKICAqIERPQzogR1BVVk0KQEAgLTY2OSwxOSArNjcwLDYgQEAgYm9vbCBhbWRncHVfdm1fbmVl
-ZF9waXBlbGluZV9zeW5jKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKIH0KIAogLyoqCi0gKiBh
-bWRncHVfdm1faXNfbGFyZ2VfYmFyIC0gQ2hlY2sgaWYgQkFSIGlzIGxhcmdlIGVub3VnaAotICoK
-LSAqIEBhZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXIKLSAqCi0gKiBSZXR1cm5zOgotICogVHJ1
-ZSBpZiBCQVIgaXMgbGFyZ2UgZW5vdWdoLgotICovCi1zdGF0aWMgYm9vbCBhbWRncHVfdm1faXNf
-bGFyZ2VfYmFyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQotewotCXJldHVybiAoYWRldi0+
-Z21jLnJlYWxfdnJhbV9zaXplID09IGFkZXYtPmdtYy52aXNpYmxlX3ZyYW1fc2l6ZSk7Ci19Ci0K
-LS8qKgogICogYW1kZ3B1X3ZtX2ZsdXNoIC0gaGFyZHdhcmUgZmx1c2ggdGhlIHZtCiAgKgogICog
-QHJpbmc6IHJpbmcgdG8gdXNlIGZvciBmbHVzaApAQCAtMjU3OSw3ICsyNTY3LDcgQEAgaW50IGFt
-ZGdwdV92bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3Zt
-ICp2bSwKIAl9CiAJRFJNX0RFQlVHX0RSSVZFUigiVk0gdXBkYXRlIG1vZGUgaXMgJXNcbiIsCiAJ
-CQkgdm0tPnVzZV9jcHVfZm9yX3VwZGF0ZSA/ICJDUFUiIDogIlNETUEiKTsKLQlXQVJOX09OQ0Uo
-KHZtLT51c2VfY3B1X2Zvcl91cGRhdGUgJiAhYW1kZ3B1X3ZtX2lzX2xhcmdlX2JhcihhZGV2KSks
-CisJV0FSTl9PTkNFKCh2bS0+dXNlX2NwdV9mb3JfdXBkYXRlICYgIWFtZGdwdV9nbWNfdnJhbV9m
-dWxsX3Zpc2libGUoJmFkZXYtPmdtYykpLAogCQkgICJDUFUgdXBkYXRlIG9mIFZNIHJlY29tbWVu
-ZGVkIG9ubHkgZm9yIGxhcmdlIEJBUiBzeXN0ZW1cbiIpOwogCXZtLT5sYXN0X3VwZGF0ZSA9IE5V
-TEw7CiAKQEAgLTI2OTksNyArMjY4Nyw3IEBAIGludCBhbWRncHVfdm1fbWFrZV9jb21wdXRlKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkKIAl2bS0+cHRl
-X3N1cHBvcnRfYXRzID0gcHRlX3N1cHBvcnRfYXRzOwogCURSTV9ERUJVR19EUklWRVIoIlZNIHVw
-ZGF0ZSBtb2RlIGlzICVzXG4iLAogCQkJIHZtLT51c2VfY3B1X2Zvcl91cGRhdGUgPyAiQ1BVIiA6
-ICJTRE1BIik7Ci0JV0FSTl9PTkNFKCh2bS0+dXNlX2NwdV9mb3JfdXBkYXRlICYgIWFtZGdwdV92
-bV9pc19sYXJnZV9iYXIoYWRldikpLAorCVdBUk5fT05DRSgodm0tPnVzZV9jcHVfZm9yX3VwZGF0
-ZSAmICFhbWRncHVfZ21jX3ZyYW1fZnVsbF92aXNpYmxlKCZhZGV2LT5nbWMpKSwKIAkJICAiQ1BV
-IHVwZGF0ZSBvZiBWTSByZWNvbW1lbmRlZCBvbmx5IGZvciBsYXJnZSBCQVIgc3lzdGVtXG4iKTsK
-IAogCWlmICh2bS0+cGFzaWQpIHsKQEAgLTI4NzcsNyArMjg2NSw3IEBAIHZvaWQgYW1kZ3B1X3Zt
-X21hbmFnZXJfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkgKi8KICNpZmRlZiBD
-T05GSUdfWDg2XzY0CiAJaWYgKGFtZGdwdV92bV91cGRhdGVfbW9kZSA9PSAtMSkgewotCQlpZiAo
-YW1kZ3B1X3ZtX2lzX2xhcmdlX2JhcihhZGV2KSkKKwkJaWYgKGFtZGdwdV9nbWNfdnJhbV9mdWxs
-X3Zpc2libGUoJmFkZXYtPmdtYykpCiAJCQlhZGV2LT52bV9tYW5hZ2VyLnZtX3VwZGF0ZV9tb2Rl
-ID0KIAkJCQlBTURHUFVfVk1fVVNFX0NQVV9GT1JfQ09NUFVURTsKIAkJZWxzZQotLSAKMi43LjQK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0162731850==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18098444CC5D021EE9985840F77F0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18098444CC5D021EE9985840F77F0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhu, Rex=
+ <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, June 12, 2018 11:01:46 AM
+To: Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amd/powerplay: Set higher SCLK&MCLK frequency than=
+ dpm7 in OD
+
+
+Acked-by:  Rex Zhu<rezhu-5C7GfCeVMHo@public.gmane.org>
+
+Best Regards
+Rex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Kenneth =
+Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, June 12, 2018 10:54 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Feng, Kenneth
+Subject: [PATCH] drm/amd/powerplay: Set higher SCLK&MCLK frequency than dpm=
+7 in OD
+
+Fix the issue that SCLK&MCLK can't be set higher than dpm7 when
+OD is enabled in SMU7.
+
+Change-Id: If8249795739e29a063154cffce693b3c77cca151
+Signed-off-by: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index b763c54..11e1762 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -3762,7 +3762,10 @@ static int smu7_generate_dpm_level_enable_mask(
+         const struct smu7_power_state *smu7_ps =3D
+                         cast_const_phw_smu7_power_state(states->pnew_state=
+);
+
+-       result =3D smu7_trim_dpm_states(hwmgr, smu7_ps);
++       /*skip the trim if od is enabled*/
++       if (!hwmgr->od_enabled)
++               result =3D smu7_trim_dpm_states(hwmgr, smu7_ps);
++
+         if (result)
+                 return result;
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
+
+
+
+
+--_000_BN6PR12MB18098444CC5D021EE9985840F77F0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&=
+gt;<br>
+<b>Sent:</b> Tuesday, June 12, 2018 11:01:46 AM<br>
+<b>To:</b> Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: Set higher SCLK&amp;MCLK fre=
+quency than dpm7 in OD</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Diso-8859-1">
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;App=
+le Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe =
+UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
+<p style=3D"margin-top:0; margin-bottom:0"><span>Acked-by: &nbsp;Rex Zhu&lt=
+;rezhu-5C7GfCeVMHo@public.gmane.org&gt;</span></p>
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;App=
+le Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe =
+UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
+<br>
+</div>
+Best Regards</div>
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;App=
+le Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe =
+UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
+Rex<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Kenneth Feng &lt;kenneth.fe=
+ng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, June 12, 2018 10:54 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Feng, Kenneth<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: Set higher SCLK&amp;MCLK frequen=
+cy than dpm7 in OD</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Fix the issue that SCLK&amp;MCLK can't be set hi=
+gher than dpm7 when<br>
+OD is enabled in SMU7.<br>
+<br>
+Change-Id: If8249795739e29a063154cffce693b3c77cca151<br>
+Signed-off-by: Kenneth Feng &lt;kenneth.feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 5 &#43;&#43;&#43;&=
+#43;-<br>
+&nbsp;1 file changed, 4 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+index b763c54..11e1762 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+@@ -3762,7 &#43;3762,10 @@ static int smu7_generate_dpm_level_enable_mask(<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct smu7_power_st=
+ate *smu7_ps =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cast_=
+const_phw_smu7_power_state(states-&gt;pnew_state);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D smu7_trim_dpm_states(hwmgr=
+, smu7_ps);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*skip the trim if od is enabled*=
+/<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;od_enabled)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; result =3D smu7_trim_dpm_states(hwmgr, smu7_ps);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (result)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return result;<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk513550" class=3D"x_OWAAutoLink">https://lists.freedesktop.org/mailman/li=
+stinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_15288156016960.23397006034678136" style=3D"margin-bo=
+ttom:20px; overflow:auto; width:100%; text-indent:0px">
+<table id=3D"LPContainer_15288156016920.8675547615720158" cellspacing=3D"0"=
+ style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto; padd=
+ing-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dotted r=
+gb(200,200,200); border-bottom:1px dotted rgb(200,200,200)">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing:0px">
+<td id=3D"x_TextCell_15288156016940.7998290262387218" colspan=3D"2" style=
+=3D"vertical-align:top; padding:0px; display:table-cell">
+<div id=3D"LPRemovePreviewContainer_15288156016940.4399945111834056"></div>
+<div id=3D"LPTitle_15288156016940.13852304214012157" style=3D"top:0px; colo=
+r:rgb(0,120,215); font-weight:normal; font-size:21px; font-family:wf_segoe-=
+ui_light,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot;,&quot;Segoe =
+UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line-height:21px">
+<a id=3D"LPUrlAnchor_15288156016940.3501474611051001" href=3D"https://lists=
+.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
+decoration:none">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15288156016950.5765837893813062" style=3D"margin:10px=
+ 0px 16px; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe=
+-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-seri=
+f; font-size:14px; line-height:14px">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15288156016950.9789713356274368" style=3D"display:=
+block; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe-ui_=
+normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; f=
+ont-size:14px; line-height:20px; max-height:100px; overflow:hidden">
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
+iv>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB18098444CC5D021EE9985840F77F0BN6PR12MB1809namp_--
+
+--===============0162731850==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0162731850==--
