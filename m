@@ -1,12 +1,12 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/include: Update df 3.6 mask and shift definition
-Date: Tue, 12 Jun 2018 20:49:34 +0000
-Message-ID: <BN6PR12MB18095EC7A1506208E2BDFE82F77F0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1528825125-31423-1-git-send-email-Shaoyun.Liu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add BRACKET_LAYOUT_ENUMs to ObjectID.h
+Date: Tue, 12 Jun 2018 20:52:54 +0000
+Message-ID: <BN6PR12MB1809E3892AB30C1DBA256B19F77F0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180612175358.22535-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0244729233=="
+Content-Type: multipart/mixed; boundary="===============0597504300=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1528825125-31423-1-git-send-email-Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180612175358.22535-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,81 +18,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0244729233==
+--===============0597504300==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18095EC7A1506208E2BDFE82F77F0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB1809E3892AB30C1DBA256B19F77F0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB18095EC7A1506208E2BDFE82F77F0BN6PR12MB1809namp_
+--_000_BN6PR12MB1809E3892AB30C1DBA256B19F77F0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Shaoyun =
-Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, June 12, 2018 1:38 PM
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
+ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, June 12, 2018 1:53 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Shaoyun
-Subject: [PATCH] drm/amd/include: Update df 3.6 mask and shift definition
+Cc: Wentland, Harry
+Subject: [PATCH] drm/amdgpu: Add BRACKET_LAYOUT_ENUMs to ObjectID.h
 
-The register field hsas been changed in df 3.6, update to correct setting
+DC has an upcoming change that requires these to read the board layout.
 
-Change-Id: Id625d7698b610c07081f421537964686f8f0b67c
-Signed-off-by: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/ObjectID.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h b/dri=
-vers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h
-index 88f7c69..06fac50 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h
-@@ -36,13 +36,13 @@
- /* DF_CS_AON0_DramBaseAddress0 */
- #define DF_CS_UMC_AON0_DramBaseAddress0__AddrRngVal__SHIFT                =
-                              0x0
- #define DF_CS_UMC_AON0_DramBaseAddress0__LgcyMmioHoleEn__SHIFT            =
-                              0x1
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan__SHIFT              =
-                             0x4
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel__SHIFT              =
-                             0x8
-+#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan__SHIFT              =
-                             0x2
-+#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel__SHIFT              =
-                             0x9
- #define DF_CS_UMC_AON0_DramBaseAddress0__DramBaseAddr__SHIFT              =
-                              0xc
- #define DF_CS_UMC_AON0_DramBaseAddress0__AddrRngVal_MASK                  =
-                              0x00000001L
- #define DF_CS_UMC_AON0_DramBaseAddress0__LgcyMmioHoleEn_MASK              =
-                              0x00000002L
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan_MASK                =
-                             0x000000F0L
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel_MASK                =
-                             0x00000700L
-+#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan_MASK                =
-                             0x0000003CL
-+#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel_MASK                =
-                             0x00000E00L
- #define DF_CS_UMC_AON0_DramBaseAddress0__DramBaseAddr_MASK                =
-                              0xFFFFF000L
+diff --git a/drivers/gpu/drm/amd/amdgpu/ObjectID.h b/drivers/gpu/drm/amd/am=
+dgpu/ObjectID.h
+index 06192698bd96..5b393622f592 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ObjectID.h
++++ b/drivers/gpu/drm/amd/amdgpu/ObjectID.h
+@@ -136,6 +136,7 @@
+ #define GENERIC_OBJECT_ID_PX2_NON_DRIVABLE        0x02
+ #define GENERIC_OBJECT_ID_MXM_OPM                 0x03
+ #define GENERIC_OBJECT_ID_STEREO_PIN              0x04        //This objec=
+t could show up from Misc Object table, it follows ATOM_OBJECT format, and =
+contains one ATOM_OBJECT_GPIO_CNTL_RECORD for the stereo pin
++#define GENERIC_OBJECT_ID_BRACKET_LAYOUT          0x05
 
- #endif
+ /****************************************************/
+ /* Graphics Object ENUM ID Definition               */
+@@ -714,6 +715,13 @@
+                                                  GRAPH_OBJECT_ENUM_ID1 << =
+ENUM_ID_SHIFT |\
+                                                  GENERIC_OBJECT_ID_STEREO_=
+PIN << OBJECT_ID_SHIFT)
+
++#define GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID1    (GRAPH_OBJECT_TYPE_GENERI=
+C << OBJECT_TYPE_SHIFT |\
++                                                 GRAPH_OBJECT_ENUM_ID1 << =
+ENUM_ID_SHIFT |\
++                                                 GENERIC_OBJECT_ID_BRACKET=
+_LAYOUT << OBJECT_ID_SHIFT)
++
++#define GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID2    (GRAPH_OBJECT_TYPE_GENERI=
+C << OBJECT_TYPE_SHIFT |\
++                                                 GRAPH_OBJECT_ENUM_ID2 << =
+ENUM_ID_SHIFT |\
++                                                 GENERIC_OBJECT_ID_BRACKET=
+_LAYOUT << OBJECT_ID_SHIFT)
+ /****************************************************/
+ /* Object Cap definition - Shared with BIOS         */
+ /****************************************************/
 --
-1.9.1
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB18095EC7A1506208E2BDFE82F77F0BN6PR12MB1809namp_
+--_000_BN6PR12MB1809E3892AB30C1DBA256B19F77F0BN6PR12MB1809namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -109,123 +109,105 @@ n-bottom:0;} --></style>
 uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
 uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
 "ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 </p>
+<br>
 <br>
 <div style=3D"color: rgb(0, 0, 0);">
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
 =3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Shaoyun Liu &lt;Shaoyun.Liu=
-@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, June 12, 2018 1:38 PM<br>
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.we=
+ntland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, June 12, 2018 1:53 PM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Liu, Shaoyun<br>
-<b>Subject:</b> [PATCH] drm/amd/include: Update df 3.6 mask and shift defin=
-ition</font>
+<b>Cc:</b> Wentland, Harry<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Add BRACKET_LAYOUT_ENUMs to ObjectID.h<=
+/font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">The register field hsas been changed in df 3.6, up=
-date to correct setting<br>
+<div class=3D"PlainText">DC has an upcoming change that requires these to r=
+ead the board layout.<br>
 <br>
-Change-Id: Id625d7698b610c07081f421537964686f8f0b67c<br>
-Signed-off-by: Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h | 8 &#43;&#4=
-3;&#43;&#43;----<br>
-&nbsp;1 file changed, 4 insertions(&#43;), 4 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/ObjectID.h | 8 &#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;<br>
+&nbsp;1 file changed, 8 insertions(&#43;)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h b/dri=
-vers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h<br>
-index 88f7c69..06fac50 100644<br>
---- a/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/asic_reg/df/df_3_6_sh_mask.h<=
-br>
-@@ -36,13 &#43;36,13 @@<br>
-&nbsp;/* DF_CS_AON0_DramBaseAddress0 */<br>
-&nbsp;#define DF_CS_UMC_AON0_DramBaseAddress0__AddrRngVal__SHIFT&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0<br>
-&nbsp;#define DF_CS_UMC_AON0_DramBaseAddress0__LgcyMmioHoleEn__SHIFT&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; 0x1<br>
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan__SHIFT&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; 0x4<br>
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel__SHIFT&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; 0x8<br>
-&#43;#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan__SHIFT&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; 0x2<br>
-&#43;#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel__SHIFT&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; 0x9<br>
-&nbsp;#define DF_CS_UMC_AON0_DramBaseAddress0__DramBaseAddr__SHIFT&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; 0xc<br>
-&nbsp;#define DF_CS_UMC_AON0_DramBaseAddress0__AddrRngVal_MASK&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000001L<br>
-&nbsp;#define DF_CS_UMC_AON0_DramBaseAddress0__LgcyMmioHoleEn_MASK&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; 0x00000002L<br>
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan_MASK&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; 0x000000F0L<br>
--#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel_MASK&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; 0x00000700L<br>
-&#43;#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvNumChan_MASK&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; 0x0000003CL<br>
-&#43;#define DF_CS_UMC_AON0_DramBaseAddress0__IntLvAddrSel_MASK&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000E00L<br>
-&nbsp;#define DF_CS_UMC_AON0_DramBaseAddress0__DramBaseAddr_MASK&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0xFFFFF000L<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/ObjectID.h b/drivers/gpu/drm/amd/am=
+dgpu/ObjectID.h<br>
+index 06192698bd96..5b393622f592 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/ObjectID.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/ObjectID.h<br>
+@@ -136,6 &#43;136,7 @@<br>
+&nbsp;#define GENERIC_OBJECT_ID_PX2_NON_DRIVABLE&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; 0x02<br>
+&nbsp;#define GENERIC_OBJECT_ID_MXM_OPM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x03<br>
+&nbsp;#define GENERIC_OBJECT_ID_STEREO_PIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x04&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; //This object could show up from Misc Object table, it fo=
+llows ATOM_OBJECT format, and contains one ATOM_OBJECT_GPIO_CNTL_RECORD for=
+ the stereo pin<br>
+&#43;#define GENERIC_OBJECT_ID_BRACKET_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; 0x05<br>
 &nbsp;<br>
-&nbsp;#endif<br>
+&nbsp;/****************************************************/<br>
+&nbsp;/* Graphics Object ENUM ID Definition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+@@ -714,6 &#43;715,13 @@<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GRAPH=
+_OBJECT_ENUM_ID1 &lt;&lt; ENUM_ID_SHIFT |\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GENER=
+IC_OBJECT_ID_STEREO_PIN &lt;&lt; OBJECT_ID_SHIFT)<br>
+&nbsp;<br>
+&#43;#define GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID1&nbsp;&nbsp;&nbsp; (GRAPH=
+_OBJECT_TYPE_GENERIC &lt;&lt; OBJECT_TYPE_SHIFT |\<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GRAPH_=
+OBJECT_ENUM_ID1 &lt;&lt; ENUM_ID_SHIFT |\<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GENERI=
+C_OBJECT_ID_BRACKET_LAYOUT &lt;&lt; OBJECT_ID_SHIFT)<br>
+&#43;<br>
+&#43;#define GENERICOBJECT_BRACKET_LAYOUT_ENUM_ID2&nbsp;&nbsp;&nbsp; (GRAPH=
+_OBJECT_TYPE_GENERIC &lt;&lt; OBJECT_TYPE_SHIFT |\<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GRAPH_=
+OBJECT_ENUM_ID2 &lt;&lt; ENUM_ID_SHIFT |\<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GENERI=
+C_OBJECT_ID_BRACKET_LAYOUT &lt;&lt; OBJECT_ID_SHIFT)<br>
+&nbsp;/****************************************************/<br>
+&nbsp;/* Object Cap definition - Shared with BIOS&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;/****************************************************/<br>
 -- <br>
-1.9.1<br>
+2.17.1<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk712828" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+lnk484853" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
 desktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
@@ -234,9 +216,9 @@ desktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_BN6PR12MB18095EC7A1506208E2BDFE82F77F0BN6PR12MB1809namp_--
+--_000_BN6PR12MB1809E3892AB30C1DBA256B19F77F0BN6PR12MB1809namp_--
 
---===============0244729233==
+--===============0597504300==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -246,4 +228,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0244729233==--
+--===============0597504300==--
