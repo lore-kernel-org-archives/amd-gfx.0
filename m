@@ -1,15 +1,15 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/7] drm/amd/pp: Add gfx pg support in smu through
- set_powergating_by_smu
-Date: Wed, 13 Jun 2018 15:10:21 +0000
-Message-ID: <CY4PR12MB1687D3F89F9837713A94D406FB7E0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1528888686-18896-1-git-send-email-Rex.Zhu@amd.com>,
- <1528888686-18896-4-git-send-email-Rex.Zhu@amd.com>
+From: Jan Vesely <jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Partially revert commit 2dc80b006
+Date: Wed, 13 Jun 2018 13:02:16 -0400
+Message-ID: <CABE_ZV1Ga1pV5jiVuZtDoOdp1en5EEo=quYJawDSxhh0QevbmQ@mail.gmail.com>
+References: <1528890013-23490-1-git-send-email-Rex.Zhu@amd.com>
+ <6526fa0b-474e-102c-6577-5723427970a9@gmail.com>
+ <CABE_ZV06N+_JcnqJMU=78DKNwGMwxpEsg7Tr0Xgw0x=-hyc6bw@mail.gmail.com>
+ <CY4PR12MB1687387C53D92564048587ECFB7E0@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1697416367=="
+Content-Type: multipart/mixed; boundary="===============0300539058=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1528888686-18896-4-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB1687387C53D92564048587ECFB7E0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,428 +20,362 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1697416367==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687D3F89F9837713A94D406FB7E0CY4PR12MB1687namp_"
+--===============0300539058==
+Content-Type: multipart/alternative; boundary="000000000000fd572d056e88f10d"
 
---_000_CY4PR12MB1687D3F89F9837713A94D406FB7E0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--000000000000fd572d056e88f10d
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+thank you. Every effort to make the patches easier to follow is appreciated=
+.
 
--               if (adev->powerplay.pp_funcs->powergate_mmhub)
--                       amdgpu_dpm_powergate_mmhub(adev);
-+               if (adev->powerplay.pp_funcs->set_powergating_by_smu)
-+                       amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOC=
-K_TYPE_GMC, 0);
+Jan
 
-Move this change to  patch3.
+On Wed, Jun 13, 2018 at 10:39 AM, Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> wrote:
 
+> Hi Jan,
+>
+>
+> Thanks for your suggestion. Obvious the patch title was inappropriate. I
+> will update it.
+>
+> In fact, I originally plan to send this patch internally for discussion.
+> So just thought that "Revert xxxxx" can cause the attention.
+>
+> Best Regards
+> Rex
+>
+>
+>
+>
+> ------------------------------
+> *From:* jv356-nChP9VK/LToysehGhLVACCmkPJUwDNjP@public.gmane.org <jv356-nChP9VK/LToysehGhLVACCmkPJUwDNjP@public.gmane.org> on
+> behalf of Jan Vesely <jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>
+> *Sent:* Wednesday, June 13, 2018 9:30 PM
+> *To:* Koenig, Christian
+> *Cc:* Zhu, Rex; amd-gfx list
+> *Subject:* Re: [PATCH] drm/amdgpu: Partially revert commit 2dc80b006
+>
+> Hi,
+>
+> can you please improve the commit message?
+> seeing "Revert $HASH" conveys zero information about the code change.
+> I'm sorry for bringing this up again, but following AMDGPU/Radeon driver
+> development is an exercise in frustration for anyone who is not on AMD's
+> payroll.
+> git commit logs like:
+> "revert XYZ" or "fix bug #123" make it really cumbersome to actually look
+> at history and pick interesting/breaking commits.
+>
+> thanks,
+> Jan
+>
+> On Wed, Jun 13, 2018 at 8:46 AM, Christian K=C3=B6nig <
+> ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+>
+> Am 13.06.2018 um 13:40 schrieb Rex Zhu:
+>
+> Move the CG enablement out of delay worker thread.
+>
+> 1. CG/PG enablement are part of gpu hw ip initialize, we should
+> wait for them complete. otherwise, there are some potential conflicts,
+> for example, Suspend and CG enablement concurrently.
+> 2. better run ib test after hw initialize completely. That is to say,
+>     ib test should be after CG/PG enablement. otherwise, the test will
+>     not cover the cg/pg/poweroff enable case.
+>
+> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+>
+>
+> Yeah, that thought came to my mind as well.
+>
+> Essentially the IB test should simulate a submission from userspace to
+> make sure that the stack is working as expected. I think it was just move=
+d
+> before CG/PG to avoid issues with that, which is actually not very clever=
+.
+>
+> Patch is Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, bu=
+t
+> there could be some fallout we could need to deal with.
+>
+> Thanks,
+> Christian.
+>
+>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 14 ++++++++------
+>   1 file changed, 8 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 9647f54..90b78c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1709,10 +1709,6 @@ static int amdgpu_device_ip_late_set_cg_state(stru=
+ct
+> amdgpu_device *adev)
+>         if (amdgpu_emu_mode =3D=3D 1)
+>                 return 0;
+>   -     r =3D amdgpu_ib_ring_tests(adev);
+> -       if (r)
+> -               DRM_ERROR("ib ring test failed (%d).\n", r);
+> -
+>         for (i =3D 0; i < adev->num_ip_blocks; i++) {
+>                 if (!adev->ip_blocks[i].status.valid)
+>                         continue;
+> @@ -1793,6 +1789,9 @@ static int amdgpu_device_ip_late_init(struct
+> amdgpu_device *adev)
+>                 }
+>         }
+>   +     amdgpu_device_ip_late_set_cg_state(adev);
+> +       amdgpu_device_ip_late_set_pg_state(adev);
+> +
+>         queue_delayed_work(system_wq, &adev->late_init_work,
+>                            msecs_to_jiffies(AMDGPU_RESUME_MS));
+>   @@ -1921,8 +1920,11 @@ static void amdgpu_device_ip_late_init_func_hand=
+ler(struct
+> work_struct *work)
+>   {
+>         struct amdgpu_device *adev =3D
+>                 container_of(work, struct amdgpu_device,
+> late_init_work.work);
+> -       amdgpu_device_ip_late_set_cg_state(adev);
+> -       amdgpu_device_ip_late_set_pg_state(adev);
+> +       int r;
+> +
+> +       r =3D amdgpu_ib_ring_tests(adev);
+> +       if (r)
+> +               DRM_ERROR("ib ring test failed (%d).\n", r);
+>   }
+>     /**
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
 
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, June 13, 2018 7:18 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 4/7] drm/amd/pp: Add gfx pg support in smu through set_powe=
-rgating_by_smu
-
-gfx ip block can call set_powergating_by_smu to set gfx pg state if
-necessary.
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         | 10 ++++------
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c       |  4 ++--
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 16 ++++++++++++++++
- 3 files changed, 22 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c
-index 807ee0d..916776a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -5591,14 +5591,12 @@ static int gfx_v8_0_late_init(void *handle)
- static void gfx_v8_0_enable_gfx_static_mg_power_gating(struct amdgpu_devic=
-e *adev,
-                                                        bool enable)
- {
--       if ((adev->asic_type =3D=3D CHIP_POLARIS11) ||
-+       if (((adev->asic_type =3D=3D CHIP_POLARIS11) ||
-             (adev->asic_type =3D=3D CHIP_POLARIS12) ||
--           (adev->asic_type =3D=3D CHIP_VEGAM))
-+           (adev->asic_type =3D=3D CHIP_VEGAM)) &&
-+           adev->powerplay.pp_funcs->set_powergating_by_smu)
-                 /* Send msg to SMU via Powerplay */
--               amdgpu_device_ip_set_powergating_state(adev,
--                                                      AMD_IP_BLOCK_TYPE_SM=
-C,
--                                                      enable ?
--                                                      AMD_PG_STATE_GATE : =
-AMD_PG_STATE_UNGATE);
-+               amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_G=
-FX, enable);
-
-         WREG32_FIELD(RLC_PG_CNTL, STATIC_PER_CU_PG_ENABLE, enable ? 1 : 0)=
-;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v1_0.c
-index 377f536..85cf2f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -471,8 +471,8 @@ void mmhub_v1_0_update_power_gating(struct amdgpu_devic=
-e *adev,
-                                                 RENG_EXECUTE_ON_REG_UPDATE=
-, 1);
-                 WREG32_SOC15(MMHUB, 0, mmPCTL1_RENG_EXECUTE, pctl1_reng_ex=
-ecute);
-
--               if (adev->powerplay.pp_funcs->powergate_mmhub)
--                       amdgpu_dpm_powergate_mmhub(adev);
-+               if (adev->powerplay.pp_funcs->set_powergating_by_smu)
-+                       amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOC=
-K_TYPE_GMC, 0);
-
-         } else {
-                 pctl0_reng_execute =3D REG_SET_FIELD(pctl0_reng_execute,
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c
-index f68551f..cb2dd7c 100644
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-@@ -1184,6 +1184,21 @@ static int pp_dpm_powergate_mmhub(void *handle)
-         return hwmgr->hwmgr_func->powergate_mmhub(hwmgr);
- }
-
-+static int pp_dpm_powergate_gfx(void *handle, bool gate)
-+{
-+       struct pp_hwmgr *hwmgr =3D handle;
-+
-+       if (!hwmgr || !hwmgr->pm_en)
-+               return 0;
-+
-+       if (hwmgr->hwmgr_func->powergate_gfx =3D=3D NULL) {
-+               pr_info("%s was not implemented.\n", __func__);
-+               return 0;
-+       }
-+
-+       return hwmgr->hwmgr_func->powergate_gfx(hwmgr, gate);
-+}
-+
- static int pp_set_powergating_by_smu(void *handle,
-                                 uint32_t block_type, bool gate)
- {
-@@ -1201,6 +1216,7 @@ static int pp_set_powergating_by_smu(void *handle,
-                 pp_dpm_powergate_mmhub(handle);
-                 break;
-         case AMD_IP_BLOCK_TYPE_GFX:
-+               ret =3D pp_dpm_powergate_gfx(handle, gate);
-                 break;
-         default:
-                 break;
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
-
-
-
-
---_000_CY4PR12MB1687D3F89F9837713A94D406FB7E0CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
+--000000000000fd572d056e88f10d
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Co=
-lor Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI=
- Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D"ltr" data-f=
-ind=3D"_7">
+<div dir=3D"ltr">thank you. Every effort to make the patches easier to foll=
+ow is appreciated.<div><br></div><div>Jan</div></div><div class=3D"gmail_ex=
+tra"><br><div class=3D"gmail_quote">On Wed, Jun 13, 2018 at 10:39 AM, Zhu, =
+Rex <span dir=3D"ltr">&lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_bla=
+nk">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
+>
+
+
+
+
+<div dir=3D"ltr">
+<div id=3D"m_-4588253181105417594divtagdefaultwrapper" style=3D"font-size:1=
+2pt;color:#000000;font-family:Calibri,Helvetica,sans-serif" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Hi Jan,</p>
 <p style=3D"margin-top:0;margin-bottom:0"><br>
 </p>
-<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
-EmojiFont; font-size: 14.6667px;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_func=
-s-&gt;powergate_mmhub)</span><br style=3D"color: rgb(33, 33, 33); font-fami=
-ly: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma,=
- Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;">
-<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
-EmojiFont; font-size: 14.6667px;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; amdgpu_dpm_powergate_mmhub(adev);</span><br style=3D"colo=
-r: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, =
-&quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-siz=
-e: 14.6667px;">
-<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
-EmojiFont; font-size: 14.6667px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_=
-funcs-&gt;set_powergating_by_smu)</span><br style=3D"color: rgb(33, 33, 33)=
-; font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quo=
-t;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;">
-<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
-EmojiFont; font-size: 14.6667px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_=
-TYPE_GMC, 0);</span><br>
-<br>
-Move this change to &nbsp;patch3.
+Thanks for your suggestion. Obvious the patch title was i<span>nappropriate=
+. I will update it.</span>
+<div><br>
+<span></span>
+<div>In fact,=C2=A0I originally plan to send this patch internally for disc=
+ussion.=C2=A0 So just thought that &quot;Revert xxxxx&quot; can cause the a=
+ttention.</div>
 <div><br>
 </div>
-<div data-find=3D"_6"><br>
-<div style=3D"color: rgb(0, 0, 0);" data-find=3D"_5">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Wednesday, June 13, 2018 7:18 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 4/7] drm/amd/pp: Add gfx pg support in smu through s=
-et_powergating_by_smu</font>
-<div>&nbsp;</div>
+<div>Best Regards</div>
+<div>Rex</div>
+<div><br>
+<span></span>
+<div><br>
 </div>
-<div class=3D"BodyFragment" data-find=3D"_4"><font size=3D"2" data-find=3D"=
-_3"><span style=3D"font-size:11pt;" data-find=3D"_2">
-<div class=3D"PlainText" data-find=3D"_1">gfx ip block can call set_powerga=
-ting_by_smu to set gfx pg state if<br>
-necessary.<br>
+<div><br>
 <br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"m_-4588253181105417594divRplyFwdMsg" dir=3D"ltr"><font face=3D"C=
+alibri, sans-serif" style=3D"font-size:11pt" color=3D"#000000"><b>From:</b>=
+ <a href=3D"mailto:jv356-nChP9VK/LToysehGhLVACCmkPJUwDNjP@public.gmane.org" target=3D"_blank">jv356@s=
+carletmail.rutgers.edu</a> &lt;<a href=3D"mailto:jv356-nChP9VK/LToysehGhLVACKSKJzFMqGTb@public.gmane.org=
+edu" target=3D"_blank">jv356-nChP9VK/LToysehGhLVACCmkPJUwDNjP@public.gmane.org</a><wbr>&gt; on behalf=
+ of Jan Vesely &lt;<a href=3D"mailto:jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org" target=3D"_bla=
+nk">jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Wednesday, June 13, 2018 9:30 PM<br>
+<b>To:</b> Koenig, Christian<br>
+<b>Cc:</b> Zhu, Rex; amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Partially revert commit 2dc80b006</=
+font>
+<div>=C2=A0</div>
+</div><div><div class=3D"h5">
+
+<div>
+<div dir=3D"ltr">Hi,
+<div><br>
+</div>
+<div>can you please improve the commit message?</div>
+<div>seeing &quot;Revert $HASH&quot; conveys zero information about the cod=
+e change.</div>
+<div>I&#39;m sorry for bringing this up again, but following AMDGPU/Radeon =
+driver development is an exercise in frustration for anyone who is not on A=
+MD&#39;s payroll.</div>
+<div>git commit logs like:</div>
+<div>&quot;revert XYZ&quot; or &quot;fix bug #123&quot; make it really cumb=
+ersome to actually look at history and pick interesting/breaking commits.</=
+div>
+<div><br>
+</div>
+<div>thanks,</div>
+<div>Jan</div>
+</div>
+<div class=3D"m_-4588253181105417594x_gmail_extra"><br>
+<div class=3D"m_-4588253181105417594x_gmail_quote">On Wed, Jun 13, 2018 at =
+8:46 AM, Christian K=C3=B6nig <span dir=3D"ltr">
+&lt;<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" id=3D"m_-4588253181=
+105417594LPlnk23845" class=3D"m_-4588253181105417594OWAAutoLink" target=3D"=
+_blank">ckoenig.leichtzumerken@gmail.<wbr>com</a>&gt;</span> wrote:<br>
+<blockquote class=3D"m_-4588253181105417594x_gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<span>Am 13.06.2018 um 13:40 schrieb Rex Zhu:<br>
+<blockquote class=3D"m_-4588253181105417594x_gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+Move the CG enablement out of delay worker thread.<br>
+<br>
+1. CG/PG enablement are part of gpu hw ip initialize, we should<br>
+wait for them complete. otherwise, there are some potential conflicts,<br>
+for example, Suspend and CG enablement concurrently.<br>
+2. better run ib test after hw initialize completely. That is to say,<br>
+=C2=A0 =C2=A0 ib test should be after CG/PG enablement. otherwise, the test=
+ will<br>
+=C2=A0 =C2=A0 not cover the cg/pg/poweroff enable case.<br>
+<br>
+Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" id=3D"m_-4588=
+253181105417594LPlnk396741" class=3D"m_-4588253181105417594OWAAutoLink" tar=
+get=3D"_blank">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+</blockquote>
+<br>
+</span>Yeah, that thought came to my mind as well.<br>
+<br>
+Essentially the IB test should simulate a submission from userspace to make=
+ sure that the stack is working as expected. I think it was just moved befo=
+re CG/PG to avoid issues with that, which is actually not very clever.<br>
+<br>
+Patch is Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.=
+koenig-5C7GfCeVMHo@public.gmane.org" id=3D"m_-4588253181105417594LPlnk442308" class=3D"m_-458825=
+3181105417594OWAAutoLink" target=3D"_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt=
+;, but there could be some fallout we could need to deal with.<br>
+<br>
+Thanks,<br>
+Christian.
+<div class=3D"m_-4588253181105417594x_HOEnZb">
+<div class=3D"m_-4588253181105417594x_h5"><br>
+<br>
+<blockquote class=3D"m_-4588253181105417594x_gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; | 10 &#43;&#43;&#43;&#43;------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; |&nbsp; 4 &#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 16 &#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;3 files changed, 22 insertions(&#43;), 8 deletions(-)<br>
+=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_device.c | 14 ++++++++------<=
+br>
+=C2=A0 1 file changed, 8 insertions(+), 6 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c<br>
-index 807ee0d..916776a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-@@ -5591,14 &#43;5591,12 @@ static int gfx_v8_0_late_init(void *handle)<br>
-&nbsp;static void gfx_v8_0_enable_gfx_static_mg_power_gating(struct amdgpu_=
-device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool enable)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;asic_type =3D=3D CHIP_P=
-OLARIS11) ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (((adev-&gt;asic_type =3D=3D C=
-HIP_POLARIS11) ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (a=
-dev-&gt;asic_type =3D=3D CHIP_POLARIS12) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;asi=
-c_type =3D=3D CHIP_VEGAM))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt=
-;asic_type =3D=3D CHIP_VEGAM)) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;=
-powerplay.pp_funcs-&gt;set_powergating_by_smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Send msg to SMU via Powerplay */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_device_ip_set_powergating_state(adev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_SMC,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; enable ?<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; AMD_PG_STATE_GATE : AMD_PG_STATE_UNGATE);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GF=
-X, enable);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD(RLC_PG_CNTL, =
-STATIC_PER_CU_PG_ENABLE, enable ? 1 : 0);<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/=
-amdgpu/mmhub_v1_0.c<br>
-index 377f536..85cf2f9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-@@ -471,8 &#43;471,8 @@ void mmhub_v1_0_update_power_gating(struct amdgpu_d=
-evice *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RENG_EXECUT=
-E_ON_REG_UPDATE, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmPCTL1_RENG_EXECUTE, pctl1_re=
-ng_execute);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;powerplay.pp_funcs-&gt;powergate_mmhub)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_power=
-gate_mmhub(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_funcs-&gt;set_powergating_by_smu)<=
+diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/a<wbr>mdgpu_device.c<br>
+index 9647f54..90b78c7 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_device.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_device.c<br>
+@@ -1709,10 +1709,6 @@ static int amdgpu_device_ip_late_set_cg_s<wbr>tate(s=
+truct amdgpu_device *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (amdgpu_emu_mode =3D=3D 1)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+=C2=A0 -=C2=A0 =C2=A0 =C2=A0r =3D amdgpu_ib_ring_tests(adev);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;ib =
+ring test failed (%d).\n&quot;, r);<br>
+-<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; adev-&gt;num_ip_blocks; i+=
++) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!adev-&gt;ip_bl=
+ocks[i].<a href=3D"http://status.va" id=3D"m_-4588253181105417594LPlnk71040=
+4" class=3D"m_-4588253181105417594OWAAutoLink" target=3D"_blank">status.va<=
+/a><wbr>lid)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 continue;<br>
+@@ -1793,6 +1789,9 @@ static int amdgpu_device_ip_late_init(str<wbr>uct amd=
+gpu_device *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 +=C2=A0 =C2=A0 =C2=A0amdgpu_device_ip_late_set_cg_<wbr>state(adev);<=
 br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_s=
-et_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GMC, 0);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pctl0_reng_execute =3D REG_SET_FIELD(pctl0_reng_execu=
-te,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c<br>
-index f68551f..cb2dd7c 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-@@ -1184,6 &#43;1184,21 @@ static int pp_dpm_powergate_mmhub(void *handle)<=
++=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_device_ip_late_set_pg_<wbr>state(adev);<=
 br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_fun=
-c-&gt;powergate_mmhub(hwmgr);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static int pp_dpm_powergate_gfx(void *handle, bool gate)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
-;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_en)<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;powe=
-rgate_gfx =3D=3D NULL) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; pr_info(&quot;%s was not implemented.\n&quot;, __func__);<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_func-&gt;p=
-owergate_gfx(hwmgr, gate);<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static int pp_set_powergating_by_smu(void *handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t block_type, bool gate)<=
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 queue_delayed_work(system_wq, &amp;adev-&gt;lat=
+e_init_work,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0msecs_to_jiffies(AMDGPU_RESUM<wbr>E_MS));<br>
+=C2=A0 @@ -1921,8 +1920,11 @@ static void amdgpu_device_ip_late_init_fun<wb=
+r>c_handler(struct work_struct *work)<br>
+=C2=A0 {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_device *adev =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 container_of(work, =
+struct amdgpu_device, <a href=3D"http://late_init_work.work" rel=3D"norefer=
+rer" id=3D"m_-4588253181105417594LPlnk420709" class=3D"m_-45882531811054175=
+94OWAAutoLink" target=3D"_blank">
+late_init_work.work</a>);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_device_ip_late_set_cg_<wbr>state(adev);<=
 br>
-&nbsp;{<br>
-@@ -1201,6 &#43;1216,7 @@ static int pp_set_powergating_by_smu(void *handle=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pp_dpm_powergate_mmhub(handle);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_IP_BLOCK_TYPE_GFX=
-:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D pp_dpm_powergate_gfx(handle, gate);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
--- <br>
-1.9.1<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_device_ip_late_set_pg_<wbr>state(adev);<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_ib_ring_tests(adev);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;ib =
+ring test failed (%d).\n&quot;, r);<br>
+=C2=A0 }<br>
+=C2=A0 =C2=A0 /**<br>
+</blockquote>
 <br>
-_______________________________________________<br>
+</div>
+</div>
+<div class=3D"m_-4588253181105417594x_HOEnZb">
+<div class=3D"m_-4588253181105417594x_h5">______________________________<wb=
+r>_________________<br>
 amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk47185" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.freed=
-esktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15289024991010.41118066143391596" style=3D"margin-bo=
-ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15289024990960.3675955030082809" role=3D"presentat=
-ion" cellspacing=3D"0" style=3D"width: 90%; background-color: rgb(255, 255,=
- 255); position: relative; overflow: auto; padding-top: 20px; padding-botto=
-m: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200); borde=
-r-bottom: 1px dotted rgb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_15289024990970.7733439810630227" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
-">
-<div id=3D"LPRemovePreviewContainer_15289024990970.17971584389616702"></div=
->
-<div id=3D"LPTitle_15289024990980.7787068342644976" style=3D"top: 0px; colo=
-r: rgb(0, 120, 215); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
-<a id=3D"LPUrlAnchor_15289024991000.4579696814932852" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15289024991000.6941856159274566" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15289024991010.4900828918904243" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
-iv>
-</td>
-</tr>
-</tbody>
-</table>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" id=3D"m_-45882531811054175=
+94LPlnk537513" class=3D"m_-4588253181105417594OWAAutoLink" target=3D"_blank=
+">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" id=3D"m_-4588253181105417594LPlnk798304" class=3D"m_-45882531811=
+05417594OWAAutoLink" target=3D"_blank">https://lists.freedesktop.org/<wbr>m=
+ailman/listinfo/amd-gfx</a><br>
+</div>
+</div>
+</blockquote>
 </div>
 <br>
-<br>
-</div>
-</span></font></div>
 </div>
 </div>
+</div></div></div>
 </div>
-</body>
-</html>
+</div>
+</div>
+</div>
+</div>
 
---_000_CY4PR12MB1687D3F89F9837713A94D406FB7E0CY4PR12MB1687namp_--
+</blockquote></div><br></div>
 
---===============1697416367==
+--000000000000fd572d056e88f10d--
+
+--===============0300539058==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -451,4 +385,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1697416367==--
+--===============0300539058==--
