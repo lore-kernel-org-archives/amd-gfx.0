@@ -1,14 +1,10 @@
-From: <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH xf86-video-amdgpu v3 6/7] Compose non-legacy with legacy
- regamma LUT
-Date: Fri, 15 Jun 2018 17:12:48 -0400
-Message-ID: <1529097168-23664-1-git-send-email-sunpeng.li@amd.com>
-References: <1528478484-31177-1-git-send-email-sunpeng.li@amd.com>
+From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Lower glxgears FPS performance after suspend/resume
+Date: Fri, 15 Jun 2018 21:48:43 -0300
+Message-ID: <CAJri6_vXYuj=L6seR5LcfEpjmv_qV3=eJxb9gdiyhN5LRHMBjg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0091792907=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1528478484-31177-1-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,147 +15,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, michel-otUistvHUpPR7s880joybQ@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogIkxlbyAoU3VucGVuZykgTGkiIDxzdW5wZW5nLmxpQGFtZC5jb20+CgpGcmVxdWVudGx5
-LCBhIHVzZXIgbWF5IGhhdmUgbm9uLWxlZ2FjeSBnYW1tYSBlbmFibGVkIGZvciBtb25pdG9yCmNv
-cnJlY3Rpb24sIHdoaWxlIHVzaW5nIGxlZ2FjeSBnYW1tYSBmb3IgdGhpbmdzIGxpa2UKcmVkc2hp
-ZnQvbmlnaHRsaWdodC4KClRvIGRvIHNvLCB3ZSBjb21wb3NlIHRoZSB0d28gTFVUcy4gTGVnYWN5
-IGdhbW1hIHdpbGwgYmUgYXBwbGllZCBmaXJzdCwKdGhlbiBub24tbGVnYWN5LiBpLmUuIG5vbi1s
-ZWdhY3lfTFVUKGxlZ2FjeV9MVVQoaW5fY29sb3IpKS4KCk5vdGUgdGhhdCB0aGUgc3RhZ2VkIGdh
-bW1hIExVVCB3aXRoaW4gdGhlIGRyaXZlci1wcml2YXRlIENSVEMgd2lsbAphbHdheXMgY29udGFp
-biB0aGUgbm9uLWxlZ2FjeSBMVVQuIFRoaXMgaXMgdG8gZW5zdXJlIHRoYXQgd2UgaGF2ZSBhCmNh
-Y2hlZCBjb3B5IGZvciBmdXR1cmUgY29tcG9zaXRpb25zLgoKdjI6IERvbid0IGNvbXBvc2UgTFVU
-cyBpZiBsZWdhY3kgZ2FtbWEgaXMgZGlzYWJsZWQgKHdoaWNoIGlzIHRoZSBjYXNlCiAgICBmb3Ig
-ZGVlcCAzMGJwcCBjb2xvcikuIFRoZSBsZWdhY3kgTFVUIHdvbid0IGJlIGNvbXB1dGVkIGhlcmUs
-CiAgICBjYXVzaW5nIGNvbXBvc2l0aW9uIHRvIHNwaXQgb3V0IHNvbWV0aGluZyBpbnZhbGlkLgoK
-djM6IFVzZSBMVVQgc2l6ZXMgdGhhdCBhcmUgbm93IGNhY2hlZCBpbiBkcm1tb2RlLgoKU2lnbmVk
-LW9mZi1ieTogTGVvIChTdW5wZW5nKSBMaSA8c3VucGVuZy5saUBhbWQuY29tPgotLS0KIHNyYy9k
-cm1tb2RlX2Rpc3BsYXkuYyB8IDE4NyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDE4NiBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5jIGIvc3JjL2RybW1v
-ZGVfZGlzcGxheS5jCmluZGV4IGQxNTYzOTguLjhmM2YzYmMgMTAwNjQ0Ci0tLSBhL3NyYy9kcm1t
-b2RlX2Rpc3BsYXkuYworKysgYi9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKQEAgLTc3Nyw2ICs3Nzcs
-MTUwIEBAIHN0YXRpYyBCb29sIGRybW1vZGVfY21fZW5hYmxlZChkcm1tb2RlX3B0ciBkcm1tb2Rl
-KQogfQogCiAvKioKKyAqIElmIGxlZ2FjeSBMVVQgaXMgYSwgYW5kIG5vbi1sZWdhY3kgTFVUIGlz
-IGIsIHRoZW4gdGhlIHJlc3VsdCBvZiBiKGEoeCkpIGlzCisgKiByZXR1cm5lZCBpbiBvdXRfbHV0
-LiBvdXRfbHV0J3MgbGVuZ3RoIGlzIGV4cGVjdGVkIHRvIGJlIHRoZSBzYW1lIGFzIHRoZQorICog
-bm9uLWxlZ2FjeSBMVVQgYi4KKyAqCisgKiBAYV8ocmVkfGdyZWVufGJsdWUpOiBUaGUgcmVkLCBn
-cmVlbiwgYW5kIGJsdWUgY29tcG9uZW50cyBvZiB0aGUgbGVnYWN5IExVVC4KKyAqIEBiX2x1dDog
-VGhlIG5vbi1sZWdhY3kgTFVULCBpbiBEUk0ncyBjb2xvciBMVVQgZm9ybWF0LgorICogQG91dF9s
-dXQ6IFRoZSBjb21wb3NlZCBMVVQsIGluIERSTSdzIGNvbG9yIExVVCBmb3JtYXQuCisgKiBAbGVu
-X2E6IExlbmd0aCBvZiBsZWdhY3kgbHV0LgorICogQGxlbl9iOiBMZW5ndGggb2Ygbm9uLWxlZ2Fj
-eSBsdXQuCisgKi8KK3N0YXRpYyB2b2lkIGRybW1vZGVfbHV0X2NvbXBvc2UodWludDE2X3QgKmFf
-cmVkLAorCQkJCXVpbnQxNl90ICphX2dyZWVuLAorCQkJCXVpbnQxNl90ICphX2JsdWUsCisJCQkJ
-c3RydWN0IGRybV9jb2xvcl9sdXQgKmJfbHV0LAorCQkJCXN0cnVjdCBkcm1fY29sb3JfbHV0ICpv
-dXRfbHV0LAorCQkJCXVpbnQzMl90IGxlbl9hLCB1aW50MzJfdCBsZW5fYikKK3sKKwl1aW50MzJf
-dCBpX2wsIGlfciwgaTsKKwl1aW50MzJfdCBpX2FtYXgsIGlfYm1heDsKKwl1aW50MzJfdCBjb2Vm
-Zl9pYm1heDsKKwl1aW50MzJfdCBqOworCXVpbnQ2NF90IGFfb3V0X2libWF4OworCWludCBjb2xv
-cjsKKwlzaXplX3Qgc3RydWN0X3NpemUgPSBzaXplb2Yoc3RydWN0IGRybV9jb2xvcl9sdXQpOwor
-CisJdWludDMyX3QgbWF4X2x1dCA9ICgxIDw8IDE2KSAtIDE7CisKKwlpX2FtYXggPSBsZW5fYSAt
-IDE7CisJaV9ibWF4ID0gbGVuX2IgLSAxOworCisJLyogQSBsaW5lYXIgaW50ZXJwb2xhdGlvbiBp
-cyBkb25lIG9uIHRoZSBsZWdhY3kgTFVUIGJlZm9yZSBpdCBpcworCSAqIGNvbXBvc2VkLCB0byBi
-cmluZyBpdCB1cC10by1zaXplIHdpdGggdGhlIG5vbi1sZWdhY3kgTFVULiBUaGUKKwkgKiBpbnRl
-cnBvbGF0aW9uIHVzZXMgaW50ZWdlcnMgYnkga2VlcGluZyB0aGluZ3MgbXVsdGlwbGllZCB1bnRp
-bCB0aGUKKwkgKiBsYXN0IG1vbWVudC4KKwkgKi8KKwlmb3IgKGNvbG9yID0gMDsgY29sb3IgPCAz
-OyBjb2xvcisrKSB7CisJCXVpbnQxNl90ICphLCAqYiwgKm91dDsKKworCQkvKiBTZXQgdGhlIGlu
-aXRpYWwgcG9pbnRlcnMgdG8gdGhlIHJpZ2h0IGNvbG9yIGNvbXBvbmVudHMuIFRoZQorCQkgKiBp
-bm5lciBmb3ItbG9vcCB3aWxsIHRoZW4gbWFpbnRhaW4gdGhlIGNvcnJlY3Qgb2Zmc2V0IGZyb20K
-KwkJICogdGhlIGluaXRpYWwgZWxlbWVudC4KKwkJICovCisJCWlmIChjb2xvciA9PSAwKSB7CisJ
-CQlhID0gYV9yZWQ7CisJCQliID0gJmJfbHV0WzBdLnJlZDsKKwkJCW91dCA9ICZvdXRfbHV0WzBd
-LnJlZDsKKwkJfSBlbHNlIGlmIChjb2xvciA9PSAxKSB7CisJCQlhID0gYV9ncmVlbjsKKwkJCWIg
-PSAmYl9sdXRbMF0uZ3JlZW47CisJCQlvdXQgPSAmb3V0X2x1dFswXS5ncmVlbjsKKwkJfSBlbHNl
-IHsKKwkJCWEgPSBhX2JsdWU7CisJCQliID0gJmJfbHV0WzBdLmJsdWU7CisJCQlvdXQgPSAmb3V0
-X2x1dFswXS5ibHVlOworCQl9CisKKwkJZm9yIChpID0gMDsgaSA8IGxlbl9iOyBpKyspIHsKKwkJ
-CS8qIGlfbCBhbmQgaV9yIHRyYWNrcyB0aGUgbGVmdCBhbmQgcmlnaHQgZWxlbWVudHMgaW4KKwkJ
-CSAqIGFfbHV0LCB0byB0aGUgc2FtcGxlIHBvaW50IGkuIEFsc28gaGFuZGxlIGxhc3QKKwkJCSAq
-IGVsZW1lbnQgZWRnZSBjYXNlLCB3aGVuIGlfbCA9IGlfYW1heC4KKwkJCSAqLworCQkJaV9sID0g
-aSAqIGlfYW1heCAvIGlfYm1heDsKKwkJCWlfciA9IGlfbCArICEhKGlfYW1heCAtIGlfbCk7CisK
-KwkJCS8qIGNvZWZmIGlzIGludGVuZGVkIHRvIGJlIGluIFswLCAxKSwgZGVwZW5kaW5nIG9uCisJ
-CQkgKiB3aGVyZSBzYW1wbGUgaSBpcyBiZXR3ZWVuIGlfbCBhbmQgaV9yLiBXZSBrZWVwIGl0CisJ
-CQkgKiBtdWx0aXBsaWVkIHdpdGggaV9ibWF4IHRocm91Z2hvdXQgdG8gbWFpbnRhaW4KKwkJCSAq
-IHByZWNpc2lvbiAqLworCQkJY29lZmZfaWJtYXggPSAoaSAqIGlfYW1heCkgLSAoaV9sICogaV9i
-bWF4KTsKKwkJCWFfb3V0X2libWF4ID0gaV9ibWF4ICogYVtpX2xdICsKKwkJCQkgICAgICBjb2Vm
-Zl9pYm1heCAqIChhW2lfcl0gLSBhW2lfbF0pOworCisJCQkvKiBqID0gZmxvb3IoKGFfb3V0L21h
-eF9sdXQpKmlfYm1heCkuCisJCQkgKiBpLmUuIHRoZSBlbGVtZW50IGluIExVVCBiIHRoYXQgYV9v
-dXQgbWFwcyB0by4gV2UKKwkJCSAqIGhhdmUgdG8gZGl2aWRlIGJ5IG1heF9sdXQgdG8gbm9ybWFs
-aXplIGFfb3V0LCBzaW5jZQorCQkJICogdmFsdWVzIGluIHRoZSBMVVRzIGFyZSBbMCwgMTw8MTYp
-CisJCQkgKi8KKwkJCWogPSBhX291dF9pYm1heCAvIG1heF9sdXQ7CisJCQkqKHVpbnQxNl90Kiko
-KHZvaWQqKW91dCArIChpKnN0cnVjdF9zaXplKSkgPQorCQkJCSoodWludDE2X3QqKSgodm9pZCop
-YiArIChqKnN0cnVjdF9zaXplKSk7CisJCX0KKwl9CisKKwlmb3IgKGkgPSAwOyBpIDwgbGVuX2I7
-IGkrKykKKwkJb3V0X2x1dFtpXS5yZXNlcnZlZCA9IDA7Cit9CisKKy8qKgorICogUmVzaXplIGEg
-TFVULCB1c2luZyBsaW5lYXIgaW50ZXJwb2xhdGlvbi4KKyAqCisgKiBAaW5fKHJlZHxncmVlbnxi
-bHVlKTogTGVnYWN5IExVVCBjb21wb25lbnRzCisgKiBAb3V0X2x1dDogVGhlIHJlc2l6ZWQgTFVU
-IGlzIHJldHVybmVkIGhlcmUsIGluIERSTSBjb2xvciBMVVQgZm9ybWF0LgorICogQGxlbl9pbjog
-TGVuZ3RoIG9mIGxlZ2FjeSBMVVQuCisgKiBAbGVuX291dDogTGVuZ3RoIG9mIG91dF9sdXQsIGku
-ZS4gdGhlIHRhcmdldCBzaXplLgorICovCitzdGF0aWMgdm9pZCBkcm1tb2RlX2x1dF9pbnRlcnBv
-bGF0ZSh1aW50MTZfdCAqaW5fcmVkLAorCQkJCSAgICB1aW50MTZfdCAqaW5fZ3JlZW4sCisJCQkJ
-ICAgIHVpbnQxNl90ICppbl9ibHVlLAorCQkJCSAgICBzdHJ1Y3QgZHJtX2NvbG9yX2x1dCAqb3V0
-X2x1dCwKKwkJCQkgICAgdWludDMyX3QgbGVuX2luLCB1aW50MzJfdCBsZW5fb3V0KQoreworCXVp
-bnQzMl90IGlfbCwgaV9yLCBpOworCXVpbnQzMl90IGlfYW1heCwgaV9ibWF4OworCXVpbnQzMl90
-IGNvZWZmX2libWF4OworCXVpbnQ2NF90IG91dF9pYm1heDsKKwlpbnQgY29sb3I7CisJc2l6ZV90
-IHN0cnVjdF9zaXplID0gc2l6ZW9mKHN0cnVjdCBkcm1fY29sb3JfbHV0KTsKKworCWlfYW1heCA9
-IGxlbl9pbiAtIDE7CisJaV9ibWF4ID0gbGVuX291dCAtIDE7CisKKwkvKiBTZWUgQGRybW1vZGVf
-bHV0X2NvbXBvc2UgZm9yIGRldGFpbHMgKi8KKwlmb3IgKGNvbG9yID0gMDsgY29sb3IgPCAzOyBj
-b2xvcisrKSB7CisJCXVpbnQxNl90ICppbiwgKm91dDsKKworCQlpZiAoY29sb3IgPT0gMCkgewor
-CQkJaW4gPSBpbl9yZWQ7CisJCQlvdXQgPSAmb3V0X2x1dFswXS5yZWQ7CisJCX0gZWxzZSBpZiAo
-Y29sb3IgPT0gMSkgeworCQkJaW4gPSBpbl9ncmVlbjsKKwkJCW91dCA9ICZvdXRfbHV0WzBdLmdy
-ZWVuOworCQl9IGVsc2UgeworCQkJaW4gPSBpbl9ibHVlOworCQkJb3V0ID0gJm91dF9sdXRbMF0u
-Ymx1ZTsKKwkJfQorCisJCWZvciAoaSA9IDA7IGkgPCBsZW5fb3V0OyBpKyspIHsKKwkJCWlfbCA9
-IGkgKiBpX2FtYXggLyBpX2JtYXg7CisJCQlpX3IgPSBpX2wgKyAhIShpX2FtYXggLSBpX2wpOwor
-CisJCQljb2VmZl9pYm1heCA9IChpICogaV9hbWF4KSAtIChpX2wgKiBpX2JtYXgpOworCQkJb3V0
-X2libWF4ID0gaV9ibWF4ICogaW5baV9sXSArCisJCQkJICAgICAgY29lZmZfaWJtYXggKiAoaW5b
-aV9yXSAtIGluW2lfbF0pOworCisJCQkqKHVpbnQxNl90KikoKHZvaWQqKW91dCArIChpKnN0cnVj
-dF9zaXplKSkgPQorCQkJCW91dF9pYm1heCAvIGlfYm1heDsKKwkJfQorCX0KKworCWZvciAoaSA9
-IDA7IGkgPCBsZW5fb3V0OyBpKyspCisJCW91dF9sdXRbaV0ucmVzZXJ2ZWQgPSAwOworfQorCisv
-KioKICAqIENvbmZpZ3VyZSBhbmQgY2hhbmdlIGEgY29sb3IgcHJvcGVydHkgb24gYSBDUlRDLCB0
-aHJvdWdoIFJhbmRSLiBPbmx5IHRoZQogICogc3BlY2lmaWVkIG91dHB1dCB3aWxsIGJlIGFmZmVj
-dGVkLCBldmVuIGlmIHRoZSBDUlRDIGlzIGF0dGFjaGVkIHRvIG11bHRpcGxlCiAgKiBvdXRwdXRz
-LiBOb3RlIHRoYXQgY2hhbmdlcyB3aWxsIGJlIG5vbi1wZW5kaW5nOiB0aGUgY2hhbmdlcyB3b24n
-dCBiZSBwdXNoZWQKQEAgLTk5Myw2ICsxMTM3LDcgQEAgc3RhdGljIGludCBkcm1tb2RlX2NydGNf
-cHVzaF9jbV9wcm9wKHhmODZDcnRjUHRyIGNydGMsCiAJZHJtbW9kZV9jcnRjX3ByaXZhdGVfcHRy
-IGRybW1vZGVfY3J0YyA9IGNydGMtPmRyaXZlcl9wcml2YXRlOwogCUFNREdQVUVudFB0ciBwQU1E
-R1BVRW50ID0gQU1ER1BVRW50UHJpdihjcnRjLT5zY3JuKTsKIAlkcm1tb2RlX3B0ciBkcm1tb2Rl
-ID0gZHJtbW9kZV9jcnRjLT5kcm1tb2RlOworCUJvb2wgZnJlZV9ibG9iX2RhdGEgPSBGQUxTRTsK
-IAl1aW50MzJfdCBjcmVhdGVkX2Jsb2JfaWQgPSAwOwogCXVpbnQzMl90IGRybV9wcm9wX2lkOwog
-CXNpemVfdCBleHBlY3RlZF9ieXRlcyA9IDA7CkBAIC0xMDA0LDcgKzExNDksMzkgQEAgc3RhdGlj
-IGludCBkcm1tb2RlX2NydGNfcHVzaF9jbV9wcm9wKHhmODZDcnRjUHRyIGNydGMsCiAJCS8qIENh
-bGN1bGF0ZSB0aGUgZXhwZWN0ZWQgc2l6ZSBvZiB2YWx1ZSBpbiBieXRlcyAqLwogCQlleHBlY3Rl
-ZF9ieXRlcyA9IHNpemVvZihzdHJ1Y3QgZHJtX2NvbG9yX2x1dCkgKgogCQkJCQlkcm1tb2RlLT5n
-YW1tYV9sdXRfc2l6ZTsKLQkJYmxvYl9kYXRhID0gZHJtbW9kZV9jcnRjLT5nYW1tYV9sdXQ7CisK
-KwkJLyogTGVnYWN5IGdhbW1hIExVVCBpcyBkaXNhYmxlZCBvbiBkZWVwIDMwYnBwIGNvbG9yLiBJ
-biB3aGljaAorCQkgKiBjYXNlLCBkaXJlY3RseSB1c2Ugbm9uLWxlZ2FjeSBMVVQuCisJCSAqLwor
-CQlpZiAoY3J0Yy0+ZnVuY3MtPmdhbW1hX3NldCA9PSBOVUxMKSB7CisJCQlibG9iX2RhdGEgPSBk
-cm1tb2RlX2NydGMtPmdhbW1hX2x1dDsKKwkJCWdvdG8gZG9fcHVzaDsKKwkJfQorCisJCWJsb2Jf
-ZGF0YSA9IG1hbGxvYyhleHBlY3RlZF9ieXRlcyk7CisJCWlmICghYmxvYl9kYXRhKQorCQkJcmV0
-dXJuIEJhZEFsbG9jOworCisJCWZyZWVfYmxvYl9kYXRhID0gVFJVRTsKKwkJLyoKKwkJICogQ29t
-cG9zZSBsZWdhY3kgYW5kIG5vbi1sZWdhY3kgTFVUIGlmIG5vbi1sZWdhY3kgd2FzIHNldC4KKwkJ
-ICogT3RoZXJ3aXNlLCBpbnRlcnBvbGF0ZSBsZWdhY3kgTFVUIHRvIG5vbi1sZWdhY3kgc2l6ZS4K
-KwkJICovCisJCWlmIChkcm1tb2RlX2NydGMtPmdhbW1hX2x1dCkgeworCQkJZHJtbW9kZV9sdXRf
-Y29tcG9zZShjcnRjLT5nYW1tYV9yZWQsCisJCQkJCSAgICBjcnRjLT5nYW1tYV9ncmVlbiwKKwkJ
-CQkJICAgIGNydGMtPmdhbW1hX2JsdWUsCisJCQkJCSAgICBkcm1tb2RlX2NydGMtPmdhbW1hX2x1
-dCwKKwkJCQkJICAgIGJsb2JfZGF0YSwgY3J0Yy0+Z2FtbWFfc2l6ZSwKKwkJCQkJICAgIGRybW1v
-ZGUtPmdhbW1hX2x1dF9zaXplKTsKKwkJfSBlbHNlIHsKKwkJCWRybW1vZGVfbHV0X2ludGVycG9s
-YXRlKGNydGMtPmdhbW1hX3JlZCwKKwkJCQkJCWNydGMtPmdhbW1hX2dyZWVuLAorCQkJCQkJY3J0
-Yy0+Z2FtbWFfYmx1ZSwKKwkJCQkJCWJsb2JfZGF0YSwKKwkJCQkJCWNydGMtPmdhbW1hX3NpemUs
-CisJCQkJCQlkcm1tb2RlLT5nYW1tYV9sdXRfc2l6ZSk7CisJCX0KIAkJYnJlYWs7CiAJY2FzZSBD
-TV9ERUdBTU1BX0xVVDoKIAkJZXhwZWN0ZWRfYnl0ZXMgPSBzaXplb2Yoc3RydWN0IGRybV9jb2xv
-cl9sdXQpICoKQEAgLTEwMTksNiArMTE5Niw3IEBAIHN0YXRpYyBpbnQgZHJtbW9kZV9jcnRjX3B1
-c2hfY21fcHJvcCh4Zjg2Q3J0Y1B0ciBjcnRjLAogCQlyZXR1cm4gQmFkTmFtZTsKIAl9CiAKK2Rv
-X3B1c2g6CiAJaWYgKGJsb2JfZGF0YSkgewogCQlyZXQgPSBkcm1Nb2RlQ3JlYXRlUHJvcGVydHlC
-bG9iKHBBTURHUFVFbnQtPmZkLAogCQkJCQkJYmxvYl9kYXRhLCBleHBlY3RlZF9ieXRlcywKQEAg
-LTEwMjcsNiArMTIwNSw4IEBAIHN0YXRpYyBpbnQgZHJtbW9kZV9jcnRjX3B1c2hfY21fcHJvcCh4
-Zjg2Q3J0Y1B0ciBjcnRjLAogCQkJeGY4NkRydk1zZyhjcnRjLT5zY3JuLT5zY3JuSW5kZXgsIFhf
-RVJST1IsCiAJCQkJICAgIkNyZWF0aW5nIERSTSBibG9iIGZhaWxlZCB3aXRoIGVycm5vICVkXG4i
-LAogCQkJCSAgIHJldCk7CisJCQlpZiAoZnJlZV9ibG9iX2RhdGEpCisJCQkJZnJlZShibG9iX2Rh
-dGEpOwogCQkJcmV0dXJuIEJhZFJlcXVlc3Q7CiAJCX0KIAl9CkBAIC0xMDQ4LDkgKzEyMjgsMTQg
-QEAgc3RhdGljIGludCBkcm1tb2RlX2NydGNfcHVzaF9jbV9wcm9wKHhmODZDcnRjUHRyIGNydGMs
-CiAJCXhmODZEcnZNc2coY3J0Yy0+c2Nybi0+c2NybkluZGV4LCBYX0VSUk9SLAogCQkJICAgIlNl
-dHRpbmcgRFJNIHByb3BlcnR5IGJsb2IgZmFpbGVkIHdpdGggZXJybm8gJWRcbiIsCiAJCQkgICBy
-ZXQpOworCQlpZiAoZnJlZV9ibG9iX2RhdGEpCisJCQlmcmVlKGJsb2JfZGF0YSk7CiAJCXJldHVy
-biBCYWRSZXF1ZXN0OwogCX0KIAorCWlmIChmcmVlX2Jsb2JfZGF0YSkKKwkJZnJlZShibG9iX2Rh
-dGEpOworCiAJcmV0dXJuIFN1Y2Nlc3M7CiB9CiAKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0091792907==
+Content-Type: multipart/alternative; boundary="00000000000078bfdb056eb7b2ff"
+
+--00000000000078bfdb056eb7b2ff
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+Using raven ridge and latest amd-staging-drm-next available now.
+
+As you can see below, the performance after boot is about 7k FPS and 6k FPS
+after the first resume.
+
+The hungs also are more often after resuming.
+
+Regards,
+br=C3=A1ulio
+
+7127 frames in 5.0 seconds =3D 7425.359 FPS
+36318 frames in 5.0 seconds =3D 7263.575 FPS
+40206 frames in 5.0 seconds =3D 8041.091 FPS
+37629 frames in 5.0 seconds =3D 7525.681 FPS
+38839 frames in 5.0 seconds =3D 7767.696 FPS
+37469 frames in 5.0 seconds =3D 7493.695 FPS
+40582 frames in 5.0 seconds =3D 8116.345 FPS
+39520 frames in 5.0 seconds =3D 7903.875 FPS
+35943 frames in 5.0 seconds =3D 7188.529 FPS
+37354 frames in 5.0 seconds =3D 7470.655 FPS
+38751 frames in 5.0 seconds =3D 7750.033 FPS
+37175 frames in 5.0 seconds =3D 7434.853 FPS
+36570 frames in 5.0 seconds =3D 7313.902 FPS
+38537 frames in 5.0 seconds =3D 7707.272 FPS
+37165 frames in 5.0 seconds =3D 7432.987 FPS
+33773 frames in 5.0 seconds =3D 6754.534 FPS
+38359 frames in 5.0 seconds =3D 7671.739 FPS
+35020 frames in 5.0 seconds =3D 7003.940 FPS
+34155 frames in 5.0 seconds =3D 6830.799 FPS
+22970 frames in 11.3 seconds =3D 2040.122 FPS
+34024 frames in 5.0 seconds =3D 6804.761 FPS
+30728 frames in 5.0 seconds =3D 6145.559 FPS
+30999 frames in 5.0 seconds =3D 6199.678 FPS
+31189 frames in 5.0 seconds =3D 6237.743 FPS
+30623 frames in 5.0 seconds =3D 6124.375 FPS
+31480 frames in 5.0 seconds =3D 6295.896 FPS
+30943 frames in 5.0 seconds =3D 6188.538 FPS
+30844 frames in 5.0 seconds =3D 6168.606 FPS
+30546 frames in 5.0 seconds =3D 6109.063 FPS
+31515 frames in 5.0 seconds =3D 6302.877 FPS
+30566 frames in 5.0 seconds =3D 6113.185 FPS
+31078 frames in 5.0 seconds =3D 6215.562 FPS
+30934 frames in 5.0 seconds =3D 6186.748 FPS
+30254 frames in 5.0 seconds =3D 6050.674 FPS
+30657 frames in 5.0 seconds =3D 6131.263 FPS
+
+--00000000000078bfdb056eb7b2ff
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all,<div><br></div><div>Using raven ridge and latest=C2=
+=A0amd-staging-drm-next available now.=C2=A0</div><div><br></div><div>As yo=
+u can see below, the performance after boot is about 7k FPS and 6k FPS afte=
+r the first resume.</div><div><br></div><div>The hungs also are more often =
+after resuming.</div><div><br></div><div>Regards,</div><div>br=C3=A1ulio<br=
+><div><br></div><div><span style=3D"font-family:monospace">7127 frames in 5=
+.0 seconds =3D 7425.359 FPS
+<br>36318 frames in 5.0 seconds =3D 7263.575 FPS
+<br>40206 frames in 5.0 seconds =3D 8041.091 FPS
+<br>37629 frames in 5.0 seconds =3D 7525.681 FPS
+<br>38839 frames in 5.0 seconds =3D 7767.696 FPS
+<br>37469 frames in 5.0 seconds =3D 7493.695 FPS
+<br>40582 frames in 5.0 seconds =3D 8116.345 FPS
+<br>39520 frames in 5.0 seconds =3D 7903.875 FPS
+<br>35943 frames in 5.0 seconds =3D 7188.529 FPS
+<br>37354 frames in 5.0 seconds =3D 7470.655 FPS
+<br>38751 frames in 5.0 seconds =3D 7750.033 FPS
+<br>37175 frames in 5.0 seconds =3D 7434.853 FPS
+<br>36570 frames in 5.0 seconds =3D 7313.902 FPS
+<br>38537 frames in 5.0 seconds =3D 7707.272 FPS
+<br>37165 frames in 5.0 seconds =3D 7432.987 FPS
+<br>33773 frames in 5.0 seconds =3D 6754.534 FPS
+<br>38359 frames in 5.0 seconds =3D 7671.739 FPS
+<br>35020 frames in 5.0 seconds =3D 7003.940 FPS
+<br>34155 frames in 5.0 seconds =3D 6830.799 FPS
+<br>22970 frames in 11.3 seconds =3D 2040.122 FPS
+<br>34024 frames in 5.0 seconds =3D 6804.761 FPS
+<br>30728 frames in 5.0 seconds =3D 6145.559 FPS
+<br>30999 frames in 5.0 seconds =3D 6199.678 FPS
+<br>31189 frames in 5.0 seconds =3D 6237.743 FPS
+<br>30623 frames in 5.0 seconds =3D 6124.375 FPS
+<br>31480 frames in 5.0 seconds =3D 6295.896 FPS
+<br>30943 frames in 5.0 seconds =3D 6188.538 FPS
+<br>30844 frames in 5.0 seconds =3D 6168.606 FPS
+<br>30546 frames in 5.0 seconds =3D 6109.063 FPS
+<br>31515 frames in 5.0 seconds =3D 6302.877 FPS
+<br>30566 frames in 5.0 seconds =3D 6113.185 FPS
+<br>31078 frames in 5.0 seconds =3D 6215.562 FPS
+<br>30934 frames in 5.0 seconds =3D 6186.748 FPS
+<br>30254 frames in 5.0 seconds =3D 6050.674 FPS
+<br>30657 frames in 5.0 seconds =3D 6131.263 FPS<br>
+<br></span></div></div></div>
+
+--00000000000078bfdb056eb7b2ff--
+
+--===============0091792907==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0091792907==--
