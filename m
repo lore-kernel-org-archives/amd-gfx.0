@@ -1,150 +1,60 @@
-From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Lower glxgears FPS performance after suspend/resume
-Date: Fri, 15 Jun 2018 21:53:45 -0300
-Message-ID: <CAJri6_sgP=E2sKvs=B9d47xPbfPn5BOpfpiw08HPY6oW9NFuDg@mail.gmail.com>
-References: <CAJri6_vXYuj=L6seR5LcfEpjmv_qV3=eJxb9gdiyhN5LRHMBjg@mail.gmail.com>
+From: Stefan Agner <stefan@agner.ch>
+Subject: [PATCH] drm/amdgpu: use first uvd instance to avoid clang build error
+Date: Sun, 17 Jun 2018 10:52:12 +0200
+Message-ID: <20180617085218.7753-1-stefan@agner.ch>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0428495072=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAJri6_vXYuj=L6seR5LcfEpjmv_qV3=eJxb9gdiyhN5LRHMBjg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0428495072==
-Content-Type: multipart/alternative; boundary="00000000000066290d056eb7c4a1"
-
---00000000000066290d056eb7c4a1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Sorry, the lower FPS is related to the window being shown or not.
-
-On Fri, Jun 15, 2018 at 9:48 PM Br=C3=A1ulio Bhavamitra <brauliobo-Re5JQEeQqe8@public.gmane.org=
-m>
-wrote:
-
-> Hi all,
->
-> Using raven ridge and latest amd-staging-drm-next available now.
->
-> As you can see below, the performance after boot is about 7k FPS and 6k
-> FPS after the first resume.
->
-> The hungs also are more often after resuming.
->
-> Regards,
-> br=C3=A1ulio
->
-> 7127 frames in 5.0 seconds =3D 7425.359 FPS
-> 36318 frames in 5.0 seconds =3D 7263.575 FPS
-> 40206 frames in 5.0 seconds =3D 8041.091 FPS
-> 37629 frames in 5.0 seconds =3D 7525.681 FPS
-> 38839 frames in 5.0 seconds =3D 7767.696 FPS
-> 37469 frames in 5.0 seconds =3D 7493.695 FPS
-> 40582 frames in 5.0 seconds =3D 8116.345 FPS
-> 39520 frames in 5.0 seconds =3D 7903.875 FPS
-> 35943 frames in 5.0 seconds =3D 7188.529 FPS
-> 37354 frames in 5.0 seconds =3D 7470.655 FPS
-> 38751 frames in 5.0 seconds =3D 7750.033 FPS
-> 37175 frames in 5.0 seconds =3D 7434.853 FPS
-> 36570 frames in 5.0 seconds =3D 7313.902 FPS
-> 38537 frames in 5.0 seconds =3D 7707.272 FPS
-> 37165 frames in 5.0 seconds =3D 7432.987 FPS
-> 33773 frames in 5.0 seconds =3D 6754.534 FPS
-> 38359 frames in 5.0 seconds =3D 7671.739 FPS
-> 35020 frames in 5.0 seconds =3D 7003.940 FPS
-> 34155 frames in 5.0 seconds =3D 6830.799 FPS
-> 22970 frames in 11.3 seconds =3D 2040.122 FPS
-> 34024 frames in 5.0 seconds =3D 6804.761 FPS
-> 30728 frames in 5.0 seconds =3D 6145.559 FPS
-> 30999 frames in 5.0 seconds =3D 6199.678 FPS
-> 31189 frames in 5.0 seconds =3D 6237.743 FPS
-> 30623 frames in 5.0 seconds =3D 6124.375 FPS
-> 31480 frames in 5.0 seconds =3D 6295.896 FPS
-> 30943 frames in 5.0 seconds =3D 6188.538 FPS
-> 30844 frames in 5.0 seconds =3D 6168.606 FPS
-> 30546 frames in 5.0 seconds =3D 6109.063 FPS
-> 31515 frames in 5.0 seconds =3D 6302.877 FPS
-> 30566 frames in 5.0 seconds =3D 6113.185 FPS
-> 31078 frames in 5.0 seconds =3D 6215.562 FPS
-> 30934 frames in 5.0 seconds =3D 6186.748 FPS
-> 30254 frames in 5.0 seconds =3D 6050.674 FPS
-> 30657 frames in 5.0 seconds =3D 6131.263 FPS
->
->
-
---00000000000066290d056eb7c4a1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Sorry, the lower FPS is related to the window being shown =
-or not.</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, Jun 15=
-, 2018 at 9:48 PM Br=C3=A1ulio Bhavamitra &lt;<a href=3D"mailto:brauliobo@g=
-mail.com">brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
-left:1ex"><div dir=3D"ltr">Hi all,<div><br></div><div>Using raven ridge and=
- latest=C2=A0amd-staging-drm-next available now.=C2=A0</div><div><br></div>=
-<div>As you can see below, the performance after boot is about 7k FPS and 6=
-k FPS after the first resume.</div><div><br></div><div>The hungs also are m=
-ore often after resuming.</div><div><br></div><div>Regards,</div><div>br=C3=
-=A1ulio<br><div><br></div><div><span style=3D"font-family:monospace">7127 f=
-rames in 5.0 seconds =3D 7425.359 FPS
-<br>36318 frames in 5.0 seconds =3D 7263.575 FPS
-<br>40206 frames in 5.0 seconds =3D 8041.091 FPS
-<br>37629 frames in 5.0 seconds =3D 7525.681 FPS
-<br>38839 frames in 5.0 seconds =3D 7767.696 FPS
-<br>37469 frames in 5.0 seconds =3D 7493.695 FPS
-<br>40582 frames in 5.0 seconds =3D 8116.345 FPS
-<br>39520 frames in 5.0 seconds =3D 7903.875 FPS
-<br>35943 frames in 5.0 seconds =3D 7188.529 FPS
-<br>37354 frames in 5.0 seconds =3D 7470.655 FPS
-<br>38751 frames in 5.0 seconds =3D 7750.033 FPS
-<br>37175 frames in 5.0 seconds =3D 7434.853 FPS
-<br>36570 frames in 5.0 seconds =3D 7313.902 FPS
-<br>38537 frames in 5.0 seconds =3D 7707.272 FPS
-<br>37165 frames in 5.0 seconds =3D 7432.987 FPS
-<br>33773 frames in 5.0 seconds =3D 6754.534 FPS
-<br>38359 frames in 5.0 seconds =3D 7671.739 FPS
-<br>35020 frames in 5.0 seconds =3D 7003.940 FPS
-<br>34155 frames in 5.0 seconds =3D 6830.799 FPS
-<br>22970 frames in 11.3 seconds =3D 2040.122 FPS
-<br>34024 frames in 5.0 seconds =3D 6804.761 FPS
-<br>30728 frames in 5.0 seconds =3D 6145.559 FPS
-<br>30999 frames in 5.0 seconds =3D 6199.678 FPS
-<br>31189 frames in 5.0 seconds =3D 6237.743 FPS
-<br>30623 frames in 5.0 seconds =3D 6124.375 FPS
-<br>31480 frames in 5.0 seconds =3D 6295.896 FPS
-<br>30943 frames in 5.0 seconds =3D 6188.538 FPS
-<br>30844 frames in 5.0 seconds =3D 6168.606 FPS
-<br>30546 frames in 5.0 seconds =3D 6109.063 FPS
-<br>31515 frames in 5.0 seconds =3D 6302.877 FPS
-<br>30566 frames in 5.0 seconds =3D 6113.185 FPS
-<br>31078 frames in 5.0 seconds =3D 6215.562 FPS
-<br>30934 frames in 5.0 seconds =3D 6186.748 FPS
-<br>30254 frames in 5.0 seconds =3D 6050.674 FPS
-<br>30657 frames in 5.0 seconds =3D 6131.263 FPS<br>
-<br></span></div></div></div>
-</blockquote></div>
-
---00000000000066290d056eb7c4a1--
-
---===============0428495072==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, James Zhu <James.Zhu@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0428495072==--
+RXhwbGljaXRseSB1c2UgdGhlIGZpcnN0IHV2ZCBpbnN0YW5jZSB0byBhdm9pZCBhIGJ1aWxkIGVy
+cm9yIHdoZW4KdXNpbmcgY2xhbmcgNjoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3V2ZC5jOjExNDg6NTI6IGVycm9yOiBleHBlY3RlZCAnKScKICAgICAgICAgICAgICAgIGNvbnRh
+aW5lcl9vZih3b3JrLCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSwgdXZkLmluc3QtPmlkbGVfd29yay53
+b3JrKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBeCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYzox
+MTQ4OjM6IG5vdGU6IHRvIG1hdGNoIHRoaXMgJygnCiAgICAgICAgICAgICAgICBjb250YWluZXJf
+b2Yod29yaywgc3RydWN0IGFtZGdwdV9kZXZpY2UsIHV2ZC5pbnN0LT5pZGxlX3dvcmsud29yayk7
+CiAgICAgICAgICAgICAgICBeCi4vaW5jbHVkZS9saW51eC9rZXJuZWwuaDo5Njc6MjE6IG5vdGU6
+IGV4cGFuZGVkIGZyb20gbWFjcm8gJ2NvbnRhaW5lcl9vZicKICAgICAgICAoKHR5cGUgKikoX19t
+cHRyIC0gb2Zmc2V0b2YodHlwZSwgbWVtYmVyKSkpOyB9KQogICAgICAgICAgICAgICAgICAgICAg
+ICAgICBeCi4vaW5jbHVkZS9saW51eC9zdGRkZWYuaDoxNzozMjogbm90ZTogZXhwYW5kZWQgZnJv
+bSBtYWNybyAnb2Zmc2V0b2YnCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXgouL2lu
+Y2x1ZGUvbGludXgvY29tcGlsZXItZ2NjLmg6MTcwOjIwOiBub3RlOiBleHBhbmRlZCBmcm9tIG1h
+Y3JvCiAgICAgICdfX2NvbXBpbGVyX29mZnNldG9mJwogICAgICAgIF9fYnVpbHRpbl9vZmZzZXRv
+ZihhLCBiKQogICAgICAgICAgICAgICAgICAgICAgICAgIF4KZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3V2ZC5jOjExNDc6MjQ6IGVycm9yOiBpbml0aWFsaXppbmcKICAgICAgJ3N0
+cnVjdCBhbWRncHVfZGV2aWNlIConIHdpdGggYW4gZXhwcmVzc2lvbiBvZiBpbmNvbXBhdGlibGUg
+dHlwZSAndm9pZCcKICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9CiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIF4KMiBlcnJvcnMgZ2VuZXJhdGVkLgoKRml4ZXM6IDEwZGQ3
+NGVhYzRkYiAoImRybS9hbWRncHUvdmcyMDpSZXN0cnVjdCB1dmQuaW5zdCB0byBzdXBwb3J0IG11
+bHRpcGxlIGluc3RhbmNlcyIpCkNjOiBKYW1lcyBaaHUgPEphbWVzLlpodUBhbWQuY29tPgpTaWdu
+ZWQtb2ZmLWJ5OiBTdGVmYW4gQWduZXIgPHN0ZWZhbkBhZ25lci5jaD4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdXZkLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdXZkLmMKaW5kZXggYmNmNjhmODBiYmYwLi42NjY2YTU4ODhjNDQgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKQEAgLTExNDUsNyArMTE0NSw3IEBAIGludCBhbWRn
+cHVfdXZkX2dldF9kZXN0cm95X21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90
+IGhhbmRsZSwKIHN0YXRpYyB2b2lkIGFtZGdwdV91dmRfaWRsZV93b3JrX2hhbmRsZXIoc3RydWN0
+IHdvcmtfc3RydWN0ICp3b3JrKQogewogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0KLQkJ
+Y29udGFpbmVyX29mKHdvcmssIHN0cnVjdCBhbWRncHVfZGV2aWNlLCB1dmQuaW5zdC0+aWRsZV93
+b3JrLndvcmspOworCQljb250YWluZXJfb2Yod29yaywgc3RydWN0IGFtZGdwdV9kZXZpY2UsIHV2
+ZC5pbnN0WzBdLmlkbGVfd29yay53b3JrKTsKIAl1bnNpZ25lZCBmZW5jZXMgPSAwLCBpLCBqOwog
+CiAJZm9yIChpID0gMDsgaSA8IGFkZXYtPnV2ZC5udW1fdXZkX2luc3Q7ICsraSkgewotLSAKMi4x
+Ny4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmkt
+ZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
