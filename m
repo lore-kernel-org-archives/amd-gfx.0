@@ -1,49 +1,164 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amdgpu: Make amdgpu_vram_mgr_bo_invisible_size
- always accurate
-Date: Mon, 18 Jun 2018 13:30:37 +0200
-Message-ID: <91723ad0-f220-86b9-6fe6-0a11668dd250@gmail.com>
-References: <20180615144230.18480-1-michel@daenzer.net>
- <20180615144230.18480-4-michel@daenzer.net>
- <093bbd7a-02cd-068f-a53a-2d4f1c5b3084@gmail.com>
- <098df480-3db3-485f-8e39-4ebf8201b3a0@daenzer.net>
- <b94d92e5-908d-534a-907a-ad97124b22ec@amd.com>
- <3140ef24-f8c9-5863-ff44-4c83192eabb1@daenzer.net>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Zhu, Rex" <Rex.Zhu@amd.com>
+Subject: Re: [PATCH] drm/amd/pp: Fix uninitialized variable
+Date: Mon, 18 Jun 2018 11:42:34 +0000
+Message-ID: <CY4PR12MB1687C56D02C99719379909B1FB710@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1529307062-21787-1-git-send-email-rajan.vaja@softnautics.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3140ef24-f8c9-5863-ff44-4c83192eabb1-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1580497569=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1529307062-21787-1-git-send-email-rajan.vaja@softnautics.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "rajan.vaja@gmail.com" <rajan.vaja@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "StDenis, Tom" <Tom.StDenis@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTUuMDYuMjAxOCB1bSAxNzoxOSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDIwMTgt
-MDYtMTUgMDU6MTggUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDE1LjA2LjIwMTgg
-dW0gMTc6MTQgc2NocmllYiBNaWNoZWwgRMOkbnplcjoKPj4+IE9uIDIwMTgtMDYtMTUgMDU6MTEg
-UE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gQW0gMTUuMDYuMjAxOCB1bSAxNjo0MiBz
-Y2hyaWViIE1pY2hlbCBEw6RuemVyOgo+Pj4+PiArCj4+Pj4+ICvCoMKgwqAgaWYgKG1lbS0+c3Rh
-cnQgPj0gYWRldi0+Z21jLnZpc2libGVfdnJhbV9zaXplID4+IFBBR0VfU0hJRlQpCj4+Pj4+ICDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gYW1kZ3B1X2JvX3NpemUoYm8pOwo+Pj4+PiAgwqDC
-oCAtwqDCoMKgIHJldHVybiAwOwo+Pj4+PiArwqDCoMKgIGlmICghbm9kZXMpCj4+Pj4+ICvCoMKg
-wqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+Pj4gKwo+Pj4+PiArwqDCoMKgIHNwaW5fbG9jaygmbWdy
-LT5sb2NrKTsKPj4+PiBJIGFjdHVhbGx5IGRvbid0IHNlZSBhbnkgbmVlZCB0byBncmFiIHRoZSBs
-b2NrIGhlcmUuCj4+PiBBaCwgc28gYW1kZ3B1X3ZyYW1fbWdyX2RlbCBvbmx5IGdyYWJzIGl0IGZv
-ciBkcm1fbW1fcmVtb3ZlX25vZGU/Cj4+IFllcywgZXhhY3RseS4KPiBXaWxsIGRyb3AgaXQgaW4g
-djIsIHRoYW5rcyEKCkhhdmVuJ3Qgc2VlZW4gdjIgeWV0LCBidXQgd2l0aCB0aGF0IGxvY2sgcmVt
-b3ZlZCB0aGUgd2hvbGUgc2VyaWVzIGlzIApSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KClJlZ2FyZHMsCkNocmlzdGlhbi4KX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1580497569==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687C56D02C99719379909B1FB710CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB1687C56D02C99719379909B1FB710CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Applied. Thanks.
+
+
+Best Regards
+
+Rex
+
+
+________________________________
+From: rajan.vaja@gmail.com <rajan.vaja@gmail.com>
+Sent: Monday, June 18, 2018 3:31 PM
+To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); Zhu, Rex;=
+ StDenis, Tom
+Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-k=
+ernel@vger.kernel.org; Rajan Vaja
+Subject: [PATCH] drm/amd/pp: Fix uninitialized variable
+
+From: Rajan Vaja <rajan.vaja@gmail.com>
+
+Initialize variable to 0 before performing logical OR operation.
+
+Signed-off-by: Rajan Vaja <rajan.vaja@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c b/drive=
+rs/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
+index a9efd855..bde01d4 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
+@@ -1090,7 +1090,7 @@ static int vega10_disable_se_edc_config(struct pp_hwm=
+gr *hwmgr)
+ static int vega10_enable_psm_gc_edc_config(struct pp_hwmgr *hwmgr)
+ {
+         struct amdgpu_device *adev =3D hwmgr->adev;
+-       int result;
++       int result =3D 0;
+         uint32_t num_se =3D 0;
+         uint32_t count, data;
+
+--
+2.7.4
+
+
+--_000_CY4PR12MB1687C56D02C99719379909B1FB710CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Applied. Thanks.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> rajan.vaja@gmail.com=
+ &lt;rajan.vaja@gmail.com&gt;<br>
+<b>Sent:</b> Monday, June 18, 2018 3:31 PM<br>
+<b>To:</b> Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); Zh=
+u, Rex; StDenis, Tom<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; =
+linux-kernel@vger.kernel.org; Rajan Vaja<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Fix uninitialized variable</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Rajan Vaja &lt;rajan.vaja@gmail.com&gt;<br>
+<br>
+Initialize variable to 0 before performing logical OR operation.<br>
+<br>
+Signed-off-by: Rajan Vaja &lt;rajan.vaja@gmail.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c b/drive=
+rs/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c<br>
+index a9efd855..bde01d4 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c<br=
+>
+@@ -1090,7 &#43;1090,7 @@ static int vega10_disable_se_edc_config(struct pp=
+_hwmgr *hwmgr)<br>
+&nbsp;static int vega10_enable_psm_gc_edc_config(struct pp_hwmgr *hwmgr)<br=
+>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D hwmgr-&gt;adev;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int result;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int result =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t num_se =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t count, data;<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1687C56D02C99719379909B1FB710CY4PR12MB1687namp_--
+
+--===============1580497569==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1580497569==--
