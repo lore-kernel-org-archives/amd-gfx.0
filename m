@@ -1,70 +1,34 @@
-From: James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use first uvd instance to avoid clang build
- error
-Date: Sun, 17 Jun 2018 22:03:40 -0400
-Message-ID: <625b2c05-c923-cd5c-cc48-cbc51ba3d3ee@amd.com>
-References: <20180617085218.7753-1-stefan@agner.ch>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180617085218.7753-1-stefan-XLVq0VzYD2Y@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Stefan Agner <stefan-XLVq0VzYD2Y@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, James Zhu <James.Zhu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+From: rajan.vaja@gmail.com
+Subject: [PATCH] drm/amd/pp: Fix uninitialized variable
+Date: Mon, 18 Jun 2018 13:01:02 +0530
+Message-ID: <1529307062-21787-1-git-send-email-rajan.vaja@softnautics.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, Rex.Zhu@amd.com, tom.stdenis@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Rajan Vaja <rajan.vaja@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAyMDE4LTA2LTE3IDA0OjUyIEFNLCBTdGVmYW4gQWduZXIgd3JvdGU6Cj4gRXhwbGljaXRs
-eSB1c2UgdGhlIGZpcnN0IHV2ZCBpbnN0YW5jZSB0byBhdm9pZCBhIGJ1aWxkIGVycm9yIHdoZW4K
-PiB1c2luZyBjbGFuZyA2Ogo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQu
-YzoxMTQ4OjUyOiBlcnJvcjogZXhwZWN0ZWQgJyknCj4gICAgICAgICAgICAgICAgICBjb250YWlu
-ZXJfb2Yod29yaywgc3RydWN0IGFtZGdwdV9kZXZpY2UsIHV2ZC5pbnN0LT5pZGxlX3dvcmsud29y
-ayk7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgXgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQu
-YzoxMTQ4OjM6IG5vdGU6IHRvIG1hdGNoIHRoaXMgJygnCj4gICAgICAgICAgICAgICAgICBjb250
-YWluZXJfb2Yod29yaywgc3RydWN0IGFtZGdwdV9kZXZpY2UsIHV2ZC5pbnN0LT5pZGxlX3dvcmsu
-d29yayk7Cj4gICAgICAgICAgICAgICAgICBeCj4gLi9pbmNsdWRlL2xpbnV4L2tlcm5lbC5oOjk2
-NzoyMTogbm90ZTogZXhwYW5kZWQgZnJvbSBtYWNybyAnY29udGFpbmVyX29mJwo+ICAgICAgICAg
-ICgodHlwZSAqKShfX21wdHIgLSBvZmZzZXRvZih0eXBlLCBtZW1iZXIpKSk7IH0pCj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIF4KPiAuL2luY2x1ZGUvbGludXgvc3RkZGVmLmg6MTc6MzI6
-IG5vdGU6IGV4cGFuZGVkIGZyb20gbWFjcm8gJ29mZnNldG9mJwo+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIF4KPiAuL2luY2x1ZGUvbGludXgvY29tcGlsZXItZ2NjLmg6MTcwOjIw
-OiBub3RlOiBleHBhbmRlZCBmcm9tIG1hY3JvCj4gICAgICAgICdfX2NvbXBpbGVyX29mZnNldG9m
-Jwo+ICAgICAgICAgIF9fYnVpbHRpbl9vZmZzZXRvZihhLCBiKQo+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIF4KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmM6MTE0
-NzoyNDogZXJyb3I6IGluaXRpYWxpemluZwo+ICAgICAgICAnc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-Kicgd2l0aCBhbiBleHByZXNzaW9uIG9mIGluY29tcGF0aWJsZSB0eXBlICd2b2lkJwo+ICAgICAg
-ICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0KPiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgXgo+IDIgZXJyb3JzIGdlbmVyYXRlZC4KPgo+IEZpeGVzOiAxMGRkNzRlYWM0ZGIg
-KCJkcm0vYW1kZ3B1L3ZnMjA6UmVzdHJ1Y3QgdXZkLmluc3QgdG8gc3VwcG9ydCBtdWx0aXBsZSBp
-bnN0YW5jZXMiKQo+IENjOiBKYW1lcyBaaHUgPEphbWVzLlpodUBhbWQuY29tPgo+IFNpZ25lZC1v
-ZmYtYnk6IFN0ZWZhbiBBZ25lciA8c3RlZmFuQGFnbmVyLmNoPgo+IC0tLQo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jIHwgMiArLQo+ICAgMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3V2ZC5jCj4gaW5kZXggYmNmNjhmODBiYmYwLi42NjY2YTU4ODhjNDQgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jCj4gQEAgLTExNDUsNyArMTE0
-NSw3IEBAIGludCBhbWRncHVfdXZkX2dldF9kZXN0cm95X21zZyhzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
-KnJpbmcsIHVpbnQzMl90IGhhbmRsZSwKPiAgIHN0YXRpYyB2b2lkIGFtZGdwdV91dmRfaWRsZV93
-b3JrX2hhbmRsZXIoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQo+ICAgewo+ICAgCXN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2ID0KPiAtCQljb250YWluZXJfb2Yod29yaywgc3RydWN0IGFtZGdw
-dV9kZXZpY2UsIHV2ZC5pbnN0LT5pZGxlX3dvcmsud29yayk7Cj4gKwkJY29udGFpbmVyX29mKHdv
-cmssIHN0cnVjdCBhbWRncHVfZGV2aWNlLCB1dmQuaW5zdFswXS5pZGxlX3dvcmsud29yayk7Ckhp
-IEFsZXgsCklmIGFsbCBpbnN0YW5jZXMgc2hhcmUgb25lIGlkbGUgd29yayBmcm9tIGhhcmR3YXJl
-IHZpZXcgY3VycmVudGx5IGFuZCBpbiAKdGhlIGZ1dHVyZSAsCnNob3VsZCB3ZSBtb3ZlIHN0cnVj
-dCBkZWxheWVkX3dvcmsgaWRsZV93b3JrIGZyb20gc3RydWN0IGFtZGdwdV91dmRfaW5zdCAKdG8g
-c3RydWN0IGFtZGdwdV91dmQ/CkphbWVzCj4gICAJdW5zaWduZWQgZmVuY2VzID0gMCwgaSwgajsK
-PiAgIAo+ICAgCWZvciAoaSA9IDA7IGkgPCBhZGV2LT51dmQubnVtX3V2ZF9pbnN0OyArK2kpIHsK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+From: Rajan Vaja <rajan.vaja@gmail.com>
+
+Initialize variable to 0 before performing logical OR operation.
+
+Signed-off-by: Rajan Vaja <rajan.vaja@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
+index a9efd855..bde01d4 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_powertune.c
+@@ -1090,7 +1090,7 @@ static int vega10_disable_se_edc_config(struct pp_hwmgr *hwmgr)
+ static int vega10_enable_psm_gc_edc_config(struct pp_hwmgr *hwmgr)
+ {
+ 	struct amdgpu_device *adev = hwmgr->adev;
+-	int result;
++	int result = 0;
+ 	uint32_t num_se = 0;
+ 	uint32_t count, data;
+ 
+-- 
+2.7.4
