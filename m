@@ -1,420 +1,900 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH 2/5] dma-buf: remove kmap_atomic interface
-Date: Tue, 19 Jun 2018 17:35:25 +0200
-Message-ID: <CAKMK7uEvhMF92ifA=7xQ=9GR3NofZNExCDTHZTtikmujJTZ89A@mail.gmail.com>
-References: <20180601120020.11520-1-christian.koenig@amd.com>
- <20180601120020.11520-2-christian.koenig@amd.com>
- <20180618081845.GV3438@phenom.ffwll.local>
- <2bcb34c3-b729-e3ea-fb8c-2471e4ed56d6@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 10/13] drm/amd/powerplay: apply clocks adjust rules on
+ power state change
+Date: Tue, 19 Jun 2018 15:43:14 +0000
+Message-ID: <CY4PR12MB1687A705AE09BB6492A5C156FB700@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1529393945-16629-1-git-send-email-evan.quan@amd.com>
+ <1529393945-16629-10-git-send-email-evan.quan@amd.com>,
+ <CADnq5_PqQ0aRcA=8iUq9qLow+W6rwpXhsj2GKRskn3xjwEbicw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <2bcb34c3-b729-e3ea-fb8c-2471e4ed56d6@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0037898251=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_PqQ0aRcA=8iUq9qLow+W6rwpXhsj2GKRskn3xjwEbicw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBKdW4gMTksIDIwMTggYXQgNDo0NyBQTSwgQ2hyaXN0aWFuIEvDtm5pZwo8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPiBBbSAxOC4wNi4yMDE4IHVtIDEwOjE4IHNjaHJp
-ZWIgRGFuaWVsIFZldHRlcjoKPj4KPj4gT24gRnJpLCBKdW4gMDEsIDIwMTggYXQgMDI6MDA6MTdQ
-TSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+Cj4+PiBOZWl0aGVyIHVzZWQgbm9y
-IGNvcnJlY3RseSBpbXBsZW1lbnRlZCBhbnl3aGVyZS4gSnVzdCBjb21wbGV0ZWx5IHJlbW92ZQo+
-Pj4gdGhlIGludGVyZmFjZS4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmln
-IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+Cj4+IEkgd29uZGVyIHdoZXRoZXIgd2UgY2Fu
-IG51a2UgdGhlIG5vcm1hbCBrbWFwIHN0dWZmIHRvbyAuLi4gZXZlcnlvbmUgc2VlbXMKPj4gdG8g
-d2FudC91c2UgdGhlIHZtYXAgc3R1ZmYgZm9yIGtlcm5lbC1pbnRlcm5hbCBtYXBwaW5nIG5lZWRz
-Lgo+Pgo+PiBBbnl3YXksIHRoaXMgbG9va3MgZ29vZC4KPj4+Cj4+PiAtLS0KPj4+ICAgZHJpdmVy
-cy9kbWEtYnVmL2RtYS1idWYuYyAgICAgICAgICAgICAgICAgICAgICAgICAgfCA0NAo+Pj4gLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfcHJpbWUuYyAgICAgICAgICB8ICAyIC0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FybWFkYS9h
-cm1hZGFfZ2VtLmMgICAgICAgICAgICAgICAgfCAgMiAtCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9k
-cm1fcHJpbWUuYyAgICAgICAgICAgICAgICAgICAgICAgIHwgMjYgLS0tLS0tLS0tLS0tLQo+Pj4g
-ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2dlbV9kbWFidWYuYyAgICAgICAgICAgICB8IDEx
-IC0tLS0tLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvbW9ja19kbWFidWYu
-YyAgICAgICB8ICAyIC0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vb21hcF9nZW1fZG1h
-YnVmLmMgICAgICAgICAgfCAgMiAtCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS90ZWdyYS9nZW0uYyAg
-ICAgICAgICAgICAgICAgICAgICAgIHwgMTQgLS0tLS0tLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0v
-dWRsL3VkbF9kbWFidWYuYyAgICAgICAgICAgICAgICAgICB8IDE3IC0tLS0tLS0tLQo+Pj4gICBk
-cml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9wcmltZS5jICAgICAgICAgICAgICB8IDEzIC0t
-LS0tLS0KPj4+ICAgLi4uL21lZGlhL2NvbW1vbi92aWRlb2J1ZjIvdmlkZW9idWYyLWRtYS1jb250
-aWcuYyAgfCAgMSAtCj4+PiAgIGRyaXZlcnMvbWVkaWEvY29tbW9uL3ZpZGVvYnVmMi92aWRlb2J1
-ZjItZG1hLXNnLmMgIHwgIDEgLQo+Pj4gICBkcml2ZXJzL21lZGlhL2NvbW1vbi92aWRlb2J1ZjIv
-dmlkZW9idWYyLXZtYWxsb2MuYyB8ICAxIC0KPj4+ICAgZHJpdmVycy9zdGFnaW5nL2FuZHJvaWQv
-aW9uL2lvbi5jICAgICAgICAgICAgICAgICAgfCAgMiAtCj4+PiAgIGRyaXZlcnMvdGVlL3RlZV9z
-aG0uYyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDYgLS0tCj4+PiAgIGluY2x1ZGUv
-ZHJtL2RybV9wcmltZS5oICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDQgLS0KPj4+ICAg
-aW5jbHVkZS9saW51eC9kbWEtYnVmLmggICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgNCAt
-LQo+Pj4gICAxNyBmaWxlcyBjaGFuZ2VkLCAxNTIgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMgYi9kcml2ZXJzL2RtYS1idWYvZG1hLWJ1
-Zi5jCj4+PiBpbmRleCBlOTlhOGQxOTk5MWIuLmU0YzY1N2Q5ZmFkNyAxMDA2NDQKPj4+IC0tLSBh
-L2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMKPj4+ICsrKyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEt
-YnVmLmMKPj4+IEBAIC00MDUsNyArNDA1LDYgQEAgc3RydWN0IGRtYV9idWYgKmRtYV9idWZfZXhw
-b3J0KGNvbnN0IHN0cnVjdAo+Pj4gZG1hX2J1Zl9leHBvcnRfaW5mbyAqZXhwX2luZm8pCj4+PiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHx8ICFleHBfaW5mby0+b3BzLT5tYXBfZG1hX2J1Zgo+
-Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICB8fCAhZXhwX2luZm8tPm9wcy0+dW5tYXBfZG1h
-X2J1Zgo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICB8fCAhZXhwX2luZm8tPm9wcy0+cmVs
-ZWFzZQo+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgICB8fCAhZXhwX2luZm8tPm9wcy0+bWFw
-X2F0b21pYwo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICB8fCAhZXhwX2luZm8tPm9wcy0+
-bWFwCj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgIHx8ICFleHBfaW5mby0+b3BzLT5tbWFw
-KSkgewo+Pj4gICAgICAgICAgICAgICAgIHJldHVybiBFUlJfUFRSKC1FSU5WQUwpOwo+Pj4gQEAg
-LTY4NywxNCArNjg2LDYgQEAgRVhQT1JUX1NZTUJPTF9HUEwoZG1hX2J1Zl91bm1hcF9hdHRhY2ht
-ZW50KTsKPj4+ICAgICogICAgICB2b2lkIFwqZG1hX2J1Zl9rbWFwKHN0cnVjdCBkbWFfYnVmIFwq
-LCB1bnNpZ25lZCBsb25nKTsKPj4+ICAgICogICAgICB2b2lkIGRtYV9idWZfa3VubWFwKHN0cnVj
-dCBkbWFfYnVmIFwqLCB1bnNpZ25lZCBsb25nLCB2b2lkIFwqKTsKPj4+ICAgICoKPj4+IC0gKiAg
-IFRoZXJlIGFyZSBhbHNvIGF0b21pYyB2YXJpYW50cyBvZiB0aGVzZSBpbnRlcmZhY2VzLiBMaWtl
-IGZvciBrbWFwCj4+PiB0aGV5Cj4+PiAtICogICBmYWNpbGl0YXRlIG5vbi1ibG9ja2luZyBmYXN0
-LXBhdGhzLiBOZWl0aGVyIHRoZSBpbXBvcnRlciBub3IgdGhlCj4+PiBleHBvcnRlcgo+Pj4gLSAq
-ICAgKGluIHRoZSBjYWxsYmFjaykgaXMgYWxsb3dlZCB0byBibG9jayB3aGVuIHVzaW5nIHRoZXNl
-Lgo+Pj4gLSAqCj4+PiAtICogICBJbnRlcmZhY2VzOjoKPj4+IC0gKiAgICAgIHZvaWQgXCpkbWFf
-YnVmX2ttYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmIFwqLCB1bnNpZ25lZCBsb25nKTsKPj4+IC0g
-KiAgICAgIHZvaWQgZG1hX2J1Zl9rdW5tYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmIFwqLCB1bnNp
-Z25lZCBsb25nLAo+Pj4gdm9pZCBcKik7Cj4+PiAtICoKPj4+ICAgICogICBGb3IgaW1wb3J0ZXJz
-IGFsbCB0aGUgcmVzdHJpY3Rpb25zIG9mIHVzaW5nIGttYXAgYXBwbHksIGxpa2UgdGhlCj4+PiBs
-aW1pdGVkCj4+PiAgICAqICAgc3VwcGx5IG9mIGttYXBfYXRvbWljIHNsb3RzLiBIZW5jZSBhbiBp
-bXBvcnRlciBzaGFsbCBvbmx5IGhvbGQKPj4+IG9udG8gYXQKPj4+ICAgICogICBtYXggMiBhdG9t
-aWMgZG1hX2J1ZiBrbWFwcyBhdCB0aGUgc2FtZSB0aW1lIChpbiBhbnkgZ2l2ZW4gcHJvY2Vzcwo+
-Pj4gY29udGV4dCkuCj4+Cj4+IFRoaXMgaXMgYWxzbyBhYm91dCBhdG9taWMga21hcCAuLi4KPj4K
-Pj4gQW5kIHRoZSBzdWJzZXF1ZW50IGxhbmd1YWdlIGFyb3VuZCAiTm90ZSB0aGF0IHRoZXNlIGNh
-bGxzIG5lZWQgdG8gYWx3YXlzCj4+IHN1Y2NlZWQuIiBpcyBhbHNvIG5vdCB0cnVlLCBtaWdodCBi
-ZSBnb29kIHRvIHVwZGF0ZSB0aGF0IHN0YXRpbmcgdGhhdCBrbWFwCj4+IGlzIG9wdGlvbmFsIChs
-aWtlIHdlIHNheSBhbHJlYWR5IGZvciB2bWFwKS4KPj4KPj4gV2l0aCB0aG9zZSBkb2NzIG5pdHMg
-YWRkcmVzc2VkOgo+Pgo+PiBSZXZpZXdlZC1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRl
-ckBmZndsbC5jaD4KPgo+Cj4gSSd2ZSBmaXhlZCB1cCBwYXRjaCAjMSBhbmQgIzIgYW5kIGFkZGVk
-IHlvdXIgUmV2aWV3ZWQtYnkgdGFnLgo+Cj4gU2luY2UgSSBmaW5hbGx5IGhhZCB0aW1lIHRvIGlu
-c3RhbGwgZGltIGRvIHlvdSBoYXZlIGFueSBvYmplY3Rpb25zIHRoYXQgSQo+IG5vdyBydW4gImRp
-bSBwdXNoIGRybS1taXNjLW5leHQiIHdpdGggdGhvc2UgdHdvIGFwcGxpZWQ/CgpHbyBhaGVhZCwg
-dGhhdCdzIHRoZSBwb2ludCBvZiBjb21taXQgcmlnaHRzLiBkaW0gbWlnaHQgY29tcGxhaW4gaWYg
-eW91CmNoZXJyeSBwaWNrZWQgdGhlbSBhbmQgZGlkbid0IHBpY2sgdGhlbSB1cCB1c2luZyBkaW0g
-YXBwbHkgdGhvdWdoIC4uLgotRGFuaWVsCgoKPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+Cj4+
-Cj4+PiBAQCAtODU5LDQxICs4NTAsNiBAQCBpbnQgZG1hX2J1Zl9lbmRfY3B1X2FjY2VzcyhzdHJ1
-Y3QgZG1hX2J1ZiAqZG1hYnVmLAo+Pj4gICB9Cj4+PiAgIEVYUE9SVF9TWU1CT0xfR1BMKGRtYV9i
-dWZfZW5kX2NwdV9hY2Nlc3MpOwo+Pj4gICAtLyoqCj4+PiAtICogZG1hX2J1Zl9rbWFwX2F0b21p
-YyAtIE1hcCBhIHBhZ2Ugb2YgdGhlIGJ1ZmZlciBvYmplY3QgaW50byBrZXJuZWwKPj4+IGFkZHJl
-c3MKPj4+IC0gKiBzcGFjZS4gVGhlIHNhbWUgcmVzdHJpY3Rpb25zIGFzIGZvciBrbWFwX2F0b21p
-YyBhbmQgZnJpZW5kcyBhcHBseS4KPj4+IC0gKiBAZG1hYnVmOiAgICBbaW5dICAgIGJ1ZmZlciB0
-byBtYXAgcGFnZSBmcm9tLgo+Pj4gLSAqIEBwYWdlX251bTogIFtpbl0gICAgcGFnZSBpbiBQQUdF
-X1NJWkUgdW5pdHMgdG8gbWFwLgo+Pj4gLSAqCj4+PiAtICogVGhpcyBjYWxsIG11c3QgYWx3YXlz
-IHN1Y2NlZWQsIGFueSBuZWNlc3NhcnkgcHJlcGFyYXRpb25zIHRoYXQgbWlnaHQKPj4+IGZhaWwK
-Pj4+IC0gKiBuZWVkIHRvIGJlIGRvbmUgaW4gYmVnaW5fY3B1X2FjY2Vzcy4KPj4+IC0gKi8KPj4+
-IC12b2lkICpkbWFfYnVmX2ttYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmICpkbWFidWYsIHVuc2ln
-bmVkIGxvbmcKPj4+IHBhZ2VfbnVtKQo+Pj4gLXsKPj4+IC0gICAgICAgV0FSTl9PTighZG1hYnVm
-KTsKPj4+IC0KPj4+IC0gICAgICAgcmV0dXJuIGRtYWJ1Zi0+b3BzLT5tYXBfYXRvbWljKGRtYWJ1
-ZiwgcGFnZV9udW0pOwo+Pj4gLX0KPj4+IC1FWFBPUlRfU1lNQk9MX0dQTChkbWFfYnVmX2ttYXBf
-YXRvbWljKTsKPj4+IC0KPj4+IC0vKioKPj4+IC0gKiBkbWFfYnVmX2t1bm1hcF9hdG9taWMgLSBV
-bm1hcCBhIHBhZ2Ugb2J0YWluZWQgYnkgZG1hX2J1Zl9rbWFwX2F0b21pYy4KPj4+IC0gKiBAZG1h
-YnVmOiAgICBbaW5dICAgIGJ1ZmZlciB0byB1bm1hcCBwYWdlIGZyb20uCj4+PiAtICogQHBhZ2Vf
-bnVtOiAgW2luXSAgICBwYWdlIGluIFBBR0VfU0laRSB1bml0cyB0byB1bm1hcC4KPj4+IC0gKiBA
-dmFkZHI6ICAgICBbaW5dICAgIGtlcm5lbCBzcGFjZSBwb2ludGVyIG9idGFpbmVkIGZyb20KPj4+
-IGRtYV9idWZfa21hcF9hdG9taWMuCj4+PiAtICoKPj4+IC0gKiBUaGlzIGNhbGwgbXVzdCBhbHdh
-eXMgc3VjY2VlZC4KPj4+IC0gKi8KPj4+IC12b2lkIGRtYV9idWZfa3VubWFwX2F0b21pYyhzdHJ1
-Y3QgZG1hX2J1ZiAqZG1hYnVmLCB1bnNpZ25lZCBsb25nCj4+PiBwYWdlX251bSwKPj4+IC0gICAg
-ICAgICAgICAgICAgICAgICAgICAgIHZvaWQgKnZhZGRyKQo+Pj4gLXsKPj4+IC0gICAgICAgV0FS
-Tl9PTighZG1hYnVmKTsKPj4+IC0KPj4+IC0gICAgICAgaWYgKGRtYWJ1Zi0+b3BzLT51bm1hcF9h
-dG9taWMpCj4+PiAtICAgICAgICAgICAgICAgZG1hYnVmLT5vcHMtPnVubWFwX2F0b21pYyhkbWFi
-dWYsIHBhZ2VfbnVtLCB2YWRkcik7Cj4+PiAtfQo+Pj4gLUVYUE9SVF9TWU1CT0xfR1BMKGRtYV9i
-dWZfa3VubWFwX2F0b21pYyk7Cj4+PiAtCj4+PiAgIC8qKgo+Pj4gICAgKiBkbWFfYnVmX2ttYXAg
-LSBNYXAgYSBwYWdlIG9mIHRoZSBidWZmZXIgb2JqZWN0IGludG8ga2VybmVsIGFkZHJlc3MKPj4+
-IHNwYWNlLiBUaGUKPj4+ICAgICogc2FtZSByZXN0cmljdGlvbnMgYXMgZm9yIGttYXAgYW5kIGZy
-aWVuZHMgYXBwbHkuCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ByaW1lLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3By
-aW1lLmMKPj4+IGluZGV4IGYxNTAwZjFlYzBmNS4uYTE1NmIzODkxYTNmIDEwMDY0NAo+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKPj4+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4+PiBAQCAtMjQ0LDkgKzI0
-NCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZG1hX2J1Zl9vcHMgYW1kZ3B1X2RtYWJ1Zl9vcHMg
-PSB7Cj4+PiAgICAgICAgIC5yZWxlYXNlID0gZHJtX2dlbV9kbWFidWZfcmVsZWFzZSwKPj4+ICAg
-ICAgICAgLmJlZ2luX2NwdV9hY2Nlc3MgPSBhbWRncHVfZ2VtX2JlZ2luX2NwdV9hY2Nlc3MsCj4+
-PiAgICAgICAgIC5tYXAgPSBkcm1fZ2VtX2RtYWJ1Zl9rbWFwLAo+Pj4gLSAgICAgICAubWFwX2F0
-b21pYyA9IGRybV9nZW1fZG1hYnVmX2ttYXBfYXRvbWljLAo+Pj4gICAgICAgICAudW5tYXAgPSBk
-cm1fZ2VtX2RtYWJ1Zl9rdW5tYXAsCj4+PiAtICAgICAgIC51bm1hcF9hdG9taWMgPSBkcm1fZ2Vt
-X2RtYWJ1Zl9rdW5tYXBfYXRvbWljLAo+Pj4gICAgICAgICAubW1hcCA9IGRybV9nZW1fZG1hYnVm
-X21tYXAsCj4+PiAgICAgICAgIC52bWFwID0gZHJtX2dlbV9kbWFidWZfdm1hcCwKPj4+ICAgICAg
-ICAgLnZ1bm1hcCA9IGRybV9nZW1fZG1hYnVmX3Z1bm1hcCwKPj4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYXJtYWRhL2FybWFkYV9nZW0uYwo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYXJt
-YWRhL2FybWFkYV9nZW0uYwo+Pj4gaW5kZXggYTk3ZjUwOTc0M2E1Li4zZmIzN2M3NWMwNjUgMTAw
-NjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYXJtYWRhL2FybWFkYV9nZW0uYwo+Pj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1hZGFfZ2VtLmMKPj4+IEBAIC00OTAsOCArNDkw
-LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWFfYnVmX29wcwo+Pj4gYXJtYWRhX2dlbV9wcmlt
-ZV9kbWFidWZfb3BzID0gewo+Pj4gICAgICAgICAubWFwX2RtYV9idWYgICAgPSBhcm1hZGFfZ2Vt
-X3ByaW1lX21hcF9kbWFfYnVmLAo+Pj4gICAgICAgICAudW5tYXBfZG1hX2J1ZiAgPSBhcm1hZGFf
-Z2VtX3ByaW1lX3VubWFwX2RtYV9idWYsCj4+PiAgICAgICAgIC5yZWxlYXNlICAgICAgICA9IGRy
-bV9nZW1fZG1hYnVmX3JlbGVhc2UsCj4+PiAtICAgICAgIC5tYXBfYXRvbWljICAgICA9IGFybWFk
-YV9nZW1fZG1hYnVmX25vX2ttYXAsCj4+PiAtICAgICAgIC51bm1hcF9hdG9taWMgICA9IGFybWFk
-YV9nZW1fZG1hYnVmX25vX2t1bm1hcCwKPj4+ICAgICAgICAgLm1hcCAgICAgICAgICAgID0gYXJt
-YWRhX2dlbV9kbWFidWZfbm9fa21hcCwKPj4+ICAgICAgICAgLnVubWFwICAgICAgICAgID0gYXJt
-YWRhX2dlbV9kbWFidWZfbm9fa3VubWFwLAo+Pj4gICAgICAgICAubW1hcCAgICAgICAgICAgPSBh
-cm1hZGFfZ2VtX2RtYWJ1Zl9tbWFwLAo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9k
-cm1fcHJpbWUuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYwo+Pj4gaW5kZXggNGEzYTIz
-MmZlYTY3Li5iMjhmYThmNDRjOGIgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJt
-X3ByaW1lLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fcHJpbWUuYwo+Pj4gQEAgLTQy
-NiwzMCArNDI2LDYgQEAgdm9pZCBkcm1fZ2VtX2RtYWJ1Zl92dW5tYXAoc3RydWN0IGRtYV9idWYg
-KmRtYV9idWYsCj4+PiB2b2lkICp2YWRkcikKPj4+ICAgfQo+Pj4gICBFWFBPUlRfU1lNQk9MKGRy
-bV9nZW1fZG1hYnVmX3Z1bm1hcCk7Cj4+PiAgIC0vKioKPj4+IC0gKiBkcm1fZ2VtX2RtYWJ1Zl9r
-bWFwX2F0b21pYyAtIG1hcF9hdG9taWMgaW1wbGVtZW50YXRpb24gZm9yIEdFTQo+Pj4gLSAqCj4+
-PiAtICogTm90IGltcGxlbWVudGVkLiBUaGlzIGNhbiBiZSB1c2VkIGFzIHRoZSAmZG1hX2J1Zl9v
-cHMubWFwX2F0b21pYwo+Pj4gY2FsbGJhY2suCj4+PiAtICovCj4+PiAtdm9pZCAqZHJtX2dlbV9k
-bWFidWZfa21hcF9hdG9taWMoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4+PiAtICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtKQo+Pj4gLXsKPj4+
-IC0gICAgICAgcmV0dXJuIE5VTEw7Cj4+PiAtfQo+Pj4gLUVYUE9SVF9TWU1CT0woZHJtX2dlbV9k
-bWFidWZfa21hcF9hdG9taWMpOwo+Pj4gLQo+Pj4gLS8qKgo+Pj4gLSAqIGRybV9nZW1fZG1hYnVm
-X2t1bm1hcF9hdG9taWMgLSB1bm1hcF9hdG9taWMgaW1wbGVtZW50YXRpb24gZm9yIEdFTQo+Pj4g
-LSAqCj4+PiAtICogTm90IGltcGxlbWVudGVkLiBUaGlzIGNhbiBiZSB1c2VkIGFzIHRoZSAmZG1h
-X2J1Zl9vcHMudW5tYXBfYXRvbWljCj4+PiBjYWxsYmFjay4KPj4+IC0gKi8KPj4+IC12b2lkIGRy
-bV9nZW1fZG1hYnVmX2t1bm1hcF9hdG9taWMoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4+PiAt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBwYWdlX251bSwg
-dm9pZCAqYWRkcikKPj4+IC17Cj4+PiAtCj4+PiAtfQo+Pj4gLUVYUE9SVF9TWU1CT0woZHJtX2dl
-bV9kbWFidWZfa3VubWFwX2F0b21pYyk7Cj4+PiAtCj4+PiAgIC8qKgo+Pj4gICAgKiBkcm1fZ2Vt
-X2RtYWJ1Zl9rbWFwIC0gbWFwIGltcGxlbWVudGF0aW9uIGZvciBHRU0KPj4+ICAgICoKPj4+IEBA
-IC01MDIsOSArNDc4LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWFfYnVmX29wcwo+Pj4gZHJt
-X2dlbV9wcmltZV9kbWFidWZfb3BzID0gIHsKPj4+ICAgICAgICAgLnVubWFwX2RtYV9idWYgPSBk
-cm1fZ2VtX3VubWFwX2RtYV9idWYsCj4+PiAgICAgICAgIC5yZWxlYXNlID0gZHJtX2dlbV9kbWFi
-dWZfcmVsZWFzZSwKPj4+ICAgICAgICAgLm1hcCA9IGRybV9nZW1fZG1hYnVmX2ttYXAsCj4+PiAt
-ICAgICAgIC5tYXBfYXRvbWljID0gZHJtX2dlbV9kbWFidWZfa21hcF9hdG9taWMsCj4+PiAgICAg
-ICAgIC51bm1hcCA9IGRybV9nZW1fZG1hYnVmX2t1bm1hcCwKPj4+IC0gICAgICAgLnVubWFwX2F0
-b21pYyA9IGRybV9nZW1fZG1hYnVmX2t1bm1hcF9hdG9taWMsCj4+PiAgICAgICAgIC5tbWFwID0g
-ZHJtX2dlbV9kbWFidWZfbW1hcCwKPj4+ICAgICAgICAgLnZtYXAgPSBkcm1fZ2VtX2RtYWJ1Zl92
-bWFwLAo+Pj4gICAgICAgICAudnVubWFwID0gZHJtX2dlbV9kbWFidWZfdnVubWFwLAo+Pj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX2RtYWJ1Zi5jCj4+PiBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZ2VtX2RtYWJ1Zi5jCj4+PiBpbmRleCA2OWE3YWVjNDll
-ODQuLjgyZTJjYTE3YTQ0MSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
-MTVfZ2VtX2RtYWJ1Zi5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2dlbV9k
-bWFidWYuYwo+Pj4gQEAgLTExMSwxNSArMTExLDYgQEAgc3RhdGljIHZvaWQgaTkxNV9nZW1fZG1h
-YnVmX3Z1bm1hcChzdHJ1Y3QgZG1hX2J1Zgo+Pj4gKmRtYV9idWYsIHZvaWQgKnZhZGRyKQo+Pj4g
-ICAgICAgICBpOTE1X2dlbV9vYmplY3RfdW5waW5fbWFwKG9iaik7Cj4+PiAgIH0KPj4+ICAgLXN0
-YXRpYyB2b2lkICppOTE1X2dlbV9kbWFidWZfa21hcF9hdG9taWMoc3RydWN0IGRtYV9idWYgKmRt
-YV9idWYsCj4+PiB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtKQo+Pj4gLXsKPj4+IC0gICAgICAgcmV0
-dXJuIE5VTEw7Cj4+PiAtfQo+Pj4gLQo+Pj4gLXN0YXRpYyB2b2lkIGk5MTVfZ2VtX2RtYWJ1Zl9r
-dW5tYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+Pj4gdW5zaWduZWQgbG9uZyBw
-YWdlX251bSwgdm9pZCAqYWRkcikKPj4+IC17Cj4+PiAtCj4+PiAtfQo+Pj4gICBzdGF0aWMgdm9p
-ZCAqaTkxNV9nZW1fZG1hYnVmX2ttYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHVuc2lnbmVk
-Cj4+PiBsb25nIHBhZ2VfbnVtKQo+Pj4gICB7Cj4+PiAgICAgICAgIHN0cnVjdCBkcm1faTkxNV9n
-ZW1fb2JqZWN0ICpvYmogPSBkbWFfYnVmX3RvX29iaihkbWFfYnVmKTsKPj4+IEBAIC0yMjUsOSAr
-MjE2LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWFfYnVmX29wcyBpOTE1X2RtYWJ1Zl9vcHMg
-PSAgewo+Pj4gICAgICAgICAudW5tYXBfZG1hX2J1ZiA9IGk5MTVfZ2VtX3VubWFwX2RtYV9idWYs
-Cj4+PiAgICAgICAgIC5yZWxlYXNlID0gZHJtX2dlbV9kbWFidWZfcmVsZWFzZSwKPj4+ICAgICAg
-ICAgLm1hcCA9IGk5MTVfZ2VtX2RtYWJ1Zl9rbWFwLAo+Pj4gLSAgICAgICAubWFwX2F0b21pYyA9
-IGk5MTVfZ2VtX2RtYWJ1Zl9rbWFwX2F0b21pYywKPj4+ICAgICAgICAgLnVubWFwID0gaTkxNV9n
-ZW1fZG1hYnVmX2t1bm1hcCwKPj4+IC0gICAgICAgLnVubWFwX2F0b21pYyA9IGk5MTVfZ2VtX2Rt
-YWJ1Zl9rdW5tYXBfYXRvbWljLAo+Pj4gICAgICAgICAubW1hcCA9IGk5MTVfZ2VtX2RtYWJ1Zl9t
-bWFwLAo+Pj4gICAgICAgICAudm1hcCA9IGk5MTVfZ2VtX2RtYWJ1Zl92bWFwLAo+Pj4gICAgICAg
-ICAudnVubWFwID0gaTkxNV9nZW1fZG1hYnVmX3Z1bm1hcCwKPj4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9zZWxmdGVzdHMvbW9ja19kbWFidWYuYwo+Pj4gYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9zZWxmdGVzdHMvbW9ja19kbWFidWYuYwo+Pj4gaW5kZXggMzAyZjdkMTAzNjM1
-Li5mODFmZGE4ZWE0NWUgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9zZWxm
-dGVzdHMvbW9ja19kbWFidWYuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvc2VsZnRl
-c3RzL21vY2tfZG1hYnVmLmMKPj4+IEBAIC0xMzAsOSArMTMwLDcgQEAgc3RhdGljIGNvbnN0IHN0
-cnVjdCBkbWFfYnVmX29wcyBtb2NrX2RtYWJ1Zl9vcHMgPSAgewo+Pj4gICAgICAgICAudW5tYXBf
-ZG1hX2J1ZiA9IG1vY2tfdW5tYXBfZG1hX2J1ZiwKPj4+ICAgICAgICAgLnJlbGVhc2UgPSBtb2Nr
-X2RtYWJ1Zl9yZWxlYXNlLAo+Pj4gICAgICAgICAubWFwID0gbW9ja19kbWFidWZfa21hcCwKPj4+
-IC0gICAgICAgLm1hcF9hdG9taWMgPSBtb2NrX2RtYWJ1Zl9rbWFwX2F0b21pYywKPj4+ICAgICAg
-ICAgLnVubWFwID0gbW9ja19kbWFidWZfa3VubWFwLAo+Pj4gLSAgICAgICAudW5tYXBfYXRvbWlj
-ID0gbW9ja19kbWFidWZfa3VubWFwX2F0b21pYywKPj4+ICAgICAgICAgLm1tYXAgPSBtb2NrX2Rt
-YWJ1Zl9tbWFwLAo+Pj4gICAgICAgICAudm1hcCA9IG1vY2tfZG1hYnVmX3ZtYXAsCj4+PiAgICAg
-ICAgIC52dW5tYXAgPSBtb2NrX2RtYWJ1Zl92dW5tYXAsCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL29tYXBkcm0vb21hcF9nZW1fZG1hYnVmLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJt
-L29tYXBkcm0vb21hcF9nZW1fZG1hYnVmLmMKPj4+IGluZGV4IDhlNDFkNjQ5ZTI0OC4uMWEwNzNm
-OWIyODM0IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL29tYXBkcm0vb21hcF9nZW1f
-ZG1hYnVmLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL29tYXBfZ2VtX2RtYWJ1
-Zi5jCj4+PiBAQCAtMTQ4LDggKzE0OCw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZG1hX2J1Zl9v
-cHMgb21hcF9kbWFidWZfb3BzID0gewo+Pj4gICAgICAgICAucmVsZWFzZSA9IGRybV9nZW1fZG1h
-YnVmX3JlbGVhc2UsCj4+PiAgICAgICAgIC5iZWdpbl9jcHVfYWNjZXNzID0gb21hcF9nZW1fZG1h
-YnVmX2JlZ2luX2NwdV9hY2Nlc3MsCj4+PiAgICAgICAgIC5lbmRfY3B1X2FjY2VzcyA9IG9tYXBf
-Z2VtX2RtYWJ1Zl9lbmRfY3B1X2FjY2VzcywKPj4+IC0gICAgICAgLm1hcF9hdG9taWMgPSBvbWFw
-X2dlbV9kbWFidWZfa21hcF9hdG9taWMsCj4+PiAtICAgICAgIC51bm1hcF9hdG9taWMgPSBvbWFw
-X2dlbV9kbWFidWZfa3VubWFwX2F0b21pYywKPj4+ICAgICAgICAgLm1hcCA9IG9tYXBfZ2VtX2Rt
-YWJ1Zl9rbWFwLAo+Pj4gICAgICAgICAudW5tYXAgPSBvbWFwX2dlbV9kbWFidWZfa3VubWFwLAo+
-Pj4gICAgICAgICAubW1hcCA9IG9tYXBfZ2VtX2RtYWJ1Zl9tbWFwLAo+Pj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9nZW0u
-Ywo+Pj4gaW5kZXggOGIwYjRmZjY0YmI0Li5kNzY2MTcwMmMxMWMgMTAwNjQ0Cj4+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vdGVncmEvZ2VtLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90ZWdy
-YS9nZW0uYwo+Pj4gQEAgLTU5NiwxOCArNTk2LDYgQEAgc3RhdGljIGludCB0ZWdyYV9nZW1fcHJp
-bWVfZW5kX2NwdV9hY2Nlc3Moc3RydWN0Cj4+PiBkbWFfYnVmICpidWYsCj4+PiAgICAgICAgIHJl
-dHVybiAwOwo+Pj4gICB9Cj4+PiAgIC1zdGF0aWMgdm9pZCAqdGVncmFfZ2VtX3ByaW1lX2ttYXBf
-YXRvbWljKHN0cnVjdCBkbWFfYnVmICpidWYsCj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgcGFnZSkKPj4+IC17Cj4+PiAtICAgICAgIHJl
-dHVybiBOVUxMOwo+Pj4gLX0KPj4+IC0KPj4+IC1zdGF0aWMgdm9pZCB0ZWdyYV9nZW1fcHJpbWVf
-a3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1hX2J1ZiAqYnVmLAo+Pj4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBwYWdlLAo+Pj4gLSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdm9pZCAqYWRkcikKPj4+IC17Cj4+PiAt
-fQo+Pj4gLQo+Pj4gICBzdGF0aWMgdm9pZCAqdGVncmFfZ2VtX3ByaW1lX2ttYXAoc3RydWN0IGRt
-YV9idWYgKmJ1ZiwgdW5zaWduZWQgbG9uZwo+Pj4gcGFnZSkKPj4+ICAgewo+Pj4gICAgICAgICBy
-ZXR1cm4gTlVMTDsKPj4+IEBAIC02NDgsOCArNjM2LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBk
-bWFfYnVmX29wcwo+Pj4gdGVncmFfZ2VtX3ByaW1lX2RtYWJ1Zl9vcHMgPSB7Cj4+PiAgICAgICAg
-IC5yZWxlYXNlID0gdGVncmFfZ2VtX3ByaW1lX3JlbGVhc2UsCj4+PiAgICAgICAgIC5iZWdpbl9j
-cHVfYWNjZXNzID0gdGVncmFfZ2VtX3ByaW1lX2JlZ2luX2NwdV9hY2Nlc3MsCj4+PiAgICAgICAg
-IC5lbmRfY3B1X2FjY2VzcyA9IHRlZ3JhX2dlbV9wcmltZV9lbmRfY3B1X2FjY2VzcywKPj4+IC0g
-ICAgICAgLm1hcF9hdG9taWMgPSB0ZWdyYV9nZW1fcHJpbWVfa21hcF9hdG9taWMsCj4+PiAtICAg
-ICAgIC51bm1hcF9hdG9taWMgPSB0ZWdyYV9nZW1fcHJpbWVfa3VubWFwX2F0b21pYywKPj4+ICAg
-ICAgICAgLm1hcCA9IHRlZ3JhX2dlbV9wcmltZV9rbWFwLAo+Pj4gICAgICAgICAudW5tYXAgPSB0
-ZWdyYV9nZW1fcHJpbWVfa3VubWFwLAo+Pj4gICAgICAgICAubW1hcCA9IHRlZ3JhX2dlbV9wcmlt
-ZV9tbWFwLAo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS91ZGwvdWRsX2RtYWJ1Zi5j
-Cj4+PiBiL2RyaXZlcnMvZ3B1L2RybS91ZGwvdWRsX2RtYWJ1Zi5jCj4+PiBpbmRleCA1ZmRjOGJk
-YzIwMjYuLmFlNzIyNWRlZGMzMCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS91ZGwv
-dWRsX2RtYWJ1Zi5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdWRsL3VkbF9kbWFidWYuYwo+
-Pj4gQEAgLTE1NiwyNyArMTU2LDEyIEBAIHN0YXRpYyB2b2lkICp1ZGxfZG1hYnVmX2ttYXAoc3Ry
-dWN0IGRtYV9idWYKPj4+ICpkbWFfYnVmLCB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtKQo+Pj4gICAg
-ICAgICByZXR1cm4gTlVMTDsKPj4+ICAgfQo+Pj4gICAtc3RhdGljIHZvaWQgKnVkbF9kbWFidWZf
-a21hcF9hdG9taWMoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4+PiAtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHBhZ2VfbnVtKQo+Pj4gLXsKPj4+IC0g
-ICAgICAgLyogVE9ETyAqLwo+Pj4gLQo+Pj4gLSAgICAgICByZXR1cm4gTlVMTDsKPj4+IC19Cj4+
-PiAtCj4+PiAgIHN0YXRpYyB2b2lkIHVkbF9kbWFidWZfa3VubWFwKHN0cnVjdCBkbWFfYnVmICpk
-bWFfYnVmLAo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBw
-YWdlX251bSwgdm9pZCAqYWRkcikKPj4+ICAgewo+Pj4gICAgICAgICAvKiBUT0RPICovCj4+PiAg
-IH0KPj4+ICAgLXN0YXRpYyB2b2lkIHVkbF9kbWFidWZfa3VubWFwX2F0b21pYyhzdHJ1Y3QgZG1h
-X2J1ZiAqZG1hX2J1ZiwKPj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1
-bnNpZ25lZCBsb25nIHBhZ2VfbnVtLAo+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHZvaWQgKmFkZHIpCj4+PiAtewo+Pj4gLSAgICAgICAvKiBUT0RPICovCj4+PiAtfQo+
-Pj4gLQo+Pj4gICBzdGF0aWMgaW50IHVkbF9kbWFidWZfbW1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1h
-X2J1ZiwKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCB2bV9hcmVhX3N0cnVj
-dCAqdm1hKQo+Pj4gICB7Cj4+PiBAQCAtMTkxLDkgKzE3Niw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1
-Y3QgZG1hX2J1Zl9vcHMgdWRsX2RtYWJ1Zl9vcHMgPSB7Cj4+PiAgICAgICAgIC5tYXBfZG1hX2J1
-ZiAgICAgICAgICAgID0gdWRsX21hcF9kbWFfYnVmLAo+Pj4gICAgICAgICAudW5tYXBfZG1hX2J1
-ZiAgICAgICAgICA9IHVkbF91bm1hcF9kbWFfYnVmLAo+Pj4gICAgICAgICAubWFwICAgICAgICAg
-ICAgICAgICAgICA9IHVkbF9kbWFidWZfa21hcCwKPj4+IC0gICAgICAgLm1hcF9hdG9taWMgICAg
-ICAgICAgICAgPSB1ZGxfZG1hYnVmX2ttYXBfYXRvbWljLAo+Pj4gICAgICAgICAudW5tYXAgICAg
-ICAgICAgICAgICAgICA9IHVkbF9kbWFidWZfa3VubWFwLAo+Pj4gLSAgICAgICAudW5tYXBfYXRv
-bWljICAgICAgICAgICA9IHVkbF9kbWFidWZfa3VubWFwX2F0b21pYywKPj4+ICAgICAgICAgLm1t
-YXAgICAgICAgICAgICAgICAgICAgPSB1ZGxfZG1hYnVmX21tYXAsCj4+PiAgICAgICAgIC5yZWxl
-YXNlICAgICAgICAgICAgICAgID0gZHJtX2dlbV9kbWFidWZfcmVsZWFzZSwKPj4+ICAgfTsKPj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9wcmltZS5jCj4+PiBi
-L2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X3ByaW1lLmMKPj4+IGluZGV4IGZiZmZiMzdj
-Y2Y0Mi4uMzczYmM2ZGEyZjg0IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3Ztd2dm
-eC92bXdnZnhfcHJpbWUuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhf
-cHJpbWUuYwo+Pj4gQEAgLTcxLDE3ICs3MSw2IEBAIHN0YXRpYyB2b2lkIHZtd19wcmltZV9kbWFi
-dWZfdnVubWFwKHN0cnVjdCBkbWFfYnVmCj4+PiAqZG1hX2J1Ziwgdm9pZCAqdmFkZHIpCj4+PiAg
-IHsKPj4+ICAgfQo+Pj4gICAtc3RhdGljIHZvaWQgKnZtd19wcmltZV9kbWFidWZfa21hcF9hdG9t
-aWMoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4+PiAtICAgICAgICAgICAgICAgdW5zaWduZWQg
-bG9uZyBwYWdlX251bSkKPj4+IC17Cj4+PiAtICAgICAgIHJldHVybiBOVUxMOwo+Pj4gLX0KPj4+
-IC0KPj4+IC1zdGF0aWMgdm9pZCB2bXdfcHJpbWVfZG1hYnVmX2t1bm1hcF9hdG9taWMoc3RydWN0
-IGRtYV9idWYgKmRtYV9idWYsCj4+PiAtICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBwYWdl
-X251bSwgdm9pZCAqYWRkcikKPj4+IC17Cj4+PiAtCj4+PiAtfQo+Pj4gICBzdGF0aWMgdm9pZCAq
-dm13X3ByaW1lX2RtYWJ1Zl9rbWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+Pj4gICAgICAg
-ICAgICAgICAgIHVuc2lnbmVkIGxvbmcgcGFnZV9udW0pCj4+PiAgIHsKPj4+IEBAIC0xMDgsOSAr
-OTcsNyBAQCBjb25zdCBzdHJ1Y3QgZG1hX2J1Zl9vcHMgdm13X3ByaW1lX2RtYWJ1Zl9vcHMgPSAg
-ewo+Pj4gICAgICAgICAudW5tYXBfZG1hX2J1ZiA9IHZtd19wcmltZV91bm1hcF9kbWFfYnVmLAo+
-Pj4gICAgICAgICAucmVsZWFzZSA9IE5VTEwsCj4+PiAgICAgICAgIC5tYXAgPSB2bXdfcHJpbWVf
-ZG1hYnVmX2ttYXAsCj4+PiAtICAgICAgIC5tYXBfYXRvbWljID0gdm13X3ByaW1lX2RtYWJ1Zl9r
-bWFwX2F0b21pYywKPj4+ICAgICAgICAgLnVubWFwID0gdm13X3ByaW1lX2RtYWJ1Zl9rdW5tYXAs
-Cj4+PiAtICAgICAgIC51bm1hcF9hdG9taWMgPSB2bXdfcHJpbWVfZG1hYnVmX2t1bm1hcF9hdG9t
-aWMsCj4+PiAgICAgICAgIC5tbWFwID0gdm13X3ByaW1lX2RtYWJ1Zl9tbWFwLAo+Pj4gICAgICAg
-ICAudm1hcCA9IHZtd19wcmltZV9kbWFidWZfdm1hcCwKPj4+ICAgICAgICAgLnZ1bm1hcCA9IHZt
-d19wcmltZV9kbWFidWZfdnVubWFwLAo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvY29t
-bW9uL3ZpZGVvYnVmMi92aWRlb2J1ZjItZG1hLWNvbnRpZy5jCj4+PiBiL2RyaXZlcnMvbWVkaWEv
-Y29tbW9uL3ZpZGVvYnVmMi92aWRlb2J1ZjItZG1hLWNvbnRpZy5jCj4+PiBpbmRleCAxMmQwMDcy
-YzUyYzIuLmFmZjBhYjdiZjgzZCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvbWVkaWEvY29tbW9u
-L3ZpZGVvYnVmMi92aWRlb2J1ZjItZG1hLWNvbnRpZy5jCj4+PiArKysgYi9kcml2ZXJzL21lZGlh
-L2NvbW1vbi92aWRlb2J1ZjIvdmlkZW9idWYyLWRtYS1jb250aWcuYwo+Pj4gQEAgLTM1OCw3ICsz
-NTgsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRtYV9idWZfb3BzIHZiMl9kY19kbWFidWZfb3Bz
-ID0gewo+Pj4gICAgICAgICAubWFwX2RtYV9idWYgPSB2YjJfZGNfZG1hYnVmX29wc19tYXAsCj4+
-PiAgICAgICAgIC51bm1hcF9kbWFfYnVmID0gdmIyX2RjX2RtYWJ1Zl9vcHNfdW5tYXAsCj4+PiAg
-ICAgICAgIC5tYXAgPSB2YjJfZGNfZG1hYnVmX29wc19rbWFwLAo+Pj4gLSAgICAgICAubWFwX2F0
-b21pYyA9IHZiMl9kY19kbWFidWZfb3BzX2ttYXAsCj4+PiAgICAgICAgIC52bWFwID0gdmIyX2Rj
-X2RtYWJ1Zl9vcHNfdm1hcCwKPj4+ICAgICAgICAgLm1tYXAgPSB2YjJfZGNfZG1hYnVmX29wc19t
-bWFwLAo+Pj4gICAgICAgICAucmVsZWFzZSA9IHZiMl9kY19kbWFidWZfb3BzX3JlbGVhc2UsCj4+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9jb21tb24vdmlkZW9idWYyL3ZpZGVvYnVmMi1k
-bWEtc2cuYwo+Pj4gYi9kcml2ZXJzL21lZGlhL2NvbW1vbi92aWRlb2J1ZjIvdmlkZW9idWYyLWRt
-YS1zZy5jCj4+PiBpbmRleCBjZjk0NzY1ZTU5M2YuLjAxNWU3MzcwOTVjZCAxMDA2NDQKPj4+IC0t
-LSBhL2RyaXZlcnMvbWVkaWEvY29tbW9uL3ZpZGVvYnVmMi92aWRlb2J1ZjItZG1hLXNnLmMKPj4+
-ICsrKyBiL2RyaXZlcnMvbWVkaWEvY29tbW9uL3ZpZGVvYnVmMi92aWRlb2J1ZjItZG1hLXNnLmMK
-Pj4+IEBAIC01MDcsNyArNTA3LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWFfYnVmX29wcyB2
-YjJfZG1hX3NnX2RtYWJ1Zl9vcHMKPj4+ID0gewo+Pj4gICAgICAgICAubWFwX2RtYV9idWYgPSB2
-YjJfZG1hX3NnX2RtYWJ1Zl9vcHNfbWFwLAo+Pj4gICAgICAgICAudW5tYXBfZG1hX2J1ZiA9IHZi
-Ml9kbWFfc2dfZG1hYnVmX29wc191bm1hcCwKPj4+ICAgICAgICAgLm1hcCA9IHZiMl9kbWFfc2df
-ZG1hYnVmX29wc19rbWFwLAo+Pj4gLSAgICAgICAubWFwX2F0b21pYyA9IHZiMl9kbWFfc2dfZG1h
-YnVmX29wc19rbWFwLAo+Pj4gICAgICAgICAudm1hcCA9IHZiMl9kbWFfc2dfZG1hYnVmX29wc192
-bWFwLAo+Pj4gICAgICAgICAubW1hcCA9IHZiMl9kbWFfc2dfZG1hYnVmX29wc19tbWFwLAo+Pj4g
-ICAgICAgICAucmVsZWFzZSA9IHZiMl9kbWFfc2dfZG1hYnVmX29wc19yZWxlYXNlLAo+Pj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvY29tbW9uL3ZpZGVvYnVmMi92aWRlb2J1ZjItdm1hbGxv
-Yy5jCj4+PiBiL2RyaXZlcnMvbWVkaWEvY29tbW9uL3ZpZGVvYnVmMi92aWRlb2J1ZjItdm1hbGxv
-Yy5jCj4+PiBpbmRleCAyOThmZmI5ZWNkYWUuLjQ2N2E0MDA1MTY0YiAxMDA2NDQKPj4+IC0tLSBh
-L2RyaXZlcnMvbWVkaWEvY29tbW9uL3ZpZGVvYnVmMi92aWRlb2J1ZjItdm1hbGxvYy5jCj4+PiAr
-KysgYi9kcml2ZXJzL21lZGlhL2NvbW1vbi92aWRlb2J1ZjIvdmlkZW9idWYyLXZtYWxsb2MuYwo+
-Pj4gQEAgLTM0Niw3ICszNDYsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRtYV9idWZfb3BzCj4+
-PiB2YjJfdm1hbGxvY19kbWFidWZfb3BzID0gewo+Pj4gICAgICAgICAubWFwX2RtYV9idWYgPSB2
-YjJfdm1hbGxvY19kbWFidWZfb3BzX21hcCwKPj4+ICAgICAgICAgLnVubWFwX2RtYV9idWYgPSB2
-YjJfdm1hbGxvY19kbWFidWZfb3BzX3VubWFwLAo+Pj4gICAgICAgICAubWFwID0gdmIyX3ZtYWxs
-b2NfZG1hYnVmX29wc19rbWFwLAo+Pj4gLSAgICAgICAubWFwX2F0b21pYyA9IHZiMl92bWFsbG9j
-X2RtYWJ1Zl9vcHNfa21hcCwKPj4+ICAgICAgICAgLnZtYXAgPSB2YjJfdm1hbGxvY19kbWFidWZf
-b3BzX3ZtYXAsCj4+PiAgICAgICAgIC5tbWFwID0gdmIyX3ZtYWxsb2NfZG1hYnVmX29wc19tbWFw
-LAo+Pj4gICAgICAgICAucmVsZWFzZSA9IHZiMl92bWFsbG9jX2RtYWJ1Zl9vcHNfcmVsZWFzZSwK
-Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3N0YWdpbmcvYW5kcm9pZC9pb24vaW9uLmMKPj4+IGIv
-ZHJpdmVycy9zdGFnaW5nL2FuZHJvaWQvaW9uL2lvbi5jCj4+PiBpbmRleCA1N2UwZDgwMzViMmUu
-LmE0NjIxOWZmNWUxNiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvc3RhZ2luZy9hbmRyb2lkL2lv
-bi9pb24uYwo+Pj4gKysrIGIvZHJpdmVycy9zdGFnaW5nL2FuZHJvaWQvaW9uL2lvbi5jCj4+PiBA
-QCAtMzc0LDggKzM3NCw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZG1hX2J1Zl9vcHMgZG1hX2J1
-Zl9vcHMgPSB7Cj4+PiAgICAgICAgIC5kZXRhY2ggPSBpb25fZG1hX2J1Zl9kZXRhdGNoLAo+Pj4g
-ICAgICAgICAuYmVnaW5fY3B1X2FjY2VzcyA9IGlvbl9kbWFfYnVmX2JlZ2luX2NwdV9hY2Nlc3Ms
-Cj4+PiAgICAgICAgIC5lbmRfY3B1X2FjY2VzcyA9IGlvbl9kbWFfYnVmX2VuZF9jcHVfYWNjZXNz
-LAo+Pj4gLSAgICAgICAubWFwX2F0b21pYyA9IGlvbl9kbWFfYnVmX2ttYXAsCj4+PiAtICAgICAg
-IC51bm1hcF9hdG9taWMgPSBpb25fZG1hX2J1Zl9rdW5tYXAsCj4+PiAgICAgICAgIC5tYXAgPSBp
-b25fZG1hX2J1Zl9rbWFwLAo+Pj4gICAgICAgICAudW5tYXAgPSBpb25fZG1hX2J1Zl9rdW5tYXAs
-Cj4+PiAgIH07Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy90ZWUvdGVlX3NobS5jIGIvZHJpdmVy
-cy90ZWUvdGVlX3NobS5jCj4+PiBpbmRleCA1NTY5NjBhMWJhYjMuLmRmNGExNTUzYjc4YiAxMDA2
-NDQKPj4+IC0tLSBhL2RyaXZlcnMvdGVlL3RlZV9zaG0uYwo+Pj4gKysrIGIvZHJpdmVycy90ZWUv
-dGVlX3NobS5jCj4+PiBAQCAtODAsMTEgKzgwLDYgQEAgc3RhdGljIHZvaWQgdGVlX3NobV9vcF9y
-ZWxlYXNlKHN0cnVjdCBkbWFfYnVmICpkbWFidWYpCj4+PiAgICAgICAgIHRlZV9zaG1fcmVsZWFz
-ZShzaG0pOwo+Pj4gICB9Cj4+PiAgIC1zdGF0aWMgdm9pZCAqdGVlX3NobV9vcF9tYXBfYXRvbWlj
-KHN0cnVjdCBkbWFfYnVmICpkbWFidWYsIHVuc2lnbmVkCj4+PiBsb25nIHBnbnVtKQo+Pj4gLXsK
-Pj4+IC0gICAgICAgcmV0dXJuIE5VTEw7Cj4+PiAtfQo+Pj4gLQo+Pj4gICBzdGF0aWMgdm9pZCAq
-dGVlX3NobV9vcF9tYXAoc3RydWN0IGRtYV9idWYgKmRtYWJ1ZiwgdW5zaWduZWQgbG9uZwo+Pj4g
-cGdudW0pCj4+PiAgIHsKPj4+ICAgICAgICAgcmV0dXJuIE5VTEw7Cj4+PiBAQCAtMTA3LDcgKzEw
-Miw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZG1hX2J1Zl9vcHMgdGVlX3NobV9kbWFfYnVmX29w
-cyA9Cj4+PiB7Cj4+PiAgICAgICAgIC5tYXBfZG1hX2J1ZiA9IHRlZV9zaG1fb3BfbWFwX2RtYV9i
-dWYsCj4+PiAgICAgICAgIC51bm1hcF9kbWFfYnVmID0gdGVlX3NobV9vcF91bm1hcF9kbWFfYnVm
-LAo+Pj4gICAgICAgICAucmVsZWFzZSA9IHRlZV9zaG1fb3BfcmVsZWFzZSwKPj4+IC0gICAgICAg
-Lm1hcF9hdG9taWMgPSB0ZWVfc2htX29wX21hcF9hdG9taWMsCj4+PiAgICAgICAgIC5tYXAgPSB0
-ZWVfc2htX29wX21hcCwKPj4+ICAgICAgICAgLm1tYXAgPSB0ZWVfc2htX29wX21tYXAsCj4+PiAg
-IH07Cj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX3ByaW1lLmggYi9pbmNsdWRlL2Ry
-bS9kcm1fcHJpbWUuaAo+Pj4gaW5kZXggZWYzMzgxNTFjZWE4Li5kNzE2ZDY1M2IwOTYgMTAwNjQ0
-Cj4+PiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fcHJpbWUuaAo+Pj4gKysrIGIvaW5jbHVkZS9kcm0v
-ZHJtX3ByaW1lLmgKPj4+IEBAIC05MywxMCArOTMsNiBAQCB2b2lkIGRybV9nZW1fdW5tYXBfZG1h
-X2J1ZihzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50Cj4+PiAqYXR0YWNoLAo+Pj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgZW51bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGlyKTsKPj4+ICAgdm9p
-ZCAqZHJtX2dlbV9kbWFidWZfdm1hcChzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1Zik7Cj4+PiAgIHZv
-aWQgZHJtX2dlbV9kbWFidWZfdnVubWFwKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLCB2b2lkICp2
-YWRkcik7Cj4+PiAtdm9pZCAqZHJtX2dlbV9kbWFidWZfa21hcF9hdG9taWMoc3RydWN0IGRtYV9i
-dWYgKmRtYV9idWYsCj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25l
-ZCBsb25nIHBhZ2VfbnVtKTsKPj4+IC12b2lkIGRybV9nZW1fZG1hYnVmX2t1bm1hcF9hdG9taWMo
-c3RydWN0IGRtYV9idWYgKmRtYV9idWYsCj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgdW5zaWduZWQgbG9uZyBwYWdlX251bSwgdm9pZCAqYWRkcik7Cj4+PiAgIHZvaWQgKmRy
-bV9nZW1fZG1hYnVmX2ttYXAoc3RydWN0IGRtYV9idWYgKmRtYV9idWYsIHVuc2lnbmVkIGxvbmcK
-Pj4+IHBhZ2VfbnVtKTsKPj4+ICAgdm9pZCBkcm1fZ2VtX2RtYWJ1Zl9rdW5tYXAoc3RydWN0IGRt
-YV9idWYgKmRtYV9idWYsIHVuc2lnbmVkIGxvbmcKPj4+IHBhZ2VfbnVtLAo+Pj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgdm9pZCAqYWRkcik7Cj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9s
-aW51eC9kbWEtYnVmLmggYi9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaAo+Pj4gaW5kZXggMzQ2Y2Fm
-Nzc5MzdmLi5kMTdjYWRkNzY4MDIgMTAwNjQ0Cj4+PiAtLS0gYS9pbmNsdWRlL2xpbnV4L2RtYS1i
-dWYuaAo+Pj4gKysrIGIvaW5jbHVkZS9saW51eC9kbWEtYnVmLmgKPj4+IEBAIC0yMDUsOCArMjA1
-LDYgQEAgc3RydWN0IGRtYV9idWZfb3BzIHsKPj4+ICAgICAgICAgICogdG8gYmUgcmVzdGFydGVk
-Lgo+Pj4gICAgICAgICAgKi8KPj4+ICAgICAgICAgaW50ICgqZW5kX2NwdV9hY2Nlc3MpKHN0cnVj
-dCBkbWFfYnVmICosIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uKTsKPj4+IC0gICAgICAgdm9pZCAq
-KCptYXBfYXRvbWljKShzdHJ1Y3QgZG1hX2J1ZiAqLCB1bnNpZ25lZCBsb25nKTsKPj4+IC0gICAg
-ICAgdm9pZCAoKnVubWFwX2F0b21pYykoc3RydWN0IGRtYV9idWYgKiwgdW5zaWduZWQgbG9uZywg
-dm9pZCAqKTsKPj4+ICAgICAgICAgdm9pZCAqKCptYXApKHN0cnVjdCBkbWFfYnVmICosIHVuc2ln
-bmVkIGxvbmcpOwo+Pj4gICAgICAgICB2b2lkICgqdW5tYXApKHN0cnVjdCBkbWFfYnVmICosIHVu
-c2lnbmVkIGxvbmcsIHZvaWQgKik7Cj4+PiAgIEBAIC0zOTQsOCArMzkyLDYgQEAgaW50IGRtYV9i
-dWZfYmVnaW5fY3B1X2FjY2VzcyhzdHJ1Y3QgZG1hX2J1Zgo+Pj4gKmRtYV9idWYsCj4+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRpcik7Cj4+
-PiAgIGludCBkbWFfYnVmX2VuZF9jcHVfYWNjZXNzKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAo+
-Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZW51bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGly
-KTsKPj4+IC12b2lkICpkbWFfYnVmX2ttYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVmICosIHVuc2ln
-bmVkIGxvbmcpOwo+Pj4gLXZvaWQgZG1hX2J1Zl9rdW5tYXBfYXRvbWljKHN0cnVjdCBkbWFfYnVm
-ICosIHVuc2lnbmVkIGxvbmcsIHZvaWQgKik7Cj4+PiAgIHZvaWQgKmRtYV9idWZfa21hcChzdHJ1
-Y3QgZG1hX2J1ZiAqLCB1bnNpZ25lZCBsb25nKTsKPj4+ICAgdm9pZCBkbWFfYnVmX2t1bm1hcChz
-dHJ1Y3QgZG1hX2J1ZiAqLCB1bnNpZ25lZCBsb25nLCB2b2lkICopOwo+Pj4KPj4+IC0tCj4+PiAy
-LjE0LjEKPj4+Cj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+Pj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+Pj4gZHJpLWRldmVsQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWwKPgo+CgoKCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVy
-LCBJbnRlbCBDb3Jwb3JhdGlvbgorNDEgKDApIDc5IDM2NSA1NyA0OCAtIGh0dHA6Ly9ibG9nLmZm
-d2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRy
-aS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+--===============0037898251==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687A705AE09BB6492A5C156FB700CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB1687A705AE09BB6492A5C156FB700CY4PR12MB1687namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Evan,
+
+did we need to check the following flags on vega12?will driver set those fl=
+ags when user select the umd_pstate?
+
+PHM_PlatformCaps_UMDPState/PHM_PlatformCaps_PState.
+
+Best Regards
+Rex
+
+
+?? Outlook for Android<https://aka.ms/ghei36>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
+cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Tuesday, June 19, 2018 11:16:44 PM
+To: Quan, Evan
+Cc: amd-gfx list
+Subject: Re: [PATCH 10/13] drm/amd/powerplay: apply clocks adjust rules on =
+power state change
+
+On Tue, Jun 19, 2018 at 3:39 AM, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org> wrote:
+> The clocks hard/soft min/max clock levels will be adjusted
+> correspondingly.
+
+
+Also note that this add the apply_clocks_adjust_rules callback which
+is used to validate the clock settings on a power state change.  One
+other comment below.
+
+>
+> Change-Id: I2c4b6cd6756d40a28933f0c26b9e1a3d5078bab8
+> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 162 +++++++++++++++=
+++++++
+>  drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h |   2 +
+>  2 files changed, 164 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers=
+/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+> index a227ace..26bdfff 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+> @@ -1950,6 +1950,166 @@ static int vega12_print_clock_levels(struct pp_hw=
+mgr *hwmgr,
+>         return size;
+>  }
+>
+> +static int vega12_apply_clocks_adjust_rules(struct pp_hwmgr *hwmgr)
+> +{
+> +       struct vega12_hwmgr *data =3D (struct vega12_hwmgr *)(hwmgr->back=
+end);
+> +       struct vega12_single_dpm_table *dpm_table;
+> +       bool vblank_too_short =3D false;
+> +       bool disable_mclk_switching;
+> +       uint32_t i, latency;
+> +
+> +       disable_mclk_switching =3D ((1 < hwmgr->display_config->num_displ=
+ay) &&
+> +                                 !hwmgr->display_config->multi_monitor_i=
+n_sync) ||
+> +                                 vblank_too_short;
+> +       latency =3D hwmgr->display_config->dce_tolerable_mclk_in_active_l=
+atency;
+> +
+> +       /* gfxclk */
+> +       dpm_table =3D &(data->dpm_table.gfx_table);
+> +       dpm_table->dpm_state.soft_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.soft_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +       dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.hard_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +
+> +       if (PP_CAP(PHM_PlatformCaps_UMDPState)) {
+> +               if (VEGA12_UMD_PSTATE_GFXCLK_LEVEL < dpm_table->count) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_GFXCLK_LEVEL].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_GFXCLK_LEVEL].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+MIN_SCLK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[0].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[0].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+PEAK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +               }
+> +       }
+> +
+> +       /* memclk */
+> +       dpm_table =3D &(data->dpm_table.mem_table);
+> +       dpm_table->dpm_state.soft_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.soft_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +       dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.hard_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +
+> +       if (PP_CAP(PHM_PlatformCaps_UMDPState)) {
+> +               if (VEGA12_UMD_PSTATE_MCLK_LEVEL < dpm_table->count) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_MCLK_LEVEL].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_MCLK_LEVEL].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+MIN_MCLK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[0].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[0].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+PEAK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +               }
+> +       }
+> +
+> +       /* honour DAL's UCLK Hardmin */
+> +       if (dpm_table->dpm_state.hard_min_level < (hwmgr->display_config-=
+>min_mem_set_clock / 100))
+> +               dpm_table->dpm_state.hard_min_level =3D hwmgr->display_co=
+nfig->min_mem_set_clock / 100;
+> +
+
+Didn't you just remove the uclk hard min setting in a previous patch?
+
+
+
+> +       /* Hardmin is dependent on displayconfig */
+> +       if (disable_mclk_switching) {
+> +               dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_le=
+vels[dpm_table->count - 1].value;
+> +               for (i =3D 0; i < data->mclk_latency_table.count - 1; i++=
+) {
+> +                       if (data->mclk_latency_table.entries[i].latency <=
+=3D latency) {
+> +                               if (dpm_table->dpm_levels[i].value >=3D (=
+hwmgr->display_config->min_mem_set_clock / 100)) {
+> +                                       dpm_table->dpm_state.hard_min_lev=
+el =3D dpm_table->dpm_levels[i].value;
+> +                                       break;
+> +                               }
+> +                       }
+> +               }
+> +       }
+> +
+> +       if (hwmgr->display_config->nb_pstate_switch_disable)
+> +               dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_le=
+vels[dpm_table->count - 1].value;
+> +
+> +       /* vclk */
+> +       dpm_table =3D &(data->dpm_table.vclk_table);
+> +       dpm_table->dpm_state.soft_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.soft_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +       dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.hard_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +
+> +       if (PP_CAP(PHM_PlatformCaps_UMDPState)) {
+> +               if (VEGA12_UMD_PSTATE_UVDCLK_LEVEL < dpm_table->count) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_UVDCLK_LEVEL].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_UVDCLK_LEVEL].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+PEAK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +               }
+> +       }
+> +
+> +       /* dclk */
+> +       dpm_table =3D &(data->dpm_table.dclk_table);
+> +       dpm_table->dpm_state.soft_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.soft_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +       dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.hard_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +
+> +       if (PP_CAP(PHM_PlatformCaps_UMDPState)) {
+> +               if (VEGA12_UMD_PSTATE_UVDCLK_LEVEL < dpm_table->count) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_UVDCLK_LEVEL].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_UVDCLK_LEVEL].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+PEAK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +               }
+> +       }
+> +
+> +       /* socclk */
+> +       dpm_table =3D &(data->dpm_table.soc_table);
+> +       dpm_table->dpm_state.soft_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.soft_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +       dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.hard_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +
+> +       if (PP_CAP(PHM_PlatformCaps_UMDPState)) {
+> +               if (VEGA12_UMD_PSTATE_SOCCLK_LEVEL < dpm_table->count) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_SOCCLK_LEVEL].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_SOCCLK_LEVEL].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+PEAK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +               }
+> +       }
+> +
+> +       /* eclk */
+> +       dpm_table =3D &(data->dpm_table.eclk_table);
+> +       dpm_table->dpm_state.soft_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.soft_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +       dpm_table->dpm_state.hard_min_level =3D dpm_table->dpm_levels[0].=
+value;
+> +       dpm_table->dpm_state.hard_max_level =3D dpm_table->dpm_levels[dpm=
+_table->count - 1].value;
+> +
+> +       if (PP_CAP(PHM_PlatformCaps_UMDPState)) {
+> +               if (VEGA12_UMD_PSTATE_VCEMCLK_LEVEL < dpm_table->count) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_VCEMCLK_LEVEL].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[VEGA12_UMD_PSTATE_VCEMCLK_LEVEL].value;
+> +               }
+> +
+> +               if (hwmgr->dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_=
+PEAK) {
+> +                       dpm_table->dpm_state.soft_min_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +                       dpm_table->dpm_state.soft_max_level =3D dpm_table=
+->dpm_levels[dpm_table->count - 1].value;
+> +               }
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static int vega12_display_configuration_changed_task(struct pp_hwmgr *hw=
+mgr)
+>  {
+>         struct vega12_hwmgr *data =3D (struct vega12_hwmgr *)(hwmgr->back=
+end);
+> @@ -2196,6 +2356,8 @@ static const struct pp_hwmgr_func vega12_hwmgr_func=
+s =3D {
+>         .display_clock_voltage_request =3D vega12_display_clock_voltage_r=
+equest,
+>         .force_clock_level =3D vega12_force_clock_level,
+>         .print_clock_levels =3D vega12_print_clock_levels,
+> +       .apply_clocks_adjust_rules =3D
+> +               vega12_apply_clocks_adjust_rules,
+>         .display_config_changed =3D vega12_display_configuration_changed_=
+task,
+>         .powergate_uvd =3D vega12_power_gate_uvd,
+>         .powergate_vce =3D vega12_power_gate_vce,
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h b/drivers=
+/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h
+> index e18c083..e17237c 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h
+> @@ -443,6 +443,8 @@ struct vega12_hwmgr {
+>  #define VEGA12_UMD_PSTATE_GFXCLK_LEVEL         0x3
+>  #define VEGA12_UMD_PSTATE_SOCCLK_LEVEL         0x3
+>  #define VEGA12_UMD_PSTATE_MCLK_LEVEL           0x2
+> +#define VEGA12_UMD_PSTATE_UVDCLK_LEVEL         0x3
+> +#define VEGA12_UMD_PSTATE_VCEMCLK_LEVEL        0x3
+>
+>  int vega12_enable_disable_vce_dpm(struct pp_hwmgr *hwmgr, bool enable);
+>
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR12MB1687A705AE09BB6492A5C156FB700CY4PR12MB1687namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+Hi Evan,<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+did we need to check the following flags on vega12&#65311;will driver set t=
+hose flags when user select the umd_pstate?<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+PHM_PlatformCaps_UMDPState/PHM_PlatformCaps_PState.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+Best Regards<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+Rex<br>
+<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+&#33719;&#21462; <a href=3D"https://aka.ms/ghei36">Outlook for Android</a><=
+/div>
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
+r@gmail.com&gt;<br>
+<b>Sent:</b> Tuesday, June 19, 2018 11:16:44 PM<br>
+<b>To:</b> Quan, Evan<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 10/13] drm/amd/powerplay: apply clocks adjust ru=
+les on power state change</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">On Tue, Jun 19, 2018 at 3:39 AM, Evan Quan &lt;eva=
+n.quan-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+&gt; The clocks hard/soft min/max clock levels will be adjusted<br>
+&gt; correspondingly.<br>
+<br>
+<br>
+Also note that this add the apply_clocks_adjust_rules callback which<br>
+is used to validate the clock settings on a power state change.&nbsp; One<b=
+r>
+other comment below.<br>
+<br>
+&gt;<br>
+&gt; Change-Id: I2c4b6cd6756d40a28933f0c26b9e1a3d5078bab8<br>
+&gt; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 162 &#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h |&nbsp;&nbsp;=
+ 2 &#43;<br>
+&gt;&nbsp; 2 files changed, 164 insertions(&#43;)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/driv=
+ers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+&gt; index a227ace..26bdfff 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<b=
+r>
+&gt; @@ -1950,6 &#43;1950,166 @@ static int vega12_print_clock_levels(struc=
+t pp_hwmgr *hwmgr,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; &#43;static int vega12_apply_clocks_adjust_rules(struct pp_hwmgr *hwmg=
+r)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega12_hwmgr *data =
+=3D (struct vega12_hwmgr *)(hwmgr-&gt;backend);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega12_single_dpm_tab=
+le *dpm_table;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool vblank_too_short =3D fa=
+lse;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool disable_mclk_switching;=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i, latency;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable_mclk_switching =3D (=
+(1 &lt; hwmgr-&gt;display_config-&gt;num_display) &amp;&amp;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hwmgr-&gt;display_con=
+fig-&gt;multi_monitor_in_sync) ||<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vblank_too_short;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; latency =3D hwmgr-&gt;displa=
+y_config-&gt;dce_tolerable_mclk_in_active_latency;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* gfxclk */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table =3D &amp;(data-&gt=
+;dpm_table.gfx_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_=
+UMDPState)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (VEGA12_UMD_PSTATE_GFXCLK_LEVEL &lt; dpm_table-&gt;c=
+ount) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_GFXCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_GFXCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_MIN_SCLK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_PEAK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* memclk */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table =3D &amp;(data-&gt=
+;dpm_table.mem_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_=
+UMDPState)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (VEGA12_UMD_PSTATE_MCLK_LEVEL &lt; dpm_table-&gt;cou=
+nt) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_MCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_MCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_MIN_MCLK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_PEAK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* honour DAL's UCLK Hardmin=
+ */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dpm_table-&gt;dpm_state.=
+hard_min_level &lt; (hwmgr-&gt;display_config-&gt;min_mem_set_clock / 100))=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard_min_level =3D hwmgr-&gt;di=
+splay_config-&gt;min_mem_set_clock / 100;<br>
+&gt; &#43;<br>
+<br>
+Didn't you just remove the uclk hard min setting in a previous patch?<br>
+<br>
+<br>
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Hardmin is dependent on d=
+isplayconfig */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (disable_mclk_switching) =
+{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard_min_level =3D dpm_table-&g=
+t;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; data-&gt;mclk_latency_table.count =
+- 1; i&#43;&#43;) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dat=
+a-&gt;mclk_latency_table.entries[i].latency &lt;=3D latency) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dpm_table-&gt;dpm_levels[i].va=
+lue &gt;=3D (hwmgr-&gt;display_config-&gt;min_mem_set_clock / 100)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard_min_level =3D dpm_table-&gt;dpm_=
+levels[i].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;display_config=
+-&gt;nb_pstate_switch_disable)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard_min_level =3D dpm_table-&g=
+t;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* vclk */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table =3D &amp;(data-&gt=
+;dpm_table.vclk_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_=
+UMDPState)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (VEGA12_UMD_PSTATE_UVDCLK_LEVEL &lt; dpm_table-&gt;c=
+ount) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_UVDCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_UVDCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_PEAK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* dclk */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table =3D &amp;(data-&gt=
+;dpm_table.dclk_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_=
+UMDPState)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (VEGA12_UMD_PSTATE_UVDCLK_LEVEL &lt; dpm_table-&gt;c=
+ount) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_UVDCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_UVDCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_PEAK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* socclk */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table =3D &amp;(data-&gt=
+;dpm_table.soc_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_=
+UMDPState)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (VEGA12_UMD_PSTATE_SOCCLK_LEVEL &lt; dpm_table-&gt;c=
+ount) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_SOCCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_SOCCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_PEAK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* eclk */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table =3D &amp;(data-&gt=
+;dpm_table.eclk_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.soft=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_min_level =3D dpm_table-&gt;dpm_levels[0].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_table-&gt;dpm_state.hard=
+_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;count - 1].value;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_=
+UMDPState)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (VEGA12_UMD_PSTATE_VCEMCLK_LEVEL &lt; dpm_table-&gt;=
+count) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_VCEMCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[VEGA12_UMD_PST=
+ATE_VCEMCLK_LEVEL].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level =3D=3D AMD_DPM_FORCED_LEVEL_PRO=
+FILE_PEAK) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_min_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_tab=
+le-&gt;dpm_state.soft_max_level =3D dpm_table-&gt;dpm_levels[dpm_table-&gt;=
+count - 1].value;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp; static int vega12_display_configuration_changed_task(struct pp_h=
+wmgr *hwmgr)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega12_hwmgr *d=
+ata =3D (struct vega12_hwmgr *)(hwmgr-&gt;backend);<br>
+&gt; @@ -2196,6 &#43;2356,8 @@ static const struct pp_hwmgr_func vega12_hwm=
+gr_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_voltage=
+_request =3D vega12_display_clock_voltage_request,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .force_clock_level =3D=
+ vega12_force_clock_level,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .print_clock_levels =
+=3D vega12_print_clock_levels,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .apply_clocks_adjust_rules =
+=3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; vega12_apply_clocks_adjust_rules,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_config_change=
+d =3D vega12_display_configuration_changed_task,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_uvd =3D veg=
+a12_power_gate_uvd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_vce =3D veg=
+a12_power_gate_vce,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h b/driv=
+ers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h<br>
+&gt; index e18c083..e17237c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.h<b=
+r>
+&gt; @@ -443,6 &#43;443,8 @@ struct vega12_hwmgr {<br>
+&gt;&nbsp; #define VEGA12_UMD_PSTATE_GFXCLK_LEVEL&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; 0x3<br>
+&gt;&nbsp; #define VEGA12_UMD_PSTATE_SOCCLK_LEVEL&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; 0x3<br>
+&gt;&nbsp; #define VEGA12_UMD_PSTATE_MCLK_LEVEL&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x2<br>
+&gt; &#43;#define VEGA12_UMD_PSTATE_UVDCLK_LEVEL&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; 0x3<br>
+&gt; &#43;#define VEGA12_UMD_PSTATE_VCEMCLK_LEVEL&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; 0x3<br>
+&gt;<br>
+&gt;&nbsp; int vega12_enable_disable_vce_dpm(struct pp_hwmgr *hwmgr, bool e=
+nable);<br>
+&gt;<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_CY4PR12MB1687A705AE09BB6492A5C156FB700CY4PR12MB1687namp_--
+
+--===============0037898251==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0037898251==--
