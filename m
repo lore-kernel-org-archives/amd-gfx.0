@@ -1,16 +1,11 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2 2/2] drm/amdgpu: Add parsing SQ_EDC_INFO to SQ IH v2.
-Date: Wed, 20 Jun 2018 12:42:46 -0400
-Message-ID: <ebce5cb0-f3be-72c0-8055-5990e66589ed@amd.com>
-References: <1529505781-9004-1-git-send-email-andrey.grodzovsky@amd.com>
- <1529505781-9004-2-git-send-email-andrey.grodzovsky@amd.com>
- <d96fc78e-ef3d-fb3a-8548-7a6a7cc3d52f@gmail.com>
- <6f9d3c60-2050-f13c-df72-bff240d669b9@amd.com>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs (v2)
+Date: Wed, 20 Jun 2018 12:48:52 -0400
+Message-ID: <20180620164852.26424-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0882770801=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6f9d3c60-2050-f13c-df72-bff240d669b9-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,133 +16,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, nicolai.haehnle-5C7GfCeVMHo@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0882770801==
-Content-Type: multipart/alternative;
- boundary="------------DF3E4DC144A985F56D3F6B0F"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------DF3E4DC144A985F56D3F6B0F
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-OK, according to 
-https://www.kernel.org/doc/Documentation/memory-barriers.txt, SLEEP AND 
-WAKE-UP FUNCTIONS sections implies that.
-
-Will respin the patch.
-
-Andrey
-
-
-On 06/20/2018 11:02 AM, Andrey Grodzovsky wrote:
->
-> Are you referring to insert_work->smp_mb(); ?
->
-> Andrey
->
->
-> On 06/20/2018 10:50 AM, Christian König wrote:
->>> +     * Try to submit work so SQ_EDC_INFO can be accessed from
->>> +     * BH. If previous work submission hasn't finished yet
->>> +     * just print whatever info is possible directly from the ISR.
->>> +     */
->>> +    if (work_pending(&adev->gfx.sq_work.work)) {
->>> +        gfx_v8_0_parse_sq_irq(adev, ih_data);
->>> +    } else {
->>> +        adev->gfx.sq_work.ih_data = ih_data;
->>> +        /* Verify the new value visible in BH handler */
->>> +        smp_wmb();
->>
->> You can drop the barrier here and in gfx_v8_0_sq_irq_work_func(), the 
->> schedule_work() function is a barrier itself for both reads and 
->> writes anyway.
->>
->> Apart from that the both patches are Acked-by: Christian König 
->> <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
->>
->> Regards,
->> Christian. 
->
-
-
---------------DF3E4DC144A985F56D3F6B0F
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>OK, according to
-      <a class="moz-txt-link-freetext" href="https://www.kernel.org/doc/Documentation/memory-barriers.txt">https://www.kernel.org/doc/Documentation/memory-barriers.txt</a>, 
-      SLEEP AND WAKE-UP FUNCTIONS sections implies that.</p>
-    <p>Will respin the patch.<br>
-    </p>
-    <p>Andrey<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 06/20/2018 11:02 AM, Andrey
-      Grodzovsky wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:6f9d3c60-2050-f13c-df72-bff240d669b9-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <p>Are you referring to insert_work-&gt;smp_mb(); ?</p>
-      <p>Andrey<br>
-      </p>
-      <br>
-      <div class="moz-cite-prefix">On 06/20/2018 10:50 AM, Christian
-        König wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:d96fc78e-ef3d-fb3a-8548-7a6a7cc3d52f-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
-        <blockquote type="cite" style="color: #000000;">+     * Try to
-          submit work so SQ_EDC_INFO can be accessed from <br>
-          +     * BH. If previous work submission hasn't finished yet <br>
-          +     * just print whatever info is possible directly from the
-          ISR. <br>
-          +     */ <br>
-          +    if (work_pending(&amp;adev-&gt;gfx.sq_work.work)) { <br>
-          +        gfx_v8_0_parse_sq_irq(adev, ih_data); <br>
-          +    } else { <br>
-          +        adev-&gt;gfx.sq_work.ih_data = ih_data; <br>
-          +        /* Verify the new value visible in BH handler */ <br>
-          +        smp_wmb(); <br>
-        </blockquote>
-        <br>
-        You can drop the barrier here and in
-        gfx_v8_0_sq_irq_work_func(), the schedule_work() function is a
-        barrier itself for both reads and writes anyway. <br>
-        <br>
-        Apart from that the both patches are Acked-by: Christian König <a
-          class="moz-txt-link-rfc2396E"
-          href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.
-        <br>
-        <br>
-        Regards, <br>
-        Christian. </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------DF3E4DC144A985F56D3F6B0F--
-
---===============0882770801==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0882770801==--
+VGhpcyBhZGRzIHdoYXQgc2hvdWxkIGJlIGEgc3RhYmxlIGludGVyZmFjZSB0byByZWFkIEdQVQps
+b2FkIGZyb20gdXNlcnNwYWNlLgoKKHYyKTogRml4IGNvbW1lbnRzIGFuZCBuYW1lIG9mIGZpbGUg
+cGVyIHJlY29tbWVuZGF0aW9ucy4KClNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0
+ZGVuaXNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0u
+YyB8IDQ3ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2Vk
+LCA0NyBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3BtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwpp
+bmRleCAxMTNlZGZmYjU5NjAuLjQ5MTM4YWMyYmUyNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3BtLmMKQEAgLTkxOCw2ICs5MTgsNDMgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1
+X3NldF9wcF9wb3dlcl9wcm9maWxlX21vZGUoc3RydWN0IGRldmljZSAqZGV2LAogCXJldHVybiAt
+RUlOVkFMOwogfQogCisvKioKKyAqIERPQzogYnVzeV9wZXJjZW50CisgKgorICogVGhlIGZpcm13
+YXJlIGNvbXB1dGVzIGEgcGVyY2VudGFnZSBvZiBsb2FkIGJhc2VkIG9uIHRoZSBhY3Rpdml0eQor
+ICogbGV2ZWwgaW4gdGhlIElQIGNvcmVzLgorICovCitzdGF0aWMgc3NpemVfdCBhbWRncHVfZ2V0
+X2J1c3lfcGVyY2VudChzdHJ1Y3QgZGV2aWNlICpkZXYsCisJCXN0cnVjdCBkZXZpY2VfYXR0cmli
+dXRlICphdHRyLAorCQljaGFyICpidWYpCit7CisJc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBk
+ZXZfZ2V0X2RydmRhdGEoZGV2KTsKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRkZXYt
+PmRldl9wcml2YXRlOworCWludCByLCB2YWx1ZSwgc2l6ZSA9IHNpemVvZih2YWx1ZSk7CisKKwkv
+KiBzYW5pdHkgY2hlY2sgUFAgaXMgZW5hYmxlZCAqLworCWlmICghKGFkZXYtPnBvd2VycGxheS5w
+cF9mdW5jcyAmJgorCSAgICAgIGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+cmVhZF9zZW5zb3Ip
+KQorCQlyZXR1cm4gLUVJTlZBTDsKKworCS8qIHJlYWQgdGhlIElQIGJ1c3kgc2Vuc29yICovCisJ
+ciA9IGFtZGdwdV9kcG1fcmVhZF9zZW5zb3IoYWRldiwgQU1ER1BVX1BQX1NFTlNPUl9HUFVfTE9B
+RCwKKwkJCQkgICAodm9pZCAqKSZ2YWx1ZSwgJnNpemUpOworCWlmIChyKQorCQlyZXR1cm4gcjsK
+KworCXJldHVybiBzbnByaW50ZihidWYsIFBBR0VfU0laRSwgIiVkXG4iLCB2YWx1ZSk7Cit9CisK
+K3N0YXRpYyBzc2l6ZV90IGFtZGdwdV9zZXRfYnVzeV9wZXJjZW50KHN0cnVjdCBkZXZpY2UgKmRl
+diwKKwkJc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsCisJCWNvbnN0IGNoYXIgKmJ1ZiwK
+KwkJc2l6ZV90IGNvdW50KQoreworCXJldHVybiAtRUlOVkFMOworfQorCisKIHN0YXRpYyBERVZJ
+Q0VfQVRUUihwb3dlcl9kcG1fc3RhdGUsIFNfSVJVR08gfCBTX0lXVVNSLCBhbWRncHVfZ2V0X2Rw
+bV9zdGF0ZSwgYW1kZ3B1X3NldF9kcG1fc3RhdGUpOwogc3RhdGljIERFVklDRV9BVFRSKHBvd2Vy
+X2RwbV9mb3JjZV9wZXJmb3JtYW5jZV9sZXZlbCwgU19JUlVHTyB8IFNfSVdVU1IsCiAJCSAgIGFt
+ZGdwdV9nZXRfZHBtX2ZvcmNlZF9wZXJmb3JtYW5jZV9sZXZlbCwKQEAgLTk1MSw2ICs5ODgsOCBA
+QCBzdGF0aWMgREVWSUNFX0FUVFIocHBfcG93ZXJfcHJvZmlsZV9tb2RlLCBTX0lSVUdPIHwgU19J
+V1VTUiwKIHN0YXRpYyBERVZJQ0VfQVRUUihwcF9vZF9jbGtfdm9sdGFnZSwgU19JUlVHTyB8IFNf
+SVdVU1IsCiAJCWFtZGdwdV9nZXRfcHBfb2RfY2xrX3ZvbHRhZ2UsCiAJCWFtZGdwdV9zZXRfcHBf
+b2RfY2xrX3ZvbHRhZ2UpOworc3RhdGljIERFVklDRV9BVFRSKGdwdV9idXN5X3BlcmNlbnQsIFNf
+SVJVR08gfCBTX0lXVVNSLAorCQlhbWRncHVfZ2V0X2J1c3lfcGVyY2VudCwgYW1kZ3B1X3NldF9i
+dXN5X3BlcmNlbnQpOwogCiBzdGF0aWMgc3NpemVfdCBhbWRncHVfaHdtb25fc2hvd190ZW1wKHN0
+cnVjdCBkZXZpY2UgKmRldiwKIAkJCQkgICAgICBzdHJ1Y3QgZGV2aWNlX2F0dHJpYnV0ZSAqYXR0
+ciwKQEAgLTE4NTQsNiArMTg5MywxMyBAQCBpbnQgYW1kZ3B1X3BtX3N5c2ZzX2luaXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCQkJInBwX29kX2Nsa192b2x0YWdlXG4iKTsKIAkJcmV0
+dXJuIHJldDsKIAl9CisJcmV0ID0gZGV2aWNlX2NyZWF0ZV9maWxlKGFkZXYtPmRldiwKKwkJCSZk
+ZXZfYXR0cl9ncHVfYnVzeV9wZXJjZW50KTsKKwlpZiAocmV0KSB7CisJCURSTV9FUlJPUigiZmFp
+bGVkIHRvIGNyZWF0ZSBkZXZpY2UgZmlsZQkiCisJCQkJImdwdV9idXN5X2xldmVsXG4iKTsKKwkJ
+cmV0dXJuIHJldDsKKwl9CiAJcmV0ID0gYW1kZ3B1X2RlYnVnZnNfcG1faW5pdChhZGV2KTsKIAlp
+ZiAocmV0KSB7CiAJCURSTV9FUlJPUigiRmFpbGVkIHRvIHJlZ2lzdGVyIGRlYnVnZnMgZmlsZSBm
+b3IgZHBtIVxuIik7CkBAIC0xODg5LDYgKzE5MzUsNyBAQCB2b2lkIGFtZGdwdV9wbV9zeXNmc19m
+aW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJJmRldl9hdHRyX3BwX3Bvd2VyX3By
+b2ZpbGVfbW9kZSk7CiAJZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwKIAkJCSZkZXZfYXR0
+cl9wcF9vZF9jbGtfdm9sdGFnZSk7CisJZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwgJmRl
+dl9hdHRyX2dwdV9idXN5X3BlcmNlbnQpOwogfQogCiB2b2lkIGFtZGdwdV9wbV9jb21wdXRlX2Ns
+b2NrcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKLS0gCjIuMTQuNAoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
