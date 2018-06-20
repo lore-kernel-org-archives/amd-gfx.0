@@ -1,20 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/5] dma-buf: remove kmap_atomic interface
-Date: Wed, 20 Jun 2018 16:21:37 +0200
-Message-ID: <3994b9d0-85fe-6495-5528-282f7b46a53f@amd.com>
-References: <20180601120020.11520-1-christian.koenig@amd.com>
- <20180601120020.11520-2-christian.koenig@amd.com>
- <20180618081845.GV3438@phenom.ffwll.local>
- <2bcb34c3-b729-e3ea-fb8c-2471e4ed56d6@amd.com>
- <CAKMK7uEvhMF92ifA=7xQ=9GR3NofZNExCDTHZTtikmujJTZ89A@mail.gmail.com>
- <c0552d8a-1c64-c99b-6ef8-83e253c49d30@gmail.com>
- <CAKMK7uHHZn=H6px-yiXy7tVmmQy6GHrwGtG+B7or1ThsrriFDA@mail.gmail.com>
- <5d337ffc-6c4c-dafb-abb2-151d9d4aeaea@gmail.com>
+From: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs
+Date: Wed, 20 Jun 2018 14:37:23 +0000
+Message-ID: <CY4PR12MB13046D5BAB0653158D96EFAAFE770@CY4PR12MB1304.namprd12.prod.outlook.com>
+References: <20180620123149.18399-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1652835513=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5d337ffc-6c4c-dafb-abb2-151d9d4aeaea-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <20180620123149.18399-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -26,41 +18,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjAuMDYuMjAxOCB1bSAxNjowNCBzY2hyaWViIENocmlzdGlhbiBLw7ZuaWc6Cj4gQW0gMjAu
-MDYuMjAxOCB1bSAxNDo1MiBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4+IE9uIFdlZCwgSnVuIDIw
-LCAyMDE4IGF0IDI6NDYgUE0sIENocmlzdGlhbiBLw7ZuaWcKPj4gPGNrb2VuaWcubGVpY2h0enVt
-ZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPj4+IFtTTklQXQo+Pj4+IEdvIGFoZWFkLCB0aGF0J3Mg
-dGhlIHBvaW50IG9mIGNvbW1pdCByaWdodHMuIGRpbSBtaWdodCBjb21wbGFpbiBpZiB5b3UKPj4+
-PiBjaGVycnkgcGlja2VkIHRoZW0gYW5kIGRpZG4ndCBwaWNrIHRoZW0gdXAgdXNpbmcgZGltIGFw
-cGx5IHRob3VnaCAuLi4KPj4+Cj4+PiBJJ3ZlIGZpeGVkIHVwIHRoZSBMaW5rIHRhZ3MsIGJ1dCB3
-aGVuIEkgdHJ5ICJkaW0gcHVzaC1icmFuY2ggCj4+PiBkcm0tbWlzYy1uZXh0Igo+Pj4gSSBvbmx5
-IGdldCB0aGUgZXJyb3IgbWVzc2FnZSAiZXJyb3I6IGRzdCByZWYgcmVmcy9oZWFkcy9kcm0tbWlz
-Yy1uZXh0Cj4+PiByZWNlaXZlcyBmcm9tIG1vcmUgdGhhbiBvbmUgc3JjLiIKPj4+Cj4+PiBBbnkg
-aWRlYSB3aGF0IGlzIGdvaW5nIHdyb25nIGhlcmU/Cj4+IFNvdW5kcyBsaWtlIG11bHRpcGxlIHVw
-c3RyZWFtcyBmb3IgeW91ciBsb2NhbCBkcm0tbWlzYy1uZXh0IGJyYW5jaCwKPj4gYW5kIGdpdCB0
-aGVuIGNhbid0IGRlY2lkZSB3aGljaCBvbmUgdG8gcGljay4gSWYgeW91IGRlbGV0ZSB0aGUgYnJh
-bmNoCj4+IGFuZCBjcmVhdGUgaXQgdXNpbmcgZGltIGNoZWNrb3V0IGRybS1taXNjLW5leHQgdGhp
-cyBzaG91bGRuJ3QgaGFwcGVuLgo+PiBXZSdyZSB0cnlpbmcgdG8gZml0IGludG8gZXhpc3Rpbmcg
-Y2hlY2stb3V0cyBhbmQgYnJhbmNoZXMsIGJ1dCBpZiB5b3UKPj4gc2V0IHRoaW5ncyB1cCBzbGln
-aHRseSBkaWZmZXJlbnQgdGhhbiBkaW0gd291bGQgaGF2ZSB5b3UncmUgb2ZmIHNjcmlwdAo+PiBh
-bmQgdGhlcmUncyBsaW1pdGVkIHN1cHBvcnQgZm9yIHRoYXQuCj4+Cj4+IEFsdGVybmF0aXZlIGNo
-ZWNrIG91dCB5b3VyIC5naXQvY29uZmlnIGFuZCByZW1vdmUgdGhlIG90aGVyIHVwc3RyZWFtcy4K
-Pj4gT3IgYXR0YWNoIHlvdXIgZ2l0IGNvbmZpZyBpZiB0aGlzIGlzbid0IHRoZSBpc3N1ZSAoSSdt
-IGp1c3QgZG9pbmcgc29tZQo+PiBndWVzc2luZyBoZXJlKS4KPgo+IEkndmUgdHJpZWQgdG8gZGVs
-ZXRlIG15IGRybS1taXNjLW5leHQgYnJhbmNoIGFuZCByZWNyZWF0ZSBpdCwgYnV0IHRoYXQgCj4g
-ZG9lc24ndCBzZWVtIHRvIGhlbHAuCj4KPiBBdHRhY2hlZCBpcyBteSAuZ2l0L2NvbmZpZywgYnV0
-IGF0IGxlYXN0IG9uIGZpcnN0IGdsYW5jZSBpdCBsb29rcyBvayAKPiBhcyB3ZWxsLgo+Cj4gQW55
-IGlkZWFzPwoKT2sgdGhhdCBzZWVtcyB0byBiZSBhIGJ1ZyBpbiBkaW0uCgoiYmFzaCAteCBkaW0g
-cHVzaCBkcm0tbWlzYy1uZXh0IiBsb29rcyBsaWtlIGl0IHRyaWVzIHRvIHB1c2ggdGhlIGJyYW5j
-aCAKZHJtLW1pc2MtbmV4dCB0d2ljZSB0byB0aGUgZHJtLW1pc2MgcmVtb3RlOiBnaXQgcHVzaCBk
-cm0tbWlzYyAKZHJtLW1pc2MtbmV4dCBkcm0tbWlzYy1uZXh0CgpXaGVuIEkgdHJ5IHRoYXQgbWFu
-dWFsbHkgSSBnZXQgdGhlIHNhbWUgcmVzdWx0LCBidXQgImdpdCBwdXNoIGRybS1taXNjIApkcm0t
-bWlzYy1uZXh0IiBqdXN0IHNlZW1lZCB0byB3b3JrIGZpbmUuCgpMZXQncyBob3BlIHRoYXQgSSBo
-YXZlbid0IG1lc3NlZCB0aGluZ3MgdXAgdG90YWxseSBvbiB0aGUgc2VydmVyIG5vdy4KCkNocmlz
-dGlhbi4KCj4KPiBUaGFua3MsCj4gQ2hyaXN0aWFuLgo+Cj4+IC1EYW5pZWwKPj4KPj4KPgoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1652835513==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB13046D5BAB0653158D96EFAAFE770CY4PR12MB1304namp_"
+
+--_000_CY4PR12MB13046D5BAB0653158D96EFAAFE770CY4PR12MB1304namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+I see some functions in amdgpu_pm.c have function level documentation, so t=
+hat it would be good to have this for newly added functions.
+
+
+Another comment is inline.
+
+
+>From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tom St =
+Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+
+>Sent: Wednesday, June 20, 2018 8:31 AM
+>To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>Cc: StDenis, Tom
+>Subject: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs
+>
+>This adds what should be a stable interface to read GPU
+>load from userspace.
+>
+>Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+>---
+> drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 41 +++++++++++++++++++++++++++++=
++++++
+> 1 file changed, 41 insertions(+)
+>
+>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_pm.c
+>index 113edffb5960..d57b414ac228 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+>@@ -918,6 +918,37 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struc=
+t device *dev,
+>         return -EINVAL;
+> }
+>
+>+static ssize_t amdgpu_get_busy_level(struct device *dev,
+>+               struct device_attribute *attr,
+>+               char *buf)
+>+{
+>+       struct drm_device *ddev =3D dev_get_drvdata(dev);
+>+       struct amdgpu_device *adev =3D ddev->dev_private;
+>+       int r, value, size =3D sizeof(value);
+>+
+>+       /* sanity check PP is enabled */
+>+       if (!(adev->powerplay.pp_funcs &&
+>+             adev->powerplay.pp_funcs->read_sensor))
+>+               return -EINVAL;
+>+
+>+       /* get the temperature */
+
+Is load is the same thing as temperature?
+
+[snap]
+
+
+Slava A
+
+--_000_CY4PR12MB13046D5BAB0653158D96EFAAFE770CY4PR12MB1304namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Co=
+lor Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI=
+ Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-size: 12pt;">=
+I see some functions in amdgpu_pm.c have function level documentation, so t=
+hat it would be good to have this for newly added functions.</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-size: 12pt;">=
+<br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-size: 12pt;">=
+Another comment is inline.</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-size: 12pt;">=
+&gt;From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf o=
+f Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>&gt;Sent: Wednesday, June 20, 2018 8:31 AM</div>
+<div>&gt;To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</div>
+<div>&gt;Cc: StDenis, Tom</div>
+<div>&gt;Subject: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs</di=
+v>
+<div>&gt;&nbsp;</div>
+<div>&gt;This adds what should be a stable interface to read GPU</div>
+<div>&gt;load from userspace.</div>
+<div>&gt;</div>
+<div>&gt;Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div>&gt;---</div>
+<div>&gt; drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 41 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<=
+/div>
+<div>&gt; 1 file changed, 41 insertions(&#43;)</div>
+<div>&gt;</div>
+<div>&gt;diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_pm.c</div>
+<div>&gt;index 113edffb5960..d57b414ac228 100644</div>
+<div>&gt;--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c</div>
+<div>&gt;&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c</div>
+<div>&gt;@@ -918,6 &#43;918,37 @@ static ssize_t amdgpu_set_pp_power_profil=
+e_mode(struct device *dev,</div>
+<div>&gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return -EINVAL;</div>
+<div>&gt; }</div>
+<div>&gt;&nbsp;</div>
+<div>&gt;&#43;static ssize_t amdgpu_get_busy_level(struct device *dev,</div=
+>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct=
+ device_attribute *attr,</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;char *=
+buf)</div>
+<div>&gt;&#43;{</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;struct drm_device *ddev =3D dev_ge=
+t_drvdata(dev);</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;struct amdgpu_device *adev =3D dde=
+v-&gt;dev_private;</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;int r, value, size =3D sizeof(valu=
+e);</div>
+<div>&gt;&#43;</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;/* sanity check PP is enabled */</=
+div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;if (!(adev-&gt;powerplay.pp_funcs =
+&amp;&amp;</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;adev-&gt;powe=
+rplay.pp_funcs-&gt;read_sensor))</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return=
+ -EINVAL;</div>
+<div>&gt;&#43;</div>
+<div>&gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;/* get the temperature */</div>
+<div><br>
+</div>
+<div>Is load is the same thing as temperature?</div>
+<div><br>
+</div>
+<div>[snap]</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>Slava A</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB13046D5BAB0653158D96EFAAFE770CY4PR12MB1304namp_--
+
+--===============1652835513==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1652835513==--
