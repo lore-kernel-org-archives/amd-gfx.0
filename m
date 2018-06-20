@@ -1,15 +1,11 @@
-From: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs
-Date: Wed, 20 Jun 2018 14:41:04 +0000
-Message-ID: <CY4PR12MB13044BA8CF357D8794289827FE770@CY4PR12MB1304.namprd12.prod.outlook.com>
-References: <20180620123149.18399-1-tom.stdenis@amd.com>
- <CY4PR12MB13046D5BAB0653158D96EFAAFE770@CY4PR12MB1304.namprd12.prod.outlook.com>,
- <8a588c4f-48d8-4095-9d27-f360bafa3f9b@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2 1/2] drm/amdgpu: Polish SQ IH.
+Date: Wed, 20 Jun 2018 10:43:00 -0400
+Message-ID: <1529505781-9004-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0425437007=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8a588c4f-48d8-4095-9d27-f360bafa3f9b-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,212 +16,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, nicolai.haehnle-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 
---===============0425437007==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB13044BA8CF357D8794289827FE770CY4PR12MB1304namp_"
-
---_000_CY4PR12MB13044BA8CF357D8794289827FE770CY4PR12MB1304namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Should the comment then say 'get the load' instead of 'get the temperature'=
-?
-
-________________________________
-From: StDenis, Tom
-Sent: Wednesday, June 20, 2018 10:39:25 AM
-To: Abramov, Slava; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs
-
-
-
-On 06/20/2018 10:37 AM, Abramov, Slava wrote:
-> I see some functions in amdgpu_pm.c have function level documentation,
-> so that it would be good to have this for newly added functions.
-
-Sure I can add some comments/docs.
-
-> Another comment is inline.
->
->
->>From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tom St=
- Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
->
->  >Sent: Wednesday, June 20, 2018 8:31 AM
->  >To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->  >Cc: StDenis, Tom
->  >Subject: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs
->  >
->  >This adds what should be a stable interface to read GPU
->  >load from userspace.
->  >
->  >Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
->  >---
->  > drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 41
-> ++++++++++++++++++++++++++++++++++
->  > 1 file changed, 41 insertions(+)
->  >
->  >diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
->  >index 113edffb5960..d57b414ac228 100644
->  >--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
->  >+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
->  >@@ -918,6 +918,37 @@ static ssize_t
-> amdgpu_set_pp_power_profile_mode(struct device *dev,
->  >         return -EINVAL;
->  > }
->  >
->  >+static ssize_t amdgpu_get_busy_level(struct device *dev,
->  >+               struct device_attribute *attr,
->  >+               char *buf)
->  >+{
->  >+       struct drm_device *ddev =3D dev_get_drvdata(dev);
->  >+       struct amdgpu_device *adev =3D ddev->dev_private;
->  >+       int r, value, size =3D sizeof(value);
->  >+
->  >+       /* sanity check PP is enabled */
->  >+       if (!(adev->powerplay.pp_funcs &&
->  >+             adev->powerplay.pp_funcs->read_sensor))
->  >+               return -EINVAL;
->  >+
->  >+       /* get the temperature */
->
-> Is load is the same thing as temperature?
-
-
-Nope, there is a separate sensor for that but it is included in hwmon
-and Alex would rather not duplicate it.
-
-GPU_LOAD is a value returned by firmware based on the RLC busy status (I
-think...).
-
-Tom
-
---_000_CY4PR12MB13044BA8CF357D8794289827FE770CY4PR12MB1304namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Should the comment then say 'get =
-the load' instead of 'get the temperature'?</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> StDenis, Tom<br>
-<b>Sent:</b> Wednesday, June 20, 2018 10:39:25 AM<br>
-<b>To:</b> Abramov, Slava; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-<br>
-On 06/20/2018 10:37 AM, Abramov, Slava wrote:<br>
-&gt; I see some functions in amdgpu_pm.c have function level documentation,=
- <br>
-&gt; so that it would be good to have this for newly added functions.<br>
-<br>
-Sure I can add some comments/docs.<br>
-<br>
-&gt; Another comment is inline.<br>
-&gt; <br>
-&gt; <br>
-&gt;&gt;From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on beha=
-lf of Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; <br>
-&gt;&nbsp; &gt;Sent: Wednesday, June 20, 2018 8:31 AM<br>
-&gt;&nbsp; &gt;To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt;&nbsp; &gt;Cc: StDenis, Tom<br>
-&gt;&nbsp; &gt;Subject: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sys=
-fs<br>
-&gt;&nbsp; &gt;<br>
-&gt;&nbsp; &gt;This adds what should be a stable interface to read GPU<br>
-&gt;&nbsp; &gt;load from userspace.<br>
-&gt;&nbsp; &gt;<br>
-&gt;&nbsp; &gt;Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;&nbsp; &gt;---<br>
-&gt;&nbsp; &gt; drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 41 <br>
-&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; &gt; 1 file changed, 41 insertions(&#43;)<br>
-&gt;&nbsp; &gt;<br>
-&gt;&nbsp; &gt;diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c <br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&gt;&nbsp; &gt;index 113edffb5960..d57b414ac228 100644<br>
-&gt;&nbsp; &gt;--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&gt;&nbsp; &gt;&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&gt;&nbsp; &gt;@@ -918,6 &#43;918,37 @@ static ssize_t <br>
-&gt; amdgpu_set_pp_power_profile_mode(struct device *dev,<br>
-&gt;&nbsp; &gt;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return -EINVAL;<br>
-&gt;&nbsp; &gt; }<br>
-&gt;&nbsp; &gt;<br>
-&gt;&nbsp; &gt;&#43;static ssize_t amdgpu_get_busy_level(struct device *dev=
-,<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
-struct device_attribute *attr,<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
-char *buf)<br>
-&gt;&nbsp; &gt;&#43;{<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;struct drm_device *ddev =3D =
-dev_get_drvdata(dev);<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;struct amdgpu_device *adev =
-=3D ddev-&gt;dev_private;<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;int r, value, size =3D sizeo=
-f(value);<br>
-&gt;&nbsp; &gt;&#43;<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;/* sanity check PP is enable=
-d */<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;if (!(adev-&gt;powerplay.pp_=
-funcs &amp;&amp;<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;adev-&g=
-t;powerplay.pp_funcs-&gt;read_sensor))<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
-return -EINVAL;<br>
-&gt;&nbsp; &gt;&#43;<br>
-&gt;&nbsp; &gt;&#43;&nbsp; &nbsp; &nbsp; &nbsp;/* get the temperature */<br=
->
-&gt; <br>
-&gt; Is load is the same thing as temperature?<br>
-<br>
-<br>
-Nope, there is a separate sensor for that but it is included in hwmon <br>
-and Alex would rather not duplicate it.<br>
-<br>
-GPU_LOAD is a value returned by firmware based on the RLC busy status (I <b=
-r>
-think...).<br>
-<br>
-Tom<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY4PR12MB13044BA8CF357D8794289827FE770CY4PR12MB1304namp_--
-
---===============0425437007==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0425437007==--
+U3dpdGNoIHRvIHVzaW5nIHJlZyBmaWVsZHMgZGVmaW5lcyBpc3RlYWQgb2YgbWFnaWMgdmFsdWVz
+LgpBZGQgU0hfSUQgYW5kIFBSSVYgZmllbGRzIHJlYWRpbmcgZm9yIGluc3RyLiBhbmQgZXJyIGNh
+c2VzLgoKU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5
+QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDM2
+ICsrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjAg
+aW5zZXJ0aW9ucygrKSwgMTYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
+eF92OF8wLmMKaW5kZXggMTVlNjFlMS4uOTM5MDRhNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjhfMC5jCkBAIC02OTU4LDEwICs2OTU4LDExIEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBf
+c3FfaXJxKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogewogCXU4IGVuYywgc2VfaWQ7CiAJ
+Y2hhciB0eXBlWzIwXTsKKwl1bnNpZ25lZCBpaF9kYXRhID0gZW50cnktPnNyY19kYXRhWzBdOwog
+Ci0JLyogUGFyc2UgYWxsIGZpZWxkcyBhY2NvcmRpbmcgdG8gU1FfSU5URVJSVVBUKiByZWdpc3Rl
+cnMgKi8KLQllbmMgPSAoZW50cnktPnNyY19kYXRhWzBdID4+IDI2KSAmIDB4MzsKLQlzZV9pZCA9
+IChlbnRyeS0+c3JjX2RhdGFbMF0gPj4gMjQpICYgMHgzOworCisJZW5jID0gUkVHX0dFVF9GSUVM
+RChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09SRF9DTU4sIEVOQ09ESU5HKTsKKwlzZV9pZCA9IFJF
+R19HRVRfRklFTEQoaWhfZGF0YSwgU1FfSU5URVJSVVBUX1dPUkRfQ01OLCBTRV9JRCk7CiAKIAlz
+d2l0Y2ggKGVuYykgewogCQljYXNlIDA6CkBAIC02OTcxLDE0ICs2OTcyLDE0IEBAIHN0YXRpYyBp
+bnQgZ2Z4X3Y4XzBfc3FfaXJxKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJCQkicmVn
+X3RpbWVzdGFtcCAlZCwgdGhyZWFkX3RyYWNlX2J1ZmZfZnVsbCAlZCwiCiAJCQkJCSJ3bHQgJWQs
+IHRocmVhZF90cmFjZSAlZC5cbiIsCiAJCQkJCXNlX2lkLAotCQkJCQkoZW50cnktPnNyY19kYXRh
+WzBdID4+IDcpICYgMHgxLAotCQkJCQkoZW50cnktPnNyY19kYXRhWzBdID4+IDYpICYgMHgxLAot
+CQkJCQkoZW50cnktPnNyY19kYXRhWzBdID4+IDUpICYgMHgxLAotCQkJCQkoZW50cnktPnNyY19k
+YXRhWzBdID4+IDQpICYgMHgxLAotCQkJCQkoZW50cnktPnNyY19kYXRhWzBdID4+IDMpICYgMHgx
+LAotCQkJCQkoZW50cnktPnNyY19kYXRhWzBdID4+IDIpICYgMHgxLAotCQkJCQkoZW50cnktPnNy
+Y19kYXRhWzBdID4+IDEpICYgMHgxLAotCQkJCQllbnRyeS0+c3JjX2RhdGFbMF0gJiAweDEKKwkJ
+CQkJUkVHX0dFVF9GSUVMRChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09SRF9BVVRPLCBJTU1FRF9P
+VkVSRkxPVyksCisJCQkJCVJFR19HRVRfRklFTEQoaWhfZGF0YSwgU1FfSU5URVJSVVBUX1dPUkRf
+QVVUTywgSE9TVF9SRUdfT1ZFUkZMT1cpLAorCQkJCQlSRUdfR0VUX0ZJRUxEKGloX2RhdGEsIFNR
+X0lOVEVSUlVQVF9XT1JEX0FVVE8sIEhPU1RfQ01EX09WRVJGTE9XKSwKKwkJCQkJUkVHX0dFVF9G
+SUVMRChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09SRF9BVVRPLCBDTURfVElNRVNUQU1QKSwKKwkJ
+CQkJUkVHX0dFVF9GSUVMRChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09SRF9BVVRPLCBSRUdfVElN
+RVNUQU1QKSwKKwkJCQkJUkVHX0dFVF9GSUVMRChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09SRF9B
+VVRPLCBUSFJFQURfVFJBQ0VfQlVGX0ZVTEwpLAorCQkJCQlSRUdfR0VUX0ZJRUxEKGloX2RhdGEs
+IFNRX0lOVEVSUlVQVF9XT1JEX0FVVE8sIFdMVCksCisJCQkJCVJFR19HRVRfRklFTEQoaWhfZGF0
+YSwgU1FfSU5URVJSVVBUX1dPUkRfQVVUTywgVEhSRUFEX1RSQUNFKQogCQkJCQkpOwogCQkJYnJl
+YWs7CiAJCWNhc2UgMToKQEAgLTY5OTEsMTIgKzY5OTIsMTUgQEAgc3RhdGljIGludCBnZnhfdjhf
+MF9zcV9pcnEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAKIAkJCURSTV9JTkZPKAogCQkJ
+CSJTUSAlcyBkZXRlY3RlZDogIgotCQkJCQkic2VfaWQgJWQsIGN1X2lkICVkLCBzaW1kX2lkICVk
+LCB3YXZlX2lkICVkLCB2bV9pZCAlZFxuIiwKKwkJCQkJInNlX2lkICVkLCBjdV9pZCAlZCwgc2lt
+ZF9pZCAlZCwgd2F2ZV9pZCAlZCwgdm1faWQgJWRcbiIKKwkJCQkJInRyYXAgJXMsIHNoX2lkICVk
+LiAiLAogCQkJCQl0eXBlLCBzZV9pZCwKLQkJCQkJKGVudHJ5LT5zcmNfZGF0YVswXSA+PiAyMCkg
+JiAweGYsCi0JCQkJCShlbnRyeS0+c3JjX2RhdGFbMF0gPj4gMTgpICYgMHgzLAotCQkJCQkoZW50
+cnktPnNyY19kYXRhWzBdID4+IDE0KSAmIDB4ZiwKLQkJCQkJKGVudHJ5LT5zcmNfZGF0YVswXSA+
+PiAxMCkgJiAweGYKKwkJCQkJUkVHX0dFVF9GSUVMRChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09S
+RF9XQVZFLCBDVV9JRCksCisJCQkJCVJFR19HRVRfRklFTEQoaWhfZGF0YSwgU1FfSU5URVJSVVBU
+X1dPUkRfV0FWRSwgU0lNRF9JRCksCisJCQkJCVJFR19HRVRfRklFTEQoaWhfZGF0YSwgU1FfSU5U
+RVJSVVBUX1dPUkRfV0FWRSwgV0FWRV9JRCksCisJCQkJCVJFR19HRVRfRklFTEQoaWhfZGF0YSwg
+U1FfSU5URVJSVVBUX1dPUkRfV0FWRSwgVk1fSUQpLAorCQkJCQlSRUdfR0VUX0ZJRUxEKGloX2Rh
+dGEsIFNRX0lOVEVSUlVQVF9XT1JEX1dBVkUsIFBSSVYpID8gInRydWUiIDogImZhbHNlIiwKKwkJ
+CQkJUkVHX0dFVF9GSUVMRChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09SRF9XQVZFLCBTSF9JRCkK
+IAkJCQkJKTsKIAkJCWJyZWFrOwogCQlkZWZhdWx0OgotLSAKMi43LjQKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
