@@ -1,13 +1,13 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v3 2/2] drm/amdgpu: Add parsing SQ_EDC_INFO to SQ IH.
-Date: Wed, 20 Jun 2018 14:17:23 -0400
-Message-ID: <1529518643-21499-2-git-send-email-andrey.grodzovsky@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v3 1/2] drm/amdgpu: Polish SQ IH.
+Date: Wed, 20 Jun 2018 18:23:15 +0000
+Message-ID: <BN6PR12MB18094106210925F06D10831CF7770@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <1529518643-21499-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0435789006=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1529518643-21499-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,121 +18,398 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, nicolai.haehnle-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>, "Haehnle,
+ Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
 
-QWNjZXNzIHRvIFNRX0VEQ19JTkZPIHJlcXVpcmVzIHNlbGVjdGluZyByZWdpc3RlciBpbnN0YW5j
-ZSBhbmQKaGVuY2UgbXV0ZXggbG9jayB3aGVuIGFjY2Vzc2luZyBHUkJNX0dGWF9JTkRFWCBmb3Ig
-d2hpY2ggYSB3b3JrCmlzIHNjaGVkdWVsZWQgZnJvbSBJSC4gQnV0IFNRIGludGVycnVwdCBjYW4g
-YmUgcmFpc2VkIG9uIG1hbnkgaW5zdGFuY2VzCmF0IG9uY2Ugd2hpY2ggbWVhbnMgcXVldWluZyB3
-b3JrIHdpbGwgdXN1YWxseSBzdWNjZWVkIGZvciB0aGUgZmlyc3Qgb25lCmJ1dCBmYWlsIGZvciB0
-aGUgcmVzdCBzaW5jZSB0aGUgd29yayB0YWtlcyB0aW1lIHRvIHByb2Nlc3MuIFRvIGF2b2lkCmxv
-c2luZyBpbmZvIGFib3V0IG90aGVyIGludGVycnVwdCBpbnN0YW5jZXMgY2FsbCB0aGUgcGFyc2lu
-ZyBmdW5jdGlvbgpkaXJlY3RseSBmcm9tIGhpZ2ggSVJRIHdoZW4gY3VycmVudCB3b3JrIGhhc24n
-dCBmaW5pc2hlZCBhbmQgYXZvaWQKYWNjZXNzaW5nIFNRX0VEQ19JTkZPIGluIHRoYXQgY2FzZS4K
-CnYyOgpTaW1wbGlmeSBoaWdoIElSUSBhbmQgQkggaGFuZGxlcnMgc3luY2hyb25pemF0aW9uIHVz
-aW5nIHdvcmtfcGVuZGluZy4KUmVtb3ZlIHtSRUFELFdSSVRFfV9PTkNFIG5vdGF0aW9ucyBzaW5j
-ZSBzbXBfe3Isd31tYiBhcmUgaW1wbGljaXQKY29tcGlsZXIgYmFycmllcnMuCgp2MzoKUmVtb3Zl
-IGV4bGljaXQgbWVtb3J5IGJhcnJpZXJzIGFzIHNjZWR1bGVfd29yayBoYXMgci93IGJhcnJpZXJz
-LgoKU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFt
-ZC5jb20+CkFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICB8ICA3ICsrKwog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDgyICsrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLS0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDc2IGluc2VydGlvbnMoKyks
-IDEzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggZDhl
-MGNjMC4uYzMyOGMzOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKQEAgLTkzMCw2
-ICs5MzAsMTEgQEAgc3RydWN0IGFtZGdwdV9uZ2cgewogCWJvb2wJCQlpbml0OwogfTsKIAorc3Ry
-dWN0IHNxX3dvcmsgeworCXN0cnVjdCB3b3JrX3N0cnVjdAl3b3JrOworCXVuc2lnbmVkIGloX2Rh
-dGE7Cit9OworCiBzdHJ1Y3QgYW1kZ3B1X2dmeCB7CiAJc3RydWN0IG11dGV4CQkJZ3B1X2Nsb2Nr
-X211dGV4OwogCXN0cnVjdCBhbWRncHVfZ2Z4X2NvbmZpZwljb25maWc7CkBAIC05NzAsNiArOTc1
-LDggQEAgc3RydWN0IGFtZGdwdV9nZnggewogCXN0cnVjdCBhbWRncHVfaXJxX3NyYwkJcHJpdl9p
-bnN0X2lycTsKIAlzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMJCWNwX2VjY19lcnJvcl9pcnE7CiAJc3Ry
-dWN0IGFtZGdwdV9pcnFfc3JjCQlzcV9pcnE7CisJc3RydWN0IHNxX3dvcmsJCQlzcV93b3JrOwor
-CiAJLyogZ2Z4IHN0YXR1cyAqLwogCXVpbnQzMl90CQkJZ2Z4X2N1cnJlbnRfc3RhdHVzOwogCS8q
-IGNlIHJhbSBzaXplKi8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCmluZGV4IDkz
-OTA0YTcuLjI1ZmI1ZmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwpAQCAt
-NzA0LDYgKzcwNCwxNyBAQCBzdGF0aWMgY29uc3QgdTMyIHN0b25leV9tZ2NnX2NnY2dfaW5pdFtd
-ID0KIAltbUNHVFNfU01fQ1RSTF9SRUcsIDB4ZmZmZmZmZmYsIDB4OTY5NDAyMDAsCiB9OwogCisK
-K3N0YXRpYyBjb25zdCBjaGFyICogY29uc3Qgc3FfZWRjX3NvdXJjZV9uYW1lc1tdID0geworCSJT
-UV9FRENfSU5GT19TT1VSQ0VfSU5WQUxJRDogTm8gRURDIGVycm9yIGhhcyBvY2N1cnJlZCIsCisJ
-IlNRX0VEQ19JTkZPX1NPVVJDRV9JTlNUOiBFREMgc291cmNlIGlzIEluc3RydWN0aW9uIEZldGNo
-IiwKKwkiU1FfRURDX0lORk9fU09VUkNFX1NHUFI6IEVEQyBzb3VyY2UgaXMgU0dQUiBvciBTUUMg
-ZGF0YSByZXR1cm4iLAorCSJTUV9FRENfSU5GT19TT1VSQ0VfVkdQUjogRURDIHNvdXJjZSBpcyBW
-R1BSIiwKKwkiU1FfRURDX0lORk9fU09VUkNFX0xEUzogRURDIHNvdXJjZSBpcyBMRFMiLAorCSJT
-UV9FRENfSU5GT19TT1VSQ0VfR0RTOiBFREMgc291cmNlIGlzIEdEUyIsCisJIlNRX0VEQ19JTkZP
-X1NPVVJDRV9UQTogRURDIHNvdXJjZSBpcyBUQSIsCit9OworCiBzdGF0aWMgdm9pZCBnZnhfdjhf
-MF9zZXRfcmluZ19mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiBzdGF0aWMgdm9p
-ZCBnZnhfdjhfMF9zZXRfaXJxX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIHN0
-YXRpYyB2b2lkIGdmeF92OF8wX3NldF9nZHNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dik7CkBAIC0yMDAzLDYgKzIwMTQsOCBAQCBzdGF0aWMgaW50IGdmeF92OF8wX2NvbXB1dGVfcmlu
-Z19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgcmluZ19pZCwKIAlyZXR1cm4g
-MDsKIH0KIAorc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfc3FfaXJxX3dvcmtfZnVuYyhzdHJ1Y3Qgd29y
-a19zdHJ1Y3QgKndvcmspOworCiBzdGF0aWMgaW50IGdmeF92OF8wX3N3X2luaXQodm9pZCAqaGFu
-ZGxlKQogewogCWludCBpLCBqLCBrLCByLCByaW5nX2lkOwpAQCAtMjA2Niw2ICsyMDc5LDggQEAg
-c3RhdGljIGludCBnZnhfdjhfMF9zd19pbml0KHZvaWQgKmhhbmRsZSkKIAkJcmV0dXJuIHI7CiAJ
-fQogCisJSU5JVF9XT1JLKCZhZGV2LT5nZnguc3Ffd29yay53b3JrLCBnZnhfdjhfMF9zcV9pcnFf
-d29ya19mdW5jKTsKKwogCWFkZXYtPmdmeC5nZnhfY3VycmVudF9zdGF0dXMgPSBBTURHUFVfR0ZY
-X05PUk1BTF9NT0RFOwogCiAJZ2Z4X3Y4XzBfc2NyYXRjaF9pbml0KGFkZXYpOwpAQCAtNjk1Miwx
-NCArNjk2NywxMSBAQCBzdGF0aWMgaW50IGdmeF92OF8wX2NwX2VjY19lcnJvcl9pcnEoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJcmV0dXJuIDA7CiB9CiAKLXN0YXRpYyBpbnQgZ2Z4X3Y4
-XzBfc3FfaXJxKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJICAgc3RydWN0IGFtZGdw
-dV9pcnFfc3JjICpzb3VyY2UsCi0JCQkgICBzdHJ1Y3QgYW1kZ3B1X2l2X2VudHJ5ICplbnRyeSkK
-K3N0YXRpYyB2b2lkIGdmeF92OF8wX3BhcnNlX3NxX2lycShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwgdW5zaWduZWQgaWhfZGF0YSkKIHsKLQl1OCBlbmMsIHNlX2lkOworCXUzMiBlbmMsIHNl
-X2lkLCBzaF9pZCwgY3VfaWQ7CiAJY2hhciB0eXBlWzIwXTsKLQl1bnNpZ25lZCBpaF9kYXRhID0g
-ZW50cnktPnNyY19kYXRhWzBdOwotCisJaW50IHNxX2VkY19zb3VyY2UgPSAtMTsKIAogCWVuYyA9
-IFJFR19HRVRfRklFTEQoaWhfZGF0YSwgU1FfSU5URVJSVVBUX1dPUkRfQ01OLCBFTkNPRElORyk7
-CiAJc2VfaWQgPSBSRUdfR0VUX0ZJRUxEKGloX2RhdGEsIFNRX0lOVEVSUlVQVF9XT1JEX0NNTiwg
-U0VfSUQpOwpAQCAtNjk4NSw2ICs2OTk3LDI0IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfc3FfaXJx
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQljYXNlIDE6CiAJCWNhc2UgMjoKIAorCQkJ
-Y3VfaWQgPSBSRUdfR0VUX0ZJRUxEKGloX2RhdGEsIFNRX0lOVEVSUlVQVF9XT1JEX1dBVkUsIENV
-X0lEKTsKKwkJCXNoX2lkID0gUkVHX0dFVF9GSUVMRChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09S
-RF9XQVZFLCBTSF9JRCk7CisKKwkJCS8qCisJCQkgKiBUaGlzIGZ1bmN0aW9uIGNhbiBiZSBjYWxs
-ZWQgZWl0aGVyIGRpcmVjdGx5IGZyb20gSVNSCisJCQkgKiBvciBmcm9tIEJIIGluIHdoaWNoIGNh
-c2Ugd2UgY2FuIGFjY2VzcyBTUV9FRENfSU5GTworCQkJICogaW5zdGFuY2UKKwkJCSAqLworCQkJ
-aWYgKGluX3Rhc2soKSkgeworCQkJCW11dGV4X2xvY2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsK
-KwkJCQlnZnhfdjhfMF9zZWxlY3Rfc2Vfc2goYWRldiwgc2VfaWQsIHNoX2lkLCBjdV9pZCk7CisK
-KwkJCQlzcV9lZGNfc291cmNlID0gUkVHX0dFVF9GSUVMRChSUkVHMzIobW1TUV9FRENfSU5GTyks
-IFNRX0VEQ19JTkZPLCBTT1VSQ0UpOworCisJCQkJZ2Z4X3Y4XzBfc2VsZWN0X3NlX3NoKGFkZXYs
-IDB4ZmZmZmZmZmYsIDB4ZmZmZmZmZmYsIDB4ZmZmZmZmZmYpOworCQkJCW11dGV4X3VubG9jaygm
-YWRldi0+Z3JibV9pZHhfbXV0ZXgpOworCQkJfQorCiAJCQlpZiAoZW5jID09IDEpCiAJCQkJc3By
-aW50Zih0eXBlLCAiaW5zdHJ1Y3Rpb24gaW50ciIpOwogCQkJZWxzZQpAQCAtNjk5MiwyMCArNzAy
-Miw0NiBAQCBzdGF0aWMgaW50IGdmeF92OF8wX3NxX2lycShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwKIAogCQkJRFJNX0lORk8oCiAJCQkJIlNRICVzIGRldGVjdGVkOiAiCi0JCQkJCSJzZV9p
-ZCAlZCwgY3VfaWQgJWQsIHNpbWRfaWQgJWQsIHdhdmVfaWQgJWQsIHZtX2lkICVkXG4iCi0JCQkJ
-CSJ0cmFwICVzLCBzaF9pZCAlZC4gIiwKLQkJCQkJdHlwZSwgc2VfaWQsCi0JCQkJCVJFR19HRVRf
-RklFTEQoaWhfZGF0YSwgU1FfSU5URVJSVVBUX1dPUkRfV0FWRSwgQ1VfSUQpLAorCQkJCQkic2Vf
-aWQgJWQsIHNoX2lkICVkLCBjdV9pZCAlZCwgc2ltZF9pZCAlZCwgd2F2ZV9pZCAlZCwgdm1faWQg
-JWQgIgorCQkJCQkidHJhcCAlcywgc3FfZWRfaW5mby5zb3VyY2UgJXMuXG4iLAorCQkJCQl0eXBl
-LCBzZV9pZCwgc2hfaWQsIGN1X2lkLAogCQkJCQlSRUdfR0VUX0ZJRUxEKGloX2RhdGEsIFNRX0lO
-VEVSUlVQVF9XT1JEX1dBVkUsIFNJTURfSUQpLAogCQkJCQlSRUdfR0VUX0ZJRUxEKGloX2RhdGEs
-IFNRX0lOVEVSUlVQVF9XT1JEX1dBVkUsIFdBVkVfSUQpLAogCQkJCQlSRUdfR0VUX0ZJRUxEKGlo
-X2RhdGEsIFNRX0lOVEVSUlVQVF9XT1JEX1dBVkUsIFZNX0lEKSwKIAkJCQkJUkVHX0dFVF9GSUVM
-RChpaF9kYXRhLCBTUV9JTlRFUlJVUFRfV09SRF9XQVZFLCBQUklWKSA/ICJ0cnVlIiA6ICJmYWxz
-ZSIsCi0JCQkJCVJFR19HRVRfRklFTEQoaWhfZGF0YSwgU1FfSU5URVJSVVBUX1dPUkRfV0FWRSwg
-U0hfSUQpCi0JCQkJCSk7CisJCQkJCShzcV9lZGNfc291cmNlICE9IC0xKSA/IHNxX2VkY19zb3Vy
-Y2VfbmFtZXNbc3FfZWRjX3NvdXJjZV0gOiAidW5hdmFpbGFibGUiCisJCQkJKTsKIAkJCWJyZWFr
-OwogCQlkZWZhdWx0OgogCQkJRFJNX0VSUk9SKCJTUSBpbnZhbGlkIGVuY29kaW5nIHR5cGVcbi4i
-KTsKLQkJCXJldHVybiAtRUlOVkFMOworCX0KK30KKworc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfc3Ff
-aXJxX3dvcmtfZnVuYyhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCit7CisKKwlzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiA9IGNvbnRhaW5lcl9vZih3b3JrLCBzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSwgZ2Z4LnNxX3dvcmsud29yayk7CisJc3RydWN0IHNxX3dvcmsgKnNxX3dvcmsgPSBjb250YWlu
-ZXJfb2Yod29yaywgc3RydWN0IHNxX3dvcmssIHdvcmspOworCisJZ2Z4X3Y4XzBfcGFyc2Vfc3Ff
-aXJxKGFkZXYsIHNxX3dvcmstPmloX2RhdGEpOworfQorCitzdGF0aWMgaW50IGdmeF92OF8wX3Nx
-X2lycShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKKwkJCSAgIHN0cnVjdCBhbWRncHVfaXJx
-X3NyYyAqc291cmNlLAorCQkJICAgc3RydWN0IGFtZGdwdV9pdl9lbnRyeSAqZW50cnkpCit7CisJ
-dW5zaWduZWQgaWhfZGF0YSA9IGVudHJ5LT5zcmNfZGF0YVswXTsKKworCS8qCisJICogVHJ5IHRv
-IHN1Ym1pdCB3b3JrIHNvIFNRX0VEQ19JTkZPIGNhbiBiZSBhY2Nlc3NlZCBmcm9tCisJICogQkgu
-IElmIHByZXZpb3VzIHdvcmsgc3VibWlzc2lvbiBoYXNuJ3QgZmluaXNoZWQgeWV0CisJICoganVz
-dCBwcmludCB3aGF0ZXZlciBpbmZvIGlzIHBvc3NpYmxlIGRpcmVjdGx5IGZyb20gdGhlIElTUi4K
-KwkgKi8KKwlpZiAod29ya19wZW5kaW5nKCZhZGV2LT5nZnguc3Ffd29yay53b3JrKSkgeworCQln
-ZnhfdjhfMF9wYXJzZV9zcV9pcnEoYWRldiwgaWhfZGF0YSk7CisJfSBlbHNlIHsKKwkJYWRldi0+
-Z2Z4LnNxX3dvcmsuaWhfZGF0YSA9IGloX2RhdGE7CisJCXNjaGVkdWxlX3dvcmsoJmFkZXYtPmdm
-eC5zcV93b3JrLndvcmspOwogCX0KIAogCXJldHVybiAwOwotLSAKMi43LjQKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0435789006==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18094106210925F06D10831CF7770BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18094106210925F06D10831CF7770BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Andrey G=
+rodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, June 20, 2018 2:17:22 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Panariti, David; Haehnle, Nicolai; Grodzovsky, Andrey
+Subject: [PATCH v3 1/2] drm/amdgpu: Polish SQ IH.
+
+Switch to using reg fields defines istead of magic values.
+Add SH_ID and PRIV fields reading for instr. and err cases.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Acked-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 36 +++++++++++++++++++------------=
+----
+ 1 file changed, 20 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c
+index 15e61e1..93904a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -6958,10 +6958,11 @@ static int gfx_v8_0_sq_irq(struct amdgpu_device *ad=
+ev,
+ {
+         u8 enc, se_id;
+         char type[20];
++       unsigned ih_data =3D entry->src_data[0];
+
+-       /* Parse all fields according to SQ_INTERRUPT* registers */
+-       enc =3D (entry->src_data[0] >> 26) & 0x3;
+-       se_id =3D (entry->src_data[0] >> 24) & 0x3;
++
++       enc =3D REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_CMN, ENCODING);
++       se_id =3D REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_CMN, SE_ID);
+
+         switch (enc) {
+                 case 0:
+@@ -6971,14 +6972,14 @@ static int gfx_v8_0_sq_irq(struct amdgpu_device *ad=
+ev,
+                                         "reg_timestamp %d, thread_trace_bu=
+ff_full %d,"
+                                         "wlt %d, thread_trace %d.\n",
+                                         se_id,
+-                                       (entry->src_data[0] >> 7) & 0x1,
+-                                       (entry->src_data[0] >> 6) & 0x1,
+-                                       (entry->src_data[0] >> 5) & 0x1,
+-                                       (entry->src_data[0] >> 4) & 0x1,
+-                                       (entry->src_data[0] >> 3) & 0x1,
+-                                       (entry->src_data[0] >> 2) & 0x1,
+-                                       (entry->src_data[0] >> 1) & 0x1,
+-                                       entry->src_data[0] & 0x1
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, IMMED_OVERFLOW),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, HOST_REG_OVERFLOW),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, HOST_CMD_OVERFLOW),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, CMD_TIMESTAMP),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, REG_TIMESTAMP),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, THREAD_TRACE_BUF_FULL),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, WLT),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_AUTO, THREAD_TRACE)
+                                         );
+                         break;
+                 case 1:
+@@ -6991,12 +6992,15 @@ static int gfx_v8_0_sq_irq(struct amdgpu_device *ad=
+ev,
+
+                         DRM_INFO(
+                                 "SQ %s detected: "
+-                                       "se_id %d, cu_id %d, simd_id %d, wa=
+ve_id %d, vm_id %d\n",
++                                       "se_id %d, cu_id %d, simd_id %d, wa=
+ve_id %d, vm_id %d\n"
++                                       "trap %s, sh_id %d. ",
+                                         type, se_id,
+-                                       (entry->src_data[0] >> 20) & 0xf,
+-                                       (entry->src_data[0] >> 18) & 0x3,
+-                                       (entry->src_data[0] >> 14) & 0xf,
+-                                       (entry->src_data[0] >> 10) & 0xf
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_WAVE, CU_ID),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_WAVE, SIMD_ID),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_WAVE, WAVE_ID),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_WAVE, VM_ID),
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_WAVE, PRIV) ? "true" : "false",
++                                       REG_GET_FIELD(ih_data, SQ_INTERRUPT=
+_WORD_WAVE, SH_ID)
+                                         );
+                         break;
+                 default:
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18094106210925F06D10831CF7770BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Andrey Grodzovsky &lt;andrey.=
+grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, June 20, 2018 2:17:22 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<=
+br>
+<b>Cc:</b> Panariti, David; Haehnle, Nicolai; Grodzovsky, Andrey<br>
+<b>Subject:</b> [PATCH v3 1/2] drm/amdgpu: Polish SQ IH.</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Switch to using reg fields defines istead of magic=
+ values.<br>
+Add SH_ID and PRIV fields reading for instr. and err cases.<br>
+<br>
+Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Acked-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 36 &#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------=
+----------<br>
+&nbsp;1 file changed, 20 insertions(&#43;), 16 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c<br>
+index 15e61e1..93904a7 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+@@ -6958,10 &#43;6958,11 @@ static int gfx_v8_0_sq_irq(struct amdgpu_device=
+ *adev,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 enc, se_id;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char type[20];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned ih_data =3D entry-&gt;sr=
+c_data[0];<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Parse all fields according to SQ_I=
+NTERRUPT* registers */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enc =3D (entry-&gt;src_data[0] &gt;&g=
+t; 26) &amp; 0x3;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_id =3D (entry-&gt;src_data[0] &gt;=
+&gt; 24) &amp; 0x3;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enc =3D REG_GET_FIELD(ih_data, SQ=
+_INTERRUPT_WORD_CMN, ENCODING);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; se_id =3D REG_GET_FIELD(ih_data, =
+SQ_INTERRUPT_WORD_CMN, SE_ID);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (enc) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; case 0:<br>
+@@ -6971,14 &#43;6972,14 @@ static int gfx_v8_0_sq_irq(struct amdgpu_device=
+ *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; &quot;reg_timestamp %d, thread_trace_buff_full %d,&quot;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; &quot;wlt %d, thread_trace %d.\n&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; se_id,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 7) &amp; 0x1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 6) &amp; 0x1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 5) &amp; 0x1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 4) &amp; 0x1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 3) &amp; 0x1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 2) &amp; 0x1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 1) &amp; 0x1,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; entry-&gt;src_data[0] &amp; 0x1<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, IMMED_OVERFLOW),<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, HOST_REG_OVERFLOW),=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, HOST_CMD_OVERFLOW),=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, CMD_TIMESTAMP),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, REG_TIMESTAMP),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, THREAD_TRACE_BUF_FU=
+LL),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, WLT),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_AUTO, THREAD_TRACE)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; );<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; case 1:<br>
+@@ -6991,12 &#43;6992,15 @@ static int gfx_v8_0_sq_irq(struct amdgpu_device=
+ *adev,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_I=
+NFO(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;SQ %s detected: &quot;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; &quot;se_id %d, cu_id %d, simd_id %d, wave_id %d, vm_id %d\n&quot;,<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; &quot;se_id %d, cu_id %d, simd_id %d, wave_id %d, vm_id %d\n&quot;=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; &quot;trap %s, sh_id %d. &quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; type, se_id,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 20) &amp; 0xf,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 18) &amp; 0x3,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 14) &amp; 0xf,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; (entry-&gt;src_data[0] &gt;&gt; 10) &amp; 0xf<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_WAVE, CU_ID),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_WAVE, SIMD_ID),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_WAVE, WAVE_ID),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_WAVE, VM_ID),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_WAVE, PRIV) ? &quot;true&=
+quot; : &quot;false&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; REG_GET_FIELD(ih_data, SQ_INTERRUPT_WORD_WAVE, SH_ID)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; );<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; default:<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18094106210925F06D10831CF7770BN6PR12MB1809namp_--
+
+--===============0435789006==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0435789006==--
