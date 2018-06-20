@@ -1,13 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Add a GPU_LOAD entry to sysfs
-Date: Wed, 20 Jun 2018 10:52:58 -0400
-Message-ID: <CADnq5_MBJyFiHs+REEp=1SFOYH1oXqs4-wPVpai81xxdhUACFA@mail.gmail.com>
-References: <20180620123149.18399-1-tom.stdenis@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: Add parsing SQ_EDC_INFO to SQ IH v2.
+Date: Wed, 20 Jun 2018 11:02:02 -0400
+Message-ID: <6f9d3c60-2050-f13c-df72-bff240d669b9@amd.com>
+References: <1529505781-9004-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1529505781-9004-2-git-send-email-andrey.grodzovsky@amd.com>
+ <d96fc78e-ef3d-fb3a-8548-7a6a7cc3d52f@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1374121763=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180620123149.18399-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <d96fc78e-ef3d-fb3a-8548-7a6a7cc3d52f-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,73 +20,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David.Panariti-5C7GfCeVMHo@public.gmane.org, nicolai.haehnle-5C7GfCeVMHo@public.gmane.org
 
-T24gV2VkLCBKdW4gMjAsIDIwMTggYXQgODozMSBBTSwgVG9tIFN0IERlbmlzIDx0b20uc3RkZW5p
-c0BhbWQuY29tPiB3cm90ZToKPiBUaGlzIGFkZHMgd2hhdCBzaG91bGQgYmUgYSBzdGFibGUgaW50
-ZXJmYWNlIHRvIHJlYWQgR1BVCj4gbG9hZCBmcm9tIHVzZXJzcGFjZS4KPgo+IFNpZ25lZC1vZmYt
-Ynk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgfCA0MSArKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrCj4gIDEgZmlsZSBjaGFuZ2VkLCA0MSBpbnNlcnRpb25zKCspCj4KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+IGluZGV4IDExM2VkZmZiNTk2MC4uZDU3
-YjQxNGFjMjI4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9wbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKPiBA
-QCAtOTE4LDYgKzkxOCwzNyBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfc2V0X3BwX3Bvd2VyX3By
-b2ZpbGVfbW9kZShzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gICAgICAgICByZXR1cm4gLUVJTlZBTDsK
-PiAgfQo+Cj4gK3N0YXRpYyBzc2l6ZV90IGFtZGdwdV9nZXRfYnVzeV9sZXZlbChzdHJ1Y3QgZGV2
-aWNlICpkZXYsCj4gKyAgICAgICAgICAgICAgIHN0cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRy
-LAo+ICsgICAgICAgICAgICAgICBjaGFyICpidWYpCj4gK3sKPiArICAgICAgIHN0cnVjdCBkcm1f
-ZGV2aWNlICpkZGV2ID0gZGV2X2dldF9kcnZkYXRhKGRldik7Cj4gKyAgICAgICBzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiA9IGRkZXYtPmRldl9wcml2YXRlOwo+ICsgICAgICAgaW50IHIsIHZh
-bHVlLCBzaXplID0gc2l6ZW9mKHZhbHVlKTsKPiArCj4gKyAgICAgICAvKiBzYW5pdHkgY2hlY2sg
-UFAgaXMgZW5hYmxlZCAqLwo+ICsgICAgICAgaWYgKCEoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNz
-ICYmCj4gKyAgICAgICAgICAgICBhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MtPnJlYWRfc2Vuc29y
-KSkKPiArICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gKwo+ICsgICAgICAgLyogZ2V0
-IHRoZSB0ZW1wZXJhdHVyZSAqLwo+ICsgICAgICAgciA9IGFtZGdwdV9kcG1fcmVhZF9zZW5zb3Io
-YWRldiwgQU1ER1BVX1BQX1NFTlNPUl9HUFVfTE9BRCwKPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICh2b2lkICopJnZhbHVlLCAmc2l6ZSk7Cj4gKyAgICAgICBpZiAocikKPiAr
-ICAgICAgICAgICAgICAgcmV0dXJuIHI7Cj4gKwo+ICsgICAgICAgcmV0dXJuIHNucHJpbnRmKGJ1
-ZiwgUEFHRV9TSVpFLCAiJWRcbiIsIHZhbHVlKTsKPiArfQo+ICsKPiArc3RhdGljIHNzaXplX3Qg
-YW1kZ3B1X3NldF9ncHVfYnVzeV9sZXZlbChzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gKyAgICAgICAg
-ICAgICAgIHN0cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRyLAo+ICsgICAgICAgICAgICAgICBj
-b25zdCBjaGFyICpidWYsCj4gKyAgICAgICAgICAgICAgIHNpemVfdCBjb3VudCkKPiArewo+ICsg
-ICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gK30KPiArCj4gKwo+ICBzdGF0aWMgREVWSUNFX0FUVFIo
-cG93ZXJfZHBtX3N0YXRlLCBTX0lSVUdPIHwgU19JV1VTUiwgYW1kZ3B1X2dldF9kcG1fc3RhdGUs
-IGFtZGdwdV9zZXRfZHBtX3N0YXRlKTsKPiAgc3RhdGljIERFVklDRV9BVFRSKHBvd2VyX2RwbV9m
-b3JjZV9wZXJmb3JtYW5jZV9sZXZlbCwgU19JUlVHTyB8IFNfSVdVU1IsCj4gICAgICAgICAgICAg
-ICAgICAgIGFtZGdwdV9nZXRfZHBtX2ZvcmNlZF9wZXJmb3JtYW5jZV9sZXZlbCwKPiBAQCAtOTUx
-LDYgKzk4Miw4IEBAIHN0YXRpYyBERVZJQ0VfQVRUUihwcF9wb3dlcl9wcm9maWxlX21vZGUsIFNf
-SVJVR08gfCBTX0lXVVNSLAo+ICBzdGF0aWMgREVWSUNFX0FUVFIocHBfb2RfY2xrX3ZvbHRhZ2Us
-IFNfSVJVR08gfCBTX0lXVVNSLAo+ICAgICAgICAgICAgICAgICBhbWRncHVfZ2V0X3BwX29kX2Ns
-a192b2x0YWdlLAo+ICAgICAgICAgICAgICAgICBhbWRncHVfc2V0X3BwX29kX2Nsa192b2x0YWdl
-KTsKPiArc3RhdGljIERFVklDRV9BVFRSKGdwdV9idXN5X2xldmVsLCBTX0lSVUdPIHwgU19JV1VT
-UiwKPiArICAgICAgICAgICAgICAgYW1kZ3B1X2dldF9idXN5X2xldmVsLCBhbWRncHVfc2V0X2dw
-dV9idXN5X2xldmVsKTsKCgpNYXliZSBjYWxsIHRoZSBub2RlIGdwdV9idXN5X3BlcmNlbnQgc2lu
-Y2UgaXQgcmV0dXJucyBhIHBlcmNlbnRhZ2U/Cgo+Cj4gIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9o
-d21vbl9zaG93X3RlbXAoc3RydWN0IGRldmljZSAqZGV2LAo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsCj4gQEAgLTE4
-NTQsNiArMTg4NywxMyBAQCBpbnQgYW1kZ3B1X3BtX3N5c2ZzX2luaXQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAicHBfb2RfY2xr
-X3ZvbHRhZ2VcbiIpOwo+ICAgICAgICAgICAgICAgICByZXR1cm4gcmV0Owo+ICAgICAgICAgfQo+
-ICsgICAgICAgcmV0ID0gZGV2aWNlX2NyZWF0ZV9maWxlKGFkZXYtPmRldiwKPiArICAgICAgICAg
-ICAgICAgICAgICAgICAmZGV2X2F0dHJfZ3B1X2J1c3lfbGV2ZWwpOwo+ICsgICAgICAgaWYgKHJl
-dCkgewo+ICsgICAgICAgICAgICAgICBEUk1fRVJST1IoImZhaWxlZCB0byBjcmVhdGUgZGV2aWNl
-IGZpbGUgIgo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgImdwdV9idXN5X2xldmVs
-XG4iKTsKPiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiArICAgICAgIH0KPiAgICAgICAg
-IHJldCA9IGFtZGdwdV9kZWJ1Z2ZzX3BtX2luaXQoYWRldik7Cj4gICAgICAgICBpZiAocmV0KSB7
-Cj4gICAgICAgICAgICAgICAgIERSTV9FUlJPUigiRmFpbGVkIHRvIHJlZ2lzdGVyIGRlYnVnZnMg
-ZmlsZSBmb3IgZHBtIVxuIik7Cj4gQEAgLTE4ODksNiArMTkyOSw3IEBAIHZvaWQgYW1kZ3B1X3Bt
-X3N5c2ZzX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgJmRldl9hdHRyX3BwX3Bvd2VyX3Byb2ZpbGVfbW9kZSk7Cj4gICAgICAgICBkZXZp
-Y2VfcmVtb3ZlX2ZpbGUoYWRldi0+ZGV2LAo+ICAgICAgICAgICAgICAgICAgICAgICAgICZkZXZf
-YXR0cl9wcF9vZF9jbGtfdm9sdGFnZSk7Cj4gKyAgICAgICBkZXZpY2VfcmVtb3ZlX2ZpbGUoYWRl
-di0+ZGV2LCAmZGV2X2F0dHJfZ3B1X2J1c3lfbGV2ZWwpOwo+ICB9Cj4KPiAgdm9pZCBhbWRncHVf
-cG1fY29tcHV0ZV9jbG9ja3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gLS0KPiAyLjE0
-LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1374121763==
+Content-Type: multipart/alternative;
+ boundary="------------663A55BB841F2A94DA288397"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------663A55BB841F2A94DA288397
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Are you referring to insert_work->smp_mb(); ?
+
+Andrey
+
+
+On 06/20/2018 10:50 AM, Christian König wrote:
+>> +     * Try to submit work so SQ_EDC_INFO can be accessed from
+>> +     * BH. If previous work submission hasn't finished yet
+>> +     * just print whatever info is possible directly from the ISR.
+>> +     */
+>> +    if (work_pending(&adev->gfx.sq_work.work)) {
+>> +        gfx_v8_0_parse_sq_irq(adev, ih_data);
+>> +    } else {
+>> +        adev->gfx.sq_work.ih_data = ih_data;
+>> +        /* Verify the new value visible in BH handler */
+>> +        smp_wmb();
+>
+> You can drop the barrier here and in gfx_v8_0_sq_irq_work_func(), the 
+> schedule_work() function is a barrier itself for both reads and writes 
+> anyway.
+>
+> Apart from that the both patches are Acked-by: Christian König 
+> <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+>
+> Regards,
+> Christian. 
+
+
+--------------663A55BB841F2A94DA288397
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Are you referring to insert_work-&gt;smp_mb(); ?</p>
+    <p>Andrey<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 06/20/2018 10:50 AM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:d96fc78e-ef3d-fb3a-8548-7a6a7cc3d52f-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+      <blockquote type="cite" style="color: #000000;">+     * Try to
+        submit work so SQ_EDC_INFO can be accessed from
+        <br>
+        +     * BH. If previous work submission hasn't finished yet
+        <br>
+        +     * just print whatever info is possible directly from the
+        ISR.
+        <br>
+        +     */
+        <br>
+        +    if (work_pending(&amp;adev-&gt;gfx.sq_work.work)) {
+        <br>
+        +        gfx_v8_0_parse_sq_irq(adev, ih_data);
+        <br>
+        +    } else {
+        <br>
+        +        adev-&gt;gfx.sq_work.ih_data = ih_data;
+        <br>
+        +        /* Verify the new value visible in BH handler */
+        <br>
+        +        smp_wmb();
+        <br>
+      </blockquote>
+      <br>
+      You can drop the barrier here and in gfx_v8_0_sq_irq_work_func(),
+      the schedule_work() function is a barrier itself for both reads
+      and writes anyway.
+      <br>
+      <br>
+      Apart from that the both patches are Acked-by: Christian König <a
+        class="moz-txt-link-rfc2396E"
+        href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.
+      <br>
+      <br>
+      Regards,
+      <br>
+      Christian.
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------663A55BB841F2A94DA288397--
+
+--===============1374121763==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1374121763==--
