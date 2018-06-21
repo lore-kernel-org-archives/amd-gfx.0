@@ -1,7 +1,7 @@
 From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 0/1] amdgpu, sched, ttm drm-next-4.19
-Date: Thu, 21 Jun 2018 11:01:08 -0500
-Message-ID: <20180621160108.2951-1-alexander.deucher@amd.com>
+Subject: [pull] amdgpu, sched, ttm drm-next-4.19
+Date: Thu, 21 Jun 2018 11:11:38 -0500
+Message-ID: <20180621161138.3008-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
