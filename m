@@ -1,7 +1,7 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+From: James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] Increase AMDGPU_MAX_UVD_INSTANCES to 3
-Date: Mon, 25 Jun 2018 15:13:58 -0400
-Message-ID: <68fd517c-0457-f438-0642-c2a9f2b67295@amd.com>
+Date: Mon, 25 Jun 2018 15:15:12 -0400
+Message-ID: <f5941769-c342-6127-f932-414ab13414f8@amd.com>
 References: <1050162536.2570273.1529798571780.JavaMail.zimbra@raptorengineeringinc.com>
  <03467f4e-bcab-165c-028b-fea16441446a@amd.com>
  <5B310FE8.4060900@raptorengineering.com>
@@ -11,11 +11,10 @@ References: <1050162536.2570273.1529798571780.JavaMail.zimbra@raptorengineeringi
  <b0c2612a-ac0b-ca7a-be8d-1a3d1cadc938@amd.com>
  <CADnq5_O3P68Er_oEf9YybKxFBXk4BFQnJ45wtiKCs9oSxJBcAg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1574064037=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <CADnq5_O3P68Er_oEf9YybKxFBXk4BFQnJ45wtiKCs9oSxJBcAg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-GB
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,113 +25,353 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Timothy Pearson <tpearson-z0qzliK6Om0mgXJStvpl+vpXobYPEAuW@public.gmane.org>, "Deucher,
  Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-VGhlIHByb2JsZW0gaXMgcmVwcm9kdWNpYmxlIHdpdGggZW5hYmxlIFVCU0FOLgoKIMKgPT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT0KW8KgwqDCoCAzLjg2NjY0M10gVUJTQU46IFVuZGVmaW5lZCBiZWhh
-dmlvdXIgaW4gCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jOjM3OToy
-OQpbwqDCoMKgIDMuODY2NjU2XSBpbmRleCAyIGlzIG91dCBvZiByYW5nZSBmb3IgdHlwZSAnYW1k
-Z3B1X3V2ZF9pbnN0IFsyXScKW8KgwqDCoCAzLjg2NjY2N10gQ1BVOiAwIFBJRDogNTkgQ29tbTog
-a3dvcmtlci8wOjEgTm90IHRhaW50ZWQgNC4xNi4wLXJjNysgIzMKW8KgwqDCoCAzLjg2NjY3N10g
-SGFyZHdhcmUgbmFtZTogR2lnYWJ5dGUgVGVjaG5vbG9neSBDby4sIEx0ZC4gCkdBLTk5MEZYQS1V
-RDcvR0EtOTkwRlhBLVVENywgQklPUyBGOSAwNi8wOC8yMDEyClvCoMKgwqAgMy44NjY2OTNdIFdv
-cmtxdWV1ZTogZXZlbnRzIHdvcmtfZm9yX2NwdV9mbgpbwqDCoMKgIDMuODY2NzAyXSBDYWxsIFRy
-YWNlOgpbwqDCoMKgIDMuODY2NzEwXcKgIGR1bXBfc3RhY2srMHg4NS8weGM1ClvCoMKgwqAgMy44
-NjY3MTldwqAgdWJzYW5fZXBpbG9ndWUrMHg5LzB4NDAKW8KgwqDCoCAzLjg2NjcyN13CoCBfX3Vi
-c2FuX2hhbmRsZV9vdXRfb2ZfYm91bmRzKzB4ODkvMHg5MApbwqDCoMKgIDMuODY2NzM3XcKgID8g
-cmN1X3JlYWRfbG9ja19zY2hlZF9oZWxkKzB4NTgvMHg2MApbwqDCoMKgIDMuODY2NzQ2XcKgID8g
-X19rbWFsbG9jKzB4MjZjLzB4MmQwClvCoMKgwqAgMy44NjY4NDZdwqAgYW1kZ3B1X2ZlbmNlX2Ry
-aXZlcl9zdGFydF9yaW5nKzB4MjU5LzB4MjgwIFthbWRncHVdClvCoMKgwqAgMy44NjY4OTZdwqAg
-YW1kZ3B1X3JpbmdfaW5pdCsweDEyYy8weDcxMCBbYW1kZ3B1XQpbwqDCoMKgIDMuODY2OTA2XcKg
-ID8gc3ByaW50ZisweDQyLzB4NTAKW8KgwqDCoCAzLjg2Njk1Nl3CoCBhbWRncHVfZ2Z4X2tpcV9p
-bml0X3JpbmcrMHgxYmMvMHgzYTAgW2FtZGdwdV0KW8KgwqDCoCAzLjg2NzAwOV3CoCBnZnhfdjhf
-MF9zd19pbml0KzB4MWFkMy8weDIzNjAgW2FtZGdwdV0KW8KgwqDCoCAzLjg2NzA2Ml3CoCA/IHNt
-dTdfaW5pdCsweGVjLzB4MTYwIFthbWRncHVdClvCoMKgwqAgMy44NjcxMDldwqAgYW1kZ3B1X2Rl
-dmljZV9pbml0KzB4MTEyYy8weDFkYzAgW2FtZGdwdV0KW8KgwqDCoCAzLjg2NzEyMF3CoCA/IHJj
-dV9yZWFkX2xvY2tfc2NoZWRfaGVsZCsweDU4LzB4NjAKW8KgwqDCoCAzLjg2NzE2Nl3CoCBhbWRn
-cHVfZHJpdmVyX2xvYWRfa21zKzB4NzQvMHgyZTAgW2FtZGdwdV0KW8KgwqDCoCAzLjg2NzE3OF3C
-oCBkcm1fZGV2X3JlZ2lzdGVyKzB4MTM0LzB4MWMwClvCoMKgwqAgMy44NjcyMjNdwqAgYW1kZ3B1
-X3BjaV9wcm9iZSsweDE2My8weDI3MCBbYW1kZ3B1XQpbwqDCoMKgIDMuODY3MjMzXcKgIGxvY2Fs
-X3BjaV9wcm9iZSsweDQyLzB4YTAKW8KgwqDCoCAzLjg2NzI0Ml3CoCB3b3JrX2Zvcl9jcHVfZm4r
-MHgxNi8weDIwClvCoMKgwqAgMy44NjcyNTBdwqAgcHJvY2Vzc19vbmVfd29yaysweDI2OS8weDY0
-MApbwqDCoMKgIDMuODY3MjYwXcKgIHdvcmtlcl90aHJlYWQrMHgyMTYvMHgzZDAKW8KgwqDCoCAz
-Ljg2NzI2OF3CoCA/IHByb2Nlc3Nfb25lX3dvcmsrMHg2NDAvMHg2NDAKW8KgwqDCoCAzLjg2NzI3
-Nl3CoCBrdGhyZWFkKzB4MTEzLzB4MTMwClvCoMKgwqAgMy44NjcyODJdwqAgPyBrdGhyZWFkX2Ny
-ZWF0ZV93b3JrZXJfb25fY3B1KzB4NTAvMHg1MApbwqDCoMKgIDMuODY3MjkzXcKgIHJldF9mcm9t
-X2ZvcmsrMHgyNy8weDUwClvCoMKgwqAgMy44NjczMDRdIAo9PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PQpbwqDCoMKgIDMuODY5ODA4XSBbZHJtXSBGb3VuZCBVVkQgZmlybXdhcmUgVmVyc2lvbjogMS4x
-MzAgRmFtaWx5IElEOiAxNgpbwqDCoMKgIDMuODcxNTA1XSBbZHJtXSBGb3VuZCBWQ0UgZmlybXdh
-cmUgVmVyc2lvbjogNTMuMjYgQmluYXJ5IElEOiAzCgoKVGhlIGZpeCB3aWxsIGZvbGxvdy4KClJl
-Z2FyZHMsCkxlbwoKCgpPbiAwNi8yNS8yMDE4IDAzOjAyIFBNLCBBbGV4IERldWNoZXIgd3JvdGU6
-Cj4gT24gTW9uLCBKdW4gMjUsIDIwMTggYXQgMjo1OSBQTSwgSmFtZXMgWmh1IDxqYW1lc3pAYW1k
-LmNvbT4gd3JvdGU6Cj4+Cj4+IE9uIDIwMTgtMDYtMjUgMDI6NTMgUE0sIEFsZXggRGV1Y2hlciB3
-cm90ZToKPj4KPj4gT24gTW9uLCBKdW4gMjUsIDIwMTggYXQgMjozNyBQTSwgSmFtZXMgWmh1IDxq
-YW1lc3pAYW1kLmNvbT4gd3JvdGU6Cj4+Cj4+IEZvciBvbmUgVVZEIGluc3RhbmNlIGNhc2UsOgo+
-Pgo+Pgo+PiBJbiBmdW5jdGlvbiBhbWRncHVfZHJpdmVyX2xvYWRfa21zLCBhbGwgcmluZy0+bWUg
-c2hvdWxkIGJlIHNldCB0byB6ZXJvLgo+PiAgICAgIGFkZXYgPSBremFsbG9jKHNpemVvZihzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSksIEdGUF9LRVJORUwpOwo+Pgo+Pgo+PiBGb3IgdHdvIFVWRCBpbnN0
-YW5jZXMgY2FzZXM6Cj4+Cj4+IHN0YXRpYyB2b2lkIHV2ZF92N18wX3NldF9yaW5nX2Z1bmNzKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+PiAuLgo+PiAgICAgIGZvciAoaSA9IDA7IGkgPCBh
-ZGV2LT51dmQubnVtX3V2ZF9pbnN0OyBpKyspIHsKPj4gICAgICAgICAgYWRldi0+dXZkLmluc3Rb
-aV0ucmluZy5tZSA9IGk7Cj4+Cj4+IHN0YXRpYyB2b2lkIHV2ZF92N18wX3NldF9lbmNfcmluZ19m
-dW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4KPj4gICAgICBmb3IgKGogPSAwOyBq
-IDwgYWRldi0+dXZkLm51bV91dmRfaW5zdDsgaisrKSB7Cj4+ICAgICAgICAgICAgICBhZGV2LT51
-dmQuaW5zdFtqXS5yaW5nX2VuY1tpXS5tZSA9IGo7Cj4+Cj4+IHV2ZF92NF8yX2Vhcmx5X2luaXQg
-aW4gdXZkX3Y0XzIuYyAgYWRldi0+dXZkLm51bV91dmRfaW5zdCA9IDE7Cj4+IHV2ZF92NV8wX2Vh
-cmx5X2luaXQgaW4gdXZkX3Y1XzAuYyAgYWRldi0+dXZkLm51bV91dmRfaW5zdCA9IDE7Cj4+IHV2
-ZF92Nl8wX2Vhcmx5X2luaXQgaW4gdXZkX3Y2XzAuYyAgYWRldi0+dXZkLm51bV91dmRfaW5zdCA9
-IDE7Cj4+IHV2ZF92N18wX2Vhcmx5X2luaXQgaW4gdXZkX3Y3XzAuYwo+PiAgICAgIGlmIChhZGV2
-LT5hc2ljX3R5cGUgPT0gQ0hJUF9WRUdBMjApCj4+ICAgICAgICAgIGFkZXYtPnV2ZC5udW1fdXZk
-X2luc3QgPSBVVkQ3X01BWF9IV19JTlNUQU5DRVNfVkVHQTIwOy8qMiovCj4+ICAgICAgZWxzZQo+
-PiAgICAgICAgICBhZGV2LT51dmQubnVtX3V2ZF9pbnN0ID0gMTsKPj4KPj4KPj4gSSBkaWRuJ3Qg
-a25vdyB3aGVuIHJpbmctPm1lIGlzIHNldCB0byAyLiBNYXliZSB0aGVyZSBpcyBzb21lIGxlYWth
-Z2UKPj4gc29tZXdoZXJlLgo+Pgo+PiBXaGF0IGFib3V0IG9sZGVyIHV2ZCAoNC4yLCA1LjAsIDYu
-MCkgYmxvY2tzPwo+Pgo+PiBJIHRoaW5rIHRoZSBiZWxvdyBjb2RlIHdpbGwgcmVzZXQKPj4gYWRl
-di0+dXZkLmluc3RbQU1ER1BVX01BWF9VVkRfSU5TVEFOQ0VTXS5yaW5nLT5tZSBhbmQKPj4gYWRl
-di0+dXZkLmluc3RbQU1ER1BVX01BWF9VVkRfSU5TVEFOQ0VTXS5yaW5nX2VuY1tBTURHUFVfTUFY
-X1VWRF9FTkNfUklOR1NdLT5tZQo+PiB0byB6ZXJvLgo+PiBmb3Igb2xkZXIgdXZkIElQIFVWRCBi
-bG9jay4KPj4KPj4gYWRldiA9IGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCBhbWRncHVfZGV2aWNlKSwg
-R0ZQX0tFUk5FTCk7Cj4+Cj4+IERvIEkgdW5kZXJzdGFuZCBjb3JyZWN0bHk/Cj4gWWVzLCBpdCBz
-aG91bGQuICBUaGF0J3Mgd2h5IGl0IGRvZXNuJ3QgbWFrZSBzZW5zZSB0aGF0IGl0IHdvdWxkIGJl
-Cj4gZ2V0dGluZyBhbm90aGVyIHZhbHVlLgo+Cj4gQWxleAo+Cj4+IEphbWVzCj4+Cj4+IEFsZXgK
-Pj4KPj4gQmVzdCByZWdhcmRzIQo+Pgo+PiBKYW1lcyB6aHUKPj4KPj4KPj4gT24gMjAxOC0wNi0y
-NSAwMToyOSBQTSwgRGV1Y2hlciwgQWxleGFuZGVyIHdyb3RlOgo+Pgo+PiBPZGQuIFRoZSBzdHJ1
-Y3R1cmUgc2hvdWxkIGJlIDAgaW5pdGlhbGl6ZWQuICBEb2VzIHRoaXMgcGF0Y2ggaGVscD8KPj4K
-Pj4KPj4gQWxleAo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBGcm9t
-OiBUaW1vdGh5IFBlYXJzb24gPHRwZWFyc29uQHJhcHRvcmVuZ2luZWVyaW5nLmNvbT4KPj4gU2Vu
-dDogTW9uZGF5LCBKdW5lIDI1LCAyMDE4IDExOjUzOjEyIEFNCj4+IFRvOiBaaHUsIEphbWVzCj4+
-IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRGV1Y2hlciwgQWxleGFuZGVyOyBa
-aG91LAo+PiBEYXZpZChDaHVuTWluZyk7IEtvZW5pZywgQ2hyaXN0aWFuCj4+IFN1YmplY3Q6IFJl
-OiBbUEFUQ0hdIEluY3JlYXNlIEFNREdQVV9NQVhfVVZEX0lOU1RBTkNFUyB0byAzCj4+Cj4+IG4g
-MDYvMjUvMjAxOCAwOTo0NiBBTSwgSmFtZXMgWmh1IHdyb3RlOgo+Pgo+PiBPbiAyMDE4LTA2LTIz
-IDA4OjAyIFBNLCBUaW1vdGh5IFBlYXJzb24gd3JvdGU6Cj4+Cj4+IGFtZGdwdV9mZW5jZV9kcml2
-ZXJfc3RhcnRfcmluZygpIGF0dGVtcHRzIHRvIGFjY2Vzcwo+PiBVVkQgaW5zdGFuY2UgMiBkdXJp
-bmcgc2V0dXAsIHdoaWxlIHRoZSBleGlzdGluZyBVVkQKPj4gaW5zdGFuY2UgY291bnQgb25seSBh
-bGxvd3MgaW5zdGFuY2VzIDAgYW5kIDEuCj4+Cj4+IEluY3JlYXNlIEFNREdQVV9NQVhfVVZEX0lO
-U1RBTkNFUyBieSBvbmUgdG8gYXZvaWQgdGhlCj4+IGludmFsaWQgYXJyYXkgYWNjZXNzLgo+Pgo+
-PiBDYXVnaHQgYnkgVUJTQU4uCj4+Cj4+IEhpIFRpbW90aHksCj4+Cj4+ICBGcm9tIGRlc2lnbiBv
-ZiB2aWV3LCBpdCBpcyBub3QgcmlnaHQgdG8ganVzdCBjaGFuZ2UKPj4gQU1ER1BVX01BWF9VVkRf
-SU5TVEFOQ0VTIHRvIDMuCj4+Cj4+IENvdWxkIHlvdSB0ZWxsIG1lIHNvbWUgZGV0YWlsIG9mIFVC
-U0FOIHRlc3QgYW5kIGF0dGFjaCB0aGUgZG1lc2cgYWxzbz8KPj4KPj4gRGVmaW5pdGVseSwgd2Fz
-IGxvb2tpbmcgZm9yIHNvbWUgZmVlZGJhY2sgZnJvbSBhbnlvbmUga25vd2luZyBtb3JlIGFib3V0
-Cj4+IHRoZSBpbnRlcm5hbHMgb2YgdGhlIFVWRCBzeXN0ZW0uCj4+Cj4+IFdoYXQncyBoYXBwZW5p
-bmcgaXMgdGhhdCAicmluZy0+bWUiIGluIGFtZGdwdV9mZW5jZV9kcml2ZXJfc3RhcnRfcmluZygp
-Cj4+IChkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYzozNzkpIGlzIHNl
-dCB0byBhIHZhbHVlIG9mCj4+ICIyIi4gIFRoZSBvdmVyYWxsIGRtZXNnIGlzIG90aGVyd2lzZSB1
-bmludGVyZXN0aW5nLCBidXQgSSBjYW4gdHJ5IHRvCj4+IGdyYWIgdGhlIFVCU0FOIG91dHB1dCBp
-ZiBuZWVkZWQuCj4+Cj4+IC0tCj4+IFRpbW90aHkgUGVhcnNvbgo+PiBSYXB0b3IgRW5naW5lZXJp
-bmcKPj4gKzEgKDQxNSkgNzI3LTg2NDUgKGRpcmVjdCBsaW5lKQo+PiArMSAoNTEyKSA2OTAtMDIw
-MCAoc3dpdGNoYm9hcmQpCj4+IGh0dHBzOi8vd3d3LnJhcHRvcmVuZ2luZWVyaW5nLmNvbQo+Pgo+
-Pgo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
-PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
-Pj4KPj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
-IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1574064037==
+Content-Type: multipart/alternative;
+ boundary="------------4FDCDCAE2FD1D243C4F9B3F4"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------4FDCDCAE2FD1D243C4F9B3F4
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+On 2018-06-25 03:02 PM, Alex Deucher wrote:
+> On Mon, Jun 25, 2018 at 2:59 PM, James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org> wrote:
+>>
+>> On 2018-06-25 02:53 PM, Alex Deucher wrote:
+>>
+>> On Mon, Jun 25, 2018 at 2:37 PM, James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org> wrote:
+>>
+>> For one UVD instance case,:
+>>
+>>
+>> In function amdgpu_driver_load_kms, all ring->me should be set to zero.
+>>      adev = kzalloc(sizeof(struct amdgpu_device), GFP_KERNEL);
+>>
+>>
+>> For two UVD instances cases:
+>>
+>> static void uvd_v7_0_set_ring_funcs(struct amdgpu_device *adev)
+>> ..
+>>      for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
+>>          adev->uvd.inst[i].ring.me = i;
+>>
+>> static void uvd_v7_0_set_enc_ring_funcs(struct amdgpu_device *adev)
+>>
+>>      for (j = 0; j < adev->uvd.num_uvd_inst; j++) {
+>>              adev->uvd.inst[j].ring_enc[i].me = j;
+>>
+>> uvd_v4_2_early_init in uvd_v4_2.c  adev->uvd.num_uvd_inst = 1;
+>> uvd_v5_0_early_init in uvd_v5_0.c  adev->uvd.num_uvd_inst = 1;
+>> uvd_v6_0_early_init in uvd_v6_0.c  adev->uvd.num_uvd_inst = 1;
+>> uvd_v7_0_early_init in uvd_v7_0.c
+>>      if (adev->asic_type == CHIP_VEGA20)
+>>          adev->uvd.num_uvd_inst = UVD7_MAX_HW_INSTANCES_VEGA20;/*2*/
+>>      else
+>>          adev->uvd.num_uvd_inst = 1;
+>>
+>>
+>> I didn't know when ring->me is set to 2. Maybe there is some leakage
+>> somewhere.
+>>
+>> What about older uvd (4.2, 5.0, 6.0) blocks?
+>>
+>> I think the below code will reset
+>> adev->uvd.inst[AMDGPU_MAX_UVD_INSTANCES].ring->me and
+>> adev->uvd.inst[AMDGPU_MAX_UVD_INSTANCES].ring_enc[AMDGPU_MAX_UVD_ENC_RINGS]->me
+>> to zero.
+>> for older uvd IP UVD block.
+>>
+>> adev = kzalloc(sizeof(struct amdgpu_device), GFP_KERNEL);
+>>
+>> Do I understand correctly?
+> Yes, it should.  That's why it doesn't make sense that it would be
+> getting another value.
+>
+> Alex
+     ring point is refer in struct amdgpu_device. Miss using it may 
+cause simple leakage.
+    struct amdgpu_device {
+    ..............
+      struct amdgpu_ring        **/rings/*[AMDGPU_MAX_RINGS];
+
+The simple possible leakage could happen at
+./gfx_v8_0.c:1995:    ring->me = mec + 1;
+./amdgpu_gfx.c:190:        ring->me = mec + 1;
+./gfx_v9_0.c:1406:    ring->me = mec + 1;
+./gfx_v7_0.c:4471:    ring->me = mec + 1;
+
+Timothy,
+
+It is not easy to find root cause based on current information.
+What asic are you using on this test. IS this UBSAN test open source?
+Is it easy for you guide me to reproduce it on my bench?
+
+James
+
+>> James
+>>
+>> Alex
+>>
+>> Best regards!
+>>
+>> James zhu
+>>
+>>
+>> On 2018-06-25 01:29 PM, Deucher, Alexander wrote:
+>>
+>> Odd. The structure should be 0 initialized.  Does this patch help?
+>>
+>>
+>> Alex
+>>
+>> ________________________________
+>> From: Timothy Pearson <tpearson-z0qzliK6Om0mgXJStvpl+vpXobYPEAuW@public.gmane.org>
+>> Sent: Monday, June 25, 2018 11:53:12 AM
+>> To: Zhu, James
+>> Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Zhou,
+>> David(ChunMing); Koenig, Christian
+>> Subject: Re: [PATCH] Increase AMDGPU_MAX_UVD_INSTANCES to 3
+>>
+>> n 06/25/2018 09:46 AM, James Zhu wrote:
+>>
+>> On 2018-06-23 08:02 PM, Timothy Pearson wrote:
+>>
+>> amdgpu_fence_driver_start_ring() attempts to access
+>> UVD instance 2 during setup, while the existing UVD
+>> instance count only allows instances 0 and 1.
+>>
+>> Increase AMDGPU_MAX_UVD_INSTANCES by one to avoid the
+>> invalid array access.
+>>
+>> Caught by UBSAN.
+>>
+>> Hi Timothy,
+>>
+>>  From design of view, it is not right to just change
+>> AMDGPU_MAX_UVD_INSTANCES to 3.
+>>
+>> Could you tell me some detail of UBSAN test and attach the dmesg also?
+>>
+>> Definitely, was looking for some feedback from anyone knowing more about
+>> the internals of the UVD system.
+>>
+>> What's happening is that "ring->me" in amdgpu_fence_driver_start_ring()
+>> (drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c:379) is set to a value of
+>> "2".  The overall dmesg is otherwise uninteresting, but I can try to
+>> grab the UBSAN output if needed.
+>>
+>> --
+>> Timothy Pearson
+>> Raptor Engineering
+>> +1 (415) 727-8645 (direct line)
+>> +1 (512) 690-0200 (switchboard)
+>> https://www.raptorengineering.com
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>
+>>
+
+
+--------------4FDCDCAE2FD1D243C4F9B3F4
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 2018-06-25 03:02 PM, Alex Deucher
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CADnq5_O3P68Er_oEf9YybKxFBXk4BFQnJ45wtiKCs9oSxJBcAg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <pre wrap="">On Mon, Jun 25, 2018 at 2:59 PM, James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:jamesz-5C7GfCeVMHo@public.gmane.org">&lt;jamesz-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">
+
+On 2018-06-25 02:53 PM, Alex Deucher wrote:
+
+On Mon, Jun 25, 2018 at 2:37 PM, James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:jamesz-5C7GfCeVMHo@public.gmane.org">&lt;jamesz-5C7GfCeVMHo@public.gmane.org&gt;</a> wrote:
+
+For one UVD instance case,:
+
+
+In function amdgpu_driver_load_kms, all ring-&gt;me should be set to zero.
+    adev = kzalloc(sizeof(struct amdgpu_device), GFP_KERNEL);
+
+
+For two UVD instances cases:
+
+static void uvd_v7_0_set_ring_funcs(struct amdgpu_device *adev)
+..
+    for (i = 0; i &lt; adev-&gt;uvd.num_uvd_inst; i++) {
+        adev-&gt;uvd.inst[i].ring.me = i;
+
+static void uvd_v7_0_set_enc_ring_funcs(struct amdgpu_device *adev)
+
+    for (j = 0; j &lt; adev-&gt;uvd.num_uvd_inst; j++) {
+            adev-&gt;uvd.inst[j].ring_enc[i].me = j;
+
+uvd_v4_2_early_init in uvd_v4_2.c  adev-&gt;uvd.num_uvd_inst = 1;
+uvd_v5_0_early_init in uvd_v5_0.c  adev-&gt;uvd.num_uvd_inst = 1;
+uvd_v6_0_early_init in uvd_v6_0.c  adev-&gt;uvd.num_uvd_inst = 1;
+uvd_v7_0_early_init in uvd_v7_0.c
+    if (adev-&gt;asic_type == CHIP_VEGA20)
+        adev-&gt;uvd.num_uvd_inst = UVD7_MAX_HW_INSTANCES_VEGA20;/*2*/
+    else
+        adev-&gt;uvd.num_uvd_inst = 1;
+
+
+I didn't know when ring-&gt;me is set to 2. Maybe there is some leakage
+somewhere.
+
+What about older uvd (4.2, 5.0, 6.0) blocks?
+
+I think the below code will reset
+adev-&gt;uvd.inst[AMDGPU_MAX_UVD_INSTANCES].ring-&gt;me and
+adev-&gt;uvd.inst[AMDGPU_MAX_UVD_INSTANCES].ring_enc[AMDGPU_MAX_UVD_ENC_RINGS]-&gt;me
+to zero.
+for older uvd IP UVD block.
+
+adev = kzalloc(sizeof(struct amdgpu_device), GFP_KERNEL);
+
+Do I understand correctly?
+</pre>
+      </blockquote>
+      <pre wrap="">
+Yes, it should.  That's why it doesn't make sense that it would be
+getting another value.
+
+Alex
+</pre>
+    </blockquote>
+        ring point is refer in struct amdgpu_device. Miss using it may
+    cause simple leakage.<br>
+       struct amdgpu_device {<br>
+       ..............<br>
+         struct amdgpu_ring        *<b><i>rings</i></b>[AMDGPU_MAX_RINGS];<br>
+    <br>
+    The simple possible leakage could happen at <br>
+    ./gfx_v8_0.c:1995:    ring-&gt;me = mec + 1;<br>
+    ./amdgpu_gfx.c:190:        ring-&gt;me = mec + 1;<br>
+    ./gfx_v9_0.c:1406:    ring-&gt;me = mec + 1;<br>
+    ./gfx_v7_0.c:4471:    ring-&gt;me = mec + 1;<br>
+    <br>
+    <pre wrap="">Timothy, 
+
+It is not easy to find root cause based on current information. 
+What asic are you using on this test. IS this UBSAN test open source?
+Is it easy for you guide me to reproduce it on my bench?
+
+James
+</pre>
+    <blockquote type="cite"
+cite="mid:CADnq5_O3P68Er_oEf9YybKxFBXk4BFQnJ45wtiKCs9oSxJBcAg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <pre wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">James
+
+Alex
+
+Best regards!
+
+James zhu
+
+
+On 2018-06-25 01:29 PM, Deucher, Alexander wrote:
+
+Odd. The structure should be 0 initialized.  Does this patch help?
+
+
+Alex
+
+________________________________
+From: Timothy Pearson <a class="moz-txt-link-rfc2396E" href="mailto:tpearson-z0qzliK6Om0mgXJStvpl+vpXobYPEAuW@public.gmane.org">&lt;tpearson-z0qzliK6Om0mgXJStvpl+vpXobYPEAuW@public.gmane.org&gt;</a>
+Sent: Monday, June 25, 2018 11:53:12 AM
+To: Zhu, James
+Cc: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Deucher, Alexander; Zhou,
+David(ChunMing); Koenig, Christian
+Subject: Re: [PATCH] Increase AMDGPU_MAX_UVD_INSTANCES to 3
+
+n 06/25/2018 09:46 AM, James Zhu wrote:
+
+On 2018-06-23 08:02 PM, Timothy Pearson wrote:
+
+amdgpu_fence_driver_start_ring() attempts to access
+UVD instance 2 during setup, while the existing UVD
+instance count only allows instances 0 and 1.
+
+Increase AMDGPU_MAX_UVD_INSTANCES by one to avoid the
+invalid array access.
+
+Caught by UBSAN.
+
+Hi Timothy,
+
+>From design of view, it is not right to just change
+AMDGPU_MAX_UVD_INSTANCES to 3.
+
+Could you tell me some detail of UBSAN test and attach the dmesg also?
+
+Definitely, was looking for some feedback from anyone knowing more about
+the internals of the UVD system.
+
+What's happening is that "ring-&gt;me" in amdgpu_fence_driver_start_ring()
+(drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c:379) is set to a value of
+"2".  The overall dmesg is otherwise uninteresting, but I can try to
+grab the UBSAN output if needed.
+
+--
+Timothy Pearson
+Raptor Engineering
++1 (415) 727-8645 (direct line)
++1 (512) 690-0200 (switchboard)
+<a class="moz-txt-link-freetext" href="https://www.raptorengineering.com">https://www.raptorengineering.com</a>
+
+
+
+_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+
+
+</pre>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------4FDCDCAE2FD1D243C4F9B3F4--
+
+--===============1574064037==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1574064037==--
