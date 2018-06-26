@@ -1,12 +1,14 @@
-From: rex zhu <rezhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amd/display: Ctrl stutter mode through module
- parameter
-Date: Tue, 26 Jun 2018 18:23:42 +0800
-Message-ID: <1530008622-11648-1-git-send-email-rezhu@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Add module parameter stutter_mode
+Date: Tue, 26 Jun 2018 12:38:14 +0200
+Message-ID: <0eef6da9-3ab2-e1d3-a42c-d5c938b67a6c@daenzer.net>
+References: <1530008585-11608-1-git-send-email-rezhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1530008585-11608-1-git-send-email-rezhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,23 +19,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: rex zhu <rezhu-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: rex zhu <rezhu-5C7GfCeVMHo@public.gmane.org>
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-VXNlciBjYW4gZW5hYmxlL2Rpc2FibGUgc3R1dHRlciBtb2RlIHRocm91Z2ggbW9kdWxlIHBhcmFt
-ZXRlcgpzdHV0dGVyX21vZGUuCgpTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
-YyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-CmluZGV4IGZjYzg2MzEuLjA2NzQyMTggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtMTUzMSw3ICsxNTMxLDcgQEAgc3RhdGlj
-IGludCBhbWRncHVfZG1faW5pdGlhbGl6ZV9kcm1fZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQogCQkvKgogCQkgKiBUZW1wb3JhcnkgZGlzYWJsZSB1bnRpbCBwcGxpYi9zbXUgaW50
-ZXJhY3Rpb24gaXMgaW1wbGVtZW50ZWQKIAkJICovCi0JCWRtLT5kYy0+ZGVidWcuZGlzYWJsZV9z
-dHV0dGVyID0gdHJ1ZTsKKwkJZG0tPmRjLT5kZWJ1Zy5kaXNhYmxlX3N0dXR0ZXIgPSBhbWRncHVf
-c3R1dHRlcl9tb2RlID8gZmFsc2UgOiB0cnVlOwogCQlicmVhazsKICNlbmRpZgogCWRlZmF1bHQ6
-Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMjAxOC0wNi0yNiAxMjoyMyBQTSwgcmV4IHpodSB3cm90ZToKPiBBZGQgbmV3IHBhcmFtZXRl
+ciB0byBjb250cm9sIHN0dXR0ZXIgbW9kZSBlbmFibGUvZGlzYWJsZS4KPiAKPiBFbmFibGUgc3R1
+dHRlciBtb2RlIGNhbiBzYXZlIHBvd2VyIGluIGxvdyBEUkFNIHVzZSBjYXNlcwo+IGluY2x1ZGlu
+ZyBidXQgbm90IGxpbWl0ZWQgdG8gcHJvZHVjdGl2aXR5IGFwcGxpY2F0aW9uIHVzZSwKPiB3ZWIg
+YnJvd3NpbmcsIGFuZCB2aWRlbyBwbGF5YmFjay4KCldlIGFscmVhZHkgaGF2ZSB0b28gbWFueSBt
+b2R1bGUgcGFyYW1ldGVycy4gRG8gd2UgcmVhbGx5IG5lZWQgeWV0CmFub3RoZXIgb25lIGZvciB0
+aGlzPyBDYW4ndCBzdHV0dGVyIG1vZGUganVzdCBhdXRvbWF0aWNhbGx5IGJlIGVuYWJsZWQKd2hl
+biBhcHByb3ByaWF0ZT8KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAg
+ICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRo
+dXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
