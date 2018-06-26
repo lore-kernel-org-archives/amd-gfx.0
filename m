@@ -1,14 +1,20 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Add module parameter stutter_mode
-Date: Tue, 26 Jun 2018 11:10:52 +0000
-Message-ID: <CY4PR12MB1687727FBB7E2E477D2A5D5DFB490@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1530008585-11608-1-git-send-email-rezhu@amd.com>,
- <0eef6da9-3ab2-e1d3-a42c-d5c938b67a6c@daenzer.net>
+From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix UBSAN: Undefined behaviour for
+ amdgpu_fence.c
+Date: Tue, 26 Jun 2018 08:29:21 -0400
+Message-ID: <607092c8-b508-03e5-1fd2-35e63053fe9e@amd.com>
+References: <20180625191729.4371-1-leo.liu@amd.com>
+ <CADnq5_M18rgTAuJ8U8B+KOPri_2iMw5ykg4QBNM-dEVQPk+A_w@mail.gmail.com>
+ <5b36e39b-50be-a027-1344-d3e4d720ec49@amd.com>
+ <CADnq5_OrR8DSVvrDyiBEPx4FEAP1rL-RaR8-zzeAUH44Djx=2A@mail.gmail.com>
+ <f1a93f3b-2c5a-29d0-5644-dee1f371e475@amd.com>
+ <CADnq5_Mzh0ie=snVG2Kd=A_9Q6nzwXF7Q9WORKoPYB7DKoLVgQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1587641186=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0eef6da9-3ab2-e1d3-a42c-d5c938b67a6c-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CADnq5_Mzh0ie=snVG2Kd=A_9Q6nzwXF7Q9WORKoPYB7DKoLVgQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-GB
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,155 +25,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1587641186==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687727FBB7E2E477D2A5D5DFB490CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687727FBB7E2E477D2A5D5DFB490CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Evev when enabled this feature by default,we still need a way to disable it=
- easily for triage issue maybe related to stutter mode.
-
-as this feature is related to power saving. so we may add a bit mask in par=
-ameter ppfeaturemask.
-
-Best Regards
-Rex
-
-?? Outlook for Android<https://aka.ms/ghei36>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
-=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Tuesday, June 26, 2018 6:38:14 PM
-To: Zhu, Rex
-Cc: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/2] drm/amdgpu: Add module parameter stutter_mode
-
-On 2018-06-26 12:23 PM, rex zhu wrote:
-> Add new parameter to control stutter mode enable/disable.
->
-> Enable stutter mode can save power in low DRAM use cases
-> including but not limited to productivity application use,
-> web browsing, and video playback.
-
-We already have too many module parameters. Do we really need yet
-another one for this? Can't stutter mode just automatically be enabled
-when appropriate?
-
-
---
-Earthling Michel D=E4nzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB1687727FBB7E2E477D2A5D5DFB490CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Evev when enabled this feature by default,we still need a way to disable it=
- easily for triage issue maybe related to stutter mode.<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-as this feature is related to power saving. so we may add a bit mask in par=
-ameter ppfeaturemask.<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Best Regards<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Rex<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-&#33719;&#21462; <a href=3D"https://aka.ms/ghei36">Outlook for Android</a><=
-/div>
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@=
-daenzer.net&gt;<br>
-<b>Sent:</b> Tuesday, June 26, 2018 6:38:14 PM<br>
-<b>To:</b> Zhu, Rex<br>
-<b>Cc:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Add module parameter stutter_mo=
-de</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:11pt;">
-<div class=3D"PlainText">On 2018-06-26 12:23 PM, rex zhu wrote:<br>
-&gt; Add new parameter to control stutter mode enable/disable.<br>
-&gt; <br>
-&gt; Enable stutter mode can save power in low DRAM use cases<br>
-&gt; including but not limited to productivity application use,<br>
-&gt; web browsing, and video playback.<br>
-<br>
-We already have too many module parameters. Do we really need yet<br>
-another one for this? Can't stutter mode just automatically be enabled<br>
-when appropriate?<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
-">
-http://www.amd.com</a><br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_CY4PR12MB1687727FBB7E2E477D2A5D5DFB490CY4PR12MB1687namp_--
-
---===============1587641186==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1587641186==--
+CgpPbiAwNi8yNS8yMDE4IDA0OjQyIFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gT24gTW9uLCBK
+dW4gMjUsIDIwMTggYXQgNDozNyBQTSwgSmFtZXMgWmh1IDxqYW1lc3pAYW1kLmNvbT4gd3JvdGU6
+Cj4+Cj4+IE9uIDIwMTgtMDYtMjUgMDQ6MzIgUE0sIEFsZXggRGV1Y2hlciB3cm90ZToKPj4+IE9u
+IE1vbiwgSnVuIDI1LCAyMDE4IGF0IDQ6MjYgUE0sIEphbWVzIFpodSA8amFtZXN6QGFtZC5jb20+
+IHdyb3RlOgo+Pj4+Cj4+Pj4gT24gMjAxOC0wNi0yNSAwNDowMiBQTSwgQWxleCBEZXVjaGVyIHdy
+b3RlOgo+Pj4+PiBPbiBNb24sIEp1biAyNSwgMjAxOCBhdCAzOjE3IFBNLCBMZW8gTGl1IDxsZW8u
+bGl1QGFtZC5jb20+IHdyb3RlOgo+Pj4+Pj4gWyAgICAzLjg2NjY1Nl0gaW5kZXggMiBpcyBvdXQg
+b2YgcmFuZ2UgZm9yIHR5cGUgJ2FtZGdwdV91dmRfaW5zdCBbMl0nCj4+Pj4+PiBbICAgIDMuODY2
+NjY3XSBDUFU6IDAgUElEOiA1OSBDb21tOiBrd29ya2VyLzA6MSBOb3QgdGFpbnRlZCA0LjE2LjAt
+cmM3Kwo+Pj4+Pj4gIzMKPj4+Pj4+IFsgICAgMy44NjY2NzddIEhhcmR3YXJlIG5hbWU6IEdpZ2Fi
+eXRlIFRlY2hub2xvZ3kgQ28uLCBMdGQuCj4+Pj4+PiBHQS05OTBGWEEtVUQ3L0dBLTk5MEZYQS1V
+RDcsIEJJT1MgRjkgMDYvMDgvMjAxMgo+Pj4+Pj4gWyAgICAzLjg2NjY5M10gV29ya3F1ZXVlOiBl
+dmVudHMgd29ya19mb3JfY3B1X2ZuCj4+Pj4+PiBbICAgIDMuODY2NzAyXSBDYWxsIFRyYWNlOgo+
+Pj4+Pj4gWyAgICAzLjg2NjcxMF0gIGR1bXBfc3RhY2srMHg4NS8weGM1Cj4+Pj4+PiBbICAgIDMu
+ODY2NzE5XSAgdWJzYW5fZXBpbG9ndWUrMHg5LzB4NDAKPj4+Pj4+IFsgICAgMy44NjY3MjddICBf
+X3Vic2FuX2hhbmRsZV9vdXRfb2ZfYm91bmRzKzB4ODkvMHg5MAo+Pj4+Pj4gWyAgICAzLjg2Njcz
+N10gID8gcmN1X3JlYWRfbG9ja19zY2hlZF9oZWxkKzB4NTgvMHg2MAo+Pj4+Pj4gWyAgICAzLjg2
+Njc0Nl0gID8gX19rbWFsbG9jKzB4MjZjLzB4MmQwCj4+Pj4+PiBbICAgIDMuODY2ODQ2XSAgYW1k
+Z3B1X2ZlbmNlX2RyaXZlcl9zdGFydF9yaW5nKzB4MjU5LzB4MjgwIFthbWRncHVdCj4+Pj4+PiBb
+ICAgIDMuODY2ODk2XSAgYW1kZ3B1X3JpbmdfaW5pdCsweDEyYy8weDcxMCBbYW1kZ3B1XQo+Pj4+
+Pj4gWyAgICAzLjg2NjkwNl0gID8gc3ByaW50ZisweDQyLzB4NTAKPj4+Pj4+IFsgICAgMy44NjY5
+NTZdICBhbWRncHVfZ2Z4X2tpcV9pbml0X3JpbmcrMHgxYmMvMHgzYTAgW2FtZGdwdV0KPj4+Pj4+
+IFsgICAgMy44NjcwMDldICBnZnhfdjhfMF9zd19pbml0KzB4MWFkMy8weDIzNjAgW2FtZGdwdV0K
+Pj4+Pj4+IFsgICAgMy44NjcwNjJdICA/IHNtdTdfaW5pdCsweGVjLzB4MTYwIFthbWRncHVdCj4+
+Pj4+PiBbICAgIDMuODY3MTA5XSAgYW1kZ3B1X2RldmljZV9pbml0KzB4MTEyYy8weDFkYzAgW2Ft
+ZGdwdV0KPj4+Pj4+Cj4+Pj4+PiByaW5nLT5tZSBtaWdodCBiZSBzZXQgYXMgMiB3aXRoIGFtZGdw
+dV9nZnhfa2lxX2luaXRfcmluZy4KPj4+Pj4+Cj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBMZW8gTGl1
+IDxsZW8ubGl1QGFtZC5jb20+Cj4+Pj4+PiAtLS0KPj4+Pj4+ICAgICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyB8IDExICsrKysrKysrKystCj4+Pj4+PiAgICAgMSBm
+aWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4+Pj4+Cj4+Pj4+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMK
+Pj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPj4+Pj4+
+IGluZGV4IDM5ZWM2Yjg4OTBhMS4uNjA2N2RhZTE1NTJmIDEwMDY0NAo+Pj4+Pj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPj4+Pj4+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCj4+Pj4+PiBAQCAtMzc1LDggKzM3
+NSwxNyBAQCBpbnQgYW1kZ3B1X2ZlbmNlX2RyaXZlcl9zdGFydF9yaW5nKHN0cnVjdAo+Pj4+Pj4g
+YW1kZ3B1X3JpbmcgKnJpbmcsCj4+Pj4+PiAgICAgewo+Pj4+Pj4gICAgICAgICAgICBzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7Cj4+Pj4+PiAgICAgICAgICAgIHVpbnQ2
+NF90IGluZGV4Owo+Pj4+Pj4gKyAgICAgICBib29sIHV2ZF9yaW5nID0gZmFsc2U7Cj4+Pj4+PiAr
+ICAgICAgIGludCBpOwo+Pj4+Pj4gKwo+Pj4+Pj4gKyAgICAgICBmb3IgKGkgPSAwOyBpIDwgQU1E
+R1BVX01BWF9VVkRfSU5TVEFOQ0VTOyArK2kpIHsKPj4+Pgo+Pj4+Pj4gKyAgICAgICAgICAgICAg
+IGlmIChyaW5nID09ICZhZGV2LT51dmQuaW5zdFtpXS5yaW5nKSB7Cj4+Pj4+PiArICAgICAgICAg
+ICAgICAgICAgICAgICB1dmRfcmluZyA9IHRydWU7Cj4+Pj4+PiArICAgICAgICAgICAgICAgICAg
+ICAgICBicmVhazsKPj4+Pj4+ICsgICAgICAgICAgICAgICB9Cj4+Pj4+PiArICAgICAgIH0KPj4+
+Pj4+Cj4+Pj4+PiAtICAgICAgIGlmIChyaW5nICE9ICZhZGV2LT51dmQuaW5zdFtyaW5nLT5tZV0u
+cmluZykgewo+Pj4+Pj4gKyAgICAgICBpZiAoIXV2ZF9yaW5nKSB7Cj4+Pj4+IEkgdGhpbmsgd2Ug
+Y2FuIGp1c3Qgc2ltcGxpZnkgdGhpcyB0bzoKPj4+Pj4gaWYgKHJpbmctPmZ1bmNzLT50eXBlICE9
+IEFNREdQVV9SSU5HX1RZUEVfVVZEKQo+Pj4+Pgo+Pj4+PiBBbGV4Cj4+Pj4gTmVlZCBhZGQgVVZE
+X0VOQyBhbHNvOgo+Pj4+ICAgICAgICAgaWYgKCByaW5nLT5mdW5jcy0+dHlwZSAhPSBBTURHUFVf
+UklOR19UWVBFX1VWRCAmJgo+Pj4+ICAgICAgICAgICAgICAgcmluZy0+ZnVuY3MtPnR5cGUgIT0g
+QU1ER1BVX1JJTkdfVFlQRV9VVkRfRU5DICkgewo+Pj4+Cj4+PiBUaGUgb2xkIGNvZGUgbmV2ZXIg
+Y2hlY2tlZCBhZ2FpbnN0IHRoZSBlbmMgcmluZ3MuICBBcmUgeW91IHN1cmUgdGhleQo+Pj4gaGF2
+ZSB0aGUgc2FtZSBsaW1pdGF0aW9uPwo+PiBJIGFtIHdyb25nLiB0aGFua3MhIEphbWVzCj4gQWN0
+dWFsbHkgZG9lcyB0aGUgdXZkIGRlY29kZSByaW5nIHN0aWxsIGhhdmUgdGhpcyBsaW1pdGF0aW9u
+IG9yIGlzCj4gdGhpcyBqdXN0IHNvbWUgbGVmdG92ZXIgZnJvbSBhIGh3IGxpbWl0YXRpb24gb24g
+YW4gb2xkZXIgYXNpYz8KVGhlIGNvZGUgaGVyZSBpbmhlcml0ZWQgZnJvbSBvbGQgQVNJQ3MsIGFu
+ZCBub3QgYmUgcmV2aXNpdGVkIHNpbmNlIHRoZXJlIAppcyBubyBwcm9ibGVtIGluIGZ1bmN0aW9u
+YWwgd2lzZS4KCgo+ICAgSWYKPiBpdCdzIHN0aWxsIHJlcXVpcmVkLCB0aGUgY3VycmVudCBjb2Rl
+IGluCj4gYW1kZ3B1X2ZlbmNlX2RyaXZlcl9zdGFydF9yaW5nKCkgd29uJ3Qgd29yayBmb3IgbXVs
+dGlwbGUgaW5zdGFuY2VzLgo+IFRoZSBmZW5jZXMgZm9yIHRoZSByaW5ncyB3aWxsIG92ZXJ3cml0
+ZSBlYWNoIG90aGVyLgpJSVJDIFZlZ2EyMCB3aXRoIDIgaW5zdGFuY2VzIGhhdmUgc2VwYXJhdGVk
+IHJ1bnRpbWUgZW52aXJvbm1lbnQsIHRoYXQgCnNob3VsZCBoYXZlIGZlbmNlIHNlcGFyYXRlZCBh
+cyB3ZWxsLgoKUmVnYXJkcywKTGVvCgoKCj4KPiBBbGV4Cj4KPj4+IEFsZXgKPj4+Cj4+Pj4gQWZ0
+ZXIgdGhpcywgdGhpcyBwYXRjaCBpcyBSZXZpZXdlZC1ieTogSmFtZXMgWmh1IDxKYW1lcy5aaHVA
+YW1kLmNvbT4KPj4+Pgo+Pj4+IEphbWVzCj4+Pj4KPj4+Pj4+ICAgICAgICAgICAgICAgICAgICBy
+aW5nLT5mZW5jZV9kcnYuY3B1X2FkZHIgPQo+Pj4+Pj4gJmFkZXYtPndiLndiW3JpbmctPmZlbmNl
+X29mZnNdOwo+Pj4+Pj4gICAgICAgICAgICAgICAgICAgIHJpbmctPmZlbmNlX2Rydi5ncHVfYWRk
+ciA9IGFkZXYtPndiLmdwdV9hZGRyICsKPj4+Pj4+IChyaW5nLT5mZW5jZV9vZmZzICogNCk7Cj4+
+Pj4+PiAgICAgICAgICAgIH0gZWxzZSB7Cj4+Pj4+PiAtLQo+Pj4+Pj4gMi4xNy4xCj4+Pj4+Pgo+
+Pj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+
+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+Pj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cj4+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCj4+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo+Pj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
