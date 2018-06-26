@@ -1,24 +1,11 @@
 From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: GPU hang trying to run OpenCL kernels on x86_64
-Date: Tue, 26 Jun 2018 10:03:17 +0100
-Message-ID: <CAEzXK1oTc9p5hS97qNQHaW3Z82FXsDprSpfG4qVDhwT6VAaOhQ@mail.gmail.com>
-References: <CAEzXK1p3SnOnduP0nL1D1pNWH1LTWwApEs7QnQPTFDdBBiHLXA@mail.gmail.com>
- <CY4PR12MB13045EA9BCBFAB20D698BA86FE860@CY4PR12MB1304.namprd12.prod.outlook.com>
- <CAEzXK1rJbXSpLUm=XQTLvySM4HJ45G9fQ0WCTPhnvdPETwUaYA@mail.gmail.com>
- <53cc38f2-e94a-1514-0a03-303101db2f88@daenzer.net>
- <CAEzXK1qHtfOBgismLvNy_x+NcMw78288AuwovBR-JmRwqpDmGQ@mail.gmail.com>
- <CAEzXK1oM6b1bV3R3ezwD4eYrJXWV9+cdUFMC4q5+1bPkpmJFqQ@mail.gmail.com>
- <CAEzXK1qRWkL67rG40jk4Odqm8AjbDvnnaCsDycLPRcPXXPL-KQ@mail.gmail.com>
- <22178876-688c-b4fe-d40e-1bab28024603@daenzer.net>
- <CAEzXK1q+pMZgg7a7TMkNaDPhe90NkCc7MtAfE98vRY5tGDfW4A@mail.gmail.com>
- <CAEzXK1pZqFMZ8Qos3h7E-aYdmBE18GKFSamPV+0ZsXu=CatKRA@mail.gmail.com>
- <CAEzXK1qtjy+OaBh5rkzOXrTYe4Zq1w5bzdzTSRuCuDcm-kx-fA@mail.gmail.com>
- <CAEzXK1ryiqqrxTr5mn+Y4VvNAn-LtQb-0cBTitKKoQb+4B1=Qg@mail.gmail.com>
- <CAEzXK1ob33a28y_jwj_8ovr_ZDiowMAiUrnAQxS4vM5PK3NzzQ@mail.gmail.com>
+Subject: Regression with kernel 4.18 - AMD RX 550 fails IB ring test on
+ power-up
+Date: Tue, 26 Jun 2018 10:08:34 +0100
+Message-ID: <CAEzXK1ofHUGNcZXM+Ys4xU9g0cSrdr63fxMVTCSq2-X4jwKfNw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1088566279=="
+Content-Type: multipart/mixed; boundary="000000000000c8aa43056f87d7f6"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAEzXK1ob33a28y_jwj_8ovr_ZDiowMAiUrnAQxS4vM5PK3NzzQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -29,310 +16,597 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1088566279==
-Content-Type: multipart/alternative; boundary="000000000000e30ab3056f87c4ce"
+--000000000000c8aa43056f87d7f6
+Content-Type: multipart/alternative; boundary="000000000000c8aa40056f87d7f3"
 
---000000000000e30ab3056f87c4ce
+--000000000000c8aa40056f87d7f3
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I've tested Ubuntu 18.04 with kernel 4.17.2 using libdrm-2.4.92 and
-mesa-18.1.0 and AMD RX 550 4GB is still hanging when running the identified
-OpenCL kernels.
+Hi,
 
-[  548.704916] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma0
-timeout, last signaled seq=3D30, last emitted seq=3D33
-[  548.704988] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1
-timeout, last signaled seq=3D29, last emitted seq=3D31
-[  548.704992] [drm] IP block:gmc_v8_0 is hung!
-[  548.704994] [drm] IP block:tonga_ih is hung!
-[  548.704996] [drm] IP block:gmc_v8_0 is hung!
-[  548.704997] [drm] IP block:gfx_v8_0 is hung!
-[  548.704998] [drm] IP block:sdma_v3_0 is hung!
-[  548.704999] [drm] IP block:tonga_ih is hung!
-[  548.705000] [drm] IP block:uvd_v6_0 is hung!
-[  548.705001] [drm] IP block:gfx_v8_0 is hung!
-[  548.705002] [drm] IP block:sdma_v3_0 is hung!
-[  548.705003] [drm] IP block:uvd_v6_0 is hung!
-[  548.705004] [drm] IP block:vce_v3_0 is hung!
-[  548.705005] [drm] GPU recovery disabled.
-[  548.705006] [drm] IP block:vce_v3_0 is hung!
-[  548.705007] [drm] GPU recovery disabled.
+I've tried kernel 4.18-rc2 on a system with a NVIDIA GTX 1050 Ti and an AMD
+RX 550 4GB and the RX 550 card is failing the IB ring test.
 
-Are there any new regarding this issue?
+[    5.033217] [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: ib test
+failed (scratch(0xC040)=3D0xFFFFFFFF)
+[    5.033264] [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* amdgpu: failed
+testing IB on ring 6 (-22).
+
+Please see the attached log.
 
 Regards,
 Lu=C3=ADs
 
-On Fri, May 25, 2018 at 11:23 AM, Lu=C3=ADs Mendes <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
->
-wrote:
-
-> I've just tested Ubuntu 18.04 with kernel 4.17-rc6 using libdrm-2.4.92 an=
-d
-> mesa-18.1.0.
-> Now both sdma0 and sdma1 timeout as can be seen in the attached logs.
->
-> ~agd5f -b drm-next-4.18 doesn't improve also.
->
-> I have also tried amdgpu-pro 18.20 both on Ubuntu 18.04 and 16.04, but no
-> improvements.
-> I have tried amdgpu-pro 18.10 and 17.50 and also no improvements.
->
-> ./amdgpu-pro-install -opencl=3Dlegacy,pal --headless
->
-> On Thu, May 24, 2018 at 11:18 AM, Lu=C3=ADs Mendes <luis.p.mendes@gmail.c=
-om>
-> wrote:
->
->> Additional update...
->>
->> I was able to boot and enter X by installing an NVIDIA GTX 1050 Ti as th=
-e
->> primary display card and using an AMD RX 550 as the secondary card on th=
-e
->> Tyan S7025 with the same Ubuntu 18.04 and the same Linux kernel 4.17-rc6=
-.
->> However once I try to run an OpenCL kernel on RX 550 I get a sdma1
->> timeout and the GPU hangs, which likely what is happening when I boot wi=
-th
->> RX 550 as the single GPU card on the system.
->>
->> This means it is not an issue introduced in 4.17-rc6, it just means that
->> I didn't notice the effect of the system with the two GPUs vs system wit=
-h
->> single AMD GPU.
->>
->> The dmesg log follows attached.
->>
->> Lu=C3=ADs
->>
->> On Thu, May 24, 2018 at 10:13 AM, Lu=C3=ADs Mendes <luis.p.mendes@gmail.=
-com>
->> wrote:
->>
->>> Hi Michel,
->>>
->>> I also work as a researcher at a university and we are considering
->>> buying AMD cards to do OpenCL computations for numerical modelling, but
->>> currently I am unable to give a try at the AMD cards I have at home.
->>> I couldn't find any working driver for them... also amdgpu-pro drivers
->>> don't work, or at least I have been unable to make them work.
->>>
->>> Regards,
->>> Lu=C3=ADs
->>>
->>> On Thu, May 24, 2018 at 10:01 AM, Lu=C3=ADs Mendes <luis.p.mendes@gmail=
-.com>
->>> wrote:
->>>
->>>> Hi Michel,
->>>>
->>>> So summarizing with Linux kernel 4.17-rc6 on Ubuntu 18.04 using AMD RX
->>>> 460/RX 550 I am not able to enter X.
->>>> The same system with AMD Radeon R7 240 not only enters X as also runs
->>>> the OpenCL kernel that RX 460 / RX 550 are unable to run for all the
->>>> kernels that I have tested.
->>>> Could this also be a Mesa issue, regarding OpenCL on RX 460?
->>>>
->>>> Regards,
->>>> Lu=C3=ADs
->>>>
->>>> On Thu, May 24, 2018 at 9:55 AM, Lu=C3=ADs Mendes <luis.p.mendes@gmail=
-.com>
->>>> wrote:
->>>>
->>>>> Hi Michel,
->>>>>
->>>>> I will have to check previous rc releases of 4.17 to see if it wasn't
->>>>> already happening, before trying any possible git bisect.
->>>>> As an update I can say that an AMD Radeon R7 240 works fine on the
->>>>> same system with the same kernel and I am able to run the OpenCL kern=
-els,
->>>>> that I couldn't with RX 460/RX 550.
->>>>>
->>>>> Regards,
->>>>> Lu=C3=ADs
->>>>>
->>>>> On Thu, May 24, 2018 at 9:30 AM, Michel D=C3=A4nzer <michel@daenzer.n=
-et>
->>>>> wrote:
->>>>>
->>>>>> On 2018-05-24 12:06 AM, Lu=C3=ADs Mendes wrote:
->>>>>> > I've tried Linux 4.17-rc6 with Ubuntu 18.04 on Tyan S7002 and I am
->>>>>> not even
->>>>>> > able see lightdm/gdm3 as system hangs when starting X.
->>>>>> > Having SR-IOV enabled or disabled makes no difference.
->>>>>> > Tested with AMD RX 460.
->>>>>> > When X is supposed to start the system hangs and only a rectangula=
-r
->>>>>> region
->>>>>> > on the top left corner screen remains with console text messages
->>>>>> from the
->>>>>> > boot process while the remaining of the screen is just black. I am
->>>>>> unable
->>>>>> > to do anything with the keyboard, switching to console does not
->>>>>> work,
->>>>>> > ctrl-alt-del also doesn't work. I've to do a cold reset.
->>>>>>
->>>>>> Can you isolate which change introduced this new issue with git
->>>>>> bisect?
->>>>>>
->>>>>>
->>>>>> --
->>>>>> Earthling Michel D=C3=A4nzer               |
->>>>>> http://www.amd.com
->>>>>> Libre software enthusiast             |             Mesa and X
->>>>>> developer
->>>>>>
->>>>>
->>>>>
->>>>
->>>
->>
->
-
---000000000000e30ab3056f87c4ce
+--000000000000c8aa40056f87d7f3
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><br></div><div>I&#39;ve tested Ubuntu 18.04 with kern=
-el 4.17.2 using libdrm-2.4.92 and mesa-18.1.0 and AMD RX 550 4GB is still h=
-anging when running the identified OpenCL kernels.</div><div><br></div><div=
->[=C2=A0 548.704916] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma0 =
-timeout, last signaled seq=3D30, last emitted seq=3D33<br>[=C2=A0 548.70498=
-8] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring sdma1 timeout, last sign=
-aled seq=3D29, last emitted seq=3D31<br>[=C2=A0 548.704992] [drm] IP block:=
-gmc_v8_0 is hung!<br>[=C2=A0 548.704994] [drm] IP block:tonga_ih is hung!<b=
-r>[=C2=A0 548.704996] [drm] IP block:gmc_v8_0 is hung!<br>[=C2=A0 548.70499=
-7] [drm] IP block:gfx_v8_0 is hung!<br>[=C2=A0 548.704998] [drm] IP block:s=
-dma_v3_0 is hung!<br>[=C2=A0 548.704999] [drm] IP block:tonga_ih is hung!<b=
-r>[=C2=A0 548.705000] [drm] IP block:uvd_v6_0 is hung!<br>[=C2=A0 548.70500=
-1] [drm] IP block:gfx_v8_0 is hung!<br>[=C2=A0 548.705002] [drm] IP block:s=
-dma_v3_0 is hung!<br>[=C2=A0 548.705003] [drm] IP block:uvd_v6_0 is hung!<b=
-r>[=C2=A0 548.705004] [drm] IP block:vce_v3_0 is hung!<br>[=C2=A0 548.70500=
-5] [drm] GPU recovery disabled.<br>[=C2=A0 548.705006] [drm] IP block:vce_v=
-3_0 is hung!<br>[=C2=A0 548.705007] [drm] GPU recovery disabled.<br></div><=
-div><br></div><div>Are there any new regarding this issue?</div><div><br></=
-div><div>Regards,</div><div>Lu=C3=ADs<br></div></div><div class=3D"gmail_ex=
-tra"><br><div class=3D"gmail_quote">On Fri, May 25, 2018 at 11:23 AM, Lu=C3=
-=ADs Mendes <span dir=3D"ltr">&lt;<a href=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
-" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><block=
-quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
- solid;padding-left:1ex"><div dir=3D"ltr"><div>I&#39;ve just tested Ubuntu =
-18.04 with kernel 4.17-rc6 using libdrm-2.4.92 and mesa-18.1.0.</div><div>N=
-ow both sdma0 and sdma1 timeout as can be seen in the attached logs.</div><=
-div><br></div><div>~agd5f -b drm-next-4.18 doesn&#39;t improve also.</div><=
-div><br></div><div>I have also tried amdgpu-pro 18.20 both on Ubuntu 18.04 =
-and 16.04, but no improvements.</div><div>I have tried amdgpu-pro 18.10 and=
- 17.50 and also no improvements.</div><div><br></div><div>./amdgpu-pro-inst=
-all -opencl=3Dlegacy,pal --headless<br></div></div><div class=3D"HOEnZb"><d=
-iv class=3D"h5"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">O=
-n Thu, May 24, 2018 at 11:18 AM, Lu=C3=ADs Mendes <span dir=3D"ltr">&lt;<a =
-href=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes@gma=
-il.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"=
-margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"=
-ltr"><div>Additional update...</div><div><br></div><div>I was able to boot =
-and enter X by installing an NVIDIA GTX 1050 Ti as the primary display card=
- and using an AMD RX 550 as the secondary card on the Tyan S7025 with the s=
-ame Ubuntu 18.04 and the same Linux kernel 4.17-rc6.</div><div>However once=
- I try to run an OpenCL kernel on RX 550 I get a sdma1 timeout and the GPU =
-hangs, which likely what is happening when I boot with RX 550 as the single=
- GPU card on the system.</div><div><br></div><div>This means it is not an i=
-ssue introduced in 4.17-rc6, it just means that I didn&#39;t notice the eff=
-ect of the system with the two GPUs vs system with single AMD GPU.<br></div=
-><div><br></div><div>The dmesg log follows attached.</div><span class=3D"m_=
--2792494690060611914HOEnZb"><font color=3D"#888888"><div><br></div><div>Lu=
-=C3=ADs<br></div></font></span><div><div class=3D"m_-2792494690060611914h5"=
-><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, May 24, =
-2018 at 10:13 AM, Lu=C3=ADs Mendes <span dir=3D"ltr">&lt;<a href=3D"mailto:=
-luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<=
-/span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
-ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>Hi Mi=
-chel,</div><div><br></div><div>I also work as a researcher at a university =
-and we are considering buying AMD cards to do OpenCL computations for numer=
-ical modelling, but currently I am unable to give a try at the AMD cards I =
-have at home. <br></div><div>I couldn&#39;t find any working driver for the=
-m... also amdgpu-pro drivers don&#39;t work, or at least I have been unable=
- to make them work.</div><div><br></div><div>Regards,</div><div>Lu=C3=ADs<b=
-r></div></div><div class=3D"m_-2792494690060611914m_-7330547345245497836HOE=
-nZb"><div class=3D"m_-2792494690060611914m_-7330547345245497836h5"><div cla=
-ss=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, May 24, 2018 at 1=
-0:01 AM, Lu=C3=ADs Mendes <span dir=3D"ltr">&lt;<a href=3D"mailto:luis.p.me=
-ndes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wr=
-ote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border=
--left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>Hi Michel,</di=
-v><div><br></div><div>So summarizing with Linux kernel 4.17-rc6 on Ubuntu 1=
-8.04 using AMD RX 460/RX 550 I am not able to enter X.</div><div>The same s=
-ystem with AMD Radeon R7 240 not only enters X as also runs the OpenCL kern=
-el that RX 460 / RX 550 are unable to run for all the kernels that I have t=
-ested.</div><div>Could this also be a Mesa issue, regarding OpenCL on RX 46=
-0?</div><div><br></div><div>Regards,</div><div>Lu=C3=ADs<br></div></div><di=
-v class=3D"m_-2792494690060611914m_-7330547345245497836m_-25897409122049898=
-14HOEnZb"><div class=3D"m_-2792494690060611914m_-7330547345245497836m_-2589=
-740912204989814h5"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote=
-">On Thu, May 24, 2018 at 9:55 AM, Lu=C3=ADs Mendes <span dir=3D"ltr">&lt;<=
-a href=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes@g=
-mail.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=
-=3D"ltr"><div>Hi Michel,</div><div><br></div><div>I will have to check prev=
-ious rc releases of 4.17 to see if it wasn&#39;t already happening, before =
-trying any possible git bisect.</div><div>As an update I can say that an AM=
-D Radeon R7 240 works fine on the same system with the same kernel and I am=
- able to run the OpenCL kernels, that I couldn&#39;t with RX 460/RX 550.</d=
-iv><div><br></div><div>Regards,</div><div>Lu=C3=ADs<br></div></div><div cla=
-ss=3D"m_-2792494690060611914m_-7330547345245497836m_-2589740912204989814m_-=
-8831467556420229668HOEnZb"><div class=3D"m_-2792494690060611914m_-733054734=
-5245497836m_-2589740912204989814m_-8831467556420229668h5"><div class=3D"gma=
-il_extra"><br><div class=3D"gmail_quote">On Thu, May 24, 2018 at 9:30 AM, M=
-ichel D=C3=A4nzer <span dir=3D"ltr">&lt;<a href=3D"mailto:michel-otUistvHUpNNg+MwTxZMZA@public.gmane.org=
-t" target=3D"_blank">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;</span> wrote:<br><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex"><span>On 2018-05-24 12:06 AM, Lu=C3=ADs Mendes wrote:<=
-br>
-&gt; I&#39;ve tried Linux 4.17-rc6 with Ubuntu 18.04 on Tyan S7002 and I am=
- not even<br>
-&gt; able see lightdm/gdm3 as system hangs when starting X.<br>
-&gt; Having SR-IOV enabled or disabled makes no difference.<br>
-&gt; Tested with AMD RX 460.<br>
-&gt; When X is supposed to start the system hangs and only a rectangular re=
-gion<br>
-&gt; on the top left corner screen remains with console text messages from =
-the<br>
-&gt; boot process while the remaining of the screen is just black. I am una=
-ble<br>
-&gt; to do anything with the keyboard, switching to console does not work,<=
-br>
-&gt; ctrl-alt-del also doesn&#39;t work. I&#39;ve to do a cold reset.<br>
-<br>
-</span>Can you isolate which change introduced this new issue with git bise=
-ct?<br>
-<div class=3D"m_-2792494690060611914m_-7330547345245497836m_-25897409122049=
-89814m_-8831467556420229668m_-6894958231640817724HOEnZb"><div class=3D"m_-2=
-792494690060611914m_-7330547345245497836m_-2589740912204989814m_-8831467556=
-420229668m_-6894958231640817724h5"><br>
-<br>
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-</div></div></blockquote></div><br></div>
-</div></div></blockquote></div><br></div>
-</div></div></blockquote></div><br></div>
-</div></div></blockquote></div><br></div></div></div></div>
-</blockquote></div><br></div>
-</div></div></blockquote></div><br></div>
+<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>I&#39;ve tried kernel 4.=
+18-rc2 on a system with a NVIDIA GTX 1050 Ti and an AMD RX 550 4GB and the =
+RX 550 card is failing the IB ring test.</div><div><br></div><div>[=C2=A0=
+=C2=A0=C2=A0 5.033217] [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* amdgpu:=
+ ib test failed (scratch(0xC040)=3D0xFFFFFFFF)<br>[=C2=A0=C2=A0=C2=A0 5.033=
+264] [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* amdgpu: failed testing IB =
+on ring 6 (-22).<br><br></div><div>Please see the attached log.</div><div><=
+br></div><div>Regards,</div><div>Lu=C3=ADs<br></div></div>
 
---000000000000e30ab3056f87c4ce--
+--000000000000c8aa40056f87d7f3--
 
---===============1088566279==
+--000000000000c8aa43056f87d7f6
+Content-Type: text/plain; charset="US-ASCII"; name="kernel18_rc2_amdgpu_bugs.txt"
+Content-Disposition: attachment; filename="kernel18_rc2_amdgpu_bugs.txt"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_jivgxokq0
+
+WyAgICAyLjM3NzQ0M10gbm91dmVhdSAwMDAwOjA4OjAwLjA6IE5WSURJQSBHUDEwNyAoMTM3MDAw
+YTEpClsgICAgMi4zOTIyMzhdIENSQVQgdGFibGUgbm90IGZvdW5kClsgICAgMi4zOTIyNDBdIFZp
+cnR1YWwgQ1JBVCB0YWJsZSBjcmVhdGVkIGZvciBDUFUKWyAgICAyLjM5MjI0MV0gUGFyc2luZyBD
+UkFUIHRhYmxlIHdpdGggMiBub2RlcwpbICAgIDIuMzkyMjQzXSBDcmVhdGluZyB0b3BvbG9neSBT
+WVNGUyBlbnRyaWVzClsgICAgMi4zOTIyNzBdIFRvcG9sb2d5OiBBZGQgQ1BVIG5vZGUKWyAgICAy
+LjM5MjI3MF0gRmluaXNoZWQgaW5pdGlhbGl6aW5nIHRvcG9sb2d5ClsgICAgMi4zOTIzNDddIGtm
+ZCBrZmQ6IEluaXRpYWxpemVkIG1vZHVsZQpbICAgIDIuMzk0MTUxXSBhbWRncHUgMDAwMDowNjow
+MC4wOiBlbmFibGluZyBkZXZpY2UgKDAwMDAgLT4gMDAwMykKWyAgICAyLjM5NDMxNV0gW2RybV0g
+aW5pdGlhbGl6aW5nIGtlcm5lbCBtb2Rlc2V0dGluZyAoUE9MQVJJUzExIDB4MTAwMjoweDY3RkYg
+MHgxREEyOjB4RTM2NyAweEZGKS4KWyAgICAyLjM5NDMyNF0gW2RybV0gcmVnaXN0ZXIgbW1pbyBi
+YXNlOiAweEY3RTgwMDAwClsgICAgMi4zOTQzMjRdIFtkcm1dIHJlZ2lzdGVyIG1taW8gc2l6ZTog
+MjYyMTQ0ClsgICAgMi4zOTQzMzBdIFtkcm1dIHByb2JpbmcgZ2VuIDIgY2FwcyBmb3IgZGV2aWNl
+IDgwODY6MzQwZSA9IDM5MzA0Mi8wClsgICAgMi4zOTQzMzJdIFtkcm1dIHByb2JpbmcgbWx3IGZv
+ciBkZXZpY2UgODA4NjozNDBlID0gMzkzMDQyClsgICAgMi4zOTQzMzRdIFtkcm1dIGFkZCBpcCBi
+bG9jayBudW1iZXIgMCA8dmlfY29tbW9uPgpbICAgIDIuMzk0MzM0XSBbZHJtXSBhZGQgaXAgYmxv
+Y2sgbnVtYmVyIDEgPGdtY192OF8wPgpbICAgIDIuMzk0MzM1XSBbZHJtXSBhZGQgaXAgYmxvY2sg
+bnVtYmVyIDIgPHRvbmdhX2loPgpbICAgIDIuMzk0MzM2XSBbZHJtXSBhZGQgaXAgYmxvY2sgbnVt
+YmVyIDMgPHBvd2VycGxheT4KWyAgICAyLjM5NDMzN10gW2RybV0gYWRkIGlwIGJsb2NrIG51bWJl
+ciA0IDxkbT4KWyAgICAyLjM5NDMzOF0gW2RybV0gYWRkIGlwIGJsb2NrIG51bWJlciA1IDxnZnhf
+djhfMD4KWyAgICAyLjM5NDMzOV0gW2RybV0gYWRkIGlwIGJsb2NrIG51bWJlciA2IDxzZG1hX3Yz
+XzA+ClsgICAgMi4zOTQzNDBdIFtkcm1dIGFkZCBpcCBibG9jayBudW1iZXIgNyA8dXZkX3Y2XzA+
+ClsgICAgMi4zOTQzNDFdIFtkcm1dIGFkZCBpcCBibG9jayBudW1iZXIgOCA8dmNlX3YzXzA+Clsg
+ICAgMi4zOTQzNDNdIGtmZCBrZmQ6IHNraXBwZWQgZGV2aWNlIDEwMDI6NjdmZiwgUENJIHJlamVj
+dHMgYXRvbWljcwpbICAgIDIuMzk0MzU2XSBbZHJtXSBVVkQgaXMgZW5hYmxlZCBpbiBWTSBtb2Rl
+ClsgICAgMi4zOTQzNTZdIFtkcm1dIFVWRCBFTkMgaXMgZW5hYmxlZCBpbiBWTSBtb2RlClsgICAg
+Mi4zOTQzNTldIFtkcm1dIFZDRSBlbmFibGVkIGluIFZNIG1vZGUKWyAgICAyLjQxNjk5OF0gZTEw
+MDBlIDAwMDA6MDI6MDAuMCBldGgxOiAoUENJIEV4cHJlc3M6Mi41R1QvczpXaWR0aCB4MSkgMDA6
+ZTA6ODE6ZDY6MDQ6NjQKWyAgICAyLjQxNjk5OV0gZTEwMDBlIDAwMDA6MDI6MDAuMCBldGgxOiBJ
+bnRlbChSKSBQUk8vMTAwMCBOZXR3b3JrIENvbm5lY3Rpb24KWyAgICAyLjQxNzA4M10gZTEwMDBl
+IDAwMDA6MDI6MDAuMCBldGgxOiBNQUM6IDMsIFBIWTogOCwgUEJBIE5vOiBGRkZGRkYtMEZGClsg
+ICAgMi40MTk1NzNdIGUxMDAwZSAwMDAwOjAzOjAwLjAgZW5wM3MwOiByZW5hbWVkIGZyb20gZXRo
+MApbICAgIDIuNDgwMDkwXSB1c2IgNi0xOiBOZXcgVVNCIGRldmljZSBmb3VuZCwgaWRWZW5kb3I9
+MDQ2ZCwgaWRQcm9kdWN0PWMwNzcsIGJjZERldmljZT03Mi4wMApbICAgIDIuNDgwMDkyXSB1c2Ig
+Ni0xOiBOZXcgVVNCIGRldmljZSBzdHJpbmdzOiBNZnI9MSwgUHJvZHVjdD0yLCBTZXJpYWxOdW1i
+ZXI9MApbICAgIDIuNDgwMDkzXSB1c2IgNi0xOiBQcm9kdWN0OiBVU0IgT3B0aWNhbCBNb3VzZQpb
+ICAgIDIuNDgwMDk1XSB1c2IgNi0xOiBNYW51ZmFjdHVyZXI6IExvZ2l0ZWNoClsgICAgMi40ODg4
+ODNdIG5vdXZlYXUgMDAwMDowODowMC4wOiBiaW9zOiB2ZXJzaW9uIDg2LjA3LjM5LjAwLmJiClsg
+ICAgMi41MTM5OTFdIGhpZHJhdzogcmF3IEhJRCBldmVudHMgZHJpdmVyIChDKSBKaXJpIEtvc2lu
+YQpbICAgIDIuNTM0MjQzXSB1c2Jjb3JlOiByZWdpc3RlcmVkIG5ldyBpbnRlcmZhY2UgZHJpdmVy
+IHVzYmhpZApbICAgIDIuNTM0MjQzXSB1c2JoaWQ6IFVTQiBISUQgY29yZSBkcml2ZXIKWyAgICAy
+LjU0Mzc1NF0gaW5wdXQ6IExvZ2l0ZWNoIFVTQiBPcHRpY2FsIE1vdXNlIGFzIC9kZXZpY2VzL3Bj
+aTAwMDA6MDAvMDAwMDowMDoxZC4wL3VzYjYvNi0xLzYtMToxLjAvMDAwMzowNDZEOkMwNzcuMDAw
+MS9pbnB1dC9pbnB1dDUKWyAgICAyLjU0Mzk0MV0gaGlkLWdlbmVyaWMgMDAwMzowNDZEOkMwNzcu
+MDAwMTogaW5wdXQsaGlkcmF3MDogVVNCIEhJRCB2MS4xMSBNb3VzZSBbTG9naXRlY2ggVVNCIE9w
+dGljYWwgTW91c2VdIG9uIHVzYi0wMDAwOjAwOjFkLjAtMS9pbnB1dDAKWyAgICAyLjU3MDk5NV0g
+YXRhMTogU0FUQSBsaW5rIHVwIDMuMCBHYnBzIChTU3RhdHVzIDEyMyBTQ29udHJvbCAzMDApClsg
+ICAgMi41NzI2NzBdIGF0YTEuMDA6IHN1cHBvcnRzIERSTSBmdW5jdGlvbnMgYW5kIG1heSBub3Qg
+YmUgZnVsbHkgYWNjZXNzaWJsZQpbICAgIDIuNTczMjc2XSBhdGExLjAwOiBOQ1EgU2VuZC9SZWN2
+IExvZyBub3Qgc3VwcG9ydGVkClsgICAgMi41NzMyNzddIGF0YTEuMDA6IEFUQS05OiBTYW1zdW5n
+IFNTRCA4NTAgRVZPIDEyMEdCLCBFTVQwMUI2USwgbWF4IFVETUEvMTMzClsgICAgMi41NzMyNzld
+IGF0YTEuMDA6IDIzNDQ0MTY0OCBzZWN0b3JzLCBtdWx0aSAxOiBMQkE0OCBOQ1EgKGRlcHRoIDMy
+KSwgQUEKWyAgICAyLjU3NDkxMl0gYXRhMS4wMDogc3VwcG9ydHMgRFJNIGZ1bmN0aW9ucyBhbmQg
+bWF5IG5vdCBiZSBmdWxseSBhY2Nlc3NpYmxlClsgICAgMi41NzU0MjldIGF0YTEuMDA6IE5DUSBT
+ZW5kL1JlY3YgTG9nIG5vdCBzdXBwb3J0ZWQKWyAgICAyLjU3NjU2N10gYXRhMS4wMDogY29uZmln
+dXJlZCBmb3IgVURNQS8xMzMKWyAgICAyLjU3NjkxMl0gc2NzaSAwOjA6MDowOiBEaXJlY3QtQWNj
+ZXNzICAgICBBVEEgICAgICBTYW1zdW5nIFNTRCA4NTAgIDFCNlEgUFE6IDAgQU5TSTogNQpbICAg
+IDIuNTc3MzMzXSBzZCAwOjA6MDowOiBBdHRhY2hlZCBzY3NpIGdlbmVyaWMgc2cwIHR5cGUgMApb
+ICAgIDIuNTc3ODYwXSBzZCAwOjA6MDowOiBbc2RhXSAyMzQ0NDE2NDggNTEyLWJ5dGUgbG9naWNh
+bCBibG9ja3M6ICgxMjAgR0IvMTEyIEdpQikKWyAgICAyLjU3NzkxM10gc2QgMDowOjA6MDogW3Nk
+YV0gV3JpdGUgUHJvdGVjdCBpcyBvZmYKWyAgICAyLjU3NzkxNV0gc2QgMDowOjA6MDogW3NkYV0g
+TW9kZSBTZW5zZTogMDAgM2EgMDAgMDAKWyAgICAyLjU3ODAzN10gc2QgMDowOjA6MDogW3NkYV0g
+V3JpdGUgY2FjaGU6IGVuYWJsZWQsIHJlYWQgY2FjaGU6IGVuYWJsZWQsIGRvZXNuJ3Qgc3VwcG9y
+dCBEUE8gb3IgRlVBClsgICAgMi41Nzg5MzRdICBzZGE6IHNkYTEgc2RhMiA8IHNkYTUgPgpbICAg
+IDIuNTc5NTQwXSBzZCAwOjA6MDowOiBbc2RhXSBzdXBwb3J0cyBUQ0cgT3BhbApbICAgIDIuNTc5
+NTQxXSBzZCAwOjA6MDowOiBbc2RhXSBBdHRhY2hlZCBTQ1NJIGRpc2sKWyAgICAyLjU4NDIzNF0g
+dXNiIDItMjogbmV3IGhpZ2gtc3BlZWQgVVNCIGRldmljZSBudW1iZXIgMyB1c2luZyBlaGNpLXBj
+aQpbICAgIDIuNjE3NDMyXSBBVE9NIEJJT1M6IDExMy0zNjdCRi1VNDEKWyAgICAyLjYxNzQ1Ml0g
+W2RybV0gR1BVIHBvc3Rpbmcgbm93Li4uClsgICAgMi43MjQ0NTldIGUxMDAwZSAwMDAwOjAyOjAw
+LjAgZW5wMnMwOiByZW5hbWVkIGZyb20gZXRoMQpbICAgIDIuNzM2MDA5XSBbZHJtXSB2bSBzaXpl
+IGlzIDY0IEdCLCAyIGxldmVscywgYmxvY2sgc2l6ZSBpcyAxMC1iaXQsIGZyYWdtZW50IHNpemUg
+aXMgOS1iaXQKWyAgICAyLjczNjA2Nl0gYW1kZ3B1IDAwMDA6MDY6MDAuMDogVlJBTTogNDA5Nk0g
+MHgwMDAwMDBGNDAwMDAwMDAwIC0gMHgwMDAwMDBGNEZGRkZGRkZGICg0MDk2TSB1c2VkKQpbICAg
+IDIuNzM2MDY3XSBhbWRncHUgMDAwMDowNjowMC4wOiBHVFQ6IDI1Nk0gMHgwMDAwMDAwMDAwMDAw
+MDAwIC0gMHgwMDAwMDAwMDBGRkZGRkZGClsgICAgMi43MzYwNzddIFtkcm1dIERldGVjdGVkIFZS
+QU0gUkFNPTQwOTZNLCBCQVI9MjU2TQpbICAgIDIuNzM2MDc4XSBbZHJtXSBSQU0gd2lkdGggMTI4
+Yml0cyBHRERSNQpbICAgIDIuNzM2MjA2XSBbVFRNXSBab25lICBrZXJuZWw6IEF2YWlsYWJsZSBn
+cmFwaGljcyBtZW1vcnk6IDI0NzIxNjkyIGtpQgpbICAgIDIuNzM2MjA3XSBbVFRNXSBab25lICAg
+ZG1hMzI6IEF2YWlsYWJsZSBncmFwaGljcyBtZW1vcnk6IDIwOTcxNTIga2lCClsgICAgMi43MzYy
+MDhdIFtUVE1dIEluaXRpYWxpemluZyBwb29sIGFsbG9jYXRvcgpbICAgIDIuNzM2MjE1XSBbVFRN
+XSBJbml0aWFsaXppbmcgRE1BIHBvb2wgYWxsb2NhdG9yClsgICAgMi43MzY2NjddIFtkcm1dIGFt
+ZGdwdTogNDA5Nk0gb2YgVlJBTSBtZW1vcnkgcmVhZHkKWyAgICAyLjczNjY2OV0gW2RybV0gYW1k
+Z3B1OiA0MDk2TSBvZiBHVFQgbWVtb3J5IHJlYWR5LgpbICAgIDIuNzM2NjgwXSBbZHJtXSBHQVJU
+OiBudW0gY3B1IHBhZ2VzIDY1NTM2LCBudW0gZ3B1IHBhZ2VzIDY1NTM2ClsgICAgMi43MzY3ODdd
+IFtkcm1dIFBDSUUgR0FSVCBvZiAyNTZNIGVuYWJsZWQgKHRhYmxlIGF0IDB4MDAwMDAwRjQwMDAw
+MDAwMCkuClsgICAgMi43MzY5MTddIFtkcm1dIENoYWluZWQgSUIgc3VwcG9ydCBlbmFibGVkIQpb
+ICAgIDIuNzM5NTA3XSBbZHJtXSBGb3VuZCBVVkQgZmlybXdhcmUgVmVyc2lvbjogMS4xMzAgRmFt
+aWx5IElEOiAxNgpbICAgIDIuNzQxMTU5XSBbZHJtXSBGb3VuZCBWQ0UgZmlybXdhcmUgVmVyc2lv
+bjogNTIuNCBCaW5hcnkgSUQ6IDMKWyAgICAyLjc0NjAxMV0gdXNiIDItMjogTmV3IFVTQiBkZXZp
+Y2UgZm91bmQsIGlkVmVuZG9yPTE4YTUsIGlkUHJvZHVjdD0wMjJlLCBiY2REZXZpY2U9IDEuMDAK
+WyAgICAyLjc0NjAxNF0gdXNiIDItMjogTmV3IFVTQiBkZXZpY2Ugc3RyaW5nczogTWZyPTEwLCBQ
+cm9kdWN0PTExLCBTZXJpYWxOdW1iZXI9MwpbICAgIDIuNzQ2MDE2XSB1c2IgMi0yOiBQcm9kdWN0
+OiBQb3J0YWJsZSBVU0IgMy4wIERyaXZlClsgICAgMi43NDYwMThdIHVzYiAyLTI6IE1hbnVmYWN0
+dXJlcjogVmVyYmF0aW0KWyAgICAyLjc0NjAyMV0gdXNiIDItMjogU2VyaWFsTnVtYmVyOiAyMDA1
+MUMwNzUyNDQKWyAgICAyLjgyMTAzOF0gW2RybV0gRE1fUFBMSUI6IHZhbHVlcyBmb3IgRW5naW5l
+IGNsb2NrClsgICAgMi44MjEwMzldIFtkcm1dIERNX1BQTElCOgkgMjE0MDAKWyAgICAyLjgyMTA0
+MF0gW2RybV0gRE1fUFBMSUI6CSAzMzUwMApbICAgIDIuODIxMDQwXSBbZHJtXSBETV9QUExJQjoJ
+IDUwMzAwClsgICAgMi44MjEwNDFdIFtkcm1dIERNX1BQTElCOgkgNjk3MDAKWyAgICAyLjgyMTA0
+MV0gW2RybV0gRE1fUFBMSUI6CSA4NzQwMApbICAgIDIuODIxMDQxXSBbZHJtXSBETV9QUExJQjoJ
+IDEwMTkwMApbICAgIDIuODIxMDQyXSBbZHJtXSBETV9QUExJQjoJIDEwNDMwMApbICAgIDIuODIx
+MDQyXSBbZHJtXSBETV9QUExJQjoJIDEwNzEwMApbICAgIDIuODIxMDQzXSBbZHJtXSBETV9QUExJ
+QjogVmFsaWRhdGlvbiBjbG9ja3M6ClsgICAgMi44MjEwNDNdIFtkcm1dIERNX1BQTElCOiAgICBl
+bmdpbmVfbWF4X2Nsb2NrOiAxMDcxMDAKWyAgICAyLjgyMTA0NF0gW2RybV0gRE1fUFBMSUI6ICAg
+IG1lbW9yeV9tYXhfY2xvY2s6IDE1MDAwMApbICAgIDIuODIxMDQ0XSBbZHJtXSBETV9QUExJQjog
+ICAgbGV2ZWwgICAgICAgICAgIDogMApbICAgIDIuODIxMDQ2XSBbZHJtXSBETV9QUExJQjogdmFs
+dWVzIGZvciBNZW1vcnkgY2xvY2sKWyAgICAyLjgyMTA0Nl0gW2RybV0gRE1fUFBMSUI6CSAzMDAw
+MApbICAgIDIuODIxMDQ2XSBbZHJtXSBETV9QUExJQjoJIDYyNTAwClsgICAgMi44MjEwNDddIFtk
+cm1dIERNX1BQTElCOgkgMTUwMDAwClsgICAgMi44MjEwNDddIFtkcm1dIERNX1BQTElCOiBWYWxp
+ZGF0aW9uIGNsb2NrczoKWyAgICAyLjgyMTA0OF0gW2RybV0gRE1fUFBMSUI6ICAgIGVuZ2luZV9t
+YXhfY2xvY2s6IDEwNzEwMApbICAgIDIuODIxMDQ4XSBbZHJtXSBETV9QUExJQjogICAgbWVtb3J5
+X21heF9jbG9jazogMTUwMDAwClsgICAgMi44MjEwNDhdIFtkcm1dIERNX1BQTElCOiAgICBsZXZl
+bCAgICAgICAgICAgOiAwClsgICAgMi44MjE5OTBdIFtkcm1dIERpc3BsYXkgQ29yZSBpbml0aWFs
+aXplZCB3aXRoIHYzLjEuNDQhClsgICAgMi44MjMwOTJdIFtkcm1dIFN1cHBvcnRzIHZibGFuayB0
+aW1lc3RhbXAgY2FjaGluZyBSZXYgMiAoMjEuMTAuMjAxMykuClsgICAgMi44MjMwOTNdIFtkcm1d
+IERyaXZlciBzdXBwb3J0cyBwcmVjaXNlIHZibGFuayB0aW1lc3RhbXAgcXVlcnkuClsgICAgMi44
+NTM0MTNdIFtkcm1dIFVWRCBhbmQgVVZEIEVOQyBpbml0aWFsaXplZCBzdWNjZXNzZnVsbHkuClsg
+ICAgMi44OTEyNjNdIGF0YTI6IFNBVEEgbGluayB1cCAzLjAgR2JwcyAoU1N0YXR1cyAxMjMgU0Nv
+bnRyb2wgMzAwKQpbICAgIDIuOTUzMzI0XSBbZHJtXSBWQ0UgaW5pdGlhbGl6ZWQgc3VjY2Vzc2Z1
+bGx5LgpbICAgIDIuOTUzNTE2XSBbZHJtXSBDYW5ub3QgZmluZCBhbnkgY3J0YyBvciBzaXplcwpb
+ICAgIDIuOTU2NDAzXSBbZHJtXSBJbml0aWFsaXplZCBhbWRncHUgMy4yNi4wIDIwMTUwMTAxIGZv
+ciAwMDAwOjA2OjAwLjAgb24gbWlub3IgMApbICAgIDIuOTU2OTUyXSBub3V2ZWF1IDAwMDA6MDg6
+MDAuMDogZmI6IDQwOTYgTWlCIEdERFI1ClsgICAgMi45NTk4NDhdIGF0YTIuMDA6IEFUQS04OiBU
+T1NISUJBIE1HMDNBQ0EyMDAsIEZMMUEsIG1heCBVRE1BLzEwMApbICAgIDIuOTU5ODUwXSBhdGEy
+LjAwOiAzOTA3MDI5MTY4IHNlY3RvcnMsIG11bHRpIDE2OiBMQkE0OCBOQ1EgKGRlcHRoIDMyKSwg
+QUEKWyAgICAyLjk2MDk3OV0gYXRhMi4wMDogY29uZmlndXJlZCBmb3IgVURNQS8xMDAKWyAgICAy
+Ljk2MTI5N10gc2NzaSAxOjA6MDowOiBEaXJlY3QtQWNjZXNzICAgICBBVEEgICAgICBUT1NISUJB
+IE1HMDNBQ0EyIEZMMUEgUFE6IDAgQU5TSTogNQpbICAgIDIuOTYxNzk3XSBzZCAxOjA6MDowOiBB
+dHRhY2hlZCBzY3NpIGdlbmVyaWMgc2cxIHR5cGUgMApbICAgIDIuOTYxOTc1XSBzZCAxOjA6MDow
+OiBbc2RiXSAzOTA3MDI5MTY4IDUxMi1ieXRlIGxvZ2ljYWwgYmxvY2tzOiAoMi4wMCBUQi8xLjgy
+IFRpQikKWyAgICAyLjk2MTk5OF0gc2QgMTowOjA6MDogW3NkYl0gV3JpdGUgUHJvdGVjdCBpcyBv
+ZmYKWyAgICAyLjk2MjAwMF0gc2QgMTowOjA6MDogW3NkYl0gTW9kZSBTZW5zZTogMDAgM2EgMDAg
+MDAKWyAgICAyLjk2MjA3M10gc2QgMTowOjA6MDogW3NkYl0gV3JpdGUgY2FjaGU6IGVuYWJsZWQs
+IHJlYWQgY2FjaGU6IGVuYWJsZWQsIGRvZXNuJ3Qgc3VwcG9ydCBEUE8gb3IgRlVBClsgICAgMy4w
+ODgwMjFdIHVzYiA3LTI6IG5ldyBsb3ctc3BlZWQgVVNCIGRldmljZSBudW1iZXIgMiB1c2luZyB1
+aGNpX2hjZApbICAgIDMuMTQzMDU2XSAgc2RiOiBzZGIxIHNkYjIKWyAgICAzLjE0MzgxN10gc2Qg
+MTowOjA6MDogW3NkYl0gQXR0YWNoZWQgU0NTSSBkaXNrClsgICAgMy4yNzUyODVdIGF0YTM6IFNB
+VEEgbGluayBkb3duIChTU3RhdHVzIDAgU0NvbnRyb2wgMzAwKQpbICAgIDMuMzgyMDU5XSB1c2Ig
+Ny0yOiBOZXcgVVNCIGRldmljZSBmb3VuZCwgaWRWZW5kb3I9MDRkOSwgaWRQcm9kdWN0PTE3MDIs
+IGJjZERldmljZT0gNC4wNgpbICAgIDMuMzgyMDYyXSB1c2IgNy0yOiBOZXcgVVNCIGRldmljZSBz
+dHJpbmdzOiBNZnI9MSwgUHJvZHVjdD0yLCBTZXJpYWxOdW1iZXI9MApbICAgIDMuMzgyMDYzXSB1
+c2IgNy0yOiBQcm9kdWN0OiBVU0IgS2V5Ym9hcmQKWyAgICAzLjM4MjA2NV0gdXNiIDctMjogTWFu
+dWZhY3R1cmVyOiAgClsgICAgMy40NDIzNDJdIGlucHV0OiAgIFVTQiBLZXlib2FyZCBhcyAvZGV2
+aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6MWQuMS91c2I3LzctMi83LTI6MS4wLzAwMDM6MDREOTox
+NzAyLjAwMDIvaW5wdXQvaW5wdXQ2ClsgICAgMy41MDAyNzldIGhpZC1nZW5lcmljIDAwMDM6MDRE
+OToxNzAyLjAwMDI6IGlucHV0LGhpZHJhdzE6IFVTQiBISUQgdjEuMTAgS2V5Ym9hcmQgWyAgVVNC
+IEtleWJvYXJkXSBvbiB1c2ItMDAwMDowMDoxZC4xLTIvaW5wdXQwClsgICAgMy41NTYwODZdIHJh
+bmRvbTogZmFzdCBpbml0IGRvbmUKWyAgICAzLjU4MjI5OV0gaW5wdXQ6ICAgVVNCIEtleWJvYXJk
+IFN5c3RlbSBDb250cm9sIGFzIC9kZXZpY2VzL3BjaTAwMDA6MDAvMDAwMDowMDoxZC4xL3VzYjcv
+Ny0yLzctMjoxLjEvMDAwMzowNEQ5OjE3MDIuMDAwMy9pbnB1dC9pbnB1dDcKWyAgICAzLjU5MTMw
+M10gYXRhNDogU0FUQSBsaW5rIHVwIDEuNSBHYnBzIChTU3RhdHVzIDExMyBTQ29udHJvbCAzMDAp
+ClsgICAgMy41OTM3NzFdIGF0YTQuMDA6IEFUQVBJOiBUU1NUY29ycCBDRERWRFcgU0gtMjI0RkIs
+IFNCMDAsIG1heCBVRE1BLzEwMApbICAgIDMuNTk0NzY5XSBhdGE0LjAwOiBjb25maWd1cmVkIGZv
+ciBVRE1BLzEwMApbICAgIDMuNTk2NTQ0XSBzY3NpIDM6MDowOjA6IENELVJPTSAgICAgICAgICAg
+IFRTU1Rjb3JwIENERFZEVyBTSC0yMjRGQiAgU0IwMCBQUTogMCBBTlNJOiA1ClsgICAgMy42MzIw
+NjZdIHVzYiAyLTU6IG5ldyBoaWdoLXNwZWVkIFVTQiBkZXZpY2UgbnVtYmVyIDUgdXNpbmcgZWhj
+aS1wY2kKWyAgICAzLjY0MDE3Nl0gaW5wdXQ6ICAgVVNCIEtleWJvYXJkIENvbnN1bWVyIENvbnRy
+b2wgYXMgL2RldmljZXMvcGNpMDAwMDowMC8wMDAwOjAwOjFkLjEvdXNiNy83LTIvNy0yOjEuMS8w
+MDAzOjA0RDk6MTcwMi4wMDAzL2lucHV0L2lucHV0OApbICAgIDMuNjQwMzcxXSBoaWQtZ2VuZXJp
+YyAwMDAzOjA0RDk6MTcwMi4wMDAzOiBpbnB1dCxoaWRyYXcyOiBVU0IgSElEIHYxLjEwIERldmlj
+ZSBbICBVU0IgS2V5Ym9hcmRdIG9uIHVzYi0wMDAwOjAwOjFkLjEtMi9pbnB1dDEKWyAgICAzLjY2
+ODE2OV0gc3IgMzowOjA6MDogW3NyMF0gc2NzaTMtbW1jIGRyaXZlOiA0OHgvNDh4IHdyaXRlciBk
+dmQtcmFtIGNkL3J3IHhhL2Zvcm0yIGNkZGEgdHJheQpbICAgIDMuNjY4MTcxXSBjZHJvbTogVW5p
+Zm9ybSBDRC1ST00gZHJpdmVyIFJldmlzaW9uOiAzLjIwClsgICAgMy42Njg0NzddIHNyIDM6MDow
+OjA6IEF0dGFjaGVkIHNjc2kgQ0QtUk9NIHNyMApbICAgIDMuNjY4NjU0XSBzciAzOjA6MDowOiBB
+dHRhY2hlZCBzY3NpIGdlbmVyaWMgc2cyIHR5cGUgNQpbICAgIDMuODA1NzcxXSB1c2IgMi01OiBO
+ZXcgVVNCIGRldmljZSBmb3VuZCwgaWRWZW5kb3I9MDQ2YiwgaWRQcm9kdWN0PWZmMDEsIGJjZERl
+dmljZT0gMS4wMApbICAgIDMuODA1Nzc0XSB1c2IgMi01OiBOZXcgVVNCIGRldmljZSBzdHJpbmdz
+OiBNZnI9MSwgUHJvZHVjdD0yLCBTZXJpYWxOdW1iZXI9MwpbICAgIDMuODA1Nzc2XSB1c2IgMi01
+OiBQcm9kdWN0OiBHZW5lcmljIEh1YgpbICAgIDMuODA1Nzc5XSB1c2IgMi01OiBNYW51ZmFjdHVy
+ZXI6IEFtZXJpY2FuIE1lZ2F0cmVuZHMgSW5jLgpbICAgIDMuODA1NzgxXSB1c2IgMi01OiBTZXJp
+YWxOdW1iZXI6IHNlcmlhbApbICAgIDMuODA2NjgwXSBodWIgMi01OjEuMDogVVNCIGh1YiBmb3Vu
+ZApbICAgIDMuODA2OTQxXSBodWIgMi01OjEuMDogMyBwb3J0cyBkZXRlY3RlZApbICAgIDMuOTgz
+MzAxXSBhdGE1OiBTQVRBIGxpbmsgdXAgMS41IEdicHMgKFNTdGF0dXMgMTEzIFNDb250cm9sIDMw
+MCkKWyAgICAzLjk4NDI2NF0gYXRhNS4wMDogQVRBUEk6IFFVQU5UVU0gRExULVY0LCAwQTAwLCBt
+YXggVURNQS8xMzMKWyAgICAzLjk4NTM4MF0gYXRhNS4wMDogY29uZmlndXJlZCBmb3IgVURNQS8x
+MzMKWyAgICAzLjk4NzYyNF0gc2NzaSA0OjA6MDowOiBTZXF1ZW50aWFsLUFjY2VzcyBRVUFOVFVN
+ICBETFQtVjQgICAgICAgICAgIDBBMDAgUFE6IDAgQU5TSTogMgpbICAgIDMuOTg3ODc1XSBzY3Np
+IDQ6MDowOjA6IEF0dGFjaGVkIHNjc2kgZ2VuZXJpYyBzZzMgdHlwZSAxClsgICAgNC4wOTYwODVd
+IHVzYiAyLTUuMTogbmV3IGxvdy1zcGVlZCBVU0IgZGV2aWNlIG51bWJlciA2IHVzaW5nIGVoY2kt
+cGNpClsgICAgNC4xMDU5ODRdIHVzYi1zdG9yYWdlIDItMjoxLjA6IFVTQiBNYXNzIFN0b3JhZ2Ug
+ZGV2aWNlIGRldGVjdGVkClsgICAgNC4xMDY1MzddIHNjc2kgaG9zdDY6IHVzYi1zdG9yYWdlIDIt
+MjoxLjAKWyAgICA0LjEwNjY3Nl0gdXNiY29yZTogcmVnaXN0ZXJlZCBuZXcgaW50ZXJmYWNlIGRy
+aXZlciB1c2Itc3RvcmFnZQpbICAgIDQuMTE1MzYyXSB1c2Jjb3JlOiByZWdpc3RlcmVkIG5ldyBp
+bnRlcmZhY2UgZHJpdmVyIHVhcwpbICAgIDQuMjE4MDYxXSB1c2IgMi01LjE6IE5ldyBVU0IgZGV2
+aWNlIGZvdW5kLCBpZFZlbmRvcj0wNDZiLCBpZFByb2R1Y3Q9ZmYxMCwgYmNkRGV2aWNlPSAxLjAw
+ClsgICAgNC4yMTgwNjRdIHVzYiAyLTUuMTogTmV3IFVTQiBkZXZpY2Ugc3RyaW5nczogTWZyPTEs
+IFByb2R1Y3Q9MiwgU2VyaWFsTnVtYmVyPTMKWyAgICA0LjIxODA2Nl0gdXNiIDItNS4xOiBQcm9k
+dWN0OiBWaXJ0dWFsIEtleWJvYXJkIGFuZCBNb3VzZQpbICAgIDQuMjE4MDY4XSB1c2IgMi01LjE6
+IE1hbnVmYWN0dXJlcjogQW1lcmljYW4gTWVnYXRyZW5kcyBJbmMuClsgICAgNC4yMTgwNzFdIHVz
+YiAyLTUuMTogU2VyaWFsTnVtYmVyOiBzZXJpYWwKWyAgICA0LjIyMDEzOF0gaW5wdXQ6IEFtZXJp
+Y2FuIE1lZ2F0cmVuZHMgSW5jLiBWaXJ0dWFsIEtleWJvYXJkIGFuZCBNb3VzZSBhcyAvZGV2aWNl
+cy9wY2kwMDAwOjAwLzAwMDA6MDA6MWQuNy91c2IyLzItNS8yLTUuMS8yLTUuMToxLjAvMDAwMzow
+NDZCOkZGMTAuMDAwNC9pbnB1dC9pbnB1dDkKWyAgICA0LjIyMDQxM10gaGlkLWdlbmVyaWMgMDAw
+MzowNDZCOkZGMTAuMDAwNDogaW5wdXQsaGlkcmF3MzogVVNCIEhJRCB2MS4xMCBLZXlib2FyZCBb
+QW1lcmljYW4gTWVnYXRyZW5kcyBJbmMuIFZpcnR1YWwgS2V5Ym9hcmQgYW5kIE1vdXNlXSBvbiB1
+c2ItMDAwMDowMDoxZC43LTUuMS9pbnB1dDAKWyAgICA0LjIyMTc3NF0gaW5wdXQ6IEFtZXJpY2Fu
+IE1lZ2F0cmVuZHMgSW5jLiBWaXJ0dWFsIEtleWJvYXJkIGFuZCBNb3VzZSBhcyAvZGV2aWNlcy9w
+Y2kwMDAwOjAwLzAwMDA6MDA6MWQuNy91c2IyLzItNS8yLTUuMS8yLTUuMToxLjEvMDAwMzowNDZC
+OkZGMTAuMDAwNS9pbnB1dC9pbnB1dDEwClsgICAgNC4yMjIyMTRdIGhpZC1nZW5lcmljIDAwMDM6
+MDQ2QjpGRjEwLjAwMDU6IGlucHV0LGhpZHJhdzQ6IFVTQiBISUQgdjEuMTAgTW91c2UgW0FtZXJp
+Y2FuIE1lZ2F0cmVuZHMgSW5jLiBWaXJ0dWFsIEtleWJvYXJkIGFuZCBNb3VzZV0gb24gdXNiLTAw
+MDA6MDA6MWQuNy01LjEvaW5wdXQxClsgICAgNC4yNjEyMjhdIG5vdXZlYXUgMDAwMDowODowMC4w
+OiBEUk06IFZSQU06IDQwOTYgTWlCClsgICAgNC4yNjEyMjldIG5vdXZlYXUgMDAwMDowODowMC4w
+OiBEUk06IEdBUlQ6IDUzNjg3MDkxMiBNaUIKWyAgICA0LjI2MTIzMV0gbm91dmVhdSAwMDAwOjA4
+OjAwLjA6IERSTTogQklUIHRhYmxlICdBJyBub3QgZm91bmQKWyAgICA0LjI2MTIzM10gbm91dmVh
+dSAwMDAwOjA4OjAwLjA6IERSTTogQklUIHRhYmxlICdMJyBub3QgZm91bmQKWyAgICA0LjI2MTIz
+NV0gbm91dmVhdSAwMDAwOjA4OjAwLjA6IERSTTogVE1EUyB0YWJsZSB2ZXJzaW9uIDIuMApbICAg
+IDQuMjYxMjM2XSBub3V2ZWF1IDAwMDA6MDg6MDAuMDogRFJNOiBEQ0IgdmVyc2lvbiA0LjEKWyAg
+ICA0LjI2MTIzOF0gbm91dmVhdSAwMDAwOjA4OjAwLjA6IERSTTogRENCIG91dHAgMDA6IDAxMDAw
+ZjQyIDA0NjIwMDMwClsgICAgNC4yNjEyMzldIG5vdXZlYXUgMDAwMDowODowMC4wOiBEUk06IERD
+QiBvdXRwIDAxOiAwMjAxMWY2MiAwNDYyMDAxMApbICAgIDQuMjYxMjQxXSBub3V2ZWF1IDAwMDA6
+MDg6MDAuMDogRFJNOiBEQ0Igb3V0cCAwMjogMDI4MjJmNzYgMDQ2MDAwMjAKWyAgICA0LjI2MTI0
+Ml0gbm91dmVhdSAwMDAwOjA4OjAwLjA6IERSTTogRENCIG91dHAgMDM6IDAyMDIyZjcyIDA0NjIw
+MDIwClsgICAgNC4yNjEyNDRdIG5vdXZlYXUgMDAwMDowODowMC4wOiBEUk06IERDQiBjb25uIDAw
+OiAwMDAwMTAzMQpbICAgIDQuMjYxMjQ1XSBub3V2ZWF1IDAwMDA6MDg6MDAuMDogRFJNOiBEQ0Ig
+Y29ubiAwMTogMDAwMTAxNjEKWyAgICA0LjI2MTI0N10gbm91dmVhdSAwMDAwOjA4OjAwLjA6IERS
+TTogRENCIGNvbm4gMDI6IDAwMDIwMjQ2ClsgICAgNC4yODMyNzhdIFtkcm1dIFN1cHBvcnRzIHZi
+bGFuayB0aW1lc3RhbXAgY2FjaGluZyBSZXYgMiAoMjEuMTAuMjAxMykuClsgICAgNC4yODMyNzld
+IFtkcm1dIERyaXZlciBzdXBwb3J0cyBwcmVjaXNlIHZibGFuayB0aW1lc3RhbXAgcXVlcnkuClsg
+ICAgNC4zMDMyMTZdIGF0YTY6IFNBVEEgbGluayBkb3duIChTU3RhdHVzIDAgU0NvbnRyb2wgMzAw
+KQpbICAgIDQuMzE2MjY3XSBzdDogVmVyc2lvbiAyMDE2MDIwOSwgZml4ZWQgYnVmc2l6ZSAzMjc2
+OCwgcy9nIHNlZ3MgMjU2ClsgICAgNC4zMTcxMDhdIHN0IDQ6MDowOjA6IEF0dGFjaGVkIHNjc2kg
+dGFwZSBzdDAKWyAgICA0LjMxNzExMF0gc3QgNDowOjA6MDogc3QwOiB0cnkgZGlyZWN0IGkvbzog
+eWVzIChhbGlnbm1lbnQgNTEyIEIpClsgICAgNC4zMjQxMDZdIG5vdXZlYXUgMDAwMDowODowMC4w
+OiBEUk06IE1NOiB1c2luZyBDT1BZIGZvciBidWZmZXIgY29waWVzClsgICAgNC4zMjYzMDldIG9z
+c3QgOkk6IFRhcGUgZHJpdmVyIHdpdGggT25TdHJlYW0gc3VwcG9ydCB2ZXJzaW9uIDAuOTkuNAog
+ICAgICAgICAgICAgICBvc3N0IDpJOiAkSWQ6IG9zc3QuYyx2IDEuNzMgMjAwNS8wMS8wMSAyMTox
+MzozNCB3cmllZGUgRXhwICQKWyAgICA0LjU1NDU1Ml0gbm91dmVhdSAwMDAwOjA4OjAwLjA6IERS
+TTogYWxsb2NhdGVkIDEyODB4MTAyNCBmYjogMHgyMDAwMDAsIGJvIChfX19fcHRydmFsX19fXykK
+WyAgICA0LjU1NjMzMF0gZmJjb246IG5vdXZlYXVmYiAoZmIwKSBpcyBwcmltYXJ5IGRldmljZQpb
+ICAgIDQuODAwMDgwXSBDb25zb2xlOiBzd2l0Y2hpbmcgdG8gY29sb3VyIGZyYW1lIGJ1ZmZlciBk
+ZXZpY2UgMTYweDY0ClsgICAgNC44MDA0MjRdIG5vdXZlYXUgMDAwMDowODowMC4wOiBmYjA6IG5v
+dXZlYXVmYiBmcmFtZSBidWZmZXIgZGV2aWNlClsgICAgNC44MTYwOTBdIFtkcm1dIEluaXRpYWxp
+emVkIG5vdXZlYXUgMS4zLjEgMjAxMjA4MDEgZm9yIDAwMDA6MDg6MDAuMCBvbiBtaW5vciAxClsg
+ICAgNS4wMzMyMTddIFtkcm06Z2Z4X3Y4XzBfcmluZ190ZXN0X2liIFthbWRncHVdXSAqRVJST1Iq
+IGFtZGdwdTogaWIgdGVzdCBmYWlsZWQgKHNjcmF0Y2goMHhDMDQwKT0weEZGRkZGRkZGKQpbICAg
+IDUuMDMzMjY0XSBbZHJtOmFtZGdwdV9pYl9yaW5nX3Rlc3RzIFthbWRncHVdXSAqRVJST1IqIGFt
+ZGdwdTogZmFpbGVkIHRlc3RpbmcgSUIgb24gcmluZyA2ICgtMjIpLgpbICAgIDUuMTE3Mzk4XSBz
+Y3NpIDY6MDowOjA6IERpcmVjdC1BY2Nlc3MgICAgIEhpdGFjaGkgIEhUUzU0MzIxNkw5QTMwMCAg
+MDEwMCBQUTogMCBBTlNJOiAyIENDUwpbICAgIDUuMTE3OTgyXSBzZCA2OjA6MDowOiBBdHRhY2hl
+ZCBzY3NpIGdlbmVyaWMgc2c0IHR5cGUgMApbICAgIDUuMTE4NjE3XSBzZCA2OjA6MDowOiBbc2Rj
+XSAzMTI1ODE4MDggNTEyLWJ5dGUgbG9naWNhbCBibG9ja3M6ICgxNjAgR0IvMTQ5IEdpQikKWyAg
+ICA1LjExOTYxOF0gc2QgNjowOjA6MDogW3NkY10gV3JpdGUgUHJvdGVjdCBpcyBvZmYKWyAgICA1
+LjExOTYyMF0gc2QgNjowOjA6MDogW3NkY10gTW9kZSBTZW5zZTogMjggMDAgMDAgMDAKWyAgICA1
+LjEyMDYzOF0gc2QgNjowOjA6MDogW3NkY10gTm8gQ2FjaGluZyBtb2RlIHBhZ2UgZm91bmQKWyAg
+ICA1LjEyMDY1Ml0gc2QgNjowOjA6MDogW3NkY10gQXNzdW1pbmcgZHJpdmUgY2FjaGU6IHdyaXRl
+IHRocm91Z2gKWyAgICA1LjE4MjQyNF0gIHNkYzogc2RjMSBzZGMyIDwgc2RjNSBzZGM2ID4KWyAg
+ICA1LjE4Njk4OV0gc2QgNjowOjA6MDogW3NkY10gQXR0YWNoZWQgU0NTSSBkaXNrClsgICAgNi4w
+NDQxNDhdIFtkcm06Z2Z4X3Y4XzBfcmluZ190ZXN0X2liIFthbWRncHVdXSAqRVJST1IqIGFtZGdw
+dTogSUIgdGVzdCB0aW1lZCBvdXQuClsgICAgNi4wNDQxOTZdIFtkcm06YW1kZ3B1X2liX3Jpbmdf
+dGVzdHMgW2FtZGdwdV1dICpFUlJPUiogYW1kZ3B1OiBmYWlsZWQgdGVzdGluZyBJQiBvbiByaW5n
+IDcgKC0xMTApLgpbICAgIDYuMTA4NjY3XSBFWFQ0LWZzIChzZGMxKTogbW91bnRlZCBmaWxlc3lz
+dGVtIHdpdGggb3JkZXJlZCBkYXRhIG1vZGUuIE9wdHM6IChudWxsKQpbICAgIDcuMDQxNjk4XSBy
+YW5kb206IGNybmcgaW5pdCBkb25lClsgICAgNy4wNjgxNDhdIFtkcm06Z2Z4X3Y4XzBfcmluZ190
+ZXN0X2liIFthbWRncHVdXSAqRVJST1IqIGFtZGdwdTogSUIgdGVzdCB0aW1lZCBvdXQuClsgICAg
+Ny4wNjgxOTRdIFtkcm06YW1kZ3B1X2liX3JpbmdfdGVzdHMgW2FtZGdwdV1dICpFUlJPUiogYW1k
+Z3B1OiBmYWlsZWQgdGVzdGluZyBJQiBvbiByaW5nIDggKC0xMTApLgpbICAgIDcuOTc1MzUwXSBz
+eXN0ZW1kWzFdOiBGYWlsZWQgdG8gaW5zZXJ0IG1vZHVsZSAnYXV0b2ZzNCc6IE5vIHN1Y2ggZmls
+ZSBvciBkaXJlY3RvcnkKWyAgICA4LjA5MjExOV0gW2RybTpnZnhfdjhfMF9yaW5nX3Rlc3RfaWIg
+W2FtZGdwdV1dICpFUlJPUiogYW1kZ3B1OiBJQiB0ZXN0IHRpbWVkIG91dC4KWyAgICA4LjA5MjE5
+MV0gW2RybTphbWRncHVfaWJfcmluZ190ZXN0cyBbYW1kZ3B1XV0gKkVSUk9SKiBhbWRncHU6IGZh
+aWxlZCB0ZXN0aW5nIElCIG9uIHJpbmcgOSAoLTExMCkuClsgICAgOC4yMDIyNzhdIHN5c3RlbWRb
+MV06IHN5c3RlbWQgMjM3IHJ1bm5pbmcgaW4gc3lzdGVtIG1vZGUuICgrUEFNICtBVURJVCArU0VM
+SU5VWCArSU1BICtBUFBBUk1PUiArU01BQ0sgK1NZU1ZJTklUICtVVE1QICtMSUJDUllQVFNFVFVQ
+ICtHQ1JZUFQgK0dOVVRMUyArQUNMICtYWiArTFo0ICtTRUNDT01QICtCTEtJRCArRUxGVVRJTFMg
+K0tNT0QgLUlETjIgK0lETiAtUENSRTIgZGVmYXVsdC1oaWVyYXJjaHk9aHlicmlkKQpbICAgIDgu
+MjIxNTQyXSBzeXN0ZW1kWzFdOiBEZXRlY3RlZCBhcmNoaXRlY3R1cmUgeDg2LTY0LgpbICAgIDgu
+NDYwMTU5XSBzeXN0ZW1kWzFdOiBTZXQgaG9zdG5hbWUgdG8gPGxwbm0tZW1wdHk+LgpbICAgIDku
+MTE2MTYzXSBbZHJtOnNkbWFfdjNfMF9yaW5nX3Rlc3RfaWIgW2FtZGdwdV1dICpFUlJPUiogYW1k
+Z3B1OiBJQiB0ZXN0IHRpbWVkIG91dApbICAgIDkuMTE2MjA5XSBbZHJtOmFtZGdwdV9pYl9yaW5n
+X3Rlc3RzIFthbWRncHVdXSAqRVJST1IqIGFtZGdwdTogZmFpbGVkIHRlc3RpbmcgSUIgb24gcmlu
+ZyAxMCAoLTExMCkuClsgICAxMC4xNDAxNDZdIFtkcm06c2RtYV92M18wX3JpbmdfdGVzdF9pYiBb
+YW1kZ3B1XV0gKkVSUk9SKiBhbWRncHU6IElCIHRlc3QgdGltZWQgb3V0ClsgICAxMC4xNDAxOTJd
+IFtkcm06YW1kZ3B1X2liX3JpbmdfdGVzdHMgW2FtZGdwdV1dICpFUlJPUiogYW1kZ3B1OiBmYWls
+ZWQgdGVzdGluZyBJQiBvbiByaW5nIDExICgtMTEwKS4KWyAgIDEwLjE2NjAyMl0gYW1kZ3B1OiBb
+cG93ZXJwbGF5XSAKICAgICAgICAgICAgICAgIGxhc3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJldCBp
+cyA2NTUzNQpbICAgMTAuMTY2MDI0XSBhbWRncHU6IFtwb3dlcnBsYXldIAogICAgICAgICAgICAg
+ICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAxNTQgcmV0IGlzIDY1NTM1IApbICAgMTEuMzk3NTQ4
+XSBzeXN0ZW1kWzFdOiBDcmVhdGVkIHNsaWNlIFN5c3RlbSBTbGljZS4KWyAgIDExLjM5NzY0OF0g
+c3lzdGVtZFsxXTogTGlzdGVuaW5nIG9uIGZzY2sgdG8gZnNja2QgY29tbXVuaWNhdGlvbiBTb2Nr
+ZXQuClsgICAxMS4zOTc2NzJdIHN5c3RlbWRbMV06IFN0YXJ0aW5nIG9mIEFyYml0cmFyeSBFeGVj
+dXRhYmxlIEZpbGUgRm9ybWF0cyBGaWxlIFN5c3RlbSBBdXRvbW91bnQgUG9pbnQgbm90IHN1cHBv
+cnRlZC4KWyAgIDExLjM5Nzg1MF0gc3lzdGVtZFsxXTogTGlzdGVuaW5nIG9uIHVkZXYgQ29udHJv
+bCBTb2NrZXQuClsgICAxMS4zOTc5MjVdIHN5c3RlbWRbMV06IFJlYWNoZWQgdGFyZ2V0IFVzZXIg
+YW5kIEdyb3VwIE5hbWUgTG9va3Vwcy4KWyAgIDExLjM5ODAzMV0gc3lzdGVtZFsxXTogTGlzdGVu
+aW5nIG9uIFN5c2xvZyBTb2NrZXQuClsgICAxMS4zOTgwODddIHN5c3RlbWRbMV06IFJlYWNoZWQg
+dGFyZ2V0IFJlbW90ZSBGaWxlIFN5c3RlbXMuClsgICAxMS43MDgxNTldIFtkcm06dXZkX3Y2XzBf
+ZW5jX3JpbmdfdGVzdF9pYiBbYW1kZ3B1XV0gKkVSUk9SKiBhbWRncHU6IElCIHRlc3QgdGltZWQg
+b3V0LgpbICAgMTEuNzA4MTk5XSBbZHJtOmFtZGdwdV9pYl9yaW5nX3Rlc3RzIFthbWRncHVdXSAq
+RVJST1IqIGFtZGdwdTogZmFpbGVkIHRlc3RpbmcgSUIgb24gcmluZyAxMyAoLTExMCkuClsgICAx
+Mi4zNTYwNzNdIEVYVDQtZnMgKHNkYzEpOiByZS1tb3VudGVkLiBPcHRzOiBlcnJvcnM9cmVtb3Vu
+dC1ybwpbICAgMTIuNTU2MzAyXSBscDogZHJpdmVyIGxvYWRlZCBidXQgbm8gZGV2aWNlcyBmb3Vu
+ZApbICAgMTIuNjgxMjk1XSBzeXN0ZW1kLWpvdXJuYWxkWzQ3NF06IFJlY2VpdmVkIHJlcXVlc3Qg
+dG8gZmx1c2ggcnVudGltZSBqb3VybmFsIGZyb20gUElEIDEKWyAgIDEyLjcwNjE5OV0gcHBkZXY6
+IHVzZXItc3BhY2UgcGFyYWxsZWwgcG9ydCBkcml2ZXIKWyAgIDEyLjczMjE3OV0gW2RybTp1dmRf
+djZfMF9lbmNfcmluZ190ZXN0X2liIFthbWRncHVdXSAqRVJST1IqIGFtZGdwdTogSUIgdGVzdCB0
+aW1lZCBvdXQuClsgICAxMi43MzIyMjVdIFtkcm06YW1kZ3B1X2liX3JpbmdfdGVzdHMgW2FtZGdw
+dV1dICpFUlJPUiogYW1kZ3B1OiBmYWlsZWQgdGVzdGluZyBJQiBvbiByaW5nIDE0ICgtMTEwKS4K
+WyAgIDEyLjgzMTQ5OV0gYW1kZ3B1OiBbcG93ZXJwbGF5XSAKICAgICAgICAgICAgICAgIGxhc3Qg
+bWVzc2FnZSB3YXMgZmFpbGVkIHJldCBpcyA2NTUzNQpbICAgMTIuODMxNTAxXSBhbWRncHU6IFtw
+b3dlcnBsYXldIAogICAgICAgICAgICAgICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAxNWEgcmV0
+IGlzIDY1NTM1IApbICAgMTMuODUyMTYwXSBbZHJtOmFtZGdwdV92Y2VfcmluZ190ZXN0X2liIFth
+bWRncHVdXSAqRVJST1IqIGFtZGdwdTogSUIgdGVzdCB0aW1lZCBvdXQuClsgICAxMy44NTI0MjJd
+IFtkcm06YW1kZ3B1X2liX3JpbmdfdGVzdHMgW2FtZGdwdV1dICpFUlJPUiogYW1kZ3B1OiBmYWls
+ZWQgdGVzdGluZyBJQiBvbiByaW5nIDE1ICgtMTEwKS4KWyAgIDEzLjg1MjY3N10gW2RybTphbWRn
+cHVfZGV2aWNlX2lwX2xhdGVfaW5pdF9mdW5jX2hhbmRsZXIgW2FtZGdwdV1dICpFUlJPUiogaWIg
+cmluZyB0ZXN0IGZhaWxlZCAoLTExMCkuClsgICAxMy44NTI5MTNdIGFtZGdwdTogW3Bvd2VycGxh
+eV0gCiAgICAgICAgICAgICAgICBsYXN0IG1lc3NhZ2Ugd2FzIGZhaWxlZCByZXQgaXMgNjU1MzUK
+WyAgIDEzLjg1MjkxNV0gYW1kZ3B1OiBbcG93ZXJwbGF5XSAKICAgICAgICAgICAgICAgIGZhaWxl
+ZCB0byBzZW5kIG1lc3NhZ2UgMjYwIHJldCBpcyA2NTUzNSAKWyAgIDEzLjg1MjkxNl0gYW1kZ3B1
+OiBbcG93ZXJwbGF5XSAKICAgICAgICAgICAgICAgIGxhc3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJl
+dCBpcyA2NTUzNQpbICAgMTMuODUyOTE4XSBhbWRncHU6IFtwb3dlcnBsYXldIAogICAgICAgICAg
+ICAgICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAyNjAgcmV0IGlzIDY1NTM1IApbICAgMTMuODUy
+OTE5XSBhbWRncHU6IFtwb3dlcnBsYXldIAogICAgICAgICAgICAgICAgbGFzdCBtZXNzYWdlIHdh
+cyBmYWlsZWQgcmV0IGlzIDY1NTM1ClsgICAxMy44NTI5MjFdIGFtZGdwdTogW3Bvd2VycGxheV0g
+CiAgICAgICAgICAgICAgICBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDI2MCByZXQgaXMgNjU1MzUg
+ClsgICAxMy44NTI5MjNdIGFtZGdwdTogW3Bvd2VycGxheV0gCiAgICAgICAgICAgICAgICBsYXN0
+IG1lc3NhZ2Ugd2FzIGZhaWxlZCByZXQgaXMgNjU1MzUKWyAgIDEzLjg1MjkyNF0gYW1kZ3B1OiBb
+cG93ZXJwbGF5XSAKICAgICAgICAgICAgICAgIGZhaWxlZCB0byBzZW5kIG1lc3NhZ2UgMjYwIHJl
+dCBpcyA2NTUzNSAKWyAgIDEzLjg1MjkyN10gYW1kZ3B1OiBbcG93ZXJwbGF5XSAKICAgICAgICAg
+ICAgICAgIGxhc3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJldCBpcyA2NTUzNQpbICAgMTMuODUyOTI5
+XSBhbWRncHU6IFtwb3dlcnBsYXldIAogICAgICAgICAgICAgICAgZmFpbGVkIHRvIHNlbmQgbWVz
+c2FnZSAyNjAgcmV0IGlzIDY1NTM1IApbICAgMTMuODUyOTMwXSBhbWRncHU6IFtwb3dlcnBsYXld
+IAogICAgICAgICAgICAgICAgbGFzdCBtZXNzYWdlIHdhcyBmYWlsZWQgcmV0IGlzIDY1NTM1Clsg
+ICAxMy44NTI5MzJdIGFtZGdwdTogW3Bvd2VycGxheV0gCiAgICAgICAgICAgICAgICBmYWlsZWQg
+dG8gc2VuZCBtZXNzYWdlIDI2MCByZXQgaXMgNjU1MzUgClsgICAxMy44NTI5MzRdIGFtZGdwdTog
+W3Bvd2VycGxheV0gCiAgICAgICAgICAgICAgICBsYXN0IG1lc3NhZ2Ugd2FzIGZhaWxlZCByZXQg
+aXMgNjU1MzUKWyAgIDEzLjg1MjkzNV0gYW1kZ3B1OiBbcG93ZXJwbGF5XSAKICAgICAgICAgICAg
+ICAgIGZhaWxlZCB0byBzZW5kIG1lc3NhZ2UgMjYwIHJldCBpcyA2NTUzNSAKWyAgIDEzLjg1Mjkz
+N10gYW1kZ3B1OiBbcG93ZXJwbGF5XSAKICAgICAgICAgICAgICAgIGxhc3QgbWVzc2FnZSB3YXMg
+ZmFpbGVkIHJldCBpcyA2NTUzNQpbICAgMTMuODUyOTM5XSBhbWRncHU6IFtwb3dlcnBsYXldIAog
+ICAgICAgICAgICAgICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAyNjAgcmV0IGlzIDY1NTM1IApb
+ICAgMTMuODUyOTQwXSBhbWRncHU6IFtwb3dlcnBsYXldIAogICAgICAgICAgICAgICAgbGFzdCBt
+ZXNzYWdlIHdhcyBmYWlsZWQgcmV0IGlzIDY1NTM1ClsgICAxMy44NTI5NDJdIGFtZGdwdTogW3Bv
+d2VycGxheV0gCiAgICAgICAgICAgICAgICBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDI2MCByZXQg
+aXMgNjU1MzUgClsgICAxMy44NTI5NDRdIGFtZGdwdTogW3Bvd2VycGxheV0gCiAgICAgICAgICAg
+ICAgICBsYXN0IG1lc3NhZ2Ugd2FzIGZhaWxlZCByZXQgaXMgNjU1MzUKWyAgIDEzLjg1Mjk0NV0g
+YW1kZ3B1OiBbcG93ZXJwbGF5XSAKICAgICAgICAgICAgICAgIGZhaWxlZCB0byBzZW5kIG1lc3Nh
+Z2UgMjYwIHJldCBpcyA2NTUzNSAKWyAgIDEzLjg1Mjk0N10gYW1kZ3B1OiBbcG93ZXJwbGF5XSAK
+ICAgICAgICAgICAgICAgIGxhc3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJldCBpcyA2NTUzNQpbICAg
+MTMuODUyOTQ4XSBhbWRncHU6IFtwb3dlcnBsYXldIAogICAgICAgICAgICAgICAgZmFpbGVkIHRv
+IHNlbmQgbWVzc2FnZSAyNjAgcmV0IGlzIDY1NTM1IApbICAgMTYuMTUyNjI1XSBhbWRncHUgMDAw
+MDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgIDE2LjE1
+Mjg5N10gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVs
+aW5nIElCcyAoLTIyKQpbICAgMTcuODU0NDcwXSBpcG1pIG1lc3NhZ2UgaGFuZGxlciB2ZXJzaW9u
+IDM5LjIKWyAgIDE3LjkyMTM2OV0gRURBQyBNQzE6IEdpdmluZyBvdXQgZGV2aWNlIHRvIG1vZHVs
+ZSBpN2NvcmVfZWRhYy5jIGNvbnRyb2xsZXIgaTcgY29yZSAjMTogREVWIDAwMDA6ZmU6MDMuMCAo
+SU5URVJSVVBUKQpbICAgMTcuOTIxMzg4XSBFREFDIFBDSTA6IEdpdmluZyBvdXQgZGV2aWNlIHRv
+IG1vZHVsZSBpN2NvcmVfZWRhYyBjb250cm9sbGVyIEVEQUMgUENJIGNvbnRyb2xsZXI6IERFViAw
+MDAwOmZlOjAzLjAgKFBPTExFRCkKWyAgIDE3LjkyMTQ5Ml0gRURBQyBNQzA6IEdpdmluZyBvdXQg
+ZGV2aWNlIHRvIG1vZHVsZSBpN2NvcmVfZWRhYy5jIGNvbnRyb2xsZXIgaTcgY29yZSAjMDogREVW
+IDAwMDA6ZmY6MDMuMCAoSU5URVJSVVBUKQpbICAgMTcuOTIxNTA3XSBFREFDIFBDSTE6IEdpdmlu
+ZyBvdXQgZGV2aWNlIHRvIG1vZHVsZSBpN2NvcmVfZWRhYyBjb250cm9sbGVyIEVEQUMgUENJIGNv
+bnRyb2xsZXI6IERFViAwMDAwOmZmOjAzLjAgKFBPTExFRCkKWyAgIDE3LjkyMTUxNl0gRURBQyBp
+N2NvcmU6IERyaXZlciBsb2FkZWQsIDIgbWVtb3J5IGNvbnRyb2xsZXIocykgZm91bmQuClsgICAx
+OC4xNDAzMThdIGk1NTAwX3RlbXAgMDAwMDowMDoxNC4zOiBTZW5zb3Igc2VlbXMgdG8gYmUgZGlz
+YWJsZWQKWyAgIDE4LjE0MDMzMl0gaTU1MDBfdGVtcCAwMDAwOjgwOjE0LjM6IFNlbnNvciBzZWVt
+cyB0byBiZSBkaXNhYmxlZApbICAgMTguMjQ5Njg1XSBpcG1pIGRldmljZSBpbnRlcmZhY2UKWyAg
+IDE4LjI2Nzg4MF0gSVBNSSBTeXN0ZW0gSW50ZXJmYWNlIGRyaXZlci4KWyAgIDE4LjI2Nzg5NF0g
+aXBtaV9zaSBkbWktaXBtaS1zaS4wOiBpcG1pX3BsYXRmb3JtOiBwcm9iaW5nIHZpYSBTTUJJT1MK
+WyAgIDE4LjI2Nzg5NV0gaXBtaV9zaTogU01CSU9TOiBpbyAweGNhOCByZWdzaXplIDEgc3BhY2lu
+ZyA0IGlycSAwClsgICAxOC4yNjc4OTZdIGlwbWlfc2k6IEFkZGluZyBTTUJJT1Mtc3BlY2lmaWVk
+IGtjcyBzdGF0ZSBtYWNoaW5lClsgICAxOC4yNjc5MzhdIGlwbWlfc2k6IFRyeWluZyBTTUJJT1Mt
+c3BlY2lmaWVkIGtjcyBzdGF0ZSBtYWNoaW5lIGF0IGkvbyBhZGRyZXNzIDB4Y2E4LCBzbGF2ZSBh
+ZGRyZXNzIDB4MjAsIGlycSAwClsgICAxOC41ODY0NzJdIGlwbWlfc2kgZG1pLWlwbWktc2kuMDog
+Rm91bmQgbmV3IEJNQyAobWFuX2lkOiAweDAwMTlmZCwgcHJvZF9pZDogMHgxYjcxLCBkZXZfaWQ6
+IDB4MjApClsgICAxOC42MTkwMzhdIGlwbWlfc2kgZG1pLWlwbWktc2kuMDogSVBNSSBrY3MgaW50
+ZXJmYWNlIGluaXRpYWxpemVkClsgICAyMS45NzI0OTddIGNyeXB0ZDogbWF4X2NwdV9xbGVuIHNl
+dCB0byAxMDAwClsgICAyMi4zMTc3NDZdIHNuZF9oZGFfaW50ZWwgMDAwMDowODowMC4xOiBEaXNh
+YmxpbmcgTVNJClsgICAyMi4zMTc3NTRdIHNuZF9oZGFfaW50ZWwgMDAwMDowODowMC4xOiBIYW5k
+bGUgdmdhX3N3aXRjaGVyb28gYXVkaW8gY2xpZW50ClsgICAyMi4zMTc4MjRdIHNuZF9oZGFfaW50
+ZWwgMDAwMDowNjowMC4xOiBSZWZ1c2VkIHRvIGNoYW5nZSBwb3dlciBzdGF0ZSwgY3VycmVudGx5
+IGluIEQzClsgICAyMi4zOTYwNzZdIHNuZF9oZGFfaW50ZWwgMDAwMDowNjowMC4xOiBSZWZ1c2Vk
+IHRvIGNoYW5nZSBwb3dlciBzdGF0ZSwgY3VycmVudGx5IGluIEQzClsgICAyMi4zOTYxODhdIHNu
+ZF9oZGFfaW50ZWwgMDAwMDowNjowMC4xOiBIYW5kbGUgdmdhX3N3aXRjaGVyb28gYXVkaW8gY2xp
+ZW50ClsgICAyMi4zOTYxOTBdIHNuZF9oZGFfaW50ZWwgMDAwMDowNjowMC4xOiBGb3JjZSB0byBu
+b24tc25vb3AgbW9kZQpbICAgMjIuMzk2MjU4XSBzbmRfaGRhX2ludGVsIDAwMDA6MDY6MDAuMTog
+bnVtYmVyIG9mIEkvTyBzdHJlYW1zIGlzIDMwLCBmb3JjaW5nIHNlcGFyYXRlIHN0cmVhbSB0YWdz
+ClsgICAyMi41MTU2MjZdIHNuZF9oZGFfaW50ZWwgMDAwMDowNjowMC4xOiBDT1JCIHJlc2V0IHRp
+bWVvdXQjMiwgQ09SQlJQID0gNjU1MzUKWyAgIDIyLjUxNTg0NF0gaGRhdWRpbyBoZGF1ZGlvQzJE
+MDogbm8gQUZHIG9yIE1GRyBub2RlIGZvdW5kClsgICAyMi41MTYwNDhdIGhkYXVkaW8gaGRhdWRp
+b0MyRDE6IG5vIEFGRyBvciBNRkcgbm9kZSBmb3VuZApbICAgMjIuNTE2MjUwXSBoZGF1ZGlvIGhk
+YXVkaW9DMkQyOiBubyBBRkcgb3IgTUZHIG5vZGUgZm91bmQKWyAgIDIyLjUxNjQ0M10gaGRhdWRp
+byBoZGF1ZGlvQzJEMzogbm8gQUZHIG9yIE1GRyBub2RlIGZvdW5kClsgICAyMi41MTY2MzBdIHNu
+ZF9oZGFfaW50ZWwgMDAwMDowNjowMC4xOiBubyBjb2RlY3MgaW5pdGlhbGl6ZWQKWyAgIDIyLjkz
+MzkxMF0gc25kX2hkYV9jb2RlY19yZWFsdGVrIGhkYXVkaW9DMEQwOiBBTEMyNjI6IFNLVSBub3Qg
+cmVhZHkgMHg0MTExMTFmMApbICAgMjIuOTM0NDE1XSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRh
+dWRpb0MwRDA6IGlnbm9yZSBwaW4gMHgxYiB3aXRoIG1pc21hdGNoaW5nIGFzc29jIyAweDIgdnMg
+MHgxClsgICAyMi45MzQ1MzddIHNuZF9oZGFfY29kZWNfcmVhbHRlayBoZGF1ZGlvQzBEMDogYXV0
+b2NvbmZpZyBmb3IgQUxDMjYyOiBsaW5lX291dHM9MSAoMHgxNC8weDAvMHgwLzB4MC8weDApIHR5
+cGU6bGluZQpbICAgMjIuOTM0NTM4XSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRhdWRpb0MwRDA6
+ICAgIHNwZWFrZXJfb3V0cz0wICgweDAvMHgwLzB4MC8weDAvMHgwKQpbICAgMjIuOTM0NTQwXSBz
+bmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRhdWRpb0MwRDA6ICAgIGhwX291dHM9MCAoMHgwLzB4MC8w
+eDAvMHgwLzB4MCkKWyAgIDIyLjkzNDU0MV0gc25kX2hkYV9jb2RlY19yZWFsdGVrIGhkYXVkaW9D
+MEQwOiAgICBtb25vOiBtb25vX291dD0weDAKWyAgIDIyLjkzNDU0M10gc25kX2hkYV9jb2RlY19y
+ZWFsdGVrIGhkYXVkaW9DMEQwOiAgICBkaWctb3V0PTB4MWUvMHgwClsgICAyMi45MzQ1NDRdIHNu
+ZF9oZGFfY29kZWNfcmVhbHRlayBoZGF1ZGlvQzBEMDogICAgaW5wdXRzOgpbICAgMjIuOTM0NTQ2
+XSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRhdWRpb0MwRDA6ICAgICAgUmVhciBNaWM9MHgxOApb
+ICAgMjIuOTM0NTQ3XSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRhdWRpb0MwRDA6ICAgICAgRnJv
+bnQgTWljPTB4MTkKWyAgIDIyLjkzNDU0OF0gc25kX2hkYV9jb2RlY19yZWFsdGVrIGhkYXVkaW9D
+MEQwOiAgICAgIExpbmU9MHgxYQpbICAgMjIuOTM0NTUwXSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsg
+aGRhdWRpb0MwRDA6ICAgICAgQ0Q9MHgxYwpbICAgMjIuOTM0NTUxXSBzbmRfaGRhX2NvZGVjX3Jl
+YWx0ZWsgaGRhdWRpb0MwRDA6ICAgIGRpZy1pbj0weDFmClsgICAyMi45NDg5MDVdIGlucHV0OiBI
+REEgSW50ZWwgUmVhciBNaWMgYXMgL2RldmljZXMvcGNpMDAwMDowMC8wMDAwOjAwOjFiLjAvc291
+bmQvY2FyZDAvaW5wdXQxMQpbICAgMjIuOTQ4OTg4XSBpbnB1dDogSERBIEludGVsIEZyb250IE1p
+YyBhcyAvZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6MWIuMC9zb3VuZC9jYXJkMC9pbnB1dDEy
+ClsgICAyMi45NDkwNDNdIGlucHV0OiBIREEgSW50ZWwgTGluZSBhcyAvZGV2aWNlcy9wY2kwMDAw
+OjAwLzAwMDA6MDA6MWIuMC9zb3VuZC9jYXJkMC9pbnB1dDEzClsgICAyMi45NDkwOTBdIGlucHV0
+OiBIREEgSW50ZWwgTGluZSBPdXQgYXMgL2RldmljZXMvcGNpMDAwMDowMC8wMDAwOjAwOjFiLjAv
+c291bmQvY2FyZDAvaW5wdXQxNApbICAgMjMuMTEwNzQ3XSBTU0UgdmVyc2lvbiBvZiBnY21fZW5j
+L2RlYyBlbmdhZ2VkLgpbICAgMjMuMzQzMzYzXSBpbnB1dDogSERBIE5WaWRpYSBIRE1JL0RQLHBj
+bT0zIGFzIC9kZXZpY2VzL3BjaTAwMDA6MDAvMDAwMDowMDowMy4wLzAwMDA6MDg6MDAuMS9zb3Vu
+ZC9jYXJkMS9pbnB1dDE1ClsgICAyMy4zNDM0NDNdIGlucHV0OiBIREEgTlZpZGlhIEhETUkvRFAs
+cGNtPTcgYXMgL2RldmljZXMvcGNpMDAwMDowMC8wMDAwOjAwOjAzLjAvMDAwMDowODowMC4xL3Nv
+dW5kL2NhcmQxL2lucHV0MTYKWyAgIDIzLjM0MzUxOF0gaW5wdXQ6IEhEQSBOVmlkaWEgSERNSS9E
+UCxwY209OCBhcyAvZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6MDMuMC8wMDAwOjA4OjAwLjEv
+c291bmQvY2FyZDEvaW5wdXQxNwpbICAgMjMuNDA0MjQwXSBncGlvX2ljaDogR1BJTyBmcm9tIDQ1
+MSB0byA1MTEgb24gZ3Bpb19pY2gKWyAgIDI0LjQxODEyMF0ga3ZtOiBWTV9FWElUX0xPQURfSUEz
+Ml9QRVJGX0dMT0JBTF9DVFJMIGRvZXMgbm90IHdvcmsgcHJvcGVybHkuIFVzaW5nIHdvcmthcm91
+bmQKWyAgIDI4LjI4MDI0Nl0gYW1kZ3B1IDAwMDA6MDY6MDAuMDogY291bGRuJ3Qgc2NoZWR1bGUg
+aWIgb24gcmluZyA8c2RtYTA+ClsgICAyOC4yODAzNjVdIFtkcm06YW1kZ3B1X2pvYl9ydW4gW2Ft
+ZGdwdV1dICpFUlJPUiogRXJyb3Igc2NoZWR1bGluZyBJQnMgKC0yMikKWyAgIDI4LjI4MDY2Ml0g
+YW1kZ3B1IDAwMDA6MDY6MDAuMDogY291bGRuJ3Qgc2NoZWR1bGUgaWIgb24gcmluZyA8c2RtYTE+
+ClsgICAyOC4yODA3NDJdIFtkcm06YW1kZ3B1X2pvYl9ydW4gW2FtZGdwdV1dICpFUlJPUiogRXJy
+b3Igc2NoZWR1bGluZyBJQnMgKC0yMikKWyAgIDI5LjE0MDgxNF0gQWRkaW5nIDI0NDAxODhrIHN3
+YXAgb24gL2Rldi9zZGM1LiAgUHJpb3JpdHk6LTIgZXh0ZW50czoxIGFjcm9zczoyNDQwMTg4ayBG
+UwpbICAgMjkuNDA5NjQ5XSBFWFQ0LWZzIChzZGM2KTogbW91bnRlZCBmaWxlc3lzdGVtIHdpdGgg
+b3JkZXJlZCBkYXRhIG1vZGUuIE9wdHM6IChudWxsKQpbICAxMDMuNDYxNjY3XSBhbWRncHUgMDAw
+MDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMD4KWyAgMTAzLjQ2
+MTc4NV0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVs
+aW5nIElCcyAoLTIyKQpbICAxMDMuNDYyMTAyXSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4n
+dCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTAzLjQ2MjE4M10gW2RybTphbWRncHVf
+am9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAx
+MDMuNDYyNTUxXSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiBy
+aW5nIDxzZG1hMD4KWyAgMTAzLjQ2MjYzMV0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0g
+KkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMTMuNDA3Njk4XSBhbWRncHUg
+MDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTEz
+LjQwNzk1NF0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hl
+ZHVsaW5nIElCcyAoLTIyKQpbICAxMTMuNzI3MzIxXSBJUHY2OiBBRERSQ09ORihORVRERVZfVVAp
+OiBlbnAyczA6IGxpbmsgaXMgbm90IHJlYWR5ClsgIDExMy43OTkwMDhdIElQdjY6IEFERFJDT05G
+KE5FVERFVl9VUCk6IGVucDJzMDogbGluayBpcyBub3QgcmVhZHkKWyAgMTEzLjgwMjU5MF0gSVB2
+NjogQUREUkNPTkYoTkVUREVWX1VQKTogZW5wM3MwOiBsaW5rIGlzIG5vdCByZWFkeQpbICAxMTMu
+ODgzNzIzXSBJUHY2OiBBRERSQ09ORihORVRERVZfVVApOiBlbnAzczA6IGxpbmsgaXMgbm90IHJl
+YWR5ClsgIDExNC42NzM1NDddIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxl
+IGliIG9uIHJpbmcgPHNkbWEwPgpbICAxMTQuNjczODEyXSBbZHJtOmFtZGdwdV9qb2JfcnVuIFth
+bWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDExNS4yOTgxNjJd
+IGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWEx
+PgpbICAxMTUuMjk4NDEyXSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVy
+cm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDExNS4yOTg2NDRdIGFtZGdwdSAwMDAwOjA2OjAw
+LjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWEwPgpbICAxMTUuMjk4ODUwXSBb
+ZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJz
+ICgtMjIpClsgIDExNS4zNzExMDhdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVk
+dWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxMTUuMzcxMTk2XSBbZHJtOmFtZGdwdV9qb2JfcnVu
+IFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDExNS40MDY2
+NTRdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNk
+bWEwPgpbICAxMTUuNDA2Njk3XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1Iq
+IEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDExNS40MDY3NDBdIGFtZGdwdSAwMDAwOjA2
+OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxMTUuNDA2Nzc4
+XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcg
+SUJzICgtMjIpClsgIDExNS40NDk3OTVdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IHZnYWFyYjogY2hh
+bmdlZCBWR0EgZGVjb2Rlczogb2xkZGVjb2Rlcz1pbyttZW0sZGVjb2Rlcz1ub25lOm93bnM9bm9u
+ZQpbICAxMTUuNDQ5Nzk5XSBub3V2ZWF1IDAwMDA6MDg6MDAuMDogdmdhYXJiOiBjaGFuZ2VkIFZH
+QSBkZWNvZGVzOiBvbGRkZWNvZGVzPWlvK21lbSxkZWNvZGVzPW5vbmU6b3ducz1pbyttZW0KWyAg
+MTE2Ljg4MTE4NF0gZTEwMDBlOiBlbnAzczAgTklDIExpbmsgaXMgVXAgMTAwMCBNYnBzIEZ1bGwg
+RHVwbGV4LCBGbG93IENvbnRyb2w6IFJ4L1R4ClsgIDExNi44ODE1NTBdIElQdjY6IEFERFJDT05G
+KE5FVERFVl9DSEFOR0UpOiBlbnAzczA6IGxpbmsgYmVjb21lcyByZWFkeQpbICAxMjAuODAwNzc2
+XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1h
+MT4KWyAgMTIwLjgwMDg4M10gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBF
+cnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMjAuODAwODkxXSBhbWRncHUgMDAwMDowNjow
+MC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTIwLjgwMDk2MV0g
+W2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElC
+cyAoLTIyKQpbICAxMjAuODAwOTY2XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hl
+ZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTIwLjgwMTAzNl0gW2RybTphbWRncHVfam9iX3J1
+biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMjAuODA0
+MzgzXSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxz
+ZG1hMT4KWyAgMTIwLjgwNDQ3NV0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9S
+KiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMjAuODA0NDc3XSBhbWRncHUgMDAwMDow
+NjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMD4KWyAgMTIwLjgwNDU3
+Ml0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5n
+IElCcyAoLTIyKQpbICAxMjAuODA0NTg0XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBz
+Y2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTIwLjgwNDY2Ml0gW2RybTphbWRncHVfam9i
+X3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMjEu
+MjkzOTk3XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5n
+IDxzZG1hMT4KWyAgMTIxLjI5NDA5OF0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVS
+Uk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMjEuMzI3ODQ3XSBhbWRncHUgMDAw
+MDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTIxLjMy
+NzkyOV0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVs
+aW5nIElCcyAoLTIyKQpbICAxMjEuMzI3OTM2XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4n
+dCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTIxLjMyODAwN10gW2RybTphbWRncHVf
+am9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAx
+MjEuMzI4MDc5XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiBy
+aW5nIDxzZG1hMT4KWyAgMTIxLjMyODE0OV0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0g
+KkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMjEuMzI4MTYxXSBhbWRncHUg
+MDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTIx
+LjMyODIzOV0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hl
+ZHVsaW5nIElCcyAoLTIyKQpbICAxMjIuMDIzODczXSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3Vs
+ZG4ndCBzY2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMT4KWyAgMTIyLjAyMzk3Ml0gW2RybTphbWRn
+cHVfam9iX3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpb
+ICAxMjIuMDIzOTc5XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBzY2hlZHVsZSBpYiBv
+biByaW5nIDxzZG1hMT4KWyAgMTIyLjAyNDA0OV0gW2RybTphbWRncHVfam9iX3J1biBbYW1kZ3B1
+XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxMjIuMTA5MTc5XSBub3V2
+ZWF1IDAwMDA6MDg6MDAuMDogZ3I6IGludHIgMDAwMDAwNDAKWyAgMTU0LjAwODUxM10gcmZraWxs
+OiBpbnB1dCBoYW5kbGVyIGRpc2FibGVkClsgIDE2OC43OTc0MjhdIGFtZGdwdSAwMDAwOjA2OjAw
+LjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWEwPgpbICAxNjguNzk3NTEwXSBb
+ZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJz
+ICgtMjIpClsgIDE2OS4xMzczMDZdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVk
+dWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxNjkuMTM3MzY0XSBbZHJtOmFtZGdwdV9qb2JfcnVu
+IFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDE2OS41NDYw
+MzldIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNk
+bWExPgpbICAxNjkuNTQ2MTM1XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1Iq
+IEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDE2OS41NDYxNjRdIGFtZGdwdSAwMDAwOjA2
+OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxNjkuNTQ2MjI5
+XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcg
+SUJzICgtMjIpClsgIDE2OS41NDYyNTBdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNj
+aGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxNjkuNTQ2MzE1XSBbZHJtOmFtZGdwdV9qb2Jf
+cnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDE2OS41
+NTUxMjldIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcg
+PHNkbWExPgpbICAxNjkuNTU1MTY5XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJS
+T1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDE2OS41NTUyMjRdIGFtZGdwdSAwMDAw
+OjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxNjkuNTU1
+MjYyXSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxp
+bmcgSUJzICgtMjIpClsgIDE2OS41NTUzNDVdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0
+IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWEwPgpbICAxNjkuNTU1Mzg0XSBbZHJtOmFtZGdwdV9q
+b2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDE3
+OS4wMTM1MzRdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJp
+bmcgPHNkbWExPgpbICAxNzkuMDEzNTM2XSBhbWRncHUgMDAwMDowNjowMC4wOiBjb3VsZG4ndCBz
+Y2hlZHVsZSBpYiBvbiByaW5nIDxzZG1hMD4KWyAgMTc5LjAxMzY3MV0gW2RybTphbWRncHVfam9i
+X3J1biBbYW1kZ3B1XV0gKkVSUk9SKiBFcnJvciBzY2hlZHVsaW5nIElCcyAoLTIyKQpbICAxNzku
+MDEzNzU0XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVk
+dWxpbmcgSUJzICgtMjIpClsgIDE3OS4wMTM3NzldIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxk
+bid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxNzkuMDEzODM1XSBbZHJtOmFtZGdw
+dV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsg
+IDE3OS4wMTM4NDddIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9u
+IHJpbmcgPHNkbWExPgpbICAxNzkuMDEzOTI1XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVd
+XSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDE3OS4wMTQxNDVdIGFtZGdw
+dSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAx
+NzkuMDE0MjE2XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNj
+aGVkdWxpbmcgSUJzICgtMjIpClsgIDE3OS4wMTQyMjNdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNv
+dWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpbICAxNzkuMDE0Mjc5XSBbZHJtOmFt
+ZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIp
+ClsgIDE3OS4wMTQyODNdIGFtZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGli
+IG9uIHJpbmcgPHNkbWExPgpbICAxNzkuMDE0MzM4XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRn
+cHVdXSAqRVJST1IqIEVycm9yIHNjaGVkdWxpbmcgSUJzICgtMjIpClsgIDE3OS4wMTQzNDJdIGFt
+ZGdwdSAwMDAwOjA2OjAwLjA6IGNvdWxkbid0IHNjaGVkdWxlIGliIG9uIHJpbmcgPHNkbWExPgpb
+ICAxNzkuMDE0Mzk3XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9y
+IHNjaGVkdWxpbmcgSUJzICgtMjIpCgo=
+--000000000000c8aa43056f87d7f6
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -342,4 +616,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1088566279==--
+--000000000000c8aa43056f87d7f6--
