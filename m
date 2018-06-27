@@ -1,70 +1,61 @@
-From: Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [PATCH] dma-buf: Move BUG_ON from _add_shared_fence to
- _add_shared_inplace
-Date: Wed, 27 Jun 2018 12:50:42 +0100
-Message-ID: <153010024207.8693.14587899562244751472@mail.alporthouse.com>
-References: <20180626143147.14296-1-michel@daenzer.net>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Add stutter mode ctrl in module parameter
+Date: Wed, 27 Jun 2018 20:03:26 +0800
+Message-ID: <20180627120325.GA20473@hr-amur2>
+References: <1530095129-26916-1-git-send-email-rex.zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180626143147.14296-1-michel@daenzer.net>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?utf-8?q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <1530095129-26916-1-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: rex zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Quoting Michel Dänzer (2018-06-26 15:31:47)
-> From: Michel Dänzer <michel.daenzer@amd.com>
-> 
-> Fixes the BUG_ON spuriously triggering under the following
-> circumstances:
-> 
-> * ttm_eu_reserve_buffers processes a list containing multiple BOs using
->   the same reservation object, so it calls
->   reservation_object_reserve_shared with that reservation object once
->   for each such BO.
-> * In reservation_object_reserve_shared, old->shared_count ==
->   old->shared_max - 1, so obj->staged is freed in preparation of an
->   in-place update.
-> * ttm_eu_fence_buffer_objects calls reservation_object_add_shared_fence
->   once for each of the BOs above, always with the same fence.
-> * The first call adds the fence in the remaining free slot, after which
->   old->shared_count == old->shared_max.
-> 
-> In the next call to reservation_object_add_shared_fence, the BUG_ON
-> triggers. However, nothing bad would happen in
-> reservation_object_add_shared_inplace, since the fence is already in the
-> reservation object.
-> 
-> Prevent this by moving the BUG_ON to where an overflow would actually
-> happen (e.g. if a buggy caller didn't call
-> reservation_object_reserve_shared before).
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Michel Dänzer <michel.daenzer@amd.com>
-
-I've convinced myself (or rather have not found a valid argument
-against) that being able to call reserve_shared + add_shared multiple
-times for the same fence is an intended part of reservation_object API 
-
-I'd double check with Christian though.
-
-Reviewed-by: Chris Wilson <chris@chris-wilson.co.uk>
-
->  drivers/dma-buf/reservation.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/reservation.c b/drivers/dma-buf/reservation.c
-> index 314eb1071cce..532545b9488e 100644
-> --- a/drivers/dma-buf/reservation.c
-> +++ b/drivers/dma-buf/reservation.c
-> @@ -141,6 +141,7 @@ reservation_object_add_shared_inplace(struct reservation_object *obj,
->         if (signaled) {
->                 RCU_INIT_POINTER(fobj->shared[signaled_idx], fence);
->         } else {
-> +               BUG_ON(fobj->shared_count >= fobj->shared_max);
-
-Personally I would just let kasan detect this and throw away the BUG_ON
-or at least move it behind some DMABUF_BUG_ON().
--Chris
+T24gV2VkLCBKdW4gMjcsIDIwMTggYXQgMDY6MjU6MjhQTSArMDgwMCwgcmV4IHpodSB3cm90ZToK
+PiBFbmFibGUgc3R1dHRlciBtb2RlIGNhbiBzYXZlIHBvd2VyIGluIGxvdyBEUkFNIHVzZSBjYXNl
+cwo+IGluY2x1ZGluZyBidXQgbm90IGxpbWl0ZWQgdG8gcHJvZHVjdGl2aXR5IGFwcGxpY2F0aW9u
+IHVzZSwKPiB3ZWIgYnJvd3NpbmcsIGFuZCB2aWRlbyBwbGF5YmFjay4KPiAKPiBDdXJyZW50bHkg
+dGhpcyBmZWF0dXJlIGlzIGRpc2FibGVkIGJ5IGRlZmF1bHQuCj4gCj4gTWFrZSBiaXQgMTcgaW4g
+bW9kdWxlIHBhcmFtZXRlciBhbWRncHVfcHBfZmVhdHVyZV9tYXNrCj4gYXMgc3R1dHRlciBtb2Rl
+IG1hc2ssIHNvIHVzZXIgY2FuIGVuYWJsZS9kaXNhYmxlIHRoaXMgZmVhdHVyZSBlYXNpbHkuCj4g
+Cj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKU2VyaWVzOiBSZXZp
+ZXdlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgfCAzICsrLQo+ICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2luY2x1ZGUvYW1kX3NoYXJlZC5oIHwgMSArCj4gIDIgZmlsZXMgY2hhbmdlZCwgMyBp
+bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kcnYuYwo+IGluZGV4IDY4NDE0OTcuLmRjZGM5N2QgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gQEAgLTEyMiw3ICsxMjIsOCBAQAo+ICB1aW50
+IGFtZGdwdV9zZG1hX3BoYXNlX3F1YW50dW0gPSAzMjsKPiAgY2hhciAqYW1kZ3B1X2Rpc2FibGVf
+Y3UgPSBOVUxMOwo+ICBjaGFyICphbWRncHVfdmlydHVhbF9kaXNwbGF5ID0gTlVMTDsKPiAtdWlu
+dCBhbWRncHVfcHBfZmVhdHVyZV9tYXNrID0gMHhmZmZmM2ZmZjsgLyogZ2Z4b2ZmIChiaXQgMTUp
+IGRpc2FibGVkIGJ5IGRlZmF1bHQgKi8KPiArLyogT3ZlckRyaXZlKGJpdCAxNCksZ2Z4b2ZmKGJp
+dCAxNSksc3R1dHRlciBtb2RlKGJpdCAxNykgZGlzYWJsZWQgYnkgZGVmYXVsdCovCj4gK3VpbnQg
+YW1kZ3B1X3BwX2ZlYXR1cmVfbWFzayA9IDB4ZmZmZDNmZmY7Cj4gIGludCBhbWRncHVfbmdnID0g
+MDsKPiAgaW50IGFtZGdwdV9wcmltX2J1Zl9wZXJfc2UgPSAwOwo+ICBpbnQgYW1kZ3B1X3Bvc19i
+dWZfcGVyX3NlID0gMDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRl
+L2FtZF9zaGFyZWQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfc2hhcmVkLmgK
+PiBpbmRleCBiMTc4MTc2Li5kNmY0ODc0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvaW5jbHVkZS9hbWRfc2hhcmVkLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1
+ZGUvYW1kX3NoYXJlZC5oCj4gQEAgLTEyOCw2ICsxMjgsNyBAQCBlbnVtIFBQX0ZFQVRVUkVfTUFT
+SyB7Cj4gIAlQUF9PVkVSRFJJVkVfTUFTSyA9IDB4NDAwMCwKPiAgCVBQX0dGWE9GRl9NQVNLID0g
+MHg4MDAwLAo+ICAJUFBfQUNHX01BU0sgPSAweDEwMDAwLAo+ICsJUFBfU1RVVFRFUl9NT0RFID0g
+MHgyMDAwMCwKPiAgfTsKPiAgCj4gIHN0cnVjdCBhbWRfaXBfZnVuY3Mgewo+IC0tIAo+IDEuOS4x
+Cj4gCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
