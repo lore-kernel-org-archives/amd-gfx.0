@@ -1,14 +1,15 @@
-From: "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: update documentation for amdgpu_drv.c
-Date: Thu, 28 Jun 2018 18:02:35 +0000
-Message-ID: <CY4PR12MB15119F358F68B52729D44B3CFD4F0@CY4PR12MB1511.namprd12.prod.outlook.com>
-References: <1530123285-28043-1-git-send-email-sonny.jiang@amd.com>,
+Date: Thu, 28 Jun 2018 14:31:43 -0400
+Message-ID: <CADnq5_MiO9gTfavmOQeycbsaM8bczBx-iLRbxqi8Sc_hCE9B2Q@mail.gmail.com>
+References: <1530123285-28043-1-git-send-email-sonny.jiang@amd.com>
  <6a028ca5-f799-8cc8-fb74-7a036a428d80@daenzer.net>
+ <CY4PR12MB15119F358F68B52729D44B3CFD4F0@CY4PR12MB1511.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0440606951=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6a028ca5-f799-8cc8-fb74-7a036a428d80-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB15119F358F68B52729D44B3CFD4F0-rpdhrqHFk06XKdXwTjA44gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,139 +20,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0440606951==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB15119F358F68B52729D44B3CFD4F0CY4PR12MB1511namp_"
-
---_000_CY4PR12MB15119F358F68B52729D44B3CFD4F0CY4PR12MB1511namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
-
-What's your opinion about Michel's suggestion?
-
-
-Thanks,
-
-Sonny
-
-________________________________
-From: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Thursday, June 28, 2018 4:39:57 AM
-To: Jiang, Sonny
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amdgpu: update documentation for amdgpu_drv.c
-
-
-Hi Sonny,
-
-
-would it be possible to put the documentation of each parameter directly
-next to its definition / declaration? Otherwise, I'm afraid the
-documentation will quickly fall out of date WRT the code.
-
-
-> +/**
-> + * DOC: module_parameters
-
-Otherwise, this needs to be referenced in Documentation/gpu/amdgpu.rst,
-or the contents of this comment don't show up in the generated
-documentation.
-
-
---
-Earthling Michel D=E4nzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---_000_CY4PR12MB15119F358F68B52729D44B3CFD4F0CY4PR12MB1511namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Hi Alex,</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">What's your opinion about Michel'=
-s suggestion?
-<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Thanks,</p>
-<p style=3D"margin-top:0;margin-bottom:0">Sonny<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Michel D=E4nzer &lt;m=
-ichel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, June 28, 2018 4:39:57 AM<br>
-<b>To:</b> Jiang, Sonny<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: update documentation for amdgpu_drv=
-.c</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-Hi Sonny,<br>
-<br>
-<br>
-would it be possible to put the documentation of each parameter directly<br=
->
-next to its definition / declaration? Otherwise, I'm afraid the<br>
-documentation will quickly fall out of date WRT the code.<br>
-<br>
-<br>
-&gt; &#43;/**<br>
-&gt; &#43; * DOC: module_parameters<br>
-<br>
-Otherwise, this needs to be referenced in Documentation/gpu/amdgpu.rst,<br>
-or the contents of this comment don't show up in the generated<br>
-documentation.<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
-">
-http://www.amd.com</a><br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY4PR12MB15119F358F68B52729D44B3CFD4F0CY4PR12MB1511namp_--
-
---===============0440606951==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0440606951==--
+T24gVGh1LCBKdW4gMjgsIDIwMTggYXQgMjowMiBQTSwgSmlhbmcsIFNvbm55IDxTb25ueS5KaWFu
+Z0BhbWQuY29tPiB3cm90ZToKPiBIaSBBbGV4LAo+Cj4KPiBXaGF0J3MgeW91ciBvcGluaW9uIGFi
+b3V0IE1pY2hlbCdzIHN1Z2dlc3Rpb24/CgpZb3Ugc2hvdWxkIGRlZmluaXRlbHkgdXBkYXRlIGFt
+ZGdwdS5yc3QgdG8gaW5jbHVkZSB0aGUgbmV3CmRvY3VtZW50YXRpb24gc2VjdGlvbi4gIEFzIGZv
+ciB3aGV0aGVyIHRvIGhhdmUgc2VwYXJhdGUgc2VjdGlvbnMgb3IKb25lIGJpZyBzZWN0aW9uIGZv
+ciB0aGUgcGFyYW1ldGVycywgSSBjb3VsZCBnbyBlaXRoZXIgd2F5LiAgSWYgd2UgaGF2ZQpvbmUg
+YmlnIHNlY3Rpb24sIHBlb3BsZSB3aWxsIGxpa2VseSBmb3JnZXQgdG8gdXBkYXRlIGl0IHdoZW4g
+dGhleSBhZGQKYSBuZXcgcGFyYW1ldGVyLiAgT24gdGhlIG90aGVyIGhhbmQsIGlmIHdlIGhhdmUg
+c2VwYXJhdGUgc2VjdGlvbnMgZm9yCmVhY2ggb3B0aW9uLCBwZW9wbGUgd2lsbCBsaWtlbHkgZm9y
+Z2V0IHRvIHVwZGF0ZSBhbWRncHUucnN0IHRvIGFkZCB0aGUKbmV3IHBhcmFtZXRlci4KCkFsZXgK
+Cj4KPgo+IFRoYW5rcywKPgo+IFNvbm55Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwo+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+Cj4gU2VudDog
+VGh1cnNkYXksIEp1bmUgMjgsIDIwMTggNDozOTo1NyBBTQo+IFRvOiBKaWFuZywgU29ubnkKPiBD
+YzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBTdWJqZWN0OiBSZTogW1BBVENIXSBk
+cm0vYW1kZ3B1OiB1cGRhdGUgZG9jdW1lbnRhdGlvbiBmb3IgYW1kZ3B1X2Rydi5jCj4KPgo+IEhp
+IFNvbm55LAo+Cj4KPiB3b3VsZCBpdCBiZSBwb3NzaWJsZSB0byBwdXQgdGhlIGRvY3VtZW50YXRp
+b24gb2YgZWFjaCBwYXJhbWV0ZXIgZGlyZWN0bHkKPiBuZXh0IHRvIGl0cyBkZWZpbml0aW9uIC8g
+ZGVjbGFyYXRpb24/IE90aGVyd2lzZSwgSSdtIGFmcmFpZCB0aGUKPiBkb2N1bWVudGF0aW9uIHdp
+bGwgcXVpY2tseSBmYWxsIG91dCBvZiBkYXRlIFdSVCB0aGUgY29kZS4KPgo+Cj4+ICsvKioKPj4g
+KyAqIERPQzogbW9kdWxlX3BhcmFtZXRlcnMKPgo+IE90aGVyd2lzZSwgdGhpcyBuZWVkcyB0byBi
+ZSByZWZlcmVuY2VkIGluIERvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QsCj4gb3IgdGhlIGNv
+bnRlbnRzIG9mIHRoaXMgY29tbWVudCBkb24ndCBzaG93IHVwIGluIHRoZSBnZW5lcmF0ZWQKPiBk
+b2N1bWVudGF0aW9uLgo+Cj4KPiAtLQo+IEVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAg
+ICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KPiBMaWJyZSBzb2Z0d2Fy
+ZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9w
+ZXIKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
