@@ -1,13 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: initialize uvd/vce powergate status v3
-Date: Thu, 28 Jun 2018 11:31:37 -0400
-Message-ID: <CADnq5_PM77A24XoD-XQpPD_QZ7iHrkNgXjDsDEaGZybHOa=fQg@mail.gmail.com>
-References: <1529476835-11315-1-git-send-email-evan.quan@amd.com>
+From: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu 1/2] Remove #if 0'd code
+Date: Thu, 28 Jun 2018 15:38:16 +0000
+Message-ID: <CY4PR12MB13042A723690746E0A043209FE4F0@CY4PR12MB1304.namprd12.prod.outlook.com>
+References: <20180627163941.18737-1-michel@daenzer.net>
+ <CY4PR12MB13040D289B98AF5798E9C4EEFE480@CY4PR12MB1304.namprd12.prod.outlook.com>,
+ <f08efa46-1598-1402-2ba2-757d8bd9b841@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0747887315=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1529476835-11315-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <f08efa46-1598-1402-2ba2-757d8bd9b841-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,56 +20,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gV2VkLCBKdW4gMjAsIDIwMTggYXQgMjo0MCBBTSwgRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1k
-LmNvbT4gd3JvdGU6Cj4gT24gVVZEL1ZDRSBkcG0gZW5hYmxlZC9kaXNhYmxlZCwgdGhlIHBvd2Vy
-Z2F0ZSBzdGF0dXMgd2lsbCBiZQo+IHNldCBhcyBmYWxzZS90cnVlLiBTbyB0aGF0IHdlIHdpbGwg
-bm90IHRyeSB0byB1bmdhdGUvZ2F0ZSB0aGVtKAo+IGVuYWJsZS9kaXNhYmxlIHRoZWlyIGRwbSkg
-YWdhaW4uCj4KPiB2MjogYWRkZWQgY2hlY2sgZm9yIHV2ZC92Y2UgcG93ZXJnYXRlIHN0YXR1cyBi
-ZWZvcmUgZ2F0aW5nCj4gdjM6IGZpeCB0eXBvIGluIGRlc2NyaXB0aW9uCj4KPiBDaGFuZ2UtSWQ6
-IEk1NjlhNWFhMjE2YjVlN2Q2NGEyYjUwNGYyZmY5OGNjODNjYTgwMmQ1Cj4gU2lnbmVkLW9mZi1i
-eTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KCgpEb2VzIHZlZ2ExMCBuZWVkIGEgc2lt
-aWxhciBmaXg/CgpBbGV4Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci92ZWdhMTJfaHdtZ3IuYyB8IDIzICsrKysrKysrKysrKysrKysrKysrKysKPiAgMSBmaWxl
-IGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5jCj4gaW5kZXggNDVjOGYyZC4uMjhiMTcy
-ZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdh
-MTJfaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Zl
-Z2ExMl9od21nci5jCj4gQEAgLTc3Nyw2ICs3NzcsMjEgQEAgc3RhdGljIGludCB2ZWdhMTJfc2V0
-X2FsbG93ZWRfZmVhdHVyZXNtYXNrKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gICAgICAgICBy
-ZXR1cm4gMDsKPiAgfQo+Cj4gK3N0YXRpYyB2b2lkIHZlZ2ExMl9pbml0X3Bvd2VyZ2F0ZV9zdGF0
-ZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICt7Cj4gKyAgICAgICBzdHJ1Y3QgdmVnYTEyX2h3
-bWdyICpkYXRhID0KPiArICAgICAgICAgICAgICAgICAgICAgICAoc3RydWN0IHZlZ2ExMl9od21n
-ciAqKShod21nci0+YmFja2VuZCk7Cj4gKwo+ICsgICAgICAgZGF0YS0+dXZkX3Bvd2VyX2dhdGVk
-ID0gdHJ1ZTsKPiArICAgICAgIGRhdGEtPnZjZV9wb3dlcl9nYXRlZCA9IHRydWU7Cj4gKwo+ICsg
-ICAgICAgaWYgKGRhdGEtPnNtdV9mZWF0dXJlc1tHTkxEX0RQTV9VVkRdLmVuYWJsZWQpCj4gKyAg
-ICAgICAgICAgICAgIGRhdGEtPnV2ZF9wb3dlcl9nYXRlZCA9IGZhbHNlOwo+ICsKPiArICAgICAg
-IGlmIChkYXRhLT5zbXVfZmVhdHVyZXNbR05MRF9EUE1fVkNFXS5lbmFibGVkKQo+ICsgICAgICAg
-ICAgICAgICBkYXRhLT52Y2VfcG93ZXJfZ2F0ZWQgPSBmYWxzZTsKPiArfQo+ICsKPiAgc3RhdGlj
-IGludCB2ZWdhMTJfZW5hYmxlX2FsbF9zbXVfZmVhdHVyZXMoc3RydWN0IHBwX2h3bWdyICpod21n
-cikKPiAgewo+ICAgICAgICAgc3RydWN0IHZlZ2ExMl9od21nciAqZGF0YSA9Cj4gQEAgLTgwMSw2
-ICs4MTYsOCBAQCBzdGF0aWMgaW50IHZlZ2ExMl9lbmFibGVfYWxsX3NtdV9mZWF0dXJlcyhzdHJ1
-Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICAgICAgICAgICAgICAgICB9Cj4gICAgICAgICB9Cj4KPiAr
-ICAgICAgIHZlZ2ExMl9pbml0X3Bvd2VyZ2F0ZV9zdGF0ZShod21ncik7Cj4gKwo+ICAgICAgICAg
-cmV0dXJuIDA7Cj4gIH0KPgo+IEBAIC0xOTg1LDYgKzIwMDIsOSBAQCBzdGF0aWMgdm9pZCB2ZWdh
-MTJfcG93ZXJfZ2F0ZV92Y2Uoc3RydWN0IHBwX2h3bWdyICpod21nciwgYm9vbCBiZ2F0ZSkKPiAg
-ewo+ICAgICAgICAgc3RydWN0IHZlZ2ExMl9od21nciAqZGF0YSA9IChzdHJ1Y3QgdmVnYTEyX2h3
-bWdyICopKGh3bWdyLT5iYWNrZW5kKTsKPgo+ICsgICAgICAgaWYgKGRhdGEtPnZjZV9wb3dlcl9n
-YXRlZCA9PSBiZ2F0ZSkKPiArICAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gKwo+ICAgICAgICAg
-ZGF0YS0+dmNlX3Bvd2VyX2dhdGVkID0gYmdhdGU7Cj4gICAgICAgICB2ZWdhMTJfZW5hYmxlX2Rp
-c2FibGVfdmNlX2RwbShod21nciwgIWJnYXRlKTsKPiAgfQo+IEBAIC0xOTkzLDYgKzIwMTMsOSBA
-QCBzdGF0aWMgdm9pZCB2ZWdhMTJfcG93ZXJfZ2F0ZV91dmQoc3RydWN0IHBwX2h3bWdyICpod21n
-ciwgYm9vbCBiZ2F0ZSkKPiAgewo+ICAgICAgICAgc3RydWN0IHZlZ2ExMl9od21nciAqZGF0YSA9
-IChzdHJ1Y3QgdmVnYTEyX2h3bWdyICopKGh3bWdyLT5iYWNrZW5kKTsKPgo+ICsgICAgICAgaWYg
-KGRhdGEtPnV2ZF9wb3dlcl9nYXRlZCA9PSBiZ2F0ZSkKPiArICAgICAgICAgICAgICAgcmV0dXJu
-IDA7Cj4gKwo+ICAgICAgICAgZGF0YS0+dXZkX3Bvd2VyX2dhdGVkID0gYmdhdGU7Cj4gICAgICAg
-ICB2ZWdhMTJfZW5hYmxlX2Rpc2FibGVfdXZkX2RwbShod21nciwgIWJnYXRlKTsKPiAgfQo+IC0t
-Cj4gMi43LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0747887315==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_"
+
+--_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Michel,
+
+My review is only for the first patch.
+
+
+Slava
+________________________________
+From: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Sent: Thursday, June 28, 2018 4:26:28 AM
+To: Abramov, Slava
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH xf86-video-amdgpu 1/2] Remove #if 0'd code
+
+On 2018-06-27 08:29 PM, Abramov, Slava wrote:
+> I wonder how '#if 0' made its way upstream, but besides this
+
+It was inherited from xf86-video-ati, where it's been in
+drmmode_display.c since that file was first added (in 2009).
+
+
+> Reviewed-by: Slava Abramov <slava.abramov-5C7GfCeVMHo@public.gmane.org>
+
+Thanks Slava (and Alex)! Is that only for this patch, or also for patch
+2 of the series?
+
+
+--
+Earthling Michel D=E4nzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+Michel,
+<div><br>
+</div>
+<div>My review is only for the first patch.&nbsp;&nbsp;</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>Slava</div>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Michel D=E4nzer &lt;m=
+ichel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, June 28, 2018 4:26:28 AM<br>
+<b>To:</b> Abramov, Slava<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH xf86-video-amdgpu 1/2] Remove #if 0'd code</font=
+>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 2018-06-27 08:29 PM, Abramov, Slava wrote:<br>
+&gt; I wonder how '#if 0' made its way upstream, but besides this<br>
+<br>
+It was inherited from xf86-video-ati, where it's been in<br>
+drmmode_display.c since that file was first added (in 2009).<br>
+<br>
+<br>
+&gt; Reviewed-by: Slava Abramov &lt;slava.abramov-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Thanks Slava (and Alex)! Is that only for this patch, or also for patch<br>
+2 of the series?<br>
+<br>
+<br>
+-- <br>
+Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
+">
+http://www.amd.com</a><br>
+Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_--
+
+--===============0747887315==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0747887315==--
