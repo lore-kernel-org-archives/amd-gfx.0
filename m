@@ -1,15 +1,17 @@
-From: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu 1/2] Remove #if 0'd code
-Date: Thu, 28 Jun 2018 15:38:16 +0000
-Message-ID: <CY4PR12MB13042A723690746E0A043209FE4F0@CY4PR12MB1304.namprd12.prod.outlook.com>
-References: <20180627163941.18737-1-michel@daenzer.net>
- <CY4PR12MB13040D289B98AF5798E9C4EEFE480@CY4PR12MB1304.namprd12.prod.outlook.com>,
- <f08efa46-1598-1402-2ba2-757d8bd9b841@daenzer.net>
+From: Bjorn Helgaas <helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: Re: [PATCH 1/5] pci: export pcie_get_speed_cap and pcie_get_width_cap
+Date: Thu, 28 Jun 2018 11:53:41 -0500
+Message-ID: <20180628165341.GA120578@bhelgaas-glaptop.roam.corp.google.com>
+References: <20180625210606.2736-1-alexander.deucher@amd.com>
+ <20180625210606.2736-2-alexander.deucher@amd.com>
+ <20180628134221.GC90450@bhelgaas-glaptop.roam.corp.google.com>
+ <CADnq5_OMmcbKsWQ3QfuMKYOxhrZZxOCs4YTN+Pyf7zuy43ypyA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0747887315=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f08efa46-1598-1402-2ba2-757d8bd9b841-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OMmcbKsWQ3QfuMKYOxhrZZxOCs4YTN+Pyf7zuy43ypyA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,122 +22,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Linux PCI <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Bjorn Helgaas <bhelgaas-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
---===============0747887315==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_"
-
---_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Michel,
-
-My review is only for the first patch.
-
-
-Slava
-________________________________
-From: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Thursday, June 28, 2018 4:26:28 AM
-To: Abramov, Slava
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH xf86-video-amdgpu 1/2] Remove #if 0'd code
-
-On 2018-06-27 08:29 PM, Abramov, Slava wrote:
-> I wonder how '#if 0' made its way upstream, but besides this
-
-It was inherited from xf86-video-ati, where it's been in
-drmmode_display.c since that file was first added (in 2009).
-
-
-> Reviewed-by: Slava Abramov <slava.abramov-5C7GfCeVMHo@public.gmane.org>
-
-Thanks Slava (and Alex)! Is that only for this patch, or also for patch
-2 of the series?
-
-
---
-Earthling Michel D=E4nzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-Michel,
-<div><br>
-</div>
-<div>My review is only for the first patch.&nbsp;&nbsp;</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div>Slava</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Michel D=E4nzer &lt;m=
-ichel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, June 28, 2018 4:26:28 AM<br>
-<b>To:</b> Abramov, Slava<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH xf86-video-amdgpu 1/2] Remove #if 0'd code</font=
->
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2018-06-27 08:29 PM, Abramov, Slava wrote:<br>
-&gt; I wonder how '#if 0' made its way upstream, but besides this<br>
-<br>
-It was inherited from xf86-video-ati, where it's been in<br>
-drmmode_display.c since that file was first added (in 2009).<br>
-<br>
-<br>
-&gt; Reviewed-by: Slava Abramov &lt;slava.abramov-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Thanks Slava (and Alex)! Is that only for this patch, or also for patch<br>
-2 of the series?<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
-">
-http://www.amd.com</a><br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY4PR12MB13042A723690746E0A043209FE4F0CY4PR12MB1304namp_--
-
---===============0747887315==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0747887315==--
+T24gVGh1LCBKdW4gMjgsIDIwMTggYXQgMTA6MTk6NDFBTSAtMDQwMCwgQWxleCBEZXVjaGVyIHdy
+b3RlOgo+IE9uIFRodSwgSnVuIDI4LCAyMDE4IGF0IDk6NDIgQU0sIEJqb3JuIEhlbGdhYXMgPGhl
+bGdhYXNAa2VybmVsLm9yZz4gd3JvdGU6Cj4gPiBPbiBNb24sIEp1biAyNSwgMjAxOCBhdCAwNDow
+NjowMlBNIC0wNTAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gPj4gU28gZHJpdmVycyBjYW4gdXNl
+IHRoZW0uICBUaGlzIGNhbiBiZSB1c2VkIHRvIHJlcGxhY2UKPiA+PiBkdXBsaWNhdGUgY29kZSBp
+biB0aGUgZHJtIHN1YnN5c3RlbS4KPiA+Pgo+ID4+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiA+Cj4gPiBBY2tlZC1ieTogQmpvcm4gSGVs
+Z2FhcyA8YmhlbGdhYXNAZ29vZ2xlLmNvbT4KPiA+Cj4gPiBUaGFua3MgYSBsb3QgZm9yIGRvaW5n
+IHRoaXMhCj4gPgo+ID4gSWYgeW91IGhhdmVuJ3QgYXBwbGllZCB0aGVzZSB5ZXQsIHBsZWFzZQo+
+ID4KPiA+ICAgcy9wY2k6IGV4cG9ydC9QQ0k6IEV4cG9ydC8KPiA+Cj4gPiBpbiB0aGUgc3ViamVj
+dC4KPiAKPiAKPiBXaWxsIGZpeC4gIEFueSBvYmplY3Rpb25zIHRvIHRha2luZyB0aGlzIHZpYSB0
+aGUgZHJtIHRyZWU/CgpOb3BlLCBJIGFja2VkIGl0IGJlY2F1c2UgSSBhc3N1bWVkIHlvdSB3b3Vs
+ZCBtZXJnZSBpdCBhbG9uZyB3aXRoIHRoZSByZXN0Cm9mIHRoZSBzZXJpZXMgdmlhIHNvbWUgbm9u
+LVBDSSB0cmVlLCBzbyB0aGUgZHJtIHRyZWUgd291bGQgYmUgZ3JlYXQuCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
