@@ -1,14 +1,14 @@
 From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu/pp: fix copy paste typo in
- smu7_get_pp_table_entry_callback_func_v1
-Date: Fri, 29 Jun 2018 00:21:25 +0000
-Message-ID: <CY4PR12MB168788F43D9730A7231E280BFB4E0@CY4PR12MB1687.namprd12.prod.outlook.com>
+ smu7_init_dpm_defaults
+Date: Fri, 29 Jun 2018 00:21:39 +0000
+Message-ID: <CY4PR12MB16871F76DFEDB8F56517D3B3FB4E0@CY4PR12MB1687.namprd12.prod.outlook.com>
 References: <20180628183804.9846-1-alexander.deucher@amd.com>,
- <20180628183804.9846-7-alexander.deucher@amd.com>
+ <20180628183804.9846-6-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0412243840=="
+Content-Type: multipart/mixed; boundary="===============1726540124=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180628183804.9846-7-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180628183804.9846-6-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,12 +23,12 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============0412243840==
+--===============1726540124==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB168788F43D9730A7231E280BFB4E0CY4PR12MB1687namp_"
+	boundary="_000_CY4PR12MB16871F76DFEDB8F56517D3B3FB4E0CY4PR12MB1687namp_"
 
---_000_CY4PR12MB168788F43D9730A7231E280BFB4E0CY4PR12MB1687namp_
+--_000_CY4PR12MB16871F76DFEDB8F56517D3B3FB4E0CY4PR12MB1687namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -48,10 +48,10 @@ cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Sent: Friday, June 29, 2018 2:38 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Deucher, Alexander
-Subject: [PATCH] drm/amdgpu/pp: fix copy paste typo in smu7_get_pp_table_en=
-try_callback_func_v1
+Subject: [PATCH] drm/amdgpu/pp: fix copy paste typo in smu7_init_dpm_defaul=
+ts
 
-Should be using PCIELaneLow for the low clock level.
+Should be mclk rather than sclk.
 
 Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 ---
@@ -60,21 +60,21 @@ Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
 /drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index e5c27d12aa49..077b79938528 100644
+index de295b7442b7..e5c27d12aa49 100644
 --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
 +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3183,7 +3183,7 @@ static int smu7_get_pp_table_entry_callback_func_v1(s=
-truct pp_hwmgr *hwmgr,
-         performance_level->pcie_gen =3D get_pcie_gen_support(data->pcie_ge=
-n_cap,
-                         state_entry->ucPCIEGenLow);
-         performance_level->pcie_lane =3D get_pcie_lane_support(data->pcie_=
-lane_cap,
--                       state_entry->ucPCIELaneHigh);
-+                       state_entry->ucPCIELaneLow);
-
-         performance_level =3D &(smu7_power_state->performance_levels
-                         [smu7_power_state->performance_level_count++]);
+@@ -1578,7 +1578,7 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *h=
+wmgr)
+         data->current_profile_setting.sclk_up_hyst =3D 0;
+         data->current_profile_setting.sclk_down_hyst =3D 100;
+         data->current_profile_setting.sclk_activity =3D SMU7_SCLK_TARGETAC=
+TIVITY_DFLT;
+-       data->current_profile_setting.bupdate_sclk =3D 1;
++       data->current_profile_setting.bupdate_mclk =3D 1;
+         data->current_profile_setting.mclk_up_hyst =3D 0;
+         data->current_profile_setting.mclk_down_hyst =3D 100;
+         data->current_profile_setting.mclk_activity =3D SMU7_MCLK_TARGETAC=
+TIVITY_DFLT;
 --
 2.13.6
 
@@ -91,7 +91,7 @@ orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
 
 
 
---_000_CY4PR12MB168788F43D9730A7231E280BFB4E0CY4PR12MB1687namp_
+--_000_CY4PR12MB16871F76DFEDB8F56517D3B3FB4E0CY4PR12MB1687namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -131,14 +131,13 @@ gmail.com&gt;<br>
 <b>Sent:</b> Friday, June 29, 2018 2:38 AM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/pp: fix copy paste typo in smu7_get_pp_t=
-able_entry_callback_func_v1</font>
+<b>Subject:</b> [PATCH] drm/amdgpu/pp: fix copy paste typo in smu7_init_dpm=
+_defaults</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Should be using PCIELaneLow for the low clock leve=
-l.<br>
+<div class=3D"PlainText">Should be mclk rather than sclk.<br>
 <br>
 Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
@@ -147,30 +146,27 @@ Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&g
 <br>
 diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
 /drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-index e5c27d12aa49..077b79938528 100644<br>
+index de295b7442b7..e5c27d12aa49 100644<br>
 --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
 &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -3183,7 &#43;3183,7 @@ static int smu7_get_pp_table_entry_callback_func_=
-v1(struct pp_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_level-&gt;pcie=
-_gen =3D get_pcie_gen_support(data-&gt;pcie_gen_cap,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state=
-_entry-&gt;ucPCIEGenLow);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_level-&gt;pcie=
-_lane =3D get_pcie_lane_support(data-&gt;pcie_lane_cap,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state_entry-&gt;=
-ucPCIELaneHigh);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state_entry-=
-&gt;ucPCIELaneLow);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; performance_level =3D &amp=
-;(smu7_power_state-&gt;performance_levels<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [smu7=
-_power_state-&gt;performance_level_count&#43;&#43;]);<br>
+@@ -1578,7 &#43;1578,7 @@ static void smu7_init_dpm_defaults(struct pp_hwmg=
+r *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.sclk_up_hyst =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.sclk_down_hyst =3D 100;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.sclk_activity =3D SMU7_SCLK_TARGETACTIVITY_DFLT;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_setting.bupd=
+ate_sclk =3D 1;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_setting.=
+bupdate_mclk =3D 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.mclk_up_hyst =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.mclk_down_hyst =3D 100;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;current_profile_s=
+etting.mclk_activity =3D SMU7_MCLK_TARGETACTIVITY_DFLT;<br>
 -- <br>
 2.13.6<br>
 <br>
@@ -178,36 +174,36 @@ _______________________________________________<br>
 amd-gfx mailing list<br>
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk599829" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+lnk682147" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
 desktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15302316752220.13172945002840142" style=3D"margin-bo=
+<div id=3D"LPBorder_GT_15302316858030.05580041514875811" style=3D"margin-bo=
 ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15302316752160.4000529450075301" role=3D"presentat=
+<table id=3D"LPContainer_15302316857960.3300635721283187" role=3D"presentat=
 ion" cellspacing=3D"0" style=3D"width: 90%; background-color: rgb(255, 255,=
  255); position: relative; overflow: auto; padding-top: 20px; padding-botto=
 m: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200); borde=
 r-bottom: 1px dotted rgb(200, 200, 200);">
 <tbody>
 <tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_15302316752180.4080163369050722" colspan=3D"2" style=3D"=
+<td id=3D"TextCell_15302316857970.4613455285322614" colspan=3D"2" style=3D"=
 vertical-align: top; position: relative; padding: 0px; display: table-cell;=
 ">
-<div id=3D"LPRemovePreviewContainer_15302316752180.30996379640325045"></div=
+<div id=3D"LPRemovePreviewContainer_15302316857980.31075312827686163"></div=
 >
-<div id=3D"LPTitle_15302316752180.5130326579843452" style=3D"top: 0px; colo=
+<div id=3D"LPTitle_15302316857980.5614324708835106" style=3D"top: 0px; colo=
 r: rgb(0, 120, 215); font-weight: normal; font-size: 21px; font-family: wf_=
 segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
 ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
 ight: 21px;">
-<a id=3D"LPUrlAnchor_15302316752190.4482743459720513" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15302316752190.9905388480992097" style=3D"margin: 10p=
+<a id=3D"LPUrlAnchor_15302316857990.45881592121706505" href=3D"https://list=
+s.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text=
+-decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15302316857990.8083038798298028" style=3D"margin: 10p=
 x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
 _segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
 , sans-serif; font-size: 14px; line-height: 14px;">
 lists.freedesktop.org</div>
-<div id=3D"LPDescription_15302316752200.9544533088748721" style=3D"display:=
+<div id=3D"LPDescription_15302316858010.5581300720354894" style=3D"display:=
  block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
 oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
 ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
@@ -229,9 +225,9 @@ iv>
 </body>
 </html>
 
---_000_CY4PR12MB168788F43D9730A7231E280BFB4E0CY4PR12MB1687namp_--
+--_000_CY4PR12MB16871F76DFEDB8F56517D3B3FB4E0CY4PR12MB1687namp_--
 
---===============0412243840==
+--===============1726540124==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -241,4 +237,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0412243840==--
+--===============1726540124==--
