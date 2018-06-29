@@ -1,15 +1,16 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 5/5] drm: drop drm_pcie_get_speed_cap_mask and
- drm_pcie_get_max_link_width
-Date: Sat, 30 Jun 2018 05:40:21 +1000
-Message-ID: <CAPM=9txYNvVxJGxDo3122msDe=OXHKW0r7M92DkVgaSxjz68mg@mail.gmail.com>
-References: <20180625210606.2736-1-alexander.deucher@amd.com>
- <20180625210606.2736-6-alexander.deucher@amd.com>
+From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: update uvd_v6_0_ring_vm_funcs to use new nop
+ packet
+Date: Fri, 29 Jun 2018 17:21:46 -0400
+Message-ID: <dd40d932-2282-f2e4-73fc-333445ad2e5f@amd.com>
+References: <20180628183804.9846-1-alexander.deucher@amd.com>
+ <CADnq5_PcCJ8cc0OSu5ghb+iiWUXOJp_fjJS9mSrvoPZs2Krkmg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180625210606.2736-6-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_PcCJ8cc0OSu5ghb+iiWUXOJp_fjJS9mSrvoPZs2Krkmg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,17 +21,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Bjorn Helgaas <bhelgaas-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Linux PCI <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjYgSnVuZSAyMDE4IGF0IDA3OjA2LCBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWls
-LmNvbT4gd3JvdGU6Cj4gVGhlc2UgZnVuY3Rpb25zIGR1cGxpY2F0ZWQgZnVuY3Rpb25hbGl0eSB3
-aGljaCB3YXMgdWx0aW1hdGVseSBhZGRlZAo+IHRvIHRoZSBwY2kgY29yZS4KPgo+IEFsbCB1c2Vy
-cyBvZiB0aGVzZSBmdW5jdGlvbnMgaGF2ZSBiZWVuIHBvcnRlZCB0byB1c2luZyB0aGUgbmV3bHkK
-PiBleHBvc2VkIHBjaSBmdW5jdGlvbmFsaXR5LiAgVGhlc2UgZnVuY3Rpb25zIGFyZSBubyBsb25n
-ZXIgdXNlZCwKPiBzbyBkcm9wIHRoZW0uCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogRGF2ZSBBaXJsaWUgPGFp
-cmxpZWRAcmVkaGF0LmNvbT4KCkRhdmUuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+SGF2ZSB0aGlzIHBhdGNoIG92ZXJsb29rZWQuIFRoaXMgaXMgYSBnb29kIGNhdGNoLgoKUmV2aWV3
+ZWQtYnk6IExlbyBMaXUgPGxlby5saXVAYW1kLmNvbT4KCgpPbiAyMDE4LTA2LTI5IDEwOjU3IEFN
+LCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gUGluZz8KPgo+IE9uIFRodSwgSnVuIDI4LCAyMDE4IGF0
+IDI6MzcgUE0sIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPiB3cm90ZToKPj4g
+V2FzIG1pc3NlZCB3aGVuIHVwZGF0aW5nIHRoZSB1dmQgNiBtb2R1bGUuCj4+Cj4+IEZpeGVzOiAx
+YWFjM2M5MTgwIChkcm0vYW1kZ3B1OiBmaXggaW5zZXJ0IG5vcCBmb3IgVVZENiByaW5nKQo+PiBT
+aWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4+
+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMgfCAzICstLQo+
+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMiBkZWxldGlvbnMoLSkKPj4KPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5jCj4+IGluZGV4IDFkZjFjNjExNTM0MS4u
+OGVlMWMyZWFhYTE0IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91
+dmRfdjZfMC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMK
+Pj4gQEAgLTE1NjksNyArMTU2OSw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3Jpbmdf
+ZnVuY3MgdXZkX3Y2XzBfcmluZ19waHlzX2Z1bmNzID0gewo+PiAgIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgdXZkX3Y2XzBfcmluZ192bV9mdW5jcyA9IHsKPj4gICAgICAg
+ICAgLnR5cGUgPSBBTURHUFVfUklOR19UWVBFX1VWRCwKPj4gICAgICAgICAgLmFsaWduX21hc2sg
+PSAweGYsCj4+IC0gICAgICAgLm5vcCA9IFBBQ0tFVDAobW1VVkRfTk9fT1AsIDApLAo+PiAgICAg
+ICAgICAuc3VwcG9ydF82NGJpdF9wdHJzID0gZmFsc2UsCj4+ICAgICAgICAgIC5nZXRfcnB0ciA9
+IHV2ZF92Nl8wX3JpbmdfZ2V0X3JwdHIsCj4+ICAgICAgICAgIC5nZXRfd3B0ciA9IHV2ZF92Nl8w
+X3JpbmdfZ2V0X3dwdHIsCj4+IEBAIC0xNTg3LDcgKzE1ODYsNyBAQCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGFtZGdwdV9yaW5nX2Z1bmNzIHV2ZF92Nl8wX3Jpbmdfdm1fZnVuY3MgPSB7Cj4+ICAgICAg
+ICAgIC5lbWl0X2hkcF9mbHVzaCA9IHV2ZF92Nl8wX3JpbmdfZW1pdF9oZHBfZmx1c2gsCj4+ICAg
+ICAgICAgIC50ZXN0X3JpbmcgPSB1dmRfdjZfMF9yaW5nX3Rlc3RfcmluZywKPj4gICAgICAgICAg
+LnRlc3RfaWIgPSBhbWRncHVfdXZkX3JpbmdfdGVzdF9pYiwKPj4gLSAgICAgICAuaW5zZXJ0X25v
+cCA9IGFtZGdwdV9yaW5nX2luc2VydF9ub3AsCj4+ICsgICAgICAgLmluc2VydF9ub3AgPSB1dmRf
+djZfMF9yaW5nX2luc2VydF9ub3AsCj4+ICAgICAgICAgIC5wYWRfaWIgPSBhbWRncHVfcmluZ19n
+ZW5lcmljX3BhZF9pYiwKPj4gICAgICAgICAgLmJlZ2luX3VzZSA9IGFtZGdwdV91dmRfcmluZ19i
+ZWdpbl91c2UsCj4+ICAgICAgICAgIC5lbmRfdXNlID0gYW1kZ3B1X3V2ZF9yaW5nX2VuZF91c2Us
+Cj4+IC0tCj4+IDIuMTMuNgo+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
