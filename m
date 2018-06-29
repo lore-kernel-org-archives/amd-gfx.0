@@ -1,17 +1,19 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: update documentation for amdgpu_drv.c
-Date: Fri, 29 Jun 2018 11:46:10 +0200
-Message-ID: <5d69415d-068c-66d0-fad2-1738b32f6872@daenzer.net>
-References: <1530123285-28043-1-git-send-email-sonny.jiang@amd.com>
- <6a028ca5-f799-8cc8-fb74-7a036a428d80@daenzer.net>
- <CY4PR12MB15119F358F68B52729D44B3CFD4F0@CY4PR12MB1511.namprd12.prod.outlook.com>
- <CADnq5_MiO9gTfavmOQeycbsaM8bczBx-iLRbxqi8Sc_hCE9B2Q@mail.gmail.com>
+From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] vgaswitchroo: set audio client id according to bound gpu
+ client id
+Date: Fri, 29 Jun 2018 10:40:50 +0000
+Message-ID: <DM3PR12MB08732DAAAA57739DCE431D66994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
+References: <1530166933-21655-1-git-send-email-Jim.Qu@amd.com>
+ <CADnq5_NcNfMD9UDN17c-513rD--kQY7nzw6OTgimV0pVqLjbOg@mail.gmail.com>
+ <DM3PR12MB08737CF35AF6D0CE1A1BDC64994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
+ <20180629080634.GA7357@wunner.de>
+ <DM3PR12MB08737DC9FB94BB6F3AEF5634994E0@DM3PR12MB0873.namprd12.prod.outlook.com>,
+ <20180629092138.GA11849@wunner.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0646933711=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_MiO9gTfavmOQeycbsaM8bczBx-iLRbxqi8Sc_hCE9B2Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <20180629092138.GA11849-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,58 +24,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org" <alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOC0wNi0yOCAwODozMSBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IE9uIFRodSwgSnVu
-IDI4LCAyMDE4IGF0IDI6MDIgUE0sIEppYW5nLCBTb25ueSA8U29ubnkuSmlhbmdAYW1kLmNvbT4g
-d3JvdGU6Cj4+IEhpIEFsZXgsCj4+Cj4+Cj4+IFdoYXQncyB5b3VyIG9waW5pb24gYWJvdXQgTWlj
-aGVsJ3Mgc3VnZ2VzdGlvbj8KPiAKPiBZb3Ugc2hvdWxkIGRlZmluaXRlbHkgdXBkYXRlIGFtZGdw
-dS5yc3QgdG8gaW5jbHVkZSB0aGUgbmV3Cj4gZG9jdW1lbnRhdGlvbiBzZWN0aW9uLiAgQXMgZm9y
-IHdoZXRoZXIgdG8gaGF2ZSBzZXBhcmF0ZSBzZWN0aW9ucyBvcgo+IG9uZSBiaWcgc2VjdGlvbiBm
-b3IgdGhlIHBhcmFtZXRlcnMsIEkgY291bGQgZ28gZWl0aGVyIHdheS4gIElmIHdlIGhhdmUKPiBv
-bmUgYmlnIHNlY3Rpb24sIHBlb3BsZSB3aWxsIGxpa2VseSBmb3JnZXQgdG8gdXBkYXRlIGl0IHdo
-ZW4gdGhleSBhZGQKPiBhIG5ldyBwYXJhbWV0ZXIuICBPbiB0aGUgb3RoZXIgaGFuZCwgaWYgd2Ug
-aGF2ZSBzZXBhcmF0ZSBzZWN0aW9ucyBmb3IKPiBlYWNoIG9wdGlvbiwgcGVvcGxlIHdpbGwgbGlr
-ZWx5IGZvcmdldCB0byB1cGRhdGUgYW1kZ3B1LnJzdCB0byBhZGQgdGhlCj4gbmV3IHBhcmFtZXRl
-ci4KCkkgdGhpbmsgaXQncyBlYXNpZXIgdG8gY2F0Y2ggdGhlIGxhdHRlciBpbiByZXZpZXcsIGFu
-ZCB3aGlsZSBpdCBpcwpzbGlnaHRseSBhbm5veWluZyBuZWVkaW5nIGFuIGVudHJ5IGZvciBlYWNo
-IHBhcmFtZXRlciBpbiBhbWRncHUucnN0LAptYXliZSBpdCBjYW4gc2VydmUgYXMgaW5jZW50aXZl
-IGFnYWluc3QgbmVlZGxlc3NseSBhZGRpbmcgbmV3IG1vZHVsZQpwYXJhbWV0ZXJzLiA6KQoKUmln
-aHQgbm93IHRoZXJlJ3MgYSB0aGlyZCBwb3NzaWJpbGl0eSwgc2VlIHRoZSBkaWZmIGJlbG93IGFz
-IGFuIGV4YW1wbGUuIEJ5CnJlZmVyZW5jaW5nIGFtZGdwdV9kcnYuYyB3aXRob3V0IGEgOmRvYzog
-b3IgOmludGVybmFsOiBzdGFuemEsIGVhY2ggRE9DCmNvbW1lbnQgaXMgcGlja2VkIHVwIGF1dG9t
-YXRpY2FsbHksIHdpdGggdGhlIHRleHQgYWZ0ZXIgRE9DIGFzIHRoZQpoZWFkaW5nLiBIb3dldmVy
-LCB0aGlzIHdpbGwgYnJlYWsgZG93biBpZiB3ZSB3YW50IHRvIGFkZCBnZW5lcmFsIERPQwpjb21t
-ZW50cyBvciBmdW5jdGlvbiBjb21tZW50cyBpbiBhbWRncHVfZHJ2LmMuCgoKUC5TLiBJIGNoZXJy
-eS1waWNrZWQgc29tZSB1cHN0cmVhbSBmaXhlcyBmcm9tIHRoZSBEb2N1bWVudGF0aW9uIHRyZWUg
-dG8KYW1kLXN0YWdpbmctZHJtLW5leHQsIG1ha2UgaHRtbGRvY3Mgd29ya3MgYWdhaW4uCgoKZGlm
-ZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QgYi9Eb2N1bWVudGF0aW9uL2dw
-dS9hbWRncHUucnN0CmluZGV4IDc2NWMyYTMyOTM4Zi4uYTc0MGU0OTFkZmNjIDEwMDY0NAotLS0g
-YS9Eb2N1bWVudGF0aW9uL2dwdS9hbWRncHUucnN0CisrKyBiL0RvY3VtZW50YXRpb24vZ3B1L2Ft
-ZGdwdS5yc3QKQEAgLTUsNiArNSwxMyBAQAogVGhlIGRybS9hbWRncHUgZHJpdmVyIHN1cHBvcnRz
-IGFsbCBBTUQgUmFkZW9uIEdQVXMgYmFzZWQgb24gdGhlIEdyYXBoaWNzIENvcmUKIE5leHQgKEdD
-TikgYXJjaGl0ZWN0dXJlLgoKK01vZHVsZSBQYXJhbWV0ZXJzCis9PT09PT09PT09PT09PT09PQor
-CitUaGUgYW1kZ3B1IGRyaXZlciBzdXBwb3J0cyB0aGUgZm9sbG93aW5nIG1vZHVsZSBwYXJhbWV0
-ZXJzOgorCisuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rydi5jCisKIENvcmUgRHJpdmVyIEluZnJhc3RydWN0dXJlCiA9PT09PT09PT09PT09PT09PT09
-PT09PT09PQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-cnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwppbmRleCBkY2Rj
-OTdkNmRjNDQuLmZmMDI5OTg3OTYwMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kcnYuYwpAQCAtMSwxMCArMSwzIEBACi0vKioKLSAqIFxmaWxlIGFtZGdwdV9kcnYuYwotICog
-QU1EIEFtZGdwdSBkcml2ZXIKLSAqCi0gKiBcYXV0aG9yIEdhcmV0aCBIdWdoZXMgPGdhcmV0aEB2
-YWxpbnV4LmNvbT4KLSAqLwotCiAvKgogICogQ29weXJpZ2h0IDIwMDAgVkEgTGludXggU3lzdGVt
-cywgSW5jLiwgU3Vubnl2YWxlLCBDYWxpZm9ybmlhLgogICogQWxsIFJpZ2h0cyBSZXNlcnZlZC4K
-QEAgLTEzNiw2ICsxMjksMTEgQEAgaW50IGFtZGdwdV9ncHVfcmVjb3ZlcnkgPSAtMTsgLyogYXV0
-byAqLwogaW50IGFtZGdwdV9lbXVfbW9kZSA9IDA7CiB1aW50IGFtZGdwdV9zbXVfbWVtb3J5X3Bv
-b2xfc2l6ZSA9IDA7CgorLyoqCisgKiBET0M6IHZyYW1saW1pdAorICoKKyAqIFJlc3RyaWN0IFZS
-QU0gZm9yIHRlc3RpbmcsIGluIG1lZ2FieXRlcworICovCiBNT0RVTEVfUEFSTV9ERVNDKHZyYW1s
-aW1pdCwgIlJlc3RyaWN0IFZSQU0gZm9yIHRlc3RpbmcsIGluIG1lZ2FieXRlcyIpOwogbW9kdWxl
-X3BhcmFtX25hbWVkKHZyYW1saW1pdCwgYW1kZ3B1X3ZyYW1fbGltaXQsIGludCwgMDYwMCk7CgoK
-LS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAg
-ICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAg
-ICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0646933711==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM3PR12MB08732DAAAA57739DCE431D66994E0DM3PR12MB0873namp_"
+
+--_000_DM3PR12MB08732DAAAA57739DCE431D66994E0DM3PR12MB0873namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+indeed?I used 4.13 on the platform. let me have a try with the patch you me=
+ntioned
+
+thinks
+jimqu
+
+?? Outlook for Android<https://aka.ms/ghei36>
+
+________________________________
+From: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Sent: Friday, June 29, 2018 5:21:38 PM
+To: Qu, Jim
+Cc: alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, =
+Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] vgaswitchroo: set audio client id according to bound g=
+pu client id
+
+On Fri, Jun 29, 2018 at 08:55:40AM +0000, Qu, Jim wrote:
+> When our dGPU does suspend by runtime pm. amdgpu driver for dgpu will
+> also call vgaswtichroo to power off its audio. vgaswitchroo driver will
+> find audio codec by vgaswitchroo dgpu client id(VGA_SWITCHEROO_DIS).
+
+That is no longer the case since v4.17.  The HDA controller now runtime
+suspends autonomously, see commit 07f4f97d7b4b ("vga_switcheroo: Use
+device link for HDA controller").
+
+Your patch appears to be geared towards an older kernel version.
+Please retest on the laptop in question with a v4.17+ kernel.
+
+
+> I think the issue should be observed on both Intel+AMD or AMD+AMD
+> platform which has the same HW configuration.
+>
+> 1.if dGPU has no audio codec. the issue should be always observed.
+> 2.if both iGPU and dGPU has audio codecs, the issue should be random,
+> it depends on the first audio found by vgaswitchroo driver is on iGPU
+> or dGPU.
+
+On discrete AMD and Nvidia GPUs, the HDA controller is function 1 and
+the GPU is function 0 in the same PCI slot.
+
+On Intel chipsets, the HDA controller and the GPU have completely
+different PCI device numbers, e.g. the GPU might be 0000:00:02.0 and
+the HDA controller might be 0000:00:1b.0.
+
+get_bound_vga() checks that the HDA controller is function 1 and there's
+a GPU in function 0 of the same slot.
+
+Thus get_bound_vga() always returns NULL for an Intel HDA controller and
+the controller is never registered with vga_switcheroo (which is fine).
+
+Thanks,
+
+Lukas
+
+--_000_DM3PR12MB08732DAAAA57739DCE431D66994E0DM3PR12MB0873namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+indeed&#65292;I used 4.13 on the platform. let me have a try with the patch=
+ you mentioned<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+thinks<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+jimqu<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+&#33719;&#21462; <a href=3D"https://aka.ms/ghei36">Outlook for Android</a><=
+/div>
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Lukas Wunner &lt;lu=
+kas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, June 29, 2018 5:21:38 PM<br>
+<b>To:</b> Qu, Jim<br>
+<b>Cc:</b> alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; De=
+ucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] vgaswitchroo: set audio client id according to =
+bound gpu client id</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">On Fri, Jun 29, 2018 at 08:55:40AM &#43;0000, Qu, =
+Jim wrote:<br>
+&gt; When our dGPU does suspend by runtime pm. amdgpu driver for dgpu will<=
+br>
+&gt; also call vgaswtichroo to power off its audio. vgaswitchroo driver wil=
+l<br>
+&gt; find audio codec by vgaswitchroo dgpu client id(VGA_SWITCHEROO_DIS).<b=
+r>
+<br>
+That is no longer the case since v4.17.&nbsp; The HDA controller now runtim=
+e<br>
+suspends autonomously, see commit 07f4f97d7b4b (&quot;vga_switcheroo: Use<b=
+r>
+device link for HDA controller&quot;).<br>
+<br>
+Your patch appears to be geared towards an older kernel version.<br>
+Please retest on the laptop in question with a v4.17&#43; kernel.<br>
+<br>
+<br>
+&gt; I think the issue should be observed on both Intel&#43;AMD or AMD&#43;=
+AMD<br>
+&gt; platform which has the same HW configuration.<br>
+&gt; <br>
+&gt; 1.if dGPU has no audio codec. the issue should be always observed.<br>
+&gt; 2.if both iGPU and dGPU has audio codecs, the issue should be random,<=
+br>
+&gt; it depends on the first audio found by vgaswitchroo driver is on iGPU<=
+br>
+&gt; or dGPU.<br>
+<br>
+On discrete AMD and Nvidia GPUs, the HDA controller is function 1 and<br>
+the GPU is function 0 in the same PCI slot.<br>
+<br>
+On Intel chipsets, the HDA controller and the GPU have completely<br>
+different PCI device numbers, e.g. the GPU might be 0000:00:02.0 and<br>
+the HDA controller might be 0000:00:1b.0.<br>
+<br>
+get_bound_vga() checks that the HDA controller is function 1 and there's<br=
+>
+a GPU in function 0 of the same slot.<br>
+<br>
+Thus get_bound_vga() always returns NULL for an Intel HDA controller and<br=
+>
+the controller is never registered with vga_switcheroo (which is fine).<br>
+<br>
+Thanks,<br>
+<br>
+Lukas<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_DM3PR12MB08732DAAAA57739DCE431D66994E0DM3PR12MB0873namp_--
+
+--===============0646933711==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0646933711==--
