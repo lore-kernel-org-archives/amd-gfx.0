@@ -1,13 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd: Replace drm_dev_unref with drm_dev_put
-Date: Fri, 29 Jun 2018 15:25:59 -0400
-Message-ID: <CADnq5_POjGwxaZKBxB6HVDEhng7fFHB7H-pRq6d_GVNgoM2JJA@mail.gmail.com>
-References: <20180628141025.26140-1-contact@tzimmermann.org>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 5/5] drm: drop drm_pcie_get_speed_cap_mask and
+ drm_pcie_get_max_link_width
+Date: Sat, 30 Jun 2018 05:40:21 +1000
+Message-ID: <CAPM=9txYNvVxJGxDo3122msDe=OXHKW0r7M92DkVgaSxjz68mg@mail.gmail.com>
+References: <20180625210606.2736-1-alexander.deucher@amd.com>
+ <20180625210606.2736-6-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180628141025.26140-1-contact-XI3RIfXWzUwUta/EL0iE6g@public.gmane.org>
+In-Reply-To: <20180625210606.2736-6-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,34 +20,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Thomas Zimmermann <contact-XI3RIfXWzUwUta/EL0iE6g@public.gmane.org>
-Cc: "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Bjorn Helgaas <bhelgaas-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Linux PCI <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBKdW4gMjgsIDIwMTggYXQgMTA6MTAgQU0sIFRob21hcyBaaW1tZXJtYW5uCjxjb250
-YWN0QHR6aW1tZXJtYW5uLm9yZz4gd3JvdGU6Cj4gVGhpcyBwYXRjaCB1bmlmaWVzIHRoZSBuYW1p
-bmcgb2YgRFJNIGZ1bmN0aW9ucyBmb3IgcmVmZXJlbmNlIGNvdW50aW5nCj4gb2Ygc3RydWN0IGRy
-bV9kZXZpY2UuIFRoZSByZXN1bHRpbmcgY29kZSBpcyBtb3JlIGFsaWduZWQgd2l0aCB0aGUgcmVz
-dAo+IG9mIHRoZSBMaW51eCBrZXJuZWwgaW50ZXJmYWNlcy4KPgo+IFNpZ25lZC1vZmYtYnk6IFRo
-b21hcyBaaW1tZXJtYW5uIDxjb250YWN0QHR6aW1tZXJtYW5uLm9yZz4KCkFwcGxpZWQuICB0aGFu
-a3MKCkFsZXgKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYu
-YyB8IDQgKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
-cygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-cnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+IGluZGV4IGE1
-NDk0ODMwMzJiMC4uMmFiZjNiOTlhOTY4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kcnYuYwo+IEBAIC02NjQsNyArNjY0LDcgQEAgc3RhdGljIGludCBhbWRncHVfcGNp
-X3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpwZGV2LAo+ICBlcnJfcGNpOgo+ICAgICAgICAgcGNpX2Rp
-c2FibGVfZGV2aWNlKHBkZXYpOwo+ICBlcnJfZnJlZToKPiAtICAgICAgIGRybV9kZXZfdW5yZWYo
-ZGV2KTsKPiArICAgICAgIGRybV9kZXZfcHV0KGRldik7Cj4gICAgICAgICByZXR1cm4gcmV0Owo+
-ICB9Cj4KPiBAQCAtNjc0LDcgKzY3NCw3IEBAIGFtZGdwdV9wY2lfcmVtb3ZlKHN0cnVjdCBwY2lf
-ZGV2ICpwZGV2KQo+ICAgICAgICAgc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IHBjaV9nZXRfZHJ2
-ZGF0YShwZGV2KTsKPgo+ICAgICAgICAgZHJtX2Rldl91bnJlZ2lzdGVyKGRldik7Cj4gLSAgICAg
-ICBkcm1fZGV2X3VucmVmKGRldik7Cj4gKyAgICAgICBkcm1fZGV2X3B1dChkZXYpOwo+ICAgICAg
-ICAgcGNpX2Rpc2FibGVfZGV2aWNlKHBkZXYpOwo+ICAgICAgICAgcGNpX3NldF9kcnZkYXRhKHBk
-ZXYsIE5VTEwpOwo+ICB9Cj4gLS0KPiAyLjE0LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+T24gMjYgSnVuZSAyMDE4IGF0IDA3OjA2LCBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWls
+LmNvbT4gd3JvdGU6Cj4gVGhlc2UgZnVuY3Rpb25zIGR1cGxpY2F0ZWQgZnVuY3Rpb25hbGl0eSB3
+aGljaCB3YXMgdWx0aW1hdGVseSBhZGRlZAo+IHRvIHRoZSBwY2kgY29yZS4KPgo+IEFsbCB1c2Vy
+cyBvZiB0aGVzZSBmdW5jdGlvbnMgaGF2ZSBiZWVuIHBvcnRlZCB0byB1c2luZyB0aGUgbmV3bHkK
+PiBleHBvc2VkIHBjaSBmdW5jdGlvbmFsaXR5LiAgVGhlc2UgZnVuY3Rpb25zIGFyZSBubyBsb25n
+ZXIgdXNlZCwKPiBzbyBkcm9wIHRoZW0uCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
+PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogRGF2ZSBBaXJsaWUgPGFp
+cmxpZWRAcmVkaGF0LmNvbT4KCkRhdmUuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
