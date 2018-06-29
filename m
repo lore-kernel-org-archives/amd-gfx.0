@@ -1,14 +1,13 @@
 From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/pp: add missing byte swapping in
- process_pptables_v1_0.c
-Date: Fri, 29 Jun 2018 00:22:04 +0000
-Message-ID: <CY4PR12MB1687826A8220FF3E2C04DA90FB4E0@CY4PR12MB1687.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amdgpu/pm: fix display count in non-DC path
+Date: Fri, 29 Jun 2018 00:22:27 +0000
+Message-ID: <CY4PR12MB168762615099B161517A6DE0FB4E0@CY4PR12MB1687.namprd12.prod.outlook.com>
 References: <20180628183804.9846-1-alexander.deucher@amd.com>,
- <20180628183804.9846-4-alexander.deucher@amd.com>
+ <20180628183804.9846-3-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1826531436=="
+Content-Type: multipart/mixed; boundary="===============0015833174=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180628183804.9846-4-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180628183804.9846-3-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,12 +22,12 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1826531436==
+--===============0015833174==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687826A8220FF3E2C04DA90FB4E0CY4PR12MB1687namp_"
+	boundary="_000_CY4PR12MB168762615099B161517A6DE0FB4E0CY4PR12MB1687namp_"
 
---_000_CY4PR12MB1687826A8220FF3E2C04DA90FB4E0CY4PR12MB1687namp_
+--_000_CY4PR12MB168762615099B161517A6DE0FB4E0CY4PR12MB1687namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -48,38 +47,36 @@ cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Sent: Friday, June 29, 2018 2:38 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Deucher, Alexander
-Subject: [PATCH] drm/amdgpu/pp: add missing byte swapping in process_pptabl=
-es_v1_0.c
+Subject: [PATCH] drm/amdgpu/pm: fix display count in non-DC path
 
-Values need to be swapped on big endian.
+new_active_crtcs is a bitmask, new_active_crtc_count is the
+actual count.
 
 Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c b/=
-drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-index 35bd9870ab10..4e1fd5393845 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-@@ -183,10 +183,10 @@ static int get_vddc_lookup_table(
-                                         ATOM_Tonga_Voltage_Lookup_Record,
-                                         entries, vddc_lookup_pp_tables, i)=
-;
-                 record->us_calculated =3D 0;
--               record->us_vdd =3D atom_record->usVdd;
--               record->us_cac_low =3D atom_record->usCACLow;
--               record->us_cac_mid =3D atom_record->usCACMid;
--               record->us_cac_high =3D atom_record->usCACHigh;
-+               record->us_vdd =3D le16_to_cpu(atom_record->usVdd);
-+               record->us_cac_low =3D le16_to_cpu(atom_record->usCACLow);
-+               record->us_cac_mid =3D le16_to_cpu(atom_record->usCACMid);
-+               record->us_cac_high =3D le16_to_cpu(atom_record->usCACHigh)=
-;
-         }
-
-         *lookup_table =3D table;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c
+index a003fd881a89..f1404adc3a90 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -1959,7 +1959,7 @@ void amdgpu_pm_compute_clocks(struct amdgpu_device *a=
+dev)
+                 if (!amdgpu_device_has_dc_support(adev)) {
+                         mutex_lock(&adev->pm.mutex);
+                         amdgpu_dpm_get_active_displays(adev);
+-                       adev->pm.pm_display_cfg.num_display =3D adev->pm.dp=
+m.new_active_crtcs;
++                       adev->pm.pm_display_cfg.num_display =3D adev->pm.dp=
+m.new_active_crtc_count;
+                         adev->pm.pm_display_cfg.vrefresh =3D amdgpu_dpm_ge=
+t_vrefresh(adev);
+                         adev->pm.pm_display_cfg.min_vblank_time =3D amdgpu=
+_dpm_get_vblank_time(adev);
+                         /* we have issues with mclk switching with refresh=
+ rates over 120 hz on the non-DC code. */
 --
 2.13.6
 
@@ -96,7 +93,7 @@ orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
 
 
 
---_000_CY4PR12MB1687826A8220FF3E2C04DA90FB4E0CY4PR12MB1687namp_
+--_000_CY4PR12MB168762615099B161517A6DE0FB4E0CY4PR12MB1687namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -136,61 +133,53 @@ gmail.com&gt;<br>
 <b>Sent:</b> Friday, June 29, 2018 2:38 AM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/pp: add missing byte swapping in process=
-_pptables_v1_0.c</font>
+<b>Subject:</b> [PATCH] drm/amdgpu/pm: fix display count in non-DC path</fo=
+nt>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Values need to be swapped on big endian.<br>
+<div class=3D"PlainText">new_active_crtcs is a bitmask, new_active_crtc_cou=
+nt is the<br>
+actual count.<br>
 <br>
 Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c | 8 &#43;=
-&#43;&#43;&#43;----<br>
-&nbsp;1 file changed, 4 insertions(&#43;), 4 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c b/=
-drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c<br>
-index 35bd9870ab10..4e1fd5393845 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0=
-.c<br>
-@@ -183,10 &#43;183,10 @@ static int get_vddc_lookup_table(<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c<br>
+index a003fd881a89..f1404adc3a90 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+@@ -1959,7 &#43;1959,7 @@ void amdgpu_pm_compute_clocks(struct amdgpu_devic=
+e *adev)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+sp;&nbsp;&nbsp;&nbsp; if (!amdgpu_device_has_dc_support(adev)) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; ATOM_Tonga_Voltage_Lookup_Record,<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex=
+_lock(&amp;adev-&gt;pm.mutex);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; entries, vddc_lookup_pp_tables, i);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; record-&gt;us_calculated =3D 0;<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_dpm_get_active_displays(adev);<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; record-&gt;us_vdd =3D atom_record-&gt;usVdd;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; record-&gt;us_cac_low =3D atom_record-&gt;usCACLow;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; record-&gt;us_cac_mid =3D atom_record-&gt;usCACMid;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; record-&gt;us_cac_high =3D atom_record-&gt;usCACHigh;<br>
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.pm_d=
+isplay_cfg.num_display =3D adev-&gt;pm.dpm.new_active_crtcs;<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; record-&gt;us_vdd =3D le16_to_cpu(atom_record-&gt;usVdd);<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; record-&gt;us_cac_low =3D le16_to_cpu(atom_record-&gt;usCACL=
-ow);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; record-&gt;us_cac_mid =3D le16_to_cpu(atom_record-&gt;usCACM=
-id);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; record-&gt;us_cac_high =3D le16_to_cpu(atom_record-&gt;usCAC=
-High);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *lookup_table =3D table;<b=
-r>
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.=
+pm_display_cfg.num_display =3D adev-&gt;pm.dpm.new_active_crtc_count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;pm.pm_display_cfg.vrefresh =3D amdgpu_dpm_get_vrefresh(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;pm.pm_display_cfg.min_vblank_time =3D amdgpu_dpm_get_vblank_time(adev);=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* we=
+ have issues with mclk switching with refresh rates over 120 hz on the non-=
+DC code. */<br>
 -- <br>
 2.13.6<br>
 <br>
@@ -198,40 +187,40 @@ _______________________________________________<br>
 amd-gfx mailing list<br>
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk874279" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+lnk549072" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
 desktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15302317178770.14806447013464563" style=3D"margin-bo=
-ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15302317178750.23574227077891363" role=3D"presenta=
+<div id=3D"LPBorder_GT_15302317367930.8649136282460892" style=3D"margin-bot=
+tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_15302317367900.41991824713640313" role=3D"presenta=
 tion" cellspacing=3D"0" style=3D"width: 90%; background-color: rgb(255, 255=
 , 255); position: relative; overflow: auto; padding-top: 20px; padding-bott=
 om: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200); bord=
 er-bottom: 1px dotted rgb(200, 200, 200);">
 <tbody>
 <tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_15302317178760.23814501056362603" colspan=3D"2" style=3D=
-"vertical-align: top; position: relative; padding: 0px; display: table-cell=
-;">
-<div id=3D"LPRemovePreviewContainer_15302317178760.09278063691874605"></div=
+<td id=3D"TextCell_15302317367910.6262105987198401" colspan=3D"2" style=3D"=
+vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+">
+<div id=3D"LPRemovePreviewContainer_15302317367910.12259255040395578"></div=
 >
-<div id=3D"LPTitle_15302317178760.37194556046792737" style=3D"top: 0px; col=
-or: rgb(0, 120, 215); font-weight: normal; font-size: 21px; font-family: wf=
-_segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &q=
-uot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-h=
-eight: 21px;">
-<a id=3D"LPUrlAnchor_15302317178760.9507336677209288" href=3D"https://lists=
+<div id=3D"LPTitle_15302317367910.7787159130857202" style=3D"top: 0px; colo=
+r: rgb(0, 120, 215); font-weight: normal; font-size: 21px; font-family: wf_=
+segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
+ight: 21px;">
+<a id=3D"LPUrlAnchor_15302317367920.2313079142425054" href=3D"https://lists=
 .freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
 decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15302317178770.19150342025880462" style=3D"margin: 10=
-px 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: w=
-f_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Aria=
-l, sans-serif; font-size: 14px; line-height: 14px;">
+<div id=3D"LPMetadata_15302317367920.030321530819127807" style=3D"margin: 1=
+0px 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: =
+wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Ari=
+al, sans-serif; font-size: 14px; line-height: 14px;">
 lists.freedesktop.org</div>
-<div id=3D"LPDescription_15302317178770.04800221918509884" style=3D"display=
-: block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_se=
-goe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, s=
-ans-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow:=
- hidden;">
+<div id=3D"LPDescription_15302317367930.7613471671968977" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
+oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
+ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
+hidden;">
 Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
 orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
 iv>
@@ -249,9 +238,9 @@ iv>
 </body>
 </html>
 
---_000_CY4PR12MB1687826A8220FF3E2C04DA90FB4E0CY4PR12MB1687namp_--
+--_000_CY4PR12MB168762615099B161517A6DE0FB4E0CY4PR12MB1687namp_--
 
---===============1826531436==
+--===============0015833174==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -261,4 +250,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1826531436==--
+--===============0015833174==--
