@@ -1,52 +1,65 @@
-From: Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH] vgaswitchroo: set audio client id
- according to bound gpu client id
-Date: Fri, 29 Jun 2018 13:11:08 +0200
-Message-ID: <20180629111108.GA11609@wunner.de>
-References: <1530166933-21655-1-git-send-email-Jim.Qu@amd.com>
- <CADnq5_NcNfMD9UDN17c-513rD--kQY7nzw6OTgimV0pVqLjbOg@mail.gmail.com>
- <DM3PR12MB08737CF35AF6D0CE1A1BDC64994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
- <20180629080634.GA7357@wunner.de>
- <DM3PR12MB08737DC9FB94BB6F3AEF5634994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
- <20180629092138.GA11849@wunner.de>
- <DM3PR12MB08732DAAAA57739DCE431D66994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
+From: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix user fence write race condition
+Date: Fri, 29 Jun 2018 13:30:36 +0200
+Message-ID: <20180629113036.13396-1-nhaehnle@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <alsa-devel-bounces@alsa-project.org>
-Content-Disposition: inline
-In-Reply-To: <DM3PR12MB08732DAAAA57739DCE431D66994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
-List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
- <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
-List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
- <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Errors-To: alsa-devel-bounces@alsa-project.org
-Sender: alsa-devel-bounces@alsa-project.org
-To: "Qu, Jim" <Jim.Qu@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Jun 29, 2018 at 10:40:50AM +0000, Qu, Jim wrote:
-> > That is no longer the case since v4.17.  The HDA controller now runtime
-> > suspends autonomously, see commit 07f4f97d7b4b ("vga_switcheroo: Use
-> > device link for HDA controller").
-> > 
-> > Your patch appears to be geared towards an older kernel version.
-> > Please retest on the laptop in question with a v4.17+ kernel.
-> 
-> indeed? I used 4.13 on the platform. let me have a try with the patch
-> you mentioned
-
-The commit can't be cherry-picked by itself onto v4.13, it was part of
-a larger series.  It's best to use a stock v4.17 kernel.
-
-Note, a fix went into Linus' tree yesterday, commit 57cb54e53bdd
-("ALSA: hda - Force to link down at runtime suspend on ATI/AMD HDMI").
-Not sure if it's needed on your machine.
-
-Thanks,
-
-Lukas
+RnJvbTogTmljb2xhaSBIw6RobmxlIDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4KClRoZSBidWZm
+ZXIgb2JqZWN0IGJhY2tpbmcgdGhlIHVzZXIgZmVuY2UgaXMgcmVzZXJ2ZWQgdXNpbmcgdGhlIG5v
+bi11c2VyCmZlbmNlLCBpLmUuLCBhcyBzb29uIGFzIHRoZSBub24tdXNlciBmZW5jZSBpcyBzaWdu
+YWxlZCwgdGhlIHVzZXIgZmVuY2UKYnVmZmVyIG9iamVjdCBjYW4gYmUgbW92ZWQgb3IgZXZlbiBk
+ZXN0cm95ZWQuCgpUaGVyZWZvcmUsIGVtaXQgdGhlIHVzZXIgZmVuY2UgZmlyc3QuCgpCb3RoIGZl
+bmNlcyBoYXZlIHRoZSBzYW1lIGNhY2hlIGludmFsaWRhdGlvbiBiZWhhdmlvciwgc28gdGhpcyBz
+aG91bGQKaGF2ZSBubyB1c2VyLXZpc2libGUgZWZmZWN0LgoKU2lnbmVkLW9mZi1ieTogTmljb2xh
+aSBIw6RobmxlIDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4KLS0tClRoZXJlIGlzIG9uZSBhc3Bl
+Y3QgdG8gdGhpcyBjaGFuZ2UgdGhhdCBJJ20gYSBiaXQgdW5zdXJlIGFib3V0OiB3aGF0IGRvZXMK
+aW5zZXJ0X2VuZCBkbz8gSXQncyBvbmx5IHVzZWQgYnkgVVZEICYgZnJpZW5kcywgYW5kIHNpbmNl
+IHRob3NlIHJpbmdzCmRvbid0IHVzZSB1c2VyIGZlbmNlcyBJIGd1ZXNzIHRoaXMgcGF0Y2ggZG9l
+c24ndCByZWFsbHkgY2hhbmdlIGFueXRoaW5nCmZvciB0aGVtLiBBbmQgaGF2aW5nIHRoZSBpbnNl
+cnRfZW5kIGJldHdlZW4gdGhvc2UgZmVuY2VzIGFsd2F5cyBsb29rZWQKYSBiaXQgc3VzcGljaW91
+cy4uLgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jIHwgMTIgKysr
+KysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMKaW5kZXggODI5YzRkMmEzM2I5
+Li44MTE3YjhjMjExM2UgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9pYi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCkBA
+IC0yMjcsMzggKzIyNywzOCBAQCBpbnQgYW1kZ3B1X2liX3NjaGVkdWxlKHN0cnVjdCBhbWRncHVf
+cmluZyAqcmluZywgdW5zaWduZWQgbnVtX2licywKIAlpZiAocmluZy0+ZnVuY3MtPmVtaXRfdG16
+KQogCQlhbWRncHVfcmluZ19lbWl0X3RteihyaW5nLCBmYWxzZSk7CiAKIAlpZiAocmluZy0+ZnVu
+Y3MtPmVtaXRfaGRwX2ludmFsaWRhdGUKICNpZmRlZiBDT05GSUdfWDg2XzY0CiAJICAgICYmICEo
+YWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKQogI2VuZGlmCiAJICAgKQogCQlhbWRncHVfcmluZ19l
+bWl0X2hkcF9pbnZhbGlkYXRlKHJpbmcpOwogCisJLyogd3JhcCB0aGUgbGFzdCBJQiB3aXRoIGZl
+bmNlICovCisJaWYgKGpvYiAmJiBqb2ItPnVmX2FkZHIpIHsKKwkJYW1kZ3B1X3JpbmdfZW1pdF9m
+ZW5jZShyaW5nLCBqb2ItPnVmX2FkZHIsIGpvYi0+dWZfc2VxdWVuY2UsCisJCQkJICAgICAgIEFN
+REdQVV9GRU5DRV9GTEFHXzY0QklUKTsKKwl9CisKIAlyID0gYW1kZ3B1X2ZlbmNlX2VtaXQocmlu
+ZywgZik7CiAJaWYgKHIpIHsKIAkJZGV2X2VycihhZGV2LT5kZXYsICJmYWlsZWQgdG8gZW1pdCBm
+ZW5jZSAoJWQpXG4iLCByKTsKIAkJaWYgKGpvYiAmJiBqb2ItPnZtaWQpCiAJCQlhbWRncHVfdm1p
+ZF9yZXNldChhZGV2LCByaW5nLT5mdW5jcy0+dm1odWIsIGpvYi0+dm1pZCk7CiAJCWFtZGdwdV9y
+aW5nX3VuZG8ocmluZyk7CiAJCXJldHVybiByOwogCX0KIAogCWlmIChyaW5nLT5mdW5jcy0+aW5z
+ZXJ0X2VuZCkKIAkJcmluZy0+ZnVuY3MtPmluc2VydF9lbmQocmluZyk7CiAKLQkvKiB3cmFwIHRo
+ZSBsYXN0IElCIHdpdGggZmVuY2UgKi8KLQlpZiAoam9iICYmIGpvYi0+dWZfYWRkcikgewotCQlh
+bWRncHVfcmluZ19lbWl0X2ZlbmNlKHJpbmcsIGpvYi0+dWZfYWRkciwgam9iLT51Zl9zZXF1ZW5j
+ZSwKLQkJCQkgICAgICAgQU1ER1BVX0ZFTkNFX0ZMQUdfNjRCSVQpOwotCX0KLQogCWlmIChwYXRj
+aF9vZmZzZXQgIT0gfjAgJiYgcmluZy0+ZnVuY3MtPnBhdGNoX2NvbmRfZXhlYykKIAkJYW1kZ3B1
+X3JpbmdfcGF0Y2hfY29uZF9leGVjKHJpbmcsIHBhdGNoX29mZnNldCk7CiAKIAlyaW5nLT5jdXJy
+ZW50X2N0eCA9IGZlbmNlX2N0eDsKIAlpZiAodm0gJiYgcmluZy0+ZnVuY3MtPmVtaXRfc3dpdGNo
+X2J1ZmZlcikKIAkJYW1kZ3B1X3JpbmdfZW1pdF9zd2l0Y2hfYnVmZmVyKHJpbmcpOwogCWFtZGdw
+dV9yaW5nX2NvbW1pdChyaW5nKTsKIAlyZXR1cm4gMDsKIH0KIAotLSAKMi4xNC4xCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
