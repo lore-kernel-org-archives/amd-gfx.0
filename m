@@ -1,18 +1,19 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH v2] drm/amdgpu: Reserve shared fence slot in
  amdgpu_vm_update_directories
-Date: Tue, 3 Jul 2018 16:37:21 +0800
-Message-ID: <5B3B35C1.2010408@amd.com>
+Date: Tue, 3 Jul 2018 10:42:41 +0200
+Message-ID: <f6dc6a5b-f6c4-5693-6bad-b2ce29ea54bc@gmail.com>
 References: <20180622164235.30770-1-michel@daenzer.net>
  <20180625090717.28522-1-michel@daenzer.net>
  <15c3905c-8e69-9d03-e506-929e4d9176e3@gmail.com> <5B3AD88D.2010604@amd.com>
  <a95367bc-1181-649d-eca0-64ec0380c6c2@amd.com> <5B3B2FE9.1000402@amd.com>
- <78dcd991-2406-59f3-199a-721797a32c2c@daenzer.net>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <78dcd991-2406-59f3-199a-721797a32c2c-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <5B3B2FE9.1000402-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,20 +24,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?B?Q2hy?= =?UTF-8?B?aXN0aWFuIEvDtm5pZw==?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMDcvMDMvMjAxOCAwNDoyOCBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxOC0w
-Ny0wMyAxMDoxMiBBTSwgWmhhbmcsIEplcnJ5IChKdW53ZWkpIHdyb3RlOgo+Pgo+PiBCVFcsIHJl
-c2VydmF0aW9uX29iamVjdF9yZXNlcnZlX3NoYXJlZCgpIHdpbGwgZXh0ZW5kIHRoZSBtYXggbnVt
-IGFzIDIKPj4gdGltZXMgaWYgaXQncyBub3QgZW5vdWdoLgo+PiAoZGVmYXVsdCB2YWx1ZSBpcyA0
-KQo+Cj4gVGhhdCdzIGFuIGltcGxlbWVudGF0aW9uIGRldGFpbCBhbmQgZGVwZW5kcyBvbiB0aGUg
-Y2lyY3Vtc3RhbmNlcy4gVGhlCj4gb25seSBndWFyYW50ZWUgaXMgdGhhdCB0aGVyZSdzIHNwYWNl
-IGZvciBhdCBsZWFzdCBvbmUgZmVuY2UgYWZ0ZXIKPiBjYWxsaW5nIHJlc2VydmF0aW9uX29iamVj
-dF9yZXNlcnZlX3NoYXJlZCwgdW50aWwKPiByZXNlcnZhdGlvbl9vYmplY3RfYWRkX3NoYXJlZF9m
-ZW5jZSBpcyBjYWxsZWQuCgp5ZXMsIGl0J3MgYSBiaXQgbW9yZSBkZXRhaWwgZGlzY3Vzc2lvbiBh
-Ym91dCB0aGF0LgpBbnl3YXksIGl0IHNob3VsZCByZXNlcnZlIGF0IGxlYXN0IG9uZSBmb3Igc2hh
-cmVkIHJlc2VydmF0aW9uLgpMZXQncyBiYWNrIHRvIHRoZSB1cHBlciBsZXZlbCBkaXNjdXNzaW9u
-LgoKSmVycnkKCj4KPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+QW0gMDMuMDcuMjAxOCB1bSAxMDoxMiBzY2hyaWViIFpoYW5nLCBKZXJyeSAoSnVud2VpKToKPiBP
+biAwNy8wMy8yMDE4IDAyOjU4IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAwMy4w
+Ny4yMDE4IHVtIDAzOjU5IHNjaHJpZWIgWmhhbmcsIEplcnJ5IChKdW53ZWkpOgo+Pj4gT24gMDcv
+MDIvMjAxOCAwNToyMyBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+PiBbU05JUF0KPj4g
+VGhlIHJlc2VydmF0aW9uX29iamVjdF9yZXNlcnZlX3NoYXJlZCgpIGZ1bmN0aW9uIG5lZWRzIHRv
+IGJlIGNhbGxlZCAKPj4gYmVmb3JlIHlvdSBtYWtlIHN1Ym1pc3Npb25zIHRvIHRoZSBoYXJkd2Fy
+ZSB0byBtYWtlIHN1cmUgdGhhdCB5b3UgCj4+IGhhdmUgYSBmcmVlIHNsb3QgYWZ0ZXIgeW91IG1h
+ZGUgdGhlIHN1Ym1pc3Npb24uCj4+Cj4+IFRoZSBwcm9ibGVtIGlzIG5vdyB0aGF0IHdlIGFsd2F5
+cyByZXNlcnZlIG9uZSBmcmVlIHNsb3QgZHVyaW5nIAo+PiBjb21tYW5kIHN1Ym1pc3Npb24sIGJ1
+dCBmb3IgdGhlIHBhZ2UgZGlyZWN0b3J5IHJlc2VydmF0aW9uIG9iamVjdCBpdCAKPj4gY2FuIGhh
+cHBlbiB0aGF0IHRoaXMgZnJlZSBzbG90IGlzIHVzZWQgYnkgVk0gdXBkYXRlcy4KPj4KPj4gU28g
+dGhlIHNhZmVzdCBhcHByb2FjaCBpcyB0byBtYWtlIHN1cmUgdGhhdCB3ZSBoYXZlIGFub3RoZXIg
+ZnJlZSBzbG90IAo+PiBhZnRlciB0aGUgVk0gdXBkYXRlcyBhcmUgZG9uZS4KPj4KPj4gTWljaGVs
+J3MgcGF0Y2ggbmVhcmx5IGRpZCB0aGF0LCBiZWNhdXNlIHdlIHJhcmVseSBoYXZlIG9ubHkgb25l
+IAo+PiBzdWJtaXNzaW9uIGluIGFtZGdwdV92bV91cGRhdGVfZGlyZWN0b3JpZXMoKS4gQnV0IGl0
+IGlzbid0IDEwMCUgY29ycmVjdC4KPgo+IFRoYW5rcyB0byBleHBsYWluIHRoYXQsIEkgdGhpbmsg
+Z290IHlvdXIgbWVhbmluZyB0aGF0IHdlIHNob3VsZCAKPiByZXNlcnZlIHNsb3QgZm9yIGNvbW1h
+bmQgc3VibWlzc2lvbiBhZnRlciBWTSB1cGRhdGUuCj4KPiBpZiBzbywgc2hhbGwgd2UgYWRkIHJl
+c2VydmF0aW9uX29iamVjdF9yZXNlcnZlX3NoYXJlZCgpIGZvciBib3RoIG9mIAo+IHRoZW0sIHNp
+bmNlIGFueSBvZiBwbGFjZSBtYXkgcnVuIG91dCBvZiBzbG90Lgo+Cj4gV2hpbGUgdGhlIGdhcCBm
+cm9tIG1lIGlzIEkgZmFpbCB0byBmaW5kIHJlc2VydmluZyBzbG90IGR1cmluZyBjb21tYW5kIAo+
+IHN1Ym1pc3Npb24sCgpUaGF0J3MgZG9uZSBieSB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJzKCkuCgo+
+IHRoZSByb290IGJvIHJlc2VydmF0aW9uIHNlZW1zIHRvIGJlIHVzZWQgYnkgVk0gdXBkYXRlIG9u
+bHkoaWYgbm90IAo+IGNvcnJlY3QgbWUpLgoKTm8sIHRoYXQgaXMgbm90IGNvcnJlY3QuIFRoZSBy
+b290IEJPIGlzIGFsc28gcGFydCBvZiB0aGUgbGlzdCBvZiBCT3MgZm9yIAp0aGUgY29tbWFuZCBz
+dWJtaXNzaW9uIHVzZWQgYnkgdHRtX2V1X3Jlc2VydmVfYnVmZmVycygpIGFuZCAKdHRtX2V1X2Zl
+bmNlX2J1ZmZlcl9vYmplY3RzKCkuCgpBbGwgVk0gdXBkYXRlcyB3aWxsIHVzZSB0aGUgc2FtZSBz
+bG90LCBzbyB3ZSBqdXN0IG5lZWQgb25lIGV4dHJhIApyZXNlcnZhdGlvbl9vYmplY3RfcmVzZXJ2
+ZV9zaGFyZWQoKSBhZnRlciBhbGwgdGhlIFZNIHVwZGF0ZXMgYXJlIGRvbmUuCgpSZWdhcmRzLApD
+aHJpc3RpYW4uCgo+IGNvbW1hbmQgc3VibWlzc2lvbiBpcyBsaWtlbHkgdG8gdXNlIGJvJ3MgcmVz
+ZXJ2YXRpb24gZnJvbSBibyBsaXN0IAo+IHJhdGhlciB0aGFuIHJvb3QgYm8gcmVzZXJ2YXRpb24u
+Cj4KPiBCVFcsIHJlc2VydmF0aW9uX29iamVjdF9yZXNlcnZlX3NoYXJlZCgpIHdpbGwgZXh0ZW5k
+IHRoZSBtYXggbnVtIGFzIDIgCj4gdGltZXMgaWYgaXQncyBub3QgZW5vdWdoLgo+IChkZWZhdWx0
+IHZhbHVlIGlzIDQpCj4KPiBKZXJyeQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
