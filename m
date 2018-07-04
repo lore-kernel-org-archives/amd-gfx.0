@@ -1,66 +1,52 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Reserve fence slots for command submission
-Date: Wed, 4 Jul 2018 14:55:55 +0800
-Message-ID: <5B3C6F7B.80901@amd.com>
-References: <1530673358-20219-1-git-send-email-Jerry.Zhang@amd.com> <e6385817-e437-e5de-0297-a6af16648a2c@gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/5] drm/amdgpu: update amd_pcie.h to include gen4 speeds
+Date: Wed, 4 Jul 2018 03:14:16 -0400
+Message-ID: <CADnq5_NQFYp6z+TaUGHSqmCh4L5LX1jiJMHM1sTux_KvM94fmA@mail.gmail.com>
+References: <20180625210606.2736-1-alexander.deucher@amd.com>
+ <20180625210606.2736-3-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <e6385817-e437-e5de-0297-a6af16648a2c@gmail.com>
-Sender: stable-owner@vger.kernel.org
-To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
-Cc: michel.daenzer@amd.com, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180625210606.2736-3-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Linux PCI <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Bjorn Helgaas <bhelgaas-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On 07/04/2018 02:34 PM, Christian König wrote:
-> Am 04.07.2018 um 05:02 schrieb Junwei Zhang:
->> From: Michel Dänzer <michel.daenzer@amd.com>
->>
->> Without this, there could not be enough slots, which could trigger the
->> BUG_ON in reservation_object_add_shared_fence.
->>
->> v2:
->> * Jump to the error label instead of returning directly (Jerry Zhang)
->> v3:
->> * Reserve slots for command submission after VM updates (Christian König)
->>
->> Cc: stable@vger.kernel.org
->> Bugzilla: https://bugs.freedesktop.org/106418
->> Reported-by: mikhail.v.gavrilov@gmail.com
->> Signed-off-by: Michel Dänzer <michel.daenzer@amd.com>
->> Signed-off-by: Junwei Zhang <Jerry.Zhang@amd.com>
->
-> I would put that at the end of amdgpu_bo_vm_update_pte(), but that is only a minor nit pick.
-
-At first, I really put it at the end of amdgpu_bo_vm_update_pte().
-On the 2nd thought, that func may be called by others(although it's not for now),
-so I move it out of there to the caller.
-
-Jerry
-
->
-> Patch is Reviewed-by: Christian König <christian.koenig@amd.com> anyway.
->
-> Regards,
-> Christian.
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> index 7a625f3..1bc0281 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> @@ -928,6 +928,10 @@ static int amdgpu_cs_ib_vm_chunk(struct amdgpu_device *adev,
->>           r = amdgpu_bo_vm_update_pte(p);
->>           if (r)
->>               return r;
->> +
->> +        r = reservation_object_reserve_shared(vm->root.base.bo->tbo.resv);
->> +        if (r)
->> +            return r;
->>       }
->>       return amdgpu_cs_sync_rings(p);
->
+T24gTW9uLCBKdW4gMjUsIDIwMTggYXQgNTowNiBQTSwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hl
+ckBnbWFpbC5jb20+IHdyb3RlOgo+IEludGVybmFsIGhlYWRlciB1c2VkIGJ5IHRoZSBkcml2ZXIg
+dG8gc3BlY2lmeSBwY2llIGdlbgo+IHNwZWVkcyBvZiB0aGUgYXNpYyBhbmQgY2hpcHNldC4KPgo+
+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
+CkFueW9uZSBjYXJlIHRvIHJldmlldyBwYXRjaGVzIDIsMyw0PwoKPiAtLS0KPiAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9pbmNsdWRlL2FtZF9wY2llLmggfCAyICsrCj4gIDEgZmlsZSBjaGFuZ2VkLCAy
+IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1
+ZGUvYW1kX3BjaWUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfcGNpZS5oCj4g
+aW5kZXggNWViODk1ZmQ5OGJmLi45Y2I5Y2ViNGQ3NGQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9pbmNsdWRlL2FtZF9wY2llLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2luY2x1ZGUvYW1kX3BjaWUuaAo+IEBAIC0yNyw2ICsyNyw3IEBACj4gICNkZWZpbmUgQ0FJTF9Q
+Q0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4xICAgICAgICAweDAwMDEwMDAwCj4gICNkZWZpbmUg
+Q0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4yICAgICAgICAweDAwMDIwMDAwCj4gICNk
+ZWZpbmUgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4zICAgICAgICAweDAwMDQwMDAw
+Cj4gKyNkZWZpbmUgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU40ICAgICAgICAweDAw
+MDgwMDAwCj4gICNkZWZpbmUgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9NQVNLICAgICAg
+ICAweEZGRkYwMDAwCj4gICNkZWZpbmUgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9TSElG
+VCAgICAgICAxNgo+Cj4gQEAgLTM0LDYgKzM1LDcgQEAKPiAgI2RlZmluZSBDQUlMX0FTSUNfUENJ
+RV9MSU5LX1NQRUVEX1NVUFBPUlRfR0VOMSAgIDB4MDAwMDAwMDEKPiAgI2RlZmluZSBDQUlMX0FT
+SUNfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfR0VOMiAgIDB4MDAwMDAwMDIKPiAgI2RlZmluZSBD
+QUlMX0FTSUNfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfR0VOMyAgIDB4MDAwMDAwMDQKPiArI2Rl
+ZmluZSBDQUlMX0FTSUNfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfR0VONCAgIDB4MDAwMDAwMDgK
+PiAgI2RlZmluZSBDQUlMX0FTSUNfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfTUFTSyAgIDB4MDAw
+MEZGRkYKPiAgI2RlZmluZSBDQUlMX0FTSUNfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfU0hJRlQg
+IDAKPgo+IC0tCj4gMi4xMy42Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
