@@ -1,57 +1,52 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Use 2-factor allocator calls
-Date: Wed, 4 Jul 2018 13:53:34 -0400
-Message-ID: <fdbc41fb-2aba-626d-da69-b03ecca40d4e@amd.com>
-References: <20180704172730.GA33562@beast>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: Re: [PATCH] drm/amd/display/dc/dce: Fix multiple potential integer
+ overflows
+Date: Wed, 4 Jul 2018 12:54:22 -0500
+Message-ID: <ab3d5e10-e25b-46a1-d3ab-da3619d8c5b4@embeddedor.com>
+References: <20180704011305.GA15742@embeddedor.com>
+ <c663121e-1db8-9d7f-6b66-2c41e6a8bb70@daenzer.net>
+ <421747e5-e6e0-6680-e3b7-a3a2a5b7b307@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180704172730.GA33562@beast>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <421747e5-e6e0-6680-e3b7-a3a2a5b7b307@amd.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Kees Cook <keescook-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, Vitaly Prosyak <vitaly.prosyak-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0wNy0wNCAwMToyNyBQTSwgS2VlcyBDb29rIHdyb3RlOgo+IEFzIGFscmVhZHkgZG9u
-ZSB0cmVld2lkZSwgc3dpdGNoIGZyb20gb3Blbi1jb2RlZCBtdWx0aXBsaWNhdGlvbiB0bwo+IDIt
-ZmFjdG9yIGFsbG9jYXRpb24gaGVscGVyLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEtlZXMgQ29vayA8
-a2Vlc2Nvb2tAY2hyb21pdW0ub3JnPgoKUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJy
-eS53ZW50bGFuZEBhbWQuY29tPgoKSGFycnkKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9tb2R1bGVzL2NvbG9yL2NvbG9yX2dhbW1hLmMgfCA4ICsrKystLS0tCj4gIDEgZmls
-ZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2NvbG9yL2NvbG9yX2dhbW1h
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9jb2xvci9jb2xvcl9nYW1t
-YS5jCj4gaW5kZXggOThlZGFlZmEyYjQ3Li5lZTY5Yzk0OWJmYmYgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvY29sb3IvY29sb3JfZ2FtbWEuYwo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2NvbG9yL2NvbG9yX2dhbW1h
-LmMKPiBAQCAtMTcyMyw4ICsxNzIzLDggQEAgYm9vbCAgbW9kX2NvbG9yX2NhbGN1bGF0ZV9jdXJ2
-ZShlbnVtIGRjX3RyYW5zZmVyX2Z1bmNfcHJlZGVmaW5lZCB0cmFucywKPiAgCQlrdmZyZWUocmdi
-X3JlZ2FtbWEpOwo+ICAJfSBlbHNlIGlmICh0cmFucyA9PSBUUkFOU0ZFUl9GVU5DVElPTl9ITEcg
-fHwKPiAgCQl0cmFucyA9PSBUUkFOU0ZFUl9GVU5DVElPTl9ITEcxMikgewo+IC0JCXJnYl9yZWdh
-bW1hID0ga3Z6YWxsb2Moc2l6ZW9mKCpyZ2JfcmVnYW1tYSkgKgo+IC0JCQkJICAgICAgIChNQVhf
-SFdfUE9JTlRTICsgX0VYVFJBX1BPSU5UUyksCj4gKwkJcmdiX3JlZ2FtbWEgPSBrdmNhbGxvYyhN
-QVhfSFdfUE9JTlRTICsgX0VYVFJBX1BPSU5UUywKPiArCQkJCSAgICAgICBzaXplb2YoKnJnYl9y
-ZWdhbW1hKSwKPiAgCQkJCSAgICAgICBHRlBfS0VSTkVMKTsKPiAgCQlpZiAoIXJnYl9yZWdhbW1h
-KQo+ICAJCQlnb3RvIHJnYl9yZWdhbW1hX2FsbG9jX2ZhaWw7Cj4gQEAgLTE4MDIsOCArMTgwMiw4
-IEBAIGJvb2wgIG1vZF9jb2xvcl9jYWxjdWxhdGVfZGVnYW1tYV9jdXJ2ZShlbnVtIGRjX3RyYW5z
-ZmVyX2Z1bmNfcHJlZGVmaW5lZCB0cmFucywKPiAgCQlrdmZyZWUocmdiX2RlZ2FtbWEpOwo+ICAJ
-fSBlbHNlIGlmICh0cmFucyA9PSBUUkFOU0ZFUl9GVU5DVElPTl9ITEcgfHwKPiAgCQl0cmFucyA9
-PSBUUkFOU0ZFUl9GVU5DVElPTl9ITEcxMikgewo+IC0JCXJnYl9kZWdhbW1hID0ga3Z6YWxsb2Mo
-c2l6ZW9mKCpyZ2JfZGVnYW1tYSkgKgo+IC0JCQkJICAgICAgIChNQVhfSFdfUE9JTlRTICsgX0VY
-VFJBX1BPSU5UUyksCj4gKwkJcmdiX2RlZ2FtbWEgPSBrdmNhbGxvYyhNQVhfSFdfUE9JTlRTICsg
-X0VYVFJBX1BPSU5UUywKPiArCQkJCSAgICAgICBzaXplb2YoKnJnYl9kZWdhbW1hKSwKPiAgCQkJ
-CSAgICAgICBHRlBfS0VSTkVMKTsKPiAgCQlpZiAoIXJnYl9kZWdhbW1hKQo+ICAJCQlnb3RvIHJn
-Yl9kZWdhbW1hX2FsbG9jX2ZhaWw7Cj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+
+
+On 07/04/2018 12:51 PM, Harry Wentland wrote:
+[..]
+>>>  
+>>> @@ -145,8 +145,8 @@ static bool calculate_fb_and_fractional_fb_divider(
+>>>   * of fractional feedback decimal point and the fractional FB Divider precision
+>>>   * is 2 then the equation becomes (ullfeedbackDivider + 5*100) / (10*100))*/
+>>>  
+>>> -	feedback_divider += (uint64_t)
+>>> -			(5 * calc_pll_cs->fract_fb_divider_precision_factor);
+>>> +	feedback_divider += 5UL *
+>>> +			    calc_pll_cs->fract_fb_divider_precision_factor;
+>>
+>> This should be 5ULL, as the commit log says, otherwise it's still only
+>> 32 bits on 32-bit platforms.
+>>
+> 
+> Agreed.
+> 
+> Otherwise this looks good.
+> 
+> With that fixed this patch is
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> 
+
+Hi Harry,
+
+I already sent v2: https://patchwork.kernel.org/patch/10506897/
+
+Thanks
+--
+Gustavo
