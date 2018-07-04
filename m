@@ -1,54 +1,58 @@
-From: Kees Cook <keescook@chromium.org>
-Subject: [PATCH] drm/amd/display: Use 2-factor allocator calls
-Date: Wed, 4 Jul 2018 10:27:30 -0700
-Message-ID: <20180704172730.GA33562@beast>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [bug report] drm/amd/display: Fix indentation in dcn10 resource
+ constructor
+Date: Wed, 4 Jul 2018 13:44:11 -0400
+Message-ID: <8b8a5211-741b-ff0a-cbf3-b85c595d384b@amd.com>
+References: <20180627131423.vedoul3vvw73dwhn@kili.mountain>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180627131423.vedoul3vvw73dwhn-vMlZ3nK25oGAIHFoDFOv9A@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, hersenxs.wu-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-As already done treewide, switch from open-coded multiplication to
-2-factor allocation helper.
-
-Signed-off-by: Kees Cook <keescook@chromium.org>
----
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 98edaefa2b47..ee69c949bfbf 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1723,8 +1723,8 @@ bool  mod_color_calculate_curve(enum dc_transfer_func_predefined trans,
- 		kvfree(rgb_regamma);
- 	} else if (trans == TRANSFER_FUNCTION_HLG ||
- 		trans == TRANSFER_FUNCTION_HLG12) {
--		rgb_regamma = kvzalloc(sizeof(*rgb_regamma) *
--				       (MAX_HW_POINTS + _EXTRA_POINTS),
-+		rgb_regamma = kvcalloc(MAX_HW_POINTS + _EXTRA_POINTS,
-+				       sizeof(*rgb_regamma),
- 				       GFP_KERNEL);
- 		if (!rgb_regamma)
- 			goto rgb_regamma_alloc_fail;
-@@ -1802,8 +1802,8 @@ bool  mod_color_calculate_degamma_curve(enum dc_transfer_func_predefined trans,
- 		kvfree(rgb_degamma);
- 	} else if (trans == TRANSFER_FUNCTION_HLG ||
- 		trans == TRANSFER_FUNCTION_HLG12) {
--		rgb_degamma = kvzalloc(sizeof(*rgb_degamma) *
--				       (MAX_HW_POINTS + _EXTRA_POINTS),
-+		rgb_degamma = kvcalloc(MAX_HW_POINTS + _EXTRA_POINTS,
-+				       sizeof(*rgb_degamma),
- 				       GFP_KERNEL);
- 		if (!rgb_degamma)
- 			goto rgb_degamma_alloc_fail;
--- 
-2.17.1
-
-
--- 
-Kees Cook
-Pixel Security
+T24gMjAxOC0wNi0yNyAwOToxNCBBTSwgRGFuIENhcnBlbnRlciB3cm90ZToKPiBIZWxsbyBIZXJz
+ZW4gV3UsCj4gCj4gVGhlIHBhdGNoIGNiMWQ3ZWFjYjU4ZjogImRybS9hbWQvZGlzcGxheTogRml4
+IGluZGVudGF0aW9uIGluIGRjbjEwCj4gcmVzb3VyY2UgY29uc3RydWN0b3IiIGZyb20gTWF5IDgs
+IDIwMTgsIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgc3RhdGljCj4gY2hlY2tlciB3YXJuaW5nOgo+
+IAo+IAlkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2RjbjEwL2RjbjEw
+X3Jlc291cmNlLmM6MTAwOCBjb25zdHJ1Y3QoKQo+IAl3YXJuOiBpbmNvbnNpc3RlbnQgaW5kZW50
+aW5nCj4gCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9kY24xMC9k
+Y24xMF9yZXNvdXJjZS5jCj4gICAgOTk2ICBzdGF0aWMgYm9vbCBjb25zdHJ1Y3QoCj4gICAgOTk3
+ICAgICAgICAgIHVpbnQ4X3QgbnVtX3ZpcnR1YWxfbGlua3MsCj4gICAgOTk4ICAgICAgICAgIHN0
+cnVjdCBkYyAqZGMsCj4gICAgOTk5ICAgICAgICAgIHN0cnVjdCBkY24xMF9yZXNvdXJjZV9wb29s
+ICpwb29sKQo+ICAgMTAwMCAgewo+ICAgMTAwMSAgICAgICAgICBpbnQgaTsKPiAgIDEwMDIgICAg
+ICAgICAgaW50IGo7Cj4gICAxMDAzICAgICAgICAgIHN0cnVjdCBkY19jb250ZXh0ICpjdHggPSBk
+Yy0+Y3R4Owo+ICAgMTAwNCAgICAgICAgICB1aW50MzJfdCBwaXBlX2Z1c2VzID0gcmVhZF9waXBl
+X2Z1c2VzKGN0eCk7Cj4gICAxMDA1ICAKPiAgIDEwMDYgICAgICAgICAgY3R4LT5kY19iaW9zLT5y
+ZWdzID0gJmJpb3NfcmVnczsKPiAgIDEwMDcgIAo+ICAgMTAwOCAgICAgICAgICAgICAgICAgIHBv
+b2wtPmJhc2UucmVzX2NhcCA9ICZyZXNfY2FwOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIF5e
+Xl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXgo+IFRoaXMgbGluZSB3YXMgaW5kZW50ZWQgY29y
+cmVjdGx5IGluIHRoZSBvcmlnaW5hbCBjb2RlIHdoZW4gaXQgd2FzIG1lcmdlZAo+IGxhc3QgTm92
+ZW1iZXIuLi4gIEl0J3MgYSBteXN0ZXJ5LiAgTWVyZ2UgZXJyb3IgcGVyaGFwcz8KPiAKClRoYXQg
+d2FzIGEgbWVyZ2UgZXJyb3Igd2hlbiBJIHB1bGxlZCB0aGUgY2hhbmdlIGZyb20gb3VyIGludGVy
+bmFsIHJlcG8uIEknbGwgc2VuZCBhIHBhdGNoIHRvIGNsZWFuIHRoaXMgdXAuCgpIYXJyeQoKPiBo
+dHRwczovL3d3dy5tYWlsLWFyY2hpdmUuY29tL2FtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21zZzIxNzUwLmh0bWwKPiAKPiAgIDEwMDkgIAo+ICAgMTAxMCAgICAgICAgICBwb29sLT5iYXNl
+LmZ1bmNzID0gJmRjbjEwX3Jlc19wb29sX2Z1bmNzOwo+ICAgMTAxMSAgCj4gICAxMDEyICAgICAg
+ICAgIC8qCj4gICAxMDEzICAgICAgICAgICAqIFRPRE8gZmlsbCBpbiBmcm9tIGFjdHVhbCByYXZl
+biByZXNvdXJjZSB3aGVuIHdlIGNyZWF0ZQo+ICAgMTAxNCAgICAgICAgICAgKiBtb3JlIHRoYW4g
+dmlydHVhbCBlbmNvZGVyCj4gICAxMDE1ICAgICAgICAgICAqLwo+IAo+IHJlZ2FyZHMsCj4gZGFu
+IGNhcnBlbnRlcgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
