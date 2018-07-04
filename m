@@ -1,80 +1,58 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH v2] drm/amd/display/dc/dce: Fix multiple potential integer
- overflows
-Date: Wed, 4 Jul 2018 08:22:11 -0500
-Message-ID: <20180704132211.GA6764@embeddedor.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Reserve fence slots for command submission
+Date: Wed, 4 Jul 2018 16:00:04 +0200
+Message-ID: <b74848ca-a1ab-58ec-c6e2-6256d5fd4196@daenzer.net>
+References: <1530673358-20219-1-git-send-email-Jerry.Zhang@amd.com>
+ <e6385817-e437-e5de-0297-a6af16648a2c@gmail.com> <5B3C6F7B.80901@amd.com>
+ <9fd5d981-3725-289b-94ff-73da521e3061@daenzer.net> <5B3C7DE6.3020405@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5B3C7DE6.3020405-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Add suffix ULL to constant 5 and cast variables target_pix_clk_khz and
-feedback_divider to uint64_t in order to avoid multiple potential integer
-overflows and give the compiler complete information about the proper
-arithmetic to use.
-
-Notice that such constant and variables are used in contexts that
-expect expressions of type uint64_t (64 bits, unsigned). The current
-casts to uint64_t effectively apply to each expression as a whole,
-but they do not prevent them from being evaluated using 32-bit
-arithmetic instead of 64-bit arithmetic.
-
-Also, once the expressions are properly evaluated using 64-bit
-arithmentic, there is no need for the parentheses that enclose
-them.
-
-Addresses-Coverity-ID: 1460245 ("Unintentional integer overflow")
-Addresses-Coverity-ID: 1460286 ("Unintentional integer overflow")
-Addresses-Coverity-ID: 1460401 ("Unintentional integer overflow")
-Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
-Changes in v2:
- - Add suffix ULL to constant 5 instead of UL. Thanks to Michel Dänzer
-   for pointing this out.
-
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index 88b09dd..ca13775 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -133,7 +133,7 @@ static bool calculate_fb_and_fractional_fb_divider(
- 	uint64_t feedback_divider;
- 
- 	feedback_divider =
--		(uint64_t)(target_pix_clk_khz * ref_divider * post_divider);
-+		(uint64_t)target_pix_clk_khz * ref_divider * post_divider;
- 	feedback_divider *= 10;
- 	/* additional factor, since we divide by 10 afterwards */
- 	feedback_divider *= (uint64_t)(calc_pll_cs->fract_fb_divider_factor);
-@@ -145,8 +145,8 @@ static bool calculate_fb_and_fractional_fb_divider(
-  * of fractional feedback decimal point and the fractional FB Divider precision
-  * is 2 then the equation becomes (ullfeedbackDivider + 5*100) / (10*100))*/
- 
--	feedback_divider += (uint64_t)
--			(5 * calc_pll_cs->fract_fb_divider_precision_factor);
-+	feedback_divider += 5ULL *
-+			    calc_pll_cs->fract_fb_divider_precision_factor;
- 	feedback_divider =
- 		div_u64(feedback_divider,
- 			calc_pll_cs->fract_fb_divider_precision_factor * 10);
-@@ -203,8 +203,8 @@ static bool calc_fb_divider_checking_tolerance(
- 			&fract_feedback_divider);
- 
- 	/*Actual calculated value*/
--	actual_calc_clk_khz = (uint64_t)(feedback_divider *
--					calc_pll_cs->fract_fb_divider_factor) +
-+	actual_calc_clk_khz = (uint64_t)feedback_divider *
-+					calc_pll_cs->fract_fb_divider_factor +
- 							fract_feedback_divider;
- 	actual_calc_clk_khz *= calc_pll_cs->ref_freq_khz;
- 	actual_calc_clk_khz =
--- 
-2.7.4
+T24gMjAxOC0wNy0wNCAwOTo1NyBBTSwgWmhhbmcsIEplcnJ5IChKdW53ZWkpIHdyb3RlOgo+IE9u
+IDA3LzA0LzIwMTggMDM6MjEgUE0sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+PiBPbiAyMDE4LTA3
+LTA0IDA4OjU1IEFNLCBaaGFuZywgSmVycnkgKEp1bndlaSkgd3JvdGU6Cj4+PiBPbiAwNy8wNC8y
+MDE4IDAyOjM0IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+IEFtIDA0LjA3LjIwMTgg
+dW0gMDU6MDIgc2NocmllYiBKdW53ZWkgWmhhbmc6Cj4+Pj4+IEZyb206IE1pY2hlbCBEw6RuemVy
+IDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Pj4+Pgo+Pj4+PiBXaXRob3V0IHRoaXMsIHRoZXJl
+IGNvdWxkIG5vdCBiZSBlbm91Z2ggc2xvdHMsIHdoaWNoIGNvdWxkIHRyaWdnZXIgdGhlCj4+Pj4+
+IEJVR19PTiBpbiByZXNlcnZhdGlvbl9vYmplY3RfYWRkX3NoYXJlZF9mZW5jZS4KPj4+Pj4KPj4+
+Pj4gdjI6Cj4+Pj4+ICogSnVtcCB0byB0aGUgZXJyb3IgbGFiZWwgaW5zdGVhZCBvZiByZXR1cm5p
+bmcgZGlyZWN0bHkgKEplcnJ5IFpoYW5nKQo+Pj4+PiB2MzoKPj4+Pj4gKiBSZXNlcnZlIHNsb3Rz
+IGZvciBjb21tYW5kIHN1Ym1pc3Npb24gYWZ0ZXIgVk0gdXBkYXRlcyAoQ2hyaXN0aWFuCj4+Pj4+
+IEvDtm5pZykKPj4+Pj4KPj4+Pj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKPj4+Pj4gQnVn
+emlsbGE6IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvMTA2NDE4Cj4+Pj4+IFJlcG9ydGVk
+LWJ5OiBtaWtoYWlsLnYuZ2F2cmlsb3ZAZ21haWwuY29tCj4+Pj4+IFNpZ25lZC1vZmYtYnk6IE1p
+Y2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Pj4+PiBTaWduZWQtb2ZmLWJ5
+OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFtZC5jb20+Cj4+Pj4KPj4+PiBJIHdvdWxkIHB1
+dCB0aGF0IGF0IHRoZSBlbmQgb2YgYW1kZ3B1X2JvX3ZtX3VwZGF0ZV9wdGUoKSwgYnV0IHRoYXQg
+aXMKPj4+PiBvbmx5IGEgbWlub3Igbml0IHBpY2suCj4+Pgo+Pj4gQXQgZmlyc3QsIEkgcmVhbGx5
+IHB1dCBpdCBhdCB0aGUgZW5kIG9mIGFtZGdwdV9ib192bV91cGRhdGVfcHRlKCkuCj4+PiBPbiB0
+aGUgMm5kIHRob3VnaHQsIHRoYXQgZnVuYyBtYXkgYmUgY2FsbGVkIGJ5IG90aGVycyhhbHRob3Vn
+aCBpdCdzIG5vdAo+Pj4gZm9yIG5vdyksIHNvIEkgbW92ZSBpdCBvdXQgb2YgdGhlcmUgdG8gdGhl
+IGNhbGxlci4KPj4KPj4gTWFrZXMgc2Vuc2UgdG8gbWUsIEZXSVcuIFRoYW5rcyBKdW53ZWkgYW5k
+IENocmlzdGlhbiEKPiAKPiBQbGVhc2UgY29uZmlybSBpZiB0aGF0IHdvcmtzIGluIHlvdXIgc2lk
+ZS4KPiBJZiB5ZXMsIEkgd291bGQgcHVzaCB0aGF0IHRvIGRybS1uZXh0IHRoZW4uCgpHbyBhaGVh
+ZCwgc2VlbXMgZmluZS4KCgpQLlMuIE1heWJlIHRoZSBzaG9ydGxvZyBjb3VsZCBiZSBtb3JlIHNw
+ZWNpZmljLCBlLmcuCgpkcm0vYW1kZ3B1OiBSZXNlcnZlIFZNIHJvb3Qgc2hhcmVkIGZlbmNlIHNs
+b3QgZm9yIGNvbW1hbmQgc3VibWlzc2lvbgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAg
+ICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29m
+dHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2
+ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
