@@ -1,75 +1,44 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amd/display/dc/dce: Fix multiple potential integer
- overflows
-Date: Tue, 3 Jul 2018 20:13:05 -0500
-Message-ID: <20180704011305.GA15742@embeddedor.com>
+From: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Reserve fence slots for command submission
+Date: Wed, 4 Jul 2018 11:02:38 +0800
+Message-ID: <1530673358-20219-1-git-send-email-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, michel.daenzer-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-Add suffix ULL to constant 5 and cast variables target_pix_clk_khz and
-feedback_divider to uint64_t in order to avoid multiple potential integer
-overflows and give the compiler complete information about the proper
-arithmetic to use.
-
-Notice that such constant and variables are used in contexts that
-expect expressions of type uint64_t (64 bits, unsigned). The current
-casts to uint64_t effectively apply to each expression as a whole,
-but they do not prevent them from being evaluated using 32-bit
-arithmetic instead of 64-bit arithmetic.
-
-Also, once the expressions are properly evaluated using 64-bit
-arithmentic, there is no need for the parentheses that enclose
-them.
-
-Addresses-Coverity-ID: 1460245 ("Unintentional integer overflow")
-Addresses-Coverity-ID: 1460286 ("Unintentional integer overflow")
-Addresses-Coverity-ID: 1460401 ("Unintentional integer overflow")
-Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index 88b09dd..715d737 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -133,7 +133,7 @@ static bool calculate_fb_and_fractional_fb_divider(
- 	uint64_t feedback_divider;
- 
- 	feedback_divider =
--		(uint64_t)(target_pix_clk_khz * ref_divider * post_divider);
-+		(uint64_t)target_pix_clk_khz * ref_divider * post_divider;
- 	feedback_divider *= 10;
- 	/* additional factor, since we divide by 10 afterwards */
- 	feedback_divider *= (uint64_t)(calc_pll_cs->fract_fb_divider_factor);
-@@ -145,8 +145,8 @@ static bool calculate_fb_and_fractional_fb_divider(
-  * of fractional feedback decimal point and the fractional FB Divider precision
-  * is 2 then the equation becomes (ullfeedbackDivider + 5*100) / (10*100))*/
- 
--	feedback_divider += (uint64_t)
--			(5 * calc_pll_cs->fract_fb_divider_precision_factor);
-+	feedback_divider += 5UL *
-+			    calc_pll_cs->fract_fb_divider_precision_factor;
- 	feedback_divider =
- 		div_u64(feedback_divider,
- 			calc_pll_cs->fract_fb_divider_precision_factor * 10);
-@@ -203,8 +203,8 @@ static bool calc_fb_divider_checking_tolerance(
- 			&fract_feedback_divider);
- 
- 	/*Actual calculated value*/
--	actual_calc_clk_khz = (uint64_t)(feedback_divider *
--					calc_pll_cs->fract_fb_divider_factor) +
-+	actual_calc_clk_khz = (uint64_t)feedback_divider *
-+					calc_pll_cs->fract_fb_divider_factor +
- 							fract_feedback_divider;
- 	actual_calc_clk_khz *= calc_pll_cs->ref_freq_khz;
- 	actual_calc_clk_khz =
--- 
-2.7.4
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpXaXRob3V0IHRo
+aXMsIHRoZXJlIGNvdWxkIG5vdCBiZSBlbm91Z2ggc2xvdHMsIHdoaWNoIGNvdWxkIHRyaWdnZXIg
+dGhlCkJVR19PTiBpbiByZXNlcnZhdGlvbl9vYmplY3RfYWRkX3NoYXJlZF9mZW5jZS4KCnYyOgoq
+IEp1bXAgdG8gdGhlIGVycm9yIGxhYmVsIGluc3RlYWQgb2YgcmV0dXJuaW5nIGRpcmVjdGx5IChK
+ZXJyeSBaaGFuZykKdjM6CiogUmVzZXJ2ZSBzbG90cyBmb3IgY29tbWFuZCBzdWJtaXNzaW9uIGFm
+dGVyIFZNIHVwZGF0ZXMgKENocmlzdGlhbiBLw7ZuaWcpCgpDYzogc3RhYmxlQHZnZXIua2VybmVs
+Lm9yZwpCdWd6aWxsYTogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy8xMDY0MTgKUmVwb3J0
+ZWQtYnk6IG1pa2hhaWwudi5nYXZyaWxvdkBnbWFpbC5jb20KU2lnbmVkLW9mZi1ieTogTWljaGVs
+IETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEp1bndlaSBa
+aGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfY3MuYyB8IDQgKysrKwogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQoK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKaW5kZXggN2E2MjVmMy4uMWJjMDI4
+MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKQEAgLTkyOCw2ICs5Mjgs
+MTAgQEAgc3RhdGljIGludCBhbWRncHVfY3NfaWJfdm1fY2h1bmsoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsCiAJCXIgPSBhbWRncHVfYm9fdm1fdXBkYXRlX3B0ZShwKTsKIAkJaWYgKHIpCiAJ
+CQlyZXR1cm4gcjsKKworCQlyID0gcmVzZXJ2YXRpb25fb2JqZWN0X3Jlc2VydmVfc2hhcmVkKHZt
+LT5yb290LmJhc2UuYm8tPnRiby5yZXN2KTsKKwkJaWYgKHIpCisJCQlyZXR1cm4gcjsKIAl9CiAK
+IAlyZXR1cm4gYW1kZ3B1X2NzX3N5bmNfcmluZ3MocCk7Ci0tIAoxLjkuMQoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
