@@ -1,16 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v3] drm/amdgpu: update documentation for amdgpu_drv.c
-Date: Thu, 5 Jul 2018 16:58:15 +0200
-Message-ID: <1e6f00fb-026a-5fbf-effa-14567a68c1cb@gmail.com>
-References: <1530728444-32347-1-git-send-email-sonny.jiang@amd.com>
- <7279fc27-0bba-a818-7682-f4e06815b8da@gmail.com>
- <CY4PR12MB1511F4BC97EABF20A34503D8FD400@CY4PR12MB1511.namprd12.prod.outlook.com>
- <131f66f1-8871-de93-2c3a-50b8c15cb9d8@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amd/display: add a check for display depth validity
+Date: Thu, 5 Jul 2018 11:06:05 -0400
+Message-ID: <a6e8e6f3-0bd5-b8b0-8207-fc8a0e87392d@amd.com>
+References: <f8a3364a-4f6b-ae12-8047-d6f0ef89fffa@amd.com>
+ <1530739676-15730-1-git-send-email-mikita.lipski@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1357405920=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <131f66f1-8871-de93-2c3a-50b8c15cb9d8-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1530739676-15730-1-git-send-email-mikita.lipski-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,191 +20,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: mikita.lipski-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Michel.Daenzer-5C7GfCeVMHo@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1357405920==
-Content-Type: multipart/alternative;
- boundary="------------8635821DE7AF295D44F86F50"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------8635821DE7AF295D44F86F50
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Mhm, double checking that I now knew why my memory fooled me: We use 0 
-as infinite timeout in radeon.
-
-Maybe we should change amdgpu to do the same and reject negative values.
-
-Christian.
-
-Am 05.07.2018 um 16:54 schrieb Christian König:
-> Sounds like my memory fooled me, but we should document that as well.
->
-> Christian.
->
-> Am 05.07.2018 um 16:47 schrieb Jiang, Sonny:
->>
->> Change it to,
->>
->> Value 0 is invalidated, will be adjusted to 10000. Negative values 
->> mean 'infinite timeout' (MAX_JIFFY_OFFSET).
->>
->>
->> Thanks,
->>
->> Sonny
->>
->> ------------------------------------------------------------------------
->> *From:* Christian König <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->> *Sent:* Thursday, July 5, 2018 3:30:28 AM
->> *To:* Jiang, Sonny; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> *Subject:* Re: [PATCH v3] drm/amdgpu: update documentation for 
->> amdgpu_drv.c
->> Am 04.07.2018 um 20:20 schrieb Sonny Jiang:
->> > [SNIP]
->> >
->> > +/**
->> > + * DOC: lockup_timeout (int)
->> > + * Set GPU scheduler timeout value in ms. It must be > 0.  The 
->> default is 10000.
->> > + */
->> >   MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms > 0 
->> (default 10000)");
->> >   module_param_named(lockup_timeout, amdgpu_lockup_timeout, int, 0444);
->>
->> Actually the description here is incorrect, a value of 0 is handled as
->> infinite timeout IIRC. Please fix while at it.
->>
->> Apart from that the patch is Acked-by: Christian König
->> <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
->>
->> Christian.
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------8635821DE7AF295D44F86F50
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Mhm, double checking that I now knew
-      why my memory fooled me: We use 0 as infinite timeout in radeon.<br>
-      <br>
-      Maybe we should change amdgpu to do the same and reject negative
-      values.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 05.07.2018 um 16:54 schrieb Christian König:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:131f66f1-8871-de93-2c3a-50b8c15cb9d8-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div class="moz-cite-prefix">Sounds like my memory fooled me, but
-        we should document that as well.<br>
-        <br>
-        Christian.<br>
-        <br>
-        Am 05.07.2018 um 16:47 schrieb Jiang, Sonny:<br>
-      </div>
-      <blockquote type="cite"
-cite="mid:CY4PR12MB1511F4BC97EABF20A34503D8FD400-rpdhrqHFk06XKdXwTjA44gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-        <meta http-equiv="Content-Type" content="text/html;
-          charset=utf-8">
-        <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-        <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-          dir="ltr">
-          <p style="margin-top:0;margin-bottom:0">Change it to,</p>
-          <div>Value 0 is invalidated, will be adjusted to 10000. 
-            Negative values mean 'infinite timeout' (MAX_JIFFY_OFFSET).</div>
-          <p style="margin-top:0;margin-bottom:0"><br>
-          </p>
-          <p style="margin-top:0;margin-bottom:0">Thanks,</p>
-          <p style="margin-top:0;margin-bottom:0">Sonny<br>
-          </p>
-        </div>
-        <hr style="display:inline-block;width:98%" tabindex="-1">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            color="#000000" face="Calibri, sans-serif"><b>From:</b>
-            Christian König <a class="moz-txt-link-rfc2396E"
-              href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-              moz-do-not-send="true">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-            <b>Sent:</b> Thursday, July 5, 2018 3:30:28 AM<br>
-            <b>To:</b> Jiang, Sonny; <a
-              class="moz-txt-link-abbreviated"
-              href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-              moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-            <b>Subject:</b> Re: [PATCH v3] drm/amdgpu: update
-            documentation for amdgpu_drv.c</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt;">
-              <div class="PlainText">Am 04.07.2018 um 20:20 schrieb
-                Sonny Jiang:<br>
-                &gt; [SNIP]<br>
-                &gt;   <br>
-                &gt; +/**<br>
-                &gt; + * DOC: lockup_timeout (int)<br>
-                &gt; + * Set GPU scheduler timeout value in ms. It must
-                be &gt; 0.  The default is 10000.<br>
-                &gt; + */<br>
-                &gt;   MODULE_PARM_DESC(lockup_timeout, "GPU lockup
-                timeout in ms &gt; 0 (default 10000)");<br>
-                &gt;   module_param_named(lockup_timeout,
-                amdgpu_lockup_timeout, int, 0444);<br>
-                <br>
-                Actually the description here is incorrect, a value of 0
-                is handled as <br>
-                infinite timeout IIRC. Please fix while at it.<br>
-                <br>
-                Apart from that the patch is Acked-by: Christian König <br>
-                <a class="moz-txt-link-rfc2396E"
-                  href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org"
-                  moz-do-not-send="true">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
-                <br>
-                Christian.<br>
-              </div>
-            </span></font></div>
-      </blockquote>
-      <br>
-      <!--'"--><br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------8635821DE7AF295D44F86F50--
-
---===============1357405920==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1357405920==--
+T24gMjAxOC0wNy0wNCAwNToyNyBQTSwgbWlraXRhLmxpcHNraUBhbWQuY29tIHdyb3RlOgo+IEZy
+b206IE1pa2l0YSBMaXBza2kgPG1pa2l0YS5saXBza2lAYW1kLmNvbT4KPiAKPiBbd2h5XQo+IEhE
+TUkgMi4wIGZhaWxzIHRvIHZhbGlkYXRlIDRLQDYwIHRpbWluZyB3aXRoIDEwIGJwYwo+IFtob3dd
+Cj4gQWRkaW5nIGEgaGVscGVyIGZ1bmN0aW9uIHRoYXQgd291bGQgdmVyaWZ5IGlmIHRoZSBkaXNw
+bGF5IGRlcHRoCj4gYXNzaWduZWQgd291bGQgcGFzcyBhIGJhbmR3aWR0aCB2YWxpZGF0aW9uLgo+
+IERyb3AgdGhlIGRpc3BsYXkgZGVwdGggYnkgb25lIGxldmVsIHRpbGwgY2FsY3VsYXRlZCBwaXhl
+bCBjbGsKPiBpcyBsb3dlciB0aGFuIG1heGltdW0gVE1EUyBjbGsuCj4gCgpJdCdkIGJlIGdvb2Qg
+dG8gaW5jbHVkZSBhIGJyaWVmIGRlc2NyaXB0aW9uIHdoYXQgY2hhbmdlZCBpbiB2Mi4gU29tZXRo
+aW5nIGxpa2UKCnYyOiBjaGVja19pZl9kaXNwbGF5X2RlcHRoX2lzX3N1cHBvcnRlZCAtPiBhZGp1
+c3RfY29sb3VyX2RlcHRoX2Zyb21fZGlzcGxheV9pbmZvCgo+IEJ1Z3ppbGxhOiBodHRwczovL2J1
+Z3MuZnJlZWRlc2t0b3Aub3JnLzEwNjk1OQo+IAo+IFNpZ25lZC1vZmYtYnk6IE1pa2l0YSBMaXBz
+a2kgPG1pa2l0YS5saXBza2lAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8
+aGFycnkud2VudGxhbmRAYW1kLmNvbT4KCkhhcnJ5Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNDIgKysrKysrKysrKysrKysrKysr
+KysrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDQyIGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiBpbmRleCA5
+NTI5MDQzLi5hMGYxYjFkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gQEAgLTIyMTgsNiArMjIxOCw0NiBAQCBnZXRfb3V0
+cHV0X2NvbG9yX3NwYWNlKGNvbnN0IHN0cnVjdCBkY19jcnRjX3RpbWluZyAqZGNfY3J0Y190aW1p
+bmcpCj4gIAlyZXR1cm4gY29sb3Jfc3BhY2U7Cj4gIH0KPiAgCj4gK3N0YXRpYyB2b2lkIHJlZHVj
+ZV9tb2RlX2NvbG91cl9kZXB0aChzdHJ1Y3QgZGNfY3J0Y190aW1pbmcgKnRpbWluZ19vdXQpCj4g
+K3sKPiArCWlmICh0aW1pbmdfb3V0LT5kaXNwbGF5X2NvbG9yX2RlcHRoIDw9IENPTE9SX0RFUFRI
+Xzg4OCkKPiArCQlyZXR1cm47Cj4gKwo+ICsJdGltaW5nX291dC0+ZGlzcGxheV9jb2xvcl9kZXB0
+aC0tOwo+ICt9Cj4gKwo+ICtzdGF0aWMgdm9pZCBhZGp1c3RfY29sb3VyX2RlcHRoX2Zyb21fZGlz
+cGxheV9pbmZvKHN0cnVjdCBkY19jcnRjX3RpbWluZyAqdGltaW5nX291dCwKPiArCQkJCQkJY29u
+c3Qgc3RydWN0IGRybV9kaXNwbGF5X2luZm8gKmluZm8pCj4gK3sKPiArCWludCBub3JtYWxpemVk
+X2NsazsKPiArCWlmICh0aW1pbmdfb3V0LT5kaXNwbGF5X2NvbG9yX2RlcHRoIDw9IENPTE9SX0RF
+UFRIXzg4OCkKPiArCQlyZXR1cm47Cj4gKwlkbyB7Cj4gKwkJbm9ybWFsaXplZF9jbGsgPSB0aW1p
+bmdfb3V0LT5waXhfY2xrX2toejsKPiArCQkvKiBZQ2JDciA0OjI6MCByZXF1aXJlcyBhZGRpdGlv
+bmFsIGFkanVzdG1lbnQgb2YgMS8yICovCj4gKwkJaWYgKHRpbWluZ19vdXQtPnBpeGVsX2VuY29k
+aW5nID09IFBJWEVMX0VOQ09ESU5HX1lDQkNSNDIwKQo+ICsJCQlub3JtYWxpemVkX2NsayAvPSAy
+Owo+ICsJCS8qIEFkanVzdGluZyBwaXggY2xvY2sgZm9sbG93aW5nIG9uIEhETUkgc3BlYyBiYXNl
+ZCBvbiBjb2xvdXIgZGVwdGggKi8KPiArCQlzd2l0Y2ggKHRpbWluZ19vdXQtPmRpc3BsYXlfY29s
+b3JfZGVwdGgpIHsKPiArCQljYXNlIENPTE9SX0RFUFRIXzEwMTAxMDoKPiArCQkJbm9ybWFsaXpl
+ZF9jbGsgPSAobm9ybWFsaXplZF9jbGsgKiAzMCkgLyAyNDsKPiArCQkJYnJlYWs7Cj4gKwkJY2Fz
+ZSBDT0xPUl9ERVBUSF8xMjEyMTI6Cj4gKwkJCW5vcm1hbGl6ZWRfY2xrID0gKG5vcm1hbGl6ZWRf
+Y2xrICogMzYpIC8gMjQ7Cj4gKwkJCWJyZWFrOwo+ICsJCWNhc2UgQ09MT1JfREVQVEhfMTYxNjE2
+Ogo+ICsJCQlub3JtYWxpemVkX2NsayA9IChub3JtYWxpemVkX2NsayAqIDQ4KSAvIDI0Owo+ICsJ
+CQlicmVhazsKPiArCQlkZWZhdWx0Ogo+ICsJCQlyZXR1cm47Cj4gKwkJfQo+ICsJCWlmIChub3Jt
+YWxpemVkX2NsayA8PSBpbmZvLT5tYXhfdG1kc19jbG9jaykKPiArCQkJcmV0dXJuOwo+ICsJCXJl
+ZHVjZV9tb2RlX2NvbG91cl9kZXB0aCh0aW1pbmdfb3V0KTsKPiArCj4gKwl9IHdoaWxlICh0aW1p
+bmdfb3V0LT5kaXNwbGF5X2NvbG9yX2RlcHRoID4gQ09MT1JfREVQVEhfODg4KTsKPiArCj4gK30K
+PiAgLyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqLwo+ICAKPiAgc3RhdGljIHZvaWQKPiBAQCAtMjI3NCw2
+ICsyMzE0LDggQEAgZmlsbF9zdHJlYW1fcHJvcGVydGllc19mcm9tX2RybV9kaXNwbGF5X21vZGUo
+c3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFtLAo+ICAKPiAgCXN0cmVhbS0+b3V0X3RyYW5z
+ZmVyX2Z1bmMtPnR5cGUgPSBURl9UWVBFX1BSRURFRklORUQ7Cj4gIAlzdHJlYW0tPm91dF90cmFu
+c2Zlcl9mdW5jLT50ZiA9IFRSQU5TRkVSX0ZVTkNUSU9OX1NSR0I7Cj4gKwlpZiAoc3RyZWFtLT5z
+aW5rLT5zaW5rX3NpZ25hbCA9PSBTSUdOQUxfVFlQRV9IRE1JX1RZUEVfQSkKPiArCQlhZGp1c3Rf
+Y29sb3VyX2RlcHRoX2Zyb21fZGlzcGxheV9pbmZvKHRpbWluZ19vdXQsIGluZm8pOwo+ICB9Cj4g
+IAo+ICBzdGF0aWMgdm9pZCBmaWxsX2F1ZGlvX2luZm8oc3RydWN0IGF1ZGlvX2luZm8gKmF1ZGlv
+X2luZm8sCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
