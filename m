@@ -1,66 +1,74 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] amdgpu drm-fixes-4.18
-Date: Thu,  5 Jul 2018 10:52:06 -0500
-Message-ID: <20180705155206.2752-1-alexander.deucher@amd.com>
+From: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH] drm/amd/display: Use 2-factor allocator calls
+Date: Thu, 5 Jul 2018 08:55:04 -0700
+Message-ID: <CAGXu5jLMG915BZjYE=+BmfcWknHOZ2n93YakdNBPPfb9P7pyEw@mail.gmail.com>
+References: <20180704172730.GA33562@beast> <5a3b3ab7-f5b2-bd66-0587-569411f9af78@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <5a3b3ab7-f5b2-bd66-0587-569411f9af78@daenzer.net>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Tony Cheng <Tony.Cheng@amd.com>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Vitaly Prosyak <vitaly.prosyak@amd.com>, Harry Wentland <harry.wentland@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkZpeGVzIGZvciA0LjE4LiAgSGlnaGxpZ2h0czoKLSBGaXggYW4gSERNSSAyLjAg
-NGtANjAgcmVncmVzc2lvbgotIEhvdHBsdWcgZml4ZXMgZm9yIFBYL0hHIGxhcHRvcHMKLSBGaXhl
-cyBmb3IgdmJpb3MgY2hhbmdlcyBpbiB2ZWdhMTIKLSBGaXggYSByYWNlIGluIHRoZSB1c2VyIGZl
-bmNlIGNvZGUKLSBGaXggYSBjb3VwbGUgb2YgbWlzYyB0eXBvcwoKVGhlIGZvbGxvd2luZyBjaGFu
-Z2VzIHNpbmNlIGNvbW1pdCA0ZGU5ZjM4YmIyY2NlM2E0ODIxZmZiOGE4M2Q2YjA4ZjZlMzdkOTA1
-OgoKICBkcm0vYW1kL2Rpc3BsYXk6IHJlbGVhc2Ugc3BpbmxvY2sgYmVmb3JlIGNvbW1pdHRpbmcg
-dXBkYXRlcyB0byBzdHJlYW0gKDIwMTgtMDYtMjcgMTQ6MzU6NTMgLTA1MDApCgphcmUgYXZhaWxh
-YmxlIGluIHRoZSBnaXQgcmVwb3NpdG9yeSBhdDoKCiAgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9w
-Lm9yZy9+YWdkNWYvbGludXggZHJtLWZpeGVzLTQuMTgKCmZvciB5b3UgdG8gZmV0Y2ggY2hhbmdl
-cyB1cCB0byA0MTNmZjBiOTQyNDgxYzdhYzJlODAwYWJiYmFjNWFmMzE4YTY1ZTYxOgoKICBkcm0v
-YW1kL2Rpc3BsYXk6IGFkZCBhIGNoZWNrIGZvciBkaXNwbGF5IGRlcHRoIHZhbGlkaXR5ICgyMDE4
-LTA3LTA1IDEwOjE5OjUzIC0wNTAwKQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpBbGV4IERldWNoZXIgKDIpOgogICAgICBk
-cm0vYW1kZ3B1OiBmaXggc3dhcHBlZCBlbWl0X2liX3NpemUgaW4gdmNlMwogICAgICBkcm0vYW1k
-Z3B1L3BtOiBmaXggZGlzcGxheSBjb3VudCBpbiBub24tREMgcGF0aAoKRXZhbiBRdWFuICgzKToK
-ICAgICAgZHJtL2FtZC9wb3dlcnBsYXk6IGNvcnJlY3QgdmVnYTEyIHRoZXJtYWwgc3VwcG9ydCBh
-cyB0cnVlCiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiBjb3JyZWN0IHZlZ2ExMiBib290dXAgdmFs
-dWVzIHNldHRpbmdzCiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiBzbWNfZHBtX2luZm8gc3RydWN0
-dXJlIGNoYW5nZQoKTHl1ZGUgUGF1bCAoMyk6CiAgICAgIGRybS9hbWRncHU6IE1ha2Ugc3RydWN0
-IGFtZGdwdV9hdGlmIHByaXZhdGUgdG8gYW1kZ3B1X2FjcGkuYwogICAgICBkcm0vYW1kZ3B1OiBB
-ZGQgYW1kZ3B1X2F0cHhfZ2V0X2RoYW5kbGUoKQogICAgICBkcm0vYW1kZ3B1OiBEeW5hbWljYWxs
-eSBwcm9iZSBmb3IgQVRJRiBoYW5kbGUgKHYyKQoKTWlraXRhIExpcHNraSAoMik6CiAgICAgIGRy
-bS9hbWQvZGlzcGxheTogYWRkaW5nIHljYmNyNDIwIHBpeGVsIGVuY29kaW5nIGZvciBoZG1pCiAg
-ICAgIGRybS9hbWQvZGlzcGxheTogYWRkIGEgY2hlY2sgZm9yIGRpc3BsYXkgZGVwdGggdmFsaWRp
-dHkKCk5pY29sYWkgSMOkaG5sZSAoMSk6CiAgICAgIGRybS9hbWRncHU6IGZpeCB1c2VyIGZlbmNl
-IHdyaXRlIHJhY2UgY29uZGl0aW9uCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-LmggICAgICAgICAgICAgICAgfCAgNDYgKystLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9hY3BpLmMgICAgICAgICAgIHwgMTMxICsrKysrKysrKysrKysrKysrLS0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jICAgfCAgIDYg
-KwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMgICAgICAgICAgICAgfCAg
-MTIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jICAgICAgICAgICAg
-IHwgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjNfMC5jICAgICAgICAg
-ICAgICB8ICAgNCArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYyAgfCAgNDkgKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hdG9t
-ZmlybXdhcmUuaCAgICAgICAgIHwgICA1ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9od21nci9wcGF0b21md2N0cmwuYyB8ICA5NiArKysrKysrKysrKysrLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwYXRvbWZ3Y3RybC5oIHwgICA1ICsKIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5jIHwgICA0ICsKIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5oIHwgICAzICsKIC4u
-Li9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9wcm9jZXNzcHB0YWJsZXMuYyAgIHwgICAyICsK
-IC4uLi9kcm0vYW1kL3Bvd2VycGxheS9pbmMvdmVnYTEyL3NtdTlfZHJpdmVyX2lmLmggIHwgICA1
-ICstCiAxNCBmaWxlcyBjaGFuZ2VkLCAyODQgaW5zZXJ0aW9ucygrKSwgODYgZGVsZXRpb25zKC0p
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Thu, Jul 5, 2018 at 6:37 AM, Michel D=C3=A4nzer <michel@daenzer.net> wro=
+te:
+> On 2018-07-04 07:27 PM, Kees Cook wrote:
+>> As already done treewide, switch from open-coded multiplication to
+>> 2-factor allocation helper.
+>>
+>> Signed-off-by: Kees Cook <keescook@chromium.org>
+>> ---
+>>  drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 8 ++++----
+>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/d=
+rivers/gpu/drm/amd/display/modules/color/color_gamma.c
+>> index 98edaefa2b47..ee69c949bfbf 100644
+>> --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+>> +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+>> @@ -1723,8 +1723,8 @@ bool  mod_color_calculate_curve(enum dc_transfer_f=
+unc_predefined trans,
+>>               kvfree(rgb_regamma);
+>>       } else if (trans =3D=3D TRANSFER_FUNCTION_HLG ||
+>>               trans =3D=3D TRANSFER_FUNCTION_HLG12) {
+>> -             rgb_regamma =3D kvzalloc(sizeof(*rgb_regamma) *
+>> -                                    (MAX_HW_POINTS + _EXTRA_POINTS),
+>> +             rgb_regamma =3D kvcalloc(MAX_HW_POINTS + _EXTRA_POINTS,
+>> +                                    sizeof(*rgb_regamma),
+>>                                      GFP_KERNEL);
+>>               if (!rgb_regamma)
+>>                       goto rgb_regamma_alloc_fail;
+>> @@ -1802,8 +1802,8 @@ bool  mod_color_calculate_degamma_curve(enum dc_tr=
+ansfer_func_predefined trans,
+>>               kvfree(rgb_degamma);
+>>       } else if (trans =3D=3D TRANSFER_FUNCTION_HLG ||
+>>               trans =3D=3D TRANSFER_FUNCTION_HLG12) {
+>> -             rgb_degamma =3D kvzalloc(sizeof(*rgb_degamma) *
+>> -                                    (MAX_HW_POINTS + _EXTRA_POINTS),
+>> +             rgb_degamma =3D kvcalloc(MAX_HW_POINTS + _EXTRA_POINTS,
+>> +                                    sizeof(*rgb_degamma),
+>>                                      GFP_KERNEL);
+>>               if (!rgb_degamma)
+>>                       goto rgb_degamma_alloc_fail;
+>>
+>
+> Since the values are constant, kvcalloc incurs the overflow checking
+> overhead for no gain.
+
+The way the macros are designed, they'll get entirely optimized away
+in that case:
+http://lkml.kernel.org/r/CAGXu5jLw9kMZRkzL_Q7JdyyprntHF6bdVSE_vjyzect3CenDn=
+g@mail.gmail.com
+
+Using this patch means if the code ever changes away from constants,
+it'll still be safe. And static checkers won't yell about the
+open-coded multiplication here. So it's only up-sides. :)
+
+-Kees
+
+--=20
+Kees Cook
+Pixel Security
