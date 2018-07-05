@@ -1,13 +1,14 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Add CLK IP base offset
-Date: Thu, 5 Jul 2018 09:29:52 +0000
-Message-ID: <SN6PR12MB265685D8E31570CE00DD3313E4400@SN6PR12MB2656.namprd12.prod.outlook.com>
-References: <1530779984-32194-1-git-send-email-rex.zhu@amd.com>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH xf86-video-ati 02/10] EXA: Remove old RADEONEXACreatePixmap
+ hook
+Date: Thu,  5 Jul 2018 14:12:59 +0200
+Message-ID: <20180705121307.7835-3-michel@daenzer.net>
+References: <20180705121307.7835-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1785621452=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1530779984-32194-1-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180705121307.7835-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,174 +19,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1785621452==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB265685D8E31570CE00DD3313E4400SN6PR12MB2656namp_"
-
---_000_SN6PR12MB265685D8E31570CE00DD3313E4400SN6PR12MB2656namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, July 5, 2018 4:39:44 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH] drm/amdgpu: Add CLK IP base offset
 
-so we can read/write the registers in CLK domain
-through RREG32/WREG32_SOC15
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h          | 1 +
- drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c | 1 +
- 2 files changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 44bcc3e..8eaba0f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1401,6 +1401,7 @@ enum amd_hw_ip_block_type {
-         PWR_HWIP,
-         NBIF_HWIP,
-         THM_HWIP,
-+       CLK_HWIP,
-         MAX_HWIP
- };
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c b/drivers/gpu/drm=
-/amd/amdgpu/vega10_reg_init.c
-index 45aafca..c5c9b2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c
-@@ -51,6 +51,7 @@ int vega10_reg_base_init(struct amdgpu_device *adev)
-                 adev->reg_offset[PWR_HWIP][i] =3D (uint32_t *)(&(PWR_BASE.=
-instance[i]));
-                 adev->reg_offset[NBIF_HWIP][i] =3D (uint32_t *)(&(NBIF_BAS=
-E.instance[i]));
-                 adev->reg_offset[THM_HWIP][i] =3D (uint32_t *)(&(THM_BASE.=
-instance[i]));
-+               adev->reg_offset[CLK_HWIP][i] =3D (uint32_t *)(&(CLK_BASE.i=
-nstance[i]));
-         }
-         return 0;
- }
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_SN6PR12MB265685D8E31570CE00DD3313E4400SN6PR12MB2656namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><span>Reviewed-by: Evan Quan &lt;=
-evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Thursday, July 5, 2018 4:39:44 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Add CLK IP base offset</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">so we can read/write the registers in CLK domain<b=
-r>
-through RREG32/WREG32_SOC15<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c | 1 &#43;<br>
-&nbsp;2 files changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index 44bcc3e..8eaba0f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -1401,6 &#43;1401,7 @@ enum amd_hw_ip_block_type {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PWR_HWIP,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NBIF_HWIP,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THM_HWIP,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLK_HWIP,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MAX_HWIP<br>
-&nbsp;};<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c b/drivers/gpu/drm=
-/amd/amdgpu/vega10_reg_init.c<br>
-index 45aafca..c5c9b2b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c<br>
-@@ -51,6 &#43;51,7 @@ int vega10_reg_base_init(struct amdgpu_device *adev)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[PWR_HWIP][i] =3D (uint32_t *)(&am=
-p;(PWR_BASE.instance[i]));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[NBIF_HWIP][i] =3D (uint32_t *)(&a=
-mp;(NBIF_BASE.instance[i]));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[THM_HWIP][i] =3D (uint32_t *)(&am=
-p;(THM_BASE.instance[i]));<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;reg_offset[CLK_HWIP][i] =3D (uint32_t *)(&amp;(CLK_=
-BASE.instance[i]));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SN6PR12MB265685D8E31570CE00DD3313E4400SN6PR12MB2656namp_--
-
---===============1785621452==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1785621452==--
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpOb3QgdXNlZCBi
+eSBhbnkgc3VwcG9ydGVkIHZlcnNpb24gb2YgeHNlcnZlci4KClNpZ25lZC1vZmYtYnk6IE1pY2hl
+bCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0KIHNyYy9ldmVyZ3JlZW5fZXhh
+LmMgICAgfCAgMSAtCiBzcmMvZXZlcmdyZWVuX3N0YXRlLmggIHwgIDEgLQogc3JjL3I2MDBfZXhh
+LmMgICAgICAgICB8ICAxIC0KIHNyYy9yNjAwX3N0YXRlLmggICAgICAgfCAgMSAtCiBzcmMvcmFk
+ZW9uX2V4YS5jICAgICAgIHwgMjkgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIHNyYy9y
+YWRlb25fZXhhX2Z1bmNzLmMgfCAgMSAtCiA2IGZpbGVzIGNoYW5nZWQsIDM0IGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL3NyYy9ldmVyZ3JlZW5fZXhhLmMgYi9zcmMvZXZlcmdyZWVuX2V4YS5j
+CmluZGV4IDg1ODQ4MTMzMy4uNDFlZGQzNDUzIDEwMDY0NAotLS0gYS9zcmMvZXZlcmdyZWVuX2V4
+YS5jCisrKyBiL3NyYy9ldmVyZ3JlZW5fZXhhLmMKQEAgLTIwNjUsNyArMjA2NSw2IEBAIEVWRVJH
+UkVFTkRyYXdJbml0KFNjcmVlblB0ciBwU2NyZWVuKQogICAgIGluZm8tPmFjY2VsX3N0YXRlLT5l
+eGEtPk1hcmtTeW5jID0gRVZFUkdSRUVOTWFya1N5bmM7CiAgICAgaW5mby0+YWNjZWxfc3RhdGUt
+PmV4YS0+V2FpdE1hcmtlciA9IEVWRVJHUkVFTlN5bmM7CiAKLSAgICBpbmZvLT5hY2NlbF9zdGF0
+ZS0+ZXhhLT5DcmVhdGVQaXhtYXAgPSBSQURFT05FWEFDcmVhdGVQaXhtYXA7CiAgICAgaW5mby0+
+YWNjZWxfc3RhdGUtPmV4YS0+RGVzdHJveVBpeG1hcCA9IFJBREVPTkVYQURlc3Ryb3lQaXhtYXA7
+CiAgICAgaW5mby0+YWNjZWxfc3RhdGUtPmV4YS0+UGl4bWFwSXNPZmZzY3JlZW4gPSBSQURFT05F
+WEFQaXhtYXBJc09mZnNjcmVlbjsKICAgICBpbmZvLT5hY2NlbF9zdGF0ZS0+ZXhhLT5QcmVwYXJl
+QWNjZXNzID0gUkFERU9OUHJlcGFyZUFjY2Vzc19DUzsKZGlmZiAtLWdpdCBhL3NyYy9ldmVyZ3Jl
+ZW5fc3RhdGUuaCBiL3NyYy9ldmVyZ3JlZW5fc3RhdGUuaAppbmRleCA3OTVkNDQ3MjAuLmVmMzMx
+MDAyNSAxMDA2NDQKLS0tIGEvc3JjL2V2ZXJncmVlbl9zdGF0ZS5oCisrKyBiL3NyYy9ldmVyZ3Jl
+ZW5fc3RhdGUuaApAQCAtMzQ1LDcgKzM0NSw2IEBAIFI2MDBTZXRBY2NlbFN0YXRlKFNjcm5JbmZv
+UHRyIHBTY3JuLAogCiBleHRlcm4gQm9vbCBSQURFT05QcmVwYXJlQWNjZXNzX0NTKFBpeG1hcFB0
+ciBwUGl4LCBpbnQgaW5kZXgpOwogZXh0ZXJuIHZvaWQgUkFERU9ORmluaXNoQWNjZXNzX0NTKFBp
+eG1hcFB0ciBwUGl4LCBpbnQgaW5kZXgpOwotZXh0ZXJuIHZvaWQgKlJBREVPTkVYQUNyZWF0ZVBp
+eG1hcChTY3JlZW5QdHIgcFNjcmVlbiwgaW50IHNpemUsIGludCBhbGlnbik7CiBleHRlcm4gdm9p
+ZCAqUkFERU9ORVhBQ3JlYXRlUGl4bWFwMihTY3JlZW5QdHIgcFNjcmVlbiwgaW50IHdpZHRoLCBp
+bnQgaGVpZ2h0LAogCQkJCSAgICBpbnQgZGVwdGgsIGludCB1c2FnZV9oaW50LCBpbnQgYml0c1Bl
+clBpeGVsLAogCQkJCSAgICBpbnQgKm5ld19waXRjaCk7CmRpZmYgLS1naXQgYS9zcmMvcjYwMF9l
+eGEuYyBiL3NyYy9yNjAwX2V4YS5jCmluZGV4IGM2OWI4ZmNlNy4uYTExMWRkNDU2IDEwMDY0NAot
+LS0gYS9zcmMvcjYwMF9leGEuYworKysgYi9zcmMvcjYwMF9leGEuYwpAQCAtMjA0NCw3ICsyMDQ0
+LDYgQEAgUjYwMERyYXdJbml0KFNjcmVlblB0ciBwU2NyZWVuKQogICAgIGluZm8tPmFjY2VsX3N0
+YXRlLT5leGEtPk1hcmtTeW5jID0gUjYwME1hcmtTeW5jOwogICAgIGluZm8tPmFjY2VsX3N0YXRl
+LT5leGEtPldhaXRNYXJrZXIgPSBSNjAwU3luYzsKIAotICAgIGluZm8tPmFjY2VsX3N0YXRlLT5l
+eGEtPkNyZWF0ZVBpeG1hcCA9IFJBREVPTkVYQUNyZWF0ZVBpeG1hcDsKICAgICBpbmZvLT5hY2Nl
+bF9zdGF0ZS0+ZXhhLT5EZXN0cm95UGl4bWFwID0gUkFERU9ORVhBRGVzdHJveVBpeG1hcDsKICAg
+ICBpbmZvLT5hY2NlbF9zdGF0ZS0+ZXhhLT5QaXhtYXBJc09mZnNjcmVlbiA9IFJBREVPTkVYQVBp
+eG1hcElzT2Zmc2NyZWVuOwogICAgIGluZm8tPmFjY2VsX3N0YXRlLT5leGEtPlByZXBhcmVBY2Nl
+c3MgPSBSQURFT05QcmVwYXJlQWNjZXNzX0NTOwpkaWZmIC0tZ2l0IGEvc3JjL3I2MDBfc3RhdGUu
+aCBiL3NyYy9yNjAwX3N0YXRlLmgKaW5kZXggZmRhMjk3ZDMxLi40ODk4ZThkZTggMTAwNjQ0Ci0t
+LSBhL3NyYy9yNjAwX3N0YXRlLmgKKysrIGIvc3JjL3I2MDBfc3RhdGUuaApAQCAtMzE2LDcgKzMx
+Niw2IEBAIFI2MDBTZXRBY2NlbFN0YXRlKFNjcm5JbmZvUHRyIHBTY3JuLAogCiBleHRlcm4gQm9v
+bCBSQURFT05QcmVwYXJlQWNjZXNzX0NTKFBpeG1hcFB0ciBwUGl4LCBpbnQgaW5kZXgpOwogZXh0
+ZXJuIHZvaWQgUkFERU9ORmluaXNoQWNjZXNzX0NTKFBpeG1hcFB0ciBwUGl4LCBpbnQgaW5kZXgp
+OwotZXh0ZXJuIHZvaWQgKlJBREVPTkVYQUNyZWF0ZVBpeG1hcChTY3JlZW5QdHIgcFNjcmVlbiwg
+aW50IHNpemUsIGludCBhbGlnbik7CiBleHRlcm4gdm9pZCAqUkFERU9ORVhBQ3JlYXRlUGl4bWFw
+MihTY3JlZW5QdHIgcFNjcmVlbiwgaW50IHdpZHRoLCBpbnQgaGVpZ2h0LAogCQkJCSAgICBpbnQg
+ZGVwdGgsIGludCB1c2FnZV9oaW50LCBpbnQgYml0c1BlclBpeGVsLAogCQkJCSAgICBpbnQgKm5l
+d19waXRjaCk7CmRpZmYgLS1naXQgYS9zcmMvcmFkZW9uX2V4YS5jIGIvc3JjL3JhZGVvbl9leGEu
+YwppbmRleCA5MTA2ZDVjNjUuLmVmNjBiYzBjMSAxMDA2NDQKLS0tIGEvc3JjL3JhZGVvbl9leGEu
+YworKysgYi9zcmMvcmFkZW9uX2V4YS5jCkBAIC0yMzUsMzUgKzIzNSw2IEBAIHZvaWQgUkFERU9O
+RmluaXNoQWNjZXNzX0NTKFBpeG1hcFB0ciBwUGl4LCBpbnQgaW5kZXgpCiB9CiAKIAotdm9pZCAq
+UkFERU9ORVhBQ3JlYXRlUGl4bWFwKFNjcmVlblB0ciBwU2NyZWVuLCBpbnQgc2l6ZSwgaW50IGFs
+aWduKQotewotICAgIFNjcm5JbmZvUHRyIHBTY3JuID0geGY4NlNjcmVlblRvU2NybihwU2NyZWVu
+KTsKLSAgICBSQURFT05JbmZvUHRyIGluZm8gPSBSQURFT05QVFIocFNjcm4pOwotICAgIHN0cnVj
+dCByYWRlb25fZXhhX3BpeG1hcF9wcml2ICpuZXdfcHJpdjsKLQotICAgIGlmIChzaXplICE9IDAg
+JiYgIWluZm8tPmV4YV9mb3JjZV9jcmVhdGUgJiYKLQlpbmZvLT5leGFfcGl4bWFwcyA9PSBGQUxT
+RSkKLSAgICAgICAgcmV0dXJuIE5VTEw7Ci0JICAgIAotICAgIG5ld19wcml2ID0gY2FsbG9jKDEs
+IHNpemVvZihzdHJ1Y3QgcmFkZW9uX2V4YV9waXhtYXBfcHJpdikpOwotICAgIGlmICghbmV3X3By
+aXYpCi0JcmV0dXJuIE5VTEw7Ci0KLSAgICBpZiAoc2l6ZSA9PSAwKQotCXJldHVybiBuZXdfcHJp
+djsKLQotICAgIG5ld19wcml2LT5ibyA9IHJhZGVvbl9ib19vcGVuKGluZm8tPmJ1Zm1nciwgMCwg
+c2l6ZSwgYWxpZ24sCi0JCQkJICBSQURFT05fR0VNX0RPTUFJTl9WUkFNLCAwKTsKLSAgICBpZiAo
+IW5ld19wcml2LT5ibykgewotCWZyZWUobmV3X3ByaXYpOwotCUVycm9yRigiRmFpbGVkIHRvIGFs
+bG9jIG1lbW9yeVxuIik7Ci0JcmV0dXJuIE5VTEw7Ci0gICAgfQotICAgIAotICAgIHJldHVybiBu
+ZXdfcHJpdjsKLQotfQotCiB2b2lkICpSQURFT05FWEFDcmVhdGVQaXhtYXAyKFNjcmVlblB0ciBw
+U2NyZWVuLCBpbnQgd2lkdGgsIGludCBoZWlnaHQsCiAJCQkgICAgIGludCBkZXB0aCwgaW50IHVz
+YWdlX2hpbnQsIGludCBiaXRzUGVyUGl4ZWwsCiAJCQkgICAgIGludCAqbmV3X3BpdGNoKQpkaWZm
+IC0tZ2l0IGEvc3JjL3JhZGVvbl9leGFfZnVuY3MuYyBiL3NyYy9yYWRlb25fZXhhX2Z1bmNzLmMK
+aW5kZXggZGEwNTI0ZWRlLi5hZGQ4OTQ1OGYgMTAwNjQ0Ci0tLSBhL3NyYy9yYWRlb25fZXhhX2Z1
+bmNzLmMKKysrIGIvc3JjL3JhZGVvbl9leGFfZnVuY3MuYwpAQCAtNjM4LDcgKzYzOCw2IEBAIEJv
+b2wgUkFERU9ORHJhd0luaXQoU2NyZWVuUHRyIHBTY3JlZW4pCiAgICAgfQogI2VuZGlmCiAKLSAg
+ICBpbmZvLT5hY2NlbF9zdGF0ZS0+ZXhhLT5DcmVhdGVQaXhtYXAgPSBSQURFT05FWEFDcmVhdGVQ
+aXhtYXA7CiAgICAgaW5mby0+YWNjZWxfc3RhdGUtPmV4YS0+RGVzdHJveVBpeG1hcCA9IFJBREVP
+TkVYQURlc3Ryb3lQaXhtYXA7CiAgICAgaW5mby0+YWNjZWxfc3RhdGUtPmV4YS0+UGl4bWFwSXNP
+ZmZzY3JlZW4gPSBSQURFT05FWEFQaXhtYXBJc09mZnNjcmVlbjsKICAgICBpbmZvLT5hY2NlbF9z
+dGF0ZS0+ZXhhLT5QcmVwYXJlQWNjZXNzID0gUkFERU9OUHJlcGFyZUFjY2Vzc19DUzsKLS0gCjIu
+MTguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
