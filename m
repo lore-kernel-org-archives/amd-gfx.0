@@ -1,18 +1,17 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/acp: Fix slab-out-of-bounds in mfd_add_device
- in acp_hw_init
-Date: Thu, 5 Jul 2018 12:38:27 -0400
-Message-ID: <CADnq5_Me=_g6St_j8fYy20eiZK6fbmdp3zZ9WQMM5S5BuZY6uQ@mail.gmail.com>
-References: <20180413161601.109431-1-djkurtz@chromium.org>
- <6e46904a-d721-d583-8ab5-82cb07df7934@amd.com>
- <CAGS+omATU0gus_EvbHtegGK1ZkaKVmSOr1E6QLQjd+LA_tC_LA@mail.gmail.com>
- <CADnq5_Nwt+i2Sezh2Rmg9VyYYbc8LAMJyS6eQf9K5yAp-GgAXA@mail.gmail.com>
- <4444b8ea-ba99-902d-cb5b-5cf3f05b4803@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: BUG: *ERROR* No EDID read
+Date: Thu, 5 Jul 2018 16:42:46 +0000
+Message-ID: <BN6PR12MB180950F0998981DCEA29C353F7400@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <CAFwJxe7NGsS+3sKXgHRgd9f=2AsMWFP3FVwsO5T+zmN8oYBZ3Q@mail.gmail.com>
+ <CADnq5_PXVhgG4NhT4gnseC9wmvLxHm3mmJx32aCmvbW=SOf8YQ@mail.gmail.com>
+ <CAFwJxe5O+UorFK58yTddmPzOoOVS=LVLdKb0eCyLnZBRkTo=FA@mail.gmail.com>
+ <CADnq5_Owis9hPZkGO1ctcft8zx1eRjyMU-k0FB9ErfboDUwVSA@mail.gmail.com>,
+ <CAFwJxe6ky_+8OmibKh+p70BXKLQ439h+cR1d_twQEoJrB8moCg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0076609571=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4444b8ea-ba99-902d-cb5b-5cf3f05b4803-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAFwJxe6ky_+8OmibKh+p70BXKLQ439h+cR1d_twQEoJrB8moCg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,129 +22,470 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Mukunda,Vijendar" <vijendar.mukunda-5C7GfCeVMHo@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Akshu Agrawal <Akshu.Agrawal-5C7GfCeVMHo@public.gmane.org>, jclinton-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org, Daniel Kurtz <djkurtz-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, "Deucher,
- Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Daniel Andersson <engywook-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gV2VkLCBKdWwgNCwgMjAxOCBhdCA0OjQ4IEFNLCBNdWt1bmRhLFZpamVuZGFyCjx2aWplbmRh
-ci5tdWt1bmRhQGFtZC5jb20+IHdyb3RlOgo+Cj4KPiBPbiBUdWVzZGF5IDAzIEp1bHkgMjAxOCAw
-OTo1MCBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+Pgo+PiBPbiBNb24sIEp1bCAyLCAyMDE4IGF0
-IDU6NDggUE0sIERhbmllbCBLdXJ0eiA8ZGprdXJ0ekBjaHJvbWl1bS5vcmc+IHdyb3RlOgo+Pj4K
-Pj4+IEhpIEFsZXgsCj4+Pgo+Pj4gT24gU3VuLCBBcHIgMTUsIDIwMTggYXQgOTo0OCBQTSBBZ3Jh
-d2FsLCBBa3NodSA8QWtzaHUuQWdyYXdhbEBhbWQuY29tPgo+Pj4gd3JvdGU6Cj4+Pj4KPj4+Pgo+
-Pj4+Cj4+Pj4KPj4+PiBPbiA0LzEzLzIwMTggOTo0NSBQTSwgRGFuaWVsIEt1cnR6IHdyb3RlOgo+
-Pj4+Pgo+Pj4+PiBDb21taXQgNTFmNzQxNTAzOWQ0ICgiZHJtL2FtZC9hbWRncHU6IGNyZWF0aW5n
-IHR3byBJMlMgaW5zdGFuY2VzIGZvcgo+Pj4+PiBzdG9uZXkvY3oiKSBhZGRlZCBzdXBwb3J0IGZv
-ciB0aGUgIkJUX0kyUyIgQUNQIGkycyBjaGFubmVsLiAgQXMgcGFydCBvZgo+Pj4+PiB0aGlzIGNo
-YW5nZSwgb25lIGFkZGl0aW9uYWwgYWNwIHJlc291cmNlIHdhcyBhZGRlZCwgYnV0IHRoZQo+Pj4+
-PiAibnVtX3Jlc291cmNlIgo+Pj4+PiBjb3VudCB3YXMgYWNjaWRlbnRhbGx5IGluY3JlbWVudGVk
-IGJ5IDIuCj4+Pj4+Cj4+Pj4+IFRoaXMgaW5jb3JyZWN0IGNvdW50IGV2ZW50dWFsbHkgY2F1c2Vz
-IG1mZF9hZGRfZGV2aWNlKCkgdG8gdHJ5IHRvCj4+Pj4+IGFjY2Vzcwo+Pj4+PiBhbiBpbnZhbGlk
-IG1lbW9yeSBhZGRyZXNzICh0aGUgbG9jYXRpb24gb2Ygbm9uLWV4aXN0ZW50IHJlc291cmNlIDUu
-Cj4+Pj4+Cj4+Pj4+IFRoaXMgZmF1bHQgd2FzIGRldGVjdGVkIGJ5IHJ1bm5pbmcgYSBLQVNBTiBl
-bmFibGVkIGtlcm5lbCwgd2hpY2gKPj4+Pj4gcHJvZHVjZWQKPj4+Pj4gdGhlIGZvbGxvd2luZyBz
-cGxhdCBhdCBib290Ogo+Pj4+Pgo+Pj4+PiBbICAgIDYuNjEyOTg3XQo+Pj4+PiA9PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0K
-Pj4+Pj4gWyAgICA2LjYxMzUwOV0gQlVHOiBLQVNBTjogc2xhYi1vdXQtb2YtYm91bmRzIGluCj4+
-Pj4+IG1mZF9hZGRfZGV2aWNlKzB4NGJjLzB4N2E3Cj4+Pj4+IFsgICAgNi42MTM1MDldIFJlYWQg
-b2Ygc2l6ZSA4IGF0IGFkZHIgZmZmZjg4MDEwN2Q0ZGM1OCBieSB0YXNrCj4+Pj4+IHN3YXBwZXIv
-MC8xCj4+Pj4+IFsgICAgNi42MTM1MDldCj4+Pj4+IFsgICAgNi42MTM1MDldIENQVTogMCBQSUQ6
-IDEgQ29tbTogc3dhcHBlci8wIE5vdCB0YWludGVkIDQuMTQuMzMgIzM0OQo+Pj4+PiBbICAgIDYu
-NjEzNTA5XSBIYXJkd2FyZSBuYW1lOiBHb29nbGUgR3J1bnQvR3J1bnQsIEJJT1MKPj4+Pj4gR29v
-Z2xlX0dydW50LjEwNTQzLjAuMjAxOF8wNF8wM18xODEyIDA0LzAyLzIwMTgKPj4+Pj4gWyAgICA2
-LjYxMzUwOV0gQ2FsbCBUcmFjZToKPj4+Pj4gWyAgICA2LjYxMzUwOV0gIGR1bXBfc3RhY2srMHg0
-ZC8weDYzCj4+Pj4+IFsgICAgNi42MTM1MDldICBwcmludF9hZGRyZXNzX2Rlc2NyaXB0aW9uKzB4
-ODAvMHgyZDYKPj4+Pj4gWyAgICA2LjYxMzUwOV0gID8gbWZkX2FkZF9kZXZpY2UrMHg0YmMvMHg3
-YTcKPj4+Pj4gWyAgICA2LjYxMzUwOV0gIGthc2FuX3JlcG9ydCsweDI1NS8weDI5NQo+Pj4+PiBb
-ICAgIDYuNjEzNTA5XSAgbWZkX2FkZF9kZXZpY2UrMHg0YmMvMHg3YTcKPj4+Pj4gWyAgICA2LjYx
-MzUwOV0gID8ga2FzYW5fa21hbGxvYysweDk5LzB4YTgKPj4+Pj4gWyAgICA2LjYxMzUwOV0gID8g
-bWZkX2FkZF9kZXZpY2VzKzB4NTgvMHhlNAo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgPyBfX2ttYWxs
-b2MrMHgxNTQvMHgxNzgKPj4+Pj4gWyAgICA2LjYxMzUwOV0gIG1mZF9hZGRfZGV2aWNlcysweGE1
-LzB4ZTQKPj4+Pj4gWyAgICA2LjYxMzUwOV0gIGFjcF9od19pbml0KzB4OTJlLzB4YzRhCj4+Pj4+
-IFsgICAgNi42MTM1MDldICBhbWRncHVfZGV2aWNlX2luaXQrMHgxZGZiLzB4MjJhMgo+Pj4+PiBb
-ICAgIDYuNjEzNTA5XSAgPyBrbWFsbG9jX29yZGVyKzB4NTMvMHg1ZAo+Pj4+PiBbICAgIDYuNjEz
-NTA5XSAgPyBrbWFsbG9jX29yZGVyX3RyYWNlKzB4MjMvMHhiMwo+Pj4+PiBbICAgIDYuNjEzNTA5
-XSAgYW1kZ3B1X2RyaXZlcl9sb2FkX2ttcysweGNlLzB4MjY3Cj4+Pj4+IFsgICAgNi42MTM1MDld
-ICBkcm1fZGV2X3JlZ2lzdGVyKzB4MTY5LzB4MmZiCj4+Pj4+IFsgICAgNi42MTM1MDldICBhbWRn
-cHVfcGNpX3Byb2JlKzB4MjE3LzB4MjQyCj4+Pj4+IFsgICAgNi42MTM1MDldICBwY2lfZGV2aWNl
-X3Byb2JlKzB4MTAxLzB4MThlCj4+Pj4+IFsgICAgNi42MTM1MDldICBkcml2ZXJfcHJvYmVfZGV2
-aWNlKzB4MWRkLzB4NDE5Cj4+Pj4+IFsgICAgNi42MTM1MDldICA/IF9fX21pZ2h0X3NsZWVwKzB4
-ODAvMHgxYjYKPj4+Pj4gWyAgICA2LjYxMzUwOV0gIF9fZHJpdmVyX2F0dGFjaCsweDlmLzB4YzkK
-Pj4+Pj4gWyAgICA2LjYxMzUwOV0gID8gZHJpdmVyX3Byb2JlX2RldmljZSsweDQxOS8weDQxOQo+
-Pj4+PiBbICAgIDYuNjEzNTA5XSAgYnVzX2Zvcl9lYWNoX2RldisweGJjLzB4ZTEKPj4+Pj4gWyAg
-ICA2LjYxMzUwOV0gIGJ1c19hZGRfZHJpdmVyKzB4MTg5LzB4MmMwCj4+Pj4+IFsgICAgNi42MTM1
-MDldICBkcml2ZXJfcmVnaXN0ZXIrMHgxMDgvMHgxNTYKPj4+Pj4gWyAgICA2LjYxMzUwOV0gID8g
-dHRtX2luaXQrMHg2Ny8weDY3Cj4+Pj4+IFsgICAgNi42MTM1MDldICBkb19vbmVfaW5pdGNhbGwr
-MHhiMi8weDE2MQo+Pj4+PiBbICAgIDYuNjEzNTA5XSAga2VybmVsX2luaXRfZnJlZWFibGUrMHgy
-NWEvMHgzMDgKPj4+Pj4gWyAgICA2LjYxMzUwOV0gID8gcmVzdF9pbml0KzB4Y2MvMHhjYwo+Pj4+
-PiBbICAgIDYuNjEzNTA5XSAga2VybmVsX2luaXQrMHgxMS8weDEwZAo+Pj4+PiBbICAgIDYuNjEz
-NTA5XSAgPyByZXN0X2luaXQrMHhjYy8weGNjCj4+Pj4+IFsgICAgNi42MTM1MDldICByZXRfZnJv
-bV9mb3JrKzB4MjIvMHg0MAo+Pj4+PiBbICAgIDYuNjEzNTA5XQo+Pj4+PiBbICAgIDYuNjEzNTA5
-XSBBbGxvY2F0ZWQgYnkgdGFzayAxOgo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgc2F2ZV9zdGFjaysw
-eDQ2LzB4Y2UKPj4+Pj4gWyAgICA2LjYxMzUwOV0gIGthc2FuX2ttYWxsb2MrMHg5OS8weGE4Cj4+
-Pj4+IFsgICAgNi42MTM1MDldICBrbWVtX2NhY2hlX2FsbG9jX3RyYWNlKzB4MTFhLzB4MTNlCj4+
-Pj4+IFsgICAgNi42MTM1MDldICBhY3BfaHdfaW5pdCsweDIxMC8weGM0YQo+Pj4+PiBbICAgIDYu
-NjEzNTA5XSAgYW1kZ3B1X2RldmljZV9pbml0KzB4MWRmYi8weDIyYTIKPj4+Pj4gWyAgICA2LjYx
-MzUwOV0gIGFtZGdwdV9kcml2ZXJfbG9hZF9rbXMrMHhjZS8weDI2Nwo+Pj4+PiBbICAgIDYuNjEz
-NTA5XSAgZHJtX2Rldl9yZWdpc3RlcisweDE2OS8weDJmYgo+Pj4+PiBbICAgIDYuNjEzNTA5XSAg
-YW1kZ3B1X3BjaV9wcm9iZSsweDIxNy8weDI0Mgo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgcGNpX2Rl
-dmljZV9wcm9iZSsweDEwMS8weDE4ZQo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgZHJpdmVyX3Byb2Jl
-X2RldmljZSsweDFkZC8weDQxOQo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgX19kcml2ZXJfYXR0YWNo
-KzB4OWYvMHhjOQo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgYnVzX2Zvcl9lYWNoX2RldisweGJjLzB4
-ZTEKPj4+Pj4gWyAgICA2LjYxMzUwOV0gIGJ1c19hZGRfZHJpdmVyKzB4MTg5LzB4MmMwCj4+Pj4+
-IFsgICAgNi42MTM1MDldICBkcml2ZXJfcmVnaXN0ZXIrMHgxMDgvMHgxNTYKPj4+Pj4gWyAgICA2
-LjYxMzUwOV0gIGRvX29uZV9pbml0Y2FsbCsweGIyLzB4MTYxCj4+Pj4+IFsgICAgNi42MTM1MDld
-ICBrZXJuZWxfaW5pdF9mcmVlYWJsZSsweDI1YS8weDMwOAo+Pj4+PiBbICAgIDYuNjEzNTA5XSAg
-a2VybmVsX2luaXQrMHgxMS8weDEwZAo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgcmV0X2Zyb21fZm9y
-aysweDIyLzB4NDAKPj4+Pj4gWyAgICA2LjYxMzUwOV0KPj4+Pj4gWyAgICA2LjYxMzUwOV0gRnJl
-ZWQgYnkgdGFzayAwOgo+Pj4+PiBbICAgIDYuNjEzNTA5XSAoc3RhY2sgaXMgbm90IGF2YWlsYWJs
-ZSkKPj4+Pj4gWyAgICA2LjYxMzUwOV0KPj4+Pj4gWyAgICA2LjYxMzUwOV0gVGhlIGJ1Z2d5IGFk
-ZHJlc3MgYmVsb25ncyB0byB0aGUgb2JqZWN0IGF0Cj4+Pj4+IGZmZmY4ODAxMDdkNGRiMDgKPj4+
-Pj4gWyAgICA2LjYxMzUwOV0gIHdoaWNoIGJlbG9uZ3MgdG8gdGhlIGNhY2hlIGttYWxsb2MtNTEy
-IG9mIHNpemUgNTEyCj4+Pj4+IFsgICAgNi42MTM1MDldIFRoZSBidWdneSBhZGRyZXNzIGlzIGxv
-Y2F0ZWQgMzM2IGJ5dGVzIGluc2lkZSBvZgo+Pj4+PiBbICAgIDYuNjEzNTA5XSAgNTEyLWJ5dGUg
-cmVnaW9uIFtmZmZmODgwMTA3ZDRkYjA4LCBmZmZmODgwMTA3ZDRkZDA4KQo+Pj4+PiBbICAgIDYu
-NjEzNTA5XSBUaGUgYnVnZ3kgYWRkcmVzcyBiZWxvbmdzIHRvIHRoZSBwYWdlOgo+Pj4+PiBbICAg
-IDYuNjEzNTA5XSBwYWdlOmZmZmZlYTAwMDQxZjUzMDAgY291bnQ6MSBtYXBjb3VudDowIG1hcHBp
-bmc6Cj4+Pj4+IChudWxsKSBpbmRleDoweDAgY29tcG91bmRfbWFwY291bnQ6IDAKPj4+Pj4gWyAg
-ICA2LjYxMzUwOV0gZmxhZ3M6IDB4ODAwMDAwMDAwMDAwODEwMChzbGFifGhlYWQpCj4+Pj4+IFsg
-ICAgNi42MTM1MDldIHJhdzogODAwMDAwMDAwMDAwODEwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAw
-MDAwMDAwMDAwMDAKPj4+Pj4gMDAwMDAwMDEwMDEyMDAxMgo+Pj4+PiBbICAgIDYuNjEzNTA5XSBy
-YXc6IGZmZmZlYTAwMDQyMDg1MjAgZmZmZjg4MDEwYjAwMTY4MCBmZmZmODgwMTBiMDAyY2MwCj4+
-Pj4+IDAwMDAwMDAwMDAwMDAwMDAKPj4+Pj4gWyAgICA2LjYxMzUwOV0gcGFnZSBkdW1wZWQgYmVj
-YXVzZToga2FzYW46IGJhZCBhY2Nlc3MgZGV0ZWN0ZWQKPj4+Pj4gWyAgICA2LjYxMzUwOV0KPj4+
-Pj4gWyAgICA2LjYxMzUwOV0gTWVtb3J5IHN0YXRlIGFyb3VuZCB0aGUgYnVnZ3kgYWRkcmVzczoK
-Pj4+Pj4gWyAgICA2LjYxMzUwOV0gIGZmZmY4ODAxMDdkNGRiMDA6IGZjIDAwIDAwIDAwIDAwIDAw
-IDAwIDAwIDAwIDAwIDAwIDAwCj4+Pj4+IDAwIDAwIDAwIDAwCj4+Pj4+IFsgICAgNi42MTM1MDld
-ICBmZmZmODgwMTA3ZDRkYjgwOiAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMAo+
-Pj4+PiAwMCAwMCAwMCAwMAo+Pj4+PiBbICAgIDYuNjEzNTA5XSA+ZmZmZjg4MDEwN2Q0ZGMwMDog
-MDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgZmMgZmMgZmMKPj4+Pj4gZmMgZmMgZmMgZmMKPj4+
-Pj4gWyAgICA2LjYxMzUwOV0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIF4KPj4+Pj4gWyAgICA2LjYxMzUwOV0gIGZmZmY4ODAxMDdkNGRjODA6IGZj
-IGZjIGZjIGZjIGZjIGZjIGZjIGZjIGZjIGZjIGZjIGZjCj4+Pj4+IGZjIGZjIGZjIGZjCj4+Pj4+
-IFsgICAgNi42MTM1MDldICBmZmZmODgwMTA3ZDRkZDAwOiBmYyBmYyBmYyBmYyBmYyBmYyBmYyBm
-YyBmYyBmYyBmYyBmYwo+Pj4+PiBmYyBmYyBmYyBmYwo+Pj4+PiBbICAgIDYuNjEzNTA5XQo+Pj4+
-PiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT0KPj4+Pj4KPj4+Pj4gRml4ZXM6IDUxZjc0MTUwMzlkNCAoImRybS9hbWQvYW1k
-Z3B1OiBjcmVhdGluZyB0d28gSTJTIGluc3RhbmNlcyBmb3IKPj4+Pj4gc3RvbmV5L2N6IikKPj4+
-Pj4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIEt1cnR6IDxkamt1cnR6QGNocm9taXVtLm9yZz4KPj4+
-Pgo+Pj4+IEFja2VkLWJ5OiBBa3NodSBBZ3Jhd2FsIDxha3NodS5hZ3Jhd2FsQGFtZC5jb20+Cj4+
-Pgo+Pj4KPj4+Cj4+PiBXYXMgdGhpcyBwYXRjaCBldmVyIHBpY2tlZCB1cD8gIEkgY2FuJ3QgZmlu
-ZCBpdCBpbiBhZ2Q1Zi9saW51eC4KPj4KPj4KPj4gSXQgd2Fzbid0IGFwcGxpZWQuICBJIGRvbid0
-IHNlZSA1MWY3NDE1MDM5ZDQgKCJkcm0vYW1kL2FtZGdwdToKPj4gY3JlYXRpbmcgdHdvIEkyUyBp
-bnN0YW5jZXMgZm9yIHN0b25leS9jeiIpIHVwc3RyZWFtIHlldCBlaXRoZXIuCj4+IERhbmllbCwg
-VmlqZW5kYXIsIHdoaWNoIG9uZXMgZG8geW91IHdhbnQgYXBwbGllZD8gIENhbiB5b3Ugc2VuZCBt
-ZSB0aGUKPj4gcGF0Y2hlcz8KPj4KPj4gQWxleAo+Cj4KPiBIaSBBbGV4LAo+Cj4gImRybS9hbWQv
-YW1kZ3B1OiBjcmVhdGluZyB0d28gSTJTIGluc3RhbmNlcyBmb3Igc3RvbmV5L2N6IiBwYXRjaCBl
-eGlzdHMgaW4KPiBkcm0tbmV4dCBicmFuY2guIFBsZWFzZSBwaWNrIHRoZSBwYXRjaCAuCgpTbyBq
-dXN0IHRoYXQgb25lPyAgSSBzZWVtIHRvIHJlY2FsbCB0aGVyZSBiZWluZyBsYXRlciByZXZpc2lv
-bnMgb2YKdGhhdCBwYXRjaCB0aGF0IHlvdSByZXdvcmtlZCBhZnRlciBhcHBseWluZyB0aGUgb3Jp
-Z2luYWwgdmVyc2lvbi4KQWxzbyB0aGF0IHBhdGNoIHdhcyBvcmlnaW5hbGx5IHBhcnQgb2YgYSBs
-YXJnZXIgc2VyaWVzLiAgQXJlIHRob3NlCmNoYW5nZXMgcmVxdWlyZWQgdG9vPwoKQWxleAoKPgo+
-IFRoYW5rcywKPiBWaWplbmRhcgo+Cj4KPj4KPj4+Cj4+PiBUaGFua3MsCj4+PiAtRGFuCj4+PiBf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4gZHJpLWRl
-dmVsIG1haWxpbmcgbGlzdAo+Pj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4g
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+--===============0076609571==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180950F0998981DCEA29C353F7400BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180950F0998981DCEA29C353F7400BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+So your vbios has table v3.1 so it should not be affected by that patch.  D=
+oes reverting that patch actually fix the issue?
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Daniel A=
+ndersson <engywook-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Thursday, July 5, 2018 12:22:17 PM
+To: Alex Deucher
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: BUG: *ERROR* No EDID read
+
+I have not flashed any GPU BIOS. It's not a reference Vega though,
+Sapphire something. Maybe they made changes?
+
+vbios is attached.
+
+// Daniel
+
+On 5 July 2018 at 15:38, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+> On Mon, Jul 2, 2018 at 5:39 PM, Daniel Andersson <engywook-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wro=
+te:
+>> Sure, bisecting gets me 6e65fb862064663ad3a08f964af1e8f3f2abf688 .
+>>
+>> In drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c,
+>> get_firmware_info_v3_1() works but get_firmware_info_v3_2() does not
+>> do the right thing for my Vega.
+>>
+>> Could I break my GPU if I were to set some bad/wrong frequency there?
+>
+> vega10 should not hit that new path at all.  Have you edited your
+> vbios?  Can you send us a copy?  To get a copy of the vbios:
+>
+> Without the driver loaded:
+> (as root)
+> (use lspci to get the bus id)
+> cd /sys/bus/pci/devices/<pci bus id>
+> echo 1 > rom
+> cat rom > /tmp/vbios.rom
+> echo 0 > rom
+>
+> If the driver is loaded:
+> (as root)
+> cat /sys/kernel/debug/dri/0/amdgpu_vbios > /tmp/vbios.rom
+>
+> Alex
+>
+>>
+>> lspci:
+>> 43:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+>> [AMD/ATI] Vega 10 XT [Radeon RX Vega 64] (rev c1) (prog-if 00 [VGA
+>> controller])
+>>   Subsystem: Sapphire Technology Limited Vega 10 XT [Radeon RX Vega
+>> 64]
+>>   Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
+>> Stepping- SERR- FastB2B- DisINTx+
+>>   Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort-
+>> <TAbort- <MAbort- >SERR- <PERR- INTx-
+>>   Latency: 0, Cache Line Size: 64 bytes
+>>   Interrupt: pin A routed to IRQ 85
+>>   Region 0: Memory at d0000000 (64-bit, prefetchable) [size=3D256M]
+>>   Region 2: Memory at e0000000 (64-bit, prefetchable) [size=3D2M]
+>>   Region 4: I/O ports at f000 [size=3D256]
+>>   Region 5: Memory at ed400000 (32-bit, non-prefetchable) [size=3D512K]
+>>   Expansion ROM at ed480000 [disabled] [size=3D128K]
+>>   Capabilities: [48] Vendor Specific Information: Len=3D08 <?>
+>>   Capabilities: [50] Power Management version 3
+>>     Flags: PMEClk- DSI- D1- D2- AuxCurrent=3D0mA
+>> PME(D0-,D1+,D2+,D3hot+,D3cold+)
+>>     Status: D0 NoSoftRst+ PME-Enable- DSel=3D0 DScale=3D0 PME-
+>>   Capabilities: [64] Express (v2) Legacy Endpoint, MSI 00
+>>     DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1
+>> unlimited
+>>       ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+>>     DevCtl: Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+>>       RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
+>>       MaxPayload 256 bytes, MaxReadReq 512 bytes
+>>     DevSta: CorrErr+ UncorrErr- FatalErr- UnsuppReq+ AuxPwr-
+>> TransPend-
+>>     LnkCap: Port #0, Speed 8GT/s, Width x16, ASPM L0s L1, Exit Latency
+>> L0s <64ns, L1 <1us
+>>       ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
+>>     LnkCtl: ASPM L0s L1 Enabled; RCB 64 bytes Disabled- CommClk+
+>>       ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+>>     LnkSta: Speed 8GT/s, Width x16, TrErr- Train- SlotClk+ DLActive-
+>> BWMgmt- ABWMgmt-
+>>     DevCap2: Completion Timeout: Not Supported, TimeoutDis-, LTR+,
+>> OBFF Not Supported
+>>        AtomicOpsCap: 32bit- 64bit- 128bitCAS-
+>>     DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF
+>> Disabled
+>>        AtomicOpsCtl: ReqEn-
+>>     LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+>>        Transmit Margin: Normal Operating Range,
+>> EnterModifiedCompliance- ComplianceSOS-
+>>        Compliance De-emphasis: -6dB
+>>     LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+,
+>> EqualizationPhase1+
+>>        EqualizationPhase2+, EqualizationPhase3+,
+>> LinkEqualizationRequest-
+>>   Capabilities: [a0] MSI: Enable+ Count=3D1/1 Maskable- 64bit+
+>>     Address: 00000000fee00000  Data: 0000
+>>   Capabilities: [100 v1] Vendor Specific Information: ID=3D0001 Rev=3D1
+>> Len=3D010 <?>
+>>   Capabilities: [150 v2] Advanced Error Reporting
+>>     UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF-
+>> MalfTLP- ECRC- UnsupReq- ACSViol-
+>>     UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF-
+>> MalfTLP- ECRC- UnsupReq- ACSViol-
+>>     UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+
+>> MalfTLP+ ECRC- UnsupReq- ACSViol-
+>>     CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+>>     CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+>>     AERCap: First Error Pointer: 00, ECRCGenCap+ ECRCGenEn-
+>> ECRCChkCap+ ECRCChkEn-
+>>       MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
+>>     HeaderLog: 00000000 00000000 00000000 00000000
+>>   Capabilities: [200 v1] #15
+>>   Capabilities: [270 v1] #19
+>>   Capabilities: [2a0 v1] Access Control Services
+>>     ACSCap: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd-
+>> EgressCtrl- DirectTrans-
+>>     ACSCtl: SrcValid- TransBlk- ReqRedir- CmpltRedir- UpstreamFwd-
+>> EgressCtrl- DirectTrans-
+>>   Capabilities: [2b0 v1] Address Translation Service (ATS)
+>>     ATSCap: Invalidate Queue Depth: 00
+>>     ATSCtl: Enable+, Smallest Translation Unit: 00
+>>   Capabilities: [2c0 v1] Page Request Interface (PRI)
+>>     PRICtl: Enable- Reset-
+>>     PRISta: RF- UPRGI- Stopped+
+>>     Page Request Capacity: 00000020, Page Request Allocation: 00000000
+>>   Capabilities: [2d0 v1] Process Address Space ID (PASID)
+>>     PASIDCap: Exec+ Priv+, Max PASID Width: 10
+>>     PASIDCtl: Enable- Exec- Priv-
+>>   Capabilities: [320 v1] Latency Tolerance Reporting
+>>     Max snoop latency: 0ns
+>>     Max no snoop latency: 0ns
+>>   Kernel driver in use: amdgpu
+>>   Kernel modules: amdgpu
+>>
+>> // Daniel
+>>
+>> On 2 July 2018 at 21:29, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+>>> On Mon, Jul 2, 2018 at 3:21 PM, Daniel Andersson <engywook-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> w=
+rote:
+>>>> I get:
+>>>> [drm:dc_link_detect [amdgpu]] *ERROR* No EDID read.
+>>>> on boot. This started happening on 4.17 and is still an issue on 4.18-=
+rc2.
+>>>>
+>>>> I have a Vega64 connected on Display Port to a monitor(1440p). The mon=
+itor
+>>>> doesn't have any additional ports so I can't test HDMI.
+>>>>
+>>>> xrandr:
+>>>> Screen 0: minimum 320 x 200, current 1024 x 768, maximum 16384 x 16384
+>>>> DisplayPort-0 connected 1024x768+0+0 (normal left inverted right x axi=
+s y
+>>>> axis) 0mm x 0mm
+>>>>    1024x768      60.00*
+>>>>    800x600       60.32    56.25
+>>>>    848x480       60.00
+>>>>    640x480       59.94
+>>>> DisplayPort-1 disconnected (normal left inverted right x axis y axis)
+>>>> HDMI-A-0 disconnected (normal left inverted right x axis y axis)
+>>>> HDMI-A-1 disconnected (normal left inverted right x axis y axis)
+>>>>
+>>>> The 1440p resolution worked on 4.16.
+>>>
+>>> Can you use git to bisect?
+>>>
+>>> Alex
+
+--_000_BN6PR12MB180950F0998981DCEA29C353F7400BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">So your vbios has table v3.1 so i=
+t should not be affected by that patch.&nbsp; Does reverting that patch act=
+ually fix the issue?</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Daniel Andersson &lt;engywook=
+@gmail.com&gt;<br>
+<b>Sent:</b> Thursday, July 5, 2018 12:22:17 PM<br>
+<b>To:</b> Alex Deucher<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: BUG: *ERROR* No EDID read</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">I have not flashed any GPU BIOS. It's not a refere=
+nce Vega though,<br>
+Sapphire something. Maybe they made changes?<br>
+<br>
+vbios is attached.<br>
+<br>
+// Daniel<br>
+<br>
+On 5 July 2018 at 15:38, Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; wrote:<=
+br>
+&gt; On Mon, Jul 2, 2018 at 5:39 PM, Daniel Andersson &lt;engywook-Re5JQEeQqe8@public.gmane.org=
+m&gt; wrote:<br>
+&gt;&gt; Sure, bisecting gets me 6e65fb862064663ad3a08f964af1e8f3f2abf688 .=
+<br>
+&gt;&gt;<br>
+&gt;&gt; In drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c,<br>
+&gt;&gt; get_firmware_info_v3_1() works but get_firmware_info_v3_2() does n=
+ot<br>
+&gt;&gt; do the right thing for my Vega.<br>
+&gt;&gt;<br>
+&gt;&gt; Could I break my GPU if I were to set some bad/wrong frequency the=
+re?<br>
+&gt;<br>
+&gt; vega10 should not hit that new path at all.&nbsp; Have you edited your=
+<br>
+&gt; vbios?&nbsp; Can you send us a copy?&nbsp; To get a copy of the vbios:=
+<br>
+&gt;<br>
+&gt; Without the driver loaded:<br>
+&gt; (as root)<br>
+&gt; (use lspci to get the bus id)<br>
+&gt; cd /sys/bus/pci/devices/&lt;pci bus id&gt;<br>
+&gt; echo 1 &gt; rom<br>
+&gt; cat rom &gt; /tmp/vbios.rom<br>
+&gt; echo 0 &gt; rom<br>
+&gt;<br>
+&gt; If the driver is loaded:<br>
+&gt; (as root)<br>
+&gt; cat /sys/kernel/debug/dri/0/amdgpu_vbios &gt; /tmp/vbios.rom<br>
+&gt;<br>
+&gt; Alex<br>
+&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; lspci:<br>
+&gt;&gt; 43:00.0 VGA compatible controller: Advanced Micro Devices, Inc.<br=
+>
+&gt;&gt; [AMD/ATI] Vega 10 XT [Radeon RX Vega 64] (rev c1) (prog-if 00 [VGA=
+<br>
+&gt;&gt; controller])<br>
+&gt;&gt;&nbsp;&nbsp; Subsystem: Sapphire Technology Limited Vega 10 XT [Rad=
+eon RX Vega<br>
+&gt;&gt; 64]<br>
+&gt;&gt;&nbsp;&nbsp; Control: I/O&#43; Mem&#43; BusMaster&#43; SpecCycle- M=
+emWINV- VGASnoop- ParErr-<br>
+&gt;&gt; Stepping- SERR- FastB2B- DisINTx&#43;<br>
+&gt;&gt;&nbsp;&nbsp; Status: Cap&#43; 66MHz- UDF- FastB2B- ParErr- DEVSEL=
+=3Dfast &gt;TAbort-<br>
+&gt;&gt; &lt;TAbort- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-<br>
+&gt;&gt;&nbsp;&nbsp; Latency: 0, Cache Line Size: 64 bytes<br>
+&gt;&gt;&nbsp;&nbsp; Interrupt: pin A routed to IRQ 85<br>
+&gt;&gt;&nbsp;&nbsp; Region 0: Memory at d0000000 (64-bit, prefetchable) [s=
+ize=3D256M]<br>
+&gt;&gt;&nbsp;&nbsp; Region 2: Memory at e0000000 (64-bit, prefetchable) [s=
+ize=3D2M]<br>
+&gt;&gt;&nbsp;&nbsp; Region 4: I/O ports at f000 [size=3D256]<br>
+&gt;&gt;&nbsp;&nbsp; Region 5: Memory at ed400000 (32-bit, non-prefetchable=
+) [size=3D512K]<br>
+&gt;&gt;&nbsp;&nbsp; Expansion ROM at ed480000 [disabled] [size=3D128K]<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [48] Vendor Specific Information: Len=3D=
+08 &lt;?&gt;<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [50] Power Management version 3<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Flags: PMEClk- DSI- D1- D2- AuxCurrent=3D0=
+mA<br>
+&gt;&gt; PME(D0-,D1&#43;,D2&#43;,D3hot&#43;,D3cold&#43;)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Status: D0 NoSoftRst&#43; PME-Enable- DSel=
+=3D0 DScale=3D0 PME-<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [64] Express (v2) Legacy Endpoint, MSI 0=
+0<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; DevCap: MaxPayload 256 bytes, PhantFunc 0,=
+ Latency L0s &lt;4us, L1<br>
+&gt;&gt; unlimited<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ExtTag&#43; AttnBtn- AttnInd- =
+PwrInd- RBE&#43; FLReset-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; DevCtl: Report errors: Correctable- Non-Fa=
+tal- Fatal- Unsupported-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RlxdOrd&#43; ExtTag&#43; Phant=
+Func- AuxPwr- NoSnoop&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MaxPayload 256 bytes, MaxReadR=
+eq 512 bytes<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; DevSta: CorrErr&#43; UncorrErr- FatalErr- =
+UnsuppReq&#43; AuxPwr-<br>
+&gt;&gt; TransPend-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkCap: Port #0, Speed 8GT/s, Width x16, A=
+SPM L0s L1, Exit Latency<br>
+&gt;&gt; L0s &lt;64ns, L1 &lt;1us<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ClockPM- Surprise- LLActRep- B=
+wNot- ASPMOptComp&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkCtl: ASPM L0s L1 Enabled; RCB 64 bytes =
+Disabled- CommClk&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ExtSynch- ClockPM- AutWidDis- =
+BWInt- AutBWInt-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkSta: Speed 8GT/s, Width x16, TrErr- Tra=
+in- SlotClk&#43; DLActive-<br>
+&gt;&gt; BWMgmt- ABWMgmt-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; DevCap2: Completion Timeout: Not Supported=
+, TimeoutDis-, LTR&#43;,<br>
+&gt;&gt; OBFF Not Supported<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AtomicOpsCap: 32bit- 64b=
+it- 128bitCAS-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; DevCtl2: Completion Timeout: 50us to 50ms,=
+ TimeoutDis-, LTR-, OBFF<br>
+&gt;&gt; Disabled<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AtomicOpsCtl: ReqEn-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkCtl2: Target Link Speed: 8GT/s, EnterCo=
+mpliance- SpeedDis-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transmit Margin: Normal =
+Operating Range,<br>
+&gt;&gt; EnterModifiedCompliance- ComplianceSOS-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Compliance De-emphasis: =
+-6dB<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; LnkSta2: Current De-emphasis Level: -3.5dB=
+, EqualizationComplete&#43;,<br>
+&gt;&gt; EqualizationPhase1&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EqualizationPhase2&#43;,=
+ EqualizationPhase3&#43;,<br>
+&gt;&gt; LinkEqualizationRequest-<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [a0] MSI: Enable&#43; Count=3D1/1 Maskab=
+le- 64bit&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Address: 00000000fee00000&nbsp; Data: 0000=
+<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [100 v1] Vendor Specific Information: ID=
+=3D0001 Rev=3D1<br>
+&gt;&gt; Len=3D010 &lt;?&gt;<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [150 v2] Advanced Error Reporting<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; UESta:&nbsp; DLP- SDES- TLP- FCP- CmpltTO-=
+ CmpltAbrt- UnxCmplt- RxOF-<br>
+&gt;&gt; MalfTLP- ECRC- UnsupReq- ACSViol-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; UEMsk:&nbsp; DLP- SDES- TLP- FCP- CmpltTO-=
+ CmpltAbrt- UnxCmplt- RxOF-<br>
+&gt;&gt; MalfTLP- ECRC- UnsupReq- ACSViol-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; UESvrt: DLP&#43; SDES&#43; TLP- FCP&#43; C=
+mpltTO- CmpltAbrt- UnxCmplt- RxOF&#43;<br>
+&gt;&gt; MalfTLP&#43; ECRC- UnsupReq- ACSViol-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; CESta:&nbsp; RxErr- BadTLP- BadDLLP- Rollo=
+ver- Timeout- NonFatalErr&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; CEMsk:&nbsp; RxErr- BadTLP- BadDLLP- Rollo=
+ver- Timeout- NonFatalErr&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; AERCap: First Error Pointer: 00, ECRCGenCa=
+p&#43; ECRCGenEn-<br>
+&gt;&gt; ECRCChkCap&#43; ECRCChkEn-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MultHdrRecCap- MultHdrRecEn- T=
+LPPfxPres- HdrLogCap-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; HeaderLog: 00000000 00000000 00000000 0000=
+0000<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [200 v1] #15<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [270 v1] #19<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [2a0 v1] Access Control Services<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; ACSCap: SrcValid- TransBlk- ReqRedir- Cmpl=
+tRedir- UpstreamFwd-<br>
+&gt;&gt; EgressCtrl- DirectTrans-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; ACSCtl: SrcValid- TransBlk- ReqRedir- Cmpl=
+tRedir- UpstreamFwd-<br>
+&gt;&gt; EgressCtrl- DirectTrans-<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [2b0 v1] Address Translation Service (AT=
+S)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; ATSCap: Invalidate Queue Depth: 00<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; ATSCtl: Enable&#43;, Smallest Translation =
+Unit: 00<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [2c0 v1] Page Request Interface (PRI)<br=
+>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; PRICtl: Enable- Reset-<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; PRISta: RF- UPRGI- Stopped&#43;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Page Request Capacity: 00000020, Page Requ=
+est Allocation: 00000000<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [2d0 v1] Process Address Space ID (PASID=
+)<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; PASIDCap: Exec&#43; Priv&#43;, Max PASID W=
+idth: 10<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; PASIDCtl: Enable- Exec- Priv-<br>
+&gt;&gt;&nbsp;&nbsp; Capabilities: [320 v1] Latency Tolerance Reporting<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Max snoop latency: 0ns<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; Max no snoop latency: 0ns<br>
+&gt;&gt;&nbsp;&nbsp; Kernel driver in use: amdgpu<br>
+&gt;&gt;&nbsp;&nbsp; Kernel modules: amdgpu<br>
+&gt;&gt;<br>
+&gt;&gt; // Daniel<br>
+&gt;&gt;<br>
+&gt;&gt; On 2 July 2018 at 21:29, Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt=
+; wrote:<br>
+&gt;&gt;&gt; On Mon, Jul 2, 2018 at 3:21 PM, Daniel Andersson &lt;engywook@=
+gmail.com&gt; wrote:<br>
+&gt;&gt;&gt;&gt; I get:<br>
+&gt;&gt;&gt;&gt; [drm:dc_link_detect [amdgpu]] *ERROR* No EDID read.<br>
+&gt;&gt;&gt;&gt; on boot. This started happening on 4.17 and is still an is=
+sue on 4.18-rc2.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; I have a Vega64 connected on Display Port to a monitor(144=
+0p). The monitor<br>
+&gt;&gt;&gt;&gt; doesn't have any additional ports so I can't test HDMI.<br=
+>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; xrandr:<br>
+&gt;&gt;&gt;&gt; Screen 0: minimum 320 x 200, current 1024 x 768, maximum 1=
+6384 x 16384<br>
+&gt;&gt;&gt;&gt; DisplayPort-0 connected 1024x768&#43;0&#43;0 (normal left =
+inverted right x axis y<br>
+&gt;&gt;&gt;&gt; axis) 0mm x 0mm<br>
+&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 1024x768&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6=
+0.00*<br>
+&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 800x600&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 60.32&nbsp;&nbsp;&nbsp; 56.25<br>
+&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 848x480&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 60.00<br>
+&gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 640x480&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; 59.94<br>
+&gt;&gt;&gt;&gt; DisplayPort-1 disconnected (normal left inverted right x a=
+xis y axis)<br>
+&gt;&gt;&gt;&gt; HDMI-A-0 disconnected (normal left inverted right x axis y=
+ axis)<br>
+&gt;&gt;&gt;&gt; HDMI-A-1 disconnected (normal left inverted right x axis y=
+ axis)<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; The 1440p resolution worked on 4.16.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Can you use git to bisect?<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Alex<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180950F0998981DCEA29C353F7400BN6PR12MB1809namp_--
+
+--===============0076609571==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0076609571==--
