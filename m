@@ -1,8 +1,8 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH]_drm/amdgpu/gmc7:_simplify?=
  =?UTF-8?Q?_logic_in_firmware_message?=
-Date: Fri, 6 Jul 2018 10:03:50 +0200
-Message-ID: <5c374cdf-109a-d4d4-9b9d-c0658f67a38f@gmail.com>
+Date: Fri, 6 Jul 2018 10:26:40 +0200
+Message-ID: <949fbbd4-8eea-6990-3488-49172f275a29@gmail.com>
 References: <20180705204633.20567-1-alexander.deucher@amd.com>
  <DM3PR12MB0873863D964AB302A611702699470@DM3PR12MB0873.namprd12.prod.outlook.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
