@@ -1,74 +1,112 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [alsa-devel] ??????: [PATCH] vgaswitchroo: set audio client id
- according to bound gpu client id
-Date: Mon, 9 Jul 2018 12:15:32 -0400
-Message-ID: <CADnq5_OqsZyMJx5TCqdr4iydzVyb3UHtqadvuq0szG+kNPe9dg@mail.gmail.com>
-References: <20180629092138.GA11849@wunner.de>
- <DM3PR12MB08732DAAAA57739DCE431D66994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
- <20180629111108.GA11609@wunner.de>
- <DM3PR12MB0873FEC702770190057B49F799440@DM3PR12MB0873.namprd12.prod.outlook.com>
- <20180709092759.GA3649@wunner.de>
- <DM3PR12MB087309CBC2CD3A934327EBCE99440@DM3PR12MB0873.namprd12.prod.outlook.com>
- <CADnq5_OpZz=AgNomX7+5BzeN77CRZT7mXDT7kn620TE-OjqS0w@mail.gmail.com>
- <s5hr2kco3gp.wl-tiwai@suse.de> <20180709154734.GA30496@wunner.de>
- <s5hsh4scsoe.wl-tiwai@suse.de> <20180709160644.GB1490@wunner.de>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu 1/3] modesetting: Record non-desktop
+ kernel property at PreInit time
+Date: Mon, 9 Jul 2018 18:20:46 +0200
+Message-ID: <af4f8c39-0936-dc48-ad67-96b108463619@daenzer.net>
+References: <20180709072652.9727-1-michel@daenzer.net>
+ <87o9fg4c9i.fsf@keithp.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180709160644.GB1490@wunner.de>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Lukas Wunner <lukas@wunner.de>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Qu,
- Jim" <Jim.Qu@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0043999577=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <87o9fg4c9i.fsf-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gTW9uLCBKdWwgOSwgMjAxOCBhdCAxMjowNiBQTSwgTHVrYXMgV3VubmVyIDxsdWthc0B3dW5u
-ZXIuZGU+IHdyb3RlOgo+IE9uIE1vbiwgSnVsIDA5LCAyMDE4IGF0IDA1OjUyOjQ5UE0gKzAyMDAs
-IFRha2FzaGkgSXdhaSB3cm90ZToKPj4gT24gTW9uLCAwOSBKdWwgMjAxOCAxNzo0NzozNCArMDIw
-MCwgTHVrYXMgV3VubmVyIHdyb3RlOgo+PiA+IFNpbmNlIHY0LjE3LCBldmVyeSB0aW1lIHRoZSBH
-UFUgaXMgcG93ZXJlZCB1cCwgdGhlIEhEQSBjb250cm9sbGVyIGlzCj4+ID4gcnVudGltZSByZXN1
-bWVkIHRvIFBDSV9EMC4gIChTZWUgdGhlIGNhbGwgdG8gcGNpX3dha2V1cF9idXMoKSBpbgo+PiA+
-IHZnYV9zd2l0Y2hlcm9vX3J1bnRpbWVfcmVzdW1lKCkgYWRkZWQgYnkgZGNhYzg2YjdkMC4pCj4+
-ID4KPj4gPiBJZiB0aGUgSERBIGNvbnRyb2xsZXIgY2FuJ3QgZGV0ZWN0IHByZXNlbmNlIG9mIGFu
-IEhETUkgZGlzcGxheSBldmVuCj4+ID4gaWYgaXQncyBpbiBQQ0lfRDAsIHRoZW4gSSBzdXBwb3Nl
-IHRoYXQgbmVlZHMgdG8gYmUgYWRyZXNzZWQgaW4gdGhlIEhEQQo+PiA+IGRyaXZlci4gIFRodXMg
-c28gZmFyIEkgZG9uJ3Qgc2VlIHRoZSBuZWVkIHRvIGNhbGwgZnJvbSBhbWRncHUgaW50byB0aGUK
-Pj4gPiBIREEgZHJpdmVyLgo+Pgo+PiBJdCdzIG5vdCBhYm91dCB0aGUgUENJIHBvd2VyIHN0YXRl
-LCBidXQgdGhlIHByb2JsZW0gaXMgdGhhdCB0aGUKPj4gZGV0ZWN0aW9uIG9mIHRoZSBIRE1JIGFu
-ZCBpdHMgRUxEIHJlYWQgaXMgc29tZXdoYXQgYXN5bmNocm9ub3VzLgo+PiBCYXNpY2FsbHkgaXQn
-cyBoYW5kbGVkIHZpYSB0aGUgaGFyZHdhcmUgdW5zb2xpY2l0ZWQgZXZlbnQgZW1pdHRlZCBvdmVy
-Cj4+IEhELWF1ZGlvIGJ1cywgd2hpY2ggd2FzIG9yaWdpbmFsbHkgZ2VuZXJhdGVkIGJ5IEdQVSBh
-dCBkZWFsaW5nIHdpdGgKPj4gdGhlIGhvdHBsdWcvdW5wbHVnLiAgU28sIHRoaXMgcGFydCBpcyBy
-YWN5IGFuZCBub3QgMTAwJSByZWxpYWJsZSAtLQo+PiBhbHRob3VnaCB1c3VhbGx5IGl0IHNob3Vs
-ZG4ndCBiZSBhIGJpZyBwcm9ibGVtLgo+Pgo+PiBUaGF0IHNhaWQsIGl0J3Mgbm90IHRoZSBleGFj
-dCAibmVlZCIgYnV0IGl0IHdvdWxkIG1ha2UgdGhpbmdzIG1vcmUKPj4gcmVsaWFibGUgYW5kIGFj
-Y3VyYXRlIChldmVuIGNvbnN1bWVzIGxlc3MgcG93ZXIgYXMgd2UgZG9uJ3QgbmVlZCB0bwo+PiBw
-b3dlciB1cC9kb3duIGp1c3QgZm9yIHRoZSBIRE1JIGRldGVjdGlvbikuCj4KPiBPa2F5LiAgSWYg
-YW1kZ3B1IHRyaWdnZXJzIHRoZSBldmVudCBvbiB0aGUgSERBIGJ1cywgaXQgc2hvdWxkIGNhbGwK
-PiBwbV9ydW50aW1lX2dldF9zeW5jKCkgb24gdGhlIEhEQSBkZXZpY2UgYmVmb3JlaGFuZC4gIFdo
-aWNoIGRldmljZQo+IG5lZWRzIHRvIGJlIHJlc3VtZWQgZXhhY3RseSB0byBlbnN1cmUgRUxEIHJl
-Y2VwdGlvbiwgdGhlIFBDSSBvbmUKPiBvciB0aGUgY29kZWM/CgpJIGRvbid0IHRoaW5rIGl0IG1h
-a2VzIHNlbnNlIHRvIHBvd2VyIHVwIGFueXRoaW5nIHVudGlsIHRoZSB1c2VyIHdhbnRzCnRvIGRv
-IHNvbWV0aGluZyB3aXRoIHRoZSBldmVudC4gIE9uIEFNRCBoYXJkd2FyZSwgdGhlIEVMRCBpcyBu
-b3QKYWN0dWFsbHkgdXNlZC4gIFRoZSBncHUgcGFzc2VzIHRoZSBFTEQgaW5mbyBpbnRlcm5hbGx5
-IHZpYSBzaGFyZWQKcmVnaXN0ZXJzLiAgU28gYXMgc29vbiBhcyB0aGUgR1BVIGRyaXZlciBwYXJz
-ZXMgdGhlIEVESUQgYW5kIHVwZGF0ZXMKdGhlIHNoYXJlZCByZWdpc3RlcnMsIHRoZSBhdWRpbyBk
-cml2ZXIgd2lsbCBrbm93IHRoZSBzdGF0ZSBqdXN0IGJ5CnJlYWRpbmcgYmFjayB0aGUgc2hhcmVk
-IHJlZ2lzdGVycy4gIFRoYXQgc2FpZCwgdGhlcmUgbm8gcmVhc29uIHRvIGFjdApvbiB0aGUgZXZl
-bnQgdW5sZXNzIHRoZSB1c2VyIGFjdHVhbGx5IHdhbnRzIHRvIGRvIHNvbWV0aGluZyB3aXRoIGl0
-LgpFLmcuLCB0aGUgZGVza3RvcCBtYW5hZ2VyIHNlZXMgdGhlIGV2ZW50IGFuZCBkZWNpZGVzIHRv
-IGNhbGwgZG93biB0bwp0aGUga2VybmVsIHRvIHF1ZXJ5IHRoZSBkaXNwbGF5IHRvcG9sb2d5IChv
-ciBub3QpLiAgQXQgd2hpY2ggcG9pbnQgdGhlCmh3IGNhbiBiZSBwb3dlcmVkIHVwLCBldGMuCgpB
-bGV4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0043999577==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe
+Content-Type: multipart/mixed; boundary="Fphls044lXTm6PmguCWJ9jkidhtq47BKd";
+ protected-headers="v1"
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <af4f8c39-0936-dc48-ad67-96b108463619-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu 1/3] modesetting: Record non-desktop
+ kernel property at PreInit time
+References: <20180709072652.9727-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+ <87o9fg4c9i.fsf-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <87o9fg4c9i.fsf-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+
+--Fphls044lXTm6PmguCWJ9jkidhtq47BKd
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-CA
+Content-Transfer-Encoding: quoted-printable
+
+On 2018-07-09 06:14 PM, Keith Packard wrote:
+> Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> writes:
+>=20
+>> From: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+>>
+>> Save any value of the kernel non-desktop property in the xf86Output
+>> structure to avoid non-desktop outputs in the default configuration.
+>>
+>> [Also bump randrproto requirement to a version that defines
+>> RR_PROPERTY_NON_DESKTOP - ajax]
+>>
+>> Signed-off-by: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+>> (Ported from xserver commit b91c787c4cd2d20685db69426c539938c556128a)
+>> Signed-off-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>=20
+> Thanks for porting this and making it compile on older server versions;=
+
+> I notice that you switched from xallocarray to calloc -- seems fine to
+> me as it avoids some extra configure.ac goop.
+
+Yep, didn't see the point of that, as ncrtc + noutput needs to be
+explicitly checked for overflow anyway.
+
+
+> For the series:
+> Reviewed-by: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+
+Thanks!
+
+
+--=20
+Earthling Michel D=C3=A4nzer               |               http://www.amd=
+=2Ecom
+Libre software enthusiast             |             Mesa and X developer
+
+
+--Fphls044lXTm6PmguCWJ9jkidhtq47BKd--
+
+--r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQSwn681vpFFIZgJURRaga+OatuyAAUCW0OLZgAKCRBaga+Oatuy
+ADyEAJ4xP5b0dVKvfBoC0rx+uDsc9BnUzQCffu/JYJuVUFoN3IetaYZDfZ3KD4M=
+=8+Mq
+-----END PGP SIGNATURE-----
+
+--r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe--
+
+--===============0043999577==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0043999577==--
