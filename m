@@ -1,14 +1,15 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu 1/3] modesetting: Record non-desktop
- kernel property at PreInit time
-Date: Mon, 9 Jul 2018 18:20:46 +0200
-Message-ID: <af4f8c39-0936-dc48-ad67-96b108463619@daenzer.net>
-References: <20180709072652.9727-1-michel@daenzer.net>
- <87o9fg4c9i.fsf@keithp.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: move cache window setup after power and
+ clock resume
+Date: Mon, 9 Jul 2018 16:54:23 +0000
+Message-ID: <BN6PR12MB18099B0BE2002A60EDEC16FBF7440@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180709161138.5319-1-leo.liu@amd.com>,
+ <20180709161138.5319-3-leo.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0043999577=="
+Content-Type: multipart/mixed; boundary="===============0040033866=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <87o9fg4c9i.fsf-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <20180709161138.5319-3-leo.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,87 +20,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0043999577==
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe"
+--===============0040033866==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe
-Content-Type: multipart/mixed; boundary="Fphls044lXTm6PmguCWJ9jkidhtq47BKd";
- protected-headers="v1"
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-To: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <af4f8c39-0936-dc48-ad67-96b108463619-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu 1/3] modesetting: Record non-desktop
- kernel property at PreInit time
-References: <20180709072652.9727-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
- <87o9fg4c9i.fsf-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
-In-Reply-To: <87o9fg4c9i.fsf-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
-
---Fphls044lXTm6PmguCWJ9jkidhtq47BKd
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-CA
+--_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On 2018-07-09 06:14 PM, Keith Packard wrote:
-> Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> writes:
->=20
->> From: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
->>
->> Save any value of the kernel non-desktop property in the xf86Output
->> structure to avoid non-desktop outputs in the default configuration.
->>
->> [Also bump randrproto requirement to a version that defines
->> RR_PROPERTY_NON_DESKTOP - ajax]
->>
->> Signed-off-by: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
->> (Ported from xserver commit b91c787c4cd2d20685db69426c539938c556128a)
->> Signed-off-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->=20
-> Thanks for porting this and making it compile on older server versions;=
+Series is:
 
-> I notice that you switched from xallocarray to calloc -- seems fine to
-> me as it avoids some extra configure.ac goop.
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Yep, didn't see the point of that, as ncrtc + noutput needs to be
-explicitly checked for overflow anyway.
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Leo Liu =
+<leo.liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, July 9, 2018 12:11:38 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Liu, Leo
+Subject: [PATCH 3/3] drm/amdgpu: move cache window setup after power and cl=
+ock resume
 
+To make register read/write reliable. Along with the previous patch,
+VCN will work with dpm disabled case.
 
-> For the series:
-> Reviewed-by: Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+Signed-off-by: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks!
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v1_0.c
+index b82c92084b6f..ca4265bc10b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -600,12 +600,12 @@ static int vcn_v1_0_start(struct amdgpu_device *adev)
+         /* disable byte swapping */
+         lmi_swap_cntl =3D 0;
 
+-       vcn_v1_0_mc_resume(adev);
+-
+         vcn_1_0_disable_static_power_gating(adev);
+         /* disable clock gating */
+         vcn_v1_0_disable_clock_gating(adev);
 
---=20
-Earthling Michel D=C3=A4nzer               |               http://www.amd=
-=2Ecom
-Libre software enthusiast             |             Mesa and X developer
++       vcn_v1_0_mc_resume(adev);
++
+         /* disable interupt */
+         WREG32_P(SOC15_REG_OFFSET(UVD, 0, mmUVD_MASTINT_EN), 0,
+                         ~UVD_MASTINT_EN__VCPU_EN_MASK);
+--
+2.17.1
 
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---Fphls044lXTm6PmguCWJ9jkidhtq47BKd--
+--_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
---r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Leo Liu &lt;leo.liu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Monday, July 9, 2018 12:11:38 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Liu, Leo<br>
+<b>Subject:</b> [PATCH 3/3] drm/amdgpu: move cache window setup after power=
+ and clock resume</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">To make register read/write reliable. Along with t=
+he previous patch,<br>
+VCN will work with dpm disabled case.<br>
+<br>
+Signed-off-by: Leo Liu &lt;leo.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 4 &#43;&#43;--<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v1_0.c<br>
+index b82c92084b6f..ca4265bc10b9 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+@@ -600,12 &#43;600,12 @@ static int vcn_v1_0_start(struct amdgpu_device *a=
+dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable byte swapping *=
+/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lmi_swap_cntl =3D 0;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_v1_0_mc_resume(adev);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_1_0_disable_static_pow=
+er_gating(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable clock gating */=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_v1_0_disable_clock_gat=
+ing(adev);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_v1_0_mc_resume(adev);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable interupt */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(SOC15_REG_OFFSET(=
+UVD, 0, mmUVD_MASTINT_EN), 0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~UVD_=
+MASTINT_EN__VCPU_EN_MASK);<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
 
------BEGIN PGP SIGNATURE-----
+--_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_--
 
-iF0EARECAB0WIQSwn681vpFFIZgJURRaga+OatuyAAUCW0OLZgAKCRBaga+Oatuy
-ADyEAJ4xP5b0dVKvfBoC0rx+uDsc9BnUzQCffu/JYJuVUFoN3IetaYZDfZ3KD4M=
-=8+Mq
------END PGP SIGNATURE-----
-
---r54y7CPi6GKmNmM0D1HZsyg8oEIVdZaIe--
-
---===============0043999577==
+--===============0040033866==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -109,4 +175,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0043999577==--
+--===============0040033866==--
