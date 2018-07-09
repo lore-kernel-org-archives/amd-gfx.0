@@ -1,15 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: move cache window setup after power and
- clock resume
-Date: Mon, 9 Jul 2018 16:54:23 +0000
-Message-ID: <BN6PR12MB18099B0BE2002A60EDEC16FBF7440@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20180709161138.5319-1-leo.liu@amd.com>,
- <20180709161138.5319-3-leo.liu@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: revert "Implement get_performance_level for
+ legacy dgpu"
+Date: Mon, 9 Jul 2018 12:56:15 -0400
+Message-ID: <CADnq5_Py6P5Oamw9DdfuYkotMXkHMPJ35LFbi1pf=R9afkyHqg@mail.gmail.com>
+References: <20180709132450.1591-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0040033866=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180709161138.5319-3-leo.liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180709132450.1591-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,159 +19,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0040033866==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Leo Liu =
-<leo.liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, July 9, 2018 12:11:38 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Leo
-Subject: [PATCH 3/3] drm/amdgpu: move cache window setup after power and cl=
-ock resume
-
-To make register read/write reliable. Along with the previous patch,
-VCN will work with dpm disabled case.
-
-Signed-off-by: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v1_0.c
-index b82c92084b6f..ca4265bc10b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -600,12 +600,12 @@ static int vcn_v1_0_start(struct amdgpu_device *adev)
-         /* disable byte swapping */
-         lmi_swap_cntl =3D 0;
-
--       vcn_v1_0_mc_resume(adev);
--
-         vcn_1_0_disable_static_power_gating(adev);
-         /* disable clock gating */
-         vcn_v1_0_disable_clock_gating(adev);
-
-+       vcn_v1_0_mc_resume(adev);
-+
-         /* disable interupt */
-         WREG32_P(SOC15_REG_OFFSET(UVD, 0, mmUVD_MASTINT_EN), 0,
-                         ~UVD_MASTINT_EN__VCPU_EN_MASK);
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Leo Liu &lt;leo.liu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Monday, July 9, 2018 12:11:38 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Liu, Leo<br>
-<b>Subject:</b> [PATCH 3/3] drm/amdgpu: move cache window setup after power=
- and clock resume</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">To make register read/write reliable. Along with t=
-he previous patch,<br>
-VCN will work with dpm disabled case.<br>
-<br>
-Signed-off-by: Leo Liu &lt;leo.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 4 &#43;&#43;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v1_0.c<br>
-index b82c92084b6f..ca4265bc10b9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
-@@ -600,12 &#43;600,12 @@ static int vcn_v1_0_start(struct amdgpu_device *a=
-dev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable byte swapping *=
-/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lmi_swap_cntl =3D 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_v1_0_mc_resume(adev);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_1_0_disable_static_pow=
-er_gating(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable clock gating */=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_v1_0_disable_clock_gat=
-ing(adev);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_v1_0_mc_resume(adev);<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable interupt */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(SOC15_REG_OFFSET(=
-UVD, 0, mmUVD_MASTINT_EN), 0,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~UVD_=
-MASTINT_EN__VCPU_EN_MASK);<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18099B0BE2002A60EDEC16FBF7440BN6PR12MB1809namp_--
-
---===============0040033866==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0040033866==--
+T24gTW9uLCBKdWwgOSwgMjAxOCBhdCA5OjI0IEFNLCBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4gVGhpcyByZXZlcnRzIGNvbW1pdCAz
+ZmRhZGJmZTFlZGY0MTY4YjI1MTUwODNhZjU2NTFjOTVhZWIyOTlkLgo+Cj4gSXQgY2F1c2VzIGNy
+YXNoZXMgb24gVG9uZ2Egc28gcmV2ZXJ0IGl0IGZvciBub3cuIFNvbWVib2R5IHdpdGggYmV0dGVy
+IGtub3dsZWRnZQo+IG9mIHRoZSBjb2RlIG5lZWRzIHRvIHRha2UgYSBjbG9zZXIgbG9vay4KPgo+
+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNv
+bT4KCkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+
+IC0tLQo+ICAuLi4vZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFuYWdlci5j
+ICB8ICAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdt
+Z3IuYyAgIHwgMjQgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYyB8IDI0IC0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0KPiAgMyBmaWxlcyBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgNDkgZGVsZXRpb25zKC0pCj4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdh
+cmVtYW5hZ2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJkd2Fy
+ZW1hbmFnZXIuYwo+IGluZGV4IGIwNWIxNTMxMDFjNS4uNTMyMDdlNzZiMGYzIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFuYWdlci5j
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5h
+Z2VyLmMKPiBAQCAtMzU3LDcgKzM1Nyw3IEBAIGludCBwaG1fZ2V0X2Nsb2NrX2luZm8oc3RydWN0
+IHBwX2h3bWdyICpod21nciwgY29uc3Qgc3RydWN0IHBwX2h3X3Bvd2VyX3N0YXRlICpzCj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgUEhNX1BlcmZvcm1hbmNlTGV2ZWxEZXNpZ25hdGlvbiBkZXNp
+Z25hdGlvbikKPiAgewo+ICAgICAgICAgaW50IHJlc3VsdDsKPiAtICAgICAgIFBITV9QZXJmb3Jt
+YW5jZUxldmVsIHBlcmZvcm1hbmNlX2xldmVsID0gezB9Owo+ICsgICAgICAgUEhNX1BlcmZvcm1h
+bmNlTGV2ZWwgcGVyZm9ybWFuY2VfbGV2ZWw7Cj4KPiAgICAgICAgIFBITV9GVU5DX0NIRUNLKGh3
+bWdyKTsKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci9zbXU3X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3
+X2h3bWdyLmMKPiBpbmRleCA4ZWFhYTZiNzk3M2UuLjA3N2I3OTkzODUyOCAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPiBAQCAt
+NTAwNiwyOSArNTAwNiw2IEBAIHN0YXRpYyBpbnQgc211N19zZXRfcG93ZXJfcHJvZmlsZV9tb2Rl
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGxvbmcgKmlucHV0LCB1aW50Cj4gICAgICAgICByZXR1
+cm4gMDsKPiAgfQo+Cj4gLXN0YXRpYyBpbnQgc211N19nZXRfcGVyZm9ybWFuY2VfbGV2ZWwoc3Ry
+dWN0IHBwX2h3bWdyICpod21nciwgY29uc3Qgc3RydWN0IHBwX2h3X3Bvd2VyX3N0YXRlICpzdGF0
+ZSwKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBITV9QZXJmb3JtYW5jZUxldmVs
+RGVzaWduYXRpb24gZGVzaWduYXRpb24sIHVpbnQzMl90IGluZGV4LAo+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgUEhNX1BlcmZvcm1hbmNlTGV2ZWwgKmxldmVsKQo+IC17Cj4gLSAg
+ICAgICBjb25zdCBzdHJ1Y3Qgc211N19wb3dlcl9zdGF0ZSAqcHM7Cj4gLSAgICAgICBzdHJ1Y3Qg
+c211N19od21nciAqZGF0YTsKPiAtICAgICAgIHVpbnQzMl90IGk7Cj4gLQo+IC0gICAgICAgaWYg
+KGxldmVsID09IE5VTEwgfHwgaHdtZ3IgPT0gTlVMTCB8fCBzdGF0ZSA9PSBOVUxMKQo+IC0gICAg
+ICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiAtCj4gLSAgICAgICBkYXRhID0gaHdtZ3ItPmJh
+Y2tlbmQ7Cj4gLSAgICAgICBwcyA9IGNhc3RfY29uc3RfcGh3X3NtdTdfcG93ZXJfc3RhdGUoc3Rh
+dGUpOwo+IC0KPiAtICAgICAgIGkgPSBpbmRleCA+IHBzLT5wZXJmb3JtYW5jZV9sZXZlbF9jb3Vu
+dCAtIDEgPwo+IC0gICAgICAgICAgICAgICAgICAgICAgIHBzLT5wZXJmb3JtYW5jZV9sZXZlbF9j
+b3VudCAtIDEgOiBpbmRleDsKPiAtCj4gLSAgICAgICBsZXZlbC0+Y29yZUNsb2NrID0gcHMtPnBl
+cmZvcm1hbmNlX2xldmVsc1tpXS5lbmdpbmVfY2xvY2s7Cj4gLSAgICAgICBsZXZlbC0+bWVtb3J5
+X2Nsb2NrID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1tpXS5tZW1vcnlfY2xvY2s7Cj4gLQo+IC0g
+ICAgICAgcmV0dXJuIDA7Cj4gLX0KPiAtCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3Jf
+ZnVuYyBzbXU3X2h3bWdyX2Z1bmNzID0gewo+ICAgICAgICAgLmJhY2tlbmRfaW5pdCA9ICZzbXU3
+X2h3bWdyX2JhY2tlbmRfaW5pdCwKPiAgICAgICAgIC5iYWNrZW5kX2ZpbmkgPSAmc211N19od21n
+cl9iYWNrZW5kX2ZpbmksCj4gQEAgLTUwODUsNyArNTA2Miw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgcHBfaHdtZ3JfZnVuYyBzbXU3X2h3bWdyX2Z1bmNzID0gewo+ICAgICAgICAgLnNldF9wb3dl
+cl9saW1pdCA9IHNtdTdfc2V0X3Bvd2VyX2xpbWl0LAo+ICAgICAgICAgLmdldF9wb3dlcl9wcm9m
+aWxlX21vZGUgPSBzbXU3X2dldF9wb3dlcl9wcm9maWxlX21vZGUsCj4gICAgICAgICAuc2V0X3Bv
+d2VyX3Byb2ZpbGVfbW9kZSA9IHNtdTdfc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSwKPiAtICAgICAg
+IC5nZXRfcGVyZm9ybWFuY2VfbGV2ZWwgPSBzbXU3X2dldF9wZXJmb3JtYW5jZV9sZXZlbCwKPiAg
+fTsKPgo+ICB1aW50OF90IHNtdTdfZ2V0X3NsZWVwX2RpdmlkZXJfaWRfZnJvbV9jbG9jayh1aW50
+MzJfdCBjbG9jaywKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aHdtZ3IvdmVnYTEwX2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMTBfaHdtZ3IuYwo+IGluZGV4IDVjMDNkZjQ5YzA3Ni4uZWIzNzMxNmNmYmY3IDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21n
+ci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3
+bWdyLmMKPiBAQCAtNDgzNywyOSArNDgzNyw2IEBAIHN0YXRpYyBpbnQgdmVnYTEwX29kbl9lZGl0
+X2RwbV90YWJsZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+ICAgICAgICAgcmV0dXJuIDA7Cj4g
+IH0KPgo+IC1zdGF0aWMgaW50IHZlZ2ExMF9nZXRfcGVyZm9ybWFuY2VfbGV2ZWwoc3RydWN0IHBw
+X2h3bWdyICpod21nciwgY29uc3Qgc3RydWN0IHBwX2h3X3Bvd2VyX3N0YXRlICpzdGF0ZSwKPiAt
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBITV9QZXJmb3JtYW5jZUxldmVsRGVzaWdu
+YXRpb24gZGVzaWduYXRpb24sIHVpbnQzMl90IGluZGV4LAo+IC0gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgUEhNX1BlcmZvcm1hbmNlTGV2ZWwgKmxldmVsKQo+IC17Cj4gLSAgICAgICBj
+b25zdCBzdHJ1Y3QgdmVnYTEwX3Bvd2VyX3N0YXRlICpwczsKPiAtICAgICAgIHN0cnVjdCB2ZWdh
+MTBfaHdtZ3IgKmRhdGE7Cj4gLSAgICAgICB1aW50MzJfdCBpOwo+IC0KPiAtICAgICAgIGlmIChs
+ZXZlbCA9PSBOVUxMIHx8IGh3bWdyID09IE5VTEwgfHwgc3RhdGUgPT0gTlVMTCkKPiAtICAgICAg
+ICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gLQo+IC0gICAgICAgZGF0YSA9IGh3bWdyLT5iYWNr
+ZW5kOwo+IC0gICAgICAgcHMgPSBjYXN0X2NvbnN0X3Bod192ZWdhMTBfcG93ZXJfc3RhdGUoc3Rh
+dGUpOwo+IC0KPiAtICAgICAgIGkgPSBpbmRleCA+IHBzLT5wZXJmb3JtYW5jZV9sZXZlbF9jb3Vu
+dCAtIDEgPwo+IC0gICAgICAgICAgICAgICAgICAgICAgIHBzLT5wZXJmb3JtYW5jZV9sZXZlbF9j
+b3VudCAtIDEgOiBpbmRleDsKPiAtCj4gLSAgICAgICBsZXZlbC0+Y29yZUNsb2NrID0gcHMtPnBl
+cmZvcm1hbmNlX2xldmVsc1tpXS5nZnhfY2xvY2s7Cj4gLSAgICAgICBsZXZlbC0+bWVtb3J5X2Ns
+b2NrID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1tpXS5tZW1fY2xvY2s7Cj4gLQo+IC0gICAgICAg
+cmV0dXJuIDA7Cj4gLX0KPiAtCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyB2
+ZWdhMTBfaHdtZ3JfZnVuY3MgPSB7Cj4gICAgICAgICAuYmFja2VuZF9pbml0ID0gdmVnYTEwX2h3
+bWdyX2JhY2tlbmRfaW5pdCwKPiAgICAgICAgIC5iYWNrZW5kX2ZpbmkgPSB2ZWdhMTBfaHdtZ3Jf
+YmFja2VuZF9maW5pLAo+IEBAIC00OTE5LDcgKzQ4OTYsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IHBwX2h3bWdyX2Z1bmMgdmVnYTEwX2h3bWdyX2Z1bmNzID0gewo+ICAgICAgICAgLnNldF9wb3dl
+cl9wcm9maWxlX21vZGUgPSB2ZWdhMTBfc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSwKPiAgICAgICAg
+IC5zZXRfcG93ZXJfbGltaXQgPSB2ZWdhMTBfc2V0X3Bvd2VyX2xpbWl0LAo+ICAgICAgICAgLm9k
+bl9lZGl0X2RwbV90YWJsZSA9IHZlZ2ExMF9vZG5fZWRpdF9kcG1fdGFibGUsCj4gLSAgICAgICAu
+Z2V0X3BlcmZvcm1hbmNlX2xldmVsID0gdmVnYTEwX2dldF9wZXJmb3JtYW5jZV9sZXZlbCwKPiAg
+fTsKPgo+ICBpbnQgdmVnYTEwX2VuYWJsZV9zbWNfZmVhdHVyZXMoc3RydWN0IHBwX2h3bWdyICpo
+d21nciwKPiAtLQo+IDIuMTQuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
