@@ -1,14 +1,12 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/pp: revert "Implement get_performance_level for
- legacy dgpu"
-Date: Mon, 9 Jul 2018 14:08:54 -0400
-Message-ID: <5e7c8da4-af71-412c-fa70-d2c5226ff15b@amd.com>
-References: <20180709132450.1591-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: Send khz clock values to DC for smu7/8
+Date: Mon, 9 Jul 2018 18:15:56 +0000
+Message-ID: <BN6PR12MB1809A14C116165591B14B3A2F7440@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180709175719.14862-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0748090937=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180709132450.1591-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180709175719.14862-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,88 +18,353 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOC0wNy0wOSAwOToyNCBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBUaGlzIHJl
-dmVydHMgY29tbWl0IDNmZGFkYmZlMWVkZjQxNjhiMjUxNTA4M2FmNTY1MWM5NWFlYjI5OWQuCj4g
-Cj4gSXQgY2F1c2VzIGNyYXNoZXMgb24gVG9uZ2Egc28gcmV2ZXJ0IGl0IGZvciBub3cuIFNvbWVi
-b2R5IHdpdGggYmV0dGVyIGtub3dsZWRnZQo+IG9mIHRoZSBjb2RlIG5lZWRzIHRvIHRha2UgYSBj
-bG9zZXIgbG9vay4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+CgpBY2tlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRs
-YW5kQGFtZC5jb20+CgpIYXJyeQoKPiAtLS0KPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci9oYXJkd2FyZW1hbmFnZXIuYyAgfCAgMiArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgICB8IDI0IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfCAy
-NCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gIDMgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KyksIDQ5IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFuYWdlci5jCj4gaW5kZXggYjA1YjE1MzEwMWM1Li41
-MzIwN2U3NmIwZjMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYwo+IEBAIC0zNTcsNyArMzU3LDcgQEAgaW50IHBo
-bV9nZXRfY2xvY2tfaW5mbyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBjb25zdCBzdHJ1Y3QgcHBf
-aHdfcG93ZXJfc3RhdGUgKnMKPiAgCQkJUEhNX1BlcmZvcm1hbmNlTGV2ZWxEZXNpZ25hdGlvbiBk
-ZXNpZ25hdGlvbikKPiAgewo+ICAJaW50IHJlc3VsdDsKPiAtCVBITV9QZXJmb3JtYW5jZUxldmVs
-IHBlcmZvcm1hbmNlX2xldmVsID0gezB9Owo+ICsJUEhNX1BlcmZvcm1hbmNlTGV2ZWwgcGVyZm9y
-bWFuY2VfbGV2ZWw7Cj4gIAo+ICAJUEhNX0ZVTkNfQ0hFQ0soaHdtZ3IpOwo+ICAKPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCj4gaW5kZXgg
-OGVhYWE2Yjc5NzNlLi4wNzdiNzk5Mzg1MjggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCj4gQEAgLTUwMDYsMjkgKzUwMDYsNiBA
-QCBzdGF0aWMgaW50IHNtdTdfc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZShzdHJ1Y3QgcHBfaHdtZ3Ig
-Kmh3bWdyLCBsb25nICppbnB1dCwgdWludAo+ICAJcmV0dXJuIDA7Cj4gIH0KPiAgCj4gLXN0YXRp
-YyBpbnQgc211N19nZXRfcGVyZm9ybWFuY2VfbGV2ZWwoc3RydWN0IHBwX2h3bWdyICpod21nciwg
-Y29uc3Qgc3RydWN0IHBwX2h3X3Bvd2VyX3N0YXRlICpzdGF0ZSwKPiAtCQkJCVBITV9QZXJmb3Jt
-YW5jZUxldmVsRGVzaWduYXRpb24gZGVzaWduYXRpb24sIHVpbnQzMl90IGluZGV4LAo+IC0JCQkJ
-UEhNX1BlcmZvcm1hbmNlTGV2ZWwgKmxldmVsKQo+IC17Cj4gLQljb25zdCBzdHJ1Y3Qgc211N19w
-b3dlcl9zdGF0ZSAqcHM7Cj4gLQlzdHJ1Y3Qgc211N19od21nciAqZGF0YTsKPiAtCXVpbnQzMl90
-IGk7Cj4gLQo+IC0JaWYgKGxldmVsID09IE5VTEwgfHwgaHdtZ3IgPT0gTlVMTCB8fCBzdGF0ZSA9
-PSBOVUxMKQo+IC0JCXJldHVybiAtRUlOVkFMOwo+IC0KPiAtCWRhdGEgPSBod21nci0+YmFja2Vu
-ZDsKPiAtCXBzID0gY2FzdF9jb25zdF9waHdfc211N19wb3dlcl9zdGF0ZShzdGF0ZSk7Cj4gLQo+
-IC0JaSA9IGluZGV4ID4gcHMtPnBlcmZvcm1hbmNlX2xldmVsX2NvdW50IC0gMSA/Cj4gLQkJCXBz
-LT5wZXJmb3JtYW5jZV9sZXZlbF9jb3VudCAtIDEgOiBpbmRleDsKPiAtCj4gLQlsZXZlbC0+Y29y
-ZUNsb2NrID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1tpXS5lbmdpbmVfY2xvY2s7Cj4gLQlsZXZl
-bC0+bWVtb3J5X2Nsb2NrID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1tpXS5tZW1vcnlfY2xvY2s7
-Cj4gLQo+IC0JcmV0dXJuIDA7Cj4gLX0KPiAtCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdt
-Z3JfZnVuYyBzbXU3X2h3bWdyX2Z1bmNzID0gewo+ICAJLmJhY2tlbmRfaW5pdCA9ICZzbXU3X2h3
-bWdyX2JhY2tlbmRfaW5pdCwKPiAgCS5iYWNrZW5kX2ZpbmkgPSAmc211N19od21ncl9iYWNrZW5k
-X2ZpbmksCj4gQEAgLTUwODUsNyArNTA2Miw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdt
-Z3JfZnVuYyBzbXU3X2h3bWdyX2Z1bmNzID0gewo+ICAJLnNldF9wb3dlcl9saW1pdCA9IHNtdTdf
-c2V0X3Bvd2VyX2xpbWl0LAo+ICAJLmdldF9wb3dlcl9wcm9maWxlX21vZGUgPSBzbXU3X2dldF9w
-b3dlcl9wcm9maWxlX21vZGUsCj4gIAkuc2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZSA9IHNtdTdfc2V0
-X3Bvd2VyX3Byb2ZpbGVfbW9kZSwKPiAtCS5nZXRfcGVyZm9ybWFuY2VfbGV2ZWwgPSBzbXU3X2dl
-dF9wZXJmb3JtYW5jZV9sZXZlbCwKPiAgfTsKPiAgCj4gIHVpbnQ4X3Qgc211N19nZXRfc2xlZXBf
-ZGl2aWRlcl9pZF9mcm9tX2Nsb2NrKHVpbnQzMl90IGNsb2NrLAo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gaW5kZXggNWMwM2Rm
-NDljMDc2Li5lYjM3MzE2Y2ZiZjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+IEBAIC00ODM3LDI5ICs0ODM3LDYgQEAg
-c3RhdGljIGludCB2ZWdhMTBfb2RuX2VkaXRfZHBtX3RhYmxlKHN0cnVjdCBwcF9od21nciAqaHdt
-Z3IsCj4gIAlyZXR1cm4gMDsKPiAgfQo+ICAKPiAtc3RhdGljIGludCB2ZWdhMTBfZ2V0X3BlcmZv
-cm1hbmNlX2xldmVsKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGNvbnN0IHN0cnVjdCBwcF9od19w
-b3dlcl9zdGF0ZSAqc3RhdGUsCj4gLQkJCQlQSE1fUGVyZm9ybWFuY2VMZXZlbERlc2lnbmF0aW9u
-IGRlc2lnbmF0aW9uLCB1aW50MzJfdCBpbmRleCwKPiAtCQkJCVBITV9QZXJmb3JtYW5jZUxldmVs
-ICpsZXZlbCkKPiAtewo+IC0JY29uc3Qgc3RydWN0IHZlZ2ExMF9wb3dlcl9zdGF0ZSAqcHM7Cj4g
-LQlzdHJ1Y3QgdmVnYTEwX2h3bWdyICpkYXRhOwo+IC0JdWludDMyX3QgaTsKPiAtCj4gLQlpZiAo
-bGV2ZWwgPT0gTlVMTCB8fCBod21nciA9PSBOVUxMIHx8IHN0YXRlID09IE5VTEwpCj4gLQkJcmV0
-dXJuIC1FSU5WQUw7Cj4gLQo+IC0JZGF0YSA9IGh3bWdyLT5iYWNrZW5kOwo+IC0JcHMgPSBjYXN0
-X2NvbnN0X3Bod192ZWdhMTBfcG93ZXJfc3RhdGUoc3RhdGUpOwo+IC0KPiAtCWkgPSBpbmRleCA+
-IHBzLT5wZXJmb3JtYW5jZV9sZXZlbF9jb3VudCAtIDEgPwo+IC0JCQlwcy0+cGVyZm9ybWFuY2Vf
-bGV2ZWxfY291bnQgLSAxIDogaW5kZXg7Cj4gLQo+IC0JbGV2ZWwtPmNvcmVDbG9jayA9IHBzLT5w
-ZXJmb3JtYW5jZV9sZXZlbHNbaV0uZ2Z4X2Nsb2NrOwo+IC0JbGV2ZWwtPm1lbW9yeV9jbG9jayA9
-IHBzLT5wZXJmb3JtYW5jZV9sZXZlbHNbaV0ubWVtX2Nsb2NrOwo+IC0KPiAtCXJldHVybiAwOwo+
-IC19Cj4gLQo+ICBzdGF0aWMgY29uc3Qgc3RydWN0IHBwX2h3bWdyX2Z1bmMgdmVnYTEwX2h3bWdy
-X2Z1bmNzID0gewo+ICAJLmJhY2tlbmRfaW5pdCA9IHZlZ2ExMF9od21ncl9iYWNrZW5kX2luaXQs
-Cj4gIAkuYmFja2VuZF9maW5pID0gdmVnYTEwX2h3bWdyX2JhY2tlbmRfZmluaSwKPiBAQCAtNDkx
-OSw3ICs0ODk2LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBwcF9od21ncl9mdW5jIHZlZ2ExMF9o
-d21ncl9mdW5jcyA9IHsKPiAgCS5zZXRfcG93ZXJfcHJvZmlsZV9tb2RlID0gdmVnYTEwX3NldF9w
-b3dlcl9wcm9maWxlX21vZGUsCj4gIAkuc2V0X3Bvd2VyX2xpbWl0ID0gdmVnYTEwX3NldF9wb3dl
-cl9saW1pdCwKPiAgCS5vZG5fZWRpdF9kcG1fdGFibGUgPSB2ZWdhMTBfb2RuX2VkaXRfZHBtX3Rh
-YmxlLAo+IC0JLmdldF9wZXJmb3JtYW5jZV9sZXZlbCA9IHZlZ2ExMF9nZXRfcGVyZm9ybWFuY2Vf
-bGV2ZWwsCj4gIH07Cj4gIAo+ICBpbnQgdmVnYTEwX2VuYWJsZV9zbWNfZmVhdHVyZXMoc3RydWN0
-IHBwX2h3bWdyICpod21nciwKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+--===============0748090937==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809A14C116165591B14B3A2F7440BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809A14C116165591B14B3A2F7440BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
+ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, July 9, 2018 1:57 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Wentland, Harry
+Subject: [PATCH] drm/amd/pp: Send khz clock values to DC for smu7/8
+
+The previous change wasn't covering smu 7 and 8 and therefore DC was
+seeing wrong clock values.
+
+This fixes an issue where the pipes seem to hang with a 4k DP and 1080p
+HDMI display.
+
+Fixes: c3df50abc84b ("drm/amd/pp: Convert clock unit to KHz as defined")
+Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc:rex.zhu-5C7GfCeVMHo@public.gmane.org
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 8 ++++----
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c | 6 +++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index 8eaaa6b7973e..e5e5c1c2f8ff 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -4610,12 +4610,12 @@ static int smu7_get_sclks(struct pp_hwmgr *hwmgr, s=
+truct amd_pp_clocks *clocks)
+                         return -EINVAL;
+                 dep_sclk_table =3D table_info->vdd_dep_on_sclk;
+                 for (i =3D 0; i < dep_sclk_table->count; i++)
+-                       clocks->clock[i] =3D dep_sclk_table->entries[i].clk=
+;
++                       clocks->clock[i] =3D dep_sclk_table->entries[i].clk=
+ * 10;
+                 clocks->count =3D dep_sclk_table->count;
+         } else if (hwmgr->pp_table_version =3D=3D PP_TABLE_V0) {
+                 sclk_table =3D hwmgr->dyn_state.vddc_dependency_on_sclk;
+                 for (i =3D 0; i < sclk_table->count; i++)
+-                       clocks->clock[i] =3D sclk_table->entries[i].clk;
++                       clocks->clock[i] =3D sclk_table->entries[i].clk * 1=
+0;
+                 clocks->count =3D sclk_table->count;
+         }
+
+@@ -4647,7 +4647,7 @@ static int smu7_get_mclks(struct pp_hwmgr *hwmgr, str=
+uct amd_pp_clocks *clocks)
+                         return -EINVAL;
+                 dep_mclk_table =3D table_info->vdd_dep_on_mclk;
+                 for (i =3D 0; i < dep_mclk_table->count; i++) {
+-                       clocks->clock[i] =3D dep_mclk_table->entries[i].clk=
+;
++                       clocks->clock[i] =3D dep_mclk_table->entries[i].clk=
+ * 10;
+                         clocks->latency[i] =3D smu7_get_mem_latency(hwmgr,
+                                                 dep_mclk_table->entries[i]=
+.clk);
+                 }
+@@ -4655,7 +4655,7 @@ static int smu7_get_mclks(struct pp_hwmgr *hwmgr, str=
+uct amd_pp_clocks *clocks)
+         } else if (hwmgr->pp_table_version =3D=3D PP_TABLE_V0) {
+                 mclk_table =3D hwmgr->dyn_state.vddc_dependency_on_mclk;
+                 for (i =3D 0; i < mclk_table->count; i++)
+-                       clocks->clock[i] =3D mclk_table->entries[i].clk;
++                       clocks->clock[i] =3D mclk_table->entries[i].clk * 1=
+0;
+                 clocks->count =3D mclk_table->count;
+         }
+         return 0;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+index 50690c72b2ea..288802f209dd 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+@@ -1604,17 +1604,17 @@ static int smu8_get_clock_by_type(struct pp_hwmgr *=
+hwmgr, enum amd_pp_clock_type
+         switch (type) {
+         case amd_pp_disp_clock:
+                 for (i =3D 0; i < clocks->count; i++)
+-                       clocks->clock[i] =3D data->sys_info.display_clock[i=
+];
++                       clocks->clock[i] =3D data->sys_info.display_clock[i=
+] * 10;
+                 break;
+         case amd_pp_sys_clock:
+                 table =3D hwmgr->dyn_state.vddc_dependency_on_sclk;
+                 for (i =3D 0; i < clocks->count; i++)
+-                       clocks->clock[i] =3D table->entries[i].clk;
++                       clocks->clock[i] =3D table->entries[i].clk * 10;
+                 break;
+         case amd_pp_mem_clock:
+                 clocks->count =3D SMU8_NUM_NBPMEMORYCLOCK;
+                 for (i =3D 0; i < clocks->count; i++)
+-                       clocks->clock[i] =3D data->sys_info.nbp_memory_cloc=
+k[clocks->count - 1 - i];
++                       clocks->clock[i] =3D data->sys_info.nbp_memory_cloc=
+k[clocks->count - 1 - i] * 10;
+                 break;
+         default:
+                 return -1;
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809A14C116165591B14B3A2F7440BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.we=
+ntland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, July 9, 2018 1:57 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Wentland, Harry<br>
+<b>Subject:</b> [PATCH] drm/amd/pp: Send khz clock values to DC for smu7/8<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The previous change wasn't covering smu 7 and 8 an=
+d therefore DC was<br>
+seeing wrong clock values.<br>
+<br>
+This fixes an issue where the pipes seem to hang with a 4k DP and 1080p<br>
+HDMI display.<br>
+<br>
+Fixes: c3df50abc84b (&quot;drm/amd/pp: Convert clock unit to KHz as defined=
+&quot;)<br>
+Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Cc:rex.zhu-5C7GfCeVMHo@public.gmane.org<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 8 &#43;&#43;&#43;&=
+#43;----<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c | 6 &#43;&#43;&#43;-=
+--<br>
+&nbsp;2 files changed, 7 insertions(&#43;), 7 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+index 8eaaa6b7973e..e5e5c1c2f8ff 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+@@ -4610,12 &#43;4610,12 @@ static int smu7_get_sclks(struct pp_hwmgr *hwmg=
+r, struct amd_pp_clocks *clocks)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n -EINVAL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dep_sclk_table =3D table_info-&gt;vdd_dep_on_sclk;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; dep_sclk_table-&gt;count; i&#43;=
+&#43;)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;clock=
+[i] =3D dep_sclk_table-&gt;entries[i].clk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;c=
+lock[i] =3D dep_sclk_table-&gt;entries[i].clk * 10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; clocks-&gt;count =3D dep_sclk_table-&gt;count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (hwmgr-&gt;pp_ta=
+ble_version =3D=3D PP_TABLE_V0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; sclk_table =3D hwmgr-&gt;dyn_state.vddc_dependency_on=
+_sclk;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; sclk_table-&gt;count; i&#43;&#43=
+;)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;clock=
+[i] =3D sclk_table-&gt;entries[i].clk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;c=
+lock[i] =3D sclk_table-&gt;entries[i].clk * 10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; clocks-&gt;count =3D sclk_table-&gt;count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -4647,7 &#43;4647,7 @@ static int smu7_get_mclks(struct pp_hwmgr *hwmgr,=
+ struct amd_pp_clocks *clocks)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n -EINVAL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; dep_mclk_table =3D table_info-&gt;vdd_dep_on_mclk;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; dep_mclk_table-&gt;count; i&#43;=
+&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;clock=
+[i] =3D dep_mclk_table-&gt;entries[i].clk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;c=
+lock[i] =3D dep_mclk_table-&gt;entries[i].clk * 10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock=
+s-&gt;latency[i] =3D smu7_get_mem_latency(hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dep_mclk_ta=
+ble-&gt;entries[i].clk);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+@@ -4655,7 &#43;4655,7 @@ static int smu7_get_mclks(struct pp_hwmgr *hwmgr,=
+ struct amd_pp_clocks *clocks)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (hwmgr-&gt;pp_ta=
+ble_version =3D=3D PP_TABLE_V0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; mclk_table =3D hwmgr-&gt;dyn_state.vddc_dependency_on=
+_mclk;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; mclk_table-&gt;count; i&#43;&#43=
+;)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;clock=
+[i] =3D mclk_table-&gt;entries[i].clk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;c=
+lock[i] =3D mclk_table-&gt;entries[i].clk * 10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; clocks-&gt;count =3D mclk_table-&gt;count;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+index 50690c72b2ea..288802f209dd 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+@@ -1604,17 &#43;1604,17 @@ static int smu8_get_clock_by_type(struct pp_hwm=
+gr *hwmgr, enum amd_pp_clock_type<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_disp_clock:<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; clocks-&gt;count; i&#43;&#43;)<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;clock=
+[i] =3D data-&gt;sys_info.display_clock[i];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;c=
+lock[i] =3D data-&gt;sys_info.display_clock[i] * 10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_sys_clock:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; table =3D hwmgr-&gt;dyn_state.vddc_dependency_on_sclk=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; clocks-&gt;count; i&#43;&#43;)<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;clock=
+[i] =3D table-&gt;entries[i].clk;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;c=
+lock[i] =3D table-&gt;entries[i].clk * 10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case amd_pp_mem_clock:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; clocks-&gt;count =3D SMU8_NUM_NBPMEMORYCLOCK;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; clocks-&gt;count; i&#43;&#43;)<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;clock=
+[i] =3D data-&gt;sys_info.nbp_memory_clock[clocks-&gt;count - 1 - i];<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;c=
+lock[i] =3D data-&gt;sys_info.nbp_memory_clock[clocks-&gt;count - 1 - i] * =
+10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -1;<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk884069" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809A14C116165591B14B3A2F7440BN6PR12MB1809namp_--
+
+--===============0748090937==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0748090937==--
