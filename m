@@ -1,23 +1,12 @@
-From: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
-Subject: Re: [alsa-devel] ??????: [PATCH] vgaswitchroo: set audio client id
- according to bound gpu client id
-Date: Mon, 9 Jul 2018 18:06:44 +0200
-Message-ID: <20180709160644.GB1490@wunner.de>
-References: <20180629092138.GA11849@wunner.de>
- <DM3PR12MB08732DAAAA57739DCE431D66994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
- <20180629111108.GA11609@wunner.de>
- <DM3PR12MB0873FEC702770190057B49F799440@DM3PR12MB0873.namprd12.prod.outlook.com>
- <20180709092759.GA3649@wunner.de>
- <DM3PR12MB087309CBC2CD3A934327EBCE99440@DM3PR12MB0873.namprd12.prod.outlook.com>
- <CADnq5_OpZz=AgNomX7+5BzeN77CRZT7mXDT7kn620TE-OjqS0w@mail.gmail.com>
- <s5hr2kco3gp.wl-tiwai@suse.de> <20180709154734.GA30496@wunner.de>
- <s5hsh4scsoe.wl-tiwai@suse.de>
+From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/3] drm/amdgpu: Take VCN jpeg ring into account in idle work
+ handler
+Date: Mon,  9 Jul 2018 12:11:36 -0400
+Message-ID: <20180709161138.5319-1-leo.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <s5hsh4scsoe.wl-tiwai-l3A5Bk7waGM@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -28,35 +17,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Takashi Iwai <tiwai-l3A5Bk7waGM@public.gmane.org>
-Cc: "alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org" <alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Qu,
- Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
 
-T24gTW9uLCBKdWwgMDksIDIwMTggYXQgMDU6NTI6NDlQTSArMDIwMCwgVGFrYXNoaSBJd2FpIHdy
-b3RlOgo+IE9uIE1vbiwgMDkgSnVsIDIwMTggMTc6NDc6MzQgKzAyMDAsIEx1a2FzIFd1bm5lciB3
-cm90ZToKPiA+IFNpbmNlIHY0LjE3LCBldmVyeSB0aW1lIHRoZSBHUFUgaXMgcG93ZXJlZCB1cCwg
-dGhlIEhEQSBjb250cm9sbGVyIGlzCj4gPiBydW50aW1lIHJlc3VtZWQgdG8gUENJX0QwLiAgKFNl
-ZSB0aGUgY2FsbCB0byBwY2lfd2FrZXVwX2J1cygpIGluCj4gPiB2Z2Ffc3dpdGNoZXJvb19ydW50
-aW1lX3Jlc3VtZSgpIGFkZGVkIGJ5IGRjYWM4NmI3ZDAuKQo+ID4gCj4gPiBJZiB0aGUgSERBIGNv
-bnRyb2xsZXIgY2FuJ3QgZGV0ZWN0IHByZXNlbmNlIG9mIGFuIEhETUkgZGlzcGxheSBldmVuCj4g
-PiBpZiBpdCdzIGluIFBDSV9EMCwgdGhlbiBJIHN1cHBvc2UgdGhhdCBuZWVkcyB0byBiZSBhZHJl
-c3NlZCBpbiB0aGUgSERBCj4gPiBkcml2ZXIuICBUaHVzIHNvIGZhciBJIGRvbid0IHNlZSB0aGUg
-bmVlZCB0byBjYWxsIGZyb20gYW1kZ3B1IGludG8gdGhlCj4gPiBIREEgZHJpdmVyLgo+IAo+IEl0
-J3Mgbm90IGFib3V0IHRoZSBQQ0kgcG93ZXIgc3RhdGUsIGJ1dCB0aGUgcHJvYmxlbSBpcyB0aGF0
-IHRoZQo+IGRldGVjdGlvbiBvZiB0aGUgSERNSSBhbmQgaXRzIEVMRCByZWFkIGlzIHNvbWV3aGF0
-IGFzeW5jaHJvbm91cy4KPiBCYXNpY2FsbHkgaXQncyBoYW5kbGVkIHZpYSB0aGUgaGFyZHdhcmUg
-dW5zb2xpY2l0ZWQgZXZlbnQgZW1pdHRlZCBvdmVyCj4gSEQtYXVkaW8gYnVzLCB3aGljaCB3YXMg
-b3JpZ2luYWxseSBnZW5lcmF0ZWQgYnkgR1BVIGF0IGRlYWxpbmcgd2l0aAo+IHRoZSBob3RwbHVn
-L3VucGx1Zy4gIFNvLCB0aGlzIHBhcnQgaXMgcmFjeSBhbmQgbm90IDEwMCUgcmVsaWFibGUgLS0K
-PiBhbHRob3VnaCB1c3VhbGx5IGl0IHNob3VsZG4ndCBiZSBhIGJpZyBwcm9ibGVtLgo+IAo+IFRo
-YXQgc2FpZCwgaXQncyBub3QgdGhlIGV4YWN0ICJuZWVkIiBidXQgaXQgd291bGQgbWFrZSB0aGlu
-Z3MgbW9yZQo+IHJlbGlhYmxlIGFuZCBhY2N1cmF0ZSAoZXZlbiBjb25zdW1lcyBsZXNzIHBvd2Vy
-IGFzIHdlIGRvbid0IG5lZWQgdG8KPiBwb3dlciB1cC9kb3duIGp1c3QgZm9yIHRoZSBIRE1JIGRl
-dGVjdGlvbikuCgpPa2F5LiAgSWYgYW1kZ3B1IHRyaWdnZXJzIHRoZSBldmVudCBvbiB0aGUgSERB
-IGJ1cywgaXQgc2hvdWxkIGNhbGwKcG1fcnVudGltZV9nZXRfc3luYygpIG9uIHRoZSBIREEgZGV2
-aWNlIGJlZm9yZWhhbmQuICBXaGljaCBkZXZpY2UKbmVlZHMgdG8gYmUgcmVzdW1lZCBleGFjdGx5
-IHRvIGVuc3VyZSBFTEQgcmVjZXB0aW9uLCB0aGUgUENJIG9uZQpvciB0aGUgY29kZWM/CgpUaGFu
-a3MsCgpMdWthcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+VkNOIHdvbid0IGdldCBwb3dlciBvZmYgd2hlbiBvbmx5IGpwZWcgYWN0aXZlCgpTaWduZWQtb2Zm
+LWJ5OiBMZW8gTGl1IDxsZW8ubGl1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3Zjbi5jIHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYwppbmRleCBhNjZjZDUyMWE4
+NzUuLjRhMzQ1NzIzNmU4NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3Zjbi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24u
+YwpAQCAtMjExLDYgKzIxMSw4IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92Y25faWRsZV93b3JrX2hh
+bmRsZXIoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQogCQlmZW5jZXMgKz0gYW1kZ3B1X2ZlbmNl
+X2NvdW50X2VtaXR0ZWQoJmFkZXYtPnZjbi5yaW5nX2VuY1tpXSk7CiAJfQogCisJZmVuY2VzICs9
+IGFtZGdwdV9mZW5jZV9jb3VudF9lbWl0dGVkKCZhZGV2LT52Y24ucmluZ19qcGVnKTsKKwogCWlm
+IChmZW5jZXMgPT0gMCkgewogCQlpZiAoYWRldi0+cG0uZHBtX2VuYWJsZWQpCiAJCQlhbWRncHVf
+ZHBtX2VuYWJsZV91dmQoYWRldiwgZmFsc2UpOwotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
