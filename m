@@ -1,73 +1,98 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Swap pixmap privates in
- radeon_dri2_exchange_buffers
-Date: Tue, 10 Jul 2018 17:24:51 +0200
-Message-ID: <20180710152451.18888-1-michel@daenzer.net>
+From: Leon Romanovsky <leon@kernel.org>
+Subject: Re: [RFC PATCH] mm, oom: distinguish blockable mode for mmu notifiers
+Date: Tue, 10 Jul 2018 19:20:20 +0300
+Message-ID: <20180710162020.GJ3014@mtr-leonro.mtl.com>
+References: <20180622150242.16558-1-mhocko@kernel.org>
+ <20180627074421.GF32348@dhcp22.suse.cz>
+ <20180709122908.GJ22049@dhcp22.suse.cz>
+ <20180710134040.GG3014@mtr-leonro.mtl.com>
+ <20180710141410.GP14284@dhcp22.suse.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============1802529003=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20180710141410.GP14284@dhcp22.suse.cz>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Michal Hocko <mhocko@kernel.org>
+Cc: kvm@vger.kernel.org, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@redhat.com>, David Airlie <airlied@linux.ie>, Sudeep Dutt <sudeep.dutt@intel.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Felix Kuehling <felix.kuehling@amd.com>, Andrea Arcangeli <aarcange@redhat.com>, Dimitri Sivanich <sivanich@sgi.com>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>, David Rientjes <rientjes@google.com>, xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, Mike Marciniszyn <mike.marciniszyn@intel.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, LKML <linux-kernel@vger.kernel.org>, Ashutosh Dixit <ashutosh.dixi>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpJbnN0ZWFkIG9m
-IG9ubHkgdGhlIEJPcy4KClRoaXMgbWF0Y2hlcyB3aGF0IGFtZGdwdSBkb2VzLCBhbmQgZml4ZXMg
-aXNzdWVzIHdpdGggRFJJMiBwYWdlIGZsaXBwaW5nLgoKU2lnbmVkLW9mZi1ieTogTWljaGVsIETD
-pG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogc3JjL3JhZGVvbl9kcmkyLmMgfCA0
-MiArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFu
-Z2VkLCAyMyBpbnNlcnRpb25zKCspLCAxOSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9zcmMv
-cmFkZW9uX2RyaTIuYyBiL3NyYy9yYWRlb25fZHJpMi5jCmluZGV4IGFiM2RiNmM1ZS4uNzBhZDFk
-OTJhIDEwMDY0NAotLS0gYS9zcmMvcmFkZW9uX2RyaTIuYworKysgYi9zcmMvcmFkZW9uX2RyaTIu
-YwpAQCAtNzIwLDkgKzcyMCw4IEBAIHJhZGVvbl9kcmkyX2V4Y2hhbmdlX2J1ZmZlcnMoRHJhd2Fi
-bGVQdHIgZHJhdywgRFJJMkJ1ZmZlclB0ciBmcm9udCwgRFJJMkJ1ZmZlclB0CiB7CiAgICAgc3Ry
-dWN0IGRyaTJfYnVmZmVyX3ByaXYgKmZyb250X3ByaXYgPSBmcm9udC0+ZHJpdmVyUHJpdmF0ZTsK
-ICAgICBzdHJ1Y3QgZHJpMl9idWZmZXJfcHJpdiAqYmFja19wcml2ID0gYmFjay0+ZHJpdmVyUHJp
-dmF0ZTsKLSAgICBzdHJ1Y3QgcmFkZW9uX2J1ZmZlciAqZnJvbnRfYnVmZmVyLCAqYmFja19idWZm
-ZXI7Ci0gICAgU2NyZWVuUHRyIHNjcmVlbjsKLSAgICBSQURFT05JbmZvUHRyIGluZm87CisgICAg
-U2NyZWVuUHRyIHNjcmVlbiA9IGRyYXctPnBTY3JlZW47CisgICAgUkFERU9OSW5mb1B0ciBpbmZv
-ID0gUkFERU9OUFRSKHhmODZTY3JlZW5Ub1Njcm4oc2NyZWVuKSk7CiAgICAgUmVnaW9uUmVjIHJl
-Z2lvbjsKICAgICBpbnQgdG1wOwogCkBAIC03MzcsMjMgKzczNiwyOCBAQCByYWRlb25fZHJpMl9l
-eGNoYW5nZV9idWZmZXJzKERyYXdhYmxlUHRyIGRyYXcsIERSSTJCdWZmZXJQdHIgZnJvbnQsIERS
-STJCdWZmZXJQdAogICAgIGZyb250LT5uYW1lID0gYmFjay0+bmFtZTsKICAgICBiYWNrLT5uYW1l
-ID0gdG1wOwogCi0gICAgLyogU3dhcCBwaXhtYXAgYm9zICovCi0gICAgZnJvbnRfYnVmZmVyID0g
-cmFkZW9uX2dldF9waXhtYXBfYm8oZnJvbnRfcHJpdi0+cGl4bWFwKTsKLSAgICBiYWNrX2J1ZmZl
-ciA9IHJhZGVvbl9nZXRfcGl4bWFwX2JvKGJhY2tfcHJpdi0+cGl4bWFwKTsKLSAgICByYWRlb25f
-c2V0X3BpeG1hcF9ibyhmcm9udF9wcml2LT5waXhtYXAsIGJhY2tfYnVmZmVyKTsKLSAgICByYWRl
-b25fc2V0X3BpeG1hcF9ibyhiYWNrX3ByaXYtPnBpeG1hcCwgZnJvbnRfYnVmZmVyKTsKLQotICAg
-IC8qIERvIHdlIG5lZWQgdG8gdXBkYXRlIHRoZSBTY3JlZW4/ICovCi0gICAgc2NyZWVuID0gZHJh
-dy0+cFNjcmVlbjsKLSAgICBpbmZvID0gUkFERU9OUFRSKHhmODZTY3JlZW5Ub1Njcm4oc2NyZWVu
-KSk7Ci0gICAgaWYgKGZyb250X2J1ZmZlciA9PSBpbmZvLT5mcm9udF9idWZmZXIpIHsKLQlyYWRl
-b25fYnVmZmVyX3JlZihiYWNrX2J1ZmZlcik7Ci0JcmFkZW9uX2J1ZmZlcl91bnJlZigmaW5mby0+
-ZnJvbnRfYnVmZmVyKTsKLQlpbmZvLT5mcm9udF9idWZmZXIgPSBiYWNrX2J1ZmZlcjsKLQlyYWRl
-b25fc2V0X3BpeG1hcF9ibyhzY3JlZW4tPkdldFNjcmVlblBpeG1hcChzY3JlZW4pLCBiYWNrX2J1
-ZmZlcik7Ci0gICAgfQorICAgIC8qIFN3YXAgcGl4bWFwIHByaXZhdGVzICovCisjaWZkZWYgVVNF
-X0dMQU1PUgorICAgIGlmIChpbmZvLT51c2VfZ2xhbW9yKSB7CisJc3RydWN0IHJhZGVvbl9waXht
-YXAgKmZyb250X3BpeCwgKmJhY2tfcGl4OworCisJZnJvbnRfcGl4ID0gcmFkZW9uX2dldF9waXht
-YXBfcHJpdmF0ZShmcm9udF9wcml2LT5waXhtYXApOworCWJhY2tfcGl4ID0gcmFkZW9uX2dldF9w
-aXhtYXBfcHJpdmF0ZShiYWNrX3ByaXYtPnBpeG1hcCk7CisJcmFkZW9uX3NldF9waXhtYXBfcHJp
-dmF0ZShmcm9udF9wcml2LT5waXhtYXAsIGJhY2tfcGl4KTsKKwlyYWRlb25fc2V0X3BpeG1hcF9w
-cml2YXRlKGJhY2tfcHJpdi0+cGl4bWFwLCBmcm9udF9waXgpOwogCi0gICAgcmFkZW9uX2dsYW1v
-cl9leGNoYW5nZV9idWZmZXJzKGZyb250X3ByaXYtPnBpeG1hcCwgYmFja19wcml2LT5waXhtYXAp
-OworCXJhZGVvbl9nbGFtb3JfZXhjaGFuZ2VfYnVmZmVycyhmcm9udF9wcml2LT5waXhtYXAsIGJh
-Y2tfcHJpdi0+cGl4bWFwKTsKKyAgICB9IGVsc2UKKyNlbmRpZgorICAgIHsKKwlzdHJ1Y3QgcmFk
-ZW9uX2V4YV9waXhtYXBfcHJpdiBkcml2ZXJfcHJpdiA9ICooc3RydWN0IHJhZGVvbl9leGFfcGl4
-bWFwX3ByaXYqKQorCSAgICBleGFHZXRQaXhtYXBEcml2ZXJQcml2YXRlKGZyb250X3ByaXYtPnBp
-eG1hcCk7CisKKwkqKHN0cnVjdCByYWRlb25fZXhhX3BpeG1hcF9wcml2KilleGFHZXRQaXhtYXBE
-cml2ZXJQcml2YXRlKGZyb250X3ByaXYtPnBpeG1hcCkgPQorCSAgICAqKHN0cnVjdCByYWRlb25f
-ZXhhX3BpeG1hcF9wcml2KilleGFHZXRQaXhtYXBEcml2ZXJQcml2YXRlKGJhY2tfcHJpdi0+cGl4
-bWFwKTsKKwkqKHN0cnVjdCByYWRlb25fZXhhX3BpeG1hcF9wcml2KilleGFHZXRQaXhtYXBEcml2
-ZXJQcml2YXRlKGJhY2tfcHJpdi0+cGl4bWFwKSA9CisJICAgIGRyaXZlcl9wcml2OworICAgIH0K
-IAogICAgIERhbWFnZVJlZ2lvblByb2Nlc3NQZW5kaW5nKCZmcm9udF9wcml2LT5waXhtYXAtPmRy
-YXdhYmxlKTsKIH0KLS0gCjIuMTguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+
+--===============1802529003==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="0EphSjNCSB1asamE"
+Content-Disposition: inline
+
+
+--0EphSjNCSB1asamE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Jul 10, 2018 at 04:14:10PM +0200, Michal Hocko wrote:
+> On Tue 10-07-18 16:40:40, Leon Romanovsky wrote:
+> > On Mon, Jul 09, 2018 at 02:29:08PM +0200, Michal Hocko wrote:
+> > > On Wed 27-06-18 09:44:21, Michal Hocko wrote:
+> > > > This is the v2 of RFC based on the feedback I've received so far. The
+> > > > code even compiles as a bonus ;) I haven't runtime tested it yet, mostly
+> > > > because I have no idea how.
+> > > >
+> > > > Any further feedback is highly appreciated of course.
+> > >
+> > > Any other feedback before I post this as non-RFC?
+> >
+> > From mlx5 perspective, who is primary user of umem_odp.c your change looks ok.
+>
+> Can I assume your Acked-by?
+
+I didn't have a chance to test it because it applies on our rdma-next, but
+fails to compile.
+
+Thanks
+
+>
+> Thanks for your review!
+> --
+> Michal Hocko
+> SUSE Labs
+>
+
+--0EphSjNCSB1asamE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBAgAGBQJbRNzEAAoJEORje4g2clinTRAP/3xbJ66iDSwdQCcVd+3SPmwJ
+NYt2S+UqK7m5inKXFtDVKC9BNIb6WKX5gVPyLMKfr6d+Ru6XVd/TmavJyDTHbBzC
+B5a13HTOqAMPLoRdcU/HqN0yHWXsRtekZ5jnnxLt+mXVq+34Vk6MNFO2OL8opaeP
+1Dznd0rY8jrA9Y3Z6gXBkog9xIFE5h7NouLdApinAqoP8D4/M1quGSGsmSqlkY0z
+NHviSlRW8/cRSgSeS5SQEyj3jz6gsZCYRWwskONf+VWy848aAoessVXzNVgtuLbR
+4eIkAHhb1DTPdIPIZyzxrQ4e7QCaFOb/AFAt6K0E2YmTgmnntKLrpXf76p8GIXFW
+xmxji8Z6R+/124cH67/+GpgSvAFSoqyHsjv8IJkB8XPsLnfN4vqxH6U0U7lO4Z5l
+Pex8wMFs55GgrDsI99dEczCglFesam5u9RRnHLGY1nYYofDoNKTbWiKEAAIQJK7R
+P0fCVmW921et6rtnsPOIM40O/94vJPLP0Wam76GXSCtQFw22xK90XCIvrYLuZIcs
+q7nDB6HzfKUL0Ai1KAhhcqzn785E9xtAxLy6CilgmB4nTqXhaP5cM5RZZiD86jEr
+N8GMXABgUjwgwxV4AFHGY2qeawlN+l2yLNl6r05KNyKTWWyhM2rt0HNnRkLRP51G
+xxL8y7wxClLAZl6dTXFz
+=ETz1
+-----END PGP SIGNATURE-----
+
+--0EphSjNCSB1asamE--
+
+--===============1802529003==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1802529003==--
