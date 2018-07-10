@@ -1,106 +1,53 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] Revert "drm/amd/display: Don't return ddc result and
- read_bytes in same return value"
-Date: Tue, 10 Jul 2018 13:06:38 -0500
-Message-ID: <20180710180638.17642-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/pp: fix semicolon.cocci warnings
+Date: Tue, 10 Jul 2018 15:07:21 -0400
+Message-ID: <CADnq5_MR3kSv3cGP0MhyJ_mgVb6nmCFZRv718SFZVpBhOuU+cw@mail.gmail.com>
+References: <201807110104.iOYDaTfd%fengguang.wu@intel.com> <20180710171108.GA73972@lkp-hsx03>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180710171108.GA73972@lkp-hsx03>
+Sender: linux-kernel-owner@vger.kernel.org
+To: kbuild test robot <fengguang.wu@intel.com>
+Cc: Rex Zhu <Rex.Zhu@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Evan Quan <evan.quan@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyByZXZlcnRzIGNvbW1pdCAwMThkODJlNWYwMmVmMzU4MzQxMWJjYWE0ZTAwYzY5Nzg2ZjQ2
-ZjE5LgoKVGhpcyBicmVha3MgRERDIGluIGNlcnRhaW4gY2FzZXMuICBSZXZlcnQgZm9yIDQuMTgg
-YW5kIHByZXZpb3VzIGtlcm5lbHMuCkZvciA0LjE5LCB0aGlzIGlzIGZpeGVkIHdpdGggdGhlIGZv
-bGxvd2luZyBtb3JlIGV4dGVuc2l2ZSBwYXRjaGVzOgpkcm0vYW1kL2Rpc3BsYXk6IFNlcmlhbGl6
-ZSBpc19kcF9zaW5rX3ByZXNlbnQKZHJtL2FtZC9kaXNwbGF5OiBCcmVhayBvdXQgZnVuY3Rpb24g
-dG8gc2ltcGx5IHJlYWQgYXV4IHJlcGx5CmRybS9hbWQvZGlzcGxheTogUmV0dXJuIGF1eCByZXBs
-aWVzIGRpcmVjdGx5IHRvIERSTQpkcm0vYW1kL2Rpc3BsYXk6IFJpZ2h0IHNoaWZ0IEFVWCByZXBs
-eSB2YWx1ZSBzb29uZXIgdGhhbiBsYXRlcgpkcm0vYW1kL2Rpc3BsYXk6IFJlYWQgQVVYIGNoYW5u
-ZWwgZXZlbiBpZiBvbmx5IHN0YXR1cyBieXRlIGlzIHJldHVybmVkCgpMaW5rOiBodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9hcmNoaXZlcy9hbWQtZ2Z4LzIwMTgtSnVseS8wMjM3ODguaHRt
-bApTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCi0tLQogLi4uL2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jICB8IDIwICsrKysrKysrLS0tLS0tLS0tLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RkYy5jICAgIHwgMTAg
-KysrLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9kY19saW5rX2Rk
-Yy5oICAgICB8ICA1ICsrLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDIy
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMKaW5kZXggNDMwNGQ5ZTQwOGI4Li5h
-Y2U5YWQ1NzhjYTAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCkBAIC04MywyMiArODMsMjEgQEAg
-c3RhdGljIHNzaXplX3QgZG1fZHBfYXV4X3RyYW5zZmVyKHN0cnVjdCBkcm1fZHBfYXV4ICphdXgs
-CiAJZW51bSBpMmNfbW90X21vZGUgbW90ID0gKG1zZy0+cmVxdWVzdCAmIERQX0FVWF9JMkNfTU9U
-KSA/CiAJCUkyQ19NT1RfVFJVRSA6IEkyQ19NT1RfRkFMU0U7CiAJZW51bSBkZGNfcmVzdWx0IHJl
-czsKLQl1aW50MzJfdCByZWFkX2J5dGVzID0gbXNnLT5zaXplOworCXNzaXplX3QgcmVhZF9ieXRl
-czsKIAogCWlmIChXQVJOX09OKG1zZy0+c2l6ZSA+IDE2KSkKIAkJcmV0dXJuIC1FMkJJRzsKIAog
-CXN3aXRjaCAobXNnLT5yZXF1ZXN0ICYgfkRQX0FVWF9JMkNfTU9UKSB7CiAJY2FzZSBEUF9BVVhf
-TkFUSVZFX1JFQUQ6Ci0JCXJlcyA9IGRhbF9kZGNfc2VydmljZV9yZWFkX2RwY2RfZGF0YSgKKwkJ
-cmVhZF9ieXRlcyA9IGRhbF9kZGNfc2VydmljZV9yZWFkX2RwY2RfZGF0YSgKIAkJCQlUT19ETV9B
-VVgoYXV4KS0+ZGRjX3NlcnZpY2UsCiAJCQkJZmFsc2UsCiAJCQkJSTJDX01PVF9VTkRFRiwKIAkJ
-CQltc2ctPmFkZHJlc3MsCiAJCQkJbXNnLT5idWZmZXIsCi0JCQkJbXNnLT5zaXplLAotCQkJCSZy
-ZWFkX2J5dGVzKTsKLQkJYnJlYWs7CisJCQkJbXNnLT5zaXplKTsKKwkJcmV0dXJuIHJlYWRfYnl0
-ZXM7CiAJY2FzZSBEUF9BVVhfTkFUSVZFX1dSSVRFOgogCQlyZXMgPSBkYWxfZGRjX3NlcnZpY2Vf
-d3JpdGVfZHBjZF9kYXRhKAogCQkJCVRPX0RNX0FVWChhdXgpLT5kZGNfc2VydmljZSwKQEAgLTEw
-OSwxNSArMTA4LDE0IEBAIHN0YXRpYyBzc2l6ZV90IGRtX2RwX2F1eF90cmFuc2ZlcihzdHJ1Y3Qg
-ZHJtX2RwX2F1eCAqYXV4LAogCQkJCW1zZy0+c2l6ZSk7CiAJCWJyZWFrOwogCWNhc2UgRFBfQVVY
-X0kyQ19SRUFEOgotCQlyZXMgPSBkYWxfZGRjX3NlcnZpY2VfcmVhZF9kcGNkX2RhdGEoCisJCXJl
-YWRfYnl0ZXMgPSBkYWxfZGRjX3NlcnZpY2VfcmVhZF9kcGNkX2RhdGEoCiAJCQkJVE9fRE1fQVVY
-KGF1eCktPmRkY19zZXJ2aWNlLAogCQkJCXRydWUsCiAJCQkJbW90LAogCQkJCW1zZy0+YWRkcmVz
-cywKIAkJCQltc2ctPmJ1ZmZlciwKLQkJCQltc2ctPnNpemUsCi0JCQkJJnJlYWRfYnl0ZXMpOwot
-CQlicmVhazsKKwkJCQltc2ctPnNpemUpOworCQlyZXR1cm4gcmVhZF9ieXRlczsKIAljYXNlIERQ
-X0FVWF9JMkNfV1JJVEU6CiAJCXJlcyA9IGRhbF9kZGNfc2VydmljZV93cml0ZV9kcGNkX2RhdGEo
-CiAJCQkJVE9fRE1fQVVYKGF1eCktPmRkY19zZXJ2aWNlLApAQCAtMTM5LDkgKzEzNyw3IEBAIHN0
-YXRpYyBzc2l6ZV90IGRtX2RwX2F1eF90cmFuc2ZlcihzdHJ1Y3QgZHJtX2RwX2F1eCAqYXV4LAog
-CQkgciA9PSBERENfUkVTVUxUX1NVQ0VTU0ZVTEwpOwogI2VuZGlmCiAKLQlpZiAocmVzICE9IERE
-Q19SRVNVTFRfU1VDRVNTRlVMTCkKLQkJcmV0dXJuIC1FSU87Ci0JcmV0dXJuIHJlYWRfYnl0ZXM7
-CisJcmV0dXJuIG1zZy0+c2l6ZTsKIH0KIAogc3RhdGljIGVudW0gZHJtX2Nvbm5lY3Rvcl9zdGF0
-dXMKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xp
-bmtfZGRjLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2Rk
-Yy5jCmluZGV4IGFlNDhkNjAzZWJkNi4uNDljMmZhY2UxZTdhIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rX2RkYy5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmtfZGRjLmMKQEAgLTYyOSwxNCArNjI5
-LDEzIEBAIGJvb2wgZGFsX2RkY19zZXJ2aWNlX3F1ZXJ5X2RkY19kYXRhKAogCXJldHVybiByZXQ7
-CiB9CiAKLWVudW0gZGRjX3Jlc3VsdCBkYWxfZGRjX3NlcnZpY2VfcmVhZF9kcGNkX2RhdGEoCitz
-c2l6ZV90IGRhbF9kZGNfc2VydmljZV9yZWFkX2RwY2RfZGF0YSgKIAlzdHJ1Y3QgZGRjX3NlcnZp
-Y2UgKmRkYywKIAlib29sIGkyYywKIAllbnVtIGkyY19tb3RfbW9kZSBtb3QsCiAJdWludDMyX3Qg
-YWRkcmVzcywKIAl1aW50OF90ICpkYXRhLAotCXVpbnQzMl90IGxlbiwKLQl1aW50MzJfdCAqcmVh
-ZCkKKwl1aW50MzJfdCBsZW4pCiB7CiAJc3RydWN0IGF1eF9wYXlsb2FkIHJlYWRfcGF5bG9hZCA9
-IHsKIAkJLmkyY19vdmVyX2F1eCA9IGkyYywKQEAgLTY1Myw4ICs2NTIsNiBAQCBlbnVtIGRkY19y
-ZXN1bHQgZGFsX2RkY19zZXJ2aWNlX3JlYWRfZHBjZF9kYXRhKAogCQkubW90ID0gbW90CiAJfTsK
-IAotCSpyZWFkID0gMDsKLQogCWlmIChsZW4gPiBERUZBVUxUX0FVWF9NQVhfREFUQV9TSVpFKSB7
-CiAJCUJSRUFLX1RPX0RFQlVHR0VSKCk7CiAJCXJldHVybiBERENfUkVTVUxUX0ZBSUxFRF9JTlZB
-TElEX09QRVJBVElPTjsKQEAgLTY2NCw4ICs2NjEsNyBAQCBlbnVtIGRkY19yZXN1bHQgZGFsX2Rk
-Y19zZXJ2aWNlX3JlYWRfZHBjZF9kYXRhKAogCQlkZGMtPmN0eC0+aTJjYXV4LAogCQlkZGMtPmRk
-Y19waW4sCiAJCSZjb21tYW5kKSkgewotCQkqcmVhZCA9IGNvbW1hbmQucGF5bG9hZHMtPmxlbmd0
-aDsKLQkJcmV0dXJuIEREQ19SRVNVTFRfU1VDRVNTRlVMTDsKKwkJcmV0dXJuIChzc2l6ZV90KWNv
-bW1hbmQucGF5bG9hZHMtPmxlbmd0aDsKIAl9CiAKIAlyZXR1cm4gRERDX1JFU1VMVF9GQUlMRURf
-T1BFUkFUSU9OOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2lu
-Yy9kY19saW5rX2RkYy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9kY19s
-aW5rX2RkYy5oCmluZGV4IDMwYjNhMDhiOTFiZS4uMDkwYjdhOGRkNjdiIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2RjX2xpbmtfZGRjLmgKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9kY19saW5rX2RkYy5oCkBAIC0xMDIsMTQg
-KzEwMiwxMyBAQCBib29sIGRhbF9kZGNfc2VydmljZV9xdWVyeV9kZGNfZGF0YSgKIAkJdWludDhf
-dCAqcmVhZF9idWYsCiAJCXVpbnQzMl90IHJlYWRfc2l6ZSk7CiAKLWVudW0gZGRjX3Jlc3VsdCBk
-YWxfZGRjX3NlcnZpY2VfcmVhZF9kcGNkX2RhdGEoCitzc2l6ZV90IGRhbF9kZGNfc2VydmljZV9y
-ZWFkX2RwY2RfZGF0YSgKIAkJc3RydWN0IGRkY19zZXJ2aWNlICpkZGMsCiAJCWJvb2wgaTJjLAog
-CQllbnVtIGkyY19tb3RfbW9kZSBtb3QsCiAJCXVpbnQzMl90IGFkZHJlc3MsCiAJCXVpbnQ4X3Qg
-KmRhdGEsCi0JCXVpbnQzMl90IGxlbiwKLQkJdWludDMyX3QgKnJlYWQpOworCQl1aW50MzJfdCBs
-ZW4pOwogCiBlbnVtIGRkY19yZXN1bHQgZGFsX2RkY19zZXJ2aWNlX3dyaXRlX2RwY2RfZGF0YSgK
-IAkJc3RydWN0IGRkY19zZXJ2aWNlICpkZGMsCi0tIAoyLjEzLjYKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Tue, Jul 10, 2018 at 1:11 PM, kbuild test robot
+<fengguang.wu@intel.com> wrote:
+> From: kbuild test robot <fengguang.wu@intel.com>
+>
+> drivers/gpu/drm/amd/amdgpu/../powerplay/amd_powerplay.c:1209:17-18: Unneeded semicolon
+>
+>
+>  Remove unneeded semicolon.
+>
+> Generated by: scripts/coccinelle/misc/semicolon.cocci
+>
+> Fixes: ea870e44415a ("drm/amd/pp: Export notify_smu_enable_pwe to display")
+> CC: Rex Zhu <Rex.Zhu@amd.com>
+> Signed-off-by: kbuild test robot <fengguang.wu@intel.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>
+>  amd_powerplay.c |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> --- a/drivers/gpu/drm/amd/amdgpu/../powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/../powerplay/amd_powerplay.c
+> @@ -1206,7 +1206,7 @@ static int pp_notify_smu_enable_pwe(void
+>         struct pp_hwmgr *hwmgr = handle;
+>
+>         if (!hwmgr || !hwmgr->pm_en)
+> -               return -EINVAL;;
+> +               return -EINVAL;
+>
+>         if (hwmgr->hwmgr_func->smus_notify_pwe == NULL) {
+>                 pr_info("%s was not implemented.\n", __func__);
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
