@@ -1,14 +1,17 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati 16/21] Check dimensions passed to
- drmmode_xf86crtc_resize
-Date: Wed, 11 Jul 2018 19:28:01 +0200
-Message-ID: <20180711172806.22849-17-michel@daenzer.net>
-References: <20180711172806.22849-1-michel@daenzer.net>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Allow to create BO lists in CS ioctl.
+Date: Wed, 11 Jul 2018 14:53:23 -0400
+Message-ID: <df2c5155-6704-514d-e5f8-d3bb18a486bd@amd.com>
+References: <1531320677-24655-1-git-send-email-andrey.grodzovsky@amd.com>
+ <0c347c2e-c664-9c91-f2eb-b5699d0f8925@gmail.com>
+ <6f71bc32-b5b9-aee5-57ea-6682cf33c544@amd.com>
+ <fbce5cc9-3fc4-6a85-6679-cb0ad24d7f04@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180711172806.22849-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <fbce5cc9-3fc4-6a85-6679-cb0ad24d7f04-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,30 +22,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Marek.Olsak-5C7GfCeVMHo@public.gmane.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpXaGVuIGVuYWJs
-aW5nIGEgc2Vjb25kYXJ5IEdQVSBvdXRwdXQsIFhvcmcgY2FuIHRyeSByZXNpemluZyB0aGUgc2Ny
-ZWVuCmJleW9uZCB0aGUgbGltaXQgYWR2ZXJ0aXNlZCBieSB0aGUgZHJpdmVyLCBsZWFkaW5nIHRv
-IGRybU1vZGVBZGRGQgpmYWlsaW5nIGFuZCBwcmltYXJ5IEdQVSBvdXRwdXRzIHR1cm5pbmcgb2Zm
-LiBDaGVjayBmb3IgdGhpcyBhbmQgYmFpbAppbnN0ZWFkLgoKKFBvcnRlZCBmcm9tIGFtZGdwdSBj
-b21taXQgOTQwYzhiMzlmNzk3ODlkNGQ1ZGRiOGFiOGQyNWE4YWUwNTkzMjc1NikKClNpZ25lZC1v
-ZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0KIHNyYy9k
-cm1tb2RlX2Rpc3BsYXkuYyB8IDggKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlv
-bnMoKykKCmRpZmYgLS1naXQgYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMgYi9zcmMvZHJtbW9kZV9k
-aXNwbGF5LmMKaW5kZXggMjVmY2FiZmExLi40YjVmOWY0NTYgMTAwNjQ0Ci0tLSBhL3NyYy9kcm1t
-b2RlX2Rpc3BsYXkuYworKysgYi9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKQEAgLTIyNjAsNiArMjI2
-MCwxNCBAQCBkcm1tb2RlX3hmODZjcnRjX3Jlc2l6ZSAoU2NybkluZm9QdHIgc2NybiwgaW50IHdp
-ZHRoLCBpbnQgaGVpZ2h0KQogCWlmIChzY3JuLT52aXJ0dWFsWCA9PSB3aWR0aCAmJiBzY3JuLT52
-aXJ0dWFsWSA9PSBoZWlnaHQpCiAJCXJldHVybiBUUlVFOwogCisJaWYgKHdpZHRoID4geGY4Nl9j
-b25maWctPm1heFdpZHRoIHx8IGhlaWdodCA+IHhmODZfY29uZmlnLT5tYXhIZWlnaHQpIHsKKwkJ
-eGY4NkRydk1zZyhzY3JuLT5zY3JuSW5kZXgsIFhfV0FSTklORywKKwkJCSAgICJYb3JnIHRyaWVk
-IHJlc2l6aW5nIHNjcmVlbiB0byAlZHglZCwgYnV0IG1heGltdW0gIgorCQkJICAgInN1cHBvcnRl
-ZCBpcyAlZHglZFxuIiwgd2lkdGgsIGhlaWdodCwKKwkJCSAgIHhmODZfY29uZmlnLT5tYXhXaWR0
-aCwgeGY4Nl9jb25maWctPm1heEhlaWdodCk7CisJCXJldHVybiBGQUxTRTsKKwl9CisKIAlpZiAo
-aW5mby0+YWxsb3dDb2xvclRpbGluZyAmJiAhaW5mby0+c2hhZG93X3ByaW1hcnkpIHsKIAkJaWYg
-KGluZm8tPkNoaXBGYW1pbHkgPCBDSElQX0ZBTUlMWV9SNjAwIHx8IGluZm8tPmFsbG93Q29sb3JU
-aWxpbmcyRCkKIAkJCXVzYWdlIHw9IFJBREVPTl9DUkVBVEVfUElYTUFQX1RJTElOR19NQUNSTzsK
-LS0gCjIuMTguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+VGhpcyB3YXMgdG8gYXZvaWQgZXh0cmEgY29kZSBpbiBhbWRncHVfY3NfcGFyc2VyX2JvcyB3aGVu
+IAphbWRncHVfYm9fbGlzdF9nZXQgaXMgY2FsbGVkLiBCdXQgSSBzZWUgeW91ciBhcmd1bWVudCBh
+Ym91dCByYW5kb20gaWQgCmd1ZXNzIChwcmFjdGljYWxseSB1bnJlYWxpc3RpYyB0byBoYXBwZW4g
+YnV0IHN0aWxsIGEgdmFsaWQgYXJndW1lbnQpLiBJIAp3aWxsIGRvIHNvbWUgbWlub3IgYWx0ZXJh
+dGlvbnMgdG8gYXZvaWQgdGhpcyBhbmQgcmVzcGluIHRoZSBwYXRjaC4KCkFuZHJleQoKCk9uIDA3
+LzExLzIwMTggMTE6NDIgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gV2h5IGlzIHRoZSBi
+b19saXN0IG9uIHRoZSBpZHIgaW4gdGhlIGZpcnN0IHBsYWNlPwo+Cj4gVGhhdCBzb3VuZHMgbGlr
+ZSBpdCBpcyB1bm5lY2Vzc2FyeSBhbmQgbWF5YmUgZXZlbiBxdWl0ZSBkYW5nZXJvdXMgd2hlbiAK
+PiBzb21lYm9keSBndWVzc2VzIHRoZSB0ZW1wb3JhcnkgYWxsb2NhdGVkIGlkIGFuZCBtZXNzZXMg
+aXQgZnJvbSBhbm90aGVyIAo+IENQVSBhdCB0aGUgc2FtZSB0aW1lIHdoaWxlIHRoZSBDUyBJT0NU
+TCBpcyBwcm9jZXNzaW5nIHRoaW5ncy4KPgo+IENocmlzdGlhbi4gCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
