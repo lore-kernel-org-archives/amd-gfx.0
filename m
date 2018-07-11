@@ -1,121 +1,52 @@
-From: Leon Romanovsky <leon-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: Re: [RFC PATCH] mm, oom: distinguish blockable mode for mmu notifiers
-Date: Wed, 11 Jul 2018 15:08:45 +0300
-Message-ID: <20180711120845.GA7750@mtr-leonro.mtl.com>
-References: <20180622150242.16558-1-mhocko@kernel.org>
- <20180627074421.GF32348@dhcp22.suse.cz>
- <20180709122908.GJ22049@dhcp22.suse.cz>
- <20180710134040.GG3014@mtr-leonro.mtl.com>
- <20180710141410.GP14284@dhcp22.suse.cz>
- <20180710162020.GJ3014@mtr-leonro.mtl.com>
- <20180711090353.GD20050@dhcp22.suse.cz>
- <20180711101447.GU3014@mtr-leonro.mtl.com>
- <20180711111318.GL20050@dhcp22.suse.cz>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] [RESEND] amdgpu: kfd: use modern ktime accessors
+Date: Wed, 11 Jul 2018 14:41:00 +0200
+Message-ID: <20180711124112.893478-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0439497521=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180711111318.GL20050-2MMpYkNvuYDjFM9bn6wA6Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michal Hocko <mhocko-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Cc: kvm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Sudeep Dutt <sudeep.dutt-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>, Doug Ledford <dledford-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, David Rientjes <rientjes-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, xen-devel-GuqFBffKawtpuQazS67q72D2FQJk+8+b@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Boris Ostrovsky <boris.ostrovsky-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Juergen Gross <jgross-IBi9RG/b67k@public.gmane.org>Mike Marciniszyn <mi>
-
-
---===============0439497521==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="SLDf9lqlvOQaIe6s"
-Content-Disposition: inline
-
-
---SLDf9lqlvOQaIe6s
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Jul 11, 2018 at 01:13:18PM +0200, Michal Hocko wrote:
-> On Wed 11-07-18 13:14:47, Leon Romanovsky wrote:
-> > On Wed, Jul 11, 2018 at 11:03:53AM +0200, Michal Hocko wrote:
-> > > On Tue 10-07-18 19:20:20, Leon Romanovsky wrote:
-> > > > On Tue, Jul 10, 2018 at 04:14:10PM +0200, Michal Hocko wrote:
-> > > > > On Tue 10-07-18 16:40:40, Leon Romanovsky wrote:
-> > > > > > On Mon, Jul 09, 2018 at 02:29:08PM +0200, Michal Hocko wrote:
-> > > > > > > On Wed 27-06-18 09:44:21, Michal Hocko wrote:
-> > > > > > > > This is the v2 of RFC based on the feedback I've received so far. The
-> > > > > > > > code even compiles as a bonus ;) I haven't runtime tested it yet, mostly
-> > > > > > > > because I have no idea how.
-> > > > > > > >
-> > > > > > > > Any further feedback is highly appreciated of course.
-> > > > > > >
-> > > > > > > Any other feedback before I post this as non-RFC?
-> > > > > >
-> > > > > > From mlx5 perspective, who is primary user of umem_odp.c your change looks ok.
-> > > > >
-> > > > > Can I assume your Acked-by?
-> > > >
-> > > > I didn't have a chance to test it because it applies on our rdma-next, but
-> > > > fails to compile.
-> > >
-> > > What is the compilation problem? Is it caused by the patch or some other
-> > > unrelated changed?
-> >
-> > Thanks for pushing me to take a look on it.
-> > Your patch needs the following hunk to properly compile at least on my system.
->
-> I suspect you were trying the original version. I've posted an updated
-> patch here http://lkml.kernel.org/r/20180627074421.GF32348-2MMpYkNvuYDjFM9bn6wA6Q@public.gmane.org
-> and all these issues should be fixed there. Including many other fixes.
->
-
-Ohh, you used --reply-to, IMHO it is best way to make sure that the
-patch will be lost :)
-
-> Could you have a look at that one please?
-
-I grabbed it, the results will be overnight only.
-
-Thanks
-
-> --
-> Michal Hocko
-> SUSE Labs
-
---SLDf9lqlvOQaIe6s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBAgAGBQJbRfNNAAoJEORje4g2clinlVwP+gOTolhbvb7Z7rdf1A/MW8q6
-SOrUeHuzbfpi3QwcJOQv9305fjVWOQ8Sgqv9xbYw19ISxlIY+B/tm+XgbUEcMHMC
-P0TYVuLz2SGJCRoovqICZ49NzestzlGyn3Nv5AGoKG2JAzWXphtHROIkGt3SNraX
-O1B+izek2DrruThuLEtQbNHx+gI9QP7YZhdz7ClbNO2VwxIGQZcCvhjc2fG1v6ab
-dkXKZ3QS05bm5rQO2+VFV3WhAFtkUwocqyjrGrbvn6IgDWYPmXmXhbjhSbLs4V+w
-ggj4kwUQd0R/QQY126lOtkvZKQk/EZu+GmumNpLqeTY0AF+vX4SOMrsZreekaQIw
-4ZzouQ0yFyBGIYO/i+zQaAyAgwJBf0b1nyWl+OZyY8E03e2COp0GF2sdiTMo5K+N
-G9msVCQhavJsWawiL+1RyzgfLHipcnp4dYCFDqpqbZR/3Kx7ld1OBWT0JzbhuqZW
-x4uelzSwBAzeZW2Hj2TYfMNuaRlHBiJi7Bqct8b2avsftTvGvUdQKbtxxxXzd1SI
-J1OgzS/WFi/Ao+UW0yFVXWKtitaIMzCVhZroYZs4BUoKJq8fLjGSaXxEPfUfLQmT
-SjbLYA8IVUQLJs3yx/2TJrRxu2ti8zUhnv+jJfcG0T7LT5CjL9Qe7Yx8lMy+u4eR
-ngUiQqGK0WJWIaQq3r19
-=g6/F
------END PGP SIGNATURE-----
-
---SLDf9lqlvOQaIe6s--
-
---===============0439497521==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
+Cc: Yong Zhao <yong.zhao@amd.com>, amd-gfx@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>, Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Andres Rodriguez <andres.rodriguez@amd.com>, Kent Russell <kent.russell@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0439497521==--
+Z2V0cmF3bW9ub3RvbmljNjQoKSBhbmQgZ2V0X21vbm90b25pY19ib290dGltZTY0KCkgYXJlIGRl
+cHJlY2F0ZWQKYmVjYXVzZSBvZiB0aGUgbm9uc3RhbmRhcmQgbmFtaW5nLgoKVGhlIHJlcGxhY2Vt
+ZW50IGZ1bmN0aW9ucyBrdGltZV9nZXRfcmF3X25zKCkgYW5kIGt0aW1lX2dldF9ib290X25zKCkK
+YWxzbyBzaW1wbGlmeSB0aGUgY2FsbGVycy4KClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8
+RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4uClNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFy
+bmRAYXJuZGIuZGU+Ci0tLQpQYXRjaCB3YXMgb3JpZ2luYWxsIHNlbnQgb24gSnVuIDE4IGJ1dCBu
+b3QgYXBwbGllZCB5ZXQsIHJlc2VuZGluZwpXaXRoIEZlbGl4JyBSZXZpZXdlZC1ieSB0YWcKLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIHwgOCArKy0tLS0tLQog
+MSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYwppbmRleCBmNjRjNTU1MWNkYmEuLjdlNzE3
+NzE2YjkwZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJk
+ZXYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jCkBAIC03
+NTQsNyArNzU0LDYgQEAgc3RhdGljIGludCBrZmRfaW9jdGxfZ2V0X2Nsb2NrX2NvdW50ZXJzKHN0
+cnVjdCBmaWxlICpmaWxlcCwKIHsKIAlzdHJ1Y3Qga2ZkX2lvY3RsX2dldF9jbG9ja19jb3VudGVy
+c19hcmdzICphcmdzID0gZGF0YTsKIAlzdHJ1Y3Qga2ZkX2RldiAqZGV2OwotCXN0cnVjdCB0aW1l
+c3BlYzY0IHRpbWU7CiAKIAlkZXYgPSBrZmRfZGV2aWNlX2J5X2lkKGFyZ3MtPmdwdV9pZCk7CiAJ
+aWYgKGRldikKQEAgLTc2NiwxMSArNzY1LDggQEAgc3RhdGljIGludCBrZmRfaW9jdGxfZ2V0X2Ns
+b2NrX2NvdW50ZXJzKHN0cnVjdCBmaWxlICpmaWxlcCwKIAkJYXJncy0+Z3B1X2Nsb2NrX2NvdW50
+ZXIgPSAwOwogCiAJLyogTm8gYWNjZXNzIHRvIHJkdHNjLiBVc2luZyByYXcgbW9ub3RvbmljIHRp
+bWUgKi8KLQlnZXRyYXdtb25vdG9uaWM2NCgmdGltZSk7Ci0JYXJncy0+Y3B1X2Nsb2NrX2NvdW50
+ZXIgPSAodWludDY0X3QpdGltZXNwZWM2NF90b19ucygmdGltZSk7Ci0KLQlnZXRfbW9ub3Rvbmlj
+X2Jvb3R0aW1lNjQoJnRpbWUpOwotCWFyZ3MtPnN5c3RlbV9jbG9ja19jb3VudGVyID0gKHVpbnQ2
+NF90KXRpbWVzcGVjNjRfdG9fbnMoJnRpbWUpOworCWFyZ3MtPmNwdV9jbG9ja19jb3VudGVyID0g
+a3RpbWVfZ2V0X3Jhd19ucygpOworCWFyZ3MtPnN5c3RlbV9jbG9ja19jb3VudGVyID0ga3RpbWVf
+Z2V0X2Jvb3RfbnMoKTsKIAogCS8qIFNpbmNlIHRoZSBjb3VudGVyIGlzIGluIG5hbm8tc2Vjb25k
+cyB3ZSB1c2UgMUdIeiBmcmVxdWVuY3kgKi8KIAlhcmdzLT5zeXN0ZW1fY2xvY2tfZnJlcSA9IDEw
+MDAwMDAwMDA7Ci0tIAoyLjkuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+ZHJpLWRldmVsCg==
