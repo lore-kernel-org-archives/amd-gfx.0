@@ -1,167 +1,142 @@
-From: Leon Romanovsky <leon@kernel.org>
-Subject: Re: [RFC PATCH] mm, oom: distinguish blockable mode for mmu notifiers
-Date: Wed, 11 Jul 2018 13:14:47 +0300
-Message-ID: <20180711101447.GU3014@mtr-leonro.mtl.com>
-References: <20180622150242.16558-1-mhocko@kernel.org>
- <20180627074421.GF32348@dhcp22.suse.cz>
- <20180709122908.GJ22049@dhcp22.suse.cz>
- <20180710134040.GG3014@mtr-leonro.mtl.com>
- <20180710141410.GP14284@dhcp22.suse.cz>
- <20180710162020.GJ3014@mtr-leonro.mtl.com>
- <20180711090353.GD20050@dhcp22.suse.cz>
+From: jimqu <jimqu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbYWxzYS1kZXZlbF0g562U5aSNOiBb?=
+ =?UTF-8?Q?PATCH]_vgaswitchroo:_set_audio_client_id_according_to_bound_gpu_c?=
+ =?UTF-8?Q?lient_id?=
+Date: Wed, 11 Jul 2018 18:21:03 +0800
+Message-ID: <112c3801-8138-2e05-557a-08be69f3810b@amd.com>
+References: <20180629080634.GA7357@wunner.de>
+ <DM3PR12MB08732DAAAA57739DCE431D66994E0@DM3PR12MB0873.namprd12.prod.outlook.com>
+ <20180629111108.GA11609@wunner.de>
+ <DM3PR12MB0873FEC702770190057B49F799440@DM3PR12MB0873.namprd12.prod.outlook.com>
+ <20180709092759.GA3649@wunner.de>
+ <DM3PR12MB087309CBC2CD3A934327EBCE99440@DM3PR12MB0873.namprd12.prod.outlook.com>
+ <CADnq5_OpZz=AgNomX7+5BzeN77CRZT7mXDT7kn620TE-OjqS0w@mail.gmail.com>
+ <s5hr2kco3gp.wl-tiwai@suse.de> <20180709155643.GE3008@phenom.ffwll.local>
+ <s5hpnzwcsf7.wl-tiwai@suse.de>
+ <DM3PR12MB0873E9DD8B7448CB8A6829DA99440@DM3PR12MB0873.namprd12.prod.outlook.com>
+ <s5hr2kbr03k.wl-tiwai@suse.de> <a37f08e7-734e-977c-597f-46d5c3ec34bc@amd.com>
+ <s5hin5nctby.wl-tiwai@suse.de> <733011b9-1880-76a8-d00f-076591e93c53@amd.com>
+ <s5hbmbfcp5v.wl-tiwai@suse.de> <s5hfu0qp7cv.wl-tiwai@suse.de>
+ <1936c752-f858-2caf-35e7-98bea431fb7c@amd.com> <s5h1scap2h2.wl-tiwai@suse.de>
+ <46d4d516-8373-2b22-da2e-f9f386c66973@amd.com> <s5h601mayk0.wl-tiwai@suse.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1257108436=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180711090353.GD20050@dhcp22.suse.cz>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Michal Hocko <mhocko@kernel.org>
-Cc: kvm@vger.kernel.org, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@redhat.com>, David Airlie <airlied@linux.ie>, Sudeep Dutt <sudeep.dutt@intel.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Felix Kuehling <felix.kuehling@amd.com>, Andrea Arcangeli <aarcange@redhat.com>, Dimitri Sivanich <sivanich@sgi.com>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>, David Rientjes <rientjes@google.com>, xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, Mike Marciniszyn <mike.marciniszyn@intel.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, LKML <linux-kernel@vger.kernel.org>, Ashutosh Dixit <ashutosh.dixi>
-List-Id: amd-gfx.lists.freedesktop.org
-
-
---===============1257108436==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="bzuizT9vlVVqWfw+"
-Content-Disposition: inline
-
-
---bzuizT9vlVVqWfw+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Jul 11, 2018 at 11:03:53AM +0200, Michal Hocko wrote:
-> On Tue 10-07-18 19:20:20, Leon Romanovsky wrote:
-> > On Tue, Jul 10, 2018 at 04:14:10PM +0200, Michal Hocko wrote:
-> > > On Tue 10-07-18 16:40:40, Leon Romanovsky wrote:
-> > > > On Mon, Jul 09, 2018 at 02:29:08PM +0200, Michal Hocko wrote:
-> > > > > On Wed 27-06-18 09:44:21, Michal Hocko wrote:
-> > > > > > This is the v2 of RFC based on the feedback I've received so far. The
-> > > > > > code even compiles as a bonus ;) I haven't runtime tested it yet, mostly
-> > > > > > because I have no idea how.
-> > > > > >
-> > > > > > Any further feedback is highly appreciated of course.
-> > > > >
-> > > > > Any other feedback before I post this as non-RFC?
-> > > >
-> > > > From mlx5 perspective, who is primary user of umem_odp.c your change looks ok.
-> > >
-> > > Can I assume your Acked-by?
-> >
-> > I didn't have a chance to test it because it applies on our rdma-next, but
-> > fails to compile.
->
-> What is the compilation problem? Is it caused by the patch or some other
-> unrelated changed?
-
-Thanks for pushing me to take a look on it.
-Your patch needs the following hunk to properly compile at least on my system.
-
-I'll take it to our regression.
-
-diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
-index 369867501bed..1f364a157097 100644
---- a/include/linux/mmu_notifier.h
-+++ b/include/linux/mmu_notifier.h
-@@ -155,9 +155,9 @@ struct mmu_notifier_ops {
- 	 * cannot block, mmu_notifier_ops.flags should have
- 	 * MMU_INVALIDATE_DOES_NOT_BLOCK set.
- 	 */
--	void (*invalidate_range_start)(struct mmu_notifier *mn,
-+	int (*invalidate_range_start)(struct mmu_notifier *mn,
- 				       struct mm_struct *mm,
--				       unsigned long start, unsigned long end);
-+				       unsigned long start, unsigned long end, bool blockable);
- 	void (*invalidate_range_end)(struct mmu_notifier *mn,
- 				     struct mm_struct *mm,
- 				     unsigned long start, unsigned long end);
-@@ -229,7 +229,7 @@ extern int __mmu_notifier_test_young(struct mm_struct *mm,
- 				     unsigned long address);
- extern void __mmu_notifier_change_pte(struct mm_struct *mm,
- 				      unsigned long address, pte_t pte);
--extern void __mmu_notifier_invalidate_range_start(struct mm_struct *mm,
-+extern int __mmu_notifier_invalidate_range_start(struct mm_struct *mm,
- 				  unsigned long start, unsigned long end,
- 				  bool blockable);
- extern void __mmu_notifier_invalidate_range_end(struct mm_struct *mm,
-diff --git a/include/linux/oom.h b/include/linux/oom.h
-index 6adac113e96d..92f70e4c6252 100644
---- a/include/linux/oom.h
-+++ b/include/linux/oom.h
-@@ -95,7 +95,7 @@ static inline int check_stable_address_space(struct mm_struct *mm)
- 	return 0;
- }
-
--void __oom_reap_task_mm(struct mm_struct *mm);
-+bool __oom_reap_task_mm(struct mm_struct *mm);
-
- extern unsigned long oom_badness(struct task_struct *p,
- 		struct mem_cgroup *memcg, const nodemask_t *nodemask,
-diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-index 7e0c6e78ae5c..7c7bd6f3298e 100644
---- a/mm/oom_kill.c
-+++ b/mm/oom_kill.c
-@@ -1,6 +1,6 @@
- /*
-  *  linux/mm/oom_kill.c
-- *
-+ *
-  *  Copyright (C)  1998,2000  Rik van Riel
-  *	Thanks go out to Claus Fischer for some serious inspiration and
-  *	for goading me into coding this file...
-@@ -569,7 +569,7 @@ static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
- 	if (!__oom_reap_task_mm(mm)) {
- 		up_read(&mm->mmap_sem);
- 		ret = false;
--		goto out_unlock;
-+		goto unlock_oom;
- 	}
-
- 	pr_info("oom_reaper: reaped process %d (%s), now anon-rss:%lukB, file-rss:%lukB, shmem-rss:%lukB\n",
-
-Thanks
-
-> --
-> Michal Hocko
-> SUSE Labs
-
---bzuizT9vlVVqWfw+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBAgAGBQJbRdiXAAoJEORje4g2clinNPQP/jvfP8MeILcz9WT7kxNVX7c/
-XpnkJcPys8ZjDS653gbzrRzw+nFz3sfqbSrvKb6MgCGfAGdanoHWjQsNbYz+Ci0m
-jr68xil3AoZsR30dolMGlCjHnsTq3CyJgNPfjm90VkuBV3huxGx52vSLuKBVVYuv
-qp+D/DwaxHKp9iUa4b5y8aXQYNCV++L3sNWgeUCXzaDvFm8WORW5PX/BxJ5a4M3r
-AFyJf0XIHfByd3mBDWJlo4c3mgAxV1hltesZHFCySPs4oLKRuHFiEap1BGNZsn8j
-m61eIRFoH5WVacvq1xHKs/oF9inuoaB9IzQsaeZan4YgOwthfcAibPxcdbcta29p
-IxYQUgjY+e3feJSOiHqFtujW8A3HpsuFUSPC7PHuJFJWqwCIcESxL3qeikBi2goA
-l5HIP6MMdKXv9PgXEsEFlPQJCS+ZsFk52pUOfneLve8t4MBWcuRXZpk0G0qfVLwq
-/2p9ES6m7Lroq7a0RkFZyWMmIdgBk9WjFbxm1ogXkMTWv7cQbmB94t0ut3fF6RCR
-lQfcHf16xm2IM4gNpzahFy4zsXWNWAdj/oVGDQjx3lu5LzvEriYptJZhKOx+lSdO
-lRO+pA/gzHWnbtA32swGX+MaHUNRAuVV8x1lbgRUq/aKwedg8BCpJXokrcpAasTt
-+En8/fnNQqxwKFdJw8j+
-=6e5O
------END PGP SIGNATURE-----
-
---bzuizT9vlVVqWfw+--
-
---===============1257108436==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <s5h601mayk0.wl-tiwai-l3A5Bk7waGM@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Takashi Iwai <tiwai-l3A5Bk7waGM@public.gmane.org>
+Cc: "alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org" <alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Qu,
+ Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1257108436==--
+CgpPbiAyMDE45bm0MDfmnIgxMeaXpSAxNzo1MywgVGFrYXNoaSBJd2FpIHdyb3RlOgo+IE9uIFdl
+ZCwgMTEgSnVsIDIwMTggMTE6MjY6MTEgKzAyMDAsCj4gamltcXUgd3JvdGU6Cj4+Cj4+Cj4+IE9u
+IDIwMTjlubQwN+aciDEx5pelIDE3OjA0LCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4+PiBPbiBXZWQs
+IDExIEp1bCAyMDE4IDEwOjQxOjM4ICswMjAwLAo+Pj4gamltcXUgd3JvdGU6Cj4+Pj4KPj4+PiBP
+biAyMDE45bm0MDfmnIgxMeaXpSAxNToxOSwgVGFrYXNoaSBJd2FpIHdyb3RlOgo+Pj4+PiBPbiBU
+dWUsIDEwIEp1bCAyMDE4IDEzOjIxOjAwICswMjAwLAo+Pj4+PiBUYWthc2hpIEl3YWkgd3JvdGU6
+Cj4+Pj4+Pj4gcmV2ZXJ0IHRoZSBmaXggb2YgYW1kZ3B1IHN1c3BlbmQgaXNzdWUsIGF1ZGlvIGlz
+c3VlIGFsc28gY2FuIGJlIG9ic2VydmVkLgo+Pj4+Pj4gRGlkIHlvdSBjaGVjayB0aGUgYmVoYXZp
+b3Igd2l0aCB0aGUgc2luZ2xlIEFNRCBHUFUgaGFyZHdhcmU/Cj4+Pj4+PiBJZiBjb25maXJtZWQs
+IHdlIGNhbiBmb3JnZXQgYWJvdXQgdmdhX3N3aXRjaGVyb28uCj4+Pj4+IC4uLiBhbmQgdGFraW5n
+IGEgbG9vayBiYWNrIGF0IHRoZSByZWNlbnQgY2hhbmdlcywgSSBndWVzcyBpdCBjYW4gYmUKPj4+
+Pj4gdGhlIGZvcmNlZCBydW50aW1lIFBNIGVuYWJsZW1lbnQsIG5vdCBkaXJlY3RseSB3aXRoIHZn
+YV9zd2l0Y2hlcm9vCj4+Pj4+IGFjdGlvbiBpdHNlbGYuCj4+Pj4gWWVhaCwgdGhlIGZ1bmN0aW9u
+IHZnYV9zd2l0Y2hlcm9vX3NldF9keW5hbWljX3N3aXRjaCgpIGhhcyBkaXNjYXJkZWQsCj4+Pj4g
+c28gdGhlcmUgaXMgbm8gd2F5IEdGWCBkcml2ZXIgdG8gY29udHJvbCBhdWRpbyBwb3dlci4gSG93
+ZXZlciwga2VlcCBpbgo+Pj4+IG1pbmQsIGN1cnJlbnQgYXVkaW8gaXMgYm91bmQgdG8gaUdQVSwg
+dGhhdCBtZWFuIHRoZSBpc3N1ZSBzaG91bGQgYmUKPj4+PiBub3RoaW5nIGFib3V0Cj4+Pj4gdmdh
+c3d0aWNocmVvby4gc2luY2UgY3VycmVudCBhdWRpbyBwY2kgYnVzIGlzIGRpZmZlcmVudCBmcm9t
+IGRHUFUsCj4+Pj4gdGhhdCBtZWFucyB0aGUgcGNpX2J1c19zZXRfY3VycmVudF9zdGF0ZSgpIGlu
+Cj4+Pj4gdmdhX3N3aXRjaGVyb29fcnVudGltZV9zdXNwZW5kKCkgYW5kIHBjaV93YWtldXBfYnVz
+KCkgaW4KPj4+PiB2Z2Ffc3dpdGNoZXJvb19ydW50aW1lX3Jlc3VtZSgpIGNvdWxkIG5vdCB0b3Vj
+aCB0aGUgYXVkaW8gcGNpIHBvd2VyCj4+Pj4gc3RhdGUgZnJvbSBkR1BVIGluc3RhbmNlLgo+Pj4+
+Cj4+Pj4gVGhpcyBpcyBhIGZlZWRiYWNrIGdvdCBmcm9tIG91ciBPRU0gZGV2ZWxvcGVyLCBpdCBp
+cyB0aGUgb3ZlcnZpZXcgb2YKPj4+PiBhdWRpbyBkZXRlY3QgcHJvY2Vzcy4KPj4+Pgo+Pj4+PiBG
+aXJzdCwgdGhlIGtlcm5lbCAgYXVkaW8gZHJpdmVyIHdpbGwgYmUgdHJpZ2dlcmVkIHRvIHJlYWQg
+RUxELCBpZiB0aGUKPj4+Pj4+IEVMRCBpcyB2YWxpZCwgaXQgd2lsbCByZXBvcnQgYSBqYWNrIGV2
+ZW50IChvbiBvciBhdmFpbGFibGUpIHRvIHNvdW5kCj4+Pj4+PiBjb3JlIGRyaXZlcjsgdGhlIHB1
+bHNlYXVkaW8gc3Vic2NyaWJlIGFsbCBqYWNrIGV2ZW50cywgaWYgaXQgaXMgdG9sZAo+Pj4+Pj4g
+dGhhdCB0aGUgaGRtaSBqYWNrIGlzIHBsdWdnZWQgaW4gKG9uKSwgdGhlIHB1bHNlYXVkaW8gd2ls
+bCBzZXQgdGhpcwo+Pj4+Pj4gcG9ydCB0byBhdmFpbGFibGUsIHRoZW4gdGhlIHBhLWNhcmQgb3Ig
+cGEtc2luayBoYXMgYXZhaWxhYmxlIHBvcnQsIGl0Cj4+Pj4+PiBjYW4gYmUgc2VsZWN0ZWQgKG1h
+bnVhbGx5LCBzb21lIGRhZW1vbnMgb3IgcG9saWN5IGluCj4+Pj4+PiAvdXNyL3NoYXJlL3B1bHNl
+YXVkaW8vYWxzYS1taXhlci8pIGFzIGRlZmF1bHQgb3V0cHV0IGNhcmQvZGVmYXVsdCBzaW5rLgo+
+Pj4+IElmIHRoZSBkZXNjcmlwdGlvbiBpcyBjb3JyZWN0LiBJIHRoaW5rIHRoZXJlIGFyZSBtYXli
+ZSB0d28gcHJvYmxlbXMuCj4+Pj4KPj4+PiAxLiBhdWRpbyB3aWxsIGF1dG8gcG93ZXIgb2ZmIGFm
+dGVyIHNldHVwIGRldmljZSBsaW5rIGR1byB0byB1c2FnZV9jb3VudD0wLgo+Pj4+IDIuIGR1byB0
+byBhdWRpbyBpcyBwb3dlciBkb3duLCBpdCBjb3VsZCBub3QgZ2V0IHRoZSBIRE1JIGphY2sgaW5z
+ZXJ0IGV2ZW50Lgo+Pj4+Cj4+Pj4gSG93IGRvIHlvdSB0aGluaz8KPj4+Pgo+Pj4+PiBKaW0sIGNv
+dWxkIHlvdSB0ZWxsIG1lIHdoaWNoIFBDSSBkZXZpY2VzIGFyZSBoYW5kbGVkIGFzIHZnYV9zd2l0
+Y2hlcm9vCj4+Pj4+IGF1ZGlvIGNsaWVudD8gIFRoZSBrZXJuZWwgc2hvdWxkIHNob3cgYWxsIG1l
+c3NhZ2VzICJ4eHg6IEhhbmRsZQo+Pj4+PiB2Z2Ffc3dpdGNoZXJvbyBhdWRpbyBjbGllbnQiLgo+
+Pj4+IFvCoMKgwqAgNC4zMTEwOTVdIHNuZF9oZGFfaW50ZWwgMDAwMDowNjowMC4xOiBlbmFibGlu
+ZyBkZXZpY2UgKDAwMDAgLT4gMDAwMikKPj4+PiBbwqDCoMKgIDQuMzE0Mjg2XSBzbmRfaGRhX2lu
+dGVsIDAwMDA6MDY6MDAuMTogSGFuZGxlIHZnYV9zd2l0Y2hlcm9vIGF1ZGlvCj4+Pj4gY2xpZW50
+Cj4+Pj4gW8KgwqDCoCA0LjMxNDgyMl0gc25kX2hkYV9pbnRlbCAwMDAwOjA2OjAwLjY6IGVuYWJs
+aW5nIGRldmljZSAoMDAwMCAtPiAwMDAyKQo+Pj4+Cj4+Pj4gMDE6MDAuMCBWR0EgY29tcGF0aWJs
+ZSBjb250cm9sbGVyIFswMzAwXTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywKPj4+PiBJbmMuIFtB
+TUQvQVRJXSBEZXZpY2UgWzEwMDI6Njk5Zl0gKHJldiBjMykKPj4+PiAwNjowMC4wIFZHQSBjb21w
+YXRpYmxlIGNvbnRyb2xsZXIgWzAzMDBdOiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLAo+Pj4+IElu
+Yy4gW0FNRC9BVEldIERldmljZSBbMTAwMjoxNWRkXSAocmV2IGQxKQo+Pj4+IDA2OjAwLjEgQXVk
+aW8gZGV2aWNlIFswNDAzXTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EL0FUSV0K
+Pj4+PiBEZXZpY2UgWzEwMDI6MTVkZV0KPj4+IE9LIHRoaXMgc2hlZHMgYSBicmlnaHRlciBsaWdo
+dCwgZmluYWxseS4KPj4+Cj4+PiBJZiBteSB1bmRlcnN0YW5kaW5nIGlzIGNvcnJlY3QsIHRoZSBp
+c3N1ZSBpcyBhIGZhbHNlIHZnYV9zd2l0Y2hlcm9vCj4+PiBhdWRpbyBkZXRlY3Rpb24sIGFmdGVy
+IGFsbC4gIFRoaXMgaXMgdGhlIHByaW1hcnkgR1BVIGFuZCBpdCBzaG91bGRuJ3QKPj4+IGJlIHJl
+Z2lzdGVyZWQgYXMgYSB2Z2Ffc3dpdGNoZXJvbyBkaXNjcmV0ZSBHUFUuCj4+Pgo+Pj4gQmVsb3cg
+aXMgYSB2ZXJ5IHVnbHkgd29ya2Fyb3VuZCBmb3IgdGhpcyBwYXJ0aWN1bGFyIGNhc2UuICBJdCBh
+c3N1bWVzCj4+PiB0aGF0IHRoZSBBTUQrQU1EIGNvbWJvIHdpbGwgbmV2ZXIgaGF2ZSBhdWRpbyBv
+dXRwdXRzIG9uIGJvdGggYnV0IG9ubHkKPj4+IGZvciB0aGUgcHJpbWFyeSwgYW5kIGl0J3MgcG9z
+c2libHkgd3JvbmcuCj4+Pgo+Pj4gSXMgdGhlcmUgYSBoYW5keSB3YXkgdG8gaWRlbnRpZnkgd2hl
+dGhlciB0aGUgZ2l2ZW4gVkdBIFBDSSBlbnRyeSBpcwo+Pj4gYSBkaXNjcmV0ZSBHUFUgb3Igbm90
+PyAgVGhlIGFtZGdwdSBhbmQgcmFkZW9uIHNlZW0gY2hlY2tpbmcgQVRQWAo+Pj4gQUNQSS4KPj4g
+VGhpcyBpcyBubyBpc3N1ZSBhYm91dCB0aGlzIHRvcGljLCBpbiBhbWRncHUgZHJpdmVyLCBib3Ro
+IGlHUFUvZEdQVQo+PiB3aWxsIHJlZ2lzdGVyIGFzIFZHQV9TV0lUQ0hFUk9PX1VOS05PV05fSUQs
+IGFuZCB0aGUgY2xpZW50IGlkIHdpbGwgYmUKPj4gcmUtaW5pdGlhbGl6ZWQgaW4gdmdhc3dpdGNo
+cmVvb19lbmFibGUoKSB2aWEgQVRQWCBjYWxsLiBUaGVuLCBpR1BVCj4+IHdpbGwgc2V0IGFzIFZH
+QV9TV0lUQ0hFUk9PX0lHRCwgYW5kIGRHUFUgd2lsbCBzZXQgYXMKPj4gVkdBX1NXSVRDSEVST09f
+RElTLgo+IFBsZWFzZSBjaGVjayB0aGUgcGF0Y2guICBJdCdzIG5vdCBhYm91dCBBTURHUFUgZHJp
+dmVyIGJ1dCB0aGUgdmdhCj4gc3dpdGNoZXJvbyBkZXRlY3Rpb24gaW4gSEQtYXVkaW8gZHJpdmVy
+LiAgTm90IHRoZSBHUFUgc2lkZSBidXQgdGhlCj4gYXVkaW8gc2lkZS4KPgo+IFRoZSBpc3N1ZXMg
+YXJlIHR3byBmb2xkczoKPiAtIFdlIHJlZ2lzdGVyIGVhY2ggQU1EIGNvbnRyb2xsZXIgYXNzb2Np
+YXRlZCB3aXRoIGEgR1BVIGFsd2F5cyBhcyBhCj4gICAgZGlzY3JldGUgR1BVIHZnYV9zd2l0Y2hl
+cm9vIGF1ZGlvLgo+IC0gQW5kIHdoZW4gaXQncyByZWdpc3RlcmVkIGFzIGEgdmdhX3N3aXRjaGVy
+b28gY2xpZW50LCB3ZSBmb3JjaWJseQo+ICAgIGVuYWJsZSBydW50aW1lIFBNIG9mIHRoZSBjb250
+cm9sbGVyLCBzaW5jZSBkaXNjcmV0ZSBHUFUgbmVlZHMgdGhlCj4gICAgcnVudGltZSBzdXNwZW5k
+Lgo+Cj4gU28gYSB3b3JrYXJvdW5kIGluIHlvdXIgY2FzZSBpcyBqdXN0IG5vdCB0byByZWdpc3Rl
+ciBhcyBhIHZnYQo+IHN3aXRjaGVyb28gYXVkaW8gY2xpZW50LiAgVGhlbiB0aGUgcnVudGltZSBQ
+TSBpc24ndCBlbmFibGVkIGluIHRoZSBBTUQKPiBIRE1JIGF1ZGlvIGNvbnRyb2xsZXIsIGFuZCB0
+aGUgSERNSSBkZXRlY3Rpb24gcmVtYWlucyBhY3RpdmUuCj4KPgo+IFRha2FzaGkKCk9LLCBJIGdv
+dCB5b3VyIHBvaW50LiBMZXQgbWUgaGF2ZSBhIHRyeS4KCkJUVywgd2hhdCBhYm91dCB0aGUgcGF0
+Y2ggaW4gdGhpcyB0aHJlYWQsIEkgdGhpbmsgaXQgaXMgYWxzbyBuZWVkIGZvciAKY3VycmVudCBj
+b2RlLiBhbHRob3VnaCBhdWRpbyBwb3dlciBpcyBub3QgY29udHJvbGxlZCBieSB2Z2Fzd2l0Y2hy
+ZW9vLCAKd2UgYWxzbyBjYW4gZW5jb3VudGVyIHRoZSBpc3N1ZShhdWRpbyB3aGljaCBpcyBib3Vu
+ZCB0byBpR1BVIHdpbGwgCnN1c3BlbmQgd2l0aCBkR1BVKSBpZiB1c2VyIGRlYnVnZnMgdG8gY29u
+dHJvbCB0aGUgY2xpZW50IHBvd2VyLgoKVGhhbmtzCkppbVF1Cj4+IFRoYW5rcwo+PiBKaW1RdQo+
+Pj4gVGFrYXNoaQo+Pj4KPj4+IC0tLQo+Pj4gLS0tIGEvc291bmQvcGNpL2hkYS9oZGFfaW50ZWwu
+Ywo+Pj4gKysrIGIvc291bmQvcGNpL2hkYS9oZGFfaW50ZWwuYwo+Pj4gQEAgLTE0MTgsOCArMTQx
+OCwxOCBAQCBzdGF0aWMgaW50IGF6eF9kZXZfZnJlZShzdHJ1Y3Qgc25kX2RldmljZSAqZGV2aWNl
+KQo+Pj4gICAgICovCj4+PiAgICBzdGF0aWMgc3RydWN0IHBjaV9kZXYgKmdldF9ib3VuZF92Z2Eo
+c3RydWN0IHBjaV9kZXYgKnBjaSkKPj4+ICAgIHsKPj4+ICsJc3RhdGljIGNvbnN0IHN0cnVjdCBw
+Y2lfZGV2aWNlX2lkIGlkc1tdID0gewo+Pj4gKwkJeyBQQ0lfREVWSUNFKFBDSV9WRU5ET1JfSURf
+SU5URUwsIFBDSV9BTllfSUQpLAo+Pj4gKwkJICAuY2xhc3MgPSBQQ0lfQkFTRV9DTEFTU19ESVNQ
+TEFZIDw8IDE2LAo+Pj4gKwkJICAuY2xhc3NfbWFzayA9IDB4ZmYgPDwgMTYgfSwKPj4+ICsJCXt9
+Cj4+PiArCX07Cj4+PiAgICAJc3RydWN0IHBjaV9kZXYgKnA7Cj4+PiAgICArCS8qIGNoZWNrIHdo
+ZXRoZXIgSW50ZWwgZ3JhcGhpY3MgaXMgcHJlc2VudCBhcyBwcmltYXJ5IEdQVSAqLwo+Pj4gKwlp
+ZiAoIXBjaV9kZXZfcHJlc2VudChpZHMpKQo+Pj4gKwkJcmV0dXJuIE5VTEw7Cj4+PiArCj4+PiAg
+ICAJLyogY2hlY2sgb25seSBkaXNjcmV0ZSBHUFUgKi8KPj4+ICAgIAlzd2l0Y2ggKHBjaS0+dmVu
+ZG9yKSB7Cj4+PiAgICAJY2FzZSBQQ0lfVkVORE9SX0lEX0FUSToKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
