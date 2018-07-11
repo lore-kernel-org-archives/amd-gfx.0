@@ -1,17 +1,11 @@
-From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: =?UTF-8?Q?Re=3A_=E7=AD=94=E5=A4=8D=3A_Regression_with_kernel_4=2E18_=2D_AMD_RX_550?=
- =?UTF-8?Q?_fails_IB_ring_test_on_power=2Dup?=
-Date: Wed, 11 Jul 2018 22:27:31 +0100
-Message-ID: <CAEzXK1q5OdOaYzLRw9YWmAeOUQxGjb2R8jTEjQX1SPNhTGsS_w@mail.gmail.com>
-References: <CAEzXK1ofHUGNcZXM+Ys4xU9g0cSrdr63fxMVTCSq2-X4jwKfNw@mail.gmail.com>
- <CAEzXK1oftbBGeuzJEsn7bEJUmuiviq5h6cmmP0hP2+U77otZKA@mail.gmail.com>
- <DM3PR12MB0873E055CAF457DE917EC238995A0@DM3PR12MB0873.namprd12.prod.outlook.com>
- <CAEzXK1pnvjJfe2Q0WVeGToyZNDH_GQD1eMJnf3R=GNQTbK8pjw@mail.gmail.com>
- <a0bbadba-18bb-12dd-a577-305c5178ddb8@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/4] drm/amd: Add interrupt source definitions for VI v3.
+Date: Wed, 11 Jul 2018 17:53:52 -0400
+Message-ID: <1531346035-28172-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0144072517=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a0bbadba-18bb-12dd-a577-305c5178ddb8-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,359 +16,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: jimqu <jimqu-5C7GfCeVMHo@public.gmane.org>
-Cc: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 
---===============0144072517==
-Content-Type: multipart/alternative; boundary="0000000000001900af0570bfeadc"
-
---0000000000001900af0570bfeadc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Jim,
-
-I followed your suggestion and was able to bisect the kernel patches.
-The offending patch is: drm/amdgpu: defer test IBs on the rings at boot (V3=
-)
-commit:
-
-2c773de2ecb8c327f2448bd1eecad224e9227087
-<https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/=
-?h=3Dv4.18-rc4&id=3D2c773de2ecb8c327f2448bd1eecad224e9227087>
-
-After reverting this patch the IB test succeeded with kernel v4.18-rc4 on
-both systems and the amdgpu driver was correctly loaded both on SAPPHIRE
-RX550 4GB and on SAPPHIRE RX460 2GB.
-
-The GPU hang remains, however.
- I will try to configure a remote IPMI connection to see what is happening
-with the kernel boot or setup a serial console for the Kernel.
-
-Thanks & Regards,
-Lu=C3=ADs
-
-On Wed, Jul 11, 2018 at 10:56 AM, jimqu <jimqu-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> HI Luis,
->
->
-> Let us trace the issue one by one.
->
->
-> IB test fail:
->
-> This should be regression issue on 4.18, you can bisect the kernel patche=
-s.
->
-> GPU hang:
->
-> Fix IB test fail first.
->
->
-> Thanks
->
-> JimQu
->
->
->
-> On 2018=E5=B9=B407=E6=9C=8811=E6=97=A5 17:34, Lu=C3=ADs Mendes wrote:
->
-> Hi Jim,
->
-> Thanks for your interest in this issue. Actually this is a multiple
-> issue... not only the IB ring test is failing... as I am having quite som=
-e
-> trouble getting the cards SAPPHIRE RX 550 4GB on a Tyan S7025 and SAPPHIR=
-E
-> RX 460 2GB on a TYAN S7002 to work, both systems using same Ubuntu 18.04
-> with vanilla kernel.
->
-> *1. May you also test earlier kernel? v4.17 or v4.16.*
-> I've tested kernels v4.17.5 and v4.16.6 with same system and both are abl=
-e
-> to pass the IB ring test and system boots into X using NVIDIA as the
-> display connected card.
-> dmesg log attached for kernel 4.17.5, file TYAN_S7025_kernelv4.17.5_
-> amdgpu_IB_ring_test_OK.txt.
->
-> *2. May you test the issue only with amdgpu?*
-> - I've tested on a TYAN S7002 system with a single SAPPHIRE RX 460 2GB,
-> on-board VGA enabled and used as primary display.
-> Kernel v4.18-rc4 fails the IB ring test, system is able to enter X throug=
-h
-> the on-board VGA.
-> dmesg log attached for kernel 4.18-rc4, file TYAN_S7002_kernel_v4.18-rc4_
-> IB_ring_test_fail.txt.
->
-> - Same TYAN S7002 system, but now with on-board VGA disabled and using RX
-> 460 as display connected card.
-> Kernels v4.17.5 and v4.16.6 are able to pass the IB ring test, but GPU
-> hangs before entering X. Don't have logs for these yet.
->
-> Regards,
-> Lu=C3=ADs Mendes
-> Aparapi contributor and MSc Researcher
->
->
->
->
->
-> On Wed, Jul 11, 2018 at 3:49 AM, Qu, Jim <Jim.Qu-5C7GfCeVMHo@public.gmane.org> wrote:
->
->> Hi Luis,
->>
->> 1. May you also test earlier kernel? v4.17 or v4.16.
->> 2. May you test the issue only with amdgpu?
->>
->> Thanks
->> JimQu
->>
->> ________________________________________
->> =E5=8F=91=E4=BB=B6=E4=BA=BA: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org> =E4=BB=A3=E8=A1=A8 Lu=C3=ADs Mendes <
->> luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2018=E5=B9=B47=E6=9C=8811=E6=97=A5=
- 6:04:00
->> =E6=94=B6=E4=BB=B6=E4=BA=BA: Michel D=C3=A4nzer; Koenig, Christian; amd-=
-gfx list
->> =E4=B8=BB=E9=A2=98: Re: Regression with kernel 4.18 - AMD RX 550 fails I=
-B ring test on
->> power-up
->>
->> Hi,
->>
->> Issue remains in kernel 4.18-rc4 using SAPPHIRE RX 550 4GB.
->>
->> Logs follow attached.
->>
->> Regards,
->> Luis
->>
->> On Tue, Jun 26, 2018 at 10:08 AM, Lu=C3=ADs Mendes <luis.p.mendes@gmail.=
-com
->> <mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->> Hi,
->>
->> I've tried kernel 4.18-rc2 on a system with a NVIDIA GTX 1050 Ti and an
->> AMD RX 550 4GB and the RX 550 card is failing the IB ring test.
->>
->> [    5.033217] [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: ib
->> test failed (scratch(0xC040)=3D0xFFFFFFFF)
->> [    5.033264] [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* amdgpu: faile=
-d
->> testing IB on ring 6 (-22).
->>
->> Please see the attached log.
->>
->> Regards,
->> Lu=C3=ADs
->>
->>
->
->
-
---0000000000001900af0570bfeadc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi Jim,</div><div><br></div><div>I followed your sugg=
-estion and was able to bisect the kernel patches.</div><div>The offending p=
-atch is: drm/amdgpu: defer test IBs on the rings at boot (V3)<br></div><div=
->commit:<table summary=3D"commit info" class=3D"gmail-commit-info"><tbody><=
-tr><th><br></th><td colspan=3D"2" class=3D"gmail-sha1"><a href=3D"https://g=
-it.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=3Dv4.18=
--rc4&amp;id=3D2c773de2ecb8c327f2448bd1eecad224e9227087">2c773de2ecb8c327f24=
-48bd1eecad224e9227087</a></td></tr></tbody></table></div><div><br></div><di=
-v>After reverting this patch the IB test succeeded with kernel v4.18-rc4 on=
- both systems and the amdgpu driver was correctly loaded both on SAPPHIRE R=
-X550 4GB and on SAPPHIRE RX460 2GB.</div><div><br></div><div>The GPU hang r=
-emains, however.<br></div><div>=C2=A0I will try to configure a remote IPMI =
-connection to see what is happening with the kernel boot or setup a serial =
-console for the Kernel.</div><div><br></div><div>Thanks &amp; Regards,</div=
-><div>Lu=C3=ADs<br></div></div><div class=3D"gmail_extra"><br><div class=3D=
-"gmail_quote">On Wed, Jul 11, 2018 at 10:56 AM, jimqu <span dir=3D"ltr">&lt=
-;<a href=3D"mailto:jimqu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">jimqu-5C7GfCeVMHo@public.gmane.org</a>&gt;</=
-span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
-x;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <p>HI Luis,</p>
-    <p><br>
-    </p>
-    <p>Let us trace the issue one by one.</p>
-    <p><br>
-    </p>
-    <p>IB test fail:</p>
-    <p>This should be regression issue on 4.18, you can bisect the
-      kernel patches.</p>
-    <p>GPU hang:</p>
-    <p>Fix IB test fail first.</p>
-    <p><br>
-    </p>
-    <p>Thanks</p><span class=3D"HOEnZb"><font color=3D"#888888">
-    <p>JimQu<br>
-    </p></font></span><div><div class=3D"h5">
-    <p><br>
-    </p>
-    <br>
-    <div class=3D"m_-5542977703135971300moz-cite-prefix">On 2018=E5=B9=B407=
-=E6=9C=8811=E6=97=A5 17:34, Lu=C3=ADs Mendes
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div>Hi Jim,</div>
-        <div><br>
-        </div>
-        <div>Thanks for your interest in this issue. Actually this is a
-          multiple issue... not only the IB ring test is failing... as I
-          am having quite some trouble getting the cards SAPPHIRE RX 550
-          4GB on a Tyan S7025 and SAPPHIRE RX 460 2GB on a TYAN S7002 to
-          work, both systems using same Ubuntu 18.04 with vanilla
-          kernel.<br>
-        </div>
-        <div><br>
-        </div>
-        <div><b>1. May you also test earlier kernel? v4.17 or v4.16.</b><br=
->
-        </div>
-        <div>I&#39;ve tested kernels v4.17.5 and v4.16.6 with same system
-          and both are able to pass the IB ring test and system boots
-          into X using NVIDIA as the display connected card.</div>
-        <div>dmesg log attached for kernel 4.17.5, file
-          TYAN_S7025_kernelv4.17.5_<wbr>amdgpu_IB_ring_test_OK.txt.<br>
-        </div>
-        <div><br>
-        </div>
-        <div><b>2. May you test the issue only with amdgpu?</b></div>
-        <div>
-          <div>- I&#39;ve tested on a TYAN S7002 system with a single
-            SAPPHIRE RX 460 2GB, on-board VGA enabled and used as
-            primary display.</div>
-          <div>Kernel v4.18-rc4 fails the IB ring test, system is able
-            to enter X through the on-board VGA. <br>
-          </div>
-          <div>dmesg log attached for kernel 4.18-rc4, file
-            TYAN_S7002_kernel_v4.18-rc4_<wbr>IB_ring_test_fail.txt.</div>
-          <div><br>
-          </div>
-          <div>- Same TYAN S7002 system, but now with on-board VGA
-            disabled and using RX 460 as display connected card.<br>
-          </div>
-          <div>
-            <div>Kernels v4.17.5 and v4.16.6 are able to pass the IB
-              ring test, but GPU hangs before entering X. Don&#39;t have
-              logs for these yet.<br>
-            </div>
-            <br>
-            <div>Regards,</div>
-            <div>Lu=C3=ADs Mendes</div>
-            <div>Aparapi contributor and MSc Researcher<br>
-            </div>
-            <div><br>
-            </div>
-            <div><br>
-            </div>
-            <br>
-          </div>
-          <br>
-        </div>
-      </div>
-      <div class=3D"gmail_extra"><br>
-        <div class=3D"gmail_quote">On Wed, Jul 11, 2018 at 3:49 AM, Qu,
-          Jim <span dir=3D"ltr">&lt;<a href=3D"mailto:Jim.Qu-5C7GfCeVMHo@public.gmane.org" targe=
-t=3D"_blank">Jim.Qu-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
-          wrote:<br>
-          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">Hi Luis,<br>
-            <br>
-            1. May you also test earlier kernel? v4.17 or v4.16.<br>
-            2. May you test the issue only with amdgpu?<br>
-            <br>
-            Thanks<br>
-            JimQu<br>
-            <br>
-            ______________________________<wbr>__________<br>
-            =E5=8F=91=E4=BB=B6=E4=BA=BA: amd-gfx &lt;<a href=3D"mailto:amd-=
-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx-bounces@lists.=
-freedes<wbr>ktop.org</a>&gt;
-            =E4=BB=A3=E8=A1=A8 Lu=C3=ADs Mendes &lt;<a href=3D"mailto:luis.=
-p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-            =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2018=E5=B9=B47=E6=9C=8811=
-=E6=97=A5 6:04:00<br>
-            =E6=94=B6=E4=BB=B6=E4=BA=BA: Michel D=C3=A4nzer; Koenig, Christ=
-ian; amd-gfx list<br>
-            =E4=B8=BB=E9=A2=98: Re: Regression with kernel 4.18 - AMD RX 55=
-0 fails IB
-            ring test on power-up<br>
-            <span class=3D"m_-5542977703135971300im m_-5542977703135971300H=
-OEnZb"><br>
-              Hi,<br>
-              <br>
-              Issue remains in kernel 4.18-rc4 using SAPPHIRE RX 550
-              4GB.<br>
-              <br>
-              Logs follow attached.<br>
-              <br>
-              Regards,<br>
-              Luis<br>
-              <br>
-            </span>
-            <div class=3D"m_-5542977703135971300HOEnZb">
-              <div class=3D"m_-5542977703135971300h5">On Tue, Jun 26, 2018 =
-at 10:08 AM, Lu=C3=ADs
-                Mendes &lt;<a href=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" targe=
-t=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&lt;mailt<wbr>o:<a href=3D"mailto:l=
-uis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;&g=
-t;
-                wrote:<br>
-                Hi,<br>
-                <br>
-                I&#39;ve tried kernel 4.18-rc2 on a system with a NVIDIA GT=
-X
-                1050 Ti and an AMD RX 550 4GB and the RX 550 card is
-                failing the IB ring test.<br>
-                <br>
-                [=C2=A0 =C2=A0 5.033217] [drm:gfx_v8_0_ring_test_ib [amdgpu=
-]]
-                *ERROR* amdgpu: ib test failed
-                (scratch(0xC040)=3D0xFFFFFFFF)<br>
-                [=C2=A0 =C2=A0 5.033264] [drm:amdgpu_ib_ring_tests [amdgpu]=
-]
-                *ERROR* amdgpu: failed testing IB on ring 6 (-22).<br>
-                <br>
-                Please see the attached log.<br>
-                <br>
-                Regards,<br>
-                Lu=C3=ADs<br>
-                <br>
-              </div>
-            </div>
-          </blockquote>
-        </div>
-        <br>
-      </div>
-    </blockquote>
-    <br>
-  </div></div></div>
-
-</blockquote></div><br></div>
-
---0000000000001900af0570bfeadc--
-
---===============0144072517==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0144072517==--
+U3RvcCB1c2luZyAnbWFnaWMgbnVtYmVycycgd2hlbiByZWdpc3RlcmluZyBpbnRlcnJ1cHQgc291
+cmNlcy4KCnYyOgpDbGVhbiByZWR1bmRhbnQgY29tbWVudHMuClN3aXRjaCB0byBrZXJuZWwgc3R5
+bGUgY29tbWVudHMuCgp2MzoKQWRkIENQX0VDQ19FUlJPUiBkZWZpbmUKClNpZ25lZC1vZmYtYnk6
+IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgpBY2tlZC1ieTog
+Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKU2lnbmVkLW9mZi1i
+eTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Ci0tLQogLi4u
+L2RybS9hbWQvaW5jbHVkZS9pdnNyY2lkL2l2c3JjaWRfdmlzbGFuZHMzMC5oICAgfCA5OCArKysr
+KysrKysrKysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgOTggaW5zZXJ0aW9ucygrKQoKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9pdnNyY2lkL2l2c3JjaWRfdmlz
+bGFuZHMzMC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2l2c3JjaWQvaXZzcmNpZF92
+aXNsYW5kczMwLmgKaW5kZXggYzZiNmY5Ny4uYWFlZDdmNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9pbmNsdWRlL2l2c3JjaWQvaXZzcmNpZF92aXNsYW5kczMwLmgKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2l2c3JjaWQvaXZzcmNpZF92aXNsYW5kczMwLmgKQEAg
+LTE5OCw0ICsxOTgsMTAyIEBACiAjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JDSURfSFBEX1JYX0YJ
+CSAgICAgICAgICAgICAgICAgICAgNDIJICAgIC8vIDB4MmEJCQogI2RlZmluZSBWSVNMQU5EUzMw
+X0lWX0VYVElEX0hQRF9SWF9GICAgICAgICAgICAgICAgICAgICAgICAgIDExCiAKKyNkZWZpbmUg
+VklTTEFORFMzMF9JVl9TUkNJRF9HUElPXzE5ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4
+MDAwMDAwNTMgIC8qIDgzICovCisKKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9TUkJNX1JF
+QURfVElNRU9VVF9FUlIgICAgICAgICAgICAgIDB4MDAwMDAwNjAgIC8qIDk2ICovCisjZGVmaW5l
+IFZJU0xBTkRTMzBfSVZfU1JDSURfU1JCTV9DVFhfU1dJVENIICAgICAgICAgICAgICAgICAgICAw
+eDAwMDAwMDYxICAvKiA5NyAqLworCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JCTV9SRUdfQUND
+RVNTX0VSUk9SICAgICAgICAgICAgICAgICAgICAweDAwMDAwMDYyICAvKiA5OCAqLworCisKKyNk
+ZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9VVkRfRU5DX0dFTl9QVVJQICAgICAgICAgICAgICAg
+ICAgIDB4MDAwMDAwNzcgIC8qIDExOSAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX1VW
+RF9TWVNURU1fTUVTU0FHRSAgICAgICAgICAgICAgICAgMHgwMDAwMDA3YyAgLyogMTI0ICovCisK
+KyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9CSUZfUEZfVkZfTVNHQlVGX1ZBTElEICAgICAg
+ICAgICAgIDB4MDAwMDAwODcgIC8qIDEzNSAqLworCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JD
+SURfQklGX1ZGX1BGX01TR0JVRl9BQ0sgICAgICAgICAgICAgICAweDAwMDAwMDhhICAvKiAxMzgg
+Ki8KKworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX1NZU19QQUdFX0lOVl9GQVVMVCAgICAg
+ICAgICAgICAgICAgMHgwMDAwMDA4YyAgLyogMTQwICovCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZf
+U1JDSURfU1lTX01FTV9QUk9UX0ZBVUxUICAgICAgICAgICAgICAgICAweDAwMDAwMDhkICAvKiAx
+NDEgKi8KKworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX1NFTV9QQUdFX0lOVl9GQVVMVCAg
+ICAgICAgICAgICAgICAgMHgwMDAwMDA5MCAgLyogMTQ0ICovCisjZGVmaW5lIFZJU0xBTkRTMzBf
+SVZfU1JDSURfU0VNX01FTV9QUk9UX0ZBVUxUICAgICAgICAgICAgICAgICAweDAwMDAwMDkxICAv
+KiAxNDUgKi8KKworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0dGWF9QQUdFX0lOVl9GQVVM
+VCAgICAgICAgICAgICAgICAgMHgwMDAwMDA5MiAgLyogMTQ2ICovCisjZGVmaW5lIFZJU0xBTkRT
+MzBfSVZfU1JDSURfR0ZYX01FTV9QUk9UX0ZBVUxUICAgICAgICAgICAgICAgICAweDAwMDAwMDkz
+ICAvKiAxNDcgKi8KKworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0FDUCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDBhMiAgLyogMTYyICovCisKKyNkZWZpbmUgVklT
+TEFORFMzMF9JVl9TUkNJRF9WQ0VfVFJBUCAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAw
+MDAwYTcgIC8qIDE2NyAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX0VYVElEX1ZDRV9UUkFQX0dF
+TkVSQUxfUFVSUE9TRSAgICAgICAgICAgMAorI2RlZmluZSBWSVNMQU5EUzMwX0lWX0VYVElEX1ZD
+RV9UUkFQX0xPV19MQVRFTkNZICAgICAgICAgICAgICAgMQorI2RlZmluZSBWSVNMQU5EUzMwX0lW
+X0VYVElEX1ZDRV9UUkFQX1JFQUxfVElNRSAgICAgICAgICAgICAgICAgMgorCisjZGVmaW5lIFZJ
+U0xBTkRTMzBfSVZfU1JDSURfQ1BfSU5UX1JCICAgICAgICAgICAgICAgICAgICAgICAgICAweDAw
+MDAwMGIwICAvKiAxNzYgKi8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9DUF9JTlRfSUIx
+ICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwYjEgIC8qIDE3NyAqLworI2RlZmluZSBW
+SVNMQU5EUzMwX0lWX1NSQ0lEX0NQX0lOVF9JQjIgICAgICAgICAgICAgICAgICAgICAgICAgMHgw
+MDAwMDBiMiAgLyogMTc4ICovCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JDSURfQ1BfUE00X1JF
+U19CSVRTX0VSUiAgICAgICAgICAgICAgICAweDAwMDAwMGI0ICAvKiAxODAgKi8KKyNkZWZpbmUg
+VklTTEFORFMzMF9JVl9TUkNJRF9DUF9FTkRfT0ZfUElQRSAgICAgICAgICAgICAgICAgICAgIDB4
+MDAwMDAwYjUgIC8qIDE4MSAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0NQX0JBRF9P
+UENPREUgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDBiNyAgLyogMTgzICovCisjZGVmaW5l
+IFZJU0xBTkRTMzBfSVZfU1JDSURfQ1BfUFJJVl9SRUdfRkFVTFQgICAgICAgICAgICAgICAgICAw
+eDAwMDAwMGI4ICAvKiAxODQgKi8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9DUF9QUklW
+X0lOU1RSX0ZBVUxUICAgICAgICAgICAgICAgIDB4MDAwMDAwYjkgIC8qIDE4NSAqLworI2RlZmlu
+ZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0NQX1dBSVRfTUVNX1NFTV9GQVVMVCAgICAgICAgICAgICAg
+MHgwMDAwMDBiYSAgLyogMTg2ICovCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JDSURfQ1BfR1VJ
+X0lETEUgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMGJiICAvKiAxODcgKi8KKyNkZWZp
+bmUgVklTTEFORFMzMF9JVl9TUkNJRF9DUF9HVUlfQlVTWSAgICAgICAgICAgICAgICAgICAgICAg
+IDB4MDAwMDAwYmMgIC8qIDE4OCAqLworCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JDSURfQ1Bf
+Q09NUFVURV9RVUVSWV9TVEFUVVMgICAgICAgICAgICAweDAwMDAwMGJmICAvKiAxOTEgKi8KKyNk
+ZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9DUF9FQ0NfRVJST1IgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDAwMDAwYzUgIC8qIDE5NyAqLworCisjZGVmaW5lIENBUlJJWk9fSVZfU1JDSURfQ1Bf
+Q09NUFVURV9RVUVSWV9TVEFUVVMgICAgICAgICAgICAgICAweDAwMDAwMGM3ICAvKiAxOTkgKi8K
+KworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0NQX1dBSVRfUkVHX01FTV9QT0xMX1RJTUVP
+VVQgICAgICAgMHgwMDAwMDBjMCAgLyogMTkyICovCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JD
+SURfQ1BfU0VNX1NJR19JTkNPTVBMICAgICAgICAgICAgICAgICAweDAwMDAwMGMxICAvKiAxOTMg
+Ki8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9DUF9QUkVFTVBUX0FDSyAgICAgICAgICAg
+ICAgICAgICAgIDB4MDAwMDAwYzIgIC8qIDE5NCAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NS
+Q0lEX0NQX0dFTkVSQUxfUFJPVF9GQVVMVCAgICAgICAgICAgICAgMHgwMDAwMDBjMyAgLyogMTk1
+ICovCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JDSURfQ1BfR0RTX0FMTE9DX0VSUk9SICAgICAg
+ICAgICAgICAgICAweDAwMDAwMGM0ICAvKiAxOTYgKi8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9T
+UkNJRF9DUF9FQ0NfRVJST1IgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwYzUgIC8qIDE5
+NyAqLworCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JDSURfUkxDX1NUUk1fUEVSRl9NT05JVE9S
+ICAgICAgICAgICAgICAweDAwMDAwMGNhICAvKiAyMDIgKi8KKworI2RlZmluZSBWSVNMQU5EUzMw
+X0lWX1NETUFfQVRPTUlDX1NSQ19JRCAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDBkYSAg
+LyogMjE4ICovCisKKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9TRE1BX0VDQ19FUlJPUiAg
+ICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwZGMgIC8qIDIyMCAqLworCisjZGVmaW5lIFZJU0xB
+TkRTMzBfSVZfU1JDSURfU0RNQV9UUkFQICAgICAgICAgIAkgICAgICAgICAgICAgICAweDAwMDAw
+MGUwICAvKiAyMjQgKi8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9TRE1BX1NFTV9JTkNP
+TVBMRVRFICAgICAgICAgICAgICAgIDB4MDAwMDAwZTEgIC8qIDIyNSAqLworI2RlZmluZSBWSVNM
+QU5EUzMwX0lWX1NSQ0lEX1NETUFfU0VNX1dBSVQgICAgICAgICAgICAgICAgICAgICAgMHgwMDAw
+MDBlMiAgLyogMjI2ICovCisKKworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX1NNVV9ESVNQ
+X1RJTUVSMl9UUklHR0VSICAgICAgICAgICAgMHgwMDAwMDBlNSAgLyogMjI5ICovCisKKyNkZWZp
+bmUgVklTTEFORFMzMF9JVl9TUkNJRF9DR19UU1NfVEhFUk1BTF9MT1dfVE9fSElHSCAgICAgICAg
+IDB4MDAwMDAwZTYgIC8qIDIzMCAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0NHX1RT
+U19USEVSTUFMX0hJR0hfVE9fTE9XICAgICAgICAgMHgwMDAwMDBlNyAgLyogMjMxICovCisKKyNk
+ZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9HUkJNX1JFQURfVElNRU9VVF9FUlIgICAgICAgICAg
+ICAgIDB4MDAwMDAwZTggIC8qIDIzMiAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0dS
+Qk1fUkVHX0dVSV9JRExFICAgICAgICAgICAgICAgICAgMHgwMDAwMDBlOSAgLyogMjMzICovCisK
+KyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9TUV9JTlRFUlJVUFRfTVNHICAgICAgICAgICAg
+ICAgICAgIDB4MDAwMDAwZWYgIC8qIDIzOSAqLworCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JD
+SURfU0RNQV9QUkVFTVBUICAgICAgICAgICAgICAgICAgICAgICAweDAwMDAwMGYwICAvKiAyNDAg
+Ki8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9TRE1BX1ZNX0hPTEUgICAgICAgICAgICAg
+ICAgICAgICAgIDB4MDAwMDAwZjIgIC8qIDI0MiAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NS
+Q0lEX1NETUFfQ1RYRU1QVFkgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDBmMyAgLyogMjQz
+ICovCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZfU1JDSURfU0RNQV9ET09SQkVMTF9JTlZBTElEICAg
+ICAgICAgICAgICAweDAwMDAwMGY0ICAvKiAyNDQgKi8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9T
+UkNJRF9TRE1BX0ZST1pFTiAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAwZjUgIC8qIDI0
+NSAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX1NETUFfUE9MTF9USU1FT1VUICAgICAg
+ICAgICAgICAgICAgMHgwMDAwMDBmNiAgLyogMjQ2ICovCisjZGVmaW5lIFZJU0xBTkRTMzBfSVZf
+U1JDSURfU0RNQV9TUkJNX1dSSVRFICAgICAgICAgICAgICAgICAgICAweDAwMDAwMGY3ICAvKiAy
+NDcgKi8KKworI2RlZmluZSBWSVNMQU5EUzMwX0lWX1NSQ0lEX0NHX1RIRVJNQUxfVFJJRyAgICAg
+ICAgICAgICAgICAgICAgMHgwMDAwMDBmOCAgLyogMjQ4ICovCisKKyNkZWZpbmUgVklTTEFORFMz
+MF9JVl9TUkNJRF9TTVVfRElTUF9USU1FUl9UUklHR0VSICAgICAgICAgICAgIDB4MDAwMDAwZmQg
+IC8qIDI1MyAqLworCisvKiBUaGVzZSBhcmUgbm90ICJyZWFsIiBzb3VyY2UgaWRzIGRlZmluZWQg
+YnkgSFcgKi8KKyNkZWZpbmUgVklTTEFORFMzMF9JVl9TUkNJRF9WTV9DT05URVhUX0FMTCAgICAg
+ICAgICAgICAgICAgICAgIDB4MDAwMDAxMDAgIC8qIDI1NiAqLworI2RlZmluZSBWSVNMQU5EUzMw
+X0lWX0VYVElEX1ZNX0NPTlRFWFQwX0FMTCAgICAgICAgICAgICAgICAgICAgMAorI2RlZmluZSBW
+SVNMQU5EUzMwX0lWX0VYVElEX1ZNX0NPTlRFWFQxX0FMTCAgICAgICAgICAgICAgICAgICAgMQor
+CisKKy8qIElWIEV4dGVuZGVkIElEcyAqLworI2RlZmluZSBWSVNMQU5EUzMwX0lWX0VYVElEX05P
+TkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDAwMAorI2RlZmluZSBWSVNM
+QU5EUzMwX0lWX0VYVElEX0lOVkFMSUQgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHhmZmZm
+ZmZmZgorCiAjZW5kaWYgLy8gX0lWU1JDSURfVklTTEFORFMzMF9IXwotLSAKMi43LjQKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
