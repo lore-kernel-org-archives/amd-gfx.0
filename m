@@ -1,15 +1,15 @@
-From: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] amd/dc/dce100: On dce100, set clocks to 0 on suspend
-Date: Thu, 12 Jul 2018 14:29:13 +0000
-Message-ID: <MWHPR12MB145499B669E900D08C641195EF590@MWHPR12MB1454.namprd12.prod.outlook.com>
-References: <20180712140749.7706-1-David.Francis@amd.com>
- <2d781fe6-b6e4-efbc-43fe-1249e211300d@amd.com>,
- <1d3973cb-75c5-10e1-866e-e323b175a6de@daenzer.net>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH v2 3/3] drm/amdgpu: Warn and update pin_size values when
+ destroying a pinned BO
+Date: Thu, 12 Jul 2018 16:37:51 +0200
+Message-ID: <20180712143751.14353-3-michel@daenzer.net>
+References: <20180711162342.14835-1-michel@daenzer.net>
+ <20180712143751.14353-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1339938251=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1d3973cb-75c5-10e1-866e-e323b175a6de-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <20180712143751.14353-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,135 +20,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1339938251==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB145499B669E900D08C641195EF590MWHPR12MB1454namp_"
-
---_000_MWHPR12MB145499B669E900D08C641195EF590MWHPR12MB1454namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Upon closer inspection, this does not match any FDO bug.  The FDO bug I tho=
-ught this was related to was fixed by Michel Danzer, and this fixes an enti=
-rely separate issue.
-
-________________________________
-From: Michel D=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: July 12, 2018 10:18:34 AM
-To: Wentland, Harry; Francis, David; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] amd/dc/dce100: On dce100, set clocks to 0 on suspend
-
-On 2018-07-12 04:13 PM, Harry Wentland wrote:
-> On 2018-07-12 10:07 AM, David Francis wrote:
->> [Why]
->> When a dce100 asic was suspended, the clocks were not set to 0.
->> Upon resume, the new clock was compared to the existing clock,
->> they were found to be the same, and so the clock was not set.
->> This resulted in a pernicious blackscreen.
->>
->> [How]
->> In atomic commit, check to see if there are any active pipes.
->> If no, set clocks to 0
->>
->
-> Please add Fixes: tag with link to freedesktop bugzilla bug that this fix=
-es.
-
-That would be
-
-Bugzilla: https://...
-
-(the Fixes tag is for referencing another commit which is fixed by this one=
-)
-
-
---
-Earthling Michel D=E4nzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---_000_MWHPR12MB145499B669E900D08C641195EF590MWHPR12MB1454namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Upon closer inspection, this does=
- not match any FDO bug.&nbsp; The FDO bug I thought this was related to was=
- fixed by Michel Danzer, and this fixes an entirely separate issue.</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Michel D=E4nzer &lt;m=
-ichel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;<br>
-<b>Sent:</b> July 12, 2018 10:18:34 AM<br>
-<b>To:</b> Wentland, Harry; Francis, David; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<b=
-r>
-<b>Subject:</b> Re: [PATCH] amd/dc/dce100: On dce100, set clocks to 0 on su=
-spend</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2018-07-12 04:13 PM, Harry Wentland wrote:<br>
-&gt; On 2018-07-12 10:07 AM, David Francis wrote:<br>
-&gt;&gt; [Why]<br>
-&gt;&gt; When a dce100 asic was suspended, the clocks were not set to 0.<br=
->
-&gt;&gt; Upon resume, the new clock was compared to the existing clock,<br>
-&gt;&gt; they were found to be the same, and so the clock was not set.<br>
-&gt;&gt; This resulted in a pernicious blackscreen.<br>
-&gt;&gt;<br>
-&gt;&gt; [How]<br>
-&gt;&gt; In atomic commit, check to see if there are any active pipes.<br>
-&gt;&gt; If no, set clocks to 0<br>
-&gt;&gt;<br>
-&gt; <br>
-&gt; Please add Fixes: tag with link to freedesktop bugzilla bug that this =
-fixes.<br>
-<br>
-That would be<br>
-<br>
-Bugzilla: <a href=3D"https://">https://</a>...<br>
-<br>
-(the Fixes tag is for referencing another commit which is fixed by this one=
-)<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
-">
-http://www.amd.com</a><br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_MWHPR12MB145499B669E900D08C641195EF590MWHPR12MB1454namp_--
-
---===============1339938251==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1339938251==--
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpUaGlzIHNob3Vs
+ZG4ndCBoYXBwZW4sIGJ1dCBpZiBpdCBkb2VzLCB3ZSdsbCBnZXQgYSBiYWNrdHJhY2Ugb2YgdGhl
+CmNhbGxlciwgYW5kIHVwZGF0ZSB0aGUgcGluX3NpemUgdmFsdWVzIGFzIG5lZWRlZC4KCnYyOgoq
+IENoZWNrIGJvLT5waW5fY291bnQgaW5zdGVhZCBvZiBwbGFjZW1lbnQgZmxhZ3MgKENocmlzdGlh
+biBLw7ZuaWcpCgpTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJA
+YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMg
+fCAzMiArKysrKysrKysrKysrKysrKy0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjUgaW5zZXJ0aW9u
+cygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+b2JqZWN0LmMKaW5kZXggMWZkODNlZDE3NWZhLi5iMTI1MjZjZTFhOWQgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKQEAgLTYzLDExICs2MywzNSBAQCBzdGF0
+aWMgYm9vbCBhbWRncHVfbmVlZF9iYWNrdXAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJ
+cmV0dXJuIHRydWU7CiB9CiAKKy8qKgorICogYW1kZ3B1X2JvX3N1YnRyYWN0X3Bpbl9zaXplIC0g
+UmVtb3ZlIEJPIGZyb20gcGluX3NpemUgYWNjb3VudGluZworICoKKyAqIEBibzogJmFtZGdwdV9i
+byBidWZmZXIgb2JqZWN0CisgKgorICogVGhpcyBmdW5jdGlvbiBpcyBjYWxsZWQgd2hlbiBhIEJP
+IHN0b3BzIGJlaW5nIHBpbm5lZCwgYW5kIHVwZGF0ZXMgdGhlCisgKiAmYW1kZ3B1X2RldmljZSBw
+aW5fc2l6ZSB2YWx1ZXMgYWNjb3JkaW5nbHkuCisgKi8KK3N0YXRpYyB2b2lkIGFtZGdwdV9ib19z
+dWJ0cmFjdF9waW5fc2l6ZShzdHJ1Y3QgYW1kZ3B1X2JvICpibykKK3sKKwlzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRldihiby0+dGJvLmJkZXYpOworCisJaWYgKGJv
+LT50Ym8ubWVtLm1lbV90eXBlID09IFRUTV9QTF9WUkFNKSB7CisJCWF0b21pYzY0X3N1YihhbWRn
+cHVfYm9fc2l6ZShibyksICZhZGV2LT52cmFtX3Bpbl9zaXplKTsKKwkJYXRvbWljNjRfc3ViKGFt
+ZGdwdV92cmFtX21ncl9ib192aXNpYmxlX3NpemUoYm8pLAorCQkJICAgICAmYWRldi0+dmlzaWJs
+ZV9waW5fc2l6ZSk7CisJfSBlbHNlIGlmIChiby0+dGJvLm1lbS5tZW1fdHlwZSA9PSBUVE1fUExf
+VFQpIHsKKwkJYXRvbWljNjRfc3ViKGFtZGdwdV9ib19zaXplKGJvKSwgJmFkZXYtPmdhcnRfcGlu
+X3NpemUpOworCX0KK30KKwogc3RhdGljIHZvaWQgYW1kZ3B1X3R0bV9ib19kZXN0cm95KHN0cnVj
+dCB0dG1fYnVmZmVyX29iamVjdCAqdGJvKQogewogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gYW1kZ3B1X3R0bV9hZGV2KHRiby0+YmRldik7CiAJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSB0
+dG1fdG9fYW1kZ3B1X2JvKHRibyk7CiAKKwlpZiAoV0FSTl9PTl9PTkNFKGJvLT5waW5fY291bnQg
+PiAwKSkKKwkJYW1kZ3B1X2JvX3N1YnRyYWN0X3Bpbl9zaXplKGJvKTsKKwogCWlmIChiby0+a2Zk
+X2JvKQogCQlhbWRncHVfYW1ka2ZkX3VucmVzZXJ2ZV9zeXN0ZW1fbWVtb3J5X2xpbWl0KGJvKTsK
+IApAQCAtOTY4LDEzICs5OTIsNyBAQCBpbnQgYW1kZ3B1X2JvX3VucGluKHN0cnVjdCBhbWRncHVf
+Ym8gKmJvKQogCWlmIChiby0+cGluX2NvdW50KQogCQlyZXR1cm4gMDsKIAotCWlmIChiby0+dGJv
+Lm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfVlJBTSkgewotCQlhdG9taWM2NF9zdWIoYW1kZ3B1X2Jv
+X3NpemUoYm8pLCAmYWRldi0+dnJhbV9waW5fc2l6ZSk7Ci0JCWF0b21pYzY0X3N1YihhbWRncHVf
+dnJhbV9tZ3JfYm9fdmlzaWJsZV9zaXplKGJvKSwKLQkJCSAgICAgJmFkZXYtPnZpc2libGVfcGlu
+X3NpemUpOwotCX0gZWxzZSBpZiAoYm8tPnRiby5tZW0ubWVtX3R5cGUgPT0gVFRNX1BMX1RUKSB7
+Ci0JCWF0b21pYzY0X3N1YihhbWRncHVfYm9fc2l6ZShibyksICZhZGV2LT5nYXJ0X3Bpbl9zaXpl
+KTsKLQl9CisJYW1kZ3B1X2JvX3N1YnRyYWN0X3Bpbl9zaXplKGJvKTsKIAogCWZvciAoaSA9IDA7
+IGkgPCBiby0+cGxhY2VtZW50Lm51bV9wbGFjZW1lbnQ7IGkrKykgewogCQliby0+cGxhY2VtZW50
+c1tpXS5scGZuID0gMDsKLS0gCjIuMTguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
