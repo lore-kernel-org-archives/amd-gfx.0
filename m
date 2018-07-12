@@ -1,19 +1,19 @@
-From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Allow to create BO lists in CS ioctl v2
-Date: Thu, 12 Jul 2018 16:14:34 +0800
-Message-ID: <b4959607-4120-29d4-f39c-0f31fc8a8ba3@amd.com>
-References: <1531342678-11142-1-git-send-email-andrey.grodzovsky@amd.com>
- <9060133a-b04f-0c59-e806-1c0d407bb56c@amd.com>
- <BY1PR12MB050202D0A4883EDB709D434EB4590@BY1PR12MB0502.namprd12.prod.outlook.com>
- <a43a5f3d-7fef-1721-307e-9135cf494264@amd.com>
- <f6b77415-b991-6d4e-d872-934a269c397e@amd.com>
- <18352936-c661-dccd-a515-6d2845172470@gmail.com>
+From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: =?UTF-8?Q?Re=3A_=E7=AD=94=E5=A4=8D=3A_Regression_with_kernel_4=2E18_=2D_AMD_RX_550?=
+ =?UTF-8?Q?_fails_IB_ring_test_on_power=2Dup?=
+Date: Thu, 12 Jul 2018 10:59:15 +0100
+Message-ID: <CAEzXK1oQKjwFV8AME=7aBBSR+AMRVZjZ-PTkJuNz44uUCHX7=w@mail.gmail.com>
+References: <CAEzXK1ofHUGNcZXM+Ys4xU9g0cSrdr63fxMVTCSq2-X4jwKfNw@mail.gmail.com>
+ <CAEzXK1oftbBGeuzJEsn7bEJUmuiviq5h6cmmP0hP2+U77otZKA@mail.gmail.com>
+ <DM3PR12MB0873E055CAF457DE917EC238995A0@DM3PR12MB0873.namprd12.prod.outlook.com>
+ <CAEzXK1pnvjJfe2Q0WVeGToyZNDH_GQD1eMJnf3R=GNQTbK8pjw@mail.gmail.com>
+ <a0bbadba-18bb-12dd-a577-305c5178ddb8@amd.com>
+ <CAEzXK1q5OdOaYzLRw9YWmAeOUQxGjb2R8jTEjQX1SPNhTGsS_w@mail.gmail.com>
+ <46caa268-78ac-0dc6-5430-908d01b3ca88@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1344727722=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <18352936-c661-dccd-a515-6d2845172470-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <46caa268-78ac-0dc6-5430-908d01b3ca88-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,316 +24,482 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "Guo, Kai" <Kai.Guo-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: jimqu <jimqu-5C7GfCeVMHo@public.gmane.org>, "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE45bm0MDfmnIgxMuaXpSAxNTo1NiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBB
-bSAxMi4wNy4yMDE4IHVtIDA2OjIxIHNjaHJpZWIgemhvdWNtMToKPj4gV2l0aCBtb3JlIHRoaW5r
-aW5nIGZvciB5b3UgcGVyZm9ybWFuY2UgcmVhc29uLCBDYW4gd2UgZ28gZnVydGhlciBtb3JlIAo+
-PiBub3QgdG8gY3JlYXRlIHRlbXAgYm8gbGlzdCBhdCBhbGw/IGRpcmVjdGx5IGFkZCB0aGVtIGlu
-dG8gCj4+IHBhcnNlci0+dmFsaWRhdGVkIGxpc3Q/Cj4KPiBZb3Ugc3RpbGwgbmVlZCBzb21ldGhp
-bmcgd2hpY2ggaXMgYWRkZWQgdG8gdGhlIHBhcnNlci0+dmFsaWRhdGVkIGxpc3QsIAo+IHNvIGNy
-ZWF0aW5nIHRoZSBhcnJheSBvZiBCT3MgaW4gdW5hdm9pZGFibGUuCj4KPj4gSW4gZmFjdCwgaWYg
-Ym8gYXJyYXkgaXMgdmVyeSBsb25nLCB0aGVuIG92ZXJoZWFkIG9mIGJvIGxpc3QgY3JlYXRpb24g
-Cj4+IGluIENTIGlzIGNvbnNpZGVyYWJsZSwgd2hpY2ggd2lsbCBkb3VibGUgaXRlcmF0ZSBhbGwg
-Qk9zIGNvbXBhcmVkIHRvIAo+PiBvcmlnaW5hbC4KPj4KPj4gRnJvbSBVTUQgcGVyc3BlY3RpdmUs
-IHRoZXkgZG9uJ3QgY3JlYXRlIGJvIGxpc3QgZm9yIGV2ZXJ5IENTLCB0aGV5IAo+PiBjb3VsZCB1
-c2Ugb2xkIGNyZWF0ZWQgYm9fbGlzdCBmb3IgbmV4dCBzZXZlcmFsIENTLCBpZiB0aGVyZSBpcyBh
-IG5ldyAKPj4gYm8sIHRoZXkganVzdCBhZGQgaXQuCj4KPiBBbmQgZXhhY3RseSB0aGF0IGlzIHRo
-ZSBmYWlsZWQgY29uY2VwdCBvZiBib19saXN0cywgaXQgaXMgY29tcGxldGUgCj4gbm9uc2Vuc2Ug
-dG8gZG8gdGhpcy4KPgo+IEVpdGhlciB5b3UgY3JlYXRlIHRoZSBsaXN0IG9mIEJPcyBmcm9tIHNj
-cmF0Y2ggZm9yIGVhY2ggY29tbWFuZCAKPiBzdWJtaXNzaW9uIGxpa2UgTWVzYSBkb2VzIGl0IGlu
-IHdoaWNoIGlzIGV4YWN0bHkgdGhlIGNhc2Ugd2UgdHJ5IHRvIAo+IHN1cHBvcnQgZWZmaWNpZW50
-IGhlcmUuCkBLYWksIGRvIHlvdSBoYXZlIGNvbW1lbnRzIGZvciB3aGF0IENocmlzdGlhbiBzYWlk
-PwoKPgo+IE9yIHlvdSB1c2UgcGVyIHByb2Nlc3MgQk9zIHdoaWNoIGFyZSBhbHdheXMgdmFsaWQu
-IFNvbWV0aGluZyB3aGljaCB3ZSAKPiBoYXZlIGFscmVhZHkgaW1wbGVtZW50ZWQgYXMgd2VsbC4K
-WWVzLCB2dWxrYW4gYWxyZWFkeSB1c2UgaXQgZnJvbSA0LjE1LiBCdXQgcHJvLW9nbCBzdGlsbCB1
-c2UgYm8gbGlzdC4KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4+Cj4+IFRoYW5rcywKPj4g
-RGF2aWQgWmhvdQo+PiBPbiAyMDE45bm0MDfmnIgxMuaXpSAxMjowMiwgemhvdWNtMSB3cm90ZToK
-Pj4+Cj4+Pgo+Pj4gT24gMjAxOOW5tDA35pyIMTLml6UgMTE6MDksIFpob3UsIERhdmlkKENodW5N
-aW5nKSB3cm90ZToKPj4+PiBIaSBBbmRyZXksCj4+Pj4KPj4+PiBDb3VsZCB5b3UgYWRkIGNvbXBh
-dGliaWxpdHkgZmxhZyBvciBpbmNyZWFzZSBrbXMgZHJpdmVyIHZlcnNpb24/IFNvIAo+Pj4+IHRo
-YXQgdXNlciBzcGFjZSBjYW4ga2VlcCBvbGQgcGF0aCB3aGVuIHVzaW5nIG5ldyBvbmUuCj4+PiBT
-b3JyeSBmb3Igbm9pc2UsIGl0J3MgYWxyZWFkeSBhdCBlbmQgb2YgcGF0aC4KPj4+Cj4+PiBSZWdh
-cmRzLAo+Pj4gRGF2aWQgWmhvdQo+Pj4+Cj4+Pj4gUmVnYXJkcywKPj4+PiBEYXZpZCBaaG91Cj4+
-Pj4KPj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4+IEZyb206IGFtZC1nZnggW21h
-aWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiAKPj4+PiBCZWhh
-bGYgT2YgemhvdWNtMQo+Pj4+IFNlbnQ6IFRodXJzZGF5LCBKdWx5IDEyLCAyMDE4IDEwOjMxIEFN
-Cj4+Pj4gVG86IEdyb2R6b3Zza3ksIEFuZHJleSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT47
-IAo+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4gQ2M6IE9sc2FrLCBNYXJl
-ayA8TWFyZWsuT2xzYWtAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuIAo+Pj4+IDxDaHJpc3Rp
-YW4uS29lbmlnQGFtZC5jb20+Cj4+Pj4gU3ViamVjdDogUmU6IFtQQVRDSCB2Ml0gZHJtL2FtZGdw
-dTogQWxsb3cgdG8gY3JlYXRlIEJPIGxpc3RzIGluIENTIAo+Pj4+IGlvY3RsIHYyCj4+Pj4KPj4+
-Pgo+Pj4+Cj4+Pj4gT24gMjAxOOW5tDA35pyIMTLml6UgMDQ6NTcsIEFuZHJleSBHcm9kem92c2t5
-IHdyb3RlOgo+Pj4+PiBUaGlzIGNoYW5nZSBpcyB0byBzdXBwb3J0IE1FU0EgcGVyZm9ybWFjZSBv
-cHRpbWl6YXRpb24uCj4+Pj4+IE1vZGlmeSBDUyBJT0NUTCB0byBhbGxvdyBpdHMgaW5wdXQgYXMg
-Y29tbWFuZCBidWZmZXIgYW5kIGFuIGFycmF5IG9mCj4+Pj4+IGJ1ZmZlciBoYW5kbGVzIHRvIGNy
-ZWF0ZSBhIHRlbXBvcmF5IGJvIGxpc3QgYW5kIHRoZW4gZGVzdHJveSBpdCB3aGVuCj4+Pj4+IElP
-Q1RMIGNvbXBsZXRlcy4KPj4+Pj4gVGhpcyBzYXZlcyBvbiBjYWxsaW5nIGZvciBCT19MSVNUIGNy
-ZWF0ZSBhbmQgZGVzdHJ5IElPQ1RMcyBpbiBNRVNBIAo+Pj4+PiBhbmQKPj4+Pj4gYnkgdGhpcyBp
-bXByb3ZlcyBwZXJmb3JtYW5jZS4KPj4+Pj4KPj4+Pj4gdjI6IEF2b2lkIGluc2VydGluZyB0aGUg
-dGVtcCBsaXN0IGludG8gaWRyIHN0cnVjdC4KPj4+Pj4KPj4+Pj4gU2lnbmVkLW9mZi1ieTogQW5k
-cmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Cj4+Pj4+IC0tLQo+Pj4+
-PiDCoMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5owqDCoMKgwqDCoMKgwqDC
-oCB8IDExICsrKysKPj4+Pj4gwqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Ym9fbGlzdC5jIHwgODYgCj4+Pj4+ICsrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tCj4+Pj4+
-IMKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmPCoMKgwqDCoMKgIHwg
-NTEgKysrKysrKysrKysrKysrLS0KPj4+Pj4gwqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZHJ2LmPCoMKgwqDCoCB8wqAgMyArLQo+Pj4+PiDCoMKgIGluY2x1ZGUvdWFwaS9k
-cm0vYW1kZ3B1X2RybS5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMSArCj4+Pj4+
-IMKgwqAgNSBmaWxlcyBjaGFuZ2VkLCAxMTQgaW5zZXJ0aW9ucygrKSwgMzggZGVsZXRpb25zKC0p
-Cj4+Pj4+Cj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHUuaAo+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+Pj4+IGlu
-ZGV4IDhlYWJhMGYuLjliNDcyYjIgMTAwNjQ0Cj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdS5oCj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oCj4+Pj4+IEBAIC03MzIsNiArNzMyLDE3IEBAIHZvaWQgYW1kZ3B1X2JvX2xpc3Rf
-Z2V0X2xpc3Qoc3RydWN0IAo+Pj4+PiBhbWRncHVfYm9fbGlzdCAqbGlzdCwKPj4+Pj4gwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGxpc3RfaGVhZCAqdmFsaWRh
-dGVkKTsKPj4+Pj4gwqDCoCB2b2lkIGFtZGdwdV9ib19saXN0X3B1dChzdHJ1Y3QgYW1kZ3B1X2Jv
-X2xpc3QgKmxpc3QpOwo+Pj4+PiDCoMKgIHZvaWQgYW1kZ3B1X2JvX2xpc3RfZnJlZShzdHJ1Y3Qg
-YW1kZ3B1X2JvX2xpc3QgKmxpc3QpOwo+Pj4+PiAraW50IGFtZGdwdV9ib19jcmVhdGVfbGlzdF9l
-bnRyeV9hcnJheShzdHJ1Y3QgCj4+Pj4+IGRybV9hbWRncHVfYm9fbGlzdF9pbiAqaW4sCj4+Pj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9h
-bWRncHVfYm9fbGlzdF9lbnRyeSAqKmluZm9fcGFyYW0pOwo+Pj4+PiArCj4+Pj4+ICtpbnQgYW1k
-Z3B1X2JvX2xpc3RfY3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+PiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9maWxlICpmaWxwLAo+Pj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9hbWRncHVfYm9f
-bGlzdF9lbnRyeSAqaW5mbywKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHVuc2lnbmVkIG51bV9lbnRyaWVzLAo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgaW50ICppZCwKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0
-cnVjdCBhbWRncHVfYm9fbGlzdCAqKmxpc3QpOwo+Pj4+PiArCj4+Pj4+ICt2b2lkIGFtZGdwdV9i
-b19saXN0X2Rlc3Ryb3koc3RydWN0IGFtZGdwdV9mcHJpdiAqZnByaXYsIGludCBpZCk7Cj4+Pj4+
-IMKgwqAgwqDCoCAvKgo+Pj4+PiDCoMKgwqAgKiBHRlggc3R1ZmYKPj4+Pj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKPj4+Pj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCj4+Pj4+IGluZGV4IDkyYmU3
-ZjYuLjE0YzdjNTkgMTAwNjQ0Cj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9ib19saXN0LmMKPj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2JvX2xpc3QuYwo+Pj4+PiBAQCAtNTUsMTEgKzU1LDEyIEBAIHN0YXRpYyB2b2lkIGFt
-ZGdwdV9ib19saXN0X3JlbGVhc2VfcmN1KHN0cnVjdCAKPj4+Pj4ga3JlZiAqcmVmKQo+Pj4+PiDC
-oMKgwqDCoMKgwqAga2ZyZWVfcmN1KGxpc3QsIHJoZWFkKTsKPj4+Pj4gwqDCoCB9Cj4+Pj4+IMKg
-wqAgLXN0YXRpYyBpbnQgYW1kZ3B1X2JvX2xpc3RfY3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAo+Pj4+PiAraW50IGFtZGdwdV9ib19saXN0X2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-c3RydWN0IGRybV9maWxlICpmaWxwLAo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2FtZGdwdV9ib19saXN0X2VudHJ5ICppbmZvLAo+Pj4+PiDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBudW1fZW50cmll
-cywKPj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGludCAqaWQpCj4+Pj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgKmlkLAo+Pj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9ib19saXN0ICoqbGlzdF9v
-dXQpCj4+Pj4+IMKgwqAgewo+Pj4+PiDCoMKgwqDCoMKgwqAgaW50IHI7Cj4+Pj4+IMKgwqDCoMKg
-wqDCoCBzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiA9IGZpbHAtPmRyaXZlcl9wcml2OyBAQCAt
-NzgsMjAgCj4+Pj4+ICs3OSwyNSBAQAo+Pj4+PiBzdGF0aWMgaW50IGFtZGdwdV9ib19saXN0X2Ny
-ZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIHI7Cj4+Pj4+IMKgwqDCoMKgwqDCoCB9Cj4+Pj4+IMKgwqAgK8KgwqDCoCBpZiAo
-aWQpIHsKPj4+Pj4gwqDCoMKgwqDCoMKgIC8qIGlkciBhbGxvYyBzaG91bGQgYmUgY2FsbGVkIG9u
-bHkgYWZ0ZXIgaW5pdGlhbGl6YXRpb24gb2YgCj4+Pj4+IGJvIGxpc3QuICovCj4+Pj4+IC3CoMKg
-wqAgbXV0ZXhfbG9jaygmZnByaXYtPmJvX2xpc3RfbG9jayk7Cj4+Pj4+IC3CoMKgwqAgciA9IGlk
-cl9hbGxvYygmZnByaXYtPmJvX2xpc3RfaGFuZGxlcywgbGlzdCwgMSwgMCwgR0ZQX0tFUk5FTCk7
-Cj4+Pj4+IC3CoMKgwqAgbXV0ZXhfdW5sb2NrKCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsKPj4+Pj4g
-LcKgwqDCoCBpZiAociA8IDApIHsKPj4+Pj4gLcKgwqDCoMKgwqDCoMKgIGFtZGdwdV9ib19saXN0
-X2ZyZWUobGlzdCk7Cj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4+Pj4gK8KgwqDC
-oMKgwqDCoMKgIG11dGV4X2xvY2soJmZwcml2LT5ib19saXN0X2xvY2spOwo+Pj4+PiArwqDCoMKg
-wqDCoMKgwqAgciA9IGlkcl9hbGxvYygmZnByaXYtPmJvX2xpc3RfaGFuZGxlcywgbGlzdCwgMSwg
-MCwgCj4+Pj4+IEdGUF9LRVJORUwpOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgbXV0ZXhfdW5sb2Nr
-KCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChyIDwgMCkg
-ewo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfYm9fbGlzdF9mcmVlKGxpc3Qp
-Owo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4+Pj4gK8KgwqDCoMKg
-wqDCoMKgIH0KPj4+Pj4gK8KgwqDCoMKgwqDCoMKgICppZCA9IHI7Cj4+Pj4+IMKgwqDCoMKgwqDC
-oCB9Cj4+Pj4+IC3CoMKgwqAgKmlkID0gcjsKPj4+Pj4gKwo+Pj4+PiArwqDCoMKgIGlmIChsaXN0
-X291dCkKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgICpsaXN0X291dCA9IGxpc3Q7Cj4+Pj4+IMKgwqAg
-wqDCoMKgwqDCoMKgIHJldHVybiAwOwo+Pj4+PiDCoMKgIH0KPj4+Pj4gwqDCoCAtc3RhdGljIHZv
-aWQgYW1kZ3B1X2JvX2xpc3RfZGVzdHJveShzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwgCj4+
-Pj4+IGludAo+Pj4+PiBpZCkKPj4+Pj4gK3ZvaWQgYW1kZ3B1X2JvX2xpc3RfZGVzdHJveShzdHJ1
-Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwgaW50IGlkKQo+Pj4+PiDCoMKgIHsKPj4+Pj4gwqDCoMKg
-wqDCoMKgIHN0cnVjdCBhbWRncHVfYm9fbGlzdCAqbGlzdDsKPj4+Pj4gwqDCoCBAQCAtMjYzLDUz
-ICsyNjksNjggQEAgdm9pZCBhbWRncHVfYm9fbGlzdF9mcmVlKHN0cnVjdCAKPj4+Pj4gYW1kZ3B1
-X2JvX2xpc3QgKmxpc3QpCj4+Pj4+IMKgwqDCoMKgwqDCoCBrZnJlZShsaXN0KTsKPj4+Pj4gwqDC
-oCB9Cj4+Pj4+IMKgwqAgLWludCBhbWRncHVfYm9fbGlzdF9pb2N0bChzdHJ1Y3QgZHJtX2Rldmlj
-ZSAqZGV2LCB2b2lkICpkYXRhLAo+Pj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHN0cnVjdCBkcm1fZmlsZSAqZmlscCkKPj4+Pj4gK2ludCBhbWRncHVfYm9fY3JlYXRlX2xpc3Rf
-ZW50cnlfYXJyYXkoc3RydWN0IAo+Pj4+PiBkcm1fYW1kZ3B1X2JvX2xpc3RfaW4gKmluLAo+Pj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1f
-YW1kZ3B1X2JvX2xpc3RfZW50cnkgKippbmZvX3BhcmFtKQo+Pj4+PiDCoMKgIHsKPj4+Pj4gLcKg
-wqDCoCBjb25zdCB1aW50MzJfdCBpbmZvX3NpemUgPSBzaXplb2Yoc3RydWN0IAo+Pj4+PiBkcm1f
-YW1kZ3B1X2JvX2xpc3RfZW50cnkpOwo+Pj4+PiAtCj4+Pj4+IC3CoMKgwqAgc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOwo+Pj4+PiAtwqDCoMKgIHN0cnVjdCBh
-bWRncHVfZnByaXYgKmZwcml2ID0gZmlscC0+ZHJpdmVyX3ByaXY7Cj4+Pj4+IC3CoMKgwqAgdW5p
-b24gZHJtX2FtZGdwdV9ib19saXN0ICphcmdzID0gZGF0YTsKPj4+Pj4gLcKgwqDCoCB1aW50MzJf
-dCBoYW5kbGUgPSBhcmdzLT5pbi5saXN0X2hhbmRsZTsKPj4+Pj4gLcKgwqDCoCBjb25zdCB2b2lk
-IF9fdXNlciAqdXB0ciA9IHU2NF90b191c2VyX3B0cihhcmdzLT5pbi5ib19pbmZvX3B0cik7Cj4+
-Pj4+IC0KPj4+Pj4gwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fYW1kZ3B1X2JvX2xpc3RfZW50cnkg
-KmluZm87Cj4+Pj4+IC3CoMKgwqAgc3RydWN0IGFtZGdwdV9ib19saXN0ICpsaXN0Owo+Pj4+PiAt
-Cj4+Pj4+IMKgwqDCoMKgwqDCoCBpbnQgcjsKPj4+Pj4gK8KgwqDCoCBjb25zdCB2b2lkIF9fdXNl
-ciAqdXB0ciA9IHU2NF90b191c2VyX3B0cihpbi0+Ym9faW5mb19wdHIpOwo+Pj4+PiArwqDCoMKg
-IGNvbnN0IHVpbnQzMl90IGluZm9fc2l6ZSA9IHNpemVvZihzdHJ1Y3QgCj4+Pj4+IGRybV9hbWRn
-cHVfYm9fbGlzdF9lbnRyeSk7Cj4+Pj4+IMKgwqAgLcKgwqDCoCBpbmZvID0ga3ZtYWxsb2NfYXJy
-YXkoYXJncy0+aW4uYm9fbnVtYmVyLAo+Pj4+PiArwqDCoMKgIGluZm8gPSBrdm1hbGxvY19hcnJh
-eShpbi0+Ym9fbnVtYmVyLAo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBzaXplb2Yoc3RydWN0IGRybV9hbWRncHVfYm9fbGlzdF9lbnRyeSksIAo+Pj4+PiBHRlBf
-S0VSTkVMKTsKPj4+Pj4gwqDCoMKgwqDCoMKgIGlmICghaW5mbykKPj4+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgcmV0dXJuIC1FTk9NRU07Cj4+Pj4+IMKgwqAgwqDCoMKgwqDCoMKgIC8qIGNvcHkg
-dGhlIGhhbmRsZSBhcnJheSBmcm9tIHVzZXJzcGFjZSB0byBhIGtlcm5lbCAKPj4+Pj4gYnVmZmVy
-ICovCj4+Pj4+IMKgwqDCoMKgwqDCoCByID0gLUVGQVVMVDsKPj4+Pj4gLcKgwqDCoCBpZiAobGlr
-ZWx5KGluZm9fc2l6ZSA9PSBhcmdzLT5pbi5ib19pbmZvX3NpemUpKSB7Cj4+Pj4+IC3CoMKgwqDC
-oMKgwqDCoCB1bnNpZ25lZCBsb25nIGJ5dGVzID0gYXJncy0+aW4uYm9fbnVtYmVyICoKPj4+Pj4g
-LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYXJncy0+aW4uYm9faW5mb19zaXplOwo+Pj4+PiArwqDC
-oMKgIGlmIChsaWtlbHkoaW5mb19zaXplID09IGluLT5ib19pbmZvX3NpemUpKSB7Cj4+Pj4+ICvC
-oMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIGJ5dGVzID0gaW4tPmJvX251bWJlciAqCj4+Pj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGluLT5ib19pbmZvX3NpemU7Cj4+Pj4+IMKgwqAgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgaWYgKGNvcHlfZnJvbV91c2VyKGluZm8sIHVwdHIsIGJ5dGVzKSkK
-Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX2ZyZWU7Cj4+Pj4+
-IMKgwqAgwqDCoMKgwqDCoMKgIH0gZWxzZSB7Cj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCB1bnNpZ25l
-ZCBsb25nIGJ5dGVzID0gbWluKGFyZ3MtPmluLmJvX2luZm9fc2l6ZSwgaW5mb19zaXplKTsKPj4+
-Pj4gK8KgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgYnl0ZXMgPSBtaW4oaW4tPmJvX2luZm9f
-c2l6ZSwgaW5mb19zaXplKTsKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgaTsK
-Pj4+Pj4gwqDCoCAtwqDCoMKgwqDCoMKgwqAgbWVtc2V0KGluZm8sIDAsIGFyZ3MtPmluLmJvX251
-bWJlciAqIGluZm9fc2l6ZSk7Cj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCBmb3IgKGkgPSAwOyBpIDwg
-YXJncy0+aW4uYm9fbnVtYmVyOyArK2kpIHsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIG1lbXNldChp
-bmZvLCAwLCBpbi0+Ym9fbnVtYmVyICogaW5mb19zaXplKTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKg
-IGZvciAoaSA9IDA7IGkgPCBpbi0+Ym9fbnVtYmVyOyArK2kpIHsKPj4+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBpZiAoY29weV9mcm9tX3VzZXIoJmluZm9baV0sIHVwdHIsIGJ5dGVz
-KSkKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJyb3Jf
-ZnJlZTsKPj4+Pj4gwqDCoCAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1cHRyICs9IGFyZ3MtPmlu
-LmJvX2luZm9fc2l6ZTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdXB0ciArPSBpbi0+
-Ym9faW5mb19zaXplOwo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+Pj4+IMKgwqDCoMKg
-wqDCoCB9Cj4+Pj4+IMKgwqAgK8KgwqDCoCAqaW5mb19wYXJhbSA9IGluZm87Cj4+Pj4+ICvCoMKg
-wqAgcmV0dXJuIDA7Cj4+Pj4+ICsKPj4+Pj4gK2Vycm9yX2ZyZWU6Cj4+Pj4+ICvCoMKgwqAga3Zm
-cmVlKGluZm8pOwo+Pj4+PiArwqDCoMKgIHJldHVybiByOwo+Pj4+PiArfQo+Pj4+PiArCj4+Pj4+
-ICtpbnQgYW1kZ3B1X2JvX2xpc3RfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAq
-ZGF0YSwKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2Zp
-bGUgKmZpbHApCj4+Pj4+ICt7Cj4+Pj4+ICvCoMKgwqAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYgPSBkZXYtPmRldl9wcml2YXRlOwo+Pj4+PiArwqDCoMKgIHN0cnVjdCBhbWRncHVfZnByaXYg
-KmZwcml2ID0gZmlscC0+ZHJpdmVyX3ByaXY7Cj4+Pj4+ICvCoMKgwqAgdW5pb24gZHJtX2FtZGdw
-dV9ib19saXN0ICphcmdzID0gZGF0YTsKPj4+Pj4gK8KgwqDCoCB1aW50MzJfdCBoYW5kbGUgPSBh
-cmdzLT5pbi5saXN0X2hhbmRsZTsKPj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX2FtZGdwdV9ib19s
-aXN0X2VudHJ5ICppbmZvID0gTlVMTDsKPj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvX2xp
-c3QgKmxpc3Q7Cj4+Pj4+ICvCoMKgwqAgaW50IHI7Cj4+Pj4+ICsKPj4+Pj4gK8KgwqDCoCByID0g
-YW1kZ3B1X2JvX2NyZWF0ZV9saXN0X2VudHJ5X2FycmF5KCZhcmdzLT5pbiwgJmluZm8pOwo+Pj4+
-PiArwqDCoMKgIGlmIChyKQo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl9mcmVlOwo+
-Pj4+PiArCj4+Pj4+IMKgwqDCoMKgwqDCoCBzd2l0Y2ggKGFyZ3MtPmluLm9wZXJhdGlvbikgewo+
-Pj4+PiDCoMKgwqDCoMKgwqAgY2FzZSBBTURHUFVfQk9fTElTVF9PUF9DUkVBVEU6Cj4+Pj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHIgPSBhbWRncHVfYm9fbGlzdF9jcmVhdGUoYWRldiwgZmlscCwg
-aW5mbywgCj4+Pj4+IGFyZ3MtPmluLmJvX251bWJlciwKPj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAmaGFuZGxlKTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAmaGFuZGxlLCBOVUxMKTsKPj4+Pj4gwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgaWYgKHIpCj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-Z290byBlcnJvcl9mcmVlOwo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+Pj4g
-QEAgLTM0NSw2ICszNjYsNyBAQCBpbnQgYW1kZ3B1X2JvX2xpc3RfaW9jdGwoc3RydWN0IGRybV9k
-ZXZpY2UgCj4+Pj4+ICpkZXYsIHZvaWQgKmRhdGEsCj4+Pj4+IMKgwqDCoMKgwqDCoCByZXR1cm4g
-MDsKPj4+Pj4gwqDCoCDCoMKgIGVycm9yX2ZyZWU6Cj4+Pj4+IC3CoMKgwqAga3ZmcmVlKGluZm8p
-Owo+Pj4+PiArwqDCoMKgIGlmIChpbmZvKQo+Pj4+PiArwqDCoMKgwqDCoMKgwqAga3ZmcmVlKGlu
-Zm8pOwo+Pj4+PiDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7Cj4+Pj4+IMKgwqAgfQo+Pj4+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPj4+Pj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+Pj4+PiBpbmRleCA5ODgxYTFl
-Li4zMDAyNmI4IDEwMDY0NAo+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3MuYwo+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYwo+Pj4+PiBAQCAtNjYsMTEgKzY2LDM0IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3VzZXJf
-ZmVuY2VfY2h1bmsoc3RydWN0IAo+Pj4+PiBhbWRncHVfY3NfcGFyc2VyICpwLAo+Pj4+PiDCoMKg
-wqDCoMKgwqAgcmV0dXJuIDA7Cj4+Pj4+IMKgwqAgfQo+Pj4+PiDCoMKgIC1zdGF0aWMgaW50IGFt
-ZGdwdV9jc19wYXJzZXJfaW5pdChzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwgdm9pZAo+Pj4+
-PiAqZGF0YSkKPj4+Pj4gK3N0YXRpYyBpbnQgYW1kZ3B1X2NzX2JvX2hhbmRsZXNfY2h1bmsoc3Ry
-dWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9hbWRncHVfYm9fbGlzdF9pbiAqZGF0YSkgewo+
-Pj4+PiArwqDCoMKgIGludCByOwo+Pj4+PiArwqDCoMKgIHN0cnVjdCBkcm1fYW1kZ3B1X2JvX2xp
-c3RfZW50cnkgKmluZm8gPSBOVUxMOwo+Pj4+PiArCj4+Pj4+ICvCoMKgwqAgciA9IGFtZGdwdV9i
-b19jcmVhdGVfbGlzdF9lbnRyeV9hcnJheShkYXRhLCAmaW5mbyk7Cj4+Pj4+ICvCoMKgwqAgaWYg
-KHIpCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4+Pj4gKwo+Pj4+PiArwqDCoMKg
-IHIgPSBhbWRncHVfYm9fbGlzdF9jcmVhdGUocC0+YWRldiwgcC0+ZmlscCwgaW5mbywgCj4+Pj4+
-IGRhdGEtPmJvX251bWJlciwgTlVMTCwgJnAtPmJvX2xpc3QpOwo+Pj4+PiArwqDCoMKgIGlmIChy
-KQo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl9mcmVlOwo+Pj4+PiArCj4+Pj4+ICvC
-oMKgwqAga3ZmcmVlKGluZm8pOwo+Pj4+PiArwqDCoMKgIHJldHVybiAwOwo+Pj4+PiArCj4+Pj4+
-ICtlcnJvcl9mcmVlOgo+Pj4+PiArwqDCoMKgIGlmIChpbmZvKQo+Pj4+PiArwqDCoMKgwqDCoMKg
-wqAga3ZmcmVlKGluZm8pOwo+Pj4+PiArCj4+Pj4+ICvCoMKgwqAgcmV0dXJuIHI7Cj4+Pj4+ICt9
-Cj4+Pj4+ICsKPj4+Pj4gK3N0YXRpYyBpbnQgYW1kZ3B1X2NzX3BhcnNlcl9pbml0KHN0cnVjdCBh
-bWRncHVfY3NfcGFyc2VyICpwLCB1bmlvbgo+Pj4+PiArZHJtX2FtZGdwdV9jcyAqY3MpCj4+Pj4+
-IMKgwqAgewo+Pj4+PiDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9mcHJpdiAqZnByaXYgPSBw
-LT5maWxwLT5kcml2ZXJfcHJpdjsKPj4+Pj4gwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfdm0g
-KnZtID0gJmZwcml2LT52bTsKPj4+Pj4gLcKgwqDCoCB1bmlvbiBkcm1fYW1kZ3B1X2NzICpjcyA9
-IGRhdGE7Cj4+Pj4+IMKgwqDCoMKgwqDCoCB1aW50NjRfdCAqY2h1bmtfYXJyYXlfdXNlcjsKPj4+
-Pj4gwqDCoMKgwqDCoMKgIHVpbnQ2NF90ICpjaHVua19hcnJheTsKPj4+Pj4gwqDCoMKgwqDCoMKg
-IHVuc2lnbmVkIHNpemUsIG51bV9pYnMgPSAwOwo+Pj4+PiBAQCAtMTY0LDYgKzE4NywxOSBAQCBz
-dGF0aWMgaW50IGFtZGdwdV9jc19wYXJzZXJfaW5pdChzdHJ1Y3QKPj4+Pj4gYW1kZ3B1X2NzX3Bh
-cnNlciAqcCwgdm9pZCAqZGF0YSkKPj4+Pj4gwqDCoCDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGJyZWFrOwo+Pj4+PiDCoMKgICvCoMKgwqDCoMKgwqDCoCBjYXNlIEFNREdQVV9DSFVOS19J
-RF9CT19IQU5ETEVTOgo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplID0gc2l6ZW9m
-KHN0cnVjdCBkcm1fYW1kZ3B1X2JvX2xpc3RfaW4pOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBpZiAocC0+Y2h1bmtzW2ldLmxlbmd0aF9kdyAqIHNpemVvZih1aW50MzJfdCkgPCBzaXpl
-KSB7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gLUVJTlZBTDsK
-Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGZyZWVfcGFydGlhbF9r
-ZGF0YTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+Pj4+PiArCj4+Pj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IGFtZGdwdV9jc19ib19oYW5kbGVzX2NodW5rKHAsIHAt
-PmNodW5rc1tpXS5rZGF0YSk7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyZXQp
-Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBmcmVlX3BhcnRpYWxf
-a2RhdGE7Cj4+Pj4+ICsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4+
-ICsKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2FzZSBBTURHUFVfQ0hVTktfSURfREVQRU5E
-RU5DSUVTOgo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjYXNlIEFNREdQVV9DSFVOS19JRF9T
-WU5DT0JKX0lOOgo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjYXNlIEFNREdQVV9DSFVOS19J
-RF9TWU5DT0JKX09VVDoKPj4+Pj4gQEAgLTUzNCw3ICs1NzAsMTIgQEAgc3RhdGljIGludCBhbWRn
-cHVfY3NfcGFyc2VyX2JvcyhzdHJ1Y3QKPj4+Pj4gYW1kZ3B1X2NzX3BhcnNlciAqcCwKPj4+Pj4g
-wqDCoCDCoMKgwqDCoMKgwqAgSU5JVF9MSVNUX0hFQUQoJnAtPnZhbGlkYXRlZCk7Cj4+Pj4+IMKg
-wqAgLcKgwqDCoCBwLT5ib19saXN0ID0gYW1kZ3B1X2JvX2xpc3RfZ2V0KGZwcml2LCAKPj4+Pj4g
-Y3MtPmluLmJvX2xpc3RfaGFuZGxlKTsKPj4+Pj4gK8KgwqDCoCAvKiBwLT5ib19saXN0IGNvdWxk
-IGFscmVhZHkgYmUgYXNzaWduZWQgaWYgCj4+Pj4+IEFNREdQVV9DSFVOS19JRF9CT19IQU5ETEVT
-IGlzIHByZXNlbnQgKi8KPj4+Pj4gK8KgwqDCoCBpZiAoIXAtPmJvX2xpc3QpCj4+Pj4+ICvCoMKg
-wqDCoMKgwqDCoCBwLT5ib19saXN0ID0gYW1kZ3B1X2JvX2xpc3RfZ2V0KGZwcml2LCAKPj4+Pj4g
-Y3MtPmluLmJvX2xpc3RfaGFuZGxlKTsKPj4+Pj4gK8KgwqDCoCBlbHNlCj4+Pj4+ICvCoMKgwqDC
-oMKgwqDCoCBtdXRleF9sb2NrKCZwLT5ib19saXN0LT5sb2NrKTsKPj4+Pj4gKwo+Pj4+PiDCoMKg
-wqDCoMKgwqAgaWYgKHAtPmJvX2xpc3QpIHsKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1k
-Z3B1X2JvX2xpc3RfZ2V0X2xpc3QocC0+Ym9fbGlzdCwgJnAtPnZhbGlkYXRlZCk7Cj4+Pj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIGlmIChwLT5ib19saXN0LT5maXJzdF91c2VycHRyICE9IAo+Pj4+
-PiBwLT5ib19saXN0LT5udW1fZW50cmllcykgQEAKPj4+Pj4gLTc0Nyw3ICs3ODgsNyBAQCBzdGF0
-aWMgaW50IGFtZGdwdV9jc19zeW5jX3JpbmdzKHN0cnVjdCAKPj4+Pj4gYW1kZ3B1X2NzX3BhcnNl
-ciAqcCkKPj4+Pj4gwqDCoMKgICogdXNlZCBieSBwYXJzaW5nIGNvbnRleHQuCj4+Pj4+IMKgwqDC
-oCAqKi8KPj4+Pj4gwqDCoCBzdGF0aWMgdm9pZCBhbWRncHVfY3NfcGFyc2VyX2Zpbmkoc3RydWN0
-IGFtZGdwdV9jc19wYXJzZXIgCj4+Pj4+ICpwYXJzZXIsIGludCBlcnJvciwKPj4+Pj4gLcKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYm9vbCBiYWNrb2ZmKQo+Pj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBib29sIGJhY2tvZmYsIGludCBpZCkKPj4+PiBE
-b24ndCBuZWVkIGl0IGFmdGVyIHlvdSBnZXQgYm9fbGlzdCB3aXRob3V0IGlkci4KPj4+Pgo+Pj4+
-PiDCoMKgIHsKPj4+Pj4gwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGk7Cj4+Pj4+IMKgwqAgQEAgLTEy
-NzcsNyArMTMxOCw3IEBAIGludCBhbWRncHVfY3NfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgCj4+
-Pj4+ICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZSAqZmlscCkKPj4+Pj4gwqDCoMKg
-wqDCoMKgIHIgPSBhbWRncHVfY3Nfc3VibWl0KCZwYXJzZXIsIGNzKTsKPj4+Pj4gwqDCoCDCoMKg
-IG91dDoKPj4+Pj4gLcKgwqDCoCBhbWRncHVfY3NfcGFyc2VyX2ZpbmkoJnBhcnNlciwgciwgcmVz
-ZXJ2ZWRfYnVmZmVycyk7Cj4+Pj4+ICvCoMKgwqAgYW1kZ3B1X2NzX3BhcnNlcl9maW5pKCZwYXJz
-ZXIsIHIsIHJlc2VydmVkX2J1ZmZlcnMsCj4+Pj4+ICtjcy0+aW4uYm9fbGlzdF9oYW5kbGUpOwo+
-Pj4+IERvbid0IG5lZWQgaXQgYWZ0ZXIgeW91IGdldCBib19saXN0IHdpdGhvdXQgaWRyLgo+Pj4+
-Cj4+Pj4gT3RoZXJ3aXNlIGl0IGxvb2tzIHJlYWxseSBnb29kIHRvIG1lLCBSZXZpZXdlZC1ieTog
-Q2h1bm1pbmcgWmhvdSAKPj4+PiA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KPj4+Pgo+Pj4+PiDCoMKg
-wqDCoMKgwqAgcmV0dXJuIHI7Cj4+Pj4+IMKgwqAgfQo+Pj4+PiDCoMKgIGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPj4+Pj4gYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPj4+Pj4gaW5kZXggMDZhZWRlMS4uNTI5NTAw
-YyAxMDA2NDQKPj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ry
-di5jCj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+
-Pj4+PiBAQCAtNjksOSArNjksMTAgQEAKPj4+Pj4gwqDCoMKgICogLSAzLjI0LjAgLSBBZGQgaGln
-aCBwcmlvcml0eSBjb21wdXRlIHN1cHBvcnQgZm9yIGdmeDkKPj4+Pj4gwqDCoMKgICogLSAzLjI1
-LjAgLSBBZGQgc3VwcG9ydCBmb3Igc2Vuc29yIHF1ZXJ5IGluZm8gKHN0YWJsZSBwc3RhdGUgCj4+
-Pj4+IHNjbGsvbWNsaykuCj4+Pj4+IMKgwqDCoCAqIC0gMy4yNi4wIC0gR0ZYOTogUHJvY2VzcyBB
-TURHUFVfSUJfRkxBR19UQ19XQl9OT1RfSU5WQUxJREFURS4KPj4+Pj4gKyAqIC0gMy4yNy4wIC0g
-QWRkIG5ldyBjaHVuayB0byB0byBBTURHUFVfQ1MgdG8gZW5hYmxlIEJPX0xJU1QgCj4+Pj4+IGNy
-ZWF0aW9uLgo+Pj4+PiDCoMKgwqAgKi8KPj4+Pj4gwqDCoCAjZGVmaW5lIEtNU19EUklWRVJfTUFK
-T1LCoMKgwqAgMwo+Pj4+PiAtI2RlZmluZSBLTVNfRFJJVkVSX01JTk9SwqDCoMKgIDI2Cj4+Pj4+
-ICsjZGVmaW5lIEtNU19EUklWRVJfTUlOT1LCoMKgwqAgMjcKPj4+Pj4gwqDCoCAjZGVmaW5lIEtN
-U19EUklWRVJfUEFUQ0hMRVZFTMKgwqDCoCAwCj4+Pj4+IMKgwqAgwqDCoCBpbnQgYW1kZ3B1X3Zy
-YW1fbGltaXQgPSAwOwo+Pj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVf
-ZHJtLmgKPj4+Pj4gYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBpbmRleCAwOTc0MWJh
-Li45NDQ0NGVlIDEwMDY0NAo+Pj4+PiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0u
-aAo+Pj4+PiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+Pj4+PiBAQCAtNTE5
-LDYgKzUxOSw3IEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV92YSB7Cj4+Pj4+IMKgwqAgI2RlZmlu
-ZSBBTURHUFVfQ0hVTktfSURfREVQRU5ERU5DSUVTwqDCoMKgIDB4MDMKPj4+Pj4gwqDCoCAjZGVm
-aW5lIEFNREdQVV9DSFVOS19JRF9TWU5DT0JKX0lOwqDCoMKgwqDCoCAweDA0Cj4+Pj4+IMKgwqAg
-I2RlZmluZSBBTURHUFVfQ0hVTktfSURfU1lOQ09CSl9PVVTCoMKgwqDCoCAweDA1Cj4+Pj4+ICsj
-ZGVmaW5lIEFNREdQVV9DSFVOS19JRF9CT19IQU5ETEVTwqDCoMKgwqDCoCAweDA2Cj4+Pj4+IMKg
-wqAgwqDCoCBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVuayB7Cj4+Pj4+IMKgwqDCoMKgwqDCoCBf
-X3UzMsKgwqDCoMKgwqDCoMKgIGNodW5rX2lkOwo+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+PiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Pj4KPj4+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
-Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Pgo+PiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
-PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1344727722==
+Content-Type: multipart/alternative; boundary="000000000000842dfb0570ca6add"
+
+--000000000000842dfb0570ca6add
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian,
+
+Sure, how can I help to fix that?
+
+Regards,
+Lu=C3=ADs
+
+On Thu, Jul 12, 2018 at 8:13 AM, Christian K=C3=B6nig <christian.koenig@amd=
+.com>
+wrote:
+
+> Hi Luis,
+>
+> well was "drm/amdgpu: defer test IBs on the rings at boot (V3)" does is
+> delaying the IB test a bit and running it async to the rest of the bootup=
+.
+>
+> So what most likely happens is that some hardware feature (like power or
+> clock gating) which doesn't works correctly on your system kicks in and
+> lets the IB test fail.
+>
+> It's rather likely that this problem is also responsible for the crashes
+> you expect later on. So I think we should concentrate on fixing that.
+>
+> Regards,
+> Christian.
+>
+>
+> Am 11.07.2018 um 23:27 schrieb Lu=C3=ADs Mendes:
+>
+> Hi Jim,
+>
+> I followed your suggestion and was able to bisect the kernel patches.
+> The offending patch is: drm/amdgpu: defer test IBs on the rings at boot
+> (V3)
+> commit:
+>
+> 2c773de2ecb8c327f2448bd1eecad224e9227087
+> <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
+t/?h=3Dv4.18-rc4&id=3D2c773de2ecb8c327f2448bd1eecad224e9227087>
+>
+> After reverting this patch the IB test succeeded with kernel v4.18-rc4 on
+> both systems and the amdgpu driver was correctly loaded both on SAPPHIRE
+> RX550 4GB and on SAPPHIRE RX460 2GB.
+>
+> The GPU hang remains, however.
+>  I will try to configure a remote IPMI connection to see what is happenin=
+g
+> with the kernel boot or setup a serial console for the Kernel.
+>
+> Thanks & Regards,
+> Lu=C3=ADs
+>
+> On Wed, Jul 11, 2018 at 10:56 AM, jimqu <jimqu-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+>> HI Luis,
+>>
+>>
+>> Let us trace the issue one by one.
+>>
+>>
+>> IB test fail:
+>>
+>> This should be regression issue on 4.18, you can bisect the kernel
+>> patches.
+>>
+>> GPU hang:
+>>
+>> Fix IB test fail first.
+>>
+>>
+>> Thanks
+>>
+>> JimQu
+>>
+>>
+>>
+>> On 2018=E5=B9=B407=E6=9C=8811=E6=97=A5 17:34, Lu=C3=ADs Mendes wrote:
+>>
+>> Hi Jim,
+>>
+>> Thanks for your interest in this issue. Actually this is a multiple
+>> issue... not only the IB ring test is failing... as I am having quite so=
+me
+>> trouble getting the cards SAPPHIRE RX 550 4GB on a Tyan S7025 and SAPPHI=
+RE
+>> RX 460 2GB on a TYAN S7002 to work, both systems using same Ubuntu 18.04
+>> with vanilla kernel.
+>>
+>> *1. May you also test earlier kernel? v4.17 or v4.16.*
+>> I've tested kernels v4.17.5 and v4.16.6 with same system and both are
+>> able to pass the IB ring test and system boots into X using NVIDIA as th=
+e
+>> display connected card.
+>> dmesg log attached for kernel 4.17.5, file TYAN_S7025_kernelv4.17.5_amdg=
+p
+>> u_IB_ring_test_OK.txt.
+>>
+>> *2. May you test the issue only with amdgpu?*
+>> - I've tested on a TYAN S7002 system with a single SAPPHIRE RX 460 2GB,
+>> on-board VGA enabled and used as primary display.
+>> Kernel v4.18-rc4 fails the IB ring test, system is able to enter X
+>> through the on-board VGA.
+>> dmesg log attached for kernel 4.18-rc4, file
+>> TYAN_S7002_kernel_v4.18-rc4_IB_ring_test_fail.txt.
+>>
+>> - Same TYAN S7002 system, but now with on-board VGA disabled and using R=
+X
+>> 460 as display connected card.
+>> Kernels v4.17.5 and v4.16.6 are able to pass the IB ring test, but GPU
+>> hangs before entering X. Don't have logs for these yet.
+>>
+>> Regards,
+>> Lu=C3=ADs Mendes
+>> Aparapi contributor and MSc Researcher
+>>
+>>
+>>
+>>
+>>
+>> On Wed, Jul 11, 2018 at 3:49 AM, Qu, Jim <Jim.Qu-5C7GfCeVMHo@public.gmane.org> wrote:
+>>
+>>> Hi Luis,
+>>>
+>>> 1. May you also test earlier kernel? v4.17 or v4.16.
+>>> 2. May you test the issue only with amdgpu?
+>>>
+>>> Thanks
+>>> JimQu
+>>>
+>>> ________________________________________
+>>> =E5=8F=91=E4=BB=B6=E4=BA=BA: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
+.org> =E4=BB=A3=E8=A1=A8 Lu=C3=ADs Mendes <
+>>> luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2018=E5=B9=B47=E6=9C=8811=E6=97=
+=A5 6:04:00
+>>> =E6=94=B6=E4=BB=B6=E4=BA=BA: Michel D=C3=A4nzer; Koenig, Christian; amd=
+-gfx list
+>>> =E4=B8=BB=E9=A2=98: Re: Regression with kernel 4.18 - AMD RX 550 fails =
+IB ring test on
+>>> power-up
+>>>
+>>> Hi,
+>>>
+>>> Issue remains in kernel 4.18-rc4 using SAPPHIRE RX 550 4GB.
+>>>
+>>> Logs follow attached.
+>>>
+>>> Regards,
+>>> Luis
+>>>
+>>> On Tue, Jun 26, 2018 at 10:08 AM, Lu=C3=ADs Mendes <luis.p.mendes@gmail=
+.com
+>>> <mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
+>>> Hi,
+>>>
+>>> I've tried kernel 4.18-rc2 on a system with a NVIDIA GTX 1050 Ti and an
+>>> AMD RX 550 4GB and the RX 550 card is failing the IB ring test.
+>>>
+>>> [    5.033217] [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* amdgpu: ib
+>>> test failed (scratch(0xC040)=3D0xFFFFFFFF)
+>>> [    5.033264] [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* amdgpu:
+>>> failed testing IB on ring 6 (-22).
+>>>
+>>> Please see the attached log.
+>>>
+>>> Regards,
+>>> Lu=C3=ADs
+>>>
+>>>
+>>
+>>
+>
+>
+
+--000000000000842dfb0570ca6add
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Christian,</div><div><br></div><div>Sure, how can =
+I help to fix that?</div><div><br></div><div>Regards,</div><div>Lu=C3=ADs<b=
+r></div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On =
+Thu, Jul 12, 2018 at 8:13 AM, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a=
+ href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">christian.koeni=
+g@amd.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+ =20
+   =20
+ =20
+  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <div class=3D"m_-8308153251067472241moz-cite-prefix">Hi Luis,<br>
+      <br>
+      well was &quot;drm/amdgpu: defer test IBs on the rings at boot (V3)&q=
+uot;
+      does is delaying the IB test a bit and running it async to the
+      rest of the bootup.<br>
+      <br>
+      So what most likely happens is that some hardware feature (like
+      power or clock gating) which doesn&#39;t works correctly on your
+      system kicks in and lets the IB test fail.<br>
+      <br>
+      It&#39;s rather likely that this problem is also responsible for the
+      crashes you expect later on. So I think we should concentrate on
+      fixing that.<br>
+      <br>
+      Regards,<br>
+      Christian.<div><div class=3D"h5"><br>
+      <br>
+      Am 11.07.2018 um 23:27 schrieb Lu=C3=ADs Mendes:<br>
+    </div></div></div><div><div class=3D"h5">
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">
+        <div>Hi Jim,</div>
+        <div><br>
+        </div>
+        <div>I followed your suggestion and was able to bisect the
+          kernel patches.</div>
+        <div>The offending patch is: drm/amdgpu: defer test IBs on the
+          rings at boot (V3)<br>
+        </div>
+        <div>commit:
+          <table summary=3D"commit info" class=3D"m_-8308153251067472241gma=
+il-commit-info">
+            <tbody>
+              <tr>
+                <th><br>
+                </th>
+                <td colspan=3D"2" class=3D"m_-8308153251067472241gmail-sha1=
+"><a href=3D"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux=
+.git/commit/?h=3Dv4.18-rc4&amp;id=3D2c773de2ecb8c327f2448bd1eecad224e922708=
+7" target=3D"_blank">2c773de2ecb8c327f2448bd1eecad2<wbr>24e9227087</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div><br>
+        </div>
+        <div>After reverting this patch the IB test succeeded with
+          kernel v4.18-rc4 on both systems and the amdgpu driver was
+          correctly loaded both on SAPPHIRE RX550 4GB and on SAPPHIRE
+          RX460 2GB.</div>
+        <div><br>
+        </div>
+        <div>The GPU hang remains, however.<br>
+        </div>
+        <div>=C2=A0I will try to configure a remote IPMI connection to see
+          what is happening with the kernel boot or setup a serial
+          console for the Kernel.</div>
+        <div><br>
+        </div>
+        <div>Thanks &amp; Regards,</div>
+        <div>Lu=C3=ADs<br>
+        </div>
+      </div>
+      <div class=3D"gmail_extra"><br>
+        <div class=3D"gmail_quote">On Wed, Jul 11, 2018 at 10:56 AM, jimqu
+          <span dir=3D"ltr">&lt;<a href=3D"mailto:jimqu-5C7GfCeVMHo@public.gmane.org" target=3D"=
+_blank">jimqu-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
+          wrote:<br>
+          <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
+er-left:1px #ccc solid;padding-left:1ex">
+            <div text=3D"#000000" bgcolor=3D"#FFFFFF">
+              <p>HI Luis,</p>
+              <p><br>
+              </p>
+              <p>Let us trace the issue one by one.</p>
+              <p><br>
+              </p>
+              <p>IB test fail:</p>
+              <p>This should be regression issue on 4.18, you can bisect
+                the kernel patches.</p>
+              <p>GPU hang:</p>
+              <p>Fix IB test fail first.</p>
+              <p><br>
+              </p>
+              <p>Thanks</p>
+              <span class=3D"m_-8308153251067472241HOEnZb"><font color=3D"#=
+888888">
+                  <p>JimQu<br>
+                  </p>
+                </font></span>
+              <div>
+                <div class=3D"m_-8308153251067472241h5">
+                  <p><br>
+                  </p>
+                  <br>
+                  <div class=3D"m_-8308153251067472241m_-554297770313597130=
+0moz-cite-prefix">On
+                    2018=E5=B9=B407=E6=9C=8811=E6=97=A5 17:34, Lu=C3=ADs Me=
+ndes wrote:<br>
+                  </div>
+                  <blockquote type=3D"cite">
+                    <div dir=3D"ltr">
+                      <div>Hi Jim,</div>
+                      <div><br>
+                      </div>
+                      <div>Thanks for your interest in this issue.
+                        Actually this is a multiple issue... not only
+                        the IB ring test is failing... as I am having
+                        quite some trouble getting the cards SAPPHIRE RX
+                        550 4GB on a Tyan S7025 and SAPPHIRE RX 460 2GB
+                        on a TYAN S7002 to work, both systems using same
+                        Ubuntu 18.04 with vanilla kernel.<br>
+                      </div>
+                      <div><br>
+                      </div>
+                      <div><b>1. May you also test earlier kernel? v4.17
+                          or v4.16.</b><br>
+                      </div>
+                      <div>I&#39;ve tested kernels v4.17.5 and v4.16.6 with
+                        same system and both are able to pass the IB
+                        ring test and system boots into X using NVIDIA
+                        as the display connected card.</div>
+                      <div>dmesg log attached for kernel 4.17.5, file
+                        TYAN_S7025_kernelv4.17.5_amdgp<wbr>u_IB_ring_test_O=
+K.txt.<br>
+                      </div>
+                      <div><br>
+                      </div>
+                      <div><b>2. May you test the issue only with
+                          amdgpu?</b></div>
+                      <div>
+                        <div>- I&#39;ve tested on a TYAN S7002 system with =
+a
+                          single SAPPHIRE RX 460 2GB, on-board VGA
+                          enabled and used as primary display.</div>
+                        <div>Kernel v4.18-rc4 fails the IB ring test,
+                          system is able to enter X through the on-board
+                          VGA. <br>
+                        </div>
+                        <div>dmesg log attached for kernel 4.18-rc4,
+                          file TYAN_S7002_kernel_v4.18-rc4_IB<wbr>_ring_tes=
+t_fail.txt.</div>
+                        <div><br>
+                        </div>
+                        <div>- Same TYAN S7002 system, but now with
+                          on-board VGA disabled and using RX 460 as
+                          display connected card.<br>
+                        </div>
+                        <div>
+                          <div>Kernels v4.17.5 and v4.16.6 are able to
+                            pass the IB ring test, but GPU hangs before
+                            entering X. Don&#39;t have logs for these yet.<=
+br>
+                          </div>
+                          <br>
+                          <div>Regards,</div>
+                          <div>Lu=C3=ADs Mendes</div>
+                          <div>Aparapi contributor and MSc Researcher<br>
+                          </div>
+                          <div><br>
+                          </div>
+                          <div><br>
+                          </div>
+                          <br>
+                        </div>
+                        <br>
+                      </div>
+                    </div>
+                    <div class=3D"gmail_extra"><br>
+                      <div class=3D"gmail_quote">On Wed, Jul 11, 2018 at
+                        3:49 AM, Qu, Jim <span dir=3D"ltr">&lt;<a href=3D"m=
+ailto:Jim.Qu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Jim.Qu-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
+                        wrote:<br>
+                        <blockquote class=3D"gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Luis,<br>
+                          <br>
+                          1. May you also test earlier kernel? v4.17 or
+                          v4.16.<br>
+                          2. May you test the issue only with amdgpu?<br>
+                          <br>
+                          Thanks<br>
+                          JimQu<br>
+                          <br>
+                          ______________________________<wbr>__________<br>
+                          =E5=8F=91=E4=BB=B6=E4=BA=BA: amd-gfx &lt;<a href=
+=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx=
+-bounces-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org<wbr>ktop.org</a>&gt;
+                          =E4=BB=A3=E8=A1=A8 Lu=C3=ADs Mendes &lt;<a href=
+=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes@gmail.c=
+om</a>&gt;<br>
+                          =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2018=E5=B9=
+=B47=E6=9C=8811=E6=97=A5 6:04:00<br>
+                          =E6=94=B6=E4=BB=B6=E4=BA=BA: Michel D=C3=A4nzer; =
+Koenig, Christian; amd-gfx
+                          list<br>
+                          =E4=B8=BB=E9=A2=98: Re: Regression with kernel 4.=
+18 - AMD RX
+                          550 fails IB ring test on power-up<br>
+                          <span class=3D"m_-8308153251067472241m_-554297770=
+3135971300im m_-8308153251067472241m_-5542977703135971300HOEnZb"><br>
+                            Hi,<br>
+                            <br>
+                            Issue remains in kernel 4.18-rc4 using
+                            SAPPHIRE RX 550 4GB.<br>
+                            <br>
+                            Logs follow attached.<br>
+                            <br>
+                            Regards,<br>
+                            Luis<br>
+                            <br>
+                          </span>
+                          <div class=3D"m_-8308153251067472241m_-5542977703=
+135971300HOEnZb">
+                            <div class=3D"m_-8308153251067472241m_-55429777=
+03135971300h5">On
+                              Tue, Jun 26, 2018 at 10:08 AM, Lu=C3=ADs Mend=
+es
+                              &lt;<a href=3D"mailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
+" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&lt;mailt<wbr>o:<a href=3D"m=
+ailto:luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a=
+>&gt;&gt;
+                              wrote:<br>
+                              Hi,<br>
+                              <br>
+                              I&#39;ve tried kernel 4.18-rc2 on a system
+                              with a NVIDIA GTX 1050 Ti and an AMD RX
+                              550 4GB and the RX 550 card is failing the
+                              IB ring test.<br>
+                              <br>
+                              [=C2=A0 =C2=A0 5.033217] [drm:gfx_v8_0_ring_t=
+est_ib
+                              [amdgpu]] *ERROR* amdgpu: ib test failed
+                              (scratch(0xC040)=3D0xFFFFFFFF)<br>
+                              [=C2=A0 =C2=A0 5.033264] [drm:amdgpu_ib_ring_=
+tests
+                              [amdgpu]] *ERROR* amdgpu: failed testing
+                              IB on ring 6 (-22).<br>
+                              <br>
+                              Please see the attached log.<br>
+                              <br>
+                              Regards,<br>
+                              Lu=C3=ADs<br>
+                              <br>
+                            </div>
+                          </div>
+                        </blockquote>
+                      </div>
+                      <br>
+                    </div>
+                  </blockquote>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </blockquote>
+        </div>
+        <br>
+      </div>
+    </blockquote>
+    <br>
+  </div></div></div>
+
+</blockquote></div><br></div>
+
+--000000000000842dfb0570ca6add--
+
+--===============1344727722==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1344727722==--
