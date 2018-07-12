@@ -1,91 +1,55 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 1/4] drm/amdgpu/pp/smu7: use a local variable for toc indexing
-Date: Thu, 12 Jul 2018 09:39:38 -0500
-Message-ID: <20180712143941.28977-1-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/4] drm/amdgpu/pp/smu7: drop unused values in smu data
+ structure
+Date: Thu, 12 Jul 2018 09:39:39 -0500
+Message-ID: <20180712143941.28977-2-alexander.deucher@amd.com>
+References: <20180712143941.28977-1-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180712143941.28977-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Rather than using the index variable stored in vram.  If
-the device fails to come back online after a resume cycle,
-reads from vram will return all 1s which will cause a
-segfault. Based on a patch from Thomas Martitz <kugel@rockbox.org>.
-This avoids the segfault, but we still need to sort out
-why the GPU does not come back online after a resume.
-
-Bug: https://bugs.freedesktop.org/show_bug.cgi?id=105760
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 23 +++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-index d644a9bb9078..9f407c48d4f0 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-@@ -381,6 +381,7 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
- 	uint32_t fw_to_load;
- 	int result = 0;
- 	struct SMU_DRAMData_TOC *toc;
-+	uint32_t num_entries = 0;
- 
- 	if (!hwmgr->reload_fw) {
- 		pr_info("skip reloading...\n");
-@@ -422,41 +423,41 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
- 	}
- 
- 	toc = (struct SMU_DRAMData_TOC *)smu_data->header;
--	toc->num_entries = 0;
- 	toc->structure_version = 1;
- 
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_RLC_G, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_RLC_G, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_CP_CE, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_CP_CE, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_CP_PFP, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_CP_PFP, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_CP_ME, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_CP_ME, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_CP_MEC, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_CP_MEC, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_CP_MEC_JT1, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_CP_MEC_JT1, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_CP_MEC_JT2, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_CP_MEC_JT2, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_SDMA0, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_SDMA0, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_SDMA1, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_SDMA1, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 	if (!hwmgr->not_vf)
- 		PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
--				UCODE_ID_MEC_STORAGE, &toc->entry[toc->num_entries++]),
-+				UCODE_ID_MEC_STORAGE, &toc->entry[num_entries++]),
- 				"Failed to Get Firmware Entry.", return -EINVAL);
- 
-+	toc->num_entries = num_entries;
- 	smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_HI, upper_32_bits(smu_data->header_buffer.mc_addr));
- 	smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_LO, lower_32_bits(smu_data->header_buffer.mc_addr));
- 
--- 
-2.13.6
+dXNlIGthZGRyIGRpcmVjdGx5IHJhdGhlciB0aGFuIHNlY29uZGFyeSB2YXJpYWJsZS4KClNpZ25l
+ZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuYyB8IDMgKy0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuaCB8IDIg
+LS0KIDIgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDQgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdTdfc211bWdy
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuYwpp
+bmRleCA5ZjQwN2M0OGQ0ZjAuLjBmMTFjNTM0MWM0OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdTdfc211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdTdfc211bWdyLmMKQEAgLTQyMiw3ICs0MjIsNyBA
+QCBpbnQgc211N19yZXF1ZXN0X3NtdV9sb2FkX2Z3KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJ
+CQkgICArIFVDT0RFX0lEX0NQX01FQ19KVDJfTUFTSzsKIAl9CiAKLQl0b2MgPSAoc3RydWN0IFNN
+VV9EUkFNRGF0YV9UT0MgKilzbXVfZGF0YS0+aGVhZGVyOworCXRvYyA9IChzdHJ1Y3QgU01VX0RS
+QU1EYXRhX1RPQyAqKXNtdV9kYXRhLT5oZWFkZXJfYnVmZmVyLmthZGRyOwogCXRvYy0+c3RydWN0
+dXJlX3ZlcnNpb24gPSAxOwogCiAJUFBfQVNTRVJUX1dJVEhfQ09ERSgwID09IHNtdTdfcG9wdWxh
+dGVfc2luZ2xlX2Zpcm13YXJlX2VudHJ5KGh3bWdyLApAQCAtNTkxLDcgKzU5MSw2IEBAIGludCBz
+bXU3X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAlpZiAocikKIAkJcmV0dXJuIC1FSU5W
+QUw7CiAKLQlzbXVfZGF0YS0+aGVhZGVyID0gc211X2RhdGEtPmhlYWRlcl9idWZmZXIua2FkZHI7
+CiAJc211X2RhdGEtPmhlYWRlcl9idWZmZXIubWNfYWRkciA9IG1jX2FkZHI7CiAKIAlpZiAoIWh3
+bWdyLT5ub3RfdmYpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9z
+bXVtZ3Ivc211N19zbXVtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1n
+ci9zbXU3X3NtdW1nci5oCmluZGV4IDM5YzliZmRhMGFiNC4uZTZkZWYyODNiNzMxIDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuaAor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuaApA
+QCAtMzcsOCArMzcsNiBAQCBzdHJ1Y3Qgc211N19idWZmZXJfZW50cnkgewogfTsKIAogc3RydWN0
+IHNtdTdfc211bWdyIHsKLQl1aW50OF90ICpoZWFkZXI7Ci0JdWludDhfdCAqbWVjX2ltYWdlOwog
+CXN0cnVjdCBzbXU3X2J1ZmZlcl9lbnRyeSBzbXVfYnVmZmVyOwogCXN0cnVjdCBzbXU3X2J1ZmZl
+cl9lbnRyeSBoZWFkZXJfYnVmZmVyOwogCi0tIAoyLjEzLjYKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
