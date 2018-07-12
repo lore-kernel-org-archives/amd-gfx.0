@@ -1,127 +1,91 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH v2 1/3] drm/amdgpu: Keep track of amount of pinned CPU visible
- VRAM
-Date: Thu, 12 Jul 2018 16:37:49 +0200
-Message-ID: <20180712143751.14353-1-michel@daenzer.net>
-References: <20180711162342.14835-1-michel@daenzer.net>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180711162342.14835-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH 1/4] drm/amdgpu/pp/smu7: use a local variable for toc indexing
+Date: Thu, 12 Jul 2018 09:39:38 -0500
+Message-ID: <20180712143941.28977-1-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpJbnN0ZWFkIG9m
-IENQVSBpbnZpc2libGUgVlJBTS4gUHJlcGFyYXRpb24gZm9yIHRoZSBmb2xsb3dpbmcsIG5vCmZ1
-bmN0aW9uYWwgY2hhbmdlIGludGVuZGVkLgoKdjI6CiogQWxzbyBjaGFuZ2UgYW1kZ3B1X3ZyYW1f
-bWdyX2JvX2ludmlzaWJsZV9zaXplIHRvCiAgYW1kZ3B1X3ZyYW1fbWdyX2JvX3Zpc2libGVfc2l6
-ZSwgYWxsb3dpbmcgZnVydGhlciBzaW1wbGlmaWNhdGlvbgogIChDaHJpc3RpYW4gS8O2bmlnKQoK
-Q2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIg
-PG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1LmggICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ttcy5jICAgICAgfCAgNSArKy0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X29iamVjdC5jICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdHRtLmggICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dnJhbV9tZ3IuYyB8IDIwICsrKysrKysrLS0tLS0tLS0tLS0tCiA1IGZpbGVzIGNoYW5nZWQsIDE0
-IGluc2VydGlvbnMoKyksIDE5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKaW5kZXggOGVhYmEwZjRkYjEwLi43N2FiMDZiZjI2ZDUgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oCkBAIC0xNTkzLDcgKzE1OTMsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSB7CiAKIAkvKiB0cmFja2luZyBwaW5uZWQgbWVtb3J5ICovCiAJdTY0IHZyYW1fcGluX3NpemU7
-Ci0JdTY0IGludmlzaWJsZV9waW5fc2l6ZTsKKwl1NjQgdmlzaWJsZV9waW5fc2l6ZTsKIAl1NjQg
-Z2FydF9waW5fc2l6ZTsKIAogCS8qIGFtZGtmZCBpbnRlcmZhY2UgKi8KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwppbmRleCBkMDQxZGRkYWFkMGMuLmIxZWE0M2VlOGI4NyAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwpAQCAtNTA0LDcgKzUwNCw3
-IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2luZm9faW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwg
-dm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlCiAJCXZyYW1fZ3R0LnZyYW1fc2l6ZSA9IGFkZXYt
-PmdtYy5yZWFsX3ZyYW1fc2l6ZTsKIAkJdnJhbV9ndHQudnJhbV9zaXplIC09IGFkZXYtPnZyYW1f
-cGluX3NpemU7CiAJCXZyYW1fZ3R0LnZyYW1fY3B1X2FjY2Vzc2libGVfc2l6ZSA9IGFkZXYtPmdt
-Yy52aXNpYmxlX3ZyYW1fc2l6ZTsKLQkJdnJhbV9ndHQudnJhbV9jcHVfYWNjZXNzaWJsZV9zaXpl
-IC09IChhZGV2LT52cmFtX3Bpbl9zaXplIC0gYWRldi0+aW52aXNpYmxlX3Bpbl9zaXplKTsKKwkJ
-dnJhbV9ndHQudnJhbV9jcHVfYWNjZXNzaWJsZV9zaXplIC09IGFkZXYtPnZpc2libGVfcGluX3Np
-emU7CiAJCXZyYW1fZ3R0Lmd0dF9zaXplID0gYWRldi0+bW1hbi5iZGV2Lm1hbltUVE1fUExfVFRd
-LnNpemU7CiAJCXZyYW1fZ3R0Lmd0dF9zaXplICo9IFBBR0VfU0laRTsKIAkJdnJhbV9ndHQuZ3R0
-X3NpemUgLT0gYWRldi0+Z2FydF9waW5fc2l6ZTsKQEAgLTUyNSw4ICs1MjUsNyBAQCBzdGF0aWMg
-aW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEs
-IHN0cnVjdCBkcm1fZmlsZQogCQltZW0uY3B1X2FjY2Vzc2libGVfdnJhbS50b3RhbF9oZWFwX3Np
-emUgPQogCQkJYWRldi0+Z21jLnZpc2libGVfdnJhbV9zaXplOwogCQltZW0uY3B1X2FjY2Vzc2li
-bGVfdnJhbS51c2FibGVfaGVhcF9zaXplID0KLQkJCWFkZXYtPmdtYy52aXNpYmxlX3ZyYW1fc2l6
-ZSAtCi0JCQkoYWRldi0+dnJhbV9waW5fc2l6ZSAtIGFkZXYtPmludmlzaWJsZV9waW5fc2l6ZSk7
-CisJCQlhZGV2LT5nbWMudmlzaWJsZV92cmFtX3NpemUgLSBhZGV2LT52aXNpYmxlX3Bpbl9zaXpl
-OwogCQltZW0uY3B1X2FjY2Vzc2libGVfdnJhbS5oZWFwX3VzYWdlID0KIAkJCWFtZGdwdV92cmFt
-X21ncl92aXNfdXNhZ2UoJmFkZXYtPm1tYW4uYmRldi5tYW5bVFRNX1BMX1ZSQU1dKTsKIAkJbWVt
-LmNwdV9hY2Nlc3NpYmxlX3ZyYW0ubWF4X2FsbG9jYXRpb24gPQpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCmluZGV4IDllZTY3OGQ2Mzg5MC4uZjAyMzlmZWNlYWI0
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCkBAIC05MTcs
-NyArOTE3LDcgQEAgaW50IGFtZGdwdV9ib19waW5fcmVzdHJpY3RlZChzdHJ1Y3QgYW1kZ3B1X2Jv
-ICpibywgdTMyIGRvbWFpbiwKIAlkb21haW4gPSBhbWRncHVfbWVtX3R5cGVfdG9fZG9tYWluKGJv
-LT50Ym8ubWVtLm1lbV90eXBlKTsKIAlpZiAoZG9tYWluID09IEFNREdQVV9HRU1fRE9NQUlOX1ZS
-QU0pIHsKIAkJYWRldi0+dnJhbV9waW5fc2l6ZSArPSBhbWRncHVfYm9fc2l6ZShibyk7Ci0JCWFk
-ZXYtPmludmlzaWJsZV9waW5fc2l6ZSArPSBhbWRncHVfdnJhbV9tZ3JfYm9faW52aXNpYmxlX3Np
-emUoYm8pOworCQlhZGV2LT52aXNpYmxlX3Bpbl9zaXplICs9IGFtZGdwdV92cmFtX21ncl9ib192
-aXNpYmxlX3NpemUoYm8pOwogCX0gZWxzZSBpZiAoZG9tYWluID09IEFNREdQVV9HRU1fRE9NQUlO
-X0dUVCkgewogCQlhZGV2LT5nYXJ0X3Bpbl9zaXplICs9IGFtZGdwdV9ib19zaXplKGJvKTsKIAl9
-CkBAIC05NjksNyArOTY5LDcgQEAgaW50IGFtZGdwdV9ib191bnBpbihzdHJ1Y3QgYW1kZ3B1X2Jv
-ICpibykKIAogCWlmIChiby0+dGJvLm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfVlJBTSkgewogCQlh
-ZGV2LT52cmFtX3Bpbl9zaXplIC09IGFtZGdwdV9ib19zaXplKGJvKTsKLQkJYWRldi0+aW52aXNp
-YmxlX3Bpbl9zaXplIC09IGFtZGdwdV92cmFtX21ncl9ib19pbnZpc2libGVfc2l6ZShibyk7CisJ
-CWFkZXYtPnZpc2libGVfcGluX3NpemUgLT0gYW1kZ3B1X3ZyYW1fbWdyX2JvX3Zpc2libGVfc2l6
-ZShibyk7CiAJfSBlbHNlIGlmIChiby0+dGJvLm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfVFQpIHsK
-IAkJYWRldi0+Z2FydF9waW5fc2l6ZSAtPSBhbWRncHVfYm9fc2l6ZShibyk7CiAJfQpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCmluZGV4IGU1ZGE0NjU0YjYzMC4uOGIzY2M2
-Njg3NzY5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRt
-LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCkBAIC03Myw3
-ICs3Myw3IEBAIGJvb2wgYW1kZ3B1X2d0dF9tZ3JfaGFzX2dhcnRfYWRkcihzdHJ1Y3QgdHRtX21l
-bV9yZWcgKm1lbSk7CiB1aW50NjRfdCBhbWRncHVfZ3R0X21ncl91c2FnZShzdHJ1Y3QgdHRtX21l
-bV90eXBlX21hbmFnZXIgKm1hbik7CiBpbnQgYW1kZ3B1X2d0dF9tZ3JfcmVjb3ZlcihzdHJ1Y3Qg
-dHRtX21lbV90eXBlX21hbmFnZXIgKm1hbik7CiAKLXU2NCBhbWRncHVfdnJhbV9tZ3JfYm9faW52
-aXNpYmxlX3NpemUoc3RydWN0IGFtZGdwdV9ibyAqYm8pOwordTY0IGFtZGdwdV92cmFtX21ncl9i
-b192aXNpYmxlX3NpemUoc3RydWN0IGFtZGdwdV9ibyAqYm8pOwogdWludDY0X3QgYW1kZ3B1X3Zy
-YW1fbWdyX3VzYWdlKHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuKTsKIHVpbnQ2NF90
-IGFtZGdwdV92cmFtX21ncl92aXNfdXNhZ2Uoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICpt
-YW4pOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJh
-bV9tZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCmlu
-ZGV4IGY3YTRiZDU4ODVhMy4uOWNmYThhOWFkYTkyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYwpAQCAtOTcsMzMgKzk3LDI5IEBAIHN0YXRpYyB1NjQg
-YW1kZ3B1X3ZyYW1fbWdyX3Zpc19zaXplKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogfQog
-CiAvKioKLSAqIGFtZGdwdV92cmFtX21ncl9ib19pbnZpc2libGVfc2l6ZSAtIENQVSBpbnZpc2li
-bGUgQk8gc2l6ZQorICogYW1kZ3B1X3ZyYW1fbWdyX2JvX3Zpc2libGVfc2l6ZSAtIENQVSB2aXNp
-YmxlIEJPIHNpemUKICAqCiAgKiBAYm86ICZhbWRncHVfYm8gYnVmZmVyIG9iamVjdCAobXVzdCBi
-ZSBpbiBWUkFNKQogICoKICAqIFJldHVybnM6Ci0gKiBIb3cgbXVjaCBvZiB0aGUgZ2l2ZW4gJmFt
-ZGdwdV9ibyBidWZmZXIgb2JqZWN0IGxpZXMgaW4gQ1BVIGludmlzaWJsZSBWUkFNLgorICogSG93
-IG11Y2ggb2YgdGhlIGdpdmVuICZhbWRncHVfYm8gYnVmZmVyIG9iamVjdCBsaWVzIGluIENQVSB2
-aXNpYmxlIFZSQU0uCiAgKi8KLXU2NCBhbWRncHVfdnJhbV9tZ3JfYm9faW52aXNpYmxlX3NpemUo
-c3RydWN0IGFtZGdwdV9ibyAqYm8pCit1NjQgYW1kZ3B1X3ZyYW1fbWdyX2JvX3Zpc2libGVfc2l6
-ZShzdHJ1Y3QgYW1kZ3B1X2JvICpibykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9
-IGFtZGdwdV90dG1fYWRldihiby0+dGJvLmJkZXYpOwogCXN0cnVjdCB0dG1fbWVtX3JlZyAqbWVt
-ID0gJmJvLT50Ym8ubWVtOwogCXN0cnVjdCBkcm1fbW1fbm9kZSAqbm9kZXMgPSBtZW0tPm1tX25v
-ZGU7CiAJdW5zaWduZWQgcGFnZXMgPSBtZW0tPm51bV9wYWdlczsKLQl1NjQgdXNhZ2UgPSAwOwor
-CXU2NCB1c2FnZTsKIAogCWlmIChhbWRncHVfZ21jX3ZyYW1fZnVsbF92aXNpYmxlKCZhZGV2LT5n
-bWMpKQotCQlyZXR1cm4gMDsKKwkJcmV0dXJuIGFtZGdwdV9ib19zaXplKGJvKTsKIAogCWlmICht
-ZW0tPnN0YXJ0ID49IGFkZXYtPmdtYy52aXNpYmxlX3ZyYW1fc2l6ZSA+PiBQQUdFX1NISUZUKQot
-CQlyZXR1cm4gYW1kZ3B1X2JvX3NpemUoYm8pOworCQlyZXR1cm4gMDsKIAotCXdoaWxlIChub2Rl
-cyAmJiBwYWdlcykgewotCQl1c2FnZSArPSBub2Rlcy0+c2l6ZSA8PCBQQUdFX1NISUZUOwotCQl1
-c2FnZSAtPSBhbWRncHVfdnJhbV9tZ3JfdmlzX3NpemUoYWRldiwgbm9kZXMpOwotCQlwYWdlcyAt
-PSBub2Rlcy0+c2l6ZTsKLQkJKytub2RlczsKLQl9CisJZm9yICh1c2FnZSA9IDA7IG5vZGVzICYm
-IHBhZ2VzOyBwYWdlcyAtPSBub2Rlcy0+c2l6ZSwgbm9kZXMrKykKKwkJdXNhZ2UgKz0gYW1kZ3B1
-X3ZyYW1fbWdyX3Zpc19zaXplKGFkZXYsIG5vZGVzKTsKIAogCXJldHVybiB1c2FnZTsKIH0KLS0g
-CjIuMTguMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Rather than using the index variable stored in vram.  If
+the device fails to come back online after a resume cycle,
+reads from vram will return all 1s which will cause a
+segfault. Based on a patch from Thomas Martitz <kugel@rockbox.org>.
+This avoids the segfault, but we still need to sort out
+why the GPU does not come back online after a resume.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=105760
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 23 +++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+index d644a9bb9078..9f407c48d4f0 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+@@ -381,6 +381,7 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
+ 	uint32_t fw_to_load;
+ 	int result = 0;
+ 	struct SMU_DRAMData_TOC *toc;
++	uint32_t num_entries = 0;
+ 
+ 	if (!hwmgr->reload_fw) {
+ 		pr_info("skip reloading...\n");
+@@ -422,41 +423,41 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
+ 	}
+ 
+ 	toc = (struct SMU_DRAMData_TOC *)smu_data->header;
+-	toc->num_entries = 0;
+ 	toc->structure_version = 1;
+ 
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_RLC_G, &toc->entry[toc->num_entries++]),
++				UCODE_ID_RLC_G, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_CP_CE, &toc->entry[toc->num_entries++]),
++				UCODE_ID_CP_CE, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_CP_PFP, &toc->entry[toc->num_entries++]),
++				UCODE_ID_CP_PFP, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_CP_ME, &toc->entry[toc->num_entries++]),
++				UCODE_ID_CP_ME, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_CP_MEC, &toc->entry[toc->num_entries++]),
++				UCODE_ID_CP_MEC, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_CP_MEC_JT1, &toc->entry[toc->num_entries++]),
++				UCODE_ID_CP_MEC_JT1, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_CP_MEC_JT2, &toc->entry[toc->num_entries++]),
++				UCODE_ID_CP_MEC_JT2, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_SDMA0, &toc->entry[toc->num_entries++]),
++				UCODE_ID_SDMA0, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_SDMA1, &toc->entry[toc->num_entries++]),
++				UCODE_ID_SDMA1, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 	if (!hwmgr->not_vf)
+ 		PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+-				UCODE_ID_MEC_STORAGE, &toc->entry[toc->num_entries++]),
++				UCODE_ID_MEC_STORAGE, &toc->entry[num_entries++]),
+ 				"Failed to Get Firmware Entry.", return -EINVAL);
+ 
++	toc->num_entries = num_entries;
+ 	smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_HI, upper_32_bits(smu_data->header_buffer.mc_addr));
+ 	smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_LO, lower_32_bits(smu_data->header_buffer.mc_addr));
+ 
+-- 
+2.13.6
