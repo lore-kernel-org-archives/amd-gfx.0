@@ -1,16 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: GTT memory usage overflow
-Date: Fri, 13 Jul 2018 09:47:00 +0200
-Message-ID: <5e684ce7-9382-e84f-bc4c-e41245cf9412@amd.com>
-References: <EB021AE3BDDC1742A899855D00BABEB001075B42@DGGEMM506-MBX.china.huawei.com>
- <9564a854-21ff-1ca3-34d9-cf9baaa18a8c@gmail.com>
- <c588a557-1488-9d86-f6c9-d584bdeba16c@daenzer.net>
+From: Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] ALSA: HDA: use PCI_BASE_CLASS_DISPLAY to cover more
+ display adapters
+Date: Fri, 13 Jul 2018 16:06:01 +0800
+Message-ID: <1531469162-6472-1-git-send-email-Jim.Qu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c588a557-1488-9d86-f6c9-d584bdeba16c-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,23 +17,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, sunnanyong <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Cc: "Baixin (BX)" <baixin1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: alsa-devel-K7yf7f+aM1XWsZ/bQMPhNw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTMuMDcuMjAxOCB1bSAwOTo0MCBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDIwMTgt
-MDctMTMgMDk6MDAgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEhpLAo+Pgo+PiBubyB0
-aGF0IGlzIGNlcnRhaW5seSBub3Qgbm9ybWFsLgo+Pgo+PiBXZSB0ZW1wb3JhcnkgYWxsb3cgdGhl
-IGtlcm5lbCB0byBhbGxvY2F0ZSBtb3JlIHBhZ2VzIHRoYW4gYXZhaWxhYmxlIHdoZW4KPj4gd2Ug
-YmluZCBzdHVmZiBpbnRvIHRoZSBHQVJULCBidXQgdGhhdCBzaG91bGRuJ3QgaGF2ZSB0aGlzIGVm
-ZmVjdC4KPiBtZ3ItPmF2YWlsYWJsZSBjYW4gaGFwcGVuIHRvIGJlIG5lZ2F0aXZlIHdoZW4gYW1k
-Z3B1X2d0dF9tZ3JfZGVidWcgaXMKPiBjYWxsZWQsIGNhbid0IGl0PyBJLmUuIHdlIHNob3VsZCBj
-bGFtcCBpdCB0byAwIHRoZXJlIGFzIHdlbGwsIHNhbWUgYXMgaW4KPiBhbWRncHVfZ3R0X21ncl91
-c2FnZSAob3IgbWF5YmUganVzdCB1c2UgdGhhdCBmb3IgYm90aCB2YWx1ZXMgaW4KPiBhbWRncHVf
-Z3R0X21ncl9kZWJ1ZykuCgpZZWFoLCBidXQgdGhhdCBoYXBwZW5zIG9ubHkgdGVtcG9yYXJ5IHdo
-aWxlIGJpbmRpbmcgdGhpbmdzIGludG8gR0FSVC4KCllvdSBtdXN0IGJlIHJlYWxseSByZWFsbHkg
-bHVja3kgaWYgeW91IGNhbiBzZWUgdGhhdCBpbiBkZWJ1Z2ZzIGFuZCBmcm9tIAp0aGUgZGVzY3Jp
-cHRpb24gaXQgc291bmRzIG1vcmUgbGlrZSB0aGUgcmVwb3J0ZXIgc2VlcyBuZWdhdGl2ZSB2YWx1
-ZXMgCmFsbCB0aGUgdGltZS4KCkkgcmVhbGx5IHdvbmRlciBob3cgdGhhdCBjb3VsZCBoYXBwZW4u
-CgpDaHJpc3RpYW4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+U2lnbmVkLW9mZi1ieTogSmltIFF1IDxKaW0uUXVAYW1kLmNvbT4KLS0tCiBzb3VuZC9wY2kvaGRh
+L2hkYV9pbnRlbC5jIHwgOCArKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygr
+KSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRhL2hkYV9pbnRlbC5j
+IGIvc291bmQvcGNpL2hkYS9oZGFfaW50ZWwuYwppbmRleCAxYWUxODUwLi5lMDA2NDU2NyAxMDA2
+NDQKLS0tIGEvc291bmQvcGNpL2hkYS9oZGFfaW50ZWwuYworKysgYi9zb3VuZC9wY2kvaGRhL2hk
+YV9pbnRlbC5jCkBAIC0zMSw3ICszMSw3IEBACiAgKiAgQ0hBTkdFUzoKICAqCiAgKiAgMjAwNC4x
+Mi4wMQlNYWpvciByZXdyaXRlIGJ5IHRpd2FpLCBtZXJnZWQgdGhlIHdvcmsgb2YgcHNob3UKLSAq
+IAorICoKICAqLwogCiAjaW5jbHVkZSA8bGludXgvZGVsYXkuaD4KQEAgLTM5MCw4ICszOTAsOCBA
+QCBzdGF0aWMgY2hhciAqZHJpdmVyX3Nob3J0X25hbWVzW10gPSB7CiAJW0FaWF9EUklWRVJfU0lT
+XSA9ICJIREEgU0lTOTY2IiwKIAlbQVpYX0RSSVZFUl9VTEldID0gIkhEQSBVTEkgTTU0NjEiLAog
+CVtBWlhfRFJJVkVSX05WSURJQV0gPSAiSERBIE5WaWRpYSIsCi0JW0FaWF9EUklWRVJfVEVSQV0g
+PSAiSERBIFRlcmFkaWNpIiwgCi0JW0FaWF9EUklWRVJfQ1RYXSA9ICJIREEgQ3JlYXRpdmUiLCAK
+KwlbQVpYX0RSSVZFUl9URVJBXSA9ICJIREEgVGVyYWRpY2kiLAorCVtBWlhfRFJJVkVSX0NUWF0g
+PSAiSERBIENyZWF0aXZlIiwKIAlbQVpYX0RSSVZFUl9DVEhEQV0gPSAiSERBIENyZWF0aXZlIiwK
+IAlbQVpYX0RSSVZFUl9DTUVESUFdID0gIkhEQSBDLU1lZGlhIiwKIAlbQVpYX0RSSVZFUl9HRU5F
+UklDXSA9ICJIRC1BdWRpbyBHZW5lcmljIiwKQEAgLTE0MjksNyArMTQyOSw3IEBAIHN0YXRpYyBz
+dHJ1Y3QgcGNpX2RldiAqZ2V0X2JvdW5kX3ZnYShzdHJ1Y3QgcGNpX2RldiAqcGNpKQogCQkJcCA9
+IHBjaV9nZXRfZG9tYWluX2J1c19hbmRfc2xvdChwY2lfZG9tYWluX25yKHBjaS0+YnVzKSwKIAkJ
+CQkJCQlwY2ktPmJ1cy0+bnVtYmVyLCAwKTsKIAkJCWlmIChwKSB7Ci0JCQkJaWYgKChwLT5jbGFz
+cyA+PiA4KSA9PSBQQ0lfQ0xBU1NfRElTUExBWV9WR0EpCisJCQkJaWYgKChwLT5jbGFzcyA+PiAx
+NikgPT0gUENJX0JBU0VfQ0xBU1NfRElTUExBWSkKIAkJCQkJcmV0dXJuIHA7CiAJCQkJcGNpX2Rl
+dl9wdXQocCk7CiAJCQl9Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
