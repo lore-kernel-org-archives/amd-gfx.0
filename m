@@ -1,12 +1,16 @@
-From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
-Subject: Re: [PATCH 0/6] Raven support for KFD
-Date: Thu, 12 Jul 2018 23:28:03 +0100
-Message-ID: <CAHbf0-Fv9npKsGZmgrNLmx6tS7800YOP4ijFEWGjCa3EwfzftQ@mail.gmail.com>
-References: <1531430694-23966-1-git-send-email-Felix.Kuehling@amd.com>
+From: "Yu, Qiang" <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu 1/3] modesetting: Record non-desktop
+ kernel property at PreInit time
+Date: Fri, 13 Jul 2018 02:26:21 +0000
+Message-ID: <CY4PR1201MB0117859F55CBFAFE76E560EF8F580@CY4PR1201MB0117.namprd12.prod.outlook.com>
+References: <20180709072652.9727-1-michel@daenzer.net>
+ <87o9fg4c9i.fsf@keithp.com>, <af4f8c39-0936-dc48-ad67-96b108463619@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1448730435=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1531430694-23966-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <af4f8c39-0936-dc48-ad67-96b108463619-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,130 +21,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?iso-8859-2?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Keith Packard <keithp-aN4HjG94KOLQT0dZR+AlfA@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1448730435==
-Content-Type: multipart/alternative; boundary="0000000000000f299b0570d4e145"
-
---0000000000000f299b0570d4e145
-Content-Type: text/plain; charset="UTF-8"
-
-Hi
-
-I'm happy to test this out, just wondering what userspace I should pair it
-with
-
-Cheers
-
-Mike
-
-On Thu, 12 Jul 2018 at 22:25 Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> Raven refers to Ryzen APUs with integrated GFXv9 GPU.
-> This patch series completes Raven support for KFD:
->
-> * fix up memory banks info from CRAT
-> * support different number of SDMA engines
-> * workaround IOMMUv2 PPR issues
-> * add device info
->
-> Yong Zhao (6):
->   drm/amdkfd: Consolidate duplicate memory banks info in topology
->   drm/amdkfd: Make SDMA engine number an ASIC-dependent variable
->   drm/amdkfd: Avoid flooding dmesg on Raven due to IOMMU issues
->   drm/amdkfd: Workaround to accommodate Raven too many PPR issue
->   drm/amdkfd: Optimize out some duplicated code in
->     kfd_signal_iommu_event()
->   drm/amdkfd: Enable Raven for KFD
->
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c              | 57
-> +++++++++++++++++-----
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c            | 28 +++++++++++
->  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 29 +++++++----
->  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  |  6 +--
->  drivers/gpu/drm/amd/amdkfd/kfd_events.c            | 47 ++++++++++--------
->  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c             |  2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  1 +
->  .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  3 +-
->  8 files changed, 126 insertions(+), 47 deletions(-)
->
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---0000000000000f299b0570d4e145
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi<div><br></div><div>I&#39;m happy to test this out, just=
- wondering what userspace I should pair it with</div><div><br></div><div>Ch=
-eers</div><div><br></div><div>Mike</div></div><br><div class=3D"gmail_quote=
-"><div dir=3D"ltr">On Thu, 12 Jul 2018 at 22:25 Felix Kuehling &lt;<a href=
-=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-=
-left:1px #ccc solid;padding-left:1ex">Raven refers to Ryzen APUs with integ=
-rated GFXv9 GPU.<br>
-This patch series completes Raven support for KFD:<br>
-<br>
-* fix up memory banks info from CRAT<br>
-* support different number of SDMA engines<br>
-* workaround IOMMUv2 PPR issues<br>
-* add device info<br>
-<br>
-Yong Zhao (6):<br>
-=C2=A0 drm/amdkfd: Consolidate duplicate memory banks info in topology<br>
-=C2=A0 drm/amdkfd: Make SDMA engine number an ASIC-dependent variable<br>
-=C2=A0 drm/amdkfd: Avoid flooding dmesg on Raven due to IOMMU issues<br>
-=C2=A0 drm/amdkfd: Workaround to accommodate Raven too many PPR issue<br>
-=C2=A0 drm/amdkfd: Optimize out some duplicated code in<br>
-=C2=A0 =C2=A0 kfd_signal_iommu_event()<br>
-=C2=A0 drm/amdkfd: Enable Raven for KFD<br>
-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_crat.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 | 57 +++++++++++++++++-----<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_device.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 | 28 +++++++++++<br>
-=C2=A0.../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c=C2=A0 | 29 +++++++-=
----<br>
-=C2=A0.../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h=C2=A0 |=C2=A0 6 +--=
-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_events.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 | 47 ++++++++++--------<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_iommu.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0|=C2=A0 2 +-<br>
-=C2=A0drivers/gpu/drm/amd/amdkfd/kfd_priv.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 |=C2=A0 1 +<br>
-=C2=A0.../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |=C2=A0 3 +-<br>
-=C2=A08 files changed, 126 insertions(+), 47 deletions(-)<br>
-<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-
---0000000000000f299b0570d4e145--
-
---===============1448730435==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1448730435==--
+SGkgTWljaGVsLAoKQ291bGQgcmFuZHJwcm90byA+PSAxLjYuMCBhbHNvIGJlIG9wdGlvbmFsPyBy
+YW5kcnByb3RvIDEuNiBpcyBwcmV0dHkgbmV3IHNvCm1vc3Qgb2xkIHhzZXJ2ZXIgZG9lc24ndCBj
+b21waWxlIHdpdGggaXQuIFdoZW4gY29tcGlsZSBsYXRlc3QgZGR4IHdpdGgKdmFyaW91cyBPUyB3
+ZSBzdXBwb3J0LCBpdCB3aWxsIGZhaWwuCgpNYXliZSB3ZSBjYW4gZGVmaW5lIFJSX1BST1BFUlRZ
+X05PTl9ERVNLVE9QIGluIGRkeCBpZiBub3QgeWV0LgoKUmVnYXJkcywKUWlhbmcKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1i
+b3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIE1pY2hlbCBEw6RuemVy
+IDxtaWNoZWxAZGFlbnplci5uZXQ+ClNlbnQ6IFR1ZXNkYXksIEp1bHkgMTAsIDIwMTggMTI6MjA6
+NDYgQU0KVG86IEtlaXRoIFBhY2thcmQKQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+ClN1YmplY3Q6IFJlOiBbUEFUQ0ggeGY4Ni12aWRlby1hbWRncHUgMS8zXSBtb2Rlc2V0dGluZzog
+UmVjb3JkIG5vbi1kZXNrdG9wIGtlcm5lbCBwcm9wZXJ0eSBhdCBQcmVJbml0IHRpbWUKCk9uIDIw
+MTgtMDctMDkgMDY6MTQgUE0sIEtlaXRoIFBhY2thcmQgd3JvdGU6Cj4gTWljaGVsIETDpG56ZXIg
+PG1pY2hlbEBkYWVuemVyLm5ldD4gd3JpdGVzOgo+Cj4+IEZyb206IEtlaXRoIFBhY2thcmQgPGtl
+aXRocEBrZWl0aHAuY29tPgo+Pgo+PiBTYXZlIGFueSB2YWx1ZSBvZiB0aGUga2VybmVsIG5vbi1k
+ZXNrdG9wIHByb3BlcnR5IGluIHRoZSB4Zjg2T3V0cHV0Cj4+IHN0cnVjdHVyZSB0byBhdm9pZCBu
+b24tZGVza3RvcCBvdXRwdXRzIGluIHRoZSBkZWZhdWx0IGNvbmZpZ3VyYXRpb24uCj4+Cj4+IFtB
+bHNvIGJ1bXAgcmFuZHJwcm90byByZXF1aXJlbWVudCB0byBhIHZlcnNpb24gdGhhdCBkZWZpbmVz
+Cj4+IFJSX1BST1BFUlRZX05PTl9ERVNLVE9QIC0gYWpheF0KPj4KPj4gU2lnbmVkLW9mZi1ieTog
+S2VpdGggUGFja2FyZCA8a2VpdGhwQGtlaXRocC5jb20+Cj4+IChQb3J0ZWQgZnJvbSB4c2VydmVy
+IGNvbW1pdCBiOTFjNzg3YzRjZDJkMjA2ODVkYjY5NDI2YzUzOTkzOGM1NTYxMjhhKQo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPgo+IFRo
+YW5rcyBmb3IgcG9ydGluZyB0aGlzIGFuZCBtYWtpbmcgaXQgY29tcGlsZSBvbiBvbGRlciBzZXJ2
+ZXIgdmVyc2lvbnM7Cj4gSSBub3RpY2UgdGhhdCB5b3Ugc3dpdGNoZWQgZnJvbSB4YWxsb2NhcnJh
+eSB0byBjYWxsb2MgLS0gc2VlbXMgZmluZSB0bwo+IG1lIGFzIGl0IGF2b2lkcyBzb21lIGV4dHJh
+IGNvbmZpZ3VyZS5hYyBnb29wLgoKWWVwLCBkaWRuJ3Qgc2VlIHRoZSBwb2ludCBvZiB0aGF0LCBh
+cyBuY3J0YyArIG5vdXRwdXQgbmVlZHMgdG8gYmUKZXhwbGljaXRseSBjaGVja2VkIGZvciBvdmVy
+ZmxvdyBhbnl3YXkuCgoKPiBGb3IgdGhlIHNlcmllczoKPiBSZXZpZXdlZC1ieTogS2VpdGggUGFj
+a2FyZCA8a2VpdGhwQGtlaXRocC5jb20+CgpUaGFua3MhCgoKLS0KRWFydGhsaW5nIE1pY2hlbCBE
+w6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpM
+aWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBh
+bmQgWCBkZXZlbG9wZXIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
