@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] Revert "drm/amd/powerplay: fix performance drop on Vega10"
-Date: Fri, 13 Jul 2018 19:34:29 +0000
-Message-ID: <BN6PR12MB180954E4A6FC97C326486D2FF7580@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1531509750-23574-1-git-send-email-JinhuiEric.Huang@amd.com>
+From: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/6] drm/amdkfd: Consolidate duplicate memory banks info in
+ topology
+Date: Fri, 13 Jul 2018 16:17:43 -0400
+Message-ID: <1531513068-3805-2-git-send-email-Felix.Kuehling@amd.com>
+References: <1531513068-3805-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1459340457=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1531509750-23574-1-git-send-email-JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1531513068-3805-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,160 +19,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 
---===============1459340457==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Assuming there are no ill effects:
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Eric Hua=
-ng <JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, July 13, 2018 3:22:30 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Huang, JinHuiEric
-Subject: [PATCH] Revert "drm/amd/powerplay: fix performance drop on Vega10"
-
-This reverts commit b87079ec7b4d38efee015367315958ce5495ba93.
-
-SMU FW team ask to remove this version specific code.
-
-Signed-off-by: Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index eb37316..1a0dccb 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -2896,11 +2896,6 @@ static int vega10_enable_dpm_tasks(struct pp_hwmgr *=
-hwmgr)
-
-         vega10_enable_disable_PCC_limit_feature(hwmgr, true);
-
--       if ((hwmgr->smu_version =3D=3D 0x001c2c00) ||
--                       (hwmgr->smu_version =3D=3D 0x001c2d00))
--               smum_send_msg_to_smc_with_parameter(hwmgr,
--                               PPSMC_MSG_UpdatePkgPwrPidAlpha, 1);
--
-         smum_send_msg_to_smc_with_parameter(hwmgr,
-                 PPSMC_MSG_ConfigureTelemetry, data->config_telemetry);
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Assuming there are no ill effects=
-:<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Eric Huang &lt;JinhuiEric.Hua=
-ng-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, July 13, 2018 3:22:30 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Huang, JinHuiEric<br>
-<b>Subject:</b> [PATCH] Revert &quot;drm/amd/powerplay: fix performance dro=
-p on Vega10&quot;</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This reverts commit b87079ec7b4d38efee015367315958=
-ce5495ba93.<br>
-<br>
-SMU FW team ask to remove this version specific code.<br>
-<br>
-Signed-off-by: Eric Huang &lt;JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 5 -----<br>
-&nbsp;1 file changed, 5 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-index eb37316..1a0dccb 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-@@ -2896,11 &#43;2896,6 @@ static int vega10_enable_dpm_tasks(struct pp_hwm=
-gr *hwmgr)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_enable_disable_PCC_=
-limit_feature(hwmgr, true);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hwmgr-&gt;smu_version =3D=3D 0x0=
-01c2c00) ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hwmgr-&gt;smu_v=
-ersion =3D=3D 0x001c2d00))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_UpdatePkgPwrPidAlpha, 1);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_=
-parameter(hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_ConfigureTelemetry, data-&gt;config_telemet=
-ry);<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_--
-
---===============1459340457==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1459340457==--
+RnJvbTogWW9uZyBaaGFvIDx5b25nLnpoYW9AYW1kLmNvbT4KCklmIHRoZXJlIGFyZSBzZXZlcmFs
+IG1lbW9yeSBiYW5rcyB0aGF0IGhhcyB0aGUgc2FtZSBwcm9wZXJ0aWVzIGluIENSQVQsCndlIGFn
+Z3JlZ2F0ZSB0aGVtIGludG8gb25lIG1lbW9yeSBiYW5rLiBUaGlzIGNsZWFucyB1cCBtZW1vcnkg
+YmFua3Mgb24KQVBVcyAoZS5nLiBSYXZlbikgd2hlcmUgdGhlIENSQVQgcmVwb3J0cyBlYWNoIG1l
+bW9yeSBjaGFubmVsIGFzIGEKc2VwYXJhdGUgYmFuay4gVGhpcyBvbmx5IGNvbmZ1c2VzIHVzZXIg
+bW9kZSwgd2hpY2ggb25seSBkZWFscyB3aXRoCnZpcnR1YWwgbWVtb3J5LgoKU2lnbmVkLW9mZi1i
+eTogWW9uZyBaaGFvIDx5b25nLnpoYW9AYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhs
+aW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGlu
+ZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
+ZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
+Y3JhdC5jIHwgNTcgKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0KIDEgZmlsZSBj
+aGFuZ2VkLCA0NiBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX2NyYXQuYwppbmRleCAyOTZiM2YyLi5lZTQ5OTYwIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMKQEAgLTE4OSw2ICsxODksMjEgQEAgc3RhdGljIGludCBr
+ZmRfcGFyc2Vfc3VidHlwZV9jdShzdHJ1Y3QgY3JhdF9zdWJ0eXBlX2NvbXB1dGV1bml0ICpjdSwK
+IAlyZXR1cm4gMDsKIH0KIAorc3RhdGljIHN0cnVjdCBrZmRfbWVtX3Byb3BlcnRpZXMgKgorZmlu
+ZF9zdWJ0eXBlX21lbSh1aW50MzJfdCBoZWFwX3R5cGUsIHVpbnQzMl90IGZsYWdzLCB1aW50MzJf
+dCB3aWR0aCwKKwkJc3RydWN0IGtmZF90b3BvbG9neV9kZXZpY2UgKmRldikKK3sKKwlzdHJ1Y3Qg
+a2ZkX21lbV9wcm9wZXJ0aWVzICpwcm9wczsKKworCWxpc3RfZm9yX2VhY2hfZW50cnkocHJvcHMs
+ICZkZXYtPm1lbV9wcm9wcywgbGlzdCkgeworCQlpZiAocHJvcHMtPmhlYXBfdHlwZSA9PSBoZWFw
+X3R5cGUKKwkJCQkmJiBwcm9wcy0+ZmxhZ3MgPT0gZmxhZ3MKKwkJCQkmJiBwcm9wcy0+d2lkdGgg
+PT0gd2lkdGgpCisJCQlyZXR1cm4gcHJvcHM7CisJfQorCisJcmV0dXJuIE5VTEw7Cit9CiAvKiBr
+ZmRfcGFyc2Vfc3VidHlwZV9tZW0gLSBwYXJzZSBtZW1vcnkgc3VidHlwZXMgYW5kIGF0dGFjaCBp
+dCB0byBjb3JyZWN0CiAgKiB0b3BvbG9neSBkZXZpY2UgcHJlc2VudCBpbiB0aGUgZGV2aWNlX2xp
+c3QKICAqLwpAQCAtMTk3LDM2ICsyMTIsNTYgQEAgc3RhdGljIGludCBrZmRfcGFyc2Vfc3VidHlw
+ZV9tZW0oc3RydWN0IGNyYXRfc3VidHlwZV9tZW1vcnkgKm1lbSwKIHsKIAlzdHJ1Y3Qga2ZkX21l
+bV9wcm9wZXJ0aWVzICpwcm9wczsKIAlzdHJ1Y3Qga2ZkX3RvcG9sb2d5X2RldmljZSAqZGV2Owor
+CXVpbnQzMl90IGhlYXBfdHlwZTsKKwl1aW50NjRfdCBzaXplX2luX2J5dGVzOworCXVpbnQzMl90
+IGZsYWdzID0gMDsKKwl1aW50MzJfdCB3aWR0aDsKIAogCXByX2RlYnVnKCJGb3VuZCBtZW1vcnkg
+ZW50cnkgaW4gQ1JBVCB0YWJsZSB3aXRoIHByb3hpbWl0eV9kb21haW49JWRcbiIsCiAJCQltZW0t
+PnByb3hpbWl0eV9kb21haW4pOwogCWxpc3RfZm9yX2VhY2hfZW50cnkoZGV2LCBkZXZpY2VfbGlz
+dCwgbGlzdCkgewogCQlpZiAobWVtLT5wcm94aW1pdHlfZG9tYWluID09IGRldi0+cHJveGltaXR5
+X2RvbWFpbikgewotCQkJcHJvcHMgPSBrZmRfYWxsb2Nfc3RydWN0KHByb3BzKTsKLQkJCWlmICgh
+cHJvcHMpCi0JCQkJcmV0dXJuIC1FTk9NRU07Ci0KIAkJCS8qIFdlJ3JlIG9uIEdQVSBub2RlICov
+CiAJCQlpZiAoZGV2LT5ub2RlX3Byb3BzLmNwdV9jb3Jlc19jb3VudCA9PSAwKSB7CiAJCQkJLyog
+QVBVICovCiAJCQkJaWYgKG1lbS0+dmlzaWJpbGl0eV90eXBlID09IDApCi0JCQkJCXByb3BzLT5o
+ZWFwX3R5cGUgPQorCQkJCQloZWFwX3R5cGUgPQogCQkJCQkJSFNBX01FTV9IRUFQX1RZUEVfRkJf
+UFJJVkFURTsKIAkJCQkvKiBkR1BVICovCiAJCQkJZWxzZQotCQkJCQlwcm9wcy0+aGVhcF90eXBl
+ID0gbWVtLT52aXNpYmlsaXR5X3R5cGU7CisJCQkJCWhlYXBfdHlwZSA9IG1lbS0+dmlzaWJpbGl0
+eV90eXBlOwogCQkJfSBlbHNlCi0JCQkJcHJvcHMtPmhlYXBfdHlwZSA9IEhTQV9NRU1fSEVBUF9U
+WVBFX1NZU1RFTTsKKwkJCQloZWFwX3R5cGUgPSBIU0FfTUVNX0hFQVBfVFlQRV9TWVNURU07CiAK
+IAkJCWlmIChtZW0tPmZsYWdzICYgQ1JBVF9NRU1fRkxBR1NfSE9UX1BMVUdHQUJMRSkKLQkJCQlw
+cm9wcy0+ZmxhZ3MgfD0gSFNBX01FTV9GTEFHU19IT1RfUExVR0dBQkxFOworCQkJCWZsYWdzIHw9
+IEhTQV9NRU1fRkxBR1NfSE9UX1BMVUdHQUJMRTsKIAkJCWlmIChtZW0tPmZsYWdzICYgQ1JBVF9N
+RU1fRkxBR1NfTk9OX1ZPTEFUSUxFKQotCQkJCXByb3BzLT5mbGFncyB8PSBIU0FfTUVNX0ZMQUdT
+X05PTl9WT0xBVElMRTsKKwkJCQlmbGFncyB8PSBIU0FfTUVNX0ZMQUdTX05PTl9WT0xBVElMRTsK
+IAotCQkJcHJvcHMtPnNpemVfaW5fYnl0ZXMgPQorCQkJc2l6ZV9pbl9ieXRlcyA9CiAJCQkJKCh1
+aW50NjRfdCltZW0tPmxlbmd0aF9oaWdoIDw8IDMyKSArCiAJCQkJCQkJbWVtLT5sZW5ndGhfbG93
+OwotCQkJcHJvcHMtPndpZHRoID0gbWVtLT53aWR0aDsKKwkJCXdpZHRoID0gbWVtLT53aWR0aDsK
+KworCQkJLyogTXVsdGlwbGUgYmFua3Mgb2YgdGhlIHNhbWUgdHlwZSBhcmUgYWdncmVnYXRlZCBp
+bnRvCisJCQkgKiBvbmUuIFVzZXIgbW9kZSBkb2Vzbid0IGNhcmUgYWJvdXQgbXVsdGlwbGUgcGh5
+c2ljYWwKKwkJCSAqIG1lbW9yeSBzZWdtZW50cy4gSXQncyBtYW5hZ2VkIGFzIGEgc2luZ2xlIHZp
+cnR1YWwKKwkJCSAqIGhlYXAgZm9yIHVzZXIgbW9kZS4KKwkJCSAqLworCQkJcHJvcHMgPSBmaW5k
+X3N1YnR5cGVfbWVtKGhlYXBfdHlwZSwgZmxhZ3MsIHdpZHRoLCBkZXYpOworCQkJaWYgKHByb3Bz
+KSB7CisJCQkJcHJvcHMtPnNpemVfaW5fYnl0ZXMgKz0gc2l6ZV9pbl9ieXRlczsKKwkJCQlicmVh
+azsKKwkJCX0KKworCQkJcHJvcHMgPSBrZmRfYWxsb2Nfc3RydWN0KHByb3BzKTsKKwkJCWlmICgh
+cHJvcHMpCisJCQkJcmV0dXJuIC1FTk9NRU07CisKKwkJCXByb3BzLT5oZWFwX3R5cGUgPSBoZWFw
+X3R5cGU7CisJCQlwcm9wcy0+ZmxhZ3MgPSBmbGFnczsKKwkJCXByb3BzLT5zaXplX2luX2J5dGVz
+ID0gc2l6ZV9pbl9ieXRlczsKKwkJCXByb3BzLT53aWR0aCA9IHdpZHRoOwogCiAJCQlkZXYtPm5v
+ZGVfcHJvcHMubWVtX2JhbmtzX2NvdW50Kys7CiAJCQlsaXN0X2FkZF90YWlsKCZwcm9wcy0+bGlz
+dCwgJmRldi0+bWVtX3Byb3BzKTsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
