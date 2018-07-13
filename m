@@ -1,140 +1,101 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2 1/3] drm/amdgpu: Keep track of amount of pinned CPU
- visible VRAM
-Date: Fri, 13 Jul 2018 08:53:37 +0200
-Message-ID: <bc417a98-be3b-7e58-f0bb-e608d4222c8b@gmail.com>
-References: <20180711162342.14835-1-michel@daenzer.net>
- <20180712143751.14353-1-michel@daenzer.net>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu/pp/smu7: use a local variable for toc
+ indexing
+Date: Fri, 13 Jul 2018 08:55:23 +0200
+Message-ID: <b7097366-5b1e-d41b-594d-6faf7b8829e4@gmail.com>
+References: <20180712143941.28977-1-alexander.deucher@amd.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180712143751.14353-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20180712143941.28977-1-alexander.deucher@amd.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: stable-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTIuMDcuMjAxOCB1bSAxNjozNyBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IEZyb206IE1p
-Y2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Cj4gSW5zdGVhZCBvZiBDUFUg
-aW52aXNpYmxlIFZSQU0uIFByZXBhcmF0aW9uIGZvciB0aGUgZm9sbG93aW5nLCBubwo+IGZ1bmN0
-aW9uYWwgY2hhbmdlIGludGVuZGVkLgo+Cj4gdjI6Cj4gKiBBbHNvIGNoYW5nZSBhbWRncHVfdnJh
-bV9tZ3JfYm9faW52aXNpYmxlX3NpemUgdG8KPiAgICBhbWRncHVfdnJhbV9tZ3JfYm9fdmlzaWJs
-ZV9zaXplLCBhbGxvd2luZyBmdXJ0aGVyIHNpbXBsaWZpY2F0aW9uCj4gICAgKENocmlzdGlhbiBL
-w7ZuaWcpCj4KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+IFNpZ25lZC1vZmYtYnk6IE1p
-Y2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgoKTmljZSwgdGhhdCBtYWtlcyB0
-aGUgY29kZSBldmVuIG1vcmUgY2xlYW5lciB0aGFuIEkgdGhvdWdodCBpdCB3b3VsZCA6KQoKQWxs
-IHRocmVlIGFyZSBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
-Z0BhbWQuY29tPi4KClRoYW5rcywKQ2hyaXN0aWFuLgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgIHwgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyAgICAgIHwgIDUgKystLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyAgIHwgIDQgKystLQo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oICAgICAgfCAgMiArLQo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCAyMCArKysrKysrKy0tLS0tLS0t
-LS0tLQo+ICAgNSBmaWxlcyBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCAxOSBkZWxldGlvbnMo
-LSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggOGVhYmEwZjRkYjEw
-Li43N2FiMDZiZjI2ZDUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IEBA
-IC0xNTkzLDcgKzE1OTMsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSB7Cj4gICAKPiAgIAkvKiB0
-cmFja2luZyBwaW5uZWQgbWVtb3J5ICovCj4gICAJdTY0IHZyYW1fcGluX3NpemU7Cj4gLQl1NjQg
-aW52aXNpYmxlX3Bpbl9zaXplOwo+ICsJdTY0IHZpc2libGVfcGluX3NpemU7Cj4gICAJdTY0IGdh
-cnRfcGluX3NpemU7Cj4gICAKPiAgIAkvKiBhbWRrZmQgaW50ZXJmYWNlICovCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+IGluZGV4IGQwNDFkZGRhYWQwYy4uYjFlYTQz
-ZWU4Yjg3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9r
-bXMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+IEBA
-IC01MDQsNyArNTA0LDcgQEAgc3RhdGljIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3QgZHJt
-X2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUKPiAgIAkJdnJhbV9ndHQu
-dnJhbV9zaXplID0gYWRldi0+Z21jLnJlYWxfdnJhbV9zaXplOwo+ICAgCQl2cmFtX2d0dC52cmFt
-X3NpemUgLT0gYWRldi0+dnJhbV9waW5fc2l6ZTsKPiAgIAkJdnJhbV9ndHQudnJhbV9jcHVfYWNj
-ZXNzaWJsZV9zaXplID0gYWRldi0+Z21jLnZpc2libGVfdnJhbV9zaXplOwo+IC0JCXZyYW1fZ3R0
-LnZyYW1fY3B1X2FjY2Vzc2libGVfc2l6ZSAtPSAoYWRldi0+dnJhbV9waW5fc2l6ZSAtIGFkZXYt
-PmludmlzaWJsZV9waW5fc2l6ZSk7Cj4gKwkJdnJhbV9ndHQudnJhbV9jcHVfYWNjZXNzaWJsZV9z
-aXplIC09IGFkZXYtPnZpc2libGVfcGluX3NpemU7Cj4gICAJCXZyYW1fZ3R0Lmd0dF9zaXplID0g
-YWRldi0+bW1hbi5iZGV2Lm1hbltUVE1fUExfVFRdLnNpemU7Cj4gICAJCXZyYW1fZ3R0Lmd0dF9z
-aXplICo9IFBBR0VfU0laRTsKPiAgIAkJdnJhbV9ndHQuZ3R0X3NpemUgLT0gYWRldi0+Z2FydF9w
-aW5fc2l6ZTsKPiBAQCAtNTI1LDggKzUyNSw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2luZm9faW9j
-dGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlCj4g
-ICAJCW1lbS5jcHVfYWNjZXNzaWJsZV92cmFtLnRvdGFsX2hlYXBfc2l6ZSA9Cj4gICAJCQlhZGV2
-LT5nbWMudmlzaWJsZV92cmFtX3NpemU7Cj4gICAJCW1lbS5jcHVfYWNjZXNzaWJsZV92cmFtLnVz
-YWJsZV9oZWFwX3NpemUgPQo+IC0JCQlhZGV2LT5nbWMudmlzaWJsZV92cmFtX3NpemUgLQo+IC0J
-CQkoYWRldi0+dnJhbV9waW5fc2l6ZSAtIGFkZXYtPmludmlzaWJsZV9waW5fc2l6ZSk7Cj4gKwkJ
-CWFkZXYtPmdtYy52aXNpYmxlX3ZyYW1fc2l6ZSAtIGFkZXYtPnZpc2libGVfcGluX3NpemU7Cj4g
-ICAJCW1lbS5jcHVfYWNjZXNzaWJsZV92cmFtLmhlYXBfdXNhZ2UgPQo+ICAgCQkJYW1kZ3B1X3Zy
-YW1fbWdyX3Zpc191c2FnZSgmYWRldi0+bW1hbi5iZGV2Lm1hbltUVE1fUExfVlJBTV0pOwo+ICAg
-CQltZW0uY3B1X2FjY2Vzc2libGVfdnJhbS5tYXhfYWxsb2NhdGlvbiA9Cj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IGluZGV4IDllZTY3OGQ2Mzg5MC4uZjAy
-MzlmZWNlYWI0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9vYmplY3QuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
-Y3QuYwo+IEBAIC05MTcsNyArOTE3LDcgQEAgaW50IGFtZGdwdV9ib19waW5fcmVzdHJpY3RlZChz
-dHJ1Y3QgYW1kZ3B1X2JvICpibywgdTMyIGRvbWFpbiwKPiAgIAlkb21haW4gPSBhbWRncHVfbWVt
-X3R5cGVfdG9fZG9tYWluKGJvLT50Ym8ubWVtLm1lbV90eXBlKTsKPiAgIAlpZiAoZG9tYWluID09
-IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pIHsKPiAgIAkJYWRldi0+dnJhbV9waW5fc2l6ZSArPSBh
-bWRncHVfYm9fc2l6ZShibyk7Cj4gLQkJYWRldi0+aW52aXNpYmxlX3Bpbl9zaXplICs9IGFtZGdw
-dV92cmFtX21ncl9ib19pbnZpc2libGVfc2l6ZShibyk7Cj4gKwkJYWRldi0+dmlzaWJsZV9waW5f
-c2l6ZSArPSBhbWRncHVfdnJhbV9tZ3JfYm9fdmlzaWJsZV9zaXplKGJvKTsKPiAgIAl9IGVsc2Ug
-aWYgKGRvbWFpbiA9PSBBTURHUFVfR0VNX0RPTUFJTl9HVFQpIHsKPiAgIAkJYWRldi0+Z2FydF9w
-aW5fc2l6ZSArPSBhbWRncHVfYm9fc2l6ZShibyk7Cj4gICAJfQo+IEBAIC05NjksNyArOTY5LDcg
-QEAgaW50IGFtZGdwdV9ib191bnBpbihzdHJ1Y3QgYW1kZ3B1X2JvICpibykKPiAgIAo+ICAgCWlm
-IChiby0+dGJvLm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfVlJBTSkgewo+ICAgCQlhZGV2LT52cmFt
-X3Bpbl9zaXplIC09IGFtZGdwdV9ib19zaXplKGJvKTsKPiAtCQlhZGV2LT5pbnZpc2libGVfcGlu
-X3NpemUgLT0gYW1kZ3B1X3ZyYW1fbWdyX2JvX2ludmlzaWJsZV9zaXplKGJvKTsKPiArCQlhZGV2
-LT52aXNpYmxlX3Bpbl9zaXplIC09IGFtZGdwdV92cmFtX21ncl9ib192aXNpYmxlX3NpemUoYm8p
-Owo+ICAgCX0gZWxzZSBpZiAoYm8tPnRiby5tZW0ubWVtX3R5cGUgPT0gVFRNX1BMX1RUKSB7Cj4g
-ICAJCWFkZXYtPmdhcnRfcGluX3NpemUgLT0gYW1kZ3B1X2JvX3NpemUoYm8pOwo+ICAgCX0KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCj4gaW5kZXggZTVkYTQ2NTRiNjMw
-Li44YjNjYzY2ODc3NjkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
-bS5oCj4gQEAgLTczLDcgKzczLDcgQEAgYm9vbCBhbWRncHVfZ3R0X21ncl9oYXNfZ2FydF9hZGRy
-KHN0cnVjdCB0dG1fbWVtX3JlZyAqbWVtKTsKPiAgIHVpbnQ2NF90IGFtZGdwdV9ndHRfbWdyX3Vz
-YWdlKHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuKTsKPiAgIGludCBhbWRncHVfZ3R0
-X21ncl9yZWNvdmVyKHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuKTsKPiAgIAo+IC11
-NjQgYW1kZ3B1X3ZyYW1fbWdyX2JvX2ludmlzaWJsZV9zaXplKHN0cnVjdCBhbWRncHVfYm8gKmJv
-KTsKPiArdTY0IGFtZGdwdV92cmFtX21ncl9ib192aXNpYmxlX3NpemUoc3RydWN0IGFtZGdwdV9i
-byAqYm8pOwo+ICAgdWludDY0X3QgYW1kZ3B1X3ZyYW1fbWdyX3VzYWdlKHN0cnVjdCB0dG1fbWVt
-X3R5cGVfbWFuYWdlciAqbWFuKTsKPiAgIHVpbnQ2NF90IGFtZGdwdV92cmFtX21ncl92aXNfdXNh
-Z2Uoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4pOwo+ICAgCj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPiBpbmRleCBmN2E0YmQ1ODg1YTMu
-LjljZmE4YTlhZGE5MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdnJhbV9tZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92cmFtX21nci5jCj4gQEAgLTk3LDMzICs5NywyOSBAQCBzdGF0aWMgdTY0IGFtZGdwdV92cmFt
-X21ncl92aXNfc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIH0KPiAgIAo+ICAg
-LyoqCj4gLSAqIGFtZGdwdV92cmFtX21ncl9ib19pbnZpc2libGVfc2l6ZSAtIENQVSBpbnZpc2li
-bGUgQk8gc2l6ZQo+ICsgKiBhbWRncHVfdnJhbV9tZ3JfYm9fdmlzaWJsZV9zaXplIC0gQ1BVIHZp
-c2libGUgQk8gc2l6ZQo+ICAgICoKPiAgICAqIEBibzogJmFtZGdwdV9ibyBidWZmZXIgb2JqZWN0
-IChtdXN0IGJlIGluIFZSQU0pCj4gICAgKgo+ICAgICogUmV0dXJuczoKPiAtICogSG93IG11Y2gg
-b2YgdGhlIGdpdmVuICZhbWRncHVfYm8gYnVmZmVyIG9iamVjdCBsaWVzIGluIENQVSBpbnZpc2li
-bGUgVlJBTS4KPiArICogSG93IG11Y2ggb2YgdGhlIGdpdmVuICZhbWRncHVfYm8gYnVmZmVyIG9i
-amVjdCBsaWVzIGluIENQVSB2aXNpYmxlIFZSQU0uCj4gICAgKi8KPiAtdTY0IGFtZGdwdV92cmFt
-X21ncl9ib19pbnZpc2libGVfc2l6ZShzdHJ1Y3QgYW1kZ3B1X2JvICpibykKPiArdTY0IGFtZGdw
-dV92cmFtX21ncl9ib192aXNpYmxlX3NpemUoc3RydWN0IGFtZGdwdV9ibyAqYm8pCj4gICB7Cj4g
-ICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYoYm8tPnRiby5i
-ZGV2KTsKPiAgIAlzdHJ1Y3QgdHRtX21lbV9yZWcgKm1lbSA9ICZiby0+dGJvLm1lbTsKPiAgIAlz
-dHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzID0gbWVtLT5tbV9ub2RlOwo+ICAgCXVuc2lnbmVkIHBh
-Z2VzID0gbWVtLT5udW1fcGFnZXM7Cj4gLQl1NjQgdXNhZ2UgPSAwOwo+ICsJdTY0IHVzYWdlOwo+
-ICAgCj4gICAJaWYgKGFtZGdwdV9nbWNfdnJhbV9mdWxsX3Zpc2libGUoJmFkZXYtPmdtYykpCj4g
-LQkJcmV0dXJuIDA7Cj4gKwkJcmV0dXJuIGFtZGdwdV9ib19zaXplKGJvKTsKPiAgIAo+ICAgCWlm
-IChtZW0tPnN0YXJ0ID49IGFkZXYtPmdtYy52aXNpYmxlX3ZyYW1fc2l6ZSA+PiBQQUdFX1NISUZU
-KQo+IC0JCXJldHVybiBhbWRncHVfYm9fc2l6ZShibyk7Cj4gKwkJcmV0dXJuIDA7Cj4gICAKPiAt
-CXdoaWxlIChub2RlcyAmJiBwYWdlcykgewo+IC0JCXVzYWdlICs9IG5vZGVzLT5zaXplIDw8IFBB
-R0VfU0hJRlQ7Cj4gLQkJdXNhZ2UgLT0gYW1kZ3B1X3ZyYW1fbWdyX3Zpc19zaXplKGFkZXYsIG5v
-ZGVzKTsKPiAtCQlwYWdlcyAtPSBub2Rlcy0+c2l6ZTsKPiAtCQkrK25vZGVzOwo+IC0JfQo+ICsJ
-Zm9yICh1c2FnZSA9IDA7IG5vZGVzICYmIHBhZ2VzOyBwYWdlcyAtPSBub2Rlcy0+c2l6ZSwgbm9k
-ZXMrKykKPiArCQl1c2FnZSArPSBhbWRncHVfdnJhbV9tZ3JfdmlzX3NpemUoYWRldiwgbm9kZXMp
-Owo+ICAgCj4gICAJcmV0dXJuIHVzYWdlOwo+ICAgfQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+Am 12.07.2018 um 16:39 schrieb Alex Deucher:
+> Rather than using the index variable stored in vram.  If
+> the device fails to come back online after a resume cycle,
+> reads from vram will return all 1s which will cause a
+> segfault. Based on a patch from Thomas Martitz <kugel@rockbox.org>.
+> This avoids the segfault, but we still need to sort out
+> why the GPU does not come back online after a resume.
+>
+> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=105760
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+
+Acked-by: Christian König <christian.koenig@amd.com> for the series.
+
+> ---
+>   drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 23 +++++++++++-----------
+>   1 file changed, 12 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+> index d644a9bb9078..9f407c48d4f0 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+> @@ -381,6 +381,7 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
+>   	uint32_t fw_to_load;
+>   	int result = 0;
+>   	struct SMU_DRAMData_TOC *toc;
+> +	uint32_t num_entries = 0;
+>   
+>   	if (!hwmgr->reload_fw) {
+>   		pr_info("skip reloading...\n");
+> @@ -422,41 +423,41 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
+>   	}
+>   
+>   	toc = (struct SMU_DRAMData_TOC *)smu_data->header;
+> -	toc->num_entries = 0;
+>   	toc->structure_version = 1;
+>   
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_RLC_G, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_RLC_G, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_CP_CE, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_CP_CE, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_CP_PFP, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_CP_PFP, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_CP_ME, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_CP_ME, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_CP_MEC, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_CP_MEC, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_CP_MEC_JT1, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_CP_MEC_JT1, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_CP_MEC_JT2, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_CP_MEC_JT2, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_SDMA0, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_SDMA0, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_SDMA1, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_SDMA1, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   	if (!hwmgr->not_vf)
+>   		PP_ASSERT_WITH_CODE(0 == smu7_populate_single_firmware_entry(hwmgr,
+> -				UCODE_ID_MEC_STORAGE, &toc->entry[toc->num_entries++]),
+> +				UCODE_ID_MEC_STORAGE, &toc->entry[num_entries++]),
+>   				"Failed to Get Firmware Entry.", return -EINVAL);
+>   
+> +	toc->num_entries = num_entries;
+>   	smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_HI, upper_32_bits(smu_data->header_buffer.mc_addr));
+>   	smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_LO, lower_32_bits(smu_data->header_buffer.mc_addr));
+>   
