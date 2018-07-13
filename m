@@ -1,14 +1,13 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 6/6] drm/amdkfd: Enable Raven for KFD
-Date: Fri, 13 Jul 2018 15:28:44 -0400
-Message-ID: <CADnq5_Mq559D5fVANMWrcwCFtw14cgro3Y3VN8E_nqoQMB0bew@mail.gmail.com>
-References: <1531430694-23966-1-git-send-email-Felix.Kuehling@amd.com>
- <1531430694-23966-7-git-send-email-Felix.Kuehling@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] Revert "drm/amd/powerplay: fix performance drop on Vega10"
+Date: Fri, 13 Jul 2018 19:34:29 +0000
+Message-ID: <BN6PR12MB180954E4A6FC97C326486D2FF7580@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1531509750-23574-1-git-send-email-JinhuiEric.Huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1459340457=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1531430694-23966-7-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1531509750-23574-1-git-send-email-JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,47 +18,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBKdWwgMTIsIDIwMTggYXQgNToyNCBQTSwgRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1
-ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+IEZyb206IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5j
-b20+Cj4KPiBTaWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPgo+IFJl
-dmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KClBsZWFz
-ZSBhZGQgYSBwYXRjaCBkZXNjcmlwdGlvbi4gIFdpdGggdGhhdCBmaXhlZDoKCkFja2VkLWJ5OiBB
-bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMgfCAxNiArKysrKysrKysrKysrKysrCj4g
-IDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX2RldmljZS5jCj4gaW5kZXggNTcyMjM1Yy4uMWIwNDg3MSAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMKPiBAQCAtNzAsNiArNzAsMjEgQEAgc3Rh
-dGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gY2Fycml6b19kZXZpY2VfaW5mbyA9IHsK
-PiAgICAgICAgIC5uZWVkc19wY2lfYXRvbWljcyA9IGZhbHNlLAo+ICAgICAgICAgLm51bV9zZG1h
-X2VuZ2luZXMgPSAyLAo+ICB9Owo+ICsKPiArc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNl
-X2luZm8gcmF2ZW5fZGV2aWNlX2luZm8gPSB7Cj4gKyAgICAgICAuYXNpY19mYW1pbHkgPSBDSElQ
-X1JBVkVOLAo+ICsgICAgICAgLm1heF9wYXNpZF9iaXRzID0gMTYsCj4gKyAgICAgICAubWF4X25v
-X29mX2hxZCAgPSAyNCwKPiArICAgICAgIC5kb29yYmVsbF9zaXplICA9IDgsCj4gKyAgICAgICAu
-aWhfcmluZ19lbnRyeV9zaXplID0gOCAqIHNpemVvZih1aW50MzJfdCksCj4gKyAgICAgICAuZXZl
-bnRfaW50ZXJydXB0X2NsYXNzID0gJmV2ZW50X2ludGVycnVwdF9jbGFzc192OSwKPiArICAgICAg
-IC5udW1fb2Zfd2F0Y2hfcG9pbnRzID0gNCwKPiArICAgICAgIC5tcWRfc2l6ZV9hbGlnbmVkID0g
-TVFEX1NJWkVfQUxJR05FRCwKPiArICAgICAgIC5zdXBwb3J0c19jd3NyID0gdHJ1ZSwKPiArICAg
-ICAgIC5uZWVkc19pb21tdV9kZXZpY2UgPSB0cnVlLAo+ICsgICAgICAgLm5lZWRzX3BjaV9hdG9t
-aWNzID0gdHJ1ZSwKPiArICAgICAgIC5udW1fc2RtYV9lbmdpbmVzID0gMSwKPiArfTsKPiAgI2Vu
-ZGlmCj4KPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRfZGV2aWNlX2luZm8gaGF3YWlpX2Rldmlj
-ZV9pbmZvID0gewo+IEBAIC0yNTksNiArMjc0LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBrZmRf
-ZGV2aWNlaWQgc3VwcG9ydGVkX2RldmljZXNbXSA9IHsKPiAgICAgICAgIHsgMHg5ODc1LCAmY2Fy
-cml6b19kZXZpY2VfaW5mbyB9LCAgICAgICAvKiBDYXJyaXpvICovCj4gICAgICAgICB7IDB4OTg3
-NiwgJmNhcnJpem9fZGV2aWNlX2luZm8gfSwgICAgICAgLyogQ2Fycml6byAqLwo+ICAgICAgICAg
-eyAweDk4NzcsICZjYXJyaXpvX2RldmljZV9pbmZvIH0sICAgICAgIC8qIENhcnJpem8gKi8KPiAr
-ICAgICAgIHsgMHgxNURELCAmcmF2ZW5fZGV2aWNlX2luZm8gfSwgICAgICAgICAvKiBSYXZlbiAq
-Lwo+ICAjZW5kaWYKPiAgICAgICAgIHsgMHg2N0EwLCAmaGF3YWlpX2RldmljZV9pbmZvIH0sICAg
-ICAgICAvKiBIYXdhaWkgKi8KPiAgICAgICAgIHsgMHg2N0ExLCAmaGF3YWlpX2RldmljZV9pbmZv
-IH0sICAgICAgICAvKiBIYXdhaWkgKi8KPiAtLQo+IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+--===============1459340457==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Assuming there are no ill effects:
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Eric Hua=
+ng <JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, July 13, 2018 3:22:30 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang, JinHuiEric
+Subject: [PATCH] Revert "drm/amd/powerplay: fix performance drop on Vega10"
+
+This reverts commit b87079ec7b4d38efee015367315958ce5495ba93.
+
+SMU FW team ask to remove this version specific code.
+
+Signed-off-by: Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index eb37316..1a0dccb 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -2896,11 +2896,6 @@ static int vega10_enable_dpm_tasks(struct pp_hwmgr *=
+hwmgr)
+
+         vega10_enable_disable_PCC_limit_feature(hwmgr, true);
+
+-       if ((hwmgr->smu_version =3D=3D 0x001c2c00) ||
+-                       (hwmgr->smu_version =3D=3D 0x001c2d00))
+-               smum_send_msg_to_smc_with_parameter(hwmgr,
+-                               PPSMC_MSG_UpdatePkgPwrPidAlpha, 1);
+-
+         smum_send_msg_to_smc_with_parameter(hwmgr,
+                 PPSMC_MSG_ConfigureTelemetry, data->config_telemetry);
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Assuming there are no ill effects=
+:<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Eric Huang &lt;JinhuiEric.Hua=
+ng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, July 13, 2018 3:22:30 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Huang, JinHuiEric<br>
+<b>Subject:</b> [PATCH] Revert &quot;drm/amd/powerplay: fix performance dro=
+p on Vega10&quot;</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This reverts commit b87079ec7b4d38efee015367315958=
+ce5495ba93.<br>
+<br>
+SMU FW team ask to remove this version specific code.<br>
+<br>
+Signed-off-by: Eric Huang &lt;JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 5 -----<br>
+&nbsp;1 file changed, 5 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+index eb37316..1a0dccb 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+@@ -2896,11 &#43;2896,6 @@ static int vega10_enable_dpm_tasks(struct pp_hwm=
+gr *hwmgr)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_enable_disable_PCC_=
+limit_feature(hwmgr, true);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hwmgr-&gt;smu_version =3D=3D 0x0=
+01c2c00) ||<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hwmgr-&gt;smu_v=
+ersion =3D=3D 0x001c2d00))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_UpdatePkgPwrPidAlpha, 1);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_=
+parameter(hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_ConfigureTelemetry, data-&gt;config_telemet=
+ry);<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180954E4A6FC97C326486D2FF7580BN6PR12MB1809namp_--
+
+--===============1459340457==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1459340457==--
