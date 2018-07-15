@@ -1,9 +1,9 @@
 From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Crash report from dmesg after suspend/resume
-Date: Sun, 15 Jul 2018 19:59:58 -0300
-Message-ID: <CAJri6_sUSMrCQKAsEds6S202DUSjxgf1nKXSVd-akM2jU+F_0w@mail.gmail.com>
+Subject: Error on boot with Raven Ridge
+Date: Sun, 15 Jul 2018 20:02:53 -0300
+Message-ID: <CAJri6_u2SxWPyGvib8X4akEvhOAw3Lkz2+5CPXXPmhyJPb5M-Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1019026949=="
+Content-Type: multipart/mixed; boundary="===============0273324339=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -17,336 +17,317 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1019026949==
-Content-Type: multipart/alternative; boundary="000000000000b7d5c6057111ac3c"
+--===============0273324339==
+Content-Type: multipart/alternative; boundary="0000000000002339fd057111b72f"
 
---000000000000b7d5c6057111ac3c
+--0000000000002339fd057111b72f
 Content-Type: text/plain; charset="UTF-8"
 
-Everything still works.
+Although it is reported on dmesg, the system still boots normally
 
-
-[36725.271678] BUG: unable to handle kernel NULL pointer dereference at
-0000000000000000
-[36725.271688] PGD 0 P4D 0
-[36725.271697] Oops: 0002 [#1] PREEMPT SMP NOPTI
-[36725.271704] CPU: 6 PID: 27625 Comm: amdgpu_cs:0 Tainted: G        WC O
-     4.18.0-1-custom+ #7
-[36725.271708] Hardware name: HP HP ENVY x360 Convertible 15m-bq1xx/83C6,
-BIOS F.17 03/29/2018
-[36725.271720] RIP: 0010:_raw_spin_lock+0x1a/0x40
-[36725.271724] Code: e8 fb d7 97 ff 66 90 5b c3 0f 1f 80 00 00 00 00 0f 1f
-44 00 00 53 48 89 fb bf 01 00 00 00 e8 4d 28 95 ff 31 c0 ba 01 00 00 00
-<f0> 0f b1 13 85 c0 75 02 5b c3 89 c6 48 8
-9 df e8 c2 d7 97 ff 66 90
-[36725.271778] RSP: 0018:ffff9bc388d6fb18 EFLAGS: 00010246
-[36725.271783] RAX: 0000000000000000 RBX: 0000000000000000 RCX:
-0000000000000001
-[36725.271786] RDX: 0000000000000001 RSI: ffff918b55c492d8 RDI:
-0000000000000001
-[36725.271790] RBP: ffff918b55c492f0 R08: 0000000000000000 R09:
-ffff9189dfa75700
-[36725.271794] R10: ffff918c717b2800 R11: 0000000000000000 R12:
-0000000000000000
-[36725.271797] R13: ffff918c717b67d8 R14: 00000000000005a0 R15:
-0000000000000000
-[36725.271803] FS:  00007fffcfb7b700(0000) GS:ffff918c8ab80000(0000)
-knlGS:0000000000000000
-[36725.271807] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[36725.271811] CR2: 0000000000000000 CR3: 0000000352ff2000 CR4:
-00000000003406e0
-[36725.271815] Call Trace:
-[36725.271831]  drm_sched_entity_push_job+0x122/0x150 [gpu_sched]
-[36725.271918]  amdgpu_cs_ioctl+0x1469/0x1af0 [amdgpu]
-[36725.272004]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-[36725.272025]  drm_ioctl_kernel+0xa7/0xf0 [drm]
-[36725.272044]  drm_ioctl+0x30e/0x3c0 [drm]
-[36725.272111]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-[36725.272166]  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-[36725.272174]  do_vfs_ioctl+0xa4/0x620
-[36725.272181]  ksys_ioctl+0x60/0x90
-[36725.272186]  __x64_sys_ioctl+0x16/0x20
-[36725.272192]  do_syscall_64+0x5b/0x170
-[36725.272198]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-[36725.272203] RIP: 0033:0x7ffff36e2667
-[36725.272205] Code: 00 00 90 48 8b 05 e9 67 2c 00 64 c7 00 26 00 00 00 48
-c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 05
-<48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d b9 6
-7 2c 00 f7 d8 64 89 01 48
-[36725.272253] RSP: 002b:00007fffcfb7abd8 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[36725.272258] RAX: ffffffffffffffda RBX: 00007fffcfb7acc8 RCX:
-00007ffff36e2667
-[36725.272262] RDX: 00007fffcfb7ac40 RSI: 00000000c0186444 RDI:
-000000000000000b
-[36725.272266] RBP: 00007fffcfb7ac40 R08: 00007fffcfb7acf0 R09:
-0000000000000010
-[36725.272269] R10: 00007fffcfb7acf0 R11: 0000000000000246 R12:
-00000000c0186444
-[36725.272272] R13: 000000000000000b R14: 0000000000000002 R15:
-0000000000000000
-[36725.272278] Modules linked in: ccm rfcomm fuse ipt_MASQUERADE
-nf_conntrack_netlink nfnetlink xfrm_user xfrm_algo iptable_nat
-nf_conntrack_ipv4 nf_defrag_ipv4 nf_nat_ipv4 xt_addrtype ipta
-ble_filter xt_conntrack nf_nat nf_conntrack br_netfilter bridge stp llc
-bnep ext4 mbcache jbd2 fscrypto joydev mousedev amdkfd amd_iommu_v2 amdgpu
-arc4 r8822be(C) uvcvideo btusb btrtl btbcm
-btintel videobuf2_vmalloc videobuf2_memops hid_sensor_accel_3d
+[    8.253073] amdgpu: [powerplay] dpm has been enabled
+[    8.253210] [drm] DM_PPLIB:   400000 in kHz
+[    8.253211] [drm] DM_PPLIB:   933000 in kHz
+[    8.253212] [drm] DM_PPLIB:   1067000 in kHz
+[    8.253380] WARNING: CPU: 6 PID: 361 at
+drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_calcs.c:1355
+dcn_bw_update_from_pplib+0x16b/0x280 [amdgpu]
+[    8.253381] Modules linked in: ext4 mbcache jbd2 fscrypto joydev
+mousedev amdkfd amd_iommu_v2 amdgpu(+) arc4 r8822be(C) uvcvideo btusb btrtl
+btbcm btintel videobuf2_vmalloc videobuf2_memops hid_sensor_accel_3d
 hid_sensor_magn_3d videobuf2_v4l2 chash hid_sensor_rotation
-hid_sensor_incl_3d hid_sensor_gyro_3d bluetooth videobuf2_common
-gpu_sched hid_sensor_trigger industrialio_triggered_buffer videodev
-i2c_algo_bit kfifo_buf hid_sensor_iio_common ecdh_generic industrialio
-media crc16 ttm mac80211 drm_kms_helper hp_wmi eda
-c_mce_amd snd_hda_codec_realtek sparse_keymap snd_hda_codec_generic
-[36725.272352]  drm wmi_bmof snd_hda_codec_hdmi kvm_amd snd_hda_intel ccp
-snd_hda_codec rng_core cfg80211 snd_hda_core snd_hwdep kvm snd_pcm
-snd_timer psmouse agpgart snd syscopyarea sysfil
-lrect irqbypass rtsx_pci_ms sysimgblt input_leds fb_sys_fops rfkill
-memstick soundcore sp5100_tco k10temp hp_accel lis3lv02d i2c_piix4 battery
-ac rtc_cmos wmi input_polldev led_class i2c_hi
-d evdev acpi_cpufreq pinctrl_amd mac_hid i2c_scmi hp_wireless vboxnetflt(O)
-vboxnetadp(O) vboxpci(O) vboxdrv(O) msr sg crypto_user ip_tables x_tables
-dm_crypt dm_mod btrfs libcrc32c crc32c_
-generic xor zstd_decompress zstd_compress xxhash hid_sensor_hub hid_generic
-usbhid hid raid6_pq sd_mod crct10dif_pclmul crc32_pclmul crc32c_intel
-ghash_clmulni_intel pcbc rtsx_pci_sdmmc ser
-io_raw atkbd libps2 mmc_core ahci libahci aesni_intel
-[36725.272440]  xhci_pci aes_x86_64 libata crypto_simd xhci_hcd cryptd
-glue_helper usbcore scsi_mod usb_common rtsx_pci i8042 serio lz4
-lz4_compress
-[36725.272460] CR2: 0000000000000000
-[36725.272465] ---[ end trace 9134c6e0a3766f31 ]---
-[36725.272473] RIP: 0010:_raw_spin_lock+0x1a/0x40
-[36725.272476] Code: e8 fb d7 97 ff 66 90 5b c3 0f 1f 80 00 00 00 00 0f 1f
-44 00 00 53 48 89 fb bf 01 00 00 00 e8 4d 28 95 ff 31 c0 ba 01 00 00 00
-<f0> 0f b1 13 85 c0 75 02 5b c3 89 c6 48 8
-9 df e8 c2 d7 97 ff 66 90
-[36725.272535] RSP: 0018:ffff9bc388d6fb18 EFLAGS: 00010246
-[36725.272539] RAX: 0000000000000000 RBX: 0000000000000000 RCX:
-0000000000000001
-[36725.272541] RDX: 0000000000000001 RSI: ffff918b55c492d8 RDI:
-0000000000000001
-[36725.272544] RBP: ffff918b55c492f0 R08: 0000000000000000 R09:
-ffff9189dfa75700
-[36725.272547] R10: ffff918c717b2800 R11: 0000000000000000 R12:
+hid_sensor_incl_3d hid_sensor_gyro_3d bluetooth videobuf2_common gpu_sched
+hid_sensor_trigger industrialio_triggered_buffer videodev i2c_algo_bit
+kfifo_buf hid_sensor_iio_common ecdh_generic industrialio media crc16 ttm
+mac80211 drm_kms_helper hp_wmi edac_mce_amd snd_hda_codec_realtek
+sparse_keymap snd_hda_codec_generic drm wmi_bmof snd_hda_codec_hdmi kvm_amd
+snd_hda_intel ccp snd_hda_codec rng_core cfg80211 snd_hda_core snd_hwdep
+kvm snd_pcm snd_timer psmouse agpgart snd syscopyarea sysfillrect irqbypass
+rtsx_pci_ms sysimgblt input_leds
+[    8.253444]  fb_sys_fops rfkill memstick soundcore sp5100_tco k10temp
+hp_accel lis3lv02d i2c_piix4 battery ac rtc_cmos wmi input_polldev
+led_class i2c_hid evdev acpi_cpufreq pinctrl_amd mac_hid i2c_scmi
+hp_wireless vboxnetflt(O) vboxnetadp(O) vboxpci(O) vboxdrv(O) msr sg
+crypto_user ip_tables x_tables dm_crypt dm_mod btrfs libcrc32c
+crc32c_generic xor zstd_decompress zstd_compress xxhash hid_sensor_hub
+hid_generic usbhid hid raid6_pq sd_mod crct10dif_pclmul crc32_pclmul
+crc32c_intel ghash_clmulni_intel pcbc rtsx_pci_sdmmc serio_raw atkbd libps2
+mmc_core ahci libahci aesni_intel xhci_pci aes_x86_64 libata crypto_simd
+xhci_hcd cryptd glue_helper usbcore scsi_mod usb_common rtsx_pci i8042
+serio lz4 lz4_compress
+[    8.253511] CPU: 6 PID: 361 Comm: systemd-udevd Tainted: G         C O
+    4.18.0-1-custom+ #7
+[    8.253512] Hardware name: HP HP ENVY x360 Convertible 15m-bq1xx/83C6,
+BIOS F.17 03/29/2018
+[    8.253630] RIP: 0010:dcn_bw_update_from_pplib+0x16b/0x280 [amdgpu]
+[    8.253631] Code: d8 ca d8 f1 d9 5a 50 8b 44 fc 14 49 8b 94 24 70 01 00
+00 48 89 04 24 df 2c 24 d8 f1 db 42 78 de c9 de ca de f9 d9 5a 4c eb 02
+<0f> 0b 48 89 da be 04 00 00 00 48 89 ef e8 13 5b fe ff 84 c0 0f 84
+[    8.253675] RSP: 0018:ffff9bc383b037b8 EFLAGS: 00010246
+[    8.253678] RAX: 0000000000000001 RBX: ffff9bc383b03818 RCX:
 0000000000000000
-[36725.272549] R13: ffff918c717b67d8 R14: 00000000000005a0 R15:
+[    8.253679] RDX: 0000000000000000 RSI: 0000000000000004 RDI:
+00000000ffffffff
+[    8.253681] RBP: ffff918c85651a40 R08: 0000000000000001 R09:
+000000000000039f
+[    8.253683] R10: 0000000000000004 R11: 0000000000000000 R12:
+ffff918c733ae000
+[    8.253684] R13: ffff918c73293300 R14: ffff918c733ae000 R15:
 0000000000000000
-[36725.272553] FS:  00007fffcfb7b700(0000) GS:ffff918c8ab80000(0000)
+[    8.253687] FS:  00007ffff7f85d40(0000) GS:ffff918c8ab80000(0000)
 knlGS:0000000000000000
-[36725.272556] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[36725.272559] CR2: 0000000000000000 CR3: 0000000352ff2000 CR4:
+[    8.253688] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    8.253690] CR2: 00007ffff7a28000 CR3: 0000000505f02000 CR4:
 00000000003406e0
-[36725.272584] note: amdgpu_cs:0[27625] exited with preempt_count 2
+[    8.253692] Call Trace:
+[    8.253817]  dcn10_create_resource_pool+0x756/0x990 [amdgpu]
+[    8.253933]  dc_create_resource_pool+0x42/0x180 [amdgpu]
+[    8.253940]  ? __kmalloc+0x1aa/0x230
+[    8.254053]  ? dal_gpio_service_create+0x7c/0x110 [amdgpu]
+[    8.254165]  dc_create+0x228/0x650 [amdgpu]
+[    8.254273]  ? amdgpu_cgs_create_device+0x23/0x50 [amdgpu]
+[    8.254385]  dm_hw_init+0xc8/0x130 [amdgpu]
+[    8.254496]  amdgpu_device_init.cold.15+0x1041/0x1253 [amdgpu]
+[    8.254585]  amdgpu_driver_load_kms+0x86/0x2c0 [amdgpu]
+[    8.254607]  drm_dev_register+0x109/0x140 [drm]
+[    8.254693]  amdgpu_pci_probe+0x13c/0x1c0 [amdgpu]
+[    8.254699]  ? _raw_spin_unlock_irqrestore+0x20/0x40
+[    8.254704]  local_pci_probe+0x41/0x90
+[    8.254709]  pci_device_probe+0x189/0x1a0
+[    8.254715]  driver_probe_device+0x2b9/0x460
+[    8.254719]  __driver_attach+0xdd/0x110
+[    8.254722]  ? driver_probe_device+0x460/0x460
+[    8.254725]  bus_for_each_dev+0x76/0xc0
+[    8.254729]  bus_add_driver+0x152/0x230
+[    8.254732]  ? 0xffffffffc1240000
+[    8.254735]  driver_register+0x6b/0xb0
+[    8.254738]  ? 0xffffffffc1240000
+[    8.254742]  do_one_initcall+0x46/0x1f5
+[    8.254746]  ? kmem_cache_alloc_trace+0x181/0x1d0
+[    8.254751]  ? do_init_module+0x22/0x210
+[    8.254755]  do_init_module+0x5a/0x210
+[    8.254759]  load_module+0x2295/0x24b0
+[    8.254766]  ? vmap_page_range_noflush+0x243/0x320
+[    8.254772]  ? __se_sys_init_module+0x10c/0x170
+[    8.254776]  __se_sys_init_module+0x10c/0x170
+[    8.254781]  do_syscall_64+0x5b/0x170
+[    8.254786]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[    8.254789] RIP: 0033:0x7ffff78f6f3a
+[    8.254789] Code: 48 8b 0d 19 cf 2b 00 f7 d8 64 89 01 48 83 c8 ff c3 66
+2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 49 89 ca b8 af 00 00 00 0f 05
+<48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d e6 ce 2b 00 f7 d8 64 89 01 48
+[    8.254834] RSP: 002b:00007fffffffd648 EFLAGS: 00000246 ORIG_RAX:
+00000000000000af
+[    8.254837] RAX: ffffffffffffffda RBX: 00005555557bc1c0 RCX:
+00007ffff78f6f3a
+[    8.254839] RDX: 00007ffff7193ecd RSI: 0000000000605250 RDI:
+00005555561c1cd0
+[    8.254840] RBP: 00007ffff7193ecd R08: 0000000000000007 R09:
+0000000000000006
+[    8.254842] R10: 00005555557b3010 R11: 0000000000000246 R12:
+00005555561c1cd0
+[    8.254843] R13: 00005555557c3f20 R14: 0000000000020000 R15:
+00005555557bc1c0
+[    8.254847] ---[ end trace 9134c6e0a3766f30 ]---
+[    8.254869] [drm] DM_PPLIB: values for Invalid clock
+[    8.254871] [drm] DM_PPLIB:   300000 in kHz
+[    8.254871] [drm] DM_PPLIB:   600000 in kHz
+[    8.254872] [drm] DM_PPLIB:   626000 in kHz
+[    8.254873] [drm] DM_PPLIB:   654000 in kHz
+[    8.255669] [drm:construct [amdgpu]] *ERROR* construct: Invalid
+Connector ObjectID from Adapter Service for connector index:2! type 0
+expected 3
+[    8.262434] [drm] Display Core initialized with v3.1.52!
+[    8.270244] [drm] SADs count is: -2, don't need to read it
+[    8.271703] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+[    8.271704] [drm] Driver supports precise vblank timestamp query.
+[    8.295109] [drm] VCN decode and encode initialized successfully.
+[    8.296988] [drm] fb mappable at 0xD1100000
+[    8.296990] [drm] vram apper at 0xD0000000
+[    8.296991] [drm] size 8294400
+[    8.296992] [drm] fb depth is 24
+[    8.296993] [drm]    pitch is 7680
+[    8.297159] fbcon: amdgpudrmfb (fb0) is primary device
+[    8.314740] Console: switching to colour frame buffer device 240x67
+[    8.336232] amdgpu 0000:03:00.0: fb0: amdgpudrmfb frame buffer device
+[    8.345240] amdgpu 0000:03:00.0: ring 0(gfx) uses VM inv eng 4 on hub 0
+[    8.345244] amdgpu 0000:03:00.0: ring 1(comp_1.0.0) uses VM inv eng 5 on
+hub 0
+[    8.345247] amdgpu 0000:03:00.0: ring 2(comp_1.1.0) uses VM inv eng 6 on
+hub 0
+[    8.345250] amdgpu 0000:03:00.0: ring 3(comp_1.2.0) uses VM inv eng 7 on
+hub 0
+[    8.345252] amdgpu 0000:03:00.0: ring 4(comp_1.3.0) uses VM inv eng 8 on
+hub 0
+[    8.345255] amdgpu 0000:03:00.0: ring 5(comp_1.0.1) uses VM inv eng 9 on
+hub 0
+[    8.345258] amdgpu 0000:03:00.0: ring 6(comp_1.1.1) uses VM inv eng 10
+on hub 0
+[    8.345260] amdgpu 0000:03:00.0: ring 7(comp_1.2.1) uses VM inv eng 11
+on hub 0
+[    8.345263] amdgpu 0000:03:00.0: ring 8(comp_1.3.1) uses VM inv eng 12
+on hub 0
+[    8.345266] amdgpu 0000:03:00.0: ring 9(kiq_2.1.0) uses VM inv eng 13 on
+hub 0
+[    8.345269] amdgpu 0000:03:00.0: ring 10(sdma0) uses VM inv eng 4 on hub
+1
+[    8.345272] amdgpu 0000:03:00.0: ring 11(vcn_dec) uses VM inv eng 5 on
+hub 1
+[    8.345275] amdgpu 0000:03:00.0: ring 12(vcn_enc0) uses VM inv eng 6 on
+hub 1
+[    8.345278] amdgpu 0000:03:00.0: ring 13(vcn_enc1) uses VM inv eng 7 on
+hub 1
+[    8.345280] amdgpu 0000:03:00.0: ring 14(vcn_jpeg) uses VM inv eng 8 on
+hub 1
+[    8.858530] [drm] Initialized amdgpu 3.26.0 20150101 for 0000:03:00.0 on
+minor 0
 
---000000000000b7d5c6057111ac3c
+--0000000000002339fd057111b72f
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Everything still works.<div><br></div><div><br></div><div>=
-<span style=3D"font-family:monospace"><span style=3D"color:rgb(24,178,24)">=
-[36725.271678] </span><span style=3D"color:rgb(178,104,24)">BUG</span><span=
- style=3D"color:rgb(255,255,255);background-color:rgb(178,24,24)">: unable =
-to handle kernel NULL pointer dereference at 0000000000000000</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.271688] </span>PGD 0 P4D 0=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><span style=3D"color:rg=
-b(24,178,24)">[36725.271697] </span><span style=3D"color:rgb(178,104,24)">O=
-ops</span><span style=3D"font-weight:bold">: 0002 [#1] PREEMPT SMP NOPTI</s=
-pan>=C2=A0<br><span style=3D"color:rgb(24,178,24)">[36725.271704] </span><s=
-pan style=3D"color:rgb(178,104,24)">CPU</span><span style=3D"font-weight:bo=
-ld">: 6 PID: 27625 Comm: amdgpu_cs:0 Tainted: G =C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0WC O =C2=A0=C2=A0=C2=A0=C2=A0=C2=A04.18.0-1-custom+ #7</span=
->=C2=A0<br><span style=3D"color:rgb(24,178,24)">[36725.271708] </span><span=
- style=3D"color:rgb(178,104,24)">Hardware name</span><span style=3D"font-we=
-ight:bold">: HP HP ENVY x360 Convertible 15m-bq1xx/83C6, BIOS F.17 03/29/20=
-18</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.271720] </span><span style=
-=3D"color:rgb(178,104,24)">RIP</span><span style=3D"font-weight:bold">: 001=
-0:_raw_spin_lock+0x1a/0x40</span>=C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<br><span=
- style=3D"color:rgb(24,178,24)">[36725.271724] </span><span style=3D"color:=
-rgb(178,104,24)">Code</span><span style=3D"font-weight:bold">: e8 fb d7 97 =
-ff 66 90 5b c3 0f 1f 80 00 00 00 00 0f 1f 44 00 00 53 48 89 fb bf 01 00 00 =
-00 e8 4d 28 95 ff 31 c0 ba 01 00 00 00 &lt;f0&gt; 0f b1 13 85 c0 75 02 5b c=
-3 89 c6 48 8</span>
-<br><span style=3D"font-weight:bold">9 df e8 c2 d7 97 ff 66 90 </span>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<b=
-r><span style=3D"color:rgb(24,178,24)">[36725.271778] </span><span style=3D=
-"color:rgb(178,104,24)">RSP</span><span style=3D"font-weight:bold">: 0018:f=
-fff9bc388d6fb18 EFLAGS: 00010246</span>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0<br><span style=3D"color:rgb(24,178,24)">[36725.=
-271783] </span><span style=3D"color:rgb(178,104,24)">RAX</span><span style=
-=3D"font-weight:bold">: 0000000000000000 RBX: 0000000000000000 RCX: 0000000=
-000000001</span>=C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<br><span style=3D"color:r=
-gb(24,178,24)">[36725.271786] </span><span style=3D"color:rgb(178,104,24)">=
-RDX</span><span style=3D"font-weight:bold">: 0000000000000001 RSI: ffff918b=
-55c492d8 RDI: 0000000000000001</span>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=
-=A0<br><span style=3D"color:rgb(24,178,24)">[36725.271790] </span><span sty=
-le=3D"color:rgb(178,104,24)">RBP</span><span style=3D"font-weight:bold">: f=
-fff918b55c492f0 R08: 0000000000000000 R09: ffff9189dfa75700</span>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<br><span style=3D"co=
-lor:rgb(24,178,24)">[36725.271794] </span><span style=3D"color:rgb(178,104,=
-24)">R10</span><span style=3D"font-weight:bold">: ffff918c717b2800 R11: 000=
-0000000000000 R12: 0000000000000000</span>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<br><span style=3D"colo=
-r:rgb(24,178,24)">[36725.271797] </span><span style=3D"color:rgb(178,104,24=
-)">R13</span><span style=3D"font-weight:bold">: ffff918c717b67d8 R14: 00000=
-000000005a0 R15: 0000000000000000</span>=C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<b=
-r><span style=3D"color:rgb(24,178,24)">[36725.271803] </span><span style=3D=
-"color:rgb(178,104,24)">FS</span><span style=3D"font-weight:bold">: =C2=A00=
-0007fffcfb7b700(0000) GS:ffff918c8ab80000(0000) knlGS:0000000000000000</spa=
-n>=C2=A0=C2=A0<br><span style=3D"color:rgb(24,178,24)">[36725.271807] </spa=
-n><span style=3D"color:rgb(178,104,24)">CS</span><span style=3D"font-weight=
-:bold">: =C2=A00010 DS: 0000 ES: 0000 CR0: 0000000080050033</span> =C2=A0=
-=C2=A0=C2=A0<br><span style=3D"color:rgb(24,178,24)">[36725.271811] </span>=
-<span style=3D"color:rgb(178,104,24)">CR2</span><span style=3D"font-weight:=
-bold">: 0000000000000000 CR3: 0000000352ff2000 CR4: 00000000003406e0</span>=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<br><span style=3D"color:rgb(24,178,24)">[=
-36725.271815] </span><span style=3D"font-weight:bold">Call Trace:</span>=C2=
-=A0<br><span style=3D"color:rgb(24,178,24)">[36725.271831] </span><span sty=
-le=3D"font-weight:bold">=C2=A0drm_sched_entity_push_job+0x122/0x150 [gpu_sc=
-hed]</span>=C2=A0 =C2=A0 =C2=A0=C2=A0<br><span style=3D"color:rgb(24,178,24=
-)">[36725.271918] </span><span style=3D"font-weight:bold">=C2=A0amdgpu_cs_i=
-octl+0x1469/0x1af0 [amdgpu]</span>=C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0<br><spa=
-n style=3D"color:rgb(24,178,24)">[36725.272004] </span><span style=3D"font-=
-weight:bold">=C2=A0? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272025] </span><span style=
-=3D"font-weight:bold">=C2=A0drm_ioctl_kernel+0xa7/0xf0 [drm]</span>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0<br><span style=3D"color:rgb(24,178,24)">[36725.272044]=
- </span><span style=3D"font-weight:bold">=C2=A0drm_ioctl+0x30e/0x3c0 [drm]<=
-/span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272111] </span><span style=
-=3D"font-weight:bold">=C2=A0? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]</=
-span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272166] </span><span style=
-=3D"font-weight:bold">=C2=A0amdgpu_drm_ioctl+0x49/0x80 [amdgpu]</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272174] </span><span style=
-=3D"font-weight:bold">=C2=A0do_vfs_ioctl+0xa4/0x620</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272181] </span><span style=
-=3D"font-weight:bold">=C2=A0ksys_ioctl+0x60/0x90</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272186] </span><span style=
-=3D"font-weight:bold">=C2=A0__x64_sys_ioctl+0x16/0x20</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272192] </span><span style=
-=3D"font-weight:bold">=C2=A0do_syscall_64+0x5b/0x170</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272198] </span><span style=
-=3D"font-weight:bold">=C2=A0entry_SYSCALL_64_after_hwframe+0x44/0xa9</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272203] </span><span style=
-=3D"color:rgb(178,104,24)">RIP</span><span style=3D"font-weight:bold">: 003=
-3:0x7ffff36e2667</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272205] </span><span style=
-=3D"color:rgb(178,104,24)">Code</span><span style=3D"font-weight:bold">: 00=
- 00 90 48 8b 05 e9 67 2c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66=
- 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff =
-73 01 c3 48 8b 0d b9 6</span>
-<br><span style=3D"font-weight:bold">7 2c 00 f7 d8 64 89 01 48 </span>=C2=
-=A0<br><span style=3D"color:rgb(24,178,24)">[36725.272253] </span><span sty=
-le=3D"color:rgb(178,104,24)">RSP</span><span style=3D"font-weight:bold">: 0=
-02b:00007fffcfb7abd8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272258] </span><span style=
-=3D"color:rgb(178,104,24)">RAX</span><span style=3D"font-weight:bold">: fff=
-fffffffffffda RBX: 00007fffcfb7acc8 RCX: 00007ffff36e2667</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272262] </span><span style=
-=3D"color:rgb(178,104,24)">RDX</span><span style=3D"font-weight:bold">: 000=
-07fffcfb7ac40 RSI: 00000000c0186444 RDI: 000000000000000b</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272266] </span><span style=
-=3D"color:rgb(178,104,24)">RBP</span><span style=3D"font-weight:bold">: 000=
-07fffcfb7ac40 R08: 00007fffcfb7acf0 R09: 0000000000000010</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272269] </span><span style=
-=3D"color:rgb(178,104,24)">R10</span><span style=3D"font-weight:bold">: 000=
-07fffcfb7acf0 R11: 0000000000000246 R12: 00000000c0186444</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272272] </span><span style=
-=3D"color:rgb(178,104,24)">R13</span><span style=3D"font-weight:bold">: 000=
-000000000000b R14: 0000000000000002 R15: 0000000000000000</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272278] </span><span style=
-=3D"color:rgb(178,104,24)">Modules linked in</span><span style=3D"font-weig=
-ht:bold">: ccm rfcomm fuse ipt_MASQUERADE nf_conntrack_netlink nfnetlink xf=
-rm_user xfrm_algo iptable_nat nf_conntrack_ipv4 nf_defrag_ipv4 nf_nat_ipv4 =
-xt_addrtype ipta</span>
-<br><span style=3D"font-weight:bold">ble_filter xt_conntrack nf_nat nf_conn=
-track br_netfilter bridge stp llc bnep ext4 mbcache jbd2 fscrypto joydev mo=
-usedev amdkfd amd_iommu_v2 amdgpu arc4 r8822be(C) uvcvideo btusb btrtl btbc=
-m</span>
-<br><span style=3D"font-weight:bold"> btintel videobuf2_vmalloc videobuf2_m=
-emops hid_sensor_accel_3d hid_sensor_magn_3d videobuf2_v4l2 chash hid_senso=
-r_rotation hid_sensor_incl_3d hid_sensor_gyro_3d bluetooth videobuf2_common=
- </span>=C2=A0<br><span style=3D"font-weight:bold">gpu_sched hid_sensor_tri=
-gger industrialio_triggered_buffer videodev i2c_algo_bit kfifo_buf hid_sens=
-or_iio_common ecdh_generic industrialio media crc16 ttm mac80211 drm_kms_he=
-lper hp_wmi eda</span>
-<br><span style=3D"font-weight:bold">c_mce_amd snd_hda_codec_realtek sparse=
-_keymap snd_hda_codec_generic</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272352] </span><span style=
-=3D"font-weight:bold">=C2=A0drm wmi_bmof snd_hda_codec_hdmi kvm_amd snd_hda=
-_intel ccp snd_hda_codec rng_core cfg80211 snd_hda_core snd_hwdep kvm snd_p=
-cm snd_timer psmouse agpgart snd syscopyarea sysfil</span>
-<br><span style=3D"font-weight:bold">lrect irqbypass rtsx_pci_ms sysimgblt =
-input_leds fb_sys_fops rfkill memstick soundcore sp5100_tco k10temp hp_acce=
-l lis3lv02d i2c_piix4 battery ac rtc_cmos wmi input_polldev led_class i2c_h=
-i</span>
-<br><span style=3D"font-weight:bold">d evdev acpi_cpufreq pinctrl_amd mac_h=
-id i2c_scmi hp_wireless vboxnetflt(O) vboxnetadp(O) vboxpci(O) vboxdrv(O) m=
-sr sg crypto_user ip_tables x_tables dm_crypt dm_mod btrfs libcrc32c crc32c=
-_</span>
-<br><span style=3D"font-weight:bold">generic xor zstd_decompress zstd_compr=
-ess xxhash hid_sensor_hub hid_generic usbhid hid raid6_pq sd_mod crct10dif_=
-pclmul crc32_pclmul crc32c_intel ghash_clmulni_intel pcbc rtsx_pci_sdmmc se=
-r</span>
-<br><span style=3D"font-weight:bold">io_raw atkbd libps2 mmc_core ahci liba=
-hci aesni_intel</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272440] </span><span style=
-=3D"font-weight:bold">=C2=A0xhci_pci aes_x86_64 libata crypto_simd xhci_hcd=
- cryptd glue_helper usbcore scsi_mod usb_common rtsx_pci i8042 serio lz4 lz=
-4_compress</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272460] </span><span style=
-=3D"color:rgb(178,104,24)">CR2</span><span style=3D"font-weight:bold">: 000=
-0000000000000</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272465] </span><span style=
-=3D"font-weight:bold">---[ end trace 9134c6e0a3766f31 ]---</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272473] </span><span style=
-=3D"color:rgb(178,104,24)">RIP</span><span style=3D"font-weight:bold">: 001=
-0:_raw_spin_lock+0x1a/0x40</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272476] </span><span style=
-=3D"color:rgb(178,104,24)">Code</span><span style=3D"font-weight:bold">: e8=
- fb d7 97 ff 66 90 5b c3 0f 1f 80 00 00 00 00 0f 1f 44 00 00 53 48 89 fb bf=
- 01 00 00 00 e8 4d 28 95 ff 31 c0 ba 01 00 00 00 &lt;f0&gt; 0f b1 13 85 c0 =
-75 02 5b c3 89 c6 48 8</span>
-<br><span style=3D"font-weight:bold">9 df e8 c2 d7 97 ff 66 90 </span><br><=
-/span><div><div><span style=3D"font-family:monospace"><span style=3D"color:=
-rgb(24,178,24)">[36725.272535] </span><span style=3D"color:rgb(178,104,24)"=
->RSP</span><span style=3D"font-weight:bold">: 0018:ffff9bc388d6fb18 EFLAGS:=
- 00010246</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272539] </span><span style=
-=3D"color:rgb(178,104,24)">RAX</span><span style=3D"font-weight:bold">: 000=
-0000000000000 RBX: 0000000000000000 RCX: 0000000000000001</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272541] </span><span style=
-=3D"color:rgb(178,104,24)">RDX</span><span style=3D"font-weight:bold">: 000=
-0000000000001 RSI: ffff918b55c492d8 RDI: 0000000000000001</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272544] </span><span style=
-=3D"color:rgb(178,104,24)">RBP</span><span style=3D"font-weight:bold">: fff=
-f918b55c492f0 R08: 0000000000000000 R09: ffff9189dfa75700</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272547] </span><span style=
-=3D"color:rgb(178,104,24)">R10</span><span style=3D"font-weight:bold">: fff=
-f918c717b2800 R11: 0000000000000000 R12: 0000000000000000</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272549] </span><span style=
-=3D"color:rgb(178,104,24)">R13</span><span style=3D"font-weight:bold">: fff=
-f918c717b67d8 R14: 00000000000005a0 R15: 0000000000000000</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272553] </span><span style=
-=3D"color:rgb(178,104,24)">FS</span><span style=3D"font-weight:bold">: =C2=
-=A000007fffcfb7b700(0000) GS:ffff918c8ab80000(0000) knlGS:0000000000000000<=
-/span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272556] </span><span style=
-=3D"color:rgb(178,104,24)">CS</span><span style=3D"font-weight:bold">: =C2=
-=A00010 DS: 0000 ES: 0000 CR0: 0000000080050033</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272559] </span><span style=
-=3D"color:rgb(178,104,24)">CR2</span><span style=3D"font-weight:bold">: 000=
-0000000000000 CR3: 0000000352ff2000 CR4: 00000000003406e0</span>
-<br><span style=3D"color:rgb(24,178,24)">[36725.272584] </span><span style=
-=3D"color:rgb(178,104,24)">note</span>: amdgpu_cs:0[27625] exited with pree=
-mpt_count 2<br>
-<br></span></div><div><br></div></div></div></div>
+<div dir=3D"ltr">Although it is reported on dmesg, the system still boots n=
+ormally<br><div><br></div><div><div>[=C2=A0 =C2=A0 8.253073] amdgpu: [power=
+play] dpm has been enabled</div><div>[=C2=A0 =C2=A0 8.253210] [drm] DM_PPLI=
+B:=C2=A0 =C2=A0400000 in kHz</div><div>[=C2=A0 =C2=A0 8.253211] [drm] DM_PP=
+LIB:=C2=A0 =C2=A0933000 in kHz</div><div>[=C2=A0 =C2=A0 8.253212] [drm] DM_=
+PPLIB:=C2=A0 =C2=A01067000 in kHz</div><div>[=C2=A0 =C2=A0 8.253380] WARNIN=
+G: CPU: 6 PID: 361 at drivers/gpu/drm/amd/amdgpu/../display/dc/calcs/dcn_ca=
+lcs.c:1355 dcn_bw_update_from_pplib+0x16b/0x280 [amdgpu]</div><div>[=C2=A0 =
+=C2=A0 8.253381] Modules linked in: ext4 mbcache jbd2 fscrypto joydev mouse=
+dev amdkfd amd_iommu_v2 amdgpu(+) arc4 r8822be(C) uvcvideo btusb btrtl btbc=
+m btintel videobuf2_vmalloc videobuf2_memops hid_sensor_accel_3d hid_sensor=
+_magn_3d videobuf2_v4l2 chash hid_sensor_rotation hid_sensor_incl_3d hid_se=
+nsor_gyro_3d bluetooth videobuf2_common gpu_sched hid_sensor_trigger indust=
+rialio_triggered_buffer videodev i2c_algo_bit kfifo_buf hid_sensor_iio_comm=
+on ecdh_generic industrialio media crc16 ttm mac80211 drm_kms_helper hp_wmi=
+ edac_mce_amd snd_hda_codec_realtek sparse_keymap snd_hda_codec_generic drm=
+ wmi_bmof snd_hda_codec_hdmi kvm_amd snd_hda_intel ccp snd_hda_codec rng_co=
+re cfg80211 snd_hda_core snd_hwdep kvm snd_pcm snd_timer psmouse agpgart sn=
+d syscopyarea sysfillrect irqbypass rtsx_pci_ms sysimgblt input_leds</div><=
+div>[=C2=A0 =C2=A0 8.253444]=C2=A0 fb_sys_fops rfkill memstick soundcore sp=
+5100_tco k10temp hp_accel lis3lv02d i2c_piix4 battery ac rtc_cmos wmi input=
+_polldev led_class i2c_hid evdev acpi_cpufreq pinctrl_amd mac_hid i2c_scmi =
+hp_wireless vboxnetflt(O) vboxnetadp(O) vboxpci(O) vboxdrv(O) msr sg crypto=
+_user ip_tables x_tables dm_crypt dm_mod btrfs libcrc32c crc32c_generic xor=
+ zstd_decompress zstd_compress xxhash hid_sensor_hub hid_generic usbhid hid=
+ raid6_pq sd_mod crct10dif_pclmul crc32_pclmul crc32c_intel ghash_clmulni_i=
+ntel pcbc rtsx_pci_sdmmc serio_raw atkbd libps2 mmc_core ahci libahci aesni=
+_intel xhci_pci aes_x86_64 libata crypto_simd xhci_hcd cryptd glue_helper u=
+sbcore scsi_mod usb_common rtsx_pci i8042 serio lz4 lz4_compress</div><div>=
+[=C2=A0 =C2=A0 8.253511] CPU: 6 PID: 361 Comm: systemd-udevd Tainted: G=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0C O=C2=A0 =C2=A0 =C2=A0 4.18.0-1-custom+ #7<=
+/div><div>[=C2=A0 =C2=A0 8.253512] Hardware name: HP HP ENVY x360 Convertib=
+le 15m-bq1xx/83C6, BIOS F.17 03/29/2018</div><div>[=C2=A0 =C2=A0 8.253630] =
+RIP: 0010:dcn_bw_update_from_pplib+0x16b/0x280 [amdgpu]</div><div>[=C2=A0 =
+=C2=A0 8.253631] Code: d8 ca d8 f1 d9 5a 50 8b 44 fc 14 49 8b 94 24 70 01 0=
+0 00 48 89 04 24 df 2c 24 d8 f1 db 42 78 de c9 de ca de f9 d9 5a 4c eb 02 &=
+lt;0f&gt; 0b 48 89 da be 04 00 00 00 48 89 ef e8 13 5b fe ff 84 c0 0f 84</d=
+iv><div>[=C2=A0 =C2=A0 8.253675] RSP: 0018:ffff9bc383b037b8 EFLAGS: 0001024=
+6</div><div>[=C2=A0 =C2=A0 8.253678] RAX: 0000000000000001 RBX: ffff9bc383b=
+03818 RCX: 0000000000000000</div><div>[=C2=A0 =C2=A0 8.253679] RDX: 0000000=
+000000000 RSI: 0000000000000004 RDI: 00000000ffffffff</div><div>[=C2=A0 =C2=
+=A0 8.253681] RBP: ffff918c85651a40 R08: 0000000000000001 R09: 000000000000=
+039f</div><div>[=C2=A0 =C2=A0 8.253683] R10: 0000000000000004 R11: 00000000=
+00000000 R12: ffff918c733ae000</div><div>[=C2=A0 =C2=A0 8.253684] R13: ffff=
+918c73293300 R14: ffff918c733ae000 R15: 0000000000000000</div><div>[=C2=A0 =
+=C2=A0 8.253687] FS:=C2=A0 00007ffff7f85d40(0000) GS:ffff918c8ab80000(0000)=
+ knlGS:0000000000000000</div><div>[=C2=A0 =C2=A0 8.253688] CS:=C2=A0 0010 D=
+S: 0000 ES: 0000 CR0: 0000000080050033</div><div>[=C2=A0 =C2=A0 8.253690] C=
+R2: 00007ffff7a28000 CR3: 0000000505f02000 CR4: 00000000003406e0</div><div>=
+[=C2=A0 =C2=A0 8.253692] Call Trace:</div><div>[=C2=A0 =C2=A0 8.253817]=C2=
+=A0 dcn10_create_resource_pool+0x756/0x990 [amdgpu]</div><div>[=C2=A0 =C2=
+=A0 8.253933]=C2=A0 dc_create_resource_pool+0x42/0x180 [amdgpu]</div><div>[=
+=C2=A0 =C2=A0 8.253940]=C2=A0 ? __kmalloc+0x1aa/0x230</div><div>[=C2=A0 =C2=
+=A0 8.254053]=C2=A0 ? dal_gpio_service_create+0x7c/0x110 [amdgpu]</div><div=
+>[=C2=A0 =C2=A0 8.254165]=C2=A0 dc_create+0x228/0x650 [amdgpu]</div><div>[=
+=C2=A0 =C2=A0 8.254273]=C2=A0 ? amdgpu_cgs_create_device+0x23/0x50 [amdgpu]=
+</div><div>[=C2=A0 =C2=A0 8.254385]=C2=A0 dm_hw_init+0xc8/0x130 [amdgpu]</d=
+iv><div>[=C2=A0 =C2=A0 8.254496]=C2=A0 amdgpu_device_init.cold.15+0x1041/0x=
+1253 [amdgpu]</div><div>[=C2=A0 =C2=A0 8.254585]=C2=A0 amdgpu_driver_load_k=
+ms+0x86/0x2c0 [amdgpu]</div><div>[=C2=A0 =C2=A0 8.254607]=C2=A0 drm_dev_reg=
+ister+0x109/0x140 [drm]</div><div>[=C2=A0 =C2=A0 8.254693]=C2=A0 amdgpu_pci=
+_probe+0x13c/0x1c0 [amdgpu]</div><div>[=C2=A0 =C2=A0 8.254699]=C2=A0 ? _raw=
+_spin_unlock_irqrestore+0x20/0x40</div><div>[=C2=A0 =C2=A0 8.254704]=C2=A0 =
+local_pci_probe+0x41/0x90</div><div>[=C2=A0 =C2=A0 8.254709]=C2=A0 pci_devi=
+ce_probe+0x189/0x1a0</div><div>[=C2=A0 =C2=A0 8.254715]=C2=A0 driver_probe_=
+device+0x2b9/0x460</div><div>[=C2=A0 =C2=A0 8.254719]=C2=A0 __driver_attach=
++0xdd/0x110</div><div>[=C2=A0 =C2=A0 8.254722]=C2=A0 ? driver_probe_device+=
+0x460/0x460</div><div>[=C2=A0 =C2=A0 8.254725]=C2=A0 bus_for_each_dev+0x76/=
+0xc0</div><div>[=C2=A0 =C2=A0 8.254729]=C2=A0 bus_add_driver+0x152/0x230</d=
+iv><div>[=C2=A0 =C2=A0 8.254732]=C2=A0 ? 0xffffffffc1240000</div><div>[=C2=
+=A0 =C2=A0 8.254735]=C2=A0 driver_register+0x6b/0xb0</div><div>[=C2=A0 =C2=
+=A0 8.254738]=C2=A0 ? 0xffffffffc1240000</div><div>[=C2=A0 =C2=A0 8.254742]=
+=C2=A0 do_one_initcall+0x46/0x1f5</div><div>[=C2=A0 =C2=A0 8.254746]=C2=A0 =
+? kmem_cache_alloc_trace+0x181/0x1d0</div><div>[=C2=A0 =C2=A0 8.254751]=C2=
+=A0 ? do_init_module+0x22/0x210</div><div>[=C2=A0 =C2=A0 8.254755]=C2=A0 do=
+_init_module+0x5a/0x210</div><div>[=C2=A0 =C2=A0 8.254759]=C2=A0 load_modul=
+e+0x2295/0x24b0</div><div>[=C2=A0 =C2=A0 8.254766]=C2=A0 ? vmap_page_range_=
+noflush+0x243/0x320</div><div>[=C2=A0 =C2=A0 8.254772]=C2=A0 ? __se_sys_ini=
+t_module+0x10c/0x170</div><div>[=C2=A0 =C2=A0 8.254776]=C2=A0 __se_sys_init=
+_module+0x10c/0x170</div><div>[=C2=A0 =C2=A0 8.254781]=C2=A0 do_syscall_64+=
+0x5b/0x170</div><div>[=C2=A0 =C2=A0 8.254786]=C2=A0 entry_SYSCALL_64_after_=
+hwframe+0x44/0xa9</div><div>[=C2=A0 =C2=A0 8.254789] RIP: 0033:0x7ffff78f6f=
+3a</div><div>[=C2=A0 =C2=A0 8.254789] Code: 48 8b 0d 19 cf 2b 00 f7 d8 64 8=
+9 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 49 89 ca b=
+8 af 00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d e6 ce 2b 00=
+ f7 d8 64 89 01 48</div><div>[=C2=A0 =C2=A0 8.254834] RSP: 002b:00007ffffff=
+fd648 EFLAGS: 00000246 ORIG_RAX: 00000000000000af</div><div>[=C2=A0 =C2=A0 =
+8.254837] RAX: ffffffffffffffda RBX: 00005555557bc1c0 RCX: 00007ffff78f6f3a=
+</div><div>[=C2=A0 =C2=A0 8.254839] RDX: 00007ffff7193ecd RSI: 000000000060=
+5250 RDI: 00005555561c1cd0</div><div>[=C2=A0 =C2=A0 8.254840] RBP: 00007fff=
+f7193ecd R08: 0000000000000007 R09: 0000000000000006</div><div>[=C2=A0 =C2=
+=A0 8.254842] R10: 00005555557b3010 R11: 0000000000000246 R12: 00005555561c=
+1cd0</div><div>[=C2=A0 =C2=A0 8.254843] R13: 00005555557c3f20 R14: 00000000=
+00020000 R15: 00005555557bc1c0</div><div>[=C2=A0 =C2=A0 8.254847] ---[ end =
+trace 9134c6e0a3766f30 ]---</div><div>[=C2=A0 =C2=A0 8.254869] [drm] DM_PPL=
+IB: values for Invalid clock</div><div>[=C2=A0 =C2=A0 8.254871] [drm] DM_PP=
+LIB:=C2=A0 =C2=A0300000 in kHz</div><div>[=C2=A0 =C2=A0 8.254871] [drm] DM_=
+PPLIB:=C2=A0 =C2=A0600000 in kHz</div><div>[=C2=A0 =C2=A0 8.254872] [drm] D=
+M_PPLIB:=C2=A0 =C2=A0626000 in kHz</div><div>[=C2=A0 =C2=A0 8.254873] [drm]=
+ DM_PPLIB:=C2=A0 =C2=A0654000 in kHz</div><div>[=C2=A0 =C2=A0 8.255669] [dr=
+m:construct [amdgpu]] *ERROR* construct: Invalid Connector ObjectID from Ad=
+apter Service for connector index:2! type 0 expected 3</div><div>[=C2=A0 =
+=C2=A0 8.262434] [drm] Display Core initialized with v3.1.52!</div><div>[=
+=C2=A0 =C2=A0 8.270244] [drm] SADs count is: -2, don&#39;t need to read it<=
+/div><div>[=C2=A0 =C2=A0 8.271703] [drm] Supports vblank timestamp caching =
+Rev 2 (21.10.2013).</div><div>[=C2=A0 =C2=A0 8.271704] [drm] Driver support=
+s precise vblank timestamp query.</div><div>[=C2=A0 =C2=A0 8.295109] [drm] =
+VCN decode and encode initialized successfully.</div><div>[=C2=A0 =C2=A0 8.=
+296988] [drm] fb mappable at 0xD1100000</div><div>[=C2=A0 =C2=A0 8.296990] =
+[drm] vram apper at 0xD0000000</div><div>[=C2=A0 =C2=A0 8.296991] [drm] siz=
+e 8294400</div><div>[=C2=A0 =C2=A0 8.296992] [drm] fb depth is 24</div><div=
+>[=C2=A0 =C2=A0 8.296993] [drm]=C2=A0 =C2=A0 pitch is 7680</div><div>[=C2=
+=A0 =C2=A0 8.297159] fbcon: amdgpudrmfb (fb0) is primary device</div><div>[=
+=C2=A0 =C2=A0 8.314740] Console: switching to colour frame buffer device 24=
+0x67</div><div>[=C2=A0 =C2=A0 8.336232] amdgpu 0000:03:00.0: fb0: amdgpudrm=
+fb frame buffer device</div><div>[=C2=A0 =C2=A0 8.345240] amdgpu 0000:03:00=
+.0: ring 0(gfx) uses VM inv eng 4 on hub 0</div><div>[=C2=A0 =C2=A0 8.34524=
+4] amdgpu 0000:03:00.0: ring 1(comp_1.0.0) uses VM inv eng 5 on hub 0</div>=
+<div>[=C2=A0 =C2=A0 8.345247] amdgpu 0000:03:00.0: ring 2(comp_1.1.0) uses =
+VM inv eng 6 on hub 0</div><div>[=C2=A0 =C2=A0 8.345250] amdgpu 0000:03:00.=
+0: ring 3(comp_1.2.0) uses VM inv eng 7 on hub 0</div><div>[=C2=A0 =C2=A0 8=
+.345252] amdgpu 0000:03:00.0: ring 4(comp_1.3.0) uses VM inv eng 8 on hub 0=
+</div><div>[=C2=A0 =C2=A0 8.345255] amdgpu 0000:03:00.0: ring 5(comp_1.0.1)=
+ uses VM inv eng 9 on hub 0</div><div>[=C2=A0 =C2=A0 8.345258] amdgpu 0000:=
+03:00.0: ring 6(comp_1.1.1) uses VM inv eng 10 on hub 0</div><div>[=C2=A0 =
+=C2=A0 8.345260] amdgpu 0000:03:00.0: ring 7(comp_1.2.1) uses VM inv eng 11=
+ on hub 0</div><div>[=C2=A0 =C2=A0 8.345263] amdgpu 0000:03:00.0: ring 8(co=
+mp_1.3.1) uses VM inv eng 12 on hub 0</div><div>[=C2=A0 =C2=A0 8.345266] am=
+dgpu 0000:03:00.0: ring 9(kiq_2.1.0) uses VM inv eng 13 on hub 0</div><div>=
+[=C2=A0 =C2=A0 8.345269] amdgpu 0000:03:00.0: ring 10(sdma0) uses VM inv en=
+g 4 on hub 1</div><div>[=C2=A0 =C2=A0 8.345272] amdgpu 0000:03:00.0: ring 1=
+1(vcn_dec) uses VM inv eng 5 on hub 1</div><div>[=C2=A0 =C2=A0 8.345275] am=
+dgpu 0000:03:00.0: ring 12(vcn_enc0) uses VM inv eng 6 on hub 1</div><div>[=
+=C2=A0 =C2=A0 8.345278] amdgpu 0000:03:00.0: ring 13(vcn_enc1) uses VM inv =
+eng 7 on hub 1</div><div>[=C2=A0 =C2=A0 8.345280] amdgpu 0000:03:00.0: ring=
+ 14(vcn_jpeg) uses VM inv eng 8 on hub 1</div><div>[=C2=A0 =C2=A0 8.858530]=
+ [drm] Initialized amdgpu 3.26.0 20150101 for 0000:03:00.0 on minor 0</div>=
+</div><div><br></div></div>
 
---000000000000b7d5c6057111ac3c--
+--0000000000002339fd057111b72f--
 
---===============1019026949==
+--===============0273324339==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -356,4 +337,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1019026949==--
+--===============0273324339==--
