@@ -1,14 +1,15 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 6/7] drm/amdgpu: remove job->adev
-Date: Mon, 16 Jul 2018 17:50:44 +0200
-Message-ID: <e0930c99-0221-23b4-7357-9e7eee16945e@daenzer.net>
-References: <20180713151949.13665-1-christian.koenig@amd.com>
- <20180713151949.13665-6-christian.koenig@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu/pp: switch smu callback type for
+ get_argument()
+Date: Mon, 16 Jul 2018 15:51:09 +0000
+Message-ID: <CY4PR12MB1687613EDDFEFDB4607E867AFB5D0@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <20180712202306.26762-1-alexander.deucher@amd.com>,
+ <20180712202306.26762-3-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------A9C91ADC1A0A65AF6822A6D4"
+Content-Type: multipart/mixed; boundary="===============1448867337=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180713151949.13665-6-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <20180712202306.26762-3-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,179 +20,410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---------------A9C91ADC1A0A65AF6822A6D4
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+--===============1448867337==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687613EDDFEFDB4607E867AFB5D0CY4PR12MB1687namp_"
 
-On 2018-07-13 05:19 PM, Christian König wrote:
-> We can get that from the ring.
-> 
-> Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-
-This change introduced the attached oops when running the piglit
-max-texture-size test, after which the test process hangs.
-
-Note that the test always triggers the out of memory condition in
-amdgpu_cs_ioctl, but before this change that was handled gracefully.
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---------------A9C91ADC1A0A65AF6822A6D4
-Content-Type: text/x-log;
- name="kern.log"
+--_000_CY4PR12MB1687613EDDFEFDB4607E867AFB5D0CY4PR12MB1687namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="kern.log"
 
-Jul 16 17:35:32 kaveri kernel: [   97.203039] [drm:amdgpu_cs_ioctl [amdgp=
-u]] *ERROR* amdgpu_cs_list_validate(validated) failed.
-Jul 16 17:35:32 kaveri kernel: [   97.203299] [drm:amdgpu_cs_ioctl [amdgp=
-u]] *ERROR* Not enough memory for command submission!
-Jul 16 17:35:32 kaveri kernel: [   97.203388] BUG: unable to handle kerne=
-l paging request at ffffffffffffff30
-Jul 16 17:35:32 kaveri kernel: [   97.203398] PGD 1a6e16067 P4D 1a6e16067=
- PUD 1a6e18067 PMD 0=20
-Jul 16 17:35:32 kaveri kernel: [   97.203414] Oops: 0000 [#1] SMP KASAN N=
-OPTI
-Jul 16 17:35:32 kaveri kernel: [   97.203423] CPU: 10 PID: 2009 Comm: max=
--textur:cs0 Tainted: G        W  OE     4.18.0-rc1+ #110
-Jul 16 17:35:32 kaveri kernel: [   97.203428] Hardware name: Micro-Star I=
-nternational Co., Ltd. MS-7A34/B350 TOMAHAWK (MS-7A34), BIOS 1.80 09/13/2=
-017
-Jul 16 17:35:32 kaveri kernel: [   97.203555] RIP: 0010:amdgpu_job_free_r=
-esources+0x122/0x1f0 [amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.203559] Code: 85 dc 00 00 00 48 8b =
-44 24 08 89 ea 48 8d 34 92 49 8b 96 48 02 00 00 42 80 3c 38 00 48 8d 34 f=
-2 0f 85 a2 00 00 00 48 8b 14 24 <49> 8b bc 24 30 ff ff ff 83 c5 01 e8 2e =
-45 d9 ff 48 89 da 48 c1 ea=20
-Jul 16 17:35:32 kaveri kernel: [   97.203664] RSP: 0018:ffff8803de2e7698 =
-EFLAGS: 00010246
-Jul 16 17:35:32 kaveri kernel: [   97.203671] RAX: 1fffffffffffffe6 RBX: =
-ffff8803465969dc RCX: 1fffffffffffffe6
-Jul 16 17:35:32 kaveri kernel: [   97.203677] RDX: 0000000000000000 RSI: =
-ffff880346596a30 RDI: ffff8803465969d0
-Jul 16 17:35:32 kaveri kernel: [   97.203682] RBP: 0000000000000000 R08: =
-ffff8803de2e74b0 R09: 0000000000000000
-Jul 16 17:35:32 kaveri kernel: [   97.203686] R10: 0000000000000000 R11: =
-0000000000000000 R12: 0000000000000000
-Jul 16 17:35:32 kaveri kernel: [   97.203691] R13: ffffed0068cb2d39 R14: =
-ffff880346596780 R15: dffffc0000000000
-Jul 16 17:35:32 kaveri kernel: [   97.203698] FS:  00007fca13089700(0000)=
- GS:ffff8803ee280000(0000) knlGS:0000000000000000
-Jul 16 17:35:32 kaveri kernel: [   97.203703] CS:  0010 DS: 0000 ES: 0000=
- CR0: 0000000080050033
-Jul 16 17:35:32 kaveri kernel: [   97.203708] CR2: ffffffffffffff30 CR3: =
-00000003cf8f4000 CR4: 00000000003406e0
-Jul 16 17:35:32 kaveri kernel: [   97.203712] Call Trace:
-Jul 16 17:35:32 kaveri kernel: [   97.203843]  amdgpu_job_free+0xf/0x80 [=
-amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.203947]  amdgpu_cs_ioctl+0x8dd/0x4e=
-60 [amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.204058]  ? amdgpu_bo_list_ioctl+0x2=
-d1/0x3e0 [amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.204160]  ? amdgpu_cs_find_mapping+0=
-x3c0/0x3c0 [amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.204170]  ? do_vfs_ioctl+0x192/0xf30=
+Series is:
 
-Jul 16 17:35:32 kaveri kernel: [   97.204176]  ? ksys_ioctl+0x70/0x80
-Jul 16 17:35:32 kaveri kernel: [   97.204182]  ? __x64_sys_ioctl+0x6f/0xb=
-0
-Jul 16 17:35:32 kaveri kernel: [   97.204189]  ? do_syscall_64+0xa5/0x3f0=
+Reviewed-by: Rex Zhu<rezhu-5C7GfCeVMHo@public.gmane.org<mailto:rezhu-5C7GfCeVMHo@public.gmane.org>>
 
-Jul 16 17:35:32 kaveri kernel: [   97.204199]  ? __lock_acquire+0x605/0x3=
-670
-Jul 16 17:35:32 kaveri kernel: [   97.204207]  ? idr_get_free+0x4bc/0x980=
 
-Jul 16 17:35:32 kaveri kernel: [   97.204215]  ? find_held_lock+0x32/0x1c=
-0
-Jul 16 17:35:32 kaveri kernel: [   97.204228]  ? debug_check_no_locks_fre=
-ed+0x2c0/0x2c0
-Jul 16 17:35:32 kaveri kernel: [   97.204235]  ? __fprop_inc_percpu_max+0=
-x1d0/0x1d0
-Jul 16 17:35:32 kaveri kernel: [   97.204361]  ? amdgpu_cs_find_mapping+0=
-x3c0/0x3c0 [amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.204391]  drm_ioctl_kernel+0x197/0x2=
-20 [drm]
-Jul 16 17:35:32 kaveri kernel: [   97.204422]  ? drm_setversion+0x7d0/0x7=
-d0 [drm]
-Jul 16 17:35:32 kaveri kernel: [   97.204432]  ? __check_object_size+0x14=
-9/0x360
-Jul 16 17:35:32 kaveri kernel: [   97.204464]  drm_ioctl+0x60a/0x970 [drm=
-]
-Jul 16 17:35:32 kaveri kernel: [   97.204568]  ? amdgpu_cs_find_mapping+0=
-x3c0/0x3c0 [amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.204599]  ? drm_ioctl_kernel+0x220/0=
-x220 [drm]
-Jul 16 17:35:32 kaveri kernel: [   97.204612]  ? lock_downgrade+0x5e0/0x5=
-e0
-Jul 16 17:35:32 kaveri kernel: [   97.204621]  ? _raw_spin_unlock_irqrest=
-ore+0x32/0x60
-Jul 16 17:35:32 kaveri kernel: [   97.204629]  ? trace_hardirqs_on_caller=
-+0x381/0x570
-Jul 16 17:35:32 kaveri kernel: [   97.204729]  amdgpu_drm_ioctl+0xcc/0x1a=
-0 [amdgpu]
-Jul 16 17:35:32 kaveri kernel: [   97.204739]  do_vfs_ioctl+0x192/0xf30
-Jul 16 17:35:32 kaveri kernel: [   97.204747]  ? find_held_lock+0x32/0x1c=
-0
-Jul 16 17:35:32 kaveri kernel: [   97.204754]  ? ioctl_preallocate+0x1b0/=
-0x1b0
-Jul 16 17:35:32 kaveri kernel: [   97.204763]  ? __fget+0x1c8/0x300
-Jul 16 17:35:32 kaveri kernel: [   97.204771]  ? lock_downgrade+0x5e0/0x5=
-e0
-Jul 16 17:35:32 kaveri kernel: [   97.204783]  ? __fget+0x1e0/0x300
-Jul 16 17:35:32 kaveri kernel: [   97.204796]  ksys_ioctl+0x70/0x80
-Jul 16 17:35:32 kaveri kernel: [   97.204805]  __x64_sys_ioctl+0x6f/0xb0
-Jul 16 17:35:32 kaveri kernel: [   97.204811]  ? trace_hardirqs_on_caller=
-+0x381/0x570
-Jul 16 17:35:32 kaveri kernel: [   97.204818]  do_syscall_64+0xa5/0x3f0
-Jul 16 17:35:32 kaveri kernel: [   97.204826]  entry_SYSCALL_64_after_hwf=
-rame+0x49/0xbe
-Jul 16 17:35:32 kaveri kernel: [   97.204832] RIP: 0033:0x7fca1ae40097
-Jul 16 17:35:32 kaveri kernel: [   97.204836] Code: b3 66 90 48 8b 05 f1 =
-7d 0c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 0=
-0 00 00 00 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c1 =
-7d 0c 00 f7 d8 64 89 01 48=20
-Jul 16 17:35:32 kaveri kernel: [   97.204941] RSP: 002b:00007fca13088c68 =
-EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-Jul 16 17:35:32 kaveri kernel: [   97.204949] RAX: ffffffffffffffda RBX: =
-00007fca13088d58 RCX: 00007fca1ae40097
-Jul 16 17:35:32 kaveri kernel: [   97.204954] RDX: 00007fca13088cd0 RSI: =
-00000000c0186444 RDI: 0000000000000006
-Jul 16 17:35:32 kaveri kernel: [   97.204959] RBP: 00007fca13088c90 R08: =
-00007fca13088d80 R09: 00007fca13088d58
-Jul 16 17:35:32 kaveri kernel: [   97.204964] R10: 00007fca13088d80 R11: =
-0000000000000246 R12: 00007fca13088cd0
-Jul 16 17:35:32 kaveri kernel: [   97.204968] R13: 00000000c0186444 R14: =
-0000000000000006 R15: 0000000000000000
-Jul 16 17:35:32 kaveri kernel: [   97.204981] Modules linked in: lz4(E) l=
-z4_compress(E) cpufreq_powersave(E) cpufreq_userspace(E) cpufreq_conserva=
-tive(E) binfmt_misc(E) amdkfd(OE) nls_ascii(E) nls_cp437(E) vfat(E) fat(E=
-) amdgpu(OE) edac_mce_amd(E) chash(OE) gpu_sched(OE) snd_hda_codec_realte=
-k(E) radeon(OE) snd_hda_codec_generic(E) kvm(E) snd_hda_codec_hdmi(E) irq=
-bypass(E) snd_hda_intel(E) ttm(OE) crct10dif_pclmul(E) crc32_pclmul(E) gh=
-ash_clmulni_intel(E) snd_hda_codec(E) pcbc(E) wmi_bmof(E) drm_kms_helper(=
-OE) snd_hda_core(E) snd_hwdep(E) efi_pstore(E) drm(OE) snd_pcm(E) aesni_i=
-ntel(E) aes_x86_64(E) snd_timer(E) i2c_algo_bit(E) crypto_simd(E) fb_sys_=
-fops(E) r8169(E) syscopyarea(E) cryptd(E) snd(E) sysfillrect(E) pcspkr(E)=
- glue_helper(E) efivars(E) k10temp(E) mii(E) sg(E) sysimgblt(E) soundcore=
-(E) ccp(E) sp5100_tco(E) rng_core(E) i2c_piix4(E)
-Jul 16 17:35:32 kaveri kernel: [   97.205092]  wmi(E) button(E) acpi_cpuf=
-req(E) tcp_bbr(E) sch_fq(E) sunrpc(E) nct6775(E) hwmon_vid(E) efivarfs(E)=
- ip_tables(E) x_tables(E) ext4(E) crc32c_generic(E) crc16(E) mbcache(E) j=
-bd2(E) fscrypto(E) dm_mod(E) raid10(E) raid1(E) raid0(E) multipath(E) lin=
-ear(E) md_mod(E) sd_mod(E) evdev(E) hid_generic(E) usbhid(E) hid(E) ahci(=
-E) xhci_pci(E) libahci(E) xhci_hcd(E) libata(E) crc32c_intel(E) usbcore(E=
-) scsi_mod(E) gpio_amdpt(E) gpio_generic(E)
-Jul 16 17:35:32 kaveri kernel: [   97.205167] CR2: ffffffffffffff30
 
---------------A9C91ADC1A0A65AF6822A6D4
+Best Regards
+
+Rex
+
+
+?? Outlook for Android<https://aka.ms/ghei36>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
+cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, July 13, 2018 4:23:06 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: [PATCH 3/3] drm/amdgpu/pp: switch smu callback type for get_argume=
+nt()
+
+return a uint32_t rather than an int to properly reflect
+what the function does.
+
+Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/inc/hwmgr.h           | 2 +-
+ drivers/gpu/drm/amd/powerplay/inc/smumgr.h          | 2 +-
+ drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c | 2 +-
+ drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c  | 4 ++--
+ drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c  | 2 +-
+ drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h  | 2 +-
+ drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c       | 2 +-
+ 7 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h
+index b3363f26039a..d3d96260f440 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+@@ -194,7 +194,7 @@ struct pp_smumgr_func {
+         int (*request_smu_load_fw)(struct pp_hwmgr  *hwmgr);
+         int (*request_smu_load_specific_fw)(struct pp_hwmgr  *hwmgr,
+                                             uint32_t firmware);
+-       int (*get_argument)(struct pp_hwmgr  *hwmgr);
++       uint32_t (*get_argument)(struct pp_hwmgr  *hwmgr);
+         int (*send_msg_to_smc)(struct pp_hwmgr  *hwmgr, uint16_t msg);
+         int (*send_msg_to_smc_with_parameter)(struct pp_hwmgr  *hwmgr,
+                                           uint16_t msg, uint32_t parameter=
+);
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smumgr.h b/drivers/gpu/drm/a=
+md/powerplay/inc/smumgr.h
+index 89dfbf53c7e6..82550a8a3a3f 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smumgr.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smumgr.h
+@@ -80,7 +80,7 @@ enum SMU10_TABLE_ID {
+         SMU10_CLOCKTABLE,
+ };
+
+-extern int smum_get_argument(struct pp_hwmgr *hwmgr);
++extern uint32_t smum_get_argument(struct pp_hwmgr *hwmgr);
+
+ extern int smum_download_powerplay_table(struct pp_hwmgr *hwmgr, void **ta=
+ble);
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
+index 0a563f6fe9ea..bb07d43f3874 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
+@@ -68,7 +68,7 @@ static int smu10_send_msg_to_smc_without_waiting(struct p=
+p_hwmgr *hwmgr,
+         return 0;
+ }
+
+-static int smu10_read_arg_from_smc(struct pp_hwmgr *hwmgr)
++static uint32_t smu10_read_arg_from_smc(struct pp_hwmgr *hwmgr)
+ {
+         struct amdgpu_device *adev =3D hwmgr->adev;
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu8_smumgr.c
+index c861d3023474..f7e3bc22bb93 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
+@@ -52,10 +52,10 @@ static const enum smu8_scratch_entry firmware_list[] =
+=3D {
+         SMU8_SCRATCH_ENTRY_UCODE_ID_RLC_G,
+ };
+
+-static int smu8_get_argument(struct pp_hwmgr *hwmgr)
++static uint32_t smu8_get_argument(struct pp_hwmgr *hwmgr)
+ {
+         if (hwmgr =3D=3D NULL || hwmgr->device =3D=3D NULL)
+-               return -EINVAL;
++               return 0;
+
+         return cgs_read_register(hwmgr->device,
+                                         mmSMU_MP1_SRBM2P_ARG_0);
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu9_smumgr.c
+index aad8f077f33c..079fc8e8f709 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c
+@@ -142,7 +142,7 @@ int smu9_send_msg_to_smc_with_parameter(struct pp_hwmgr=
+ *hwmgr,
+         return 0;
+ }
+
+-int smu9_get_argument(struct pp_hwmgr *hwmgr)
++uint32_t smu9_get_argument(struct pp_hwmgr *hwmgr)
+ {
+         struct amdgpu_device *adev =3D hwmgr->adev;
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu9_smumgr.h
+index a8da2815bd89..1462279ca128 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h
+@@ -27,6 +27,6 @@ bool smu9_is_smc_ram_running(struct pp_hwmgr *hwmgr);
+ int smu9_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);
+ int smu9_send_msg_to_smc_with_parameter(struct pp_hwmgr *hwmgr,
+                                         uint16_t msg, uint32_t parameter);
+-int smu9_get_argument(struct pp_hwmgr *hwmgr);
++uint32_t smu9_get_argument(struct pp_hwmgr *hwmgr);
+
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c b/drivers/gpu/dr=
+m/amd/powerplay/smumgr/smumgr.c
+index c9837935f0f5..99d5e4f98f49 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c
+@@ -96,7 +96,7 @@ int smum_process_firmware_header(struct pp_hwmgr *hwmgr)
+         return 0;
+ }
+
+-int smum_get_argument(struct pp_hwmgr *hwmgr)
++uint32_t smum_get_argument(struct pp_hwmgr *hwmgr)
+ {
+         if (NULL !=3D hwmgr->smumgr_funcs->get_argument)
+                 return hwmgr->smumgr_funcs->get_argument(hwmgr);
+--
+2.13.6
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR12MB1687613EDDFEFDB4607E867AFB5D0CY4PR12MB1687namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+Series is:<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+Reviewed-by: Rex Zhu&lt;<a href=3D"mailto:rezhu-5C7GfCeVMHo@public.gmane.org">rezhu-5C7GfCeVMHo@public.gmane.org</a>&=
+gt;&nbsp;<br>
+<br>
+<br>
+<br>
+</div>
+<div align=3D"left">
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+<font color=3D"#000000">Best Regards</font><br>
+</div>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+<br>
+</div>
+<div align=3D"left">
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+<font color=3D"#000000">Rex</font><br>
+</div>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+&#33719;&#21462; <a href=3D"https://aka.ms/ghei36">Outlook for Android</a><=
+/div>
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
+r@gmail.com&gt;<br>
+<b>Sent:</b> Friday, July 13, 2018 4:23:06 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> [PATCH 3/3] drm/amdgpu/pp: switch smu callback type for get=
+_argument()</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">return a uint32_t rather than an int to properly r=
+eflect<br>
+what the function does.<br>
+<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/smumgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c | 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c&nbsp; | 4 &#43;&#4=
+3;--<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c&nbsp; | 2 &#43;-<b=
+r>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h&nbsp; | 2 &#43;-<b=
+r>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; | 2 &#43;-<br>
+&nbsp;7 files changed, 8 insertions(&#43;), 8 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h<br>
+index b3363f26039a..d3d96260f440 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+@@ -194,7 &#43;194,7 @@ struct pp_smumgr_func {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*request_smu_load_fw)=
+(struct pp_hwmgr&nbsp; *hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*request_smu_load_spe=
+cific_fw)(struct pp_hwmgr&nbsp; *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t firmware);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_argument)(struct pp_hwmgr&n=
+bsp; *hwmgr);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t (*get_argument)(struct p=
+p_hwmgr&nbsp; *hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*send_msg_to_smc)(str=
+uct pp_hwmgr&nbsp; *hwmgr, uint16_t msg);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*send_msg_to_smc_with=
+_parameter)(struct pp_hwmgr&nbsp; *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t msg, uint32_t parameter);<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smumgr.h b/drivers/gpu/drm/a=
+md/powerplay/inc/smumgr.h<br>
+index 89dfbf53c7e6..82550a8a3a3f 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/smumgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smumgr.h<br>
+@@ -80,7 &#43;80,7 @@ enum SMU10_TABLE_ID {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU10_CLOCKTABLE,<br>
+&nbsp;};<br>
+&nbsp;<br>
+-extern int smum_get_argument(struct pp_hwmgr *hwmgr);<br>
+&#43;extern uint32_t smum_get_argument(struct pp_hwmgr *hwmgr);<br>
+&nbsp;<br>
+&nbsp;extern int smum_download_powerplay_table(struct pp_hwmgr *hwmgr, void=
+ **table);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c<br>
+index 0a563f6fe9ea..bb07d43f3874 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c<br>
+@@ -68,7 &#43;68,7 @@ static int smu10_send_msg_to_smc_without_waiting(stru=
+ct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static int smu10_read_arg_from_smc(struct pp_hwmgr *hwmgr)<br>
+&#43;static uint32_t smu10_read_arg_from_smc(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D hwmgr-&gt;adev;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
+index c861d3023474..f7e3bc22bb93 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
+@@ -52,10 &#43;52,10 @@ static const enum smu8_scratch_entry firmware_list[=
+] =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU8_SCRATCH_ENTRY_UCODE_I=
+D_RLC_G,<br>
+&nbsp;};<br>
+&nbsp;<br>
+-static int smu8_get_argument(struct pp_hwmgr *hwmgr)<br>
+&#43;static uint32_t smu8_get_argument(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr =3D=3D NULL || h=
+wmgr-&gt;device =3D=3D NULL)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return cgs_read_register(h=
+wmgr-&gt;device,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; mmSMU_MP1_SRBM2P_ARG_0);<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu9_smumgr.c<br>
+index aad8f077f33c..079fc8e8f709 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.c<br>
+@@ -142,7 &#43;142,7 @@ int smu9_send_msg_to_smc_with_parameter(struct pp_h=
+wmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-int smu9_get_argument(struct pp_hwmgr *hwmgr)<br>
+&#43;uint32_t smu9_get_argument(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D hwmgr-&gt;adev;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h b/drivers/g=
+pu/drm/amd/powerplay/smumgr/smu9_smumgr.h<br>
+index a8da2815bd89..1462279ca128 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu9_smumgr.h<br>
+@@ -27,6 &#43;27,6 @@ bool smu9_is_smc_ram_running(struct pp_hwmgr *hwmgr);=
+<br>
+&nbsp;int smu9_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg);<br>
+&nbsp;int smu9_send_msg_to_smc_with_parameter(struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; uint16_t msg, uint32_t parameter);<br>
+-int smu9_get_argument(struct pp_hwmgr *hwmgr);<br>
+&#43;uint32_t smu9_get_argument(struct pp_hwmgr *hwmgr);<br>
+&nbsp;<br>
+&nbsp;#endif<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c b/drivers/gpu/dr=
+m/amd/powerplay/smumgr/smumgr.c<br>
+index c9837935f0f5..99d5e4f98f49 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c<br>
+@@ -96,7 &#43;96,7 @@ int smum_process_firmware_header(struct pp_hwmgr *hwm=
+gr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-int smum_get_argument(struct pp_hwmgr *hwmgr)<br>
+&#43;uint32_t smum_get_argument(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;sm=
+umgr_funcs-&gt;get_argument)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;smumgr_funcs-&gt;get_argument(hwmgr)=
+;<br>
+-- <br>
+2.13.6<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_CY4PR12MB1687613EDDFEFDB4607E867AFB5D0CY4PR12MB1687namp_--
+
+--===============1448867337==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -201,4 +433,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---------------A9C91ADC1A0A65AF6822A6D4--
+--===============1448867337==--
