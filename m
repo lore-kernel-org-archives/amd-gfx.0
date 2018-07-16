@@ -1,14 +1,14 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Error on boot with Raven Ridge
-Date: Mon, 16 Jul 2018 11:32:22 -0400
-Message-ID: <dac727ed-c26d-5d9f-8a8c-f521c75e9eae@amd.com>
-References: <CAJri6_u2SxWPyGvib8X4akEvhOAw3Lkz2+5CPXXPmhyJPb5M-Q@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 6/7] drm/amdgpu: remove job->adev
+Date: Mon, 16 Jul 2018 17:50:44 +0200
+Message-ID: <e0930c99-0221-23b4-7357-9e7eee16945e@daenzer.net>
+References: <20180713151949.13665-1-christian.koenig@amd.com>
+ <20180713151949.13665-6-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------A9C91ADC1A0A65AF6822A6D4"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAJri6_u2SxWPyGvib8X4akEvhOAw3Lkz2+5CPXXPmhyJPb5M-Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180713151949.13665-6-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,161 +19,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Br=c3=a1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-V2hhdCBrZXJuZWwgYXJlIHlvdSBydW5uaW5nPyBhbWQtc3RhZ2luZy1kcm0tbmV4dD8KCkhhcnJ5
-CgpPbiAyMDE4LTA3LTE1IDA3OjAyIFBNLCBCcsOhdWxpbyBCaGF2YW1pdHJhIHdyb3RlOgo+IEFs
-dGhvdWdoIGl0IGlzIHJlcG9ydGVkIG9uIGRtZXNnLCB0aGUgc3lzdGVtIHN0aWxsIGJvb3RzIG5v
-cm1hbGx5Cj4gCj4gW8KgIMKgIDguMjUzMDczXSBhbWRncHU6IFtwb3dlcnBsYXldIGRwbSBoYXMg
-YmVlbiBlbmFibGVkCj4gW8KgIMKgIDguMjUzMjEwXSBbZHJtXSBETV9QUExJQjrCoCDCoDQwMDAw
-MCBpbiBrSHoKPiBbwqAgwqAgOC4yNTMyMTFdIFtkcm1dIERNX1BQTElCOsKgIMKgOTMzMDAwIGlu
-IGtIego+IFvCoCDCoCA4LjI1MzIxMl0gW2RybV0gRE1fUFBMSUI6wqAgwqAxMDY3MDAwIGluIGtI
-ego+IFvCoCDCoCA4LjI1MzM4MF0gV0FSTklORzogQ1BVOiA2IFBJRDogMzYxIGF0IGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvY2FsY3MvZGNuX2NhbGNzLmM6MTM1NSBk
-Y25fYndfdXBkYXRlX2Zyb21fcHBsaWIrMHgxNmIvMHgyODAgW2FtZGdwdV0KPiBbwqAgwqAgOC4y
-NTMzODFdIE1vZHVsZXMgbGlua2VkIGluOiBleHQ0IG1iY2FjaGUgamJkMiBmc2NyeXB0byBqb3lk
-ZXYgbW91c2VkZXYgYW1ka2ZkIGFtZF9pb21tdV92MiBhbWRncHUoKykgYXJjNCByODgyMmJlKEMp
-IHV2Y3ZpZGVvIGJ0dXNiIGJ0cnRsIGJ0YmNtIGJ0aW50ZWwgdmlkZW9idWYyX3ZtYWxsb2Mgdmlk
-ZW9idWYyX21lbW9wcyBoaWRfc2Vuc29yX2FjY2VsXzNkIGhpZF9zZW5zb3JfbWFnbl8zZCB2aWRl
-b2J1ZjJfdjRsMiBjaGFzaCBoaWRfc2Vuc29yX3JvdGF0aW9uIGhpZF9zZW5zb3JfaW5jbF8zZCBo
-aWRfc2Vuc29yX2d5cm9fM2QgYmx1ZXRvb3RoIHZpZGVvYnVmMl9jb21tb24gZ3B1X3NjaGVkIGhp
-ZF9zZW5zb3JfdHJpZ2dlciBpbmR1c3RyaWFsaW9fdHJpZ2dlcmVkX2J1ZmZlciB2aWRlb2RldiBp
-MmNfYWxnb19iaXQga2ZpZm9fYnVmIGhpZF9zZW5zb3JfaWlvX2NvbW1vbiBlY2RoX2dlbmVyaWMg
-aW5kdXN0cmlhbGlvIG1lZGlhIGNyYzE2IHR0bSBtYWM4MDIxMSBkcm1fa21zX2hlbHBlciBocF93
-bWkgZWRhY19tY2VfYW1kIHNuZF9oZGFfY29kZWNfcmVhbHRlayBzcGFyc2Vfa2V5bWFwIHNuZF9o
-ZGFfY29kZWNfZ2VuZXJpYyBkcm0gd21pX2Jtb2Ygc25kX2hkYV9jb2RlY19oZG1pIGt2bV9hbWQg
-c25kX2hkYV9pbnRlbCBjY3Agc25kX2hkYV9jb2RlYyBybmdfY29yZSBjZmc4MDIxMSBzbmRfaGRh
-X2NvcmUgc25kX2h3ZGVwIGt2bSBzbmRfcGNtIHNuZF90aW1lciBwc21vdXNlIGFncGdhcnQgc25k
-IHN5c2NvcHlhcmVhIHN5c2ZpbGxyZWN0IGlycWJ5cGFzcyBydHN4X3BjaV9tcyBzeXNpbWdibHQg
-aW5wdXRfbGVkcwo+IFvCoCDCoCA4LjI1MzQ0NF3CoCBmYl9zeXNfZm9wcyByZmtpbGwgbWVtc3Rp
-Y2sgc291bmRjb3JlIHNwNTEwMF90Y28gazEwdGVtcCBocF9hY2NlbCBsaXMzbHYwMmQgaTJjX3Bp
-aXg0IGJhdHRlcnkgYWMgcnRjX2Ntb3Mgd21pIGlucHV0X3BvbGxkZXYgbGVkX2NsYXNzIGkyY19o
-aWQgZXZkZXYgYWNwaV9jcHVmcmVxIHBpbmN0cmxfYW1kIG1hY19oaWQgaTJjX3NjbWkgaHBfd2ly
-ZWxlc3MgdmJveG5ldGZsdChPKSB2Ym94bmV0YWRwKE8pIHZib3hwY2koTykgdmJveGRydihPKSBt
-c3Igc2cgY3J5cHRvX3VzZXIgaXBfdGFibGVzIHhfdGFibGVzIGRtX2NyeXB0IGRtX21vZCBidHJm
-cyBsaWJjcmMzMmMgY3JjMzJjX2dlbmVyaWMgeG9yIHpzdGRfZGVjb21wcmVzcyB6c3RkX2NvbXBy
-ZXNzIHh4aGFzaCBoaWRfc2Vuc29yX2h1YiBoaWRfZ2VuZXJpYyB1c2JoaWQgaGlkIHJhaWQ2X3Bx
-IHNkX21vZCBjcmN0MTBkaWZfcGNsbXVsIGNyYzMyX3BjbG11bCBjcmMzMmNfaW50ZWwgZ2hhc2hf
-Y2xtdWxuaV9pbnRlbCBwY2JjIHJ0c3hfcGNpX3NkbW1jIHNlcmlvX3JhdyBhdGtiZCBsaWJwczIg
-bW1jX2NvcmUgYWhjaSBsaWJhaGNpIGFlc25pX2ludGVsIHhoY2lfcGNpIGFlc194ODZfNjQgbGli
-YXRhIGNyeXB0b19zaW1kIHhoY2lfaGNkIGNyeXB0ZCBnbHVlX2hlbHBlciB1c2Jjb3JlIHNjc2lf
-bW9kIHVzYl9jb21tb24gcnRzeF9wY2kgaTgwNDIgc2VyaW8gbHo0IGx6NF9jb21wcmVzcwo+IFvC
-oCDCoCA4LjI1MzUxMV0gQ1BVOiA2IFBJRDogMzYxIENvbW06IHN5c3RlbWQtdWRldmQgVGFpbnRl
-ZDogR8KgIMKgIMKgIMKgIMKgQyBPwqAgwqAgwqAgNC4xOC4wLTEtY3VzdG9tKyAjNwo+IFvCoCDC
-oCA4LjI1MzUxMl0gSGFyZHdhcmUgbmFtZTogSFAgSFAgRU5WWSB4MzYwIENvbnZlcnRpYmxlIDE1
-bS1icTF4eC84M0M2LCBCSU9TIEYuMTcgMDMvMjkvMjAxOAo+IFvCoCDCoCA4LjI1MzYzMF0gUklQ
-OiAwMDEwOmRjbl9id191cGRhdGVfZnJvbV9wcGxpYisweDE2Yi8weDI4MCBbYW1kZ3B1XQo+IFvC
-oCDCoCA4LjI1MzYzMV0gQ29kZTogZDggY2EgZDggZjEgZDkgNWEgNTAgOGIgNDQgZmMgMTQgNDkg
-OGIgOTQgMjQgNzAgMDEgMDAgMDAgNDggODkgMDQgMjQgZGYgMmMgMjQgZDggZjEgZGIgNDIgNzgg
-ZGUgYzkgZGUgY2EgZGUgZjkgZDkgNWEgNGMgZWIgMDIgPDBmPiAwYiA0OCA4OSBkYSBiZSAwNCAw
-MCAwMCAwMCA0OCA4OSBlZiBlOCAxMyA1YiBmZSBmZiA4NCBjMCAwZiA4NAo+IFvCoCDCoCA4LjI1
-MzY3NV0gUlNQOiAwMDE4OmZmZmY5YmMzODNiMDM3YjggRUZMQUdTOiAwMDAxMDI0Ngo+IFvCoCDC
-oCA4LjI1MzY3OF0gUkFYOiAwMDAwMDAwMDAwMDAwMDAxIFJCWDogZmZmZjliYzM4M2IwMzgxOCBS
-Q1g6IDAwMDAwMDAwMDAwMDAwMDAKPiBbwqAgwqAgOC4yNTM2NzldIFJEWDogMDAwMDAwMDAwMDAw
-MDAwMCBSU0k6IDAwMDAwMDAwMDAwMDAwMDQgUkRJOiAwMDAwMDAwMGZmZmZmZmZmCj4gW8KgIMKg
-IDguMjUzNjgxXSBSQlA6IGZmZmY5MThjODU2NTFhNDAgUjA4OiAwMDAwMDAwMDAwMDAwMDAxIFIw
-OTogMDAwMDAwMDAwMDAwMDM5Zgo+IFvCoCDCoCA4LjI1MzY4M10gUjEwOiAwMDAwMDAwMDAwMDAw
-MDA0IFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IGZmZmY5MThjNzMzYWUwMDAKPiBbwqAgwqAg
-OC4yNTM2ODRdIFIxMzogZmZmZjkxOGM3MzI5MzMwMCBSMTQ6IGZmZmY5MThjNzMzYWUwMDAgUjE1
-OiAwMDAwMDAwMDAwMDAwMDAwCj4gW8KgIMKgIDguMjUzNjg3XSBGUzrCoCAwMDAwN2ZmZmY3Zjg1
-ZDQwKDAwMDApIEdTOmZmZmY5MThjOGFiODAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAw
-MAo+IFvCoCDCoCA4LjI1MzY4OF0gQ1M6wqAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAw
-MDAwMDAwODAwNTAwMzMKPiBbwqAgwqAgOC4yNTM2OTBdIENSMjogMDAwMDdmZmZmN2EyODAwMCBD
-UjM6IDAwMDAwMDA1MDVmMDIwMDAgQ1I0OiAwMDAwMDAwMDAwMzQwNmUwCj4gW8KgIMKgIDguMjUz
-NjkyXSBDYWxsIFRyYWNlOgo+IFvCoCDCoCA4LjI1MzgxN13CoCBkY24xMF9jcmVhdGVfcmVzb3Vy
-Y2VfcG9vbCsweDc1Ni8weDk5MCBbYW1kZ3B1XQo+IFvCoCDCoCA4LjI1MzkzM13CoCBkY19jcmVh
-dGVfcmVzb3VyY2VfcG9vbCsweDQyLzB4MTgwIFthbWRncHVdCj4gW8KgIMKgIDguMjUzOTQwXcKg
-ID8gX19rbWFsbG9jKzB4MWFhLzB4MjMwCj4gW8KgIMKgIDguMjU0MDUzXcKgID8gZGFsX2dwaW9f
-c2VydmljZV9jcmVhdGUrMHg3Yy8weDExMCBbYW1kZ3B1XQo+IFvCoCDCoCA4LjI1NDE2NV3CoCBk
-Y19jcmVhdGUrMHgyMjgvMHg2NTAgW2FtZGdwdV0KPiBbwqAgwqAgOC4yNTQyNzNdwqAgPyBhbWRn
-cHVfY2dzX2NyZWF0ZV9kZXZpY2UrMHgyMy8weDUwIFthbWRncHVdCj4gW8KgIMKgIDguMjU0Mzg1
-XcKgIGRtX2h3X2luaXQrMHhjOC8weDEzMCBbYW1kZ3B1XQo+IFvCoCDCoCA4LjI1NDQ5Nl3CoCBh
-bWRncHVfZGV2aWNlX2luaXQuY29sZC4xNSsweDEwNDEvMHgxMjUzIFthbWRncHVdCj4gW8KgIMKg
-IDguMjU0NTg1XcKgIGFtZGdwdV9kcml2ZXJfbG9hZF9rbXMrMHg4Ni8weDJjMCBbYW1kZ3B1XQo+
-IFvCoCDCoCA4LjI1NDYwN13CoCBkcm1fZGV2X3JlZ2lzdGVyKzB4MTA5LzB4MTQwIFtkcm1dCj4g
-W8KgIMKgIDguMjU0NjkzXcKgIGFtZGdwdV9wY2lfcHJvYmUrMHgxM2MvMHgxYzAgW2FtZGdwdV0K
-PiBbwqAgwqAgOC4yNTQ2OTldwqAgPyBfcmF3X3NwaW5fdW5sb2NrX2lycXJlc3RvcmUrMHgyMC8w
-eDQwCj4gW8KgIMKgIDguMjU0NzA0XcKgIGxvY2FsX3BjaV9wcm9iZSsweDQxLzB4OTAKPiBbwqAg
-wqAgOC4yNTQ3MDldwqAgcGNpX2RldmljZV9wcm9iZSsweDE4OS8weDFhMAo+IFvCoCDCoCA4LjI1
-NDcxNV3CoCBkcml2ZXJfcHJvYmVfZGV2aWNlKzB4MmI5LzB4NDYwCj4gW8KgIMKgIDguMjU0NzE5
-XcKgIF9fZHJpdmVyX2F0dGFjaCsweGRkLzB4MTEwCj4gW8KgIMKgIDguMjU0NzIyXcKgID8gZHJp
-dmVyX3Byb2JlX2RldmljZSsweDQ2MC8weDQ2MAo+IFvCoCDCoCA4LjI1NDcyNV3CoCBidXNfZm9y
-X2VhY2hfZGV2KzB4NzYvMHhjMAo+IFvCoCDCoCA4LjI1NDcyOV3CoCBidXNfYWRkX2RyaXZlcisw
-eDE1Mi8weDIzMAo+IFvCoCDCoCA4LjI1NDczMl3CoCA/IDB4ZmZmZmZmZmZjMTI0MDAwMAo+IFvC
-oCDCoCA4LjI1NDczNV3CoCBkcml2ZXJfcmVnaXN0ZXIrMHg2Yi8weGIwCj4gW8KgIMKgIDguMjU0
-NzM4XcKgID8gMHhmZmZmZmZmZmMxMjQwMDAwCj4gW8KgIMKgIDguMjU0NzQyXcKgIGRvX29uZV9p
-bml0Y2FsbCsweDQ2LzB4MWY1Cj4gW8KgIMKgIDguMjU0NzQ2XcKgID8ga21lbV9jYWNoZV9hbGxv
-Y190cmFjZSsweDE4MS8weDFkMAo+IFvCoCDCoCA4LjI1NDc1MV3CoCA/IGRvX2luaXRfbW9kdWxl
-KzB4MjIvMHgyMTAKPiBbwqAgwqAgOC4yNTQ3NTVdwqAgZG9faW5pdF9tb2R1bGUrMHg1YS8weDIx
-MAo+IFvCoCDCoCA4LjI1NDc1OV3CoCBsb2FkX21vZHVsZSsweDIyOTUvMHgyNGIwCj4gW8KgIMKg
-IDguMjU0NzY2XcKgID8gdm1hcF9wYWdlX3JhbmdlX25vZmx1c2grMHgyNDMvMHgzMjAKPiBbwqAg
-wqAgOC4yNTQ3NzJdwqAgPyBfX3NlX3N5c19pbml0X21vZHVsZSsweDEwYy8weDE3MAo+IFvCoCDC
-oCA4LjI1NDc3Nl3CoCBfX3NlX3N5c19pbml0X21vZHVsZSsweDEwYy8weDE3MAo+IFvCoCDCoCA4
-LjI1NDc4MV3CoCBkb19zeXNjYWxsXzY0KzB4NWIvMHgxNzAKPiBbwqAgwqAgOC4yNTQ3ODZdwqAg
-ZW50cnlfU1lTQ0FMTF82NF9hZnRlcl9od2ZyYW1lKzB4NDQvMHhhOQo+IFvCoCDCoCA4LjI1NDc4
-OV0gUklQOiAwMDMzOjB4N2ZmZmY3OGY2ZjNhCj4gW8KgIMKgIDguMjU0Nzg5XSBDb2RlOiA0OCA4
-YiAwZCAxOSBjZiAyYiAwMCBmNyBkOCA2NCA4OSAwMSA0OCA4MyBjOCBmZiBjMyA2NiAyZSAwZiAx
-ZiA4NCAwMCAwMCAwMCAwMCAwMCAwZiAxZiA0NCAwMCAwMCA0OSA4OSBjYSBiOCBhZiAwMCAwMCAw
-MCAwZiAwNSA8NDg+IDNkIDAxIGYwIGZmIGZmIDczIDAxIGMzIDQ4IDhiIDBkIGU2IGNlIDJiIDAw
-IGY3IGQ4IDY0IDg5IDAxIDQ4Cj4gW8KgIMKgIDguMjU0ODM0XSBSU1A6IDAwMmI6MDAwMDdmZmZm
-ZmZmZDY0OCBFRkxBR1M6IDAwMDAwMjQ2IE9SSUdfUkFYOiAwMDAwMDAwMDAwMDAwMGFmCj4gW8Kg
-IMKgIDguMjU0ODM3XSBSQVg6IGZmZmZmZmZmZmZmZmZmZGEgUkJYOiAwMDAwNTU1NTU1N2JjMWMw
-IFJDWDogMDAwMDdmZmZmNzhmNmYzYQo+IFvCoCDCoCA4LjI1NDgzOV0gUkRYOiAwMDAwN2ZmZmY3
-MTkzZWNkIFJTSTogMDAwMDAwMDAwMDYwNTI1MCBSREk6IDAwMDA1NTU1NTYxYzFjZDAKPiBbwqAg
-wqAgOC4yNTQ4NDBdIFJCUDogMDAwMDdmZmZmNzE5M2VjZCBSMDg6IDAwMDAwMDAwMDAwMDAwMDcg
-UjA5OiAwMDAwMDAwMDAwMDAwMDA2Cj4gW8KgIMKgIDguMjU0ODQyXSBSMTA6IDAwMDA1NTU1NTU3
-YjMwMTAgUjExOiAwMDAwMDAwMDAwMDAwMjQ2IFIxMjogMDAwMDU1NTU1NjFjMWNkMAo+IFvCoCDC
-oCA4LjI1NDg0M10gUjEzOiAwMDAwNTU1NTU1N2MzZjIwIFIxNDogMDAwMDAwMDAwMDAyMDAwMCBS
-MTU6IDAwMDA1NTU1NTU3YmMxYzAKPiBbwqAgwqAgOC4yNTQ4NDddIC0tLVsgZW5kIHRyYWNlIDkx
-MzRjNmUwYTM3NjZmMzAgXS0tLQo+IFvCoCDCoCA4LjI1NDg2OV0gW2RybV0gRE1fUFBMSUI6IHZh
-bHVlcyBmb3IgSW52YWxpZCBjbG9jawo+IFvCoCDCoCA4LjI1NDg3MV0gW2RybV0gRE1fUFBMSUI6
-wqAgwqAzMDAwMDAgaW4ga0h6Cj4gW8KgIMKgIDguMjU0ODcxXSBbZHJtXSBETV9QUExJQjrCoCDC
-oDYwMDAwMCBpbiBrSHoKPiBbwqAgwqAgOC4yNTQ4NzJdIFtkcm1dIERNX1BQTElCOsKgIMKgNjI2
-MDAwIGluIGtIego+IFvCoCDCoCA4LjI1NDg3M10gW2RybV0gRE1fUFBMSUI6wqAgwqA2NTQwMDAg
-aW4ga0h6Cj4gW8KgIMKgIDguMjU1NjY5XSBbZHJtOmNvbnN0cnVjdCBbYW1kZ3B1XV0gKkVSUk9S
-KiBjb25zdHJ1Y3Q6IEludmFsaWQgQ29ubmVjdG9yIE9iamVjdElEIGZyb20gQWRhcHRlciBTZXJ2
-aWNlIGZvciBjb25uZWN0b3IgaW5kZXg6MiEgdHlwZSAwIGV4cGVjdGVkIDMKPiBbwqAgwqAgOC4y
-NjI0MzRdIFtkcm1dIERpc3BsYXkgQ29yZSBpbml0aWFsaXplZCB3aXRoIHYzLjEuNTIhCj4gW8Kg
-IMKgIDguMjcwMjQ0XSBbZHJtXSBTQURzIGNvdW50IGlzOiAtMiwgZG9uJ3QgbmVlZCB0byByZWFk
-IGl0Cj4gW8KgIMKgIDguMjcxNzAzXSBbZHJtXSBTdXBwb3J0cyB2YmxhbmsgdGltZXN0YW1wIGNh
-Y2hpbmcgUmV2IDIgKDIxLjEwLjIwMTMpLgo+IFvCoCDCoCA4LjI3MTcwNF0gW2RybV0gRHJpdmVy
-IHN1cHBvcnRzIHByZWNpc2UgdmJsYW5rIHRpbWVzdGFtcCBxdWVyeS4KPiBbwqAgwqAgOC4yOTUx
-MDldIFtkcm1dIFZDTiBkZWNvZGUgYW5kIGVuY29kZSBpbml0aWFsaXplZCBzdWNjZXNzZnVsbHku
-Cj4gW8KgIMKgIDguMjk2OTg4XSBbZHJtXSBmYiBtYXBwYWJsZSBhdCAweEQxMTAwMDAwCj4gW8Kg
-IMKgIDguMjk2OTkwXSBbZHJtXSB2cmFtIGFwcGVyIGF0IDB4RDAwMDAwMDAKPiBbwqAgwqAgOC4y
-OTY5OTFdIFtkcm1dIHNpemUgODI5NDQwMAo+IFvCoCDCoCA4LjI5Njk5Ml0gW2RybV0gZmIgZGVw
-dGggaXMgMjQKPiBbwqAgwqAgOC4yOTY5OTNdIFtkcm1dwqAgwqAgcGl0Y2ggaXMgNzY4MAo+IFvC
-oCDCoCA4LjI5NzE1OV0gZmJjb246IGFtZGdwdWRybWZiIChmYjApIGlzIHByaW1hcnkgZGV2aWNl
-Cj4gW8KgIMKgIDguMzE0NzQwXSBDb25zb2xlOiBzd2l0Y2hpbmcgdG8gY29sb3VyIGZyYW1lIGJ1
-ZmZlciBkZXZpY2UgMjQweDY3Cj4gW8KgIMKgIDguMzM2MjMyXSBhbWRncHUgMDAwMDowMzowMC4w
-OiBmYjA6IGFtZGdwdWRybWZiIGZyYW1lIGJ1ZmZlciBkZXZpY2UKPiBbwqAgwqAgOC4zNDUyNDBd
-IGFtZGdwdSAwMDAwOjAzOjAwLjA6IHJpbmcgMChnZngpIHVzZXMgVk0gaW52IGVuZyA0IG9uIGh1
-YiAwCj4gW8KgIMKgIDguMzQ1MjQ0XSBhbWRncHUgMDAwMDowMzowMC4wOiByaW5nIDEoY29tcF8x
-LjAuMCkgdXNlcyBWTSBpbnYgZW5nIDUgb24gaHViIDAKPiBbwqAgwqAgOC4zNDUyNDddIGFtZGdw
-dSAwMDAwOjAzOjAwLjA6IHJpbmcgMihjb21wXzEuMS4wKSB1c2VzIFZNIGludiBlbmcgNiBvbiBo
-dWIgMAo+IFvCoCDCoCA4LjM0NTI1MF0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogcmluZyAzKGNvbXBf
-MS4yLjApIHVzZXMgVk0gaW52IGVuZyA3IG9uIGh1YiAwCj4gW8KgIMKgIDguMzQ1MjUyXSBhbWRn
-cHUgMDAwMDowMzowMC4wOiByaW5nIDQoY29tcF8xLjMuMCkgdXNlcyBWTSBpbnYgZW5nIDggb24g
-aHViIDAKPiBbwqAgwqAgOC4zNDUyNTVdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IHJpbmcgNShjb21w
-XzEuMC4xKSB1c2VzIFZNIGludiBlbmcgOSBvbiBodWIgMAo+IFvCoCDCoCA4LjM0NTI1OF0gYW1k
-Z3B1IDAwMDA6MDM6MDAuMDogcmluZyA2KGNvbXBfMS4xLjEpIHVzZXMgVk0gaW52IGVuZyAxMCBv
-biBodWIgMAo+IFvCoCDCoCA4LjM0NTI2MF0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogcmluZyA3KGNv
-bXBfMS4yLjEpIHVzZXMgVk0gaW52IGVuZyAxMSBvbiBodWIgMAo+IFvCoCDCoCA4LjM0NTI2M10g
-YW1kZ3B1IDAwMDA6MDM6MDAuMDogcmluZyA4KGNvbXBfMS4zLjEpIHVzZXMgVk0gaW52IGVuZyAx
-MiBvbiBodWIgMAo+IFvCoCDCoCA4LjM0NTI2Nl0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogcmluZyA5
-KGtpcV8yLjEuMCkgdXNlcyBWTSBpbnYgZW5nIDEzIG9uIGh1YiAwCj4gW8KgIMKgIDguMzQ1MjY5
-XSBhbWRncHUgMDAwMDowMzowMC4wOiByaW5nIDEwKHNkbWEwKSB1c2VzIFZNIGludiBlbmcgNCBv
-biBodWIgMQo+IFvCoCDCoCA4LjM0NTI3Ml0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogcmluZyAxMSh2
-Y25fZGVjKSB1c2VzIFZNIGludiBlbmcgNSBvbiBodWIgMQo+IFvCoCDCoCA4LjM0NTI3NV0gYW1k
-Z3B1IDAwMDA6MDM6MDAuMDogcmluZyAxMih2Y25fZW5jMCkgdXNlcyBWTSBpbnYgZW5nIDYgb24g
-aHViIDEKPiBbwqAgwqAgOC4zNDUyNzhdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IHJpbmcgMTModmNu
-X2VuYzEpIHVzZXMgVk0gaW52IGVuZyA3IG9uIGh1YiAxCj4gW8KgIMKgIDguMzQ1MjgwXSBhbWRn
-cHUgMDAwMDowMzowMC4wOiByaW5nIDE0KHZjbl9qcGVnKSB1c2VzIFZNIGludiBlbmcgOCBvbiBo
-dWIgMQo+IFvCoCDCoCA4Ljg1ODUzMF0gW2RybV0gSW5pdGlhbGl6ZWQgYW1kZ3B1IDMuMjYuMCAy
-MDE1MDEwMSBmb3IgMDAwMDowMzowMC4wIG9uIG1pbm9yIDAKPiAKPiAKPiAKPiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBs
-aXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiAKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--------------A9C91ADC1A0A65AF6822A6D4
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+On 2018-07-13 05:19 PM, Christian König wrote:
+> We can get that from the ring.
+> 
+> Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+This change introduced the attached oops when running the piglit
+max-texture-size test, after which the test process hangs.
+
+Note that the test always triggers the out of memory condition in
+amdgpu_cs_ioctl, but before this change that was handled gracefully.
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--------------A9C91ADC1A0A65AF6822A6D4
+Content-Type: text/x-log;
+ name="kern.log"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="kern.log"
+
+Jul 16 17:35:32 kaveri kernel: [   97.203039] [drm:amdgpu_cs_ioctl [amdgp=
+u]] *ERROR* amdgpu_cs_list_validate(validated) failed.
+Jul 16 17:35:32 kaveri kernel: [   97.203299] [drm:amdgpu_cs_ioctl [amdgp=
+u]] *ERROR* Not enough memory for command submission!
+Jul 16 17:35:32 kaveri kernel: [   97.203388] BUG: unable to handle kerne=
+l paging request at ffffffffffffff30
+Jul 16 17:35:32 kaveri kernel: [   97.203398] PGD 1a6e16067 P4D 1a6e16067=
+ PUD 1a6e18067 PMD 0=20
+Jul 16 17:35:32 kaveri kernel: [   97.203414] Oops: 0000 [#1] SMP KASAN N=
+OPTI
+Jul 16 17:35:32 kaveri kernel: [   97.203423] CPU: 10 PID: 2009 Comm: max=
+-textur:cs0 Tainted: G        W  OE     4.18.0-rc1+ #110
+Jul 16 17:35:32 kaveri kernel: [   97.203428] Hardware name: Micro-Star I=
+nternational Co., Ltd. MS-7A34/B350 TOMAHAWK (MS-7A34), BIOS 1.80 09/13/2=
+017
+Jul 16 17:35:32 kaveri kernel: [   97.203555] RIP: 0010:amdgpu_job_free_r=
+esources+0x122/0x1f0 [amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.203559] Code: 85 dc 00 00 00 48 8b =
+44 24 08 89 ea 48 8d 34 92 49 8b 96 48 02 00 00 42 80 3c 38 00 48 8d 34 f=
+2 0f 85 a2 00 00 00 48 8b 14 24 <49> 8b bc 24 30 ff ff ff 83 c5 01 e8 2e =
+45 d9 ff 48 89 da 48 c1 ea=20
+Jul 16 17:35:32 kaveri kernel: [   97.203664] RSP: 0018:ffff8803de2e7698 =
+EFLAGS: 00010246
+Jul 16 17:35:32 kaveri kernel: [   97.203671] RAX: 1fffffffffffffe6 RBX: =
+ffff8803465969dc RCX: 1fffffffffffffe6
+Jul 16 17:35:32 kaveri kernel: [   97.203677] RDX: 0000000000000000 RSI: =
+ffff880346596a30 RDI: ffff8803465969d0
+Jul 16 17:35:32 kaveri kernel: [   97.203682] RBP: 0000000000000000 R08: =
+ffff8803de2e74b0 R09: 0000000000000000
+Jul 16 17:35:32 kaveri kernel: [   97.203686] R10: 0000000000000000 R11: =
+0000000000000000 R12: 0000000000000000
+Jul 16 17:35:32 kaveri kernel: [   97.203691] R13: ffffed0068cb2d39 R14: =
+ffff880346596780 R15: dffffc0000000000
+Jul 16 17:35:32 kaveri kernel: [   97.203698] FS:  00007fca13089700(0000)=
+ GS:ffff8803ee280000(0000) knlGS:0000000000000000
+Jul 16 17:35:32 kaveri kernel: [   97.203703] CS:  0010 DS: 0000 ES: 0000=
+ CR0: 0000000080050033
+Jul 16 17:35:32 kaveri kernel: [   97.203708] CR2: ffffffffffffff30 CR3: =
+00000003cf8f4000 CR4: 00000000003406e0
+Jul 16 17:35:32 kaveri kernel: [   97.203712] Call Trace:
+Jul 16 17:35:32 kaveri kernel: [   97.203843]  amdgpu_job_free+0xf/0x80 [=
+amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.203947]  amdgpu_cs_ioctl+0x8dd/0x4e=
+60 [amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.204058]  ? amdgpu_bo_list_ioctl+0x2=
+d1/0x3e0 [amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.204160]  ? amdgpu_cs_find_mapping+0=
+x3c0/0x3c0 [amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.204170]  ? do_vfs_ioctl+0x192/0xf30=
+
+Jul 16 17:35:32 kaveri kernel: [   97.204176]  ? ksys_ioctl+0x70/0x80
+Jul 16 17:35:32 kaveri kernel: [   97.204182]  ? __x64_sys_ioctl+0x6f/0xb=
+0
+Jul 16 17:35:32 kaveri kernel: [   97.204189]  ? do_syscall_64+0xa5/0x3f0=
+
+Jul 16 17:35:32 kaveri kernel: [   97.204199]  ? __lock_acquire+0x605/0x3=
+670
+Jul 16 17:35:32 kaveri kernel: [   97.204207]  ? idr_get_free+0x4bc/0x980=
+
+Jul 16 17:35:32 kaveri kernel: [   97.204215]  ? find_held_lock+0x32/0x1c=
+0
+Jul 16 17:35:32 kaveri kernel: [   97.204228]  ? debug_check_no_locks_fre=
+ed+0x2c0/0x2c0
+Jul 16 17:35:32 kaveri kernel: [   97.204235]  ? __fprop_inc_percpu_max+0=
+x1d0/0x1d0
+Jul 16 17:35:32 kaveri kernel: [   97.204361]  ? amdgpu_cs_find_mapping+0=
+x3c0/0x3c0 [amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.204391]  drm_ioctl_kernel+0x197/0x2=
+20 [drm]
+Jul 16 17:35:32 kaveri kernel: [   97.204422]  ? drm_setversion+0x7d0/0x7=
+d0 [drm]
+Jul 16 17:35:32 kaveri kernel: [   97.204432]  ? __check_object_size+0x14=
+9/0x360
+Jul 16 17:35:32 kaveri kernel: [   97.204464]  drm_ioctl+0x60a/0x970 [drm=
+]
+Jul 16 17:35:32 kaveri kernel: [   97.204568]  ? amdgpu_cs_find_mapping+0=
+x3c0/0x3c0 [amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.204599]  ? drm_ioctl_kernel+0x220/0=
+x220 [drm]
+Jul 16 17:35:32 kaveri kernel: [   97.204612]  ? lock_downgrade+0x5e0/0x5=
+e0
+Jul 16 17:35:32 kaveri kernel: [   97.204621]  ? _raw_spin_unlock_irqrest=
+ore+0x32/0x60
+Jul 16 17:35:32 kaveri kernel: [   97.204629]  ? trace_hardirqs_on_caller=
++0x381/0x570
+Jul 16 17:35:32 kaveri kernel: [   97.204729]  amdgpu_drm_ioctl+0xcc/0x1a=
+0 [amdgpu]
+Jul 16 17:35:32 kaveri kernel: [   97.204739]  do_vfs_ioctl+0x192/0xf30
+Jul 16 17:35:32 kaveri kernel: [   97.204747]  ? find_held_lock+0x32/0x1c=
+0
+Jul 16 17:35:32 kaveri kernel: [   97.204754]  ? ioctl_preallocate+0x1b0/=
+0x1b0
+Jul 16 17:35:32 kaveri kernel: [   97.204763]  ? __fget+0x1c8/0x300
+Jul 16 17:35:32 kaveri kernel: [   97.204771]  ? lock_downgrade+0x5e0/0x5=
+e0
+Jul 16 17:35:32 kaveri kernel: [   97.204783]  ? __fget+0x1e0/0x300
+Jul 16 17:35:32 kaveri kernel: [   97.204796]  ksys_ioctl+0x70/0x80
+Jul 16 17:35:32 kaveri kernel: [   97.204805]  __x64_sys_ioctl+0x6f/0xb0
+Jul 16 17:35:32 kaveri kernel: [   97.204811]  ? trace_hardirqs_on_caller=
++0x381/0x570
+Jul 16 17:35:32 kaveri kernel: [   97.204818]  do_syscall_64+0xa5/0x3f0
+Jul 16 17:35:32 kaveri kernel: [   97.204826]  entry_SYSCALL_64_after_hwf=
+rame+0x49/0xbe
+Jul 16 17:35:32 kaveri kernel: [   97.204832] RIP: 0033:0x7fca1ae40097
+Jul 16 17:35:32 kaveri kernel: [   97.204836] Code: b3 66 90 48 8b 05 f1 =
+7d 0c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 0=
+0 00 00 00 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c1 =
+7d 0c 00 f7 d8 64 89 01 48=20
+Jul 16 17:35:32 kaveri kernel: [   97.204941] RSP: 002b:00007fca13088c68 =
+EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+Jul 16 17:35:32 kaveri kernel: [   97.204949] RAX: ffffffffffffffda RBX: =
+00007fca13088d58 RCX: 00007fca1ae40097
+Jul 16 17:35:32 kaveri kernel: [   97.204954] RDX: 00007fca13088cd0 RSI: =
+00000000c0186444 RDI: 0000000000000006
+Jul 16 17:35:32 kaveri kernel: [   97.204959] RBP: 00007fca13088c90 R08: =
+00007fca13088d80 R09: 00007fca13088d58
+Jul 16 17:35:32 kaveri kernel: [   97.204964] R10: 00007fca13088d80 R11: =
+0000000000000246 R12: 00007fca13088cd0
+Jul 16 17:35:32 kaveri kernel: [   97.204968] R13: 00000000c0186444 R14: =
+0000000000000006 R15: 0000000000000000
+Jul 16 17:35:32 kaveri kernel: [   97.204981] Modules linked in: lz4(E) l=
+z4_compress(E) cpufreq_powersave(E) cpufreq_userspace(E) cpufreq_conserva=
+tive(E) binfmt_misc(E) amdkfd(OE) nls_ascii(E) nls_cp437(E) vfat(E) fat(E=
+) amdgpu(OE) edac_mce_amd(E) chash(OE) gpu_sched(OE) snd_hda_codec_realte=
+k(E) radeon(OE) snd_hda_codec_generic(E) kvm(E) snd_hda_codec_hdmi(E) irq=
+bypass(E) snd_hda_intel(E) ttm(OE) crct10dif_pclmul(E) crc32_pclmul(E) gh=
+ash_clmulni_intel(E) snd_hda_codec(E) pcbc(E) wmi_bmof(E) drm_kms_helper(=
+OE) snd_hda_core(E) snd_hwdep(E) efi_pstore(E) drm(OE) snd_pcm(E) aesni_i=
+ntel(E) aes_x86_64(E) snd_timer(E) i2c_algo_bit(E) crypto_simd(E) fb_sys_=
+fops(E) r8169(E) syscopyarea(E) cryptd(E) snd(E) sysfillrect(E) pcspkr(E)=
+ glue_helper(E) efivars(E) k10temp(E) mii(E) sg(E) sysimgblt(E) soundcore=
+(E) ccp(E) sp5100_tco(E) rng_core(E) i2c_piix4(E)
+Jul 16 17:35:32 kaveri kernel: [   97.205092]  wmi(E) button(E) acpi_cpuf=
+req(E) tcp_bbr(E) sch_fq(E) sunrpc(E) nct6775(E) hwmon_vid(E) efivarfs(E)=
+ ip_tables(E) x_tables(E) ext4(E) crc32c_generic(E) crc16(E) mbcache(E) j=
+bd2(E) fscrypto(E) dm_mod(E) raid10(E) raid1(E) raid0(E) multipath(E) lin=
+ear(E) md_mod(E) sd_mod(E) evdev(E) hid_generic(E) usbhid(E) hid(E) ahci(=
+E) xhci_pci(E) libahci(E) xhci_hcd(E) libata(E) crc32c_intel(E) usbcore(E=
+) scsi_mod(E) gpio_amdpt(E) gpio_generic(E)
+Jul 16 17:35:32 kaveri kernel: [   97.205167] CR2: ffffffffffffff30
+
+--------------A9C91ADC1A0A65AF6822A6D4
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------A9C91ADC1A0A65AF6822A6D4--
