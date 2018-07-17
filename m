@@ -1,51 +1,199 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/scheduler: add NULL pointer check for run queue (v2)
-Date: Tue, 17 Jul 2018 11:11:28 +0800
-Message-ID: <5B4D5E60.1090602@amd.com>
-References: <1531733034-22183-1-git-send-email-Jerry.Zhang@amd.com>
- <e62a1051-00c9-99b2-dd83-d8f47e9038f4@daenzer.net>
+From: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH] drm/amdgpu/pm: Remove VLA usage
+Date: Mon, 16 Jul 2018 20:59:07 -0700
+Message-ID: <CAGXu5jK74ew7iTw2_OqJSj4wYjBggPpkN-ENEFRpuq0C-eGRDg@mail.gmail.com>
+References: <20180620182647.GA24405@beast>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e62a1051-00c9-99b2-dd83-d8f47e9038f4-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180620182647.GA24405@beast>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, Huang Rui <ray.huang@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDcvMTYvMjAxOCAwNTo1NCBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxOC0w
-Ny0xNiAxMToyMyBBTSwgSnVud2VpIFpoYW5nIHdyb3RlOgo+PiBUbyBjaGVjayBycSBwb2ludGVy
-IGJlZm9yZSBhZGRpbmcgZW50aXR5IGludG8gaXQuCj4+IFRoYXQgYXZvaWRzIE5VTEwgcG9pbnRl
-ciBhY2Nlc3MgaW4gc29tZSBjYXNlLgo+Pgo+PiB2MjogbW92ZSB0aGUgY2hlY2sgdG8gY2FsbGVy
-Cj4+Cj4+IFN1Z2dlc3RlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0Bh
-bWQuY29tPgo+PiBTaWduZWQtb2ZmLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFtZC5j
-b20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5j
-IHwgNSArKysrKwo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKPj4KPj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIvZHJp
-dmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPj4gaW5kZXggMTZiZjQ0Ni4u
-ZGFjNzFlMyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2No
-ZWR1bGVyLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
-LmMKPj4gQEAgLTU0Nyw2ICs1NDcsMTEgQEAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X3B1c2hfam9i
-KHN0cnVjdCBkcm1fc2NoZWRfam9iICpzY2hlZF9qb2IsCj4+ICAgCWlmIChmaXJzdCkgewo+PiAg
-IAkJLyogQWRkIHRoZSBlbnRpdHkgdG8gdGhlIHJ1biBxdWV1ZSAqLwo+PiAgIAkJc3Bpbl9sb2Nr
-KCZlbnRpdHktPnJxX2xvY2spOwo+PiArCQlpZiAoIWVudGl0eS0+cnEpIHsKPj4gKwkJCURSTV9F
-UlJPUigiVHJ5aW5nIHRvIHB1c2ggdG8gYSBraWxsZWQgZW50aXR5XG4iKTsKPgo+IFRoaXMgY291
-bGQgcmVzdWx0IGluIHNwYW1taW5nIGRtZXNnIHdpdGggdGhpcyBlcnJvciBtZXNzYWdlLiBJIHN1
-Z2dlc3QKClRoYW5rcyBmb3IgeW91ciBjb21tZW50cy4KQWN0dWFsbHkgaXQgd2lsbCBjYXVzZSBB
-cHAgb3IgR1BVIGhhbmcsIGFzIHRoZSBqb2IgaXMgdW5leHBlY3RlZCB0byBwdXNoIHRvIGEgbm9u
-LWV4aXN0aW5nIGVudGl0eSBydW4gcXVldWUuCk5vdyB3ZSdyZSB0cnlpbmcgdG8gcHJlZGljdCB0
-aGF0IGJlZm9yZSBrZXJuZWwgcGFuaWMgb3IgQlVHX09OLgoKUmVnYXJkcywKSmVycnkKCj4KPiAJ
-CWlmIChXQVJOX09OX09OQ0UoIWVudGl0eS0+cnEpKSB7Cj4KPiBpbnN0ZWFkLCBubyBEUk1fRVJS
-T1IuIFRoYXQgd2lsbCBwcm9kdWNlIGEgc2luZ2xlIHdhcm5pbmcgd2l0aCBhIGJhY2t0cmFjZS4K
-Pgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Wed, Jun 20, 2018 at 11:26 AM, Kees Cook <keescook@chromium.org> wrote:
+> In the quest to remove all stack VLA usage from the kernel[1], this
+> uses the maximum sane buffer size and removes copy/paste code.
+>
+> [1] https://lkml.kernel.org/r/CA+55aFzCG-zNmZwX4A2FQpadafLfEzK6CC=qPXydAacU1RqZWA@mail.gmail.com
+>
+> Signed-off-by: Kees Cook <keescook@chromium.org>
+
+Friendly ping! Who's tree should this go through?
+
+Thanks!
+
+-Kees
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 100 +++++++++++--------------
+>  1 file changed, 42 insertions(+), 58 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> index b455da487782..5eb98cde22ed 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> @@ -593,40 +593,59 @@ static ssize_t amdgpu_get_pp_dpm_sclk(struct device *dev,
+>                 return snprintf(buf, PAGE_SIZE, "\n");
+>  }
+>
+> -static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
+> -               struct device_attribute *attr,
+> -               const char *buf,
+> -               size_t count)
+> +/*
+> + * Worst case: 32 bits individually specified, in octal at 12 characters
+> + * per line (+1 for \n).
+> + */
+> +#define AMDGPU_MASK_BUF_MAX    (32 * 13)
+> +
+> +static ssize_t amdgpu_read_mask(const char *buf, size_t count, uint32_t *mask)
+>  {
+> -       struct drm_device *ddev = dev_get_drvdata(dev);
+> -       struct amdgpu_device *adev = ddev->dev_private;
+>         int ret;
+>         long level;
+> -       uint32_t mask = 0;
+>         char *sub_str = NULL;
+>         char *tmp;
+> -       char buf_cpy[count];
+> +       char buf_cpy[AMDGPU_MASK_BUF_MAX + 1];
+>         const char delimiter[3] = {' ', '\n', '\0'};
+> +       size_t bytes;
+>
+> -       memcpy(buf_cpy, buf, count+1);
+> +       *mask = 0;
+> +
+> +       bytes = min(count, sizeof(buf_cpy) - 1);
+> +       memcpy(buf_cpy, buf, bytes);
+> +       buf_cpy[bytes] = '\0';
+>         tmp = buf_cpy;
+>         while (tmp[0]) {
+> -               sub_str =  strsep(&tmp, delimiter);
+> +               sub_str = strsep(&tmp, delimiter);
+>                 if (strlen(sub_str)) {
+>                         ret = kstrtol(sub_str, 0, &level);
+> -
+> -                       if (ret) {
+> -                               count = -EINVAL;
+> -                               goto fail;
+> -                       }
+> -                       mask |= 1 << level;
+> +                       if (ret)
+> +                               return -EINVAL;
+> +                       *mask |= 1 << level;
+>                 } else
+>                         break;
+>         }
+> +
+> +       return 0;
+> +}
+> +
+> +static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
+> +               struct device_attribute *attr,
+> +               const char *buf,
+> +               size_t count)
+> +{
+> +       struct drm_device *ddev = dev_get_drvdata(dev);
+> +       struct amdgpu_device *adev = ddev->dev_private;
+> +       int ret;
+> +       uint32_t mask = 0;
+> +
+> +       ret = amdgpu_read_mask(buf, count, &mask);
+> +       if (ret)
+> +               return ret;
+> +
+>         if (adev->powerplay.pp_funcs->force_clock_level)
+>                 amdgpu_dpm_force_clock_level(adev, PP_SCLK, mask);
+>
+> -fail:
+>         return count;
+>  }
+>
+> @@ -651,32 +670,15 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct device *dev,
+>         struct drm_device *ddev = dev_get_drvdata(dev);
+>         struct amdgpu_device *adev = ddev->dev_private;
+>         int ret;
+> -       long level;
+>         uint32_t mask = 0;
+> -       char *sub_str = NULL;
+> -       char *tmp;
+> -       char buf_cpy[count];
+> -       const char delimiter[3] = {' ', '\n', '\0'};
+>
+> -       memcpy(buf_cpy, buf, count+1);
+> -       tmp = buf_cpy;
+> -       while (tmp[0]) {
+> -               sub_str =  strsep(&tmp, delimiter);
+> -               if (strlen(sub_str)) {
+> -                       ret = kstrtol(sub_str, 0, &level);
+> +       ret = amdgpu_read_mask(buf, count, &mask);
+> +       if (ret)
+> +               return ret;
+>
+> -                       if (ret) {
+> -                               count = -EINVAL;
+> -                               goto fail;
+> -                       }
+> -                       mask |= 1 << level;
+> -               } else
+> -                       break;
+> -       }
+>         if (adev->powerplay.pp_funcs->force_clock_level)
+>                 amdgpu_dpm_force_clock_level(adev, PP_MCLK, mask);
+>
+> -fail:
+>         return count;
+>  }
+>
+> @@ -701,33 +703,15 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct device *dev,
+>         struct drm_device *ddev = dev_get_drvdata(dev);
+>         struct amdgpu_device *adev = ddev->dev_private;
+>         int ret;
+> -       long level;
+>         uint32_t mask = 0;
+> -       char *sub_str = NULL;
+> -       char *tmp;
+> -       char buf_cpy[count];
+> -       const char delimiter[3] = {' ', '\n', '\0'};
+> -
+> -       memcpy(buf_cpy, buf, count+1);
+> -       tmp = buf_cpy;
+>
+> -       while (tmp[0]) {
+> -               sub_str =  strsep(&tmp, delimiter);
+> -               if (strlen(sub_str)) {
+> -                       ret = kstrtol(sub_str, 0, &level);
+> +       ret = amdgpu_read_mask(buf, count, &mask);
+> +       if (ret)
+> +               return ret;
+>
+> -                       if (ret) {
+> -                               count = -EINVAL;
+> -                               goto fail;
+> -                       }
+> -                       mask |= 1 << level;
+> -               } else
+> -                       break;
+> -       }
+>         if (adev->powerplay.pp_funcs->force_clock_level)
+>                 amdgpu_dpm_force_clock_level(adev, PP_PCIE, mask);
+>
+> -fail:
+>         return count;
+>  }
+>
+> --
+> 2.17.1
+>
+>
+> --
+> Kees Cook
+> Pixel Security
+
+
+
+-- 
+Kees Cook
+Pixel Security
