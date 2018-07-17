@@ -1,13 +1,11 @@
-From: Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] RFC: drm/amd/display: enable ABGR and XBGR formats (v2)
-Date: Tue, 17 Jul 2018 20:38:43 +0200
-Message-ID: <CAEQFVGbAQ+1BbdhC+4sGiFukH-JVSui9Y+ZhxPswCVHw+rcbFw@mail.gmail.com>
-References: <20180716020330.21525-1-user@ANDROIDDEV>
- <CADnq5_P0_pLHZ+9ccQ6hro9NBBuqL-G8UjYp3NTr-Oka+0KYAA@mail.gmail.com>
+From: Sonny Jiang <sonny.jiang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: remove internal/unused kernel module parameters
+Date: Tue, 17 Jul 2018 15:35:53 -0400
+Message-ID: <1531856153-7864-1-git-send-email-sonny.jiang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0618259371=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_P0_pLHZ+9ccQ6hro9NBBuqL-G8UjYp3NTr-Oka+0KYAA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,553 +16,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Sonny Jiang <sonny.jiang-5C7GfCeVMHo@public.gmane.org>
 
---===============0618259371==
-Content-Type: multipart/alternative; boundary="00000000000048dc90057136426c"
-
---00000000000048dc90057136426c
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Alex,
-
-Il giorno mar 17 lug 2018 alle ore 15:43 Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-ha scritto:
-
-> On Sun, Jul 15, 2018 at 10:03 PM, Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> wrote:
-> > From: Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> >
-> > (v1) {A,X}BGR8888 code paths are added in amdgpu_dm, by using an
-> fb_format
-> >      already listed in dc/dc_hw_types.h
-> (SURFACE_PIXEL_FORMAT_GRPH_ABGR8888),
-> >      and in dce 8.0, 10.0 and 11.0, i.e. Bonaire and later.
-> >      GRPH_FORMAT_ARGB8888 is used due to lack of specific
-> GRPH_FORMAT_ABGR8888
-> >
-> > (v2) support for {A,X}BGR8888 in atombios_crtc (now in dce4 path, to be
-> refined)
-> >      to initialize frame buffer device and avoid following dmesg error:
-> >      "[drm] Cannot find any crtc or sizes"
-> >
-> > Tested with oreo-x86 (hwcomposer.drm + gralloc.gbm + mesa-dev/radv)
-> > SurfaceFlinger can now select RGBA_8888 format for HWC_FRAMEBUFFER_TARGET
-> > No major regression or crash observed so far, but some android 2D overlay
-> > may be affected by color artifacts. Kind feedback requested.
-> >
-> > Signed-off-by: Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->
-> Please split the patch in three (one for radeon and one for amdgpu dc
-> and one for amdgpu non-dc).  Also the GRPH_SWAP_CONTROL register has a
-> crossbar where you can change the channel routing.  You may need that
-> for the channel routing to work correctly.
->
-> Alex
->
-
-Thanks for your suggestion and guidance! :-)
-
-I may need some time to assimilate the suggestions and some confirmations,
-as I am an amateur in AMD GPU coding, to be honest, I should have mentioned
-that before.
-
-Regarding the radeon scope of changes,
-do you recommend to keep the enablement of {A,X}BGR8888  for dce4 and later,
-or to extend the enablement of  {A,X}BGR8888 to older families of radeon
-gpus/chipsets?
-
-What is the lower radeon family where {A,X}BGR8888  can be natively
-supported by HW,
-by means of  swap control registers for channel routing configuration?
-
-Based on the scope of  {A,X}BGR8888 support in final patches,
-I may need to add handling in other dce code and maybe other modules,
-could you please provide information in terms of necessary changes/high
-level steps to follow?
-
-Do you have some pointer to documentation on  swap control registers for
-the families
-that may be considered as 'safe to be kept in scope' for  {A,X}BGR8888
-support?
-
-Last but not least I would like to ask you about how to test no-regression,
-even if this will come later,
-when patches will be in good shape for further evaluation, do you have
-tools and samples for conformance/no-regression testing?
-I am asking because I don't have samples for all families.
-
-Kind regards
-
-Mauro
-
-
-
-
->
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            | 9 +++++++++
-> >  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            | 9 +++++++++
-> >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             | 8 ++++++++
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
-> >  drivers/gpu/drm/radeon/atombios_crtc.c            | 8 ++++++++
-> >  5 files changed, 40 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> > index 022f303463fc..d4280d2e7737 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> > @@ -2005,6 +2005,15 @@ static int dce_v10_0_crtc_do_set_base(struct
-> drm_crtc *crtc,
-> >                 /* Greater 8 bpc fb needs to bypass hw-lut to retain
-> precision */
-> >                 bypass_lut = true;
-> >                 break;
-> > +       case DRM_FORMAT_XBGR8888:
-> > +       case DRM_FORMAT_ABGR8888:
-> > +               fb_format = REG_SET_FIELD(0, GRPH_CONTROL, GRPH_DEPTH,
-> 2);
-> > +               fb_format = REG_SET_FIELD(fb_format, GRPH_CONTROL,
-> GRPH_FORMAT, 0); /* Hack */
-> > +#ifdef __BIG_ENDIAN
-> > +               fb_swap = REG_SET_FIELD(fb_swap, GRPH_SWAP_CNTL,
-> GRPH_ENDIAN_SWAP,
-> > +                                       ENDIAN_8IN32);
-> > +#endif
-> > +               break;
-> >         default:
-> >                 DRM_ERROR("Unsupported screen format %s\n",
-> >                           drm_get_format_name(target_fb->format->format,
-> &format_name));
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> > index 800a9f36ab4f..d48ee8f2e192 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> > @@ -2044,6 +2044,15 @@ static int dce_v11_0_crtc_do_set_base(struct
-> drm_crtc *crtc,
-> >                 /* Greater 8 bpc fb needs to bypass hw-lut to retain
-> precision */
-> >                 bypass_lut = true;
-> >                 break;
-> > +       case DRM_FORMAT_XBGR8888:
-> > +       case DRM_FORMAT_ABGR8888:
-> > +               fb_format = REG_SET_FIELD(0, GRPH_CONTROL, GRPH_DEPTH,
-> 2);
-> > +               fb_format = REG_SET_FIELD(fb_format, GRPH_CONTROL,
-> GRPH_FORMAT, 0); /* Hack */
-> > +#ifdef __BIG_ENDIAN
-> > +               fb_swap = REG_SET_FIELD(fb_swap, GRPH_SWAP_CNTL,
-> GRPH_ENDIAN_SWAP,
-> > +                                       ENDIAN_8IN32);
-> > +#endif
-> > +               break;
-> >         default:
-> >                 DRM_ERROR("Unsupported screen format %s\n",
-> >                           drm_get_format_name(target_fb->format->format,
-> &format_name));
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> > index 012e0a9ae0ff..0e2fc1ac475f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> > @@ -1929,6 +1929,14 @@ static int dce_v8_0_crtc_do_set_base(struct
-> drm_crtc *crtc,
-> >                 /* Greater 8 bpc fb needs to bypass hw-lut to retain
-> precision */
-> >                 bypass_lut = true;
-> >                 break;
-> > +       case DRM_FORMAT_XBGR8888:
-> > +       case DRM_FORMAT_ABGR8888:
-> > +               fb_format = ((GRPH_DEPTH_32BPP <<
-> GRPH_CONTROL__GRPH_DEPTH__SHIFT) |
-> > +                            (GRPH_FORMAT_ARGB8888 <<
-> GRPH_CONTROL__GRPH_FORMAT__SHIFT)); /* Hack */
-> > +#ifdef __BIG_ENDIAN
-> > +               fb_swap = (GRPH_ENDIAN_8IN32 <<
-> GRPH_SWAP_CNTL__GRPH_ENDIAN_SWAP__SHIFT);
-> > +#endif
-> > +               break;
-> >         default:
-> >                 DRM_ERROR("Unsupported screen format %s\n",
-> >                           drm_get_format_name(target_fb->format->format,
-> &format_name));
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index 63c67346d316..6c10fa291150 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -1824,6 +1824,10 @@ static int fill_plane_attributes_from_fb(struct
-> amdgpu_device *adev,
-> >         case DRM_FORMAT_ABGR2101010:
-> >                 plane_state->format =
-> SURFACE_PIXEL_FORMAT_GRPH_ABGR2101010;
-> >                 break;
-> > +       case DRM_FORMAT_XBGR8888:
-> > +       case DRM_FORMAT_ABGR8888:
-> > +               plane_state->format = SURFACE_PIXEL_FORMAT_GRPH_ABGR8888;
-> > +               break;
-> >         case DRM_FORMAT_NV21:
-> >                 plane_state->format =
-> SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr;
-> >                 break;
-> > @@ -3115,6 +3119,8 @@ static const uint32_t rgb_formats[] = {
-> >         DRM_FORMAT_XBGR2101010,
-> >         DRM_FORMAT_ARGB2101010,
-> >         DRM_FORMAT_ABGR2101010,
-> > +       DRM_FORMAT_XBGR8888,
-> > +       DRM_FORMAT_ABGR8888,
-> >  };
-> >
-> >  static const uint32_t yuv_formats[] = {
-> > diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c
-> b/drivers/gpu/drm/radeon/atombios_crtc.c
-> > index 02baaaf20e9d..b954b3658a33 100644
-> > --- a/drivers/gpu/drm/radeon/atombios_crtc.c
-> > +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
-> > @@ -1259,6 +1259,14 @@ static int dce4_crtc_do_set_base(struct drm_crtc
-> *crtc,
-> >                 /* Greater 8 bpc fb needs to bypass hw-lut to retain
-> precision */
-> >                 bypass_lut = true;
-> >                 break;
-> > +       case DRM_FORMAT_XBGR8888:
-> > +       case DRM_FORMAT_ABGR8888:
-> > +               fb_format =
-> (EVERGREEN_GRPH_DEPTH(EVERGREEN_GRPH_DEPTH_32BPP) |
-> > +
-> EVERGREEN_GRPH_FORMAT(EVERGREEN_GRPH_FORMAT_ARGB8888));
-> > +#ifdef __BIG_ENDIAN
-> > +               fb_swap =
-> EVERGREEN_GRPH_ENDIAN_SWAP(EVERGREEN_GRPH_ENDIAN_8IN32);
-> > +#endif
-> > +               break;
-> >         default:
-> >                 DRM_ERROR("Unsupported screen format %s\n",
-> >                           drm_get_format_name(target_fb->format->format,
-> &format_name));
-> > --
-> > 2.17.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---00000000000048dc90057136426c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Alex,<div><br></div><div class=3D"gmail_quote"><div dir=
-=3D"ltr">Il giorno mar 17 lug 2018 alle ore 15:43 Alex Deucher &lt;<a href=
-=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; ha scritto:=
-<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">On Sun, Jul 15, 2018 at 10:03 PM, =
-Mauro Rossi &lt;<a href=3D"mailto:issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">=
-issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-&gt; From: Mauro Rossi &lt;<a href=3D"mailto:issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=
-=3D"_blank">issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-&gt;<br>
-&gt; (v1) {A,X}BGR8888 code paths are added in amdgpu_dm, by using an fb_fo=
-rmat<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 already listed in dc/dc_hw_types.h (SURFACE_PIXEL_=
-FORMAT_GRPH_ABGR8888),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 and in dce 8.0, 10.0 and 11.0, i.e. Bonaire and la=
-ter.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 GRPH_FORMAT_ARGB8888 is used due to lack of specif=
-ic GRPH_FORMAT_ABGR8888<br>
-&gt;<br>
-&gt; (v2) support for {A,X}BGR8888 in atombios_crtc (now in dce4 path, to b=
-e refined)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 to initialize frame buffer device and avoid follow=
-ing dmesg error:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &quot;[drm] Cannot find any crtc or sizes&quot;<br=
->
-&gt;<br>
-&gt; Tested with oreo-x86 (hwcomposer.drm + gralloc.gbm + mesa-dev/radv)<br=
->
-&gt; SurfaceFlinger can now select RGBA_8888 format for HWC_FRAMEBUFFER_TAR=
-GET<br>
-&gt; No major regression or crash observed so far, but some android 2D over=
-lay<br>
-&gt; may be affected by color artifacts. Kind feedback requested.<br>
-&gt;<br>
-&gt; Signed-off-by: Mauro Rossi &lt;<a href=3D"mailto:issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
-" target=3D"_blank">issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-<br>
-Please split the patch in three (one for radeon and one for amdgpu dc<br>
-and one for amdgpu non-dc).=C2=A0 Also the GRPH_SWAP_CONTROL register has a=
-<br>
-crossbar where you can change the channel routing.=C2=A0 You may need that<=
-br>
-for the channel routing to work correctly.<br>
-<br>
-Alex<br></blockquote><div><br></div><div>Thanks for your suggestion and gui=
-dance! :-)=C2=A0</div><div><br></div><div>I may need some time to assimilat=
-e the suggestions and some confirmations,=C2=A0</div><div>as I am an amateu=
-r in AMD GPU coding, to be honest, I should have mentioned that before.<br>=
-</div><div><br></div><div>Regarding the radeon scope of changes,</div><div>=
-do you recommend to keep the enablement of=C2=A0<span style=3D"font-size:sm=
-all;background-color:rgb(255,255,255);text-decoration-style:initial;text-de=
-coration-color:initial;float:none;display:inline">{</span><span style=3D"fo=
-nt-size:small;background-color:rgb(255,255,255);text-decoration-style:initi=
-al;text-decoration-color:initial;float:none;display:inline">A,X}BGR</span><=
-span style=3D"font-size:small;background-color:rgb(255,255,255);text-decora=
-tion-style:initial;text-decoration-color:initial;float:none;display:inline"=
->8888</span>=C2=A0 for dce4 and later,</div><div>or to extend the enablemen=
-t of=C2=A0=C2=A0{A,X}BGR8888 to older families of radeon gpus/chipsets?</di=
-v><div><br></div><div>What is the lower radeon family where=C2=A0<span styl=
-e=3D"font-size:small;background-color:rgb(255,255,255);text-decoration-styl=
-e:initial;text-decoration-color:initial;float:none;display:inline">{</span>=
-<span style=3D"font-size:small;background-color:rgb(255,255,255);text-decor=
-ation-style:initial;text-decoration-color:initial;float:none;display:inline=
-">A,X}BGR</span><span style=3D"font-size:small;background-color:rgb(255,255=
-,255);text-decoration-style:initial;text-decoration-color:initial;float:non=
-e;display:inline">8888</span>=C2=A0 can be natively supported by HW,</div><=
-div>by means of=C2=A0 swap control registers for=C2=A0<span style=3D"font-s=
-ize:small;background-color:rgb(255,255,255);text-decoration-style:initial;t=
-ext-decoration-color:initial;float:none;display:inline">channel routing con=
-figuration?</span></div><div><span style=3D"font-size:small;background-colo=
-r:rgb(255,255,255);text-decoration-style:initial;text-decoration-color:init=
-ial;float:none;display:inline"><br></span></div><div><span style=3D"font-si=
-ze:small;background-color:rgb(255,255,255);text-decoration-style:initial;te=
-xt-decoration-color:initial;float:none;display:inline">Based on the scope o=
-f=C2=A0
-
-<span style=3D"text-decoration-style:initial;text-decoration-color:initial;=
-float:none;display:inline">{</span><span style=3D"text-decoration-style:ini=
-tial;text-decoration-color:initial;float:none;display:inline">A,X}BGR</span=
-><span style=3D"text-decoration-style:initial;text-decoration-color:initial=
-;float:none;display:inline">8888</span><span style=3D"text-decoration-style=
-:initial;text-decoration-color:initial;float:none;display:inline">=C2=A0sup=
-port in final patches,=C2=A0</span></span></div><div><span style=3D"font-si=
-ze:small;background-color:rgb(255,255,255);text-decoration-style:initial;te=
-xt-decoration-color:initial;float:none;display:inline"><span style=3D"text-=
-decoration-style:initial;text-decoration-color:initial;float:none;display:i=
-nline">I may need to add handling in other dce code and maybe other modules=
-,</span></span></div><div>could you please provide information in terms of =
-necessary changes/high level steps to follow?</div><div><br></div><div>Do y=
-ou have some pointer to documentation on=C2=A0 swap control registers for t=
-he families</div><div>that may be considered as &#39;safe to be kept in sco=
-pe&#39; for=C2=A0
-
-<span style=3D"font-size:small;text-decoration-style:initial;text-decoratio=
-n-color:initial;float:none;display:inline">{</span><span style=3D"font-size=
-:small;text-decoration-style:initial;text-decoration-color:initial;float:no=
-ne;display:inline">A,X}BGR</span><span style=3D"font-size:small;text-decora=
-tion-style:initial;text-decoration-color:initial;float:none;display:inline"=
->8888 support?</span></div><div><span style=3D"font-size:small;text-decorat=
-ion-style:initial;text-decoration-color:initial;float:none;display:inline">=
-<br></span></div><div>Last but not least I would like to ask you about how =
-to test no-regression, even if this will come later,</div><div>when patches=
- will be in good shape for further evaluation, do you have tools and sample=
-s for conformance/no-regression testing?</div><div>I am asking because I do=
-n&#39;t have samples for all families.</div><div><br></div><div>Kind regard=
-s</div><div><br></div><div>Mauro</div><div><span style=3D"font-size:small;t=
-ext-decoration-style:initial;text-decoration-color:initial;float:none;displ=
-ay:inline"><br></span></div><div><span style=3D"font-size:small;text-decora=
-tion-style:initial;text-decoration-color:initial;float:none;display:inline"=
-><br></span></div><div>=C2=A0<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/dce_v10_0.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 | 9 +++++++++<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/dce_v11_0.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 | 9 +++++++++<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/dce_v8_0.c=C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0| 8 ++++++++<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++<br>
-&gt;=C2=A0 drivers/gpu/drm/radeon/atombios_crtc.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 | 8 ++++++++<br>
-&gt;=C2=A0 5 files changed, 40 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/=
-amd/amdgpu/dce_v10_0.c<br>
-&gt; index 022f303463fc..d4280d2e7737 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
-&gt; @@ -2005,6 +2005,15 @@ static int dce_v10_0_crtc_do_set_base(struct dr=
-m_crtc *crtc,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Greate=
-r 8 bpc fb needs to bypass hw-lut to retain precision */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bypass_lu=
-t =3D true;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_XBGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_ABGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_format =3D =
-REG_SET_FIELD(0, GRPH_CONTROL, GRPH_DEPTH, 2);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_format =3D =
-REG_SET_FIELD(fb_format, GRPH_CONTROL, GRPH_FORMAT, 0); /* Hack */<br>
-&gt; +#ifdef __BIG_ENDIAN<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_swap =3D RE=
-G_SET_FIELD(fb_swap, GRPH_SWAP_CNTL, GRPH_ENDIAN_SWAP,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ENDIA=
-N_8IN32);<br>
-&gt; +#endif<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR=
-(&quot;Unsupported screen format %s\n&quot;,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_get_format_name(target_fb-&gt;format-&gt;for=
-mat, &amp;format_name));<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/=
-amd/amdgpu/dce_v11_0.c<br>
-&gt; index 800a9f36ab4f..d48ee8f2e192 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
-&gt; @@ -2044,6 +2044,15 @@ static int dce_v11_0_crtc_do_set_base(struct dr=
-m_crtc *crtc,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Greate=
-r 8 bpc fb needs to bypass hw-lut to retain precision */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bypass_lu=
-t =3D true;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_XBGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_ABGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_format =3D =
-REG_SET_FIELD(0, GRPH_CONTROL, GRPH_DEPTH, 2);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_format =3D =
-REG_SET_FIELD(fb_format, GRPH_CONTROL, GRPH_FORMAT, 0); /* Hack */<br>
-&gt; +#ifdef __BIG_ENDIAN<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_swap =3D RE=
-G_SET_FIELD(fb_swap, GRPH_SWAP_CNTL, GRPH_ENDIAN_SWAP,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ENDIA=
-N_8IN32);<br>
-&gt; +#endif<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR=
-(&quot;Unsupported screen format %s\n&quot;,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_get_format_name(target_fb-&gt;format-&gt;for=
-mat, &amp;format_name));<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/a=
-md/amdgpu/dce_v8_0.c<br>
-&gt; index 012e0a9ae0ff..0e2fc1ac475f 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
-&gt; @@ -1929,6 +1929,14 @@ static int dce_v8_0_crtc_do_set_base(struct drm=
-_crtc *crtc,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Greate=
-r 8 bpc fb needs to bypass hw-lut to retain precision */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bypass_lu=
-t =3D true;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_XBGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_ABGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_format =3D =
-((GRPH_DEPTH_32BPP &lt;&lt; GRPH_CONTROL__GRPH_DEPTH__SHIFT) |<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 (GRPH_FORMAT_ARGB8888 &lt;&lt; GRPH_CONTROL__G=
-RPH_FORMAT__SHIFT)); /* Hack */<br>
-&gt; +#ifdef __BIG_ENDIAN<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_swap =3D (G=
-RPH_ENDIAN_8IN32 &lt;&lt; GRPH_SWAP_CNTL__GRPH_ENDIAN_SWAP__SHIFT);<br>
-&gt; +#endif<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR=
-(&quot;Unsupported screen format %s\n&quot;,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_get_format_name(target_fb-&gt;format-&gt;for=
-mat, &amp;format_name));<br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; index 63c67346d316..6c10fa291150 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&gt; @@ -1824,6 +1824,10 @@ static int fill_plane_attributes_from_fb(struct=
- amdgpu_device *adev,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_ABGR2101010:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_sta=
-te-&gt;format =3D SURFACE_PIXEL_FORMAT_GRPH_ABGR2101010;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_XBGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_ABGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_state-&g=
-t;format =3D SURFACE_PIXEL_FORMAT_GRPH_ABGR8888;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_NV21:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_sta=
-te-&gt;format =3D SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; @@ -3115,6 +3119,8 @@ static const uint32_t rgb_formats[] =3D {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_FORMAT_XBGR2101010,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_FORMAT_ARGB2101010,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_FORMAT_ABGR2101010,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_FORMAT_XBGR8888,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_FORMAT_ABGR8888,<br>
-&gt;=C2=A0 };<br>
-&gt;<br>
-&gt;=C2=A0 static const uint32_t yuv_formats[] =3D {<br>
-&gt; diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/=
-radeon/atombios_crtc.c<br>
-&gt; index 02baaaf20e9d..b954b3658a33 100644<br>
-&gt; --- a/drivers/gpu/drm/radeon/atombios_crtc.c<br>
-&gt; +++ b/drivers/gpu/drm/radeon/atombios_crtc.c<br>
-&gt; @@ -1259,6 +1259,14 @@ static int dce4_crtc_do_set_base(struct drm_crt=
-c *crtc,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Greate=
-r 8 bpc fb needs to bypass hw-lut to retain precision */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bypass_lu=
-t =3D true;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_XBGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0case DRM_FORMAT_ABGR8888:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_format =3D =
-(EVERGREEN_GRPH_DEPTH(EVERGREEN_GRPH_DEPTH_32BPP) |<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 EVERGREEN_GRPH_FORMAT(EVERGREEN_GRPH_FORMAT_AR=
-GB8888));<br>
-&gt; +#ifdef __BIG_ENDIAN<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fb_swap =3D EV=
-ERGREEN_GRPH_ENDIAN_SWAP(EVERGREEN_GRPH_ENDIAN_8IN32);<br>
-&gt; +#endif<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR=
-(&quot;Unsupported screen format %s\n&quot;,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_get_format_name(target_fb-&gt;format-&gt;for=
-mat, &amp;format_name));<br>
-&gt; --<br>
-&gt; 2.17.1<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
-=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
-tinfo/amd-gfx</a><br>
-</blockquote></div></div>
-
---00000000000048dc90057136426c--
-
---===============0618259371==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0618259371==--
+U2lnbmVkLW9mZi1ieTogU29ubnkgSmlhbmcgPHNvbm55LmppYW5nQGFtZC5jb20+Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgIHwgIDQgLS0tLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgMTYgLS0tLS0tLS0tLS0tLS0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jIHwgIDYgLS0tLS0tCiAzIGZpbGVz
+IGNoYW5nZWQsIDI2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgK
+aW5kZXggZDg1MmQxMS4uZTE1ZmE2NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgK
+QEAgLTEwNiwxMSArMTA2LDggQEAgZXh0ZXJuIGludCBhbWRncHVfdm1fZmF1bHRfc3RvcDsKIGV4
+dGVybiBpbnQgYW1kZ3B1X3ZtX2RlYnVnOwogZXh0ZXJuIGludCBhbWRncHVfdm1fdXBkYXRlX21v
+ZGU7CiBleHRlcm4gaW50IGFtZGdwdV9kYzsKLWV4dGVybiBpbnQgYW1kZ3B1X2RjX2xvZzsKIGV4
+dGVybiBpbnQgYW1kZ3B1X3NjaGVkX2pvYnM7CiBleHRlcm4gaW50IGFtZGdwdV9zY2hlZF9od19z
+dWJtaXNzaW9uOwotZXh0ZXJuIGludCBhbWRncHVfbm9fZXZpY3Q7Ci1leHRlcm4gaW50IGFtZGdw
+dV9kaXJlY3RfZ21hX3NpemU7CiBleHRlcm4gdWludCBhbWRncHVfcGNpZV9nZW5fY2FwOwogZXh0
+ZXJuIHVpbnQgYW1kZ3B1X3BjaWVfbGFuZV9jYXA7CiBleHRlcm4gdWludCBhbWRncHVfY2dfbWFz
+azsKQEAgLTEyNyw3ICsxMjQsNiBAQCBleHRlcm4gaW50IGFtZGdwdV9jbnRsX3NiX2J1Zl9wZXJf
+c2U7CiBleHRlcm4gaW50IGFtZGdwdV9wYXJhbV9idWZfcGVyX3NlOwogZXh0ZXJuIGludCBhbWRn
+cHVfam9iX2hhbmdfbGltaXQ7CiBleHRlcm4gaW50IGFtZGdwdV9sYnB3OwotZXh0ZXJuIGludCBh
+bWRncHVfY29tcHV0ZV9tdWx0aXBpcGU7CiBleHRlcm4gaW50IGFtZGdwdV9ncHVfcmVjb3Zlcnk7
+CiBleHRlcm4gaW50IGFtZGdwdV9lbXVfbW9kZTsKIGV4dGVybiB1aW50IGFtZGdwdV9zbXVfbWVt
+b3J5X3Bvb2xfc2l6ZTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwppbmRl
+eCA1Mjk1MDBjLi5kZThhMmVlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ry
+di5jCkBAIC0xMDQsMTEgKzEwNCw4IEBAIGludCBhbWRncHVfdnJhbV9wYWdlX3NwbGl0ID0gNTEy
+OwogaW50IGFtZGdwdV92bV91cGRhdGVfbW9kZSA9IC0xOwogaW50IGFtZGdwdV9leHBfaHdfc3Vw
+cG9ydCA9IDA7CiBpbnQgYW1kZ3B1X2RjID0gLTE7Ci1pbnQgYW1kZ3B1X2RjX2xvZyA9IDA7CiBp
+bnQgYW1kZ3B1X3NjaGVkX2pvYnMgPSAzMjsKIGludCBhbWRncHVfc2NoZWRfaHdfc3VibWlzc2lv
+biA9IDI7Ci1pbnQgYW1kZ3B1X25vX2V2aWN0ID0gMDsKLWludCBhbWRncHVfZGlyZWN0X2dtYV9z
+aXplID0gMDsKIHVpbnQgYW1kZ3B1X3BjaWVfZ2VuX2NhcCA9IDA7CiB1aW50IGFtZGdwdV9wY2ll
+X2xhbmVfY2FwID0gMDsKIHVpbnQgYW1kZ3B1X2NnX21hc2sgPSAweGZmZmZmZmZmOwpAQCAtMTI1
+LDcgKzEyMiw2IEBAIGludCBhbWRncHVfY250bF9zYl9idWZfcGVyX3NlID0gMDsKIGludCBhbWRn
+cHVfcGFyYW1fYnVmX3Blcl9zZSA9IDA7CiBpbnQgYW1kZ3B1X2pvYl9oYW5nX2xpbWl0ID0gMDsK
+IGludCBhbWRncHVfbGJwdyA9IC0xOwotaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlwZSA9IC0x
+OwogaW50IGFtZGdwdV9ncHVfcmVjb3ZlcnkgPSAtMTsgLyogYXV0byAqLwogaW50IGFtZGdwdV9l
+bXVfbW9kZSA9IDA7CiB1aW50IGFtZGdwdV9zbXVfbWVtb3J5X3Bvb2xfc2l6ZSA9IDA7CkBAIC0z
+NDEsOSArMzM3LDYgQEAgbW9kdWxlX3BhcmFtX25hbWVkKGV4cF9od19zdXBwb3J0LCBhbWRncHVf
+ZXhwX2h3X3N1cHBvcnQsIGludCwgMDQ0NCk7CiBNT0RVTEVfUEFSTV9ERVNDKGRjLCAiRGlzcGxh
+eSBDb3JlIGRyaXZlciAoMSA9IGVuYWJsZSwgMCA9IGRpc2FibGUsIC0xID0gYXV0byAoZGVmYXVs
+dCkpIik7CiBtb2R1bGVfcGFyYW1fbmFtZWQoZGMsIGFtZGdwdV9kYywgaW50LCAwNDQ0KTsKIAot
+TU9EVUxFX1BBUk1fREVTQyhkY19sb2csICJEaXNwbGF5IENvcmUgTG9nIExldmVsICgwID0gbWlu
+aW1hbCAoZGVmYXVsdCksIDEgPSBjaGF0dHkiKTsKLW1vZHVsZV9wYXJhbV9uYW1lZChkY19sb2cs
+IGFtZGdwdV9kY19sb2csIGludCwgMDQ0NCk7Ci0KIC8qKgogICogRE9DOiBzY2hlZF9qb2JzIChp
+bnQpCiAgKiBPdmVycmlkZSB0aGUgbWF4IG51bWJlciBvZiBqb2JzIHN1cHBvcnRlZCBpbiB0aGUg
+c3cgcXVldWUuIFRoZSBkZWZhdWx0IGlzIDMyLgpAQCAtMzY2LDEyICszNTksNiBAQCBtb2R1bGVf
+cGFyYW1fbmFtZWQoc2NoZWRfaHdfc3VibWlzc2lvbiwgYW1kZ3B1X3NjaGVkX2h3X3N1Ym1pc3Np
+b24sIGludCwgMDQ0NCk7CiBNT0RVTEVfUEFSTV9ERVNDKHBwZmVhdHVyZW1hc2ssICJhbGwgcG93
+ZXIgZmVhdHVyZXMgZW5hYmxlZCAoZGVmYXVsdCkpIik7CiBtb2R1bGVfcGFyYW1fbmFtZWQocHBm
+ZWF0dXJlbWFzaywgYW1kZ3B1X3BwX2ZlYXR1cmVfbWFzaywgdWludCwgMDQ0NCk7CiAKLU1PRFVM
+RV9QQVJNX0RFU0Mobm9fZXZpY3QsICJTdXBwb3J0IHBpbm5pbmcgcmVxdWVzdCBmcm9tIHVzZXIg
+c3BhY2UgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlIChkZWZhdWx0KSkiKTsKLW1vZHVsZV9wYXJh
+bV9uYW1lZChub19ldmljdCwgYW1kZ3B1X25vX2V2aWN0LCBpbnQsIDA0NDQpOwotCi1NT0RVTEVf
+UEFSTV9ERVNDKGRpcmVjdF9nbWFfc2l6ZSwgIkRpcmVjdCBHTUEgc2l6ZSBpbiBtZWdhYnl0ZXMg
+KG1heCA5Nk1CKSIpOwotbW9kdWxlX3BhcmFtX25hbWVkKGRpcmVjdF9nbWFfc2l6ZSwgYW1kZ3B1
+X2RpcmVjdF9nbWFfc2l6ZSwgaW50LCAwNDQ0KTsKLQogLyoqCiAgKiBET0M6IHBjaWVfZ2VuX2Nh
+cCAodWludCkKICAqIE92ZXJyaWRlIFBDSUUgZ2VuIHNwZWVkIGNhcGFiaWxpdGllcy4gU2VlIHRo
+ZSBDQUlMIGZsYWdzIGluIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfcGNpZS5oLgpA
+QCAtNDc4LDkgKzQ2NSw2IEBAIG1vZHVsZV9wYXJhbV9uYW1lZChqb2JfaGFuZ19saW1pdCwgYW1k
+Z3B1X2pvYl9oYW5nX2xpbWl0LCBpbnQgLDA0NDQpOwogTU9EVUxFX1BBUk1fREVTQyhsYnB3LCAi
+TG9hZCBCYWxhbmNpbmcgUGVyIFdhdHQgKExCUFcpIHN1cHBvcnQgKDEgPSBlbmFibGUsIDAgPSBk
+aXNhYmxlLCAtMSA9IGF1dG8pIik7CiBtb2R1bGVfcGFyYW1fbmFtZWQobGJwdywgYW1kZ3B1X2xi
+cHcsIGludCwgMDQ0NCk7CiAKLU1PRFVMRV9QQVJNX0RFU0MoY29tcHV0ZV9tdWx0aXBpcGUsICJG
+b3JjZSBjb21wdXRlIHF1ZXVlcyB0byBiZSBzcHJlYWQgYWNyb3NzIHBpcGVzICgxID0gZW5hYmxl
+LCAwID0gZGlzYWJsZSwgLTEgPSBhdXRvKSIpOwotbW9kdWxlX3BhcmFtX25hbWVkKGNvbXB1dGVf
+bXVsdGlwaXBlLCBhbWRncHVfY29tcHV0ZV9tdWx0aXBpcGUsIGludCwgMDQ0NCk7Ci0KIC8qKgog
+ICogRE9DOiBncHVfcmVjb3ZlcnkgKGludCkKICAqIFNldCB0byBlbmFibGUgR1BVIHJlY292ZXJ5
+IG1lY2hhbmlzbSAoMSA9IGVuYWJsZSwgMCA9IGRpc2FibGUpLiBUaGUgZGVmYXVsdCBpcyAtMSAo
+YXV0bywgZGlzYWJsZWQgZXhjZXB0IFNSSU9WKS4KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9nZnguYwppbmRleCAyMzliZjJhLi41ODE5NTlhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2dmeC5jCkBAIC0xMTEsMTIgKzExMSw2IEBAIHZvaWQgYW1kZ3B1X2dmeF9w
+YXJzZV9kaXNhYmxlX2N1KHVuc2lnbmVkICptYXNrLCB1bnNpZ25lZCBtYXhfc2UsIHVuc2lnbmVk
+IG1heF9zCiAKIHN0YXRpYyBib29sIGFtZGdwdV9nZnhfaXNfbXVsdGlwaXBlX2NhcGFibGUoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7Ci0JaWYgKGFtZGdwdV9jb21wdXRlX211bHRpcGlw
+ZSAhPSAtMSkgewotCQlEUk1fSU5GTygiYW1kZ3B1OiBmb3JjaW5nIGNvbXB1dGUgcGlwZSBwb2xp
+Y3kgJWRcbiIsCi0JCQkgYW1kZ3B1X2NvbXB1dGVfbXVsdGlwaXBlKTsKLQkJcmV0dXJuIGFtZGdw
+dV9jb21wdXRlX211bHRpcGlwZSA9PSAxOwotCX0KLQogCS8qIEZJWE1FOiBzcHJlYWRpbmcgdGhl
+IHF1ZXVlcyBhY3Jvc3MgcGlwZXMgY2F1c2VzIHBlcmYgcmVncmVzc2lvbnMKIAkgKiBvbiBQT0xB
+UklTMTEgY29tcHV0ZSB3b3JrbG9hZHMgKi8KIAlpZiAoYWRldi0+YXNpY190eXBlID09IENISVBf
+UE9MQVJJUzExKQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
