@@ -1,103 +1,71 @@
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] mm, oom: distinguish blockable mode for mmu notifiers
-Date: Mon, 16 Jul 2018 16:12:49 -0700
-Message-ID: <20180716161249.c76240cd487c070fb271d529@linux-foundation.org>
-References: <20180716115058.5559-1-mhocko@kernel.org>
+From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu: change ring priority after pushing the job
+Date: Tue, 17 Jul 2018 01:47:25 +0000
+Message-ID: <SN1PR12MB05109901E61B6366E8E3090BB45C0@SN1PR12MB0510.namprd12.prod.outlook.com>
+References: <20180716132448.21767-1-christian.koenig@amd.com>
+ <20180716132448.21767-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180716115058.5559-1-mhocko@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michal Hocko <mhocko@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, linux-mm@kvack.org, Michal Hocko <mhocko@suse.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Paolo Bonzini <pbonzini@redhat.com>, Radim =?UTF-8?Q?Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Doug Ledford <dledford@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mike Marciniszyn <mike.marciniszyn@intel.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, Sudeep Dutt <sudeep.dutt@intel.com>, Ashutosh Dixit <ashutosh.dixit@intel.com>, Dimitri Sivanich <sivanich@sgi.com>, Boris Ostrovsky <boris.ostrovsky>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180716132448.21767-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, 16 Jul 2018 13:50:58 +0200 Michal Hocko <mhocko@kernel.org> wrote:
-
-> From: Michal Hocko <mhocko@suse.com>
-> 
-> There are several blockable mmu notifiers which might sleep in
-> mmu_notifier_invalidate_range_start and that is a problem for the
-> oom_reaper because it needs to guarantee a forward progress so it cannot
-> depend on any sleepable locks.
-> 
-> Currently we simply back off and mark an oom victim with blockable mmu
-> notifiers as done after a short sleep. That can result in selecting a
-> new oom victim prematurely because the previous one still hasn't torn
-> its memory down yet.
-> 
-> We can do much better though. Even if mmu notifiers use sleepable locks
-> there is no reason to automatically assume those locks are held.
-> Moreover majority of notifiers only care about a portion of the address
-> space and there is absolutely zero reason to fail when we are unmapping an
-> unrelated range. Many notifiers do really block and wait for HW which is
-> harder to handle and we have to bail out though.
-> 
-> This patch handles the low hanging fruid. __mmu_notifier_invalidate_range_start
-> gets a blockable flag and callbacks are not allowed to sleep if the
-> flag is set to false. This is achieved by using trylock instead of the
-> sleepable lock for most callbacks and continue as long as we do not
-> block down the call chain.
-
-I assume device driver developers are wondering "what does this mean
-for me".  As I understand it, the only time they will see
-blockable==false is when their driver is being called in response to an
-out-of-memory condition, yes?  So it is a very rare thing.
-
-Any suggestions regarding how the driver developers can test this code
-path?  I don't think we presently have a way to fake an oom-killing
-event?  Perhaps we should add such a thing, given the problems we're
-having with that feature.
-
-> I think we can improve that even further because there is a common
-> pattern to do a range lookup first and then do something about that.
-> The first part can be done without a sleeping lock in most cases AFAICS.
-> 
-> The oom_reaper end then simply retries if there is at least one notifier
-> which couldn't make any progress in !blockable mode. A retry loop is
-> already implemented to wait for the mmap_sem and this is basically the
-> same thing.
-> 
-> ...
->
-> +static inline int mmu_notifier_invalidate_range_start_nonblock(struct mm_struct *mm,
-> +				  unsigned long start, unsigned long end)
-> +{
-> +	int ret = 0;
-> +	if (mm_has_notifiers(mm))
-> +		ret = __mmu_notifier_invalidate_range_start(mm, start, end, false);
-> +
-> +	return ret;
->  }
-
-nit,
-
-{
-	if (mm_has_notifiers(mm))
-		return __mmu_notifier_invalidate_range_start(mm, start, end, false);
-	return 0;
-}
-
-would suffice.
-
-
-> 
-> ...
->
-> --- a/mm/mmap.c
-> +++ b/mm/mmap.c
-> @@ -3074,7 +3074,7 @@ void exit_mmap(struct mm_struct *mm)
->  		 * reliably test it.
->  		 */
->  		mutex_lock(&oom_lock);
-> -		__oom_reap_task_mm(mm);
-> +		(void)__oom_reap_task_mm(mm);
->  		mutex_unlock(&oom_lock);
-
-What does this do?
-
->  		set_bit(MMF_OOM_SKIP, &mm->flags);
-> 
-> ...
->
+UmV2aWV3ZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+IGZvciBzZXJp
+ZXMuDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IFttYWlsdG86
+YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mIENocmlz
+dGlhbiBLP25pZw0KU2VudDogTW9uZGF5LCBKdWx5IDE2LCAyMDE4IDk6MjUgUE0NClRvOiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogW1BBVENIIDIvMl0gZHJtL2FtZGdw
+dTogY2hhbmdlIHJpbmcgcHJpb3JpdHkgYWZ0ZXIgcHVzaGluZyB0aGUgam9iDQoNClB1c2hpbmcg
+YSBqb2IgY2FuIGNoYW5nZSB0aGUgcmluZyBhc3NpZ25tZW50IG9mIGFuIGVudGl0eS4NCg0KU2ln
+bmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0K
+LS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgIHwgNCArKystICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMgfCA2ICsrKystLQ0KIDIgZmls
+ZXMgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KaW5kZXggNzJkYzliMzZiOTM3Li45MTFjNGExMmEx
+NjMgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0K
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCkBAIC0xMjU2LDEx
+ICsxMjU2LDEzIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3N1Ym1pdChzdHJ1Y3QgYW1kZ3B1X2Nz
+X3BhcnNlciAqcCwNCiAJam9iLT51Zl9zZXF1ZW5jZSA9IHNlcTsNCiANCiAJYW1kZ3B1X2pvYl9m
+cmVlX3Jlc291cmNlcyhqb2IpOw0KLQlhbWRncHVfcmluZ19wcmlvcml0eV9nZXQocC0+cmluZywg
+am9iLT5iYXNlLnNfcHJpb3JpdHkpOw0KIA0KIAl0cmFjZV9hbWRncHVfY3NfaW9jdGwoam9iKTsN
+CiAJZHJtX3NjaGVkX2VudGl0eV9wdXNoX2pvYigmam9iLT5iYXNlLCBlbnRpdHkpOw0KIA0KKwly
+aW5nID0gdG9fYW1kZ3B1X3JpbmcoZW50aXR5LT5zY2hlZCk7DQorCWFtZGdwdV9yaW5nX3ByaW9y
+aXR5X2dldChyaW5nLCBqb2ItPmJhc2Uuc19wcmlvcml0eSk7DQorDQogCXR0bV9ldV9mZW5jZV9i
+dWZmZXJfb2JqZWN0cygmcC0+dGlja2V0LCAmcC0+dmFsaWRhdGVkLCBwLT5mZW5jZSk7DQogCWFt
+ZGdwdV9tbl91bmxvY2socC0+bW4pOw0KIA0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9qb2IuYw0KaW5kZXggMDI0ZWZiN2VhNmQ2Li4xMGM3NjlkYjVkNjcgMTAwNjQ0DQotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMNCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYw0KQEAgLTEyMSw3ICsxMjEsNyBAQCB2b2lkIGFt
+ZGdwdV9qb2JfZnJlZShzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iKSAgaW50IGFtZGdwdV9qb2Jfc3Vi
+bWl0KHN0cnVjdCBhbWRncHVfam9iICpqb2IsIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRp
+dHksDQogCQkgICAgICB2b2lkICpvd25lciwgc3RydWN0IGRtYV9mZW5jZSAqKmYpICB7DQotCXN0
+cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IHRvX2FtZGdwdV9yaW5nKGVudGl0eS0+c2NoZWQpOw0K
+KwlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmc7DQogCWludCByOw0KIA0KIAlpZiAoIWYpDQpAQCAt
+MTM0LDkgKzEzNCwxMSBAQCBpbnQgYW1kZ3B1X2pvYl9zdWJtaXQoc3RydWN0IGFtZGdwdV9qb2Ig
+KmpvYiwgc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSwNCiAJam9iLT5vd25lciA9IG93
+bmVyOw0KIAkqZiA9IGRtYV9mZW5jZV9nZXQoJmpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZCk7
+DQogCWFtZGdwdV9qb2JfZnJlZV9yZXNvdXJjZXMoam9iKTsNCi0JYW1kZ3B1X3JpbmdfcHJpb3Jp
+dHlfZ2V0KHJpbmcsIGpvYi0+YmFzZS5zX3ByaW9yaXR5KTsNCiAJZHJtX3NjaGVkX2VudGl0eV9w
+dXNoX2pvYigmam9iLT5iYXNlLCBlbnRpdHkpOw0KIA0KKwlyaW5nID0gdG9fYW1kZ3B1X3Jpbmco
+ZW50aXR5LT5zY2hlZCk7DQorCWFtZGdwdV9yaW5nX3ByaW9yaXR5X2dldChyaW5nLCBqb2ItPmJh
+c2Uuc19wcmlvcml0eSk7DQorDQogCXJldHVybiAwOw0KIH0NCiANCi0tDQoyLjE0LjENCg0KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFp
+bGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
