@@ -1,13 +1,16 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/pp: Set Max clock level to display by default
-Date: Wed, 18 Jul 2018 06:07:03 +0000
-Message-ID: <CY4PR12MB16873258ED43F698DE1F98CBFB530@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1531831010-7456-1-git-send-email-rex.zhu@amd.com>,
- <d8d0a85b-c6ab-270b-ab4f-d802ab4cad8b@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu: remove internal/unused kernel module
+ parameters
+Date: Wed, 18 Jul 2018 08:58:29 +0200
+Message-ID: <999a20d3-ff9c-2491-a00b-20e8bbf2f5c7@gmail.com>
+References: <1531858354-3530-1-git-send-email-sonny.jiang@amd.com>
+ <CADnq5_PHtzD4A3uok1uNPcAfMmJtARXjGxzjz_fL24MTJXF5tQ@mail.gmail.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0571337433=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d8d0a85b-c6ab-270b-ab4f-d802ab4cad8b-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_PHtzD4A3uok1uNPcAfMmJtARXjGxzjz_fL24MTJXF5tQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,226 +22,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Sonny Jiang <sonny.jiang-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0571337433==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB16873258ED43F698DE1F98CBFB530CY4PR12MB1687namp_"
-
---_000_CY4PR12MB16873258ED43F698DE1F98CBFB530CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
->shouldn't we still assign simple_clocks.level to clocks->max_clocks_state =
-if it's non-zero?
-
-Yes, Thanks for your reminding.
-
-
-Best Regards
-
-Rex
-
-
-
-________________________________
-From: Wentland, Harry
-Sent: Wednesday, July 18, 2018 2:29 AM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/2] drm/amd/pp: Set Max clock level to display by defa=
-ult
-
-
-
-On 2018-07-17 08:36 AM, Rex Zhu wrote:
-> avoid the error in dmesg:
-> [drm:dm_pp_get_static_clocks]
-> *ERROR* DM_PPLIB: invalid powerlevel state: 0!
->
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/=
-drm/amd/powerplay/amd_powerplay.c
-> index 75c2082..63adcd1 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-> @@ -998,7 +998,7 @@ static int pp_get_display_power_level(void *handle,
->  static int pp_get_current_clocks(void *handle,
->                struct amd_pp_clock_info *clocks)
->  {
-> -     struct amd_pp_simple_clock_info simple_clocks;
-> +     struct amd_pp_simple_clock_info simple_clocks =3D { 0 };
->        struct pp_clock_info hw_clocks;
->        struct pp_hwmgr *hwmgr =3D handle;
->        int ret =3D 0;
-> @@ -1034,7 +1034,8 @@ static int pp_get_current_clocks(void *handle,
->        clocks->max_engine_clock_in_sr =3D hw_clocks.max_eng_clk;
->        clocks->min_engine_clock_in_sr =3D hw_clocks.min_eng_clk;
->
-> -     clocks->max_clocks_state =3D simple_clocks.level;
-> +     if (simple_clocks.level =3D=3D 0)
-> +             clocks->max_clocks_state =3D PP_DAL_POWERLEVEL_7;
-
-shouldn't we still assign simple_clocks.level to clocks->max_clocks_state i=
-f it's non-zero?
-
-Harry
-
->
->        if (0 =3D=3D phm_get_current_shallow_sleep_clocks(hwmgr, &hwmgr->c=
-urrent_ps->hardware, &hw_clocks)) {
->                clocks->max_engine_clock_in_sr =3D hw_clocks.max_eng_clk;
-> @@ -1137,6 +1138,8 @@ static int pp_get_display_mode_validation_clocks(vo=
-id *handle,
->        if (!hwmgr || !hwmgr->pm_en ||!clocks)
->                return -EINVAL;
->
-> +     clocks->level =3D PP_DAL_POWERLEVEL_7;
-> +
->        mutex_lock(&hwmgr->smu_lock);
->
->        if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_P=
-latformCaps_DynamicPatchPowerState))
->
-
---_000_CY4PR12MB16873258ED43F698DE1F98CBFB530CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
-ont-size:11pt;">&gt;shouldn't we still assign simple_clocks.level to clocks=
--&gt;max_clocks_state if it's non-zero?<br>
-<br>
-Yes, Thanks for your reminding.</span></font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
-ont-size:11pt;"><br>
-</span></font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
-ont-size:11pt;">Best Regards</span></font></p>
-<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
-ont-size:11pt;">Rex<br>
-</span></font><br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Wentland, Harry<br>
-<b>Sent:</b> Wednesday, July 18, 2018 2:29 AM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amd/pp: Set Max clock level to display =
-by default</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-<br>
-On 2018-07-17 08:36 AM, Rex Zhu wrote:<br>
-&gt; avoid the error in dmesg:<br>
-&gt; [drm:dm_pp_get_static_clocks]<br>
-&gt; *ERROR* DM_PPLIB: invalid powerlevel state: 0!<br>
-&gt; <br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 7 &#43;&#43;&#43=
-;&#43;&#43;--<br>
-&gt;&nbsp; 1 file changed, 5 insertions(&#43;), 2 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/g=
-pu/drm/amd/powerplay/amd_powerplay.c<br>
-&gt; index 75c2082..63adcd1 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&gt; @@ -998,7 &#43;998,7 @@ static int pp_get_display_power_level(void *ha=
-ndle,<br>
-&gt;&nbsp; static int pp_get_current_clocks(void *handle,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct amd_pp_clock_info *clocks)<br>
-&gt;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct amd_pp_simple_clock_info simple_clock=
-s;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_pp_simple_clock_info simple_c=
-locks =3D { 0 };<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_clock_info hw_cloc=
-ks;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D h=
-andle;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt; @@ -1034,7 &#43;1034,8 @@ static int pp_get_current_clocks(void *handl=
-e,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;max_engine_clock_=
-in_sr =3D hw_clocks.max_eng_clk;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;min_engine_clock_=
-in_sr =3D hw_clocks.min_eng_clk;<br>
-&gt;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;max_clocks_state =3D simple_clock=
-s.level;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (simple_clocks.level =3D=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; clocks-&gt;max_clocks_state =3D PP_DAL_POWERLEVEL_7;<br>
-<br>
-shouldn't we still assign simple_clocks.level to clocks-&gt;max_clocks_stat=
-e if it's non-zero?<br>
-<br>
-Harry<br>
-<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (0 =3D=3D phm_get_current=
-_shallow_sleep_clocks(hwmgr, &amp;hwmgr-&gt;current_ps-&gt;hardware, &amp;h=
-w_clocks)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; clocks-&gt;max_engine_clock_in_sr =3D hw_clocks.max_eng=
-_clk;<br>
-&gt; @@ -1137,6 &#43;1138,8 @@ static int pp_get_display_mode_validation_cl=
-ocks(void *handle,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_=
-en ||!clocks)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; clocks-&gt;level =3D PP_DAL_POWERLEVEL_7=
-;<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;sm=
-u_lock);<br>
-&gt;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (phm_cap_enabled(hwmgr-&g=
-t;platform_descriptor.platformCaps, PHM_PlatformCaps_DynamicPatchPowerState=
-))<br>
-&gt; <br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB16873258ED43F698DE1F98CBFB530CY4PR12MB1687namp_--
-
---===============0571337433==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0571337433==--
+QW0gMTcuMDcuMjAxOCB1bSAyMjoxNiBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBUdWUsIEp1
+bCAxNywgMjAxOCBhdCA0OjEyIFBNLCBTb25ueSBKaWFuZyA8c29ubnkuamlhbmdAYW1kLmNvbT4g
+d3JvdGU6Cj4+IFNpZ25lZC1vZmYtYnk6IFNvbm55IEppYW5nIDxzb25ueS5qaWFuZ0BhbWQuY29t
+Pgo+IFBsZWFzZSBhZGQgYSBiYXNpYyBjb21taXQgbWVzc2FnZS4gIFdpdGggdGhhdDoKPiBSZXZp
+ZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKT2gsIHRo
+YW5rcy4gR290IHRvIGNsZWFuIHRoYXQgdXAgb24gbXkgdG9kbyBsaXN0IGZvciBhZ2VzLgoKUGF0
+Y2ggaXMgUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4uCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICB8ICAzIC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyB8IDEyIC0tLS0tLS0tLS0tLQo+PiAgIDIgZmlsZXMgY2hh
+bmdlZCwgMTUgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+Cj4+IGluZGV4IGQ4NTJkMTEuLmE5ZjA5ZGEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdS5oCj4+IEBAIC0xMDYsMTEgKzEwNiw4IEBAIGV4dGVybiBpbnQgYW1kZ3B1X3ZtX2Zh
+dWx0X3N0b3A7Cj4+ICAgZXh0ZXJuIGludCBhbWRncHVfdm1fZGVidWc7Cj4+ICAgZXh0ZXJuIGlu
+dCBhbWRncHVfdm1fdXBkYXRlX21vZGU7Cj4+ICAgZXh0ZXJuIGludCBhbWRncHVfZGM7Cj4+IC1l
+eHRlcm4gaW50IGFtZGdwdV9kY19sb2c7Cj4+ICAgZXh0ZXJuIGludCBhbWRncHVfc2NoZWRfam9i
+czsKPj4gICBleHRlcm4gaW50IGFtZGdwdV9zY2hlZF9od19zdWJtaXNzaW9uOwo+PiAtZXh0ZXJu
+IGludCBhbWRncHVfbm9fZXZpY3Q7Cj4+IC1leHRlcm4gaW50IGFtZGdwdV9kaXJlY3RfZ21hX3Np
+emU7Cj4+ICAgZXh0ZXJuIHVpbnQgYW1kZ3B1X3BjaWVfZ2VuX2NhcDsKPj4gICBleHRlcm4gdWlu
+dCBhbWRncHVfcGNpZV9sYW5lX2NhcDsKPj4gICBleHRlcm4gdWludCBhbWRncHVfY2dfbWFzazsK
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+PiBpbmRleCA1Mjk1MDBj
+Li44ODQzYTA2IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZHJ2LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5j
+Cj4+IEBAIC0xMDQsMTEgKzEwNCw4IEBAIGludCBhbWRncHVfdnJhbV9wYWdlX3NwbGl0ID0gNTEy
+Owo+PiAgIGludCBhbWRncHVfdm1fdXBkYXRlX21vZGUgPSAtMTsKPj4gICBpbnQgYW1kZ3B1X2V4
+cF9od19zdXBwb3J0ID0gMDsKPj4gICBpbnQgYW1kZ3B1X2RjID0gLTE7Cj4+IC1pbnQgYW1kZ3B1
+X2RjX2xvZyA9IDA7Cj4+ICAgaW50IGFtZGdwdV9zY2hlZF9qb2JzID0gMzI7Cj4+ICAgaW50IGFt
+ZGdwdV9zY2hlZF9od19zdWJtaXNzaW9uID0gMjsKPj4gLWludCBhbWRncHVfbm9fZXZpY3QgPSAw
+Owo+PiAtaW50IGFtZGdwdV9kaXJlY3RfZ21hX3NpemUgPSAwOwo+PiAgIHVpbnQgYW1kZ3B1X3Bj
+aWVfZ2VuX2NhcCA9IDA7Cj4+ICAgdWludCBhbWRncHVfcGNpZV9sYW5lX2NhcCA9IDA7Cj4+ICAg
+dWludCBhbWRncHVfY2dfbWFzayA9IDB4ZmZmZmZmZmY7Cj4+IEBAIC0zNDEsOSArMzM4LDYgQEAg
+bW9kdWxlX3BhcmFtX25hbWVkKGV4cF9od19zdXBwb3J0LCBhbWRncHVfZXhwX2h3X3N1cHBvcnQs
+IGludCwgMDQ0NCk7Cj4+ICAgTU9EVUxFX1BBUk1fREVTQyhkYywgIkRpc3BsYXkgQ29yZSBkcml2
+ZXIgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlLCAtMSA9IGF1dG8gKGRlZmF1bHQpKSIpOwo+PiAg
+IG1vZHVsZV9wYXJhbV9uYW1lZChkYywgYW1kZ3B1X2RjLCBpbnQsIDA0NDQpOwo+Pgo+PiAtTU9E
+VUxFX1BBUk1fREVTQyhkY19sb2csICJEaXNwbGF5IENvcmUgTG9nIExldmVsICgwID0gbWluaW1h
+bCAoZGVmYXVsdCksIDEgPSBjaGF0dHkiKTsKPj4gLW1vZHVsZV9wYXJhbV9uYW1lZChkY19sb2cs
+IGFtZGdwdV9kY19sb2csIGludCwgMDQ0NCk7Cj4+IC0KPj4gICAvKioKPj4gICAgKiBET0M6IHNj
+aGVkX2pvYnMgKGludCkKPj4gICAgKiBPdmVycmlkZSB0aGUgbWF4IG51bWJlciBvZiBqb2JzIHN1
+cHBvcnRlZCBpbiB0aGUgc3cgcXVldWUuIFRoZSBkZWZhdWx0IGlzIDMyLgo+PiBAQCAtMzY2LDEy
+ICszNjAsNiBAQCBtb2R1bGVfcGFyYW1fbmFtZWQoc2NoZWRfaHdfc3VibWlzc2lvbiwgYW1kZ3B1
+X3NjaGVkX2h3X3N1Ym1pc3Npb24sIGludCwgMDQ0NCk7Cj4+ICAgTU9EVUxFX1BBUk1fREVTQyhw
+cGZlYXR1cmVtYXNrLCAiYWxsIHBvd2VyIGZlYXR1cmVzIGVuYWJsZWQgKGRlZmF1bHQpKSIpOwo+
+PiAgIG1vZHVsZV9wYXJhbV9uYW1lZChwcGZlYXR1cmVtYXNrLCBhbWRncHVfcHBfZmVhdHVyZV9t
+YXNrLCB1aW50LCAwNDQ0KTsKPj4KPj4gLU1PRFVMRV9QQVJNX0RFU0Mobm9fZXZpY3QsICJTdXBw
+b3J0IHBpbm5pbmcgcmVxdWVzdCBmcm9tIHVzZXIgc3BhY2UgKDEgPSBlbmFibGUsIDAgPSBkaXNh
+YmxlIChkZWZhdWx0KSkiKTsKPj4gLW1vZHVsZV9wYXJhbV9uYW1lZChub19ldmljdCwgYW1kZ3B1
+X25vX2V2aWN0LCBpbnQsIDA0NDQpOwo+PiAtCj4+IC1NT0RVTEVfUEFSTV9ERVNDKGRpcmVjdF9n
+bWFfc2l6ZSwgIkRpcmVjdCBHTUEgc2l6ZSBpbiBtZWdhYnl0ZXMgKG1heCA5Nk1CKSIpOwo+PiAt
+bW9kdWxlX3BhcmFtX25hbWVkKGRpcmVjdF9nbWFfc2l6ZSwgYW1kZ3B1X2RpcmVjdF9nbWFfc2l6
+ZSwgaW50LCAwNDQ0KTsKPj4gLQo+PiAgIC8qKgo+PiAgICAqIERPQzogcGNpZV9nZW5fY2FwICh1
+aW50KQo+PiAgICAqIE92ZXJyaWRlIFBDSUUgZ2VuIHNwZWVkIGNhcGFiaWxpdGllcy4gU2VlIHRo
+ZSBDQUlMIGZsYWdzIGluIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfcGNpZS5oLgo+
+PiAtLQo+PiAyLjcuNAo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
