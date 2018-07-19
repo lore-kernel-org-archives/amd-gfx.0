@@ -1,90 +1,91 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: Re: [PATCH v2] drm/amd/display/dc/dce: Fix multiple potential integer
- overflows
-Date: Thu, 19 Jul 2018 11:51:12 -0500
-Message-ID: <23116da0-5dd7-b8fb-8450-a927a5647fb3@embeddedor.com>
-References: <20180704132211.GA6764@embeddedor.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix S3 resume failre.
+Date: Thu, 19 Jul 2018 12:53:01 -0400
+Message-ID: <020d0b20-32f5-8974-06a7-5ef015ddca87@amd.com>
+References: <1532013596-26662-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20180719153902.GA5565@intel.com>
+ <86de8654-1bff-ad56-9e72-9ec1eb2e7f76@amd.com>
+ <13eee582-a100-4c36-e3c6-ad6f96f40efd@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180704132211.GA6764@embeddedor.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <13eee582-a100-4c36-e3c6-ad6f96f40efd-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, Harry Wentland <harry.wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Hi Alex, Harry,
-
-I wonder if this patch should have been tagged for stable.
-
-Thanks
---
-Gustavo
-
-On 07/04/2018 08:22 AM, Gustavo A. R. Silva wrote:
-> Add suffix ULL to constant 5 and cast variables target_pix_clk_khz and
-> feedback_divider to uint64_t in order to avoid multiple potential integer
-> overflows and give the compiler complete information about the proper
-> arithmetic to use.
-> 
-> Notice that such constant and variables are used in contexts that
-> expect expressions of type uint64_t (64 bits, unsigned). The current
-> casts to uint64_t effectively apply to each expression as a whole,
-> but they do not prevent them from being evaluated using 32-bit
-> arithmetic instead of 64-bit arithmetic.
-> 
-> Also, once the expressions are properly evaluated using 64-bit
-> arithmentic, there is no need for the parentheses that enclose
-> them.
-> 
-> Addresses-Coverity-ID: 1460245 ("Unintentional integer overflow")
-> Addresses-Coverity-ID: 1460286 ("Unintentional integer overflow")
-> Addresses-Coverity-ID: 1460401 ("Unintentional integer overflow")
-> Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
-> ---
-> Changes in v2:
->  - Add suffix ULL to constant 5 instead of UL. Thanks to Michel Dänzer
->    for pointing this out.
-> 
->  drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> index 88b09dd..ca13775 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> @@ -133,7 +133,7 @@ static bool calculate_fb_and_fractional_fb_divider(
->  	uint64_t feedback_divider;
->  
->  	feedback_divider =
-> -		(uint64_t)(target_pix_clk_khz * ref_divider * post_divider);
-> +		(uint64_t)target_pix_clk_khz * ref_divider * post_divider;
->  	feedback_divider *= 10;
->  	/* additional factor, since we divide by 10 afterwards */
->  	feedback_divider *= (uint64_t)(calc_pll_cs->fract_fb_divider_factor);
-> @@ -145,8 +145,8 @@ static bool calculate_fb_and_fractional_fb_divider(
->   * of fractional feedback decimal point and the fractional FB Divider precision
->   * is 2 then the equation becomes (ullfeedbackDivider + 5*100) / (10*100))*/
->  
-> -	feedback_divider += (uint64_t)
-> -			(5 * calc_pll_cs->fract_fb_divider_precision_factor);
-> +	feedback_divider += 5ULL *
-> +			    calc_pll_cs->fract_fb_divider_precision_factor;
->  	feedback_divider =
->  		div_u64(feedback_divider,
->  			calc_pll_cs->fract_fb_divider_precision_factor * 10);
-> @@ -203,8 +203,8 @@ static bool calc_fb_divider_checking_tolerance(
->  			&fract_feedback_divider);
->  
->  	/*Actual calculated value*/
-> -	actual_calc_clk_khz = (uint64_t)(feedback_divider *
-> -					calc_pll_cs->fract_fb_divider_factor) +
-> +	actual_calc_clk_khz = (uint64_t)feedback_divider *
-> +					calc_pll_cs->fract_fb_divider_factor +
->  							fract_feedback_divider;
->  	actual_calc_clk_khz *= calc_pll_cs->ref_freq_khz;
->  	actual_calc_clk_khz =
-> 
+CgpPbiAwNy8xOS8yMDE4IDEyOjQ3IFBNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPiBPbiAyMDE4
+LTA3LTE5IDA2OjMzIFBNLCBBbmRyZXkgR3JvZHpvdnNreSB3cm90ZToKPj4gT24gMDcvMTkvMjAx
+OCAxMTozOSBBTSwgVmlsbGUgU3lyasOkbMOkIHdyb3RlOgo+Pj4gT24gVGh1LCBKdWwgMTksIDIw
+MTggYXQgMTE6MTk6NTZBTSAtMDQwMCwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4+Pj4gUHJv
+YmxlbToKPj4+PiBGQiBpcyBzdGlsbCBub3QgdW5waW5uZWQgZHVyaW5nIHRoZSBmaXJzdCBydW4g
+b2YgYW1kZ3B1X2JvX2V2aWN0X3ZyYW0KPj4+PiBhbmQgc28gaXQncyBsZWZ0IGZvciB0aGUgc2Vj
+b25kIHJ1biwgYnV0IGR1cmluZyBzZWNvbmQgcnVuIHRoZSBTRE1BIGZvcgo+Pj4+IG1vdmluZyBi
+dWZmZXIgYXJvdW5kIGFscmVhZHkgZGlzYWJsZWQgYW5kIHlvdSBoYXZlIHRvIGRvCj4+Pj4gaXQg
+d2l0aCBDUFUsIGJ1dCBGQiBpcyBub3QgaW4gdmlzaWJsZSBWUkFNIGFuZCBoZW5jZSB0aGUgZXZp
+Y3Rpb24KPj4+PiBmYWlsdXJlCj4+Pj4gbGVhZGluZyBsYXRlciB0byByZXN1bWUgZmFpbHVyZS4K
+Pj4+Pgo+Pj4+IEZpeDoKPj4+PiBXaGVuIERBTCBpbiB1c2UgZ2V0IGEgcG9pbnRlciB0byBGQiBm
+cm9tIGNydGMtPnByaW1hcnktPnN0YXRlIHJhdGhlcgo+Pj4+IHRoZW4gZnJvbSBjcnRjLT5wcmlt
+YXJ5IHdoaWNoIGlzIG5vdCBzZXQgZm9yIERBTCBzaW5jZSBpdCBzdXBwb3J0cwo+Pj4+IGF0b21p
+YyBLTVMuCj4+Pj4KPj4+PiBCdWd6aWxsYTogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9z
+aG93X2J1Zy5jZ2k/aWQ9MTA3MDY1Cj4+Pj4gRml4ZXMgZTAwZmI4NSBkcm06IFN0b3AgdXBkYXRp
+bmcgcGxhbmUtPmNydGMvZmIvb2xkX2ZiIG9uIGF0b21pYyBkcml2ZXJzCj4+Pj4gU2lnbmVkLW9m
+Zi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+Cj4+Pj4g
+LS0tCj4+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8
+IDMgKystCj4+Pj4gIMKgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRp
+b24oLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZGV2aWNlLmMKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYwo+Pj4+IGluZGV4IDcwOWU0YTMuLmRkOWViZjcgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+Pj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+Pj4gQEAgLTI2NDIsNyArMjY0
+Miw4IEBAIGludCBhbWRncHVfZGV2aWNlX3N1c3BlbmQoc3RydWN0IGRybV9kZXZpY2UKPj4+PiAq
+ZGV2LCBib29sIHN1c3BlbmQsIGJvb2wgZmJjb24pCj4+Pj4gIMKgwqDCoMKgwqAgLyogdW5waW4g
+dGhlIGZyb250IGJ1ZmZlcnMgYW5kIGN1cnNvcnMgKi8KPj4+PiAgwqDCoMKgwqDCoCBsaXN0X2Zv
+cl9lYWNoX2VudHJ5KGNydGMsICZkZXYtPm1vZGVfY29uZmlnLmNydGNfbGlzdCwgaGVhZCkgewo+
+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9jcnRjICphbWRncHVfY3J0YyA9
+IHRvX2FtZGdwdV9jcnRjKGNydGMpOwo+Pj4+IC3CoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2Zy
+YW1lYnVmZmVyICpmYiA9IGNydGMtPnByaW1hcnktPmZiOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKg
+IHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKmZiID0KPj4+PiBhbWRncHVfZGV2aWNlX2hhc19kY19z
+dXBwb3J0KGFkZXYpID8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY3J0
+Yy0+cHJpbWFyeS0+c3RhdGUtPmZiIDogY3J0Yy0+cHJpbWFyeS0+ZmI7Cj4+PiBTbyBhcHBhcmVu
+dGx5IHlvdSBoYXZlbid0IHlldCB0dXJuZWQgb2ZmIHRoZSBwbGFuZXMgaGVyZS4gSWYgSSdtCj4+
+PiByZWFkaW5nIHRoaW5ncyByaWdodCBhbWRncHVfZGV2aWNlX2lwX3N1c3BlbmQoKSBzaG91bGQg
+ZW5kIHVwIGRvaW5nCj4+PiB0aGF0IHRocm91Z2ggZHJtX2F0b21pY19oZWxwZXJfc3VzcGVuZCgp
+LiBTbyBpdCBsb29rcyBsaWtlIGxpa2Ugbm93Cj4+PiB5b3UnbGwgZW5kIHVwIHVucGlubmluZyB0
+aGUgc2FtZSBib3MgdHdpY2UuIERvZXNuJ3QgdGhhdCBtZXNzIHVwCj4+PiBzb21lIGtpbmQgb2Yg
+cmVmY291bnQgb3Igc29tZXRoaW5nPwo+PiBhbWRncHVfYm9fdW5waW4gaGFzIGEgZ3VhcmQgYWdh
+aW5zdCB0aGF0LCBhbWRncHVfYm9fdW5yZXNlcnZlIGlzIGxlc3MKPj4gY2xlYXIuCj4gQk8gcmVz
+ZXJ2YXRpb24gc2hvdWxkbid0IGFuIGlzc3VlIGhlcmUsIEJPcyBhcmUgb25seSByZXNlcnZlZCBm
+b3IgYQo+IHNob3J0IHRpbWUgYXJvdW5kICh1bilwaW5uaW5nIHRoZW0uCj4KPgo+Pj4gVG8gbWUg
+aXQgd291bGQgc2VlbSBiZXR0ZXIgdG8gc3VzcGVkIHRoZSBkaXNwbGF5IGJlZm9yZSB0cnlpbmcK
+Pj4+IHRvIGV2aWN0IHRoZSBib3MuCj4+IFllYSwgaSB3YXMgYXdhcmUgb2YgdGhhdCBhbmQgaW5k
+ZWVkIERBTCBzaG91bGRuJ3QgcmVseSBvbiB0aGUgY29kZSBpbgo+PiBhbWRncHVfZGV2aWNlX3N1
+c3BlbmQgdG8gdW5waW4KPj4gZnJvbnQgYnVmZmVyIGFuZCBjdXJzb3Igc2luY2UgdGhlIGF0b21p
+YyBoZWxwZXIgc2hvdWxkIGRvIGl0LiBQcm9ibGVtIGlzCj4+IHRoYXQgZHVyaW5nIGFtZGdwdV9k
+ZXZpY2VfaXBfc3VzcGVuZAo+PiB0aGUgU0RNQSBlbmdpbmUgZ2V0cyBzdXNwZW5kZWQgdG9vLCBz
+byB5b3UgaGF2ZSB0byBlbWJlZCBhbm90aGVyCj4+IGV2aWN0aW9uIGluIGJldHdlZW4sIGFmdGVy
+IGRpc3BsYXkgaXMgc3VzcGVuZGVkIGJ1dCBiZWZvcmUKPj4gU0RNQSBhbmQgdGhpcyBmb3JjZXMg
+b3JkZXJpbmcgYmV0d2VlbiB0aGVtIHdoaWNoIGtpbmQgb2YgYWxyZWFkeSBpbgo+PiBwbGFjZSAo
+YW1kX2lwX2Jsb2NrX3R5cGUpIGJ1dCBzdGlsbCBpdCdzIGFuIGV4dHJhIGNvbnN0cmFpbi4KPiBW
+aWxsZSdzIHBvaW50ICh3aGljaCBJIGJhc2ljYWxseSBhZ3JlZSB3aXRoKSBpcyB0aGF0IHRoZSBk
+aXNwbGF5Cj4gaGFyZHdhcmUgc2hvdWxkIGJlIHR1cm5lZCBvZmYgYmVmb3JlIGV2aWN0aW5nIFZS
+QU0gdGhlIGZpcnN0IHRpbWUsIGluCj4gd2hpY2ggY2FzZSBubyBzZWNvbmQgZXZpY3Rpb24gc2hv
+dWxkIGJlIG5lY2Vzc2FyeSAoZm9yIHRoaXMgcHVycG9zZSkuCgpEaXNwbGF5IEhXIGlzIHR1cm5l
+ZCBvZmYgYXMgcGFydCBvZiBhbGwgSVBzIGluIGEgbG9vcCBpbnNpZGUgCmFtZGdwdV9kZXZpY2Vf
+aXBfc3VzcGVuZC4KQXJlIHlvdSBzdWdnZXN0aW5nIHRvIGV4dHJhY3QgdGhlwqAgZGlzcGxheSBI
+VyB0dXJuIG9mZiBmcm9tIGluc2lkZSAKYW1kZ3B1X2RldmljZV9pcF9zdXNwZW5kIGFuZCBwbGFj
+ZSBpdApiZWZvcmUgdGhlIGZpcnN0IGNhbGwgdG8gYW1kZ3B1X2JvX2V2aWN0X3ZyYW0gPwoKQW5k
+cmV5Cgo+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
