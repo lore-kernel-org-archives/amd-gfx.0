@@ -1,14 +1,15 @@
-From: Michal Hocko <mhocko-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: Re: [PATCH] mm, oom: distinguish blockable mode for mmu notifiers
-Date: Thu, 19 Jul 2018 11:12:25 +0200
-Message-ID: <20180719091225.GR7193@dhcp22.suse.cz>
-References: <20180716115058.5559-1-mhocko@kernel.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: lock and unlock console only for
+ amdgpu_fbdev_set_suspend [V2]
+Date: Thu, 19 Jul 2018 11:20:42 +0200
+Message-ID: <ad4b3eec-d4d8-ceb5-dd11-e1562a82cc61@daenzer.net>
+References: <1531909474-9661-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20180716115058.5559-1-mhocko-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+In-Reply-To: <1531909474-9661-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,13 +20,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>
-Cc: kvm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Sudeep Dutt <sudeep.dutt-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>, Doug Ledford <dledford-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, David Rientjes <rientjes-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, xen-devel-GuqFBffKawtpuQazS67q72D2FQJk+8+b@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Leon Romanovsky <leonro-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Boris Ostrovsky <boris.ostrovsky-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Juergen Gross <jgross-IBi9RG/b67k@public.gmane.org>, Mike Marciniszyn <mike>
+To: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-RG9lcyBhbnlib2R5IHNlZSBhbnkgcmVhc29ucyB3aHkgdGhpcyBzaG91bGQgZ2V0IGludG8gbW1v
-dG0gdHJlZT8KSSBkbyBub3Qgd2FudCB0byBydXNoIHRoaXMgaW4gYnV0IGlmIGdlbmVyYWwgZmVl
-bGluZyBpcyB0byBwdXNoIGl0IGZvcgp0aGUgdXBjb21pbmcgbWVyZ2Ugd2luZG93IHRoZW4gSSB3
-aWxsIG5vdCBvYmplY3QuCi0tIApNaWNoYWwgSG9ja28KU1VTRSBMYWJzCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+T24gMjAxOC0wNy0xOCAxMjoyNCBQTSwgU2hpcmlzaCBTIHdyb3RlOgo+IFtXaHldCj4gV2hpbGUg
+dGhlIGNvbnNvbGVfbG9jayBpcyBoZWxkLCBjb25zb2xlIG91dHB1dCB3aWxsIGJlIGJ1ZmZlcmVk
+LCB0aWxsCj4gaXRzIHVubG9ja2VkIGl0IHdvbnQgYmUgZW1pdHRlZCwgaGVuY2UgaXRzIGlkZWFs
+IHRvIHVubG9jayBzb29uZXIgdG8gZW5hYmxlCj4gZGVidWdnaW5nL2RldGVjdGluZy9maXhpbmcg
+b2YgYW55IGlzc3VlIGluIHRoZSByZW1haW5pbmcgc2VxdWVuY2Ugb2YgZXZlbnRzCj4gaW4gcmVz
+dW1lIHBhdGguCgpNYXliZSB0aGlzIGNvdWxkIGJlIGNsYXJpZmllZCB0aGF0IHRoZSBjb25jZXJu
+IGlzIGFib3V0IGNvbnNvbGVzIG90aGVyCnRoYW4gZmJjb24gb24gdGhpcyBkZXZpY2UsIGUuZy4g
+YSBzZXJpYWwgY29uc29sZS4KCgo+IEBAIC0yNzQ2LDcgKzI3NDMsNiBAQCBpbnQgYW1kZ3B1X2Rl
+dmljZV9yZXN1bWUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCByZXN1bWUsIGJvb2wgZmJj
+b24pCj4gIAo+ICAJYW1kZ3B1X2ZlbmNlX2RyaXZlcl9yZXN1bWUoYWRldik7Cj4gIAo+IC0KPiAg
+CXIgPSBhbWRncHVfZGV2aWNlX2lwX2xhdGVfaW5pdChhZGV2KTsKPiAgCWlmIChyKQo+ICAJCWdv
+dG8gdW5sb2NrOwoKRHJvcCB0aGlzIGh1bmsuCgoKV2l0aCB0aGUgYWJvdmUgZml4ZWQsCgpSZXZp
+ZXdlZC1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgoKUG9zc2li
+bGUgZm9sbG93LXVwIHdvcms6CgoqIE1vdmUgdGhlIGNvbnNvbGVfKHVuKWxvY2sgY2FsbHMgaW50
+byBhbWRncHVfZmJkZXZfc2V0X3N1c3BlbmQsIG9yCm1heWJlIHVzZSBkcm1fZmJfaGVscGVyX3Nl
+dF9zdXNwZW5kX3VubG9ja2VkIGluc3RlYWQgb2YgbG9ja2luZyBvdXJzZWx2ZXMKCiogTW92ZSB0
+aGUgYW1kZ3B1X2ZiZGV2X3NldF9zdXNwZW5kIGNhbGwgaW4gYW1kZ3B1X2RldmljZV9zdXNwZW5k
+CmZ1cnRoZXIgdXAsIGF0IGxlYXN0IGJlZm9yZSB0aGUgcGNpX3NldF9wb3dlcl9zdGF0ZSBjYWxs
+LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAg
+ICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAg
+ICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
