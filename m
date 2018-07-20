@@ -1,12 +1,15 @@
-From: Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/pp/Polaris12: Fix a chunk of registers missed to
- program
-Date: Fri, 20 Jul 2018 16:36:41 +0800
-Message-ID: <1532075801-4252-1-git-send-email-rex.zhu@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amd/powerplay: disallow slow switch if NBPState
+ is disabled
+Date: Fri, 20 Jul 2018 08:43:58 +0000
+Message-ID: <CY4PR12MB168739D42A1638743A55AF34FB510@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <20180720023505.25239-1-evan.quan@amd.com>,
+ <20180720023505.25239-3-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1712492427=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180720023505.25239-3-evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,145 +20,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: aidan.fabius-m8+AuPNSk8FBDgjK7y7TUQ@public.gmane.org, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RElEVENvbmZpZ19Qb2xhcmlzMTJbXSB0YWJsZSBtaXNzZWQgYSBiaWcgY2h1bmsgb2YgZGF0YS4K
-ClBvaW50ZWQgYnkgYWlkYW4uZmFiaXVzIDxhaWRhbi5mYWJpdXNAY29yZWF2aS5jb20+CgpTaWdu
-ZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0tLQogLi4uL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9zbXU3X3Bvd2VydHVuZS5jICAgfCA0MyArKysrKysrKysrKysrKysr
-KysrKysrCiAxIGZpbGUgY2hhbmdlZCwgNDMgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfcG93ZXJ0dW5lLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X3Bvd2VydHVuZS5jCmluZGV4IGM5
-NTI4NDUuLjVlMTlmNTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL3NtdTdfcG93ZXJ0dW5lLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaHdtZ3Ivc211N19wb3dlcnR1bmUuYwpAQCAtNDAzLDYgKzQwMyw0OSBAQAogCXsgICBpeERJ
-RFRfU1FfQ1RSTDEsICAgICAgICAgICAgICAgICAgIERJRFRfU1FfQ1RSTDFfX01BWF9QT1dFUl9N
-QVNLLCAgICAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwxX19NQVhfUE9XRVJfX1NISUZU
-LCAgICAgICAgICAgICAgICAgICAgMHhmZmZmLCAgICAgR1BVX0NPTkZJR1JFR19ESURUX0lORCB9
-LAogCiAJeyAgIGl4RElEVF9TUV9DVFJMX09DUCwgICAgICAgICAgICAgICAgRElEVF9TUV9DVFJM
-X09DUF9fVU5VU0VEXzBfTUFTSywgICAgICAgICAgICAgICAgICAgIERJRFRfU1FfQ1RSTF9PQ1Bf
-X1VOVVNFRF8wX19TSElGVCwgICAgICAgICAgICAgICAgICAweDAwMDAsICAgICBHUFVfQ09ORklH
-UkVHX0RJRFRfSU5EIH0sCisJeyAgIGl4RElEVF9TUV9DVFJMX09DUCwgICAgICAgICAgICAgICAg
-RElEVF9TUV9DVFJMX09DUF9fT0NQX01BWF9QT1dFUl9NQVNLLCAgICAgICAgICAgICAgIERJRFRf
-U1FfQ1RSTF9PQ1BfX09DUF9NQVhfUE9XRVJfX1NISUZULCAgICAgICAgICAgICAweGZmZmYsICAg
-ICBHUFVfQ09ORklHUkVHX0RJRFRfSU5EIH0sCisKKwl7ICAgaXhESURUX1NRX0NUUkwyLCAgICAg
-ICAgICAgICAgICAgICBESURUX1NRX0NUUkwyX19NQVhfUE9XRVJfREVMVEFfTUFTSywgICAgICAg
-ICAgICAgICAgRElEVF9TUV9DVFJMMl9fTUFYX1BPV0VSX0RFTFRBX19TSElGVCwgICAgICAgICAg
-ICAgIDB4Mzg1MywgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1NR
-X0NUUkwyLCAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwyX19VTlVTRURfMF9NQVNLLCAg
-ICAgICAgICAgICAgICAgICAgICAgRElEVF9TUV9DVFJMMl9fVU5VU0VEXzBfX1NISUZULCAgICAg
-ICAgICAgICAgICAgICAgIDB4MDAwMCwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKwl7
-ICAgaXhESURUX1NRX0NUUkwyLCAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwyX19TSE9S
-VF9URVJNX0lOVEVSVkFMX1NJWkVfTUFTSywgICAgICAgRElEVF9TUV9DVFJMMl9fU0hPUlRfVEVS
-TV9JTlRFUlZBTF9TSVpFX19TSElGVCwgICAgIDB4MDA1YSwgICAgIEdQVV9DT05GSUdSRUdfRElE
-VF9JTkQgfSwKKwl7ICAgaXhESURUX1NRX0NUUkwyLCAgICAgICAgICAgICAgICAgICBESURUX1NR
-X0NUUkwyX19VTlVTRURfMV9NQVNLLCAgICAgICAgICAgICAgICAgICAgICAgRElEVF9TUV9DVFJM
-Ml9fVU5VU0VEXzFfX1NISUZULCAgICAgICAgICAgICAgICAgICAgIDB4MDAwMCwgICAgIEdQVV9D
-T05GSUdSRUdfRElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1NRX0NUUkwyLCAgICAgICAgICAgICAg
-ICAgICBESURUX1NRX0NUUkwyX19MT05HX1RFUk1fSU5URVJWQUxfUkFUSU9fTUFTSywgICAgICAg
-RElEVF9TUV9DVFJMMl9fTE9OR19URVJNX0lOVEVSVkFMX1JBVElPX19TSElGVCwgICAgIDB4MDAw
-MCwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1NRX0NUUkwyLCAg
-ICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwyX19VTlVTRURfMl9NQVNLLCAgICAgICAgICAg
-ICAgICAgICAgICAgRElEVF9TUV9DVFJMMl9fVU5VU0VEXzJfX1NISUZULCAgICAgICAgICAgICAg
-ICAgICAgIDB4MDAwMCwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKworCXsgICBpeERJ
-RFRfU1FfU1RBTExfQ1RSTCwgICAgICAgICAgICAgIERJRFRfU1FfU1RBTExfQ1RSTF9fRElEVF9T
-VEFMTF9DVFJMX0VOQUJMRV9NQVNLLCAgICBESURUX1NRX1NUQUxMX0NUUkxfX0RJRFRfU1RBTExf
-Q1RSTF9FTkFCTEVfX1NISUZULCAgMHgwMDAxLCAgICAgR1BVX0NPTkZJR1JFR19ESURUX0lORCB9
-LAorCXsgICBpeERJRFRfU1FfU1RBTExfQ1RSTCwgICAgICAgICAgICAgIERJRFRfU1FfU1RBTExf
-Q1RSTF9fRElEVF9TVEFMTF9ERUxBWV9ISV9NQVNLLCAgICAgICBESURUX1NRX1NUQUxMX0NUUkxf
-X0RJRFRfU1RBTExfREVMQVlfSElfX1NISUZULCAgICAgMHgwMDAxLCAgICAgR1BVX0NPTkZJR1JF
-R19ESURUX0lORCB9LAorCXsgICBpeERJRFRfU1FfU1RBTExfQ1RSTCwgICAgICAgICAgICAgIERJ
-RFRfU1FfU1RBTExfQ1RSTF9fRElEVF9TVEFMTF9ERUxBWV9MT19NQVNLLCAgICAgICBESURUX1NR
-X1NUQUxMX0NUUkxfX0RJRFRfU1RBTExfREVMQVlfTE9fX1NISUZULCAgICAgMHgwMDAxLCAgICAg
-R1BVX0NPTkZJR1JFR19ESURUX0lORCB9LAorCXsgICBpeERJRFRfU1FfU1RBTExfQ1RSTCwgICAg
-ICAgICAgICAgIERJRFRfU1FfU1RBTExfQ1RSTF9fRElEVF9ISV9QT1dFUl9USFJFU0hPTERfTUFT
-SywgICBESURUX1NRX1NUQUxMX0NUUkxfX0RJRFRfSElfUE9XRVJfVEhSRVNIT0xEX19TSElGVCwg
-MHgwZWJiLCAgICAgR1BVX0NPTkZJR1JFR19ESURUX0lORCB9LAorCXsgICBpeERJRFRfU1FfU1RB
-TExfQ1RSTCwgICAgICAgICAgICAgIERJRFRfU1FfU1RBTExfQ1RSTF9fVU5VU0VEXzBfTUFTSywg
-ICAgICAgICAgICAgICAgICBESURUX1NRX1NUQUxMX0NUUkxfX1VOVVNFRF8wX19TSElGVCwgICAg
-ICAgICAgICAgICAgMHgwMDAwLCAgICAgR1BVX0NPTkZJR1JFR19ESURUX0lORCB9LAorCisJeyAg
-IGl4RElEVF9TUV9UVU5JTkdfQ1RSTCwgICAgICAgICAgICAgRElEVF9TUV9UVU5JTkdfQ1RSTF9f
-RElEVF9UVU5JTkdfRU5BQkxFX01BU0ssICAgICAgIERJRFRfU1FfVFVOSU5HX0NUUkxfX0RJRFRf
-VFVOSU5HX0VOQUJMRV9fU0hJRlQsICAgICAweDAwMDEsICAgICBHUFVfQ09ORklHUkVHX0RJRFRf
-SU5EIH0sCisJeyAgIGl4RElEVF9TUV9UVU5JTkdfQ1RSTCwgICAgICAgICAgICAgRElEVF9TUV9U
-VU5JTkdfQ1RSTF9fTUFYX1BPV0VSX0RFTFRBX0hJX01BU0ssICAgICAgIERJRFRfU1FfVFVOSU5H
-X0NUUkxfX01BWF9QT1dFUl9ERUxUQV9ISV9fU0hJRlQsICAgICAweDM4NTMsICAgICBHUFVfQ09O
-RklHUkVHX0RJRFRfSU5EIH0sCisJeyAgIGl4RElEVF9TUV9UVU5JTkdfQ1RSTCwgICAgICAgICAg
-ICAgRElEVF9TUV9UVU5JTkdfQ1RSTF9fTUFYX1BPV0VSX0RFTFRBX0xPX01BU0ssICAgICAgIERJ
-RFRfU1FfVFVOSU5HX0NUUkxfX01BWF9QT1dFUl9ERUxUQV9MT19fU0hJRlQsICAgICAweDMxNTMs
-ICAgICBHUFVfQ09ORklHUkVHX0RJRFRfSU5EIH0sCisJeyAgIGl4RElEVF9TUV9UVU5JTkdfQ1RS
-TCwgICAgICAgICAgICAgRElEVF9TUV9UVU5JTkdfQ1RSTF9fVU5VU0VEXzBfTUFTSywgICAgICAg
-ICAgICAgICAgIERJRFRfU1FfVFVOSU5HX0NUUkxfX1VOVVNFRF8wX19TSElGVCwgICAgICAgICAg
-ICAgICAweDAwMDAsICAgICBHUFVfQ09ORklHUkVHX0RJRFRfSU5EIH0sCisKKwl7ICAgaXhESURU
-X1NRX0NUUkwwLCAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwwX19ESURUX0NUUkxfRU5f
-TUFTSywgICAgICAgICAgICAgICAgICAgRElEVF9TUV9DVFJMMF9fRElEVF9DVFJMX0VOX19TSElG
-VCwgICAgICAgICAgICAgICAgIDB4MDAwMSwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwK
-Kwl7ICAgaXhESURUX1NRX0NUUkwwLCAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwwX19V
-U0VfUkVGX0NMT0NLX01BU0ssICAgICAgICAgICAgICAgICAgRElEVF9TUV9DVFJMMF9fVVNFX1JF
-Rl9DTE9DS19fU0hJRlQsICAgICAgICAgICAgICAgIDB4MDAwMCwgICAgIEdQVV9DT05GSUdSRUdf
-RElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1NRX0NUUkwwLCAgICAgICAgICAgICAgICAgICBESURU
-X1NRX0NUUkwwX19QSEFTRV9PRkZTRVRfTUFTSywgICAgICAgICAgICAgICAgICAgRElEVF9TUV9D
-VFJMMF9fUEhBU0VfT0ZGU0VUX19TSElGVCwgICAgICAgICAgICAgICAgIDB4MDAwMCwgICAgIEdQ
-VV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1NRX0NUUkwwLCAgICAgICAgICAg
-ICAgICAgICBESURUX1NRX0NUUkwwX19ESURUX0NUUkxfUlNUX01BU0ssICAgICAgICAgICAgICAg
-ICAgRElEVF9TUV9DVFJMMF9fRElEVF9DVFJMX1JTVF9fU0hJRlQsICAgICAgICAgICAgICAgIDB4
-MDAwMCwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1NRX0NUUkww
-LCAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwwX19ESURUX0NMS19FTl9PVkVSUklERV9N
-QVNLLCAgICAgICAgICAgRElEVF9TUV9DVFJMMF9fRElEVF9DTEtfRU5fT1ZFUlJJREVfX1NISUZU
-LCAgICAgICAgIDB4MDAwMCwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKwl7ICAgaXhE
-SURUX1NRX0NUUkwwLCAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkwwX19ESURUX01BWF9T
-VEFMTFNfQUxMT1dFRF9ISV9NQVNLLCAgICAgRElEVF9TUV9DVFJMMF9fRElEVF9NQVhfU1RBTExT
-X0FMTE9XRURfSElfX1NISUZULCAgIDB4MDAxMCwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQg
-fSwKKwl7ICAgaXhESURUX1NRX0NUUkwwLCAgICAgICAgICAgICAgICAgICBESURUX1NRX0NUUkww
-X19ESURUX01BWF9TVEFMTFNfQUxMT1dFRF9MT19NQVNLLCAgICAgRElEVF9TUV9DVFJMMF9fRElE
-VF9NQVhfU1RBTExTX0FMTE9XRURfTE9fX1NISUZULCAgIDB4MDAxMCwgICAgIEdQVV9DT05GSUdS
-RUdfRElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1NRX0NUUkwwLCAgICAgICAgICAgICAgICAgICBE
-SURUX1NRX0NUUkwwX19VTlVTRURfMF9NQVNLLCAgICAgICAgICAgICAgICAgICAgICAgRElEVF9T
-UV9DVFJMMF9fVU5VU0VEXzBfX1NISUZULCAgICAgICAgICAgICAgICAgICAgIDB4MDAwMCwgICAg
-IEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKworCXsgICBpeERJRFRfVERfV0VJR0hUMF8zLCAg
-ICAgICAgICAgICAgIERJRFRfVERfV0VJR0hUMF8zX19XRUlHSFQwX01BU0ssICAgICAgICAgICAg
-ICAgICAgICBESURUX1REX1dFSUdIVDBfM19fV0VJR0hUMF9fU0hJRlQsICAgICAgICAgICAgICAg
-ICAgMHgwMDBhLCAgICAgR1BVX0NPTkZJR1JFR19ESURUX0lORCB9LAorCXsgICBpeERJRFRfVERf
-V0VJR0hUMF8zLCAgICAgICAgICAgICAgIERJRFRfVERfV0VJR0hUMF8zX19XRUlHSFQxX01BU0ss
-ICAgICAgICAgICAgICAgICAgICBESURUX1REX1dFSUdIVDBfM19fV0VJR0hUMV9fU0hJRlQsICAg
-ICAgICAgICAgICAgICAgMHgwMDEwLCAgICAgR1BVX0NPTkZJR1JFR19ESURUX0lORCB9LAorCXsg
-ICBpeERJRFRfVERfV0VJR0hUMF8zLCAgICAgICAgICAgICAgIERJRFRfVERfV0VJR0hUMF8zX19X
-RUlHSFQyX01BU0ssICAgICAgICAgICAgICAgICAgICBESURUX1REX1dFSUdIVDBfM19fV0VJR0hU
-Ml9fU0hJRlQsICAgICAgICAgICAgICAgICAgMHgwMDE3LCAgICAgR1BVX0NPTkZJR1JFR19ESURU
-X0lORCB9LAorCXsgICBpeERJRFRfVERfV0VJR0hUMF8zLCAgICAgICAgICAgICAgIERJRFRfVERf
-V0VJR0hUMF8zX19XRUlHSFQzX01BU0ssICAgICAgICAgICAgICAgICAgICBESURUX1REX1dFSUdI
-VDBfM19fV0VJR0hUM19fU0hJRlQsICAgICAgICAgICAgICAgICAgMHgwMDJmLCAgICAgR1BVX0NP
-TkZJR1JFR19ESURUX0lORCB9LAorCisJeyAgIGl4RElEVF9URF9XRUlHSFQ0XzcsICAgICAgICAg
-ICAgICAgRElEVF9URF9XRUlHSFQ0XzdfX1dFSUdIVDRfTUFTSywgICAgICAgICAgICAgICAgICAg
-IERJRFRfVERfV0VJR0hUNF83X19XRUlHSFQ0X19TSElGVCwgICAgICAgICAgICAgICAgICAweDAw
-NDYsICAgICBHUFVfQ09ORklHUkVHX0RJRFRfSU5EIH0sCisJeyAgIGl4RElEVF9URF9XRUlHSFQ0
-XzcsICAgICAgICAgICAgICAgRElEVF9URF9XRUlHSFQ0XzdfX1dFSUdIVDVfTUFTSywgICAgICAg
-ICAgICAgICAgICAgIERJRFRfVERfV0VJR0hUNF83X19XRUlHSFQ1X19TSElGVCwgICAgICAgICAg
-ICAgICAgICAweDAwNWQsICAgICBHUFVfQ09ORklHUkVHX0RJRFRfSU5EIH0sCisJeyAgIGl4RElE
-VF9URF9XRUlHSFQ0XzcsICAgICAgICAgICAgICAgRElEVF9URF9XRUlHSFQ0XzdfX1dFSUdIVDZf
-TUFTSywgICAgICAgICAgICAgICAgICAgIERJRFRfVERfV0VJR0hUNF83X19XRUlHSFQ2X19TSElG
-VCwgICAgICAgICAgICAgICAgICAweDAwMDAsICAgICBHUFVfQ09ORklHUkVHX0RJRFRfSU5EIH0s
-CisJeyAgIGl4RElEVF9URF9XRUlHSFQ0XzcsICAgICAgICAgICAgICAgRElEVF9URF9XRUlHSFQ0
-XzdfX1dFSUdIVDdfTUFTSywgICAgICAgICAgICAgICAgICAgIERJRFRfVERfV0VJR0hUNF83X19X
-RUlHSFQ3X19TSElGVCwgICAgICAgICAgICAgICAgICAweDAwMDAsICAgICBHUFVfQ09ORklHUkVH
-X0RJRFRfSU5EIH0sCisKKwl7ICAgaXhESURUX1REX0NUUkwxLCAgICAgICAgICAgICAgICAgICBE
-SURUX1REX0NUUkwxX19NSU5fUE9XRVJfTUFTSywgICAgICAgICAgICAgICAgICAgICAgRElEVF9U
-RF9DVFJMMV9fTUlOX1BPV0VSX19TSElGVCwgICAgICAgICAgICAgICAgICAgIDB4MDAwMCwgICAg
-IEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKwl7ICAgaXhESURUX1REX0NUUkwxLCAgICAgICAg
-ICAgICAgICAgICBESURUX1REX0NUUkwxX19NQVhfUE9XRVJfTUFTSywgICAgICAgICAgICAgICAg
-ICAgICAgRElEVF9URF9DVFJMMV9fTUFYX1BPV0VSX19TSElGVCwgICAgICAgICAgICAgICAgICAg
-IDB4ZmZmZiwgICAgIEdQVV9DT05GSUdSRUdfRElEVF9JTkQgfSwKKworCXsgICBpeERJRFRfVERf
-Q1RSTF9PQ1AsICAgICAgICAgICAgICAgIERJRFRfVERfQ1RSTF9PQ1BfX1VOVVNFRF8wX01BU0ss
-ICAgICAgICAgICAgICAgICAgICBESURUX1REX0NUUkxfT0NQX19VTlVTRURfMF9fU0hJRlQsICAg
-ICAgICAgICAgICAgICAgMHgwMDAwLCAgICAgR1BVX0NPTkZJR1JFR19ESURUX0lORCB9LAogCXsg
-ICBpeERJRFRfVERfQ1RSTF9PQ1AsICAgICAgICAgICAgICAgIERJRFRfVERfQ1RSTF9PQ1BfX09D
-UF9NQVhfUE9XRVJfTUFTSywgICAgICAgICAgICAgICBESURUX1REX0NUUkxfT0NQX19PQ1BfTUFY
-X1BPV0VSX19TSElGVCwgICAgICAgICAgICAgMHgwMGZmLCAgICAgR1BVX0NPTkZJR1JFR19ESURU
-X0lORCB9LAogCiAJeyAgIGl4RElEVF9URF9DVFJMMiwgICAgICAgICAgICAgICAgICAgRElEVF9U
-RF9DVFJMMl9fTUFYX1BPV0VSX0RFTFRBX01BU0ssICAgICAgICAgICAgICAgIERJRFRfVERfQ1RS
-TDJfX01BWF9QT1dFUl9ERUxUQV9fU0hJRlQsICAgICAgICAgICAgICAweDNmZmYsICAgICBHUFVf
-Q09ORklHUkVHX0RJRFRfSU5EIH0sCi0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1712492427==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB168739D42A1638743A55AF34FB510CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB168739D42A1638743A55AF34FB510CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
++       bool uclk_switching_disabled =3D
++(bool)hwmgr->display_config->nb_pstate_switch_disable;
+
+
+Don't need type convert.
+
+
+Best Regards
+
+Rex
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
+n <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, July 20, 2018 10:35 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Quan, Evan; Zhu, Rex
+Subject: [PATCH 3/3] drm/amd/powerplay: disallow slow switch if NBPState is=
+ disabled
+
+Otherwise there may be potential SMU performance issues.
+
+Change-Id: I05a09bb05407f7b3705d79a1d2c6628385c80461
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 5 ++++-
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 5 ++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 002ed77a5268..ccb587607b03 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -3779,9 +3779,12 @@ static int vega10_notify_smc_display_config_after_ps=
+_adjustment(
+         struct PP_Clocks min_clocks =3D {0};
+         uint32_t i;
+         struct pp_display_clock_request clock_req;
++       bool uclk_switching_disabled =3D
++                       (bool)hwmgr->display_config->nb_pstate_switch_disab=
+le;
+
+         if ((hwmgr->display_config->num_display > 1) &&
+-            !hwmgr->display_config->multi_monitor_in_sync)
++            !hwmgr->display_config->multi_monitor_in_sync &&
++            !uclk_switching_disabled)
+                 vega10_notify_smc_display_change(hwmgr, false);
+         else
+                 vega10_notify_smc_display_change(hwmgr, true);
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+index 35f96dacb50a..e3b11ae8fdb8 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+@@ -1387,9 +1387,12 @@ static int vega12_notify_smc_display_config_after_ps=
+_adjustment(
+                         (struct vega12_hwmgr *)(hwmgr->backend);
+         struct PP_Clocks min_clocks =3D {0};
+         struct pp_display_clock_request clock_req;
++       bool uclk_switching_disabled =3D
++                       (bool)hwmgr->display_config->nb_pstate_switch_disab=
+le;
+
+         if ((hwmgr->display_config->num_display > 1) &&
+-               !hwmgr->display_config->multi_monitor_in_sync)
++            !hwmgr->display_config->multi_monitor_in_sync &&
++            !uclk_switching_disabled)
+                 vega12_notify_smc_display_change(hwmgr, false);
+         else
+                 vega12_notify_smc_display_change(hwmgr, true);
+--
+2.18.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
+
+
+
+--_000_CY4PR12MB168739D42A1638743A55AF34FB510CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool uclk_switchi=
+ng_disabled =3D<br>
+&#43;(bool)hwmgr-&gt;display_config-&gt;nb_pstate_switch_disable;</span></f=
+ont><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Don't need type convert.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx-=
+bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.=
+com&gt;<br>
+<b>Sent:</b> Friday, July 20, 2018 10:35 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Quan, Evan; Zhu, Rex<br>
+<b>Subject:</b> [PATCH 3/3] drm/amd/powerplay: disallow slow switch if NBPS=
+tate is disabled</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Otherwise there may be potential SMU performance i=
+ssues.<br>
+<br>
+Change-Id: I05a09bb05407f7b3705d79a1d2c6628385c80461<br>
+Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 5 &#43;&#43;&#43=
+;&#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 5 &#43;&#43;&#43=
+;&#43;-<br>
+&nbsp;2 files changed, 8 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+index 002ed77a5268..ccb587607b03 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+@@ -3779,9 &#43;3779,12 @@ static int vega10_notify_smc_display_config_afte=
+r_ps_adjustment(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_Clocks min_clock=
+s =3D {0};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_display_clock_re=
+quest clock_req;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool uclk_switching_disabled =3D<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (bool)hwmgr-=
+&gt;display_config-&gt;nb_pstate_switch_disable;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hwmgr-&gt;display_con=
+fig-&gt;num_display &gt; 1) &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hwmgr-=
+&gt;display_config-&gt;multi_monitor_in_sync)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hw=
+mgr-&gt;display_config-&gt;multi_monitor_in_sync &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !uc=
+lk_switching_disabled)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega10_notify_smc_display_change(hwmgr, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega10_notify_smc_display_change(hwmgr, true);<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+index 35f96dacb50a..e3b11ae8fdb8 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+@@ -1387,9 &#43;1387,12 @@ static int vega12_notify_smc_display_config_afte=
+r_ps_adjustment(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (stru=
+ct vega12_hwmgr *)(hwmgr-&gt;backend);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_Clocks min_clock=
+s =3D {0};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_display_clock_re=
+quest clock_req;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool uclk_switching_disabled =3D<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (bool)hwmgr-=
+&gt;display_config-&gt;nb_pstate_switch_disable;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hwmgr-&gt;display_con=
+fig-&gt;num_display &gt; 1) &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; !hwmgr-&gt;display_config-&gt;multi_monitor_in_sync)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hw=
+mgr-&gt;display_config-&gt;multi_monitor_in_sync &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !uc=
+lk_switching_disabled)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega12_notify_smc_display_change(hwmgr, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega12_notify_smc_display_change(hwmgr, true);<br>
+-- <br>
+2.18.0<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk652857" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_15320760932520.07807509508203059" style=3D"margin-bo=
+ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_15320760932240.4325743911662876" style=3D"width: 9=
+0%; background-color: rgb(255, 255, 255); position: relative; overflow: aut=
+o; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: 1=
+px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200);=
+" role=3D"presentation" cellspacing=3D"0">
+<tbody>
+<tr style=3D"border-spacing: 0px;" valign=3D"top">
+<td id=3D"TextCell_15320760932460.7623274709465312" style=3D"vertical-align=
+: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
+">
+<div id=3D"LPRemovePreviewContainer_15320760932460.33509911256038116"></div=
+>
+<div id=3D"LPTitle_15320760932460.8893094785459864" style=3D"top: 0px; colo=
+r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;=
+wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&q=
+uot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif=
+; line-height: 21px;">
+<a id=3D"LPUrlAnchor_15320760932520.7056631923527743" style=3D"text-decorat=
+ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15320760932520.4922178239396222" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
+;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Taho=
+ma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15320760932520.6953170574068477" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
+segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, =
+Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; o=
+verflow: hidden;">
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
+iv>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB168739D42A1638743A55AF34FB510CY4PR12MB1687namp_--
+
+--===============1712492427==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1712492427==--
