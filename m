@@ -1,11 +1,17 @@
-From: Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/pp: Delete unused temp variables
-Date: Fri, 20 Jul 2018 18:25:17 +0800
-Message-ID: <1532082317-9498-1-git-send-email-rex.zhu@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ
+Date: Fri, 20 Jul 2018 10:31:50 +0000
+Message-ID: <CY4PR12MB16876BF550336DE2751FC7CFFB510@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1531990018-29711-1-git-send-email-rex.zhu@amd.com>
+ <1531990018-29711-2-git-send-email-rex.zhu@amd.com>
+ <CADnq5_OiAsxsCN3KiqOggwj_vgFXDb_J7a7_GVm8GXEsWNv7RA@mail.gmail.com>
+ <CY4PR12MB1687C48AD2DAAB101BC823B6FB520@CY4PR12MB1687.namprd12.prod.outlook.com>,
+ <CADnq5_P=MunRPuEyqN91c0nj6DdRo7cXKw9u+TTweZKG7zJ1iw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1181725226=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_P=MunRPuEyqN91c0nj6DdRo7cXKw9u+TTweZKG7zJ1iw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,57 +22,423 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: aidan.fabius-m8+AuPNSk8FBDgjK7y7TUQ@public.gmane.org, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T25seSBkZWxldGUgdGhlIGRlYWQgdGVtcCB2YXJpYWJsZXMgaW4gUG9sYXJpcy4KClNpZ25lZC1v
-ZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KLS0tCiAuLi4vZHJtL2FtZC9wb3dlcnBs
-YXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyAgICB8IDIyICsrKysrKy0tLS0tLS0tLS0tLS0t
-LS0KIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBf
-c211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEw
-X3NtdW1nci5jCmluZGV4IGE0Y2UxOTkuLjEyNzZmMTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwpAQCAtMTIw
-NCw3ICsxMjA0LDYgQEAgc3RhdGljIGludCBwb2xhcmlzMTBfcG9wdWxhdGVfc21jX2FjcGlfbGV2
-ZWwoc3RydWN0IHBwX2h3bWdyICpod21nciwKIAkJCShzdHJ1Y3QgcGhtX3BwdF92MV9pbmZvcm1h
-dGlvbiAqKShod21nci0+cHB0YWJsZSk7CiAJU01JT19QYXR0ZXJuIHZvbF9sZXZlbDsKIAl1aW50
-MzJfdCBtdmRkOwotCXVpbnQxNl90IHVzX212ZGQ7CiAKIAl0YWJsZS0+QUNQSUxldmVsLkZsYWdz
-ICY9IH5QUFNNQ19TV1NUQVRFX0ZMQUdfREM7CiAKQEAgLTEyNTUsMTYgKzEyNTQsMTEgQEAgc3Rh
-dGljIGludCBwb2xhcmlzMTBfcG9wdWxhdGVfc21jX2FjcGlfbGV2ZWwoc3RydWN0IHBwX2h3bWdy
-ICpod21nciwKIAkJCSJpbiBDbG9jayBEZXBlbmRlbmN5IFRhYmxlIiwKIAkJCSk7CiAKLQl1c19t
-dmRkID0gMDsKLQlpZiAoKFNNVTdfVk9MVEFHRV9DT05UUk9MX05PTkUgPT0gZGF0YS0+bXZkZF9j
-b250cm9sKSB8fAotCQkJKGRhdGEtPm1jbGtfZHBtX2tleV9kaXNhYmxlZCkpCi0JCXVzX212ZGQg
-PSBkYXRhLT52Ymlvc19ib290X3N0YXRlLm12ZGRfYm9vdHVwX3ZhbHVlOwotCWVsc2UgewotCQlp
-ZiAoIXBvbGFyaXMxMF9wb3B1bGF0ZV9tdmRkX3ZhbHVlKGh3bWdyLAorCWlmICghKChTTVU3X1ZP
-TFRBR0VfQ09OVFJPTF9OT05FID09IGRhdGEtPm12ZGRfY29udHJvbCkgfHwKKwkJCShkYXRhLT5t
-Y2xrX2RwbV9rZXlfZGlzYWJsZWQpKSkKKwkJcG9sYXJpczEwX3BvcHVsYXRlX212ZGRfdmFsdWUo
-aHdtZ3IsCiAJCQkJZGF0YS0+ZHBtX3RhYmxlLm1jbGtfdGFibGUuZHBtX2xldmVsc1swXS52YWx1
-ZSwKLQkJCQkmdm9sX2xldmVsKSkKLQkJCXVzX212ZGQgPSB2b2xfbGV2ZWwuVm9sdGFnZTsKLQl9
-CisJCQkJJnZvbF9sZXZlbCk7CiAKIAlpZiAoMCA9PSBwb2xhcmlzMTBfcG9wdWxhdGVfbXZkZF92
-YWx1ZShod21nciwgMCwgJnZvbF9sZXZlbCkpCiAJCXRhYmxlLT5NZW1vcnlBQ1BJTGV2ZWwuTWlu
-TXZkZCA9IFBQX0hPU1RfVE9fU01DX1VMKHZvbF9sZXZlbC5Wb2x0YWdlKTsKQEAgLTE1MTcsNyAr
-MTUxMSw3IEBAIHN0YXRpYyBpbnQgcG9sYXJpczEwX3BvcHVsYXRlX2Nsb2NrX3N0cmV0Y2hlcl9k
-YXRhX3RhYmxlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJdWludDMyX3Qgcm8sIGVmdXNlLCB2
-b2x0X3dpdGhvdXRfY2tzLCB2b2x0X3dpdGhfY2tzLCB2YWx1ZSwgbWF4LCBtaW47CiAJc3RydWN0
-IHBvbGFyaXMxMF9zbXVtZ3IgKnNtdV9kYXRhID0gKHN0cnVjdCBwb2xhcmlzMTBfc211bWdyICop
-KGh3bWdyLT5zbXVfYmFja2VuZCk7CiAKLQl1aW50OF90IGksIHN0cmV0Y2hfYW1vdW50LCBzdHJl
-dGNoX2Ftb3VudDIsIHZvbHRfb2Zmc2V0ID0gMDsKKwl1aW50OF90IGksIHN0cmV0Y2hfYW1vdW50
-LCB2b2x0X29mZnNldCA9IDA7CiAJc3RydWN0IHBobV9wcHRfdjFfaW5mb3JtYXRpb24gKnRhYmxl
-X2luZm8gPQogCQkJKHN0cnVjdCBwaG1fcHB0X3YxX2luZm9ybWF0aW9uICopKGh3bWdyLT5wcHRh
-YmxlKTsKIAlzdHJ1Y3QgcGhtX3BwdF92MV9jbG9ja192b2x0YWdlX2RlcGVuZGVuY3lfdGFibGUg
-KnNjbGtfdGFibGUgPQpAQCAtMTU2OCwxMSArMTU2Miw3IEBAIHN0YXRpYyBpbnQgcG9sYXJpczEw
-X3BvcHVsYXRlX2Nsb2NrX3N0cmV0Y2hlcl9kYXRhX3RhYmxlKHN0cnVjdCBwcF9od21nciAqaHdt
-Z3IpCiAKIAlzbXVfZGF0YS0+c21jX3N0YXRlX3RhYmxlLkxkb1JlZlNlbCA9ICh0YWJsZV9pbmZv
-LT5jYWNfZHRwX3RhYmxlLT51Y0NLU19MRE9fUkVGU0VMICE9IDApID8gdGFibGVfaW5mby0+Y2Fj
-X2R0cF90YWJsZS0+dWNDS1NfTERPX1JFRlNFTCA6IDY7CiAJLyogUG9wdWxhdGUgQ0tTIExvb2t1
-cCBUYWJsZSAqLwotCWlmIChzdHJldGNoX2Ftb3VudCA9PSAxIHx8IHN0cmV0Y2hfYW1vdW50ID09
-IDIgfHwgc3RyZXRjaF9hbW91bnQgPT0gNSkKLQkJc3RyZXRjaF9hbW91bnQyID0gMDsKLQllbHNl
-IGlmIChzdHJldGNoX2Ftb3VudCA9PSAzIHx8IHN0cmV0Y2hfYW1vdW50ID09IDQpCi0JCXN0cmV0
-Y2hfYW1vdW50MiA9IDE7Ci0JZWxzZSB7CisJaWYgKHN0cmV0Y2hfYW1vdW50ID09IDAgfHwgc3Ry
-ZXRjaF9hbW91bnQgPiA1KSB7CiAJCXBobV9jYXBfdW5zZXQoaHdtZ3ItPnBsYXRmb3JtX2Rlc2Ny
-aXB0b3IucGxhdGZvcm1DYXBzLAogCQkJCVBITV9QbGF0Zm9ybUNhcHNfQ2xvY2tTdHJldGNoZXIp
-OwogCQlQUF9BU1NFUlRfV0lUSF9DT0RFKGZhbHNlLAotLSAKMS45LjEKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1181725226==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB16876BF550336DE2751FC7CFFB510CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB16876BF550336DE2751FC7CFFB510CY4PR12MB1687namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Alex,
+
+
+I am Ok with the patch in v2.
+
+just one question,
+
+
++    if (!adev->acp.acp_cell)
++        amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_ACP, tru=
+e);
+
+
+Do we need to check adev->acp.acp_cell before poweron/off ACP?
+
+
+
+
+Best Regards
+
+Rex
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, July 20, 2018 12:53:37 AM
+To: Zhu, Rex
+Cc: amd-gfx list
+Subject: Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ
+
+
+On Thu, Jul 19, 2018 at 11:14 AM, Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu@=
+amd.com>> wrote:
+
+>We also need to power it back up in hw_fini and suspend and then power
+>it back down in resume.
+
+Yes, this logic will be added in acp block.
+In this patch, we only power down acp when it was not used and have no inpa=
+ct wen s3.
+
+But I think when the asic comes out of S3/S4, the ACP block will be powered=
+ up again so it will have to be powered down again to avoid using power aft=
+er resume.  So if the platform uses AZ rather than ACP, we need to handle t=
+hat case and to power ACP back up on hw_fini() in case the driver gets relo=
+aded.  S4 works similarly.  Something like the attached patch.
+
+Alex
+
+
+
+Best Regards
+Rex
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Sent: Thursday, July 19, 2018 9:56 PM
+To: Zhu, Rex
+Cc: amd-gfx list
+Subject: Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ
+
+On Thu, Jul 19, 2018 at 4:46 AM, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org<mailto:rex.zhu@am=
+d.com>> wrote:
+> if board uses AZ rather than ACP, we power down acp
+> through smu to save power.
+>
+
+We also need to power it back up in hw_fini and suspend and then power
+it back down in resume.
+
+Alex
+
+> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_acp.c
+> index 71efcf3..4e18a88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> @@ -35,6 +35,7 @@
+>
+>  #include "acp_gfx_if.h"
+>
+> +
+>  #define ACP_TILE_ON_MASK                       0x03
+>  #define ACP_TILE_OFF_MASK                      0x02
+>  #define ACP_TILE_ON_RETAIN_REG_MASK            0x1f
+> @@ -289,11 +290,12 @@ static int acp_hw_init(void *handle)
+>         r =3D amd_acp_hw_init(adev->acp.cgs_device,
+>                             ip_block->version->major, ip_block->version->=
+minor);
+>         /* -ENODEV means board uses AZ rather than ACP */
+> -       if (r =3D=3D -ENODEV)
+> +       if (r =3D=3D -ENODEV) {
+> +               amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE=
+_ACP, true);
+>                 return 0;
+> -       else if (r)
+> +       } else if (r) {
+>                 return r;
+> -
+> +       }
+>         if (adev->rmmio_size =3D=3D 0 || adev->rmmio_size < 0x5289)
+>                 return -EINVAL;
+>
+> --
+> 1.9.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org<http://lists.freedesktop.org>
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org<http://freedesktop.org> lists is subject to=
+ our Code of Conduct.
+
+
+
+
+
+--_000_CY4PR12MB16876BF550336DE2751FC7CFFB510CY4PR12MB1687namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Hi Alex,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">I am Ok with the patch in v2.</p>
+<p style=3D"margin-top:0;margin-bottom:0">just one question,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"></p>
+<div>&#43;&nbsp;&nbsp; &nbsp;if (!adev-&gt;acp.acp_cell)<br>
+&#43;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;amdgpu_dpm_set_powergating_by_sm=
+u(adev, AMD_IP_BLOCK_TYPE_ACP, true);</div>
+<p></p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Do we need to check <span>adev-&g=
+t;acp.acp_cell</span> before poweron/off ACP?</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
+deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, July 20, 2018 12:53:37 AM<br>
+<b>To:</b> Zhu, Rex<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ=
+</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dutf-8">
+<div>
+<div dir=3D"ltr"><br>
+<div class=3D"x_gmail_extra">
+<div class=3D"x_gmail_quote">On Thu, Jul 19, 2018 at 11:14 AM, Zhu, Rex <sp=
+an dir=3D"ltr">
+&lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a=
+>&gt;</span> wrote:<br>
+<blockquote class=3D"x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-left=
+:1px #ccc solid; padding-left:1ex">
+<div dir=3D"ltr">
+<div id=3D"x_m_-5529052118359428029divtagdefaultwrapper" dir=3D"ltr" style=
+=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-serif=
+">
+<span class=3D"">
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"font-family:Calib=
+ri,Helvetica,sans-serif,EmojiFont,&quot;Apple Color Emoji&quot;,&quot;Segoe=
+ UI Emoji&quot;,NotoColorEmoji,&quot;Segoe UI Symbol&quot;,&quot;Android Em=
+oji&quot;,EmojiSymbols; font-size:14.6667px">&gt;We also need to power it b=
+ack
+ up in hw_fini and suspend and then power</span><br style=3D"font-family:Ca=
+libri,Helvetica,sans-serif,EmojiFont,&quot;Apple Color Emoji&quot;,&quot;Se=
+goe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe UI Symbol&quot;,&quot;Android=
+ Emoji&quot;,EmojiSymbols; font-size:14.6667px">
+<span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;App=
+le Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe =
+UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:14.6667px=
+">&gt;it back down in resume.</span><br>
+</p>
+<div><br>
+</div>
+</span>Yes, this logic will be added in acp block.
+<div>In this patch, we only power down acp when it&nbsp;was not used and ha=
+ve no inpact wen s3.</div>
+</div>
+</div>
+</blockquote>
+<div><br>
+</div>
+<div>But I think when the asic comes out of S3/S4, the ACP block will be po=
+wered up again so it will have to be powered down again to avoid using powe=
+r after resume.&nbsp; So if the platform uses AZ rather than ACP, we need t=
+o handle that case and to power ACP back
+ up on hw_fini() in case the driver gets reloaded.&nbsp; S4 works similarly=
+.&nbsp; Something like the attached patch.<br>
+</div>
+<div><br>
+</div>
+<div>Alex<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp;</div>
+<blockquote class=3D"x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-left=
+:1px #ccc solid; padding-left:1ex">
+<div dir=3D"ltr">
+<div id=3D"x_m_-5529052118359428029divtagdefaultwrapper" dir=3D"ltr" style=
+=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-serif=
+">
+<div><br>
+</div>
+<div>Best Regards</div>
+<div>Rex<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block; width:98%">
+<div id=3D"x_m_-5529052118359428029divRplyFwdMsg" dir=3D"ltr"><font face=3D=
+"Calibri, sans-serif" color=3D"#000000" style=3D"font-size:11pt"><b>From:</=
+b> Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_bla=
+nk">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Thursday, July 19, 2018 9:56 PM<br>
+<b>To:</b> Zhu, Rex<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_m_-5529052118359428029BodyFragment"><font size=3D"2"><span =
+style=3D"font-size:11pt">
+<div class=3D"x_m_-5529052118359428029PlainText">
+<div>
+<div class=3D"x_h5">On Thu, Jul 19, 2018 at 4:46 AM, Rex Zhu &lt;<a href=3D=
+"mailto:rex.zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">rex.zhu-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<b=
+r>
+&gt; if board uses AZ rather than ACP, we power down acp<br>
+&gt; through smu to save power.<br>
+&gt;<br>
+<br>
+We also need to power it back up in hw_fini and suspend and then power<br>
+it back down in resume.<br>
+<br>
+Alex<br>
+<br>
+&gt; Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=
+=3D"_blank">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c | 8 &#43;&#43;&#43;=
+&#43;&#43;---<br>
+&gt;&nbsp; 1 file changed, 5 insertions(&#43;), 3 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c b/drivers/gp=
+u/drm/amd/amdgpu/<wbr>amdgpu_acp.c<br>
+&gt; index 71efcf3..4e18a88 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c<br>
+&gt; @@ -35,6 &#43;35,7 @@<br>
+&gt;<br>
+&gt;&nbsp; #include &quot;acp_gfx_if.h&quot;<br>
+&gt;<br>
+&gt; &#43;<br>
+&gt;&nbsp; #define ACP_TILE_ON_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; 0x03<br>
+&gt;&nbsp; #define ACP_TILE_OFF_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; 0x02<br>
+&gt;&nbsp; #define ACP_TILE_ON_RETAIN_REG_MASK&nbsp;&nbsp;&nbsp;<wbr>&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1f<br>
+&gt; @@ -289,11 &#43;290,12 @@ static int acp_hw_init(void *handle)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amd_acp_hw_init(=
+adev-&gt;acp.cgs_<wbr>device,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; ip_block-&gt;version-&gt;major, ip_block-&gt;version=
+-&gt;minor);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* -ENODEV means board=
+ uses AZ rather than ACP */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r =3D=3D -ENODEV)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r =3D=3D -ENODEV) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_dpm_set_powergating_by_<wbr>smu(adev, AMD_IP_BLO=
+CK_TYPE_ACP, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (r)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (r) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; -<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;rmmio_siz=
+e =3D=3D 0 || adev-&gt;rmmio_size &lt; 0x5289)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;<br>
+&gt; --<br>
+&gt; 1.9.1<br>
+&gt;<br>
+&gt; ______________________________<wbr>_________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
+=3D"x_m_-5529052118359428029LPlnk998837" class=3D"x_m_-5529052118359428029O=
+WAAutoLink" target=3D"_blank">
+https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a> </div>
+</div>
+<div id=3D"x_m_-5529052118359428029LPBorder_GT_15320131028380.7027548596373=
+17" style=3D"margin-bottom:20px; overflow:auto; width:100%; text-indent:0px=
+">
+<table id=3D"x_m_-5529052118359428029LPContainer_15320131028280.10250734893=
+85282" cellspacing=3D"0" style=3D"width:90%; background-color:rgb(255,255,2=
+55); overflow:auto; padding-top:20px; padding-bottom:20px; margin-top:20px;=
+ border-top:1px dotted rgb(200,200,200); border-bottom:1px dotted rgb(200,2=
+00,200)">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing:0px">
+<td id=3D"x_m_-5529052118359428029TextCell_15320131028320.9917042135546368"=
+ colspan=3D"2" style=3D"vertical-align:top; padding:0px; display:table-cell=
+">
+<div id=3D"x_m_-5529052118359428029LPRemovePreviewContainer_15320131028320.=
+024263722967099">
+</div>
+<div id=3D"x_m_-5529052118359428029LPTitle_15320131028320.9687962596936737"=
+ style=3D"color:rgb(0,120,215); font-weight:normal; font-size:21px; font-fa=
+mily:wf_segoe-ui_light,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot=
+;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line-h=
+eight:21px">
+<a id=3D"x_m_-5529052118359428029LPUrlAnchor_15320131028340.453800027398808=
+1" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target=
+=3D"_blank" style=3D"text-decoration:none">amd-gfx Info Page - freedesktop.=
+org</a></div>
+<div id=3D"x_m_-5529052118359428029LPMetadata_15320131028350.13229109652970=
+839" style=3D"margin:10px 0px 16px; color:rgb(102,102,102); font-weight:nor=
+mal; font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quo=
+t;,Tahoma,Arial,sans-serif; font-size:14px; line-height:14px">
+<a href=3D"http://lists.freedesktop.org" target=3D"_blank">lists.freedeskto=
+p.org</a></div>
+<div id=3D"x_m_-5529052118359428029LPDescription_15320131028370.65858695792=
+02912" style=3D"display:block; color:rgb(102,102,102); font-weight:normal; =
+font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Ta=
+homa,Arial,sans-serif; font-size:14px; line-height:20px; max-height:100px; =
+overflow:hidden">
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all
+<a href=3D"http://freedesktop.org" target=3D"_blank">freedesktop.org</a> li=
+sts is subject to our Code of Conduct.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+<br>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB16876BF550336DE2751FC7CFFB510CY4PR12MB1687namp_--
+
+--===============1181725226==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1181725226==--
