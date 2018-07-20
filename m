@@ -1,257 +1,495 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 1/2] drm/scheduler: modify API to avoid redundancy
-Date: Fri, 20 Jul 2018 16:47:25 +0200
-Message-ID: <727d35e4-d05c-1fd0-e6a6-8d5db1bd3b48@amd.com>
-References: <20180720122106.10344-1-nayan26deshmukh@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ
+Date: Fri, 20 Jul 2018 15:08:18 +0000
+Message-ID: <BN6PR12MB18093AB1E8BDFDAE856E6C34F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1531990018-29711-1-git-send-email-rex.zhu@amd.com>
+ <1531990018-29711-2-git-send-email-rex.zhu@amd.com>
+ <CADnq5_OiAsxsCN3KiqOggwj_vgFXDb_J7a7_GVm8GXEsWNv7RA@mail.gmail.com>
+ <CY4PR12MB1687C48AD2DAAB101BC823B6FB520@CY4PR12MB1687.namprd12.prod.outlook.com>,
+ <CADnq5_P=MunRPuEyqN91c0nj6DdRo7cXKw9u+TTweZKG7zJ1iw@mail.gmail.com>,
+ <CY4PR12MB16876BF550336DE2751FC7CFFB510@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180720122106.10344-1-nayan26deshmukh@gmail.com>
+Content-Type: multipart/mixed; boundary="===============1520536617=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CY4PR12MB16876BF550336DE2751FC7CFFB510-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Nayan Deshmukh <nayan26deshmukh@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjAuMDcuMjAxOCB1bSAxNDoyMSBzY2hyaWViIE5heWFuIERlc2htdWtoOgo+IGVudGl0eSBo
-YXMgYSBzY2hlZHVsZXIgZmllbGQgYW5kIHdlIGRvbid0IG5lZWQgdGhlIHNjaGVkIGFyZ3VtZW50
-Cj4gaW4gYW55IG9mIHRoZSBmdW5jdGlvbnMgd2hlcmUgZW50aXR5IGlzIHByb3ZpZGVkLgo+Cj4g
-U2lnbmVkLW9mZi1ieTogTmF5YW4gRGVzaG11a2ggPG5heWFuMjZkZXNobXVraEBnbWFpbC5jb20+
-CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-PiBmb3IgdGhlIHNlcmllcy4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3MuYyAgICB8ICAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfY3R4LmMgICB8IDEzICsrKysrLS0tLS0tLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9qb2IuYyAgIHwgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV90dG0uYyAgIHwgIDMgKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdXZkLmMgICB8ICAzICstLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZjZS5jICAgfCAgMiArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmMgICAgfCAgNCArKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2X2Ry
-di5jICAgICB8ICAzICstLQo+ICAgZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRuYXZpdl9zY2hl
-ZC5jICAgfCAgNCArKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVs
-ZXIuYyB8IDIwICsrKysrKysrKysrLS0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vdjNkL3Yz
-ZF9kcnYuYyAgICAgICAgICAgICB8ICA0ICstLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS92M2QvdjNk
-X2dlbS5jICAgICAgICAgICAgIHwgIDIgLS0KPiAgIGluY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIu
-aCAgICAgICAgICAgICAgIHwgMTAgKysrLS0tLS0tLQo+ICAgMTMgZmlsZXMgY2hhbmdlZCwgMzAg
-aW5zZXJ0aW9ucygrKSwgNDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfY3MuYwo+IGluZGV4IDdjNWNjMzNkMGNkYS4uN2U1ZWJmODIzMzA5IDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiBAQCAtMTIzMiw3ICsxMjMyLDcg
-QEAgc3RhdGljIGludCBhbWRncHVfY3Nfc3VibWl0KHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpw
-LAo+ICAgCWpvYiA9IHAtPmpvYjsKPiAgIAlwLT5qb2IgPSBOVUxMOwo+ICAgCj4gLQlyID0gZHJt
-X3NjaGVkX2pvYl9pbml0KCZqb2ItPmJhc2UsICZyaW5nLT5zY2hlZCwgZW50aXR5LCBwLT5maWxw
-KTsKPiArCXIgPSBkcm1fc2NoZWRfam9iX2luaXQoJmpvYi0+YmFzZSwgZW50aXR5LCBwLT5maWxw
-KTsKPiAgIAlpZiAocikgewo+ICAgCQlhbWRncHVfam9iX2ZyZWUoam9iKTsKPiAgIAkJYW1kZ3B1
-X21uX3VubG9jayhwLT5tbik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9jdHguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHgu
-Ywo+IGluZGV4IDgzZTNiMzIwYTc5My4uZGY2OTY1NzYxMDQ2IDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+IEBAIC0xMDQsOCArMTA0LDcgQEAgc3RhdGljIGlu
-dCBhbWRncHVfY3R4X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAKPiAgIGZh
-aWxlZDoKPiAgIAlmb3IgKGogPSAwOyBqIDwgaTsgaisrKQo+IC0JCWRybV9zY2hlZF9lbnRpdHlf
-ZGVzdHJveSgmYWRldi0+cmluZ3Nbal0tPnNjaGVkLAo+IC0JCQkJICAgICAgJmN0eC0+cmluZ3Nb
-al0uZW50aXR5KTsKPiArCQlkcm1fc2NoZWRfZW50aXR5X2Rlc3Ryb3koJmN0eC0+cmluZ3Nbal0u
-ZW50aXR5KTsKPiAgIAlrZnJlZShjdHgtPmZlbmNlcyk7Cj4gICAJY3R4LT5mZW5jZXMgPSBOVUxM
-Owo+ICAgCXJldHVybiByOwo+IEBAIC0xNzgsOCArMTc3LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1
-X2N0eF9kb19yZWxlYXNlKHN0cnVjdCBrcmVmICpyZWYpCj4gICAJCWlmIChjdHgtPmFkZXYtPnJp
-bmdzW2ldID09ICZjdHgtPmFkZXYtPmdmeC5raXEucmluZykKPiAgIAkJCWNvbnRpbnVlOwo+ICAg
-Cj4gLQkJZHJtX3NjaGVkX2VudGl0eV9kZXN0cm95KCZjdHgtPmFkZXYtPnJpbmdzW2ldLT5zY2hl
-ZCwKPiAtCQkJJmN0eC0+cmluZ3NbaV0uZW50aXR5KTsKPiArCQlkcm1fc2NoZWRfZW50aXR5X2Rl
-c3Ryb3koJmN0eC0+cmluZ3NbaV0uZW50aXR5KTsKPiAgIAl9Cj4gICAKPiAgIAlhbWRncHVfY3R4
-X2ZpbmkocmVmKTsKPiBAQCAtNDY2LDggKzQ2NCw4IEBAIHZvaWQgYW1kZ3B1X2N0eF9tZ3JfZW50
-aXR5X2ZsdXNoKHN0cnVjdCBhbWRncHVfY3R4X21nciAqbWdyKQo+ICAgCQkJaWYgKGN0eC0+YWRl
-di0+cmluZ3NbaV0gPT0gJmN0eC0+YWRldi0+Z2Z4LmtpcS5yaW5nKQo+ICAgCQkJCWNvbnRpbnVl
-Owo+ICAgCj4gLQkJCW1heF93YWl0ID0gZHJtX3NjaGVkX2VudGl0eV9mbHVzaCgmY3R4LT5hZGV2
-LT5yaW5nc1tpXS0+c2NoZWQsCj4gLQkJCQkJICAmY3R4LT5yaW5nc1tpXS5lbnRpdHksIG1heF93
-YWl0KTsKPiArCQkJbWF4X3dhaXQgPSBkcm1fc2NoZWRfZW50aXR5X2ZsdXNoKCZjdHgtPnJpbmdz
-W2ldLmVudGl0eSwKPiArCQkJCQkJCSAgbWF4X3dhaXQpOwo+ICAgCQl9Cj4gICAJfQo+ICAgCW11
-dGV4X3VubG9jaygmbWdyLT5sb2NrKTsKPiBAQCAtNDkyLDggKzQ5MCw3IEBAIHZvaWQgYW1kZ3B1
-X2N0eF9tZ3JfZW50aXR5X2Zpbmkoc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IpCj4gICAJCQkJ
-Y29udGludWU7Cj4gICAKPiAgIAkJCWlmIChrcmVmX3JlYWQoJmN0eC0+cmVmY291bnQpID09IDEp
-Cj4gLQkJCQlkcm1fc2NoZWRfZW50aXR5X2ZpbmkoJmN0eC0+YWRldi0+cmluZ3NbaV0tPnNjaGVk
-LAo+IC0JCQkJCSZjdHgtPnJpbmdzW2ldLmVudGl0eSk7Cj4gKwkJCQlkcm1fc2NoZWRfZW50aXR5
-X2ZpbmkoJmN0eC0+cmluZ3NbaV0uZW50aXR5KTsKPiAgIAkJCWVsc2UKPiAgIAkJCQlEUk1fRVJS
-T1IoImN0eCAlcCBpcyBzdGlsbCBhbGl2ZVxuIiwgY3R4KTsKPiAgIAkJfQo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMKPiBpbmRleCA1YTJjMjZhODU5ODQuLjYzMTQ4MWE3
-MzBlMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9i
-LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMKPiBAQCAt
-MTMzLDcgKzEzMyw3IEBAIGludCBhbWRncHVfam9iX3N1Ym1pdChzdHJ1Y3QgYW1kZ3B1X2pvYiAq
-am9iLCBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5LAo+ICAgCWlmICghZikKPiAgIAkJ
-cmV0dXJuIC1FSU5WQUw7Cj4gICAKPiAtCXIgPSBkcm1fc2NoZWRfam9iX2luaXQoJmpvYi0+YmFz
-ZSwgZW50aXR5LT5zY2hlZCwgZW50aXR5LCBvd25lcik7Cj4gKwlyID0gZHJtX3NjaGVkX2pvYl9p
-bml0KCZqb2ItPmJhc2UsIGVudGl0eSwgb3duZXIpOwo+ICAgCWlmIChyKQo+ICAgCQlyZXR1cm4g
-cjsKPiAgIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBpbmRleCAx
-Mzk3N2VhNmEwOTcuLjkxMzcwNWQ0ZGZkMyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdHRtLmMKPiBAQCAtMTkyNSw4ICsxOTI1LDcgQEAgdm9pZCBhbWRncHVfdHRtX3Nl
-dF9idWZmZXJfZnVuY3Nfc3RhdHVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIGVu
-YWJsZSkKPiAgIAkJCXJldHVybjsKPiAgIAkJfQo+ICAgCX0gZWxzZSB7Cj4gLQkJZHJtX3NjaGVk
-X2VudGl0eV9kZXN0cm95KGFkZXYtPm1tYW4uZW50aXR5LnNjaGVkLAo+IC0JCQkJCSAmYWRldi0+
-bW1hbi5lbnRpdHkpOwo+ICsJCWRybV9zY2hlZF9lbnRpdHlfZGVzdHJveSgmYWRldi0+bW1hbi5l
-bnRpdHkpOwo+ICAgCX0KPiAgIAo+ICAgCS8qIHRoaXMganVzdCBhZGp1c3RzIFRUTSBzaXplIGlk
-ZWEsIHdoaWNoIHNldHMgbHBmbiB0byB0aGUgY29ycmVjdCB2YWx1ZSAqLwo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKPiBpbmRleCA4MGI1YzQ1M2Y4YzEuLjhlMmM5NmRh
-Mjc1ZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZk
-LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKPiBAQCAt
-MzA1LDggKzMwNSw3IEBAIGludCBhbWRncHVfdXZkX3N3X2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpCj4gICB7Cj4gICAJaW50IGksIGo7Cj4gICAKPiAtCWRybV9zY2hlZF9lbnRpdHlf
-ZGVzdHJveSgmYWRldi0+dXZkLmluc3QtPnJpbmcuc2NoZWQsCj4gLQkJCQkgJmFkZXYtPnV2ZC5l
-bnRpdHkpOwo+ICsJZHJtX3NjaGVkX2VudGl0eV9kZXN0cm95KCZhZGV2LT51dmQuZW50aXR5KTsK
-PiAgIAo+ICAgCWZvciAoaiA9IDA7IGogPCBhZGV2LT51dmQubnVtX3V2ZF9pbnN0OyArK2opIHsK
-PiAgIAkJa2ZyZWUoYWRldi0+dXZkLmluc3Rbal0uc2F2ZWRfYm8pOwo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdmNlLmMKPiBpbmRleCA4NjE4MmM5NjZlZDYuLmI2YWI0ZjUzNTBj
-OCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMKPiBAQCAtMjIx
-LDcgKzIyMSw3IEBAIGludCBhbWRncHVfdmNlX3N3X2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCj4gICAJaWYgKGFkZXYtPnZjZS52Y3B1X2JvID09IE5VTEwpCj4gICAJCXJldHVybiAw
-Owo+ICAgCj4gLQlkcm1fc2NoZWRfZW50aXR5X2Rlc3Ryb3koJmFkZXYtPnZjZS5yaW5nWzBdLnNj
-aGVkLCAmYWRldi0+dmNlLmVudGl0eSk7Cj4gKwlkcm1fc2NoZWRfZW50aXR5X2Rlc3Ryb3koJmFk
-ZXYtPnZjZS5lbnRpdHkpOwo+ICAgCj4gICAJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT52
-Y2UudmNwdV9ibywgJmFkZXYtPnZjZS5ncHVfYWRkciwKPiAgIAkJKHZvaWQgKiopJmFkZXYtPnZj
-ZS5jcHVfYWRkcik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRl
-eCAwOThkZDFiYTc1MWEuLjc0YjRhMjhhNDFkNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jCj4gQEAgLTI2NDIsNyArMjY0Miw3IEBAIGludCBhbWRncHVfdm1faW5p
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gICAJ
-dm0tPnJvb3QuYmFzZS5ibyA9IE5VTEw7Cj4gICAKPiAgIGVycm9yX2ZyZWVfc2NoZWRfZW50aXR5
-Ogo+IC0JZHJtX3NjaGVkX2VudGl0eV9kZXN0cm95KCZyaW5nLT5zY2hlZCwgJnZtLT5lbnRpdHkp
-Owo+ICsJZHJtX3NjaGVkX2VudGl0eV9kZXN0cm95KCZ2bS0+ZW50aXR5KTsKPiAgIAo+ICAgCXJl
-dHVybiByOwo+ICAgfQo+IEBAIC0yNzc5LDcgKzI3NzksNyBAQCB2b2lkIGFtZGdwdV92bV9maW5p
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkKPiAgIAkJ
-c3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrLCBmbGFn
-cyk7Cj4gICAJfQo+ICAgCj4gLQlkcm1fc2NoZWRfZW50aXR5X2Rlc3Ryb3kodm0tPmVudGl0eS5z
-Y2hlZCwgJnZtLT5lbnRpdHkpOwo+ICsJZHJtX3NjaGVkX2VudGl0eV9kZXN0cm95KCZ2bS0+ZW50
-aXR5KTsKPiAgIAo+ICAgCWlmICghUkJfRU1QVFlfUk9PVCgmdm0tPnZhLnJiX3Jvb3QpKSB7Cj4g
-ICAJCWRldl9lcnIoYWRldi0+ZGV2LCAic3RpbGwgYWN0aXZlIGJvIGluc2lkZSB2bVxuIik7Cj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfZHJ2LmMgYi9kcml2
-ZXJzL2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2X2Rydi5jCj4gaW5kZXggMzY0MTRiYTU2YjIyLi4y
-MDc1MzJjMDVlYjggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRuYXZp
-dl9kcnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfZHJ2LmMKPiBA
-QCAtNzgsOCArNzgsNyBAQCBzdGF0aWMgdm9pZCBldG5hdml2X3Bvc3RjbG9zZShzdHJ1Y3QgZHJt
-X2RldmljZSAqZGV2LCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGUpCj4gICAJCQkJZ3B1LT5sYXN0Y3R4
-ID0gTlVMTDsKPiAgIAkJCW11dGV4X3VubG9jaygmZ3B1LT5sb2NrKTsKPiAgIAo+IC0JCQlkcm1f
-c2NoZWRfZW50aXR5X2Rlc3Ryb3koJmdwdS0+c2NoZWQsCj4gLQkJCQkJCSZjdHgtPnNjaGVkX2Vu
-dGl0eVtpXSk7Cj4gKwkJCWRybV9zY2hlZF9lbnRpdHlfZGVzdHJveSgmY3R4LT5zY2hlZF9lbnRp
-dHlbaV0pOwo+ICAgCQl9Cj4gICAJfQo+ICAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYyBiL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2
-aXZfc2NoZWQuYwo+IGluZGV4IGE3NGViNTdhZjE1Yi4uNTkwZTQ0YjBkOTYzIDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYwo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYwo+IEBAIC0xMTgsOCArMTE4LDggQEAg
-aW50IGV0bmF2aXZfc2NoZWRfcHVzaF9qb2Ioc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKnNjaGVk
-X2VudGl0eSwKPiAgIHsKPiAgIAlpbnQgcmV0Owo+ICAgCj4gLQlyZXQgPSBkcm1fc2NoZWRfam9i
-X2luaXQoJnN1Ym1pdC0+c2NoZWRfam9iLCAmc3VibWl0LT5ncHUtPnNjaGVkLAo+IC0JCQkJIHNj
-aGVkX2VudGl0eSwgc3VibWl0LT5jbWRidWYuY3R4KTsKPiArCXJldCA9IGRybV9zY2hlZF9qb2Jf
-aW5pdCgmc3VibWl0LT5zY2hlZF9qb2IsIHNjaGVkX2VudGl0eSwKPiArCQkJCSBzdWJtaXQtPmNt
-ZGJ1Zi5jdHgpOwo+ICAgCWlmIChyZXQpCj4gICAJCXJldHVybiByZXQ7Cj4gICAKPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+IGluZGV4IGRhYzcxZTNiNDUxNC4u
-YTNiNTVjNTQyMDI1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1
-X3NjaGVkdWxlci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1
-bGVyLmMKPiBAQCAtMjczLDExICsyNzMsMTIgQEAgc3RhdGljIHZvaWQgZHJtX3NjaGVkX2VudGl0
-eV9raWxsX2pvYnNfY2Ioc3RydWN0IGRtYV9mZW5jZSAqZiwKPiAgICAqCj4gICAgKiBSZXR1cm5z
-IHRoZSByZW1haW5pbmcgdGltZSBpbiBqaWZmaWVzIGxlZnQgZnJvbSB0aGUgaW5wdXQgdGltZW91
-dAo+ICAgICovCj4gLWxvbmcgZHJtX3NjaGVkX2VudGl0eV9mbHVzaChzdHJ1Y3QgZHJtX2dwdV9z
-Y2hlZHVsZXIgKnNjaGVkLAo+IC0JCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5
-LCBsb25nIHRpbWVvdXQpCj4gK2xvbmcgZHJtX3NjaGVkX2VudGl0eV9mbHVzaChzdHJ1Y3QgZHJt
-X3NjaGVkX2VudGl0eSAqZW50aXR5LCBsb25nIHRpbWVvdXQpCj4gICB7Cj4gKwlzdHJ1Y3QgZHJt
-X2dwdV9zY2hlZHVsZXIgKnNjaGVkOwo+ICAgCWxvbmcgcmV0ID0gdGltZW91dDsKPiAgIAo+ICsJ
-c2NoZWQgPSBlbnRpdHktPnNjaGVkOwo+ICAgCWlmICghZHJtX3NjaGVkX2VudGl0eV9pc19pbml0
-aWFsaXplZChzY2hlZCwgZW50aXR5KSkKPiAgIAkJcmV0dXJuIHJldDsKPiAgIAkvKioKPiBAQCAt
-MzEyLDEwICszMTMsMTEgQEAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfZW50aXR5X2ZsdXNoKTsK
-PiAgICAqIGVudGl0eSBhbmQgc2lnbmFscyBhbGwgam9icyB3aXRoIGFuIGVycm9yIGNvZGUgaWYg
-dGhlIHByb2Nlc3Mgd2FzIGtpbGxlZC4KPiAgICAqCj4gICAgKi8KPiAtdm9pZCBkcm1fc2NoZWRf
-ZW50aXR5X2Zpbmkoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKPiAtCQkJICAgc3Ry
-dWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKPiArdm9pZCBkcm1fc2NoZWRfZW50aXR5X2Zp
-bmkoc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKPiAgIHsKPiArCXN0cnVjdCBkcm1f
-Z3B1X3NjaGVkdWxlciAqc2NoZWQ7Cj4gICAKPiArCXNjaGVkID0gZW50aXR5LT5zY2hlZDsKPiAg
-IAlkcm1fc2NoZWRfZW50aXR5X3NldF9ycShlbnRpdHksIE5VTEwpOwo+ICAgCj4gICAJLyogQ29u
-c3VtcHRpb24gb2YgZXhpc3RpbmcgSUJzIHdhc24ndCBjb21wbGV0ZWQuIEZvcmNlZnVsbHkKPiBA
-QCAtMzczLDExICszNzUsMTAgQEAgRVhQT1JUX1NZTUJPTChkcm1fc2NoZWRfZW50aXR5X2Zpbmkp
-Owo+ICAgICoKPiAgICAqIENhbGxzIGRybV9zY2hlZF9lbnRpdHlfZG9fcmVsZWFzZSgpIGFuZCBk
-cm1fc2NoZWRfZW50aXR5X2NsZWFudXAoKQo+ICAgICovCj4gLXZvaWQgZHJtX3NjaGVkX2VudGl0
-eV9kZXN0cm95KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCj4gLQkJCQlzdHJ1Y3Qg
-ZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5KQo+ICt2b2lkIGRybV9zY2hlZF9lbnRpdHlfZGVzdHJv
-eShzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5KQo+ICAgewo+IC0JZHJtX3NjaGVkX2Vu
-dGl0eV9mbHVzaChzY2hlZCwgZW50aXR5LCBNQVhfV0FJVF9TQ0hFRF9FTlRJVFlfUV9FTVBUWSk7
-Cj4gLQlkcm1fc2NoZWRfZW50aXR5X2Zpbmkoc2NoZWQsIGVudGl0eSk7Cj4gKwlkcm1fc2NoZWRf
-ZW50aXR5X2ZsdXNoKGVudGl0eSwgTUFYX1dBSVRfU0NIRURfRU5USVRZX1FfRU1QVFkpOwo+ICsJ
-ZHJtX3NjaGVkX2VudGl0eV9maW5pKGVudGl0eSk7Cj4gICB9Cj4gICBFWFBPUlRfU1lNQk9MKGRy
-bV9zY2hlZF9lbnRpdHlfZGVzdHJveSk7Cj4gICAKPiBAQCAtNzQwLDEwICs3NDEsMTEgQEAgRVhQ
-T1JUX1NZTUJPTChkcm1fc2NoZWRfam9iX3JlY292ZXJ5KTsKPiAgICAqIFJldHVybnMgMCBmb3Ig
-c3VjY2VzcywgbmVnYXRpdmUgZXJyb3IgY29kZSBvdGhlcndpc2UuCj4gICAgKi8KPiAgIGludCBk
-cm1fc2NoZWRfam9iX2luaXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKmpvYiwKPiAtCQkgICAgICAg
-c3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgIAkJICAgICAgIHN0cnVjdCBkcm1f
-c2NoZWRfZW50aXR5ICplbnRpdHksCj4gICAJCSAgICAgICB2b2lkICpvd25lcikKPiAgIHsKPiAr
-CXN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQgPSBlbnRpdHktPnNjaGVkOwo+ICsKPiAg
-IAlqb2ItPnNjaGVkID0gc2NoZWQ7Cj4gICAJam9iLT5lbnRpdHkgPSBlbnRpdHk7Cj4gICAJam9i
-LT5zX3ByaW9yaXR5ID0gZW50aXR5LT5ycSAtIHNjaGVkLT5zY2hlZF9ycTsKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL3YzZC92M2RfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vdjNkL3Yz
-ZF9kcnYuYwo+IGluZGV4IDFkY2ViYTJiNDJmZC4uMmE4NWZhNjhmZmVhIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3Yz
-ZC92M2RfZHJ2LmMKPiBAQCAtMTQ1LDEzICsxNDUsMTEgQEAgdjNkX29wZW4oc3RydWN0IGRybV9k
-ZXZpY2UgKmRldiwgc3RydWN0IGRybV9maWxlICpmaWxlKQo+ICAgc3RhdGljIHZvaWQKPiAgIHYz
-ZF9wb3N0Y2xvc2Uoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgc3RydWN0IGRybV9maWxlICpmaWxl
-KQo+ICAgewo+IC0Jc3RydWN0IHYzZF9kZXYgKnYzZCA9IHRvX3YzZF9kZXYoZGV2KTsKPiAgIAlz
-dHJ1Y3QgdjNkX2ZpbGVfcHJpdiAqdjNkX3ByaXYgPSBmaWxlLT5kcml2ZXJfcHJpdjsKPiAgIAll
-bnVtIHYzZF9xdWV1ZSBxOwo+ICAgCj4gICAJZm9yIChxID0gMDsgcSA8IFYzRF9NQVhfUVVFVUVT
-OyBxKyspIHsKPiAtCQlkcm1fc2NoZWRfZW50aXR5X2Rlc3Ryb3koJnYzZC0+cXVldWVbcV0uc2No
-ZWQsCj4gLQkJCQkgICAgICAmdjNkX3ByaXYtPnNjaGVkX2VudGl0eVtxXSk7Cj4gKwkJZHJtX3Nj
-aGVkX2VudGl0eV9kZXN0cm95KCZ2M2RfcHJpdi0+c2NoZWRfZW50aXR5W3FdKTsKPiAgIAl9Cj4g
-ICAKPiAgIAlrZnJlZSh2M2RfcHJpdik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS92
-M2QvdjNkX2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL3YzZC92M2RfZ2VtLmMKPiBpbmRleCBiNTEz
-ZjkxODljYWYuLjkwMjk1OTAyNjdhYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdjNk
-L3YzZF9nZW0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX2dlbS5jCj4gQEAgLTU1
-Miw3ICs1NTIsNiBAQCB2M2Rfc3VibWl0X2NsX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IHZvaWQgKmRhdGEsCj4gICAKPiAgIAlpZiAoZXhlYy0+YmluLnN0YXJ0ICE9IGV4ZWMtPmJpbi5l
-bmQpIHsKPiAgIAkJcmV0ID0gZHJtX3NjaGVkX2pvYl9pbml0KCZleGVjLT5iaW4uYmFzZSwKPiAt
-CQkJCQkgJnYzZC0+cXVldWVbVjNEX0JJTl0uc2NoZWQsCj4gICAJCQkJCSAmdjNkX3ByaXYtPnNj
-aGVkX2VudGl0eVtWM0RfQklOXSwKPiAgIAkJCQkJIHYzZF9wcml2KTsKPiAgIAkJaWYgKHJldCkK
-PiBAQCAtNTY3LDcgKzU2Niw2IEBAIHYzZF9zdWJtaXRfY2xfaW9jdGwoc3RydWN0IGRybV9kZXZp
-Y2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgIAl9Cj4gICAKPiAgIAlyZXQgPSBkcm1fc2NoZWRfam9i
-X2luaXQoJmV4ZWMtPnJlbmRlci5iYXNlLAo+IC0JCQkJICZ2M2QtPnF1ZXVlW1YzRF9SRU5ERVJd
-LnNjaGVkLAo+ICAgCQkJCSAmdjNkX3ByaXYtPnNjaGVkX2VudGl0eVtWM0RfUkVOREVSXSwKPiAg
-IAkJCQkgdjNkX3ByaXYpOwo+ICAgCWlmIChyZXQpCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJt
-L2dwdV9zY2hlZHVsZXIuaCBiL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaAo+IGluZGV4IDIy
-MDVlODk3MjJmNi4uNzI4MzQ2YWJjYzgxIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJtL2dwdV9z
-Y2hlZHVsZXIuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaAo+IEBAIC0yODYs
-MTIgKzI4Niw5IEBAIGludCBkcm1fc2NoZWRfZW50aXR5X2luaXQoc3RydWN0IGRybV9zY2hlZF9l
-bnRpdHkgKmVudGl0eSwKPiAgIAkJCSAgc3RydWN0IGRybV9zY2hlZF9ycSAqKnJxX2xpc3QsCj4g
-ICAJCQkgIHVuc2lnbmVkIGludCBudW1fcnFfbGlzdCwKPiAgIAkJCSAgYXRvbWljX3QgKmd1aWx0
-eSk7Cj4gLWxvbmcgZHJtX3NjaGVkX2VudGl0eV9mbHVzaChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVs
-ZXIgKnNjaGVkLAo+IC0JCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5LCBsb25n
-IHRpbWVvdXQpOwo+IC12b2lkIGRybV9zY2hlZF9lbnRpdHlfZmluaShzdHJ1Y3QgZHJtX2dwdV9z
-Y2hlZHVsZXIgKnNjaGVkLAo+IC0JCQkgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5
-KTsKPiAtdm9pZCBkcm1fc2NoZWRfZW50aXR5X2Rlc3Ryb3koc3RydWN0IGRybV9ncHVfc2NoZWR1
-bGVyICpzY2hlZCwKPiAtCQkJICAgc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSk7Cj4g
-K2xvbmcgZHJtX3NjaGVkX2VudGl0eV9mbHVzaChzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50
-aXR5LCBsb25nIHRpbWVvdXQpOwo+ICt2b2lkIGRybV9zY2hlZF9lbnRpdHlfZmluaShzdHJ1Y3Qg
-ZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5KTsKPiArdm9pZCBkcm1fc2NoZWRfZW50aXR5X2Rlc3Ry
-b3koc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSk7Cj4gICB2b2lkIGRybV9zY2hlZF9l
-bnRpdHlfcHVzaF9qb2Ioc3RydWN0IGRybV9zY2hlZF9qb2IgKnNjaGVkX2pvYiwKPiAgIAkJCSAg
-ICAgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5KTsKPiAgIHZvaWQgZHJtX3NjaGVk
-X2VudGl0eV9zZXRfcnEoc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSwKPiBAQCAtMzAy
-LDcgKzI5OSw2IEBAIHN0cnVjdCBkcm1fc2NoZWRfZmVuY2UgKmRybV9zY2hlZF9mZW5jZV9jcmVh
-dGUoCj4gICB2b2lkIGRybV9zY2hlZF9mZW5jZV9zY2hlZHVsZWQoc3RydWN0IGRybV9zY2hlZF9m
-ZW5jZSAqZmVuY2UpOwo+ICAgdm9pZCBkcm1fc2NoZWRfZmVuY2VfZmluaXNoZWQoc3RydWN0IGRy
-bV9zY2hlZF9mZW5jZSAqZmVuY2UpOwo+ICAgaW50IGRybV9zY2hlZF9qb2JfaW5pdChzdHJ1Y3Qg
-ZHJtX3NjaGVkX2pvYiAqam9iLAo+IC0JCSAgICAgICBzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIg
-KnNjaGVkLAo+ICAgCQkgICAgICAgc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSwKPiAg
-IAkJICAgICAgIHZvaWQgKm93bmVyKTsKPiAgIHZvaWQgZHJtX3NjaGVkX2h3X2pvYl9yZXNldChz
-dHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+--===============1520536617==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18093AB1E8BDFDAE856E6C34F7510BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18093AB1E8BDFDAE856E6C34F7510BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+We just check that as a way see whether we are using AZ audio (and gpu driv=
+er should control ACP power) or i2s audio (and acp driver controls power). =
+ In the former case, there is no structure allocated.
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhu, Rex=
+ <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, July 20, 2018 6:31:50 AM
+To: Alex Deucher
+Cc: amd-gfx list
+Subject: Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ
+
+
+Hi Alex,
+
+
+I am Ok with the patch in v2.
+
+just one question,
+
+
++    if (!adev->acp.acp_cell)
++        amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_ACP, tru=
+e);
+
+
+Do we need to check adev->acp.acp_cell before poweron/off ACP?
+
+
+
+
+Best Regards
+
+Rex
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, July 20, 2018 12:53:37 AM
+To: Zhu, Rex
+Cc: amd-gfx list
+Subject: Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ
+
+
+On Thu, Jul 19, 2018 at 11:14 AM, Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu@=
+amd.com>> wrote:
+
+>We also need to power it back up in hw_fini and suspend and then power
+>it back down in resume.
+
+Yes, this logic will be added in acp block.
+In this patch, we only power down acp when it was not used and have no inpa=
+ct wen s3.
+
+But I think when the asic comes out of S3/S4, the ACP block will be powered=
+ up again so it will have to be powered down again to avoid using power aft=
+er resume.  So if the platform uses AZ rather than ACP, we need to handle t=
+hat case and to power ACP back up on hw_fini() in case the driver gets relo=
+aded.  S4 works similarly.  Something like the attached patch.
+
+Alex
+
+
+
+Best Regards
+Rex
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Sent: Thursday, July 19, 2018 9:56 PM
+To: Zhu, Rex
+Cc: amd-gfx list
+Subject: Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ
+
+On Thu, Jul 19, 2018 at 4:46 AM, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org<mailto:rex.zhu@am=
+d.com>> wrote:
+> if board uses AZ rather than ACP, we power down acp
+> through smu to save power.
+>
+
+We also need to power it back up in hw_fini and suspend and then power
+it back down in resume.
+
+Alex
+
+> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_acp.c
+> index 71efcf3..4e18a88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
+> @@ -35,6 +35,7 @@
+>
+>  #include "acp_gfx_if.h"
+>
+> +
+>  #define ACP_TILE_ON_MASK                       0x03
+>  #define ACP_TILE_OFF_MASK                      0x02
+>  #define ACP_TILE_ON_RETAIN_REG_MASK            0x1f
+> @@ -289,11 +290,12 @@ static int acp_hw_init(void *handle)
+>         r =3D amd_acp_hw_init(adev->acp.cgs_device,
+>                             ip_block->version->major, ip_block->version->=
+minor);
+>         /* -ENODEV means board uses AZ rather than ACP */
+> -       if (r =3D=3D -ENODEV)
+> +       if (r =3D=3D -ENODEV) {
+> +               amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE=
+_ACP, true);
+>                 return 0;
+> -       else if (r)
+> +       } else if (r) {
+>                 return r;
+> -
+> +       }
+>         if (adev->rmmio_size =3D=3D 0 || adev->rmmio_size < 0x5289)
+>                 return -EINVAL;
+>
+> --
+> 1.9.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org<http://lists.freedesktop.org>
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org<http://freedesktop.org> lists is subject to=
+ our Code of Conduct.
+
+
+
+
+
+--_000_BN6PR12MB18093AB1E8BDFDAE856E6C34F7510BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">We just check that as a way see w=
+hether we are using AZ audio (and gpu driver should control ACP power) or i=
+2s audio (and acp driver controls power).&nbsp; In the former case, there i=
+s no structure allocated.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&=
+gt;<br>
+<b>Sent:</b> Friday, July 20, 2018 6:31:50 AM<br>
+<b>To:</b> Alex Deucher<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ=
+</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dus-ascii">
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">Hi Alex,</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">I am Ok with the patch in v2.</p=
+>
+<p style=3D"margin-top:0; margin-bottom:0">just one question,</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"></p>
+<div>&#43;&nbsp;&nbsp; &nbsp;if (!adev-&gt;acp.acp_cell)<br>
+&#43;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;amdgpu_dpm_set_powergating_by_sm=
+u(adev, AMD_IP_BLOCK_TYPE_ACP, true);</div>
+<p></p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Do we need to check <span>adev-&=
+gt;acp.acp_cell</span> before poweron/off ACP?</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0; margin-bottom:0">Rex<br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
+exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, July 20, 2018 12:53:37 AM<br>
+<b>To:</b> Zhu, Rex<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ=
+</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dutf-8">
+<div>
+<div dir=3D"ltr"><br>
+<div class=3D"x_x_gmail_extra">
+<div class=3D"x_x_gmail_quote">On Thu, Jul 19, 2018 at 11:14 AM, Zhu, Rex <=
+span dir=3D"ltr">
+&lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a=
+>&gt;</span> wrote:<br>
+<blockquote class=3D"x_x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-le=
+ft:1px #ccc solid; padding-left:1ex">
+<div dir=3D"ltr">
+<div id=3D"x_x_m_-5529052118359428029divtagdefaultwrapper" dir=3D"ltr" styl=
+e=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-seri=
+f">
+<span class=3D"">
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"font-family:Calib=
+ri,Helvetica,sans-serif,EmojiFont,&quot;Apple Color Emoji&quot;,&quot;Segoe=
+ UI Emoji&quot;,NotoColorEmoji,&quot;Segoe UI Symbol&quot;,&quot;Android Em=
+oji&quot;,EmojiSymbols; font-size:14.6667px">&gt;We also need to power it b=
+ack
+ up in hw_fini and suspend and then power</span><br style=3D"font-family:Ca=
+libri,Helvetica,sans-serif,EmojiFont,&quot;Apple Color Emoji&quot;,&quot;Se=
+goe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe UI Symbol&quot;,&quot;Android=
+ Emoji&quot;,EmojiSymbols; font-size:14.6667px">
+<span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;App=
+le Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe =
+UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:14.6667px=
+">&gt;it back down in resume.</span><br>
+</p>
+<div><br>
+</div>
+</span>Yes, this logic will be added in acp block.
+<div>In this patch, we only power down acp when it&nbsp;was not used and ha=
+ve no inpact wen s3.</div>
+</div>
+</div>
+</blockquote>
+<div><br>
+</div>
+<div>But I think when the asic comes out of S3/S4, the ACP block will be po=
+wered up again so it will have to be powered down again to avoid using powe=
+r after resume.&nbsp; So if the platform uses AZ rather than ACP, we need t=
+o handle that case and to power ACP back
+ up on hw_fini() in case the driver gets reloaded.&nbsp; S4 works similarly=
+.&nbsp; Something like the attached patch.<br>
+</div>
+<div><br>
+</div>
+<div>Alex<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp;</div>
+<blockquote class=3D"x_x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-le=
+ft:1px #ccc solid; padding-left:1ex">
+<div dir=3D"ltr">
+<div id=3D"x_x_m_-5529052118359428029divtagdefaultwrapper" dir=3D"ltr" styl=
+e=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-seri=
+f">
+<div><br>
+</div>
+<div>Best Regards</div>
+<div>Rex<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block; width:98%">
+<div id=3D"x_x_m_-5529052118359428029divRplyFwdMsg" dir=3D"ltr"><font face=
+=3D"Calibri, sans-serif" color=3D"#000000" style=3D"font-size:11pt"><b>From=
+:</b> Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_=
+blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Thursday, July 19, 2018 9:56 PM<br>
+<b>To:</b> Zhu, Rex<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Power down acp if board uses AZ=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_x_m_-5529052118359428029BodyFragment"><font size=3D"2"><spa=
+n style=3D"font-size:11pt">
+<div class=3D"x_x_m_-5529052118359428029PlainText">
+<div>
+<div class=3D"x_x_h5">On Thu, Jul 19, 2018 at 4:46 AM, Rex Zhu &lt;<a href=
+=3D"mailto:rex.zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">rex.zhu-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote=
+:<br>
+&gt; if board uses AZ rather than ACP, we power down acp<br>
+&gt; through smu to save power.<br>
+&gt;<br>
+<br>
+We also need to power it back up in hw_fini and suspend and then power<br>
+it back down in resume.<br>
+<br>
+Alex<br>
+<br>
+&gt; Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=
+=3D"_blank">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c | 8 &#43;&#43;&#43;=
+&#43;&#43;---<br>
+&gt;&nbsp; 1 file changed, 5 insertions(&#43;), 3 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c b/drivers/gp=
+u/drm/amd/amdgpu/<wbr>amdgpu_acp.c<br>
+&gt; index 71efcf3..4e18a88 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_acp.c<br>
+&gt; @@ -35,6 &#43;35,7 @@<br>
+&gt;<br>
+&gt;&nbsp; #include &quot;acp_gfx_if.h&quot;<br>
+&gt;<br>
+&gt; &#43;<br>
+&gt;&nbsp; #define ACP_TILE_ON_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; 0x03<br>
+&gt;&nbsp; #define ACP_TILE_OFF_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; 0x02<br>
+&gt;&nbsp; #define ACP_TILE_ON_RETAIN_REG_MASK&nbsp;&nbsp;&nbsp;<wbr>&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1f<br>
+&gt; @@ -289,11 &#43;290,12 @@ static int acp_hw_init(void *handle)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amd_acp_hw_init(=
+adev-&gt;acp.cgs_<wbr>device,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; ip_block-&gt;version-&gt;major, ip_block-&gt;version=
+-&gt;minor);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* -ENODEV means board=
+ uses AZ rather than ACP */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r =3D=3D -ENODEV)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r =3D=3D -ENODEV) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_dpm_set_powergating_by_<wbr>smu(adev, AMD_IP_BLO=
+CK_TYPE_ACP, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (r)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (r) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; -<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;rmmio_siz=
+e =3D=3D 0 || adev-&gt;rmmio_size &lt; 0x5289)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;<br>
+&gt; --<br>
+&gt; 1.9.1<br>
+&gt;<br>
+&gt; ______________________________<wbr>_________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
+=3D"x_x_m_-5529052118359428029LPlnk998837" class=3D"x_x_m_-5529052118359428=
+029OWAAutoLink" target=3D"_blank">
+https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a> </div>
+</div>
+<div id=3D"x_x_m_-5529052118359428029LPBorder_GT_15320131028380.70275485963=
+7317" style=3D"margin-bottom:20px; overflow:auto; width:100%; text-indent:0=
+px">
+<table id=3D"x_x_m_-5529052118359428029LPContainer_15320131028280.102507348=
+9385282" cellspacing=3D"0" style=3D"width:90%; background-color:rgb(255,255=
+,255); overflow:auto; padding-top:20px; padding-bottom:20px; margin-top:20p=
+x; border-top:1px dotted rgb(200,200,200); border-bottom:1px dotted rgb(200=
+,200,200)">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing:0px">
+<td id=3D"x_x_m_-5529052118359428029TextCell_15320131028320.991704213554636=
+8" colspan=3D"2" style=3D"vertical-align:top; padding:0px; display:table-ce=
+ll">
+<div id=3D"x_x_m_-5529052118359428029LPRemovePreviewContainer_1532013102832=
+0.024263722967099">
+</div>
+<div id=3D"x_x_m_-5529052118359428029LPTitle_15320131028320.968796259693673=
+7" style=3D"color:rgb(0,120,215); font-weight:normal; font-size:21px; font-=
+family:wf_segoe-ui_light,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&qu=
+ot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line=
+-height:21px">
+<a id=3D"x_x_m_-5529052118359428029LPUrlAnchor_15320131028340.4538000273988=
+081" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target=
+=3D"_blank" style=3D"text-decoration:none">amd-gfx Info Page - freedesktop.=
+org</a></div>
+<div id=3D"x_x_m_-5529052118359428029LPMetadata_15320131028350.132291096529=
+70839" style=3D"margin:10px 0px 16px; color:rgb(102,102,102); font-weight:n=
+ormal; font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&q=
+uot;,Tahoma,Arial,sans-serif; font-size:14px; line-height:14px">
+<a href=3D"http://lists.freedesktop.org" target=3D"_blank">lists.freedeskto=
+p.org</a></div>
+<div id=3D"x_x_m_-5529052118359428029LPDescription_15320131028370.658586957=
+9202912" style=3D"display:block; color:rgb(102,102,102); font-weight:normal=
+; font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,=
+Tahoma,Arial,sans-serif; font-size:14px; line-height:20px; max-height:100px=
+; overflow:hidden">
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all
+<a href=3D"http://freedesktop.org" target=3D"_blank">freedesktop.org</a> li=
+sts is subject to our Code of Conduct.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+<br>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB18093AB1E8BDFDAE856E6C34F7510BN6PR12MB1809namp_--
+
+--===============1520536617==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1520536617==--
