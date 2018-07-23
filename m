@@ -1,58 +1,68 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amdgpu/pm: Fix potential Spectre v1
-Date: Mon, 23 Jul 2018 11:32:32 -0500
-Message-ID: <20180723163232.GA17358@embeddedor.com>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH xf86-video-amdgpu] Use strcpy for RandR output property names
+Date: Mon, 23 Jul 2018 18:45:11 +0200
+Message-ID: <20180723164511.21547-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-idx can be indirectly controlled by user-space, hence leading to a
-potential exploitation of the Spectre variant 1 vulnerability.
-
-This issue was detected with the help of Smatch:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c:408 amdgpu_set_pp_force_state()
-warn: potential spectre issue 'data.states'
-
-Fix this by sanitizing idx before using it to index data.states
-
-Notice that given that speculation windows are large, the policy is
-to kill the speculation on the first load and not worry if it can be
-completed with a dependent load/store [1].
-
-[1] https://marc.info/?l=linux-kernel&m=152449131114778&w=2
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-index 15a1192..a446c7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -31,7 +31,7 @@
- #include <linux/power_supply.h>
- #include <linux/hwmon.h>
- #include <linux/hwmon-sysfs.h>
--
-+#include <linux/nospec.h>
- 
- static int amdgpu_debugfs_pm_init(struct amdgpu_device *adev);
- 
-@@ -403,6 +403,7 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
- 			count = -EINVAL;
- 			goto fail;
- 		}
-+		idx = array_index_nospec(idx, ARRAY_SIZE(data.states));
- 
- 		amdgpu_dpm_get_pp_num_states(adev, &data);
- 		state = data.states[idx];
--- 
-2.7.4
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpJbnN0ZWFkIG9m
+IHN0cm5jcHkgd2l0aCB0aGUgc3RyaW5nIGxlbmd0aC4gQXZvaWRzIG5ldyB3YXJuaW5ncyB3aXRo
+IEdDQwo4OgoKLi4vLi4vc3JjL2RybW1vZGVfZGlzcGxheS5jOiBJbiBmdW5jdGlvbiDigJhkcm1t
+b2RlX291dHB1dF9jcmVhdGVfcmVzb3VyY2Vz4oCZOgouLi8uLi9zcmMvZHJtbW9kZV9kaXNwbGF5
+LmM6MjI0MDoyOiB3YXJuaW5nOiDigJhzdHJuY3B54oCZIG91dHB1dCB0cnVuY2F0ZWQgYmVmb3Jl
+IHRlcm1pbmF0aW5nIG51bCBjb3B5aW5nIDggYnl0ZXMgZnJvbSBhIHN0cmluZyBvZiB0aGUgc2Ft
+ZSBsZW5ndGggWy1Xc3RyaW5nb3AtdHJ1bmNhdGlvbl0KICBzdHJuY3B5KHRlYXJmcmVlX3Byb3At
+Pm5hbWUsICJUZWFyRnJlZSIsIDgpOwogIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn4KLi4vLi4vc3JjL2RybW1vZGVfZGlzcGxheS5jOjIyNDQ6Mjogd2FybmluZzog
+4oCYc3RybmNweeKAmSBvdXRwdXQgdHJ1bmNhdGVkIGJlZm9yZSB0ZXJtaW5hdGluZyBudWwgY29w
+eWluZyAzIGJ5dGVzIGZyb20gYSBzdHJpbmcgb2YgdGhlIHNhbWUgbGVuZ3RoIFstV3N0cmluZ29w
+LXRydW5jYXRpb25dCiAgc3RybmNweSh0ZWFyZnJlZV9wcm9wLT5lbnVtc1swXS5uYW1lLCAib2Zm
+IiwgMyk7CiAgXn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4K
+Li4vLi4vc3JjL2RybW1vZGVfZGlzcGxheS5jOjIyNDU6Mjogd2FybmluZzog4oCYc3RybmNweeKA
+mSBvdXRwdXQgdHJ1bmNhdGVkIGJlZm9yZSB0ZXJtaW5hdGluZyBudWwgY29weWluZyAyIGJ5dGVz
+IGZyb20gYSBzdHJpbmcgb2YgdGhlIHNhbWUgbGVuZ3RoIFstV3N0cmluZ29wLXRydW5jYXRpb25d
+CiAgc3RybmNweSh0ZWFyZnJlZV9wcm9wLT5lbnVtc1sxXS5uYW1lLCAib24iLCAyKTsKICBefn5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Ci4uLy4uL3NyYy9kcm1t
+b2RlX2Rpc3BsYXkuYzoyMjQ3OjI6IHdhcm5pbmc6IOKAmHN0cm5jcHnigJkgb3V0cHV0IHRydW5j
+YXRlZCBiZWZvcmUgdGVybWluYXRpbmcgbnVsIGNvcHlpbmcgNCBieXRlcyBmcm9tIGEgc3RyaW5n
+IG9mIHRoZSBzYW1lIGxlbmd0aCBbLVdzdHJpbmdvcC10cnVuY2F0aW9uXQogIHN0cm5jcHkodGVh
+cmZyZWVfcHJvcC0+ZW51bXNbMl0ubmFtZSwgImF1dG8iLCA0KTsKICBefn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KClNpZ25lZC1vZmYtYnk6IE1pY2hlbCBE
+w6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0KIHNyYy9kcm1tb2RlX2Rpc3BsYXku
+YyB8IDggKysrKy0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRp
+b25zKC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5jIGIvc3JjL2RybW1vZGVf
+ZGlzcGxheS5jCmluZGV4IGIzZTc1NDAwNS4uOTJmNThjMTU3IDEwMDY0NAotLS0gYS9zcmMvZHJt
+bW9kZV9kaXNwbGF5LmMKKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCkBAIC0yMjExLDE0ICsy
+MjExLDE0IEBAIHN0YXRpYyB2b2lkIGRybW1vZGVfb3V0cHV0X2NyZWF0ZV9yZXNvdXJjZXMoeGY4
+Nk91dHB1dFB0ciBvdXRwdXQpCiAJLyogVXNlcnNwYWNlLW9ubHkgcHJvcGVydHkgZm9yIFRlYXJG
+cmVlICovCiAJdGVhcmZyZWVfcHJvcCA9IGNhbGxvYygxLCBzaXplb2YoKnRlYXJmcmVlX3Byb3Ap
+KTsKIAl0ZWFyZnJlZV9wcm9wLT5mbGFncyA9IERSTV9NT0RFX1BST1BfRU5VTTsKLQlzdHJuY3B5
+KHRlYXJmcmVlX3Byb3AtPm5hbWUsICJUZWFyRnJlZSIsIDgpOworCXN0cmNweSh0ZWFyZnJlZV9w
+cm9wLT5uYW1lLCAiVGVhckZyZWUiKTsKIAl0ZWFyZnJlZV9wcm9wLT5jb3VudF9lbnVtcyA9IDM7
+CiAJdGVhcmZyZWVfcHJvcC0+ZW51bXMgPSBjYWxsb2ModGVhcmZyZWVfcHJvcC0+Y291bnRfZW51
+bXMsCiAJCQkJICAgICAgc2l6ZW9mKCp0ZWFyZnJlZV9wcm9wLT5lbnVtcykpOwotCXN0cm5jcHko
+dGVhcmZyZWVfcHJvcC0+ZW51bXNbMF0ubmFtZSwgIm9mZiIsIDMpOwotCXN0cm5jcHkodGVhcmZy
+ZWVfcHJvcC0+ZW51bXNbMV0ubmFtZSwgIm9uIiwgMik7CisJc3RyY3B5KHRlYXJmcmVlX3Byb3At
+PmVudW1zWzBdLm5hbWUsICJvZmYiKTsKKwlzdHJjcHkodGVhcmZyZWVfcHJvcC0+ZW51bXNbMV0u
+bmFtZSwgIm9uIik7CiAJdGVhcmZyZWVfcHJvcC0+ZW51bXNbMV0udmFsdWUgPSAxOwotCXN0cm5j
+cHkodGVhcmZyZWVfcHJvcC0+ZW51bXNbMl0ubmFtZSwgImF1dG8iLCA0KTsKKwlzdHJjcHkodGVh
+cmZyZWVfcHJvcC0+ZW51bXNbMl0ubmFtZSwgImF1dG8iKTsKIAl0ZWFyZnJlZV9wcm9wLT5lbnVt
+c1syXS52YWx1ZSA9IDI7CiAJZHJtbW9kZV9vdXRwdXQtPnByb3BzW2pdLm1vZGVfcHJvcCA9IHRl
+YXJmcmVlX3Byb3A7CiAJZHJtbW9kZV9vdXRwdXQtPnByb3BzW2pdLnZhbHVlID0gaW5mby0+dGVh
+cl9mcmVlOwotLSAKMi4xOC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
