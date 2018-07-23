@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: move the amdgpu_fbdev_set_suspend() further up
-Date: Mon, 23 Jul 2018 12:42:47 +0200
-Message-ID: <9a89f900-ee09-aaf3-1bd4-dadf7fba0a56@daenzer.net>
-References: <1532340381-28557-1-git-send-email-shirish.s@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: allow slow switch only if NBPState
+ enabled v2
+Date: Mon, 23 Jul 2018 13:56:11 +0000
+Message-ID: <BN6PR12MB1809BF3837C1A76F09CEF059F7560@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180723063746.20299-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0707330576=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1532340381-28557-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <20180723063746.20299-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,19 +19,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOC0wNy0yMyAxMjowNiBQTSwgU2hpcmlzaCBTIHdyb3RlOgo+IFRoaXMgcGF0Y2ggbW92
-ZXMgYW1kZ3B1X2ZiZGV2X3NldF9zdXNwZW5kKCkgdG8gdGhlIGJlZ2lubmluZyAKPiBvZiBzdXNw
-ZW5kIHNlcXVlbmNlLgoKV291bGQgYmUgbmljZSB0byBoYXZlIHNvbWUgcmF0aW9uYWxlLCBlLmcu
-OgoKIFRoaXMgaXMgdG8gYXZvaWQgZmJjb24gdHJ5aW5nIHRvIHdyaXRlIHRvIHRoZSBHUFUncyBt
-ZW1vcnkgd2hlbiB0aGUgR1BVCiBpcyBhbHJlYWR5IHBvd2VyZWQgZG93bi4KCgpPdGhlciB0aGFu
-IHRoYXQgbG9va3MgZ3JlYXQsIHRoYW5rcy4gV2l0aCBhIHJhdGlvbmFsZSBhZGRlZCB0byB0aGUK
-Y29tbWl0IGxvZywKClJldmlld2VkLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJA
-YW1kLmNvbT4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAg
-ICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0
-ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0707330576==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809BF3837C1A76F09CEF059F7560BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809BF3837C1A76F09CEF059F7560BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
+n <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, July 23, 2018 2:37:46 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Quan, Evan; Zhu, Rex
+Subject: [PATCH] drm/amd/powerplay: allow slow switch only if NBPState enab=
+led v2
+
+Otherwise there may be potential SMU performance issues.
+
+v2: fix commit description and coding style
+
+Change-Id: I05a09bb05407f7b3705d79a1d2c6628385c80461
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 3 ++-
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 002ed77a5268..a05de8e39d6a 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -3781,7 +3781,8 @@ static int vega10_notify_smc_display_config_after_ps_=
+adjustment(
+         struct pp_display_clock_request clock_req;
+
+         if ((hwmgr->display_config->num_display > 1) &&
+-            !hwmgr->display_config->multi_monitor_in_sync)
++            !hwmgr->display_config->multi_monitor_in_sync &&
++            !hwmgr->display_config->nb_pstate_switch_disable)
+                 vega10_notify_smc_display_change(hwmgr, false);
+         else
+                 vega10_notify_smc_display_change(hwmgr, true);
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+index 35f96dacb50a..0789d64246ca 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+@@ -1389,7 +1389,8 @@ static int vega12_notify_smc_display_config_after_ps_=
+adjustment(
+         struct pp_display_clock_request clock_req;
+
+         if ((hwmgr->display_config->num_display > 1) &&
+-               !hwmgr->display_config->multi_monitor_in_sync)
++            !hwmgr->display_config->multi_monitor_in_sync &&
++            !hwmgr->display_config->nb_pstate_switch_disable)
+                 vega12_notify_smc_display_change(hwmgr, false);
+         else
+                 vega12_notify_smc_display_change(hwmgr, true);
+--
+2.18.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809BF3837C1A76F09CEF059F7560BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Monday, July 23, 2018 2:37:46 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Quan, Evan; Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: allow slow switch only if NBPSta=
+te enabled v2</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Otherwise there may be potential SMU performance i=
+ssues.<br>
+<br>
+v2: fix commit description and coding style<br>
+<br>
+Change-Id: I05a09bb05407f7b3705d79a1d2c6628385c80461<br>
+Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 3 &#43;&#43;-<br=
+>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 3 &#43;&#43;-<br=
+>
+&nbsp;2 files changed, 4 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+index 002ed77a5268..a05de8e39d6a 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+@@ -3781,7 &#43;3781,8 @@ static int vega10_notify_smc_display_config_after=
+_ps_adjustment(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_display_clock_re=
+quest clock_req;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hwmgr-&gt;display_con=
+fig-&gt;num_display &gt; 1) &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hwmgr-=
+&gt;display_config-&gt;multi_monitor_in_sync)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hw=
+mgr-&gt;display_config-&gt;multi_monitor_in_sync &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hw=
+mgr-&gt;display_config-&gt;nb_pstate_switch_disable)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega10_notify_smc_display_change(hwmgr, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega10_notify_smc_display_change(hwmgr, true);<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+index 35f96dacb50a..0789d64246ca 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+@@ -1389,7 &#43;1389,8 @@ static int vega12_notify_smc_display_config_after=
+_ps_adjustment(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_display_clock_re=
+quest clock_req;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((hwmgr-&gt;display_con=
+fig-&gt;num_display &gt; 1) &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; !hwmgr-&gt;display_config-&gt;multi_monitor_in_sync)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hw=
+mgr-&gt;display_config-&gt;multi_monitor_in_sync &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !hw=
+mgr-&gt;display_config-&gt;nb_pstate_switch_disable)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega12_notify_smc_display_change(hwmgr, false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vega12_notify_smc_display_change(hwmgr, true);<br>
+-- <br>
+2.18.0<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809BF3837C1A76F09CEF059F7560BN6PR12MB1809namp_--
+
+--===============0707330576==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0707330576==--
