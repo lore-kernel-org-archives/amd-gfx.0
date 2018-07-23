@@ -1,12 +1,11 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Don't warn on destroying a pinned BO
-Date: Mon, 23 Jul 2018 13:05:14 -0400
-Message-ID: <CADnq5_Mb6uj8OnFcr6=szKbjQf3NdUKYVzE9vigk16x50dchrQ@mail.gmail.com>
+Date: Mon, 23 Jul 2018 18:30:52 +0100
+Message-ID: <CAHbf0-F6YnM8Udn1dPJcca_TZvybz-MLiDWUPmMQfk--Lri+qw@mail.gmail.com>
 References: <20180719153955.23910-1-michel@daenzer.net>
  <b39b0ced-3a54-b18c-0e90-e829b21afd17@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0513129223=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <b39b0ced-3a54-b18c-0e90-e829b21afd17-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -20,30 +19,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gTW9uLCBKdWwgMjMsIDIwMTggYXQgMTI6NTAgUE0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxA
-ZGFlbnplci5uZXQ+IHdyb3RlOgo+IE9uIDIwMTgtMDctMTkgMDU6MzkgUE0sIE1pY2hlbCBEw6Ru
-emVyIHdyb3RlOgo+PiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNv
-bT4KPj4KPj4gVGhlIHdhcm5pbmcgdHVybmVkIG91dCB0byBiZSBub3Qgc28gdXNlZnVsLCBhcyBC
-TyBkZXN0cnVjdGlvbiB0ZW5kcyB0bwo+PiBiZSBkZWZlcnJlZCB0byBhIHdvcmtxdWV1ZS4KPj4K
-Pj4gQWxzbywgd2Ugc2hvdWxkIGJlIHByZXZlbnRpbmcgYW55IGRhbWFnZSBmcm9tIHRoaXMgbm93
-LCBzbyBub3QgcmVhbGx5Cj4+IGltcG9ydGFudCBhbnltb3JlIHRvIGZpeCBjb2RlIGRvaW5nIHRo
-aXMuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBh
-bWQuY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
-Y3QuYyB8IDIgKy0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlv
-bigtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+
-IGluZGV4IGIxMjUyNmNlMWE5ZC4uMzAxMGYwMTM2ZGU5IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+IEBAIC04OSw3ICs4OSw3IEBAIHN0YXRp
-YyB2b2lkIGFtZGdwdV90dG1fYm9fZGVzdHJveShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRi
-bykKPj4gICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYo
-dGJvLT5iZGV2KTsKPj4gICAgICAgc3RydWN0IGFtZGdwdV9ibyAqYm8gPSB0dG1fdG9fYW1kZ3B1
-X2JvKHRibyk7Cj4+Cj4+IC0gICAgIGlmIChXQVJOX09OX09OQ0UoYm8tPnBpbl9jb3VudCA+IDAp
-KQo+PiArICAgICBpZiAoYm8tPnBpbl9jb3VudCA+IDApCj4+ICAgICAgICAgICAgICAgYW1kZ3B1
-X2JvX3N1YnRyYWN0X3Bpbl9zaXplKGJvKTsKPj4KPj4gICAgICAgaWYgKGJvLT5rZmRfYm8pCj4+
-Cj4KPiBBbnkgZmVlZGJhY2s/CgpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
-Y2hlckBhbWQuY29tPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0513129223==
+Content-Type: multipart/alternative; boundary="000000000000a5955a0571ae02ec"
+
+--000000000000a5955a0571ae02ec
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+I was hitting this
+
+Feel free to add my tested by
+
+Tested-by: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+
+Cheers
+
+Mike
+
+On Mon, 23 Jul 2018 at 17:50 Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
+
+> On 2018-07-19 05:39 PM, Michel D=C3=A4nzer wrote:
+> > From: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+> >
+> > The warning turned out to be not so useful, as BO destruction tends to
+> > be deferred to a workqueue.
+> >
+> > Also, we should be preventing any damage from this now, so not really
+> > important anymore to fix code doing this.
+> >
+> > Signed-off-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > index b12526ce1a9d..3010f0136de9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> > @@ -89,7 +89,7 @@ static void amdgpu_ttm_bo_destroy(struct
+> ttm_buffer_object *tbo)
+> >       struct amdgpu_device *adev =3D amdgpu_ttm_adev(tbo->bdev);
+> >       struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(tbo);
+> >
+> > -     if (WARN_ON_ONCE(bo->pin_count > 0))
+> > +     if (bo->pin_count > 0)
+> >               amdgpu_bo_subtract_pin_size(bo);
+> >
+> >       if (bo->kfd_bo)
+> >
+>
+> Any feedback?
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer               |               http://www.amd=
+.com
+> Libre software enthusiast             |             Mesa and X developer
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--000000000000a5955a0571ae02ec
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi<div><br></div><div>I was hitting this</div><div><br></d=
+iv><div>Feel free to add my tested by</div><div><br></div><div>Tested-by: M=
+ike Lothian &lt;<a href=3D"mailto:mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org">mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org<=
+/a>&gt;</div><div><br></div><div>Cheers</div><div><br></div><div>Mike</div>=
+</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, 23 Jul 2018 a=
+t 17:50 Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel=
+@daenzer.net</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 2018=
+-07-19 05:39 PM, Michel D=C3=A4nzer wrote:<br>
+&gt; From: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org"=
+ target=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; <br>
+&gt; The warning turned out to be not so useful, as BO destruction tends to=
+<br>
+&gt; be deferred to a workqueue.<br>
+&gt; <br>
+&gt; Also, we should be preventing any damage from this now, so not really<=
+br>
+&gt; important anymore to fix code doing this.<br>
+&gt; <br>
+&gt; Signed-off-by: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer=
+@amd.com" target=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-<br>
+&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_object.c<br>
+&gt; index b12526ce1a9d..3010f0136de9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+&gt; @@ -89,7 +89,7 @@ static void amdgpu_ttm_bo_destroy(struct ttm_buffer_=
+object *tbo)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D amdgpu_ttm_ad=
+ev(tbo-&gt;bdev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(tb=
+o);<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0if (WARN_ON_ONCE(bo-&gt;pin_count &gt; 0))<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (bo-&gt;pin_count &gt; 0)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_subtra=
+ct_pin_size(bo);<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bo-&gt;kfd_bo)<br>
+&gt; <br>
+<br>
+Any feedback?<br>
+<br>
+<br>
+-- <br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div>
+
+--000000000000a5955a0571ae02ec--
+
+--===============0513129223==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0513129223==--
