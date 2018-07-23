@@ -1,13 +1,16 @@
-From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Don't warn on destroying a pinned BO
-Date: Mon, 23 Jul 2018 18:30:52 +0100
-Message-ID: <CAHbf0-F6YnM8Udn1dPJcca_TZvybz-MLiDWUPmMQfk--Lri+qw@mail.gmail.com>
-References: <20180719153955.23910-1-michel@daenzer.net>
- <b39b0ced-3a54-b18c-0e90-e829b21afd17@daenzer.net>
+From: Boyuan Zhang <boyzhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/5] drm/amdgpu: enable system interrupt for jrbc
+Date: Mon, 23 Jul 2018 15:53:05 -0400
+Message-ID: <763a42d3-c83b-2272-ec01-e11a14bdaf43@amd.com>
+References: <1531946355-17488-1-git-send-email-boyuan.zhang@amd.com>
+ <1531946355-17488-3-git-send-email-boyuan.zhang@amd.com>
+ <CADnq5_NFgHpv4Z_2scvRC8y6EYPqUtnsvGXF6g2mD4yEKuQGOw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0513129223=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b39b0ced-3a54-b18c-0e90-e829b21afd17-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <CADnq5_NFgHpv4Z_2scvRC8y6EYPqUtnsvGXF6g2mD4yEKuQGOw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,153 +21,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Boyuan Zhang <boyuan.zhang-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0513129223==
-Content-Type: multipart/alternative; boundary="000000000000a5955a0571ae02ec"
-
---000000000000a5955a0571ae02ec
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-I was hitting this
-
-Feel free to add my tested by
-
-Tested-by: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
-
-Cheers
-
-Mike
-
-On Mon, 23 Jul 2018 at 17:50 Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
-
-> On 2018-07-19 05:39 PM, Michel D=C3=A4nzer wrote:
-> > From: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
-> >
-> > The warning turned out to be not so useful, as BO destruction tends to
-> > be deferred to a workqueue.
-> >
-> > Also, we should be preventing any damage from this now, so not really
-> > important anymore to fix code doing this.
-> >
-> > Signed-off-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > index b12526ce1a9d..3010f0136de9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > @@ -89,7 +89,7 @@ static void amdgpu_ttm_bo_destroy(struct
-> ttm_buffer_object *tbo)
-> >       struct amdgpu_device *adev =3D amdgpu_ttm_adev(tbo->bdev);
-> >       struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(tbo);
-> >
-> > -     if (WARN_ON_ONCE(bo->pin_count > 0))
-> > +     if (bo->pin_count > 0)
-> >               amdgpu_bo_subtract_pin_size(bo);
-> >
-> >       if (bo->kfd_bo)
-> >
->
-> Any feedback?
->
->
-> --
-> Earthling Michel D=C3=A4nzer               |               http://www.amd=
-.com
-> Libre software enthusiast             |             Mesa and X developer
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---000000000000a5955a0571ae02ec
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi<div><br></div><div>I was hitting this</div><div><br></d=
-iv><div>Feel free to add my tested by</div><div><br></div><div>Tested-by: M=
-ike Lothian &lt;<a href=3D"mailto:mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org">mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org<=
-/a>&gt;</div><div><br></div><div>Cheers</div><div><br></div><div>Mike</div>=
-</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, 23 Jul 2018 a=
-t 17:50 Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel=
-@daenzer.net</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On 2018=
--07-19 05:39 PM, Michel D=C3=A4nzer wrote:<br>
-&gt; From: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org"=
- target=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; <br>
-&gt; The warning turned out to be not so useful, as BO destruction tends to=
-<br>
-&gt; be deferred to a workqueue.<br>
-&gt; <br>
-&gt; Also, we should be preventing any damage from this now, so not really<=
-br>
-&gt; important anymore to fix code doing this.<br>
-&gt; <br>
-&gt; Signed-off-by: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer=
-@amd.com" target=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; index b12526ce1a9d..3010f0136de9 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; @@ -89,7 +89,7 @@ static void amdgpu_ttm_bo_destroy(struct ttm_buffer_=
-object *tbo)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D amdgpu_ttm_ad=
-ev(tbo-&gt;bdev);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(tb=
-o);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (WARN_ON_ONCE(bo-&gt;pin_count &gt; 0))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (bo-&gt;pin_count &gt; 0)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_subtra=
-ct_pin_size(bo);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bo-&gt;kfd_bo)<br>
-&gt; <br>
-<br>
-Any feedback?<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-
---000000000000a5955a0571ae02ec--
-
---===============0513129223==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0513129223==--
+CgpPbiAyMDE4LTA3LTE5IDAyOjUxIFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gT24gV2VkLCBK
+dWwgMTgsIDIwMTggYXQgNDozOSBQTSwgIDxib3l1YW4uemhhbmdAYW1kLmNvbT4gd3JvdGU6Cj4+
+IEZyb206IEJveXVhbiBaaGFuZyA8Ym95dWFuLnpoYW5nQGFtZC5jb20+Cj4+Cj4+IEVuYWJsZSBz
+eXN0ZW0gaW50ZXJydXB0IGZvciBqcmJjIGR1cmluZyBlbmdpbmUgc3RhcnRpbmcgdGltZS4KPj4K
+Pj4gU2lnbmVkLW9mZi1ieTogQm95dWFuIFpoYW5nIDxib3l1YW4uemhhbmdAYW1kLmNvbT4KPj4g
+LS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYyB8IDggKysrKysr
+Ky0KPj4gICAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+
+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+PiBpbmRleCA0ZmNjYjIxLi4y
+MmMxNTg4IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFf
+MC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKPj4gQEAg
+LTU5NSw2ICs1OTUsNyBAQCBzdGF0aWMgaW50IHZjbl92MV8wX3N0YXJ0KHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQo+PiAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAmYWRl
+di0+dmNuLnJpbmdfZGVjOwo+PiAgICAgICAgICB1aW50MzJfdCByYl9idWZzeiwgdG1wOwo+PiAg
+ICAgICAgICB1aW50MzJfdCBsbWlfc3dhcF9jbnRsOwo+PiArICAgICAgIHVpbnQzMl90IHJlZ190
+ZW1wOwo+PiAgICAgICAgICBpbnQgaSwgaiwgcjsKPj4KPj4gICAgICAgICAgLyogZGlzYWJsZSBi
+eXRlIHN3YXBwaW5nICovCj4+IEBAIC03MDAsNiArNzAxLDExIEBAIHN0YXRpYyBpbnQgdmNuX3Yx
+XzBfc3RhcnQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICAgICAgICAgICAgICAgICAg
+KFVWRF9NQVNUSU5UX0VOX19WQ1BVX0VOX01BU0t8VVZEX01BU1RJTlRfRU5fX1NZU19FTl9NQVNL
+KSwKPj4gICAgICAgICAgICAgICAgICB+KFVWRF9NQVNUSU5UX0VOX19WQ1BVX0VOX01BU0t8VVZE
+X01BU1RJTlRfRU5fX1NZU19FTl9NQVNLKSk7Cj4+Cj4+ICsgICAgICAgLyogZW5hYmxlIHN5c3Rl
+bSBpbnRlcnJ1cHQgZm9yIEpSQkMqLwo+PiArICAgICAgIHJlZ190ZW1wID0gUlJFRzMyKFNPQzE1
+X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9TWVNfSU5UX0VOKSk7Cj4+ICsgICAgICAgcmVnX3Rl
+bXAgfD0gVVZEX1NZU19JTlRfRU5fX1VWRF9KUkJDX0VOX01BU0s7Cj4+ICsgICAgICAgV1JFRzMy
+KFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9TWVNfSU5UX0VOKSwgcmVnX3RlbXApOwo+
+PiArCj4gU2hvdWxkbid0IHdlIG1vdmUgdGhlIHNldHRpbmcgb2YgdGhlc2UgaW50ZXJydXB0cyBp
+bnRvCj4gdmNuX3YxXzBfc2V0X2ludGVycnVwdF9zdGF0ZSgpPyBTYW1lIGZvciB0aGUgbWFzdGlu
+dC4gIHRoYXQgd2F5IHRoZXkKPiB3aWxsIGdldCBlbmFibGVkL2Rpc2FibGVkIGFzIHBhcnQgb2Yg
+dGhlIGZlbmNlIGRyaXZlciBzZXF1ZW5jZSBJCj4gdGhpbmsuICBPciBkbyB0aGV5IG5lZWQgdG8g
+aGFwcGVuIGluIGEgc3BlY2lmaWMgc2VxdWVuY2U/Cj4KPiBBbGV4CgpIbW0uLi4gYXQgbGVhc3Qg
+Zm9yIHRoaXMgSlBFRyBzcGVjaWZpYyBjYXNlLCBpbnRlcnJ1cHQgd29uJ3QgYmUgcmFpc2VkIApk
+dXJpbmcgdGhvc2UgdGltZXMgdGhhdCB3ZSBkb24ndCBjYXJlIGFib3V0IHRoZSBpbnRlcnJ1cHQu
+IFRoaXMgaXMgbm90IApsaWtlIG90aGVyIHN5c3RlbSBjb21wb25lbnQgd2hlcmUgaW50ZXJydXB0
+IG1pZ2h0IHN0aWxsIGJlIHJhaXNlZCBldmVuIAppZiB3ZSBkb24ndCBjYXJlIGFib3V0IGl0LiBT
+byBteSBmZWVsaW5nIGlzIHRoYXQgd2hldGhlciB3ZSBkaXNhYmxlIGl0IAphdCB0aGUgYmVnaW5u
+aW5nIGFuZCBlbmFibGUgaXQgbGF0ZXIgb24sIG9yIHdlIGp1c3QgZW5hYmxlIGl0IGF0IHRoZSAK
+YmVnaW5uaW5nIGRvZXNuJ3QgcmVhbGx5IG1hdHRlciBpbiB0aGUgcHJhY3RpY2FsIHNlbnNlLgoK
+UmVnYXJkcywKQm95dWFuCgo+Cj4+ICAgICAgICAgIC8qIGNsZWFyIHRoZSBiaXQgNCBvZiBWQ05f
+U1RBVFVTICovCj4+ICAgICAgICAgIFdSRUczMl9QKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBt
+bVVWRF9TVEFUVVMpLCAwLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgfigyIDw8IFVWRF9T
+VEFUVVNfX1ZDUFVfUkVQT1JUX19TSElGVCkpOwo+PiBAQCAtMTc1NCw3ICsxNzYwLDcgQEAgc3Rh
+dGljIGNvbnN0IHN0cnVjdCBhbWRncHVfaXJxX3NyY19mdW5jcyB2Y25fdjFfMF9pcnFfZnVuY3Mg
+PSB7Cj4+Cj4+ICAgc3RhdGljIHZvaWQgdmNuX3YxXzBfc2V0X2lycV9mdW5jcyhzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldikKPj4gICB7Cj4+IC0gICAgICAgYWRldi0+dmNuLmlycS5udW1fdHlw
+ZXMgPSBhZGV2LT52Y24ubnVtX2VuY19yaW5ncyArIDE7Cj4+ICsgICAgICAgYWRldi0+dmNuLmly
+cS5udW1fdHlwZXMgPSBhZGV2LT52Y24ubnVtX2VuY19yaW5ncyArIDI7Cj4+ICAgICAgICAgIGFk
+ZXYtPnZjbi5pcnEuZnVuY3MgPSAmdmNuX3YxXzBfaXJxX2Z1bmNzOwo+PiAgIH0KPj4KPj4gLS0K
+Pj4gMi43LjQKPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
