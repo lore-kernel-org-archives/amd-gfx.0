@@ -1,138 +1,48 @@
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] mm, oom: distinguish blockable mode for mmu notifiers
-Date: Fri, 20 Jul 2018 17:09:02 -0700
-Message-ID: <20180720170902.d1137060c23802d55426aa03@linux-foundation.org>
-References: <20180716115058.5559-1-mhocko@kernel.org>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix RLC safe mode test in
+ gfx_v9_0_enter_rlc_safe_mode
+Date: Mon, 23 Jul 2018 14:33:12 +0800
+Message-ID: <5B5576A8.3070302@amd.com>
+References: <20180720163301.9376-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180716115058.5559-1-mhocko@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michal Hocko <mhocko@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, linux-mm@kvack.org, Michal Hocko <mhocko@suse.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Paolo Bonzini <pbonzini@redhat.com>, Radim =?UTF-8?Q?Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Doug Ledford <dledford@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mike Marciniszyn <mike.marciniszyn@intel.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, Sudeep Dutt <sudeep.dutt@intel.com>, Ashutosh Dixit <ashutosh.dixit@intel.com>, Dimitri Sivanich <sivanich@sgi.com>, Boris Ostrovsky <boris.ostrovsky>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180720163301.9376-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Mon, 16 Jul 2018 13:50:58 +0200 Michal Hocko <mhocko@kernel.org> wrote:
-
-> From: Michal Hocko <mhocko@suse.com>
-> 
-> There are several blockable mmu notifiers which might sleep in
-> mmu_notifier_invalidate_range_start and that is a problem for the
-> oom_reaper because it needs to guarantee a forward progress so it cannot
-> depend on any sleepable locks.
-> 
-> ...
->
-> @@ -571,7 +565,12 @@ static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
->  
->  	trace_start_task_reaping(tsk->pid);
->  
-> -	__oom_reap_task_mm(mm);
-> +	/* failed to reap part of the address space. Try again later */
-> +	if (!__oom_reap_task_mm(mm)) {
-> +		up_read(&mm->mmap_sem);
-> +		ret = false;
-> +		goto unlock_oom;
-> +	}
-
-This function is starting to look a bit screwy.
-
-: static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
-: {
-: 	if (!down_read_trylock(&mm->mmap_sem)) {
-: 		trace_skip_task_reaping(tsk->pid);
-: 		return false;
-: 	}
-: 
-: 	/*
-: 	 * MMF_OOM_SKIP is set by exit_mmap when the OOM reaper can't
-: 	 * work on the mm anymore. The check for MMF_OOM_SKIP must run
-: 	 * under mmap_sem for reading because it serializes against the
-: 	 * down_write();up_write() cycle in exit_mmap().
-: 	 */
-: 	if (test_bit(MMF_OOM_SKIP, &mm->flags)) {
-: 		up_read(&mm->mmap_sem);
-: 		trace_skip_task_reaping(tsk->pid);
-: 		return true;
-: 	}
-: 
-: 	trace_start_task_reaping(tsk->pid);
-: 
-: 	/* failed to reap part of the address space. Try again later */
-: 	if (!__oom_reap_task_mm(mm)) {
-: 		up_read(&mm->mmap_sem);
-: 		return true;
-: 	}
-: 
-: 	pr_info("oom_reaper: reaped process %d (%s), now anon-rss:%lukB, file-rss:%lukB, shmem-rss:%lukB\n",
-: 			task_pid_nr(tsk), tsk->comm,
-: 			K(get_mm_counter(mm, MM_ANONPAGES)),
-: 			K(get_mm_counter(mm, MM_FILEPAGES)),
-: 			K(get_mm_counter(mm, MM_SHMEMPAGES)));
-: 	up_read(&mm->mmap_sem);
-: 
-: 	trace_finish_task_reaping(tsk->pid);
-: 	return true;
-: }
-
-- Undocumented return value.
-
-- comment "failed to reap part..." is misleading - sounds like it's
-  referring to something which happened in the past, is in fact
-  referring to something which might happen in the future.
-
-- fails to call trace_finish_task_reaping() in one case
-
-- code duplication.
-
-
-I'm thinking it wants to be something like this?
-
-: /*
-:  * Return true if we successfully acquired (then released) mmap_sem
-:  */
-: static bool oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
-: {
-: 	if (!down_read_trylock(&mm->mmap_sem)) {
-: 		trace_skip_task_reaping(tsk->pid);
-: 		return false;
-: 	}
-: 
-: 	/*
-: 	 * MMF_OOM_SKIP is set by exit_mmap when the OOM reaper can't
-: 	 * work on the mm anymore. The check for MMF_OOM_SKIP must run
-: 	 * under mmap_sem for reading because it serializes against the
-: 	 * down_write();up_write() cycle in exit_mmap().
-: 	 */
-: 	if (test_bit(MMF_OOM_SKIP, &mm->flags)) {
-: 		trace_skip_task_reaping(tsk->pid);
-: 		goto out;
-: 	}
-: 
-: 	trace_start_task_reaping(tsk->pid);
-: 
-: 	if (!__oom_reap_task_mm(mm)) {
-: 		/* Failed to reap part of the address space. Try again later */
-: 		goto finish;
-: 	}
-: 
-: 	pr_info("oom_reaper: reaped process %d (%s), now anon-rss:%lukB, file-rss:%lukB, shmem-rss:%lukB\n",
-: 			task_pid_nr(tsk), tsk->comm,
-: 			K(get_mm_counter(mm, MM_ANONPAGES)),
-: 			K(get_mm_counter(mm, MM_FILEPAGES)),
-: 			K(get_mm_counter(mm, MM_SHMEMPAGES)));
-: finish:
-: 	trace_finish_task_reaping(tsk->pid);
-: out:
-: 	up_read(&mm->mmap_sem);
-: 	return true;
-: }
-
-- Increases mmap_sem hold time a little by moving
-  trace_finish_task_reaping() inside the locked region.  So sue me ;)
-
-- Sharing the finish: path means that the trace event won't
-  distinguish between the two sources of finishing.
-
-Please take a look?
+T24gMDcvMjEvMjAxOCAxMjozMyBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gRnJvbTogTWlj
+aGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4KPiBXZSB3ZXJlIHRlc3Rpbmcg
+dGhlIHJlZ2lzdGVyIG9mZnNldCwgaW5zdGVhZCBvZiB0aGUgdmFsdWUgc3RvcmVkIGluIHRoZQo+
+IHJlZ2lzdGVyLCB0aGVyZWZvcmUgYWx3YXlzIHRpbWluZyBvdXQgdGhlIGxvb3AuCj4KPiBUaGlz
+IHJlZHVjZXMgc3VzcGVuZCB0aW1lIG9mIHRoZSBzeXN0ZW0gaW4gdGhlIGJ1ZyByZXBvcnQgYmVs
+b3cgYnkgfjYwMAo+IG1zLgo+Cj4gQnVnemlsbGE6IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5v
+cmcvMTA3Mjc3Cj4gVGVzdGVkLWJ5OiBQYXVsIE1lbnplbCA8cG1lbnplbEBtb2xnZW4ubXBnLmRl
+Pgo+IFNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29t
+PgoKR29vZCBjYXRjaC4KClJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFt
+ZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8
+IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggOWFiMzkxMTdjYzRl
+Li5lZjAwZDE0Zjg2NDUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMK
+PiBAQCAtMzQ5MCw3ICszNDkwLDcgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfZW50ZXJfcmxjX3Nh
+ZmVfbW9kZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPgo+ICAgCQkvKiB3YWl0IGZvciBS
+TENfU0FGRV9NT0RFICovCj4gICAJCWZvciAoaSA9IDA7IGkgPCBhZGV2LT51c2VjX3RpbWVvdXQ7
+IGkrKykgewo+IC0JCQlpZiAoIVJFR19HRVRfRklFTEQoU09DMTVfUkVHX09GRlNFVChHQywgMCwg
+bW1STENfU0FGRV9NT0RFKSwgUkxDX1NBRkVfTU9ERSwgQ01EKSkKPiArCQkJaWYgKCFSRUdfR0VU
+X0ZJRUxEKFJSRUczMl9TT0MxNShHQywgMCwgbW1STENfU0FGRV9NT0RFKSwgUkxDX1NBRkVfTU9E
+RSwgQ01EKSkKPiAgIAkJCQlicmVhazsKPiAgIAkJCXVkZWxheSgxKTsKPiAgIAkJfQo+Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
