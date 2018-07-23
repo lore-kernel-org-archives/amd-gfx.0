@@ -1,106 +1,58 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amdgpu: add support for inplace IB patching for
- MM engines
-Date: Mon, 23 Jul 2018 11:52:25 -0400
-Message-ID: <CADnq5_MCKUHrcqp0w2X8e-g99QvBiEnNmZvmxQydAzzkE_iUvg@mail.gmail.com>
-References: <20180723151441.46790-1-christian.koenig@amd.com>
- <20180723151441.46790-3-christian.koenig@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/amdgpu/pm: Fix potential Spectre v1
+Date: Mon, 23 Jul 2018 11:32:32 -0500
+Message-ID: <20180723163232.GA17358@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180723151441.46790-3-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBKdWwgMjMsIDIwMTggYXQgMTE6MTQgQU0sIENocmlzdGlhbiBLw7ZuaWcKPGNrb2Vu
-aWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPiBXZSBhcmUgZ29pbmcgdG8gbmVl
-ZCB0aGF0IGZvciB0aGUgc2Vjb25kIFVWRCBpbnN0YW5jZSBvbiBWZWdhMjAuCj4KPiBTaWduZWQt
-b2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpBIGNv
-dXBsZSBvZiBuaXRzIGJlbG93LiAgUGF0Y2hlcyAxLCAyLCA0IGFyZToKUmV2aWV3ZWQtYnk6IEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgfCAgMSArCj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jICAgfCAyMiArKysrKysrKysrKysrKystLS0tLS0tCj4g
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmggfCAgMSArCj4gIDMgZmls
-ZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggYTlmMDlkYWVmZmEzLi43M2YyZjhkOTg3Y2Mg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IEBAIC0xNzUxLDYgKzE3NTEs
-NyBAQCBhbWRncHVfZ2V0X3NkbWFfaW5zdGFuY2Uoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+
-ICAjZGVmaW5lIGFtZGdwdV92bV93cml0ZV9wdGUoYWRldiwgaWIsIHBlLCB2YWx1ZSwgY291bnQs
-IGluY3IpICgoYWRldiktPnZtX21hbmFnZXIudm1fcHRlX2Z1bmNzLT53cml0ZV9wdGUoKGliKSwg
-KHBlKSwgKHZhbHVlKSwgKGNvdW50KSwgKGluY3IpKSkKPiAgI2RlZmluZSBhbWRncHVfdm1fc2V0
-X3B0ZV9wZGUoYWRldiwgaWIsIHBlLCBhZGRyLCBjb3VudCwgaW5jciwgZmxhZ3MpICgoYWRldikt
-PnZtX21hbmFnZXIudm1fcHRlX2Z1bmNzLT5zZXRfcHRlX3BkZSgoaWIpLCAocGUpLCAoYWRkciks
-IChjb3VudCksIChpbmNyKSwgKGZsYWdzKSkpCj4gICNkZWZpbmUgYW1kZ3B1X3JpbmdfcGFyc2Vf
-Y3MociwgcCwgaWIpICgociktPmZ1bmNzLT5wYXJzZV9jcygocCksIChpYikpKQo+ICsjZGVmaW5l
-IGFtZGdwdV9yaW5nX3BhdGNoX2NzKHIsIHAsIGliKSAoKHIpLT5mdW5jcy0+cGF0Y2hfY3MoKHAp
-LCAoaWIpKSkKPiAgI2RlZmluZSBhbWRncHVfcmluZ190ZXN0X3JpbmcocikgKHIpLT5mdW5jcy0+
-dGVzdF9yaW5nKChyKSkKPiAgI2RlZmluZSBhbWRncHVfcmluZ190ZXN0X2liKHIsIHQpIChyKS0+
-ZnVuY3MtPnRlc3RfaWIoKHIpLCAodCkpCj4gICNkZWZpbmUgYW1kZ3B1X3JpbmdfZ2V0X3JwdHIo
-cikgKHIpLT5mdW5jcy0+Z2V0X3JwdHIoKHIpKQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9jcy5jCj4gaW5kZXggN2M1Y2MzM2QwY2RhLi5iNzg0MGU0YmI5NTggMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+IEBAIC05MTYsNyArOTE2LDcgQEAgc3Rh
-dGljIGludCBhbWRncHVfY3NfaWJfdm1fY2h1bmsoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-Cj4gICAgICAgICBpbnQgcjsKPgo+ICAgICAgICAgLyogT25seSBmb3IgVVZEL1ZDRSBWTSBlbXVs
-YXRpb24gKi8KPiAtICAgICAgIGlmIChwLT5yaW5nLT5mdW5jcy0+cGFyc2VfY3MpIHsKPiArICAg
-ICAgIGlmIChwLT5yaW5nLT5mdW5jcy0+cGFyc2VfY3MgfHwgcC0+cmluZy0+ZnVuY3MtPnBhdGNo
-X2NzKSB7Cj4gICAgICAgICAgICAgICAgIHVuc2lnbmVkIGksIGo7Cj4KPiAgICAgICAgICAgICAg
-ICAgZm9yIChpID0gMCwgaiA9IDA7IGkgPCBwLT5uY2h1bmtzICYmIGogPCBwLT5qb2ItPm51bV9p
-YnM7IGkrKykgewo+IEBAIC05NTcsMTIgKzk1NywyMCBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19p
-Yl92bV9jaHVuayhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgICAgICAgICAg
-ICAgICAgICBvZmZzZXQgPSBtLT5zdGFydCAqIEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIGtwdHIgKz0gdmFfc3RhcnQgLSBvZmZzZXQ7Cj4KPiAtICAgICAg
-ICAgICAgICAgICAgICAgICBtZW1jcHkoaWItPnB0ciwga3B0ciwgY2h1bmtfaWItPmliX2J5dGVz
-KTsKPiAtICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfYm9fa3VubWFwKGFvYmopOwo+IC0K
-PiAtICAgICAgICAgICAgICAgICAgICAgICByID0gYW1kZ3B1X3JpbmdfcGFyc2VfY3MocmluZywg
-cCwgaik7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgaWYgKHIpCj4gLSAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICByZXR1cm4gcjsKPiArICAgICAgICAgICAgICAgICAgICAgICBpZiAo
-cC0+cmluZy0+ZnVuY3MtPnBhcnNlX2NzKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBtZW1jcHkoaWItPnB0ciwga3B0ciwgY2h1bmtfaWItPmliX2J5dGVzKTsKPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9ib19rdW5tYXAoYW9iaik7Cj4gKwo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgciA9IGFtZGdwdV9yaW5nX3BhcnNlX2NzKHJp
-bmcsIHAsIGopOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHIpCj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByOwo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIH0gZWxzZSB7CgpNYXliZSBtYWtlIHRoaXMgaWYgKHAtPnJpbmctPmZ1
-bmNzLT5wYXRjaF9jcykgez8gIE5vdCBhIGJpZyBkZWFsCmVpdGhlciB3YXkuICBJIGRvdWJ0IHdl
-J2QgZXZlcnkgaGF2ZSBib3RoIGNhbGxiYWNrcyBkZWZpbmVkLgoKPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGliLT5wdHIgPSAodWludDMyX3QgKilrcHRyOwo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgciA9IGFtZGdwdV9yaW5nX3BhdGNoX2NzKHJpbmcsIHAsIGop
-Owo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2t1bm1hcChhb2Jq
-KTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChyKQo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsKPiArICAgICAgICAgICAgICAg
-ICAgICAgICB9Cj4KPiAgICAgICAgICAgICAgICAgICAgICAgICBqKys7Cj4gICAgICAgICAgICAg
-ICAgIH0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jp
-bmcuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgKPiBpbmRleCA1
-MDE4YzBiNmJmMWEuLjI0YzA4MjM4MTQ4OCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcmluZy5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3JpbmcuaAo+IEBAIC0xMjMsNiArMTIzLDcgQEAgc3RydWN0IGFtZGdwdV9yaW5n
-X2Z1bmNzIHsKPiAgICAgICAgIHZvaWQgKCpzZXRfd3B0cikoc3RydWN0IGFtZGdwdV9yaW5nICpy
-aW5nKTsKPiAgICAgICAgIC8qIHZhbGlkYXRpbmcgYW5kIHBhdGNoaW5nIG9mIElCcyAqLwo+ICAg
-ICAgICAgaW50ICgqcGFyc2VfY3MpKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLCB1aW50MzJf
-dCBpYl9pZHgpOwo+ICsgICAgICAgaW50ICgqcGF0Y2hfY3MpKHN0cnVjdCBhbWRncHVfY3NfcGFy
-c2VyICpwLCB1aW50MzJfdCBpYl9pZHgpOwoKQ2FuIHdlIGNvbWUgdXAgd2l0aCBhIGJldHRlciBu
-YW1lPyAgcGFyc2Vfdm1fY3MoKSBvcgpwYXRjaF9pbl9wbGFjZV9jcygpIG9yIHNvbWV0aGluZyBs
-aWtlIHRoYXQgZm9yIGNvbnNpc3RlbmN5PwoKCkFsZXgKCgo+ICAgICAgICAgLyogY29uc3RhbnRz
-IHRvIGNhbGN1bGF0ZSBob3cgbWFueSBEVyBhcmUgbmVlZGVkIGZvciBhbiBlbWl0ICovCj4gICAg
-ICAgICB1bnNpZ25lZCBlbWl0X2ZyYW1lX3NpemU7Cj4gICAgICAgICB1bnNpZ25lZCBlbWl0X2li
-X3NpemU7Cj4gLS0KPiAyLjE0LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+idx can be indirectly controlled by user-space, hence leading to a
+potential exploitation of the Spectre variant 1 vulnerability.
+
+This issue was detected with the help of Smatch:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c:408 amdgpu_set_pp_force_state()
+warn: potential spectre issue 'data.states'
+
+Fix this by sanitizing idx before using it to index data.states
+
+Notice that given that speculation windows are large, the policy is
+to kill the speculation on the first load and not worry if it can be
+completed with a dependent load/store [1].
+
+[1] https://marc.info/?l=linux-kernel&m=152449131114778&w=2
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index 15a1192..a446c7c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -31,7 +31,7 @@
+ #include <linux/power_supply.h>
+ #include <linux/hwmon.h>
+ #include <linux/hwmon-sysfs.h>
+-
++#include <linux/nospec.h>
+ 
+ static int amdgpu_debugfs_pm_init(struct amdgpu_device *adev);
+ 
+@@ -403,6 +403,7 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+ 			count = -EINVAL;
+ 			goto fail;
+ 		}
++		idx = array_index_nospec(idx, ARRAY_SIZE(data.states));
+ 
+ 		amdgpu_dpm_get_pp_num_states(adev, &data);
+ 		state = data.states[idx];
+-- 
+2.7.4
