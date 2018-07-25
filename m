@@ -1,60 +1,44 @@
-From: Michal Hocko <mhocko@kernel.org>
-Subject: Re: [PATCH] mm, oom: distinguish blockable mode for mmu notifiers
-Date: Wed, 25 Jul 2018 08:17:22 +0200
-Message-ID: <20180725061722.GT28386@dhcp22.suse.cz>
-References: <20180716115058.5559-1-mhocko@kernel.org>
- <20180720170902.d1137060c23802d55426aa03@linux-foundation.org>
- <20180724141747.GP28386@dhcp22.suse.cz>
- <20180724125307.d6035c447adf46b2d74dfbd7@linux-foundation.org>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/gmc9: clarify GPUVM fault error message
+Date: Wed, 25 Jul 2018 14:49:21 +0800
+Message-ID: <5B581D71.9000702@amd.com>
+References: <20180724165414.24442-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20180724125307.d6035c447adf46b2d74dfbd7@linux-foundation.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, linux-mm@kvack.org, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Paolo Bonzini <pbonzini@redhat.com>, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Doug Ledford <dledford@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mike Marciniszyn <mike.marciniszyn@intel.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, Sudeep Dutt <sudeep.dutt@intel.com>, Ashutosh Dixit <ashutosh.dixit@intel.com>, Dimitri Sivanich <sivanich@sgi.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.co>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180724165414.24442-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Tue 24-07-18 12:53:07, Andrew Morton wrote:
-[...]
-> > On top of that the proposed cleanup looks as follows:
-> > 
-> 
-> Looks good to me.  Seems a bit strange that we omit the pr_info()
-> output if the mm was partially reaped - people would still want to know
-> this?   Not very important though.
-
-I think that having a single output once we are done is better but I do
-not have a strong opinion on this.
-
-Btw. here is the changelog for the cleanup.
-
-"
-Andrew has noticed someinconsistencies in oom_reap_task_mm. Notably
- - Undocumented return value.
-
- - comment "failed to reap part..." is misleading - sounds like it's
-   referring to something which happened in the past, is in fact
-   referring to something which might happen in the future.
-
- - fails to call trace_finish_task_reaping() in one case
-
- - code duplication.
-
- - Increases mmap_sem hold time a little by moving
-   trace_finish_task_reaping() inside the locked region.  So sue me ;)
-
- - Sharing the finish: path means that the trace event won't
-   distinguish between the two sources of finishing.
-
-Add a short explanation for the return value and fix the rest by
-reorganizing the function a bit to have unified function exit paths.
-
-Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Michal Hocko <mhocko@suse.com>
-"
-
--- 
-Michal Hocko
-SUSE Labs
+T24gMDcvMjUvMjAxOCAxMjo1NCBBTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IFRoZSBhZGRyZXNz
+IHByaW50ZWQgaXMgdGhlIGFjdHVhbCBhZGRyZXNzLCBub3QgdGhlIHBhZ2UuCj4KPiBTaWduZWQt
+b2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CiAgUmV2aWV3
+ZWQtYnk6IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwgMiArLQo+ICAgMSBmaWxlIGNoYW5n
+ZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dtY192OV8wLmMKPiBpbmRleCA5ZGY5NGI0NWQxN2QuLjM5OWE1ZGIyNzY0OSAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwo+IEBAIC0yNjksNyArMjY5LDcgQEAg
+c3RhdGljIGludCBnbWNfdjlfMF9wcm9jZXNzX2ludGVycnVwdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKPiAgIAkJCWVudHJ5LT5zcmNfaWQsIGVudHJ5LT5yaW5nX2lkLCBlbnRyeS0+dm1p
+ZCwKPiAgIAkJCWVudHJ5LT5wYXNpZCwgdGFza19pbmZvLnByb2Nlc3NfbmFtZSwgdGFza19pbmZv
+LnRnaWQsCj4gICAJCQl0YXNrX2luZm8udGFza19uYW1lLCB0YXNrX2luZm8ucGlkKTsKPiAtCQlk
+ZXZfZXJyKGFkZXYtPmRldiwgIiAgYXQgcGFnZSAweCUwMTZsbHggZnJvbSAlZFxuIiwKPiArCQlk
+ZXZfZXJyKGFkZXYtPmRldiwgIiAgYXQgYWRkcmVzcyAweCUwMTZsbHggZnJvbSAlZFxuIiwKPiAg
+IAkJCWFkZHIsIGVudHJ5LT5jbGllbnRfaWQpOwo+ICAgCQlpZiAoIWFtZGdwdV9zcmlvdl92Zihh
+ZGV2KSkKPiAgIAkJCWRldl9lcnIoYWRldi0+ZGV2LAo+Cl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
