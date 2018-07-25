@@ -1,17 +1,13 @@
-From: Boyuan Zhang <boyzhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/5] drm/amdgpu: enable system interrupt for jrbc
-Date: Wed, 25 Jul 2018 10:01:04 -0400
-Message-ID: <7b6ce506-ec36-6f91-cdef-3e0b21969018@amd.com>
-References: <1531946355-17488-1-git-send-email-boyuan.zhang@amd.com>
- <1531946355-17488-3-git-send-email-boyuan.zhang@amd.com>
- <CADnq5_NFgHpv4Z_2scvRC8y6EYPqUtnsvGXF6g2mD4yEKuQGOw@mail.gmail.com>
- <763a42d3-c83b-2272-ec01-e11a14bdaf43@amd.com>
- <720bdbc9-eed9-42de-2547-654713e0d20b@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/pp: Convert voltage unit in mV*4 to mV on
+ CZ/ST
+Date: Wed, 25 Jul 2018 14:45:38 +0000
+Message-ID: <BN6PR12MB180985FD16A196F854CCCB59F7540@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1532494993-23009-1-git-send-email-rex.zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0023253510=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <720bdbc9-eed9-42de-2547-654713e0d20b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1532494993-23009-1-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,81 +19,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Boyuan Zhang <boyuan.zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE4LTA3LTI0IDA4OjUwIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDIz
-LjA3LjIwMTggdW0gMjE6NTMgc2NocmllYiBCb3l1YW4gWmhhbmc6Cj4+Cj4+Cj4+IE9uIDIwMTgt
-MDctMTkgMDI6NTEgUE0sIEFsZXggRGV1Y2hlciB3cm90ZToKPj4+IE9uIFdlZCwgSnVsIDE4LCAy
-MDE4IGF0IDQ6MzkgUE0sIDxib3l1YW4uemhhbmdAYW1kLmNvbT4gd3JvdGU6Cj4+Pj4gRnJvbTog
-Qm95dWFuIFpoYW5nIDxib3l1YW4uemhhbmdAYW1kLmNvbT4KPj4+Pgo+Pj4+IEVuYWJsZSBzeXN0
-ZW0gaW50ZXJydXB0IGZvciBqcmJjIGR1cmluZyBlbmdpbmUgc3RhcnRpbmcgdGltZS4KPj4+Pgo+
-Pj4+IFNpZ25lZC1vZmYtYnk6IEJveXVhbiBaaGFuZyA8Ym95dWFuLnpoYW5nQGFtZC5jb20+Cj4+
-Pj4gLS0tCj4+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYyB8IDgg
-KysrKysrKy0KPj4+PiDCoCAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0
-aW9uKC0pCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dmNuX3YxXzAuYyAKPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMK
-Pj4+PiBpbmRleCA0ZmNjYjIxLi4yMmMxNTg4IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS92Y25fdjFfMC5jCj4+Pj4gQEAgLTU5NSw2ICs1OTUsNyBAQCBzdGF0aWMgaW50IHZj
-bl92MV8wX3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlIAo+Pj4+ICphZGV2KQo+Pj4+IMKgwqDC
-oMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFkZXYtPnZjbi5yaW5nX2Rl
-YzsKPj4+PiDCoMKgwqDCoMKgwqDCoMKgIHVpbnQzMl90IHJiX2J1ZnN6LCB0bXA7Cj4+Pj4gwqDC
-oMKgwqDCoMKgwqDCoCB1aW50MzJfdCBsbWlfc3dhcF9jbnRsOwo+Pj4+ICvCoMKgwqDCoMKgwqAg
-dWludDMyX3QgcmVnX3RlbXA7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoCBpbnQgaSwgaiwgcjsKPj4+
-Pgo+Pj4+IMKgwqDCoMKgwqDCoMKgwqAgLyogZGlzYWJsZSBieXRlIHN3YXBwaW5nICovCj4+Pj4g
-QEAgLTcwMCw2ICs3MDEsMTEgQEAgc3RhdGljIGludCB2Y25fdjFfMF9zdGFydChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAKPj4+PiAqYWRldikKPj4+PiAoVVZEX01BU1RJTlRfRU5fX1ZDUFVfRU5fTUFT
-S3xVVkRfTUFTVElOVF9FTl9fU1lTX0VOX01BU0spLAo+Pj4+IH4oVVZEX01BU1RJTlRfRU5fX1ZD
-UFVfRU5fTUFTS3xVVkRfTUFTVElOVF9FTl9fU1lTX0VOX01BU0spKTsKPj4+Pgo+Pj4+ICvCoMKg
-wqDCoMKgwqAgLyogZW5hYmxlIHN5c3RlbSBpbnRlcnJ1cHQgZm9yIEpSQkMqLwo+Pj4+ICvCoMKg
-wqDCoMKgwqAgcmVnX3RlbXAgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChVVkQsIDAsIG1tVVZE
-X1NZU19JTlRfRU4pKTsKPj4+PiArwqDCoMKgwqDCoMKgIHJlZ190ZW1wIHw9IFVWRF9TWVNfSU5U
-X0VOX19VVkRfSlJCQ19FTl9NQVNLOwo+Pj4+ICvCoMKgwqDCoMKgwqAgV1JFRzMyKFNPQzE1X1JF
-R19PRkZTRVQoVVZELCAwLCBtbVVWRF9TWVNfSU5UX0VOKSwgcmVnX3RlbXApOwo+Pj4+ICsKPj4+
-IFNob3VsZG4ndCB3ZSBtb3ZlIHRoZSBzZXR0aW5nIG9mIHRoZXNlIGludGVycnVwdHMgaW50bwo+
-Pj4gdmNuX3YxXzBfc2V0X2ludGVycnVwdF9zdGF0ZSgpPyBTYW1lIGZvciB0aGUgbWFzdGludC7C
-oCB0aGF0IHdheSB0aGV5Cj4+PiB3aWxsIGdldCBlbmFibGVkL2Rpc2FibGVkIGFzIHBhcnQgb2Yg
-dGhlIGZlbmNlIGRyaXZlciBzZXF1ZW5jZSBJCj4+PiB0aGluay7CoCBPciBkbyB0aGV5IG5lZWQg
-dG8gaGFwcGVuIGluIGEgc3BlY2lmaWMgc2VxdWVuY2U/Cj4+Pgo+Pj4gQWxleAo+Pgo+PiBIbW0u
-Li4gYXQgbGVhc3QgZm9yIHRoaXMgSlBFRyBzcGVjaWZpYyBjYXNlLCBpbnRlcnJ1cHQgd29uJ3Qg
-YmUgCj4+IHJhaXNlZCBkdXJpbmcgdGhvc2UgdGltZXMgdGhhdCB3ZSBkb24ndCBjYXJlIGFib3V0
-IHRoZSBpbnRlcnJ1cHQuIAo+PiBUaGlzIGlzIG5vdCBsaWtlIG90aGVyIHN5c3RlbSBjb21wb25l
-bnQgd2hlcmUgaW50ZXJydXB0IG1pZ2h0IHN0aWxsIAo+PiBiZSByYWlzZWQgZXZlbiBpZiB3ZSBk
-b24ndCBjYXJlIGFib3V0IGl0LiBTbyBteSBmZWVsaW5nIGlzIHRoYXQgCj4+IHdoZXRoZXIgd2Ug
-ZGlzYWJsZSBpdCBhdCB0aGUgYmVnaW5uaW5nIGFuZCBlbmFibGUgaXQgbGF0ZXIgb24sIG9yIHdl
-IAo+PiBqdXN0IGVuYWJsZSBpdCBhdCB0aGUgYmVnaW5uaW5nIGRvZXNuJ3QgcmVhbGx5IG1hdHRl
-ciBpbiB0aGUgCj4+IHByYWN0aWNhbCBzZW5zZS4KPgo+IEkgYWdyZWUgd2l0aCBBbGV4IGhlcmUu
-IFdoaWxlIHdlIGN1cnJlbnRseSBkb24ndCB1c2UgdGhhdCBtdWNoIHdlIAo+IHdvdWxkIHN0aWxs
-IGxpa2UgdG8gYmUgYWJsZSB0byBjb250cm9sIGludGVycnVwdHMgYW5kIG5vdCBqdXN0IAo+IHNp
-bGVudGx5IGVuYWJsZSB0aGVtIGFsbCB0aGUgdGltZS4KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFu
-LgoKWWVzLCBJIGFncmVlIHdpdGggeW91IGFuZCBBbGV4IGluIHRlcm1zIG9mIGNvbnRyb2xsaW5n
-IGludGVycnVwdHMuIEkgZGlkIAphIHF1aWNrIHRyeSBmcm9tIG15IHNpZGUgeWVzdGVyZGF5LCBp
-dCBzZWVtcyB0aGF0IAoidmNuX3YxXzBfc2V0X2ludGVycnVwdF9zdGF0ZSgpIiBpcyBub3QgYmVp
-bmcgY2FsbGVkIGluIGZlbmNlIGRyaXZlciAKc2VxdWVuY2UsIGFuZCBub3Qgb25seSBmb3IganBl
-ZyBidXQgZm9yIHZjbiBpbiBnZW5lcmFsLiBJIHNhdyB0aGF0IHRoZSAKY3VycmVudCAidmNuX3Yx
-XzBfc2V0X2ludGVycnVwdF9zdGF0ZSgpIiBqdXN0IHJldHVybnMgMCwgaXMgdGhlcmUgYW55IApy
-ZWFzb24gdGhhdCB3ZSBkaWRuJ3QgdXNlIHRoaXMgZnVuY3Rpb24gYmVmb3JlPyBTZWVtcyBsaWtl
-IHRoaXMgaXMgb24gCnB1cnBvc2UgdG8gbWUuIEFueSBpbmZvcm1hdGlvbiByZWdhcmRpbmcgdG8g
-dGhpcz8KClJlZ2FyZHMsCkJveXVhbgoKPgo+Pgo+PiBSZWdhcmRzLAo+PiBCb3l1YW4KPj4KPj4+
-Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoCAvKiBjbGVhciB0aGUgYml0IDQgb2YgVkNOX1NUQVRVUyAq
-Lwo+Pj4+IMKgwqDCoMKgwqDCoMKgwqAgV1JFRzMyX1AoU09DMTVfUkVHX09GRlNFVChVVkQsIDAs
-IG1tVVZEX1NUQVRVUyksIDAsCj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIH4oMiA8PCBVVkRfU1RBVFVTX19WQ1BVX1JFUE9SVF9fU0hJRlQpKTsK
-Pj4+PiBAQCAtMTc1NCw3ICsxNzYwLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfaXJx
-X3NyY19mdW5jcyAKPj4+PiB2Y25fdjFfMF9pcnFfZnVuY3MgPSB7Cj4+Pj4KPj4+PiDCoCBzdGF0
-aWMgdm9pZCB2Y25fdjFfMF9zZXRfaXJxX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQo+Pj4+IMKgIHsKPj4+PiAtwqDCoMKgwqDCoMKgIGFkZXYtPnZjbi5pcnEubnVtX3R5cGVzID0g
-YWRldi0+dmNuLm51bV9lbmNfcmluZ3MgKyAxOwo+Pj4+ICvCoMKgwqDCoMKgwqAgYWRldi0+dmNu
-LmlycS5udW1fdHlwZXMgPSBhZGV2LT52Y24ubnVtX2VuY19yaW5ncyArIDI7Cj4+Pj4gwqDCoMKg
-wqDCoMKgwqDCoCBhZGV2LT52Y24uaXJxLmZ1bmNzID0gJnZjbl92MV8wX2lycV9mdW5jczsKPj4+
-PiDCoCB9Cj4+Pj4KPj4+PiAtLSAKPj4+PiAyLjcuNAo+Pj4+Cj4+Pj4gX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlz
-dAo+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4gaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4+Cj4+IF9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBs
-aXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+CgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0023253510==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180985FD16A196F854CCCB59F7540BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180985FD16A196F854CCCB59F7540BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<rex.zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, July 25, 2018 1:03:12 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 1/2] drm/amd/pp: Convert voltage unit in mV*4 to mV on CZ/S=
+T
+
+the voltage showed in debugfs and hwmon should be in mV
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+index cafa822..b863704 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+@@ -244,6 +244,7 @@ static int smu8_initialize_dpm_defaults(struct pp_hwmgr=
+ *hwmgr)
+         return 0;
+ }
+
++/* convert form 8bit vid to real voltage in mV*4 */
+ static uint32_t smu8_convert_8Bit_index_to_voltage(
+                         struct pp_hwmgr *hwmgr, uint16_t voltage)
+ {
+@@ -1707,13 +1708,13 @@ static int smu8_read_sensor(struct pp_hwmgr *hwmgr,=
+ int idx,
+         case AMDGPU_PP_SENSOR_VDDNB:
+                 tmp =3D (cgs_read_ind_register(hwmgr->device, CGS_IND_REG_=
+_SMC, ixSMUSVI_NB_CURRENTVID) &
+                         CURRENT_NB_VID_MASK) >> CURRENT_NB_VID__SHIFT;
+-               vddnb =3D smu8_convert_8Bit_index_to_voltage(hwmgr, tmp);
++               vddnb =3D smu8_convert_8Bit_index_to_voltage(hwmgr, tmp) / =
+4;
+                 *((uint32_t *)value) =3D vddnb;
+                 return 0;
+         case AMDGPU_PP_SENSOR_VDDGFX:
+                 tmp =3D (cgs_read_ind_register(hwmgr->device, CGS_IND_REG_=
+_SMC, ixSMUSVI_GFX_CURRENTVID) &
+                         CURRENT_GFX_VID_MASK) >> CURRENT_GFX_VID__SHIFT;
+-               vddgfx =3D smu8_convert_8Bit_index_to_voltage(hwmgr, (u16)t=
+mp);
++               vddgfx =3D smu8_convert_8Bit_index_to_voltage(hwmgr, (u16)t=
+mp) / 4;
+                 *((uint32_t *)value) =3D vddgfx;
+                 return 0;
+         case AMDGPU_PP_SENSOR_UVD_VCLK:
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180985FD16A196F854CCCB59F7540BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Wednesday, July 25, 2018 1:03:12 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 1/2] drm/amd/pp: Convert voltage unit in mV*4 to mV =
+on CZ/ST</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">the voltage showed in debugfs and hwmon should be =
+in mV<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c | 5 &#43;&#43;&#43;-=
+-<br>
+&nbsp;1 file changed, 3 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+index cafa822..b863704 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+@@ -244,6 &#43;244,7 @@ static int smu8_initialize_dpm_defaults(struct pp_h=
+wmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;/* convert form 8bit vid to real voltage in mV*4 */<br>
+&nbsp;static uint32_t smu8_convert_8Bit_index_to_voltage(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struc=
+t pp_hwmgr *hwmgr, uint16_t voltage)<br>
+&nbsp;{<br>
+@@ -1707,13 &#43;1708,13 @@ static int smu8_read_sensor(struct pp_hwmgr *hw=
+mgr, int idx,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_VDDN=
+B:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; tmp =3D (cgs_read_ind_register(hwmgr-&gt;device, CGS_=
+IND_REG__SMC, ixSMUSVI_NB_CURRENTVID) &amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CURRE=
+NT_NB_VID_MASK) &gt;&gt; CURRENT_NB_VID__SHIFT;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; vddnb =3D smu8_convert_8Bit_index_to_voltage(hwmgr, tmp);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; vddnb =3D smu8_convert_8Bit_index_to_voltage(hwmgr, tmp) / 4=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D vddnb;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_VDDG=
+FX:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; tmp =3D (cgs_read_ind_register(hwmgr-&gt;device, CGS_=
+IND_REG__SMC, ixSMUSVI_GFX_CURRENTVID) &amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CURRE=
+NT_GFX_VID_MASK) &gt;&gt; CURRENT_GFX_VID__SHIFT;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; vddgfx =3D smu8_convert_8Bit_index_to_voltage(hwmgr, (u16)tmp);<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; vddgfx =3D smu8_convert_8Bit_index_to_voltage(hwmgr, (u16)tm=
+p) / 4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D vddgfx;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_UVD_=
+VCLK:<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180985FD16A196F854CCCB59F7540BN6PR12MB1809namp_--
+
+--===============0023253510==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0023253510==--
