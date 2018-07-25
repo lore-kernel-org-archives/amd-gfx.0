@@ -1,15 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] gpu/drm/radeon: Do not evict VRAM with disabled HIBERNATE
-Date: Wed, 25 Jul 2018 12:09:20 +0200
-Message-ID: <59b3af36-904c-bec5-40c6-9922dc6d1de4@gmail.com>
-References: <495ce9ce-3111-d613-4202-d312a9c12242@molgen.mpg.de>
- <e913459a-8d1f-7f79-0b91-b60030ac7c03@gmail.com>
- <1525c8cd-75b8-9b1b-1e43-ca18c5a507bb@molgen.mpg.de>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: fix a reversed condition
+Date: Wed, 25 Jul 2018 10:13:51 +0000
+Message-ID: <SN6PR12MB2656202D455BF4EC3E6C21C8E4540@SN6PR12MB2656.namprd12.prod.outlook.com>
+References: <1532494993-23009-1-git-send-email-rex.zhu@amd.com>,
+ <1532494993-23009-2-git-send-email-rex.zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1182621335=="
+Content-Type: multipart/mixed; boundary="===============1843275931=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1525c8cd-75b8-9b1b-1e43-ca18c5a507bb-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
+In-Reply-To: <1532494993-23009-2-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,173 +19,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1182621335==
-Content-Type: multipart/alternative;
- boundary="------------0763612F6CE426887DAFFAC5"
+--===============1843275931==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_"
 
-This is a multi-part message in MIME format.
---------------0763612F6CE426887DAFFAC5
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Am 25.07.2018 um 11:34 schrieb Paul Menzel:
-> Dear Christian,
->
->
-> On 07/25/18 10:34, Christian König wrote:
->> Am 25.07.2018 um 00:15 schrieb Paul Menzel:
->>> From: Paul Menzel <pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
->>> Date: Wed, 18 Jul 2018 18:15:44 +0200
->>>
->>> Improve commit d796d844 (drm/radeon/kms: make hibernate work on IGPs) to
->>> only migrate VRAM objects if the Linux kernel is actually built with
->>> support for hibernation (suspend to disk).
->>>
->>> Link: https://bugs.freedesktop.org/show_bug.cgi?id=107277
->>> Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
->>> Signed-off-by: Paul Menzel <pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
->> At least a step into the right direction.
-> There is also the *nohibernate* keyword for the Linux command line.
+Series is Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-Well in general it would be better to get that information from the PM 
-subsystem during suspend.
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<rex.zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, July 25, 2018 1:03:13 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 2/2] drm/amdgpu: fix a reversed condition
 
-IIRC in amdgpu we already distinct between suspend and freez in 
-amdgpu_device_suspend().
+This test was reversed so it would end up leading to vddnb value
+can't be read on APU.
 
-So that information just needs to be passed on to amdgpu_evict_vram().
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On radeon it is probably a bit more work to implement this.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c
+index 15a1192..23fc1d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -1185,7 +1185,7 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct device =
+*dev,
+         int r, size =3D sizeof(vddnb);
 
-Regards,
-Christian.
+         /* only APUs have vddnb */
+-       if  (adev->flags & AMD_IS_APU)
++       if  (!(adev->flags & AMD_IS_APU))
+                 return -EINVAL;
 
->
->> nohibernate     [HIBERNATION] Disable hibernation and resume.
-> I need to investigate, if that can be considered too.
->
->> Patch is Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>, but we
->> are also going to need one for amdgpu.
-> Indeed. I can prepare that too.
->
->
-> Kind regards,
->
-> Paul
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+         /* Can't get voltage when the card is off */
+--
+1.9.1
 
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---------------0763612F6CE426887DAFFAC5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+--_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 25.07.2018 um 11:34 schrieb Paul
-      Menzel:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1525c8cd-75b8-9b1b-1e43-ca18c5a507bb-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">
-      <pre wrap="">Dear Christian,
-
-
-On 07/25/18 10:34, Christian König wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Am 25.07.2018 um 00:15 schrieb Paul Menzel:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">From: Paul Menzel <a class="moz-txt-link-rfc2396E" href="mailto:pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">&lt;pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org&gt;</a>
-Date: Wed, 18 Jul 2018 18:15:44 +0200
-
-Improve commit d796d844 (drm/radeon/kms: make hibernate work on IGPs) to
-only migrate VRAM objects if the Linux kernel is actually built with
-support for hibernation (suspend to disk).
-
-Link: <a class="moz-txt-link-freetext" href="https://bugs.freedesktop.org/show_bug.cgi?id=107277">https://bugs.freedesktop.org/show_bug.cgi?id=107277</a>
-Cc: <a class="moz-txt-link-abbreviated" href="mailto:stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org">stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org</a>
-Signed-off-by: Paul Menzel <a class="moz-txt-link-rfc2396E" href="mailto:pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">&lt;pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org&gt;</a>
-</pre>
-        </blockquote>
-        <pre wrap="">
-At least a step into the right direction.
-</pre>
-      </blockquote>
-      <pre wrap="">
-There is also the *nohibernate* keyword for the Linux command line.</pre>
-    </blockquote>
-    <br>
-    Well in general it would be better to get that information from the
-    PM subsystem during suspend.<br>
-    <br>
-    IIRC in amdgpu we already distinct between suspend and freez in
-    amdgpu_device_suspend().<br>
-    <br>
-    So that information just needs to be passed on to
-    amdgpu_evict_vram().<br>
-    <br>
-    On radeon it is probably a bit more work to implement this.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:1525c8cd-75b8-9b1b-1e43-ca18c5a507bb-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org">
-      <pre wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">nohibernate     [HIBERNATION] Disable hibernation and resume.
-</pre>
-      </blockquote>
-      <pre wrap="">
-I need to investigate, if that can be considered too.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Patch is Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>, but we
-are also going to need one for amdgpu.
-</pre>
-      </blockquote>
-      <pre wrap="">
-Indeed. I can prepare that too.
-
-
-Kind regards,
-
-Paul
-
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Series is&nbsp;<span>Reviewed-by:=
+ Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</span></p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Wednesday, July 25, 2018 1:03:13 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: fix a reversed condition</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This test was reversed so it would end up leading =
+to vddnb value<br>
+can't be read on APU.<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c<br>
+index 15a1192..23fc1d3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+@@ -1185,7 &#43;1185,7 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct dev=
+ice *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, size =3D sizeof(vdd=
+nb);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only APUs have vddnb */=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; (adev-&gt;flags &amp; AMD_IS=
+_APU)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; (!(adev-&gt;flags &amp; =
+AMD_IS_APU))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Can't get voltage when =
+the card is off */<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
 </html>
 
---------------0763612F6CE426887DAFFAC5--
+--_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_--
 
---===============1182621335==
+--===============1843275931==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -197,4 +156,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1182621335==--
+--===============1843275931==--
