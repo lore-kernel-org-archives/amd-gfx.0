@@ -1,14 +1,12 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix a reversed condition
-Date: Wed, 25 Jul 2018 10:13:51 +0000
-Message-ID: <SN6PR12MB2656202D455BF4EC3E6C21C8E4540@SN6PR12MB2656.namprd12.prod.outlook.com>
-References: <1532494993-23009-1-git-send-email-rex.zhu@amd.com>,
- <1532494993-23009-2-git-send-email-rex.zhu@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu: add support for inplace IB patching for MM
+ engines v2
+Date: Wed, 25 Jul 2018 13:05:25 +0200
+Message-ID: <20180725110527.36163-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1843275931=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1532494993-23009-2-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,141 +17,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1843275931==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_"
-
---_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, July 25, 2018 1:03:13 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 2/2] drm/amdgpu: fix a reversed condition
 
-This test was reversed so it would end up leading to vddnb value
-can't be read on APU.
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index 15a1192..23fc1d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -1185,7 +1185,7 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct device =
-*dev,
-         int r, size =3D sizeof(vddnb);
-
-         /* only APUs have vddnb */
--       if  (adev->flags & AMD_IS_APU)
-+       if  (!(adev->flags & AMD_IS_APU))
-                 return -EINVAL;
-
-         /* Can't get voltage when the card is off */
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is&nbsp;<span>Reviewed-by:=
- Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</span></p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Wednesday, July 25, 2018 1:03:13 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: fix a reversed condition</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This test was reversed so it would end up leading =
-to vddnb value<br>
-can't be read on APU.<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index 15a1192..23fc1d3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -1185,7 &#43;1185,7 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct dev=
-ice *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, size =3D sizeof(vdd=
-nb);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only APUs have vddnb */=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; (adev-&gt;flags &amp; AMD_IS=
-_APU)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; (!(adev-&gt;flags &amp; =
-AMD_IS_APU))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Can't get voltage when =
-the card is off */<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SN6PR12MB2656202D455BF4EC3E6C21C8E4540SN6PR12MB2656namp_--
-
---===============1843275931==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1843275931==--
+V2UgYXJlIGdvaW5nIHRvIG5lZWQgdGhhdCBmb3IgdGhlIHNlY29uZCBVVkQgaW5zdGFuY2Ugb24g
+VmVnYTIwLgoKdjI6IHJlbmFtZSB0byBwYXRjaF9jc19pbl9wbGFjZQoKU2lnbmVkLW9mZi1ieTog
+Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfY3MuYyAgIHwgMjIgKysrKysrKysrKysrKysrLS0tLS0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCB8ICAxICsKIDMgZmlsZXMgY2hh
+bmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oCmluZGV4IGE5ZjA5ZGFlZmZhMy4uM2VjMWYzMWI4OTJjIDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHUuaApAQCAtMTc1MSw2ICsxNzUxLDcgQEAgYW1kZ3B1X2dldF9z
+ZG1hX2luc3RhbmNlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKICNkZWZpbmUgYW1kZ3B1X3Zt
+X3dyaXRlX3B0ZShhZGV2LCBpYiwgcGUsIHZhbHVlLCBjb3VudCwgaW5jcikgKChhZGV2KS0+dm1f
+bWFuYWdlci52bV9wdGVfZnVuY3MtPndyaXRlX3B0ZSgoaWIpLCAocGUpLCAodmFsdWUpLCAoY291
+bnQpLCAoaW5jcikpKQogI2RlZmluZSBhbWRncHVfdm1fc2V0X3B0ZV9wZGUoYWRldiwgaWIsIHBl
+LCBhZGRyLCBjb3VudCwgaW5jciwgZmxhZ3MpICgoYWRldiktPnZtX21hbmFnZXIudm1fcHRlX2Z1
+bmNzLT5zZXRfcHRlX3BkZSgoaWIpLCAocGUpLCAoYWRkciksIChjb3VudCksIChpbmNyKSwgKGZs
+YWdzKSkpCiAjZGVmaW5lIGFtZGdwdV9yaW5nX3BhcnNlX2NzKHIsIHAsIGliKSAoKHIpLT5mdW5j
+cy0+cGFyc2VfY3MoKHApLCAoaWIpKSkKKyNkZWZpbmUgYW1kZ3B1X3JpbmdfcGF0Y2hfY3NfaW5f
+cGxhY2UociwgcCwgaWIpICgociktPmZ1bmNzLT5wYXRjaF9jc19pbl9wbGFjZSgocCksIChpYikp
+KQogI2RlZmluZSBhbWRncHVfcmluZ190ZXN0X3JpbmcocikgKHIpLT5mdW5jcy0+dGVzdF9yaW5n
+KChyKSkKICNkZWZpbmUgYW1kZ3B1X3JpbmdfdGVzdF9pYihyLCB0KSAociktPmZ1bmNzLT50ZXN0
+X2liKChyKSwgKHQpKQogI2RlZmluZSBhbWRncHVfcmluZ19nZXRfcnB0cihyKSAociktPmZ1bmNz
+LT5nZXRfcnB0cigocikpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCmluZGV4
+IDdjNWNjMzNkMGNkYS4uNTY2ZTJjNTE5MzFiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfY3MuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfY3MuYwpAQCAtOTE2LDcgKzkxNiw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX2liX3Zt
+X2NodW5rKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCWludCByOwogCiAJLyogT25seSBm
+b3IgVVZEL1ZDRSBWTSBlbXVsYXRpb24gKi8KLQlpZiAocC0+cmluZy0+ZnVuY3MtPnBhcnNlX2Nz
+KSB7CisJaWYgKHAtPnJpbmctPmZ1bmNzLT5wYXJzZV9jcyB8fCBwLT5yaW5nLT5mdW5jcy0+cGF0
+Y2hfY3NfaW5fcGxhY2UpIHsKIAkJdW5zaWduZWQgaSwgajsKIAogCQlmb3IgKGkgPSAwLCBqID0g
+MDsgaSA8IHAtPm5jaHVua3MgJiYgaiA8IHAtPmpvYi0+bnVtX2liczsgaSsrKSB7CkBAIC05NTcs
+MTIgKzk1NywyMCBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19pYl92bV9jaHVuayhzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwKIAkJCW9mZnNldCA9IG0tPnN0YXJ0ICogQU1ER1BVX0dQVV9QQUdF
+X1NJWkU7CiAJCQlrcHRyICs9IHZhX3N0YXJ0IC0gb2Zmc2V0OwogCi0JCQltZW1jcHkoaWItPnB0
+ciwga3B0ciwgY2h1bmtfaWItPmliX2J5dGVzKTsKLQkJCWFtZGdwdV9ib19rdW5tYXAoYW9iaik7
+Ci0KLQkJCXIgPSBhbWRncHVfcmluZ19wYXJzZV9jcyhyaW5nLCBwLCBqKTsKLQkJCWlmIChyKQot
+CQkJCXJldHVybiByOworCQkJaWYgKHAtPnJpbmctPmZ1bmNzLT5wYXJzZV9jcykgeworCQkJCW1l
+bWNweShpYi0+cHRyLCBrcHRyLCBjaHVua19pYi0+aWJfYnl0ZXMpOworCQkJCWFtZGdwdV9ib19r
+dW5tYXAoYW9iaik7CisKKwkJCQlyID0gYW1kZ3B1X3JpbmdfcGFyc2VfY3MocmluZywgcCwgaik7
+CisJCQkJaWYgKHIpCisJCQkJCXJldHVybiByOworCQkJfSBlbHNlIHsKKwkJCQlpYi0+cHRyID0g
+KHVpbnQzMl90ICopa3B0cjsKKwkJCQlyID0gYW1kZ3B1X3JpbmdfcGF0Y2hfY3NfaW5fcGxhY2Uo
+cmluZywgcCwgaik7CisJCQkJYW1kZ3B1X2JvX2t1bm1hcChhb2JqKTsKKwkJCQlpZiAocikKKwkJ
+CQkJcmV0dXJuIHI7CisJCQl9CiAKIAkJCWorKzsKIAkJfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9yaW5nLmgKaW5kZXggNTAxOGMwYjZiZjFhLi5kMjQyYjlhNTFlOTAgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaApAQCAtMTIzLDYgKzEyMyw3IEBA
+IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyB7CiAJdm9pZCAoKnNldF93cHRyKShzdHJ1Y3QgYW1k
+Z3B1X3JpbmcgKnJpbmcpOwogCS8qIHZhbGlkYXRpbmcgYW5kIHBhdGNoaW5nIG9mIElCcyAqLwog
+CWludCAoKnBhcnNlX2NzKShzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwgdWludDMyX3QgaWJf
+aWR4KTsKKwlpbnQgKCpwYXRjaF9jc19pbl9wbGFjZSkoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIg
+KnAsIHVpbnQzMl90IGliX2lkeCk7CiAJLyogY29uc3RhbnRzIHRvIGNhbGN1bGF0ZSBob3cgbWFu
+eSBEVyBhcmUgbmVlZGVkIGZvciBhbiBlbWl0ICovCiAJdW5zaWduZWQgZW1pdF9mcmFtZV9zaXpl
+OwogCXVuc2lnbmVkIGVtaXRfaWJfc2l6ZTsKLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
