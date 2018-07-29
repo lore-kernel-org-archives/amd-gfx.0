@@ -1,16 +1,16 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl function
-Date: Mon, 30 Jul 2018 05:39:20 +0000
-Message-ID: <CY4PR12MB1687F0E3D4023FE67D61D42AFB2F0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1532864150-32370-1-git-send-email-rex.zhu@amd.com>,
- <SN6PR12MB26564CB34A8FD6AFA46AACD4E42F0@SN6PR12MB2656.namprd12.prod.outlook.com>,
- <CY4PR12MB1687D0B723AB027047CEF32FFB2F0@CY4PR12MB1687.namprd12.prod.outlook.com>,
- <SN6PR12MB26567850D8ABB9D9ED9694D0E42F0@SN6PR12MB2656.namprd12.prod.outlook.com>
+From: Sedat Dilek <sedat.dilek-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [Linux-v4.18-rc6] modpost-errors when compiling with clang-7 and
+ CONFIG_DRM_AMDGPU=m
+Date: Sun, 29 Jul 2018 17:37:24 +0200
+Message-ID: <CA+icZUW1M9g5ffu_p7xFzxdOpbL6z7=fbfFS01EDEuTZ+aDFFw@mail.gmail.com>
+References: <CA+icZUVLStTzEM0UN8Z7ddnrfGYh3-VRcHAQ8ijE-PiB=FZrNQ@mail.gmail.com>
+ <0e782eaa-f495-61a2-b30e-61057dcfc611@amd.com>
+Reply-To: sedat.dilek-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0095348250=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <SN6PR12MB26567850D8ABB9D9ED9694D0E42F0-kxOKjb6HO/FeL/N0e1LXkAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <0e782eaa-f495-61a2-b30e-61057dcfc611-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,786 +21,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0095348250==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687F0E3D4023FE67D61D42AFB2F0CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687F0E3D4023FE67D61D42AFB2F0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
->Maybe other clients should also not disable gfx off feature if this flag i=
-s not set.
-
-
-For disable gfx off feature, we just need to check adev->gfx.bin_off, it  m=
-ean
-
-the gfx off feature is enabled.
-
-
-Best Regards
-
-Rex
-
-
-
-
-
-________________________________
-From: Quan, Evan
-Sent: Monday, July 30, 2018 12:32 PM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl function
-
-
->This flag should only be set by gfx ip after gfx cg/pg feature enabled.
->Other clients can't enable gfx off feature before this flag is set.
-
-
-Maybe other clients should also not disable gfx off feature if this flag is=
- not set.
-
-
-Regards,
-
-Evan
-
-________________________________
-From: Zhu, Rex
-Sent: Monday, July 30, 2018 11:46:00 AM
-To: Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl function
-
-
->"adev->gfx.bready_for_off" used for ?
-
-
-This flag should only be set by gfx ip after gfx cg/pg feature enabled.
-
-Other clients can't enable gfx off feature before this flag is set.
-
-
->"adev->gfx.bready_for_off =3D=3D 0"
-
-For disable gfx off feature, we don't need to care this flag.
-
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Quan, Evan
-Sent: Monday, July 30, 2018 11:12 AM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl function
-
-
-
-+       if (adev->gfx.bready_for_off && !adev->gfx.bin_off
-+                               && !adev->gfx.disable_gfx_off_request) {
-
-+               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_T=
-YPE_GFX, true))
-+                       adev->gfx.bin_off =3D true;
-+       } else if (!enable && adev->gfx.bin_off) {
-
-What is "adev->gfx.bready_for_off" used for ? Do we need to consider "adev-=
->gfx.bready_for_off =3D=3D 0" case here?
-+               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_T=
-YPE_GFX, false))
-+                       adev->gfx.bin_off =3D false;
-+       }
-
-
-Regards,
-
-Evan
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Sunday, July 29, 2018 7:35:47 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl function
-
-This funciton as the entry of gfx off ctrl feature.
-we arbitrat gfx off feature enable/disable in this
-function.
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  7 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 52 ++++++++++++++++++++++++++=
-++++
- 3 files changed, 60 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 5b7bb58..318961d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -988,6 +988,11 @@ struct amdgpu_gfx {
-         /* NGG */
-         struct amdgpu_ngg               ngg;
-
-+       /* gfx off */
-+       bool                            bready_for_off;
-+       bool                            bin_off;
-+       struct mutex                    gfx_off_ctrl_mutex;
-+       uint32_t                        disable_gfx_off_request;
-         /* pipe reservation */
-         struct mutex                    pipe_reserve_mutex;
-         DECLARE_BITMAP                  (pipe_reserve_bitmap, AMDGPU_MAX_C=
-OMPUTE_QUEUES);
-@@ -1815,6 +1820,8 @@ void amdgpu_device_program_register_sequence(struct a=
-mdgpu_device *adev,
-                                              const u32 array_size);
-
- bool amdgpu_device_is_px(struct drm_device *dev);
-+void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev,
-+                               enum amd_ip_block_type client, bool enable)=
-;
- /* atpx handler */
- #if defined(CONFIG_VGA_SWITCHEROO)
- void amdgpu_register_atpx_handler(void);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 745f760..b40ce6f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2367,6 +2367,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-         mutex_init(&adev->gfx.gpu_clock_mutex);
-         mutex_init(&adev->srbm_mutex);
-         mutex_init(&adev->gfx.pipe_reserve_mutex);
-+       mutex_init(&adev->gfx.gfx_off_ctrl_mutex);
-         mutex_init(&adev->grbm_idx_mutex);
-         mutex_init(&adev->mn_lock);
-         mutex_init(&adev->virt.vf_errors.lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index 239bf2a..68fe9c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -340,3 +340,55 @@ void amdgpu_gfx_compute_mqd_sw_fini(struct amdgpu_devi=
-ce *adev)
-                               &ring->mqd_gpu_addr,
-                               &ring->mqd_ptr);
- }
-+
-+/* amdgpu_gfx_off_ctrl - Handle gfx off feature enable/disable
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @enum amd_ip_block_type gfx ip decide when to set ready for gfx off fea=
-ture
-+ * other clients send disable gfx off feature request
-+ * @bool enable
-+ *
-+ * if gfx ip is ready for power off gfx ip, and no other clients's request=
- for
-+ * disable gfx off feature, driver will call smu to enable gfx off immedia=
-tely.
-+ * otherwise, driver will wait until the clients cancel the requests.
-+ */
-+
-+void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, enum amd_ip_block_typ=
-e client, bool enable)
-+{
-+       if (!(adev->powerplay.pp_feature & PP_GFXOFF_MASK))
-+               return; /* gfx off feature is not supported or disabled by =
-user via module parameter */
-+
-+       if (!adev->powerplay.pp_funcs->set_powergating_by_smu)
-+               return; /* currently gfx off feature need smu support*/
-+
-+       mutex_lock(&adev->gfx.gfx_off_ctrl_mutex);
-+       if (client =3D=3D AMD_IP_BLOCK_TYPE_GFX) {
-+               adev->gfx.bready_for_off =3D enable ? true : false; /*true,=
- gfx ip is ready to enable gfx off feature */
-+       } else {
-+               if (!enable) /* false : reveive one disable gfx off request=
-s from other clients*/
-+                       adev->gfx.disable_gfx_off_request++;
-+               else if (adev->gfx.disable_gfx_off_request > 0)
-+                       adev->gfx.disable_gfx_off_request--;
-+       }
-+
-+/* *
-+ * we can enable gfx off feature when meet the following conditions:
-+ * 1. gfx off feature is supported by hw
-+ * 2. gfx ip is ready to enable gfx off feature
-+ * 3. no other clients have requests to disable gfx off
-+ * 4. gfx off feature is not enabled
-+ * For disable gfx off feature
-+ * 1. gfx off feature is supported by hw
-+ * 2. receive disable gfx off requests
-+ * 3. gfx off feature is enabled
-+ */
-+       if (adev->gfx.bready_for_off && !adev->gfx.bin_off
-+                               && !adev->gfx.disable_gfx_off_request) {
-+               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_T=
-YPE_GFX, true))
-+                       adev->gfx.bin_off =3D true;
-+       } else if (!enable && adev->gfx.bin_off) {
-+               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_T=
-YPE_GFX, false))
-+                       adev->gfx.bin_off =3D false;
-+       }
-+       mutex_unlock(&adev->gfx.gfx_off_ctrl_mutex);
-+}
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
-
-
-
-
---_000_CY4PR12MB1687F0E3D4023FE67D61D42AFB2F0CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">&gt;Maybe other clients should al=
-so not disable gfx off feature if this flag is not set.<br>
-</p>
-<br>
-<p style=3D"margin-top:0;margin-bottom:0">For disable gfx off feature, we j=
-ust need to check
-<span>adev-&gt;gfx.bin_off</span>, it&nbsp; mean</p>
-<p style=3D"margin-top:0;margin-bottom:0">the gfx off feature is enabled.<b=
-r>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">&nbsp;<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Quan, Evan<br>
-<b>Sent:</b> Monday, July 30, 2018 12:32 PM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl functio=
-n</font>
-<div>&nbsp;</div>
-</div>
-<meta content=3D"text/html; charset=3Dus-ascii">
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0; margin-bottom:0"></p>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;Appl=
-e Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe U=
-I Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px; marg=
-in-top:0px; margin-bottom:0px">
-&gt;This flag should only be set by gfx ip after gfx cg/pg feature enabled.=
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot;Appl=
-e Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe U=
-I Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px; marg=
-in-top:0px; margin-bottom:0px">
-&gt;Other clients can't enable gfx off feature&nbsp;before this flag is set=
-.</div>
-<br>
-<p></p>
-<p style=3D"margin-top:0; margin-bottom:0">Maybe other clients should also =
-not disable gfx off feature if this flag is not set.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Regards,</p>
-<p style=3D"margin-top:0; margin-bottom:0">Evan</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" colo=
-r=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Zhu, Rex<br>
-<b>Sent:</b> Monday, July 30, 2018 11:46:00 AM<br>
-<b>To:</b> Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl functio=
-n</font>
-<div>&nbsp;</div>
-</div>
-<meta content=3D"text/html; charset=3Diso-8859-1">
-<style type=3D"text/css" style=3D"display:none">=0A=
-<!--=0A=
-p=0A=
-	{margin-top:0;=0A=
-	margin-bottom:0}=0A=
--->=0A=
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; c=
-olor:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,&quot;EmojiFont&q=
-uot;,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoj=
-i,&quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">&gt;&quot;<=
-span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Seg=
-oe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; f=
-ont-size:14.6667px">adev-&gt;gfx.bready_for_off&quot;
- used for ?</span></span><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">This flag should only be set by =
-gfx ip after gfx cg/pg feature enabled.</p>
-<p style=3D"margin-top:0; margin-bottom:0">Other clients can't enable gfx o=
-ff feature&nbsp;<span>before this flag is set.</span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px"><span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_norma=
-l,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,E=
-mojiFont; font-size:14.6667px">&gt;&quot;adev-&gt;gfx.bready_for_off
- =3D=3D 0&quot;</span></span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px"><span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_norma=
-l,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,E=
-mojiFont; font-size:14.6667px">For
- disable gfx off feature, we don't need to care this flag.</span></span></s=
-pan></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px"><span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_norma=
-l,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,E=
-mojiFont; font-size:14.6667px"><br>
-</span></span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px"><span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_norma=
-l,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,E=
-mojiFont; font-size:14.6667px"></span></span></span><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0; margin-bottom:0">Rex<br>
-</p>
-<br>
-<div style=3D"color:rgb(0,0,0)">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" co=
-lor=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Quan, Evan<br>
-<b>Sent:</b> Monday, July 30, 2018 11:12 AM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl functio=
-n</font>
-<div>&nbsp;</div>
-</div>
-<meta content=3D"text/html; charset=3Diso-8859-1">
-<div dir=3D"ltr">
-<div id=3D"x_x_x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt;=
- color:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,&quot;EmojiFont=
-&quot;,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEm=
-oji,&quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
-<div id=3D"x_x_x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt;=
- color:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quot=
-;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;Se=
-goe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- if (adev-&gt;gfx.bready_for_off &amp;&amp; !adev-&gt;gfx.bin_off</span><br=
- style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe U=
-I&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-=
-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp; !adev-&=
-gt;gfx.disable_gfx_off_request) {</span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;
- if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, true))=
-</span><br style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&qu=
-ot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiF=
-ont; font-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; adev-&gt;gfx.bin_off =3D true;</span><br style=3D"color:rgb(33,33,=
-33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quo=
-t;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (!=
-enable &amp;&amp; adev-&gt;gfx.bin_off) {</span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">What is &qu=
-ot;<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot=
-;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFon=
-t; font-size:14.6667px">adev-&gt;gfx.bready_for_off&quot;
- used for ? Do we need to consider &quot;<span style=3D"color:rgb(33,33,33)=
-; font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,=
-Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">adev-&gt;gfx.=
-bready_for_off =3D=3D 0&quot; case here?</span></span><br style=3D"color:rg=
-b(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Sego=
-e WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_set_powergating_by_smu(=
-adev, AMD_IP_BLOCK_TYPE_GFX, false))</span><br style=3D"color:rgb(33,33,33)=
-; font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,=
-Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; adev-&gt;gfx.bin_off =3D false;</span><br style=3D"color:rgb(33,33=
-,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&qu=
-ot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span><br>
-</span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px"><br>
-</span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px">Regards,</span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"color:rgb(33,33,3=
-3); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot=
-;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"><span style=
-=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot=
-;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:1=
-4.6667px">Evan</span></span></p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" =
-color=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd=
--gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu@amd=
-.com&gt;<br>
-<b>Sent:</b> Sunday, July 29, 2018 7:35:47 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 1/4] drm/amdgpu: Add amdgpu_gfx_off_ctrl function</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size=
-:11pt">
-<div class=3D"x_x_x_PlainText">This funciton as the entry of gfx off ctrl f=
-eature.<br>
-we arbitrat gfx off feature enable/disable in this<br>
-function.<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; |&nbsp; 7 &#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |&nbsp; 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c&nbsp;&nbsp;&nbsp; | 52 &#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;3 files changed, 60 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index 5b7bb58..318961d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -988,6 &#43;988,11 @@ struct amdgpu_gfx {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* NGG */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ngg&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- ngg;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* gfx off */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bready_for_off;<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bin_off;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; gfx_off_ctrl_mutex;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable_gfx_off_request;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* pipe reservation */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; pipe_reserve_mutex;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DECLARE_BITMAP&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; (pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);<br>
-@@ -1815,6 &#43;1820,8 @@ void amdgpu_device_program_register_sequence(stru=
-ct amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const u32 array_size);<br>
-&nbsp;<br>
-&nbsp;bool amdgpu_device_is_px(struct drm_device *dev);<br>
-&#43;void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_ip_block_type client, bool ena=
-ble);<br>
-&nbsp;/* atpx handler */<br>
-&nbsp;#if defined(CONFIG_VGA_SWITCHEROO)<br>
-&nbsp;void amdgpu_register_atpx_handler(void);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 745f760..b40ce6f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2367,6 &#43;2367,7 @@ int amdgpu_device_init(struct amdgpu_device *adev=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;g=
-fx.gpu_clock_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;s=
-rbm_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;g=
-fx.pipe_reserve_mutex);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;gfx.gfx_=
-off_ctrl_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;g=
-rbm_idx_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;m=
-n_lock);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;v=
-irt.vf_errors.lock);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c<br>
-index 239bf2a..68fe9c8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-@@ -340,3 &#43;340,55 @@ void amdgpu_gfx_compute_mqd_sw_fini(struct amdgpu_=
-device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;ring-&gt;mqd_gpu_addr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;ring-&gt;mqd_ptr);<br>
-&nbsp;}<br>
-&#43;<br>
-&#43;/* amdgpu_gfx_off_ctrl - Handle gfx off feature enable/disable<br>
-&#43; *<br>
-&#43; * @adev: amdgpu_device pointer<br>
-&#43; * @enum amd_ip_block_type gfx ip decide when to set ready for gfx off=
- feature<br>
-&#43; * other clients send disable gfx off feature request<br>
-&#43; * @bool enable<br>
-&#43; *<br>
-&#43; * if gfx ip is ready for power off gfx ip, and no other clients's req=
-uest for<br>
-&#43; * disable gfx off feature, driver will call smu to enable gfx off imm=
-ediately.<br>
-&#43; * otherwise, driver will wait until the clients cancel the requests.<=
-br>
-&#43; */<br>
-&#43;<br>
-&#43;void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, enum amd_ip_block=
-_type client, bool enable)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;powerplay.pp_featu=
-re &amp; PP_GFXOFF_MASK))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return; /* gfx off feature is not supported or disabled by u=
-ser via module parameter */<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;powerplay.pp_funcs-=
-&gt;set_powergating_by_smu)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return; /* currently gfx off feature need smu support*/<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;gfx.gfx_=
-off_ctrl_mutex);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (client =3D=3D AMD_IP_BLOCK_TY=
-PE_GFX) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;gfx.bready_for_off =3D enable ? true : false; /*tru=
-e, gfx ip is ready to enable gfx off feature */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (!enable) /* false : reveive one disable gfx off requests=
- from other clients*/<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx=
-.disable_gfx_off_request&#43;&#43;;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; else if (adev-&gt;gfx.disable_gfx_off_request &gt; 0)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx=
-.disable_gfx_off_request--;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;/* *<br>
-&#43; * we can enable gfx off feature when meet the following conditions:<b=
-r>
-&#43; * 1. gfx off feature is supported by hw<br>
-&#43; * 2. gfx ip is ready to enable gfx off feature<br>
-&#43; * 3. no other clients have requests to disable gfx off<br>
-&#43; * 4. gfx off feature is not enabled<br>
-&#43; * For disable gfx off feature<br>
-&#43; * 1. gfx off feature is supported by hw<br>
-&#43; * 2. receive disable gfx off requests<br>
-&#43; * 3. gfx off feature is enabled<br>
-&#43; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.bready_for_off &=
-amp;&amp; !adev-&gt;gfx.bin_off<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp; !adev-&gt;gfx.disable_gfx_of=
-f_request) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TY=
-PE_GFX, true))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx=
-.bin_off =3D true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (!enable &amp;&amp; ade=
-v-&gt;gfx.bin_off) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TY=
-PE_GFX, false))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx=
-.bin_off =3D false;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;gfx.gf=
-x_off_ctrl_mutex);<br>
-&#43;}<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk886781" class=3D"x_x_x_OWAAutoLink" previewremoved=3D"true">https://list=
-s.freedesktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15329201729380.3302477536537516" style=3D"margin-bot=
-tom:20px; overflow:auto; width:100%; text-indent:0px">
-<table id=3D"LPContainer_15329201729290.557243803333892" style=3D"width:90%=
-; background-color:rgb(255,255,255); overflow:auto; padding-top:20px; paddi=
-ng-bottom:20px; margin-top:20px; border-top:1px dotted rgb(200,200,200); bo=
-rder-bottom:1px dotted rgb(200,200,200)" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing:0px" valign=3D"top">
-<td id=3D"x_x_x_TextCell_15329201729320.5856508556754785" colspan=3D"2" sty=
-le=3D"vertical-align: top; padding: 0px; display: table-cell; position: rel=
-ative;">
-<div id=3D"LPRemovePreviewContainer_15329201729320.8037375547458883"></div>
-<div id=3D"LPTitle_15329201729330.8257753121147637" style=3D"top:0px; color=
-:rgb(0,120,215); font-weight:400; font-size:21px; font-family:wf_segoe-ui_l=
-ight,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot;,&quot;Segoe UI&q=
-uot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line-height:21px">
-<a id=3D"LPUrlAnchor_15329201729340.18268190718998456" href=3D"https://list=
-s.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text=
--decoration:none">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15329201729350.9576148436869616" style=3D"margin:10px=
- 0px 16px; color:rgb(102,102,102); font-weight:400; font-family:wf_segoe-ui=
-_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; =
-font-size:14px; line-height:14px">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15329201729360.08722428468077426" style=3D"display=
-:block; color:rgb(102,102,102); font-weight:400; font-family:wf_segoe-ui_no=
-rmal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; fon=
-t-size:14px; line-height:20px; max-height:100px; overflow:hidden">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
-iv>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1687F0E3D4023FE67D61D42AFB2F0CY4PR12MB1687namp_--
-
---===============0095348250==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0095348250==--
+SSBoYXZlIHNlZW4gYXJjIGFyY2hpdGVjdHVyZXMgdXNlIGEgImFyY2tzeW1zLmMiIGZpbGUuCgot
+IHNlZEAgLQoKWzFdIGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwv
+Z2l0L3RvcnZhbGRzL2xpbnV4LmdpdC9wbGFpbi9hcmNoL2FyYy9rZXJuZWwvYXJja3N5bXMuYwpb
+Ml0gaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFs
+ZHMvbGludXguZ2l0L3RyZWUvYXJjaC9hcmMva2VybmVsL01ha2VmaWxlI24xMQpbM10gaHR0cHM6
+Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFsZHMvbGludXgu
+Z2l0L3RyZWUvYXJjaC9hcmMva2VybmVsL01ha2VmaWxlI24xNgoKUC5TLjogTGlzdCBhcmNrc3lt
+cy5jIGZpbGUuCgovKgogKiBhcmNrc3ltcy5jIC0gRXhwb3J0aW5nIHN5bWJvbHMgbm90IGV4cG9y
+dGFibGUgZnJvbSB0aGVpciBvd24gc291cmNlcwogKgogKiBDb3B5cmlnaHQgKEMpIDIwMDQsIDIw
+MDctMjAxMCwgMjAxMS0yMDEyIFN5bm9wc3lzLCBJbmMuICh3d3cuc3lub3BzeXMuY29tKQogKgog
+KiBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNhbiByZWRpc3RyaWJ1dGUgaXQg
+YW5kL29yIG1vZGlmeQogKiBpdCB1bmRlciB0aGUgdGVybXMgb2YgdGhlIEdOVSBHZW5lcmFsIFB1
+YmxpYyBMaWNlbnNlIHZlcnNpb24gMiBhcwogKiBwdWJsaXNoZWQgYnkgdGhlIEZyZWUgU29mdHdh
+cmUgRm91bmRhdGlvbi4KICoKICovCgojaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+CgovKiBsaWJn
+Y2MgZnVuY3Rpb25zLCBub3QgcGFydCBvZiBrZXJuZWwgc291cmNlcyAqLwpleHRlcm4gdm9pZCBf
+X2FzaGxkaTModm9pZCk7CmV4dGVybiB2b2lkIF9fYXNocmRpMyh2b2lkKTsKZXh0ZXJuIHZvaWQg
+X19kaXZzaTModm9pZCk7CmV4dGVybiB2b2lkIF9fZGl2c2YzKHZvaWQpOwpleHRlcm4gdm9pZCBf
+X2xzaHJkaTModm9pZCk7CmV4dGVybiB2b2lkIF9fbW9kc2kzKHZvaWQpOwpleHRlcm4gdm9pZCBf
+X211bGRpMyh2b2lkKTsKZXh0ZXJuIHZvaWQgX191Y21wZGkyKHZvaWQpOwpleHRlcm4gdm9pZCBf
+X3VkaXZzaTModm9pZCk7CmV4dGVybiB2b2lkIF9fdW1vZHNpMyh2b2lkKTsKZXh0ZXJuIHZvaWQg
+X19jbXBkaTIodm9pZCk7CmV4dGVybiB2b2lkIF9fZml4dW5zZGZzaSh2b2lkKTsKZXh0ZXJuIHZv
+aWQgX19tdWxkZjModm9pZCk7CmV4dGVybiB2b2lkIF9fZGl2ZGYzKHZvaWQpOwpleHRlcm4gdm9p
+ZCBfX2Zsb2F0dW5zaWRmKHZvaWQpOwpleHRlcm4gdm9pZCBfX2Zsb2F0dW5zaXNmKHZvaWQpOwpl
+eHRlcm4gdm9pZCBfX3VkaXZkaTModm9pZCk7CgpFWFBPUlRfU1lNQk9MKF9fYXNobGRpMyk7CkVY
+UE9SVF9TWU1CT0woX19hc2hyZGkzKTsKRVhQT1JUX1NZTUJPTChfX2RpdnNpMyk7CkVYUE9SVF9T
+WU1CT0woX19kaXZzZjMpOwpFWFBPUlRfU1lNQk9MKF9fbHNocmRpMyk7CkVYUE9SVF9TWU1CT0wo
+X19tb2RzaTMpOwpFWFBPUlRfU1lNQk9MKF9fbXVsZGkzKTsKRVhQT1JUX1NZTUJPTChfX3VjbXBk
+aTIpOwpFWFBPUlRfU1lNQk9MKF9fdWRpdnNpMyk7CkVYUE9SVF9TWU1CT0woX191bW9kc2kzKTsK
+RVhQT1JUX1NZTUJPTChfX2NtcGRpMik7CkVYUE9SVF9TWU1CT0woX19maXh1bnNkZnNpKTsKRVhQ
+T1JUX1NZTUJPTChfX211bGRmMyk7CkVYUE9SVF9TWU1CT0woX19kaXZkZjMpOwpFWFBPUlRfU1lN
+Qk9MKF9fZmxvYXR1bnNpZGYpOwpFWFBPUlRfU1lNQk9MKF9fZmxvYXR1bnNpc2YpOwpFWFBPUlRf
+U1lNQk9MKF9fdWRpdmRpMyk7CgovKiBBUkMgb3B0aW1pc2VkIGFzc2VtYmxlciByb3V0aW5lcyAq
+LwpFWFBPUlRfU1lNQk9MKG1lbXNldCk7CkVYUE9SVF9TWU1CT0wobWVtY3B5KTsKRVhQT1JUX1NZ
+TUJPTChtZW1jbXApOwpFWFBPUlRfU1lNQk9MKHN0cmNocik7CkVYUE9SVF9TWU1CT0woc3RyY3B5
+KTsKRVhQT1JUX1NZTUJPTChzdHJjbXApOwpFWFBPUlRfU1lNQk9MKHN0cmxlbik7CgpPbiBTdW4s
+IEp1bCAyOSwgMjAxOCBhdCA0OjM5IFBNLCBDaHJpc3RpYW4gS8O2bmlnCjxjaHJpc3RpYW4ua29l
+bmlnQGFtZC5jb20+IHdyb3RlOgo+PiBEbyB5b3UgbmVlZCBmdXJ0aGVyIGluZm9ybWF0aW9ucz8K
+Pgo+IE5vLCB0aGF0IGlzIGEga25vd24gaXNzdWUuCj4KPiBSZWdhcmRzLAo+IENocmlzdGlhbi4K
+Pgo+Cj4gQW0gMjkuMDcuMjAxOCB1bSAxNTo1MiBzY2hyaWViIFNlZGF0IERpbGVrOgo+Pgo+PiBI
+aSwKPj4KPj4gd2hlbiBjb21waWxpbmcgd2l0aCBjbGFuZy03IGFuZCBDT05GSUdfRFJNX0FNREdQ
+VT1tIEkgc2VlIHRoZSBmb2xsb3dpbmcuLi4KPj4KPj4gICAgaWYgWyAiIiA9ICItcGciIF07IHRo
+ZW4gaWYgWyBhcmNoL3g4Ni9ib290L2NvbXByZXNzZWQvbWlzYy5vICE9Cj4+ICJzY3JpcHRzL21v
+ZC9lbXB0eS5vIiBdOyB0aGVuIC4vc2NyaXB0cy9yZWNvcmRtY291bnQKPj4gImFyY2gveDg2L2Jv
+b3QvY29tcHJlc3NlZC9taXNjLm8iOyBmaTsgZmk7Cj4+IEVSUk9SOiAiX19hZGRzZjMiIFtkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4gRVJST1I6ICJf
+X3N1YmRmMyIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVk
+IQo+PiBFUlJPUjogIl9fZ2VkZjIiIFtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+a29dIHVuZGVmaW5lZCEKPj4gRVJST1I6ICJfX2ZpeHVuc3Nmc2kiIFtkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4gRVJST1I6ICJfX2Zsb2F0dW5zaXNm
+IiBbZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmtvXSB1bmRlZmluZWQhCj4+IEVS
+Uk9SOiAiX191bm9yZHNmMiIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10g
+dW5kZWZpbmVkIQo+PiBFUlJPUjogIl9fZ2VzZjIiIFtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4gRVJST1I6ICJfX211bHNmMyIgW2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+PiBFUlJPUjogIl9fdHJ1bmNk
+ZnNmMiIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+
+PiBFUlJPUjogIl9fbHRzZjIiIFtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29d
+IHVuZGVmaW5lZCEKPj4gRVJST1I6ICJfX211bGRmMyIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+PiBFUlJPUjogIl9fZGl2ZGYzIiBbZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmtvXSB1bmRlZmluZWQhCj4+IEVSUk9SOiAiX19lcXNm
+MiIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+PiBF
+UlJPUjogIl9fZmxvYXRzaXNmIiBbZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1Lmtv
+XSB1bmRlZmluZWQhCj4+IEVSUk9SOiAiX19sZWRmMiIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+PiBFUlJPUjogIl9fZ3RzZjIiIFtkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4gRVJST1I6ICJfX2ZpeGRm
+c2kiIFtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4g
+RVJST1I6ICJfX2Zsb2F0dW5zaWRmIiBbZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+LmtvXSB1bmRlZmluZWQhCj4+IEVSUk9SOiAiX19uZXNmMiIgW2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+PiBFUlJPUjogIl9fYWRkZGYzIiBbZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmtvXSB1bmRlZmluZWQhCj4+IEVSUk9SOiAiX19l
+eHRlbmRzZmRmMiIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZp
+bmVkIQo+PiBFUlJPUjogIl9fZml4dW5zZGZzaSIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+PiBFUlJPUjogIl9fbGVzZjIiIFtkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4gRVJST1I6ICJfX2x0ZGYyIiBb
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmtvXSB1bmRlZmluZWQhCj4+IEVSUk9S
+OiAiX19mbG9hdHNpZGYiIFtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVu
+ZGVmaW5lZCEKPj4gRVJST1I6ICJfX3N1YnNmMyIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdS5rb10gdW5kZWZpbmVkIQo+PiBFUlJPUjogIl9fZ3RkZjIiIFtkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4gRVJST1I6ICJfX2ZpeHNmc2ki
+IFtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCEKPj4gRVJS
+T1I6ICJfX2RpdnNmMyIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5k
+ZWZpbmVkIQo+PiBFUlJPUjogIl9fZmxvYXRkaWRmIiBbZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1LmtvXSB1bmRlZmluZWQhCj4+IG1ha2VbNF06ICoqKiBbc2NyaXB0cy9NYWtlZmls
+ZS5tb2Rwb3N0OjkyOiBfX21vZHBvc3RdIEVycm9yIDEKPj4gbWFrZVszXTogKioqIFtNYWtlZmls
+ZToxMjA4OiBtb2R1bGVzXSBFcnJvciAyCj4+IG1ha2VbM106ICoqKiBXYWl0aW5nIGZvciB1bmZp
+bmlzaGVkIGpvYnMuLi4uCj4+Cj4+IEZvciBub3cgSSBoYXZlIGRpc2FibGVkIENPTkZJR19EUk1f
+QU1ER1BVPW4uCj4+Cj4+IERvIHlvdSBuZWVkIGZ1cnRoZXIgaW5mb3JtYXRpb25zPwo+Pgo+PiBL
+aW5kIHJlZ2FyZHMsCj4+IC0gU2VkYXQgLQo+Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
