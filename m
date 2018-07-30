@@ -1,15 +1,13 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add new amdgpu_vm_bo_trace_cs() function
-Date: Sun, 29 Jul 2018 16:30:40 +0000
-Message-ID: <MWHPR12MB1453B883372FA69F8C436CF8EA280@MWHPR12MB1453.namprd12.prod.outlook.com>
-References: <20180727145743.1855-1-christian.koenig@amd.com>,
- <20180729121629.GB20939@hr-amur2>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amd/pp: Delete duplicated interface in hwmgr_func
+Date: Mon, 30 Jul 2018 01:27:49 +0000
+Message-ID: <SN6PR12MB26564897C44D6144098262EBE42F0@SN6PR12MB2656.namprd12.prod.outlook.com>
+References: <1532864547-1072-1-git-send-email-rex.zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0358140750=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180729121629.GB20939@hr-amur2>
-Content-Language: en-GB
+In-Reply-To: <1532864547-1072-1-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,101 +18,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-V2hlbiBWTSBmYXVsdCBoYXBwZW5zIGl0IGhlbHBzIHZlcmlmeSBhIHRoYXQgYSBCTyBmb3IgdGhl
-IGZhdWx0ZWQgVkEgd2Fzbid0IG9taXR0ZWQgZnJvbSB0aGUgQk8gbGlzdCBmb3IgdGhlIENTLgoK
-QW5kcmV5CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyb206IGFt
-ZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFsZiBv
-ZiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgpTZW50OiAyOSBKdWx5IDIwMTggMDg6MTY6
-MzAKVG86IENocmlzdGlhbiBLw7ZuaWcKQ2M6IEdyb2R6b3Zza3ksIEFuZHJleTsgYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogYWRk
-IG5ldyBhbWRncHVfdm1fYm9fdHJhY2VfY3MoKSBmdW5jdGlvbgoKT24gRnJpLCBKdWwgMjcsIDIw
-MTggYXQgMDQ6NTc6NDNQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBUaGlzIGFs
-bG93cyB1cyB0byB0cmFjZSBhbGwgVk0gcmFuZ2VzIHdoaWNoIHNob3VsZCBiZSB2YWxpZCBpbnNp
-ZGUgYSBDUy4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
-b2VuaWdAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29t
-PgoKQSBiaXQgY3VyaW91cywgd2hhdCBraW5kIG9mIHNpdHVhdGlvbiB0aGF0IHdlIG5lZWQgdHJh
-Y2UgYWxsIFZNIHJhbmdlcwpkdXJpbmcgdGhlIGNvbW1hbmQgc3VibWlzc2lvbj8KClRoYW5rcywK
-UmF5Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyAgICB8
-ICAyICsrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgIDUg
-KysrKysKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgfCAzMCAr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZtLmggICAgfCAgMSArCj4gIDQgZmlsZXMgY2hhbmdlZCwgMzggaW5zZXJ0aW9u
-cygrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
-cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiBpbmRleCA4YTQ5
-YzNiOTdiZDQuLjg3MTQwMWNkOTk5NyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfY3MuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9jcy5jCj4gQEAgLTEyMjAsNiArMTIyMCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9jc19w
-b3N0X2RlcGVuZGVuY2llcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKPiAgc3RhdGljIGlu
-dCBhbWRncHVfY3Nfc3VibWl0KHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLAo+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgdW5pb24gZHJtX2FtZGdwdV9jcyAqY3MpCj4gIHsKPiArICAgICBz
-dHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiA9IHAtPmZpbHAtPmRyaXZlcl9wcml2Owo+ICAgICAg
-IHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IHAtPnJpbmc7Cj4gICAgICAgc3RydWN0IGRybV9z
-Y2hlZF9lbnRpdHkgKmVudGl0eSA9ICZwLT5jdHgtPnJpbmdzW3JpbmctPmlkeF0uZW50aXR5Owo+
-ICAgICAgIGVudW0gZHJtX3NjaGVkX3ByaW9yaXR5IHByaW9yaXR5Owo+IEBAIC0xMjcyLDYgKzEy
-NzMsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19zdWJtaXQoc3RydWN0IGFtZGdwdV9jc19wYXJz
-ZXIgKnAsCj4gICAgICAgYW1kZ3B1X2pvYl9mcmVlX3Jlc291cmNlcyhqb2IpOwo+Cj4gICAgICAg
-dHJhY2VfYW1kZ3B1X2NzX2lvY3RsKGpvYik7Cj4gKyAgICAgYW1kZ3B1X3ZtX2JvX3RyYWNlX2Nz
-KCZmcHJpdi0+dm0sICZwLT50aWNrZXQpOwo+ICAgICAgIHByaW9yaXR5ID0gam9iLT5iYXNlLnNf
-cHJpb3JpdHk7Cj4gICAgICAgZHJtX3NjaGVkX2VudGl0eV9wdXNoX2pvYigmam9iLT5iYXNlLCBl
-bnRpdHkpOwo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV90cmFjZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKPiBp
-bmRleCAxMWYyNjJmMTUyMDAuLjcyMDZhMDAyNWIxNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCj4gQEAgLTMxNCw2ICszMTQsMTEgQEAgREVGSU5FX0VW
-RU5UKGFtZGdwdV92bV9tYXBwaW5nLCBhbWRncHVfdm1fYm9fbWFwcGluZywKPiAgICAgICAgICAg
-VFBfQVJHUyhtYXBwaW5nKQo+ICApOwo+Cj4gK0RFRklORV9FVkVOVChhbWRncHVfdm1fbWFwcGlu
-ZywgYW1kZ3B1X3ZtX2JvX2NzLAo+ICsgICAgICAgICBUUF9QUk9UTyhzdHJ1Y3QgYW1kZ3B1X2Jv
-X3ZhX21hcHBpbmcgKm1hcHBpbmcpLAo+ICsgICAgICAgICBUUF9BUkdTKG1hcHBpbmcpCj4gKyk7
-Cj4gKwo+ICBUUkFDRV9FVkVOVChhbWRncHVfdm1fc2V0X3B0ZXMsCj4gICAgICAgICAgIFRQX1BS
-T1RPKHVpbnQ2NF90IHBlLCB1aW50NjRfdCBhZGRyLCB1bnNpZ25lZCBjb3VudCwKPiAgICAgICAg
-ICAgICAgICAgICAgdWludDMyX3QgaW5jciwgdWludDY0X3QgZmxhZ3MpLAo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gaW5kZXggNWQ3ZDc5MDBjY2FiLi43YWVkZjMxODRl
-MzYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+IEBAIC0yMzQz
-LDYgKzIzNDMsMzYgQEAgc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICphbWRncHVfdm1fYm9f
-bG9va3VwX21hcHBpbmcoc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gICAgICAgcmV0dXJuIGFtZGdw
-dV92bV9pdF9pdGVyX2ZpcnN0KCZ2bS0+dmEsIGFkZHIsIGFkZHIpOwo+ICB9Cj4KPiArLyoqCj4g
-KyAqIGFtZGdwdV92bV9ib190cmFjZV9jcyAtIHRyYWNlIGFsbCByZXNlcnZlZCBtYXBwaW5ncwo+
-ICsgKgo+ICsgKiBAdm06IHRoZSByZXF1ZXN0ZWQgdm0KPiArICogQHRpY2tldDogQ1MgdGlja2V0
-Cj4gKyAqCj4gKyAqIFRyYWNlIGFsbCBtYXBwaW5ncyBvZiBCT3MgcmVzZXJ2ZWQgZHVyaW5nIGEg
-Y29tbWFuZCBzdWJtaXNzaW9uLgo+ICsgKi8KPiArdm9pZCBhbWRncHVfdm1fYm9fdHJhY2VfY3Mo
-c3RydWN0IGFtZGdwdV92bSAqdm0sIHN0cnVjdCB3d19hY3F1aXJlX2N0eCAqdGlja2V0KQo+ICt7
-Cj4gKyAgICAgc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICptYXBwaW5nOwo+ICsKPiArICAg
-ICBpZiAoIXRyYWNlX2FtZGdwdV92bV9ib19jc19lbmFibGVkKCkpCj4gKyAgICAgICAgICAgICBy
-ZXR1cm47Cj4gKwo+ICsgICAgIGZvciAobWFwcGluZyA9IGFtZGdwdV92bV9pdF9pdGVyX2ZpcnN0
-KCZ2bS0+dmEsIDAsIFU2NF9NQVgpOyBtYXBwaW5nOwo+ICsgICAgICAgICAgbWFwcGluZyA9IGFt
-ZGdwdV92bV9pdF9pdGVyX25leHQobWFwcGluZywgMCwgVTY0X01BWCkpIHsKPiArICAgICAgICAg
-ICAgIHN0cnVjdCBhbWRncHVfYm8gKmJvOwo+ICsKPiArICAgICAgICAgICAgIGlmICghbWFwcGlu
-Zy0+Ym9fdmEgfHwgIW1hcHBpbmctPmJvX3ZhLT5iYXNlLmJvKQo+ICsgICAgICAgICAgICAgICAg
-ICAgICBjb250aW51ZTsKPiArCj4gKyAgICAgICAgICAgICBibyA9IG1hcHBpbmctPmJvX3ZhLT5i
-YXNlLmJvOwo+ICsgICAgICAgICAgICAgaWYgKFJFQURfT05DRShiby0+dGJvLnJlc3YtPmxvY2su
-Y3R4KSAhPSB0aWNrZXQpCj4gKyAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOwo+ICsKPiAr
-ICAgICAgICAgICAgIHRyYWNlX2FtZGdwdV92bV9ib19jcyhtYXBwaW5nKTsKPiArICAgICB9Cj4g
-K30KPiArCj4gIC8qKgo+ICAgKiBhbWRncHVfdm1fYm9fcm12IC0gcmVtb3ZlIGEgYm8gdG8gYSBz
-cGVjaWZpYyB2bQo+ICAgKgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4g
-aW5kZXggZDQxNmY4OTUyMzNkLi42N2ExNWQ0MzlhYzAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uaAo+IEBAIC0zMTgsNiArMzE4LDcgQEAgaW50IGFtZGdwdV92bV9i
-b19jbGVhcl9tYXBwaW5ncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICB1aW50NjRfdCBzYWRkciwgdWludDY0X3Qgc2l6ZSk7Cj4gIHN0
-cnVjdCBhbWRncHVfYm9fdmFfbWFwcGluZyAqYW1kZ3B1X3ZtX2JvX2xvb2t1cF9tYXBwaW5nKHN0
-cnVjdCBhbWRncHVfdm0gKnZtLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICB1aW50NjRfdCBhZGRyKTsKPiArdm9pZCBhbWRncHVfdm1fYm9f
-dHJhY2VfY3Moc3RydWN0IGFtZGdwdV92bSAqdm0sIHN0cnVjdCB3d19hY3F1aXJlX2N0eCAqdGlj
-a2V0KTsKPiAgdm9pZCBhbWRncHVfdm1fYm9fcm12KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LAo+ICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9ib192YSAqYm9fdmEpOwo+ICB2
-b2lkIGFtZGdwdV92bV9hZGp1c3Rfc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWlu
-dDMyX3Qgdm1fc2l6ZSwKPiAtLQo+IDIuMTQuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0358140750==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB26564897C44D6144098262EBE42F0SN6PR12MB2656namp_"
+
+--_000_SN6PR12MB26564897C44D6144098262EBE42F0SN6PR12MB2656namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<rex.zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Sunday, July 29, 2018 7:42:25 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 1/3] drm/amd/pp: Delete duplicated interface in hwmgr_func
+
+gfx off support in smu can be via powergate_gfx interface.
+so remove the gfx_off_control interface.
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 1 -
+ drivers/gpu/drm/amd/powerplay/inc/hwmgr.h         | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+index a63e006..26d130a 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+@@ -1185,7 +1185,6 @@ static void smu10_powergate_vcn(struct pp_hwmgr *hwmg=
+r, bool bgate)
+         .dynamic_state_management_disable =3D smu10_disable_dpm_tasks,
+         .powergate_mmhub =3D smu10_powergate_mmhub,
+         .smus_notify_pwe =3D smu10_smus_notify_pwe,
+-       .gfx_off_control =3D smu10_gfx_off_control,
+         .display_clock_voltage_request =3D smu10_display_clock_voltage_req=
+uest,
+         .powergate_gfx =3D smu10_gfx_off_control,
+ };
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h
+index 7e58a0d..88f4517 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+@@ -298,7 +298,6 @@ struct pp_hwmgr_func {
+         int (*display_clock_voltage_request)(struct pp_hwmgr *hwmgr,
+                         struct pp_display_clock_request *clock);
+         int (*get_max_high_clocks)(struct pp_hwmgr *hwmgr, struct amd_pp_s=
+imple_clock_info *clocks);
+-       int (*gfx_off_control)(struct pp_hwmgr *hwmgr, bool enable);
+         int (*power_off_asic)(struct pp_hwmgr *hwmgr);
+         int (*force_clock_level)(struct pp_hwmgr *hwmgr, enum pp_clock_typ=
+e type, uint32_t mask);
+         int (*print_clock_levels)(struct pp_hwmgr *hwmgr, enum pp_clock_ty=
+pe type, char *buf);
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_SN6PR12MB26564897C44D6144098262EBE42F0SN6PR12MB2656namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><span>Reviewed-by: Evan Quan &lt;=
+evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Sunday, July 29, 2018 7:42:25 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 1/3] drm/amd/pp: Delete duplicated interface in hwmg=
+r_func</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">gfx off support in smu can be via powergate_gfx in=
+terface.<br>
+so remove the gfx_off_control interface.<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 1 -<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; | 1 -<br>
+&nbsp;2 files changed, 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+index a63e006..26d130a 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+@@ -1185,7 &#43;1185,6 @@ static void smu10_powergate_vcn(struct pp_hwmgr *=
+hwmgr, bool bgate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .dynamic_state_management_=
+disable =3D smu10_disable_dpm_tasks,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_mmhub =3D smu10=
+_powergate_mmhub,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smus_notify_pwe =3D smu10=
+_smus_notify_pwe,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .gfx_off_control =3D smu10_gfx_off_co=
+ntrol,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_voltage_req=
+uest =3D smu10_display_clock_voltage_request,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_gfx =3D smu10_g=
+fx_off_control,<br>
+&nbsp;};<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h<br>
+index 7e58a0d..88f4517 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+@@ -298,7 &#43;298,6 @@ struct pp_hwmgr_func {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*display_clock_voltag=
+e_request)(struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struc=
+t pp_display_clock_request *clock);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_max_high_clocks)=
+(struct pp_hwmgr *hwmgr, struct amd_pp_simple_clock_info *clocks);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*gfx_off_control)(struct pp_hwmg=
+r *hwmgr, bool enable);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*power_off_asic)(stru=
+ct pp_hwmgr *hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*force_clock_level)(s=
+truct pp_hwmgr *hwmgr, enum pp_clock_type type, uint32_t mask);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*print_clock_levels)(=
+struct pp_hwmgr *hwmgr, enum pp_clock_type type, char *buf);<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SN6PR12MB26564897C44D6144098262EBE42F0SN6PR12MB2656namp_--
+
+--===============0358140750==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0358140750==--
