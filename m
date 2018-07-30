@@ -1,13 +1,14 @@
-From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: add new amdgpu_vm_bo_trace_cs() function
-Date: Mon, 30 Jul 2018 02:11:06 +0000
-Message-ID: <BY1PR12MB050299FAD3EC487B8495DA95B42F0@BY1PR12MB0502.namprd12.prod.outlook.com>
-References: <20180727145743.1855-1-christian.koenig@amd.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/4] drm/amdgpu: Put enable gfx off feature to a delay
+ thread
+Date: Mon, 30 Jul 2018 02:26:17 +0000
+Message-ID: <SN6PR12MB2656A6C34BE374E0DF5FD125E42F0@SN6PR12MB2656.namprd12.prod.outlook.com>
+References: <1532864150-32370-1-git-send-email-rex.zhu@amd.com>,
+ <1532864150-32370-2-git-send-email-rex.zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1088892362=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180727145743.1855-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1532864150-32370-2-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,87 +20,465 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Grodzovsky,
- Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IENodW5taW5nICBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPg0KDQotLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91
-bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBDaHJpc3RpYW4gSz9uaWcN
-ClNlbnQ6IEZyaWRheSwgSnVseSAyNywgMjAxOCAxMDo1OCBQTQ0KVG86IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnOyBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9kem92c2t5QGFt
-ZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGFkZCBuZXcgYW1kZ3B1X3ZtX2Jv
-X3RyYWNlX2NzKCkgZnVuY3Rpb24NCg0KVGhpcyBhbGxvd3MgdXMgdG8gdHJhY2UgYWxsIFZNIHJh
-bmdlcyB3aGljaCBzaG91bGQgYmUgdmFsaWQgaW5zaWRlIGEgQ1MuDQoNClNpZ25lZC1vZmYtYnk6
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jICAgIHwgIDIgKysNCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCB8ICA1ICsrKysrDQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgfCAzMCArKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysNCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCAgICB8ICAx
-ICsNCiA0IGZpbGVzIGNoYW5nZWQsIDM4IGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2NzLmMNCmluZGV4IDhhNDljM2I5N2JkNC4uODcxNDAxY2Q5OTk3IDEw
-MDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQpAQCAtMTIyMCw2ICsxMjIw
-LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3Bvc3RfZGVwZW5kZW5jaWVzKHN0cnVjdCBhbWRn
-cHVfY3NfcGFyc2VyICpwKSAgc3RhdGljIGludCBhbWRncHVfY3Nfc3VibWl0KHN0cnVjdCBhbWRn
-cHVfY3NfcGFyc2VyICpwLA0KIAkJCSAgICB1bmlvbiBkcm1fYW1kZ3B1X2NzICpjcykNCiB7DQor
-CXN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2ID0gcC0+ZmlscC0+ZHJpdmVyX3ByaXY7DQogCXN0
-cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IHAtPnJpbmc7DQogCXN0cnVjdCBkcm1fc2NoZWRfZW50
-aXR5ICplbnRpdHkgPSAmcC0+Y3R4LT5yaW5nc1tyaW5nLT5pZHhdLmVudGl0eTsNCiAJZW51bSBk
-cm1fc2NoZWRfcHJpb3JpdHkgcHJpb3JpdHk7DQpAQCAtMTI3Miw2ICsxMjczLDcgQEAgc3RhdGlj
-IGludCBhbWRncHVfY3Nfc3VibWl0KHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLA0KIAlhbWRn
-cHVfam9iX2ZyZWVfcmVzb3VyY2VzKGpvYik7DQogDQogCXRyYWNlX2FtZGdwdV9jc19pb2N0bChq
-b2IpOw0KKwlhbWRncHVfdm1fYm9fdHJhY2VfY3MoJmZwcml2LT52bSwgJnAtPnRpY2tldCk7DQog
-CXByaW9yaXR5ID0gam9iLT5iYXNlLnNfcHJpb3JpdHk7DQogCWRybV9zY2hlZF9lbnRpdHlfcHVz
-aF9qb2IoJmpvYi0+YmFzZSwgZW50aXR5KTsNCiANCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV90cmFjZS5oDQppbmRleCAxMWYyNjJmMTUyMDAuLjcyMDZhMDAyNWIxNyAxMDA2NDQN
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oDQorKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaA0KQEAgLTMxNCw2ICszMTQs
-MTEgQEAgREVGSU5FX0VWRU5UKGFtZGdwdV92bV9tYXBwaW5nLCBhbWRncHVfdm1fYm9fbWFwcGlu
-ZywNCiAJICAgIFRQX0FSR1MobWFwcGluZykNCiApOw0KIA0KK0RFRklORV9FVkVOVChhbWRncHVf
-dm1fbWFwcGluZywgYW1kZ3B1X3ZtX2JvX2NzLA0KKwkgICAgVFBfUFJPVE8oc3RydWN0IGFtZGdw
-dV9ib192YV9tYXBwaW5nICptYXBwaW5nKSwNCisJICAgIFRQX0FSR1MobWFwcGluZykNCispOw0K
-Kw0KIFRSQUNFX0VWRU5UKGFtZGdwdV92bV9zZXRfcHRlcywNCiAJICAgIFRQX1BST1RPKHVpbnQ2
-NF90IHBlLCB1aW50NjRfdCBhZGRyLCB1bnNpZ25lZCBjb3VudCwNCiAJCSAgICAgdWludDMyX3Qg
-aW5jciwgdWludDY0X3QgZmxhZ3MpLA0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
-LmMNCmluZGV4IDVkN2Q3OTAwY2NhYi4uN2FlZGYzMTg0ZTM2IDEwMDY0NA0KLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV92bS5jDQpAQCAtMjM0Myw2ICsyMzQzLDM2IEBAIHN0cnVjdCBhbWRn
-cHVfYm9fdmFfbWFwcGluZyAqYW1kZ3B1X3ZtX2JvX2xvb2t1cF9tYXBwaW5nKHN0cnVjdCBhbWRn
-cHVfdm0gKnZtLA0KIAlyZXR1cm4gYW1kZ3B1X3ZtX2l0X2l0ZXJfZmlyc3QoJnZtLT52YSwgYWRk
-ciwgYWRkcik7ICB9DQogDQorLyoqDQorICogYW1kZ3B1X3ZtX2JvX3RyYWNlX2NzIC0gdHJhY2Ug
-YWxsIHJlc2VydmVkIG1hcHBpbmdzDQorICoNCisgKiBAdm06IHRoZSByZXF1ZXN0ZWQgdm0NCisg
-KiBAdGlja2V0OiBDUyB0aWNrZXQNCisgKg0KKyAqIFRyYWNlIGFsbCBtYXBwaW5ncyBvZiBCT3Mg
-cmVzZXJ2ZWQgZHVyaW5nIGEgY29tbWFuZCBzdWJtaXNzaW9uLg0KKyAqLw0KK3ZvaWQgYW1kZ3B1
-X3ZtX2JvX3RyYWNlX2NzKHN0cnVjdCBhbWRncHVfdm0gKnZtLCBzdHJ1Y3Qgd3dfYWNxdWlyZV9j
-dHggDQorKnRpY2tldCkgew0KKwlzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcgKm1hcHBpbmc7
-DQorDQorCWlmICghdHJhY2VfYW1kZ3B1X3ZtX2JvX2NzX2VuYWJsZWQoKSkNCisJCXJldHVybjsN
-CisNCisJZm9yIChtYXBwaW5nID0gYW1kZ3B1X3ZtX2l0X2l0ZXJfZmlyc3QoJnZtLT52YSwgMCwg
-VTY0X01BWCk7IG1hcHBpbmc7DQorCSAgICAgbWFwcGluZyA9IGFtZGdwdV92bV9pdF9pdGVyX25l
-eHQobWFwcGluZywgMCwgVTY0X01BWCkpIHsNCisJCXN0cnVjdCBhbWRncHVfYm8gKmJvOw0KKw0K
-KwkJaWYgKCFtYXBwaW5nLT5ib192YSB8fCAhbWFwcGluZy0+Ym9fdmEtPmJhc2UuYm8pDQorCQkJ
-Y29udGludWU7DQorDQorCQlibyA9IG1hcHBpbmctPmJvX3ZhLT5iYXNlLmJvOw0KKwkJaWYgKFJF
-QURfT05DRShiby0+dGJvLnJlc3YtPmxvY2suY3R4KSAhPSB0aWNrZXQpDQorCQkJY29udGludWU7
-DQorDQorCQl0cmFjZV9hbWRncHVfdm1fYm9fY3MobWFwcGluZyk7DQorCX0NCit9DQorDQogLyoq
-DQogICogYW1kZ3B1X3ZtX2JvX3JtdiAtIHJlbW92ZSBhIGJvIHRvIGEgc3BlY2lmaWMgdm0NCiAg
-Kg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgNCmluZGV4IGQ0MTZmODk1MjMz
-ZC4uNjdhMTVkNDM5YWMwIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5o
-DQpAQCAtMzE4LDYgKzMxOCw3IEBAIGludCBhbWRncHVfdm1fYm9fY2xlYXJfbWFwcGluZ3Moc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCQkJCXVpbnQ2NF90IHNhZGRyLCB1aW50NjRfdCBz
-aXplKTsNCiBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcgKmFtZGdwdV92bV9ib19sb29rdXBf
-bWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwNCiAJCQkJCQkJIHVpbnQ2NF90IGFkZHIpOw0K
-K3ZvaWQgYW1kZ3B1X3ZtX2JvX3RyYWNlX2NzKHN0cnVjdCBhbWRncHVfdm0gKnZtLCBzdHJ1Y3Qg
-d3dfYWNxdWlyZV9jdHggDQorKnRpY2tldCk7DQogdm9pZCBhbWRncHVfdm1fYm9fcm12KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LA0KIAkJICAgICAgc3RydWN0IGFtZGdwdV9ib192YSAqYm9f
-dmEpOw0KIHZvaWQgYW1kZ3B1X3ZtX2FkanVzdF9zaXplKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LCB1aW50MzJfdCB2bV9zaXplLA0KLS0NCjIuMTQuMQ0KDQpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+--===============1088892362==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB2656A6C34BE374E0DF5FD125E42F0SN6PR12MB2656namp_"
+
+--_000_SN6PR12MB2656A6C34BE374E0DF5FD125E42F0SN6PR12MB2656namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+-               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_T=
+YPE_GFX, true))
+-                       adev->gfx.bin_off =3D true;
++               schedule_delayed_work(&adev->gfx.delay_gfx_off_enable, GFX_=
+OFF_DELAY_ENABLE);
+         } else if (!enable && adev->gfx.bin_off) {
+                 if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_=
+TYPE_GFX, false))
+                         adev->gfx.bin_off =3D false;
+
+
+I think for disable gfxoff case, you need to use cancle_delayed_work_sync((=
+&adev->gfx.delay_gfx_off_enable). E.g.
+
+
+if (!cancle_delayed_work_sync((&adev->gfx.delay_gfx_off_enable) && !amdgpu_=
+dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, false))
+
+                         adev->gfx.bin_off =3D false;
+
+
+Regards,
+
+Evan
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<rex.zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Sunday, July 29, 2018 7:35:48 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 2/4] drm/amdgpu: Put enable gfx off feature to a delay thre=
+ad
+
+delay to enable gfx off feature to avoid gfx on/off frequently
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 ++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |  6 ++++--
+ 3 files changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index 318961d..b59ac02 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -993,6 +993,7 @@ struct amdgpu_gfx {
+         bool                            bin_off;
+         struct mutex                    gfx_off_ctrl_mutex;
+         uint32_t                        disable_gfx_off_request;
++       struct delayed_work             delay_gfx_off_enable;
+         /* pipe reservation */
+         struct mutex                    pipe_reserve_mutex;
+         DECLARE_BITMAP                  (pipe_reserve_bitmap, AMDGPU_MAX_C=
+OMPUTE_QUEUES);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index b40ce6f..9f8e267 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1925,6 +1925,20 @@ static void amdgpu_device_ip_late_init_func_handler(=
+struct work_struct *work)
+                 DRM_ERROR("ib ring test failed (%d).\n", r);
+ }
+
++static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
++{
++       struct amdgpu_device *adev =3D
++               container_of(work, struct amdgpu_device, gfx.delay_gfx_off_=
+enable.work);
++
++       mutex_lock(&adev->gfx.gfx_off_ctrl_mutex);
++       if (adev->gfx.bready_for_off && !adev->gfx.bin_off
++                               && adev->gfx.disable_gfx_off_request) {
++               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_T=
+YPE_GFX, true))
++                       adev->gfx.bin_off =3D true;
++       }
++       mutex_unlock(&adev->gfx.gfx_off_ctrl_mutex);
++}
++
+ /**
+  * amdgpu_device_ip_suspend_phase1 - run suspend for hardware IPs (phase 1=
+)
+  *
+@@ -2394,6 +2408,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+
+         INIT_DELAYED_WORK(&adev->late_init_work,
+                           amdgpu_device_ip_late_init_func_handler);
++       INIT_DELAYED_WORK(&adev->gfx.delay_gfx_off_enable,
++                         amdgpu_device_delay_enable_gfx_off);
+
+         adev->pm.ac_power =3D power_supply_is_system_supplied() > 0 ? true=
+ : false;
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gfx.c
+index 68fe9c8..1ea1e8b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -26,6 +26,9 @@
+ #include "amdgpu.h"
+ #include "amdgpu_gfx.h"
+
++/* 0.5 second timeout */
++#define GFX_OFF_DELAY_ENABLE         msecs_to_jiffies(500)
++
+ /*
+  * GPU scratch registers helpers function.
+  */
+@@ -384,8 +387,7 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, en=
+um amd_ip_block_type clie
+  */
+         if (adev->gfx.bready_for_off && !adev->gfx.bin_off
+                                 && !adev->gfx.disable_gfx_off_request) {
+-               if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_T=
+YPE_GFX, true))
+-                       adev->gfx.bin_off =3D true;
++               schedule_delayed_work(&adev->gfx.delay_gfx_off_enable, GFX_=
+OFF_DELAY_ENABLE);
+         } else if (!enable && adev->gfx.bin_off) {
+                 if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_=
+TYPE_GFX, false))
+                         adev->gfx.bin_off =3D false;
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_SN6PR12MB2656A6C34BE374E0DF5FD125E42F0SN6PR12MB2656namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(33, 33,=
+ 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP=
+&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;"=
+>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; if (!amdgpu_dpm_set_powergating_by_smu(adev,
+ AMD_IP_BLOCK_TYPE_GFX, true))</span><br style=3D"color: rgb(33, 33, 33); f=
+ont-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;,=
+ Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;">
+<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
+EmojiFont; font-size: 14.6667px;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; adev-&gt;gfx.bin_off =3D true;</span><br style=3D"color: =
+rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &qu=
+ot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: =
+14.6667px;">
+<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
+EmojiFont; font-size: 14.6667px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_delayed_work(&amp=
+;adev-&gt;gfx.delay_gfx_off_enable, GFX_OFF_DELAY_ENABLE);</span><br style=
+=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI=
+&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; =
+font-size: 14.6667px;">
+<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
+EmojiFont; font-size: 14.6667px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; } else if (!enable &amp;&amp; adev-&gt;gfx.bin_off) {</span><br sty=
+le=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe =
+UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont=
+; font-size: 14.6667px;">
+<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
+EmojiFont; font-size: 14.6667px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_set=
+_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, false))</span><br style=3D=
+"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&qu=
+ot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; fon=
+t-size: 14.6667px;">
+<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, =
+EmojiFont; font-size: 14.6667px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.bin_off =3D false;</span><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"color: rgb(33, 33,=
+ 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP=
+&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;"=
+><br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font color=3D"#212121" face=3D"w=
+f_segoe-ui_normal, Segoe UI, Segoe WP, Tahoma, Arial, sans-serif, serif, Em=
+ojiFont"><span style=3D"font-size: 14.6667px;">I think for disable gfxoff c=
+ase, you need to use cancle_delayed_work_sync(<span style=3D"color: rgb(33,=
+ 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Sego=
+e WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667=
+px;">(&amp;adev-&gt;gfx.delay_gfx_off_enable).
+ E.g.</span></span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font color=3D"#212121" face=3D"w=
+f_segoe-ui_normal, Segoe UI, Segoe WP, Tahoma, Arial, sans-serif, serif, Em=
+ojiFont"><span style=3D"font-size: 14.6667px;"><span style=3D"color: rgb(33=
+, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Seg=
+oe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.666=
+7px;"><br>
+</span></span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font color=3D"#212121" face=3D"w=
+f_segoe-ui_normal, Segoe UI, Segoe WP, Tahoma, Arial, sans-serif, serif, Em=
+ojiFont"><span style=3D"font-size: 14.6667px;"><span style=3D"color: rgb(33=
+, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Seg=
+oe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.666=
+7px;">if
+ (!<span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, =
+&quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, seri=
+f, EmojiFont; font-size: 14.6667px;">cancle_delayed_work_sync(</span><span =
+style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_normal, &quot;Seg=
+oe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiF=
+ont; font-size: 14.6667px;">(&amp;adev-&gt;gfx.delay_gfx_off_enable)
+ &amp;&amp;&nbsp;<span style=3D"color: rgb(33, 33, 33); font-family: wf_seg=
+oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
+ns-serif, serif, EmojiFont; font-size: 14.6667px;">!amdgpu_dpm_set_powergat=
+ing_by_smu(adev, AMD_IP_BLOCK_TYPE_GFX, false)</span>)</span></span></span>=
+</font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font color=3D"#212121" face=3D"w=
+f_segoe-ui_normal, Segoe UI, Segoe WP, Tahoma, Arial, sans-serif, serif, Em=
+ojiFont"><span style=3D"font-size: 14.6667px;"><span style=3D"color: rgb(33=
+, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Seg=
+oe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.666=
+7px;"><span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_norma=
+l, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, s=
+erif, EmojiFont; font-size: 14.6667px;"><span style=3D"color: rgb(33, 33, 3=
+3); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&q=
+uot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;">&=
+nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp;adev-&gt;gfx.bin_off =3D false;</span></span></span></span></font>=
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><font color=3D"#212121" face=3D"w=
+f_segoe-ui_normal, Segoe UI, Segoe WP, Tahoma, Arial, sans-serif, serif, Em=
+ojiFont"><span style=3D"font-size: 14.6667px;"><span style=3D"color: rgb(33=
+, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Seg=
+oe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.666=
+7px;"><span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_norma=
+l, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, s=
+erif, EmojiFont; font-size: 14.6667px;"><span style=3D"color: rgb(33, 33, 3=
+3); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&q=
+uot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;">R=
+egards,</span></span></span></span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font color=3D"#212121" face=3D"w=
+f_segoe-ui_normal, Segoe UI, Segoe WP, Tahoma, Arial, sans-serif, serif, Em=
+ojiFont"><span style=3D"font-size: 14.6667px;"><span style=3D"color: rgb(33=
+, 33, 33); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Seg=
+oe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.666=
+7px;"><span style=3D"color: rgb(33, 33, 33); font-family: wf_segoe-ui_norma=
+l, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, s=
+erif, EmojiFont; font-size: 14.6667px;"><span style=3D"color: rgb(33, 33, 3=
+3); font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&q=
+uot;, Tahoma, Arial, sans-serif, serif, EmojiFont; font-size: 14.6667px;">E=
+van</span></span></span></span></font></p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Sunday, July 29, 2018 7:35:48 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 2/4] drm/amdgpu: Put enable gfx off feature to a del=
+ay thread</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">delay to enable gfx off feature to avoid gfx on/of=
+f frequently<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; |&nbsp; 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c&nbsp;&nbsp;&nbsp; |&nbsp; 6 &=
+#43;&#43;&#43;&#43;--<br>
+&nbsp;3 files changed, 21 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index 318961d..b59ac02 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -993,6 &#43;993,7 @@ struct amdgpu_gfx {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bin_off;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; gfx_off_ctrl_mutex;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable_gfx_off_request;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct delayed_work&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay_gfx_off_en=
+able;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* pipe reservation */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; pipe_reserve_mutex;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DECLARE_BITMAP&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; (pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index b40ce6f..9f8e267 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -1925,6 &#43;1925,20 @@ static void amdgpu_device_ip_late_init_func_hand=
+ler(struct work_struct *work)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;ib ring test failed (%d).\n&quot;, r)=
+;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static void amdgpu_device_delay_enable_gfx_off(struct work_struct *wor=
+k)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; container_of(work, struct amdgpu_device, gfx.delay_gfx_off_e=
+nable.work);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;gfx.gfx_=
+off_ctrl_mutex);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.bready_for_off &=
+amp;&amp; !adev-&gt;gfx.bin_off<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp; adev-&gt;gfx.disable_gfx_off=
+_request) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TY=
+PE_GFX, true))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx=
+.bin_off =3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;gfx.gf=
+x_off_ctrl_mutex);<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;/**<br>
+&nbsp; * amdgpu_device_ip_suspend_phase1 - run suspend for hardware IPs (ph=
+ase 1)<br>
+&nbsp; *<br>
+@@ -2394,6 &#43;2408,8 @@ int amdgpu_device_init(struct amdgpu_device *adev=
+,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;ade=
+v-&gt;late_init_work,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; amdgpu_device_ip_late_init_func_handler);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;adev-&gt;g=
+fx.delay_gfx_off_enable,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+amdgpu_device_delay_enable_gfx_off);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.ac_power =3D p=
+ower_supply_is_system_supplied() &gt; 0 ? true : false;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gfx.c<br>
+index 68fe9c8..1ea1e8b 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
+@@ -26,6 &#43;26,9 @@<br>
+&nbsp;#include &quot;amdgpu.h&quot;<br>
+&nbsp;#include &quot;amdgpu_gfx.h&quot;<br>
+&nbsp;<br>
+&#43;/* 0.5 second timeout */<br>
+&#43;#define GFX_OFF_DELAY_ENABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; msecs_to_jiffies(500)<br>
+&#43;<br>
+&nbsp;/*<br>
+&nbsp; * GPU scratch registers helpers function.<br>
+&nbsp; */<br>
+@@ -384,8 &#43;387,7 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev=
+, enum amd_ip_block_type clie<br>
+&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.bready_fo=
+r_off &amp;&amp; !adev-&gt;gfx.bin_off<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp; !adev-&gt;gfx.disable=
+_gfx_off_request) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_G=
+FX, true))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.bin=
+_off =3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; schedule_delayed_work(&amp;adev-&gt;gfx.delay_gfx_off_enable=
+, GFX_OFF_DELAY_ENABLE);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (!enable &amp;&a=
+mp; adev-&gt;gfx.bin_off) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_B=
+LOCK_TYPE_GFX, false))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;gfx.bin_off =3D false;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SN6PR12MB2656A6C34BE374E0DF5FD125E42F0SN6PR12MB2656namp_--
+
+--===============1088892362==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1088892362==--
