@@ -1,14 +1,16 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/4] drm/amdgpu: Disable gfx off if VCN is busy
-Date: Mon, 30 Jul 2018 02:27:25 +0000
-Message-ID: <SN6PR12MB265608401A528031B5689DE2E42F0@SN6PR12MB2656.namprd12.prod.outlook.com>
-References: <1532864150-32370-1-git-send-email-rex.zhu@amd.com>,
- <1532864150-32370-4-git-send-email-rex.zhu@amd.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add new amdgpu_vm_bo_trace_cs() function
+Date: Mon, 30 Jul 2018 10:59:44 +0800
+Message-ID: <20180730025943.GA24765@hr-amur2>
+References: <20180727145743.1855-1-christian.koenig@amd.com>
+ <20180729121629.GB20939@hr-amur2>
+ <MWHPR12MB1453B883372FA69F8C436CF8EA280@MWHPR12MB1453.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1412088680=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1532864150-32370-4-git-send-email-rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <MWHPR12MB1453B883372FA69F8C436CF8EA280-Gy0DoCVfaSWZBIDmKHdw+wdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,165 +21,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: Christian =?utf-8?B?S++/vW5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1412088680==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB265608401A528031B5689DE2E42F0SN6PR12MB2656namp_"
-
---_000_SN6PR12MB265608401A528031B5689DE2E42F0SN6PR12MB2656namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<rex.zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Sunday, July 29, 2018 7:35:50 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 4/4] drm/amdgpu: Disable gfx off if VCN is busy
-
-this patch is a workaround for the gpu hang
-at video end time if play video with gfx off enabled.
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.c
-index 798648a..d68039f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -214,6 +214,7 @@ static void amdgpu_vcn_idle_work_handler(struct work_st=
-ruct *work)
-         fences +=3D amdgpu_fence_count_emitted(&adev->vcn.ring_jpeg);
-
-         if (fences =3D=3D 0) {
-+               amdgpu_gfx_off_ctrl(adev, AMD_IP_BLOCK_TYPE_VCN, true);
-                 if (adev->pm.dpm_enabled)
-                         amdgpu_dpm_enable_uvd(adev, false);
-                 else
-@@ -230,6 +231,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring=
-)
-         bool set_clocks =3D !cancel_delayed_work_sync(&adev->vcn.idle_work=
-);
-
-         if (set_clocks) {
-+               amdgpu_gfx_off_ctrl(adev, AMD_IP_BLOCK_TYPE_VCN, false);
-                 if (adev->pm.dpm_enabled)
-                         amdgpu_dpm_enable_uvd(adev, true);
-                 else
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_SN6PR12MB265608401A528031B5689DE2E42F0SN6PR12MB2656namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><span>Reviewed-by: Evan Quan &lt;=
-evan.quan-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Sunday, July 29, 2018 7:35:50 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 4/4] drm/amdgpu: Disable gfx off if VCN is busy</fon=
-t>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">this patch is a workaround for the gpu hang<br>
-at video end time if play video with gfx off enabled.<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.c<br>
-index 798648a..d68039f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
-@@ -214,6 &#43;214,7 @@ static void amdgpu_vcn_idle_work_handler(struct wor=
-k_struct *work)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fences &#43;=3D amdgpu_fen=
-ce_count_emitted(&amp;adev-&gt;vcn.ring_jpeg);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (fences =3D=3D 0) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, AMD_IP_BLOCK_TYPE_VCN, true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm_enabled)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_dpm_enable_uvd(adev, false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; else<br>
-@@ -230,6 &#43;231,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *=
-ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool set_clocks =3D !cance=
-l_delayed_work_sync(&amp;adev-&gt;vcn.idle_work);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (set_clocks) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, AMD_IP_BLOCK_TYPE_VCN, false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm_enabled)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_dpm_enable_uvd(adev, true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; else<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SN6PR12MB265608401A528031B5689DE2E42F0SN6PR12MB2656namp_--
-
---===============1412088680==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1412088680==--
+T24gTW9uLCBKdWwgMzAsIDIwMTggYXQgMTI6MzA6NDBBTSArMDgwMCwgR3JvZHpvdnNreSwgQW5k
+cmV5IHdyb3RlOgo+IFdoZW4gVk0gZmF1bHQgaGFwcGVucyBpdCBoZWxwcyB2ZXJpZnkgYSB0aGF0
+IGEgQk8gZm9yIHRoZSBmYXVsdGVkIFZBIHdhc24ndCBvbWl0dGVkIGZyb20gdGhlIEJPIGxpc3Qg
+Zm9yIHRoZSBDUy4KPiAKCkdvb2QgdG8ga25vdy4gVGhhbmtzLCBBbmRyZXkuCgpSYXkKCj4gQW5k
+cmV5Cj4gCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IEZyb206
+IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFs
+ZiBvZiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+IFNlbnQ6IDI5IEp1bHkgMjAxOCAw
+ODoxNjozMAo+IFRvOiBDaHJpc3RpYW4gSz9uaWcKPiBDYzogR3JvZHpvdnNreSwgQW5kcmV5OyBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9h
+bWRncHU6IGFkZCBuZXcgYW1kZ3B1X3ZtX2JvX3RyYWNlX2NzKCkgZnVuY3Rpb24KPiAKPiBPbiBG
+cmksIEp1bCAyNywgMjAxOCBhdCAwNDo1Nzo0M1BNICswMjAwLCBDaHJpc3RpYW4gSz9uaWcgd3Jv
+dGU6Cj4gPiBUaGlzIGFsbG93cyB1cyB0byB0cmFjZSBhbGwgVk0gcmFuZ2VzIHdoaWNoIHNob3Vs
+ZCBiZSB2YWxpZCBpbnNpZGUgYSBDUy4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4g
+Sz9uaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAKPiBSZXZpZXdlZC1ieTogSHVhbmcg
+UnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPiAKPiBBIGJpdCBjdXJpb3VzLCB3aGF0IGtpbmQgb2Yg
+c2l0dWF0aW9uIHRoYXQgd2UgbmVlZCB0cmFjZSBhbGwgVk0gcmFuZ2VzCj4gZHVyaW5nIHRoZSBj
+b21tYW5kIHN1Ym1pc3Npb24/Cj4gCj4gVGhhbmtzLAo+IFJheQo+IAo+ID4gLS0tCj4gPiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgfCAgMiArKwo+ID4gIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgIDUgKysrKysKPiA+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICB8IDMwICsrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKwo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+bS5oICAgIHwgIDEgKwo+ID4gIDQgZmlsZXMgY2hhbmdlZCwgMzggaW5zZXJ0aW9ucygrKQo+ID4K
+PiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gPiBpbmRleCA4YTQ5YzNi
+OTdiZDQuLjg3MTQwMWNkOTk5NyAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9jcy5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfY3MuYwo+ID4gQEAgLTEyMjAsNiArMTIyMCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9j
+c19wb3N0X2RlcGVuZGVuY2llcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKPiA+ICBzdGF0
+aWMgaW50IGFtZGdwdV9jc19zdWJtaXQoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCj4gPiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHVuaW9uIGRybV9hbWRncHVfY3MgKmNzKQo+ID4gIHsK
+PiA+ICsgICAgIHN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2ID0gcC0+ZmlscC0+ZHJpdmVyX3By
+aXY7Cj4gPiAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSBwLT5yaW5nOwo+ID4gICAg
+ICAgc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSA9ICZwLT5jdHgtPnJpbmdzW3Jpbmct
+PmlkeF0uZW50aXR5Owo+ID4gICAgICAgZW51bSBkcm1fc2NoZWRfcHJpb3JpdHkgcHJpb3JpdHk7
+Cj4gPiBAQCAtMTI3Miw2ICsxMjczLDcgQEAgc3RhdGljIGludCBhbWRncHVfY3Nfc3VibWl0KHN0
+cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLAo+ID4gICAgICAgYW1kZ3B1X2pvYl9mcmVlX3Jlc291
+cmNlcyhqb2IpOwo+ID4KPiA+ICAgICAgIHRyYWNlX2FtZGdwdV9jc19pb2N0bChqb2IpOwo+ID4g
+KyAgICAgYW1kZ3B1X3ZtX2JvX3RyYWNlX2NzKCZmcHJpdi0+dm0sICZwLT50aWNrZXQpOwo+ID4g
+ICAgICAgcHJpb3JpdHkgPSBqb2ItPmJhc2Uuc19wcmlvcml0eTsKPiA+ICAgICAgIGRybV9zY2hl
+ZF9lbnRpdHlfcHVzaF9qb2IoJmpvYi0+YmFzZSwgZW50aXR5KTsKPiA+Cj4gPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAo+ID4gaW5kZXggMTFmMjYyZjE1MjAwLi43
+MjA2YTAwMjViMTcgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdHJhY2UuaAo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3RyYWNlLmgKPiA+IEBAIC0zMTQsNiArMzE0LDExIEBAIERFRklORV9FVkVOVChhbWRncHVfdm1f
+bWFwcGluZywgYW1kZ3B1X3ZtX2JvX21hcHBpbmcsCj4gPiAgICAgICAgICAgVFBfQVJHUyhtYXBw
+aW5nKQo+ID4gICk7Cj4gPgo+ID4gK0RFRklORV9FVkVOVChhbWRncHVfdm1fbWFwcGluZywgYW1k
+Z3B1X3ZtX2JvX2NzLAo+ID4gKyAgICAgICAgIFRQX1BST1RPKHN0cnVjdCBhbWRncHVfYm9fdmFf
+bWFwcGluZyAqbWFwcGluZyksCj4gPiArICAgICAgICAgVFBfQVJHUyhtYXBwaW5nKQo+ID4gKyk7
+Cj4gPiArCj4gPiAgVFJBQ0VfRVZFTlQoYW1kZ3B1X3ZtX3NldF9wdGVzLAo+ID4gICAgICAgICAg
+IFRQX1BST1RPKHVpbnQ2NF90IHBlLCB1aW50NjRfdCBhZGRyLCB1bnNpZ25lZCBjb3VudCwKPiA+
+ICAgICAgICAgICAgICAgICAgICB1aW50MzJfdCBpbmNyLCB1aW50NjRfdCBmbGFncyksCj4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+ID4gaW5kZXggNWQ3ZDc5MDBjY2Fi
+Li43YWVkZjMxODRlMzYgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdm0uYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMKPiA+IEBAIC0yMzQzLDYgKzIzNDMsMzYgQEAgc3RydWN0IGFtZGdwdV9ib192YV9tYXBw
+aW5nICphbWRncHVfdm1fYm9fbG9va3VwX21hcHBpbmcoc3RydWN0IGFtZGdwdV92bSAqdm0sCj4g
+PiAgICAgICByZXR1cm4gYW1kZ3B1X3ZtX2l0X2l0ZXJfZmlyc3QoJnZtLT52YSwgYWRkciwgYWRk
+cik7Cj4gPiAgfQo+ID4KPiA+ICsvKioKPiA+ICsgKiBhbWRncHVfdm1fYm9fdHJhY2VfY3MgLSB0
+cmFjZSBhbGwgcmVzZXJ2ZWQgbWFwcGluZ3MKPiA+ICsgKgo+ID4gKyAqIEB2bTogdGhlIHJlcXVl
+c3RlZCB2bQo+ID4gKyAqIEB0aWNrZXQ6IENTIHRpY2tldAo+ID4gKyAqCj4gPiArICogVHJhY2Ug
+YWxsIG1hcHBpbmdzIG9mIEJPcyByZXNlcnZlZCBkdXJpbmcgYSBjb21tYW5kIHN1Ym1pc3Npb24u
+Cj4gPiArICovCj4gPiArdm9pZCBhbWRncHVfdm1fYm9fdHJhY2VfY3Moc3RydWN0IGFtZGdwdV92
+bSAqdm0sIHN0cnVjdCB3d19hY3F1aXJlX2N0eCAqdGlja2V0KQo+ID4gK3sKPiA+ICsgICAgIHN0
+cnVjdCBhbWRncHVfYm9fdmFfbWFwcGluZyAqbWFwcGluZzsKPiA+ICsKPiA+ICsgICAgIGlmICgh
+dHJhY2VfYW1kZ3B1X3ZtX2JvX2NzX2VuYWJsZWQoKSkKPiA+ICsgICAgICAgICAgICAgcmV0dXJu
+Owo+ID4gKwo+ID4gKyAgICAgZm9yIChtYXBwaW5nID0gYW1kZ3B1X3ZtX2l0X2l0ZXJfZmlyc3Qo
+JnZtLT52YSwgMCwgVTY0X01BWCk7IG1hcHBpbmc7Cj4gPiArICAgICAgICAgIG1hcHBpbmcgPSBh
+bWRncHVfdm1faXRfaXRlcl9uZXh0KG1hcHBpbmcsIDAsIFU2NF9NQVgpKSB7Cj4gPiArICAgICAg
+ICAgICAgIHN0cnVjdCBhbWRncHVfYm8gKmJvOwo+ID4gKwo+ID4gKyAgICAgICAgICAgICBpZiAo
+IW1hcHBpbmctPmJvX3ZhIHx8ICFtYXBwaW5nLT5ib192YS0+YmFzZS5ibykKPiA+ICsgICAgICAg
+ICAgICAgICAgICAgICBjb250aW51ZTsKPiA+ICsKPiA+ICsgICAgICAgICAgICAgYm8gPSBtYXBw
+aW5nLT5ib192YS0+YmFzZS5ibzsKPiA+ICsgICAgICAgICAgICAgaWYgKFJFQURfT05DRShiby0+
+dGJvLnJlc3YtPmxvY2suY3R4KSAhPSB0aWNrZXQpCj4gPiArICAgICAgICAgICAgICAgICAgICAg
+Y29udGludWU7Cj4gPiArCj4gPiArICAgICAgICAgICAgIHRyYWNlX2FtZGdwdV92bV9ib19jcyht
+YXBwaW5nKTsKPiA+ICsgICAgIH0KPiA+ICt9Cj4gPiArCj4gPiAgLyoqCj4gPiAgICogYW1kZ3B1
+X3ZtX2JvX3JtdiAtIHJlbW92ZSBhIGJvIHRvIGEgc3BlY2lmaWMgdm0KPiA+ICAgKgo+ID4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPiA+IGluZGV4IGQ0MTZmODk1MjMzZC4u
+NjdhMTVkNDM5YWMwIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmgKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+bS5oCj4gPiBAQCAtMzE4LDYgKzMxOCw3IEBAIGludCBhbWRncHVfdm1fYm9fY2xlYXJfbWFwcGlu
+Z3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gPiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICB1aW50NjRfdCBzYWRkciwgdWludDY0X3Qgc2l6ZSk7Cj4gPiAgc3RydWN0IGFtZGdw
+dV9ib192YV9tYXBwaW5nICphbWRncHVfdm1fYm9fbG9va3VwX21hcHBpbmcoc3RydWN0IGFtZGdw
+dV92bSAqdm0sCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgdWludDY0X3QgYWRkcik7Cj4gPiArdm9pZCBhbWRncHVfdm1fYm9fdHJhY2Vf
+Y3Moc3RydWN0IGFtZGdwdV92bSAqdm0sIHN0cnVjdCB3d19hY3F1aXJlX2N0eCAqdGlja2V0KTsK
+PiA+ICB2b2lkIGFtZGdwdV92bV9ib19ybXYoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4g
+PiAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfYm9fdmEgKmJvX3ZhKTsKPiA+ICB2
+b2lkIGFtZGdwdV92bV9hZGp1c3Rfc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWlu
+dDMyX3Qgdm1fc2l6ZSwKPiA+IC0tCj4gPiAyLjE0LjEKPiA+Cj4gPiBfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+PiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
