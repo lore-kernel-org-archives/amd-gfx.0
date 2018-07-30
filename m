@@ -1,15 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: return bo itself if userptr is cpu addr
- of bo (v3)
-Date: Mon, 30 Jul 2018 12:47:48 +0200
-Message-ID: <3d423f44-e47a-e70c-dfd9-80c1ff843e45@gmail.com>
-References: <1532944950-28619-1-git-send-email-Jerry.Zhang@amd.com>
+Subject: Re: [PATCH v2 2/4] drm/amdgpu: Put enable gfx off feature to a delay
+ thread
+Date: Mon, 30 Jul 2018 12:49:14 +0200
+Message-ID: <acfd6ab0-a069-f5df-1d1a-dabd2bb5fa52@gmail.com>
+References: <1532942625-26876-1-git-send-email-Rex.Zhu@amd.com>
+ <1532942625-26876-2-git-send-email-Rex.Zhu@amd.com>
+ <CY4PR12MB168727FC303FDB625880C440FB2F0@CY4PR12MB1687.namprd12.prod.outlook.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1919968409=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1532944950-28619-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CY4PR12MB168727FC303FDB625880C440FB2F0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,121 +22,477 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMzAuMDcuMjAxOCB1bSAxMjowMiBzY2hyaWViIEp1bndlaSBaaGFuZzoKPiBGcm9tOiBDaHVu
-bWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+Cj4gdjI6IGdldCBvcmlnaW5hbCBnZW0g
-aGFuZGxlIGZyb20gZ29iago+IHYzOiB1cGRhdGUgZmluZCBibyBkYXRhIHN0cnVjdHVyZSBhcyB1
-bmlvbihpbiwgb3V0KQo+ICAgICAgc2ltcGx5IHNvbWUgY29kZSBsb2dpYwoKRG8gd2Ugbm93IGhh
-dmUgYW4gb3BlbiBzb3VyY2UgdXNlciBmb3IgdGhpcywgc28gdGhhdCB3ZSBjYW4gdXBzdHJlYW0g
-aXQ/IApPbmUgbW9yZSBwb2ludCBiZWxvdy4KCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHVubWluZyBa
-aG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+IFNpZ25lZC1vZmYtYnk6IEp1bndlaSBaaGFuZyA8
-SmVycnkuWmhhbmdAYW1kLmNvbT4gKHYzKQo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmln
-IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gUmV2aWV3ZWQtYnk6IEphbW15IFpob3UgPEph
-bW15Llpob3VAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdS5oICAgICB8ICAyICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Z2VtLmMgfCA2MyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyB8ICAzICstCj4gICBpbmNsdWRlL3VhcGkv
-ZHJtL2FtZGdwdV9kcm0uaCAgICAgICAgICAgfCAyMSArKysrKysrKysrKwo+ICAgNCBmaWxlcyBj
-aGFuZ2VkLCA4OCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IDRjZDIwZTcuLjQ2YzM3MGIgMTAwNjQ0Cj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IEBAIC0xMjEzLDYgKzEyMTMsOCBAQCBpbnQgYW1kZ3B1
-X2dlbV9pbmZvX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAJ
-CQkgIHN0cnVjdCBkcm1fZmlsZSAqZmlscCk7Cj4gICBpbnQgYW1kZ3B1X2dlbV91c2VycHRyX2lv
-Y3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAJCQlzdHJ1Y3QgZHJt
-X2ZpbGUgKmZpbHApOwo+ICtpbnQgYW1kZ3B1X2dlbV9maW5kX2JvX2J5X2NwdV9tYXBwaW5nX2lv
-Y3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gKwkJCQkJICAgIHN0cnVj
-dCBkcm1fZmlsZSAqZmlscCk7Cj4gICBpbnQgYW1kZ3B1X2dlbV9tbWFwX2lvY3RsKHN0cnVjdCBk
-cm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAJCQkgIHN0cnVjdCBkcm1fZmlsZSAqZmls
-cCk7Cj4gICBpbnQgYW1kZ3B1X2dlbV93YWl0X2lkbGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2Ug
-KmRldiwgdm9pZCAqZGF0YSwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5j
-Cj4gaW5kZXggNzE3OTJkOC4uYmFlODQxNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZ2VtLmMKPiBAQCAtMjg4LDYgKzI4OCw2OSBAQCBpbnQgYW1kZ3B1X2dlbV9jcmVh
-dGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgIAlyZXR1cm4g
-MDsKPiAgIH0KPiAgIAo+ICtzdGF0aWMgaW50IGFtZGdwdV9nZW1fZ2V0X2hhbmRsZV9mcm9tX29i
-amVjdChzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHAsCj4gKwkJCQkJICAgICBzdHJ1Y3QgZHJtX2dlbV9v
-YmplY3QgKm9iaikKPiArewo+ICsJaW50IGk7Cj4gKwlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKnRt
-cDsKPiArCj4gKwlzcGluX2xvY2soJmZpbHAtPnRhYmxlX2xvY2spOwo+ICsJaWRyX2Zvcl9lYWNo
-X2VudHJ5KCZmaWxwLT5vYmplY3RfaWRyLCB0bXAsIGkpIHsKPiArCQlpZiAob2JqID09IHRtcCkg
-ewo+ICsJCQlkcm1fZ2VtX29iamVjdF9yZWZlcmVuY2Uob2JqKTsKPiArCQkJc3Bpbl91bmxvY2so
-JmZpbHAtPnRhYmxlX2xvY2spOwo+ICsJCQlyZXR1cm4gaTsKPiArCQl9Cj4gKwl9CgpQbGVhc2Ug
-ZG91YmxlIGNoZWNrIGlmIHRoYXQgaXMgc3RpbGwgdXAgdG8gZGF0ZS4KCkkgdGhpbmsgd2UgY291
-bGQgYXMgd2VsbCB0cnkgdG8gdXNlIHRoZSBETUEtYnVmIGhhbmRsZSB0cmVlIGZvciB0aGF0LgoK
-Q2hyaXN0aWFuLgoKPiArCXNwaW5fdW5sb2NrKCZmaWxwLT50YWJsZV9sb2NrKTsKPiArCj4gKwly
-ZXR1cm4gMDsKPiArfQo+ICsKPiAraW50IGFtZGdwdV9nZW1fZmluZF9ib19ieV9jcHVfbWFwcGlu
-Z19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICsJCQkJCSAgICBz
-dHJ1Y3QgZHJtX2ZpbGUgKmZpbHApCj4gK3sKPiArCXVuaW9uIGRybV9hbWRncHVfZ2VtX2ZpbmRf
-Ym8gKmFyZ3MgPSBkYXRhOwo+ICsJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpnb2JqOwo+ICsJc3Ry
-dWN0IGFtZGdwdV9ibyAqYm87Cj4gKwlzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibzsKPiAr
-CXN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hOwo+ICsJdWludDMyX3QgaGFuZGxlOwo+ICsJaW50
-IHI7Cj4gKwo+ICsJaWYgKG9mZnNldF9pbl9wYWdlKGFyZ3MtPmluLmFkZHIgfCBhcmdzLT5pbi5z
-aXplKSkKPiArCQlyZXR1cm4gLUVJTlZBTDsKPiArCj4gKwlkb3duX3JlYWQoJmN1cnJlbnQtPm1t
-LT5tbWFwX3NlbSk7Cj4gKwl2bWEgPSBmaW5kX3ZtYShjdXJyZW50LT5tbSwgYXJncy0+aW4uYWRk
-cik7Cj4gKwlpZiAoIXZtYSB8fCB2bWEtPnZtX2ZpbGUgIT0gZmlscC0+ZmlscCB8fAo+ICsJICAg
-IChhcmdzLT5pbi5zaXplID4gKHZtYS0+dm1fZW5kIC0gYXJncy0+aW4uYWRkcikpKSB7Cj4gKwkJ
-YXJncy0+b3V0LmhhbmRsZSA9IDA7Cj4gKwkJdXBfcmVhZCgmY3VycmVudC0+bW0tPm1tYXBfc2Vt
-KTsKPiArCQlyZXR1cm4gLUVJTlZBTDsKPiArCX0KPiArCWFyZ3MtPm91dC5vZmZzZXQgPSBhcmdz
-LT5pbi5hZGRyIC0gdm1hLT52bV9zdGFydDsKPiArCj4gKwl0Ym8gPSB2bWEtPnZtX3ByaXZhdGVf
-ZGF0YTsKPiArCWJvID0gY29udGFpbmVyX29mKHRibywgc3RydWN0IGFtZGdwdV9ibywgdGJvKTsK
-PiArCWFtZGdwdV9ib19yZWYoYm8pOwo+ICsJZ29iaiA9ICZiby0+Z2VtX2Jhc2U7Cj4gKwo+ICsJ
-aGFuZGxlID0gYW1kZ3B1X2dlbV9nZXRfaGFuZGxlX2Zyb21fb2JqZWN0KGZpbHAsIGdvYmopOwo+
-ICsJaWYgKCFoYW5kbGUpIHsKPiArCQlyID0gZHJtX2dlbV9oYW5kbGVfY3JlYXRlKGZpbHAsIGdv
-YmosICZoYW5kbGUpOwo+ICsJCWlmIChyKSB7Cj4gKwkJCURSTV9FUlJPUigiY3JlYXRlIGdlbSBo
-YW5kbGUgZmFpbGVkXG4iKTsKPiArCQkJdXBfcmVhZCgmY3VycmVudC0+bW0tPm1tYXBfc2VtKTsK
-PiArCQkJcmV0dXJuIHI7Cj4gKwkJfQo+ICsJfQo+ICsJYXJncy0+b3V0LmhhbmRsZSA9IGhhbmRs
-ZTsKPiArCXVwX3JlYWQoJmN1cnJlbnQtPm1tLT5tbWFwX3NlbSk7Cj4gKwo+ICsJcmV0dXJuIDA7
-Cj4gK30KPiArCj4gICBpbnQgYW1kZ3B1X2dlbV91c2VycHRyX2lvY3RsKHN0cnVjdCBkcm1fZGV2
-aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAJCQkgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlscCkK
-PiAgIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2tt
-cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gaW5kZXggNzk1
-Njg0OC4uMWJkMmNjMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfa21zLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21z
-LmMKPiBAQCAtMTEwMCw3ICsxMTAwLDggQEAgdm9pZCBhbWRncHVfZGlzYWJsZV92Ymxhbmtfa21z
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGludCBwaXBlKQo+ICAgCURSTV9JT0NU
-TF9ERUZfRFJWKEFNREdQVV9HRU1fVkEsIGFtZGdwdV9nZW1fdmFfaW9jdGwsIERSTV9BVVRIfERS
-TV9SRU5ERVJfQUxMT1cpLAo+ICAgCURSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9HRU1fT1AsIGFt
-ZGdwdV9nZW1fb3BfaW9jdGwsIERSTV9BVVRIfERSTV9SRU5ERVJfQUxMT1cpLAo+ICAgCURSTV9J
-T0NUTF9ERUZfRFJWKEFNREdQVV9HRU1fVVNFUlBUUiwgYW1kZ3B1X2dlbV91c2VycHRyX2lvY3Rs
-LCBEUk1fQVVUSHxEUk1fUkVOREVSX0FMTE9XKSwKPiAtCURSTV9JT0NUTF9ERUZfRFJWKEFNREdQ
-VV9GUkVFU1lOQywgYW1kZ3B1X2Rpc3BsYXlfZnJlZXN5bmNfaW9jdGwsIERSTV9NQVNURVIpCj4g
-KwlEUk1fSU9DVExfREVGX0RSVihBTURHUFVfRlJFRVNZTkMsIGFtZGdwdV9kaXNwbGF5X2ZyZWVz
-eW5jX2lvY3RsLCBEUk1fTUFTVEVSKSwKPiArCURSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9HRU1f
-RklORF9CTywgYW1kZ3B1X2dlbV9maW5kX2JvX2J5X2NwdV9tYXBwaW5nX2lvY3RsLCBEUk1fQVVU
-SHxEUk1fUkVOREVSX0FMTE9XKQo+ICAgfTsKPiAgIGNvbnN0IGludCBhbWRncHVfbWF4X2ttc19p
-b2N0bCA9IEFSUkFZX1NJWkUoYW1kZ3B1X2lvY3Rsc19rbXMpOwo+ICAgCj4gZGlmZiAtLWdpdCBh
-L2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVf
-ZHJtLmgKPiBpbmRleCA5NDQ0NGVlLi4wMDBjNDE1IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvdWFw
-aS9kcm0vYW1kZ3B1X2RybS5oCj4gKysrIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgK
-PiBAQCAtNTQsNiArNTQsNyBAQAo+ICAgI2RlZmluZSBEUk1fQU1ER1BVX1ZNCQkJMHgxMwo+ICAg
-I2RlZmluZSBEUk1fQU1ER1BVX0ZFTkNFX1RPX0hBTkRMRQkweDE0Cj4gICAjZGVmaW5lIERSTV9B
-TURHUFVfU0NIRUQJCTB4MTUKPiArI2RlZmluZSBEUk1fQU1ER1BVX0dFTV9GSU5EX0JPCQkweDE2
-Cj4gICAvKiBub3QgdXBzdHJlYW0gKi8KPiAgICNkZWZpbmUgRFJNX0FNREdQVV9GUkVFU1lOQwkg
-ICAgICAgIDB4NWQKPiAgIAo+IEBAIC03NCw2ICs3NSw3IEBACj4gICAjZGVmaW5lIERSTV9JT0NU
-TF9BTURHUFVfRkVOQ0VfVE9fSEFORExFIERSTV9JT1dSKERSTV9DT01NQU5EX0JBU0UgKyBEUk1f
-QU1ER1BVX0ZFTkNFX1RPX0hBTkRMRSwgdW5pb24gZHJtX2FtZGdwdV9mZW5jZV90b19oYW5kbGUp
-Cj4gICAjZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfU0NIRUQJCURSTV9JT1coRFJNX0NPTU1BTkRf
-QkFTRSArIERSTV9BTURHUFVfU0NIRUQsIHVuaW9uIGRybV9hbWRncHVfc2NoZWQpCj4gICAjZGVm
-aW5lIERSTV9JT0NUTF9BTURHUFVfRlJFRVNZTkMJRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFTRSAr
-IERSTV9BTURHUFVfRlJFRVNZTkMsIHN0cnVjdCBkcm1fYW1kZ3B1X2ZyZWVzeW5jKQo+ICsjZGVm
-aW5lIERSTV9JT0NUTF9BTURHUFVfR0VNX0ZJTkRfQk8JRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFT
-RSArIERSTV9BTURHUFVfR0VNX0ZJTkRfQk8sIHVuaW9uIGRybV9hbWRncHVfZ2VtX2ZpbmRfYm8p
-Cj4gICAKPiAgIC8qKgo+ICAgICogRE9DOiBtZW1vcnkgZG9tYWlucwo+IEBAIC0zOTIsNiArMzk0
-LDI1IEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV93YWl0X2lkbGVfb3V0IHsKPiAgIAlzdHJ1Y3Qg
-ZHJtX2FtZGdwdV9nZW1fd2FpdF9pZGxlX291dCBvdXQ7Cj4gICB9Owo+ICAgCj4gK3N0cnVjdCBk
-cm1fYW1kZ3B1X2dlbV9maW5kX2JvX2luIHsKPiArCS8qIENQVSBhZGRyZXNzICovCj4gKwlfX3U2
-NAkJCWFkZHI7Cj4gKwkvKiBtZW1vcnkgc2l6ZSBmcm9tIENQVSBhZGRyZXNzICovCj4gKwlfX3U2
-NAkJCXNpemU7Cj4gK307Cj4gKwo+ICtzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fZmluZF9ib19vdXQg
-ewo+ICsJLyogb2Zmc2V0IGluIGJvICovCj4gKwlfX3U2NAkJCW9mZnNldDsKPiArCS8qIHJlc3Vs
-dGluZyBHRU0gaGFuZGxlICovCj4gKwlfX3UzMgkJCWhhbmRsZTsKPiArfTsKPiArCj4gK3VuaW9u
-IGRybV9hbWRncHVfZ2VtX2ZpbmRfYm8gewo+ICsJc3RydWN0IGRybV9hbWRncHVfZ2VtX2ZpbmRf
-Ym9faW4gaW47Cj4gKwlzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fZmluZF9ib19vdXQgb3V0Owo+ICt9
-Owo+ICsKPiAgIHN0cnVjdCBkcm1fYW1kZ3B1X3dhaXRfY3NfaW4gewo+ICAgCS8qIENvbW1hbmQg
-c3VibWlzc2lvbiBoYW5kbGUKPiAgICAgICAgICAgICogaGFuZGxlIGVxdWFscyAwIG1lYW5zIG5v
-bmUgdG8gd2FpdCBmb3IKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1919968409==
+Content-Type: multipart/alternative;
+ boundary="------------03BB4509046401240BD05AA1"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------03BB4509046401240BD05AA1
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+A bit large, maybe 100ms is enough.
+
+Apart from that the set now looks good on first glance, but I really 
+don't know that code that well.
+
+Christian.
+
+Am 30.07.2018 um 12:25 schrieb Zhu, Rex:
+>
+> One problem,
+>
+>
+> I delay 500ms to enable gfx off feature.
+>
+>
+> Any concern about the delay time?
+>
+>
+> Best Regards
+>
+> Rex
+>
+>
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
+> Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+> *Sent:* Monday, July 30, 2018 5:23 PM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Cc:* Zhu, Rex
+> *Subject:* [PATCH v2 2/4] drm/amdgpu: Put enable gfx off feature to a 
+> delay thread
+> delay to enable gfx off feature to avoid gfx on/off frequently
+> suggested by Alex and Evan.
+>
+> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |  8 ++++++--
+>  3 files changed, 23 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 188bc53..ff16689 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -992,6 +992,8 @@ struct amdgpu_gfx {
+>          bool gfx_off_state; /* true: enabled, false: disabled */
+>          struct mutex gfx_off_mutex;
+>          uint32_t gfx_off_req_count; /* default 1, enable gfx off: dec 
+> 1, disable gfx off: add 1 */
+> +       struct delayed_work gfx_off_delay_work;
+> +
+>          /* pipe reservation */
+>          struct mutex pipe_reserve_mutex;
+>          DECLARE_BITMAP (pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 122653f..f6a6fb5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1925,6 +1925,19 @@ static void 
+> amdgpu_device_ip_late_init_func_handler(struct work_struct *work)
+>                  DRM_ERROR("ib ring test failed (%d).\n", r);
+>  }
+>
+> +static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
+> +{
+> +       struct amdgpu_device *adev =
+> +               container_of(work, struct amdgpu_device, 
+> gfx.gfx_off_delay_work.work);
+> +
+> +       mutex_lock(&adev->gfx.gfx_off_mutex);
+> +       if (!adev->gfx.gfx_off_state && !adev->gfx.gfx_off_req_count) {
+> +               if (!amdgpu_dpm_set_powergating_by_smu(adev, 
+> AMD_IP_BLOCK_TYPE_GFX, true))
+> +                       adev->gfx.gfx_off_state = true;
+> +       }
+> +       mutex_unlock(&adev->gfx.gfx_off_mutex);
+> +}
+> +
+>  /**
+>   * amdgpu_device_ip_suspend_phase1 - run suspend for hardware IPs 
+> (phase 1)
+>   *
+> @@ -2394,6 +2407,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>
+> INIT_DELAYED_WORK(&adev->late_init_work,
+> amdgpu_device_ip_late_init_func_handler);
+> + INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
+> + amdgpu_device_delay_enable_gfx_off);
+>
+>          adev->gfx.gfx_off_req_count = 1;
+>          adev->pm.ac_power = power_supply_is_system_supplied() > 0 ? 
+> true : false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 1cdb264..11d4d9f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -26,6 +26,9 @@
+>  #include "amdgpu.h"
+>  #include "amdgpu_gfx.h"
+>
+> +/* 0.5 second timeout */
+> +#define GFX_OFF_DELAY_ENABLE msecs_to_jiffies(500)
+> +
+>  /*
+>   * GPU scratch registers helpers function.
+>   */
+> @@ -360,6 +363,7 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device 
+> *adev, bool enable)
+>          if (!adev->powerplay.pp_funcs->set_powergating_by_smu)
+>                  return;
+>
+> +
+>          mutex_lock(&adev->gfx.gfx_off_mutex);
+>
+>          if (!enable)
+> @@ -368,11 +372,11 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device 
+> *adev, bool enable)
+>                  adev->gfx.gfx_off_req_count--;
+>
+>          if (enable && !adev->gfx.gfx_off_state && 
+> !adev->gfx.gfx_off_req_count) {
+> -               if (!amdgpu_dpm_set_powergating_by_smu(adev, 
+> AMD_IP_BLOCK_TYPE_GFX, true))
+> -                       adev->gfx.gfx_off_state = true;
+> + schedule_delayed_work(&adev->gfx.gfx_off_delay_work, 
+> GFX_OFF_DELAY_ENABLE);
+>          } else if (!enable && adev->gfx.gfx_off_state) {
+>                  if (!amdgpu_dpm_set_powergating_by_smu(adev, 
+> AMD_IP_BLOCK_TYPE_GFX, false))
+>                          adev->gfx.gfx_off_state = false;
+>          }
+> +
+> mutex_unlock(&adev->gfx.gfx_off_mutex);
+>  }
+> -- 
+> 1.9.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> amd-gfx Info Page - freedesktop.org 
+> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+> lists.freedesktop.org
+> Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the 
+> following form. Use of all freedesktop.org lists is subject to our 
+> Code of Conduct.
+>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------03BB4509046401240BD05AA1
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">A bit large, maybe 100ms is enough.<br>
+      <br>
+      Apart from that the set now looks good on first glance, but I
+      really don't know that code that well.<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 30.07.2018 um 12:25 schrieb Zhu, Rex:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CY4PR12MB168727FC303FDB625880C440FB2F0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <p style="margin-top:0;margin-bottom:0">One problem,</p>
+        <p style="margin-top:0;margin-bottom:0"><br>
+        </p>
+        <p style="margin-top:0;margin-bottom:0">I delay 500ms to enable
+          gfx off feature. <br>
+        </p>
+        <p style="margin-top:0;margin-bottom:0"><br>
+        </p>
+        <p style="margin-top:0;margin-bottom:0">Any concern about the
+          delay time?</p>
+        <p style="margin-top:0;margin-bottom:0"><br>
+        </p>
+        <p style="margin-top:0;margin-bottom:0">Best Regards</p>
+        <p style="margin-top:0;margin-bottom:0">Rex<br>
+        </p>
+        <br>
+        <div style="color: rgb(0, 0, 0);">
+          <hr style="display:inline-block;width:98%" tabindex="-1">
+          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+              face="Calibri, sans-serif" color="#000000"><b>From:</b>
+              amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
+              behalf of Rex Zhu <a class="moz-txt-link-rfc2396E" href="mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">&lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+              <b>Sent:</b> Monday, July 30, 2018 5:23 PM<br>
+              <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+              <b>Cc:</b> Zhu, Rex<br>
+              <b>Subject:</b> [PATCH v2 2/4] drm/amdgpu: Put enable gfx
+              off feature to a delay thread</font>
+            <div> </div>
+          </div>
+          <div class="BodyFragment"><font size="2"><span
+                style="font-size:11pt;">
+                <div class="PlainText">delay to enable gfx off feature
+                  to avoid gfx on/off frequently<br>
+                  suggested by Alex and Evan.<br>
+                  <br>
+                  Signed-off-by: Rex Zhu <a class="moz-txt-link-rfc2396E" href="mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">&lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                  ---<br>
+                   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++<br>
+                   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15
+                  +++++++++++++++<br>
+                   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |  8
+                  ++++++--<br>
+                   3 files changed, 23 insertions(+), 2 deletions(-)<br>
+                  <br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  index 188bc53..ff16689 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  @@ -992,6 +992,8 @@ struct amdgpu_gfx {<br>
+                           bool                           
+                  gfx_off_state; /* true: enabled, false: disabled */<br>
+                           struct mutex                   
+                  gfx_off_mutex;<br>
+                           uint32_t                       
+                  gfx_off_req_count; /* default 1, enable gfx off: dec
+                  1, disable gfx off: add 1 */<br>
+                  +       struct delayed_work            
+                  gfx_off_delay_work;<br>
+                  +<br>
+                           /* pipe reservation */<br>
+                           struct mutex                   
+                  pipe_reserve_mutex;<br>
+                           DECLARE_BITMAP                 
+                  (pipe_reserve_bitmap, AMDGPU_MAX_COMPUTE_QUEUES);<br>
+                  diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                  index 122653f..f6a6fb5 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                  @@ -1925,6 +1925,19 @@ static void
+                  amdgpu_device_ip_late_init_func_handler(struct
+                  work_struct *work)<br>
+                                   DRM_ERROR("ib ring test failed
+                  (%d).\n", r);<br>
+                   }<br>
+                   <br>
+                  +static void amdgpu_device_delay_enable_gfx_off(struct
+                  work_struct *work)<br>
+                  +{<br>
+                  +       struct amdgpu_device *adev =<br>
+                  +               container_of(work, struct
+                  amdgpu_device, gfx.gfx_off_delay_work.work);<br>
+                  +<br>
+                  +       mutex_lock(&amp;adev-&gt;gfx.gfx_off_mutex);<br>
+                  +       if (!adev-&gt;gfx.gfx_off_state &amp;&amp;
+                  !adev-&gt;gfx.gfx_off_req_count) {<br>
+                  +               if
+                  (!amdgpu_dpm_set_powergating_by_smu(adev,
+                  AMD_IP_BLOCK_TYPE_GFX, true))<br>
+                  +                       adev-&gt;gfx.gfx_off_state =
+                  true;<br>
+                  +       }<br>
+                  +       mutex_unlock(&amp;adev-&gt;gfx.gfx_off_mutex);<br>
+                  +}<br>
+                  +<br>
+                   /**<br>
+                    * amdgpu_device_ip_suspend_phase1 - run suspend for
+                  hardware IPs (phase 1)<br>
+                    *<br>
+                  @@ -2394,6 +2407,8 @@ int amdgpu_device_init(struct
+                  amdgpu_device *adev,<br>
+                   <br>
+                          
+                  INIT_DELAYED_WORK(&amp;adev-&gt;late_init_work,<br>
+                                            
+                  amdgpu_device_ip_late_init_func_handler);<br>
+                  +      
+                  INIT_DELAYED_WORK(&amp;adev-&gt;gfx.gfx_off_delay_work,<br>
+                  +                        
+                  amdgpu_device_delay_enable_gfx_off);<br>
+                   <br>
+                           adev-&gt;gfx.gfx_off_req_count = 1;<br>
+                           adev-&gt;pm.ac_power =
+                  power_supply_is_system_supplied() &gt; 0 ? true :
+                  false;<br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
+                  index 1cdb264..11d4d9f 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
+                  @@ -26,6 +26,9 @@<br>
+                   #include "amdgpu.h"<br>
+                   #include "amdgpu_gfx.h"<br>
+                   <br>
+                  +/* 0.5 second timeout */<br>
+                  +#define GFX_OFF_DELAY_ENABLE        
+                  msecs_to_jiffies(500)<br>
+                  +<br>
+                   /*<br>
+                    * GPU scratch registers helpers function.<br>
+                    */<br>
+                  @@ -360,6 +363,7 @@ void amdgpu_gfx_off_ctrl(struct
+                  amdgpu_device *adev, bool enable)<br>
+                           if
+                  (!adev-&gt;powerplay.pp_funcs-&gt;set_powergating_by_smu)<br>
+                                   return;<br>
+                   <br>
+                  +<br>
+                           mutex_lock(&amp;adev-&gt;gfx.gfx_off_mutex);<br>
+                   <br>
+                           if (!enable)<br>
+                  @@ -368,11 +372,11 @@ void amdgpu_gfx_off_ctrl(struct
+                  amdgpu_device *adev, bool enable)<br>
+                                   adev-&gt;gfx.gfx_off_req_count--;<br>
+                   <br>
+                           if (enable &amp;&amp;
+                  !adev-&gt;gfx.gfx_off_state &amp;&amp;
+                  !adev-&gt;gfx.gfx_off_req_count) {<br>
+                  -               if
+                  (!amdgpu_dpm_set_powergating_by_smu(adev,
+                  AMD_IP_BLOCK_TYPE_GFX, true))<br>
+                  -                       adev-&gt;gfx.gfx_off_state =
+                  true;<br>
+                  +              
+                  schedule_delayed_work(&amp;adev-&gt;gfx.gfx_off_delay_work,
+                  GFX_OFF_DELAY_ENABLE);<br>
+                           } else if (!enable &amp;&amp;
+                  adev-&gt;gfx.gfx_off_state) {<br>
+                                   if
+                  (!amdgpu_dpm_set_powergating_by_smu(adev,
+                  AMD_IP_BLOCK_TYPE_GFX, false))<br>
+                                           adev-&gt;gfx.gfx_off_state =
+                  false;<br>
+                           }<br>
+                  +<br>
+                          
+                  mutex_unlock(&amp;adev-&gt;gfx.gfx_off_mutex);<br>
+                   }<br>
+                  -- <br>
+                  1.9.1<br>
+                  <br>
+                  _______________________________________________<br>
+                  amd-gfx mailing list<br>
+                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <a
+                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                    id="LPlnk310070" class="OWAAutoLink"
+                    previewremoved="true" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+                  <div id="LPBorder_GT_15329462020160.38730110100591353"
+                    style="margin-bottom: 20px; overflow: auto; width:
+                    100%; text-indent: 0px;">
+                    <table
+                      id="LPContainer_15329462019920.183265909738499"
+                      style="width: 90%; background-color: rgb(255, 255,
+                      255); position: relative; overflow: auto;
+                      padding-top: 20px; padding-bottom: 20px;
+                      margin-top: 20px; border-top: 1px dotted rgb(200,
+                      200, 200); border-bottom: 1px dotted rgb(200, 200,
+                      200);" role="presentation" cellspacing="0">
+                      <tbody>
+                        <tr style="border-spacing: 0px;" valign="top">
+                          <td
+                            id="TextCell_15329462020140.9481943918689965"
+                            style="vertical-align: top; position:
+                            relative; padding: 0px; display:
+                            table-cell;" colspan="2">
+                            <div
+                              id="LPTitle_15329462020140.9927739848518842"
+                              style="top: 0px; color: rgb(0, 120, 215);
+                              font-weight: 400; font-size: 21px;
+                              font-family:
+                              &quot;wf_segoe-ui_light&quot;, &quot;Segoe
+                              UI Light&quot;, &quot;Segoe WP
+                              Light&quot;, &quot;Segoe UI&quot;,
+                              &quot;Segoe WP&quot;, Tahoma, Arial,
+                              sans-serif; line-height: 21px;">
+                              <a
+                                id="LPUrlAnchor_15329462020140.8930778402849151"
+                                style="text-decoration: none;"
+                                href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                                target="_blank" moz-do-not-send="true">amd-gfx
+                                Info Page - freedesktop.org</a></div>
+                            <div
+                              id="LPMetadata_15329462020140.5491656576271345"
+                              style="margin: 10px 0px 16px; color:
+                              rgb(102, 102, 102); font-weight: 400;
+                              font-family:
+                              &quot;wf_segoe-ui_normal&quot;,
+                              &quot;Segoe UI&quot;, &quot;Segoe
+                              WP&quot;, Tahoma, Arial, sans-serif;
+                              font-size: 14px; line-height: 14px;">
+                              lists.freedesktop.org</div>
+                            <div
+                              id="LPDescription_15329462020160.11393197229432894"
+                              style="display: block; color: rgb(102,
+                              102, 102); font-weight: 400; font-family:
+                              &quot;wf_segoe-ui_normal&quot;,
+                              &quot;Segoe UI&quot;, &quot;Segoe
+                              WP&quot;, Tahoma, Arial, sans-serif;
+                              font-size: 14px; line-height: 20px;
+                              max-height: 100px; overflow: hidden;">
+                              Subscribing to amd-gfx: Subscribe to
+                              amd-gfx by filling out the following form.
+                              Use of all freedesktop.org lists is
+                              subject to our Code of Conduct.</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                </div>
+              </span></font></div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------03BB4509046401240BD05AA1--
+
+--===============1919968409==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1919968409==--
