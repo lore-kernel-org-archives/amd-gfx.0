@@ -1,12 +1,11 @@
-From: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/scheduler: only kill entity if last user is killed
-Date: Mon, 30 Jul 2018 14:18:50 +0530
-Message-ID: <CAFd4ddz1XaDA+koMf-ZfhwP0tGTEkG63mQJ=0m4n2uXdA25hOw@mail.gmail.com>
-References: <20180726114554.3873-1-christian.koenig@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: add new amdgpu_vm_bo_trace_cs() function v2
+Date: Mon, 30 Jul 2018 11:18:58 +0200
+Message-ID: <20180730091858.12934-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0638335183=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180726114554.3873-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,204 +16,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0638335183==
-Content-Type: multipart/alternative; boundary="000000000000934ec10572338aac"
-
---000000000000934ec10572338aac
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jul 26, 2018 at 5:16 PM Christian K=C3=B6nig <
-ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> Note which task is using the entity and only kill it if the last user of
-> the entity is killed. This should prevent problems when entities are
-> leaked to
-> child processes.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/scheduler/gpu_scheduler.c | 6 +++++-
->  include/drm/gpu_scheduler.h               | 1 +
->  2 files changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> index 3f2fc5e8242a..f563e4fbb4b6 100644
-> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> @@ -275,6 +275,7 @@ static void drm_sched_entity_kill_jobs_cb(struct
-> dma_fence *f,
->  long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeou=
-t)
->  {
->         struct drm_gpu_scheduler *sched;
-> +       struct task_struct *last_user;
->         long ret =3D timeout;
->
->         sched =3D entity->rq->sched;
-> @@ -295,7 +296,9 @@ long drm_sched_entity_flush(struct drm_sched_entity
-> *entity, long timeout)
->
->
->         /* For killed process disable any more IBs enqueue right now */
-> -       if ((current->flags & PF_EXITING) && (current->exit_code =3D=3D
-> SIGKILL))
-> +       last_user =3D cmpxchg(&entity->last_user, current->group_leader,
-> NULL);
-> +       if ((!last_user || last_user =3D=3D current->group_leader) &&
-> +           (current->flags & PF_EXITING) && (current->exit_code =3D=3D
-> SIGKILL))
->                 drm_sched_entity_set_rq(entity, NULL);
->
->         return ret;
-> @@ -541,6 +544,7 @@ void drm_sched_entity_push_job(struct drm_sched_job
-> *sched_job,
->
->         trace_drm_sched_job(sched_job, entity);
->
-> +       WRITE_ONCE(entity->last_user, current->group_leader);
->         first =3D spsc_queue_push(&entity->job_queue,
-> &sched_job->queue_node);
->
->         /* first job wakes up scheduler */
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 091b9afcd184..64016446a103 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -85,6 +85,7 @@ struct drm_sched_entity {
->         struct dma_fence_cb             cb;
->         atomic_t                        *guilty;
->         struct dma_fence                *last_scheduled;
-> +       struct task_struct              *last_user;
->
-Please add a line regarding this field in the kernel doc comments.
-
-Regards,
-Nayan
-
->  };
->
->  /**
-> --
-> 2.14.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
-
---000000000000934ec10572338aac
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Thu=
-, Jul 26, 2018 at 5:16 PM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoeni=
-g.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:=
-<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">Note which task is using the entit=
-y and only kill it if the last user of<br>
-the entity is killed. This should prevent problems when entities are leaked=
- to<br>
-child processes.<br>
-<br>
-Signed-off-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com" target=3D"_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/scheduler/gpu_scheduler.c | 6 +++++-<br>
-=C2=A0include/drm/gpu_scheduler.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0| 1 +<br>
-=C2=A02 files changed, 6 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/drm/sc=
-heduler/gpu_scheduler.c<br>
-index 3f2fc5e8242a..f563e4fbb4b6 100644<br>
---- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-+++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-@@ -275,6 +275,7 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fe=
-nce *f,<br>
-=C2=A0long drm_sched_entity_flush(struct drm_sched_entity *entity, long tim=
-eout)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_gpu_scheduler *sched;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct task_struct *last_user;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 long ret =3D timeout;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 sched =3D entity-&gt;rq-&gt;sched;<br>
-@@ -295,7 +296,9 @@ long drm_sched_entity_flush(struct drm_sched_entity *en=
-tity, long timeout)<br>
-<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* For killed process disable any more IBs enqu=
-eue right now */<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if ((current-&gt;flags &amp; PF_EXITING) &amp;&=
-amp; (current-&gt;exit_code =3D=3D SIGKILL))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0last_user =3D cmpxchg(&amp;entity-&gt;last_user=
-, current-&gt;group_leader, NULL);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if ((!last_user || last_user =3D=3D current-&gt=
-;group_leader) &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(current-&gt;flags &amp; PF_EXITI=
-NG) &amp;&amp; (current-&gt;exit_code =3D=3D SIGKILL))<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_sched_entity_se=
-t_rq(entity, NULL);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
-@@ -541,6 +544,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sc=
-hed_job,<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 trace_drm_sched_job(sched_job, entity);<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0WRITE_ONCE(entity-&gt;last_user, current-&gt;gr=
-oup_leader);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 first =3D spsc_queue_push(&amp;entity-&gt;job_q=
-ueue, &amp;sched_job-&gt;queue_node);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* first job wakes up scheduler */<br>
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h<br>
-index 091b9afcd184..64016446a103 100644<br>
---- a/include/drm/gpu_scheduler.h<br>
-+++ b/include/drm/gpu_scheduler.h<br>
-@@ -85,6 +85,7 @@ struct drm_sched_entity {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dma_fence_cb=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0cb;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 atomic_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *guilty;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dma_fence=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 *last_scheduled;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct task_struct=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 *last_user;<br></blockquote><div>Please add a line reg=
-arding this field in the kernel doc comments.=C2=A0 <br><br></div><div>Rega=
-rds,<br></div><div>Nayan<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-=C2=A0};<br>
-<br>
-=C2=A0/**<br>
--- <br>
-2.14.1<br>
-<br>
-_______________________________________________<br>
-dri-devel mailing list<br>
-<a href=3D"mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">dri-de=
-vel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listin=
-fo/dri-devel</a><br>
-</blockquote></div></div>
-
---000000000000934ec10572338aac--
-
---===============0638335183==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0638335183==--
+VGhpcyBhbGxvd3MgdXMgdG8gdHJhY2UgYWxsIFZNIHJhbmdlcyB3aGljaCBzaG91bGQgYmUgdmFs
+aWQgaW5zaWRlIGEgQ1MuCgp2MjogZHVtcCBtYXBwaW5ncyB3aXRob3V0IEJPIGFzIHdlbGwKClNp
+Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
+UmV2aWV3ZWQtYnk6IENodW5taW5nICBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPiAodjEpClJl
+dmlld2VkLWFuZC10ZXN0ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNr
+eUBhbWQuY29tPiAodjEpClJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29t
+PiAodjEpCi0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgfCAg
+MiArKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggfCAgNSArKysr
+KwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgfCAyOSArKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmggICAgfCAgMSArCiA0IGZpbGVzIGNoYW5nZWQsIDM3IGluc2VydGlvbnMoKykKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCmluZGV4IDhhNDljM2I5N2JkNC4uODcxNDAx
+Y2Q5OTk3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3Mu
+YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwpAQCAtMTIyMCw2
+ICsxMjIwLDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3Bvc3RfZGVwZW5kZW5jaWVzKHN0cnVj
+dCBhbWRncHVfY3NfcGFyc2VyICpwKQogc3RhdGljIGludCBhbWRncHVfY3Nfc3VibWl0KHN0cnVj
+dCBhbWRncHVfY3NfcGFyc2VyICpwLAogCQkJICAgIHVuaW9uIGRybV9hbWRncHVfY3MgKmNzKQog
+eworCXN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2ID0gcC0+ZmlscC0+ZHJpdmVyX3ByaXY7CiAJ
+c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gcC0+cmluZzsKIAlzdHJ1Y3QgZHJtX3NjaGVkX2Vu
+dGl0eSAqZW50aXR5ID0gJnAtPmN0eC0+cmluZ3NbcmluZy0+aWR4XS5lbnRpdHk7CiAJZW51bSBk
+cm1fc2NoZWRfcHJpb3JpdHkgcHJpb3JpdHk7CkBAIC0xMjcyLDYgKzEyNzMsNyBAQCBzdGF0aWMg
+aW50IGFtZGdwdV9jc19zdWJtaXQoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCiAJYW1kZ3B1
+X2pvYl9mcmVlX3Jlc291cmNlcyhqb2IpOwogCiAJdHJhY2VfYW1kZ3B1X2NzX2lvY3RsKGpvYik7
+CisJYW1kZ3B1X3ZtX2JvX3RyYWNlX2NzKCZmcHJpdi0+dm0sICZwLT50aWNrZXQpOwogCXByaW9y
+aXR5ID0gam9iLT5iYXNlLnNfcHJpb3JpdHk7CiAJZHJtX3NjaGVkX2VudGl0eV9wdXNoX2pvYigm
+am9iLT5iYXNlLCBlbnRpdHkpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdHJhY2UuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+cmFjZS5oCmluZGV4IDExZjI2MmYxNTIwMC4uNzIwNmEwMDI1YjE3IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAorKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaApAQCAtMzE0LDYgKzMxNCwxMSBAQCBERUZJTkVf
+RVZFTlQoYW1kZ3B1X3ZtX21hcHBpbmcsIGFtZGdwdV92bV9ib19tYXBwaW5nLAogCSAgICBUUF9B
+UkdTKG1hcHBpbmcpCiApOwogCitERUZJTkVfRVZFTlQoYW1kZ3B1X3ZtX21hcHBpbmcsIGFtZGdw
+dV92bV9ib19jcywKKwkgICAgVFBfUFJPVE8oc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICpt
+YXBwaW5nKSwKKwkgICAgVFBfQVJHUyhtYXBwaW5nKQorKTsKKwogVFJBQ0VfRVZFTlQoYW1kZ3B1
+X3ZtX3NldF9wdGVzLAogCSAgICBUUF9QUk9UTyh1aW50NjRfdCBwZSwgdWludDY0X3QgYWRkciwg
+dW5zaWduZWQgY291bnQsCiAJCSAgICAgdWludDMyX3QgaW5jciwgdWludDY0X3QgZmxhZ3MpLApk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCA1ZDdkNzkwMGNjYWIuLjAx
+NTYxM2I0Zjk4YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTIz
+NDMsNiArMjM0MywzNSBAQCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcgKmFtZGdwdV92bV9i
+b19sb29rdXBfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKIAlyZXR1cm4gYW1kZ3B1X3Zt
+X2l0X2l0ZXJfZmlyc3QoJnZtLT52YSwgYWRkciwgYWRkcik7CiB9CiAKKy8qKgorICogYW1kZ3B1
+X3ZtX2JvX3RyYWNlX2NzIC0gdHJhY2UgYWxsIHJlc2VydmVkIG1hcHBpbmdzCisgKgorICogQHZt
+OiB0aGUgcmVxdWVzdGVkIHZtCisgKiBAdGlja2V0OiBDUyB0aWNrZXQKKyAqCisgKiBUcmFjZSBh
+bGwgbWFwcGluZ3Mgb2YgQk9zIHJlc2VydmVkIGR1cmluZyBhIGNvbW1hbmQgc3VibWlzc2lvbi4K
+KyAqLwordm9pZCBhbWRncHVfdm1fYm9fdHJhY2VfY3Moc3RydWN0IGFtZGdwdV92bSAqdm0sIHN0
+cnVjdCB3d19hY3F1aXJlX2N0eCAqdGlja2V0KQoreworCXN0cnVjdCBhbWRncHVfYm9fdmFfbWFw
+cGluZyAqbWFwcGluZzsKKworCWlmICghdHJhY2VfYW1kZ3B1X3ZtX2JvX2NzX2VuYWJsZWQoKSkK
+KwkJcmV0dXJuOworCisJZm9yIChtYXBwaW5nID0gYW1kZ3B1X3ZtX2l0X2l0ZXJfZmlyc3QoJnZt
+LT52YSwgMCwgVTY0X01BWCk7IG1hcHBpbmc7CisJICAgICBtYXBwaW5nID0gYW1kZ3B1X3ZtX2l0
+X2l0ZXJfbmV4dChtYXBwaW5nLCAwLCBVNjRfTUFYKSkgeworCQlpZiAobWFwcGluZy0+Ym9fdmEg
+JiYgbWFwcGluZy0+Ym9fdmEtPmJhc2UuYm8pIHsKKwkJCXN0cnVjdCBhbWRncHVfYm8gKmJvOwor
+CisJCQlibyA9IG1hcHBpbmctPmJvX3ZhLT5iYXNlLmJvOworCQkJaWYgKFJFQURfT05DRShiby0+
+dGJvLnJlc3YtPmxvY2suY3R4KSAhPSB0aWNrZXQpCisJCQkJY29udGludWU7CisJCX0KKworCQl0
+cmFjZV9hbWRncHVfdm1fYm9fY3MobWFwcGluZyk7CisJfQorfQorCiAvKioKICAqIGFtZGdwdV92
+bV9ib19ybXYgLSByZW1vdmUgYSBibyB0byBhIHNwZWNpZmljIHZtCiAgKgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdm0uaAppbmRleCBkNDE2Zjg5NTIzM2QuLjY3YTE1ZDQzOWFjMCAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKQEAgLTMxOCw2ICszMTgsNyBA
+QCBpbnQgYW1kZ3B1X3ZtX2JvX2NsZWFyX21hcHBpbmdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LAogCQkJCXVpbnQ2NF90IHNhZGRyLCB1aW50NjRfdCBzaXplKTsKIHN0cnVjdCBhbWRncHVf
+Ym9fdmFfbWFwcGluZyAqYW1kZ3B1X3ZtX2JvX2xvb2t1cF9tYXBwaW5nKHN0cnVjdCBhbWRncHVf
+dm0gKnZtLAogCQkJCQkJCSB1aW50NjRfdCBhZGRyKTsKK3ZvaWQgYW1kZ3B1X3ZtX2JvX3RyYWNl
+X2NzKHN0cnVjdCBhbWRncHVfdm0gKnZtLCBzdHJ1Y3Qgd3dfYWNxdWlyZV9jdHggKnRpY2tldCk7
+CiB2b2lkIGFtZGdwdV92bV9ib19ybXYoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCSAg
+ICAgIHN0cnVjdCBhbWRncHVfYm9fdmEgKmJvX3ZhKTsKIHZvaWQgYW1kZ3B1X3ZtX2FkanVzdF9z
+aXplKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCB2bV9zaXplLAotLSAKMi4x
+NC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
