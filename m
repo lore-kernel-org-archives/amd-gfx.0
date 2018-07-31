@@ -1,9 +1,10 @@
 From: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Do not evict VRAM on APUs with disabled HIBERNATE
-Date: Tue, 31 Jul 2018 18:46:04 +0200
-Message-ID: <0d3f22c9-5b21-2187-564e-d82e34b5012b@molgen.mpg.de>
+Subject: [PATCH v2] drm/radeon: Do not evict VRAM on APUs with disabled
+ HIBERNATE
+Date: Tue, 31 Jul 2018 18:48:41 +0200
+Message-ID: <cc8f9db9-a905-f949-648b-82af878718a0@molgen.mpg.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0123152343=="
+Content-Type: multipart/mixed; boundary="===============1939050486=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -16,64 +17,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
 This is a cryptographically signed message in MIME format.
 
---===============0123152343==
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms000503010602090200080701"
+--===============1939050486==
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms020609080105040001010800"
 
 This is a cryptographically signed message in MIME format.
 
---------------ms000503010602090200080701
+--------------ms020609080105040001010800
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
 From: Paul Menzel <pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
-Date: Wed, 25 Jul 2018 12:54:19 +0200
+Date: Wed, 18 Jul 2018 18:15:44 +0200
 
 Improve commit d796d844 (drm/radeon/kms: make hibernate work on IGPs) to
 only migrate VRAM objects if the Linux kernel is actually built with
 support for hibernation (suspend to disk).
 
-The better solution is to get the information, if this is suspend or
-hibernate, from `amdgpu_device_suspend()`, but that=E2=80=99s more involv=
-ed, so
-apply the simple solution first.
-
-Link: https://bugs.freedesktop.org/show_bug.cgi?id=3D107277
+Link: https://bugs.freedesktop.org/show_bug.cgi?id=3D100941
 Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 Signed-off-by: Paul Menzel <pmenzel-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 +++-
+v2: Update subject and use correct bug report URL.
+
+ drivers/gpu/drm/radeon/radeon_object.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-index 3526efa8960e..a27a62980bb7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -811,10 +811,12 @@ int amdgpu_bo_unpin(struct amdgpu_bo *bo)
- int amdgpu_bo_evict_vram(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/radeon/radeon_object.c=20
+b/drivers/gpu/drm/radeon/radeon_object.c
+index edbb4cd519fd..0cb5eb013a4f 100644
+--- a/drivers/gpu/drm/radeon/radeon_object.c
++++ b/drivers/gpu/drm/radeon/radeon_object.c
+@@ -422,11 +422,13 @@ int radeon_bo_unpin(struct radeon_bo *bo)
+ int radeon_bo_evict_vram(struct radeon_device *rdev)
  {
  	/* late 2.6.33 fix IGP hibernate - we need pm ops to do this correct */=
 
--	if (0 && (adev->flags & AMD_IS_APU)) {
+-	if (0 && (rdev->flags & RADEON_IS_IGP)) {
 +#ifndef CONFIG_HIBERNATION
-+	if (adev->flags & AMD_IS_APU) {
- 		/* Useless to evict on IGP chips */
- 		return 0;
++	if (rdev->flags & RADEON_IS_IGP) {
+ 		if (rdev->mc.igp_sideport_enabled =3D=3D false)
+ 			/* Useless to evict on IGP chips */
+ 			return 0;
  	}
 +#endif
- 	return ttm_bo_evict_mm(&adev->mman.bdev, TTM_PL_VRAM);
+ 	return ttm_bo_evict_mm(&rdev->mman.bdev, TTM_PL_VRAM);
  }
-=20
+
 --=20
 2.17.1
 
 
---------------ms000503010602090200080701
+--------------ms020609080105040001010800
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -161,23 +159,23 @@ fndPkrXx6XWDdU3S1LyKgHlLIFtarLFm2Hb5zAUR33h+26cN6ohcGqGEEzgIG8tXS8gztEaj
 EwJERTEPMA0GA1UECAwGQmF5ZXJuMREwDwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4
 LVBsYW5jay1HZXNlbGxzY2hhZnQxFTATBgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzF
 RvyiMA0GCWCGSAFlAwQCAQUAoIIB8TAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
-SIb3DQEJBTEPFw0xODA3MzExNjQ2MDRaMC8GCSqGSIb3DQEJBDEiBCDJ2wh4PXq0mhsZTuQn
-WO+7zuTYibGKgMO/8FuqzGCEUjBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
+SIb3DQEJBTEPFw0xODA3MzExNjQ4NDFaMC8GCSqGSIb3DQEJBDEiBCCz4o4RMM5cpv60udgI
+xuXn+ygC0mAq+xs9AGcWs0NjfjBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
 hkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0GCCqGSIb3DQMCAgFAMAcG
 BSsOAwIHMA0GCCqGSIb3DQMCAgEoMIGJBgkrBgEEAYI3EAQxfDB6MGoxCzAJBgNVBAYTAkRF
 MQ8wDQYDVQQIDAZCYXllcm4xETAPBgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxh
 bmNrLUdlc2VsbHNjaGFmdDEVMBMGA1UEAwwMTVBHIENBIC0gRzAyAgweKlJIhfynPMVG/KIw
 gYsGCyqGSIb3DQEJEAILMXygejBqMQswCQYDVQQGEwJERTEPMA0GA1UECAwGQmF5ZXJuMREw
 DwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4LVBsYW5jay1HZXNlbGxzY2hhZnQxFTAT
-BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBAHwE
-smu2bwM13Y0Sw+xL2LfDyUZIufhPdOvdIDC2W8/j1CE54T8lJRoBxvvPO9f2XcKItKoYlyKo
-c/TyxdoPv9GTHTwgQljVTWgPqOGkWMuZIhD42OWDTxT8Xtq/ms1Etx7m+2wcdiStMI+a+wDi
-7+55+pEy+7EZf0gSjQxPpsJgvCLMjBC+l7IxbAAN4tO4Be4zkanNvv5aphfwXLMQAZjJnTXP
-cPBLJUV0C+n38f2tlxW7clN09wMjeCH6/aqHR3aenLidBYI5XsoZIzX8zJHmKqNamQvjVdqF
-Fz8SIwTD9MxZIXCZqpECkWRDs939JWtdD/MapgNn0dRWS1PI0sYAAAAAAAA=
---------------ms000503010602090200080701--
+BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBACjj
+/HmH46c0SlisIvbG0CbQzdwP5q7GgokUs1XLYxR+R3hDadkyrB4mJgEfjiFqLO0HOqjPLEkf
+ZUZW9TzYJr6D2oHnqtPrqB0aD4OvaAN05e/ojNx20j3XezeObCPwzNQhviYVINOU8DHLJaKU
+seYA7TDyPhuzkUgJgk7KuXE/hdnnOWxc/BO9zLk5S/WcfZnfMNhGe9rUGVu143UZmc3e8T7D
+usPqcNGXltmu1wcD737YZgWRANhJ+DW7NFE3DE9V0i+1L6yQWOrIgYcKqVWx/0JPKd872xt0
+iRKZvCBNhnud5wwHOJKIF7nVvXUSxnmIxxyOuSOAjoAgDvYlHLgAAAAAAAA=
+--------------ms020609080105040001010800--
 
---===============0123152343==
+--===============1939050486==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -187,4 +185,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0123152343==--
+--===============1939050486==--
