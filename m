@@ -1,49 +1,66 @@
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH] drm/amd/display: add missing void parameter to
- dc_create_transfer_func
-Date: Tue, 31 Jul 2018 10:03:31 -0400
-Message-ID: <39ae8791-f3fb-ecc8-7409-3bb6b134e4a4@amd.com>
-References: <20180731104254.14683-1-colin.king@canonical.com>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/scheduler: Add job dependency trace.
+Date: Tue, 31 Jul 2018 10:56:53 -0400
+Message-ID: <1533049014-6934-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180731104254.14683-1-colin.king@canonical.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-On 2018-07-31 06:42 AM, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> Add a missing void parameter to function dc_create_transfer_func, fixes
-> sparse warning:
-> 
-> warning: non-ANSI function declaration of function 'dc_create_transfer_func'
-> 
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> index 815dfb50089b..8fb3aefd195c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> @@ -192,7 +192,7 @@ void dc_transfer_func_release(struct dc_transfer_func *tf)
->  	kref_put(&tf->refcount, dc_transfer_func_free);
->  }
->  
-> -struct dc_transfer_func *dc_create_transfer_func()
-> +struct dc_transfer_func *dc_create_transfer_func(void)
->  {
->  	struct dc_transfer_func *tf = kvzalloc(sizeof(*tf), GFP_KERNEL);
->  
-> 
+RHVyaW5nIGRlYnVnIHNlc3Npb25zIEkgZW5jb3VudGVyZWQgYSBuZWVkIHRvIHRyYWNlCmJhY2sg
+YSBqb2IgZGVwZW5kZWN5IGEgZmV3IHN0ZXBzIGJhY2sgdG8gdGhlIGZpcnN0IGZhaWxpbmcKam9i
+LiBUaGlzIHRyYWNlIGhlbHBwZWQgbWUgYSBsb3QuCgpTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3Jv
+ZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+c2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYyAgICAgICB8ICA4ICsrKysrKy0tCiBkcml2ZXJzL2dw
+dS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXJfdHJhY2UuaCB8IDI0ICsrKysrKysrKysrKysr
+KysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
+cygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxl
+ci5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKaW5kZXggM2Yy
+ZmM1ZS4uNDU3MDNiOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVf
+c2NoZWR1bGVyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
+LmMKQEAgLTUwNiw5ICs1MDYsMTMgQEAgZHJtX3NjaGVkX2VudGl0eV9wb3Bfam9iKHN0cnVjdCBk
+cm1fc2NoZWRfZW50aXR5ICplbnRpdHkpCiAJaWYgKCFzY2hlZF9qb2IpCiAJCXJldHVybiBOVUxM
+OwogCi0Jd2hpbGUgKChlbnRpdHktPmRlcGVuZGVuY3kgPSBzY2hlZC0+b3BzLT5kZXBlbmRlbmN5
+KHNjaGVkX2pvYiwgZW50aXR5KSkpCi0JCWlmIChkcm1fc2NoZWRfZW50aXR5X2FkZF9kZXBlbmRl
+bmN5X2NiKGVudGl0eSkpCisJd2hpbGUgKChlbnRpdHktPmRlcGVuZGVuY3kgPSBzY2hlZC0+b3Bz
+LT5kZXBlbmRlbmN5KHNjaGVkX2pvYiwgZW50aXR5KSkpIHsKKwkJaWYgKGRybV9zY2hlZF9lbnRp
+dHlfYWRkX2RlcGVuZGVuY3lfY2IoZW50aXR5KSkgeworCisJCQl0cmFjZV9kcm1fc2NoZWRfam9i
+X3dhaXRfZGVwKHNjaGVkX2pvYiwgZW50aXR5LT5kZXBlbmRlbmN5KTsKIAkJCXJldHVybiBOVUxM
+OworCQl9CisJfQogCiAJLyogc2tpcCBqb2JzIGZyb20gZW50aXR5IHRoYXQgbWFya2VkIGd1aWx0
+eSAqLwogCWlmIChlbnRpdHktPmd1aWx0eSAmJiBhdG9taWNfcmVhZChlbnRpdHktPmd1aWx0eSkp
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXJfdHJh
+Y2UuaCBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlcl90cmFjZS5oCmlu
+ZGV4IDQ5OThhZDkuLjE2MjZmMzkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVs
+ZXIvZ3B1X3NjaGVkdWxlcl90cmFjZS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIv
+Z3B1X3NjaGVkdWxlcl90cmFjZS5oCkBAIC03NCw2ICs3NCwzMCBAQCBUUkFDRV9FVkVOVChkcm1f
+c2NoZWRfcHJvY2Vzc19qb2IsCiAJICAgIFRQX3ByaW50aygiZmVuY2U9JXAgc2lnbmFsZWQiLCBf
+X2VudHJ5LT5mZW5jZSkKICk7CiAKK1RSQUNFX0VWRU5UKGRybV9zY2hlZF9qb2Jfd2FpdF9kZXAs
+CisJICAgIFRQX1BST1RPKHN0cnVjdCBkcm1fc2NoZWRfam9iICpzY2hlZF9qb2IsIHN0cnVjdCBk
+bWFfZmVuY2UgKmZlbmNlKSwKKwkgICAgVFBfQVJHUyhzY2hlZF9qb2IsIGZlbmNlKSwKKwkgICAg
+VFBfU1RSVUNUX19lbnRyeSgKKwkJCSAgICAgX19maWVsZChjb25zdCBjaGFyICosbmFtZSkKKwkJ
+CSAgICAgX19maWVsZCh1aW50NjRfdCwgaWQpCisJCQkgICAgIF9fZmllbGQoc3RydWN0IGRtYV9m
+ZW5jZSAqLCBmZW5jZSkKKwkJCSAgICAgX19maWVsZCh1aW50NjRfdCwgY3R4KQorCQkJICAgICBf
+X2ZpZWxkKHVuc2lnbmVkLCBzZXFubykKKwkJCSAgICAgKSwKKworCSAgICBUUF9mYXN0X2Fzc2ln
+bigKKwkJCSAgIF9fZW50cnktPm5hbWUgPSBzY2hlZF9qb2ItPnNjaGVkLT5uYW1lOworCQkJICAg
+X19lbnRyeS0+aWQgPSBzY2hlZF9qb2ItPmlkOworCQkJICAgX19lbnRyeS0+ZmVuY2UgPSBmZW5j
+ZTsKKwkJCSAgIF9fZW50cnktPmN0eCA9IGZlbmNlLT5jb250ZXh0OworCQkJICAgX19lbnRyeS0+
+c2Vxbm8gPSBmZW5jZS0+c2Vxbm87CisJCQkgICApLAorCSAgICBUUF9wcmludGsoImpvYiByaW5n
+PSVzLCBpZD0lbGx1LCBkZXBlbmRzIGZlbmNlPSVwLCBjb250ZXh0PSVsbHUsIHNlcT0ldSIsCisJ
+CSAgICAgIF9fZW50cnktPm5hbWUsIF9fZW50cnktPmlkLAorCQkgICAgICBfX2VudHJ5LT5mZW5j
+ZSwgX19lbnRyeS0+Y3R4LAorCQkgICAgICBfX2VudHJ5LT5zZXFubykKKyk7CisKICNlbmRpZgog
+CiAvKiBUaGlzIHBhcnQgbXVzdCBiZSBvdXRzaWRlIHByb3RlY3Rpb24gKi8KLS0gCjIuNy40Cgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
