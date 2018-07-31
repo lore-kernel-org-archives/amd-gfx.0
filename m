@@ -1,83 +1,208 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 4/4] drm/scheduler: move idle entities to scheduler with
- less load
-Date: Tue, 31 Jul 2018 13:32:10 +0200
-Message-ID: <1e00384e-9741-3745-556a-bd13319d0706@gmail.com>
+From: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/4] drm/scheduler: add new function to get least loaded
+ sched
+Date: Tue, 31 Jul 2018 17:05:54 +0530
+Message-ID: <CAFd4ddxxh_RtnafPTYKDZbWAih41f6umyo8iWWo1bf-Oww87QA@mail.gmail.com>
 References: <20180731103736.7813-1-nayan26deshmukh@gmail.com>
- <20180731103736.7813-5-nayan26deshmukh@gmail.com>
-Reply-To: christian.koenig@amd.com
+ <20180731103736.7813-4-nayan26deshmukh@gmail.com>
+ <1e24b45b-027c-2742-97eb-21054798218d@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180731103736.7813-5-nayan26deshmukh@gmail.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Nayan Deshmukh <nayan26deshmukh@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0489643921=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1e24b45b-027c-2742-97eb-21054798218d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org
 
-QW0gMzEuMDcuMjAxOCB1bSAxMjozNyBzY2hyaWViIE5heWFuIERlc2htdWtoOgo+IFRoaXMgaXMg
-dGhlIGZpcnN0IGF0dGVtcHQgdG8gbW92ZSBlbnRpdGllcyBiZXR3ZWVuIHNjaGVkdWxlcnMgdG8K
-PiBoYXZlIGR5bmFtaWMgbG9hZCBiYWxhbmNpbmcuIFdlIGp1c3QgbW92ZSBlbnRpdGllcyB3aXRo
-IG5vIGpvYnMgZm9yCj4gbm93IGFzIG1vdmluZyB0aGUgb25lcyB3aXRoIGpvYnMgd2lsbCBsZWFk
-IHRvIG90aGVyIGNvbXBpbGNhdGlvbnMKPiBsaWtlIGVuc3VyaW5nIHRoYXQgdGhlIG90aGVyIHNj
-aGVkdWxlciBkb2VzIG5vdCByZW1vdmUgYSBqb2IgZnJvbQo+IHRoZSBjdXJyZW50IGVudGl0eSB3
-aGlsZSB3ZSBhcmUgbW92aW5nLgo+Cj4gU2lnbmVkLW9mZi1ieTogTmF5YW4gRGVzaG11a2ggPG5h
-eWFuMjZkZXNobXVraEBnbWFpbC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1
-bGVyL2dwdV9zY2hlZHVsZXIuYyB8IDI1ICsrKysrKysrKysrKysrKysrKysrLS0tLS0KPiAgIDEg
-ZmlsZSBjaGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIvZHJpdmVy
-cy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPiBpbmRleCBjNjdmNjVhZDhmMTUu
-LmY2NjVhODRkNDhlZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dw
-dV9zY2hlZHVsZXIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVk
-dWxlci5jCj4gQEAgLTU0MCw2ICs1NDAsOCBAQCBkcm1fc2NoZWRfZW50aXR5X3BvcF9qb2Ioc3Ry
-dWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKPiAgIAlpZiAoIXNjaGVkX2pvYikKPiAgIAkJ
-cmV0dXJuIE5VTEw7Cj4gICAKPiArCXNjaGVkX2pvYi0+c2NoZWQgPSBzY2hlZDsKPiArCXNjaGVk
-X2pvYi0+c19mZW5jZS0+c2NoZWQgPSBzY2hlZDsKPiAgIAl3aGlsZSAoKGVudGl0eS0+ZGVwZW5k
-ZW5jeSA9IHNjaGVkLT5vcHMtPmRlcGVuZGVuY3koc2NoZWRfam9iLCBlbnRpdHkpKSkKPiAgIAkJ
-aWYgKGRybV9zY2hlZF9lbnRpdHlfYWRkX2RlcGVuZGVuY3lfY2IoZW50aXR5KSkKPiAgIAkJCXJl
-dHVybiBOVUxMOwo+IEBAIC01NzAsMTYgKzU3MiwyOSBAQCBkcm1fc2NoZWRfZW50aXR5X3BvcF9q
-b2Ioc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKPiAgIHZvaWQgZHJtX3NjaGVkX2Vu
-dGl0eV9wdXNoX2pvYihzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqc2NoZWRfam9iLAo+ICAgCQkJICAg
-ICAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpCj4gICB7Cj4gLQlzdHJ1Y3QgZHJt
-X2dwdV9zY2hlZHVsZXIgKnNjaGVkID0gc2NoZWRfam9iLT5zY2hlZDsKPiAtCWJvb2wgZmlyc3Qg
-PSBmYWxzZTsKPiArCXN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQgPSBlbnRpdHktPnJx
-LT5zY2hlZDsKCklzIHRoZSBsb2NhbCAic2NoZWQiIHZhcmlhYmxlIGFjdHVhbGx5IHN0aWxsIHVz
-ZWQ/CgpNaWdodCBiZSBhIGdvb2QgaWRlYSB0byBkcm9wIHRoYXQgc2luY2Ugd2UgcG90ZW50aWFs
-bHkgY2hhbmdpbmcgdGhlIApzY2hlZHVsZXIvcnEuCgoKPiArCXN0cnVjdCBkcm1fc2NoZWRfcnEg
-KnJxID0gZW50aXR5LT5ycTsKPiArCWJvb2wgZmlyc3QgPSBmYWxzZSwgcmVzY2hlZHVsZSwgaWRs
-ZTsKPiAgIAo+IC0JdHJhY2VfZHJtX3NjaGVkX2pvYihzY2hlZF9qb2IsIGVudGl0eSk7Cj4gKwlp
-ZGxlID0gZW50aXR5LT5sYXN0X3NjaGVkdWxlZCA9PSBOVUxMIHx8Cj4gKwkJZG1hX2ZlbmNlX2lz
-X3NpZ25hbGVkKGVudGl0eS0+bGFzdF9zY2hlZHVsZWQpOwo+ICsJZmlyc3QgPSBzcHNjX3F1ZXVl
-X2NvdW50KCZlbnRpdHktPmpvYl9xdWV1ZSkgPT0gMDsKPiArCXJlc2NoZWR1bGUgPSBpZGxlICYm
-IGZpcnN0ICYmIChlbnRpdHktPm51bV9ycV9saXN0ID4gMSk7Cj4gKwo+ICsJaWYgKHJlc2NoZWR1
-bGUpIHsKPiArCQlycSA9IGRybV9zY2hlZF9lbnRpdHlfZ2V0X2ZyZWVfc2NoZWQoZW50aXR5KTsK
-PiArCQlzcGluX2xvY2soJmVudGl0eS0+cnFfbG9jayk7Cj4gKwkJZHJtX3NjaGVkX3JxX3JlbW92
-ZV9lbnRpdHkoZW50aXR5LT5ycSwgZW50aXR5KTsKPiArCQllbnRpdHktPnJxID0gcnE7Cj4gKwkJ
-c3Bpbl91bmxvY2soJmVudGl0eS0+cnFfbG9jayk7Cj4gKwl9Cj4gICAKPiArCXRyYWNlX2RybV9z
-Y2hlZF9qb2Ioc2NoZWRfam9iLCBlbnRpdHkpOwo+ICAgCWF0b21pY19pbmMoJmVudGl0eS0+cnEt
-PnNjaGVkLT5udW1fam9icyk7Cj4gICAJZmlyc3QgPSBzcHNjX3F1ZXVlX3B1c2goJmVudGl0eS0+
-am9iX3F1ZXVlLCAmc2NoZWRfam9iLT5xdWV1ZV9ub2RlKTsKPiAgIAo+ICAgCS8qIGZpcnN0IGpv
-YiB3YWtlcyB1cCBzY2hlZHVsZXIgKi8KPiAtCWlmIChmaXJzdCkgewo+ICsJaWYgKGZpcnN0IHx8
-IHJlc2NoZWR1bGUpIHsKCllvdSBjYW4gZHJvcCB0aGF0IGV4dHJhIGNoZWNrIHNpbmNlIHdlIGNh
-biBvbmx5IHJlc2NoZWR1bGVyIHdoZW4gdGhlcmUgCndhc24ndCBhbnkgam9icyBpbiB0aGUgZW50
-aXR5LgoKQ2hyaXN0aWFuLgoKPiAgIAkJLyogQWRkIHRoZSBlbnRpdHkgdG8gdGhlIHJ1biBxdWV1
-ZSAqLwo+ICAgCQlzcGluX2xvY2soJmVudGl0eS0+cnFfbG9jayk7Cj4gICAJCWlmICghZW50aXR5
-LT5ycSkgewo+IEBAIC01ODksNyArNjA0LDcgQEAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X3B1c2hf
-am9iKHN0cnVjdCBkcm1fc2NoZWRfam9iICpzY2hlZF9qb2IsCj4gICAJCX0KPiAgIAkJZHJtX3Nj
-aGVkX3JxX2FkZF9lbnRpdHkoZW50aXR5LT5ycSwgZW50aXR5KTsKPiAgIAkJc3Bpbl91bmxvY2so
-JmVudGl0eS0+cnFfbG9jayk7Cj4gLQkJZHJtX3NjaGVkX3dha2V1cChzY2hlZCk7Cj4gKwkJZHJt
-X3NjaGVkX3dha2V1cChlbnRpdHktPnJxLT5zY2hlZCk7Cj4gICAJfQo+ICAgfQo+ICAgRVhQT1JU
-X1NZTUJPTChkcm1fc2NoZWRfZW50aXR5X3B1c2hfam9iKTsKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
-dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+--===============0489643921==
+Content-Type: multipart/alternative; boundary="000000000000e6f837057249fde9"
+
+--000000000000e6f837057249fde9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+I will take care of that in v2.
+
+On Tue, Jul 31, 2018 at 4:57 PM Christian K=C3=B6nig <
+ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> Am 31.07.2018 um 12:37 schrieb Nayan Deshmukh:
+> > The function selects the run queue from the rq_list with the
+> > least load. The load is decided by the number of jobs in a
+> > scheduler.
+> >
+> > Signed-off-by: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/scheduler/gpu_scheduler.c | 26
+> ++++++++++++++++++++++++++
+> >   1 file changed, 26 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> > index 375f6f7f6a93..c67f65ad8f15 100644
+> > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> > @@ -255,6 +255,32 @@ static bool drm_sched_entity_is_ready(struct
+> drm_sched_entity *entity)
+> >       return true;
+> >   }
+> >
+> > +/**
+> > + * drm_sched_entity_get_free_sched - Get the rq from rq_list with leas=
+t
+> load
+> > + *
+> > + * @entity: scheduler entity
+> > + *
+> > + * Return the pointer to the rq with least load.
+> > + */
+> > +static struct drm_sched_rq *
+> > +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
+> > +{
+> > +     struct drm_sched_rq *rq =3D NULL;
+> > +     unsigned int min_jobs =3D UINT_MAX;
+> > +     int i;
+> > +
+> > +     for (i =3D 0; i < entity->num_rq_list; ++i) {
+> > +             if (atomic_read(&entity->rq_list[i]->sched->num_jobs) <
+> > +                             min_jobs) {
+> > +                     min_jobs =3D atomic_read(
+> > +
+>  &entity->rq_list[i]->sched->num_jobs);
+>
+> When you use atomic_read twice you might get different results because
+> the atomic has changed in the meantime.
+>
+> In other words you need to store the result locally:
+>
+> unsigned int num_jobs =3D atomic_read(....);
+>
+> if (num_jobs < min_jobs) {
+>      min_jobs =3D num_jobs;
+>      .....
+>
+> Christian.
+>
+> > +                     rq =3D entity->rq_list[i];
+> > +             }
+> > +     }
+> > +
+> > +     return rq;
+> > +}
+> > +
+> >   static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+> >                                   struct dma_fence_cb *cb)
+> >   {
+>
+>
+
+--000000000000e6f837057249fde9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I will take care of that in v2.<br></div><br><div class=3D=
+"gmail_quote"><div dir=3D"ltr">On Tue, Jul 31, 2018 at 4:57 PM Christian K=
+=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.l=
+eichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
+ex">Am 31.07.2018 um 12:37 schrieb Nayan Deshmukh:<br>
+&gt; The function selects the run queue from the rq_list with the<br>
+&gt; least load. The load is decided by the number of jobs in a<br>
+&gt; scheduler.<br>
+&gt;<br>
+&gt; Signed-off-by: Nayan Deshmukh &lt;<a href=3D"mailto:nayan26deshmukh@gm=
+ail.com" target=3D"_blank">nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/scheduler/gpu_scheduler.c | 26 +++++++++++=
++++++++++++++++<br>
+&gt;=C2=A0 =C2=A01 file changed, 26 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/d=
+rm/scheduler/gpu_scheduler.c<br>
+&gt; index 375f6f7f6a93..c67f65ad8f15 100644<br>
+&gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
+&gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
+&gt; @@ -255,6 +255,32 @@ static bool drm_sched_entity_is_ready(struct drm_=
+sched_entity *entity)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +/**<br>
+&gt; + * drm_sched_entity_get_free_sched - Get the rq from rq_list with lea=
+st load<br>
+&gt; + *<br>
+&gt; + * @entity: scheduler entity<br>
+&gt; + *<br>
+&gt; + * Return the pointer to the rq with least load.<br>
+&gt; + */<br>
+&gt; +static struct drm_sched_rq *<br>
+&gt; +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct drm_sched_rq *rq =3D NULL;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned int min_jobs =3D UINT_MAX;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0int i;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; entity-&gt;num_rq_list; ++i)=
+ {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (atomic_read(&amp;=
+entity-&gt;rq_list[i]-&gt;sched-&gt;num_jobs) &lt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0min_jobs) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0min_jobs =3D atomic_read(<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;entity-=
+&gt;rq_list[i]-&gt;sched-&gt;num_jobs);<br>
+<br>
+When you use atomic_read twice you might get different results because <br>
+the atomic has changed in the meantime.<br>
+<br>
+In other words you need to store the result locally:<br>
+<br>
+unsigned int num_jobs =3D atomic_read(....);<br>
+<br>
+if (num_jobs &lt; min_jobs) {<br>
+=C2=A0=C2=A0=C2=A0=C2=A0 min_jobs =3D num_jobs;<br>
+=C2=A0=C2=A0=C2=A0=C2=A0 .....<br>
+<br>
+Christian.<br>
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0rq =3D entity-&gt;rq_list[i];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return rq;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0static void drm_sched_entity_kill_jobs_cb(struct dma_fence=
+ *f,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dma_fence_cb =
+*cb)<br>
+&gt;=C2=A0 =C2=A0{<br>
+<br>
+</blockquote></div>
+
+--000000000000e6f837057249fde9--
+
+--===============0489643921==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0489643921==--
