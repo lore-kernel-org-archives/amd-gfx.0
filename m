@@ -1,210 +1,124 @@
-From: Nayan Deshmukh <nayan26deshmukh@gmail.com>
-Subject: Re: [PATCH 3/4] drm/scheduler: add new function to get least loaded
- sched v2
-Date: Wed, 1 Aug 2018 21:36:42 +0530
-Message-ID: <CAFd4ddx8D2iKquRu4YVh1gnRMpLFgWf3CBPdk5SD-nJ8dNXEPQ@mail.gmail.com>
-References: <20180801082002.20696-1-nayan26deshmukh@gmail.com>
- <20180801082002.20696-3-nayan26deshmukh@gmail.com>
- <dde1b549-df1b-e156-1e96-ddfe4beca446@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amd/display: enable ABGR and XBGR formats (v3)
+Date: Wed, 1 Aug 2018 12:08:26 -0400
+Message-ID: <CADnq5_PSwwVv0-F8AJKhV0CJdUW-fAQ5Rqiwc7nyiN3FsYmctg@mail.gmail.com>
+References: <CADnq5_PAtdwddz1ctBSixX9AqgY3pq=vryBMsSvytw8=JG+8Rw@mail.gmail.com>
+ <20180801082506.17184-1-issor.oruam@gmail.com>
+ <20180801082506.17184-2-issor.oruam@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1189009893=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <dde1b549-df1b-e156-1e96-ddfe4beca446@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, christian.koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1189009893==
-Content-Type: multipart/alternative; boundary="000000000000707621057261e2eb"
-
---000000000000707621057261e2eb
-Content-Type: text/plain; charset="UTF-8"
-
-Yes, that is correct.
-
-Nayan
-
-On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-wrote:
-
-> Clarification question -  if the run queues belong to different
-> schedulers they effectively point to different rings,
->
-> it means we allow to move (reschedule) a drm_sched_entity from one ring
-> to another - i assume that the idea int the first place, that
->
-> you have a set of HW rings and you can utilize any of them for your jobs
-> (like compute rings). Correct ?
->
-> Andrey
->
->
-> On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:
-> > The function selects the run queue from the rq_list with the
-> > least load. The load is decided by the number of jobs in a
-> > scheduler.
-> >
-> > v2: avoid using atomic read twice consecutively, instead store
-> >      it locally
-> >
-> > Signed-off-by: Nayan Deshmukh <nayan26deshmukh@gmail.com>
-> > ---
-> >   drivers/gpu/drm/scheduler/gpu_scheduler.c | 25
-> +++++++++++++++++++++++++
-> >   1 file changed, 25 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > index 375f6f7f6a93..fb4e542660b0 100644
-> > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > @@ -255,6 +255,31 @@ static bool drm_sched_entity_is_ready(struct
-> drm_sched_entity *entity)
-> >       return true;
-> >   }
-> >
-> > +/**
-> > + * drm_sched_entity_get_free_sched - Get the rq from rq_list with least
-> load
-> > + *
-> > + * @entity: scheduler entity
-> > + *
-> > + * Return the pointer to the rq with least load.
-> > + */
-> > +static struct drm_sched_rq *
-> > +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
-> > +{
-> > +     struct drm_sched_rq *rq = NULL;
-> > +     unsigned int min_jobs = UINT_MAX, num_jobs;
-> > +     int i;
-> > +
-> > +     for (i = 0; i < entity->num_rq_list; ++i) {
-> > +             num_jobs =
-> atomic_read(&entity->rq_list[i]->sched->num_jobs);
-> > +             if (num_jobs < min_jobs) {
-> > +                     min_jobs = num_jobs;
-> > +                     rq = entity->rq_list[i];
-> > +             }
-> > +     }
-> > +
-> > +     return rq;
-> > +}
-> > +
-> >   static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
-> >                                   struct dma_fence_cb *cb)
-> >   {
->
->
-
---000000000000707621057261e2eb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Yes, that is correct.=C2=A0<div dir=3D"auto"><br></div><d=
-iv dir=3D"auto">Nayan</div></div><br><div class=3D"gmail_quote"><div dir=3D=
-"ltr">On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky &lt;<a href=3D"mailto:=
-Andrey.Grodzovsky@amd.com">Andrey.Grodzovsky@amd.com</a>&gt; wrote:<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
-1px #ccc solid;padding-left:1ex">Clarification question -=C2=A0 if the run =
-queues belong to different <br>
-schedulers they effectively point to different rings,<br>
-<br>
-it means we allow to move (reschedule) a drm_sched_entity from one ring <br=
->
-to another - i assume that the idea int the first place, that<br>
-<br>
-you have a set of HW rings and you can utilize any of them for your jobs <b=
-r>
-(like compute rings). Correct ?<br>
-<br>
-Andrey<br>
-<br>
-<br>
-On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:<br>
-&gt; The function selects the run queue from the rq_list with the<br>
-&gt; least load. The load is decided by the number of jobs in a<br>
-&gt; scheduler.<br>
-&gt;<br>
-&gt; v2: avoid using atomic read twice consecutively, instead store<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 it locally<br>
-&gt;<br>
-&gt; Signed-off-by: Nayan Deshmukh &lt;<a href=3D"mailto:nayan26deshmukh@gm=
-ail.com" target=3D"_blank" rel=3D"noreferrer">nayan26deshmukh@gmail.com</a>=
-&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/scheduler/gpu_scheduler.c | 25 +++++++++++=
-++++++++++++++<br>
-&gt;=C2=A0 =C2=A01 file changed, 25 insertions(+)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/d=
-rm/scheduler/gpu_scheduler.c<br>
-&gt; index 375f6f7f6a93..fb4e542660b0 100644<br>
-&gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; @@ -255,6 +255,31 @@ static bool drm_sched_entity_is_ready(struct drm_=
-sched_entity *entity)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br>
-&gt;=C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +/**<br>
-&gt; + * drm_sched_entity_get_free_sched - Get the rq from rq_list with lea=
-st load<br>
-&gt; + *<br>
-&gt; + * @entity: scheduler entity<br>
-&gt; + *<br>
-&gt; + * Return the pointer to the rq with least load.<br>
-&gt; + */<br>
-&gt; +static struct drm_sched_rq *<br>
-&gt; +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct drm_sched_rq *rq =3D NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned int min_jobs =3D UINT_MAX, num_jobs;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; entity-&gt;num_rq_list; ++i)=
- {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_jobs =3D atomic_r=
-ead(&amp;entity-&gt;rq_list[i]-&gt;sched-&gt;num_jobs);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (num_jobs &lt; min=
-_jobs) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0min_jobs =3D num_jobs;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0rq =3D entity-&gt;rq_list[i];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return rq;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0static void drm_sched_entity_kill_jobs_cb(struct dma_fence=
- *f,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dma_fence_cb =
-*cb)<br>
-&gt;=C2=A0 =C2=A0{<br>
-<br>
-</blockquote></div>
-
---000000000000707621057261e2eb--
-
---===============1189009893==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180801082506.17184-2-issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1189009893==--
+T24gV2VkLCBBdWcgMSwgMjAxOCBhdCA0OjI1IEFNLCBNYXVybyBSb3NzaSA8aXNzb3Iub3J1YW1A
+Z21haWwuY29tPiB3cm90ZToKPiBTVVJGQUNFX1BJWEVMX0ZPUk1BVF9HUlBIX0FCR1I4ODg4IGFs
+cmVhZHkgbGlzdGVkIGluIGFtZC9kaXNwbGF5L2RjL2RjX2h3X3R5cGVzLmgKPiBhbmQgdGhlIG5l
+Y2Vzc2FyeSBjcm9zc2JhcnMgcmVnaXN0ZXIgY29udHJvbHMgdG8gc3dhcCByZWQgYW5kIGJsdWUg
+Y2hhbm5lbHMKPiBhcmUgYWxyZWFkeSBpbXBsZW1lbnRlZCBpbiBkcm0vYW1kL2Rpc3BsYXkvZGMv
+ZGNlL2RjZV9tZW1faW5wdXQuYwo+Cj4gTG9naWMgdG8gaGFuZGxlIG5ldyBmb3JtYXRzIGlzIGFk
+ZGVkIGluIGFtZGdwdV9kbSBhbmQgZGNlIDguMCwgMTAuMCwgMTEuMCBtb2R1bGVzLgo+Cj4gU2ln
+bmVkLW9mZi1ieTogTWF1cm8gUm9zc2kgPGlzc29yLm9ydWFtQGdtYWlsLmNvbT4KPiAtLS0KPiAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMgICAgICAgICAgICB8IDkgKysr
+KysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTFfMC5jICAgICAgICAg
+ICAgfCA5ICsrKysrKysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5j
+ICAgICAgICAgICAgIHwgOCArKysrKysrKwoKWW91IG5lZWQgdG8gc2V0IHRoZSBmYl9zd2FwIGNy
+b3NzYmFyIGJpdHMgaW4gdGhlc2UgZmlsZXMuICBUaGVzZSBhcmUKcGFydCBvZiB0aGUgbm9uLURD
+IGNvZGUuICBBbHNvIHBsZWFzZSBjb21iaW5lIHRoZXNlIGNoYW5nZXMgd2l0aCB0aGUKcGF0Y2gg
+Mi4KCgo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
+IHwgNiArKysrKysKClRoaXMgY2hhbmdlIHNob3VsZCBiZSBhIHN0YW5kYWxvbmUgcGF0Y2ggZm9y
+IGRjLiAgT3RoZXIgdGhhbiB0aGF0LCBsb29rcyBnb29kLgoKQWxleAoKPiAgNCBmaWxlcyBjaGFu
+Z2VkLCAzMiBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZGNlX3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjEw
+XzAuYwo+IGluZGV4IGFkYTI0MWJmZWVlOS4uZmZiMTEyZWQ4MjViIDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMKPiBAQCAtMTk0MSw2ICsxOTQxLDE1IEBAIHN0YXRp
+YyBpbnQgZGNlX3YxMF8wX2NydGNfZG9fc2V0X2Jhc2Uoc3RydWN0IGRybV9jcnRjICpjcnRjLAo+
+ICAgICAgICAgICAgICAgICAvKiBHcmVhdGVyIDggYnBjIGZiIG5lZWRzIHRvIGJ5cGFzcyBody1s
+dXQgdG8gcmV0YWluIHByZWNpc2lvbiAqLwo+ICAgICAgICAgICAgICAgICBieXBhc3NfbHV0ID0g
+dHJ1ZTsKPiAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gKyAgICAgICBjYXNlIERSTV9GT1JNQVRf
+WEJHUjg4ODg6Cj4gKyAgICAgICBjYXNlIERSTV9GT1JNQVRfQUJHUjg4ODg6Cj4gKyAgICAgICAg
+ICAgICAgIGZiX2Zvcm1hdCA9IFJFR19TRVRfRklFTEQoMCwgR1JQSF9DT05UUk9MLCBHUlBIX0RF
+UFRILCAyKTsKPiArICAgICAgICAgICAgICAgZmJfZm9ybWF0ID0gUkVHX1NFVF9GSUVMRChmYl9m
+b3JtYXQsIEdSUEhfQ09OVFJPTCwgR1JQSF9GT1JNQVQsIDApOwo+ICsjaWZkZWYgX19CSUdfRU5E
+SUFOCj4gKyAgICAgICAgICAgICAgIGZiX3N3YXAgPSBSRUdfU0VUX0ZJRUxEKGZiX3N3YXAsIEdS
+UEhfU1dBUF9DTlRMLCBHUlBIX0VORElBTl9TV0FQLAo+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBFTkRJQU5fOElOMzIpOwo+ICsjZW5kaWYKPiArICAgICAgICAgICAg
+ICAgYnJlYWs7Cj4gICAgICAgICBkZWZhdWx0Ogo+ICAgICAgICAgICAgICAgICBEUk1fRVJST1Io
+IlVuc3VwcG9ydGVkIHNjcmVlbiBmb3JtYXQgJXNcbiIsCj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgICBkcm1fZ2V0X2Zvcm1hdF9uYW1lKHRhcmdldF9mYi0+Zm9ybWF0LT5mb3JtYXQsICZmb3Jt
+YXRfbmFtZSkpOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
+djExXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTFfMC5jCj4gaW5kZXgg
+YTViOTZlYWMzMDMzLi4yODNkOGNlOWRkN2UgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZGNlX3YxMV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9kY2VfdjExXzAuYwo+IEBAIC0xOTgzLDYgKzE5ODMsMTUgQEAgc3RhdGljIGludCBkY2VfdjEx
+XzBfY3J0Y19kb19zZXRfYmFzZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCj4gICAgICAgICAgICAg
+ICAgIC8qIEdyZWF0ZXIgOCBicGMgZmIgbmVlZHMgdG8gYnlwYXNzIGh3LWx1dCB0byByZXRhaW4g
+cHJlY2lzaW9uICovCj4gICAgICAgICAgICAgICAgIGJ5cGFzc19sdXQgPSB0cnVlOwo+ICAgICAg
+ICAgICAgICAgICBicmVhazsKPiArICAgICAgIGNhc2UgRFJNX0ZPUk1BVF9YQkdSODg4ODoKPiAr
+ICAgICAgIGNhc2UgRFJNX0ZPUk1BVF9BQkdSODg4ODoKPiArICAgICAgICAgICAgICAgZmJfZm9y
+bWF0ID0gUkVHX1NFVF9GSUVMRCgwLCBHUlBIX0NPTlRST0wsIEdSUEhfREVQVEgsIDIpOwo+ICsg
+ICAgICAgICAgICAgICBmYl9mb3JtYXQgPSBSRUdfU0VUX0ZJRUxEKGZiX2Zvcm1hdCwgR1JQSF9D
+T05UUk9MLCBHUlBIX0ZPUk1BVCwgMCk7Cj4gKyNpZmRlZiBfX0JJR19FTkRJQU4KPiArICAgICAg
+ICAgICAgICAgZmJfc3dhcCA9IFJFR19TRVRfRklFTEQoZmJfc3dhcCwgR1JQSF9TV0FQX0NOVEws
+IEdSUEhfRU5ESUFOX1NXQVAsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIEVORElBTl84SU4zMik7Cj4gKyNlbmRpZgo+ICsgICAgICAgICAgICAgICBicmVhazsKPiAg
+ICAgICAgIGRlZmF1bHQ6Cj4gICAgICAgICAgICAgICAgIERSTV9FUlJPUigiVW5zdXBwb3J0ZWQg
+c2NyZWVuIGZvcm1hdCAlc1xuIiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgIGRybV9nZXRf
+Zm9ybWF0X25hbWUodGFyZ2V0X2ZiLT5mb3JtYXQtPmZvcm1hdCwgJmZvcm1hdF9uYW1lKSk7Cj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92OF8wLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jCj4gaW5kZXggYzliOWFiOGYxYjA1Li4y
+Yzk2ZmI4MTEwODMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
+X3Y4XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92OF8wLmMKPiBA
+QCAtMTg2NSw2ICsxODY1LDE0IEBAIHN0YXRpYyBpbnQgZGNlX3Y4XzBfY3J0Y19kb19zZXRfYmFz
+ZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCj4gICAgICAgICAgICAgICAgIC8qIEdyZWF0ZXIgOCBi
+cGMgZmIgbmVlZHMgdG8gYnlwYXNzIGh3LWx1dCB0byByZXRhaW4gcHJlY2lzaW9uICovCj4gICAg
+ICAgICAgICAgICAgIGJ5cGFzc19sdXQgPSB0cnVlOwo+ICAgICAgICAgICAgICAgICBicmVhazsK
+PiArICAgICAgIGNhc2UgRFJNX0ZPUk1BVF9YQkdSODg4ODoKPiArICAgICAgIGNhc2UgRFJNX0ZP
+Uk1BVF9BQkdSODg4ODoKPiArICAgICAgICAgICAgICAgZmJfZm9ybWF0ID0gKChHUlBIX0RFUFRI
+XzMyQlBQIDw8IEdSUEhfQ09OVFJPTF9fR1JQSF9ERVBUSF9fU0hJRlQpIHwKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIChHUlBIX0ZPUk1BVF9BUkdCODg4OCA8PCBHUlBIX0NPTlRST0xf
+X0dSUEhfRk9STUFUX19TSElGVCkpOwo+ICsjaWZkZWYgX19CSUdfRU5ESUFOCj4gKyAgICAgICAg
+ICAgICAgIGZiX3N3YXAgPSAoR1JQSF9FTkRJQU5fOElOMzIgPDwgR1JQSF9TV0FQX0NOVExfX0dS
+UEhfRU5ESUFOX1NXQVBfX1NISUZUKTsKPiArI2VuZGlmCj4gKyAgICAgICAgICAgICAgIGJyZWFr
+Owo+ICAgICAgICAgZGVmYXVsdDoKPiAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJVbnN1cHBv
+cnRlZCBzY3JlZW4gZm9ybWF0ICVzXG4iLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgZHJt
+X2dldF9mb3JtYXRfbmFtZSh0YXJnZXRfZmItPmZvcm1hdC0+Zm9ybWF0LCAmZm9ybWF0X25hbWUp
+KTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
+bWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMKPiBpbmRleCA3NzBjNmIyNGJlMGIuLjRmNjg5ZjQ3ZDdjMyAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IEBAIC0x
+ODkyLDYgKzE4OTIsMTAgQEAgc3RhdGljIGludCBmaWxsX3BsYW5lX2F0dHJpYnV0ZXNfZnJvbV9m
+YihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgIGNhc2UgRFJNX0ZPUk1BVF9B
+QkdSMjEwMTAxMDoKPiAgICAgICAgICAgICAgICAgcGxhbmVfc3RhdGUtPmZvcm1hdCA9IFNVUkZB
+Q0VfUElYRUxfRk9STUFUX0dSUEhfQUJHUjIxMDEwMTA7Cj4gICAgICAgICAgICAgICAgIGJyZWFr
+Owo+ICsgICAgICAgY2FzZSBEUk1fRk9STUFUX1hCR1I4ODg4Ogo+ICsgICAgICAgY2FzZSBEUk1f
+Rk9STUFUX0FCR1I4ODg4Ogo+ICsgICAgICAgICAgICAgICBwbGFuZV9zdGF0ZS0+Zm9ybWF0ID0g
+U1VSRkFDRV9QSVhFTF9GT1JNQVRfR1JQSF9BQkdSODg4ODsKPiArICAgICAgICAgICAgICAgYnJl
+YWs7Cj4gICAgICAgICBjYXNlIERSTV9GT1JNQVRfTlYyMToKPiAgICAgICAgICAgICAgICAgcGxh
+bmVfc3RhdGUtPmZvcm1hdCA9IFNVUkZBQ0VfUElYRUxfRk9STUFUX1ZJREVPXzQyMF9ZQ2JDcjsK
+PiAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gQEAgLTMxOTAsNiArMzE5NCw4IEBAIHN0YXRpYyBj
+b25zdCB1aW50MzJfdCByZ2JfZm9ybWF0c1tdID0gewo+ICAgICAgICAgRFJNX0ZPUk1BVF9YQkdS
+MjEwMTAxMCwKPiAgICAgICAgIERSTV9GT1JNQVRfQVJHQjIxMDEwMTAsCj4gICAgICAgICBEUk1f
+Rk9STUFUX0FCR1IyMTAxMDEwLAo+ICsgICAgICAgRFJNX0ZPUk1BVF9YQkdSODg4OCwKPiArICAg
+ICAgIERSTV9GT1JNQVRfQUJHUjg4ODgsCj4gIH07Cj4KPiAgc3RhdGljIGNvbnN0IHVpbnQzMl90
+IHl1dl9mb3JtYXRzW10gPSB7Cj4gLS0KPiAyLjE3LjEKPgo+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
