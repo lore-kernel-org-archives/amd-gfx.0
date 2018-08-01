@@ -1,19 +1,17 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: return bo itself if userptr is cpu addr
- of bo (v3)
-Date: Tue, 31 Jul 2018 18:07:08 -0400
-Message-ID: <CAAxE2A6uLe_ZMTGQ2dqFbY--Mf15qRrP+tX6pbicokpe8Wo=qQ@mail.gmail.com>
-References: <1532944950-28619-1-git-send-email-Jerry.Zhang@amd.com>
- <3d423f44-e47a-e70c-dfd9-80c1ff843e45@gmail.com> <5B6008A1.5050401@amd.com>
- <c6b11c1f-b32a-4ab8-6a78-aa7886eed60a@gmail.com> <5B601844.3010405@amd.com>
- <5e8f2a76-6cbd-1f80-ec94-fcd79c0fa55c@gmail.com> <5B60249D.7030503@amd.com>
- <9dc68d5d-561c-242a-b3ba-1c8078ab670f@gmail.com> <5B6031CA.4050102@amd.com>
- <3ffb8b8c-fae3-92d9-80e1-bd7d0498b4c7@gmail.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on
+ Rv/Vega12
+Date: Wed, 1 Aug 2018 01:15:47 +0000
+Message-ID: <CY4PR12MB168799400EFB54D63F9EAE6CFB2D0@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1532864547-1072-1-git-send-email-rex.zhu@amd.com>,
+ <1532864547-1072-3-git-send-email-rex.zhu@amd.com>,
+ <SN6PR12MB2656D918D6DBD7C1932747BFE42F0@SN6PR12MB2656.namprd12.prod.outlook.com>,
+ <CY4PR12MB1687B6284781F05DDD30ACA6FB2F0@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1733783045=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3ffb8b8c-fae3-92d9-80e1-bd7d0498b4c7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CY4PR12MB1687B6284781F05DDD30ACA6FB2F0-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,80 +22,506 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Q2FuIHRoaXMgYmUgaW1wbGVtZW50ZWQgYXMgYSB3cmFwcGVyIG9uIHRvcCBvZiBsaWJkcm0/IFNv
-IHRoYXQgdGhlCnRyZWUgKG9yIGhhc2ggdGFibGUpIGlzbid0IGNyZWF0ZWQgZm9yIFVNRHMgdGhh
-dCBkb24ndCBuZWVkIGl0LgoKTWFyZWsKCk9uIFR1ZSwgSnVsIDMxLCAyMDE4IGF0IDY6MTMgQU0s
-IENocmlzdGlhbiBLw7ZuaWcKPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90
-ZToKPiBBbSAzMS4wNy4yMDE4IHVtIDExOjU0IHNjaHJpZWIgWmhhbmcsIEplcnJ5IChKdW53ZWkp
-Ogo+Pgo+PiBPbiAwNy8zMS8yMDE4IDA1OjA0IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+
-Pj4KPj4+IEFtIDMxLjA3LjIwMTggdW0gMTA6NTggc2NocmllYiBaaGFuZywgSmVycnkgKEp1bndl
-aSk6Cj4+Pj4KPj4+PiBPbiAwNy8zMS8yMDE4IDA0OjEzIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdy
-b3RlOgo+Pj4+Pgo+Pj4+PiBBbSAzMS4wNy4yMDE4IHVtIDEwOjA1IHNjaHJpZWIgWmhhbmcsIEpl
-cnJ5IChKdW53ZWkpOgo+Pj4+Pj4KPj4+Pj4+IE9uIDA3LzMxLzIwMTggMDM6MDMgUE0sIENocmlz
-dGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4+Pj4KPj4+Pj4+PiBBbSAzMS4wNy4yMDE4IHVtIDA4OjU4
-IHNjaHJpZWIgWmhhbmcsIEplcnJ5IChKdW53ZWkpOgo+Pj4+Pj4+Pgo+Pj4+Pj4+PiBPbiAwNy8z
-MC8yMDE4IDA2OjQ3IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pj4+Pj4KPj4+Pj4+
-Pj4+IEFtIDMwLjA3LjIwMTggdW0gMTI6MDIgc2NocmllYiBKdW53ZWkgWmhhbmc6Cj4+Pj4+Pj4+
-PiBbU05JUF0KPj4+Pj4+Pj4+IFBsZWFzZSBkb3VibGUgY2hlY2sgaWYgdGhhdCBpcyBzdGlsbCB1
-cCB0byBkYXRlLgo+Pj4+Pj4+Pgo+Pj4+Pj4+Pgo+Pj4+Pj4+PiBXZSBtYXkgaGF2ZSB0byByZXBs
-YWNlIGRybV9nZW1fb2JqZWN0X3JlZmVyZW5jZSgpIHdpdGgKPj4+Pj4+Pj4gZHJtX2dlbV9vYmpl
-Y3RfZ2V0KCkuCj4+Pj4+Pj4+Cj4+Pj4+Pj4+IE9uIDJuZCB0aG91Z2h0LCBkbyB3ZSByZWFsbHkg
-bmVlZCB0byBkbyByZWZlcmVuY2UgZXZlcnkgdGltZT8KPj4+Pj4+Pgo+Pj4+Pj4+Cj4+Pj4+Pj4g
-WWVzLCB0aGF0J3MgYSBtdXN0IGhhdmUuIE90aGVyd2lzZSB0aGUgaGFuZGxlIGNvdWxkIGJlIGZy
-ZWVkIGFuZAo+Pj4+Pj4+IHJldXNlZCBhbHJlYWR5IHdoZW4gd2UgcmV0dXJuLgo+Pj4+Pj4+Cj4+
-Pj4+Pj4+IGlmIFVNRCBmaW5kIHRoZSBzYW1lIGdlbSBvYmplY3QgZm9yIDMgdGltZXMsIGl0IGFs
-c28gbmVlZCB0bwo+Pj4+Pj4+PiBleHBsaWNpdGx5IGZyZWUocHV0KSB0aGF0IG9iamVjdCBmb3Ig
-MyB0aW1lcz8KPj4+Pj4+Pgo+Pj4+Pj4+Cj4+Pj4+Pj4gQ29ycmVjdCB5ZXMuIFRoaW5raW5nIG1v
-cmUgYWJvdXQgdGhpcyB0aGUgcmVhbCBwcm9ibGVtIGlzIHRvCj4+Pj4+Pj4gdHJhbnNsYXRlIHRo
-ZSBoYW5kbGUgaW50byBhIHN0cnVjdHVyZSBpbiBsaWJkcm0uCj4+Pj4+Pj4KPj4+Pj4+PiBIZXJl
-IHdlIGFyZSBiYWNrIHRvIHRoZSBwcm9ibGVtIE1hcmVrIGFuZCBNaWNoZWwgaGFzIGJlZW4gd29y
-a2luZyBvbgo+Pj4+Pj4+IGZvciBhIHdoaWxlIHRoYXQgd2UgYWx3YXlzIG5lZWQgdG8gYmUgYWJs
-ZSB0byB0cmFuc2xhdGUgYSBoYW5kbGUgaW50byBhIGJvCj4+Pj4+Pj4gc3RydWN0dXJlLi4uLi4K
-Pj4+Pj4+Pgo+Pj4+Pj4+IFNvIHRoYXQgbmVlZHMgdG8gYmUgc29sdmVkIGJlZm9yZSB3ZSBjYW4g
-dXBzdHJlYW0gdGhlIGNoYW5nZXMuCj4+Pj4+Pgo+Pj4+Pj4KPj4+Pj4+IFRoYW5rcyBmb3IgeW91
-ciBpbmZvLgo+Pj4+Pj4gSXQncyBiZXR0ZXIgdG8gZml4IHRoYXQgYmVmb3JlIHVwc3RyZWFtLgo+
-Pj4+Pgo+Pj4+Pgo+Pj4+PiBUaGlua2luZyBtb3JlIGFib3V0IHRoaXMgdGhlIGhhc2ggY3VycmVu
-dGx5IHVzZWQgaW4gbGliZHJtIGlzIG5vdAo+Pj4+PiBhZGVxdWF0ZSBhbnkgbW9yZS4KPj4+Pj4K
-Pj4+Pj4gRS5nLiB3ZSBub3cgbmVlZCB0byBiZSBhYmxlIHRvIGZpbmQgYWxsIEJPcyBiYXNlZCBv
-biB0aGVpciBoYW5kbGUuCj4+Pj4+IFNpbmNlIHRoZSBoYW5kbGVzIGFyZSBkZW5zZSBlaXRoZXIg
-YW4gci9iIHRyZWUgb3IgYSByYWRpeCB0cmVlIG5vdyBzb3VuZHMKPj4+Pj4gbGlrZSB0aGUgYmVz
-dCBhcHByb2FjaCB0byBtZS4KPj4+Pgo+Pj4+Cj4+Pj4gTm90IHN1cmUgdGhlIGV4YWN0IHJlYXNv
-biB0aGF0IHdlIGFkZGVkIGhhc2ggdGFibGUgaW4gbGliZHJtLgo+Pj4KPj4+Cj4+PiBUaGUgcmVh
-c29uIGZvciB0aGF0IHdhcyB0aGF0IHdoZW4gYSBrZXJuZWwgZnVuY3Rpb24gcmV0dXJucyBhIGhh
-bmRsZSB3ZQo+Pj4gbmVlZCB0byBtYWtlIHN1cmUgdGhhdCB3ZSBhbHdheXMgdXNlIHRoZSBzYW1l
-IHN0cnVjdCBhbWRncHVfYm8gZm9yIGl0Lgo+Pj4KPj4+IE90aGVyd2lzZSB5b3UgcnVuIGludG8g
-cXVpdGUgc29tZSBwcm9ibGVtcyB3aXRoIHN5bmNpbmcgZXRjLi4uCj4+Cj4+Cj4+IFRoYW5rcyBm
-b3IgeW91ciBleHBsYW5hdGlvbi4KPj4KPj4+Cj4+Pj4gQnV0IGl0IHJlYWxseSBjb3N0cyBtdWNo
-IGxlc3MgdGltZSB0aGFuIGNhbGxpbmcgSU9DVEwgdG8gZmluZCBCTyBieQo+Pj4+IHRoZWlyIGhh
-bmRsZXMuCj4+Pgo+Pj4KPj4+IFdlbGwgd2UgY291bGQganVzdCBjb21wbGV0ZWx5IGRyb3AgdGhl
-IGtlcm5lbCBpbXBsZW1lbnRhdGlvbiBhbmQgdXNlIGFuCj4+PiB1c2Vyc3BhY2UgaW1wbGVtZW50
-YXRpb24uCj4+Cj4+Cj4+IERvIHlvdSBtZWFuIHRvIGltcGxlbWVudCBmaW5kaW5nIGJvIGJ5IGNw
-dSBhZGRyZXNzIGluIGxpYmRybSBjb21wbGV0ZWx5Pwo+Cj4KPiBZZXMsIGV4YWN0bHkuCj4KPj4g
-ZS5nLiB0byBjcmVhdGUgYSB0cmVlIHRvIG1hbmFnZSBibyBoYW5kbGUgaW4gbGliZHJtPwo+Cj4K
-PiBJIG1lYW4gd2hlbiB3ZSBuZWVkIHRvIGNyZWF0ZSBhIHRyZWUgdG8gbWFwIHRoZSBoYW5kbGUg
-dG8gYSBCTyB5b3UgY291bGQKPiBhbHNvIGNyZWF0ZSBhIHRyZWUgdG8gbWFwIHRoZSBDUFUgcG9p
-bnRlciB0byB0aGUgQk8gZGlyZWN0bHkgYW5kIGF2b2lkIHRoZQo+IElPQ1RMIG92ZXJoZWFkIGNv
-bXBsZXRlbHkuCj4KPiBDaHJpc3RpYW4uCj4KPgo+Pgo+PiBKZXJyeQo+Pgo+Pj4KPj4+IEFuZCB5
-ZXMgSSBhZ3JlZSB3aGVuIHdlIG5lZWQgYSB0cmVlIGFueXdheSBpdCB3b3VsZCBwcm9iYWJseSBi
-ZSBmYXN0ZXIKPj4+IHRoYW4gY2FsbGluZyB0aGUgSU9DVEwgdG8gZmluZCB0aGUgQk8uCj4+Pgo+
-Pj4gQ2hyaXN0aWFuLgo+Pj4KPj4+Pgo+Pj4+IEluIHRoaXMgY2FzZSwgVU1EIHNlZW1zIG5vdCB0
-byBiZSBhYmxlIHRvIGdldCBCTyBoYW5kbGUgYW5kIHRyeSB0bwo+Pj4+IHZlcmlmeSBpdCBieSBj
-cHUgYWRkcmVzcyB0aGVuLgo+Pj4+IEluIGFub3RoZXIgd29yZCwgVU1EIHdvdWxkIGxpa2UgdG8g
-ZmluZCBpZiB0aGUgbWVtb3J5IGlzIGNyZWF0ZWQgYXMgQk8KPj4+PiBvciBzeXN0ZW0gbWVtb3J5
-LCBJIHN1cHBvc2UuCj4+Pj4KPj4+PiBSZWdhcmRzLAo+Pj4+IEplcnJ5Cj4+Pj4KPj4+Pgo+Pj4+
-Pgo+Pj4+PiBDaHJpc3RpYW4uCj4+Pj4+Cj4+Pj4+Pgo+Pj4+Pj4gUmVnYXJkcywKPj4+Pj4+IEpl
-cnJ5Cj4+Pj4+Cj4+Pj4+Cj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KPj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4+IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cj4+Pgo+Pj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1733783045==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB168799400EFB54D63F9EAE6CFB2D0CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB168799400EFB54D63F9EAE6CFB2D0CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Alex,
+
+
+Is it necessary to export an interface as "is_gfx_on" in powerplay to amdgp=
+u?
+
+It can show the current power state of gfx ip.
+
+
+
+Best Regards
+
+Rex
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhu, Rex=
+ <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, July 30, 2018 11:39 AM
+To: Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on =
+Rv/Vega12
+
+
+> It means user was told the gfx is on but actually it may switches to gfxo=
+ff already.
+
+
+Correct.
+
+So if the gfx is off, user should disable gfx off feature before they read/=
+write the registers via mmio.
+
+if gfx is on, that is not mean the gfx off feature is disabled. it  doesn't=
+ mean it is safe to visit the registers through mmio.
+
+
+Best Regards
+
+Rex
+
+________________________________
+From: Quan, Evan
+Sent: Monday, July 30, 2018 9:31 AM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on =
+Rv/Vega12
+
+
+Since the gfxoff is always in dynamic switch, i do not think the status rep=
+orted to user is reliable. It means user was told the gfx is on but actuall=
+y it may switches to gfxoff already.
+
+
+Regards,
+
+Evan
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<rex.zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Sunday, July 29, 2018 7:42:27 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on Rv/V=
+ega12
+
+As gfx off is supported on Rv/Vega12, so this check is
+helpful and necessary when visit gfx regesiter via mmio.
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c  | 10 +++++++
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 31 ++++++++++++++++++=
++++-
+ 2 files changed, 40 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+index 26d130a..da1be82 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+@@ -296,6 +296,15 @@ static bool smu10_is_gfx_on(struct pp_hwmgr *hwmgr)
+         return false;
+ }
+
++static bool smu10_is_hw_ip_on(struct pp_hwmgr *hwmgr,
++                               enum amd_ip_block_type client)
++{
++       if (client =3D=3D AMD_IP_BLOCK_TYPE_GFX)
++               return smu10_is_gfx_on(hwmgr);
++       else /* for other ip, to do */
++               return true;
++}
++
+ static int smu10_disable_gfx_off(struct pp_hwmgr *hwmgr)
+ {
+         struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr *)(hwmgr->b=
+ackend);
+@@ -1187,6 +1196,7 @@ static void smu10_powergate_vcn(struct pp_hwmgr *hwmg=
+r, bool bgate)
+         .smus_notify_pwe =3D smu10_smus_notify_pwe,
+         .display_clock_voltage_request =3D smu10_display_clock_voltage_req=
+uest,
+         .powergate_gfx =3D smu10_gfx_off_control,
++       .is_hw_ip_on =3D smu10_is_hw_ip_on,
+ };
+
+ int smu10_init_function_pointers(struct pp_hwmgr *hwmgr)
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+index 0789d64..ee44300 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+@@ -45,7 +45,7 @@
+ #include "ppinterrupt.h"
+ #include "pp_overdriver.h"
+ #include "pp_thermal.h"
+-
++#include "soc15_common.h"
+
+ static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
+                 enum pp_clock_type type, uint32_t mask);
+@@ -2320,6 +2320,34 @@ static int vega12_get_thermal_temperature_range(stru=
+ct pp_hwmgr *hwmgr,
+         return 0;
+ }
+
++/* GFX HW Power Status can be queried from bits [1:0] of MP1_SMN_EXT_SCRAT=
+CH0
++ * 2'b00   GFX is OFF
++ * 2'b01   Transitioning out of GFXOFF state
++ * 2'b10   GFX is ON
++ * 2'b11   Transitioning into GFXOFF state
++*/
++
++static bool vega12_is_gfx_on(struct pp_hwmgr *hwmgr)
++{
++       uint32_t tmp;
++       struct amdgpu_device *adev =3D hwmgr->adev;
++
++       tmp =3D RREG32_SOC15(MP1, 0, mmMP1_SMN_EXT_SCRATCH0);
++       if (tmp =3D=3D 1 || tmp =3D=3D 2)
++               return true;
++       else
++               return false;
++}
++
++static bool vega12_is_hw_ip_on(struct pp_hwmgr *hwmgr,
++                               enum amd_ip_block_type client)
++{
++       if (client =3D=3D AMD_IP_BLOCK_TYPE_GFX)
++               return vega12_is_gfx_on(hwmgr);
++       else /* for other ip, to do */
++               return true;
++}
++
+ static int vega12_enable_gfx_off(struct pp_hwmgr *hwmgr)
+ {
+         struct vega12_hwmgr *data =3D
+@@ -2402,6 +2430,7 @@ static int vega12_gfx_off_control(struct pp_hwmgr *hw=
+mgr, bool enable)
+         .register_irq_handlers =3D smu9_register_irq_handlers,
+         .start_thermal_controller =3D vega12_start_thermal_controller,
+         .powergate_gfx =3D vega12_gfx_off_control,
++       .is_hw_ip_on =3D vega12_is_hw_ip_on,
+ };
+
+ int vega12_hwmgr_init(struct pp_hwmgr *hwmgr)
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
+
+
+
+--_000_CY4PR12MB168799400EFB54D63F9EAE6CFB2D0CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Hi Alex,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Is it necessary to export an inte=
+rface as &quot;is_gfx_on&quot; in powerplay to amdgpu?</p>
+<p style=3D"margin-top:0;margin-bottom:0">It can show the current power sta=
+te of&nbsp;gfx ip.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex&nbsp;</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&=
+gt;<br>
+<b>Sent:</b> Monday, July 30, 2018 11:39 AM<br>
+<b>To:</b> Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check supp=
+ort on Rv/Vega12</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Diso-8859-1">
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0"><span>&gt; It means user was tol=
+d the gfx is on but actually it may switches to gfxoff already.</span></p>
+<p style=3D"margin-top:0; margin-bottom:0"><span></span><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Correct. <br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">So if the gfx is off, user shoul=
+d disable gfx off feature before they read/write the registers via mmio.</p=
+>
+<p style=3D"margin-top:0; margin-bottom:0">if gfx is on, that is not mean t=
+he gfx off feature is disabled. it&nbsp; doesn't mean it is safe to visit t=
+he registers through mmio.</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0; margin-bottom:0">Rex<br>
+</p>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font color=3D"#000000" face=3D"Cal=
+ibri, sans-serif" style=3D"font-size:11pt"><b>From:</b> Quan, Evan<br>
+<b>Sent:</b> Monday, July 30, 2018 9:31 AM<br>
+<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check supp=
+ort on Rv/Vega12</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dus-ascii">
+<div dir=3D"ltr">
+<div id=3D"x_x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; c=
+olor:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">Since the gfxoff is always in dy=
+namic switch, i do not think the status reported to user is reliable. It me=
+ans user was told the gfx is on but actually it may switches to gfxoff alre=
+ady.</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Regards,</p>
+<p style=3D"margin-top:0; margin-bottom:0">Evan</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font color=3D"#000000" face=3D"C=
+alibri, sans-serif" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-g=
+fx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;rex.zhu@amd.c=
+om&gt;<br>
+<b>Sent:</b> Sunday, July 29, 2018 7:42:27 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 3/3] drm/amd/pp: Add gfx power status check support =
+on Rv/Vega12</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
+1pt">
+<div class=3D"x_x_PlainText">As gfx off is supported on Rv/Vega12, so this =
+check is<br>
+helpful and necessary when visit gfx regesiter via mmio.<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c&nbsp; | 10 &#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 31 &#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;-<br>
+&nbsp;2 files changed, 40 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+index 26d130a..da1be82 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+@@ -296,6 &#43;296,15 @@ static bool smu10_is_gfx_on(struct pp_hwmgr *hwmgr=
+)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static bool smu10_is_hw_ip_on(struct pp_hwmgr *hwmgr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_ip_block_type client)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (client =3D=3D AMD_IP_BLOCK_TY=
+PE_GFX)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return smu10_is_gfx_on(hwmgr);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else /* for other ip, to do */<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return true;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static int smu10_disable_gfx_off(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_=
+data =3D (struct smu10_hwmgr *)(hwmgr-&gt;backend);<br>
+@@ -1187,6 &#43;1196,7 @@ static void smu10_powergate_vcn(struct pp_hwmgr *=
+hwmgr, bool bgate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smus_notify_pwe =3D smu10=
+_smus_notify_pwe,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_voltage_req=
+uest =3D smu10_display_clock_voltage_request,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_gfx =3D smu10_g=
+fx_off_control,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_hw_ip_on =3D smu10_is_hw_ip_o=
+n,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;int smu10_init_function_pointers(struct pp_hwmgr *hwmgr)<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+index 0789d64..ee44300 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
+@@ -45,7 &#43;45,7 @@<br>
+&nbsp;#include &quot;ppinterrupt.h&quot;<br>
+&nbsp;#include &quot;pp_overdriver.h&quot;<br>
+&nbsp;#include &quot;pp_thermal.h&quot;<br>
+-<br>
+&#43;#include &quot;soc15_common.h&quot;<br>
+&nbsp;<br>
+&nbsp;static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; enum pp_clock_type type, uint32_t mask);<br>
+@@ -2320,6 &#43;2320,34 @@ static int vega12_get_thermal_temperature_range(=
+struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;/* GFX HW Power Status can be queried from bits [1:0] of MP1_SMN_EXT_S=
+CRATCH0<br>
+&#43; * 2'b00&nbsp;&nbsp; GFX is OFF<br>
+&#43; * 2'b01&nbsp;&nbsp; Transitioning out of GFXOFF state<br>
+&#43; * 2'b10&nbsp;&nbsp; GFX is ON<br>
+&#43; * 2'b11&nbsp;&nbsp; Transitioning into GFXOFF state<br>
+&#43;*/<br>
+&#43;<br>
+&#43;static bool vega12_is_gfx_on(struct pp_hwmgr *hwmgr)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t tmp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D hw=
+mgr-&gt;adev;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(MP1, 0, mmMP=
+1_SMN_EXT_SCRATCH0);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp =3D=3D 1 || tmp =3D=3D 2)=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return false;<br>
+&#43;}<br>
+&#43;<br>
+&#43;static bool vega12_is_hw_ip_on(struct pp_hwmgr *hwmgr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_ip_block_type client)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (client =3D=3D AMD_IP_BLOCK_TY=
+PE_GFX)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return vega12_is_gfx_on(hwmgr);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else /* for other ip, to do */<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return true;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static int vega12_enable_gfx_off(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega12_hwmgr *data =
+=3D<br>
+@@ -2402,6 &#43;2430,7 @@ static int vega12_gfx_off_control(struct pp_hwmgr=
+ *hwmgr, bool enable)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .register_irq_handlers =3D=
+ smu9_register_irq_handlers,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_thermal_controller =
+=3D vega12_start_thermal_controller,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_gfx =3D vega12_=
+gfx_off_control,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_hw_ip_on =3D vega12_is_hw_ip_=
+on,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;int vega12_hwmgr_init(struct pp_hwmgr *hwmgr)<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk332384" class=3D"x_OWAAutoLink" previewremoved=3D"true">https://lists.fr=
+eedesktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_15329216129360.023283015732668888" style=3D"margin-b=
+ottom:20px; overflow:auto; width:100%; text-indent:0px">
+<table id=3D"LPContainer_15329216129340.4712885778626795" cellspacing=3D"0"=
+ style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto; padd=
+ing-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dotted r=
+gb(200,200,200); border-bottom:1px dotted rgb(200,200,200)">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing:0px">
+<td id=3D"x_TextCell_15329216129340.47980485889895885" colspan=3D"2" style=
+=3D"vertical-align: top; padding: 0px; display: table-cell; position: relat=
+ive;">
+<div id=3D"LPRemovePreviewContainer_15329216129340.8736912459594872"></div>
+<div id=3D"LPTitle_15329216129340.277757395718243" style=3D"top:0px; color:=
+rgb(0,120,215); font-weight:400; font-size:21px; font-family:&quot;wf_segoe=
+-ui_light&quot;,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot;,&quot=
+;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line-height:2=
+1px">
+<a id=3D"LPUrlAnchor_15329216129340.04206666600487852" href=3D"https://list=
+s.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text=
+-decoration:none">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15329216129340.9190483966147242" style=3D"margin:10px=
+ 0px 16px; color:rgb(102,102,102); font-weight:400; font-family:&quot;wf_se=
+goe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,=
+sans-serif; font-size:14px; line-height:14px">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15329216129340.6657080067609241" style=3D"display:=
+block; color:rgb(102,102,102); font-weight:400; font-family:&quot;wf_segoe-=
+ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans=
+-serif; font-size:14px; line-height:20px; max-height:100px; overflow:hidden=
+">
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
+iv>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB168799400EFB54D63F9EAE6CFB2D0CY4PR12MB1687namp_--
+
+--===============1733783045==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1733783045==--
