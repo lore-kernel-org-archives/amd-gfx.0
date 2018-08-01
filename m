@@ -1,63 +1,56 @@
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Subject: Re: [PATCH v2] drm/amd/display: Report non-DP display as disconnected
- without EDID
-Date: Wed, 1 Aug 2018 15:55:41 -0400
-Message-ID: <c4ba3810-d90a-beba-7e89-239184bfbd17@amd.com>
-References: <20180801195106.10971-1-harry.wentland@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/pp: Reset memory levels table before populating values
+Date: Wed, 1 Aug 2018 16:30:33 -0400
+Message-ID: <20180801203033.5811-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20180801195106.10971-1-harry.wentland@amd.com>
-Content-Language: en-US
-Sender: stable-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-On 08/01/2018 03:51 PM, Harry Wentland wrote:
-> [Why]
-> Some boards seem to have a problem where HPD is high on HDMI even though
-> no display is connected. We don't want to report these as connected. DP
-> spec still requires us to report DP displays as connected when HPD is
-> high but we can't read the EDID in order to go to fail-safe mode.
-> 
-> [How]
-> If connector_signal is not DP abort detection if we can't retrieve the
-> EDID.
-> 
-> Bugzilla: https://bugs.freedesktop.org/107390
-> Bugzilla: https://bugs.freedesktop.org/106846
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> 
-> v2: Add Bugzilla and stable
-> ---
->   drivers/gpu/drm/amd/display/dc/core/dc_link.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index b180197a41e2..84f0fd15be4c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -744,6 +744,17 @@ bool dc_link_detect(struct dc_link *link, enum dc_detect_reason reason)
->   			break;
->   		case EDID_NO_RESPONSE:
->   			DC_LOG_ERROR("No EDID read.\n");
-> +
-> +			/*
-> +			 * Abort detection for non-DP connectors if we have
-> +			 * no EDID
-> +			 *
-> +			 * DP needs to report as connected if HDP is high
-> +			 * even if we have no EDID in order to go to
-> +			 * fail-safe mode
-> +			 */
-> +			if (!dc_is_dp_signal(link->connector_signal))
-> +				return false;
->   		default:
->   			break;
->   		}
-> 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+W1doeV0KCk9uIFBPTEFSSVMxMCBwb3dlcnBsYXkgY2FuIGZhaWwgdG8gcmV0cmlldmUgbWluaW11
+bSBtZW1vcnkgY2xvY2tzLgpUaGlzIGNhc2NhZGVzIGludG8gZmFpbGluZyB0byBmaW5kIHRoZSBN
+aW5WZGRjIHZhbHVlIHdoZW4KcG9wdWxhdGluZyBhIHNpbmdsZSBtZW1vcnkgbGV2ZWwuIFdoZW4g
+dGhpcyBpcyBjYWxsZWQgZHVyaW5nCnBvbGFyaXMxMF9wb3B1bGF0ZV9hbGxfbWVtb3J5X2xldmVs
+cyB0aGUgZnVuY3Rpb24gZXhpdHMgZWFybHkgbGVhdmluZwp0aGUgcHJldmlvdXNseSB1c2VkIHZh
+bHVlcyBpbiB0aGUgc21jX3N0YXRlX3RhYmxlLgoKVW5kZXIgdGhlc2UgY29uZGl0aW9ucyB2aXN1
+YWwgY29ycnVwdGlvbiBjYW4gYmUgb2JzZXJ2ZWQgb24gdGhlIHNjcmVlbgpkdXJpbmcgbW9kZXNl
+dHMgYmV0d2VlbiBzcGVjaWZpYyBiYW5kd2lkdGggdGhyZXNob2xkcy4KCltIb3ddCgpUaGVyZSBz
+ZWVtcyB0byBiZSBhIHNpbWlsYXIgcHJvYmxlbSBhbmQgc29sdXRpb24gZm9yIFRvbmdhOiBhIG1l
+bXNldApvbiB0aGUgbGV2ZWxzIHRhYmxlIGJlZm9yZSBwb3B1bGF0aW5nIGl0cyB2YWx1ZXMuIFRo
+aXMgY2hhbmdlIGZpeGVzCnRoZSB2aXN1YWwgY29ycnVwdGlvbiB0aGF0IHNlZW1zIHRvIG9jY3Vy
+IHdoZW4gY2hhbmdpbmcgZnJvbSBhIGxvdwpjbG9jayBtb2RlICg2NDB4NDgwQDc1SHopIHRvIGEg
+bWVkaXVtIGNsb2NrIG1vZGUgKDE5MjB4MTIwMEA2MEh6KS4KCkhvd2V2ZXIsIHRoaXMgaXMgYSBz
+bWFsbCBmaXggZm9yIGEgc3ltcHRvbSBvZiB0aGUgbGFyZ2VyIGlzc3VlIG9mCmZhaWxpbmcgdG8g
+ZmluZCB0aGUgTWluVmRkYy4gT3RoZXIgaGFyZHdhcmUgd291bGQgc2VlbSB0byBlbmNvdW50ZXIK
+dGhlIHNhbWUgaXNzdWUgaWYgdGhlIHRhYmxlIGlzIGVtcHR5LCBzbyBzaWduaWZpY2FudCByZWZh
+Y3RvcmluZwp3b3VsZCBsaWtlbHkgYmUgbmVlZGVkLgoKU2lnbmVkLW9mZi1ieTogTmljaG9sYXMg
+S2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMgfCAyICsrCiAxIGZp
+bGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKaW5kZXggMTI3NmYxNjhm
+ZjY4Li42ODM1NjQ3OWRhYzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwpAQCAtMTEzNCw2ICsxMTM0LDggQEAg
+c3RhdGljIGludCBwb2xhcmlzMTBfcG9wdWxhdGVfYWxsX21lbW9yeV9sZXZlbHMoc3RydWN0IHBw
+X2h3bWdyICpod21ncikKIAkJCXNtdV9kYXRhLT5zbWNfc3RhdGVfdGFibGUuTWVtb3J5TGV2ZWw7
+CiAJdWludDMyX3QgaTsKIAorCW1lbXNldChsZXZlbHMsIDAsIGFycmF5X3NpemUpOworCiAJZm9y
+IChpID0gMDsgaSA8IGRwbV90YWJsZS0+bWNsa190YWJsZS5jb3VudDsgaSsrKSB7CiAJCVBQX0FT
+U0VSVF9XSVRIX0NPREUoKDAgIT0gZHBtX3RhYmxlLT5tY2xrX3RhYmxlLmRwbV9sZXZlbHNbaV0u
+dmFsdWUpLAogCQkJCSJjYW4gbm90IHBvcHVsYXRlIG1lbW9yeSBsZXZlbCBhcyBtZW1vcnkgY2xv
+Y2sgaXMgemVybyIsCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
