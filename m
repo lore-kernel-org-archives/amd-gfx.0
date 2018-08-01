@@ -1,16 +1,22 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/scheduler: add new function to get least loaded
- sched v2
-Date: Wed, 1 Aug 2018 13:51:31 -0400
-Message-ID: <6a065950-20c7-2c5a-9413-390d95126f07@amd.com>
-References: <20180801082002.20696-1-nayan26deshmukh@gmail.com>
- <20180801082002.20696-3-nayan26deshmukh@gmail.com>
- <dde1b549-df1b-e156-1e96-ddfe4beca446@amd.com>
- <CAFd4ddx8D2iKquRu4YVh1gnRMpLFgWf3CBPdk5SD-nJ8dNXEPQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: return bo itself if userptr is cpu addr
+ of bo (v3)
+Date: Wed, 1 Aug 2018 19:52:05 +0200
+Message-ID: <edbcf817-75ea-6e6a-d64a-6274a78308e7@amd.com>
+References: <1532944950-28619-1-git-send-email-Jerry.Zhang@amd.com>
+ <3d423f44-e47a-e70c-dfd9-80c1ff843e45@gmail.com> <5B6008A1.5050401@amd.com>
+ <c6b11c1f-b32a-4ab8-6a78-aa7886eed60a@gmail.com> <5B601844.3010405@amd.com>
+ <5e8f2a76-6cbd-1f80-ec94-fcd79c0fa55c@gmail.com> <5B60249D.7030503@amd.com>
+ <9dc68d5d-561c-242a-b3ba-1c8078ab670f@gmail.com> <5B6031CA.4050102@amd.com>
+ <3ffb8b8c-fae3-92d9-80e1-bd7d0498b4c7@gmail.com>
+ <CAAxE2A6uLe_ZMTGQ2dqFbY--Mf15qRrP+tX6pbicokpe8Wo=qQ@mail.gmail.com>
+ <53eb686a-0747-394a-b0c3-4cd53ab836e2@amd.com>
+ <CAAxE2A6C0mmr2vogcAQL+XNQuPU=BqHUGjqAMVnS3pK37XJa0A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1714581760=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAFd4ddx8D2iKquRu4YVh1gnRMpLFgWf3CBPdk5SD-nJ8dNXEPQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAAxE2A6C0mmr2vogcAQL+XNQuPU=BqHUGjqAMVnS3pK37XJa0A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,233 +28,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org, l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1714581760==
-Content-Type: multipart/alternative;
- boundary="------------C58A028C0F3C3469D31F8BDE"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------C58A028C0F3C3469D31F8BDE
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Series is Acked-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-
-Andrey
-
-
-On 08/01/2018 12:06 PM, Nayan Deshmukh wrote:
-> Yes, that is correct.
->
-> Nayan
->
-> On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky 
-> <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org <mailto:Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>> wrote:
->
->     Clarification question -  if the run queues belong to different
->     schedulers they effectively point to different rings,
->
->     it means we allow to move (reschedule) a drm_sched_entity from one
->     ring
->     to another - i assume that the idea int the first place, that
->
->     you have a set of HW rings and you can utilize any of them for
->     your jobs
->     (like compute rings). Correct ?
->
->     Andrey
->
->
->     On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:
->     > The function selects the run queue from the rq_list with the
->     > least load. The load is decided by the number of jobs in a
->     > scheduler.
->     >
->     > v2: avoid using atomic read twice consecutively, instead store
->     >      it locally
->     >
->     > Signed-off-by: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
->     <mailto:nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
->     > ---
->     >   drivers/gpu/drm/scheduler/gpu_scheduler.c | 25
->     +++++++++++++++++++++++++
->     >   1 file changed, 25 insertions(+)
->     >
->     > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
->     b/drivers/gpu/drm/scheduler/gpu_scheduler.c
->     > index 375f6f7f6a93..fb4e542660b0 100644
->     > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
->     > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
->     > @@ -255,6 +255,31 @@ static bool
->     drm_sched_entity_is_ready(struct drm_sched_entity *entity)
->     >       return true;
->     >   }
->     >
->     > +/**
->     > + * drm_sched_entity_get_free_sched - Get the rq from rq_list
->     with least load
->     > + *
->     > + * @entity: scheduler entity
->     > + *
->     > + * Return the pointer to the rq with least load.
->     > + */
->     > +static struct drm_sched_rq *
->     > +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
->     > +{
->     > +     struct drm_sched_rq *rq = NULL;
->     > +     unsigned int min_jobs = UINT_MAX, num_jobs;
->     > +     int i;
->     > +
->     > +     for (i = 0; i < entity->num_rq_list; ++i) {
->     > +             num_jobs =
->     atomic_read(&entity->rq_list[i]->sched->num_jobs);
->     > +             if (num_jobs < min_jobs) {
->     > +                     min_jobs = num_jobs;
->     > +                     rq = entity->rq_list[i];
->     > +             }
->     > +     }
->     > +
->     > +     return rq;
->     > +}
->     > +
->     >   static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
->     >                                   struct dma_fence_cb *cb)
->     >   {
->
-
-
---------------C58A028C0F3C3469D31F8BDE
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Series is Acked-by: Andrey Grodzovsky
-      <a class="moz-txt-link-rfc2396E" href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a></p>
-    <p>Andrey<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 08/01/2018 12:06 PM, Nayan Deshmukh
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAFd4ddx8D2iKquRu4YVh1gnRMpLFgWf3CBPdk5SD-nJ8dNXEPQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div dir="auto">Yes, that is correct. 
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Nayan</div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr">On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky
-          &lt;<a href="mailto:Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org"
-            moz-do-not-send="true">Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0 0 0
-          .8ex;border-left:1px #ccc solid;padding-left:1ex">Clarification
-          question -  if the run queues belong to different <br>
-          schedulers they effectively point to different rings,<br>
-          <br>
-          it means we allow to move (reschedule) a drm_sched_entity from
-          one ring <br>
-          to another - i assume that the idea int the first place, that<br>
-          <br>
-          you have a set of HW rings and you can utilize any of them for
-          your jobs <br>
-          (like compute rings). Correct ?<br>
-          <br>
-          Andrey<br>
-          <br>
-          <br>
-          On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:<br>
-          &gt; The function selects the run queue from the rq_list with
-          the<br>
-          &gt; least load. The load is decided by the number of jobs in
-          a<br>
-          &gt; scheduler.<br>
-          &gt;<br>
-          &gt; v2: avoid using atomic read twice consecutively, instead
-          store<br>
-          &gt;      it locally<br>
-          &gt;<br>
-          &gt; Signed-off-by: Nayan Deshmukh &lt;<a
-            href="mailto:nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target="_blank"
-            rel="noreferrer" moz-do-not-send="true">nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-          &gt; ---<br>
-          &gt;   drivers/gpu/drm/scheduler/gpu_scheduler.c | 25
-          +++++++++++++++++++++++++<br>
-          &gt;   1 file changed, 25 insertions(+)<br>
-          &gt;<br>
-          &gt; diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-          b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-          &gt; index 375f6f7f6a93..fb4e542660b0 100644<br>
-          &gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-          &gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-          &gt; @@ -255,6 +255,31 @@ static bool
-          drm_sched_entity_is_ready(struct drm_sched_entity *entity)<br>
-          &gt;       return true;<br>
-          &gt;   }<br>
-          &gt;   <br>
-          &gt; +/**<br>
-          &gt; + * drm_sched_entity_get_free_sched - Get the rq from
-          rq_list with least load<br>
-          &gt; + *<br>
-          &gt; + * @entity: scheduler entity<br>
-          &gt; + *<br>
-          &gt; + * Return the pointer to the rq with least load.<br>
-          &gt; + */<br>
-          &gt; +static struct drm_sched_rq *<br>
-          &gt; +drm_sched_entity_get_free_sched(struct drm_sched_entity
-          *entity)<br>
-          &gt; +{<br>
-          &gt; +     struct drm_sched_rq *rq = NULL;<br>
-          &gt; +     unsigned int min_jobs = UINT_MAX, num_jobs;<br>
-          &gt; +     int i;<br>
-          &gt; +<br>
-          &gt; +     for (i = 0; i &lt; entity-&gt;num_rq_list; ++i) {<br>
-          &gt; +             num_jobs =
-          atomic_read(&amp;entity-&gt;rq_list[i]-&gt;sched-&gt;num_jobs);<br>
-          &gt; +             if (num_jobs &lt; min_jobs) {<br>
-          &gt; +                     min_jobs = num_jobs;<br>
-          &gt; +                     rq = entity-&gt;rq_list[i];<br>
-          &gt; +             }<br>
-          &gt; +     }<br>
-          &gt; +<br>
-          &gt; +     return rq;<br>
-          &gt; +}<br>
-          &gt; +<br>
-          &gt;   static void drm_sched_entity_kill_jobs_cb(struct
-          dma_fence *f,<br>
-          &gt;                                   struct dma_fence_cb
-          *cb)<br>
-          &gt;   {<br>
-          <br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------C58A028C0F3C3469D31F8BDE--
-
---===============1714581760==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1714581760==--
+QW0gMDEuMDguMjAxOCB1bSAxOTozOSBzY2hyaWViIE1hcmVrIE9sxaHDoWs6Cj4gT24gV2VkLCBB
+dWcgMSwgMjAxOCBhdCAyOjMyIEFNLCBDaHJpc3RpYW4gS8O2bmlnCj4gPGNocmlzdGlhbi5rb2Vu
+aWdAYW1kLmNvbT4gd3JvdGU6Cj4+IEFtIDAxLjA4LjIwMTggdW0gMDA6MDcgc2NocmllYiBNYXJl
+ayBPbMWhw6FrOgo+Pj4gQ2FuIHRoaXMgYmUgaW1wbGVtZW50ZWQgYXMgYSB3cmFwcGVyIG9uIHRv
+cCBvZiBsaWJkcm0/IFNvIHRoYXQgdGhlCj4+PiB0cmVlIChvciBoYXNoIHRhYmxlKSBpc24ndCBj
+cmVhdGVkIGZvciBVTURzIHRoYXQgZG9uJ3QgbmVlZCBpdC4KPj4KPj4gTm8sIHRoZSBwcm9ibGVt
+IGlzIHRoYXQgYW4gYXBwbGljYXRpb24gZ2V0cyBhIENQVSBwb2ludGVyIGZyb20gb25lIEFQSSBh
+bmQKPj4gdHJpZXMgdG8gaW1wb3J0IHRoYXQgcG9pbnRlciBpbnRvIGFub3RoZXIgb25lLgo+Pgo+
+PiBJbiBvdGhlciB3b3JkcyB3ZSBuZWVkIHRvIGltcGxlbWVudCB0aGlzIGluZGVwZW5kZW50IG9m
+IHRoZSBVTUQgd2hvIG1hcHBlZAo+PiB0aGUgQk8uCj4gWWVhaCwgaXQgY291bGQgYmUgYW4gb3B0
+aW9uYWwgZmVhdHVyZSBvZiBsaWJkcm0sIGFuZCBvdGhlciBjb21wb25lbnRzCj4gc2hvdWxkIGJl
+IGFibGUgdG8gZGlzYWJsZSBpdCB0byByZW1vdmUgdGhlIG92ZXJoZWFkLgoKVGhlIG92ZXJoZWFk
+IGlzIG5lZ2xpZ2libGUsIHRoZSByZWFsIHByb2JsZW0gaXMgdGhlIG1lbW9yeSBmb290cHJpbnQu
+CgpBIGJyaWVmIGxvb2sgYXQgdGhlIGhhc2ggaW1wbGVtZW50YXRpb24gaW4gbGliZHJtIHNob3dl
+ZCB0aGF0IHRoaXMgaXMgCmFjdHVhbGx5IHJlYWxseSBpbmVmZmljaWVudC4KCkkgdGhpbmsgd2Ug
+aGF2ZSB0aGUgY2hvaWNlIG9mIGltcGxlbWVudGluZyBhIHIvYiB0cmVlIHRvIG1hcCB0aGUgQ1BV
+IApwb2ludGVyIGFkZHJlc3NlcyBvciBpbXBsZW1lbnQgYSBxdWFkcmF0aWMgdHJlZSB0byBtYXAg
+dGhlIGhhbmRsZXMuCgpUaGUgbGF0ZXIgaXMgZWFzeSB0byBkbyBhbmQgd291bGQgYWxzbyBhbGxv
+dyB0byBnZXQgcmlkIG9mIHRoZSBoYXNoIAp0YWJsZSBhcyB3ZWxsLgoKQ2hyaXN0aWFuLgoKPgo+
+IE1hcmVrCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
