@@ -1,20 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: return bo itself if userptr is cpu addr
- of bo (v3)
-Date: Wed, 1 Aug 2018 08:32:50 +0200
-Message-ID: <53eb686a-0747-394a-b0c3-4cd53ab836e2@amd.com>
-References: <1532944950-28619-1-git-send-email-Jerry.Zhang@amd.com>
- <3d423f44-e47a-e70c-dfd9-80c1ff843e45@gmail.com> <5B6008A1.5050401@amd.com>
- <c6b11c1f-b32a-4ab8-6a78-aa7886eed60a@gmail.com> <5B601844.3010405@amd.com>
- <5e8f2a76-6cbd-1f80-ec94-fcd79c0fa55c@gmail.com> <5B60249D.7030503@amd.com>
- <9dc68d5d-561c-242a-b3ba-1c8078ab670f@gmail.com> <5B6031CA.4050102@amd.com>
- <3ffb8b8c-fae3-92d9-80e1-bd7d0498b4c7@gmail.com>
- <CAAxE2A6uLe_ZMTGQ2dqFbY--Mf15qRrP+tX6pbicokpe8Wo=qQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/ttm: fix missed conversion of set_pages_array_uc
+Date: Wed, 1 Aug 2018 08:45:31 +0200
+Message-ID: <c1ba9887-7338-cfbc-33e8-8505bb8f5c20@gmail.com>
+References: <1533102573-15365-1-git-send-email-ray.huang@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A6uLe_ZMTGQ2dqFbY--Mf15qRrP+tX6pbicokpe8Wo=qQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1533102573-15365-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -26,16 +20,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMDEuMDguMjAxOCB1bSAwMDowNyBzY2hyaWViIE1hcmVrIE9sxaHDoWs6Cj4gQ2FuIHRoaXMg
-YmUgaW1wbGVtZW50ZWQgYXMgYSB3cmFwcGVyIG9uIHRvcCBvZiBsaWJkcm0/IFNvIHRoYXQgdGhl
-Cj4gdHJlZSAob3IgaGFzaCB0YWJsZSkgaXNuJ3QgY3JlYXRlZCBmb3IgVU1EcyB0aGF0IGRvbid0
-IG5lZWQgaXQuCgpObywgdGhlIHByb2JsZW0gaXMgdGhhdCBhbiBhcHBsaWNhdGlvbiBnZXRzIGEg
-Q1BVIHBvaW50ZXIgZnJvbSBvbmUgQVBJIAphbmQgdHJpZXMgdG8gaW1wb3J0IHRoYXQgcG9pbnRl
-ciBpbnRvIGFub3RoZXIgb25lLgoKSW4gb3RoZXIgd29yZHMgd2UgbmVlZCB0byBpbXBsZW1lbnQg
-dGhpcyBpbmRlcGVuZGVudCBvZiB0aGUgVU1EIHdobyAKbWFwcGVkIHRoZSBCTy4KCkNocmlzdGlh
-bi4KCj4KPiBNYXJlawo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+QW0gMDEuMDguMjAxOCB1bSAwNzo0OSBzY2hyaWViIEh1YW5nIFJ1aToKPiBUaGlzIHBhdGNoIGZp
+eGVkIHRoZSBlcnJvciB3aGVuIGRvIG5vdCBjb25maWd1cmUgQ09ORklHX1g4Niwgb3RoZXJ3aXNl
+LCBiZWxvdwo+IGVycm9yIHdpbGwgYmUgZW5jb3VudGVyZWQuCj4KPiBBbGwgZXJyb3JzIChuZXcg
+b25lcyBwcmVmaXhlZCBieSA+Pik6Cj4KPiAgICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFn
+ZV9hbGxvY19kbWEuYzogSW4gZnVuY3Rpb24gJ3R0bV9zZXRfcGFnZXNfY2FjaGluZyc6Cj4+PiBk
+cml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdlX2FsbG9jX2RtYS5jOjI3Mjo3OiBlcnJvcjogaW1w
+bGljaXQgZGVjbGFyYXRpb24gb2YgZnVuY3Rpb24gJ3NldF9wYWdlc19hcnJheV91Yyc7IGRpZCB5
+b3UgbWVhbgo+ICsndHRtX3NldF9wYWdlc19hcnJheV91Yyc/IFstV2Vycm9yPWltcGxpY2l0LWZ1
+bmN0aW9uLWRlY2xhcmF0aW9uXQo+ICAgICAgICByID0gc2V0X3BhZ2VzX2FycmF5X3VjKHBhZ2Vz
+LCBjcGFnZXMpOwo+ICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+fn5+Cj4gICAgICAgICAgICB0
+dG1fc2V0X3BhZ2VzX2FycmF5X3VjCj4gICAgIGNjMTogc29tZSB3YXJuaW5ncyBiZWluZyB0cmVh
+dGVkIGFzIGVycm9ycwo+Cj4gUmVwb3J0ZWQtYnk6IGtidWlsZCB0ZXN0IHJvYm90IDxsa3BAaW50
+ZWwuY29tPgo+IFNpZ25lZC1vZmYtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+CgpS
+ZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiBm
+b3IgdGhlIHNlcmllcy4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdlX2Fs
+bG9jX2RtYS5jIHwgMiArLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRl
+bGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fcGFnZV9h
+bGxvY19kbWEuYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3BhZ2VfYWxsb2NfZG1hLmMKPiBp
+bmRleCA4MzA0OTE3Li41MDdiZTdhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0v
+dHRtX3BhZ2VfYWxsb2NfZG1hLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9wYWdl
+X2FsbG9jX2RtYS5jCj4gQEAgLTI2OSw3ICsyNjksNyBAQCBzdGF0aWMgaW50IHR0bV9zZXRfcGFn
+ZXNfY2FjaGluZyhzdHJ1Y3QgZG1hX3Bvb2wgKnBvb2wsCj4gICAJaW50IHIgPSAwOwo+ICAgCS8q
+IFNldCBwYWdlIGNhY2hpbmcgKi8KPiAgIAlpZiAocG9vbC0+dHlwZSAmIElTX1VDKSB7Cj4gLQkJ
+ciA9IHNldF9wYWdlc19hcnJheV91YyhwYWdlcywgY3BhZ2VzKTsKPiArCQlyID0gdHRtX3NldF9w
+YWdlc19hcnJheV91YyhwYWdlcywgY3BhZ2VzKTsKPiAgIAkJaWYgKHIpCj4gICAJCQlwcl9lcnIo
+IiVzOiBGYWlsZWQgdG8gc2V0ICVkIHBhZ2VzIHRvIHVjIVxuIiwKPiAgIAkJCSAgICAgICBwb29s
+LT5kZXZfbmFtZSwgY3BhZ2VzKTsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
