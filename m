@@ -1,51 +1,63 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amd/display: Report non-DP display as disconnected
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Subject: Re: [PATCH v2] drm/amd/display: Report non-DP display as disconnected
  without EDID
-Date: Wed, 1 Aug 2018 15:51:06 -0400
-Message-ID: <20180801195106.10971-1-harry.wentland@amd.com>
+Date: Wed, 1 Aug 2018 15:55:41 -0400
+Message-ID: <c4ba3810-d90a-beba-7e89-239184bfbd17@amd.com>
+References: <20180801195106.10971-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20180801195106.10971-1-harry.wentland@amd.com>
+Content-Language: en-US
+Sender: stable-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-W1doeV0KU29tZSBib2FyZHMgc2VlbSB0byBoYXZlIGEgcHJvYmxlbSB3aGVyZSBIUEQgaXMgaGln
-aCBvbiBIRE1JIGV2ZW4gdGhvdWdoCm5vIGRpc3BsYXkgaXMgY29ubmVjdGVkLiBXZSBkb24ndCB3
-YW50IHRvIHJlcG9ydCB0aGVzZSBhcyBjb25uZWN0ZWQuIERQCnNwZWMgc3RpbGwgcmVxdWlyZXMg
-dXMgdG8gcmVwb3J0IERQIGRpc3BsYXlzIGFzIGNvbm5lY3RlZCB3aGVuIEhQRCBpcwpoaWdoIGJ1
-dCB3ZSBjYW4ndCByZWFkIHRoZSBFRElEIGluIG9yZGVyIHRvIGdvIHRvIGZhaWwtc2FmZSBtb2Rl
-LgoKW0hvd10KSWYgY29ubmVjdG9yX3NpZ25hbCBpcyBub3QgRFAgYWJvcnQgZGV0ZWN0aW9uIGlm
-IHdlIGNhbid0IHJldHJpZXZlIHRoZQpFRElELgoKQnVnemlsbGE6IGh0dHBzOi8vYnVncy5mcmVl
-ZGVza3RvcC5vcmcvMTA3MzkwCkJ1Z3ppbGxhOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3Jn
-LzEwNjg0NgpDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwpTaWduZWQtb2ZmLWJ5OiBIYXJyeSBX
-ZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8
-YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCnYyOiBBZGQgQnVnemlsbGEgYW5kIHN0YWJsZQot
-LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYyB8IDExICsr
-KysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYwppbmRleCBiMTgwMTk3YTQxZTIu
-Ljg0ZjBmZDE1YmU0YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2NvcmUvZGNfbGluay5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
-L2RjX2xpbmsuYwpAQCAtNzQ0LDYgKzc0NCwxNyBAQCBib29sIGRjX2xpbmtfZGV0ZWN0KHN0cnVj
-dCBkY19saW5rICpsaW5rLCBlbnVtIGRjX2RldGVjdF9yZWFzb24gcmVhc29uKQogCQkJYnJlYWs7
-CiAJCWNhc2UgRURJRF9OT19SRVNQT05TRToKIAkJCURDX0xPR19FUlJPUigiTm8gRURJRCByZWFk
-LlxuIik7CisKKwkJCS8qCisJCQkgKiBBYm9ydCBkZXRlY3Rpb24gZm9yIG5vbi1EUCBjb25uZWN0
-b3JzIGlmIHdlIGhhdmUKKwkJCSAqIG5vIEVESUQKKwkJCSAqCisJCQkgKiBEUCBuZWVkcyB0byBy
-ZXBvcnQgYXMgY29ubmVjdGVkIGlmIEhEUCBpcyBoaWdoCisJCQkgKiBldmVuIGlmIHdlIGhhdmUg
-bm8gRURJRCBpbiBvcmRlciB0byBnbyB0bworCQkJICogZmFpbC1zYWZlIG1vZGUKKwkJCSAqLwor
-CQkJaWYgKCFkY19pc19kcF9zaWduYWwobGluay0+Y29ubmVjdG9yX3NpZ25hbCkpCisJCQkJcmV0
-dXJuIGZhbHNlOwogCQlkZWZhdWx0OgogCQkJYnJlYWs7CiAJCX0KLS0gCjIuMTcuMQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 08/01/2018 03:51 PM, Harry Wentland wrote:
+> [Why]
+> Some boards seem to have a problem where HPD is high on HDMI even though
+> no display is connected. We don't want to report these as connected. DP
+> spec still requires us to report DP displays as connected when HPD is
+> high but we can't read the EDID in order to go to fail-safe mode.
+> 
+> [How]
+> If connector_signal is not DP abort detection if we can't retrieve the
+> EDID.
+> 
+> Bugzilla: https://bugs.freedesktop.org/107390
+> Bugzilla: https://bugs.freedesktop.org/106846
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> v2: Add Bugzilla and stable
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc_link.c | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> index b180197a41e2..84f0fd15be4c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> @@ -744,6 +744,17 @@ bool dc_link_detect(struct dc_link *link, enum dc_detect_reason reason)
+>   			break;
+>   		case EDID_NO_RESPONSE:
+>   			DC_LOG_ERROR("No EDID read.\n");
+> +
+> +			/*
+> +			 * Abort detection for non-DP connectors if we have
+> +			 * no EDID
+> +			 *
+> +			 * DP needs to report as connected if HDP is high
+> +			 * even if we have no EDID in order to go to
+> +			 * fail-safe mode
+> +			 */
+> +			if (!dc_is_dp_signal(link->connector_signal))
+> +				return false;
+>   		default:
+>   			break;
+>   		}
+> 
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
