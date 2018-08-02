@@ -1,346 +1,312 @@
-From: Nayan Deshmukh <nayan26deshmukh@gmail.com>
-Subject: Re: [PATCH 3/4] drm/scheduler: add new function to get least loaded
- sched v2
-Date: Thu, 2 Aug 2018 11:31:56 +0530
-Message-ID: <CAFd4ddyf=EhJ7pmzq3sEGa6U1sQ7Ga7fUH+sW+VKeBxJABjnKQ@mail.gmail.com>
-References: <20180801082002.20696-1-nayan26deshmukh@gmail.com>
- <20180801082002.20696-3-nayan26deshmukh@gmail.com>
- <dde1b549-df1b-e156-1e96-ddfe4beca446@amd.com>
- <CAFd4ddx8D2iKquRu4YVh1gnRMpLFgWf3CBPdk5SD-nJ8dNXEPQ@mail.gmail.com>
- <BY1PR12MB050215C66BE529F1FB94F373B42C0@BY1PR12MB0502.namprd12.prod.outlook.com>
+From: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/scheduler: add counter for total jobs in scheduler
+Date: Thu, 2 Aug 2018 11:38:23 +0530
+Message-ID: <CAFd4ddyYDy=u68cd4RbJ54yyGBFcUX8NaM8DaC-huuzmnDOfSQ@mail.gmail.com>
+References: <20180712063643.8030-1-nayan26deshmukh@gmail.com>
+ <20180712063643.8030-3-nayan26deshmukh@gmail.com> <5B62901B.3050005@amd.com>
+ <CAFd4ddzHsjg=D0=Zo-iKLv-uQ_MFWq2bzZGLwXQtoRnZAixzGA@mail.gmail.com>
+ <5B629DC1.2040100@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0878455635=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <BY1PR12MB050215C66BE529F1FB94F373B42C0@BY1PR12MB0502.namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: David1.Zhou@amd.com
-Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1027226986=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5B629DC1.2040100-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Jerry.Zhang-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org
 
---===============0878455635==
-Content-Type: multipart/alternative; boundary="0000000000003d891d05726d8f44"
+--===============1027226986==
+Content-Type: multipart/alternative; boundary="000000000000503fbd05726da61a"
 
---0000000000003d891d05726d8f44
+--000000000000503fbd05726da61a
 Content-Type: text/plain; charset="UTF-8"
 
-Hi David,
-
-On Thu, Aug 2, 2018 at 8:22 AM Zhou, David(ChunMing) <David1.Zhou@amd.com>
+On Thu, Aug 2, 2018 at 11:29 AM Zhang, Jerry (Junwei) <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
 wrote:
 
-> Another big question:
+> On 08/02/2018 01:50 PM, Nayan Deshmukh wrote:
+> >
+> >
+> > On Thu, Aug 2, 2018 at 10:31 AM Zhang, Jerry (Junwei) <
+> Jerry.Zhang-5C7GfCeVMHo@public.gmane.org <mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>> wrote:
+> >
+> >     On 07/12/2018 02:36 PM, Nayan Deshmukh wrote:
+> >      > Signed-off-by: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:
+> nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+> >      > ---
+> >      >   drivers/gpu/drm/scheduler/gpu_scheduler.c | 3 +++
+> >      >   include/drm/gpu_scheduler.h               | 2 ++
+> >      >   2 files changed, 5 insertions(+)
+> >      >
+> >      > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> >      > index 429b1328653a..3dc1a4f07e3f 100644
+> >      > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> >      > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> >      > @@ -538,6 +538,7 @@ void drm_sched_entity_push_job(struct
+> drm_sched_job *sched_job,
+> >      >       trace_drm_sched_job(sched_job, entity);
+> >      >
+> >      >       first = spsc_queue_push(&entity->job_queue,
+> &sched_job->queue_node);
+> >      > +     atomic_inc(&entity->sched->num_jobs);
+> >
+> >     Shall we use hw_rq_count directly or merge them together?
+> >
+> > hw_rq_count is the number of jobs that are currently in the hardware
+> queue as compared to num_jobs which is the number of jobs in the software
+> queue. num_jobs provides a give a better idea of the load
+> > on a scheduler that's why I added that field and used it to decide the
+> scheduler with the least load.
 >
-> I agree the general idea is good to balance scheduler load for same ring
-> family.
+> Thanks for your explanation.
 >
-> But, when same entity job run on different scheduler, that means the later
-> job could be completed ahead of front, Right?
+> Then may be more reasonable to move atomic_dec(&sched->num_jobs) after
+> drm_sched_fence_scheduled() or just before atomic_inc(&sched->hw_rq_count).
+> How do you think that?
 >
-Really good question. To avoid this senario we do not move an entity which
-already has a job in the hardware queue. We only move entities whose
-last_scheduled fence has been signalled which means that the last submitted
-job of this entity has finished executing.
+> For now num_jobs also includes jobs that have been pushed to the hardware
+queue. If I shift it before atomic_inc(&sched->hw_rq_count) then I also
+need to handle cases when the job was reset and update the counter
+properly. I went for the easier implementation as I felt that num_jobs will
+correctly represent the load on the scheduler.
 
-Moving an entity which already has a job in the hardware queue will hinder
-the dependency optimization that we are using and hence will not anyway
-lead to a better performance. I have talked about the issue in more detail
-here [1]. Please let me know if you have any more doubts regarding this.
+But the idea that you suggested can be a potential improvement over what I
+have done.
 
-Cheers,
+Regards,
 Nayan
 
-[1]
-http://ndesh26.github.io/gsoc/2018/06/14/GSoC-Update-A-Curious-Case-of-Dependency-Handling/
-
-That will break fence design, later fence must be signaled after front
-> fence in same fence context.
->
->
->
-> Anything I missed?
->
->
->
 > Regards,
+> Jerry
 >
-> David Zhou
->
->
->
-> *From:* dri-devel <dri-devel-bounces@lists.freedesktop.org> *On Behalf Of
-> *Nayan Deshmukh
-> *Sent:* Thursday, August 02, 2018 12:07 AM
-> *To:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
-> *Cc:* amd-gfx@lists.freedesktop.org; Maling list - DRI developers <
-> dri-devel@lists.freedesktop.org>; Koenig, Christian <
-> Christian.Koenig@amd.com>
-> *Subject:* Re: [PATCH 3/4] drm/scheduler: add new function to get least
-> loaded sched v2
->
->
->
-> Yes, that is correct.
->
->
->
-> Nayan
->
->
->
-> On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-> wrote:
->
-> Clarification question -  if the run queues belong to different
-> schedulers they effectively point to different rings,
->
-> it means we allow to move (reschedule) a drm_sched_entity from one ring
-> to another - i assume that the idea int the first place, that
->
-> you have a set of HW rings and you can utilize any of them for your jobs
-> (like compute rings). Correct ?
->
-> Andrey
->
->
-> On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:
-> > The function selects the run queue from the rq_list with the
-> > least load. The load is decided by the number of jobs in a
-> > scheduler.
 > >
-> > v2: avoid using atomic read twice consecutively, instead store
-> >      it locally
+> > Regards,
+> > Nayan
 > >
-> > Signed-off-by: Nayan Deshmukh <nayan26deshmukh@gmail.com>
-> > ---
-> >   drivers/gpu/drm/scheduler/gpu_scheduler.c | 25
-> +++++++++++++++++++++++++
-> >   1 file changed, 25 insertions(+)
 > >
-> > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > index 375f6f7f6a93..fb4e542660b0 100644
-> > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > @@ -255,6 +255,31 @@ static bool drm_sched_entity_is_ready(struct
-> drm_sched_entity *entity)
-> >       return true;
-> >   }
+> >     Regards,
+> >     Jerry
+> >      >
+> >      >       /* first job wakes up scheduler */
+> >      >       if (first) {
+> >      > @@ -818,6 +819,7 @@ static void drm_sched_process_job(struct
+> dma_fence *f, struct dma_fence_cb *cb)
+> >      >
+> >      >       dma_fence_get(&s_fence->finished);
+> >      >       atomic_dec(&sched->hw_rq_count);
+> >      > +     atomic_dec(&sched->num_jobs);
+> >      >       drm_sched_fence_finished(s_fence);
+> >      >
+> >      >       trace_drm_sched_process_job(s_fence);
+> >      > @@ -935,6 +937,7 @@ int drm_sched_init(struct drm_gpu_scheduler
+> *sched,
+> >      >       INIT_LIST_HEAD(&sched->ring_mirror_list);
+> >      >       spin_lock_init(&sched->job_list_lock);
+> >      >       atomic_set(&sched->hw_rq_count, 0);
+> >      > +     atomic_set(&sched->num_jobs, 0);
+> >      >       atomic64_set(&sched->job_id_count, 0);
+> >      >
+> >      >       /* Each scheduler will run on a seperate kernel thread */
+> >      > diff --git a/include/drm/gpu_scheduler.h
+> b/include/drm/gpu_scheduler.h
+> >      > index 43e93d6077cf..605bd4ad2397 100644
+> >      > --- a/include/drm/gpu_scheduler.h
+> >      > +++ b/include/drm/gpu_scheduler.h
+> >      > @@ -257,6 +257,7 @@ struct drm_sched_backend_ops {
+> >      >    * @job_list_lock: lock to protect the ring_mirror_list.
+> >      >    * @hang_limit: once the hangs by a job crosses this limit then
+> it is marked
+> >      >    *              guilty and it will be considered for scheduling
+> further.
+> >      > + * @num_jobs: the number of jobs in queue in the scheduler
+> >      >    *
+> >      >    * One scheduler is implemented for each hardware ring.
+> >      >    */
+> >      > @@ -274,6 +275,7 @@ struct drm_gpu_scheduler {
+> >      >       struct list_head                ring_mirror_list;
+> >      >       spinlock_t                      job_list_lock;
+> >      >       int                             hang_limit;
+> >      > +     atomic_t                        num_jobs;
+> >      >   };
+> >      >
+> >      >   int drm_sched_init(struct drm_gpu_scheduler *sched,
+> >      >
 > >
-> > +/**
-> > + * drm_sched_entity_get_free_sched - Get the rq from rq_list with least
-> load
-> > + *
-> > + * @entity: scheduler entity
-> > + *
-> > + * Return the pointer to the rq with least load.
-> > + */
-> > +static struct drm_sched_rq *
-> > +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
-> > +{
-> > +     struct drm_sched_rq *rq = NULL;
-> > +     unsigned int min_jobs = UINT_MAX, num_jobs;
-> > +     int i;
-> > +
-> > +     for (i = 0; i < entity->num_rq_list; ++i) {
-> > +             num_jobs =
-> atomic_read(&entity->rq_list[i]->sched->num_jobs);
-> > +             if (num_jobs < min_jobs) {
-> > +                     min_jobs = num_jobs;
-> > +                     rq = entity->rq_list[i];
-> > +             }
-> > +     }
-> > +
-> > +     return rq;
-> > +}
-> > +
-> >   static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
-> >                                   struct dma_fence_cb *cb)
-> >   {
->
 >
 
---0000000000003d891d05726d8f44
+--000000000000503fbd05726da61a
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi David,<br><div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr">On Thu, Aug 2, 2018 at 8:22 AM Zhou, David(ChunMing) &lt;<a href=
-=3D"mailto:David1.Zhou@amd.com">David1.Zhou@amd.com</a>&gt; wrote:<br></div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
--left:1px solid rgb(204,204,204);padding-left:1ex">
-
-
-
-
-
-<div lang=3D"EN-US">
-<div class=3D"gmail-m_963201938271036718WordSection1">
-<p class=3D"MsoNormal">Another big question:<u></u><u></u></p>
-<p class=3D"MsoNormal">I agree the general idea is good to balance schedule=
-r load for same ring family.<u></u><u></u></p>
-<p class=3D"MsoNormal">But, when same entity job run on different scheduler=
-, that means the later job could be completed ahead of front, Right?<u></u>=
-<u></u></p></div></div></blockquote><div>Really good question. To avoid thi=
-s senario we do not move an entity which already has a job in the hardware =
-queue. We only move entities whose last_scheduled fence has been signalled =
-which means that the last submitted job of this entity has finished executi=
-ng. <br><br></div><div>Moving an entity which already has a job in the hard=
-ware queue will hinder the dependency optimization that we are using and he=
-nce will not anyway lead to a better performance. I have talked about the i=
-ssue in more detail here [1]. Please let me know if you have any more doubt=
-s regarding this.<br><br></div><div>Cheers,<br></div><div>Nayan <br><br>[1]=
- <a href=3D"http://ndesh26.github.io/gsoc/2018/06/14/GSoC-Update-A-Curious-=
-Case-of-Dependency-Handling/">http://ndesh26.github.io/gsoc/2018/06/14/GSoC=
--Update-A-Curious-Case-of-Dependency-Handling/</a><br><br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex"><div lang=3D"EN-US"><div class=3D"gm=
-ail-m_963201938271036718WordSection1"><p class=3D"MsoNormal"></p>
-<p class=3D"MsoNormal">That will break fence design, later fence must be si=
-gnaled after front fence in same fence context.<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Anything I missed?<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Regards,<u></u><u></u></p>
-<p class=3D"MsoNormal">David Zhou<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><b>From:</b> dri-devel &lt;<a href=3D"mailto:dri-dev=
-el-bounces@lists.freedesktop.org" target=3D"_blank">dri-devel-bounces@lists=
-.freedesktop.org</a>&gt;
-<b>On Behalf Of </b>Nayan Deshmukh<br>
-<b>Sent:</b> Thursday, August 02, 2018 12:07 AM<br>
-<b>To:</b> Grodzovsky, Andrey &lt;<a href=3D"mailto:Andrey.Grodzovsky@amd.c=
-om" target=3D"_blank">Andrey.Grodzovsky@amd.com</a>&gt;<br>
-<b>Cc:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blan=
-k">amd-gfx@lists.freedesktop.org</a>; Maling list - DRI developers &lt;<a h=
-ref=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">dri-devel@=
-lists.freedesktop.org</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Chri=
-stian.Koenig@amd.com" target=3D"_blank">Christian.Koenig@amd.com</a>&gt;<br=
->
-<b>Subject:</b> Re: [PATCH 3/4] drm/scheduler: add new function to get leas=
-t loaded sched v2<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">Yes, that is correct.=C2=A0<u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Nayan<u></u><u></u></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky &lt;<=
-a href=3D"mailto:Andrey.Grodzovsky@amd.com" target=3D"_blank">Andrey.Grodzo=
-vsky@amd.com</a>&gt; wrote:<u></u><u></u></p>
-</div>
-<blockquote style=3D"border-color:currentcolor currentcolor currentcolor rg=
-b(204,204,204);border-style:none none none solid;border-width:medium medium=
- medium 1pt;padding:0in 0in 0in 6pt;margin-left:4.8pt;margin-right:0in">
-<p class=3D"MsoNormal" style=3D"margin-bottom:12pt">Clarification question =
--=C2=A0 if the run queues belong to different
-<br>
-schedulers they effectively point to different rings,<br>
-<br>
-it means we allow to move (reschedule) a drm_sched_entity from one ring <br=
->
-to another - i assume that the idea int the first place, that<br>
-<br>
-you have a set of HW rings and you can utilize any of them for your jobs <b=
-r>
-(like compute rings). Correct ?<br>
-<br>
-Andrey<br>
-<br>
-<br>
-On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:<br>
-&gt; The function selects the run queue from the rq_list with the<br>
-&gt; least load. The load is decided by the number of jobs in a<br>
-&gt; scheduler.<br>
+<div dir=3D"ltr"><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Thu=
+, Aug 2, 2018 at 11:29 AM Zhang, Jerry (Junwei) &lt;<a href=3D"mailto:Jerry=
+.Zhang-5C7GfCeVMHo@public.gmane.org">Jerry.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pa=
+dding-left:1ex">On 08/02/2018 01:50 PM, Nayan Deshmukh wrote:<br>
 &gt;<br>
-&gt; v2: avoid using atomic read twice consecutively, instead store<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 it locally<br>
 &gt;<br>
-&gt; Signed-off-by: Nayan Deshmukh &lt;<a href=3D"mailto:nayan26deshmukh@gm=
-ail.com" target=3D"_blank">nayan26deshmukh@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/scheduler/gpu_scheduler.c | 25 +++++++++++=
-++++++++++++++<br>
-&gt;=C2=A0 =C2=A01 file changed, 25 insertions(+)<br>
+&gt; On Thu, Aug 2, 2018 at 10:31 AM Zhang, Jerry (Junwei) &lt;<a href=3D"m=
+ailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Jerry.Zhang-5C7GfCeVMHo@public.gmane.org</a> &lt;ma=
+ilto:<a href=3D"mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Jerry.Zhang@a=
+md.com</a>&gt;&gt; wrote:<br>
 &gt;<br>
-&gt; diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/d=
-rm/scheduler/gpu_scheduler.c<br>
-&gt; index 375f6f7f6a93..fb4e542660b0 100644<br>
-&gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; @@ -255,6 +255,31 @@ static bool drm_sched_entity_is_ready(struct drm_=
-sched_entity *entity)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br>
-&gt;=C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +/**<br>
-&gt; + * drm_sched_entity_get_free_sched - Get the rq from rq_list with lea=
-st load<br>
-&gt; + *<br>
-&gt; + * @entity: scheduler entity<br>
-&gt; + *<br>
-&gt; + * Return the pointer to the rq with least load.<br>
-&gt; + */<br>
-&gt; +static struct drm_sched_rq *<br>
-&gt; +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct drm_sched_rq *rq =3D NULL;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned int min_jobs =3D UINT_MAX, num_jobs;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; entity-&gt;num_rq_list; ++i)=
- {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_jobs =3D atomic_r=
-ead(&amp;entity-&gt;rq_list[i]-&gt;sched-&gt;num_jobs);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (num_jobs &lt; min=
-_jobs) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0min_jobs =3D num_jobs;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0rq =3D entity-&gt;rq_list[i];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return rq;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0static void drm_sched_entity_kill_jobs_cb(struct dma_fence=
- *f,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dma_fence_cb =
-*cb)<br>
-&gt;=C2=A0 =C2=A0{<u></u><u></u></p>
-</blockquote>
-</div>
-</div>
-</div>
+&gt;=C2=A0 =C2=A0 =C2=A0On 07/12/2018 02:36 PM, Nayan Deshmukh wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Signed-off-by: Nayan Deshmukh &lt;<a href=3D"=
+mailto:nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">nayan26deshmukh@gmail.c=
+om</a> &lt;mailto:<a href=3D"mailto:nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_b=
+lank">nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; ---<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0drivers/gpu/drm/scheduler/gpu_sch=
+eduler.c | 3 +++<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0include/drm/gpu_scheduler.h=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 2 ++<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A02 files changed, 5 insertions(+)<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; diff --git a/drivers/gpu/drm/scheduler/gpu_sc=
+heduler.c b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; index 429b1328653a..3dc1a4f07e3f 100644<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler=
+.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler=
+.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; @@ -538,6 +538,7 @@ void drm_sched_entity_pus=
+h_job(struct drm_sched_job *sched_job,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0trace_drm_sched_job=
+(sched_job, entity);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0first =3D spsc_queu=
+e_push(&amp;entity-&gt;job_queue, &amp;sched_job-&gt;queue_node);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; +=C2=A0 =C2=A0 =C2=A0atomic_inc(&amp;entity-&=
+gt;sched-&gt;num_jobs);<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Shall we use hw_rq_count directly or merge them tog=
+ether?<br>
+&gt;<br>
+&gt; hw_rq_count is the number of jobs that are currently in the hardware q=
+ueue as compared to num_jobs which is the number of jobs in the software qu=
+eue. num_jobs provides a give a better idea of the load<br>
+&gt; on a scheduler that&#39;s why I added that field and used it to decide=
+ the scheduler with the least load.<br>
+<br>
+Thanks for your explanation.<br>
+<br>
+Then may be more reasonable to move atomic_dec(&amp;sched-&gt;num_jobs) aft=
+er drm_sched_fence_scheduled() or just before atomic_inc(&amp;sched-&gt;hw_=
+rq_count).<br>
+How do you think that?<br>
+<br></blockquote><div>For now num_jobs also includes jobs that have been pu=
+shed to the hardware queue. If I shift it before atomic_inc(&amp;sched-&gt;=
+hw_rq_count) then I also need to handle cases when the job was reset and up=
+date the counter properly. I went for the easier implementation as I felt t=
+hat num_jobs will correctly represent the load on the scheduler. <br><br></=
+div><div>But the idea that you suggested can be a potential improvement ove=
+r what I have done.<br><br></div><div>Regards,<br></div><div>Nayan <br></di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
+1px #ccc solid;padding-left:1ex">
+Regards,<br>
+Jerry<br>
+<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Nayan<br>
+&gt;<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Regards,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Jerry<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* first job wakes =
+up scheduler */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (first) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; @@ -818,6 +819,7 @@ static void drm_sched_pro=
+cess_job(struct dma_fence *f, struct dma_fence_cb *cb)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0dma_fence_get(&amp;=
+s_fence-&gt;finished);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0atomic_dec(&amp;sch=
+ed-&gt;hw_rq_count);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; +=C2=A0 =C2=A0 =C2=A0atomic_dec(&amp;sched-&g=
+t;num_jobs);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_sched_fence_fin=
+ished(s_fence);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0trace_drm_sched_pro=
+cess_job(s_fence);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; @@ -935,6 +937,7 @@ int drm_sched_init(struct=
+ drm_gpu_scheduler *sched,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0INIT_LIST_HEAD(&amp=
+;sched-&gt;ring_mirror_list);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0spin_lock_init(&amp=
+;sched-&gt;job_list_lock);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0atomic_set(&amp;sch=
+ed-&gt;hw_rq_count, 0);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; +=C2=A0 =C2=A0 =C2=A0atomic_set(&amp;sched-&g=
+t;num_jobs, 0);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0atomic64_set(&amp;s=
+ched-&gt;job_id_count, 0);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Each scheduler w=
+ill run on a seperate kernel thread */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; diff --git a/include/drm/gpu_scheduler.h b/in=
+clude/drm/gpu_scheduler.h<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; index 43e93d6077cf..605bd4ad2397 100644<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; --- a/include/drm/gpu_scheduler.h<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; +++ b/include/drm/gpu_scheduler.h<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; @@ -257,6 +257,7 @@ struct drm_sched_backend_=
+ops {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 * @job_list_lock: lock to protec=
+t the ring_mirror_list.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 * @hang_limit: once the hangs by=
+ a job crosses this limit then it is marked<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 guilty and it will be considered for scheduling further.<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; + * @num_jobs: the number of jobs in queue in=
+ the scheduler<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 *<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 * One scheduler is implemented f=
+or each hardware ring.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; @@ -274,6 +275,7 @@ struct drm_gpu_scheduler =
+{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct list_head=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ring_mirror_list;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0spinlock_t=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 job_l=
+ist_lock;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0hang_limit;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; +=C2=A0 =C2=A0 =C2=A0atomic_t=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 num_j=
+obs;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0};<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0int drm_sched_init(struct drm_gpu=
+_scheduler *sched,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;<br>
+</blockquote></div></div>
 
-</blockquote></div></div></div>
+--000000000000503fbd05726da61a--
 
---0000000000003d891d05726d8f44--
-
---===============0878455635==
+--===============1027226986==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0878455635==--
+--===============1027226986==--
