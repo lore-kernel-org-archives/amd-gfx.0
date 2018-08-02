@@ -1,288 +1,121 @@
-From: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/4] drm/scheduler: add counter for total jobs in scheduler
-Date: Thu, 2 Aug 2018 11:41:22 +0530
-Message-ID: <CAFd4ddxd5p6S0aM5pBs5P+6MArBL9bFh=vvFr1zyvqjR-DH_kQ@mail.gmail.com>
-References: <20180801082002.20696-1-nayan26deshmukh@gmail.com>
- <20180801082002.20696-2-nayan26deshmukh@gmail.com>
- <20180801131546.GA1401@hr-amur2>
- <79aee9af-534b-693e-6700-1c07a2ef31aa@gmail.com>
- <20180802025709.GA5753@hr-amur2>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang@amd.com>
+Subject: Re: [PATCH 2/3] drm/scheduler: add counter for total jobs in scheduler
+Date: Thu, 2 Aug 2018 14:16:53 +0800
+Message-ID: <5B62A1D5.9070803@amd.com>
+References: <20180712063643.8030-1-nayan26deshmukh@gmail.com>
+ <20180712063643.8030-3-nayan26deshmukh@gmail.com> <5B62901B.3050005@amd.com>
+ <CAFd4ddzHsjg=D0=Zo-iKLv-uQ_MFWq2bzZGLwXQtoRnZAixzGA@mail.gmail.com>
+ <5B629DC1.2040100@amd.com>
+ <CAFd4ddyYDy=u68cd4RbJ54yyGBFcUX8NaM8DaC-huuzmnDOfSQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1842975508=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180802025709.GA5753@hr-amur2>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: ray.huang-5C7GfCeVMHo@public.gmane.org
-Cc: Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-
---===============1842975508==
-Content-Type: multipart/alternative; boundary="000000000000ee9a0c05726db0da"
-
---000000000000ee9a0c05726db0da
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks for the reminders. I felt that the commit header was sufficient
-enough but I guess that didn't cover the motivation for the change.
-
-Thanks Christian for adding the commit message.
-
-Regards,
-Nayan
-
-On Thu, Aug 2, 2018 at 8:16 AM Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> On Wed, Aug 01, 2018 at 09:06:29PM +0800, Christian K=C3=B6nig wrote:
-> > Yeah, I've actually added one before pushing it to amd-staging-drm-next=
-.
-> >
-> > But thanks for the reminder, wanted to note that to Nayan as well :)
-> >
->
-> Yes, a soft reminder to Nayan. Thanks Nayan for the contribution. :-)
->
-> Thanks,
-> Ray
->
-> > Christian.
-> >
-> > Am 01.08.2018 um 15:15 schrieb Huang Rui:
-> > > On Wed, Aug 01, 2018 at 01:50:00PM +0530, Nayan Deshmukh wrote:
-> > >
-> > > This should need a commmit message.
-> > >
-> > > Thanks,
-> > > Ray
-> > >
-> > >> Signed-off-by: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> > >> ---
-> > >>   drivers/gpu/drm/scheduler/gpu_scheduler.c | 3 +++
-> > >>   include/drm/gpu_scheduler.h               | 2 ++
-> > >>   2 files changed, 5 insertions(+)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > >> index a3eacc35cf98..375f6f7f6a93 100644
-> > >> --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > >> +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > >> @@ -549,6 +549,7 @@ void drm_sched_entity_push_job(struct
-> drm_sched_job *sched_job,
-> > >>
-> > >>    trace_drm_sched_job(sched_job, entity);
-> > >>
-> > >> +  atomic_inc(&entity->rq->sched->num_jobs);
-> > >>    first =3D spsc_queue_push(&entity->job_queue,
-> &sched_job->queue_node);
-> > >>
-> > >>    /* first job wakes up scheduler */
-> > >> @@ -836,6 +837,7 @@ static void drm_sched_process_job(struct
-> dma_fence *f, struct dma_fence_cb *cb)
-> > >>
-> > >>    dma_fence_get(&s_fence->finished);
-> > >>    atomic_dec(&sched->hw_rq_count);
-> > >> +  atomic_dec(&sched->num_jobs);
-> > >>    drm_sched_fence_finished(s_fence);
-> > >>
-> > >>    trace_drm_sched_process_job(s_fence);
-> > >> @@ -953,6 +955,7 @@ int drm_sched_init(struct drm_gpu_scheduler
-> *sched,
-> > >>    INIT_LIST_HEAD(&sched->ring_mirror_list);
-> > >>    spin_lock_init(&sched->job_list_lock);
-> > >>    atomic_set(&sched->hw_rq_count, 0);
-> > >> +  atomic_set(&sched->num_jobs, 0);
-> > >>    atomic64_set(&sched->job_id_count, 0);
-> > >>
-> > >>    /* Each scheduler will run on a seperate kernel thread */
-> > >> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler=
-.h
-> > >> index a60896222a3e..89881ce974a5 100644
-> > >> --- a/include/drm/gpu_scheduler.h
-> > >> +++ b/include/drm/gpu_scheduler.h
-> > >> @@ -260,6 +260,7 @@ struct drm_sched_backend_ops {
-> > >>    * @job_list_lock: lock to protect the ring_mirror_list.
-> > >>    * @hang_limit: once the hangs by a job crosses this limit then it
-> is marked
-> > >>    *              guilty and it will be considered for scheduling
-> further.
-> > >> + * @num_jobs: the number of jobs in queue in the scheduler
-> > >>    *
-> > >>    * One scheduler is implemented for each hardware ring.
-> > >>    */
-> > >> @@ -277,6 +278,7 @@ struct drm_gpu_scheduler {
-> > >>    struct list_head                ring_mirror_list;
-> > >>    spinlock_t                      job_list_lock;
-> > >>    int                             hang_limit;
-> > >> +  atomic_t                        num_jobs;
-> > >>   };
-> > >>
-> > >>   int drm_sched_init(struct drm_gpu_scheduler *sched,
-> > >> --
-> > >> 2.14.3
-> > >>
-> > >> _______________________________________________
-> > >> amd-gfx mailing list
-> > >> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> > > _______________________________________________
-> > > dri-devel mailing list
-> > > dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
-> >
->
-
---000000000000ee9a0c05726db0da
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div>Thanks for the reminders. I felt that the c=
-ommit header was sufficient enough but I guess that didn&#39;t cover the mo=
-tivation for the change.<br><br></div>Thanks Christian for adding the commi=
-t message.<br><br></div>Regards,<br></div>Nayan<br></div><br><div class=3D"=
-gmail_quote"><div dir=3D"ltr">On Thu, Aug 2, 2018 at 8:16 AM Huang Rui &lt;=
-<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">ray.huang-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-lef=
-t:1px #ccc solid;padding-left:1ex">On Wed, Aug 01, 2018 at 09:06:29PM +0800=
-, Christian K=C3=B6nig wrote:<br>
-&gt; Yeah, I&#39;ve actually added one before pushing it to amd-staging-drm=
--next.<br>
-&gt; <br>
-&gt; But thanks for the reminder, wanted to note that to Nayan as well :)<b=
-r>
-&gt; <br>
-<br>
-Yes, a soft reminder to Nayan. Thanks Nayan for the contribution. :-)<br>
-<br>
-Thanks,<br>
-Ray<br>
-<br>
-&gt; Christian.<br>
-&gt; <br>
-&gt; Am 01.08.2018 um 15:15 schrieb Huang Rui:<br>
-&gt; &gt; On Wed, Aug 01, 2018 at 01:50:00PM +0530, Nayan Deshmukh wrote:<b=
-r>
-&gt; &gt;<br>
-&gt; &gt; This should need a commmit message.<br>
-&gt; &gt;<br>
-&gt; &gt; Thanks,<br>
-&gt; &gt; Ray<br>
-&gt; &gt;<br>
-&gt; &gt;&gt; Signed-off-by: Nayan Deshmukh &lt;<a href=3D"mailto:nayan26de=
-shmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-&gt; &gt;&gt; ---<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0drivers/gpu/drm/scheduler/gpu_scheduler.c | 3 +++=
-<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0include/drm/gpu_scheduler.h=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 2 ++<br>
-&gt; &gt;&gt;=C2=A0 =C2=A02 files changed, 5 insertions(+)<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/driv=
-ers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; &gt;&gt; index a3eacc35cf98..375f6f7f6a93 100644<br>
-&gt; &gt;&gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; &gt;&gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; &gt;&gt; @@ -549,6 +549,7 @@ void drm_sched_entity_push_job(struct drm=
-_sched_job *sched_job,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 trace_drm_sched_job(sched_job, entity);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0<br>
-&gt; &gt;&gt; +=C2=A0 atomic_inc(&amp;entity-&gt;rq-&gt;sched-&gt;num_jobs)=
-;<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 first =3D spsc_queue_push(&amp;entity-&gt;job_qu=
-eue, &amp;sched_job-&gt;queue_node);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 /* first job wakes up scheduler */<br>
-&gt; &gt;&gt; @@ -836,6 +837,7 @@ static void drm_sched_process_job(struct =
-dma_fence *f, struct dma_fence_cb *cb)<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 dma_fence_get(&amp;s_fence-&gt;finished);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 atomic_dec(&amp;sched-&gt;hw_rq_count);<br>
-&gt; &gt;&gt; +=C2=A0 atomic_dec(&amp;sched-&gt;num_jobs);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 drm_sched_fence_finished(s_fence);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 trace_drm_sched_process_job(s_fence);<br>
-&gt; &gt;&gt; @@ -953,6 +955,7 @@ int drm_sched_init(struct drm_gpu_schedul=
-er *sched,<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 INIT_LIST_HEAD(&amp;sched-&gt;ring_mirror_list);=
-<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 spin_lock_init(&amp;sched-&gt;job_list_lock);<br=
->
-&gt; &gt;&gt;=C2=A0 =C2=A0 atomic_set(&amp;sched-&gt;hw_rq_count, 0);<br>
-&gt; &gt;&gt; +=C2=A0 atomic_set(&amp;sched-&gt;num_jobs, 0);<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 atomic64_set(&amp;sched-&gt;job_id_count, 0);<br=
->
-&gt; &gt;&gt;=C2=A0 =C2=A0<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 /* Each scheduler will run on a seperate kernel =
-thread */<br>
-&gt; &gt;&gt; diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_sc=
-heduler.h<br>
-&gt; &gt;&gt; index a60896222a3e..89881ce974a5 100644<br>
-&gt; &gt;&gt; --- a/include/drm/gpu_scheduler.h<br>
-&gt; &gt;&gt; +++ b/include/drm/gpu_scheduler.h<br>
-&gt; &gt;&gt; @@ -260,6 +260,7 @@ struct drm_sched_backend_ops {<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 * @job_list_lock: lock to protect the ring_mirro=
-r_list.<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 * @hang_limit: once the hangs by a job crosses t=
-his limit then it is marked<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 guilty and it will be considered for scheduling further.<br>
-&gt; &gt;&gt; + * @num_jobs: the number of jobs in queue in the scheduler<b=
-r>
-&gt; &gt;&gt;=C2=A0 =C2=A0 *<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 * One scheduler is implemented for each hardware=
- ring.<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 */<br>
-&gt; &gt;&gt; @@ -277,6 +278,7 @@ struct drm_gpu_scheduler {<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 struct list_head=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 ring_mirror_list;<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 spinlock_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 job_list_lock;<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0 int=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0hang_limit;<br>
-&gt; &gt;&gt; +=C2=A0 atomic_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 num_jobs;<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0};<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0<br>
-&gt; &gt;&gt;=C2=A0 =C2=A0int drm_sched_init(struct drm_gpu_scheduler *sche=
-d,<br>
-&gt; &gt;&gt; -- <br>
-&gt; &gt;&gt; 2.14.3<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; _______________________________________________<br>
-&gt; &gt;&gt; amd-gfx mailing list<br>
-&gt; &gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_b=
-lank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; &gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd=
--gfx" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx</a><br>
-&gt; &gt; _______________________________________________<br>
-&gt; &gt; dri-devel mailing list<br>
-&gt; &gt; <a href=3D"mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_bla=
-nk">dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-dev=
-el" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mail=
-man/listinfo/dri-devel</a><br>
-&gt; <br>
-</blockquote></div>
-
---000000000000ee9a0c05726db0da--
-
---===============1842975508==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAFd4ddyYDy=u68cd4RbJ54yyGBFcUX8NaM8DaC-huuzmnDOfSQ@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Nayan Deshmukh <nayan26deshmukh@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1842975508==--
+T24gMDgvMDIvMjAxOCAwMjowOCBQTSwgTmF5YW4gRGVzaG11a2ggd3JvdGU6Cj4KPgo+IE9uIFRo
+dSwgQXVnIDIsIDIwMTggYXQgMTE6MjkgQU0gWmhhbmcsIEplcnJ5IChKdW53ZWkpIDxKZXJyeS5a
+aGFuZ0BhbWQuY29tIDxtYWlsdG86SmVycnkuWmhhbmdAYW1kLmNvbT4+IHdyb3RlOgo+Cj4gICAg
+IE9uIDA4LzAyLzIwMTggMDE6NTAgUE0sIE5heWFuIERlc2htdWtoIHdyb3RlOgo+ICAgICAgPgo+
+ICAgICAgPgo+ICAgICAgPiBPbiBUaHUsIEF1ZyAyLCAyMDE4IGF0IDEwOjMxIEFNIFpoYW5nLCBK
+ZXJyeSAoSnVud2VpKSA8SmVycnkuWmhhbmdAYW1kLmNvbSA8bWFpbHRvOkplcnJ5LlpoYW5nQGFt
+ZC5jb20+IDxtYWlsdG86SmVycnkuWmhhbmdAYW1kLmNvbSA8bWFpbHRvOkplcnJ5LlpoYW5nQGFt
+ZC5jb20+Pj4gd3JvdGU6Cj4gICAgICA+Cj4gICAgICA+ICAgICBPbiAwNy8xMi8yMDE4IDAyOjM2
+IFBNLCBOYXlhbiBEZXNobXVraCB3cm90ZToKPiAgICAgID4gICAgICA+IFNpZ25lZC1vZmYtYnk6
+IE5heWFuIERlc2htdWtoIDxuYXlhbjI2ZGVzaG11a2hAZ21haWwuY29tIDxtYWlsdG86bmF5YW4y
+NmRlc2htdWtoQGdtYWlsLmNvbT4gPG1haWx0bzpuYXlhbjI2ZGVzaG11a2hAZ21haWwuY29tIDxt
+YWlsdG86bmF5YW4yNmRlc2htdWtoQGdtYWlsLmNvbT4+Pgo+ICAgICAgPiAgICAgID4gLS0tCj4g
+ICAgICA+ICAgICAgPiAgIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5j
+IHwgMyArKysKPiAgICAgID4gICAgICA+ICAgaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oICAg
+ICAgICAgICAgICAgfCAyICsrCj4gICAgICA+ICAgICAgPiAgIDIgZmlsZXMgY2hhbmdlZCwgNSBp
+bnNlcnRpb25zKCspCj4gICAgICA+ICAgICAgPgo+ICAgICAgPiAgICAgID4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIvZHJpdmVycy9ncHUv
+ZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPiAgICAgID4gICAgICA+IGluZGV4IDQyOWIx
+MzI4NjUzYS4uM2RjMWE0ZjA3ZTNmIDEwMDY0NAo+ICAgICAgPiAgICAgID4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPiAgICAgID4gICAgICA+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4gICAgICA+ICAgICAg
+PiBAQCAtNTM4LDYgKzUzOCw3IEBAIHZvaWQgZHJtX3NjaGVkX2VudGl0eV9wdXNoX2pvYihzdHJ1
+Y3QgZHJtX3NjaGVkX2pvYiAqc2NoZWRfam9iLAo+ICAgICAgPiAgICAgID4gICAgICAgdHJhY2Vf
+ZHJtX3NjaGVkX2pvYihzY2hlZF9qb2IsIGVudGl0eSk7Cj4gICAgICA+ICAgICAgPgo+ICAgICAg
+PiAgICAgID4gICAgICAgZmlyc3QgPSBzcHNjX3F1ZXVlX3B1c2goJmVudGl0eS0+am9iX3F1ZXVl
+LCAmc2NoZWRfam9iLT5xdWV1ZV9ub2RlKTsKPiAgICAgID4gICAgICA+ICsgICAgIGF0b21pY19p
+bmMoJmVudGl0eS0+c2NoZWQtPm51bV9qb2JzKTsKPiAgICAgID4KPiAgICAgID4gICAgIFNoYWxs
+IHdlIHVzZSBod19ycV9jb3VudCBkaXJlY3RseSBvciBtZXJnZSB0aGVtIHRvZ2V0aGVyPwo+ICAg
+ICAgPgo+ICAgICAgPiBod19ycV9jb3VudCBpcyB0aGUgbnVtYmVyIG9mIGpvYnMgdGhhdCBhcmUg
+Y3VycmVudGx5IGluIHRoZSBoYXJkd2FyZSBxdWV1ZSBhcyBjb21wYXJlZCB0byBudW1fam9icyB3
+aGljaCBpcyB0aGUgbnVtYmVyIG9mIGpvYnMgaW4gdGhlIHNvZnR3YXJlIHF1ZXVlLiBudW1fam9i
+cyBwcm92aWRlcyBhIGdpdmUgYSBiZXR0ZXIgaWRlYSBvZgo+ICAgICB0aGUgbG9hZAo+ICAgICAg
+PiBvbiBhIHNjaGVkdWxlciB0aGF0J3Mgd2h5IEkgYWRkZWQgdGhhdCBmaWVsZCBhbmQgdXNlZCBp
+dCB0byBkZWNpZGUgdGhlIHNjaGVkdWxlciB3aXRoIHRoZSBsZWFzdCBsb2FkLgo+Cj4gICAgIFRo
+YW5rcyBmb3IgeW91ciBleHBsYW5hdGlvbi4KPgo+ICAgICBUaGVuIG1heSBiZSBtb3JlIHJlYXNv
+bmFibGUgdG8gbW92ZSBhdG9taWNfZGVjKCZzY2hlZC0+bnVtX2pvYnMpIGFmdGVyIGRybV9zY2hl
+ZF9mZW5jZV9zY2hlZHVsZWQoKSBvciBqdXN0IGJlZm9yZSBhdG9taWNfaW5jKCZzY2hlZC0+aHdf
+cnFfY291bnQpLgo+ICAgICBIb3cgZG8geW91IHRoaW5rIHRoYXQ/Cj4KPiBGb3Igbm93IG51bV9q
+b2JzIGFsc28gaW5jbHVkZXMgam9icyB0aGF0IGhhdmUgYmVlbiBwdXNoZWQgdG8gdGhlIGhhcmR3
+YXJlIHF1ZXVlLiBJZiBJIHNoaWZ0IGl0IGJlZm9yZSBhdG9taWNfaW5jKCZzY2hlZC0+aHdfcnFf
+Y291bnQpIHRoZW4gSSBhbHNvIG5lZWQgdG8gaGFuZGxlIGNhc2VzIHdoZW4gdGhlIGpvYiB3YXMg
+cmVzZXQgYW5kIHVwZGF0ZQo+IHRoZSBjb3VudGVyIHByb3Blcmx5LiBJIHdlbnQgZm9yIHRoZSBl
+YXNpZXIgaW1wbGVtZW50YXRpb24gYXMgSSBmZWx0IHRoYXQgbnVtX2pvYnMgd2lsbCBjb3JyZWN0
+bHkgcmVwcmVzZW50IHRoZSBsb2FkIG9uIHRoZSBzY2hlZHVsZXIuCgpUaGFua3MgZm9yIHlvdXIg
+aW5mbyBtb3JlLgpZZXMsIGl0J3Mgbm90IGEgc2ltcGxlIG9uZSBkZWFsIHdvcmssIGp1c3QgdG8g
+Y2xhcmlmeSBpdCdzIHJlYWxseSBtZWFuaW5nLCBhIGxpdHRsZSBvdmVybGFwIHdpdGggaHdfcnFf
+Y291bnQuCmZpbmUgZm9yIG5vdyA7KQoKPgo+IEJ1dCB0aGUgaWRlYSB0aGF0IHlvdSBzdWdnZXN0
+ZWQgY2FuIGJlIGEgcG90ZW50aWFsIGltcHJvdmVtZW50IG92ZXIgd2hhdCBJIGhhdmUgZG9uZS4K
+ClRoYW5rcy4KClJlZ2FyZHMsCkplcnJ5Cj4KPiBSZWdhcmRzLAo+IE5heWFuCj4KPiAgICAgUmVn
+YXJkcywKPiAgICAgSmVycnkKPgo+ICAgICAgPgo+ICAgICAgPiBSZWdhcmRzLAo+ICAgICAgPiBO
+YXlhbgo+ICAgICAgPgo+ICAgICAgPgo+ICAgICAgPiAgICAgUmVnYXJkcywKPiAgICAgID4gICAg
+IEplcnJ5Cj4gICAgICA+ICAgICAgPgo+ICAgICAgPiAgICAgID4gICAgICAgLyogZmlyc3Qgam9i
+IHdha2VzIHVwIHNjaGVkdWxlciAqLwo+ICAgICAgPiAgICAgID4gICAgICAgaWYgKGZpcnN0KSB7
+Cj4gICAgICA+ICAgICAgPiBAQCAtODE4LDYgKzgxOSw3IEBAIHN0YXRpYyB2b2lkIGRybV9zY2hl
+ZF9wcm9jZXNzX2pvYihzdHJ1Y3QgZG1hX2ZlbmNlICpmLCBzdHJ1Y3QgZG1hX2ZlbmNlX2NiICpj
+YikKPiAgICAgID4gICAgICA+Cj4gICAgICA+ICAgICAgPiAgICAgICBkbWFfZmVuY2VfZ2V0KCZz
+X2ZlbmNlLT5maW5pc2hlZCk7Cj4gICAgICA+ICAgICAgPiAgICAgICBhdG9taWNfZGVjKCZzY2hl
+ZC0+aHdfcnFfY291bnQpOwo+ICAgICAgPiAgICAgID4gKyAgICAgYXRvbWljX2RlYygmc2NoZWQt
+Pm51bV9qb2JzKTsKPiAgICAgID4gICAgICA+ICAgICAgIGRybV9zY2hlZF9mZW5jZV9maW5pc2hl
+ZChzX2ZlbmNlKTsKPiAgICAgID4gICAgICA+Cj4gICAgICA+ICAgICAgPiAgICAgICB0cmFjZV9k
+cm1fc2NoZWRfcHJvY2Vzc19qb2Ioc19mZW5jZSk7Cj4gICAgICA+ICAgICAgPiBAQCAtOTM1LDYg
+KzkzNyw3IEBAIGludCBkcm1fc2NoZWRfaW5pdChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNj
+aGVkLAo+ICAgICAgPiAgICAgID4gICAgICAgSU5JVF9MSVNUX0hFQUQoJnNjaGVkLT5yaW5nX21p
+cnJvcl9saXN0KTsKPiAgICAgID4gICAgICA+ICAgICAgIHNwaW5fbG9ja19pbml0KCZzY2hlZC0+
+am9iX2xpc3RfbG9jayk7Cj4gICAgICA+ICAgICAgPiAgICAgICBhdG9taWNfc2V0KCZzY2hlZC0+
+aHdfcnFfY291bnQsIDApOwo+ICAgICAgPiAgICAgID4gKyAgICAgYXRvbWljX3NldCgmc2NoZWQt
+Pm51bV9qb2JzLCAwKTsKPiAgICAgID4gICAgICA+ICAgICAgIGF0b21pYzY0X3NldCgmc2NoZWQt
+PmpvYl9pZF9jb3VudCwgMCk7Cj4gICAgICA+ICAgICAgPgo+ICAgICAgPiAgICAgID4gICAgICAg
+LyogRWFjaCBzY2hlZHVsZXIgd2lsbCBydW4gb24gYSBzZXBlcmF0ZSBrZXJuZWwgdGhyZWFkICov
+Cj4gICAgICA+ICAgICAgPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5o
+IGIvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oCj4gICAgICA+ICAgICAgPiBpbmRleCA0M2U5
+M2Q2MDc3Y2YuLjYwNWJkNGFkMjM5NyAxMDA2NDQKPiAgICAgID4gICAgICA+IC0tLSBhL2luY2x1
+ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaAo+ICAgICAgPiAgICAgID4gKysrIGIvaW5jbHVkZS9kcm0v
+Z3B1X3NjaGVkdWxlci5oCj4gICAgICA+ICAgICAgPiBAQCAtMjU3LDYgKzI1Nyw3IEBAIHN0cnVj
+dCBkcm1fc2NoZWRfYmFja2VuZF9vcHMgewo+ICAgICAgPiAgICAgID4gICAgKiBAam9iX2xpc3Rf
+bG9jazogbG9jayB0byBwcm90ZWN0IHRoZSByaW5nX21pcnJvcl9saXN0Lgo+ICAgICAgPiAgICAg
+ID4gICAgKiBAaGFuZ19saW1pdDogb25jZSB0aGUgaGFuZ3MgYnkgYSBqb2IgY3Jvc3NlcyB0aGlz
+IGxpbWl0IHRoZW4gaXQgaXMgbWFya2VkCj4gICAgICA+ICAgICAgPiAgICAqICAgICAgICAgICAg
+ICBndWlsdHkgYW5kIGl0IHdpbGwgYmUgY29uc2lkZXJlZCBmb3Igc2NoZWR1bGluZyBmdXJ0aGVy
+Lgo+ICAgICAgPiAgICAgID4gKyAqIEBudW1fam9iczogdGhlIG51bWJlciBvZiBqb2JzIGluIHF1
+ZXVlIGluIHRoZSBzY2hlZHVsZXIKPiAgICAgID4gICAgICA+ICAgICoKPiAgICAgID4gICAgICA+
+ICAgICogT25lIHNjaGVkdWxlciBpcyBpbXBsZW1lbnRlZCBmb3IgZWFjaCBoYXJkd2FyZSByaW5n
+Lgo+ICAgICAgPiAgICAgID4gICAgKi8KPiAgICAgID4gICAgICA+IEBAIC0yNzQsNiArMjc1LDcg
+QEAgc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyIHsKPiAgICAgID4gICAgICA+ICAgICAgIHN0cnVj
+dCBsaXN0X2hlYWQgICAgICAgICAgICAgICAgcmluZ19taXJyb3JfbGlzdDsKPiAgICAgID4gICAg
+ICA+ICAgICAgIHNwaW5sb2NrX3QgICAgICAgICAgICAgICAgICAgICAgam9iX2xpc3RfbG9jazsK
+PiAgICAgID4gICAgICA+ICAgICAgIGludCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaGFu
+Z19saW1pdDsKPiAgICAgID4gICAgICA+ICsgICAgIGF0b21pY190ICAgICAgICAgICAgICAgICAg
+ICAgICAgbnVtX2pvYnM7Cj4gICAgICA+ICAgICAgPiAgIH07Cj4gICAgICA+ICAgICAgPgo+ICAg
+ICAgPiAgICAgID4gICBpbnQgZHJtX3NjaGVkX2luaXQoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVy
+ICpzY2hlZCwKPiAgICAgID4gICAgICA+Cj4gICAgICA+Cj4KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2
+ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
