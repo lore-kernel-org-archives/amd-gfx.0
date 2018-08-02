@@ -1,19 +1,11 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on
- Rv/Vega12
-Date: Thu, 2 Aug 2018 10:22:39 +0000
-Message-ID: <CY4PR12MB1687D8D4388E80BE18A677F8FB2C0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1532864547-1072-1-git-send-email-rex.zhu@amd.com>
- <1532864547-1072-3-git-send-email-rex.zhu@amd.com>
- <SN6PR12MB2656D918D6DBD7C1932747BFE42F0@SN6PR12MB2656.namprd12.prod.outlook.com>
- <CY4PR12MB1687B6284781F05DDD30ACA6FB2F0@CY4PR12MB1687.namprd12.prod.outlook.com>
- <CY4PR12MB168799400EFB54D63F9EAE6CFB2D0@CY4PR12MB1687.namprd12.prod.outlook.com>,
- <CADnq5_N_BsHR9WCMcZ04wt+jL=6bCB_R=m2w=w+nb_O7Ugnj_w@mail.gmail.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/6] drm/amdgpu: move gfx definitions into amdgpu_gfx header
+Date: Thu, 2 Aug 2018 19:08:10 +0800
+Message-ID: <1533208095-15055-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1963709479=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_N_BsHR9WCMcZ04wt+jL=6bCB_R=m2w=w+nb_O7Ugnj_w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,663 +16,406 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
 
---===============1963709479==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687D8D4388E80BE18A677F8FB2C0CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687D8D4388E80BE18A677F8FB2C0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Currently, there is no use case except for debug.
-
-So I will keep the patches in my local.
-
-Thanks.
-
-
-
-Best Regards
-
-Rex
-
-
-
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, August 1, 2018 11:13 PM
-To: Zhu, Rex
-Cc: Deucher, Alexander; Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on =
-Rv/Vega12
-
-Does anything use it?  Might be useful for debugging, but I guess you'd pro=
-bably use something like umr in that case.
-
-Alex
-
-On Tue, Jul 31, 2018 at 9:15 PM, Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu@a=
-md.com>> wrote:
-
-Hi Alex,
-
-
-Is it necessary to export an interface as "is_gfx_on" in powerplay to amdgp=
-u?
-
-It can show the current power state of gfx ip.
-
-
-
-Best Regards
-
-Rex
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.=
-Zhu-5C7GfCeVMHo@public.gmane.org>>
-Sent: Monday, July 30, 2018 11:39 AM
-To: Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org>
-
-Subject: Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on =
-Rv/Vega12
-
-
-> It means user was told the gfx is on but actually it may switches to gfxo=
-ff already.
-
-
-Correct.
-
-So if the gfx is off, user should disable gfx off feature before they read/=
-write the registers via mmio.
-
-if gfx is on, that is not mean the gfx off feature is disabled. it  doesn't=
- mean it is safe to visit the registers through mmio.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Quan, Evan
-Sent: Monday, July 30, 2018 9:31 AM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9w@public.gmane.org=
-p.org>
-Subject: Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on =
-Rv/Vega12
-
-
-Since the gfxoff is always in dynamic switch, i do not think the status rep=
-orted to user is reliable. It means user was told the gfx is on but actuall=
-y it may switches to gfxoff already.
-
-
-Regards,
-
-Evan
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org<mailto:rex.z=
-hu-5C7GfCeVMHo@public.gmane.org>>
-Sent: Sunday, July 29, 2018 7:42:27 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Zhu, Rex
-Subject: [PATCH 3/3] drm/amd/pp: Add gfx power status check support on Rv/V=
-ega12
-
-As gfx off is supported on Rv/Vega12, so this check is
-helpful and necessary when visit gfx regesiter via mmio.
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c  | 10 +++++++
- drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 31 ++++++++++++++++++=
-+++-
- 2 files changed, 40 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
-u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-index 26d130a..da1be82 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-@@ -296,6 +296,15 @@ static bool smu10_is_gfx_on(struct pp_hwmgr *hwmgr)
-         return false;
- }
-
-+static bool smu10_is_hw_ip_on(struct pp_hwmgr *hwmgr,
-+                               enum amd_ip_block_type client)
-+{
-+       if (client =3D=3D AMD_IP_BLOCK_TYPE_GFX)
-+               return smu10_is_gfx_on(hwmgr);
-+       else /* for other ip, to do */
-+               return true;
-+}
-+
- static int smu10_disable_gfx_off(struct pp_hwmgr *hwmgr)
- {
-         struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr *)(hwmgr->b=
-ackend);
-@@ -1187,6 +1196,7 @@ static void smu10_powergate_vcn(struct pp_hwmgr *hwmg=
-r, bool bgate)
-         .smus_notify_pwe =3D smu10_smus_notify_pwe,
-         .display_clock_voltage_request =3D smu10_display_clock_voltage_req=
-uest,
-         .powergate_gfx =3D smu10_gfx_off_control,
-+       .is_hw_ip_on =3D smu10_is_hw_ip_on,
- };
-
- int smu10_init_function_pointers(struct pp_hwmgr *hwmgr)
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index 0789d64..ee44300 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -45,7 +45,7 @@
- #include "ppinterrupt.h"
- #include "pp_overdriver.h"
- #include "pp_thermal.h"
--
-+#include "soc15_common.h"
-
- static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
-                 enum pp_clock_type type, uint32_t mask);
-@@ -2320,6 +2320,34 @@ static int vega12_get_thermal_temperature_range(stru=
-ct pp_hwmgr *hwmgr,
-         return 0;
- }
-
-+/* GFX HW Power Status can be queried from bits [1:0] of MP1_SMN_EXT_SCRAT=
-CH0
-+ * 2'b00   GFX is OFF
-+ * 2'b01   Transitioning out of GFXOFF state
-+ * 2'b10   GFX is ON
-+ * 2'b11   Transitioning into GFXOFF state
-+*/
-+
-+static bool vega12_is_gfx_on(struct pp_hwmgr *hwmgr)
-+{
-+       uint32_t tmp;
-+       struct amdgpu_device *adev =3D hwmgr->adev;
-+
-+       tmp =3D RREG32_SOC15(MP1, 0, mmMP1_SMN_EXT_SCRATCH0);
-+       if (tmp =3D=3D 1 || tmp =3D=3D 2)
-+               return true;
-+       else
-+               return false;
-+}
-+
-+static bool vega12_is_hw_ip_on(struct pp_hwmgr *hwmgr,
-+                               enum amd_ip_block_type client)
-+{
-+       if (client =3D=3D AMD_IP_BLOCK_TYPE_GFX)
-+               return vega12_is_gfx_on(hwmgr);
-+       else /* for other ip, to do */
-+               return true;
-+}
-+
- static int vega12_enable_gfx_off(struct pp_hwmgr *hwmgr)
- {
-         struct vega12_hwmgr *data =3D
-@@ -2402,6 +2430,7 @@ static int vega12_gfx_off_control(struct pp_hwmgr *hw=
-mgr, bool enable)
-         .register_irq_handlers =3D smu9_register_irq_handlers,
-         .start_thermal_controller =3D vega12_start_thermal_controller,
-         .powergate_gfx =3D vega12_gfx_off_control,
-+       .is_hw_ip_on =3D vega12_is_hw_ip_on,
- };
-
- int vega12_hwmgr_init(struct pp_hwmgr *hwmgr)
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org<http://lists.freedesktop.org>
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org<http://freedesktop.org> lists is subject to=
- our Code of Conduct.
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---_000_CY4PR12MB1687D8D4388E80BE18A677F8FB2C0CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Currently, there is no use case e=
-xcept for debug.</p>
-<p style=3D"margin-top:0;margin-bottom:0">So I will keep the patches in my =
-local.</p>
-<p style=3D"margin-top:0;margin-bottom:0">Thanks.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Alex Deucher &lt;ale=
-xdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, August 1, 2018 11:13 PM<br>
-<b>To:</b> Zhu, Rex<br>
-<b>Cc:</b> Deucher, Alexander; Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br=
->
-<b>Subject:</b> Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check supp=
-ort on Rv/Vega12</font>
-<div>&nbsp;</div>
-</div>
-<meta content=3D"text/html; charset=3Dutf-8">
-<div>
-<div dir=3D"ltr">
-<div>Does anything use it?&nbsp; Might be useful for debugging, but I guess=
- you'd probably use something like umr in that case.</div>
-<div><br>
-</div>
-<div>Alex<br>
-</div>
-<div>
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">On Tue, Jul 31, 2018 at 9:15 PM, Zhu, Rex <spa=
-n dir=3D"ltr">
-&lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_blank" id=3D"LPlnk913312"=
- class=3D"OWAAutoLink" previewremoved=3D"true">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;</spa=
-n> wrote:<br>
-<blockquote class=3D"x_gmail_quote" style=3D"margin:0 0 0 .8ex; border-left=
-:1px #ccc solid; padding-left:1ex">
-<div dir=3D"ltr">
-<div id=3D"x_m_-777202135617971185divtagdefaultwrapper" dir=3D"ltr" style=
-=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-serif=
-">
-<p style=3D"margin-top:0; margin-bottom:0">Hi Alex,</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Is it necessary to export an int=
-erface as &quot;is_gfx_on&quot; in powerplay to amdgpu?</p>
-<p style=3D"margin-top:0; margin-bottom:0">It can show the current power st=
-ate of&nbsp;gfx ip.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0; margin-bottom:0">Rex&nbsp;</p>
-<br>
-<br>
-<div style=3D"color:rgb(0,0,0)">
-<hr style=3D"display:inline-block; width:98%">
-<div id=3D"x_m_-777202135617971185divRplyFwdMsg" dir=3D"ltr"><font style=3D=
-"font-size:11pt" color=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b=
-> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" targ=
-et=3D"_blank" id=3D"LPlnk303975" class=3D"OWAAutoLink" previewremoved=3D"tr=
-ue">amd-gfx-bounces@lists.<wbr>freedesktop.org</a>&gt;
- on behalf of Zhu, Rex &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_bl=
-ank" id=3D"LPlnk834453" class=3D"OWAAutoLink" previewremoved=3D"true">Rex.Z=
-hu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Monday, July 30, 2018 11:39 AM<br>
-<b>To:</b> Quan, Evan; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" tar=
-get=3D"_blank" id=3D"LPlnk303555" class=3D"OWAAutoLink" previewremoved=3D"t=
-rue">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<div>
-<div class=3D"x_h5"><br>
-<b>Subject:</b> Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check supp=
-ort on Rv/Vega12</div>
-</div>
-</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"x_h5">
-<div dir=3D"ltr">
-<div id=3D"x_m_-777202135617971185x_divtagdefaultwrapper" dir=3D"ltr" style=
-=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-serif=
-">
-<p style=3D"margin-top:0; margin-bottom:0"><span>&gt; It means user was tol=
-d the gfx is on but actually it may switches to gfxoff already.</span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span></span><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Correct. <br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">So if the gfx is off, user shoul=
-d disable gfx off feature before they read/write the registers via mmio.</p=
->
-<p style=3D"margin-top:0; margin-bottom:0">if gfx is on, that is not mean t=
-he gfx off feature is disabled. it&nbsp; doesn't mean it is safe to visit t=
-he registers through mmio.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0; margin-bottom:0">Rex<br>
-</p>
-<br>
-<div style=3D"color:rgb(0,0,0)">
-<hr style=3D"display:inline-block; width:98%">
-<div id=3D"x_m_-777202135617971185x_divRplyFwdMsg" dir=3D"ltr"><font style=
-=3D"font-size:11pt" color=3D"#000000" face=3D"Calibri, sans-serif"><b>From:=
-</b> Quan, Evan<br>
-<b>Sent:</b> Monday, July 30, 2018 9:31 AM<br>
-<b>To:</b> Zhu, Rex; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" targe=
-t=3D"_blank" id=3D"LPlnk843060" class=3D"OWAAutoLink" previewremoved=3D"tru=
-e">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Re: [PATCH 3/3] drm/amd/pp: Add gfx power status check supp=
-ort on Rv/Vega12</font>
-<div>&nbsp;</div>
-</div>
-<div dir=3D"ltr">
-<div id=3D"x_m_-777202135617971185x_x_divtagdefaultwrapper" dir=3D"ltr" sty=
-le=3D"font-size:12pt; color:#000000; font-family:Calibri,Helvetica,sans-ser=
-if">
-<p style=3D"margin-top:0; margin-bottom:0">Since the gfxoff is always in dy=
-namic switch, i do not think the status reported to user is reliable. It me=
-ans user was told the gfx is on but actually it may switches to gfxoff alre=
-ady.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Regards,</p>
-<p style=3D"margin-top:0; margin-bottom:0">Evan</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-</div>
-<hr style=3D"display:inline-block; width:98%">
-<div id=3D"x_m_-777202135617971185x_x_divRplyFwdMsg" dir=3D"ltr"><font styl=
-e=3D"font-size:11pt" color=3D"#000000" face=3D"Calibri, sans-serif"><b>From=
-:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" =
-target=3D"_blank" id=3D"LPlnk224967" class=3D"OWAAutoLink" previewremoved=
-=3D"true">amd-gfx-bounces@lists.<wbr>freedesktop.org</a>&gt;
- on behalf of Rex Zhu &lt;<a href=3D"mailto:rex.zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_bla=
-nk" id=3D"LPlnk198810" class=3D"OWAAutoLink" previewremoved=3D"true">rex.zh=
-u@amd.com</a>&gt;<br>
-<b>Sent:</b> Sunday, July 29, 2018 7:42:27 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
-k" id=3D"LPlnk622661" class=3D"OWAAutoLink" previewremoved=3D"true">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 3/3] drm/amd/pp: Add gfx power status check support =
-on Rv/Vega12</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_m_-777202135617971185x_x_BodyFragment"><font size=3D"2"><sp=
-an style=3D"font-size:11pt">
-<div class=3D"x_m_-777202135617971185x_x_PlainText">As gfx off is supported=
- on Rv/Vega12, so this check is<br>
-helpful and necessary when visit gfx regesiter via mmio.<br>
-<br>
-Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" target=3D"_bl=
-ank" id=3D"LPlnk291397" class=3D"OWAAutoLink" previewremoved=3D"true">Rex.Z=
-hu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/smu10_hwmgr.c&nbsp; | 10 &#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/vega12_hwmgr.c | 31 &#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;-<br>
-&nbsp;2 files changed, 40 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/smu10_hwmgr.c b/drive=
-rs/gpu/drm/amd/<wbr>powerplay/hwmgr/smu10_hwmgr.c<br>
-index 26d130a..da1be82 100644<br>
---- a/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/smu10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/smu10_hwmgr.c<br=
->
-@@ -296,6 &#43;296,15 @@ static bool smu10_is_gfx_on(struct pp_hwmgr *hwmgr=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static bool smu10_is_hw_ip_on(struct pp_hwmgr *hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp; enum amd_ip_block_type client)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (client =3D=3D AMD_IP_BLOCK_TY=
-PE_GFX)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return smu10_is_gfx_on(hwmgr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else /* for other ip, to do */<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return true;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static int smu10_disable_gfx_off(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_=
-data =3D (struct smu10_hwmgr *)(hwmgr-&gt;backend);<br>
-@@ -1187,6 &#43;1196,7 @@ static void smu10_powergate_vcn(struct pp_hwmgr *=
-hwmgr, bool bgate)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smus_notify_pwe =3D smu10=
-_smus_notify_pwe,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_voltage_req=
-uest =3D smu10_display_clock_voltage_<wbr>request,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_gfx =3D smu10_g=
-fx_off_control,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_hw_ip_on =3D smu10_is_hw_ip_o=
-n,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;int smu10_init_function_pointers(<wbr>struct pp_hwmgr *hwmgr)<br>
-diff --git a/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/vega12_hwmgr.c b/driv=
-ers/gpu/drm/amd/<wbr>powerplay/hwmgr/vega12_hwmgr.c<br>
-index 0789d64..ee44300 100644<br>
---- a/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/vega12_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/vega12_hwmgr.c<b=
-r>
-@@ -45,7 &#43;45,7 @@<br>
-&nbsp;#include &quot;ppinterrupt.h&quot;<br>
-&nbsp;#include &quot;pp_overdriver.h&quot;<br>
-&nbsp;#include &quot;pp_thermal.h&quot;<br>
--<br>
-&#43;#include &quot;soc15_common.h&quot;<br>
-&nbsp;<br>
-&nbsp;static int vega12_force_clock_level(<wbr>struct pp_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; enum pp_clock_type type, uint32_t mask);<br>
-@@ -2320,6 &#43;2320,34 @@ static int vega12_get_thermal_<wbr>temperature_r=
-ange(struct pp_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;/* GFX HW Power Status can be queried from bits [1:0] of MP1_SMN_EXT_S=
-CRATCH0<br>
-&#43; * 2'b00&nbsp;&nbsp; GFX is OFF<br>
-&#43; * 2'b01&nbsp;&nbsp; Transitioning out of GFXOFF state<br>
-&#43; * 2'b10&nbsp;&nbsp; GFX is ON<br>
-&#43; * 2'b11&nbsp;&nbsp; Transitioning into GFXOFF state<br>
-&#43;*/<br>
-&#43;<br>
-&#43;static bool vega12_is_gfx_on(struct pp_hwmgr *hwmgr)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t tmp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D hw=
-mgr-&gt;adev;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(MP1, 0, mmMP=
-1_SMN_EXT_SCRATCH0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp =3D=3D 1 || tmp =3D=3D 2)=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return false;<br>
-&#43;}<br>
-&#43;<br>
-&#43;static bool vega12_is_hw_ip_on(struct pp_hwmgr *hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp; enum amd_ip_block_type client)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (client =3D=3D AMD_IP_BLOCK_TY=
-PE_GFX)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return vega12_is_gfx_on(hwmgr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else /* for other ip, to do */<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return true;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static int vega12_enable_gfx_off(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega12_hwmgr *data =
-=3D<br>
-@@ -2402,6 &#43;2430,7 @@ static int vega12_gfx_off_control(struct pp_hwmgr=
- *hwmgr, bool enable)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .register_irq_handlers =3D=
- smu9_register_irq_handlers,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_thermal_controller =
-=3D vega12_start_thermal_<wbr>controller,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_gfx =3D vega12_=
-gfx_off_control,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_hw_ip_on =3D vega12_is_hw_ip_=
-on,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;int vega12_hwmgr_init(struct pp_hwmgr *hwmgr)<br>
--- <br>
-1.9.1<br>
-<br>
-______________________________<wbr>_________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank" id=3D"LP=
-lnk449340" class=3D"OWAAutoLink" previewremoved=3D"true">amd-gfx-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
-desktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk571453" class=3D"x_m_-777202135617971185x_OWAAutoLink OWAAutoLink" targe=
-t=3D"_blank" previewremoved=3D"true">https://lists.freedesktop.org/<wbr>mai=
-lman/listinfo/amd-gfx</a>
-<div id=3D"x_m_-777202135617971185LPBorder_GT_15329216129360.02328301573266=
-8888" style=3D"margin-bottom:20px; overflow:auto; width:100%; text-indent:0=
-px">
-<table id=3D"x_m_-777202135617971185LPContainer_15329216129340.471288577862=
-6795" style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto;=
- padding-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dot=
-ted rgb(200,200,200); border-bottom:1px dotted rgb(200,200,200)" cellspacin=
-g=3D"0">
-<tbody>
-<tr style=3D"border-spacing:0px" valign=3D"top">
-<td id=3D"x_m_-777202135617971185x_TextCell_15329216129340.4798048588989588=
-5" colspan=3D"2" style=3D"vertical-align:top; padding:0px; display:table-ce=
-ll">
-<div id=3D"x_m_-777202135617971185LPRemovePreviewContainer_15329216129340.8=
-736912459594872">
-</div>
-<div id=3D"x_m_-777202135617971185LPTitle_15329216129340.277757395718243" s=
-tyle=3D"color:rgb(0,120,215); font-weight:400; font-size:21px; font-family:=
-&quot;wf_segoe-ui_light&quot;,&quot;Segoe UI Light&quot;,&quot;Segoe WP Lig=
-ht&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif;=
- line-height:21px">
-<a id=3D"LPlnk160764" href=3D"https://lists.freedesktop.org/mailman/listinf=
-o/amd-gfx" target=3D"_blank" style=3D"text-decoration:none" class=3D"OWAAut=
-oLink" previewremoved=3D"true">amd-gfx Info Page - freedesktop.org</a></div=
->
-<div id=3D"x_m_-777202135617971185LPMetadata_15329216129340.919048396614724=
-2" style=3D"margin:10px 0px 16px; color:rgb(102,102,102); font-weight:400; =
-font-family:&quot;wf_segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe=
- WP&quot;,Tahoma,Arial,sans-serif; font-size:14px; line-height:14px">
-<a href=3D"http://lists.freedesktop.org" target=3D"_blank" id=3D"LPlnk71141=
-4" class=3D"OWAAutoLink" previewremoved=3D"true">lists.freedesktop.org</a><=
-/div>
-<div id=3D"x_m_-777202135617971185LPDescription_15329216129340.665708006760=
-9241" style=3D"display:block; color:rgb(102,102,102); font-weight:400; font=
--family:&quot;wf_segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&=
-quot;,Tahoma,Arial,sans-serif; font-size:14px; line-height:20px; max-height=
-:100px; overflow:hidden">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all
-<a href=3D"http://freedesktop.org" target=3D"_blank" id=3D"LPlnk392662" cla=
-ss=3D"OWAAutoLink" previewremoved=3D"true">
-freedesktop.org</a> lists is subject to our Code of Conduct.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<br>
-______________________________<wbr>_________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" id=3D"LPlnk107607" class=
-=3D"OWAAutoLink" previewremoved=3D"true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><=
-br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank" id=3D"LPlnk993848" class=3D"OWAAutoLink" previ=
-ewremoved=3D"true">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-=
-gfx</a><br>
-<br>
-</blockquote>
-</div>
-<br>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1687D8D4388E80BE18A677F8FB2C0CY4PR12MB1687namp_--
-
---===============1963709479==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1963709479==--
+RGVtYW5nbGUgYW1kZ3B1LmgKClNpZ25lZC1vZmYtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFt
+ZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgIHwgMjc2
+ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9nZnguYyB8ICAzNCArKystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z2Z4LmggfCAzNDMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0KIDMgZmlsZXMgY2hh
+bmdlZCwgMzM2IGluc2VydGlvbnMoKyksIDMxNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdS5oCmluZGV4IDk1YWY5MTcuLjE3YzBhZmUgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdS5oCkBAIC02OSw2ICs2OSw3IEBACiAjaW5jbHVkZSAiYW1kZ3B1X3Zjbi5o
+IgogI2luY2x1ZGUgImFtZGdwdV9tbi5oIgogI2luY2x1ZGUgImFtZGdwdV9nbWMuaCIKKyNpbmNs
+dWRlICJhbWRncHVfZ2Z4LmgiCiAjaW5jbHVkZSAiYW1kZ3B1X2RtLmgiCiAjaW5jbHVkZSAiYW1k
+Z3B1X3ZpcnQuaCIKICNpbmNsdWRlICJhbWRncHVfZ2FydC5oIgpAQCAtMTcxLDEzICsxNzIsNiBA
+QCBleHRlcm4gaW50IGFtZGdwdV9jaWtfc3VwcG9ydDsKICNkZWZpbmUgQU1ER1BVX1JFU0VUX1ZD
+RQkJCSgxIDw8IDEzKQogI2RlZmluZSBBTURHUFVfUkVTRVRfVkNFMQkJCSgxIDw8IDE0KQogCi0v
+KiBHRlggY3VycmVudCBzdGF0dXMgKi8KLSNkZWZpbmUgQU1ER1BVX0dGWF9OT1JNQUxfTU9ERQkJ
+CTB4MDAwMDAwMDBMCi0jZGVmaW5lIEFNREdQVV9HRlhfU0FGRV9NT0RFCQkJMHgwMDAwMDAwMUwK
+LSNkZWZpbmUgQU1ER1BVX0dGWF9QR19ESVNBQkxFRF9NT0RFCQkweDAwMDAwMDAyTAotI2RlZmlu
+ZSBBTURHUFVfR0ZYX0NHX0RJU0FCTEVEX01PREUJCTB4MDAwMDAwMDRMCi0jZGVmaW5lIEFNREdQ
+VV9HRlhfTEJQV19ESVNBQkxFRF9NT0RFCQkweDAwMDAwMDA4TAotCiAvKiBtYXggY3Vyc29yIHNp
+emVzIChpbiBwaXhlbHMpICovCiAjZGVmaW5lIENJS19DVVJTT1JfV0lEVEggMTI4CiAjZGVmaW5l
+IENJS19DVVJTT1JfSEVJR0hUIDEyOApAQCAtNjkwLDI3MSArNjg0LDYgQEAgc3RydWN0IGFtZGdw
+dV9mcHJpdiB7CiAJc3RydWN0IGFtZGdwdV9jdHhfbWdyCWN0eF9tZ3I7CiB9OwogCi0vKgotICog
+R0ZYIHN0dWZmCi0gKi8KLSNpbmNsdWRlICJjbGVhcnN0YXRlX2RlZnMuaCIKLQotc3RydWN0IGFt
+ZGdwdV9ybGNfZnVuY3MgewotCXZvaWQgKCplbnRlcl9zYWZlX21vZGUpKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KTsKLQl2b2lkICgqZXhpdF9zYWZlX21vZGUpKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KTsKLX07Ci0KLXN0cnVjdCBhbWRncHVfcmxjIHsKLQkvKiBmb3IgcG93ZXIgZ2F0
+aW5nICovCi0Jc3RydWN0IGFtZGdwdV9ibwkqc2F2ZV9yZXN0b3JlX29iajsKLQl1aW50NjRfdAkJ
+c2F2ZV9yZXN0b3JlX2dwdV9hZGRyOwotCXZvbGF0aWxlIHVpbnQzMl90CSpzcl9wdHI7Ci0JY29u
+c3QgdTMyICAgICAgICAgICAgICAgKnJlZ19saXN0OwotCXUzMiAgICAgICAgICAgICAgICAgICAg
+IHJlZ19saXN0X3NpemU7Ci0JLyogZm9yIGNsZWFyIHN0YXRlICovCi0Jc3RydWN0IGFtZGdwdV9i
+bwkqY2xlYXJfc3RhdGVfb2JqOwotCXVpbnQ2NF90CQljbGVhcl9zdGF0ZV9ncHVfYWRkcjsKLQl2
+b2xhdGlsZSB1aW50MzJfdAkqY3NfcHRyOwotCWNvbnN0IHN0cnVjdCBjc19zZWN0aW9uX2RlZiAg
+ICpjc19kYXRhOwotCXUzMiAgICAgICAgICAgICAgICAgICAgIGNsZWFyX3N0YXRlX3NpemU7Ci0J
+LyogZm9yIGNwIHRhYmxlcyAqLwotCXN0cnVjdCBhbWRncHVfYm8JKmNwX3RhYmxlX29iajsKLQl1
+aW50NjRfdAkJY3BfdGFibGVfZ3B1X2FkZHI7Ci0Jdm9sYXRpbGUgdWludDMyX3QJKmNwX3RhYmxl
+X3B0cjsKLQl1MzIgICAgICAgICAgICAgICAgICAgICBjcF90YWJsZV9zaXplOwotCi0JLyogc2Fm
+ZSBtb2RlIGZvciB1cGRhdGluZyBDRy9QRyBzdGF0ZSAqLwotCWJvb2wgaW5fc2FmZV9tb2RlOwot
+CWNvbnN0IHN0cnVjdCBhbWRncHVfcmxjX2Z1bmNzICpmdW5jczsKLQotCS8qIGZvciBmaXJtd2Fy
+ZSBkYXRhICovCi0JdTMyIHNhdmVfYW5kX3Jlc3RvcmVfb2Zmc2V0OwotCXUzMiBjbGVhcl9zdGF0
+ZV9kZXNjcmlwdG9yX29mZnNldDsKLQl1MzIgYXZhaWxfc2NyYXRjaF9yYW1fbG9jYXRpb25zOwot
+CXUzMiByZWdfcmVzdG9yZV9saXN0X3NpemU7Ci0JdTMyIHJlZ19saXN0X2Zvcm1hdF9zdGFydDsK
+LQl1MzIgcmVnX2xpc3RfZm9ybWF0X3NlcGFyYXRlX3N0YXJ0OwotCXUzMiBzdGFydGluZ19vZmZz
+ZXRzX3N0YXJ0OwotCXUzMiByZWdfbGlzdF9mb3JtYXRfc2l6ZV9ieXRlczsKLQl1MzIgcmVnX2xp
+c3Rfc2l6ZV9ieXRlczsKLQl1MzIgcmVnX2xpc3RfZm9ybWF0X2RpcmVjdF9yZWdfbGlzdF9sZW5n
+dGg7Ci0JdTMyIHNhdmVfcmVzdG9yZV9saXN0X2NudGxfc2l6ZV9ieXRlczsKLQl1MzIgc2F2ZV9y
+ZXN0b3JlX2xpc3RfZ3BtX3NpemVfYnl0ZXM7Ci0JdTMyIHNhdmVfcmVzdG9yZV9saXN0X3NybV9z
+aXplX2J5dGVzOwotCi0JdTMyICpyZWdpc3Rlcl9saXN0X2Zvcm1hdDsKLQl1MzIgKnJlZ2lzdGVy
+X3Jlc3RvcmU7Ci0JdTggKnNhdmVfcmVzdG9yZV9saXN0X2NudGw7Ci0JdTggKnNhdmVfcmVzdG9y
+ZV9saXN0X2dwbTsKLQl1OCAqc2F2ZV9yZXN0b3JlX2xpc3Rfc3JtOwotCi0JYm9vbCBpc19ybGNf
+djJfMTsKLX07Ci0KLSNkZWZpbmUgQU1ER1BVX01BWF9DT01QVVRFX1FVRVVFUyBLR0RfTUFYX1FV
+RVVFUwotCi1zdHJ1Y3QgYW1kZ3B1X21lYyB7Ci0Jc3RydWN0IGFtZGdwdV9ibwkqaHBkX2VvcF9v
+Ymo7Ci0JdTY0CQkJaHBkX2VvcF9ncHVfYWRkcjsKLQlzdHJ1Y3QgYW1kZ3B1X2JvCSptZWNfZndf
+b2JqOwotCXU2NAkJCW1lY19md19ncHVfYWRkcjsKLQl1MzIgbnVtX21lYzsKLQl1MzIgbnVtX3Bp
+cGVfcGVyX21lYzsKLQl1MzIgbnVtX3F1ZXVlX3Blcl9waXBlOwotCXZvaWQJCQkqbXFkX2JhY2t1
+cFtBTURHUFVfTUFYX0NPTVBVVEVfUklOR1MgKyAxXTsKLQotCS8qIFRoZXNlIGFyZSB0aGUgcmVz
+b3VyY2VzIGZvciB3aGljaCBhbWRncHUgdGFrZXMgb3duZXJzaGlwICovCi0JREVDTEFSRV9CSVRN
+QVAocXVldWVfYml0bWFwLCBBTURHUFVfTUFYX0NPTVBVVEVfUVVFVUVTKTsKLX07Ci0KLXN0cnVj
+dCBhbWRncHVfa2lxIHsKLQl1NjQJCQllb3BfZ3B1X2FkZHI7Ci0Jc3RydWN0IGFtZGdwdV9ibwkq
+ZW9wX29iajsKLQlzcGlubG9ja190ICAgICAgICAgICAgICByaW5nX2xvY2s7Ci0Jc3RydWN0IGFt
+ZGdwdV9yaW5nCXJpbmc7Ci0Jc3RydWN0IGFtZGdwdV9pcnFfc3JjCWlycTsKLX07Ci0KLS8qCi0g
+KiBHUFUgc2NyYXRjaCByZWdpc3RlcnMgc3RydWN0dXJlcywgZnVuY3Rpb25zICYgaGVscGVycwot
+ICovCi1zdHJ1Y3QgYW1kZ3B1X3NjcmF0Y2ggewotCXVuc2lnbmVkCQludW1fcmVnOwotCXVpbnQz
+Ml90ICAgICAgICAgICAgICAgIHJlZ19iYXNlOwotCXVpbnQzMl90CQlmcmVlX21hc2s7Ci19Owot
+Ci0vKgotICogR0ZYIGNvbmZpZ3VyYXRpb25zCi0gKi8KLSNkZWZpbmUgQU1ER1BVX0dGWF9NQVhf
+U0UgNAotI2RlZmluZSBBTURHUFVfR0ZYX01BWF9TSF9QRVJfU0UgMgotCi1zdHJ1Y3QgYW1kZ3B1
+X3JiX2NvbmZpZyB7Ci0JdWludDMyX3QgcmJfYmFja2VuZF9kaXNhYmxlOwotCXVpbnQzMl90IHVz
+ZXJfcmJfYmFja2VuZF9kaXNhYmxlOwotCXVpbnQzMl90IHJhc3Rlcl9jb25maWc7Ci0JdWludDMy
+X3QgcmFzdGVyX2NvbmZpZ18xOwotfTsKLQotc3RydWN0IGdiX2FkZHJfY29uZmlnIHsKLQl1aW50
+MTZfdCBwaXBlX2ludGVybGVhdmVfc2l6ZTsKLQl1aW50OF90IG51bV9waXBlczsKLQl1aW50OF90
+IG1heF9jb21wcmVzc19mcmFnczsKLQl1aW50OF90IG51bV9iYW5rczsKLQl1aW50OF90IG51bV9z
+ZTsKLQl1aW50OF90IG51bV9yYl9wZXJfc2U7Ci19OwotCi1zdHJ1Y3QgYW1kZ3B1X2dmeF9jb25m
+aWcgewotCXVuc2lnbmVkIG1heF9zaGFkZXJfZW5naW5lczsKLQl1bnNpZ25lZCBtYXhfdGlsZV9w
+aXBlczsKLQl1bnNpZ25lZCBtYXhfY3VfcGVyX3NoOwotCXVuc2lnbmVkIG1heF9zaF9wZXJfc2U7
+Ci0JdW5zaWduZWQgbWF4X2JhY2tlbmRzX3Blcl9zZTsKLQl1bnNpZ25lZCBtYXhfdGV4dHVyZV9j
+aGFubmVsX2NhY2hlczsKLQl1bnNpZ25lZCBtYXhfZ3ByczsKLQl1bnNpZ25lZCBtYXhfZ3NfdGhy
+ZWFkczsKLQl1bnNpZ25lZCBtYXhfaHdfY29udGV4dHM7Ci0JdW5zaWduZWQgc2NfcHJpbV9maWZv
+X3NpemVfZnJvbnRlbmQ7Ci0JdW5zaWduZWQgc2NfcHJpbV9maWZvX3NpemVfYmFja2VuZDsKLQl1
+bnNpZ25lZCBzY19oaXpfdGlsZV9maWZvX3NpemU7Ci0JdW5zaWduZWQgc2NfZWFybHl6X3RpbGVf
+Zmlmb19zaXplOwotCi0JdW5zaWduZWQgbnVtX3RpbGVfcGlwZXM7Ci0JdW5zaWduZWQgYmFja2Vu
+ZF9lbmFibGVfbWFzazsKLQl1bnNpZ25lZCBtZW1fbWF4X2J1cnN0X2xlbmd0aF9ieXRlczsKLQl1
+bnNpZ25lZCBtZW1fcm93X3NpemVfaW5fa2I7Ci0JdW5zaWduZWQgc2hhZGVyX2VuZ2luZV90aWxl
+X3NpemU7Ci0JdW5zaWduZWQgbnVtX2dwdXM7Ci0JdW5zaWduZWQgbXVsdGlfZ3B1X3RpbGVfc2l6
+ZTsKLQl1bnNpZ25lZCBtY19hcmJfcmFtY2ZnOwotCXVuc2lnbmVkIGdiX2FkZHJfY29uZmlnOwot
+CXVuc2lnbmVkIG51bV9yYnM7Ci0JdW5zaWduZWQgZ3Nfdmd0X3RhYmxlX2RlcHRoOwotCXVuc2ln
+bmVkIGdzX3ByaW1fYnVmZmVyX2RlcHRoOwotCi0JdWludDMyX3QgdGlsZV9tb2RlX2FycmF5WzMy
+XTsKLQl1aW50MzJfdCBtYWNyb3RpbGVfbW9kZV9hcnJheVsxNl07Ci0KLQlzdHJ1Y3QgZ2JfYWRk
+cl9jb25maWcgZ2JfYWRkcl9jb25maWdfZmllbGRzOwotCXN0cnVjdCBhbWRncHVfcmJfY29uZmln
+IHJiX2NvbmZpZ1tBTURHUFVfR0ZYX01BWF9TRV1bQU1ER1BVX0dGWF9NQVhfU0hfUEVSX1NFXTsK
+LQotCS8qIGdmeCBjb25maWd1cmUgZmVhdHVyZSAqLwotCXVpbnQzMl90IGRvdWJsZV9vZmZjaGlw
+X2xkc19idWY7Ci0JLyogY2FjaGVkIHZhbHVlIG9mIERCX0RFQlVHMiAqLwotCXVpbnQzMl90IGRi
+X2RlYnVnMjsKLX07Ci0KLXN0cnVjdCBhbWRncHVfY3VfaW5mbyB7Ci0JdWludDMyX3Qgc2ltZF9w
+ZXJfY3U7Ci0JdWludDMyX3QgbWF4X3dhdmVzX3Blcl9zaW1kOwotCXVpbnQzMl90IHdhdmVfZnJv
+bnRfc2l6ZTsKLQl1aW50MzJfdCBtYXhfc2NyYXRjaF9zbG90c19wZXJfY3U7Ci0JdWludDMyX3Qg
+bGRzX3NpemU7Ci0KLQkvKiB0b3RhbCBhY3RpdmUgQ1UgbnVtYmVyICovCi0JdWludDMyX3QgbnVt
+YmVyOwotCXVpbnQzMl90IGFvX2N1X21hc2s7Ci0JdWludDMyX3QgYW9fY3VfYml0bWFwWzRdWzRd
+OwotCXVpbnQzMl90IGJpdG1hcFs0XVs0XTsKLX07Ci0KLXN0cnVjdCBhbWRncHVfZ2Z4X2Z1bmNz
+IHsKLQkvKiBnZXQgdGhlIGdwdSBjbG9jayBjb3VudGVyICovCi0JdWludDY0X3QgKCpnZXRfZ3B1
+X2Nsb2NrX2NvdW50ZXIpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKLQl2b2lkICgqc2Vs
+ZWN0X3NlX3NoKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHNlX251bSwgdTMyIHNo
+X251bSwgdTMyIGluc3RhbmNlKTsKLQl2b2lkICgqcmVhZF93YXZlX2RhdGEpKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCBzaW1kLCB1aW50MzJfdCB3YXZlLCB1aW50MzJfdCAq
+ZHN0LCBpbnQgKm5vX2ZpZWxkcyk7Ci0Jdm9pZCAoKnJlYWRfd2F2ZV92Z3Bycykoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHNpbWQsIHVpbnQzMl90IHdhdmUsIHVpbnQzMl90
+IHRocmVhZCwgdWludDMyX3Qgc3RhcnQsIHVpbnQzMl90IHNpemUsIHVpbnQzMl90ICpkc3QpOwot
+CXZvaWQgKCpyZWFkX3dhdmVfc2dwcnMpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50
+MzJfdCBzaW1kLCB1aW50MzJfdCB3YXZlLCB1aW50MzJfdCBzdGFydCwgdWludDMyX3Qgc2l6ZSwg
+dWludDMyX3QgKmRzdCk7Ci0Jdm9pZCAoKnNlbGVjdF9tZV9waXBlX3EpKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2LCB1MzIgbWUsIHUzMiBwaXBlLCB1MzIgcXVldWUpOwotfTsKLQotc3RydWN0
+IGFtZGdwdV9uZ2dfYnVmIHsKLQlzdHJ1Y3QgYW1kZ3B1X2JvCSpibzsKLQl1aW50NjRfdAkJZ3B1
+X2FkZHI7Ci0JdWludDMyX3QJCXNpemU7Ci0JdWludDMyX3QJCWJvX3NpemU7Ci19OwotCi1lbnVt
+IHsKLQlOR0dfUFJJTSA9IDAsCi0JTkdHX1BPUywKLQlOR0dfQ05UTCwKLQlOR0dfUEFSQU0sCi0J
+TkdHX0JVRl9NQVgKLX07Ci0KLXN0cnVjdCBhbWRncHVfbmdnIHsKLQlzdHJ1Y3QgYW1kZ3B1X25n
+Z19idWYJYnVmW05HR19CVUZfTUFYXTsKLQl1aW50MzJfdAkJZ2RzX3Jlc2VydmVfYWRkcjsKLQl1
+aW50MzJfdAkJZ2RzX3Jlc2VydmVfc2l6ZTsKLQlib29sCQkJaW5pdDsKLX07Ci0KLXN0cnVjdCBz
+cV93b3JrIHsKLQlzdHJ1Y3Qgd29ya19zdHJ1Y3QJd29yazsKLQl1bnNpZ25lZCBpaF9kYXRhOwot
+fTsKLQotc3RydWN0IGFtZGdwdV9nZnggewotCXN0cnVjdCBtdXRleAkJCWdwdV9jbG9ja19tdXRl
+eDsKLQlzdHJ1Y3QgYW1kZ3B1X2dmeF9jb25maWcJY29uZmlnOwotCXN0cnVjdCBhbWRncHVfcmxj
+CQlybGM7Ci0Jc3RydWN0IGFtZGdwdV9tZWMJCW1lYzsKLQlzdHJ1Y3QgYW1kZ3B1X2tpcQkJa2lx
+OwotCXN0cnVjdCBhbWRncHVfc2NyYXRjaAkJc2NyYXRjaDsKLQljb25zdCBzdHJ1Y3QgZmlybXdh
+cmUJCSptZV9mdzsJLyogTUUgZmlybXdhcmUgKi8KLQl1aW50MzJfdAkJCW1lX2Z3X3ZlcnNpb247
+Ci0JY29uc3Qgc3RydWN0IGZpcm13YXJlCQkqcGZwX2Z3OyAvKiBQRlAgZmlybXdhcmUgKi8KLQl1
+aW50MzJfdAkJCXBmcF9md192ZXJzaW9uOwotCWNvbnN0IHN0cnVjdCBmaXJtd2FyZQkJKmNlX2Z3
+OwkvKiBDRSBmaXJtd2FyZSAqLwotCXVpbnQzMl90CQkJY2VfZndfdmVyc2lvbjsKLQljb25zdCBz
+dHJ1Y3QgZmlybXdhcmUJCSpybGNfZnc7IC8qIFJMQyBmaXJtd2FyZSAqLwotCXVpbnQzMl90CQkJ
+cmxjX2Z3X3ZlcnNpb247Ci0JY29uc3Qgc3RydWN0IGZpcm13YXJlCQkqbWVjX2Z3OyAvKiBNRUMg
+ZmlybXdhcmUgKi8KLQl1aW50MzJfdAkJCW1lY19md192ZXJzaW9uOwotCWNvbnN0IHN0cnVjdCBm
+aXJtd2FyZQkJKm1lYzJfZnc7IC8qIE1FQzIgZmlybXdhcmUgKi8KLQl1aW50MzJfdAkJCW1lYzJf
+ZndfdmVyc2lvbjsKLQl1aW50MzJfdAkJCW1lX2ZlYXR1cmVfdmVyc2lvbjsKLQl1aW50MzJfdAkJ
+CWNlX2ZlYXR1cmVfdmVyc2lvbjsKLQl1aW50MzJfdAkJCXBmcF9mZWF0dXJlX3ZlcnNpb247Ci0J
+dWludDMyX3QJCQlybGNfZmVhdHVyZV92ZXJzaW9uOwotCXVpbnQzMl90CQkJcmxjX3NybGNfZndf
+dmVyc2lvbjsKLQl1aW50MzJfdAkJCXJsY19zcmxjX2ZlYXR1cmVfdmVyc2lvbjsKLQl1aW50MzJf
+dAkJCXJsY19zcmxnX2Z3X3ZlcnNpb247Ci0JdWludDMyX3QJCQlybGNfc3JsZ19mZWF0dXJlX3Zl
+cnNpb247Ci0JdWludDMyX3QJCQlybGNfc3Jsc19md192ZXJzaW9uOwotCXVpbnQzMl90CQkJcmxj
+X3NybHNfZmVhdHVyZV92ZXJzaW9uOwotCXVpbnQzMl90CQkJbWVjX2ZlYXR1cmVfdmVyc2lvbjsK
+LQl1aW50MzJfdAkJCW1lYzJfZmVhdHVyZV92ZXJzaW9uOwotCXN0cnVjdCBhbWRncHVfcmluZwkJ
+Z2Z4X3JpbmdbQU1ER1BVX01BWF9HRlhfUklOR1NdOwotCXVuc2lnbmVkCQkJbnVtX2dmeF9yaW5n
+czsKLQlzdHJ1Y3QgYW1kZ3B1X3JpbmcJCWNvbXB1dGVfcmluZ1tBTURHUFVfTUFYX0NPTVBVVEVf
+UklOR1NdOwotCXVuc2lnbmVkCQkJbnVtX2NvbXB1dGVfcmluZ3M7Ci0Jc3RydWN0IGFtZGdwdV9p
+cnFfc3JjCQllb3BfaXJxOwotCXN0cnVjdCBhbWRncHVfaXJxX3NyYwkJcHJpdl9yZWdfaXJxOwot
+CXN0cnVjdCBhbWRncHVfaXJxX3NyYwkJcHJpdl9pbnN0X2lycTsKLQlzdHJ1Y3QgYW1kZ3B1X2ly
+cV9zcmMJCWNwX2VjY19lcnJvcl9pcnE7Ci0Jc3RydWN0IGFtZGdwdV9pcnFfc3JjCQlzcV9pcnE7
+Ci0Jc3RydWN0IHNxX3dvcmsJCQlzcV93b3JrOwotCi0JLyogZ2Z4IHN0YXR1cyAqLwotCXVpbnQz
+Ml90CQkJZ2Z4X2N1cnJlbnRfc3RhdHVzOwotCS8qIGNlIHJhbSBzaXplKi8KLQl1bnNpZ25lZAkJ
+CWNlX3JhbV9zaXplOwotCXN0cnVjdCBhbWRncHVfY3VfaW5mbwkJY3VfaW5mbzsKLQljb25zdCBz
+dHJ1Y3QgYW1kZ3B1X2dmeF9mdW5jcwkqZnVuY3M7Ci0KLQkvKiByZXNldCBtYXNrICovCi0JdWlu
+dDMyX3QgICAgICAgICAgICAgICAgICAgICAgICBncmJtX3NvZnRfcmVzZXQ7Ci0JdWludDMyX3Qg
+ICAgICAgICAgICAgICAgICAgICAgICBzcmJtX3NvZnRfcmVzZXQ7Ci0JLyogczMvczQgbWFzayAq
+LwotCWJvb2wgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5fc3VzcGVuZDsKLQkvKiBOR0cg
+Ki8KLQlzdHJ1Y3QgYW1kZ3B1X25nZwkJbmdnOwotCi0JLyogcGlwZSByZXNlcnZhdGlvbiAqLwot
+CXN0cnVjdCBtdXRleAkJCXBpcGVfcmVzZXJ2ZV9tdXRleDsKLQlERUNMQVJFX0JJVE1BUAkJCShw
+aXBlX3Jlc2VydmVfYml0bWFwLCBBTURHUFVfTUFYX0NPTVBVVEVfUVVFVUVTKTsKLX07Ci0KIGlu
+dCBhbWRncHVfaWJfZ2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1
+X3ZtICp2bSwKIAkJICB1bnNpZ25lZCBzaXplLCBzdHJ1Y3QgYW1kZ3B1X2liICppYik7CiB2b2lk
+IGFtZGdwdV9pYl9mcmVlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1
+X2liICppYiwKQEAgLTE3NTIsMTEgKzE0ODEsOCBAQCBhbWRncHVfZ2V0X3NkbWFfaW5zdGFuY2Uo
+c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogI2RlZmluZSBhbWRncHVfZGlzcGxheV9hZGRfY29u
+bmVjdG9yKGFkZXYsIGNpLCBzZCwgY3QsIGliLCBjb2ksIGgsIHIpIChhZGV2KS0+bW9kZV9pbmZv
+LmZ1bmNzLT5hZGRfY29ubmVjdG9yKChhZGV2KSwgKGNpKSwgKHNkKSwgKGN0KSwgKGliKSwgKGNv
+aSksIChoKSwgKHIpKQogI2RlZmluZSBhbWRncHVfZW1pdF9jb3B5X2J1ZmZlcihhZGV2LCBpYiwg
+cywgZCwgYikgKGFkZXYpLT5tbWFuLmJ1ZmZlcl9mdW5jcy0+ZW1pdF9jb3B5X2J1ZmZlcigoaWIp
+LCAgKHMpLCAoZCksIChiKSkKICNkZWZpbmUgYW1kZ3B1X2VtaXRfZmlsbF9idWZmZXIoYWRldiwg
+aWIsIHMsIGQsIGIpIChhZGV2KS0+bW1hbi5idWZmZXJfZnVuY3MtPmVtaXRfZmlsbF9idWZmZXIo
+KGliKSwgKHMpLCAoZCksIChiKSkKLSNkZWZpbmUgYW1kZ3B1X2dmeF9nZXRfZ3B1X2Nsb2NrX2Nv
+dW50ZXIoYWRldikgKGFkZXYpLT5nZnguZnVuY3MtPmdldF9ncHVfY2xvY2tfY291bnRlcigoYWRl
+dikpCi0jZGVmaW5lIGFtZGdwdV9nZnhfc2VsZWN0X3NlX3NoKGFkZXYsIHNlLCBzaCwgaW5zdGFu
+Y2UpIChhZGV2KS0+Z2Z4LmZ1bmNzLT5zZWxlY3Rfc2Vfc2goKGFkZXYpLCAoc2UpLCAoc2gpLCAo
+aW5zdGFuY2UpKQogI2RlZmluZSBhbWRncHVfZ2RzX3N3aXRjaChhZGV2LCByLCB2LCBkLCB3LCBh
+KSAoYWRldiktPmdkcy5mdW5jcy0+cGF0Y2hfZ2RzX3N3aXRjaCgociksICh2KSwgKGQpLCAodyks
+IChhKSkKICNkZWZpbmUgYW1kZ3B1X3BzcF9jaGVja19md19sb2FkaW5nX3N0YXR1cyhhZGV2LCBp
+KSAoYWRldiktPmZpcm13YXJlLmZ1bmNzLT5jaGVja19md19sb2FkaW5nX3N0YXR1cygoYWRldiks
+IChpKSkKLSNkZWZpbmUgYW1kZ3B1X2dmeF9zZWxlY3RfbWVfcGlwZV9xKGFkZXYsIG1lLCBwaXBl
+LCBxKSAoYWRldiktPmdmeC5mdW5jcy0+c2VsZWN0X21lX3BpcGVfcSgoYWRldiksIChtZSksIChw
+aXBlKSwgKHEpKQogCiAvKiBDb21tb24gZnVuY3Rpb25zICovCiBpbnQgYW1kZ3B1X2RldmljZV9n
+cHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nZnguYwppbmRleCAyMzliZjJhLi5iMzkzY2YwIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jCkBAIC0yNyw4ICsyNyw0MCBAQAogI2luY2x1ZGUg
+ImFtZGdwdV9nZnguaCIKIAogLyoKLSAqIEdQVSBzY3JhdGNoIHJlZ2lzdGVycyBoZWxwZXJzIGZ1
+bmN0aW9uLgorICogR1BVIEdGWCBJUCBibG9jayBoZWxwZXJzIGZ1bmN0aW9uLgogICovCisKK2lu
+dCBhbWRncHVfZ2Z4X3F1ZXVlX3RvX2JpdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50
+IG1lYywKKwkJCSAgICBpbnQgcGlwZSwgaW50IHF1ZXVlKQoreworCWludCBiaXQgPSAwOworCisJ
+Yml0ICs9IG1lYyAqIGFkZXYtPmdmeC5tZWMubnVtX3BpcGVfcGVyX21lYworCQkqIGFkZXYtPmdm
+eC5tZWMubnVtX3F1ZXVlX3Blcl9waXBlOworCWJpdCArPSBwaXBlICogYWRldi0+Z2Z4Lm1lYy5u
+dW1fcXVldWVfcGVyX3BpcGU7CisJYml0ICs9IHF1ZXVlOworCisJcmV0dXJuIGJpdDsKK30KKwor
+dm9pZCBhbWRncHVfZ2Z4X2JpdF90b19xdWV1ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
+aW50IGJpdCwKKwkJCSAgICAgaW50ICptZWMsIGludCAqcGlwZSwgaW50ICpxdWV1ZSkKK3sKKwkq
+cXVldWUgPSBiaXQgJSBhZGV2LT5nZngubWVjLm51bV9xdWV1ZV9wZXJfcGlwZTsKKwkqcGlwZSA9
+IChiaXQgLyBhZGV2LT5nZngubWVjLm51bV9xdWV1ZV9wZXJfcGlwZSkKKwkJJSBhZGV2LT5nZngu
+bWVjLm51bV9waXBlX3Blcl9tZWM7CisJKm1lYyA9IChiaXQgLyBhZGV2LT5nZngubWVjLm51bV9x
+dWV1ZV9wZXJfcGlwZSkKKwkgICAgICAgLyBhZGV2LT5nZngubWVjLm51bV9waXBlX3Blcl9tZWM7
+CisKK30KKworYm9vbCBhbWRncHVfZ2Z4X2lzX21lY19xdWV1ZV9lbmFibGVkKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LAorCQkJCSAgICAgaW50IG1lYywgaW50IHBpcGUsIGludCBxdWV1ZSkK
+K3sKKwlyZXR1cm4gdGVzdF9iaXQoYW1kZ3B1X2dmeF9xdWV1ZV90b19iaXQoYWRldiwgbWVjLCBw
+aXBlLCBxdWV1ZSksCisJCQlhZGV2LT5nZngubWVjLnF1ZXVlX2JpdG1hcCk7Cit9CisKIC8qKgog
+ICogYW1kZ3B1X2dmeF9zY3JhdGNoX2dldCAtIEFsbG9jYXRlIGEgc2NyYXRjaCByZWdpc3Rlcgog
+ICoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaCBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaAppbmRleCAxZjI3OTA1Li45
+MjkxZWQ3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4
+LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5oCkBAIC0yNCwy
+OCArMjQsMjkwIEBACiAjaWZuZGVmIF9fQU1ER1BVX0dGWF9IX18KICNkZWZpbmUgX19BTURHUFVf
+R0ZYX0hfXwogCi1pbnQgYW1kZ3B1X2dmeF9zY3JhdGNoX2dldChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwgdWludDMyX3QgKnJlZyk7Ci12b2lkIGFtZGdwdV9nZnhfc2NyYXRjaF9mcmVlKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcpOworLyoKKyAqIEdGWCBzdHVm
+ZgorICovCisjaW5jbHVkZSAiY2xlYXJzdGF0ZV9kZWZzLmgiCisjaW5jbHVkZSAiYW1kZ3B1X3Jp
+bmcuaCIKIAotdm9pZCBhbWRncHVfZ2Z4X3BhcnNlX2Rpc2FibGVfY3UodW5zaWduZWQgKm1hc2ss
+IHVuc2lnbmVkIG1heF9zZSwKLQkJdW5zaWduZWQgbWF4X3NoKTsKKy8qIEdGWCBjdXJyZW50IHN0
+YXR1cyAqLworI2RlZmluZSBBTURHUFVfR0ZYX05PUk1BTF9NT0RFCQkJMHgwMDAwMDAwMEwKKyNk
+ZWZpbmUgQU1ER1BVX0dGWF9TQUZFX01PREUJCQkweDAwMDAwMDAxTAorI2RlZmluZSBBTURHUFVf
+R0ZYX1BHX0RJU0FCTEVEX01PREUJCTB4MDAwMDAwMDJMCisjZGVmaW5lIEFNREdQVV9HRlhfQ0df
+RElTQUJMRURfTU9ERQkJMHgwMDAwMDAwNEwKKyNkZWZpbmUgQU1ER1BVX0dGWF9MQlBXX0RJU0FC
+TEVEX01PREUJCTB4MDAwMDAwMDhMCiAKLXZvaWQgYW1kZ3B1X2dmeF9jb21wdXRlX3F1ZXVlX2Fj
+cXVpcmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogCi1pbnQgYW1kZ3B1X2dmeF9raXFf
+aW5pdF9yaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJICAgICBzdHJ1Y3QgYW1k
+Z3B1X3JpbmcgKnJpbmcsCi0JCQkgICAgIHN0cnVjdCBhbWRncHVfaXJxX3NyYyAqaXJxKTsKK3N0
+cnVjdCBhbWRncHVfcmxjX2Z1bmNzIHsKKwl2b2lkICgqZW50ZXJfc2FmZV9tb2RlKShzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldik7CisJdm9pZCAoKmV4aXRfc2FmZV9tb2RlKShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldik7Cit9OwogCi12b2lkIGFtZGdwdV9nZnhfa2lxX2ZyZWVfcmluZyhz
+dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCi0JCQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMg
+KmlycSk7CitzdHJ1Y3QgYW1kZ3B1X3JsYyB7CisJLyogZm9yIHBvd2VyIGdhdGluZyAqLworCXN0
+cnVjdCBhbWRncHVfYm8JKnNhdmVfcmVzdG9yZV9vYmo7CisJdWludDY0X3QJCXNhdmVfcmVzdG9y
+ZV9ncHVfYWRkcjsKKwl2b2xhdGlsZSB1aW50MzJfdAkqc3JfcHRyOworCWNvbnN0IHUzMiAgICAg
+ICAgICAgICAgICpyZWdfbGlzdDsKKwl1MzIgICAgICAgICAgICAgICAgICAgICByZWdfbGlzdF9z
+aXplOworCS8qIGZvciBjbGVhciBzdGF0ZSAqLworCXN0cnVjdCBhbWRncHVfYm8JKmNsZWFyX3N0
+YXRlX29iajsKKwl1aW50NjRfdAkJY2xlYXJfc3RhdGVfZ3B1X2FkZHI7CisJdm9sYXRpbGUgdWlu
+dDMyX3QJKmNzX3B0cjsKKwljb25zdCBzdHJ1Y3QgY3Nfc2VjdGlvbl9kZWYgICAqY3NfZGF0YTsK
+Kwl1MzIgICAgICAgICAgICAgICAgICAgICBjbGVhcl9zdGF0ZV9zaXplOworCS8qIGZvciBjcCB0
+YWJsZXMgKi8KKwlzdHJ1Y3QgYW1kZ3B1X2JvCSpjcF90YWJsZV9vYmo7CisJdWludDY0X3QJCWNw
+X3RhYmxlX2dwdV9hZGRyOworCXZvbGF0aWxlIHVpbnQzMl90CSpjcF90YWJsZV9wdHI7CisJdTMy
+ICAgICAgICAgICAgICAgICAgICAgY3BfdGFibGVfc2l6ZTsKIAotdm9pZCBhbWRncHVfZ2Z4X2tp
+cV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKLWludCBhbWRncHVfZ2Z4X2tpcV9p
+bml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJdW5zaWduZWQgaHBkX3NpemUpOwor
+CS8qIHNhZmUgbW9kZSBmb3IgdXBkYXRpbmcgQ0cvUEcgc3RhdGUgKi8KKwlib29sIGluX3NhZmVf
+bW9kZTsKKwljb25zdCBzdHJ1Y3QgYW1kZ3B1X3JsY19mdW5jcyAqZnVuY3M7CiAKLWludCBhbWRn
+cHVfZ2Z4X2NvbXB1dGVfbXFkX3N3X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCi0J
+CQkJICAgdW5zaWduZWQgbXFkX3NpemUpOwotdm9pZCBhbWRncHVfZ2Z4X2NvbXB1dGVfbXFkX3N3
+X2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOworCS8qIGZvciBmaXJtd2FyZSBkYXRh
+ICovCisJdTMyIHNhdmVfYW5kX3Jlc3RvcmVfb2Zmc2V0OworCXUzMiBjbGVhcl9zdGF0ZV9kZXNj
+cmlwdG9yX29mZnNldDsKKwl1MzIgYXZhaWxfc2NyYXRjaF9yYW1fbG9jYXRpb25zOworCXUzMiBy
+ZWdfcmVzdG9yZV9saXN0X3NpemU7CisJdTMyIHJlZ19saXN0X2Zvcm1hdF9zdGFydDsKKwl1MzIg
+cmVnX2xpc3RfZm9ybWF0X3NlcGFyYXRlX3N0YXJ0OworCXUzMiBzdGFydGluZ19vZmZzZXRzX3N0
+YXJ0OworCXUzMiByZWdfbGlzdF9mb3JtYXRfc2l6ZV9ieXRlczsKKwl1MzIgcmVnX2xpc3Rfc2l6
+ZV9ieXRlczsKKwl1MzIgcmVnX2xpc3RfZm9ybWF0X2RpcmVjdF9yZWdfbGlzdF9sZW5ndGg7CisJ
+dTMyIHNhdmVfcmVzdG9yZV9saXN0X2NudGxfc2l6ZV9ieXRlczsKKwl1MzIgc2F2ZV9yZXN0b3Jl
+X2xpc3RfZ3BtX3NpemVfYnl0ZXM7CisJdTMyIHNhdmVfcmVzdG9yZV9saXN0X3NybV9zaXplX2J5
+dGVzOworCisJdTMyICpyZWdpc3Rlcl9saXN0X2Zvcm1hdDsKKwl1MzIgKnJlZ2lzdGVyX3Jlc3Rv
+cmU7CisJdTggKnNhdmVfcmVzdG9yZV9saXN0X2NudGw7CisJdTggKnNhdmVfcmVzdG9yZV9saXN0
+X2dwbTsKKwl1OCAqc2F2ZV9yZXN0b3JlX2xpc3Rfc3JtOworCisJYm9vbCBpc19ybGNfdjJfMTsK
+K307CisKKyNkZWZpbmUgQU1ER1BVX01BWF9DT01QVVRFX1FVRVVFUyBLR0RfTUFYX1FVRVVFUwor
+CitzdHJ1Y3QgYW1kZ3B1X21lYyB7CisJc3RydWN0IGFtZGdwdV9ibwkqaHBkX2VvcF9vYmo7CisJ
+dTY0CQkJaHBkX2VvcF9ncHVfYWRkcjsKKwlzdHJ1Y3QgYW1kZ3B1X2JvCSptZWNfZndfb2JqOwor
+CXU2NAkJCW1lY19md19ncHVfYWRkcjsKKwl1MzIgbnVtX21lYzsKKwl1MzIgbnVtX3BpcGVfcGVy
+X21lYzsKKwl1MzIgbnVtX3F1ZXVlX3Blcl9waXBlOworCXZvaWQJCQkqbXFkX2JhY2t1cFtBTURH
+UFVfTUFYX0NPTVBVVEVfUklOR1MgKyAxXTsKKworCS8qIFRoZXNlIGFyZSB0aGUgcmVzb3VyY2Vz
+IGZvciB3aGljaCBhbWRncHUgdGFrZXMgb3duZXJzaGlwICovCisJREVDTEFSRV9CSVRNQVAocXVl
+dWVfYml0bWFwLCBBTURHUFVfTUFYX0NPTVBVVEVfUVVFVUVTKTsKK307CisKK3N0cnVjdCBhbWRn
+cHVfa2lxIHsKKwl1NjQJCQllb3BfZ3B1X2FkZHI7CisJc3RydWN0IGFtZGdwdV9ibwkqZW9wX29i
+ajsKKwlzcGlubG9ja190ICAgICAgICAgICAgICByaW5nX2xvY2s7CisJc3RydWN0IGFtZGdwdV9y
+aW5nCXJpbmc7CisJc3RydWN0IGFtZGdwdV9pcnFfc3JjCWlycTsKK307CisKKy8qCisgKiBHUFUg
+c2NyYXRjaCByZWdpc3RlcnMgc3RydWN0dXJlcywgZnVuY3Rpb25zICYgaGVscGVycworICovCitz
+dHJ1Y3QgYW1kZ3B1X3NjcmF0Y2ggeworCXVuc2lnbmVkCQludW1fcmVnOworCXVpbnQzMl90ICAg
+ICAgICAgICAgICAgIHJlZ19iYXNlOworCXVpbnQzMl90CQlmcmVlX21hc2s7Cit9OworCisvKgor
+ICogR0ZYIGNvbmZpZ3VyYXRpb25zCisgKi8KKyNkZWZpbmUgQU1ER1BVX0dGWF9NQVhfU0UgNAor
+I2RlZmluZSBBTURHUFVfR0ZYX01BWF9TSF9QRVJfU0UgMgorCitzdHJ1Y3QgYW1kZ3B1X3JiX2Nv
+bmZpZyB7CisJdWludDMyX3QgcmJfYmFja2VuZF9kaXNhYmxlOworCXVpbnQzMl90IHVzZXJfcmJf
+YmFja2VuZF9kaXNhYmxlOworCXVpbnQzMl90IHJhc3Rlcl9jb25maWc7CisJdWludDMyX3QgcmFz
+dGVyX2NvbmZpZ18xOworfTsKKworc3RydWN0IGdiX2FkZHJfY29uZmlnIHsKKwl1aW50MTZfdCBw
+aXBlX2ludGVybGVhdmVfc2l6ZTsKKwl1aW50OF90IG51bV9waXBlczsKKwl1aW50OF90IG1heF9j
+b21wcmVzc19mcmFnczsKKwl1aW50OF90IG51bV9iYW5rczsKKwl1aW50OF90IG51bV9zZTsKKwl1
+aW50OF90IG51bV9yYl9wZXJfc2U7Cit9OworCitzdHJ1Y3QgYW1kZ3B1X2dmeF9jb25maWcgewor
+CXVuc2lnbmVkIG1heF9zaGFkZXJfZW5naW5lczsKKwl1bnNpZ25lZCBtYXhfdGlsZV9waXBlczsK
+Kwl1bnNpZ25lZCBtYXhfY3VfcGVyX3NoOworCXVuc2lnbmVkIG1heF9zaF9wZXJfc2U7CisJdW5z
+aWduZWQgbWF4X2JhY2tlbmRzX3Blcl9zZTsKKwl1bnNpZ25lZCBtYXhfdGV4dHVyZV9jaGFubmVs
+X2NhY2hlczsKKwl1bnNpZ25lZCBtYXhfZ3ByczsKKwl1bnNpZ25lZCBtYXhfZ3NfdGhyZWFkczsK
+Kwl1bnNpZ25lZCBtYXhfaHdfY29udGV4dHM7CisJdW5zaWduZWQgc2NfcHJpbV9maWZvX3NpemVf
+ZnJvbnRlbmQ7CisJdW5zaWduZWQgc2NfcHJpbV9maWZvX3NpemVfYmFja2VuZDsKKwl1bnNpZ25l
+ZCBzY19oaXpfdGlsZV9maWZvX3NpemU7CisJdW5zaWduZWQgc2NfZWFybHl6X3RpbGVfZmlmb19z
+aXplOworCisJdW5zaWduZWQgbnVtX3RpbGVfcGlwZXM7CisJdW5zaWduZWQgYmFja2VuZF9lbmFi
+bGVfbWFzazsKKwl1bnNpZ25lZCBtZW1fbWF4X2J1cnN0X2xlbmd0aF9ieXRlczsKKwl1bnNpZ25l
+ZCBtZW1fcm93X3NpemVfaW5fa2I7CisJdW5zaWduZWQgc2hhZGVyX2VuZ2luZV90aWxlX3NpemU7
+CisJdW5zaWduZWQgbnVtX2dwdXM7CisJdW5zaWduZWQgbXVsdGlfZ3B1X3RpbGVfc2l6ZTsKKwl1
+bnNpZ25lZCBtY19hcmJfcmFtY2ZnOworCXVuc2lnbmVkIGdiX2FkZHJfY29uZmlnOworCXVuc2ln
+bmVkIG51bV9yYnM7CisJdW5zaWduZWQgZ3Nfdmd0X3RhYmxlX2RlcHRoOworCXVuc2lnbmVkIGdz
+X3ByaW1fYnVmZmVyX2RlcHRoOworCisJdWludDMyX3QgdGlsZV9tb2RlX2FycmF5WzMyXTsKKwl1
+aW50MzJfdCBtYWNyb3RpbGVfbW9kZV9hcnJheVsxNl07CisKKwlzdHJ1Y3QgZ2JfYWRkcl9jb25m
+aWcgZ2JfYWRkcl9jb25maWdfZmllbGRzOworCXN0cnVjdCBhbWRncHVfcmJfY29uZmlnIHJiX2Nv
+bmZpZ1tBTURHUFVfR0ZYX01BWF9TRV1bQU1ER1BVX0dGWF9NQVhfU0hfUEVSX1NFXTsKKworCS8q
+IGdmeCBjb25maWd1cmUgZmVhdHVyZSAqLworCXVpbnQzMl90IGRvdWJsZV9vZmZjaGlwX2xkc19i
+dWY7CisJLyogY2FjaGVkIHZhbHVlIG9mIERCX0RFQlVHMiAqLworCXVpbnQzMl90IGRiX2RlYnVn
+MjsKK307CisKK3N0cnVjdCBhbWRncHVfY3VfaW5mbyB7CisJdWludDMyX3Qgc2ltZF9wZXJfY3U7
+CisJdWludDMyX3QgbWF4X3dhdmVzX3Blcl9zaW1kOworCXVpbnQzMl90IHdhdmVfZnJvbnRfc2l6
+ZTsKKwl1aW50MzJfdCBtYXhfc2NyYXRjaF9zbG90c19wZXJfY3U7CisJdWludDMyX3QgbGRzX3Np
+emU7CisKKwkvKiB0b3RhbCBhY3RpdmUgQ1UgbnVtYmVyICovCisJdWludDMyX3QgbnVtYmVyOwor
+CXVpbnQzMl90IGFvX2N1X21hc2s7CisJdWludDMyX3QgYW9fY3VfYml0bWFwWzRdWzRdOworCXVp
+bnQzMl90IGJpdG1hcFs0XVs0XTsKK307CisKK3N0cnVjdCBhbWRncHVfZ2Z4X2Z1bmNzIHsKKwkv
+KiBnZXQgdGhlIGdwdSBjbG9jayBjb3VudGVyICovCisJdWludDY0X3QgKCpnZXRfZ3B1X2Nsb2Nr
+X2NvdW50ZXIpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKKwl2b2lkICgqc2VsZWN0X3Nl
+X3NoKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHNlX251bSwKKwkJCSAgICAgdTMy
+IHNoX251bSwgdTMyIGluc3RhbmNlKTsKKwl2b2lkICgqcmVhZF93YXZlX2RhdGEpKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCBzaW1kLAorCQkJICAgICAgIHVpbnQzMl90IHdh
+dmUsIHVpbnQzMl90ICpkc3QsIGludCAqbm9fZmllbGRzKTsKKwl2b2lkICgqcmVhZF93YXZlX3Zn
+cHJzKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgc2ltZCwKKwkJCQl1aW50
+MzJfdCB3YXZlLCB1aW50MzJfdCB0aHJlYWQsIHVpbnQzMl90IHN0YXJ0LAorCQkJCXVpbnQzMl90
+IHNpemUsIHVpbnQzMl90ICpkc3QpOworCXZvaWQgKCpyZWFkX3dhdmVfc2dwcnMpKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCBzaW1kLAorCQkJCXVpbnQzMl90IHdhdmUsIHVp
+bnQzMl90IHN0YXJ0LCB1aW50MzJfdCBzaXplLAorCQkJCXVpbnQzMl90ICpkc3QpOworCXZvaWQg
+KCpzZWxlY3RfbWVfcGlwZV9xKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIG1lLCB1
+MzIgcGlwZSwKKwkJCQkgdTMyIHF1ZXVlKTsKK307CisKK3N0cnVjdCBhbWRncHVfbmdnX2J1ZiB7
+CisJc3RydWN0IGFtZGdwdV9ibwkqYm87CisJdWludDY0X3QJCWdwdV9hZGRyOworCXVpbnQzMl90
+CQlzaXplOworCXVpbnQzMl90CQlib19zaXplOworfTsKKworZW51bSB7CisJTkdHX1BSSU0gPSAw
+LAorCU5HR19QT1MsCisJTkdHX0NOVEwsCisJTkdHX1BBUkFNLAorCU5HR19CVUZfTUFYCit9Owor
+CitzdHJ1Y3QgYW1kZ3B1X25nZyB7CisJc3RydWN0IGFtZGdwdV9uZ2dfYnVmCWJ1ZltOR0dfQlVG
+X01BWF07CisJdWludDMyX3QJCWdkc19yZXNlcnZlX2FkZHI7CisJdWludDMyX3QJCWdkc19yZXNl
+cnZlX3NpemU7CisJYm9vbAkJCWluaXQ7Cit9OworCitzdHJ1Y3Qgc3Ffd29yayB7CisJc3RydWN0
+IHdvcmtfc3RydWN0CXdvcms7CisJdW5zaWduZWQgaWhfZGF0YTsKK307CisKK3N0cnVjdCBhbWRn
+cHVfZ2Z4IHsKKwlzdHJ1Y3QgbXV0ZXgJCQlncHVfY2xvY2tfbXV0ZXg7CisJc3RydWN0IGFtZGdw
+dV9nZnhfY29uZmlnCWNvbmZpZzsKKwlzdHJ1Y3QgYW1kZ3B1X3JsYwkJcmxjOworCXN0cnVjdCBh
+bWRncHVfbWVjCQltZWM7CisJc3RydWN0IGFtZGdwdV9raXEJCWtpcTsKKwlzdHJ1Y3QgYW1kZ3B1
+X3NjcmF0Y2gJCXNjcmF0Y2g7CisJY29uc3Qgc3RydWN0IGZpcm13YXJlCQkqbWVfZnc7CS8qIE1F
+IGZpcm13YXJlICovCisJdWludDMyX3QJCQltZV9md192ZXJzaW9uOworCWNvbnN0IHN0cnVjdCBm
+aXJtd2FyZQkJKnBmcF9mdzsgLyogUEZQIGZpcm13YXJlICovCisJdWludDMyX3QJCQlwZnBfZndf
+dmVyc2lvbjsKKwljb25zdCBzdHJ1Y3QgZmlybXdhcmUJCSpjZV9mdzsJLyogQ0UgZmlybXdhcmUg
+Ki8KKwl1aW50MzJfdAkJCWNlX2Z3X3ZlcnNpb247CisJY29uc3Qgc3RydWN0IGZpcm13YXJlCQkq
+cmxjX2Z3OyAvKiBSTEMgZmlybXdhcmUgKi8KKwl1aW50MzJfdAkJCXJsY19md192ZXJzaW9uOwor
+CWNvbnN0IHN0cnVjdCBmaXJtd2FyZQkJKm1lY19mdzsgLyogTUVDIGZpcm13YXJlICovCisJdWlu
+dDMyX3QJCQltZWNfZndfdmVyc2lvbjsKKwljb25zdCBzdHJ1Y3QgZmlybXdhcmUJCSptZWMyX2Z3
+OyAvKiBNRUMyIGZpcm13YXJlICovCisJdWludDMyX3QJCQltZWMyX2Z3X3ZlcnNpb247CisJdWlu
+dDMyX3QJCQltZV9mZWF0dXJlX3ZlcnNpb247CisJdWludDMyX3QJCQljZV9mZWF0dXJlX3ZlcnNp
+b247CisJdWludDMyX3QJCQlwZnBfZmVhdHVyZV92ZXJzaW9uOworCXVpbnQzMl90CQkJcmxjX2Zl
+YXR1cmVfdmVyc2lvbjsKKwl1aW50MzJfdAkJCXJsY19zcmxjX2Z3X3ZlcnNpb247CisJdWludDMy
+X3QJCQlybGNfc3JsY19mZWF0dXJlX3ZlcnNpb247CisJdWludDMyX3QJCQlybGNfc3JsZ19md192
+ZXJzaW9uOworCXVpbnQzMl90CQkJcmxjX3NybGdfZmVhdHVyZV92ZXJzaW9uOworCXVpbnQzMl90
+CQkJcmxjX3NybHNfZndfdmVyc2lvbjsKKwl1aW50MzJfdAkJCXJsY19zcmxzX2ZlYXR1cmVfdmVy
+c2lvbjsKKwl1aW50MzJfdAkJCW1lY19mZWF0dXJlX3ZlcnNpb247CisJdWludDMyX3QJCQltZWMy
+X2ZlYXR1cmVfdmVyc2lvbjsKKwlzdHJ1Y3QgYW1kZ3B1X3JpbmcJCWdmeF9yaW5nW0FNREdQVV9N
+QVhfR0ZYX1JJTkdTXTsKKwl1bnNpZ25lZAkJCW51bV9nZnhfcmluZ3M7CisJc3RydWN0IGFtZGdw
+dV9yaW5nCQljb21wdXRlX3JpbmdbQU1ER1BVX01BWF9DT01QVVRFX1JJTkdTXTsKKwl1bnNpZ25l
+ZAkJCW51bV9jb21wdXRlX3JpbmdzOworCXN0cnVjdCBhbWRncHVfaXJxX3NyYwkJZW9wX2lycTsK
+KwlzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMJCXByaXZfcmVnX2lycTsKKwlzdHJ1Y3QgYW1kZ3B1X2ly
+cV9zcmMJCXByaXZfaW5zdF9pcnE7CisJc3RydWN0IGFtZGdwdV9pcnFfc3JjCQljcF9lY2NfZXJy
+b3JfaXJxOworCXN0cnVjdCBhbWRncHVfaXJxX3NyYwkJc3FfaXJxOworCXN0cnVjdCBzcV93b3Jr
+CQkJc3Ffd29yazsKKworCS8qIGdmeCBzdGF0dXMgKi8KKwl1aW50MzJfdAkJCWdmeF9jdXJyZW50
+X3N0YXR1czsKKwkvKiBjZSByYW0gc2l6ZSovCisJdW5zaWduZWQJCQljZV9yYW1fc2l6ZTsKKwlz
+dHJ1Y3QgYW1kZ3B1X2N1X2luZm8JCWN1X2luZm87CisJY29uc3Qgc3RydWN0IGFtZGdwdV9nZnhf
+ZnVuY3MJKmZ1bmNzOworCisJLyogcmVzZXQgbWFzayAqLworCXVpbnQzMl90ICAgICAgICAgICAg
+ICAgICAgICAgICAgZ3JibV9zb2Z0X3Jlc2V0OworCXVpbnQzMl90ICAgICAgICAgICAgICAgICAg
+ICAgICAgc3JibV9zb2Z0X3Jlc2V0OworCS8qIHMzL3M0IG1hc2sgKi8KKwlib29sICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGluX3N1c3BlbmQ7CisJLyogTkdHICovCisJc3RydWN0IGFtZGdw
+dV9uZ2cJCW5nZzsKKworCS8qIHBpcGUgcmVzZXJ2YXRpb24gKi8KKwlzdHJ1Y3QgbXV0ZXgJCQlw
+aXBlX3Jlc2VydmVfbXV0ZXg7CisJREVDTEFSRV9CSVRNQVAJCQkocGlwZV9yZXNlcnZlX2JpdG1h
+cCwgQU1ER1BVX01BWF9DT01QVVRFX1FVRVVFUyk7Cit9OworCisjZGVmaW5lIGFtZGdwdV9nZnhf
+Z2V0X2dwdV9jbG9ja19jb3VudGVyKGFkZXYpIChhZGV2KS0+Z2Z4LmZ1bmNzLT5nZXRfZ3B1X2Ns
+b2NrX2NvdW50ZXIoKGFkZXYpKQorI2RlZmluZSBhbWRncHVfZ2Z4X3NlbGVjdF9zZV9zaChhZGV2
+LCBzZSwgc2gsIGluc3RhbmNlKSAoYWRldiktPmdmeC5mdW5jcy0+c2VsZWN0X3NlX3NoKChhZGV2
+KSwgKHNlKSwgKHNoKSwgKGluc3RhbmNlKSkKKyNkZWZpbmUgYW1kZ3B1X2dmeF9zZWxlY3RfbWVf
+cGlwZV9xKGFkZXYsIG1lLCBwaXBlLCBxKSAoYWRldiktPmdmeC5mdW5jcy0+c2VsZWN0X21lX3Bp
+cGVfcSgoYWRldiksIChtZSksIChwaXBlKSwgKHEpKQogCiAvKioKICAqIGFtZGdwdV9nZnhfY3Jl
+YXRlX2JpdG1hc2sgLSBjcmVhdGUgYSBiaXRtYXNrCkBAIC02MCwzNCArMzIyLDMzIEBAIHN0YXRp
+YyBpbmxpbmUgdTMyIGFtZGdwdV9nZnhfY3JlYXRlX2JpdG1hc2sodTMyIGJpdF93aWR0aCkKIAly
+ZXR1cm4gKHUzMikoKDFVTEwgPDwgYml0X3dpZHRoKSAtIDEpOwogfQogCi1zdGF0aWMgaW5saW5l
+IGludCBhbWRncHVfZ2Z4X3F1ZXVlX3RvX2JpdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
+LQkJCQkJICBpbnQgbWVjLCBpbnQgcGlwZSwgaW50IHF1ZXVlKQotewotCWludCBiaXQgPSAwOwor
+aW50IGFtZGdwdV9nZnhfc2NyYXRjaF9nZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVp
+bnQzMl90ICpyZWcpOwordm9pZCBhbWRncHVfZ2Z4X3NjcmF0Y2hfZnJlZShzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnKTsKIAotCWJpdCArPSBtZWMgKiBhZGV2LT5nZngu
+bWVjLm51bV9waXBlX3Blcl9tZWMKLQkJKiBhZGV2LT5nZngubWVjLm51bV9xdWV1ZV9wZXJfcGlw
+ZTsKLQliaXQgKz0gcGlwZSAqIGFkZXYtPmdmeC5tZWMubnVtX3F1ZXVlX3Blcl9waXBlOwotCWJp
+dCArPSBxdWV1ZTsKK3ZvaWQgYW1kZ3B1X2dmeF9wYXJzZV9kaXNhYmxlX2N1KHVuc2lnbmVkICpt
+YXNrLCB1bnNpZ25lZCBtYXhfc2UsCisJCQkJIHVuc2lnbmVkIG1heF9zaCk7CiAKLQlyZXR1cm4g
+Yml0OwotfQoraW50IGFtZGdwdV9nZnhfa2lxX2luaXRfcmluZyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKKwkJCSAgICAgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAorCQkJICAgICBzdHJ1
+Y3QgYW1kZ3B1X2lycV9zcmMgKmlycSk7CiAKLXN0YXRpYyBpbmxpbmUgdm9pZCBhbWRncHVfZ2Z4
+X2JpdF90b19xdWV1ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGJpdCwKLQkJCQkJ
+ICAgaW50ICptZWMsIGludCAqcGlwZSwgaW50ICpxdWV1ZSkKLXsKLQkqcXVldWUgPSBiaXQgJSBh
+ZGV2LT5nZngubWVjLm51bV9xdWV1ZV9wZXJfcGlwZTsKLQkqcGlwZSA9IChiaXQgLyBhZGV2LT5n
+ZngubWVjLm51bV9xdWV1ZV9wZXJfcGlwZSkKLQkJJSBhZGV2LT5nZngubWVjLm51bV9waXBlX3Bl
+cl9tZWM7Ci0JKm1lYyA9IChiaXQgLyBhZGV2LT5nZngubWVjLm51bV9xdWV1ZV9wZXJfcGlwZSkK
+LQkgICAgICAgLyBhZGV2LT5nZngubWVjLm51bV9waXBlX3Blcl9tZWM7Cit2b2lkIGFtZGdwdV9n
+Znhfa2lxX2ZyZWVfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCisJCQkgICAgICBzdHJ1
+Y3QgYW1kZ3B1X2lycV9zcmMgKmlycSk7CiAKLX0KLXN0YXRpYyBpbmxpbmUgYm9vbCBhbWRncHVf
+Z2Z4X2lzX21lY19xdWV1ZV9lbmFibGVkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJ
+CQkJICAgaW50IG1lYywgaW50IHBpcGUsIGludCBxdWV1ZSkKLXsKLQlyZXR1cm4gdGVzdF9iaXQo
+YW1kZ3B1X2dmeF9xdWV1ZV90b19iaXQoYWRldiwgbWVjLCBwaXBlLCBxdWV1ZSksCi0JCQlhZGV2
+LT5nZngubWVjLnF1ZXVlX2JpdG1hcCk7Ci19Cit2b2lkIGFtZGdwdV9nZnhfa2lxX2Zpbmkoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOworaW50IGFtZGdwdV9nZnhfa2lxX2luaXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCisJCQl1bnNpZ25lZCBocGRfc2l6ZSk7CisKK2ludCBhbWRn
+cHVfZ2Z4X2NvbXB1dGVfbXFkX3N3X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCisJ
+CQkJICAgdW5zaWduZWQgbXFkX3NpemUpOwordm9pZCBhbWRncHVfZ2Z4X2NvbXB1dGVfbXFkX3N3
+X2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOworCit2b2lkIGFtZGdwdV9nZnhfY29t
+cHV0ZV9xdWV1ZV9hY3F1aXJlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKK2ludCBhbWRn
+cHVfZ2Z4X3F1ZXVlX3RvX2JpdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IG1lYywK
+KwkJCSAgICBpbnQgcGlwZSwgaW50IHF1ZXVlKTsKK3ZvaWQgYW1kZ3B1X2dmeF9iaXRfdG9fcXVl
+dWUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBiaXQsCisJCQkgICAgIGludCAqbWVj
+LCBpbnQgKnBpcGUsIGludCAqcXVldWUpOworYm9vbCBhbWRncHVfZ2Z4X2lzX21lY19xdWV1ZV9l
+bmFibGVkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgbWVjLAorCQkJCSAgICAgaW50
+IHBpcGUsIGludCBxdWV1ZSk7CiAKICNlbmRpZgotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
