@@ -1,93 +1,346 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/scheduler: add counter for total jobs in scheduler
-Date: Thu, 2 Aug 2018 13:59:29 +0800
-Message-ID: <5B629DC1.2040100@amd.com>
-References: <20180712063643.8030-1-nayan26deshmukh@gmail.com>
- <20180712063643.8030-3-nayan26deshmukh@gmail.com> <5B62901B.3050005@amd.com>
- <CAFd4ddzHsjg=D0=Zo-iKLv-uQ_MFWq2bzZGLwXQtoRnZAixzGA@mail.gmail.com>
+From: Nayan Deshmukh <nayan26deshmukh@gmail.com>
+Subject: Re: [PATCH 3/4] drm/scheduler: add new function to get least loaded
+ sched v2
+Date: Thu, 2 Aug 2018 11:31:56 +0530
+Message-ID: <CAFd4ddyf=EhJ7pmzq3sEGa6U1sQ7Ga7fUH+sW+VKeBxJABjnKQ@mail.gmail.com>
+References: <20180801082002.20696-1-nayan26deshmukh@gmail.com>
+ <20180801082002.20696-3-nayan26deshmukh@gmail.com>
+ <dde1b549-df1b-e156-1e96-ddfe4beca446@amd.com>
+ <CAFd4ddx8D2iKquRu4YVh1gnRMpLFgWf3CBPdk5SD-nJ8dNXEPQ@mail.gmail.com>
+ <BY1PR12MB050215C66BE529F1FB94F373B42C0@BY1PR12MB0502.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAFd4ddzHsjg=D0=Zo-iKLv-uQ_MFWq2bzZGLwXQtoRnZAixzGA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============0878455635=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <BY1PR12MB050215C66BE529F1FB94F373B42C0@BY1PR12MB0502.namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: David1.Zhou@amd.com
+Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDgvMDIvMjAxOCAwMTo1MCBQTSwgTmF5YW4gRGVzaG11a2ggd3JvdGU6Cj4KPgo+IE9uIFRo
-dSwgQXVnIDIsIDIwMTggYXQgMTA6MzEgQU0gWmhhbmcsIEplcnJ5IChKdW53ZWkpIDxKZXJyeS5a
-aGFuZ0BhbWQuY29tIDxtYWlsdG86SmVycnkuWmhhbmdAYW1kLmNvbT4+IHdyb3RlOgo+Cj4gICAg
-IE9uIDA3LzEyLzIwMTggMDI6MzYgUE0sIE5heWFuIERlc2htdWtoIHdyb3RlOgo+ICAgICAgPiBT
-aWduZWQtb2ZmLWJ5OiBOYXlhbiBEZXNobXVraCA8bmF5YW4yNmRlc2htdWtoQGdtYWlsLmNvbSA8
-bWFpbHRvOm5heWFuMjZkZXNobXVraEBnbWFpbC5jb20+Pgo+ICAgICAgPiAtLS0KPiAgICAgID4g
-ICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYyB8IDMgKysrCj4gICAg
-ICA+ICAgaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oICAgICAgICAgICAgICAgfCAyICsrCj4g
-ICAgICA+ICAgMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKPiAgICAgID4KPiAgICAg
-ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5j
-IGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPiAgICAgID4gaW5k
-ZXggNDI5YjEzMjg2NTNhLi4zZGMxYTRmMDdlM2YgMTAwNjQ0Cj4gICAgICA+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4gICAgICA+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4gICAgICA+IEBAIC01MzgsNiAr
-NTM4LDcgQEAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X3B1c2hfam9iKHN0cnVjdCBkcm1fc2NoZWRf
-am9iICpzY2hlZF9qb2IsCj4gICAgICA+ICAgICAgIHRyYWNlX2RybV9zY2hlZF9qb2Ioc2NoZWRf
-am9iLCBlbnRpdHkpOwo+ICAgICAgPgo+ICAgICAgPiAgICAgICBmaXJzdCA9IHNwc2NfcXVldWVf
-cHVzaCgmZW50aXR5LT5qb2JfcXVldWUsICZzY2hlZF9qb2ItPnF1ZXVlX25vZGUpOwo+ICAgICAg
-PiArICAgICBhdG9taWNfaW5jKCZlbnRpdHktPnNjaGVkLT5udW1fam9icyk7Cj4KPiAgICAgU2hh
-bGwgd2UgdXNlIGh3X3JxX2NvdW50IGRpcmVjdGx5IG9yIG1lcmdlIHRoZW0gdG9nZXRoZXI/Cj4K
-PiBod19ycV9jb3VudCBpcyB0aGUgbnVtYmVyIG9mIGpvYnMgdGhhdCBhcmUgY3VycmVudGx5IGlu
-IHRoZSBoYXJkd2FyZSBxdWV1ZSBhcyBjb21wYXJlZCB0byBudW1fam9icyB3aGljaCBpcyB0aGUg
-bnVtYmVyIG9mIGpvYnMgaW4gdGhlIHNvZnR3YXJlIHF1ZXVlLiBudW1fam9icyBwcm92aWRlcyBh
-IGdpdmUgYSBiZXR0ZXIgaWRlYSBvZiB0aGUgbG9hZAo+IG9uIGEgc2NoZWR1bGVyIHRoYXQncyB3
-aHkgSSBhZGRlZCB0aGF0IGZpZWxkIGFuZCB1c2VkIGl0IHRvIGRlY2lkZSB0aGUgc2NoZWR1bGVy
-IHdpdGggdGhlIGxlYXN0IGxvYWQuCgpUaGFua3MgZm9yIHlvdXIgZXhwbGFuYXRpb24uCgpUaGVu
-IG1heSBiZSBtb3JlIHJlYXNvbmFibGUgdG8gbW92ZSBhdG9taWNfZGVjKCZzY2hlZC0+bnVtX2pv
-YnMpIGFmdGVyIGRybV9zY2hlZF9mZW5jZV9zY2hlZHVsZWQoKSBvciBqdXN0IGJlZm9yZSBhdG9t
-aWNfaW5jKCZzY2hlZC0+aHdfcnFfY291bnQpLgpIb3cgZG8geW91IHRoaW5rIHRoYXQ/CgpSZWdh
-cmRzLApKZXJyeQoKPgo+IFJlZ2FyZHMsCj4gTmF5YW4KPgo+Cj4gICAgIFJlZ2FyZHMsCj4gICAg
-IEplcnJ5Cj4gICAgICA+Cj4gICAgICA+ICAgICAgIC8qIGZpcnN0IGpvYiB3YWtlcyB1cCBzY2hl
-ZHVsZXIgKi8KPiAgICAgID4gICAgICAgaWYgKGZpcnN0KSB7Cj4gICAgICA+IEBAIC04MTgsNiAr
-ODE5LDcgQEAgc3RhdGljIHZvaWQgZHJtX3NjaGVkX3Byb2Nlc3Nfam9iKHN0cnVjdCBkbWFfZmVu
-Y2UgKmYsIHN0cnVjdCBkbWFfZmVuY2VfY2IgKmNiKQo+ICAgICAgPgo+ICAgICAgPiAgICAgICBk
-bWFfZmVuY2VfZ2V0KCZzX2ZlbmNlLT5maW5pc2hlZCk7Cj4gICAgICA+ICAgICAgIGF0b21pY19k
-ZWMoJnNjaGVkLT5od19ycV9jb3VudCk7Cj4gICAgICA+ICsgICAgIGF0b21pY19kZWMoJnNjaGVk
-LT5udW1fam9icyk7Cj4gICAgICA+ICAgICAgIGRybV9zY2hlZF9mZW5jZV9maW5pc2hlZChzX2Zl
-bmNlKTsKPiAgICAgID4KPiAgICAgID4gICAgICAgdHJhY2VfZHJtX3NjaGVkX3Byb2Nlc3Nfam9i
-KHNfZmVuY2UpOwo+ICAgICAgPiBAQCAtOTM1LDYgKzkzNyw3IEBAIGludCBkcm1fc2NoZWRfaW5p
-dChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICAgICAgPiAgICAgICBJTklUX0xJ
-U1RfSEVBRCgmc2NoZWQtPnJpbmdfbWlycm9yX2xpc3QpOwo+ICAgICAgPiAgICAgICBzcGluX2xv
-Y2tfaW5pdCgmc2NoZWQtPmpvYl9saXN0X2xvY2spOwo+ICAgICAgPiAgICAgICBhdG9taWNfc2V0
-KCZzY2hlZC0+aHdfcnFfY291bnQsIDApOwo+ICAgICAgPiArICAgICBhdG9taWNfc2V0KCZzY2hl
-ZC0+bnVtX2pvYnMsIDApOwo+ICAgICAgPiAgICAgICBhdG9taWM2NF9zZXQoJnNjaGVkLT5qb2Jf
-aWRfY291bnQsIDApOwo+ICAgICAgPgo+ICAgICAgPiAgICAgICAvKiBFYWNoIHNjaGVkdWxlciB3
-aWxsIHJ1biBvbiBhIHNlcGVyYXRlIGtlcm5lbCB0aHJlYWQgKi8KPiAgICAgID4gZGlmZiAtLWdp
-dCBhL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaCBiL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVs
-ZXIuaAo+ICAgICAgPiBpbmRleCA0M2U5M2Q2MDc3Y2YuLjYwNWJkNGFkMjM5NyAxMDA2NDQKPiAg
-ICAgID4gLS0tIGEvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oCj4gICAgICA+ICsrKyBiL2lu
-Y2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaAo+ICAgICAgPiBAQCAtMjU3LDYgKzI1Nyw3IEBAIHN0
-cnVjdCBkcm1fc2NoZWRfYmFja2VuZF9vcHMgewo+ICAgICAgPiAgICAqIEBqb2JfbGlzdF9sb2Nr
-OiBsb2NrIHRvIHByb3RlY3QgdGhlIHJpbmdfbWlycm9yX2xpc3QuCj4gICAgICA+ICAgICogQGhh
-bmdfbGltaXQ6IG9uY2UgdGhlIGhhbmdzIGJ5IGEgam9iIGNyb3NzZXMgdGhpcyBsaW1pdCB0aGVu
-IGl0IGlzIG1hcmtlZAo+ICAgICAgPiAgICAqICAgICAgICAgICAgICBndWlsdHkgYW5kIGl0IHdp
-bGwgYmUgY29uc2lkZXJlZCBmb3Igc2NoZWR1bGluZyBmdXJ0aGVyLgo+ICAgICAgPiArICogQG51
-bV9qb2JzOiB0aGUgbnVtYmVyIG9mIGpvYnMgaW4gcXVldWUgaW4gdGhlIHNjaGVkdWxlcgo+ICAg
-ICAgPiAgICAqCj4gICAgICA+ICAgICogT25lIHNjaGVkdWxlciBpcyBpbXBsZW1lbnRlZCBmb3Ig
-ZWFjaCBoYXJkd2FyZSByaW5nLgo+ICAgICAgPiAgICAqLwo+ICAgICAgPiBAQCAtMjc0LDYgKzI3
-NSw3IEBAIHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciB7Cj4gICAgICA+ICAgICAgIHN0cnVjdCBs
-aXN0X2hlYWQgICAgICAgICAgICAgICAgcmluZ19taXJyb3JfbGlzdDsKPiAgICAgID4gICAgICAg
-c3BpbmxvY2tfdCAgICAgICAgICAgICAgICAgICAgICBqb2JfbGlzdF9sb2NrOwo+ICAgICAgPiAg
-ICAgICBpbnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGhhbmdfbGltaXQ7Cj4gICAgICA+
-ICsgICAgIGF0b21pY190ICAgICAgICAgICAgICAgICAgICAgICAgbnVtX2pvYnM7Cj4gICAgICA+
-ICAgfTsKPiAgICAgID4KPiAgICAgID4gICBpbnQgZHJtX3NjaGVkX2luaXQoc3RydWN0IGRybV9n
-cHVfc2NoZWR1bGVyICpzY2hlZCwKPiAgICAgID4KPgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+--===============0878455635==
+Content-Type: multipart/alternative; boundary="0000000000003d891d05726d8f44"
+
+--0000000000003d891d05726d8f44
+Content-Type: text/plain; charset="UTF-8"
+
+Hi David,
+
+On Thu, Aug 2, 2018 at 8:22 AM Zhou, David(ChunMing) <David1.Zhou@amd.com>
+wrote:
+
+> Another big question:
+>
+> I agree the general idea is good to balance scheduler load for same ring
+> family.
+>
+> But, when same entity job run on different scheduler, that means the later
+> job could be completed ahead of front, Right?
+>
+Really good question. To avoid this senario we do not move an entity which
+already has a job in the hardware queue. We only move entities whose
+last_scheduled fence has been signalled which means that the last submitted
+job of this entity has finished executing.
+
+Moving an entity which already has a job in the hardware queue will hinder
+the dependency optimization that we are using and hence will not anyway
+lead to a better performance. I have talked about the issue in more detail
+here [1]. Please let me know if you have any more doubts regarding this.
+
+Cheers,
+Nayan
+
+[1]
+http://ndesh26.github.io/gsoc/2018/06/14/GSoC-Update-A-Curious-Case-of-Dependency-Handling/
+
+That will break fence design, later fence must be signaled after front
+> fence in same fence context.
+>
+>
+>
+> Anything I missed?
+>
+>
+>
+> Regards,
+>
+> David Zhou
+>
+>
+>
+> *From:* dri-devel <dri-devel-bounces@lists.freedesktop.org> *On Behalf Of
+> *Nayan Deshmukh
+> *Sent:* Thursday, August 02, 2018 12:07 AM
+> *To:* Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> *Cc:* amd-gfx@lists.freedesktop.org; Maling list - DRI developers <
+> dri-devel@lists.freedesktop.org>; Koenig, Christian <
+> Christian.Koenig@amd.com>
+> *Subject:* Re: [PATCH 3/4] drm/scheduler: add new function to get least
+> loaded sched v2
+>
+>
+>
+> Yes, that is correct.
+>
+>
+>
+> Nayan
+>
+>
+>
+> On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+> wrote:
+>
+> Clarification question -  if the run queues belong to different
+> schedulers they effectively point to different rings,
+>
+> it means we allow to move (reschedule) a drm_sched_entity from one ring
+> to another - i assume that the idea int the first place, that
+>
+> you have a set of HW rings and you can utilize any of them for your jobs
+> (like compute rings). Correct ?
+>
+> Andrey
+>
+>
+> On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:
+> > The function selects the run queue from the rq_list with the
+> > least load. The load is decided by the number of jobs in a
+> > scheduler.
+> >
+> > v2: avoid using atomic read twice consecutively, instead store
+> >      it locally
+> >
+> > Signed-off-by: Nayan Deshmukh <nayan26deshmukh@gmail.com>
+> > ---
+> >   drivers/gpu/drm/scheduler/gpu_scheduler.c | 25
+> +++++++++++++++++++++++++
+> >   1 file changed, 25 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> > index 375f6f7f6a93..fb4e542660b0 100644
+> > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
+> > @@ -255,6 +255,31 @@ static bool drm_sched_entity_is_ready(struct
+> drm_sched_entity *entity)
+> >       return true;
+> >   }
+> >
+> > +/**
+> > + * drm_sched_entity_get_free_sched - Get the rq from rq_list with least
+> load
+> > + *
+> > + * @entity: scheduler entity
+> > + *
+> > + * Return the pointer to the rq with least load.
+> > + */
+> > +static struct drm_sched_rq *
+> > +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
+> > +{
+> > +     struct drm_sched_rq *rq = NULL;
+> > +     unsigned int min_jobs = UINT_MAX, num_jobs;
+> > +     int i;
+> > +
+> > +     for (i = 0; i < entity->num_rq_list; ++i) {
+> > +             num_jobs =
+> atomic_read(&entity->rq_list[i]->sched->num_jobs);
+> > +             if (num_jobs < min_jobs) {
+> > +                     min_jobs = num_jobs;
+> > +                     rq = entity->rq_list[i];
+> > +             }
+> > +     }
+> > +
+> > +     return rq;
+> > +}
+> > +
+> >   static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+> >                                   struct dma_fence_cb *cb)
+> >   {
+>
+>
+
+--0000000000003d891d05726d8f44
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi David,<br><div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr">On Thu, Aug 2, 2018 at 8:22 AM Zhou, David(ChunMing) &lt;<a href=
+=3D"mailto:David1.Zhou@amd.com">David1.Zhou@amd.com</a>&gt; wrote:<br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left:1px solid rgb(204,204,204);padding-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-US">
+<div class=3D"gmail-m_963201938271036718WordSection1">
+<p class=3D"MsoNormal">Another big question:<u></u><u></u></p>
+<p class=3D"MsoNormal">I agree the general idea is good to balance schedule=
+r load for same ring family.<u></u><u></u></p>
+<p class=3D"MsoNormal">But, when same entity job run on different scheduler=
+, that means the later job could be completed ahead of front, Right?<u></u>=
+<u></u></p></div></div></blockquote><div>Really good question. To avoid thi=
+s senario we do not move an entity which already has a job in the hardware =
+queue. We only move entities whose last_scheduled fence has been signalled =
+which means that the last submitted job of this entity has finished executi=
+ng. <br><br></div><div>Moving an entity which already has a job in the hard=
+ware queue will hinder the dependency optimization that we are using and he=
+nce will not anyway lead to a better performance. I have talked about the i=
+ssue in more detail here [1]. Please let me know if you have any more doubt=
+s regarding this.<br><br></div><div>Cheers,<br></div><div>Nayan <br><br>[1]=
+ <a href=3D"http://ndesh26.github.io/gsoc/2018/06/14/GSoC-Update-A-Curious-=
+Case-of-Dependency-Handling/">http://ndesh26.github.io/gsoc/2018/06/14/GSoC=
+-Update-A-Curious-Case-of-Dependency-Handling/</a><br><br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex"><div lang=3D"EN-US"><div class=3D"gm=
+ail-m_963201938271036718WordSection1"><p class=3D"MsoNormal"></p>
+<p class=3D"MsoNormal">That will break fence design, later fence must be si=
+gnaled after front fence in same fence context.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Anything I missed?<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Regards,<u></u><u></u></p>
+<p class=3D"MsoNormal">David Zhou<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal"><b>From:</b> dri-devel &lt;<a href=3D"mailto:dri-dev=
+el-bounces@lists.freedesktop.org" target=3D"_blank">dri-devel-bounces@lists=
+.freedesktop.org</a>&gt;
+<b>On Behalf Of </b>Nayan Deshmukh<br>
+<b>Sent:</b> Thursday, August 02, 2018 12:07 AM<br>
+<b>To:</b> Grodzovsky, Andrey &lt;<a href=3D"mailto:Andrey.Grodzovsky@amd.c=
+om" target=3D"_blank">Andrey.Grodzovsky@amd.com</a>&gt;<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blan=
+k">amd-gfx@lists.freedesktop.org</a>; Maling list - DRI developers &lt;<a h=
+ref=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">dri-devel@=
+lists.freedesktop.org</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Chri=
+stian.Koenig@amd.com" target=3D"_blank">Christian.Koenig@amd.com</a>&gt;<br=
+>
+<b>Subject:</b> Re: [PATCH 3/4] drm/scheduler: add new function to get leas=
+t loaded sched v2<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">Yes, that is correct.=C2=A0<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Nayan<u></u><u></u></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<div>
+<p class=3D"MsoNormal">On Wed, Aug 1, 2018, 9:05 PM Andrey Grodzovsky &lt;<=
+a href=3D"mailto:Andrey.Grodzovsky@amd.com" target=3D"_blank">Andrey.Grodzo=
+vsky@amd.com</a>&gt; wrote:<u></u><u></u></p>
+</div>
+<blockquote style=3D"border-color:currentcolor currentcolor currentcolor rg=
+b(204,204,204);border-style:none none none solid;border-width:medium medium=
+ medium 1pt;padding:0in 0in 0in 6pt;margin-left:4.8pt;margin-right:0in">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12pt">Clarification question =
+-=C2=A0 if the run queues belong to different
+<br>
+schedulers they effectively point to different rings,<br>
+<br>
+it means we allow to move (reschedule) a drm_sched_entity from one ring <br=
+>
+to another - i assume that the idea int the first place, that<br>
+<br>
+you have a set of HW rings and you can utilize any of them for your jobs <b=
+r>
+(like compute rings). Correct ?<br>
+<br>
+Andrey<br>
+<br>
+<br>
+On 08/01/2018 04:20 AM, Nayan Deshmukh wrote:<br>
+&gt; The function selects the run queue from the rq_list with the<br>
+&gt; least load. The load is decided by the number of jobs in a<br>
+&gt; scheduler.<br>
+&gt;<br>
+&gt; v2: avoid using atomic read twice consecutively, instead store<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 it locally<br>
+&gt;<br>
+&gt; Signed-off-by: Nayan Deshmukh &lt;<a href=3D"mailto:nayan26deshmukh@gm=
+ail.com" target=3D"_blank">nayan26deshmukh@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/scheduler/gpu_scheduler.c | 25 +++++++++++=
+++++++++++++++<br>
+&gt;=C2=A0 =C2=A01 file changed, 25 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/d=
+rm/scheduler/gpu_scheduler.c<br>
+&gt; index 375f6f7f6a93..fb4e542660b0 100644<br>
+&gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
+&gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
+&gt; @@ -255,6 +255,31 @@ static bool drm_sched_entity_is_ready(struct drm_=
+sched_entity *entity)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +/**<br>
+&gt; + * drm_sched_entity_get_free_sched - Get the rq from rq_list with lea=
+st load<br>
+&gt; + *<br>
+&gt; + * @entity: scheduler entity<br>
+&gt; + *<br>
+&gt; + * Return the pointer to the rq with least load.<br>
+&gt; + */<br>
+&gt; +static struct drm_sched_rq *<br>
+&gt; +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct drm_sched_rq *rq =3D NULL;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned int min_jobs =3D UINT_MAX, num_jobs;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0int i;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; entity-&gt;num_rq_list; ++i)=
+ {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_jobs =3D atomic_r=
+ead(&amp;entity-&gt;rq_list[i]-&gt;sched-&gt;num_jobs);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (num_jobs &lt; min=
+_jobs) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0min_jobs =3D num_jobs;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0rq =3D entity-&gt;rq_list[i];<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return rq;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0static void drm_sched_entity_kill_jobs_cb(struct dma_fence=
+ *f,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dma_fence_cb =
+*cb)<br>
+&gt;=C2=A0 =C2=A0{<u></u><u></u></p>
+</blockquote>
+</div>
+</div>
+</div>
+
+</blockquote></div></div></div>
+
+--0000000000003d891d05726d8f44--
+
+--===============0878455635==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0878455635==--
