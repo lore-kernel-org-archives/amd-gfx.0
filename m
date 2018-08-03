@@ -1,29 +1,29 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: [PATCH v2] drm/scheduler: fix timeout worker setup for out of
  order job completions
 Date: Fri, 3 Aug 2018 16:55:50 +0000 (UTC)
-Message-ID: <b9fb5404-81aa-16f1-ca1c-dfd064ac4d2a@gmail.com>
+Message-ID: <b9fb5404-81aa-16f1-ca1c-dfd064ac4d2a__15093.8973216855$1533315350$gmane$org@gmail.com>
 References: <20180803142947.30724-1-l.stach@pengutronix.de>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Date: Mon, 6 Aug 2018 14:57:49 +0200
-In-Reply-To: <20180803142947.30724-1-l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
+In-Reply-To: <20180803142947.30724-1-l.stach@pengutronix.de>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, patchwork-lst-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, kernel-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Lucas Stach <l.stach@pengutronix.de>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, patchwork-lst@pengutronix.de, amd-gfx@lists.freedesktop.org, kernel@pengutronix.de, Nayan Deshmukh <nayan26deshmukh@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
 QW0gMDMuMDguMjAxOCB1bSAxNjoyOSBzY2hyaWViIEx1Y2FzIFN0YWNoOgo+IGRybV9zY2hlZF9q
 b2JfZmluaXNoKCkgaXMgYSB3b3JrIGl0ZW0gc2NoZWR1bGVkIGZvciBlYWNoIGZpbmlzaGVkIGpv
@@ -79,6 +79,6 @@ LCBzY2hlZC0+dGltZW91dCk7Cj4gICAJfQo+ICsJLyogcmVtb3ZlIGpvYiBmcm9tIHJpbmdfbWly
 cm9yX2xpc3QgKi8KPiArCWxpc3RfZGVsKCZzX2pvYi0+bm9kZSk7Cj4gICAJc3Bpbl91bmxvY2so
 JnNjaGVkLT5qb2JfbGlzdF9sb2NrKTsKPiArCj4gICAJZG1hX2ZlbmNlX3B1dCgmc19qb2ItPnNf
 ZmVuY2UtPmZpbmlzaGVkKTsKPiAgIAlzY2hlZC0+b3BzLT5mcmVlX2pvYihzX2pvYik7Cj4gICB9
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2
+ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
