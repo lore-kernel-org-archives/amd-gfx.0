@@ -1,187 +1,66 @@
-From: Nayan Deshmukh <nayan26deshmukh@gmail.com>
-Subject: Re: [PATCH] drm/scheduler: select the least loaded sched during
- entity init
-Date: Fri, 3 Aug 2018 17:23:24 +0530
-Message-ID: <CAFd4ddyBoT61FuxaVmBuYxF7Q_wPyCuonQQieYKnX8x4qc9bBw@mail.gmail.com>
-References: <20180803070628.21471-1-nayan26deshmukh@gmail.com>
- <e1b5839b-9fd2-0af6-5224-6232e2c379c7@gmail.com>
+From: Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
+Subject: [PATCH] drm/scheduler: fix timeout worker setup for out of order job
+ completions
+Date: Fri,  3 Aug 2018 15:18:25 +0200
+Message-ID: <20180803131825.21945-1-l.stach@pengutronix.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1423490041=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <e1b5839b-9fd2-0af6-5224-6232e2c379c7@gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1423490041==
-Content-Type: multipart/alternative; boundary="000000000000ec4bed05728693ef"
-
---000000000000ec4bed05728693ef
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Ah...you are correct. We will reschedule on the first job push. I didn't
-take that into account. Let's drop this patch then.
-
-Thanks,
-Nayan
-
-On Fri, Aug 3, 2018, 4:12 PM Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
-
-> Am 03.08.2018 um 09:06 schrieb Nayan Deshmukh:
-> > Instead of assigning entity to the first scheduler in the list
-> > assign it to the least loaded scheduler.
->
-> I thought about that as well, but then abandoned the idea.
->
-> The reason is that we are going to reassign the rq when the first job is
-> pushed to it anyway.
->
-> This will only become useful when we take the number of entities a rq
-> has into account for the decision as well.
->
-> Christian.
->
-> >
-> > Signed-off-by: Nayan Deshmukh <nayan26deshmukh@gmail.com>
-> > ---
-> >   drivers/gpu/drm/scheduler/gpu_scheduler.c | 4 +++-
-> >   1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > index 21fa0d8a8783..dbd707d24597 100644
-> > --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c
-> > @@ -61,6 +61,8 @@
-> >   static bool drm_sched_entity_is_ready(struct drm_sched_entity *entity=
-);
-> >   static void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
-> >   static void drm_sched_process_job(struct dma_fence *f, struct
-> dma_fence_cb *cb);
-> > +static struct drm_sched_rq *
-> > +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity);
-> >
-> >   /**
-> >    * drm_sched_rq_init - initialize a given run queue struct
-> > @@ -186,13 +188,13 @@ int drm_sched_entity_init(struct drm_sched_entity
-> *entity,
-> >
-> >       memset(entity, 0, sizeof(struct drm_sched_entity));
-> >       INIT_LIST_HEAD(&entity->list);
-> > -     entity->rq =3D rq_list[0];
-> >       entity->guilty =3D guilty;
-> >       entity->num_rq_list =3D num_rq_list;
-> >       entity->rq_list =3D kcalloc(num_rq_list, sizeof(struct drm_sched_=
-rq
-> *),
-> >                               GFP_KERNEL);
-> >       for (i =3D 0; i < num_rq_list; ++i)
-> >               entity->rq_list[i] =3D rq_list[i];
-> > +     entity->rq =3D drm_sched_entity_get_free_sched(entity);
-> >       entity->last_scheduled =3D NULL;
-> >
-> >       spin_lock_init(&entity->rq_lock);
->
->
-
---000000000000ec4bed05728693ef
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Ah...you are correct. We will reschedule on the first job=
- push. I didn&#39;t take that into account. Let&#39;s drop this patch then.=
-<div dir=3D"auto"><br></div><div dir=3D"auto">Thanks,</div><div dir=3D"auto=
-">Nayan</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, =
-Aug 3, 2018, 4:12 PM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.lei=
-chtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">Am 03.08.2018 um 09:06 schrieb Nayan De=
-shmukh:<br>
-&gt; Instead of assigning entity to the first scheduler in the list<br>
-&gt; assign it to the least loaded scheduler.<br>
-<br>
-I thought about that as well, but then abandoned the idea.<br>
-<br>
-The reason is that we are going to reassign the rq when the first job is <b=
-r>
-pushed to it anyway.<br>
-<br>
-This will only become useful when we take the number of entities a rq <br>
-has into account for the decision as well.<br>
-<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Nayan Deshmukh &lt;<a href=3D"mailto:nayan26deshmukh@gm=
-ail.com" target=3D"_blank" rel=3D"noreferrer">nayan26deshmukh@gmail.com</a>=
-&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/scheduler/gpu_scheduler.c | 4 +++-<br>
-&gt;=C2=A0 =C2=A01 file changed, 3 insertions(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/scheduler/gpu_scheduler.c b/drivers/gpu/d=
-rm/scheduler/gpu_scheduler.c<br>
-&gt; index 21fa0d8a8783..dbd707d24597 100644<br>
-&gt; --- a/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; +++ b/drivers/gpu/drm/scheduler/gpu_scheduler.c<br>
-&gt; @@ -61,6 +61,8 @@<br>
-&gt;=C2=A0 =C2=A0static bool drm_sched_entity_is_ready(struct drm_sched_ent=
-ity *entity);<br>
-&gt;=C2=A0 =C2=A0static void drm_sched_wakeup(struct drm_gpu_scheduler *sch=
-ed);<br>
-&gt;=C2=A0 =C2=A0static void drm_sched_process_job(struct dma_fence *f, str=
-uct dma_fence_cb *cb);<br>
-&gt; +static struct drm_sched_rq *<br>
-&gt; +drm_sched_entity_get_free_sched(struct drm_sched_entity *entity);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0/**<br>
-&gt;=C2=A0 =C2=A0 * drm_sched_rq_init - initialize a given run queue struct=
-<br>
-&gt; @@ -186,13 +188,13 @@ int drm_sched_entity_init(struct drm_sched_entit=
-y *entity,<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0memset(entity, 0, sizeof(struct drm_sched_en=
-tity));<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0INIT_LIST_HEAD(&amp;entity-&gt;list);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0entity-&gt;rq =3D rq_list[0];<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0entity-&gt;guilty =3D guilty;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0entity-&gt;num_rq_list =3D num_rq_list;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0entity-&gt;rq_list =3D kcalloc(num_rq_list, =
-sizeof(struct drm_sched_rq *),<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GFP_KERNEL);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; num_rq_list; ++i)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0entity-&gt;rq_li=
-st[i] =3D rq_list[i];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0entity-&gt;rq =3D drm_sched_entity_get_free_sched=
-(entity);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0entity-&gt;last_scheduled =3D NULL;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0spin_lock_init(&amp;entity-&gt;rq_lock);<br>
-<br>
-</blockquote></div>
-
---000000000000ec4bed05728693ef--
-
---===============1423490041==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, patchwork-lst-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, kernel-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1423490041==--
+ZHJtX3NjaGVkX2pvYl9maW5pc2goKSBpcyBhIHdvcmsgaXRlbSBzY2hlZHVsZWQgZm9yIGVhY2gg
+ZmluaXNoZWQgam9iIG9uCmEgdW5ib3VuZCBzeXN0ZW0gd29ya3F1ZXVlLiBUaGlzIG1lYW5zIHRo
+ZSB3b3JrZXJzIGNhbiBleGVjdXRlIG91dCBvZiBvcmRlcgp3aXRoIHJlZ2FyZCB0byB0aGUgcmVh
+bCBoYXJkd2FyZSBqb2IgY29tcGxldGlvbnMuCgpJZiB0aGlzIGhhcHBlbnMgcXVldWVpbmcgYSB0
+aW1lb3V0IHdvcmtlciBmb3IgdGhlIGZpcnN0IGpvYiBvbiB0aGUgcmluZwptaXJyb3IgbGlzdCBp
+cyB3cm9uZywgYXMgdGhpcyBtYXkgYmUgYSBqb2Igd2hpY2ggaGFzIGFscmVhZHkgZmluaXNoZWQK
+ZXhlY3V0aW5nLiBGaXggdGhpcyBieSByZW9yZ2FuaXppbmcgdGhlIGNvZGUgdG8gYWx3YXlzIHF1
+ZXVlIHRoZSB3b3JrZXIKZm9yIHRoZSBuZXh0IGpvYiBvbiB0aGUgbGlzdCwgaWYgdGhpcyBqb2Ig
+aGFzbid0IGZpbmlzaGVkIHlldC4gVGhpcyBpcwpyb2J1c3QgYWdhaW5zdCBhIHBvdGVudGlhbCBy
+ZW9yZGVyaW5nIG9mIHRoZSBmaW5pc2ggd29ya2Vycy4KCkFsc28gbW92ZSBvdXQgdGhlIHRpbWVv
+dXQgd29ya2VyIGNhbmNlbGxpbmcsIHNvIHRoYXQgd2UgZG9uJ3QgbmVlZCB0bwp0YWtlIHRoZSBq
+b2IgbGlzdCBsb2NrIHR3aWNlLiBBcyBhIHNtYWxsIG9wdGltaXphdGlvbiBsaXN0X2RlbCBpcyB1
+c2VkCnRvIHJlbW92ZSB0aGUgam9iIGZyb20gdGhlIHJpbmcgbWlycm9yIGxpc3QsIGFzIHRoZXJl
+IGlzIG5vIG5lZWQgdG8KcmVpbml0IHRoZSBsaXN0IGhlYWQgaW4gdGhlIGpvYiB3ZSBhcmUgYWJv
+dXQgdG8gZnJlZS4KClNpZ25lZC1vZmYtYnk6IEx1Y2FzIFN0YWNoIDxsLnN0YWNoQHBlbmd1dHJv
+bml4LmRlPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIHwg
+MjAgKysrKysrKysrLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyks
+IDExIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIv
+Z3B1X3NjaGVkdWxlci5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
+LmMKaW5kZXggNDRkNDgwNzY4ZGZlLi4wYmUyODU5ZDdiODAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
+Y2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCkBAIC00NTIsMjQgKzQ1MiwyMiBAQCBzdGF0aWMgdm9p
+ZCBkcm1fc2NoZWRfam9iX2ZpbmlzaChzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCiAJCQkJCQkg
+ICBmaW5pc2hfd29yayk7CiAJc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCA9IHNfam9i
+LT5zY2hlZDsKIAotCS8qIHJlbW92ZSBqb2IgZnJvbSByaW5nX21pcnJvcl9saXN0ICovCisJaWYg
+KHNjaGVkLT50aW1lb3V0ICE9IE1BWF9TQ0hFRFVMRV9USU1FT1VUKQorCQljYW5jZWxfZGVsYXll
+ZF93b3JrX3N5bmMoJnNfam9iLT53b3JrX3Rkcik7CisKIAlzcGluX2xvY2soJnNjaGVkLT5qb2Jf
+bGlzdF9sb2NrKTsKLQlsaXN0X2RlbF9pbml0KCZzX2pvYi0+bm9kZSk7CiAJaWYgKHNjaGVkLT50
+aW1lb3V0ICE9IE1BWF9TQ0hFRFVMRV9USU1FT1VUKSB7Ci0JCXN0cnVjdCBkcm1fc2NoZWRfam9i
+ICpuZXh0OwotCi0JCXNwaW5fdW5sb2NrKCZzY2hlZC0+am9iX2xpc3RfbG9jayk7Ci0JCWNhbmNl
+bF9kZWxheWVkX3dvcmtfc3luYygmc19qb2ItPndvcmtfdGRyKTsKLQkJc3Bpbl9sb2NrKCZzY2hl
+ZC0+am9iX2xpc3RfbG9jayk7CisJCXN0cnVjdCBkcm1fc2NoZWRfam9iICpuZXh0ID0gbGlzdF9u
+ZXh0X2VudHJ5KHNfam9iLCBub2RlKTsKIAogCQkvKiBxdWV1ZSBURFIgZm9yIG5leHQgam9iICov
+Ci0JCW5leHQgPSBsaXN0X2ZpcnN0X2VudHJ5X29yX251bGwoJnNjaGVkLT5yaW5nX21pcnJvcl9s
+aXN0LAotCQkJCQkJc3RydWN0IGRybV9zY2hlZF9qb2IsIG5vZGUpOwotCi0JCWlmIChuZXh0KQor
+CQlpZiAobmV4dCAhPSBzX2pvYiAmJgorCQkgICAgIWRtYV9mZW5jZV9pc19zaWduYWxlZCgmc19q
+b2ItPnNfZmVuY2UtPmZpbmlzaGVkKSkKIAkJCXNjaGVkdWxlX2RlbGF5ZWRfd29yaygmbmV4dC0+
+d29ya190ZHIsIHNjaGVkLT50aW1lb3V0KTsKIAl9CisJLyogcmVtb3ZlIGpvYiBmcm9tIHJpbmdf
+bWlycm9yX2xpc3QgKi8KKwlsaXN0X2RlbCgmc19qb2ItPm5vZGUpOwogCXNwaW5fdW5sb2NrKCZz
+Y2hlZC0+am9iX2xpc3RfbG9jayk7CisKIAlkbWFfZmVuY2VfcHV0KCZzX2pvYi0+c19mZW5jZS0+
+ZmluaXNoZWQpOwogCXNjaGVkLT5vcHMtPmZyZWVfam9iKHNfam9iKTsKIH0KLS0gCjIuMTguMAoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
