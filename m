@@ -1,70 +1,154 @@
-From: Lucas Stach <l.stach@pengutronix.de>
-Subject: [PATCH v2] drm/scheduler: fix timeout worker setup for out of order
- job completions
-Date: Fri,  3 Aug 2018 16:29:47 +0200
-Message-ID: <20180803142947.30724-1-l.stach@pengutronix.de>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm 6/6] amdgpu: always add all BOs to lockup table
+Date: Fri, 3 Aug 2018 14:30:02 +0000
+Message-ID: <BN6PR12MB1809565ADBC8EB0ECF67112BF7230@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180803113458.28560-1-christian.koenig@amd.com>
+ <20180803113458.28560-6-christian.koenig@amd.com>
+ <98a57d99-4016-8896-1791-d5550cc2c277@daenzer.net>,
+ <faabbb5b-fc6a-3c7e-a051-ce4283f45241@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, patchwork-lst@pengutronix.de, dri-devel@lists.freedesktop.org, kernel@pengutronix.de, Nayan Deshmukh <nayan26deshmukh@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0872176722=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <faabbb5b-fc6a-3c7e-a051-ce4283f45241-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-ZHJtX3NjaGVkX2pvYl9maW5pc2goKSBpcyBhIHdvcmsgaXRlbSBzY2hlZHVsZWQgZm9yIGVhY2gg
-ZmluaXNoZWQgam9iIG9uCmEgdW5ib3VuZCBzeXN0ZW0gd29ya3F1ZXVlLiBUaGlzIG1lYW5zIHRo
-ZSB3b3JrZXJzIGNhbiBleGVjdXRlIG91dCBvZiBvcmRlcgp3aXRoIHJlZ2FyZCB0byB0aGUgcmVh
-bCBoYXJkd2FyZSBqb2IgY29tcGxldGlvbnMuCgpJZiB0aGlzIGhhcHBlbnMgcXVldWVpbmcgYSB0
-aW1lb3V0IHdvcmtlciBmb3IgdGhlIGZpcnN0IGpvYiBvbiB0aGUgcmluZwptaXJyb3IgbGlzdCBp
-cyB3cm9uZywgYXMgdGhpcyBtYXkgYmUgYSBqb2Igd2hpY2ggaGFzIGFscmVhZHkgZmluaXNoZWQK
-ZXhlY3V0aW5nLiBGaXggdGhpcyBieSByZW9yZ2FuaXppbmcgdGhlIGNvZGUgdG8gYWx3YXlzIHF1
-ZXVlIHRoZSB3b3JrZXIKZm9yIHRoZSBuZXh0IGpvYiBvbiB0aGUgbGlzdCwgaWYgdGhpcyBqb2Ig
-aGFzbid0IGZpbmlzaGVkIHlldC4gVGhpcyBpcwpyb2J1c3QgYWdhaW5zdCBhIHBvdGVudGlhbCBy
-ZW9yZGVyaW5nIG9mIHRoZSBmaW5pc2ggd29ya2Vycy4KCkFsc28gbW92ZSBvdXQgdGhlIHRpbWVv
-dXQgd29ya2VyIGNhbmNlbGxpbmcsIHNvIHRoYXQgd2UgZG9uJ3QgbmVlZCB0bwp0YWtlIHRoZSBq
-b2IgbGlzdCBsb2NrIHR3aWNlLiBBcyBhIHNtYWxsIG9wdGltaXphdGlvbiBsaXN0X2RlbCBpcyB1
-c2VkCnRvIHJlbW92ZSB0aGUgam9iIGZyb20gdGhlIHJpbmcgbWlycm9yIGxpc3QsIGFzIHRoZXJl
-IGlzIG5vIG5lZWQgdG8KcmVpbml0IHRoZSBsaXN0IGhlYWQgaW4gdGhlIGpvYiB3ZSBhcmUgYWJv
-dXQgdG8gZnJlZS4KClNpZ25lZC1vZmYtYnk6IEx1Y2FzIFN0YWNoIDxsLnN0YWNoQHBlbmd1dHJv
-bml4LmRlPgotLS0KdjI6IC0gcHJvcGVybHkgaGFuZGxlIGxhc3Qgam9iIGluIHRoZSByaW5nCiAg
-ICAtIGNoZWNrIGNvcnJlY3QgZmVuY2UgZm9yIGNvbXBlbGV0aW9uCi0tLQogZHJpdmVycy9ncHUv
-ZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgfCAyMiArKysrKysrKysrLS0tLS0tLS0tLS0t
-CiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwppbmRleCA0NGQ0ODA3NjhkZmUu
-LjU3NDg3NWUyYzIwNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVf
-c2NoZWR1bGVyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
-LmMKQEAgLTQ1MiwyNCArNDUyLDIyIEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9qb2JfZmluaXNo
-KHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIAkJCQkJCSAgIGZpbmlzaF93b3JrKTsKIAlzdHJ1
-Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkID0gc19qb2ItPnNjaGVkOwogCi0JLyogcmVtb3Zl
-IGpvYiBmcm9tIHJpbmdfbWlycm9yX2xpc3QgKi8KLQlzcGluX2xvY2soJnNjaGVkLT5qb2JfbGlz
-dF9sb2NrKTsKLQlsaXN0X2RlbF9pbml0KCZzX2pvYi0+bm9kZSk7Ci0JaWYgKHNjaGVkLT50aW1l
-b3V0ICE9IE1BWF9TQ0hFRFVMRV9USU1FT1VUKSB7Ci0JCXN0cnVjdCBkcm1fc2NoZWRfam9iICpu
-ZXh0OwotCi0JCXNwaW5fdW5sb2NrKCZzY2hlZC0+am9iX2xpc3RfbG9jayk7CisJaWYgKHNjaGVk
-LT50aW1lb3V0ICE9IE1BWF9TQ0hFRFVMRV9USU1FT1VUKQogCQljYW5jZWxfZGVsYXllZF93b3Jr
-X3N5bmMoJnNfam9iLT53b3JrX3Rkcik7Ci0JCXNwaW5fbG9jaygmc2NoZWQtPmpvYl9saXN0X2xv
-Y2spOwogCi0JCS8qIHF1ZXVlIFREUiBmb3IgbmV4dCBqb2IgKi8KLQkJbmV4dCA9IGxpc3RfZmly
-c3RfZW50cnlfb3JfbnVsbCgmc2NoZWQtPnJpbmdfbWlycm9yX2xpc3QsCi0JCQkJCQlzdHJ1Y3Qg
-ZHJtX3NjaGVkX2pvYiwgbm9kZSk7CisJc3Bpbl9sb2NrKCZzY2hlZC0+am9iX2xpc3RfbG9jayk7
-CisJLyogcXVldWUgVERSIGZvciBuZXh0IGpvYiAqLworCWlmIChzY2hlZC0+dGltZW91dCAhPSBN
-QVhfU0NIRURVTEVfVElNRU9VVCAmJgorCSAgICAhbGlzdF9pc19sYXN0KCZzX2pvYi0+bm9kZSwg
-JnNjaGVkLT5yaW5nX21pcnJvcl9saXN0KSkgeworCQlzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqbmV4
-dCA9IGxpc3RfbmV4dF9lbnRyeShzX2pvYiwgbm9kZSk7CiAKLQkJaWYgKG5leHQpCisJCWlmICgh
-ZG1hX2ZlbmNlX2lzX3NpZ25hbGVkKCZuZXh0LT5zX2ZlbmNlLT5maW5pc2hlZCkpCiAJCQlzY2hl
-ZHVsZV9kZWxheWVkX3dvcmsoJm5leHQtPndvcmtfdGRyLCBzY2hlZC0+dGltZW91dCk7CiAJfQor
-CS8qIHJlbW92ZSBqb2IgZnJvbSByaW5nX21pcnJvcl9saXN0ICovCisJbGlzdF9kZWwoJnNfam9i
-LT5ub2RlKTsKIAlzcGluX3VubG9jaygmc2NoZWQtPmpvYl9saXN0X2xvY2spOworCiAJZG1hX2Zl
-bmNlX3B1dCgmc19qb2ItPnNfZmVuY2UtPmZpbmlzaGVkKTsKIAlzY2hlZC0+b3BzLT5mcmVlX2pv
-YihzX2pvYik7CiB9Ci0tIAoyLjE4LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2RyaS1kZXZlbAo=
+--===============0872176722==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809565ADBC8EB0ECF67112BF7230BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809565ADBC8EB0ECF67112BF7230BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Ping ajax or daniels or anholt on IRC.
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, August 3, 2018 9:54:42 AM
+To: Michel D=E4nzer
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH libdrm 6/6] amdgpu: always add all BOs to lockup table
+
+Am 03.08.2018 um 15:52 schrieb Michel D=E4nzer:
+> On 2018-08-03 01:34 PM, Christian K=F6nig wrote:
+>> This way we can always find a BO structure by its handle.
+>>
+>> Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> In the shortlog, should be "handle table" instead of "lockup table"?
+>
+> With that fixed, the series is
+>
+> Reviewed-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>
+>
+> Thanks for doing this!
+No, problem. Could you fix up the subject line and push it upstream?
+
+I still don't have a working fdo account again :( Alternatively do you
+know an admin I can ping about that?
+
+Thanks,
+Christian.
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809565ADBC8EB0ECF67112BF7230BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Ping ajax or daniels or anholt on=
+ IRC.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
+.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, August 3, 2018 9:54:42 AM<br>
+<b>To:</b> Michel D=E4nzer<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH libdrm 6/6] amdgpu: always add all BOs to lockup=
+ table</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 03.08.2018 um 15:52 schrieb Michel D=E4nzer:<br=
+>
+&gt; On 2018-08-03 01:34 PM, Christian K=F6nig wrote:<br>
+&gt;&gt; This way we can always find a BO structure by its handle.<br>
+&gt;&gt;<br>
+&gt;&gt; Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<=
+br>
+&gt; In the shortlog, should be &quot;handle table&quot; instead of &quot;l=
+ockup table&quot;?<br>
+&gt;<br>
+&gt; With that fixed, the series is<br>
+&gt;<br>
+&gt; Reviewed-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; Thanks for doing this!<br>
+No, problem. Could you fix up the subject line and push it upstream?<br>
+<br>
+I still don't have a working fdo account again :( Alternatively do you <br>
+know an admin I can ping about that?<br>
+<br>
+Thanks,<br>
+Christian.<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809565ADBC8EB0ECF67112BF7230BN6PR12MB1809namp_--
+
+--===============0872176722==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0872176722==--
