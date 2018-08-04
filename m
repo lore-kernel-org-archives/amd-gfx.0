@@ -1,95 +1,73 @@
-From: Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
-Subject: Re: [PATCH v2] drm/scheduler: fix timeout worker setup for out of
- order job completions
-Date: Fri, 03 Aug 2018 19:31:13 +0200
-Message-ID: <1533317473.20186.35.camel@pengutronix.de>
-References: <20180803142947.30724-1-l.stach@pengutronix.de>
- <b9fb5404-81aa-16f1-ca1c-dfd064ac4d2a@gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b9fb5404-81aa-16f1-ca1c-dfd064ac4d2a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, patchwork-lst-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, kernel-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+Subject: [PATCH] gpu: drm: radeon: radeon_test: Replace mdelay() with msleep()
+Date: Sat,  4 Aug 2018 08:01:02 +0800
+Message-ID: <20180804000102.17737-1-baijiaju1990@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Jia-Ju Bai <baijiaju1990@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gTW9udGFnLCBkZW4gMDYuMDguMjAxOCwgMTQ6NTcgKzAyMDAgc2NocmllYiBDaHJpc3RpYW4g
-S8O2bmlnOgo+IEFtIDAzLjA4LjIwMTggdW0gMTY6Mjkgc2NocmllYiBMdWNhcyBTdGFjaDoKPiA+
-IGRybV9zY2hlZF9qb2JfZmluaXNoKCkgaXMgYSB3b3JrIGl0ZW0gc2NoZWR1bGVkIGZvciBlYWNo
-IGZpbmlzaGVkIGpvYiBvbgo+ID4gYSB1bmJvdW5kIHN5c3RlbSB3b3JrcXVldWUuIFRoaXMgbWVh
-bnMgdGhlIHdvcmtlcnMgY2FuIGV4ZWN1dGUgb3V0IG9mIG9yZGVyCj4gPiB3aXRoIHJlZ2FyZCB0
-byB0aGUgcmVhbCBoYXJkd2FyZSBqb2IgY29tcGxldGlvbnMuCj4gPiAKPiA+IElmIHRoaXMgaGFw
-cGVucyBxdWV1ZWluZyBhIHRpbWVvdXQgd29ya2VyIGZvciB0aGUgZmlyc3Qgam9iIG9uIHRoZSBy
-aW5nCj4gPiBtaXJyb3IgbGlzdCBpcyB3cm9uZywgYXMgdGhpcyBtYXkgYmUgYSBqb2Igd2hpY2gg
-aGFzIGFscmVhZHkgZmluaXNoZWQKPiA+IGV4ZWN1dGluZy4gRml4IHRoaXMgYnkgcmVvcmdhbml6
-aW5nIHRoZSBjb2RlIHRvIGFsd2F5cyBxdWV1ZSB0aGUgd29ya2VyCj4gPiBmb3IgdGhlIG5leHQg
-am9iIG9uIHRoZSBsaXN0LCBpZiB0aGlzIGpvYiBoYXNuJ3QgZmluaXNoZWQgeWV0LiBUaGlzIGlz
-Cj4gPiByb2J1c3QgYWdhaW5zdCBhIHBvdGVudGlhbCByZW9yZGVyaW5nIG9mIHRoZSBmaW5pc2gg
-d29ya2Vycy4KPiA+IAo+ID4gQWxzbyBtb3ZlIG91dCB0aGUgdGltZW91dCB3b3JrZXIgY2FuY2Vs
-bGluZywgc28gdGhhdCB3ZSBkb24ndCBuZWVkIHRvCj4gPiB0YWtlIHRoZSBqb2IgbGlzdCBsb2Nr
-IHR3aWNlLiBBcyBhIHNtYWxsIG9wdGltaXphdGlvbiBsaXN0X2RlbCBpcyB1c2VkCj4gPiB0byBy
-ZW1vdmUgdGhlIGpvYiBmcm9tIHRoZSByaW5nIG1pcnJvciBsaXN0LCBhcyB0aGVyZSBpcyBubyBu
-ZWVkIHRvCj4gPiByZWluaXQgdGhlIGxpc3QgaGVhZCBpbiB0aGUgam9iIHdlIGFyZSBhYm91dCB0
-byBmcmVlLgo+ID4gCj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogTHVjYXMgU3RhY2ggPGwuc3RhY2hA
-cGVuZ3V0cm9uaXguZGU+Cj4gPiAtLS0KPiA+IHYyOiAtIHByb3Blcmx5IGhhbmRsZSBsYXN0IGpv
-YiBpbiB0aGUgcmluZwo+ID4gwqDCoMKgwqDCoC0gY2hlY2sgY29ycmVjdCBmZW5jZSBmb3IgY29t
-cGVsZXRpb24KPiA+IC0tLQo+ID4gwqAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9ncHVfc2No
-ZWR1bGVyLmMgfCAyMiArKysrKysrKysrLS0tLS0tLS0tLS0tCj4gPiDCoCAxIGZpbGUgY2hhbmdl
-ZCwgMTAgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4gPiBpbmRleCA0NGQ0ODA3NjhkZmUuLjU3
-NDg3NWUyYzIwNiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvZ3B1
-X3NjaGVkdWxlci5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL2dwdV9zY2hl
-ZHVsZXIuYwo+ID4gQEAgLTQ1MiwyNCArNDUyLDIyIEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9q
-b2JfZmluaXNoKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKPiA+ID4gPiDCoMKgCQkJCQkJwqDC
-oMKgZmluaXNoX3dvcmspOwo+ID4gPiA+IMKgwqAJc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpz
-Y2hlZCA9IHNfam9iLT5zY2hlZDsKPiA+IMKgwqAKPiA+ID4gPiAtCS8qIHJlbW92ZSBqb2IgZnJv
-bSByaW5nX21pcnJvcl9saXN0ICovCj4gPiA+ID4gLQlzcGluX2xvY2soJnNjaGVkLT5qb2JfbGlz
-dF9sb2NrKTsKPiA+ID4gPiAtCWxpc3RfZGVsX2luaXQoJnNfam9iLT5ub2RlKTsKPiA+ID4gPiAt
-CWlmIChzY2hlZC0+dGltZW91dCAhPSBNQVhfU0NIRURVTEVfVElNRU9VVCkgewo+ID4gPiA+IC0J
-CXN0cnVjdCBkcm1fc2NoZWRfam9iICpuZXh0Owo+ID4gLQo+ID4gPiA+IC0JCXNwaW5fdW5sb2Nr
-KCZzY2hlZC0+am9iX2xpc3RfbG9jayk7Cj4gPiA+ID4gKwlpZiAoc2NoZWQtPnRpbWVvdXQgIT0g
-TUFYX1NDSEVEVUxFX1RJTUVPVVQpCj4gPiDCoMKgCQljYW5jZWxfZGVsYXllZF93b3JrX3N5bmMo
-JnNfam9iLT53b3JrX3Rkcik7Cj4gCj4gVGhhdCBpcyB1bmZvcnR1bmF0ZWx5IHN0aWxsIHJhY3kg
-aGVyZS4KPiAKPiBCZXR3ZWVuIGNhbmNlbGluZyB0aGUgam9iIGFuZCByZW1vdmluZyBpdCBmcm9t
-IHRoZSBsaXN0IHNvbWVvbmUgY291bGTCoAo+IGFjdHVhbGx5IHN0YXJ0IHRoZSB0aW1lIChpbiB0
-aGVvcnkpIDopCj4gCj4gQ2FuY2VsIGl0LCByZW1vdmUgaXQgZnJvbSB0aGUgbGlzdCBhbmQgY2Fu
-Y2VsIGl0IGFnYWluLgoKSSBkb24ndCBzZWUgaG93LiBJZiB3ZSBlbmQgdXAgaW4gdGhpcyB3b3Jr
-ZXIgdGhlIGZpbmlzaGVkIGZlbmNlIG9mIHRoZQpqb2IgaXMgYWxyZWFkeSBjZXJ0YWlubHkgc2ln
-bmFsZWQgKGFzIHRoaXMgaXMgd2hhdCB0cmlnZ2VycyBxdWV1ZWluZyBvZgp0aGUgd29ya2VyKS4g
-U28gZXZlbiBpZiBzb21lIG90aGVyIHdvcmtlciBtYW5hZ2VzIHRvIGZpbmQgdGhpcyBqb2IgYXMK
-dGhlIG5leHQgam9iIGluIHRoZSBsaXN0LCB0aGUgZG1hX2ZlbmNlX2lzX3NpZ25hbGVkIGNoZWNr
-IHNob3VsZApwcmV2ZW50IHRoZSB0aW1lb3V0IHdvcmtlciBmcm9tIGdldHRpbmcgc2NoZWR1bGVk
-IGFnYWluLgoKPiBCVFc6IFlvdSBjb3VsZCBjb21wbGV0ZWx5IGRyb3AgdGhlICJpZiAoc2NoZWQt
-PnRpbWVvdXQgIT3CoAo+IE1BWF9TQ0hFRFVMRV9USU1FT1VUKSIgaGVyZSBjYXVzZSBjYW5jZWxp
-bmcgaXMgaGFybWxlc3MgYXMgbG9uZyBhcyB0aGXCoAo+IHN0cnVjdHVyZSBpcyBpbml0aWFsaXpl
-ZC4KClJpZ2h0LgoKUmVnYXJkcywKTHVjYXMKCj4gQ2hyaXN0aWFuLgo+IAo+ID4gPiA+IC0JCXNw
-aW5fbG9jaygmc2NoZWQtPmpvYl9saXN0X2xvY2spOwo+ID4gwqDCoAo+ID4gPiA+IC0JCS8qIHF1
-ZXVlIFREUiBmb3IgbmV4dCBqb2IgKi8KPiA+ID4gPiAtCQluZXh0ID0gbGlzdF9maXJzdF9lbnRy
-eV9vcl9udWxsKCZzY2hlZC0+cmluZ19taXJyb3JfbGlzdCwKPiA+ID4gPiAtCQkJCQkJc3RydWN0
-IGRybV9zY2hlZF9qb2IsIG5vZGUpOwo+ID4gPiA+ICsJc3Bpbl9sb2NrKCZzY2hlZC0+am9iX2xp
-c3RfbG9jayk7Cj4gPiA+ID4gKwkvKiBxdWV1ZSBURFIgZm9yIG5leHQgam9iICovCj4gPiA+ID4g
-KwlpZiAoc2NoZWQtPnRpbWVvdXQgIT0gTUFYX1NDSEVEVUxFX1RJTUVPVVQgJiYKPiA+ID4gPiAr
-CcKgwqDCoMKgIWxpc3RfaXNfbGFzdCgmc19qb2ItPm5vZGUsICZzY2hlZC0+cmluZ19taXJyb3Jf
-bGlzdCkpIHsKPiA+ID4gPiArCQlzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqbmV4dCA9IGxpc3RfbmV4
-dF9lbnRyeShzX2pvYiwgbm9kZSk7Cj4gPiDCoMKgCj4gPiA+ID4gLQkJaWYgKG5leHQpCj4gPiA+
-ID4gKwkJaWYgKCFkbWFfZmVuY2VfaXNfc2lnbmFsZWQoJm5leHQtPnNfZmVuY2UtPmZpbmlzaGVk
-KSkKPiA+ID4gPiDCoMKgCQkJc2NoZWR1bGVfZGVsYXllZF93b3JrKCZuZXh0LT53b3JrX3Rkciwg
-c2NoZWQtPnRpbWVvdXQpOwo+ID4gPiA+IMKgwqAJfQo+ID4gPiA+ICsJLyogcmVtb3ZlIGpvYiBm
-cm9tIHJpbmdfbWlycm9yX2xpc3QgKi8KPiA+ID4gPiArCWxpc3RfZGVsKCZzX2pvYi0+bm9kZSk7
-Cj4gPiA+ID4gwqDCoAlzcGluX3VubG9jaygmc2NoZWQtPmpvYl9saXN0X2xvY2spOwo+ID4gKwo+
-ID4gPiA+IMKgwqAJZG1hX2ZlbmNlX3B1dCgmc19qb2ItPnNfZmVuY2UtPmZpbmlzaGVkKTsKPiA+
-ID4gPiDCoMKgCXNjaGVkLT5vcHMtPmZyZWVfam9iKHNfam9iKTsKPiA+IMKgIH0KPiAKPiAKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+radeon_test_ring_sync() and radeon_test_ring_sync2() are never 
+called in atomic context.
+They call mdelay() to busily wait, which is not necessary.
+mdelay() can be replaced with msleep().
+
+This is found by a static analysis tool named DCNS written by myself.
+
+Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
+---
+ drivers/gpu/drm/radeon/radeon_test.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_test.c b/drivers/gpu/drm/radeon/radeon_test.c
+index f5e9abfadb56..411efa303f54 100644
+--- a/drivers/gpu/drm/radeon/radeon_test.c
++++ b/drivers/gpu/drm/radeon/radeon_test.c
+@@ -347,7 +347,7 @@ void radeon_test_ring_sync(struct radeon_device *rdev,
+ 	if (r)
+ 		goto out_cleanup;
+ 
+-	mdelay(1000);
++	msleep(1000);
+ 
+ 	if (radeon_fence_signaled(fence1)) {
+ 		DRM_ERROR("Fence 1 signaled without waiting for semaphore.\n");
+@@ -368,7 +368,7 @@ void radeon_test_ring_sync(struct radeon_device *rdev,
+ 		goto out_cleanup;
+ 	}
+ 
+-	mdelay(1000);
++	msleep(1000);
+ 
+ 	if (radeon_fence_signaled(fence2)) {
+ 		DRM_ERROR("Fence 2 signaled without waiting for semaphore.\n");
+@@ -441,7 +441,7 @@ static void radeon_test_ring_sync2(struct radeon_device *rdev,
+ 	if (r)
+ 		goto out_cleanup;
+ 
+-	mdelay(1000);
++	msleep(1000);
+ 
+ 	if (radeon_fence_signaled(fenceA)) {
+ 		DRM_ERROR("Fence A signaled without waiting for semaphore.\n");
+@@ -461,7 +461,7 @@ static void radeon_test_ring_sync2(struct radeon_device *rdev,
+ 	radeon_ring_unlock_commit(rdev, ringC, false);
+ 
+ 	for (i = 0; i < 30; ++i) {
+-		mdelay(100);
++		msleep(100);
+ 		sigA = radeon_fence_signaled(fenceA);
+ 		sigB = radeon_fence_signaled(fenceB);
+ 		if (sigA || sigB)
+@@ -486,7 +486,7 @@ static void radeon_test_ring_sync2(struct radeon_device *rdev,
+ 	radeon_semaphore_emit_signal(rdev, ringC->idx, semaphore);
+ 	radeon_ring_unlock_commit(rdev, ringC, false);
+ 
+-	mdelay(1000);
++	msleep(1000);
+ 
+ 	r = radeon_fence_wait(fenceA, false);
+ 	if (r) {
+-- 
+2.17.0
