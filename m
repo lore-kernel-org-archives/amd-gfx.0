@@ -1,45 +1,43 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: RFC: Add write flag to reservation object fences
-Date: Fri, 10 Aug 2018 11:28:23 +0200
-Message-ID: <CAKMK7uFGv_9jmv+5AOPnwmaXdzuV=e4S_B2nySmJa-Vos39Njg@mail.gmail.com>
-References: <20180809113713.48024-1-christian.koenig@amd.com>
- <20180809133851.GN3008@phenom.ffwll.local>
- <154cc05d-f2e1-695a-5bd3-a2fd5d40a548@gmail.com>
- <CAKMK7uHgwFr1P3s=TcZ_NMuexCwoO1FkEn9q3CaYaGyBKviB-g@mail.gmail.com>
- <9731d8b0-238b-d64d-9f80-4f549eb230b9@amd.com>
- <CAKMK7uH2ZvkmTVcPJwKjouxdvrLKVXBVGSFKAD5rtQrXLoX_GQ@mail.gmail.com>
- <f0e14bab-26d2-13fc-8af6-a147c3260450@amd.com>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix integer overflow test in
+ amdgpu_bo_list_create()
+Date: Fri, 10 Aug 2018 13:50:32 +0300
+Message-ID: <20180810105032.cltqjuv7tqfud7n6@kili.mountain>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-In-Reply-To: <f0e14bab-26d2-13fc-8af6-a147c3260450@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Bas Nieuwenhuizen <basni-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Cihangir Akturk <cakturk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
 
-T24gRnJpLCBBdWcgMTAsIDIwMTggYXQgMTE6MTQgQU0sIENocmlzdGlhbiBLw7ZuaWcKPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj4gQW0gMTAuMDguMjAxOCB1bSAxMDoyOSBzY2hy
-aWViIERhbmllbCBWZXR0ZXI6Cj4+Cj4+IFtTTklQXQo+PiBJJ20gb25seSBpbnRlcmVzdGVkIGlu
-IHRoZSBjYXNlIG9mIHNoYXJlZCBidWZmZXJzLiBBbmQgZm9yIHRob3NlIHlvdQo+PiBfZG9fIHBl
-c3NpbWlzdGljYWxseSBhc3N1bWUgdGhhdCBhbGwgYWNjZXNzIG11c3QgYmUgaW1wbGljaXRseSBz
-eW5jZWQuCj4+IElpcmMgYW1kZ3B1IGRvZXNuJ3Qgc3VwcG9ydCBFR0xfQU5EUk9JRF9uYXRpdmVf
-ZmVuY2Vfc3luYywgc28gdGhpcwo+PiBtYWtlcyBzZW5zZSB0aGF0IHlvdSBkb24ndCBib3RoZXIg
-d2l0aCBpdC4KPgo+Cj4gU2VlIGZsYWcgQU1ER1BVX0dFTV9DUkVBVEVfRVhQTElDSVRfU1lOQy4K
-ClRoYXQncyBmb3IgcmFkdi4gV29uJ3QgYmUgZW5vdWdoIGZvciBFR0xfQU5EUk9JRF9uYXRpdmVf
-ZmVuY2Vfc3luYywKYmVjYXVzZSB5b3UgY2Fubm90IGtub3cgYXQgYnVmZmVyIGFsbG9jYXRpb24g
-dGltZSBob3cgdGhlIGZlbmNpbmcgd2lsbApiZSBkb25lIGluIGFsbCBjYXNlcy4KLURhbmllbAot
-LSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KKzQx
-ICgwKSA3OSAzNjUgNTcgNDggLSBodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0Cklu
-dGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+V2UgYWNjaWRlbnRhbGx5IGxlZnQgb3V0IHRoZSBzaXplIG9mIHRoZSBhbWRncHVfYm9fbGlzdCBz
+dHJ1Y3QuICBJdApjb3VsZCBsZWFkIHRvIG1lbW9yeSBjb3JydXB0aW9uIG9uIDMyIGJpdCBzeXN0
+ZW1zLiAgWW91J2QgaGF2ZSB0bwpwaWNrIHRoZSBhYnNvbHV0ZSBtYXhpbXVtIGFuZCBzZXQgIm51
+bV9lbnRyaWVzID09IDU5NjUyMzIzIiB0aGVuIHNpemUKd291bGQgd3JhcCB0byAxNiBieXRlcy4K
+CkZpeGVzOiA5MjA5OTBjYjA4MGEgKCJkcm0vYW1kZ3B1OiBhbGxvY2F0ZSB0aGUgYm9fbGlzdCBh
+cnJheSBhZnRlciB0aGUgbGlzdCIpClNpZ25lZC1vZmYtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5j
+YXJwZW50ZXJAb3JhY2xlLmNvbT4KCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfYm9fbGlzdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2JvX2xpc3QuYwppbmRleCBkNDcyYTJjODM5OWYuLmI4MDI0M2QzOTcyZSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCkBAIC02Nyw3ICs2Nyw4IEBAIGlu
+dCBhbWRncHVfYm9fbGlzdF9jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVj
+dCBkcm1fZmlsZSAqZmlscCwKIAl1bnNpZ25lZCBpOwogCWludCByOwogCi0JaWYgKG51bV9lbnRy
+aWVzID4gU0laRV9NQVggLyBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0X2VudHJ5KSkKKwlp
+ZiAobnVtX2VudHJpZXMgPiAoU0laRV9NQVggLSBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0
+KSkKKwkJCQkvIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnkpKQogCQlyZXR1cm4g
+LUVJTlZBTDsKIAogCXNpemUgPSBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0KTsKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
