@@ -1,11 +1,13 @@
-From: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdpu/vce_v3: skip suspend and resume if powergated
-Date: Fri, 10 Aug 2018 11:45:00 +0530
-Message-ID: <1533881700-10371-1-git-send-email-shirish.s@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdpu/vce_v3: skip suspend and resume if powergated
+Date: Fri, 10 Aug 2018 06:32:36 +0000
+Message-ID: <BYAPR12MB2775F1BD12A3F215A6F5C936FB240@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <1533881700-10371-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1056128379=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1533881700-10371-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,55 +18,310 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: alexander.deucher-5C7GfCeVMHo@public.gmane.org, rex.zhu-5C7GfCeVMHo@public.gmane.org, leo.liu-5C7GfCeVMHo@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhpcyBwYXRjaCBhZGRzIGEgbWVjaGFuaXNtIGJ5IHdoaWNoIHRoZSBWQ0UgMy4wIGJsb2NrCnNo
-YWxsIGNoZWNrIGlmIGl0IHdhcyBlbmFibGVkIG9yIGluIHVzZSBiZWZvcmUgc3VzcGVuZGluZywK
-aWYgaXQgd2FzIHBvd2VyZ2F0ZWQgd2hpbGUgZW50ZXJpbmcgc3VzcGVuZCB0aGVuIHRoZXJlCmlz
-IG5vIG5lZWQgdG8gcmVwZWF0IGl0IGluIHZjZV8zXzBfc3VzcGVuZCgpLgpTaW1pbGFybHksIGlm
-IHRoZSBibG9jayB3YXMgcG93ZXJnYXRlZCB3aGlsZSBlbnRlcmluZyBzdXNwZW5kCml0c2VsZiB0
-aGVuIHRoZXJlIGlzIG5vIG5lZWQgdG8gcmVzdW1lIGl0LgoKQnkgdGhpcyB3ZSBub3Qgb25seSBt
-YWtlIHRoZSBzdXNwZW5kIGFuZCByZXN1bWUgc2VxdWVuY2UKbW9yZSBlZmZpY2llbnQsIGJ1dCBh
-bHNvIG9wdGltaXplIHRoZSBvdmVyYWxsIGFtZGdwdSBzdXNwZW5kCmFuZCByZXN1bWUgdGltZSBi
-eSByZWR1Y2luZyB0aGUgcmluZyBpbnRpYWxpemUgYW5kIHRlc3RzCmZvciB1bnVzZWQgSVAgYmxv
-Y2tzLgoKU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgIHwgIDIgKysKIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMgfCAyMSArKysrKysrKysrKysrKysrKysrKysKIDIg
-ZmlsZXMgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKaW5kZXggMDc5MjRkNC4uYWE4NTA2MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKQEAgLTEwMzUsNiArMTAzNSw4IEBAIHN0cnVjdCBhbWRncHVfZGV2aWNlIHsKIAogCS8q
-IHZjZSAqLwogCXN0cnVjdCBhbWRncHVfdmNlCQl2Y2U7CisJYm9vbAkJCQlpc192Y2VfcGc7CisJ
-Ym9vbAkJCQlpc192Y2VfZGlzYWJsZWQ7CiAKIAkvKiB2Y24gKi8KIAlzdHJ1Y3QgYW1kZ3B1X3Zj
-bgkJdmNuOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKaW5kZXggY2M2Y2U2Yy4u
-ODIyY2ZkNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjNfMC5jCkBAIC0zMjYsNiAr
-MzI2LDcgQEAgc3RhdGljIGludCB2Y2VfdjNfMF9zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKIAlXUkVHMzIobW1HUkJNX0dGWF9JTkRFWCwgbW1HUkJNX0dGWF9JTkRFWF9ERUZBVUxU
-KTsKIAltdXRleF91bmxvY2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsKIAorCWFkZXYtPmlzX3Zj
-ZV9wZyA9IGZhbHNlOwogCXJldHVybiAwOwogfQogCkBAIC0zNTUsNiArMzU2LDcgQEAgc3RhdGlj
-IGludCB2Y2VfdjNfMF9zdG9wKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCVdSRUczMiht
-bUdSQk1fR0ZYX0lOREVYLCBtbUdSQk1fR0ZYX0lOREVYX0RFRkFVTFQpOwogCW11dGV4X3VubG9j
-aygmYWRldi0+Z3JibV9pZHhfbXV0ZXgpOwogCisJYWRldi0+aXNfdmNlX3BnID0gdHJ1ZTsKIAly
-ZXR1cm4gMDsKIH0KIApAQCAtNTA2LDYgKzUwOCwxNyBAQCBzdGF0aWMgaW50IHZjZV92M18wX3N1
-c3BlbmQodm9pZCAqaGFuZGxlKQogCWludCByOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwogCisJLyogUHJvY2VlZCB3aXRoIHN1
-c3BlbmQgc2VxdWVuY2Ugb25seSBpZiBWQ0UgaXMgc3RhcnRlZAorCSAqIE1hcmsgdGhlIGJsb2Nr
-IGFzIGJlaW5nIGRpc2FibGVkIGlmIGl0cyBzdG9wcGVkLgorCSAqLworCWlmIChhZGV2LT5pc192
-Y2VfcGcpIHsKKwkJRFJNX0RFQlVHKCJWQ0UgaXMgYWxyZWFkeSBwb3dlcmdhdGVkLCBub3Qgc3Vz
-cGVuZGluZ1xuIik7CisJCWFkZXYtPmlzX3ZjZV9kaXNhYmxlZCA9IHRydWU7CisJCXJldHVybiAw
-OworCX0KKworCWFkZXYtPmlzX3ZjZV9kaXNhYmxlZCA9IGZhbHNlOworCiAJciA9IHZjZV92M18w
-X2h3X2ZpbmkoYWRldik7CiAJaWYgKHIpCiAJCXJldHVybiByOwpAQCAtNTE4LDYgKzUzMSwxNCBA
-QCBzdGF0aWMgaW50IHZjZV92M18wX3Jlc3VtZSh2b2lkICpoYW5kbGUpCiAJaW50IHI7CiAJc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7
-CiAKKwkvKiBQcm9jZWVkIHdpdGggcmVzdW1lIHNlcXVlbmNlIGlmIFZDRSB3YXMgZW5hYmxlZAor
-CSAqIHdoaWxlIHN1c3BlbmRpbmcuCisJICovCisJaWYgKGFkZXYtPmlzX3ZjZV9kaXNhYmxlZCkg
-eworCQlEUk1fREVCVUcoIlZDRSBpcyBwb3dlcmdhdGVkLCBub3QgcmVzdW1pbmcgdGhlIGJsb2Nr
-XG4iKTsKKwkJcmV0dXJuIDA7CisJfQorCiAJciA9IGFtZGdwdV92Y2VfcmVzdW1lKGFkZXYpOwog
-CWlmIChyKQogCQlyZXR1cm4gcjsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+--===============1056128379==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB2775F1BD12A3F215A6F5C936FB240BYAPR12MB2775namp_"
+
+--_000_BYAPR12MB2775F1BD12A3F215A6F5C936FB240BYAPR12MB2775namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+I am Ok with the check when call vce_v3_0_hw_fini.
+
+
+But we may still need to call amdpug_vce_suspend/resume.
+
+and not sure whether need to do ring test when resume back.
+
+
+Best Regards
+
+Rex
+
+________________________________
+From: S, Shirish
+Sent: Friday, August 10, 2018 2:15 PM
+To: Deucher, Alexander; Zhu, Rex; Liu, Leo
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; S, Shirish
+Subject: [PATCH] drm/amdpu/vce_v3: skip suspend and resume if powergated
+
+This patch adds a mechanism by which the VCE 3.0 block
+shall check if it was enabled or in use before suspending,
+if it was powergated while entering suspend then there
+is no need to repeat it in vce_3_0_suspend().
+Similarly, if the block was powergated while entering suspend
+itself then there is no need to resume it.
+
+By this we not only make the suspend and resume sequence
+more efficient, but also optimize the overall amdgpu suspend
+and resume time by reducing the ring intialize and tests
+for unused IP blocks.
+
+Signed-off-by: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h   |  2 ++
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 21 +++++++++++++++++++++
+ 2 files changed, 23 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index 07924d4..aa85063 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1035,6 +1035,8 @@ struct amdgpu_device {
+
+         /* vce */
+         struct amdgpu_vce               vce;
++       bool                            is_vce_pg;
++       bool                            is_vce_disabled;
+
+         /* vcn */
+         struct amdgpu_vcn               vcn;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v3_0.c
+index cc6ce6c..822cfd6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -326,6 +326,7 @@ static int vce_v3_0_start(struct amdgpu_device *adev)
+         WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
+         mutex_unlock(&adev->grbm_idx_mutex);
+
++       adev->is_vce_pg =3D false;
+         return 0;
+ }
+
+@@ -355,6 +356,7 @@ static int vce_v3_0_stop(struct amdgpu_device *adev)
+         WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
+         mutex_unlock(&adev->grbm_idx_mutex);
+
++       adev->is_vce_pg =3D true;
+         return 0;
+ }
+
+@@ -506,6 +508,17 @@ static int vce_v3_0_suspend(void *handle)
+         int r;
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+
++       /* Proceed with suspend sequence only if VCE is started
++        * Mark the block as being disabled if its stopped.
++        */
++       if (adev->is_vce_pg) {
++               DRM_DEBUG("VCE is already powergated, not suspending\n");
++               adev->is_vce_disabled =3D true;
++               return 0;
++       }
++
++       adev->is_vce_disabled =3D false;
++
+         r =3D vce_v3_0_hw_fini(adev);
+         if (r)
+                 return r;
+@@ -518,6 +531,14 @@ static int vce_v3_0_resume(void *handle)
+         int r;
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+
++       /* Proceed with resume sequence if VCE was enabled
++        * while suspending.
++        */
++       if (adev->is_vce_disabled) {
++               DRM_DEBUG("VCE is powergated, not resuming the block\n");
++               return 0;
++       }
++
+         r =3D amdgpu_vce_resume(adev);
+         if (r)
+                 return r;
+--
+2.7.4
+
+
+--_000_BYAPR12MB2775F1BD12A3F215A6F5C936FB240BYAPR12MB2775namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">I am Ok with the check when call =
+vce_v3_0_hw_fini.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">But we may still need to call amd=
+pug_vce_suspend/resume.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+and not sure whether need to do ring test when resume back.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> S, Shirish<br>
+<b>Sent:</b> Friday, August 10, 2018 2:15 PM<br>
+<b>To:</b> Deucher, Alexander; Zhu, Rex; Liu, Leo<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; S, Shirish<br>
+<b>Subject:</b> [PATCH] drm/amdpu/vce_v3: skip suspend and resume if powerg=
+ated</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This patch adds a mechanism by which the VCE 3.0 b=
+lock<br>
+shall check if it was enabled or in use before suspending,<br>
+if it was powergated while entering suspend then there<br>
+is no need to repeat it in vce_3_0_suspend().<br>
+Similarly, if the block was powergated while entering suspend<br>
+itself then there is no need to resume it.<br>
+<br>
+By this we not only make the suspend and resume sequence<br>
+more efficient, but also optimize the overall amdgpu suspend<br>
+and resume time by reducing the ring intialize and tests<br>
+for unused IP blocks.<br>
+<br>
+Signed-off-by: Shirish S &lt;shirish.s-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp; |&nbsp; 2 &#43;&#43;<=
+br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 21 &#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;<br>
+&nbsp;2 files changed, 23 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index 07924d4..aa85063 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -1035,6 &#43;1035,8 @@ struct amdgpu_device {<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* vce */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vce&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ vce;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is_vce_pg;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is_vce_disabled;=
+<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* vcn */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vcn&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ vcn;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v3_0.c<br>
+index cc6ce6c..822cfd6 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c<br>
+@@ -326,6 &#43;326,7 @@ static int vce_v3_0_start(struct amdgpu_device *ade=
+v)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRBM_GFX_INDEX, m=
+mGRBM_GFX_INDEX_DEFAULT);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt=
+;grbm_idx_mutex);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;is_vce_pg =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -355,6 &#43;356,7 @@ static int vce_v3_0_stop(struct amdgpu_device *adev=
+)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRBM_GFX_INDEX, m=
+mGRBM_GFX_INDEX_DEFAULT);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt=
+;grbm_idx_mutex);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;is_vce_pg =3D true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -506,6 &#43;508,17 @@ static int vce_v3_0_suspend(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Proceed with suspend sequence =
+only if VCE is started<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Mark the block as being d=
+isabled if its stopped.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;is_vce_pg) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_DEBUG(&quot;VCE is already powergated, not suspending\n&=
+quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;is_vce_disabled =3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;is_vce_disabled =3D fals=
+e;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D vce_v3_0_hw_fini(ade=
+v);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+@@ -518,6 &#43;531,14 @@ static int vce_v3_0_resume(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Proceed with resume sequence i=
+f VCE was enabled<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * while suspending.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;is_vce_disabled) {<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_DEBUG(&quot;VCE is powergated, not resuming the block\n&=
+quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vce_resume(ad=
+ev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+-- <br>
+2.7.4<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB2775F1BD12A3F215A6F5C936FB240BYAPR12MB2775namp_--
+
+--===============1056128379==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1056128379==--
