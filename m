@@ -1,13 +1,14 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix integer overflow test in
+From: Bas Nieuwenhuizen <basni-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix integer overflow test in
  amdgpu_bo_list_create()
-Date: Fri, 10 Aug 2018 13:50:32 +0300
-Message-ID: <20180810105032.cltqjuv7tqfud7n6@kili.mountain>
+Date: Fri, 10 Aug 2018 13:12:25 +0200
+Message-ID: <CAC4kW=17zmypYqmALjqggyZoCe10T9xV0ssQL-kNLr8DPZf-KQ@mail.gmail.com>
+References: <20180810105032.cltqjuv7tqfud7n6@kili.mountain>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
+In-Reply-To: <20180810105032.cltqjuv7tqfud7n6-vMlZ3nK25oGAIHFoDFOv9A@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,26 +19,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Bas Nieuwenhuizen <basni-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Cihangir Akturk <cakturk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+To: dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org
+Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, cakturk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, kent.russell-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-V2UgYWNjaWRlbnRhbGx5IGxlZnQgb3V0IHRoZSBzaXplIG9mIHRoZSBhbWRncHVfYm9fbGlzdCBz
-dHJ1Y3QuICBJdApjb3VsZCBsZWFkIHRvIG1lbW9yeSBjb3JydXB0aW9uIG9uIDMyIGJpdCBzeXN0
-ZW1zLiAgWW91J2QgaGF2ZSB0bwpwaWNrIHRoZSBhYnNvbHV0ZSBtYXhpbXVtIGFuZCBzZXQgIm51
-bV9lbnRyaWVzID09IDU5NjUyMzIzIiB0aGVuIHNpemUKd291bGQgd3JhcCB0byAxNiBieXRlcy4K
-CkZpeGVzOiA5MjA5OTBjYjA4MGEgKCJkcm0vYW1kZ3B1OiBhbGxvY2F0ZSB0aGUgYm9fbGlzdCBh
-cnJheSBhZnRlciB0aGUgbGlzdCIpClNpZ25lZC1vZmYtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5j
-YXJwZW50ZXJAb3JhY2xlLmNvbT4KCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYm9fbGlzdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2JvX2xpc3QuYwppbmRleCBkNDcyYTJjODM5OWYuLmI4MDI0M2QzOTcyZSAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCkBAIC02Nyw3ICs2Nyw4IEBAIGlu
-dCBhbWRncHVfYm9fbGlzdF9jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVj
-dCBkcm1fZmlsZSAqZmlscCwKIAl1bnNpZ25lZCBpOwogCWludCByOwogCi0JaWYgKG51bV9lbnRy
-aWVzID4gU0laRV9NQVggLyBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0X2VudHJ5KSkKKwlp
-ZiAobnVtX2VudHJpZXMgPiAoU0laRV9NQVggLSBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0
-KSkKKwkJCQkvIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnkpKQogCQlyZXR1cm4g
-LUVJTlZBTDsKIAogCXNpemUgPSBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0KTsKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+UmV2aWV3ZWQtYnk6IEJhcyBOaWV1d2VuaHVpemVuIDxiYXNuaUBjaHJvbWl1bS5vcmc+Ck9uIEZy
+aSwgQXVnIDEwLCAyMDE4IGF0IDEyOjUwIFBNIERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJA
+b3JhY2xlLmNvbT4gd3JvdGU6Cj4KPiBXZSBhY2NpZGVudGFsbHkgbGVmdCBvdXQgdGhlIHNpemUg
+b2YgdGhlIGFtZGdwdV9ib19saXN0IHN0cnVjdC4gIEl0Cj4gY291bGQgbGVhZCB0byBtZW1vcnkg
+Y29ycnVwdGlvbiBvbiAzMiBiaXQgc3lzdGVtcy4gIFlvdSdkIGhhdmUgdG8KPiBwaWNrIHRoZSBh
+YnNvbHV0ZSBtYXhpbXVtIGFuZCBzZXQgIm51bV9lbnRyaWVzID09IDU5NjUyMzIzIiB0aGVuIHNp
+emUKPiB3b3VsZCB3cmFwIHRvIDE2IGJ5dGVzLgo+Cj4gRml4ZXM6IDkyMDk5MGNiMDgwYSAoImRy
+bS9hbWRncHU6IGFsbG9jYXRlIHRoZSBib19saXN0IGFycmF5IGFmdGVyIHRoZSBsaXN0IikKPiBT
+aWduZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVudGVyQG9yYWNsZS5jb20+Cj4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3Qu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKPiBpbmRleCBk
+NDcyYTJjODM5OWYuLmI4MDI0M2QzOTcyZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2JvX2xpc3QuYwo+IEBAIC02Nyw3ICs2Nyw4IEBAIGludCBhbWRncHVfYm9f
+bGlzdF9jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBkcm1fZmlsZSAq
+ZmlscCwKPiAgICAgICAgIHVuc2lnbmVkIGk7Cj4gICAgICAgICBpbnQgcjsKPgo+IC0gICAgICAg
+aWYgKG51bV9lbnRyaWVzID4gU0laRV9NQVggLyBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0
+X2VudHJ5KSkKPiArICAgICAgIGlmIChudW1fZW50cmllcyA+IChTSVpFX01BWCAtIHNpemVvZihz
+dHJ1Y3QgYW1kZ3B1X2JvX2xpc3QpKQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+LyBzaXplb2Yoc3RydWN0IGFtZGdwdV9ib19saXN0X2VudHJ5KSkKPiAgICAgICAgICAgICAgICAg
+cmV0dXJuIC1FSU5WQUw7Cj4KPiAgICAgICAgIHNpemUgPSBzaXplb2Yoc3RydWN0IGFtZGdwdV9i
+b19saXN0KTsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
