@@ -1,14 +1,13 @@
-From: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH libdrm 1/2] amdgpu: add a function to create amdgpu bo
- internally (v3)
-Date: Fri, 10 Aug 2018 05:55:54 +0000
-Message-ID: <BYAPR12MB2597012B2035440D4DC1B7B4FF240@BYAPR12MB2597.namprd12.prod.outlook.com>
-References: <1533877151-20165-1-git-send-email-Jerry.Zhang@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/powerplay: check vrefresh when when changing
+ displays
+Date: Fri, 10 Aug 2018 05:58:31 +0000
+Message-ID: <BYAPR12MB2775546AB3262A18FF962106FB240@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <20180809201623.3039-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0108496657=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1533877151-20165-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180809201623.3039-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,181 +19,439 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-UGxlYXNlIGlnbm9yZSB0aGlzIG9uZSwgd2hpY2ggd2FzIHNlbmQgZnJvbSBhIHRlbXBvcmFsIGJy
-YW5jaC4NCg0KUmVnYXJkcywNCkplcnJ5DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-Cj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4g
-T24gQmVoYWxmIE9mIEp1bndlaQ0KPiBaaGFuZw0KPiBTZW50OiBGcmlkYXksIEF1Z3VzdCAxMCwg
-MjAxOCAxMjo1OQ0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFpo
-YW5nLCBKZXJyeSA8SmVycnkuWmhhbmdAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuDQo+IDxD
-aHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSCBsaWJkcm0gMS8yXSBh
-bWRncHU6IGFkZCBhIGZ1bmN0aW9uIHRvIGNyZWF0ZSBhbWRncHUgYm8NCj4gaW50ZXJuYWxseSAo
-djMpDQo+IA0KPiBhIGhlbHBlciBmdW5jdGlvbiB0byBjcmVhdGUgYW5kIGluaXRpYWxpemUgYW1k
-Z3B1IGJvDQo+IA0KPiB2MjogdXBkYXRlIGVycm9yIGhhbmRsaW5nOiBhZGQgbGFiZWwgYW5kIGZy
-ZWUgYm8NCj4gdjM6IHVwZGF0ZSBlcnJvciBoYW5kbGluZzogc2VwYXJhdGUgZWFjaCBlcnJvciBs
-YWJlbA0KPiANCj4gU2lnbmVkLW9mZi1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQu
-Y29tPg0KPiAtLS0NCj4gIGFtZGdwdS9hbWRncHVfYm8uYyB8IDE5NSArKysrKysrKysrKysrKysr
-KysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAtLS0tLS0NCj4gIDEgZmlsZSBjaGFu
-Z2VkLCA5NCBpbnNlcnRpb25zKCspLCAxMDEgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0
-IGEvYW1kZ3B1L2FtZGdwdV9iby5jIGIvYW1kZ3B1L2FtZGdwdV9iby5jIGluZGV4DQo+IGI3OTBl
-OWIuLjI5NDc3MTUgMTAwNjQ0DQo+IC0tLSBhL2FtZGdwdS9hbWRncHVfYm8uYw0KPiArKysgYi9h
-bWRncHUvYW1kZ3B1X2JvLmMNCj4gQEAgLTQ4LDExICs0OCwzMSBAQCBzdGF0aWMgdm9pZA0KPiBh
-bWRncHVfY2xvc2Vfa21zX2hhbmRsZShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsDQo+ICAJZHJt
-SW9jdGwoZGV2LT5mZCwgRFJNX0lPQ1RMX0dFTV9DTE9TRSwgJmFyZ3MpOyAgfQ0KPiANCj4gK3N0
-YXRpYyBpbnQgYW1kZ3B1X2JvX2NyZWF0ZShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsDQo+ICsJ
-CQkgICAgdWludDY0X3Qgc2l6ZSwNCj4gKwkJCSAgICB1aW50MzJfdCBoYW5kbGUsDQo+ICsJCQkg
-ICAgYW1kZ3B1X2JvX2hhbmRsZSAqYnVmX2hhbmRsZSkNCj4gK3sNCj4gKwlzdHJ1Y3QgYW1kZ3B1
-X2JvICpibzsNCj4gKw0KPiArCWJvID0gY2FsbG9jKDEsIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2Jv
-KSk7DQo+ICsJaWYgKCFibykNCj4gKwkJcmV0dXJuIC1FTk9NRU07DQo+ICsNCj4gKwlhdG9taWNf
-c2V0KCZiby0+cmVmY291bnQsIDEpOw0KPiArCWJvLT5kZXYgPSBkZXY7DQo+ICsJYm8tPmFsbG9j
-X3NpemUgPSBzaXplOw0KPiArCWJvLT5oYW5kbGUgPSBoYW5kbGU7DQo+ICsJcHRocmVhZF9tdXRl
-eF9pbml0KCZiby0+Y3B1X2FjY2Vzc19tdXRleCwgTlVMTCk7DQo+ICsNCj4gKwkqYnVmX2hhbmRs
-ZSA9IGJvOw0KPiArCXJldHVybiAwOw0KPiArfQ0KPiArDQo+ICBpbnQgYW1kZ3B1X2JvX2FsbG9j
-KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4gIAkJICAgIHN0cnVjdCBhbWRncHVfYm9fYWxs
-b2NfcmVxdWVzdCAqYWxsb2NfYnVmZmVyLA0KPiAgCQkgICAgYW1kZ3B1X2JvX2hhbmRsZSAqYnVm
-X2hhbmRsZSkNCj4gIHsNCj4gLQlzdHJ1Y3QgYW1kZ3B1X2JvICpibzsNCj4gIAl1bmlvbiBkcm1f
-YW1kZ3B1X2dlbV9jcmVhdGUgYXJnczsNCj4gIAl1bnNpZ25lZCBoZWFwID0gYWxsb2NfYnVmZmVy
-LT5wcmVmZXJyZWRfaGVhcDsNCj4gIAlpbnQgciA9IDA7DQo+IEBAIC02MSwxNCArODEsNiBAQCBp
-bnQgYW1kZ3B1X2JvX2FsbG9jKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4gIAlpZiAoISho
-ZWFwICYgKEFNREdQVV9HRU1fRE9NQUlOX0dUVCB8DQo+IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0p
-KSkNCj4gIAkJcmV0dXJuIC1FSU5WQUw7DQo+IA0KPiAtCWJvID0gY2FsbG9jKDEsIHNpemVvZihz
-dHJ1Y3QgYW1kZ3B1X2JvKSk7DQo+IC0JaWYgKCFibykNCj4gLQkJcmV0dXJuIC1FTk9NRU07DQo+
-IC0NCj4gLQlhdG9taWNfc2V0KCZiby0+cmVmY291bnQsIDEpOw0KPiAtCWJvLT5kZXYgPSBkZXY7
-DQo+IC0JYm8tPmFsbG9jX3NpemUgPSBhbGxvY19idWZmZXItPmFsbG9jX3NpemU7DQo+IC0NCj4g
-IAltZW1zZXQoJmFyZ3MsIDAsIHNpemVvZihhcmdzKSk7DQo+ICAJYXJncy5pbi5ib19zaXplID0g
-YWxsb2NfYnVmZmVyLT5hbGxvY19zaXplOw0KPiAgCWFyZ3MuaW4uYWxpZ25tZW50ID0gYWxsb2Nf
-YnVmZmVyLT5waHlzX2FsaWdubWVudDsgQEAgLTgwLDI0ICs5MiwyMw0KPiBAQCBpbnQgYW1kZ3B1
-X2JvX2FsbG9jKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4gIAkvKiBBbGxvY2F0ZSB0aGUg
-YnVmZmVyIHdpdGggdGhlIHByZWZlcnJlZCBoZWFwLiAqLw0KPiAgCXIgPSBkcm1Db21tYW5kV3Jp
-dGVSZWFkKGRldi0+ZmQsIERSTV9BTURHUFVfR0VNX0NSRUFURSwNCj4gIAkJCQkmYXJncywgc2l6
-ZW9mKGFyZ3MpKTsNCj4gKwlpZiAocikNCj4gKwkJZ290byBvdXQ7DQo+ICsNCj4gKwlyID0gYW1k
-Z3B1X2JvX2NyZWF0ZShkZXYsIGFsbG9jX2J1ZmZlci0+YWxsb2Nfc2l6ZSwgYXJncy5vdXQuaGFu
-ZGxlLA0KPiArCQkJICAgICBidWZfaGFuZGxlKTsNCj4gIAlpZiAocikgew0KPiAtCQlmcmVlKGJv
-KTsNCj4gLQkJcmV0dXJuIHI7DQo+ICsJCWFtZGdwdV9jbG9zZV9rbXNfaGFuZGxlKGRldiwgYXJn
-cy5vdXQuaGFuZGxlKTsNCj4gKwkJZ290byBvdXQ7DQo+ICAJfQ0KPiANCj4gLQliby0+aGFuZGxl
-ID0gYXJncy5vdXQuaGFuZGxlOw0KPiAtDQo+IC0JcHRocmVhZF9tdXRleF9sb2NrKCZiby0+ZGV2
-LT5ib190YWJsZV9tdXRleCk7DQo+IC0JciA9IGhhbmRsZV90YWJsZV9pbnNlcnQoJmJvLT5kZXYt
-PmJvX2hhbmRsZXMsIGJvLT5oYW5kbGUsIGJvKTsNCj4gLQlwdGhyZWFkX211dGV4X3VubG9jaygm
-Ym8tPmRldi0+Ym9fdGFibGVfbXV0ZXgpOw0KPiAtDQo+IC0JcHRocmVhZF9tdXRleF9pbml0KCZi
-by0+Y3B1X2FjY2Vzc19tdXRleCwgTlVMTCk7DQo+IC0NCj4gKwlwdGhyZWFkX211dGV4X2xvY2so
-JmRldi0+Ym9fdGFibGVfbXV0ZXgpOw0KPiArCXIgPSBoYW5kbGVfdGFibGVfaW5zZXJ0KCZkZXYt
-PmJvX2hhbmRsZXMsICgqYnVmX2hhbmRsZSktPmhhbmRsZSwNCj4gKwkJCQkqYnVmX2hhbmRsZSk7
-DQo+ICsJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOw0KPiAgCWlm
-IChyKQ0KPiAtCQlhbWRncHVfYm9fZnJlZShibyk7DQo+IC0JZWxzZQ0KPiAtCQkqYnVmX2hhbmRs
-ZSA9IGJvOw0KPiAtDQo+ICsJCWFtZGdwdV9ib19mcmVlKCpidWZfaGFuZGxlKTsNCj4gK291dDoN
-Cj4gIAlyZXR1cm4gcjsNCj4gIH0NCj4gDQo+IEBAIC0yNTYsNyArMjY3LDkgQEAgaW50IGFtZGdw
-dV9ib19pbXBvcnQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LCAgew0KPiAgCXN0cnVjdCBkcm1f
-Z2VtX29wZW4gb3Blbl9hcmcgPSB7fTsNCj4gIAlzdHJ1Y3QgYW1kZ3B1X2JvICpibyA9IE5VTEw7
-DQo+IC0JaW50IHI7DQo+ICsJdWludDMyX3QgaGFuZGxlID0gMCwgZmxpbmtfbmFtZSA9IDA7DQo+
-ICsJdWludDY0X3QgYWxsb2Nfc2l6ZSA9IDA7DQo+ICsJaW50IHIgPSAwOw0KPiAgCWludCBkbWFf
-ZmQ7DQo+ICAJdWludDY0X3QgZG1hX2J1Zl9zaXplID0gMDsNCj4gDQo+IEBAIC0yNjYsMjIgKzI3
-OSwxOCBAQCBpbnQgYW1kZ3B1X2JvX2ltcG9ydChhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsDQo+
-IA0KPiAgCS8qIENvbnZlcnQgYSBETUEgYnVmIGhhbmRsZSB0byBhIEtNUyBoYW5kbGUgbm93LiAq
-Lw0KPiAgCWlmICh0eXBlID09IGFtZGdwdV9ib19oYW5kbGVfdHlwZV9kbWFfYnVmX2ZkKSB7DQo+
-IC0JCXVpbnQzMl90IGhhbmRsZTsNCj4gIAkJb2ZmX3Qgc2l6ZTsNCj4gDQo+ICAJCS8qIEdldCBh
-IEtNUyBoYW5kbGUuICovDQo+ICAJCXIgPSBkcm1QcmltZUZEVG9IYW5kbGUoZGV2LT5mZCwgc2hh
-cmVkX2hhbmRsZSwgJmhhbmRsZSk7DQo+IC0JCWlmIChyKSB7DQo+IC0JCQlwdGhyZWFkX211dGV4
-X3VubG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7DQo+IC0JCQlyZXR1cm4gcjsNCj4gLQkJfQ0K
-PiArCQlpZiAocikNCj4gKwkJCWdvdG8gdW5sb2NrOw0KPiANCj4gIAkJLyogUXVlcnkgdGhlIGJ1
-ZmZlciBzaXplLiAqLw0KPiAgCQlzaXplID0gbHNlZWsoc2hhcmVkX2hhbmRsZSwgMCwgU0VFS19F
-TkQpOw0KPiAgCQlpZiAoc2l6ZSA9PSAob2ZmX3QpLTEpIHsNCj4gLQkJCXB0aHJlYWRfbXV0ZXhf
-dW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsNCj4gLQkJCWFtZGdwdV9jbG9zZV9rbXNfaGFu
-ZGxlKGRldiwgaGFuZGxlKTsNCj4gLQkJCXJldHVybiAtZXJybm87DQo+ICsJCQlyID0gLWVycm5v
-Ow0KPiArCQkJZ290byBjbG9zZV9oYW5kbGU7DQo+ICAJCX0NCj4gIAkJbHNlZWsoc2hhcmVkX2hh
-bmRsZSwgMCwgU0VFS19TRVQpOw0KPiANCj4gQEAgLTMwMiwxMiArMzExLDEyIEBAIGludCBhbWRn
-cHVfYm9faW1wb3J0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4gIAljYXNlIGFtZGdwdV9i
-b19oYW5kbGVfdHlwZV9rbXM6DQo+ICAJY2FzZSBhbWRncHVfYm9faGFuZGxlX3R5cGVfa21zX25v
-aW1wb3J0Og0KPiAgCQkvKiBJbXBvcnRpbmcgYSBLTVMgaGFuZGxlIGluIG5vdCBhbGxvd2VkLiAq
-Lw0KPiAtCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7DQo+IC0J
-CXJldHVybiAtRVBFUk07DQo+ICsJCXIgPSAtRVBFUk07DQo+ICsJCWdvdG8gdW5sb2NrOw0KPiAN
-Cj4gIAlkZWZhdWx0Og0KPiAtCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5ib190YWJsZV9t
-dXRleCk7DQo+IC0JCXJldHVybiAtRUlOVkFMOw0KPiArCQlyID0gLUVJTlZBTDsNCj4gKwkJZ290
-byB1bmxvY2s7DQo+ICAJfQ0KPiANCj4gIAlpZiAoYm8pIHsNCj4gQEAgLTMyMCw1OCArMzI5LDMy
-IEBAIGludCBhbWRncHVfYm9faW1wb3J0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4gIAkJ
-cmV0dXJuIDA7DQo+ICAJfQ0KPiANCj4gLQlibyA9IGNhbGxvYygxLCBzaXplb2Yoc3RydWN0IGFt
-ZGdwdV9ibykpOw0KPiAtCWlmICghYm8pIHsNCj4gLQkJcHRocmVhZF9tdXRleF91bmxvY2soJmRl
-di0+Ym9fdGFibGVfbXV0ZXgpOw0KPiAtCQlpZiAodHlwZSA9PSBhbWRncHVfYm9faGFuZGxlX3R5
-cGVfZG1hX2J1Zl9mZCkgew0KPiAtCQkJYW1kZ3B1X2Nsb3NlX2ttc19oYW5kbGUoZGV2LCBzaGFy
-ZWRfaGFuZGxlKTsNCj4gLQkJfQ0KPiAtCQlyZXR1cm4gLUVOT01FTTsNCj4gLQl9DQo+IC0NCj4g
-IAkvKiBPcGVuIHRoZSBoYW5kbGUuICovDQo+ICAJc3dpdGNoICh0eXBlKSB7DQo+ICAJY2FzZSBh
-bWRncHVfYm9faGFuZGxlX3R5cGVfZ2VtX2ZsaW5rX25hbWU6DQo+ICAJCW9wZW5fYXJnLm5hbWUg
-PSBzaGFyZWRfaGFuZGxlOw0KPiAgCQlyID0gZHJtSW9jdGwoZGV2LT5mbGlua19mZCwgRFJNX0lP
-Q1RMX0dFTV9PUEVOLCAmb3Blbl9hcmcpOw0KPiAtCQlpZiAocikgew0KPiAtCQkJZnJlZShibyk7
-DQo+IC0JCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7DQo+IC0J
-CQlyZXR1cm4gcjsNCj4gLQkJfQ0KPiArCQlpZiAocikNCj4gKwkJCWdvdG8gdW5sb2NrOw0KPiAN
-Cj4gLQkJYm8tPmhhbmRsZSA9IG9wZW5fYXJnLmhhbmRsZTsNCj4gKwkJZmxpbmtfbmFtZSA9IHNo
-YXJlZF9oYW5kbGU7DQo+ICsJCWhhbmRsZSA9IG9wZW5fYXJnLmhhbmRsZTsNCj4gKwkJYWxsb2Nf
-c2l6ZSA9IG9wZW5fYXJnLnNpemU7DQo+ICAJCWlmIChkZXYtPmZsaW5rX2ZkICE9IGRldi0+ZmQp
-IHsNCj4gLQkJCXIgPSBkcm1QcmltZUhhbmRsZVRvRkQoZGV2LT5mbGlua19mZCwgYm8tPmhhbmRs
-ZSwNCj4gRFJNX0NMT0VYRUMsICZkbWFfZmQpOw0KPiAtCQkJaWYgKHIpIHsNCj4gLQkJCQlmcmVl
-KGJvKTsNCj4gLQkJCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7
-DQo+IC0JCQkJcmV0dXJuIHI7DQo+IC0JCQl9DQo+IC0JCQlyID0gZHJtUHJpbWVGRFRvSGFuZGxl
-KGRldi0+ZmQsIGRtYV9mZCwgJmJvLQ0KPiA+aGFuZGxlICk7DQo+IC0NCj4gKwkJCXIgPSBkcm1Q
-cmltZUhhbmRsZVRvRkQoZGV2LT5mbGlua19mZCwgaGFuZGxlLA0KPiArCQkJCQkgICAgICAgRFJN
-X0NMT0VYRUMsICZkbWFfZmQpOw0KPiArCQkJaWYgKHIpDQo+ICsJCQkJZ290byBjbG9zZV9oYW5k
-bGU7DQo+ICsJCQlyID0gZHJtUHJpbWVGRFRvSGFuZGxlKGRldi0+ZmQsIGRtYV9mZCwgJmhhbmRs
-ZSk7DQo+ICAJCQljbG9zZShkbWFfZmQpOw0KPiAtDQo+IC0JCQlpZiAocikgew0KPiAtCQkJCWZy
-ZWUoYm8pOw0KPiAtCQkJCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4
-KTsNCj4gLQkJCQlyZXR1cm4gcjsNCj4gLQkJCX0NCj4gLQkJfQ0KPiAtCQliby0+ZmxpbmtfbmFt
-ZSA9IHNoYXJlZF9oYW5kbGU7DQo+IC0JCWJvLT5hbGxvY19zaXplID0gb3Blbl9hcmcuc2l6ZTsN
-Cj4gLQkJciA9IGhhbmRsZV90YWJsZV9pbnNlcnQoJmRldi0+Ym9fZmxpbmtfbmFtZXMsIHNoYXJl
-ZF9oYW5kbGUsDQo+IC0JCQkJCWJvKTsNCj4gLQkJaWYgKHIpIHsNCj4gLQkJCXB0aHJlYWRfbXV0
-ZXhfdW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsNCj4gLQkJCWFtZGdwdV9ib19mcmVlKGJv
-KTsNCj4gLQkJCXJldHVybiByOw0KPiArCQkJaWYgKHIpDQo+ICsJCQkJZ290byBjbG9zZV9oYW5k
-bGU7DQo+ICAJCX0NCj4gIAkJYnJlYWs7DQo+IA0KPiAgCWNhc2UgYW1kZ3B1X2JvX2hhbmRsZV90
-eXBlX2RtYV9idWZfZmQ6DQo+IC0JCWJvLT5oYW5kbGUgPSBzaGFyZWRfaGFuZGxlOw0KPiAtCQli
-by0+YWxsb2Nfc2l6ZSA9IGRtYV9idWZfc2l6ZTsNCj4gKwkJaGFuZGxlID0gc2hhcmVkX2hhbmRs
-ZTsNCj4gKwkJYWxsb2Nfc2l6ZSA9IGRtYV9idWZfc2l6ZTsNCj4gIAkJYnJlYWs7DQo+IA0KPiAg
-CWNhc2UgYW1kZ3B1X2JvX2hhbmRsZV90eXBlX2ttczoNCj4gQEAgLTM4MCwxNiArMzYzLDM0IEBA
-IGludCBhbWRncHVfYm9faW1wb3J0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4gIAl9DQo+
-IA0KPiAgCS8qIEluaXRpYWxpemUgaXQuICovDQo+IC0JYXRvbWljX3NldCgmYm8tPnJlZmNvdW50
-LCAxKTsNCj4gLQliby0+ZGV2ID0gZGV2Ow0KPiAtCXB0aHJlYWRfbXV0ZXhfaW5pdCgmYm8tPmNw
-dV9hY2Nlc3NfbXV0ZXgsIE5VTEwpOw0KPiArCXIgPSBhbWRncHVfYm9fY3JlYXRlKGRldiwgYWxs
-b2Nfc2l6ZSwgaGFuZGxlLCAmYm8pOw0KPiArCWlmIChyKQ0KPiArCQlnb3RvIGNsb3NlX2hhbmRs
-ZTsNCj4gDQo+IC0JaGFuZGxlX3RhYmxlX2luc2VydCgmZGV2LT5ib19oYW5kbGVzLCBiby0+aGFu
-ZGxlLCBibyk7DQo+IC0JcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgp
-Ow0KPiArCXIgPSBoYW5kbGVfdGFibGVfaW5zZXJ0KCZkZXYtPmJvX2hhbmRsZXMsIGJvLT5oYW5k
-bGUsIGJvKTsNCj4gKwlpZiAocikNCj4gKwkJZ290byBib19mcmVlOw0KPiArCWlmIChmbGlua19u
-YW1lKSB7DQo+ICsJCXIgPSBoYW5kbGVfdGFibGVfaW5zZXJ0KCZkZXYtPmJvX2ZsaW5rX25hbWVz
-LCBmbGlua19uYW1lLA0KPiArCQkJCQlibyk7DQo+ICsJCWlmIChyKQ0KPiArCQkJZ290byByZW1v
-dmVfaGFuZGxlOw0KPiArCX0NCj4gDQo+ICAJb3V0cHV0LT5idWZfaGFuZGxlID0gYm87DQo+ICAJ
-b3V0cHV0LT5hbGxvY19zaXplID0gYm8tPmFsbG9jX3NpemU7DQo+ICsJcHRocmVhZF9tdXRleF91
-bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOw0KPiAgCXJldHVybiAwOw0KPiArDQo+ICtyZW1v
-dmVfaGFuZGxlOg0KPiArCWhhbmRsZV90YWJsZV9yZW1vdmUoJmRldi0+Ym9faGFuZGxlcywgYm8t
-PmhhbmRsZSk7DQo+ICtib19mcmVlOg0KPiArCWFtZGdwdV9ib19mcmVlKGJvKTsNCj4gK2Nsb3Nl
-X2hhbmRsZToNCj4gKwlhbWRncHVfY2xvc2Vfa21zX2hhbmRsZShkZXYsIGhhbmRsZSk7DQo+ICt1
-bmxvY2s6DQo+ICsJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOw0K
-PiArCXJldHVybiByOw0KPiAgfQ0KPiANCj4gIGludCBhbWRncHVfYm9fZnJlZShhbWRncHVfYm9f
-aGFuZGxlIGJ1Zl9oYW5kbGUpIEBAIC01NzQsNyArNTc1LDYgQEANCj4gaW50IGFtZGdwdV9jcmVh
-dGVfYm9fZnJvbV91c2VyX21lbShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsDQo+ICAJCQkJICAg
-IGFtZGdwdV9ib19oYW5kbGUgKmJ1Zl9oYW5kbGUpDQo+ICB7DQo+ICAJaW50IHI7DQo+IC0Jc3Ry
-dWN0IGFtZGdwdV9ibyAqYm87DQo+ICAJc3RydWN0IGRybV9hbWRncHVfZ2VtX3VzZXJwdHIgYXJn
-czsNCj4gDQo+ICAJYXJncy5hZGRyID0gKHVpbnRwdHJfdCljcHU7DQo+IEBAIC01ODQsMjggKzU4
-NCwyMSBAQCBpbnQNCj4gYW1kZ3B1X2NyZWF0ZV9ib19mcm9tX3VzZXJfbWVtKGFtZGdwdV9kZXZp
-Y2VfaGFuZGxlIGRldiwNCj4gIAlyID0gZHJtQ29tbWFuZFdyaXRlUmVhZChkZXYtPmZkLCBEUk1f
-QU1ER1BVX0dFTV9VU0VSUFRSLA0KPiAgCQkJCSZhcmdzLCBzaXplb2YoYXJncykpOw0KPiAgCWlm
-IChyKQ0KPiAtCQlyZXR1cm4gcjsNCj4gLQ0KPiAtCWJvID0gY2FsbG9jKDEsIHNpemVvZihzdHJ1
-Y3QgYW1kZ3B1X2JvKSk7DQo+IC0JaWYgKCFibykNCj4gLQkJcmV0dXJuIC1FTk9NRU07DQo+ICsJ
-CWdvdG8gb3V0Ow0KPiANCj4gLQlhdG9taWNfc2V0KCZiby0+cmVmY291bnQsIDEpOw0KPiAtCWJv
-LT5kZXYgPSBkZXY7DQo+IC0JYm8tPmFsbG9jX3NpemUgPSBzaXplOw0KPiAtCWJvLT5oYW5kbGUg
-PSBhcmdzLmhhbmRsZTsNCj4gLQ0KPiAtCXB0aHJlYWRfbXV0ZXhfbG9jaygmYm8tPmRldi0+Ym9f
-dGFibGVfbXV0ZXgpOw0KPiAtCXIgPSBoYW5kbGVfdGFibGVfaW5zZXJ0KCZiby0+ZGV2LT5ib19o
-YW5kbGVzLCBiby0+aGFuZGxlLCBibyk7DQo+IC0JcHRocmVhZF9tdXRleF91bmxvY2soJmJvLT5k
-ZXYtPmJvX3RhYmxlX211dGV4KTsNCj4gLQ0KPiAtCXB0aHJlYWRfbXV0ZXhfaW5pdCgmYm8tPmNw
-dV9hY2Nlc3NfbXV0ZXgsIE5VTEwpOw0KPiArCXIgPSBhbWRncHVfYm9fY3JlYXRlKGRldiwgc2l6
-ZSwgYXJncy5oYW5kbGUsIGJ1Zl9oYW5kbGUpOw0KPiArCWlmIChyKSB7DQo+ICsJCWFtZGdwdV9j
-bG9zZV9rbXNfaGFuZGxlKGRldiwgYXJncy5oYW5kbGUpOw0KPiArCQlnb3RvIG91dDsNCj4gKwl9
-DQo+IA0KPiArCXB0aHJlYWRfbXV0ZXhfbG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7DQo+ICsJ
-ciA9IGhhbmRsZV90YWJsZV9pbnNlcnQoJmRldi0+Ym9faGFuZGxlcywgKCpidWZfaGFuZGxlKS0+
-aGFuZGxlLA0KPiArCQkJCSpidWZfaGFuZGxlKTsNCj4gKwlwdGhyZWFkX211dGV4X3VubG9jaygm
-ZGV2LT5ib190YWJsZV9tdXRleCk7DQo+ICAJaWYgKHIpDQo+IC0JCWFtZGdwdV9ib19mcmVlKGJv
-KTsNCj4gLQllbHNlDQo+IC0JCSpidWZfaGFuZGxlID0gYm87DQo+IC0NCj4gKwkJYW1kZ3B1X2Jv
-X2ZyZWUoKmJ1Zl9oYW5kbGUpOw0KPiArb3V0Og0KPiAgCXJldHVybiByOw0KPiAgfQ0KPiANCj4g
-LS0NCj4gMS45LjENCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0108496657==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB2775546AB3262A18FF962106FB240BYAPR12MB2775namp_"
+
+--_000_BYAPR12MB2775546AB3262A18FF962106FB240BYAPR12MB2775namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Patch is Reviewed-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+
+
+Thanks.
+
+
+
+Best Regards
+
+Rex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
+cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, August 10, 2018 4:16:23 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: [PATCH] drm/amdgpu/powerplay: check vrefresh when when changing di=
+splays
+
+Compare the current vrefresh in addition to the number of displays
+when determining whether or not the smu needs updates when changing
+modes. The SMU needs to be updated if the vbi timeout changes due
+to a different refresh rate.  Fixes flickering around mode changes
+in some cases on polaris parts.
+
+Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c        | 3 +++
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h        | 1 +
+ drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c        | 1 +
+ drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c      | 3 ++-
+ drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c   | 1 +
+ drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 +
+ drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c     | 1 +
+ drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c     | 1 +
+ 8 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index 380f282a64ba..ab759e38e4ea 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -4132,6 +4132,9 @@ smu7_check_smc_update_required_for_display_configurat=
+ion(struct pp_hwmgr *hwmgr)
+         if (data->display_timing.num_existing_displays !=3D hwmgr->display=
+_config->num_display)
+                 is_update_required =3D true;
+
++       if (data->display_timing.vrefresh !=3D hwmgr->display_config->vrefr=
+esh)
++               is_update_required =3D true;
++
+         if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_P=
+latformCaps_SclkDeepSleep)) {
+                 if (data->display_timing.min_clock_in_sr !=3D hwmgr->displ=
+ay_config->min_core_set_clock_in_sr &&
+                         (data->display_timing.min_clock_in_sr >=3D SMU7_MI=
+NIMUM_ENGINE_CLOCK ||
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.h
+index 3784ce6e50ab..69d361f8dfca 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h
+@@ -156,6 +156,7 @@ struct smu7_vbios_boot_state {
+ struct smu7_display_timing {
+         uint32_t  min_clock_in_sr;
+         uint32_t  num_existing_displays;
++       uint32_t  vrefresh;
+ };
+
+ struct smu7_dpmlevel_enable_mask {
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu=
+/drm/amd/powerplay/smumgr/ci_smumgr.c
+index fbe3ef4ee45c..18643e06bc6f 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
+@@ -1231,6 +1231,7 @@ static int ci_populate_single_memory_level(
+         memory_level->DisplayWatermark =3D PPSMC_DISPLAY_WATERMARK_LOW;
+
+         data->display_timing.num_existing_displays =3D hwmgr->display_conf=
+ig->num_display;
++       data->display_timing.vrefresh =3D hwmgr->display_config->vrefresh;
+
+         /* stutter mode not support on ci */
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+index 18048f8e2f13..ec14798e87b6 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+@@ -1210,7 +1210,8 @@ static int fiji_populate_single_memory_level(struct p=
+p_hwmgr *hwmgr,
+          * PECI_GetNumberOfActiveDisplays(hwmgr->pPECI,
+          * &(data->DisplayTiming.numExistingDisplays));
+          */
+-       data->display_timing.num_existing_displays =3D 1;
++       data->display_timing.num_existing_displays =3D hwmgr->display_confi=
+g->num_display;
++       data->display_timing.vrefresh =3D hwmgr->display_config->vrefresh;
+
+         if (mclk_stutter_mode_threshold &&
+                 (clock <=3D mclk_stutter_mode_threshold) &&
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/driver=
+s/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+index 9299b93aa09a..73aa368a454e 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+@@ -1280,6 +1280,7 @@ static int iceland_populate_single_memory_level(
+         memory_level->DisplayWatermark =3D PPSMC_DISPLAY_WATERMARK_LOW;
+
+         data->display_timing.num_existing_displays =3D hwmgr->display_conf=
+ig->num_display;
++       data->display_timing.vrefresh =3D hwmgr->display_config->vrefresh;
+
+         /* stutter mode not support on iceland */
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/driv=
+ers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+index 1276f168ff68..872d3824337b 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+@@ -1103,6 +1103,7 @@ static int polaris10_populate_single_memory_level(str=
+uct pp_hwmgr *hwmgr,
+         mem_level->DisplayWatermark =3D PPSMC_DISPLAY_WATERMARK_LOW;
+
+         data->display_timing.num_existing_displays =3D hwmgr->display_conf=
+ig->num_display;
++       data->display_timing.vrefresh =3D hwmgr->display_config->vrefresh;
+
+         if (mclk_stutter_mode_threshold &&
+                 (clock <=3D mclk_stutter_mode_threshold) &&
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+index 7dabc6c456e1..ae8378ed32ee 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+@@ -1004,6 +1004,7 @@ static int tonga_populate_single_memory_level(
+         memory_level->DisplayWatermark =3D PPSMC_DISPLAY_WATERMARK_LOW;
+
+         data->display_timing.num_existing_displays =3D hwmgr->display_conf=
+ig->num_display;
++       data->display_timing.vrefresh =3D hwmgr->display_config->vrefresh;
+
+         if ((mclk_stutter_mode_threshold !=3D 0) &&
+             (memory_clock <=3D mclk_stutter_mode_threshold) &&
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+index 57420d7caa4e..3d415fabbd93 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+@@ -1009,6 +1009,7 @@ static int vegam_populate_single_memory_level(struct =
+pp_hwmgr *hwmgr,
+         mem_level->DisplayWatermark =3D PPSMC_DISPLAY_WATERMARK_LOW;
+
+         data->display_timing.num_existing_displays =3D hwmgr->display_conf=
+ig->num_display;
++       data->display_timing.vrefresh =3D hwmgr->display_config->vrefresh;
+
+         if (mclk_stutter_mode_threshold &&
+                 (clock <=3D mclk_stutter_mode_threshold) &&
+--
+2.13.6
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BYAPR12MB2775546AB3262A18FF962106FB240BYAPR12MB2775namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Patch is<span> Reviewed-by: <span=
+>Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span><br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span>Thanks.</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span><br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span><br>
+</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span>Best Regards</span></p>
+<p style=3D"margin-top:0;margin-bottom:0"><span>Rex</span><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
+gmail.com&gt;<br>
+<b>Sent:</b> Friday, August 10, 2018 4:16:23 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/powerplay: check vrefresh when when chan=
+ging displays</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Compare the current vrefresh in addition to the nu=
+mber of displays<br>
+when determining whether or not the smu needs updates when changing<br>
+modes. The SMU needs to be updated if the vbi timeout changes due<br>
+to a different refresh rate.&nbsp; Fixes flickering around mode changes<br>
+in some cases on polaris parts.<br>
+<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; | 3 &#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; | 3 &#43;&#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c&nbsp;&nbsp; | 1=
+ &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c&nbsp;&nbsp;&nbsp;=
+&nbsp; | 1 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c&nbsp;&nbsp;&nbsp;=
+&nbsp; | 1 &#43;<br>
+&nbsp;8 files changed, 11 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+index 380f282a64ba..ab759e38e4ea 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+@@ -4132,6 &#43;4132,9 @@ smu7_check_smc_update_required_for_display_config=
+uration(struct pp_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (data-&gt;display_timin=
+g.num_existing_displays !=3D hwmgr-&gt;display_config-&gt;num_display)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; is_update_required =3D true;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (data-&gt;display_timing.vrefr=
+esh !=3D hwmgr-&gt;display_config-&gt;vrefresh)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; is_update_required =3D true;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (phm_cap_enabled(hwmgr-=
+&gt;platform_descriptor.platformCaps, PHM_PlatformCaps_SclkDeepSleep)) {<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (data-&gt;display_timing.min_clock_in_sr !=3D hwmg=
+r-&gt;display_config-&gt;min_core_set_clock_in_sr &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (data=
+-&gt;display_timing.min_clock_in_sr &gt;=3D SMU7_MINIMUM_ENGINE_CLOCK ||<br=
+>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+index 3784ce6e50ab..69d361f8dfca 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.h<br>
+@@ -156,6 &#43;156,7 @@ struct smu7_vbios_boot_state {<br>
+&nbsp;struct smu7_display_timing {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp; min_clock_i=
+n_sr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp; num_existin=
+g_displays;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp; vrefresh;<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;struct smu7_dpmlevel_enable_mask {<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu=
+/drm/amd/powerplay/smumgr/ci_smumgr.c<br>
+index fbe3ef4ee45c..18643e06bc6f 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c<br>
+@@ -1231,6 &#43;1231,7 @@ static int ci_populate_single_memory_level(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memory_level-&gt;DisplayWa=
+termark =3D PPSMC_DISPLAY_WATERMARK_LOW;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.nu=
+m_existing_displays =3D hwmgr-&gt;display_config-&gt;num_display;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.vrefresh =
+=3D hwmgr-&gt;display_config-&gt;vrefresh;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* stutter mode not suppor=
+t on ci */<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drivers/g=
+pu/drm/amd/powerplay/smumgr/fiji_smumgr.c<br>
+index 18048f8e2f13..ec14798e87b6 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c<br>
+@@ -1210,7 &#43;1210,8 @@ static int fiji_populate_single_memory_level(stru=
+ct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * PECI_GetNumberOfAc=
+tiveDisplays(hwmgr-&gt;pPECI,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * &amp;(data-&gt;Dis=
+playTiming.numExistingDisplays));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.num_existing_=
+displays =3D 1;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.num_exist=
+ing_displays =3D hwmgr-&gt;display_config-&gt;num_display;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.vrefresh =
+=3D hwmgr-&gt;display_config-&gt;vrefresh;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mclk_stutter_mode_thre=
+shold &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; (clock &lt;=3D mclk_stutter_mode_threshold) &amp;&amp=
+;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/driver=
+s/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c<br>
+index 9299b93aa09a..73aa368a454e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c<br>
+@@ -1280,6 &#43;1280,7 @@ static int iceland_populate_single_memory_level(<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memory_level-&gt;DisplayWa=
+termark =3D PPSMC_DISPLAY_WATERMARK_LOW;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.nu=
+m_existing_displays =3D hwmgr-&gt;display_config-&gt;num_display;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.vrefresh =
+=3D hwmgr-&gt;display_config-&gt;vrefresh;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* stutter mode not suppor=
+t on iceland */<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/driv=
+ers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c<br>
+index 1276f168ff68..872d3824337b 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c<b=
+r>
+@@ -1103,6 &#43;1103,7 @@ static int polaris10_populate_single_memory_level=
+(struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem_level-&gt;DisplayWater=
+mark =3D PPSMC_DISPLAY_WATERMARK_LOW;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.nu=
+m_existing_displays =3D hwmgr-&gt;display_config-&gt;num_display;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.vrefresh =
+=3D hwmgr-&gt;display_config-&gt;vrefresh;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mclk_stutter_mode_thre=
+shold &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; (clock &lt;=3D mclk_stutter_mode_threshold) &amp;&amp=
+;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c<br>
+index 7dabc6c456e1..ae8378ed32ee 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c<br>
+@@ -1004,6 &#43;1004,7 @@ static int tonga_populate_single_memory_level(<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memory_level-&gt;DisplayWa=
+termark =3D PPSMC_DISPLAY_WATERMARK_LOW;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.nu=
+m_existing_displays =3D hwmgr-&gt;display_config-&gt;num_display;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.vrefresh =
+=3D hwmgr-&gt;display_config-&gt;vrefresh;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((mclk_stutter_mode_thr=
+eshold !=3D 0) &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (m=
+emory_clock &lt;=3D mclk_stutter_mode_threshold) &amp;&amp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c<br>
+index 57420d7caa4e..3d415fabbd93 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c<br>
+@@ -1009,6 &#43;1009,7 @@ static int vegam_populate_single_memory_level(str=
+uct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem_level-&gt;DisplayWater=
+mark =3D PPSMC_DISPLAY_WATERMARK_LOW;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.nu=
+m_existing_displays =3D hwmgr-&gt;display_config-&gt;num_display;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;display_timing.vrefresh =
+=3D hwmgr-&gt;display_config-&gt;vrefresh;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mclk_stutter_mode_thre=
+shold &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; (clock &lt;=3D mclk_stutter_mode_threshold) &amp;&amp=
+;<br>
+-- <br>
+2.13.6<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BYAPR12MB2775546AB3262A18FF962106FB240BYAPR12MB2775namp_--
+
+--===============0108496657==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0108496657==--
