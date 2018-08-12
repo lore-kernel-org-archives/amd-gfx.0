@@ -1,13 +1,13 @@
-From: Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH v3 3/3] drm/radeon: enable ABGR and XBGR formats (v2)
-Date: Sun, 12 Aug 2018 21:43:03 +0200
-Message-ID: <20180812194303.21258-4-issor.oruam@gmail.com>
-References: <20180812194303.21258-1-issor.oruam@gmail.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [PATCH v2 0/5] drm/ttm,
+ amdgpu: Introduce LRU bulk move functionality
+Date: Sun, 12 Aug 2018 22:12:56 +0100
+Message-ID: <CAHbf0-F-0y-nss2Dd8SGBLhbiO49H4EA9wEgFBTL0ZjgnmvjOQ@mail.gmail.com>
+References: <1533902159-14232-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1605430962=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180812194303.21258-1-issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1533902159-14232-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,94 +18,286 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QWRkIHN1cHBvcnQgZm9yIERSTV9GT1JNQVRfe0EsWH1CR1I4ODg4IGluIGF0b21iaW9zX2NydGMK
-U3dhcHBpbmcgb2YgcmVkIGFuZCBibHVlIGNoYW5uZWxzIGlzIGltcGxlbWVudGVkIGZvciByYWRl
-b24gY2hpcHNldHM6CkRDRTIvUjZ4eCBhbmQgbGF0ZXIgLSBjcm9zc2JhciByZWdpc3RlcnMgZGVm
-aW5lZCB3aGVyZSBuZWVkZWQgYW5kIHVzZWQKRENFMS9SNXh4IC0gQVZJVk9fRDFHUlBIX1NXQVBf
-UkIgYml0IGlzIHVzZWQKCih2MikgU2V0IEFWSVZPX0QxR1JQSF9TV0FQX1JCIGJpdCBpbiBmYl9m
-b3JtYXQsIHVzaW5nIGJpdHdpc2UgT1IgZm9yIERDRTEgcGF0aAogICAgIFVzZSBiaXR3aXNlIE9S
-IHdoZXJlIHJlcXVpcmVkIGZvciBiaWcgZW5kaWFuIHNldHRpbmdzIGluIGZiX3N3YXAKICAgICBV
-c2UgZXhpc3RpbmcgY29kZSBzdHlsZSBDSElQX1I2MDAgY29uZGl0aW9uLCBmaXggdHlwbyBpbiBS
-NjAwIGJsdWUgY3Jvc3NiYXIKClNpZ25lZC1vZmYtYnk6IE1hdXJvIFJvc3NpIDxpc3Nvci5vcnVh
-bUBnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9hdG9tYmlvc19jcnRjLmMg
-fCAyNSArKysrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjYwMF9y
-ZWcuaCAgICAgIHwgMzEgKysrKysrKysrKysrKysrKysrKysrLS0tLS0KIDIgZmlsZXMgY2hhbmdl
-ZCwgNTEgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL2F0b21iaW9zX2NydGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-YXRvbWJpb3NfY3J0Yy5jCmluZGV4IGVmYmQ1ODE2MDgyZC4uYWFjZWNjYTAyOGYxIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2F0b21iaW9zX2NydGMuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL2F0b21iaW9zX2NydGMuYwpAQCAtMTI1NCw2ICsxMjU0LDE2IEBAIHN0
-YXRpYyBpbnQgZGNlNF9jcnRjX2RvX3NldF9iYXNlKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJ
-LyogR3JlYXRlciA4IGJwYyBmYiBuZWVkcyB0byBieXBhc3MgaHctbHV0IHRvIHJldGFpbiBwcmVj
-aXNpb24gKi8KIAkJYnlwYXNzX2x1dCA9IHRydWU7CiAJCWJyZWFrOworCWNhc2UgRFJNX0ZPUk1B
-VF9YQkdSODg4ODoKKwljYXNlIERSTV9GT1JNQVRfQUJHUjg4ODg6CisJCWZiX2Zvcm1hdCA9IChF
-VkVSR1JFRU5fR1JQSF9ERVBUSChFVkVSR1JFRU5fR1JQSF9ERVBUSF8zMkJQUCkgfAorCQkJICAg
-ICBFVkVSR1JFRU5fR1JQSF9GT1JNQVQoRVZFUkdSRUVOX0dSUEhfRk9STUFUX0FSR0I4ODg4KSk7
-CisJCWZiX3N3YXAgPSAoRVZFUkdSRUVOX0dSUEhfUkVEX0NST1NTQkFSKEVWRVJHUkVFTl9HUlBI
-X1JFRF9TRUxfQikgfAorCQkJICAgRVZFUkdSRUVOX0dSUEhfQkxVRV9DUk9TU0JBUihFVkVSR1JF
-RU5fR1JQSF9CTFVFX1NFTF9SKSk7CisjaWZkZWYgX19CSUdfRU5ESUFOCisJCWZiX3N3YXAgfD0g
-RVZFUkdSRUVOX0dSUEhfRU5ESUFOX1NXQVAoRVZFUkdSRUVOX0dSUEhfRU5ESUFOXzhJTjMyKTsK
-KyNlbmRpZgorCQlicmVhazsKIAlkZWZhdWx0OgogCQlEUk1fRVJST1IoIlVuc3VwcG9ydGVkIHNj
-cmVlbiBmb3JtYXQgJXNcbiIsCiAJCSAgICAgICAgICBkcm1fZ2V0X2Zvcm1hdF9uYW1lKHRhcmdl
-dF9mYi0+Zm9ybWF0LT5mb3JtYXQsICZmb3JtYXRfbmFtZSkpOwpAQCAtMTU1MSw2ICsxNTYxLDIx
-IEBAIHN0YXRpYyBpbnQgYXZpdm9fY3J0Y19kb19zZXRfYmFzZShzdHJ1Y3QgZHJtX2NydGMgKmNy
-dGMsCiAJCS8qIEdyZWF0ZXIgOCBicGMgZmIgbmVlZHMgdG8gYnlwYXNzIGh3LWx1dCB0byByZXRh
-aW4gcHJlY2lzaW9uICovCiAJCWJ5cGFzc19sdXQgPSB0cnVlOwogCQlicmVhazsKKwljYXNlIERS
-TV9GT1JNQVRfWEJHUjg4ODg6CisJY2FzZSBEUk1fRk9STUFUX0FCR1I4ODg4OgorCQlmYl9mb3Jt
-YXQgPQorCQkgICAgQVZJVk9fRDFHUlBIX0NPTlRST0xfREVQVEhfMzJCUFAgfAorCQkgICAgQVZJ
-Vk9fRDFHUlBIX0NPTlRST0xfMzJCUFBfQVJHQjg4ODg7CisJCWlmIChyZGV2LT5mYW1pbHkgPj0g
-Q0hJUF9SNjAwKQorCQkJZmJfc3dhcCA9CisJCQkgICAgKFI2MDBfRDFHUlBIX1JFRF9DUk9TU0JB
-UihSNjAwX0QxR1JQSF9SRURfU0VMX0IpIHwKKwkJCSAgICAgUjYwMF9EMUdSUEhfQkxVRV9DUk9T
-U0JBUihSNjAwX0QxR1JQSF9CTFVFX1NFTF9SKSk7CisJCWVsc2UgLyogRENFMSAoUjV4eCkgKi8K
-KwkJCWZiX2Zvcm1hdCB8PSBBVklWT19EMUdSUEhfU1dBUF9SQjsKKyNpZmRlZiBfX0JJR19FTkRJ
-QU4KKwkJZmJfc3dhcCB8PSBSNjAwX0QxR1JQSF9TV0FQX0VORElBTl8zMkJJVDsKKyNlbmRpZgor
-CQlicmVhazsKIAlkZWZhdWx0OgogCQlEUk1fRVJST1IoIlVuc3VwcG9ydGVkIHNjcmVlbiBmb3Jt
-YXQgJXNcbiIsCiAJCSAgICAgICAgICBkcm1fZ2V0X2Zvcm1hdF9uYW1lKHRhcmdldF9mYi0+Zm9y
-bWF0LT5mb3JtYXQsICZmb3JtYXRfbmFtZSkpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L3JhZGVvbi9yNjAwX3JlZy5oIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yNjAwX3JlZy5oCmlu
-ZGV4IDNlZjIwMjYyOWU3ZS4uODVlODVhYzNiYTRkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3I2MDBfcmVnLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yNjAwX3Jl
-Zy5oCkBAIC04NywxMSArODcsMzIgQEAKICNkZWZpbmUgUjYwMF9NRURJVU1fVklEX0xPV0VSX0dQ
-SU9fQ05UTCAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDcyMAogI2RlZmluZSBSNjAwX0xP
-V19WSURfTE9XRVJfR1BJT19DTlRMICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4NzI0
-CiAKLSNkZWZpbmUgUjYwMF9EMUdSUEhfU1dBUF9DT05UUk9MICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIDB4NjEwQwotIyAgICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfU1dBUF9FTkRJQU5f
-Tk9ORSAgICAgICAgICAgICAgICAgICAgKDAgPDwgMCkKLSMgICAgICAgZGVmaW5lIFI2MDBfRDFH
-UlBIX1NXQVBfRU5ESUFOXzE2QklUICAgICAgICAgICAgICAgICAgICgxIDw8IDApCi0jICAgICAg
-IGRlZmluZSBSNjAwX0QxR1JQSF9TV0FQX0VORElBTl8zMkJJVCAgICAgICAgICAgICAgICAgICAo
-MiA8PCAwKQotIyAgICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfU1dBUF9FTkRJQU5fNjRCSVQgICAg
-ICAgICAgICAgICAgICAgKDMgPDwgMCkKKyNkZWZpbmUgUjYwMF9EMUdSUEhfU1dBUF9DT05UUk9M
-ICAgICAgICAgICAgICAgICAgICAgMHg2MTBDCisjICAgICAgIGRlZmluZSBSNjAwX0QxR1JQSF9F
-TkRJQU5fU1dBUCh4KSAgICAgICAgICAgICgoKHgpICYgMHgzKSA8PCAwKQorIyAgICAgICBkZWZp
-bmUgUjYwMF9EMUdSUEhfU1dBUF9FTkRJQU5fTk9ORSAgICAgICAgICAwCisjICAgICAgIGRlZmlu
-ZSBSNjAwX0QxR1JQSF9TV0FQX0VORElBTl8xNkJJVCAgICAgICAgIDEKKyMgICAgICAgZGVmaW5l
-IFI2MDBfRDFHUlBIX1NXQVBfRU5ESUFOXzMyQklUICAgICAgICAgMgorIyAgICAgICBkZWZpbmUg
-UjYwMF9EMUdSUEhfU1dBUF9FTkRJQU5fNjRCSVQgICAgICAgICAzCisjICAgICAgIGRlZmluZSBS
-NjAwX0QxR1JQSF9SRURfQ1JPU1NCQVIoeCkgICAgICAgICAgICgoKHgpICYgMHgzKSA8PCA0KQor
-IyAgICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfUkVEX1NFTF9SICAgICAgICAgICAgICAgICAwCisj
-ICAgICAgIGRlZmluZSBSNjAwX0QxR1JQSF9SRURfU0VMX0cgICAgICAgICAgICAgICAgIDEKKyMg
-ICAgICAgZGVmaW5lIFI2MDBfRDFHUlBIX1JFRF9TRUxfQiAgICAgICAgICAgICAgICAgMgorIyAg
-ICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfUkVEX1NFTF9BICAgICAgICAgICAgICAgICAzCisjICAg
-ICAgIGRlZmluZSBSNjAwX0QxR1JQSF9HUkVFTl9DUk9TU0JBUih4KSAgICAgICAgICgoKHgpICYg
-MHgzKSA8PCA2KQorIyAgICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfR1JFRU5fU0VMX0cgICAgICAg
-ICAgICAgICAwCisjICAgICAgIGRlZmluZSBSNjAwX0QxR1JQSF9HUkVFTl9TRUxfQiAgICAgICAg
-ICAgICAgIDEKKyMgICAgICAgZGVmaW5lIFI2MDBfRDFHUlBIX0dSRUVOX1NFTF9BICAgICAgICAg
-ICAgICAgMgorIyAgICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfR1JFRU5fU0VMX1IgICAgICAgICAg
-ICAgICAzCisjICAgICAgIGRlZmluZSBSNjAwX0QxR1JQSF9CTFVFX0NST1NTQkFSKHgpICAgICAg
-ICAgICgoKHgpICYgMHgzKSA8PCA4KQorIyAgICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfQkxVRV9T
-RUxfQiAgICAgICAgICAgICAgICAwCisjICAgICAgIGRlZmluZSBSNjAwX0QxR1JQSF9CTFVFX1NF
-TF9BICAgICAgICAgICAgICAgIDEKKyMgICAgICAgZGVmaW5lIFI2MDBfRDFHUlBIX0JMVUVfU0VM
-X1IgICAgICAgICAgICAgICAgMgorIyAgICAgICBkZWZpbmUgUjYwMF9EMUdSUEhfQkxVRV9TRUxf
-RyAgICAgICAgICAgICAgICAzCisjICAgICAgIGRlZmluZSBSNjAwX0QxR1JQSF9BTFBIQV9DUk9T
-U0JBUih4KSAgICAgICAgICgoKHgpICYgMHgzKSA8PCAxMCkKKyMgICAgICAgZGVmaW5lIFI2MDBf
-RDFHUlBIX0FMUEhBX1NFTF9BICAgICAgICAgICAgICAgMAorIyAgICAgICBkZWZpbmUgUjYwMF9E
-MUdSUEhfQUxQSEFfU0VMX1IgICAgICAgICAgICAgICAxCisjICAgICAgIGRlZmluZSBSNjAwX0Qx
-R1JQSF9BTFBIQV9TRUxfRyAgICAgICAgICAgICAgIDIKKyMgICAgICAgZGVmaW5lIFI2MDBfRDFH
-UlBIX0FMUEhBX1NFTF9CICAgICAgICAgICAgICAgMwogCiAjZGVmaW5lIFI2MDBfSERQX05PTlNV
-UkZBQ0VfQkFTRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgyYzA0CiAKLS0gCjIu
-MTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1605430962==
+Content-Type: multipart/alternative; boundary="0000000000008b72fc05734371f9"
+
+--0000000000008b72fc05734371f9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+I've been testing these patches over the weekend on my Tonga and Raven
+systems
+
+Tested-by: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+
+Cheers
+
+Mike
+
+On Fri, 10 Aug 2018 at 12:56 Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> The idea and proposal is originally from Christian, and I continue to wor=
+k
+> to
+> deliver it.
+>
+> Background:
+> amdgpu driver will move all PD/PT and PerVM BOs into idle list. Then move
+> all of
+> them on the end of LRU list one by one. Thus, that cause so many BOs move=
+d
+> to
+> the end of the LRU, and impact performance seriously.
+>
+> Then Christian provided a workaround to not move PD/PT BOs on LRU with
+> below
+> patch:
+> "drm/amdgpu: band aid validating VM PTs"
+> Commit 0bbf32026cf5ba41e9922b30e26e1bed1ecd38ae
+>
+> However, the final solution should bulk move all PD/PT and PerVM BOs on
+> the LRU
+> instead of one by one.
+>
+> Whenever amdgpu_vm_validate_pt_bos() is called and we have BOs which need
+> to be
+> validated we move all BOs together to the end of the LRU without dropping
+> the
+> lock for the LRU.
+>
+> While doing so we note the beginning and end of this block in the LRU lis=
+t.
+>
+> Now when amdgpu_vm_validate_pt_bos() is called and we don't have anything
+> to do,
+> we don't move every BO one by one, but instead cut the LRU list into
+> pieces so
+> that we bulk move everything to the end in just one operation.
+>
+> Test data:
+>
+> +--------------+-----------------+-----------+---------------------------=
+------------+
+> |              |The Talos        |Clpeak(OCL)|BusSpeedReadback(OCL)
+>           |
+> |              |Principle(Vulkan)|           |
+>            |
+>
+> +------------------------------------------------------------------------=
+------------+
+> |              |                 |           |0.319 ms(1k) 0.314 ms(2K)
+> 0.308 ms(4K) |
+> | Original     |  147.7 FPS      |  76.86 us |0.307 ms(8K) 0.310 ms(16K)
+>            |
+>
+> +------------------------------------------------------------------------=
+------------+
+> | Orignial + WA|                 |           |0.254 ms(1K) 0.241 ms(2K)
+>           |
+> |(don't move   |  162.1 FPS      |  42.15 us |0.230 ms(4K) 0.223 ms(8K)
+> 0.204 ms(16K)|
+> |PT BOs on LRU)|                 |           |
+>            |
+>
+> +------------------------------------------------------------------------=
+------------+
+> | Bulk move    |  163.1 FPS      |  40.52 us |0.244 ms(1K) 0.252 ms(2K)
+> 0.213 ms(4K) |
+> |              |                 |           |0.214 ms(8K) 0.225 ms(16K)
+>            |
+>
+> +--------------+-----------------+-----------+---------------------------=
+------------+
+>
+> After test them with above three benchmarks include vulkan and opencl. We
+> can
+> see the visible improvement than original, and even better than original
+> with
+> workaround.
+>
+> Changes from V1 -> V2:
+> - Fix to missed the BOs in relocated/moved that should be also moved to
+> the end
+>   of LRU.
+>
+> Thanks,
+> Rui
+>
+> Christian K=C3=B6nig (2):
+>   drm/ttm: add helper structures for bulk moves on lru list
+>   drm/ttm: revise ttm_bo_move_to_lru_tail to support bulk moves
+>
+> Huang Rui (3):
+>   drm/ttm: add bulk move function on LRU
+>   drm/amdgpu: use bulk moves for efficient VM LRU handling (v2)
+>   drm/amdgpu: move PD/PT bos on LRU again
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 77
+> +++++++++++++++++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  4 ++
+>  drivers/gpu/drm/ttm/ttm_bo.c           | 78
+> +++++++++++++++++++++++++++++++++-
+>  include/drm/ttm/ttm_bo_api.h           | 16 ++++++-
+>  include/drm/ttm/ttm_bo_driver.h        | 28 ++++++++++++
+>  5 files changed, 184 insertions(+), 19 deletions(-)
+>
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--0000000000008b72fc05734371f9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi<div><br></div><div>I&#39;ve been testing these patches =
+over the weekend on my Tonga and Raven systems</div><div><br></div><div>Tes=
+ted-by: Mike Lothian &lt;<a href=3D"mailto:mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org">mike@firebu=
+rn.co.uk</a>&gt;</div><div><br></div><div>Cheers</div><div><br></div><div>M=
+ike</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, 10 A=
+ug 2018 at 12:56 Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">ray.hua=
+ng-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">The idea=
+ and proposal is originally from Christian, and I continue to work to<br>
+deliver it.<br>
+<br>
+Background:<br>
+amdgpu driver will move all PD/PT and PerVM BOs into idle list. Then move a=
+ll of<br>
+them on the end of LRU list one by one. Thus, that cause so many BOs moved =
+to<br>
+the end of the LRU, and impact performance seriously.<br>
+<br>
+Then Christian provided a workaround to not move PD/PT BOs on LRU with belo=
+w<br>
+patch:<br>
+&quot;drm/amdgpu: band aid validating VM PTs&quot;<br>
+Commit 0bbf32026cf5ba41e9922b30e26e1bed1ecd38ae<br>
+<br>
+However, the final solution should bulk move all PD/PT and PerVM BOs on the=
+ LRU<br>
+instead of one by one.<br>
+<br>
+Whenever amdgpu_vm_validate_pt_bos() is called and we have BOs which need t=
+o be<br>
+validated we move all BOs together to the end of the LRU without dropping t=
+he<br>
+lock for the LRU.<br>
+<br>
+While doing so we note the beginning and end of this block in the LRU list.=
+<br>
+<br>
+Now when amdgpu_vm_validate_pt_bos() is called and we don&#39;t have anythi=
+ng to do,<br>
+we don&#39;t move every BO one by one, but instead cut the LRU list into pi=
+eces so<br>
+that we bulk move everything to the end in just one operation.<br>
+<br>
+Test data:<br>
++--------------+-----------------+-----------+-----------------------------=
+----------+<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |The Talos=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 |Clpeak(OCL)|BusSpeedReadback(OCL)=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |Principle(Vulkan)|=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0|<br>
++--------------------------------------------------------------------------=
+----------+<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0|0.319 ms(1k) 0.314 ms(2K) 0.308 ms(4K) |<br>
+| Original=C2=A0 =C2=A0 =C2=A0|=C2=A0 147.7 FPS=C2=A0 =C2=A0 =C2=A0 |=C2=A0=
+ 76.86 us |0.307 ms(8K) 0.310 ms(16K)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|<br>
++--------------------------------------------------------------------------=
+----------+<br>
+| Orignial + WA|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|0.254 ms(1K) 0.241 ms(2K)=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |<br>
+|(don&#39;t move=C2=A0 =C2=A0|=C2=A0 162.1 FPS=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =
+42.15 us |0.230 ms(4K) 0.223 ms(8K) 0.204 ms(16K)|<br>
+|PT BOs on LRU)|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|<br>
++--------------------------------------------------------------------------=
+----------+<br>
+| Bulk move=C2=A0 =C2=A0 |=C2=A0 163.1 FPS=C2=A0 =C2=A0 =C2=A0 |=C2=A0 40.5=
+2 us |0.244 ms(1K) 0.252 ms(2K) 0.213 ms(4K) |<br>
+|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0|0.214 ms(8K) 0.225 ms(16K)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0|<br>
++--------------+-----------------+-----------+-----------------------------=
+----------+<br>
+<br>
+After test them with above three benchmarks include vulkan and opencl. We c=
+an<br>
+see the visible improvement than original, and even better than original wi=
+th<br>
+workaround.<br>
+<br>
+Changes from V1 -&gt; V2:<br>
+- Fix to missed the BOs in relocated/moved that should be also moved to the=
+ end<br>
+=C2=A0 of LRU.<br>
+<br>
+Thanks,<br>
+Rui<br>
+<br>
+Christian K=C3=B6nig (2):<br>
+=C2=A0 drm/ttm: add helper structures for bulk moves on lru list<br>
+=C2=A0 drm/ttm: revise ttm_bo_move_to_lru_tail to support bulk moves<br>
+<br>
+Huang Rui (3):<br>
+=C2=A0 drm/ttm: add bulk move function on LRU<br>
+=C2=A0 drm/amdgpu: use bulk moves for efficient VM LRU handling (v2)<br>
+=C2=A0 drm/amdgpu: move PD/PT bos on LRU again<br>
+<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 77 +++++++++++++++++++++++++=
+--------<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |=C2=A0 4 ++<br>
+=C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+| 78 +++++++++++++++++++++++++++++++++-<br>
+=C2=A0include/drm/ttm/ttm_bo_api.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+| 16 ++++++-<br>
+=C2=A0include/drm/ttm/ttm_bo_driver.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 | 28 +++++=
++++++++<br>
+=C2=A05 files changed, 184 insertions(+), 19 deletions(-)<br>
+<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div>
+
+--0000000000008b72fc05734371f9--
+
+--===============1605430962==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1605430962==--
