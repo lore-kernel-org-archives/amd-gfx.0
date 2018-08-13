@@ -1,12 +1,15 @@
-From: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH libdrm] amdgpu: add a function to create amdgpu bo internally
- (v3)
-Date: Mon, 13 Aug 2018 13:18:46 +0800
-Message-ID: <1534137526-21380-1-git-send-email-Jerry.Zhang@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu/powerplay/vega10: enable AVFS control via
+ ppfeaturemask
+Date: Mon, 13 Aug 2018 05:25:18 +0000
+Message-ID: <BYAPR12MB2775FA3449B21FABE1FA45A1FB390@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <20180810182454.15236-1-alexander.deucher@amd.com>,
+ <20180810182454.15236-3-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2129447563=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180810182454.15236-3-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,154 +20,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-YSBoZWxwZXIgZnVuY3Rpb24gdG8gY3JlYXRlIGFuZCBpbml0aWFsaXplIGFtZGdwdSBibwoKdjI6
-IHVwZGF0ZSBlcnJvciBoYW5kbGluZzogYWRkIGxhYmVsIGFuZCBmcmVlIGJvCnYzOiB1cGRhdGUg
-ZXJyb3IgaGFuZGxpbmc6IHNlcGFyYXRlIGVhY2ggZXJyb3IgbGFiZWwKClNpZ25lZC1vZmYtYnk6
-IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KLS0tCiBhbWRncHUvYW1kZ3B1X2Jv
-LmMgfCAxOTYgKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA5NSBpbnNlcnRpb25zKCspLCAxMDEgZGVsZXRpb25zKC0p
-CgpkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdwdV9iby5jIGIvYW1kZ3B1L2FtZGdwdV9iby5jCmlu
-ZGV4IGI3OTBlOWIuLjZmMGJhZjEgMTAwNjQ0Ci0tLSBhL2FtZGdwdS9hbWRncHVfYm8uYworKysg
-Yi9hbWRncHUvYW1kZ3B1X2JvLmMKQEAgLTQ4LDExICs0OCwzMSBAQCBzdGF0aWMgdm9pZCBhbWRn
-cHVfY2xvc2Vfa21zX2hhbmRsZShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCiAJZHJtSW9jdGwo
-ZGV2LT5mZCwgRFJNX0lPQ1RMX0dFTV9DTE9TRSwgJmFyZ3MpOwogfQogCitzdGF0aWMgaW50IGFt
-ZGdwdV9ib19jcmVhdGUoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAorCQkJICAgIHVpbnQ2NF90
-IHNpemUsCisJCQkgICAgdWludDMyX3QgaGFuZGxlLAorCQkJICAgIGFtZGdwdV9ib19oYW5kbGUg
-KmJ1Zl9oYW5kbGUpCit7CisJc3RydWN0IGFtZGdwdV9ibyAqYm87CisKKwlibyA9IGNhbGxvYygx
-LCBzaXplb2Yoc3RydWN0IGFtZGdwdV9ibykpOworCWlmICghYm8pCisJCXJldHVybiAtRU5PTUVN
-OworCisJYXRvbWljX3NldCgmYm8tPnJlZmNvdW50LCAxKTsKKwliby0+ZGV2ID0gZGV2OworCWJv
-LT5hbGxvY19zaXplID0gc2l6ZTsKKwliby0+aGFuZGxlID0gaGFuZGxlOworCXB0aHJlYWRfbXV0
-ZXhfaW5pdCgmYm8tPmNwdV9hY2Nlc3NfbXV0ZXgsIE5VTEwpOworCisJKmJ1Zl9oYW5kbGUgPSBi
-bzsKKwlyZXR1cm4gMDsKK30KKwogaW50IGFtZGdwdV9ib19hbGxvYyhhbWRncHVfZGV2aWNlX2hh
-bmRsZSBkZXYsCiAJCSAgICBzdHJ1Y3QgYW1kZ3B1X2JvX2FsbG9jX3JlcXVlc3QgKmFsbG9jX2J1
-ZmZlciwKIAkJICAgIGFtZGdwdV9ib19oYW5kbGUgKmJ1Zl9oYW5kbGUpCiB7Ci0Jc3RydWN0IGFt
-ZGdwdV9ibyAqYm87CiAJdW5pb24gZHJtX2FtZGdwdV9nZW1fY3JlYXRlIGFyZ3M7CiAJdW5zaWdu
-ZWQgaGVhcCA9IGFsbG9jX2J1ZmZlci0+cHJlZmVycmVkX2hlYXA7CiAJaW50IHIgPSAwOwpAQCAt
-NjEsMTQgKzgxLDYgQEAgaW50IGFtZGdwdV9ib19hbGxvYyhhbWRncHVfZGV2aWNlX2hhbmRsZSBk
-ZXYsCiAJaWYgKCEoaGVhcCAmIChBTURHUFVfR0VNX0RPTUFJTl9HVFQgfCBBTURHUFVfR0VNX0RP
-TUFJTl9WUkFNKSkpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JYm8gPSBjYWxsb2MoMSwgc2l6ZW9m
-KHN0cnVjdCBhbWRncHVfYm8pKTsKLQlpZiAoIWJvKQotCQlyZXR1cm4gLUVOT01FTTsKLQotCWF0
-b21pY19zZXQoJmJvLT5yZWZjb3VudCwgMSk7Ci0JYm8tPmRldiA9IGRldjsKLQliby0+YWxsb2Nf
-c2l6ZSA9IGFsbG9jX2J1ZmZlci0+YWxsb2Nfc2l6ZTsKLQogCW1lbXNldCgmYXJncywgMCwgc2l6
-ZW9mKGFyZ3MpKTsKIAlhcmdzLmluLmJvX3NpemUgPSBhbGxvY19idWZmZXItPmFsbG9jX3NpemU7
-CiAJYXJncy5pbi5hbGlnbm1lbnQgPSBhbGxvY19idWZmZXItPnBoeXNfYWxpZ25tZW50OwpAQCAt
-ODAsMjQgKzkyLDIzIEBAIGludCBhbWRncHVfYm9fYWxsb2MoYW1kZ3B1X2RldmljZV9oYW5kbGUg
-ZGV2LAogCS8qIEFsbG9jYXRlIHRoZSBidWZmZXIgd2l0aCB0aGUgcHJlZmVycmVkIGhlYXAuICov
-CiAJciA9IGRybUNvbW1hbmRXcml0ZVJlYWQoZGV2LT5mZCwgRFJNX0FNREdQVV9HRU1fQ1JFQVRF
-LAogCQkJCSZhcmdzLCBzaXplb2YoYXJncykpOworCWlmIChyKQorCQlnb3RvIG91dDsKKworCXIg
-PSBhbWRncHVfYm9fY3JlYXRlKGRldiwgYWxsb2NfYnVmZmVyLT5hbGxvY19zaXplLCBhcmdzLm91
-dC5oYW5kbGUsCisJCQkgICAgIGJ1Zl9oYW5kbGUpOwogCWlmIChyKSB7Ci0JCWZyZWUoYm8pOwot
-CQlyZXR1cm4gcjsKKwkJYW1kZ3B1X2Nsb3NlX2ttc19oYW5kbGUoZGV2LCBhcmdzLm91dC5oYW5k
-bGUpOworCQlnb3RvIG91dDsKIAl9CiAKLQliby0+aGFuZGxlID0gYXJncy5vdXQuaGFuZGxlOwot
-Ci0JcHRocmVhZF9tdXRleF9sb2NrKCZiby0+ZGV2LT5ib190YWJsZV9tdXRleCk7Ci0JciA9IGhh
-bmRsZV90YWJsZV9pbnNlcnQoJmJvLT5kZXYtPmJvX2hhbmRsZXMsIGJvLT5oYW5kbGUsIGJvKTsK
-LQlwdGhyZWFkX211dGV4X3VubG9jaygmYm8tPmRldi0+Ym9fdGFibGVfbXV0ZXgpOwotCi0JcHRo
-cmVhZF9tdXRleF9pbml0KCZiby0+Y3B1X2FjY2Vzc19tdXRleCwgTlVMTCk7Ci0KKwlwdGhyZWFk
-X211dGV4X2xvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOworCXIgPSBoYW5kbGVfdGFibGVfaW5z
-ZXJ0KCZkZXYtPmJvX2hhbmRsZXMsICgqYnVmX2hhbmRsZSktPmhhbmRsZSwKKwkJCQkqYnVmX2hh
-bmRsZSk7CisJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOwogCWlm
-IChyKQotCQlhbWRncHVfYm9fZnJlZShibyk7Ci0JZWxzZQotCQkqYnVmX2hhbmRsZSA9IGJvOwot
-CisJCWFtZGdwdV9ib19mcmVlKCpidWZfaGFuZGxlKTsKK291dDoKIAlyZXR1cm4gcjsKIH0KIApA
-QCAtMjU2LDcgKzI2Nyw5IEBAIGludCBhbWRncHVfYm9faW1wb3J0KGFtZGdwdV9kZXZpY2VfaGFu
-ZGxlIGRldiwKIHsKIAlzdHJ1Y3QgZHJtX2dlbV9vcGVuIG9wZW5fYXJnID0ge307CiAJc3RydWN0
-IGFtZGdwdV9ibyAqYm8gPSBOVUxMOwotCWludCByOworCXVpbnQzMl90IGhhbmRsZSA9IDAsIGZs
-aW5rX25hbWUgPSAwOworCXVpbnQ2NF90IGFsbG9jX3NpemUgPSAwOworCWludCByID0gMDsKIAlp
-bnQgZG1hX2ZkOwogCXVpbnQ2NF90IGRtYV9idWZfc2l6ZSA9IDA7CiAKQEAgLTI2NiwyMiArMjc5
-LDE4IEBAIGludCBhbWRncHVfYm9faW1wb3J0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKIAog
-CS8qIENvbnZlcnQgYSBETUEgYnVmIGhhbmRsZSB0byBhIEtNUyBoYW5kbGUgbm93LiAqLwogCWlm
-ICh0eXBlID09IGFtZGdwdV9ib19oYW5kbGVfdHlwZV9kbWFfYnVmX2ZkKSB7Ci0JCXVpbnQzMl90
-IGhhbmRsZTsKIAkJb2ZmX3Qgc2l6ZTsKIAogCQkvKiBHZXQgYSBLTVMgaGFuZGxlLiAqLwogCQly
-ID0gZHJtUHJpbWVGRFRvSGFuZGxlKGRldi0+ZmQsIHNoYXJlZF9oYW5kbGUsICZoYW5kbGUpOwot
-CQlpZiAocikgewotCQkJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgp
-OwotCQkJcmV0dXJuIHI7Ci0JCX0KKwkJaWYgKHIpCisJCQlnb3RvIHVubG9jazsKIAogCQkvKiBR
-dWVyeSB0aGUgYnVmZmVyIHNpemUuICovCiAJCXNpemUgPSBsc2VlayhzaGFyZWRfaGFuZGxlLCAw
-LCBTRUVLX0VORCk7CiAJCWlmIChzaXplID09IChvZmZfdCktMSkgewotCQkJcHRocmVhZF9tdXRl
-eF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOwotCQkJYW1kZ3B1X2Nsb3NlX2ttc19oYW5k
-bGUoZGV2LCBoYW5kbGUpOwotCQkJcmV0dXJuIC1lcnJubzsKKwkJCXIgPSAtZXJybm87CisJCQln
-b3RvIGNsb3NlX2hhbmRsZTsKIAkJfQogCQlsc2VlayhzaGFyZWRfaGFuZGxlLCAwLCBTRUVLX1NF
-VCk7CiAKQEAgLTMwMiwxMiArMzExLDEyIEBAIGludCBhbWRncHVfYm9faW1wb3J0KGFtZGdwdV9k
-ZXZpY2VfaGFuZGxlIGRldiwKIAljYXNlIGFtZGdwdV9ib19oYW5kbGVfdHlwZV9rbXM6CiAJY2Fz
-ZSBhbWRncHVfYm9faGFuZGxlX3R5cGVfa21zX25vaW1wb3J0OgogCQkvKiBJbXBvcnRpbmcgYSBL
-TVMgaGFuZGxlIGluIG5vdCBhbGxvd2VkLiAqLwotCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2
-LT5ib190YWJsZV9tdXRleCk7Ci0JCXJldHVybiAtRVBFUk07CisJCXIgPSAtRVBFUk07CisJCWdv
-dG8gdW5sb2NrOwogCiAJZGVmYXVsdDoKLQkJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9f
-dGFibGVfbXV0ZXgpOwotCQlyZXR1cm4gLUVJTlZBTDsKKwkJciA9IC1FSU5WQUw7CisJCWdvdG8g
-dW5sb2NrOwogCX0KIAogCWlmIChibykgewpAQCAtMzIwLDU4ICszMjksMzIgQEAgaW50IGFtZGdw
-dV9ib19pbXBvcnQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAogCQlyZXR1cm4gMDsKIAl9CiAK
-LQlibyA9IGNhbGxvYygxLCBzaXplb2Yoc3RydWN0IGFtZGdwdV9ibykpOwotCWlmICghYm8pIHsK
-LQkJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOwotCQlpZiAodHlw
-ZSA9PSBhbWRncHVfYm9faGFuZGxlX3R5cGVfZG1hX2J1Zl9mZCkgewotCQkJYW1kZ3B1X2Nsb3Nl
-X2ttc19oYW5kbGUoZGV2LCBzaGFyZWRfaGFuZGxlKTsKLQkJfQotCQlyZXR1cm4gLUVOT01FTTsK
-LQl9Ci0KIAkvKiBPcGVuIHRoZSBoYW5kbGUuICovCiAJc3dpdGNoICh0eXBlKSB7CiAJY2FzZSBh
-bWRncHVfYm9faGFuZGxlX3R5cGVfZ2VtX2ZsaW5rX25hbWU6CiAJCW9wZW5fYXJnLm5hbWUgPSBz
-aGFyZWRfaGFuZGxlOwogCQlyID0gZHJtSW9jdGwoZGV2LT5mbGlua19mZCwgRFJNX0lPQ1RMX0dF
-TV9PUEVOLCAmb3Blbl9hcmcpOwotCQlpZiAocikgewotCQkJZnJlZShibyk7Ci0JCQlwdGhyZWFk
-X211dGV4X3VubG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7Ci0JCQlyZXR1cm4gcjsKLQkJfQor
-CQlpZiAocikKKwkJCWdvdG8gdW5sb2NrOwogCi0JCWJvLT5oYW5kbGUgPSBvcGVuX2FyZy5oYW5k
-bGU7CisJCWZsaW5rX25hbWUgPSBzaGFyZWRfaGFuZGxlOworCQloYW5kbGUgPSBvcGVuX2FyZy5o
-YW5kbGU7CisJCWFsbG9jX3NpemUgPSBvcGVuX2FyZy5zaXplOwogCQlpZiAoZGV2LT5mbGlua19m
-ZCAhPSBkZXYtPmZkKSB7Ci0JCQlyID0gZHJtUHJpbWVIYW5kbGVUb0ZEKGRldi0+ZmxpbmtfZmQs
-IGJvLT5oYW5kbGUsIERSTV9DTE9FWEVDLCAmZG1hX2ZkKTsKLQkJCWlmIChyKSB7Ci0JCQkJZnJl
-ZShibyk7Ci0JCQkJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOwot
-CQkJCXJldHVybiByOwotCQkJfQotCQkJciA9IGRybVByaW1lRkRUb0hhbmRsZShkZXYtPmZkLCBk
-bWFfZmQsICZiby0+aGFuZGxlICk7Ci0KKwkJCXIgPSBkcm1QcmltZUhhbmRsZVRvRkQoZGV2LT5m
-bGlua19mZCwgaGFuZGxlLAorCQkJCQkgICAgICAgRFJNX0NMT0VYRUMsICZkbWFfZmQpOworCQkJ
-aWYgKHIpCisJCQkJZ290byBjbG9zZV9oYW5kbGU7CisJCQlyID0gZHJtUHJpbWVGRFRvSGFuZGxl
-KGRldi0+ZmQsIGRtYV9mZCwgJmhhbmRsZSk7CiAJCQljbG9zZShkbWFfZmQpOwotCi0JCQlpZiAo
-cikgewotCQkJCWZyZWUoYm8pOwotCQkJCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYtPmJvX3Rh
-YmxlX211dGV4KTsKLQkJCQlyZXR1cm4gcjsKLQkJCX0KLQkJfQotCQliby0+ZmxpbmtfbmFtZSA9
-IHNoYXJlZF9oYW5kbGU7Ci0JCWJvLT5hbGxvY19zaXplID0gb3Blbl9hcmcuc2l6ZTsKLQkJciA9
-IGhhbmRsZV90YWJsZV9pbnNlcnQoJmRldi0+Ym9fZmxpbmtfbmFtZXMsIHNoYXJlZF9oYW5kbGUs
-Ci0JCQkJCWJvKTsKLQkJaWYgKHIpIHsKLQkJCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYtPmJv
-X3RhYmxlX211dGV4KTsKLQkJCWFtZGdwdV9ib19mcmVlKGJvKTsKLQkJCXJldHVybiByOworCQkJ
-aWYgKHIpCisJCQkJZ290byBjbG9zZV9oYW5kbGU7CiAJCX0KIAkJYnJlYWs7CiAKIAljYXNlIGFt
-ZGdwdV9ib19oYW5kbGVfdHlwZV9kbWFfYnVmX2ZkOgotCQliby0+aGFuZGxlID0gc2hhcmVkX2hh
-bmRsZTsKLQkJYm8tPmFsbG9jX3NpemUgPSBkbWFfYnVmX3NpemU7CisJCWhhbmRsZSA9IHNoYXJl
-ZF9oYW5kbGU7CisJCWFsbG9jX3NpemUgPSBkbWFfYnVmX3NpemU7CiAJCWJyZWFrOwogCiAJY2Fz
-ZSBhbWRncHVfYm9faGFuZGxlX3R5cGVfa21zOgpAQCAtMzgwLDE2ICszNjMsMzUgQEAgaW50IGFt
-ZGdwdV9ib19pbXBvcnQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAogCX0KIAogCS8qIEluaXRp
-YWxpemUgaXQuICovCi0JYXRvbWljX3NldCgmYm8tPnJlZmNvdW50LCAxKTsKLQliby0+ZGV2ID0g
-ZGV2OwotCXB0aHJlYWRfbXV0ZXhfaW5pdCgmYm8tPmNwdV9hY2Nlc3NfbXV0ZXgsIE5VTEwpOwor
-CXIgPSBhbWRncHVfYm9fY3JlYXRlKGRldiwgYWxsb2Nfc2l6ZSwgaGFuZGxlLCAmYm8pOworCWlm
-IChyKQorCQlnb3RvIGNsb3NlX2hhbmRsZTsKIAotCWhhbmRsZV90YWJsZV9pbnNlcnQoJmRldi0+
-Ym9faGFuZGxlcywgYm8tPmhhbmRsZSwgYm8pOwotCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYt
-PmJvX3RhYmxlX211dGV4KTsKKwlyID0gaGFuZGxlX3RhYmxlX2luc2VydCgmZGV2LT5ib19oYW5k
-bGVzLCBiby0+aGFuZGxlLCBibyk7CisJaWYgKHIpCisJCWdvdG8gYm9fZnJlZTsKKwlpZiAoZmxp
-bmtfbmFtZSkgeworCQliby0+ZmxpbmtfbmFtZSA9IGZsaW5rX25hbWU7CisJCXIgPSBoYW5kbGVf
-dGFibGVfaW5zZXJ0KCZkZXYtPmJvX2ZsaW5rX25hbWVzLCBmbGlua19uYW1lLAorCQkJCQlibyk7
-CisJCWlmIChyKQorCQkJZ290byByZW1vdmVfaGFuZGxlOworCX0KIAogCW91dHB1dC0+YnVmX2hh
-bmRsZSA9IGJvOwogCW91dHB1dC0+YWxsb2Nfc2l6ZSA9IGJvLT5hbGxvY19zaXplOworCXB0aHJl
-YWRfbXV0ZXhfdW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsKIAlyZXR1cm4gMDsKKworcmVt
-b3ZlX2hhbmRsZToKKwloYW5kbGVfdGFibGVfcmVtb3ZlKCZkZXYtPmJvX2hhbmRsZXMsIGJvLT5o
-YW5kbGUpOworYm9fZnJlZToKKwlhbWRncHVfYm9fZnJlZShibyk7CitjbG9zZV9oYW5kbGU6CisJ
-YW1kZ3B1X2Nsb3NlX2ttc19oYW5kbGUoZGV2LCBoYW5kbGUpOwordW5sb2NrOgorCXB0aHJlYWRf
-bXV0ZXhfdW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsKKwlyZXR1cm4gcjsKIH0KIAogaW50
-IGFtZGdwdV9ib19mcmVlKGFtZGdwdV9ib19oYW5kbGUgYnVmX2hhbmRsZSkKQEAgLTU3NCw3ICs1
-NzYsNiBAQCBpbnQgYW1kZ3B1X2NyZWF0ZV9ib19mcm9tX3VzZXJfbWVtKGFtZGdwdV9kZXZpY2Vf
-aGFuZGxlIGRldiwKIAkJCQkgICAgYW1kZ3B1X2JvX2hhbmRsZSAqYnVmX2hhbmRsZSkKIHsKIAlp
-bnQgcjsKLQlzdHJ1Y3QgYW1kZ3B1X2JvICpibzsKIAlzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fdXNl
-cnB0ciBhcmdzOwogCiAJYXJncy5hZGRyID0gKHVpbnRwdHJfdCljcHU7CkBAIC01ODQsMjggKzU4
-NSwyMSBAQCBpbnQgYW1kZ3B1X2NyZWF0ZV9ib19mcm9tX3VzZXJfbWVtKGFtZGdwdV9kZXZpY2Vf
-aGFuZGxlIGRldiwKIAlyID0gZHJtQ29tbWFuZFdyaXRlUmVhZChkZXYtPmZkLCBEUk1fQU1ER1BV
-X0dFTV9VU0VSUFRSLAogCQkJCSZhcmdzLCBzaXplb2YoYXJncykpOwogCWlmIChyKQotCQlyZXR1
-cm4gcjsKLQotCWJvID0gY2FsbG9jKDEsIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2JvKSk7Ci0JaWYg
-KCFibykKLQkJcmV0dXJuIC1FTk9NRU07CisJCWdvdG8gb3V0OwogCi0JYXRvbWljX3NldCgmYm8t
-PnJlZmNvdW50LCAxKTsKLQliby0+ZGV2ID0gZGV2OwotCWJvLT5hbGxvY19zaXplID0gc2l6ZTsK
-LQliby0+aGFuZGxlID0gYXJncy5oYW5kbGU7Ci0KLQlwdGhyZWFkX211dGV4X2xvY2soJmJvLT5k
-ZXYtPmJvX3RhYmxlX211dGV4KTsKLQlyID0gaGFuZGxlX3RhYmxlX2luc2VydCgmYm8tPmRldi0+
-Ym9faGFuZGxlcywgYm8tPmhhbmRsZSwgYm8pOwotCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZiby0+
-ZGV2LT5ib190YWJsZV9tdXRleCk7Ci0KLQlwdGhyZWFkX211dGV4X2luaXQoJmJvLT5jcHVfYWNj
-ZXNzX211dGV4LCBOVUxMKTsKKwlyID0gYW1kZ3B1X2JvX2NyZWF0ZShkZXYsIHNpemUsIGFyZ3Mu
-aGFuZGxlLCBidWZfaGFuZGxlKTsKKwlpZiAocikgeworCQlhbWRncHVfY2xvc2Vfa21zX2hhbmRs
-ZShkZXYsIGFyZ3MuaGFuZGxlKTsKKwkJZ290byBvdXQ7CisJfQogCisJcHRocmVhZF9tdXRleF9s
-b2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsKKwlyID0gaGFuZGxlX3RhYmxlX2luc2VydCgmZGV2
-LT5ib19oYW5kbGVzLCAoKmJ1Zl9oYW5kbGUpLT5oYW5kbGUsCisJCQkJKmJ1Zl9oYW5kbGUpOwor
-CXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsKIAlpZiAocikKLQkJ
-YW1kZ3B1X2JvX2ZyZWUoYm8pOwotCWVsc2UKLQkJKmJ1Zl9oYW5kbGUgPSBibzsKLQorCQlhbWRn
-cHVfYm9fZnJlZSgqYnVmX2hhbmRsZSk7CitvdXQ6CiAJcmV0dXJuIHI7CiB9CiAKLS0gCjEuOS4x
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============2129447563==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB2775FA3449B21FABE1FA45A1FB390BYAPR12MB2775namp_"
+
+--_000_BYAPR12MB2775FA3449B21FABE1FA45A1FB390BYAPR12MB2775namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+
+Reviewed-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+
+Regards
+Rex
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
+cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Saturday, August 11, 2018 2:24 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: [PATCH 3/3] drm/amdgpu/powerplay/vega10: enable AVFS control via p=
+pfeaturemask
+
+Allow the user to disable AFVS via ppfeaturemask for debugging.
+
+Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 704b237ecf70..ca9be583fb62 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -129,7 +129,8 @@ static void vega10_set_default_registry_data(struct pp_=
+hwmgr *hwmgr)
+         data->registry_data.thermal_support =3D 1;
+         data->registry_data.fw_ctf_enabled =3D 1;
+
+-       data->registry_data.avfs_support =3D 1;
++       data->registry_data.avfs_support =3D
++               hwmgr->feature_mask & PP_AVFS_MASK ? true : false;
+         data->registry_data.led_dpm_enabled =3D 1;
+
+         data->registry_data.vr0hot_enabled =3D 1;
+--
+2.13.6
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.
+
+
+
+--_000_BYAPR12MB2775FA3449B21FABE1FA45A1FB390BYAPR12MB2775namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">Series is:<br>
+<br>
+Reviewed-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Regards<br>
+Rex</span></font><br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx-=
+bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher=
+@gmail.com&gt;<br>
+<b>Sent:</b> Saturday, August 11, 2018 2:24 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> [PATCH 3/3] drm/amdgpu/powerplay/vega10: enable AVFS contro=
+l via ppfeaturemask</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Allow the user to disable AFVS via ppfeaturemask f=
+or debugging.<br>
+<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 3 &#43;&#43;-<br=
+>
+&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+index 704b237ecf70..ca9be583fb62 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
+@@ -129,7 &#43;129,8 @@ static void vega10_set_default_registry_data(struct=
+ pp_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;registry_data.the=
+rmal_support =3D 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;registry_data.fw_=
+ctf_enabled =3D 1;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;registry_data.avfs_support =
+=3D 1;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;registry_data.avfs_suppo=
+rt =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hwmgr-&gt;feature_mask &amp; PP_AVFS_MASK ? true : false;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;registry_data.led=
+_dpm_enabled =3D 1;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;registry_data.vr0=
+hot_enabled =3D 1;<br>
+-- <br>
+2.13.6<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk664053" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_15341378879820.32419031829897205" style=3D"margin-bo=
+ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_15341378879800.007952151317035305" style=3D"width:=
+ 90%; background-color: rgb(255, 255, 255); position: relative; overflow: a=
+uto; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top:=
+ 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200=
+);" role=3D"presentation" cellspacing=3D"0">
+<tbody>
+<tr style=3D"border-spacing: 0px;" valign=3D"top">
+<td id=3D"TextCell_15341378879820.26561918200368806" style=3D"vertical-alig=
+n: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"=
+2">
+<div id=3D"LPRemovePreviewContainer_15341378879820.793554154523221"></div>
+<div id=3D"LPTitle_15341378879820.7086260254107126" style=3D"top: 0px; colo=
+r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;=
+wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&q=
+uot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif=
+; line-height: 21px;">
+<a id=3D"LPUrlAnchor_15341378879820.6332346603952586" style=3D"text-decorat=
+ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15341378879820.10376046835255093" style=3D"margin: 10=
+px 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quo=
+t;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tah=
+oma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15341378879820.0989968907094414" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
+segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, =
+Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; o=
+verflow: hidden;">
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of Conduct.</d=
+iv>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB2775FA3449B21FABE1FA45A1FB390BYAPR12MB2775namp_--
+
+--===============2129447563==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2129447563==--
