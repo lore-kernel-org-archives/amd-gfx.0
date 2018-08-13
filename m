@@ -1,34 +1,53 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] [v3] drm: amd: dc: don't use FP math when Kcov is enabled
-Date: Mon, 13 Aug 2018 17:23:57 +0200
-Message-ID: <CAK8P3a1AGC4fFYSSDQn2snkvf5htZVffCwRLV1NBm5YeZgw+CA@mail.gmail.com>
-References: <20180811155554.3382650-1-arnd@arndb.de> <593dd8e1-fa23-3216-3550-274401d88bcb@gmail.com>
- <CADnq5_PCyKb72-BjFG3B4p_+bctNKoswAibw8C687_fpystSJA@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/pp: OverDrive gfx domain voltage on Tonga
+Date: Mon, 13 Aug 2018 12:43:48 -0400
+Message-ID: <CADnq5_P0qDah3XS51U7kR93f3SWEdcXRhMe5RqTNTD0h+nvt_Q@mail.gmail.com>
+References: <1534158959-8798-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_PCyKb72-BjFG3B4p_+bctNKoswAibw8C687_fpystSJA@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexdeucher@gmail.com
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <Harry.Wentland@amd.com>, David Airlie <airlied@linux.ie>, michel.daenzer@amd.com, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Shirish S <shirish.s@amd.com>, Jerry.Zuo@amd.com, dri-devel <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1534158959-8798-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, Aug 13, 2018 at 4:49 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Sun, Aug 12, 2018 at 3:55 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
-> > Adding Harry as well.
-> > Am 11.08.2018 um 17:54 schrieb Arnd Bergmann:
-> > >
-> > > Fixes: bf2e2e2e0ea9 ("drm/amd/display: Limit DCN to x86 arch")
-> > > Fixes: 4841203102a3 ("drm/amdgpu/display: Replace CONFIG_DRM_AMD_DC_DCN1_0 with CONFIG_X86")
->
-> Maybe it would be better to revert 4841203102a3 so we can limit the
-> scope of this to DCN support.
-
-That would help, but we would still require the patch at
-https://patchwork.kernel.org/patch/10090227/ or something else to avoid
-broken randconfig builds.
-
-     Arnd
+T24gTW9uLCBBdWcgMTMsIDIwMTggYXQgNzoxNiBBTSBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
+IHdyb3RlOgo+Cj4gQWxzbyBhanVzdCB0aGUgZ2Z4IGRvbmFtaW4gdm9sdGFnZSBvbiBUb25nYSB3
+aGVuIHVzZXIgb3ZlcmRyaXZlcgo+IHRoZSB2b2x0YWdlLgoKVHlwbyAiZG9tYWluIgoKPgo+IEZv
+ciBUb25nYSwgRHJpdmVyIGRvIG5vdCB1cGRhdGUgdXNlcidzIHNldHRpbmcgdG8gdm9sdGFnZSB0
+YWJsZQo+IGluIHNtdSwgd2Ugb25seSBwaWNrIHVwIGEgbWluaW11bSB2YWx1ZSBmcm9tIHZvbHRh
+Z2UgdGFibGUgdGhhdAo+IG5vdCBsZXNzIHRoYW4gdGhlIHVzZXIncyBzZXR0aW5nLgo+Cj4gU2ln
+bmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKV2l0aCB0aGUgYWJvdmUgdHlw
+byBmaXhlZDoKQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
+bT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdt
+Z3IuYyB8IDEgKwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPgo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPiBpbmRleCBh
+Yjc1OWUzLi4wNGI3ZGEwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+IEBAIC00ODU3LDYgKzQ4NTcsNyBAQCBzdGF0aWMgaW50
+IHNtdTdfb2RuX2VkaXRfZHBtX3RhYmxlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgcG9kbl92ZGRfZGVwX2luX2JhY2tlbmQtPmVudHJpZXNbaW5wdXRf
+bGV2ZWxdLmNsayA9IGlucHV0X2NsazsKPiAgICAgICAgICAgICAgICAgICAgICAgICBwb2RuX2Rw
+bV90YWJsZV9pbl9iYWNrZW5kLT5lbnRyaWVzW2lucHV0X2xldmVsXS52ZGRjID0gaW5wdXRfdm9s
+Owo+ICAgICAgICAgICAgICAgICAgICAgICAgIHBvZG5fdmRkX2RlcF9pbl9iYWNrZW5kLT5lbnRy
+aWVzW2lucHV0X2xldmVsXS52ZGRjID0gaW5wdXRfdm9sOwo+ICsgICAgICAgICAgICAgICAgICAg
+ICAgIHBvZG5fdmRkX2RlcF9pbl9iYWNrZW5kLT5lbnRyaWVzW2lucHV0X2xldmVsXS52ZGRnZngg
+PSBpbnB1dF92b2w7Cj4gICAgICAgICAgICAgICAgIH0gZWxzZSB7Cj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gICAgICAgICAgICAgICAgIH0KPiAtLQo+IDEuOS4x
+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFt
+ZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
