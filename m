@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH libdrm] amdgpu: Disable deadlock test suite for RV/RV2/PCO
-Date: Tue, 14 Aug 2018 16:15:15 +0000
-Message-ID: <BN6PR12MB180951F811B852EED79BDE0CF7380@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1534245010-17995-1-git-send-email-likun.gao@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Set clock ungate state before suspend/fini
+Date: Tue, 14 Aug 2018 12:32:18 -0400
+Message-ID: <CADnq5_MoENEC-KgFhsu4M9GHzifRvqUTw85sq96k5yhcjuCFpA@mail.gmail.com>
+References: <1534240585-7557-1-git-send-email-Rex.Zhu@amd.com>
+ <1534240585-7557-4-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0424307351=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1534245010-17995-1-git-send-email-likun.gao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1534240585-7557-4-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,146 +19,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Gao, Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0424307351==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180951F811B852EED79BDE0CF7380BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180951F811B852EED79BDE0CF7380BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of likun Ga=
-o <likun.gao-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, August 14, 2018 7:10:10 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Gao, Likun
-Subject: [PATCH libdrm] amdgpu: Disable deadlock test suite for RV/RV2/PCO
-
-From: Likun Gao <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
-
-disable deadlock test suite for RV/RV2/PCO
-
-Signed-off-by: Likun Gao <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
----
- tests/amdgpu/deadlock_tests.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/tests/amdgpu/deadlock_tests.c b/tests/amdgpu/deadlock_tests.c
-index 1eb5761..304482d 100644
---- a/tests/amdgpu/deadlock_tests.c
-+++ b/tests/amdgpu/deadlock_tests.c
-@@ -93,7 +93,8 @@ CU_BOOL suite_deadlock_tests_enable(void)
-                 return CU_FALSE;
-
-         if (device_handle->info.family_id =3D=3D AMDGPU_FAMILY_AI ||
--           device_handle->info.family_id =3D=3D AMDGPU_FAMILY_SI) {
-+           device_handle->info.family_id =3D=3D AMDGPU_FAMILY_SI ||
-+           device_handle->info.family_id =3D=3D AMDGPU_FAMILY_RV) {
-                 printf("\n\nCurrently hangs the CP on this ASIC, deadlock =
-suite disabled\n");
-                 enable =3D CU_FALSE;
-         }
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180951F811B852EED79BDE0CF7380BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of likun Gao &lt;likun.gao@amd.c=
-om&gt;<br>
-<b>Sent:</b> Tuesday, August 14, 2018 7:10:10 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Gao, Likun<br>
-<b>Subject:</b> [PATCH libdrm] amdgpu: Disable deadlock test suite for RV/R=
-V2/PCO</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Likun Gao &lt;Likun.Gao-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-disable deadlock test suite for RV/RV2/PCO<br>
-<br>
-Signed-off-by: Likun Gao &lt;Likun.Gao-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;tests/amdgpu/deadlock_tests.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/tests/amdgpu/deadlock_tests.c b/tests/amdgpu/deadlock_tests.c<=
-br>
-index 1eb5761..304482d 100644<br>
---- a/tests/amdgpu/deadlock_tests.c<br>
-&#43;&#43;&#43; b/tests/amdgpu/deadlock_tests.c<br>
-@@ -93,7 &#43;93,8 @@ CU_BOOL suite_deadlock_tests_enable(void)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return CU_FALSE;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (device_handle-&gt;info=
-.family_id =3D=3D AMDGPU_FAMILY_AI ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_handle=
--&gt;info.family_id =3D=3D AMDGPU_FAMILY_SI) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_ha=
-ndle-&gt;info.family_id =3D=3D AMDGPU_FAMILY_SI ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_ha=
-ndle-&gt;info.family_id =3D=3D AMDGPU_FAMILY_RV) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; printf(&quot;\n\nCurrently hangs the CP on this ASIC,=
- deadlock suite disabled\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; enable =3D CU_FALSE;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180951F811B852EED79BDE0CF7380BN6PR12MB1809namp_--
-
---===============0424307351==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0424307351==--
+T24gVHVlLCBBdWcgMTQsIDIwMTggYXQgNTo1OCBBTSBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
+IHdyb3RlOgo+Cj4gQWZ0ZXIgc2V0IHBvd2VyIHVuZ2F0ZSBzdGF0ZSwgc2V0IGNsb2NrIHVuZ2F0
+ZSBzdGF0ZQo+IGJlZm9yZSBkcml2ZXIgc3VzcGVuZCBvciBmaW5pLgo+Cj4gU2lnbmVkLW9mZi1i
+eTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKTmljZSBjbGVhbnVwISAgU2VyaWVzIGlzOgpS
+ZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAt
+LS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgNTYgKysr
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlv
+bnMoKyksIDUxIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYwo+IGluZGV4IDk2ZDk0MjUuLmNmOWY0ZDcgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTE3MDAsNiArMTcwMCw3IEBA
+IHN0YXRpYyBib29sIGFtZGdwdV9kZXZpY2VfY2hlY2tfdnJhbV9sb3N0KHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQo+ICAgKiBGaW5pIG9yIHN1c3BlbmQsIHBhc3MgZGlzYWJsaW5nIGNsb2Nr
+Z2F0aW5nIGZvciBoYXJkd2FyZSBJUHMuCj4gICAqIFJldHVybnMgMCBvbiBzdWNjZXNzLCBuZWdh
+dGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuCj4gICAqLwo+ICsKPiAgc3RhdGljIGludCBhbWRn
+cHVfZGV2aWNlX3NldF9jZ19zdGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbnVtIGFtZF9jbG9j
+a2dhdGluZ19zdGF0ZSBzdGF0ZSkKPiAgewo+IEBAIC0xODE5LDIxICsxODIwLDEzIEBAIHN0YXRp
+YyBpbnQgYW1kZ3B1X2RldmljZV9pcF9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+
+ICAgICAgICAgYW1kZ3B1X2FtZGtmZF9kZXZpY2VfZmluaShhZGV2KTsKPgo+ICAgICAgICAgYW1k
+Z3B1X2RldmljZV9zZXRfcGdfc3RhdGUoYWRldiwgQU1EX1BHX1NUQVRFX1VOR0FURSk7Cj4gKyAg
+ICAgICBhbWRncHVfZGV2aWNlX3NldF9jZ19zdGF0ZShhZGV2LCBBTURfQ0dfU1RBVEVfVU5HQVRF
+KTsKPiArCj4gICAgICAgICAvKiBuZWVkIHRvIGRpc2FibGUgU01DIGZpcnN0ICovCj4gICAgICAg
+ICBmb3IgKGkgPSAwOyBpIDwgYWRldi0+bnVtX2lwX2Jsb2NrczsgaSsrKSB7Cj4gICAgICAgICAg
+ICAgICAgIGlmICghYWRldi0+aXBfYmxvY2tzW2ldLnN0YXR1cy5odykKPiAgICAgICAgICAgICAg
+ICAgICAgICAgICBjb250aW51ZTsKPiAtICAgICAgICAgICAgICAgaWYgKGFkZXYtPmlwX2Jsb2Nr
+c1tpXS52ZXJzaW9uLT50eXBlID09IEFNRF9JUF9CTE9DS19UWVBFX1NNQyAmJgo+IC0gICAgICAg
+ICAgICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+c2V0X2Ns
+b2NrZ2F0aW5nX3N0YXRlKSB7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgLyogdW5nYXRlIGJs
+b2NrcyBiZWZvcmUgaHcgZmluaSBzbyB0aGF0IHdlIGNhbiBzaHV0ZG93biB0aGUgYmxvY2tzIHNh
+ZmVseSAqLwo+IC0gICAgICAgICAgICAgICAgICAgICAgIHIgPSBhZGV2LT5pcF9ibG9ja3NbaV0u
+dmVyc2lvbi0+ZnVuY3MtPnNldF9jbG9ja2dhdGluZ19zdGF0ZSgodm9pZCAqKWFkZXYsCj4gLSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIEFNRF9DR19TVEFURV9VTkdBVEUpOwo+IC0gICAgICAg
+ICAgICAgICAgICAgICAgIGlmIChyKSB7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBEUk1fRVJST1IoInNldF9jbG9ja2dhdGluZ19zdGF0ZSh1bmdhdGUpIG9mIElQIGJsb2NrIDwl
+cz4gZmFpbGVkICVkXG4iLAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+bmFtZSwgcik7Cj4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsKPiAtICAgICAgICAgICAgICAgICAg
+ICAgICB9Cj4gLQo+ICsgICAgICAgICAgICAgICBpZiAoYWRldi0+aXBfYmxvY2tzW2ldLnZlcnNp
+b24tPnR5cGUgPT0gQU1EX0lQX0JMT0NLX1RZUEVfU01DKSB7Cj4gICAgICAgICAgICAgICAgICAg
+ICAgICAgciA9IGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+aHdfZmluaSgodm9p
+ZCAqKWFkZXYpOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIC8qIFhYWCBoYW5kbGUgZXJyb3Jz
+ICovCj4gICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHIpIHsKPiBAQCAtMTg0OSwyMCArMTg0
+Miw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9pcF9maW5pKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KQo+ICAgICAgICAgICAgICAgICBpZiAoIWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0
+dXMuaHcpCj4gICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4KPiAtICAgICAgICAg
+ICAgICAgaWYgKGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50eXBlICE9IEFNRF9JUF9CTE9D
+S19UWVBFX1VWRCAmJgo+IC0gICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tp
+XS52ZXJzaW9uLT50eXBlICE9IEFNRF9JUF9CTE9DS19UWVBFX1ZDRSAmJgo+IC0gICAgICAgICAg
+ICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50eXBlICE9IEFNRF9JUF9C
+TE9DS19UWVBFX1ZDTiAmJgo+IC0gICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nr
+c1tpXS52ZXJzaW9uLT5mdW5jcy0+c2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKSB7Cj4gLSAgICAgICAg
+ICAgICAgICAgICAgICAgLyogdW5nYXRlIGJsb2NrcyBiZWZvcmUgaHcgZmluaSBzbyB0aGF0IHdl
+IGNhbiBzaHV0ZG93biB0aGUgYmxvY2tzIHNhZmVseSAqLwo+IC0gICAgICAgICAgICAgICAgICAg
+ICAgIHIgPSBhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+ZnVuY3MtPnNldF9jbG9ja2dhdGlu
+Z19zdGF0ZSgodm9pZCAqKWFkZXYsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFNRF9D
+R19TVEFURV9VTkdBVEUpOwo+IC0gICAgICAgICAgICAgICAgICAgICAgIGlmIChyKSB7Cj4gLSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoInNldF9jbG9ja2dhdGluZ19z
+dGF0ZSh1bmdhdGUpIG9mIElQIGJsb2NrIDwlcz4gZmFpbGVkICVkXG4iLAo+IC0gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9u
+LT5mdW5jcy0+bmFtZSwgcik7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1
+cm4gcjsKPiAtICAgICAgICAgICAgICAgICAgICAgICB9Cj4gLSAgICAgICAgICAgICAgIH0KPiAt
+Cj4gICAgICAgICAgICAgICAgIHIgPSBhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+ZnVuY3Mt
+Pmh3X2ZpbmkoKHZvaWQgKilhZGV2KTsKPiAgICAgICAgICAgICAgICAgLyogWFhYIGhhbmRsZSBl
+cnJvcnMgKi8KPiAgICAgICAgICAgICAgICAgaWYgKHIpIHsKPiBAQCAtMTk1NywyMSArMTkzNiwx
+MyBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBfc3VzcGVuZF9waGFzZTEoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAgICAgICAgICAgICAgIGFtZGdwdV92aXJ0X3JlcXVlc3Rf
+ZnVsbF9ncHUoYWRldiwgZmFsc2UpOwo+Cj4gICAgICAgICBhbWRncHVfZGV2aWNlX3NldF9wZ19z
+dGF0ZShhZGV2LCBBTURfUEdfU1RBVEVfVU5HQVRFKTsKPiArICAgICAgIGFtZGdwdV9kZXZpY2Vf
+c2V0X2NnX3N0YXRlKGFkZXYsIEFNRF9DR19TVEFURV9VTkdBVEUpOwo+Cj4gICAgICAgICBmb3Ig
+KGkgPSBhZGV2LT5udW1faXBfYmxvY2tzIC0gMTsgaSA+PSAwOyBpLS0pIHsKPiAgICAgICAgICAg
+ICAgICAgaWYgKCFhZGV2LT5pcF9ibG9ja3NbaV0uc3RhdHVzLnZhbGlkKQo+ICAgICAgICAgICAg
+ICAgICAgICAgICAgIGNvbnRpbnVlOwo+ICAgICAgICAgICAgICAgICAvKiBkaXNwbGF5cyBhcmUg
+aGFuZGxlZCBzZXBhcmF0ZWx5ICovCj4gICAgICAgICAgICAgICAgIGlmIChhZGV2LT5pcF9ibG9j
+a3NbaV0udmVyc2lvbi0+dHlwZSA9PSBBTURfSVBfQkxPQ0tfVFlQRV9EQ0UpIHsKPiAtICAgICAg
+ICAgICAgICAgICAgICAgICAvKiB1bmdhdGUgYmxvY2tzIHNvIHRoYXQgc3VzcGVuZCBjYW4gcHJv
+cGVybHkgc2h1dCB0aGVtIGRvd24gKi8KPiAtICAgICAgICAgICAgICAgICAgICAgICBpZiAoYWRl
+di0+aXBfYmxvY2tzW2ldLnZlcnNpb24tPmZ1bmNzLT5zZXRfY2xvY2tnYXRpbmdfc3RhdGUpIHsK
+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHIgPSBhZGV2LT5pcF9ibG9ja3NbaV0u
+dmVyc2lvbi0+ZnVuY3MtPnNldF9jbG9ja2dhdGluZ19zdGF0ZSgodm9pZCAqKWFkZXYsCj4gLSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1EX0NHX1NUQVRFX1VOR0FURSk7Cj4g
+LSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAocikgewo+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoInNldF9jbG9ja2dhdGluZ19zdGF0
+ZSh1bmdhdGUpIG9mIElQIGJsb2NrIDwlcz4gZmFpbGVkICVkXG4iLAo+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+aXBfYmxvY2tzW2ldLnZl
+cnNpb24tPmZ1bmNzLT5uYW1lLCByKTsKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IH0KPiAtICAgICAgICAgICAgICAgICAgICAgICB9Cj4gICAgICAgICAgICAgICAgICAgICAgICAg
+LyogWFhYIGhhbmRsZSBlcnJvcnMgKi8KPiAgICAgICAgICAgICAgICAgICAgICAgICByID0gYWRl
+di0+aXBfYmxvY2tzW2ldLnZlcnNpb24tPmZ1bmNzLT5zdXNwZW5kKGFkZXYpOwo+ICAgICAgICAg
+ICAgICAgICAgICAgICAgIC8qIFhYWCBoYW5kbGUgZXJyb3JzICovCj4gQEAgLTIwMDYsMjkgKzE5
+NzcsMTIgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX2lwX3N1c3BlbmRfcGhhc2UyKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgICAgICAgaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2
+KSkKPiAgICAgICAgICAgICAgICAgYW1kZ3B1X3ZpcnRfcmVxdWVzdF9mdWxsX2dwdShhZGV2LCBm
+YWxzZSk7Cj4KPiAtICAgICAgIC8qIHVuZ2F0ZSBTTUMgYmxvY2sgZmlyc3QgKi8KPiAtICAgICAg
+IHIgPSBhbWRncHVfZGV2aWNlX2lwX3NldF9jbG9ja2dhdGluZ19zdGF0ZShhZGV2LCBBTURfSVBf
+QkxPQ0tfVFlQRV9TTUMsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgQU1EX0NHX1NUQVRFX1VOR0FURSk7Cj4gLSAgICAgICBpZiAocikgewo+IC0g
+ICAgICAgICAgICAgICBEUk1fRVJST1IoInNldF9jbG9ja2dhdGluZ19zdGF0ZSh1bmdhdGUpIFNN
+QyBmYWlsZWQgJWRcbiIsIHIpOwo+IC0gICAgICAgfQo+IC0KPiAgICAgICAgIGZvciAoaSA9IGFk
+ZXYtPm51bV9pcF9ibG9ja3MgLSAxOyBpID49IDA7IGktLSkgewo+ICAgICAgICAgICAgICAgICBp
+ZiAoIWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMudmFsaWQpCj4gICAgICAgICAgICAgICAgICAg
+ICAgICAgY29udGludWU7Cj4gICAgICAgICAgICAgICAgIC8qIGRpc3BsYXlzIGFyZSBoYW5kbGVk
+IGluIHBoYXNlMSAqLwo+ICAgICAgICAgICAgICAgICBpZiAoYWRldi0+aXBfYmxvY2tzW2ldLnZl
+cnNpb24tPnR5cGUgPT0gQU1EX0lQX0JMT0NLX1RZUEVfRENFKQo+ICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNvbnRpbnVlOwo+IC0gICAgICAgICAgICAgICAvKiB1bmdhdGUgYmxvY2tzIHNvIHRo
+YXQgc3VzcGVuZCBjYW4gcHJvcGVybHkgc2h1dCB0aGVtIGRvd24gKi8KPiAtICAgICAgICAgICAg
+ICAgaWYgKGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50eXBlICE9IEFNRF9JUF9CTE9DS19U
+WVBFX1NNQyAmJgo+IC0gICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS52
+ZXJzaW9uLT5mdW5jcy0+c2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKSB7Cj4gLSAgICAgICAgICAgICAg
+ICAgICAgICAgciA9IGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+c2V0X2Nsb2Nr
+Z2F0aW5nX3N0YXRlKCh2b2lkICopYWRldiwKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+QU1EX0NHX1NUQVRFX1VOR0FURSk7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgaWYgKHIpIHsK
+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigic2V0X2Nsb2NrZ2F0
+aW5nX3N0YXRlKHVuZ2F0ZSkgb2YgSVAgYmxvY2sgPCVzPiBmYWlsZWQgJWRcbiIsCj4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+aXBfYmxvY2tzW2ldLnZl
+cnNpb24tPmZ1bmNzLT5uYW1lLCByKTsKPiAtICAgICAgICAgICAgICAgICAgICAgICB9Cj4gLSAg
+ICAgICAgICAgICAgIH0KPiAgICAgICAgICAgICAgICAgLyogWFhYIGhhbmRsZSBlcnJvcnMgKi8K
+PiAgICAgICAgICAgICAgICAgciA9IGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+
+c3VzcGVuZChhZGV2KTsKPiAgICAgICAgICAgICAgICAgLyogWFhYIGhhbmRsZSBlcnJvcnMgKi8K
+PiAtLQo+IDEuOS4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
