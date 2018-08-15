@@ -1,15 +1,13 @@
-From: "Jin, Jian-Rong" <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub-tTKE4kgLzBBAfugRpC6u6w@public.gmane.org>
 Subject: Re: Making a GDS Allocation for NGG
-Date: Wed, 15 Aug 2018 13:23:43 +0000
-Message-ID: <70244171-581C-4D98-90C8-2D210B4DEFCE@amd.com>
+Date: Wed, 15 Aug 2018 14:33:09 +0200
+Message-ID: <CADTJRYe5e83_DOh8S_W=ZLgHkoGEneUHv0CpA+X0HAfRfe_TOQ@mail.gmail.com>
 References: <CADTJRYdMXzoFN75JF9VBcWmB+ee85PQFJ6UsCKC=Pep4sJUN4Q@mail.gmail.com>
- <DM5PR12MB15291FF96F65867EC066903FAB3F0@DM5PR12MB1529.namprd12.prod.outlook.com>,
- <CADTJRYe5e83_DOh8S_W=ZLgHkoGEneUHv0CpA+X0HAfRfe_TOQ@mail.gmail.com>
+ <DM5PR12MB15291FF96F65867EC066903FAB3F0@DM5PR12MB1529.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0326664698=="
+Content-Type: multipart/mixed; boundary="===============1271420544=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADTJRYe5e83_DOh8S_W=ZLgHkoGEneUHv0CpA+X0HAfRfe_TOQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <DM5PR12MB15291FF96F65867EC066903FAB3F0-2J9CzHegvk9c1F9zY4ibCgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,122 +18,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?SmFrdWIgT2tvxYRza2k=?= <jakub-tTKE4kgLzBBAfugRpC6u6w@public.gmane.org>
+To: "Jin, Jian-Rong" <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0326664698==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_70244171581C4D9890C82D210B4DEFCEamdcom_"
+--===============1271420544==
+Content-Type: multipart/alternative; boundary="00000000000020e30005737888c1"
 
---_000_70244171581C4D9890C82D210B4DEFCEamdcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--00000000000020e30005737888c1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-R0ZYOSB3aWxsIG5vdCBiZSBzdXBwb3J0ZWQuDQoNClRoYW5rcywNCkppYW4tUm9uZyBKaW4NCg0K
-5ZyoIDIwMTjlubQ45pyIMTXml6XvvIzkuIvljYg4OjMz77yMSmFrdWIgT2tvxYRza2kgPGpha3Vi
-QG9rb25za2kub3JnPG1haWx0bzpqYWt1YkBva29uc2tpLm9yZz4+IOWGmemBk++8mg0KDQpIZXkg
-Smlhbi1Sb25nLA0KDQpXaWxsIGdmeDkgZ2V0IHN1cHBvcnQgZnJvbSBLTUQgYW5kIExMUEMgYnkg
-dGhlIHRpbWUgZ2Z4MTAgcmVsZWFzZXMsIG9yIGlzIGl0IG9ubHkgZ29pbmcgdG8gYmUgYSBnZngx
-MC1hbmQtZm9yd2FyZCBmZWF0dXJlPw0KDQpJZiBub3QsIGlzIHRoZXJlIHNvbWV0aGluZyBtaXNz
-aW5nIGluIGdmeDkgaGFyZHdhcmU/IEFyZSB5b3UgYWxsb3dlZCB0byBzYXk/DQoNClRoYW5rcywN
-Ckpha3ViDQoNCk9uIFdlZCwgMTUgQXVnIDIwMTggYXQgMDg6MzYgSmluLCBKaWFuLVJvbmcgPEpp
-YW4tUm9uZy5KaW5AYW1kLmNvbTxtYWlsdG86Smlhbi1Sb25nLkppbkBhbWQuY29tPj4gd3JvdGU6
-DQpIaSBKYWt1YuOAgg0KQm90aCBLTUQgYW5kIExMUEMgYXJlIG5vdCByZWFkeSB0byBzdXBwb3J0
-IE5HRyBmb3IgZ2Z4OS4gV2UgYXJlIGdvaW5nIHRvIHN1cHBvcnQgTkdHIGluIGFtZHZsayBmb3Ig
-bmV4dCBnZW5lcmF0aW9uIEdQVS4NCg0KVGhhbmtzDQpKaWFuLVJvbmcgSklODQoNCi0tLS0tT3Jp
-Z2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnPj4gT24gQmVoYWxmIE9mIEpha3ViIE9rb8WEc2tpDQpTZW50OiAyMDE45bm0OOaciDE05pel
-IDIxOjMxDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KU3ViamVjdDogTWFraW5nIGEgR0RTIEFsbG9jYXRpb24g
-Zm9yIE5HRw0KDQpIaSBmb2xrcywNCg0KSSB3YXMgdHJ5aW5nIHRvIHBsYXkgYXJvdW5kIHdpdGgg
-TkdHIG9uIFZlZ2EgdXNpbmcgdGhlIG9wZW4gc291cmNlIEFNRFZMSyBzdGFjay4NCkFmdGVyIGZl
-dGNoaW5nIGFsbCB0aGUgY29kZSwgSSBkaXNhYmxlZCBhbiBvdmVycmlkZSBpbiBQQUwsIHVuZGVy
-IGdmeDlTZXR0aW5nc0xvYWRlci5jcHAgdGhhdCBkaXNhYmxlcyB0aGUgTkdHIHNldHRpbmcuIEkn
-dmUgcHV0IGEgbmV3IG9wdGlvbiBpbiBteQ0KYW1kUGFsU2V0dGluZ3MuY2ZnOiBgTmdnTW9kZSw3
-YCBhbmQgdGhhdCB3YXMgZW5vdWdoIHRvIGVuYWJsZSBpdC4NCg0KV2hlbiBJIHJhbiBhIHNtYWxs
-IHZ1bGthbiBhcHBsaWNhdGlvbiwgaXQgY3Jhc2hlZCB3aXRoIGEgIk5vdCBpbXBsZW1lbnRlZCIg
-ZXJyb3IgaW4gUGFsOjpMaW51eDo6RGV2aWNlOjpBbGxvY2F0ZUdkcy4gVGhlIGNvbW1lbnQgdGhl
-cmUgc2F5czoNCg0KICAgIC8vIFRPRE86IGltcGxlbWVudCBpdCBvbmNlIGFtZGdwdSBpcyByZWFk
-eS4NCg0KSSBjb3VsZG4ndCBmaW5kIGFueXRoaW5nIHNwZWNpZmljIHRvIEdEUyBhbGxvY2F0aW9u
-IGluIHVwc3RyZWFtIGtlcm5lbCwgc28gSSBsb29rZWQgYXQgYWdkNWYvYW1kLXN0YWdpbmctZHJt
-LW5leHQgYW5kIGZvdW5kIHNvbWUgY29kZSByZWxhdGVkIHRvIEFNREdQVV9HRU1fRE9NQUlOX0dE
-UyBhbmQgYWxsb2NhdGluZyBhIGJvIG9iamVjdC4gVGhpcyBpcyBpbiBhbWRncHVfZ2VtX2NyZWF0
-ZV9pb2N0bCwgc28gSSB0aGluayBpdCdzIGFjY2Vzc2libGUgdG8gdXNlcnNwYWNlLCB3aXRoIGEg
-c21hbGwgY2hhbmdlIGluIGxpYmRybSwgcHJvYmFibHkuDQoNCklzIHRoaXMgd2hhdCBpcyBuZWVk
-ZWQgdG8gbWFrZSBhIEdEUyBhbGxvY2F0aW9uIHRoYXQgTkdHIHdvdWxkIGFjY2VwdCwgb3IgaXMg
-aXQgdW5yZWxhdGVkPyBEbyB5b3Uga25vdyBpZiB0aGVyZSBhcmUgYW55IG90aGVyIGJsb2NrZXJz
-IGZvciBOR0cgYmVzaWRlcyB0aGlzPw0KDQpSZWdhcmRzLA0KSmFrdWINCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0K
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnPg0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4DQo=
+Hey Jian-Rong,
 
---_000_70244171581C4D9890C82D210B4DEFCEamdcom_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Will gfx9 get support from KMD and LLPC by the time gfx10 releases, or is
+it only going to be a gfx10-and-forward feature?
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IGRpcj0iYXV0byI+DQo8
-ZGl2PjwvZGl2Pg0KPGRpdj5HRlg5IHdpbGwgbm90IGJlIHN1cHBvcnRlZC48L2Rpdj4NCjxkaXY+
-PGJyPg0KPC9kaXY+DQo8ZGl2PlRoYW5rcyw8L2Rpdj4NCjxkaXY+Smlhbi1Sb25nIEppbjwvZGl2
-Pg0KPGRpdj48YnI+DQrlnKggMjAxOOW5tDjmnIgxNeaXpe+8jOS4i+WNiDg6MzPvvIxKYWt1YiBP
-a2/FhHNraSAmbHQ7PGEgaHJlZj0ibWFpbHRvOmpha3ViQG9rb25za2kub3JnIj5qYWt1YkBva29u
-c2tpLm9yZzwvYT4mZ3Q7IOWGmemBk++8mjxicj4NCjxicj4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUg
-dHlwZT0iY2l0ZSI+DQo8ZGl2Pg0KPGRpdiBkaXI9Imx0ciI+DQo8ZGl2PkhleSBKaWFuLVJvbmcs
-PC9kaXY+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5XaWxsIGdmeDkgZ2V0IHN1cHBvcnQgZnJv
-bSBLTUQgYW5kIExMUEMgYnkgdGhlIHRpbWUgZ2Z4MTAgcmVsZWFzZXMsIG9yIGlzIGl0IG9ubHkg
-Z29pbmcgdG8gYmUgYSBnZngxMC1hbmQtZm9yd2FyZCBmZWF0dXJlPzwvZGl2Pg0KPGRpdj48YnI+
-DQo8L2Rpdj4NCjxkaXY+SWYgbm90LCBpcyB0aGVyZSBzb21ldGhpbmcgbWlzc2luZyBpbiBnZng5
-IGhhcmR3YXJlPyBBcmUgeW91IGFsbG93ZWQgdG8gc2F5Pzxicj4NCjwvZGl2Pg0KPGRpdj48YnI+
-DQo8L2Rpdj4NCjxkaXY+VGhhbmtzLDwvZGl2Pg0KPGRpdj5KYWt1Yjxicj4NCjwvZGl2Pg0KPGJy
-Pg0KPGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPg0KPGRpdiBkaXI9Imx0ciI+T24gV2VkLCAxNSBB
-dWcgMjAxOCBhdCAwODozNiBKaW4sIEppYW4tUm9uZyAmbHQ7PGEgaHJlZj0ibWFpbHRvOkppYW4t
-Um9uZy5KaW5AYW1kLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPkppYW4tUm9uZy5KaW5AYW1kLmNvbTwv
-YT4mZ3Q7IHdyb3RlOjxicj4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgY2xhc3M9ImdtYWlsX3F1b3Rl
-IiBzdHlsZT0ibWFyZ2luOjAgMCAwIC44ZXg7Ym9yZGVyLWxlZnQ6MXB4ICNjY2Mgc29saWQ7cGFk
-ZGluZy1sZWZ0OjFleCI+DQpIaSBKYWt1YuOAgjxicj4NCkJvdGggS01EIGFuZCBMTFBDIGFyZSBu
-b3QgcmVhZHkgdG8gc3VwcG9ydCBOR0cgZm9yIGdmeDkuIFdlIGFyZSBnb2luZyB0byBzdXBwb3J0
-IE5HRyBpbiBhbWR2bGsgZm9yIG5leHQgZ2VuZXJhdGlvbiBHUFUuPGJyPg0KPGJyPg0KVGhhbmtz
-PGJyPg0KSmlhbi1Sb25nIEpJTjxicj4NCjxicj4NCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-PGJyPg0KRnJvbTogYW1kLWdmeCAmbHQ7PGEgaHJlZj0ibWFpbHRvOmFtZC1nZngtYm91bmNlc0Bs
-aXN0cy5mcmVlZGVza3RvcC5vcmciIHRhcmdldD0iX2JsYW5rIj5hbWQtZ2Z4LWJvdW5jZXNAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnPC9hPiZndDsgT24gQmVoYWxmIE9mIEpha3ViIE9rb8WEc2tpPGJy
-Pg0KU2VudDogMjAxOOW5tDjmnIgxNOaXpSAyMTozMTxicj4NClRvOiA8YSBocmVmPSJtYWlsdG86
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciIHRhcmdldD0iX2JsYW5rIj5hbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+DQpTdWJqZWN0OiBNYWtpbmcgYSBHRFMgQWxsb2Nh
-dGlvbiBmb3IgTkdHPGJyPg0KPGJyPg0KSGkgZm9sa3MsPGJyPg0KPGJyPg0KSSB3YXMgdHJ5aW5n
-IHRvIHBsYXkgYXJvdW5kIHdpdGggTkdHIG9uIFZlZ2EgdXNpbmcgdGhlIG9wZW4gc291cmNlIEFN
-RFZMSyBzdGFjay48YnI+DQpBZnRlciBmZXRjaGluZyBhbGwgdGhlIGNvZGUsIEkgZGlzYWJsZWQg
-YW4gb3ZlcnJpZGUgaW4gUEFMLCB1bmRlciBnZng5U2V0dGluZ3NMb2FkZXIuY3BwIHRoYXQgZGlz
-YWJsZXMgdGhlIE5HRyBzZXR0aW5nLiBJJ3ZlIHB1dCBhIG5ldyBvcHRpb24gaW4gbXk8YnI+DQph
-bWRQYWxTZXR0aW5ncy5jZmc6IGBOZ2dNb2RlLDdgIGFuZCB0aGF0IHdhcyBlbm91Z2ggdG8gZW5h
-YmxlIGl0Ljxicj4NCjxicj4NCldoZW4gSSByYW4gYSBzbWFsbCB2dWxrYW4gYXBwbGljYXRpb24s
-IGl0IGNyYXNoZWQgd2l0aCBhICZxdW90O05vdCBpbXBsZW1lbnRlZCZxdW90OyBlcnJvciBpbiBQ
-YWw6OkxpbnV4OjpEZXZpY2U6OkFsbG9jYXRlR2RzLiBUaGUgY29tbWVudCB0aGVyZSBzYXlzOjxi
-cj4NCjxicj4NCiZuYnNwOyAmbmJzcDsgLy8gVE9ETzogaW1wbGVtZW50IGl0IG9uY2UgYW1kZ3B1
-IGlzIHJlYWR5Ljxicj4NCjxicj4NCkkgY291bGRuJ3QgZmluZCBhbnl0aGluZyBzcGVjaWZpYyB0
-byBHRFMgYWxsb2NhdGlvbiBpbiB1cHN0cmVhbSBrZXJuZWwsIHNvIEkgbG9va2VkIGF0IGFnZDVm
-L2FtZC1zdGFnaW5nLWRybS1uZXh0IGFuZCBmb3VuZCBzb21lIGNvZGUgcmVsYXRlZCB0byBBTURH
-UFVfR0VNX0RPTUFJTl9HRFMgYW5kIGFsbG9jYXRpbmcgYSBibyBvYmplY3QuIFRoaXMgaXMgaW4g
-YW1kZ3B1X2dlbV9jcmVhdGVfaW9jdGwsIHNvIEkgdGhpbmsgaXQncyBhY2Nlc3NpYmxlDQogdG8g
-dXNlcnNwYWNlLCB3aXRoIGEgc21hbGwgY2hhbmdlIGluIGxpYmRybSwgcHJvYmFibHkuPGJyPg0K
-PGJyPg0KSXMgdGhpcyB3aGF0IGlzIG5lZWRlZCB0byBtYWtlIGEgR0RTIGFsbG9jYXRpb24gdGhh
-dCBOR0cgd291bGQgYWNjZXB0LCBvciBpcyBpdCB1bnJlbGF0ZWQ/IERvIHlvdSBrbm93IGlmIHRo
-ZXJlIGFyZSBhbnkgb3RoZXIgYmxvY2tlcnMgZm9yIE5HRyBiZXNpZGVzIHRoaXM/PGJyPg0KPGJy
-Pg0KUmVnYXJkcyw8YnI+DQpKYWt1Yjxicj4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fPGJyPg0KYW1kLWdmeCBtYWlsaW5nIGxpc3Q8YnI+DQo8YSBocmVm
-PSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciIHRhcmdldD0iX2JsYW5rIj5h
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+DQo8YSBocmVmPSJodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngiIHJlbD0ibm9yZWZl
-cnJlciIgdGFyZ2V0PSJfYmxhbmsiPmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeDwvYT48YnI+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjwvZGl2
-Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+If not, is there something missing in gfx9 hardware? Are you allowed to say=
+?
 
---_000_70244171581C4D9890C82D210B4DEFCEamdcom_--
+Thanks,
+Jakub
 
---===============0326664698==
+On Wed, 15 Aug 2018 at 08:36 Jin, Jian-Rong <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> Hi Jakub=E3=80=82
+> Both KMD and LLPC are not ready to support NGG for gfx9. We are going to
+> support NGG in amdvlk for next generation GPU.
+>
+> Thanks
+> Jian-Rong JIN
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Jakub
+> Oko=C5=84ski
+> Sent: 2018=E5=B9=B48=E6=9C=8814=E6=97=A5 21:31
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Subject: Making a GDS Allocation for NGG
+>
+> Hi folks,
+>
+> I was trying to play around with NGG on Vega using the open source AMDVLK
+> stack.
+> After fetching all the code, I disabled an override in PAL, under
+> gfx9SettingsLoader.cpp that disables the NGG setting. I've put a new opti=
+on
+> in my
+> amdPalSettings.cfg: `NggMode,7` and that was enough to enable it.
+>
+> When I ran a small vulkan application, it crashed with a "Not implemented=
+"
+> error in Pal::Linux::Device::AllocateGds. The comment there says:
+>
+>     // TODO: implement it once amdgpu is ready.
+>
+> I couldn't find anything specific to GDS allocation in upstream kernel, s=
+o
+> I looked at agd5f/amd-staging-drm-next and found some code related to
+> AMDGPU_GEM_DOMAIN_GDS and allocating a bo object. This is in
+> amdgpu_gem_create_ioctl, so I think it's accessible to userspace, with a
+> small change in libdrm, probably.
+>
+> Is this what is needed to make a GDS allocation that NGG would accept, or
+> is it unrelated? Do you know if there are any other blockers for NGG
+> besides this?
+>
+> Regards,
+> Jakub
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--00000000000020e30005737888c1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hey Jian-Rong,</div><div><br></div><div>Will gfx9 get=
+ support from KMD and LLPC by the time gfx10 releases, or is it only going =
+to be a gfx10-and-forward feature?</div><div><br></div><div>If not, is ther=
+e something missing in gfx9 hardware? Are you allowed to say?<br></div><div=
+><br></div><div>Thanks,</div><div>Jakub<br></div><br><div class=3D"gmail_qu=
+ote"><div dir=3D"ltr">On Wed, 15 Aug 2018 at 08:36 Jin, Jian-Rong &lt;<a hr=
+ef=3D"mailto:Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Jakub=E3=80=82<b=
+r>
+Both KMD and LLPC are not ready to support NGG for gfx9. We are going to su=
+pport NGG in amdvlk for next generation GPU.<br>
+<br>
+Thanks<br>
+Jian-Rong JIN<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" =
+target=3D"_blank">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; On Behalf O=
+f Jakub Oko=C5=84ski<br>
+Sent: 2018=E5=B9=B48=E6=9C=8814=E6=97=A5 21:31<br>
+To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-=
+gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+Subject: Making a GDS Allocation for NGG<br>
+<br>
+Hi folks,<br>
+<br>
+I was trying to play around with NGG on Vega using the open source AMDVLK s=
+tack.<br>
+After fetching all the code, I disabled an override in PAL, under gfx9Setti=
+ngsLoader.cpp that disables the NGG setting. I&#39;ve put a new option in m=
+y<br>
+amdPalSettings.cfg: `NggMode,7` and that was enough to enable it.<br>
+<br>
+When I ran a small vulkan application, it crashed with a &quot;Not implemen=
+ted&quot; error in Pal::Linux::Device::AllocateGds. The comment there says:=
+<br>
+<br>
+=C2=A0 =C2=A0 // TODO: implement it once amdgpu is ready.<br>
+<br>
+I couldn&#39;t find anything specific to GDS allocation in upstream kernel,=
+ so I looked at agd5f/amd-staging-drm-next and found some code related to A=
+MDGPU_GEM_DOMAIN_GDS and allocating a bo object. This is in amdgpu_gem_crea=
+te_ioctl, so I think it&#39;s accessible to userspace, with a small change =
+in libdrm, probably.<br>
+<br>
+Is this what is needed to make a GDS allocation that NGG would accept, or i=
+s it unrelated? Do you know if there are any other blockers for NGG besides=
+ this?<br>
+<br>
+Regards,<br>
+Jakub<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div></div>
+
+--00000000000020e30005737888c1--
+
+--===============1271420544==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -145,4 +167,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0326664698==--
+--===============1271420544==--
