@@ -1,13 +1,13 @@
-From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub-tTKE4kgLzBBAfugRpC6u6w@public.gmane.org>
-Subject: Re: Making a GDS Allocation for NGG
-Date: Wed, 15 Aug 2018 14:33:09 +0200
-Message-ID: <CADTJRYe5e83_DOh8S_W=ZLgHkoGEneUHv0CpA+X0HAfRfe_TOQ@mail.gmail.com>
-References: <CADTJRYdMXzoFN75JF9VBcWmB+ee85PQFJ6UsCKC=Pep4sJUN4Q@mail.gmail.com>
- <DM5PR12MB15291FF96F65867EC066903FAB3F0@DM5PR12MB1529.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add status checking after fw is loaded
+Date: Wed, 15 Aug 2018 13:41:44 +0000
+Message-ID: <BN6PR12MB18092C1E29E8629925C5F67DF73F0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1534310502-11295-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1271420544=="
+Content-Type: multipart/mixed; boundary="===============1789491788=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB15291FF96F65867EC066903FAB3F0-2J9CzHegvk9c1F9zY4ibCgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1534310502-11295-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,146 +18,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Jin, Jian-Rong" <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1271420544==
-Content-Type: multipart/alternative; boundary="00000000000020e30005737888c1"
+--===============1789491788==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18092C1E29E8629925C5F67DF73F0BN6PR12MB1809namp_"
 
---00000000000020e30005737888c1
-Content-Type: text/plain; charset="UTF-8"
+--_000_BN6PR12MB18092C1E29E8629925C5F67DF73F0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Hey Jian-Rong,
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Will gfx9 get support from KMD and LLPC by the time gfx10 releases, or is
-it only going to be a gfx10-and-forward feature?
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Huang Ru=
+i <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, August 15, 2018 1:21:42 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang, Ray
+Subject: [PATCH] drm/amdgpu: add status checking after fw is loaded
 
-If not, is there something missing in gfx9 hardware? Are you allowed to say=
-?
+The status field must be 0 after FW is loaded.
 
-Thanks,
-Jakub
+Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-On Wed, 15 Aug 2018 at 08:36 Jin, Jian-Rong <Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org> wrote:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c
+index 9f1a5bd..44bcd03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -131,6 +131,13 @@ psp_cmd_submit_buf(struct psp_context *psp,
+                 msleep(1);
+         }
 
-> Hi Jakub=E3=80=82
-> Both KMD and LLPC are not ready to support NGG for gfx9. We are going to
-> support NGG in amdvlk for next generation GPU.
->
-> Thanks
-> Jian-Rong JIN
->
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Jakub
-> Oko=C5=84ski
-> Sent: 2018=E5=B9=B48=E6=9C=8814=E6=97=A5 21:31
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Subject: Making a GDS Allocation for NGG
->
-> Hi folks,
->
-> I was trying to play around with NGG on Vega using the open source AMDVLK
-> stack.
-> After fetching all the code, I disabled an override in PAL, under
-> gfx9SettingsLoader.cpp that disables the NGG setting. I've put a new opti=
-on
-> in my
-> amdPalSettings.cfg: `NggMode,7` and that was enough to enable it.
->
-> When I ran a small vulkan application, it crashed with a "Not implemented=
-"
-> error in Pal::Linux::Device::AllocateGds. The comment there says:
->
->     // TODO: implement it once amdgpu is ready.
->
-> I couldn't find anything specific to GDS allocation in upstream kernel, s=
-o
-> I looked at agd5f/amd-staging-drm-next and found some code related to
-> AMDGPU_GEM_DOMAIN_GDS and allocating a bo object. This is in
-> amdgpu_gem_create_ioctl, so I think it's accessible to userspace, with a
-> small change in libdrm, probably.
->
-> Is this what is needed to make a GDS allocation that NGG would accept, or
-> is it unrelated? Do you know if there are any other blockers for NGG
-> besides this?
->
-> Regards,
-> Jakub
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
++       /* the status field must be 0 after FW is loaded */
++       if (ucode && psp->cmd_buf_mem->resp.status) {
++               DRM_ERROR("failed loading with status (%d) and ucode id (%d=
+)\n",
++                         psp->cmd_buf_mem->resp.status, ucode->ucode_id);
++               return -EINVAL;
++       }
++
+         return ret;
+ }
 
---00000000000020e30005737888c1
-Content-Type: text/html; charset="UTF-8"
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18092C1E29E8629925C5F67DF73F0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hey Jian-Rong,</div><div><br></div><div>Will gfx9 get=
- support from KMD and LLPC by the time gfx10 releases, or is it only going =
-to be a gfx10-and-forward feature?</div><div><br></div><div>If not, is ther=
-e something missing in gfx9 hardware? Are you allowed to say?<br></div><div=
-><br></div><div>Thanks,</div><div>Jakub<br></div><br><div class=3D"gmail_qu=
-ote"><div dir=3D"ltr">On Wed, 15 Aug 2018 at 08:36 Jin, Jian-Rong &lt;<a hr=
-ef=3D"mailto:Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Jian-Rong.Jin-5C7GfCeVMHo@public.gmane.org=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Jakub=E3=80=82<b=
-r>
-Both KMD and LLPC are not ready to support NGG for gfx9. We are going to su=
-pport NGG in amdvlk for next generation GPU.<br>
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Huang Rui &lt;ray.huang@amd.c=
+om&gt;<br>
+<b>Sent:</b> Wednesday, August 15, 2018 1:21:42 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Huang, Ray<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: add status checking after fw is loaded<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The status field must be 0 after FW is loaded.<br>
 <br>
-Thanks<br>
-Jian-Rong JIN<br>
+Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 7 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;<br>
+&nbsp;1 file changed, 7 insertions(&#43;)<br>
 <br>
------Original Message-----<br>
-From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" =
-target=3D"_blank">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; On Behalf O=
-f Jakub Oko=C5=84ski<br>
-Sent: 2018=E5=B9=B48=E6=9C=8814=E6=97=A5 21:31<br>
-To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-=
-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-Subject: Making a GDS Allocation for NGG<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c<br>
+index 9f1a5bd..44bcd03 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+@@ -131,6 &#43;131,13 @@ psp_cmd_submit_buf(struct psp_context *psp,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; msleep(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* the status field must be 0 aft=
+er FW is loaded */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ucode &amp;&amp; psp-&gt;cmd_=
+buf_mem-&gt;resp.status) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_ERROR(&quot;failed loading with status (%d) and ucode id=
+ (%d)\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+psp-&gt;cmd_buf_mem-&gt;resp.status, ucode-&gt;ucode_id);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
 <br>
-Hi folks,<br>
-<br>
-I was trying to play around with NGG on Vega using the open source AMDVLK s=
-tack.<br>
-After fetching all the code, I disabled an override in PAL, under gfx9Setti=
-ngsLoader.cpp that disables the NGG setting. I&#39;ve put a new option in m=
-y<br>
-amdPalSettings.cfg: `NggMode,7` and that was enough to enable it.<br>
-<br>
-When I ran a small vulkan application, it crashed with a &quot;Not implemen=
-ted&quot; error in Pal::Linux::Device::AllocateGds. The comment there says:=
-<br>
-<br>
-=C2=A0 =C2=A0 // TODO: implement it once amdgpu is ready.<br>
-<br>
-I couldn&#39;t find anything specific to GDS allocation in upstream kernel,=
- so I looked at agd5f/amd-staging-drm-next and found some code related to A=
-MDGPU_GEM_DOMAIN_GDS and allocating a bo object. This is in amdgpu_gem_crea=
-te_ioctl, so I think it&#39;s accessible to userspace, with a small change =
-in libdrm, probably.<br>
-<br>
-Is this what is needed to make a GDS allocation that NGG would accept, or i=
-s it unrelated? Do you know if there are any other blockers for NGG besides=
- this?<br>
-<br>
-Regards,<br>
-Jakub<br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div></div>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
 
---00000000000020e30005737888c1--
+--_000_BN6PR12MB18092C1E29E8629925C5F67DF73F0BN6PR12MB1809namp_--
 
---===============1271420544==
+--===============1789491788==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -167,4 +166,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1271420544==--
+--===============1789491788==--
