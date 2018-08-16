@@ -1,39 +1,34 @@
 From: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] [v3] drm: amd: dc: don't use FP math when Kcov is enabled
-Date: Thu, 16 Aug 2018 23:01:09 +0200
-Message-ID: <CAK8P3a3Z8Z5WjgD2Y_-QfZA+bt59z7kCvfaBTzNuHn6QWCVxJw@mail.gmail.com>
-References: <20180811155554.3382650-1-arnd@arndb.de> <0e2639d6-7816-4e85-3212-74fcd118e396@amd.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Don't build DCN1 when kcov is enabled
+Date: Thu, 16 Aug 2018 23:05:51 +0200
+Message-ID: <CAK8P3a0Ds9OPqDqpBeY_cbQShTCO9Bkf4uRBtpAz4+8RP2Mwaw@mail.gmail.com>
+References: <1534448679-13823-1-git-send-email-sunpeng.li@amd.com> <1534448679-13823-2-git-send-email-sunpeng.li@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <0e2639d6-7816-4e85-3212-74fcd118e396@amd.com>
+In-Reply-To: <1534448679-13823-2-git-send-email-sunpeng.li@amd.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: sunpeng.li@amd.com
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, michel.daenzer@amd.com, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Shirish S <shirish.s@amd.com>, Jerry.Zuo@amd.com, dri-devel <dri-devel@lists.freedesktop.org>, Jordan Lazare <Jordan.Lazare@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, michel.daenzer@amd.com, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Jordan Lazare <Jordan.Lazare@amd.com>, Harry Wentland <harry.wentland@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Aug 16, 2018 at 9:56 PM Leo Li <sunpeng.li@amd.com> wrote:
-> On 2018-08-11 11:54 AM, Arnd Bergmann wrote:
-> >
-> > I tried implementing the two functions in KCOV: __sanitizer_cov_trace_cmpd
-> > and __sanitizer_cov_trace_cmpf, but that fails to build on architectures
-> > that do not support any floating-point functions, or would require making
-> > that code x86 specific as well.  I also looked at what it would take to
+On Thu, Aug 16, 2018 at 9:45 PM <sunpeng.li@amd.com> wrote:
 >
-> Hi Arnd,
+> From: "Leo (Sunpeng) Li" <sunpeng.li@amd.com>
 >
-> Is there a reason why we can't make __sanitizer_cov_trace_cmpd and
-> __sanitizer_cov_trace_cmpf X86 dependent?
+> DCN1 contains code that utilizes fp math. When
+> CONFIG_KCOV_INSTRUMENT_ALL and CONFIG_KCOV_ENABLE_COMPARISONS are
+> enabled, build errors are found. See this earlier patch for details:
 >
-> I sent out two patches to disable DCN1, but would prefer implementing
-> these two functions as opposed to disabling a component.
+> https://lists.freedesktop.org/archives/dri-devel/2018-August/186131.html
+>
+> As a short term solution, disable CONFIG_DRM_AMD_DC_DCN1_0 when
+> KCOV_INSTRUMENT_ALL and KCOV_ENABLE_COMPARISONS are enabled. In
+> addition, make it a fully derived config, taking into account
+> CONFIG_X86.
+>
+> Signed-off-by: Leo (Sunpeng) Li <sunpeng.li@amd.com>
 
-I think it should be possible to implement them, perhaps not even hard
-to do it in an architecture independent way. I tried this at some point
-and couldn't figure it out, but I suppose it would fix the problem nicely.
+Looks good to me,
 
-This would assume that the two functions can only ever be called
-from a context that already has access to the fpu, which I think is
-the case here.
-
-         Arnd
+Acked-by: Arnd Bergmann <arnd@arndb.de>
