@@ -1,65 +1,59 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix incorrect use of drm_file->pid
-Date: Fri, 17 Aug 2018 14:43:35 -0400
-Message-ID: <CADnq5_OuuH3CvUCWjMUr_Tp_pfwCB0WM72v1q3umM9iT3USwHA@mail.gmail.com>
-References: <20180817174150.2297-1-christian.koenig@amd.com>
- <20180817174150.2297-2-christian.koenig@amd.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH] drm/amd/display: fix a compile warning
+Date: Fri, 17 Aug 2018 11:46:18 -0700
+Message-ID: <783744d1-29a2-c601-7d1f-b937308d407c@infradead.org>
+References: <1534475388-40036-1-git-send-email-wen.yang99@zte.com.cn>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180817174150.2297-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1534475388-40036-1-git-send-email-wen.yang99@zte.com.cn>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Wen Yang <wen.yang99@zte.com.cn>, airlied@linux.ie
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, jiang.biao2@zte.com.cn, zhong.weidong@zte.com.cn
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBBdWcgMTcsIDIwMTggYXQgMTo0MiBQTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
-LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBUaGF0J3MgdGhlIFBJRCBvZiB0
-aGUgY3JlYXRvciBvZiB0aGUgZmlsZSAodXN1YWxseSB0aGUgWCBzZXJ2ZXIpIGFuZCBub3QKPiB0
-aGUgZW5kIHVzZXIgb2YgdGhlIGZpbGUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ0M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5v
-cmcKClNlcmllcyBpczoKQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
-YW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zY2hl
-ZC5jIHwgMTkgKysrKy0tLS0tLS0tLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
-b25zKCspLCAxNSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfc2NoZWQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9zY2hlZC5jCj4gaW5kZXggY2I2MmE5MGQwNjg2Li4xY2FmZThkODNhNGQgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NjaGVkLmMKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2NoZWQuYwo+IEBAIC01NSw3ICs1NSw2
-IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3NjaGVkX3Byb2Nlc3NfcHJpb3JpdHlfb3ZlcnJpZGUoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gIHsKPiAgICAgICAgIHN0cnVjdCBmaWxlICpmaWxw
-ID0gZmdldChmZCk7Cj4gICAgICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGU7Cj4gLSAgICAgICBz
-dHJ1Y3QgcGlkICpwaWQ7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdjsKPiAg
-ICAgICAgIHN0cnVjdCBhbWRncHVfY3R4ICpjdHg7Cj4gICAgICAgICB1aW50MzJfdCBpZDsKPiBA
-QCAtNjMsMjAgKzYyLDEwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3NjaGVkX3Byb2Nlc3NfcHJpb3Jp
-dHlfb3ZlcnJpZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAgICAgICBpZiAoIWZp
-bHApCj4gICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+Cj4gLSAgICAgICBwaWQgPSBn
-ZXRfcGlkKCgoc3RydWN0IGRybV9maWxlICopZmlscC0+cHJpdmF0ZV9kYXRhKS0+cGlkKTsKPiAt
-Cj4gLSAgICAgICBtdXRleF9sb2NrKCZhZGV2LT5kZGV2LT5maWxlbGlzdF9tdXRleCk7Cj4gLSAg
-ICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KGZpbGUsICZhZGV2LT5kZGV2LT5maWxlbGlzdCwgbGhl
-YWQpIHsKPiAtICAgICAgICAgICAgICAgaWYgKGZpbGUtPnBpZCAhPSBwaWQpCj4gLSAgICAgICAg
-ICAgICAgICAgICAgICAgY29udGludWU7Cj4gLQo+IC0gICAgICAgICAgICAgICBmcHJpdiA9IGZp
-bGUtPmRyaXZlcl9wcml2Owo+IC0gICAgICAgICAgICAgICBpZHJfZm9yX2VhY2hfZW50cnkoJmZw
-cml2LT5jdHhfbWdyLmN0eF9oYW5kbGVzLCBjdHgsIGlkKQo+IC0gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYW1kZ3B1X2N0eF9wcmlvcml0eV9vdmVycmlkZShjdHgsIHByaW9yaXR5KTsK
-PiAtICAgICAgIH0KPiAtICAgICAgIG11dGV4X3VubG9jaygmYWRldi0+ZGRldi0+ZmlsZWxpc3Rf
-bXV0ZXgpOwo+IC0KPiAtICAgICAgIHB1dF9waWQocGlkKTsKPiArICAgICAgIGZpbGUgPSBmaWxw
-LT5wcml2YXRlX2RhdGE7Cj4gKyAgICAgICBmcHJpdiA9IGZpbGUtPmRyaXZlcl9wcml2Owo+ICsg
-ICAgICAgaWRyX2Zvcl9lYWNoX2VudHJ5KCZmcHJpdi0+Y3R4X21nci5jdHhfaGFuZGxlcywgY3R4
-LCBpZCkKPiArICAgICAgICAgICAgICAgYW1kZ3B1X2N0eF9wcmlvcml0eV9vdmVycmlkZShjdHgs
-IHByaW9yaXR5KTsKPgo+ICAgICAgICAgZnB1dChmaWxwKTsKPgo+IC0tCj4gMi4xNC4xCj4KPiBf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZngg
-bWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 08/16/2018 08:09 PM, Wen Yang wrote:
+> Fix comile warning like,
+>   CC [M]  drivers/gpu/drm/i915/gvt/execlist.o
+>   CC [M]  drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.o
+>   CC [M]  drivers/gpu/drm/radeon/btc_dpm.o
+>   CC [M]  drivers/isdn/hisax/avm_a1p.o
+>   CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_dpp.o
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: In function ‘dcn10_update_mpcc’:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1903:9: warning: missing braces around initializer [-Wmissing-braces]
+>   struct mpcc_blnd_cfg blnd_cfg = {0};
+>          ^
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1903:9: warning: (near initialization for ‘blnd_cfg.black_color’) [-Wmissing-braces]
+> 
+> Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
+> Reviewed-by: Jiang Biao <jiang.biao2@zte.com.cn>
+
+works for me.  Thanks.
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> index cfcc54f..a06a035 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> @@ -1900,7 +1900,7 @@ static void update_dpp(struct dpp *dpp, struct dc_plane_state *plane_state)
+>  static void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
+>  {
+>  	struct hubp *hubp = pipe_ctx->plane_res.hubp;
+> -	struct mpcc_blnd_cfg blnd_cfg = {0};
+> +	struct mpcc_blnd_cfg blnd_cfg = {{0}};
+>  	bool per_pixel_alpha = pipe_ctx->plane_state->per_pixel_alpha && pipe_ctx->bottom_pipe;
+>  	int mpcc_id;
+>  	struct mpcc *new_mpcc;
+> 
+
+
+-- 
+~Randy
