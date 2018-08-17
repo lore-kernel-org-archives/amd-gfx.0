@@ -1,13 +1,14 @@
-From: sunnanyong <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogT29wcyBpbiA0LjE2IGtlcm5lbCBhbWRncHUgZHJpdmVy?=
-Date: Fri, 17 Aug 2018 08:06:16 +0000
-Message-ID: <EB021AE3BDDC1742A899855D00BABEB0010853E4@dggemm526-mbx.china.huawei.com>
-References: <EB021AE3BDDC1742A899855D00BABEB0010451CE@DGGEMM506-MBX.china.huawei.com>
- <E7DD0E9246072C4A9CA8F1C79F816696018E7743@dggemi505-mbx.china.huawei.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Refine gfx_v9_0_kcq_disable function
+Date: Fri, 17 Aug 2018 13:26:02 -0400
+Message-ID: <CADnq5_N4iHPVqzpATcROiwu0S3YF=E2YOBGSSp+--KCkKuh0eg@mail.gmail.com>
+References: <1534498407-19950-1-git-send-email-Rex.Zhu@amd.com>
+ <1534498407-19950-2-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1522196074=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <1534498407-19950-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,152 +19,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Baixin (BX)" <baixin1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1522196074==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_"
-
---_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-SGkgQWxsICwNCklzIHRoZXJlIGEgd2F5IHRvIGxpbWl0IGhvdyBtdWNoIFZSQU0gdGhlIGFwcGxp
-Y2F0aW9uIGNhbiB1c2U/DQpJIHdhbnQgdG8gYWxsb2NhdGUgdnJhbSBhdmVyYWdlbHkgZm9yIGVh
-Y2ggYXBwbGljYXRpb24sIGhvdyB0byByZWFsaXplIHRoaXM/DQpPUzogVWJ1bnR1MTcuMTANCkdQ
-VSBkcml2ZXI6IG1lc2ExNy4yLjgNCkdQVTogUmFkZW9uIHBybyB3eDUxMDANCg0KUGxlYXNlIGhl
-bHAsIHRoYW5rcyENCg==
-
---_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:=CB=CE=CC=E5;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@=CB=CE=CC=E5";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
-h2
-	{mso-style-priority:9;
-	mso-style-link:"=B1=EA=CC=E2 2 Char";
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:18.0pt;
-	font-family:=CB=CE=CC=E5;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-span.EmailStyle18
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle19
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle20
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.2Char
-	{mso-style-name:"=B1=EA=CC=E2 2 Char";
-	mso-style-priority:9;
-	mso-style-link:"=B1=EA=CC=E2 2";
-	font-family:=CB=CE=CC=E5;
-	font-weight:bold;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
-rim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi All , <span style=3D"color:#=
-1F497D"><o:p></o:p></span></span></p>
-<p class=3D"MsoNormal" style=3D"text-indent:9.0pt"><span lang=3D"EN-US" sty=
-le=3D"color:#1F497D">Is there a way to limit how much VRAM the application =
-can use?
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">I want =
-to allocate vram averagely for each application, how to realize this?<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">OS: Ubu=
-ntu17.10<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">GPU dri=
-ver: mesa17.2.8
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">GPU: Ra=
-deon pro wx5100<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Please =
-help, thanks!<o:p></o:p></span></p>
-</div>
-</body>
-</html>
-
---_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_--
-
---===============1522196074==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1522196074==--
+T24gRnJpLCBBdWcgMTcsIDIwMTggYXQgNTozNSBBTSBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
+IHdyb3RlOgo+Cj4gU2VuZCBhbGwga2NxIHVubWFwX3F1ZXVlIHBhY2tldHMgYW5kIHRoZW4gd2Fp
+dCBmb3IKPiBjb21wbGV0ZS4KPgo+IFNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1k
+LmNvbT4KClRoaXMgc2VyaWVzIGFuZCB0aGUgZ2Z4OCBzZXJpZXMgYXJlOgpSZXZpZXdlZC1ieTog
+QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKTG9uZ2VyIHRlcm0sIHdl
+IG1heSB3YW50IHRvIGR5bmFtaWNhbGx5IG1hcCBhbmQgdW1hcCBjb21wdXRlIHF1ZXVlcyBhcwpw
+YXJ0IG9mIHNjaGVkdWxpbmcgY29tcHV0ZSB3b3JrIHRvIGRlYWwgd2l0aCB0aGluZ3MgbGlrZSBw
+cmlvcml0aWVzCmFuZCBjdSBtYXNraW5nIHRoZSB0aGUgbXFkcywgYnV0IHRoYXQgaXMgYSBmdXR1
+cmUgZW5oYW5jZW1lbnQuCgpBbGV4Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjlfMC5jIHwgMzMgKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tCj4gIDEg
+ZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IGluZGV4IGJjOTBmNTUuLmY3ZDk3YmQgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBAQCAtMzE2MCwyOCArMzE2
+MCwyOSBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2h3X2luaXQodm9pZCAqaGFuZGxlKQo+ICAgICAg
+ICAgcmV0dXJuIHI7Cj4gIH0KPgo+IC1zdGF0aWMgaW50IGdmeF92OV8wX2tjcV9kaXNhYmxlKHN0
+cnVjdCBhbWRncHVfcmluZyAqa2lxX3Jpbmcsc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICtz
+dGF0aWMgaW50IGdmeF92OV8wX2tjcV9kaXNhYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQo+ICB7Cj4gLSAgICAgICBpbnQgcjsKPiArICAgICAgIGludCByLCBpOwo+ICsgICAgICAgc3Ry
+dWN0IGFtZGdwdV9yaW5nICpraXFfcmluZyA9ICZhZGV2LT5nZngua2lxLnJpbmc7Cj4KPiAtICAg
+ICAgIHIgPSBhbWRncHVfcmluZ19hbGxvYyhraXFfcmluZywgNik7Cj4gLSAgICAgICBpZiAocikg
+ewo+ICsgICAgICAgciA9IGFtZGdwdV9yaW5nX2FsbG9jKGtpcV9yaW5nLCA2ICogYWRldi0+Z2Z4
+Lm51bV9jb21wdXRlX3JpbmdzKTsKPiArICAgICAgIGlmIChyKQo+ICAgICAgICAgICAgICAgICBE
+Uk1fRVJST1IoIkZhaWxlZCB0byBsb2NrIEtJUSAoJWQpLlxuIiwgcik7Cj4gLSAgICAgICAgICAg
+ICAgIHJldHVybiByOwo+IC0gICAgICAgfQo+Cj4gLSAgICAgICAvKiB1bm1hcCBxdWV1ZXMgKi8K
+PiAtICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCBQQUNLRVQzKFBBQ0tFVDNfVU5N
+QVBfUVVFVUVTLCA0KSk7Cj4gLSAgICAgICBhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgLyog
+UV9zZWw6IDAsIHZtaWQ6IDAsIGVuZ2luZTogMCwgbnVtX1E6IDEgKi8KPiArICAgICAgIGZvciAo
+aSA9IDA7IGkgPCBhZGV2LT5nZngubnVtX2NvbXB1dGVfcmluZ3M7IGkrKykgewo+ICsgICAgICAg
+ICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAmYWRldi0+Z2Z4LmNvbXB1dGVfcmlu
+Z1tpXTsKPiArCj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCBQ
+QUNLRVQzKFBBQ0tFVDNfVU5NQVBfUVVFVUVTLCA0KSk7Cj4gKyAgICAgICAgICAgICAgIGFtZGdw
+dV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAvKiBRX3NlbDogMCwgdm1pZDogMCwgZW5naW5lOiAwLCBu
+dW1fUTogMSAqLwo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIFBBQ0tFVDNfVU5NQVBfUVVFVUVTX0FDVElPTigxKSB8IC8qIFJFU0VUX1FVRVVFUyAqLwo+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBBQ0tFVDNf
+VU5NQVBfUVVFVUVTX1FVRVVFX1NFTCgwKSB8Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgUEFDS0VUM19VTk1BUF9RVUVVRVNfRU5HSU5FX1NFTCgwKSB8
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUEFDS0VU
+M19VTk1BUF9RVUVVRVNfTlVNX1FVRVVFUygxKSk7Cj4gLSAgICAgICBhbWRncHVfcmluZ193cml0
+ZShraXFfcmluZywgUEFDS0VUM19VTk1BUF9RVUVVRVNfRE9PUkJFTExfT0ZGU0VUMChyaW5nLT5k
+b29yYmVsbF9pbmRleCkpOwo+IC0gICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDAp
+Owo+IC0gICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDApOwo+IC0gICAgICAgYW1k
+Z3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDApOwo+IC0KPiArICAgICAgICAgICAgICAgYW1kZ3B1
+X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIFBBQ0tFVDNfVU5NQVBfUVVFVUVTX0RPT1JCRUxMX09GRlNF
+VDAocmluZy0+ZG9vcmJlbGxfaW5kZXgpKTsKPiArICAgICAgICAgICAgICAgYW1kZ3B1X3Jpbmdf
+d3JpdGUoa2lxX3JpbmcsIDApOwo+ICsgICAgICAgICAgICAgICBhbWRncHVfcmluZ193cml0ZShr
+aXFfcmluZywgMCk7Cj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5n
+LCAwKTsKPiArICAgICAgIH0KPiAgICAgICAgIHIgPSBhbWRncHVfcmluZ190ZXN0X3Jpbmcoa2lx
+X3JpbmcpOwo+ICAgICAgICAgaWYgKHIpCj4gICAgICAgICAgICAgICAgIERSTV9FUlJPUigiS0NR
+IGRpc2FibGUgZmFpbGVkXG4iKTsKPiBAQCAtMzE5MiwxNCArMzE5MywxMiBAQCBzdGF0aWMgaW50
+IGdmeF92OV8wX2tjcV9kaXNhYmxlKHN0cnVjdCBhbWRncHVfcmluZyAqa2lxX3Jpbmcsc3RydWN0
+IGFtZGdwdV9yaW5nCj4gIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfaHdfZmluaSh2b2lkICpoYW5kbGUp
+Cj4gIHsKPiAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICopaGFuZGxlOwo+IC0gICAgICAgaW50IGk7Cj4KPiAgICAgICAgIGFtZGdwdV9p
+cnFfcHV0KGFkZXYsICZhZGV2LT5nZngucHJpdl9yZWdfaXJxLCAwKTsKPiAgICAgICAgIGFtZGdw
+dV9pcnFfcHV0KGFkZXYsICZhZGV2LT5nZngucHJpdl9pbnN0X2lycSwgMCk7Cj4KPiAgICAgICAg
+IC8qIGRpc2FibGUgS0NRIHRvIGF2b2lkIENQQyB0b3VjaCBtZW1vcnkgbm90IHZhbGlkIGFueW1v
+cmUgKi8KPiAtICAgICAgIGZvciAoaSA9IDA7IGkgPCBhZGV2LT5nZngubnVtX2NvbXB1dGVfcmlu
+Z3M7IGkrKykKPiAtICAgICAgICAgICAgICAgZ2Z4X3Y5XzBfa2NxX2Rpc2FibGUoJmFkZXYtPmdm
+eC5raXEucmluZywgJmFkZXYtPmdmeC5jb21wdXRlX3JpbmdbaV0pOwo+ICsgICAgICAgZ2Z4X3Y5
+XzBfa2NxX2Rpc2FibGUoYWRldik7Cj4KPiAgICAgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRl
+dikpIHsKPiAgICAgICAgICAgICAgICAgZ2Z4X3Y5XzBfY3BfZ2Z4X2VuYWJsZShhZGV2LCBmYWxz
+ZSk7Cj4gLS0KPiAxLjkuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
