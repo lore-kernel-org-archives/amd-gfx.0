@@ -1,16 +1,12 @@
-From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: use kiq to do invalidate tlb
-Date: Fri, 17 Aug 2018 02:37:06 +0000
-Message-ID: <DM6PR12MB265240C24425101AF0B35E4B8F3D0@DM6PR12MB2652.namprd12.prod.outlook.com>
-References: <1534424701-6723-1-git-send-email-Emily.Deng@amd.com>
- <1534424701-6723-2-git-send-email-Emily.Deng@amd.com>
- <1a97e548-09d3-ec4b-d2d4-c9d5e753f749@gmail.com>
- <DM6PR12MB2652D87439F7592F04CA8D138F3D0@DM6PR12MB2652.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: set correct base for THM/NBIF/MP1 IP
+Date: Fri, 17 Aug 2018 02:53:29 +0000
+Message-ID: <BN6PR12MB180993F97EBF9F4807480CE7F73D0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180817023632.29104-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1048929684=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB2652D87439F7592F04CA8D138F3D0-lmeGfMZKVrHiBFXSrFbU1AdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20180817023632.29104-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,113 +18,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
 
-Pi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3Vu
-Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIERlbmcsDQo+RW1pbHkNCj5T
-ZW50OiBGcmlkYXksIEF1Z3VzdCAxNywgMjAxOCAxMDoxOSBBTQ0KPlRvOiBLb2VuaWcsIENocmlz
-dGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgYW1kLQ0KPmdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcNCj5TdWJqZWN0OiBSRTogW1BBVENIIDIvMl0gZHJtL2FtZGdwdTogdXNlIGtpcSB0
-byBkbyBpbnZhbGlkYXRlIHRsYg0KPg0KPj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj5G
-cm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4N
-Cj4+U2VudDogVGh1cnNkYXksIEF1Z3VzdCAxNiwgMjAxOCA5OjI0IFBNDQo+PlRvOiBEZW5nLCBF
-bWlseSA8RW1pbHkuRGVuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
-Cj4+U3ViamVjdDogUmU6IFtQQVRDSCAyLzJdIGRybS9hbWRncHU6IHVzZSBraXEgdG8gZG8gaW52
-YWxpZGF0ZSB0bGINCj4+DQo+PkFtIDE2LjA4LjIwMTggdW0gMTU6MDUgc2NocmllYiBFbWlseSBE
-ZW5nOg0KPj4+IFRvIGF2b2lkIHRoZSB0bGIgZmx1c2ggbm90IGludGVycnVwdGVkIGJ5IHdvcmxk
-IHN3aXRjaCwgdXNlIGtpcSBhbmQNCj4+PiBvbmUgY29tbWFuZCB0byBkbyB0bGIgaW52YWxpZGF0
-ZS4NCj4+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNv
-bT4NCj4+PiAtLS0NCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAg
-ICAgfCAgNCArKysNCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0
-LmMgfCAgMyAtLQ0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyAg
-ICB8IDYwDQo+PisrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+Pj4gICAzIGZpbGVz
-IGNoYW5nZWQsIDY0IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+PiBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+Pj4gaW5kZXggNjI2NWI4OC4uMTllZjc3
-MTEgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgN
-Cj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPj4+IEBAIC0y
-MTIsNiArMjEyLDEwIEBAIGVudW0gYW1kZ3B1X2tpcV9pcnEgew0KPj4+ICAgCUFNREdQVV9DUF9L
-SVFfSVJRX0xBU1QNCj4+PiAgIH07DQo+Pj4NCj4+PiArI2RlZmluZSBNQVhfS0lRX1JFR19XQUlU
-ICAgICAgIDUwMDAgLyogaW4gdXNlY3MsIDVtcyAqLw0KPj4+ICsjZGVmaW5lIE1BWF9LSVFfUkVH
-X0JBSUxPVVRfSU5URVJWQUwgICA1IC8qIGluIG1zZWNzLCA1bXMgKi8NCj4+PiArI2RlZmluZSBN
-QVhfS0lRX1JFR19UUlkgMjANCj4+PiArDQo+Pj4gICBpbnQgYW1kZ3B1X2RldmljZV9pcF9zZXRf
-Y2xvY2tnYXRpbmdfc3RhdGUodm9pZCAqZGV2LA0KPj4+ICAgCQkJCQkgICBlbnVtIGFtZF9pcF9i
-bG9ja190eXBlIGJsb2NrX3R5cGUsDQo+Pj4gICAJCQkJCSAgIGVudW0gYW1kX2Nsb2NrZ2F0aW5n
-X3N0YXRlIHN0YXRlKTsNCj4+ZGlmZiAtLWdpdA0KPj4+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZpcnQuYw0KPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZpcnQuYw0KPj4+IGluZGV4IDIxYWRiMWI2Li4zODg1NjM2IDEwMDY0NA0KPj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMNCj4+PiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jDQo+Pj4gQEAgLTIyLDkgKzIyLDYg
-QEANCj4+PiAgICAqLw0KPj4+DQo+Pj4gICAjaW5jbHVkZSAiYW1kZ3B1LmgiDQo+Pj4gLSNkZWZp
-bmUgTUFYX0tJUV9SRUdfV0FJVAk1MDAwIC8qIGluIHVzZWNzLCA1bXMgKi8NCj4+PiAtI2RlZmlu
-ZSBNQVhfS0lRX1JFR19CQUlMT1VUX0lOVEVSVkFMCTUgLyogaW4gbXNlY3MsIDVtcyAqLw0KPj4+
-IC0jZGVmaW5lIE1BWF9LSVFfUkVHX1RSWSAyMA0KPj4+DQo+Pj4gICB1aW50NjRfdCBhbWRncHVf
-Y3NhX3ZhZGRyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPj4+ICAgew0KPj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+Pj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+Pj4gaW5kZXggZWQ0NjdkZS4uNmMx
-NjRiZCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlf
-MC5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4+
-IEBAIC0zMTEsNiArMzExLDU4IEBAIHN0YXRpYyB1aW50MzJfdA0KPj5nbWNfdjlfMF9nZXRfaW52
-YWxpZGF0ZV9yZXEodW5zaWduZWQgaW50IHZtaWQpDQo+Pj4gICAJcmV0dXJuIHJlcTsNCj4+PiAg
-IH0NCj4+Pg0KPj4+ICtzaWduZWQgbG9uZyAgYW1kZ3B1X2tpcV9yZWdfd3JpdGVfcmVnX3dhaXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+Pj4gKwkJCQkJCSAgdWludDMyX3QgcmVnMCwg
-dWludDMyX3QgcmVnMSwNCj4+PiArCQkJCQkJICB1aW50MzJfdCByZWYsIHVpbnQzMl90IG1hc2sp
-IHsNCj4+PiArCXNpZ25lZCBsb25nIHIsIGNudCA9IDA7DQo+Pj4gKwl1bnNpZ25lZCBsb25nIGZs
-YWdzOw0KPj4+ICsJdWludDMyX3Qgc2VxOw0KPj4+ICsJc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9
-ICZhZGV2LT5nZngua2lxOw0KPj4+ICsJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmtpcS0+
-cmluZzsNCj4+PiArDQo+Pj4gKwlpZiAoIXJpbmctPnJlYWR5KQ0KPj4+ICsJCXJldHVybiAtRUlO
-VkFMOw0KPj4+ICsNCj4+PiArCXNwaW5fbG9ja19pcnFzYXZlKCZraXEtPnJpbmdfbG9jaywgZmxh
-Z3MpOw0KPj4+ICsNCj4+PiArCWFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDMyKTsNCj4+PiArCWFt
-ZGdwdV9yaW5nX2VtaXRfcmVnX3dyaXRlX3JlZ193YWl0KHJpbmcsIHJlZzAsIHJlZzEsDQo+Pj4g
-KwkJCQkJICAgIHJlZiwgbWFzayk7DQo+Pj4gKwlhbWRncHVfZmVuY2VfZW1pdF9wb2xsaW5nKHJp
-bmcsICZzZXEpOw0KPj4+ICsJYW1kZ3B1X3JpbmdfY29tbWl0KHJpbmcpOw0KPj4+ICsJc3Bpbl91
-bmxvY2tfaXJxcmVzdG9yZSgma2lxLT5yaW5nX2xvY2ssIGZsYWdzKTsNCj4+PiArDQo+Pj4gKwly
-ID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsIE1BWF9LSVFfUkVHX1dBSVQp
-Ow0KPj4+ICsNCj4+PiArCS8qIGRvbid0IHdhaXQgYW55bW9yZSBmb3IgZ3B1IHJlc2V0IGNhc2Ug
-YmVjYXVzZSB0aGlzIHdheSBtYXkNCj4+PiArCSAqIGJsb2NrIGdwdV9yZWNvdmVyKCkgcm91dGlu
-ZSBmb3JldmVyLCBlLmcuIHRoaXMgdmlydF9raXFfcnJlZw0KPj4+ICsJICogaXMgdHJpZ2dlcmVk
-IGluIFRUTSBhbmQgdHRtX2JvX2xvY2tfZGVsYXllZF93b3JrcXVldWUoKSB3aWxsDQo+Pj4gKwkg
-KiBuZXZlciByZXR1cm4gaWYgd2Uga2VlcCB3YWl0aW5nIGluIHZpcnRfa2lxX3JyZWcsIHdoaWNo
-IGNhdXNlDQo+Pj4gKwkgKiBncHVfcmVjb3ZlcigpIGhhbmcgdGhlcmUuDQo+Pj4gKwkgKg0KPj4+
-ICsJICogYWxzbyBkb24ndCB3YWl0IGFueW1vcmUgZm9yIElSUSBjb250ZXh0DQo+Pj4gKwkgKiAq
-Lw0KPj4+ICsJaWYgKHIgPCAxICYmIChhZGV2LT5pbl9ncHVfcmVzZXQgfHwgaW5faW50ZXJydXB0
-KCkpKQ0KPj4+ICsJCWdvdG8gZmFpbGVkX2tpcTsNCj4+PiArDQo+Pj4gKwltaWdodF9zbGVlcCgp
-Ow0KPj4+ICsNCj4+PiArCXdoaWxlIChyIDwgMSAmJiBjbnQrKyA8IE1BWF9LSVFfUkVHX1RSWSkg
-ew0KPj4+ICsJCW1zbGVlcChNQVhfS0lRX1JFR19CQUlMT1VUX0lOVEVSVkFMKTsNCj4+PiArCQly
-ID0gYW1kZ3B1X2ZlbmNlX3dhaXRfcG9sbGluZyhyaW5nLCBzZXEsDQo+Pk1BWF9LSVFfUkVHX1dB
-SVQpOw0KPj4+ICsJfQ0KPj4+ICsNCj4+PiArCWlmIChjbnQgPiBNQVhfS0lRX1JFR19UUlkpDQo+
-Pj4gKwkJZ290byBmYWlsZWRfa2lxOw0KPj4+ICsNCj4+PiArCXJldHVybiAwOw0KPj4+ICsNCj4+
-PiArZmFpbGVkX2tpcToNCj4+PiArCXByX2VycigiZmFpbGVkIHRvIGludmFsaWRhdGUgdGxiIHdp
-dGgga2lxXG4iKTsNCj4+PiArCXJldHVybiByOw0KPj4+ICt9DQo+Pj4gKw0KPj4+ICAgLyoNCj4+
-PiAgICAqIEdBUlQNCj4+PiAgICAqIFZNSUQgMCBpcyB0aGUgcGh5c2ljYWwgR1BVIGFkZHJlc3Nl
-cyBhcyB1c2VkIGJ5IHRoZSBrZXJuZWwuDQo+Pj4gQEAgLTMzMiw2ICszODQsNyBAQCBzdGF0aWMg
-dm9pZCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiKHN0cnVjdA0KPj5hbWRncHVfZGV2aWNlICphZGV2
-LA0KPj4+ICAgCS8qIFVzZSByZWdpc3RlciAxNyBmb3IgR0FSVCAqLw0KPj4+ICAgCWNvbnN0IHVu
-c2lnbmVkIGVuZyA9IDE3Ow0KPj4+ICAgCXVuc2lnbmVkIGksIGo7DQo+Pj4gKwlpbnQgcjsNCj4+
-Pg0KPj4+ICAgCXNwaW5fbG9jaygmYWRldi0+Z21jLmludmFsaWRhdGVfbG9jayk7DQo+Pj4NCj4+
-PiBAQCAtMzM5LDYgKzM5MiwxMyBAQCBzdGF0aWMgdm9pZCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxi
-KHN0cnVjdA0KPj5hbWRncHVfZGV2aWNlICphZGV2LA0KPj4+ICAgCQlzdHJ1Y3QgYW1kZ3B1X3Zt
-aHViICpodWIgPSAmYWRldi0+dm1odWJbaV07DQo+Pj4gICAJCXUzMiB0bXAgPSBnbWNfdjlfMF9n
-ZXRfaW52YWxpZGF0ZV9yZXEodm1pZCk7DQo+Pj4NCj4+PiArCQlzcGluX3VubG9jaygmYWRldi0+
-Z21jLmludmFsaWRhdGVfbG9jayk7DQo+Pg0KPj5XZWxsIGp1c3QgcmVtb3ZlIHRoZSBsb2NrIGFs
-dG9nZXRoZXIuIFRha2luZyBpdCBhbmQgZHJvcHBpbmcgaXQgYWdhaW4NCj4+aW1tZWRpYXRlbHkg
-ZG9lc24ndCBkbyBhbnl0aGluZyB1c2VmdWwuDQo+Pg0KPj4+ICsJCXIgPSBhbWRncHVfa2lxX3Jl
-Z193cml0ZV9yZWdfd2FpdChhZGV2LCBodWItDQo+Pj52bV9pbnZfZW5nMF9yZXEgKyBlbmcsDQo+
-Pj4gKwkJCWh1Yi0+dm1faW52X2VuZzBfYWNrICsgZW5nLCB0bXAsIDEgPDwgdm1pZCk7DQo+Pj4g
-KwkJc3Bpbl9sb2NrKCZhZGV2LT5nbWMuaW52YWxpZGF0ZV9sb2NrKTsNCj4+PiArCQlpZiAoIXIp
-DQo+Pj4gKwkJCWNvbnRpbnVlOw0KPj4+ICsNCj4+PiAgIAkJV1JFRzMyX05PX0tJUShodWItPnZt
-X2ludl9lbmcwX3JlcSArIGVuZywgdG1wKTsNCj4+Pg0KPj4+ICAgCQkvKiBCdXN5IHdhaXQgZm9y
-IEFDSy4qLw0KPj5TaW5jZSB5b3Ugbm93IHVzZSB0aGUgS0lRIHRvIHdhaXQgZm9yIHRoZSBUTEIg
-Zmx1c2ggSSB0aGluayB3ZSBjYW4gbm93DQo+PnJlbW92ZSB0aGUgTU1JTyBpbXBsZW1lbnRhdGlv
-bi4NCj5Pay4gSWYgcmVtb3ZlIHRoZSBNTUlPIGltcGxlbWVudGF0aW9uLCB0aGVuIHdlIGRvbid0
-IG5lZWQgYWRldi0NCj4+Z21jLmludmFsaWRhdGVfbG9jay4NClNvcnJ5LCBqdXN0IGZvcmdldCBv
-bmUgdGhpbmcsIHRoZSBNTUlPIHBhdGggY291bGRuJ3QgYmUgcmVtb3ZlZCwgYXMgdGhlIGtpcSBv
-bmx5IA0KY291bGQgYmUgdXNlZCB3aGVuIHRoZSBraXEgcmluZyBpcyByZWFkeSBmb3IgdXNpbmcs
-IHNvIHdoZW4gdGhlIGtpcSBpcyBub3QgcmVhZHksDQogbmVlZCBmYWxsYmFjayB0byB0aGUgTU1J
-TyBwYXRoLg0KPj4NCj4+UmVnYXJkcywNCj4+Q2hyaXN0aWFuLg0KPl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj5h
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+--===============1048929684==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180993F97EBF9F4807480CE7F73D0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180993F97EBF9F4807480CE7F73D0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, August 16, 2018 10:36:32 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander; Xu, Feifei; Quan, Evan
+Subject: [PATCH] drm/amd/powerplay: set correct base for THM/NBIF/MP1 IP
+
+Set correct address base for vega20.
+
+Change-Id: I7435980e2ca156ee2b443a97899d40aaba4876cb
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c b/drivers/gpu/drm=
+/amd/amdgpu/vega20_reg_init.c
+index 52778de93ab0..2d4473557b0d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c
+@@ -38,6 +38,7 @@ int vega20_reg_base_init(struct amdgpu_device *adev)
+                 adev->reg_offset[ATHUB_HWIP][i] =3D (uint32_t *)(&(ATHUB_B=
+ASE.instance[i]));
+                 adev->reg_offset[NBIO_HWIP][i] =3D (uint32_t *)(&(NBIO_BAS=
+E.instance[i]));
+                 adev->reg_offset[MP0_HWIP][i] =3D (uint32_t *)(&(MP0_BASE.=
+instance[i]));
++               adev->reg_offset[MP1_HWIP][i] =3D (uint32_t *)(&(MP1_BASE.i=
+nstance[i]));
+                 adev->reg_offset[UVD_HWIP][i] =3D (uint32_t *)(&(UVD_BASE.=
+instance[i]));
+                 adev->reg_offset[VCE_HWIP][i] =3D (uint32_t *)(&(VCE_BASE.=
+instance[i]));
+                 adev->reg_offset[DF_HWIP][i] =3D (uint32_t *)(&(DF_BASE.in=
+stance[i]));
+@@ -46,6 +47,8 @@ int vega20_reg_base_init(struct amdgpu_device *adev)
+                 adev->reg_offset[SDMA0_HWIP][i] =3D (uint32_t *)(&(SDMA0_B=
+ASE.instance[i]));
+                 adev->reg_offset[SDMA1_HWIP][i] =3D (uint32_t *)(&(SDMA1_B=
+ASE.instance[i]));
+                 adev->reg_offset[SMUIO_HWIP][i] =3D (uint32_t *)(&(SMUIO_B=
+ASE.instance[i]));
++               adev->reg_offset[NBIF_HWIP][i] =3D (uint32_t *)(&(NBIO_BASE=
+.instance[i]));
++               adev->reg_offset[THM_HWIP][i] =3D (uint32_t *)(&(THM_BASE.i=
+nstance[i]));
+         }
+         return 0;
+ }
+--
+2.18.0
+
+
+--_000_BN6PR12MB180993F97EBF9F4807480CE7F73D0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Evan Quan &lt;evan.qu=
+an-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, August 16, 2018 10:36:32 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander; Xu, Feifei; Quan, Evan<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: set correct base for THM/NBIF/MP=
+1 IP</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Set correct address base for vega20.<br>
+<br>
+Change-Id: I7435980e2ca156ee2b443a97899d40aaba4876cb<br>
+Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c | 3 &#43;&#43;&#43;<br>
+&nbsp;1 file changed, 3 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c b/drivers/gpu/drm=
+/amd/amdgpu/vega20_reg_init.c<br>
+index 52778de93ab0..2d4473557b0d 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c<br>
+@@ -38,6 &#43;38,7 @@ int vega20_reg_base_init(struct amdgpu_device *adev)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[ATHUB_HWIP][i] =3D (uint32_t *)(&=
+amp;(ATHUB_BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[NBIO_HWIP][i] =3D (uint32_t *)(&a=
+mp;(NBIO_BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[MP0_HWIP][i] =3D (uint32_t *)(&am=
+p;(MP0_BASE.instance[i]));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;reg_offset[MP1_HWIP][i] =3D (uint32_t *)(&amp;(MP1_=
+BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[UVD_HWIP][i] =3D (uint32_t *)(&am=
+p;(UVD_BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[VCE_HWIP][i] =3D (uint32_t *)(&am=
+p;(VCE_BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[DF_HWIP][i] =3D (uint32_t *)(&amp=
+;(DF_BASE.instance[i]));<br>
+@@ -46,6 &#43;47,8 @@ int vega20_reg_base_init(struct amdgpu_device *adev)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[SDMA0_HWIP][i] =3D (uint32_t *)(&=
+amp;(SDMA0_BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[SDMA1_HWIP][i] =3D (uint32_t *)(&=
+amp;(SDMA1_BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; adev-&gt;reg_offset[SMUIO_HWIP][i] =3D (uint32_t *)(&=
+amp;(SMUIO_BASE.instance[i]));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;reg_offset[NBIF_HWIP][i] =3D (uint32_t *)(&amp;(NBI=
+O_BASE.instance[i]));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;reg_offset[THM_HWIP][i] =3D (uint32_t *)(&amp;(THM_=
+BASE.instance[i]));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+-- <br>
+2.18.0<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180993F97EBF9F4807480CE7F73D0BN6PR12MB1809namp_--
+
+--===============1048929684==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1048929684==--
