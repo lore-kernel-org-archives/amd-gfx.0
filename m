@@ -1,46 +1,72 @@
-From: Wen Yang <wen.yang99@zte.com.cn>
-Subject: [PATCH] drm/amd/display: fix a compile warning
-Date: Fri, 17 Aug 2018 11:09:48 +0800
-Message-ID: <1534475388-40036-1-git-send-email-wen.yang99@zte.com.cn>
+From: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 libdrm] amdgpu: Eliminate void* arithmetic in
+ amdgpu_find_bo_by_cpu_mapping
+Date: Fri, 17 Aug 2018 03:57:49 +0000
+Message-ID: <BYAPR12MB25970AB7BD2F78F4BDCBB42BFF3D0@BYAPR12MB2597.namprd12.prod.outlook.com>
+References: <5B737CB6.5010207@amd.com>,
+ <20180816135429.3945-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, wen.yang99@zte.com.cn, jiang.biao2@zte.com.cn, zhong.weidong@zte.com.cn
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180816135429.3945-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?Windows-1252?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Fix comile warning like,
-  CC [M]  drivers/gpu/drm/i915/gvt/execlist.o
-  CC [M]  drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.o
-  CC [M]  drivers/gpu/drm/radeon/btc_dpm.o
-  CC [M]  drivers/isdn/hisax/avm_a1p.o
-  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_dpp.o
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: In function ‘dcn10_update_mpcc’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1903:9: warning: missing braces around initializer [-Wmissing-braces]
-  struct mpcc_blnd_cfg blnd_cfg = {0};
-         ^
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1903:9: warning: (near initialization for ‘blnd_cfg.black_color’) [-Wmissing-braces]
-
-Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
-Reviewed-by: Jiang Biao <jiang.biao2@zte.com.cn>
----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index cfcc54f..a06a035 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -1900,7 +1900,7 @@ static void update_dpp(struct dpp *dpp, struct dc_plane_state *plane_state)
- static void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- {
- 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
--	struct mpcc_blnd_cfg blnd_cfg = {0};
-+	struct mpcc_blnd_cfg blnd_cfg = {{0}};
- 	bool per_pixel_alpha = pipe_ctx->plane_state->per_pixel_alpha && pipe_ctx->bottom_pipe;
- 	int mpcc_id;
- 	struct mpcc *new_mpcc;
--- 
-1.8.3.1
+IFJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFtZC5jb20+CgpSZWdhcmRz
+LApKZXJyeShKdW53ZWkgWmhhbmcpCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5v
+cmc+IG9uIGJlaGFsZiBvZiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PgpTZW50
+OiBUaHVyc2RheSwgQXVndXN0IDE2LCAyMDE4IDk6NTQ6MjkgUE0KVG86IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnClN1YmplY3Q6IFtQQVRDSCB2MiBsaWJkcm1dIGFtZGdwdTogRWxpbWlu
+YXRlIHZvaWQqIGFyaXRobWV0aWMgaW4gYW1kZ3B1X2ZpbmRfYm9fYnlfY3B1X21hcHBpbmcKCkZy
+b206IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgoKQXJpdGhtZXRpYyB1
+c2luZyB2b2lkKiBwb2ludGVycyBpc24ndCBkZWZpbmVkIGJ5IHRoZSBDIHN0YW5kYXJkLCBvbmx5
+IGFzCmEgR0NDIGV4dGVuc2lvbi4gQXZvaWRzIGNvbXBpbGVyIHdhcm5pbmdzOgoKLi4vLi4vYW1k
+Z3B1L2FtZGdwdV9iby5jOiBJbiBmdW5jdGlvbiDigJhhbWRncHVfZmluZF9ib19ieV9jcHVfbWFw
+cGluZ+KAmToKLi4vLi4vYW1kZ3B1L2FtZGdwdV9iby5jOjU1NDo0ODogd2FybmluZzogcG9pbnRl
+ciBvZiB0eXBlIOKAmHZvaWQgKuKAmSB1c2VkIGluIGFyaXRobWV0aWMgWy1XcG9pbnRlci1hcml0
+aF0KICAgaWYgKGNwdSA+PSBiby0+Y3B1X3B0ciAmJiBjcHUgPCAoYm8tPmNwdV9wdHIgKyBiby0+
+YWxsb2Nfc2l6ZSkpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIF4KLi4vLi4vYW1kZ3B1L2FtZGdwdV9iby5jOjU2MToyMzogd2FybmluZzogcG9pbnRlciBv
+ZiB0eXBlIOKAmHZvaWQgKuKAmSB1c2VkIGluIHN1YnRyYWN0aW9uIFstV3BvaW50ZXItYXJpdGhd
+CiAgICpvZmZzZXRfaW5fYm8gPSBjcHUgLSBiby0+Y3B1X3B0cjsKICAgICAgICAgICAgICAgICAg
+ICAgICBeCgp2MjogVXNlIHVpbnRwdHJfdCBpbnN0ZWFkIG9mIGNoYXIqLCBkb24ndCBjaGFuZ2Ug
+ZnVuY3Rpb24gc2lnbmF0dXJlCiAgICAoSnVud2VpIFpoYW5nKQoKRml4ZXM6IDRkNDU0NDI0ZTFm
+MiAoImFtZGdwdTogYWRkIGEgZnVuY3Rpb24gdG8gZmluZCBibyBieSBjcHUgbWFwcGluZwogICAg
+ICAgICAgICAgICAgICAgICAodjIpIikKU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1p
+Y2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogYW1kZ3B1L2FtZGdwdV9iby5jIHwgNSArKystLQog
+MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS9hbWRncHUvYW1kZ3B1X2JvLmMgYi9hbWRncHUvYW1kZ3B1X2JvLmMKaW5kZXggODZkMWMx
+NDMuLjhlZmQwMTRlIDEwMDY0NAotLS0gYS9hbWRncHUvYW1kZ3B1X2JvLmMKKysrIGIvYW1kZ3B1
+L2FtZGdwdV9iby5jCkBAIC01NTEsMTQgKzU1MSwxNSBAQCBpbnQgYW1kZ3B1X2ZpbmRfYm9fYnlf
+Y3B1X21hcHBpbmcoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAogICAgICAgICAgICAgICAgYm8g
+PSBoYW5kbGVfdGFibGVfbG9va3VwKCZkZXYtPmJvX2hhbmRsZXMsIGkpOwogICAgICAgICAgICAg
+ICAgaWYgKCFibyB8fCAhYm8tPmNwdV9wdHIgfHwgc2l6ZSA+IGJvLT5hbGxvY19zaXplKQogICAg
+ICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsKLSAgICAgICAgICAgICAgIGlmIChjcHUgPj0g
+Ym8tPmNwdV9wdHIgJiYgY3B1IDwgKGJvLT5jcHVfcHRyICsgYm8tPmFsbG9jX3NpemUpKQorICAg
+ICAgICAgICAgICAgaWYgKGNwdSA+PSBiby0+Y3B1X3B0ciAmJgorICAgICAgICAgICAgICAgICAg
+IGNwdSA8ICh2b2lkKikoKHVpbnRwdHJfdCliby0+Y3B1X3B0ciArIGJvLT5hbGxvY19zaXplKSkK
+ICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7CiAgICAgICAgfQoKICAgICAgICBpZiAoaSA8
+IGRldi0+Ym9faGFuZGxlcy5tYXhfa2V5KSB7CiAgICAgICAgICAgICAgICBhdG9taWNfaW5jKCZi
+by0+cmVmY291bnQpOwogICAgICAgICAgICAgICAgKmJ1Zl9oYW5kbGUgPSBibzsKLSAgICAgICAg
+ICAgICAgICpvZmZzZXRfaW5fYm8gPSBjcHUgLSBiby0+Y3B1X3B0cjsKKyAgICAgICAgICAgICAg
+ICpvZmZzZXRfaW5fYm8gPSAodWludHB0cl90KWNwdSAtICh1aW50cHRyX3QpYm8tPmNwdV9wdHI7
+CiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgICAgICpidWZfaGFuZGxlID0gTlVMTDsKICAg
+ICAgICAgICAgICAgICpvZmZzZXRfaW5fYm8gPSAwOwotLQoyLjE4LjAKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
