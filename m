@@ -1,14 +1,13 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix VM clearing for the root PD
-Date: Fri, 17 Aug 2018 12:05:00 -0400
-Message-ID: <c505bf70-5590-0315-e04b-7075bbda6d2a@amd.com>
-References: <20180817122422.1384-1-christian.koenig@amd.com>
+From: sunnanyong <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Subject: =?gb2312?B?tPC4tDogT29wcyBpbiA0LjE2IGtlcm5lbCBhbWRncHUgZHJpdmVy?=
+Date: Fri, 17 Aug 2018 08:06:16 +0000
+Message-ID: <EB021AE3BDDC1742A899855D00BABEB0010853E4@dggemm526-mbx.china.huawei.com>
+References: <EB021AE3BDDC1742A899855D00BABEB0010451CE@DGGEMM506-MBX.china.huawei.com>
+ <E7DD0E9246072C4A9CA8F1C79F816696018E7743@dggemi505-mbx.china.huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1522196074=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180817122422.1384-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,26 +18,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Baixin (BX)" <baixin1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
 
-T24gMjAxOC0wOC0xNyAwODoyNCBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBXZSBuZWVk
-IHRvIGZpZ3VyZSBvdXQgdGhlIGFkZHJlc3MgYWZ0ZXIgdmFsaWRhdGluZyB0aGUgQk8sIG5vdCBi
-ZWZvcmUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+ClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdA
-YW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-IHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkK
-Pgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gaW5kZXggNjYyZThhMzRk
-NTJjLi42NjJhZWM1YzgxZDQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYwo+IEBAIC0zNjksNyArMzY5LDYgQEAgc3RhdGljIGludCBhbWRncHVfdm1fY2xlYXJfYm8o
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gIAl1aW50NjRfdCBhZGRyOwo+ICAJaW50IHI7
-Cj4gIAo+IC0JYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KGJvKTsKPiAgCWVudHJpZXMgPSBh
-bWRncHVfYm9fc2l6ZShibykgLyA4Owo+ICAKPiAgCWlmIChwdGVfc3VwcG9ydF9hdHMpIHsKPiBA
-QCAtNDAxLDYgKzQwMCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2NsZWFyX2JvKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LAo+ICAJaWYgKHIpCj4gIAkJZ290byBlcnJvcjsKPiAgCj4gKwlh
-ZGRyID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQoYm8pOwo+ICAJaWYgKGF0c19lbnRyaWVzKSB7Cj4g
-IAkJdWludDY0X3QgYXRzX3ZhbHVlOwo+ICAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+--===============1522196074==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_"
+
+--_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
+
+SGkgQWxsICwNCklzIHRoZXJlIGEgd2F5IHRvIGxpbWl0IGhvdyBtdWNoIFZSQU0gdGhlIGFwcGxp
+Y2F0aW9uIGNhbiB1c2U/DQpJIHdhbnQgdG8gYWxsb2NhdGUgdnJhbSBhdmVyYWdlbHkgZm9yIGVh
+Y2ggYXBwbGljYXRpb24sIGhvdyB0byByZWFsaXplIHRoaXM/DQpPUzogVWJ1bnR1MTcuMTANCkdQ
+VSBkcml2ZXI6IG1lc2ExNy4yLjgNCkdQVTogUmFkZW9uIHBybyB3eDUxMDANCg0KUGxlYXNlIGhl
+bHAsIHRoYW5rcyENCg==
+
+--_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=CB=CE=CC=E5;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=CB=CE=CC=E5";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:"Calibri","sans-serif";}
+h2
+	{mso-style-priority:9;
+	mso-style-link:"=B1=EA=CC=E2 2 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:18.0pt;
+	font-family:=CB=CE=CC=E5;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.2Char
+	{mso-style-name:"=B1=EA=CC=E2 2 Char";
+	mso-style-priority:9;
+	mso-style-link:"=B1=EA=CC=E2 2";
+	font-family:=CB=CE=CC=E5;
+	font-weight:bold;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
+rim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi All , <span style=3D"color:#=
+1F497D"><o:p></o:p></span></span></p>
+<p class=3D"MsoNormal" style=3D"text-indent:9.0pt"><span lang=3D"EN-US" sty=
+le=3D"color:#1F497D">Is there a way to limit how much VRAM the application =
+can use?
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">I want =
+to allocate vram averagely for each application, how to realize this?<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">OS: Ubu=
+ntu17.10<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">GPU dri=
+ver: mesa17.2.8
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">GPU: Ra=
+deon pro wx5100<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
+bsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Please =
+help, thanks!<o:p></o:p></span></p>
+</div>
+</body>
+</html>
+
+--_000_EB021AE3BDDC1742A899855D00BABEB0010853E4dggemm526mbxchi_--
+
+--===============1522196074==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1522196074==--
