@@ -1,18 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v4 4/5] drm/amdgpu: use bulk moves for efficient VM LRU
- handling (v4)
-Date: Mon, 20 Aug 2018 15:17:12 +0200
-Message-ID: <1bab5ffd-a33d-581b-992f-402192ed6756@gmail.com>
-References: <1534500481-15123-1-git-send-email-ray.huang@amd.com>
- <1534500481-15123-5-git-send-email-ray.huang@amd.com>
- <aca4bd35-af39-2b08-545e-38305f2ac000@amd.com>
- <20180820060505.GA9468@hr-amur2>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 5/5] drm/amdgpu:add VCN booting with firmware loaded by
+ PSP
+Date: Mon, 20 Aug 2018 13:42:59 +0000
+Message-ID: <CY4PR1201MB01023F0F48FCB23B50671D4FE4320@CY4PR1201MB0102.namprd12.prod.outlook.com>
+References: <1533832302-21440-1-git-send-email-James.Zhu@amd.com>
+ <1533832302-21440-5-git-send-email-James.Zhu@amd.com>,
+ <18e7213d-1d9e-c613-43bd-fe735a9de130@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0919512655=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180820060505.GA9468@hr-amur2>
+In-Reply-To: <18e7213d-1d9e-c613-43bd-fe735a9de130-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,220 +21,631 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, James Zhu <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Xu,
+ Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Gao, Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjAuMDguMjAxOCB1bSAwODowNSBzY2hyaWViIEh1YW5nIFJ1aToKPiBPbiBGcmksIEF1ZyAx
-NywgMjAxOCBhdCAwNjozODoxNlBNICswODAwLCBLb2VuaWcsIENocmlzdGlhbiB3cm90ZToKPj4g
-QW0gMTcuMDguMjAxOCB1bSAxMjowOCBzY2hyaWViIEh1YW5nIFJ1aToKPj4+IEkgY29udGludWUg
-dG8gd29yayBmb3IgYnVsayBtb3ZpbmcgdGhhdCBiYXNlZCBvbiB0aGUgcHJvcG9zYWwgYnkgQ2hy
-aXN0aWFuLgo+Pj4KPj4+IEJhY2tncm91bmQ6Cj4+PiBhbWRncHUgZHJpdmVyIHdpbGwgbW92ZSBh
-bGwgUEQvUFQgYW5kIFBlclZNIEJPcyBpbnRvIGlkbGUgbGlzdC4gVGhlbiBtb3ZlIGFsbCBvZgo+
-Pj4gdGhlbSBvbiB0aGUgZW5kIG9mIExSVSBsaXN0IG9uZSBieSBvbmUuIFRodXMsIHRoYXQgY2F1
-c2Ugc28gbWFueSBCT3MgbW92ZWQgdG8KPj4+IHRoZSBlbmQgb2YgdGhlIExSVSwgYW5kIGltcGFj
-dCBwZXJmb3JtYW5jZSBzZXJpb3VzbHkuCj4+Pgo+Pj4gVGhlbiBDaHJpc3RpYW4gcHJvdmlkZWQg
-YSB3b3JrYXJvdW5kIHRvIG5vdCBtb3ZlIFBEL1BUIEJPcyBvbiBMUlUgd2l0aCBiZWxvdwo+Pj4g
-cGF0Y2g6Cj4+PiAiZHJtL2FtZGdwdTogYmFuZCBhaWQgdmFsaWRhdGluZyBWTSBQVHMiCj4+PiBD
-b21taXQgMGJiZjMyMDI2Y2Y1YmE0MWU5OTIyYjMwZTI2ZTFiZWQxZWNkMzhhZQo+Pj4KPj4+IEhv
-d2V2ZXIsIHRoZSBmaW5hbCBzb2x1dGlvbiBzaG91bGQgYnVsayBtb3ZlIGFsbCBQRC9QVCBhbmQg
-UGVyVk0gQk9zIG9uIHRoZSBMUlUKPj4+IGluc3RlYWQgb2Ygb25lIGJ5IG9uZS4KPj4+Cj4+PiBX
-aGVuZXZlciBhbWRncHVfdm1fdmFsaWRhdGVfcHRfYm9zKCkgaXMgY2FsbGVkIGFuZCB3ZSBoYXZl
-IEJPcyB3aGljaCBuZWVkIHRvIGJlCj4+PiB2YWxpZGF0ZWQgd2UgbW92ZSBhbGwgQk9zIHRvZ2V0
-aGVyIHRvIHRoZSBlbmQgb2YgdGhlIExSVSB3aXRob3V0IGRyb3BwaW5nIHRoZQo+Pj4gbG9jayBm
-b3IgdGhlIExSVS4KPj4+Cj4+PiBXaGlsZSBkb2luZyBzbyB3ZSBub3RlIHRoZSBiZWdpbm5pbmcg
-YW5kIGVuZCBvZiB0aGlzIGJsb2NrIGluIHRoZSBMUlUgbGlzdC4KPj4+Cj4+PiBOb3cgd2hlbiBh
-bWRncHVfdm1fdmFsaWRhdGVfcHRfYm9zKCkgaXMgY2FsbGVkIGFuZCB3ZSBkb24ndCBoYXZlIGFu
-eXRoaW5nIHRvIGRvLAo+Pj4gd2UgZG9uJ3QgbW92ZSBldmVyeSBCTyBvbmUgYnkgb25lLCBidXQg
-aW5zdGVhZCBjdXQgdGhlIExSVSBsaXN0IGludG8gcGllY2VzIHNvCj4+PiB0aGF0IHdlIGJ1bGsg
-bW92ZSBldmVyeXRoaW5nIHRvIHRoZSBlbmQgaW4ganVzdCBvbmUgb3BlcmF0aW9uLgo+Pj4KPj4+
-IFRlc3QgZGF0YToKPj4+ICstLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0t
-LS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCj4+PiB8ICAgICAg
-ICAgICAgICB8VGhlIFRhbG9zICAgICAgICB8Q2xwZWFrKE9DTCl8QnVzU3BlZWRSZWFkYmFjayhP
-Q0wpICAgICAgICAgICAgICAgICAgfAo+Pj4gfCAgICAgICAgICAgICAgfFByaW5jaXBsZShWdWxr
-YW4pfCAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwK
-Pj4+ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCj4+PiB8ICAgICAgICAgICAgICB8ICAg
-ICAgICAgICAgICAgICB8ICAgICAgICAgICB8MC4zMTkgbXMoMWspIDAuMzE0IG1zKDJLKSAwLjMw
-OCBtcyg0SykgfAo+Pj4gfCBPcmlnaW5hbCAgICAgfCAgMTQ3LjcgRlBTICAgICAgfCAgNzYuODYg
-dXMgfDAuMzA3IG1zKDhLKSAwLjMxMCBtcygxNkspICAgICAgICAgICAgIHwKPj4+ICstLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0rCj4+PiB8IE9yaWduaWFsICsgV0F8ICAgICAgICAgICAgICAg
-ICB8ICAgICAgICAgICB8MC4yNTQgbXMoMUspIDAuMjQxIG1zKDJLKSAgICAgICAgICAgICAgfAo+
-Pj4gfChkb24ndCBtb3ZlICAgfCAgMTYyLjEgRlBTICAgICAgfCAgNDIuMTUgdXMgfDAuMjMwIG1z
-KDRLKSAwLjIyMyBtcyg4SykgMC4yMDQgbXMoMTZLKXwKPj4+IHxQVCBCT3Mgb24gTFJVKXwgICAg
-ICAgICAgICAgICAgIHwgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB8Cj4+PiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwo+Pj4gfCBCdWxrIG1v
-dmUgICAgfCAgMTYzLjEgRlBTICAgICAgfCAgNDAuNTIgdXMgfDAuMjQ0IG1zKDFLKSAwLjI1MiBt
-cygySykgMC4yMTMgbXMoNEspIHwKPj4+IHwgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAg
-IHwgICAgICAgICAgIHwwLjIxNCBtcyg4SykgMC4yMjUgbXMoMTZLKSAgICAgICAgICAgICB8Cj4+
-PiArLS0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0rLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwo+Pj4KPj4+IEFmdGVyIHRlc3QgdGhlbSB3
-aXRoIGFib3ZlIHRocmVlIGJlbmNobWFya3MgaW5jbHVkZSB2dWxrYW4gYW5kIG9wZW5jbC4gV2Ug
-Y2FuCj4+PiBzZWUgdGhlIHZpc2libGUgaW1wcm92ZW1lbnQgdGhhbiBvcmlnaW5hbCwgYW5kIGV2
-ZW4gYmV0dGVyIHRoYW4gb3JpZ2luYWwgd2l0aAo+Pj4gd29ya2Fyb3VuZC4KPj4+Cj4+PiB2Mjog
-bW92ZSBhbGwgQk9zIGluY2x1ZGUgaWRsZSwgcmVsb2NhdGVkLCBhbmQgbW92ZWQgbGlzdCB0byB0
-aGUgZW5kIG9mIExSVSBhbmQKPj4+IHB1dCB0aGVtIHRvZ2V0aGVyLgo+Pj4gdjM6IHJlbW92ZSB1
-bnVzZWQgcGFyYW1ldGVyIGFuZCB1c2UgbGlzdF9mb3JfZWFjaF9lbnRyeSBpbnN0ZWFkIG9mIHRo
-ZSBvbmUgd2l0aAo+Pj4gc2F2ZSBlbnRyeS4KPj4+IHY0OiBtb3ZlIHRoZSBhbWRncHVfdm1fbW92
-ZV90b19scnVfdGFpbCBhZnRlciBjb21tYW5kIHN1Ym1pc3Npb24sIGF0IHRoYXQgdGltZSwKPj4+
-IGFsbCBibyB3aWxsIGJlIGJhY2sgb24gaWRsZSBsaXN0Lgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4+IFNpZ25lZC1v
-ZmYtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+Cj4+PiBUZXN0ZWQtYnk6IE1pa2Ug
-TG90aGlhbiA8bWlrZUBmaXJlYnVybi5jby51az4KPj4+IFRlc3RlZC1ieTogRGlldGVyIE7DvHR6
-ZWwgPERpZXRlckBudWV0emVsLWhoLmRlPgo+Pj4gQWNrZWQtYnk6IENodW5taW5nIFpob3UgPGRh
-dmlkMS56aG91QGFtZC5jb20+Cj4+PiAtLS0KPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9jcy5jIHwgMTEgKysrKysrCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdm0uYyB8IDcxICsrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0K
-Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIHwgMTEgKysrKyst
-Cj4+PiAgICAzIGZpbGVzIGNoYW5nZWQsIDc1IGluc2VydGlvbnMoKyksIDE4IGRlbGV0aW9ucygt
-KQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4+PiBpbmRleCA1
-MDJiOTRmLi45ZmJkZjAyIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2NzLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9jcy5jCj4+PiBAQCAtMTI2MCw2ICsxMjYwLDE2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3N1
-Ym1pdChzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKPj4+ICAgIAlyZXR1cm4gMDsKPj4+ICAg
-IH0KPj4+ICAgIAo+Pj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9jc192bV9tb3ZlX29uX2xydShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+ICsJCQkJICAgICBzdHJ1Y3QgYW1kZ3B1X2NzX3Bh
-cnNlciAqcCkKPj4+ICt7Cj4+PiArCXN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2ID0gcC0+Zmls
-cC0+ZHJpdmVyX3ByaXY7Cj4+PiArCXN0cnVjdCBhbWRncHVfdm0gKnZtID0gJmZwcml2LT52bTsK
-Pj4+ICsKPj4+ICsJaWYgKHZtLT52YWxpZGF0ZWQpCj4+IFRoYXQgY2hlY2sgYmVsb25ncyBpbnNp
-ZGUgYW1kZ3B1X3ZtX21vdmVfdG9fbHJ1X3RhaWwoKS4KPj4KPj4+ICsJCWFtZGdwdV92bV9tb3Zl
-X3RvX2xydV90YWlsKGFkZXYsIHZtKTsKPj4+ICt9Cj4+PiArCj4+PiAgICBpbnQgYW1kZ3B1X2Nz
-X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmls
-ZSAqZmlscCkKPj4+ICAgIHsKPj4+ICAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRl
-di0+ZGV2X3ByaXZhdGU7Cj4+PiBAQCAtMTMxMCw2ICsxMzIwLDcgQEAgaW50IGFtZGdwdV9jc19p
-b2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUg
-KmZpbHApCj4+PiAgICAKPj4+ICAgIAlyID0gYW1kZ3B1X2NzX3N1Ym1pdCgmcGFyc2VyLCBjcyk7
-Cj4+PiAgICAKPj4+ICsJYW1kZ3B1X2NzX3ZtX21vdmVfb25fbHJ1KGFkZXYsICZwYXJzZXIpOwo+
-Pj4gICAgb3V0Ogo+Pj4gICAgCWFtZGdwdV9jc19wYXJzZXJfZmluaSgmcGFyc2VyLCByLCByZXNl
-cnZlZF9idWZmZXJzKTsKPj4+ICAgIAlyZXR1cm4gcjsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jCj4+PiBpbmRleCA5Yzg0NzcwLi4wMzdjZmJjIDEwMDY0NAo+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+PiBAQCAtMjY4LDYgKzI2OCw1MyBA
-QCB2b2lkIGFtZGdwdV92bV9nZXRfcGRfYm8oc3RydWN0IGFtZGdwdV92bSAqdm0sCj4+PiAgICB9
-Cj4+PiAgICAKPj4+ICAgIC8qKgo+Pj4gKyAqIGFtZGdwdV92bV9tb3ZlX3RvX2xydV90YWlsX2J5
-X2xpc3QgLSBtb3ZlIG9uZSBsaXN0IG9mIEJPcyB0byBlbmQgb2YgTFJVCj4+PiArICoKPj4+ICsg
-KiBAdm06IHZtIHByb3ZpZGluZyB0aGUgQk9zCj4+PiArICogQGxpc3Q6IHRoZSBsaXN0IHRoYXQg
-c3RvcmVkIEJPcwo+Pj4gKyAqCj4+PiArICogTW92ZSBvbmUgbGlzdCBvZiBCT3MgdG8gdGhlIGVu
-ZCBvZiBMUlUgYW5kIHVwZGF0ZSB0aGUgcG9zaXRpb25zLgo+Pj4gKyAqLwo+Pj4gK3N0YXRpYyB2
-b2lkCj4+PiArYW1kZ3B1X3ZtX21vdmVfdG9fbHJ1X3RhaWxfYnlfbGlzdChzdHJ1Y3QgYW1kZ3B1
-X3ZtICp2bSwgc3RydWN0IGxpc3RfaGVhZCAqbGlzdCkKPj4gSSBkb24ndCBzZWUgbXVjaCBvZiBh
-IHBvaW50IGhhdmluZyBhIHNlcGFyYXRlIGZ1bmN0aW9uIGZvciB0aGlzIGFueSBtb3JlLgo+Pgo+
-Pj4gK3sKPj4+ICsJc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICpib19iYXNlOwo+Pj4gKwo+Pj4g
-KwlsaXN0X2Zvcl9lYWNoX2VudHJ5KGJvX2Jhc2UsIGxpc3QsIHZtX3N0YXR1cykgewo+Pj4gKwkJ
-c3RydWN0IGFtZGdwdV9ibyAqYm8gPSBib19iYXNlLT5ibzsKPj4+ICsKPj4+ICsJCWlmICghYm8t
-PnBhcmVudCkKPj4+ICsJCQljb250aW51ZTsKPj4+ICsKPj4+ICsJCXR0bV9ib19tb3ZlX3RvX2xy
-dV90YWlsKCZiby0+dGJvLCAmdm0tPmxydV9idWxrX21vdmUpOwo+Pj4gKwkJaWYgKGJvLT5zaGFk
-b3cpCj4+PiArCQkJdHRtX2JvX21vdmVfdG9fbHJ1X3RhaWwoJmJvLT5zaGFkb3ctPnRibywKPj4+
-ICsJCQkJCQkmdm0tPmxydV9idWxrX21vdmUpOwo+Pj4gKwl9Cj4+PiArfQo+Pj4gKwo+Pj4gKy8q
-Kgo+Pj4gKyAqIGFtZGdwdV92bV9tb3ZlX3RvX2xydV90YWlsIC0gbW92ZSBhbGwgQk9zIHRvIHRo
-ZSBlbmQgb2YgTFJVCj4+PiArICoKPj4+ICsgKiBAYWRldjogYW1kZ3B1IGRldmljZSBwb2ludGVy
-Cj4+PiArICogQHZtOiB2bSBwcm92aWRpbmcgdGhlIEJPcwo+Pj4gKyAqCj4+PiArICogTW92ZSBh
-bGwgQk9zIHRvIHRoZSBlbmQgb2YgTFJVIGFuZCByZW1lbWJlciB0aGVpciBwb3NpdGlvbnMgdG8g
-cHV0IHRoZW0KPj4+ICsgKiB0b2dldGhlci4KPj4+ICsgKi8KPj4+ICt2b2lkIGFtZGdwdV92bV9t
-b3ZlX3RvX2xydV90YWlsKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gKwkJCQlzdHJ1
-Y3QgYW1kZ3B1X3ZtICp2bSkKPj4+ICt7Cj4+PiArCXN0cnVjdCB0dG1fYm9fZ2xvYmFsICpnbG9i
-ID0gYWRldi0+bW1hbi5iZGV2Lmdsb2I7Cj4+PiArCj4+PiArCW1lbXNldCgmdm0tPmxydV9idWxr
-X21vdmUsIDAsIHNpemVvZih2bS0+bHJ1X2J1bGtfbW92ZSkpOwo+Pj4gKwo+Pj4gKwlzcGluX2xv
-Y2soJmdsb2ItPmxydV9sb2NrKTsKPj4+ICsJYW1kZ3B1X3ZtX21vdmVfdG9fbHJ1X3RhaWxfYnlf
-bGlzdCh2bSwgJnZtLT5pZGxlKTsKPj4+ICsJc3Bpbl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsK
-Pj4+ICt9Cj4+PiArCj4+PiArLyoqCj4+PiAgICAgKiBhbWRncHVfdm1fdmFsaWRhdGVfcHRfYm9z
-IC0gdmFsaWRhdGUgdGhlIHBhZ2UgdGFibGUgQk9zCj4+PiAgICAgKgo+Pj4gICAgICogQGFkZXY6
-IGFtZGdwdSBkZXZpY2UgcG9pbnRlcgo+Pj4gQEAgLTI4OCw2ICszMzUsNyBAQCBpbnQgYW1kZ3B1
-X3ZtX3ZhbGlkYXRlX3B0X2JvcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFt
-ZGdwdV92bSAqdm0sCj4+PiAgICAJc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICpib19iYXNlLCAq
-dG1wOwo+Pj4gICAgCWludCByID0gMDsKPj4+ICAgIAo+Pj4gKwl2bS0+dmFsaWRhdGVkID0gZmFs
-c2U7Cj4+IFRoYXQgd29uJ3Qgd29yayBsaWtlIHRoaXMuIEl0IGlzIHBlcmZlY3RseSBwb3NzaWJs
-ZSB0aGF0IENTIGlzIGFib3J0ZWQKPj4gYmVjYXVzZSBvZiBhIHNpZ25hbCBhbmQgYW1kZ3B1X3Zt
-X21vdmVfdG9fbHJ1X3RhaWwoKSBuZXZlciBjYWxsZWQuCj4+Cj4+IEkgc3VnZ2VzdCB0byBkbyAi
-dm0tPnZhbGlkYXRlZCB8PSAhbGlzdF9lbXB0eSgmdm0tPmV2aWN0ZWQpOyIgaGVyZSBhbmQKPj4g
-dGhlbiBzZXQgaXQgdG8gZmFsc2UgYWdhaW4gaW4gYW1kZ3B1X3ZtX21vdmVfdG9fbHJ1X3RhaWwo
-KS4KPj4KPj4gQW5kIG1heWJlIHdlIG5lZWQgYSBiZXR0ZXIgbmFtZSB0aGFuICJ2YWxpZGF0ZWQi
-LCBtYXliZSAiYnVsa19tb3ZlYWJsZSIKPj4gb3Igc29tZXRoaW5nIGxpa2UgdGhhdC4KPj4KPiBB
-Y3R1YWxseSwgInZhbGlkYXRlZCIgaXMgb3Bwb3NpdGUgdG8gImJ1bGtfbW92ZWFibGUiLgo+IFNv
-IGhvdyBhYm91dCB1c2UgInZtLT5idWxrX21vdmVhYmxlID0gbGlzdF9lbXB0eSgmdm0tPmV2aWN0
-ZWQpOyIgaGVyZQoKVGhhdCBzdGlsbCB3b24ndCB3b3JrIGNvcnJlY3QuIFNlZSB0aGUgdmFsaWRh
-dGlvbiBjYW4gYmUgaW50ZXJydXB0ZWQuCgpTbyB3ZSBuZWVkIHNvbWV0aGluZyBsaWtlICJ2bS0+
-YnVsa19tb3ZlYWJsZSAmPSAKbGlzdF9lbXB0eSgmdm0tPmV2aWN0ZWQpOyIgaGVyZS4KCkFwYXJ0
-IGZyb20gdGhhdCB0aGlzIG5vdyBsb29rcyByZWFsbHkgZ29vZCB0byBtZS4KClJlZ2FyZHMsCkNo
-cmlzdGlhbi4KCj4KPiBUaGVuIGNoZWNrIHRoZSBmbGFnIGFmdGVyIG1vdmluZyB0aGUgdHRtX2Jv
-X2J1bGtfbW92ZV9scnVfdGFpbCgpIGludG8KPiBhbWRncHVfdm1fbW92ZV90b19scnVfdGFpbCgp
-IGxpa2UgYmVsb3c6Cj4KPiB2b2lkIGFtZGdwdV92bV9tb3ZlX3RvX2xydV90YWlsKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0
-cnVjdCBhbWRncHVfdm0gKnZtKQo+IHsKPiAgICAgICAgICBzdHJ1Y3QgdHRtX2JvX2dsb2JhbCAq
-Z2xvYiA9IGFkZXYtPm1tYW4uYmRldi5nbG9iOwo+ICAgICAgICAgIHN0cnVjdCBhbWRncHVfdm1f
-Ym9fYmFzZSAqYm9fYmFzZTsKPgo+ICAgICAgICAgIGlmICh2bS0+YnVsa19tb3ZlYWJsZSkgewo+
-ICAgICAgICAgICAgICAgICAgc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4gICAgICAgICAg
-ICAgICAgICB0dG1fYm9fYnVsa19tb3ZlX2xydV90YWlsKCZ2bS0+bHJ1X2J1bGtfbW92ZSk7Cj4g
-ICAgICAgICAgICAgICAgICBzcGluX3VubG9jaygmZ2xvYi0+bHJ1X2xvY2spOwo+ICAgICAgICAg
-ICAgICAgICAgcmV0dXJuOwo+ICAgICAgICAgIH0KPgo+ICAgICAgICAgIG1lbXNldCgmdm0tPmxy
-dV9idWxrX21vdmUsIDAsIHNpemVvZih2bS0+bHJ1X2J1bGtfbW92ZSkpOwo+Cj4gICAgICAgICAg
-c3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4gICAgICAgICAgbGlzdF9mb3JfZWFjaF9lbnRy
-eShib19iYXNlLCAmdm0tPmlkbGUsIHZtX3N0YXR1cykgewo+ICAgICAgICAgICAgICAgICAgc3Ry
-dWN0IGFtZGdwdV9ibyAqYm8gPSBib19iYXNlLT5ibzsKPgo+ICAgICAgICAgICAgICAgICAgaWYg
-KCFiby0+cGFyZW50KQo+ICAgICAgICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsKPgo+ICAg
-ICAgICAgICAgICAgICAgdHRtX2JvX21vdmVfdG9fbHJ1X3RhaWwoJmJvLT50Ym8sICZ2bS0+bHJ1
-X2J1bGtfbW92ZSk7Cj4gICAgICAgICAgICAgICAgICBpZiAoYm8tPnNoYWRvdykKPiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgdHRtX2JvX21vdmVfdG9fbHJ1X3RhaWwoJmJvLT5zaGFkb3ctPnRi
-bywKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJnZt
-LT5scnVfYnVsa19tb3ZlKTsKPiAgICAgICAgICB9Cj4gICAgICAgICAgc3Bpbl91bmxvY2soJmds
-b2ItPmxydV9sb2NrKTsKPgo+ICAgICAgICAgIHZtLT5idWxrX21vdmVhYmxlID0gdHJ1ZTsKPiB9
-Cj4KPiBUaGFua3MsCj4gUmF5Cj4KPj4+ICAgIAlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoYm9f
-YmFzZSwgdG1wLCAmdm0tPmV2aWN0ZWQsIHZtX3N0YXR1cykgewo+Pj4gICAgCQlzdHJ1Y3QgYW1k
-Z3B1X2JvICpibyA9IGJvX2Jhc2UtPmJvOwo+Pj4gICAgCj4+PiBAQCAtMjk1LDE0ICszNDMsOSBA
-QCBpbnQgYW1kZ3B1X3ZtX3ZhbGlkYXRlX3B0X2JvcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4+PiAgICAJCQlyID0gdmFsaWRhdGUocGFyYW0sIGJv
-KTsKPj4+ICAgIAkJCWlmIChyKQo+Pj4gICAgCQkJCWJyZWFrOwo+Pj4gLQo+Pj4gLQkJCXNwaW5f
-bG9jaygmZ2xvYi0+bHJ1X2xvY2spOwo+Pj4gLQkJCXR0bV9ib19tb3ZlX3RvX2xydV90YWlsKCZi
-by0+dGJvLCBOVUxMKTsKPj4+IC0JCQlpZiAoYm8tPnNoYWRvdykKPj4+IC0JCQkJdHRtX2JvX21v
-dmVfdG9fbHJ1X3RhaWwoJmJvLT5zaGFkb3ctPnRibywgTlVMTCk7Cj4+PiAtCQkJc3Bpbl91bmxv
-Y2soJmdsb2ItPmxydV9sb2NrKTsKPj4+ICAgIAkJfQo+Pj4gICAgCj4+PiArCQl2bS0+dmFsaWRh
-dGVkID0gdHJ1ZTsKPj4+ICAgIAkJaWYgKGJvLT50Ym8udHlwZSAhPSB0dG1fYm9fdHlwZV9rZXJu
-ZWwpIHsKPj4+ICAgIAkJCXNwaW5fbG9jaygmdm0tPm1vdmVkX2xvY2spOwo+Pj4gICAgCQkJbGlz
-dF9tb3ZlKCZib19iYXNlLT52bV9zdGF0dXMsICZ2bS0+bW92ZWQpOwo+Pj4gQEAgLTMxMiwyMCAr
-MzU1LDE0IEBAIGludCBhbWRncHVfdm1fdmFsaWRhdGVfcHRfYm9zKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPj4+ICAgIAkJfQo+Pj4gICAgCX0KPj4+
-ICAgIAo+Pj4gLQlzcGluX2xvY2soJmdsb2ItPmxydV9sb2NrKTsKPj4+IC0JbGlzdF9mb3JfZWFj
-aF9lbnRyeShib19iYXNlLCAmdm0tPmlkbGUsIHZtX3N0YXR1cykgewo+Pj4gLQkJc3RydWN0IGFt
-ZGdwdV9ibyAqYm8gPSBib19iYXNlLT5ibzsKPj4+IC0KPj4+IC0JCWlmICghYm8tPnBhcmVudCkK
-Pj4+IC0JCQljb250aW51ZTsKPj4+ICsJaWYgKHZtLT52YWxpZGF0ZWQpCj4+PiArCQlyZXR1cm4g
-MDsKPj4+ICAgIAo+Pj4gLQkJdHRtX2JvX21vdmVfdG9fbHJ1X3RhaWwoJmJvLT50Ym8sIE5VTEwp
-Owo+Pj4gLQkJaWYgKGJvLT5zaGFkb3cpCj4+PiAtCQkJdHRtX2JvX21vdmVfdG9fbHJ1X3RhaWwo
-JmJvLT5zaGFkb3ctPnRibywgTlVMTCk7Cj4+PiAtCX0KPj4+ICsJc3Bpbl9sb2NrKCZnbG9iLT5s
-cnVfbG9jayk7Cj4+PiArCXR0bV9ib19idWxrX21vdmVfbHJ1X3RhaWwoJnZtLT5scnVfYnVsa19t
-b3ZlKTsKPj4+ICAgIAlzcGluX3VubG9jaygmZ2xvYi0+bHJ1X2xvY2spOwo+PiBQcm9iYWJseSBi
-ZXN0IHRvIG1vdmUgdGhhdCBpbnRvIGFtZGdwdV92bV9tb3ZlX3RvX2xydV90YWlsKCkgYXMgd2Vs
-bC4KPj4KPj4gUmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+Pj4gICAgCj4+PiAtCXJldHVybiBy
-Owo+Pj4gKwlyZXR1cm4gMDsKPj4+ICAgIH0KPj4+ICAgIAo+Pj4gICAgLyoqCj4+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+Pj4gaW5kZXggNjdhMTVkNC4uODVkNTdiYiAx
-MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+Pj4gQEAgLTI5
-LDYgKzI5LDcgQEAKPj4+ICAgICNpbmNsdWRlIDxsaW51eC9yYnRyZWUuaD4KPj4+ICAgICNpbmNs
-dWRlIDxkcm0vZ3B1X3NjaGVkdWxlci5oPgo+Pj4gICAgI2luY2x1ZGUgPGRybS9kcm1fZmlsZS5o
-Pgo+Pj4gKyNpbmNsdWRlIDxkcm0vdHRtL3R0bV9ib19kcml2ZXIuaD4KPj4+ICAgIAo+Pj4gICAg
-I2luY2x1ZGUgImFtZGdwdV9zeW5jLmgiCj4+PiAgICAjaW5jbHVkZSAiYW1kZ3B1X3JpbmcuaCIK
-Pj4+IEBAIC0yMjYsNiArMjI3LDExIEBAIHN0cnVjdCBhbWRncHVfdm0gewo+Pj4gICAgCj4+PiAg
-ICAJLyogU29tZSBiYXNpYyBpbmZvIGFib3V0IHRoZSB0YXNrICovCj4+PiAgICAJc3RydWN0IGFt
-ZGdwdV90YXNrX2luZm8gdGFza19pbmZvOwo+Pj4gKwo+Pj4gKwkvKiBTdG9yZSBwb3NpdGlvbnMg
-b2YgZ3JvdXAgb2YgQk9zICovCj4+PiArCXN0cnVjdCB0dG1fbHJ1X2J1bGtfbW92ZSBscnVfYnVs
-a19tb3ZlOwo+Pj4gKwkvKiBtYXJrIHdoZXRoZXIgaGFzIGJvIHZhbGlkYXRlZCBvbiBldmljdGVk
-IGxpc3QgKi8KPj4+ICsJYm9vbAkJCXZhbGlkYXRlZDsKPj4+ICAgIH07Cj4+PiAgICAKPj4+ICAg
-IHN0cnVjdCBhbWRncHVfdm1fbWFuYWdlciB7Cj4+PiBAQCAtMzMwLDggKzMzNiwxMSBAQCBib29s
-IGFtZGdwdV92bV9uZWVkX3BpcGVsaW5lX3N5bmMoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+
-Pj4gICAgdm9pZCBhbWRncHVfdm1fY2hlY2tfY29tcHV0ZV9idWcoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpOwo+Pj4gICAgCj4+PiAgICB2b2lkIGFtZGdwdV92bV9nZXRfdGFza19pbmZvKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBpbnQgcGFzaWQsCj4+PiAtCQkJIHN0
-cnVjdCBhbWRncHVfdGFza19pbmZvICp0YXNrX2luZm8pOwo+Pj4gKwkJCSAgICAgc3RydWN0IGFt
-ZGdwdV90YXNrX2luZm8gKnRhc2tfaW5mbyk7Cj4+PiAgICAKPj4+ICAgIHZvaWQgYW1kZ3B1X3Zt
-X3NldF90YXNrX2luZm8oc3RydWN0IGFtZGdwdV92bSAqdm0pOwo+Pj4gICAgCj4+PiArdm9pZCBh
-bWRncHVfdm1fbW92ZV90b19scnVfdGFpbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+
-ICsJCQkJc3RydWN0IGFtZGdwdV92bSAqdm0pOwo+Pj4gKwo+Pj4gICAgI2VuZGlmCj4gX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxp
-bmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0919512655==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR1201MB01023F0F48FCB23B50671D4FE4320CY4PR1201MB0102_"
+
+--_000_CY4PR1201MB01023F0F48FCB23B50671D4FE4320CY4PR1201MB0102_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Felix,
+
+
+We did test on both China team and Makham team. Also Embedded team did the =
+test also on release 18.20 for Raven.
+
+
+Please let ROCm CQE team issue a JIRA ticket and the detail reproduce step.
+
+
+Thanks & Best Regards!
+
+
+James Zhu
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Felix Ku=
+ehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, August 17, 2018 7:25:53 PM
+To: James Zhu; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander; Gao, Likun; Zhu, James; Huang, Ray
+Subject: Re: [PATCH v2 5/5] drm/amdgpu:add VCN booting with firmware loaded=
+ by PSP
+
+ROCm CQE is seeing what looks like hangs during amdgpu initialization on
+Raven and Vega20. Amdgpu basically stops printing messages while trying
+to load VCN firmware. It never completes initialization, but there is no
+obvious error message. These are the last messages from amdgpu in the log:
+
+[    1.282661] [drm] Found VCN firmware Version: 1.24 Family ID: 18
+[    1.282664] [drm] PSP loading VCN firmware
+[    1.303164] [drm] reserve 0x400000 from 0xf400e00000 for PSP TMR SIZE
+
+Any applications trying to use /dev/dri/* hang with a backtrace like below.
+
+Was this change expected to affect Raven and Vega20? Has it been tested
+before submitting? Do we need updated VCN firmware for it to work?
+
+Thanks,
+  Felix
+
+[  363.352985] INFO: task gpu-manager:937 blocked for more than 120 seconds=
+.
+[  363.352995]       Not tainted 4.18.0-rc1-kfd-compute-roc-master-8912 #1
+[  363.352999] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables =
+this message.
+[  363.353004] gpu-manager     D    0   937      1 0x00000000
+[  363.353008] Call Trace:
+[  363.353018]  ? __schedule+0x3d9/0x8b0
+[  363.353023]  schedule+0x32/0x80
+[  363.353026]  schedule_preempt_disabled+0xa/0x10
+[  363.353028]  __mutex_lock.isra.4+0x2ae/0x4e0
+[  363.353031]  ? _cond_resched+0x16/0x40
+[  363.353048]  ? drm_stub_open+0x2e/0x100 [drm]
+[  363.353063]  drm_stub_open+0x2e/0x100 [drm]
+[  363.353069]  chrdev_open+0xbe/0x1a0
+[  363.353072]  ? cdev_put+0x20/0x20
+[  363.353075]  do_dentry_open+0x1e2/0x300
+[  363.353078]  path_openat+0x2b4/0x14b0
+[  363.353082]  ? vsnprintf+0x230/0x4c0
+[  363.353086]  ? __alloc_pages_nodemask+0x100/0x290
+[  363.353088]  do_filp_open+0x99/0x110
+[  363.353092]  ? generic_update_time+0x6a/0xc0
+[  363.353094]  ? touch_atime+0xc1/0xd0
+[  363.353096]  ? _cond_resched+0x16/0x40
+[  363.353100]  ? do_sys_open+0x126/0x210
+[  363.353102]  do_sys_open+0x126/0x210
+[  363.353106]  do_syscall_64+0x4f/0x100
+[  363.353110]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[  363.353113] RIP: 0033:0x7f988f340040
+[  363.353113] Code: Bad RIP value.
+[  363.353120] RSP: 002b:00007ffecdefe618 EFLAGS: 00000246 ORIG_RAX: 000000=
+0000000002
+[  363.353123] RAX: ffffffffffffffda RBX: 0000000002337cd0 RCX: 00007f988f3=
+40040
+[  363.353124] RDX: 00007ffecdefe67e RSI: 0000000000000002 RDI: 00007ffecde=
+fe670
+[  363.353125] RBP: 00007ffecdefe6a0 R08: 0000000000000000 R09: 00000000000=
+0000e
+[  363.353126] R10: 000000000000069d R11: 0000000000000246 R12: 00000000004=
+01b40
+[  363.353127] R13: 00007ffecdefe910 R14: 0000000000000000 R15: 00000000000=
+00000
+
+
+
+On 2018-08-09 12:31 PM, James Zhu wrote:
+> From: Likun Gao <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
+>
+> Setup psp firmware loading for VCN, and make VCN block
+> booting from tmr mac address.
+>
+> Signed-off-by: James Zhu <James.Zhu-5C7GfCeVMHo@public.gmane.org>
+> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 17 +++++++++------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 38 ++++++++++++++++++++++++++-=
+------
+>  2 files changed, 40 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vcn.c
+> index 878f62c..77c192a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -111,9 +111,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+>                        version_major, version_minor, family_id);
+>        }
+>
+> -     bo_size =3D AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode_size_bytes=
+) + 8)
+> -               +  AMDGPU_VCN_STACK_SIZE + AMDGPU_VCN_HEAP_SIZE
+> +     bo_size =3D AMDGPU_VCN_STACK_SIZE + AMDGPU_VCN_HEAP_SIZE
+>                  +  AMDGPU_VCN_SESSION_SIZE * 40;
+> +     if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP)
+> +             bo_size +=3D AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode_s=
+ize_bytes) + 8);
+>        r =3D amdgpu_bo_create_kernel(adev, bo_size, PAGE_SIZE,
+>                                    AMDGPU_GEM_DOMAIN_VRAM, &adev->vcn.vcp=
+u_bo,
+>                                    &adev->vcn.gpu_addr, &adev->vcn.cpu_ad=
+dr);
+> @@ -189,11 +190,13 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
+>                unsigned offset;
+>
+>                hdr =3D (const struct common_firmware_header *)adev->vcn.f=
+w->data;
+> -             offset =3D le32_to_cpu(hdr->ucode_array_offset_bytes);
+> -             memcpy_toio(adev->vcn.cpu_addr, adev->vcn.fw->data + offset=
+,
+> -                         le32_to_cpu(hdr->ucode_size_bytes));
+> -             size -=3D le32_to_cpu(hdr->ucode_size_bytes);
+> -             ptr +=3D le32_to_cpu(hdr->ucode_size_bytes);
+> +             if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP) {
+> +                     offset =3D le32_to_cpu(hdr->ucode_array_offset_byte=
+s);
+> +                     memcpy_toio(adev->vcn.cpu_addr, adev->vcn.fw->data =
++ offset,
+> +                                 le32_to_cpu(hdr->ucode_size_bytes));
+> +                     size -=3D le32_to_cpu(hdr->ucode_size_bytes);
+> +                     ptr +=3D le32_to_cpu(hdr->ucode_size_bytes);
+> +             }
+>                memset_io(ptr, 0, size);
+>        }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/=
+amdgpu/vcn_v1_0.c
+> index 2ce91a7..74c4ef4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> @@ -100,6 +100,16 @@ static int vcn_v1_0_sw_init(void *handle)
+>        if (r)
+>                return r;
+>
+> +     if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP) {
+> +             const struct common_firmware_header *hdr;
+> +             hdr =3D (const struct common_firmware_header *)adev->vcn.fw=
+->data;
+> +             adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id =3D AMDG=
+PU_UCODE_ID_VCN;
+> +             adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].fw =3D adev->vcn.=
+fw;
+> +             adev->firmware.fw_size +=3D
+> +                     ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE=
+);
+> +             DRM_INFO("PSP loading VCN firmware\n");
+> +     }
+> +
+>        r =3D amdgpu_vcn_resume(adev);
+>        if (r)
+>                return r;
+> @@ -265,26 +275,38 @@ static int vcn_v1_0_resume(void *handle)
+>  static void vcn_v1_0_mc_resume(struct amdgpu_device *adev)
+>  {
+>        uint32_t size =3D AMDGPU_GPU_PAGE_ALIGN(adev->vcn.fw->size + 4);
+> -
+> -     WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,
+> +     uint32_t offset;
+> +
+> +     if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP) {
+> +             WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,
+> +                     (adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_a=
+ddr_lo));
+> +             WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,
+> +                     (adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_a=
+ddr_hi));
+> +             WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0, 0);
+> +             offset =3D 0;
+> +     } else {
+> +             WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,
+>                        lower_32_bits(adev->vcn.gpu_addr));
+> -     WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,
+> +             WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,
+>                        upper_32_bits(adev->vcn.gpu_addr));
+> -     WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0,
+> +             offset =3D size;
+> +             WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0,
+>                                AMDGPU_UVD_FIRMWARE_OFFSET >> 3);
+> +     }
+> +
+>        WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_SIZE0, size);
+>
+>        WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_LOW,
+> -                     lower_32_bits(adev->vcn.gpu_addr + size));
+> +                     lower_32_bits(adev->vcn.gpu_addr + offset));
+>        WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_HIGH,
+> -                     upper_32_bits(adev->vcn.gpu_addr + size));
+> +                     upper_32_bits(adev->vcn.gpu_addr + offset));
+>        WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET1, 0);
+>        WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_SIZE1, AMDGPU_VCN_HEAP_SIZE)=
+;
+>
+>        WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_LOW,
+> -                     lower_32_bits(adev->vcn.gpu_addr + size + AMDGPU_VC=
+N_HEAP_SIZE));
+> +                     lower_32_bits(adev->vcn.gpu_addr + offset + AMDGPU_=
+VCN_HEAP_SIZE));
+>        WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_HIGH,
+> -                     upper_32_bits(adev->vcn.gpu_addr + size + AMDGPU_VC=
+N_HEAP_SIZE));
+> +                     upper_32_bits(adev->vcn.gpu_addr + offset + AMDGPU_=
+VCN_HEAP_SIZE));
+>        WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET2, 0);
+>        WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_SIZE2,
+>                        AMDGPU_VCN_STACK_SIZE + (AMDGPU_VCN_SESSION_SIZE *=
+ 40));
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR1201MB01023F0F48FCB23B50671D4FE4320CY4PR1201MB0102_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Hi Felix,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">We did test on both China team an=
+d Makham team. Also Embedded team did the test also on release 18.20 for Ra=
+ven.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Please let <font size=3D"2"><span=
+ style=3D"font-size:11pt;">ROCm CQE</span></font> team issue a JIRA ticket =
+and the detail reproduce step.<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<div id=3D"Signature">
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
+r: rgb(0, 0, 0); font-family: Calibri, Arial, Helvetica, sans-serif, &quot;=
+EmojiFont&quot;, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;,=
+ NotoColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, Em=
+ojiSymbols;">
+<p>Thanks &amp; Best Regards!</p>
+<p><br>
+</p>
+<p>James Zhu<br>
+</p>
+</div>
+</div>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Felix Kuehling &lt;felix.kueh=
+ling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, August 17, 2018 7:25:53 PM<br>
+<b>To:</b> James Zhu; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander; Gao, Likun; Zhu, James; Huang, Ray<br>
+<b>Subject:</b> Re: [PATCH v2 5/5] drm/amdgpu:add VCN booting with firmware=
+ loaded by PSP</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">ROCm CQE is seeing what looks like hangs during am=
+dgpu initialization on<br>
+Raven and Vega20. Amdgpu basically stops printing messages while trying<br>
+to load VCN firmware. It never completes initialization, but there is no<br=
+>
+obvious error message. These are the last messages from amdgpu in the log:<=
+br>
+<br>
+[&nbsp;&nbsp;&nbsp; 1.282661] [drm] Found VCN firmware Version: 1.24 Family=
+ ID: 18<br>
+[&nbsp;&nbsp;&nbsp; 1.282664] [drm] PSP loading VCN firmware<br>
+[&nbsp;&nbsp;&nbsp; 1.303164] [drm] reserve 0x400000 from 0xf400e00000 for =
+PSP TMR SIZE<br>
+<br>
+Any applications trying to use /dev/dri/* hang with a backtrace like below.=
+<br>
+<br>
+Was this change expected to affect Raven and Vega20? Has it been tested<br>
+before submitting? Do we need updated VCN firmware for it to work?<br>
+<br>
+Thanks,<br>
+&nbsp; Felix<br>
+<br>
+[&nbsp; 363.352985] INFO: task gpu-manager:937 blocked for more than 120 se=
+conds.<br>
+[&nbsp; 363.352995]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Not tainted 4.18.0-=
+rc1-kfd-compute-roc-master-8912 #1<br>
+[&nbsp; 363.352999] &quot;echo 0 &gt; /proc/sys/kernel/hung_task_timeout_se=
+cs&quot; disables this message.<br>
+[&nbsp; 363.353004] gpu-manager&nbsp;&nbsp;&nbsp;&nbsp; D&nbsp;&nbsp;&nbsp;=
+ 0&nbsp;&nbsp; 937&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 0x00000000<br>
+[&nbsp; 363.353008] Call Trace:<br>
+[&nbsp; 363.353018]&nbsp; ? __schedule&#43;0x3d9/0x8b0<br>
+[&nbsp; 363.353023]&nbsp; schedule&#43;0x32/0x80<br>
+[&nbsp; 363.353026]&nbsp; schedule_preempt_disabled&#43;0xa/0x10<br>
+[&nbsp; 363.353028]&nbsp; __mutex_lock.isra.4&#43;0x2ae/0x4e0<br>
+[&nbsp; 363.353031]&nbsp; ? _cond_resched&#43;0x16/0x40<br>
+[&nbsp; 363.353048]&nbsp; ? drm_stub_open&#43;0x2e/0x100 [drm]<br>
+[&nbsp; 363.353063]&nbsp; drm_stub_open&#43;0x2e/0x100 [drm]<br>
+[&nbsp; 363.353069]&nbsp; chrdev_open&#43;0xbe/0x1a0<br>
+[&nbsp; 363.353072]&nbsp; ? cdev_put&#43;0x20/0x20<br>
+[&nbsp; 363.353075]&nbsp; do_dentry_open&#43;0x1e2/0x300<br>
+[&nbsp; 363.353078]&nbsp; path_openat&#43;0x2b4/0x14b0<br>
+[&nbsp; 363.353082]&nbsp; ? vsnprintf&#43;0x230/0x4c0<br>
+[&nbsp; 363.353086]&nbsp; ? __alloc_pages_nodemask&#43;0x100/0x290<br>
+[&nbsp; 363.353088]&nbsp; do_filp_open&#43;0x99/0x110<br>
+[&nbsp; 363.353092]&nbsp; ? generic_update_time&#43;0x6a/0xc0<br>
+[&nbsp; 363.353094]&nbsp; ? touch_atime&#43;0xc1/0xd0<br>
+[&nbsp; 363.353096]&nbsp; ? _cond_resched&#43;0x16/0x40<br>
+[&nbsp; 363.353100]&nbsp; ? do_sys_open&#43;0x126/0x210<br>
+[&nbsp; 363.353102]&nbsp; do_sys_open&#43;0x126/0x210<br>
+[&nbsp; 363.353106]&nbsp; do_syscall_64&#43;0x4f/0x100<br>
+[&nbsp; 363.353110]&nbsp; entry_SYSCALL_64_after_hwframe&#43;0x44/0xa9<br>
+[&nbsp; 363.353113] RIP: 0033:0x7f988f340040<br>
+[&nbsp; 363.353113] Code: Bad RIP value.<br>
+[&nbsp; 363.353120] RSP: 002b:00007ffecdefe618 EFLAGS: 00000246 ORIG_RAX: 0=
+000000000000002<br>
+[&nbsp; 363.353123] RAX: ffffffffffffffda RBX: 0000000002337cd0 RCX: 00007f=
+988f340040<br>
+[&nbsp; 363.353124] RDX: 00007ffecdefe67e RSI: 0000000000000002 RDI: 00007f=
+fecdefe670<br>
+[&nbsp; 363.353125] RBP: 00007ffecdefe6a0 R08: 0000000000000000 R09: 000000=
+000000000e<br>
+[&nbsp; 363.353126] R10: 000000000000069d R11: 0000000000000246 R12: 000000=
+0000401b40<br>
+[&nbsp; 363.353127] R13: 00007ffecdefe910 R14: 0000000000000000 R15: 000000=
+0000000000<br>
+<br>
+<br>
+<br>
+On 2018-08-09 12:31 PM, James Zhu wrote:<br>
+&gt; From: Likun Gao &lt;Likun.Gao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;<br>
+&gt; Setup psp firmware loading for VCN, and make VCN block<br>
+&gt; booting from tmr mac address.<br>
+&gt;<br>
+&gt; Signed-off-by: James Zhu &lt;James.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 17 &#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;------<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c&nbsp;&nbsp; | 38 &#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------<br>
+&gt;&nbsp; 2 files changed, 40 insertions(&#43;), 15 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_vcn.c<br>
+&gt; index 878f62c..77c192a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+&gt; @@ -111,9 &#43;111,10 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *=
+adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; version=
+_major, version_minor, family_id);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; bo_size =3D AMDGPU_GPU_PAGE_ALIGN(le32_to_cp=
+u(hdr-&gt;ucode_size_bytes) &#43; 8)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; &#43;&nbsp; AMDGPU_VCN_STACK_SIZE &#43; AMDGPU_VCN_HEAP_SIZ=
+E<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bo_size =3D AMDGPU_VCN_STACK_SIZE &#43; =
+AMDGPU_VCN_HEAP_SIZE<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43;&nbsp; AMDGPU_VCN_SESSION_SIZE * 40;<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type !=3D AMD=
+GPU_FW_LOAD_PSP)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; bo_size &#43;=3D AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr-&gt;ucode_si=
+ze_bytes) &#43; 8);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_kerne=
+l(adev, bo_size, PAGE_SIZE,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM=
+_DOMAIN_VRAM, &amp;adev-&gt;vcn.vcpu_bo,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-=
+&gt;vcn.gpu_addr, &amp;adev-&gt;vcn.cpu_addr);<br>
+&gt; @@ -189,11 &#43;190,13 @@ int amdgpu_vcn_resume(struct amdgpu_device *=
+adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; unsigned offset;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hdr =3D (const struct common_firmware_header *)adev-&gt=
+;vcn.fw-&gt;data;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; offset =3D le32_to_cpu(hdr-&gt;ucode_array_offset_bytes);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; memcpy_toio(adev-&gt;vcn.cpu_addr, adev-&gt;vcn.fw-&gt;data &#43; offse=
+t,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ le32_to_cpu(hdr-&gt;ucode_size_bytes));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; size -=3D le32_to_cpu(hdr-&gt;ucode_size_bytes);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ptr &#43;=3D le32_to_cpu(hdr-&gt;ucode_size_bytes);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (adev-&gt;firmware.load_type !=3D AMDGPU_FW_LOAD_PSP) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset =3D le32_to_=
+cpu(hdr-&gt;ucode_array_offset_bytes);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_toio(adev-&g=
+t;vcn.cpu_addr, adev-&gt;vcn.fw-&gt;data &#43; offset,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(hdr-&gt;uc=
+ode_size_bytes));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size -=3D le32_to_c=
+pu(hdr-&gt;ucode_size_bytes);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptr &#43;=3D le32_t=
+o_cpu(hdr-&gt;ucode_size_bytes);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; memset_io(ptr, 0, size);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/a=
+md/amdgpu/vcn_v1_0.c<br>
+&gt; index 2ce91a7..74c4ef4 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+&gt; @@ -100,6 &#43;100,16 @@ static int vcn_v1_0_sw_init(void *handle)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=3D A=
+MDGPU_FW_LOAD_PSP) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; const struct common_firmware_header *hdr;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; hdr =3D (const struct common_firmware_header *)adev-&gt;vcn.fw-&gt;=
+data;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; adev-&gt;firmware.ucode[AMDGPU_UCODE_ID_VCN].ucode_id =3D AMDGPU_UC=
+ODE_ID_VCN;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; adev-&gt;firmware.ucode[AMDGPU_UCODE_ID_VCN].fw =3D adev-&gt;vcn.fw=
+;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; adev-&gt;firmware.fw_size &#43;=3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALIGN(le32_to_cpu(h=
+dr-&gt;ucode_size_bytes), PAGE_SIZE);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DRM_INFO(&quot;PSP loading VCN firmware\n&quot;);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vcn_resume(adev=
+);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; @@ -265,26 &#43;275,38 @@ static int vcn_v1_0_resume(void *handle)<br>
+&gt;&nbsp; static void vcn_v1_0_mc_resume(struct amdgpu_device *adev)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t size =3D AMDGPU_GPU=
+_PAGE_ALIGN(adev-&gt;vcn.fw-&gt;size &#43; 4);<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64=
+BIT_BAR_LOW,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t offset;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=3D A=
+MDGPU_FW_LOAD_PSP) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;firmware.=
+ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_addr_lo));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;firmware.=
+ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_addr_hi));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0, 0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; offset =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_3=
+2_bits(adev-&gt;vcn.gpu_addr));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64=
+BIT_BAR_HIGH,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_3=
+2_bits(adev-&gt;vcn.gpu_addr));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET=
+0,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; offset =3D size;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UVD_FIRMWARE_OFFSET &gt;&gt=
+; 3);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_V=
+CPU_CACHE_SIZE0, size);<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_L=
+MI_VCPU_CACHE1_64BIT_BAR_LOW,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(adev-&gt;=
+vcn.gpu_addr &#43; size));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(adev-=
+&gt;vcn.gpu_addr &#43; offset));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_L=
+MI_VCPU_CACHE1_64BIT_BAR_HIGH,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(adev-&gt;=
+vcn.gpu_addr &#43; size));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(adev-=
+&gt;vcn.gpu_addr &#43; offset));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_V=
+CPU_CACHE_OFFSET1, 0);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_V=
+CPU_CACHE_SIZE1, AMDGPU_VCN_HEAP_SIZE);<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_L=
+MI_VCPU_CACHE2_64BIT_BAR_LOW,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(adev-&gt;=
+vcn.gpu_addr &#43; size &#43; AMDGPU_VCN_HEAP_SIZE));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(adev-=
+&gt;vcn.gpu_addr &#43; offset &#43; AMDGPU_VCN_HEAP_SIZE));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_L=
+MI_VCPU_CACHE2_64BIT_BAR_HIGH,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(adev-&gt;=
+vcn.gpu_addr &#43; size &#43; AMDGPU_VCN_HEAP_SIZE));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(adev-=
+&gt;vcn.gpu_addr &#43; offset &#43; AMDGPU_VCN_HEAP_SIZE));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_V=
+CPU_CACHE_OFFSET2, 0);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_V=
+CPU_CACHE_SIZE2,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_=
+VCN_STACK_SIZE &#43; (AMDGPU_VCN_SESSION_SIZE * 40));<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR1201MB01023F0F48FCB23B50671D4FE4320CY4PR1201MB0102_--
+
+--===============0919512655==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0919512655==--
