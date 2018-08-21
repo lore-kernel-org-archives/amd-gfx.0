@@ -1,13 +1,14 @@
 From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: indent an if statement
-Date: Tue, 21 Aug 2018 14:51:19 -0400
-Message-ID: <3d491f32-245c-30ac-4f13-39da721c3dbc@amd.com>
-References: <20180814090944.qjm4vxyrjdqxu4d7@kili.mountain>
+Subject: Re: [PATCH] drm/amdgpu/display: disable eDP fast boot optimization on
+ DCE8
+Date: Tue, 21 Aug 2018 15:02:33 -0400
+Message-ID: <ac82b48d-f949-10cb-1820-4c1fc51a9f70@amd.com>
+References: <20180816203826.29959-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180814090944.qjm4vxyrjdqxu4d7-vMlZ3nK25oGAIHFoDFOv9A@public.gmane.org>
+In-Reply-To: <20180816203826.29959-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,22 +20,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Charlene Liu <charlene.liu-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Dmytro Laktyushkin <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, Yongqiang Sun <yongqiang.sun-5C7GfCeVMHo@public.gmane.org>, Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOC0wOC0xNCAwNTowOSBBTSwgRGFuIENhcnBlbnRlciB3cm90ZToKPiBUaGUgaWYgc3Rh
-dGVtZW50IGlzbid0IGluZGVudGVkIGFuZCBpdCBtYWtlcyBzdGF0aWMgY2hlY2tlcnMgY29tcGxh
-aW4uCj4gCj4gU2lnbmVkLW9mZi1ieTogRGFuIENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBvcmFj
-bGUuY29tPgoKUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQu
-Y29tPgoKSGFycnkKCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9kYy9jb3JlL2RjX3Jlc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-Y29yZS9kY19yZXNvdXJjZS5jCj4gaW5kZXggNGNhNDFkNmUzYmNmLi5kODJiYTU4YzcyMGYgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3Vy
-Y2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291
-cmNlLmMKPiBAQCAtMzQ5LDcgKzM0OSw3IEBAIHN0YXRpYyBib29sIGlzX2RwX2FuZF9oZG1pX3No
-YXJhYmxlKAo+ICAKPiAgCWlmIChzdHJlYW0xLT5jbGFtcGluZy5jX2RlcHRoICE9IENPTE9SX0RF
-UFRIXzg4OCB8fAo+ICAJICAgIHN0cmVhbTItPmNsYW1waW5nLmNfZGVwdGggIT0gQ09MT1JfREVQ
-VEhfODg4KQo+IC0JcmV0dXJuIGZhbHNlOwo+ICsJCXJldHVybiBmYWxzZTsKPiAgCj4gIAlyZXR1
-cm4gdHJ1ZTsKPiAgCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+T24gMjAxOC0wOC0xNiAwNDozOCBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IFNlZW1zIHRvIGNh
+dXNlIGJsYW5rIHNjcmVlbnMuCj4gCj4gQnVnOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3Jn
+L3Nob3dfYnVnLmNnaT9pZD0xMDY5NDAKPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFs
+ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhh
+cnJ5LndlbnRsYW5kQGFtZC5jb20+CgpIYXJyeQoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMgfCA4ICsrKysrKystCj4g
+IDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdf
+c2VxdWVuY2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTEx
+MF9od19zZXF1ZW5jZXIuYwo+IGluZGV4IDM1MGVlM2UzZTM0ZC4uMmUzZjg1Y2VlYWE5IDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3
+X3NlcXVlbmNlci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEx
+MC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMKPiBAQCAtMTU2Miw3ICsxNTYyLDEzIEBAIHZvaWQgZGNl
+MTEwX2VuYWJsZV9hY2NlbGVyYXRlZF9tb2RlKHN0cnVjdCBkYyAqZGMsIHN0cnVjdCBkY19zdGF0
+ZSAqY29udGV4dCkKPiAgCWJvb2wgY2FuX2VEUF9mYXN0X2Jvb3Rfb3B0aW1pemUgPSBmYWxzZTsK
+PiAgCj4gIAlpZiAoZWRwX2xpbmspIHsKPiAtCQljYW5fZURQX2Zhc3RfYm9vdF9vcHRpbWl6ZSA9
+Cj4gKwkJLyogdGhpcyBzZWVtcyB0byBjYXVzZSBibGFuayBzY3JlZW5zIG9uIERDRTggKi8KPiAr
+CQlpZiAoKGRjLT5jdHgtPmRjZV92ZXJzaW9uID09IERDRV9WRVJTSU9OXzhfMCkgfHwKPiArCQkg
+ICAgKGRjLT5jdHgtPmRjZV92ZXJzaW9uID09IERDRV9WRVJTSU9OXzhfMSkgfHwKPiArCQkgICAg
+KGRjLT5jdHgtPmRjZV92ZXJzaW9uID09IERDRV9WRVJTSU9OXzhfMykpCj4gKwkJCWNhbl9lRFBf
+ZmFzdF9ib290X29wdGltaXplID0gZmFsc2U7Cj4gKwkJZWxzZQo+ICsJCQljYW5fZURQX2Zhc3Rf
+Ym9vdF9vcHRpbWl6ZSA9Cj4gIAkJCQllZHBfbGluay0+bGlua19lbmMtPmZ1bmNzLT5pc19kaWdf
+ZW5hYmxlZChlZHBfbGluay0+bGlua19lbmMpOwo+ICAJfQo+ICAKPiAKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
