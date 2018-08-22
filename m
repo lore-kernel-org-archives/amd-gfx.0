@@ -1,85 +1,214 @@
-From: Jani Nikula <jani.nikula@linux.intel.com>
-Subject: Re: [igt-dev] RFC: Migration to Gitlab
-Date: Wed, 22 Aug 2018 16:13:49 +0300
-Message-ID: <87pnyaa6ia.fsf@intel.com>
-References: <CAKMK7uFciLYN2G+VqvAwk5D9+H5dw6Tb5FtmWgxCnWtLa0uOEg@mail.gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amd/display: Fix bug use wrong pp interface
+Date: Wed, 22 Aug 2018 13:59:34 +0000
+Message-ID: <BN6PR12MB1809F60D652E7736D3B7E0F8F7300@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1534920079-11040-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-In-Reply-To: <CAKMK7uFciLYN2G+VqvAwk5D9+H5dw6Tb5FtmWgxCnWtLa0uOEg@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, intel-gfx <intel-gfx@lists.freedesktop.org>, IGT development <igt-dev@lists.freedesktop.org>, "DRM maintainer tools announcements, discussion,
- and development" <dim-tools@lists.freedesktop.org>, Daniel Stone <daniel@fooishbar.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0549017089=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1534920079-11040-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-T24gV2VkLCAyMiBBdWcgMjAxOCwgRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5j
-aD4gd3JvdGU6Cj4gSGkgYWxsLAo+Cj4gSSB0aGluayBpdCdzIHRpbWUgdG8gYnJhaW5zdG9ybSBh
-IGJpdCBhYm91dCB0aGUgZ2l0bGFiIG1pZ3JhdGlvbi4gQmFzaWMgcmVhc29uczoKPgo+IC0gZmQu
-byBhZG1pbnMgd2FudCB0byBkZXByZWNhdGUgc2hlbGwgYWNjb3VudHMgYW5kIGhhbmQtcm9sbGVk
-Cj4gaW5mcmFzdHJ1Y3R1cmUsIGJlY2F1c2UgaXQncyBhIHBhaW4gdG8ga2VlcCBzZWN1cmUmdXBk
-YXRlZC4KPgo+IC0gZ2l0bGFiIHdpbGwgYWxsb3cgdXMgdG8gYWRkIGNvbW1pdHRlcnMgb24gb3Vy
-IG93biwgZ3JlYXRseQo+IHNpbXBsaWZ5aW5nIHRoYXQgcHJvY2VzcyAoYW5kIG9mZmxvYWRpbmcg
-dGhhdCB0YXNrIGZyb20gZmQubyBhZG1pbnMpLgo+Cj4gVGhlcmUncyBhbHNvIHNvbWUgbW9yZSBi
-ZW5lZml0cyB3ZSBtaWdodCB3YW50IHRvIHJlYXAsIGxpa2UgYmV0dGVyIENJCj4gaW50ZWdyYXRp
-b24gZm9yIGJhc2ljIGJ1aWxkIHRlc3RpbmcgLSBubyBtb3JlICJvb3BzIGRpZG4ndCBidWlsZAo+
-IGRybS1taXNjIGRlZmNvbmZpZ3MiIG9yICJzcnksIGZvcmdvdCBtYWtlIGNoZWNrIGluIG1haW50
-YWluZXItdG9vbHMiLgo+IEJ1dCB0aGF0J3MgYWxsIGZ1bGx5IG9wdGlvbmFsLgo+Cj4gRm9yIHRo
-ZSBmdWxsIGluLWRlcHRoIHdyaXRldXAgb2YgZXZlcnl0aGluZywgc2VlCj4KPiBodHRwczovL3d3
-dy5mb29pc2hiYXIub3JnL2Jsb2cvZ2l0bGFiLWZkby1pbnRyb2R1Y3Rpb24vCj4KPiBJIHRoaW5r
-IG5vdyBpcyBhbHNvIGEgZ29vZCB0aW1lLCB3aXRoIG1lc2EsIHhvcmcsIHdheWxhbmQvd2VzdG9u
-IGFuZAo+IG90aGVycyBtb3ZlZCwgdG8gc3RhcnQgdGhpbmtpbmcgYWJvdXQgaG93IHdlJ2xsIG1v
-dmUgZHJtLiBUaGVyZSdzIGEKPiBmZXcgdGhpbmdzIHRvIGZpZ3VyZSBvdXQgdGhvdWdoOgo+Cj4g
-LSBXZSBwcm9iYWJseSB3YW50IHRvIHNwbGl0IG91dCBtYWludGFpbmVyLXRvb2xzLiBUaGF0IHdv
-dWxkIGFkZHJlc3MKPiB0aGUgY29uY2VybiB0aGF0IHRoZXJlJ3MgNTArIGNvbW1pdHRlcnMgdG8g
-YW4gYXV0by11cGRhdGluZyBzaGVsbAo+IHNjcmlwdCAuLi4KPgo+IC0gV2UgbmVlZCB0byBmaWd1
-cmUgb3V0IGhvdyB0byBoYW5kbGUgdGhlIEFDTCB0cmlja2VyeSBhcm91bmQgZHJtLXRpcCBpbiBn
-aXRsYWIuCj4KPiAtIFByb2JhYmx5IGdvb2QgdG8gc3RhZ2UgdGhlIG1pZ3JhdGlvbiwgd2l0aCBt
-YWludGFpbmVyLXRvb2xzLCBpZ3QKPiBsZWFkaW5nLiBUaGF0IHdpbGwgYWxzbyBtYWtlIGZkLm8g
-YWRtaW5zIGhhcHB5LCB3aG8gd2FudCB0byByZXdvcmsKPiB0aGVpciBjbG91ZCBpbmZyYXN0cnVj
-dHVyZSBhIGJpdCBiZWZvcmUgbWlncmF0aW5nIHRoZSBiaWcga2VybmVsIHJlcG9zCj4gb3Zlci4K
-Pgo+IC0gRmlndXJpbmcgb3V0IHRoZSBhY3R1YWwgbWlncmF0aW9uIC0gd2UndmUgYmVlbiBhZGRp
-bmcgYSBwaWxlIG9mCj4gY29tbWl0dGVycyBzaW5jZSBmZC5vIExEQVAgd2FzIGNvbnZlcnRlZCB0
-byBnaXRsYWIgb25jZSBiYWNrIGluCj4gc3ByaW5nLiBXZSBuZWVkIHRvIGF0IGxlYXN0IGZpZ3Vy
-ZSBvdXQgaG93IHRvIG1vdmUgdGhlIG5ldwo+IGFjY291bnRzL2NvbW1pdHRlcnMuCj4KPiAtIFNp
-bWlsYXIsIG1haW50YWluZXItdG9vbHMgbmVlZHMgdG8gbW92ZS4gV2UgcHJvYmFibHkgd2FudCB0
-byBtb3ZlCj4gYWxsIHRoZSBkaW0gbWFpbnRhaW5lZCBrZXJuZWwgcmVwb3MgaW4gb25lIGdvLCB0
-byBhdm9pZCBoZWFkYWNoZXMgd2l0aAo+IGRvdWJsZS1hY2NvdW50cyBuZWVkZWQgZm9yIGNvbW1p
-dHRlcnMuCj4KPiAtIENJLCBsaW51eC1uZXh0IGFuZCBldmVyeW9uZSBlbHNlIHNob3VsZCBiZSBm
-aW5lLCBzaW5jZSB0aGUKPiBjZ2l0L25vbi1zc2ggcGF0aHMgd2lsbCBrZWVwIHdvcmtpbmcgKHRo
-ZXknbGwgYmUgcmVhZC1vbmx5IG1pcnJvcnMpLgo+IE5lZWQgdG8gZG91YmxlLWNoZWNrIHRoYXQg
-d2l0aCBldmVyeW9uZS4KPgo+IC0gU29tZSBvcmdhbml6YXRpb24gc3RydWN0dXJlIHdvdWxkIGJl
-IGdvb2QuCj4KPiBodHRwczovL2NnaXQuZnJlZWRlc2t0b3Aub3JnL2RybQo+Cj4gbGliZHJtIHdv
-bid0IGJlIHBhcnQgb2YgdGhlIGdpdGxhYiBkcm0gZ3JvdXAgYmVjYXVzZSB0aGF0J3MgYWxyZWFk
-eQo+IG1vdmVkIHVuZGVyIG1lc2EgKGFuZCB5b3UgY2FuJ3Qgc3ltbGluay9tdWxpdC1ob21lIGFu
-eW1vcmUgb24gZ2l0bGFiKToKPgo+IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9tZXNh
-L2RybQo+Cj4gQnV0IHRoZXJlJ3MgYWxzbyBkcm1faHdjb21wb3Nlciwgd2hpY2ggd2UgbWlnaHQg
-d2FudCB0byBtaWdyYXRlIGludG8KPiBkcm0gdG9vIC0gZ2l0bGFiIHJlcXVpcmVzIGEgY29udGFp
-bmluZyBncm91cCwgYW5kCj4gZHJtX2h3Y29tcG9zZXIvZHJtX2h3Y29tcG9zZXIgaXMgYSBiaXQg
-c2lsbHkuCj4KPiBOb3RlOiBBY2Nlc3MgcmlnaHRzIGNhbiBiZSBkb25lIGF0IGFueSBsZXZlbCBp
-biB0aGUgaGllcmFyY2h5LCB0aGUKPiBvcmdhbml6YXRpb24gaXMgb3J0aG9nb25hbCB0byBjb21t
-aXQgcmlnaHRzLgo+Cj4gLSBBbnl0aGluZyBlbHNlIEkndmUgZm9yZ290dGVuLgo+Cj4gQSBsb3Qg
-b2YgdGhpcyBzdGlsbCBuZWVkcyB0byBiZSBmaWd1cmVkIG91dCBmaXJzdC4gQXMgYSBmaXJzdCBz
-dGVwIEknbQo+IGxvb2tpbmcgZm9yIHZvbHVudGVlcnMgd2hvIHdhbnQgdG8gam9pbiB0aGUgZnVu
-LCBiZXNpZGVzIGNvbW1lbnRzIGFuZAo+IHRob3VnaHRzIG9uIHRoZSBvdmVyYWxsIHRvcGljIG9m
-IGNvdXJzZS4KCkp1c3QgYSBjb3VwbGUgb2YgY29uY2VybnMgZnJvbSBkcm0vaTkxNSBwZXJzcGVj
-dGl2ZSBmb3Igc3RhcnRlcnM6CgotIFBhdGNod29yayBpbnRlZ3JhdGlvbi4gSSB0aGluayB3ZSds
-bCB3YW50IHRvIGtlZXAgcGF0Y2h3b3JrIGZvciBhdAogIGxlYXN0IGludGVsLWdmeCBldGMuIGZv
-ciB0aGUgdGltZSBiZWluZy4gSUlVQyB0aGUgb25lIHRoaW5nIHdlIG5lZWQgaXMKICBzb21lIHNl
-cnZlciBzaWRlIGhvb2sgdG8gdXBkYXRlIHBhdGNod29yayBvbiBnaXQgcHVzaC4KCi0gU3RpY2tp
-bmcgdG8gZmRvIGJ1Z3ppbGxhIGFuZCBkaXNhYmxpbmcgZ2l0bGFiIGlzc3VlcyBmb3IgYXQgbGVh
-c3QKICBkcm0taW50ZWwgZm9yIHRoZSB0aW1lIGJlaW5nLiBEb2luZyB0aGF0IG1pZ3JhdGlvbiBp
-biB0aGUgc2FtZSBnbyBpcyBhCiAgYml0IG11Y2ggSSB0aGluay4gUmVhc3NpZ25tZW50IGFjcm9z
-cyBidWd6aWxsYSBhbmQgZ2l0bGFiIHdpbGwgYmUgYW4KICBpc3N1ZS4KCkJSLApKYW5pLgoKCi0t
-IApKYW5pIE5pa3VsYSwgSW50ZWwgT3BlbiBTb3VyY2UgR3JhcGhpY3MgQ2VudGVyCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5n
-IGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeAo=
+--===============0549017089==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809F60D652E7736D3B7E0F8F7300BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809F60D652E7736D3B7E0F8F7300BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, August 22, 2018 2:41:19 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Francis, David; Wentland, Harry
+Cc: Zhu, Rex
+Subject: [PATCH v2] drm/amd/display: Fix bug use wrong pp interface
+
+Used wrong pp interface, the original interface is
+exposed by dpm on SI and paritial CI.
+
+Pointed out by Francis David <david.francis-5C7GfCeVMHo@public.gmane.org>
+
+v2: dal only need to set min_dcefclk and min_fclk to smu.
+    so use display_clock_voltage_request interface,
+    instand of update all display configuration.
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index e5c5b0a..7811d60 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -480,12 +480,20 @@ void pp_rv_set_display_requirement(struct pp_smu *pp,
+ {
+         const struct dc_context *ctx =3D pp->dm;
+         struct amdgpu_device *adev =3D ctx->driver_context;
++       void *pp_handle =3D adev->powerplay.pp_handle;
+         const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
++       struct pp_display_clock_request clock =3D {0};
+
+-       if (!pp_funcs || !pp_funcs->display_configuration_changed)
++       if (!req || !pp_funcs || !pp_funcs->display_clock_voltage_request)
+                 return;
+
+-       amdgpu_dpm_display_configuration_changed(adev);
++       clock.clock_type =3D amd_pp_dcf_clock;
++       clock.clock_freq_in_khz =3D req->hard_min_dcefclk_khz;
++       pp_funcs->display_clock_voltage_request(pp_handle, &clock);
++
++       clock.clock_type =3D amd_pp_f_clock;
++       clock.clock_freq_in_khz =3D req->hard_min_fclk_khz;
++       pp_funcs->display_clock_voltage_request(pp_handle, &clock);
+ }
+
+ void pp_rv_set_wm_ranges(struct pp_smu *pp,
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809F60D652E7736D3B7E0F8F7300BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</s=
+pan></font><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Wednesday, August 22, 2018 2:41:19 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Francis, David; Wentland, Harry<b=
+r>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH v2] drm/amd/display: Fix bug use wrong pp interface<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Used wrong pp interface, the original interface is=
+<br>
+exposed by dpm on SI and paritial CI.<br>
+<br>
+Pointed out by Francis David &lt;david.francis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+v2: dal only need to set min_dcefclk and min_fclk to smu.<br>
+&nbsp;&nbsp;&nbsp; so use display_clock_voltage_request interface,<br>
+&nbsp;&nbsp;&nbsp; instand of update all display configuration.<br>
+<br>
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 12 &#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
+&nbsp;1 file changed, 10 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
+index e5c5b0a..7811d60 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<=
+br>
+@@ -480,12 &#43;480,20 @@ void pp_rv_set_display_requirement(struct pp_smu =
+*pp,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct dc_context *c=
+tx =3D pp-&gt;dm;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D ctx-&gt;driver_context;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *pp_handle =3D adev-&gt;powe=
+rplay.pp_handle;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amd_pm_funcs =
+*pp_funcs =3D adev-&gt;powerplay.pp_funcs;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_display_clock_request c=
+lock =3D {0};<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pp_funcs || !pp_funcs-&gt;displa=
+y_configuration_changed)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!req || !pp_funcs || !pp_func=
+s-&gt;display_clock_voltage_request)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_display_configuration_chan=
+ged(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock.clock_type =3D amd_pp_dcf_c=
+lock;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock.clock_freq_in_khz =3D req-&=
+gt;hard_min_dcefclk_khz;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_funcs-&gt;display_clock_voltag=
+e_request(pp_handle, &amp;clock);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock.clock_type =3D amd_pp_f_clo=
+ck;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock.clock_freq_in_khz =3D req-&=
+gt;hard_min_fclk_khz;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_funcs-&gt;display_clock_voltag=
+e_request(pp_handle, &amp;clock);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;void pp_rv_set_wm_ranges(struct pp_smu *pp,<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809F60D652E7736D3B7E0F8F7300BN6PR12MB1809namp_--
+
+--===============0549017089==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0549017089==--
