@@ -1,16 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm: rename null fence to stub fence in syncobj
-Date: Wed, 22 Aug 2018 11:05:57 +0200
-Message-ID: <a586e4f3-0fbb-e530-6a20-fe6d32302771@gmail.com>
+Date: Wed, 22 Aug 2018 17:10:43 +0800
+Message-ID: <4a4f9302-bf25-96c3-c870-32492ddc7134@amd.com>
 References: <20180822083857.19216-1-david1.zhou@amd.com>
  <a2518f6e-28cd-f41b-d0bc-9047860ac901@gmail.com>
  <1db43111-55fd-ba68-1d5c-6ecbd19ad65e@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <a586e4f3-0fbb-e530-6a20-fe6d32302771@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2066323226=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1db43111-55fd-ba68-1d5c-6ecbd19ad65e-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <a586e4f3-0fbb-e530-6a20-fe6d32302771-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,83 +21,497 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMjIuMDguMjAxOCB1bSAxMTowMiBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTjlubQw
-OOaciDIy5pelIDE2OjUyLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAyMi4wOC4yMDE4
-IHVtIDEwOjM4IHNjaHJpZWIgQ2h1bm1pbmcgWmhvdToKPj4+IHN0dWIgZmVuY2Ugd2lsbCBiZSB1
-c2VkIGJ5IHRpbWVsaW5lIHN5bmNvYmogYXMgd2VsbC4KPj4+Cj4+PiBDaGFuZ2UtSWQ6IElhNDI1
-MmYwM2MwN2E4MTA1NDkxZDI3OTFkYzdjOGM2OTc2NjgyMjg1Cj4+PiBTaWduZWQtb2ZmLWJ5OiBD
-aHVubWluZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgo+Pj4gQ2M6IEphc29uIEVrc3RyYW5k
-IDxqYXNvbkBqbGVrc3RyYW5kLm5ldD4KPj4+IC0tLQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2Ry
-bV9zeW5jb2JqLmMgfCAyOCArKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+PiDCoCBpbmNs
-dWRlL2RybS9kcm1fc3luY29iai5owqDCoMKgwqAgfCAyNCArKysrKysrKysrKysrKysrKysrKysr
-KysKPj4+IMKgIDIgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMjYgZGVsZXRpb25z
-KC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jIAo+
-Pj4gYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYwo+Pj4gaW5kZXggZDRmNGNlNDg0NTI5
-Li43MGFmMzJkMGRlZjEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNv
-YmouYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKPj4+IEBAIC0xODcs
-MzkgKzE4NywxNSBAQCB2b2lkIGRybV9zeW5jb2JqX3JlcGxhY2VfZmVuY2Uoc3RydWN0IAo+Pj4g
-ZHJtX3N5bmNvYmogKnN5bmNvYmosCj4+PiDCoCB9Cj4+PiDCoCBFWFBPUlRfU1lNQk9MKGRybV9z
-eW5jb2JqX3JlcGxhY2VfZmVuY2UpOwo+Pj4gwqAgLXN0cnVjdCBkcm1fc3luY29ial9udWxsX2Zl
-bmNlIHsKPj4+IC3CoMKgwqAgc3RydWN0IGRtYV9mZW5jZSBiYXNlOwo+Pj4gLcKgwqDCoCBzcGlu
-bG9ja190IGxvY2s7Cj4+PiAtfTsKPj4+IC0KPj4+IC1zdGF0aWMgY29uc3QgY2hhciAqZHJtX3N5
-bmNvYmpfbnVsbF9mZW5jZV9nZXRfbmFtZShzdHJ1Y3QgZG1hX2ZlbmNlIAo+Pj4gKmZlbmNlKQo+
-Pj4gLXsKPj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gInN5bmNvYmpudWxsIjsKPj4+IC19Cj4+
-PiAtCj4+PiAtc3RhdGljIGJvb2wgZHJtX3N5bmNvYmpfbnVsbF9mZW5jZV9lbmFibGVfc2lnbmFs
-aW5nKHN0cnVjdCAKPj4+IGRtYV9mZW5jZSAqZmVuY2UpCj4+PiAtewo+Pj4gLcKgwqDCoCBkbWFf
-ZmVuY2VfZW5hYmxlX3N3X3NpZ25hbGluZyhmZW5jZSk7Cj4+PiAtwqDCoMKgIHJldHVybiAhZG1h
-X2ZlbmNlX2lzX3NpZ25hbGVkKGZlbmNlKTsKPj4+IC19Cj4+PiAtCj4+PiAtc3RhdGljIGNvbnN0
-IHN0cnVjdCBkbWFfZmVuY2Vfb3BzIGRybV9zeW5jb2JqX251bGxfZmVuY2Vfb3BzID0gewo+Pj4g
-LcKgwqDCoCAuZ2V0X2RyaXZlcl9uYW1lID0gZHJtX3N5bmNvYmpfbnVsbF9mZW5jZV9nZXRfbmFt
-ZSwKPj4+IC3CoMKgwqAgLmdldF90aW1lbGluZV9uYW1lID0gZHJtX3N5bmNvYmpfbnVsbF9mZW5j
-ZV9nZXRfbmFtZSwKPj4+IC3CoMKgwqAgLmVuYWJsZV9zaWduYWxpbmcgPSBkcm1fc3luY29ial9u
-dWxsX2ZlbmNlX2VuYWJsZV9zaWduYWxpbmcsCj4+PiAtwqDCoMKgIC53YWl0ID0gZG1hX2ZlbmNl
-X2RlZmF1bHRfd2FpdCwKPj4+IC3CoMKgwqAgLnJlbGVhc2UgPSBOVUxMLAo+Pj4gLX07Cj4+PiAt
-Cj4+PiDCoCBzdGF0aWMgaW50IGRybV9zeW5jb2JqX2Fzc2lnbl9udWxsX2hhbmRsZShzdHJ1Y3Qg
-ZHJtX3N5bmNvYmogCj4+PiAqc3luY29iaikKPj4+IMKgIHsKPj4+IC3CoMKgwqAgc3RydWN0IGRy
-bV9zeW5jb2JqX251bGxfZmVuY2UgKmZlbmNlOwo+Pj4gK8KgwqDCoCBzdHJ1Y3QgZHJtX3N5bmNv
-Ympfc3R1Yl9mZW5jZSAqZmVuY2U7Cj4+PiDCoMKgwqDCoMKgIGZlbmNlID0ga3phbGxvYyhzaXpl
-b2YoKmZlbmNlKSwgR0ZQX0tFUk5FTCk7Cj4+PiDCoMKgwqDCoMKgIGlmIChmZW5jZSA9PSBOVUxM
-KQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOwo+Pj4gwqAgwqDCoMKgwqDC
-oCBzcGluX2xvY2tfaW5pdCgmZmVuY2UtPmxvY2spOwo+Pj4gLcKgwqDCoCBkbWFfZmVuY2VfaW5p
-dCgmZmVuY2UtPmJhc2UsICZkcm1fc3luY29ial9udWxsX2ZlbmNlX29wcywKPj4+ICvCoMKgwqAg
-ZG1hX2ZlbmNlX2luaXQoJmZlbmNlLT5iYXNlLCAmZHJtX3N5bmNvYmpfc3R1Yl9mZW5jZV9vcHMs
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAmZmVuY2UtPmxvY2ssIDAsIDAp
-Owo+Pj4gwqDCoMKgwqDCoCBkbWFfZmVuY2Vfc2lnbmFsKCZmZW5jZS0+YmFzZSk7Cj4+PiDCoCBk
-aWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX3N5bmNvYmouaCBiL2luY2x1ZGUvZHJtL2RybV9z
-eW5jb2JqLmgKPj4+IGluZGV4IDM5ODA2MDI0NzJjMC4uYjA0YzQ5MmRkYmI1IDEwMDY0NAo+Pj4g
-LS0tIGEvaW5jbHVkZS9kcm0vZHJtX3N5bmNvYmouaAo+Pj4gKysrIGIvaW5jbHVkZS9kcm0vZHJt
-X3N5bmNvYmouaAo+Pj4gQEAgLTMwLDYgKzMwLDMwIEBACj4+PiDCoCDCoCBzdHJ1Y3QgZHJtX3N5
-bmNvYmpfY2I7Cj4+PiDCoCArc3RydWN0IGRybV9zeW5jb2JqX3N0dWJfZmVuY2Ugewo+Pj4gK8Kg
-wqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlIGJhc2U7Cj4+PiArwqDCoMKgIHNwaW5sb2NrX3QgbG9jazsK
-Pj4+ICt9Owo+Pj4gKwo+Pj4gK2NvbnN0IGNoYXIgKmRybV9zeW5jb2JqX3N0dWJfZmVuY2VfZ2V0
-X25hbWUoc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UpCj4+PiArewo+Pj4gK8KgwqDCoMKgwqDCoMKg
-IHJldHVybiAic3luY29ianN0dWIiOwo+Pj4gK30KPj4+ICsKPj4+ICtib29sIGRybV9zeW5jb2Jq
-X3N0dWJfZmVuY2VfZW5hYmxlX3NpZ25hbGluZyhzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKPj4+
-ICt7Cj4+PiArwqDCoMKgIGRtYV9mZW5jZV9lbmFibGVfc3dfc2lnbmFsaW5nKGZlbmNlKTsKPj4K
-Pj4gQ29weSZwYXN0ZWQgZnJvbSB0aGUgb2xkIGltcGxlbWVudGF0aW9uLCBidXQgdGhhdCBpcyBj
-ZXJ0YWlubHkgCj4+IHRvdGFsbHkgbm9uc2Vuc2UuCj4+Cj4+IGRtYV9mZW5jZV9lbmFibGVfc3df
-c2lnbmFsaW5nKCkgaXMgdGhlIGZ1bmN0aW9uIHdobyBpcyBjYWxsaW5nIHRoaXMgCj4+IGNhbGxi
-YWNrLgo+IGluZGVlZCwgd2lsbCBmaXguCj4+Cj4+PiArwqDCoMKgIHJldHVybiAhZG1hX2ZlbmNl
-X2lzX3NpZ25hbGVkKGZlbmNlKTsKPj4+ICt9Cj4+PiArCj4+PiArY29uc3Qgc3RydWN0IGRtYV9m
-ZW5jZV9vcHMgZHJtX3N5bmNvYmpfc3R1Yl9mZW5jZV9vcHMgPSB7Cj4+PiArwqDCoMKgIC5nZXRf
-ZHJpdmVyX25hbWUgPSBkcm1fc3luY29ial9zdHViX2ZlbmNlX2dldF9uYW1lLAo+Pj4gK8KgwqDC
-oCAuZ2V0X3RpbWVsaW5lX25hbWUgPSBkcm1fc3luY29ial9zdHViX2ZlbmNlX2dldF9uYW1lLAo+
-Pj4gK8KgwqDCoCAuZW5hYmxlX3NpZ25hbGluZyA9IGRybV9zeW5jb2JqX3N0dWJfZmVuY2VfZW5h
-YmxlX3NpZ25hbGluZywKPj4+ICvCoMKgwqAgLndhaXQgPSBkbWFfZmVuY2VfZGVmYXVsdF93YWl0
-LAo+Pgo+PiBUaGUgLndhaXQgY2FsbGJhY2sgc2hvdWxkIGJlIGRyb3BwZWQuCj4gd2h5Pwo+Cj4g
-ZmVuY2UtPm9wcy0+d2FpdChmZW5jZSwgaW50ciwgdGltZW91dCkgaXMgY2FsbGVkIGJ5IGRtYV9m
-ZW5jZV93YWl0KCkuIAo+IElmIGRyb3BwZWQsIGhvdyBkb2VzIGRtYV9mZW5jZV93YWl0KCkgd29y
-az8KCllvdSBhcmUgd29ya2luZyBvbiBhbiBvbGRlciBjb2RlIGJhc2UsIGZlbmNlLT5vcHMtPndh
-aXQgaXMgb3B0aW9uYWwgYnkgbm93LgoKQ2hyaXN0aWFuLgoKPgo+IFRoYW5rcywKPiBEYXZpZAo+
-Pgo+PiBBcGFydCBmcm9tIHRoYXQgbG9va3MgZ29vZCB0byBtZS4KPj4KPj4gQ2hyaXN0aWFuLgo+
-Pgo+Pj4gK8KgwqDCoCAucmVsZWFzZSA9IE5VTEwsCj4+PiArfTsKPj4+ICsKPj4+IMKgIC8qKgo+
-Pj4gwqDCoCAqIHN0cnVjdCBkcm1fc3luY29iaiAtIHN5bmMgb2JqZWN0Lgo+Pj4gwqDCoCAqCj4+
-Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFt
-ZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============2066323226==
+Content-Type: multipart/alternative;
+	boundary="------------EDD62764169CE875B01BFBEC"
+Content-Language: en-US
+
+--------------EDD62764169CE875B01BFBEC
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+On 2018年08月22日 17:05, Christian König wrote:
+> Am 22.08.2018 um 11:02 schrieb zhoucm1:
+>>
+>>
+>> On 2018年08月22日 16:52, Christian König wrote:
+>>> Am 22.08.2018 um 10:38 schrieb Chunming Zhou:
+>>>> stub fence will be used by timeline syncobj as well.
+>>>>
+>>>> Change-Id: Ia4252f03c07a8105491d2791dc7c8c6976682285
+>>>> Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+>>>> Cc: Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>
+>>>> ---
+>>>>   drivers/gpu/drm/drm_syncobj.c | 28 ++--------------------------
+>>>>   include/drm/drm_syncobj.h     | 24 ++++++++++++++++++++++++
+>>>>   2 files changed, 26 insertions(+), 26 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_syncobj.c 
+>>>> b/drivers/gpu/drm/drm_syncobj.c
+>>>> index d4f4ce484529..70af32d0def1 100644
+>>>> --- a/drivers/gpu/drm/drm_syncobj.c
+>>>> +++ b/drivers/gpu/drm/drm_syncobj.c
+>>>> @@ -187,39 +187,15 @@ void drm_syncobj_replace_fence(struct 
+>>>> drm_syncobj *syncobj,
+>>>>   }
+>>>>   EXPORT_SYMBOL(drm_syncobj_replace_fence);
+>>>>   -struct drm_syncobj_null_fence {
+>>>> -    struct dma_fence base;
+>>>> -    spinlock_t lock;
+>>>> -};
+>>>> -
+>>>> -static const char *drm_syncobj_null_fence_get_name(struct 
+>>>> dma_fence *fence)
+>>>> -{
+>>>> -        return "syncobjnull";
+>>>> -}
+>>>> -
+>>>> -static bool drm_syncobj_null_fence_enable_signaling(struct 
+>>>> dma_fence *fence)
+>>>> -{
+>>>> -    dma_fence_enable_sw_signaling(fence);
+>>>> -    return !dma_fence_is_signaled(fence);
+>>>> -}
+>>>> -
+>>>> -static const struct dma_fence_ops drm_syncobj_null_fence_ops = {
+>>>> -    .get_driver_name = drm_syncobj_null_fence_get_name,
+>>>> -    .get_timeline_name = drm_syncobj_null_fence_get_name,
+>>>> -    .enable_signaling = drm_syncobj_null_fence_enable_signaling,
+>>>> -    .wait = dma_fence_default_wait,
+>>>> -    .release = NULL,
+>>>> -};
+>>>> -
+>>>>   static int drm_syncobj_assign_null_handle(struct drm_syncobj 
+>>>> *syncobj)
+>>>>   {
+>>>> -    struct drm_syncobj_null_fence *fence;
+>>>> +    struct drm_syncobj_stub_fence *fence;
+>>>>       fence = kzalloc(sizeof(*fence), GFP_KERNEL);
+>>>>       if (fence == NULL)
+>>>>           return -ENOMEM;
+>>>>         spin_lock_init(&fence->lock);
+>>>> -    dma_fence_init(&fence->base, &drm_syncobj_null_fence_ops,
+>>>> +    dma_fence_init(&fence->base, &drm_syncobj_stub_fence_ops,
+>>>>                  &fence->lock, 0, 0);
+>>>>       dma_fence_signal(&fence->base);
+>>>>   diff --git a/include/drm/drm_syncobj.h b/include/drm/drm_syncobj.h
+>>>> index 3980602472c0..b04c492ddbb5 100644
+>>>> --- a/include/drm/drm_syncobj.h
+>>>> +++ b/include/drm/drm_syncobj.h
+>>>> @@ -30,6 +30,30 @@
+>>>>     struct drm_syncobj_cb;
+>>>>   +struct drm_syncobj_stub_fence {
+>>>> +    struct dma_fence base;
+>>>> +    spinlock_t lock;
+>>>> +};
+>>>> +
+>>>> +const char *drm_syncobj_stub_fence_get_name(struct dma_fence *fence)
+>>>> +{
+>>>> +        return "syncobjstub";
+>>>> +}
+>>>> +
+>>>> +bool drm_syncobj_stub_fence_enable_signaling(struct dma_fence *fence)
+>>>> +{
+>>>> +    dma_fence_enable_sw_signaling(fence);
+>>>
+>>> Copy&pasted from the old implementation, but that is certainly 
+>>> totally nonsense.
+>>>
+>>> dma_fence_enable_sw_signaling() is the function who is calling this 
+>>> callback.
+>> indeed, will fix.
+>>>
+>>>> +    return !dma_fence_is_signaled(fence);
+>>>> +}
+>>>> +
+>>>> +const struct dma_fence_ops drm_syncobj_stub_fence_ops = {
+>>>> +    .get_driver_name = drm_syncobj_stub_fence_get_name,
+>>>> +    .get_timeline_name = drm_syncobj_stub_fence_get_name,
+>>>> +    .enable_signaling = drm_syncobj_stub_fence_enable_signaling,
+>>>> +    .wait = dma_fence_default_wait,
+>>>
+>>> The .wait callback should be dropped.
+>> why?
+>>
+>> fence->ops->wait(fence, intr, timeout) is called by dma_fence_wait(). 
+>> If dropped, how does dma_fence_wait() work?
+>
+> You are working on an older code base, fence->ops->wait is optional by 
+> now.
+Sorry, I still don't get it. My code is synced today from 
+amd-staging-drm-next, and it's 4.18-rc1.
+I still see the dma_fence_wait_timeout is :
+signed long
+dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long 
+timeout)
+{
+         signed long ret;
+
+         if (WARN_ON(timeout < 0))
+                 return -EINVAL;
+
+         trace_dma_fence_wait_start(fence);
+         ret = fence->ops->wait(fence, intr, timeout);
+         trace_dma_fence_wait_end(fence);
+         return ret;
+}
+
+.wait callback seems still a must have?
+
+Thanks,
+David Zhou
+
+
+>
+> Christian.
+>
+>>
+>> Thanks,
+>> David
+>>>
+>>> Apart from that looks good to me.
+>>>
+>>> Christian.
+>>>
+>>>> +    .release = NULL,
+>>>> +};
+>>>> +
+>>>>   /**
+>>>>    * struct drm_syncobj - sync object.
+>>>>    *
+>>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+
+--------------EDD62764169CE875B01BFBEC
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 2018年08月22日 17:05, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:a586e4f3-0fbb-e530-6a20-fe6d32302771-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">Am
+      22.08.2018 um 11:02 schrieb zhoucm1:
+      <br>
+      <blockquote type="cite">
+        <br>
+        <br>
+        On 2018年08月22日 16:52, Christian König wrote:
+        <br>
+        <blockquote type="cite">Am 22.08.2018 um 10:38 schrieb Chunming
+          Zhou:
+          <br>
+          <blockquote type="cite">stub fence will be used by timeline
+            syncobj as well.
+            <br>
+            <br>
+            Change-Id: Ia4252f03c07a8105491d2791dc7c8c6976682285
+            <br>
+            Signed-off-by: Chunming Zhou <a class="moz-txt-link-rfc2396E" href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>
+            <br>
+            Cc: Jason Ekstrand <a class="moz-txt-link-rfc2396E" href="mailto:jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org">&lt;jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org&gt;</a>
+            <br>
+            ---
+            <br>
+              drivers/gpu/drm/drm_syncobj.c | 28
+            ++--------------------------
+            <br>
+              include/drm/drm_syncobj.h     | 24
+            ++++++++++++++++++++++++
+            <br>
+              2 files changed, 26 insertions(+), 26 deletions(-)
+            <br>
+            <br>
+            diff --git a/drivers/gpu/drm/drm_syncobj.c
+            b/drivers/gpu/drm/drm_syncobj.c
+            <br>
+            index d4f4ce484529..70af32d0def1 100644
+            <br>
+            --- a/drivers/gpu/drm/drm_syncobj.c
+            <br>
+            +++ b/drivers/gpu/drm/drm_syncobj.c
+            <br>
+            @@ -187,39 +187,15 @@ void drm_syncobj_replace_fence(struct
+            drm_syncobj *syncobj,
+            <br>
+              }
+            <br>
+              EXPORT_SYMBOL(drm_syncobj_replace_fence);
+            <br>
+              -struct drm_syncobj_null_fence {
+            <br>
+            -    struct dma_fence base;
+            <br>
+            -    spinlock_t lock;
+            <br>
+            -};
+            <br>
+            -
+            <br>
+            -static const char *drm_syncobj_null_fence_get_name(struct
+            dma_fence *fence)
+            <br>
+            -{
+            <br>
+            -        return "syncobjnull";
+            <br>
+            -}
+            <br>
+            -
+            <br>
+            -static bool drm_syncobj_null_fence_enable_signaling(struct
+            dma_fence *fence)
+            <br>
+            -{
+            <br>
+            -    dma_fence_enable_sw_signaling(fence);
+            <br>
+            -    return !dma_fence_is_signaled(fence);
+            <br>
+            -}
+            <br>
+            -
+            <br>
+            -static const struct dma_fence_ops
+            drm_syncobj_null_fence_ops = {
+            <br>
+            -    .get_driver_name = drm_syncobj_null_fence_get_name,
+            <br>
+            -    .get_timeline_name = drm_syncobj_null_fence_get_name,
+            <br>
+            -    .enable_signaling =
+            drm_syncobj_null_fence_enable_signaling,
+            <br>
+            -    .wait = dma_fence_default_wait,
+            <br>
+            -    .release = NULL,
+            <br>
+            -};
+            <br>
+            -
+            <br>
+              static int drm_syncobj_assign_null_handle(struct
+            drm_syncobj *syncobj)
+            <br>
+              {
+            <br>
+            -    struct drm_syncobj_null_fence *fence;
+            <br>
+            +    struct drm_syncobj_stub_fence *fence;
+            <br>
+                  fence = kzalloc(sizeof(*fence), GFP_KERNEL);
+            <br>
+                  if (fence == NULL)
+            <br>
+                      return -ENOMEM;
+            <br>
+                    spin_lock_init(&amp;fence-&gt;lock);
+            <br>
+            -    dma_fence_init(&amp;fence-&gt;base,
+            &amp;drm_syncobj_null_fence_ops,
+            <br>
+            +    dma_fence_init(&amp;fence-&gt;base,
+            &amp;drm_syncobj_stub_fence_ops,
+            <br>
+                             &amp;fence-&gt;lock, 0, 0);
+            <br>
+                  dma_fence_signal(&amp;fence-&gt;base);
+            <br>
+              diff --git a/include/drm/drm_syncobj.h
+            b/include/drm/drm_syncobj.h
+            <br>
+            index 3980602472c0..b04c492ddbb5 100644
+            <br>
+            --- a/include/drm/drm_syncobj.h
+            <br>
+            +++ b/include/drm/drm_syncobj.h
+            <br>
+            @@ -30,6 +30,30 @@
+            <br>
+                struct drm_syncobj_cb;
+            <br>
+              +struct drm_syncobj_stub_fence {
+            <br>
+            +    struct dma_fence base;
+            <br>
+            +    spinlock_t lock;
+            <br>
+            +};
+            <br>
+            +
+            <br>
+            +const char *drm_syncobj_stub_fence_get_name(struct
+            dma_fence *fence)
+            <br>
+            +{
+            <br>
+            +        return "syncobjstub";
+            <br>
+            +}
+            <br>
+            +
+            <br>
+            +bool drm_syncobj_stub_fence_enable_signaling(struct
+            dma_fence *fence)
+            <br>
+            +{
+            <br>
+            +    dma_fence_enable_sw_signaling(fence);
+            <br>
+          </blockquote>
+          <br>
+          Copy&amp;pasted from the old implementation, but that is
+          certainly totally nonsense.
+          <br>
+          <br>
+          dma_fence_enable_sw_signaling() is the function who is calling
+          this callback.
+          <br>
+        </blockquote>
+        indeed, will fix.
+        <br>
+        <blockquote type="cite">
+          <br>
+          <blockquote type="cite">+    return
+            !dma_fence_is_signaled(fence);
+            <br>
+            +}
+            <br>
+            +
+            <br>
+            +const struct dma_fence_ops drm_syncobj_stub_fence_ops = {
+            <br>
+            +    .get_driver_name = drm_syncobj_stub_fence_get_name,
+            <br>
+            +    .get_timeline_name = drm_syncobj_stub_fence_get_name,
+            <br>
+            +    .enable_signaling =
+            drm_syncobj_stub_fence_enable_signaling,
+            <br>
+            +    .wait = dma_fence_default_wait,
+            <br>
+          </blockquote>
+          <br>
+          The .wait callback should be dropped.
+          <br>
+        </blockquote>
+        why?
+        <br>
+        <br>
+        fence-&gt;ops-&gt;wait(fence, intr, timeout) is called by
+        dma_fence_wait(). If dropped, how does dma_fence_wait() work?
+        <br>
+      </blockquote>
+      <br>
+      You are working on an older code base, fence-&gt;ops-&gt;wait is
+      optional by now.
+      <br>
+    </blockquote>
+    Sorry, I still don't get it. My code is synced today from
+    amd-staging-drm-next, and it's 4.18-rc1.<br>
+    I still see the dma_fence_wait_timeout is :<br>
+    signed long<br>
+    dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed
+    long timeout)<br>
+    {<br>
+            signed long ret;<br>
+    <br>
+            if (WARN_ON(timeout &lt; 0))<br>
+                    return -EINVAL;<br>
+    <br>
+            trace_dma_fence_wait_start(fence);<br>
+    <font color="#ff0000">        ret = fence-&gt;ops-&gt;wait(fence,
+      intr, timeout);</font><br>
+            trace_dma_fence_wait_end(fence);<br>
+            return ret;<br>
+    }<br>
+    <br>
+    .wait callback seems still a must have?<br>
+    <br>
+    Thanks,<br>
+    David Zhou<br>
+    <br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:a586e4f3-0fbb-e530-6a20-fe6d32302771-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+      <br>
+      Christian.
+      <br>
+      <br>
+      <blockquote type="cite">
+        <br>
+        Thanks,
+        <br>
+        David
+        <br>
+        <blockquote type="cite">
+          <br>
+          Apart from that looks good to me.
+          <br>
+          <br>
+          Christian.
+          <br>
+          <br>
+          <blockquote type="cite">+    .release = NULL,
+            <br>
+            +};
+            <br>
+            +
+            <br>
+              /**
+            <br>
+               * struct drm_syncobj - sync object.
+            <br>
+               *
+            <br>
+          </blockquote>
+          <br>
+        </blockquote>
+        <br>
+        _______________________________________________
+        <br>
+        amd-gfx mailing list
+        <br>
+        <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+        <br>
+        <a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------EDD62764169CE875B01BFBEC--
+
+--===============2066323226==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2066323226==--
