@@ -1,14 +1,14 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 11/11] drm/amdgpu: enable GTT PD/PT for raven
-Date: Thu, 23 Aug 2018 13:28:37 +0800
-Message-ID: <5B7E4605.8000406@amd.com>
-References: <20180822150517.2330-1-christian.koenig@amd.com>
- <20180822150517.2330-11-christian.koenig@amd.com>
+From: Zhenyu Wang <zhenyuw-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Subject: Re: Possible use_mm() mis-uses
+Date: Thu, 23 Aug 2018 14:07:26 +0800
+Message-ID: <20180823060726.GY3674@zhen-hp.sh.intel.com>
+References: <CA+55aFz+Unj0zVNd79vpd41mtee3DV6tp_Ozr7WaZscqCQc9hQ@mail.gmail.com>
+ <e50816ec-cf5e-4848-93d0-dacc28f816fc@redhat.com>
+Reply-To: Zhenyu Wang <zhenyuw-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1958943124=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180822150517.2330-11-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <e50816ec-cf5e-4848-93d0-dacc28f816fc-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,42 +19,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Paolo Bonzini <pbonzini-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, DRI <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, KVM list <kvm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "Michael S. Tsirkin" <mst-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Greg Kroah-Hartman <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, Jason Wang <jasowang-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Zhenyu Wang <zhenyuw-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, USB list <linux-usb-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, intel-gfx <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, intel-gvt-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Linus Torvalds <torvalds-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Zhi Wang <zhi.a.wang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Felipe Balbi <balbi-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 
-T24gMDgvMjIvMjAxOCAxMTowNSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBTaG91bGQg
-d29yayBvbiBWZWdhMTAgYXMgd2VsbCwgYnV0IHdpdGggYW4gb2J2aW91cyBwZXJmb3JtYW5jZSBo
-aXQuCj4KPiBPbGRlciBBUFVzIGNhbiBiZSBlbmFibGVkIGFzIHdlbGwsIGJ1dCB3aWxsIHByb2Jh
-Ymx5IGJlIG1vcmUgd29yay4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jIHwgMTEgKysrKysrKysrKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxMCBp
-bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uYwo+IGluZGV4IDkyOGZkYWUwZGFiNC4uNjcwYTQyNzI5Zjg4IDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBAQCAtMzA4LDYgKzMwOCw3IEBAIGlu
-dCBhbWRncHVfdm1fdmFsaWRhdGVfcHRfYm9zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBz
-dHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPiAgIAkJCWxpc3RfbW92ZSgmYm9fYmFzZS0+dm1fc3RhdHVz
-LCAmdm0tPm1vdmVkKTsKPiAgIAkJCXNwaW5fdW5sb2NrKCZ2bS0+bW92ZWRfbG9jayk7Cj4gICAJ
-CX0gZWxzZSB7Cj4gKwkJCWFtZGdwdV90dG1fYWxsb2NfZ2FydCgmYm8tPnRibyk7Cj4gICAJCQls
-aXN0X21vdmUoJmJvX2Jhc2UtPnZtX3N0YXR1cywgJnZtLT5yZWxvY2F0ZWQpOwo+ICAgCQl9Cj4g
-ICAJfQo+IEBAIC0zOTYsNiArMzk3LDEwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2NsZWFyX2Jv
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCWlmIChyKQo+ICAgCQlnb3RvIGVycm9y
-Owo+Cj4gKwlyID0gYW1kZ3B1X3R0bV9hbGxvY19nYXJ0KCZiby0+dGJvKTsKPiArCWlmIChyKQo+
-ICsJCXJldHVybiByOwo+ICsKPiAgIAlyID0gYW1kZ3B1X2pvYl9hbGxvY193aXRoX2liKGFkZXYs
-IDY0LCAmam9iKTsKPiAgIAlpZiAocikKPiAgIAkJZ290byBlcnJvcjsKPiBAQCAtNDYxLDcgKzQ2
-NiwxMSBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdm1fYm9fcGFyYW0oc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLAo+ICAgCWJwLT5zaXplID0gYW1kZ3B1X3Zt
-X2JvX3NpemUoYWRldiwgbGV2ZWwpOwo+ICAgCWJwLT5ieXRlX2FsaWduID0gQU1ER1BVX0dQVV9Q
-QUdFX1NJWkU7Cj4gICAJYnAtPmRvbWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU07Cj4gLQli
-cC0+ZmxhZ3MgPSBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VPVVM7Cj4gKwlpZiAoYnAt
-PnNpemUgPD0gUEFHRV9TSVpFICYmIGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1JBVkVOKQoKRG8g
-d2UgbmVlZCBicC0+c2l6ZSA8PSBQQUdFX1NJWkU/ClNlZW1zIGl0J3MgYWx3YXlzIGxlc3MgMTIg
-Yml0IGZvciByYXZlbj8KClJlZ2FyZHMsCkplcnJ5Cgo+ICsJCWJwLT5kb21haW4gfD0gQU1ER1BV
-X0dFTV9ET01BSU5fR1RUOwo+ICsJYnAtPmRvbWFpbiA9IGFtZGdwdV9ib19nZXRfcHJlZmVycmVk
-X3Bpbl9kb21haW4oYWRldiwgYnAtPmRvbWFpbik7Cj4gKwlicC0+ZmxhZ3MgPSBBTURHUFVfR0VN
-X0NSRUFURV9WUkFNX0NPTlRJR1VPVVMgfAo+ICsJCUFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRf
-VVNXQzsKPiAgIAlpZiAodm0tPnVzZV9jcHVfZm9yX3VwZGF0ZSkKPiAgIAkJYnAtPmZsYWdzIHw9
-IEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQ7Cj4gICAJZWxzZQo+Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+--===============1958943124==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="2wYUONsACSj9OMJp"
+Content-Disposition: inline
+
+
+--2wYUONsACSj9OMJp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 2018.08.22 20:20:46 +0200, Paolo Bonzini wrote:
+> On 22/08/2018 18:44, Linus Torvalds wrote:
+> > An example of something that *isn't* right, is the i915 kvm interface,
+> > which does
+> >=20
+> >         use_mm(kvm->mm);
+> >=20
+> > on an mm that was initialized in virt/kvm/kvm_main.c using
+> >=20
+> >         mmgrab(current->mm);
+> >         kvm->mm =3D current->mm;
+> >=20
+> > which is *not* right. Using "mmgrab()" does indeed guarantee the
+> > lifetime of the 'struct mm_struct' itself, but it does *not* guarantee
+> > the lifetime of the page tables. You need to use "mmget()" and
+> > "mmput()", which get the reference to the actual process address
+> > space!
+> >=20
+> > Now, it is *possible* that the kvm use is correct too, because kvm
+> > does register a mmu_notifier chain, and in theory you can avoid the
+> > proper refcounting by just making sure the mmu "release" notifier
+> > kills any existing uses, but I don't really see kvm doing that. Kvm
+> > does register a release notifier, but that just flushes the shadow
+> > page tables, it doesn't kill any use_mm() use by some i915 use case.
+>=20
+> Yes, KVM is correct but the i915 bits are at least fishy.  It's probably
+> as simple as adding a mmget/mmput pair respectively in kvmgt_guest_init
+> and kvmgt_guest_exit, or maybe mmget_not_zero.
+>=20
+
+yeah, that's the clear way to fix this imo. We only depend on guest
+life cycle to access guest memory properly. Here's proposed fix, will
+verify and integrate it later.
+
+Thanks!
+
+=46rom 5e5a8d0409aa150884adf5a4d0b956fd0b9906b3 Mon Sep 17 00:00:00 2001
+=46rom: Zhenyu Wang <zhenyuw-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Date: Thu, 23 Aug 2018 14:08:06 +0800
+Subject: [PATCH] drm/i915/gvt: Fix life cycle reference on KVM mm
+
+Handle guest mm access life cycle properly with mmget()/mmput()
+through guest init()/exit(). As noted by Linus, use_mm() depends
+on valid live page table but KVM's mmgrab() doesn't guarantee that.
+As vGPU usage depends on guest VM life cycle, need to make sure to
+use mmget()/mmput() to guarantee VM address access.
+
+Cc: Linus Torvalds <torvalds-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>
+Cc: Paolo Bonzini <pbonzini-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: Zhi Wang <zhi.a.wang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Signed-off-by: Zhenyu Wang <zhenyuw-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+---
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kv=
+mgt.c
+index 71751be329e3..4a0988747d08 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -32,6 +32,7 @@
+ #include <linux/device.h>
+ #include <linux/mm.h>
+ #include <linux/mmu_context.h>
++#include <linux/sched/mm.h>
+ #include <linux/types.h>
+ #include <linux/list.h>
+ #include <linux/rbtree.h>
+@@ -1614,9 +1615,16 @@ static int kvmgt_guest_init(struct mdev_device *mdev)
+ 	if (__kvmgt_vgpu_exist(vgpu, kvm))
+ 		return -EEXIST;
+=20
++	if (!mmget_not_zero(kvm->mm)) {
++		gvt_vgpu_err("Can't get KVM mm reference\n");
++		return -EINVAL;
++	}
++
+ 	info =3D vzalloc(sizeof(struct kvmgt_guest_info));
+-	if (!info)
++	if (!info) {
++		mmput(kvm->mm);
+ 		return -ENOMEM;
++	}
+=20
+ 	vgpu->handle =3D (unsigned long)info;
+ 	info->vgpu =3D vgpu;
+@@ -1647,6 +1655,8 @@ static bool kvmgt_guest_exit(struct kvmgt_guest_info =
+*info)
+ 	debugfs_remove(info->debugfs_cache_entries);
+=20
+ 	kvm_page_track_unregister_notifier(info->kvm, &info->track_node);
++	if (info->kvm->mm)
++		mmput(info->kvm->mm);
+ 	kvm_put_kvm(info->kvm);
+ 	kvmgt_protect_table_destroy(info);
+ 	gvt_cache_destroy(info->vgpu);
+--=20
+2.18.0
+
+
+--=20
+Open Source Technology Center, Intel ltd.
+
+$gpg --keyserver wwwkeys.pgp.net --recv-keys 4D781827
+
+--2wYUONsACSj9OMJp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCW35PHgAKCRCxBBozTXgY
+J4LFAJ99b1TIDFon7b9sGFLWJkzv50c5xQCghRlDGlBNwjiFFg8X7BHNED7lJXc=
+=6X2z
+-----END PGP SIGNATURE-----
+
+--2wYUONsACSj9OMJp--
+
+--===============1958943124==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1958943124==--
