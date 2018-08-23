@@ -1,16 +1,15 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 11/11] drm/amdgpu: enable GTT PD/PT for raven
-Date: Thu, 23 Aug 2018 20:54:22 +0800
-Message-ID: <20180823125403.GC5167@hr-amur2>
-References: <20180822150517.2330-1-christian.koenig@amd.com>
- <20180822150517.2330-11-christian.koenig@amd.com>
- <f5c10bb6-4d93-5102-2c3b-ae0e161b70e1@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Remove duplicated power source update
+Date: Thu, 23 Aug 2018 12:58:44 +0000
+Message-ID: <BN6PR12MB1809BD70D6B51612F450D5BAF7370@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1535006303-11339-1-git-send-email-Rex.Zhu@amd.com>
+ <CADnq5_PSD=jQJcudfmshYHQyRNW6jWKsSqzN4jq7J7823otjzA@mail.gmail.com>,
+ <BYAPR12MB2775DA189D7393E5400E3A1DFB370@BYAPR12MB2775.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0783093185=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <f5c10bb6-4d93-5102-2c3b-ae0e161b70e1-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BYAPR12MB2775DA189D7393E5400E3A1DFB370-ZGDeBxoHBPmJeBUhB162ZQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,51 +20,232 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: Christian =?utf-8?B?S++/vW5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gV2VkLCBBdWcgMjIsIDIwMTggYXQgMTE6NDQ6MDRBTSAtMDQwMCwgQW5kcmV5IEdyb2R6b3Zz
-a3kgd3JvdGU6Cj4gCj4gCj4gT24gMDgvMjIvMjAxOCAxMTowNSBBTSwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiA+U2hvdWxkIHdvcmsgb24gVmVnYTEwIGFzIHdlbGwsIGJ1dCB3aXRoIGFuIG9i
-dmlvdXMgcGVyZm9ybWFuY2UgaGl0Lgo+ID4KPiA+T2xkZXIgQVBVcyBjYW4gYmUgZW5hYmxlZCBh
-cyB3ZWxsLCBidXQgd2lsbCBwcm9iYWJseSBiZSBtb3JlIHdvcmsuCgpSYXZlbidzIFZSQU0gaXMg
-YWN0dWFsbHkgdGhlIHN5c3RlbSBtZW1vcnkuIE1heSBJIGtub3cgdGhlIGJlbmVmaXQgaWYgd2UK
-c3dpdGNoIHRoZSBQRC9QVCBCTyBmcm9tIHZyYW0gdG8gZ2FydD8KCj4gPgo+ID5TaWduZWQtb2Zm
-LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gPi0tLQo+
-ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMTEgKysrKysrKysr
-Ky0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+
-ID4KPiA+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiA+aW5kZXggOTI4ZmRh
-ZTBkYWI0Li42NzBhNDI3MjlmODggMTAwNjQ0Cj4gPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92bS5jCj4gPisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jCj4gPkBAIC0zMDgsNiArMzA4LDcgQEAgaW50IGFtZGdwdV92bV92YWxpZGF0ZV9w
-dF9ib3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLAo+
-ID4gIAkJCWxpc3RfbW92ZSgmYm9fYmFzZS0+dm1fc3RhdHVzLCAmdm0tPm1vdmVkKTsKPiA+ICAJ
-CQlzcGluX3VubG9jaygmdm0tPm1vdmVkX2xvY2spOwo+ID4gIAkJfSBlbHNlIHsKPiA+KwkJCWFt
-ZGdwdV90dG1fYWxsb2NfZ2FydCgmYm8tPnRibyk7Cj4gCj4gTG9va3MgbGlrZSB5b3UgZm9yZ290
-IHRvIGNoZWNrIGZvciByZXR1cm4gdmFsdWUgaGVyZS4KPiAKClllcywgdGhlIHNhbWUgY29tbWVu
-dCB3aXRoIG1lLiAKClRoYW5rcywKUmF5Cgo+IEFuZHJleQo+IAo+ID4gIAkJCWxpc3RfbW92ZSgm
-Ym9fYmFzZS0+dm1fc3RhdHVzLCAmdm0tPnJlbG9jYXRlZCk7Cj4gPiAgCQl9Cj4gPiAgCX0KPiA+
-QEAgLTM5Niw2ICszOTcsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdm1fY2xlYXJfYm8oc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gPiAgCWlmIChyKQo+ID4gIAkJZ290byBlcnJvcjsKPiA+
-KwlyID0gYW1kZ3B1X3R0bV9hbGxvY19nYXJ0KCZiby0+dGJvKTsKPiA+KwlpZiAocikKPiA+KwkJ
-cmV0dXJuIHI7Cj4gPisKPiA+ICAJciA9IGFtZGdwdV9qb2JfYWxsb2Nfd2l0aF9pYihhZGV2LCA2
-NCwgJmpvYik7Cj4gPiAgCWlmIChyKQo+ID4gIAkJZ290byBlcnJvcjsKPiA+QEAgLTQ2MSw3ICs0
-NjYsMTEgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2JvX3BhcmFtKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPiA+ICAJYnAtPnNpemUgPSBhbWRncHVf
-dm1fYm9fc2l6ZShhZGV2LCBsZXZlbCk7Cj4gPiAgCWJwLT5ieXRlX2FsaWduID0gQU1ER1BVX0dQ
-VV9QQUdFX1NJWkU7Cj4gPiAgCWJwLT5kb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNOwo+
-ID4tCWJwLT5mbGFncyA9IEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ09OVElHVU9VUzsKPiA+Kwlp
-ZiAoYnAtPnNpemUgPD0gUEFHRV9TSVpFICYmIGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1JBVkVO
-KQo+ID4rCQlicC0+ZG9tYWluIHw9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsKPiA+KwlicC0+ZG9t
-YWluID0gYW1kZ3B1X2JvX2dldF9wcmVmZXJyZWRfcGluX2RvbWFpbihhZGV2LCBicC0+ZG9tYWlu
-KTsKPiA+KwlicC0+ZmxhZ3MgPSBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VPVVMgfAo+
-ID4rCQlBTURHUFVfR0VNX0NSRUFURV9DUFVfR1RUX1VTV0M7Cj4gPiAgCWlmICh2bS0+dXNlX2Nw
-dV9mb3JfdXBkYXRlKQo+ID4gIAkJYnAtPmZsYWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9B
-Q0NFU1NfUkVRVUlSRUQ7Cj4gPiAgCWVsc2UKPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+--===============0783093185==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809BD70D6B51612F450D5BAF7370BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809BD70D6B51612F450D5BAF7370BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+In that case,
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhu, Rex=
+ <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, August 23, 2018 8:41:28 AM
+To: Alex Deucher
+Cc: Wu, Hersen; amd-gfx list
+Subject: RE: [PATCH] drm/amdgpu: Remove duplicated power source update
+
+Hi Alex,
+
+We get initial state in amdgpu_device_init.
+
+Best Regards
+Rex
+
+
+
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> Sent: Thursday, August 23, 2018 8:37 PM
+> To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+> Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Wu, Hersen
+> <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+> Subject: Re: [PATCH] drm/amdgpu: Remove duplicated power source update
+>
+> On Thu, Aug 23, 2018 at 2:40 AM Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> wrote:
+> >
+> > when ac/dc switch, driver will be notified by acpi event.
+> > then the power source will be updated. so don't need to get power
+> > source when set power state.
+>
+> Don't we need this to get the initial state?  Maybe we should move this t=
+o
+> one of the init functions if we don't already check there.
+>
+> Alex
+>
+> >
+> > Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 8 --------
+> >  1 file changed, 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> > index daa55fb..3e51e9c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> > @@ -1933,14 +1933,6 @@ void amdgpu_pm_compute_clocks(struct
+> amdgpu_device *adev)
+> >                         amdgpu_fence_wait_empty(ring);
+> >         }
+> >
+> > -       mutex_lock(&adev->pm.mutex);
+> > -       /* update battery/ac status */
+> > -       if (power_supply_is_system_supplied() > 0)
+> > -               adev->pm.ac_power =3D true;
+> > -       else
+> > -               adev->pm.ac_power =3D false;
+> > -       mutex_unlock(&adev->pm.mutex);
+> > -
+> >         if (adev->powerplay.pp_funcs->dispatch_tasks) {
+> >                 if (!amdgpu_device_has_dc_support(adev)) {
+> >                         mutex_lock(&adev->pm.mutex);
+> > --
+> > 1.9.1
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809BD70D6B51612F450D5BAF7370BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">In that case, </p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&=
+gt;<br>
+<b>Sent:</b> Thursday, August 23, 2018 8:41:28 AM<br>
+<b>To:</b> Alex Deucher<br>
+<b>Cc:</b> Wu, Hersen; amd-gfx list<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Remove duplicated power source upda=
+te</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hi Alex,<br>
+<br>
+We get initial state in amdgpu_device_init.<br>
+<br>
+Best Regards<br>
+Rex<br>
+<br>
+&nbsp;<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+&gt; Sent: Thursday, August 23, 2018 8:37 PM<br>
+&gt; To: Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Cc: amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Wu, Hersen<br>
+&gt; &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: Re: [PATCH] drm/amdgpu: Remove duplicated power source update=
+<br>
+&gt; <br>
+&gt; On Thu, Aug 23, 2018 at 2:40 AM Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt; wrote:=
+<br>
+&gt; &gt;<br>
+&gt; &gt; when ac/dc switch, driver will be notified by acpi event.<br>
+&gt; &gt; then the power source will be updated. so don't need to get power=
+<br>
+&gt; &gt; source when set power state.<br>
+&gt; <br>
+&gt; Don't we need this to get the initial state?&nbsp; Maybe we should mov=
+e this to<br>
+&gt; one of the init functions if we don't already check there.<br>
+&gt; <br>
+&gt; Alex<br>
+&gt; <br>
+&gt; &gt;<br>
+&gt; &gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; &gt; ---<br>
+&gt; &gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 8 --------<br>
+&gt; &gt;&nbsp; 1 file changed, 8 deletions(-)<br>
+&gt; &gt;<br>
+&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&gt; &gt; index daa55fb..3e51e9c 100644<br>
+&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&gt; &gt; @@ -1933,14 &#43;1933,6 @@ void amdgpu_pm_compute_clocks(struct<b=
+r>
+&gt; amdgpu_device *adev)<br>
+&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; amdgpu_fence_wait_empty(ring);<br>
+&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &gt;<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;pm=
+.mutex);<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update battery/ac status=
+ */<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (power_supply_is_system_=
+supplied() &gt; 0)<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;pm.ac_power =3D true;<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;pm.ac_power =3D false;<br>
+&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;=
+pm.mutex);<br>
+&gt; &gt; -<br>
+&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powe=
+rplay.pp_funcs-&gt;dispatch_tasks) {<br>
+&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_device_has_dc_support(adev)) {<b=
+r>
+&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; mutex_lock(&amp;adev-&gt;pm.mutex);<br>
+&gt; &gt; --<br>
+&gt; &gt; 1.9.1<br>
+&gt; &gt;<br>
+&gt; &gt; _______________________________________________<br>
+&gt; &gt; amd-gfx mailing list<br>
+&gt; &gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx=
+">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809BD70D6B51612F450D5BAF7370BN6PR12MB1809namp_--
+
+--===============0783093185==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0783093185==--
