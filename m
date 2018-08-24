@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Enable/disable gfx PG feature in rlc safe mode
-Date: Fri, 24 Aug 2018 14:10:10 +0000
-Message-ID: <BN6PR12MB180900C6FA4F3164038CBA86F7360@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1535103142-32400-1-git-send-email-Rex.Zhu@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/5] drm/amdgpu: add helper for VM PD/PT allocation parameters
+ v2
+Date: Fri, 24 Aug 2018 16:19:59 +0200
+Message-ID: <20180824142002.2315-2-christian.koenig@amd.com>
+References: <20180824142002.2315-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1266924111=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1535103142-32400-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180824142002.2315-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,194 +19,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Zhou, Hang" <Hang.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1266924111==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, August 24, 2018 5:32:22 AM
-To: Zhou, Hang; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH] drm/amdgpu: Enable/disable gfx PG feature in rlc safe mode
-
-This is required by gfx hw and can fix the rlc hang when
-do s3 stree test on Cz/St.
-
-Signed-off-by: Hang Zhou <hang.zhou-5C7GfCeVMHo@public.gmane.org>
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c
-index 903725ba..a2acd76 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -5618,6 +5618,11 @@ static int gfx_v8_0_set_powergating_state(void *hand=
-le,
-         if (amdgpu_sriov_vf(adev))
-                 return 0;
-
-+       if (adev->pg_flags & (AMD_PG_SUPPORT_GFX_SMG |
-+                               AMD_PG_SUPPORT_RLC_SMU_HS |
-+                               AMD_PG_SUPPORT_CP |
-+                               AMD_PG_SUPPORT_GFX_DMG))
-+               adev->gfx.rlc.funcs->enter_safe_mode(adev);
-         switch (adev->asic_type) {
-         case CHIP_CARRIZO:
-         case CHIP_STONEY:
-@@ -5667,7 +5672,11 @@ static int gfx_v8_0_set_powergating_state(void *hand=
-le,
-         default:
-                 break;
-         }
--
-+       if (adev->pg_flags & (AMD_PG_SUPPORT_GFX_SMG |
-+                               AMD_PG_SUPPORT_RLC_SMU_HS |
-+                               AMD_PG_SUPPORT_CP |
-+                               AMD_PG_SUPPORT_GFX_DMG))
-+               adev->gfx.rlc.funcs->exit_safe_mode(adev);
-         return 0;
- }
-
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Friday, August 24, 2018 5:32:22 AM<br>
-<b>To:</b> Zhou, Hang; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Enable/disable gfx PG feature in rlc sa=
-fe mode</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This is required by gfx hw and can fix the rlc han=
-g when<br>
-do s3 stree test on Cz/St.<br>
-<br>
-Signed-off-by: Hang Zhou &lt;hang.zhou-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 11 &#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;-<br>
-&nbsp;1 file changed, 10 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c<br>
-index 903725ba..a2acd76 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-@@ -5618,6 &#43;5618,11 @@ static int gfx_v8_0_set_powergating_state(void *=
-handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pg_flags &amp; (AMD_=
-PG_SUPPORT_GFX_SMG |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_RLC_SMU_HS |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_CP |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_GFX_DMG))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;enter_safe_mode(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
-) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_CARRIZO:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_STONEY:<br>
-@@ -5667,7 &#43;5672,11 @@ static int gfx_v8_0_set_powergating_state(void *=
-handle,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pg_flags &amp; (AMD_=
-PG_SUPPORT_GFX_SMG |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_RLC_SMU_HS |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_CP |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_GFX_DMG))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;exit_safe_mode(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_--
-
---===============1266924111==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1266924111==--
+QWRkIGEgaGVscGVyIGZ1bmN0aW9uIHRvIGZpZ3VyZSB0aGVtIG91dCBvbmx5IG9uY2UuCgp2Mjog
+Zml4IHR5cG8gd2l0aCBtZW1zZXQKClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEp1bndlaSBaaGFuZyA8SmVycnku
+WmhhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
+YyB8IDYxICsrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjggaW5z
+ZXJ0aW9ucygrKSwgMzMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdm0uYwppbmRleCA1M2NlOTk4MmE1ZWUuLmQ3ZWNiZWIyZjhhNCAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTQ0Niw2ICs0NDYsMzEgQEAgc3RhdGljIGludCBh
+bWRncHVfdm1fY2xlYXJfYm8oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJcmV0dXJuIHI7
+CiB9CiAKKy8qKgorICogYW1kZ3B1X3ZtX2JvX3BhcmFtIC0gZmlsbCBpbiBwYXJhbWV0ZXJzIGZv
+ciBQRC9QVCBhbGxvY2F0aW9uCisgKgorICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgor
+ICogQHZtOiByZXF1ZXN0aW5nIHZtCisgKiBAYnA6IHJlc3VsdGluZyBCTyBhbGxvY2F0aW9uIHBh
+cmFtZXRlcnMKKyAqLworc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2JvX3BhcmFtKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKKwkJCSAgICAgICBpbnQgbGV2
+ZWwsIHN0cnVjdCBhbWRncHVfYm9fcGFyYW0gKmJwKQoreworCW1lbXNldChicCwgMCwgc2l6ZW9m
+KCpicCkpOworCisJYnAtPnNpemUgPSBhbWRncHVfdm1fYm9fc2l6ZShhZGV2LCBsZXZlbCk7CisJ
+YnAtPmJ5dGVfYWxpZ24gPSBBTURHUFVfR1BVX1BBR0VfU0laRTsKKwlicC0+ZG9tYWluID0gQU1E
+R1BVX0dFTV9ET01BSU5fVlJBTTsKKwlicC0+ZmxhZ3MgPSBBTURHUFVfR0VNX0NSRUFURV9WUkFN
+X0NPTlRJR1VPVVM7CisJaWYgKHZtLT51c2VfY3B1X2Zvcl91cGRhdGUpCisJCWJwLT5mbGFncyB8
+PSBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEOworCWVsc2UKKwkJYnAtPmZs
+YWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX1NIQURPVzsKKwlicC0+dHlwZSA9IHR0bV9ib190eXBl
+X2tlcm5lbDsKKwlpZiAodm0tPnJvb3QuYmFzZS5ibykKKwkJYnAtPnJlc3YgPSB2bS0+cm9vdC5i
+YXNlLmJvLT50Ym8ucmVzdjsKK30KKwogLyoqCiAgKiBhbWRncHVfdm1fYWxsb2NfbGV2ZWxzIC0g
+YWxsb2NhdGUgdGhlIFBEL1BUIGxldmVscwogICoKQEAgLTQ2OSw4ICs0OTQsOCBAQCBzdGF0aWMg
+aW50IGFtZGdwdV92bV9hbGxvY19sZXZlbHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJ
+CQkJICB1bnNpZ25lZCBsZXZlbCwgYm9vbCBhdHMpCiB7CiAJdW5zaWduZWQgc2hpZnQgPSBhbWRn
+cHVfdm1fbGV2ZWxfc2hpZnQoYWRldiwgbGV2ZWwpOworCXN0cnVjdCBhbWRncHVfYm9fcGFyYW0g
+YnA7CiAJdW5zaWduZWQgcHRfaWR4LCBmcm9tLCB0bzsKLQl1NjQgZmxhZ3M7CiAJaW50IHI7CiAK
+IAlpZiAoIXBhcmVudC0+ZW50cmllcykgewpAQCAtNDk0LDI5ICs1MTksMTQgQEAgc3RhdGljIGlu
+dCBhbWRncHVfdm1fYWxsb2NfbGV2ZWxzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCXNh
+ZGRyID0gc2FkZHIgJiAoKDEgPDwgc2hpZnQpIC0gMSk7CiAJZWFkZHIgPSBlYWRkciAmICgoMSA8
+PCBzaGlmdCkgLSAxKTsKIAotCWZsYWdzID0gQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DT05USUdV
+T1VTOwotCWlmICh2bS0+dXNlX2NwdV9mb3JfdXBkYXRlKQotCQlmbGFncyB8PSBBTURHUFVfR0VN
+X0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEOwotCWVsc2UKLQkJZmxhZ3MgfD0gKEFNREdQVV9H
+RU1fQ1JFQVRFX05PX0NQVV9BQ0NFU1MgfAotCQkJCUFNREdQVV9HRU1fQ1JFQVRFX1NIQURPVyk7
+CisJYW1kZ3B1X3ZtX2JvX3BhcmFtKGFkZXYsIHZtLCBsZXZlbCwgJmJwKTsKIAogCS8qIHdhbGsg
+b3ZlciB0aGUgYWRkcmVzcyBzcGFjZSBhbmQgYWxsb2NhdGUgdGhlIHBhZ2UgdGFibGVzICovCiAJ
+Zm9yIChwdF9pZHggPSBmcm9tOyBwdF9pZHggPD0gdG87ICsrcHRfaWR4KSB7Ci0JCXN0cnVjdCBy
+ZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YgPSB2bS0+cm9vdC5iYXNlLmJvLT50Ym8ucmVzdjsKIAkJ
+c3RydWN0IGFtZGdwdV92bV9wdCAqZW50cnkgPSAmcGFyZW50LT5lbnRyaWVzW3B0X2lkeF07CiAJ
+CXN0cnVjdCBhbWRncHVfYm8gKnB0OwogCiAJCWlmICghZW50cnktPmJhc2UuYm8pIHsKLQkJCXN0
+cnVjdCBhbWRncHVfYm9fcGFyYW0gYnA7Ci0KLQkJCW1lbXNldCgmYnAsIDAsIHNpemVvZihicCkp
+OwotCQkJYnAuc2l6ZSA9IGFtZGdwdV92bV9ib19zaXplKGFkZXYsIGxldmVsKTsKLQkJCWJwLmJ5
+dGVfYWxpZ24gPSBBTURHUFVfR1BVX1BBR0VfU0laRTsKLQkJCWJwLmRvbWFpbiA9IEFNREdQVV9H
+RU1fRE9NQUlOX1ZSQU07Ci0JCQlicC5mbGFncyA9IGZsYWdzOwotCQkJYnAudHlwZSA9IHR0bV9i
+b190eXBlX2tlcm5lbDsKLQkJCWJwLnJlc3YgPSByZXN2OwogCQkJciA9IGFtZGdwdV9ib19jcmVh
+dGUoYWRldiwgJmJwLCAmcHQpOwogCQkJaWYgKHIpCiAJCQkJcmV0dXJuIHI7CkBAIC0yNTY2LDgg
+KzI1NzYsNiBAQCBpbnQgYW1kZ3B1X3ZtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+IHN0cnVjdCBhbWRncHVfdm0gKnZtLAogewogCXN0cnVjdCBhbWRncHVfYm9fcGFyYW0gYnA7CiAJ
+c3RydWN0IGFtZGdwdV9ibyAqcm9vdDsKLQl1bnNpZ25lZCBsb25nIHNpemU7Ci0JdWludDY0X3Qg
+ZmxhZ3M7CiAJaW50IHIsIGk7CiAKIAl2bS0+dmEgPSBSQl9ST09UX0NBQ0hFRDsKQEAgLTI2MDQs
+MjAgKzI2MTIsNyBAQCBpbnQgYW1kZ3B1X3ZtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLAogCQkgICJDUFUgdXBkYXRlIG9mIFZNIHJlY29tbWVu
+ZGVkIG9ubHkgZm9yIGxhcmdlIEJBUiBzeXN0ZW1cbiIpOwogCXZtLT5sYXN0X3VwZGF0ZSA9IE5V
+TEw7CiAKLQlmbGFncyA9IEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ09OVElHVU9VUzsKLQlpZiAo
+dm0tPnVzZV9jcHVfZm9yX3VwZGF0ZSkKLQkJZmxhZ3MgfD0gQU1ER1BVX0dFTV9DUkVBVEVfQ1BV
+X0FDQ0VTU19SRVFVSVJFRDsKLQllbHNlCi0JCWZsYWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX1NI
+QURPVzsKLQotCXNpemUgPSBhbWRncHVfdm1fYm9fc2l6ZShhZGV2LCBhZGV2LT52bV9tYW5hZ2Vy
+LnJvb3RfbGV2ZWwpOwotCW1lbXNldCgmYnAsIDAsIHNpemVvZihicCkpOwotCWJwLnNpemUgPSBz
+aXplOwotCWJwLmJ5dGVfYWxpZ24gPSBBTURHUFVfR1BVX1BBR0VfU0laRTsKLQlicC5kb21haW4g
+PSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNOwotCWJwLmZsYWdzID0gZmxhZ3M7Ci0JYnAudHlwZSA9
+IHR0bV9ib190eXBlX2tlcm5lbDsKLQlicC5yZXN2ID0gTlVMTDsKKwlhbWRncHVfdm1fYm9fcGFy
+YW0oYWRldiwgdm0sIGFkZXYtPnZtX21hbmFnZXIucm9vdF9sZXZlbCwgJmJwKTsKIAlyID0gYW1k
+Z3B1X2JvX2NyZWF0ZShhZGV2LCAmYnAsICZyb290KTsKIAlpZiAocikKIAkJZ290byBlcnJvcl9m
+cmVlX3NjaGVkX2VudGl0eTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
