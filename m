@@ -1,67 +1,99 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/3] drm/amdgpu: Power on uvd block when hw_fini
-Date: Fri, 24 Aug 2018 09:38:41 +0000
-Message-ID: <BYAPR12MB277532F8FDF09FCBF55B6123FB360@BYAPR12MB2775.namprd12.prod.outlook.com>
-References: <1535100626-14880-1-git-send-email-Rex.Zhu@amd.com>
- <1535100626-14880-3-git-send-email-Rex.Zhu@amd.com>
- <c1928832-62f1-a94d-75b9-6c94cd290f78@daenzer.net>
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Subject: Re: [PATCH] mm, oom: distinguish blockable mode for mmu notifiers
+Date: Fri, 24 Aug 2018 19:54:19 +0900
+Message-ID: <8cbfb09f-0c5a-8d43-1f5e-f3ff7612e289@I-love.SAKURA.ne.jp>
+References: <20180716115058.5559-1-mhocko@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c1928832-62f1-a94d-75b9-6c94cd290f78-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180716115058.5559-1-mhocko@kernel.org>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michal Hocko <mhocko@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, linux-mm@kvack.org, Michal Hocko <mhocko@suse.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Doug Ledford <dledford@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, Mike Marciniszyn <mike.marciniszyn@intel.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, Sudeep Dutt <sudeep.dutt@intel.com>, Ashutosh Dixit <ashutosh.dixit@intel.com>, Dimitri Sivanich <sivanich@sgi.com>, Boris Ostrovsky <boris.ostrovsky@oracle.c>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWljaGVsIETDpG56ZXIg
-PG1pY2hlbEBkYWVuemVyLm5ldD4NCj4gU2VudDogRnJpZGF5LCBBdWd1c3QgMjQsIDIwMTggNToz
-MSBQTQ0KPiBUbzogWmh1LCBSZXggPFJleC5aaHVAYW1kLmNvbT4NCj4gQ2M6IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1
-OiBQb3dlciBvbiB1dmQgYmxvY2sgd2hlbiBod19maW5pDQo+IA0KPiBPbiAyMDE4LTA4LTI0IDEw
-OjUwIGEubS4sIFJleCBaaHUgd3JvdGU6DQo+ID4gd2hlbiBod19maW5pL3N1c3BlbmQsIHNtdSBv
-bmx5IG5lZWQgdG8gcG93ZXIgb24gdXZkIGJsb2NrIGlmIHV2ZCBwZyBpcw0KPiA+IHN1cHBvcnRl
-ZCwgZG9uJ3QgbmVlZCB0byBjYWxsIHV2ZCB0byBkbyBod19pbml0Lg0KPiA+DQo+ID4gdjI6IGZp
-eCB0eXBvIGluIHBhdGNoIGRlc2NyaXB0aW9ucy4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IFJl
-eCBaaHUgPFJleC5aaHVAYW1kLmNvbT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUva3ZfZHBtLmMgfCA0ICsrLS0NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
-aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9rdl9kcG0uYw0KPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUva3ZfZHBtLmMNCj4gPiBpbmRleCBiNDk3YzM3Li5jZTgxYTUzIDEwMDY0NA0KPiA+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2t2X2RwbS5jDQo+ID4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUva3ZfZHBtLmMNCj4gPiBAQCAtNjUsNyArNjUsNiBAQCBzdGF0aWMg
-aW50IGt2X3NldF90aGVybWFsX3RlbXBlcmF0dXJlX3JhbmdlKHN0cnVjdA0KPiBhbWRncHVfZGV2
-aWNlICphZGV2LA0KPiA+ICAJCQkJCSAgICBpbnQgbWluX3RlbXAsIGludCBtYXhfdGVtcCk7ICBz
-dGF0aWMNCj4gaW50DQo+ID4ga3ZfaW5pdF9mcHNfbGltaXRzKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KTsNCj4gPg0KPiA+IC1zdGF0aWMgdm9pZCBrdl9kcG1fcG93ZXJnYXRlX3V2ZCh2b2lk
-ICpoYW5kbGUsIGJvb2wgZ2F0ZSk7ICBzdGF0aWMNCj4gPiB2b2lkIGt2X2RwbV9wb3dlcmdhdGVf
-c2FtdShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBnYXRlKTsNCj4gPiBzdGF0aWMg
-dm9pZCBrdl9kcG1fcG93ZXJnYXRlX2FjcChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9v
-bA0KPiA+IGdhdGUpOw0KPiA+DQo+ID4gQEAgLTEzODgsNyArMTM4Nyw4IEBAIHN0YXRpYyB2b2lk
-IGt2X2RwbV9kaXNhYmxlKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiA+ICAJa3Zf
-ZHBtX3Bvd2VyZ2F0ZV9zYW11KGFkZXYsIGZhbHNlKTsNCj4gPiAgCWlmIChwaS0+Y2Fwc192Y2Vf
-cGcpIC8qIHBvd2VyIG9uIHRoZSBWQ0UgYmxvY2sgKi8NCj4gPiAgCQlhbWRncHVfa3Zfbm90aWZ5
-X21lc3NhZ2VfdG9fc211KGFkZXYsDQo+IFBQU01DX01TR19WQ0VQb3dlck9OKTsNCj4gPiAtCWt2
-X2RwbV9wb3dlcmdhdGVfdXZkKGFkZXYsIGZhbHNlKTsNCj4gPiArCWlmIChwaS0+Y2Fwc191dmRf
-cGcpIC8qIHBvd2VyIG9mZiB0aGUgVVZEIGJsb2NrICovDQo+ID4gKwkJYW1kZ3B1X2t2X25vdGlm
-eV9tZXNzYWdlX3RvX3NtdShhZGV2LA0KPiBQUFNNQ19NU0dfVVZEUG93ZXJPTik7DQo+IA0KPiBU
-aGlzIGNvbW1lbnQgc3RpbGwgc2VlbXMgaW5jb25zaXN0ZW50IHdpdGggdGhlIGNvZGUuDQoNClRo
-YW5rcy4gSSB3aWxsIGZpeCBpdCBpbW1lZGlhdGVseS4NCg0KUmVnYXJkcw0KUmV4DQoNCiANCj4g
-QXBhcnQgZnJvbSB0aGF0LCB0aGlzIHNlcmllcyBpcw0KDQo+IFRlc3RlZC1ieTogTWljaGVsIETD
-pG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+DQo+IA0KPiANCj4gVGhhbmtzIQ0KPiANCj4g
-DQo+IC0tDQo+IEVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAg
-ICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20NCj4gTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAg
-ICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Two more worries for this patch.
+
+
+
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> @@ -178,12 +178,18 @@ void amdgpu_mn_unlock(struct amdgpu_mn *mn)
+>   *
+>   * @amn: our notifier
+>   */
+> -static void amdgpu_mn_read_lock(struct amdgpu_mn *amn)
+> +static int amdgpu_mn_read_lock(struct amdgpu_mn *amn, bool blockable)
+>  {
+> -       mutex_lock(&amn->read_lock);
+> +       if (blockable)
+> +               mutex_lock(&amn->read_lock);
+> +       else if (!mutex_trylock(&amn->read_lock))
+> +               return -EAGAIN;
+> +
+>         if (atomic_inc_return(&amn->recursion) == 1)
+>                 down_read_non_owner(&amn->lock);
+
+Why don't we need to use trylock here if blockable == false ?
+Want comment why it is safe to use blocking lock here.
+
+>         mutex_unlock(&amn->read_lock);
+> +
+> +       return 0;
+>  }
+> 
+>  /**
+
+
+
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+> @@ -177,16 +177,19 @@ static void hmm_release(struct mmu_notifier *mn, struct mm_struct *mm)
+>         up_write(&hmm->mirrors_sem);
+>  }
+> 
+> -static void hmm_invalidate_range_start(struct mmu_notifier *mn,
+> +static int hmm_invalidate_range_start(struct mmu_notifier *mn,
+>                                        struct mm_struct *mm,
+>                                        unsigned long start,
+> -                                      unsigned long end)
+> +                                      unsigned long end,
+> +                                      bool blockable)
+>  {
+>         struct hmm *hmm = mm->hmm;
+> 
+>         VM_BUG_ON(!hmm);
+> 
+>         atomic_inc(&hmm->sequence);
+> +
+> +       return 0;
+>  }
+> 
+>  static void hmm_invalidate_range_end(struct mmu_notifier *mn,
+
+This assumes that hmm_invalidate_range_end() does not have memory
+allocation dependency. But hmm_invalidate_range() from
+hmm_invalidate_range_end() involves
+
+        down_read(&hmm->mirrors_sem);
+        list_for_each_entry(mirror, &hmm->mirrors, list)
+                mirror->ops->sync_cpu_device_pagetables(mirror, action,
+                                                        start, end);
+        up_read(&hmm->mirrors_sem);
+
+sequence. What is surprising is that there is no in-tree user who assigns
+sync_cpu_device_pagetables field.
+
+  $ grep -Fr sync_cpu_device_pagetables *
+  Documentation/vm/hmm.rst:     /* sync_cpu_device_pagetables() - synchronize page tables
+  include/linux/hmm.h: * will get callbacks through sync_cpu_device_pagetables() operation (see
+  include/linux/hmm.h:    /* sync_cpu_device_pagetables() - synchronize page tables
+  include/linux/hmm.h:    void (*sync_cpu_device_pagetables)(struct hmm_mirror *mirror,
+  include/linux/hmm.h: * hmm_mirror_ops.sync_cpu_device_pagetables() callback, so that CPU page
+  mm/hmm.c:               mirror->ops->sync_cpu_device_pagetables(mirror, action,
+
+That is, this API seems to be currently used by only out-of-tree users. Since
+we can't check that nobody has memory allocation dependency, I think that
+hmm_invalidate_range_start() should return -EAGAIN if blockable == false for now.
