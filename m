@@ -1,79 +1,64 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: amdgpu_ctx_add_fence can't fail
-Date: Fri, 24 Aug 2018 21:24:52 +0800
-Message-ID: <1a9d230e-fba5-8655-115e-031334ece603@amd.com>
-References: <20180824125016.1315-1-christian.koenig@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH] mm, oom: distinguish blockable mode for mmu notifiers
+Date: Fri, 24 Aug 2018 15:28:33 +0200
+Message-ID: <86bd94d5-0ce8-c67f-07a5-ca9ebf399cdd@gmail.com>
+References: <20180824113248.GH29735@dhcp22.suse.cz>
+ <b088e382-e90e-df63-a079-19b2ae2b985d@gmail.com>
+ <20180824115226.GK29735@dhcp22.suse.cz>
+ <a27ad1a3-34bd-6b7d-fd09-7737ec3c888d@gmail.com>
+ <20180824120339.GL29735@dhcp22.suse.cz>
+ <eb546bcb-9c5f-7d5d-43a7-bfde489f0e7f@amd.com>
+ <20180824123341.GN29735@dhcp22.suse.cz>
+ <b11df415-baf8-0a41-3c16-60dfe8d32bd3@amd.com>
+ <20180824130132.GP29735@dhcp22.suse.cz>
+ <23d071d2-82e4-9b78-1000-be44db5f6523@gmail.com>
+ <20180824132442.GQ29735@dhcp22.suse.cz>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180824125016.1315-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180824132442.GQ29735@dhcp22.suse.cz>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michal Hocko <mhocko@kernel.org>, christian.koenig@amd.com
+Cc: kvm@vger.kernel.org, =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@redhat.com>, Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, Sudeep Dutt <sudeep.dutt@intel.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Andrea Arcangeli <aarcange@redhat.com>, Dimitri Sivanich <sivanich@sgi.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Doug Ledford <dledford@redhat.com>, David Rientjes <rientjes@google.com>, xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org, Leon Romanovsky <leonro@mellanox.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgrlnKggMjAxOC84LzI0IDIwOjUwLCBDaHJpc3RpYW4gS8O2bmlnIOWGmemBkzoKPiBObyBtb3Jl
-IHdhaXRpbmcgZm9yIGEgZmVuY2UgZG9uZSBoZXJlLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0
-aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogQ2h1bm1p
-bmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgIHwgMTAgKy0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIHwgIDggKysrLS0tLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguaCB8ICA2ICsrKy0tLQo+ICAgMyBmaWxlcyBjaGFu
-Z2VkLCA3IGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiBpbmRleCBmZDM5MDI5ODMxOTUuLjgwYWQyMzA2MWYxYyAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gQEAgLTEyMTcsMTUg
-KzEyMTcsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19zdWJtaXQoc3RydWN0IGFtZGdwdV9jc19w
-YXJzZXIgKnAsCj4gICAJam9iLT5vd25lciA9IHAtPmZpbHA7Cj4gICAJcC0+ZmVuY2UgPSBkbWFf
-ZmVuY2VfZ2V0KCZqb2ItPmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQpOwo+ICAgCj4gLQlyID0gYW1k
-Z3B1X2N0eF9hZGRfZmVuY2UocC0+Y3R4LCBlbnRpdHksIHAtPmZlbmNlLCAmc2VxKTsKPiAtCWlm
-IChyKSB7Cj4gLQkJZG1hX2ZlbmNlX3B1dChwLT5mZW5jZSk7Cj4gLQkJZG1hX2ZlbmNlX3B1dCgm
-am9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkKTsKPiAtCQlhbWRncHVfam9iX2ZyZWUoam9iKTsK
-PiAtCQlhbWRncHVfbW5fdW5sb2NrKHAtPm1uKTsKPiAtCQlyZXR1cm4gcjsKPiAtCX0KPiAtCj4g
-KwlhbWRncHVfY3R4X2FkZF9mZW5jZShwLT5jdHgsIGVudGl0eSwgcC0+ZmVuY2UsICZzZXEpOwo+
-ICAgCWFtZGdwdV9jc19wb3N0X2RlcGVuZGVuY2llcyhwKTsKPiAgIAo+ICAgCWlmICgoam9iLT5w
-cmVhbWJsZV9zdGF0dXMgJiBBTURHUFVfUFJFQU1CTEVfSUJfUFJFU0VOVCkgJiYKPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4gaW5kZXggOTg3YjdmMjU2NDYzLi5mOWI1
-NDIzNjEwMmQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2N0eC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4g
-QEAgLTQzNCw5ICs0MzQsOSBAQCBpbnQgYW1kZ3B1X2N0eF9wdXQoc3RydWN0IGFtZGdwdV9jdHgg
-KmN0eCkKPiAgIAlyZXR1cm4gMDsKPiAgIH0KPiAgIAo+IC1pbnQgYW1kZ3B1X2N0eF9hZGRfZmVu
-Y2Uoc3RydWN0IGFtZGdwdV9jdHggKmN0eCwKPiAtCQkJIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5
-ICplbnRpdHksCj4gLQkJCSBzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwgdWludDY0X3QqIGhhbmRs
-ZSkKPiArdm9pZCBhbWRncHVfY3R4X2FkZF9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4LAo+
-ICsJCQkgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHksCj4gKwkJCSAgc3RydWN0IGRt
-YV9mZW5jZSAqZmVuY2UsIHVpbnQ2NF90KiBoYW5kbGUpCj4gICB7Cj4gICAJc3RydWN0IGFtZGdw
-dV9jdHhfZW50aXR5ICpjZW50aXR5ID0gdG9fYW1kZ3B1X2N0eF9lbnRpdHkoZW50aXR5KTsKPiAg
-IAl1aW50NjRfdCBzZXEgPSBjZW50aXR5LT5zZXF1ZW5jZTsKPiBAQCAtNDU4LDggKzQ1OCw2IEBA
-IGludCBhbWRncHVfY3R4X2FkZF9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4LAo+ICAgCWRt
-YV9mZW5jZV9wdXQob3RoZXIpOwo+ICAgCWlmIChoYW5kbGUpCj4gICAJCSpoYW5kbGUgPSBzZXE7
-Cj4gLQo+IC0JcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiAgIHN0cnVjdCBkbWFfZmVuY2UgKmFtZGdw
-dV9jdHhfZ2V0X2ZlbmNlKHN0cnVjdCBhbWRncHVfY3R4ICpjdHgsCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguaCBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9jdHguaAo+IGluZGV4IGQ2N2MxZDI4NWE0Zi4uYjNiMDEyYzBhN2Rh
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguaAo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguaAo+IEBAIC02NSw5
-ICs2NSw5IEBAIGludCBhbWRncHVfY3R4X3B1dChzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4KTsKPiAg
-IAo+ICAgaW50IGFtZGdwdV9jdHhfZ2V0X2VudGl0eShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4LCB1
-MzIgaHdfaXAsIHUzMiBpbnN0YW5jZSwKPiAgIAkJCSAgdTMyIHJpbmcsIHN0cnVjdCBkcm1fc2No
-ZWRfZW50aXR5ICoqZW50aXR5KTsKPiAtaW50IGFtZGdwdV9jdHhfYWRkX2ZlbmNlKHN0cnVjdCBh
-bWRncHVfY3R4ICpjdHgsCj4gLQkJCSBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5LAo+
-IC0JCQkgc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UsIHVpbnQ2NF90ICpzZXEpOwo+ICt2b2lkIGFt
-ZGdwdV9jdHhfYWRkX2ZlbmNlKHN0cnVjdCBhbWRncHVfY3R4ICpjdHgsCj4gKwkJCSAgc3RydWN0
-IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSwKPiArCQkJICBzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5j
-ZSwgdWludDY0X3QgKnNlcSk7Cj4gICBzdHJ1Y3QgZG1hX2ZlbmNlICphbWRncHVfY3R4X2dldF9m
-ZW5jZShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4LAo+ICAgCQkJCSAgICAgICBzdHJ1Y3QgZHJtX3Nj
-aGVkX2VudGl0eSAqZW50aXR5LAo+ICAgCQkJCSAgICAgICB1aW50NjRfdCBzZXEpOwoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 24.08.2018 um 15:24 schrieb Michal Hocko:
+> On Fri 24-08-18 15:10:08, Christian König wrote:
+>> Am 24.08.2018 um 15:01 schrieb Michal Hocko:
+>>> On Fri 24-08-18 14:52:26, Christian König wrote:
+>>>> Am 24.08.2018 um 14:33 schrieb Michal Hocko:
+>>> [...]
+>>>>> Thiking about it some more, I can imagine that a notifier callback which
+>>>>> performs an allocation might trigger a memory reclaim and that in turn
+>>>>> might trigger a notifier to be invoked and recurse. But notifier
+>>>>> shouldn't really allocate memory. They are called from deep MM code
+>>>>> paths and this would be extremely deadlock prone. Maybe Jerome can come
+>>>>> up some more realistic scenario. If not then I would propose to simplify
+>>>>> the locking here. We have lockdep to catch self deadlocks and it is
+>>>>> always better to handle a specific issue rather than having a code
+>>>>> without a clear indication how it can recurse.
+>>>> Well I agree that we should probably fix that, but I have some concerns to
+>>>> remove the existing workaround.
+>>>>
+>>>> See we added that to get rid of a real problem in a customer environment and
+>>>> I don't want to that to show up again.
+>>> It would really help to know more about that case and fix it properly
+>>> rather than workaround it like this. Anyway, let me think how to handle
+>>> the non-blocking notifier invocation then. I was not able to come up
+>>> with anything remotely sane yet.
+>> With avoiding allocating memory in the write lock path I don't see an issue
+>> any more with that.
+>>
+>> All what the write lock path does now is adding items to a linked lists,
+>> arrays etc....
+> Can we change it to non-sleepable lock then?
+
+No, the write side doesn't sleep any more, but the read side does.
+
+See amdgpu_mn_invalidate_node() and that is where you actually need to 
+handle the non-blocking flag correctly.
+
+Christian.
