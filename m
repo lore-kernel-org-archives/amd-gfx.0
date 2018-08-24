@@ -1,128 +1,211 @@
-From: Michal Hocko <mhocko@kernel.org>
-Subject: Re: [PATCH] mm, oom: distinguish blockable mode for mmu notifiers
-Date: Fri, 24 Aug 2018 15:52:57 +0200
-Message-ID: <20180824135257.GU29735@dhcp22.suse.cz>
-References: <20180824120339.GL29735@dhcp22.suse.cz>
- <eb546bcb-9c5f-7d5d-43a7-bfde489f0e7f@amd.com>
- <20180824123341.GN29735@dhcp22.suse.cz>
- <b11df415-baf8-0a41-3c16-60dfe8d32bd3@amd.com>
- <20180824130132.GP29735@dhcp22.suse.cz>
- <23d071d2-82e4-9b78-1000-be44db5f6523@gmail.com>
- <20180824132442.GQ29735@dhcp22.suse.cz>
- <86bd94d5-0ce8-c67f-07a5-ca9ebf399cdd@gmail.com>
- <20180824134009.GS29735@dhcp22.suse.cz>
- <735b0a53-5237-8827-d20e-e57fa24d798f@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Enable/disable gfx PG feature in rlc safe mode
+Date: Fri, 24 Aug 2018 14:10:10 +0000
+Message-ID: <BN6PR12MB180900C6FA4F3164038CBA86F7360@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1535103142-32400-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <735b0a53-5237-8827-d20e-e57fa24d798f@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: kvm@vger.kernel.org, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@redhat.com>, Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, Sudeep Dutt <sudeep.dutt@intel.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Andrea Arcangeli <aarcange@redhat.com>, Dimitri Sivanich <sivanich@sgi.com>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>, David Rientjes <rientjes@google.com>, xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Leon Romanovsky <leonro@mellanox.com>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, Mike Marciniszyn <mike.marciniszyn@intel.com>, Dennis Dalessandro <dennis.dalessandro@intel.com>, LKML <linux-kerne>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1266924111=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1535103142-32400-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Zhou, Hang" <Hang.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpIDI0LTA4LTE4IDE1OjQ0OjAzLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDI0
-LjA4LjIwMTggdW0gMTU6NDAgc2NocmllYiBNaWNoYWwgSG9ja286Cj4gPiBPbiBGcmkgMjQtMDgt
-MTggMTU6Mjg6MzMsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gPiA+IEFtIDI0LjA4LjIwMTgg
-dW0gMTU6MjQgc2NocmllYiBNaWNoYWwgSG9ja286Cj4gPiA+ID4gT24gRnJpIDI0LTA4LTE4IDE1
-OjEwOjA4LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+ID4gPiA+ID4gQW0gMjQuMDguMjAxOCB1
-bSAxNTowMSBzY2hyaWViIE1pY2hhbCBIb2NrbzoKPiA+ID4gPiA+ID4gT24gRnJpIDI0LTA4LTE4
-IDE0OjUyOjI2LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+ID4gPiA+ID4gPiA+IEFtIDI0LjA4
-LjIwMTggdW0gMTQ6MzMgc2NocmllYiBNaWNoYWwgSG9ja286Cj4gPiA+ID4gPiA+IFsuLi5dCj4g
-PiA+ID4gPiA+ID4gPiBUaGlraW5nIGFib3V0IGl0IHNvbWUgbW9yZSwgSSBjYW4gaW1hZ2luZSB0
-aGF0IGEgbm90aWZpZXIgY2FsbGJhY2sgd2hpY2gKPiA+ID4gPiA+ID4gPiA+IHBlcmZvcm1zIGFu
-IGFsbG9jYXRpb24gbWlnaHQgdHJpZ2dlciBhIG1lbW9yeSByZWNsYWltIGFuZCB0aGF0IGluIHR1
-cm4KPiA+ID4gPiA+ID4gPiA+IG1pZ2h0IHRyaWdnZXIgYSBub3RpZmllciB0byBiZSBpbnZva2Vk
-IGFuZCByZWN1cnNlLiBCdXQgbm90aWZpZXIKPiA+ID4gPiA+ID4gPiA+IHNob3VsZG4ndCByZWFs
-bHkgYWxsb2NhdGUgbWVtb3J5LiBUaGV5IGFyZSBjYWxsZWQgZnJvbSBkZWVwIE1NIGNvZGUKPiA+
-ID4gPiA+ID4gPiA+IHBhdGhzIGFuZCB0aGlzIHdvdWxkIGJlIGV4dHJlbWVseSBkZWFkbG9jayBw
-cm9uZS4gTWF5YmUgSmVyb21lIGNhbiBjb21lCj4gPiA+ID4gPiA+ID4gPiB1cCBzb21lIG1vcmUg
-cmVhbGlzdGljIHNjZW5hcmlvLiBJZiBub3QgdGhlbiBJIHdvdWxkIHByb3Bvc2UgdG8gc2ltcGxp
-ZnkKPiA+ID4gPiA+ID4gPiA+IHRoZSBsb2NraW5nIGhlcmUuIFdlIGhhdmUgbG9ja2RlcCB0byBj
-YXRjaCBzZWxmIGRlYWRsb2NrcyBhbmQgaXQgaXMKPiA+ID4gPiA+ID4gPiA+IGFsd2F5cyBiZXR0
-ZXIgdG8gaGFuZGxlIGEgc3BlY2lmaWMgaXNzdWUgcmF0aGVyIHRoYW4gaGF2aW5nIGEgY29kZQo+
-ID4gPiA+ID4gPiA+ID4gd2l0aG91dCBhIGNsZWFyIGluZGljYXRpb24gaG93IGl0IGNhbiByZWN1
-cnNlLgo+ID4gPiA+ID4gPiA+IFdlbGwgSSBhZ3JlZSB0aGF0IHdlIHNob3VsZCBwcm9iYWJseSBm
-aXggdGhhdCwgYnV0IEkgaGF2ZSBzb21lIGNvbmNlcm5zIHRvCj4gPiA+ID4gPiA+ID4gcmVtb3Zl
-IHRoZSBleGlzdGluZyB3b3JrYXJvdW5kLgo+ID4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiA+IFNl
-ZSB3ZSBhZGRlZCB0aGF0IHRvIGdldCByaWQgb2YgYSByZWFsIHByb2JsZW0gaW4gYSBjdXN0b21l
-ciBlbnZpcm9ubWVudCBhbmQKPiA+ID4gPiA+ID4gPiBJIGRvbid0IHdhbnQgdG8gdGhhdCB0byBz
-aG93IHVwIGFnYWluLgo+ID4gPiA+ID4gPiBJdCB3b3VsZCByZWFsbHkgaGVscCB0byBrbm93IG1v
-cmUgYWJvdXQgdGhhdCBjYXNlIGFuZCBmaXggaXQgcHJvcGVybHkKPiA+ID4gPiA+ID4gcmF0aGVy
-IHRoYW4gd29ya2Fyb3VuZCBpdCBsaWtlIHRoaXMuIEFueXdheSwgbGV0IG1lIHRoaW5rIGhvdyB0
-byBoYW5kbGUKPiA+ID4gPiA+ID4gdGhlIG5vbi1ibG9ja2luZyBub3RpZmllciBpbnZvY2F0aW9u
-IHRoZW4uIEkgd2FzIG5vdCBhYmxlIHRvIGNvbWUgdXAKPiA+ID4gPiA+ID4gd2l0aCBhbnl0aGlu
-ZyByZW1vdGVseSBzYW5lIHlldC4KPiA+ID4gPiA+IFdpdGggYXZvaWRpbmcgYWxsb2NhdGluZyBt
-ZW1vcnkgaW4gdGhlIHdyaXRlIGxvY2sgcGF0aCBJIGRvbid0IHNlZSBhbiBpc3N1ZQo+ID4gPiA+
-ID4gYW55IG1vcmUgd2l0aCB0aGF0Lgo+ID4gPiA+ID4gCj4gPiA+ID4gPiBBbGwgd2hhdCB0aGUg
-d3JpdGUgbG9jayBwYXRoIGRvZXMgbm93IGlzIGFkZGluZyBpdGVtcyB0byBhIGxpbmtlZCBsaXN0
-cywKPiA+ID4gPiA+IGFycmF5cyBldGMuLi4uCj4gPiA+ID4gQ2FuIHdlIGNoYW5nZSBpdCB0byBu
-b24tc2xlZXBhYmxlIGxvY2sgdGhlbj8KPiA+ID4gTm8sIHRoZSB3cml0ZSBzaWRlIGRvZXNuJ3Qg
-c2xlZXAgYW55IG1vcmUsIGJ1dCB0aGUgcmVhZCBzaWRlIGRvZXMuCj4gPiA+IAo+ID4gPiBTZWUg
-YW1kZ3B1X21uX2ludmFsaWRhdGVfbm9kZSgpIGFuZCB0aGF0IGlzIHdoZXJlIHlvdSBhY3R1YWxs
-eSBuZWVkIHRvCj4gPiA+IGhhbmRsZSB0aGUgbm9uLWJsb2NraW5nIGZsYWcgY29ycmVjdGx5Lgo+
-ID4gT2hoLCByaWdodCB5b3UgYXJlLiBXZSBhbHJlYWR5IGhhbmRsZSB0aGF0IGJ5IGJhaWxpbmcg
-b3V0IGJlZm9yZSBjYWxsaW5nCj4gPiBhbWRncHVfbW5faW52YWxpZGF0ZV9ub2RlIGluICFibG9j
-a2FibGUgbW9kZS4KPiAKPiBZZWFoLCB0aGF0IGlzIHN1ZmZpY2llbnQuCj4gCj4gSXQgY291bGQg
-YmUgaW1wcm92ZWQgYmVjYXVzZSB3ZSBoYXZlIHNvbWV0aGluZyBsaWtlIDkwJSBjaGFuY2UgdGhh
-dAo+IGFtZGdwdV9tbl9pbnZhbGlkYXRlX25vZGUoKSBhY3R1YWxseSBkb2Vzbid0IG5lZWQgdG8g
-ZG8gYW55dGhpbmcuCj4gCj4gQnV0IEkgY2FuIHRha2UgY2FyZSBvZiB0aGF0IHdoZW4gdGhlIHBh
-dGNoIHNldCBoYXMgbGFuZGVkLgo+IAo+ID4gU28gZG9lcyB0aGlzIGxvb2tzIGdvb2QgdG8geW91
-Pwo+IAo+IFllYWgsIHRoYXQgbG9va3MgcGVyZmVjdCB0byBtZS4gUmV2aWV3ZWQtYnk6IENocmlz
-dGlhbiBLw7ZuaWcKPiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKQ29vbCEgVGhhbmtzIGZv
-ciB5b3VyIGd1aWRhbmNlIGFuZCBwYXRpZW5jZSB3aXRoIG1lLiBIZXJlIGlzIHRoZSBmdWxsCnBh
-dGNoLiBGZWVsIGZyZWUgdG8gdGFrZSBpdCBhbmQgcm91dGUgcGVyIHlvdXIgcHJlZmVyZW5jZS4K
-CkZyb20gNGUyOTdiZjVhNTU5MDZlZTM2OWQ3MGJlZTlmN2JlZWIzY2JhNzRiYiBNb24gU2VwIDE3
-IDAwOjAwOjAwIDIwMDEKRnJvbTogTWljaGFsIEhvY2tvIDxtaG9ja29Ac3VzZS5jb20+CkRhdGU6
-IEZyaSwgMjQgQXVnIDIwMTggMTU6NDU6NTIgKzAyMDAKU3ViamVjdDogW1BBVENIXSBkcm0vYW1k
-OiBjbGFyaWZ5IGFtZGdwdV9tbl9yZWFkX2xvY2sgIWJsb2NraW5nIG1vZGUKTUlNRS1WZXJzaW9u
-OiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQtVHJh
-bnNmZXItRW5jb2Rpbmc6IDhiaXQKClRldHN1byBoYXMgbm90aWNlZCB0aGF0IDkzMDY1YWM3NTNl
-NCAoIm1tLCBvb206IGRpc3Rpbmd1aXNoIGJsb2NrYWJsZQptb2RlIGZvciBtbXUgbm90aWZpZXJz
-IikgIWJsb2NraW5nIGNhc2UgZm9yIGFtZGdwdV9tbl9yZWFkX2xvY2sgaXMKaW5jb21wbGV0ZSBi
-ZWNhdXNlIGl0IG1pZ2h0IHNsZWVwIG9uIHRoZSBub3RpZmllciBsb2NrLiBUaGlzIGlzIHRydWUK
-YnV0IGFzIGl0IHR1cm5lZCBvdXQgZnJvbSB0aGUgZGlzY3Vzc2lvbiB3aXRoIENocmlzdGlhbiB0
-aGlzIGRvZXNuJ3QKcmVhbGx5IG1hdHRlci4KClRoZSBhbWQgbm90aWZpZXIgbG9jayBkb2Vzbid0
-IGJsb2NrIGluIHRoZSBleGNsdXNpdmUgbW9kZS4gSXQgb25seSBldmVyCnNsZWVwcyB3aXRoIHRo
-ZSByZWFkIGxvY2sgaW5zaWRlIGFtZGdwdV9tbl9pbnZhbGlkYXRlX25vZGUuIFRoYXQgb25lCmlz
-IG5vdCBjYWxsZWQgaW4gIWJsb2NrYWJsZSBzdGF0ZSBzbyB3aGlsZSB3ZSBtaWdodCBzbGVlcCBv
-biBub3RpZmllcgpyZWFkX2xvY2sgdGhpcyB3aWxsIG9ubHkgYmUgZm9yIGEgc2hvcnQgd2hpbGUu
-IFRoZSBzYW1lIGFwcGxpZXMgb24gdGhlCm5vdGlmaWVyIGxvY2suCgpUaGVyZWZvcmUgcmVtb3Zl
-IGJsb2NrYWJsZSBoYW5kbGluZyBmcm9tIGFtZGdwdV9tbl9yZWFkX2xvY2sgYW5kCmRvY3VtZW50
-IGl0IHByb3Blcmx5LgoKTm90aWNlZC1ieTogVGV0c3VvIEhhbmRhIDxwZW5ndWluLWtlcm5lbEBJ
-LWxvdmUuU0FLVVJBLm5lLmpwPgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBNaWNoYWwgSG9ja28gPG1ob2Nrb0Bz
-dXNlLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uYyB8IDE0
-ICsrKysrKysrKy0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA1IGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9t
-bi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21uLmMKaW5kZXggZTU1NTA4
-YjM5NDk2Li40OGZhMTUyMjMxYmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9tbi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9t
-bi5jCkBAIC0xODAsMTEgKzE4MCwxNSBAQCB2b2lkIGFtZGdwdV9tbl91bmxvY2soc3RydWN0IGFt
-ZGdwdV9tbiAqbW4pCiAgKi8KIHN0YXRpYyBpbnQgYW1kZ3B1X21uX3JlYWRfbG9jayhzdHJ1Y3Qg
-YW1kZ3B1X21uICphbW4sIGJvb2wgYmxvY2thYmxlKQogewotCWlmIChibG9ja2FibGUpCi0JCW11
-dGV4X2xvY2soJmFtbi0+cmVhZF9sb2NrKTsKLQllbHNlIGlmICghbXV0ZXhfdHJ5bG9jaygmYW1u
-LT5yZWFkX2xvY2spKQotCQlyZXR1cm4gLUVBR0FJTjsKLQorCS8qCisJICogV2UgY2FuIHRha2Ug
-c2xlZXBhYmxlIGxvY2sgZXZlbiBvbiAhYmxvY2thYmxlIG1vZGUgYmVjYXVzZQorCSAqIHJlYWRf
-bG9jayBpcyBvbmx5IGV2ZXIgdGFrZSBmcm9tIHRoaXMgcGF0aCBhbmQgdGhlIG5vdGlmaWVyCisJ
-ICogbG9jayBuZXZlciByZWFsbHkgc2xlZXBzLiBJbiBmYWN0IHRoZSBvbmx5IHJlYXNvbiB3aHkg
-dGhlCisJICogbGF0ZXIgaXMgc2xlZXBhYmxlIGlzIGJlY2F1c2UgdGhlIG5vdGlmaWVyIGl0c2Vs
-ZiBtaWdodCBzbGVlcAorCSAqIGluIGFtZGdwdV9tbl9pbnZhbGlkYXRlX25vZGUgYnV0IGJsb2Nr
-YWJsZSBtb2RlIGlzIGhhbmRsZWQKKwkgKiBiZWZvcmUgY2FsbGluZyBpbnRvIHRoYXQgcGF0aC4K
-KwkgKi8KKwltdXRleF9sb2NrKCZhbW4tPnJlYWRfbG9jayk7CiAJaWYgKGF0b21pY19pbmNfcmV0
-dXJuKCZhbW4tPnJlY3Vyc2lvbikgPT0gMSkKIAkJZG93bl9yZWFkX25vbl9vd25lcigmYW1uLT5s
-b2NrKTsKIAltdXRleF91bmxvY2soJmFtbi0+cmVhZF9sb2NrKTsKLS0gCjIuMTguMAotLSAKTWlj
-aGFsIEhvY2tvClNVU0UgTGFicwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
-cmktZGV2ZWwK
+--===============1266924111==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, August 24, 2018 5:32:22 AM
+To: Zhou, Hang; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amdgpu: Enable/disable gfx PG feature in rlc safe mode
+
+This is required by gfx hw and can fix the rlc hang when
+do s3 stree test on Cz/St.
+
+Signed-off-by: Hang Zhou <hang.zhou-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c
+index 903725ba..a2acd76 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -5618,6 +5618,11 @@ static int gfx_v8_0_set_powergating_state(void *hand=
+le,
+         if (amdgpu_sriov_vf(adev))
+                 return 0;
+
++       if (adev->pg_flags & (AMD_PG_SUPPORT_GFX_SMG |
++                               AMD_PG_SUPPORT_RLC_SMU_HS |
++                               AMD_PG_SUPPORT_CP |
++                               AMD_PG_SUPPORT_GFX_DMG))
++               adev->gfx.rlc.funcs->enter_safe_mode(adev);
+         switch (adev->asic_type) {
+         case CHIP_CARRIZO:
+         case CHIP_STONEY:
+@@ -5667,7 +5672,11 @@ static int gfx_v8_0_set_powergating_state(void *hand=
+le,
+         default:
+                 break;
+         }
+-
++       if (adev->pg_flags & (AMD_PG_SUPPORT_GFX_SMG |
++                               AMD_PG_SUPPORT_RLC_SMU_HS |
++                               AMD_PG_SUPPORT_CP |
++                               AMD_PG_SUPPORT_GFX_DMG))
++               adev->gfx.rlc.funcs->exit_safe_mode(adev);
+         return 0;
+ }
+
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Friday, August 24, 2018 5:32:22 AM<br>
+<b>To:</b> Zhou, Hang; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Enable/disable gfx PG feature in rlc sa=
+fe mode</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This is required by gfx hw and can fix the rlc han=
+g when<br>
+do s3 stree test on Cz/St.<br>
+<br>
+Signed-off-by: Hang Zhou &lt;hang.zhou-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 11 &#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;-<br>
+&nbsp;1 file changed, 10 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c<br>
+index 903725ba..a2acd76 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+@@ -5618,6 &#43;5618,11 @@ static int gfx_v8_0_set_powergating_state(void *=
+handle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pg_flags &amp; (AMD_=
+PG_SUPPORT_GFX_SMG |<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_RLC_SMU_HS |<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_CP |<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_GFX_DMG))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;enter_safe_mode(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
+) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_CARRIZO:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_STONEY:<br>
+@@ -5667,7 &#43;5672,11 @@ static int gfx_v8_0_set_powergating_state(void *=
+handle,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pg_flags &amp; (AMD_=
+PG_SUPPORT_GFX_SMG |<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_RLC_SMU_HS |<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_CP |<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_GFX_DMG))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;exit_safe_mode(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180900C6FA4F3164038CBA86F7360BN6PR12MB1809namp_--
+
+--===============1266924111==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1266924111==--
