@@ -1,33 +1,40 @@
-From: Hans Verkuil <hverkuil-qWit8jRvyhVmR6Xm/wNWPw@public.gmane.org>
-Subject: Re: [PATCHv2 0/5] drm/nouveau+amdgpu: add DP
- CEC-Tunneling-over-AUX
-Date: Mon, 27 Aug 2018 10:45:38 +0200
-Message-ID: <7e5ddf2f-8edd-bb47-87d5-3c0c4e5b0f7c@xs4all.nl>
-References: <20180827075820.41109-1-hverkuil@xs4all.nl>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: remove extra newline when printing VM faults
+Date: Mon, 27 Aug 2018 15:44:25 +0200
+Message-ID: <20180827134425.1279-1-christian.koenig@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180827075820.41109-1-hverkuil-qWit8jRvyhVmR6Xm/wNWPw@public.gmane.org>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-U29ycnksIHRoaXMgdjIgcGF0Y2ggc2VyaWVzIGlzIGEgYml0IG1lc3N5OiBteSBnaXQtc2VuZC1l
-bWFpbCBmYWlsZWQgYXQgcGF0Y2ggMwpmb3Igc29tZSByZWFzb24sIHNvIEkgcG9zdGVkIHBhdGNo
-ZXMgMy01IG1hbnVhbGx5LCBidXQgSSBmb3Jnb3QgdG8gYWRkICd2MicgdG8gdGhlCnN1YmplY3Qg
-b2YgcGF0Y2ggNC81IGFuZCBmb3Igc29tZSByZWFzb24gcGF0Y2ggMyBub3cgYXBwZWFyZWQgdHdp
-Y2UuIFRoZSBjb250ZW50cwpvZiB0aGUgcGF0Y2hlcyBpcyBjb3JyZWN0LCB0aG91Z2ggOi0pCgpS
-ZWdhcmRzLAoKCUhhbnMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2ZWF1Cg==
+TG9va3MgbGlrZSBhIGNvcHkmcGFzdGUgZXJyb3IgdG8gbWUuCgpTaWduZWQtb2ZmLWJ5OiBDaHJp
+c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5j
+CmluZGV4IDY2YWJmY2Y4N2FkMC4uYWQ0MGFjYjIzNmJjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dtY192OV8wLmMKQEAgLTI2NSw3ICsyNjUsNyBAQCBzdGF0aWMgaW50IGdtY192OV8wX3By
+b2Nlc3NfaW50ZXJydXB0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQlhbWRncHVfdm1f
+Z2V0X3Rhc2tfaW5mbyhhZGV2LCBlbnRyeS0+cGFzaWQsICZ0YXNrX2luZm8pOwogCiAJCWRldl9l
+cnIoYWRldi0+ZGV2LAotCQkJIlslc10gVk1DIHBhZ2UgZmF1bHQgKHNyY19pZDoldSByaW5nOiV1
+IHZtaWQ6JXUgcGFzaWQ6JXUsIGZvciBwcm9jZXNzICVzIHBpZCAlZCB0aHJlYWQgJXMgcGlkICVk
+XG4pXG4iLAorCQkJIlslc10gVk1DIHBhZ2UgZmF1bHQgKHNyY19pZDoldSByaW5nOiV1IHZtaWQ6
+JXUgcGFzaWQ6JXUsIGZvciBwcm9jZXNzICVzIHBpZCAlZCB0aHJlYWQgJXMgcGlkICVkKVxuIiwK
+IAkJCWVudHJ5LT52bWlkX3NyYyA/ICJtbWh1YiIgOiAiZ2Z4aHViIiwKIAkJCWVudHJ5LT5zcmNf
+aWQsIGVudHJ5LT5yaW5nX2lkLCBlbnRyeS0+dm1pZCwKIAkJCWVudHJ5LT5wYXNpZCwgdGFza19p
+bmZvLnByb2Nlc3NfbmFtZSwgdGFza19pbmZvLnRnaWQsCi0tIAoyLjE3LjEKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
