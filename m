@@ -1,15 +1,13 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [Vega10] [bisected] Performance regression with Dawn Of War III
- and RADV
-Date: Tue, 28 Aug 2018 15:09:07 +0000
-Message-ID: <SN6PR12MB265651286E4D0145A3C3829EE40A0@SN6PR12MB2656.namprd12.prod.outlook.com>
-References: <90c1a4f4-0745-19af-a254-0942804cca3e@gmail.com>,
- <BN6PR12MB18096C36DFCD6FEBC39A200AF70A0@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Refine function name
+Date: Tue, 28 Aug 2018 11:46:31 -0400
+Message-ID: <CADnq5_Nvy_UdEed1U2HLqmneFQ2tVGDjYCvbTXf8d3v3wx8jCQ@mail.gmail.com>
+References: <1535451954-12893-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0573723597=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB18096C36DFCD6FEBC39A200AF70A0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1535451954-12893-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,200 +18,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Samuel Pitoiset <samuel.pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0573723597==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB265651286E4D0145A3C3829EE40A0SN6PR12MB2656namp_"
-
---_000_SN6PR12MB265651286E4D0145A3C3829EE40A0SN6PR12MB2656namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Yes, this is a bug fix for multi monitor case. Without this, we may have tr=
-ouble to light up multi monitors.
-
-
-Regards,
-
-Evan
-
-________________________________
-From: Deucher, Alexander
-Sent: Tuesday, August 28, 2018 10:19:30 PM
-To: Samuel Pitoiset; Quan, Evan
-Cc: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [Vega10] [bisected] Performance regression with Dawn Of War II=
-I and RADV
-
-
-IIRC, this was a dpm bug fix, such that prior to the patch, the mclk would =
-never drop below 500Mhz or something like that and after the fix, it goes d=
-own to the lowest frequency.  The dpm heuristics are not a perfect match fo=
-r some games.
-
-
-Alex
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Samuel P=
-itoiset <samuel.pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Tuesday, August 28, 2018 8:12:12 AM
-To: Quan, Evan
-Cc: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [Vega10] [bisected] Performance regression with Dawn Of War III an=
-d RADV
-
-Hi there,
-
-I found a performance regression that affects my Vega10 with Dawn Of War
-III and RADV (ie. 74FPS -> 71FPS). I bisected to:
-
-commit ea7f492b6ac6eced0d09ccb2b0a2909a0025e22e
-Author: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Date:   Mon Jul 16 17:23:19 2018 +0800
-
-     drm/amd/powerplay: correct the argument for PPSMC_MSG_SetUclkFastSwitc=
-h
-
-     The argument was set wrongly. Fast/slow switch was asked when there is
-     actually a slow/fast switch needed.
-
-     Change-Id: Ibcfdf741dea1700cc3796f84291606231e732f4b
-     Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-     Reviewed-by: Rex Zhu<rex.zhu-5C7GfCeVMHo@public.gmane.org>
-
-Any ideas?
-
-Thanks,
-Samuel.
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_SN6PR12MB265651286E4D0145A3C3829EE40A0SN6PR12MB2656namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Yes, this is a bug fix for multi =
-monitor case.&nbsp;<span style=3D"font-size: 12pt;">Without this, we may ha=
-ve
-</span><span style=3D"font-size: 12pt;">trouble to light up multi monitors.=
-</span></p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Regards,</p>
-<p style=3D"margin-top:0;margin-bottom:0">Evan</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander<br=
->
-<b>Sent:</b> Tuesday, August 28, 2018 10:19:30 PM<br>
-<b>To:</b> Samuel Pitoiset; Quan, Evan<br>
-<b>Cc:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [Vega10] [bisected] Performance regression with Dawn Of=
- War III and RADV</font>
-<div>&nbsp;</div>
-</div>
-<meta content=3D"text/html; charset=3Dus-ascii">
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0; margin-bottom:0">IIRC, this was a dpm bug fix, su=
-ch that prior to the patch, the mclk would never drop below 500Mhz or somet=
-hing like that and after the fix, it goes down to the lowest frequency.&nbs=
-p; The dpm heuristics are not a perfect
- match for some games.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Alex</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Samuel Pitoiset &lt;samuel.=
-pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, August 28, 2018 8:12:12 AM<br>
-<b>To:</b> Quan, Evan<br>
-<b>Cc:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> [Vega10] [bisected] Performance regression with Dawn Of War=
- III and RADV</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Hi there,<br>
-<br>
-I found a performance regression that affects my Vega10 with Dawn Of War <b=
-r>
-III and RADV (ie. 74FPS -&gt; 71FPS). I bisected to:<br>
-<br>
-commit ea7f492b6ac6eced0d09ccb2b0a2909a0025e22e<br>
-Author: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Date:&nbsp;&nbsp; Mon Jul 16 17:23:19 2018 &#43;0800<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: correct the argument for PPSMC_=
-MSG_SetUclkFastSwitch<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; The argument was set wrongly. Fast/slow switch was=
- asked when there is<br>
-&nbsp;&nbsp;&nbsp;&nbsp; actually a slow/fast switch needed.<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Change-Id: Ibcfdf741dea1700cc3796f84291606231e732f=
-4b<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Reviewed-by: Rex Zhu&lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Any ideas?<br>
-<br>
-Thanks,<br>
-Samuel.<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_SN6PR12MB265651286E4D0145A3C3829EE40A0SN6PR12MB2656namp_--
-
---===============0573723597==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0573723597==--
+T24gVHVlLCBBdWcgMjgsIDIwMTggYXQgNjoyNiBBTSBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
+IHdyb3RlOgo+Cj4gY2hhbmdlIGZ1bmN0aW9uIG5hbWUgZ2Z4X3Y2LzcvOC85XzBfZ3B1X2luaXQg
+dG8KPiBnZnhfdjYvNy84LzlfMF9jb25zdGFudHNfaW5pdC4KPiB0aGlzIGZ1bmN0aW9uIGlzIGp1
+c3QgZm9yIGluaXQgZ2Z4IGNvbnN0YW50cyBzdWNoCj4gYXMgbWF4IHBpcGVzLCByZW5kZXIgYmFj
+a2VuZHMuLi4KPgo+IFNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KClJl
+dmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0t
+LQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jIHwgIDQgKystLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jIHwgMTAgKysrKystLS0tLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIHwgIDQgKystLQo+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgIDQgKystLQo+ICA0IGZpbGVzIGNoYW5n
+ZWQsIDExIGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjZfMC5jCj4gaW5kZXggZGUxODRhOC4uOTVkOTE2ZiAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYwo+IEBAIC0xNTUyLDcgKzE1NTIsNyBAQCBzdGF0
+aWMgdm9pZCBnZnhfdjZfMF9jb25maWdfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
+PiAgICAgICAgIGFkZXYtPmdmeC5jb25maWcuZG91YmxlX29mZmNoaXBfbGRzX2J1ZiA9IDA7Cj4g
+IH0KPgo+IC1zdGF0aWMgdm9pZCBnZnhfdjZfMF9ncHVfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldikKPiArc3RhdGljIHZvaWQgZ2Z4X3Y2XzBfY29uc3RhbnRzX2luaXQoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYpCj4gIHsKPiAgICAgICAgIHUzMiBnYl9hZGRyX2NvbmZpZyA9IDA7
+Cj4gICAgICAgICB1MzIgbWNfc2hhcmVkX2NobWFwLCBtY19hcmJfcmFtY2ZnOwo+IEBAIC0zMTc1
+LDcgKzMxNzUsNyBAQCBzdGF0aWMgaW50IGdmeF92Nl8wX2h3X2luaXQodm9pZCAqaGFuZGxlKQo+
+ICAgICAgICAgaW50IHI7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKPgo+IC0gICAgICAgZ2Z4X3Y2XzBfZ3B1X2lu
+aXQoYWRldik7Cj4gKyAgICAgICBnZnhfdjZfMF9jb25zdGFudHNfaW5pdChhZGV2KTsKPgo+ICAg
+ICAgICAgciA9IGdmeF92Nl8wX3JsY19yZXN1bWUoYWRldik7Cj4gICAgICAgICBpZiAocikKPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMKPiBpbmRleCBhMTVkOWMwLi40M2RiZmU5
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCj4gQEAgLTE4ODYsMTQg
+KzE4ODYsMTQgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y3XzBfY29uZmlnX2luaXQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCj4gIH0KPgo+ICAvKioKPiAtICogZ2Z4X3Y3XzBfZ3B1X2luaXQgLSBz
+ZXR1cCB0aGUgM0QgZW5naW5lCj4gKyAqIGdmeF92N18wX2NvbnN0YW50c19pbml0IC0gc2V0dXAg
+dGhlIDNEIGVuZ2luZQo+ICAgKgo+ICAgKiBAYWRldjogYW1kZ3B1X2RldmljZSBwb2ludGVyCj4g
+ICAqCj4gLSAqIENvbmZpZ3VyZXMgdGhlIDNEIGVuZ2luZSBhbmQgdGlsaW5nIGNvbmZpZ3VyYXRp
+b24KPiAtICogcmVnaXN0ZXJzIHNvIHRoYXQgdGhlIDNEIGVuZ2luZSBpcyB1c2FibGUuCj4gKyAq
+IGluaXQgdGhlIGdmeCBjb25zdGFudHMgc3VjaCBhcyB0aGUgM0QgZW5naW5lLCB0aWxpbmcgY29u
+ZmlndXJhdGlvbgo+ICsgKiByZWdpc3RlcnMsIG1heGltdW0gbnVtYmVyIG9mIHF1YWQgcGlwZXMs
+IHJlbmRlciBiYWNrZW5kcy4uLgo+ICAgKi8KPiAtc3RhdGljIHZvaWQgZ2Z4X3Y3XzBfZ3B1X2lu
+aXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gK3N0YXRpYyB2b2lkIGdmeF92N18wX2Nv
+bnN0YW50c19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICB7Cj4gICAgICAgICB1
+MzIgc2hfbWVtX2NmZywgc2hfc3RhdGljX21lbV9jZmcsIHNoX21lbV9iYXNlOwo+ICAgICAgICAg
+dTMyIHRtcDsKPiBAQCAtNDY1Miw3ICs0NjUyLDcgQEAgc3RhdGljIGludCBnZnhfdjdfMF9od19p
+bml0KHZvaWQgKmhhbmRsZSkKPiAgICAgICAgIGludCByOwo+ICAgICAgICAgc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Cj4KPiAtICAg
+ICAgIGdmeF92N18wX2dwdV9pbml0KGFkZXYpOwo+ICsgICAgICAgZ2Z4X3Y3XzBfY29uc3RhbnRz
+X2luaXQoYWRldik7Cj4KPiAgICAgICAgIC8qIGluaXQgcmxjICovCj4gICAgICAgICByID0gZ2Z4
+X3Y3XzBfcmxjX3Jlc3VtZShhZGV2KTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
+LmMKPiBpbmRleCAzODgyNjg5Li5mZjEyZWY0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjhfMC5jCj4gQEAgLTM4NTQsNyArMzg1NCw3IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8w
+X2NvbmZpZ19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgICAgICAgfQo+ICB9
+Cj4KPiAtc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfZ3B1X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpCj4gK3N0YXRpYyB2b2lkIGdmeF92OF8wX2NvbnN0YW50c19pbml0KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQo+ICB7Cj4gICAgICAgICB1MzIgdG1wLCBzaF9zdGF0aWNfbWVtX2Nm
+ZzsKPiAgICAgICAgIGludCBpOwo+IEBAIC01MDU4LDcgKzUwNTgsNyBAQCBzdGF0aWMgaW50IGdm
+eF92OF8wX2h3X2luaXQodm9pZCAqaGFuZGxlKQo+ICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Cj4KPiAgICAgICAgIGdm
+eF92OF8wX2luaXRfZ29sZGVuX3JlZ2lzdGVycyhhZGV2KTsKPiAtICAgICAgIGdmeF92OF8wX2dw
+dV9pbml0KGFkZXYpOwo+ICsgICAgICAgZ2Z4X3Y4XzBfY29uc3RhbnRzX2luaXQoYWRldik7Cj4K
+PiAgICAgICAgIHIgPSBnZnhfdjhfMF9ybGNfcmVzdW1lKGFkZXYpOwo+ICAgICAgICAgaWYgKHIp
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggMzU5NDcwNGEuLmNk
+ZThjYzMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBAQCAtMTgx
+Nyw3ICsxODE3LDcgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfaW5pdF9jb21wdXRlX3ZtaWQoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPnNy
+Ym1fbXV0ZXgpOwo+ICB9Cj4KPiAtc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfZ3B1X2luaXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gK3N0YXRpYyB2b2lkIGdmeF92OV8wX2NvbnN0YW50c19p
+bml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICB7Cj4gICAgICAgICB1MzIgdG1wOwo+
+ICAgICAgICAgaW50IGk7Cj4gQEAgLTMyMDUsNyArMzIwNSw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5
+XzBfaHdfaW5pdCh2b2lkICpoYW5kbGUpCj4KPiAgICAgICAgIGdmeF92OV8wX2luaXRfZ29sZGVu
+X3JlZ2lzdGVycyhhZGV2KTsKPgo+IC0gICAgICAgZ2Z4X3Y5XzBfZ3B1X2luaXQoYWRldik7Cj4g
+KyAgICAgICBnZnhfdjlfMF9jb25zdGFudHNfaW5pdChhZGV2KTsKPgo+ICAgICAgICAgciA9IGdm
+eF92OV8wX2NzYl92cmFtX3BpbihhZGV2KTsKPiAgICAgICAgIGlmIChyKQo+IC0tCj4gMS45LjEK
+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
