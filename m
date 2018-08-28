@@ -1,18 +1,18 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features
-Date: Tue, 28 Aug 2018 16:03:22 +0000
-Message-ID: <BN6PR12MB180998E806A582A0C10F2C1BF70A0@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: expose vega20 OD features
+Date: Tue, 28 Aug 2018 16:35:23 +0000
+Message-ID: <BYAPR12MB27757726027B9534A5EDFAF2FB0A0@BYAPR12MB2775.namprd12.prod.outlook.com>
 References: <20180824074349.12448-1-evan.quan@amd.com>
  <CADnq5_PPLej3PUu6ZkHv6muRv_1v8qL7Sfe0zyoKrRAXLan-4w@mail.gmail.com>
  <BYAPR12MB27751AEFBBFD1386D9ECAFF5FB360@BYAPR12MB2775.namprd12.prod.outlook.com>
  <SN6PR12MB265639A61D343C54EF74CDF9E40B0@SN6PR12MB2656.namprd12.prod.outlook.com>,
  <CADnq5_Pb=HR3h8Bq8UfPifvGea-S_x9drEOrCdf3rtN-=pbaJg@mail.gmail.com>,
  <SN6PR12MB2656D9CFE46599866E01CB46E40A0@SN6PR12MB2656.namprd12.prod.outlook.com>
+ <BN6PR12MB180998E806A582A0C10F2C1BF70A0@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_"
+Content-Type: multipart/mixed; boundary="===============0659736390=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <SN6PR12MB2656D9CFE46599866E01CB46E40A0-kxOKjb6HO/FeL/N0e1LXkAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BN6PR12MB180998E806A582A0C10F2C1BF70A0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,18 +24,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+ Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
+--===============0659736390==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_"
+	boundary="_000_BYAPR12MB27757726027B9534A5EDFAF2FB0A0BYAPR12MB2775namp_"
 
---_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
+--_000_BYAPR12MB27757726027B9534A5EDFAF2FB0A0BYAPR12MB2775namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Got it. Thanks Alex.
+
+I think we can simplify the od_clk_voltage on vega20.
+
+When user cat pp_od_clk_voltage
+The output can be simplified as:
+
+Sclk:
+0  clock_value   voltage_offset
+7 clock_value    voltage_offset
+Mclk
+3  mclk_value
+Range:
+sclk {min, max}
+mclk {min, max}
+voltage{min, max}
+
+for sclk,
+user can only set the sclk in dpm level0 and level7, the clock in other lev=
+els will be recalculated by smu automatically based on user's setting.
+
+For voltage, the avfs is enabled, so the voltage in each level is not a uni=
+que value.
+It is reasonable that export voltage offset to user.
+The voltage offset is 0 by default.
+
+The voltage offset in dpm_0, dpm_mid_level, dpm7_level can be configured.
+But in order to keep in consistent with sclk's od,
+We only let user change the offset in dpm0 and dpm7, for dpm_mid_leve's off=
+set, we can calculate in driver by (offset0 + offset7)/2.
+
+For mclk,
+Smu just let us change the max clock in dpm3(high level). And the mclk in o=
+ther dpm levels can not be changed.
+
+Any concerns?
+
+
+Best Regards
+Rex
+
+From: Deucher, Alexander
+Sent: Wednesday, August 29, 2018 12:03 AM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>; amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+>; Xu, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>=
+; Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features
+
 
 Right.  I'm saying use the same sysfs file (pp_od_clk_voltage) for all devi=
 ces rather than adding a new one.  The output of reading that file will be =
@@ -44,6 +94,7 @@ different on each asic that supports a different way of adjusting the clock=
 the same thing today for pp_power_profile_mode.  Vega10 and smu7 parts have=
  different parameters, but we use the same files.  See the attached patch t=
 o an example.
+
 
 
 Alex
@@ -60,7 +111,9 @@ Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features
 Hi Alex,
 
 
+
 Sorry, i cannot get your point.
+
 
 
 The OD feature sysfs file used by previous ASICs is "pp_od_clk_voltage". An=
@@ -82,14 +135,15 @@ Regards,
 Evan
 
 ________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
 Sent: Monday, August 27, 2018 10:01:49 PM
 To: Quan, Evan
 Cc: Zhu, Rex; Deucher, Alexander; amd-gfx list; Xu, Feifei; Kuehling, Felix=
 ; Zhang, Hawking
 Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features
 
-On Mon, Aug 27, 2018 at 12:04 AM Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org> wrote:
+On Mon, Aug 27, 2018 at 12:04 AM Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.=
+Quan-5C7GfCeVMHo@public.gmane.org>> wrote:
 >
 > Hi @Deucher, Alexander & @Zhu, Rex,
 >
@@ -157,16 +211,21 @@ Alex
 >
 >
 > > -----Original Message-----
-> > From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> > From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>=
+>
 > > Sent: Friday, August 24, 2018 11:48 PM
-> > To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-> > Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Xu, Feifei
-> > <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>; Deucher,
-> > Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>;
-> > Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+> > To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
+> > Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32k@public.gmane.org=
+eedesktop.org>>; Xu, Feifei
+> > <Feifei.Xu-5C7GfCeVMHo@public.gmane.org<mailto:Feifei.Xu-5C7GfCeVMHo@public.gmane.org>>; Kuehling, Felix <Felix.K=
+uehling-5C7GfCeVMHo@public.gmane.org<mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>; Deucher,
+> > Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>>=
+; Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>;
+> > Zhang, Hawking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org<mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>>
 > > Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features
 > >
-> > On Fri, Aug 24, 2018 at 3:45 AM Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org> wrote:
+> > On Fri, Aug 24, 2018 at 3:45 AM Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:eva=
+n.quan-5C7GfCeVMHo@public.gmane.org>> wrote:
 > > >
 > > > Vega20 simplifies the OD logics and it can not fit old OD interfaces.
 > > > Thus we design new OD interfaces for vega20.
@@ -177,7 +236,8 @@ s API,
 > >
 > > >
 > > > Change-Id: I888faec46a81287ae24f452ce16b42c1f6d06d7d
-> > > Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+> > > Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>=
+>
 > > > ---
 > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h       |   8 +
 > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        | 125 ++++++++++++
@@ -775,126 +835,268 @@ TABLE_COMMAND type, long *input, uint32_t size);
 > > >
 > > > _______________________________________________
 > > > amd-gfx mailing list
-> > > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
+--_000_BYAPR12MB27757726027B9534A5EDFAF2FB0A0BYAPR12MB2775namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Right.&nbsp; I'm saying use the s=
-ame sysfs file (<font size=3D"3" face=3D"Calibri,Helvetica,sans-serif" colo=
-r=3D"black"><span style=3D"font-size:12pt;">pp_od_clk_voltage</span></font>=
-) for all devices rather than adding a new one.&nbsp;
- The output of reading that file will be different on each asic that suppor=
-ts a different way of adjusting the clock and voltage parameters and the su=
-pported inputs will be different.&nbsp; We do the same thing today for
-<span>pp_power_profile_mode</span>.&nbsp; Vega10 and smu7 parts have differ=
-ent parameters, but we use the same files. &nbsp;See the attached patch to =
-an example.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Got it. Thanks Alex.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I think we can simplify the od_clk_voltage on vega20=
+.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">When user cat <span style=3D"font-size:12.0pt;color:=
+black">pp_od_clk_voltage<o:p></o:p></span></p>
+<p class=3D"MsoNormal">The output can be simplified as:<span style=3D"font-=
+size:12.0pt;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Sclk:<o:p></o:p></p>
+<p class=3D"MsoNormal">0&nbsp; clock_value&nbsp;&nbsp; voltage_offset<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">7 clock_value&nbsp;&nbsp;&nbsp; voltage_offset<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">Mclk<o:p></o:p></p>
+<p class=3D"MsoNormal">3&nbsp; mclk_value<o:p></o:p></p>
+<p class=3D"MsoNormal">Range:<o:p></o:p></p>
+<p class=3D"MsoNormal">sclk {min, max} <o:p></o:p></p>
+<p class=3D"MsoNormal">mclk {min, max}<o:p></o:p></p>
+<p class=3D"MsoNormal">voltage{min, max}<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">for sclk,<o:p></o:p></p>
+<p class=3D"MsoNormal">user can only set the sclk in dpm level0 and level7,=
+ the clock in other levels will be recalculated by smu automatically based =
+on user&#8217;s setting.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">For voltage, the avfs is enabled, so the voltage in =
+each level is not a unique value.<o:p></o:p></p>
+<p class=3D"MsoNormal">It is reasonable that export voltage offset to user.=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">The voltage offset is 0 by default.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">The voltage offset in dpm_0, dpm_mid_level, dpm7_lev=
+el can be configured.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">But in order to keep in consistent with sclk&#8217;s=
+ od,<o:p></o:p></p>
+<p class=3D"MsoNormal">We only let user change the offset in dpm0 and dpm7,=
+ for dpm_mid_leve&#8217;s offset, we can calculate in driver by (offset0 &#=
+43; offset7)/2.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">For mclk,<o:p></o:p></p>
+<p class=3D"MsoNormal">Smu just let us change the max clock in dpm3(high le=
+vel). And the mclk in other dpm levels can not be changed.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Any concerns?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Rex<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander <br>
+<b>Sent:</b> Wednesday, August 29, 2018 12:03 AM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher &lt;alexdeuch=
+er-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Cc:</b> Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx list &lt;amd-gfx@lists=
+.freedesktop.org&gt;; Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Kuehling, Felix=
+ &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: expose vega20 OD features<o:=
+p></o:p></p>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt;color:black">Right.&nbsp; I'm saying use=
+ the same sysfs file (pp_od_clk_voltage) for all devices rather than adding=
+ a new one.&nbsp; The output of reading that file will be different on each=
+ asic that supports a different way of adjusting
+ the clock and voltage parameters and the supported inputs will be differen=
+t.&nbsp; We do the same thing today for pp_power_profile_mode.&nbsp; Vega10=
+ and smu7 parts have different parameters, but we use the same files. &nbsp=
+;See the attached patch to an example.<o:p></o:p></span></p>
+<p><span style=3D"font-size:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p=
+>
+<p><span style=3D"font-size:12.0pt;color:black">Alex<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"3" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Quan, Evan<br>
 <b>Sent:</b> Tuesday, August 28, 2018 11:51:16 AM<br>
 <b>To:</b> Alex Deucher<br>
 <b>Cc:</b> Zhu, Rex; Deucher, Alexander; amd-gfx list; Xu, Feifei; Kuehling=
 , Felix; Zhang, Hawking<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: expose vega20 OD features</f=
-ont>
-<div>&nbsp;</div>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: expose vega20 OD features</s=
+pan> <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<meta content=3D"text/html; charset=3Dus-ascii">
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0; margin-bottom:0">Hi Alex,</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Sorry, i cannot get your point.<=
+</div>
+<div>
+<div id=3D"x_divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt;color:black">Hi Alex,<o:p></o:p></span><=
 /p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">The OD feature sysfs file used b=
-y previous ASICs is &quot;pp_od_clk_voltage&quot;. And it binds to two APIs=
- &quot;<span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&q=
-uot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot=
-;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16=
-px">amdgpu_get_pp_od_clk_voltage&quot;
- and &quot;<span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFon=
-t,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&=
-quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-siz=
-e:16px">amdgpu_set_pp_od_clk_voltage&quot;.&nbsp;</span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"></p>
-<div><br>
+<p><span style=3D"font-size:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p=
+>
+<p><span style=3D"font-size:12.0pt;color:black">Sorry, i cannot get your po=
+int.<o:p></o:p></span></p>
+<p><span style=3D"font-size:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p=
+>
+<p><span style=3D"font-size:12.0pt;color:black">The OD feature sysfs file u=
+sed by previous ASICs is &quot;pp_od_clk_voltage&quot;. And it binds to two=
+ APIs &quot;amdgpu_get_pp_od_clk_voltage&quot; and &quot;amdgpu_set_pp_od_c=
+lk_voltage&quot;.&nbsp;<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
 </div>
-<div>static DEVICE_ATTR(pp_od_clk_voltage, S_IRUGO | S_IWUSR,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_get_pp_=
-od_clk_voltage,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_set_pp_=
-od_clk_voltage);</div>
-<div><br>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">static =
+DEVICE_ATTR(pp_od_clk_voltage, S_IRUGO | S_IWUSR,<o:p></o:p></span></p>
 </div>
-<div><span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quo=
-t;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;S=
-egoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px=
-">I was saying we cannot reuse these two APIs for vega20 since we have no
- way to know the exact voltage value for each dpm level(that is what these =
-two APIs required). Thus we cannot share the same sysfs file.</span><br>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_get_pp_od_clk_volta=
+ge,<o:p></o:p></span></p>
 </div>
-<div><span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quo=
-t;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;S=
-egoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px=
-"><br>
-</span></div>
-<div><span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quo=
-t;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;S=
-egoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px=
-">Do you mean&nbsp;we can bind the sysfs file to other APIs? How?</span></d=
-iv>
-<div><br>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; amdgpu_set_pp_od_clk_volta=
+ge);<o:p></o:p></span></p>
 </div>
-Regards,
-<p></p>
-<p style=3D"margin-top:0; margin-bottom:0">Evan</p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
 </div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
-exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">I was s=
+aying we cannot reuse these two APIs for vega20 since we have no way to kno=
+w the exact voltage value for each dpm level(that is what these two APIs re=
+quired). Thus we cannot share the same
+ sysfs file.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Do you =
+mean&nbsp;we can bind the sysfs file to other APIs? How?<o:p></o:p></span><=
+/p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Regards=
+, <o:p></o:p></span></p>
+<p><span style=3D"font-size:12.0pt;color:black">Evan<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"3" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Alex Deucher &lt;<a href=3D"mailto:alexdeucher@gmai=
+l.com">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Monday, August 27, 2018 10:01:49 PM<br>
 <b>To:</b> Quan, Evan<br>
 <b>Cc:</b> Zhu, Rex; Deucher, Alexander; amd-gfx list; Xu, Feifei; Kuehling=
 , Felix; Zhang, Hawking<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: expose vega20 OD features</f=
-ont>
-<div>&nbsp;</div>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: expose vega20 OD features</s=
+pan> <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">On Mon, Aug 27, 2018 at 12:04 AM Quan, Evan &lt;=
-Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">On Mon, Aug 27, 2018 at 12:04 AM Quan, Evan &lt;<a h=
+ref=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
 &gt;<br>
 &gt; Hi @Deucher, Alexander &amp; @Zhu, Rex,<br>
 &gt;<br>
@@ -967,21 +1169,26 @@ ng, Hawking<br>
 &gt;<br>
 &gt;<br>
 &gt; &gt; -----Original Message-----<br>
-&gt; &gt; From: Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+&gt; &gt; From: Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">a=
+lexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
 &gt; &gt; Sent: Friday, August 24, 2018 11:48 PM<br>
-&gt; &gt; To: Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; &gt; Cc: amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Xu, Feife=
-i<br>
-&gt; &gt; &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Kuehling, Felix &lt;Felix.Kuehling@amd=
-.com&gt;; Deucher,<br>
-&gt; &gt; Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Zhu, Rex &lt;Rex.Zhu=
-@amd.com&gt;;<br>
-&gt; &gt; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; &gt; To: Quan, Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan=
+@amd.com</a>&gt;<br>
+&gt; &gt; Cc: amd-gfx list &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;; Xu, Feifei<br>
+&gt; &gt; &lt;<a href=3D"mailto:Feifei.Xu-5C7GfCeVMHo@public.gmane.org">Feifei.Xu-5C7GfCeVMHo@public.gmane.org</a>&gt=
+;; Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.Kueh=
+ling-5C7GfCeVMHo@public.gmane.org</a>&gt;; Deucher,<br>
+&gt; &gt; Alexander &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;; Zhu, Rex &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
+">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;;<br>
+&gt; &gt; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang-5C7GfCeVMHo@public.gmane.org">Hawki=
+ng.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt; &gt; Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features=
 <br>
 &gt; &gt;<br>
-&gt; &gt; On Fri, Aug 24, 2018 at 3:45 AM Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&g=
-t; wrote:<br>
+&gt; &gt; On Fri, Aug 24, 2018 at 3:45 AM Evan Quan &lt;<a href=3D"mailto:e=
+van.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
 &gt; &gt; &gt;<br>
 &gt; &gt; &gt; Vega20 simplifies the OD logics and it can not fit old OD in=
 terfaces.<br>
@@ -994,7 +1201,8 @@ br>
 &gt; &gt;<br>
 &gt; &gt; &gt;<br>
 &gt; &gt; &gt; Change-Id: I888faec46a81287ae24f452ce16b42c1f6d06d7d<br>
-&gt; &gt; &gt; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; &gt; &gt; Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan@amd=
+.com">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt; &gt; &gt; ---<br>
 &gt; &gt; &gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 8 &#43;<br>
@@ -2003,87 +2211,22 @@ le)(struct pp_hwmgr *hwmgr, enum PP_OD_DPM_TABLE_COMMAND type, long *input,=
 &gt; &gt; &gt;<br>
 &gt; &gt; &gt; _______________________________________________<br>
 &gt; &gt; &gt; amd-gfx mailing list<br>
-&gt; &gt; &gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; &gt; &gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lis=
+ts.freedesktop.org</a><br>
 &gt; &gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/am=
-d-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+d-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p=
+></p>
 </div>
-</span></font></div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_--
+--_000_BYAPR12MB27757726027B9534A5EDFAF2FB0A0BYAPR12MB2775namp_--
 
---_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
-Content-Type: text/x-patch; name="vg20_pp_od_clk_voltage.diff"
-Content-Description: vg20_pp_od_clk_voltage.diff
-Content-Disposition: attachment; filename="vg20_pp_od_clk_voltage.diff";
-	size=3412; creation-date="Tue, 28 Aug 2018 16:03:16 GMT";
-	modification-date="Tue, 28 Aug 2018 16:03:16 GMT"
-Content-Transfer-Encoding: base64
-
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKaW5kZXggYjdiMTZjYjVmZjBmLi4x
-ZWI4MzMxODZmYjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9wbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCkBAIC01
-MDksNTEgKzUwOSw1NSBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfc2V0X3BwX29kX2Nsa192b2x0
-YWdlKHN0cnVjdCBkZXZpY2UgKmRldiwKIAljb25zdCBjaGFyIGRlbGltaXRlclszXSA9IHsnICcs
-ICdcbicsICdcMCd9OwogCXVpbnQzMl90IHR5cGU7CiAKLQlpZiAoY291bnQgPiAxMjcpCi0JCXJl
-dHVybiAtRUlOVkFMOwotCi0JaWYgKCpidWYgPT0gJ3MnKQotCQl0eXBlID0gUFBfT0RfRURJVF9T
-Q0xLX1ZERENfVEFCTEU7Ci0JZWxzZSBpZiAoKmJ1ZiA9PSAnbScpCi0JCXR5cGUgPSBQUF9PRF9F
-RElUX01DTEtfVkREQ19UQUJMRTsKLQllbHNlIGlmKCpidWYgPT0gJ3InKQotCQl0eXBlID0gUFBf
-T0RfUkVTVE9SRV9ERUZBVUxUX1RBQkxFOwotCWVsc2UgaWYgKCpidWYgPT0gJ2MnKQotCQl0eXBl
-ID0gUFBfT0RfQ09NTUlUX0RQTV9UQUJMRTsKLQllbHNlCi0JCXJldHVybiAtRUlOVkFMOworCWlm
-IChhZGV2LT5hc2ljX3R5cGUgPD0gQ0hJUF9WRUdBMTApIHsKKwkJaWYgKGNvdW50ID4gMTI3KQor
-CQkJcmV0dXJuIC1FSU5WQUw7CiAKLQltZW1jcHkoYnVmX2NweSwgYnVmLCBjb3VudCsxKTsKKwkJ
-aWYgKCpidWYgPT0gJ3MnKQorCQkJdHlwZSA9IFBQX09EX0VESVRfU0NMS19WRERDX1RBQkxFOwor
-CQllbHNlIGlmICgqYnVmID09ICdtJykKKwkJCXR5cGUgPSBQUF9PRF9FRElUX01DTEtfVkREQ19U
-QUJMRTsKKwkJZWxzZSBpZigqYnVmID09ICdyJykKKwkJCXR5cGUgPSBQUF9PRF9SRVNUT1JFX0RF
-RkFVTFRfVEFCTEU7CisJCWVsc2UgaWYgKCpidWYgPT0gJ2MnKQorCQkJdHlwZSA9IFBQX09EX0NP
-TU1JVF9EUE1fVEFCTEU7CisJCWVsc2UKKwkJCXJldHVybiAtRUlOVkFMOwogCi0JdG1wX3N0ciA9
-IGJ1Zl9jcHk7CisJCW1lbWNweShidWZfY3B5LCBidWYsIGNvdW50KzEpOwogCi0Jd2hpbGUgKGlz
-c3BhY2UoKisrdG1wX3N0cikpOworCQl0bXBfc3RyID0gYnVmX2NweTsKIAotCXdoaWxlICh0bXBf
-c3RyWzBdKSB7Ci0JCXN1Yl9zdHIgPSBzdHJzZXAoJnRtcF9zdHIsIGRlbGltaXRlcik7Ci0JCXJl
-dCA9IGtzdHJ0b2woc3ViX3N0ciwgMCwgJnBhcmFtZXRlcltwYXJhbWV0ZXJfc2l6ZV0pOwotCQlp
-ZiAocmV0KQotCQkJcmV0dXJuIC1FSU5WQUw7Ci0JCXBhcmFtZXRlcl9zaXplKys7CisJCXdoaWxl
-IChpc3NwYWNlKCorK3RtcF9zdHIpKTsKIAotCQl3aGlsZSAoaXNzcGFjZSgqdG1wX3N0cikpCi0J
-CQl0bXBfc3RyKys7Ci0JfQorCQl3aGlsZSAodG1wX3N0clswXSkgeworCQkJc3ViX3N0ciA9IHN0
-cnNlcCgmdG1wX3N0ciwgZGVsaW1pdGVyKTsKKwkJCXJldCA9IGtzdHJ0b2woc3ViX3N0ciwgMCwg
-JnBhcmFtZXRlcltwYXJhbWV0ZXJfc2l6ZV0pOworCQkJaWYgKHJldCkKKwkJCQlyZXR1cm4gLUVJ
-TlZBTDsKKwkJCXBhcmFtZXRlcl9zaXplKys7CiAKLQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1
-bmNzLT5vZG5fZWRpdF9kcG1fdGFibGUpCi0JCXJldCA9IGFtZGdwdV9kcG1fb2RuX2VkaXRfZHBt
-X3RhYmxlKGFkZXYsIHR5cGUsCi0JCQkJCQlwYXJhbWV0ZXIsIHBhcmFtZXRlcl9zaXplKTsKKwkJ
-CXdoaWxlIChpc3NwYWNlKCp0bXBfc3RyKSkKKwkJCQl0bXBfc3RyKys7CisJCX0KIAotCWlmIChy
-ZXQpCi0JCXJldHVybiAtRUlOVkFMOworCQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5v
-ZG5fZWRpdF9kcG1fdGFibGUpCisJCQlyZXQgPSBhbWRncHVfZHBtX29kbl9lZGl0X2RwbV90YWJs
-ZShhZGV2LCB0eXBlLAorCQkJCQkJCSAgICBwYXJhbWV0ZXIsIHBhcmFtZXRlcl9zaXplKTsKIAot
-CWlmICh0eXBlID09IFBQX09EX0NPTU1JVF9EUE1fVEFCTEUpIHsKLQkJaWYgKGFkZXYtPnBvd2Vy
-cGxheS5wcF9mdW5jcy0+ZGlzcGF0Y2hfdGFza3MpIHsKLQkJCWFtZGdwdV9kcG1fZGlzcGF0Y2hf
-dGFzayhhZGV2LCBBTURfUFBfVEFTS19SRUFESlVTVF9QT1dFUl9TVEFURSwgTlVMTCk7Ci0JCQly
-ZXR1cm4gY291bnQ7Ci0JCX0gZWxzZSB7CisJCWlmIChyZXQpCiAJCQlyZXR1cm4gLUVJTlZBTDsK
-KworCQlpZiAodHlwZSA9PSBQUF9PRF9DT01NSVRfRFBNX1RBQkxFKSB7CisJCQlpZiAoYWRldi0+
-cG93ZXJwbGF5LnBwX2Z1bmNzLT5kaXNwYXRjaF90YXNrcykgeworCQkJCWFtZGdwdV9kcG1fZGlz
-cGF0Y2hfdGFzayhhZGV2LCBBTURfUFBfVEFTS19SRUFESlVTVF9QT1dFUl9TVEFURSwgTlVMTCk7
-CisJCQkJcmV0dXJuIGNvdW50OworCQkJfSBlbHNlIHsKKwkJCQlyZXR1cm4gLUVJTlZBTDsKKwkJ
-CX0KIAkJfQorCX0gZWxzZSB7CisJCS8qIGRvIHRoZSBuZXcgc3R1ZmYgaGVyZSAqLwogCX0KIAog
-CXJldHVybiBjb3VudDsKQEAgLTU2NywxMyArNTcxLDE3IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdw
-dV9nZXRfcHBfb2RfY2xrX3ZvbHRhZ2Uoc3RydWN0IGRldmljZSAqZGV2LAogCXN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7CiAJdWludDMyX3Qgc2l6ZSA9IDA7
-CiAKLQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5wcmludF9jbG9ja19sZXZlbHMpIHsK
-LQkJc2l6ZSA9IGFtZGdwdV9kcG1fcHJpbnRfY2xvY2tfbGV2ZWxzKGFkZXYsIE9EX1NDTEssIGJ1
-Zik7Ci0JCXNpemUgKz0gYW1kZ3B1X2RwbV9wcmludF9jbG9ja19sZXZlbHMoYWRldiwgT0RfTUNM
-SywgYnVmK3NpemUpOwotCQlzaXplICs9IGFtZGdwdV9kcG1fcHJpbnRfY2xvY2tfbGV2ZWxzKGFk
-ZXYsIE9EX1JBTkdFLCBidWYrc2l6ZSk7Ci0JCXJldHVybiBzaXplOworCWlmIChhZGV2LT5hc2lj
-X3R5cGUgPD0gQ0hJUF9WRUdBMTApIHsKKwkJaWYgKGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+
-cHJpbnRfY2xvY2tfbGV2ZWxzKSB7CisJCQlzaXplID0gYW1kZ3B1X2RwbV9wcmludF9jbG9ja19s
-ZXZlbHMoYWRldiwgT0RfU0NMSywgYnVmKTsKKwkJCXNpemUgKz0gYW1kZ3B1X2RwbV9wcmludF9j
-bG9ja19sZXZlbHMoYWRldiwgT0RfTUNMSywgYnVmK3NpemUpOworCQkJc2l6ZSArPSBhbWRncHVf
-ZHBtX3ByaW50X2Nsb2NrX2xldmVscyhhZGV2LCBPRF9SQU5HRSwgYnVmK3NpemUpOworCQkJcmV0
-dXJuIHNpemU7CisJCX0gZWxzZSB7CisJCQlyZXR1cm4gc25wcmludGYoYnVmLCBQQUdFX1NJWkUs
-ICJcbiIpOworCQl9CiAJfSBlbHNlIHsKLQkJcmV0dXJuIHNucHJpbnRmKGJ1ZiwgUEFHRV9TSVpF
-LCAiXG4iKTsKKwkJLyogZG8gdGhlIG5ldyBzdHVmZiBoZXJlICovCiAJfQogCiB9Cg==
-
---_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
+--===============0659736390==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -2093,4 +2236,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_--
+--===============0659736390==--
