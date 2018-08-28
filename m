@@ -1,16 +1,18 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features
-Date: Tue, 28 Aug 2018 15:51:16 +0000
-Message-ID: <SN6PR12MB2656D9CFE46599866E01CB46E40A0@SN6PR12MB2656.namprd12.prod.outlook.com>
+Date: Tue, 28 Aug 2018 16:03:22 +0000
+Message-ID: <BN6PR12MB180998E806A582A0C10F2C1BF70A0@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <20180824074349.12448-1-evan.quan@amd.com>
  <CADnq5_PPLej3PUu6ZkHv6muRv_1v8qL7Sfe0zyoKrRAXLan-4w@mail.gmail.com>
  <BYAPR12MB27751AEFBBFD1386D9ECAFF5FB360@BYAPR12MB2775.namprd12.prod.outlook.com>
  <SN6PR12MB265639A61D343C54EF74CDF9E40B0@SN6PR12MB2656.namprd12.prod.outlook.com>,
- <CADnq5_Pb=HR3h8Bq8UfPifvGea-S_x9drEOrCdf3rtN-=pbaJg@mail.gmail.com>
+ <CADnq5_Pb=HR3h8Bq8UfPifvGea-S_x9drEOrCdf3rtN-=pbaJg@mail.gmail.com>,
+ <SN6PR12MB2656D9CFE46599866E01CB46E40A0@SN6PR12MB2656.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0202391846=="
+Content-Type: multipart/mixed;
+ boundary="_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Pb=HR3h8Bq8UfPifvGea-S_x9drEOrCdf3rtN-=pbaJg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <SN6PR12MB2656D9CFE46599866E01CB46E40A0-kxOKjb6HO/FeL/N0e1LXkAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,18 +24,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+ Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============0202391846==
-Content-Language: en-US
+--_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
 Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB2656D9CFE46599866E01CB46E40A0SN6PR12MB2656namp_"
+	boundary="_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_"
 
---_000_SN6PR12MB2656D9CFE46599866E01CB46E40A0SN6PR12MB2656namp_
+--_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Right.  I'm saying use the same sysfs file (pp_od_clk_voltage) for all devi=
+ces rather than adding a new one.  The output of reading that file will be =
+different on each asic that supports a different way of adjusting the clock=
+ and voltage parameters and the supported inputs will be different.  We do =
+the same thing today for pp_power_profile_mode.  Vega10 and smu7 parts have=
+ different parameters, but we use the same files.  See the attached patch t=
+o an example.
+
+
+Alex
+
+________________________________
+From: Quan, Evan
+Sent: Tuesday, August 28, 2018 11:51:16 AM
+To: Alex Deucher
+Cc: Zhu, Rex; Deucher, Alexander; amd-gfx list; Xu, Feifei; Kuehling, Felix=
+; Zhang, Hawking
+Subject: Re: [PATCH] drm/amd/powerplay: expose vega20 OD features
+
 
 Hi Alex,
 
@@ -756,7 +778,7 @@ TABLE_COMMAND type, long *input, uint32_t size);
 > > > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_SN6PR12MB2656D9CFE46599866E01CB46E40A0SN6PR12MB2656namp_
+--_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -770,25 +792,61 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Hi Alex,</p>
+<p style=3D"margin-top:0;margin-bottom:0">Right.&nbsp; I'm saying use the s=
+ame sysfs file (<font size=3D"3" face=3D"Calibri,Helvetica,sans-serif" colo=
+r=3D"black"><span style=3D"font-size:12pt;">pp_od_clk_voltage</span></font>=
+) for all devices rather than adding a new one.&nbsp;
+ The output of reading that file will be different on each asic that suppor=
+ts a different way of adjusting the clock and voltage parameters and the su=
+pported inputs will be different.&nbsp; We do the same thing today for
+<span>pp_power_profile_mode</span>.&nbsp; Vega10 and smu7 parts have differ=
+ent parameters, but we use the same files. &nbsp;See the attached patch to =
+an example.</p>
 <p style=3D"margin-top:0;margin-bottom:0"><br>
 </p>
-<p style=3D"margin-top:0;margin-bottom:0">Sorry, i cannot get your point.</=
-p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
 </p>
-<p style=3D"margin-top:0;margin-bottom:0">The OD feature sysfs file used by=
- previous ASICs is &quot;pp_od_clk_voltage&quot;. And it binds to two APIs =
-&quot;<span style=3D"font-family: Calibri, Helvetica, sans-serif, EmojiFont=
-, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji=
-, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; fon=
-t-size: 16px;">amdgpu_get_pp_od_clk_voltage&quot;
- and &quot;<span style=3D"font-family: Calibri, Helvetica, sans-serif, Emoj=
-iFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColor=
-Emoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols=
-; font-size: 16px;">amdgpu_set_pp_od_clk_voltage&quot;.&nbsp;</span></span>=
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan<br>
+<b>Sent:</b> Tuesday, August 28, 2018 11:51:16 AM<br>
+<b>To:</b> Alex Deucher<br>
+<b>Cc:</b> Zhu, Rex; Deucher, Alexander; amd-gfx list; Xu, Feifei; Kuehling=
+, Felix; Zhang, Hawking<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: expose vega20 OD features</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dus-ascii">
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">Hi Alex,</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
 </p>
-<p style=3D"margin-top:0;margin-bottom:0"></p>
+<p style=3D"margin-top:0; margin-bottom:0">Sorry, i cannot get your point.<=
+/p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">The OD feature sysfs file used b=
+y previous ASICs is &quot;pp_od_clk_voltage&quot;. And it binds to two APIs=
+ &quot;<span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&q=
+uot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot=
+;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16=
+px">amdgpu_get_pp_od_clk_voltage&quot;
+ and &quot;<span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFon=
+t,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&=
+quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-siz=
+e:16px">amdgpu_set_pp_od_clk_voltage&quot;.&nbsp;</span></span></p>
+<p style=3D"margin-top:0; margin-bottom:0"></p>
 <div><br>
 </div>
 <div>static DEVICE_ATTR(pp_od_clk_voltage, S_IRUGO | S_IWUSR,</div>
@@ -798,34 +856,33 @@ od_clk_voltage,</div>
 od_clk_voltage);</div>
 <div><br>
 </div>
-<div><span style=3D"font-family: Calibri, Helvetica, sans-serif, EmojiFont,=
- &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,=
- &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; font=
--size: 16px;">I was saying we cannot reuse these two APIs for vega20 since
- we have no way to know the exact voltage value for each dpm level(that is =
-what these two APIs required). Thus we cannot share the same sysfs file.</s=
-pan><br>
+<div><span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quo=
+t;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;S=
+egoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px=
+">I was saying we cannot reuse these two APIs for vega20 since we have no
+ way to know the exact voltage value for each dpm level(that is what these =
+two APIs required). Thus we cannot share the same sysfs file.</span><br>
 </div>
-<div><span style=3D"font-family: Calibri, Helvetica, sans-serif, EmojiFont,=
- &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,=
- &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; font=
--size: 16px;"><br>
+<div><span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quo=
+t;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;S=
+egoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px=
+"><br>
 </span></div>
-<div><span style=3D"font-family: Calibri, Helvetica, sans-serif, EmojiFont,=
- &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,=
- &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; font=
--size: 16px;">Do you mean&nbsp;we can bind the sysfs file to other APIs? Ho=
-w?</span></div>
+<div><span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&quo=
+t;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;S=
+egoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16px=
+">Do you mean&nbsp;we can bind the sysfs file to other APIs? How?</span></d=
+iv>
 <div><br>
 </div>
 Regards,
 <p></p>
-<p style=3D"margin-top:0;margin-bottom:0">Evan</p>
+<p style=3D"margin-top:0; margin-bottom:0">Evan</p>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
+exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
 <b>Sent:</b> Monday, August 27, 2018 10:01:49 PM<br>
 <b>To:</b> Quan, Evan<br>
 <b>Cc:</b> Zhu, Rex; Deucher, Alexander; amd-gfx list; Xu, Feifei; Kuehling=
@@ -834,10 +891,10 @@ deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
 ont>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Mon, Aug 27, 2018 at 12:04 AM Quan, Evan &lt;Ev=
-an.Quan-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">On Mon, Aug 27, 2018 at 12:04 AM Quan, Evan &lt;=
+Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
 &gt;<br>
 &gt; Hi @Deucher, Alexander &amp; @Zhu, Rex,<br>
 &gt;<br>
@@ -1951,12 +2008,82 @@ le)(struct pp_hwmgr *hwmgr, enum PP_OD_DPM_TABLE_COMMAND type, long *input,=
 d-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
+</div>
 </body>
 </html>
 
---_000_SN6PR12MB2656D9CFE46599866E01CB46E40A0SN6PR12MB2656namp_--
+--_000_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_--
 
---===============0202391846==
+--_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
+Content-Type: text/x-patch; name="vg20_pp_od_clk_voltage.diff"
+Content-Description: vg20_pp_od_clk_voltage.diff
+Content-Disposition: attachment; filename="vg20_pp_od_clk_voltage.diff";
+	size=3412; creation-date="Tue, 28 Aug 2018 16:03:16 GMT";
+	modification-date="Tue, 28 Aug 2018 16:03:16 GMT"
+Content-Transfer-Encoding: base64
+
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKaW5kZXggYjdiMTZjYjVmZjBmLi4x
+ZWI4MzMxODZmYjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9wbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCkBAIC01
+MDksNTEgKzUwOSw1NSBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfc2V0X3BwX29kX2Nsa192b2x0
+YWdlKHN0cnVjdCBkZXZpY2UgKmRldiwKIAljb25zdCBjaGFyIGRlbGltaXRlclszXSA9IHsnICcs
+ICdcbicsICdcMCd9OwogCXVpbnQzMl90IHR5cGU7CiAKLQlpZiAoY291bnQgPiAxMjcpCi0JCXJl
+dHVybiAtRUlOVkFMOwotCi0JaWYgKCpidWYgPT0gJ3MnKQotCQl0eXBlID0gUFBfT0RfRURJVF9T
+Q0xLX1ZERENfVEFCTEU7Ci0JZWxzZSBpZiAoKmJ1ZiA9PSAnbScpCi0JCXR5cGUgPSBQUF9PRF9F
+RElUX01DTEtfVkREQ19UQUJMRTsKLQllbHNlIGlmKCpidWYgPT0gJ3InKQotCQl0eXBlID0gUFBf
+T0RfUkVTVE9SRV9ERUZBVUxUX1RBQkxFOwotCWVsc2UgaWYgKCpidWYgPT0gJ2MnKQotCQl0eXBl
+ID0gUFBfT0RfQ09NTUlUX0RQTV9UQUJMRTsKLQllbHNlCi0JCXJldHVybiAtRUlOVkFMOworCWlm
+IChhZGV2LT5hc2ljX3R5cGUgPD0gQ0hJUF9WRUdBMTApIHsKKwkJaWYgKGNvdW50ID4gMTI3KQor
+CQkJcmV0dXJuIC1FSU5WQUw7CiAKLQltZW1jcHkoYnVmX2NweSwgYnVmLCBjb3VudCsxKTsKKwkJ
+aWYgKCpidWYgPT0gJ3MnKQorCQkJdHlwZSA9IFBQX09EX0VESVRfU0NMS19WRERDX1RBQkxFOwor
+CQllbHNlIGlmICgqYnVmID09ICdtJykKKwkJCXR5cGUgPSBQUF9PRF9FRElUX01DTEtfVkREQ19U
+QUJMRTsKKwkJZWxzZSBpZigqYnVmID09ICdyJykKKwkJCXR5cGUgPSBQUF9PRF9SRVNUT1JFX0RF
+RkFVTFRfVEFCTEU7CisJCWVsc2UgaWYgKCpidWYgPT0gJ2MnKQorCQkJdHlwZSA9IFBQX09EX0NP
+TU1JVF9EUE1fVEFCTEU7CisJCWVsc2UKKwkJCXJldHVybiAtRUlOVkFMOwogCi0JdG1wX3N0ciA9
+IGJ1Zl9jcHk7CisJCW1lbWNweShidWZfY3B5LCBidWYsIGNvdW50KzEpOwogCi0Jd2hpbGUgKGlz
+c3BhY2UoKisrdG1wX3N0cikpOworCQl0bXBfc3RyID0gYnVmX2NweTsKIAotCXdoaWxlICh0bXBf
+c3RyWzBdKSB7Ci0JCXN1Yl9zdHIgPSBzdHJzZXAoJnRtcF9zdHIsIGRlbGltaXRlcik7Ci0JCXJl
+dCA9IGtzdHJ0b2woc3ViX3N0ciwgMCwgJnBhcmFtZXRlcltwYXJhbWV0ZXJfc2l6ZV0pOwotCQlp
+ZiAocmV0KQotCQkJcmV0dXJuIC1FSU5WQUw7Ci0JCXBhcmFtZXRlcl9zaXplKys7CisJCXdoaWxl
+IChpc3NwYWNlKCorK3RtcF9zdHIpKTsKIAotCQl3aGlsZSAoaXNzcGFjZSgqdG1wX3N0cikpCi0J
+CQl0bXBfc3RyKys7Ci0JfQorCQl3aGlsZSAodG1wX3N0clswXSkgeworCQkJc3ViX3N0ciA9IHN0
+cnNlcCgmdG1wX3N0ciwgZGVsaW1pdGVyKTsKKwkJCXJldCA9IGtzdHJ0b2woc3ViX3N0ciwgMCwg
+JnBhcmFtZXRlcltwYXJhbWV0ZXJfc2l6ZV0pOworCQkJaWYgKHJldCkKKwkJCQlyZXR1cm4gLUVJ
+TlZBTDsKKwkJCXBhcmFtZXRlcl9zaXplKys7CiAKLQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1
+bmNzLT5vZG5fZWRpdF9kcG1fdGFibGUpCi0JCXJldCA9IGFtZGdwdV9kcG1fb2RuX2VkaXRfZHBt
+X3RhYmxlKGFkZXYsIHR5cGUsCi0JCQkJCQlwYXJhbWV0ZXIsIHBhcmFtZXRlcl9zaXplKTsKKwkJ
+CXdoaWxlIChpc3NwYWNlKCp0bXBfc3RyKSkKKwkJCQl0bXBfc3RyKys7CisJCX0KIAotCWlmIChy
+ZXQpCi0JCXJldHVybiAtRUlOVkFMOworCQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5v
+ZG5fZWRpdF9kcG1fdGFibGUpCisJCQlyZXQgPSBhbWRncHVfZHBtX29kbl9lZGl0X2RwbV90YWJs
+ZShhZGV2LCB0eXBlLAorCQkJCQkJCSAgICBwYXJhbWV0ZXIsIHBhcmFtZXRlcl9zaXplKTsKIAot
+CWlmICh0eXBlID09IFBQX09EX0NPTU1JVF9EUE1fVEFCTEUpIHsKLQkJaWYgKGFkZXYtPnBvd2Vy
+cGxheS5wcF9mdW5jcy0+ZGlzcGF0Y2hfdGFza3MpIHsKLQkJCWFtZGdwdV9kcG1fZGlzcGF0Y2hf
+dGFzayhhZGV2LCBBTURfUFBfVEFTS19SRUFESlVTVF9QT1dFUl9TVEFURSwgTlVMTCk7Ci0JCQly
+ZXR1cm4gY291bnQ7Ci0JCX0gZWxzZSB7CisJCWlmIChyZXQpCiAJCQlyZXR1cm4gLUVJTlZBTDsK
+KworCQlpZiAodHlwZSA9PSBQUF9PRF9DT01NSVRfRFBNX1RBQkxFKSB7CisJCQlpZiAoYWRldi0+
+cG93ZXJwbGF5LnBwX2Z1bmNzLT5kaXNwYXRjaF90YXNrcykgeworCQkJCWFtZGdwdV9kcG1fZGlz
+cGF0Y2hfdGFzayhhZGV2LCBBTURfUFBfVEFTS19SRUFESlVTVF9QT1dFUl9TVEFURSwgTlVMTCk7
+CisJCQkJcmV0dXJuIGNvdW50OworCQkJfSBlbHNlIHsKKwkJCQlyZXR1cm4gLUVJTlZBTDsKKwkJ
+CX0KIAkJfQorCX0gZWxzZSB7CisJCS8qIGRvIHRoZSBuZXcgc3R1ZmYgaGVyZSAqLwogCX0KIAog
+CXJldHVybiBjb3VudDsKQEAgLTU2NywxMyArNTcxLDE3IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdw
+dV9nZXRfcHBfb2RfY2xrX3ZvbHRhZ2Uoc3RydWN0IGRldmljZSAqZGV2LAogCXN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7CiAJdWludDMyX3Qgc2l6ZSA9IDA7
+CiAKLQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5wcmludF9jbG9ja19sZXZlbHMpIHsK
+LQkJc2l6ZSA9IGFtZGdwdV9kcG1fcHJpbnRfY2xvY2tfbGV2ZWxzKGFkZXYsIE9EX1NDTEssIGJ1
+Zik7Ci0JCXNpemUgKz0gYW1kZ3B1X2RwbV9wcmludF9jbG9ja19sZXZlbHMoYWRldiwgT0RfTUNM
+SywgYnVmK3NpemUpOwotCQlzaXplICs9IGFtZGdwdV9kcG1fcHJpbnRfY2xvY2tfbGV2ZWxzKGFk
+ZXYsIE9EX1JBTkdFLCBidWYrc2l6ZSk7Ci0JCXJldHVybiBzaXplOworCWlmIChhZGV2LT5hc2lj
+X3R5cGUgPD0gQ0hJUF9WRUdBMTApIHsKKwkJaWYgKGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+
+cHJpbnRfY2xvY2tfbGV2ZWxzKSB7CisJCQlzaXplID0gYW1kZ3B1X2RwbV9wcmludF9jbG9ja19s
+ZXZlbHMoYWRldiwgT0RfU0NMSywgYnVmKTsKKwkJCXNpemUgKz0gYW1kZ3B1X2RwbV9wcmludF9j
+bG9ja19sZXZlbHMoYWRldiwgT0RfTUNMSywgYnVmK3NpemUpOworCQkJc2l6ZSArPSBhbWRncHVf
+ZHBtX3ByaW50X2Nsb2NrX2xldmVscyhhZGV2LCBPRF9SQU5HRSwgYnVmK3NpemUpOworCQkJcmV0
+dXJuIHNpemU7CisJCX0gZWxzZSB7CisJCQlyZXR1cm4gc25wcmludGYoYnVmLCBQQUdFX1NJWkUs
+ICJcbiIpOworCQl9CiAJfSBlbHNlIHsKLQkJcmV0dXJuIHNucHJpbnRmKGJ1ZiwgUEFHRV9TSVpF
+LCAiXG4iKTsKKwkJLyogZG8gdGhlIG5ldyBzdHVmZiBoZXJlICovCiAJfQogCiB9Cg==
+
+--_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1966,4 +2093,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0202391846==--
+--_004_BN6PR12MB180998E806A582A0C10F2C1BF70A0BN6PR12MB1809namp_--
