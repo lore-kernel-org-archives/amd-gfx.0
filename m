@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove amdgpu_bo_gpu_accessible
-Date: Tue, 28 Aug 2018 16:08:24 +0200
-Message-ID: <6aa7c602-802b-649a-9be2-0325531ec16a@daenzer.net>
-References: <20180828122052.17669-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [Vega10] [bisected] Performance regression with Dawn Of War III
+ and RADV
+Date: Tue, 28 Aug 2018 14:19:30 +0000
+Message-ID: <BN6PR12MB18096C36DFCD6FEBC39A200AF70A0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <90c1a4f4-0745-19af-a254-0942804cca3e@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2031420742=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180828122052.17669-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <90c1a4f4-0745-19af-a254-0942804cca3e-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,33 +19,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Samuel Pitoiset <samuel.pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOC0wOC0yOCAyOjIwIHAubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gTm90IHVz
-ZWQgYW55IG1vcmUuCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfb2JqZWN0LmggfCAxMyAtLS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMyBk
-ZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X29iamVjdC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVj
-dC5oCj4gaW5kZXggMTg5NDVkZDY5ODJkLi45MDdmZGY0NmQ4OTUgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCj4gQEAgLTE5MywxOSArMTkzLDYgQEAg
-c3RhdGljIGlubGluZSB1NjQgYW1kZ3B1X2JvX21tYXBfb2Zmc2V0KHN0cnVjdCBhbWRncHVfYm8g
-KmJvKQo+ICAJcmV0dXJuIGRybV92bWFfbm9kZV9vZmZzZXRfYWRkcigmYm8tPnRiby52bWFfbm9k
-ZSk7Cj4gIH0KPiAgCj4gLS8qKgo+IC0gKiBhbWRncHVfYm9fZ3B1X2FjY2Vzc2libGUgLSByZXR1
-cm4gd2hldGhlciB0aGUgYm8gaXMgY3VycmVudGx5IGluIG1lbW9yeSB0aGF0Cj4gLSAqIGlzIGFj
-Y2Vzc2libGUgdG8gdGhlIEdQVS4KPiAtICovCj4gLXN0YXRpYyBpbmxpbmUgYm9vbCBhbWRncHVf
-Ym9fZ3B1X2FjY2Vzc2libGUoc3RydWN0IGFtZGdwdV9ibyAqYm8pCj4gLXsKPiAtCXN3aXRjaCAo
-Ym8tPnRiby5tZW0ubWVtX3R5cGUpIHsKPiAtCWNhc2UgVFRNX1BMX1RUOiByZXR1cm4gYW1kZ3B1
-X2d0dF9tZ3JfaGFzX2dhcnRfYWRkcigmYm8tPnRiby5tZW0pOwo+IC0JY2FzZSBUVE1fUExfVlJB
-TTogcmV0dXJuIHRydWU7Cj4gLQlkZWZhdWx0OiByZXR1cm4gZmFsc2U7Cj4gLQl9Cj4gLX0KPiAt
-Cj4gIC8qKgo+ICAgKiBhbWRncHVfYm9faW5fY3B1X3Zpc2libGVfdnJhbSAtIGNoZWNrIGlmIEJP
-IGlzIChwYXJ0bHkpIGluIHZpc2libGUgVlJBTQo+ICAgKi8KPiAKClJldmlld2VkLWJ5OiBNaWNo
-ZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCgotLSAKRWFydGhsaW5nIE1pY2hl
-bCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNv
-bQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVz
-YSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+--===============2031420742==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18096C36DFCD6FEBC39A200AF70A0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18096C36DFCD6FEBC39A200AF70A0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+IIRC, this was a dpm bug fix, such that prior to the patch, the mclk would =
+never drop below 500Mhz or something like that and after the fix, it goes d=
+own to the lowest frequency.  The dpm heuristics are not a perfect match fo=
+r some games.
+
+
+Alex
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Samuel P=
+itoiset <samuel.pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Tuesday, August 28, 2018 8:12:12 AM
+To: Quan, Evan
+Cc: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [Vega10] [bisected] Performance regression with Dawn Of War III an=
+d RADV
+
+Hi there,
+
+I found a performance regression that affects my Vega10 with Dawn Of War
+III and RADV (ie. 74FPS -> 71FPS). I bisected to:
+
+commit ea7f492b6ac6eced0d09ccb2b0a2909a0025e22e
+Author: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Date:   Mon Jul 16 17:23:19 2018 +0800
+
+     drm/amd/powerplay: correct the argument for PPSMC_MSG_SetUclkFastSwitc=
+h
+
+     The argument was set wrongly. Fast/slow switch was asked when there is
+     actually a slow/fast switch needed.
+
+     Change-Id: Ibcfdf741dea1700cc3796f84291606231e732f4b
+     Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+     Reviewed-by: Rex Zhu<rex.zhu-5C7GfCeVMHo@public.gmane.org>
+
+Any ideas?
+
+Thanks,
+Samuel.
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18096C36DFCD6FEBC39A200AF70A0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">IIRC, this was a dpm bug fix, suc=
+h that prior to the patch, the mclk would never drop below 500Mhz or someth=
+ing like that and after the fix, it goes down to the lowest frequency.&nbsp=
+; The dpm heuristics are not a perfect
+ match for some games.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Samuel Pitoiset &lt;samuel.pi=
+toiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, August 28, 2018 8:12:12 AM<br>
+<b>To:</b> Quan, Evan<br>
+<b>Cc:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [Vega10] [bisected] Performance regression with Dawn Of War=
+ III and RADV</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hi there,<br>
+<br>
+I found a performance regression that affects my Vega10 with Dawn Of War <b=
+r>
+III and RADV (ie. 74FPS -&gt; 71FPS). I bisected to:<br>
+<br>
+commit ea7f492b6ac6eced0d09ccb2b0a2909a0025e22e<br>
+Author: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Date:&nbsp;&nbsp; Mon Jul 16 17:23:19 2018 &#43;0800<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: correct the argument for PPSMC_=
+MSG_SetUclkFastSwitch<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; The argument was set wrongly. Fast/slow switch was=
+ asked when there is<br>
+&nbsp;&nbsp;&nbsp;&nbsp; actually a slow/fast switch needed.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Change-Id: Ibcfdf741dea1700cc3796f84291606231e732f=
+4b<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Reviewed-by: Rex Zhu&lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Any ideas?<br>
+<br>
+Thanks,<br>
+Samuel.<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18096C36DFCD6FEBC39A200AF70A0BN6PR12MB1809namp_--
+
+--===============2031420742==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2031420742==--
