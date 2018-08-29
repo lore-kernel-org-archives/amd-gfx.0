@@ -1,12 +1,13 @@
 From: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/powerplay: added vega20 overdrive support
-Date: Wed, 29 Aug 2018 14:23:18 +0200
-Message-ID: <563a3d9d-07d2-4d69-cf54-49b0a5989fde@molgen.mpg.de>
+Date: Wed, 29 Aug 2018 14:25:08 +0200
+Message-ID: <02f48a9f-eb17-fdfe-2f00-03f379e4a77d@molgen.mpg.de>
 References: <20180829091234.2470-1-evan.quan@amd.com>
+ <563a3d9d-07d2-4d69-cf54-49b0a5989fde@molgen.mpg.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1813485655=="
+Content-Type: multipart/mixed; boundary="===============1223616476=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180829091234.2470-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <563a3d9d-07d2-4d69-cf54-49b0a5989fde-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,12 +23,12 @@ Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Rex Zhu 
 
 This is a cryptographically signed message in MIME format.
 
---===============1813485655==
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms030609050309070305010201"
+--===============1223616476==
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms040901090807070306080908"
 
 This is a cryptographically signed message in MIME format.
 
---------------ms030609050309070305010201
+--------------ms040901090807070306080908
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
@@ -35,333 +36,342 @@ Content-Transfer-Encoding: quoted-printable
 Dear Evan,
 
 
-On 08/29/18 11:12, Evan Quan wrote:
-> Vega20 supports only sclk voltage overdrive. And user can
-> only tell three groups of <frequency, voltage_offset>. SMU
+I forgot, that in the commit message summary, the imperative mood should =
+be
+used.
 
-Do you mean: The user can only configure three groups of =E2=80=A6?
+> Add vega20 overdrive support
 
-> firmware will recalculate the frequency/voltage curve. Other
-> intermediate levles will be stretched/shrunk accordingly.
+On 08/29/18 14:23, Paul Menzel wrote:
 
-levels
-
-(A spell checker should detect simple typos.)
-
-> Change-Id: I403cb38a95863db664cf06d030ac42a19bff6b33
-> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  26 +++
->  .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c    | 165 +++++++++++++++++-=
-
->  .../drm/amd/powerplay/hwmgr/vega20_hwmgr.h    |   2 +
->  3 files changed, 192 insertions(+), 1 deletion(-)
+> On 08/29/18 11:12, Evan Quan wrote:
+>> Vega20 supports only sclk voltage overdrive. And user can
+>> only tell three groups of <frequency, voltage_offset>. SMU
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_pm.c
-> index e2577518b9c6..6e0c8f583521 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> @@ -474,6 +474,8 @@ static ssize_t amdgpu_set_pp_table(struct device *d=
-ev,
->   * in each power level within a power state.  The pp_od_clk_voltage is=
- used for
->   * this.
->   *
-> + * < For Vega10 and previous ASICs >
-> + *
->   * Reading the file will display:
->   *
->   * - a list of engine clock levels and voltages labeled OD_SCLK
-> @@ -491,6 +493,30 @@ static ssize_t amdgpu_set_pp_table(struct device *=
+> Do you mean: The user can only configure three groups of =E2=80=A6?
+>=20
+>> firmware will recalculate the frequency/voltage curve. Other
+>> intermediate levles will be stretched/shrunk accordingly.
+>=20
+> levels
+>=20
+> (A spell checker should detect simple typos.)
+>=20
+>> Change-Id: I403cb38a95863db664cf06d030ac42a19bff6b33
+>> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  26 +++
+>>  .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c    | 165 +++++++++++++++++=
+-
+>>  .../drm/amd/powerplay/hwmgr/vega20_hwmgr.h    |   2 +
+>>  3 files changed, 192 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_pm.c
+>> index e2577518b9c6..6e0c8f583521 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+>> @@ -474,6 +474,8 @@ static ssize_t amdgpu_set_pp_table(struct device *=
 dev,
->   * "c" (commit) to the file to commit your changes.  If you want to re=
-set to the
->   * default power levels, write "r" (reset) to the file to reset them.
->   *
-> + *
-> + * < For Vega20 >
-> + *
-> + * Reading the file will display:
-> + *
-> + * - three groups of engine clock and voltage offset labeled OD_SCLK
-> + *
-> + * - a list of valid ranges for above three groups of sclk and voltage=
- offset
-> + *   labeled OD_RANGE
-> + *
-> + * To manually adjust these settings:
-> + *
-> + * - First select manual using power_dpm_force_performance_level
-> + *
-> + * - Enter a new value for each group by writing a string that contain=
-s
-> + *   "s group_index clock voltage_offset" to the file.  E.g., "s 0 500=
- 20"
-> + *   will update group1 sclk to be 500 MHz with voltage increased 20mV=
+>>   * in each power level within a power state.  The pp_od_clk_voltage i=
+s used for
+>>   * this.
+>>   *
+>> + * < For Vega10 and previous ASICs >
+>> + *
+>>   * Reading the file will display:
+>>   *
+>>   * - a list of engine clock levels and voltages labeled OD_SCLK
+>> @@ -491,6 +493,30 @@ static ssize_t amdgpu_set_pp_table(struct device =
+*dev,
+>>   * "c" (commit) to the file to commit your changes.  If you want to r=
+eset to the
+>>   * default power levels, write "r" (reset) to the file to reset them.=
 
-
-increased *by* 20mV? by or to?
-
-> + *
-> + * - When you have edited all of the states as needed, write "c" (comm=
-it)
-> + *   to the file to commit your changes
-> + *
-> + * - If you want to reset to the default power levels, write "r" (rese=
-t)
-> + *   to the file to reset them
-> + *
->   */
-> =20
->  static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drive=
-rs/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> index ececa2f7fe5f..9f6e070a76e0 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> @@ -1096,6 +1096,13 @@ static int vega20_od8_initialize_default_setting=
-s(
->  		}
->  	}
-> =20
-> +	ret =3D vega20_copy_table_from_smc(hwmgr,
-> +			(uint8_t *)(&data->od_table),
-> +			TABLE_OVERDRIVE);
-> +	PP_ASSERT_WITH_CODE(!ret,
-> +			"Failed to export over drive table!",
-
-*over drive* or *overdrive*
-
-> +			return ret);
-> +
->  	return 0;
->  }
-> =20
-> @@ -2506,11 +2513,112 @@ static int vega20_set_watermarks_for_clocks_ra=
-nges(struct pp_hwmgr *hwmgr,
->  	return 0;
->  }
-> =20
-> +static int vega20_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
-> +					enum PP_OD_DPM_TABLE_COMMAND type,
-> +					long *input, uint32_t size)
-
-What is size? Could it be `size_t` or just int?
-
-> +{
-> +	struct vega20_hwmgr *data =3D
-> +			(struct vega20_hwmgr *)(hwmgr->backend);
-> +	struct vega20_od8_single_setting *od8_settings =3D
-> +			data->od8_settings.od8_settings_array;
-> +	OverDriveTable_t od_table;
-
-Is CamelCase wanted?
-
-> +	int32_t input_index, input_clk, input_vol, i;
-> +	int ret =3D 0;
-
-Is the initialization needed?
-
-> +
-> +	PP_ASSERT_WITH_CODE(input, "NULL user input for clock and voltage",
-> +				return -EINVAL);
-> +
-> +	switch (type) {
-> +	case PP_OD_EDIT_SCLK_VDDC_TABLE:
-> +		if (!(od8_settings[OD8_SETTING_GFXCLK_FREQ1].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ2].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ3].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id)) {
-> +			pr_info("Sclk voltage overdrive not supported\n");
-> +			return 0;
-> +		}
-> +
-> +		for (i =3D 0; i < size; i +=3D 3) {
-> +			if (i + 3 > size) {
-> +				pr_info("invalid clock voltage input\n");
-
-As this is log level *Info* I=E2=80=99d say it should be better understan=
-dable for
-the user. Also, why not print the values?
-
-> +				return 0;
-> +			}
-> +
-> +			input_index =3D input[i];
-> +			input_clk =3D input[i + 1];
-> +			input_vol =3D input[i + 2];
-> +			if (input_index > 2 ||
-> +			    input_clk < od8_settings[OD8_SETTING_GFXCLK_FREQ1 + input_index=
- * 2].min_value ||
-> +			    input_clk > od8_settings[OD8_SETTING_GFXCLK_FREQ1 + input_index=
- * 2].max_value ||
-> +			    input_vol < od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1 + input_in=
-dex * 2].min_value ||
-> +			    input_vol > od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1 + input_in=
-dex * 2].max_value) {
-> +				pr_info("input argument is not within allowed range\n");
-> +				return -EINVAL;
-
-Ditto. Maybe even print the values?
-
-> +			}
-> +
-> +			switch (input_index) {
-> +			case 0:
-> +				data->od_table.GfxclkFreq1 =3D input_clk;
-> +				data->od_table.GfxclkOffsetVolt1 =3D input_vol;
-> +				break;
-> +			case 1:
-> +				data->od_table.GfxclkFreq2 =3D input_clk;
-> +				data->od_table.GfxclkOffsetVolt2 =3D input_vol;
-> +				break;
-> +			case 2:
-> +				data->od_table.GfxclkFreq3 =3D input_clk;
-> +				data->od_table.GfxclkOffsetVolt3 =3D input_vol;
-> +				break;
-> +			}
-> +		}
-> +		break;
-> +
-> +	case PP_OD_EDIT_MCLK_VDDC_TABLE:
-> +		pr_info("Mclk voltage overdrive not supported!\n");
-
-Ditto.
-
-> +		break;
-> +
-> +	case PP_OD_RESTORE_DEFAULT_TABLE:
-> +		ret =3D vega20_copy_table_from_smc(hwmgr,
-> +				(uint8_t *)(&od_table),
-> +				TABLE_OVERDRIVE);
-> +		PP_ASSERT_WITH_CODE(!ret,
-> +				"Failed to export over drive table!",
-> +				return ret);
-> +
-> +		memcpy(&data->od_table, &od_table, sizeof(od_table));
-> +		break;
-> +
-> +	case PP_OD_COMMIT_DPM_TABLE:
-> +		memcpy(&od_table, &data->od_table, sizeof(od_table));
-> +
-> +		ret =3D vega20_copy_table_to_smc(hwmgr,
-> +				(uint8_t *)(&od_table),
-> +				TABLE_OVERDRIVE);
-> +		PP_ASSERT_WITH_CODE(!ret,
-> +				"Failed to import over drive table!",
-> +				return ret);
-> +
-> +		break;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
->  		enum pp_clock_type type, char *buf)
->  {
-> -	int i, now, size =3D 0;
-> +	struct vega20_hwmgr *data =3D
-> +			(struct vega20_hwmgr *)(hwmgr->backend);
-> +	struct vega20_od8_single_setting *od8_settings =3D
-> +			data->od8_settings.od8_settings_array;
-> +	OverDriveTable_t *od_table =3D &data->od_table;
->  	struct pp_clock_levels_with_latency clocks;
-> +	int i, now, size =3D 0;
->  	int ret =3D 0;
-> =20
->  	switch (type) {
-> @@ -2551,6 +2659,59 @@ static int vega20_print_clock_levels(struct pp_h=
-wmgr *hwmgr,
->  	case PP_PCIE:
->  		break;
-> =20
-> +	case OD_SCLK:
-> +		if (od8_settings[OD8_SETTING_GFXCLK_FREQ1].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ2].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ3].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id) {
-> +
-> +			size =3D sprintf(buf, "%s:\n", "OD_SCLK");
-> +			size +=3D sprintf(buf + size, "0: %10uMhz %10dmV\n",
-> +				od_table->GfxclkFreq1,
-> +				od_table->GfxclkOffsetVolt1);
-> +			size +=3D sprintf(buf + size, "1: %10uMhz %10dmV\n",
-> +				od_table->GfxclkFreq2,
-> +				od_table->GfxclkOffsetVolt2);
-> +			size +=3D sprintf(buf + size, "2: %10uMhz %10dmV\n",
-> +				od_table->GfxclkFreq3,
-> +				od_table->GfxclkOffsetVolt3);
-> +		}
-> +		break;
-> +
-> +	case OD_MCLK:
-> +		break;
-> +
-> +	case OD_RANGE:
-> +		if (od8_settings[OD8_SETTING_GFXCLK_FREQ1].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ2].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ3].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
-> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id) {
-> +
-> +			size =3D sprintf(buf, "%s:\n", "OD_RANGE");
-> +			size +=3D sprintf(buf + size, "SCLK[0]: %7uMhz %10uMhz\n",
-> +				od8_settings[OD8_SETTING_GFXCLK_FREQ1].min_value,
-> +				od8_settings[OD8_SETTING_GFXCLK_FREQ1].max_value);
-> +			size +=3D sprintf(buf + size, "VDDC[0]: %7dmV %11dmV\n",
-> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].min_value,
-> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].max_value);
-> +			size +=3D sprintf(buf + size, "SCLK[1]: %7uMhz %10uMhz\n",
-> +				od8_settings[OD8_SETTING_GFXCLK_FREQ2].min_value,
-> +				od8_settings[OD8_SETTING_GFXCLK_FREQ2].max_value);
-> +			size +=3D sprintf(buf + size, "VDDC[1]: %7dmV %11dmV\n",
-> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].min_value,
-> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].max_value);
-> +			size +=3D sprintf(buf + size, "SCLK[2]: %7uMhz %10uMhz\n",
-> +				od8_settings[OD8_SETTING_GFXCLK_FREQ3].min_value,
-> +				od8_settings[OD8_SETTING_GFXCLK_FREQ3].max_value);
-> +			size +=3D sprintf(buf + size, "VDDC[2]: %7dmV %11dmV\n",
-> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].min_value,
-> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].max_value);
-> +		}
-> +		break;
->  	default:
->  		break;
->  	}
-> @@ -3162,6 +3323,8 @@ static const struct pp_hwmgr_func vega20_hwmgr_fu=
-ncs =3D {
->  		vega20_get_mclk_od,
->  	.set_mclk_od =3D
->  		vega20_set_mclk_od,
-> +	.odn_edit_dpm_table =3D
-> +		vega20_odn_edit_dpm_table,
->  	/* for sysfs to retrive/set gfxclk/memclk */
->  	.force_clock_level =3D
->  		vega20_force_clock_level,
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h b/drive=
-rs/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-> index 72e4f2a55641..8bb90e22efb6 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-> @@ -513,6 +513,8 @@ struct vega20_hwmgr {
->  	/* ---- Gfxoff ---- */
->  	bool                           gfxoff_allowed;
->  	uint32_t                       counter_gfxoff;
-> +
-> +	OverDriveTable_t               od_table;
->  };
-> =20
->  #define VEGA20_DPM2_NEAR_TDP_DEC                      10
+>>   *
+>> + *
+>> + * < For Vega20 >
+>> + *
+>> + * Reading the file will display:
+>> + *
+>> + * - three groups of engine clock and voltage offset labeled OD_SCLK
+>> + *
+>> + * - a list of valid ranges for above three groups of sclk and voltag=
+e offset
+>> + *   labeled OD_RANGE
+>> + *
+>> + * To manually adjust these settings:
+>> + *
+>> + * - First select manual using power_dpm_force_performance_level
+>> + *
+>> + * - Enter a new value for each group by writing a string that contai=
+ns
+>> + *   "s group_index clock voltage_offset" to the file.  E.g., "s 0 50=
+0 20"
+>> + *   will update group1 sclk to be 500 MHz with voltage increased 20m=
+V
+>=20
+> increased *by* 20mV? by or to?
+>=20
+>> + *
+>> + * - When you have edited all of the states as needed, write "c" (com=
+mit)
+>> + *   to the file to commit your changes
+>> + *
+>> + * - If you want to reset to the default power levels, write "r" (res=
+et)
+>> + *   to the file to reset them
+>> + *
+>>   */
+>> =20
+>>  static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/driv=
+ers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+>> index ececa2f7fe5f..9f6e070a76e0 100644
+>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+>> @@ -1096,6 +1096,13 @@ static int vega20_od8_initialize_default_settin=
+gs(
+>>  		}
+>>  	}
+>> =20
+>> +	ret =3D vega20_copy_table_from_smc(hwmgr,
+>> +			(uint8_t *)(&data->od_table),
+>> +			TABLE_OVERDRIVE);
+>> +	PP_ASSERT_WITH_CODE(!ret,
+>> +			"Failed to export over drive table!",
+>=20
+> *over drive* or *overdrive*
+>=20
+>> +			return ret);
+>> +
+>>  	return 0;
+>>  }
+>> =20
+>> @@ -2506,11 +2513,112 @@ static int vega20_set_watermarks_for_clocks_r=
+anges(struct pp_hwmgr *hwmgr,
+>>  	return 0;
+>>  }
+>> =20
+>> +static int vega20_odn_edit_dpm_table(struct pp_hwmgr *hwmgr,
+>> +					enum PP_OD_DPM_TABLE_COMMAND type,
+>> +					long *input, uint32_t size)
+>=20
+> What is size? Could it be `size_t` or just int?
+>=20
+>> +{
+>> +	struct vega20_hwmgr *data =3D
+>> +			(struct vega20_hwmgr *)(hwmgr->backend);
+>> +	struct vega20_od8_single_setting *od8_settings =3D
+>> +			data->od8_settings.od8_settings_array;
+>> +	OverDriveTable_t od_table;
+>=20
+> Is CamelCase wanted?
+>=20
+>> +	int32_t input_index, input_clk, input_vol, i;
+>> +	int ret =3D 0;
+>=20
+> Is the initialization needed?
+>=20
+>> +
+>> +	PP_ASSERT_WITH_CODE(input, "NULL user input for clock and voltage",
+>> +				return -EINVAL);
+>> +
+>> +	switch (type) {
+>> +	case PP_OD_EDIT_SCLK_VDDC_TABLE:
+>> +		if (!(od8_settings[OD8_SETTING_GFXCLK_FREQ1].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ2].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ3].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id)) {
+>> +			pr_info("Sclk voltage overdrive not supported\n");
+>> +			return 0;
+>> +		}
+>> +
+>> +		for (i =3D 0; i < size; i +=3D 3) {
+>> +			if (i + 3 > size) {
+>> +				pr_info("invalid clock voltage input\n");
+>=20
+> As this is log level *Info* I=E2=80=99d say it should be better underst=
+andable for
+> the user. Also, why not print the values?
+>=20
+>> +				return 0;
+>> +			}
+>> +
+>> +			input_index =3D input[i];
+>> +			input_clk =3D input[i + 1];
+>> +			input_vol =3D input[i + 2];
+>> +			if (input_index > 2 ||
+>> +			    input_clk < od8_settings[OD8_SETTING_GFXCLK_FREQ1 + input_inde=
+x * 2].min_value ||
+>> +			    input_clk > od8_settings[OD8_SETTING_GFXCLK_FREQ1 + input_inde=
+x * 2].max_value ||
+>> +			    input_vol < od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1 + input_i=
+ndex * 2].min_value ||
+>> +			    input_vol > od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1 + input_i=
+ndex * 2].max_value) {
+>> +				pr_info("input argument is not within allowed range\n");
+>> +				return -EINVAL;
+>=20
+> Ditto. Maybe even print the values?
+>=20
+>> +			}
+>> +
+>> +			switch (input_index) {
+>> +			case 0:
+>> +				data->od_table.GfxclkFreq1 =3D input_clk;
+>> +				data->od_table.GfxclkOffsetVolt1 =3D input_vol;
+>> +				break;
+>> +			case 1:
+>> +				data->od_table.GfxclkFreq2 =3D input_clk;
+>> +				data->od_table.GfxclkOffsetVolt2 =3D input_vol;
+>> +				break;
+>> +			case 2:
+>> +				data->od_table.GfxclkFreq3 =3D input_clk;
+>> +				data->od_table.GfxclkOffsetVolt3 =3D input_vol;
+>> +				break;
+>> +			}
+>> +		}
+>> +		break;
+>> +
+>> +	case PP_OD_EDIT_MCLK_VDDC_TABLE:
+>> +		pr_info("Mclk voltage overdrive not supported!\n");
+>=20
+> Ditto.
+>=20
+>> +		break;
+>> +
+>> +	case PP_OD_RESTORE_DEFAULT_TABLE:
+>> +		ret =3D vega20_copy_table_from_smc(hwmgr,
+>> +				(uint8_t *)(&od_table),
+>> +				TABLE_OVERDRIVE);
+>> +		PP_ASSERT_WITH_CODE(!ret,
+>> +				"Failed to export over drive table!",
+>> +				return ret);
+>> +
+>> +		memcpy(&data->od_table, &od_table, sizeof(od_table));
+>> +		break;
+>> +
+>> +	case PP_OD_COMMIT_DPM_TABLE:
+>> +		memcpy(&od_table, &data->od_table, sizeof(od_table));
+>> +
+>> +		ret =3D vega20_copy_table_to_smc(hwmgr,
+>> +				(uint8_t *)(&od_table),
+>> +				TABLE_OVERDRIVE);
+>> +		PP_ASSERT_WITH_CODE(!ret,
+>> +				"Failed to import over drive table!",
+>> +				return ret);
+>> +
+>> +		break;
+>> +
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>  static int vega20_print_clock_levels(struct pp_hwmgr *hwmgr,
+>>  		enum pp_clock_type type, char *buf)
+>>  {
+>> -	int i, now, size =3D 0;
+>> +	struct vega20_hwmgr *data =3D
+>> +			(struct vega20_hwmgr *)(hwmgr->backend);
+>> +	struct vega20_od8_single_setting *od8_settings =3D
+>> +			data->od8_settings.od8_settings_array;
+>> +	OverDriveTable_t *od_table =3D &data->od_table;
+>>  	struct pp_clock_levels_with_latency clocks;
+>> +	int i, now, size =3D 0;
+>>  	int ret =3D 0;
+>> =20
+>>  	switch (type) {
+>> @@ -2551,6 +2659,59 @@ static int vega20_print_clock_levels(struct pp_=
+hwmgr *hwmgr,
+>>  	case PP_PCIE:
+>>  		break;
+>> =20
+>> +	case OD_SCLK:
+>> +		if (od8_settings[OD8_SETTING_GFXCLK_FREQ1].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ2].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ3].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id) {
+>> +
+>> +			size =3D sprintf(buf, "%s:\n", "OD_SCLK");
+>> +			size +=3D sprintf(buf + size, "0: %10uMhz %10dmV\n",
+>> +				od_table->GfxclkFreq1,
+>> +				od_table->GfxclkOffsetVolt1);
+>> +			size +=3D sprintf(buf + size, "1: %10uMhz %10dmV\n",
+>> +				od_table->GfxclkFreq2,
+>> +				od_table->GfxclkOffsetVolt2);
+>> +			size +=3D sprintf(buf + size, "2: %10uMhz %10dmV\n",
+>> +				od_table->GfxclkFreq3,
+>> +				od_table->GfxclkOffsetVolt3);
+>> +		}
+>> +		break;
+>> +
+>> +	case OD_MCLK:
+>> +		break;
+>> +
+>> +	case OD_RANGE:
+>> +		if (od8_settings[OD8_SETTING_GFXCLK_FREQ1].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ2].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_FREQ3].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].feature_id &&
+>> +		    od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].feature_id) {
+>> +
+>> +			size =3D sprintf(buf, "%s:\n", "OD_RANGE");
+>> +			size +=3D sprintf(buf + size, "SCLK[0]: %7uMhz %10uMhz\n",
+>> +				od8_settings[OD8_SETTING_GFXCLK_FREQ1].min_value,
+>> +				od8_settings[OD8_SETTING_GFXCLK_FREQ1].max_value);
+>> +			size +=3D sprintf(buf + size, "VDDC[0]: %7dmV %11dmV\n",
+>> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].min_value,
+>> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE1].max_value);
+>> +			size +=3D sprintf(buf + size, "SCLK[1]: %7uMhz %10uMhz\n",
+>> +				od8_settings[OD8_SETTING_GFXCLK_FREQ2].min_value,
+>> +				od8_settings[OD8_SETTING_GFXCLK_FREQ2].max_value);
+>> +			size +=3D sprintf(buf + size, "VDDC[1]: %7dmV %11dmV\n",
+>> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].min_value,
+>> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE2].max_value);
+>> +			size +=3D sprintf(buf + size, "SCLK[2]: %7uMhz %10uMhz\n",
+>> +				od8_settings[OD8_SETTING_GFXCLK_FREQ3].min_value,
+>> +				od8_settings[OD8_SETTING_GFXCLK_FREQ3].max_value);
+>> +			size +=3D sprintf(buf + size, "VDDC[2]: %7dmV %11dmV\n",
+>> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].min_value,
+>> +				od8_settings[OD8_SETTING_GFXCLK_VOLTAGE3].max_value);
+>> +		}
+>> +		break;
+>>  	default:
+>>  		break;
+>>  	}
+>> @@ -3162,6 +3323,8 @@ static const struct pp_hwmgr_func vega20_hwmgr_f=
+uncs =3D {
+>>  		vega20_get_mclk_od,
+>>  	.set_mclk_od =3D
+>>  		vega20_set_mclk_od,
+>> +	.odn_edit_dpm_table =3D
+>> +		vega20_odn_edit_dpm_table,
+>>  	/* for sysfs to retrive/set gfxclk/memclk */
+>>  	.force_clock_level =3D
+>>  		vega20_force_clock_level,
+>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h b/driv=
+ers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
+>> index 72e4f2a55641..8bb90e22efb6 100644
+>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
+>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
+>> @@ -513,6 +513,8 @@ struct vega20_hwmgr {
+>>  	/* ---- Gfxoff ---- */
+>>  	bool                           gfxoff_allowed;
+>>  	uint32_t                       counter_gfxoff;
+>> +
+>> +	OverDriveTable_t               od_table;
+>>  };
+>> =20
+>>  #define VEGA20_DPM2_NEAR_TDP_DEC                      10
 
 
 Kind regards,
@@ -369,7 +379,7 @@ Kind regards,
 Paul
 
 
---------------ms030609050309070305010201
+--------------ms040901090807070306080908
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -457,23 +467,23 @@ fndPkrXx6XWDdU3S1LyKgHlLIFtarLFm2Hb5zAUR33h+26cN6ohcGqGEEzgIG8tXS8gztEaj
 EwJERTEPMA0GA1UECAwGQmF5ZXJuMREwDwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4
 LVBsYW5jay1HZXNlbGxzY2hhZnQxFTATBgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzF
 RvyiMA0GCWCGSAFlAwQCAQUAoIIB8TAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
-SIb3DQEJBTEPFw0xODA4MjkxMjIzMThaMC8GCSqGSIb3DQEJBDEiBCCaCXCMmOn2/sz3oHId
-Q7R2TrpVze0zuYdOls03Ckh1MTBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
+SIb3DQEJBTEPFw0xODA4MjkxMjI1MDhaMC8GCSqGSIb3DQEJBDEiBCCx1S1ufZuMzzJ3ep4g
+DN3GSGwzUMviLIzTRA7eE3R57TBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
 hkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0GCCqGSIb3DQMCAgFAMAcG
 BSsOAwIHMA0GCCqGSIb3DQMCAgEoMIGJBgkrBgEEAYI3EAQxfDB6MGoxCzAJBgNVBAYTAkRF
 MQ8wDQYDVQQIDAZCYXllcm4xETAPBgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxh
 bmNrLUdlc2VsbHNjaGFmdDEVMBMGA1UEAwwMTVBHIENBIC0gRzAyAgweKlJIhfynPMVG/KIw
 gYsGCyqGSIb3DQEJEAILMXygejBqMQswCQYDVQQGEwJERTEPMA0GA1UECAwGQmF5ZXJuMREw
 DwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4LVBsYW5jay1HZXNlbGxzY2hhZnQxFTAT
-BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBAL1L
-NrCTuoHJU4YRHDJZMgMVLpO/f37nDsFVvXQyNpjALtSvYCx3EbmWGgLfxZobuiDpHSVbjfju
-tBxNZlveNBaflzR6i49/3/wmA0Ok5eFIOXFl9Qm2laCWgjWQ/E3lYJ7hu7UbMsuNC/lZ9yx2
-jYINYVT+HOJPgjVdr3dC9MWpnZY7Xd5ee7x3a2iEF2Z1nek2YwmYqSgJ9l5XQVuqW1y8OgZq
-KNag4qhGuVMOAyYkcn1KL4syjqdcx8xAlJZwl6DHrANHmHb8nGFDWZf7VEMDMTGukgsyWTMc
-ItX4Wf5c8GaTTHJNa9Kvej08OfWbQJ9McRSyDnWNRDlq5xewDC8AAAAAAAA=
---------------ms030609050309070305010201--
+BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBAMEX
+KQ+g9ueTdTpOWg5myjBbDgnLM53E60/49s9RQkaB5Ig3lZ45A2fvYmcJClGtaajY/5EoHUaQ
+AALH8IKEsIYE5sEHn0HLP5SoW+VuvSIQhU+3akXVMZVWYzj8C7hMjWVSG6ppL7zC+AJHfkil
+Q4oI1h8LsU2eNBf/ksVMNwbODfjsl6fqV0+1BulL96GJc3I3erfZZhwyH6hEfoS6kySxnWee
+kgArkyFOUAnH+nruRp3gyRsiIssw/aqCmpkhGv5lLkXwr0aWMyGT8jce4IxL9kEihvBx4hpy
+7/krcVNfE63Ssag64J1Y5fF1P7VMMU4OchRbf0hKfeKAOcKhYHYAAAAAAAA=
+--------------ms040901090807070306080908--
 
---===============1813485655==
+--===============1223616476==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -483,4 +493,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1813485655==--
+--===============1223616476==--
