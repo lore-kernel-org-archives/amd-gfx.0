@@ -1,47 +1,39 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: When to kmap PT BOs?
-Date: Thu, 30 Aug 2018 08:50:54 +0200
-Message-ID: <2e37a1ff-501e-f097-2d0f-9d1e2486593c@gmail.com>
-References: <7a9aa339-e771-c667-4eb8-6f30c7c37c15@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Chunming Zhou <david1.zhou@amd.com>
+Subject: [PATCH 1/5] drm: fix syncobj null_fence_enable_signaling
+Date: Thu, 30 Aug 2018 14:48:27 +0800
+Message-ID: <20180830064831.5868-1-david1.zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7a9aa339-e771-c667-4eb8-6f30c7c37c15-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: Jason Ekstrand <jason@jlekstrand.net>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRmVsaXgsCgphaCwgY3JhcCB5b3UgYXJlIHJpZ2h0LgoKSSBtb3ZlZCB0aGUga21hcCB0byBh
-bWRncHVfdm1fdXBkYXRlX2RpcmVjdG9yaWVzKCkgYmVjYXVzZSBJIHRob3VnaHQgCnRoYXQgaXQg
-d291bGQgYmUgY2xlYW5lciB0byBoYXZlIHRoYXQgY2xvc2VyIHdoZXJlIGl0IGlzIHVzZWQuCgpC
-dXQgdGhhdCBzb3VuZHMgbGlrZSBpdCBkb2Vzbid0IHdvcmsgYXMgaW50ZW5kZWQuIEdvaW5nIHRv
-IHJldmVydCB0aGF0IApwYXRjaC4KClRoYW5rcywKQ2hyaXN0aWFuLgoKQW0gMzAuMDguMjAxOCB1
-bSAwMDozMCBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IEhpLAo+Cj4gQ3VycmVudGx5IFBUIEJP
-cyBhcmUga21hcHBlZCBpbiBhbWRncHVfdm1fdXBkYXRlX2RpcmVjdG9yaWVzLiBUaGF0Cj4gbWVh
-bnMsIHRvIGF2b2lkIGtlcm5lbCBvb3BzZXMgYWZ0ZXIgcGFnZSB0YWJsZSBldmljdGlvbnMsIEkg
-bmVlZCB0byBjYWxsCj4gYW1kZ3B1X3ZtX3VwZGF0ZV9kaXJlY3RvcmllcyBiZWZvcmUgY2FsbGlu
-ZyBhbWRncHVfdm1fYm9fdXBkYXRlLgo+Cj4gQnV0IGFtZGdwdV92bV9ib191cGRhdGUgY2FuIGFs
-c28gbW92ZSBQVHMgb24gdGhlIHZtLT5yZWxvY2F0ZWQgbGlzdAo+IGR1cmluZyBodWdlIHBhZ2Ug
-aGFuZGxpbmcuIFRoYXQgbWVhbnMgSSBhbHNvIG5lZWQgdG8gY2FsbAo+IGFtZGdwdV92bV91cGRh
-dGVfZGlyZWN0b3JpZXMgYWZ0ZXIgYW1kZ3B1X3ZtX2JvX3VwZGF0ZS4KPgo+IEkgdGhpbmsgYSBi
-ZXR0ZXIgc29sdXRpb24gaXMgdG8gbW92ZSBrbWFwcGluZyBvdXQgb2YKPiBhbWRncHVfdm1fdXBk
-YXRlX2RpcmVjdG9yaWVzLiBCdXQgSSdtIG5vdCBzdXJlIHdoYXQncyB0aGUgcmlnaHQgcGxhY2UK
-PiBmb3IgaXQuIEFueSBzdWdnZXN0aW9ucz8gRm9yIGEgcXVpY2sgZml4IGZvciBrZXJuZWwgb29w
-c2VzIGFmdGVyIHBhZ2UKPiB0YWJsZSBldmljdGlvbnMgaW4gdGhlIFJPQ20gMS45IHJlbGVhc2Ug
-SSdsbCBjYWxsCj4gYW1kZ3B1X3ZtX3VwZGF0ZV9kaXJlY3RvcmllcyB0d2ljZS4gSWYgdGhlcmUg
-YXJlIG5vIG5ldyBlbnRyaWVzIG9uIHRoZQo+IHZtLT5yZWxvY2F0ZWQgbGlzdHMsIHRoZSBzZWNv
-bmQgY2FsbCB3b24ndCBhZGQgbXVjaCBvdmVyaGVhZCBhbnl3YXkuCj4KPiBUaGFua3MsCj4gIMKg
-IEZlbGl4Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+VGhhdCBpcyBjZXJ0YWlubHkgdG90YWxseSBub25zZW5zZS4gZG1hX2ZlbmNlX2VuYWJsZV9zd19z
+aWduYWxpbmcoKQppcyB0aGUgZnVuY3Rpb24gd2hvIGlzIGNhbGxpbmcgdGhpcyBjYWxsYmFjay4K
+ClNpZ25lZC1vZmYtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+CkNjOiBK
+YXNvbiBFa3N0cmFuZCA8amFzb25Aamxla3N0cmFuZC5uZXQ+ClJldmlld2VkLWJ5OiBDaHJpc3Rp
+YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CkFja2VkLWJ5OiBEYW5pZWwgVmV0
+dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMg
+fCAxIC0KIDEgZmlsZSBjaGFuZ2VkLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2RybV9zeW5jb2JqLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYwpp
+bmRleCAzYTg4MzdjNDk2MzkuLmQxN2VkNzVhYzdlMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2RybV9zeW5jb2JqLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKQEAg
+LTE4NCw3ICsxODQsNiBAQCBzdGF0aWMgY29uc3QgY2hhciAqZHJtX3N5bmNvYmpfbnVsbF9mZW5j
+ZV9nZXRfbmFtZShzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKIAogc3RhdGljIGJvb2wgZHJtX3N5
+bmNvYmpfbnVsbF9mZW5jZV9lbmFibGVfc2lnbmFsaW5nKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNl
+KQogewotICAgIGRtYV9mZW5jZV9lbmFibGVfc3dfc2lnbmFsaW5nKGZlbmNlKTsKICAgICByZXR1
+cm4gIWRtYV9mZW5jZV9pc19zaWduYWxlZChmZW5jZSk7CiB9CiAKLS0gCjIuMTcuMQoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxp
+bmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
