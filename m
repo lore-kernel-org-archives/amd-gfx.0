@@ -1,12 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/amdgpu: Clean up KFD init and fini
-Date: Sat, 1 Sep 2018 14:38:34 +0000
-Message-ID: <DM5PR12MB1820C4C2E4421EE04CA1FE05F70E0@DM5PR12MB1820.namprd12.prod.outlook.com>
-References: <1535751282-3611-1-git-send-email-Felix.Kuehling@amd.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: improve VM state machine documentation
+Date: Sat, 1 Sep 2018 16:45:09 +0000
+Message-ID: <DM5PR12MB170702D12F63415DA2979AEB920E0@DM5PR12MB1707.namprd12.prod.outlook.com>
+References: <20180831132741.112280-1-christian.koenig@amd.com>
+ <20180831132741.112280-2-christian.koenig@amd.com>
+ <2ac28ad5-ccd3-51f0-f4da-3fce40a9f20a@amd.com>,
+ <5424812b-2efb-4643-114d-a4609a0c69a3@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0653768530=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1535751282-3611-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <5424812b-2efb-4643-114d-a4609a0c69a3-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,243 +22,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============0653768530==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1820C4C2E4421EE04CA1FE05F70E0DM5PR12MB1820namp_"
-
---_000_DM5PR12MB1820C4C2E4421EE04CA1FE05F70E0DM5PR12MB1820namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Felix Ku=
-ehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, August 31, 2018 5:34:42 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Kuehling, Felix
-Subject: [PATCH 1/1] drm/amdgpu: Clean up KFD init and fini
-
-Only initialize KFD once by moving amdgpu_amdkfd_init from
-amdgpu_pci_probe to amdgpu_init. This fixes kernel oopses and hangs
-when booting multi-GPU systems.
-
-Also removed some vestiges of KFD being its own module.
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  5 +----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 12 ++++--------
- 2 files changed, 5 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c
-index 8bee9a0..a79df2a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -28,7 +28,6 @@
- #include <linux/module.h>
-
- const struct kgd2kfd_calls *kgd2kfd;
--bool (*kgd2kfd_init_p)(unsigned int, const struct kgd2kfd_calls**);
-
- static const unsigned int compute_vmid_bitmap =3D 0xFF00;
-
-@@ -51,10 +50,8 @@ int amdgpu_amdkfd_init(void)
-
- void amdgpu_amdkfd_fini(void)
- {
--       if (kgd2kfd) {
-+       if (kgd2kfd)
-                 kgd2kfd->exit();
--               symbol_put(kgd2kfd_init);
--       }
- }
-
- void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index a96ceff..b5c2ccb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -922,14 +922,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
-                 return -ENODEV;
-         }
-
--       /*
--        * Initialize amdkfd before starting radeon. If it was not loaded y=
-et,
--        * defer radeon probing
--        */
--       ret =3D amdgpu_amdkfd_init();
--       if (ret =3D=3D -EPROBE_DEFER)
--               return ret;
--
-         /* Get rid of things like offb */
-         ret =3D amdgpu_kick_out_firmware_fb(pdev);
-         if (ret)
-@@ -1274,6 +1266,10 @@ static int __init amdgpu_init(void)
-         pdriver =3D &amdgpu_kms_pci_driver;
-         driver->num_ioctls =3D amdgpu_max_kms_ioctl;
-         amdgpu_register_atpx_handler();
-+
-+       /* Ignore KFD init failures. Normal when CONFIG_HSA_AMD is not set.=
- */
-+       amdgpu_amdkfd_init();
-+
-         /* let modprobe override vga console setting */
-         return pci_register_driver(pdriver);
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM5PR12MB1820C4C2E4421EE04CA1FE05F70E0DM5PR12MB1820namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Felix Kuehling &lt;Felix.Kueh=
-ling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, August 31, 2018 5:34:42 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Kuehling, Felix<br>
-<b>Subject:</b> [PATCH 1/1] drm/amdgpu: Clean up KFD init and fini</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Only initialize KFD once by moving amdgpu_amdkfd_i=
-nit from<br>
-amdgpu_pci_probe to amdgpu_init. This fixes kernel oopses and hangs<br>
-when booting multi-GPU systems.<br>
-<br>
-Also removed some vestiges of KFD being its own module.<br>
-<br>
-Signed-off-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |&nbsp; 5 &#43;----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp; | 12 &#43;&=
-#43;&#43;&#43;--------<br>
-&nbsp;2 files changed, 5 insertions(&#43;), 12 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c<br>
-index 8bee9a0..a79df2a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-@@ -28,7 &#43;28,6 @@<br>
-&nbsp;#include &lt;linux/module.h&gt;<br>
-&nbsp;<br>
-&nbsp;const struct kgd2kfd_calls *kgd2kfd;<br>
--bool (*kgd2kfd_init_p)(unsigned int, const struct kgd2kfd_calls**);<br>
-&nbsp;<br>
-&nbsp;static const unsigned int compute_vmid_bitmap =3D 0xFF00;<br>
-&nbsp;<br>
-@@ -51,10 &#43;50,8 @@ int amdgpu_amdkfd_init(void)<br>
-&nbsp;<br>
-&nbsp;void amdgpu_amdkfd_fini(void)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (kgd2kfd) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (kgd2kfd)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; kgd2kfd-&gt;exit();<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; symbol_put(kgd2kfd_init);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index a96ceff..b5c2ccb 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -922,14 &#43;922,6 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -ENODEV;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Initialize amdkfd before star=
-ting radeon. If it was not loaded yet,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * defer radeon probing<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_amdkfd_init();<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret =3D=3D -EPROBE_DEFER)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return ret;<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Get rid of things like =
-offb */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_kick_out_fi=
-rmware_fb(pdev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-@@ -1274,6 &#43;1266,10 @@ static int __init amdgpu_init(void)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdriver =3D &amp;amdgpu_km=
-s_pci_driver;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; driver-&gt;num_ioctls =3D =
-amdgpu_max_kms_ioctl;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_register_atpx_handl=
-er();<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Ignore KFD init failures. Norm=
-al when CONFIG_HSA_AMD is not set. */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_init();<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* let modprobe override v=
-ga console setting */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return pci_register_driver=
-(pdriver);<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM5PR12MB1820C4C2E4421EE04CA1FE05F70E0DM5PR12MB1820namp_--
-
---===============0653768530==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0653768530==--
+Pj4+IEBAIC0xNzQ2LDkgKzE4MDUsOSBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZShzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiwKPj4+ICAgICAgICAgICAgICAgdWludDMyX3QgbWVtX3R5cGUg
+PSBiby0+dGJvLm1lbS5tZW1fdHlwZTsKPj4+Cj4+PiAgICAgICAgICAgICAgIGlmICghKGJvLT5w
+cmVmZXJyZWRfZG9tYWlucyAmIGFtZGdwdV9tZW1fdHlwZV90b19kb21haW4obWVtX3R5cGUpKSkK
+Pj4+IC0gICAgICAgICAgICAgICAgICAgIGxpc3RfYWRkX3RhaWwoJmJvX3ZhLT5iYXNlLnZtX3N0
+YXR1cywgJnZtLT5ldmljdGVkKTsKPj4+ICsgICAgICAgICAgICAgICAgICAgIGFtZGdwdV92bV9i
+b19ldmljdGVkKCZib192YS0+YmFzZSk7Cj4+PiAgICAgICAgICAgICAgIGVsc2UKPj4+IC0gICAg
+ICAgICAgICAgICAgICAgIGxpc3RfYWRkKCZib192YS0+YmFzZS52bV9zdGF0dXMsICZ2bS0+aWRs
+ZSk7Cj4+PiArICAgICAgICAgICAgICAgICAgICBhbWRncHVfdm1fYm9faWRsZSgmYm9fdmEtPmJh
+c2UpOwo+PiBUaGVyZSBpcyBhIHNtYWxsIGNoYW5nZSBpbiBiZWhhdmlvdXIgaGVyZSBmb3IgY2xl
+YXJpbmcKPj4gYm9fdmEtPmJhc2UubW92ZWQuIE5vdCBzdXJlIGlmIGl0IG1hdHRlcnMuCj4KPiBV
+c2luZyBsaXN0X2FkZCBpcyBtaW5pbWFsIG1vcmUgZWZmaWNpZW50LgoKV2hhdCBJIG1lYW50IHdh
+cyB0aGF0IHRoZSBvcmlnaW5hbCBjb2RlIHdvdWxkIG5vdCBhbHdheXMgc2V0IGJvX3ZhLT5iYXNl
+Lm1vdmVkID0gZmFsc2UgKGl0J3MgZG9uZSBhIGZldyBsaW5lcyBhYm92ZSB0aGlzIHVuZGVyIHNv
+bWUgY29uZGl0aW9ucywgYnV0IG5vdCBhbHdheXMpLiBUaGUgbmV3IGNvZGUgd2lsbCBhbHdheXMg
+c2V0IGJvX3ZhLT5iYXNlLm1vdmVkID0gZmFsc2UgaW5zaWRlIGFtZGdwdV92bV9ib19pZGxlLgoK
+UmVnYXJkcywKICBGZWxpeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNv
+bT4KU2VudDogU2F0dXJkYXksIFNlcHRlbWJlciAxLCAyMDE4IDQ6MTY6MTcgQU0KVG86IEt1ZWhs
+aW5nLCBGZWxpeDsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKU3ViamVjdDogUmU6IFtQ
+QVRDSCAyLzJdIGRybS9hbWRncHU6IGltcHJvdmUgVk0gc3RhdGUgbWFjaGluZSBkb2N1bWVudGF0
+aW9uCgpBbSAwMS4wOS4yMDE4IHVtIDAxOjUxIHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4gVGhh
+bmtzIGZvciB0aGlzLiBBIGZldyBjb21tZW50cyBhbmQgYSBxdWVzdGlvbiBpbmxpbmUuCj4KPiBP
+biAyMDE4LTA4LTMxIDA5OjI3IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBTaW5jZSB3
+ZSBoYXZlIGEgbG90IG9mIEZBUSBvbiB0aGUgVk0gc3RhdGUgbWFjaGluZSB0cnkgdG8gaW1wcm92
+ZSB0aGUKPj4gZG9jdW1lbnRhdGlvbiBieSBhZGRpbmcgZnVuY3Rpb25zIGZvciBlYWNoIHN0YXRl
+IG1vdmUuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
+b2VuaWdAYW1kLmNvbT4KPj4gLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmMgfCAxMDcgKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tCj4+ICAgMSBm
+aWxlIGNoYW5nZWQsIDc5IGluc2VydGlvbnMoKyksIDI4IGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+PiBpbmRleCBhOTI3NWE5OWQ3OTMuLjQw
+YzIyNjM1ZmVmZCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMK
+Pj4gQEAgLTIwNCw2ICsyMDQsNjkgQEAgc3RhdGljIHVuc2lnbmVkIGFtZGdwdV92bV9ib19zaXpl
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBsZXZlbCkKPj4gICAgICByZXR1
+cm4gQU1ER1BVX0dQVV9QQUdFX0FMSUdOKGFtZGdwdV92bV9udW1fZW50cmllcyhhZGV2LCBsZXZl
+bCkgKiA4KTsKPj4gICB9Cj4+Cj4+ICsvKioKPj4gKyAqIGFtZGdwdV92bV9ib19ldmljdGVkIC0g
+dm1fYm8gaXMgZXZpY3RlZAo+PiArICoKPj4gKyAqIEB2bV9ibzogdm1fYm8gd2hpY2ggaXMgZXZp
+Y3RlZAo+PiArICoKPj4gKyAqIFN0YXRlIGZvciBQRHMvUFRzIGFuZCBwZXIgVk0gQk9zIHdoaWNo
+IGFyZSBub3QgYXQgdGhlIGxvY2F0aW9uIHRoZXkgc2hvdWxkCj4+ICsgKiBiZS4KPj4gKyAqLwo+
+PiArc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2JvX2V2aWN0ZWQoc3RydWN0IGFtZGdwdV92bV9ib19i
+YXNlICp2bV9ibykKPj4gK3sKPj4gKyAgICBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSA9IHZtX2JvLT52
+bTsKPj4gKyAgICBzdHJ1Y3QgYW1kZ3B1X2JvICpibyA9IHZtX2JvLT5ibzsKPj4gKwo+PiArICAg
+IHZtX2JvLT5tb3ZlZCA9IHRydWU7Cj4+ICsgICAgaWYgKGJvLT50Ym8udHlwZSA9PSB0dG1fYm9f
+dHlwZV9rZXJuZWwpCj4+ICsgICAgICAgICAgICBsaXN0X21vdmUoJnZtX2JvLT52bV9zdGF0dXMs
+ICZ2bS0+ZXZpY3RlZCk7Cj4+ICsgICAgZWxzZQo+PiArICAgICAgICAgICAgbGlzdF9tb3ZlX3Rh
+aWwoJnZtX2JvLT52bV9zdGF0dXMsICZ2bS0+ZXZpY3RlZCk7Cj4+ICt9Cj4+ICsKPj4gKy8qKgo+
+PiArICogYW1kZ3B1X3ZtX2JvX3JlbG9jYXRlZCAtIHZtX2JvIGlzIHJlbG9hY3RlZAo+PiArICoK
+Pj4gKyAqIEB2bV9ibzogdm1fYm8gd2hpY2ggaXMgcmVsb2NhdGVkCj4+ICsgKgo+PiArICogU3Rh
+dGUgZm9yIFBEcy9QVHMgd2hpY2ggbmVlZHMgdG8gdXBkYXRlIHRoZWlyIHBhcmVudCBQRC4KPj4g
+KyAqLwo+PiArc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2JvX3JlbG9jYXRlZChzdHJ1Y3QgYW1kZ3B1
+X3ZtX2JvX2Jhc2UgKnZtX2JvKQo+PiArewo+PiArICAgIGxpc3RfbW92ZSgmdm1fYm8tPnZtX3N0
+YXR1cywgJnZtX2JvLT52bS0+cmVsb2NhdGVkKTsKPj4gK30KPj4gKwo+PiArLyoqCj4+ICsgKiBh
+bWRncHVfdm1fYm9fbW92ZWQgLSB2bV9ibyBpcyBtb3ZlZAo+PiArICoKPj4gKyAqIEB2bV9ibzog
+dm1fYm8gd2hpY2ggaXMgbW92ZWQKPj4gKyAqCj4+ICsgKiBTdGF0ZSBmb3IgcGVyIFZNIGFuZCBu
+b3JtYWwgQk9zIHdoaWNoIGFyZSBtb3ZlZCwgYnV0IHRoYXQgY2hhbmdlIGlzIG5vdCB5ZXQKPj4g
+KyAqIHJlZmxlY3RlZCBpbiB0aGUgcGFnZSB0YWJsZXMuCj4gSSBoYXZlIGEgcXVlc3Rpb24gaGVy
+ZS4gV2h5IGRvZXMgYW1kZ3B1X2NzX3ZtX2hhbmRsaW5nIGNhbGwKPiBhbWRncHVfdm1fYm9fdXBk
+YXRlIG1hbnVhbGx5IGZvciBpdHMgQk8gbGlzdCBlbnRyaWVzPyBXb3VsZG4ndCBpdCBiZQo+IGVu
+b3VnaCB0byBqdXN0IGNhbGwgYW1kZ3B1X3ZtX2hhbmRsZV9tb3ZlZD8KCk5vLCBpdCBpcyBzdGls
+bCBwb3NzaWJsZSB0aGF0IHRoZSBtYXBwaW5nIG9mIHRoZSBCTyB3YXMgbmV2ZXIgdXBkYXRlZApi
+ZWNhdXNlIHRoZSBWTSBwYWdlIHRhYmxlcyB3aGVyZSBldmljdGVkLgoKV2Ugc3RpbGwgbmVlZCB0
+byBtYWtlIHN1cmUgdGhhdCBhbGwgQk9zIG9mIHRoZSBjdXJyZW50IHN1Ym1pc3Npb24gYXJlCnVw
+ZGF0ZWQgY29ycmVjdGx5LgoKPgo+PiArICovCj4+ICtzdGF0aWMgdm9pZCBhbWRncHVfdm1fYm9f
+bW92ZWQoc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICp2bV9ibykKPj4gK3sKPj4gKyAgICBzdHJ1
+Y3QgYW1kZ3B1X3ZtICp2bSA9IHZtX2JvLT52bTsKPj4gKwo+PiArICAgIHNwaW5fbG9jaygmdm0t
+Pm1vdmVkX2xvY2spOwo+PiArICAgIGxpc3RfbW92ZSgmdm1fYm8tPnZtX3N0YXR1cywgJnZtLT5t
+b3ZlZCk7Cj4+ICsgICAgc3Bpbl91bmxvY2soJnZtLT5tb3ZlZF9sb2NrKTsKPiBJZiB2bS0+bW92
+ZWRfbG9jayBwcm90ZWN0cyB0aGUgbW92ZWQgbGlzdCwgZG8gd2UgYWxzbyBuZWVkIHRvIHRha2Ug
+aXQKPiB3aGVuZXZlciBzb21ldGhpbmcgaXMgbW92ZWQgZnJvbSB0aGF0IGxpc3Q/CgpDb3JyZWN0
+LCB5ZXMuCgo+IFRoYXQgY291bGQgcG90ZW50aWFsbHkgYmUKPiBhbnkgbGlzdF9tb3ZlIG9wZXJh
+dGlvbiB0aGF0IHVzZXMgdm1fYm8tPnZtX3N0YXR1cy4gSSBmb3VuZCBvbmUgY2FzZQo+IGJlbG93
+IHdoZXJlIHRoYXQgbWF5IG5vdCBiZSBoYW5kbGVkIGNvcnJlY3RseS4KPgo+PiArfQo+PiArCj4+
+ICsvKioKPj4gKyAqIGFtZGdwdV92bV9ib19pZGxlIC0gdm1fYm8gaXMgaWRsZQo+PiArICoKPj4g
+KyAqIEB2bV9ibzogdm1fYm8gd2hpY2ggaXMgbm93IGlkbGUKPj4gKyAqCj4+ICsgKiBTdGF0ZSBm
+b3IgUERzL1BUcyBhbmQgcGVyIFZNIEJPcyB3aGljaCBoYXZlIGdvbmUgdGhyb3VnaCB0aGUgc3Rh
+dGUgbWFjaGluZQo+PiArICogYW5kIGFyZSBub3cgaWRsZS4KPj4gKyAqLwo+PiArc3RhdGljIHZv
+aWQgYW1kZ3B1X3ZtX2JvX2lkbGUoc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICp2bV9ibykKPj4g
+K3sKPj4gKyAgICBsaXN0X21vdmUoJnZtX2JvLT52bV9zdGF0dXMsICZ2bV9iby0+dm0tPmlkbGUp
+Owo+PiArICAgIHZtX2JvLT5tb3ZlZCA9IGZhbHNlOwo+PiArfQo+PiArCj4+ICAgLyoqCj4+ICAg
+ICogYW1kZ3B1X3ZtX2JvX2Jhc2VfaW5pdCAtIEFkZHMgYm8gdG8gdGhlIGxpc3Qgb2YgYm9zIGFz
+c29jaWF0ZWQgd2l0aCB0aGUgdm0KPj4gICAgKgo+PiBAQCAtMjMyLDkgKzI5NSw5IEBAIHN0YXRp
+YyB2b2lkIGFtZGdwdV92bV9ib19iYXNlX2luaXQoc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICpi
+YXNlLAo+Pgo+PiAgICAgIHZtLT5idWxrX21vdmVhYmxlID0gZmFsc2U7Cj4+ICAgICAgaWYgKGJv
+LT50Ym8udHlwZSA9PSB0dG1fYm9fdHlwZV9rZXJuZWwpCj4+IC0gICAgICAgICAgICBsaXN0X21v
+dmUoJmJhc2UtPnZtX3N0YXR1cywgJnZtLT5yZWxvY2F0ZWQpOwo+PiArICAgICAgICAgICAgYW1k
+Z3B1X3ZtX2JvX3JlbG9jYXRlZChiYXNlKTsKPj4gICAgICBlbHNlCj4+IC0gICAgICAgICAgICBs
+aXN0X21vdmUoJmJhc2UtPnZtX3N0YXR1cywgJnZtLT5pZGxlKTsKPj4gKyAgICAgICAgICAgIGFt
+ZGdwdV92bV9ib19pZGxlKGJhc2UpOwo+Pgo+PiAgICAgIGlmIChiby0+cHJlZmVycmVkX2RvbWFp
+bnMgJgo+PiAgICAgICAgICBhbWRncHVfbWVtX3R5cGVfdG9fZG9tYWluKGJvLT50Ym8ubWVtLm1l
+bV90eXBlKSkKPj4gQEAgLTI0NSw4ICszMDgsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdm1fYm9f
+YmFzZV9pbml0KHN0cnVjdCBhbWRncHVfdm1fYm9fYmFzZSAqYmFzZSwKPj4gICAgICAgKiBpcyBj
+dXJyZW50bHkgZXZpY3RlZC4gYWRkIHRoZSBibyB0byB0aGUgZXZpY3RlZCBsaXN0IHRvIG1ha2Ug
+c3VyZSBpdAo+PiAgICAgICAqIGlzIHZhbGlkYXRlZCBvbiBuZXh0IHZtIHVzZSB0byBhdm9pZCBm
+YXVsdC4KPj4gICAgICAgKiAqLwo+PiAtICAgIGxpc3RfbW92ZV90YWlsKCZiYXNlLT52bV9zdGF0
+dXMsICZ2bS0+ZXZpY3RlZCk7Cj4+IC0gICAgYmFzZS0+bW92ZWQgPSB0cnVlOwo+PiArICAgIGFt
+ZGdwdV92bV9ib19ldmljdGVkKGJhc2UpOwo+PiAgIH0KPj4KPj4gICAvKioKPj4gQEAgLTM0Miw5
+ICs0MDQsNyBAQCBpbnQgYW1kZ3B1X3ZtX3ZhbGlkYXRlX3B0X2JvcyhzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4+ICAgICAgICAgICAgICAgICAgICAg
+IGJyZWFrOwo+Pgo+PiAgICAgICAgICAgICAgaWYgKGJvLT50Ym8udHlwZSAhPSB0dG1fYm9fdHlw
+ZV9rZXJuZWwpIHsKPj4gLSAgICAgICAgICAgICAgICAgICAgc3Bpbl9sb2NrKCZ2bS0+bW92ZWRf
+bG9jayk7Cj4+IC0gICAgICAgICAgICAgICAgICAgIGxpc3RfbW92ZSgmYm9fYmFzZS0+dm1fc3Rh
+dHVzLCAmdm0tPm1vdmVkKTsKPj4gLSAgICAgICAgICAgICAgICAgICAgc3Bpbl91bmxvY2soJnZt
+LT5tb3ZlZF9sb2NrKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X3ZtX2JvX21vdmVk
+KGJvX2Jhc2UpOwo+PiAgICAgICAgICAgICAgfSBlbHNlIHsKPj4gICAgICAgICAgICAgICAgICAg
+ICAgaWYgKHZtLT51c2VfY3B1X2Zvcl91cGRhdGUpCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgciA9IGFtZGdwdV9ib19rbWFwKGJvLCBOVUxMKTsKPj4gQEAgLTM1Miw3ICs0MTIsNyBA
+QCBpbnQgYW1kZ3B1X3ZtX3ZhbGlkYXRlX3B0X2JvcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+diwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ciA9IGFtZGdwdV90dG1fYWxsb2NfZ2FydCgmYm8tPnRibyk7Cj4+ICAgICAgICAgICAgICAgICAg
+ICAgIGlmIChyKQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+PiAtICAg
+ICAgICAgICAgICAgICAgICBsaXN0X21vdmUoJmJvX2Jhc2UtPnZtX3N0YXR1cywgJnZtLT5yZWxv
+Y2F0ZWQpOwo+PiArICAgICAgICAgICAgICAgICAgICBhbWRncHVfdm1fYm9fcmVsb2NhdGVkKGJv
+X2Jhc2UpOwo+PiAgICAgICAgICAgICAgfQo+PiAgICAgIH0KPj4KPj4gQEAgLTExMjMsOCArMTE4
+Myw3IEBAIGludCBhbWRncHVfdm1fdXBkYXRlX2RpcmVjdG9yaWVzKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LAo+PiAgICAgICAgICAgICAgYm9fYmFzZSA9IGxpc3RfZmlyc3RfZW50cnkoJnZt
+LT5yZWxvY2F0ZWQsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
+dHJ1Y3QgYW1kZ3B1X3ZtX2JvX2Jhc2UsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB2bV9zdGF0dXMpOwo+PiAtICAgICAgICAgICAgYm9fYmFzZS0+bW92ZWQgPSBm
+YWxzZTsKPj4gLSAgICAgICAgICAgIGxpc3RfbW92ZSgmYm9fYmFzZS0+dm1fc3RhdHVzLCAmdm0t
+PmlkbGUpOwo+PiArICAgICAgICAgICAgYW1kZ3B1X3ZtX2JvX2lkbGUoYm9fYmFzZSk7Cj4+Cj4+
+ICAgICAgICAgICAgICBibyA9IGJvX2Jhc2UtPmJvLT5wYXJlbnQ7Cj4+ICAgICAgICAgICAgICBp
+ZiAoIWJvKQo+PiBAQCAtMTI0Myw3ICsxMzAyLDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2hh
+bmRsZV9odWdlX3BhZ2VzKHN0cnVjdCBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMgKnAsCj4+ICAg
+ICAgICAgICAgICBpZiAoZW50cnktPmh1Z2UpIHsKPj4gICAgICAgICAgICAgICAgICAgICAgLyog
+QWRkIHRoZSBlbnRyeSB0byB0aGUgcmVsb2NhdGVkIGxpc3QgdG8gdXBkYXRlIGl0LiAqLwo+PiAg
+ICAgICAgICAgICAgICAgICAgICBlbnRyeS0+aHVnZSA9IGZhbHNlOwo+PiAtICAgICAgICAgICAg
+ICAgICAgICBsaXN0X21vdmUoJmVudHJ5LT5iYXNlLnZtX3N0YXR1cywgJnAtPnZtLT5yZWxvY2F0
+ZWQpOwo+PiArICAgICAgICAgICAgICAgICAgICBhbWRncHVfdm1fYm9fcmVsb2NhdGVkKCZlbnRy
+eS0+YmFzZSk7Cj4+ICAgICAgICAgICAgICB9Cj4+ICAgICAgICAgICAgICByZXR1cm47Cj4+ICAg
+ICAgfQo+PiBAQCAtMTc0Niw5ICsxODA1LDkgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+ICAgICAgICAgICAgICB1aW50MzJfdCBtZW1fdHlw
+ZSA9IGJvLT50Ym8ubWVtLm1lbV90eXBlOwo+Pgo+PiAgICAgICAgICAgICAgaWYgKCEoYm8tPnBy
+ZWZlcnJlZF9kb21haW5zICYgYW1kZ3B1X21lbV90eXBlX3RvX2RvbWFpbihtZW1fdHlwZSkpKQo+
+PiAtICAgICAgICAgICAgICAgICAgICBsaXN0X2FkZF90YWlsKCZib192YS0+YmFzZS52bV9zdGF0
+dXMsICZ2bS0+ZXZpY3RlZCk7Cj4+ICsgICAgICAgICAgICAgICAgICAgIGFtZGdwdV92bV9ib19l
+dmljdGVkKCZib192YS0+YmFzZSk7Cj4+ICAgICAgICAgICAgICBlbHNlCj4+IC0gICAgICAgICAg
+ICAgICAgICAgIGxpc3RfYWRkKCZib192YS0+YmFzZS52bV9zdGF0dXMsICZ2bS0+aWRsZSk7Cj4+
+ICsgICAgICAgICAgICAgICAgICAgIGFtZGdwdV92bV9ib19pZGxlKCZib192YS0+YmFzZSk7Cj4g
+VGhlcmUgaXMgYSBzbWFsbCBjaGFuZ2UgaW4gYmVoYXZpb3VyIGhlcmUgZm9yIGNsZWFyaW5nCj4g
+Ym9fdmEtPmJhc2UubW92ZWQuIE5vdCBzdXJlIGlmIGl0IG1hdHRlcnMuCgpVc2luZyBsaXN0X2Fk
+ZCBpcyBtaW5pbWFsIG1vcmUgZWZmaWNpZW50LgoKPgo+PiAgICAgIH0KPj4KPj4gICAgICBsaXN0
+X3NwbGljZV9pbml0KCZib192YS0+aW52YWxpZHMsICZib192YS0+dmFsaWRzKTsKPj4gQEAgLTI0
+NzIsMjggKzI1MzEsMjAgQEAgdm9pZCBhbWRncHVfdm1fYm9faW52YWxpZGF0ZShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwKPj4KPj4gICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KGJvX2Jhc2Us
+ICZiby0+dmEsIGJvX2xpc3QpIHsKPj4gICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfdm0gKnZt
+ID0gYm9fYmFzZS0+dm07Cj4+IC0gICAgICAgICAgICBib29sIHdhc19tb3ZlZCA9IGJvX2Jhc2Ut
+Pm1vdmVkOwo+Pgo+PiAtICAgICAgICAgICAgYm9fYmFzZS0+bW92ZWQgPSB0cnVlOwo+PiAgICAg
+ICAgICAgICAgaWYgKGV2aWN0ZWQgJiYgYm8tPnRiby5yZXN2ID09IHZtLT5yb290LmJhc2UuYm8t
+PnRiby5yZXN2KSB7Cj4+IC0gICAgICAgICAgICAgICAgICAgIGlmIChiby0+dGJvLnR5cGUgPT0g
+dHRtX2JvX3R5cGVfa2VybmVsKQo+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxpc3Rf
+bW92ZSgmYm9fYmFzZS0+dm1fc3RhdHVzLCAmdm0tPmV2aWN0ZWQpOwo+PiAtICAgICAgICAgICAg
+ICAgICAgICBlbHNlCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgbGlzdF9tb3ZlX3Rh
+aWwoJmJvX2Jhc2UtPnZtX3N0YXR1cywKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAmdm0tPmV2aWN0ZWQpOwo+PiArICAgICAgICAgICAgICAgICAgICBhbWRn
+cHVfdm1fYm9fZXZpY3RlZChib19iYXNlKTsKPiBJIHRoaW5rIGhlcmUgaXQncyBwb3NzaWJsZSB0
+aGF0IHRoZSBCTyB3YXMgb24gdGhlIG1vdmVkIGxpc3QuIEkgdGhpbmsKPiB0aGF0IG1lYW5zIGFt
+ZGdwdV92bV9ib19ldmljdGVkIHNob3VsZCB0YWtlIHRoZSBtb3ZlZF9sb2NrIGp1c3QgaW4gY2Fz
+ZS4KCkdvb2QgcG9pbnQsIHByb2JhYmx5IGJlc3QgaWYgSSBzcGxpdCB1cCB0aGUgbW92ZWQgbGlz
+dCBpbnRvIHBlciBWTSBCT3MKYW5kIGFsbCBvdGhlciBCT3MuCgpUaGF0IHNob3VsZCBtYWtlIHRo
+ZSBsb2NraW5nIG11Y2ggbW9yZSBjbGVhci4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4KPiBSZWdh
+cmRzLAo+ICAgIEZlbGl4Cj4KPj4gICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4+ICAg
+ICAgICAgICAgICB9Cj4+Cj4+IC0gICAgICAgICAgICBpZiAod2FzX21vdmVkKQo+PiArICAgICAg
+ICAgICAgaWYgKGJvX2Jhc2UtPm1vdmVkKQo+PiAgICAgICAgICAgICAgICAgICAgICBjb250aW51
+ZTsKPj4KPj4gLSAgICAgICAgICAgIGlmIChiby0+dGJvLnR5cGUgPT0gdHRtX2JvX3R5cGVfa2Vy
+bmVsKSB7Cj4+IC0gICAgICAgICAgICAgICAgICAgIGxpc3RfbW92ZSgmYm9fYmFzZS0+dm1fc3Rh
+dHVzLCAmdm0tPnJlbG9jYXRlZCk7Cj4+IC0gICAgICAgICAgICB9IGVsc2Ugewo+PiAtICAgICAg
+ICAgICAgICAgICAgICBzcGluX2xvY2soJmJvX2Jhc2UtPnZtLT5tb3ZlZF9sb2NrKTsKPj4gLSAg
+ICAgICAgICAgICAgICAgICAgbGlzdF9tb3ZlKCZib19iYXNlLT52bV9zdGF0dXMsICZ2bS0+bW92
+ZWQpOwo+PiAtICAgICAgICAgICAgICAgICAgICBzcGluX3VubG9jaygmYm9fYmFzZS0+dm0tPm1v
+dmVkX2xvY2spOwo+PiAtICAgICAgICAgICAgfQo+PiArICAgICAgICAgICAgYm9fYmFzZS0+bW92
+ZWQgPSB0cnVlOwo+PiArICAgICAgICAgICAgaWYgKGJvLT50Ym8udHlwZSA9PSB0dG1fYm9fdHlw
+ZV9rZXJuZWwpCj4+ICsgICAgICAgICAgICAgICAgICAgIGFtZGdwdV92bV9ib19yZWxvY2F0ZWQo
+Ym9fYmFzZSk7Cj4+ICsgICAgICAgICAgICBlbHNlCj4+ICsgICAgICAgICAgICAgICAgICAgIGFt
+ZGdwdV92bV9ib19tb3ZlZChib19iYXNlKTsKPj4gICAgICB9Cj4+ICAgfQo+PgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
