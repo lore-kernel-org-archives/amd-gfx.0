@@ -1,57 +1,68 @@
-From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH libdrm] amdgpu: When couldn't find bo, need to return
- error.
-Date: Sat, 1 Sep 2018 08:58:20 +0000
-Message-ID: <DM6PR12MB265273E1B06F0AB7A3B32A4D8F0E0@DM6PR12MB2652.namprd12.prod.outlook.com>
-References: <1535775863-27689-1-git-send-email-Emily.Deng@amd.com>
- <aabe391a-d6d5-564f-1e0d-b2fb218bdeae@gmail.com>
+From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
+Subject: Re: [PATCH v2 00/12] remove_conflicting_framebuffers() cleanup
+Date: Sat, 1 Sep 2018 15:45:31 +0200
+Message-ID: <20180901134531.GA23402@qmqm.qmqm.pl>
+References: <cover.1511544782.git.mirq-linux@rere.qmqm.pl>
+	<cover.1535656077.git.mirq-linux@rere.qmqm.pl>
+	<20180831090439.GT21634@phenom.ffwll.local>
+	<153570646209.15613.3061584574975657074@skylake-alporthouse-com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <aabe391a-d6d5-564f-1e0d-b2fb218bdeae-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <virtualization-bounces@lists.linux-foundation.org>
+Content-Disposition: inline
+In-Reply-To: <153570646209.15613.3061584574975657074@skylake-alporthouse-com>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/virtualization>,
+	<mailto:virtualization-request@lists.linux-foundation.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/virtualization/>
+List-Post: <mailto:virtualization@lists.linux-foundation.org>
+List-Help: <mailto:virtualization-request@lists.linux-foundation.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/virtualization>,
+	<mailto:virtualization-request@lists.linux-foundation.org?subject=subscribe>
+Sender: virtualization-bounces@lists.linux-foundation.org
+Errors-To: virtualization-bounces@lists.linux-foundation.org
+To: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: linux-fbdev@vger.kernel.org, Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org, linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Maxime Ripard <maxime.ripard@bootlin.com>, linux-arm-kernel@lists.infradead.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T2ssIHRoZW4ganVzdCBpZ25vcmUgdGhpcyBwYXRjaC4gQnV0IHNlZW1zIGRpZG4ndCBzYXcgdGhl
-IHBhdGNoIG9uIGJyYW5jaCBhbWQtc3RhZ2luZy1oeWJyaWQtbWFzdGVyMjAxODAzMTUuDQoNCkJl
-c3Qgd2lzaGVzDQpFbWlseSBEZW5nDQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZy
-b206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPg0K
-PlNlbnQ6IFNhdHVyZGF5LCBTZXB0ZW1iZXIgMSwgMjAxOCA0OjE3IFBNDQo+VG86IERlbmcsIEVt
-aWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-PlN1YmplY3Q6IFJlOiBbUEFUQ0ggbGliZHJtXSBhbWRncHU6IFdoZW4gY291bGRuJ3QgZmluZCBi
-bywgbmVlZCB0byByZXR1cm4NCj5lcnJvci4NCj4NCj5BbSAwMS4wOS4yMDE4IHVtIDA2OjI0IHNj
-aHJpZWIgRW1pbHkgRGVuZzoNCj4+IFRoZSBzdGFydHggd2lsbCBoYXZlIHNlZ21hbnQgZmF1bHQg
-aWYgcmV0dXJuIHN1Y2Nlc3MuDQo+Pg0KPj4gU1dERVYtMTYzOTYyDQo+Pg0KPj4gQ2hhbmdlLUlk
-OiBJNTZiMTg5ZmEyNmVmZGNkMWQ5NmU1MTAwYWYzZjNlMGIxMjA4YjBjMw0KPj4gU2lnbmVkLW9m
-Zi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPg0KPg0KPkplcnJ5IGFscmVhZHkg
-c2VuZCBhIG11Y2ggYmV0dGVyIHBhdGNoIGZvciB0aGlzLg0KPg0KPj4gLS0tDQo+PiAgIGFtZGdw
-dS9hbWRncHVfYm8uYyB8IDQgKysrLQ0KPj4gICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25z
-KCspLCAxIGRlbGV0aW9uKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVfYm8u
-YyBiL2FtZGdwdS9hbWRncHVfYm8uYyBpbmRleA0KPj4gZjI1Y2FjYy4uN2UyOTdmYSAxMDA2NDQN
-Cj4+IC0tLSBhL2FtZGdwdS9hbWRncHVfYm8uYw0KPj4gKysrIGIvYW1kZ3B1L2FtZGdwdV9iby5j
-DQo+PiBAQCAtNzYwLDYgKzc2MCw3IEBAIGludA0KPmFtZGdwdV9maW5kX2JvX2J5X2NwdV9tYXBw
-aW5nKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4+ICAgCQkJCSAgdWludDY0X3QgKm9mZnNl
-dF9pbl9ibykNCj4+ICAgew0KPj4gICAJdWludDMyX3QgaTsNCj4+ICsJaW50IHIgPSAwOw0KPj4g
-ICAJc3RydWN0IGFtZGdwdV9ibyAqYm87DQo+Pg0KPj4gICAJaWYgKGNwdSA9PSBOVUxMIHx8IHNp
-emUgPT0gMCkNCj4+IEBAIC03ODcsMTAgKzc4OCwxMSBAQCBpbnQNCj5hbWRncHVfZmluZF9ib19i
-eV9jcHVfbWFwcGluZyhhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsDQo+PiAgIAl9IGVsc2Ugew0K
-Pj4gICAJCSpidWZfaGFuZGxlID0gTlVMTDsNCj4+ICAgCQkqb2Zmc2V0X2luX2JvID0gMDsNCj4+
-ICsJCXIgPSAtZXJybm87DQo+DQo+ZXJybm8gZG9lc24ndCBjb250YWluIGFueSBlcnJvciBpbiB0
-aGlzIGNhc2UuDQo+DQo+PiAgIAl9DQo+PiAgIAlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5i
-b190YWJsZV9tdXRleCk7DQo+Pg0KPj4gLQlyZXR1cm4gMDsNCj4+ICsJcmV0dXJuIHI7DQo+PiAg
-IH0NCj4+DQo+PiAgIGludCBhbWRncHVfY3JlYXRlX2JvX2Zyb21fdXNlcl9tZW0oYW1kZ3B1X2Rl
-dmljZV9oYW5kbGUgZGV2LA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+On Fri, Aug 31, 2018 at 10:07:42AM +0100, Chris Wilson wrote:
+[...]
+> Ahah, someone is looking at remove_conflicting_framebuffers(). May I
+> interest you in a use-after-free?
+
+> [  378.423513] stack segment: 0000 [#1] PREEMPT SMP PTI
+> [  378.423530] CPU: 1 PID: 4338 Comm: pm_rpm Tainted: G     U            =
+4.19.0-rc1-CI-CI_DRM_4746+ #1
+> [  378.423548] Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.=
+M./J4205-ITX, BIOS P1.10 09/29/2016
+> [  378.423570] RIP: 0010:do_remove_conflicting_framebuffers+0x56/0x170
+> [  378.423587] Code: 49 8b 45 00 48 85 c0 74 50 f6 40 0a 08 74 4a 4d 85 e=
+4 48 8b a8 78 04 00 00 74 1f 48 85 ed 74 1a 41 8b 0c 24 31 db 85 c9 74 10 <=
+8b> 55 00 85 d2 75 42 83 c3 01 41 39 1c 24 77 f0 48 85 ed 74 1a 45
+> [  378.423620] RSP: 0018:ffffc900001dfa88 EFLAGS: 00010202
+> [  378.423632] RAX: ffff880274470008 RBX: 0000000000000000 RCX: 000000000=
+0000001
+> [  378.423646] RDX: 0000000000000001 RSI: ffffffffa025c634 RDI: ffff88025=
+cc3b428
+> [  378.423660] RBP: 6b6b6b6b6b6b6b6b R08: 000000001edaddfa R09: ffffffffa=
+025c634
+> [  378.423673] R10: ffffc900001dfae8 R11: ffffffff820de938 R12: ffff88025=
+cc3b428
+> [  378.423687] R13: ffffffff8234ca20 R14: ffffffff8234cb20 R15: 000000000=
+0000001
+> [  378.423701] FS:  00007fcf03d0a980(0000) GS:ffff880277e80000(0000) knlG=
+S:0000000000000000
+> [  378.423717] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  378.423729] CR2: 00007fffece1fdb8 CR3: 00000001fe32e000 CR4: 000000000=
+03406e0
+> [  378.423742] Call Trace:
+> [  378.423756]  remove_conflicting_framebuffers+0x28/0x40
+> [  378.423856]  i915_driver_load+0x7f5/0x10c0 [i915]
+[...]
+
+Looks like registered_fb[] entry is pointing to (partially?) freed or
+corrupted fb_info, but I can't see how this could be an effect of
+remove_conflicting_framebuffers().
+
+Best Regards,
+Micha=B3 Miros=B3aw
