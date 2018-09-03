@@ -1,11 +1,17 @@
-From: Acewind <acewind-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: =?UTF-8?Q?build_on_CentOS_7=2E3_hostos=3A_too_few_arguments_to_fun?=
- =?UTF-8?Q?ction_=E2=80=98notify=5Fchange=E2=80=99?=
-Date: Mon, 3 Sep 2018 10:42:39 +0800
-Message-ID: <CA+B2R57QA1mpmM+Fs0MhZnrNpBNWLP9mdNMnOTDu=qdB+n_p_g@mail.gmail.com>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: When couldn't find bo, need to return
+ error.
+Date: Mon, 3 Sep 2018 15:16:47 +0800
+Message-ID: <5B8CDFDF.2030703@amd.com>
+References: <1535775863-27689-1-git-send-email-Emily.Deng@amd.com>
+ <aabe391a-d6d5-564f-1e0d-b2fb218bdeae@gmail.com>
+ <DM6PR12MB265273E1B06F0AB7A3B32A4D8F0E0@DM6PR12MB2652.namprd12.prod.outlook.com>
+ <5B8C9169.4000909@amd.com> <48942a46-474b-a120-5b61-2fcbaf3eae4b@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1271264861=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <48942a46-474b-a120-5b61-2fcbaf3eae4b-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,88 +22,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?windows-1252?Q?Christian_K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "Deng,
+ Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1271264861==
-Content-Type: multipart/alternative; boundary="00000000000059853b0574ee7f61"
-
---00000000000059853b0574ee7f61
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-After download code from
-https://github.com/GPUOpen-LibrariesAndSDKs/MxGPU-Virtualization,  I try to
-compile MxGPU-Virtualization-master source on my CentOS 7.3 host, but got
-an error.  Do I need to change the kernel of hostos?
-
-[root@myhost drv]# uname -r
-3.10.0-514.el7.x86_64
-
-[root@myhost drv]# make
-make -C /lib/modules/3.10.0-514.el7.x86_64/build
-M=3D/home/astute/zwj/MxGPU-Virtualization-master/drv modules
-make[1]: Entering directory `/usr/src/kernels/3.10.0-514.el7.x86_64'
-  CC [M]  /home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.o
-/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c: In function
-=E2=80=98file_truncate=E2=80=99:
-/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c:87:2: error:
-too few arguments to function =E2=80=98notify_change=E2=80=99
-  ret =3D notify_change(file->f_path.dentry, &newattrs);
-  ^
-In file included from
-/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c:23:0:
-include/linux/fs.h:2579:12: note: declared here
- extern int notify_change(struct dentry *, struct iattr *, struct inode **)=
-;
-            ^
-make[2]: *** [/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.o]
-Error 1
-make[1]: *** [_module_/home/astute/zwj/MxGPU-Virtualization-master/drv]
-Error 2
-make[1]: Leaving directory `/usr/src/kernels/3.10.0-514.el7.x86_64'
-make: *** [all] Error 2
-
---00000000000059853b0574ee7f61
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
-r=3D"ltr"><div>After download code from=C2=A0<a href=3D"https://github.com/=
-GPUOpen-LibrariesAndSDKs/MxGPU-Virtualization">https://github.com/GPUOpen-L=
-ibrariesAndSDKs/MxGPU-Virtualization</a>,=C2=A0 I try to compile MxGPU-Virt=
-ualization-master source on my CentOS 7.3 host, but got an error.=C2=A0 Do =
-I need to change the kernel of hostos?</div><div dir=3D"ltr"><div><br></div=
-><div><div>[root@myhost drv]# uname -r</div><div>3.10.0-514.el7.x86_64</div=
-></div><div><br></div><div>[root@myhost drv]# make<br></div><div><div>make =
--C /lib/modules/3.10.0-514.el7.x86_64/build M=3D/home/astute/zwj/MxGPU-Virt=
-ualization-master/drv modules</div><div>make[1]: Entering directory `/usr/s=
-rc/kernels/3.10.0-514.el7.x86_64&#39;</div><div>=C2=A0 CC [M]=C2=A0 /home/a=
-stute/zwj/MxGPU-Virtualization-master/drv/gim_file.o</div><div>/home/astute=
-/zwj/MxGPU-Virtualization-master/drv/gim_file.c: In function =E2=80=98file_=
-truncate=E2=80=99:</div><div>/home/astute/zwj/MxGPU-Virtualization-master/d=
-rv/gim_file.c:87:2: error: too few arguments to function =E2=80=98notify_ch=
-ange=E2=80=99</div><div>=C2=A0 ret =3D notify_change(file-&gt;f_path.dentry=
-, &amp;newattrs);</div><div>=C2=A0 ^</div><div>In file included from /home/=
-astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c:23:0:</div><div>inclu=
-de/linux/fs.h:2579:12: note: declared here</div><div>=C2=A0extern int notif=
-y_change(struct dentry *, struct iattr *, struct inode **);</div><div>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^</div><div>make[2]: *** [/home/astu=
-te/zwj/MxGPU-Virtualization-master/drv/gim_file.o] Error 1</div><div>make[1=
-]: *** [_module_/home/astute/zwj/MxGPU-Virtualization-master/drv] Error 2</=
-div><div>make[1]: Leaving directory `/usr/src/kernels/3.10.0-514.el7.x86_64=
-&#39;</div><div>make: *** [all] Error 2</div></div><div><br></div></div></d=
-iv></div></div></div></div>
-
---00000000000059853b0574ee7f61--
-
---===============1271264861==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1271264861==--
+T24gMDkvMDMvMjAxOCAwMzoxMSBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQWJvdXQg
+bWFzdGVyIGJyYW5jaCwgbmVlZHMgc29tZW9uZSdzIGhlbHAgd2l0aCBjb3JyZWN0IHBlcm1pc3Np
+b24uCj4gSSd2ZSBhbHJlYWR5IHRvb2sgY2FyZSBvZiB0aGF0IG9uIHRoZSB3ZWVrZW5kLgoKVGhh
+bmsgeW91IGFnYWluLgpCVFcsIGhvdyB0byBhcHBseSB0aGF0IHBlcm1pc3Npb24/CgpSZWdhcmRz
+LApKZXJyeQoKPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4gQW0gMDMuMDkuMjAxOCB1bSAw
+Mzo0MiBzY2hyaWViIFpoYW5nLCBKZXJyeSAoSnVud2VpKToKPj4gT24gMDkvMDEvMjAxOCAwNDo1
+OCBQTSwgRGVuZywgRW1pbHkgd3JvdGU6Cj4+PiBPaywgdGhlbiBqdXN0IGlnbm9yZSB0aGlzIHBh
+dGNoLiBCdXQgc2VlbXMgZGlkbid0IHNhdyB0aGUgcGF0Y2ggb24gYnJhbmNoIGFtZC1zdGFnaW5n
+LWh5YnJpZC1tYXN0ZXIyMDE4MDMxNS4KPj4KPj4gVGhhbmtzIHRvIHRha2UgY2FyZSBvZiB0aGlz
+IGFzIHdlbGwuCj4+Cj4+IEknbSB3YWl0aW5nIHNvbWUgdmVyaWZpY2F0aW9uLCBhbmQgbm93IHB1
+c2ggdGhlIHBhdGNoIHRvIGludGVybmFsIHN0YWdpbmcgYnJhbmNoCj4+IG1haW5saW5lIHdpbGwg
+YmUgcHVzaGVkIGxhdGVyIGZvciBhbm90aGVyIHZlcmlmaWNhdGlvbi4KPj4KPj4gQWJvdXQgbWFz
+dGVyIGJyYW5jaCwgbmVlZHMgc29tZW9uZSdzIGhlbHAgd2l0aCBjb3JyZWN0IHBlcm1pc3Npb24u
+Cj4+Cj4+IFJlZ2FyZHMsCj4+IEplcnJ5Cj4+Pgo+Pj4gQmVzdCB3aXNoZXMKPj4+IEVtaWx5IERl
+bmcKPj4+Cj4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4+PiBGcm9tOiBDaHJpc3Rp
+YW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4KPj4+PiBTZW50OiBT
+YXR1cmRheSwgU2VwdGVtYmVyIDEsIDIwMTggNDoxNyBQTQo+Pj4+IFRvOiBEZW5nLCBFbWlseSA8
+RW1pbHkuRGVuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+PiBT
+dWJqZWN0OiBSZTogW1BBVENIIGxpYmRybV0gYW1kZ3B1OiBXaGVuIGNvdWxkbid0IGZpbmQgYm8s
+IG5lZWQgdG8gcmV0dXJuCj4+Pj4gZXJyb3IuCj4+Pj4KPj4+PiBBbSAwMS4wOS4yMDE4IHVtIDA2
+OjI0IHNjaHJpZWIgRW1pbHkgRGVuZzoKPj4+Pj4gVGhlIHN0YXJ0eCB3aWxsIGhhdmUgc2VnbWFu
+dCBmYXVsdCBpZiByZXR1cm4gc3VjY2Vzcy4KPj4+Pj4KPj4+Pj4gU1dERVYtMTYzOTYyCj4+Pj4+
+Cj4+Pj4+IENoYW5nZS1JZDogSTU2YjE4OWZhMjZlZmRjZDFkOTZlNTEwMGFmM2YzZTBiMTIwOGIw
+YzMKPj4+Pj4gU2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPgo+
+Pj4+Cj4+Pj4gSmVycnkgYWxyZWFkeSBzZW5kIGEgbXVjaCBiZXR0ZXIgcGF0Y2ggZm9yIHRoaXMu
+Cj4+Pj4KPj4+Pj4gLS0tCj4+Pj4+ICAgIGFtZGdwdS9hbWRncHVfYm8uYyB8IDQgKysrLQo+Pj4+
+PiAgICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Pj4+
+Cj4+Pj4+IGRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1X2JvLmMgYi9hbWRncHUvYW1kZ3B1X2Jv
+LmMgaW5kZXgKPj4+Pj4gZjI1Y2FjYy4uN2UyOTdmYSAxMDA2NDQKPj4+Pj4gLS0tIGEvYW1kZ3B1
+L2FtZGdwdV9iby5jCj4+Pj4+ICsrKyBiL2FtZGdwdS9hbWRncHVfYm8uYwo+Pj4+PiBAQCAtNzYw
+LDYgKzc2MCw3IEBAIGludAo+Pj4+IGFtZGdwdV9maW5kX2JvX2J5X2NwdV9tYXBwaW5nKGFtZGdw
+dV9kZXZpY2VfaGFuZGxlIGRldiwKPj4+Pj4gICAgICAgICAgICAgICAgICAgICAgdWludDY0X3Qg
+Km9mZnNldF9pbl9ibykKPj4+Pj4gICAgewo+Pj4+PiAgICAgICAgdWludDMyX3QgaTsKPj4+Pj4g
+KyAgICBpbnQgciA9IDA7Cj4+Pj4+ICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICpibzsKPj4+Pj4K
+Pj4+Pj4gICAgICAgIGlmIChjcHUgPT0gTlVMTCB8fCBzaXplID09IDApCj4+Pj4+IEBAIC03ODcs
+MTAgKzc4OCwxMSBAQCBpbnQKPj4+PiBhbWRncHVfZmluZF9ib19ieV9jcHVfbWFwcGluZyhhbWRn
+cHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4+Pj4+ICAgICAgICB9IGVsc2Ugewo+Pj4+PiAgICAgICAg
+ICAgICpidWZfaGFuZGxlID0gTlVMTDsKPj4+Pj4gICAgICAgICAgICAqb2Zmc2V0X2luX2JvID0g
+MDsKPj4+Pj4gKyAgICAgICAgciA9IC1lcnJubzsKPj4+Pgo+Pj4+IGVycm5vIGRvZXNuJ3QgY29u
+dGFpbiBhbnkgZXJyb3IgaW4gdGhpcyBjYXNlLgo+Pj4+Cj4+Pj4+ICAgICAgICB9Cj4+Pj4+ICAg
+ICAgICBwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7Cj4+Pj4+Cj4+
+Pj4+IC0gICAgcmV0dXJuIDA7Cj4+Pj4+ICsgICAgcmV0dXJuIHI7Cj4+Pj4+ICAgIH0KPj4+Pj4K
+Pj4+Pj4gICAgaW50IGFtZGdwdV9jcmVhdGVfYm9fZnJvbV91c2VyX21lbShhbWRncHVfZGV2aWNl
+X2hhbmRsZSBkZXYsCj4+Pgo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KPj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cj4+Pgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
