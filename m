@@ -1,64 +1,80 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH] gpu: drm: drm_mm: Fix a sleep-in-atomic-context bug in
- show_leaks()
-Date: Mon, 3 Sep 2018 09:52:44 +0200
-Message-ID: <20180903075244.GE21634@phenom.ffwll.local>
-References: <20180901122041.2357-1-baijiaju1990@gmail.com>
- <153580517420.12034.2035309606925619207@skylake-alporthouse-com>
+From: "Yu, Qiang" <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: add amdgpu_bo_inc_ref() function.
+Date: Mon, 3 Sep 2018 08:03:05 +0000
+Message-ID: <BY2PR12MB0243586F3EAAD25B3A2308AC8F0C0@BY2PR12MB0243.namprd12.prod.outlook.com>
+References: <1535957709-26008-1-git-send-email-Qiang.Yu@amd.com>,
+ <5B8CE036.8050102@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <153580517420.12034.2035309606925619207@skylake-alporthouse-com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>, airlied@linux.ie, gustavo@padovan.org, maarten.lankhorst@linux.intel.com, seanpaul@chromium.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org, David Zhou <David1.Zhou@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5B8CE036.8050102-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Deng,
+ Hui" <Hui.Deng-5C7GfCeVMHo@public.gmane.org>
 
-On Sat, Sep 01, 2018 at 01:32:54PM +0100, Chris Wilson wrote:
-> Quoting Jia-Ju Bai (2018-09-01 13:20:41)
-> > The driver may sleep with holding a spinlock.
-> > 
-> > The function call paths (from bottom to top) in Linux-4.16 are:
-> > 
-> > [FUNC] kmalloc(GFP_KERNEL)
-> > drivers/gpu/drm/drm_mm.c, 130: 
-> >         kmalloc in show_leaks
-> > drivers/gpu/drm/drm_mm.c, 913: 
-> >         show_leaks in drm_mm_takedown
-> > drivers/gpu/drm/drm_vma_manager.c, 107: 
-> >         drm_mm_takedown in drm_vma_offset_manager_destroy
-> > drivers/gpu/drm/drm_vma_manager.c, 106: 
-> >         _raw_write_lock in drm_vma_offset_manager_destroy
-> > 
-> > [FUNC] kmalloc(GFP_KERNEL)
-> > drivers/gpu/drm/drm_mm.c, 130: 
-> >         kmalloc in show_leaks
-> > drivers/gpu/drm/drm_mm.c, 913: 
-> >         show_leaks in drm_mm_takedown
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c, 71: 
-> >         drm_mm_takedown in amdgpu_vram_mgr_fini
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c, 70: 
-> >         spin_lock in amdgpu_vram_mgr_fini
-> > 
-> > [FUNC] kmalloc(GFP_KERNEL)
-> > drivers/gpu/drm/drm_mm.c, 130: 
-> >         kmalloc in show_leaks
-> > drivers/gpu/drm/drm_mm.c, 913: 
-> >         show_leaks in drm_mm_takedown
-> > drivers/gpu/drm/ttm/ttm_bo_manager.c, 128: 
-> >         drm_mm_takedown in ttm_bo_man_takedown
-> > drivers/gpu/drm/ttm/ttm_bo_manager.c, 126: 
-> >         spin_lock in ttm_bo_man_takedown
-> > 
-> > To fix this bug, GFP_KERNEL is replaced with GFP_ATOMIC.
-> 
-> The bug are above, since those spinlocks do not protect the data and
-> imply use-after-free.
-
-Adding amdgpu, since that's where the bug seems to be.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+VGhhbmtzIEplcnJ5LgoKSGkgQ2hyaXN0aWFuLAoKVGhpcyBpcyBhbiBvbGQgcGF0Y2ggYmFjayB0
+byAyMDE2IHJldmlld2VkIGluIGh5YnJpZCBsaXN0LiBJZiB5b3UgYXJlIE9LIHdpdGggaXQsCndv
+dWxkIHlvdSBwbGVhc2Ugc3VibWl0IGl0IHRvIHVwc3RyZWFtPwoKVGhhbmtzLApRaWFuZwoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcm9tOiBhbWQtZ2Z4IDxhbWQt
+Z2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhhbGYgb2YgWmhhbmcsIEpl
+cnJ5IChKdW53ZWkpIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgpTZW50OiBNb25kYXksIFNlcHRlbWJl
+ciAzLCAyMDE4IDM6MTg6MTQgUE0KVG86IFl1LCBRaWFuZzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKQ2M6IEtvZW5pZywgQ2hyaXN0aWFuOyBEZW5nLCBIdWkKU3ViamVjdDogUmU6IFtQ
+QVRDSCBsaWJkcm1dIGFtZGdwdTogYWRkIGFtZGdwdV9ib19pbmNfcmVmKCkgZnVuY3Rpb24uCgpP
+biAwOS8wMy8yMDE4IDAyOjU1IFBNLCBRaWFuZyBZdSB3cm90ZToKPiBGb3IgUHJvIE9HTCBiZSBh
+YmxlIHRvIHdvcmsgd2l0aCB1cHN0cmVhbSBsaWJkcm0uCj4KPiBTaWduZWQtb2ZmLWJ5OiBRaWFu
+ZyBZdSA8UWlhbmcuWXVAYW1kLmNvbT4KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKSSdtIGZpbmUgd2l0aCB0aGF0LCBub3Qgc3VyZSBp
+ZiBtZXNhIGlzIGdvaW5nIHRvIHVzZSB0aGF0IGFzIHdlbGwuCgpSZXZpZXdlZC1ieTogSnVud2Vp
+IFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgoKUmVnYXJkcywKSmVycnkKCj4gLS0tCj4gICBh
+bWRncHUvYW1kZ3B1LXN5bWJvbC1jaGVjayB8ICAxICsKPiAgIGFtZGdwdS9hbWRncHUuaCAgICAg
+ICAgICAgIHwgMTUgKysrKysrKysrKysrKystCj4gICBhbWRncHUvYW1kZ3B1X2JvLmMgICAgICAg
+ICB8ICA2ICsrKysrKwo+ICAgMyBmaWxlcyBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCAxIGRl
+bGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdwdS1zeW1ib2wtY2hlY2sgYi9h
+bWRncHUvYW1kZ3B1LXN5bWJvbC1jaGVjawo+IGluZGV4IGI1ZTRmZTYuLjQ4NzYxMGUgMTAwNzU1
+Cj4gLS0tIGEvYW1kZ3B1L2FtZGdwdS1zeW1ib2wtY2hlY2sKPiArKysgYi9hbWRncHUvYW1kZ3B1
+LXN5bWJvbC1jaGVjawo+IEBAIC0xNSw2ICsxNSw3IEBAIGFtZGdwdV9ib19jcHVfbWFwCj4gICBh
+bWRncHVfYm9fY3B1X3VubWFwCj4gICBhbWRncHVfYm9fZXhwb3J0Cj4gICBhbWRncHVfYm9fZnJl
+ZQo+ICthbWRncHVfYm9faW5jX3JlZgo+ICAgYW1kZ3B1X2JvX2ltcG9ydAo+ICAgYW1kZ3B1X2Jv
+X2xpc3RfY3JlYXRlCj4gICBhbWRncHVfYm9fbGlzdF9kZXN0cm95Cj4gZGlmZiAtLWdpdCBhL2Ft
+ZGdwdS9hbWRncHUuaCBiL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IGE4YzM1M2MuLmUxZjkzZjgg
+MTAwNjQ0Cj4gLS0tIGEvYW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIvYW1kZ3B1L2FtZGdwdS5oCj4g
+QEAgLTcyMSw3ICs3MjEsMjAgQEAgaW50IGFtZGdwdV9maW5kX2JvX2J5X2NwdV9tYXBwaW5nKGFt
+ZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPiAgIGludCBhbWRncHVfYm9fZnJlZShhbWRncHVfYm9f
+aGFuZGxlIGJ1Zl9oYW5kbGUpOwo+Cj4gICAvKioKPiAtICogUmVxdWVzdCBDUFUgYWNjZXNzIHRv
+IEdQVSBhY2Nlc3NpYmxlIG1lbW9yeQo+ICsgKiBJbmNyZWFzZSB0aGUgcmVmZXJlbmNlIGNvdW50
+IG9mIGEgYnVmZmVyIG9iamVjdAo+ICsgKgo+ICsgKiBccGFyYW0gICBibyAtIFxjIFtpbl0gIEJ1
+ZmZlciBvYmplY3QgaGFuZGxlIHRvIGluY3JlYXNlIHRoZSByZWZlcmVuY2UgY291bnQKPiArICoK
+PiArICogXHJldHVybiAgIDAgb24gc3VjY2Vzc1xuCj4gKyAqICAgICAgICAgIDwwIC0gTmVnYXRp
+dmUgUE9TSVggRXJyb3IgY29kZQo+ICsgKgo+ICsgKiBcc2EgYW1kZ3B1X2JvX2FsbG9jKCksIGFt
+ZGdwdV9ib19mcmVlKCkKPiArICoKPiArKi8KPiAraW50IGFtZGdwdV9ib19pbmNfcmVmKGFtZGdw
+dV9ib19oYW5kbGUgYm8pOwo+ICsKPiArLyoqCj4gKyAqIFJlcXVlc3QgQ1BVIGFjY2VzcyB0byBH
+UFUgYWNjZXNzYWJsZSBtZW1vcnkKPiAgICAqCj4gICAgKiBccGFyYW0gICBidWZfaGFuZGxlIC0g
+XGMgW2luXSBCdWZmZXIgaGFuZGxlCj4gICAgKiBccGFyYW0gICBjcHUgICAgICAgIC0gXGMgW291
+dF0gQ1BVIGFkZHJlc3MgdG8gYmUgdXNlZCBmb3IgYWNjZXNzCj4gZGlmZiAtLWdpdCBhL2FtZGdw
+dS9hbWRncHVfYm8uYyBiL2FtZGdwdS9hbWRncHVfYm8uYwo+IGluZGV4IGEyZmM1MjUuLmRjZWFi
+MDEgMTAwNjQ0Cj4gLS0tIGEvYW1kZ3B1L2FtZGdwdV9iby5jCj4gKysrIGIvYW1kZ3B1L2FtZGdw
+dV9iby5jCj4gQEAgLTQzOCw2ICs0MzgsMTIgQEAgaW50IGFtZGdwdV9ib19mcmVlKGFtZGdwdV9i
+b19oYW5kbGUgYnVmX2hhbmRsZSkKPiAgICAgICByZXR1cm4gMDsKPiAgIH0KPgo+ICtpbnQgYW1k
+Z3B1X2JvX2luY19yZWYoYW1kZ3B1X2JvX2hhbmRsZSBibykKPiArewo+ICsgICAgIGF0b21pY19p
+bmMoJmJvLT5yZWZjb3VudCk7Cj4gKyAgICAgcmV0dXJuIDA7Cj4gK30KPiArCj4gICBpbnQgYW1k
+Z3B1X2JvX2NwdV9tYXAoYW1kZ3B1X2JvX2hhbmRsZSBibywgdm9pZCAqKmNwdSkKPiAgIHsKPiAg
+ICAgICB1bmlvbiBkcm1fYW1kZ3B1X2dlbV9tbWFwIGFyZ3M7Cj4KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
