@@ -1,18 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH libdrm] amdgpu: When couldn't find bo, need to return
- error.
-Date: Mon, 3 Sep 2018 09:11:51 +0200
-Message-ID: <48942a46-474b-a120-5b61-2fcbaf3eae4b@amd.com>
-References: <1535775863-27689-1-git-send-email-Emily.Deng@amd.com>
- <aabe391a-d6d5-564f-1e0d-b2fb218bdeae@gmail.com>
- <DM6PR12MB265273E1B06F0AB7A3B32A4D8F0E0@DM6PR12MB2652.namprd12.prod.outlook.com>
- <5B8C9169.4000909@amd.com>
+From: Acewind <acewind-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: =?UTF-8?Q?build_on_CentOS_7=2E3_hostos=3A_too_few_arguments_to_fun?=
+ =?UTF-8?Q?ction_=E2=80=98notify=5Fchange=E2=80=99?=
+Date: Mon, 3 Sep 2018 10:42:39 +0800
+Message-ID: <CA+B2R57QA1mpmM+Fs0MhZnrNpBNWLP9mdNMnOTDu=qdB+n_p_g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1271264861=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5B8C9169.4000909-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,53 +16,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiBBYm91dCBtYXN0ZXIgYnJhbmNoLCBuZWVkcyBzb21lb25lJ3MgaGVscCB3aXRoIGNvcnJlY3Qg
-cGVybWlzc2lvbi4gCkkndmUgYWxyZWFkeSB0b29rIGNhcmUgb2YgdGhhdCBvbiB0aGUgd2Vla2Vu
-ZC4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDAzLjA5LjIwMTggdW0gMDM6NDIgc2NocmllYiBa
-aGFuZywgSmVycnkgKEp1bndlaSk6Cj4gT24gMDkvMDEvMjAxOCAwNDo1OCBQTSwgRGVuZywgRW1p
-bHkgd3JvdGU6Cj4+IE9rLCB0aGVuIGp1c3QgaWdub3JlIHRoaXMgcGF0Y2guIEJ1dCBzZWVtcyBk
-aWRuJ3Qgc2F3IHRoZSBwYXRjaCBvbiAKPj4gYnJhbmNoIGFtZC1zdGFnaW5nLWh5YnJpZC1tYXN0
-ZXIyMDE4MDMxNS4KPgo+IFRoYW5rcyB0byB0YWtlIGNhcmUgb2YgdGhpcyBhcyB3ZWxsLgo+Cj4g
-SSdtIHdhaXRpbmcgc29tZSB2ZXJpZmljYXRpb24sIGFuZCBub3cgcHVzaCB0aGUgcGF0Y2ggdG8g
-aW50ZXJuYWwgCj4gc3RhZ2luZyBicmFuY2gKPiBtYWlubGluZSB3aWxsIGJlIHB1c2hlZCBsYXRl
-ciBmb3IgYW5vdGhlciB2ZXJpZmljYXRpb24uCj4KPiBBYm91dCBtYXN0ZXIgYnJhbmNoLCBuZWVk
-cyBzb21lb25lJ3MgaGVscCB3aXRoIGNvcnJlY3QgcGVybWlzc2lvbi4KPgo+IFJlZ2FyZHMsCj4g
-SmVycnkKPj4KPj4gQmVzdCB3aXNoZXMKPj4gRW1pbHkgRGVuZwo+Pgo+Pj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0KPj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0
-enVtZXJrZW5AZ21haWwuY29tPgo+Pj4gU2VudDogU2F0dXJkYXksIFNlcHRlbWJlciAxLCAyMDE4
-IDQ6MTcgUE0KPj4+IFRvOiBEZW5nLCBFbWlseSA8RW1pbHkuRGVuZ0BhbWQuY29tPjsgYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbGliZHJtXSBh
-bWRncHU6IFdoZW4gY291bGRuJ3QgZmluZCBibywgbmVlZCB0byAKPj4+IHJldHVybgo+Pj4gZXJy
-b3IuCj4+Pgo+Pj4gQW0gMDEuMDkuMjAxOCB1bSAwNjoyNCBzY2hyaWViIEVtaWx5IERlbmc6Cj4+
-Pj4gVGhlIHN0YXJ0eCB3aWxsIGhhdmUgc2VnbWFudCBmYXVsdCBpZiByZXR1cm4gc3VjY2Vzcy4K
-Pj4+Pgo+Pj4+IFNXREVWLTE2Mzk2Mgo+Pj4+Cj4+Pj4gQ2hhbmdlLUlkOiBJNTZiMTg5ZmEyNmVm
-ZGNkMWQ5NmU1MTAwYWYzZjNlMGIxMjA4YjBjMwo+Pj4+IFNpZ25lZC1vZmYtYnk6IEVtaWx5IERl
-bmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4KPj4+Cj4+PiBKZXJyeSBhbHJlYWR5IHNlbmQgYSBtdWNo
-IGJldHRlciBwYXRjaCBmb3IgdGhpcy4KPj4+Cj4+Pj4gLS0tCj4+Pj4gwqDCoCBhbWRncHUvYW1k
-Z3B1X2JvLmMgfCA0ICsrKy0KPj4+PiDCoMKgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMo
-KyksIDEgZGVsZXRpb24oLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1X2Jv
-LmMgYi9hbWRncHUvYW1kZ3B1X2JvLmMgaW5kZXgKPj4+PiBmMjVjYWNjLi43ZTI5N2ZhIDEwMDY0
-NAo+Pj4+IC0tLSBhL2FtZGdwdS9hbWRncHVfYm8uYwo+Pj4+ICsrKyBiL2FtZGdwdS9hbWRncHVf
-Ym8uYwo+Pj4+IEBAIC03NjAsNiArNzYwLDcgQEAgaW50Cj4+PiBhbWRncHVfZmluZF9ib19ieV9j
-cHVfbWFwcGluZyhhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4+Pj4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50NjRfdCAqb2Zmc2V0X2luX2JvKQo+Pj4+IMKg
-wqAgewo+Pj4+IMKgwqDCoMKgwqDCoCB1aW50MzJfdCBpOwo+Pj4+ICvCoMKgwqAgaW50IHIgPSAw
-Owo+Pj4+IMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvICpibzsKPj4+Pgo+Pj4+IMKgwqDC
-oMKgwqDCoCBpZiAoY3B1ID09IE5VTEwgfHwgc2l6ZSA9PSAwKQo+Pj4+IEBAIC03ODcsMTAgKzc4
-OCwxMSBAQCBpbnQKPj4+IGFtZGdwdV9maW5kX2JvX2J5X2NwdV9tYXBwaW5nKGFtZGdwdV9kZXZp
-Y2VfaGFuZGxlIGRldiwKPj4+PiDCoMKgwqDCoMKgwqAgfSBlbHNlIHsKPj4+PiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCAqYnVmX2hhbmRsZSA9IE5VTEw7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-Km9mZnNldF9pbl9ibyA9IDA7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHIgPSAtZXJybm87Cj4+Pgo+
-Pj4gZXJybm8gZG9lc24ndCBjb250YWluIGFueSBlcnJvciBpbiB0aGlzIGNhc2UuCj4+Pgo+Pj4+
-IMKgwqDCoMKgwqDCoCB9Cj4+Pj4gwqDCoMKgwqDCoMKgIHB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZk
-ZXYtPmJvX3RhYmxlX211dGV4KTsKPj4+Pgo+Pj4+IC3CoMKgwqAgcmV0dXJuIDA7Cj4+Pj4gK8Kg
-wqDCoCByZXR1cm4gcjsKPj4+PiDCoMKgIH0KPj4+Pgo+Pj4+IMKgwqAgaW50IGFtZGdwdV9jcmVh
-dGVfYm9fZnJvbV91c2VyX21lbShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4+Cj4+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFp
-bGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+PgoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1271264861==
+Content-Type: multipart/alternative; boundary="00000000000059853b0574ee7f61"
+
+--00000000000059853b0574ee7f61
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+After download code from
+https://github.com/GPUOpen-LibrariesAndSDKs/MxGPU-Virtualization,  I try to
+compile MxGPU-Virtualization-master source on my CentOS 7.3 host, but got
+an error.  Do I need to change the kernel of hostos?
+
+[root@myhost drv]# uname -r
+3.10.0-514.el7.x86_64
+
+[root@myhost drv]# make
+make -C /lib/modules/3.10.0-514.el7.x86_64/build
+M=3D/home/astute/zwj/MxGPU-Virtualization-master/drv modules
+make[1]: Entering directory `/usr/src/kernels/3.10.0-514.el7.x86_64'
+  CC [M]  /home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.o
+/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c: In function
+=E2=80=98file_truncate=E2=80=99:
+/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c:87:2: error:
+too few arguments to function =E2=80=98notify_change=E2=80=99
+  ret =3D notify_change(file->f_path.dentry, &newattrs);
+  ^
+In file included from
+/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c:23:0:
+include/linux/fs.h:2579:12: note: declared here
+ extern int notify_change(struct dentry *, struct iattr *, struct inode **)=
+;
+            ^
+make[2]: *** [/home/astute/zwj/MxGPU-Virtualization-master/drv/gim_file.o]
+Error 1
+make[1]: *** [_module_/home/astute/zwj/MxGPU-Virtualization-master/drv]
+Error 2
+make[1]: Leaving directory `/usr/src/kernels/3.10.0-514.el7.x86_64'
+make: *** [all] Error 2
+
+--00000000000059853b0574ee7f61
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
+r=3D"ltr"><div>After download code from=C2=A0<a href=3D"https://github.com/=
+GPUOpen-LibrariesAndSDKs/MxGPU-Virtualization">https://github.com/GPUOpen-L=
+ibrariesAndSDKs/MxGPU-Virtualization</a>,=C2=A0 I try to compile MxGPU-Virt=
+ualization-master source on my CentOS 7.3 host, but got an error.=C2=A0 Do =
+I need to change the kernel of hostos?</div><div dir=3D"ltr"><div><br></div=
+><div><div>[root@myhost drv]# uname -r</div><div>3.10.0-514.el7.x86_64</div=
+></div><div><br></div><div>[root@myhost drv]# make<br></div><div><div>make =
+-C /lib/modules/3.10.0-514.el7.x86_64/build M=3D/home/astute/zwj/MxGPU-Virt=
+ualization-master/drv modules</div><div>make[1]: Entering directory `/usr/s=
+rc/kernels/3.10.0-514.el7.x86_64&#39;</div><div>=C2=A0 CC [M]=C2=A0 /home/a=
+stute/zwj/MxGPU-Virtualization-master/drv/gim_file.o</div><div>/home/astute=
+/zwj/MxGPU-Virtualization-master/drv/gim_file.c: In function =E2=80=98file_=
+truncate=E2=80=99:</div><div>/home/astute/zwj/MxGPU-Virtualization-master/d=
+rv/gim_file.c:87:2: error: too few arguments to function =E2=80=98notify_ch=
+ange=E2=80=99</div><div>=C2=A0 ret =3D notify_change(file-&gt;f_path.dentry=
+, &amp;newattrs);</div><div>=C2=A0 ^</div><div>In file included from /home/=
+astute/zwj/MxGPU-Virtualization-master/drv/gim_file.c:23:0:</div><div>inclu=
+de/linux/fs.h:2579:12: note: declared here</div><div>=C2=A0extern int notif=
+y_change(struct dentry *, struct iattr *, struct inode **);</div><div>=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^</div><div>make[2]: *** [/home/astu=
+te/zwj/MxGPU-Virtualization-master/drv/gim_file.o] Error 1</div><div>make[1=
+]: *** [_module_/home/astute/zwj/MxGPU-Virtualization-master/drv] Error 2</=
+div><div>make[1]: Leaving directory `/usr/src/kernels/3.10.0-514.el7.x86_64=
+&#39;</div><div>make: *** [all] Error 2</div></div><div><br></div></div></d=
+iv></div></div></div></div>
+
+--00000000000059853b0574ee7f61--
+
+--===============1271264861==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1271264861==--
