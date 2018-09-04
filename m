@@ -1,33 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 5/5] [RFC]drm: add syncobj timeline support v3
-Date: Wed, 5 Sep 2018 08:55:09 +0200
-Message-ID: <0249f155-a566-cb00-8af6-b8cf5203422b@amd.com>
-References: <20180829104434.13265-1-david1.zhou@amd.com>
- <20180829104434.13265-5-david1.zhou@amd.com>
- <81961480-d1a2-f2b3-7c7c-f7704bb42153@gmail.com>
- <45ed2e67-0b20-fa45-9575-e3f29470d4fd@amd.com>
- <f6bf45a6-6f7e-587a-f41c-5ddb8df5284e@amd.com>
- <e3d4a0c9-80f9-73e6-d9ad-ecaf1e055bcf@amd.com>
- <60e0dd83-93c1-8cbf-03b6-f00739fb7078@amd.com>
- <2ccca40e-d64d-2cb3-e9d5-9504e4a47eb4@amd.com>
- <43b69e04-d71b-e77a-6a41-1d8cb9ec1b95@amd.com>
- <ffdac62f-8c9d-ff29-d699-f42873250ac6@amd.com>
- <879aa2ac-26f4-b726-3e7e-807de27208c6@gmail.com>
- <42d12d58-c6ed-9e17-c816-3d45412460ad@amd.com>
- <4701566f-3b32-055c-3a5b-9c46708d85f1@amd.com>
- <9b3ba227-c8c5-4789-daff-6436fa5a2f28@amd.com>
- <94dd248e-15e2-7d27-e0ca-74e00b3e52c4@amd.com>
- <84d83bb0-5576-558d-1f73-8f41276dcf87@amd.com>
- <2f04c699-3259-ea87-e415-10c7e834460b@amd.com>
- <f2808965-22a5-bfe8-9eb1-e206e20265d8@amd.com>
- <caf5a7ab-1bfb-3951-7848-85786910c757@amd.com>
- <8363b46b-52c4-1539-0928-df5b8894370e@amd.com>
+From: Acewind <acewind-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: CentOS 7 as hostos: gim error:(set_new_adapter:617) asic does not
+ support SRIOV
+Date: Tue, 4 Sep 2018 15:50:54 +0800
+Message-ID: <CA+B2R543+JEA7tGk5QAWN8YP=YUJqj3XyEODrqR9CBhx3+M2-A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1617998245=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8363b46b-52c4-1539-0928-df5b8894370e-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -38,122 +16,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Daniel Rakos <Daniel.Rakos-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMDUuMDkuMjAxOCB1bSAwNTozNiBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTjlubQw
-OeaciDA05pelIDE3OjIwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAwNC4wOS4yMDE4
-IHVtIDExOjAwIHNjaHJpZWIgemhvdWNtMToKPj4+Cj4+Pgo+Pj4gT24gMjAxOOW5tDA55pyIMDTm
-l6UgMTY6NDIsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gQW0gMDQuMDkuMjAxOCB1bSAx
-MDoyNyBzY2hyaWViIHpob3VjbTE6Cj4+Pj4+Cj4+Pj4+Cj4+Pj4+IE9uIDIwMTjlubQwOeaciDA0
-5pelIDE2OjA1LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pj4gQW0gMDQuMDkuMjAxOCB1
-bSAwOTo1MyBzY2hyaWViIHpob3VjbTE6Cj4+Pj4+Pj4gW1NOSVBdCj4+Pj4+Pj4+Pj4KPj4+Pj4+
-Pj4+PiBIb3cgYWJvdXQgdGhpcyBpZGVhOgo+Pj4+Pj4+Pj4+IDEuIEVhY2ggc2lnbmFsaW5nIHBv
-aW50IGlzIGEgZmVuY2UgaW1wbGVtZW50YXRpb24gd2l0aCBhbiByYiAKPj4+Pj4+Pj4+PiBub2Rl
-Lgo+Pj4+Pj4+Pj4+IDIuIEVhY2ggbm9kZSBrZWVwcyBhIHJlZmVyZW5jZSB0byB0aGUgbGFzdCBw
-cmV2aW91c2x5IAo+Pj4+Pj4+Pj4+IGluc2VydGVkIG5vZGUuCj4+Pj4+Pj4+Pj4gMy4gRWFjaCBu
-b2RlIGlzIHJlZmVyZW5jZWQgYnkgdGhlIHN5bmMgb2JqZWN0IGl0c2VsZi4KPj4+Pj4+Pj4+PiA0
-LiBCZWZvcmUgZWFjaCBzaWduYWwvd2FpdCBvcGVyYXRpb24gd2UgZG8gYSBnYXJiYWdlIAo+Pj4+
-Pj4+Pj4+IGNvbGxlY3Rpb24gYW5kIHJlbW92ZSB0aGUgZmlyc3Qgbm9kZSBmcm9tIHRoZSB0cmVl
-IGFzIGxvbmcgYXMgCj4+Pj4+Pj4+Pj4gaXQgaXMgc2lnbmFsZWQuCj4+Pj4+Pj4+Pj4KPj4+Pj4+
-Pj4+PiA1LiBXaGVuIGVuYWJsZV9zaWduYWxpbmcgaXMgcmVxdWVzdGVkIGZvciBhIG5vZGUgd2Ug
-Y2FzY2FkZSAKPj4+Pj4+Pj4+PiB0aGF0IHRvIHRoZSBsZWZ0IHVzaW5nIHJiX3ByZXYuCj4+Pj4+
-Pj4+Pj4gwqDCoMKgIFRoaXMgZW5zdXJlcyB0aGF0IHNpZ25hbGluZyBpcyBlbmFibGVkIGZvciB0
-aGUgY3VycmVudCAKPj4+Pj4+Pj4+PiBmZW5jZSBhcyB3ZWxsIGFzIGFsbCBwcmV2aW91cyBmZW5j
-ZXMuCj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+PiA2LiBBIHdhaXQganVzdCBsb29rcyBpbnRvIHRoZSB0
-cmVlIGZvciB0aGUgc2lnbmFsIHBvaW50IGxvd2VyIAo+Pj4+Pj4+Pj4+IG9yIGVxdWFsIG9mIHRo
-ZSByZXF1ZXN0ZWQgc2VxdWVuY2UgbnVtYmVyLgo+Pj4+Pj4+IEFmdGVyIHJlLXRob3VnaHQgeW91
-ciBpZGVhLCBJIHRoaW5rIGl0IGRvZXNuJ3Qgd29yayBzaW5jZSB0aGVyZSAKPj4+Pj4+PiBpcyBu
-byB0aW1lbGluZSB2YWx1ZSBhcyBhIGxpbmU6Cj4+Pj4+Pj4gc2lnbmFsIHB0IHZhbHVlIGRvZXNu
-J3QgbXVzdCBiZSBjb250aW51ZXMsIHdoaWNoIGNhbiBiZSBqdW1wIGJ5IAo+Pj4+Pj4+IHNpZ25h
-bCBvcGVyYXRpb24sIGxpa2UgMSwgNCwgOCwgMTUsIDE5LCBlLmcuIHRoZXJlIGFyZSBmaXZlIAo+
-Pj4+Pj4+IHNpbmdhbF9wdCwgCj4+Pj4+Pj4gc2lnbmFsX3B0MS0+c2lnbmFsX3B0NC0+c2lnbmFs
-X3B0OC0+c2lnbmFsX3B0MTUtPnNpZ25hbF9wdDE5LCBpZiAKPj4+Pj4+PiBhIHdhaXQgcHQgaXMg
-NywgZG8geW91IG1lYW4gdGhpcyB3YWl0IG9ubHkgbmVlZHMgc2lnbmFsX3B0MSBhbmQgCj4+Pj4+
-Pj4gc2lnbmFsX3B0ND8/P8KgIFRoYXQncyBjZXJ0YWlubHkgbm90IHJpZ2h0LCB3ZSBuZWVkIHRv
-IG1ha2Ugc3VyZSAKPj4+Pj4+PiB0aGUgdGltZWxpbmUgdmFsdWUgaXMgYmlnZ2VyIHRoYW4gd2Fp
-dCBwdCB2YWx1ZSwgdGhhdCBtZWFucyAKPj4+Pj4+PiBzaWduYWxfcHQ4IGlzIG5lZWQgZm9yIHdh
-aXRfcHQ3Lgo+Pj4+Pj4KPj4+Pj4+IFRoYXQgY2FuIGJlIGRlZmluZWQgYXMgd2UgbGlrZSBpdCwg
-ZS5nLiB3aGVuIGEgd2FpdCBvcGVyYXRpb24gCj4+Pj4+PiBhc2tzIGZvciA3IHdlIGNhbiByZXR1
-cm4gOCBhcyB3ZWxsLgo+Pj4+PiBJZiBkZWZpbmVkIHRoaXMsIHRoZW4gcHJvYmxlbSBpcyBjb21p
-bmcgYWdhaW4sIGlmIDggaXMgcmVtb3ZlZCAKPj4+Pj4gd2hlbiBnYXJiYWdlIGNvbGxlY3Rpb24s
-IHlvdSB3aWxsIHJldHVybiAxNT8KPj4+Pgo+Pj4+IFRoZSBnYXJiYWdlIGNvbGxlY3Rpb24gaXMg
-b25seSBkb25lIGZvciBzaWduYWxlZCBub2Rlcy4gU28gd2hlbiA4IAo+Pj4+IGlzIGFscmVhZHkg
-Z2FyYmFnZSBjb2xsZWN0ZWQgYW5kIDcgaXMgYXNrZWQgd2Uga25vdyB0aGF0IHdlIGRvbid0IAo+
-Pj4+IG5lZWQgdG8gcmV0dXJuIGFueXRoaW5nLgo+Pj4gOCBpcyBhIHNpZ25hbGVkIG5vZGUsIHdh
-aXRBL3NpZ25hbCBvcGVyYXRpb24gZG8gZ2FyYmFnZSBjb2xsZWN0aW9uLCAKPj4+IGhvdyB3YWl0
-Qig3KSBrbm93IHRoZSBnYXJiYWdlIGhpc3Rvcnk/Cj4+Cj4+IFdlbGwgd2Ugb2YgY291cnNlIGtl
-ZXAgd2hhdCB0aGUgbGFzdCBnYXJiYWdlIGNvbGxlY3RlZCBudW1iZXIgaXMsIAo+PiBkb24ndCB3
-ZT8KPj4KPj4+Pj4gU2luY2UgdGhlcmUgaXMgbm8gdGltZWxpbmUgYXMgYSBsaW5lLCBJIHRoaW5r
-IHRoaXMgaXMgbm90IHJpZ2h0IAo+Pj4+PiBkaXJlY3Rpb24uCj4+Pj4KPj4+PiBUaGF0IGlzIGFj
-dHVhbGx5IGludGVuZGVkLiBUaGVyZSBpcyBubyBpbmZpbml0ZSB0aW1lbGluZSBoZXJlLCBqdXN0
-IAo+Pj4+IGEgd2luZG93cyBvZiB0aGUgbGFzdCBub3QgeWV0IHNpZ25hbGVkIGZlbmNlcy4KPj4+
-IE5vIG9uZSBzYWlkIHRoZSBpdCdzIGEgaW5maW5pdGUgdGltZWxpbmUsIHRpbWVsaW5lIHdpbGwg
-c3RvcCAKPj4+IGluY3JlYXNpbmcgd2hlbiBzeW5jb2JqIGlzIHJlbGVhc2VkLgo+Pgo+PiBZZWFo
-LCBidXQgdGhlIHN5bmNvYmogY2FuIGxpdmUgZm9yIGEgdmVyeSB2ZXJ5IGxvbmcgdGltZS4gTm90
-IGhhdmluZyAKPj4gc29tZSBmb3JtIG9mIHNocmlua2luZyBpdCB3aGVuIGZlbmNlcyBhcmUgc2ln
-bmFsZWQgaXMgY2VydGFpbmx5IG5vdCAKPj4gZ29pbmcgdG8gZmx5IHZlcnkgZmFyLgo+IEkgd2ls
-bCB0cnkgdG8gZml4IHRoaXMgcHJvYmxlbS4KPiBidHcsIHdoZW4gSSB0cnkgeW91ciBzdWdnZXN0
-aW9uLCBJIGZpbmQgaXQgd2lsbCBiZSBkaWZmaWN1bHQgdG8gCj4gaW1wbGVtZW50IGRybV9zeW5j
-b2JqX2FycmF5X3dhaXRfdGltZW91dCBieSB5b3VyIGlkZWEsIHNpbmNlIGl0IG5lZWRzIAo+IGZp
-cnN0X3NpZ25hbGVkLiBpZiB0aGVyZSBpcyB1bi1zaWduYWxlZCBzeW5jb2JqLCB3ZSB3aWxsIHN0
-aWxsIAo+IHJlZ2lzdGVyIGNiIHRvIHRpbWVsaW5lIHZhbHVlIGNoYW5nZSwgdGhlbiBzdGlsbCBi
-YWNrIHRvIG5lZWQgCj4gZW5ibGVfc2lnbmFsaW5nLgoKSSBkb24ndCBmdWxsIHVuZGVyc3RhbmQg
-dGhlIHByb2JsZW0gaGVyZS4gV2hlbiB3ZSBuZWVkIHRvIHdhaXQgZm9yIGEgCmZlbmNlIGl0IGlz
-IG9idmlvdXMgdGhhdCB3ZSBuZWVkIHRvIGVuYWJsZSBzaWduYWxpbmcuIFNvIHdoYXQgZXhhY3Rs
-eSBpcyAKdGhlIGlzc3VlPwoKQlRXOiBJJ20gZ29pbmcgdG8gY29tbWl0IHBhdGNoZXMgIzEtIzQg
-dG8gZHJtLW1pc2MtbmV4dCBub3cgaWYgbm9ib2R5IGlzIApnb2luZyB0byBvYmplY3QuCgpDaHJp
-c3RpYW4uCgo+Cj4gVGhhbmtzLAo+IERhdmlkIFpob3UKPj4KPj4gUmVnYXJkcywKPj4gQ2hyaXN0
-aWFuLgo+Pgo+Pj4KPj4+IEFueXdheSBrcmVmIGlzIGEgZ29vZCB3YXkgdG8gc29sdmUgdGhlICdm
-cmVlJyBwcm9ibGVtLCBJIHdpbGwgdHJ5IHRvIAo+Pj4gdXNlIGl0IGltcHJvdmUgbXkgcGF0Y2gs
-IG9mIGNvdXJzZSwgd2lsbCByZWZlciB5b3VyIGlkZWEuOikKPj4+Cj4+PiBUaGFua3MsCj4+PiBE
-YXZpZCBaaG91Cj4+Pj4KPj4+PiBPdGhlcndpc2UgeW91IHdpbGwgbmV2ZXIgYmUgYWJsZSB0byBy
-ZWxlYXNlIG5vZGVzIGZyb20gdGhlIHRyZWUgCj4+Pj4gc2luY2UgeW91IGFsd2F5cyBuZWVkIHRv
-IGtlZXAgdGhlbSBhcm91bmQganVzdCBpbiBjYXNlIHNvbWVib2R5IAo+Pj4+IGFza3MgZm9yIGEg
-bG93ZXIgbnVtYmVyLgo+Pj4+Cj4+Pj4gUmVnYXJkcywKPj4+PiBDaHJpc3RpYW4uCj4+Pj4KPj4+
-Pj4KPj4+Pj4+Cj4+Pj4+PiBUaGUga2V5IGlzIHRoYXQgYXMgc29vbiBhcyBhIHNpZ25hbCBwb2lu
-dCBpcyBhZGRlZCBhZGRpbmcgYSAKPj4+Pj4+IHByZXZpb3VzIHBvaW50IGlzIG5vIGxvbmdlciBh
-bGxvd2VkLgo+Pj4+PiBUaGF0J3MgaW50ZW50aW9uLgo+Pj4+Pgo+Pj4+PiBSZWdhcmRzLAo+Pj4+
-PiBEYXZpZCBaaG91Cj4+Pj4+Pgo+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4gNy4gV2hlbiB0aGUgc3lu
-YyBvYmplY3QgaXMgcmVsZWFzZWQgd2UgdXNlIAo+Pj4+Pj4+Pj4+IHJidHJlZV9wb3N0b3JkZXJf
-Zm9yX2VhY2hfZW50cnlfc2FmZSgpIGFuZCBkcm9wIHRoZSBleHRyYSAKPj4+Pj4+Pj4+PiByZWZl
-cmVuY2UgdG8gZWFjaCBub2RlLCBidXQgbmV2ZXIgY2FsbCByYl9lcmFzZSEKPj4+Pj4+Pj4+PiDC
-oMKgwqAgVGhpcyB3YXkgdGhlIHJiX3RyZWUgc3RheXMgaW4gbWVtb3J5LCBidXQgd2l0aG91dCBh
-IHJvb3QgCj4+Pj4+Pj4+Pj4gKGUuZy4gdGhlIHN5bmMgb2JqZWN0KS4gSXQgb25seSBkZXN0cnVj
-dHMgaXRzZWxmIHdoZW4gdGhlIAo+Pj4+Pj4+Pj4+IGxvb2tlZCB1cCByZWZlcmVuY2VzIHRvIHRo
-ZSBub2RlcyBhcmUgZHJvcHBlZC4KPj4+Pj4+PiBBbmQgaGVyZSwgd2hvIHdpbGwgZGVzdHJveSBy
-YiBub2RlIHNpbmNlIG5vIG9uZSBkbyAKPj4+Pj4+PiBlbmFibGVfc2lnbmFsaW5nLCBhbmQgdGhl
-cmUgaXMgbm8gY2FsbGJhY2sgdG8gZnJlZSB0aGVtc2VsdmVzLgo+Pj4+Pj4KPj4+Pj4+IFRoZSBu
-b2RlIHdpbGwgYmUgZGVzdHJveWVkIHdoZW4gdGhlIGxhc3QgcmVmZXJlbmNlIGRyb3BzLCBub3Qg
-Cj4+Pj4+PiB3aGVuIGVuYWJsZV9zaWduYWxpbmcgaXMgY2FsbGVkLgo+Pj4+Pj4KPj4+Pj4+IElu
-IG90aGVyIHdvcmRzIHRoZSBzeW5jX29iaiBrZWVwcyB0aGUgcmVmZXJlbmNlcyB0byBlYWNoIHRy
-ZWUgCj4+Pj4+PiBvYmplY3QgdG8gcHJvdmlkZSB0aGUgd2FpdCBvcGVyYXRpb24sIGFzIHNvb24g
-YXMgdGhlIHN5bmNfb2JqIGlzIAo+Pj4+Pj4gZGVzdHJveWVkIHdlIGRvbid0IG5lZWQgdGhhdCBm
-dW5jdGlvbmFsaXR5IGFueSBtb3JlLgo+Pj4+Pj4KPj4+Pj4+IFdlIGRvbid0IGV2ZW4gbmVlZCB0
-byB3YWl0IGZvciBhbnl0aGluZyB0byBiZSBzaWduYWxlZCwgdGhpcyB3YXkgCj4+Pj4+PiB3ZSBj
-YW4gZHJvcCBhbGwgdW51c2VkIHNpZ25hbCBwb2ludHMgYXMgc29vbiBhcyB0aGUgc3luY19vYmog
-aXMgCj4+Pj4+PiBkZXN0cm95ZWQuCj4+Pj4+Pgo+Pj4+Pj4gT25seSB0aGUgdXNlZCBvbmVzIHdp
-bGwgc3RheSBhbGl2ZSBhbmQgcHJvdmlkZSB0aGUgbmVjZXNzYXJ5IAo+Pj4+Pj4gZnVuY3Rpb25h
-bGl0eSB0byBwcm92aWRlIHRoZSBzaWduYWwgZm9yIGVhY2ggd2FpdCBvcGVyYXRpb24uCj4+Pj4+
-Pgo+Pj4+Pj4gUmVnYXJkcywKPj4+Pj4+IENocmlzdGlhbi4KPj4+Pj4+Cj4+Pj4+Pj4KPj4+Pj4+
-PiBSZWdhcmRzLAo+Pj4+Pj4+IERhdmlkIFpob3UKPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IFdlbGwg
-dGhhdCBpcyBxdWl0ZSBhIGJ1bmNoIG9mIGxvZ2ljLCBidXQgSSB0aGluayB0aGF0IHNob3VsZCAK
-Pj4+Pj4+Pj4+PiB3b3JrIGZpbmUuCj4+Pj4+Pj4+PiBZZWFoLCBpdCBjb3VsZCB3b3JrLCBzaW1w
-bGUgdGltZWxpbmUgcmVmZXJlbmNlIGFsc28gY2FuIHNvbHZlIAo+Pj4+Pj4+Pj4gJ2ZyZWUnIHBy
-b2JsZW0uCj4+Pj4+Pj4+Cj4+Pj4+Pj4+IEkgdGhpbmsgdGhpcyBhcHByb2FjaCBpcyBzdGlsbCBx
-dWl0ZSBhIGJpdCBiZXR0ZXIsIAo+Pj4+Pj4+Cj4+Pj4+Pj4+IGUuZy4geW91IGRvbid0IHJ1biBp
-bnRvIGNpcmNsZSBkZXBlbmRlbmN5IHByb2JsZW1zLCBpdCBuZWVkcyAKPj4+Pj4+Pj4gbGVzcyBt
-ZW1vcnkgYW5kIGVhY2ggbm9kZSBoYXMgYWx3YXlzIHRoZSBzYW1lIHNpemUgd2hpY2ggbWVhbnMg
-Cj4+Pj4+Pj4+IHdlIGNhbiB1c2UgYSBrbWVtX2NhY2hlIGZvciBpdC4KPj4+Pj4+Pj4KPj4+Pj4+
-Pj4gUmVnYXJkcywKPj4+Pj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4KPj4+Pj4+
-Pj4+IFRoYW5rcywKPj4+Pj4+Pj4+IERhdmlkIFpob3UKPj4+Pj4+Pj4KPj4+Pj4+Pgo+Pj4+Pj4K
-Pj4+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+
-Pj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPj4+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo+Pj4+Pgo+Pj4+Cj4+Pgo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+--===============1617998245==
+Content-Type: multipart/alternative; boundary="0000000000008a4e38057506eb3c"
+
+--0000000000008a4e38057506eb3c
+Content-Type: text/plain; charset="UTF-8"
+
+Hello!
+
+I'm trying to use an AMD FirePro S7150 in a CentOS 7.3 system. Here is some
+information regarding the setup:
+
+[root@host001 /]# uname -r
+3.10.0-514.el7.x86_64
+
+[root@host001 /]# dmesg | grep gim
+[ 10.887502] gim: loading out-of-tree module taints kernel.
+[ 10.887809] gim: module verification failed: signature and/or required key
+missing - tainting kernel
+[ 10.888860] gim info:(gim_init:144) Start AMD open source GIM
+initialization
+[ 10.888864] gim info:(gim_init:147) GPU IOV MODULE - version 1.0.0-k
+[ 10.888866] gim info:(gim_init:149) Copyright (c) 2014-2017 AMD
+Corporation.
+[ 10.888887] gim info:(init_config:305) INIT CONFIG
+[ 10.888908] gim info:(set_new_adapter:614) curr allocated at
+ffffffffa0341a40
+[ 10.888910] gim error:(set_new_adapter:617) asic does not support SRIOV
+[ 10.888912] gim info:(gim_probe:86) AMD GIM probe: pf_count = 0
+
+
+SRIOV is already enabled in BIOS.
+
+--0000000000008a4e38057506eb3c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p style=3D"box-sizing:border-box;margin-bottom:16px;color=
+:rgb(36,41,46);font-family:-apple-system,system-ui,&quot;Segoe UI&quot;,Hel=
+vetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&=
+quot;,&quot;Segoe UI Symbol&quot;;font-size:14px;margin-top:0px">Hello!</p>=
+<p style=3D"box-sizing:border-box;margin-top:0px;margin-bottom:16px;color:r=
+gb(36,41,46);font-family:-apple-system,system-ui,&quot;Segoe UI&quot;,Helve=
+tica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&qu=
+ot;,&quot;Segoe UI Symbol&quot;;font-size:14px">I&#39;m trying to use an AM=
+D FirePro S7150 in a CentOS 7.3 system. Here is some information regarding =
+the setup:</p><p style=3D"box-sizing:border-box;margin-top:0px;margin-botto=
+m:16px;color:rgb(36,41,46);font-family:-apple-system,system-ui,&quot;Segoe =
+UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Seg=
+oe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;;font-size:14px">[root@host001=
+ /]# uname -r<br style=3D"box-sizing:border-box">3.10.0-514.el7.x86_64</p><=
+p style=3D"box-sizing:border-box;margin-top:0px;color:rgb(36,41,46);font-fa=
+mily:-apple-system,system-ui,&quot;Segoe UI&quot;,Helvetica,Arial,sans-seri=
+f,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI S=
+ymbol&quot;;font-size:14px;margin-bottom:0px">[root@host001 /]# dmesg | gre=
+p gim<br style=3D"box-sizing:border-box">[ 10.887502] gim: loading out-of-t=
+ree module taints kernel.<br style=3D"box-sizing:border-box">[ 10.887809] g=
+im: module verification failed: signature and/or required key missing - tai=
+nting kernel<br style=3D"box-sizing:border-box">[ 10.888860] gim info:(gim_=
+init:144) Start AMD open source GIM initialization<br style=3D"box-sizing:b=
+order-box">[ 10.888864] gim info:(gim_init:147) GPU IOV MODULE - version 1.=
+0.0-k<br style=3D"box-sizing:border-box">[ 10.888866] gim info:(gim_init:14=
+9) Copyright (c) 2014-2017 AMD Corporation.<br style=3D"box-sizing:border-b=
+ox">[ 10.888887] gim info:(init_config:305) INIT CONFIG<br style=3D"box-siz=
+ing:border-box">[ 10.888908] gim info:(set_new_adapter:614) curr allocated =
+at ffffffffa0341a40<br style=3D"box-sizing:border-box">[ 10.888910] gim err=
+or:(set_new_adapter:617) asic does not support SRIOV<br style=3D"box-sizing=
+:border-box">[ 10.888912] gim info:(gim_probe:86) AMD GIM probe: pf_count =
+=3D 0</p><p style=3D"box-sizing:border-box;margin-top:0px;color:rgb(36,41,4=
+6);font-family:-apple-system,system-ui,&quot;Segoe UI&quot;,Helvetica,Arial=
+,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;=
+Segoe UI Symbol&quot;;font-size:14px;margin-bottom:0px"><br></p><p style=3D=
+"box-sizing:border-box;margin-top:0px;color:rgb(36,41,46);font-family:-appl=
+e-system,system-ui,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Ap=
+ple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot=
+;;font-size:14px;margin-bottom:0px">SRIOV is already enabled in BIOS.</p><p=
+ style=3D"box-sizing:border-box;margin-top:0px;color:rgb(36,41,46);font-fam=
+ily:-apple-system,system-ui,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif=
+,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Sy=
+mbol&quot;;font-size:14px;margin-bottom:0px"><br></p><p style=3D"box-sizing=
+:border-box;margin-top:0px;color:rgb(36,41,46);font-family:-apple-system,sy=
+stem-ui,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color E=
+moji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;;font-size=
+:14px;margin-bottom:0px"><br></p></div>
+
+--0000000000008a4e38057506eb3c--
+
+--===============1617998245==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1617998245==--
