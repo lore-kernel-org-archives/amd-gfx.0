@@ -1,14 +1,22 @@
-From: kbuild test robot <lkp@intel.com>
-Subject: Re: [PATCH v3 04/13] fbdev: add remove_conflicting_pci_framebuffers()
-Date: Tue, 4 Sep 2018 23:40:48 +0800
-Message-ID: <20180904154048.GB17047@intel.com>
-References: <7db1c278276de420eb45a1b71d06b5eb6bbd49ef.1535810304.git.mirq-linux@rere.qmqm.pl>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Subject: Re: [RFC] drm/amdgpu: Add macros and documentation for format
+ modifiers.
+Date: Tue, 4 Sep 2018 17:52:59 +0200
+Message-ID: <CAP+8YyH_5oNKcWgapuC+vRQOAcBEDPLqxvBqUvhqYdT_FjMe7A@mail.gmail.com>
+References: <20180904010033.67611-1-bas@basnieuwenhuizen.nl>
+ <CAKMK7uGceX3ueO9+m8ZAi6UZMsx47X57L4NzzeivFFdquqMGXA@mail.gmail.com>
+ <CAPj87rNRAa0PkSOp3crK2YsifCeO6ucPhUM4Kg2kOfXk3MDOWg@mail.gmail.com>
+ <72744df1-001b-bcd4-dcba-b6966a62c4ce@gmail.com>
+ <20180904122604.GO21634@phenom.ffwll.local>
+ <CAP+8YyE-iQP2Qq+AnFubtXZ5JQXV1FN=6_0yURhOHCuP8Gdn1w@mail.gmail.com>
+ <20180904130353.GQ21634@phenom.ffwll.local>
+ <CAP+8YyGofSyY1SeOr9YCaifL===qOHFQdBu1MScQDNO1mEPi3g@mail.gmail.com>
+ <CAKMK7uFjHkrHCc=g==ZEoqBjCKpndO3ofPnQ3rrcU8_jOfMPRg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="72zhRRUwqu3nWC5W"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <7db1c278276de420eb45a1b71d06b5eb6bbd49ef.1535810304.git.mirq-linux@rere.qmqm.pl>
+In-Reply-To: <CAKMK7uFjHkrHCc=g==ZEoqBjCKpndO3ofPnQ3rrcU8_jOfMPRg@mail.gmail.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -18,390 +26,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-Cc: linux-fbdev@vger.kernel.org, amd-gfx@lists.freedesktop.org, Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>, David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, Jonathan Hunter <jonathanh@nvidia.com>, Alex Deucher <alexander.deucher@amd.com>, Thierry Reding <thierry.reding@gmail.com>, kbuild-all@01.org, linux-tegra@vger.kernel.org, Dave Airlie <airlied@redhat.com>, Maxime Ripard <maxime.ripard@bootlin.com>, virtualization@lists.linux-foundation.org, linux-arm-kernel@lists.infradead.org, Gerd Hoffmann <kraxel@redhat.com>
+To: daniel@ffwll.ch
+Cc: Chad Versace <chadversary@chromium.org>, =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nicolai.haehnle@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>, ML dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>, christian.koenig@amd.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-
---72zhRRUwqu3nWC5W
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-
-Hi Michał,
-
-I love your patch! Perhaps something to improve:
-
-[auto build test WARNING on linus/master]
-[also build test WARNING on v4.19-rc2 next-20180831]
-[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
-
-url:    https://github.com/0day-ci/linux/commits/Micha-Miros-aw/remove_conflicting_framebuffers-cleanup/20180903-094322
-reproduce: make htmldocs
-:::::: branch date: 5 hours ago
-:::::: commit date: 5 hours ago
-
-All warnings (new ones prefixed by >>):
-
-   WARNING: convert(1) not found, for SVG to PDF conversion install ImageMagick (https://www.imagemagick.org)
-   include/linux/srcu.h:175: warning: Function parameter or member 'p' not described in 'srcu_dereference_notrace'
-   include/linux/srcu.h:175: warning: Function parameter or member 'sp' not described in 'srcu_dereference_notrace'
-   include/linux/gfp.h:1: warning: no structured comments found
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.ibss' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.connect' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.keys' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.ie' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.ie_len' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.bssid' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.ssid' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.default_key' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.default_mgmt_key' not described in 'wireless_dev'
-   include/net/cfg80211.h:4381: warning: Function parameter or member 'wext.prev_bssid_valid' not described in 'wireless_dev'
-   include/net/mac80211.h:2328: warning: Function parameter or member 'radiotap_timestamp.units_pos' not described in 'ieee80211_hw'
-   include/net/mac80211.h:2328: warning: Function parameter or member 'radiotap_timestamp.accuracy' not described in 'ieee80211_hw'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.rates' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.rts_cts_rate_idx' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.use_rts' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.use_cts_prot' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.short_preamble' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.skip_table' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.jiffies' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.vif' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.hw_key' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.flags' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'control.enqueue_time' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'ack' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'ack.cookie' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.rates' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.ack_signal' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.ampdu_ack_len' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.ampdu_len' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.antenna' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.tx_time' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.is_valid_ack_signal' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'status.status_driver_data' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'driver_rates' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'pad' not described in 'ieee80211_tx_info'
-   include/net/mac80211.h:977: warning: Function parameter or member 'rate_driver_data' not described in 'ieee80211_tx_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'rx_stats_avg' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'rx_stats_avg.signal' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'rx_stats_avg.chain_signal' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.filtered' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.retry_failed' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.retry_count' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.lost_packets' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.last_tdls_pkt_time' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.msdu_retries' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.msdu_failed' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.last_ack' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.last_ack_signal' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.ack_signal_filled' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'status_stats.avg_ack_signal' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'tx_stats.packets' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'tx_stats.bytes' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'tx_stats.last_rate' not described in 'sta_info'
-   net/mac80211/sta_info.h:588: warning: Function parameter or member 'tx_stats.msdu' not described in 'sta_info'
-   include/linux/mod_devicetable.h:763: warning: Function parameter or member 'driver_data' not described in 'typec_device_id'
-   kernel/sched/fair.c:3371: warning: Function parameter or member 'flags' not described in 'attach_entity_load_avg'
-   arch/x86/include/asm/atomic.h:84: warning: Excess function parameter 'i' description in 'arch_atomic_sub_and_test'
-   arch/x86/include/asm/atomic.h:84: warning: Excess function parameter 'v' description in 'arch_atomic_sub_and_test'
-   arch/x86/include/asm/atomic.h:96: warning: Excess function parameter 'v' description in 'arch_atomic_inc'
-   arch/x86/include/asm/atomic.h:109: warning: Excess function parameter 'v' description in 'arch_atomic_dec'
-   arch/x86/include/asm/atomic.h:124: warning: Excess function parameter 'v' description in 'arch_atomic_dec_and_test'
-   arch/x86/include/asm/atomic.h:138: warning: Excess function parameter 'v' description in 'arch_atomic_inc_and_test'
-   arch/x86/include/asm/atomic.h:153: warning: Excess function parameter 'i' description in 'arch_atomic_add_negative'
-   arch/x86/include/asm/atomic.h:153: warning: Excess function parameter 'v' description in 'arch_atomic_add_negative'
-   include/linux/dma-buf.h:304: warning: Function parameter or member 'cb_excl.cb' not described in 'dma_buf'
-   include/linux/dma-buf.h:304: warning: Function parameter or member 'cb_excl.poll' not described in 'dma_buf'
-   include/linux/dma-buf.h:304: warning: Function parameter or member 'cb_excl.active' not described in 'dma_buf'
-   include/linux/dma-buf.h:304: warning: Function parameter or member 'cb_shared.cb' not described in 'dma_buf'
-   include/linux/dma-buf.h:304: warning: Function parameter or member 'cb_shared.poll' not described in 'dma_buf'
-   include/linux/dma-buf.h:304: warning: Function parameter or member 'cb_shared.active' not described in 'dma_buf'
-   include/linux/dma-fence-array.h:54: warning: Function parameter or member 'work' not described in 'dma_fence_array'
->> drivers/video/fbdev/core/fbmem.c:1848: warning: Function parameter or member 'res_id' not described in 'remove_conflicting_pci_framebuffers'
-   drivers/video/fbdev/core/fbmem.c:1848: warning: Excess function parameter 'resource_id' description in 'remove_conflicting_pci_framebuffers'
-   include/linux/gpio/driver.h:142: warning: Function parameter or member 'request_key' not described in 'gpio_irq_chip'
-   include/linux/iio/hw-consumer.h:1: warning: no structured comments found
-   include/linux/input/sparse-keymap.h:46: warning: Function parameter or member 'sw' not described in 'key_entry'
-   drivers/pci/pci.c:218: warning: Excess function parameter 'p' description in 'pci_dev_str_match_path'
-   include/linux/regulator/driver.h:227: warning: Function parameter or member 'resume' not described in 'regulator_ops'
-   drivers/regulator/core.c:4479: warning: Excess function parameter 'state' description in 'regulator_suspend'
-   arch/s390/include/asm/cio.h:245: warning: Function parameter or member 'esw.esw0' not described in 'irb'
-   arch/s390/include/asm/cio.h:245: warning: Function parameter or member 'esw.esw1' not described in 'irb'
-   arch/s390/include/asm/cio.h:245: warning: Function parameter or member 'esw.esw2' not described in 'irb'
-   arch/s390/include/asm/cio.h:245: warning: Function parameter or member 'esw.esw3' not described in 'irb'
-   arch/s390/include/asm/cio.h:245: warning: Function parameter or member 'esw.eadm' not described in 'irb'
-   drivers/slimbus/stream.c:1: warning: no structured comments found
-   drivers/target/target_core_device.c:1: warning: no structured comments found
-   drivers/usb/dwc3/gadget.c:510: warning: Excess function parameter 'dwc' description in 'dwc3_gadget_start_config'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/bus.c:1: warning: no structured comments found
-   drivers/usb/typec/bus.c:268: warning: Function parameter or member 'mode' not described in 'typec_match_altmode'
-   drivers/usb/typec/class.c:1497: warning: Excess function parameter 'drvdata' description in 'typec_port_register_altmode'
-   drivers/usb/typec/class.c:1: warning: no structured comments found
-   include/linux/w1.h:281: warning: Function parameter or member 'of_match_table' not described in 'w1_family'
-   fs/direct-io.c:257: warning: Excess function parameter 'offset' description in 'dio_complete'
-   fs/file_table.c:1: warning: no structured comments found
-   fs/libfs.c:477: warning: Excess function parameter 'available' description in 'simple_write_end'
-   fs/posix_acl.c:646: warning: Function parameter or member 'inode' not described in 'posix_acl_update_mode'
-   fs/posix_acl.c:646: warning: Function parameter or member 'mode_p' not described in 'posix_acl_update_mode'
-   fs/posix_acl.c:646: warning: Function parameter or member 'acl' not described in 'posix_acl_update_mode'
-   drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c:183: warning: Function parameter or member 'blockable' not described in 'amdgpu_mn_read_lock'
-   drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c:254: warning: Function parameter or member 'blockable' not described in 'amdgpu_mn_invalidate_range_start_gfx'
-   drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c:302: warning: Function parameter or member 'blockable' not described in 'amdgpu_mn_invalidate_range_start_hsa'
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3011: warning: Excess function parameter 'dev' description in 'amdgpu_vm_get_task_info'
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3012: warning: Function parameter or member 'adev' not described in 'amdgpu_vm_get_task_info'
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3012: warning: Excess function parameter 'dev' description in 'amdgpu_vm_get_task_info'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_pin' not described in 'drm_driver'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_unpin' not described in 'drm_driver'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_res_obj' not described in 'drm_driver'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_get_sg_table' not described in 'drm_driver'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_import_sg_table' not described in 'drm_driver'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_vmap' not described in 'drm_driver'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_vunmap' not described in 'drm_driver'
-   include/drm/drm_drv.h:610: warning: Function parameter or member 'gem_prime_mmap' not described in 'drm_driver'
-   include/drm/drm_panel.h:98: warning: Function parameter or member 'link' not described in 'drm_panel'
-   drivers/gpu/drm/i915/i915_vma.h:49: warning: cannot understand function prototype: 'struct i915_vma '
-   drivers/gpu/drm/i915/i915_vma.h:1: warning: no structured comments found
-   drivers/gpu/drm/i915/intel_guc_fwif.h:553: warning: cannot understand function prototype: 'struct guc_log_buffer_state '
-   drivers/gpu/drm/i915/i915_trace.h:1: warning: no structured comments found
-   include/linux/skbuff.h:860: warning: Function parameter or member 'dev_scratch' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'list' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'ip_defrag_offset' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'skb_mstamp' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member '__cloned_offset' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'head_frag' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member '__pkt_type_offset' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'encapsulation' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'encap_hdr_csum' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'csum_valid' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'csum_complete_sw' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'csum_level' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'inner_protocol_type' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'remcsum_offload' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'offload_fwd_mark' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'offload_mr_fwd_mark' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'sender_cpu' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'reserved_tailroom' not described in 'sk_buff'
-   include/linux/skbuff.h:860: warning: Function parameter or member 'inner_ipproto' not described in 'sk_buff'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_addrpair' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_portpair' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_ipv6only' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_net_refcnt' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_v6_daddr' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_v6_rcv_saddr' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_cookie' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_listener' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_tw_dr' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_rcv_wnd' not described in 'sock_common'
-   include/net/sock.h:238: warning: Function parameter or member 'skc_tw_rcv_nxt' not described in 'sock_common'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_backlog.rmem_alloc' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_backlog.len' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_backlog.head' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_backlog.tail' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_wq_raw' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'tcp_rtx_queue' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_route_forced_caps' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_txtime_report_errors' not described in 'sock'
-   include/net/sock.h:509: warning: Function parameter or member 'sk_validate_xmit_skb' not described in 'sock'
-   include/linux/netdevice.h:2018: warning: Function parameter or member 'adj_list.upper' not described in 'net_device'
-   include/linux/netdevice.h:2018: warning: Function parameter or member 'adj_list.lower' not described in 'net_device'
-   include/linux/netdevice.h:2018: warning: Function parameter or member 'gso_partial_features' not described in 'net_device'
-   include/linux/netdevice.h:2018: warning: Function parameter or member 'switchdev_ops' not described in 'net_device'
-
-# https://github.com/0day-ci/linux/commit/eed1edfa16cb1ed0b7530c47d080859c9a2036ec
-git remote add linux-review https://github.com/0day-ci/linux
-git remote update linux-review
-git checkout eed1edfa16cb1ed0b7530c47d080859c9a2036ec
-vim +1848 drivers/video/fbdev/core/fbmem.c
-
-712f3147 drivers/video/fbmem.c            Linus Torvalds  2011-05-13  1833  
-712f3147 drivers/video/fbmem.c            Linus Torvalds  2011-05-13  1834  /**
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1835   * remove_conflicting_pci_framebuffers - remove firmware-configured framebuffers for PCI devices
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1836   * @pdev: PCI device
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1837   * @resource_id: index of PCI BAR configuring framebuffer memory
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1838   * @name: requesting driver name
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1839   *
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1840   * This function removes framebuffer devices (eg. initialized by firmware)
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1841   * using memory range configured for @pdev's BAR @resource_id.
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1842   *
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1843   * The function assumes that PCI device with shadowed ROM drives a primary
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1844   * display and so kicks out vga16fb.
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1845   */
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1846  int remove_conflicting_pci_framebuffers(struct pci_dev *pdev, int res_id, const char *name)
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1847  {
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01 @1848  	struct apertures_struct *ap;
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1849  	bool primary = false;
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1850  	int err;
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1851  
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1852  	ap = alloc_apertures(1);
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1853  	if (!ap)
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1854  		return -ENOMEM;
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1855  
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1856  	ap->ranges[0].base = pci_resource_start(pdev, res_id);
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1857  	ap->ranges[0].size = pci_resource_len(pdev, res_id);
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1858  #ifdef CONFIG_X86
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1859  	primary = pdev->resource[PCI_ROM_RESOURCE].flags &
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1860  					IORESOURCE_ROM_SHADOW;
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1861  #endif
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1862  	err = remove_conflicting_framebuffers(ap, name, primary);
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1863  	kfree(ap);
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1864  	return err;
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1865  }
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1866  EXPORT_SYMBOL(remove_conflicting_pci_framebuffers);
-eed1edfa drivers/video/fbdev/core/fbmem.c Michał Mirosław 2018-09-01  1867  
-
----
-0-DAY kernel test infrastructure                Open Source Technology Center
-https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
-
---72zhRRUwqu3nWC5W
-Content-Type: application/gzip
-Content-Disposition: attachment; filename=".config.gz"
-Content-Transfer-Encoding: base64
-
-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
-
---72zhRRUwqu3nWC5W
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---72zhRRUwqu3nWC5W--
+T24gVHVlLCBTZXAgNCwgMjAxOCBhdCA0OjQzIFBNIERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZnds
+bC5jaD4gd3JvdGU6Cj4KPiBPbiBUdWUsIFNlcCA0LCAyMDE4IGF0IDM6MzMgUE0sIEJhcyBOaWV1
+d2VuaHVpemVuCj4gPGJhc0BiYXNuaWV1d2VuaHVpemVuLm5sPiB3cm90ZToKPiA+IE9uIFR1ZSwg
+U2VwIDQsIDIwMTggYXQgMzowNCBQTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdy
+b3RlOgo+ID4+Cj4gPj4gT24gVHVlLCBTZXAgMDQsIDIwMTggYXQgMDI6MzM6MDJQTSArMDIwMCwg
+QmFzIE5pZXV3ZW5odWl6ZW4gd3JvdGU6Cj4gPj4gPiBPbiBUdWUsIFNlcCA0LCAyMDE4IGF0IDI6
+MjYgUE0gRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPiB3cm90ZToKPiA+PiA+ID4KPiA+
+PiA+ID4gT24gVHVlLCBTZXAgMDQsIDIwMTggYXQgMTI6NDQ6MTlQTSArMDIwMCwgQ2hyaXN0aWFu
+IEvDtm5pZyB3cm90ZToKPiA+PiA+ID4gPiBBbSAwNC4wOS4yMDE4IHVtIDEyOjE1IHNjaHJpZWIg
+RGFuaWVsIFN0b25lOgo+ID4+ID4gPiA+ID4gSGksCj4gPj4gPiA+ID4gPgo+ID4+ID4gPiA+ID4g
+T24gVHVlLCA0IFNlcCAyMDE4IGF0IDExOjA1LCBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVy
+QGZmd2xsLmNoPiB3cm90ZToKPiA+PiA+ID4gPiA+ID4gT24gVHVlLCBTZXAgNCwgMjAxOCBhdCAz
+OjAwIEFNLCBCYXMgTmlldXdlbmh1aXplbiA8YmFzQGJhc25pZXV3ZW5odWl6ZW4ubmw+IHdyb3Rl
+Ogo+ID4+ID4gPiA+ID4gPiA+ICsvKiBUaGUgY2hpcCB0aGlzIGlzIGNvbXBhdGlibGUgd2l0aC4K
+PiA+PiA+ID4gPiA+ID4gPiArICoKPiA+PiA+ID4gPiA+ID4gPiArICogSWYgY29tcHJlc3Npb24g
+aXMgZGlzYWJsZWQsIHVzZQo+ID4+ID4gPiA+ID4gPiA+ICsgKiAgIC0gQU1ER1BVX0NISVBfVEFI
+SVRJIGZvciBHRlg2LUdGWDgKPiA+PiA+ID4gPiA+ID4gPiArICogICAtIEFNREdQVV9DSElQX1ZF
+R0ExMCBmb3IgR0ZYOSsKPiA+PiA+ID4gPiA+ID4gPiArICoKPiA+PiA+ID4gPiA+ID4gPiArICog
+V2l0aCBjb21wcmVzc2lvbiBlbmFibGVkIHBsZWFzZSB1c2UgdGhlIGV4YWN0IGNoaXAuCj4gPj4g
+PiA+ID4gPiA+ID4gKyAqCj4gPj4gPiA+ID4gPiA+ID4gKyAqIFRPRE86IERvIHNvbWUgZ2VuZXJh
+dGlvbnMgc2hhcmUgRENDIGZvcm1hdD8KPiA+PiA+ID4gPiA+ID4gPiArICovCj4gPj4gPiA+ID4g
+PiA+ID4gKyNkZWZpbmUgQU1ER1BVX01PRElGSUVSX0NISVBfR0VOX1NISUZUICAgICAgICAgICAg
+ICAgICA0MAo+ID4+ID4gPiA+ID4gPiA+ICsjZGVmaW5lIEFNREdQVV9NT0RJRklFUl9DSElQX0dF
+Tl9NQVNLICAgICAgICAgICAgICAgICAgMHhmZgo+ID4+ID4gPiA+ID4gPiBEbyB5b3UgcmVhbGx5
+IG5lZWQgYWxsIHRoZSBjb21iaW5hdGlvbnMgaGVyZSBvZiBEQ0MgKyBncHUgZ2VuICsgdGlsaW5n
+Cj4gPj4gPiA+ID4gPiA+IGRldGFpbHM/IFdoZW4gd2UgaGFkIHRoZSBlbnRpcmUgZGlzY3Vzc2lv
+biB3aXRoIG52aWRpYSBmb2xrcyB0aGV5Cj4gPj4gPiA+ID4gPiA+IGV2ZW50dWFsbHkgYWdyZWVk
+IHRoYXQgdGhleSBkb24ndCBuZWVkIHRoZSBtYXNzaXZlIHBpbGUgd2l0aCBldmVyeQo+ID4+ID4g
+PiA+ID4gPiBwb3NzaWJsZSBjb21iaW5hdGlvbi4gRG8geW91IHJlYWxseSBwbGFuIHRvIHNoYXJl
+IGFsbCB0aGVzZSBkaWZmZXJlbnQKPiA+PiA+ID4gPiA+ID4gdGhpbmdzPwo+ID4+ID4gPiA+ID4g
+Pgo+ID4+ID4gPiA+ID4gPiBOb3RlIHRoYXQgZS5nLiBvbiBpOTE1IHdlIHNwZWMgc29tZSBvZiB0
+aGUgdGlsaW5nIGRlcGVuZGluZyB1cG9uCj4gPj4gPiA+ID4gPiA+IGJ1ZmZlciBzaXplIGFuZCBi
+dWZmZXIgZm9ybWF0IChiZWNhdXNlIHRoYXQncyBob3cgdGhlIGh3IHdvcmtzKSwgbm90Cj4gPj4g
+PiA+ID4gPiA+IHVzaW5nIGV4cGxpY2l0IG1vZGlmaWVyIGZsYWdzIGZvciBldmVyeXRoaW5nLgo+
+ID4+ID4gPiA+ID4gUmlnaHQuIFRoZSBjb25jbHVzaW9uLCBhZnRlciBwZW9wbGUgd2VudCB0aHJv
+dWdoIGFuZCBzdGFydGVkIHNvcnRpbmcKPiA+PiA+ID4gPiA+IG91dCB0aGUga2luZHMgb2YgZm9y
+bWF0cyBmb3Igd2hpY2ggdGhleSB3b3VsZCBfYWN0dWFsbHlfIGV4cG9ydCByZWFsCj4gPj4gPiA+
+ID4gPiBjb2xvdXIgYnVmZmVycyBmb3IsIHRoYXQgbW9zdCB2ZW5kb3JzIGRlZmluaXRlbHkgaGF2
+ZSBmZXdlciB0aGFuCj4gPj4gPiA+ID4gPiAxMTUsNzkyLDA4OSwyMzcsMzE2LDE5NSw0MjMsNTcw
+LDk4NSwwMDgsNjg3LDkwNyw4NTMsMjY5LDk4NCw2NjUsNjQwLDU2NCwwMzksNDU3LDU4NCwwMDcs
+OTEzLDEyOSw2MzksOTM2Cj4gPj4gPiA+ID4gPiBwb3NzaWJsZSBmb3JtYXRzIHRvIHJlcHJlc2Vu
+dCwgdmVyeSBsaWtlbHkgZmV3ZXIgdGhhbgo+ID4+ID4gPiA+ID4gMzQwLDI4MiwzNjYsOTIwLDkz
+OCw0NjMsNDYzLDM3NCw2MDcsNDMxLDc2OCwyMTEsNDU2IGZvcm1hdHMsIHByb2JhYmx5Cj4gPj4g
+PiA+ID4gPiBmZXdlciB0aGFuIDcyLDA1Nyw1OTQsMDM3LDkyNyw5MzYgZm9ybWF0cywgYW5kIGV2
+ZW4gc3RpbGwgZ2VuZXJhbGx5Cj4gPj4gPiA+ID4gPiBmZXdlciB0aGFuIDI4MSw0NzQsOTc2LDcx
+MCw2NTYgaWYgeW91IHdhbnQgdG8gYmUgZ2VuZXJvdXMgYW5kIGxlYXZlIDgKPiA+PiA+ID4gPiA+
+IGJpdHMgb2YgdGhlIDU2IGF2YWlsYWJsZS4KPiA+PiA+ID4gPgo+ID4+ID4gPiA+IFRoZSBwcm9i
+bGVtIGhlcmUgaXMgdGhhdCBhdCBsZWFzdCBmb3Igc29tZSBwYXJhbWV0ZXJzIHdlIGFjdHVhbGx5
+IGRvbid0IGtub3cKPiA+PiA+ID4gPiB3aGljaCBmb3JtYXRzIGFyZSBhY3R1YWxseSB1c2VkLgo+
+ID4+ID4gPiA+Cj4gPj4gPiA+ID4gVGhlIGZvbGxvd2luZyBhcmUgbm90IHJlYWwgd29ybGQgZXhh
+bXBsZXMsIGJ1dCBqdXN0IHRvIGV4cGxhaW4gdGhlIGdlbmVyYWwKPiA+PiA+ID4gPiBwcm9ibGVt
+Lgo+ID4+ID4gPiA+Cj4gPj4gPiA+ID4gVGhlIG1lbW9yeSBjb25maWd1cmF0aW9uIGZvciBleGFt
+cGxlIGNhbiBiZSBub3QgQVNJQyBzcGVjaWZpYywgYnV0IHJhdGhlcgo+ID4+ID4gPiA+IGRldGVy
+bWluZWQgYnkgd2hvZXZlciB0b29rIHRoZSBBU0lDIGFuZCBnbHVlZCBpdCB0b2dldGhlciB3aXRo
+IFZSQU0gb24gYQo+ID4+ID4gPiA+IGJvYXJkLiBJdCBpcyBub3QgbGlrZWx5IHRoYXQgc29tZWJv
+ZHkgcHV0cyBhbGwgdGhlIFZSQU0gY2hpcHMgb24gb25lCj4gPj4gPiA+ID4gY2hhbm5lbCwgYnV0
+IGl0IGlzIHN0aWxsIHBlcmZlY3RseSBwb3NzaWJsZS4KPiA+PiA+ID4gPgo+ID4+ID4gPiA+IFNh
+bWUgaXMgdHJ1ZSBmb3IgdGhpbmdzIGxpa2UgaGFydmVzdGluZywgZS5nLiBvZiAxNiBjaGFubmVs
+cyBoYWx2ZSBvZiB0aGVtCj4gPj4gPiA+ID4gY291bGQgYmUgYmFkIGFuZCB3ZSBuZWVkIHRvIGtu
+b3cgd2hpY2ggdG8gYWN0dWFsbHkgdXNlLgo+ID4+ID4gPgo+ID4+ID4gPiBGb3IgbXkgdW5kZXJz
+dGFuZGluZzogVGhpcyBsZWFrcyBvdXRzaWRlIHRoZSBjaGlwIHdoZW4gc2hhcmluZyBidWZmZXJz
+Pwo+ID4+ID4gPiBBbGwgdGhlIGluZm9ybWF0aW9uIHlvdSBvbmx5IG5lZWQgbG9jYWxseSB0byBh
+IGdpdmVuIGFtZGdwdSBpbnN0YW5jZQo+ID4+ID4gPiBkb24ndCByZWFsbHkgbmVlZCB0byBiZSBl
+bmNvZGVkIGluIG1vZGlmaWVycy4KPiA+PiA+ID4KPiA+PiA+ID4gUG9pbnRlcnMgdG8gY29kZSB3
+aGVyZSB0aGlzIGlzIGFsbCBkZWNpZGVkIChrZXJuZWwgYW5kIHJhZGVvbnNpIHdvdWxkIGJlCj4g
+Pj4gPiA+IGdvb2Qgc3RhcnRlcnMgSSBndWVzcykgd291bGQgYmUgcmVhbGx5IGdvb2QgaGVyZS4K
+PiA+PiA+Cj4gPj4gPiBJIGV4dHJhY3RlZCB0aGUgaW5mb3JtYXRpb24gb24gd2hpY2ggYml0cyBh
+cmUgcmVsZXZhbnQgbW9zdGx5IGZyb20gdGhlCj4gPj4gPiBBZGRyRnJvbUNvb3JkIGZ1bmN0aW9u
+cyBpbiBhZGRybGliIGluIG1lc2E6Cj4gPj4gPgo+ID4+ID4gZm9yIG1hY3JvLXRpbGVzOgo+ID4+
+ID4gaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL21lc2EvbWVzYS9ibG9iL21hc3Rlci9z
+cmMvYW1kL2FkZHJsaWIvcjgwMC9lZ2JhZGRybGliLmNwcCNMMTU4Nwo+ID4+ID4KPiA+PiA+IGZv
+ciBtaWNyby10aWxlcyAob3IgdGhlIG1pY3JvLXRpbGVzIGluIG1hY3JvLXRpbGVzKToKPiA+PiA+
+Cj4gPj4gPiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9tZXNhL2Jsb2IvbWFz
+dGVyL3NyYy9hbWQvYWRkcmxpYi9jb3JlL2FkZHJsaWIxLmNwcCNMMzAxNgo+ID4+Cj4gPj4gU28g
+dGhpcyBpcyB0aGUgZGVjb2RpbmcgdGhpbmcuIEhvdyBtYW55IG9mIHRoZXNlIGFjdHVhbGx5IGV4
+aXN0LCBldmVuIHdoZW4KPiA+PiB0YWtpbmcgYWxsIHRoZSBvdGhlciBpbmZvcm1hdGlvbiBpbnRv
+IGFjY291bnQ/Cj4gPj4KPiA+PiBFLmcuIGdpdmVuIGEgcGxhdGZvcm0gKyBtZW1vcnkgY29uZmln
+IChzZWVtcyBuZWVkZWQpICsgZHJtX2ZvdXJjYyArIHN0cmlkZQo+ID4+ICsgaGVpZ2h0ICsgd2lk
+dGgsIGhvdyBtdWNoIG9mIGFsbCB0aGVzZSBiaXRzIGRvIHlvdSBhY3R1YWxseSBzdGlsbCBmcmVl
+bHkKPiA+PiBwaWNrPwo+ID4KPiA+IEJhc2ljYWxseSB5b3UgcGljayBBUlJBWV9NT0RFIChsaW5l
+YXIsIG1pY3JvLXRpbGUsIG1hY3JvLXRpbGUsIHNwYXJzZSwKPiA+IHRoaWNrIHZhcmlhbnRzIG9m
+IG1hY3JvLXRpbGUpLCBNSUNST19USUxFX01PREUoZGlzcGxheSwgbm9uLWRpc3BsYXksCj4gPiBk
+ZXB0aCwgZGlzcGxheS1yb3RhdGVkKSArIHdoZXRoZXIgdG8gdXNlIGNvbXByZXNzaW9uLCBldmVy
+eXRoaW5nIGVsc2UKPiA+IGlzIGZpeGVkIGdpdmVuIHRob3NlIG9wdGlvbiwgdGhlIHByb3BlcnRp
+ZXMgb2YgdGhlIGNoaXAgYW5kIHRoZQo+ID4gZm9ybWF0Lgo+ID4KPiA+Cj4gPj4KPiA+PiBJdCBt
+aWdodCBiZSB0aGF0IGFsbCB0aGUgdGhpbmdzIHlvdSBuZWVkIHRvIGtub3cgZnJvbSB0aGUgbWVt
+b3J5IGNvbmZpZwo+ID4+IGRvbid0IGVuY29kZSBzbWFsbGVyIHRoYW4gdGhlIG1hY3JvL21pY3Jv
+L3doYXRldmVyIGVsc2Ugc3R1ZmYuIEJ1dCB0aGF0J3MKPiA+PiBraW5kYSB0aGUgYW5nbGUgdGhh
+dCB3ZSBsb29rZWQgYXQgdGhpcyBmb3IgZXZlcnlvbmUgZWxzZS4KPiA+Pgo+ID4+IEUuZy4gZm9y
+IG11bHRpLXBsYW5lIHN0dWZmLCBpZiBldmVyeW9uZSBwaWNrcyB0aGUgc2FtZSBjb25maWcgZm9y
+IHRoZQo+ID4+IDJuZC8zcmQgcGxhbmUsIHRoZW4geW91IGRvbid0IGFjdHVhbGx5IG5lZWQgdG8g
+ZW5jb2RlIHRoYXQuIEl0IGp1c3QKPiA+PiBiZWNvbWVzIHBhcnQgb2YgdGhlIGltcGxpZWQgc3R1
+ZmYgaW4gdGhlIG1vZGlmaWVyLgo+ID4KPiA+IFRoZSBwcm9ibGVtIGlzIHNvbWUgR1BVcyBhcmUg
+Y29tcGF0aWJsZSBmb3Igc2F5IDgtYnBwIGltYWdlcywgYnV0IG5vdAo+ID4gZm9yIDMyLWJwcCBz
+dXJmYWNlcy4gZS5nLiBsZXRzIGxvb2sgYXQgdGhlIGZvbGxvd2luZyB0YWJsZSBzaG93aW5nIHRo
+ZQo+ID4gY3VycmVudCBjb25maWd1cmF0aW9uIGZvciBhbGwgR0ZYNi1HRlg4IEdQVToKPiA+Cj4g
+PiBmb3JtYXQ6IChiYW5rIHdpZHRoLCBiYW5rIGhlaWdodCwgbWFjcm8gdGlsZSBhc3BlY3QsIG51
+bSBiYW5rcykgZm9yCj4gPiA4LWJwcCwgMTYtYnBwIGFuZCAzMiBicHAgc2luZ2xlLXNhbXBsZSBm
+b2xsb3dlZCBieSB0aGUgUElQRV9DT05GSUcKPiA+Cj4gPiB2ZXJkZTogKDEsIDQsIDIsIDE2KSAo
+MSwgMiwgMiwgMTYpICgxLCAxLCAyLCAxNikgQUREUl9TVVJGX1A0Xzh4MTYKPiA+IG9sYW5kOiAo
+MSwgNCwgMiwgMTYpICgxLCAyLCAyLCAxNikgKDEsIDEsIDIsIDE2KSBBRERSX1NVUkZfUDRfOHgx
+Ngo+ID4gaGFpbmFuOiAoMSwgNCwgMiwgMTYpICgxLCAyLCAyLCAxNikgKDEsIDEsIDIsIDE2KSBB
+RERSX1NVUkZfUDIKPiA+IHRhaGl0aS9waXRjYWlybjogKDEsIDQsIDEsIDE2KSAoMSwgMiwgMSwg
+MTYpICgxLCAxLCAxLCAxNikKPiA+IEFERFJfU1VSRl9QOF8zMngzMl84eDE2Cj4gPiBib25haXJl
+OiAoMSw0LDQsMTYpICgxLCAyLCA0LCAxNikgKDEsIDEsIDIsIDE2KSBBRERSX1NVUkZfUDRfMTZ4
+MTYKPiA+IGhhd2FpaTogKDEsIDQsIDIsIDE2KSAoMSwgMiwgMiwgMTYpICgxLCAxLCAxLCAxNikg
+QUREUl9TVVJGX1AxNl8zMngzMl8xNngxNgo+ID4gQ0lLIEFQVXM6ICgxLDQsNCwgOCksICgxLDIs
+NCw4KSwgICgxLCAyLCAyLCA4KSBBRERSX1NVUkZfUDIKPiA+IHRvcGF6OiAoNCwgNCwgMiwgOCkg
+KDQsIDQsIDIsIDgpICgyLCA0LCAyLCA4KSBBRERSX1NVUkZfUDIKPiA+IGZpamk6ICgxLCA0LCAy
+LCA4KSAoMSwgNCwgMiwgOCkgKDEsIDQsIDIsIDgpIEFERFJfU1VSRl9QMTZfMzJ4MzJfMTZ4MTYK
+PiA+IHRvbmdhOjogKDEsIDQsIDQsIDE2KSwgKDEsIDQsIDQsIDE2KSAoMSwgNCwgNCwgMTYpIEFE
+RFJfU1VSRl9QOF8zMngzMl8xNngxNgo+ID4gcG9sYXJpczExLzEyOiAoMSwgNCwgNCwgMTYpLCAo
+MSwgNCwgNCwgMTYpICgxLCA0LCA0LCAxNikgQUREUl9TVVJGX1A0XzE2eDE2Cj4gPiBwb2xhcmlz
+MTA6ICgxLCA0LCA0LCAxNiksICgxLCA0LCA0LCAxNikgKDEsIDQsIDQsIDE2KSBBRERSX1NVUkZf
+UDhfMzJ4MzJfMTZ4MTYKPiA+IHN0b25leSxjYXJyaXpvOiAoMSwgNCwgNCwgOCkgKDEsIDIsIDQs
+IDgpLCAoMSwgMSwgMiwgOCkgQUREUl9TVVJGX1AyCj4gPgo+ID4gV2Ugc2VlIGhlcmUgdGhhdCBl
+LmcuIFN0b25leSBhbmQgdGhlIENJSyBBUFVzIGFyZSBjb21wYXRpYmxlIGZvciA4LWJwcAo+ID4g
+YW5kIDE2LWJwcCwgYnV0IG5vdCAzMi1icHAuIG9yIGJvbmFpcmUgYW5kIHBvbGFyaXMxMS8xMiBh
+cmUgb25seQo+ID4gY29tcGF0aWJsZSBmb3IgOC1icHAuCj4gPgo+ID4gU28gd2UgY2FuJ3QganVz
+dCBhc3N1bWUgdGhhdCBpZiB0aGUgZmlyc3QgcGxhbmUgcHJvcGVydGllcyBtYXRjaCB0aGF0Cj4g
+PiB0aGV5IGRvIHNvIGZvciB0aGUgc2Vjb25kIHBsYW5lLCBiZWNhdXNlIHdlIGRvbid0IGtub3cg
+d2hhdCBHUFUgaXQgaXMKPiA+IGNvbWluZyBmcm9tLgo+ID4KPiA+IEFuZCB3ZSBjYW4gbWFrZSBh
+IGNhbm9uaWNhbCB0YWJsZSBmcm9tIHRoaXMgYnV0IHRoZW4gaWYgd2UgY2hhbmdlIHRoZQo+ID4g
+YWJvdmUgdGFibGVzIGluIHRoZSBrZXJuZWwgdGhhdCBydW5zIGludG8gY29tcGF0aWJpbGl0eSBp
+c3N1ZXMuCj4KPgo+IEkgdGhpbmsgdGhhdCdzIHJvdWdobHkgd2hhdCBudmlkaWEgZW5kZWQgdXAg
+ZG9pbmcgKG5vdCBzdXJlIHRoZXkKPiBwdWJsaXNoZWQgYW55dGhpbmcsIGhhdmVuJ3Qgc2VlbiBh
+bnkgcGF0Y2hlcyBvbiBkcmktZGV2ZWwpLiBUd28gcGFydHM6Cj4gLSBCdW5jaCBvZiBmbGFncy9i
+aXRzIGZvciB0aGUgbWFqb3IgbW9kZSwgbGlrZSB7ZGlzcGxheSwgbm9uLWRpc3BsYXksCj4gREND
+fSBhbmQgc28gb24uCj4gLSBGb3IgZWFjaCBvZiB0aGUgbWFqb3IgbW9kZXMgYSBsaXN0IG9mIGVu
+dW1lcmF0ZWQgbW9kZXMgYWN0dWFsbHkgdXNlZAo+IGluIHJlYWxpdHkuIEZvciBEQ0MgdGhpcyB3
+b3VsZCBiZSB0aGUgZ2VuZXJhdGlvbiwgZm9yIG1vcmUgcGxhaW4KPiBmb3JtYXRzIGl0IHdvdWxk
+IGJlIHRoZSBhYm92ZSB0YWJsZS4gVGFibGUgZW50cmllcyB3b3VsZCBiZSBwZXItYnBwCj4gKGlu
+IGNhc2UgdGhhdCBtYXR0ZXJzLCBvciB3aGF0ZXZlciBtYXR0ZXJzIGZvciBhbWQgZ3B1cykuCj4K
+PiBJbW8gd291bGQgYmUgdG90YWxseSBvayB0byBwdXQgdGhlIHJlbGV2YW50IGxvb2t1cCB0YWJs
+ZXMgaW50bwo+IGRybV9mb3VyY2MuaCBkaXJlY3RseS4gT3IgYW55IG90aGVyIHN1aXRhYmxlIHBs
+YWNlLgoKUmlnaHQsIHRoZSBpc3N1ZSB3b3VsZCBiZSB0aGF0IHRoZSB0YWJsZXMgYXJlIGNvbmZp
+Z3VyZWQgaW50IGhlIGtlcm5lbAoKaHR0cHM6Ly9jZ2l0LmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYv
+bGludXgvdHJlZS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jP2g9YW1kLXN0
+YWdpbmctZHJtLW5leHQjbjQxNwoKYW5kIGhhdmluZyBhIHNoYXJlZCBoYXJkY29kZWQgdGFibGUg
+bWVhbnMgdGhhdCBpZiB0aGUga2VybmVsIHRhYmxlcwpjaGFuZ2Ugd2UgYnJlYWsgdXNlcnNwYWNl
+LiBUaGF0IHdvdWxkIGJlIGEgbmV3IGNvbW1pdG1lbnQgb24gdGhlIHNpZGUKb2YgdGhlIGtlcm5l
+bCBkcml2ZXIuCgooSWYgSSBjYW4gZ2V0IGFuIG9rYXkgZm9yIHRoYXQgY29tbWl0bWVudCBmcm9t
+IEFsZXgvQ2hyaXN0aWFuIEknZCBiZQp0b3RhbGx5IGhhcHB5IHRvIHN3aXRjaCBpdCBvdmVyKQoK
+Pgo+IEZyb20gYSBxdWljayBsb29rIGFib3V0IDE2IGJpdHMgdG90YWwuIEdpdmVzIHlvdSA0MGJp
+dHMgb2Ygc2Vjb25kCj4gY2hhbmNlcyBhbmQgIm9vcHMgdG90YWxseSBzb3JyeSIuCgpJIHB1cnBv
+c2VmdWxseSBsZWZ0IDggYml0cyBhcyBhIHZlcnNpb24gZmllbGQgZm9yIHRob3NlIG9vcHNlcy4K
+Cj4gLURhbmllbAo+Cj4gPgo+ID4+IC1EYW5pZWwKPiA+Pgo+ID4+ID4KPiA+PiA+ID4gLURhbmll
+bAo+ID4+ID4gPgo+ID4+ID4gPiA+Cj4gPj4gPiA+ID4gUmVnYXJkcywKPiA+PiA+ID4gPiBDaHJp
+c3RpYW4uCj4gPj4gPiA+ID4KPiA+PiA+ID4gPiA+Cj4gPj4gPiA+ID4gPiBJZiB5b3UgZG8gdXNl
+IDI1NiBiaXRzIGluIG9yZGVyIHRvIHJlcHJlc2VudAo+ID4+ID4gPiA+ID4gMTE1LDc5MiwwODks
+MjM3LDMxNiwxOTUsNDIzLDU3MCw5ODUsMDA4LDY4Nyw5MDcsODUzLDI2OSw5ODQsNjY1LDY0MCw1
+NjQsMDM5LDQ1Nyw1ODQsMDA3LDkxMywxMjksNjM5LDkzNgo+ID4+ID4gPiA+ID4gbW9kaWZpZXJz
+IHBlciBmb3JtYXQsIHVzZXJzcGFjZSB3b3VsZCBzdGFydCBoaXR0aW5nIE9PTSBwcmV0dHkgcXVp
+Y2tseQo+ID4+ID4gPiA+ID4gYXMgaXQgYXR0ZW1wdGVkIHRvIGVudW1lcmF0ZSBhbmQgbmVnb3Rp
+YXRlIGFjY2VwdGFibGUgbW9kaWZpZXJzLgo+ID4+ID4gPiA+ID4gRWl0aGVyIHRoYXQgb3Igd2Ug
+bmVlZCB0byByZXBsYWNlIHRoZSBmaXhlZCA2NC1iaXQgbW9kaWZpZXIgdG9rZW5zCj4gPj4gPiA+
+ID4gPiB3aXRoIHNvbWUga2luZCBvZiBlQlBGIHNjcmlwdC4KPiA+PiA+ID4gPiA+Cj4gPj4gPiA+
+ID4gPiBDaGVlcnMsCj4gPj4gPiA+ID4gPiBEYW5pZWwKPiA+PiA+ID4gPiA+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gPj4gPiA+ID4gPiBkcmktZGV2
+ZWwgbWFpbGluZyBsaXN0Cj4gPj4gPiA+ID4gPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4gPj4gPiA+ID4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2RyaS1kZXZlbAo+ID4+ID4gPiA+Cj4gPj4gPiA+Cj4gPj4gPiA+IC0tCj4gPj4gPiA+
+IERhbmllbCBWZXR0ZXIKPiA+PiA+ID4gU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0
+aW9uCj4gPj4gPiA+IGh0dHA6Ly9ibG9nLmZmd2xsLmNoCj4gPj4gPiA+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gPj4gPiA+IGRyaS1kZXZlbCBtYWls
+aW5nIGxpc3QKPiA+PiA+ID4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4+ID4g
+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
+bAo+ID4+Cj4gPj4gLS0KPiA+PiBEYW5pZWwgVmV0dGVyCj4gPj4gU29mdHdhcmUgRW5naW5lZXIs
+IEludGVsIENvcnBvcmF0aW9uCj4gPj4gaHR0cDovL2Jsb2cuZmZ3bGwuY2gKPgo+Cj4KPiAtLQo+
+IERhbmllbCBWZXR0ZXIKPiBTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPiAr
+NDEgKDApIDc5IDM2NSA1NyA0OCAtIGh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QK
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
