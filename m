@@ -1,14 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: two KASANs in TTM logic
-Date: Tue, 4 Sep 2018 16:05:47 +0200
-Message-ID: <63c23f00-92dd-2311-5dc9-21e29b3bbb8b@gmail.com>
-References: <62eed98f-e37c-6a72-3553-cfd10b13e49f@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [bug report] drm/radeon: use pcie functions for link width
+Date: Tue, 4 Sep 2018 17:17:46 +0300
+Message-ID: <20180904141746.7dveixswasyiia25@kili.mountain>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1996661711=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <62eed98f-e37c-6a72-3553-cfd10b13e49f-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,148 +17,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis-5C7GfCeVMHo@public.gmane.org>, "Daenzer, Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: alexander.deucher-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1996661711==
-Content-Type: multipart/alternative;
- boundary="------------076ECA0CE8B295C149C77725"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------076ECA0CE8B295C149C77725
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-The first one should already be fixed.
-
-Not sure where the second comes from. Can you narrow that down further?
-
-Christian.
-
-Am 04.09.2018 um 15:46 schrieb Tom St Denis:
-> First is caused by this commit while running a GL heavy application.
->
-> d78c1fa0c9f815fe951fd57001acca3d35262a17 is the first bad commit
-> commit d78c1fa0c9f815fe951fd57001acca3d35262a17
-> Author: Michel Dänzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
-> Date:   Wed Aug 29 11:59:38 2018 +0200
->
->     Revert "drm/amdgpu: move PD/PT bos on LRU again"
->
->     This reverts commit 31625ccae4464b61ec8cdb9740df848bbc857a5b.
->
->     It triggered various badness on my development machine when 
-> running the
->     piglit gpu profile with radeonsi on Bonaire, looks like memory
->     corruption due to insufficiently protected list manipulations.
->
->     Signed-off-by: Michel Dänzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->     Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
->
-> :040000 040000 b7169f0cf0c7decec631751a9896a92badb67f9d 
-> 42ea58f43199d26fc0c7ddcc655e6d0964b81817 M      drivers
->
-> The second is caused by something between that and the tip of the 
-> 4.19-rc1 amd-staging-drm-next (I haven't pinned it down yet) while 
-> loading GNOME.
->
-> Tom
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------076ECA0CE8B295C149C77725
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">The first one should already be fixed.<br>
-      <br>
-      Not sure where the second comes from. Can you narrow that down
-      further?<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 04.09.2018 um 15:46 schrieb Tom St Denis:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:62eed98f-e37c-6a72-3553-cfd10b13e49f-5C7GfCeVMHo@public.gmane.org">First is
-      caused by this commit while running a GL heavy application.
-      <br>
-      <br>
-      d78c1fa0c9f815fe951fd57001acca3d35262a17 is the first bad commit
-      <br>
-      commit d78c1fa0c9f815fe951fd57001acca3d35262a17
-      <br>
-      Author: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
-      <br>
-      Date:   Wed Aug 29 11:59:38 2018 +0200
-      <br>
-      <br>
-          Revert "drm/amdgpu: move PD/PT bos on LRU again"
-      <br>
-      <br>
-          This reverts commit 31625ccae4464b61ec8cdb9740df848bbc857a5b.
-      <br>
-      <br>
-          It triggered various badness on my development machine when
-      running the
-      <br>
-          piglit gpu profile with radeonsi on Bonaire, looks like memory
-      <br>
-          corruption due to insufficiently protected list manipulations.
-      <br>
-      <br>
-          Signed-off-by: Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a>
-      <br>
-          Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
-      <br>
-      <br>
-      :040000 040000 b7169f0cf0c7decec631751a9896a92badb67f9d
-      42ea58f43199d26fc0c7ddcc655e6d0964b81817 M      drivers
-      <br>
-      <br>
-      The second is caused by something between that and the tip of the
-      4.19-rc1 amd-staging-drm-next (I haven't pinned it down yet) while
-      loading GNOME.
-      <br>
-      <br>
-      Tom
-      <br>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------076ECA0CE8B295C149C77725--
-
---===============1996661711==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1996661711==--
+SGVsbG8gQWxleCBEZXVjaGVyLAoKVGhlIHBhdGNoIDVmMTUyYTU3MmMxMDogImRybS9yYWRlb246
+IHVzZSBwY2llIGZ1bmN0aW9ucyBmb3IgbGluawp3aWR0aCIgZnJvbSBKdW4gMjUsIDIwMTgsIGxl
+YWRzIHRvIHRoZSBmb2xsb3dpbmcgc3RhdGljIGNoZWNrZXIKd2FybmluZzoKCglkcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL2Npay5jOjk2NDYgY2lrX3BjaWVfZ2VuM19lbmFibGUoKQoJd2FybjogZGVh
+ZCBjb2RlIGJlY2F1c2Ugb2YgJ3NwZWVkX2NhcCA9PSAyMScgYW5kICdzcGVlZF9jYXAgIT0gMjEn
+Cgpkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2Npay5jCiAgOTQ5OSAgc3RhdGljIHZvaWQgY2lrX3Bj
+aWVfZ2VuM19lbmFibGUoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCiAgOTUwMCAgewogIDk1
+MDEgICAgICAgICAgc3RydWN0IHBjaV9kZXYgKnJvb3QgPSByZGV2LT5wZGV2LT5idXMtPnNlbGY7
+CiAgOTUwMiAgICAgICAgICBlbnVtIHBjaV9idXNfc3BlZWQgc3BlZWRfY2FwOwogIDk1MDMgICAg
+ICAgICAgaW50IGJyaWRnZV9wb3MsIGdwdV9wb3M7CiAgOTUwNCAgICAgICAgICB1MzIgc3BlZWRf
+Y250bCwgY3VycmVudF9kYXRhX3JhdGU7CiAgOTUwNSAgICAgICAgICBpbnQgaTsKICA5NTA2ICAg
+ICAgICAgIHUxNiB0bXAxNjsKICA5NTA3ICAKICA5NTA4ICAgICAgICAgIGlmIChwY2lfaXNfcm9v
+dF9idXMocmRldi0+cGRldi0+YnVzKSkKICA5NTA5ICAgICAgICAgICAgICAgICAgcmV0dXJuOwog
+IDk1MTAgIAogIDk1MTEgICAgICAgICAgaWYgKHJhZGVvbl9wY2llX2dlbjIgPT0gMCkKICA5NTEy
+ICAgICAgICAgICAgICAgICAgcmV0dXJuOwogIDk1MTMgIAogIDk1MTQgICAgICAgICAgaWYgKHJk
+ZXYtPmZsYWdzICYgUkFERU9OX0lTX0lHUCkKICA5NTE1ICAgICAgICAgICAgICAgICAgcmV0dXJu
+OwogIDk1MTYgIAogIDk1MTcgICAgICAgICAgaWYgKCEocmRldi0+ZmxhZ3MgJiBSQURFT05fSVNf
+UENJRSkpCiAgOTUxOCAgICAgICAgICAgICAgICAgIHJldHVybjsKICA5NTE5ICAKICA5NTIwICAg
+ICAgICAgIHNwZWVkX2NhcCA9IHBjaWVfZ2V0X3NwZWVkX2NhcChyb290KTsKICA5NTIxICAgICAg
+ICAgIGlmIChzcGVlZF9jYXAgPT0gUENJX1NQRUVEX1VOS05PV04pCiAgOTUyMiAgICAgICAgICAg
+ICAgICAgIHJldHVybjsKICA5NTIzICAKICA5NTI0ICAgICAgICAgIGlmICgoc3BlZWRfY2FwICE9
+IFBDSUVfU1BFRURfOF8wR1QpICYmCiAgOTUyNSAgICAgICAgICAgICAgKHNwZWVkX2NhcCAhPSBQ
+Q0lFX1NQRUVEXzVfMEdUKSkKICAgICAgICAgICAgICAgICAgICAgXl5eXl5eXl5eXl5eXl5eXl5e
+Xl5eXl5eXl5eXl4KV2UgYWRkZWQgdGhpcyBjb25kaXRpb24KCiAgOTUyNiAgICAgICAgICAgICAg
+ICAgIHJldHVybjsKICA5NTI3ICAKICA5NTI4ICAgICAgICAgIHNwZWVkX2NudGwgPSBSUkVHMzJf
+UENJRV9QT1JUKFBDSUVfTENfU1BFRURfQ05UTCk7CiAgOTUyOSAgICAgICAgICBjdXJyZW50X2Rh
+dGFfcmF0ZSA9IChzcGVlZF9jbnRsICYgTENfQ1VSUkVOVF9EQVRBX1JBVEVfTUFTSykgPj4KICA5
+NTMwICAgICAgICAgICAgICAgICAgTENfQ1VSUkVOVF9EQVRBX1JBVEVfU0hJRlQ7CiAgOTUzMSAg
+ICAgICAgICBpZiAoc3BlZWRfY2FwID09IFBDSUVfU1BFRURfOF8wR1QpIHsKICA5NTMyICAgICAg
+ICAgICAgICAgICAgaWYgKGN1cnJlbnRfZGF0YV9yYXRlID09IDIpIHsKICA5NTMzICAgICAgICAg
+ICAgICAgICAgICAgICAgICBEUk1fSU5GTygiUENJRSBnZW4gMyBsaW5rIHNwZWVkcyBhbHJlYWR5
+IGVuYWJsZWRcbiIpOwogIDk1MzQgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybjsKICA5
+NTM1ICAgICAgICAgICAgICAgICAgfQogIDk1MzYgICAgICAgICAgICAgICAgICBEUk1fSU5GTygi
+ZW5hYmxpbmcgUENJRSBnZW4gMyBsaW5rIHNwZWVkcywgZGlzYWJsZSB3aXRoIHJhZGVvbi5wY2ll
+X2dlbjI9MFxuIik7CiAgOTUzNyAgICAgICAgICB9IGVsc2UgaWYgKHNwZWVkX2NhcCA9PSBQQ0lF
+X1NQRUVEXzVfMEdUKSB7CiAgOTUzOCAgICAgICAgICAgICAgICAgIGlmIChjdXJyZW50X2RhdGFf
+cmF0ZSA9PSAxKSB7CiAgOTUzOSAgICAgICAgICAgICAgICAgICAgICAgICAgRFJNX0lORk8oIlBD
+SUUgZ2VuIDIgbGluayBzcGVlZHMgYWxyZWFkeSBlbmFibGVkXG4iKTsKICA5NTQwICAgICAgICAg
+ICAgICAgICAgICAgICAgICByZXR1cm47CiAgOTU0MSAgICAgICAgICAgICAgICAgIH0KICA5NTQy
+ICAgICAgICAgICAgICAgICAgRFJNX0lORk8oImVuYWJsaW5nIFBDSUUgZ2VuIDIgbGluayBzcGVl
+ZHMsIGRpc2FibGUgd2l0aCByYWRlb24ucGNpZV9nZW4yPTBcbiIpOwogIDk1NDMgICAgICAgICAg
+fQogIDk1NDQgIAogIDk1NDUgICAgICAgICAgYnJpZGdlX3BvcyA9IHBjaV9wY2llX2NhcChyb290
+KTsKICA5NTQ2ICAgICAgICAgIGlmICghYnJpZGdlX3BvcykKICA5NTQ3ICAgICAgICAgICAgICAg
+ICAgcmV0dXJuOwogIDk1NDggIAogIDk1NDkgICAgICAgICAgZ3B1X3BvcyA9IHBjaV9wY2llX2Nh
+cChyZGV2LT5wZGV2KTsKICA5NTUwICAgICAgICAgIGlmICghZ3B1X3BvcykKICA5NTUxICAgICAg
+ICAgICAgICAgICAgcmV0dXJuOwogIDk1NTIgIAogIDk1NTMgICAgICAgICAgaWYgKHNwZWVkX2Nh
+cCA9PSBQQ0lFX1NQRUVEXzhfMEdUKSB7CiAgOTU1NCAgICAgICAgICAgICAgICAgIC8qIHJlLXRy
+eSBlcXVhbGl6YXRpb24gaWYgZ2VuMyBpcyBub3QgYWxyZWFkeSBlbmFibGVkICovCiAgOTU1NSAg
+ICAgICAgICAgICAgICAgIGlmIChjdXJyZW50X2RhdGFfcmF0ZSAhPSAyKSB7CiAgOTU1NiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgdTE2IGJyaWRnZV9jZmcsIGdwdV9jZmc7CiAgOTU1NyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgdTE2IGJyaWRnZV9jZmcyLCBncHVfY2ZnMjsKICA5NTU4ICAg
+ICAgICAgICAgICAgICAgICAgICAgICB1MzIgbWF4X2x3LCBjdXJyZW50X2x3LCB0bXA7CiAgOTU1
+OSAgCiAgOTU2MCAgICAgICAgICAgICAgICAgICAgICAgICAgcGNpX3JlYWRfY29uZmlnX3dvcmQo
+cm9vdCwgYnJpZGdlX3BvcyArIFBDSV9FWFBfTE5LQ1RMLCAmYnJpZGdlX2NmZyk7CiAgOTU2MSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGNpX3JlYWRfY29uZmlnX3dvcmQocmRldi0+cGRldiwg
+Z3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RMLCAmZ3B1X2NmZyk7CiAgOTU2MiAgCiAgOTU2MyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgdG1wMTYgPSBicmlkZ2VfY2ZnIHwgUENJX0VYUF9MTktDVExf
+SEFXRDsKICA5NTY0ICAgICAgICAgICAgICAgICAgICAgICAgICBwY2lfd3JpdGVfY29uZmlnX3dv
+cmQocm9vdCwgYnJpZGdlX3BvcyArIFBDSV9FWFBfTE5LQ1RMLCB0bXAxNik7CiAgOTU2NSAgCiAg
+OTU2NiAgICAgICAgICAgICAgICAgICAgICAgICAgdG1wMTYgPSBncHVfY2ZnIHwgUENJX0VYUF9M
+TktDVExfSEFXRDsKICA5NTY3ICAgICAgICAgICAgICAgICAgICAgICAgICBwY2lfd3JpdGVfY29u
+ZmlnX3dvcmQocmRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RMLCB0bXAxNik7CiAg
+OTU2OCAgCiAgOTU2OSAgICAgICAgICAgICAgICAgICAgICAgICAgdG1wID0gUlJFRzMyX1BDSUVf
+UE9SVChQQ0lFX0xDX1NUQVRVUzEpOwogIDk1NzAgICAgICAgICAgICAgICAgICAgICAgICAgIG1h
+eF9sdyA9ICh0bXAgJiBMQ19ERVRFQ1RFRF9MSU5LX1dJRFRIX01BU0spID4+IExDX0RFVEVDVEVE
+X0xJTktfV0lEVEhfU0hJRlQ7CiAgOTU3MSAgICAgICAgICAgICAgICAgICAgICAgICAgY3VycmVu
+dF9sdyA9ICh0bXAgJiBMQ19PUEVSQVRJTkdfTElOS19XSURUSF9NQVNLKSA+PiBMQ19PUEVSQVRJ
+TkdfTElOS19XSURUSF9TSElGVDsKICA5NTcyICAKICA5NTczICAgICAgICAgICAgICAgICAgICAg
+ICAgICBpZiAoY3VycmVudF9sdyA8IG1heF9sdykgewogIDk1NzQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgdG1wID0gUlJFRzMyX1BDSUVfUE9SVChQQ0lFX0xDX0xJTktfV0lEVEhf
+Q05UTCk7CiAgOTU3NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAodG1wICYg
+TENfUkVORUdPVElBVElPTl9TVVBQT1JUKSB7CiAgOTU3NiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHRtcCAmPSB+KExDX0xJTktfV0lEVEhfTUFTSyB8IExDX1VQQ09O
+RklHVVJFX0RJUyk7CiAgOTU3NyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHRtcCB8PSAobWF4X2x3IDw8IExDX0xJTktfV0lEVEhfU0hJRlQpOwogIDk1NzggICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgfD0gTENfVVBDT05GSUdVUkVf
+U1VQUE9SVCB8IExDX1JFTkVHT1RJQVRFX0VOIHwgTENfUkVDT05GSUdfTk9XOwogIDk1NzkgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBXUkVHMzJfUENJRV9QT1JUKFBD
+SUVfTENfTElOS19XSURUSF9DTlRMLCB0bXApOwogIDk1ODAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgfQogIDk1ODEgICAgICAgICAgICAgICAgICAgICAgICAgIH0KICA5NTgyICAK
+ICA5NTgzICAgICAgICAgICAgICAgICAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgMTA7IGkrKykg
+ewogIDk1ODQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyogY2hlY2sgc3RhdHVz
+ICovCiAgOTU4NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwY2lfcmVhZF9jb25m
+aWdfd29yZChyZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9ERVZTVEEsICZ0bXAxNik7CiAg
+OTU4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAodG1wMTYgJiBQQ0lfRVhQ
+X0RFVlNUQV9UUlBORCkKICA5NTg3ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgYnJlYWs7CiAgOTU4OCAgCiAgOTU4OSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwY2lfcmVhZF9jb25maWdfd29yZChyb290LCBicmlkZ2VfcG9zICsgUENJX0VYUF9MTktD
+VEwsICZicmlkZ2VfY2ZnKTsKICA5NTkwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBjaV9yZWFkX2NvbmZpZ193b3JkKHJkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NU
+TCwgJmdwdV9jZmcpOwogIDk1OTEgIAogIDk1OTIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGNpX3JlYWRfY29uZmlnX3dvcmQocm9vdCwgYnJpZGdlX3BvcyArIFBDSV9FWFBfTE5L
+Q1RMMiwgJmJyaWRnZV9jZmcyKTsKICA5NTkzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBjaV9yZWFkX2NvbmZpZ193b3JkKHJkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xO
+S0NUTDIsICZncHVfY2ZnMik7CiAgOTU5NCAgCiAgOTU5NSAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB0bXAgPSBSUkVHMzJfUENJRV9QT1JUKFBDSUVfTENfQ05UTDQpOwogIDk1OTYg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdG1wIHw9IExDX1NFVF9RVUlFU0NFOwog
+IDk1OTcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV1JFRzMyX1BDSUVfUE9SVChQ
+Q0lFX0xDX0NOVEw0LCB0bXApOwogIDk1OTggIAogIDk1OTkgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgdG1wID0gUlJFRzMyX1BDSUVfUE9SVChQQ0lFX0xDX0NOVEw0KTsKICA5NjAw
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRtcCB8PSBMQ19SRURPX0VROwogIDk2
+MDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV1JFRzMyX1BDSUVfUE9SVChQQ0lF
+X0xDX0NOVEw0LCB0bXApOwogIDk2MDIgIAogIDk2MDMgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgbWRlbGF5KDEwMCk7CiAgOTYwNCAgCiAgOTYwNSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAvKiBsaW5rY3RsICovCiAgOTYwNiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBwY2lfcmVhZF9jb25maWdfd29yZChyb290LCBicmlkZ2VfcG9zICsgUENJX0VY
+UF9MTktDVEwsICZ0bXAxNik7CiAgOTYwNyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB0bXAxNiAmPSB+UENJX0VYUF9MTktDVExfSEFXRDsKICA5NjA4ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHRtcDE2IHw9IChicmlkZ2VfY2ZnICYgUENJX0VYUF9MTktDVExfSEFX
+RCk7CiAgOTYwOSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwY2lfd3JpdGVfY29u
+ZmlnX3dvcmQocm9vdCwgYnJpZGdlX3BvcyArIFBDSV9FWFBfTE5LQ1RMLCB0bXAxNik7CiAgOTYx
+MCAgCiAgOTYxMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwY2lfcmVhZF9jb25m
+aWdfd29yZChyZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwsICZ0bXAxNik7CiAg
+OTYxMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAxNiAmPSB+UENJX0VYUF9M
+TktDVExfSEFXRDsKICA5NjEzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRtcDE2
+IHw9IChncHVfY2ZnICYgUENJX0VYUF9MTktDVExfSEFXRCk7CiAgOTYxNCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwY2lfd3JpdGVfY29uZmlnX3dvcmQocmRldi0+cGRldiwgZ3B1
+X3BvcyArIFBDSV9FWFBfTE5LQ1RMLCB0bXAxNik7CiAgOTYxNSAgCiAgOTYxNiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAvKiBsaW5rY3RsMiAqLwogIDk2MTcgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGNpX3JlYWRfY29uZmlnX3dvcmQocm9vdCwgYnJpZGdlX3Bv
+cyArIFBDSV9FWFBfTE5LQ1RMMiwgJnRtcDE2KTsKICA5NjE4ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHRtcDE2ICY9IH4oKDEgPDwgNCkgfCAoNyA8PCA5KSk7CiAgOTYxOSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAxNiB8PSAoYnJpZGdlX2NmZzIgJiAoKDEg
+PDwgNCkgfCAoNyA8PCA5KSkpOwogIDk2MjAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGNpX3dyaXRlX2NvbmZpZ193b3JkKHJvb3QsIGJyaWRnZV9wb3MgKyBQQ0lfRVhQX0xOS0NU
+TDIsIHRtcDE2KTsKICA5NjIxICAKICA5NjIyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBjaV9yZWFkX2NvbmZpZ193b3JkKHJkZXYtPnBkZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xO
+S0NUTDIsICZ0bXAxNik7CiAgOTYyMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0
+bXAxNiAmPSB+KCgxIDw8IDQpIHwgKDcgPDwgOSkpOwogIDk2MjQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgdG1wMTYgfD0gKGdwdV9jZmcyICYgKCgxIDw8IDQpIHwgKDcgPDwgOSkp
+KTsKICA5NjI1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBjaV93cml0ZV9jb25m
+aWdfd29yZChyZGV2LT5wZGV2LCBncHVfcG9zICsgUENJX0VYUF9MTktDVEwyLCB0bXAxNik7CiAg
+OTYyNiAgCiAgOTYyNyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgPSBSUkVH
+MzJfUENJRV9QT1JUKFBDSUVfTENfQ05UTDQpOwogIDk2MjggICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgdG1wICY9IH5MQ19TRVRfUVVJRVNDRTsKICA5NjI5ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFdSRUczMl9QQ0lFX1BPUlQoUENJRV9MQ19DTlRMNCwgdG1wKTsK
+ICA5NjMwICAgICAgICAgICAgICAgICAgICAgICAgICB9CiAgOTYzMSAgICAgICAgICAgICAgICAg
+IH0KICA5NjMyICAgICAgICAgIH0KICA5NjMzICAKICA5NjM0ICAgICAgICAgIC8qIHNldCB0aGUg
+bGluayBzcGVlZCAqLwogIDk2MzUgICAgICAgICAgc3BlZWRfY250bCB8PSBMQ19GT1JDRV9FTl9T
+V19TUEVFRF9DSEFOR0UgfCBMQ19GT1JDRV9ESVNfSFdfU1BFRURfQ0hBTkdFOwogIDk2MzYgICAg
+ICAgICAgc3BlZWRfY250bCAmPSB+TENfRk9SQ0VfRElTX1NXX1NQRUVEX0NIQU5HRTsKICA5NjM3
+ICAgICAgICAgIFdSRUczMl9QQ0lFX1BPUlQoUENJRV9MQ19TUEVFRF9DTlRMLCBzcGVlZF9jbnRs
+KTsKICA5NjM4ICAKICA5NjM5ICAgICAgICAgIHBjaV9yZWFkX2NvbmZpZ193b3JkKHJkZXYtPnBk
+ZXYsIGdwdV9wb3MgKyBQQ0lfRVhQX0xOS0NUTDIsICZ0bXAxNik7CiAgOTY0MCAgICAgICAgICB0
+bXAxNiAmPSB+MHhmOwogIDk2NDEgICAgICAgICAgaWYgKHNwZWVkX2NhcCA9PSBQQ0lFX1NQRUVE
+XzhfMEdUKQogIDk2NDIgICAgICAgICAgICAgICAgICB0bXAxNiB8PSAzOyAvKiBnZW4zICovCiAg
+OTY0MyAgICAgICAgICBlbHNlIGlmIChzcGVlZF9jYXAgPT0gUENJRV9TUEVFRF81XzBHVCkKICA5
+NjQ0ICAgICAgICAgICAgICAgICAgdG1wMTYgfD0gMjsgLyogZ2VuMiAqLwogIDk2NDUgICAgICAg
+ICAgZWxzZQogIDk2NDYgICAgICAgICAgICAgICAgICB0bXAxNiB8PSAxOyAvKiBnZW4xICovCiAg
+ICAgICAgICAgICAgICAgICAgICAgIF5eXl5eXl5eXl5eXl5eXl5eXl5eXgpJIGd1ZXNzIGdlbjEg
+aXMgbm8gbG9uZ2VyIHN1cHBvcnRlZC4KCiAgOTY0NyAgICAgICAgICBwY2lfd3JpdGVfY29uZmln
+X3dvcmQocmRldi0+cGRldiwgZ3B1X3BvcyArIFBDSV9FWFBfTE5LQ1RMMiwgdG1wMTYpOwogIDk2
+NDggIAogIDk2NDkgICAgICAgICAgc3BlZWRfY250bCA9IFJSRUczMl9QQ0lFX1BPUlQoUENJRV9M
+Q19TUEVFRF9DTlRMKTsKICA5NjUwICAgICAgICAgIHNwZWVkX2NudGwgfD0gTENfSU5JVElBVEVf
+TElOS19TUEVFRF9DSEFOR0U7CiAgOTY1MSAgICAgICAgICBXUkVHMzJfUENJRV9QT1JUKFBDSUVf
+TENfU1BFRURfQ05UTCwgc3BlZWRfY250bCk7CiAgOTY1MiAgCiAgOTY1MyAgICAgICAgICBmb3Ig
+KGkgPSAwOyBpIDwgcmRldi0+dXNlY190aW1lb3V0OyBpKyspIHsKICA5NjU0ICAgICAgICAgICAg
+ICAgICAgc3BlZWRfY250bCA9IFJSRUczMl9QQ0lFX1BPUlQoUENJRV9MQ19TUEVFRF9DTlRMKTsK
+ICA5NjU1ICAgICAgICAgICAgICAgICAgaWYgKChzcGVlZF9jbnRsICYgTENfSU5JVElBVEVfTElO
+S19TUEVFRF9DSEFOR0UpID09IDApCiAgOTY1NiAgICAgICAgICAgICAgICAgICAgICAgICAgYnJl
+YWs7CiAgOTY1NyAgICAgICAgICAgICAgICAgIHVkZWxheSgxKTsKICA5NjU4ICAgICAgICAgIH0K
+ICA5NjU5ICB9CgpyZWdhcmRzLApkYW4gY2FycGVudGVyCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
