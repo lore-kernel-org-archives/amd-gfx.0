@@ -1,102 +1,98 @@
-From: Chunming Zhou <david1.zhou@amd.com>
-Subject: [PATCH 3/3] drm: add timeline syncobj payload query ioctl
-Date: Thu, 6 Sep 2018 16:57:34 +0800
-Message-ID: <20180906085734.7320-3-david1.zhou@amd.com>
-References: <20180906085734.7320-1-david1.zhou@amd.com>
+From: =?UTF-8?Q?J=C3=A1n_Kosterec?= <johnypean-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: amdgpu fails compilation with CONFIG_FORTIFY_SOURCE
+Date: Wed, 5 Sep 2018 20:43:55 +0200
+Message-ID: <CANFv0+2=yn983rcLizDEiuDSND9rE4BZuGBeHwZ6J39CC_kgkw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180906085734.7320-1-david1.zhou@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="000000000000cf0b1a05752428a6"
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-dXNlciBtb2RlIGNhbiBxdWVyeSB0aW1lbGluZSBwYXlsb2FkLgoKU2lnbmVkLW9mZi1ieTogQ2h1
-bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJt
-X2ludGVybmFsLmggfCAgMiArKwogZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jICAgIHwgIDIg
-KysKIGRyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jICB8IDUzICsrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysKIGluY2x1ZGUvdWFwaS9kcm0vZHJtLmggICAgICAgICB8IDExICsr
-KysrKysKIDQgZmlsZXMgY2hhbmdlZCwgNjggaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9kcm1faW50ZXJuYWwuaCBiL2RyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJu
-YWwuaAppbmRleCAxYmRiZjIyNzNiNDkuLjNhMTc2ZTExYjRmZiAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJu
-YWwuaApAQCAtMTg0LDYgKzE4NCw4IEBAIGludCBkcm1fc3luY29ial9yZXNldF9pb2N0bChzdHJ1
-Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAogCQkJICAgIHN0cnVjdCBkcm1fZmlsZSAq
-ZmlsZV9wcml2YXRlKTsKIGludCBkcm1fc3luY29ial9zaWduYWxfaW9jdGwoc3RydWN0IGRybV9k
-ZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAkJCSAgICAgc3RydWN0IGRybV9maWxlICpmaWxlX3By
-aXZhdGUpOworaW50IGRybV9zeW5jb2JqX3F1ZXJ5X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYsIHZvaWQgKmRhdGEsCisJCQkgICAgc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXZhdGUpOwog
-CiAvKiBkcm1fZnJhbWVidWZmZXIuYyAqLwogdm9pZCBkcm1fZnJhbWVidWZmZXJfcHJpbnRfaW5m
-byhzdHJ1Y3QgZHJtX3ByaW50ZXIgKnAsIHVuc2lnbmVkIGludCBpbmRlbnQsCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3Rs
-LmMKaW5kZXggOTJkOTQ4Njc3NDZiLi5jZmQxZGU0NGE0Y2MgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9kcm1faW9jdGwuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMKQEAg
-LTY3NSw2ICs2NzUsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9pb2N0bF9kZXNjIGRybV9p
-b2N0bHNbXSA9IHsKIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxMT1cpLAogCURS
-TV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfU0lHTkFMLCBkcm1fc3luY29ial9zaWduYWxf
-aW9jdGwsCiAJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVSX0FMTE9XKSwKKwlEUk1fSU9D
-VExfREVGKERSTV9JT0NUTF9TWU5DT0JKX1FVRVJZLCBkcm1fc3luY29ial9xdWVyeV9pb2N0bCwK
-KwkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxMT1cpLAogCURSTV9JT0NUTF9ERUYo
-RFJNX0lPQ1RMX0NSVENfR0VUX1NFUVVFTkNFLCBkcm1fY3J0Y19nZXRfc2VxdWVuY2VfaW9jdGws
-IERSTV9VTkxPQ0tFRCksCiAJRFJNX0lPQ1RMX0RFRihEUk1fSU9DVExfQ1JUQ19RVUVVRV9TRVFV
-RU5DRSwgZHJtX2NydGNfcXVldWVfc2VxdWVuY2VfaW9jdGwsIERSTV9VTkxPQ0tFRCksCiAJRFJN
-X0lPQ1RMX0RFRihEUk1fSU9DVExfTU9ERV9DUkVBVEVfTEVBU0UsIGRybV9tb2RlX2NyZWF0ZV9s
-ZWFzZV9pb2N0bCwgRFJNX01BU1RFUnxEUk1fVU5MT0NLRUQpLApkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2RybV9zeW5jb2JqLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYwpp
-bmRleCA5NjQzYjM5NTQzZTYuLmU2NTdkNWUyODAwZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2RybV9zeW5jb2JqLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKQEAg
-LTEzOTIsMyArMTM5Miw1NiBAQCBkcm1fc3luY29ial9zaWduYWxfaW9jdGwoc3RydWN0IGRybV9k
-ZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAogCXJldHVybiByZXQ7CiB9CisKK3N0YXRpYyB2b2lk
-IGRybV9zeW5jb2JqX3RpbWVsaW5lX3F1ZXJ5X3BheWxvYWQoc3RydWN0IGRybV9zeW5jb2JqICpz
-eW5jb2JqLAorCQkJCQkgICAgICAgdWludDY0X3QgKnBvaW50KQoreworCWlmIChzeW5jb2JqLT50
-eXBlICE9IERSTV9TWU5DT0JKX1RZUEVfVElNRUxJTkUpIHsKKwkJRFJNX0VSUk9SKCJOb3JtYWwg
-c3luY29iaiBjYW5uJ3QgYmUgcXVlcmllZCEiKTsKKwkJKnBvaW50ID0gMDsKKwkJcmV0dXJuOwor
-CX0KKwkqcG9pbnQgPSBzeW5jb2JqLT5zeW5jb2JqX3RpbWVsaW5lLnNpZ25hbF9wb2ludDsKK30K
-KworaW50IGRybV9zeW5jb2JqX3F1ZXJ5X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZv
-aWQgKmRhdGEsCisJCQkgICAgc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXZhdGUpCit7CisJc3Ry
-dWN0IGRybV9zeW5jb2JqX3RpbWVsaW5lX3F1ZXJ5ICphcmdzID0gZGF0YTsKKwlzdHJ1Y3QgZHJt
-X3N5bmNvYmogKipzeW5jb2JqczsKKwl1aW50NjRfdCAqcG9pbnRzOworCXVpbnQzMl90IGk7CisJ
-aW50IHJldDsKKworCWlmICghZHJtX2NvcmVfY2hlY2tfZmVhdHVyZShkZXYsIERSSVZFUl9TWU5D
-T0JKKSkKKwkJcmV0dXJuIC1FTk9ERVY7CisKKwlpZiAoYXJncy0+Y291bnRfaGFuZGxlcyA9PSAw
-KQorCQlyZXR1cm4gLUVJTlZBTDsKKworCXJldCA9IGRybV9zeW5jb2JqX2FycmF5X2ZpbmQoZmls
-ZV9wcml2YXRlLAorCQkJCSAgICAgdTY0X3RvX3VzZXJfcHRyKGFyZ3MtPmhhbmRsZXMpLAorCQkJ
-CSAgICAgYXJncy0+Y291bnRfaGFuZGxlcywKKwkJCQkgICAgICZzeW5jb2Jqcyk7CisJaWYgKHJl
-dCA8IDApCisJCXJldHVybiByZXQ7CisKKworCXBvaW50cyA9IGttYWxsb2NfYXJyYXkoYXJncy0+
-Y291bnRfaGFuZGxlcywgc2l6ZW9mKCpwb2ludHMpLAorCQkJICAgICAgIEdGUF9LRVJORUwpOwor
-CWlmIChwb2ludHMgPT0gTlVMTCkgeworCQlyZXQgPSAtRU5PTUVNOworCQlnb3RvIG91dDsKKwl9
-CisJZm9yIChpID0gMDsgaSA8IGFyZ3MtPmNvdW50X2hhbmRsZXM7IGkrKykgeworCQlkcm1fc3lu
-Y29ial90aW1lbGluZV9xdWVyeV9wYXlsb2FkKHN5bmNvYmpzW2ldLCAmcG9pbnRzW2ldKTsKKwkJ
-Y29weV90b191c2VyKHU2NF90b191c2VyX3B0cihhcmdzLT5wb2ludHMpLCBwb2ludHMsCisJCQkg
-ICAgIHNpemVvZih1aW50NjRfdCkgKiBhcmdzLT5jb3VudF9oYW5kbGVzKTsKKwl9CisKKwlrZnJl
-ZShwb2ludHMpOworb3V0OgorCWRybV9zeW5jb2JqX2FycmF5X2ZyZWUoc3luY29ianMsIGFyZ3Mt
-PmNvdW50X2hhbmRsZXMpOworCisJcmV0dXJuIHJldDsKK30KZGlmZiAtLWdpdCBhL2luY2x1ZGUv
-dWFwaS9kcm0vZHJtLmggYi9pbmNsdWRlL3VhcGkvZHJtL2RybS5oCmluZGV4IDUwMWU4NmQ4MWY0
-Ny4uMTg4YjYzZjE5NzViIDEwMDY0NAotLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2RybS5oCisrKyBi
-L2luY2x1ZGUvdWFwaS9kcm0vZHJtLmgKQEAgLTc2Nyw2ICs3NjcsMTUgQEAgc3RydWN0IGRybV9z
-eW5jb2JqX2FycmF5IHsKIAlfX3UzMiBwYWQ7CiB9OwogCitzdHJ1Y3QgZHJtX3N5bmNvYmpfdGlt
-ZWxpbmVfcXVlcnkgeworCV9fdTY0IGhhbmRsZXM7CisJLyogcG9pbnRzIGFyZSB0aW1lbGluZSBz
-eW5jb2JqcyBwYXlsb2FkcyByZXR1cm5lZCBieSBxdWVyeSBpb2N0bCAqLworCV9fdTY0IHBvaW50
-czsKKwlfX3UzMiBjb3VudF9oYW5kbGVzOworCV9fdTMyIHBhZDsKK307CisKKwogLyogUXVlcnkg
-Y3VycmVudCBzY2Fub3V0IHNlcXVlbmNlIG51bWJlciAqLwogc3RydWN0IGRybV9jcnRjX2dldF9z
-ZXF1ZW5jZSB7CiAJX191MzIgY3J0Y19pZDsJCS8qIHJlcXVlc3RlZCBjcnRjX2lkICovCkBAIC05
-MjQsNiArOTMzLDggQEAgZXh0ZXJuICJDIiB7CiAjZGVmaW5lIERSTV9JT0NUTF9NT0RFX1JFVk9L
-RV9MRUFTRQlEUk1fSU9XUigweEM5LCBzdHJ1Y3QgZHJtX21vZGVfcmV2b2tlX2xlYXNlKQogCiAj
-ZGVmaW5lIERSTV9JT0NUTF9TWU5DT0JKX1RJTUVMSU5FX1dBSVQJRFJNX0lPV1IoMHhDQSwgc3Ry
-dWN0IGRybV9zeW5jb2JqX3RpbWVsaW5lX3dhaXQpCisjZGVmaW5lIERSTV9JT0NUTF9TWU5DT0JK
-X1FVRVJZCQlEUk1fSU9XUigweENCLCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxpbmVfcXVlcnkp
-CisKIC8qKgogICogRGV2aWNlIHNwZWNpZmljIGlvY3RscyBzaG91bGQgb25seSBiZSBpbiB0aGVp
-ciByZXNwZWN0aXZlIGhlYWRlcnMKICAqIFRoZSBkZXZpY2Ugc3BlY2lmaWMgaW9jdGwgcmFuZ2Ug
-aXMgZnJvbSAweDQwIHRvIDB4OWYuCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVs
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+--000000000000cf0b1a05752428a6
+Content-Type: multipart/alternative; boundary="000000000000cf0b1605752428a4"
+
+--000000000000cf0b1605752428a4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+amdgpu driver fails compilation when compiling with
+CONFIG_FORTIFY_SOURCE kernel option:
+
+In function =E2=80=98memmove=E2=80=99,
+    inlined from =E2=80=98append_entry=E2=80=99 at
+drivers/gpu/drm/amd/amdgpu/../display/dc/basics/logger.c:258:2,
+    inlined from =E2=80=98dm_logger_append_va.part.5=E2=80=99 at
+drivers/gpu/drm/amd/amdgpu/../display/dc/basics/logger.c:349:4:
+./include/linux/string.h:356:4: error: call to =E2=80=98__read_overflow2=E2=
+=80=99
+declared with attribute error: detected read beyond size of object
+passed as 2nd parameter
+    __read_overflow2();
+    ^~~~~~~~~~~~~~~~~~
+
+I have attached a patch which resolves this problem.
+
+Regards,
+Jan
+
+--000000000000cf0b1605752428a4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><pre class=3D"gmail-bz_comment_text">amdgpu driver fails c=
+ompilation when compiling with CONFIG_FORTIFY_SOURCE kernel option:
+
+In function =E2=80=98memmove=E2=80=99,
+    inlined from =E2=80=98append_entry=E2=80=99 at drivers/gpu/drm/amd/amdg=
+pu/../display/dc/basics/logger.c:258:2,
+    inlined from =E2=80=98dm_logger_append_va.part.5=E2=80=99 at drivers/gp=
+u/drm/amd/amdgpu/../display/dc/basics/logger.c:349:4:
+./include/linux/string.h:356:4: error: call to =E2=80=98__read_overflow2=E2=
+=80=99 declared with attribute error: detected read beyond size of object p=
+assed as 2nd parameter
+    __read_overflow2();
+    ^~~~~~~~~~~~~~~~~~
+
+I have attached a patch which resolves this problem.</pre><div><div dir=3D"=
+ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><div=
+>Regards,</div><div>Jan</div></div></div></div></div>
+
+--000000000000cf0b1605752428a4--
+
+--000000000000cf0b1a05752428a6
+Content-Type: text/x-patch; charset="US-ASCII"; name="amdgpu.patch"
+Content-Disposition: attachment; filename="amdgpu.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_jlphovxo0>
+X-Attachment-Id: f_jlphovxo0
+
+ZGlmZiAtdXIgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmFzaWNzL2xvZ2dlci5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jhc2ljcy9sb2dnZXIuYwotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmFzaWNzL2xvZ2dlci5jCTIwMTgtMDktMDUg
+MTI6Mzc6MTAuODI5NTQ3NzIwICswMjAwCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9iYXNpY3MvbG9nZ2VyLmMJMjAxOC0wOS0wNSAxMjozNjo1Mi42MTI2ODIyNTkgKzAyMDAK
+QEAgLTM0Niw3ICszNDYsNyBAQAogCQlpZiAoc2l6ZSA8IExPR19NQVhfTElORV9TSVpFIC0gMSkg
+ewogCQkJYXBwZW5kX2VudHJ5KGVudHJ5LCBidWZmZXIsIHNpemUpOwogCQl9IGVsc2UgewotCQkJ
+YXBwZW5kX2VudHJ5KGVudHJ5LCAiTE9HX0VSUk9SLCBsaW5lIHRvbyBsb25nXG4iLCAyNyk7CisJ
+CQlhcHBlbmRfZW50cnkoZW50cnksICJMT0dfRVJST1IsIGxpbmUgdG9vIGxvbmdcbiIsIDI1KTsK
+IAkJfQogCX0KIH0K
+--000000000000cf0b1a05752428a6
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--000000000000cf0b1a05752428a6--
