@@ -1,89 +1,46 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/amdgpu: Fix compute VM BO params after rebase
-Date: Thu, 6 Sep 2018 09:48:50 +0800
-Message-ID: <5B908782.8030301@amd.com>
-References: <1536193713-4016-1-git-send-email-Felix.Kuehling@amd.com>
+From: Masanari Iida <standby24x7@gmail.com>
+Subject: [PATCH] drm/amdgpu: Fix wornings while make xmldocs
+Date: Thu,  6 Sep 2018 11:10:57 +0900
+Message-ID: <20180906021057.22756-1-standby24x7@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1536193713-4016-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: kent.russell-5C7GfCeVMHo@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, airlied@linux.ie, andrey.grodzovsky@amd.com
+Cc: corbet@lwn.net, linux-doc@vger.kernel.org, Masanari Iida <standby24x7@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDkvMDYvMjAxOCAwODoyOCBBTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4gVGhlIGludGVu
-dCBvZiB0d28gY29tbWl0cyB3YXMgbG9zdCBpbiB0aGUgbGFzdCByZWJhc2U6Cj4KPiA4MTA5NTVi
-IGRybS9hbWRncHU6IEZpeCBhY3F1aXJpbmcgVk0gb24gbGFyZ2UtQkFSIHN5c3RlbXMKPiBiNWQy
-MWFhIGRybS9hbWRncHU6IERvbid0IHVzZSBzaGFkb3cgQk8gZm9yIGNvbXB1dGUgY29udGV4dAo+
-Cj4gVGhpcyBjb21taXQgcmVzdG9yZXMgdGhlIG9yaWdpbmFsIGJlaGF2aW91cjoKPiAqIERvbid0
-IHNldCBBTURHUFVfR0VNX0NSRUFURV9OT19DUFVfQUNDRVNTIGZvciBwYWdlIGRpcmVjdG9yaWVz
-Cj4gICAgdG8gYWxsb3cgdGhlbSB0byBiZSByZXVzZWQgZm9yIGNvbXB1dGUgVk1zCj4gKiBEb24n
-dCBjcmVhdGUgc2hhZG93IEJPcyBmb3IgcGFnZSB0YWJsZXMgaW4gY29tcHV0ZSBWTXMKPgo+IFNp
-Z25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKUGVy
-c29uYWxseSBtYWtpbmcgbm9fc2hhZG93IC0+IHNoYWRvdyBsb29rcyBtb3JlIHNpbXBsZS4KYW55
-d2F5LCB0aGF0IHBhdGNoZXMgcmVzdG9yaW5nIHdoYXQgaXQncyBtaXNzaW5nLgoKQWNrZWQtYnk6
-IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDE3ICsrKysrKysrKysrLS0tLS0tCj4gICAx
-IGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPgo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gaW5kZXggZWE1ZTI3Ny4uNWU3YTNkZSAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gQEAgLTU3NywxMCAr
-NTc3LDEzIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2NsZWFyX2JvKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LAo+ICAgICoKPiAgICAqIEBhZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXIKPiAg
-ICAqIEB2bTogcmVxdWVzdGluZyB2bQo+ICsgKiBAbGV2ZWw6IGxldmVsIGluIHRoZSBwYWdlIHRh
-YmxlIGhpZXJhcmNoeQo+ICsgKiBAbm9fc2hhZG93OiBkaXNhYmxlIGNyZWF0aW9uIG9mIHNoYWRv
-dyBCTyBmb3IgdGhpcyBWTQo+ICAgICogQGJwOiByZXN1bHRpbmcgQk8gYWxsb2NhdGlvbiBwYXJh
-bWV0ZXJzCj4gICAgKi8KPiAgIHN0YXRpYyB2b2lkIGFtZGdwdV92bV9ib19wYXJhbShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gLQkJCSAgICAgICBp
-bnQgbGV2ZWwsIHN0cnVjdCBhbWRncHVfYm9fcGFyYW0gKmJwKQo+ICsJCQkgICAgICAgaW50IGxl
-dmVsLCBib29sIG5vX3NoYWRvdywKPiArCQkJICAgICAgIHN0cnVjdCBhbWRncHVfYm9fcGFyYW0g
-KmJwKQo+ICAgewo+ICAgCW1lbXNldChicCwgMCwgc2l6ZW9mKCpicCkpOwo+Cj4gQEAgLTU5NSw5
-ICs1OTgsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdm1fYm9fcGFyYW0oc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLAo+ICAgCQlBTURHUFVfR0VNX0NSRUFU
-RV9DUFVfR1RUX1VTV0M7Cj4gICAJaWYgKHZtLT51c2VfY3B1X2Zvcl91cGRhdGUpCj4gICAJCWJw
-LT5mbGFncyB8PSBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEOwo+IC0JZWxz
-ZQo+IC0JCWJwLT5mbGFncyB8PSBBTURHUFVfR0VNX0NSRUFURV9TSEFET1cgfAo+IC0JCQlBTURH
-UFVfR0VNX0NSRUFURV9OT19DUFVfQUNDRVNTOwo+ICsJZWxzZSBpZiAoIW5vX3NoYWRvdykKPiAr
-CQlicC0+ZmxhZ3MgfD0gQU1ER1BVX0dFTV9DUkVBVEVfU0hBRE9XOwo+ICAgCWJwLT50eXBlID0g
-dHRtX2JvX3R5cGVfa2VybmVsOwo+ICAgCWlmICh2bS0+cm9vdC5iYXNlLmJvKQo+ICAgCQlicC0+
-cmVzdiA9IHZtLT5yb290LmJhc2UuYm8tPnRiby5yZXN2Owo+IEBAIC02MjYsNiArNjI4LDcgQEAg
-c3RhdGljIGludCBhbWRncHVfdm1fYWxsb2NfbGV2ZWxzKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LAo+ICAgCQkJCSAgdW5zaWduZWQgbGV2ZWwsIGJvb2wgYXRzKQo+ICAgewo+ICAgCXVuc2ln
-bmVkIHNoaWZ0ID0gYW1kZ3B1X3ZtX2xldmVsX3NoaWZ0KGFkZXYsIGxldmVsKTsKPiArCWJvb2wg
-bm9fc2hhZG93ID0gIXZtLT5yb290LmJhc2UuYm8tPnNoYWRvdzsKPiAgIAlzdHJ1Y3QgYW1kZ3B1
-X2JvX3BhcmFtIGJwOwo+ICAgCXVuc2lnbmVkIHB0X2lkeCwgZnJvbSwgdG87Cj4gICAJaW50IHI7
-Cj4gQEAgLTY1MCw3ICs2NTMsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9hbGxvY19sZXZlbHMo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAJc2FkZHIgPSBzYWRkciAmICgoMSA8PCBz
-aGlmdCkgLSAxKTsKPiAgIAllYWRkciA9IGVhZGRyICYgKCgxIDw8IHNoaWZ0KSAtIDEpOwo+Cj4g
-LQlhbWRncHVfdm1fYm9fcGFyYW0oYWRldiwgdm0sIGxldmVsLCAmYnApOwo+ICsJYW1kZ3B1X3Zt
-X2JvX3BhcmFtKGFkZXYsIHZtLCBsZXZlbCwgbm9fc2hhZG93LCAmYnApOwo+Cj4gICAJLyogd2Fs
-ayBvdmVyIHRoZSBhZGRyZXNzIHNwYWNlIGFuZCBhbGxvY2F0ZSB0aGUgcGFnZSB0YWJsZXMgKi8K
-PiAgIAlmb3IgKHB0X2lkeCA9IGZyb207IHB0X2lkeCA8PSB0bzsgKytwdF9pZHgpIHsKPiBAQCAt
-MjcwOSw2ICsyNzEyLDcgQEAgdm9pZCBhbWRncHVfdm1fYWRqdXN0X3NpemUoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IG1pbl92bV9zaXplLAo+ICAgaW50IGFtZGdwdV92bV9p
-bml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPiAg
-IAkJICAgaW50IHZtX2NvbnRleHQsIHVuc2lnbmVkIGludCBwYXNpZCkKPiAgIHsKPiArCWJvb2wg
-bm9fc2hhZG93ID0gKHZtX2NvbnRleHQgPT0gQU1ER1BVX1ZNX0NPTlRFWFRfQ09NUFVURSk7Cj4g
-ICAJc3RydWN0IGFtZGdwdV9ib19wYXJhbSBicDsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2JvICpyb290
-Owo+ICAgCWludCByLCBpOwo+IEBAIC0yNzQ4LDcgKzI3NTIsOCBAQCBpbnQgYW1kZ3B1X3ZtX2lu
-aXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLAo+ICAg
-CQkgICJDUFUgdXBkYXRlIG9mIFZNIHJlY29tbWVuZGVkIG9ubHkgZm9yIGxhcmdlIEJBUiBzeXN0
-ZW1cbiIpOwo+ICAgCXZtLT5sYXN0X3VwZGF0ZSA9IE5VTEw7Cj4KPiAtCWFtZGdwdV92bV9ib19w
-YXJhbShhZGV2LCB2bSwgYWRldi0+dm1fbWFuYWdlci5yb290X2xldmVsLCAmYnApOwo+ICsJYW1k
-Z3B1X3ZtX2JvX3BhcmFtKGFkZXYsIHZtLCBhZGV2LT52bV9tYW5hZ2VyLnJvb3RfbGV2ZWwsIG5v
-X3NoYWRvdywKPiArCQkJICAgJmJwKTsKPiAgIAlyID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LCAm
-YnAsICZyb290KTsKPiAgIAlpZiAocikKPiAgIAkJZ290byBlcnJvcl9mcmVlX3NjaGVkX2VudGl0
-eTsKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This patch fixes following wornings.
+
+./drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3011:
+warning: Excess function parameter 'dev' description
+in 'amdgpu_vm_get_task_info'
+
+./drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3012:
+warning: Function parameter or member 'adev' not
+described in 'amdgpu_vm_get_task_info'
+
+./drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3012:
+warning: Excess function parameter 'dev' description
+in 'amdgpu_vm_get_task_info'
+
+Signed-off-by: Masanari Iida <standby24x7@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index b17771dd5ce7..861718e2be7a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3002,7 +3002,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ /**
+  * amdgpu_vm_get_task_info - Extracts task info for a PASID.
+  *
+- * @dev: drm device pointer
++ * @adev: drm device pointer
+  * @pasid: PASID identifier for VM
+  * @task_info: task_info to fill.
+  */
+-- 
+2.19.0.rc2
