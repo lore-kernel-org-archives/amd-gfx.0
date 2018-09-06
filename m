@@ -1,46 +1,90 @@
-From: Masanari Iida <standby24x7@gmail.com>
-Subject: [PATCH] drm/amdgpu: Fix wornings while make xmldocs
-Date: Thu,  6 Sep 2018 11:10:57 +0900
-Message-ID: <20180906021057.22756-1-standby24x7@gmail.com>
+From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Fix compute VM BO params after rebase
+Date: Thu, 6 Sep 2018 10:08:12 +0800
+Message-ID: <9e18f881-17d3-e01d-112b-2c56b21a15a0@amd.com>
+References: <1536193713-4016-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, airlied@linux.ie, andrey.grodzovsky@amd.com
-Cc: corbet@lwn.net, linux-doc@vger.kernel.org, Masanari Iida <standby24x7@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1536193713-4016-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: kent.russell-5C7GfCeVMHo@public.gmane.org
 
-This patch fixes following wornings.
-
-./drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3011:
-warning: Excess function parameter 'dev' description
-in 'amdgpu_vm_get_task_info'
-
-./drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3012:
-warning: Function parameter or member 'adev' not
-described in 'amdgpu_vm_get_task_info'
-
-./drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3012:
-warning: Excess function parameter 'dev' description
-in 'amdgpu_vm_get_task_info'
-
-Signed-off-by: Masanari Iida <standby24x7@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index b17771dd5ce7..861718e2be7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3002,7 +3002,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- /**
-  * amdgpu_vm_get_task_info - Extracts task info for a PASID.
-  *
-- * @dev: drm device pointer
-+ * @adev: drm device pointer
-  * @pasid: PASID identifier for VM
-  * @task_info: task_info to fill.
-  */
--- 
-2.19.0.rc2
+CgpPbiAyMDE45bm0MDnmnIgwNuaXpSAwODoyOCwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4gVGhl
+IGludGVudCBvZiB0d28gY29tbWl0cyB3YXMgbG9zdCBpbiB0aGUgbGFzdCByZWJhc2U6Cj4KPiA4
+MTA5NTViIGRybS9hbWRncHU6IEZpeCBhY3F1aXJpbmcgVk0gb24gbGFyZ2UtQkFSIHN5c3RlbXMK
+PiBiNWQyMWFhIGRybS9hbWRncHU6IERvbid0IHVzZSBzaGFkb3cgQk8gZm9yIGNvbXB1dGUgY29u
+dGV4dAo+Cj4gVGhpcyBjb21taXQgcmVzdG9yZXMgdGhlIG9yaWdpbmFsIGJlaGF2aW91cjoKPiAq
+IERvbid0IHNldCBBTURHUFVfR0VNX0NSRUFURV9OT19DUFVfQUNDRVNTIGZvciBwYWdlIGRpcmVj
+dG9yaWVzCj4gICAgdG8gYWxsb3cgdGhlbSB0byBiZSByZXVzZWQgZm9yIGNvbXB1dGUgVk1zCj4g
+KiBEb24ndCBjcmVhdGUgc2hhZG93IEJPcyBmb3IgcGFnZSB0YWJsZXMgaW4gY29tcHV0ZSBWTXMK
+Pgo+IFNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29t
+Pgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAxNyAr
+KysrKysrKysrKy0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDYg
+ZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+IGlu
+ZGV4IGVhNWUyNzcuLjVlN2EzZGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdm0uYwo+IEBAIC01NzcsMTAgKzU3NywxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9jbGVh
+cl9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAqCj4gICAgKiBAYWRldjogYW1k
+Z3B1X2RldmljZSBwb2ludGVyCj4gICAgKiBAdm06IHJlcXVlc3Rpbmcgdm0KPiArICogQGxldmVs
+OiBsZXZlbCBpbiB0aGUgcGFnZSB0YWJsZSBoaWVyYXJjaHkKPiArICogQG5vX3NoYWRvdzogZGlz
+YWJsZSBjcmVhdGlvbiBvZiBzaGFkb3cgQk8gZm9yIHRoaXMgVk0KPiAgICAqIEBicDogcmVzdWx0
+aW5nIEJPIGFsbG9jYXRpb24gcGFyYW1ldGVycwo+ICAgICovCj4gICBzdGF0aWMgdm9pZCBhbWRn
+cHVfdm1fYm9fcGFyYW0oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVf
+dm0gKnZtLAo+IC0JCQkgICAgICAgaW50IGxldmVsLCBzdHJ1Y3QgYW1kZ3B1X2JvX3BhcmFtICpi
+cCkKPiArCQkJICAgICAgIGludCBsZXZlbCwgYm9vbCBub19zaGFkb3csCj4gKwkJCSAgICAgICBz
+dHJ1Y3QgYW1kZ3B1X2JvX3BhcmFtICpicCkKSG93IGFib3V0IGFkZGluZyBub19zaGFkb3cgdG8g
+YnA/IFdoaWNoIGFsc28gY2FuIGNvbnNpZGVyIHRvIGJlIHBhcm0gb2YgYm8uCgpSZWdhcmRzLApE
+YXZpZCBaaG91Cj4gICB7Cj4gICAJbWVtc2V0KGJwLCAwLCBzaXplb2YoKmJwKSk7Cj4gICAKPiBA
+QCAtNTk1LDkgKzU5OCw4IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92bV9ib19wYXJhbShzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gICAJCUFNREdQVV9H
+RU1fQ1JFQVRFX0NQVV9HVFRfVVNXQzsKPiAgIAlpZiAodm0tPnVzZV9jcHVfZm9yX3VwZGF0ZSkK
+PiAgIAkJYnAtPmZsYWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQ7
+Cj4gLQllbHNlCj4gLQkJYnAtPmZsYWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX1NIQURPVyB8Cj4g
+LQkJCUFNREdQVV9HRU1fQ1JFQVRFX05PX0NQVV9BQ0NFU1M7Cj4gKwllbHNlIGlmICghbm9fc2hh
+ZG93KQo+ICsJCWJwLT5mbGFncyB8PSBBTURHUFVfR0VNX0NSRUFURV9TSEFET1c7Cj4gICAJYnAt
+PnR5cGUgPSB0dG1fYm9fdHlwZV9rZXJuZWw7Cj4gICAJaWYgKHZtLT5yb290LmJhc2UuYm8pCj4g
+ICAJCWJwLT5yZXN2ID0gdm0tPnJvb3QuYmFzZS5iby0+dGJvLnJlc3Y7Cj4gQEAgLTYyNiw2ICs2
+MjgsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9hbGxvY19sZXZlbHMoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYsCj4gICAJCQkJICB1bnNpZ25lZCBsZXZlbCwgYm9vbCBhdHMpCj4gICB7Cj4g
+ICAJdW5zaWduZWQgc2hpZnQgPSBhbWRncHVfdm1fbGV2ZWxfc2hpZnQoYWRldiwgbGV2ZWwpOwo+
+ICsJYm9vbCBub19zaGFkb3cgPSAhdm0tPnJvb3QuYmFzZS5iby0+c2hhZG93Owo+ICAgCXN0cnVj
+dCBhbWRncHVfYm9fcGFyYW0gYnA7Cj4gICAJdW5zaWduZWQgcHRfaWR4LCBmcm9tLCB0bzsKPiAg
+IAlpbnQgcjsKPiBAQCAtNjUwLDcgKzY1Myw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2FsbG9j
+X2xldmVscyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAlzYWRkciA9IHNhZGRyICYg
+KCgxIDw8IHNoaWZ0KSAtIDEpOwo+ICAgCWVhZGRyID0gZWFkZHIgJiAoKDEgPDwgc2hpZnQpIC0g
+MSk7Cj4gICAKPiAtCWFtZGdwdV92bV9ib19wYXJhbShhZGV2LCB2bSwgbGV2ZWwsICZicCk7Cj4g
+KwlhbWRncHVfdm1fYm9fcGFyYW0oYWRldiwgdm0sIGxldmVsLCBub19zaGFkb3csICZicCk7Cj4g
+ICAKPiAgIAkvKiB3YWxrIG92ZXIgdGhlIGFkZHJlc3Mgc3BhY2UgYW5kIGFsbG9jYXRlIHRoZSBw
+YWdlIHRhYmxlcyAqLwo+ICAgCWZvciAocHRfaWR4ID0gZnJvbTsgcHRfaWR4IDw9IHRvOyArK3B0
+X2lkeCkgewo+IEBAIC0yNzA5LDYgKzI3MTIsNyBAQCB2b2lkIGFtZGdwdV92bV9hZGp1c3Rfc2l6
+ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgbWluX3ZtX3NpemUsCj4gICBp
+bnQgYW1kZ3B1X3ZtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRn
+cHVfdm0gKnZtLAo+ICAgCQkgICBpbnQgdm1fY29udGV4dCwgdW5zaWduZWQgaW50IHBhc2lkKQo+
+ICAgewo+ICsJYm9vbCBub19zaGFkb3cgPSAodm1fY29udGV4dCA9PSBBTURHUFVfVk1fQ09OVEVY
+VF9DT01QVVRFKTsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2JvX3BhcmFtIGJwOwo+ICAgCXN0cnVjdCBh
+bWRncHVfYm8gKnJvb3Q7Cj4gICAJaW50IHIsIGk7Cj4gQEAgLTI3NDgsNyArMjc1Miw4IEBAIGlu
+dCBhbWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdw
+dV92bSAqdm0sCj4gICAJCSAgIkNQVSB1cGRhdGUgb2YgVk0gcmVjb21tZW5kZWQgb25seSBmb3Ig
+bGFyZ2UgQkFSIHN5c3RlbVxuIik7Cj4gICAJdm0tPmxhc3RfdXBkYXRlID0gTlVMTDsKPiAgIAo+
+IC0JYW1kZ3B1X3ZtX2JvX3BhcmFtKGFkZXYsIHZtLCBhZGV2LT52bV9tYW5hZ2VyLnJvb3RfbGV2
+ZWwsICZicCk7Cj4gKwlhbWRncHVfdm1fYm9fcGFyYW0oYWRldiwgdm0sIGFkZXYtPnZtX21hbmFn
+ZXIucm9vdF9sZXZlbCwgbm9fc2hhZG93LAo+ICsJCQkgICAmYnApOwo+ICAgCXIgPSBhbWRncHVf
+Ym9fY3JlYXRlKGFkZXYsICZicCwgJnJvb3QpOwo+ICAgCWlmIChyKQo+ICAgCQlnb3RvIGVycm9y
+X2ZyZWVfc2NoZWRfZW50aXR5OwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
