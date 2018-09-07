@@ -1,11 +1,14 @@
-From: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd: Add DMCU firmware loading on raven
-Date: Fri, 7 Sep 2018 13:49:42 -0400
-Message-ID: <20180907174942.10007-1-David.Francis@amd.com>
+From: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd: Add DMCU firmware loading on raven
+Date: Fri, 7 Sep 2018 17:50:40 +0000
+Message-ID: <DM3PR1201MB1039E92066DE28EF82980ACBEF000@DM3PR1201MB1039.namprd12.prod.outlook.com>
+References: <20180907141656.10673-1-David.Francis@amd.com>,
+ <DM3PR1201MB103921CD29A1AA63F57BC2D7EF000@DM3PR1201MB1039.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1195623099=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <DM3PR1201MB103921CD29A1AA63F57BC2D7EF000-BBcFnVpqZhVMmo+XJk11QmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,108 +19,572 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-W1doeV0KRE1DVSAoRGlzcGxheSBNaWNyb0NvbnRyb2xsZXIgVW5pdCkgaXMgYW4gb24tR1BVIG1p
-Y3JvY29udHJvbGxlcgppbiBBTUQgZ3JhcGhpY3MgY2FyZHMgdGhhdCBpcyB1c2VkIGluIGZlYXR1
-cmVzIGZvcgplbWJlZGRlZCBkaXNwbGF5cyBzdWNoIGFzIFBhbmVsIFNlbGYtUmVmcmVzaAoKRE1D
-VSBpcyBwYXJ0IG9mIHRoZSBETSBJUCBibG9jawoKW0hvd10KRE1DVSBpcyBhZGRlZCBhcyBhbiBv
-cHRpb24gaW4gdGhlIGVudW0gQU1ER1BVX1VDT0RFX0lECgpETUNVIG5lZWRzIHR3byBwaWVjZXMg
-b2YgZmlybXdhcmUgLSB0aGUgaW5pdGlhbCBlcmFtIGFuZCB0aGUKaW50ZXJydXB0IHZlY3RvcnMu
-ICBUaGVzZSBhcmUgdHJlYXRlZCBhcyBzZXBlcmF0ZSBwaWVjZXMgb2YKZmlybXdhcmUgYW5kIGxv
-YWRlZCBieSBQU1AKClRoZSBsb2FkaW5nIG9jY3VycyBpbiB0aGUgc3dfaW5pdCBob29rIG9mIERN
-CgpJZiB0aGUgZmlybXdhcmUgaXMgbm90IGZvdW5kLCB0aGUgc3dfaW5pdCBob29rIHJldHVybnMg
-d2l0aG91dCBlcnJvci4KRE1DVSBpcyBub3QgYSByZXF1aXJlbWVudCBmb3IgRE0gdG8gcnVuLgoK
-U2lnbmVkLW9mZi1ieTogRGF2aWQgRnJhbmNpcyA8RGF2aWQuRnJhbmNpc0BhbWQuY29tPgotLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29kZS5oICAgICB8ICAyICsKIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5jICAgICAgICB8ICA2ICsrCiAuLi4v
-Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCA5OCArKysrKysrKysr
-KysrKysrKysrCiAzIGZpbGVzIGNoYW5nZWQsIDEwNiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmggYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuaAppbmRleCBiMzU4ZTc1MTk5ODcuLjM4ZDNh
-ZjMxN2FhMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vj
-b2RlLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmgKQEAg
-LTE5Niw2ICsxOTYsOCBAQCBlbnVtIEFNREdQVV9VQ09ERV9JRCB7CiAJQU1ER1BVX1VDT0RFX0lE
-X1VWRDEsCiAJQU1ER1BVX1VDT0RFX0lEX1ZDRSwKIAlBTURHUFVfVUNPREVfSURfVkNOLAorCUFN
-REdQVV9VQ09ERV9JRF9ETUNVX0VSQU0sCisJQU1ER1BVX1VDT0RFX0lEX0RNQ1VfSU5UViwKIAlB
-TURHUFVfVUNPREVfSURfTUFYSU1VTSwKIH07CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNw
-X3YxMF8wLmMKaW5kZXggMDJiZTM0ZTcyZWQ5Li4yNDBkYzhjODU4NjcgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5jCkBAIC05MSw2ICs5MSwxMiBAQCBwc3BfdjEwXzBfZ2V0
-X2Z3X3R5cGUoc3RydWN0IGFtZGdwdV9maXJtd2FyZV9pbmZvICp1Y29kZSwgZW51bSBwc3BfZ2Z4
-X2Z3X3R5cGUgKgogCWNhc2UgQU1ER1BVX1VDT0RFX0lEX1ZDTjoKIAkJKnR5cGUgPSBHRlhfRldf
-VFlQRV9WQ047CiAJCWJyZWFrOworCWNhc2UgQU1ER1BVX1VDT0RFX0lEX0RNQ1VfRVJBTToKKwkJ
-KnR5cGUgPSBHRlhfRldfVFlQRV9ETUNVX0VSQU07CisJCWJyZWFrOworCWNhc2UgQU1ER1BVX1VD
-T0RFX0lEX0RNQ1VfSU5UVjoKKwkJKnR5cGUgPSBHRlhfRldfVFlQRV9ETUNVX0lTUjsKKwkJYnJl
-YWs7CiAJY2FzZSBBTURHUFVfVUNPREVfSURfTUFYSU1VTToKIAlkZWZhdWx0OgogCQlyZXR1cm4g
-LUVJTlZBTDsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbS5jCmluZGV4IDUxMDNlYmE3NWNiMy4uOGFkMGVlMzU5ZWY4IDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTMwLDYg
-KzMwLDcgQEAKICNpbmNsdWRlICJ2aWQuaCIKICNpbmNsdWRlICJhbWRncHUuaCIKICNpbmNsdWRl
-ICJhbWRncHVfZGlzcGxheS5oIgorI2luY2x1ZGUgImFtZGdwdV91Y29kZS5oIgogI2luY2x1ZGUg
-ImF0b20uaCIKICNpbmNsdWRlICJhbWRncHVfZG0uaCIKICNpbmNsdWRlICJhbWRncHVfcG0uaCIK
-QEAgLTUwLDYgKzUxLDcgQEAKICNpbmNsdWRlIDxsaW51eC92ZXJzaW9uLmg+CiAjaW5jbHVkZSA8
-bGludXgvdHlwZXMuaD4KICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+CisjaW5jbHVkZSA8
-bGludXgvZmlybXdhcmUuaD4KIAogI2luY2x1ZGUgPGRybS9kcm1QLmg+CiAjaW5jbHVkZSA8ZHJt
-L2RybV9hdG9taWMuaD4KQEAgLTcxLDYgKzczLDEyIEBACiAKICNpbmNsdWRlICJtb2R1bGVzL2lu
-Yy9tb2RfZnJlZXN5bmMuaCIKIAorI2RlZmluZSBGSVJNV0FSRV9SQVZFTl9ETUNVX0VSQU0JCSJh
-bWRncHUvcmF2ZW5fZG1jdV9lcmFtLmJpbiIKK01PRFVMRV9GSVJNV0FSRShGSVJNV0FSRV9SQVZF
-Tl9ETUNVX0VSQU0pOworCisjZGVmaW5lIEZJUk1XQVJFX1JBVkVOX0RNQ1VfSU5UVgkJImFtZGdw
-dS9yYXZlbl9kbWN1X2ludHYuYmluIgorTU9EVUxFX0ZJUk1XQVJFKEZJUk1XQVJFX1JBVkVOX0RN
-Q1VfSU5UVik7CisKIC8qIGJhc2ljIGluaXQvZmluaSBBUEkgKi8KIHN0YXRpYyBpbnQgYW1kZ3B1
-X2RtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogc3RhdGljIHZvaWQgYW1kZ3B1
-X2RtX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwpAQCAtNTE2LDYgKzUyNCw5NiBA
-QCBzdGF0aWMgdm9pZCBhbWRncHVfZG1fZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-IAogc3RhdGljIGludCBkbV9zd19pbml0KHZvaWQgKmhhbmRsZSkKIHsKKwljb25zdCBzdHJ1Y3Qg
-ZmlybXdhcmUgKmZ3OworCWNvbnN0IGNoYXIgKmZ3X25hbWVfZG1jdV9lcmFtOworCWNvbnN0IGNo
-YXIgKmZ3X25hbWVfZG1jdV9pbnR2OworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOworCWludCByOworCisJc3dpdGNoKGFkZXYtPmFz
-aWNfdHlwZSkgeworCWNhc2UgQ0hJUF9CT05BSVJFOgorCWNhc2UgQ0hJUF9IQVdBSUk6CisJY2Fz
-ZSBDSElQX0tBVkVSSToKKwljYXNlIENISVBfS0FCSU5JOgorCWNhc2UgQ0hJUF9NVUxMSU5TOgor
-CWNhc2UgQ0hJUF9UT05HQToKKwljYXNlIENISVBfRklKSToKKwljYXNlIENISVBfQ0FSUklaTzoK
-KwljYXNlIENISVBfU1RPTkVZOgorCWNhc2UgQ0hJUF9QT0xBUklTMTE6CisJY2FzZSBDSElQX1BP
-TEFSSVMxMDoKKwljYXNlIENISVBfUE9MQVJJUzEyOgorCWNhc2UgQ0hJUF9WRUdBTToKKwljYXNl
-IENISVBfVkVHQTEwOgorCWNhc2UgQ0hJUF9WRUdBMTI6CisJY2FzZSBDSElQX1ZFR0EyMDoKKwkJ
-cmV0dXJuIDA7CisJY2FzZSBDSElQX1JBVkVOOgorCQlmd19uYW1lX2RtY3VfZXJhbSA9IEZJUk1X
-QVJFX1JBVkVOX0RNQ1VfRVJBTTsKKwkJZndfbmFtZV9kbWN1X2ludHYgPSBGSVJNV0FSRV9SQVZF
-Tl9ETUNVX0lOVFY7CisJCWJyZWFrOworCWRlZmF1bHQ6CisJCURSTV9FUlJPUigiVW5zdXBwb3J0
-ZWQgQVNJQyB0eXBlOiAweCVYXG4iLCBhZGV2LT5hc2ljX3R5cGUpOworCQlyZXR1cm4gLTE7CisJ
-fQorCisJciA9IHJlcXVlc3RfZmlybXdhcmUoJmZ3LCBmd19uYW1lX2RtY3VfZXJhbSwgYWRldi0+
-ZGV2KTsKKwlpZiAociA9PSAtRU5PRU5UKQorCXsKKwkJLyogRE1DVSBmaXJtd2FyZSBpcyBub3Qg
-bmVjZXNzYXJ5LCBzbyBkb24ndCByYWlzZSBhIGZ1c3MgaWYgaXQncyBtaXNzaW5nICovCisJCXJl
-dHVybiAwOworCX0KKwlpZiAocikgeworCQlkZXZfZXJyKGFkZXYtPmRldiwgImFtZGdwdV9kbTog
-Q2FuJ3QgbG9hZCBmaXJtd2FyZSBcIiVzXCJcbiIsCisJCQlmd19uYW1lX2RtY3VfZXJhbSk7CisJ
-CXJldHVybiByOworCX0KKworCXIgPSBhbWRncHVfdWNvZGVfdmFsaWRhdGUoZncpOworCWlmIChy
-KSB7CisJCWRldl9lcnIoYWRldi0+ZGV2LCAiYW1kZ3B1X2RtOiBDYW4ndCB2YWxpZGF0ZSBmaXJt
-d2FyZSBcIiVzXCJcbiIsCisJCQlmd19uYW1lX2RtY3VfZXJhbSk7CisJCXJlbGVhc2VfZmlybXdh
-cmUoZncpOworCQlmdyA9IE5VTEw7CisJCXJldHVybiByOworCX0KKworCWlmIChhZGV2LT5maXJt
-d2FyZS5sb2FkX3R5cGUgPT0gQU1ER1BVX0ZXX0xPQURfUFNQKSB7CisJCWNvbnN0IHN0cnVjdCBj
-b21tb25fZmlybXdhcmVfaGVhZGVyICpoZHI7CisJCWhkciA9IChjb25zdCBzdHJ1Y3QgY29tbW9u
-X2Zpcm13YXJlX2hlYWRlciAqKWZ3LT5kYXRhOworCQlhZGV2LT5maXJtd2FyZS51Y29kZVtBTURH
-UFVfVUNPREVfSURfRE1DVV9FUkFNXS51Y29kZV9pZCA9IEFNREdQVV9VQ09ERV9JRF9ETUNVX0VS
-QU07CisJCWFkZXYtPmZpcm13YXJlLnVjb2RlW0FNREdQVV9VQ09ERV9JRF9ETUNVX0VSQU1dLmZ3
-ID0gZnc7CisJCWFkZXYtPmZpcm13YXJlLmZ3X3NpemUgKz0KKwkJCUFMSUdOKGxlMzJfdG9fY3B1
-KGhkci0+dWNvZGVfc2l6ZV9ieXRlcyksIFBBR0VfU0laRSk7CisJCURSTV9JTkZPKCJQU1AgbG9h
-ZGluZyBETUNVX0VSQU0gZmlybXdhcmVcbiIpOworCX0KKworCXIgPSByZXF1ZXN0X2Zpcm13YXJl
-KCZmdywgZndfbmFtZV9kbWN1X2ludHYsIGFkZXYtPmRldik7CisJaWYgKHIpIHsKKwkJZGV2X2Vy
-cihhZGV2LT5kZXYsICJhbWRncHVfZG06IENhbid0IGxvYWQgZmlybXdhcmUgXCIlc1wiXG4iLAor
-CQkJCWZ3X25hbWVfZG1jdV9pbnR2KTsKKwkJcmV0dXJuIHI7CisJfQorCisJciA9IGFtZGdwdV91
-Y29kZV92YWxpZGF0ZShmdyk7CisJaWYgKHIpIHsKKwkJZGV2X2VycihhZGV2LT5kZXYsICJhbWRn
-cHVfZG06IENhbid0IHZhbGlkYXRlIGZpcm13YXJlIFwiJXNcIlxuIiwKKwkJCQlmd19uYW1lX2Rt
-Y3VfaW50dik7CisJCXJlbGVhc2VfZmlybXdhcmUoZncpOworCQlmdyA9IE5VTEw7CisJCXJldHVy
-biByOworCX0KKworCWlmIChhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgPT0gQU1ER1BVX0ZXX0xP
-QURfUFNQKSB7CisJCWNvbnN0IHN0cnVjdCBjb21tb25fZmlybXdhcmVfaGVhZGVyICpoZHI7CisJ
-CWhkciA9IChjb25zdCBzdHJ1Y3QgY29tbW9uX2Zpcm13YXJlX2hlYWRlciAqKWZ3LT5kYXRhOwor
-CQlhZGV2LT5maXJtd2FyZS51Y29kZVtBTURHUFVfVUNPREVfSURfRE1DVV9JTlRWXS51Y29kZV9p
-ZCA9IEFNREdQVV9VQ09ERV9JRF9ETUNVX0lOVFY7CisJCWFkZXYtPmZpcm13YXJlLnVjb2RlW0FN
-REdQVV9VQ09ERV9JRF9ETUNVX0lOVFZdLmZ3ID0gZnc7CisJCWFkZXYtPmZpcm13YXJlLmZ3X3Np
-emUgKz0KKwkJCUFMSUdOKGxlMzJfdG9fY3B1KGhkci0+dWNvZGVfc2l6ZV9ieXRlcyksIFBBR0Vf
-U0laRSk7CisJCURSTV9JTkZPKCJQU1AgbG9hZGluZyBETUNVX0lOVFYgZmlybXdhcmVcbiIpOwor
-CX0KKwogCXJldHVybiAwOwogfQogCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+--===============1195623099==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_DM3PR1201MB1039E92066DE28EF82980ACBEF000DM3PR1201MB1039_"
+
+--_000_DM3PR1201MB1039E92066DE28EF82980ACBEF000DM3PR1201MB1039_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Ignore this thread - new, fixed patch is up
+
+________________________________
+From: Francis, David
+Sent: September 7, 2018 10:26:59 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amd: Add DMCU firmware loading on raven
+
+
+This will cause amdgpu startup to fail if the firmware does not exist: this=
+ should either wait until the firmware is available or not return an error =
+value if -ENOENT is returned from request_firmware
+
+________________________________
+From: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
+Sent: September 7, 2018 10:16:56 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Francis, David
+Subject: [PATCH] drm/amd: Add DMCU firmware loading on raven
+
+[Why]
+DMCU (Display MicroController Unit) is an on-GPU microcontroller
+in AMD graphics cards that is used in features for
+embedded displays such as Panel Self-Refresh
+
+DMCU is part of the DM IP block
+
+[How]
+DMCU is added as an option in the enum AMDGPU_UCODE_ID
+
+DMCU needs two pieces of firmware - the initial eram and the
+interrupt vectors.  These are treated as seperate pieces of
+firmware and loaded by PSP
+
+The loading occurs in the sw_init hook of DM
+
+Signed-off-by: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     |  2 +
+ drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        |  6 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 93 +++++++++++++++++++
+ 3 files changed, 101 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ucode.h
+index b358e7519987..38d3af317aa2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+@@ -196,6 +196,8 @@ enum AMDGPU_UCODE_ID {
+         AMDGPU_UCODE_ID_UVD1,
+         AMDGPU_UCODE_ID_VCE,
+         AMDGPU_UCODE_ID_VCN,
++       AMDGPU_UCODE_ID_DMCU_ERAM,
++       AMDGPU_UCODE_ID_DMCU_INTV,
+         AMDGPU_UCODE_ID_MAXIMUM,
+ };
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v10_0.c
+index 02be34e72ed9..240dc8c85867 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
+@@ -91,6 +91,12 @@ psp_v10_0_get_fw_type(struct amdgpu_firmware_info *ucode=
+, enum psp_gfx_fw_type *
+         case AMDGPU_UCODE_ID_VCN:
+                 *type =3D GFX_FW_TYPE_VCN;
+                 break;
++       case AMDGPU_UCODE_ID_DMCU_ERAM:
++               *type =3D GFX_FW_TYPE_DMCU_ERAM;
++               break;
++       case AMDGPU_UCODE_ID_DMCU_INTV:
++               *type =3D GFX_FW_TYPE_DMCU_ISR;
++               break;
+         case AMDGPU_UCODE_ID_MAXIMUM:
+         default:
+                 return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5103eba75cb3..4619f624f346 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -30,6 +30,7 @@
+ #include "vid.h"
+ #include "amdgpu.h"
+ #include "amdgpu_display.h"
++#include "amdgpu_ucode.h"
+ #include "atom.h"
+ #include "amdgpu_dm.h"
+ #include "amdgpu_pm.h"
+@@ -50,6 +51,7 @@
+ #include <linux/version.h>
+ #include <linux/types.h>
+ #include <linux/pm_runtime.h>
++#include <linux/firmware.h>
+
+ #include <drm/drmP.h>
+ #include <drm/drm_atomic.h>
+@@ -71,6 +73,12 @@
+
+ #include "modules/inc/mod_freesync.h"
+
++#define FIRMWARE_RAVEN_DMCU_ERAM               "amdgpu/raven_dmcu_eram.bin=
+"
++MODULE_FIRMWARE(FIRMWARE_RAVEN_DMCU_ERAM);
++
++#define FIRMWARE_RAVEN_DMCU_INTV               "amdgpu/raven_dmcu_intv.bin=
+"
++MODULE_FIRMWARE(FIRMWARE_RAVEN_DMCU_INTV);
++
+ /* basic init/fini API */
+ static int amdgpu_dm_init(struct amdgpu_device *adev);
+ static void amdgpu_dm_fini(struct amdgpu_device *adev);
+@@ -516,6 +524,91 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
+
+ static int dm_sw_init(void *handle)
+ {
++       const struct firmware *fw;
++       const char *fw_name_dmcu_eram;
++       const char *fw_name_dmcu_intv;
++       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
++       int r;
++
++       switch(adev->asic_type) {
++       case CHIP_BONAIRE:
++       case CHIP_HAWAII:
++       case CHIP_KAVERI:
++       case CHIP_KABINI:
++       case CHIP_MULLINS:
++       case CHIP_TONGA:
++       case CHIP_FIJI:
++       case CHIP_CARRIZO:
++       case CHIP_STONEY:
++       case CHIP_POLARIS11:
++       case CHIP_POLARIS10:
++       case CHIP_POLARIS12:
++       case CHIP_VEGAM:
++       case CHIP_VEGA10:
++       case CHIP_VEGA12:
++       case CHIP_VEGA20:
++               return 0;
++       case CHIP_RAVEN:
++               fw_name_dmcu_eram =3D FIRMWARE_RAVEN_DMCU_ERAM;
++               fw_name_dmcu_intv =3D FIRMWARE_RAVEN_DMCU_INTV;
++               break;
++       default:
++               DRM_ERROR("Unsupported ASIC type: 0x%X\n", adev->asic_type)=
+;
++               return -1;
++       }
++
++       r =3D request_firmware(&fw, fw_name_dmcu_eram, adev->dev);
++       if (r) {
++               dev_err(adev->dev, "amdgpu_dm: Can't load firmware \"%s\"\n=
+",
++                       fw_name_dmcu_eram);
++               return r;
++       }
++
++       r =3D amdgpu_ucode_validate(fw);
++       if (r) {
++               dev_err(adev->dev, "amdgpu_dm: Can't validate firmware \"%s=
+\"\n",
++                       fw_name_dmcu_eram);
++               release_firmware(fw);
++               fw =3D NULL;
++               return r;
++       }
++
++       if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP) {
++               const struct common_firmware_header *hdr;
++               hdr =3D (const struct common_firmware_header *)fw->data;
++               adev->firmware.ucode[AMDGPU_UCODE_ID_DMCU_ERAM].ucode_id =
+=3D AMDGPU_UCODE_ID_DMCU_ERAM;
++               adev->firmware.ucode[AMDGPU_UCODE_ID_DMCU_ERAM].fw =3D fw;
++               adev->firmware.fw_size +=3D
++                       ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE=
+);
++               DRM_INFO("PSP loading DMCU_ERAM firmware\n");
++       }
++
++       r =3D request_firmware(&fw, fw_name_dmcu_intv, adev->dev);
++       if (r) {
++               dev_err(adev->dev, "amdgpu_dm: Can't load firmware \"%s\"\n=
+",
++                               fw_name_dmcu_intv);
++               return r;
++       }
++
++       r =3D amdgpu_ucode_validate(fw);
++       if (r) {
++               dev_err(adev->dev, "amdgpu_dm: Can't validate firmware \"%s=
+\"\n",
++                               fw_name_dmcu_intv);
++               release_firmware(fw);
++               fw =3D NULL;
++               return r;
++       }
++
++       if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP) {
++               const struct common_firmware_header *hdr;
++               hdr =3D (const struct common_firmware_header *)fw->data;
++               adev->firmware.ucode[AMDGPU_UCODE_ID_DMCU_INTV].ucode_id =
+=3D AMDGPU_UCODE_ID_DMCU_INTV;
++               adev->firmware.ucode[AMDGPU_UCODE_ID_DMCU_INTV].fw =3D fw;
++               adev->firmware.fw_size +=3D
++                       ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SIZE=
+);
++               DRM_INFO("PSP loading DMCU_INTV firmware\n");
++       }
++
+         return 0;
+ }
+
+--
+2.17.1
+
+
+--_000_DM3PR1201MB1039E92066DE28EF82980ACBEF000DM3PR1201MB1039_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Ignore this thread&nbsp;- new, fi=
+xed patch is up</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Francis, David<br>
+<b>Sent:</b> September 7, 2018 10:26:59 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd: Add DMCU firmware loading on raven</fo=
+nt>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dus-ascii">
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">This will cause amdgpu startup t=
+o fail if the firmware does not exist: this should either wait until the&nb=
+sp;firmware is available or not return an error value if -<span>ENOENT is r=
+eturned from request_firmware</span></p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> David Francis &lt;D=
+avid.Francis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> September 7, 2018 10:16:56 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Francis, David<br>
+<b>Subject:</b> [PATCH] drm/amd: Add DMCU firmware loading on raven</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">[Why]<br>
+DMCU (Display MicroController Unit) is an on-GPU microcontroller<br>
+in AMD graphics cards that is used in features for<br>
+embedded displays such as Panel Self-Refresh<br>
+<br>
+DMCU is part of the DM IP block<br>
+<br>
+[How]<br>
+DMCU is added as an option in the enum AMDGPU_UCODE_ID<br>
+<br>
+DMCU needs two pieces of firmware - the initial eram and the<br>
+interrupt vectors.&nbsp; These are treated as seperate pieces of<br>
+firmware and loaded by PSP<br>
+<br>
+The loading occurs in the sw_init hook of DM<br>
+<br>
+Signed-off-by: David Francis &lt;David.Francis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h&nbsp;&nbsp;&nbsp;&nbsp; |&n=
+bsp; 2 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v10_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; |&nbsp; 6 &#43;&#43;<br>
+&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 93 &#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;<br>
+&nbsp;3 files changed, 101 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ucode.h<br>
+index b358e7519987..38d3af317aa2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h<br>
+@@ -196,6 &#43;196,8 @@ enum AMDGPU_UCODE_ID {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UCODE_ID_UVD1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UCODE_ID_VCE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UCODE_ID_VCN,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UCODE_ID_DMCU_ERAM,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UCODE_ID_DMCU_INTV,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_UCODE_ID_MAXIMUM,<b=
+r>
+&nbsp;};<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v10_0.c<br>
+index 02be34e72ed9..240dc8c85867 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c<br>
+@@ -91,6 &#43;91,12 @@ psp_v10_0_get_fw_type(struct amdgpu_firmware_info *u=
+code, enum psp_gfx_fw_type *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_UCODE_ID_VCN:<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *type =3D GFX_FW_TYPE_VCN;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_UCODE_ID_DMCU_ERAM:<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; *type =3D GFX_FW_TYPE_DMCU_ERAM;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_UCODE_ID_DMCU_INTV:<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; *type =3D GFX_FW_TYPE_DMCU_ISR;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_UCODE_ID_MAXIM=
+UM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 5103eba75cb3..4619f624f346 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -30,6 &#43;30,7 @@<br>
+&nbsp;#include &quot;vid.h&quot;<br>
+&nbsp;#include &quot;amdgpu.h&quot;<br>
+&nbsp;#include &quot;amdgpu_display.h&quot;<br>
+&#43;#include &quot;amdgpu_ucode.h&quot;<br>
+&nbsp;#include &quot;atom.h&quot;<br>
+&nbsp;#include &quot;amdgpu_dm.h&quot;<br>
+&nbsp;#include &quot;amdgpu_pm.h&quot;<br>
+@@ -50,6 &#43;51,7 @@<br>
+&nbsp;#include &lt;linux/version.h&gt;<br>
+&nbsp;#include &lt;linux/types.h&gt;<br>
+&nbsp;#include &lt;linux/pm_runtime.h&gt;<br>
+&#43;#include &lt;linux/firmware.h&gt;<br>
+&nbsp;<br>
+&nbsp;#include &lt;drm/drmP.h&gt;<br>
+&nbsp;#include &lt;drm/drm_atomic.h&gt;<br>
+@@ -71,6 &#43;73,12 @@<br>
+&nbsp;<br>
+&nbsp;#include &quot;modules/inc/mod_freesync.h&quot;<br>
+&nbsp;<br>
+&#43;#define FIRMWARE_RAVEN_DMCU_ERAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;amdgpu/raven_dmcu_eram=
+.bin&quot;<br>
+&#43;MODULE_FIRMWARE(FIRMWARE_RAVEN_DMCU_ERAM);<br>
+&#43;<br>
+&#43;#define FIRMWARE_RAVEN_DMCU_INTV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;amdgpu/raven_dmcu_intv=
+.bin&quot;<br>
+&#43;MODULE_FIRMWARE(FIRMWARE_RAVEN_DMCU_INTV);<br>
+&#43;<br>
+&nbsp;/* basic init/fini API */<br>
+&nbsp;static int amdgpu_dm_init(struct amdgpu_device *adev);<br>
+&nbsp;static void amdgpu_dm_fini(struct amdgpu_device *adev);<br>
+@@ -516,6 &#43;524,91 @@ static void amdgpu_dm_fini(struct amdgpu_device *a=
+dev)<br>
+&nbsp;<br>
+&nbsp;static int dm_sw_init(void *handle)<br>
+&nbsp;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct firmware *fw;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *fw_name_dmcu_eram;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *fw_name_dmcu_intv;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (s=
+truct amdgpu_device *)handle;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch(adev-&gt;asic_type) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_BONAIRE:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_HAWAII:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_KAVERI:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_KABINI:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_MULLINS:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_TONGA:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_FIJI:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_CARRIZO:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_STONEY:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS11:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS12:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGAM:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA10:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA12:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA20:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RAVEN:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; fw_name_dmcu_eram =3D FIRMWARE_RAVEN_DMCU_ERAM;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; fw_name_dmcu_intv =3D FIRMWARE_RAVEN_DMCU_INTV;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_ERROR(&quot;Unsupported ASIC type: 0x%X\n&quot;, adev-&g=
+t;asic_type);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -1;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D request_firmware(&amp;fw, f=
+w_name_dmcu_eram, adev-&gt;dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;amdgpu_dm: Can't load firmware \=
+&quot;%s\&quot;\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_name_dmcu=
+_eram);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ucode_validate(fw);<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;amdgpu_dm: Can't validate firmwa=
+re \&quot;%s\&quot;\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_name_dmcu=
+_eram);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; release_firmware(fw);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; fw =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =
+=3D=3D AMDGPU_FW_LOAD_PSP) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; const struct common_firmware_header *hdr;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hdr =3D (const struct common_firmware_header *)fw-&gt;data;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;firmware.ucode[AMDGPU_UCODE_ID_DMCU_ERAM].ucode_id =
+=3D AMDGPU_UCODE_ID_DMCU_ERAM;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;firmware.ucode[AMDGPU_UCODE_ID_DMCU_ERAM].fw =3D fw=
+;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;firmware.fw_size &#43;=3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALIGN(le32_t=
+o_cpu(hdr-&gt;ucode_size_bytes), PAGE_SIZE);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_INFO(&quot;PSP loading DMCU_ERAM firmware\n&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D request_firmware(&amp;fw, f=
+w_name_dmcu_intv, adev-&gt;dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;amdgpu_dm: Can't load firmware \=
+&quot;%s\&quot;\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_name_dmcu_intv);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ucode_validate(fw);<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;amdgpu_dm: Can't validate firmwa=
+re \&quot;%s\&quot;\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_name_dmcu_intv);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; release_firmware(fw);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; fw =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =
+=3D=3D AMDGPU_FW_LOAD_PSP) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; const struct common_firmware_header *hdr;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hdr =3D (const struct common_firmware_header *)fw-&gt;data;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;firmware.ucode[AMDGPU_UCODE_ID_DMCU_INTV].ucode_id =
+=3D AMDGPU_UCODE_ID_DMCU_INTV;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;firmware.ucode[AMDGPU_UCODE_ID_DMCU_INTV].fw =3D fw=
+;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;firmware.fw_size &#43;=3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALIGN(le32_t=
+o_cpu(hdr-&gt;ucode_size_bytes), PAGE_SIZE);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_INFO(&quot;PSP loading DMCU_INTV firmware\n&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM3PR1201MB1039E92066DE28EF82980ACBEF000DM3PR1201MB1039_--
+
+--===============1195623099==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1195623099==--
