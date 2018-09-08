@@ -1,19 +1,18 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amdgpu: Moved fault hash table to amdgpu vm
-Date: Sat, 8 Sep 2018 09:16:16 +0200
-Message-ID: <bf233da4-5cd9-d7e4-1e9a-fbef3613bfd6@amd.com>
+Date: Sat, 8 Sep 2018 09:34:35 +0200
+Message-ID: <9b6b78aa-c98a-a741-7ce2-0e7811e1f806@amd.com>
 References: <1536290910-6476-1-git-send-email-Oak.Zeng@amd.com>
  <12913b70-925d-2e17-2dc2-491ed8592610@amd.com>
  <546c9911-b7af-03c8-b5e2-f2bb07932c0b@gmail.com>
  <BN6PR12MB1651779BF0B3AE84E1C4430C80000@BN6PR12MB1651.namprd12.prod.outlook.com>
  <89e7515f-53f1-9f10-aeb6-7fc1b8df2702@amd.com>
- <BN6PR12MB1651CA24220B91670A75890C80000@BN6PR12MB1651.namprd12.prod.outlook.com>
- <0e52fe27-716c-f9d3-9b2c-5540825ffcef@amd.com>
- <BN6PR12MB1651CCA8BB73DE64815EB0B280000@BN6PR12MB1651.namprd12.prod.outlook.com>
+ <ab2c26bc-e168-eaae-3d80-826a47b3e0d3@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1295918396=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1651CCA8BB73DE64815EB0B280000-/b2+HYfkarRSqX7PDniLCgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <ab2c26bc-e168-eaae-3d80-826a47b3e0d3-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,2186 +24,474 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, Oak Zeng <zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, Oak Zeng <zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
 
---===============1295918396==
-Content-Type: multipart/alternative;
- boundary="------------4CC820062F59CC991861C077"
-Content-Language: en-US
-
---------------4CC820062F59CC991861C077
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Oak,
-
-> >In other words when you request the address of a PT you get the 
-> address where memory management has moved it, not the address where 
-> the hardware is processing the fault from.
->
-> Do you mean the address in the PT is what vm has mapped and the faulty 
-> address need to be mapped in the PT?
->
-No, the memory management is pipelined to avoid stalls during eviction.
-
-This means that the state we manage is always the future state, e.g. 
-when you walk the page tables in the VM structure you see the state 
-after all the running operations completed.
-
-In other words when a page table is pipelined for eviction you see the 
-evicted state and not the current executing one.
-
-But what we need for page fault handling is the current state and not 
-the future state.
-
-> The amdgpu_vm and amdgpu_vm_pt data structure are invented for the 
-> purpose of management of page table BO. Why we need invent extra 
-> structure?
-We will need something like a double entry accounting for the page 
-tables where we both keep the future as well as the current state.
-
-> Think about the normal case of the page fault handling when the 
-> process and vm are still alive. In the normal case, the amdgpu_vm 
-> structure can meet exactly purpose of page table update.
-No, the problem is not if the VM is still alive or dead but rather that 
-in the case of an eviction you wouldn't be able to handle page faults 
-any more.
-
-> The said extra data structure must look very similar to the 
-> amdgpu_vm/vm_pt structure. So the best way is to reuse the existing vm 
-> structure, either in normal case or in process termination case.
-Completely agree that we will probably need the same structure as the VM 
-hierarchy offers, just with another set of information.
-
-> Is it possible to delay the destroy of vm during process termination?
-Yeah, thought about that as well. The problem with that is the OOM 
-killer and that we are still not able to reliable kill running command 
-submissions.
-
-Ok you convinced me that we should probably work on that instead.
-
-E.g. when a process has bound its address space to a VM and exits we 
-need to find a way to kill all still executing jobs. We should let the 
-UMD handle that case gracefully when they really need this.
-
-Thanks,
-Christian.
-
-Am 07.09.2018 um 23:52 schrieb Zeng, Oak:
->
-> Hi Christian,
->
-> See comments inline
->
-> Thanks,
->
-> Oak
->
-> *From:*Koenig, Christian
-> *Sent:* Monday, September 10, 2018 7:44 AM
-> *To:* Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>; Oak Zeng <zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; 
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-> *Subject:* Re: [PATCH 1/2] drm/amdgpu: Moved fault hash table to amdgpu vm
->
-> >The VM doesn't know that information either.
->
-> Yes, VM doesn’t know the information. More specifically I meant we 
-> need VM data structure to update PTs during page fault handling. For 
-> example, we walk the 4 level page table (the first level is pointed by 
-> vm->root) to figure out the entries need to be filled, allocate page 
-> table entry Bos if necessary, allocate physical page for the faulty 
-> address, setup 4 level page table for the faulty virtual address to 
-> pointing to the allocated physical page.
->
-> >In other words when you request the address of a PT you get the 
-> address where memory management has moved it, not the address where 
-> the hardware is processing the fault from.
->
-> Do you mean the address in the PT is what vm has mapped and the faulty 
-> address need to be mapped in the PT?
->
->
->
-> I see only a few possible solutions for that:
-> >1. We use an extra structure in the kernel driver which holds the 
-> current address of the PTs and is feed by memory management when 
-> buffers move around.
->
-> The amdgpu_vm and amdgpu_vm_pt data structure are invented for the 
-> purpose of management of page table BO. Why we need invent extra 
-> structure? Think about the normal case of the page fault handling when 
-> the process and vm are still alive. In the normal case, the amdgpu_vm 
-> structure can meet exactly purpose of page table update.
->
-> The said extra data structure must look very similar to the 
-> amdgpu_vm/vm_pt structure. So the best way is to reuse the existing vm 
-> structure, either in normal case or in process termination case. Is it 
-> possible to delay the destroy of vm during process termination?
->
->
-> >2. We change the SDMA firmware to do the walk for us and update the 
-> PTEs based on the information in the page directory.
->
-> As the page table BO need to be freed later. You still need to manage 
-> them in the driver. SDMA FW can walk and update but it need 
-> information from driver side. Driver still need a similar struct like 
-> amdgpu_vm.
->
->
-> >3. We use the UTCL walker to get us to the correct address which is 
-> then updated with the SDMA.
-> I don’t quite understand your point here. What do you mean by “correct 
-> address”? Do you mean the physical address to be filled to the page 
-> table? If this is your meaning, how UTCL2 knows this information – the 
-> physical address has to be allocated/validated through driver.
->
->
-> Regards,
-> Christian.
->
-> Am 07.09.2018 um 17:30 schrieb Zeng, Oak:
->
->     Without a VM, how can you get the physical address of the faulty
->     virtual address? Where this information should be hold?
->
->     Thanks,
->
->     Oak
->
->     *From:*Koenig, Christian
->     *Sent:* Monday, September 10, 2018 7:20 AM
->     *To:* Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org> <mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>; Oak
->     Zeng <zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> <mailto:zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>;
->     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->     <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Yang, Philip
->     <Philip.Yang-5C7GfCeVMHo@public.gmane.org> <mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org>
->     *Subject:* Re: [PATCH 1/2] drm/amdgpu: Moved fault hash table to
->     amdgpu vm
->
->         Am I right that the handling of page fault need a valid VM?
->
->     No, exactly that view is incorrect.
->
->     The VM is meant to be a memory management structure of page tables
->     and is completely pointless fault processing because it represent
->     the future state of the page tables and not the current one.
->
->     What we need for fault processing is a new structure build around
->     PASIDs which is feed by the with addresses when page tables are
->     moved around.
->
->     Alternatively I hope that we can use the SDMA to walk the page
->     tables and update the required entries by just using the address.
->
->     Regards,
->     Christian.
->
->     Am 07.09.2018 um 16:55 schrieb Zeng, Oak:
->
->         Hi Christian,
->
->         What is the value of delay the destroy of hash to after vm is
->         destroyed? Since vm is destroyed, you basically don’t have
->         enough information to paging in the correct page to gpuvm. Am
->         I right that the handling of page fault need a valid VM? For
->         example, you need the VM to get the corresponding physical
->         address of the faulty page.
->
->         After vm is destroyed, the retry interrupt can be directly
->         discard as you can’t find vm through pasid. You can think this
->         is also one kind of prescreen.
->
->         So I am stand for the point that, there is no need to delay
->         the destroy of hash to after vm is destroyed. Prescreening
->         hash can be destroyed at the time of vm_fini.
->
->         Thanks,
->
->         Oak
->
->         *From:*Christian König <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->         <mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->         *Sent:* Friday, September 07, 2018 4:39 AM
->         *To:* Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org> <mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>;
->         Oak Zeng <zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->         <mailto:zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->         *Cc:* Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org> <mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
->         *Subject:* Re: [PATCH 1/2] drm/amdgpu: Moved fault hash table
->         to amdgpu vm
->
->         Hi Oak,
->
->         yeah, but this is still a NAK. Making the hash per PASID was
->         not a suggestion but rather a must have.
->
->         The VM structures must be destroyed while the processing is
->         still ongoing, or otherwise we would not have a clean OOM
->         handling.
->
->         The IDR for PASID lockup can be put into amdgpu_ids.c, you can
->         just replace the IDA already used there with an IDR.
->
->         Since the PASID is already freed up delayed we should have the
->         grace period for interrupt processing included. If that still
->         isn't sufficient we can still add some delayed work for this.
->
->         Regards,
->         Christian.
->
->         Am 07.09.2018 um 06:16 schrieb ozeng:
->
->             Hi Christian,
->
->             In this implementation, fault hash is made per vm, not per
->             pasid as suggested, based on below considerations:
->
->               * Delay the destroy of hash introduces more effort like
->                 how to set the proper grace period after which no
->                 retry interrupt will be generated. We want to avoid
->                 those complication if we can.
->               * The  problem of the per vm implementation is that it
->                 is hard to delay the destroy of fault hash, because
->                 when vm is destroyed, prescreen function won't be able
->                 to retrieve the fault hash. But in this case, the
->                 prescreen function can either let the interrupt go
->                 through (to gmc) or ignore it. From this perspective,
->                 it is not very necessary to delay the destroy of hash
->                 table.
->               * On the other hand, since ASICs after vega10 have the
->                 HW CAM feature. So the SW IV prescreen is only useful
->                 for vega10. For all the HW implemented CAM, we can
->                 consider the delayed CAM acknowledgment.
->               * Making it per pasid need to introduce another idr to
->                 correlate pasid and hash table - where to put the idr?
->                 You will have to make it a global variable which is
->                 not very desirable.
->
->             The main purpose of this patch is to solve the
->             inter-process lock issue (when hash table is full), while
->             still keep codes simple.
->
->             Also with this patch, the faults kfifo is not necessary
->             any more. See patch 2.
->
->             Regards,
->
->             Oak
->
->             On 09/06/2018 11:28 PM, Oak Zeng wrote:
->
->                 In stead of share one fault hash table per device, make it
->
->                 per vm. This can avoid inter-process lock issue when fault
->
->                 hash table is full.
->
->                   
->
->                 Change-Id: I5d1281b7c41eddc8e26113e010516557588d3708
->
->                 Signed-off-by: Oak Zeng<Oak.Zeng-5C7GfCeVMHo@public.gmane.org> <mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
->
->                 Suggested-by: Christian Konig<Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
->                 <mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
->
->                 Suggested-by: Felix Kuehling<Felix.Kuehling-5C7GfCeVMHo@public.gmane.org> <mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
->
->                 ---
->
->                   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c |  75 ------------------------
->
->                   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h |  10 ----
->
->                   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 102 ++++++++++++++++++++++++++++++++-
->
->                   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  12 ++++
->
->                   drivers/gpu/drm/amd/amdgpu/vega10_ih.c |  38 +++++-------
->
->                   5 files changed, 127 insertions(+), 110 deletions(-)
->
->                   
->
->                 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->
->                 index 06373d4..4ed8621 100644
->
->                 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->
->                 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
->
->                 @@ -197,78 +197,3 @@ int amdgpu_ih_process(struct amdgpu_device *adev)
->
->                     return IRQ_HANDLED;
->
->                   }
->
->                   
->
->                 -/**
->
->                 - * amdgpu_ih_add_fault - Add a page fault record
->
->                 - *
->
->                 - * @adev: amdgpu device pointer
->
->                 - * @key: 64-bit encoding of PASID and address
->
->                 - *
->
->                 - * This should be called when a retry page fault interrupt is
->
->                 - * received. If this is a new page fault, it will be added to a hash
->
->                 - * table. The return value indicates whether this is a new fault, or
->
->                 - * a fault that was already known and is already being handled.
->
->                 - *
->
->                 - * If there are too many pending page faults, this will fail. Retry
->
->                 - * interrupts should be ignored in this case until there is enough
->
->                 - * free space.
->
->                 - *
->
->                 - * Returns 0 if the fault was added, 1 if the fault was already known,
->
->                 - * -ENOSPC if there are too many pending faults.
->
->                 - */
->
->                 -int amdgpu_ih_add_fault(struct amdgpu_device *adev, u64 key)
->
->                 -{
->
->                 -  unsigned long flags;
->
->                 -  int r = -ENOSPC;
->
->                 -
->
->                 -  if (WARN_ON_ONCE(!adev->irq.ih.faults))
->
->                 -          /* Should be allocated in <IP>_ih_sw_init on GPUs that
->
->                 -           * support retry faults and require retry filtering.
->
->                 -           */
->
->                 -          return r;
->
->                 -
->
->                 -  spin_lock_irqsave(&adev->irq.ih.faults->lock, flags);
->
->                 -
->
->                 -  /* Only let the hash table fill up to 50% for best performance */
->
->                 -  if (adev->irq.ih.faults->count >= (1 << (AMDGPU_PAGEFAULT_HASH_BITS-1)))
->
->                 -          goto unlock_out;
->
->                 -
->
->                 -  r = chash_table_copy_in(&adev->irq.ih.faults->hash, key, NULL);
->
->                 -  if (!r)
->
->                 -          adev->irq.ih.faults->count++;
->
->                 -
->
->                 -  /* chash_table_copy_in should never fail unless we're losing count */
->
->                 -  WARN_ON_ONCE(r < 0);
->
->                 -
->
->                 -unlock_out:
->
->                 -  spin_unlock_irqrestore(&adev->irq.ih.faults->lock, flags);
->
->                 -  return r;
->
->                 -}
->
->                 -
->
->                 -/**
->
->                 - * amdgpu_ih_clear_fault - Remove a page fault record
->
->                 - *
->
->                 - * @adev: amdgpu device pointer
->
->                 - * @key: 64-bit encoding of PASID and address
->
->                 - *
->
->                 - * This should be called when a page fault has been handled. Any
->
->                 - * future interrupt with this key will be processed as a new
->
->                 - * page fault.
->
->                 - */
->
->                 -void amdgpu_ih_clear_fault(struct amdgpu_device *adev, u64 key)
->
->                 -{
->
->                 -  unsigned long flags;
->
->                 -  int r;
->
->                 -
->
->                 -  if (!adev->irq.ih.faults)
->
->                 -          return;
->
->                 -
->
->                 -  spin_lock_irqsave(&adev->irq.ih.faults->lock, flags);
->
->                 -
->
->                 -  r = chash_table_remove(&adev->irq.ih.faults->hash, key, NULL);
->
->                 -  if (!WARN_ON_ONCE(r < 0)) {
->
->                 -          adev->irq.ih.faults->count--;
->
->                 -          WARN_ON_ONCE(adev->irq.ih.faults->count < 0);
->
->                 -  }
->
->                 -
->
->                 -  spin_unlock_irqrestore(&adev->irq.ih.faults->lock, flags);
->
->                 -}
->
->                 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
->
->                 index a23e1c0..f411ffb 100644
->
->                 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
->
->                 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
->
->                 @@ -32,13 +32,6 @@ struct amdgpu_device;
->
->                   #define AMDGPU_IH_CLIENTID_LEGACY 0
->
->                   #define AMDGPU_IH_CLIENTID_MAX SOC15_IH_CLIENTID_MAX
->
->                   
->
->                 -#define AMDGPU_PAGEFAULT_HASH_BITS 8
->
->                 -struct amdgpu_retryfault_hashtable {
->
->                 -  DECLARE_CHASH_TABLE(hash, AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);
->
->                 -  spinlock_t     lock;
->
->                 -  int            count;
->
->                 -};
->
->                 -
->
->                   /*
->
->                    * R6xx+ IH ring
->
->                    */
->
->                 @@ -57,7 +50,6 @@ struct amdgpu_ih_ring {
->
->                     bool                   use_doorbell;
->
->                     bool                   use_bus_addr;
->
->                     dma_addr_t             rb_dma_addr; /* only used when use_bus_addr = true */
->
->                 -  struct amdgpu_retryfault_hashtable *faults;
->
->                   };
->
->                   
->
->                   #define AMDGPU_IH_SRC_DATA_MAX_SIZE_DW 4
->
->                 @@ -95,7 +87,5 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, unsigned ring_size,
->
->                                     bool use_bus_addr);
->
->                   void amdgpu_ih_ring_fini(struct amdgpu_device *adev);
->
->                   int amdgpu_ih_process(struct amdgpu_device *adev);
->
->                 -int amdgpu_ih_add_fault(struct amdgpu_device *adev, u64 key);
->
->                 -void amdgpu_ih_clear_fault(struct amdgpu_device *adev, u64 key);
->
->                   
->
->                   #endif
->
->                 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->
->                 index 1d7e3c1..8b220e9 100644
->
->                 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->
->                 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->
->                 @@ -2692,6 +2692,22 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
->
->                              adev->vm_manager.fragment_size);
->
->                   }
->
->                   
->
->                 +static struct amdgpu_retryfault_hashtable *init_fault_hash(void)
->
->                 +{
->
->                 +  struct amdgpu_retryfault_hashtable *fault_hash;
->
->                 +
->
->                 +  fault_hash = kmalloc(sizeof(*fault_hash), GFP_KERNEL);
->
->                 +  if (!fault_hash)
->
->                 +          return fault_hash;
->
->                 +
->
->                 +  INIT_CHASH_TABLE(fault_hash->hash,
->
->                 +                  AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);
->
->                 +  spin_lock_init(&fault_hash->lock);
->
->                 +  fault_hash->count = 0;
->
->                 +
->
->                 +  return fault_hash;
->
->                 +}
->
->                 +
->
->                   /**
->
->                    * amdgpu_vm_init - initialize a vm instance
->
->                    *
->
->                 @@ -2780,6 +2796,12 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->
->                             vm->pasid = pasid;
->
->                     }
->
->                   
->
->                 +  vm->fault_hash = init_fault_hash();
->
->                 +  if (!vm->fault_hash) {
->
->                 +          r = -ENOMEM;
->
->                 +          goto error_free_root;
->
->                 +  }
->
->                 +
->
->                     INIT_KFIFO(vm->faults);
->
->                     vm->fault_credit = 16;
->
->                   
->
->                 @@ -2973,7 +2995,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->
->                   
->
->                     /* Clear pending page faults from IH when the VM is destroyed */
->
->                     while (kfifo_get(&vm->faults, &fault))
->
->                 -          amdgpu_ih_clear_fault(adev, fault);
->
->                 +          amdgpu_vm_clear_fault(vm->fault_hash, fault);
->
->                   
->
->                     if (vm->pasid) {
->
->                             unsigned long flags;
->
->                 @@ -2983,6 +3005,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->
->                             spin_unlock_irqrestore(&adev->vm_manager.pasid_lock, flags);
->
->                     }
->
->                   
->
->                 +  kfree(vm->fault_hash);
->
->                 +  vm->fault_hash = NULL;
->
->                 +
->
->                     drm_sched_entity_destroy(&vm->entity);
->
->                   
->
->                     if (!RB_EMPTY_ROOT(&vm->va.rb_root)) {
->
->                 @@ -3183,3 +3208,78 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
->
->                             }
->
->                     }
->
->                   }
->
->                 +
->
->                 +/**
->
->                 + * amdgpu_vm_add_fault - Add a page fault record to fault hash table
->
->                 + *
->
->                 + * @fault_hash: fault hash table
->
->                 + * @key: 64-bit encoding of PASID and address
->
->                 + *
->
->                 + * This should be called when a retry page fault interrupt is
->
->                 + * received. If this is a new page fault, it will be added to a hash
->
->                 + * table. The return value indicates whether this is a new fault, or
->
->                 + * a fault that was already known and is already being handled.
->
->                 + *
->
->                 + * If there are too many pending page faults, this will fail. Retry
->
->                 + * interrupts should be ignored in this case until there is enough
->
->                 + * free space.
->
->                 + *
->
->                 + * Returns 0 if the fault was added, 1 if the fault was already known,
->
->                 + * -ENOSPC if there are too many pending faults.
->
->                 + */
->
->                 +int amdgpu_vm_add_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key)
->
->                 +{
->
->                 +  unsigned long flags;
->
->                 +  int r = -ENOSPC;
->
->                 +
->
->                 +  if (WARN_ON_ONCE(!fault_hash))
->
->                 +          /* Should be allocated in amdgpu_vm_init
->
->                 +           */
->
->                 +          return r;
->
->                 +
->
->                 +  spin_lock_irqsave(&fault_hash->lock, flags);
->
->                 +
->
->                 +  /* Only let the hash table fill up to 50% for best performance */
->
->                 +  if (fault_hash->count >= (1 << (AMDGPU_PAGEFAULT_HASH_BITS-1)))
->
->                 +          goto unlock_out;
->
->                 +
->
->                 +  r = chash_table_copy_in(&fault_hash->hash, key, NULL);
->
->                 +  if (!r)
->
->                 +          fault_hash->count++;
->
->                 +
->
->                 +  /* chash_table_copy_in should never fail unless we're losing count */
->
->                 +  WARN_ON_ONCE(r < 0);
->
->                 +
->
->                 +unlock_out:
->
->                 +  spin_unlock_irqrestore(&fault_hash->lock, flags);
->
->                 +  return r;
->
->                 +}
->
->                 +
->
->                 +/**
->
->                 + * amdgpu_vm_clear_fault - Remove a page fault record
->
->                 + *
->
->                 + * @fault_hash: fault hash table
->
->                 + * @key: 64-bit encoding of PASID and address
->
->                 + *
->
->                 + * This should be called when a page fault has been handled. Any
->
->                 + * future interrupt with this key will be processed as a new
->
->                 + * page fault.
->
->                 + */
->
->                 +void amdgpu_vm_clear_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key)
->
->                 +{
->
->                 +  unsigned long flags;
->
->                 +  int r;
->
->                 +
->
->                 +  if (!fault_hash)
->
->                 +          return;
->
->                 +
->
->                 +  spin_lock_irqsave(&fault_hash->lock, flags);
->
->                 +
->
->                 +  r = chash_table_remove(&fault_hash->hash, key, NULL);
->
->                 +  if (!WARN_ON_ONCE(r < 0)) {
->
->                 +          fault_hash->count--;
->
->                 +          WARN_ON_ONCE(fault_hash->count < 0);
->
->                 +  }
->
->                 +
->
->                 +  spin_unlock_irqrestore(&fault_hash->lock, flags);
->
->                 +}
->
->                 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->
->                 index e275ee7..6eb1da1 100644
->
->                 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->
->                 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->
->                 @@ -178,6 +178,13 @@ struct amdgpu_task_info {
->
->                     pid_t   tgid;
->
->                   };
->
->                   
->
->                 +#define AMDGPU_PAGEFAULT_HASH_BITS 8
->
->                 +struct amdgpu_retryfault_hashtable {
->
->                 +  DECLARE_CHASH_TABLE(hash, AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);
->
->                 +  spinlock_t     lock;
->
->                 +  int            count;
->
->                 +};
->
->                 +
->
->                   struct amdgpu_vm {
->
->                     /* tree of virtual addresses mapped */
->
->                     struct rb_root_cached  va;
->
->                 @@ -240,6 +247,7 @@ struct amdgpu_vm {
->
->                     struct ttm_lru_bulk_move lru_bulk_move;
->
->                     /* mark whether can do the bulk move */
->
->                     bool                   bulk_moveable;
->
->                 +  struct amdgpu_retryfault_hashtable *fault_hash;
->
->                   };
->
->                   
->
->                   struct amdgpu_vm_manager {
->
->                 @@ -355,4 +363,8 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
->
->                   void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
->
->                                            struct amdgpu_vm *vm);
->
->                   
->
->                 +int amdgpu_vm_add_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key);
->
->                 +
->
->                 +void amdgpu_vm_clear_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key);
->
->                 +
->
->                   #endif
->
->                 diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
->
->                 index 5ae5ed2..acbe5a7 100644
->
->                 --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
->
->                 +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
->
->                 @@ -265,35 +265,36 @@ static bool vega10_ih_prescreen_iv(struct amdgpu_device *adev)
->
->                             return true;
->
->                     }
->
->                   
->
->                 -  addr = ((u64)(dw5 & 0xf) << 44) | ((u64)dw4 << 12);
->
->                 -  key = AMDGPU_VM_FAULT(pasid, addr);
->
->                 -  r = amdgpu_ih_add_fault(adev, key);
->
->                 -
->
->                 -  /* Hash table is full or the fault is already being processed,
->
->                 -   * ignore further page faults
->
->                 -   */
->
->                 -  if (r != 0)
->
->                 -          goto ignore_iv;
->
->                 -
->
->                     /* Track retry faults in per-VM fault FIFO. */
->
->                     spin_lock(&adev->vm_manager.pasid_lock);
->
->                     vm = idr_find(&adev->vm_manager.pasid_idr, pasid);
->
->                 +  addr = ((u64)(dw5 & 0xf) << 44) | ((u64)dw4 << 12);
->
->                 +  key = AMDGPU_VM_FAULT(pasid, addr);
->
->                     if (!vm) {
->
->                             /* VM not found, process it normally */
->
->                             spin_unlock(&adev->vm_manager.pasid_lock);
->
->                 -          amdgpu_ih_clear_fault(adev, key);
->
->                             return true;
->
->                 +  } else {
->
->                 +          r = amdgpu_vm_add_fault(vm->fault_hash, key);
->
->                 +
->
->                 +          /* Hash table is full or the fault is already being processed,
->
->                 +           * ignore further page faults
->
->                 +           */
->
->                 +          if (r != 0) {
->
->                 +                  spin_unlock(&adev->vm_manager.pasid_lock);
->
->                 +                  goto ignore_iv;
->
->                 +          }
->
->                     }
->
->                     /* No locking required with single writer and single reader */
->
->                     r = kfifo_put(&vm->faults, key);
->
->                     if (!r) {
->
->                             /* FIFO is full. Ignore it until there is space */
->
->                 +          amdgpu_vm_clear_fault(vm->fault_hash, key);
->
->                             spin_unlock(&adev->vm_manager.pasid_lock);
->
->                 -          amdgpu_ih_clear_fault(adev, key);
->
->                             goto ignore_iv;
->
->                     }
->
->                 -  spin_unlock(&adev->vm_manager.pasid_lock);
->
->                   
->
->                 +  spin_unlock(&adev->vm_manager.pasid_lock);
->
->                     /* It's the first fault for this address, process it normally */
->
->                     return true;
->
->                   
->
->                 @@ -386,14 +387,6 @@ static int vega10_ih_sw_init(void *handle)
->
->                     adev->irq.ih.use_doorbell = true;
->
->                     adev->irq.ih.doorbell_index = AMDGPU_DOORBELL64_IH << 1;
->
->                   
->
->                 -  adev->irq.ih.faults = kmalloc(sizeof(*adev->irq.ih.faults), GFP_KERNEL);
->
->                 -  if (!adev->irq.ih.faults)
->
->                 -          return -ENOMEM;
->
->                 -  INIT_CHASH_TABLE(adev->irq.ih.faults->hash,
->
->                 -                   AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);
->
->                 -  spin_lock_init(&adev->irq.ih.faults->lock);
->
->                 -  adev->irq.ih.faults->count = 0;
->
->                 -
->
->                     r = amdgpu_irq_init(adev);
->
->                   
->
->                     return r;
->
->                 @@ -406,9 +399,6 @@ static int vega10_ih_sw_fini(void *handle)
->
->                     amdgpu_irq_fini(adev);
->
->                     amdgpu_ih_ring_fini(adev);
->
->                   
->
->                 -  kfree(adev->irq.ih.faults);
->
->                 -  adev->irq.ih.faults = NULL;
->
->                 -
->
->                     return 0;
->
->                   }
->
->                   
->
->
->
->
->
->
->
->             _______________________________________________
->
->             amd-gfx mailing list
->
->             amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->             <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->
->             https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------4CC820062F59CC991861C077
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi Oak,<br>
-      <br>
-      <blockquote type="cite"><span style="color:windowtext">&gt;</span>In
-        other words when you request the address of a PT you get the
-        address where memory management has moved it, not the address
-        where the hardware is processing the fault from.<span
-          style="color:windowtext"></span>
-        <p class="MsoListParagraph" style="margin-left:0in"><span
-            style="color:windowtext">Do you mean the address in the PT
-            is what vm has mapped and the faulty address need to be
-            mapped in the PT?</span></p>
-      </blockquote>
-      No, the memory management is pipelined to avoid stalls during
-      eviction.<br>
-      <br>
-      This means that the state we manage is always the future state,
-      e.g. when you walk the page tables in the VM structure you see the
-      state after all the running operations completed.<br>
-      <br>
-      In other words when a page table is pipelined for eviction you see
-      the evicted state and not the current executing one.<br>
-      <br>
-      But what we need for page fault handling is the current state and
-      not the future state.<br>
-      <br>
-      <blockquote type="cite"><span style="color:windowtext">The
-          amdgpu_vm and amdgpu_vm_pt data structure are invented for the
-          purpose of management of page table BO. Why we need invent
-          extra structure?</span></blockquote>
-      We will need something like a double entry accounting for the page
-      tables where we both keep the future as well as the current state.<br>
-      <br>
-      <blockquote type="cite"><span style="color:windowtext">Think about
-          the normal case of the page fault handling when the process
-          and vm are still alive. In the normal case, the amdgpu_vm
-          structure can meet exactly purpose of page table update.</span></blockquote>
-      No, the problem is not if the VM is still alive or dead but rather
-      that in the case of an eviction you wouldn't be able to handle
-      page faults any more.<br>
-      <br>
-      <blockquote type="cite"><span style="color:windowtext">The said
-          extra data structure must look very similar to the
-          amdgpu_vm/vm_pt structure. So the best way is to reuse the
-          existing vm structure, either in normal case or in process
-          termination case.</span></blockquote>
-      Completely agree that we will probably need the same structure as
-      the VM hierarchy offers, just with another set of information.<br>
-      <br>
-      <blockquote type="cite"><span style="color:windowtext">Is it
-          possible to delay the destroy of vm during process
-          termination?</span></blockquote>
-      Yeah, thought about that as well. The problem with that is the OOM
-      killer and that we are still not able to reliable kill running
-      command submissions.<br>
-      <br>
-      Ok you convinced me that we should probably work on that instead.<br>
-      <br>
-      E.g. when a process has bound its address space to a VM and exits
-      we need to find a way to kill all still executing jobs. We should
-      let the UMD handle that case gracefully when they really need
-      this.<br>
-      <br>
-      Thanks,<br>
-      Christian.<br>
-      <br>
-      Am 07.09.2018 um 23:52 schrieb Zeng, Oak:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BN6PR12MB1651CCA8BB73DE64815EB0B280000-/b2+HYfkarRSqX7PDniLCgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	color:black;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:"Courier New";
-	color:black;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	color:black;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	color:black;}
-span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;
-	color:black;}
-span.EmailStyle20
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;
-	font-weight:normal;
-	font-style:normal;
-	text-decoration:none none;}
-span.EmailStyle21
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;
-	font-weight:normal;
-	font-style:normal;
-	text-decoration:none none;}
-span.EmailStyle23
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;
-	font-weight:normal;
-	font-style:normal;
-	text-decoration:none none;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:1524241316;
-	mso-list-template-ids:1236684714;}
-@list l0:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l1
-	{mso-list-id:1627153682;
-	mso-list-template-ids:2090215794;}
-@list l1:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l1:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l2
-	{mso-list-id:1719469588;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-303134234 1230275120 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l2:level1
-	{mso-level-start-at:8;
-	mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;
-	mso-fareast-font-family:"Times New Roman";
-	mso-bidi-font-family:Calibri;}
-@list l2:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l2:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l2:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l2:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l2:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l2:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l2:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l2:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal"><span style="color:windowtext">Hi
-            Christian,<o:p></o:p></span></p>
-        <p class="MsoNormal"><span style="color:windowtext"><o:p> </o:p></span></p>
-        <p class="MsoNormal"><span style="color:windowtext">See comments
-            inline<o:p></o:p></span></p>
-        <p class="MsoNormal"><span style="color:windowtext"><o:p> </o:p></span></p>
-        <div>
-          <p class="MsoNormal"><span style="color:windowtext">Thanks,<o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext">Oak<o:p></o:p></span></p>
-        </div>
-        <p class="MsoNormal"><span style="color:windowtext"><o:p> </o:p></span></p>
-        <div>
-          <div style="border:none;border-top:solid #E1E1E1
-            1.0pt;padding:3.0pt 0in 0in 0in">
-            <p class="MsoNormal"><b><span style="color:windowtext">From:</span></b><span
-                style="color:windowtext"> Koenig, Christian
-                <br>
-                <b>Sent:</b> Monday, September 10, 2018 7:44 AM<br>
-                <b>To:</b> Zeng, Oak <a class="moz-txt-link-rfc2396E" href="mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org">&lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;</a>; Oak Zeng
-                <a class="moz-txt-link-rfc2396E" href="mailto:zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>;
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Yang, Philip
-                <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org">&lt;Philip.Yang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Moved fault
-                hash table to amdgpu vm<o:p></o:p></span></p>
-          </div>
-        </div>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <div>
-          <p class="MsoNormal"><span style="color:windowtext">&gt;</span>The
-            VM doesn't know that information either.<span
-              style="color:windowtext"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext"><o:p> </o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext">Yes, VM
-              doesn’t know the information. More specifically I meant we
-              need VM data structure to update PTs during page fault
-              handling. For example, we walk the 4 level page table (the
-              first level is pointed by vm-&gt;root) to figure out the
-              entries need to be filled, allocate page table entry Bos
-              if necessary, allocate physical page for the faulty
-              address, setup 4 level page table for the faulty virtual
-              address to pointing to the allocated physical page.</span><br>
-            <br>
-            <span style="color:windowtext">&gt;</span>In other words
-            when you request the address of a PT you get the address
-            where memory management has moved it, not the address where
-            the hardware is processing the fault from.<span
-              style="color:windowtext"><o:p></o:p></span></p>
-          <p class="MsoListParagraph" style="margin-left:0in"><span
-              style="color:windowtext">Do you mean the address in the PT
-              is what vm has mapped and the faulty address need to be
-              mapped in the PT?<o:p></o:p></span></p>
-          <p class="MsoNormal"><br>
-            <br>
-            I see only a few possible solutions for that:<br>
-            <span style="color:windowtext">&gt;</span>1. We use an extra
-            structure in the kernel driver which holds the current
-            address of the PTs and is feed by memory management when
-            buffers move around.<span style="color:windowtext"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext">The
-              amdgpu_vm and amdgpu_vm_pt data structure are invented for
-              the purpose of management of page table BO. Why we need
-              invent extra structure? Think about the normal case of the
-              page fault handling when the process and vm are still
-              alive. In the normal case, the amdgpu_vm structure can
-              meet exactly purpose of page table update.<o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext"><o:p> </o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext">The said
-              extra data structure must look very similar to the
-              amdgpu_vm/vm_pt structure. So the best way is to reuse the
-              existing vm structure, either in normal case or in process
-              termination case. Is it possible to delay the destroy of
-              vm during process termination?<o:p></o:p></span></p>
-          <p class="MsoNormal"><br>
-            <span style="color:windowtext">&gt;</span>2. We change the
-            SDMA firmware to do the walk for us and update the PTEs
-            based on the information in the page directory.<span
-              style="color:windowtext"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext">As the
-              page table BO need to be freed later. You still need to
-              manage them in the driver. SDMA FW can walk and update but
-              it need information from driver side. Driver still need a
-              similar struct like amdgpu_vm.<o:p></o:p></span></p>
-          <p class="MsoNormal"><br>
-            <span style="color:windowtext">&gt;</span>3. We use the UTCL
-            walker to get us to the correct address which is then
-            updated with the SDMA.<br>
-            <span style="color:windowtext">I don’t quite understand your
-              point here. What do you mean by “correct address”? Do you
-              mean the physical address to be filled to the page table?
-              If this is your meaning, how UTCL2 knows this information
-              – the physical address has to be allocated/validated
-              through driver.<o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="color:windowtext"><o:p> </o:p></span></p>
-          <p class="MsoNormal"><br>
-            Regards,<br>
-            Christian.<br>
-            <br>
-            Am 07.09.2018 um 17:30 schrieb Zeng, Oak:<o:p></o:p></p>
-        </div>
-        <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-          <p class="MsoNormal"><span style="color:windowtext">Without a
-              VM, how can you get the physical address of the faulty
-              virtual address? Where this information should be hold?</span><o:p></o:p></p>
-          <p class="MsoNormal"><span style="color:windowtext"> </span><o:p></o:p></p>
-          <div>
-            <p class="MsoNormal"><span style="color:windowtext">Thanks,</span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext">Oak</span><o:p></o:p></p>
-          </div>
-          <p class="MsoNormal"><span style="color:windowtext"> </span><o:p></o:p></p>
-          <div>
-            <div style="border:none;border-top:solid #E1E1E1
-              1.0pt;padding:3.0pt 0in 0in 0in">
-              <p class="MsoNormal"><b><span style="color:windowtext">From:</span></b><span
-                  style="color:windowtext"> Koenig, Christian
-                  <br>
-                  <b>Sent:</b> Monday, September 10, 2018 7:20 AM<br>
-                  <b>To:</b> Zeng, Oak <a
-                    href="mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org"
-                    moz-do-not-send="true">&lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;</a>;
-                  Oak Zeng
-                  <a href="mailto:zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                    moz-do-not-send="true">&lt;zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>;
-                  <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                    moz-do-not-send="true">
-                    amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Yang, Philip <a
-                    href="mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org"
-                    moz-do-not-send="true">
-                    &lt;Philip.Yang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                  <b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Moved
-                  fault hash table to amdgpu vm</span><o:p></o:p></p>
-            </div>
-          </div>
-          <p class="MsoNormal"> <o:p></o:p></p>
-          <div>
-            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-              <p class="MsoNormal"><span style="color:windowtext">Am I
-                  right that the handling of page fault need a valid VM?
-                </span><o:p></o:p></p>
-            </blockquote>
-            <p class="MsoNormal">No, exactly that view is incorrect.<br>
-              <br>
-              The VM is meant to be a memory management structure of
-              page tables and is completely pointless fault processing
-              because it represent the future state of the page tables
-              and not the current one.<br>
-              <br>
-              What we need for fault processing is a new structure build
-              around PASIDs which is feed by the with addresses when
-              page tables are moved around.<br>
-              <br>
-              Alternatively I hope that we can use the SDMA to walk the
-              page tables and update the required entries by just using
-              the address.<br>
-              <br>
-              Regards,<br>
-              Christian.<br>
-              <br>
-              Am 07.09.2018 um 16:55 schrieb Zeng, Oak:<o:p></o:p></p>
-          </div>
-          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-            <p class="MsoNormal"><span style="color:windowtext">Hi
-                Christian,</span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext"> </span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext">What is
-                the value of delay the destroy of hash to after vm is
-                destroyed? Since vm is destroyed, you basically don’t
-                have enough information to paging in the correct page to
-                gpuvm. Am I right that the handling of page fault need a
-                valid VM? For example, you need the VM to get the
-                corresponding physical address of the faulty page.
-              </span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext"> </span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext">After vm
-                is destroyed, the retry interrupt can be directly
-                discard as you can’t find vm through pasid. You can
-                think this is also one kind of prescreen.
-              </span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext"> </span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext">So I am
-                stand for the point that, there is no need to delay the
-                destroy of hash to after vm is destroyed. Prescreening
-                hash can be destroyed at the time of vm_fini.</span><o:p></o:p></p>
-            <p class="MsoNormal"><span style="color:windowtext"> </span><o:p></o:p></p>
-            <div>
-              <p class="MsoNormal"><span style="color:windowtext">Thanks,</span><o:p></o:p></p>
-              <p class="MsoNormal"><span style="color:windowtext">Oak</span><o:p></o:p></p>
-            </div>
-            <p class="MsoNormal"><span style="color:windowtext"> </span><o:p></o:p></p>
-            <div>
-              <div style="border:none;border-top:solid #E1E1E1
-                1.0pt;padding:3.0pt 0in 0in 0in">
-                <p class="MsoNormal"><b><span style="color:windowtext">From:</span></b><span
-                    style="color:windowtext"> Christian König
-                    <a href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                      moz-do-not-send="true">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
-                    <br>
-                    <b>Sent:</b> Friday, September 07, 2018 4:39 AM<br>
-                    <b>To:</b> Zeng, Oak <a
-                      href="mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org"
-                      moz-do-not-send="true">&lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;</a>;
-                    Oak Zeng
-                    <a href="mailto:zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                      moz-do-not-send="true">&lt;zengshanjun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>;
-                    <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                      moz-do-not-send="true">
-                      amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                    <b>Cc:</b> Zeng, Oak <a
-                      href="mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org"
-                      moz-do-not-send="true">&lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                    <b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Moved
-                    fault hash table to amdgpu vm</span><o:p></o:p></p>
-              </div>
-            </div>
-            <p class="MsoNormal"> <o:p></o:p></p>
-            <div>
-              <p class="MsoNormal">Hi Oak,<br>
-                <br>
-                yeah, but this is still a NAK. Making the hash per PASID
-                was not a suggestion but rather a must have.<br>
-                <br>
-                The VM structures must be destroyed while the processing
-                is still ongoing, or otherwise we would not have a clean
-                OOM handling.<br>
-                <br>
-                The IDR for PASID lockup can be put into amdgpu_ids.c,
-                you can just replace the IDA already used there with an
-                IDR.<br>
-                <br>
-                Since the PASID is already freed up delayed we should
-                have the grace period for interrupt processing included.
-                If that still isn't sufficient we can still add some
-                delayed work for this.<br>
-                <br>
-                Regards,<br>
-                Christian.<br>
-                <br>
-                Am 07.09.2018 um 06:16 schrieb ozeng:<o:p></o:p></p>
-            </div>
-            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-              <p>Hi Christian, <o:p></o:p></p>
-              <p>In this implementation, fault hash is made per vm, not
-                per pasid as suggested, based on below considerations:<o:p></o:p></p>
-              <ul type="disc">
-                <li class="MsoNormal"
-                  style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;mso-list:l0
-                  level1 lfo3">
-                  Delay the destroy of hash introduces more effort like
-                  how to set the proper grace period after which no
-                  retry interrupt will be generated. We want to avoid
-                  those complication if we can.
-                  <o:p></o:p></li>
-                <li class="MsoNormal"
-                  style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;mso-list:l0
-                  level1 lfo3">
-                  The  problem of the per vm implementation is that it
-                  is hard to delay the destroy of fault hash, because
-                  when vm is destroyed, prescreen function won't be able
-                  to retrieve the fault hash. But in this case, the
-                  prescreen function can either let the interrupt go
-                  through (to gmc) or ignore it. From this perspective,
-                  it is not very necessary to delay the destroy of hash
-                  table.
-                  <o:p></o:p></li>
-                <li class="MsoNormal"
-                  style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;mso-list:l0
-                  level1 lfo3">
-                  On the other hand, since ASICs after vega10 have the
-                  HW CAM feature. So the SW IV prescreen is only useful
-                  for vega10. For all the HW implemented CAM, we can
-                  consider the delayed CAM acknowledgment.
-                  <o:p></o:p></li>
-                <li class="MsoNormal"
-                  style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;mso-list:l0
-                  level1 lfo3">
-                  Making it per pasid need to introduce another idr to
-                  correlate pasid and hash table - where to put the idr?
-                  You will have to make it a global variable which is
-                  not very desirable.
-                  <o:p></o:p></li>
-              </ul>
-              <p>The main purpose of this patch is to solve the
-                inter-process lock issue (when hash table is full),
-                while still keep codes simple.<o:p></o:p></p>
-              <p>Also with this patch, the faults kfifo is not necessary
-                any more. See patch 2.
-                <o:p></o:p></p>
-              <p>Regards,<o:p></o:p></p>
-              <p>Oak<o:p></o:p></p>
-              <p class="MsoNormal"> <o:p></o:p></p>
-              <div>
-                <p class="MsoNormal">On 09/06/2018 11:28 PM, Oak Zeng
-                  wrote:<o:p></o:p></p>
-              </div>
-              <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                <pre>In stead of share one fault hash table per device, make it<o:p></o:p></pre>
-                <pre>per vm. This can avoid inter-process lock issue when fault<o:p></o:p></pre>
-                <pre>hash table is full.<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>Change-Id: I5d1281b7c41eddc8e26113e010516557588d3708<o:p></o:p></pre>
-                <pre>Signed-off-by: Oak Zeng <a href="mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></pre>
-                <pre>Suggested-by: Christian Konig <a href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></pre>
-                <pre>Suggested-by: Felix Kuehling <a href="mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></pre>
-                <pre>---<o:p></o:p></pre>
-                <pre> drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c |  75 ------------------------<o:p></o:p></pre>
-                <pre> drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h |  10 ----<o:p></o:p></pre>
-                <pre> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 102 ++++++++++++++++++++++++++++++++-<o:p></o:p></pre>
-                <pre> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  12 ++++<o:p></o:p></pre>
-                <pre> drivers/gpu/drm/amd/amdgpu/vega10_ih.c |  38 +++++-------<o:p></o:p></pre>
-                <pre> 5 files changed, 127 insertions(+), 110 deletions(-)<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c<o:p></o:p></pre>
-                <pre>index 06373d4..4ed8621 100644<o:p></o:p></pre>
-                <pre>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c<o:p></o:p></pre>
-                <pre>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c<o:p></o:p></pre>
-                <pre>@@ -197,78 +197,3 @@ int amdgpu_ih_process(struct amdgpu_device *adev)<o:p></o:p></pre>
-                <pre>   return IRQ_HANDLED;<o:p></o:p></pre>
-                <pre> }<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>-/**<o:p></o:p></pre>
-                <pre>- * amdgpu_ih_add_fault - Add a page fault record<o:p></o:p></pre>
-                <pre>- *<o:p></o:p></pre>
-                <pre>- * @adev: amdgpu device pointer<o:p></o:p></pre>
-                <pre>- * @key: 64-bit encoding of PASID and address<o:p></o:p></pre>
-                <pre>- *<o:p></o:p></pre>
-                <pre>- * This should be called when a retry page fault interrupt is<o:p></o:p></pre>
-                <pre>- * received. If this is a new page fault, it will be added to a hash<o:p></o:p></pre>
-                <pre>- * table. The return value indicates whether this is a new fault, or<o:p></o:p></pre>
-                <pre>- * a fault that was already known and is already being handled.<o:p></o:p></pre>
-                <pre>- *<o:p></o:p></pre>
-                <pre>- * If there are too many pending page faults, this will fail. Retry<o:p></o:p></pre>
-                <pre>- * interrupts should be ignored in this case until there is enough<o:p></o:p></pre>
-                <pre>- * free space.<o:p></o:p></pre>
-                <pre>- *<o:p></o:p></pre>
-                <pre>- * Returns 0 if the fault was added, 1 if the fault was already known,<o:p></o:p></pre>
-                <pre>- * -ENOSPC if there are too many pending faults.<o:p></o:p></pre>
-                <pre>- */<o:p></o:p></pre>
-                <pre>-int amdgpu_ih_add_fault(struct amdgpu_device *adev, u64 key)<o:p></o:p></pre>
-                <pre>-{<o:p></o:p></pre>
-                <pre>-  unsigned long flags;<o:p></o:p></pre>
-                <pre>-  int r = -ENOSPC;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  if (WARN_ON_ONCE(!adev-&gt;irq.ih.faults))<o:p></o:p></pre>
-                <pre>-          /* Should be allocated in &lt;IP&gt;_ih_sw_init on GPUs that<o:p></o:p></pre>
-                <pre>-           * support retry faults and require retry filtering.<o:p></o:p></pre>
-                <pre>-           */<o:p></o:p></pre>
-                <pre>-          return r;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  spin_lock_irqsave(&amp;adev-&gt;irq.ih.faults-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  /* Only let the hash table fill up to 50% for best performance */<o:p></o:p></pre>
-                <pre>-  if (adev-&gt;irq.ih.faults-&gt;count &gt;= (1 &lt;&lt; (AMDGPU_PAGEFAULT_HASH_BITS-1)))<o:p></o:p></pre>
-                <pre>-          goto unlock_out;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  r = chash_table_copy_in(&amp;adev-&gt;irq.ih.faults-&gt;hash, key, NULL);<o:p></o:p></pre>
-                <pre>-  if (!r)<o:p></o:p></pre>
-                <pre>-          adev-&gt;irq.ih.faults-&gt;count++;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  /* chash_table_copy_in should never fail unless we're losing count */<o:p></o:p></pre>
-                <pre>-  WARN_ON_ONCE(r &lt; 0);<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-unlock_out:<o:p></o:p></pre>
-                <pre>-  spin_unlock_irqrestore(&amp;adev-&gt;irq.ih.faults-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>-  return r;<o:p></o:p></pre>
-                <pre>-}<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-/**<o:p></o:p></pre>
-                <pre>- * amdgpu_ih_clear_fault - Remove a page fault record<o:p></o:p></pre>
-                <pre>- *<o:p></o:p></pre>
-                <pre>- * @adev: amdgpu device pointer<o:p></o:p></pre>
-                <pre>- * @key: 64-bit encoding of PASID and address<o:p></o:p></pre>
-                <pre>- *<o:p></o:p></pre>
-                <pre>- * This should be called when a page fault has been handled. Any<o:p></o:p></pre>
-                <pre>- * future interrupt with this key will be processed as a new<o:p></o:p></pre>
-                <pre>- * page fault.<o:p></o:p></pre>
-                <pre>- */<o:p></o:p></pre>
-                <pre>-void amdgpu_ih_clear_fault(struct amdgpu_device *adev, u64 key)<o:p></o:p></pre>
-                <pre>-{<o:p></o:p></pre>
-                <pre>-  unsigned long flags;<o:p></o:p></pre>
-                <pre>-  int r;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  if (!adev-&gt;irq.ih.faults)<o:p></o:p></pre>
-                <pre>-          return;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  spin_lock_irqsave(&amp;adev-&gt;irq.ih.faults-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  r = chash_table_remove(&amp;adev-&gt;irq.ih.faults-&gt;hash, key, NULL);<o:p></o:p></pre>
-                <pre>-  if (!WARN_ON_ONCE(r &lt; 0)) {<o:p></o:p></pre>
-                <pre>-          adev-&gt;irq.ih.faults-&gt;count--;<o:p></o:p></pre>
-                <pre>-          WARN_ON_ONCE(adev-&gt;irq.ih.faults-&gt;count &lt; 0);<o:p></o:p></pre>
-                <pre>-  }<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  spin_unlock_irqrestore(&amp;adev-&gt;irq.ih.faults-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>-}<o:p></o:p></pre>
-                <pre>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h<o:p></o:p></pre>
-                <pre>index a23e1c0..f411ffb 100644<o:p></o:p></pre>
-                <pre>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h<o:p></o:p></pre>
-                <pre>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h<o:p></o:p></pre>
-                <pre>@@ -32,13 +32,6 @@ struct amdgpu_device;<o:p></o:p></pre>
-                <pre> #define AMDGPU_IH_CLIENTID_LEGACY 0<o:p></o:p></pre>
-                <pre> #define AMDGPU_IH_CLIENTID_MAX SOC15_IH_CLIENTID_MAX<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>-#define AMDGPU_PAGEFAULT_HASH_BITS 8<o:p></o:p></pre>
-                <pre>-struct amdgpu_retryfault_hashtable {<o:p></o:p></pre>
-                <pre>-  DECLARE_CHASH_TABLE(hash, AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);<o:p></o:p></pre>
-                <pre>-  spinlock_t     lock;<o:p></o:p></pre>
-                <pre>-  int            count;<o:p></o:p></pre>
-                <pre>-};<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre> /*<o:p></o:p></pre>
-                <pre>  * R6xx+ IH ring<o:p></o:p></pre>
-                <pre>  */<o:p></o:p></pre>
-                <pre>@@ -57,7 +50,6 @@ struct amdgpu_ih_ring {<o:p></o:p></pre>
-                <pre>   bool                   use_doorbell;<o:p></o:p></pre>
-                <pre>   bool                   use_bus_addr;<o:p></o:p></pre>
-                <pre>   dma_addr_t             rb_dma_addr; /* only used when use_bus_addr = true */<o:p></o:p></pre>
-                <pre>-  struct amdgpu_retryfault_hashtable *faults;<o:p></o:p></pre>
-                <pre> };<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre> #define AMDGPU_IH_SRC_DATA_MAX_SIZE_DW 4<o:p></o:p></pre>
-                <pre>@@ -95,7 +87,5 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, unsigned ring_size,<o:p></o:p></pre>
-                <pre>                   bool use_bus_addr);<o:p></o:p></pre>
-                <pre> void amdgpu_ih_ring_fini(struct amdgpu_device *adev);<o:p></o:p></pre>
-                <pre> int amdgpu_ih_process(struct amdgpu_device *adev);<o:p></o:p></pre>
-                <pre>-int amdgpu_ih_add_fault(struct amdgpu_device *adev, u64 key);<o:p></o:p></pre>
-                <pre>-void amdgpu_ih_clear_fault(struct amdgpu_device *adev, u64 key);<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre> #endif<o:p></o:p></pre>
-                <pre>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<o:p></o:p></pre>
-                <pre>index 1d7e3c1..8b220e9 100644<o:p></o:p></pre>
-                <pre>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<o:p></o:p></pre>
-                <pre>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<o:p></o:p></pre>
-                <pre>@@ -2692,6 +2692,22 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,<o:p></o:p></pre>
-                <pre>            adev-&gt;vm_manager.fragment_size);<o:p></o:p></pre>
-                <pre> }<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>+static struct amdgpu_retryfault_hashtable *init_fault_hash(void)<o:p></o:p></pre>
-                <pre>+{<o:p></o:p></pre>
-                <pre>+  struct amdgpu_retryfault_hashtable *fault_hash;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  fault_hash = kmalloc(sizeof(*fault_hash), GFP_KERNEL);<o:p></o:p></pre>
-                <pre>+  if (!fault_hash)<o:p></o:p></pre>
-                <pre>+          return fault_hash;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  INIT_CHASH_TABLE(fault_hash-&gt;hash,<o:p></o:p></pre>
-                <pre>+                  AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);<o:p></o:p></pre>
-                <pre>+  spin_lock_init(&amp;fault_hash-&gt;lock);<o:p></o:p></pre>
-                <pre>+  fault_hash-&gt;count = 0;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  return fault_hash;<o:p></o:p></pre>
-                <pre>+}<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre> /**<o:p></o:p></pre>
-                <pre>  * amdgpu_vm_init - initialize a vm instance<o:p></o:p></pre>
-                <pre>  *<o:p></o:p></pre>
-                <pre>@@ -2780,6 +2796,12 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,<o:p></o:p></pre>
-                <pre>           vm-&gt;pasid = pasid;<o:p></o:p></pre>
-                <pre>   }<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>+  vm-&gt;fault_hash = init_fault_hash();<o:p></o:p></pre>
-                <pre>+  if (!vm-&gt;fault_hash) {<o:p></o:p></pre>
-                <pre>+          r = -ENOMEM;<o:p></o:p></pre>
-                <pre>+          goto error_free_root;<o:p></o:p></pre>
-                <pre>+  }<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>   INIT_KFIFO(vm-&gt;faults);<o:p></o:p></pre>
-                <pre>   vm-&gt;fault_credit = 16;<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>@@ -2973,7 +2995,7 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>   /* Clear pending page faults from IH when the VM is destroyed */<o:p></o:p></pre>
-                <pre>   while (kfifo_get(&amp;vm-&gt;faults, &amp;fault))<o:p></o:p></pre>
-                <pre>-          amdgpu_ih_clear_fault(adev, fault);<o:p></o:p></pre>
-                <pre>+          amdgpu_vm_clear_fault(vm-&gt;fault_hash, fault);<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>   if (vm-&gt;pasid) {<o:p></o:p></pre>
-                <pre>           unsigned long flags;<o:p></o:p></pre>
-                <pre>@@ -2983,6 +3005,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)<o:p></o:p></pre>
-                <pre>           spin_unlock_irqrestore(&amp;adev-&gt;vm_manager.pasid_lock, flags);<o:p></o:p></pre>
-                <pre>   }<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>+  kfree(vm-&gt;fault_hash);<o:p></o:p></pre>
-                <pre>+  vm-&gt;fault_hash = NULL;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>   drm_sched_entity_destroy(&amp;vm-&gt;entity);<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>   if (!RB_EMPTY_ROOT(&amp;vm-&gt;va.rb_root)) {<o:p></o:p></pre>
-                <pre>@@ -3183,3 +3208,78 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)<o:p></o:p></pre>
-                <pre>           }<o:p></o:p></pre>
-                <pre>   }<o:p></o:p></pre>
-                <pre> }<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+/**<o:p></o:p></pre>
-                <pre>+ * amdgpu_vm_add_fault - Add a page fault record to fault hash table<o:p></o:p></pre>
-                <pre>+ *<o:p></o:p></pre>
-                <pre>+ * @fault_hash: fault hash table<o:p></o:p></pre>
-                <pre>+ * @key: 64-bit encoding of PASID and address<o:p></o:p></pre>
-                <pre>+ *<o:p></o:p></pre>
-                <pre>+ * This should be called when a retry page fault interrupt is<o:p></o:p></pre>
-                <pre>+ * received. If this is a new page fault, it will be added to a hash<o:p></o:p></pre>
-                <pre>+ * table. The return value indicates whether this is a new fault, or<o:p></o:p></pre>
-                <pre>+ * a fault that was already known and is already being handled.<o:p></o:p></pre>
-                <pre>+ *<o:p></o:p></pre>
-                <pre>+ * If there are too many pending page faults, this will fail. Retry<o:p></o:p></pre>
-                <pre>+ * interrupts should be ignored in this case until there is enough<o:p></o:p></pre>
-                <pre>+ * free space.<o:p></o:p></pre>
-                <pre>+ *<o:p></o:p></pre>
-                <pre>+ * Returns 0 if the fault was added, 1 if the fault was already known,<o:p></o:p></pre>
-                <pre>+ * -ENOSPC if there are too many pending faults.<o:p></o:p></pre>
-                <pre>+ */<o:p></o:p></pre>
-                <pre>+int amdgpu_vm_add_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key)<o:p></o:p></pre>
-                <pre>+{<o:p></o:p></pre>
-                <pre>+  unsigned long flags;<o:p></o:p></pre>
-                <pre>+  int r = -ENOSPC;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  if (WARN_ON_ONCE(!fault_hash))<o:p></o:p></pre>
-                <pre>+          /* Should be allocated in amdgpu_vm_init<o:p></o:p></pre>
-                <pre>+           */<o:p></o:p></pre>
-                <pre>+          return r;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  spin_lock_irqsave(&amp;fault_hash-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  /* Only let the hash table fill up to 50% for best performance */<o:p></o:p></pre>
-                <pre>+  if (fault_hash-&gt;count &gt;= (1 &lt;&lt; (AMDGPU_PAGEFAULT_HASH_BITS-1)))<o:p></o:p></pre>
-                <pre>+          goto unlock_out;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  r = chash_table_copy_in(&amp;fault_hash-&gt;hash, key, NULL);<o:p></o:p></pre>
-                <pre>+  if (!r)<o:p></o:p></pre>
-                <pre>+          fault_hash-&gt;count++;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  /* chash_table_copy_in should never fail unless we're losing count */<o:p></o:p></pre>
-                <pre>+  WARN_ON_ONCE(r &lt; 0);<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+unlock_out:<o:p></o:p></pre>
-                <pre>+  spin_unlock_irqrestore(&amp;fault_hash-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>+  return r;<o:p></o:p></pre>
-                <pre>+}<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+/**<o:p></o:p></pre>
-                <pre>+ * amdgpu_vm_clear_fault - Remove a page fault record<o:p></o:p></pre>
-                <pre>+ *<o:p></o:p></pre>
-                <pre>+ * @fault_hash: fault hash table<o:p></o:p></pre>
-                <pre>+ * @key: 64-bit encoding of PASID and address<o:p></o:p></pre>
-                <pre>+ *<o:p></o:p></pre>
-                <pre>+ * This should be called when a page fault has been handled. Any<o:p></o:p></pre>
-                <pre>+ * future interrupt with this key will be processed as a new<o:p></o:p></pre>
-                <pre>+ * page fault.<o:p></o:p></pre>
-                <pre>+ */<o:p></o:p></pre>
-                <pre>+void amdgpu_vm_clear_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key)<o:p></o:p></pre>
-                <pre>+{<o:p></o:p></pre>
-                <pre>+  unsigned long flags;<o:p></o:p></pre>
-                <pre>+  int r;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  if (!fault_hash)<o:p></o:p></pre>
-                <pre>+          return;<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  spin_lock_irqsave(&amp;fault_hash-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  r = chash_table_remove(&amp;fault_hash-&gt;hash, key, NULL);<o:p></o:p></pre>
-                <pre>+  if (!WARN_ON_ONCE(r &lt; 0)) {<o:p></o:p></pre>
-                <pre>+          fault_hash-&gt;count--;<o:p></o:p></pre>
-                <pre>+          WARN_ON_ONCE(fault_hash-&gt;count &lt; 0);<o:p></o:p></pre>
-                <pre>+  }<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+  spin_unlock_irqrestore(&amp;fault_hash-&gt;lock, flags);<o:p></o:p></pre>
-                <pre>+}<o:p></o:p></pre>
-                <pre>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<o:p></o:p></pre>
-                <pre>index e275ee7..6eb1da1 100644<o:p></o:p></pre>
-                <pre>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<o:p></o:p></pre>
-                <pre>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<o:p></o:p></pre>
-                <pre>@@ -178,6 +178,13 @@ struct amdgpu_task_info {<o:p></o:p></pre>
-                <pre>   pid_t   tgid;<o:p></o:p></pre>
-                <pre> };<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>+#define AMDGPU_PAGEFAULT_HASH_BITS 8<o:p></o:p></pre>
-                <pre>+struct amdgpu_retryfault_hashtable {<o:p></o:p></pre>
-                <pre>+  DECLARE_CHASH_TABLE(hash, AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);<o:p></o:p></pre>
-                <pre>+  spinlock_t     lock;<o:p></o:p></pre>
-                <pre>+  int            count;<o:p></o:p></pre>
-                <pre>+};<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre> struct amdgpu_vm {<o:p></o:p></pre>
-                <pre>   /* tree of virtual addresses mapped */<o:p></o:p></pre>
-                <pre>   struct rb_root_cached  va;<o:p></o:p></pre>
-                <pre>@@ -240,6 +247,7 @@ struct amdgpu_vm {<o:p></o:p></pre>
-                <pre>   struct ttm_lru_bulk_move lru_bulk_move;<o:p></o:p></pre>
-                <pre>   /* mark whether can do the bulk move */<o:p></o:p></pre>
-                <pre>   bool                   bulk_moveable;<o:p></o:p></pre>
-                <pre>+  struct amdgpu_retryfault_hashtable *fault_hash;<o:p></o:p></pre>
-                <pre> };<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre> struct amdgpu_vm_manager {<o:p></o:p></pre>
-                <pre>@@ -355,4 +363,8 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);<o:p></o:p></pre>
-                <pre> void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,<o:p></o:p></pre>
-                <pre>                          struct amdgpu_vm *vm);<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>+int amdgpu_vm_add_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key);<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+void amdgpu_vm_clear_fault(struct amdgpu_retryfault_hashtable *fault_hash, u64 key);<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre> #endif<o:p></o:p></pre>
-                <pre>diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<o:p></o:p></pre>
-                <pre>index 5ae5ed2..acbe5a7 100644<o:p></o:p></pre>
-                <pre>--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<o:p></o:p></pre>
-                <pre>+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<o:p></o:p></pre>
-                <pre>@@ -265,35 +265,36 @@ static bool vega10_ih_prescreen_iv(struct amdgpu_device *adev)<o:p></o:p></pre>
-                <pre>           return true;<o:p></o:p></pre>
-                <pre>   }<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>-  addr = ((u64)(dw5 &amp; 0xf) &lt;&lt; 44) | ((u64)dw4 &lt;&lt; 12);<o:p></o:p></pre>
-                <pre>-  key = AMDGPU_VM_FAULT(pasid, addr);<o:p></o:p></pre>
-                <pre>-  r = amdgpu_ih_add_fault(adev, key);<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>-  /* Hash table is full or the fault is already being processed,<o:p></o:p></pre>
-                <pre>-   * ignore further page faults<o:p></o:p></pre>
-                <pre>-   */<o:p></o:p></pre>
-                <pre>-  if (r != 0)<o:p></o:p></pre>
-                <pre>-          goto ignore_iv;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>   /* Track retry faults in per-VM fault FIFO. */<o:p></o:p></pre>
-                <pre>   spin_lock(&amp;adev-&gt;vm_manager.pasid_lock);<o:p></o:p></pre>
-                <pre>   vm = idr_find(&amp;adev-&gt;vm_manager.pasid_idr, pasid);<o:p></o:p></pre>
-                <pre>+  addr = ((u64)(dw5 &amp; 0xf) &lt;&lt; 44) | ((u64)dw4 &lt;&lt; 12);<o:p></o:p></pre>
-                <pre>+  key = AMDGPU_VM_FAULT(pasid, addr);<o:p></o:p></pre>
-                <pre>   if (!vm) {<o:p></o:p></pre>
-                <pre>           /* VM not found, process it normally */<o:p></o:p></pre>
-                <pre>           spin_unlock(&amp;adev-&gt;vm_manager.pasid_lock);<o:p></o:p></pre>
-                <pre>-          amdgpu_ih_clear_fault(adev, key);<o:p></o:p></pre>
-                <pre>           return true;<o:p></o:p></pre>
-                <pre>+  } else {<o:p></o:p></pre>
-                <pre>+          r = amdgpu_vm_add_fault(vm-&gt;fault_hash, key);<o:p></o:p></pre>
-                <pre>+<o:p></o:p></pre>
-                <pre>+          /* Hash table is full or the fault is already being processed,<o:p></o:p></pre>
-                <pre>+           * ignore further page faults<o:p></o:p></pre>
-                <pre>+           */<o:p></o:p></pre>
-                <pre>+          if (r != 0) {<o:p></o:p></pre>
-                <pre>+                  spin_unlock(&amp;adev-&gt;vm_manager.pasid_lock);<o:p></o:p></pre>
-                <pre>+                  goto ignore_iv;<o:p></o:p></pre>
-                <pre>+          }<o:p></o:p></pre>
-                <pre>   }<o:p></o:p></pre>
-                <pre>   /* No locking required with single writer and single reader */<o:p></o:p></pre>
-                <pre>   r = kfifo_put(&amp;vm-&gt;faults, key);<o:p></o:p></pre>
-                <pre>   if (!r) {<o:p></o:p></pre>
-                <pre>           /* FIFO is full. Ignore it until there is space */<o:p></o:p></pre>
-                <pre>+          amdgpu_vm_clear_fault(vm-&gt;fault_hash, key);<o:p></o:p></pre>
-                <pre>           spin_unlock(&amp;adev-&gt;vm_manager.pasid_lock);<o:p></o:p></pre>
-                <pre>-          amdgpu_ih_clear_fault(adev, key);<o:p></o:p></pre>
-                <pre>           goto ignore_iv;<o:p></o:p></pre>
-                <pre>   }<o:p></o:p></pre>
-                <pre>-  spin_unlock(&amp;adev-&gt;vm_manager.pasid_lock);<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>+  spin_unlock(&amp;adev-&gt;vm_manager.pasid_lock);<o:p></o:p></pre>
-                <pre>   /* It's the first fault for this address, process it normally */<o:p></o:p></pre>
-                <pre>   return true;<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>@@ -386,14 +387,6 @@ static int vega10_ih_sw_init(void *handle)<o:p></o:p></pre>
-                <pre>   adev-&gt;irq.ih.use_doorbell = true;<o:p></o:p></pre>
-                <pre>   adev-&gt;irq.ih.doorbell_index = AMDGPU_DOORBELL64_IH &lt;&lt; 1;<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>-  adev-&gt;irq.ih.faults = kmalloc(sizeof(*adev-&gt;irq.ih.faults), GFP_KERNEL);<o:p></o:p></pre>
-                <pre>-  if (!adev-&gt;irq.ih.faults)<o:p></o:p></pre>
-                <pre>-          return -ENOMEM;<o:p></o:p></pre>
-                <pre>-  INIT_CHASH_TABLE(adev-&gt;irq.ih.faults-&gt;hash,<o:p></o:p></pre>
-                <pre>-                   AMDGPU_PAGEFAULT_HASH_BITS, 8, 0);<o:p></o:p></pre>
-                <pre>-  spin_lock_init(&amp;adev-&gt;irq.ih.faults-&gt;lock);<o:p></o:p></pre>
-                <pre>-  adev-&gt;irq.ih.faults-&gt;count = 0;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>   r = amdgpu_irq_init(adev);<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>   return r;<o:p></o:p></pre>
-                <pre>@@ -406,9 +399,6 @@ static int vega10_ih_sw_fini(void *handle)<o:p></o:p></pre>
-                <pre>   amdgpu_irq_fini(adev);<o:p></o:p></pre>
-                <pre>   amdgpu_ih_ring_fini(adev);<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-                <pre>-  kfree(adev-&gt;irq.ih.faults);<o:p></o:p></pre>
-                <pre>-  adev-&gt;irq.ih.faults = NULL;<o:p></o:p></pre>
-                <pre>-<o:p></o:p></pre>
-                <pre>   return 0;<o:p></o:p></pre>
-                <pre> }<o:p></o:p></pre>
-                <pre> <o:p></o:p></pre>
-              </blockquote>
-              <p class="MsoNormal"><br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <o:p></o:p></p>
-              <pre>_______________________________________________<o:p></o:p></pre>
-              <pre>amd-gfx mailing list<o:p></o:p></pre>
-              <pre><a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><o:p></o:p></pre>
-              <pre><a href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></pre>
-            </blockquote>
-            <p class="MsoNormal"> <o:p></o:p></p>
-          </blockquote>
-          <p class="MsoNormal"> <o:p></o:p></p>
-        </blockquote>
-        <p class="MsoNormal"><o:p> </o:p></p>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------4CC820062F59CC991861C077--
-
---===============1295918396==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1295918396==--
+SGkgRmVsaXgsCgo+IEJ1dCB3aHkgZG8geW91IHdhbnQgdG8gdXBkYXRlIHBhZ2UgdGFibGVzIHdo
+ZW4gdGhlcmUgaXMgbm8gbW9yZSB1c2VyCj4gbW9kZSBjb250ZXh0IHRoYXQgY2FyZXMgYWJvdXQg
+dGhlbT8gSXMgdGhpcyBqdXN0IHRvIGFsbG93IHBlbmRpbmcgd29yawo+IHRvIGNvbXBsZXRlIGFm
+dGVyIHRoZSB1c2VyIG1vZGUgY29udGV4dCBpcyBnb25lPyBUbyBwcmV2ZW50IGhhbmdzPwoKVGhl
+IHByb2JsZW0gSSdtIHNlZSBpcyB0aGF0IHdlIHN0aWxsIGRvbid0IGhhdmUgYSByZWxpYWJsZSB3
+YXkgb2YgCmtpbGxpbmcgYSBjb21tYW5kIHN1Ym1pc3Npb24gd2hpbGUgbWFraW5nIHN1cmUgdGhh
+dCBubyBtb3JlIGZhdWx0cyBvZiBpdCAKYXJlIGluIHRoZSBmbGlnaHQuCgpFLmcuIHRoZSBIV1Mg
+aGFzIGEgZnVuY3Rpb24gdG8ga2lsbCBhIHJ1bm5pbmcgam9iIG9uIHRoZSBoYXJkd2FyZSwgYnV0
+IAp0aGF0IG9ubHkgd29ya3MgZm9yIGNvbXB1dGUgYW5kIHRoZXJlIGlzIG5vIHdheSBvZiB0ZWxs
+aW5nIHdoZW4gdGhhdCAKb3BlcmF0aW9uIGhhcyBmaW5pc2hlZC4KCkJ1dCBPYWsgaGFzIGFscmVh
+ZHkgY29udmluY2VkIG1lIHRoYXQgd2Ugc2hvdWxkIHByb2JhYmx5IHdvcmsgb24gdGhhdCAKaW5z
+dGVhZCBvZiB0cnlpbmcgdG8ga2VlcCB0aGUgVk0gYWxpdmUgYXMgbG9uZyBhcyBwb3NzaWJsZS4K
+ClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDA4LjA5LjIwMTggdW0gMDI6Mjcgc2NocmllYiBGZWxp
+eCBLdWVobGluZzoKPiBIaSBDaHJpc3RpYW4sCj4KPiBJJ20gbm90IHN1cmUgSSBnZXQgeW91ciBw
+b2ludCBoZXJlLgo+Cj4gQXMgSSB1bmRlcnN0YW5kIGl0LCB0aGUgYW1kZ3B1X3ZtIHN0cnVjdHVy
+ZSByZXByZXNlbnRzIHRoZSB1c2VyIG1vZGUgVk0KPiBjb250ZXh0LiBJdCBoYXMgdGhlIHBvaW50
+ZXJzIHRvIHRoZSByb290IHBhZ2UgZGlyZWN0b3J5IGFuZCB0aGUgcmVzdCBvZgo+IHRoZSBwYWdl
+IHRhYmxlIGhpZXJhcmNoeS4gSWYgdGhlcmUgaXMgbm8gYW1kZ3B1X3ZtLCB0aGVyZSBpcyBubyB1
+c2VyCj4gbW9kZSBjb250ZXh0IHRoYXQgY2FyZXMgYWJvdXQgdGhlIHBhZ2UgdGFibGVzLgo+Cj4g
+SWYgd2UgbGVhdmUgdGhlIHBhZ2UgdGFibGUgcG9pbnRlcnMgaW4gdGhlIGFtZGdwdV92bSwgdGhl
+biBoYW5kbGluZwo+IGZhdWx0cyBhZnRlciB0aGUgVk0gaXMgZGVzdHJveWVkIGlzIHBvaW50bGVz
+cy4gV2UgY2FuJ3QgZmluZCB0aGUgcGFnZQo+IHRhYmxlcyBhbmQgd2UgY2FuJ3QgdXBkYXRlIHRo
+ZW0sIHNvIHRoZXJlIGlzIG5vdGhpbmcgd2UgY2FuIGRvIGluCj4gcmVzcG9uc2UgdG8gVk0gZmF1
+bHRzLgo+Cj4gU28gSSdtIGd1ZXNzaW5nIHRoYXQgeW91IHdhbnQgdG8gbW92ZSB0aGUgcGFnZSB0
+YWJsZSBwb2ludGVycyBpbnRvIGEKPiBkaWZmZXJlbnQgc3RydWN0dXJlIHRoYXQgZXhpc3RzIGhh
+bGYtaW5kZXBlbmRlbnRseSBvZiB0aGUgVk0uIEl0IHdvdWxkCj4gYmUgY3JlYXRlZCB3aGVuIHRo
+ZSBWTSBpcyBjcmVhdGVkICh0aGF0J3Mgd2hlcmUgd2UgY3VycmVudGx5IGFsbG9jYXRlCj4gdGhl
+IFBBU0lEKSBidXQgY2FuIGJlIGRlc3Ryb3llZCBzbGlnaHRseSBsYXRlci4KPgo+IEJ1dCB3aHkg
+ZG8geW91IHdhbnQgdG8gdXBkYXRlIHBhZ2UgdGFibGVzIHdoZW4gdGhlcmUgaXMgbm8gbW9yZSB1
+c2VyCj4gbW9kZSBjb250ZXh0IHRoYXQgY2FyZXMgYWJvdXQgdGhlbT8gSXMgdGhpcyBqdXN0IHRv
+IGFsbG93IHBlbmRpbmcgd29yawo+IHRvIGNvbXBsZXRlIGFmdGVyIHRoZSB1c2VyIG1vZGUgY29u
+dGV4dCBpcyBnb25lPyBUbyBwcmV2ZW50IGhhbmdzPwo+Cj4gUmVnYXJkcywKPiAgwqAgRmVsaXgK
+Pgo+IE9uIDIwMTgtMDktMTAgMDc6MjAgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBB
+bSBJIHJpZ2h0IHRoYXQgdGhlIGhhbmRsaW5nIG9mIHBhZ2UgZmF1bHQgbmVlZCBhIHZhbGlkIFZN
+Pwo+PiBObywgZXhhY3RseSB0aGF0IHZpZXcgaXMgaW5jb3JyZWN0Lgo+Pgo+PiBUaGUgVk0gaXMg
+bWVhbnQgdG8gYmUgYSBtZW1vcnkgbWFuYWdlbWVudCBzdHJ1Y3R1cmUgb2YgcGFnZSB0YWJsZXMg
+YW5kCj4+IGlzIGNvbXBsZXRlbHkgcG9pbnRsZXNzIGZhdWx0IHByb2Nlc3NpbmcgYmVjYXVzZSBp
+dCByZXByZXNlbnQgdGhlCj4+IGZ1dHVyZSBzdGF0ZSBvZiB0aGUgcGFnZSB0YWJsZXMgYW5kIG5v
+dCB0aGUgY3VycmVudCBvbmUuCj4+Cj4+IFdoYXQgd2UgbmVlZCBmb3IgZmF1bHQgcHJvY2Vzc2lu
+ZyBpcyBhIG5ldyBzdHJ1Y3R1cmUgYnVpbGQgYXJvdW5kCj4+IFBBU0lEcyB3aGljaCBpcyBmZWVk
+IGJ5IHRoZSB3aXRoIGFkZHJlc3NlcyB3aGVuIHBhZ2UgdGFibGVzIGFyZSBtb3ZlZAo+PiBhcm91
+bmQuCj4+Cj4+IEFsdGVybmF0aXZlbHkgSSBob3BlIHRoYXQgd2UgY2FuIHVzZSB0aGUgU0RNQSB0
+byB3YWxrIHRoZSBwYWdlIHRhYmxlcwo+PiBhbmQgdXBkYXRlIHRoZSByZXF1aXJlZCBlbnRyaWVz
+IGJ5IGp1c3QgdXNpbmcgdGhlIGFkZHJlc3MuCj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4K
+Pj4KPj4gQW0gMDcuMDkuMjAxOCB1bSAxNjo1NSBzY2hyaWViIFplbmcsIE9hazoKPj4+IEhpIENo
+cmlzdGlhbiwKPj4+Cj4+PiAgIAo+Pj4KPj4+IFdoYXQgaXMgdGhlIHZhbHVlIG9mIGRlbGF5IHRo
+ZSBkZXN0cm95IG9mIGhhc2ggdG8gYWZ0ZXIgdm0gaXMKPj4+IGRlc3Ryb3llZD8gU2luY2Ugdm0g
+aXMgZGVzdHJveWVkLCB5b3UgYmFzaWNhbGx5IGRvbuKAmXQgaGF2ZSBlbm91Z2gKPj4+IGluZm9y
+bWF0aW9uIHRvIHBhZ2luZyBpbiB0aGUgY29ycmVjdCBwYWdlIHRvIGdwdXZtLiBBbSBJIHJpZ2h0
+IHRoYXQKPj4+IHRoZSBoYW5kbGluZyBvZiBwYWdlIGZhdWx0IG5lZWQgYSB2YWxpZCBWTT8gRm9y
+IGV4YW1wbGUsIHlvdSBuZWVkIHRoZQo+Pj4gVk0gdG8gZ2V0IHRoZSBjb3JyZXNwb25kaW5nIHBo
+eXNpY2FsIGFkZHJlc3Mgb2YgdGhlIGZhdWx0eSBwYWdlLgo+Pj4KPj4+ICAgCj4+Pgo+Pj4gQWZ0
+ZXIgdm0gaXMgZGVzdHJveWVkLCB0aGUgcmV0cnkgaW50ZXJydXB0IGNhbiBiZSBkaXJlY3RseSBk
+aXNjYXJkIGFzCj4+PiB5b3UgY2Fu4oCZdCBmaW5kIHZtIHRocm91Z2ggcGFzaWQuIFlvdSBjYW4g
+dGhpbmsgdGhpcyBpcyBhbHNvIG9uZSBraW5kCj4+PiBvZiBwcmVzY3JlZW4uCj4+Pgo+Pj4gICAK
+Pj4+Cj4+PiBTbyBJIGFtIHN0YW5kIGZvciB0aGUgcG9pbnQgdGhhdCwgdGhlcmUgaXMgbm8gbmVl
+ZCB0byBkZWxheSB0aGUKPj4+IGRlc3Ryb3kgb2YgaGFzaCB0byBhZnRlciB2bSBpcyBkZXN0cm95
+ZWQuIFByZXNjcmVlbmluZyBoYXNoIGNhbiBiZQo+Pj4gZGVzdHJveWVkIGF0IHRoZSB0aW1lIG9m
+IHZtX2ZpbmkuCj4+Pgo+Pj4gICAKPj4+Cj4+PiBUaGFua3MsCj4+Pgo+Pj4gT2FrCj4+Pgo+Pj4g
+ICAKPj4+Cj4+PiAqRnJvbToqQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtl
+bkBnbWFpbC5jb20+Cj4+PiAqU2VudDoqIEZyaWRheSwgU2VwdGVtYmVyIDA3LCAyMDE4IDQ6Mzkg
+QU0KPj4+ICpUbzoqIFplbmcsIE9hayA8T2FrLlplbmdAYW1kLmNvbT47IE9hayBaZW5nIDx6ZW5n
+c2hhbmp1bkBnbWFpbC5jb20+Owo+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+
+ICpDYzoqIFplbmcsIE9hayA8T2FrLlplbmdAYW1kLmNvbT4KPj4+ICpTdWJqZWN0OiogUmU6IFtQ
+QVRDSCAxLzJdIGRybS9hbWRncHU6IE1vdmVkIGZhdWx0IGhhc2ggdGFibGUgdG8KPj4+IGFtZGdw
+dSB2bQo+Pj4KPj4+ICAgCj4+Pgo+Pj4gSGkgT2FrLAo+Pj4KPj4+IHllYWgsIGJ1dCB0aGlzIGlz
+IHN0aWxsIGEgTkFLLiBNYWtpbmcgdGhlIGhhc2ggcGVyIFBBU0lEIHdhcyBub3QgYQo+Pj4gc3Vn
+Z2VzdGlvbiBidXQgcmF0aGVyIGEgbXVzdCBoYXZlLgo+Pj4KPj4+IFRoZSBWTSBzdHJ1Y3R1cmVz
+IG11c3QgYmUgZGVzdHJveWVkIHdoaWxlIHRoZSBwcm9jZXNzaW5nIGlzIHN0aWxsCj4+PiBvbmdv
+aW5nLCBvciBvdGhlcndpc2Ugd2Ugd291bGQgbm90IGhhdmUgYSBjbGVhbiBPT00gaGFuZGxpbmcu
+Cj4+Pgo+Pj4gVGhlIElEUiBmb3IgUEFTSUQgbG9ja3VwIGNhbiBiZSBwdXQgaW50byBhbWRncHVf
+aWRzLmMsIHlvdSBjYW4ganVzdAo+Pj4gcmVwbGFjZSB0aGUgSURBIGFscmVhZHkgdXNlZCB0aGVy
+ZSB3aXRoIGFuIElEUi4KPj4+Cj4+PiBTaW5jZSB0aGUgUEFTSUQgaXMgYWxyZWFkeSBmcmVlZCB1
+cCBkZWxheWVkIHdlIHNob3VsZCBoYXZlIHRoZSBncmFjZQo+Pj4gcGVyaW9kIGZvciBpbnRlcnJ1
+cHQgcHJvY2Vzc2luZyBpbmNsdWRlZC4gSWYgdGhhdCBzdGlsbCBpc24ndAo+Pj4gc3VmZmljaWVu
+dCB3ZSBjYW4gc3RpbGwgYWRkIHNvbWUgZGVsYXllZCB3b3JrIGZvciB0aGlzLgo+Pj4KPj4+IFJl
+Z2FyZHMsCj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4gQW0gMDcuMDkuMjAxOCB1bSAwNjoxNiBzY2hy
+aWViIG96ZW5nOgo+Pj4KPj4+ICAgICAgSGkgQ2hyaXN0aWFuLAo+Pj4KPj4+ICAgICAgSW4gdGhp
+cyBpbXBsZW1lbnRhdGlvbiwgZmF1bHQgaGFzaCBpcyBtYWRlIHBlciB2bSwgbm90IHBlciBwYXNp
+ZAo+Pj4gICAgICBhcyBzdWdnZXN0ZWQsIGJhc2VkIG9uIGJlbG93IGNvbnNpZGVyYXRpb25zOgo+
+Pj4KPj4+ICAgICAgICAqIERlbGF5IHRoZSBkZXN0cm95IG9mIGhhc2ggaW50cm9kdWNlcyBtb3Jl
+IGVmZm9ydCBsaWtlIGhvdyB0bwo+Pj4gICAgICAgICAgc2V0IHRoZSBwcm9wZXIgZ3JhY2UgcGVy
+aW9kIGFmdGVyIHdoaWNoIG5vIHJldHJ5IGludGVycnVwdAo+Pj4gICAgICAgICAgd2lsbCBiZSBn
+ZW5lcmF0ZWQuIFdlIHdhbnQgdG8gYXZvaWQgdGhvc2UgY29tcGxpY2F0aW9uIGlmIHdlCj4+PiAg
+ICAgICAgICBjYW4uCj4+PiAgICAgICAgKiBUaGXCoCBwcm9ibGVtIG9mIHRoZSBwZXIgdm0gaW1w
+bGVtZW50YXRpb24gaXMgdGhhdCBpdCBpcyBoYXJkCj4+PiAgICAgICAgICB0byBkZWxheSB0aGUg
+ZGVzdHJveSBvZiBmYXVsdCBoYXNoLCBiZWNhdXNlIHdoZW4gdm0gaXMKPj4+ICAgICAgICAgIGRl
+c3Ryb3llZCwgcHJlc2NyZWVuIGZ1bmN0aW9uIHdvbid0IGJlIGFibGUgdG8gcmV0cmlldmUgdGhl
+Cj4+PiAgICAgICAgICBmYXVsdCBoYXNoLiBCdXQgaW4gdGhpcyBjYXNlLCB0aGUgcHJlc2NyZWVu
+IGZ1bmN0aW9uIGNhbgo+Pj4gICAgICAgICAgZWl0aGVyIGxldCB0aGUgaW50ZXJydXB0IGdvIHRo
+cm91Z2ggKHRvIGdtYykgb3IgaWdub3JlIGl0Lgo+Pj4gICAgICAgICAgRnJvbSB0aGlzIHBlcnNw
+ZWN0aXZlLCBpdCBpcyBub3QgdmVyeSBuZWNlc3NhcnkgdG8gZGVsYXkgdGhlCj4+PiAgICAgICAg
+ICBkZXN0cm95IG9mIGhhc2ggdGFibGUuCj4+PiAgICAgICAgKiBPbiB0aGUgb3RoZXIgaGFuZCwg
+c2luY2UgQVNJQ3MgYWZ0ZXIgdmVnYTEwIGhhdmUgdGhlIEhXIENBTQo+Pj4gICAgICAgICAgZmVh
+dHVyZS4gU28gdGhlIFNXIElWIHByZXNjcmVlbiBpcyBvbmx5IHVzZWZ1bCBmb3IgdmVnYTEwLgo+
+Pj4gICAgICAgICAgRm9yIGFsbCB0aGUgSFcgaW1wbGVtZW50ZWQgQ0FNLCB3ZSBjYW4gY29uc2lk
+ZXIgdGhlIGRlbGF5ZWQKPj4+ICAgICAgICAgIENBTSBhY2tub3dsZWRnbWVudC4KPj4+ICAgICAg
+ICAqIE1ha2luZyBpdCBwZXIgcGFzaWQgbmVlZCB0byBpbnRyb2R1Y2UgYW5vdGhlciBpZHIgdG8K
+Pj4+ICAgICAgICAgIGNvcnJlbGF0ZSBwYXNpZCBhbmQgaGFzaCB0YWJsZSAtIHdoZXJlIHRvIHB1
+dCB0aGUgaWRyPyBZb3UKPj4+ICAgICAgICAgIHdpbGwgaGF2ZSB0byBtYWtlIGl0IGEgZ2xvYmFs
+IHZhcmlhYmxlIHdoaWNoIGlzIG5vdCB2ZXJ5Cj4+PiAgICAgICAgICBkZXNpcmFibGUuCj4+Pgo+
+Pj4gICAgICBUaGUgbWFpbiBwdXJwb3NlIG9mIHRoaXMgcGF0Y2ggaXMgdG8gc29sdmUgdGhlIGlu
+dGVyLXByb2Nlc3MgbG9jawo+Pj4gICAgICBpc3N1ZSAod2hlbiBoYXNoIHRhYmxlIGlzIGZ1bGwp
+LCB3aGlsZSBzdGlsbCBrZWVwIGNvZGVzIHNpbXBsZS4KPj4+Cj4+PiAgICAgIEFsc28gd2l0aCB0
+aGlzIHBhdGNoLCB0aGUgZmF1bHRzIGtmaWZvIGlzIG5vdCBuZWNlc3NhcnkgYW55IG1vcmUuCj4+
+PiAgICAgIFNlZSBwYXRjaCAyLgo+Pj4KPj4+ICAgICAgUmVnYXJkcywKPj4+Cj4+PiAgICAgIE9h
+awo+Pj4KPj4+ICAgICAgIAo+Pj4KPj4+ICAgICAgT24gMDkvMDYvMjAxOCAxMToyOCBQTSwgT2Fr
+IFplbmcgd3JvdGU6Cj4+Pgo+Pj4gICAgICAgICAgSW4gc3RlYWQgb2Ygc2hhcmUgb25lIGZhdWx0
+IGhhc2ggdGFibGUgcGVyIGRldmljZSwgbWFrZSBpdAo+Pj4KPj4+ICAgICAgICAgIHBlciB2bS4g
+VGhpcyBjYW4gYXZvaWQgaW50ZXItcHJvY2VzcyBsb2NrIGlzc3VlIHdoZW4gZmF1bHQKPj4+Cj4+
+PiAgICAgICAgICBoYXNoIHRhYmxlIGlzIGZ1bGwuCj4+Pgo+Pj4gICAgICAgICAgIAo+Pj4KPj4+
+ICAgICAgICAgIENoYW5nZS1JZDogSTVkMTI4MWI3YzQxZWRkYzhlMjYxMTNlMDEwNTE2NTU3NTg4
+ZDM3MDgKPj4+Cj4+PiAgICAgICAgICBTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdA
+YW1kLmNvbT4gPG1haWx0bzpPYWsuWmVuZ0BhbWQuY29tPgo+Pj4KPj4+ICAgICAgICAgIFN1Z2dl
+c3RlZC1ieTogQ2hyaXN0aWFuIEtvbmlnIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+IDxtYWls
+dG86Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPgo+Pj4KPj4+ICAgICAgICAgIFN1Z2dlc3RlZC1i
+eTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+IDxtYWlsdG86RmVsaXgu
+S3VlaGxpbmdAYW1kLmNvbT4KPj4+Cj4+PiAgICAgICAgICAtLS0KPj4+Cj4+PiAgICAgICAgICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2loLmMgfMKgIDc1IC0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLQo+Pj4KPj4+ICAgICAgICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfaWguaCB8wqAgMTAgLS0tLQo+Pj4KPj4+ICAgICAgICAgICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDEwMiArKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKy0KPj4+Cj4+PiAgICAgICAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmggfMKgIDEyICsrKysKPj4+Cj4+PiAgICAgICAgICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvdmVnYTEwX2loLmMgfMKgIDM4ICsrKysrLS0tLS0tLQo+Pj4KPj4+ICAgICAgICAg
+ICA1IGZpbGVzIGNoYW5nZWQsIDEyNyBpbnNlcnRpb25zKCspLCAxMTAgZGVsZXRpb25zKC0pCj4+
+Pgo+Pj4gICAgICAgICAgIAo+Pj4KPj4+ICAgICAgICAgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWguYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9paC5jCj4+Pgo+Pj4gICAgICAgICAgaW5kZXggMDYzNzNkNC4uNGVkODYyMSAxMDA2
+NDQKPj4+Cj4+PiAgICAgICAgICAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfaWguYwo+Pj4KPj4+ICAgICAgICAgICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9paC5jCj4+Pgo+Pj4gICAgICAgICAgQEAgLTE5Nyw3OCArMTk3LDMgQEAgaW50IGFt
+ZGdwdV9paF9wcm9jZXNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4KPj4+ICAgICAg
+ICAgICDCoCByZXR1cm4gSVJRX0hBTkRMRUQ7Cj4+Pgo+Pj4gICAgICAgICAgIH0KPj4+Cj4+PiAg
+ICAgICAgICAgCj4+Pgo+Pj4gICAgICAgICAgLS8qKgo+Pj4KPj4+ICAgICAgICAgIC0gKiBhbWRn
+cHVfaWhfYWRkX2ZhdWx0IC0gQWRkIGEgcGFnZSBmYXVsdCByZWNvcmQKPj4+Cj4+PiAgICAgICAg
+ICAtICoKPj4+Cj4+PiAgICAgICAgICAtICogQGFkZXY6IGFtZGdwdSBkZXZpY2UgcG9pbnRlcgo+
+Pj4KPj4+ICAgICAgICAgIC0gKiBAa2V5OiA2NC1iaXQgZW5jb2Rpbmcgb2YgUEFTSUQgYW5kIGFk
+ZHJlc3MKPj4+Cj4+PiAgICAgICAgICAtICoKPj4+Cj4+PiAgICAgICAgICAtICogVGhpcyBzaG91
+bGQgYmUgY2FsbGVkIHdoZW4gYSByZXRyeSBwYWdlIGZhdWx0IGludGVycnVwdCBpcwo+Pj4KPj4+
+ICAgICAgICAgIC0gKiByZWNlaXZlZC4gSWYgdGhpcyBpcyBhIG5ldyBwYWdlIGZhdWx0LCBpdCB3
+aWxsIGJlIGFkZGVkIHRvIGEgaGFzaAo+Pj4KPj4+ICAgICAgICAgIC0gKiB0YWJsZS4gVGhlIHJl
+dHVybiB2YWx1ZSBpbmRpY2F0ZXMgd2hldGhlciB0aGlzIGlzIGEgbmV3IGZhdWx0LCBvcgo+Pj4K
+Pj4+ICAgICAgICAgIC0gKiBhIGZhdWx0IHRoYXQgd2FzIGFscmVhZHkga25vd24gYW5kIGlzIGFs
+cmVhZHkgYmVpbmcgaGFuZGxlZC4KPj4+Cj4+PiAgICAgICAgICAtICoKPj4+Cj4+PiAgICAgICAg
+ICAtICogSWYgdGhlcmUgYXJlIHRvbyBtYW55IHBlbmRpbmcgcGFnZSBmYXVsdHMsIHRoaXMgd2ls
+bCBmYWlsLiBSZXRyeQo+Pj4KPj4+ICAgICAgICAgIC0gKiBpbnRlcnJ1cHRzIHNob3VsZCBiZSBp
+Z25vcmVkIGluIHRoaXMgY2FzZSB1bnRpbCB0aGVyZSBpcyBlbm91Z2gKPj4+Cj4+PiAgICAgICAg
+ICAtICogZnJlZSBzcGFjZS4KPj4+Cj4+PiAgICAgICAgICAtICoKPj4+Cj4+PiAgICAgICAgICAt
+ICogUmV0dXJucyAwIGlmIHRoZSBmYXVsdCB3YXMgYWRkZWQsIDEgaWYgdGhlIGZhdWx0IHdhcyBh
+bHJlYWR5IGtub3duLAo+Pj4KPj4+ICAgICAgICAgIC0gKiAtRU5PU1BDIGlmIHRoZXJlIGFyZSB0
+b28gbWFueSBwZW5kaW5nIGZhdWx0cy4KPj4+Cj4+PiAgICAgICAgICAtICovCj4+Pgo+Pj4gICAg
+ICAgICAgLWludCBhbWRncHVfaWhfYWRkX2ZhdWx0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LCB1NjQga2V5KQo+Pj4KPj4+ICAgICAgICAgIC17Cj4+Pgo+Pj4gICAgICAgICAgLcKgIHVuc2ln
+bmVkIGxvbmcgZmxhZ3M7Cj4+Pgo+Pj4gICAgICAgICAgLcKgIGludCByID0gLUVOT1NQQzsKPj4+
+Cj4+PiAgICAgICAgICAtCj4+Pgo+Pj4gICAgICAgICAgLcKgIGlmIChXQVJOX09OX09OQ0UoIWFk
+ZXYtPmlycS5paC5mYXVsdHMpKQo+Pj4KPj4+ICAgICAgICAgIC3CoMKgwqDCoMKgwqDCoMKgwqAg
+LyogU2hvdWxkIGJlIGFsbG9jYXRlZCBpbiA8SVA+X2loX3N3X2luaXQgb24gR1BVcyB0aGF0Cj4+
+Pgo+Pj4gICAgICAgICAgLcKgwqDCoMKgwqDCoMKgwqDCoCAgKiBzdXBwb3J0IHJldHJ5IGZhdWx0
+cyBhbmQgcmVxdWlyZSByZXRyeSBmaWx0ZXJpbmcuCj4+Pgo+Pj4gICAgICAgICAgLcKgwqDCoMKg
+wqDCoMKgwqDCoCAgKi8KPj4+Cj4+PiAgICAgICAgICAtwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVy
+biByOwo+Pj4KPj4+ICAgICAgICAgIC0KPj4+Cj4+PiAgICAgICAgICAtwqAgc3Bpbl9sb2NrX2ly
+cXNhdmUoJmFkZXYtPmlycS5paC5mYXVsdHMtPmxvY2ssIGZsYWdzKTsKPj4+Cj4+PiAgICAgICAg
+ICAtCj4+Pgo+Pj4gICAgICAgICAgLcKgIC8qIE9ubHkgbGV0IHRoZSBoYXNoIHRhYmxlIGZpbGwg
+dXAgdG8gNTAlIGZvciBiZXN0IHBlcmZvcm1hbmNlICovCj4+Pgo+Pj4gICAgICAgICAgLcKgIGlm
+IChhZGV2LT5pcnEuaWguZmF1bHRzLT5jb3VudCA+PSAoMSA8PCAoQU1ER1BVX1BBR0VGQVVMVF9I
+QVNIX0JJVFMtMSkpKQo+Pj4KPj4+ICAgICAgICAgIC3CoMKgwqDCoMKgwqDCoMKgwqAgZ290byB1
+bmxvY2tfb3V0Owo+Pj4KPj4+ICAgICAgICAgIC0KPj4+Cj4+PiAgICAgICAgICAtwqAgciA9IGNo
+YXNoX3RhYmxlX2NvcHlfaW4oJmFkZXYtPmlycS5paC5mYXVsdHMtPmhhc2gsIGtleSwgTlVMTCk7
+Cj4+Pgo+Pj4gICAgICAgICAgLcKgIGlmICghcikKPj4+Cj4+PiAgICAgICAgICAtwqDCoMKgwqDC
+oMKgwqDCoMKgIGFkZXYtPmlycS5paC5mYXVsdHMtPmNvdW50Kys7Cj4+Pgo+Pj4gICAgICAgICAg
+LQo+Pj4KPj4+ICAgICAgICAgIC3CoCAvKiBjaGFzaF90YWJsZV9jb3B5X2luIHNob3VsZCBuZXZl
+ciBmYWlsIHVubGVzcyB3ZSdyZSBsb3NpbmcgY291bnQgKi8KPj4+Cj4+PiAgICAgICAgICAtwqAg
+V0FSTl9PTl9PTkNFKHIgPCAwKTsKPj4+Cj4+PiAgICAgICAgICAtCj4+Pgo+Pj4gICAgICAgICAg
+LXVubG9ja19vdXQ6Cj4+Pgo+Pj4gICAgICAgICAgLcKgIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUo
+JmFkZXYtPmlycS5paC5mYXVsdHMtPmxvY2ssIGZsYWdzKTsKPj4+Cj4+PiAgICAgICAgICAtwqAg
+cmV0dXJuIHI7Cj4+Pgo+Pj4gICAgICAgICAgLX0KPj4+Cj4+PiAgICAgICAgICAtCj4+Pgo+Pj4g
+ICAgICAgICAgLS8qKgo+Pj4KPj4+ICAgICAgICAgIC0gKiBhbWRncHVfaWhfY2xlYXJfZmF1bHQg
+LSBSZW1vdmUgYSBwYWdlIGZhdWx0IHJlY29yZAo+Pj4KPj4+ICAgICAgICAgIC0gKgo+Pj4KPj4+
+ICAgICAgICAgIC0gKiBAYWRldjogYW1kZ3B1IGRldmljZSBwb2ludGVyCj4+Pgo+Pj4gICAgICAg
+ICAgLSAqIEBrZXk6IDY0LWJpdCBlbmNvZGluZyBvZiBQQVNJRCBhbmQgYWRkcmVzcwo+Pj4KPj4+
+ICAgICAgICAgIC0gKgo+Pj4KPj4+ICAgICAgICAgIC0gKiBUaGlzIHNob3VsZCBiZSBjYWxsZWQg
+d2hlbiBhIHBhZ2UgZmF1bHQgaGFzIGJlZW4gaGFuZGxlZC4gQW55Cj4+Pgo+Pj4gICAgICAgICAg
+LSAqIGZ1dHVyZSBpbnRlcnJ1cHQgd2l0aCB0aGlzIGtleSB3aWxsIGJlIHByb2Nlc3NlZCBhcyBh
+IG5ldwo+Pj4KPj4+ICAgICAgICAgIC0gKiBwYWdlIGZhdWx0Lgo+Pj4KPj4+ICAgICAgICAgIC0g
+Ki8KPj4+Cj4+PiAgICAgICAgICAtdm9pZCBhbWRncHVfaWhfY2xlYXJfZmF1bHQoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsIHU2NCBrZXkpCj4+Pgo+Pj4gICAgICAgICAgLXsKPj4+Cj4+PiAg
+ICAgICAgICAtwqAgdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+Cj4+PiAgICAgICAgICAtwqAgaW50
+IHI7Cj4+Pgo+Pj4gICAgICAgICAgLQo+Pj4KPj4+ICAgICAgICAgIC3CoCBpZiAoIWFkZXYtPmly
+cS5paC5mYXVsdHMpCj4+Pgo+Pj4gICAgICAgICAgLcKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm47
+Cj4+Pgo+Pj4gICAgICAgICAgLQo+Pj4KPj4+ICAgICAgICAgIC3CoCBzcGluX2xvY2tfaXJxc2F2
+ZSgmYWRldi0+aXJxLmloLmZhdWx0cy0+bG9jaywgZmxhZ3MpOwo+Pj4KPj4+ICAgICAgICAgIC0K
+Pj4+Cj4+PiAgICAgICAgICAtwqAgciA9IGNoYXNoX3RhYmxlX3JlbW92ZSgmYWRldi0+aXJxLmlo
+LmZhdWx0cy0+aGFzaCwga2V5LCBOVUxMKTsKPj4+Cj4+PiAgICAgICAgICAtwqAgaWYgKCFXQVJO
+X09OX09OQ0UociA8IDApKSB7Cj4+Pgo+Pj4gICAgICAgICAgLcKgwqDCoMKgwqDCoMKgwqDCoCBh
+ZGV2LT5pcnEuaWguZmF1bHRzLT5jb3VudC0tOwo+Pj4KPj4+ICAgICAgICAgIC3CoMKgwqDCoMKg
+wqDCoMKgwqAgV0FSTl9PTl9PTkNFKGFkZXYtPmlycS5paC5mYXVsdHMtPmNvdW50IDwgMCk7Cj4+
+Pgo+Pj4gICAgICAgICAgLcKgIH0KPj4+Cj4+PiAgICAgICAgICAtCj4+Pgo+Pj4gICAgICAgICAg
+LcKgIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmlycS5paC5mYXVsdHMtPmxvY2ssIGZs
+YWdzKTsKPj4+Cj4+PiAgICAgICAgICAtfQo+Pj4KPj4+ICAgICAgICAgIGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWguaCBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9paC5oCj4+Pgo+Pj4gICAgICAgICAgaW5kZXggYTIzZTFjMC4uZjQx
+MWZmYiAxMDA2NDQKPj4+Cj4+PiAgICAgICAgICAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfaWguaAo+Pj4KPj4+ICAgICAgICAgICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9paC5oCj4+Pgo+Pj4gICAgICAgICAgQEAgLTMyLDEzICszMiw2IEBA
+IHN0cnVjdCBhbWRncHVfZGV2aWNlOwo+Pj4KPj4+ICAgICAgICAgICAjZGVmaW5lIEFNREdQVV9J
+SF9DTElFTlRJRF9MRUdBQ1kgMAo+Pj4KPj4+ICAgICAgICAgICAjZGVmaW5lIEFNREdQVV9JSF9D
+TElFTlRJRF9NQVggU09DMTVfSUhfQ0xJRU5USURfTUFYCj4+Pgo+Pj4gICAgICAgICAgIAo+Pj4K
+Pj4+ICAgICAgICAgIC0jZGVmaW5lIEFNREdQVV9QQUdFRkFVTFRfSEFTSF9CSVRTIDgKPj4+Cj4+
+PiAgICAgICAgICAtc3RydWN0IGFtZGdwdV9yZXRyeWZhdWx0X2hhc2h0YWJsZSB7Cj4+Pgo+Pj4g
+ICAgICAgICAgLcKgIERFQ0xBUkVfQ0hBU0hfVEFCTEUoaGFzaCwgQU1ER1BVX1BBR0VGQVVMVF9I
+QVNIX0JJVFMsIDgsIDApOwo+Pj4KPj4+ICAgICAgICAgIC3CoCBzcGlubG9ja190wqDCoMKgwqAg
+bG9jazsKPj4+Cj4+PiAgICAgICAgICAtwqAgaW50wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb3Vu
+dDsKPj4+Cj4+PiAgICAgICAgICAtfTsKPj4+Cj4+PiAgICAgICAgICAtCj4+Pgo+Pj4gICAgICAg
+ICAgIC8qCj4+Pgo+Pj4gICAgICAgICAgwqAgKiBSNnh4KyBJSCByaW5nCj4+Pgo+Pj4gICAgICAg
+ICAgwqAgKi8KPj4+Cj4+PiAgICAgICAgICBAQCAtNTcsNyArNTAsNiBAQCBzdHJ1Y3QgYW1kZ3B1
+X2loX3Jpbmcgewo+Pj4KPj4+ICAgICAgICAgICDCoCBib29swqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHVzZV9kb29yYmVsbDsKPj4+Cj4+PiAgICAgICAgICAgwqAgYm9vbMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1c2VfYnVzX2FkZHI7Cj4+Pgo+Pj4g
+ICAgICAgICAgIMKgIGRtYV9hZGRyX3TCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmJfZG1hX2Fk
+ZHI7IC8qIG9ubHkgdXNlZCB3aGVuIHVzZV9idXNfYWRkciA9IHRydWUgKi8KPj4+Cj4+PiAgICAg
+ICAgICAtwqAgc3RydWN0IGFtZGdwdV9yZXRyeWZhdWx0X2hhc2h0YWJsZSAqZmF1bHRzOwo+Pj4K
+Pj4+ICAgICAgICAgICB9Owo+Pj4KPj4+ICAgICAgICAgICAKPj4+Cj4+PiAgICAgICAgICDCoCNk
+ZWZpbmUgQU1ER1BVX0lIX1NSQ19EQVRBX01BWF9TSVpFX0RXIDQKPj4+Cj4+PiAgICAgICAgICBA
+QCAtOTUsNyArODcsNSBAQCBpbnQgYW1kZ3B1X2loX3JpbmdfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwgdW5zaWduZWQgcmluZ19zaXplLAo+Pj4KPj4+ICAgICAgICAgICDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wgdXNlX2J1c19hZGRyKTsKPj4+Cj4+PiAg
+ICAgICAgICAgdm9pZCBhbWRncHVfaWhfcmluZ19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2KTsKPj4+Cj4+PiAgICAgICAgICAgaW50IGFtZGdwdV9paF9wcm9jZXNzKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KTsKPj4+Cj4+PiAgICAgICAgICAtaW50IGFtZGdwdV9paF9hZGRfZmF1
+bHQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHU2NCBrZXkpOwo+Pj4KPj4+ICAgICAgICAg
+IC12b2lkIGFtZGdwdV9paF9jbGVhcl9mYXVsdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
+dTY0IGtleSk7Cj4+Pgo+Pj4gICAgICAgICAgIAo+Pj4KPj4+ICAgICAgICAgIMKgI2VuZGlmCj4+
+Pgo+Pj4gICAgICAgICAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+Cj4+
+PiAgICAgICAgICBpbmRleCAxZDdlM2MxLi44YjIyMGU5IDEwMDY0NAo+Pj4KPj4+ICAgICAgICAg
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+Pgo+Pj4gICAg
+ICAgICAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+Cj4+
+PiAgICAgICAgICBAQCAtMjY5Miw2ICsyNjkyLDIyIEBAIHZvaWQgYW1kZ3B1X3ZtX2FkanVzdF9z
+aXplKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCBtaW5fdm1fc2l6ZSwKPj4+
+Cj4+PiAgICAgICAgICAgwqDCoMKgwqDCoMKgwqDCoMKgIMKgYWRldi0+dm1fbWFuYWdlci5mcmFn
+bWVudF9zaXplKTsKPj4+Cj4+PiAgICAgICAgICAgfQo+Pj4KPj4+ICAgICAgICAgICAKPj4+Cj4+
+PiAgICAgICAgICArc3RhdGljIHN0cnVjdCBhbWRncHVfcmV0cnlmYXVsdF9oYXNodGFibGUgKmlu
+aXRfZmF1bHRfaGFzaCh2b2lkKQo+Pj4KPj4+ICAgICAgICAgICt7Cj4+Pgo+Pj4gICAgICAgICAg
+K8KgIHN0cnVjdCBhbWRncHVfcmV0cnlmYXVsdF9oYXNodGFibGUgKmZhdWx0X2hhc2g7Cj4+Pgo+
+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAgICAgICvCoCBmYXVsdF9oYXNoID0ga21hbGxvYyhz
+aXplb2YoKmZhdWx0X2hhc2gpLCBHRlBfS0VSTkVMKTsKPj4+Cj4+PiAgICAgICAgICArwqAgaWYg
+KCFmYXVsdF9oYXNoKQo+Pj4KPj4+ICAgICAgICAgICvCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJu
+IGZhdWx0X2hhc2g7Cj4+Pgo+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAgICAgICvCoCBJTklU
+X0NIQVNIX1RBQkxFKGZhdWx0X2hhc2gtPmhhc2gsCj4+Pgo+Pj4gICAgICAgICAgK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQU1ER1BVX1BBR0VGQVVMVF9IQVNIX0JJVFMsIDgs
+IDApOwo+Pj4KPj4+ICAgICAgICAgICvCoCBzcGluX2xvY2tfaW5pdCgmZmF1bHRfaGFzaC0+bG9j
+ayk7Cj4+Pgo+Pj4gICAgICAgICAgK8KgIGZhdWx0X2hhc2gtPmNvdW50ID0gMDsKPj4+Cj4+PiAg
+ICAgICAgICArCj4+Pgo+Pj4gICAgICAgICAgK8KgIHJldHVybiBmYXVsdF9oYXNoOwo+Pj4KPj4+
+ICAgICAgICAgICt9Cj4+Pgo+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAgICAgICAvKioKPj4+
+Cj4+PiAgICAgICAgICDCoCAqIGFtZGdwdV92bV9pbml0IC0gaW5pdGlhbGl6ZSBhIHZtIGluc3Rh
+bmNlCj4+Pgo+Pj4gICAgICAgICAgwqAgKgo+Pj4KPj4+ICAgICAgICAgIEBAIC0yNzgwLDYgKzI3
+OTYsMTIgQEAgaW50IGFtZGdwdV92bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBz
+dHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPj4+Cj4+PiAgICAgICAgICAgwqDCoMKgwqDCoMKgwqDCoMKg
+IHZtLT5wYXNpZCA9IHBhc2lkOwo+Pj4KPj4+ICAgICAgICAgICDCoCB9Cj4+Pgo+Pj4gICAgICAg
+ICAgIAo+Pj4KPj4+ICAgICAgICAgICvCoCB2bS0+ZmF1bHRfaGFzaCA9IGluaXRfZmF1bHRfaGFz
+aCgpOwo+Pj4KPj4+ICAgICAgICAgICvCoCBpZiAoIXZtLT5mYXVsdF9oYXNoKSB7Cj4+Pgo+Pj4g
+ICAgICAgICAgK8KgwqDCoMKgwqDCoMKgwqDCoCByID0gLUVOT01FTTsKPj4+Cj4+PiAgICAgICAg
+ICArwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJyb3JfZnJlZV9yb290Owo+Pj4KPj4+ICAgICAg
+ICAgICvCoCB9Cj4+Pgo+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAgICAgICDCoCBJTklUX0tG
+SUZPKHZtLT5mYXVsdHMpOwo+Pj4KPj4+ICAgICAgICAgICDCoCB2bS0+ZmF1bHRfY3JlZGl0ID0g
+MTY7Cj4+Pgo+Pj4gICAgICAgICAgIAo+Pj4KPj4+ICAgICAgICAgIEBAIC0yOTczLDcgKzI5OTUs
+NyBAQCB2b2lkIGFtZGdwdV92bV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1
+Y3QgYW1kZ3B1X3ZtICp2bSkKPj4+Cj4+PiAgICAgICAgICAgCj4+Pgo+Pj4gICAgICAgICAgwqDC
+oCAvKiBDbGVhciBwZW5kaW5nIHBhZ2UgZmF1bHRzIGZyb20gSUggd2hlbiB0aGUgVk0gaXMgZGVz
+dHJveWVkICovCj4+Pgo+Pj4gICAgICAgICAgIMKgIHdoaWxlIChrZmlmb19nZXQoJnZtLT5mYXVs
+dHMsICZmYXVsdCkpCj4+Pgo+Pj4gICAgICAgICAgLcKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVf
+aWhfY2xlYXJfZmF1bHQoYWRldiwgZmF1bHQpOwo+Pj4KPj4+ICAgICAgICAgICvCoMKgwqDCoMKg
+wqDCoMKgwqAgYW1kZ3B1X3ZtX2NsZWFyX2ZhdWx0KHZtLT5mYXVsdF9oYXNoLCBmYXVsdCk7Cj4+
+Pgo+Pj4gICAgICAgICAgIAo+Pj4KPj4+ICAgICAgICAgIMKgwqAgaWYgKHZtLT5wYXNpZCkgewo+
+Pj4KPj4+ICAgICAgICAgICDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBmbGFnczsK
+Pj4+Cj4+PiAgICAgICAgICBAQCAtMjk4Myw2ICszMDA1LDkgQEAgdm9pZCBhbWRncHVfdm1fZmlu
+aShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0pCj4+Pgo+
+Pj4gICAgICAgICAgIMKgwqDCoMKgwqDCoMKgwqDCoCBzcGluX3VubG9ja19pcnFyZXN0b3JlKCZh
+ZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPj4+Cj4+PiAgICAgICAgICAgwqAg
+fQo+Pj4KPj4+ICAgICAgICAgICAKPj4+Cj4+PiAgICAgICAgICArwqAga2ZyZWUodm0tPmZhdWx0
+X2hhc2gpOwo+Pj4KPj4+ICAgICAgICAgICvCoCB2bS0+ZmF1bHRfaGFzaCA9IE5VTEw7Cj4+Pgo+
+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAgICAgICDCoCBkcm1fc2NoZWRfZW50aXR5X2Rlc3Ry
+b3koJnZtLT5lbnRpdHkpOwo+Pj4KPj4+ICAgICAgICAgICAKPj4+Cj4+PiAgICAgICAgICDCoMKg
+IGlmICghUkJfRU1QVFlfUk9PVCgmdm0tPnZhLnJiX3Jvb3QpKSB7Cj4+Pgo+Pj4gICAgICAgICAg
+QEAgLTMxODMsMyArMzIwOCw3OCBAQCB2b2lkIGFtZGdwdV92bV9zZXRfdGFza19pbmZvKHN0cnVj
+dCBhbWRncHVfdm0gKnZtKQo+Pj4KPj4+ICAgICAgICAgICDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+
+Pj4KPj4+ICAgICAgICAgICDCoCB9Cj4+Pgo+Pj4gICAgICAgICAgIH0KPj4+Cj4+PiAgICAgICAg
+ICArCj4+Pgo+Pj4gICAgICAgICAgKy8qKgo+Pj4KPj4+ICAgICAgICAgICsgKiBhbWRncHVfdm1f
+YWRkX2ZhdWx0IC0gQWRkIGEgcGFnZSBmYXVsdCByZWNvcmQgdG8gZmF1bHQgaGFzaCB0YWJsZQo+
+Pj4KPj4+ICAgICAgICAgICsgKgo+Pj4KPj4+ICAgICAgICAgICsgKiBAZmF1bHRfaGFzaDogZmF1
+bHQgaGFzaCB0YWJsZQo+Pj4KPj4+ICAgICAgICAgICsgKiBAa2V5OiA2NC1iaXQgZW5jb2Rpbmcg
+b2YgUEFTSUQgYW5kIGFkZHJlc3MKPj4+Cj4+PiAgICAgICAgICArICoKPj4+Cj4+PiAgICAgICAg
+ICArICogVGhpcyBzaG91bGQgYmUgY2FsbGVkIHdoZW4gYSByZXRyeSBwYWdlIGZhdWx0IGludGVy
+cnVwdCBpcwo+Pj4KPj4+ICAgICAgICAgICsgKiByZWNlaXZlZC4gSWYgdGhpcyBpcyBhIG5ldyBw
+YWdlIGZhdWx0LCBpdCB3aWxsIGJlIGFkZGVkIHRvIGEgaGFzaAo+Pj4KPj4+ICAgICAgICAgICsg
+KiB0YWJsZS4gVGhlIHJldHVybiB2YWx1ZSBpbmRpY2F0ZXMgd2hldGhlciB0aGlzIGlzIGEgbmV3
+IGZhdWx0LCBvcgo+Pj4KPj4+ICAgICAgICAgICsgKiBhIGZhdWx0IHRoYXQgd2FzIGFscmVhZHkg
+a25vd24gYW5kIGlzIGFscmVhZHkgYmVpbmcgaGFuZGxlZC4KPj4+Cj4+PiAgICAgICAgICArICoK
+Pj4+Cj4+PiAgICAgICAgICArICogSWYgdGhlcmUgYXJlIHRvbyBtYW55IHBlbmRpbmcgcGFnZSBm
+YXVsdHMsIHRoaXMgd2lsbCBmYWlsLiBSZXRyeQo+Pj4KPj4+ICAgICAgICAgICsgKiBpbnRlcnJ1
+cHRzIHNob3VsZCBiZSBpZ25vcmVkIGluIHRoaXMgY2FzZSB1bnRpbCB0aGVyZSBpcyBlbm91Z2gK
+Pj4+Cj4+PiAgICAgICAgICArICogZnJlZSBzcGFjZS4KPj4+Cj4+PiAgICAgICAgICArICoKPj4+
+Cj4+PiAgICAgICAgICArICogUmV0dXJucyAwIGlmIHRoZSBmYXVsdCB3YXMgYWRkZWQsIDEgaWYg
+dGhlIGZhdWx0IHdhcyBhbHJlYWR5IGtub3duLAo+Pj4KPj4+ICAgICAgICAgICsgKiAtRU5PU1BD
+IGlmIHRoZXJlIGFyZSB0b28gbWFueSBwZW5kaW5nIGZhdWx0cy4KPj4+Cj4+PiAgICAgICAgICAr
+ICovCj4+Pgo+Pj4gICAgICAgICAgK2ludCBhbWRncHVfdm1fYWRkX2ZhdWx0KHN0cnVjdCBhbWRn
+cHVfcmV0cnlmYXVsdF9oYXNodGFibGUgKmZhdWx0X2hhc2gsIHU2NCBrZXkpCj4+Pgo+Pj4gICAg
+ICAgICAgK3sKPj4+Cj4+PiAgICAgICAgICArwqAgdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+Cj4+
+PiAgICAgICAgICArwqAgaW50IHIgPSAtRU5PU1BDOwo+Pj4KPj4+ICAgICAgICAgICsKPj4+Cj4+
+PiAgICAgICAgICArwqAgaWYgKFdBUk5fT05fT05DRSghZmF1bHRfaGFzaCkpCj4+Pgo+Pj4gICAg
+ICAgICAgK8KgwqDCoMKgwqDCoMKgwqDCoCAvKiBTaG91bGQgYmUgYWxsb2NhdGVkIGluIGFtZGdw
+dV92bV9pbml0Cj4+Pgo+Pj4gICAgICAgICAgK8KgwqDCoMKgwqDCoMKgwqDCoCAgKi8KPj4+Cj4+
+PiAgICAgICAgICArwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByOwo+Pj4KPj4+ICAgICAgICAg
+ICsKPj4+Cj4+PiAgICAgICAgICArwqAgc3Bpbl9sb2NrX2lycXNhdmUoJmZhdWx0X2hhc2gtPmxv
+Y2ssIGZsYWdzKTsKPj4+Cj4+PiAgICAgICAgICArCj4+Pgo+Pj4gICAgICAgICAgK8KgIC8qIE9u
+bHkgbGV0IHRoZSBoYXNoIHRhYmxlIGZpbGwgdXAgdG8gNTAlIGZvciBiZXN0IHBlcmZvcm1hbmNl
+ICovCj4+Pgo+Pj4gICAgICAgICAgK8KgIGlmIChmYXVsdF9oYXNoLT5jb3VudCA+PSAoMSA8PCAo
+QU1ER1BVX1BBR0VGQVVMVF9IQVNIX0JJVFMtMSkpKQo+Pj4KPj4+ICAgICAgICAgICvCoMKgwqDC
+oMKgwqDCoMKgwqAgZ290byB1bmxvY2tfb3V0Owo+Pj4KPj4+ICAgICAgICAgICsKPj4+Cj4+PiAg
+ICAgICAgICArwqAgciA9IGNoYXNoX3RhYmxlX2NvcHlfaW4oJmZhdWx0X2hhc2gtPmhhc2gsIGtl
+eSwgTlVMTCk7Cj4+Pgo+Pj4gICAgICAgICAgK8KgIGlmICghcikKPj4+Cj4+PiAgICAgICAgICAr
+wqDCoMKgwqDCoMKgwqDCoMKgIGZhdWx0X2hhc2gtPmNvdW50Kys7Cj4+Pgo+Pj4gICAgICAgICAg
+Kwo+Pj4KPj4+ICAgICAgICAgICvCoCAvKiBjaGFzaF90YWJsZV9jb3B5X2luIHNob3VsZCBuZXZl
+ciBmYWlsIHVubGVzcyB3ZSdyZSBsb3NpbmcgY291bnQgKi8KPj4+Cj4+PiAgICAgICAgICArwqAg
+V0FSTl9PTl9PTkNFKHIgPCAwKTsKPj4+Cj4+PiAgICAgICAgICArCj4+Pgo+Pj4gICAgICAgICAg
+K3VubG9ja19vdXQ6Cj4+Pgo+Pj4gICAgICAgICAgK8KgIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUo
+JmZhdWx0X2hhc2gtPmxvY2ssIGZsYWdzKTsKPj4+Cj4+PiAgICAgICAgICArwqAgcmV0dXJuIHI7
+Cj4+Pgo+Pj4gICAgICAgICAgK30KPj4+Cj4+PiAgICAgICAgICArCj4+Pgo+Pj4gICAgICAgICAg
+Ky8qKgo+Pj4KPj4+ICAgICAgICAgICsgKiBhbWRncHVfdm1fY2xlYXJfZmF1bHQgLSBSZW1vdmUg
+YSBwYWdlIGZhdWx0IHJlY29yZAo+Pj4KPj4+ICAgICAgICAgICsgKgo+Pj4KPj4+ICAgICAgICAg
+ICsgKiBAZmF1bHRfaGFzaDogZmF1bHQgaGFzaCB0YWJsZQo+Pj4KPj4+ICAgICAgICAgICsgKiBA
+a2V5OiA2NC1iaXQgZW5jb2Rpbmcgb2YgUEFTSUQgYW5kIGFkZHJlc3MKPj4+Cj4+PiAgICAgICAg
+ICArICoKPj4+Cj4+PiAgICAgICAgICArICogVGhpcyBzaG91bGQgYmUgY2FsbGVkIHdoZW4gYSBw
+YWdlIGZhdWx0IGhhcyBiZWVuIGhhbmRsZWQuIEFueQo+Pj4KPj4+ICAgICAgICAgICsgKiBmdXR1
+cmUgaW50ZXJydXB0IHdpdGggdGhpcyBrZXkgd2lsbCBiZSBwcm9jZXNzZWQgYXMgYSBuZXcKPj4+
+Cj4+PiAgICAgICAgICArICogcGFnZSBmYXVsdC4KPj4+Cj4+PiAgICAgICAgICArICovCj4+Pgo+
+Pj4gICAgICAgICAgK3ZvaWQgYW1kZ3B1X3ZtX2NsZWFyX2ZhdWx0KHN0cnVjdCBhbWRncHVfcmV0
+cnlmYXVsdF9oYXNodGFibGUgKmZhdWx0X2hhc2gsIHU2NCBrZXkpCj4+Pgo+Pj4gICAgICAgICAg
+K3sKPj4+Cj4+PiAgICAgICAgICArwqAgdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+Cj4+PiAgICAg
+ICAgICArwqAgaW50IHI7Cj4+Pgo+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAgICAgICvCoCBp
+ZiAoIWZhdWx0X2hhc2gpCj4+Pgo+Pj4gICAgICAgICAgK8KgwqDCoMKgwqDCoMKgwqDCoCByZXR1
+cm47Cj4+Pgo+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAgICAgICvCoCBzcGluX2xvY2tfaXJx
+c2F2ZSgmZmF1bHRfaGFzaC0+bG9jaywgZmxhZ3MpOwo+Pj4KPj4+ICAgICAgICAgICsKPj4+Cj4+
+PiAgICAgICAgICArwqAgciA9IGNoYXNoX3RhYmxlX3JlbW92ZSgmZmF1bHRfaGFzaC0+aGFzaCwg
+a2V5LCBOVUxMKTsKPj4+Cj4+PiAgICAgICAgICArwqAgaWYgKCFXQVJOX09OX09OQ0UociA8IDAp
+KSB7Cj4+Pgo+Pj4gICAgICAgICAgK8KgwqDCoMKgwqDCoMKgwqDCoCBmYXVsdF9oYXNoLT5jb3Vu
+dC0tOwo+Pj4KPj4+ICAgICAgICAgICvCoMKgwqDCoMKgwqDCoMKgwqAgV0FSTl9PTl9PTkNFKGZh
+dWx0X2hhc2gtPmNvdW50IDwgMCk7Cj4+Pgo+Pj4gICAgICAgICAgK8KgIH0KPj4+Cj4+PiAgICAg
+ICAgICArCj4+Pgo+Pj4gICAgICAgICAgK8KgIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmZhdWx0
+X2hhc2gtPmxvY2ssIGZsYWdzKTsKPj4+Cj4+PiAgICAgICAgICArfQo+Pj4KPj4+ICAgICAgICAg
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+Pgo+Pj4gICAgICAgICAgaW5k
+ZXggZTI3NWVlNy4uNmViMWRhMSAxMDA2NDQKPj4+Cj4+PiAgICAgICAgICAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+Pj4KPj4+ICAgICAgICAgICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+Pgo+Pj4gICAgICAgICAgQEAg
+LTE3OCw2ICsxNzgsMTMgQEAgc3RydWN0IGFtZGdwdV90YXNrX2luZm8gewo+Pj4KPj4+ICAgICAg
+ICAgICDCoCBwaWRfdMKgwqAgdGdpZDsKPj4+Cj4+PiAgICAgICAgICAgfTsKPj4+Cj4+PiAgICAg
+ICAgICAgCj4+Pgo+Pj4gICAgICAgICAgKyNkZWZpbmUgQU1ER1BVX1BBR0VGQVVMVF9IQVNIX0JJ
+VFMgOAo+Pj4KPj4+ICAgICAgICAgICtzdHJ1Y3QgYW1kZ3B1X3JldHJ5ZmF1bHRfaGFzaHRhYmxl
+IHsKPj4+Cj4+PiAgICAgICAgICArwqAgREVDTEFSRV9DSEFTSF9UQUJMRShoYXNoLCBBTURHUFVf
+UEFHRUZBVUxUX0hBU0hfQklUUywgOCwgMCk7Cj4+Pgo+Pj4gICAgICAgICAgK8KgIHNwaW5sb2Nr
+X3TCoMKgwqDCoCBsb2NrOwo+Pj4KPj4+ICAgICAgICAgICvCoCBpbnTCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGNvdW50Owo+Pj4KPj4+ICAgICAgICAgICt9Owo+Pj4KPj4+ICAgICAgICAgICsKPj4+
+Cj4+PiAgICAgICAgICAgc3RydWN0IGFtZGdwdV92bSB7Cj4+Pgo+Pj4gICAgICAgICAgIMKgIC8q
+IHRyZWUgb2YgdmlydHVhbCBhZGRyZXNzZXMgbWFwcGVkICovCj4+Pgo+Pj4gICAgICAgICAgIMKg
+IHN0cnVjdCByYl9yb290X2NhY2hlZMKgIHZhOwo+Pj4KPj4+ICAgICAgICAgIEBAIC0yNDAsNiAr
+MjQ3LDcgQEAgc3RydWN0IGFtZGdwdV92bSB7Cj4+Pgo+Pj4gICAgICAgICAgIMKgIHN0cnVjdCB0
+dG1fbHJ1X2J1bGtfbW92ZSBscnVfYnVsa19tb3ZlOwo+Pj4KPj4+ICAgICAgICAgICDCoCAvKiBt
+YXJrIHdoZXRoZXIgY2FuIGRvIHRoZSBidWxrIG1vdmUgKi8KPj4+Cj4+PiAgICAgICAgICAgwqAg
+Ym9vbMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBidWxrX21vdmVhYmxlOwo+
+Pj4KPj4+ICAgICAgICAgICvCoCBzdHJ1Y3QgYW1kZ3B1X3JldHJ5ZmF1bHRfaGFzaHRhYmxlICpm
+YXVsdF9oYXNoOwo+Pj4KPj4+ICAgICAgICAgICB9Owo+Pj4KPj4+ICAgICAgICAgICAKPj4+Cj4+
+PiAgICAgICAgICDCoHN0cnVjdCBhbWRncHVfdm1fbWFuYWdlciB7Cj4+Pgo+Pj4gICAgICAgICAg
+QEAgLTM1NSw0ICszNjMsOCBAQCB2b2lkIGFtZGdwdV92bV9zZXRfdGFza19pbmZvKHN0cnVjdCBh
+bWRncHVfdm0gKnZtKTsKPj4+Cj4+PiAgICAgICAgICAgdm9pZCBhbWRncHVfdm1fbW92ZV90b19s
+cnVfdGFpbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+Cj4+PiAgICAgICAgICAgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRn
+cHVfdm0gKnZtKTsKPj4+Cj4+PiAgICAgICAgICAgCj4+Pgo+Pj4gICAgICAgICAgK2ludCBhbWRn
+cHVfdm1fYWRkX2ZhdWx0KHN0cnVjdCBhbWRncHVfcmV0cnlmYXVsdF9oYXNodGFibGUgKmZhdWx0
+X2hhc2gsIHU2NCBrZXkpOwo+Pj4KPj4+ICAgICAgICAgICsKPj4+Cj4+PiAgICAgICAgICArdm9p
+ZCBhbWRncHVfdm1fY2xlYXJfZmF1bHQoc3RydWN0IGFtZGdwdV9yZXRyeWZhdWx0X2hhc2h0YWJs
+ZSAqZmF1bHRfaGFzaCwgdTY0IGtleSk7Cj4+Pgo+Pj4gICAgICAgICAgKwo+Pj4KPj4+ICAgICAg
+ICAgICAjZW5kaWYKPj4+Cj4+PiAgICAgICAgICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvdmVnYTEwX2loLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdh
+MTBfaWguYwo+Pj4KPj4+ICAgICAgICAgIGluZGV4IDVhZTVlZDIuLmFjYmU1YTcgMTAwNjQ0Cj4+
+Pgo+Pj4gICAgICAgICAgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2lo
+LmMKPj4+Cj4+PiAgICAgICAgICArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdh
+MTBfaWguYwo+Pj4KPj4+ICAgICAgICAgIEBAIC0yNjUsMzUgKzI2NSwzNiBAQCBzdGF0aWMgYm9v
+bCB2ZWdhMTBfaWhfcHJlc2NyZWVuX2l2KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4K
+Pj4+ICAgICAgICAgICDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHRydWU7Cj4+Pgo+Pj4gICAg
+ICAgICAgIMKgIH0KPj4+Cj4+PiAgICAgICAgICAgCj4+Pgo+Pj4gICAgICAgICAgLcKgIGFkZHIg
+PSAoKHU2NCkoZHc1ICYgMHhmKSA8PCA0NCkgfCAoKHU2NClkdzQgPDwgMTIpOwo+Pj4KPj4+ICAg
+ICAgICAgIC3CoCBrZXkgPSBBTURHUFVfVk1fRkFVTFQocGFzaWQsIGFkZHIpOwo+Pj4KPj4+ICAg
+ICAgICAgIC3CoCByID0gYW1kZ3B1X2loX2FkZF9mYXVsdChhZGV2LCBrZXkpOwo+Pj4KPj4+ICAg
+ICAgICAgIC0KPj4+Cj4+PiAgICAgICAgICAtwqAgLyogSGFzaCB0YWJsZSBpcyBmdWxsIG9yIHRo
+ZSBmYXVsdCBpcyBhbHJlYWR5IGJlaW5nIHByb2Nlc3NlZCwKPj4+Cj4+PiAgICAgICAgICAtwqAg
+ICogaWdub3JlIGZ1cnRoZXIgcGFnZSBmYXVsdHMKPj4+Cj4+PiAgICAgICAgICAtwqAgICovCj4+
+Pgo+Pj4gICAgICAgICAgLcKgIGlmIChyICE9IDApCj4+Pgo+Pj4gICAgICAgICAgLcKgwqDCoMKg
+wqDCoMKgwqDCoCBnb3RvIGlnbm9yZV9pdjsKPj4+Cj4+PiAgICAgICAgICAtCj4+Pgo+Pj4gICAg
+ICAgICAgIMKgIC8qIFRyYWNrIHJldHJ5IGZhdWx0cyBpbiBwZXItVk0gZmF1bHQgRklGTy4gKi8K
+Pj4+Cj4+PiAgICAgICAgICAgwqAgc3Bpbl9sb2NrKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xv
+Y2spOwo+Pj4KPj4+ICAgICAgICAgICDCoCB2bSA9IGlkcl9maW5kKCZhZGV2LT52bV9tYW5hZ2Vy
+LnBhc2lkX2lkciwgcGFzaWQpOwo+Pj4KPj4+ICAgICAgICAgICvCoCBhZGRyID0gKCh1NjQpKGR3
+NSAmIDB4ZikgPDwgNDQpIHwgKCh1NjQpZHc0IDw8IDEyKTsKPj4+Cj4+PiAgICAgICAgICArwqAg
+a2V5ID0gQU1ER1BVX1ZNX0ZBVUxUKHBhc2lkLCBhZGRyKTsKPj4+Cj4+PiAgICAgICAgICAgwqAg
+aWYgKCF2bSkgewo+Pj4KPj4+ICAgICAgICAgICDCoMKgwqDCoMKgwqDCoMKgwqAgLyogVk0gbm90
+IGZvdW5kLCBwcm9jZXNzIGl0IG5vcm1hbGx5ICovCj4+Pgo+Pj4gICAgICAgICAgIMKgwqDCoMKg
+wqDCoMKgwqDCoCBzcGluX3VubG9jaygmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrKTsKPj4+
+Cj4+PiAgICAgICAgICAtwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9paF9jbGVhcl9mYXVsdChh
+ZGV2LCBrZXkpOwo+Pj4KPj4+ICAgICAgICAgICDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHRy
+dWU7Cj4+Pgo+Pj4gICAgICAgICAgK8KgIH0gZWxzZSB7Cj4+Pgo+Pj4gICAgICAgICAgK8KgwqDC
+oMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X3ZtX2FkZF9mYXVsdCh2bS0+ZmF1bHRfaGFzaCwga2V5
+KTsKPj4+Cj4+PiAgICAgICAgICArCj4+Pgo+Pj4gICAgICAgICAgK8KgwqDCoMKgwqDCoMKgwqDC
+oCAvKiBIYXNoIHRhYmxlIGlzIGZ1bGwgb3IgdGhlIGZhdWx0IGlzIGFscmVhZHkgYmVpbmcgcHJv
+Y2Vzc2VkLAo+Pj4KPj4+ICAgICAgICAgICvCoMKgwqDCoMKgwqDCoMKgwqAgICogaWdub3JlIGZ1
+cnRoZXIgcGFnZSBmYXVsdHMKPj4+Cj4+PiAgICAgICAgICArwqDCoMKgwqDCoMKgwqDCoMKgICAq
+Lwo+Pj4KPj4+ICAgICAgICAgICvCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIgIT0gMCkgewo+Pj4K
+Pj4+ICAgICAgICAgICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNwaW5fdW5s
+b2NrKCZhZGV2LT52bV9tYW5hZ2VyLnBhc2lkX2xvY2spOwo+Pj4KPj4+ICAgICAgICAgICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gaWdub3JlX2l2Owo+Pj4KPj4+ICAg
+ICAgICAgICvCoMKgwqDCoMKgwqDCoMKgwqAgfQo+Pj4KPj4+ICAgICAgICAgICDCoCB9Cj4+Pgo+
+Pj4gICAgICAgICAgIMKgIC8qIE5vIGxvY2tpbmcgcmVxdWlyZWQgd2l0aCBzaW5nbGUgd3JpdGVy
+IGFuZCBzaW5nbGUgcmVhZGVyICovCj4+Pgo+Pj4gICAgICAgICAgIMKgIHIgPSBrZmlmb19wdXQo
+JnZtLT5mYXVsdHMsIGtleSk7Cj4+Pgo+Pj4gICAgICAgICAgIMKgIGlmICghcikgewo+Pj4KPj4+
+ICAgICAgICAgICDCoMKgwqDCoMKgwqDCoMKgwqAgLyogRklGTyBpcyBmdWxsLiBJZ25vcmUgaXQg
+dW50aWwgdGhlcmUgaXMgc3BhY2UgKi8KPj4+Cj4+PiAgICAgICAgICArwqDCoMKgwqDCoMKgwqDC
+oMKgIGFtZGdwdV92bV9jbGVhcl9mYXVsdCh2bS0+ZmF1bHRfaGFzaCwga2V5KTsKPj4+Cj4+PiAg
+ICAgICAgICAgwqDCoMKgwqDCoMKgwqDCoMKgIHNwaW5fdW5sb2NrKCZhZGV2LT52bV9tYW5hZ2Vy
+LnBhc2lkX2xvY2spOwo+Pj4KPj4+ICAgICAgICAgIC3CoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1
+X2loX2NsZWFyX2ZhdWx0KGFkZXYsIGtleSk7Cj4+Pgo+Pj4gICAgICAgICAgIMKgwqDCoMKgwqDC
+oMKgwqDCoCBnb3RvIGlnbm9yZV9pdjsKPj4+Cj4+PiAgICAgICAgICAgwqAgfQo+Pj4KPj4+ICAg
+ICAgICAgIC3CoCBzcGluX3VubG9jaygmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrKTsKPj4+
+Cj4+PiAgICAgICAgICAgCj4+Pgo+Pj4gICAgICAgICAgK8KgIHNwaW5fdW5sb2NrKCZhZGV2LT52
+bV9tYW5hZ2VyLnBhc2lkX2xvY2spOwo+Pj4KPj4+ICAgICAgICAgICDCoCAvKiBJdCdzIHRoZSBm
+aXJzdCBmYXVsdCBmb3IgdGhpcyBhZGRyZXNzLCBwcm9jZXNzIGl0IG5vcm1hbGx5ICovCj4+Pgo+
+Pj4gICAgICAgICAgIMKgIHJldHVybiB0cnVlOwo+Pj4KPj4+ICAgICAgICAgICAKPj4+Cj4+PiAg
+ICAgICAgICBAQCAtMzg2LDE0ICszODcsNiBAQCBzdGF0aWMgaW50IHZlZ2ExMF9paF9zd19pbml0
+KHZvaWQgKmhhbmRsZSkKPj4+Cj4+PiAgICAgICAgICAgwqAgYWRldi0+aXJxLmloLnVzZV9kb29y
+YmVsbCA9IHRydWU7Cj4+Pgo+Pj4gICAgICAgICAgIMKgIGFkZXYtPmlycS5paC5kb29yYmVsbF9p
+bmRleCA9IEFNREdQVV9ET09SQkVMTDY0X0lIIDw8IDE7Cj4+Pgo+Pj4gICAgICAgICAgIAo+Pj4K
+Pj4+ICAgICAgICAgIC3CoCBhZGV2LT5pcnEuaWguZmF1bHRzID0ga21hbGxvYyhzaXplb2YoKmFk
+ZXYtPmlycS5paC5mYXVsdHMpLCBHRlBfS0VSTkVMKTsKPj4+Cj4+PiAgICAgICAgICAtwqAgaWYg
+KCFhZGV2LT5pcnEuaWguZmF1bHRzKQo+Pj4KPj4+ICAgICAgICAgIC3CoMKgwqDCoMKgwqDCoMKg
+wqAgcmV0dXJuIC1FTk9NRU07Cj4+Pgo+Pj4gICAgICAgICAgLcKgIElOSVRfQ0hBU0hfVEFCTEUo
+YWRldi0+aXJxLmloLmZhdWx0cy0+aGFzaCwKPj4+Cj4+PiAgICAgICAgICAtwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAgQU1ER1BVX1BBR0VGQVVMVF9IQVNIX0JJVFMsIDgsIDAp
+Owo+Pj4KPj4+ICAgICAgICAgIC3CoCBzcGluX2xvY2tfaW5pdCgmYWRldi0+aXJxLmloLmZhdWx0
+cy0+bG9jayk7Cj4+Pgo+Pj4gICAgICAgICAgLcKgIGFkZXYtPmlycS5paC5mYXVsdHMtPmNvdW50
+ID0gMDsKPj4+Cj4+PiAgICAgICAgICAtCj4+Pgo+Pj4gICAgICAgICAgIMKgIHIgPSBhbWRncHVf
+aXJxX2luaXQoYWRldik7Cj4+Pgo+Pj4gICAgICAgICAgIAo+Pj4KPj4+ICAgICAgICAgIMKgwqAg
+cmV0dXJuIHI7Cj4+Pgo+Pj4gICAgICAgICAgQEAgLTQwNiw5ICszOTksNiBAQCBzdGF0aWMgaW50
+IHZlZ2ExMF9paF9zd19maW5pKHZvaWQgKmhhbmRsZSkKPj4+Cj4+PiAgICAgICAgICAgwqAgYW1k
+Z3B1X2lycV9maW5pKGFkZXYpOwo+Pj4KPj4+ICAgICAgICAgICDCoCBhbWRncHVfaWhfcmluZ19m
+aW5pKGFkZXYpOwo+Pj4KPj4+ICAgICAgICAgICAKPj4+Cj4+PiAgICAgICAgICAtwqAga2ZyZWUo
+YWRldi0+aXJxLmloLmZhdWx0cyk7Cj4+Pgo+Pj4gICAgICAgICAgLcKgIGFkZXYtPmlycS5paC5m
+YXVsdHMgPSBOVUxMOwo+Pj4KPj4+ICAgICAgICAgIC0KPj4+Cj4+PiAgICAgICAgICAgwqAgcmV0
+dXJuIDA7Cj4+Pgo+Pj4gICAgICAgICAgIH0KPj4+Cj4+PiAgICAgICAgICAgCj4+Pgo+Pj4KPj4+
+Cj4+Pgo+Pj4KPj4+ICAgICAgX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPj4+Cj4+PiAgICAgIGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pgo+Pj4gICAgICBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnPgo+Pj4KPj4+ICAgICAgaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4+Pgo+Pj4gICAKPj4+Cj4+Cj4+Cj4+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBs
+aXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
