@@ -1,17 +1,11 @@
-From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Fix the dead lock issue.
-Date: Mon, 10 Sep 2018 07:57:40 +0000
-Message-ID: <BN7PR12MB2644979341318AB95B611CF28F050@BN7PR12MB2644.namprd12.prod.outlook.com>
-References: <1536552453-18595-1-git-send-email-Emily.Deng@amd.com>
- <fe055a6c-0859-7404-6236-2c22eb8e3df5@gmail.com>
- <BN7PR12MB2644EBCEAD5A7EAD4700FDD28F050@BN7PR12MB2644.namprd12.prod.outlook.com>
- <6798b857-49ec-06b3-f25f-f9df91a1ae20@amd.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/ttm: set ttm_buffer_object pointer as null after it's
+ freed
+Date: Mon, 10 Sep 2018 16:57:55 +0800
+Message-ID: <1536569876-27262-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1529001892=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6798b857-49ec-06b3-f25f-f9df91a1ae20-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,63 +16,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom StDenis <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-Pi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogS29lbmlnLCBDaHJpc3RpYW4NCj5T
-ZW50OiBNb25kYXksIFNlcHRlbWJlciAxMCwgMjAxOCAzOjIzIFBNDQo+VG86IERlbmcsIEVtaWx5
-IDxFbWlseS5EZW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPlN1
-YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IEZpeCB0aGUgZGVhZCBsb2NrIGlzc3VlLg0K
-Pg0KPkFtIDEwLjA5LjIwMTggdW0gMDk6MTkgc2NocmllYiBEZW5nLCBFbWlseToNCj4+PiAtLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2Vu
-aWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPg0KPj4+IFNlbnQ6IE1vbmRheSwgU2VwdGVtYmVy
-IDEwLCAyMDE4IDM6MDYgUE0NCj4+PiBUbzogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNv
-bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+Pj4gU3ViamVjdDogUmU6IFtQQVRD
-SF0gZHJtL2FtZGdwdTogRml4IHRoZSBkZWFkIGxvY2sgaXNzdWUuDQo+Pj4NCj4+PiBBbSAxMC4w
-OS4yMDE4IHVtIDA2OjA3IHNjaHJpZWIgRW1pbHkgRGVuZzoNCj4+Pj4gSXQgd2lsbCByYW1kb21s
-eSBoYXZlIHRoZSBkZWFkIGxvY2sgaXNzdWUgd2hlbiB0ZXN0IFREUjoNCj4+Pj4gMS4gYW1kZ3B1
-X2RldmljZV9oYW5kbGVfdnJhbV9sb3N0IGdldHMgdGhlIGxvY2sgc2hhZG93X2xpc3RfbG9jayAy
-Lg0KPj4+PiBhbWRncHVfYm9fY3JlYXRlIGxvY2tlZCB0aGUgYm8ncyByZXN2IGxvY2sgMy4NCj4+
-Pj4gYW1kZ3B1X2JvX2NyZWF0ZV9zaGFkb3cgaXMgd2FpdGluZyBmb3IgdGhlIHNoYWRvd19saXN0
-X2xvY2sgNC4NCj4+Pj4gYW1kZ3B1X2RldmljZV9yZWNvdmVyX3ZyYW1fZnJvbV9zaGFkb3cgaXMg
-d2FpdGluZyBmb3IgdGhlIGJvJ3MgcmVzdg0KPj4+PiBsb2NrLg0KPj4+Pg0KPj4+PiBTaWduZWQt
-b2ZmLWJ5OiBFbWlseSBEZW5nIDxFbWlseS5EZW5nQGFtZC5jb20+DQo+Pj4gR29vZCBjYXRjaCwg
-cHJvYmxlbSBpcyB0aGUgZml4IGRvZXNuJ3Qgd29yayBsaWtlIHRoaXMgYmVjYXVzZSB0aGUNCj4+
-PiBsb2NrIHdvbid0IGJlIGRyb3BwZWQgYXQgdGhpcyBwb2ludCBpbiBtb3N0IGNhc2VzLg0KPj4g
-U29ycnksIGNvdWxkIHlvdSBleHBsYWluIG1vcmUsIHdoeSB0aGUgbG9jayB3b24ndCBiZSBkcm9w
-cGVkIGFmdGVyIGNhbGxpbmcNCj5yZXNlcnZhdGlvbl9vYmplY3RfdW5sb2NrPw0KPg0KPnJlc2Vy
-dmF0aW9uX29iamVjdF91bmxvY2sgd29uJ3QgYmUgY2FsbGVkIGZvciBtb3N0IEJPcy4NCj4NCj5F
-LmcuIHRoZSBzaGFkb3cgaXMgdXNlZCBmb3IgcGFnZSBkaXJlY3RvcmllcyBhbmQgYWxsIHBhZ2Ug
-ZGlyZWN0b3JpZXMgdXNlIHRoZQ0KPnJvb3QgcmVzZXJ2YXRpb24gb2JqZWN0IGFuZCBzbyBoYXZl
-IGJwLT5yZXN2IHNldCBoZXJlLg0KVGhhbmtzLCB3aWxsIG1vZGlmeSBhcyB5b3VyIHN1Z2dlc3Rp
-b24uDQoNCkJlc3Qgd2lzaGVzDQpFbWlseSBEZW5nDQo+Q2hyaXN0aWFuLg0KPg0KPj4+IEluc3Rl
-YWQgeW91IG5lZWQgdG8gZml4IGFtZGdwdV9kZXZpY2VfcmVjb3Zlcl92cmFtX2Zyb21fc2hhZG93
-IHRvDQo+Pj4gbWFrZSBhIGxvY2FsIGNvcHkgb2YgdGhlIGxpc3QuDQo+Pj4NCj4+PiBZb3UgY2Fu
-IGRvIHRoaXMgYnkgZ3JhYmJpbmcgYSByZWZlcmVuY2UgdG8gZWFjaCBCTyBhbmQgbW92aW5nIGl0
-IHRvIGENCj4+PiBsb2NhbCBsaXN0Lg0KPj4+DQo+Pj4gUmVnYXJkcywNCj4+PiBDaHJpc3RpYW4u
-DQo+Pj4NCj4+Pj4gLS0tDQo+Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9vYmplY3QuYyB8IDEyICsrKysrKystLS0tLQ0KPj4+PiAgICAxIGZpbGUgY2hhbmdlZCwgNyBp
-bnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQ0KPj4+Pg0KPj4+PiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jDQo+Pj4+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jDQo+Pj4+IGluZGV4IGRlOTkwYmQuLmM3
-NTQ0N2QgMTAwNjQ0DQo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9vYmplY3QuYw0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-b2JqZWN0LmMNCj4+Pj4gQEAgLTU1NywxMiArNTU3LDggQEAgc3RhdGljIGludCBhbWRncHVfYm9f
-Y3JlYXRlX3NoYWRvdyhzdHJ1Y3QNCj4+PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+PiAgICAJ
-YnAucmVzdiA9IGJvLT50Ym8ucmVzdjsNCj4+Pj4NCj4+Pj4gICAgCXIgPSBhbWRncHVfYm9fZG9f
-Y3JlYXRlKGFkZXYsICZicCwgJmJvLT5zaGFkb3cpOw0KPj4+PiAtCWlmICghcikgew0KPj4+PiAr
-CWlmICghcikNCj4+Pj4gICAgCQliby0+c2hhZG93LT5wYXJlbnQgPSBhbWRncHVfYm9fcmVmKGJv
-KTsNCj4+Pj4gLQkJbXV0ZXhfbG9jaygmYWRldi0+c2hhZG93X2xpc3RfbG9jayk7DQo+Pj4+IC0J
-CWxpc3RfYWRkX3RhaWwoJmJvLT5zaGFkb3dfbGlzdCwgJmFkZXYtPnNoYWRvd19saXN0KTsNCj4+
-Pj4gLQkJbXV0ZXhfdW5sb2NrKCZhZGV2LT5zaGFkb3dfbGlzdF9sb2NrKTsNCj4+Pj4gLQl9DQo+
-Pj4+DQo+Pj4+ICAgIAlyZXR1cm4gcjsNCj4+Pj4gICAgfQ0KPj4+PiBAQCAtNjAzLDYgKzU5OSwx
-MiBAQCBpbnQgYW1kZ3B1X2JvX2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPj4+ICphZGV2
-LA0KPj4+PiAgICAJCWlmICghYnAtPnJlc3YpDQo+Pj4+ICAgIAkJCXJlc2VydmF0aW9uX29iamVj
-dF91bmxvY2soKCpib19wdHIpLT50Ym8ucmVzdik7DQo+Pj4+DQo+Pj4+ICsJCWlmICghcikgew0K
-Pj4+PiArCQkJbXV0ZXhfbG9jaygmYWRldi0+c2hhZG93X2xpc3RfbG9jayk7DQo+Pj4+ICsJCQls
-aXN0X2FkZF90YWlsKCYoKmJvX3B0ciktPnNoYWRvd19saXN0LCAmYWRldi0NCj4+Pj4gc2hhZG93
-X2xpc3QpOw0KPj4+PiArCQkJbXV0ZXhfdW5sb2NrKCZhZGV2LT5zaGFkb3dfbGlzdF9sb2NrKTsN
-Cj4+Pj4gKwkJfQ0KPj4+PiArDQo+Pj4+ICAgIAkJaWYgKHIpDQo+Pj4+ICAgIAkJCWFtZGdwdV9i
-b191bnJlZihib19wdHIpOw0KPj4+PiAgICAJfQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+--===============1529001892==
+Content-Type: text/plain; charset="y"
+Content-Transfer-Encoding: 8bit
+
+It avoids to be refered again after freed.
+
+Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Tom StDenis <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 138c989..d3ef5f8 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -54,6 +54,7 @@ static struct attribute ttm_bo_count = {
+ static void ttm_bo_default_destroy(struct ttm_buffer_object *bo)
+ {
+ 	kfree(bo);
++	bo = NULL;
+ }
+ 
+ static inline int ttm_mem_type_from_place(const struct ttm_place *place,
+-- 
+2.7.4
+
+
+--===============1529001892==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1529001892==--
