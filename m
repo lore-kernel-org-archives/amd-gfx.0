@@ -1,11 +1,15 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Fixing SDMA TO after GPU reset
-Date: Mon, 10 Sep 2018 18:52:28 -0400
-Message-ID: <059118f3-2729-12a1-7c8d-e306f69369aa@amd.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 01/11] drm/amdgpu: try allocating VRAM as power of two
+Date: Mon, 10 Sep 2018 20:08:43 -0400
+Message-ID: <60b9c96a-d31d-cd61-df22-c8414f0166dc@amd.com>
+References: <20180909180339.1910-1-christian.koenig@amd.com>
+ <20180909180339.1910-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------E54A63366F88D57DB4C07841"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180909180339.1910-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,70 +20,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---------------E54A63366F88D57DB4C07841
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Attached patch fixes SDMA TO after GPU reset, it's a regression caused 
-by cbd5285 drm/amdgpu: move setting the GART addr into TTM.
-
-But to me it looks safer just to revert the original patch all together 
-since we never can predict for sure if VM flush will take place and so 
-it's safer to just always assign job->vm_pd_addr.
-
-Andrey
-
-
---------------E54A63366F88D57DB4C07841
-Content-Type: text/x-patch;
- name="0001-drm-amdgpu-Fix-SDMA-TO-after-GPU-reset.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="0001-drm-amdgpu-Fix-SDMA-TO-after-GPU-reset.patch"
-
->From 038ca047fc41d85fb390b9564cebc7c6da441831 Mon Sep 17 00:00:00 2001
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Date: Mon, 10 Sep 2018 18:43:58 -0400
-Subject: drm/amdgpu: Fix SDMA TO after GPU reset
-
-After GPU reset amdgpu_vm_clear_bo triggers VM flush
-but job->vm_pd_addr is not set causing SDMA TO.
-
-Fixes cbd5285 drm/amdgpu: move setting the GART addr into TTM.
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f5a9600..88598b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -526,6 +526,8 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *adev,
- 	if (r)
- 		goto error;
- 
-+	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
-+
- 	addr = amdgpu_bo_gpu_offset(bo);
- 	if (ats_entries) {
- 		uint64_t ats_value;
--- 
-2.7.4
-
-
---------------E54A63366F88D57DB4C07841
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------E54A63366F88D57DB4C07841--
+VGhpcyBsb29rcyBnb29kLiBCdXQgaXQgY29tcGxpY2F0ZXMgc29tZXRoaW5nIEkndmUgYmVlbiBs
+b29raW5nIGF0OgpSZW1lbWJlcmluZyB3aGljaCBwcm9jZXNzIGRybV9tbV9ub2RlcyBsYXN0IGJl
+bG9uZ2VkIHRvLCBzbyB0aGF0IHRoZXkKZG9uJ3QgbmVlZCB0byBiZSBjbGVhcmVkIG5leHQgdGlt
+ZSB0aGV5IGFyZSBhbGxvY2F0ZWQgYnkgdGhlIHNhbWUKcHJvY2Vzcy4gSGF2aW5nIG1vc3Qgbm9k
+ZXMgdGhlIHNhbWUgc2l6ZSAodnJhbV9wYWdlX3NwbGl0IHBhZ2VzKSB3b3VsZAptYWtlIHRoaXMg
+dmVyeSBlYXN5IGFuZCBlZmZpY2llbnQgZm9yIHRoZSBtb3N0IGNvbW1vbiBjYXNlcyAobGFyZ2UK
+YWxsb2NhdGlvbnMgd2l0aG91dCBhbnkgZXhvdGljIGFkZHJlc3MgbGltaXRhdGlvbnMgb3IgYWxp
+Z25tZW50CnJlcXVpcmVtZW50cykuCgpEb2VzIGFueXRoaW5nIGVsc2UgaW4gdGhpcyBwYXRjaCBz
+ZXJpZXMgZGVwZW5kIG9uIHRoaXMgb3B0aW1pemF0aW9uPwoKUmVnYXJkcywKwqAgRmVsaXgKCgpP
+biAyMDE4LTA5LTA5IDAyOjAzIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IFRyeSB0byBh
+bGxvY2F0ZSBWUkFNIGluIHBvd2VyIG9mIHR3byBzaXplcyBhbmQgb25seSBmYWxsYmFjayB0byB2
+cmFtCj4gc3BsaXQgc2l6ZXMgaWYgdGhhdCBmYWlscy4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlz
+dGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCA1MiArKysrKysrKysrKysrKysr
+KysrKystLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA0MCBpbnNlcnRpb25zKCspLCAxMiBkZWxl
+dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdnJhbV9tZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21n
+ci5jCj4gaW5kZXggOWNmYThhOWFkYTkyLi4zZjlkNWQwMGM5YjMgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYwo+IEBAIC0xMjQsNiArMTI0LDI4
+IEBAIHU2NCBhbWRncHVfdnJhbV9tZ3JfYm9fdmlzaWJsZV9zaXplKHN0cnVjdCBhbWRncHVfYm8g
+KmJvKQo+ICAJcmV0dXJuIHVzYWdlOwo+ICB9Cj4gIAo+ICsvKioKPiArICogYW1kZ3B1X3ZyYW1f
+bWdyX3ZpcnRfc3RhcnQgLSB1cGRhdGUgdmlydHVhbCBzdGFydCBhZGRyZXNzCj4gKyAqCj4gKyAq
+IEBtZW06IHR0bV9tZW1fcmVnIHRvIHVwZGF0ZQo+ICsgKiBAbm9kZToganVzdCBhbGxvY2F0ZWQg
+bm9kZQo+ICsgKgo+ICsgKiBDYWxjdWxhdGUgYSB2aXJ0dWFsIEJPIHN0YXJ0IGFkZHJlc3MgdG8g
+ZWFzaWx5IGNoZWNrIGlmIGV2ZXJ5dGhpbmcgaXMgQ1BVCj4gKyAqIGFjY2Vzc2libGUuCj4gKyAq
+Lwo+ICtzdGF0aWMgdm9pZCBhbWRncHVfdnJhbV9tZ3JfdmlydF9zdGFydChzdHJ1Y3QgdHRtX21l
+bV9yZWcgKm1lbSwKPiArCQkJCSAgICAgICBzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGUpCj4gK3sK
+PiArCXVuc2lnbmVkIGxvbmcgc3RhcnQ7Cj4gKwo+ICsJc3RhcnQgPSBub2RlLT5zdGFydCArIG5v
+ZGUtPnNpemU7Cj4gKwlpZiAoc3RhcnQgPiBtZW0tPm51bV9wYWdlcykKPiArCQlzdGFydCAtPSBt
+ZW0tPm51bV9wYWdlczsKPiArCWVsc2UKPiArCQlzdGFydCA9IDA7Cj4gKwltZW0tPnN0YXJ0ID0g
+bWF4KG1lbS0+c3RhcnQsIHN0YXJ0KTsKPiArfQo+ICsKPiAgLyoqCj4gICAqIGFtZGdwdV92cmFt
+X21ncl9uZXcgLSBhbGxvY2F0ZSBuZXcgcmFuZ2VzCj4gICAqCj4gQEAgLTE3NiwxMCArMTk4LDI1
+IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21h
+bmFnZXIgKm1hbiwKPiAgCXBhZ2VzX2xlZnQgPSBtZW0tPm51bV9wYWdlczsKPiAgCj4gIAlzcGlu
+X2xvY2soJm1nci0+bG9jayk7Cj4gLQlmb3IgKGkgPSAwOyBpIDwgbnVtX25vZGVzOyArK2kpIHsK
+PiArCWZvciAoaSA9IDA7IHBhZ2VzX2xlZnQgPj0gcGFnZXNfcGVyX25vZGU7ICsraSkgewo+ICsJ
+CXVuc2lnbmVkIGxvbmcgcGFnZXMgPSByb3VuZGRvd25fcG93X29mX3R3byhwYWdlc19sZWZ0KTsK
+PiArCj4gKwkJciA9IGRybV9tbV9pbnNlcnRfbm9kZV9pbl9yYW5nZShtbSwgJm5vZGVzW2ldLCBw
+YWdlcywKPiArCQkJCQkJcGFnZXNfcGVyX25vZGUsIDAsCj4gKwkJCQkJCXBsYWNlLT5mcGZuLCBs
+cGZuLAo+ICsJCQkJCQltb2RlKTsKPiArCQlpZiAodW5saWtlbHkocikpCj4gKwkJCWJyZWFrOwo+
+ICsKPiArCQl1c2FnZSArPSBub2Rlc1tpXS5zaXplIDw8IFBBR0VfU0hJRlQ7Cj4gKwkJdmlzX3Vz
+YWdlICs9IGFtZGdwdV92cmFtX21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOwo+ICsJCWFt
+ZGdwdV92cmFtX21ncl92aXJ0X3N0YXJ0KG1lbSwgJm5vZGVzW2ldKTsKPiArCQlwYWdlc19sZWZ0
+IC09IHBhZ2VzOwo+ICsJfQo+ICsKPiArCWZvciAoOyBwYWdlc19sZWZ0OyArK2kpIHsKPiAgCQl1
+bnNpZ25lZCBsb25nIHBhZ2VzID0gbWluKHBhZ2VzX2xlZnQsIHBhZ2VzX3Blcl9ub2RlKTsKPiAg
+CQl1aW50MzJfdCBhbGlnbm1lbnQgPSBtZW0tPnBhZ2VfYWxpZ25tZW50Owo+IC0JCXVuc2lnbmVk
+IGxvbmcgc3RhcnQ7Cj4gIAo+ICAJCWlmIChwYWdlcyA9PSBwYWdlc19wZXJfbm9kZSkKPiAgCQkJ
+YWxpZ25tZW50ID0gcGFnZXNfcGVyX25vZGU7Cj4gQEAgLTE5MywxNiArMjMwLDcgQEAgc3RhdGlj
+IGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFu
+LAo+ICAKPiAgCQl1c2FnZSArPSBub2Rlc1tpXS5zaXplIDw8IFBBR0VfU0hJRlQ7Cj4gIAkJdmlz
+X3VzYWdlICs9IGFtZGdwdV92cmFtX21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOwo+IC0K
+PiAtCQkvKiBDYWxjdWxhdGUgYSB2aXJ0dWFsIEJPIHN0YXJ0IGFkZHJlc3MgdG8gZWFzaWx5IGNo
+ZWNrIGlmCj4gLQkJICogZXZlcnl0aGluZyBpcyBDUFUgYWNjZXNzaWJsZS4KPiAtCQkgKi8KPiAt
+CQlzdGFydCA9IG5vZGVzW2ldLnN0YXJ0ICsgbm9kZXNbaV0uc2l6ZTsKPiAtCQlpZiAoc3RhcnQg
+PiBtZW0tPm51bV9wYWdlcykKPiAtCQkJc3RhcnQgLT0gbWVtLT5udW1fcGFnZXM7Cj4gLQkJZWxz
+ZQo+IC0JCQlzdGFydCA9IDA7Cj4gLQkJbWVtLT5zdGFydCA9IG1heChtZW0tPnN0YXJ0LCBzdGFy
+dCk7Cj4gKwkJYW1kZ3B1X3ZyYW1fbWdyX3ZpcnRfc3RhcnQobWVtLCAmbm9kZXNbaV0pOwo+ICAJ
+CXBhZ2VzX2xlZnQgLT0gcGFnZXM7Cj4gIAl9Cj4gIAlzcGluX3VubG9jaygmbWdyLT5sb2NrKTsK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
