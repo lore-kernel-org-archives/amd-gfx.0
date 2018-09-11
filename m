@@ -1,14 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Fixing SDMA TO after GPU reset
-Date: Tue, 11 Sep 2018 13:46:52 +0200
-Message-ID: <aa21f524-ac5e-ddb7-448a-d12ec1599a59@gmail.com>
-References: <059118f3-2729-12a1-7c8d-e306f69369aa@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 2/5] drm/amdgpu: always enable shadow BOs
+Date: Tue, 11 Sep 2018 14:29:42 +0200
+Message-ID: <733b6122-bfef-442b-e95a-2cd17bfe12b5@daenzer.net>
+References: <20180911095602.10152-1-christian.koenig@amd.com>
+ <20180911095602.10152-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2104527908=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <059118f3-2729-12a1-7c8d-e306f69369aa-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180911095602.10152-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,104 +20,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============2104527908==
-Content-Type: multipart/alternative;
- boundary="------------987A97BE9B1E68E2D6CC5C0D"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------987A97BE9B1E68E2D6CC5C0D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-It would probably be better to initialize job->vm_pd_addr with 
-AMDGPU_BO_INVALID_OFFSET.
-
-And then just drop the vm flush alltogether when the vm_pd_addr isn't 
-set to something sane.
-
-Thanks,
-Christian.
-
-Am 11.09.2018 um 00:52 schrieb Andrey Grodzovsky:
-> Attached patch fixes SDMA TO after GPU reset, it's a regression caused 
-> by cbd5285 drm/amdgpu: move setting the GART addr into TTM.
->
-> But to me it looks safer just to revert the original patch all 
-> together since we never can predict for sure if VM flush will take 
-> place and so it's safer to just always assign job->vm_pd_addr.
->
-> Andrey
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------987A97BE9B1E68E2D6CC5C0D
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">It would probably be better to
-      initialize job-&gt;vm_pd_addr with AMDGPU_BO_INVALID_OFFSET.<br>
-      <br>
-      And then just drop the vm flush alltogether when the vm_pd_addr
-      isn't set to something sane.<br>
-      <br>
-      Thanks,<br>
-      Christian.<br>
-      <br>
-      Am 11.09.2018 um 00:52 schrieb Andrey Grodzovsky:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:059118f3-2729-12a1-7c8d-e306f69369aa-5C7GfCeVMHo@public.gmane.org">Attached
-      patch fixes SDMA TO after GPU reset, it's a regression caused by
-      cbd5285 drm/amdgpu: move setting the GART addr into TTM.
-      <br>
-      <br>
-      But to me it looks safer just to revert the original patch all
-      together since we never can predict for sure if VM flush will take
-      place and so it's safer to just always assign job-&gt;vm_pd_addr.
-      <br>
-      <br>
-      Andrey
-      <br>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------987A97BE9B1E68E2D6CC5C0D--
-
---===============2104527908==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2104527908==--
+T24gMjAxOC0wOS0xMSAxMTo1NSBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEV2ZW4g
+d2hlbiBHUFUgcmVjb3ZlcnkgaXMgZGlzYWJsZWQgd2UgY291bGQgcnVuIGludG8gYSBtYW51YWxs
+eQo+IHRyaWdnZXJlZCByZWNvdmVyeS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8IDI3ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDI2IGRlbGV0aW9ucygtKQo+IAo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiBpbmRleCBhN2Uz
+OWM5ZGQxNGIuLjdkYjAwNDBjYTE0NSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfb2JqZWN0LmMKPiBAQCAtMzgsMzEgKzM4LDYgQEAKPiAgI2luY2x1ZGUgImFtZGdw
+dV90cmFjZS5oIgo+ICAjaW5jbHVkZSAiYW1kZ3B1X2FtZGtmZC5oIgo+ICAKPiAtLyoqCj4gLSAq
+IERPQzogYW1kZ3B1X29iamVjdAo+IC0gKgo+IC0gKiBUaGlzIGRlZmluZXMgdGhlIGludGVyZmFj
+ZXMgdG8gb3BlcmF0ZSBvbiBhbiAmYW1kZ3B1X2JvIGJ1ZmZlciBvYmplY3Qgd2hpY2gKPiAtICog
+cmVwcmVzZW50cyBtZW1vcnkgdXNlZCBieSBkcml2ZXIgKFZSQU0sIHN5c3RlbSBtZW1vcnksIGV0
+Yy4pLiBUaGUgZHJpdmVyCj4gLSAqIHByb3ZpZGVzIERSTS9HRU0gQVBJcyB0byB1c2Vyc3BhY2Uu
+IERSTS9HRU0gQVBJcyB0aGVuIHVzZSB0aGVzZSBpbnRlcmZhY2VzCj4gLSAqIHRvIGNyZWF0ZS9k
+ZXN0cm95L3NldCBidWZmZXIgb2JqZWN0IHdoaWNoIGFyZSB0aGVuIG1hbmFnZWQgYnkgdGhlIGtl
+cm5lbCBUVE0KPiAtICogbWVtb3J5IG1hbmFnZXIuCj4gLSAqIFRoZSBpbnRlcmZhY2VzIGFyZSBh
+bHNvIHVzZWQgaW50ZXJuYWxseSBieSBrZXJuZWwgY2xpZW50cywgaW5jbHVkaW5nIGdmeCwKPiAt
+ICogdXZkLCBldGMuIGZvciBrZXJuZWwgbWFuYWdlZCBhbGxvY2F0aW9ucyB1c2VkIGJ5IHRoZSBH
+UFUuCj4gLSAqCj4gLSAqLwoKVGhpcyBjb21tZW50IHNob3VsZG4ndCBiZSByZW1vdmVkLCBzaG91
+bGQgaXQ/IE90aGVyd2lzZSB0aGUgY29tbWl0IGxvZwpuZWVkcyB0byBleHBsYWluIHRoaXMsIGFu
+ZCB0aGUgcmVmZXJlbmNlIGluIERvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QKbmVlZHMgdG8g
+YmUgcmVtb3ZlZCBhcyB3ZWxsLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAg
+ICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJl
+IGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Bl
+cgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
