@@ -1,18 +1,14 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add module parameter to enable/disable bulk
- move
-Date: Tue, 11 Sep 2018 19:42:28 +0800
-Message-ID: <20180911114227.GB21988@hr-amur2>
-References: <1536637283-6625-1-git-send-email-ray.huang@amd.com>
- <506eed80-ab22-81a4-ef28-609c61701ef9@gmail.com>
- <20180911102436.GA21988@hr-amur2>
- <8ac85f96-43f9-eab2-fefe-1e557b4a43ee@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Fixing SDMA TO after GPU reset
+Date: Tue, 11 Sep 2018 13:46:52 +0200
+Message-ID: <aa21f524-ac5e-ddb7-448a-d12ec1599a59@gmail.com>
+References: <059118f3-2729-12a1-7c8d-e306f69369aa@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2104527908=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <8ac85f96-43f9-eab2-fefe-1e557b4a43ee-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <059118f3-2729-12a1-7c8d-e306f69369aa-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,102 +19,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-T24gVHVlLCBTZXAgMTEsIDIwMTggYXQgMTI6NDk6NTlQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiBBbSAxMS4wOS4yMDE4IHVtIDEyOjI0IHNjaHJpZWIgSHVhbmcgUnVpOgo+ID5P
-biBUdWUsIFNlcCAxMSwgMjAxOCBhdCAwNjowNTo1N1BNICswODAwLCBDaHJpc3RpYW4gS8O2bmln
-IHdyb3RlOgo+ID4+QW0gMTEuMDkuMjAxOCB1bSAwNTo0MSBzY2hyaWViIEh1YW5nIFJ1aToKPiA+
-Pgo+ID4+ICAgICBUaGUgYnVsayBtb3ZpbmcgbWVjaGFuaXNtIHN0aWxsIGhhcyBidWcgb24gc29t
-ZSBjb3JuZXIgY2FzZXMuIFNvIGRpc2FibGUgaXQgYnkKPiA+PiAgICAgZGVmYXVsdCB0aWxsIGl0
-IGlzIGZpeGVkLiBXZSBjYW4gdXNlIHRoZSBtb2R1bGUgcGFyYW1ldGVyIHRvIGVuYWJsZSBpdCBm
-b3IKPiA+PiAgICAgZGVidWdnaW5nLgo+ID4+Cj4gPj4KPiA+PlBsZWFzZSBuby4gTW9kdWxlIHBh
-cmFtZXRlcnMgYXJlIGZvciBlbmQgdXNlcnMsIG5vdCBkZXZlbG9wZXJzLgo+ID4+Cj4gPj5JIHJl
-YWxseSBkb24ndCB3YW50IGEgYnVnIHJlcG9ydCB0aGF0IHRoaXMgb3B0aW9uIGNhbiBjcmFzaCB0
-aGUgc3lzdGVtLgo+ID4+Cj4gPkhvdyBhYm91dCB1c2UgYSBtYWNybyBzdWNoIGFzIEJVTEtfRU5B
-QkxFRD8gQWN0dWFsbHksIEkganVzdCB3YW50IHRvIGhhdmUgYQo+ID5zaW1wbGUgd2F5IHRvIGVu
-YWJsZSBpdCB0byBjb250aW51ZSBkZWJ1Z2dpbmcuCj4gCj4gWWVhaCwgc3VyZSB0aGF0IHNob3Vs
-ZCB3b3JrLgo+IAo+IEJ1dCB3aHkgZG8gd2UgYWN0dWFsbHkgbmVlZCB0byBtb2RpZml5Cj4gYW1k
-Z3B1X3ZtX3VwZGF0ZV9kaXJlY3RvcmllcygpIGFzIHdlbGw/IEJlY2F1c2Ugb2YgdGhlIHBlcmZv
-cm1hbmNlPwoKWWVzLCBJJ20gYWZyYWlkIHRoYXQgaXQgd2lsbCBtYWtlIHRoZSBwZXJmb3JtYW5j
-ZSBkcm9wIGFnYWluIGluIHNvbWUKc3BlY2lmaWMgY2FzZXMuCgpUaGFua3MsClJheQoKPiAKPiBU
-aGFua3MsCj4gQ2hyaXN0aWFuLgo+IAo+ID4KPiA+I2lmIEJVTEtfRU5BQkxFRAo+ID4jZWxzZQo+
-ID4jZW5kaWYKPiA+Cj4gPlRoYW5rcywKPiA+UmF5Cj4gPgo+ID4+Q2hyaXN0aWFuLgo+ID4+Cj4g
-Pj4KPiA+Pgo+ID4+ICAgICBTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQu
-Y29tPgo+ID4+ICAgICBDYzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
-Y29tPgo+ID4+ICAgICBDYzogVG9tIFN0RGVuaXMgPFRvbS5TdERlbmlzQGFtZC5jb20+Cj4gPj4g
-ICAgIC0tLQo+ID4+ICAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAg
-IHwgIDEgKwo+ID4+ICAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5j
-IHwgMTEgKysrKysrKysrKysKPiA+PiAgICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jICB8IDExICsrKysrKysrKy0tCj4gPj4gICAgICAzIGZpbGVzIGNoYW5nZWQsIDIx
-IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gPj4KPiA+PiAgICAgZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1LmgKPiA+PiAgICAgaW5kZXggZTk5MmUwZi4uNzVmZDdiZSAxMDA2NDQK
-PiA+PiAgICAgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiA+PiAg
-ICAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiA+PiAgICAgQEAg
-LTEzNCw2ICsxMzQsNyBAQCBleHRlcm4gaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlwZTsKPiA+
-PiAgICAgIGV4dGVybiBpbnQgYW1kZ3B1X2dwdV9yZWNvdmVyeTsKPiA+PiAgICAgIGV4dGVybiBp
-bnQgYW1kZ3B1X2VtdV9tb2RlOwo+ID4+ICAgICAgZXh0ZXJuIHVpbnQgYW1kZ3B1X3NtdV9tZW1v
-cnlfcG9vbF9zaXplOwo+ID4+ICAgICArZXh0ZXJuIGludCBhbWRncHVfYnVsa19tb3ZlX2VuYWJs
-ZWQ7Cj4gPj4KPiA+PiAgICAgICNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9TSQo+ID4+ICAgICAg
-ZXh0ZXJuIGludCBhbWRncHVfc2lfc3VwcG9ydDsKPiA+PiAgICAgZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kcnYuYwo+ID4+ICAgICBpbmRleCBiNWMyY2NiLi5kNTdkMTZlIDEwMDY0
-NAo+ID4+ICAgICAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMK
-PiA+PiAgICAgKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4g
-Pj4gICAgIEBAIC0xMjcsNiArMTI3LDcgQEAgaW50IGFtZGdwdV9jb21wdXRlX211bHRpcGlwZSA9
-IC0xOwo+ID4+ICAgICAgaW50IGFtZGdwdV9ncHVfcmVjb3ZlcnkgPSAtMTsgLyogYXV0byAqLwo+
-ID4+ICAgICAgaW50IGFtZGdwdV9lbXVfbW9kZSA9IDA7Cj4gPj4gICAgICB1aW50IGFtZGdwdV9z
-bXVfbWVtb3J5X3Bvb2xfc2l6ZSA9IDA7Cj4gPj4gICAgICtpbnQgYW1kZ3B1X2J1bGtfbW92ZV9l
-bmFibGVkID0gMDsKPiA+Pgo+ID4+ICAgICAgLyoqCj4gPj4gICAgICAgKiBET0M6IHZyYW1saW1p
-dCAoaW50KQo+ID4+ICAgICBAQCAtNTMyLDYgKzUzMywxNiBAQCBNT0RVTEVfUEFSTV9ERVNDKHNt
-dV9tZW1vcnlfcG9vbF9zaXplLAo+ID4+ICAgICAgICAgICAgICAgICAgICAgIjB4MSA9IDI1Nk1i
-eXRlLCAweDIgPSA1MTJNYnl0ZSwgMHg0ID0gMSBHYnl0ZSwgMHg4ID0gMkdCeXRlIik7Cj4gPj4g
-ICAgICBtb2R1bGVfcGFyYW1fbmFtZWQoc211X21lbW9yeV9wb29sX3NpemUsIGFtZGdwdV9zbXVf
-bWVtb3J5X3Bvb2xfc2l6ZSwgdWludCwgMDQ0NCk7Cj4gPj4KPiA+PiAgICAgKy8qKgo+ID4+ICAg
-ICArICogRE9DOiBidWxrX21vdmVfZW5hYmxlZCAoaW50KQo+ID4+ICAgICArICogSXQgaXMgdXNl
-ZCB0byBlbmFibGUvZGlzYWJsZSBidWxrIG1vdmluZyBvbiBMUlUgbGlzdCBtZWNoYW5pc20gZm9y
-IGRlYnVnZ2luZwo+ID4+ICAgICArICogYW5kIHRlc3RpbmcuIFRoZSBkZWZhdWx0IGlzIGZhbHNl
-IChkaXNhYmxlZCkuICBJdCB3aWxsIGJlIGVuYWJsZWQgYnkgZGVmYXVsdAo+ID4+ICAgICArICog
-dGlsbCBhbGwgY29ybmVyIGNhc2VzIGFyZSBoYW1tZXJlZCBvdXQuCj4gPj4gICAgICsgKi8KPiA+
-PiAgICAgK01PRFVMRV9QQVJNX0RFU0MoYnVsa19tb3ZlX2VuYWJsZWQsCj4gPj4gICAgICsgICAg
-ICAgICAgICAgICAgIkVuYWJsZSBidWxrIG1vdmluZyBvbiBMUlUgbGlzdCBtZWNoYW5pc20gKDEg
-PSBlbmFibGVkLCAwID0gZGlzYWJsZWQgKGRlZmF1bHQpIik7Cj4gPj4gICAgICttb2R1bGVfcGFy
-YW1fbmFtZWQoYnVsa19tb3ZlX2VuYWJsZWQsIGFtZGdwdV9idWxrX21vdmVfZW5hYmxlZCwgdWlu
-dCwgMDQ0NCk7Cj4gPj4gICAgICsKPiA+PiAgICAgICNpZmRlZiBDT05GSUdfSFNBX0FNRAo+ID4+
-ICAgICAgLyoqCj4gPj4gICAgICAgKiBET0M6IHNjaGVkX3BvbGljeSAoaW50KQo+ID4+ICAgICBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+ID4+ICAgICBpbmRleCA5YTViMWJi
-Li5hYjk1YTljIDEwMDY0NAo+ID4+ICAgICAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uYwo+ID4+ICAgICArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uYwo+ID4+ICAgICBAQCAtMzk3LDcgKzM5Nyw4IEBAIHZvaWQgYW1kZ3B1X3ZtX21v
-dmVfdG9fbHJ1X3RhaWwoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gPj4gICAgICAgICAg
-ICAgfQo+ID4+ICAgICAgICAgICAgIHNwaW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4gPj4K
-PiA+PiAgICAgLSAgICAgICB2bS0+YnVsa19tb3ZlYWJsZSA9IHRydWU7Cj4gPj4gICAgICsgICAg
-ICAgaWYgKGFtZGdwdV9idWxrX21vdmVfZW5hYmxlZCkKPiA+PiAgICAgKyAgICAgICAgICAgICAg
-IHZtLT5idWxrX21vdmVhYmxlID0gdHJ1ZTsKPiA+PiAgICAgIH0KPiA+Pgo+ID4+ICAgICAgLyoq
-Cj4gPj4gICAgIEBAIC0xMjEzLDcgKzEyMTQsMTMgQEAgaW50IGFtZGdwdV92bV91cGRhdGVfZGly
-ZWN0b3JpZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gPj4gICAgICAgICAgICAgICAg
-ICAgICBib19iYXNlID0gbGlzdF9maXJzdF9lbnRyeSgmdm0tPnJlbG9jYXRlZCwKPiA+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVf
-dm1fYm9fYmFzZSwKPiA+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHZtX3N0YXR1cyk7Cj4gPj4gICAgIC0gICAgICAgICAgICAgICBhbWRncHVfdm1fYm9f
-aWRsZShib19iYXNlKTsKPiA+PiAgICAgKyAgICAgICAgICAgICAgIGlmIChhbWRncHVfYnVsa19t
-b3ZlX2VuYWJsZWQpCj4gPj4gICAgICsgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV92bV9i
-b19pZGxlKGJvX2Jhc2UpOwo+ID4+ICAgICArICAgICAgICAgICAgICAgZWxzZSB7Cj4gPj4gICAg
-ICsgICAgICAgICAgICAgICAgICAgICAgIC8qIHdvcmthcm91bmQ6IGRvbid0IG1vdmUgUEQvUFQg
-Ym9zIG9uIExSVSAqLwo+ID4+ICAgICArICAgICAgICAgICAgICAgICAgICAgICBsaXN0X2RlbF9p
-bml0KCZib19iYXNlLT52bV9zdGF0dXMpOwo+ID4+ICAgICArICAgICAgICAgICAgICAgICAgICAg
-ICBib19iYXNlLT5tb3ZlZCA9IGZhbHNlOwo+ID4+ICAgICArICAgICAgICAgICAgICAgfQo+ID4+
-Cj4gPj4gICAgICAgICAgICAgICAgICAgICBibyA9IGJvX2Jhc2UtPmJvLT5wYXJlbnQ7Cj4gPj4g
-ICAgICAgICAgICAgICAgICAgICBpZiAoIWJvKQo+ID4+Cj4gPj4KPiA+PiAgICAgX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiA+PiAgICAgYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKPiA+PiAgICAgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+PiAg
-ICAgaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cj4gPj4KPiA+Pgo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============2104527908==
+Content-Type: multipart/alternative;
+ boundary="------------987A97BE9B1E68E2D6CC5C0D"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------987A97BE9B1E68E2D6CC5C0D
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+It would probably be better to initialize job->vm_pd_addr with 
+AMDGPU_BO_INVALID_OFFSET.
+
+And then just drop the vm flush alltogether when the vm_pd_addr isn't 
+set to something sane.
+
+Thanks,
+Christian.
+
+Am 11.09.2018 um 00:52 schrieb Andrey Grodzovsky:
+> Attached patch fixes SDMA TO after GPU reset, it's a regression caused 
+> by cbd5285 drm/amdgpu: move setting the GART addr into TTM.
+>
+> But to me it looks safer just to revert the original patch all 
+> together since we never can predict for sure if VM flush will take 
+> place and so it's safer to just always assign job->vm_pd_addr.
+>
+> Andrey
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------987A97BE9B1E68E2D6CC5C0D
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">It would probably be better to
+      initialize job-&gt;vm_pd_addr with AMDGPU_BO_INVALID_OFFSET.<br>
+      <br>
+      And then just drop the vm flush alltogether when the vm_pd_addr
+      isn't set to something sane.<br>
+      <br>
+      Thanks,<br>
+      Christian.<br>
+      <br>
+      Am 11.09.2018 um 00:52 schrieb Andrey Grodzovsky:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:059118f3-2729-12a1-7c8d-e306f69369aa-5C7GfCeVMHo@public.gmane.org">Attached
+      patch fixes SDMA TO after GPU reset, it's a regression caused by
+      cbd5285 drm/amdgpu: move setting the GART addr into TTM.
+      <br>
+      <br>
+      But to me it looks safer just to revert the original patch all
+      together since we never can predict for sure if VM flush will take
+      place and so it's safer to just always assign job-&gt;vm_pd_addr.
+      <br>
+      <br>
+      Andrey
+      <br>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------987A97BE9B1E68E2D6CC5C0D--
+
+--===============2104527908==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2104527908==--
