@@ -1,13 +1,15 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 5/5] drm/amdgpu: fix shadow BO restoring
-Date: Tue, 11 Sep 2018 11:56:02 +0200
-Message-ID: <20180911095602.10152-5-christian.koenig@amd.com>
-References: <20180911095602.10152-1-christian.koenig@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add module parameter to enable/disable bulk
+ move
+Date: Tue, 11 Sep 2018 12:05:57 +0200
+Message-ID: <506eed80-ab22-81a4-ef28-609c61701ef9@gmail.com>
+References: <1536637283-6625-1-git-send-email-ray.huang@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0248200575=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180911095602.10152-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1536637283-6625-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,150 +20,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom StDenis <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-RG9uJ3QgZ3JhYiB0aGUgcmVzZXJ2YXRpb24gbG9jayBhbnkgbW9yZSBhbmQgc2ltcGxpZnkgdGhl
-IGhhbmRsaW5nIHF1aXRlCmEgYml0LgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZXZpY2UuYyB8IDEwOSArKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgIDQ2ICsrKystLS0tLS0t
-LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oIHwgICA4ICstLQog
-MyBmaWxlcyBjaGFuZ2VkLCA0MyBpbnNlcnRpb25zKCspLCAxMjAgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDVlYmE2NmVjZjY2
-OC4uMjBiYjcwMmY1YzdmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jCkBAIC0yOTQwLDU0ICsyOTQwLDYgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX2lw
-X3Bvc3Rfc29mdF9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlyZXR1cm4gMDsK
-IH0KIAotLyoqCi0gKiBhbWRncHVfZGV2aWNlX3JlY292ZXJfdnJhbV9mcm9tX3NoYWRvdyAtIHJl
-c3RvcmUgc2hhZG93ZWQgVlJBTSBidWZmZXJzCi0gKgotICogQGFkZXY6IGFtZGdwdV9kZXZpY2Ug
-cG9pbnRlcgotICogQHJpbmc6IGFtZGdwdV9yaW5nIGZvciB0aGUgZW5naW5lIGhhbmRsaW5nIHRo
-ZSBidWZmZXIgb3BlcmF0aW9ucwotICogQGJvOiBhbWRncHVfYm8gYnVmZmVyIHdob3NlIHNoYWRv
-dyBpcyBiZWluZyByZXN0b3JlZAotICogQGZlbmNlOiBkbWFfZmVuY2UgYXNzb2NpYXRlZCB3aXRo
-IHRoZSBvcGVyYXRpb24KLSAqCi0gKiBSZXN0b3JlcyB0aGUgVlJBTSBidWZmZXIgY29udGVudHMg
-ZnJvbSB0aGUgc2hhZG93IGluIEdUVC4gIFVzZWQgdG8KLSAqIHJlc3RvcmUgdGhpbmdzIGxpa2Ug
-R1BVVk0gcGFnZSB0YWJsZXMgYWZ0ZXIgYSBHUFUgcmVzZXQgd2hlcmUKLSAqIHRoZSBjb250ZW50
-cyBvZiBWUkFNIG1pZ2h0IGJlIGxvc3QuCi0gKiBSZXR1cm5zIDAgb24gc3VjY2VzcywgbmVnYXRp
-dmUgZXJyb3IgY29kZSBvbiBmYWlsdXJlLgotICovCi1zdGF0aWMgaW50IGFtZGdwdV9kZXZpY2Vf
-cmVjb3Zlcl92cmFtX2Zyb21fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJ
-CQkJICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCi0JCQkJCQkgIHN0cnVjdCBhbWRncHVfYm8g
-KmJvLAotCQkJCQkJICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpCi17Ci0JdWludDMyX3QgZG9t
-YWluOwotCWludCByOwotCi0JaWYgKCFiby0+c2hhZG93KQotCQlyZXR1cm4gMDsKLQotCXIgPSBh
-bWRncHVfYm9fcmVzZXJ2ZShibywgdHJ1ZSk7Ci0JaWYgKHIpCi0JCXJldHVybiByOwotCWRvbWFp
-biA9IGFtZGdwdV9tZW1fdHlwZV90b19kb21haW4oYm8tPnRiby5tZW0ubWVtX3R5cGUpOwotCS8q
-IGlmIGJvIGhhcyBiZWVuIGV2aWN0ZWQsIHRoZW4gbm8gbmVlZCB0byByZWNvdmVyICovCi0JaWYg
-KGRvbWFpbiA9PSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSB7Ci0JCXIgPSBhbWRncHVfYm9fdmFs
-aWRhdGUoYm8tPnNoYWRvdyk7Ci0JCWlmIChyKSB7Ci0JCQlEUk1fRVJST1IoImJvIHZhbGlkYXRl
-IGZhaWxlZCFcbiIpOwotCQkJZ290byBlcnI7Ci0JCX0KLQotCQlyID0gYW1kZ3B1X2JvX3Jlc3Rv
-cmVfZnJvbV9zaGFkb3coYWRldiwgcmluZywgYm8sCi0JCQkJCQkgTlVMTCwgZmVuY2UsIHRydWUp
-OwotCQlpZiAocikgewotCQkJRFJNX0VSUk9SKCJyZWNvdmVyIHBhZ2UgdGFibGUgZmFpbGVkIVxu
-Iik7Ci0JCQlnb3RvIGVycjsKLQkJfQotCX0KLWVycjoKLQlhbWRncHVfYm9fdW5yZXNlcnZlKGJv
-KTsKLQlyZXR1cm4gcjsKLX0KLQogLyoqCiAgKiBhbWRncHVfZGV2aWNlX3JlY292ZXJfdnJhbSAt
-IFJlY292ZXIgc29tZSBWUkFNIGNvbnRlbnRzCiAgKgpAQCAtMjk5NiwxNiArMjk0OCwxNSBAQCBz
-dGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfcmVjb3Zlcl92cmFtX2Zyb21fc2hhZG93KHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LAogICogUmVzdG9yZXMgdGhlIGNvbnRlbnRzIG9mIFZSQU0gYnVm
-ZmVycyBmcm9tIHRoZSBzaGFkb3dzIGluIEdUVC4gIFVzZWQgdG8KICAqIHJlc3RvcmUgdGhpbmdz
-IGxpa2UgR1BVVk0gcGFnZSB0YWJsZXMgYWZ0ZXIgYSBHUFUgcmVzZXQgd2hlcmUKICAqIHRoZSBj
-b250ZW50cyBvZiBWUkFNIG1pZ2h0IGJlIGxvc3QuCi0gKiBSZXR1cm5zIDAgb24gc3VjY2Vzcywg
-MSBvbiBmYWlsdXJlLgorICoKKyAqIFJldHVybnM6CisgKiAwIG9uIHN1Y2Nlc3MsIG5lZ2F0aXZl
-IGVycm9yIGNvZGUgb24gZmFpbHVyZS4KICAqLwogc3RhdGljIGludCBhbWRncHVfZGV2aWNlX3Jl
-Y292ZXJfdnJhbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcgPSBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nOwotCXN0cnVjdCBhbWRn
-cHVfYm8gKmJvLCAqdG1wOwogCXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlID0gTlVMTCwgKm5leHQg
-PSBOVUxMOwotCWxvbmcgciA9IDE7Ci0JaW50IGkgPSAwOwotCWxvbmcgdG1vOworCXN0cnVjdCBh
-bWRncHVfYm8gKnNoYWRvdzsKKwlsb25nIHIgPSAxLCB0bW87CiAKIAlpZiAoYW1kZ3B1X3NyaW92
-X3J1bnRpbWUoYWRldikpCiAJCXRtbyA9IG1zZWNzX3RvX2ppZmZpZXMoODAwMCk7CkBAIC0zMDE0
-LDQ0ICsyOTY1LDQwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9yZWNvdmVyX3ZyYW0oc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAKIAlEUk1fSU5GTygicmVjb3ZlciB2cmFtIGJvIGZy
-b20gc2hhZG93IHN0YXJ0XG4iKTsKIAltdXRleF9sb2NrKCZhZGV2LT5zaGFkb3dfbGlzdF9sb2Nr
-KTsKLQlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoYm8sIHRtcCwgJmFkZXYtPnNoYWRvd19saXN0
-LCBzaGFkb3dfbGlzdCkgewotCQluZXh0ID0gTlVMTDsKLQkJYW1kZ3B1X2RldmljZV9yZWNvdmVy
-X3ZyYW1fZnJvbV9zaGFkb3coYWRldiwgcmluZywgYm8sICZuZXh0KTsKKwlsaXN0X2Zvcl9lYWNo
-X2VudHJ5KHNoYWRvdywgJmFkZXYtPnNoYWRvd19saXN0LCBzaGFkb3dfbGlzdCkgeworCisJCS8q
-IE5vIG5lZWQgdG8gcmVjb3ZlciBhbiBldmljdGVkIEJPICovCisJCWlmIChzaGFkb3ctPnRiby5t
-ZW0ubWVtX3R5cGUgIT0gVFRNX1BMX1RUIHx8CisJCSAgICBzaGFkb3ctPnBhcmVudC0+dGJvLm1l
-bS5tZW1fdHlwZSAhPSBUVE1fUExfVlJBTSkKKwkJCWNvbnRpbnVlOworCisJCXIgPSBhbWRncHVf
-Ym9fcmVzdG9yZV9zaGFkb3coc2hhZG93LCAmbmV4dCk7CisJCWlmIChyKQorCQkJYnJlYWs7CisK
-IAkJaWYgKGZlbmNlKSB7CiAJCQlyID0gZG1hX2ZlbmNlX3dhaXRfdGltZW91dChmZW5jZSwgZmFs
-c2UsIHRtbyk7Ci0JCQlpZiAociA9PSAwKQotCQkJCXByX2Vycigid2FpdCBmZW5jZSAlcFslZF0g
-dGltZW91dFxuIiwgZmVuY2UsIGkpOwotCQkJZWxzZSBpZiAociA8IDApCi0JCQkJcHJfZXJyKCJ3
-YWl0IGZlbmNlICVwWyVkXSBpbnRlcnJ1cHRlZFxuIiwgZmVuY2UsIGkpOwotCQkJaWYgKHIgPCAx
-KSB7Ci0JCQkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7Ci0JCQkJZmVuY2UgPSBuZXh0OworCQkJZG1h
-X2ZlbmNlX3B1dChmZW5jZSk7CisJCQlmZW5jZSA9IG5leHQ7CisJCQlpZiAociA8PSAwKQogCQkJ
-CWJyZWFrOwotCQkJfQotCQkJaSsrOworCQl9IGVsc2UgeworCQkJZmVuY2UgPSBuZXh0OwogCQl9
-Ci0KLQkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7Ci0JCWZlbmNlID0gbmV4dDsKIAl9CiAJbXV0ZXhf
-dW5sb2NrKCZhZGV2LT5zaGFkb3dfbGlzdF9sb2NrKTsKIAotCWlmIChmZW5jZSkgewotCQlyID0g
-ZG1hX2ZlbmNlX3dhaXRfdGltZW91dChmZW5jZSwgZmFsc2UsIHRtbyk7Ci0JCWlmIChyID09IDAp
-Ci0JCQlwcl9lcnIoIndhaXQgZmVuY2UgJXBbJWRdIHRpbWVvdXRcbiIsIGZlbmNlLCBpKTsKLQkJ
-ZWxzZSBpZiAociA8IDApCi0JCQlwcl9lcnIoIndhaXQgZmVuY2UgJXBbJWRdIGludGVycnVwdGVk
-XG4iLCBmZW5jZSwgaSk7Ci0KLQl9CisJaWYgKGZlbmNlKQorCQl0bW8gPSBkbWFfZmVuY2Vfd2Fp
-dF90aW1lb3V0KGZlbmNlLCBmYWxzZSwgdG1vKTsKIAlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKIAot
-CWlmIChyID4gMCkKLQkJRFJNX0lORk8oInJlY292ZXIgdnJhbSBibyBmcm9tIHNoYWRvdyBkb25l
-XG4iKTsKLQllbHNlCisJaWYgKHIgPD0gMCB8fCB0bW8gPD0gMCkgewogCQlEUk1fRVJST1IoInJl
-Y292ZXIgdnJhbSBibyBmcm9tIHNoYWRvdyBmYWlsZWRcbiIpOworCQlyZXR1cm4gLUVJTzsKKwl9
-CiAKLQlyZXR1cm4gKHIgPiAwKSA/IDAgOiAxOworCURSTV9JTkZPKCJyZWNvdmVyIHZyYW0gYm8g
-ZnJvbSBzaGFkb3cgZG9uZVxuIik7CisJcmV0dXJuIDA7CiB9CiAKIC8qKgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCmluZGV4IDNhNmY5MmRlNTUwNC4uNWI2ZDVm
-Y2MyMTUxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
-ZWN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCkBA
-IC01MzcsNyArNTM3LDcgQEAgc3RhdGljIGludCBhbWRncHVfYm9fY3JlYXRlX3NoYWRvdyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAlpZiAoIXIpIHsKIAkJYm8tPnNoYWRvdy0+cGFyZW50
-ID0gYW1kZ3B1X2JvX3JlZihibyk7CiAJCW11dGV4X2xvY2soJmFkZXYtPnNoYWRvd19saXN0X2xv
-Y2spOwotCQlsaXN0X2FkZF90YWlsKCZiby0+c2hhZG93X2xpc3QsICZhZGV2LT5zaGFkb3dfbGlz
-dCk7CisJCWxpc3RfYWRkX3RhaWwoJmJvLT5zaGFkb3ctPnNoYWRvd19saXN0LCAmYWRldi0+c2hh
-ZG93X2xpc3QpOwogCQltdXRleF91bmxvY2soJmFkZXYtPnNoYWRvd19saXN0X2xvY2spOwogCX0K
-IApAQCAtNjY5LDEzICs2NjksMTAgQEAgaW50IGFtZGdwdV9ib192YWxpZGF0ZShzdHJ1Y3QgYW1k
-Z3B1X2JvICpibykKIH0KIAogLyoqCi0gKiBhbWRncHVfYm9fcmVzdG9yZV9mcm9tX3NoYWRvdyAt
-IHJlc3RvcmUgYW4gJmFtZGdwdV9ibyBidWZmZXIgb2JqZWN0Ci0gKiBAYWRldjogYW1kZ3B1IGRl
-dmljZSBvYmplY3QKLSAqIEByaW5nOiBhbWRncHVfcmluZyBmb3IgdGhlIGVuZ2luZSBoYW5kbGlu
-ZyB0aGUgYnVmZmVyIG9wZXJhdGlvbnMKLSAqIEBibzogJmFtZGdwdV9ibyBidWZmZXIgdG8gYmUg
-cmVzdG9yZWQKLSAqIEByZXN2OiByZXNlcnZhdGlvbiBvYmplY3Qgd2l0aCBlbWJlZGRlZCBmZW5j
-ZQorICogYW1kZ3B1X2JvX3Jlc3RvcmVfc2hhZG93IC0gcmVzdG9yZSBhbiAmYW1kZ3B1X2JvIHNo
-YWRvdworICoKKyAqIEBzaGFkb3c6ICZhbWRncHVfYm8gc2hhZG93IHRvIGJlIHJlc3RvcmVkCiAg
-KiBAZmVuY2U6IGRtYV9mZW5jZSBhc3NvY2lhdGVkIHdpdGggdGhlIG9wZXJhdGlvbgotICogQGRp
-cmVjdDogd2hldGhlciB0byBzdWJtaXQgdGhlIGpvYiBkaXJlY3RseQogICoKICAqIENvcGllcyBh
-IGJ1ZmZlciBvYmplY3QncyBzaGFkb3cgY29udGVudCBiYWNrIHRvIHRoZSBvYmplY3QuCiAgKiBU
-aGlzIGlzIHVzZWQgZm9yIHJlY292ZXJpbmcgYSBidWZmZXIgZnJvbSBpdHMgc2hhZG93IGluIGNh
-c2Ugb2YgYSBncHUKQEAgLTY4NCwzNiArNjgxLDE5IEBAIGludCBhbWRncHVfYm9fdmFsaWRhdGUo
-c3RydWN0IGFtZGdwdV9ibyAqYm8pCiAgKiBSZXR1cm5zOgogICogMCBmb3Igc3VjY2VzcyBvciBh
-IG5lZ2F0aXZlIGVycm9yIGNvZGUgb24gZmFpbHVyZS4KICAqLwotaW50IGFtZGdwdV9ib19yZXN0
-b3JlX2Zyb21fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJCSAgc3RydWN0
-IGFtZGdwdV9yaW5nICpyaW5nLAotCQkJCSAgc3RydWN0IGFtZGdwdV9ibyAqYm8sCi0JCQkJICBz
-dHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LAotCQkJCSAgc3RydWN0IGRtYV9mZW5jZSAq
-KmZlbmNlLAotCQkJCSAgYm9vbCBkaXJlY3QpCitpbnQgYW1kZ3B1X2JvX3Jlc3RvcmVfc2hhZG93
-KHN0cnVjdCBhbWRncHVfYm8gKnNoYWRvdywgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQogCiB7
-Ci0Jc3RydWN0IGFtZGdwdV9ibyAqc2hhZG93ID0gYm8tPnNoYWRvdzsKLQl1aW50NjRfdCBib19h
-ZGRyLCBzaGFkb3dfYWRkcjsKLQlpbnQgcjsKLQotCWlmICghc2hhZG93KQotCQlyZXR1cm4gLUVJ
-TlZBTDsKLQotCWJvX2FkZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChibyk7Ci0Jc2hhZG93X2Fk
-ZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChiby0+c2hhZG93KTsKLQotCXIgPSByZXNlcnZhdGlv
-bl9vYmplY3RfcmVzZXJ2ZV9zaGFyZWQoYm8tPnRiby5yZXN2KTsKLQlpZiAocikKLQkJZ290byBl
-cnI7CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYoc2hhZG93
-LT50Ym8uYmRldik7CisJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gYWRldi0+bW1hbi5idWZm
-ZXJfZnVuY3NfcmluZzsKKwl1aW50NjRfdCBzaGFkb3dfYWRkciwgcGFyZW50X2FkZHI7CiAKLQly
-ID0gYW1kZ3B1X2NvcHlfYnVmZmVyKHJpbmcsIHNoYWRvd19hZGRyLCBib19hZGRyLAotCQkJICAg
-ICAgIGFtZGdwdV9ib19zaXplKGJvKSwgcmVzdiwgZmVuY2UsCi0JCQkgICAgICAgZGlyZWN0LCBm
-YWxzZSk7Ci0JaWYgKCFyKQotCQlhbWRncHVfYm9fZmVuY2UoYm8sICpmZW5jZSwgdHJ1ZSk7CisJ
-c2hhZG93X2FkZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChzaGFkb3cpOworCXBhcmVudF9hZGRy
-ID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQoc2hhZG93LT5wYXJlbnQpOwogCi1lcnI6Ci0JcmV0dXJu
-IHI7CisJcmV0dXJuIGFtZGdwdV9jb3B5X2J1ZmZlcihyaW5nLCBzaGFkb3dfYWRkciwgcGFyZW50
-X2FkZHIsCisJCQkJICBhbWRncHVfYm9fc2l6ZShzaGFkb3cpLCBOVUxMLCBmZW5jZSwKKwkJCQkg
-IHRydWUsIGZhbHNlKTsKIH0KIAogLyoqCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfb2JqZWN0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfb2JqZWN0LmgKaW5kZXggOTA3ZmRmNDZkODk1Li4zNjNkYjQxN2ZiMmUgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaAorKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKQEAgLTI3MywxMiArMjczLDggQEAg
-aW50IGFtZGdwdV9ib19iYWNrdXBfdG9fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LAogCQkJICAgICAgIHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YsCiAJCQkgICAgICAg
-c3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlLCBib29sIGRpcmVjdCk7CiBpbnQgYW1kZ3B1X2JvX3Zh
-bGlkYXRlKHN0cnVjdCBhbWRncHVfYm8gKmJvKTsKLWludCBhbWRncHVfYm9fcmVzdG9yZV9mcm9t
-X3NoYWRvdyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKLQkJCQkgIHN0cnVjdCBhbWRncHVf
-cmluZyAqcmluZywKLQkJCQkgIHN0cnVjdCBhbWRncHVfYm8gKmJvLAotCQkJCSAgc3RydWN0IHJl
-c2VydmF0aW9uX29iamVjdCAqcmVzdiwKLQkJCQkgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSwK
-LQkJCQkgIGJvb2wgZGlyZWN0KTsKK2ludCBhbWRncHVfYm9fcmVzdG9yZV9zaGFkb3coc3RydWN0
-IGFtZGdwdV9ibyAqc2hhZG93LAorCQkJICAgICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpOwog
-dWludDMyX3QgYW1kZ3B1X2JvX2dldF9wcmVmZXJyZWRfcGluX2RvbWFpbihzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiwKIAkJCQkJICAgIHVpbnQzMl90IGRvbWFpbik7CiAKLS0gCjIuMTQuMQoK
+This is a multi-part message in MIME format.
+--===============0248200575==
+Content-Type: multipart/alternative;
+ boundary="------------5384B64AE2925426FF3431A5"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------5384B64AE2925426FF3431A5
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 11.09.2018 um 05:41 schrieb Huang Rui:
+> The bulk moving mechanism still has bug on some corner cases. So disable it by
+> default till it is fixed. We can use the module parameter to enable it for
+> debugging.
+
+Please no. Module parameters are for end users, not developers.
+
+I really don't want a bug report that this option can crash the system.
+
+Christian.
+
+>
+> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> Cc: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> Cc: Tom StDenis <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 11 +++++++++--
+>   3 files changed, 21 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index e992e0f..75fd7be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -134,6 +134,7 @@ extern int amdgpu_compute_multipipe;
+>   extern int amdgpu_gpu_recovery;
+>   extern int amdgpu_emu_mode;
+>   extern uint amdgpu_smu_memory_pool_size;
+> +extern int amdgpu_bulk_move_enabled;
+>   
+>   #ifdef CONFIG_DRM_AMDGPU_SI
+>   extern int amdgpu_si_support;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index b5c2ccb..d57d16e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -127,6 +127,7 @@ int amdgpu_compute_multipipe = -1;
+>   int amdgpu_gpu_recovery = -1; /* auto */
+>   int amdgpu_emu_mode = 0;
+>   uint amdgpu_smu_memory_pool_size = 0;
+> +int amdgpu_bulk_move_enabled = 0;
+>   
+>   /**
+>    * DOC: vramlimit (int)
+> @@ -532,6 +533,16 @@ MODULE_PARM_DESC(smu_memory_pool_size,
+>   		"0x1 = 256Mbyte, 0x2 = 512Mbyte, 0x4 = 1 Gbyte, 0x8 = 2GByte");
+>   module_param_named(smu_memory_pool_size, amdgpu_smu_memory_pool_size, uint, 0444);
+>   
+> +/**
+> + * DOC: bulk_move_enabled (int)
+> + * It is used to enable/disable bulk moving on LRU list mechanism for debugging
+> + * and testing. The default is false (disabled).  It will be enabled by default
+> + * till all corner cases are hammered out.
+> + */
+> +MODULE_PARM_DESC(bulk_move_enabled,
+> +		 "Enable bulk moving on LRU list mechanism (1 = enabled, 0 = disabled (default)");
+> +module_param_named(bulk_move_enabled, amdgpu_bulk_move_enabled, uint, 0444);
+> +
+>   #ifdef CONFIG_HSA_AMD
+>   /**
+>    * DOC: sched_policy (int)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 9a5b1bb..ab95a9c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -397,7 +397,8 @@ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+>   	}
+>   	spin_unlock(&glob->lru_lock);
+>   
+> -	vm->bulk_moveable = true;
+> +	if (amdgpu_bulk_move_enabled)
+> +		vm->bulk_moveable = true;
+>   }
+>   
+>   /**
+> @@ -1213,7 +1214,13 @@ int amdgpu_vm_update_directories(struct amdgpu_device *adev,
+>   		bo_base = list_first_entry(&vm->relocated,
+>   					   struct amdgpu_vm_bo_base,
+>   					   vm_status);
+> -		amdgpu_vm_bo_idle(bo_base);
+> +		if (amdgpu_bulk_move_enabled)
+> +			amdgpu_vm_bo_idle(bo_base);
+> +		else {
+> +			/* workaround: don't move PD/PT bos on LRU */
+> +			list_del_init(&bo_base->vm_status);
+> +			bo_base->moved = false;
+> +		}
+>   
+>   		bo = bo_base->bo->parent;
+>   		if (!bo)
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------5384B64AE2925426FF3431A5
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 11.09.2018 um 05:41 schrieb Huang
+      Rui:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1536637283-6625-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">The bulk moving mechanism still has bug on some corner cases. So disable it by
+default till it is fixed. We can use the module parameter to enable it for
+debugging.</pre>
+    </blockquote>
+    <br>
+    Please no. Module parameters are for end users, not developers.<br>
+    <br>
+    I really don't want a bug report that this option can crash the
+    system.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:1536637283-6625-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">
+
+Signed-off-by: Huang Rui <a class="moz-txt-link-rfc2396E" href="mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">&lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;</a>
+Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>
+Cc: Tom StDenis <a class="moz-txt-link-rfc2396E" href="mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org">&lt;Tom.StDenis-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 11 +++++++++--
+ 3 files changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index e992e0f..75fd7be 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -134,6 +134,7 @@ extern int amdgpu_compute_multipipe;
+ extern int amdgpu_gpu_recovery;
+ extern int amdgpu_emu_mode;
+ extern uint amdgpu_smu_memory_pool_size;
++extern int amdgpu_bulk_move_enabled;
+ 
+ #ifdef CONFIG_DRM_AMDGPU_SI
+ extern int amdgpu_si_support;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index b5c2ccb..d57d16e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -127,6 +127,7 @@ int amdgpu_compute_multipipe = -1;
+ int amdgpu_gpu_recovery = -1; /* auto */
+ int amdgpu_emu_mode = 0;
+ uint amdgpu_smu_memory_pool_size = 0;
++int amdgpu_bulk_move_enabled = 0;
+ 
+ /**
+  * DOC: vramlimit (int)
+@@ -532,6 +533,16 @@ MODULE_PARM_DESC(smu_memory_pool_size,
+ 		"0x1 = 256Mbyte, 0x2 = 512Mbyte, 0x4 = 1 Gbyte, 0x8 = 2GByte");
+ module_param_named(smu_memory_pool_size, amdgpu_smu_memory_pool_size, uint, 0444);
+ 
++/**
++ * DOC: bulk_move_enabled (int)
++ * It is used to enable/disable bulk moving on LRU list mechanism for debugging
++ * and testing. The default is false (disabled).  It will be enabled by default
++ * till all corner cases are hammered out.
++ */
++MODULE_PARM_DESC(bulk_move_enabled,
++		 "Enable bulk moving on LRU list mechanism (1 = enabled, 0 = disabled (default)");
++module_param_named(bulk_move_enabled, amdgpu_bulk_move_enabled, uint, 0444);
++
+ #ifdef CONFIG_HSA_AMD
+ /**
+  * DOC: sched_policy (int)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 9a5b1bb..ab95a9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -397,7 +397,8 @@ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+ 	}
+ 	spin_unlock(&amp;glob-&gt;lru_lock);
+ 
+-	vm-&gt;bulk_moveable = true;
++	if (amdgpu_bulk_move_enabled)
++		vm-&gt;bulk_moveable = true;
+ }
+ 
+ /**
+@@ -1213,7 +1214,13 @@ int amdgpu_vm_update_directories(struct amdgpu_device *adev,
+ 		bo_base = list_first_entry(&amp;vm-&gt;relocated,
+ 					   struct amdgpu_vm_bo_base,
+ 					   vm_status);
+-		amdgpu_vm_bo_idle(bo_base);
++		if (amdgpu_bulk_move_enabled)
++			amdgpu_vm_bo_idle(bo_base);
++		else {
++			/* workaround: don't move PD/PT bos on LRU */
++			list_del_init(&amp;bo_base-&gt;vm_status);
++			bo_base-&gt;moved = false;
++		}
+ 
+ 		bo = bo_base-&gt;bo-&gt;parent;
+ 		if (!bo)
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------5384B64AE2925426FF3431A5--
+
+--===============0248200575==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0248200575==--
