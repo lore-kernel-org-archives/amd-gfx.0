@@ -1,16 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/5] drm/amdgpu: always enable shadow BOs
-Date: Tue, 11 Sep 2018 15:21:57 +0200
-Message-ID: <ce8f5f17-6ef0-27bc-3ae4-cfcc7fffaaa9@gmail.com>
-References: <20180911095602.10152-1-christian.koenig@amd.com>
- <20180911095602.10152-2-christian.koenig@amd.com>
- <733b6122-bfef-442b-e95a-2cd17bfe12b5@daenzer.net>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Fixing SDMA TO after GPU reset
+Date: Tue, 11 Sep 2018 09:54:39 -0400
+Message-ID: <e73cb83b-750c-fd4f-40c9-635cd04bd979@amd.com>
+References: <059118f3-2729-12a1-7c8d-e306f69369aa@amd.com>
+ <aa21f524-ac5e-ddb7-448a-d12ec1599a59@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2137524477=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <733b6122-bfef-442b-e95a-2cd17bfe12b5-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <aa21f524-ac5e-ddb7-448a-d12ec1599a59-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,36 +19,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTEuMDkuMjAxOCB1bSAxNDoyOSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDIwMTgt
-MDktMTEgMTE6NTUgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gRXZlbiB3aGVuIEdQ
-VSByZWNvdmVyeSBpcyBkaXNhYmxlZCB3ZSBjb3VsZCBydW4gaW50byBhIG1hbnVhbGx5Cj4+IHRy
-aWdnZXJlZCByZWNvdmVyeS4KPj4KPj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgfCAyNyArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-Pj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDI2IGRlbGV0aW9ucygtKQo+Pgo+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+IGluZGV4IGE3
-ZTM5YzlkZDE0Yi4uN2RiMDA0MGNhMTQ1IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X29iamVjdC5jCj4+IEBAIC0zOCwzMSArMzgsNiBAQAo+PiAgICNpbmNsdWRl
-ICJhbWRncHVfdHJhY2UuaCIKPj4gICAjaW5jbHVkZSAiYW1kZ3B1X2FtZGtmZC5oIgo+PiAgIAo+
-PiAtLyoqCj4+IC0gKiBET0M6IGFtZGdwdV9vYmplY3QKPj4gLSAqCj4+IC0gKiBUaGlzIGRlZmlu
-ZXMgdGhlIGludGVyZmFjZXMgdG8gb3BlcmF0ZSBvbiBhbiAmYW1kZ3B1X2JvIGJ1ZmZlciBvYmpl
-Y3Qgd2hpY2gKPj4gLSAqIHJlcHJlc2VudHMgbWVtb3J5IHVzZWQgYnkgZHJpdmVyIChWUkFNLCBz
-eXN0ZW0gbWVtb3J5LCBldGMuKS4gVGhlIGRyaXZlcgo+PiAtICogcHJvdmlkZXMgRFJNL0dFTSBB
-UElzIHRvIHVzZXJzcGFjZS4gRFJNL0dFTSBBUElzIHRoZW4gdXNlIHRoZXNlIGludGVyZmFjZXMK
-Pj4gLSAqIHRvIGNyZWF0ZS9kZXN0cm95L3NldCBidWZmZXIgb2JqZWN0IHdoaWNoIGFyZSB0aGVu
-IG1hbmFnZWQgYnkgdGhlIGtlcm5lbCBUVE0KPj4gLSAqIG1lbW9yeSBtYW5hZ2VyLgo+PiAtICog
-VGhlIGludGVyZmFjZXMgYXJlIGFsc28gdXNlZCBpbnRlcm5hbGx5IGJ5IGtlcm5lbCBjbGllbnRz
-LCBpbmNsdWRpbmcgZ2Z4LAo+PiAtICogdXZkLCBldGMuIGZvciBrZXJuZWwgbWFuYWdlZCBhbGxv
-Y2F0aW9ucyB1c2VkIGJ5IHRoZSBHUFUuCj4+IC0gKgo+PiAtICovCj4gVGhpcyBjb21tZW50IHNo
-b3VsZG4ndCBiZSByZW1vdmVkLCBzaG91bGQgaXQ/IE90aGVyd2lzZSB0aGUgY29tbWl0IGxvZwo+
-IG5lZWRzIHRvIGV4cGxhaW4gdGhpcywgYW5kIHRoZSByZWZlcmVuY2UgaW4gRG9jdW1lbnRhdGlv
-bi9ncHUvYW1kZ3B1LnJzdAo+IG5lZWRzIHRvIGJlIHJlbW92ZWQgYXMgd2VsbC4KCk9oLCB0aGF0
-IHdhcyBpbmRlZWQgYW4gYWNjaWRlbnQuIEdvaW5nIHRvIGZpeCB0aGF0LgoKVGhhbmtzLApDaHJp
-c3RpYW4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============2137524477==
+Content-Type: multipart/alternative;
+ boundary="------------100119B8509CF26E90515ABC"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------100119B8509CF26E90515ABC
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+By current code logic job->vm_pd_addr is never going to be set unless 
+the job is created for user SC or for buffer copy in amdgpu_copy_buffer
+So in any other case we are going to skip VM flush. But amdgpu_vm_flush 
+wants a flush to happen in case GPU reset just happend 
+(amdgpu_vmid_had_gpu_reset is true)
+so we will be skipping that VM flush (as in my case with 
+amdgpu_driver_open_kms->amdgpu_vm_init->amdgpu_vm_clear_bo right after 
+GPU reset occured)
+Is it safe ?
+
+Andrey
+
+On 09/11/2018 07:46 AM, Christian König wrote:
+> It would probably be better to initialize job->vm_pd_addr with 
+> AMDGPU_BO_INVALID_OFFSET.
+>
+> And then just drop the vm flush alltogether when the vm_pd_addr isn't 
+> set to something sane.
+>
+> Thanks,
+> Christian.
+>
+> Am 11.09.2018 um 00:52 schrieb Andrey Grodzovsky:
+>> Attached patch fixes SDMA TO after GPU reset, it's a regression 
+>> caused by cbd5285 drm/amdgpu: move setting the GART addr into TTM.
+>>
+>> But to me it looks safer just to revert the original patch all 
+>> together since we never can predict for sure if VM flush will take 
+>> place and so it's safer to just always assign job->vm_pd_addr.
+>>
+>> Andrey
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+
+--------------100119B8509CF26E90515ABC
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    By current code logic job-&gt;vm_pd_addr is never going to be set
+    unless the job is created for user SC or for buffer copy in
+    amdgpu_copy_buffer<br>
+    So in any other case we are going to skip VM flush. But
+    amdgpu_vm_flush wants a flush to happen in case GPU reset just
+    happend (amdgpu_vmid_had_gpu_reset is true)<br>
+    so we will be skipping that VM flush (as in my case with
+    amdgpu_driver_open_kms-&gt;amdgpu_vm_init-&gt;amdgpu_vm_clear_bo
+    right after GPU reset occured)<br>
+    Is it safe ?<br>
+    <br>
+    Andrey<br>
+    <br>
+    <div class="moz-cite-prefix">On 09/11/2018 07:46 AM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:aa21f524-ac5e-ddb7-448a-d12ec1599a59-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <div class="moz-cite-prefix">It would probably be better to
+        initialize job-&gt;vm_pd_addr with AMDGPU_BO_INVALID_OFFSET.<br>
+        <br>
+        And then just drop the vm flush alltogether when the vm_pd_addr
+        isn't set to something sane.<br>
+        <br>
+        Thanks,<br>
+        Christian.<br>
+        <br>
+        Am 11.09.2018 um 00:52 schrieb Andrey Grodzovsky:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:059118f3-2729-12a1-7c8d-e306f69369aa-5C7GfCeVMHo@public.gmane.org">Attached
+        patch fixes SDMA TO after GPU reset, it's a regression caused by
+        cbd5285 drm/amdgpu: move setting the GART addr into TTM. <br>
+        <br>
+        But to me it looks safer just to revert the original patch all
+        together since we never can predict for sure if VM flush will
+        take place and so it's safer to just always assign
+        job-&gt;vm_pd_addr. <br>
+        <br>
+        Andrey <br>
+        <br>
+        <br>
+        <fieldset class="mimeAttachmentHeader"></fieldset>
+        <br>
+        <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+      </blockquote>
+      <br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------100119B8509CF26E90515ABC--
+
+--===============2137524477==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2137524477==--
