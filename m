@@ -1,15 +1,14 @@
-From: James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu:No action needs when VCN PG state is unchanged
-Date: Tue, 11 Sep 2018 11:29:49 -0400
-Message-ID: <62baa235-e113-3635-6060-f5ffcc14e967@amd.com>
-References: <1536598142-19689-1-git-send-email-James.Zhu@amd.com>
- <CADnq5_P5Oj_Fdxhv2n8ZxDTm1mV_NQo6M1kmgGzLV0fHhhR8sA@mail.gmail.com>
- <d358b2be-26d1-627a-7105-5d90685d0f3b@amd.com>
- <68b30f71-86eb-89a0-0f8d-fcfb18e89cc2@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v3] drm/amdgpu: Fix SDMA TO after GPU reset v3
+Date: Tue, 11 Sep 2018 17:34:22 +0200
+Message-ID: <9b1429c5-b284-f9e6-ac7e-f554bb729699@gmail.com>
+References: <1536678804-22606-1-git-send-email-andrey.grodzovsky@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0177957934=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <68b30f71-86eb-89a0-0f8d-fcfb18e89cc2-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1536678804-22606-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,264 +20,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, James Zhu <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: James Zhu <james.zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0177957934==
-Content-Type: multipart/alternative;
- boundary="------------D30714C57DD636F9DC7AC97F"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------D30714C57DD636F9DC7AC97F
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 2018-09-11 11:17 AM, Christian König wrote:
-> Am 11.09.2018 um 17:06 schrieb James Zhu:
->>
->>
->>
->> On 2018-09-11 10:44 AM, Alex Deucher wrote:
->>> On Mon, Sep 10, 2018 at 4:34 PM James Zhu<jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>  wrote:
->>>> Signed-off-by: James Zhu<James.Zhu-5C7GfCeVMHo@public.gmane.org>
->>>>
->>>> When VCN PG state is unchanged, it is unnecessary to reset
->>>> power gate state again.
->>> Don't you need to initialize and store the PG state somewhere?  You
->>> are just using a local variable here.
->>>
->>> Alex
->>>
->> Hi Alex,
->>
->> I used */static/* for this local state variable(*cur_state*) with 
->> initialization state AMD_PG_STATE_GATE.
->
-> That won't work correctly. A "static" variable is global, but the 
-> power state is per device.
->
-> Regards,
-> Christian.
->
-This "static" variable under local scope is mainly for VCN used only. It 
-only tracks VCN's PG state.
-(currently VCN only have one hardware instance)
-
-Best Regards!
-James Zhu
->> this variable's scope is only inside this function, but it's 
->> initialization is done
->> once at compile time and it's lifetime will last until the driver exit.
->>
->> Since it is only used inside this function, I didn't put it into 
->> struct amdgpu_vcn.
->>
->> Best Regards!
->> James Zhu
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 13 +++++++++++--
->>>>   1 file changed, 11 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->>>> index 2664bb2..86d98d2 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
->>>> @@ -1633,12 +1633,21 @@ static int vcn_v1_0_set_powergating_state(void *handle,
->>>>           * revisit this when there is a cleaner line between
->>>>           * the smc and the hw blocks
->>>>           */
->>>> +       int ret;
->>>> +       static enum amd_powergating_state cur_state = AMD_PG_STATE_GATE;
->>>>          struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>>
->>>> +       if (state == cur_state)
->>>> +               return 0;
->>>> +
->>>>          if (state == AMD_PG_STATE_GATE)
->>>> -               return vcn_v1_0_stop(adev);
->>>> +               ret = vcn_v1_0_stop(adev);
->>>>          else
->>>> -               return vcn_v1_0_start(adev);
->>>> +               ret = vcn_v1_0_start(adev);
->>>> +
->>>> +       if (!ret)
->>>> +               cur_state = state;
->>>> +       return ret;
->>>>   }
->>>>
->>>>   static const struct amd_ip_funcs vcn_v1_0_ip_funcs = {
->>>> --
->>>> 2.7.4
->>>>
->>>> _______________________________________________
->>>> amd-gfx mailing list
->>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------D30714C57DD636F9DC7AC97F
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 2018-09-11 11:17 AM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:68b30f71-86eb-89a0-0f8d-fcfb18e89cc2-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div class="moz-cite-prefix">Am 11.09.2018 um 17:06 schrieb James
-        Zhu:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:d358b2be-26d1-627a-7105-5d90685d0f3b-5C7GfCeVMHo@public.gmane.org">
-        <p><br>
-        </p>
-        <br>
-        <div class="moz-cite-prefix">On 2018-09-11 10:44 AM, Alex
-          Deucher wrote:<br>
-        </div>
-        <blockquote type="cite"
-cite="mid:CADnq5_P5Oj_Fdxhv2n8ZxDTm1mV_NQo6M1kmgGzLV0fHhhR8sA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-          <pre wrap="">On Mon, Sep 10, 2018 at 4:34 PM James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" moz-do-not-send="true">&lt;jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a> wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="">Signed-off-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;James.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a>
-
-When VCN PG state is unchanged, it is unnecessary to reset
-power gate state again.
-</pre>
-          </blockquote>
-          <pre wrap="">Don't you need to initialize and store the PG state somewhere?  You
-are just using a local variable here.
-
-Alex
-
-</pre>
-        </blockquote>
-        Hi Alex,<br>
-        <br>
-        I used <b><i>static</i></b> for this local state variable(<b>cur_state</b>)
-        with initialization state AMD_PG_STATE_GATE.<br>
-      </blockquote>
-      <br>
-      That won't work correctly. A "static" variable is global, but the
-      power state is per device.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-    </blockquote>
-    This "static" variable under local scope is mainly for VCN used
-    only. It only tracks VCN's PG state.<br>
-    (currently VCN only have one hardware instance)<br>
-    <br>
-    Best Regards!<br>
-    James Zhu<br>
-    <blockquote type="cite"
-      cite="mid:68b30f71-86eb-89a0-0f8d-fcfb18e89cc2-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
-      <blockquote type="cite"
-        cite="mid:d358b2be-26d1-627a-7105-5d90685d0f3b-5C7GfCeVMHo@public.gmane.org"> this
-        variable's scope is only inside this function, but it's
-        initialization is done <br>
-        once at compile time and it's lifetime will last until the
-        driver exit.<br>
-        <br>
-        Since it is only used inside this function, I didn't put it into
-        struct amdgpu_vcn.<br>
-        <br>
-        Best Regards!<br>
-        James Zhu<br>
-        <blockquote type="cite"
-cite="mid:CADnq5_P5Oj_Fdxhv2n8ZxDTm1mV_NQo6M1kmgGzLV0fHhhR8sA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-          <blockquote type="cite">
-            <pre wrap="">---
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 2664bb2..86d98d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -1633,12 +1633,21 @@ static int vcn_v1_0_set_powergating_state(void *handle,
-         * revisit this when there is a cleaner line between
-         * the smc and the hw blocks
-         */
-+       int ret;
-+       static enum amd_powergating_state cur_state = AMD_PG_STATE_GATE;
-        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-
-+       if (state == cur_state)
-+               return 0;
-+
-        if (state == AMD_PG_STATE_GATE)
--               return vcn_v1_0_stop(adev);
-+               ret = vcn_v1_0_stop(adev);
-        else
--               return vcn_v1_0_start(adev);
-+               ret = vcn_v1_0_start(adev);
-+
-+       if (!ret)
-+               cur_state = state;
-+       return ret;
- }
-
- static const struct amd_ip_funcs vcn_v1_0_ip_funcs = {
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-          </blockquote>
-        </blockquote>
-        <br>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <br>
-        <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-      </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------D30714C57DD636F9DC7AC97F--
-
---===============0177957934==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0177957934==--
+QW0gMTEuMDkuMjAxOCB1bSAxNzoxMyBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+IEFmdGVy
+IEdQVSByZXNldCBhbWRncHVfdm1fY2xlYXJfYm8gdHJpZ2dlcnMgVk0gZmx1c2gKPiBidXQgam9i
+LT52bV9wZF9hZGRyIGlzIG5vdCBzZXQgY2F1c2luZyBTRE1BIFRPLgo+Cj4gdjI6Cj4gUGVyIGFk
+dmlzZSBieSBDaHJpc3RpYW4gS8O2bmlnIGF2b2lkIGZsdXNoaW5nIFZNIGZvciBqb2JzIHdoZXJl
+Cj4gam9iLT52bV9wZF9hZGRyIHdhc24ndCBleHBsaWNpdGx5IHNldC4KPgo+IHYzOgo+IFNob3J0
+Y3V0IHZtX2ZsdXNoX25lZWRlZCBlYXJseS4KPgo+IEZpeGVzIGNiZDUyODUgZHJtL2FtZGdwdTog
+bW92ZSBzZXR0aW5nIHRoZSBHQVJUIGFkZHIgaW50byBUVE0uCj4gU2lnbmVkLW9mZi1ieTogQW5k
+cmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+CgpSZXZpZXdlZC1ieTog
+Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyB8IDEgKwo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgIHwgMyArKy0KPiAgIDIgZmlsZXMgY2hhbmdl
+ZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2pvYi5jCj4gaW5kZXggMzRlNTRkNC4uNzU1ZjczMyAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMKPiBAQCAtNzMsNiArNzMsNyBAQCBpbnQg
+YW1kZ3B1X2pvYl9hbGxvYyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQgbnVt
+X2licywKPiAgIAlhbWRncHVfc3luY19jcmVhdGUoJigqam9iKS0+c3luYyk7Cj4gICAJYW1kZ3B1
+X3N5bmNfY3JlYXRlKCYoKmpvYiktPnNjaGVkX3N5bmMpOwo+ICAgCSgqam9iKS0+dnJhbV9sb3N0
+X2NvdW50ZXIgPSBhdG9taWNfcmVhZCgmYWRldi0+dnJhbV9sb3N0X2NvdW50ZXIpOwo+ICsJKCpq
+b2IpLT52bV9wZF9hZGRyID0gQU1ER1BVX0JPX0lOVkFMSURfT0ZGU0VUOwo+ICAgCj4gICAJcmV0
+dXJuIDA7Cj4gICB9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRl
+eCBmNWE5NjAwLi5mNWZkYmI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV92bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMKPiBAQCAtODUyLDcgKzg1Miw4IEBAIGludCBhbWRncHVfdm1fZmx1c2goc3RydWN0IGFt
+ZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLCBib29sIG5lZWRfCj4gICAJ
+fQo+ICAgCj4gICAJZ2RzX3N3aXRjaF9uZWVkZWQgJj0gISFyaW5nLT5mdW5jcy0+ZW1pdF9nZHNf
+c3dpdGNoOwo+IC0Jdm1fZmx1c2hfbmVlZGVkICY9ICEhcmluZy0+ZnVuY3MtPmVtaXRfdm1fZmx1
+c2g7Cj4gKwl2bV9mbHVzaF9uZWVkZWQgJj0gISFyaW5nLT5mdW5jcy0+ZW1pdF92bV9mbHVzaCAg
+JiYKPiArCQkJam9iLT52bV9wZF9hZGRyICE9IEFNREdQVV9CT19JTlZBTElEX09GRlNFVDsKPiAg
+IAlwYXNpZF9tYXBwaW5nX25lZWRlZCAmPSBhZGV2LT5nbWMuZ21jX2Z1bmNzLT5lbWl0X3Bhc2lk
+X21hcHBpbmcgJiYKPiAgIAkJcmluZy0+ZnVuY3MtPmVtaXRfd3JlZzsKPiAgIAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
