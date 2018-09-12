@@ -1,143 +1,101 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2 0/3] Add DMCU fw loading on raven
-Date: Wed, 12 Sep 2018 15:56:23 +0000
-Message-ID: <BN6PR12MB18095CB6ED07F76744297789F71B0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20180912143445.10610-1-David.Francis@amd.com>
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v2 05/17] compat_ioctl: move more drivers to
+ generic_compat_ioctl_ptrarg
+Date: Wed, 12 Sep 2018 09:56:39 -0600
+Message-ID: <20180912155639.GF5633@ziepe.ca>
+References: <20180912150142.157913-1-arnd@arndb.de>
+ <20180912151134.436719-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1657296800=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180912143445.10610-1-David.Francis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1657296800==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18095CB6ED07F76744297789F71B0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18095CB6ED07F76744297789F71B0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of David Fr=
-ancis <David.Francis-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, September 12, 2018 10:34:42 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Francis, David
-Subject: [PATCH v2 0/3] Add DMCU fw loading on raven
-
-v2: measure intv offset in bytes instead of words
-
-David Francis (3):
-  drm/amd: Add ucode DMCU support
-  drm/amd: Add PSP DMCU support
-  drm/amd: Add DM DMCU support
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     | 21 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     | 10 ++
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.c        |  6 ++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 91 ++++++++++++++++++-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
- 5 files changed, 127 insertions(+), 3 deletions(-)
-
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18095CB6ED07F76744297789F71B0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of David Francis &lt;David.Franc=
-is-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, September 12, 2018 10:34:42 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Francis, David<br>
-<b>Subject:</b> [PATCH v2 0/3] Add DMCU fw loading on raven</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">v2: measure intv offset in bytes instead of words<=
-br>
-<br>
-David Francis (3):<br>
-&nbsp; drm/amd: Add ucode DMCU support<br>
-&nbsp; drm/amd: Add PSP DMCU support<br>
-&nbsp; drm/amd: Add DM DMCU support<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c&nbsp;&nbsp;&nbsp;&nbsp; | 2=
-1 &#43;&#43;&#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h&nbsp;&nbsp;&nbsp;&nbsp; | 1=
-0 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v10_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; |&nbsp; 6 &#43;&#43;<br>
-&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 91 &#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<b=
-r>
-&nbsp;.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |&nbsp; 2 &#43;<br>
-&nbsp;5 files changed, 127 insertions(&#43;), 3 deletions(-)<br>
-<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18095CB6ED07F76744297789F71B0BN6PR12MB1809namp_--
-
---===============1657296800==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-btrfs-owner@vger.kernel.org>
 Content-Disposition: inline
+In-Reply-To: <20180912151134.436719-1-arnd@arndb.de>
+Sender: linux-btrfs-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "David S. Miller" <davem@davemloft.net>, devel@driverdev.osuosl.org, linux-kernel@vger.kernel.org, qat-linux@intel.com, linux-crypto@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org, linux-iio@vger.kernel.org, linux-rdma@vger.kernel.org, linux-nvdimm@lists.01.org, linux-nvme@lists.infradead.org, linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-remoteproc@vger.kernel.org, sparclinux@vger.kernel.org, linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org, linux-fbdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-btrfs@vger.ker
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Wed, Sep 12, 2018 at 05:08:52PM +0200, Arnd Bergmann wrote:
+> The .ioctl and .compat_ioctl file operations have the same prototype so
+> they can both point to the same function, which works great almost all
+> the time when all the commands are compatible.
+> 
+> One exception is the s390 architecture, where a compat pointer is only
+> 31 bit wide, and converting it into a 64-bit pointer requires calling
+> compat_ptr(). Most drivers here will ever run in s390, but since we now
+> have a generic helper for it, it's easy enough to use it consistently.
+> 
+> I double-checked all these drivers to ensure that all ioctl arguments
+> are used as pointers or are ignored, but are not interpreted as integer
+> values.
+> 
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>  drivers/android/binder.c                    | 2 +-
+>  drivers/crypto/qat/qat_common/adf_ctl_drv.c | 2 +-
+>  drivers/dma-buf/dma-buf.c                   | 4 +---
+>  drivers/dma-buf/sw_sync.c                   | 2 +-
+>  drivers/dma-buf/sync_file.c                 | 2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c    | 2 +-
+>  drivers/hid/hidraw.c                        | 4 +---
+>  drivers/iio/industrialio-core.c             | 2 +-
+>  drivers/infiniband/core/uverbs_main.c       | 4 ++--
+>  drivers/media/rc/lirc_dev.c                 | 4 +---
+>  drivers/mfd/cros_ec_dev.c                   | 4 +---
+>  drivers/misc/vmw_vmci/vmci_host.c           | 2 +-
+>  drivers/nvdimm/bus.c                        | 4 ++--
+>  drivers/nvme/host/core.c                    | 2 +-
+>  drivers/pci/switch/switchtec.c              | 2 +-
+>  drivers/platform/x86/wmi.c                  | 2 +-
+>  drivers/rpmsg/rpmsg_char.c                  | 4 ++--
+>  drivers/sbus/char/display7seg.c             | 2 +-
+>  drivers/sbus/char/envctrl.c                 | 4 +---
+>  drivers/scsi/3w-xxxx.c                      | 4 +---
+>  drivers/scsi/cxlflash/main.c                | 2 +-
+>  drivers/scsi/esas2r/esas2r_main.c           | 2 +-
+>  drivers/scsi/pmcraid.c                      | 4 +---
+>  drivers/staging/android/ion/ion.c           | 4 +---
+>  drivers/staging/vme/devices/vme_user.c      | 2 +-
+>  drivers/tee/tee_core.c                      | 2 +-
+>  drivers/usb/class/cdc-wdm.c                 | 2 +-
+>  drivers/usb/class/usbtmc.c                  | 4 +---
+>  drivers/video/fbdev/ps3fb.c                 | 2 +-
+>  drivers/virt/fsl_hypervisor.c               | 2 +-
+>  fs/btrfs/super.c                            | 2 +-
+>  fs/ceph/dir.c                               | 2 +-
+>  fs/ceph/file.c                              | 2 +-
+>  fs/fuse/dev.c                               | 2 +-
+>  fs/notify/fanotify/fanotify_user.c          | 2 +-
+>  fs/userfaultfd.c                            | 2 +-
+>  net/rfkill/core.c                           | 2 +-
+>  37 files changed, 40 insertions(+), 58 deletions(-)
 
---===============1657296800==--
+> diff --git a/drivers/infiniband/core/uverbs_main.c b/drivers/infiniband/core/uverbs_main.c
+> index 823beca448e1..f4755c1c9cfa 100644
+> +++ b/drivers/infiniband/core/uverbs_main.c
+> @@ -930,7 +930,7 @@ static const struct file_operations uverbs_fops = {
+>  	.release = ib_uverbs_close,
+>  	.llseek	 = no_llseek,
+>  	.unlocked_ioctl = ib_uverbs_ioctl,
+> -	.compat_ioctl = ib_uverbs_ioctl,
+> +	.compat_ioctl = generic_compat_ioctl_ptrarg,
+>  };
+>  
+>  static const struct file_operations uverbs_mmap_fops = {
+> @@ -941,7 +941,7 @@ static const struct file_operations uverbs_mmap_fops = {
+>  	.release = ib_uverbs_close,
+>  	.llseek	 = no_llseek,
+>  	.unlocked_ioctl = ib_uverbs_ioctl,
+> -	.compat_ioctl = ib_uverbs_ioctl,
+> +	.compat_ioctl = generic_compat_ioctl_ptrarg,
+>  };
+>  
+>  static struct ib_client uverbs_client = {
+
+For uverbs:
+
+Acked-by: Jason Gunthorpe <jgg@mellanox.com>
+
+It is very strange, this patch did not appear in the RDMA patchworks,
+I almost missed it  :|
+
+Jason
