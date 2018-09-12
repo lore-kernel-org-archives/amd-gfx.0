@@ -1,244 +1,602 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu
- notifier
-Date: Wed, 12 Sep 2018 16:57:52 +0200
-Message-ID: <f6a4124a-b576-0d33-e75b-a1baac6d7f0f@amd.com>
-References: <1536694284-3482-1-git-send-email-Philip.Yang@amd.com>
- <a62a7fac-6722-544a-5665-341c924dc094@gmail.com>
- <868c3a13-6896-940f-7501-370af6939e0d@amd.com>
+From: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
+Subject: [PATCH v2 05/17] compat_ioctl: move more drivers to
+ generic_compat_ioctl_ptrarg
+Date: Wed, 12 Sep 2018 17:08:52 +0200
+Message-ID: <20180912151134.436719-1-arnd@arndb.de>
+References: <20180912150142.157913-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <868c3a13-6896-940f-7501-370af6939e0d-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Philip Yang <philip.yang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+In-Reply-To: <20180912150142.157913-1-arnd-r2nGTMty4D4@public.gmane.org>
+List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
+List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
+Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
+Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+To: viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org
+Cc: linux-fbdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-iio-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-remoteproc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvme-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, platform-driver-x86-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, sparclinux-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, devel-gWbeCf7V1WCQmaza687I9mD2FQJk+8+b@public.gmane.org, linux-scsi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, qat-linux-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-input-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ceph-devel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Greg Kroah-Hartman <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, linux-usb-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-wireless-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-crypto-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-fsdevel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org, "David S. Miller" <davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org>, linux-btrfs-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTIuMDkuMjAxOCB1bSAxNjo1NiBzY2hyaWViIFBoaWxpcCBZYW5nOgo+IE9uIDIwMTgtMDkt
-MTIgMDM6MTUgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDExLjA5LjIwMTggdW0g
-MjE6MzEgc2NocmllYiBQaGlsaXAgWWFuZzoKPj4+IFJlcGxhY2Ugb3VyIE1NVSBub3RpZmllciB3
-aXRoIGhtbV9taXJyb3Jfb3BzLnN5bmNfY3B1X2RldmljZV9wYWdldGFibGVzCj4+PiBjYWxsYmFj
-ayBpZiBrZXJuZWwgY29uZmlndXJlZAo+Pgo+Pj4gSE1NLiBLZW5lbCBjb25maWd1cmVkIHdpdGhv
-dXQgSE1NIHN0aWxsIHVzZXMKPj4+IG91ciBvd24gTU1VIG5vdGlmaWVyLgo+Pgo+PiBQbGVhc2Ug
-ZHJvcCB0aGF0IGFuZCBhbHdheXMgdXNlIHRoZSBITU0gcGF0aC4KPj4KPj4gV2hlbiBhIGtlcm5l
-bCBkb2Vzbid0IHN1cHBvcnQgSE1NIHdlIHNob3VsZCBub3Qgc3VwcG9ydCB1c2VycHRyIGVpdGhl
-ci4KPj4KPj4gQ2hyaXN0aWFuLgo+Pgo+IEknZCBsaWtlIHRvIGFsd2F5cyB1c2UgSE1NIHBhdGgs
-IGJ1dCB0aGlzIHBhdGNoIG5lZWRzIHN1cHBvcnQgb2xkIAo+IGtlcm5lbCB3L28gSE1NLgo+IEN1
-cnJlbnRseSB1c2VycHRyIHdvcmtzIHcvbyBITU0gc3VwcG9ydCwgZG8gSSBtaXNzIHNvbWV0aGlu
-ZyBvciAKPiBtaXN1bmRlcnN0YW5kPwoKV2UgZG9uJ3QgbmVlZCB0byBzdXBwb3J0IG9sZGVyIGtl
-cm5lbCB3L28gSE1NIGZvciB1cHN0cmVhbS4KClN1cHBvcnQgZm9yIG9sZGVyIGtlcm5lbHMgaXMg
-c29tZXRoaW5nIHB1cmVseSBkb25lIG9uIHJlbGVhc2UgYnJhbmNoZXMuCgpSZWdhcmRzLApDaHJp
-c3RpYW4uCgo+Cj4gUmVnYXJkcywKPiBQaGlsaXAKPj4+Cj4+PiBJdCBzdXBwb3J0cyBib3RoIEtG
-RCB1c2VycHRyIGFuZCBnZnggdXNlcnB0ciBwYXRocy4KPj4+Cj4+PiBUaGlzIGRlcGVuZHMgb24g
-c2V2ZXJhbCBITU0gcGF0Y2hzZXQgZnJvbSBKw6lyw7RtZSBHbGlzc2UgcXVldWVkIGZvcgo+Pj4g
-dXBzdHJlYW0uIFNlZQo+Pj4gaHR0cDovLzE3Mi4yNy4yMjYuMzgvcm9vdC9rZXJuZWxfYW1kL2Nv
-bW1pdHMvaG1tLWRldi12MDEgKGZvciBBTUQgCj4+PiBpbnRyYW5ldCkKPj4+Cj4+PiBDaGFuZ2Ut
-SWQ6IEllNjJjM2M1ZTNjNWI4NTIxYWIzYjQzOGQxZWZmMmFhMmEwMDM4MzVlCj4+PiBTaWduZWQt
-b2ZmLWJ5OiBQaGlsaXAgWWFuZyA8UGhpbGlwLllhbmdAYW1kLmNvbT4KPj4+IC0tLQo+Pj4gwqAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGXCoMKgwqDCoCB8wqAgMSArCj4+PiDC
-oCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaG1tLmMgfCA3NyAKPj4+ICsrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2htbS5oIHwgNDEgKysrKysrKysrKysrKysrKysrCj4+PiDCoCBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uY8KgIHwgNDkgKysrKysrKysrKysrKysrKysr
-KystCj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaMKgIHzCoCA2
-ICsrKwo+Pj4gwqAgNSBmaWxlcyBjaGFuZ2VkLCAxNzMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
-bigtKQo+Pj4gwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9obW0uYwo+Pj4gwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9obW0uaAo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-TWFrZWZpbGUKPj4+IGluZGV4IDEzOGNiNzguLmVlNjkxZTggMTAwNjQ0Cj4+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvTWFrZWZpbGUKPj4+IEBAIC0xNzIsNiArMTcyLDcgQEAgYW1kZ3B1LSQoQ09O
-RklHX0NPTVBBVCkgKz0gYW1kZ3B1X2lvYzMyLm8KPj4+IMKgIGFtZGdwdS0kKENPTkZJR19WR0Ff
-U1dJVENIRVJPTykgKz0gYW1kZ3B1X2F0cHhfaGFuZGxlci5vCj4+PiDCoCBhbWRncHUtJChDT05G
-SUdfQUNQSSkgKz0gYW1kZ3B1X2FjcGkubwo+Pj4gwqAgYW1kZ3B1LSQoQ09ORklHX01NVV9OT1RJ
-RklFUikgKz0gYW1kZ3B1X21uLm8KPj4+ICthbWRncHUtJChDT05GSUdfSE1NKSArPSBhbWRncHVf
-aG1tLm8KPj4+IMKgIMKgIGluY2x1ZGUgJChGVUxMX0FNRF9QQVRIKS9wb3dlcnBsYXkvTWFrZWZp
-bGUKPj4+IMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aG1tLmMgCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9obW0uYwo+Pj4g
-bmV3IGZpbGUgbW9kZSAxMDA2NDQKPj4+IGluZGV4IDAwMDAwMDAuLmE1MDJjMTEKPj4+IC0tLSAv
-ZGV2L251bGwKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9obW0u
-Ywo+Pj4gQEAgLTAsMCArMSw3NyBAQAo+Pj4gKy8qCj4+PiArICogQ29weXJpZ2h0IDIwMTggQWR2
-YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgo+Pj4gKyAqCj4+PiArICogUGVybWlzc2lvbiBpcyBo
-ZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gCj4+PiBvYnRhaW5p
-bmcgYQo+Pj4gKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVu
-dGF0aW9uIGZpbGVzICh0aGUgCj4+PiAiU29mdHdhcmUiKSwKPj4+ICsgKiB0byBkZWFsIGluIHRo
-ZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCAKPj4+IGxp
-bWl0YXRpb24KPj4+ICsgKiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwg
-cHVibGlzaCwgZGlzdHJpYnV0ZSwgCj4+PiBzdWJsaWNlbnNlLAo+Pj4gKyAqIGFuZC9vciBzZWxs
-IGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byAKPj4+IHdo
-b20gdGhlCj4+PiArICogU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRv
-IHRoZSBmb2xsb3dpbmcgCj4+PiBjb25kaXRpb25zOgo+Pj4gKyAqCj4+PiArICogVGhlIGFib3Zl
-IGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwgYmUgCj4+
-PiBpbmNsdWRlZCBpbgo+Pj4gKyAqIGFsbCBjb3BpZXMgb3Igc3Vic3RhbnRpYWwgcG9ydGlvbnMg
-b2YgdGhlIFNvZnR3YXJlLgo+Pj4gKyAqCj4+PiArICogVEhFIFNPRlRXQVJFIElTIFBST1ZJREVE
-ICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIAo+Pj4gRVhQUkVTUyBPUgo+
-Pj4gKyAqIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJ
-RVMgT0YgCj4+PiBNRVJDSEFOVEFCSUxJVFksCj4+PiArICogRklUTkVTUyBGT1IgQSBQQVJUSUNV
-TEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC7CoCBJTiBOTyAKPj4+IEVWRU5UIFNIQUxM
-Cj4+PiArICogVEhFIENPUFlSSUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMpIEJFIExJQUJMRSBG
-T1IgQU5ZIENMQUlNLCAKPj4+IERBTUFHRVMgT1IKPj4+ICsgKiBPVEhFUiBMSUFCSUxJVFksIFdI
-RVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIAo+Pj4gT1RIRVJXSVNFLAo+
-Pj4gKyAqIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09G
-VFdBUkUgT1IgVEhFIAo+Pj4gVVNFIE9SCj4+PiArICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNP
-RlRXQVJFLgo+Pj4gKyAqLwo+Pj4gKwo+Pj4gKyNpbmNsdWRlIDxsaW51eC9tdXRleC5oPgo+Pj4g
-KyNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cj4+PiArI2luY2x1ZGUgPGxpbnV4L25vdGlmaWVyLmg+
-Cj4+PiArI2luY2x1ZGUgPGxpbnV4L2NvbXBhdC5oPgo+Pj4gKyNpbmNsdWRlIDxsaW51eC9tbWFu
-Lmg+Cj4+PiArI2luY2x1ZGUgPGxpbnV4L2htbS5oPgo+Pj4gKyNpbmNsdWRlIDxhc20vcGFnZS5o
-Pgo+Pj4gKyNpbmNsdWRlICJhbWRncHUuaCIKPj4+ICsjaW5jbHVkZSAiYW1kZ3B1X21uLmgiCj4+
-PiArCj4+PiArc3RhdGljIHZvaWQgYW1kZ3B1X2htbV9yZWxlYXNlKHN0cnVjdCBobW1fbWlycm9y
-ICptaXJyb3IpCj4+PiArewo+Pj4gK8KgwqDCoCBwcl9kZWJ1ZygibWlycm9yPSVwXG4iLCBtaXJy
-b3IpOwo+Pj4gK30KPj4+ICsKPj4+ICtzdGF0aWMgaW50IGFtZGdwdV9obW1fc3luY19jcHVfZGV2
-aWNlX3BhZ2V0YWJsZXMoc3RydWN0IGhtbV9taXJyb3IgCj4+PiAqbWlycm9yLAo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0IGhtbV91cGRhdGUgKnVwZGF0ZSkKPj4+ICt7
-Cj4+PiArwqDCoMKgIHN0cnVjdCBobW0gKmhtbTsKPj4+ICvCoMKgwqAgc3RydWN0IG1tX3N0cnVj
-dCAqbW07Cj4+PiArwqDCoMKgIHVuc2lnbmVkIGxvbmcgc3RhcnQ7Cj4+PiArwqDCoMKgIHVuc2ln
-bmVkIGxvbmcgZW5kOwo+Pj4gKwo+Pj4gK8KgwqDCoCBzdGFydCA9IHVwZGF0ZS0+c3RhcnQ7Cj4+
-PiArwqDCoMKgIGVuZCA9IHVwZGF0ZS0+ZW5kOwo+Pj4gKwo+Pj4gK8KgwqDCoCBwcl9kZWJ1Zygi
-bWlycm9yICVwIHN0YXJ0ICVseCBlbmQgJWx4XG4iLCBtaXJyb3IsIHN0YXJ0LCBlbmQpOwo+Pj4g
-Kwo+Pj4gK8KgwqDCoCBobW0gPSBtaXJyb3ItPmhtbTsKPj4+ICvCoMKgwqAgbW0gPSAqKHN0cnVj
-dCBtbV9zdHJ1Y3QgKiopaG1tOwo+Pj4gKwo+Pj4gK8KgwqDCoCByZXR1cm4gYW1kZ3B1X21uX2lu
-dmFsaWRhdGVfcmFuZ2UobWlycm9yLCBtbSwgc3RhcnQsIGVuZCwKPj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1cGRhdGUtPmJsb2NrYWJsZSk7Cj4+PiArfQo+Pj4g
-Kwo+Pj4gK3N0YXRpYyBzdHJ1Y3QgaG1tX21pcnJvcl9vcHMgYW1kZ3B1X2htbV9taXJyb3Jfb3Bz
-ID0gewo+Pj4gK8KgwqDCoCAuc3luY19jcHVfZGV2aWNlX3BhZ2V0YWJsZXMgPSAKPj4+IGFtZGdw
-dV9obW1fc3luY19jcHVfZGV2aWNlX3BhZ2V0YWJsZXMsCj4+PiArwqDCoMKgIC5yZWxlYXNlID0g
-YW1kZ3B1X2htbV9yZWxlYXNlCj4+PiArfTsKPj4+ICsKPj4+ICtpbnQgYW1kZ3B1X2htbV9yZWdp
-c3RlcihzdHJ1Y3QgaG1tX21pcnJvciAqbWlycm9yLCBzdHJ1Y3QgbW1fc3RydWN0IAo+Pj4gKm1t
-KQo+Pj4gK3sKPj4+ICvCoMKgwqAgcHJfZGVidWcoIm1pcnJvcj0lcFxuIiwgbWlycm9yKTsKPj4+
-ICsKPj4+ICvCoMKgwqAgbWlycm9yLT5vcHMgPSAmYW1kZ3B1X2htbV9taXJyb3Jfb3BzOwo+Pj4g
-Kwo+Pj4gK8KgwqDCoCByZXR1cm4gaG1tX21pcnJvcl9yZWdpc3RlcihtaXJyb3IsIG1tKTsKPj4+
-ICt9Cj4+PiArCj4+PiArdm9pZCBhbWRncHVfaG1tX3VucmVnaXN0ZXIoc3RydWN0IGhtbV9taXJy
-b3IgKm1pcnJvcikKPj4+ICt7Cj4+PiArwqDCoMKgIHByX2RlYnVnKCJtaXJyb3I9JXBcbiIsIG1p
-cnJvcik7Cj4+PiArCj4+PiArwqDCoMKgIGhtbV9taXJyb3JfdW5yZWdpc3RlcihtaXJyb3IpOwo+
-Pj4gK30KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aG1tLmggCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9obW0uaAo+Pj4g
-bmV3IGZpbGUgbW9kZSAxMDA2NDQKPj4+IGluZGV4IDAwMDAwMDAuLmEyMWE1ZjYKPj4+IC0tLSAv
-ZGV2L251bGwKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9obW0u
-aAo+Pj4gQEAgLTAsMCArMSw0MSBAQAo+Pj4gKy8qCj4+PiArICogQ29weXJpZ2h0IDIwMTggQWR2
-YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgo+Pj4gKyAqCj4+PiArICogUGVybWlzc2lvbiBpcyBo
-ZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gCj4+PiBvYnRhaW5p
-bmcgYQo+Pj4gKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVu
-dGF0aW9uIGZpbGVzICh0aGUgCj4+PiAiU29mdHdhcmUiKSwKPj4+ICsgKiB0byBkZWFsIGluIHRo
-ZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCAKPj4+IGxp
-bWl0YXRpb24KPj4+ICsgKiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwg
-cHVibGlzaCwgZGlzdHJpYnV0ZSwgCj4+PiBzdWJsaWNlbnNlLAo+Pj4gKyAqIGFuZC9vciBzZWxs
-IGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byAKPj4+IHdo
-b20gdGhlCj4+PiArICogU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRv
-IHRoZSBmb2xsb3dpbmcgCj4+PiBjb25kaXRpb25zOgo+Pj4gKyAqCj4+PiArICogVGhlIGFib3Zl
-IGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwgYmUgCj4+
-PiBpbmNsdWRlZCBpbgo+Pj4gKyAqIGFsbCBjb3BpZXMgb3Igc3Vic3RhbnRpYWwgcG9ydGlvbnMg
-b2YgdGhlIFNvZnR3YXJlLgo+Pj4gKyAqCj4+PiArICogVEhFIFNPRlRXQVJFIElTIFBST1ZJREVE
-ICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIAo+Pj4gRVhQUkVTUyBPUgo+
-Pj4gKyAqIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJ
-RVMgT0YgCj4+PiBNRVJDSEFOVEFCSUxJVFksCj4+PiArICogRklUTkVTUyBGT1IgQSBQQVJUSUNV
-TEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC7CoCBJTiBOTyAKPj4+IEVWRU5UIFNIQUxM
-Cj4+PiArICogVEhFIENPUFlSSUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMpIEJFIExJQUJMRSBG
-T1IgQU5ZIENMQUlNLCAKPj4+IERBTUFHRVMgT1IKPj4+ICsgKiBPVEhFUiBMSUFCSUxJVFksIFdI
-RVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIAo+Pj4gT1RIRVJXSVNFLAo+
-Pj4gKyAqIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09G
-VFdBUkUgT1IgVEhFIAo+Pj4gVVNFIE9SCj4+PiArICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNP
-RlRXQVJFLgo+Pj4gKyAqLwo+Pj4gKwo+Pj4gKyNpZm5kZWYgX19BTURHUFVfSE1NX0hfXwo+Pj4g
-KyNkZWZpbmUgX19BTURHUFVfSE1NX0hfXwo+Pj4gKwo+Pj4gKyNpbmNsdWRlIDxsaW51eC9tbS5o
-Pgo+Pj4gKyNpbmNsdWRlIDxsaW51eC9obW0uaD4KPj4+ICsKPj4+ICsjaWYgSVNfRU5BQkxFRChD
-T05GSUdfSE1NKQo+Pj4gKwo+Pj4gK2ludCBhbWRncHVfaG1tX3JlZ2lzdGVyKHN0cnVjdCBobW1f
-bWlycm9yICptaXJyb3IsIHN0cnVjdCBtbV9zdHJ1Y3QgCj4+PiAqbW0pOwo+Pj4gK3ZvaWQgYW1k
-Z3B1X2htbV91bnJlZ2lzdGVyKHN0cnVjdCBobW1fbWlycm9yICptaXJyb3IpOwo+Pj4gKwo+Pj4g
-KyNlbHNlCj4+PiArCj4+PiArI2RlZmluZSBhbWRncHVfaG1tX3JlZ2lzdGVyKHgsIHkpICgwKQo+
-Pj4gKyNkZWZpbmUgYW1kZ3B1X2htbV91bnJlZ2lzdGVyKHgpCj4+PiArCj4+PiArI2VuZGlmCj4+
-PiArCj4+PiArI2VuZGlmCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X21uLmMgCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9t
-bi5jCj4+PiBpbmRleCBlNTU1MDhiLi4yYjYwNjMxIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21uLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9tbi5jCj4+PiBAQCAtNDcsMTEgKzQ3LDEzIEBACj4+PiDCoCAjaW5j
-bHVkZSA8bGludXgvbW9kdWxlLmg+Cj4+PiDCoCAjaW5jbHVkZSA8bGludXgvbW11X25vdGlmaWVy
-Lmg+Cj4+PiDCoCAjaW5jbHVkZSA8bGludXgvaW50ZXJ2YWxfdHJlZS5oPgo+Pj4gKyNpbmNsdWRl
-IDxsaW51eC9obW0uaD4KPj4+IMKgICNpbmNsdWRlIDxkcm0vZHJtUC5oPgo+Pj4gwqAgI2luY2x1
-ZGUgPGRybS9kcm0uaD4KPj4+IMKgIMKgICNpbmNsdWRlICJhbWRncHUuaCIKPj4+IMKgICNpbmNs
-dWRlICJhbWRncHVfYW1ka2ZkLmgiCj4+PiArI2luY2x1ZGUgImFtZGdwdV9obW0uaCIKPj4+IMKg
-IMKgIC8qKgo+Pj4gwqDCoCAqIHN0cnVjdCBhbWRncHVfbW4KPj4+IEBAIC02Niw2ICs2OCw3IEBA
-Cj4+PiDCoMKgICogQG9iamVjdHM6IGludGVydmFsIHRyZWUgY29udGFpbmluZyBhbWRncHVfbW5f
-bm9kZXMKPj4+IMKgwqAgKiBAcmVhZF9sb2NrOiBtdXRleCBmb3IgcmVjdXJzaXZlIGxvY2tpbmcg
-b2YgQGxvY2sKPj4+IMKgwqAgKiBAcmVjdXJzaW9uOiBkZXB0aCBvZiByZWN1cnNpb24KPj4+ICsg
-KiBAaG1tX21pcnJvcjogSE1NIG1pcnJvciBmdW5jdGlvbiBzdXBwb3J0Cj4+PiDCoMKgICoKPj4+
-IMKgwqAgKiBEYXRhIGZvciBlYWNoIGFtZGdwdSBkZXZpY2UgYW5kIHByb2Nlc3MgYWRkcmVzcyBz
-cGFjZS4KPj4+IMKgwqAgKi8KPj4+IEBAIC04Nyw2ICs5MCwxMSBAQCBzdHJ1Y3QgYW1kZ3B1X21u
-IHsKPj4+IMKgwqDCoMKgwqAgc3RydWN0IHJiX3Jvb3RfY2FjaGVkwqDCoMKgIG9iamVjdHM7Cj4+
-PiDCoMKgwqDCoMKgIHN0cnVjdCBtdXRleMKgwqDCoMKgwqDCoMKgIHJlYWRfbG9jazsKPj4+IMKg
-wqDCoMKgwqAgYXRvbWljX3TCoMKgwqDCoMKgwqDCoCByZWN1cnNpb247Cj4+PiArCj4+PiArI2lm
-IElTX0VOQUJMRUQoQ09ORklHX0hNTSkKPj4+ICvCoMKgwqAgLyogSE1NIG1pcnJvciAqLwo+Pj4g
-K8KgwqDCoCBzdHJ1Y3QgaG1tX21pcnJvcsKgwqDCoCBobW1fbWlycm9yOwo+Pj4gKyNlbmRpZgo+
-Pj4gwqAgfTsKPj4+IMKgIMKgIC8qKgo+Pj4gQEAgLTEzMCw2ICsxMzgsOSBAQCBzdGF0aWMgdm9p
-ZCBhbWRncHVfbW5fZGVzdHJveShzdHJ1Y3Qgd29ya19zdHJ1Y3QgCj4+PiAqd29yaykKPj4+IMKg
-wqDCoMKgwqAgdXBfd3JpdGUoJmFtbi0+bG9jayk7Cj4+PiDCoMKgwqDCoMKgIG11dGV4X3VubG9j
-aygmYWRldi0+bW5fbG9jayk7Cj4+PiDCoMKgwqDCoMKgIG1tdV9ub3RpZmllcl91bnJlZ2lzdGVy
-X25vX3JlbGVhc2UoJmFtbi0+bW4sIGFtbi0+bW0pOwo+Pj4gKwo+Pj4gK8KgwqDCoCBhbWRncHVf
-aG1tX3VucmVnaXN0ZXIoJmFtbi0+aG1tX21pcnJvcik7Cj4+PiArCj4+PiDCoMKgwqDCoMKgIGtm
-cmVlKGFtbik7Cj4+PiDCoCB9Cj4+PiDCoCBAQCAtMzcyLDYgKzM4MywzOSBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IG1tdV9ub3RpZmllcl9vcHMgCj4+PiBhbWRncHVfbW5fb3BzW10gPSB7Cj4+PiDC
-oMKgICovCj4+PiDCoCAjZGVmaW5lIEFNREdQVV9NTl9LRVkobW0sIHR5cGUpICgodW5zaWduZWQg
-bG9uZykobW0pICsgKHR5cGUpKQo+Pj4gwqAgKyNpZiBJU19FTkFCTEVEKENPTkZJR19ITU0pCj4+
-PiArCj4+PiAraW50IGFtZGdwdV9tbl9pbnZhbGlkYXRlX3JhbmdlKHN0cnVjdCBobW1fbWlycm9y
-ICptaXJyb3IsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBtbV9z
-dHJ1Y3QgKm1tLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBs
-b25nIHN0YXJ0LAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBs
-b25nIGVuZCwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYm9vbCBibG9ja2Fi
-bGUpCj4+PiArCj4+PiArewo+Pj4gK8KgwqDCoCB1bnNpZ25lZCBsb25nIGtleTsKPj4+ICvCoMKg
-wqAgc3RydWN0IGFtZGdwdV9tbiAqYW1uOwo+Pj4gK8KgwqDCoCBpbnQgciA9IDA7Cj4+PiArCj4+
-PiArwqDCoMKgIGFtbiA9IGNvbnRhaW5lcl9vZihtaXJyb3IsIHN0cnVjdCBhbWRncHVfbW4sIGht
-bV9taXJyb3IpOwo+Pj4gK8KgwqDCoCBrZXkgPSBBTURHUFVfTU5fS0VZKG1tLCBhbW4tPnR5cGUp
-Owo+Pj4gKwo+Pj4gK8KgwqDCoCBoYXNoX2Zvcl9lYWNoX3Bvc3NpYmxlKGFtbi0+YWRldi0+bW5f
-aGFzaCwgYW1uLCBub2RlLCBrZXkpCj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKEFNREdQVV9NTl9L
-RVkoYW1uLT5tbSwgYW1uLT50eXBlKSA9PSBrZXkpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHIgPSBhbW4tPm1uLm9wcy0+aW52YWxpZGF0ZV9yYW5nZV9zdGFydCgmYW1uLT5tbiwgbW0s
-Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHN0YXJ0LCBlbmQsIGJsb2NrYWJsZSk7Cj4+PiArIGFtbi0+bW4ub3BzLT5pbnZhbGlkYXRl
-X3JhbmdlX2VuZCgmYW1uLT5tbiwgbW0sCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0YXJ0LCBlbmQpOwo+Pj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgaWYgKHIpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-RFJNX0VSUk9SKCJmYWlsZWQgdG8gaW52YWxpZGF0ZSAlbHhcbiIsIHN0YXJ0KTsKPj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB9Cj4+PiArwqDCoMKgwqDCoMKgwqAgfQo+Pj4gKwo+Pj4gK8KgwqDCoCByZXR1cm4gcjsK
-Pj4+ICt9Cj4+PiArCj4+PiArI2VuZGlmCj4+PiArCj4+PiDCoCAvKioKPj4+IMKgwqAgKiBhbWRn
-cHVfbW5fZ2V0IC0gY3JlYXRlIG5vdGlmaWVyIGNvbnRleHQKPj4+IMKgwqAgKgo+Pj4gQEAgLTQx
-Myw3ICs0NTcsMTAgQEAgc3RydWN0IGFtZGdwdV9tbiAqYW1kZ3B1X21uX2dldChzdHJ1Y3QgCj4+
-PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4gwqDCoMKgwqDCoCBtdXRleF9pbml0KCZhbW4tPnJl
-YWRfbG9jayk7Cj4+PiDCoMKgwqDCoMKgIGF0b21pY19zZXQoJmFtbi0+cmVjdXJzaW9uLCAwKTsK
-Pj4+IMKgIC3CoMKgwqAgciA9IF9fbW11X25vdGlmaWVyX3JlZ2lzdGVyKCZhbW4tPm1uLCBtbSk7
-Cj4+PiArwqDCoMKgIGlmIChJU19FTkFCTEVEKENPTkZJR19ITU0pKQo+Pj4gK8KgwqDCoMKgwqDC
-oMKgIHIgPSBhbWRncHVfaG1tX3JlZ2lzdGVyKCZhbW4tPmhtbV9taXJyb3IsIG1tKTsKPj4+ICvC
-oMKgwqAgZWxzZQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHIgPSBfX21tdV9ub3RpZmllcl9yZWdpc3Rl
-cigmYW1uLT5tbiwgbW0pOwo+Pj4gwqDCoMKgwqDCoCBpZiAocikKPj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoCBnb3RvIGZyZWVfYW1uOwo+Pj4gwqAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9tbi5oIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfbW4uaAo+Pj4gaW5kZXggZWIwZjQzMi4uYzYyOGFkZCAxMDA2NDQKPj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tbi5oCj4+PiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaAo+Pj4gQEAgLTI4LDYgKzI4LDcgQEAKPj4+IMKg
-wqAgKiBNTVUgTm90aWZpZXIKPj4+IMKgwqAgKi8KPj4+IMKgIHN0cnVjdCBhbWRncHVfbW47Cj4+
-PiArc3RydWN0IGhtbV9taXJyb3I7Cj4+PiDCoCDCoCBlbnVtIGFtZGdwdV9tbl90eXBlIHsKPj4+
-IMKgwqDCoMKgwqAgQU1ER1BVX01OX1RZUEVfR0ZYLAo+Pj4gQEAgLTQxLDYgKzQyLDExIEBAIHN0
-cnVjdCBhbWRncHVfbW4gKmFtZGdwdV9tbl9nZXQoc3RydWN0IAo+Pj4gYW1kZ3B1X2RldmljZSAq
-YWRldiwKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZW51bSBhbWRncHVf
-bW5fdHlwZSB0eXBlKTsKPj4+IMKgIGludCBhbWRncHVfbW5fcmVnaXN0ZXIoc3RydWN0IGFtZGdw
-dV9ibyAqYm8sIHVuc2lnbmVkIGxvbmcgYWRkcik7Cj4+PiDCoCB2b2lkIGFtZGdwdV9tbl91bnJl
-Z2lzdGVyKHN0cnVjdCBhbWRncHVfYm8gKmJvKTsKPj4+ICtpbnQgYW1kZ3B1X21uX2ludmFsaWRh
-dGVfcmFuZ2Uoc3RydWN0IGhtbV9taXJyb3IgKm1pcnJvciwKPj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgc3RydWN0IG1tX3N0cnVjdCAqbW0sCj4+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgc3RhcnQsCj4+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgZW5kLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBib29sIGJsb2NrYWJsZSk7Cj4+PiDCoCAjZWxzZQo+Pj4gwqAgc3RhdGlj
-IGlubGluZSB2b2lkIGFtZGdwdV9tbl9sb2NrKHN0cnVjdCBhbWRncHVfbW4gKm1uKSB7fQo+Pj4g
-wqAgc3RhdGljIGlubGluZSB2b2lkIGFtZGdwdV9tbl91bmxvY2soc3RydWN0IGFtZGdwdV9tbiAq
-bW4pIHt9Cj4+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+The .ioctl and .compat_ioctl file operations have the same prototype so
+they can both point to the same function, which works great almost all
+the time when all the commands are compatible.
+
+One exception is the s390 architecture, where a compat pointer is only
+31 bit wide, and converting it into a 64-bit pointer requires calling
+compat_ptr(). Most drivers here will ever run in s390, but since we now
+have a generic helper for it, it's easy enough to use it consistently.
+
+I double-checked all these drivers to ensure that all ioctl arguments
+are used as pointers or are ignored, but are not interpreted as integer
+values.
+
+Signed-off-by: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
+---
+ drivers/android/binder.c                    | 2 +-
+ drivers/crypto/qat/qat_common/adf_ctl_drv.c | 2 +-
+ drivers/dma-buf/dma-buf.c                   | 4 +---
+ drivers/dma-buf/sw_sync.c                   | 2 +-
+ drivers/dma-buf/sync_file.c                 | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c    | 2 +-
+ drivers/hid/hidraw.c                        | 4 +---
+ drivers/iio/industrialio-core.c             | 2 +-
+ drivers/infiniband/core/uverbs_main.c       | 4 ++--
+ drivers/media/rc/lirc_dev.c                 | 4 +---
+ drivers/mfd/cros_ec_dev.c                   | 4 +---
+ drivers/misc/vmw_vmci/vmci_host.c           | 2 +-
+ drivers/nvdimm/bus.c                        | 4 ++--
+ drivers/nvme/host/core.c                    | 2 +-
+ drivers/pci/switch/switchtec.c              | 2 +-
+ drivers/platform/x86/wmi.c                  | 2 +-
+ drivers/rpmsg/rpmsg_char.c                  | 4 ++--
+ drivers/sbus/char/display7seg.c             | 2 +-
+ drivers/sbus/char/envctrl.c                 | 4 +---
+ drivers/scsi/3w-xxxx.c                      | 4 +---
+ drivers/scsi/cxlflash/main.c                | 2 +-
+ drivers/scsi/esas2r/esas2r_main.c           | 2 +-
+ drivers/scsi/pmcraid.c                      | 4 +---
+ drivers/staging/android/ion/ion.c           | 4 +---
+ drivers/staging/vme/devices/vme_user.c      | 2 +-
+ drivers/tee/tee_core.c                      | 2 +-
+ drivers/usb/class/cdc-wdm.c                 | 2 +-
+ drivers/usb/class/usbtmc.c                  | 4 +---
+ drivers/video/fbdev/ps3fb.c                 | 2 +-
+ drivers/virt/fsl_hypervisor.c               | 2 +-
+ fs/btrfs/super.c                            | 2 +-
+ fs/ceph/dir.c                               | 2 +-
+ fs/ceph/file.c                              | 2 +-
+ fs/fuse/dev.c                               | 2 +-
+ fs/notify/fanotify/fanotify_user.c          | 2 +-
+ fs/userfaultfd.c                            | 2 +-
+ net/rfkill/core.c                           | 2 +-
+ 37 files changed, 40 insertions(+), 58 deletions(-)
+
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index d58763b6b009..d2464f5759f8 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -5576,7 +5576,7 @@ static const struct file_operations binder_fops = {
+ 	.owner = THIS_MODULE,
+ 	.poll = binder_poll,
+ 	.unlocked_ioctl = binder_ioctl,
+-	.compat_ioctl = binder_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.mmap = binder_mmap,
+ 	.open = binder_open,
+ 	.flush = binder_flush,
+diff --git a/drivers/crypto/qat/qat_common/adf_ctl_drv.c b/drivers/crypto/qat/qat_common/adf_ctl_drv.c
+index abc7a7f64d64..8ff77a70addc 100644
+--- a/drivers/crypto/qat/qat_common/adf_ctl_drv.c
++++ b/drivers/crypto/qat/qat_common/adf_ctl_drv.c
+@@ -68,7 +68,7 @@ static long adf_ctl_ioctl(struct file *fp, unsigned int cmd, unsigned long arg);
+ static const struct file_operations adf_ctl_ops = {
+ 	.owner = THIS_MODULE,
+ 	.unlocked_ioctl = adf_ctl_ioctl,
+-	.compat_ioctl = adf_ctl_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ struct adf_ctl_drv_info {
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 13884474d158..a6d7dc4cf7e9 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -325,9 +325,7 @@ static const struct file_operations dma_buf_fops = {
+ 	.llseek		= dma_buf_llseek,
+ 	.poll		= dma_buf_poll,
+ 	.unlocked_ioctl	= dma_buf_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl	= dma_buf_ioctl,
+-#endif
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ };
+ 
+ /*
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 53c1d6d36a64..bc810506d487 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -419,5 +419,5 @@ const struct file_operations sw_sync_debugfs_fops = {
+ 	.open           = sw_sync_debugfs_open,
+ 	.release        = sw_sync_debugfs_release,
+ 	.unlocked_ioctl = sw_sync_ioctl,
+-	.compat_ioctl	= sw_sync_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ };
+diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
+index 35dd06479867..1c64ed60c658 100644
+--- a/drivers/dma-buf/sync_file.c
++++ b/drivers/dma-buf/sync_file.c
+@@ -488,5 +488,5 @@ static const struct file_operations sync_file_fops = {
+ 	.release = sync_file_release,
+ 	.poll = sync_file_poll,
+ 	.unlocked_ioctl = sync_file_ioctl,
+-	.compat_ioctl = sync_file_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 297b36c26a05..1d7b1e3c3ebe 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -47,7 +47,7 @@ static const char kfd_dev_name[] = "kfd";
+ static const struct file_operations kfd_fops = {
+ 	.owner = THIS_MODULE,
+ 	.unlocked_ioctl = kfd_ioctl,
+-	.compat_ioctl = kfd_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.open = kfd_open,
+ 	.mmap = kfd_mmap,
+ };
+diff --git a/drivers/hid/hidraw.c b/drivers/hid/hidraw.c
+index 4a44e48e08b2..e44b64812850 100644
+--- a/drivers/hid/hidraw.c
++++ b/drivers/hid/hidraw.c
+@@ -476,9 +476,7 @@ static const struct file_operations hidraw_ops = {
+ 	.release =      hidraw_release,
+ 	.unlocked_ioctl = hidraw_ioctl,
+ 	.fasync =	hidraw_fasync,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl   = hidraw_ioctl,
+-#endif
++	.compat_ioctl   = generic_compat_ioctl_ptrarg,
+ 	.llseek =	noop_llseek,
+ };
+ 
+diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+index a062cfddc5af..22844b94b0e9 100644
+--- a/drivers/iio/industrialio-core.c
++++ b/drivers/iio/industrialio-core.c
+@@ -1630,7 +1630,7 @@ static const struct file_operations iio_buffer_fileops = {
+ 	.owner = THIS_MODULE,
+ 	.llseek = noop_llseek,
+ 	.unlocked_ioctl = iio_ioctl,
+-	.compat_ioctl = iio_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static int iio_check_unique_scan_index(struct iio_dev *indio_dev)
+diff --git a/drivers/infiniband/core/uverbs_main.c b/drivers/infiniband/core/uverbs_main.c
+index 823beca448e1..f4755c1c9cfa 100644
+--- a/drivers/infiniband/core/uverbs_main.c
++++ b/drivers/infiniband/core/uverbs_main.c
+@@ -930,7 +930,7 @@ static const struct file_operations uverbs_fops = {
+ 	.release = ib_uverbs_close,
+ 	.llseek	 = no_llseek,
+ 	.unlocked_ioctl = ib_uverbs_ioctl,
+-	.compat_ioctl = ib_uverbs_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static const struct file_operations uverbs_mmap_fops = {
+@@ -941,7 +941,7 @@ static const struct file_operations uverbs_mmap_fops = {
+ 	.release = ib_uverbs_close,
+ 	.llseek	 = no_llseek,
+ 	.unlocked_ioctl = ib_uverbs_ioctl,
+-	.compat_ioctl = ib_uverbs_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static struct ib_client uverbs_client = {
+diff --git a/drivers/media/rc/lirc_dev.c b/drivers/media/rc/lirc_dev.c
+index f862f1b7f996..077209f414ed 100644
+--- a/drivers/media/rc/lirc_dev.c
++++ b/drivers/media/rc/lirc_dev.c
+@@ -730,9 +730,7 @@ static const struct file_operations lirc_fops = {
+ 	.owner		= THIS_MODULE,
+ 	.write		= ir_lirc_transmit_ir,
+ 	.unlocked_ioctl	= ir_lirc_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl	= ir_lirc_ioctl,
+-#endif
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ 	.read		= ir_lirc_read,
+ 	.poll		= ir_lirc_poll,
+ 	.open		= ir_lirc_open,
+diff --git a/drivers/mfd/cros_ec_dev.c b/drivers/mfd/cros_ec_dev.c
+index 999dac752bcc..35a04bcf55da 100644
+--- a/drivers/mfd/cros_ec_dev.c
++++ b/drivers/mfd/cros_ec_dev.c
+@@ -258,9 +258,7 @@ static const struct file_operations fops = {
+ 	.release = ec_device_release,
+ 	.read = ec_device_read,
+ 	.unlocked_ioctl = ec_device_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl = ec_device_ioctl,
+-#endif
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static void cros_ec_sensors_register(struct cros_ec_dev *ec)
+diff --git a/drivers/misc/vmw_vmci/vmci_host.c b/drivers/misc/vmw_vmci/vmci_host.c
+index 83e0c95d20a4..1308f889e53b 100644
+--- a/drivers/misc/vmw_vmci/vmci_host.c
++++ b/drivers/misc/vmw_vmci/vmci_host.c
+@@ -983,7 +983,7 @@ static const struct file_operations vmuser_fops = {
+ 	.release	= vmci_host_close,
+ 	.poll		= vmci_host_poll,
+ 	.unlocked_ioctl	= vmci_host_unlocked_ioctl,
+-	.compat_ioctl	= vmci_host_unlocked_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ };
+ 
+ static struct miscdevice vmci_host_miscdev = {
+diff --git a/drivers/nvdimm/bus.c b/drivers/nvdimm/bus.c
+index 8aae6dcc839f..7449cbc55df7 100644
+--- a/drivers/nvdimm/bus.c
++++ b/drivers/nvdimm/bus.c
+@@ -1133,7 +1133,7 @@ static const struct file_operations nvdimm_bus_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = nd_open,
+ 	.unlocked_ioctl = nd_ioctl,
+-	.compat_ioctl = nd_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.llseek = noop_llseek,
+ };
+ 
+@@ -1141,7 +1141,7 @@ static const struct file_operations nvdimm_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = nd_open,
+ 	.unlocked_ioctl = nvdimm_ioctl,
+-	.compat_ioctl = nvdimm_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.llseek = noop_llseek,
+ };
+ 
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index dd8ec1dd9219..2d986f573a29 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2579,7 +2579,7 @@ static const struct file_operations nvme_dev_fops = {
+ 	.owner		= THIS_MODULE,
+ 	.open		= nvme_dev_open,
+ 	.unlocked_ioctl	= nvme_dev_ioctl,
+-	.compat_ioctl	= nvme_dev_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ };
+ 
+ static ssize_t nvme_sysfs_reset(struct device *dev,
+diff --git a/drivers/pci/switch/switchtec.c b/drivers/pci/switch/switchtec.c
+index 9940cc70f38b..4296919c784e 100644
+--- a/drivers/pci/switch/switchtec.c
++++ b/drivers/pci/switch/switchtec.c
+@@ -967,7 +967,7 @@ static const struct file_operations switchtec_fops = {
+ 	.read = switchtec_dev_read,
+ 	.poll = switchtec_dev_poll,
+ 	.unlocked_ioctl = switchtec_dev_ioctl,
+-	.compat_ioctl = switchtec_dev_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static void link_event_work(struct work_struct *work)
+diff --git a/drivers/platform/x86/wmi.c b/drivers/platform/x86/wmi.c
+index 04791ea5d97b..e4d0697e07d6 100644
+--- a/drivers/platform/x86/wmi.c
++++ b/drivers/platform/x86/wmi.c
+@@ -886,7 +886,7 @@ static const struct file_operations wmi_fops = {
+ 	.read		= wmi_char_read,
+ 	.open		= wmi_char_open,
+ 	.unlocked_ioctl	= wmi_ioctl,
+-	.compat_ioctl	= wmi_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ };
+ 
+ static int wmi_dev_probe(struct device *dev)
+diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+index a76b963a7e50..02aefb2b2d47 100644
+--- a/drivers/rpmsg/rpmsg_char.c
++++ b/drivers/rpmsg/rpmsg_char.c
+@@ -285,7 +285,7 @@ static const struct file_operations rpmsg_eptdev_fops = {
+ 	.write = rpmsg_eptdev_write,
+ 	.poll = rpmsg_eptdev_poll,
+ 	.unlocked_ioctl = rpmsg_eptdev_ioctl,
+-	.compat_ioctl = rpmsg_eptdev_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static ssize_t name_show(struct device *dev, struct device_attribute *attr,
+@@ -446,7 +446,7 @@ static const struct file_operations rpmsg_ctrldev_fops = {
+ 	.open = rpmsg_ctrldev_open,
+ 	.release = rpmsg_ctrldev_release,
+ 	.unlocked_ioctl = rpmsg_ctrldev_ioctl,
+-	.compat_ioctl = rpmsg_ctrldev_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static void rpmsg_ctrldev_release_device(struct device *dev)
+diff --git a/drivers/sbus/char/display7seg.c b/drivers/sbus/char/display7seg.c
+index 5c8ed7350a04..064fe7247eb2 100644
+--- a/drivers/sbus/char/display7seg.c
++++ b/drivers/sbus/char/display7seg.c
+@@ -155,7 +155,7 @@ static long d7s_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ static const struct file_operations d7s_fops = {
+ 	.owner =		THIS_MODULE,
+ 	.unlocked_ioctl =	d7s_ioctl,
+-	.compat_ioctl =		d7s_ioctl,
++	.compat_ioctl =		generic_compat_ioctl_ptrarg,
+ 	.open =			d7s_open,
+ 	.release =		d7s_release,
+ 	.llseek = noop_llseek,
+diff --git a/drivers/sbus/char/envctrl.c b/drivers/sbus/char/envctrl.c
+index 56e962a01493..a26665ccea56 100644
+--- a/drivers/sbus/char/envctrl.c
++++ b/drivers/sbus/char/envctrl.c
+@@ -714,9 +714,7 @@ static const struct file_operations envctrl_fops = {
+ 	.owner =		THIS_MODULE,
+ 	.read =			envctrl_read,
+ 	.unlocked_ioctl =	envctrl_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl =		envctrl_ioctl,
+-#endif
++	.compat_ioctl =		generic_compat_ioctl_ptrarg,
+ 	.open =			envctrl_open,
+ 	.release =		envctrl_release,
+ 	.llseek =		noop_llseek,
+diff --git a/drivers/scsi/3w-xxxx.c b/drivers/scsi/3w-xxxx.c
+index 471366945bd4..86c9f22a152f 100644
+--- a/drivers/scsi/3w-xxxx.c
++++ b/drivers/scsi/3w-xxxx.c
+@@ -1047,9 +1047,7 @@ static int tw_chrdev_open(struct inode *inode, struct file *file)
+ static const struct file_operations tw_fops = {
+ 	.owner		= THIS_MODULE,
+ 	.unlocked_ioctl	= tw_chrdev_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl   = tw_chrdev_ioctl,
+-#endif
++	.compat_ioctl   = generic_compat_ioctl_ptrarg,
+ 	.open		= tw_chrdev_open,
+ 	.release	= NULL,
+ 	.llseek		= noop_llseek,
+diff --git a/drivers/scsi/cxlflash/main.c b/drivers/scsi/cxlflash/main.c
+index 6637116529aa..d968efeb50e8 100644
+--- a/drivers/scsi/cxlflash/main.c
++++ b/drivers/scsi/cxlflash/main.c
+@@ -3596,7 +3596,7 @@ static const struct file_operations cxlflash_chr_fops = {
+ 	.owner          = THIS_MODULE,
+ 	.open           = cxlflash_chr_open,
+ 	.unlocked_ioctl	= cxlflash_chr_ioctl,
+-	.compat_ioctl	= cxlflash_chr_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ };
+ 
+ /**
+diff --git a/drivers/scsi/esas2r/esas2r_main.c b/drivers/scsi/esas2r/esas2r_main.c
+index c07118617d89..95142292e702 100644
+--- a/drivers/scsi/esas2r/esas2r_main.c
++++ b/drivers/scsi/esas2r/esas2r_main.c
+@@ -614,7 +614,7 @@ static int __init esas2r_init(void)
+ 
+ /* Handle ioctl calls to "/proc/scsi/esas2r/ATTOnode" */
+ static const struct file_operations esas2r_proc_fops = {
+-	.compat_ioctl	= esas2r_proc_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ 	.unlocked_ioctl = esas2r_proc_ioctl,
+ };
+ 
+diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
+index 4e86994e10e8..8a8c73d3bdad 100644
+--- a/drivers/scsi/pmcraid.c
++++ b/drivers/scsi/pmcraid.c
+@@ -3999,9 +3999,7 @@ static const struct file_operations pmcraid_fops = {
+ 	.open = pmcraid_chr_open,
+ 	.fasync = pmcraid_chr_fasync,
+ 	.unlocked_ioctl = pmcraid_chr_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl = pmcraid_chr_ioctl,
+-#endif
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.llseek = noop_llseek,
+ };
+ 
+diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
+index 99073325b0c0..ef727c235392 100644
+--- a/drivers/staging/android/ion/ion.c
++++ b/drivers/staging/android/ion/ion.c
+@@ -484,9 +484,7 @@ int ion_query_heaps(struct ion_heap_query *query)
+ static const struct file_operations ion_fops = {
+ 	.owner          = THIS_MODULE,
+ 	.unlocked_ioctl = ion_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl	= ion_ioctl,
+-#endif
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ };
+ 
+ static int debug_shrink_set(void *data, u64 val)
+diff --git a/drivers/staging/vme/devices/vme_user.c b/drivers/staging/vme/devices/vme_user.c
+index 6a33aaa1a49f..568700ffd2f2 100644
+--- a/drivers/staging/vme/devices/vme_user.c
++++ b/drivers/staging/vme/devices/vme_user.c
+@@ -494,7 +494,7 @@ static const struct file_operations vme_user_fops = {
+ 	.write = vme_user_write,
+ 	.llseek = vme_user_llseek,
+ 	.unlocked_ioctl = vme_user_unlocked_ioctl,
+-	.compat_ioctl = vme_user_unlocked_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.mmap = vme_user_mmap,
+ };
+ 
+diff --git a/drivers/tee/tee_core.c b/drivers/tee/tee_core.c
+index dd46b758852a..cb79f28be894 100644
+--- a/drivers/tee/tee_core.c
++++ b/drivers/tee/tee_core.c
+@@ -670,7 +670,7 @@ static const struct file_operations tee_fops = {
+ 	.open = tee_open,
+ 	.release = tee_release,
+ 	.unlocked_ioctl = tee_ioctl,
+-	.compat_ioctl = tee_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static void tee_release_device(struct device *dev)
+diff --git a/drivers/usb/class/cdc-wdm.c b/drivers/usb/class/cdc-wdm.c
+index bec581fb7c63..6e4998c8e64f 100644
+--- a/drivers/usb/class/cdc-wdm.c
++++ b/drivers/usb/class/cdc-wdm.c
+@@ -724,7 +724,7 @@ static const struct file_operations wdm_fops = {
+ 	.release =	wdm_release,
+ 	.poll =		wdm_poll,
+ 	.unlocked_ioctl = wdm_ioctl,
+-	.compat_ioctl = wdm_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.llseek =	noop_llseek,
+ };
+ 
+diff --git a/drivers/usb/class/usbtmc.c b/drivers/usb/class/usbtmc.c
+index 83ffa5a14c3d..d5da47c4c462 100644
+--- a/drivers/usb/class/usbtmc.c
++++ b/drivers/usb/class/usbtmc.c
+@@ -1460,9 +1460,7 @@ static const struct file_operations fops = {
+ 	.open		= usbtmc_open,
+ 	.release	= usbtmc_release,
+ 	.unlocked_ioctl	= usbtmc_ioctl,
+-#ifdef CONFIG_COMPAT
+-	.compat_ioctl	= usbtmc_ioctl,
+-#endif
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ 	.fasync         = usbtmc_fasync,
+ 	.poll           = usbtmc_poll,
+ 	.llseek		= default_llseek,
+diff --git a/drivers/video/fbdev/ps3fb.c b/drivers/video/fbdev/ps3fb.c
+index 5ed2db39d823..f9f8ffaf1c4a 100644
+--- a/drivers/video/fbdev/ps3fb.c
++++ b/drivers/video/fbdev/ps3fb.c
+@@ -949,7 +949,7 @@ static struct fb_ops ps3fb_ops = {
+ 	.fb_mmap	= ps3fb_mmap,
+ 	.fb_blank	= ps3fb_blank,
+ 	.fb_ioctl	= ps3fb_ioctl,
+-	.fb_compat_ioctl = ps3fb_ioctl
++	.fb_compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static const struct fb_fix_screeninfo ps3fb_fix = {
+diff --git a/drivers/virt/fsl_hypervisor.c b/drivers/virt/fsl_hypervisor.c
+index 8ba726e600e9..406b7e492214 100644
+--- a/drivers/virt/fsl_hypervisor.c
++++ b/drivers/virt/fsl_hypervisor.c
+@@ -703,7 +703,7 @@ static const struct file_operations fsl_hv_fops = {
+ 	.poll = fsl_hv_poll,
+ 	.read = fsl_hv_read,
+ 	.unlocked_ioctl = fsl_hv_ioctl,
+-	.compat_ioctl = fsl_hv_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ };
+ 
+ static struct miscdevice fsl_hv_misc_dev = {
+diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
+index 6601c9aa5e35..2b5a8ad86305 100644
+--- a/fs/btrfs/super.c
++++ b/fs/btrfs/super.c
+@@ -2352,7 +2352,7 @@ static const struct super_operations btrfs_super_ops = {
+ static const struct file_operations btrfs_ctl_fops = {
+ 	.open = btrfs_control_open,
+ 	.unlocked_ioctl	 = btrfs_control_ioctl,
+-	.compat_ioctl = btrfs_control_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.owner	 = THIS_MODULE,
+ 	.llseek = noop_llseek,
+ };
+diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
+index da73f29d7faa..eb869fe6774d 100644
+--- a/fs/ceph/dir.c
++++ b/fs/ceph/dir.c
+@@ -1489,7 +1489,7 @@ const struct file_operations ceph_dir_fops = {
+ 	.open = ceph_open,
+ 	.release = ceph_release,
+ 	.unlocked_ioctl = ceph_ioctl,
+-	.compat_ioctl = ceph_ioctl,
++	.compat_ioctl = generic_compat_ioctl_ptrarg,
+ 	.fsync = ceph_fsync,
+ 	.lock = ceph_lock,
+ 	.flock = ceph_flock,
+diff --git a/fs/ceph/file.c b/fs/ceph/file.c
+index 92ab20433682..85094042cfac 100644
+--- a/fs/ceph/file.c
++++ b/fs/ceph/file.c
+@@ -1842,7 +1842,7 @@ const struct file_operations ceph_file_fops = {
+ 	.splice_read = generic_file_splice_read,
+ 	.splice_write = iter_file_splice_write,
+ 	.unlocked_ioctl = ceph_ioctl,
+-	.compat_ioctl	= ceph_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ 	.fallocate	= ceph_fallocate,
+ };
+ 
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 11ea2c4a38ab..a6d4a24963ed 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -2258,7 +2258,7 @@ const struct file_operations fuse_dev_operations = {
+ 	.release	= fuse_dev_release,
+ 	.fasync		= fuse_dev_fasync,
+ 	.unlocked_ioctl = fuse_dev_ioctl,
+-	.compat_ioctl   = fuse_dev_ioctl,
++	.compat_ioctl   = generic_compat_ioctl_ptrarg,
+ };
+ EXPORT_SYMBOL_GPL(fuse_dev_operations);
+ 
+diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
+index 69054886915b..fc4193b384cf 100644
+--- a/fs/notify/fanotify/fanotify_user.c
++++ b/fs/notify/fanotify/fanotify_user.c
+@@ -447,7 +447,7 @@ static const struct file_operations fanotify_fops = {
+ 	.fasync		= NULL,
+ 	.release	= fanotify_release,
+ 	.unlocked_ioctl	= fanotify_ioctl,
+-	.compat_ioctl	= fanotify_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ 	.llseek		= noop_llseek,
+ };
+ 
+diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
+index bfa0ec69f924..bc9118b58a8a 100644
+--- a/fs/userfaultfd.c
++++ b/fs/userfaultfd.c
+@@ -1878,7 +1878,7 @@ static const struct file_operations userfaultfd_fops = {
+ 	.poll		= userfaultfd_poll,
+ 	.read		= userfaultfd_read,
+ 	.unlocked_ioctl = userfaultfd_ioctl,
+-	.compat_ioctl	= userfaultfd_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ 	.llseek		= noop_llseek,
+ };
+ 
+diff --git a/net/rfkill/core.c b/net/rfkill/core.c
+index 1355f5ca8d22..ba68b53f58ab 100644
+--- a/net/rfkill/core.c
++++ b/net/rfkill/core.c
+@@ -1323,7 +1323,7 @@ static const struct file_operations rfkill_fops = {
+ 	.release	= rfkill_fop_release,
+ #ifdef CONFIG_RFKILL_INPUT
+ 	.unlocked_ioctl	= rfkill_fop_ioctl,
+-	.compat_ioctl	= rfkill_fop_ioctl,
++	.compat_ioctl	= generic_compat_ioctl_ptrarg,
+ #endif
+ 	.llseek		= no_llseek,
+ };
+-- 
+2.18.0
