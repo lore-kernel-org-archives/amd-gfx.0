@@ -1,13 +1,16 @@
-From: Richard Smith <richardsmith-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Add braces to initialize task_info subojects
-Date: Wed, 12 Sep 2018 13:24:34 -0700
-Message-ID: <CAGL0aWeYARfArmSJwXemE_QdGeRwnfE-CKh+DaRY8jwEF0SU5w@mail.gmail.com>
-References: <20180912002559.1853-1-natechancellor@gmail.com>
- <CAKwvOdkMg_1JxVNhKrUM0CZxF6nQo8c5h7t4zu4RP2xEXyQdKQ@mail.gmail.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 11/16] drm/amd/display: Add Raven2 definitions in dc
+Date: Wed, 12 Sep 2018 16:43:55 -0400
+Message-ID: <4a0826ff-d3a2-4f6f-2c74-d262e6ec70b3@amd.com>
+References: <20180912192933.28712-1-alexander.deucher@amd.com>
+ <20180912192933.28712-12-alexander.deucher@amd.com>
+ <CADnq5_PsBONPZyirw5BVGNb=sf5_9njE6=jXBm0d7RjqC8=i+g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1424637900=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAKwvOdkMg_1JxVNhKrUM0CZxF6nQo8c5h7t4zu4RP2xEXyQdKQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CADnq5_PsBONPZyirw5BVGNb=sf5_9njE6=jXBm0d7RjqC8=i+g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,242 +21,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Wu,
+ Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
 
---===============1424637900==
-Content-Type: multipart/alternative; boundary="0000000000009b4d3c0575b261d6"
-
---0000000000009b4d3c0575b261d6
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Sep 12, 2018 at 10:38 AM Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-wrote:
-
-> On Tue, Sep 11, 2018 at 5:26 PM Nathan Chancellor
-> <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-> >
-> > Clang warns if there are missing braces around a subobject
-> > initializer.
-> >
-> > drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:41: warning: suggest braces
-> > around initialization of subobject [-Wmissing-braces]
-> >                 struct amdgpu_task_info task_info = { 0 };
-> >                                                       ^
-> >                                                       {}
-> > 1 warning generated.
-> >
-> > drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:262:41: warning: suggest braces
-> > around initialization of subobject [-Wmissing-braces]
-> >                 struct amdgpu_task_info task_info = { 0 };
-> >                                                       ^
-> >                                                       {}
-> > 1 warning generated.
-> >
-> > Reported-by: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-> > Signed-off-by: Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
-> >  2 files changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> > index 9333109b210d..968cc1b8cdff 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> > @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct
-> amdgpu_device *adev,
-> >                 gmc_v8_0_set_fault_enable_default(adev, false);
-> >
-> >         if (printk_ratelimit()) {
-> > -               struct amdgpu_task_info task_info = { 0 };
-> > +               struct amdgpu_task_info task_info = { { 0 } };
->
-> Hi Nathan,
-> Thanks for this patch.  I discussed this syntax with our language
-> lawyers.  Turns out, this is not quite correct, as you're now saying
-> "initialize the first subobject to zero, but not the rest of the
-> object."  -Wmissing-field-initializers would highlight this, but it's
-> not part of -Wall.  It would be more correct to zero initialize the
-> full struct, including all of its subobjects with `= {};`.
->
-
-Sorry, I think I've caused some confusion here.
-
-Elements with an omitted initializer get implicitly zero-initialized. In
-C++, it's idiomatic to write `= {}` to perform aggregate
-zero-initialization, but in C, that's invalid because at least one
-initializer is syntactically required within the braces. As a result, `=
-{0}` is an idiomatic way to perform zero-initialization of an aggregate in
-C. Clang intends to suppress the -Wmissing-braces in that case; if the
-warning is still being produced in a recent version of Clang, that's a bug.
-However, the warning suppression was added between Clang 5 and Clang 6, so
-it's very plausible that the compiler being used here is simply older than
-the warning fix.
-
-(Long story short: the change here seems fine, but should be unnecessary as
-of Clang 6.)
-
-
-> >                 amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > index 72f8018fa2a8..a781a5027212 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> > @@ -259,7 +259,7 @@ static int gmc_v9_0_process_interrupt(struct
-> amdgpu_device *adev,
-> >         }
-> >
-> >         if (printk_ratelimit()) {
-> > -               struct amdgpu_task_info task_info = { 0 };
-> > +               struct amdgpu_task_info task_info = { { 0 } };
-> >
-> >                 amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
-> >
-> > --
-> > 2.18.0
-> >
->
->
-> --
-> Thanks,
-> ~Nick Desaulniers
->
-
---0000000000009b4d3c0575b261d6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed, Sep 12=
-, 2018 at 10:38 AM Nick Desaulniers &lt;<a href=3D"mailto:ndesaulniers@goog=
-le.com">ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">On Tue, Sep 11, 2018 at 5:26 PM Nathan Chancellor<br>
-&lt;<a href=3D"mailto:natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">natechanc=
-ellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Clang warns if there are missing braces around a subobject<br>
-&gt; initializer.<br>
-&gt;<br>
-&gt; drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:41: warning: suggest braces=
-<br>
-&gt; around initialization of subobject [-Wmissing-braces]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct am=
-dgpu_task_info task_info =3D { 0 };<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{}<br>
-&gt; 1 warning generated.<br>
-&gt;<br>
-&gt; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:262:41: warning: suggest braces<=
-br>
-&gt; around initialization of subobject [-Wmissing-braces]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct am=
-dgpu_task_info task_info =3D { 0 };<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{}<br>
-&gt; 1 warning generated.<br>
-&gt;<br>
-&gt; Reported-by: Nick Desaulniers &lt;<a href=3D"mailto:ndesaulniers@googl=
-e.com" target=3D"_blank">ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
-&gt; Signed-off-by: Nathan Chancellor &lt;<a href=3D"mailto:natechancellor@=
-gmail.com" target=3D"_blank">natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-<br>
-&gt;=C2=A0 2 files changed, 2 insertions(+), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gmc_v8_0.c<br>
-&gt; index 9333109b210d..968cc1b8cdff 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
-&gt; @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct amd=
-gpu_device *adev,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gmc_v8_0_=
-set_fault_enable_default(adev, false);<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (printk_ratelimit()) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_=
-task_info task_info =3D { 0 };<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_=
-task_info task_info =3D { { 0 } };<br>
-<br>
-Hi Nathan,<br>
-Thanks for this patch.=C2=A0 I discussed this syntax with our language<br>
-lawyers.=C2=A0 Turns out, this is not quite correct, as you&#39;re now sayi=
-ng<br>
-&quot;initialize the first subobject to zero, but not the rest of the<br>
-object.&quot;=C2=A0 -Wmissing-field-initializers would highlight this, but =
-it&#39;s<br>
-not part of -Wall.=C2=A0 It would be more correct to zero initialize the<br=
->
-full struct, including all of its subobjects with `=3D {};`.<br></blockquot=
-e><div><br></div><div>Sorry, I think I&#39;ve caused some confusion here.</=
-div><div><br></div><div>Elements with an omitted initializer get implicitly=
- zero-initialized. In C++, it&#39;s idiomatic to write `=3D {}` to perform =
-aggregate zero-initialization, but in C, that&#39;s invalid because at leas=
-t one initializer is syntactically required within the braces. As a result,=
- `=3D {0}` is an idiomatic way to perform zero-initialization of an aggrega=
-te in C. Clang intends to suppress the -Wmissing-braces in that case; if th=
-e warning is still being produced in a recent version of Clang, that&#39;s =
-a bug. However, the warning suppression was added between Clang 5 and Clang=
- 6, so it&#39;s very plausible that the compiler being used here is simply =
-older than the warning fix.<br></div><div><br></div><div>(Long story short:=
- the change here seems fine, but should be unnecessary as of Clang 6.)</div=
-><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_vm=
-_get_task_info(adev, entry-&gt;pasid, &amp;task_info);<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gmc_v9_0.c<br>
-&gt; index 72f8018fa2a8..a781a5027212 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&gt; @@ -259,7 +259,7 @@ static int gmc_v9_0_process_interrupt(struct amdgp=
-u_device *adev,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (printk_ratelimit()) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_=
-task_info task_info =3D { 0 };<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_=
-task_info task_info =3D { { 0 } };<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_vm=
-_get_task_info(adev, entry-&gt;pasid, &amp;task_info);<br>
-&gt;<br>
-&gt; --<br>
-&gt; 2.18.0<br>
-&gt;<br>
-<br>
-<br>
--- <br>
-Thanks,<br>
-~Nick Desaulniers<br>
-</blockquote></div></div>
-
---0000000000009b4d3c0575b261d6--
-
---===============1424637900==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1424637900==--
+CgpPbiAyMDE4LTA5LTEyIDA0OjEwIFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gT24gV2VkLCBT
+ZXAgMTIsIDIwMTggYXQgMzoyOSBQTSBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNv
+bT4gd3JvdGU6Cj4+Cj4+IEZyb206IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5wcmVldC5MYWto
+YUBhbWQuY29tPgo+Pgo+PiBBZGQgUmF2ZW4yIGRlZmluaXRpb25zIGluIHRoZSBkYyBjb2RlCj4+
+Cj4+IFNpZ25lZC1vZmYtYnk6IEJoYXdhbnByZWV0IExha2hhIDxCaGF3YW5wcmVldC5MYWtoYUBh
+bWQuY29tPgo+PiBSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFt
+ZC5jb20+Cj4+IFJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+PiBB
+Y2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tCj4+IFNpZ25l
+ZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPj4gLS0t
+Cj4+ICAuLi4vYW1kL2Rpc3BsYXkvZGMvYmlvcy9jb21tYW5kX3RhYmxlX2hlbHBlcjIuYyAgICB8
+ICA1ICsrKwo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3Vy
+Y2UuYyAgfCAgNyArKysrKwo+PiAgLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9j
+bG9ja19zb3VyY2UuYyAgfCAgNyArKysrKwo+IAo+IFNvbWUgb2YgdGhlIGNsb2NrIHNvdXJjZSBj
+aGFuZ2VzIGxvb2sgc3VzcGVjdC4gIFNlZSBjb21tZW50cyBiZWxvdy4KPiAKPiBBbGV4Cj4gCj4+
+ICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9yZXNvdXJjZS5jICB8IDM2
+ICsrKysrKysrKysrKysrKysrKysrKy0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9ncGlvL2h3X2ZhY3RvcnkuYyAgIHwgIDUgKysrCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvZGMvZ3Bpby9od190cmFuc2xhdGUuYyB8ICA1ICsrKwo+PiAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2RjL2kyY2F1eC9pMmNhdXguYyAgICAgfCAgNCArKysKPj4gIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9pbmNsdWRlL2RhbF9hc2ljX2lkLmggIHwgIDcgKysrKysKPj4g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9pbmNsdWRlL2RhbF90eXBlcy5oICAgIHwgIDMg
+KysKPj4gIDkgZmlsZXMgY2hhbmdlZCwgNzggaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+
+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvY29t
+bWFuZF90YWJsZV9oZWxwZXIyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlv
+cy9jb21tYW5kX3RhYmxlX2hlbHBlcjIuYwo+PiBpbmRleCBiYmJjZWY1NjZjNTUuLjY1YjAwNmFk
+MzcyZSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3Mv
+Y29tbWFuZF90YWJsZV9oZWxwZXIyLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2Jpb3MvY29tbWFuZF90YWJsZV9oZWxwZXIyLmMKPj4gQEAgLTYxLDYgKzYxLDExIEBA
+IGJvb2wgZGFsX2Jpb3NfcGFyc2VyX2luaXRfY21kX3RibF9oZWxwZXIyKAo+PiAgICAgICAgICAg
+ICAgICAgcmV0dXJuIHRydWU7Cj4+ICAjZW5kaWYKPj4KPj4gKyNpZiBkZWZpbmVkKENPTkZJR19E
+Uk1fQU1EX0RDX0RDTjFfMDEpCj4+ICsgICAgICAgY2FzZSBEQ05fVkVSU0lPTl8xXzAxOgo+PiAr
+ICAgICAgICAgICAgICAgKmggPSBkYWxfY21kX3RibF9oZWxwZXJfZGNlMTEyX2dldF90YWJsZTIo
+KTsKPj4gKyAgICAgICAgICAgICAgIHJldHVybiB0cnVlOwo+PiArI2VuZGlmCj4+ICAgICAgICAg
+Y2FzZSBEQ0VfVkVSU0lPTl8xMl8wOgo+PiAgICAgICAgICAgICAgICAgKmggPSBkYWxfY21kX3Ri
+bF9oZWxwZXJfZGNlMTEyX2dldF90YWJsZTIoKTsKPj4gICAgICAgICAgICAgICAgIHJldHVybiB0
+cnVlOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUv
+ZGNfcmVzb3VyY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jl
+c291cmNlLmMKPj4gaW5kZXggZDk4MTc1NWQxZTRkLi43MjFkZDEzZDJlZDIgMTAwNjQ0Cj4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291cmNlLmMKPj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYwo+
+PiBAQCAtODgsNiArODgsMTAgQEAgZW51bSBkY2VfdmVyc2lvbiByZXNvdXJjZV9wYXJzZV9hc2lj
+X2lkKHN0cnVjdCBod19hc2ljX2lkIGFzaWNfaWQpCj4+ICAjaWYgZGVmaW5lZChDT05GSUdfRFJN
+X0FNRF9EQ19EQ04xXzApCj4+ICAgICAgICAgY2FzZSBGQU1JTFlfUlY6Cj4+ICAgICAgICAgICAg
+ICAgICBkY192ZXJzaW9uID0gRENOX1ZFUlNJT05fMV8wOwo+PiArI2lmIGRlZmluZWQoQ09ORklH
+X0RSTV9BTURfRENfRENOMV8wMSkKPj4gKyAgICAgICAgICAgICAgIGlmIChBU0lDUkVWX0lTX1JB
+VkVOMihhc2ljX2lkLmh3X2ludGVybmFsX3JldikpCj4+ICsgICAgICAgICAgICAgICAgICAgICAg
+IGRjX3ZlcnNpb24gPSBEQ05fVkVSU0lPTl8xXzAxOwo+PiArI2VuZGlmCj4+ICAgICAgICAgICAg
+ICAgICBicmVhazsKPj4gICNlbmRpZgo+PiAgICAgICAgIGRlZmF1bHQ6Cj4+IEBAIC0xMzgsNiAr
+MTQyLDkgQEAgc3RydWN0IHJlc291cmNlX3Bvb2wgKmRjX2NyZWF0ZV9yZXNvdXJjZV9wb29sKAo+
+Pgo+PiAgI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfRENfRENOMV8wKQo+PiAgICAgICAgIGNh
+c2UgRENOX1ZFUlNJT05fMV8wOgo+PiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfRENfRENO
+MV8wMSkKPj4gKyAgICAgICBjYXNlIERDTl9WRVJTSU9OXzFfMDE6Cj4+ICsjZW5kaWYKPj4gICAg
+ICAgICAgICAgICAgIHJlc19wb29sID0gZGNuMTBfY3JlYXRlX3Jlc291cmNlX3Bvb2woCj4+ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbnVtX3ZpcnR1YWxfbGlua3MsIGRjKTsKPj4g
+ICAgICAgICAgICAgICAgIGJyZWFrOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja19zb3VyY2UuYwo+PiBpbmRleCA1YTlmMzYwMWZmYjYu
+LmFlM2M0NGFmZjFjOCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMKPj4gQEAgLTYwMSw2ICs2MDEsOSBAQCBz
+dGF0aWMgdWludDMyX3QgZGNlMTEwX2dldF9waXhfY2xrX2RpdmlkZXJzKAo+PiAgICAgICAgIGNh
+c2UgRENOX1ZFUlNJT05fMV8wOgo+PiAgI2VuZGlmCj4+Cj4+ICsjaWYgZGVmaW5lZChDT05GSUdf
+RFJNX0FNRF9EQ19EQ04xXzAxKQo+PiArICAgICAgIGNhc2UgRENOX1ZFUlNJT05fMV8wMToKPj4g
+KyNlbmRpZgo+PiAgICAgICAgICAgICAgICAgZGNlMTEyX2dldF9waXhfY2xrX2RpdmlkZXJzX2hl
+bHBlcihjbGtfc3JjLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBsbF9zZXR0
+aW5ncywgcGl4X2Nsa19wYXJhbXMpOwo+PiAgICAgICAgICAgICAgICAgYnJlYWs7Cj4+IEBAIC05
+MDcsNiArOTEwLDEwIEBAIHN0YXRpYyBib29sIGRjZTExMF9wcm9ncmFtX3BpeF9jbGsoCj4+ICAg
+ICAgICAgY2FzZSBEQ05fVkVSU0lPTl8xXzA6Cj4+ICAjZW5kaWYKPj4KPj4gKyNpZiBkZWZpbmVk
+KENPTkZJR19EUk1fQU1EX0RDX0RDTjFfMDEpCj4+ICsgICAgICAgY2FzZSBEQ05fVkVSU0lPTl8x
+XzAxOgo+PiArI2VuZGlmCj4+ICsKPj4gICAgICAgICAgICAgICAgIGlmIChjbG9ja19zb3VyY2Ut
+PmlkICE9IENMT0NLX1NPVVJDRV9JRF9EUF9EVE8pIHsKPj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgYnBfcGNfcGFyYW1zLmZsYWdzLlNFVF9HRU5MT0NLX1JFRl9ESVZfU1JDID0KPj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbGxfc2V0
+dGluZ3MtPnVzZV9leHRlcm5hbF9jbGs7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfcmVzb3VyY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9yZXNvdXJjZS5jCj4+IGluZGV4IDFiNTE5ZjhmMDQ0
+Zi4uNjVhNTk2ZmZhMDJhIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZGNuMTAvZGNuMTBfcmVzb3VyY2UuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfcmVzb3VyY2UuYwo+PiBAQCAtMTUyLDcgKzE1MiwxMCBA
+QCBlbnVtIGRjbjEwX2Nsa19zcmNfYXJyYXlfaWQgewo+PiAgICAgICAgIERDTjEwX0NMS19TUkNf
+UExMMSwKPj4gICAgICAgICBEQ04xMF9DTEtfU1JDX1BMTDIsCj4+ICAgICAgICAgRENOMTBfQ0xL
+X1NSQ19QTEwzLAo+PiAtICAgICAgIERDTjEwX0NMS19TUkNfVE9UQUwKPj4gKyAgICAgICBEQ04x
+MF9DTEtfU1JDX1RPVEFMLAo+PiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfRENfRENOMV8w
+MSkKPj4gKyAgICAgICBEQ04xMDFfQ0xLX1NSQ19UT1RBTCA9IERDTjEwX0NMS19TUkNfUExMMwo+
+PiArI2VuZGlmCj4gCj4gVGhpcyBjaGFuZ2UgbG9va3Mgc3VzcGVjdC4KCitIZXJzZW4gd2hvIGRp
+ZCBzb21lIG9mIHRoZSBvcmlnaW5hbCB3b3JrLgoKQUZBSUsgRENOIDEwLjEgaGFzIG9uZSBsZXNz
+IFBMTC4KCldlIGNhbiBkcm9wIGFsbCB0aGUgRENOMV8wMSBpZmRlZnMgdG8gaGVscCBzaW1wbGlm
+eSB0aGlzIGNvZGUgYSBiaXQuCgpPciBkbyB5b3UgbWVhbiBzb21ldGhpbmcgZWxzZSBoZXJlPwoK
+SGFycnkKCj4gCj4gQWxleAo+IAo+PiAgfTsKPj4KPj4gIC8qIGJlZ2luICoqKioqKioqKioqKioq
+KioqKioqKgo+PiBAQCAtMTE2Myw2ICsxMTY2LDEwIEBAIHN0YXRpYyBib29sIGNvbnN0cnVjdCgK
+Pj4gICAgICAgICAvKiBtYXggcGlwZSBudW0gZm9yIEFTSUMgYmVmb3JlIGNoZWNrIHBpcGUgZnVz
+ZXMgKi8KPj4gICAgICAgICBwb29sLT5iYXNlLnBpcGVfY291bnQgPSBwb29sLT5iYXNlLnJlc19j
+YXAtPm51bV90aW1pbmdfZ2VuZXJhdG9yOwo+Pgo+PiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9B
+TURfRENfRENOMV8wMSkKPj4gKyAgICAgICBpZiAoZGMtPmN0eC0+ZGNlX3ZlcnNpb24gPT0gRENO
+X1ZFUlNJT05fMV8wMSkKPj4gKyAgICAgICAgICAgICAgIHBvb2wtPmJhc2UucGlwZV9jb3VudCA9
+IDM7Cj4+ICsjZW5kaWYKPj4gICAgICAgICBkYy0+Y2Fwcy5tYXhfdmlkZW9fd2lkdGggPSAzODQw
+Owo+PiAgICAgICAgIGRjLT5jYXBzLm1heF9kb3duc2NhbGVfcmF0aW8gPSAyMDA7Cj4+ICAgICAg
+ICAgZGMtPmNhcHMuaTJjX3NwZWVkX2luX2toeiA9IDEwMDsKPj4gQEAgLTExOTQsMTMgKzEyMDEs
+MjggQEAgc3RhdGljIGJvb2wgY29uc3RydWN0KAo+PiAgICAgICAgICAgICAgICAgICAgICAgICBk
+Y24xMF9jbG9ja19zb3VyY2VfY3JlYXRlKGN0eCwgY3R4LT5kY19iaW9zLAo+PiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIENMT0NLX1NPVVJDRV9DT01CT19QSFlfUExMMiwKPj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmY2xrX3NyY19yZWdzWzJdLCBmYWxzZSk7Cj4+
+ICsKPj4gKyNpZmRlZiBDT05GSUdfRFJNX0FNRF9EQ19EQ04xXzAxCj4+ICsgICAgICAgaWYgKGRj
+LT5jdHgtPmRjZV92ZXJzaW9uID09IERDTl9WRVJTSU9OXzFfMCkgewo+PiArICAgICAgICAgICAg
+ICAgcG9vbC0+YmFzZS5jbG9ja19zb3VyY2VzW0RDTjEwX0NMS19TUkNfUExMM10gPQo+PiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRjbjEwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4
+LCBjdHgtPmRjX2Jpb3MsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBDTE9DS19TT1VSQ0VfQ09NQk9fUEhZX1BMTDMsCj4+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAmY2xrX3NyY19yZWdzWzNdLCBmYWxzZSk7Cj4+ICsgICAgICAgfQo+
+PiArI2Vsc2UKPj4gICAgICAgICBwb29sLT5iYXNlLmNsb2NrX3NvdXJjZXNbRENOMTBfQ0xLX1NS
+Q19QTEwzXSA9Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgIGRjbjEwX2Nsb2NrX3NvdXJjZV9j
+cmVhdGUoY3R4LCBjdHgtPmRjX2Jpb3MsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgQ0xPQ0tfU09VUkNFX0NPTUJPX1BIWV9QTEwzLAo+PiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICZjbGtfc3JjX3JlZ3NbM10sIGZhbHNlKTsKPj4gKyNlbmRpZgo+IAo+IFRoaXMg
+b25lIHRvby4KPiAKPj4KPj4gICAgICAgICBwb29sLT5iYXNlLmNsa19zcmNfY291bnQgPSBEQ04x
+MF9DTEtfU1JDX1RPVEFMOwo+Pgo+PiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfRENfRENO
+MV8wMSkKPj4gKyAgICAgICBpZiAoZGMtPmN0eC0+ZGNlX3ZlcnNpb24gPT0gRENOX1ZFUlNJT05f
+MV8wMSkKPj4gKyAgICAgICAgICAgICAgIHBvb2wtPmJhc2UuY2xrX3NyY19jb3VudCA9IERDTjEw
+MV9DTEtfU1JDX1RPVEFMOwo+PiArI2VuZGlmCj4gCj4gSGVyZSB0b28uCj4gCj4+ICsKPj4gICAg
+ICAgICBwb29sLT5iYXNlLmRwX2Nsb2NrX3NvdXJjZSA9Cj4+ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGRjbjEwX2Nsb2NrX3NvdXJjZV9jcmVhdGUoY3R4LCBjdHgtPmRjX2Jpb3MsCj4+ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgQ0xPQ0tfU09VUkNFX0lEX0RQX0RUTywKPj4gQEAg
+LTEyNDYsNiArMTI2OCwxOCBAQCBzdGF0aWMgYm9vbCBjb25zdHJ1Y3QoCj4+ICAgICAgICAgbWVt
+Y3B5KGRjLT5kY25faXAsICZkY24xMF9pcF9kZWZhdWx0cywgc2l6ZW9mKGRjbjEwX2lwX2RlZmF1
+bHRzKSk7Cj4+ICAgICAgICAgbWVtY3B5KGRjLT5kY25fc29jLCAmZGNuMTBfc29jX2RlZmF1bHRz
+LCBzaXplb2YoZGNuMTBfc29jX2RlZmF1bHRzKSk7Cj4+Cj4+ICsjaWYgZGVmaW5lZChDT05GSUdf
+RFJNX0FNRF9EQ19EQ04xXzAxKQo+PiArICAgICAgIGlmIChkYy0+Y3R4LT5kY2VfdmVyc2lvbiA9
+PSBEQ05fVkVSU0lPTl8xXzAxKSB7Cj4+ICsgICAgICAgICAgICAgICBzdHJ1Y3QgZGNuX3NvY19i
+b3VuZGluZ19ib3ggKmRjbl9zb2MgPSBkYy0+ZGNuX3NvYzsKPj4gKyAgICAgICAgICAgICAgIHN0
+cnVjdCBkY25faXBfcGFyYW1zICpkY25faXAgPSBkYy0+ZGNuX2lwOwo+PiArICAgICAgICAgICAg
+ICAgc3RydWN0IGRpc3BsYXlfbW9kZV9saWIgKmRtbCA9ICZkYy0+ZG1sOwo+PiArCj4+ICsgICAg
+ICAgICAgICAgICBkbWwtPmlwLm1heF9udW1fZHBwID0gMzsKPj4gKyAgICAgICAgICAgICAgIC8q
+IFRPRE8gaG93IHRvIGhhbmRsZSAyMy44ND8gKi8KPj4gKyAgICAgICAgICAgICAgIGRjbl9zb2Mt
+PmRyYW1fY2xvY2tfY2hhbmdlX2xhdGVuY3kgPSAyMzsKPj4gKyAgICAgICAgICAgICAgIGRjbl9p
+cC0+bWF4X251bV9kcHAgPSAzOwo+PiArICAgICAgIH0KPj4gKyNlbmRpZgo+PiAgICAgICAgIGlm
+IChBU0lDUkVWX0lTX1JWMV9GMChkYy0+Y3R4LT5hc2ljX2lkLmh3X2ludGVybmFsX3JldikpIHsK
+Pj4gICAgICAgICAgICAgICAgIGRjLT5kY25fc29jLT51cmdlbnRfbGF0ZW5jeSA9IDM7Cj4+ICAg
+ICAgICAgICAgICAgICBkYy0+ZGVidWcuZGlzYWJsZV9kbWN1ID0gdHJ1ZTsKPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2h3X2ZhY3RvcnkuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2h3X2ZhY3RvcnkuYwo+PiBpbmRleCAw
+Y2FlZTM1MjMwMTcuLmE2ODNmNDEwMmU2NSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2RjL2dwaW8vaHdfZmFjdG9yeS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9ncGlvL2h3X2ZhY3RvcnkuYwo+PiBAQCAtODYsNiArODYsMTEgQEAg
+Ym9vbCBkYWxfaHdfZmFjdG9yeV9pbml0KAo+PiAgICAgICAgICAgICAgICAgZGFsX2h3X2ZhY3Rv
+cnlfZGNuMTBfaW5pdChmYWN0b3J5KTsKPj4gICAgICAgICAgICAgICAgIHJldHVybiB0cnVlOwo+
+PiAgI2VuZGlmCj4+ICsjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04xXzAxKQo+PiAr
+ICAgICAgIGNhc2UgRENOX1ZFUlNJT05fMV8wMToKPj4gKyAgICAgICAgICAgICAgIGRhbF9od19m
+YWN0b3J5X2RjbjEwX2luaXQoZmFjdG9yeSk7Cj4+ICsgICAgICAgICAgICAgICByZXR1cm4gdHJ1
+ZTsKPj4gKyNlbmRpZgo+Pgo+PiAgICAgICAgIGRlZmF1bHQ6Cj4+ICAgICAgICAgICAgICAgICBB
+U1NFUlRfQ1JJVElDQUwoZmFsc2UpOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2dwaW8vaHdfdHJhbnNsYXRlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvZGMvZ3Bpby9od190cmFuc2xhdGUuYwo+PiBpbmRleCA1NWM3MDc0ODg1NDEuLjA5NmY0
+NTYyODYzMCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dw
+aW8vaHdfdHJhbnNsYXRlLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2dwaW8vaHdfdHJhbnNsYXRlLmMKPj4gQEAgLTgzLDYgKzgzLDExIEBAIGJvb2wgZGFsX2h3X3Ry
+YW5zbGF0ZV9pbml0KAo+PiAgICAgICAgICAgICAgICAgZGFsX2h3X3RyYW5zbGF0ZV9kY24xMF9p
+bml0KHRyYW5zbGF0ZSk7Cj4+ICAgICAgICAgICAgICAgICByZXR1cm4gdHJ1ZTsKPj4gICNlbmRp
+Zgo+PiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfRENfRENOMV8wMSkKPj4gKyAgICAgICBj
+YXNlIERDTl9WRVJTSU9OXzFfMDE6Cj4+ICsgICAgICAgICAgICAgICBkYWxfaHdfdHJhbnNsYXRl
+X2RjbjEwX2luaXQodHJhbnNsYXRlKTsKPj4gKyAgICAgICAgICAgICAgIHJldHVybiB0cnVlOwo+
+PiArI2VuZGlmCj4+Cj4+ICAgICAgICAgZGVmYXVsdDoKPj4gICAgICAgICAgICAgICAgIEJSRUFL
+X1RPX0RFQlVHR0VSKCk7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvaTJjYXV4L2kyY2F1eC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2ky
+Y2F1eC9pMmNhdXguYwo+PiBpbmRleCA5YjBiY2M2Yjc2OWIuLmU1NjA5M2YyNmVlZCAxMDA2NDQK
+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2kyY2F1eC9pMmNhdXguYwo+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaTJjYXV4L2kyY2F1eC5jCj4+
+IEBAIC05Niw2ICs5NiwxMCBAQCBzdHJ1Y3QgaTJjYXV4ICpkYWxfaTJjYXV4X2NyZWF0ZSgKPj4g
+ICAgICAgICAgICAgICAgIHJldHVybiBkYWxfaTJjYXV4X2RjbjEwX2NyZWF0ZShjdHgpOwo+PiAg
+I2VuZGlmCj4+Cj4+ICsjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04xXzAxKQo+PiAr
+ICAgICAgIGNhc2UgRENOX1ZFUlNJT05fMV8wMToKPj4gKyAgICAgICAgICAgICAgIHJldHVybiBk
+YWxfaTJjYXV4X2RjbjEwX2NyZWF0ZShjdHgpOwo+PiArI2VuZGlmCj4+ICAgICAgICAgZGVmYXVs
+dDoKPj4gICAgICAgICAgICAgICAgIEJSRUFLX1RPX0RFQlVHR0VSKCk7Cj4+ICAgICAgICAgICAg
+ICAgICByZXR1cm4gTlVMTDsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9pbmNsdWRlL2RhbF9hc2ljX2lkLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+aW5jbHVkZS9kYWxfYXNpY19pZC5oCj4+IGluZGV4IDI1MDI5ZWQ0MmQ4OS4uNGY1MDFkZGNmYjhk
+IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvaW5jbHVkZS9kYWxf
+YXNpY19pZC5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9pbmNsdWRlL2Rh
+bF9hc2ljX2lkLmgKPj4gQEAgLTEzMSw4ICsxMzEsMTUgQEAKPj4gICNkZWZpbmUgSU5URVJOQUxf
+UkVWX1JBVkVOX0EwICAgICAgICAgICAgIDB4MDAgICAgLyogRmlyc3Qgc3BpbiBvZiBSYXZlbiAq
+Lwo+PiAgI2RlZmluZSBSQVZFTl9BMCAweDAxCj4+ICAjZGVmaW5lIFJBVkVOX0IwIDB4MjEKPj4g
+KyNpZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX0RDX0RDTjFfMDEpCj4+ICsvKiBEQ04xXzAxICov
+Cj4+ICsjZGVmaW5lIFJBVkVOMl9BMCAweDgxCj4+ICsjZW5kaWYKPj4gICNkZWZpbmUgUkFWRU5f
+VU5LTk9XTiAweEZGCj4+Cj4+ICsjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04xXzAx
+KQo+PiArI2RlZmluZSBBU0lDUkVWX0lTX1JBVkVOMihlQ2hpcFJldikgKChlQ2hpcFJldiA+PSBS
+QVZFTjJfQTApICYmIChlQ2hpcFJldiA8IDB4RjApKQo+PiArI2VuZGlmIC8qIERDTjFfMDEgKi8K
+Pj4gICNkZWZpbmUgQVNJQ19SRVZfSVNfUkFWRU4oZUNoaXBSZXYpICgoZUNoaXBSZXYgPj0gUkFW
+RU5fQTApICYmIGVDaGlwUmV2IDwgUkFWRU5fVU5LTk9XTikKPj4gICNkZWZpbmUgUkFWRU4xX0Yw
+IDB4RjAKPj4gICNkZWZpbmUgQVNJQ1JFVl9JU19SVjFfRjAoZUNoaXBSZXYpICgoZUNoaXBSZXYg
+Pj0gUkFWRU4xX0YwKSAmJiAoZUNoaXBSZXYgPCBSQVZFTl9VTktOT1dOKSkKPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9pbmNsdWRlL2RhbF90eXBlcy5oIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2luY2x1ZGUvZGFsX3R5cGVzLmgKPj4gaW5kZXggODQw
+MTQyYjY1ZjhiLi44OTYyNzEzM2UxODggMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9pbmNsdWRlL2RhbF90eXBlcy5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9pbmNsdWRlL2RhbF90eXBlcy5oCj4+IEBAIC00NCw2ICs0NCw5IEBAIGVudW0g
+ZGNlX3ZlcnNpb24gewo+PiAgICAgICAgIERDRV9WRVJTSU9OXzEyXzAsCj4+ICAgICAgICAgRENF
+X1ZFUlNJT05fTUFYLAo+PiAgICAgICAgIERDTl9WRVJTSU9OXzFfMCwKPj4gKyNpZiBkZWZpbmVk
+KENPTkZJR19EUk1fQU1EX0RDX0RDTjFfMDEpCj4+ICsgICAgICAgRENOX1ZFUlNJT05fMV8wMSwK
+Pj4gKyNlbmRpZiAvKiBEQ04xXzAxICovCj4+ICAgICAgICAgRENOX1ZFUlNJT05fTUFYCj4+ICB9
+Owo+Pgo+PiAtLQo+PiAyLjEzLjYKPj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
