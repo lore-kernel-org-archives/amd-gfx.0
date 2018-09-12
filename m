@@ -1,88 +1,84 @@
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu 0/6] xf86-video-amdgpu integration for
- DRM variable refresh rate API
-Date: Wed, 12 Sep 2018 12:30:30 -0400
-Message-ID: <c4e4f366-0f57-492c-b22a-ea29c2cf29f6@amd.com>
-References: <20180911161842.5480-1-nicholas.kazlauskas@amd.com>
- <fa19516d-92a2-34da-e472-b1f03740a12e@daenzer.net>
- <542b5954-00f2-938b-b98e-210bd81a833d@amd.com>
- <4f1abeb4-b948-b4b3-a377-cd00dce18707@daenzer.net>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Subject: Re: [PATCH] drm/amdgpu: Add braces to initialize task_info subojects
+Date: Wed, 12 Sep 2018 10:38:30 -0700
+Message-ID: <CAKwvOdkMg_1JxVNhKrUM0CZxF6nQo8c5h7t4zu4RP2xEXyQdKQ@mail.gmail.com>
+References: <20180912002559.1853-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4f1abeb4-b948-b4b3-a377-cd00dce18707-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: nicolai.haehnle-5C7GfCeVMHo@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, Hawking.Zhang-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180912002559.1853-1-natechancellor@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nathan Chancellor <natechancellor@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, Richard Smith <richardsmith@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDkvMTIvMjAxOCAxMjoyMiBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAxOC0w
-OS0xMiAyOjQ4IHAubS4sIEthemxhdXNrYXMsIE5pY2hvbGFzIHdyb3RlOgo+PiBPbiAwOS8xMi8y
-MDE4IDA0OjEzIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4+IE9uIDIwMTgtMDktMTEgNjox
-OCBwLm0uLCBOaWNob2xhcyBLYXpsYXVza2FzIHdyb3RlOgo+Pj4+IFRoZXNlIHBhdGNoZXMgYXJl
-IHBhcnQgb2YgYSBwcm9wb3NlZCBuZXcgaW50ZXJmYWNlIGZvciBzdXBwb3J0aW5nCj4+Pj4gdmFy
-aWFibGUgcmVmcmVzaCByYXRlIHZpYSBEUk0gcHJvcGVydGllcy4KPj4+Pgo+Pj4+IGh0dHBzOi8v
-cGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9zZXJpZXMvNDk0ODYvCj4+Pj4KPj4+PiBXaGVuIG5v
-dGlmaWVkIG9mIGEgd2luZG93IHRoYXQgaXMgRnJlZVN5bmMgY2FwYWJsZSB2aWEgWCB0aGVzZQo+
-Pj4+IHBhdGNoZXMgaGVscCB0cmFjayB3aGVuIHRoZSB3aW5kb3cgaXMgZnVsbHNjcmVlbiB0byBt
-YW5hZ2UgdGhlCj4+Pj4gdmFyaWFibGVfcmVmcmVzaCBwcm9wZXJ0eSBvbiB0aGUgQ1JUQy4KPj4+
-Cj4+PiBJJ20gYWZyYWlkIHRoZSBYb3JnIGRyaXZlciBzdXBwb3J0IHdpbGwgaGF2ZSB0byBiZSBt
-b3JlIG9yIGxlc3MgcmVkb25lCj4+PiBmcm9tIHNjcmF0Y2ggZm9yIHVwc3RyZWFtaW5nOgo+Pj4K
-Pj4+IFdoZXRoZXIgb3Igbm90IGEgY2xpZW50IHdhbnRzIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBl
-bmFibGVkIGNhbiBiZQo+Pj4gdHJhY2tlZCB2aWEgdGhlIHdpbmRvdyBwcm9wZXJ0eSBtZWNoYW5p
-c20gc3VwcG9ydGVkIGJ5IHRoZSBjb3JlIFgxMQo+Pj4gcHJvdG9jb2wsIG5vIG5lZWQgZm9yIGEg
-cHJvdG9jb2wgZXh0ZW5zaW9uLgo+Pj4KPj4+IFRoYXQgc2hvdWxkIGFsc28gYWxsb3cgc2ltcGxl
-ciB0cmFja2luZyBvZiB3aGVuIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZQo+Pj4gY2FuIGFjdHVhbGx5
-IGJlIGVuYWJsZWQ6IEl0IGNhbiBiZSBlbmFibGVkIHdoaWxlIGEgd2luZG93IGlzIGZsaXBwaW5n
-LAo+Pj4gYW5kIGl0cyBjb3JyZXNwb25kaW5nIHByb3BlcnR5IGFsbG93cyBpdC4gVGhpcyBzaG91
-bGQgYmUgc3RyYWlnaHRmb3J3YXJkCj4+PiB3aXRoIHRoZSBQcmVzZW50IGV4dGVuc2lvbiwgYmVj
-YXVzZSB0aGF0IGFsc28gZXhwbGljaXRseSBtYXJrcyB0aGUgZW5kCj4+PiBvZiBhIHdpbmRvdyBm
-bGlwcGluZyAodmlhIGFuICJ1bmZsaXAiKS4gRFJJMiBpcyB0cmlja2llcjsgaXQncyBwcm9iYWJs
-eQo+Pj4gb2theSBub3QgdG8gc3VwcG9ydCB2YXJpYWJsZSByZWZyZXNoIHJhdGUgd2l0aCB0aGF0
-LCBhdCBsZWFzdCBpbml0aWFsbHkuCj4+Pgo+Pj4KPj4+IEkgY2FuIGxvb2sgaW50byB0aGlzIGFm
-dGVyIHRoZSB1cGNvbWluZyBYb3JnIGRyaXZlciAxOC4xIHJlbGVhc2VzLiBPciBJCj4+PiBjYW4g
-Z2l2ZSBndWlkYW5jZSBpZiBvbmUgb2YgeW91IHdhbnRzIHRvIGxvb2sgaW50byBpdC4KPj4KPj4g
-SSBjYW4gYSBsb29rIGludG8gdGhpcy4gSSBhZ3JlZSB0aGF0IHRoZSBleHRlbnNpb24gbWV0aG9k
-IGlzIGxlc3MgdGhhbgo+PiBpZGVhbCAtIGluIGJlaW5nIHZlbmRvciBzcGVjaWZpYyBtb3N0bHku
-IEl0IGRvZXMgaGF2ZSB0aGUgbmljZSBwcm9wZXJ0eQo+PiB0aGF0IGl0IHJlbWFpbnMgaW5kZXBl
-bmRlbnQgb2YgdGhlIGFwcGxpY2F0aW9uJ3MgcmVuZGVyIGJhY2tlbmQsIHRob3VnaC4KPiAKPiBO
-b3Qgc3VyZSB3aGF0IHlvdSBtZWFuIGJ5IHRoYXQuIFN1cmVseSBhIHdpbmRvdyBwcm9wZXJ0eSBp
-cyBqdXN0IGFzCj4gaW5kZXBlbmRlbnQuIDopCgpJIHdhcyBtb3N0bHkgcmVmZXJyaW5nIHRvIGJl
-aW5nIGluZGVwZW5kZW50IGZyb20gdGhlIGJhY2tlbmQgc3BlY2lmaWMgCmNvZGUgaW4gdGhlIERE
-WCBkcml2ZXIgLSBEUkkyL0RSSTMvcHJlc2VudCBldGMuIFRoaXMgY2hhbmdlIHR1cm5zIHRoZSAK
-bm90aWZpY2F0aW9uIGZyb20gYmVpbmcgYSBjYWxsYmFjayBpbnRvIHBvbGxpbmcuCgo+IAo+IAo+
-PiBJIGltYWdpbmUgeW91J3JlIHN1Z2dlc3Rpbmcgc3BlY2lmeWluZyBhIHdpbmRvdyBwcm9wZXJ0
-eSBoaW50IGxpa2UKPj4gX05FVF9XTV9CWVBBU1NfQ09NUE9TSVRPUiAtIG1heWJlIGEgZGVmaW5l
-IG5ldyBvbmUgbGlrZQo+PiBfTkVUX1dNX1ZBUklBQkxFX1JFRlJFU0ggKGV2ZW4gdGhvdWdoIHRo
-ZSB0d28gYXJlIGNsb3NlbHkgcmVsYXRlZCBpbgo+PiB0ZXJtcyBvZiBmdWxsc2NyZWVuIGJlaGF2
-aW9yKS4gVGhlbiBpbiBlYWNoIGJhY2tlbmQgdGhlIHByb3BlcnR5IGNvdWxkCj4+IHByb2JhYmx5
-IGJlIGNoZWNrZWQgYmVmb3JlIHRoZSBwcmVzZW50IGFzIGFwcHJvcHJpYXRlLgo+IAo+IFJpZ2h0
-LiAoTm90IHN1cmUgdGhlIF9ORVRfV00gcHJlZml4IGlzIGFwcHJvcHJpYXRlLCBhcyBpdCdzIG5v
-dGhpbmcgdG8KPiBkbyB3aXRoIHRoZSB3aW5kb3cgbWFuYWdlciwgYnV0IHRoYXQncyBhIGRldGFp
-bCkKCkkgZ3Vlc3MgYW4gYXBwbGljYXRpb24gY291bGQgb3BlcmF0ZSBpbmRlcGVuZGVudGx5IGZy
-b20gdGhlIHdpbmRvdyAKbWFuYWdlciB3aXRoIHZhcmlhYmxlIHJlZnJlc2ggZW5hYmxlZCBidXQg
-aXQncyBub3QgY2VydGFpbmx5IGEgY29tbW9uIAp1c2UgY2FzZS4gSSBzdXBwb3NlIHRoaXMgd291
-bGQgcHJvYmFibHkgbmVlZCBhZGRpdGlvbmFsIGRvY3VtZW50YXRpb24gCnBhdGNoZXMgZm9yIHRo
-ZSBleHRlbmRlZCB3aW5kb3cgbWFuYWdlciBzdGFuZGFyZHMuCgpfTkVUX1ZBUklBQkxFX1JFRlJF
-U0ggaXMgcHJvYmFibHkgZmluZSBhcyBhIG5hbWUuCgo+IAo+IAo+PiBUaGlzIHBhdGNoIHNlcmll
-cyBhbHJlYWR5IGhhcyB0aGUgcHJvYmxlbSB5b3UncmUgZGVzY3JpYmluZyBhYm91dCBEUkkyCj4+
-IHdoZXJlIHRoZXJlJ3Mgbm90IGEgbmljZSBleHBsaWNpdCBlbmQgbm90aWZpY2F0aW9uIGZvciBm
-bGlwcGluZyAtIGl0J3MKPj4gb25seSBkaXNhYmxlZCB3aGVuIHRoZSB3aW5kb3cgbm8gbG9uZ2Vy
-IGNvdmVycyB0aGUgQ1JUQyBvciB0aGUgd2luZG93IGlzCj4+IGRlc3Ryb3llZCAod2hpY2ggaXMg
-dGhlIGNhc2UgZm9yIG1vc3QgYXBwbGljYXRpb25zIGJ1dCBsaWtlbHkgbm90IGFsbCkuCj4gCj4g
-UmlnaHQuIEkgdGhpbmsgaXQncyBiZXR0ZXIgdG8ganVzdCBub3QgYm90aGVyIHdpdGggRFJJMiwg
-YXQgbGVhc3QgdW50aWwKPiB0aGVyZSdzIGEgc3BlY2lmaWMgc2NlbmFyaW8gd2hlcmUgdmFyaWFi
-bGUgcmVmcmVzaCBpcyByZWFsbHkgbmVlZGVkIHdpdGgKPiBEUkkyLgo+IAo+IAoKTmljaG9sYXMg
-S2F6bGF1c2thcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Tue, Sep 11, 2018 at 5:26 PM Nathan Chancellor
+<natechancellor@gmail.com> wrote:
+>
+> Clang warns if there are missing braces around a subobject
+> initializer.
+>
+> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:41: warning: suggest braces
+> around initialization of subobject [-Wmissing-braces]
+>                 struct amdgpu_task_info task_info = { 0 };
+>                                                       ^
+>                                                       {}
+> 1 warning generated.
+>
+> drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:262:41: warning: suggest braces
+> around initialization of subobject [-Wmissing-braces]
+>                 struct amdgpu_task_info task_info = { 0 };
+>                                                       ^
+>                                                       {}
+> 1 warning generated.
+>
+> Reported-by: Nick Desaulniers <ndesaulniers@google.com>
+> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index 9333109b210d..968cc1b8cdff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
+>                 gmc_v8_0_set_fault_enable_default(adev, false);
+>
+>         if (printk_ratelimit()) {
+> -               struct amdgpu_task_info task_info = { 0 };
+> +               struct amdgpu_task_info task_info = { { 0 } };
+
+Hi Nathan,
+Thanks for this patch.  I discussed this syntax with our language
+lawyers.  Turns out, this is not quite correct, as you're now saying
+"initialize the first subobject to zero, but not the rest of the
+object."  -Wmissing-field-initializers would highlight this, but it's
+not part of -Wall.  It would be more correct to zero initialize the
+full struct, including all of its subobjects with `= {};`.
+
+>
+>                 amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 72f8018fa2a8..a781a5027212 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -259,7 +259,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+>         }
+>
+>         if (printk_ratelimit()) {
+> -               struct amdgpu_task_info task_info = { 0 };
+> +               struct amdgpu_task_info task_info = { { 0 } };
+>
+>                 amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>
+> --
+> 2.18.0
+>
+
+
+-- 
+Thanks,
+~Nick Desaulniers
