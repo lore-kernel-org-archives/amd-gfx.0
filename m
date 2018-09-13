@@ -1,15 +1,15 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu
- notifier v4
-Date: Thu, 13 Sep 2018 17:51:59 -0400
-Message-ID: <9d6717ac-23f0-7beb-6e41-58c6e32acdf8@amd.com>
-References: <1536871954-8451-1-git-send-email-Philip.Yang@amd.com>
+From: Richard Smith <richardsmith-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Add braces to initialize task_info subojects
+Date: Thu, 13 Sep 2018 15:08:35 -0700
+Message-ID: <CAGL0aWdF+8XTw=KV+QkNHSJhDrjxzcBUHPv8Ak5gkyMw2f0mQg@mail.gmail.com>
+References: <20180912002559.1853-1-natechancellor@gmail.com>
+ <CAKwvOdkMg_1JxVNhKrUM0CZxF6nQo8c5h7t4zu4RP2xEXyQdKQ@mail.gmail.com>
+ <CAGL0aWeYARfArmSJwXemE_QdGeRwnfE-CKh+DaRY8jwEF0SU5w@mail.gmail.com>
+ <CAKwvOdkSy74TKqASdMtWwHKOeAVQn+mEfv0Fi8q+-35dGjXtHA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0156240171=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1536871954-8451-1-git-send-email-Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <CAKwvOdkSy74TKqASdMtWwHKOeAVQn+mEfv0Fi8q+-35dGjXtHA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,219 +20,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Philip Yang <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-T24gMjAxOC0wOS0xMyAwNDo1MiBQTSwgUGhpbGlwIFlhbmcgd3JvdGU6Cj4gUmVwbGFjZSBvdXIg
-TU1VIG5vdGlmaWVyIHdpdGggaG1tX21pcnJvcl9vcHMuc3luY19jcHVfZGV2aWNlX3BhZ2V0YWJs
-ZXMKPiBjYWxsYmFjay4gRW5hYmxlIENPTkZJR19ITU0gYW5kIENPTkZJR19ITU1fTUlSUk9SIGFz
-IGEgZGVwZW5kZW5jeSBpbgo+IERSTV9BTURHUFVfVVNFUlBUUiBLY29uZmlnLgo+Cj4gSXQgc3Vw
-cG9ydHMgYm90aCBLRkQgdXNlcnB0ciBhbmQgZ2Z4IHVzZXJwdHIgcGF0aHMuCj4KPiBUaGlzIGRl
-cGVuZHMgb24gc2V2ZXJhbCBITU0gcGF0Y2hzZXQgZnJvbSBKw6lyw7RtZSBHbGlzc2UgcXVldWVk
-IGZvcgo+IHVwc3RyZWFtLgo+Cj4gQ2hhbmdlLUlkOiBJZTYyYzNjNWUzYzViODUyMWFiM2I0Mzhk
-MWVmZjJhYTJhMDAzODM1ZQo+IFNpZ25lZC1vZmYtYnk6IFBoaWxpcCBZYW5nIDxQaGlsaXAuWWFu
-Z0BhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnICAg
-ICB8ICAgNiArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAgICB8ICAg
-MiArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uYyB8IDEyMSArKysr
-KysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X21uLmggfCAgIDIgKy0KPiAgNCBmaWxlcyBjaGFuZ2VkLCA1NiBpbnNlcnRpb25z
-KCspLCA3NSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZwo+IGlu
-ZGV4IDkyMjFlNTQuLjk2MGE2MzMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvS2NvbmZpZwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L0tjb25maWcK
-PiBAQCAtMjYsMTAgKzI2LDEwIEBAIGNvbmZpZyBEUk1fQU1ER1BVX0NJSwo+ICBjb25maWcgRFJN
-X0FNREdQVV9VU0VSUFRSCj4gIAlib29sICJBbHdheXMgZW5hYmxlIHVzZXJwdHIgd3JpdGUgc3Vw
-cG9ydCIKPiAgCWRlcGVuZHMgb24gRFJNX0FNREdQVQo+IC0Jc2VsZWN0IE1NVV9OT1RJRklFUgo+
-ICsJc2VsZWN0IEhNTV9NSVJST1IKPiAgCWhlbHAKPiAtCSAgVGhpcyBvcHRpb24gc2VsZWN0cyBD
-T05GSUdfTU1VX05PVElGSUVSIGlmIGl0IGlzbid0IGFscmVhZHkKPiAtCSAgc2VsZWN0ZWQgdG8g
-ZW5hYmxlZCBmdWxsIHVzZXJwdHIgc3VwcG9ydC4KPiArCSAgVGhpcyBvcHRpb24gc2VsZWN0cyBD
-T05GSUdfSE1NIGFuZCBDT05GSUdfSE1NX01JUlJPUiBpZiBpdAo+ICsJICBpc24ndCBhbHJlYWR5
-IHNlbGVjdGVkIHRvIGVuYWJsZWQgZnVsbCB1c2VycHRyIHN1cHBvcnQuCj4gIAo+ICBjb25maWcg
-RFJNX0FNREdQVV9HQVJUX0RFQlVHRlMKPiAgCWJvb2wgIkFsbG93IEdBUlQgYWNjZXNzIHRocm91
-Z2ggZGVidWdmcyIKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFr
-ZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQo+IGluZGV4IDEzOGNi
-NzguLmMxZTVkNDMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFr
-ZWZpbGUKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQo+IEBAIC0x
-NzEsNyArMTcxLDcgQEAgZW5kaWYKPiAgYW1kZ3B1LSQoQ09ORklHX0NPTVBBVCkgKz0gYW1kZ3B1
-X2lvYzMyLm8KPiAgYW1kZ3B1LSQoQ09ORklHX1ZHQV9TV0lUQ0hFUk9PKSArPSBhbWRncHVfYXRw
-eF9oYW5kbGVyLm8KPiAgYW1kZ3B1LSQoQ09ORklHX0FDUEkpICs9IGFtZGdwdV9hY3BpLm8KPiAt
-YW1kZ3B1LSQoQ09ORklHX01NVV9OT1RJRklFUikgKz0gYW1kZ3B1X21uLm8KPiArYW1kZ3B1LSQo
-Q09ORklHX0hNTSkgKz0gYW1kZ3B1X21uLm8KPiAgCj4gIGluY2x1ZGUgJChGVUxMX0FNRF9QQVRI
-KS9wb3dlcnBsYXkvTWFrZWZpbGUKPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9tbi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X21uLmMKPiBpbmRleCBlNTU1MDhiLi5hZDUyZjM0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tbi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X21uLmMKPiBAQCAtNDUsNyArNDUsNyBAQAo+ICAKPiAgI2luY2x1ZGUgPGxp
-bnV4L2Zpcm13YXJlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUg
-PGxpbnV4L21tdV9ub3RpZmllci5oPgo+ICsjaW5jbHVkZSA8bGludXgvaG1tLmg+Cj4gICNpbmNs
-dWRlIDxsaW51eC9pbnRlcnZhbF90cmVlLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtUC5oPgo+ICAj
-aW5jbHVkZSA8ZHJtL2RybS5oPgo+IEBAIC02Niw2ICs2Niw3IEBACgpOZWVkIHRvIHJlbW92ZSBA
-bW4gZG9jdW1lbnRhdGlvbi4KCj4gICAqIEBvYmplY3RzOiBpbnRlcnZhbCB0cmVlIGNvbnRhaW5p
-bmcgYW1kZ3B1X21uX25vZGVzCj4gICAqIEByZWFkX2xvY2s6IG11dGV4IGZvciByZWN1cnNpdmUg
-bG9ja2luZyBvZiBAbG9jawo+ICAgKiBAcmVjdXJzaW9uOiBkZXB0aCBvZiByZWN1cnNpb24KPiAr
-ICogQG1pcnJvcjogSE1NIG1pcnJvciBmdW5jdGlvbiBzdXBwb3J0Cj4gICAqCj4gICAqIERhdGEg
-Zm9yIGVhY2ggYW1kZ3B1IGRldmljZSBhbmQgcHJvY2VzcyBhZGRyZXNzIHNwYWNlLgo+ICAgKi8K
-PiBAQCAtNzMsNyArNzQsNiBAQCBzdHJ1Y3QgYW1kZ3B1X21uIHsKPiAgCS8qIGNvbnN0YW50IGFm
-dGVyIGluaXRpYWxpc2F0aW9uICovCj4gIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZQkqYWRldjsKPiAg
-CXN0cnVjdCBtbV9zdHJ1Y3QJKm1tOwo+IC0Jc3RydWN0IG1tdV9ub3RpZmllcgltbjsKPiAgCWVu
-dW0gYW1kZ3B1X21uX3R5cGUJdHlwZTsKPiAgCj4gIAkvKiBvbmx5IHVzZWQgb24gZGVzdHJ1Y3Rp
-b24gKi8KPiBAQCAtODcsNiArODcsOSBAQCBzdHJ1Y3QgYW1kZ3B1X21uIHsKPiAgCXN0cnVjdCBy
-Yl9yb290X2NhY2hlZAlvYmplY3RzOwo+ICAJc3RydWN0IG11dGV4CQlyZWFkX2xvY2s7Cj4gIAlh
-dG9taWNfdAkJcmVjdXJzaW9uOwo+ICsKPiArCS8qIEhNTSBtaXJyb3IgKi8KPiArCXN0cnVjdCBo
-bW1fbWlycm9yCW1pcnJvcjsKPiAgfTsKPiAgCj4gIC8qKgo+IEBAIC0xMDMsNyArMTA2LDcgQEAg
-c3RydWN0IGFtZGdwdV9tbl9ub2RlIHsKPiAgfTsKPiAgCj4gIC8qKgo+IC0gKiBhbWRncHVfbW5f
-ZGVzdHJveSAtIGRlc3Ryb3kgdGhlIE1NVSBub3RpZmllcgo+ICsgKiBhbWRncHVfbW5fZGVzdHJv
-eSAtIGRlc3Ryb3kgdGhlIEhNTSBtaXJyb3IKPiAgICoKPiAgICogQHdvcms6IHByZXZpb3VzbHkg
-c2hlZHVsZWQgd29yayBpdGVtCj4gICAqCj4gQEAgLTEyOSwyOCArMTMyLDI2IEBAIHN0YXRpYyB2
-b2lkIGFtZGdwdV9tbl9kZXN0cm95KHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKPiAgCX0KPiAg
-CXVwX3dyaXRlKCZhbW4tPmxvY2spOwo+ICAJbXV0ZXhfdW5sb2NrKCZhZGV2LT5tbl9sb2NrKTsK
-PiAtCW1tdV9ub3RpZmllcl91bnJlZ2lzdGVyX25vX3JlbGVhc2UoJmFtbi0+bW4sIGFtbi0+bW0p
-Owo+ICsJaG1tX21pcnJvcl91bnJlZ2lzdGVyKCZhbW4tPm1pcnJvcik7Cj4gKwo+ICAJa2ZyZWUo
-YW1uKTsKPiAgfQo+ICAKPiAgLyoqCj4gICAqIGFtZGdwdV9tbl9yZWxlYXNlIC0gY2FsbGJhY2sg
-dG8gbm90aWZ5IGFib3V0IG1tIGRlc3RydWN0aW9uCgpVcGRhdGUgdGhlIGZ1bmN0aW9uIG5hbWUg
-aW4gdGhlIGNvbW1lbnQuCgo+ICAgKgo+IC0gKiBAbW46IG91ciBub3RpZmllcgo+IC0gKiBAbW06
-IHRoZSBtbSB0aGlzIGNhbGxiYWNrIGlzIGFib3V0Cj4gKyAqIEBtaXJyb3I6IHRoZSBITU0gbWly
-cm9yIChtbSkgdGhpcyBjYWxsYmFjayBpcyBhYm91dAo+ICAgKgo+IC0gKiBTaGVkdWxlIGEgd29y
-ayBpdGVtIHRvIGxhenkgZGVzdHJveSBvdXIgbm90aWZpZXIuCj4gKyAqIFNoZWR1bGUgYSB3b3Jr
-IGl0ZW0gdG8gbGF6eSBkZXN0cm95IEhNTSBtaXJyb3IuCj4gICAqLwo+IC1zdGF0aWMgdm9pZCBh
-bWRncHVfbW5fcmVsZWFzZShzdHJ1Y3QgbW11X25vdGlmaWVyICptbiwKPiAtCQkJICAgICAgc3Ry
-dWN0IG1tX3N0cnVjdCAqbW0pCj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9obW1fbWlycm9yX3JlbGVh
-c2Uoc3RydWN0IGhtbV9taXJyb3IgKm1pcnJvcikKPiAgewo+IC0Jc3RydWN0IGFtZGdwdV9tbiAq
-YW1uID0gY29udGFpbmVyX29mKG1uLCBzdHJ1Y3QgYW1kZ3B1X21uLCBtbik7Cj4gKwlzdHJ1Y3Qg
-YW1kZ3B1X21uICphbW4gPSBjb250YWluZXJfb2YobWlycm9yLCBzdHJ1Y3QgYW1kZ3B1X21uLCBt
-aXJyb3IpOwo+ICAKPiAgCUlOSVRfV09SSygmYW1uLT53b3JrLCBhbWRncHVfbW5fZGVzdHJveSk7
-Cj4gIAlzY2hlZHVsZV93b3JrKCZhbW4tPndvcmspOwo+ICB9Cj4gIAo+IC0KPiAgLyoqCj4gICAq
-IGFtZGdwdV9tbl9sb2NrIC0gdGFrZSB0aGUgd3JpdGUgc2lkZSBsb2NrIGZvciB0aGlzIG5vdGlm
-aWVyCj4gICAqCj4gQEAgLTIzNywyMSArMjM4LDE5IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9tbl9p
-bnZhbGlkYXRlX25vZGUoc3RydWN0IGFtZGdwdV9tbl9ub2RlICpub2RlLAo+ICAvKioKPiAgICog
-YW1kZ3B1X21uX2ludmFsaWRhdGVfcmFuZ2Vfc3RhcnRfZ2Z4IC0gY2FsbGJhY2sgdG8gbm90aWZ5
-IGFib3V0IG1tIGNoYW5nZQo+ICAgKgo+IC0gKiBAbW46IG91ciBub3RpZmllcgo+IC0gKiBAbW06
-IHRoZSBtbSB0aGlzIGNhbGxiYWNrIGlzIGFib3V0Cj4gLSAqIEBzdGFydDogc3RhcnQgb2YgdXBk
-YXRlZCByYW5nZQo+IC0gKiBAZW5kOiBlbmQgb2YgdXBkYXRlZCByYW5nZQo+ICsgKiBAbWlycm9y
-OiB0aGUgaG1tX21pcnJvciAobW0pIGlzIGFib3V0IHRvIHVwZGF0ZQo+ICsgKiBAdXBkYXRlOiB0
-aGUgdXBkYXRlIHN0YXJ0LCBlbmQgYWRkcmVzcwo+ICAgKgo+ICAgKiBCbG9jayBmb3Igb3BlcmF0
-aW9ucyBvbiBCT3MgdG8gZmluaXNoIGFuZCBtYXJrIHBhZ2VzIGFzIGFjY2Vzc2VkIGFuZAo+ICAg
-KiBwb3RlbnRpYWxseSBkaXJ0eS4KPiAgICovCj4gLXN0YXRpYyBpbnQgYW1kZ3B1X21uX2ludmFs
-aWRhdGVfcmFuZ2Vfc3RhcnRfZ2Z4KHN0cnVjdCBtbXVfbm90aWZpZXIgKm1uLAo+IC0JCQkJCQkg
-c3RydWN0IG1tX3N0cnVjdCAqbW0sCj4gLQkJCQkJCSB1bnNpZ25lZCBsb25nIHN0YXJ0LAo+IC0J
-CQkJCQkgdW5zaWduZWQgbG9uZyBlbmQsCj4gLQkJCQkJCSBib29sIGJsb2NrYWJsZSkKPiArc3Rh
-dGljIGludCBhbWRncHVfbW5faW52YWxpZGF0ZV9yYW5nZV9zdGFydF9nZngoc3RydWN0IGhtbV9t
-aXJyb3IgKm1pcnJvciwKPiArCQkJY29uc3Qgc3RydWN0IGhtbV91cGRhdGUgKnVwZGF0ZSkKPiAg
-ewo+IC0Jc3RydWN0IGFtZGdwdV9tbiAqYW1uID0gY29udGFpbmVyX29mKG1uLCBzdHJ1Y3QgYW1k
-Z3B1X21uLCBtbik7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X21uICphbW4gPSBjb250YWluZXJfb2YobWly
-cm9yLCBzdHJ1Y3QgYW1kZ3B1X21uLCBtaXJyb3IpOwo+ICsJdW5zaWduZWQgbG9uZyBzdGFydCA9
-IHVwZGF0ZS0+c3RhcnQ7Cj4gKwl1bnNpZ25lZCBsb25nIGVuZCA9IHVwZGF0ZS0+ZW5kOwo+ICsJ
-Ym9vbCBibG9ja2FibGUgPSB1cGRhdGUtPmJsb2NrYWJsZTsKPiAgCXN0cnVjdCBpbnRlcnZhbF90
-cmVlX25vZGUgKml0Owo+ICAKPiAgCS8qIG5vdGlmaWNhdGlvbiBpcyBleGNsdXNpdmUsIGJ1dCBp
-bnRlcnZhbCBpcyBpbmNsdXNpdmUgKi8KPiBAQCAtMjc4LDI4ICsyNzcsMjggQEAgc3RhdGljIGlu
-dCBhbWRncHVfbW5faW52YWxpZGF0ZV9yYW5nZV9zdGFydF9nZngoc3RydWN0IG1tdV9ub3RpZmll
-ciAqbW4sCj4gIAkJYW1kZ3B1X21uX2ludmFsaWRhdGVfbm9kZShub2RlLCBzdGFydCwgZW5kKTsK
-PiAgCX0KPiAgCj4gKwlhbWRncHVfbW5fcmVhZF91bmxvY2soYW1uKTsKPiArCgphbWRncHVfbW5f
-cmVhZF9sb2NrL3VubG9jayBzdXBwb3J0IHJlY3Vyc2l2ZSBsb2NraW5nIGZvciBtdWx0aXBsZQpv
-dmVybGFwcGluZyBvciBuZXN0ZWQgaW52YWxpZGF0aW9uIHJhbmdlcy4gQnV0IGlmIHlvdSdyIGxv
-Y2tpbmcgYW5kCnVubG9ja2luZyBpbiB0aGUgc2FtZSBmdW5jdGlvbi4gSXMgdGhhdCBzdGlsbCBh
-IGNvbmNlcm4/Cgo+ICAJcmV0dXJuIDA7Cj4gIH0KPiAgCj4gIC8qKgo+ICAgKiBhbWRncHVfbW5f
-aW52YWxpZGF0ZV9yYW5nZV9zdGFydF9oc2EgLSBjYWxsYmFjayB0byBub3RpZnkgYWJvdXQgbW0g
-Y2hhbmdlCj4gICAqCj4gLSAqIEBtbjogb3VyIG5vdGlmaWVyCj4gLSAqIEBtbTogdGhlIG1tIHRo
-aXMgY2FsbGJhY2sgaXMgYWJvdXQKPiAtICogQHN0YXJ0OiBzdGFydCBvZiB1cGRhdGVkIHJhbmdl
-Cj4gLSAqIEBlbmQ6IGVuZCBvZiB1cGRhdGVkIHJhbmdlCj4gKyAqIEBtaXJyb3I6IHRoZSBobW1f
-bWlycm9yIChtbSkgaXMgYWJvdXQgdG8gdXBkYXRlCj4gKyAqIEB1cGRhdGU6IHRoZSB1cGRhdGUg
-c3RhcnQsIGVuZCBhZGRyZXNzCj4gICAqCj4gICAqIFdlIHRlbXBvcmFyaWx5IGV2aWN0IGFsbCBC
-T3MgYmV0d2VlbiBzdGFydCBhbmQgZW5kLiBUaGlzCj4gICAqIG5lY2Vzc2l0YXRlcyBldmljdGlu
-ZyBhbGwgdXNlci1tb2RlIHF1ZXVlcyBvZiB0aGUgcHJvY2Vzcy4gVGhlIEJPcwo+ICAgKiBhcmUg
-cmVzdG9ydGVkIGluIGFtZGdwdV9tbl9pbnZhbGlkYXRlX3JhbmdlX2VuZF9oc2EuCj4gICAqLwo+
-IC1zdGF0aWMgaW50IGFtZGdwdV9tbl9pbnZhbGlkYXRlX3JhbmdlX3N0YXJ0X2hzYShzdHJ1Y3Qg
-bW11X25vdGlmaWVyICptbiwKPiAtCQkJCQkJIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tLAo+IC0JCQkJ
-CQkgdW5zaWduZWQgbG9uZyBzdGFydCwKPiAtCQkJCQkJIHVuc2lnbmVkIGxvbmcgZW5kLAo+IC0J
-CQkJCQkgYm9vbCBibG9ja2FibGUpCj4gK3N0YXRpYyBpbnQgYW1kZ3B1X21uX2ludmFsaWRhdGVf
-cmFuZ2Vfc3RhcnRfaHNhKHN0cnVjdCBobW1fbWlycm9yICptaXJyb3IsCj4gKwkJCWNvbnN0IHN0
-cnVjdCBobW1fdXBkYXRlICp1cGRhdGUpCj4gIHsKPiAtCXN0cnVjdCBhbWRncHVfbW4gKmFtbiA9
-IGNvbnRhaW5lcl9vZihtbiwgc3RydWN0IGFtZGdwdV9tbiwgbW4pOwo+ICsJc3RydWN0IGFtZGdw
-dV9tbiAqYW1uID0gY29udGFpbmVyX29mKG1pcnJvciwgc3RydWN0IGFtZGdwdV9tbiwgbWlycm9y
-KTsKPiArCXVuc2lnbmVkIGxvbmcgc3RhcnQgPSB1cGRhdGUtPnN0YXJ0Owo+ICsJdW5zaWduZWQg
-bG9uZyBlbmQgPSB1cGRhdGUtPmVuZDsKPiArCWJvb2wgYmxvY2thYmxlID0gdXBkYXRlLT5ibG9j
-a2FibGU7Cj4gIAlzdHJ1Y3QgaW50ZXJ2YWxfdHJlZV9ub2RlICppdDsKPiAgCj4gIAkvKiBub3Rp
-ZmljYXRpb24gaXMgZXhjbHVzaXZlLCBidXQgaW50ZXJ2YWwgaXMgaW5jbHVzaXZlICovCj4gQEAg
-LTMyNiw1OSArMzI1LDQxIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X21uX2ludmFsaWRhdGVfcmFuZ2Vf
-c3RhcnRfaHNhKHN0cnVjdCBtbXVfbm90aWZpZXIgKm1uLAo+ICAKPiAgCQkJaWYgKGFtZGdwdV90
-dG1fdHRfYWZmZWN0X3VzZXJwdHIoYm8tPnRiby50dG0sCj4gIAkJCQkJCQkgc3RhcnQsIGVuZCkp
-Cj4gLQkJCQlhbWRncHVfYW1ka2ZkX2V2aWN0X3VzZXJwdHIobWVtLCBtbSk7Cj4gKwkJCQlhbWRn
-cHVfYW1ka2ZkX2V2aWN0X3VzZXJwdHIobWVtLCBhbW4tPm1tKTsKPiAgCQl9Cj4gIAl9Cj4gIAo+
-ICsJYW1kZ3B1X21uX3JlYWRfdW5sb2NrKGFtbik7Cj4gKwo+ICAJcmV0dXJuIDA7Cj4gIH0KPiAg
-Cj4gLS8qKgo+IC0gKiBhbWRncHVfbW5faW52YWxpZGF0ZV9yYW5nZV9lbmQgLSBjYWxsYmFjayB0
-byBub3RpZnkgYWJvdXQgbW0gY2hhbmdlCj4gLSAqCj4gLSAqIEBtbjogb3VyIG5vdGlmaWVyCj4g
-LSAqIEBtbTogdGhlIG1tIHRoaXMgY2FsbGJhY2sgaXMgYWJvdXQKPiAtICogQHN0YXJ0OiBzdGFy
-dCBvZiB1cGRhdGVkIHJhbmdlCj4gLSAqIEBlbmQ6IGVuZCBvZiB1cGRhdGVkIHJhbmdlCj4gLSAq
-Cj4gLSAqIFJlbGVhc2UgdGhlIGxvY2sgYWdhaW4gdG8gYWxsb3cgbmV3IGNvbW1hbmQgc3VibWlz
-c2lvbnMuCj4gKy8qIExvdyBiaXRzIG9mIGFueSByZWFzb25hYmxlIG1tIHBvaW50ZXIgd2lsbCBi
-ZSB1bnVzZWQgZHVlIHRvIHN0cnVjdAo+ICsgKiBhbGlnbm1lbnQuIFVzZSB0aGVzZSBiaXRzIHRv
-IG1ha2UgYSB1bmlxdWUga2V5IGZyb20gdGhlIG1tIHBvaW50ZXIKPiArICogYW5kIG5vdGlmaWVy
-IHR5cGUuCj4gICAqLwo+IC1zdGF0aWMgdm9pZCBhbWRncHVfbW5faW52YWxpZGF0ZV9yYW5nZV9l
-bmQoc3RydWN0IG1tdV9ub3RpZmllciAqbW4sCj4gLQkJCQkJICAgc3RydWN0IG1tX3N0cnVjdCAq
-bW0sCj4gLQkJCQkJICAgdW5zaWduZWQgbG9uZyBzdGFydCwKPiAtCQkJCQkgICB1bnNpZ25lZCBs
-b25nIGVuZCkKPiAtewo+IC0Jc3RydWN0IGFtZGdwdV9tbiAqYW1uID0gY29udGFpbmVyX29mKG1u
-LCBzdHJ1Y3QgYW1kZ3B1X21uLCBtbik7Cj4gLQo+IC0JYW1kZ3B1X21uX3JlYWRfdW5sb2NrKGFt
-bik7Cj4gLX0KPiArI2RlZmluZSBBTURHUFVfTU5fS0VZKG1tLCB0eXBlKSAoKHVuc2lnbmVkIGxv
-bmcpKG1tKSArICh0eXBlKSkKPiAgCj4gLXN0YXRpYyBjb25zdCBzdHJ1Y3QgbW11X25vdGlmaWVy
-X29wcyBhbWRncHVfbW5fb3BzW10gPSB7Cj4gK3N0YXRpYyBzdHJ1Y3QgaG1tX21pcnJvcl9vcHMg
-YW1kZ3B1X2htbV9taXJyb3Jfb3BzW10gPSB7Cj4gIAlbQU1ER1BVX01OX1RZUEVfR0ZYXSA9IHsK
-PiAtCQkucmVsZWFzZSA9IGFtZGdwdV9tbl9yZWxlYXNlLAo+IC0JCS5pbnZhbGlkYXRlX3Jhbmdl
-X3N0YXJ0ID0gYW1kZ3B1X21uX2ludmFsaWRhdGVfcmFuZ2Vfc3RhcnRfZ2Z4LAo+IC0JCS5pbnZh
-bGlkYXRlX3JhbmdlX2VuZCA9IGFtZGdwdV9tbl9pbnZhbGlkYXRlX3JhbmdlX2VuZCwKPiArCQku
-c3luY19jcHVfZGV2aWNlX3BhZ2V0YWJsZXMgPQo+ICsJCQkJYW1kZ3B1X21uX2ludmFsaWRhdGVf
-cmFuZ2Vfc3RhcnRfZ2Z4LAo+ICsJCS5yZWxlYXNlID0gYW1kZ3B1X2htbV9taXJyb3JfcmVsZWFz
-ZQo+ICAJfSwKPiAgCVtBTURHUFVfTU5fVFlQRV9IU0FdID0gewo+IC0JCS5yZWxlYXNlID0gYW1k
-Z3B1X21uX3JlbGVhc2UsCj4gLQkJLmludmFsaWRhdGVfcmFuZ2Vfc3RhcnQgPSBhbWRncHVfbW5f
-aW52YWxpZGF0ZV9yYW5nZV9zdGFydF9oc2EsCj4gLQkJLmludmFsaWRhdGVfcmFuZ2VfZW5kID0g
-YW1kZ3B1X21uX2ludmFsaWRhdGVfcmFuZ2VfZW5kLAo+ICsJCS5zeW5jX2NwdV9kZXZpY2VfcGFn
-ZXRhYmxlcyA9Cj4gKwkJCQlhbWRncHVfbW5faW52YWxpZGF0ZV9yYW5nZV9zdGFydF9oc2EsCj4g
-KwkJLnJlbGVhc2UgPSBhbWRncHVfaG1tX21pcnJvcl9yZWxlYXNlCj4gIAl9LAo+ICB9Owo+ICAK
-PiAtLyogTG93IGJpdHMgb2YgYW55IHJlYXNvbmFibGUgbW0gcG9pbnRlciB3aWxsIGJlIHVudXNl
-ZCBkdWUgdG8gc3RydWN0Cj4gLSAqIGFsaWdubWVudC4gVXNlIHRoZXNlIGJpdHMgdG8gbWFrZSBh
-IHVuaXF1ZSBrZXkgZnJvbSB0aGUgbW0gcG9pbnRlcgo+IC0gKiBhbmQgbm90aWZpZXIgdHlwZS4K
-PiAtICovCj4gLSNkZWZpbmUgQU1ER1BVX01OX0tFWShtbSwgdHlwZSkgKCh1bnNpZ25lZCBsb25n
-KShtbSkgKyAodHlwZSkpCj4gLQo+ICAvKioKPiAtICogYW1kZ3B1X21uX2dldCAtIGNyZWF0ZSBu
-b3RpZmllciBjb250ZXh0Cj4gKyAqIGFtZGdwdV9tbl9nZXQgLSBjcmVhdGUgSE1NIG1pcnJvciBj
-b250ZXh0Cj4gICAqCj4gICAqIEBhZGV2OiBhbWRncHUgZGV2aWNlIHBvaW50ZXIKPiAgICogQHR5
-cGU6IHR5cGUgb2YgTU1VIG5vdGlmaWVyIGNvbnRleHQKPiAgICoKPiAtICogQ3JlYXRlcyBhIG5v
-dGlmaWVyIGNvbnRleHQgZm9yIGN1cnJlbnQtPm1tLgo+ICsgKiBDcmVhdGVzIGEgSE1NIG1pcnJv
-ciBjb250ZXh0IGZvciBjdXJyZW50LT5tbS4KPiAgICovCj4gIHN0cnVjdCBhbWRncHVfbW4gKmFt
-ZGdwdV9tbl9nZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gIAkJCQllbnVtIGFtZGdw
-dV9tbl90eXBlIHR5cGUpCj4gQEAgLTQwOCwxMiArMzg5LDEyIEBAIHN0cnVjdCBhbWRncHVfbW4g
-KmFtZGdwdV9tbl9nZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gIAlhbW4tPm1tID0g
-bW07Cj4gIAlpbml0X3J3c2VtKCZhbW4tPmxvY2spOwo+ICAJYW1uLT50eXBlID0gdHlwZTsKPiAt
-CWFtbi0+bW4ub3BzID0gJmFtZGdwdV9tbl9vcHNbdHlwZV07Cj4gIAlhbW4tPm9iamVjdHMgPSBS
-Ql9ST09UX0NBQ0hFRDsKPiAgCW11dGV4X2luaXQoJmFtbi0+cmVhZF9sb2NrKTsKPiAgCWF0b21p
-Y19zZXQoJmFtbi0+cmVjdXJzaW9uLCAwKTsKPiAgCj4gLQlyID0gX19tbXVfbm90aWZpZXJfcmVn
-aXN0ZXIoJmFtbi0+bW4sIG1tKTsKPiArCWFtbi0+bWlycm9yLm9wcyA9ICZhbWRncHVfaG1tX21p
-cnJvcl9vcHNbdHlwZV07Cj4gKwlyID0gaG1tX21pcnJvcl9yZWdpc3RlcigmYW1uLT5taXJyb3Is
-IG1tKTsKPiAgCWlmIChyKQo+ICAJCWdvdG8gZnJlZV9hbW47Cj4gIAo+IEBAIC00MzksNyArNDIw
-LDcgQEAgc3RydWN0IGFtZGdwdV9tbiAqYW1kZ3B1X21uX2dldChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwKPiAgICogQGJvOiBhbWRncHUgYnVmZmVyIG9iamVjdAo+ICAgKiBAYWRkcjogdXNl
-cnB0ciBhZGRyIHdlIHNob3VsZCBtb25pdG9yCj4gICAqCj4gLSAqIFJlZ2lzdGVycyBhbiBNTVUg
-bm90aWZpZXIgZm9yIHRoZSBnaXZlbiBCTyBhdCB0aGUgc3BlY2lmaWVkIGFkZHJlc3MuCj4gKyAq
-IFJlZ2lzdGVycyBhbiBITU0gbWlycm9yIGZvciB0aGUgZ2l2ZW4gQk8gYXQgdGhlIHNwZWNpZmll
-ZCBhZGRyZXNzLgo+ICAgKiBSZXR1cm5zIDAgb24gc3VjY2VzcywgLUVSUk5PIGlmIGFueXRoaW5n
-IGdvZXMgd3JvbmcuCj4gICAqLwo+ICBpbnQgYW1kZ3B1X21uX3JlZ2lzdGVyKHN0cnVjdCBhbWRn
-cHVfYm8gKmJvLCB1bnNpZ25lZCBsb25nIGFkZHIpCj4gQEAgLTQ5NSwxMSArNDc2LDExIEBAIGlu
-dCBhbWRncHVfbW5fcmVnaXN0ZXIoc3RydWN0IGFtZGdwdV9ibyAqYm8sIHVuc2lnbmVkIGxvbmcg
-YWRkcikKPiAgfQo+ICAKPiAgLyoqCj4gLSAqIGFtZGdwdV9tbl91bnJlZ2lzdGVyIC0gdW5yZWdp
-c3RlciBhIEJPIGZvciBub3RpZmllciB1cGRhdGVzCj4gKyAqIGFtZGdwdV9tbl91bnJlZ2lzdGVy
-IC0gdW5yZWdpc3RlciBhIEJPIGZvciBITU0gbWlycm9yIHVwZGF0ZXMKPiAgICoKPiAgICogQGJv
-OiBhbWRncHUgYnVmZmVyIG9iamVjdAo+ICAgKgo+IC0gKiBSZW1vdmUgYW55IHJlZ2lzdHJhdGlv
-biBvZiBNTVUgbm90aWZpZXIgdXBkYXRlcyBmcm9tIHRoZSBidWZmZXIgb2JqZWN0Lgo+ICsgKiBS
-ZW1vdmUgYW55IHJlZ2lzdHJhdGlvbiBvZiBITU0gbWlycm9yIHVwZGF0ZXMgZnJvbSB0aGUgYnVm
-ZmVyIG9iamVjdC4KPiAgICovCj4gIHZvaWQgYW1kZ3B1X21uX3VucmVnaXN0ZXIoc3RydWN0IGFt
-ZGdwdV9ibyAqYm8pCj4gIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X21uLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaAo+
-IGluZGV4IGViMGY0MzIuLjBlMjc1MjYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X21uLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfbW4uaAo+IEBAIC0zNCw3ICszNCw3IEBAIGVudW0gYW1kZ3B1X21uX3R5cGUgewo+ICAJ
-QU1ER1BVX01OX1RZUEVfSFNBLAo+ICB9Owo+ICAKPiAtI2lmIGRlZmluZWQoQ09ORklHX01NVV9O
-T1RJRklFUikKPiArI2lmIGRlZmluZWQoQ09ORklHX0hNTSkKPiAgdm9pZCBhbWRncHVfbW5fbG9j
-ayhzdHJ1Y3QgYW1kZ3B1X21uICptbik7Cj4gIHZvaWQgYW1kZ3B1X21uX3VubG9jayhzdHJ1Y3Qg
-YW1kZ3B1X21uICptbik7Cj4gIHN0cnVjdCBhbWRncHVfbW4gKmFtZGdwdV9tbl9nZXQoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+--===============0156240171==
+Content-Type: multipart/alternative; boundary="0000000000007849850575c7f315"
+
+--0000000000007849850575c7f315
+Content-Type: text/plain; charset="UTF-8"
+
+On Wed, Sep 12, 2018 at 4:13 PM Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+wrote:
+
+> On Wed, Sep 12, 2018 at 1:24 PM Richard Smith <richardsmith-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+> wrote:
+> >
+> > On Wed, Sep 12, 2018 at 10:38 AM Nick Desaulniers <
+> ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org> wrote:
+> >>
+> >> On Tue, Sep 11, 2018 at 5:26 PM Nathan Chancellor
+> >> <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+> >> >
+> >> > Clang warns if there are missing braces around a subobject
+> >> > initializer.
+> >> >
+> >> > drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:41: warning: suggest braces
+> >> > around initialization of subobject [-Wmissing-braces]
+> >> >                 struct amdgpu_task_info task_info = { 0 };
+> >> >                                                       ^
+> >> >                                                       {}
+> >> > 1 warning generated.
+> >> >
+> >> > drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:262:41: warning: suggest braces
+> >> > around initialization of subobject [-Wmissing-braces]
+> >> >                 struct amdgpu_task_info task_info = { 0 };
+> >> >                                                       ^
+> >> >                                                       {}
+> >> > 1 warning generated.
+> >> >
+> >> > Reported-by: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+> >> > Signed-off-by: Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> >> > ---
+> >> >  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-
+> >> >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
+> >> >  2 files changed, 2 insertions(+), 2 deletions(-)
+> >> >
+> >> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> >> > index 9333109b210d..968cc1b8cdff 100644
+> >> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> >> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> >> > @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct
+> amdgpu_device *adev,
+> >> >                 gmc_v8_0_set_fault_enable_default(adev, false);
+> >> >
+> >> >         if (printk_ratelimit()) {
+> >> > -               struct amdgpu_task_info task_info = { 0 };
+> >> > +               struct amdgpu_task_info task_info = { { 0 } };
+> >>
+> >> Hi Nathan,
+> >> Thanks for this patch.  I discussed this syntax with our language
+> >> lawyers.  Turns out, this is not quite correct, as you're now saying
+> >> "initialize the first subobject to zero, but not the rest of the
+> >> object."  -Wmissing-field-initializers would highlight this, but it's
+> >> not part of -Wall.  It would be more correct to zero initialize the
+> >> full struct, including all of its subobjects with `= {};`.
+> >
+> >
+> > Sorry, I think I've caused some confusion here.
+> >
+> > Elements with an omitted initializer get implicitly zero-initialized. In
+> C++, it's idiomatic to write `= {}` to perform aggregate
+> zero-initialization, but in C, that's invalid because at least one
+> initializer is syntactically required within the braces. As a result, `=
+> {0}` is an idiomatic way to perform zero-initialization of an aggregate in
+> C.
+>
+> That doesn't seem to be the case:
+> https://godbolt.org/z/TZzfo6 shouldn't Clang warn in the case of bar()?
+>
+
+This is a GNU extension. Use -pedantic-errors to turn off extensions, then
+Clang and GCC reject bar(): https://godbolt.org/z/pIzI6M
+
+
+> > Clang intends to suppress the -Wmissing-braces in that case; if the
+> warning is still being produced in a recent version of Clang, that's a bug.
+> However, the warning suppression was added between Clang 5 and Clang 6, so
+> it's very plausible that the compiler being used here is simply older than
+> the warning fix.
+> >
+> > (Long story short: the change here seems fine, but should be unnecessary
+> as of Clang 6.)
+>
+> The warning was identified from clang-8 ToT synced yesterday.
+>
+
+Thanks for the testcase. This is a Clang bug. Apparently the warning
+suppression only works when the first member is of type 'int'!
+https://godbolt.org/z/sxnZvv
+
+--0000000000007849850575c7f315
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_quot=
+e"><div dir=3D"ltr">On Wed, Sep 12, 2018 at 4:13 PM Nick Desaulniers &lt;<a=
+ href=3D"mailto:ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org">ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed, Sep=
+ 12, 2018 at 1:24 PM Richard Smith &lt;<a href=3D"mailto:richardsmith@googl=
+e.com" target=3D"_blank">richardsmith-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On Wed, Sep 12, 2018 at 10:38 AM Nick Desaulniers &lt;<a href=3D"mailt=
+o:ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org" target=3D"_blank">ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org</a>&gt=
+; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; On Tue, Sep 11, 2018 at 5:26 PM Nathan Chancellor<br>
+&gt;&gt; &lt;<a href=3D"mailto:natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">=
+natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Clang warns if there are missing braces around a subobject<br=
+>
+&gt;&gt; &gt; initializer.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:41: warning: sugge=
+st braces<br>
+&gt;&gt; &gt; around initialization of subobject [-Wmissing-braces]<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+struct amdgpu_task_info task_info =3D { 0 };<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{}<br>
+&gt;&gt; &gt; 1 warning generated.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:262:41: warning: sugges=
+t braces<br>
+&gt;&gt; &gt; around initialization of subobject [-Wmissing-braces]<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+struct amdgpu_task_info task_info =3D { 0 };<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{}<br>
+&gt;&gt; &gt; 1 warning generated.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Reported-by: Nick Desaulniers &lt;<a href=3D"mailto:ndesaulni=
+ers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org" target=3D"_blank">ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+&gt;&gt; &gt; Signed-off-by: Nathan Chancellor &lt;<a href=3D"mailto:natech=
+ancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt;&gt; &gt; ---<br>
+&gt;&gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-<br>
+&gt;&gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-<br>
+&gt;&gt; &gt;=C2=A0 2 files changed, 2 insertions(+), 2 deletions(-)<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/=
+gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+&gt;&gt; &gt; index 9333109b210d..968cc1b8cdff 100644<br>
+&gt;&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+&gt;&gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+&gt;&gt; &gt; @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(s=
+truct amdgpu_device *adev,<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+gmc_v8_0_set_fault_enable_default(adev, false);<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (printk_ratelimit()) {<br=
+>
+&gt;&gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struc=
+t amdgpu_task_info task_info =3D { 0 };<br>
+&gt;&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struc=
+t amdgpu_task_info task_info =3D { { 0 } };<br>
+&gt;&gt;<br>
+&gt;&gt; Hi Nathan,<br>
+&gt;&gt; Thanks for this patch.=C2=A0 I discussed this syntax with our lang=
+uage<br>
+&gt;&gt; lawyers.=C2=A0 Turns out, this is not quite correct, as you&#39;re=
+ now saying<br>
+&gt;&gt; &quot;initialize the first subobject to zero, but not the rest of =
+the<br>
+&gt;&gt; object.&quot;=C2=A0 -Wmissing-field-initializers would highlight t=
+his, but it&#39;s<br>
+&gt;&gt; not part of -Wall.=C2=A0 It would be more correct to zero initiali=
+ze the<br>
+&gt;&gt; full struct, including all of its subobjects with `=3D {};`.<br>
+&gt;<br>
+&gt;<br>
+&gt; Sorry, I think I&#39;ve caused some confusion here.<br>
+&gt;<br>
+&gt; Elements with an omitted initializer get implicitly zero-initialized. =
+In C++, it&#39;s idiomatic to write `=3D {}` to perform aggregate zero-init=
+ialization, but in C, that&#39;s invalid because at least one initializer i=
+s syntactically required within the braces. As a result, `=3D {0}` is an id=
+iomatic way to perform zero-initialization of an aggregate in C.<br>
+<br>
+That doesn&#39;t seem to be the case:<br>
+<a href=3D"https://godbolt.org/z/TZzfo6" rel=3D"noreferrer" target=3D"_blan=
+k">https://godbolt.org/z/TZzfo6</a> shouldn&#39;t Clang warn in the case of=
+ bar()?<br></blockquote><div><br></div><div>This is a GNU extension. Use -p=
+edantic-errors to turn off extensions, then Clang and GCC reject bar(): <a =
+href=3D"https://godbolt.org/z/pIzI6M">https://godbolt.org/z/pIzI6M</a></div=
+><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt; Clang intends to suppress the -Wmissing-braces in that case; if the wa=
+rning is still being produced in a recent version of Clang, that&#39;s a bu=
+g. However, the warning suppression was added between Clang 5 and Clang 6, =
+so it&#39;s very plausible that the compiler being used here is simply olde=
+r than the warning fix.<br>
+&gt;<br>
+&gt; (Long story short: the change here seems fine, but should be unnecessa=
+ry as of Clang 6.)<br>
+<br>
+The warning was identified from clang-8 ToT synced yesterday.<br></blockquo=
+te><div><br></div><div>Thanks for the testcase. This is a Clang bug. Appare=
+ntly the warning suppression only works when the first member is of type &#=
+39;int&#39;! <a href=3D"https://godbolt.org/z/sxnZvv">https://godbolt.org/z=
+/sxnZvv</a></div></div></div></div></div>
+
+--0000000000007849850575c7f315--
+
+--===============0156240171==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0156240171==--
