@@ -1,139 +1,59 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/3] [RFC]drm: add syncobj timeline support v4
-Date: Thu, 13 Sep 2018 12:22:56 +0200
-Message-ID: <c077c499-dcad-2545-d918-75f13a1d3a14@amd.com>
-References: <20180906062523.16542-1-david1.zhou@amd.com>
- <4374aa17-c659-0c22-a487-c5e236690108@amd.com>
- <b69c0d93-5e46-fc25-2545-e2e1de18295e@amd.com>
- <e90fbb9b-f201-9887-c722-fa91c300441b@amd.com>
- <7117b33b-c24f-6cb5-5372-143385f7a7b5@gmail.com>
- <241f52a9-cb52-c95a-a4ed-d8852bc43980@amd.com>
- <6879599a-0270-3eae-f8a2-1efc154159bb@amd.com>
- <BY1PR12MB0502C7E29899EBF4B0379B0BB41A0@BY1PR12MB0502.namprd12.prod.outlook.com>
- <ead45230-65dd-ecd8-5153-8312dd2a9480@gmail.com>
- <BY1PR12MB0502DD202E93FFAD340FE931B41A0@BY1PR12MB0502.namprd12.prod.outlook.com>
- <54f6a4e6-36e1-fb6d-967a-81a105ea271d@amd.com>
- <BY1PR12MB05020A2E66D19438D4069CFCB41A0@BY1PR12MB0502.namprd12.prod.outlook.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?="
+        <ckoenig.leichtzumerken@gmail.com>
+Subject: [PATCH 1/2] list: introduce list_bulk_move_tail helper
+Date: Thu, 13 Sep 2018 13:22:07 +0200
+Message-ID: <20180913112208.1353-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY1PR12MB05020A2E66D19438D4069CFCB41A0-PicGAnIBOobrCwm+z9iKNgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Rakos, Daniel" <Daniel.Rakos-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTMuMDkuMjAxOCB1bSAxMTozNSBzY2hyaWViIFpob3UsIERhdmlkKENodW5NaW5nKToKPgo+
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+PiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbgo+
-PiBTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDEzLCAyMDE4IDU6MjAgUE0KPj4gVG86IFpob3Us
-IERhdmlkKENodW5NaW5nKSA8RGF2aWQxLlpob3VAYW1kLmNvbT47IGRyaS0KPj4gZGV2ZWxAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4+IENjOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29t
-PjsgUmFrb3MsIERhbmllbAo+PiA8RGFuaWVsLlJha29zQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+PiBTdWJqZWN0OiBSZTogW1BBVENIIDEvM10gW1JGQ11kcm06IGFk
-ZCBzeW5jb2JqIHRpbWVsaW5lIHN1cHBvcnQgdjQKPj4KPj4gQW0gMTMuMDkuMjAxOCB1bSAxMTox
-MSBzY2hyaWViIFpob3UsIERhdmlkKENodW5NaW5nKToKPj4+PiAtLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQo+Pj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJr
-ZW5AZ21haWwuY29tPgo+Pj4+IFNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1iZXIgMTMsIDIwMTggNDo1
-MCBQTQo+Pj4+IFRvOiBaaG91LCBEYXZpZChDaHVuTWluZykgPERhdmlkMS5aaG91QGFtZC5jb20+
-OyBLb2VuaWcsIENocmlzdGlhbgo+Pj4+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+OyBkcmkt
-ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4gQ2M6IERhdmUgQWlybGllIDxhaXJsaWVk
-QHJlZGhhdC5jb20+OyBSYWtvcywgRGFuaWVsCj4+Pj4gPERhbmllbC5SYWtvc0BhbWQuY29tPjsg
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+PiBTdWJqZWN0OiBSZTogW1BBVENIIDEv
-M10gW1JGQ11kcm06IGFkZCBzeW5jb2JqIHRpbWVsaW5lIHN1cHBvcnQgdjQKPj4+Pgo+Pj4+IEFt
-IDEzLjA5LjIwMTggdW0gMDk6NDMgc2NocmllYiBaaG91LCBEYXZpZChDaHVuTWluZyk6Cj4+Pj4+
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4+Pj4gRnJvbTogS29lbmlnLCBDaHJpc3Rp
-YW4KPj4+Pj4+IFNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1iZXIgMTMsIDIwMTggMjo1NiBQTQo+Pj4+
-Pj4gVG86IFpob3UsIERhdmlkKENodW5NaW5nKSA8RGF2aWQxLlpob3VAYW1kLmNvbT47IFpob3Us
-Cj4+Pj4+PiBEYXZpZChDaHVuTWluZykgPERhdmlkMS5aaG91QGFtZC5jb20+OyBkcmktCj4+Pj4+
-PiBkZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+Pj4+IENjOiBEYXZlIEFpcmxpZSA8YWly
-bGllZEByZWRoYXQuY29tPjsgUmFrb3MsIERhbmllbAo+Pj4+Pj4gPERhbmllbC5SYWtvc0BhbWQu
-Y29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+Pj4+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0ggMS8zXSBbUkZDXWRybTogYWRkIHN5bmNvYmogdGltZWxpbmUgc3VwcG9ydCB2NAo+Pj4+
-Pj4KPj4+Pj4+IEFtIDEzLjA5LjIwMTggdW0gMDQ6MTUgc2NocmllYiB6aG91Y20xOgo+Pj4+Pj4+
-IE9uIDIwMTjlubQwOeaciDEy5pelIDE5OjA1LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+
-Pj4+Pj4+Pj4gW1NOSVBdCj4+Pj4+Pj4+Pj4+PiArc3RhdGljIHZvaWQgZHJtX3N5bmNvYmpfZmlu
-ZF9zaWduYWxfcHRfZm9yX3dhaXRfcHQoc3RydWN0Cj4+Pj4+Pj4+Pj4+PiBkcm1fc3luY29iaiAq
-c3luY29iaiwKPj4+Pj4+Pj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fc3luY29ial93YWl0X3B0Cj4+Pj4+Pj4+Pj4+
-PiArKndhaXRfcHQpIHsKPj4+Pj4+Pj4+Pj4gVGhhdCB3aG9sZSBhcHByb2FjaCBzdGlsbCBsb29r
-cyBob3JyaWJsZSBjb21wbGljYXRlZCB0byBtZS4KPj4+Pj4+Pj4+IEl0J3MgYWxyZWFkeSB2ZXJ5
-IGNsb3NlIHRvIHdoYXQgeW91IHNhaWQgYmVmb3JlLgo+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4gRXNw
-ZWNpYWxseSB0aGUgc2VwYXJhdGlvbiBvZiBzaWduYWwgYW5kIHdhaXQgcHQgaXMgY29tcGxldGVs
-eQo+Pj4+Pj4+Pj4+PiB1bm5lY2Vzc2FyeSBhcyBmYXIgYXMgSSBjYW4gc2VlLgo+Pj4+Pj4+Pj4+
-PiBXaGVuIGEgd2FpdCBwdCBpcyByZXF1ZXN0ZWQgd2UganVzdCBuZWVkIHRvIHNlYXJjaCBmb3Ig
-dGhlCj4+Pj4+Pj4+Pj4+IHNpZ25hbCBwb2ludCB3aGljaCBpdCB3aWxsIHRyaWdnZXIuCj4+Pj4+
-Pj4+PiBZZWFoLCBJIHRyaWVkIHRoaXMsIGJ1dCB3aGVuIEkgaW1wbGVtZW50IGNwdSB3YWl0IGlv
-Y3RsIG9uCj4+Pj4+Pj4+PiBzcGVjaWZpYyBwb2ludCwgd2UgbmVlZCBhIGFkdmFuY2VkIHdhaXQg
-cHQgZmVuY2UsIG90aGVyd2lzZSwgd2UKPj4+Pj4+Pj4+IGNvdWxkIHN0aWxsIG5lZWQgb2xkIHN5
-bmNvYmogY2IuCj4+Pj4+Pj4+IFdoeT8gSSBtZWFuIHlvdSBqdXN0IG5lZWQgdG8gY2FsbCBkcm1f
-c3luY29ial9maW5kX2ZlbmNlKCkgYW5kCj4+Pj4gd2hlbgo+Pj4+Pj4+PiB0aGF0IG9uZSByZXR1
-cm5zIE5VTEwgeW91IHVzZSB3YWl0X2V2ZW50XyooKSB0byB3YWl0IGZvciBhIHNpZ25hbAo+Pj4+
-Pj4+PiBwb2ludCA+PSB5b3VyIHdhaXQgcG9pbnQgdG8gYXBwZWFyIGFuZCB0cnkgYWdhaW4uCj4+
-Pj4+Pj4gZS5nLiB3aGVuIHRoZXJlIGFyZSAzIHN5bmNvYmpzKEEsQixDKSB0byB3YWl0LCBhbGwg
-c3luY29iakFCQyBoYXZlCj4+Pj4+Pj4gbm8gZmVuY2UgeWV0LCBhcyB5b3Ugc2FpZCwgZHVyaW5n
-IGRybV9zeW5jb2JqX2ZpbmRfZmVuY2UoQSkgaXMKPj4+Pj4+PiB3b3JraW5nIG9uIHdhaXRfZXZl
-bnQsIHN5bmNvYmpCIGFuZCBzeW5jb2JqQyBjb3VsZCBhbHJlYWR5IGJlCj4+Pj4+Pj4gc2lnbmFs
-ZWQsIHRoZW4gd2UgZG9uJ3Qga25vdyB3aGljaCBvbmUgaXMgZmlyc3Qgc2lnbmFsZWQsIHdoaWNo
-IGlzCj4+Pj4+Pj4gbmVlZCB3aGVuIHdhaXQgaW9jdGwgcmV0dXJucy4KPj4+Pj4+IEkgZG9uJ3Qg
-cmVhbGx5IHNlZSBhIHByb2JsZW0gd2l0aCB0aGF0LiBXaGVuIHlvdSB3YWl0IGZvciB0aGUgZmly
-c3QKPj4+Pj4+IG9uZSB5b3UgbmVlZCB0byB3YWl0IGZvciBBLEIsQyBhdCB0aGUgc2FtZSB0aW1l
-IGFueXdheS4KPj4+Pj4+Cj4+Pj4+PiBTbyB3aGF0IHlvdSBkbyBpcyB0byByZWdpc3RlciBhIGZl
-bmNlIGNhbGxiYWNrIG9uIHRoZSBmZW5jZXMgeW91Cj4+Pj4+PiBhbHJlYWR5IGhhdmUgYW5kIGZv
-ciB0aGUgc3luY29iaiB3aGljaCBkb2Vzbid0IHlldCBoYXZlIGEgZmVuY2UgeW91Cj4+Pj4+PiBt
-YWtlIHN1cmUgdGhhdCB0aGV5IHdha2UgdXAgeW91ciB0aHJlYWQgd2hlbiB0aGV5IGdldCBvbmUu
-Cj4+Pj4+Pgo+Pj4+Pj4gU28gZXNzZW50aWFsbHkgZXhhY3RseSB3aGF0IGRybV9zeW5jb2JqX2Zl
-bmNlX2dldF9vcl9hZGRfY2FsbGJhY2soKQo+Pj4+Pj4gYWxyZWFkeSBkb2VzIHRvZGF5Lgo+Pj4+
-PiBTbyBkbyB5b3UgbWVhbiB3ZSBuZWVkIHN0aWxsIHVzZSBvbGQgc3luY29iaiBDQiBmb3IgdGhh
-dD8KPj4+PiBZZXMsIGFzIGZhciBhcyBJIGNhbiBzZWUgaXQgc2hvdWxkIHdvcmsuCj4+Pj4KPj4+
-Pj4gICAgIEFkdmFuY2VkIHdhaXQgcHQgaXMgYmFkPwo+Pj4+IFdlbGwgaXQgaXNuJ3QgYmFkLCBJ
-IGp1c3QgZG9uJ3Qgc2VlIGFueSBhZHZhbnRhZ2UgaW4gaXQuCj4+PiBUaGUgYWR2YW50YWdlIGlz
-IHRvIHJlcGxhY2Ugb2xkIHN5bmNvYmogY2IuCj4+Pgo+Pj4+IFRoZSBleGlzdGluZyBtZWNoYW5p
-c20KPj4+PiBzaG91bGQgYWxyZWFkeSBiZSBhYmxlIHRvIGhhbmRsZSB0aGF0Lgo+Pj4gSSB0aG91
-Z2h0IG1vcmUgYSBiaXQsIHdlIGRvbid0IHRoYXQgbWVjaGFuaXNtIGF0IGFsbCwgaWYgdXNlIGFk
-dmFuY2VkIHdhaXQKPj4gcHQsIHdlIGNhbiBlYXNpbHkgdXNlIGZlbmNlIGFycmF5IHRvIGFjaGll
-dmUgaXQgZm9yIHdhaXQgaW9jdGwsIHdlIHNob3VsZCB1c2UKPj4ga2VybmVsIGV4aXN0aW5nIGZl
-YXR1cmUgYXMgbXVjaCBhcyBwb3NzaWJsZSwgbm90IGludmVudCBhbm90aGVyLCBzaG91bGRuJ3Qg
-d2U/Cj4+IEkgcmVtZW1iZXIgIHlvdSBzYWlkICBpdCBiZWZvcmUuCj4+Cj4+IFllYWgsIGJ1dCB0
-aGUgc3luY29iaiBjYiBpcyBhbiBleGlzdGluZyBmZWF0dXJlLgo+IFRoaXMgaXMgb2J2aW91c2x5
-IGEgd29ya2Fyb3VuZCB3aGVuIGRvaW5nIGZvciB3YWl0IGlvY3RsLCBEbyB5b3Ugc2VlIGl0IHVz
-ZWQgaW4gb3RoZXIgcGxhY2U/Cj4KPj4gQW5kIEkgYWJzb2x1dGVseSBkb24ndCBzZWUgYQo+PiBu
-ZWVkIHRvIG1vZGlmeSB0aGF0IGFuZCByZXBsYWNlIGl0IHdpdGggc29tZXRoaW5nIGZhciBtb3Jl
-IGNvbXBsZXguCj4gVGhlIHdhaXQgaW9jdGwgaXMgc2ltcGxpZmllZCBtdWNoIG1vcmUgYnkgZmVu
-Y2UgYXJyYXksIG5vdCBjb21wbGV4LCBhbmQgd2UganVzdCBuZWVkICB0byBhbGxvY2F0ZSBhIHdh
-aXQgcHQuICBJZiBrZWVwaW5nIG9sZCBzeW5jb2JqIGNiIHdvcmthcm91bmQsIGFsbCB3YWl0IHB0
-IGxvZ2ljIHN0aWxsIGlzIHRoZXJlLCBqdXN0IHNhdmUgYWxsb2NhdGlvbiBhbmQgd2FpdCBwdCBo
-YW5kbGluZywgaW4gZmFjdCwgd2hpY2ggcGFydCBpc24ndCBjb21wbGV4IGF0IGFsbC4gQnV0IGNv
-bXBhcmUgd2l0aCB1Z2x5IHN5bmNvYmogY2IsIHdoaWNoIGlzIHNpbXBsZXIuCgpJIHN0cm9uZ2x5
-IGRpc2FncmVlIG9uIHRoYXQuIFlvdSBqdXN0IG5lZWQgdG8gZXh0ZW5kIHRoZSBzeW5jb2JqIGNi
-IHdpdGggCnRoZSBzZXF1ZW5jZSBudW1iZXIgYW5kIHlvdSBhcmUgZG9uZS4KCldlIGNvdWxkIGNs
-ZWFuIHRoYXQgdXAgaW4gdGhlIGxvbmcgdGVybSBieSBhZGRpbmcgc29tZSB3YWl0X211bHRpIGV2
-ZW50IAptYWNybywgYnV0IGZvciBub3cganVzdCBhZGRpbmcgdGhlIHNlcXVlbmNlIG51bWJlciBz
-aG91bGQgZG8gdGhlIHRyaWNrLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFRoYW5rcywKPiBE
-YXZpZCBaaG91Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4+IFRoYW5rcywKPj4+IERh
-dmlkIFpob3UKPj4+PiBDaHJpc3RpYW4uCj4+Pj4KPj4+Pj4gVGhhbmtzLAo+Pj4+PiBEYXZpZCBa
-aG91Cj4+Pj4+PiBSZWdhcmRzLAo+Pj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Pj4KPj4+Pj4+PiBCYWNr
-IHRvIG15IGltcGxlbWVudGF0aW9uLCBpdCBhbHJlYWR5IGZpeGVzIGFsbCB5b3VyIGNvbmNlcm5z
-Cj4+Pj4+Pj4gYmVmb3JlLCBhbmQgY2FuIGJlIGFibGUgdG8gZWFzaWx5IHVzZWQgaW4gd2FpdF9p
-b2N0bC4gV2hlbiB5b3UKPj4+Pj4+PiBmZWVsIHRoYXQgaXMgY29tcGxpY2F0ZWQsIEkgZ3Vlc3Mg
-dGhhdCBpcyBiZWNhdXNlIHdlIG1lcmdlZCBhbGwKPj4+Pj4+PiBsb2dpYyB0byB0aGF0IGFuZCBt
-dWNoIGNsZWFuIHVwIGluIG9uZSBwYXRjaC4gSW4gZmFjdCwgaXQgYWxyZWFkeQo+Pj4+Pj4+IGlz
-IHZlcnkgc2ltcGxlLCB0aW1lbGluZV9pbml0L2ZpbmksIGNyZWF0ZSBzaWduYWwvd2FpdF9wdCwg
-ZmluZAo+Pj4+Pj4+IHNpZ25hbF9wdCBmb3Igd2FpdF9wdCwgZ2FyYmFnZSBjb2xsZWN0aW9uLCBq
-dXN0IHRoZW0uCj4+Pj4+Pj4KPj4+Pj4+PiBUaGFua3MsCj4+Pj4+Pj4gRGF2aWQgWmhvdQo+Pj4+
-Pj4+PiBSZWdhcmRzLAo+Pj4+Pj4+PiBDaHJpc3RpYW4uCj4+Pj4+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0
-Cj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+IGh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Move all entries between @first and including @last before @head.
+
+This is useful for LRU lists where a whole block of entries should be
+moved to the end of an list.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ include/linux/list.h | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/include/linux/list.h b/include/linux/list.h
+index de04cc5ed536..edb7628e46ed 100644
+--- a/include/linux/list.h
++++ b/include/linux/list.h
+@@ -183,6 +183,29 @@ static inline void list_move_tail(struct list_head *list,
+ 	list_add_tail(list, head);
+ }
+ 
++/**
++ * list_bulk_move_tail - move a subsection of a list to its tail
++ * @head: the head that will follow our entry
++ * @first: first entry to move
++ * @last: last entry to move, can be the same as first
++ *
++ * Move all entries between @first and including @last before @head.
++ * All three entries must belong to the same linked list.
++ */
++static inline void list_bulk_move_tail(struct list_head *head,
++				       struct list_head *first,
++				       struct list_head *last)
++{
++	first->prev->next = last->next;
++	last->next->prev = first->prev;
++
++	head->prev->next = first;
++	first->prev = head->prev;
++
++	last->next = head;
++	head->prev = last;
++}
++
+ /**
+  * list_is_last - tests whether @list is the last entry in list @head
+  * @list: the entry to test
+-- 
+2.14.1
