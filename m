@@ -1,96 +1,45 @@
-From: Nick Desaulniers <ndesaulniers@google.com>
-Subject: Re: [PATCH] drm/amdgpu: Add braces to initialize task_info subojects
-Date: Wed, 12 Sep 2018 16:13:38 -0700
-Message-ID: <CAKwvOdkSy74TKqASdMtWwHKOeAVQn+mEfv0Fi8q+-35dGjXtHA@mail.gmail.com>
-References: <20180912002559.1853-1-natechancellor@gmail.com>
- <CAKwvOdkMg_1JxVNhKrUM0CZxF6nQo8c5h7t4zu4RP2xEXyQdKQ@mail.gmail.com> <CAGL0aWeYARfArmSJwXemE_QdGeRwnfE-CKh+DaRY8jwEF0SU5w@mail.gmail.com>
+From: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/9] drm/amdgpu: Fix SDMA HQD destroy error on gfx_v7
+Date: Wed, 12 Sep 2018 21:42:18 -0400
+Message-ID: <1536802946-29273-2-git-send-email-Felix.Kuehling@amd.com>
+References: <1536802946-29273-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAGL0aWeYARfArmSJwXemE_QdGeRwnfE-CKh+DaRY8jwEF0SU5w@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Richard Smith <richardsmith@google.com>
-Cc: Nathan Chancellor <natechancellor@gmail.com>, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1536802946-29273-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, Amber Lin <Amber.Lin-5C7GfCeVMHo@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Sep 12, 2018 at 1:24 PM Richard Smith <richardsmith@google.com> wro=
-te:
->
-> On Wed, Sep 12, 2018 at 10:38 AM Nick Desaulniers <ndesaulniers@google.co=
-m> wrote:
->>
->> On Tue, Sep 11, 2018 at 5:26 PM Nathan Chancellor
->> <natechancellor@gmail.com> wrote:
->> >
->> > Clang warns if there are missing braces around a subobject
->> > initializer.
->> >
->> > drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:41: warning: suggest braces
->> > around initialization of subobject [-Wmissing-braces]
->> >                 struct amdgpu_task_info task_info =3D { 0 };
->> >                                                       ^
->> >                                                       {}
->> > 1 warning generated.
->> >
->> > drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:262:41: warning: suggest braces
->> > around initialization of subobject [-Wmissing-braces]
->> >                 struct amdgpu_task_info task_info =3D { 0 };
->> >                                                       ^
->> >                                                       {}
->> > 1 warning generated.
->> >
->> > Reported-by: Nick Desaulniers <ndesaulniers@google.com>
->> > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
->> > ---
->> >  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-
->> >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
->> >  2 files changed, 2 insertions(+), 2 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gmc_v8_0.c
->> > index 9333109b210d..968cc1b8cdff 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->> > @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct amd=
-gpu_device *adev,
->> >                 gmc_v8_0_set_fault_enable_default(adev, false);
->> >
->> >         if (printk_ratelimit()) {
->> > -               struct amdgpu_task_info task_info =3D { 0 };
->> > +               struct amdgpu_task_info task_info =3D { { 0 } };
->>
->> Hi Nathan,
->> Thanks for this patch.  I discussed this syntax with our language
->> lawyers.  Turns out, this is not quite correct, as you're now saying
->> "initialize the first subobject to zero, but not the rest of the
->> object."  -Wmissing-field-initializers would highlight this, but it's
->> not part of -Wall.  It would be more correct to zero initialize the
->> full struct, including all of its subobjects with `=3D {};`.
->
->
-> Sorry, I think I've caused some confusion here.
->
-> Elements with an omitted initializer get implicitly zero-initialized. In =
-C++, it's idiomatic to write `=3D {}` to perform aggregate zero-initializat=
-ion, but in C, that's invalid because at least one initializer is syntactic=
-ally required within the braces. As a result, `=3D {0}` is an idiomatic way=
- to perform zero-initialization of an aggregate in C.
-
-That doesn't seem to be the case:
-https://godbolt.org/z/TZzfo6 shouldn't Clang warn in the case of bar()?
-
-> Clang intends to suppress the -Wmissing-braces in that case; if the warni=
-ng is still being produced in a recent version of Clang, that's a bug. Howe=
-ver, the warning suppression was added between Clang 5 and Clang 6, so it's=
- very plausible that the compiler being used here is simply older than the =
-warning fix.
->
-> (Long story short: the change here seems fine, but should be unnecessary =
-as of Clang 6.)
-
-The warning was identified from clang-8 ToT synced yesterday.
-
---=20
-Thanks,
-~Nick Desaulniers
+RnJvbTogQW1iZXIgTGluIDxBbWJlci5MaW5AYW1kLmNvbT4KCkEgd3JvbmcgcmVnaXN0ZXIgYml0
+IHdhcyBleGFtaW5hdGVkIGZvciBjaGVja2luZyBTRE1BIHN0YXR1cyBzbyBpdCByZXBvcnRzCmZh
+bHNlIGZhaWx1cmVzLiBUaGlzIHR5cG8gb25seSBhcHBlYXJzIG9uIGdmeF92Ny4gZ2Z4X3Y4IGNo
+ZWNrcyB0aGUgY29ycmVjdApiaXQuCgpTaWduZWQtb2ZmLWJ5OiBBbWJlciBMaW4gPEFtYmVyLkxp
+bkBhbWQuY29tPgpSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFt
+ZC5jb20+ClNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQu
+Y29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3
+LmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dm
+eF92Ny5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjcu
+YwppbmRleCA2ZjBiNTI2Li5iMmU0NWM4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92Ny5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMKQEAgLTY4Niw3ICs2ODYsNyBAQCBzdGF0aWMg
+aW50IGtnZF9ocWRfc2RtYV9kZXN0cm95KHN0cnVjdCBrZ2RfZGV2ICprZ2QsIHZvaWQgKm1xZCwK
+IAogCXdoaWxlICh0cnVlKSB7CiAJCXRlbXAgPSBSUkVHMzIoc2RtYV9iYXNlX2FkZHIgKyBtbVNE
+TUEwX1JMQzBfQ09OVEVYVF9TVEFUVVMpOwotCQlpZiAodGVtcCAmIFNETUEwX1NUQVRVU19SRUdf
+X1JCX0NNRF9JRExFX19TSElGVCkKKwkJaWYgKHRlbXAgJiBTRE1BMF9STEMwX0NPTlRFWFRfU1RB
+VFVTX19JRExFX01BU0spCiAJCQlicmVhazsKIAkJaWYgKHRpbWVfYWZ0ZXIoamlmZmllcywgZW5k
+X2ppZmZpZXMpKQogCQkJcmV0dXJuIC1FVElNRTsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
