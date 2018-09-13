@@ -1,14 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu] Bail from drmmode_cm_init if there's no
- CRTC
-Date: Thu, 13 Sep 2018 14:17:30 +0000
-Message-ID: <BN6PR12MB180970BEFD08CC749DE18727F71A0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20180913094729.2355-1-michel@daenzer.net>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/ttm: once more fix ttm_bo_bulk_move_lru_tail
+Date: Thu, 13 Sep 2018 10:25:38 -0400
+Message-ID: <CADnq5_PiVfsBjGxN0wsbHL0o5rWYRuVehTeZvN396kp=GVZTNA@mail.gmail.com>
+References: <20180912192355.2359-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0744074313=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180913094729.2355-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180912192355.2359-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,154 +18,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0744074313==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180970BEFD08CC749DE18727F71A0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180970BEFD08CC749DE18727F71A0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
-=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Thursday, September 13, 2018 5:47:29 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [PATCH xf86-video-amdgpu] Bail from drmmode_cm_init if there's no =
-CRTC
-
-From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
-
-We would crash due to dereferencing the NULL mode_res->crtc pointer.
-
-Bugzilla: https://bugs.freedesktop.org/107913
-Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
----
- src/drmmode_display.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/src/drmmode_display.c b/src/drmmode_display.c
-index 6ef6a98e2..cbda8ad35 100644
---- a/src/drmmode_display.c
-+++ b/src/drmmode_display.c
-@@ -3198,6 +3198,9 @@ static void drmmode_cm_init(int drm_fd, drmmode_ptr d=
-rmmode,
-         memset(drmmode->cm_prop_ids, 0, sizeof(drmmode->cm_prop_ids));
-         drmmode->gamma_lut_size =3D drmmode->degamma_lut_size =3D 0;
-
-+       if (!mode_res->crtcs)
-+               return;
-+
-         /* AMD hardware has color management support on all pipes. It is
-          * therefore sufficient to only check the first CRTC.
-          */
---
-2.19.0.rc2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180970BEFD08CC749DE18727F71A0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
-r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFo=
-nt&quot;, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoCo=
-lorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymb=
-ols;">
-<p style=3D"margin-top:0; margin-bottom:0">Reviewed-by: Alex Deucher &lt;al=
-exander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@=
-daenzer.net&gt;<br>
-<b>Sent:</b> Thursday, September 13, 2018 5:47:29 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> [PATCH xf86-video-amdgpu] Bail from drmmode_cm_init if ther=
-e's no CRTC</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<br>
-We would crash due to dereferencing the NULL mode_res-&gt;crtc pointer.<br>
-<br>
-Bugzilla: <a href=3D"https://bugs.freedesktop.org/107913" id=3D"LPlnk315283=
-" class=3D"OWAAutoLink" previewremoved=3D"true">
-https://bugs.freedesktop.org/107913</a><br>
-Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;src/drmmode_display.c | 3 &#43;&#43;&#43;<br>
-&nbsp;1 file changed, 3 insertions(&#43;)<br>
-<br>
-diff --git a/src/drmmode_display.c b/src/drmmode_display.c<br>
-index 6ef6a98e2..cbda8ad35 100644<br>
---- a/src/drmmode_display.c<br>
-&#43;&#43;&#43; b/src/drmmode_display.c<br>
-@@ -3198,6 &#43;3198,9 @@ static void drmmode_cm_init(int drm_fd, drmmode_p=
-tr drmmode,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(drmmode-&gt;cm_prop=
-_ids, 0, sizeof(drmmode-&gt;cm_prop_ids));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode-&gt;gamma_lut_size=
- =3D drmmode-&gt;degamma_lut_size =3D 0;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mode_res-&gt;crtcs)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* AMD hardware has color =
-management support on all pipes. It is<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * therefore sufficie=
-nt to only check the first CRTC.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--- <br>
-2.19.0.rc2<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk971804" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
-desktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB180970BEFD08CC749DE18727F71A0BN6PR12MB1809namp_--
-
---===============0744074313==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0744074313==--
+T24gV2VkLCBTZXAgMTIsIDIwMTggYXQgMzoyNSBQTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBXaGlsZSBjdXR0aW5nIHRoZSBs
+aXN0cyB3ZSBzb21ldGltZXMgYWNjaWRlbnRhbGx5IGFkZGVkIGEgbGlzdF9oZWFkIGZyb20KPiB0
+aGUgc3RhY2sgdG8gdGhlIExSVXMsIGVmZmVjdGl2ZWx5IGNvcnJ1cHRpbmcgdGhlIGxpc3QuCj4K
+PiBSZW1vdmUgdGhlIGxpc3QgY3V0dGluZyBhbmQgdXNlIGV4cGxpY2l0IGxpc3QgbWFuaXB1bGF0
+aW9uIGluc3RlYWQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+CgpDYW4geW91IGFwcGx5IHRoaXMgcGF0Y2ggZmlyc3QgYW5kIHRo
+ZW4gZG8gdGhlIGNsZWFuIHVwIGFzIGEgbGF0ZXIKc2VyaWVzIG9yIHRlbXBvcmFyaWx5IGRpc2Fi
+bGUgdGhlIGZlYXR1cmU/ICBJIHdhbnQgdG8gc2VuZCBvdXQgYSAtbmV4dApwdWxsIHRoaXMgd2Vl
+ayBhbmQgSSBkb24ndCB3YW50IHRvIGxlYXZlIHRoaXMgYnJva2VuLgoKQWxleAoKPiAtLS0KPiAg
+ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyB8IDUxICsrKysrKysrKysrKysrKysrKysrKysr
+KysrLS0tLS0tLS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCsp
+LCAyMSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0
+bV9iby5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+IGluZGV4IDEzOGM5ODkwMjAz
+My4uYjJhMzNiZjFlZjEwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2Jv
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4gQEAgLTI0NywyMyArMjQ3
+LDE4IEBAIHZvaWQgdHRtX2JvX21vdmVfdG9fbHJ1X3RhaWwoc3RydWN0IHR0bV9idWZmZXJfb2Jq
+ZWN0ICpibywKPiAgfQo+ICBFWFBPUlRfU1lNQk9MKHR0bV9ib19tb3ZlX3RvX2xydV90YWlsKTsK
+Pgo+IC1zdGF0aWMgdm9pZCB0dG1fYm9fYnVsa19tb3ZlX2hlbHBlcihzdHJ1Y3QgdHRtX2xydV9i
+dWxrX21vdmVfcG9zICpwb3MsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+c3RydWN0IGxpc3RfaGVhZCAqbHJ1LCBib29sIGlzX3N3YXApCj4gK3N0YXRpYyB2b2lkIHR0bV9s
+aXN0X21vdmVfYnVsa190YWlsKHN0cnVjdCBsaXN0X2hlYWQgKmxpc3QsCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGxpc3RfaGVhZCAqZmlyc3QsCj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGxpc3RfaGVhZCAqbGFzdCkKPiAg
+ewo+IC0gICAgICAgc3RydWN0IGxpc3RfaGVhZCAqbGlzdDsKPiAtICAgICAgIExJU1RfSEVBRChl
+bnRyaWVzKTsKPiAtICAgICAgIExJU1RfSEVBRChiZWZvcmUpOwo+ICsgICAgICAgZmlyc3QtPnBy
+ZXYtPm5leHQgPSBsYXN0LT5uZXh0Owo+ICsgICAgICAgbGFzdC0+bmV4dC0+cHJldiA9IGZpcnN0
+LT5wcmV2Owo+Cj4gLSAgICAgICByZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hlbGQocG9zLT5s
+YXN0LT5yZXN2KTsKPiAtICAgICAgIGxpc3QgPSBpc19zd2FwID8gJnBvcy0+bGFzdC0+c3dhcCA6
+ICZwb3MtPmxhc3QtPmxydTsKPiAtICAgICAgIGxpc3RfY3V0X3Bvc2l0aW9uKCZlbnRyaWVzLCBs
+cnUsIGxpc3QpOwo+ICsgICAgICAgbGlzdC0+cHJldi0+bmV4dCA9IGZpcnN0Owo+ICsgICAgICAg
+Zmlyc3QtPnByZXYgPSBsaXN0LT5wcmV2Owo+Cj4gLSAgICAgICByZXNlcnZhdGlvbl9vYmplY3Rf
+YXNzZXJ0X2hlbGQocG9zLT5maXJzdC0+cmVzdik7Cj4gLSAgICAgICBsaXN0ID0gaXNfc3dhcCA/
+IHBvcy0+Zmlyc3QtPnN3YXAucHJldiA6IHBvcy0+Zmlyc3QtPmxydS5wcmV2Owo+IC0gICAgICAg
+bGlzdF9jdXRfcG9zaXRpb24oJmJlZm9yZSwgJmVudHJpZXMsIGxpc3QpOwo+IC0KPiAtICAgICAg
+IGxpc3Rfc3BsaWNlKCZiZWZvcmUsIGxydSk7Cj4gLSAgICAgICBsaXN0X3NwbGljZV90YWlsKCZl
+bnRyaWVzLCBscnUpOwo+ICsgICAgICAgbGFzdC0+bmV4dCA9IGxpc3Q7Cj4gKyAgICAgICBsaXN0
+LT5wcmV2ID0gbGFzdDsKPiAgfQo+Cj4gIHZvaWQgdHRtX2JvX2J1bGtfbW92ZV9scnVfdGFpbChz
+dHJ1Y3QgdHRtX2xydV9idWxrX21vdmUgKmJ1bGspCj4gQEAgLTI3MSwyMyArMjY2LDMzIEBAIHZv
+aWQgdHRtX2JvX2J1bGtfbW92ZV9scnVfdGFpbChzdHJ1Y3QgdHRtX2xydV9idWxrX21vdmUgKmJ1
+bGspCj4gICAgICAgICB1bnNpZ25lZCBpOwo+Cj4gICAgICAgICBmb3IgKGkgPSAwOyBpIDwgVFRN
+X01BWF9CT19QUklPUklUWTsgKytpKSB7Cj4gKyAgICAgICAgICAgICAgIHN0cnVjdCB0dG1fbHJ1
+X2J1bGtfbW92ZV9wb3MgKnBvcyA9ICZidWxrLT50dFtpXTsKPiAgICAgICAgICAgICAgICAgc3Ry
+dWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW47Cj4KPiAtICAgICAgICAgICAgICAgaWYgKCFi
+dWxrLT50dFtpXS5maXJzdCkKPiArICAgICAgICAgICAgICAgaWYgKCFwb3MtPmZpcnN0KQo+ICAg
+ICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOwo+Cj4gLSAgICAgICAgICAgICAgIG1hbiA9
+ICZidWxrLT50dFtpXS5maXJzdC0+YmRldi0+bWFuW1RUTV9QTF9UVF07Cj4gLSAgICAgICAgICAg
+ICAgIHR0bV9ib19idWxrX21vdmVfaGVscGVyKCZidWxrLT50dFtpXSwgJm1hbi0+bHJ1W2ldLCBm
+YWxzZSk7Cj4gKyAgICAgICAgICAgICAgIHJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVsZChw
+b3MtPmZpcnN0LT5yZXN2KTsKPiArICAgICAgICAgICAgICAgcmVzZXJ2YXRpb25fb2JqZWN0X2Fz
+c2VydF9oZWxkKHBvcy0+bGFzdC0+cmVzdik7Cj4gKwo+ICsgICAgICAgICAgICAgICBtYW4gPSAm
+cG9zLT5maXJzdC0+YmRldi0+bWFuW1RUTV9QTF9UVF07Cj4gKyAgICAgICAgICAgICAgIHR0bV9s
+aXN0X21vdmVfYnVsa190YWlsKCZtYW4tPmxydVtpXSwgJnBvcy0+Zmlyc3QtPmxydSwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJnBvcy0+bGFzdC0+bHJ1KTsKPiAg
+ICAgICAgIH0KPgo+ICAgICAgICAgZm9yIChpID0gMDsgaSA8IFRUTV9NQVhfQk9fUFJJT1JJVFk7
+ICsraSkgewo+ICsgICAgICAgICAgICAgICBzdHJ1Y3QgdHRtX2xydV9idWxrX21vdmVfcG9zICpw
+b3MgPSAmYnVsay0+dnJhbVtpXTsKPiAgICAgICAgICAgICAgICAgc3RydWN0IHR0bV9tZW1fdHlw
+ZV9tYW5hZ2VyICptYW47Cj4KPiAtICAgICAgICAgICAgICAgaWYgKCFidWxrLT52cmFtW2ldLmZp
+cnN0KQo+ICsgICAgICAgICAgICAgICBpZiAoIXBvcy0+Zmlyc3QpCj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgY29udGludWU7Cj4KPiAtICAgICAgICAgICAgICAgbWFuID0gJmJ1bGstPnZyYW1b
+aV0uZmlyc3QtPmJkZXYtPm1hbltUVE1fUExfVlJBTV07Cj4gLSAgICAgICAgICAgICAgIHR0bV9i
+b19idWxrX21vdmVfaGVscGVyKCZidWxrLT52cmFtW2ldLCAmbWFuLT5scnVbaV0sIGZhbHNlKTsK
+PiArICAgICAgICAgICAgICAgcmVzZXJ2YXRpb25fb2JqZWN0X2Fzc2VydF9oZWxkKHBvcy0+Zmly
+c3QtPnJlc3YpOwo+ICsgICAgICAgICAgICAgICByZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hl
+bGQocG9zLT5sYXN0LT5yZXN2KTsKPiArCj4gKyAgICAgICAgICAgICAgIG1hbiA9ICZwb3MtPmZp
+cnN0LT5iZGV2LT5tYW5bVFRNX1BMX1ZSQU1dOwo+ICsgICAgICAgICAgICAgICB0dG1fbGlzdF9t
+b3ZlX2J1bGtfdGFpbCgmbWFuLT5scnVbaV0sICZwb3MtPmZpcnN0LT5scnUsCj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZwb3MtPmxhc3QtPmxydSk7Cj4gICAgICAg
+ICB9Cj4KPiAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBUVE1fTUFYX0JPX1BSSU9SSVRZOyArK2kp
+IHsKPiBAQCAtMjk3LDggKzMwMiwxMiBAQCB2b2lkIHR0bV9ib19idWxrX21vdmVfbHJ1X3RhaWwo
+c3RydWN0IHR0bV9scnVfYnVsa19tb3ZlICpidWxrKQo+ICAgICAgICAgICAgICAgICBpZiAoIXBv
+cy0+Zmlyc3QpCj4gICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4KPiArICAgICAg
+ICAgICAgICAgcmVzZXJ2YXRpb25fb2JqZWN0X2Fzc2VydF9oZWxkKHBvcy0+Zmlyc3QtPnJlc3Yp
+Owo+ICsgICAgICAgICAgICAgICByZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hlbGQocG9zLT5s
+YXN0LT5yZXN2KTsKPiArCj4gICAgICAgICAgICAgICAgIGxydSA9ICZwb3MtPmZpcnN0LT5iZGV2
+LT5nbG9iLT5zd2FwX2xydVtpXTsKPiAtICAgICAgICAgICAgICAgdHRtX2JvX2J1bGtfbW92ZV9o
+ZWxwZXIoJmJ1bGstPnN3YXBbaV0sIGxydSwgdHJ1ZSk7Cj4gKyAgICAgICAgICAgICAgIHR0bV9s
+aXN0X21vdmVfYnVsa190YWlsKGxydSwgJnBvcy0+Zmlyc3QtPnN3YXAsCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICZwb3MtPmxhc3QtPnN3YXApOwo+ICAgICAgICAg
+fQo+ICB9Cj4gIEVYUE9SVF9TWU1CT0wodHRtX2JvX2J1bGtfbW92ZV9scnVfdGFpbCk7Cj4gLS0K
+PiAyLjE0LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
