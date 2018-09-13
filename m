@@ -1,110 +1,109 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?="
-        <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH 2/2] drm/ttm: once more fix ttm_bo_bulk_move_lru_tail v2
-Date: Thu, 13 Sep 2018 13:22:08 +0200
-Message-ID: <20180913112208.1353-2-christian.koenig@amd.com>
-References: <20180913112208.1353-1-christian.koenig@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/ttm: once more fix ttm_bo_bulk_move_lru_tail
+Date: Thu, 13 Sep 2018 13:32:24 +0200
+Message-ID: <c2471ef9-1bc7-517e-27f6-a00236a9b40b@gmail.com>
+References: <20180912192355.2359-1-christian.koenig@amd.com>
+ <20180913083135.GA21669@hr-amur2>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180913112208.1353-1-christian.koenig@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180913083135.GA21669@hr-amur2>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-While cutting the lists we sometimes accidentally added a list_head from
-the stack to the LRUs, effectively corrupting the list.
-
-Remove the list cutting and use explicit list manipulation instead.
-
-v2: separate out new list_bulk_move_tail helper
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/ttm/ttm_bo.c | 46 +++++++++++++++++++-------------------------
- 1 file changed, 20 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 138c98902033..26b889f86670 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -247,47 +247,38 @@ void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo,
- }
- EXPORT_SYMBOL(ttm_bo_move_to_lru_tail);
- 
--static void ttm_bo_bulk_move_helper(struct ttm_lru_bulk_move_pos *pos,
--				    struct list_head *lru, bool is_swap)
--{
--	struct list_head *list;
--	LIST_HEAD(entries);
--	LIST_HEAD(before);
--
--	reservation_object_assert_held(pos->last->resv);
--	list = is_swap ? &pos->last->swap : &pos->last->lru;
--	list_cut_position(&entries, lru, list);
--
--	reservation_object_assert_held(pos->first->resv);
--	list = is_swap ? pos->first->swap.prev : pos->first->lru.prev;
--	list_cut_position(&before, &entries, list);
--
--	list_splice(&before, lru);
--	list_splice_tail(&entries, lru);
--}
--
- void ttm_bo_bulk_move_lru_tail(struct ttm_lru_bulk_move *bulk)
- {
- 	unsigned i;
- 
- 	for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i) {
-+		struct ttm_lru_bulk_move_pos *pos = &bulk->tt[i];
- 		struct ttm_mem_type_manager *man;
- 
--		if (!bulk->tt[i].first)
-+		if (!pos->first)
- 			continue;
- 
--		man = &bulk->tt[i].first->bdev->man[TTM_PL_TT];
--		ttm_bo_bulk_move_helper(&bulk->tt[i], &man->lru[i], false);
-+		reservation_object_assert_held(pos->first->resv);
-+		reservation_object_assert_held(pos->last->resv);
-+
-+		man = &pos->first->bdev->man[TTM_PL_TT];
-+		list_bulk_move_tail(&man->lru[i], &pos->first->lru,
-+				    &pos->last->lru);
- 	}
- 
- 	for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i) {
-+		struct ttm_lru_bulk_move_pos *pos = &bulk->vram[i];
- 		struct ttm_mem_type_manager *man;
- 
--		if (!bulk->vram[i].first)
-+		if (!pos->first)
- 			continue;
- 
--		man = &bulk->vram[i].first->bdev->man[TTM_PL_VRAM];
--		ttm_bo_bulk_move_helper(&bulk->vram[i], &man->lru[i], false);
-+		reservation_object_assert_held(pos->first->resv);
-+		reservation_object_assert_held(pos->last->resv);
-+
-+		man = &pos->first->bdev->man[TTM_PL_VRAM];
-+		list_bulk_move_tail(&man->lru[i], &pos->first->lru,
-+				    &pos->last->lru);
- 	}
- 
- 	for (i = 0; i < TTM_MAX_BO_PRIORITY; ++i) {
-@@ -297,8 +288,11 @@ void ttm_bo_bulk_move_lru_tail(struct ttm_lru_bulk_move *bulk)
- 		if (!pos->first)
- 			continue;
- 
-+		reservation_object_assert_held(pos->first->resv);
-+		reservation_object_assert_held(pos->last->resv);
-+
- 		lru = &pos->first->bdev->glob->swap_lru[i];
--		ttm_bo_bulk_move_helper(&bulk->swap[i], lru, true);
-+		list_bulk_move_tail(lru, &pos->first->swap, &pos->last->swap);
- 	}
- }
- EXPORT_SYMBOL(ttm_bo_bulk_move_lru_tail);
--- 
-2.14.1
+QW0gMTMuMDkuMjAxOCB1bSAxMDozMSBzY2hyaWViIEh1YW5nIFJ1aToKPiBPbiBXZWQsIFNlcCAx
+MiwgMjAxOCBhdCAwOToyMzo1NVBNICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBX
+aGlsZSBjdXR0aW5nIHRoZSBsaXN0cyB3ZSBzb21ldGltZXMgYWNjaWRlbnRhbGx5IGFkZGVkIGEg
+bGlzdF9oZWFkIGZyb20KPj4gdGhlIHN0YWNrIHRvIHRoZSBMUlVzLCBlZmZlY3RpdmVseSBjb3Jy
+dXB0aW5nIHRoZSBsaXN0Lgo+Pgo+PiBSZW1vdmUgdGhlIGxpc3QgY3V0dGluZyBhbmQgdXNlIGV4
+cGxpY2l0IGxpc3QgbWFuaXB1bGF0aW9uIGluc3RlYWQuCj4gVGhpcyBwYXRjaCBhY3R1YWxseSBm
+aXhlcyB0aGUgY29ycnVwdGlvbiBidWcuIFdhcyBpdCBhIGRlZmVjdCBvZgo+IGxpc3RfY3V0X3Bv
+c2l0aW9uIG9yIGxpc3Rfc3BsaWNlIGhhbmRsZXJzPwoKV2Ugc29tZWhvdyBkaWQgc29tZXRoaW5n
+IGlsbGVnYWwgd2l0aCBsaXN0X2N1dF9wb3NpdGlvbi4gSSBoYXZlbid0IApuYXJyb3dlZCBpdCBk
+b3duIHRpbGwgdGhlIGVuZCwgYnV0IHdlIGVuZGVkIHVwIHdpdGggbGlzdF9oZWFkcyBmcm9tIHRo
+ZSAKc3RhY2sgdG8gdGhlIGxydS4KCkFueXdheSBhZGRpbmcgYSBzcGVjaWFsaXplZCBsaXN0IGJ1
+bGsgbW92ZSBmdW5jdGlvbiBpcyBtdWNoIHNpbXBsZXIgYW5kIAphdm9pZHMgdGhlIGlzc3VlLgoK
+SSd2ZSBqdXN0IHNwbGl0IHRoYXQgdXAgYXMgTWljaGVsIHN1Z2dlc3RlZCBhbmQgc2VuZCBpdCBv
+dXQgdG8gdGhlIAptYWlsaW5nIGxpc3RzLCBwbGVhc2UgcmV2aWV3IHRoYXQgdmVyc2lvbiBvbmNl
+IG1vcmUuCgpUaGFua3MsCkNocmlzdGlhbi4KCj4KPiBSZXZpZXdlZC1hbmQtVGVzdGVkOiBIdWFu
+ZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBL
+w7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4gLS0tCj4+ICAgZHJpdmVycy9ncHUv
+ZHJtL3R0bS90dG1fYm8uYyB8IDUxICsrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0t
+LS0tLS0tLS0tCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDIxIGRlbGV0
+aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyBi
+L2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4gaW5kZXggMTM4Yzk4OTAyMDMzLi5iMmEz
+M2JmMWVmMTAgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+PiBAQCAtMjQ3LDIzICsyNDcsMTgg
+QEAgdm9pZCB0dG1fYm9fbW92ZV90b19scnVfdGFpbChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3Qg
+KmJvLAo+PiAgIH0KPj4gICBFWFBPUlRfU1lNQk9MKHR0bV9ib19tb3ZlX3RvX2xydV90YWlsKTsK
+Pj4gICAKPj4gLXN0YXRpYyB2b2lkIHR0bV9ib19idWxrX21vdmVfaGVscGVyKHN0cnVjdCB0dG1f
+bHJ1X2J1bGtfbW92ZV9wb3MgKnBvcywKPj4gLQkJCQkgICAgc3RydWN0IGxpc3RfaGVhZCAqbHJ1
+LCBib29sIGlzX3N3YXApCj4+ICtzdGF0aWMgdm9pZCB0dG1fbGlzdF9tb3ZlX2J1bGtfdGFpbChz
+dHJ1Y3QgbGlzdF9oZWFkICpsaXN0LAo+PiArCQkJCSAgICBzdHJ1Y3QgbGlzdF9oZWFkICpmaXJz
+dCwKPj4gKwkJCQkgICAgc3RydWN0IGxpc3RfaGVhZCAqbGFzdCkKPj4gICB7Cj4+IC0Jc3RydWN0
+IGxpc3RfaGVhZCAqbGlzdDsKPj4gLQlMSVNUX0hFQUQoZW50cmllcyk7Cj4+IC0JTElTVF9IRUFE
+KGJlZm9yZSk7Cj4+ICsJZmlyc3QtPnByZXYtPm5leHQgPSBsYXN0LT5uZXh0Owo+PiArCWxhc3Qt
+Pm5leHQtPnByZXYgPSBmaXJzdC0+cHJldjsKPj4gICAKPj4gLQlyZXNlcnZhdGlvbl9vYmplY3Rf
+YXNzZXJ0X2hlbGQocG9zLT5sYXN0LT5yZXN2KTsKPj4gLQlsaXN0ID0gaXNfc3dhcCA/ICZwb3Mt
+Pmxhc3QtPnN3YXAgOiAmcG9zLT5sYXN0LT5scnU7Cj4+IC0JbGlzdF9jdXRfcG9zaXRpb24oJmVu
+dHJpZXMsIGxydSwgbGlzdCk7Cj4+ICsJbGlzdC0+cHJldi0+bmV4dCA9IGZpcnN0Owo+PiArCWZp
+cnN0LT5wcmV2ID0gbGlzdC0+cHJldjsKPj4gICAKPj4gLQlyZXNlcnZhdGlvbl9vYmplY3RfYXNz
+ZXJ0X2hlbGQocG9zLT5maXJzdC0+cmVzdik7Cj4+IC0JbGlzdCA9IGlzX3N3YXAgPyBwb3MtPmZp
+cnN0LT5zd2FwLnByZXYgOiBwb3MtPmZpcnN0LT5scnUucHJldjsKPj4gLQlsaXN0X2N1dF9wb3Np
+dGlvbigmYmVmb3JlLCAmZW50cmllcywgbGlzdCk7Cj4+IC0KPj4gLQlsaXN0X3NwbGljZSgmYmVm
+b3JlLCBscnUpOwo+PiAtCWxpc3Rfc3BsaWNlX3RhaWwoJmVudHJpZXMsIGxydSk7Cj4+ICsJbGFz
+dC0+bmV4dCA9IGxpc3Q7Cj4+ICsJbGlzdC0+cHJldiA9IGxhc3Q7Cj4+ICAgfQo+PiAgIAo+PiAg
+IHZvaWQgdHRtX2JvX2J1bGtfbW92ZV9scnVfdGFpbChzdHJ1Y3QgdHRtX2xydV9idWxrX21vdmUg
+KmJ1bGspCj4+IEBAIC0yNzEsMjMgKzI2NiwzMyBAQCB2b2lkIHR0bV9ib19idWxrX21vdmVfbHJ1
+X3RhaWwoc3RydWN0IHR0bV9scnVfYnVsa19tb3ZlICpidWxrKQo+PiAgIAl1bnNpZ25lZCBpOwo+
+PiAgIAo+PiAgIAlmb3IgKGkgPSAwOyBpIDwgVFRNX01BWF9CT19QUklPUklUWTsgKytpKSB7Cj4+
+ICsJCXN0cnVjdCB0dG1fbHJ1X2J1bGtfbW92ZV9wb3MgKnBvcyA9ICZidWxrLT50dFtpXTsKPj4g
+ICAJCXN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuOwo+PiAgIAo+PiAtCQlpZiAoIWJ1
+bGstPnR0W2ldLmZpcnN0KQo+PiArCQlpZiAoIXBvcy0+Zmlyc3QpCj4+ICAgCQkJY29udGludWU7
+Cj4+ICAgCj4+IC0JCW1hbiA9ICZidWxrLT50dFtpXS5maXJzdC0+YmRldi0+bWFuW1RUTV9QTF9U
+VF07Cj4+IC0JCXR0bV9ib19idWxrX21vdmVfaGVscGVyKCZidWxrLT50dFtpXSwgJm1hbi0+bHJ1
+W2ldLCBmYWxzZSk7Cj4+ICsJCXJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVsZChwb3MtPmZp
+cnN0LT5yZXN2KTsKPj4gKwkJcmVzZXJ2YXRpb25fb2JqZWN0X2Fzc2VydF9oZWxkKHBvcy0+bGFz
+dC0+cmVzdik7Cj4+ICsKPj4gKwkJbWFuID0gJnBvcy0+Zmlyc3QtPmJkZXYtPm1hbltUVE1fUExf
+VFRdOwo+PiArCQl0dG1fbGlzdF9tb3ZlX2J1bGtfdGFpbCgmbWFuLT5scnVbaV0sICZwb3MtPmZp
+cnN0LT5scnUsCj4+ICsJCQkJCSZwb3MtPmxhc3QtPmxydSk7Cj4+ICAgCX0KPj4gICAKPj4gICAJ
+Zm9yIChpID0gMDsgaSA8IFRUTV9NQVhfQk9fUFJJT1JJVFk7ICsraSkgewo+PiArCQlzdHJ1Y3Qg
+dHRtX2xydV9idWxrX21vdmVfcG9zICpwb3MgPSAmYnVsay0+dnJhbVtpXTsKPj4gICAJCXN0cnVj
+dCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuOwo+PiAgIAo+PiAtCQlpZiAoIWJ1bGstPnZyYW1b
+aV0uZmlyc3QpCj4+ICsJCWlmICghcG9zLT5maXJzdCkKPj4gICAJCQljb250aW51ZTsKPj4gICAK
+Pj4gLQkJbWFuID0gJmJ1bGstPnZyYW1baV0uZmlyc3QtPmJkZXYtPm1hbltUVE1fUExfVlJBTV07
+Cj4+IC0JCXR0bV9ib19idWxrX21vdmVfaGVscGVyKCZidWxrLT52cmFtW2ldLCAmbWFuLT5scnVb
+aV0sIGZhbHNlKTsKPj4gKwkJcmVzZXJ2YXRpb25fb2JqZWN0X2Fzc2VydF9oZWxkKHBvcy0+Zmly
+c3QtPnJlc3YpOwo+PiArCQlyZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hlbGQocG9zLT5sYXN0
+LT5yZXN2KTsKPj4gKwo+PiArCQltYW4gPSAmcG9zLT5maXJzdC0+YmRldi0+bWFuW1RUTV9QTF9W
+UkFNXTsKPj4gKwkJdHRtX2xpc3RfbW92ZV9idWxrX3RhaWwoJm1hbi0+bHJ1W2ldLCAmcG9zLT5m
+aXJzdC0+bHJ1LAo+PiArCQkJCQkmcG9zLT5sYXN0LT5scnUpOwo+PiAgIAl9Cj4+ICAgCj4+ICAg
+CWZvciAoaSA9IDA7IGkgPCBUVE1fTUFYX0JPX1BSSU9SSVRZOyArK2kpIHsKPj4gQEAgLTI5Nyw4
+ICszMDIsMTIgQEAgdm9pZCB0dG1fYm9fYnVsa19tb3ZlX2xydV90YWlsKHN0cnVjdCB0dG1fbHJ1
+X2J1bGtfbW92ZSAqYnVsaykKPj4gICAJCWlmICghcG9zLT5maXJzdCkKPj4gICAJCQljb250aW51
+ZTsKPj4gICAKPj4gKwkJcmVzZXJ2YXRpb25fb2JqZWN0X2Fzc2VydF9oZWxkKHBvcy0+Zmlyc3Qt
+PnJlc3YpOwo+PiArCQlyZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hlbGQocG9zLT5sYXN0LT5y
+ZXN2KTsKPj4gKwo+PiAgIAkJbHJ1ID0gJnBvcy0+Zmlyc3QtPmJkZXYtPmdsb2ItPnN3YXBfbHJ1
+W2ldOwo+PiAtCQl0dG1fYm9fYnVsa19tb3ZlX2hlbHBlcigmYnVsay0+c3dhcFtpXSwgbHJ1LCB0
+cnVlKTsKPj4gKwkJdHRtX2xpc3RfbW92ZV9idWxrX3RhaWwobHJ1LCAmcG9zLT5maXJzdC0+c3dh
+cCwKPj4gKwkJCQkJJnBvcy0+bGFzdC0+c3dhcCk7Cj4+ICAgCX0KPj4gICB9Cj4+ICAgRVhQT1JU
+X1NZTUJPTCh0dG1fYm9fYnVsa19tb3ZlX2xydV90YWlsKTsKPj4gLS0gCj4+IDIuMTQuMQo+Pgo+
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQt
+Z2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
