@@ -1,13 +1,15 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 5/5] drm/amdgpu: fix shadow BO restoring
-Date: Fri, 14 Sep 2018 15:42:57 +0200
-Message-ID: <20180914134257.2196-5-christian.koenig@amd.com>
-References: <20180914134257.2196-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: revert "stop using gart_start as offset
+ for the GTT domain"
+Date: Fri, 14 Sep 2018 13:48:02 +0000
+Message-ID: <BN6PR12MB18097687C7B140A7B15561A9F7190@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180914105728.1641-1-christian.koenig@amd.com>,
+ <20180914105728.1641-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1626373444=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180914134257.2196-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180914105728.1641-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,150 +20,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RG9uJ3QgZ3JhYiB0aGUgcmVzZXJ2YXRpb24gbG9jayBhbnkgbW9yZSBhbmQgc2ltcGxpZnkgdGhl
-IGhhbmRsaW5nIHF1aXRlCmEgYml0LgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZXZpY2UuYyB8IDEwOSArKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgIDQ2ICsrKystLS0tLS0t
-LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oIHwgICA4ICstLQog
-MyBmaWxlcyBjaGFuZ2VkLCA0MyBpbnNlcnRpb25zKCspLCAxMjAgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDg5OTM0MmM2ZGZh
-ZC4uMWNiYzM3Mjk2NGY4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jCkBAIC0yOTU0LDU0ICsyOTU0LDYgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX2lw
-X3Bvc3Rfc29mdF9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlyZXR1cm4gMDsK
-IH0KIAotLyoqCi0gKiBhbWRncHVfZGV2aWNlX3JlY292ZXJfdnJhbV9mcm9tX3NoYWRvdyAtIHJl
-c3RvcmUgc2hhZG93ZWQgVlJBTSBidWZmZXJzCi0gKgotICogQGFkZXY6IGFtZGdwdV9kZXZpY2Ug
-cG9pbnRlcgotICogQHJpbmc6IGFtZGdwdV9yaW5nIGZvciB0aGUgZW5naW5lIGhhbmRsaW5nIHRo
-ZSBidWZmZXIgb3BlcmF0aW9ucwotICogQGJvOiBhbWRncHVfYm8gYnVmZmVyIHdob3NlIHNoYWRv
-dyBpcyBiZWluZyByZXN0b3JlZAotICogQGZlbmNlOiBkbWFfZmVuY2UgYXNzb2NpYXRlZCB3aXRo
-IHRoZSBvcGVyYXRpb24KLSAqCi0gKiBSZXN0b3JlcyB0aGUgVlJBTSBidWZmZXIgY29udGVudHMg
-ZnJvbSB0aGUgc2hhZG93IGluIEdUVC4gIFVzZWQgdG8KLSAqIHJlc3RvcmUgdGhpbmdzIGxpa2Ug
-R1BVVk0gcGFnZSB0YWJsZXMgYWZ0ZXIgYSBHUFUgcmVzZXQgd2hlcmUKLSAqIHRoZSBjb250ZW50
-cyBvZiBWUkFNIG1pZ2h0IGJlIGxvc3QuCi0gKiBSZXR1cm5zIDAgb24gc3VjY2VzcywgbmVnYXRp
-dmUgZXJyb3IgY29kZSBvbiBmYWlsdXJlLgotICovCi1zdGF0aWMgaW50IGFtZGdwdV9kZXZpY2Vf
-cmVjb3Zlcl92cmFtX2Zyb21fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJ
-CQkJICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCi0JCQkJCQkgIHN0cnVjdCBhbWRncHVfYm8g
-KmJvLAotCQkJCQkJICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpCi17Ci0JdWludDMyX3QgZG9t
-YWluOwotCWludCByOwotCi0JaWYgKCFiby0+c2hhZG93KQotCQlyZXR1cm4gMDsKLQotCXIgPSBh
-bWRncHVfYm9fcmVzZXJ2ZShibywgdHJ1ZSk7Ci0JaWYgKHIpCi0JCXJldHVybiByOwotCWRvbWFp
-biA9IGFtZGdwdV9tZW1fdHlwZV90b19kb21haW4oYm8tPnRiby5tZW0ubWVtX3R5cGUpOwotCS8q
-IGlmIGJvIGhhcyBiZWVuIGV2aWN0ZWQsIHRoZW4gbm8gbmVlZCB0byByZWNvdmVyICovCi0JaWYg
-KGRvbWFpbiA9PSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSB7Ci0JCXIgPSBhbWRncHVfYm9fdmFs
-aWRhdGUoYm8tPnNoYWRvdyk7Ci0JCWlmIChyKSB7Ci0JCQlEUk1fRVJST1IoImJvIHZhbGlkYXRl
-IGZhaWxlZCFcbiIpOwotCQkJZ290byBlcnI7Ci0JCX0KLQotCQlyID0gYW1kZ3B1X2JvX3Jlc3Rv
-cmVfZnJvbV9zaGFkb3coYWRldiwgcmluZywgYm8sCi0JCQkJCQkgTlVMTCwgZmVuY2UsIHRydWUp
-OwotCQlpZiAocikgewotCQkJRFJNX0VSUk9SKCJyZWNvdmVyIHBhZ2UgdGFibGUgZmFpbGVkIVxu
-Iik7Ci0JCQlnb3RvIGVycjsKLQkJfQotCX0KLWVycjoKLQlhbWRncHVfYm9fdW5yZXNlcnZlKGJv
-KTsKLQlyZXR1cm4gcjsKLX0KLQogLyoqCiAgKiBhbWRncHVfZGV2aWNlX3JlY292ZXJfdnJhbSAt
-IFJlY292ZXIgc29tZSBWUkFNIGNvbnRlbnRzCiAgKgpAQCAtMzAxMCwxNiArMjk2MiwxNSBAQCBz
-dGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfcmVjb3Zlcl92cmFtX2Zyb21fc2hhZG93KHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LAogICogUmVzdG9yZXMgdGhlIGNvbnRlbnRzIG9mIFZSQU0gYnVm
-ZmVycyBmcm9tIHRoZSBzaGFkb3dzIGluIEdUVC4gIFVzZWQgdG8KICAqIHJlc3RvcmUgdGhpbmdz
-IGxpa2UgR1BVVk0gcGFnZSB0YWJsZXMgYWZ0ZXIgYSBHUFUgcmVzZXQgd2hlcmUKICAqIHRoZSBj
-b250ZW50cyBvZiBWUkFNIG1pZ2h0IGJlIGxvc3QuCi0gKiBSZXR1cm5zIDAgb24gc3VjY2Vzcywg
-MSBvbiBmYWlsdXJlLgorICoKKyAqIFJldHVybnM6CisgKiAwIG9uIHN1Y2Nlc3MsIG5lZ2F0aXZl
-IGVycm9yIGNvZGUgb24gZmFpbHVyZS4KICAqLwogc3RhdGljIGludCBhbWRncHVfZGV2aWNlX3Jl
-Y292ZXJfdnJhbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcgPSBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nOwotCXN0cnVjdCBhbWRn
-cHVfYm8gKmJvLCAqdG1wOwogCXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlID0gTlVMTCwgKm5leHQg
-PSBOVUxMOwotCWxvbmcgciA9IDE7Ci0JaW50IGkgPSAwOwotCWxvbmcgdG1vOworCXN0cnVjdCBh
-bWRncHVfYm8gKnNoYWRvdzsKKwlsb25nIHIgPSAxLCB0bW87CiAKIAlpZiAoYW1kZ3B1X3NyaW92
-X3J1bnRpbWUoYWRldikpCiAJCXRtbyA9IG1zZWNzX3RvX2ppZmZpZXMoODAwMCk7CkBAIC0zMDI4
-LDQ0ICsyOTc5LDQwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9yZWNvdmVyX3ZyYW0oc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAKIAlEUk1fSU5GTygicmVjb3ZlciB2cmFtIGJvIGZy
-b20gc2hhZG93IHN0YXJ0XG4iKTsKIAltdXRleF9sb2NrKCZhZGV2LT5zaGFkb3dfbGlzdF9sb2Nr
-KTsKLQlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoYm8sIHRtcCwgJmFkZXYtPnNoYWRvd19saXN0
-LCBzaGFkb3dfbGlzdCkgewotCQluZXh0ID0gTlVMTDsKLQkJYW1kZ3B1X2RldmljZV9yZWNvdmVy
-X3ZyYW1fZnJvbV9zaGFkb3coYWRldiwgcmluZywgYm8sICZuZXh0KTsKKwlsaXN0X2Zvcl9lYWNo
-X2VudHJ5KHNoYWRvdywgJmFkZXYtPnNoYWRvd19saXN0LCBzaGFkb3dfbGlzdCkgeworCisJCS8q
-IE5vIG5lZWQgdG8gcmVjb3ZlciBhbiBldmljdGVkIEJPICovCisJCWlmIChzaGFkb3ctPnRiby5t
-ZW0ubWVtX3R5cGUgIT0gVFRNX1BMX1RUIHx8CisJCSAgICBzaGFkb3ctPnBhcmVudC0+dGJvLm1l
-bS5tZW1fdHlwZSAhPSBUVE1fUExfVlJBTSkKKwkJCWNvbnRpbnVlOworCisJCXIgPSBhbWRncHVf
-Ym9fcmVzdG9yZV9zaGFkb3coc2hhZG93LCAmbmV4dCk7CisJCWlmIChyKQorCQkJYnJlYWs7CisK
-IAkJaWYgKGZlbmNlKSB7CiAJCQlyID0gZG1hX2ZlbmNlX3dhaXRfdGltZW91dChmZW5jZSwgZmFs
-c2UsIHRtbyk7Ci0JCQlpZiAociA9PSAwKQotCQkJCXByX2Vycigid2FpdCBmZW5jZSAlcFslZF0g
-dGltZW91dFxuIiwgZmVuY2UsIGkpOwotCQkJZWxzZSBpZiAociA8IDApCi0JCQkJcHJfZXJyKCJ3
-YWl0IGZlbmNlICVwWyVkXSBpbnRlcnJ1cHRlZFxuIiwgZmVuY2UsIGkpOwotCQkJaWYgKHIgPCAx
-KSB7Ci0JCQkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7Ci0JCQkJZmVuY2UgPSBuZXh0OworCQkJZG1h
-X2ZlbmNlX3B1dChmZW5jZSk7CisJCQlmZW5jZSA9IG5leHQ7CisJCQlpZiAociA8PSAwKQogCQkJ
-CWJyZWFrOwotCQkJfQotCQkJaSsrOworCQl9IGVsc2UgeworCQkJZmVuY2UgPSBuZXh0OwogCQl9
-Ci0KLQkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7Ci0JCWZlbmNlID0gbmV4dDsKIAl9CiAJbXV0ZXhf
-dW5sb2NrKCZhZGV2LT5zaGFkb3dfbGlzdF9sb2NrKTsKIAotCWlmIChmZW5jZSkgewotCQlyID0g
-ZG1hX2ZlbmNlX3dhaXRfdGltZW91dChmZW5jZSwgZmFsc2UsIHRtbyk7Ci0JCWlmIChyID09IDAp
-Ci0JCQlwcl9lcnIoIndhaXQgZmVuY2UgJXBbJWRdIHRpbWVvdXRcbiIsIGZlbmNlLCBpKTsKLQkJ
-ZWxzZSBpZiAociA8IDApCi0JCQlwcl9lcnIoIndhaXQgZmVuY2UgJXBbJWRdIGludGVycnVwdGVk
-XG4iLCBmZW5jZSwgaSk7Ci0KLQl9CisJaWYgKGZlbmNlKQorCQl0bW8gPSBkbWFfZmVuY2Vfd2Fp
-dF90aW1lb3V0KGZlbmNlLCBmYWxzZSwgdG1vKTsKIAlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKIAot
-CWlmIChyID4gMCkKLQkJRFJNX0lORk8oInJlY292ZXIgdnJhbSBibyBmcm9tIHNoYWRvdyBkb25l
-XG4iKTsKLQllbHNlCisJaWYgKHIgPD0gMCB8fCB0bW8gPD0gMCkgewogCQlEUk1fRVJST1IoInJl
-Y292ZXIgdnJhbSBibyBmcm9tIHNoYWRvdyBmYWlsZWRcbiIpOworCQlyZXR1cm4gLUVJTzsKKwl9
-CiAKLQlyZXR1cm4gKHIgPiAwKSA/IDAgOiAxOworCURSTV9JTkZPKCJyZWNvdmVyIHZyYW0gYm8g
-ZnJvbSBzaGFkb3cgZG9uZVxuIik7CisJcmV0dXJuIDA7CiB9CiAKIC8qKgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCmluZGV4IDY1MGM0NWM4OTZmMC4uY2E4YTBi
-N2E1YWMzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
-ZWN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCkBA
-IC01NDcsNyArNTQ3LDcgQEAgc3RhdGljIGludCBhbWRncHVfYm9fY3JlYXRlX3NoYWRvdyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAlpZiAoIXIpIHsKIAkJYm8tPnNoYWRvdy0+cGFyZW50
-ID0gYW1kZ3B1X2JvX3JlZihibyk7CiAJCW11dGV4X2xvY2soJmFkZXYtPnNoYWRvd19saXN0X2xv
-Y2spOwotCQlsaXN0X2FkZF90YWlsKCZiby0+c2hhZG93X2xpc3QsICZhZGV2LT5zaGFkb3dfbGlz
-dCk7CisJCWxpc3RfYWRkX3RhaWwoJmJvLT5zaGFkb3ctPnNoYWRvd19saXN0LCAmYWRldi0+c2hh
-ZG93X2xpc3QpOwogCQltdXRleF91bmxvY2soJmFkZXYtPnNoYWRvd19saXN0X2xvY2spOwogCX0K
-IApAQCAtNjc5LDEzICs2NzksMTAgQEAgaW50IGFtZGdwdV9ib192YWxpZGF0ZShzdHJ1Y3QgYW1k
-Z3B1X2JvICpibykKIH0KIAogLyoqCi0gKiBhbWRncHVfYm9fcmVzdG9yZV9mcm9tX3NoYWRvdyAt
-IHJlc3RvcmUgYW4gJmFtZGdwdV9ibyBidWZmZXIgb2JqZWN0Ci0gKiBAYWRldjogYW1kZ3B1IGRl
-dmljZSBvYmplY3QKLSAqIEByaW5nOiBhbWRncHVfcmluZyBmb3IgdGhlIGVuZ2luZSBoYW5kbGlu
-ZyB0aGUgYnVmZmVyIG9wZXJhdGlvbnMKLSAqIEBibzogJmFtZGdwdV9ibyBidWZmZXIgdG8gYmUg
-cmVzdG9yZWQKLSAqIEByZXN2OiByZXNlcnZhdGlvbiBvYmplY3Qgd2l0aCBlbWJlZGRlZCBmZW5j
-ZQorICogYW1kZ3B1X2JvX3Jlc3RvcmVfc2hhZG93IC0gcmVzdG9yZSBhbiAmYW1kZ3B1X2JvIHNo
-YWRvdworICoKKyAqIEBzaGFkb3c6ICZhbWRncHVfYm8gc2hhZG93IHRvIGJlIHJlc3RvcmVkCiAg
-KiBAZmVuY2U6IGRtYV9mZW5jZSBhc3NvY2lhdGVkIHdpdGggdGhlIG9wZXJhdGlvbgotICogQGRp
-cmVjdDogd2hldGhlciB0byBzdWJtaXQgdGhlIGpvYiBkaXJlY3RseQogICoKICAqIENvcGllcyBh
-IGJ1ZmZlciBvYmplY3QncyBzaGFkb3cgY29udGVudCBiYWNrIHRvIHRoZSBvYmplY3QuCiAgKiBU
-aGlzIGlzIHVzZWQgZm9yIHJlY292ZXJpbmcgYSBidWZmZXIgZnJvbSBpdHMgc2hhZG93IGluIGNh
-c2Ugb2YgYSBncHUKQEAgLTY5NCwzNiArNjkxLDE5IEBAIGludCBhbWRncHVfYm9fdmFsaWRhdGUo
-c3RydWN0IGFtZGdwdV9ibyAqYm8pCiAgKiBSZXR1cm5zOgogICogMCBmb3Igc3VjY2VzcyBvciBh
-IG5lZ2F0aXZlIGVycm9yIGNvZGUgb24gZmFpbHVyZS4KICAqLwotaW50IGFtZGdwdV9ib19yZXN0
-b3JlX2Zyb21fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJCSAgc3RydWN0
-IGFtZGdwdV9yaW5nICpyaW5nLAotCQkJCSAgc3RydWN0IGFtZGdwdV9ibyAqYm8sCi0JCQkJICBz
-dHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LAotCQkJCSAgc3RydWN0IGRtYV9mZW5jZSAq
-KmZlbmNlLAotCQkJCSAgYm9vbCBkaXJlY3QpCitpbnQgYW1kZ3B1X2JvX3Jlc3RvcmVfc2hhZG93
-KHN0cnVjdCBhbWRncHVfYm8gKnNoYWRvdywgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQogCiB7
-Ci0Jc3RydWN0IGFtZGdwdV9ibyAqc2hhZG93ID0gYm8tPnNoYWRvdzsKLQl1aW50NjRfdCBib19h
-ZGRyLCBzaGFkb3dfYWRkcjsKLQlpbnQgcjsKLQotCWlmICghc2hhZG93KQotCQlyZXR1cm4gLUVJ
-TlZBTDsKLQotCWJvX2FkZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChibyk7Ci0Jc2hhZG93X2Fk
-ZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChiby0+c2hhZG93KTsKLQotCXIgPSByZXNlcnZhdGlv
-bl9vYmplY3RfcmVzZXJ2ZV9zaGFyZWQoYm8tPnRiby5yZXN2KTsKLQlpZiAocikKLQkJZ290byBl
-cnI7CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYoc2hhZG93
-LT50Ym8uYmRldik7CisJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gYWRldi0+bW1hbi5idWZm
-ZXJfZnVuY3NfcmluZzsKKwl1aW50NjRfdCBzaGFkb3dfYWRkciwgcGFyZW50X2FkZHI7CiAKLQly
-ID0gYW1kZ3B1X2NvcHlfYnVmZmVyKHJpbmcsIHNoYWRvd19hZGRyLCBib19hZGRyLAotCQkJICAg
-ICAgIGFtZGdwdV9ib19zaXplKGJvKSwgcmVzdiwgZmVuY2UsCi0JCQkgICAgICAgZGlyZWN0LCBm
-YWxzZSk7Ci0JaWYgKCFyKQotCQlhbWRncHVfYm9fZmVuY2UoYm8sICpmZW5jZSwgdHJ1ZSk7CisJ
-c2hhZG93X2FkZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChzaGFkb3cpOworCXBhcmVudF9hZGRy
-ID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQoc2hhZG93LT5wYXJlbnQpOwogCi1lcnI6Ci0JcmV0dXJu
-IHI7CisJcmV0dXJuIGFtZGdwdV9jb3B5X2J1ZmZlcihyaW5nLCBzaGFkb3dfYWRkciwgcGFyZW50
-X2FkZHIsCisJCQkJICBhbWRncHVfYm9fc2l6ZShzaGFkb3cpLCBOVUxMLCBmZW5jZSwKKwkJCQkg
-IHRydWUsIGZhbHNlKTsKIH0KIAogLyoqCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfb2JqZWN0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfb2JqZWN0LmgKaW5kZXggNjQzMzdmZjJhZDYzLi43ZDMzMTJkMGRhMTEgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaAorKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKQEAgLTI3MywxMiArMjczLDggQEAg
-aW50IGFtZGdwdV9ib19iYWNrdXBfdG9fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LAogCQkJICAgICAgIHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YsCiAJCQkgICAgICAg
-c3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlLCBib29sIGRpcmVjdCk7CiBpbnQgYW1kZ3B1X2JvX3Zh
-bGlkYXRlKHN0cnVjdCBhbWRncHVfYm8gKmJvKTsKLWludCBhbWRncHVfYm9fcmVzdG9yZV9mcm9t
-X3NoYWRvdyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKLQkJCQkgIHN0cnVjdCBhbWRncHVf
-cmluZyAqcmluZywKLQkJCQkgIHN0cnVjdCBhbWRncHVfYm8gKmJvLAotCQkJCSAgc3RydWN0IHJl
-c2VydmF0aW9uX29iamVjdCAqcmVzdiwKLQkJCQkgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSwK
-LQkJCQkgIGJvb2wgZGlyZWN0KTsKK2ludCBhbWRncHVfYm9fcmVzdG9yZV9zaGFkb3coc3RydWN0
-IGFtZGdwdV9ibyAqc2hhZG93LAorCQkJICAgICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpOwog
-dWludDMyX3QgYW1kZ3B1X2JvX2dldF9wcmVmZXJyZWRfcGluX2RvbWFpbihzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiwKIAkJCQkJICAgIHVpbnQzMl90IGRvbWFpbik7CiAKLS0gCjIuMTQuMQoK
+--===============1626373444==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18097687C7B140A7B15561A9F7190BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18097687C7B140A7B15561A9F7190BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, September 14, 2018 6:57:28 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH 2/2] drm/amdgpu: revert "stop using gart_start as offset fo=
+r the GTT domain"
+
+Turned out the commit is incomplete and since we remove using the AGP
+mapping from the GTT manager it is also not necessary any more.
+
+This reverts commit 22d8bfafcc12dfa17b91d2e8ae4e1898e782003a.
+
+Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 7 +++----
+ 2 files changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gtt_mgr.c
+index c2539f6821c0..da7b1b92d9cf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+@@ -143,8 +143,7 @@ static int amdgpu_gtt_mgr_alloc(struct ttm_mem_type_man=
+ager *man,
+         spin_unlock(&mgr->lock);
+
+         if (!r)
+-               mem->start =3D node->node.start +
+-                       (adev->gmc.gart_start >> PAGE_SHIFT);
++               mem->start =3D node->node.start;
+
+         return r;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ttm.c
+index 8a158ee922f7..f12ae6b525b9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -188,7 +188,7 @@ static int amdgpu_init_mem_type(struct ttm_bo_device *b=
+dev, uint32_t type,
+         case TTM_PL_TT:
+                 /* GTT memory  */
+                 man->func =3D &amdgpu_gtt_mgr_func;
+-               man->gpu_offset =3D 0;
++               man->gpu_offset =3D adev->gmc.gart_start;
+                 man->available_caching =3D TTM_PL_MASK_CACHING;
+                 man->default_caching =3D TTM_PL_FLAG_CACHED;
+                 man->flags =3D TTM_MEMTYPE_FLAG_MAPPABLE | TTM_MEMTYPE_FLA=
+G_CMA;
+@@ -1060,7 +1060,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_tt *ttm=
+,
+         flags =3D amdgpu_ttm_tt_pte_flags(adev, ttm, bo_mem);
+
+         /* bind pages into GART page tables */
+-       gtt->offset =3D ((u64)bo_mem->start << PAGE_SHIFT) - adev->gmc.gart=
+_start;
++       gtt->offset =3D (u64)bo_mem->start << PAGE_SHIFT;
+         r =3D amdgpu_gart_bind(adev, gtt->offset, ttm->num_pages,
+                 ttm->pages, gtt->ttm.dma_address, flags);
+
+@@ -1112,8 +1112,7 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *b=
+o)
+                 flags =3D amdgpu_ttm_tt_pte_flags(adev, bo->ttm, &tmp);
+
+                 /* Bind pages */
+-               gtt->offset =3D ((u64)tmp.start << PAGE_SHIFT) -
+-                       adev->gmc.gart_start;
++               gtt->offset =3D (u64)tmp.start << PAGE_SHIFT;
+                 r =3D amdgpu_ttm_gart_bind(adev, bo, flags);
+                 if (unlikely(r)) {
+                         ttm_bo_mem_put(bo, &tmp);
+--
+2.14.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18097687C7B140A7B15561A9F7190BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><span>Acked-by: Alex Deucher &lt;=
+alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
+.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, September 14, 2018 6:57:28 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: revert &quot;stop using gart_start =
+as offset for the GTT domain&quot;</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Turned out the commit is incomplete and since we r=
+emove using the AGP<br>
+mapping from the GTT manager it is also not necessary any more.<br>
+<br>
+This reverts commit 22d8bfafcc12dfa17b91d2e8ae4e1898e782003a.<br>
+<br>
+Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 3 &#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c&nbsp;&nbsp;&nbsp;&nbsp; | 7 &=
+#43;&#43;&#43;----<br>
+&nbsp;2 files changed, 4 insertions(&#43;), 6 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gtt_mgr.c<br>
+index c2539f6821c0..da7b1b92d9cf 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c<br>
+@@ -143,8 &#43;143,7 @@ static int amdgpu_gtt_mgr_alloc(struct ttm_mem_type=
+_manager *man,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;mgr-&gt;l=
+ock);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mem-&gt;start =3D node-&gt;node.start &#43;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;gmc.ga=
+rt_start &gt;&gt; PAGE_SHIFT);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; mem-&gt;start =3D node-&gt;node.start;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ttm.c<br>
+index 8a158ee922f7..f12ae6b525b9 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+@@ -188,7 &#43;188,7 @@ static int amdgpu_init_mem_type(struct ttm_bo_devic=
+e *bdev, uint32_t type,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case TTM_PL_TT:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* GTT memory&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; man-&gt;func =3D &amp;amdgpu_gtt_mgr_func;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; man-&gt;gpu_offset =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; man-&gt;gpu_offset =3D adev-&gt;gmc.gart_start;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; man-&gt;available_caching =3D TTM_PL_MASK_CACHING;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; man-&gt;default_caching =3D TTM_PL_FLAG_CACHED;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; man-&gt;flags =3D TTM_MEMTYPE_FLAG_MAPPABLE | TTM_MEM=
+TYPE_FLAG_CMA;<br>
+@@ -1060,7 &#43;1060,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_tt =
+*ttm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags =3D amdgpu_ttm_tt_pt=
+e_flags(adev, ttm, bo_mem);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* bind pages into GART pa=
+ge tables */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gtt-&gt;offset =3D ((u64)bo_mem-&gt;s=
+tart &lt;&lt; PAGE_SHIFT) - adev-&gt;gmc.gart_start;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gtt-&gt;offset =3D (u64)bo_mem-&g=
+t;start &lt;&lt; PAGE_SHIFT;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gart_bind(ade=
+v, gtt-&gt;offset, ttm-&gt;num_pages,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ttm-&gt;pages, gtt-&gt;ttm.dma_address, flags);<br>
+&nbsp;<br>
+@@ -1112,8 &#43;1112,7 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_objec=
+t *bo)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; flags =3D amdgpu_ttm_tt_pte_flags(adev, bo-&gt;ttm, &=
+amp;tmp);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* Bind pages */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gtt-&gt;offset =3D ((u64)tmp.start &lt;&lt; PAGE_SHIFT) -<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.gar=
+t_start;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; gtt-&gt;offset =3D (u64)tmp.start &lt;&lt; PAGE_SHIFT;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ttm_gart_bind(adev, bo, flags);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (unlikely(r)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_b=
+o_mem_put(bo, &amp;tmp);<br>
+-- <br>
+2.14.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18097687C7B140A7B15561A9F7190BN6PR12MB1809namp_--
+
+--===============1626373444==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1626373444==--
