@@ -1,52 +1,74 @@
-From: Peng Hao <peng.hao2@zte.com.cn>
-Subject: [PATCH]  amdgpu/gmc : fix compile warning
-Date: Fri, 14 Sep 2018 18:05:52 +0800
-Message-ID: <1536919552-116245-1-git-send-email-peng.hao2@zte.com.cn>
+From: Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH 1/2] list: introduce list_bulk_move_tail helper
+Date: Fri, 14 Sep 2018 10:53:19 +0800
+Message-ID: <20180914025228.GA17902@hr-amur2>
+References: <20180913112208.1353-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20180913112208.1353-1-christian.koenig@amd.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Peng Hao <peng.hao2@zte.com.cn>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:
-    In function â€˜gmc_v8_0_process_interruptâ€™:
-drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:10:
-    warning: missing braces around initializer [-Wmissing-braces]
+On Thu, Sep 13, 2018 at 01:22:07PM +0200, Christian König wrote:
+> Move all entries between @first and including @last before @head.
+> 
+> This is useful for LRU lists where a whole block of entries should be
+> moved to the end of an list.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
 
-Signed-off-by: Peng Hao <peng.hao2@zte.com.cn>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Bulk move helper is useful for TTM driver to improve the LRU moving
+efficiency. Please go on with my RB.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 9333109..55f4755 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
- 		gmc_v8_0_set_fault_enable_default(adev, false);
- 
- 	if (printk_ratelimit()) {
--		struct amdgpu_task_info task_info = { 0 };
-+		struct amdgpu_task_info task_info = { {0} };
- 
- 		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 72f8018..e8b78c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -259,7 +259,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	}
- 
- 	if (printk_ratelimit()) {
--		struct amdgpu_task_info task_info = { 0 };
-+		struct amdgpu_task_info task_info = { {0} };
- 
- 		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
- 
--- 
-1.8.3.1
+Series are Reviewed-and-Tested-by: Huang Rui <ray.huang@amd.com>
+
+> ---
+>  include/linux/list.h | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/include/linux/list.h b/include/linux/list.h
+> index de04cc5ed536..edb7628e46ed 100644
+> --- a/include/linux/list.h
+> +++ b/include/linux/list.h
+> @@ -183,6 +183,29 @@ static inline void list_move_tail(struct list_head *list,
+>  	list_add_tail(list, head);
+>  }
+>  
+> +/**
+> + * list_bulk_move_tail - move a subsection of a list to its tail
+> + * @head: the head that will follow our entry
+> + * @first: first entry to move
+> + * @last: last entry to move, can be the same as first
+> + *
+> + * Move all entries between @first and including @last before @head.
+> + * All three entries must belong to the same linked list.
+> + */
+> +static inline void list_bulk_move_tail(struct list_head *head,
+> +				       struct list_head *first,
+> +				       struct list_head *last)
+> +{
+> +	first->prev->next = last->next;
+> +	last->next->prev = first->prev;
+> +
+> +	head->prev->next = first;
+> +	first->prev = head->prev;
+> +
+> +	last->next = head;
+> +	head->prev = last;
+> +}
+> +
+>  /**
+>   * list_is_last - tests whether @list is the last entry in list @head
+>   * @list: the entry to test
+> -- 
+> 2.14.1
+> 
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
