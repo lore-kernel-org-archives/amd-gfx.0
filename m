@@ -1,13 +1,14 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH libdrm 2/3] test/amdgpu: add proper error handling
-Date: Fri, 14 Sep 2018 15:09:05 +0200
-Message-ID: <20180914130906.3853-2-christian.koenig@amd.com>
-References: <20180914130906.3853-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/dc: Trigger set power state task when display
+ configuration changes
+Date: Fri, 14 Sep 2018 13:39:34 +0000
+Message-ID: <BN6PR12MB18096D890B7032FC56F79958F7190@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1536904627-24761-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1024802592=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180914130906.3853-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1536904627-24761-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,36 +19,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T3RoZXJ3aXNlIHRoZSBjYWxsaW5nIGZ1bmN0aW9uIHdvbid0IG5vdGljZSB0aGF0IHNvbWV0aGlu
-ZyBpcyB3cm9uZy4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
-b2VuaWdAYW1kLmNvbT4KLS0tCiB0ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuaCB8IDIzICsrKysr
-KysrKysrKysrKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgMSBk
-ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5oIGIvdGVz
-dHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmgKaW5kZXggZjJlY2UzYzMuLmQxZTE0ZTIzIDEwMDY0NAot
-LS0gYS90ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuaAorKysgYi90ZXN0cy9hbWRncHUvYW1kZ3B1
-X3Rlc3QuaApAQCAtMjE5LDE3ICsyMTksMzEgQEAgc3RhdGljIGlubGluZSBhbWRncHVfYm9faGFu
-ZGxlIGdwdV9tZW1fYWxsb2MoCiAKIAlyID0gYW1kZ3B1X2JvX2FsbG9jKGRldmljZV9oYW5kbGUs
-ICZyZXEsICZidWZfaGFuZGxlKTsKIAlDVV9BU1NFUlRfRVFVQUwociwgMCk7CisJaWYgKHIpCisJ
-CXJldHVybiBOVUxMOwogCiAJciA9IGFtZGdwdV92YV9yYW5nZV9hbGxvYyhkZXZpY2VfaGFuZGxl
-LAogCQkJCSAgYW1kZ3B1X2dwdV92YV9yYW5nZV9nZW5lcmFsLAogCQkJCSAgc2l6ZSwgYWxpZ25t
-ZW50LCAwLCB2bWNfYWRkciwKIAkJCQkgIHZhX2hhbmRsZSwgMCk7CiAJQ1VfQVNTRVJUX0VRVUFM
-KHIsIDApOworCWlmIChyKQorCQlnb3RvIGVycm9yX2ZyZWVfYm87CiAKIAlyID0gYW1kZ3B1X2Jv
-X3ZhX29wKGJ1Zl9oYW5kbGUsIDAsIHNpemUsICp2bWNfYWRkciwgMCwgQU1ER1BVX1ZBX09QX01B
-UCk7CiAJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwogCiAJcmV0dXJuIGJ1Zl9oYW5kbGU7CisKK2Vy
-cm9yX2ZyZWVfdmE6CisJciA9IGFtZGdwdV92YV9yYW5nZV9mcmVlKCp2YV9oYW5kbGUpOworCUNV
-X0FTU0VSVF9FUVVBTChyLCAwKTsKKworZXJyb3JfZnJlZV9ibzoKKwlyID0gYW1kZ3B1X2JvX2Zy
-ZWUoYnVmX2hhbmRsZSk7CisJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOworCisJcmV0dXJuIE5VTEw7
-CiB9CiAKIHN0YXRpYyBpbmxpbmUgaW50IGdwdV9tZW1fZnJlZShhbWRncHVfYm9faGFuZGxlIGJv
-LApAQCAtMjM5LDE2ICsyNTMsMjMgQEAgc3RhdGljIGlubGluZSBpbnQgZ3B1X21lbV9mcmVlKGFt
-ZGdwdV9ib19oYW5kbGUgYm8sCiB7CiAJaW50IHI7CiAKKwlpZiAoIWJvKQorCQlyZXR1cm4gMDsK
-KwogCXIgPSBhbWRncHVfYm9fdmFfb3AoYm8sIDAsIHNpemUsIHZtY19hZGRyLCAwLCBBTURHUFVf
-VkFfT1BfVU5NQVApOwogCUNVX0FTU0VSVF9FUVVBTChyLCAwKTsKKwlpZiAocikKKwkJcmV0dXJu
-IHI7CiAKIAlyID0gYW1kZ3B1X3ZhX3JhbmdlX2ZyZWUodmFfaGFuZGxlKTsKIAlDVV9BU1NFUlRf
-RVFVQUwociwgMCk7CisJaWYgKHIpCisJCXJldHVybiByOwogCiAJciA9IGFtZGdwdV9ib19mcmVl
-KGJvKTsKIAlDVV9BU1NFUlRfRVFVQUwociwgMCk7CiAKLQlyZXR1cm4gMDsKKwlyZXR1cm4gcjsK
-IH0KIAogc3RhdGljIGlubGluZSBpbnQKLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1024802592==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18096D890B7032FC56F79958F7190BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18096D890B7032FC56F79958F7190BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, September 14, 2018 1:57:07 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amd/dc: Trigger set power state task when display conf=
+iguration changes
+
+Revert "drm/amd/display: Remove call to amdgpu_pm_compute_clocks"
+
+This reverts commit dcd473770e86517543691bdb227103d6c781cd0a.
+
+when display configuration changes, dc need to update the changes
+to powerplay, also need to trigger a power state task.
+amdgpu_pm_compute_clocks is the interface to set power state task
+either dpm enabled or powerplay enabled
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index 6d16b4a..0fab64a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -105,6 +105,8 @@ bool dm_pp_apply_display_requirements(
+                         adev->powerplay.pp_funcs->display_configuration_ch=
+ange(
+                                 adev->powerplay.pp_handle,
+                                 &adev->pm.pm_display_cfg);
++
++               amdgpu_pm_compute_clocks(adev);
+         }
+
+         return true;
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18096D890B7032FC56F79958F7190BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Friday, September 14, 2018 1:57:07 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/dc: Trigger set power state task when displ=
+ay configuration changes</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Revert &quot;drm/amd/display: Remove call to amdgp=
+u_pm_compute_clocks&quot;<br>
+<br>
+This reverts commit dcd473770e86517543691bdb227103d6c781cd0a.<br>
+<br>
+when display configuration changes, dc need to update the changes<br>
+to powerplay, also need to trigger a power state task.<br>
+amdgpu_pm_compute_clocks is the interface to set power state task<br>
+either dpm enabled or powerplay enabled<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 2 &#43;&#4=
+3;<br>
+&nbsp;1 file changed, 2 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
+index 6d16b4a..0fab64a 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<=
+br>
+@@ -105,6 &#43;105,8 @@ bool dm_pp_apply_display_requirements(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;powerplay.pp_funcs-&gt;display_configuration_change(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_handle,<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-&gt;pm.pm_display_cfg)=
+;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; amdgpu_pm_compute_clocks(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18096D890B7032FC56F79958F7190BN6PR12MB1809namp_--
+
+--===============1024802592==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1024802592==--
