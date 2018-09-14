@@ -1,74 +1,41 @@
-From: Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH 1/2] list: introduce list_bulk_move_tail helper
-Date: Fri, 14 Sep 2018 10:53:19 +0800
-Message-ID: <20180914025228.GA17902@hr-amur2>
-References: <20180913112208.1353-1-christian.koenig@amd.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 0/2] DMCU firmware version storing and access
+Date: Fri, 14 Sep 2018 10:58:12 +0800
+Message-ID: <20180914025811.GB17902@hr-amur2>
+References: <20180913194514.23224-1-David.Francis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <20180913112208.1353-1-christian.koenig@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+In-Reply-To: <20180913194514.23224-1-David.Francis-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Thu, Sep 13, 2018 at 01:22:07PM +0200, Christian König wrote:
-> Move all entries between @first and including @last before @head.
-> 
-> This is useful for LRU lists where a whole block of entries should be
-> moved to the end of an list.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-
-Bulk move helper is useful for TTM driver to improve the LRU moving
-efficiency. Please go on with my RB.
-
-Series are Reviewed-and-Tested-by: Huang Rui <ray.huang@amd.com>
-
-> ---
->  include/linux/list.h | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
-> diff --git a/include/linux/list.h b/include/linux/list.h
-> index de04cc5ed536..edb7628e46ed 100644
-> --- a/include/linux/list.h
-> +++ b/include/linux/list.h
-> @@ -183,6 +183,29 @@ static inline void list_move_tail(struct list_head *list,
->  	list_add_tail(list, head);
->  }
->  
-> +/**
-> + * list_bulk_move_tail - move a subsection of a list to its tail
-> + * @head: the head that will follow our entry
-> + * @first: first entry to move
-> + * @last: last entry to move, can be the same as first
-> + *
-> + * Move all entries between @first and including @last before @head.
-> + * All three entries must belong to the same linked list.
-> + */
-> +static inline void list_bulk_move_tail(struct list_head *head,
-> +				       struct list_head *first,
-> +				       struct list_head *last)
-> +{
-> +	first->prev->next = last->next;
-> +	last->next->prev = first->prev;
-> +
-> +	head->prev->next = first;
-> +	first->prev = head->prev;
-> +
-> +	last->next = head;
-> +	head->prev = last;
-> +}
-> +
->  /**
->   * list_is_last - tests whether @list is the last entry in list @head
->   * @list: the entry to test
-> -- 
-> 2.14.1
-> 
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVGh1LCBTZXAgMTMsIDIwMTggYXQgMDM6NDU6MTJQTSAtMDQwMCwgRGF2aWQgRnJhbmNpcyB3
+cm90ZToKPiBEYXZpZCBGcmFuY2lzICgyKToKPiAgIGRybS9hbWQvZGlzcGxheTogQWRkIERNQ1Ug
+ZmlybXdhcmUgdmVyc2lvbgo+ICAgZHJtL2FtZGdwdTogQWRkIERNQ1UgdG8gZmlybXdhcmUgcXVl
+cnkgaW50ZXJmYWNlCgpUaGFua3MgRGF2aWQuIEFzIHRoZXNlIHBhdGNoZXMsIHdlIGNhbiBhbHNv
+IG1vbml0b3IgdGhlIHVjb2RlIGF0CmFtZGdwdV9maXJtd2FyZV9pbmZvIGludGVyZmFjZS4KClNl
+cmllcyBhcmUgUmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+Cgo+IAo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgICAgICAgICAgIHwgMTIg
+KysrKysrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
+Z3B1X2RtLmMgfCAgMiArKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
+L2FtZGdwdV9kbS5oIHwgIDEgKwo+ICBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAg
+ICAgICAgICAgICAgICAgIHwgIDIgKysKPiAgNCBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRpb25z
+KCspCj4gCj4gLS0gCj4gMi4xNy4xCj4gCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
