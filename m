@@ -1,33 +1,78 @@
-From: Al Viro <viro@ZenIV.linux.org.uk>
-Subject: Re: [PATCH v2 05/17] compat_ioctl: move more drivers to
- generic_compat_ioctl_ptrarg
-Date: Fri, 14 Sep 2018 21:57:48 +0100
-Message-ID: <20180914205748.GC19965@ZenIV.linux.org.uk>
-References: <20180912150142.157913-1-arnd@arndb.de>
- <20180912151134.436719-1-arnd@arndb.de>
- <20180914203506.GE35251@wrath>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: kfdtest failures for amdkfd (amd-staging-drm-next)
+Date: Fri, 14 Sep 2018 17:40:53 -0400
+Message-ID: <6abb2acf-bf4a-6431-59da-21dec689efdb@amd.com>
+References: <37f71cd7-364e-c951-0e70-8d0d7b17f5e1@nicevt.ru>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <netdev-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20180914203506.GE35251@wrath>
-Sender: netdev-owner@vger.kernel.org
-To: Darren Hart <dvhart@infradead.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-fsdevel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "David S. Miller" <davem@davemloft.net>, devel@driverdev.osuosl.org, linux-kernel@vger.kernel.org, qat-linux@intel.com, linux-crypto@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org, linux-iio@vger.kernel.org, linux-rdma@vger.kernel.org, linux-nvdimm@lists.01.org, linux-nvme@lists.infradead.org, linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-remoteproc@vger.kernel.org, sparclinux@vger.kernel.org, linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org, linux-fbdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-btrfs@vg
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <37f71cd7-364e-c951-0e70-8d0d7b17f5e1-4PKdL1x4DgGHXe+LvDLADg@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alexander Frolov <frolov-4PKdL1x4DgGHXe+LvDLADg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Fri, Sep 14, 2018 at 01:35:06PM -0700, Darren Hart wrote:
- 
-> Acked-by: Darren Hart (VMware) <dvhart@infradead.org>
-> 
-> As for a longer term solution, would it be possible to init fops in such
-> a way that the compat_ioctl call defaults to generic_compat_ioctl_ptrarg
-> so we don't have to duplicate this boilerplate for every ioctl fops
-> structure?
-
-	Bad idea, that...  Because several years down the road somebody will add
-an ioctl that takes an unsigned int for argument.  Without so much as looking
-at your magical mystery macro being used to initialize file_operations.
-
-	FWIW, I would name that helper in more blunt way - something like
-compat_ioctl_only_compat_pointer_ioctls_here()...
+WW91IG5lZWQgUk9DbSAxLjkgdG8gd29yayB3aXRoIHRoZSB1cHN0cmVhbSBLRkQuIGxpYmhzYWtt
+dCBmcm9tIFJPQ20gMS44CmlzIGluY29tcGF0aWJsZSB3aXRoIHRoZSB1cHN0cmVhbSBLRkQgQUJJ
+LgoKV2hlcmUgZGlkIHlvdSBnZXQgS0ZEVGVzdD8gSXQncyBwYXJ0IG9mIHRoZSBzYW1lIHJlcG9z
+aXRvcnkgb24gR2l0SHViIGFzCmxpYmhzYWttdC4gSXQncyBuZXcgb24gdGhlIDEuOSBicmFuY2gu
+IFlvdSBuZWVkIGxpYmhzYWttdCBmcm9tIHRoZSBzYW1lCmJyYW5jaC4gVGhlIFJPQ20gMS45IGJp
+bmFyaWVzIGFyZSBwbGFubmVkIHRvIGJlIHJlbGVhc2VkIGxhdGVyIHRvZGF5IGlmCmFsbCBnb2Vz
+IHdlbGwuCgpSZWdhcmRzLArCoCBGZWxpeAoKCk9uIDIwMTgtMDktMTQgMDc6NTAgQU0sIEFsZXhh
+bmRlciBGcm9sb3Ygd3JvdGU6Cj4gSGkhCj4KPiBJIGFtIHRyeWluZyB0byB1c2UgYW1kLXN0YWdp
+bmctZHJtLW5leHQgdG8gd29yayB3aXRoIGFtZGtmZCAoYnVpbHQKPiBpbnRvIGFtZGdwdSkgZm9y
+IHRoZSBBTUQgSW5zdGluY3QgTUkyNSBkZXZpY2UuCj4KPiBBcyBhIGZpcnN0IHN0ZXAgSSBjb21w
+aWxlZCBsaWJoc2FrbXQgMS44LnggYW5kIHRyaWVkIHRvIHJ1biBrZmR0ZXN0Lgo+IEJ1dCBpdCBw
+cm9kdWNlcyBsb3RzIG9mIGZhaWx1cmVzIChzZWUgYmVsb3cpLgo+IEhlcmUgYXJlIHRoZSByZXN1
+bHRzOgo+Cj4gLi4uCj4gWz09PT09PT09PT1dIDc2IHRlc3RzIGZyb20gMTQgdGVzdCBjYXNlcyBy
+YW4uICg4MDI1MCBtcyB0b3RhbCkKPiBbwqAgUEFTU0VEwqAgXSAzOSB0ZXN0cy4KPiBbwqAgRkFJ
+TEVEwqAgXSAzNyB0ZXN0cywgbGlzdGVkIGJlbG93Ogo+IFvCoCBGQUlMRUTCoCBdIEtGREV2aWN0
+VGVzdC5RdWV1ZVRlc3QKPiBbwqAgRkFJTEVEwqAgXSBLRkRHcmFwaGljc0ludGVyb3AuUmVnaXN0
+ZXJHcmFwaGljc0hhbmRsZQo+IFvCoCBGQUlMRUTCoCBdIEtGRElQQ1Rlc3QuQmFzaWNUZXN0Cj4g
+W8KgIEZBSUxFRMKgIF0gS0ZESVBDVGVzdC5Dcm9zc01lbW9yeUF0dGFjaFRlc3QKPiBbwqAgRkFJ
+TEVEwqAgXSBLRkRJUENUZXN0LkNNQUJhc2ljVGVzdAo+IFvCoCBGQUlMRUTCoCBdIEtGRExvY2Fs
+TWVtb3J5VGVzdC5CYXNpY1Rlc3QKPiBbwqAgRkFJTEVEwqAgXSBLRkRMb2NhbE1lbW9yeVRlc3Qu
+VmVyaWZ5Q29udGVudHNBZnRlclVubWFwQW5kTWFwCj4gW8KgIEZBSUxFRMKgIF0gS0ZETG9jYWxN
+ZW1vcnlUZXN0LkNoZWNrWmVyb0luaXRpYWxpemF0aW9uVnJhbQo+IFvCoCBGQUlMRUTCoCBdIEtG
+RE1lbW9yeVRlc3QuTWFwVW5tYXBUb05vZGVzCj4gW8KgIEZBSUxFRMKgIF0gS0ZETWVtb3J5VGVz
+dC5NZW1vcnlSZWdpc3RlclNhbWVQdHIKPiBbwqAgRkFJTEVEwqAgXSBLRkRNZW1vcnlUZXN0LkZs
+YXRTY3JhdGNoQWNjZXNzCj4gW8KgIEZBSUxFRMKgIF0gS0ZETWVtb3J5VGVzdC5NTUJlbmNoCj4g
+W8KgIEZBSUxFRMKgIF0gS0ZETWVtb3J5VGVzdC5RdWVyeVBvaW50ZXJJbmZvCj4gW8KgIEZBSUxF
+RMKgIF0gS0ZETWVtb3J5VGVzdC5QdHJhY2VBY2Nlc3NJbnZpc2libGVWcmFtCj4gW8KgIEZBSUxF
+RMKgIF0gS0ZETWVtb3J5VGVzdC5TaWduYWxIYW5kbGluZwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFN
+VGVzdC5DcmVhdGVDcFF1ZXVlCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkNyZWF0ZU11bHRp
+cGxlU2RtYVF1ZXVlcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5TZG1hQ29uY3VycmVudENv
+cGllcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5DcmVhdGVNdWx0aXBsZUNwUXVldWVzCj4g
+W8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkRpc2FibGVTZG1hUXVldWVCeVVwZGF0ZVdpdGhOdWxs
+QWRkcmVzcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5EaXNhYmxlQ3BRdWV1ZUJ5VXBkYXRl
+V2l0aFplcm9QZXJjZW50YWdlCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0Lk92ZXJTdWJzY3Jp
+YmVDcFF1ZXVlcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5CYXNpY0N1TWFza2luZ0V2ZW4K
+PiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuUXVldWVQcmlvcml0eU9uRGlmZmVyZW50UGlwZQo+
+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5RdWV1ZVByaW9yaXR5T25TYW1lUGlwZQo+IFvCoCBG
+QUlMRUTCoCBdIEtGRFFNVGVzdC5FbXB0eURpc3BhdGNoCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1U
+ZXN0LlNpbXBsZVdyaXRlRGlzcGF0Y2gKPiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuTXVsdGlw
+bGVDcFF1ZXVlc1N0cmVzc0Rpc3BhdGNoCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkNwdVdy
+aXRlQ29oZXJlbmNlCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkNyZWF0ZUFxbENwUXVldWUK
+PiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuUXVldWVMYXRlbmN5Cj4gW8KgIEZBSUxFRMKgIF0g
+S0ZEUU1UZXN0LkNwUXVldWVXcmFwYXJvdW5kCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LlNk
+bWFRdWV1ZVdyYXBhcm91bmQKPiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuQXRvbWljcwo+IFvC
+oCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5QMlBUZXN0Cj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0
+LlNkbWFFdmVudEludGVycnVwdAo+IFvCoCBGQUlMRUTCoCBdIEtGRFRvcG9sb2d5VGVzdC5CYXNp
+Y1Rlc3QKPgo+IERvZXMgaXQgbWVhbiB0aGF0IGN1cnJlbnQgYW1ka2ZkIGZyb20gdGhlIGtlcm5l
+bCBjYW50IGJlIHVzZWQgd2l0aAo+IGxpYmhzYWttdCAxLjgueD8gb3IgSSBhbSBkb2luZyBzb21l
+dGhpbmcgd3JvbmcuLi4KPiBUaGFuayB5b3UhCj4KPiBCZXN0LAo+IMKgwqAgQWxleGFuZGVyCj4K
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
