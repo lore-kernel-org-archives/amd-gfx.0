@@ -1,11 +1,14 @@
 From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [BUG] gpu: drm: amdgpu: Possible sleep-in-atomic-context bugs in
  amdgpu_uvd_ring_begin_use()
-Date: Sat, 15 Sep 2018 09:10:03 +0000
-Message-ID: <dbf146f7-1196-43f8-a064-c59638788a54@email.android.com>
+Date: Sat, 15 Sep 2018 09:23:30 +0000
+Message-ID: <68eb2303-ec42-470e-a060-487a14e2708c@email.android.com>
+References: <dbf146f7-1196-43f8-a064-c59638788a54@email.android.com>,
+ <9dd9f4ed-f338-8970-b29e-200ef0eafb62@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1954035727=="
+Content-Type: multipart/mixed; boundary="===============0998783355=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <9dd9f4ed-f338-8970-b29e-200ef0eafb62-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,196 +24,367 @@ To: Jia-Ju Bai <baijiaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
  Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1954035727==
+--===============0998783355==
 Content-Language: de-DE
 Content-Type: multipart/alternative;
-	boundary="_000_dbf146f7119643f8a064c59638788a54emailandroidcom_"
+	boundary="_000_68eb2303ec42470ea060487a14e2708cemailandroidcom_"
 
---_000_dbf146f7119643f8a064c59638788a54emailandroidcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_68eb2303ec42470ea060487a14e2708cemailandroidcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-YW1kZ3B1X3JpbmdfYWxsb2MoKSBkb2VzIGNhbGwgYW1kZ3B1X3V2ZF9iZWdpbl91c2UoKSwgYnV0
-IG5ldmVyIGluIHRoZSBjYWxsIGNoYWluIHlvdSBwcm9wb3NlZC4NCg0KVGhpbmtpbmcgYWJvdXQg
-aXQgSSBhY3R1YWxseSBkb24ndCBzZWUgYSB3YXkgYSBzdGF0aWNhbGx5IGFuYWx5c2lzIGNvdWxk
-IGV2ZXIgZmlndXJlIHRoYXQgb3V0Lg0KDQpDaHJpc3RpYW4uDQoNCkFtIDE1LjA5LjIwMTggMTE6
-MDUgc2NocmllYiBKaWEtSnUgQmFpIDxiYWlqaWFqdTE5OTBAZ21haWwuY29tPjoNClRoYW5rcyBm
-b3IgeW91ciByZXBseS4NCg0KT24gMjAxOC85LzE1IDE3OjAxLCBLb2VuaWcsIENocmlzdGlhbiB3
-cm90ZToNClNvcnJ5IHRvIHNheSB0aGF0IGJ1dCB5b3VyIGFuYWx5c2lzIHRvb2wgaXMgYnVnZ3ku
-DQoNClRoZSBwcm9wb3NlZCBjYWxsIHBhdGhzIHdpbGwgbmV2ZXIgdHJpZ2dlci4NCg0KQ291bGQg
-eW91IHBsZWFzZSBleHBsYWluIHdoaWNoIHBpZWNlIG9mIHRoZSBjYWxsIHBhdGggaXMgaW5jb3Jy
-ZWN0Pw0KSSBhbSBub3QgdmVyeSBzdXJlIG9mIG15IGZ1bmN0aW9uIHBvaW50ZXIgYW5hbHlzaXMu
-DQpEb2VzIGFtZGdwdV9yaW5nX2FsbG9jKCkgbmV2ZXIgY2FsbHMgYW1kZ3B1X3V2ZF9yaW5nX2Jl
-Z2luX3VzZSgpPw0KDQpUaGFua3MgaW4gYWR2YW5jZS4NCg0KDQpCZXN0IHdpc2hlcywNCkppYS1K
-dSBCYWkNCg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxNS4wOS4yMDE4IDEwOjU5IHNj
-aHJpZWIgSmlhLUp1IEJhaSA8YmFpamlhanUxOTkwQGdtYWlsLmNvbT48bWFpbHRvOmJhaWppYWp1
-MTk5MEBnbWFpbC5jb20+Og0KVGhlIGRyaXZlciBtYXkgc2xlZXAgd2l0aCBob2xkaW5nIGEgc3Bp
-bmxvY2suDQpUaGUgZnVuY3Rpb24gY2FsbCBwYXRocyAoZnJvbSBib3R0b20gdG8gdG9wKSBpbiBM
-aW51eC00LjE3IGFyZToNCg0KW0ZVTkNdIG11dGV4X2xvY2tfbmVzdGVkDQpkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYywgMTQ3NzoNCiAgICAgbXV0ZXhfbG9ja19uZXN0ZWQg
-aW4gYW1kZ3B1X2RwbV9lbmFibGVfdXZkDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdXZkLmMsIDExNTQ6DQogICAgIGFtZGdwdV9kcG1fZW5hYmxlX3V2ZCBpbiBhbWRncHVfdXZk
-X3JpbmdfYmVnaW5fdXNlDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5j
-LCA4MDoNCiAgICAgW0ZVTkNfUFRSXWFtZGdwdV91dmRfcmluZ19iZWdpbl91c2UgaW4gYW1kZ3B1
-X3JpbmdfYWxsb2MNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMsIDE5
-OToNCiAgICAgYW1kZ3B1X3JpbmdfYWxsb2MgaW4gYW1kZ3B1X3ZpcnRfa2lxX3dyZWcNCmRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYywgMjA3Og0KICAgICBhbWRncHVf
-dmlydF9raXFfd3JlZyBpbiBhbWRncHVfbW1fd3JlZw0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmkuYywgMjA3Og0KICAgICBhbWRncHVfbW1fd3JlZyBpbiB2aV9nY19jYWNfcnJlZw0KZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYywgMjA2Og0KICAgICBfcmF3X3NwaW5fbG9ja19p
-cnFzYXZlIGluIHZpX2djX2NhY19ycmVnDQoNCltGVU5DXSBtdXRleF9sb2NrX25lc3RlZA0KZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMsIDE0Nzc6DQogICAgIG11dGV4X2xv
-Y2tfbmVzdGVkIGluIGFtZGdwdV9kcG1fZW5hYmxlX3V2ZA0KZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3V2ZC5jLCAxMTU0Og0KICAgICBhbWRncHVfZHBtX2VuYWJsZV91dmQgaW4g
-YW1kZ3B1X3V2ZF9yaW5nX2JlZ2luX3VzZQ0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3JpbmcuYywgODA6DQogICAgIFtGVU5DX1BUUl1hbWRncHVfdXZkX3JpbmdfYmVnaW5fdXNl
-IGluIGFtZGdwdV9yaW5nX2FsbG9jDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dmlydC5jLCAxOTk6DQogICAgIGFtZGdwdV9yaW5nX2FsbG9jIGluIGFtZGdwdV92aXJ0X2tpcV93
-cmVnDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMsIDIwNzoNCiAg
-ICAgYW1kZ3B1X3ZpcnRfa2lxX3dyZWcgaW4gYW1kZ3B1X21tX3dyZWcNCmRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NvYzE1LmMsIDEwNjoNCiAgICAgYW1kZ3B1X21tX3dyZWcgaW4gc29jMTVf
-cGNpZV9ycmVnDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jLCAxMDU6DQogICAg
-IF9yYXdfc3Bpbl9sb2NrX2lycXNhdmUgaW4gc29jMTVfcGNpZV9ycmVnDQoNCltGVU5DXSBtdXRl
-eF9sb2NrX25lc3RlZA0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMsIDE0
-Nzc6DQogICAgIG11dGV4X2xvY2tfbmVzdGVkIGluIGFtZGdwdV9kcG1fZW5hYmxlX3V2ZA0KZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jLCAxMTU0Og0KICAgICBhbWRncHVf
-ZHBtX2VuYWJsZV91dmQgaW4gYW1kZ3B1X3V2ZF9yaW5nX2JlZ2luX3VzZQ0KZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYywgODA6DQogICAgIFtGVU5DX1BUUl1hbWRncHVf
-dXZkX3JpbmdfYmVnaW5fdXNlIGluIGFtZGdwdV9yaW5nX2FsbG9jDQpkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdmlydC5jLCAxOTk6DQogICAgIGFtZGdwdV9yaW5nX2FsbG9jIGlu
-IGFtZGdwdV92aXJ0X2tpcV93cmVnDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMsIDIwNzoNCiAgICAgYW1kZ3B1X3ZpcnRfa2lxX3dyZWcgaW4gYW1kZ3B1X21tX3dy
-ZWcNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jLCAxMzk6DQogICAgIGFtZGdwdV9t
-bV93cmVnIGluIGNpa191dmRfY3R4X3dyZWcNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Np
-ay5jLCAxMzg6DQogICAgIF9yYXdfc3Bpbl9sb2NrX2lycXNhdmUgaW4gY2lrX3V2ZF9jdHhfd3Jl
-Zw0KDQpbRlVOQ10gbXV0ZXhfbG9ja19uZXN0ZWQNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9wbS5jLCAxNDc3Og0KICAgICBtdXRleF9sb2NrX25lc3RlZCBpbiBhbWRncHVfZHBt
-X2VuYWJsZV91dmQNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYywgMTE1
-NDoNCiAgICAgYW1kZ3B1X2RwbV9lbmFibGVfdXZkIGluIGFtZGdwdV91dmRfcmluZ19iZWdpbl91
-c2UNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmMsIDgwOg0KICAgICBb
-RlVOQ19QVFJdYW1kZ3B1X3V2ZF9yaW5nX2JlZ2luX3VzZSBpbiBhbWRncHVfcmluZ19hbGxvYw0K
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYywgMTk5Og0KICAgICBhbWRn
-cHVfcmluZ19hbGxvYyBpbiBhbWRncHVfdmlydF9raXFfd3JlZw0KZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jLCAyMDc6DQogICAgIGFtZGdwdV92aXJ0X2tpcV93cmVn
-IGluIGFtZGdwdV9tbV93cmVnDQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5j
-LCAxMjY6DQogICAgIGFtZGdwdV9tbV93cmVnIGluIGRjZV92Nl8wX2F1ZGlvX2VuZHB0X3JyZWcN
-CmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92Nl8wLmMsIDEyNToNCiAgICAgX3Jhd19z
-cGluX2xvY2tfaXJxc2F2ZSBpbiBkY2VfdjZfMF9hdWRpb19lbmRwdF9ycmVnDQoNCk5vdGUgdGhh
-dCBbRlVOQ19QVFJdIG1lYW5zIGEgZnVuY3Rpb24gcG9pbnRlciBjYWxsIGlzIHVzZWQuDQoNClRo
-ZXNlIGJ1Z3MgYXJlIGZvdW5kIGJ5IG15IHN0YXRpYyBhbmFseXNpcyB0b29sIERTQUMuDQoNCg0K
-QmVzdCB3aXNoZXMsDQpKaWEtSnUgQmFpDQoNCg0K
+No, the problem is the function pointer analysis.
 
---_000_dbf146f7119643f8a064c59638788a54emailandroidcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <6EA55BDBD61DF2498249412DD6602180-t0aD9ArCiwdO0n7uQEQMm4CZgX+1HZI1@public.gmane.org>
-Content-Transfer-Encoding: base64
+In other words the KIQ ring is sometimes used in atomic and even interrupt =
+context.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBkaXI9ImF1
-dG8iPg0KPGRpdj5hbWRncHVfcmluZ19hbGxvYygpIGRvZXMgY2FsbCBhbWRncHVfdXZkX2JlZ2lu
-X3VzZSgpLCBidXQgbmV2ZXIgaW4gdGhlIGNhbGwgY2hhaW4geW91IHByb3Bvc2VkLjwvZGl2Pg0K
-PGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPlRoaW5raW5nIGFi
-b3V0IGl0IEkgYWN0dWFsbHkgZG9uJ3Qgc2VlIGEgd2F5IGEgc3RhdGljYWxseSBhbmFseXNpcyBj
-b3VsZCBldmVyIGZpZ3VyZSB0aGF0IG91dC48L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj48YnI+DQo8
-L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj5DaHJpc3RpYW4uPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+
-DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSIgZGlyPSJhdXRvIj48YnI+DQo8ZGl2IGNsYXNzPSJn
-bWFpbF9xdW90ZSI+QW0gMTUuMDkuMjAxOCAxMTowNSBzY2hyaWViIEppYS1KdSBCYWkgJmx0O2Jh
-aWppYWp1MTk5MEBnbWFpbC5jb20mZ3Q7OjxiciB0eXBlPSJhdHRyaWJ1dGlvbiI+DQo8YmxvY2tx
-dW90ZSBjbGFzcz0icXVvdGUiIHN0eWxlPSJtYXJnaW46MCAwIDAgLjhleDtib3JkZXItbGVmdDox
-cHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6MWV4Ij4NCjxkaXY+VGhhbmtzIGZvciB5b3VyIHJl
-cGx5Ljxicj4NCjxicj4NCjxkaXY+T24gMjAxOC85LzE1IDE3OjAxLCBLb2VuaWcsIENocmlzdGlh
-biB3cm90ZTo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3RlPg0KPGRpdj4NCjxkaXYgZGlyPSJhdXRv
-Ij5Tb3JyeSB0byBzYXkgdGhhdCBidXQgeW91ciBhbmFseXNpcyB0b29sIGlzIGJ1Z2d5Lg0KPGRp
-diBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPlRoZSBwcm9wb3NlZCBj
-YWxsIHBhdGhzIHdpbGwgbmV2ZXIgdHJpZ2dlci48L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Js
-b2NrcXVvdGU+DQo8YnI+DQpDb3VsZCB5b3UgcGxlYXNlIGV4cGxhaW4gd2hpY2ggcGllY2Ugb2Yg
-dGhlIGNhbGwgcGF0aCBpcyBpbmNvcnJlY3Q/PGJyPg0KSSBhbSBub3QgdmVyeSBzdXJlIG9mIG15
-IGZ1bmN0aW9uIHBvaW50ZXIgYW5hbHlzaXMuPGJyPg0KRG9lcyBhbWRncHVfcmluZ19hbGxvYygp
-IG5ldmVyIGNhbGxzIGFtZGdwdV91dmRfcmluZ19iZWdpbl91c2UoKT88YnI+DQo8YnI+DQpUaGFu
-a3MgaW4gYWR2YW5jZS48YnI+DQo8YnI+DQo8YnI+DQpCZXN0IHdpc2hlcyw8YnI+DQpKaWEtSnUg
-QmFpPGJyPg0KPGJyPg0KPGJsb2NrcXVvdGU+DQo8ZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPg0KPGRp
-diBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPlJlZ2FyZHMsPC9kaXY+
-DQo8ZGl2IGRpcj0iYXV0byI+Q2hyaXN0aWFuLjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pjxicj4NCjxk
-aXY+QW0gMTUuMDkuMjAxOCAxMDo1OSBzY2hyaWViIEppYS1KdSBCYWkgPGEgaHJlZj0ibWFpbHRv
-OmJhaWppYWp1MTk5MEBnbWFpbC5jb20iPg0KJmx0O2JhaWppYWp1MTk5MEBnbWFpbC5jb20mZ3Q7
-PC9hPjo8YnIgdHlwZT0iYXR0cmlidXRpb24iPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPGZv
-bnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0Ij4NCjxkaXY+VGhlIGRyaXZl
-ciBtYXkgc2xlZXAgd2l0aCBob2xkaW5nIGEgc3BpbmxvY2suPGJyPg0KVGhlIGZ1bmN0aW9uIGNh
-bGwgcGF0aHMgKGZyb20gYm90dG9tIHRvIHRvcCkgaW4gTGludXgtNC4xNyBhcmU6PGJyPg0KPGJy
-Pg0KW0ZVTkNdIG11dGV4X2xvY2tfbmVzdGVkPGJyPg0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3BtLmMsIDE0Nzc6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IG11dGV4
-X2xvY2tfbmVzdGVkIGluIGFtZGdwdV9kcG1fZW5hYmxlX3V2ZDxicj4NCmRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYywgMTE1NDo8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgYW1kZ3B1X2RwbV9lbmFibGVfdXZkIGluIGFtZGdwdV91dmRfcmluZ19iZWdpbl91c2U8
-YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jLCA4MDo8YnI+DQom
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgW0ZVTkNfUFRSXWFtZGdwdV91dmRfcmluZ19iZWdpbl91
-c2UgaW4gYW1kZ3B1X3JpbmdfYWxsb2M8YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdmlydC5jLCAxOTk6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9y
-aW5nX2FsbG9jIGluIGFtZGdwdV92aXJ0X2tpcV93cmVnPGJyPg0KZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jLCAyMDc6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IGFtZGdwdV92aXJ0X2tpcV93cmVnIGluIGFtZGdwdV9tbV93cmVnPGJyPg0KZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdmkuYywgMjA3Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyBhbWRncHVfbW1fd3JlZyBpbiB2aV9nY19jYWNfcnJlZzxicj4NCmRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3ZpLmMsIDIwNjo8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgX3Jhd19z
-cGluX2xvY2tfaXJxc2F2ZSBpbiB2aV9nY19jYWNfcnJlZzxicj4NCjxicj4NCltGVU5DXSBtdXRl
-eF9sb2NrX25lc3RlZDxicj4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5j
-LCAxNDc3Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBtdXRleF9sb2NrX25lc3RlZCBp
-biBhbWRncHVfZHBtX2VuYWJsZV91dmQ8YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdXZkLmMsIDExNTQ6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9k
-cG1fZW5hYmxlX3V2ZCBpbiBhbWRncHVfdXZkX3JpbmdfYmVnaW5fdXNlPGJyPg0KZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYywgODA6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IFtGVU5DX1BUUl1hbWRncHVfdXZkX3JpbmdfYmVnaW5fdXNlIGluIGFtZGdwdV9y
-aW5nX2FsbG9jPGJyPg0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYywg
-MTk5Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfcmluZ19hbGxvYyBpbiBh
-bWRncHVfdmlydF9raXFfd3JlZzxicj4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYywgMjA3Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfdmly
-dF9raXFfd3JlZyBpbiBhbWRncHVfbW1fd3JlZzxicj4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3NvYzE1LmMsIDEwNjo8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1X21t
-X3dyZWcgaW4gc29jMTVfcGNpZV9ycmVnPGJyPg0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c29jMTUuYywgMTA1Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfcmF3X3NwaW5fbG9j
-a19pcnFzYXZlIGluIHNvYzE1X3BjaWVfcnJlZzxicj4NCjxicj4NCltGVU5DXSBtdXRleF9sb2Nr
-X25lc3RlZDxicj4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jLCAxNDc3
-Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBtdXRleF9sb2NrX25lc3RlZCBpbiBhbWRn
-cHVfZHBtX2VuYWJsZV91dmQ8YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dXZkLmMsIDExNTQ6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9kcG1fZW5h
-YmxlX3V2ZCBpbiBhbWRncHVfdXZkX3JpbmdfYmVnaW5fdXNlPGJyPg0KZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYywgODA6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IFtGVU5DX1BUUl1hbWRncHVfdXZkX3JpbmdfYmVnaW5fdXNlIGluIGFtZGdwdV9yaW5nX2Fs
-bG9jPGJyPg0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYywgMTk5Ojxi
-cj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfcmluZ19hbGxvYyBpbiBhbWRncHVf
-dmlydF9raXFfd3JlZzxicj4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
-Y2UuYywgMjA3Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfdmlydF9raXFf
-d3JlZyBpbiBhbWRncHVfbW1fd3JlZzxicj4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Np
-ay5jLCAxMzk6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9tbV93cmVnIGlu
-IGNpa191dmRfY3R4X3dyZWc8YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYywg
-MTM4Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBfcmF3X3NwaW5fbG9ja19pcnFzYXZl
-IGluIGNpa191dmRfY3R4X3dyZWc8YnI+DQo8YnI+DQpbRlVOQ10gbXV0ZXhfbG9ja19uZXN0ZWQ8
-YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYywgMTQ3Nzo8YnI+DQom
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgbXV0ZXhfbG9ja19uZXN0ZWQgaW4gYW1kZ3B1X2RwbV9l
-bmFibGVfdXZkPGJyPg0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jLCAx
-MTU0Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfZHBtX2VuYWJsZV91dmQg
-aW4gYW1kZ3B1X3V2ZF9yaW5nX2JlZ2luX3VzZTxicj4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9yaW5nLmMsIDgwOjxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBbRlVO
-Q19QVFJdYW1kZ3B1X3V2ZF9yaW5nX2JlZ2luX3VzZSBpbiBhbWRncHVfcmluZ19hbGxvYzxicj4N
-CmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMsIDE5OTo8YnI+DQombmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1X3JpbmdfYWxsb2MgaW4gYW1kZ3B1X3ZpcnRfa2lx
-X3dyZWc8YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMsIDIw
-Nzo8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1X3ZpcnRfa2lxX3dyZWcgaW4g
-YW1kZ3B1X21tX3dyZWc8YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5j
-LCAxMjY6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9tbV93cmVnIGluIGRj
-ZV92Nl8wX2F1ZGlvX2VuZHB0X3JyZWc8YnI+DQpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9k
-Y2VfdjZfMC5jLCAxMjU6PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF9yYXdfc3Bpbl9s
-b2NrX2lycXNhdmUgaW4gZGNlX3Y2XzBfYXVkaW9fZW5kcHRfcnJlZzxicj4NCjxicj4NCk5vdGUg
-dGhhdCBbRlVOQ19QVFJdIG1lYW5zIGEgZnVuY3Rpb24gcG9pbnRlciBjYWxsIGlzIHVzZWQuPGJy
-Pg0KPGJyPg0KVGhlc2UgYnVncyBhcmUgZm91bmQgYnkgbXkgc3RhdGljIGFuYWx5c2lzIHRvb2wg
-RFNBQy48YnI+DQo8YnI+DQo8YnI+DQpCZXN0IHdpc2hlcyw8YnI+DQpKaWEtSnUgQmFpPGJyPg0K
-PC9kaXY+DQo8L3NwYW4+PC9mb250PjwvYmxvY2txdW90ZT4NCjxicj4NCjwvZGl2Pg0KPC9ibG9j
-a3F1b3RlPg0KPC9kaXY+DQo8YnI+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8
-L2h0bWw+DQo=
+But the UVD ring is never used in atomic context.
 
---_000_dbf146f7119643f8a064c59638788a54emailandroidcom_--
+But I don't see a way a static analysis could ever figure that out.
 
---===============1954035727==
+Regards,
+Christian.
+
+Am 15.09.2018 11:18 schrieb Jia-Ju Bai <baijiaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
+Sorry, I am still not clear why the call chain I proposed is incorrect...
+
+I find a conditional in amdgpu_mm_wreg():
+
+    if (!(acc_flags & AMDGPU_REGS_NO_KIQ) && amdgpu_sriov_runtime(adev))
+        return amdgpu_virt_kiq_wreg(adev, reg, v);
+
+Is amdgpu_virt_kiq_wreg() never called from WREG32() or RREG32()?
+
+
+Best wishes,
+Jia-Ju Bai
+
+
+On 2018/9/15 17:10, Koenig, Christian wrote:
+amdgpu_ring_alloc() does call amdgpu_uvd_begin_use(), but never in the call=
+ chain you proposed.
+
+Thinking about it I actually don't see a way a statically analysis could ev=
+er figure that out.
+
+Christian.
+
+Am 15.09.2018 11:05 schrieb Jia-Ju Bai <baijiaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:baij=
+iaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
+Thanks for your reply.
+
+On 2018/9/15 17:01, Koenig, Christian wrote:
+Sorry to say that but your analysis tool is buggy.
+
+The proposed call paths will never trigger.
+
+Could you please explain which piece of the call path is incorrect?
+I am not very sure of my function pointer analysis.
+Does amdgpu_ring_alloc() never calls amdgpu_uvd_ring_begin_use()?
+
+Thanks in advance.
+
+
+Best wishes,
+Jia-Ju Bai
+
+
+Regards,
+Christian.
+
+Am 15.09.2018 10:59 schrieb Jia-Ju Bai <baijiaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:baij=
+iaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
+The driver may sleep with holding a spinlock.
+The function call paths (from bottom to top) in Linux-4.17 are:
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/vi.c, 207:
+     amdgpu_mm_wreg in vi_gc_cac_rreg
+drivers/gpu/drm/amd/amdgpu/vi.c, 206:
+     _raw_spin_lock_irqsave in vi_gc_cac_rreg
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/soc15.c, 106:
+     amdgpu_mm_wreg in soc15_pcie_rreg
+drivers/gpu/drm/amd/amdgpu/soc15.c, 105:
+     _raw_spin_lock_irqsave in soc15_pcie_rreg
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/cik.c, 139:
+     amdgpu_mm_wreg in cik_uvd_ctx_wreg
+drivers/gpu/drm/amd/amdgpu/cik.c, 138:
+     _raw_spin_lock_irqsave in cik_uvd_ctx_wreg
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 126:
+     amdgpu_mm_wreg in dce_v6_0_audio_endpt_rreg
+drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 125:
+     _raw_spin_lock_irqsave in dce_v6_0_audio_endpt_rreg
+
+Note that [FUNC_PTR] means a function pointer call is used.
+
+These bugs are found by my static analysis tool DSAC.
+
+
+Best wishes,
+Jia-Ju Bai
+
+
+
+
+--_000_68eb2303ec42470ea060487a14e2708cemailandroidcom_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta content=3D"text/html; charset=3Dutf-8">
+</head>
+<body bgcolor=3D"#FFFFFF">
+<div dir=3D"auto">No, the problem is the function pointer analysis.
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">In other words the KIQ ring is sometimes used in atomic a=
+nd even interrupt context.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">But the UVD ring is never used in atomic context.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">But I don't see a way a static analysis could ever figure=
+ that out.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Regards,</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">Am 15.09.2018 11:18 schrieb Jia-Ju Bai &lt;baiji=
+aju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;:<br type=3D"attribution">
+</div>
+</div>
+<div>Sorry, I am still not clear why the call chain I proposed is incorrect=
+...<br>
+<br>
+I find a conditional in amdgpu_mm_wreg():<br>
+<br>
+&nbsp;&nbsp;&nbsp; if (!(acc_flags &amp; AMDGPU_REGS_NO_KIQ) &amp;&amp; amd=
+gpu_sriov_runtime(adev))<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return amdgpu_virt_kiq_wreg(adev, reg=
+, v);<br>
+<br>
+Is amdgpu_virt_kiq_wreg() never called from WREG32() or RREG32()?<br>
+<br>
+<br>
+Best wishes,<br>
+Jia-Ju Bai<br>
+<br>
+<br>
+<div class=3D"moz-cite-prefix">On 2018/9/15 17:10, Koenig, Christian wrote:=
+<br>
+</div>
+<blockquote type=3D"cite">
+<div dir=3D"auto">
+<div>amdgpu_ring_alloc() does call amdgpu_uvd_begin_use(), but never in the=
+ call chain you proposed.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Thinking about it I actually don't see a way a statically=
+ analysis could ever figure that out.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+<div dir=3D"auto">
+<div class=3D"gmail_extra" dir=3D"auto"><br>
+<div class=3D"gmail_quote">Am 15.09.2018 11:05 schrieb Jia-Ju Bai <a class=
+=3D"moz-txt-link-rfc2396E" href=3D"mailto:baijiaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+&lt;baijiaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>:<br type=3D"attribution">
+<blockquote class=3D"quote" style=3D"margin:0 0 0
+                .8ex; border-left:1px #ccc solid; padding-left:1ex">
+<div>Thanks for your reply.<br>
+<br>
+<div>On 2018/9/15 17:01, Koenig, Christian wrote:<br>
+</div>
+<blockquote>
+<div>
+<div dir=3D"auto">Sorry to say that but your analysis tool is buggy.
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">The proposed call paths will never trigger.</div>
+</div>
+</div>
+</blockquote>
+<br>
+Could you please explain which piece of the call path is incorrect?<br>
+I am not very sure of my function pointer analysis.<br>
+Does amdgpu_ring_alloc() never calls amdgpu_uvd_ring_begin_use()?<br>
+<br>
+Thanks in advance.<br>
+<br>
+<br>
+Best wishes,<br>
+Jia-Ju Bai<br>
+<br>
+<blockquote>
+<div>
+<div dir=3D"auto">
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Regards,</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div><br>
+<div>Am 15.09.2018 10:59 schrieb Jia-Ju Bai <a href=3D"mailto:baijiaju1990@=
+gmail.com">
+&lt;baijiaju1990-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>:<br type=3D"attribution">
+</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt">
+<div>The driver may sleep with holding a spinlock.<br>
+The function call paths (from bottom to top) in Linux-4.17 are:<br>
+<br>
+[FUNC] mutex_lock_nested<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock_nested in amdgpu_dpm_enable_uvd<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use=
+<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring=
+_alloc<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
+drivers/gpu/drm/amd/amdgpu/vi.c, 207:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mm_wreg in vi_gc_cac_rreg<br>
+drivers/gpu/drm/amd/amdgpu/vi.c, 206:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; _raw_spin_lock_irqsave in vi_gc_cac_rreg<br>
+<br>
+[FUNC] mutex_lock_nested<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock_nested in amdgpu_dpm_enable_uvd<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use=
+<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring=
+_alloc<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
+drivers/gpu/drm/amd/amdgpu/soc15.c, 106:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mm_wreg in soc15_pcie_rreg<br>
+drivers/gpu/drm/amd/amdgpu/soc15.c, 105:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; _raw_spin_lock_irqsave in soc15_pcie_rreg<br>
+<br>
+[FUNC] mutex_lock_nested<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock_nested in amdgpu_dpm_enable_uvd<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use=
+<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring=
+_alloc<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
+drivers/gpu/drm/amd/amdgpu/cik.c, 139:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mm_wreg in cik_uvd_ctx_wreg<br>
+drivers/gpu/drm/amd/amdgpu/cik.c, 138:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; _raw_spin_lock_irqsave in cik_uvd_ctx_wreg<br>
+<br>
+[FUNC] mutex_lock_nested<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock_nested in amdgpu_dpm_enable_uvd<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use=
+<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring=
+_alloc<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
+drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 126:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mm_wreg in dce_v6_0_audio_endpt_rreg<br>
+drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 125:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; _raw_spin_lock_irqsave in dce_v6_0_audio_endpt_rre=
+g<br>
+<br>
+Note that [FUNC_PTR] means a function pointer call is used.<br>
+<br>
+These bugs are found by my static analysis tool DSAC.<br>
+<br>
+<br>
+Best wishes,<br>
+Jia-Ju Bai<br>
+</div>
+</span></font></blockquote>
+<br>
+</div>
+</blockquote>
+</div>
+<br>
+</div>
+</div>
+</div>
+</blockquote>
+<br>
+</div>
+</body>
+</html>
+
+--_000_68eb2303ec42470ea060487a14e2708cemailandroidcom_--
+
+--===============0998783355==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -220,4 +394,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1954035727==--
+--===============0998783355==--
