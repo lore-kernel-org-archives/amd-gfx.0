@@ -1,78 +1,38 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: kfdtest failures for amdkfd (amd-staging-drm-next)
-Date: Fri, 14 Sep 2018 17:40:53 -0400
-Message-ID: <6abb2acf-bf4a-6431-59da-21dec689efdb@amd.com>
-References: <37f71cd7-364e-c951-0e70-8d0d7b17f5e1@nicevt.ru>
+From: Peng Hao <peng.hao2@zte.com.cn>
+Subject: [PATCH]  amdgpu/dcn10 : fix compile warning
+Date: Sat, 15 Sep 2018 23:46:57 +0800
+Message-ID: <1537026417-3798-1-git-send-email-peng.hao2@zte.com.cn>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <37f71cd7-364e-c951-0e70-8d0d7b17f5e1-4PKdL1x4DgGHXe+LvDLADg@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alexander Frolov <frolov-4PKdL1x4DgGHXe+LvDLADg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Peng Hao <peng.hao2@zte.com.cn>
+List-Id: amd-gfx.lists.freedesktop.org
 
-WW91IG5lZWQgUk9DbSAxLjkgdG8gd29yayB3aXRoIHRoZSB1cHN0cmVhbSBLRkQuIGxpYmhzYWtt
-dCBmcm9tIFJPQ20gMS44CmlzIGluY29tcGF0aWJsZSB3aXRoIHRoZSB1cHN0cmVhbSBLRkQgQUJJ
-LgoKV2hlcmUgZGlkIHlvdSBnZXQgS0ZEVGVzdD8gSXQncyBwYXJ0IG9mIHRoZSBzYW1lIHJlcG9z
-aXRvcnkgb24gR2l0SHViIGFzCmxpYmhzYWttdC4gSXQncyBuZXcgb24gdGhlIDEuOSBicmFuY2gu
-IFlvdSBuZWVkIGxpYmhzYWttdCBmcm9tIHRoZSBzYW1lCmJyYW5jaC4gVGhlIFJPQ20gMS45IGJp
-bmFyaWVzIGFyZSBwbGFubmVkIHRvIGJlIHJlbGVhc2VkIGxhdGVyIHRvZGF5IGlmCmFsbCBnb2Vz
-IHdlbGwuCgpSZWdhcmRzLArCoCBGZWxpeAoKCk9uIDIwMTgtMDktMTQgMDc6NTAgQU0sIEFsZXhh
-bmRlciBGcm9sb3Ygd3JvdGU6Cj4gSGkhCj4KPiBJIGFtIHRyeWluZyB0byB1c2UgYW1kLXN0YWdp
-bmctZHJtLW5leHQgdG8gd29yayB3aXRoIGFtZGtmZCAoYnVpbHQKPiBpbnRvIGFtZGdwdSkgZm9y
-IHRoZSBBTUQgSW5zdGluY3QgTUkyNSBkZXZpY2UuCj4KPiBBcyBhIGZpcnN0IHN0ZXAgSSBjb21w
-aWxlZCBsaWJoc2FrbXQgMS44LnggYW5kIHRyaWVkIHRvIHJ1biBrZmR0ZXN0Lgo+IEJ1dCBpdCBw
-cm9kdWNlcyBsb3RzIG9mIGZhaWx1cmVzIChzZWUgYmVsb3cpLgo+IEhlcmUgYXJlIHRoZSByZXN1
-bHRzOgo+Cj4gLi4uCj4gWz09PT09PT09PT1dIDc2IHRlc3RzIGZyb20gMTQgdGVzdCBjYXNlcyBy
-YW4uICg4MDI1MCBtcyB0b3RhbCkKPiBbwqAgUEFTU0VEwqAgXSAzOSB0ZXN0cy4KPiBbwqAgRkFJ
-TEVEwqAgXSAzNyB0ZXN0cywgbGlzdGVkIGJlbG93Ogo+IFvCoCBGQUlMRUTCoCBdIEtGREV2aWN0
-VGVzdC5RdWV1ZVRlc3QKPiBbwqAgRkFJTEVEwqAgXSBLRkRHcmFwaGljc0ludGVyb3AuUmVnaXN0
-ZXJHcmFwaGljc0hhbmRsZQo+IFvCoCBGQUlMRUTCoCBdIEtGRElQQ1Rlc3QuQmFzaWNUZXN0Cj4g
-W8KgIEZBSUxFRMKgIF0gS0ZESVBDVGVzdC5Dcm9zc01lbW9yeUF0dGFjaFRlc3QKPiBbwqAgRkFJ
-TEVEwqAgXSBLRkRJUENUZXN0LkNNQUJhc2ljVGVzdAo+IFvCoCBGQUlMRUTCoCBdIEtGRExvY2Fs
-TWVtb3J5VGVzdC5CYXNpY1Rlc3QKPiBbwqAgRkFJTEVEwqAgXSBLRkRMb2NhbE1lbW9yeVRlc3Qu
-VmVyaWZ5Q29udGVudHNBZnRlclVubWFwQW5kTWFwCj4gW8KgIEZBSUxFRMKgIF0gS0ZETG9jYWxN
-ZW1vcnlUZXN0LkNoZWNrWmVyb0luaXRpYWxpemF0aW9uVnJhbQo+IFvCoCBGQUlMRUTCoCBdIEtG
-RE1lbW9yeVRlc3QuTWFwVW5tYXBUb05vZGVzCj4gW8KgIEZBSUxFRMKgIF0gS0ZETWVtb3J5VGVz
-dC5NZW1vcnlSZWdpc3RlclNhbWVQdHIKPiBbwqAgRkFJTEVEwqAgXSBLRkRNZW1vcnlUZXN0LkZs
-YXRTY3JhdGNoQWNjZXNzCj4gW8KgIEZBSUxFRMKgIF0gS0ZETWVtb3J5VGVzdC5NTUJlbmNoCj4g
-W8KgIEZBSUxFRMKgIF0gS0ZETWVtb3J5VGVzdC5RdWVyeVBvaW50ZXJJbmZvCj4gW8KgIEZBSUxF
-RMKgIF0gS0ZETWVtb3J5VGVzdC5QdHJhY2VBY2Nlc3NJbnZpc2libGVWcmFtCj4gW8KgIEZBSUxF
-RMKgIF0gS0ZETWVtb3J5VGVzdC5TaWduYWxIYW5kbGluZwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFN
-VGVzdC5DcmVhdGVDcFF1ZXVlCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkNyZWF0ZU11bHRp
-cGxlU2RtYVF1ZXVlcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5TZG1hQ29uY3VycmVudENv
-cGllcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5DcmVhdGVNdWx0aXBsZUNwUXVldWVzCj4g
-W8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkRpc2FibGVTZG1hUXVldWVCeVVwZGF0ZVdpdGhOdWxs
-QWRkcmVzcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5EaXNhYmxlQ3BRdWV1ZUJ5VXBkYXRl
-V2l0aFplcm9QZXJjZW50YWdlCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0Lk92ZXJTdWJzY3Jp
-YmVDcFF1ZXVlcwo+IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5CYXNpY0N1TWFza2luZ0V2ZW4K
-PiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuUXVldWVQcmlvcml0eU9uRGlmZmVyZW50UGlwZQo+
-IFvCoCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5RdWV1ZVByaW9yaXR5T25TYW1lUGlwZQo+IFvCoCBG
-QUlMRUTCoCBdIEtGRFFNVGVzdC5FbXB0eURpc3BhdGNoCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1U
-ZXN0LlNpbXBsZVdyaXRlRGlzcGF0Y2gKPiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuTXVsdGlw
-bGVDcFF1ZXVlc1N0cmVzc0Rpc3BhdGNoCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkNwdVdy
-aXRlQ29oZXJlbmNlCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LkNyZWF0ZUFxbENwUXVldWUK
-PiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuUXVldWVMYXRlbmN5Cj4gW8KgIEZBSUxFRMKgIF0g
-S0ZEUU1UZXN0LkNwUXVldWVXcmFwYXJvdW5kCj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0LlNk
-bWFRdWV1ZVdyYXBhcm91bmQKPiBbwqAgRkFJTEVEwqAgXSBLRkRRTVRlc3QuQXRvbWljcwo+IFvC
-oCBGQUlMRUTCoCBdIEtGRFFNVGVzdC5QMlBUZXN0Cj4gW8KgIEZBSUxFRMKgIF0gS0ZEUU1UZXN0
-LlNkbWFFdmVudEludGVycnVwdAo+IFvCoCBGQUlMRUTCoCBdIEtGRFRvcG9sb2d5VGVzdC5CYXNp
-Y1Rlc3QKPgo+IERvZXMgaXQgbWVhbiB0aGF0IGN1cnJlbnQgYW1ka2ZkIGZyb20gdGhlIGtlcm5l
-bCBjYW50IGJlIHVzZWQgd2l0aAo+IGxpYmhzYWttdCAxLjgueD8gb3IgSSBhbSBkb2luZyBzb21l
-dGhpbmcgd3JvbmcuLi4KPiBUaGFuayB5b3UhCj4KPiBCZXN0LAo+IMKgwqAgQWxleGFuZGVyCj4K
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:
+    In function ‘dcn10_update_mpcc’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1903:9:
+    warning: missing braces around initializer [-Wmissing-braces]
+
+Signed-off-by: Peng Hao <peng.hao2@zte.com.cn>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index cfcc54f..a06a035 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -1900,7 +1900,7 @@ static void update_dpp(struct dpp *dpp, struct dc_plane_state *plane_state)
+ static void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ {
+ 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
+-	struct mpcc_blnd_cfg blnd_cfg = {0};
++	struct mpcc_blnd_cfg blnd_cfg = { {0} };
+ 	bool per_pixel_alpha = pipe_ctx->plane_state->per_pixel_alpha && pipe_ctx->bottom_pipe;
+ 	int mpcc_id;
+ 	struct mpcc *new_mpcc;
+-- 
+1.8.3.1
