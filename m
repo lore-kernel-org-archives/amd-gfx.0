@@ -1,74 +1,89 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 1/2] drm/amdgpu: add amdgpu_vm_entries_mask
-Date: Sat, 15 Sep 2018 10:05:40 +0200
-Message-ID: <20180915080541.10094-1-christian.koenig@amd.com>
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+Subject: [BUG] gpu: drm: amdgpu: Possible sleep-in-atomic-context bugs in
+ amdgpu_uvd_ring_begin_use()
+Date: Sat, 15 Sep 2018 16:59:04 +0800
+Message-ID: <f09853dc-591c-05d3-9f56-63e4b338c585@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2UgY2FuJ3QgZ2V0IHRoZSBtYXNrIGZvciB0aGUgcm9vdCBkaXJlY3RvcnkgZnJvbSB0aGUgbnVt
-YmVyIG9mIGVudHJpZXMuCgpTbyBhZGQgYSBuZXcgZnVuY3Rpb24gdG8gYXZvaWQgdGhhdCBwcm9i
-bGVtLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0Bh
-bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMzQg
-KysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDI3IGlu
-c2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYwppbmRleCBhN2Y5YWFhNDdjNDkuLmFhZjU0ZmM4Y2FmZSAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTE5MCw2ICsxOTAsMjYgQEAgc3RhdGljIHVuc2ln
-bmVkIGFtZGdwdV92bV9udW1fZW50cmllcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJ
-cmV0dXJuIEFNREdQVV9WTV9QVEVfQ09VTlQoYWRldik7CiB9CiAKKy8qKgorICogYW1kZ3B1X3Zt
-X2VudHJpZXNfbWFzayAtIHRoZSBtYXNrIHRvIGdldCB0aGUgZW50cnkgbnVtYmVyIG9mIGEgUEQv
-UFQKKyAqCisgKiBAYWRldjogYW1kZ3B1X2RldmljZSBwb2ludGVyCisgKiBAbGV2ZWw6IFZNUFQg
-bGV2ZWwKKyAqCisgKiBSZXR1cm5zOgorICogVGhlIG1hc2sgdG8gZXh0cmFjdCB0aGUgZW50cnkg
-bnVtYmVyIG9mIGEgUEQvUFQgZnJvbSBhbiBhZGRyZXNzLgorICovCitzdGF0aWMgdWludDMyX3Qg
-YW1kZ3B1X3ZtX2VudHJpZXNfbWFzayhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKKwkJCQkg
-ICAgICAgdW5zaWduZWQgaW50IGxldmVsKQoreworCWlmIChsZXZlbCA8PSBhZGV2LT52bV9tYW5h
-Z2VyLnJvb3RfbGV2ZWwpCisJCXJldHVybiAweGZmZmZmZmZmOworCWVsc2UgaWYgKGxldmVsICE9
-IEFNREdQVV9WTV9QVEIpCisJCXJldHVybiAweDFmOworCWVsc2UKKwkJcmV0dXJuIEFNREdQVV9W
-TV9QVEVfQ09VTlQoYWRldikgLSAxOworfQorCiAvKioKICAqIGFtZGdwdV92bV9ib19zaXplIC0g
-cmV0dXJucyB0aGUgc2l6ZSBvZiB0aGUgQk9zIGluIGJ5dGVzCiAgKgpAQCAtMzk5LDE3ICs0MTks
-MTcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX3B0X3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAogc3RhdGljIGJvb2wgYW1kZ3B1X3ZtX3B0X2Rlc2NlbmRhbnQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCiAJCQkJICAgIHN0cnVjdCBhbWRncHVfdm1fcHRfY3Vyc29yICpjdXJz
-b3IpCiB7Ci0JdW5zaWduZWQgbnVtX2VudHJpZXMsIHNoaWZ0LCBpZHg7CisJdW5zaWduZWQgbWFz
-aywgc2hpZnQsIGlkeDsKIAogCWlmICghY3Vyc29yLT5lbnRyeS0+ZW50cmllcykKIAkJcmV0dXJu
-IGZhbHNlOwogCiAJQlVHX09OKCFjdXJzb3ItPmVudHJ5LT5iYXNlLmJvKTsKLQludW1fZW50cmll
-cyA9IGFtZGdwdV92bV9udW1fZW50cmllcyhhZGV2LCBjdXJzb3ItPmxldmVsKTsKKwltYXNrID0g
-YW1kZ3B1X3ZtX2VudHJpZXNfbWFzayhhZGV2LCBjdXJzb3ItPmxldmVsKTsKIAlzaGlmdCA9IGFt
-ZGdwdV92bV9sZXZlbF9zaGlmdChhZGV2LCBjdXJzb3ItPmxldmVsKTsKIAogCSsrY3Vyc29yLT5s
-ZXZlbDsKLQlpZHggPSAoY3Vyc29yLT5wZm4gPj4gc2hpZnQpICUgbnVtX2VudHJpZXM7CisJaWR4
-ID0gKGN1cnNvci0+cGZuID4+IHNoaWZ0KSAmIG1hc2s7CiAJY3Vyc29yLT5wYXJlbnQgPSBjdXJz
-b3ItPmVudHJ5OwogCWN1cnNvci0+ZW50cnkgPSAmY3Vyc29yLT5lbnRyeS0+ZW50cmllc1tpZHhd
-OwogCXJldHVybiB0cnVlOwpAQCAtMTU5OSw3ICsxNjE5LDcgQEAgc3RhdGljIGludCBhbWRncHVf
-dm1fdXBkYXRlX3B0ZXMoc3RydWN0IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcGFyYW1zLAog
-CWFtZGdwdV92bV9wdF9zdGFydChhZGV2LCBwYXJhbXMtPnZtLCBzdGFydCwgJmN1cnNvcik7CiAJ
-d2hpbGUgKGN1cnNvci5wZm4gPCBlbmQpIHsKIAkJc3RydWN0IGFtZGdwdV9ibyAqcHQgPSBjdXJz
-b3IuZW50cnktPmJhc2UuYm87Ci0JCXVuc2lnbmVkIHNoaWZ0LCBwYXJlbnRfc2hpZnQsIG51bV9l
-bnRyaWVzOworCQl1bnNpZ25lZCBzaGlmdCwgcGFyZW50X3NoaWZ0LCBtYXNrOwogCQl1aW50NjRf
-dCBpbmNyLCBlbnRyeV9lbmQsIHBlX3N0YXJ0OwogCiAJCWlmICghcHQpCkBAIC0xNjU0LDkgKzE2
-NzQsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV91cGRhdGVfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3B0
-ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCiAKIAkJLyogTG9va3MgZ29vZCBzbyBmYXIsIGNhbGN1
-bGF0ZSBwYXJhbWV0ZXJzIGZvciB0aGUgdXBkYXRlICovCiAJCWluY3IgPSBBTURHUFVfR1BVX1BB
-R0VfU0laRSA8PCBzaGlmdDsKLQkJbnVtX2VudHJpZXMgPSBhbWRncHVfdm1fbnVtX2VudHJpZXMo
-YWRldiwgY3Vyc29yLmxldmVsKTsKLQkJcGVfc3RhcnQgPSAoKGN1cnNvci5wZm4gPj4gc2hpZnQp
-ICYgKG51bV9lbnRyaWVzIC0gMSkpICogODsKLQkJZW50cnlfZW5kID0gbnVtX2VudHJpZXMgPDwg
-c2hpZnQ7CisJCW1hc2sgPSBhbWRncHVfdm1fZW50cmllc19tYXNrKGFkZXYsIGN1cnNvci5sZXZl
-bCk7CisJCXBlX3N0YXJ0ID0gKChjdXJzb3IucGZuID4+IHNoaWZ0KSAmIG1hc2spICogODsKKwkJ
-ZW50cnlfZW5kID0gKG1hc2sgKyAxKSA8PCBzaGlmdDsKIAkJZW50cnlfZW5kICs9IGN1cnNvci5w
-Zm4gJiB+KGVudHJ5X2VuZCAtIDEpOwogCQllbnRyeV9lbmQgPSBtaW4oZW50cnlfZW5kLCBlbmQp
-OwogCi0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+The driver may sleep with holding a spinlock.
+The function call paths (from bottom to top) in Linux-4.17 are:
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/vi.c, 207:
+     amdgpu_mm_wreg in vi_gc_cac_rreg
+drivers/gpu/drm/amd/amdgpu/vi.c, 206:
+     _raw_spin_lock_irqsave in vi_gc_cac_rreg
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/soc15.c, 106:
+     amdgpu_mm_wreg in soc15_pcie_rreg
+drivers/gpu/drm/amd/amdgpu/soc15.c, 105:
+     _raw_spin_lock_irqsave in soc15_pcie_rreg
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/cik.c, 139:
+     amdgpu_mm_wreg in cik_uvd_ctx_wreg
+drivers/gpu/drm/amd/amdgpu/cik.c, 138:
+     _raw_spin_lock_irqsave in cik_uvd_ctx_wreg
+
+[FUNC] mutex_lock_nested
+drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
+     mutex_lock_nested in amdgpu_dpm_enable_uvd
+drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
+     amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
+     [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
+     amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
+     amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
+drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 126:
+     amdgpu_mm_wreg in dce_v6_0_audio_endpt_rreg
+drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 125:
+     _raw_spin_lock_irqsave in dce_v6_0_audio_endpt_rreg
+
+Note that [FUNC_PTR] means a function pointer call is used.
+
+These bugs are found by my static analysis tool DSAC.
+
+
+Best wishes,
+Jia-Ju Bai
