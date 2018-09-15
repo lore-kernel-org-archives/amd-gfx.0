@@ -1,38 +1,88 @@
-From: Peng Hao <peng.hao2@zte.com.cn>
-Subject: [PATCH]  amdgpu/dcn10 : fix compile warning
-Date: Sat, 15 Sep 2018 23:46:57 +0800
-Message-ID: <1537026417-3798-1-git-send-email-peng.hao2@zte.com.cn>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu
+ notifier v4
+Date: Sat, 15 Sep 2018 09:46:42 +0200
+Message-ID: <e4cf7212-4340-8639-c8c1-057e4d1083f0@amd.com>
+References: <1536871954-8451-1-git-send-email-Philip.Yang@amd.com>
+ <9d6717ac-23f0-7beb-6e41-58c6e32acdf8@amd.com>
+ <58bc3bb9-b7b1-a32f-e355-c78a23d95215@gmail.com>
+ <383388c8-1bff-48d9-1044-f16e66bcbfa5@amd.com>
+ <3850fbeb-5d91-9c14-43c9-45d5d058e15b@amd.com>
+ <de28cee0-3461-4f99-eeae-b793de00ca58@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Peng Hao <peng.hao2@zte.com.cn>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <de28cee0-3461-4f99-eeae-b793de00ca58-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, Philip Yang <philip.yang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jerome Glisse <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:
-    In function ‘dcn10_update_mpcc’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1903:9:
-    warning: missing braces around initializer [-Wmissing-braces]
-
-Signed-off-by: Peng Hao <peng.hao2@zte.com.cn>
----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index cfcc54f..a06a035 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -1900,7 +1900,7 @@ static void update_dpp(struct dpp *dpp, struct dc_plane_state *plane_state)
- static void dcn10_update_mpcc(struct dc *dc, struct pipe_ctx *pipe_ctx)
- {
- 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
--	struct mpcc_blnd_cfg blnd_cfg = {0};
-+	struct mpcc_blnd_cfg blnd_cfg = { {0} };
- 	bool per_pixel_alpha = pipe_ctx->plane_state->per_pixel_alpha && pipe_ctx->bottom_pipe;
- 	int mpcc_id;
- 	struct mpcc *new_mpcc;
--- 
-1.8.3.1
+QW0gMTQuMDkuMjAxOCB1bSAyMjoyMSBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IE9uIDIwMTgt
+MDktMTQgMDE6NTIgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDE0LjA5LjIwMTgg
+dW0gMTk6NDcgc2NocmllYiBQaGlsaXAgWWFuZzoKPj4+IE9uIDIwMTgtMDktMTQgMDM6NTEgQU0s
+IENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gQW0gMTMuMDkuMjAxOCB1bSAyMzo1MSBzY2hy
+aWViIEZlbGl4IEt1ZWhsaW5nOgo+Pj4+PiBPbiAyMDE4LTA5LTEzIDA0OjUyIFBNLCBQaGlsaXAg
+WWFuZyB3cm90ZToKPj4+Pj4gW1NOSVBdCj4+Pj4+PiAgwqAgK8KgwqDCoCBhbWRncHVfbW5fcmVh
+ZF91bmxvY2soYW1uKTsKPj4+Pj4+ICsKPj4+Pj4gYW1kZ3B1X21uX3JlYWRfbG9jay91bmxvY2sg
+c3VwcG9ydCByZWN1cnNpdmUgbG9ja2luZyBmb3IgbXVsdGlwbGUKPj4+Pj4gb3ZlcmxhcHBpbmcg
+b3IgbmVzdGVkIGludmFsaWRhdGlvbiByYW5nZXMuIEJ1dCBpZiB5b3UnciBsb2NraW5nIGFuZAo+
+Pj4+PiB1bmxvY2tpbmcgaW4gdGhlIHNhbWUgZnVuY3Rpb24uIElzIHRoYXQgc3RpbGwgYSBjb25j
+ZXJuPwo+Pj4gSSBkb24ndCB1bmRlcnN0YW5kIHRoZSBwb3NzaWJsZSByZWN1cnNpdmUgY2FzZSwg
+YnV0Cj4+PiBhbWRncHVfbW5fcmVhZF9sb2NrKCkgc3RpbGwgc3VwcG9ydCByZWN1cnNpdmUgbG9j
+a2luZy4KPj4+PiBXZWxsIHRoZSByZWFsIHByb2JsZW0gaXMgdGhhdCB1bmxvY2tpbmcgdGhlbSBo
+ZXJlIHdvbid0IHdvcmsuCj4+Pj4KPj4+PiBXZSBuZWVkIHRvIGhvbGQgdGhlIGxvY2sgdW50aWwg
+d2UgYXJlIHN1cmUgdGhhdCB0aGUgb3BlcmF0aW9uIHdoaWNoCj4+Pj4gdXBkYXRlcyB0aGUgcGFn
+ZSB0YWJsZXMgaXMgY29tcGxldGVkLgo+Pj4+Cj4+PiBUaGUgcmVhc29uIGZvciB0aGlzIGNoYW5n
+ZSBpcyBiZWNhdXNlIGhtbSBtaXJyb3IgaGFzIGludmFsaWRhdGVfc3RhcnQKPj4+IGNhbGxiYWNr
+LCBubyBpbnZhbGlkYXRlX2VuZCBjYWxsYmFjawo+Pj4KPj4+IENoZWNrIG1tdV9ub3RpZmllci5j
+IGFuZCBobW0uYyBhZ2FpbiwgYmVsb3cgaXMgZW50aXJlIGxvZ2ljIHRvIHVwZGF0ZQo+Pj4gQ1BV
+IHBhZ2UgdGFibGVzIGFuZCBjYWxsYmFjazoKPj4+Cj4+PiBtbiBsb2NrIGFtbi0+bG9jayBpcyB1
+c2VkIHRvIHByb3RlY3QgaW50ZXJ2YWwgdHJlZSBhY2Nlc3MgYmVjYXVzZQo+Pj4gdXNlciBtYXkg
+c3VibWl0L3JlZ2lzdGVyIG5ldyB1c2VycHRyIGFueXRpbWUuCj4+PiBUaGlzIGlzIHNhbWUgZm9y
+IG9sZCBhbmQgbmV3IHdheS4KPj4+Cj4+PiBzdGVwIDIgZ3VhcmFudGVlIHRoZSBHUFUgb3BlcmF0
+aW9uIGlzIGRvbmUgYmVmb3JlIHVwZGF0aW5nIENQVSBwYWdlCj4+PiB0YWJsZS4KPj4+Cj4+PiBT
+byBJIHRoaW5rIHRoZSBjaGFuZ2UgaXMgc2FmZS4gV2UgZG9uJ3QgbmVlZCBob2xkIG1uIGxvY2sg
+dW50aWwgdGhlCj4+PiBDUFUgcGFnZSB0YWJsZXMgdXBkYXRlIGlzIGNvbXBsZXRlZC4KPj4gTm8s
+IHRoYXQgaXNuJ3QgZXZlbiByZW1vdGVseSBjb3JyZWN0LiBUaGUgbG9jayBkb2Vzbid0IHByb3Rl
+Y3RzIHRoZQo+PiBpbnRlcnZhbCB0cmVlLgo+Pgo+Pj4gT2xkOgo+Pj4gIMKgwqAgMS4gZG93bl9y
+ZWFkX25vbl9vd25lcigmYW1uLT5sb2NrKQo+Pj4gIMKgwqAgMi4gbG9vcCB0byBoYW5kbGUgQk9z
+IGZyb20gbm9kZS0+Ym9zIHRocm91Z2ggaW50ZXJ2YWwgdHJlZQo+Pj4gYW1uLT5vYmplY3Qgbm9k
+ZXMKPj4+ICDCoMKgwqDCoMKgwqAgZ2Z4OiB3YWl0IGZvciBwZW5kaW5nIEJPcyBmZW5jZSBvcGVy
+YXRpb24gZG9uZSwgbWFyayB1c2VyCj4+PiBwYWdlcyBkaXJ0eQo+Pj4gIMKgwqDCoMKgwqDCoCBr
+ZmQ6IGV2aWN0IHVzZXIgcXVldWVzIG9mIHRoZSBwcm9jZXNzLCB3YWl0IGZvciBxdWV1ZQo+Pj4g
+dW5tYXAvbWFwIG9wZXJhdGlvbiBkb25lCj4+PiAgwqDCoCAzLiB1cGRhdGUgQ1BVIHBhZ2UgdGFi
+bGVzCj4+PiAgwqDCoCA0LiB1cF9yZWFkKCZhbW4tPmxvY2spCj4+Pgo+Pj4gTmV3LCBzd2l0Y2gg
+c3RlcCAzIGFuZCA0Cj4+PiAgwqDCoCAxLiBkb3duX3JlYWRfbm9uX293bmVyKCZhbW4tPmxvY2sp
+Cj4+PiAgwqDCoCAyLiBsb29wIHRvIGhhbmRsZSBCT3MgZnJvbSBub2RlLT5ib3MgdGhyb3VnaCBp
+bnRlcnZhbCB0cmVlCj4+PiBhbW4tPm9iamVjdCBub2Rlcwo+Pj4gIMKgwqDCoMKgwqDCoCBnZng6
+IHdhaXQgZm9yIHBlbmRpbmcgQk9zIGZlbmNlIG9wZXJhdGlvbiBkb25lLCBtYXJrIHVzZXIKPj4+
+IHBhZ2VzIGRpcnR5Cj4+PiAgwqDCoMKgwqDCoMKgIGtmZDogZXZpY3QgdXNlciBxdWV1ZXMgb2Yg
+dGhlIHByb2Nlc3MsIHdhaXQgZm9yIHF1ZXVlCj4+PiB1bm1hcC9tYXAgb3BlcmF0aW9uIGRvbmUK
+Pj4+ICDCoMKgIDMuIHVwX3JlYWQoJmFtbi0+bG9jaykKPj4+ICDCoMKgIDQuIHVwZGF0ZSBDUFUg
+cGFnZSB0YWJsZXMKPj4gVGhlIGxvY2sgaXMgdGhlcmUgdG8gbWFrZSBzdXJlIHRoYXQgd2Ugc2Vy
+aWFsaXplIHBhZ2UgdGFibGUgdXBkYXRlcwo+PiB3aXRoIGNvbW1hbmQgc3VibWlzc2lvbi4KPiBB
+cyBJIHVuZGVyc3RhbmQgaXQsIHRoZSBpZGVhIGlzIHRvIHByZXZlbnQgY29tbWFuZCBzdWJtaXNz
+aW9uIChhZGRpbmcKPiBuZXcgZmVuY2VzIHRvIEJPcykgd2hpbGUgYSBwYWdlIHRhYmxlIGludmFs
+aWRhdGlvbiBpcyBpbiBwcm9ncmVzcy4KClllcywgZXhhY3RseS4KCj4gQnV0IGRvIHdlIHJlYWxs
+eSBuZWVkIGFub3RoZXIgbG9jayBmb3IgdGhpcz8gV291bGRuJ3QgdGhlIHJlLXZhbGlkYXRpb24g
+b2YKPiB1c2VycHRyIEJPcyAoY3VycmVudGx5IGNhbGxpbmcgZ2V0X3VzZXJfcGFnZXMpIGZvcmNl
+IHN5bmNocm9uaXphdGlvbgo+IHdpdGggdGhlIG9uZ29pbmcgcGFnZSB0YWJsZSBpbnZhbGlkYXRp
+b24gdGhyb3VnaCB0aGUgbW1hcF9zZW0gb3Igb3RoZXIKPiBNTSBsb2Nrcz8KCk5vIGFuZCB5ZXMu
+IFdlIGRvbid0IGhvbGQgYW55IG90aGVyIGxvY2tzIHdoaWxlIGRvaW5nIGNvbW1hbmQgCnN1Ym1p
+c3Npb24sIGJ1dCBJIGV4cGVjdCB0aGF0IEhNTSBoYXMgaXRzIG93biBtZWNoYW5pc20gdG8gcHJl
+dmVudCB0aGF0LgoKU2luY2Ugd2UgZG9uJ3QgbW9kaWZ5IGFtZGdwdV9tbl9sb2NrKCkvYW1kZ3B1
+X21uX3VubG9jaygpIHdlIGFyZSAKY2VydGFpbmx5IG5vdCB1c2luZyB0aGlzIG1lY2hhbmlzbSBj
+b3JyZWN0bHkuCgpSZWdhcmRzLApDaHJpc3RpYW4uCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
