@@ -1,383 +1,208 @@
-From: Jia-Ju Bai <baijiaju1990@gmail.com>
-Subject: Re: [BUG] gpu: drm: amdgpu: Possible sleep-in-atomic-context bugs in
- amdgpu_uvd_ring_begin_use()
-Date: Sat, 15 Sep 2018 17:18:08 +0800
-Message-ID: <9dd9f4ed-f338-8970-b29e-200ef0eafb62@gmail.com>
-References: <dbf146f7-1196-43f8-a064-c59638788a54@email.android.com>
+From: "A. Wilcox" <awilfox-EG4NeYC890/CfDggNXIi3w@public.gmane.org>
+Subject: [PATCH] amdgpu uses raw rlc_hdr values, causing kernel OOPS on big
+ endian architectures
+Date: Sun, 16 Sep 2018 17:52:38 -0500
+Message-ID: <70b5ad70-2481-869f-960e-c480d23459d8@adelielinux.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1785928652=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <dbf146f7-1196-43f8-a064-c59638788a54@email.android.com>
+Content-Type: multipart/mixed; boundary="===============0999994751=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0999994751==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="8JITuNFNIV3K5EU8No8NJK34VIZl5ai6X"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--8JITuNFNIV3K5EU8No8NJK34VIZl5ai6X
+Content-Type: multipart/mixed; boundary="mJeH7KS8lwB6oWcgecJ3UsKhHCDj4xmTG";
+ protected-headers="v1"
+From: "A. Wilcox" <awilfox-EG4NeYC890/CfDggNXIi3w@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <70b5ad70-2481-869f-960e-c480d23459d8-EG4NeYC890/CfDggNXIi3w@public.gmane.org>
+Subject: [PATCH] amdgpu uses raw rlc_hdr values, causing kernel OOPS on big
+ endian architectures
+
+--mJeH7KS8lwB6oWcgecJ3UsKhHCDj4xmTG
+Content-Type: multipart/mixed;
+ boundary="------------0AB54790561A2309B246B896"
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "airlied@linux.ie" <airlied@linux.ie>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
 
 This is a multi-part message in MIME format.
---===============1785928652==
-Content-Type: multipart/alternative;
- boundary="------------9253721275330B9660E55A6E"
-Content-Language: en-US
+--------------0AB54790561A2309B246B896
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-This is a multi-part message in MIME format.
---------------9253721275330B9660E55A6E
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+adev->gfx.rlc in gfx_v8_0_init_microcode has the values from rlc_hdr
+already processed by le32_to_cpu.  Using the rlc_hdr values on
+big-endian machines causes a kernel Oops due to writing well outside of
+the array (0x24000000 instead of 0x24).  gfx_v9_0 had the same issue and
+was fixed in the same manner (but was not tested locally; I do not have
+a v9 card).
 
-Sorry, I am still not clear why the call chain I proposed is incorrect...
+[    8.143396] Unable to handle kernel paging request for data at
+address 0xc00800000615b000
+[    8.143396] Faulting instruction address: 0xc008000005f063c8
+[    8.143399] Oops: Kernel access of bad area, sig: 11 [#1]
+[    8.143429] BE SMP NR_CPUS=3D256 NUMA PowerNV
+[    8.143461] Modules linked in: binfmt_misc amdgpu(+) ast ttm
+drm_kms_helper sysimgblt syscopyarea sysfillrect fb_sys_fops drm joydev
+mac_hid tg3 ipmi_powernv ipmi_msghandler agpgart i2c_algo_bit shpchp
+[    8.143615] CPU: 0 PID: 2402 Comm: kworker/0:3 Not tainted
+4.14.48-mc8-easy #1
+[    8.143679] Workqueue: events .work_for_cpu_fn
+[    8.143728] task: c0000003e7fd8000 task.stack: c0000003e7fe0000
+[    8.143783] NIP:  c008000005f063c8 LR: c008000005f06388 CTR:
+c00000000027efd0
+[    8.143869] REGS: c0000003e7fe3430 TRAP: 0300   Not tainted
+(4.14.48-mc8-easy)
+[    8.143950] MSR:  9000000000009032 <SF,HV,EE,ME,IR,DR,RI>  CR:
+28002444  XER: 20040000
+[    8.144040] CFAR: c008000005f063d0 DAR: c00800000615b000 DSISR:
+40000000 SOFTE: 1
+[    8.144787] NIP [c008000005f063c8] .gfx_v8_0_sw_init+0x5a8/0x15b0
+[amdgpu]
+[    8.144911] LR [c008000005f06388] .gfx_v8_0_sw_init+0x568/0x15b0 [amdg=
+pu]
+[    8.144976] Call Trace:
+[    8.145049] [c0000003e7fe36b0] [c008000005f06388]
+=2Egfx_v8_0_sw_init+0x568/0x15b0 [amdgpu] (unreliable)
+[    8.145194] [c0000003e7fe37c0] [c008000005e484c4]
+=2Eamdgpu_device_init+0xf34/0x1750 [amdgpu]
+[    8.145302] [c0000003e7fe38f0] [c008000005e4a94c]
+=2Eamdgpu_driver_load_kms+0x9c/0x2a0 [amdgpu]
+[    8.145420] [c0000003e7fe3980] [c008000004f4d200]
+=2Edrm_dev_register+0x1c0/0x250 [drm]
+[    8.145548] [c0000003e7fe3a30] [c008000005e416c4]
+=2Eamdgpu_pci_probe+0x164/0x1a0 [amdgpu]
+[    8.145601] [c0000003e7fe3ac0] [c000000000618ed0]
+=2Elocal_pci_probe+0x60/0x130
+[    8.145683] [c0000003e7fe3b60] [c0000000000e8780]
+=2Ework_for_cpu_fn+0x30/0x50
+[    8.145774] [c0000003e7fe3be0] [c0000000000ecea8]
+=2Eprocess_one_work+0x2a8/0x550
+[    8.145854] [c0000003e7fe3c80] [c0000000000ed430]
+=2Eworker_thread+0x2e0/0x600
+[    8.145924] [c0000003e7fe3d70] [c0000000000f5338] .kthread+0x158/0x1a0=
 
-I find a conditional in amdgpu_mm_wreg():
+[    8.145973] [c0000003e7fe3e30] [c00000000000bd4c]
+=2Eret_from_kernel_thread+0x58/0x8c
+[    8.146054] Instruction dump:
+[    8.146089] 38db004c 39200000 7d00342c 7d08da14 815b0048 554af0be
+7f8a4840 409d004c 792a1764 e8ff46f0 39290001 79290020 <7cc8542c>
+7cc7512e 4bffffd8 60000000
+[    8.146252] ---[ end trace 8b0ede048bbb20ae ]---
 
-     if (!(acc_flags & AMDGPU_REGS_NO_KIQ) && amdgpu_sriov_runtime(adev))
-         return amdgpu_virt_kiq_wreg(adev, reg, v);
+--=20
+A. Wilcox (awilfox)
+Project Lead, Ad=C3=A9lie Linux
+https://www.adelielinux.org
 
-Is amdgpu_virt_kiq_wreg() never called from WREG32() or RREG32()?
+--------------0AB54790561A2309B246B896
+Content-Type: text/plain; charset=UTF-8;
+ name="0001-drm-amdgpu-use-processed-values-for-counting.patch"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="0001-drm-amdgpu-use-processed-values-for-counting.patch"
 
+RnJvbSBiOTIzMDNmYmVmZGIzNGQzYzU1YWUyMjNjYTliMDJlNjA2MjVhYWU1IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiAiQS4gV2lsY294IiA8QVdpbGNveEBXaWxjb3gtVGVj
+aC5jb20+CkRhdGU6IFN1biwgMSBKdWwgMjAxOCAyMjo0NDo1MiAtMDUwMApTdWJqZWN0OiBb
+UEFUQ0hdIGRybS9hbWRncHU6IHVzZSBwcm9jZXNzZWQgdmFsdWVzIGZvciBjb3VudGluZwoK
+YWRldi0+Z2Z4LnJsYyBoYXMgdGhlIHZhbHVlcyBmcm9tIHJsY19oZHIgYWxyZWFkeSBwcm9j
+ZXNzZWQgYnkKbGUzMl90b19jcHUuICBVc2luZyB0aGUgcmxjX2hkciB2YWx1ZXMgb24gYmln
+LWVuZGlhbiBtYWNoaW5lcyBjYXVzZXMKYSBrZXJuZWwgT29wcyBkdWUgdG8gd3JpdGluZyB3
+ZWxsIG91dHNpZGUgb2YgdGhlIGFycmF5ICgweDI0MDAwMDAwCmluc3RlYWQgb2YgMHgyNCku
+CgpTaWduZWQtb2ZmLWJ5OiBBLiBXaWxjb3ggPEFXaWxjb3hAV2lsY294LVRlY2guY29tPgot
+LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCA0ICsrLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCA0ICsrLS0KIDIgZmlsZXMg
+Y2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCmluZGV4IDgxODg3NGIxM2M5OS4uMTEyZGZiZjdh
+MWZjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5j
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKQEAgLTEwOTQs
+MTQgKzEwOTQsMTQgQEAgc3RhdGljIGludCBnZnhfdjhfMF9pbml0X21pY3JvY29kZShzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAogCXRtcCA9ICh1bnNpZ25lZCBpbnQgKikoKHVp
+bnRwdHJfdClybGNfaGRyICsKIAkJCWxlMzJfdG9fY3B1KHJsY19oZHItPnJlZ19saXN0X2Zv
+cm1hdF9hcnJheV9vZmZzZXRfYnl0ZXMpKTsKLQlmb3IgKGkgPSAwIDsgaSA8IChybGNfaGRy
+LT5yZWdfbGlzdF9mb3JtYXRfc2l6ZV9ieXRlcyA+PiAyKTsgaSsrKQorCWZvciAoaSA9IDAg
+OyBpIDwgKGFkZXYtPmdmeC5ybGMucmVnX2xpc3RfZm9ybWF0X3NpemVfYnl0ZXMgPj4gMik7
+IGkrKykKIAkJYWRldi0+Z2Z4LnJsYy5yZWdpc3Rlcl9saXN0X2Zvcm1hdFtpXSA9CWxlMzJf
+dG9fY3B1KHRtcFtpXSk7CiAKIAlhZGV2LT5nZngucmxjLnJlZ2lzdGVyX3Jlc3RvcmUgPSBh
+ZGV2LT5nZngucmxjLnJlZ2lzdGVyX2xpc3RfZm9ybWF0ICsgaTsKIAogCXRtcCA9ICh1bnNp
+Z25lZCBpbnQgKikoKHVpbnRwdHJfdClybGNfaGRyICsKIAkJCWxlMzJfdG9fY3B1KHJsY19o
+ZHItPnJlZ19saXN0X2FycmF5X29mZnNldF9ieXRlcykpOwotCWZvciAoaSA9IDAgOyBpIDwg
+KHJsY19oZHItPnJlZ19saXN0X3NpemVfYnl0ZXMgPj4gMik7IGkrKykKKwlmb3IgKGkgPSAw
+IDsgaSA8IChhZGV2LT5nZngucmxjLnJlZ19saXN0X3NpemVfYnl0ZXMgPj4gMik7IGkrKykK
+IAkJYWRldi0+Z2Z4LnJsYy5yZWdpc3Rlcl9yZXN0b3JlW2ldID0gbGUzMl90b19jcHUodG1w
+W2ldKTsKIAogCWlmIChhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9QT0xBUklTMTAgJiYgYWRl
+di0+YXNpY190eXBlIDw9IENISVBfUE9MQVJJUzEyKSB7CmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4X3Y5XzAuYwppbmRleCBhNjkxNTM0MzVlYTcuLmQ1ZTFmODBhZGJjOCAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCkBAIC01NzcsMTQgKzU3Nywx
+NCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2luaXRfbWljcm9jb2RlKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQogCiAJdG1wID0gKHVuc2lnbmVkIGludCAqKSgodWludHB0cl90KXJs
+Y19oZHIgKwogCQkJbGUzMl90b19jcHUocmxjX2hkci0+cmVnX2xpc3RfZm9ybWF0X2FycmF5
+X29mZnNldF9ieXRlcykpOwotCWZvciAoaSA9IDAgOyBpIDwgKHJsY19oZHItPnJlZ19saXN0
+X2Zvcm1hdF9zaXplX2J5dGVzID4+IDIpOyBpKyspCisJZm9yIChpID0gMCA7IGkgPCAoYWRl
+di0+Z2Z4LnJsYy5yZWdfbGlzdF9mb3JtYXRfc2l6ZV9ieXRlcyA+PiAyKTsgaSsrKQogCQlh
+ZGV2LT5nZngucmxjLnJlZ2lzdGVyX2xpc3RfZm9ybWF0W2ldID0JbGUzMl90b19jcHUodG1w
+W2ldKTsKIAogCWFkZXYtPmdmeC5ybGMucmVnaXN0ZXJfcmVzdG9yZSA9IGFkZXYtPmdmeC5y
+bGMucmVnaXN0ZXJfbGlzdF9mb3JtYXQgKyBpOwogCiAJdG1wID0gKHVuc2lnbmVkIGludCAq
+KSgodWludHB0cl90KXJsY19oZHIgKwogCQkJbGUzMl90b19jcHUocmxjX2hkci0+cmVnX2xp
+c3RfYXJyYXlfb2Zmc2V0X2J5dGVzKSk7Ci0JZm9yIChpID0gMCA7IGkgPCAocmxjX2hkci0+
+cmVnX2xpc3Rfc2l6ZV9ieXRlcyA+PiAyKTsgaSsrKQorCWZvciAoaSA9IDAgOyBpIDwgKGFk
+ZXYtPmdmeC5ybGMucmVnX2xpc3Rfc2l6ZV9ieXRlcyA+PiAyKTsgaSsrKQogCQlhZGV2LT5n
+ZngucmxjLnJlZ2lzdGVyX3Jlc3RvcmVbaV0gPSBsZTMyX3RvX2NwdSh0bXBbaV0pOwogCiAJ
+aWYgKGFkZXYtPmdmeC5ybGMuaXNfcmxjX3YyXzEpCi0tIAoyLjE3LjEKCg==
+--------------0AB54790561A2309B246B896--
 
-Best wishes,
-Jia-Ju Bai
+--mJeH7KS8lwB6oWcgecJ3UsKhHCDj4xmTG--
 
+--8JITuNFNIV3K5EU8No8NJK34VIZl5ai6X
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-On 2018/9/15 17:10, Koenig, Christian wrote:
-> amdgpu_ring_alloc() does call amdgpu_uvd_begin_use(), but never in the 
-> call chain you proposed.
->
-> Thinking about it I actually don't see a way a statically analysis 
-> could ever figure that out.
->
-> Christian.
->
-> Am 15.09.2018 11:05 schrieb Jia-Ju Bai <baijiaju1990@gmail.com>:
->
->     Thanks for your reply.
->
->     On 2018/9/15 17:01, Koenig, Christian wrote:
->
->         Sorry to say that but your analysis tool is buggy.
->
->         The proposed call paths will never trigger.
->
->
->     Could you please explain which piece of the call path is incorrect?
->     I am not very sure of my function pointer analysis.
->     Does amdgpu_ring_alloc() never calls amdgpu_uvd_ring_begin_use()?
->
->     Thanks in advance.
->
->
->     Best wishes,
->     Jia-Ju Bai
->
->
->         Regards,
->         Christian.
->
->         Am 15.09.2018 10:59 schrieb Jia-Ju Bai
->         <baijiaju1990@gmail.com> <mailto:baijiaju1990@gmail.com>:
->         The driver may sleep with holding a spinlock.
->         The function call paths (from bottom to top) in Linux-4.17 are:
->
->         [FUNC] mutex_lock_nested
->         drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
->              mutex_lock_nested in amdgpu_dpm_enable_uvd
->         drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
->              amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
->         drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
->              [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
->         drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
->              amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
->         drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
->              amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
->         drivers/gpu/drm/amd/amdgpu/vi.c, 207:
->              amdgpu_mm_wreg in vi_gc_cac_rreg
->         drivers/gpu/drm/amd/amdgpu/vi.c, 206:
->              _raw_spin_lock_irqsave in vi_gc_cac_rreg
->
->         [FUNC] mutex_lock_nested
->         drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
->              mutex_lock_nested in amdgpu_dpm_enable_uvd
->         drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
->              amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
->         drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
->              [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
->         drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
->              amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
->         drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
->              amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
->         drivers/gpu/drm/amd/amdgpu/soc15.c, 106:
->              amdgpu_mm_wreg in soc15_pcie_rreg
->         drivers/gpu/drm/amd/amdgpu/soc15.c, 105:
->              _raw_spin_lock_irqsave in soc15_pcie_rreg
->
->         [FUNC] mutex_lock_nested
->         drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
->              mutex_lock_nested in amdgpu_dpm_enable_uvd
->         drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
->              amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
->         drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
->              [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
->         drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
->              amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
->         drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
->              amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
->         drivers/gpu/drm/amd/amdgpu/cik.c, 139:
->              amdgpu_mm_wreg in cik_uvd_ctx_wreg
->         drivers/gpu/drm/amd/amdgpu/cik.c, 138:
->              _raw_spin_lock_irqsave in cik_uvd_ctx_wreg
->
->         [FUNC] mutex_lock_nested
->         drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:
->              mutex_lock_nested in amdgpu_dpm_enable_uvd
->         drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:
->              amdgpu_dpm_enable_uvd in amdgpu_uvd_ring_begin_use
->         drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:
->              [FUNC_PTR]amdgpu_uvd_ring_begin_use in amdgpu_ring_alloc
->         drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:
->              amdgpu_ring_alloc in amdgpu_virt_kiq_wreg
->         drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, 207:
->              amdgpu_virt_kiq_wreg in amdgpu_mm_wreg
->         drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 126:
->              amdgpu_mm_wreg in dce_v6_0_audio_endpt_rreg
->         drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 125:
->              _raw_spin_lock_irqsave in dce_v6_0_audio_endpt_rreg
->
->         Note that [FUNC_PTR] means a function pointer call is used.
->
->         These bugs are found by my static analysis tool DSAC.
->
->
->         Best wishes,
->         Jia-Ju Bai
->
->
->
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCAAdFiEEjNyWOYPU1SaTSMHHyynLUZIrnRQFAlue3rcACgkQyynLUZIr
+nRRFPw/+LkKk91VyDXH3KDS6M9Oe07xZ5Gp2oIjw6HGgvwnPDdO9ftdHW+6/wv3y
+LkQ+SwasNt4enJL9BGo4UAQDARV+9f13vxCYNKZlHoU4BJIEPqQf6hf0p4CimTbD
+BE6pyjd95RZ2hWrdWL+H3Q2LSWrkgGNBTUp+Zx2TiJuwhr/zgiDIepRCYzvLp3ZE
+7kwu/q3IB/B9Np/14AzPcgjqrRWihwQRsPIktjdBtsLZuMktPFAW34ADfLpYSTrd
+s8BpudxGykJMxiFqLyfQxX13kGux+iOf8M2pzhLHoMiissd99T401SpSmrSmYQNp
+St5lvSjo6Vi+v6wqtfKx3P413Xp9oGe1Lr/soo3CegYzG8sAO29yA34bpzdQKAgu
+z9522sQbrahE7E2GyyV9vcKQfkH9fToo2XeBlXzb52d3cODhReaQk6qVYplXp5+0
+nVYONcorJDuP+/p0eI8tSzEIwqs+tGV0h09fH6leLnZqYKHETNZ7kgBgSeduSC+4
+vDsVPMkGmR0caeEK310Hdb0TNXysd0wFImJFD0HweXEKDbiYOPsqn0jzF3GVlnH6
+muAQiN4adaitZSxNih2Q4dmvvqytMF/wcm9I3+D42ONVhPpswg2foqdv3JjRBg77
+MPyM4i6ZjAmiO0fA6PpvNnVczR0vrFCY0BFsCvsbG/cy4gOmGas=
+=SmlH
+-----END PGP SIGNATURE-----
 
---------------9253721275330B9660E55A6E
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+--8JITuNFNIV3K5EU8No8NJK34VIZl5ai6X--
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    Sorry, I am still not clear why the call chain I proposed is
-    incorrect...<br>
-    <br>
-    I find a conditional in amdgpu_mm_wreg():<br>
-    <br>
-        if (!(acc_flags &amp; AMDGPU_REGS_NO_KIQ) &amp;&amp;
-    amdgpu_sriov_runtime(adev))<br>
-            return amdgpu_virt_kiq_wreg(adev, reg, v);<br>
-    <br>
-    Is amdgpu_virt_kiq_wreg() never called from WREG32() or RREG32()?<br>
-    <br>
-    <br>
-    Best wishes,<br>
-    Jia-Ju Bai<br>
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2018/9/15 17:10, Koenig, Christian
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:dbf146f7-1196-43f8-a064-c59638788a54@email.android.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div dir="auto">
-        <div>amdgpu_ring_alloc() does call amdgpu_uvd_begin_use(), but
-          never in the call chain you proposed.</div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Thinking about it I actually don't see a way a
-          statically analysis could ever figure that out.</div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Christian.</div>
-        <div dir="auto">
-          <div class="gmail_extra" dir="auto"><br>
-            <div class="gmail_quote">Am 15.09.2018 11:05 schrieb Jia-Ju
-              Bai <a class="moz-txt-link-rfc2396E" href="mailto:baijiaju1990@gmail.com">&lt;baijiaju1990@gmail.com&gt;</a>:<br type="attribution">
-              <blockquote class="quote" style="margin:0 0 0
-                .8ex;border-left:1px #ccc solid;padding-left:1ex">
-                <div>Thanks for your reply.<br>
-                  <br>
-                  <div>On 2018/9/15 17:01, Koenig, Christian wrote:<br>
-                  </div>
-                  <blockquote>
-                    <div>
-                      <div dir="auto">Sorry to say that but your
-                        analysis tool is buggy.
-                        <div dir="auto"><br>
-                        </div>
-                        <div dir="auto">The proposed call paths will
-                          never trigger.</div>
-                      </div>
-                    </div>
-                  </blockquote>
-                  <br>
-                  Could you please explain which piece of the call path
-                  is incorrect?<br>
-                  I am not very sure of my function pointer analysis.<br>
-                  Does amdgpu_ring_alloc() never calls
-                  amdgpu_uvd_ring_begin_use()?<br>
-                  <br>
-                  Thanks in advance.<br>
-                  <br>
-                  <br>
-                  Best wishes,<br>
-                  Jia-Ju Bai<br>
-                  <br>
-                  <blockquote>
-                    <div>
-                      <div dir="auto">
-                        <div dir="auto"><br>
-                        </div>
-                        <div dir="auto">Regards,</div>
-                        <div dir="auto">Christian.</div>
-                      </div>
-                      <div><br>
-                        <div>Am 15.09.2018 10:59 schrieb Jia-Ju Bai <a
-                            href="mailto:baijiaju1990@gmail.com"
-                            moz-do-not-send="true">
-                            &lt;baijiaju1990@gmail.com&gt;</a>:<br
-                            type="attribution">
-                        </div>
-                      </div>
-                    </div>
-                    <font size="2"><span style="font-size:11pt">
-                        <div>The driver may sleep with holding a
-                          spinlock.<br>
-                          The function call paths (from bottom to top)
-                          in Linux-4.17 are:<br>
-                          <br>
-                          [FUNC] mutex_lock_nested<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
-                               mutex_lock_nested in
-                          amdgpu_dpm_enable_uvd<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
-                               amdgpu_dpm_enable_uvd in
-                          amdgpu_uvd_ring_begin_use<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
-                               [FUNC_PTR]amdgpu_uvd_ring_begin_use in
-                          amdgpu_ring_alloc<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
-                               amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
-                          207:<br>
-                               amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/vi.c, 207:<br>
-                               amdgpu_mm_wreg in vi_gc_cac_rreg<br>
-                          drivers/gpu/drm/amd/amdgpu/vi.c, 206:<br>
-                               _raw_spin_lock_irqsave in vi_gc_cac_rreg<br>
-                          <br>
-                          [FUNC] mutex_lock_nested<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
-                               mutex_lock_nested in
-                          amdgpu_dpm_enable_uvd<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
-                               amdgpu_dpm_enable_uvd in
-                          amdgpu_uvd_ring_begin_use<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
-                               [FUNC_PTR]amdgpu_uvd_ring_begin_use in
-                          amdgpu_ring_alloc<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
-                               amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
-                          207:<br>
-                               amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/soc15.c, 106:<br>
-                               amdgpu_mm_wreg in soc15_pcie_rreg<br>
-                          drivers/gpu/drm/amd/amdgpu/soc15.c, 105:<br>
-                               _raw_spin_lock_irqsave in soc15_pcie_rreg<br>
-                          <br>
-                          [FUNC] mutex_lock_nested<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
-                               mutex_lock_nested in
-                          amdgpu_dpm_enable_uvd<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
-                               amdgpu_dpm_enable_uvd in
-                          amdgpu_uvd_ring_begin_use<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
-                               [FUNC_PTR]amdgpu_uvd_ring_begin_use in
-                          amdgpu_ring_alloc<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
-                               amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
-                          207:<br>
-                               amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/cik.c, 139:<br>
-                               amdgpu_mm_wreg in cik_uvd_ctx_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/cik.c, 138:<br>
-                               _raw_spin_lock_irqsave in
-                          cik_uvd_ctx_wreg<br>
-                          <br>
-                          [FUNC] mutex_lock_nested<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c, 1477:<br>
-                               mutex_lock_nested in
-                          amdgpu_dpm_enable_uvd<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c, 1154:<br>
-                               amdgpu_dpm_enable_uvd in
-                          amdgpu_uvd_ring_begin_use<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c, 80:<br>
-                               [FUNC_PTR]amdgpu_uvd_ring_begin_use in
-                          amdgpu_ring_alloc<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c, 199:<br>
-                               amdgpu_ring_alloc in amdgpu_virt_kiq_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
-                          207:<br>
-                               amdgpu_virt_kiq_wreg in amdgpu_mm_wreg<br>
-                          drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 126:<br>
-                               amdgpu_mm_wreg in
-                          dce_v6_0_audio_endpt_rreg<br>
-                          drivers/gpu/drm/amd/amdgpu/dce_v6_0.c, 125:<br>
-                               _raw_spin_lock_irqsave in
-                          dce_v6_0_audio_endpt_rreg<br>
-                          <br>
-                          Note that [FUNC_PTR] means a function pointer
-                          call is used.<br>
-                          <br>
-                          These bugs are found by my static analysis
-                          tool DSAC.<br>
-                          <br>
-                          <br>
-                          Best wishes,<br>
-                          Jia-Ju Bai<br>
-                        </div>
-                      </span></font></blockquote>
-                  <br>
-                </div>
-              </blockquote>
-            </div>
-            <br>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------9253721275330B9660E55A6E--
-
---===============1785928652==
+--===============0999994751==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1785928652==--
+--===============0999994751==--
