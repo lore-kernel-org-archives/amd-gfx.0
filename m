@@ -1,16 +1,17 @@
-From: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/dc: Trigger set power state task when display
- configuration changes
-Date: Mon, 17 Sep 2018 13:30:52 +0000
-Message-ID: <DM3PR1201MB1039DB50BA9374E4D92470D5EF1E0@DM3PR1201MB1039.namprd12.prod.outlook.com>
-References: <1536904627-24761-1-git-send-email-Rex.Zhu@amd.com>
- <BN6PR12MB18096D890B7032FC56F79958F7190@BN6PR12MB1809.namprd12.prod.outlook.com>,
- <BYAPR12MB27753088DE039984D6D4D3DAFB1E0@BYAPR12MB2775.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/7] drm/amdgpu: fix up GDS/GWS/OA shifting
+Date: Mon, 17 Sep 2018 14:32:19 +0000
+Message-ID: <BN6PR12MB180953077E79370916F31C95F71E0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20180914191246.1609-1-christian.koenig@amd.com>
+ <20180914191246.1609-2-christian.koenig@amd.com>
+ <CADnq5_PjhBf1_DB6bgTiafPf=DE_g3AY+FsuZ0pj+4VDNPhRJg@mail.gmail.com>
+ <aac8a166-b879-2694-6938-f7104f1903b9@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2146904393=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BYAPR12MB27753088DE039984D6D4D3DAFB1E0-ZGDeBxoHBPmJeBUhB162ZQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <aac8a166-b879-2694-6938-f7104f1903b9-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,284 +22,278 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2146904393==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_DM3PR1201MB1039DB50BA9374E4D92470D5EF1E0DM3PR1201MB1039_"
-
---_000_DM3PR1201MB1039DB50BA9374E4D92470D5EF1E0DM3PR1201MB1039_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-On Linux, the clocks are already set by the time that function call is reac=
-hed.  amdgpu_pm_compute clocks resets the clocks to their default value.
-
-________________________________
-From: Zhu, Rex
-Sent: September 17, 2018 4:12:33 AM
-To: Deucher, Alexander; Wentland, Harry; Francis, David
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH] drm/amd/dc: Trigger set power state task when display =
-configuration changes
-
-
-+Harry and David.
-
-
-
-Best Regards
-
-Rex
-
-
-
-From: Deucher, Alexander
-Sent: Friday, September 14, 2018 9:40 PM
-To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amd/dc: Trigger set power state task when display =
-configuration changes
-
-
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deucher@=
-amd.com>>
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Z=
-hu-5C7GfCeVMHo@public.gmane.org>>
-Sent: Friday, September 14, 2018 1:57:07 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Zhu, Rex
-Subject: [PATCH] drm/amd/dc: Trigger set power state task when display conf=
-iguration changes
-
-
-
-Revert "drm/amd/display: Remove call to amdgpu_pm_compute_clocks"
-
-This reverts commit dcd473770e86517543691bdb227103d6c781cd0a.
-
-when display configuration changes, dc need to update the changes
-to powerplay, also need to trigger a power state task.
-amdgpu_pm_compute_clocks is the interface to set power state task
-either dpm enabled or powerplay enabled
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
-vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-index 6d16b4a..0fab64a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-@@ -105,6 +105,8 @@ bool dm_pp_apply_display_requirements(
-                         adev->powerplay.pp_funcs->display_configuration_ch=
-ange(
-                                 adev->powerplay.pp_handle,
-                                 &adev->pm.pm_display_cfg);
-+
-+               amdgpu_pm_compute_clocks(adev);
-         }
-
-         return true;
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM3PR1201MB1039DB50BA9374E4D92470D5EF1E0DM3PR1201MB1039_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">On Linux, the clocks are already =
-set by the time that function call is reached.&nbsp; amdgpu_pm_compute cloc=
-ks resets the clocks to their default value.</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhu, Rex<br>
-<b>Sent:</b> September 17, 2018 4:12:33 AM<br>
-<b>To:</b> Deucher, Alexander; Wentland, Harry; Francis, David<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/dc: Trigger set power state task when d=
-isplay configuration changes</font>
-<div>&nbsp;</div>
-</div>
-<meta content=3D"text/html; charset=3Dus-ascii">
-<meta name=3D"x_Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:x_link, span.x_MsoHyperlink
-	{color:blue;
-	text-decoration:underline}
-a:x_visited, span.x_MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline}
-p.x_msonormal0, li.x_msonormal0, div.x_msonormal0
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-span.x_EmailStyle20
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">&#43;Harry and David.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Best Regards</p>
-<p class=3D"x_MsoNormal">Rex</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Deucher, Alexander <br>
-<b>Sent:</b> Friday, September 14, 2018 9:40 PM<br>
-<b>To:</b> Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<=
-br>
-<b>Subject:</b> Re: [PATCH] drm/amd/dc: Trigger set power state task when d=
-isplay configuration changes</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div id=3D"x_divtagdefaultwrapper">
-<p><span style=3D"font-size:12.0pt; color:black">Acked-by: Alex Deucher &lt=
-;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>=
-&gt;</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"3" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
-an style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lis=
-ts.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf=
- of Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;<=
-br>
-<b>Sent:</b> Friday, September 14, 2018 1:57:07 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH] drm/amd/dc: Trigger set power state task when displ=
-ay configuration changes</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">Revert &quot;drm/amd/display: Remove call to amdgp=
-u_pm_compute_clocks&quot;<br>
-<br>
-This reverts commit dcd473770e86517543691bdb227103d6c781cd0a.<br>
-<br>
-when display configuration changes, dc need to update the changes<br>
-to powerplay, also need to trigger a power state task.<br>
-amdgpu_pm_compute_clocks is the interface to set power state task<br>
-either dpm enabled or powerplay enabled<br>
-<br>
-Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu@amd.c=
-om</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 2 &#43;&#4=
-3;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
-vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
-index 6d16b4a..0fab64a 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<=
-br>
-@@ -105,6 &#43;105,8 @@ bool dm_pp_apply_display_requirements(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
-&gt;powerplay.pp_funcs-&gt;display_configuration_change(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_handle,<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-&gt;pm.pm_display_cfg)=
-;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_pm_compute_clocks(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM3PR1201MB1039DB50BA9374E4D92470D5EF1E0DM3PR1201MB1039_--
-
---===============2146904393==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2146904393==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJv
+dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YNCj4gQ2hyaXN0aWFuIEvD
+tm5pZw0KPiBTZW50OiBTYXR1cmRheSwgU2VwdGVtYmVyIDE1LCAyMDE4IDM6NTIgQU0NCj4gVG86
+IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0KPiBDYzogYW1kLWdmeCBsaXN0
+IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCAy
+LzddIGRybS9hbWRncHU6IGZpeCB1cCBHRFMvR1dTL09BIHNoaWZ0aW5nDQo+IA0KPiBBbSAxNC4w
+OS4yMDE4IHVtIDIyOjI2IHNjaHJpZWIgQWxleCBEZXVjaGVyOg0KPiA+IE9uIEZyaSwgU2VwIDE0
+LCAyMDE4IGF0IDM6MTIgUE0gQ2hyaXN0aWFuIEvDtm5pZw0KPiA+IDxja29lbmlnLmxlaWNodHp1
+bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6DQo+ID4+IFRoYXQgb25seSB3b3JrZWQgYnkgcHVyZSBj
+b2luY2lkZW50LiBDb21wbGV0ZWx5IHJlbW92ZSB0aGUgc2hpZnRpbmcNCj4gPj4gYW5kIGFsd2F5
+cyBhcHBseSBjb3JyZWN0IFBBR0VfU0hJRlQuDQo+ID4+DQo+ID4+IFNpZ25lZC1vZmYtYnk6IENo
+cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4gPj4gLS0tDQo+ID4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgIHwgMTIgKysrKysr
+LS0tLS0tDQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dkcy5oICAg
+IHwgIDcgLS0tLS0tLQ0KPiA+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9n
+ZW0uYyAgICB8IDEyICsrKy0tLS0tLS0tLQ0KPiA+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9rbXMuYyAgICB8IDE0ICsrKysrKystLS0tLS0tDQo+ID4+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgIDYgKysrKystDQo+ID4+ICAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jICAgIHwgMTUgKysrLS0tLS0tLS0t
+LS0tDQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyAgICAgIHwg
+IDkgLS0tLS0tLS0tDQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
+YyAgICAgIHwgIDkgLS0tLS0tLS0tDQo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y5XzAuYyAgICAgIHwgMTIgKy0tLS0tLS0tLS0tDQo+ID4+ICAgOSBmaWxlcyBjaGFuZ2Vk
+LCAyNSBpbnNlcnRpb25zKCspLCA3MSBkZWxldGlvbnMoLSkNCj4gPj4NCj4gPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+ID4+IGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCj4gPj4gaW5kZXggZDc2MmQ3OGU1MTAy
+Li44ODM2MTg2ZWI1ZWYgMTAwNjQ0DQo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9jcy5jDQo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9jcy5jDQo+ID4+IEBAIC03MjEsMTYgKzcyMSwxNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9j
+c19wYXJzZXJfYm9zKHN0cnVjdA0KPiBhbWRncHVfY3NfcGFyc2VyICpwLA0KPiA+PiAgICAgICAg
+ICAgICAgICAgIGUtPmJvX3ZhID0gYW1kZ3B1X3ZtX2JvX2ZpbmQodm0sDQo+ID4+IHR0bV90b19h
+bWRncHVfYm8oZS0+dHYuYm8pKTsNCj4gPj4NCj4gPj4gICAgICAgICAgaWYgKGdkcykgew0KPiA+
+PiAtICAgICAgICAgICAgICAgcC0+am9iLT5nZHNfYmFzZSA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0
+KGdkcyk7DQo+ID4+IC0gICAgICAgICAgICAgICBwLT5qb2ItPmdkc19zaXplID0gYW1kZ3B1X2Jv
+X3NpemUoZ2RzKTsNCj4gPj4gKyAgICAgICAgICAgICAgIHAtPmpvYi0+Z2RzX2Jhc2UgPSBhbWRn
+cHVfYm9fZ3B1X29mZnNldChnZHMpID4+DQo+IFBBR0VfU0hJRlQ7DQo+ID4+ICsgICAgICAgICAg
+ICAgICBwLT5qb2ItPmdkc19zaXplID0gYW1kZ3B1X2JvX3NpemUoZ2RzKSA+PiBQQUdFX1NISUZU
+Ow0KPiA+PiAgICAgICAgICB9DQo+ID4+ICAgICAgICAgIGlmIChnd3MpIHsNCj4gPj4gLSAgICAg
+ICAgICAgICAgIHAtPmpvYi0+Z3dzX2Jhc2UgPSBhbWRncHVfYm9fZ3B1X29mZnNldChnd3MpOw0K
+PiA+PiAtICAgICAgICAgICAgICAgcC0+am9iLT5nd3Nfc2l6ZSA9IGFtZGdwdV9ib19zaXplKGd3
+cyk7DQo+ID4+ICsgICAgICAgICAgICAgICBwLT5qb2ItPmd3c19iYXNlID0gYW1kZ3B1X2JvX2dw
+dV9vZmZzZXQoZ3dzKSA+Pg0KPiBQQUdFX1NISUZUOw0KPiA+PiArICAgICAgICAgICAgICAgcC0+
+am9iLT5nd3Nfc2l6ZSA9IGFtZGdwdV9ib19zaXplKGd3cykgPj4gUEFHRV9TSElGVDsNCj4gPj4g
+ICAgICAgICAgfQ0KPiA+PiAgICAgICAgICBpZiAob2EpIHsNCj4gPj4gLSAgICAgICAgICAgICAg
+IHAtPmpvYi0+b2FfYmFzZSA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KG9hKTsNCj4gPj4gLSAgICAg
+ICAgICAgICAgIHAtPmpvYi0+b2Ffc2l6ZSA9IGFtZGdwdV9ib19zaXplKG9hKTsNCj4gPj4gKyAg
+ICAgICAgICAgICAgIHAtPmpvYi0+b2FfYmFzZSA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KG9hKSA+
+PiBQQUdFX1NISUZUOw0KPiA+PiArICAgICAgICAgICAgICAgcC0+am9iLT5vYV9zaXplID0gYW1k
+Z3B1X2JvX3NpemUob2EpID4+IFBBR0VfU0hJRlQ7DQo+ID4+ICAgICAgICAgIH0NCj4gPj4NCj4g
+Pj4gICAgICAgICAgaWYgKCFyICYmIHAtPnVmX2VudHJ5LnR2LmJvKSB7IGRpZmYgLS1naXQNCj4g
+Pj4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2RzLmgNCj4gPj4gYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2RzLmgNCj4gPj4gaW5kZXggZTczNzI4ZDkw
+Mzg4Li5lY2JjZWZlNDlhOTggMTAwNjQ0DQo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nZHMuaA0KPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZ2RzLmgNCj4gPj4gQEAgLTI0LDEzICsyNCw2IEBADQo+ID4+ICAgI2lmbmRlZiBf
+X0FNREdQVV9HRFNfSF9fDQo+ID4+ICAgI2RlZmluZSBfX0FNREdQVV9HRFNfSF9fDQo+ID4+DQo+
+ID4+IC0vKiBCZWNhdXNlIFRUTSByZXF1ZXN0IHRoYXQgYWxsb2FjdGVkIGJ1ZmZlciBzaG91bGQg
+YmUgUEFHRV9TSVpFDQo+ID4+IGFsaWduZWQsDQo+ID4+IC0gKiB3ZSBzaG91bGQgcmVwb3J0IEdE
+Uy9HV1MvT0Egc2l6ZSBhcyBQQUdFX1NJWkUgYWxpZ25lZA0KPiA+PiAtICogKi8NCj4gPj4gLSNk
+ZWZpbmUgQU1ER1BVX0dEU19TSElGVCAgICAgICAyDQo+ID4+IC0jZGVmaW5lIEFNREdQVV9HV1Nf
+U0hJRlQgICAgICAgUEFHRV9TSElGVA0KPiA+PiAtI2RlZmluZSBBTURHUFVfT0FfU0hJRlQgICAg
+ICAgICAgICAgICAgUEFHRV9TSElGVA0KPiA+PiAtDQo+ID4+ICAgc3RydWN0IGFtZGdwdV9yaW5n
+Ow0KPiA+PiAgIHN0cnVjdCBhbWRncHVfYm87DQo+ID4+DQo+ID4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gPj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gPj4gaW5kZXggZDMwYTA4Mzg4NTFiLi43YjNk
+MWViZGE5ZGYgMTAwNjQ0DQo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9nZW0uYw0KPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Z2VtLmMNCj4gPj4gQEAgLTI0NCwxNiArMjQ0LDEwIEBAIGludCBhbWRncHVfZ2VtX2NyZWF0ZV9p
+b2N0bChzdHJ1Y3QNCj4gZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLA0KPiA+PiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+ID4+ICAgICAgICAgICAgICAgICAg
+fQ0KPiA+PiAgICAgICAgICAgICAgICAgIGZsYWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX05PX0NQ
+VV9BQ0NFU1M7DQo+ID4+IC0gICAgICAgICAgICAgICBpZiAoYXJncy0+aW4uZG9tYWlucyA9PSBB
+TURHUFVfR0VNX0RPTUFJTl9HRFMpDQo+ID4+IC0gICAgICAgICAgICAgICAgICAgICAgIHNpemUg
+PSBzaXplIDw8IEFNREdQVV9HRFNfU0hJRlQ7DQo+ID4+IC0gICAgICAgICAgICAgICBlbHNlIGlm
+IChhcmdzLT5pbi5kb21haW5zID09IEFNREdQVV9HRU1fRE9NQUlOX0dXUykNCj4gPj4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgc2l6ZSA9IHNpemUgPDwgQU1ER1BVX0dXU19TSElGVDsNCj4gPj4g
+LSAgICAgICAgICAgICAgIGVsc2UgaWYgKGFyZ3MtPmluLmRvbWFpbnMgPT0gQU1ER1BVX0dFTV9E
+T01BSU5fT0EpDQo+ID4+IC0gICAgICAgICAgICAgICAgICAgICAgIHNpemUgPSBzaXplIDw8IEFN
+REdQVV9PQV9TSElGVDsNCj4gPj4gLSAgICAgICAgICAgICAgIGVsc2UNCj4gPj4gLSAgICAgICAg
+ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+ID4+ICsgICAgICAgICAgICAgICAvKiBH
+RFMgYWxsb2NhdGlvbnMgbXVzdCBiZSBEVyBhbGlnbmVkICovDQo+ID4+ICsgICAgICAgICAgICAg
+ICBpZiAoYXJncy0+aW4uZG9tYWlucyAmIEFNREdQVV9HRU1fRE9NQUlOX0dEUykNCj4gPj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgc2l6ZSA9IEFMSUdOKHNpemUsIDQpOw0KPiA+PiAgICAgICAg
+ICB9DQo+ID4+IC0gICAgICAgc2l6ZSA9IHJvdW5kdXAoc2l6ZSwgUEFHRV9TSVpFKTsNCj4gPj4N
+Cj4gPj4gICAgICAgICAgaWYgKGZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfVk1fQUxXQVlTX1ZB
+TElEKSB7DQo+ID4+ICAgICAgICAgICAgICAgICAgciA9IGFtZGdwdV9ib19yZXNlcnZlKHZtLT5y
+b290LmJhc2UuYm8sIGZhbHNlKTsgZGlmZg0KPiA+PiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9rbXMuYw0KPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9rbXMuYw0KPiA+PiBpbmRleCBiNzY2MjcwZDg2Y2IuLjY0Y2M0ODNkYjk3MyAxMDA2
+NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+
+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYw0KPiA+PiBA
+QCAtNTI4LDEzICs1MjgsMTMgQEAgc3RhdGljIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3Qg
+ZHJtX2RldmljZQ0KPiAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUNCj4gPj4gICAg
+ICAgICAgICAgICAgICBzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX2dkcyBnZHNfaW5mbzsNCj4gPj4N
+Cj4gPj4gICAgICAgICAgICAgICAgICBtZW1zZXQoJmdkc19pbmZvLCAwLCBzaXplb2YoZ2RzX2lu
+Zm8pKTsNCj4gPj4gLSAgICAgICAgICAgICAgIGdkc19pbmZvLmdkc19nZnhfcGFydGl0aW9uX3Np
+emUgPSBhZGV2LQ0KPiA+Z2RzLm1lbS5nZnhfcGFydGl0aW9uX3NpemUgPj4gQU1ER1BVX0dEU19T
+SElGVDsNCj4gPj4gLSAgICAgICAgICAgICAgIGdkc19pbmZvLmNvbXB1dGVfcGFydGl0aW9uX3Np
+emUgPSBhZGV2LQ0KPiA+Z2RzLm1lbS5jc19wYXJ0aXRpb25fc2l6ZSA+PiBBTURHUFVfR0RTX1NI
+SUZUOw0KPiA+PiAtICAgICAgICAgICAgICAgZ2RzX2luZm8uZ2RzX3RvdGFsX3NpemUgPSBhZGV2
+LT5nZHMubWVtLnRvdGFsX3NpemUgPj4NCj4gQU1ER1BVX0dEU19TSElGVDsNCj4gPj4gLSAgICAg
+ICAgICAgICAgIGdkc19pbmZvLmd3c19wZXJfZ2Z4X3BhcnRpdGlvbiA9IGFkZXYtDQo+ID5nZHMu
+Z3dzLmdmeF9wYXJ0aXRpb25fc2l6ZSA+PiBBTURHUFVfR1dTX1NISUZUOw0KPiA+PiAtICAgICAg
+ICAgICAgICAgZ2RzX2luZm8uZ3dzX3Blcl9jb21wdXRlX3BhcnRpdGlvbiA9IGFkZXYtDQo+ID5n
+ZHMuZ3dzLmNzX3BhcnRpdGlvbl9zaXplID4+IEFNREdQVV9HV1NfU0hJRlQ7DQo+ID4+IC0gICAg
+ICAgICAgICAgICBnZHNfaW5mby5vYV9wZXJfZ2Z4X3BhcnRpdGlvbiA9IGFkZXYtPmdkcy5vYS5n
+ZnhfcGFydGl0aW9uX3NpemUNCj4gPj4gQU1ER1BVX09BX1NISUZUOw0KPiA+PiAtICAgICAgICAg
+ICAgICAgZ2RzX2luZm8ub2FfcGVyX2NvbXB1dGVfcGFydGl0aW9uID0gYWRldi0NCj4gPmdkcy5v
+YS5jc19wYXJ0aXRpb25fc2l6ZSA+PiBBTURHUFVfT0FfU0hJRlQ7DQo+ID4+ICsgICAgICAgICAg
+ICAgICBnZHNfaW5mby5nZHNfZ2Z4X3BhcnRpdGlvbl9zaXplID0gYWRldi0NCj4gPmdkcy5tZW0u
+Z2Z4X3BhcnRpdGlvbl9zaXplOw0KPiA+PiArICAgICAgICAgICAgICAgZ2RzX2luZm8uY29tcHV0
+ZV9wYXJ0aXRpb25fc2l6ZSA9IGFkZXYtDQo+ID5nZHMubWVtLmNzX3BhcnRpdGlvbl9zaXplOw0K
+PiA+PiArICAgICAgICAgICAgICAgZ2RzX2luZm8uZ2RzX3RvdGFsX3NpemUgPSBhZGV2LT5nZHMu
+bWVtLnRvdGFsX3NpemU7DQo+ID4+ICsgICAgICAgICAgICAgICBnZHNfaW5mby5nd3NfcGVyX2dm
+eF9wYXJ0aXRpb24gPSBhZGV2LQ0KPiA+Z2RzLmd3cy5nZnhfcGFydGl0aW9uX3NpemU7DQo+ID4+
+ICsgICAgICAgICAgICAgICBnZHNfaW5mby5nd3NfcGVyX2NvbXB1dGVfcGFydGl0aW9uID0gYWRl
+di0NCj4gPmdkcy5nd3MuY3NfcGFydGl0aW9uX3NpemU7DQo+ID4+ICsgICAgICAgICAgICAgICBn
+ZHNfaW5mby5vYV9wZXJfZ2Z4X3BhcnRpdGlvbiA9IGFkZXYtDQo+ID5nZHMub2EuZ2Z4X3BhcnRp
+dGlvbl9zaXplOw0KPiA+PiArICAgICAgICAgICAgICAgZ2RzX2luZm8ub2FfcGVyX2NvbXB1dGVf
+cGFydGl0aW9uID0NCj4gPj4gKyBhZGV2LT5nZHMub2EuY3NfcGFydGl0aW9uX3NpemU7DQo+ID4+
+ICAgICAgICAgICAgICAgICAgcmV0dXJuIGNvcHlfdG9fdXNlcihvdXQsICZnZHNfaW5mbywNCj4g
+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1pbigoc2l6ZV90KXNpemUs
+IHNpemVvZihnZHNfaW5mbykpKSA/IC1FRkFVTFQgOiAwOw0KPiA+PiAgICAgICAgICB9DQo+ID4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMN
+Cj4gPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMNCj4gPj4g
+aW5kZXggZTY5MDkyNTJhZWZhLi5lMWYzMmExOTZmNmQgMTAwNjQ0DQo+ID4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYw0KPiA+PiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMNCj4gPj4gQEAgLTQzMyw3ICs0MzMs
+MTEgQEAgc3RhdGljIGludCBhbWRncHVfYm9fZG9fY3JlYXRlKHN0cnVjdA0KPiBhbWRncHVfZGV2
+aWNlICphZGV2LA0KPiA+PiAgICAgICAgICBpbnQgcjsNCj4gPj4NCj4gPj4gICAgICAgICAgcGFn
+ZV9hbGlnbiA9IHJvdW5kdXAoYnAtPmJ5dGVfYWxpZ24sIFBBR0VfU0laRSkgPj4gUEFHRV9TSElG
+VDsNCj4gPj4gLSAgICAgICBzaXplID0gQUxJR04oc2l6ZSwgUEFHRV9TSVpFKTsNCj4gPj4gKyAg
+ICAgICBpZiAoYnAtPmRvbWFpbiAmIChBTURHUFVfR0VNX0RPTUFJTl9HRFMgfA0KPiBBTURHUFVf
+R0VNX0RPTUFJTl9HV1MgfA0KPiA+PiArICAgICAgICAgICAgICAgICAgICAgICAgIEFNREdQVV9H
+RU1fRE9NQUlOX09BKSkNCj4gPj4gKyAgICAgICAgICAgICAgIHNpemUgPDw9IFBBR0VfU0hJRlQ7
+DQo+ID4+ICsgICAgICAgZWxzZQ0KPiA+PiArICAgICAgICAgICAgICAgc2l6ZSA9IEFMSUdOKHNp
+emUsIFBBR0VfU0laRSk7DQo+ID4gSXMgdGhpcyByaWdodCBmb3IgR0RTPyAgSSB0aGluayB3ZSBu
+ZWVkIHRvIGJlIGluIDRLIHVuaXRzIHJlZ2FyZGxlc3MNCj4gPiBvZiB0aGUgcGFnZSBzaXplLiAg
+SSBoYXZlIHRvIGFkbWl0LCBhbGwgdGhlIHNoaWZ0aW5nIGlzIG1peGluZyBtZSB1cC4NCj4gDQo+
+IFllYWgsIHRoYXQgaXMgaW5kZWVkIGNvcnJlY3QuIEdEUyBvbmx5IG5lZWRzIERXIGFsaWdubWVu
+dC4NCj4gDQo+IFRoZSBzaGlmdGluZyBpcyBwdXJlbHkgZG9uZSBiZWNhdXNlIFRUTSB3YW50cyB0
+byB3b3JrIHdpdGggcGFnZXMgYW5kIG5vdA0KPiBieXRlcy4NCj4gDQo+IEFuZHJleSBhbHJlYWR5
+IHNhaWQgaGUgd2FudGVkIHRvIGNsZWFuIHRoYXQgdXAgd2hlbiB0aGVyZSBpcyB0aW1lLg0KDQoN
+CkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCg0K
+DQo+IA0KPiBDaHJpc3RpYW4uDQo+IA0KPiA+DQo+ID4gQWxleA0KPiA+DQo+ID4+ICAgICAgICAg
+IGlmICghYW1kZ3B1X2JvX3ZhbGlkYXRlX3NpemUoYWRldiwgc2l6ZSwgYnAtPmRvbWFpbikpDQo+
+ID4+ICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07DQo+ID4+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gPj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gPj4gaW5kZXggMTU2NTM0NGNjMTM5Li5j
+NjkxMjc1Y2QxZjAgMTAwNjQ0DQo+ID4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90dG0uYw0KPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdHRtLmMNCj4gPj4gQEAgLTE4MjUsMTkgKzE4MjUsMTAgQEAgaW50IGFtZGdwdV90dG1faW5p
+dChzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldikNCj4gPj4gICAgICAgICAgICAgICAgICAg
+KHVuc2lnbmVkKShndHRfc2l6ZSAvICgxMDI0ICogMTAyNCkpKTsNCj4gPj4NCj4gPj4gICAgICAg
+ICAgLyogSW5pdGlhbGl6ZSB2YXJpb3VzIG9uLWNoaXAgbWVtb3J5IHBvb2xzICovDQo+ID4+IC0g
+ICAgICAgYWRldi0+Z2RzLm1lbS50b3RhbF9zaXplID0gYWRldi0+Z2RzLm1lbS50b3RhbF9zaXpl
+IDw8DQo+IEFNREdQVV9HRFNfU0hJRlQ7DQo+ID4+IC0gICAgICAgYWRldi0+Z2RzLm1lbS5nZnhf
+cGFydGl0aW9uX3NpemUgPSBhZGV2LQ0KPiA+Z2RzLm1lbS5nZnhfcGFydGl0aW9uX3NpemUgPDwg
+QU1ER1BVX0dEU19TSElGVDsNCj4gPj4gLSAgICAgICBhZGV2LT5nZHMubWVtLmNzX3BhcnRpdGlv
+bl9zaXplID0gYWRldi0NCj4gPmdkcy5tZW0uY3NfcGFydGl0aW9uX3NpemUgPDwgQU1ER1BVX0dE
+U19TSElGVDsNCj4gPj4gLSAgICAgICBhZGV2LT5nZHMuZ3dzLnRvdGFsX3NpemUgPSBhZGV2LT5n
+ZHMuZ3dzLnRvdGFsX3NpemUgPDwNCj4gQU1ER1BVX0dXU19TSElGVDsNCj4gPj4gLSAgICAgICBh
+ZGV2LT5nZHMuZ3dzLmdmeF9wYXJ0aXRpb25fc2l6ZSA9IGFkZXYtDQo+ID5nZHMuZ3dzLmdmeF9w
+YXJ0aXRpb25fc2l6ZSA8PCBBTURHUFVfR1dTX1NISUZUOw0KPiA+PiAtICAgICAgIGFkZXYtPmdk
+cy5nd3MuY3NfcGFydGl0aW9uX3NpemUgPSBhZGV2LT5nZHMuZ3dzLmNzX3BhcnRpdGlvbl9zaXpl
+DQo+IDw8IEFNREdQVV9HV1NfU0hJRlQ7DQo+ID4+IC0gICAgICAgYWRldi0+Z2RzLm9hLnRvdGFs
+X3NpemUgPSBhZGV2LT5nZHMub2EudG90YWxfc2l6ZSA8PA0KPiBBTURHUFVfT0FfU0hJRlQ7DQo+
+ID4+IC0gICAgICAgYWRldi0+Z2RzLm9hLmdmeF9wYXJ0aXRpb25fc2l6ZSA9IGFkZXYtPmdkcy5v
+YS5nZnhfcGFydGl0aW9uX3NpemUNCj4gPDwgQU1ER1BVX09BX1NISUZUOw0KPiA+PiAtICAgICAg
+IGFkZXYtPmdkcy5vYS5jc19wYXJ0aXRpb25fc2l6ZSA9IGFkZXYtPmdkcy5vYS5jc19wYXJ0aXRp
+b25fc2l6ZSA8PA0KPiBBTURHUFVfT0FfU0hJRlQ7DQo+ID4+ICAgICAgICAgIC8qIEdEUyBNZW1v
+cnkgKi8NCj4gPj4gICAgICAgICAgaWYgKGFkZXYtPmdkcy5tZW0udG90YWxfc2l6ZSkgew0KPiA+
+PiAgICAgICAgICAgICAgICAgIHIgPSB0dG1fYm9faW5pdF9tbSgmYWRldi0+bW1hbi5iZGV2LCBB
+TURHUFVfUExfR0RTLA0KPiA+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFk
+ZXYtPmdkcy5tZW0udG90YWxfc2l6ZSA+PiBQQUdFX1NISUZUKTsNCj4gPj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT5nZHMubWVtLnRvdGFsX3NpemUpOw0KPiA+PiAg
+ICAgICAgICAgICAgICAgIGlmIChyKSB7DQo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICBE
+Uk1fRVJST1IoIkZhaWxlZCBpbml0aWFsaXppbmcgR0RTIGhlYXAuXG4iKTsNCj4gPj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJldHVybiByOw0KPiA+PiBAQCAtMTg0Nyw3ICsxODM4LDcgQEAg
+aW50IGFtZGdwdV90dG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldikNCj4gPj4g
+ICAgICAgICAgLyogR1dTICovDQo+ID4+ICAgICAgICAgIGlmIChhZGV2LT5nZHMuZ3dzLnRvdGFs
+X3NpemUpIHsNCj4gPj4gICAgICAgICAgICAgICAgICByID0gdHRtX2JvX2luaXRfbW0oJmFkZXYt
+Pm1tYW4uYmRldiwgQU1ER1BVX1BMX0dXUywNCj4gPj4gLSAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBhZGV2LT5nZHMuZ3dzLnRvdGFsX3NpemUgPj4gUEFHRV9TSElGVCk7DQo+ID4+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+Z2RzLmd3cy50b3RhbF9z
+aXplKTsNCj4gPj4gICAgICAgICAgICAgICAgICBpZiAocikgew0KPiA+PiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgRFJNX0VSUk9SKCJGYWlsZWQgaW5pdGlhbGl6aW5nIGd3cyBoZWFwLlxuIik7
+DQo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsNCj4gPj4gQEAgLTE4NTcs
+NyArMTg0OCw3IEBAIGludCBhbWRncHVfdHRtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4g
+KmFkZXYpDQo+ID4+ICAgICAgICAgIC8qIE9BICovDQo+ID4+ICAgICAgICAgIGlmIChhZGV2LT5n
+ZHMub2EudG90YWxfc2l6ZSkgew0KPiA+PiAgICAgICAgICAgICAgICAgIHIgPSB0dG1fYm9faW5p
+dF9tbSgmYWRldi0+bW1hbi5iZGV2LCBBTURHUFVfUExfT0EsDQo+ID4+IC0gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgYWRldi0+Z2RzLm9hLnRvdGFsX3NpemUgPj4gUEFHRV9TSElG
+VCk7DQo+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+Z2RzLm9h
+LnRvdGFsX3NpemUpOw0KPiA+PiAgICAgICAgICAgICAgICAgIGlmIChyKSB7DQo+ID4+ICAgICAg
+ICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoIkZhaWxlZCBpbml0aWFsaXppbmcgb2EgaGVh
+cC5cbiIpOw0KPiA+PiAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHI7DQo+ID4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jDQo+ID4+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYw0KPiA+PiBpbmRleCBhMTVkOWMw
+ZjIzM2IuLmMwZjk3MzJjYmFmNyAxMDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y3XzAuYw0KPiA+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjdfMC5jDQo+ID4+IEBAIC00MTcwLDE1ICs0MTcwLDYgQEAgc3RhdGljIHZvaWQNCj4g
+Z2Z4X3Y3XzBfcmluZ19lbWl0X2dkc19zd2l0Y2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0K
+PiA+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdWludDMyX3Qg
+Z3dzX2Jhc2UsIHVpbnQzMl90IGd3c19zaXplLA0KPiA+PiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgdWludDMyX3Qgb2FfYmFzZSwgdWludDMyX3Qgb2Ffc2l6ZSkN
+Cj4gPj4gICB7DQo+ID4+IC0gICAgICAgZ2RzX2Jhc2UgPSBnZHNfYmFzZSA+PiBBTURHUFVfR0RT
+X1NISUZUOw0KPiA+PiAtICAgICAgIGdkc19zaXplID0gZ2RzX3NpemUgPj4gQU1ER1BVX0dEU19T
+SElGVDsNCj4gPj4gLQ0KPiA+PiAtICAgICAgIGd3c19iYXNlID0gZ3dzX2Jhc2UgPj4gQU1ER1BV
+X0dXU19TSElGVDsNCj4gPj4gLSAgICAgICBnd3Nfc2l6ZSA9IGd3c19zaXplID4+IEFNREdQVV9H
+V1NfU0hJRlQ7DQo+ID4+IC0NCj4gPj4gLSAgICAgICBvYV9iYXNlID0gb2FfYmFzZSA+PiBBTURH
+UFVfT0FfU0hJRlQ7DQo+ID4+IC0gICAgICAgb2Ffc2l6ZSA9IG9hX3NpemUgPj4gQU1ER1BVX09B
+X1NISUZUOw0KPiA+PiAtDQo+ID4+ICAgICAgICAgIC8qIEdEUyBCYXNlICovDQo+ID4+ICAgICAg
+ICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19XUklURV9EQVRBLCAz
+KSk7DQo+ID4+ICAgICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIChXUklURV9EQVRBX0VO
+R0lORV9TRUwoMCkgfCBkaWZmDQo+ID4+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3Y4XzAuYw0KPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
+LmMNCj4gPj4gaW5kZXggMzg4MjY4OWIyZDhmLi41N2U0YjE0ZTNiZDEgMTAwNjQ0DQo+ID4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMNCj4gPj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYw0KPiA+PiBAQCAtNTM5NiwxNSArNTM5
+Niw2IEBAIHN0YXRpYyB2b2lkDQo+IGdmeF92OF8wX3JpbmdfZW1pdF9nZHNfc3dpdGNoKHN0cnVj
+dCBhbWRncHVfcmluZyAqcmluZywNCj4gPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHVpbnQzMl90IGd3c19iYXNlLCB1aW50MzJfdCBnd3Nfc2l6ZSwNCj4gPj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IG9hX2Jh
+c2UsIHVpbnQzMl90IG9hX3NpemUpDQo+ID4+ICAgew0KPiA+PiAtICAgICAgIGdkc19iYXNlID0g
+Z2RzX2Jhc2UgPj4gQU1ER1BVX0dEU19TSElGVDsNCj4gPj4gLSAgICAgICBnZHNfc2l6ZSA9IGdk
+c19zaXplID4+IEFNREdQVV9HRFNfU0hJRlQ7DQo+ID4+IC0NCj4gPj4gLSAgICAgICBnd3NfYmFz
+ZSA9IGd3c19iYXNlID4+IEFNREdQVV9HV1NfU0hJRlQ7DQo+ID4+IC0gICAgICAgZ3dzX3NpemUg
+PSBnd3Nfc2l6ZSA+PiBBTURHUFVfR1dTX1NISUZUOw0KPiA+PiAtDQo+ID4+IC0gICAgICAgb2Ff
+YmFzZSA9IG9hX2Jhc2UgPj4gQU1ER1BVX09BX1NISUZUOw0KPiA+PiAtICAgICAgIG9hX3NpemUg
+PSBvYV9zaXplID4+IEFNREdQVV9PQV9TSElGVDsNCj4gPj4gLQ0KPiA+PiAgICAgICAgICAvKiBH
+RFMgQmFzZSAqLw0KPiA+PiAgICAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQz
+KFBBQ0tFVDNfV1JJVEVfREFUQSwgMykpOw0KPiA+PiAgICAgICAgICBhbWRncHVfcmluZ193cml0
+ZShyaW5nLCAoV1JJVEVfREFUQV9FTkdJTkVfU0VMKDApIHwgZGlmZg0KPiA+PiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCj4gPj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jDQo+ID4+IGluZGV4IDc1YTkxNjYzMDE5Zi4uZDMxYTJi
+YzAwZDYxIDEwMDY0NA0KPiA+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djlfMC5jDQo+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMN
+Cj4gPj4gQEAgLTE1MjcsOCArMTUyNyw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfbmdnX2VuKHN0
+cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiA+PiAgICAgICAgICBnZnhfdjlfMF93cml0
+ZV9kYXRhX3RvX3JlZyhyaW5nLCAwLCBmYWxzZSwNCj4gPj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBfU0laRSks
+DQo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChhZGV2LT5nZHMubWVt
+LnRvdGFsX3NpemUgKw0KPiA+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBh
+ZGV2LT5nZngubmdnLmdkc19yZXNlcnZlX3NpemUpID4+DQo+ID4+IC0gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgQU1ER1BVX0dEU19TSElGVCk7DQo+ID4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmdmeC5uZ2cuZ2RzX3Jlc2VydmVfc2l6ZSkpOw0K
+PiA+Pg0KPiA+PiAgICAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzKFBBQ0tF
+VDNfRE1BX0RBVEEsIDUpKTsNCj4gPj4gICAgICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywg
+KFBBQ0tFVDNfRE1BX0RBVEFfQ1BfU1lOQyB8IEBADQo+ID4+IC0zNDcyLDE1ICszNDcxLDYgQEAg
+c3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0X2dkc19zd2l0Y2goc3RydWN0DQo+IGFtZGdw
+dV9yaW5nICpyaW5nLA0KPiA+PiAgIHsNCj4gPj4gICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYgPSByaW5nLT5hZGV2Ow0KPiA+Pg0KPiA+PiAtICAgICAgIGdkc19iYXNlID0gZ2Rz
+X2Jhc2UgPj4gQU1ER1BVX0dEU19TSElGVDsNCj4gPj4gLSAgICAgICBnZHNfc2l6ZSA9IGdkc19z
+aXplID4+IEFNREdQVV9HRFNfU0hJRlQ7DQo+ID4+IC0NCj4gPj4gLSAgICAgICBnd3NfYmFzZSA9
+IGd3c19iYXNlID4+IEFNREdQVV9HV1NfU0hJRlQ7DQo+ID4+IC0gICAgICAgZ3dzX3NpemUgPSBn
+d3Nfc2l6ZSA+PiBBTURHUFVfR1dTX1NISUZUOw0KPiA+PiAtDQo+ID4+IC0gICAgICAgb2FfYmFz
+ZSA9IG9hX2Jhc2UgPj4gQU1ER1BVX09BX1NISUZUOw0KPiA+PiAtICAgICAgIG9hX3NpemUgPSBv
+YV9zaXplID4+IEFNREdQVV9PQV9TSElGVDsNCj4gPj4gLQ0KPiA+PiAgICAgICAgICAvKiBHRFMg
+QmFzZSAqLw0KPiA+PiAgICAgICAgICBnZnhfdjlfMF93cml0ZV9kYXRhX3RvX3JlZyhyaW5nLCAw
+LCBmYWxzZSwNCj4gPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU09DMTVf
+UkVHX09GRlNFVChHQywgMCwNCj4gPj4gbW1HRFNfVk1JRDBfQkFTRSkgKyAyICogdm1pZCwNCj4g
+Pj4gLS0NCj4gPj4gMi4xNC4xDQo+ID4+DQo+ID4+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQo+ID4+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+ID4+IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KPiANCj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
