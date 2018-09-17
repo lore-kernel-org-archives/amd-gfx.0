@@ -1,61 +1,55 @@
-From: Jonathan Cameron <jonathan.cameron-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Subject: Re: [PATCH v2 05/17] compat_ioctl: move more drivers to
- generic_compat_ioctl_ptrarg
-Date: Mon, 17 Sep 2018 10:33:48 +0100
-Message-ID: <20180917103348.00003f31@huawei.com>
-References: <20180912150142.157913-1-arnd@arndb.de>
- <20180912151134.436719-1-arnd@arndb.de>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/ttm: once more fix ttm_bo_bulk_move_lru_tail
+Date: Mon, 17 Sep 2018 17:40:25 +0800
+Message-ID: <20180917094023.GA10706@hr-amur2>
+References: <20180912192355.2359-1-christian.koenig@amd.com>
+ <20180913083135.GA21669@hr-amur2>
+ <c2471ef9-1bc7-517e-27f6-a00236a9b40b@gmail.com>
+ <20180914082247.GA31097@hr-amur2>
+ <4bf23786-ffdb-ee6e-1446-9dbc8d8ed5d6@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-In-Reply-To: <20180912151134.436719-1-arnd-r2nGTMty4D4@public.gmane.org>
-List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
-List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
-Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
-Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
-Cc: linux-fbdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-iio-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-remoteproc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvme-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, platform-driver-x86-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, sparclinux-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, devel-gWbeCf7V1WCQmaza687I9mD2FQJk+8+b@public.gmane.org, linux-scsi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, qat-linux-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-input-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ceph-devel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Greg Kroah-Hartman <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, linux-usb-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-wireless-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-crypto-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-fsdevel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org, "David S. Miller" <davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org>, linux-btrfs-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <4bf23786-ffdb-ee6e-1446-9dbc8d8ed5d6-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, 12 Sep 2018 17:08:52 +0200
-Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org> wrote:
-
-> The .ioctl and .compat_ioctl file operations have the same prototype so
-> they can both point to the same function, which works great almost all
-> the time when all the commands are compatible.
-> 
-> One exception is the s390 architecture, where a compat pointer is only
-> 31 bit wide, and converting it into a 64-bit pointer requires calling
-> compat_ptr(). Most drivers here will ever run in s390, but since we now
-> have a generic helper for it, it's easy enough to use it consistently.
-> 
-> I double-checked all these drivers to ensure that all ioctl arguments
-> are used as pointers or are ignored, but are not interpreted as integer
-> values.
-> 
-> Signed-off-by: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
-> ---
-
-For IIO part.
-
-Acked-by: Jonathan Cameron <Jonathan.Cameron-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-
-Thanks,
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-> index a062cfddc5af..22844b94b0e9 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-> @@ -1630,7 +1630,7 @@ static const struct file_operations iio_buffer_fileops = {
->  	.owner = THIS_MODULE,
->  	.llseek = noop_llseek,
->  	.unlocked_ioctl = iio_ioctl,
-> -	.compat_ioctl = iio_ioctl,
-> +	.compat_ioctl = generic_compat_ioctl_ptrarg,
->  };
->  
+T24gRnJpLCBTZXAgMTQsIDIwMTggYXQgMDU6MjI6MTZQTSArMDgwMCwgTWljaGVsIETDpG56ZXIg
+d3JvdGU6Cj4gT24gMjAxOC0wOS0xNCAxMDoyMiBhLm0uLCBIdWFuZyBSdWkgd3JvdGU6Cj4gPiBP
+biBUaHUsIFNlcCAxMywgMjAxOCBhdCAwNzozMjoyNFBNICswODAwLCBDaHJpc3RpYW4gS8O2bmln
+IHdyb3RlOgo+ID4+IEFtIDEzLjA5LjIwMTggdW0gMTA6MzEgc2NocmllYiBIdWFuZyBSdWk6Cj4g
+Pj4+IE9uIFdlZCwgU2VwIDEyLCAyMDE4IGF0IDA5OjIzOjU1UE0gKzAyMDAsIENocmlzdGlhbiBL
+w7ZuaWcgd3JvdGU6Cj4gPj4+PiBXaGlsZSBjdXR0aW5nIHRoZSBsaXN0cyB3ZSBzb21ldGltZXMg
+YWNjaWRlbnRhbGx5IGFkZGVkIGEgbGlzdF9oZWFkIGZyb20KPiA+Pj4+IHRoZSBzdGFjayB0byB0
+aGUgTFJVcywgZWZmZWN0aXZlbHkgY29ycnVwdGluZyB0aGUgbGlzdC4KPiA+Pj4+Cj4gPj4+PiBS
+ZW1vdmUgdGhlIGxpc3QgY3V0dGluZyBhbmQgdXNlIGV4cGxpY2l0IGxpc3QgbWFuaXB1bGF0aW9u
+IGluc3RlYWQuCj4gPj4+IFRoaXMgcGF0Y2ggYWN0dWFsbHkgZml4ZXMgdGhlIGNvcnJ1cHRpb24g
+YnVnLiBXYXMgaXQgYSBkZWZlY3Qgb2YKPiA+Pj4gbGlzdF9jdXRfcG9zaXRpb24gb3IgbGlzdF9z
+cGxpY2UgaGFuZGxlcnM/Cj4gPj4KPiA+PiBXZSBzb21laG93IGRpZCBzb21ldGhpbmcgaWxsZWdh
+bCB3aXRoIGxpc3RfY3V0X3Bvc2l0aW9uLiBJIGhhdmVuJ3QgCj4gPj4gbmFycm93ZWQgaXQgZG93
+biB0aWxsIHRoZSBlbmQsIGJ1dCB3ZSBlbmRlZCB1cCB3aXRoIGxpc3RfaGVhZHMgZnJvbSB0aGUg
+Cj4gPj4gc3RhY2sgdG8gdGhlIGxydS4KPiA+IAo+ID4gSSBhbSBjb25mdXNlZCwgaW4gdGhlb3J5
+LCBldmVuIHdlIGRvIGFueSBtYW5pcHVsYXRpb24gd2l0aCBsaXN0IGhlbHBlciwgaXQKPiA+IHNo
+b3VsZCBub3QgdHJpZ2dlciB0aGUgbGlzdCBjb3JydXB0aW9uLiBUaGUgdXNhZ2Ugb2YgdGhvc2Ug
+aGVscGVycyBzaG91bGQKPiA+IGVuc3VyZSB0aGUgbGlzdCBvcGVyYXRpb24gc2FmZWx5Li4uCj4g
+Cj4gVGhlcmUncyBub3RoaW5nIHRoZSBoZWxwZXJzIGNhbiBkbyBhYm91dCBiZWluZyBwYXNzZWQg
+aW4gcG9pbnRlcnMgdG8KPiBzdGFjayBtZW1vcnkuIEl0J3MgYSBidWcgaW4gdGhlIGNvZGUgdXNp
+bmcgdGhlIGhlbHBlcnMuCj4gCgpBY3R1YWxseSwgSSB3YXMgY2hlY2tpbmcgY2FyZWZ1bGx5IHdp
+dGggbGlzdCBjdXQgYW5kIHNwbGljZSBpbiBvdXIgY2FzZSwKYW5kIGl0IGRpZG4ndCBmaW5kIGFu
+eSBpbGxlZ2FsIHVzZS4gSG93ZXZlciwgSSBhbHNvIGFncmVlIHdpdGggdGhlIGV4cGxpY2l0Cmxp
+c3QgbWFuaXB1bGF0aW9uIGlzIG1vcmUgY2xlYXIgYW5kIHNpbXBsZSBmb3Igbm93LgoKVGhhbmtz
+LApSYXkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
