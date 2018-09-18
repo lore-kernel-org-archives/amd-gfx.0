@@ -1,91 +1,407 @@
-From: "Zhang, Jerry(Junwei)" <Jerry.Zhang@amd.com>
-Subject: Re: [PATCH] list: introduce list_bulk_move_tail helper
-Date: Tue, 18 Sep 2018 13:27:12 +0800
-Message-ID: <3d3d1448-fac0-947c-0381-09f7f8ac9bd6@amd.com>
-References: <20180917120834.13993-1-christian.koenig@amd.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/dc: Trigger set power state task when display
+ configuration changes
+Date: Tue, 18 Sep 2018 05:44:37 +0000
+Message-ID: <BYAPR12MB277585FBE856647226005A97FB1D0@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <1536904627-24761-1-git-send-email-Rex.Zhu@amd.com>
+ <BN6PR12MB18096D890B7032FC56F79958F7190@BN6PR12MB1809.namprd12.prod.outlook.com>,
+ <BYAPR12MB27753088DE039984D6D4D3DAFB1E0@BYAPR12MB2775.namprd12.prod.outlook.com>
+ <DM3PR1201MB1039DB50BA9374E4D92470D5EF1E0@DM3PR1201MB1039.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180917120834.13993-1-christian.koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============0598470281=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <DM3PR1201MB1039DB50BA9374E4D92470D5EF1E0-BBcFnVpqZhVMmo+XJk11QmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMDkvMTcvMjAxOCAwODowOCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBNb3ZlIGFs
-bCBlbnRyaWVzIGJldHdlZW4gQGZpcnN0IGFuZCBpbmNsdWRpbmcgQGxhc3QgYmVmb3JlIEBoZWFk
-Lgo+Cj4gVGhpcyBpcyB1c2VmdWwgZm9yIExSVSBsaXN0cyB3aGVyZSBhIHdob2xlIGJsb2NrIG9m
-IGVudHJpZXMgc2hvdWxkIGJlCj4gbW92ZWQgdG8gdGhlIGVuZCBvZiB0aGUgbGlzdC4KPgo+IFVz
-ZWQgYXMgYSBiYW5kIGFpZCBpbiBUVE0sIGJ1dCBiZXR0ZXIgcGxhY2VkIGluIHRoZSBjb21tb24g
-bGlzdCBoZWFkZXJzLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZpZXdlZC1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFu
-Z0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyB8IDI1ICsr
-KysrLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgIGluY2x1ZGUvbGludXgvbGlzdC5oICAgICAgICAg
-fCAyMyArKysrKysrKysrKysrKysrKysrKysrKwo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAyOCBpbnNl
-cnRpb25zKCspLCAyMCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vdHRtL3R0bV9iby5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+IGluZGV4IGIy
-YTMzYmYxZWYxMC4uMjZiODg5Zjg2NjcwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90
-dG0vdHRtX2JvLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4gQEAgLTI0
-NywyMCArMjQ3LDYgQEAgdm9pZCB0dG1fYm9fbW92ZV90b19scnVfdGFpbChzdHJ1Y3QgdHRtX2J1
-ZmZlcl9vYmplY3QgKmJvLAo+ICAgfQo+ICAgRVhQT1JUX1NZTUJPTCh0dG1fYm9fbW92ZV90b19s
-cnVfdGFpbCk7Cj4gICAKPiAtc3RhdGljIHZvaWQgdHRtX2xpc3RfbW92ZV9idWxrX3RhaWwoc3Ry
-dWN0IGxpc3RfaGVhZCAqbGlzdCwKPiAtCQkJCSAgICBzdHJ1Y3QgbGlzdF9oZWFkICpmaXJzdCwK
-PiAtCQkJCSAgICBzdHJ1Y3QgbGlzdF9oZWFkICpsYXN0KQo+IC17Cj4gLQlmaXJzdC0+cHJldi0+
-bmV4dCA9IGxhc3QtPm5leHQ7Cj4gLQlsYXN0LT5uZXh0LT5wcmV2ID0gZmlyc3QtPnByZXY7Cj4g
-LQo+IC0JbGlzdC0+cHJldi0+bmV4dCA9IGZpcnN0Owo+IC0JZmlyc3QtPnByZXYgPSBsaXN0LT5w
-cmV2Owo+IC0KPiAtCWxhc3QtPm5leHQgPSBsaXN0Owo+IC0JbGlzdC0+cHJldiA9IGxhc3Q7Cj4g
-LX0KPiAtCj4gICB2b2lkIHR0bV9ib19idWxrX21vdmVfbHJ1X3RhaWwoc3RydWN0IHR0bV9scnVf
-YnVsa19tb3ZlICpidWxrKQo+ICAgewo+ICAgCXVuc2lnbmVkIGk7Cj4gQEAgLTI3Niw4ICsyNjIs
-OCBAQCB2b2lkIHR0bV9ib19idWxrX21vdmVfbHJ1X3RhaWwoc3RydWN0IHR0bV9scnVfYnVsa19t
-b3ZlICpidWxrKQo+ICAgCQlyZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hlbGQocG9zLT5sYXN0
-LT5yZXN2KTsKPiAgIAo+ICAgCQltYW4gPSAmcG9zLT5maXJzdC0+YmRldi0+bWFuW1RUTV9QTF9U
-VF07Cj4gLQkJdHRtX2xpc3RfbW92ZV9idWxrX3RhaWwoJm1hbi0+bHJ1W2ldLCAmcG9zLT5maXJz
-dC0+bHJ1LAo+IC0JCQkJCSZwb3MtPmxhc3QtPmxydSk7Cj4gKwkJbGlzdF9idWxrX21vdmVfdGFp
-bCgmbWFuLT5scnVbaV0sICZwb3MtPmZpcnN0LT5scnUsCj4gKwkJCQkgICAgJnBvcy0+bGFzdC0+
-bHJ1KTsKPiAgIAl9Cj4gICAKPiAgIAlmb3IgKGkgPSAwOyBpIDwgVFRNX01BWF9CT19QUklPUklU
-WTsgKytpKSB7Cj4gQEAgLTI5MSw4ICsyNzcsOCBAQCB2b2lkIHR0bV9ib19idWxrX21vdmVfbHJ1
-X3RhaWwoc3RydWN0IHR0bV9scnVfYnVsa19tb3ZlICpidWxrKQo+ICAgCQlyZXNlcnZhdGlvbl9v
-YmplY3RfYXNzZXJ0X2hlbGQocG9zLT5sYXN0LT5yZXN2KTsKPiAgIAo+ICAgCQltYW4gPSAmcG9z
-LT5maXJzdC0+YmRldi0+bWFuW1RUTV9QTF9WUkFNXTsKPiAtCQl0dG1fbGlzdF9tb3ZlX2J1bGtf
-dGFpbCgmbWFuLT5scnVbaV0sICZwb3MtPmZpcnN0LT5scnUsCj4gLQkJCQkJJnBvcy0+bGFzdC0+
-bHJ1KTsKPiArCQlsaXN0X2J1bGtfbW92ZV90YWlsKCZtYW4tPmxydVtpXSwgJnBvcy0+Zmlyc3Qt
-PmxydSwKPiArCQkJCSAgICAmcG9zLT5sYXN0LT5scnUpOwo+ICAgCX0KPiAgIAo+ICAgCWZvciAo
-aSA9IDA7IGkgPCBUVE1fTUFYX0JPX1BSSU9SSVRZOyArK2kpIHsKPiBAQCAtMzA2LDggKzI5Miw3
-IEBAIHZvaWQgdHRtX2JvX2J1bGtfbW92ZV9scnVfdGFpbChzdHJ1Y3QgdHRtX2xydV9idWxrX21v
-dmUgKmJ1bGspCj4gICAJCXJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVsZChwb3MtPmxhc3Qt
-PnJlc3YpOwo+ICAgCj4gICAJCWxydSA9ICZwb3MtPmZpcnN0LT5iZGV2LT5nbG9iLT5zd2FwX2xy
-dVtpXTsKPiAtCQl0dG1fbGlzdF9tb3ZlX2J1bGtfdGFpbChscnUsICZwb3MtPmZpcnN0LT5zd2Fw
-LAo+IC0JCQkJCSZwb3MtPmxhc3QtPnN3YXApOwo+ICsJCWxpc3RfYnVsa19tb3ZlX3RhaWwobHJ1
-LCAmcG9zLT5maXJzdC0+c3dhcCwgJnBvcy0+bGFzdC0+c3dhcCk7Cj4gICAJfQo+ICAgfQo+ICAg
-RVhQT1JUX1NZTUJPTCh0dG1fYm9fYnVsa19tb3ZlX2xydV90YWlsKTsKPiBkaWZmIC0tZ2l0IGEv
-aW5jbHVkZS9saW51eC9saXN0LmggYi9pbmNsdWRlL2xpbnV4L2xpc3QuaAo+IGluZGV4IGRlMDRj
-YzVlZDUzNi4uZWRiNzYyOGU0NmVkIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvbGludXgvbGlzdC5o
-Cj4gKysrIGIvaW5jbHVkZS9saW51eC9saXN0LmgKPiBAQCAtMTgzLDYgKzE4MywyOSBAQCBzdGF0
-aWMgaW5saW5lIHZvaWQgbGlzdF9tb3ZlX3RhaWwoc3RydWN0IGxpc3RfaGVhZCAqbGlzdCwKPiAg
-IAlsaXN0X2FkZF90YWlsKGxpc3QsIGhlYWQpOwo+ICAgfQo+ICAgCj4gKy8qKgo+ICsgKiBsaXN0
-X2J1bGtfbW92ZV90YWlsIC0gbW92ZSBhIHN1YnNlY3Rpb24gb2YgYSBsaXN0IHRvIGl0cyB0YWls
-Cj4gKyAqIEBoZWFkOiB0aGUgaGVhZCB0aGF0IHdpbGwgZm9sbG93IG91ciBlbnRyeQo+ICsgKiBA
-Zmlyc3Q6IGZpcnN0IGVudHJ5IHRvIG1vdmUKPiArICogQGxhc3Q6IGxhc3QgZW50cnkgdG8gbW92
-ZSwgY2FuIGJlIHRoZSBzYW1lIGFzIGZpcnN0Cj4gKyAqCj4gKyAqIE1vdmUgYWxsIGVudHJpZXMg
-YmV0d2VlbiBAZmlyc3QgYW5kIGluY2x1ZGluZyBAbGFzdCBiZWZvcmUgQGhlYWQuCj4gKyAqIEFs
-bCB0aHJlZSBlbnRyaWVzIG11c3QgYmVsb25nIHRvIHRoZSBzYW1lIGxpbmtlZCBsaXN0Lgo+ICsg
-Ki8KPiArc3RhdGljIGlubGluZSB2b2lkIGxpc3RfYnVsa19tb3ZlX3RhaWwoc3RydWN0IGxpc3Rf
-aGVhZCAqaGVhZCwKPiArCQkJCSAgICAgICBzdHJ1Y3QgbGlzdF9oZWFkICpmaXJzdCwKPiArCQkJ
-CSAgICAgICBzdHJ1Y3QgbGlzdF9oZWFkICpsYXN0KQo+ICt7Cj4gKwlmaXJzdC0+cHJldi0+bmV4
-dCA9IGxhc3QtPm5leHQ7Cj4gKwlsYXN0LT5uZXh0LT5wcmV2ID0gZmlyc3QtPnByZXY7Cj4gKwo+
-ICsJaGVhZC0+cHJldi0+bmV4dCA9IGZpcnN0Owo+ICsJZmlyc3QtPnByZXYgPSBoZWFkLT5wcmV2
-Owo+ICsKPiArCWxhc3QtPm5leHQgPSBoZWFkOwo+ICsJaGVhZC0+cHJldiA9IGxhc3Q7Cj4gK30K
-PiArCj4gICAvKioKPiAgICAqIGxpc3RfaXNfbGFzdCAtIHRlc3RzIHdoZXRoZXIgQGxpc3QgaXMg
-dGhlIGxhc3QgZW50cnkgaW4gbGlzdCBAaGVhZAo+ICAgICogQGxpc3Q6IHRoZSBlbnRyeSB0byB0
-ZXN0CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmkt
-ZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+--===============0598470281==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB277585FBE856647226005A97FB1D0BYAPR12MB2775namp_"
+
+--_000_BYAPR12MB277585FBE856647226005A97FB1D0BYAPR12MB2775namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi David,
+
+Yes, There is an issue you pointed out on Raven. Because the force_dpm_leve=
+l was added for UMD-P state and the min clocks were hardcode. The display's=
+ clock requests were ignored.
+I will fix this issue.
+Thanks.
+
+Best Regards
+Rex
+
+From: Francis, David
+Sent: Monday, September 17, 2018 9:31 PM
+To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>; Deucher, Alexander <Alexander.Deucher@amd.c=
+om>; Wentland, Harry <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amd/dc: Trigger set power state task when display =
+configuration changes
+
+
+On Linux, the clocks are already set by the time that function call is reac=
+hed.  amdgpu_pm_compute clocks resets the clocks to their default value.
+
+________________________________
+From: Zhu, Rex
+Sent: September 17, 2018 4:12:33 AM
+To: Deucher, Alexander; Wentland, Harry; Francis, David
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/dc: Trigger set power state task when display =
+configuration changes
+
+
++Harry and David.
+
+
+
+Best Regards
+
+Rex
+
+
+
+From: Deucher, Alexander
+Sent: Friday, September 14, 2018 9:40 PM
+To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/dc: Trigger set power state task when display =
+configuration changes
+
+
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deucher@=
+amd.com>>
+
+________________________________
+
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Z=
+hu-5C7GfCeVMHo@public.gmane.org>>
+Sent: Friday, September 14, 2018 1:57:07 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amd/dc: Trigger set power state task when display conf=
+iguration changes
+
+
+
+Revert "drm/amd/display: Remove call to amdgpu_pm_compute_clocks"
+
+This reverts commit dcd473770e86517543691bdb227103d6c781cd0a.
+
+when display configuration changes, dc need to update the changes
+to powerplay, also need to trigger a power state task.
+amdgpu_pm_compute_clocks is the interface to set power state task
+either dpm enabled or powerplay enabled
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index 6d16b4a..0fab64a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -105,6 +105,8 @@ bool dm_pp_apply_display_requirements(
+                         adev->powerplay.pp_funcs->display_configuration_ch=
+ange(
+                                 adev->powerplay.pp_handle,
+                                 &adev->pm.pm_display_cfg);
++
++               amdgpu_pm_compute_clocks(adev);
+         }
+
+         return true;
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BYAPR12MB277585FBE856647226005A97FB1D0BYAPR12MB2775namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsonormal0, li.xmsonormal0, div.xmsonormal0
+	{mso-style-name:x_msonormal0;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsochpdefault, li.xmsochpdefault, div.xmsochpdefault
+	{mso-style-name:x_msochpdefault;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+span.xemailstyle20
+	{mso-style-name:x_emailstyle20;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle22
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi David,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Yes, There is an issue you pointed out on Raven. Bec=
+ause the force_dpm_level was added for UMD-P state and the min clocks were =
+hardcode. The display&#8217;s clock requests were ignored.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">I will fix this issue.<o:p></o:p></p>
+<p class=3D"MsoNormal">Thanks.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Rex &nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Francis, David <br>
+<b>Sent:</b> Monday, September 17, 2018 9:31 PM<br>
+<b>To:</b> Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &lt;Alexand=
+er.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Wentland, Harry &lt;Harry.Wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/dc: Trigger set power state task when d=
+isplay configuration changes<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt;color:black">On Linux, the clocks are al=
+ready set by the time that function call is reached.&nbsp; amdgpu_pm_comput=
+e clocks resets the clocks to their default value.<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"3" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Zhu, Rex<br>
+<b>Sent:</b> September 17, 2018 4:12:33 AM<br>
+<b>To:</b> Deucher, Alexander; Wentland, Harry; Francis, David<br>
+<b>Cc:</b> </span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@=
+lists.freedesktop.org</a><span style=3D"color:black"><br>
+<b>Subject:</b> RE: [PATCH] drm/amd/dc: Trigger set power state task when d=
+isplay configuration changes</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsonormal">&#43;Harry and David.<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">Best Regards<o:p></o:p></p>
+<p class=3D"xmsonormal">Rex<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal"><b>From:</b> Deucher, Alexander <br>
+<b>Sent:</b> Friday, September 14, 2018 9:40 PM<br>
+<b>To:</b> Zhu, Rex &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu-5C7GfCeVMHo@public.gmane.org<=
+/a>&gt;; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amd/dc: Trigger set power state task when d=
+isplay configuration changes<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<div id=3D"x_divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt;color:black">Acked-by: Alex Deucher &lt;=
+</span><a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org"><span style=3D"font-siz=
+e:12.0pt">alexander.deucher-5C7GfCeVMHo@public.gmane.org</span></a><span style=3D"font-size:12.0=
+pt;color:black">&gt;</span><o:p></o:p></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"3" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"xmsonormal"><b><span style=3D"color:black">From:</span></b><spa=
+n style=3D"color:black"> amd-gfx &lt;</span><a href=3D"mailto:amd-gfx-bounc=
+es-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span st=
+yle=3D"color:black">&gt; on behalf of Rex Zhu &lt;</span><a href=3D"mailto:=
+Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br>
+<b>Sent:</b> Friday, September 14, 2018 1:57:07 AM<br>
+<b>To:</b> </span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@=
+lists.freedesktop.org</a><span style=3D"color:black"><br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amd/dc: Trigger set power state task when displ=
+ay configuration changes</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsonormal">Revert &quot;drm/amd/display: Remove call to amdgpu=
+_pm_compute_clocks&quot;<br>
+<br>
+This reverts commit dcd473770e86517543691bdb227103d6c781cd0a.<br>
+<br>
+when display configuration changes, dc need to update the changes<br>
+to powerplay, also need to trigger a power state task.<br>
+amdgpu_pm_compute_clocks is the interface to set power state task<br>
+either dpm enabled or powerplay enabled<br>
+<br>
+Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu@amd.c=
+om</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 2 &#43;&#4=
+3;<br>
+&nbsp;1 file changed, 2 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
+index 6d16b4a..0fab64a 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c<=
+br>
+@@ -105,6 &#43;105,8 @@ bool dm_pp_apply_display_requirements(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-=
+&gt;powerplay.pp_funcs-&gt;display_configuration_change(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_handle,<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;adev-&gt;pm.pm_display_cfg)=
+;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; amdgpu_pm_compute_clocks(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB277585FBE856647226005A97FB1D0BYAPR12MB2775namp_--
+
+--===============0598470281==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0598470281==--
