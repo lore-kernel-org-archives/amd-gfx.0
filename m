@@ -1,67 +1,98 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH 2/6] drm/nouveau: Unbreak nv50_mstc->best_encoder()
-Date: Tue, 18 Sep 2018 19:06:18 -0400
-Message-ID: <20180918230637.20700-3-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH 3/6] drm/i915: Leave intel_conn->mst_port set, use mst_port_gone instead
+Date: Tue, 18 Sep 2018 19:06:19 -0400
+Message-ID: <20180918230637.20700-4-lyude@redhat.com>
 References: <20180918230637.20700-1-lyude@redhat.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180918230637.20700-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180918230637.20700-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-QXMgbWVudGlvbmVkIGluIHRoZSBwcmV2aW91cyBjb21taXQsIHdlIGN1cnJlbnRseSBwcmV2ZW50
-IG5ldyBtb2Rlc2V0cwpvbiByZWNlbnRseS1yZW1vdmVkIE1TVCBjb25uZWN0b3JzIGJ5IHJldHVy
-bmluZyBubyBlbmNvZGVyIGZyb20gb3VyCi0+YmVzdF9lbmNvZGVyKCkgY2FsbGJhY2sgb25jZSB0
-aGUgTVNUIHBvcnQgaGFzIGRpc2FwcGVhcmVkLiBUaGlzIGlzCndyb25nIGhvd2V2ZXIsIGJlY2F1
-c2UgaXQgcHJldmVudHMgbGVnYWN5IG1vZGVzZXR0aW5nIHVzZXJzIGZyb20gYmVpbmcKYWJsZSB0
-byBkaXNhYmxlIENSVENzIG9uIE1TVCBjb25uZWN0b3JzIGFmdGVyIHRoZSBjb25uZWN0b3IncyBy
-ZXNwZWN0aXZlCnRvcG9sb2d5IGhhcyBkaXNhcHBlYXJlZC4KClNvLCBmaXggdGhpcyBieSBpbnN0
-ZWFkIHVzaW5nIHRoZSBuZXcKZHJtX2RwX21zdF9jb25uZWN0b3JfYXRvbWljX2NoZWNrKCkgaGVs
-cGVyIGluc3RlYWQgd2hpbGUgYWx3YXlzCnJldHVybmluZyBhIHZhbGlkIGVuY29kZXIgZnJvbSAt
-PmJlc3RfZW5jb2RlcigpLgoKU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0
-LmNvbT4KQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKLS0tCiBkcml2ZXJzL2dwdS9kcm0vbm91
-dmVhdS9kaXNwbnY1MC9kaXNwLmMgfCAyNSArKysrKysrKysrKysrKystLS0tLS0tLS0tCiAxIGZp
-bGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jCmluZGV4IDlkYTBiZGZlMWUxYy4uOGQ2ZjZlZTli
-Yzc1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jCkBAIC04ODEsMjIg
-Kzg4MSwxNiBAQCBudjUwX21zdGNfYXRvbWljX2Jlc3RfZW5jb2RlcihzdHJ1Y3QgZHJtX2Nvbm5l
-Y3RvciAqY29ubmVjdG9yLAogewogCXN0cnVjdCBudjUwX2hlYWQgKmhlYWQgPSBudjUwX2hlYWQo
-Y29ubmVjdG9yX3N0YXRlLT5jcnRjKTsKIAlzdHJ1Y3QgbnY1MF9tc3RjICptc3RjID0gbnY1MF9t
-c3RjKGNvbm5lY3Rvcik7Ci0JaWYgKG1zdGMtPnBvcnQpIHsKLQkJc3RydWN0IG52NTBfbXN0bSAq
-bXN0bSA9IG1zdGMtPm1zdG07Ci0JCXJldHVybiAmbXN0bS0+bXN0b1toZWFkLT5iYXNlLmluZGV4
-XS0+ZW5jb2RlcjsKLQl9Ci0JcmV0dXJuIE5VTEw7CisKKwlyZXR1cm4gJm1zdGMtPm1zdG0tPm1z
-dG9baGVhZC0+YmFzZS5pbmRleF0tPmVuY29kZXI7CiB9CiAKIHN0YXRpYyBzdHJ1Y3QgZHJtX2Vu
-Y29kZXIgKgogbnY1MF9tc3RjX2Jlc3RfZW5jb2RlcihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29u
-bmVjdG9yKQogewogCXN0cnVjdCBudjUwX21zdGMgKm1zdGMgPSBudjUwX21zdGMoY29ubmVjdG9y
-KTsKLQlpZiAobXN0Yy0+cG9ydCkgewotCQlzdHJ1Y3QgbnY1MF9tc3RtICptc3RtID0gbXN0Yy0+
-bXN0bTsKLQkJcmV0dXJuICZtc3RtLT5tc3RvWzBdLT5lbmNvZGVyOwotCX0KLQlyZXR1cm4gTlVM
-TDsKKworCXJldHVybiAmbXN0Yy0+bXN0bS0+bXN0b1swXS0+ZW5jb2RlcjsKIH0KIAogc3RhdGlj
-IGVudW0gZHJtX21vZGVfc3RhdHVzCkBAIC05MjYsMTAgKzkyMCwyMSBAQCBudjUwX21zdGNfZ2V0
-X21vZGVzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJcmV0dXJuIHJldDsKIH0K
-IAorc3RhdGljIGludAorbnY1MF9tc3RjX2F0b21pY19jaGVjayhzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
-ciAqY29ubmVjdG9yLAorCQkgICAgICAgc3RydWN0IGRybV9jb25uZWN0b3Jfc3RhdGUgKnN0YXRl
-KQoreworCXN0cnVjdCBudjUwX21zdGMgKm1zdGMgPSBudjUwX21zdGMoY29ubmVjdG9yKTsKKwor
-CXJldHVybiBkcm1fZHBfbXN0X2Nvbm5lY3Rvcl9hdG9taWNfY2hlY2soY29ubmVjdG9yLCBzdGF0
-ZSwKKwkJCQkJCSAmbXN0Yy0+bXN0bS0+bWdyKTsKK30KKwogc3RhdGljIGNvbnN0IHN0cnVjdCBk
-cm1fY29ubmVjdG9yX2hlbHBlcl9mdW5jcwogbnY1MF9tc3RjX2hlbHAgPSB7CiAJLmdldF9tb2Rl
-cyA9IG52NTBfbXN0Y19nZXRfbW9kZXMsCiAJLm1vZGVfdmFsaWQgPSBudjUwX21zdGNfbW9kZV92
-YWxpZCwKKwkuYXRvbWljX2NoZWNrID0gbnY1MF9tc3RjX2F0b21pY19jaGVjaywKIAkuYmVzdF9l
-bmNvZGVyID0gbnY1MF9tc3RjX2Jlc3RfZW5jb2RlciwKIAkuYXRvbWljX2Jlc3RfZW5jb2RlciA9
-IG52NTBfbXN0Y19hdG9taWNfYmVzdF9lbmNvZGVyLAogfTsKLS0gCjIuMTcuMQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxp
-c3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2ZWF1Cg==
+Currently we set intel_connector->mst_port to NULL to signify that the
+MST port has been removed from the system so that we can prevent further
+action on the port such as connector probes, mode probing, etc.
+However, we're going to need access to intel_connector->mst_port in
+order to fixup ->best_encoder() so that it can always return the correct
+encoder for an MST port to prevent legacy DPMS prop changes from
+failing. This should be safe, so instead keep intel_connector->mst_port
+always set and instead add intel_connector->mst_port_gone in order to
+signify whether or not the connector has disappeared from the system.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/i915/intel_dp_mst.c | 14 +++++++-------
+ drivers/gpu/drm/i915/intel_drv.h    |  1 +
+ 2 files changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/intel_dp_mst.c b/drivers/gpu/drm/i915/intel_dp_mst.c
+index 4ecd65375603..fcb9b87b9339 100644
+--- a/drivers/gpu/drm/i915/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/intel_dp_mst.c
+@@ -311,9 +311,8 @@ static int intel_dp_mst_get_ddc_modes(struct drm_connector *connector)
+ 	struct edid *edid;
+ 	int ret;
+ 
+-	if (!intel_dp) {
++	if (intel_connector->mst_port_gone)
+ 		return intel_connector_update_modes(connector, NULL);
+-	}
+ 
+ 	edid = drm_dp_mst_get_edid(connector, &intel_dp->mst_mgr, intel_connector->port);
+ 	ret = intel_connector_update_modes(connector, edid);
+@@ -328,9 +327,10 @@ intel_dp_mst_detect(struct drm_connector *connector, bool force)
+ 	struct intel_connector *intel_connector = to_intel_connector(connector);
+ 	struct intel_dp *intel_dp = intel_connector->mst_port;
+ 
+-	if (!intel_dp)
++	if (intel_connector->mst_port_gone)
+ 		return connector_status_disconnected;
+-	return drm_dp_mst_detect_port(connector, &intel_dp->mst_mgr, intel_connector->port);
++	return drm_dp_mst_detect_port(connector, &intel_dp->mst_mgr,
++				      intel_connector->port);
+ }
+ 
+ static void
+@@ -370,7 +370,7 @@ intel_dp_mst_mode_valid(struct drm_connector *connector,
+ 	int bpp = 24; /* MST uses fixed bpp */
+ 	int max_rate, mode_rate, max_lanes, max_link_clock;
+ 
+-	if (!intel_dp)
++	if (intel_connector->mst_port_gone)
+ 		return MODE_ERROR;
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
+@@ -402,7 +402,7 @@ static struct drm_encoder *intel_mst_atomic_best_encoder(struct drm_connector *c
+ 	struct intel_dp *intel_dp = intel_connector->mst_port;
+ 	struct intel_crtc *crtc = to_intel_crtc(state->crtc);
+ 
+-	if (!intel_dp)
++	if (intel_connector->mst_port_gone)
+ 		return NULL;
+ 	return &intel_dp->mst_encoders[crtc->pipe]->base.base;
+ }
+@@ -514,7 +514,7 @@ static void intel_dp_destroy_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 						   connector);
+ 	/* prevent race with the check in ->detect */
+ 	drm_modeset_lock(&connector->dev->mode_config.connection_mutex, NULL);
+-	intel_connector->mst_port = NULL;
++	intel_connector->mst_port_gone = true;
+ 	drm_modeset_unlock(&connector->dev->mode_config.connection_mutex);
+ 
+ 	drm_connector_put(connector);
+diff --git a/drivers/gpu/drm/i915/intel_drv.h b/drivers/gpu/drm/i915/intel_drv.h
+index 8fc61e96754f..87ce772ae7f8 100644
+--- a/drivers/gpu/drm/i915/intel_drv.h
++++ b/drivers/gpu/drm/i915/intel_drv.h
+@@ -409,6 +409,7 @@ struct intel_connector {
+ 	void *port; /* store this opaque as its illegal to dereference it */
+ 
+ 	struct intel_dp *mst_port;
++	bool mst_port_gone;
+ 
+ 	/* Work struct to schedule a uevent on link train failure */
+ 	struct work_struct modeset_retry_work;
+-- 
+2.17.1
