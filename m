@@ -1,42 +1,93 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Making use of more Gitlab features for xf86-video-amdgpu
-Date: Wed, 19 Sep 2018 18:46:53 +0200
-Message-ID: <117378cb-d2fa-3d88-8422-3d77b6cf7782@daenzer.net>
+From: Julia Lawall <julia.lawall@lip6.fr>
+Subject: Re: [PATCH 1/6] drm/dp_mst: Introduce drm_dp_mst_connector_atomic_check()
+ (fwd)
+Date: Wed, 19 Sep 2018 22:38:47 +0200 (CEST)
+Message-ID: <alpine.DEB.2.21.1809192237110.2433@hadrien>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=US-ASCII
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Sean Paul <sean@poorly.run>, kbuild-all@01.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CldpdGggdGhlIDE4LjEuMCByZWxlYXNlIG91dCB0aGUgZG9vciwgSSB3YW50IHRvIHN0YXJ0IG1h
-a2luZyB1c2Ugb2YgbW9yZQpHaXRsYWIgZmVhdHVyZXMgZm9yIHhmODYtdmlkZW8tYW1kZ3B1IGRl
-dmVsb3BtZW50LgoKSSd2ZSBhbHJlYWR5IGVuYWJsZWQgbWVyZ2UgcmVxdWVzdHMgKE1ScykgYXQK
-aHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL3hvcmcvZHJpdmVyL3hmODYtdmlkZW8tYW1k
-Z3B1IC4gRnJvbSBub3cKb24sIHBhdGNoZXMgc2hvdWxkIHByaW1hcmlseSBiZSBzdWJtaXR0ZWQg
-YW5kIHJldmlld2VkIGFzIE1Scy4gSSBkb24ndAprbm93IHlldCBpZiBpdCdsbCBiZSBwb3NzaWJs
-ZSBmb3IgdGhpcyBtYWlsaW5nIGxpc3QgdG8gZ2V0IG5vdGlmaWNhdGlvbnMKb2YgbmV3IE1Sczsg
-eW91IG1heSB3YW50IHRvIGVuYWJsZSBub3RpZmljYXRpb25zIG9uIHRoZSBwYWdlIGFib3ZlLgoK
-SSdsbCBhbHNvIGxvb2sgaW50byBzZXR0aW5nIHVwIGEgQ0kgcGlwZWxpbmUgd2hpY2ggY29tcGls
-ZXMgdGhlIGRyaXZlcgphZ2FpbnN0IGFsbCBvciBhdCBsZWFzdCBtdWx0aXBsZSBzdXBwb3J0ZWQg
-dmVyc2lvbnMgb2YgeHNlcnZlci4KCgpBIGxvdCBvZiB0aGlzIGlzIG5ldyB0ZXJyaXRvcnkgZm9y
-IG1lLCBJJ2xsIGZpZ3VyZSBpdCBvdXQgYXMgSSBnbyBhbG9uZy4KUGxlYXNlIGJlYXIgd2l0aCBt
-ZS4gT25jZSB0aGUgbmV3IHN0dWZmIGhhcyBwcm92ZW4gdG8gd29yayB3ZWxsIGZvcgp4Zjg2LXZp
-ZGVvLWFtZGdwdSwgSSB3YW50IHRvIHN0YXJ0IHVzaW5nIGl0IGZvciAtYXRpIGFzIHdlbGwuCgpE
-b24ndCBoZXNpdGF0ZSB0byBhc2sgcXVlc3Rpb25zIG9yIGdpdmUgZmVlZGJhY2sgb24gdGhpcy4K
-CgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAg
-ICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAg
-ICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Hello,
+
+I don't think you can update the loop index variable in
+list_for_each_entry, because the mcro uses th index variable to get to the
+next element.  Perhaps list_for_each_entry_safe would be more suitable?
+
+julia
+
+---------- Forwarded message ----------
+Date: Thu, 20 Sep 2018 04:30:13 +0800
+From: kbuild test robot <lkp@intel.com>
+To: kbuild@01.org
+Cc: Julia Lawall <julia.lawall@lip6.fr>
+Subject: Re: [PATCH 1/6] drm/dp_mst: Introduce
+    drm_dp_mst_connector_atomic_check()
+
+CC: kbuild-all@01.org
+In-Reply-To: <20180918230637.20700-2-lyude@redhat.com>
+References: <20180918230637.20700-2-lyude@redhat.com>
+TO: Lyude Paul <lyude@redhat.com>
+CC: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+CC: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Sean Paul <sean@poorly.run>
+
+Hi Lyude,
+
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on drm-intel/for-linux-next]
+[also build test WARNING on v4.19-rc4 next-20180919]
+[if your patch is applied to the wrong git tree, please drop us a note to help improve the system]
+
+url:    https://github.com/0day-ci/linux/commits/Lyude-Paul/Fix-legacy-DPMS-changes-with-MST/20180919-203434
+base:   git://anongit.freedesktop.org/drm-intel for-linux-next
+:::::: branch date: 8 hours ago
+:::::: commit date: 8 hours ago
+
+>> drivers/gpu/drm/drm_dp_mst_topology.c:3144:1-20: iterator with update on line 3145
+
+# https://github.com/0day-ci/linux/commit/f8df31d5221b9a6da6698d4a37e622253bb17cdc
+git remote add linux-review https://github.com/0day-ci/linux
+git remote update linux-review
+git checkout f8df31d5221b9a6da6698d4a37e622253bb17cdc
+vim +3144 drivers/gpu/drm/drm_dp_mst_topology.c
+
+3f3353b7 Pandiyan, Dhinakaran 2017-04-20  3131
+f8df31d5 Lyude Paul           2018-09-18  3132  static bool
+f8df31d5 Lyude Paul           2018-09-18  3133  drm_dp_mst_connector_still_exists(struct drm_connector *connector,
+f8df31d5 Lyude Paul           2018-09-18  3134  				  struct drm_dp_mst_topology_mgr *mgr,
+f8df31d5 Lyude Paul           2018-09-18  3135  				  struct drm_dp_mst_branch *mstb)
+f8df31d5 Lyude Paul           2018-09-18  3136  {
+f8df31d5 Lyude Paul           2018-09-18  3137  	struct drm_dp_mst_port *port;
+f8df31d5 Lyude Paul           2018-09-18  3138  	bool exists = false;
+f8df31d5 Lyude Paul           2018-09-18  3139
+f8df31d5 Lyude Paul           2018-09-18  3140  	mstb = drm_dp_get_validated_mstb_ref(mgr, mstb);
+f8df31d5 Lyude Paul           2018-09-18  3141  	if (!mstb)
+f8df31d5 Lyude Paul           2018-09-18  3142  		return false;
+f8df31d5 Lyude Paul           2018-09-18  3143
+f8df31d5 Lyude Paul           2018-09-18 @3144  	list_for_each_entry(port, &mstb->ports, next) {
+f8df31d5 Lyude Paul           2018-09-18 @3145  		port = drm_dp_get_validated_port_ref(mgr, port);
+f8df31d5 Lyude Paul           2018-09-18  3146  		if (!port)
+f8df31d5 Lyude Paul           2018-09-18  3147  			continue;
+f8df31d5 Lyude Paul           2018-09-18  3148
+f8df31d5 Lyude Paul           2018-09-18  3149  		exists = (port->connector == connector ||
+f8df31d5 Lyude Paul           2018-09-18  3150  			  (port->mstb &&
+f8df31d5 Lyude Paul           2018-09-18  3151  			   drm_dp_mst_connector_still_exists(connector, mgr,
+f8df31d5 Lyude Paul           2018-09-18  3152  							     port->mstb)));
+f8df31d5 Lyude Paul           2018-09-18  3153
+f8df31d5 Lyude Paul           2018-09-18  3154  		drm_dp_put_port(port);
+f8df31d5 Lyude Paul           2018-09-18  3155  		if (exists)
+f8df31d5 Lyude Paul           2018-09-18  3156  			break;
+f8df31d5 Lyude Paul           2018-09-18  3157  	}
+f8df31d5 Lyude Paul           2018-09-18  3158
+f8df31d5 Lyude Paul           2018-09-18  3159  	drm_dp_put_mst_branch_device(mstb);
+f8df31d5 Lyude Paul           2018-09-18  3160  	return exists;
+f8df31d5 Lyude Paul           2018-09-18  3161  }
+f8df31d5 Lyude Paul           2018-09-18  3162
+
+---
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
