@@ -1,11 +1,12 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: disable KIQ IB tests on Polaris for now
-Date: Wed, 19 Sep 2018 11:59:08 +0200
-Message-ID: <20180919095908.1163-1-christian.koenig@amd.com>
+From: Alexander Frolov <frolov-4PKdL1x4DgGHXe+LvDLADg@public.gmane.org>
+Subject: Virtualization in vega10 devices
+Date: Wed, 19 Sep 2018 14:45:00 +0300
+Message-ID: <54119e24-2713-9c9e-4378-02186750ca61@nicevt.ru>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,23 +17,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, tom.stdenis-5C7GfCeVMHo@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-S0lRIGludGVycnVwdHMgZG9lc24ndCBzZWVtIHRvIHdvcmsgb24gUG9sYXJpcy4KClNpZ25lZC1v
-ZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIHwgNiArKysrKysKIDEgZmlsZSBj
-aGFuZ2VkLCA2IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
-YwppbmRleCA0NzBkYzgwZjRmZTcuLjVlNmE4YWYzODBhZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjhfMC5jCkBAIC04ODUsNiArODg1LDEyIEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBf
-cmluZ190ZXN0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgbG9uZyB0aW1lb3V0KQogCXVp
-bnQzMl90IHRtcDsKIAlsb25nIHI7CiAKKwkvKiBEaXNhYmxlIHRoZSBLSVEgSUIgdGVzdCBvbiBQ
-b2xhcmlzIGZvciBub3cgYmVjYXVzZSBpbnRlcnJ1cHRzIGRvZXNuJ3QKKwkgKiB3b3JrIGFzIHRo
-ZXkgc2hvdWxkLgorCSAqLworCWlmIChyaW5nID09ICZhZGV2LT5nZngua2lxLnJpbmcgJiYgYWRl
-di0+YXNpY190eXBlID49IENISVBfUE9MQVJJUzEwKQorCQlyZXR1cm4gMDsKKwogCXIgPSBhbWRn
-cHVfZGV2aWNlX3diX2dldChhZGV2LCAmaW5kZXgpOwogCWlmIChyKSB7CiAJCWRldl9lcnIoYWRl
-di0+ZGV2LCAiKCVsZCkgZmFpbGVkIHRvIGFsbG9jYXRlIHdiIHNsb3RcbiIsIHIpOwotLSAKMi4x
-Ny4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+SGkgYWxsIQoKRG9lcyBHSU0gKGdpbS5rbykgd29ya3Mgd2l0aCB2ZWdhMTAgPyBpZiBub3QsIHdo
+YXQgc2hvdWxkIGJlIHVzZWQgdG8gCmVuYWJsZSB2ZiBpbiB2ZWdhMTA/ClRoYW5rIHlvdSEKCkJl
+c3QsCiDCoEFsZXhhbmRlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
