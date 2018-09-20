@@ -1,15 +1,15 @@
-From: James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu:No action when VCN PG state is unchanged
-Date: Thu, 20 Sep 2018 11:27:46 -0400
-Message-ID: <f7433b95-909a-8a6b-6659-2f9d04c108e5@amd.com>
-References: <1536598142-19689-1-git-send-email-James.Zhu@amd.com>
- <1536872144-18347-1-git-send-email-James.Zhu@amd.com>
- <CADnq5_Nb-QPFox25ggaaOVO12P2_BUN7gmVWoJYpim1mYS9r3Q@mail.gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in
+ smu7_fan_ctrl_set_fan_speed_rpm
+Date: Thu, 20 Sep 2018 15:35:13 +0000
+Message-ID: <BN6PR12MB18099E37F094DEC91B897155F7130@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1537427667-23717-1-git-send-email-Rex.Zhu@amd.com>
+ <BN6PR12MB18097706023511533D3B4E6FF7130@BN6PR12MB1809.namprd12.prod.outlook.com>,
+ <BYAPR12MB277505BCC3D7AB18104E3A4CFB130@BYAPR12MB2775.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1585016102=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Nb-QPFox25ggaaOVO12P2_BUN7gmVWoJYpim1mYS9r3Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <BYAPR12MB277505BCC3D7AB18104E3A4CFB130-ZGDeBxoHBPmJeBUhB162ZQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,55 +21,363 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, James Zhu <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: James Zhu <james.zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
 
-CgpPbiAyMDE4LTA5LTIwIDExOjE0IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gT24gVGh1LCBT
-ZXAgMTMsIDIwMTggYXQgNDo1NiBQTSBKYW1lcyBaaHUgPGp6aHVtc0BnbWFpbC5jb20+IHdyb3Rl
-Ogo+PiBXaGVuIFZDTiBQRyBzdGF0ZSBpcyB1bmNoYW5nZWQsIGl0IGlzIHVubmVjZXNzYXJ5IHRv
-IHJlc2V0IHBvd2VyCj4+IGdhdGUgc3RhdGUKPj4KPj4gU2lnbmVkLW9mZi1ieTogSmFtZXMgWmh1
-IDxKYW1lcy5aaHVAYW1kLmNvbT4KPj4gLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3Zjbi5oIHwgIDEgKwo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zj
-bl92MV8wLmMgICB8IDEyICsrKysrKysrKystLQo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMTEgaW5z
-ZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92Y24uaAo+PiBpbmRleCAwYjBiODYzLi5kMjIxOWFiIDEwMDY0NAo+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmgKPj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oCj4+IEBAIC02OSw2ICs2OSw3IEBAIHN0cnVj
-dCBhbWRncHVfdmNuIHsKPj4gICAgICAgICAgc3RydWN0IGFtZGdwdV9yaW5nICAgICAgcmluZ19q
-cGVnOwo+PiAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgICBpcnE7Cj4+ICAgICAgICAg
-IHVuc2lnbmVkICAgICAgICAgICAgICAgIG51bV9lbmNfcmluZ3M7Cj4+ICsgICAgICAgZW51bSBh
-bWRfcG93ZXJnYXRpbmdfc3RhdGUgY3VyX3N0YXRlOwo+IERvZXMgdGhlIGRlZmF1bHQgdmFsdWUg
-KDApIGF0IGluaXQgdGltZSBwcm9wZXJseSByZWZsZWN0IHRoZSBkZWZhdWx0Cj4gcG93ZXJnYXRp
-bmcgc3RhdGU/ICBJZiBzbywKPiBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
-Y2hlckBhbWQuY29tPgpZZXMsIHRoZSBiZWxvdyBjb2RlIHNob3dzIGl0IHdpbGwgYmUgc2V0IHRv
-IDAgZHVyaW5nIGRyaXZlciBsb2FkIHN0YWdlLgoKaW50IGFtZGdwdV9kcml2ZXJfbG9hZF9rbXMo
-c3RydWN0IGRybV9kZXZpY2UgKmRldiwgdW5zaWduZWQgbG9uZyBmbGFncykKLi4uLgogwqDCoMKg
-IGFkZXYgPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2RldmljZSksIEdGUF9LRVJORUwp
-OwoKc3RydWN0IGFtZGdwdV9kZXZpY2UgewouLi4uCiDCoMKgwqAgc3RydWN0IGFtZGdwdV92Y27C
-oMKgwqAgwqDCoMKgIHZjbjsKCkJlc3QgUmVnYXJkcyEKSmFtZXMgemh1Cj4+ICAgfTsKPj4KPj4g
-ICBpbnQgYW1kZ3B1X3Zjbl9zd19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCj4+IGluZGV4IDI2NjRiYjIuLjJjZGUw
-YjQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMK
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+PiBAQCAtMTYz
-MywxMiArMTYzMywyMCBAQCBzdGF0aWMgaW50IHZjbl92MV8wX3NldF9wb3dlcmdhdGluZ19zdGF0
-ZSh2b2lkICpoYW5kbGUsCj4+ICAgICAgICAgICAqIHJldmlzaXQgdGhpcyB3aGVuIHRoZXJlIGlz
-IGEgY2xlYW5lciBsaW5lIGJldHdlZW4KPj4gICAgICAgICAgICogdGhlIHNtYyBhbmQgdGhlIGh3
-IGJsb2Nrcwo+PiAgICAgICAgICAgKi8KPj4gKyAgICAgICBpbnQgcmV0Owo+PiAgICAgICAgICBz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRs
-ZTsKPj4KPj4gKyAgICAgICBpZihzdGF0ZSA9PSBhZGV2LT52Y24uY3VyX3N0YXRlKQo+PiArICAg
-ICAgICAgICAgICAgcmV0dXJuIDA7Cj4+ICsKPj4gICAgICAgICAgaWYgKHN0YXRlID09IEFNRF9Q
-R19TVEFURV9HQVRFKQo+PiAtICAgICAgICAgICAgICAgcmV0dXJuIHZjbl92MV8wX3N0b3AoYWRl
-dik7Cj4+ICsgICAgICAgICAgICAgICByZXQgPSB2Y25fdjFfMF9zdG9wKGFkZXYpOwo+PiAgICAg
-ICAgICBlbHNlCj4+IC0gICAgICAgICAgICAgICByZXR1cm4gdmNuX3YxXzBfc3RhcnQoYWRldik7
-Cj4+ICsgICAgICAgICAgICAgICByZXQgPSB2Y25fdjFfMF9zdGFydChhZGV2KTsKPj4gKwo+PiAr
-ICAgICAgIGlmKCFyZXQpCj4+ICsgICAgICAgICAgICAgICBhZGV2LT52Y24uY3VyX3N0YXRlID0g
-c3RhdGU7Cj4+ICsgICAgICAgcmV0dXJuIHJldDsKPj4gICB9Cj4+Cj4+ICAgc3RhdGljIGNvbnN0
-IHN0cnVjdCBhbWRfaXBfZnVuY3MgdmNuX3YxXzBfaXBfZnVuY3MgPSB7Cj4+IC0tCj4+IDIuNy40
-Cj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+
-IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoK
+--===============1585016102==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18099E37F094DEC91B897155F7130BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18099E37F094DEC91B897155F7130BN6PR12MB1809namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+
+________________________________
+From: Zhu, Rex
+Sent: Thursday, September 20, 2018 10:43 AM
+To: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Quan, Evan
+Subject: RE: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fan_ctrl_=
+set_fan_speed_rpm
+
+
+Hi Alex and Evan,
+
+
+
+For the fan control via sysfs,  I think we need to clarify the use case.
+
+
+
+We support manual/auto fan control mode.
+
+
+
+User can set the mode through pwm_enable. 1 mean manual. 2 mean auto
+
+User can set fan speed via pwm1 and fan1_input.
+
+
+
+For pwm1, user set the percentage value (0% - 100%)
+
+And can get the pwm1=92s range via sysfs: pwm1_min, pwm1_max. the range is =
+[0, 255]. In driver, we transfer to [0% - 100%]
+
+
+
+For fan1_input, user set the fan=92s resolution per minute
+
+No way for user to get the range. On Tonga, the range is (0, 6000]. Not sup=
+port zero-rpm on tonga.
+
+
+
+Do we need to add new sysfs to expose the RPM range or just print the range=
+ in dmesg if user=92s setting is out of range?
+
+
+
+Yes, expose the rpm limits via fan1_min and max.  See:
+
+https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface
+
+for more info on standard sysfs interfaces for hwmon.
+
+
+Another question is:
+
+
+
+Currently, the default fan control mode is auto.
+
+When user change the fan speed via pwm1 or fan1_input, we switch to manual =
+mode automatically.
+
+
+
+So if user want to change back to auto fan control mode, they need to echo =
+2 to pwm_enable.
+
+
+
+I think we should reject any changes unless the user selects manual (1) fir=
+st.
+
+
+Best Regards
+
+Rex
+
+
+
+
+
+From: Deucher, Alexander
+Sent: Thursday, September 20, 2018 9:52 PM
+To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fan_ctrl_=
+set_fan_speed_rpm
+
+
+
+Series is:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deuch=
+er-5C7GfCeVMHo@public.gmane.org>>
+
+________________________________
+
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Z=
+hu-5C7GfCeVMHo@public.gmane.org>>
+Sent: Thursday, September 20, 2018 3:14:25 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Zhu, Rex
+Subject: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fan_ctrl_set_=
+fan_speed_rpm
+
+
+
+The minRPM speed maybe equal to zero. so need to check
+input RPM not equal to 0, otherwise cause divide-by-zero driver crash.
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_thermal.c
+index 44527755..d61a9b4 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
+@@ -260,6 +260,7 @@ int smu7_fan_ctrl_set_fan_speed_rpm(struct pp_hwmgr *hw=
+mgr, uint32_t speed)
+         if (hwmgr->thermal_controller.fanInfo.bNoFan ||
+                         (hwmgr->thermal_controller.fanInfo.
+                         ucTachometerPulsesPerRevolution =3D=3D 0) ||
++                       speed =3D=3D 0 ||
+                         (speed < hwmgr->thermal_controller.fanInfo.ulMinRP=
+M) ||
+                         (speed > hwmgr->thermal_controller.fanInfo.ulMaxRP=
+M))
+                 return 0;
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18099E37F094DEC91B897155F7130BN6PR12MB1809namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Zhu, Rex<br>
+<b>Sent:</b> Thursday, September 20, 2018 10:43 AM<br>
+<b>To:</b> Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Quan, Evan<br=
+>
+<b>Subject:</b> RE: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fa=
+n_ctrl_set_fan_speed_rpm</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dus-ascii">
+<meta name=3D"x_Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<div link=3D"blue" vlink=3D"purple" lang=3D"EN-US">
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal">Hi Alex and Evan,</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">For the fan control via sysfs,&nbsp; I think we ne=
+ed to clarify the use case.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">We support manual/auto fan control mode.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">User can set the mode through pwm_enable. 1 mean m=
+anual. 2 mean auto</p>
+<p class=3D"x_MsoNormal">User can set fan speed via pwm1 and fan1_input.</p=
+>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">For pwm1, user set the percentage value (0% - 100%=
+)</p>
+<p class=3D"x_MsoNormal">And can get the pwm1=92s range via sysfs: pwm1_min=
+, pwm1_max. the range is [0, 255]. In driver, we transfer to [0% - 100%]</p=
+>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">For fan1_input, user set the fan=92s resolution pe=
+r minute</p>
+<p class=3D"x_MsoNormal">No way for user to get the range. On Tonga, the ra=
+nge is (0, 6000]. Not support zero-rpm on tonga.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Do we need to add new sysfs to expose the RPM rang=
+e or just print the range in dmesg if user=92s setting is out of range?</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><span style=3D"color: rgb(75, 165, 36);">Yes, expo=
+se the rpm limits via fan1_min and max.&nbsp; See:</span></p>
+<p class=3D"x_MsoNormal"><a href=3D"https://www.kernel.org/doc/Documentatio=
+n/hwmon/sysfs-interface" class=3D"OWAAutoLink" id=3D"LPlnk700456" previewre=
+moved=3D"true"><span style=3D"color: rgb(75, 165, 36);">https://www.kernel.=
+org/doc/Documentation/hwmon/sysfs-interface</span></a></p>
+<p class=3D"x_MsoNormal"><span style=3D"color: rgb(75, 165, 36);">for more =
+info on standard
+</span><span style=3D"color: rgb(75, 165, 36);">sysfs interfaces for hwmon.=
+</span><br>
+</p>
+<p class=3D"x_MsoNormal"><br>
+</p>
+<p class=3D"x_MsoNormal">Another question is:</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Currently, the default fan control mode is auto.</=
+p>
+<p class=3D"x_MsoNormal">When user change the fan speed via pwm1 or fan1_in=
+put, we switch to manual mode automatically.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">So if user want to change back to auto fan control=
+ mode, they need to echo 2 to pwm_enable.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><span style=3D"color: rgb(75, 165, 36);">I think w=
+e should reject any changes unless the user selects manual (1) first.</span=
+><br>
+</p>
+<p class=3D"x_MsoNormal"><br>
+</p>
+<p class=3D"x_MsoNormal">Best Regards</p>
+<p class=3D"x_MsoNormal">Rex</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
+n 4.0pt">
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b>From:</b> Deucher, Alexander <br>
+<b>Sent:</b> Thursday, September 20, 2018 9:52 PM<br>
+<b>To:</b> Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<=
+br>
+<b>Subject:</b> Re: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fa=
+n_ctrl_set_fan_speed_rpm</p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div id=3D"x_divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt; color:black">Series is:</span></p>
+<p><span style=3D"font-size:12.0pt; color:black">Reviewed-by: Alex Deucher =
+&lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" id=3D"LPlnk816393" class=
+=3D"OWAAutoLink" previewremoved=3D"true">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<=
+/span></p>
+</div>
+<div class=3D"x_MsoNormal" style=3D"text-align:center" align=3D"center">
+<hr width=3D"98%" size=3D"3" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
+an style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lis=
+ts.freedesktop.org" id=3D"LPlnk94004" class=3D"OWAAutoLink" previewremoved=
+=3D"true">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+ on behalf of Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" id=3D"LPlnk312=
+175" class=3D"OWAAutoLink" previewremoved=3D"true">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;<=
+br>
+<b>Sent:</b> Thursday, September 20, 2018 3:14:25 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" id=3D"LPlnk9146=
+09" class=3D"OWAAutoLink" previewremoved=3D"true">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fan_ct=
+rl_set_fan_speed_rpm</span>
+</p>
+<div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"x_MsoNormal">The minRPM speed maybe equal to zero. so need to c=
+heck<br>
+input RPM not equal to 0, otherwise cause divide-by-zero driver crash.<br>
+<br>
+Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" id=3D"LPlnk85=
+7205" class=3D"OWAAutoLink" previewremoved=3D"true">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;=
+<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c | 1 &#43;<br>
+&nbsp;1 file changed, 1 insertion(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+index 44527755..d61a9b4 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+@@ -260,6 &#43;260,7 @@ int smu7_fan_ctrl_set_fan_speed_rpm(struct pp_hwmgr=
+ *hwmgr, uint32_t speed)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;thermal_cont=
+roller.fanInfo.bNoFan ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hwmg=
+r-&gt;thermal_controller.fanInfo.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ucTac=
+hometerPulsesPerRevolution =3D=3D 0) ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed =3D=3D=
+ 0 ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (spee=
+d &lt; hwmgr-&gt;thermal_controller.fanInfo.ulMinRPM) ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (spee=
+d &gt; hwmgr-&gt;thermal_controller.fanInfo.ulMaxRPM))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" id=3D"LPlnk288979" class=
+=3D"OWAAutoLink" previewremoved=3D"true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><=
+br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk994164" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB18099E37F094DEC91B897155F7130BN6PR12MB1809namp_--
+
+--===============1585016102==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1585016102==--
