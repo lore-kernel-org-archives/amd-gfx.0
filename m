@@ -1,13 +1,11 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: amdgpu fails compilation with CONFIG_FORTIFY_SOURCE
-Date: Thu, 20 Sep 2018 10:59:01 -0400
-Message-ID: <a2dd9da6-3f34-8e44-944e-3ccb2797b3dd@amd.com>
-References: <CANFv0+2=yn983rcLizDEiuDSND9rE4BZuGBeHwZ6J39CC_kgkw@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [pull] amdgpu/kfd, radeon, ttm, scheduler drm-next-4.20
+Date: Thu, 20 Sep 2018 10:04:38 -0500
+Message-ID: <20180920150438.12693-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1513756164=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CANFv0+2=yn983rcLizDEiuDSND9rE4BZuGBeHwZ6J39CC_kgkw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,112 +16,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?J=c3=a1n_Kosterec?= <johnypean-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1513756164==
-Content-Type: multipart/alternative;
- boundary="------------0366D9536A6ECBC04C1051A5"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------0366D9536A6ECBC04C1051A5
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-Thanks for the fix.
-
-We've moved to logging functionality more closely aligned with the rest of DRM and dropped logger.c a while back.
-
-Harry
-
-On 2018-09-05 02:43 PM, Ján Kosterec wrote:
-> amdgpu driver fails compilation when compiling with CONFIG_FORTIFY_SOURCE kernel option:
->
-> In function ‘memmove’,
->     inlined from ‘append_entry’ at drivers/gpu/drm/amd/amdgpu/../display/dc/basics/logger.c:258:2,
->     inlined from ‘dm_logger_append_va.part.5’ at drivers/gpu/drm/amd/amdgpu/../display/dc/basics/logger.c:349:4:
-> ./include/linux/string.h:356:4: error: call to ‘__read_overflow2’ declared with attribute error: detected read beyond size of object passed as 2nd parameter
->     __read_overflow2();
->     ^~~~~~~~~~~~~~~~~~
->
-> I have attached a patch which resolves this problem.
-> Regards,
-> Jan
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------0366D9536A6ECBC04C1051A5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    Thanks for the fix.<br>
-    <br>
-    We've moved to logging functionality more closely aligned with the
-    rest of DRM and dropped logger.c a while back.<br>
-    <br>
-    Harry<br>
-    <br>
-    <div class="moz-cite-prefix">On 2018-09-05 02:43 PM, Ján Kosterec
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CANFv0+2=yn983rcLizDEiuDSND9rE4BZuGBeHwZ6J39CC_kgkw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div dir="ltr">
-        <pre class="gmail-bz_comment_text">amdgpu driver fails compilation when compiling with CONFIG_FORTIFY_SOURCE kernel option:
-
-In function ‘memmove’,
-    inlined from ‘append_entry’ at drivers/gpu/drm/amd/amdgpu/../display/dc/basics/logger.c:258:2,
-    inlined from ‘dm_logger_append_va.part.5’ at drivers/gpu/drm/amd/amdgpu/../display/dc/basics/logger.c:349:4:
-./include/linux/string.h:356:4: error: call to ‘__read_overflow2’ declared with attribute error: detected read beyond size of object passed as 2nd parameter
-    __read_overflow2();
-    ^~~~~~~~~~~~~~~~~~
-
-I have attached a patch which resolves this problem.</pre>
-        <div>
-          <div dir="ltr" class="gmail_signature"
-            data-smartmail="gmail_signature">
-            <div>
-              <div>Regards,</div>
-              <div>Jan</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------0366D9536A6ECBC04C1051A5--
-
---===============1513756164==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1513756164==--
+SGkgRGF2ZSwKClRoaXMgaXMgYSBuZXcgcHVsbCBmb3IgZHJtLW5leHQgb24gdG9wIG9mIGxhc3Qg
+d2Vla3Mgd2l0aCB0aGUgZm9sbG93aW5nCmNoYW5nZXM6Ci0gRml4ZWQgNjQgYml0IGRpdmlkZQot
+IEZpeGVkIHZyYW0gdHlwZSBvbiB2ZWdhMjAKLSBNaXNjIHZlZ2EyMCBmaXhlcwotIE1pc2MgREMg
+Zml4ZXMKLSBGaXggR0RTL0dXUy9PQSBkb21haW4gaGFuZGxpbmcKClByZXZpb3VzIGNoYW5nZXMg
+ZnJvbSBsYXN0IHdlZWs6CmFtZGdwdS9rZmQ6Ci0gUGljYXNzbyAobmV3IEFQVSkgc3VwcG9ydAot
+IFJhdmVuMiAobmV3IEFQVSkgc3VwcG9ydAotIFZlZ2EyMCBlbmFibGVtZW50Ci0gQUNQIHBvd2Vy
+Z2F0aW5nIGltcHJvdmVtZW50cwotIEFkZCBBQkdSL1hCR1IgZGlzcGxheSBzdXBwb3J0Ci0gVkNO
+IEpQRUcgZW5naW5lIHN1cHBvcnQKLSBJbml0aWFsIHhHTUkgc3VwcG9ydAotIFVzZSBsb2FkIGJh
+bGFuY2luZyBmb3IgZW5naW5lIHNjaGVkdWxpbmcKLSBMb3RzIG9mIG5ldyBkb2N1bWVudGF0aW9u
+Ci0gUmV3b3JrIGFuZCBjbGVhbiB1cCBpMmMgYW5kIGF1eCBoYW5kbGluZyBpbiBEQwotIEFkZCBE
+UCBZQ2JDciA0OjI6MCBzdXBwb3J0IGluIERDCi0gQWRkIERNQ1UgZmlybXdhcmUgbG9hZGluZyBm
+b3IgUmF2ZW4gKHVzZWQgZm9yIEFCTSBhbmQgUFNSKQotIE5ldyBkZWJ1Z2ZzIGZlYXR1cmVzIGlu
+IERDCi0gTFZEUyBzdXBwb3J0IGluIERDCi0gSW1wbGVtZW50IHdhdmUga2lsbCBmb3IgZ2Z4L2Nv
+bXB1dGUgKGxpZ2h0IHdlaWdodCByZXNldCBmb3Igc2hhZGVycykKLSBVc2UgQUdQIGFwZXJ0dXJl
+IHRvIGF2b2lkIGdhcnQgbWFwcGluZ3Mgd2hlbiBwb3NzaWJsZQotIEdQVVZNIHBlcmZvcm1hbmNl
+IGltcHJvdmVtZW50cwotIEJ1bGsgbW92ZXMgZm9yIG1vcmUgZWZmaWNpZW50IEdQVVZNIExSVSBo
+YW5kbGluZwotIE1lcmdlIGFtZGdwdSBhbmQgYW1ka2ZkIGludG8gb25lIG1vZHVsZQotIEVuYWJs
+ZSBnZnhvZmYgYW5kIHN0dXR0ZXIgbW9kZSBvbiBSYXZlbgotIE1pc2MgY2xlYW51cHMKClNjaGVk
+dWxlcjoKLSBMb2FkIGJhbGFuY2luZyBzdXBwb3J0Ci0gQnVnIGZpeGVzCgp0dG06Ci0gQnVsayBt
+b3ZlIGZ1bmN0aW9uYWxpdHkKLSBCdWcgZml4ZXMKCnJhZGVvbjoKLSBNaXNjIGNsZWFudXBzCgpU
+aGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0IDA5NTdkYzcwOTdhM2Y0NjJmNmNlZGI0
+NWNmOWI5Nzg1Y2MyOWU1YmI6CgogIGRybS9hbWRncHU6IHJldmVydCAic3RvcCB1c2luZyBnYXJ0
+X3N0YXJ0IGFzIG9mZnNldCBmb3IgdGhlIEdUVCBkb21haW4iICgyMDE4LTA5LTE0IDEwOjA1OjQy
+IC0wNTAwKQoKYXJlIGF2YWlsYWJsZSBpbiB0aGUgZ2l0IHJlcG9zaXRvcnkgYXQ6CgogIGdpdDov
+L3Blb3BsZS5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IGRybS1uZXh0LTQuMjAKCmZvciB5
+b3UgdG8gZmV0Y2ggY2hhbmdlcyB1cCB0byA4NDYzMTFhZTY4ZjNjNzgzNjVlYmYzZGZmNTA1Yzk5
+ZTdkYTg2MWNmOgoKICBkcm0vYW1kZ3B1OiBFeGNsdWRlIE1NIGVuZ2luZXMgZm9yIHZlZ2EyMCB2
+aXJ0dWFsIGRldmljZSAoMjAxOC0wOS0xOSAyMjozMjoyOSAtMDUwMCkKCi0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KQS4gV2ls
+Y294ICgxKToKICAgICAgZHJtL2FtZGdwdTogdXNlIHByb2Nlc3NlZCB2YWx1ZXMgZm9yIGNvdW50
+aW5nCgpDaGFybGVuZSBMaXUgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCAzRCBzdGVy
+ZW8gaXNzdWVzLgoKQ2hpYXdlbiBIdWFuZyAoMik6CiAgICAgIGRybS9hbWQvZGlzcGxheTogYWRk
+IGF1eCBpMmMgZXZlbnQgbG9nLgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IGFkZCBxdWVyeSBIUEQg
+aW50ZXJmYWNlLgoKQ2hyaXN0aWFuIEvDtm5pZyAoMTUpOgogICAgICBkcm0vYW1kZ3B1OiBhZGQg
+YW1kZ3B1X3ZtX2VudHJpZXNfbWFzayB2MgogICAgICBkcm0vYW1kZ3B1OiBmaXggcGFyYW1ldGVy
+IGRvY3VtZW50YXRpb24gZm9yIGFtZGdwdV92bV9mcmVlX3B0cwogICAgICBkcm0vYW1kZ3B1OiBh
+ZGQgR0RTLCBHV1MgYW5kIE9BIGRlYnVnZnMgZmlsZXMKICAgICAgZHJtL2FtZGdwdTogc3RvcCBj
+cmFzaGluZyBvbiBHRFMvR1dTL09BIGV2aWN0aW9uCiAgICAgIGRybS9hbWRncHU6IGRvbid0IGFs
+bG9jYXRlIHplcm8gc2l6ZWQga2VybmVsIEJPcwogICAgICBkcm0vYW1kZ3B1OiBkcm9wIHNpemUg
+Y2hlY2sKICAgICAgZHJtL2FtZGdwdTogcmVtb3ZlIGZlbmNlIGZhbGxiYWNrCiAgICAgIGRybS9h
+bWRncHU6IHN0b3AgcGlwZWxpbmluZyBWTSBQRHMvUFRzIG1vdmVzCiAgICAgIGRybS9hbWRncHU6
+IGFsd2F5cyBlbmFibGUgc2hhZG93IEJPcyB2MgogICAgICBkcm0vYW1kZ3B1OiBzaGFkb3cgQk9z
+IGRvbid0IG5lZWQgYW55IGFsaWdubWVudAogICAgICBkcm0vYW1kZ3B1OiBhbHdheXMgcmVjb3Zl
+ciBWUkFNIGR1cmluZyBHUFUgcmVjb3ZlcnkKICAgICAgZHJtL2FtZGdwdTogZml4IHNoYWRvdyBC
+TyByZXN0b3JpbmcKICAgICAgZHJtL2FtZGdwdTogZml4IHVwIEdEUy9HV1MvT0Egc2hpZnRpbmcK
+ICAgICAgZHJtL2FtZGdwdTogaW5pdGlhbGl6ZSBHRFMvR1dTL09BIGRvbWFpbnMgZXZlbiB3aGVu
+IHRoZXkgYXJlIHplcm8gc2l6ZWQKICAgICAgZHJtL2FtZGdwdTogbW92ZSByZXNlcnZpbmcgR0RT
+L0dXUy9PQSBpbnRvIGNvbW1vbiBjb2RlCgpEbXl0cm8gTGFrdHl1c2hraW4gKDEpOgogICAgICBk
+cm0vYW1kL2Rpc3BsYXk6IHN0b3AgdXNpbmcgc3dpdGNoIGZvciBkaWZmZXJlbnQgQ1MgcmV2aXNp
+b25zCgpFdmFuIFF1YW4gKDMpOgogICAgICBkcm0vYW1kL3Bvd2VycGxheTogdXBkYXRlIE9EIGZl
+YXR1cmUganVkZ2VtZW50CiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiB1cGRhdGUgT0QgdG8gdGFr
+ZSB2b2x0YWdlIHZhbHVlIGluc3RlYWQgb2Ygb2Zmc2V0CiAgICAgIGRybS9hbWQvcG93ZXJwbGF5
+OiByZXRyaWV2ZSB0aGUgdXBkYXRlZCBjbG9jayB0YWJsZSBhZnRlciBPRAoKRnJhbmsgTWluICgy
+KToKICAgICAgZHJtL2FtZGdwdTogYWRkIHZlZ2EyMCBzcmlvdiBjYXBhYmlsaXR5IGRldGVjdGlv
+bgogICAgICBkcm0vYW1kZ3B1OiBFeGNsdWRlIE1NIGVuZ2luZXMgZm9yIHZlZ2EyMCB2aXJ0dWFs
+IGRldmljZQoKSGF3a2luZyBaaGFuZyAoMik6CiAgICAgIGRybS9hbWRncHU6IHVwZGF0ZSB2cmFt
+X2luZm8gc3RydWN0dXJlIGluIGF0b21maXJtd2FyZS5oCiAgICAgIGRybS9hbWRncHU6IGZpeCB1
+bmtub3duIHZyYW0gbWVtIHR5cGUgZm9yIHZlZ2EyMAoKTGVvIExpICgyKToKICAgICAgZHJtL2Ft
+ZC9kaXNwbGF5OiBEcm9wIGFtZGdwdV9kaXNwbGF5X21hbmFnZXIuZGFsIG1lbWJlcgogICAgICBk
+cm0vYW1kL2Rpc3BsYXk6IERyb3AgYW1kZ3B1X2RtX3ByZXZfc3RhdGUgc3RydWN0CgpNYXRoaWV1
+IE1hbGF0ZXJyZSAoMSk6CiAgICAgIGRybS9yYWRlb246IGNoYW5nZSBmdW5jdGlvbiBzaWduYXR1
+cmUgdG8gcGFzcyBmdWxsIHJhbmdlCgpUb20gU3QgRGVuaXMgKDEpOgogICAgICBkcm0vYW1kL2Ft
+ZGdwdTogQXZvaWQgZmF1bHQgd2hlbiBhbGxvY2F0aW5nIGFuIGVtcHR5IGJ1ZmZlciBvYmplY3QK
+ClRvbnkgQ2hlbmcgKDEpOgogICAgICBkcm0vYW1kL2Rpc3BsYXk6IGRjIDMuMS42NgoKIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICAgICAgIHwgICAxIC0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tZmlybXdhcmUuYyAgIHwgIDE2ICst
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyAgICAgICAgICAgICB8ICAx
+MiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jICAgICAgICAg
+fCAxMTkgKystLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMg
+ICAgICAgICAgfCAgNTYgLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dk
+cy5oICAgICAgICAgICAgfCAgIDcgLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2dlbS5jICAgICAgICAgICAgfCAgMTIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9rbXMuYyAgICAgICAgICAgIHwgIDE0ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfb2JqZWN0LmMgICAgICAgICB8ICA4MSArKy0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oICAgICAgICAgfCAgIDggKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jICAgICAgICAgICAgIHwgIDEyICstCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oICAgICAgICAgICB8ICAgMSAtCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgICAgICAgICAgICB8IDEyNSArKysrLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgICAgICAgICB8ICAz
+NyArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgICAgICAgICAgICAg
+IHwgIDI4IC0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jICAgICAgICAg
+ICAgICB8ICAzMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgICAg
+ICAgICAgICAgfCAgMzUgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25iaW9fdjdfNC5j
+ICAgICAgICAgICAgIHwgIDE1ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5j
+ICAgICAgICAgICAgICAgICB8ICAgNiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYyAgfCAgIDIgLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2FtZGdwdV9kbS9hbWRncHVfZG0uaCAgfCAgMTEgLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2NhbGNzL2RjZV9jYWxjcy5jICAgfCAgIDYgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9jYWxjcy9kY25fY2FsY3MuYyAgIHwgICA1ICstCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgICAgICB8ICAxOCArCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNvdXJjZS5jICB8ICAgNSArLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjLmggICAgICAgICAgICAgICAgfCAgIDIgKy0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY19saW5rLmggICAgICAgICAgIHwgICAxICsKIC4u
+Li9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tfc291cmNlLmMgIHwgMzY5ICsr
+KysrKysrKysrKy0tLS0tLS0tLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9j
+bG9ja19zb3VyY2UuaCAgfCAgIDkgKwogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNl
+MTEwX3Jlc291cmNlLmMgICAgfCAgIDMgKwogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTIv
+ZGNlMTEyX3Jlc291cmNlLmMgICAgfCAgIDIgKy0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNl
+MTIwL2RjZTEyMF9yZXNvdXJjZS5jICAgIHwgICAyICstCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9kY24xMC9kY24xMF9yZXNvdXJjZS5jICB8ICAgNCArLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RtX2V2ZW50X2xvZy5oICAgICAgfCAgIDUgKy0KIC4uLi9kaXNwbGF5L2Rj
+L2kyY2F1eC9kY2UxMTAvYXV4X2VuZ2luZV9kY2UxMTAuYyAgIHwgICA5ICstCiAuLi4vZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9pMmNhdXgvaTJjX2h3X2VuZ2luZS5jICB8ICAgNCArCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2luY2x1ZGUvYXRvbWZpcm13YXJlLmggICAgICAgICB8ICAyMCArLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMgfCAzMDUgKysr
+KysrKysrKysrLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2Ey
+MF9od21nci5oIHwgICA2ICsKIC4uLi9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIw
+X3BwdGFibGUuaCAgIHwgICAyICsKIC4uLi9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTEx
+X2RyaXZlcl9pZi5oICAgIHwgICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9p
+bmMvdmVnYTIwX3Bwc21jLmggICB8ICAgMyArLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9hdG9t
+Ymlvc19pMmMuYyAgICAgICAgICAgICAgfCAgIDIgKy0KIDQzIGZpbGVzIGNoYW5nZWQsIDczMCBp
+bnNlcnRpb25zKCspLCA2ODggZGVsZXRpb25zKC0pCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
