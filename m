@@ -1,213 +1,171 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 3/6] drm: add support of syncobj timeline point wait v2
-Date: Thu, 20 Sep 2018 13:11:16 +0200
-Message-ID: <d37d76bc-0ae1-5ed8-ed95-65d5b358fd00@gmail.com>
-References: <20180920110353.16114-1-david1.zhou@amd.com>
- <20180920110353.16114-3-david1.zhou@amd.com>
-Reply-To: christian.koenig@amd.com
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in
+ smu7_fan_ctrl_set_fan_speed_rpm
+Date: Thu, 20 Sep 2018 13:52:27 +0000
+Message-ID: <BN6PR12MB18097706023511533D3B4E6FF7130@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1537427667-23717-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20180920110353.16114-3-david1.zhou@amd.com>
+Content-Type: multipart/mixed; boundary="===============2028887584=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1537427667-23717-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Chunming Zhou <david1.zhou@amd.com>, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjAuMDkuMjAxOCB1bSAxMzowMyBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gcG9pbnRzIGFy
-cmF5IGlzIG9uZS10by1vbmUgbWF0Y2ggd2l0aCBzeW5jb2JqcyBhcnJheS4KPiB2MjoKPiBhZGQg
-c2VwZXJhdGUgaW9jdGwgZm9yIHRpbWVsaW5lIHBvaW50IHdhaXQsIG90aGVyd2lzZSBicmVhayB1
-YXBpLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNv
-bT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJuYWwuaCB8ICAyICsKPiAgIGRy
-aXZlcnMvZ3B1L2RybS9kcm1faW9jdGwuYyAgICB8ICAyICsKPiAgIGRyaXZlcnMvZ3B1L2RybS9k
-cm1fc3luY29iai5jICB8IDk5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0KPiAg
-IGluY2x1ZGUvdWFwaS9kcm0vZHJtLmggICAgICAgICB8IDE0ICsrKysrCj4gICA0IGZpbGVzIGNo
-YW5nZWQsIDEwMyBpbnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vZHJtX2ludGVybmFsLmggYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2lu
-dGVybmFsLmgKPiBpbmRleCAwYzRlYjRhOWFiMzEuLjU2NmQ0NGUzYzc4MiAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vZHJtX2ludGVybmFsLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-ZHJtX2ludGVybmFsLmgKPiBAQCAtMTgzLDYgKzE4Myw4IEBAIGludCBkcm1fc3luY29ial9mZF90
-b19oYW5kbGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgIAkJ
-CQkgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7Cj4gICBpbnQgZHJtX3N5bmNvYmpf
-d2FpdF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAgCQkJICAg
-c3RydWN0IGRybV9maWxlICpmaWxlX3ByaXZhdGUpOwo+ICtpbnQgZHJtX3N5bmNvYmpfdGltZWxp
-bmVfd2FpdF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICsJCQkJ
-ICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKTsKPiAgIGludCBkcm1fc3luY29ial9y
-ZXNldF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAgCQkJICAg
-IHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKTsKPiAgIGludCBkcm1fc3luY29ial9zaWdu
-YWxfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0
-bC5jCj4gaW5kZXggNmI0YTYzM2I0MjQwLi5jMDg5MTYxNGY1MTYgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0
-bC5jCj4gQEAgLTY2OSw2ICs2NjksOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9pb2N0bF9k
-ZXNjIGRybV9pb2N0bHNbXSA9IHsKPiAgIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJf
-QUxMT1cpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfV0FJVCwgZHJtX3N5
-bmNvYmpfd2FpdF9pb2N0bCwKPiAgIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxM
-T1cpLAo+ICsJRFJNX0lPQ1RMX0RFRihEUk1fSU9DVExfU1lOQ09CSl9USU1FTElORV9XQUlULCBk
-cm1fc3luY29ial90aW1lbGluZV93YWl0X2lvY3RsLAo+ICsJCSAgICAgIERSTV9VTkxPQ0tFRHxE
-Uk1fUkVOREVSX0FMTE9XKSwKPiAgIAlEUk1fSU9DVExfREVGKERSTV9JT0NUTF9TWU5DT0JKX1JF
-U0VULCBkcm1fc3luY29ial9yZXNldF9pb2N0bCwKPiAgIAkJICAgICAgRFJNX1VOTE9DS0VEfERS
-TV9SRU5ERVJfQUxMT1cpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfU0lH
-TkFMLCBkcm1fc3luY29ial9zaWduYWxfaW9jdGwsCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9kcm1fc3luY29iai5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKPiBpbmRl
-eCA2NzQ3MmJkNzdjODMuLmE0M2RlMGU0NjE2YyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vZHJtX3N5bmNvYmouYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jCj4g
-QEAgLTEyNiwxMyArMTI2LDE0IEBAIHN0YXRpYyB2b2lkIGRybV9zeW5jb2JqX2FkZF9jYWxsYmFj
-a19sb2NrZWQoc3RydWN0IGRybV9zeW5jb2JqICpzeW5jb2JqLAo+ICAgfQo+ICAgCj4gICBzdGF0
-aWMgaW50IGRybV9zeW5jb2JqX2ZlbmNlX2dldF9vcl9hZGRfY2FsbGJhY2soc3RydWN0IGRybV9z
-eW5jb2JqICpzeW5jb2JqLAo+ICsJCQkJCQkgdTY0IHBvaW50LAo+ICAgCQkJCQkJIHN0cnVjdCBk
-bWFfZmVuY2UgKipmZW5jZSwKPiAgIAkJCQkJCSBzdHJ1Y3QgZHJtX3N5bmNvYmpfY2IgKmNiLAo+
-ICAgCQkJCQkJIGRybV9zeW5jb2JqX2Z1bmNfdCBmdW5jKQo+ICAgewo+ICAgCWludCByZXQ7Cj4g
-ICAKPiAtCXJldCA9IGRybV9zeW5jb2JqX3NlYXJjaF9mZW5jZShzeW5jb2JqLCAwLCAwLCBmZW5j
-ZSk7Cj4gKwlyZXQgPSBkcm1fc3luY29ial9zZWFyY2hfZmVuY2Uoc3luY29iaiwgcG9pbnQsIDAs
-IGZlbmNlKTsKPiAgIAlpZiAoIXJldCkKPiAgIAkJcmV0dXJuIDE7Cj4gICAKPiBAQCAtMTQzLDcg
-KzE0NCw3IEBAIHN0YXRpYyBpbnQgZHJtX3N5bmNvYmpfZmVuY2VfZ2V0X29yX2FkZF9jYWxsYmFj
-ayhzdHJ1Y3QgZHJtX3N5bmNvYmogKnN5bmNvYmosCj4gICAJICovCj4gICAJaWYgKCFsaXN0X2Vt
-cHR5KCZzeW5jb2JqLT5zaWduYWxfcHRfbGlzdCkpIHsKPiAgIAkJc3Bpbl91bmxvY2soJnN5bmNv
-YmotPmxvY2spOwo+IC0JCWRybV9zeW5jb2JqX3NlYXJjaF9mZW5jZShzeW5jb2JqLCAwLCAwLCBm
-ZW5jZSk7Cj4gKwkJZHJtX3N5bmNvYmpfc2VhcmNoX2ZlbmNlKHN5bmNvYmosIHBvaW50LCAwLCBm
-ZW5jZSk7Cj4gICAJCWlmICgqZmVuY2UpCj4gICAJCQlyZXR1cm4gMTsKPiAgIAkJc3Bpbl9sb2Nr
-KCZzeW5jb2JqLT5sb2NrKTsKPiBAQCAtMzU4LDcgKzM1OSw5IEBAIHZvaWQgZHJtX3N5bmNvYmpf
-cmVwbGFjZV9mZW5jZShzdHJ1Y3QgZHJtX3N5bmNvYmogKnN5bmNvYmosCj4gICAJCXNwaW5fbG9j
-aygmc3luY29iai0+bG9jayk7Cj4gICAJCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShjdXIsIHRt
-cCwgJnN5bmNvYmotPmNiX2xpc3QsIG5vZGUpIHsKPiAgIAkJCWxpc3RfZGVsX2luaXQoJmN1ci0+
-bm9kZSk7Cj4gKwkJCXNwaW5fdW5sb2NrKCZzeW5jb2JqLT5sb2NrKTsKPiAgIAkJCWN1ci0+ZnVu
-YyhzeW5jb2JqLCBjdXIpOwo+ICsJCQlzcGluX2xvY2soJnN5bmNvYmotPmxvY2spOwoKVGhhdCBs
-b29rcyBmaXNoeSB0byBtZS4gV2h5IGRvIHdlIG5lZWQgdG8gdW5sb2NrIGFuZCB3aG8gZ3VhcmFu
-dGVlcyB0aGF0IAp0bXAgaXMgc3RpbGwgdmFsaWQgd2hlbiB3ZSBncmFiIHRoZSBsb2NrIGFnYWlu
-PwoKQXBhcnQgZnJvbSB0aGF0IGNhbid0IHNlZSBhbnl0aGluZyBvYnZpb3VzIHdyb25nLCBidXQg
-SSBjZXJ0YWlubHkgbmVlZCAKdG8gdGFrZSBhIGNsb3NlciBsb29rLgoKQ2hyaXN0aWFuLgoKPiAg
-IAkJfQo+ICAgCQlzcGluX3VubG9jaygmc3luY29iai0+bG9jayk7Cj4gICAJfQo+IEBAIC04NTYs
-NiArODU5LDcgQEAgc3RydWN0IHN5bmNvYmpfd2FpdF9lbnRyeSB7Cj4gICAJc3RydWN0IGRtYV9m
-ZW5jZSAqZmVuY2U7Cj4gICAJc3RydWN0IGRtYV9mZW5jZV9jYiBmZW5jZV9jYjsKPiAgIAlzdHJ1
-Y3QgZHJtX3N5bmNvYmpfY2Igc3luY29ial9jYjsKPiArCXU2NCAgICBwb2ludDsKPiAgIH07Cj4g
-ICAKPiAgIHN0YXRpYyB2b2lkIHN5bmNvYmpfd2FpdF9mZW5jZV9mdW5jKHN0cnVjdCBkbWFfZmVu
-Y2UgKmZlbmNlLAo+IEBAIC04NzMsMTIgKzg3NywxMyBAQCBzdGF0aWMgdm9pZCBzeW5jb2JqX3dh
-aXRfc3luY29ial9mdW5jKHN0cnVjdCBkcm1fc3luY29iaiAqc3luY29iaiwKPiAgIAlzdHJ1Y3Qg
-c3luY29ial93YWl0X2VudHJ5ICp3YWl0ID0KPiAgIAkJY29udGFpbmVyX29mKGNiLCBzdHJ1Y3Qg
-c3luY29ial93YWl0X2VudHJ5LCBzeW5jb2JqX2NiKTsKPiAgIAo+IC0JZHJtX3N5bmNvYmpfc2Vh
-cmNoX2ZlbmNlKHN5bmNvYmosIDAsIDAsICZ3YWl0LT5mZW5jZSk7Cj4gKwlkcm1fc3luY29ial9z
-ZWFyY2hfZmVuY2Uoc3luY29iaiwgd2FpdC0+cG9pbnQsIDAsICZ3YWl0LT5mZW5jZSk7Cj4gICAK
-PiAgIAl3YWtlX3VwX3Byb2Nlc3Mod2FpdC0+dGFzayk7Cj4gICB9Cj4gICAKPiAgIHN0YXRpYyBz
-aWduZWQgbG9uZyBkcm1fc3luY29ial9hcnJheV93YWl0X3RpbWVvdXQoc3RydWN0IGRybV9zeW5j
-b2JqICoqc3luY29ianMsCj4gKwkJCQkJCSAgdm9pZCBfX3VzZXIgKnVzZXJfcG9pbnRzLAo+ICAg
-CQkJCQkJICB1aW50MzJfdCBjb3VudCwKPiAgIAkJCQkJCSAgdWludDMyX3QgZmxhZ3MsCj4gICAJ
-CQkJCQkgIHNpZ25lZCBsb25nIHRpbWVvdXQsCj4gQEAgLTg4NiwxMyArODkxLDI3IEBAIHN0YXRp
-YyBzaWduZWQgbG9uZyBkcm1fc3luY29ial9hcnJheV93YWl0X3RpbWVvdXQoc3RydWN0IGRybV9z
-eW5jb2JqICoqc3luY29ianMsCj4gICB7Cj4gICAJc3RydWN0IHN5bmNvYmpfd2FpdF9lbnRyeSAq
-ZW50cmllczsKPiAgIAlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZTsKPiArCXVpbnQ2NF90ICpwb2lu
-dHM7Cj4gICAJc2lnbmVkIGxvbmcgcmV0Owo+ICAgCXVpbnQzMl90IHNpZ25hbGVkX2NvdW50LCBp
-Owo+ICAgCj4gLQllbnRyaWVzID0ga2NhbGxvYyhjb3VudCwgc2l6ZW9mKCplbnRyaWVzKSwgR0ZQ
-X0tFUk5FTCk7Cj4gLQlpZiAoIWVudHJpZXMpCj4gKwlwb2ludHMgPSBrbWFsbG9jX2FycmF5KGNv
-dW50LCBzaXplb2YoKnBvaW50cyksIEdGUF9LRVJORUwpOwo+ICsJaWYgKHBvaW50cyA9PSBOVUxM
-KQo+ICAgCQlyZXR1cm4gLUVOT01FTTsKPiAgIAo+ICsJaWYgKCF1c2VyX3BvaW50cykgewo+ICsJ
-CW1lbXNldChwb2ludHMsIDAsIGNvdW50ICogc2l6ZW9mKHVpbnQ2NF90KSk7Cj4gKwl9IGVsc2Ug
-aWYgKGNvcHlfZnJvbV91c2VyKHBvaW50cywgdXNlcl9wb2ludHMsIHNpemVvZih1aW50NjRfdCkg
-KiBjb3VudCkpIHsKPiArCQlyZXQgPSAtRUZBVUxUOwo+ICsJCWdvdG8gZXJyX2ZyZWVfcG9pbnRz
-Owo+ICsJfQo+ICsKPiArCj4gKwllbnRyaWVzID0ga2NhbGxvYyhjb3VudCwgc2l6ZW9mKCplbnRy
-aWVzKSwgR0ZQX0tFUk5FTCk7Cj4gKwlpZiAoIWVudHJpZXMpIHsKPiArCQlyZXQgPSAtRU5PTUVN
-Owo+ICsJCWdvdG8gZXJyX2ZyZWVfcG9pbnRzOwo+ICsJfQo+ICAgCS8qIFdhbGsgdGhlIGxpc3Qg
-b2Ygc3luYyBvYmplY3RzIGFuZCBpbml0aWFsaXplIGVudHJpZXMuICBXZSBkbwo+ICAgCSAqIHRo
-aXMgdXAtZnJvbnQgc28gdGhhdCB3ZSBjYW4gcHJvcGVybHkgcmV0dXJuIC1FSU5WQUwgaWYgdGhl
-cmUgaXMKPiAgIAkgKiBhIHN5bmNvYmogd2l0aCBhIG1pc3NpbmcgZmVuY2UgYW5kIHRoZW4gbmV2
-ZXIgaGF2ZSB0aGUgY2hhbmNlIG9mCj4gQEAgLTkwMSw3ICs5MjAsOCBAQCBzdGF0aWMgc2lnbmVk
-IGxvbmcgZHJtX3N5bmNvYmpfYXJyYXlfd2FpdF90aW1lb3V0KHN0cnVjdCBkcm1fc3luY29iaiAq
-KnN5bmNvYmpzLAo+ICAgCXNpZ25hbGVkX2NvdW50ID0gMDsKPiAgIAlmb3IgKGkgPSAwOyBpIDwg
-Y291bnQ7ICsraSkgewo+ICAgCQllbnRyaWVzW2ldLnRhc2sgPSBjdXJyZW50Owo+IC0JCXJldCA9
-IGRybV9zeW5jb2JqX3NlYXJjaF9mZW5jZShzeW5jb2Jqc1tpXSwgMCwgMCwKPiArCQllbnRyaWVz
-W2ldLnBvaW50ID0gcG9pbnRzW2ldOwo+ICsJCXJldCA9IGRybV9zeW5jb2JqX3NlYXJjaF9mZW5j
-ZShzeW5jb2Jqc1tpXSwgcG9pbnRzW2ldLCAwLAo+ICAgCQkJCQkgICAgICAgJmVudHJpZXNbaV0u
-ZmVuY2UpOwo+ICAgCQlpZiAoIWVudHJpZXNbaV0uZmVuY2UpIHsKPiAgIAkJCWlmIChmbGFncyAm
-IERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJVF9GT1JfU1VCTUlUKSB7Cj4gQEAgLTk0MCw2ICs5
-NjAsNyBAQCBzdGF0aWMgc2lnbmVkIGxvbmcgZHJtX3N5bmNvYmpfYXJyYXlfd2FpdF90aW1lb3V0
-KHN0cnVjdCBkcm1fc3luY29iaiAqKnN5bmNvYmpzLAo+ICAgCWlmIChmbGFncyAmIERSTV9TWU5D
-T0JKX1dBSVRfRkxBR1NfV0FJVF9GT1JfU1VCTUlUKSB7Cj4gICAJCWZvciAoaSA9IDA7IGkgPCBj
-b3VudDsgKytpKSB7Cj4gICAJCQlkcm1fc3luY29ial9mZW5jZV9nZXRfb3JfYWRkX2NhbGxiYWNr
-KHN5bmNvYmpzW2ldLAo+ICsJCQkJCQkJICAgICAgZW50cmllc1tpXS5wb2ludCwKPiAgIAkJCQkJ
-CQkgICAgICAmZW50cmllc1tpXS5mZW5jZSwKPiAgIAkJCQkJCQkgICAgICAmZW50cmllc1tpXS5z
-eW5jb2JqX2NiLAo+ICAgCQkJCQkJCSAgICAgIHN5bmNvYmpfd2FpdF9zeW5jb2JqX2Z1bmMpOwo+
-IEBAIC0xMDAzLDYgKzEwMjQsOSBAQCBzdGF0aWMgc2lnbmVkIGxvbmcgZHJtX3N5bmNvYmpfYXJy
-YXlfd2FpdF90aW1lb3V0KHN0cnVjdCBkcm1fc3luY29iaiAqKnN5bmNvYmpzLAo+ICAgCX0KPiAg
-IAlrZnJlZShlbnRyaWVzKTsKPiAgIAo+ICtlcnJfZnJlZV9wb2ludHM6Cj4gKwlrZnJlZShwb2lu
-dHMpOwo+ICsKPiAgIAlyZXR1cm4gcmV0Owo+ICAgfQo+ICAgCj4gQEAgLTEwNDEsMjAgKzEwNjUs
-MzMgQEAgc3RhdGljIHNpZ25lZCBsb25nIGRybV90aW1lb3V0X2Fic190b19qaWZmaWVzKGludDY0
-X3QgdGltZW91dF9uc2VjKQo+ICAgc3RhdGljIGludCBkcm1fc3luY29ial9hcnJheV93YWl0KHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4gICAJCQkJICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJp
-dmF0ZSwKPiAgIAkJCQkgIHN0cnVjdCBkcm1fc3luY29ial93YWl0ICp3YWl0LAo+IC0JCQkJICBz
-dHJ1Y3QgZHJtX3N5bmNvYmogKipzeW5jb2JqcykKPiArCQkJCSAgc3RydWN0IGRybV9zeW5jb2Jq
-X3RpbWVsaW5lX3dhaXQgKnRpbWVsaW5lX3dhaXQsCj4gKwkJCQkgIHN0cnVjdCBkcm1fc3luY29i
-aiAqKnN5bmNvYmpzLCBib29sIHRpbWVsaW5lKQo+ICAgewo+IC0Jc2lnbmVkIGxvbmcgdGltZW91
-dCA9IGRybV90aW1lb3V0X2Fic190b19qaWZmaWVzKHdhaXQtPnRpbWVvdXRfbnNlYyk7Cj4gKwlz
-aWduZWQgbG9uZyB0aW1lb3V0ID0gMDsKPiAgIAlzaWduZWQgbG9uZyByZXQgPSAwOwo+ICAgCXVp
-bnQzMl90IGZpcnN0ID0gfjA7Cj4gICAKPiAtCXJldCA9IGRybV9zeW5jb2JqX2FycmF5X3dhaXRf
-dGltZW91dChzeW5jb2JqcywKPiAtCQkJCQkgICAgIHdhaXQtPmNvdW50X2hhbmRsZXMsCj4gLQkJ
-CQkJICAgICB3YWl0LT5mbGFncywKPiAtCQkJCQkgICAgIHRpbWVvdXQsICZmaXJzdCk7Cj4gKwlp
-ZiAoIXRpbWVsaW5lKSB7Cj4gKwkJdGltZW91dCA9IGRybV90aW1lb3V0X2Fic190b19qaWZmaWVz
-KHdhaXQtPnRpbWVvdXRfbnNlYyk7Cj4gKwkJcmV0ID0gZHJtX3N5bmNvYmpfYXJyYXlfd2FpdF90
-aW1lb3V0KHN5bmNvYmpzLAo+ICsJCQkJCQkgICAgIE5VTEwsCj4gKwkJCQkJCSAgICAgd2FpdC0+
-Y291bnRfaGFuZGxlcywKPiArCQkJCQkJICAgICB3YWl0LT5mbGFncywKPiArCQkJCQkJICAgICB0
-aW1lb3V0LCAmZmlyc3QpOwo+ICsJCXdhaXQtPmZpcnN0X3NpZ25hbGVkID0gZmlyc3Q7Cj4gKwl9
-IGVsc2Ugewo+ICsJCXRpbWVvdXQgPSBkcm1fdGltZW91dF9hYnNfdG9famlmZmllcyh0aW1lbGlu
-ZV93YWl0LT50aW1lb3V0X25zZWMpOwo+ICsJCXJldCA9IGRybV9zeW5jb2JqX2FycmF5X3dhaXRf
-dGltZW91dChzeW5jb2JqcywKPiArCQkJCQkJICAgICB1NjRfdG9fdXNlcl9wdHIodGltZWxpbmVf
-d2FpdC0+cG9pbnRzKSwKPiArCQkJCQkJICAgICB0aW1lbGluZV93YWl0LT5jb3VudF9oYW5kbGVz
-LAo+ICsJCQkJCQkgICAgIHRpbWVsaW5lX3dhaXQtPmZsYWdzLAo+ICsJCQkJCQkgICAgIHRpbWVv
-dXQsICZmaXJzdCk7Cj4gKwkJdGltZWxpbmVfd2FpdC0+Zmlyc3Rfc2lnbmFsZWQgPSBmaXJzdDsK
-PiArCX0KPiAgIAlpZiAocmV0IDwgMCkKPiAgIAkJcmV0dXJuIHJldDsKPiAgIAo+IC0Jd2FpdC0+
-Zmlyc3Rfc2lnbmFsZWQgPSBmaXJzdDsKPiAgIAlpZiAocmV0ID09IDApCj4gICAJCXJldHVybiAt
-RVRJTUU7Cj4gICAJcmV0dXJuIDA7Cj4gQEAgLTExNDIsMTMgKzExNzksNDcgQEAgZHJtX3N5bmNv
-Ympfd2FpdF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAgCQly
-ZXR1cm4gcmV0Owo+ICAgCj4gICAJcmV0ID0gZHJtX3N5bmNvYmpfYXJyYXlfd2FpdChkZXYsIGZp
-bGVfcHJpdmF0ZSwKPiAtCQkJCSAgICAgYXJncywgc3luY29ianMpOwo+ICsJCQkJICAgICBhcmdz
-LCBOVUxMLCBzeW5jb2JqcywgZmFsc2UpOwo+ICAgCj4gICAJZHJtX3N5bmNvYmpfYXJyYXlfZnJl
-ZShzeW5jb2JqcywgYXJncy0+Y291bnRfaGFuZGxlcyk7Cj4gICAKPiAgIAlyZXR1cm4gcmV0Owo+
-ICAgfQo+ICAgCj4gK2ludAo+ICtkcm1fc3luY29ial90aW1lbGluZV93YWl0X2lvY3RsKHN0cnVj
-dCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gKwkJCQlzdHJ1Y3QgZHJtX2ZpbGUgKmZp
-bGVfcHJpdmF0ZSkKPiArewo+ICsJc3RydWN0IGRybV9zeW5jb2JqX3RpbWVsaW5lX3dhaXQgKmFy
-Z3MgPSBkYXRhOwo+ICsJc3RydWN0IGRybV9zeW5jb2JqICoqc3luY29ianM7Cj4gKwlpbnQgcmV0
-ID0gMDsKPiArCj4gKwlpZiAoIWRybV9jb3JlX2NoZWNrX2ZlYXR1cmUoZGV2LCBEUklWRVJfU1lO
-Q09CSikpCj4gKwkJcmV0dXJuIC1FTk9ERVY7Cj4gKwo+ICsJaWYgKGFyZ3MtPmZsYWdzICYgfihE
-Uk1fU1lOQ09CSl9XQUlUX0ZMQUdTX1dBSVRfQUxMIHwKPiArCQkJICAgIERSTV9TWU5DT0JKX1dB
-SVRfRkxBR1NfV0FJVF9GT1JfU1VCTUlUKSkKPiArCQlyZXR1cm4gLUVJTlZBTDsKPiArCj4gKwlp
-ZiAoYXJncy0+Y291bnRfaGFuZGxlcyA9PSAwKQo+ICsJCXJldHVybiAtRUlOVkFMOwo+ICsKPiAr
-CXJldCA9IGRybV9zeW5jb2JqX2FycmF5X2ZpbmQoZmlsZV9wcml2YXRlLAo+ICsJCQkJICAgICB1
-NjRfdG9fdXNlcl9wdHIoYXJncy0+aGFuZGxlcyksCj4gKwkJCQkgICAgIGFyZ3MtPmNvdW50X2hh
-bmRsZXMsCj4gKwkJCQkgICAgICZzeW5jb2Jqcyk7Cj4gKwlpZiAocmV0IDwgMCkKPiArCQlyZXR1
-cm4gcmV0Owo+ICsKPiArCXJldCA9IGRybV9zeW5jb2JqX2FycmF5X3dhaXQoZGV2LCBmaWxlX3By
-aXZhdGUsCj4gKwkJCQkgICAgIE5VTEwsIGFyZ3MsIHN5bmNvYmpzLCB0cnVlKTsKPiArCj4gKwlk
-cm1fc3luY29ial9hcnJheV9mcmVlKHN5bmNvYmpzLCBhcmdzLT5jb3VudF9oYW5kbGVzKTsKPiAr
-Cj4gKwlyZXR1cm4gcmV0Owo+ICt9Cj4gKwo+ICsKPiAgIGludAo+ICAgZHJtX3N5bmNvYmpfcmVz
-ZXRfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgIAkJCXN0cnVj
-dCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKQo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJt
-L2RybS5oIGIvaW5jbHVkZS91YXBpL2RybS9kcm0uaAo+IGluZGV4IGNlYmRiMjU0MWViNy4uNTAx
-ZTg2ZDgxZjQ3IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vZHJtLmgKPiArKysgYi9p
-bmNsdWRlL3VhcGkvZHJtL2RybS5oCj4gQEAgLTc0OCw2ICs3NDgsMTkgQEAgc3RydWN0IGRybV9z
-eW5jb2JqX3dhaXQgewo+ICAgCV9fdTMyIHBhZDsKPiAgIH07Cj4gICAKPiArc3RydWN0IGRybV9z
-eW5jb2JqX3RpbWVsaW5lX3dhaXQgewo+ICsJX191NjQgaGFuZGxlczsKPiArCS8qIHdhaXQgb24g
-c3BlY2lmaWMgdGltZWxpbmUgcG9pbnQgZm9yIGV2ZXJ5IGhhbmRsZXMqLwo+ICsJX191NjQgcG9p
-bnRzOwo+ICsJLyogYWJzb2x1dGUgdGltZW91dCAqLwo+ICsJX19zNjQgdGltZW91dF9uc2VjOwo+
-ICsJX191MzIgY291bnRfaGFuZGxlczsKPiArCV9fdTMyIGZsYWdzOwo+ICsJX191MzIgZmlyc3Rf
-c2lnbmFsZWQ7IC8qIG9ubHkgdmFsaWQgd2hlbiBub3Qgd2FpdGluZyBhbGwgKi8KPiArCV9fdTMy
-IHBhZDsKPiArfTsKPiArCj4gKwo+ICAgc3RydWN0IGRybV9zeW5jb2JqX2FycmF5IHsKPiAgIAlf
-X3U2NCBoYW5kbGVzOwo+ICAgCV9fdTMyIGNvdW50X2hhbmRsZXM7Cj4gQEAgLTkxMCw2ICs5MjMs
-NyBAQCBleHRlcm4gIkMiIHsKPiAgICNkZWZpbmUgRFJNX0lPQ1RMX01PREVfR0VUX0xFQVNFCURS
-TV9JT1dSKDB4QzgsIHN0cnVjdCBkcm1fbW9kZV9nZXRfbGVhc2UpCj4gICAjZGVmaW5lIERSTV9J
-T0NUTF9NT0RFX1JFVk9LRV9MRUFTRQlEUk1fSU9XUigweEM5LCBzdHJ1Y3QgZHJtX21vZGVfcmV2
-b2tlX2xlYXNlKQo+ICAgCj4gKyNkZWZpbmUgRFJNX0lPQ1RMX1NZTkNPQkpfVElNRUxJTkVfV0FJ
-VAlEUk1fSU9XUigweENBLCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxpbmVfd2FpdCkKPiAgIC8q
-Kgo+ICAgICogRGV2aWNlIHNwZWNpZmljIGlvY3RscyBzaG91bGQgb25seSBiZSBpbiB0aGVpciBy
-ZXNwZWN0aXZlIGhlYWRlcnMKPiAgICAqIFRoZSBkZXZpY2Ugc3BlY2lmaWMgaW9jdGwgcmFuZ2Ug
-aXMgZnJvbSAweDQwIHRvIDB4OWYuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9kcmktZGV2ZWwK
+--===============2028887584==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18097706023511533D3B4E6FF7130BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18097706023511533D3B4E6FF7130BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, September 20, 2018 3:14:25 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fan_ctrl_set_=
+fan_speed_rpm
+
+The minRPM speed maybe equal to zero. so need to check
+input RPM not equal to 0, otherwise cause divide-by-zero driver crash.
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_thermal.c
+index 44527755..d61a9b4 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c
+@@ -260,6 +260,7 @@ int smu7_fan_ctrl_set_fan_speed_rpm(struct pp_hwmgr *hw=
+mgr, uint32_t speed)
+         if (hwmgr->thermal_controller.fanInfo.bNoFan ||
+                         (hwmgr->thermal_controller.fanInfo.
+                         ucTachometerPulsesPerRevolution =3D=3D 0) ||
++                       speed =3D=3D 0 ||
+                         (speed < hwmgr->thermal_controller.fanInfo.ulMinRP=
+M) ||
+                         (speed > hwmgr->thermal_controller.fanInfo.ulMaxRP=
+M))
+                 return 0;
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18097706023511533D3B4E6FF7130BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<b>Sent:</b> Thursday, September 20, 2018 3:14:25 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH 1/3] drm/amd/pp: Avoid divide-by-zero in smu7_fan_ct=
+rl_set_fan_speed_rpm</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The minRPM speed maybe equal to zero. so need to c=
+heck<br>
+input RPM not equal to 0, otherwise cause divide-by-zero driver crash.<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c | 1 &#43;<br>
+&nbsp;1 file changed, 1 insertion(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+index 44527755..d61a9b4 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_thermal.c<br>
+@@ -260,6 &#43;260,7 @@ int smu7_fan_ctrl_set_fan_speed_rpm(struct pp_hwmgr=
+ *hwmgr, uint32_t speed)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;thermal_cont=
+roller.fanInfo.bNoFan ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hwmg=
+r-&gt;thermal_controller.fanInfo.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ucTac=
+hometerPulsesPerRevolution =3D=3D 0) ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed =3D=3D=
+ 0 ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (spee=
+d &lt; hwmgr-&gt;thermal_controller.fanInfo.ulMinRPM) ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (spee=
+d &gt; hwmgr-&gt;thermal_controller.fanInfo.ulMaxRPM))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18097706023511533D3B4E6FF7130BN6PR12MB1809namp_--
+
+--===============2028887584==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2028887584==--
