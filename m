@@ -1,109 +1,58 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: added vega20 LBPW support
-Date: Thu, 20 Sep 2018 10:27:08 +0800
-Message-ID: <20180920022708.19087-1-evan.quan@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] drm/amdgpu: add new polaris pci id
+Date: Wed, 19 Sep 2018 22:05:04 -0500
+Message-ID: <20180920030504.15362-1-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RW5hYmxlIExCUFcgc3VwcG9ydCBvbiB2ZWdhMjAuCgpDaGFuZ2UtSWQ6IEk5ZmUzNDU4MjA3Zjk1
-OGNiNTAwY2EzNGI4ZDgwN2E3Yjk2ZDNkZjc0ClNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZh
-bi5xdWFuQGFtZC5jb20+ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8
-IDEwMyArKysrKysrKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDEwMiBpbnNl
-cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
-LmMKaW5kZXggZjM2OWQ5NjAzNDM1Li5iZTJkNDlhMzE4YzcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ2Z4X3Y5XzAuYwpAQCAtOTA4LDYgKzkwOCw1MCBAQCBzdGF0aWMgdm9pZCBnZnhfdjlf
-MF9nZXRfY3NiX2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAlidWZmZXJbY291
-bnQrK10gPSBjcHVfdG9fbGUzMigwKTsKIH0KIAorc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfaW5pdF9h
-bHdheXNfb25fY3VfbWFzayhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKK3sKKwlzdHJ1Y3Qg
-YW1kZ3B1X2N1X2luZm8gKmN1X2luZm8gPSAmYWRldi0+Z2Z4LmN1X2luZm87CisJdWludDMyX3Qg
-cGdfYWx3YXlzX29uX2N1X251bSA9IDI7CisJdWludDMyX3QgYWx3YXlzX29uX2N1X251bTsKKwl1
-aW50MzJfdCBpLCBqLCBrOworCXVpbnQzMl90IG1hc2ssIGN1X2JpdG1hcCwgY291bnRlcjsKKwor
-CWlmIChhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpCisJCWFsd2F5c19vbl9jdV9udW0gPSA0Owor
-CWVsc2UgaWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0ExMikKKwkJYWx3YXlzX29uX2N1
-X251bSA9IDg7CisJZWxzZQorCQlhbHdheXNfb25fY3VfbnVtID0gMTI7CisKKwltdXRleF9sb2Nr
-KCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7CisJZm9yIChpID0gMDsgaSA8IGFkZXYtPmdmeC5jb25m
-aWcubWF4X3NoYWRlcl9lbmdpbmVzOyBpKyspIHsKKwkJZm9yIChqID0gMDsgaiA8IGFkZXYtPmdm
-eC5jb25maWcubWF4X3NoX3Blcl9zZTsgaisrKSB7CisJCQltYXNrID0gMTsKKwkJCWN1X2JpdG1h
-cCA9IDA7CisJCQljb3VudGVyID0gMDsKKwkJCWdmeF92OV8wX3NlbGVjdF9zZV9zaChhZGV2LCBp
-LCBqLCAweGZmZmZmZmZmKTsKKworCQkJZm9yIChrID0gMDsgayA8IGFkZXYtPmdmeC5jb25maWcu
-bWF4X2N1X3Blcl9zaDsgayArKykgeworCQkJCWlmIChjdV9pbmZvLT5iaXRtYXBbaV1bal0gJiBt
-YXNrKSB7CisJCQkJCWlmIChjb3VudGVyID09IHBnX2Fsd2F5c19vbl9jdV9udW0pCisJCQkJCQlX
-UkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX1BHX0FMV0FZU19PTl9DVV9NQVNLLCBjdV9iaXRtYXAp
-OworCQkJCQlpZiAoY291bnRlciA8IGFsd2F5c19vbl9jdV9udW0pCisJCQkJCQljdV9iaXRtYXAg
-fD0gbWFzazsKKwkJCQkJZWxzZQorCQkJCQkJYnJlYWs7CisJCQkJCWNvdW50ZXIrKzsKKwkJCQl9
-CisJCQkJbWFzayA8PD0gMTsKKwkJCX0KKworCQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19M
-Ql9BTFdBWVNfQUNUSVZFX0NVX01BU0ssIGN1X2JpdG1hcCk7CisJCQljdV9pbmZvLT5hb19jdV9i
-aXRtYXBbaV1bal0gPSBjdV9iaXRtYXA7CisJCX0KKwl9CisJZ2Z4X3Y5XzBfc2VsZWN0X3NlX3No
-KGFkZXYsIDB4ZmZmZmZmZmYsIDB4ZmZmZmZmZmYsIDB4ZmZmZmZmZmYpOworCW11dGV4X3VubG9j
-aygmYWRldi0+Z3JibV9pZHhfbXV0ZXgpOworfQorCiBzdGF0aWMgdm9pZCBnZnhfdjlfMF9pbml0
-X2xicHcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7CiAJdWludDMyX3QgZGF0YTsKQEAg
-LTk1Myw2ICs5OTcsNTUgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfaW5pdF9sYnB3KHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQogCW11dGV4X3VubG9jaygmYWRldi0+Z3JibV9pZHhfbXV0ZXgp
-OwogfQogCitzdGF0aWMgdm9pZCBnZnhfdjlfNF9pbml0X2xicHcoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpCit7CisJdWludDMyX3QgZGF0YTsKKworCS8qIHNldCBtbVJMQ19MQl9USFJfQ09O
-RklHXzEvMi8zLzQgKi8KKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0xCX1RIUl9DT05GSUdf
-MSwgMHgwMDAwMDA3Rik7CisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19MQl9USFJfQ09ORklH
-XzIsIDB4MDMzMzg4RjgpOworCVdSRUczMl9TT0MxNShHQywgMCwgbW1STENfTEJfVEhSX0NPTkZJ
-R18zLCAweDAwMDAwMDc3KTsKKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0xCX1RIUl9DT05G
-SUdfNCwgKDB4MTAgfCAweDI3IDw8IDggfCAweDAyRkEgPDwgMTYpKTsKKworCS8qIHNldCBtbVJM
-Q19MQl9DTlRSX0lOSVQgPSAweDAwMDBfMDAwMCAqLworCVdSRUczMl9TT0MxNShHQywgMCwgbW1S
-TENfTEJfQ05UUl9JTklULCAweDAwMDAwMDAwKTsKKworCS8qIHNldCBtbVJMQ19MQl9DTlRSX01B
-WCA9IDB4MDAwMF8wNTAwICovCisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19MQl9DTlRSX01B
-WCwgMHgwMDAwMDgwMCk7CisKKwltdXRleF9sb2NrKCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7CisJ
-Lyogc2V0IG1tUkxDX0xCX0lOSVRfQ1VfTUFTSyB0aHJ1IGJyb2FkY2FzdCBtb2RlIHRvIGVuYWJs
-ZSBhbGwgU0UvU0gqLworCWdmeF92OV8wX3NlbGVjdF9zZV9zaChhZGV2LCAweGZmZmZmZmZmLCAw
-eGZmZmZmZmZmLCAweGZmZmZmZmZmKTsKKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0xCX0lO
-SVRfQ1VfTUFTSywgMHhmZmZmZmZmZik7CisKKwkvKiBzZXQgbW1STENfTEJfUEFSQU1TID0gMHgw
-MDNGXzEwMDYgKi8KKwlkYXRhID0gUkVHX1NFVF9GSUVMRCgwLCBSTENfTEJfUEFSQU1TLCBGSUZP
-X1NBTVBMRVMsIDB4MDAwMyk7CisJZGF0YSB8PSBSRUdfU0VUX0ZJRUxEKGRhdGEsIFJMQ19MQl9Q
-QVJBTVMsIFBHX0lETEVfU0FNUExFUywgMHgwMDEwKTsKKwlkYXRhIHw9IFJFR19TRVRfRklFTEQo
-ZGF0YSwgUkxDX0xCX1BBUkFNUywgUEdfSURMRV9TQU1QTEVfSU5URVJWQUwsIDB4MDMzRik7CisJ
-V1JFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19MQl9QQVJBTVMsIGRhdGEpOworCisJLyogc2V0IG1t
-UkxDX0dQTV9HRU5FUkFMXzdbMzEtMTZdID0gMHgwMEMwICovCisJZGF0YSA9IFJSRUczMl9TT0Mx
-NShHQywgMCwgbW1STENfR1BNX0dFTkVSQUxfNyk7CisJZGF0YSAmPSAweDAwMDBGRkZGOworCWRh
-dGEgfD0gMHgwMEMwMDAwMDsKKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tUkxDX0dQTV9HRU5FUkFM
-XzcsIGRhdGEpOworCisJLyoKKwkgKiBSTENfTEJfQUxXQVlTX0FDVElWRV9DVV9NQVNLID0gMHhG
-RkYgKDEyIENVcyBBT04pLAorCSAqIHByb2dyYW1tZWQgaW4gZ2Z4X3Y5XzBfaW5pdF9hbHdheXNf
-b25fY3VfbWFzaygpCisJICovCisKKwkvKiBzZXQgUkxDX0xCX0NOVEwgPSAweDgwMDBfMDA5NSwg
-MzEgYml0IGlzIHJlc2VydmVkLAorCSAqIGJ1dCB1c2VkIGZvciBSTENfTEJfQ05UTCBjb25maWd1
-cmF0aW9uICovCisJZGF0YSA9IFJMQ19MQl9DTlRMX19MQl9DTlRfU1BJTV9BQ1RJVkVfTUFTSzsK
-KwlkYXRhIHw9IFJFR19TRVRfRklFTEQoZGF0YSwgUkxDX0xCX0NOVEwsIENVX01BU0tfVVNFRF9P
-RkZfSFlTVCwgMHgwOSk7CisJZGF0YSB8PSBSRUdfU0VUX0ZJRUxEKGRhdGEsIFJMQ19MQl9DTlRM
-LCBSRVNFUlZFRCwgMHg4MDAwMCk7CisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVJMQ19MQl9DTlRM
-LCBkYXRhKTsKKwltdXRleF91bmxvY2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsKKworCWdmeF92
-OV8wX2luaXRfYWx3YXlzX29uX2N1X21hc2soYWRldik7Cit9CisKIHN0YXRpYyB2b2lkIGdmeF92
-OV8wX2VuYWJsZV9sYnB3KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIGVuYWJsZSkK
-IHsKIAlXUkVHMzJfRklFTEQxNShHQywgMCwgUkxDX0xCX0NOVEwsIExPQURfQkFMQU5DRV9FTkFC
-TEUsIGVuYWJsZSA/IDEgOiAwKTsKQEAgLTEwODQsOCArMTE3NywxNSBAQCBzdGF0aWMgaW50IGdm
-eF92OV8wX3JsY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQlydl9pbml0X2Nw
-X2p1bXBfdGFibGUoYWRldik7CiAJCWFtZGdwdV9ib19rdW5tYXAoYWRldi0+Z2Z4LnJsYy5jcF90
-YWJsZV9vYmopOwogCQlhbWRncHVfYm9fdW5yZXNlcnZlKGFkZXYtPmdmeC5ybGMuY3BfdGFibGVf
-b2JqKTsKKwl9CiAKKwlzd2l0Y2ggKGFkZXYtPmFzaWNfdHlwZSkgeworCWNhc2UgQ0hJUF9SQVZF
-TjoKIAkJZ2Z4X3Y5XzBfaW5pdF9sYnB3KGFkZXYpOworCQlicmVhazsKKwljYXNlIENISVBfVkVH
-QTIwOgorCQlnZnhfdjlfNF9pbml0X2xicHcoYWRldik7CisJCWJyZWFrOwogCX0KIAogCXJldHVy
-biAwOwpAQCAtMjQwMyw3ICsyNTAzLDggQEAgc3RhdGljIGludCBnZnhfdjlfMF9ybGNfcmVzdW1l
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJcmV0dXJuIHI7CiAJfQogCi0JaWYgKGFk
-ZXYtPmFzaWNfdHlwZSA9PSBDSElQX1JBVkVOKSB7CisJaWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBD
-SElQX1JBVkVOIHx8CisJICAgIGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0EyMCkgewogCQlp
-ZiAoYW1kZ3B1X2xicHcgIT0gMCkKIAkJCWdmeF92OV8wX2VuYWJsZV9sYnB3KGFkZXYsIHRydWUp
-OwogCQllbHNlCi0tIAoyLjE5LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+Add new pci id.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 14 ++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 +
+ 2 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+index 693ec5ea4950..8816c697b205 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+@@ -367,12 +367,14 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 				break;
+ 			case CHIP_POLARIS10:
+ 				if (type == CGS_UCODE_ID_SMU) {
+-					if ((adev->pdev->device == 0x67df) &&
+-					    ((adev->pdev->revision == 0xe0) ||
+-					     (adev->pdev->revision == 0xe3) ||
+-					     (adev->pdev->revision == 0xe4) ||
+-					     (adev->pdev->revision == 0xe5) ||
+-					     (adev->pdev->revision == 0xe7) ||
++					if (((adev->pdev->device == 0x67df) &&
++					     ((adev->pdev->revision == 0xe0) ||
++					      (adev->pdev->revision == 0xe3) ||
++					      (adev->pdev->revision == 0xe4) ||
++					      (adev->pdev->revision == 0xe5) ||
++					      (adev->pdev->revision == 0xe7) ||
++					      (adev->pdev->revision == 0xef))) ||
++					    ((adev->pdev->device == 0x6fdf) &&
+ 					     (adev->pdev->revision == 0xef))) {
+ 						info->is_kicker = true;
+ 						strcpy(fw_name, "amdgpu/polaris10_k_smc.bin");
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index ff10df4f50d3..b536808f62ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -837,6 +837,7 @@ static const struct pci_device_id pciidlist[] = {
+ 	{0x1002, 0x67CA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+ 	{0x1002, 0x67CC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+ 	{0x1002, 0x67CF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
++	{0x1002, 0x6FDF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+ 	/* Polaris12 */
+ 	{0x1002, 0x6980, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+ 	{0x1002, 0x6981, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-- 
+2.13.6
