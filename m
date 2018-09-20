@@ -1,23 +1,15 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Regression on gfx8 with ring init
-Date: Thu, 20 Sep 2018 16:35:41 -0400
-Message-ID: <4afeb01c-37e9-ca76-8055-5dd15fca98d3@amd.com>
-References: <8cdb037b-7db7-9be9-2c8a-d52c1b058454@amd.com>
- <7f748397-265d-20e9-b081-108b28994c1f@gmail.com>
- <1fdbd1f8-afb8-59e7-c057-10da9b9f6e25@amd.com>
- <80d8437f-0873-8318-01c1-2710adea67e0@amd.com>
- <aa62adca-48cb-fb3c-65ac-7d2e3311d602@amd.com>
- <43e69bf1-8751-dbe8-6b8d-5250c527154c@amd.com>
- <34359f9e-be6f-945c-e084-c109e6584d67@amd.com>
- <12ac8b66-0ce2-0304-d9ad-6e3f2479e04f@amd.com>
- <3ad24617-bdee-846e-b47c-d854c48fce43@amd.com>
- <BN6PR12MB1809B0E02DDA1E8AACFFD1DAF71D0@BN6PR12MB1809.namprd12.prod.outlook.com>
- <4a250398-d2ac-1650-739d-e4a6598f1c48@gmail.com>
- <edd44be9-2ef3-3c39-3342-5d3b4bbfa40a@amd.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/dp_mst: Introduce
+ drm_dp_mst_connector_atomic_check()
+Date: Thu, 20 Sep 2018 19:35:45 -0400
+Message-ID: <fb7f2556-0578-c119-a81d-b2e717a0ef89@amd.com>
+References: <20180918230637.20700-1-lyude@redhat.com>
+ <20180918230637.20700-2-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0408452571=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <edd44be9-2ef3-3c39-3342-5d3b4bbfa40a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180918230637.20700-2-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -29,602 +21,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+To: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0408452571==
-Content-Type: multipart/alternative;
- boundary="------------C2AB4187241844AD511CD0C4"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------C2AB4187241844AD511CD0C4
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-What's the status with this error and the suggested patch to fix it ? It 
-impacts GPU reset on Polaris11.
-
-Do we want to investigate why the original patch breaks it or just 
-disable with the proposed patch ?
-
-
-P.S Suspend resume also stopped working on latest branch - will bisect 
-it later today or tomorrow.
-
-
-Andrey
-
-
-On 09/18/2018 11:00 AM, Christian König wrote:
-> Tom,
->
-> can you try if the following makes it working again?
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c 
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index b6160de70d12..d65f5ba92fc5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -937,6 +937,10 @@ static int gfx_v8_0_ring_test_ib(struct 
-> amdgpu_ring *ring, long timeout)
->         return r;
->  }
->
-> +static int gfx_v8_0_kiq_ring_test_ib(struct amdgpu_ring *ring, long 
-> timeout)
-> +{
-> +       return 0;
-> +}
->
->  static void gfx_v8_0_free_microcode(struct amdgpu_device *adev)
->  {
-> @@ -7174,7 +7178,7 @@ static const struct amdgpu_ring_funcs 
-> gfx_v8_0_ring_funcs_kiq = {
->         .emit_ib = gfx_v8_0_ring_emit_ib_compute,
->         .emit_fence = gfx_v8_0_ring_emit_fence_kiq,
->         .test_ring = gfx_v8_0_ring_test_ring,
-> -       .test_ib = gfx_v8_0_ring_test_ib,
-> +       .test_ib = gfx_v8_0_kiq_ring_test_ib,
->         .insert_nop = amdgpu_ring_insert_nop,
->         .pad_ib = amdgpu_ring_generic_pad_ib,
->         .emit_rreg = gfx_v8_0_ring_emit_rreg,
->
->
-> Thanks,
-> Christian.
->
-> Am 18.09.2018 um 16:41 schrieb Christian König:
->> CRTC and GFX interrupts seem to be working perfectly fine.
->>
->> The problem here looks like only EOP interrupts from the Compute 
->> queue are not correctly handled.
->>
->> Most likely a bug somewhere in gfx_v8_0_eop_irq().
->>
->> Christian.
->>
->> Am 18.09.2018 um 16:36 schrieb Deucher, Alexander:
->>>
->>> FWIW, a number of consumer Raven boards have bad IVRS tables 
->>> (windows doesn't use interrupt remapping so they are sometimes wrong 
->>> and probably not validated.  There are a number of workaround to 
->>> manually override the IVRS tables to make interrupts work.  I think 
->>> specifying pci=noacpi is also a possible workaround.
->>>
->>>
->>> Alex
->>>
->>> ------------------------------------------------------------------------
->>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
->>> Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->>> *Sent:* Tuesday, September 18, 2018 10:31:16 AM
->>> *To:* StDenis, Tom; amd-gfx mailing list; Zhou, David(ChunMing)
->>> *Subject:* Re: Regression on gfx8 with ring init
->>> Well looks like interrupt processing is working perfectly fine.
->>>
->>> But looking at the error message once more I see that this actually
->>> affects ring number 9 and not the GFX ring.
->>>
->>> Can you fix amdgpu_ib_ring_tests() to print ring->name instead of the
->>> number?
->>>
->>> That must be some of the compute rings.
->>>
->>> Thanks,
->>> Christian.
->>>
->>> Am 18.09.2018 um 16:20 schrieb Tom St Denis:
->>> > On 2018-09-18 10:13 a.m., Christian König wrote:
->>> >> Mhm, there is no more failed IB-test in there isn't it?
->>> >
->>> > oh sorry I thought you wanted to test HEAD~ ... Attached is a log 
->>> from
->>> > the tip of drm-next
->>> >
->>> > Tom
->>> >
->>> >>
->>> >> Christian.
->>> >>
->>> >> Am 18.09.2018 um 16:09 schrieb Tom St Denis:
->>> >>> Disabling IOMMU in the BIOS resulted in a correct boot up...
->>> >>>
->>> >>> Here's the log.
->>> >>>
->>> >>> Tom
->>> >>>
->>> >>> On 2018-09-18 9:58 a.m., Tom St Denis wrote:
->>> >>>> Odd I couldn't even boot my system with the dGPU as primary after
->>> >>>> rebuilding the kernel.  It got hung up in the IOMMU driver (loads
->>> >>>> of AMD-Vi IOMMU errors) which I wasn't able to capture because it
->>> >>>> panic'ed before loading the network stack.
->>> >>>>
->>> >>>> Bizarre.
->>> >>>>
->>> >>>> I'll keep trying.
->>> >>>>
->>> >>>> Tom
->>> >>>>
->>> >>>> On 2018-09-18 9:35 a.m., Christian König wrote:
->>> >>>>> Am 18.09.2018 um 15:32 schrieb Tom St Denis:
->>> >>>>>> On 2018-09-18 9:30 a.m., Christian König wrote:
->>> >>>>>>> Great, not sure if that is a good or a bad news.
->>> >>>>>>>
->>> >>>>>>> Anyway going to revert the change for now. Does anybody
->>> >>>>>>> volunteer to figure out why interrupts sometimes doesn't work
->>> >>>>>>> correctly on Raven?
->>> >>>>>>
->>> >>>>>> What does "doesn't work correctly?"  My workstation is a Raven1
->>> >>>>>> (Ryzen 2400G) and other than the TTM bulk move issue has been
->>> >>>>>> perfectly stable (through suspend/resumes too I might add).
->>> >>>>>>
->>> >>>>>> Anything I could test with my devel raven?
->>> >>>>>
->>> >>>>> The problem seems to be that on some boards IH handling doesn't
->>> >>>>> work as it should.
->>> >>>>>
->>> >>>>> Can you try to disable the onboard graphics and try again?
->>> >>>>>
->>> >>>>> If that still doesn't work there is a DRM_DEBUG in
->>> >>>>> amdgpu_ih_process(), make that a DRM_ERROR and send me the
->>> >>>>> resulting dmesg of loading amdgpu (but don't start any UMD).
->>> >>>>>
->>> >>>>> Thanks,
->>> >>>>> Christian.
->>> >>>>>
->>> >>>>>>
->>> >>>>>>
->>> >>>>>> Tom
->>> >>>>>>
->>> >>>>>>>
->>> >>>>>>> Christian.
->>> >>>>>>>
->>> >>>>>>> Am 18.09.2018 um 15:27 schrieb Tom St Denis:
->>> >>>>>>>> This commit:
->>> >>>>>>>>
->>> >>>>>>>> [root@raven linux]# git bisect good
->>> >>>>>>>> 9b0df0937a852d299fbe42a5939c9a8a4cc83c55 is the first bad 
->>> commit
->>> >>>>>>>> commit 9b0df0937a852d299fbe42a5939c9a8a4cc83c55
->>> >>>>>>>> Author: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->>> >>>>>>>> Date:   Tue Sep 18 10:38:09 2018 +0200
->>> >>>>>>>>
->>> >>>>>>>>     drm/amdgpu: remove fence fallback
->>> >>>>>>>>
->>> >>>>>>>>     DC doesn't seem to have a fallback path either.
->>> >>>>>>>>
->>> >>>>>>>>     So when interrupts doesn't work any more we are pretty 
->>> much
->>> >>>>>>>> busted no
->>> >>>>>>>>     matter what.
->>> >>>>>>>>
->>> >>>>>>>>     Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->>> >>>>>>>>     Reviewed-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
->>> >>>>>>>>
->>> >>>>>>>> Results in this:
->>> >>>>>>>>
->>> >>>>>>>> [   24.334025] [drm] Initialized amdgpu 3.27.0 20150101 for
->>> >>>>>>>> 0000:07:00.0 on minor 1
->>> >>>>>>>> [   24.335674] modprobe (3895) used greatest stack depth: 
->>> 12600
->>> >>>>>>>> bytes left
->>> >>>>>>>> [   26.272358] [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR*
->>> >>>>>>>> amdgpu: IB test timed out.
->>> >>>>>>>> [   26.272460] [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR*
->>> >>>>>>>> amdgpu: failed testing IB on ring 9 (-110).
->>> >>>>>>>> [   26.407885] [drm:process_one_work] *ERROR* ib ring test
->>> >>>>>>>> failed (-110).
->>> >>>>>>>> [   28.506708] fuse init (API version 7.27)
->>> >>>>>>>>
->>> >>>>>>>> On init with my polaris/raven1 system.
->>> >>>>>>>>
->>> >>>>>>>> Cheers,
->>> >>>>>>>> Tom
->>> >>>>>>>> _______________________________________________
->>> >>>>>>>> amd-gfx mailing list
->>> >>>>>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> >>>>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>> >>>>>>>
->>> >>>>>>
->>> >>>>>
->>> >>>>
->>> >>>
->>> >>
->>> >
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------C2AB4187241844AD511CD0C4
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>What's the status with this error and the suggested patch to fix
-      it ? It impacts GPU reset on Polaris11.</p>
-    <p>Do we want to investigate why the original patch breaks it or
-      just disable with the proposed patch ?</p>
-    <p><br>
-    </p>
-    <p>P.S Suspend resume also stopped working on latest branch - will
-      bisect it later today or tomorrow.</p>
-    <p><br>
-    </p>
-    <p>Andrey<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 09/18/2018 11:00 AM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:edd44be9-2ef3-3c39-3342-5d3b4bbfa40a-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <div class="moz-cite-prefix">Tom,<br>
-        <br>
-        can you try if the following makes it working again?<br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-        b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-        index b6160de70d12..d65f5ba92fc5 100644<br>
-        --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-        @@ -937,6 +937,10 @@ static int gfx_v8_0_ring_test_ib(struct
-        amdgpu_ring *ring, long timeout)<br>
-                return r;<br>
-         }<br>
-         <br>
-        +static int gfx_v8_0_kiq_ring_test_ib(struct amdgpu_ring *ring,
-        long timeout)<br>
-        +{<br>
-        +       return 0;<br>
-        +}<br>
-         <br>
-         static void gfx_v8_0_free_microcode(struct amdgpu_device *adev)<br>
-         {<br>
-        @@ -7174,7 +7178,7 @@ static const struct amdgpu_ring_funcs
-        gfx_v8_0_ring_funcs_kiq = {<br>
-                .emit_ib = gfx_v8_0_ring_emit_ib_compute,<br>
-                .emit_fence = gfx_v8_0_ring_emit_fence_kiq,<br>
-                .test_ring = gfx_v8_0_ring_test_ring,<br>
-        -       .test_ib = gfx_v8_0_ring_test_ib,<br>
-        +       .test_ib = gfx_v8_0_kiq_ring_test_ib,<br>
-                .insert_nop = amdgpu_ring_insert_nop,<br>
-                .pad_ib = amdgpu_ring_generic_pad_ib,<br>
-                .emit_rreg = gfx_v8_0_ring_emit_rreg,<br>
-        <br>
-        <br>
-        Thanks,<br>
-        Christian.<br>
-        <br>
-        Am 18.09.2018 um 16:41 schrieb Christian König:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:4a250398-d2ac-1650-739d-e4a6598f1c48-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
-        <div class="moz-cite-prefix">CRTC and GFX interrupts seem to be
-          working perfectly fine.<br>
-          <br>
-          The problem here looks like only EOP interrupts from the
-          Compute queue are not correctly handled.<br>
-          <br>
-          Most likely a bug somewhere in gfx_v8_0_eop_irq().<br>
-          <br>
-          Christian.<br>
-          <br>
-          Am 18.09.2018 um 16:36 schrieb Deucher, Alexander:<br>
-        </div>
-        <blockquote type="cite"
-cite="mid:BN6PR12MB1809B0E02DDA1E8AACFFD1DAF71D0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-          <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-          <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-            dir="ltr">
-            <p style="margin-top:0;margin-bottom:0">FWIW, a number of
-              consumer Raven boards have bad IVRS tables (windows
-              doesn't use interrupt remapping so they are sometimes
-              wrong and probably not validated.  There are a number of
-              workaround to manually override the IVRS tables to make
-              interrupts work.  I think specifying pci=noacpi is also a
-              possible workaround.</p>
-            <p style="margin-top:0;margin-bottom:0"><br>
-            </p>
-            <p style="margin-top:0;margin-bottom:0">Alex<br>
-            </p>
-          </div>
-          <hr style="display:inline-block;width:98%" tabindex="-1">
-          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-              face="Calibri, sans-serif" color="#000000"><b>From:</b>
-              amd-gfx <a class="moz-txt-link-rfc2396E"
-                href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                moz-do-not-send="true">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>
-              on behalf of Christian König <a
-                class="moz-txt-link-rfc2396E"
-                href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org"
-                moz-do-not-send="true">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              <b>Sent:</b> Tuesday, September 18, 2018 10:31:16 AM<br>
-              <b>To:</b> StDenis, Tom; amd-gfx mailing list; Zhou,
-              David(ChunMing)<br>
-              <b>Subject:</b> Re: Regression on gfx8 with ring init</font>
-            <div> </div>
-          </div>
-          <div class="BodyFragment"><font size="2"><span
-                style="font-size:11pt;">
-                <div class="PlainText">Well looks like interrupt
-                  processing is working perfectly fine.<br>
-                  <br>
-                  But looking at the error message once more I see that
-                  this actually <br>
-                  affects ring number 9 and not the GFX ring.<br>
-                  <br>
-                  Can you fix amdgpu_ib_ring_tests() to print
-                  ring-&gt;name instead of the <br>
-                  number?<br>
-                  <br>
-                  That must be some of the compute rings.<br>
-                  <br>
-                  Thanks,<br>
-                  Christian.<br>
-                  <br>
-                  Am 18.09.2018 um 16:20 schrieb Tom St Denis:<br>
-                  &gt; On 2018-09-18 10:13 a.m., Christian König wrote:<br>
-                  &gt;&gt; Mhm, there is no more failed IB-test in there
-                  isn't it?<br>
-                  &gt;<br>
-                  &gt; oh sorry I thought you wanted to test HEAD~ ...
-                  Attached is a log from <br>
-                  &gt; the tip of drm-next<br>
-                  &gt;<br>
-                  &gt; Tom<br>
-                  &gt;<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; Christian.<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; Am 18.09.2018 um 16:09 schrieb Tom St Denis:<br>
-                  &gt;&gt;&gt; Disabling IOMMU in the BIOS resulted in a
-                  correct boot up...<br>
-                  &gt;&gt;&gt;<br>
-                  &gt;&gt;&gt; Here's the log.<br>
-                  &gt;&gt;&gt;<br>
-                  &gt;&gt;&gt; Tom<br>
-                  &gt;&gt;&gt;<br>
-                  &gt;&gt;&gt; On 2018-09-18 9:58 a.m., Tom St Denis
-                  wrote:<br>
-                  &gt;&gt;&gt;&gt; Odd I couldn't even boot my system
-                  with the dGPU as primary after <br>
-                  &gt;&gt;&gt;&gt; rebuilding the kernel.  It got hung
-                  up in the IOMMU driver (loads <br>
-                  &gt;&gt;&gt;&gt; of AMD-Vi IOMMU errors) which I
-                  wasn't able to capture because it <br>
-                  &gt;&gt;&gt;&gt; panic'ed before loading the network
-                  stack.<br>
-                  &gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt; Bizarre.<br>
-                  &gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt; I'll keep trying.<br>
-                  &gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt; Tom<br>
-                  &gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt; On 2018-09-18 9:35 a.m., Christian
-                  König wrote:<br>
-                  &gt;&gt;&gt;&gt;&gt; Am 18.09.2018 um 15:32 schrieb
-                  Tom St Denis:<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt; On 2018-09-18 9:30 a.m.,
-                  Christian König wrote:<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt; Great, not sure if that
-                  is a good or a bad news.<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt; Anyway going to revert
-                  the change for now. Does anybody <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt; volunteer to figure out
-                  why interrupts sometimes doesn't work <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt; correctly on Raven?<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt; What does "doesn't work
-                  correctly?"  My workstation is a Raven1 <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt; (Ryzen 2400G) and other than
-                  the TTM bulk move issue has been <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt; perfectly stable (through
-                  suspend/resumes too I might add).<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt; Anything I could test with my
-                  devel raven?<br>
-                  &gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt; The problem seems to be that on
-                  some boards IH handling doesn't <br>
-                  &gt;&gt;&gt;&gt;&gt; work as it should.<br>
-                  &gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt; Can you try to disable the
-                  onboard graphics and try again?<br>
-                  &gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt; If that still doesn't work there
-                  is a DRM_DEBUG in <br>
-                  &gt;&gt;&gt;&gt;&gt; amdgpu_ih_process(), make that a
-                  DRM_ERROR and send me the <br>
-                  &gt;&gt;&gt;&gt;&gt; resulting dmesg of loading amdgpu
-                  (but don't start any UMD).<br>
-                  &gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt; Thanks,<br>
-                  &gt;&gt;&gt;&gt;&gt; Christian.<br>
-                  &gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt; Tom<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt; Christian.<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt; Am 18.09.2018 um 15:27
-                  schrieb Tom St Denis:<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; This commit:<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; [root@raven linux]#
-                  git bisect good<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
-                  9b0df0937a852d299fbe42a5939c9a8a4cc83c55 is the first
-                  bad commit<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; commit
-                  9b0df0937a852d299fbe42a5939c9a8a4cc83c55<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Author: Christian
-                  König <a class="moz-txt-link-rfc2396E"
-                    href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org"
-                    moz-do-not-send="true">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Date:   Tue Sep 18
-                  10:38:09 2018 +0200<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     drm/amdgpu:
-                  remove fence fallback<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     DC doesn't seem
-                  to have a fallback path either.<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     So when
-                  interrupts doesn't work any more we are pretty much <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; busted no<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     matter what.<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     Signed-off-by:
-                  Christian König <a class="moz-txt-link-rfc2396E"
-                    href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org"
-                    moz-do-not-send="true">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;     Reviewed-by:
-                  Chunming Zhou <a class="moz-txt-link-rfc2396E"
-                    href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org"
-                    moz-do-not-send="true">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Results in this:<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; [   24.334025] [drm]
-                  Initialized amdgpu 3.27.0 20150101 for <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 0000:07:00.0 on minor
-                  1<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; [   24.335674]
-                  modprobe (3895) used greatest stack depth: 12600 <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; bytes left<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; [   26.272358]
-                  [drm:gfx_v8_0_ring_test_ib [amdgpu]] *ERROR* <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; amdgpu: IB test timed
-                  out.<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; [   26.272460]
-                  [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; amdgpu: failed
-                  testing IB on ring 9 (-110).<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; [   26.407885]
-                  [drm:process_one_work] *ERROR* ib ring test <br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; failed (-110).<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; [   28.506708] fuse
-                  init (API version 7.27)<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; On init with my
-                  polaris/raven1 system.<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Cheers,<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Tom<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
-                  _______________________________________________<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; amd-gfx mailing list<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; <a
-                    class="moz-txt-link-abbreviated"
-                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; <a
-                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                    moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;&gt;<br>
-                  &gt;&gt;&gt;<br>
-                  &gt;&gt;<br>
-                  &gt;<br>
-                  <br>
-                  _______________________________________________<br>
-                  amd-gfx mailing list<br>
-                  <a class="moz-txt-link-abbreviated"
-                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                  <a
-                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                    moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-                </div>
-              </span></font></div>
-          <br>
-          <fieldset class="mimeAttachmentHeader"></fieldset>
-          <br>
-          <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-        </blockquote>
-        <br>
-      </blockquote>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------C2AB4187241844AD511CD0C4--
-
---===============0408452571==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0408452571==--
+T24gMjAxOC0wOS0xOCAwNzowNiBQTSwgTHl1ZGUgUGF1bCB3cm90ZToKPiBDdXJyZW50bHkgdGhl
+IHdheSB0aGF0IHdlIHByZXZlbnQgdXNlcnNwYWNlIGZyb20gcGVyZm9ybWluZyBuZXcgbW9kZXNl
+dHMKPiBvbiBNU1QgY29ubmVjdG9ycyB0aGF0IGhhdmUganVzdCBiZWVuIGRlc3Ryb3llZCBpcyBy
+YXRoZXIgYnJva2VuLgo+IFRoZXJlJ3Mgbm90aGluZyBpbiB0aGUgYWN0dWFsIERSTSBEUCBNU1Qg
+dG9wb2xvZ3kgaGVscGVycyB0aGF0IGNoZWNrcwo+IHdoZXRoZXIgb3Igbm90IGEgY29ubmVjdG9y
+IHN0aWxsIGV4aXN0cywgaW5zdGVhZCBlYWNoIERSTSBkcml2ZXIgZG9lcwo+IHRoaXMgb24gaXQn
+cyBvd24sIHVzdWFsbHkgYnkgcmV0dXJuaW5nIE5VTEwgZnJvbSB0aGUgYmVzdF9lbmNvZGVyCj4g
+Y2FsbGJhY2sgd2hpY2ggaW4gdHVybiwgY2F1c2VzIHRoZSBhdG9taWMgY29tbWl0IHRvIGZhaWwu
+Cj4gCj4gSG93ZXZlciwgdGhpcyBpcyB3cm9uZyBpbiBhIHJhdGhlciBzdWJ0bGUgd2F5LiBJZiAt
+PmJlc3RfZW5jb2RlcigpCj4gcmV0dXJucyBOVUxMLCB0aGlzIG1ha2VzIEFMTCBtb2Rlc2V0cyBp
+bnZvbHZpbmcgdGhlIGNvbm5lY3RvciBmYWlsLiBUaGlzCj4gaW5jbHVkZXMgbW9kZXNldHMgZnJv
+bSB1c2Vyc3BhY2UgdGhhdCB3b3VsZCBzaHV0IG9mZiB0aGUgQ1JUQ3MgYmVpbmcKPiB1c2VkIGJ5
+IHRoZSBjb25uZWN0b3IuIFNpbmNlIHRoaXMgcmVzdWx0cyBpbiBibG9ja2luZyBhbnkgY2hhbmdl
+cyB0byBhCj4gY29ubmVjdG9yJ3MgRFBNUyBwcm9wLCBpdCBoYXMgdGhlIHNpZGVhZmZlY3Qgb2Yg
+cHJldmVudGluZyBsZWdhY3kKPiBtb2Rlc2V0dGluZyB1c2VycyBmcm9tIGV2ZXIgZGlzYWJsaW5n
+IGEgQ1JUQyB0aGF0IHdhcyBwcmV2aW91c2x5IGVuYWJsZWQKPiBmb3IgdXNlIGluIGFuIE1TVCB0
+b3BvbG9neS4gQW4gZXhhbXBsZSBvZiB0aGlzLCB3aGVyZSBYIHRyaWVzIHRvCj4gY2hhbmdlIHRo
+ZSBEUE1TIHByb3BlcnR5IG9mIGFuIE1TVCBjb25uZWN0b3IgdGhhdCB3YXMganVzdCBkZXRhY2hl
+ZCBmcm9tCj4gdGhlIHN5c3RlbToKPiAKPiBbIDI5MDguMzIwMTMxXSBbZHJtOmRybV9oZWxwZXJf
+cHJvYmVfc2luZ2xlX2Nvbm5lY3Rvcl9tb2RlcyBbZHJtX2ttc19oZWxwZXJdXSBbQ09OTkVDVE9S
+OjgyOkRQLTZdCj4gWyAyOTA4LjMyMDE0OF0gW2RybTpkcm1faGVscGVyX3Byb2JlX3NpbmdsZV9j
+b25uZWN0b3JfbW9kZXMgW2RybV9rbXNfaGVscGVyXV0gW0NPTk5FQ1RPUjo4MjpEUC02XSBzdGF0
+dXMgdXBkYXRlZCBmcm9tIGNvbm5lY3RlZCB0byBkaXNjb25uZWN0ZWQKPiBbIDI5MDguMzIwMTY2
+XSBbZHJtOmRybV9oZWxwZXJfcHJvYmVfc2luZ2xlX2Nvbm5lY3Rvcl9tb2RlcyBbZHJtX2ttc19o
+ZWxwZXJdXSBbQ09OTkVDVE9SOjgyOkRQLTZdIGRpc2Nvbm5lY3RlZAo+IFsgMjkwOC4zMjAxOTNd
+IFtkcm06ZHJtX21vZGVfb2JqZWN0X3B1dC5wYXJ0LjIgW2RybV1dIE9CSiBJRDogMTExICgxKQo+
+IFsgMjkwOC4zMjAyMzBdIFtkcm06ZHJtX3N5c2ZzX2hvdHBsdWdfZXZlbnQgW2RybV1dIGdlbmVy
+YXRpbmcgaG90cGx1ZyBldmVudAo+IC4uLgo+IFsgMjkwOC42Mzg1MzldIFtkcm06ZHJtX2lvY3Rs
+IFtkcm1dXSBwaWQ9MTI5MjgsIGRldj0weGUyMDEsIGF1dGg9MSwgRFJNX0lPQ1RMX01PREVfU0VU
+UFJPUEVSVFkKPiBbIDI5MDguNjM4NTQ2XSBbZHJtOmRybV9hdG9taWNfc3RhdGVfaW5pdCBbZHJt
+XV0gQWxsb2NhdGVkIGF0b21pYyBzdGF0ZSAwMDAwMDAwMDcxNTViYTQ5Cj4gWyAyOTA4LjYzODU1
+M10gW2RybTpkcm1fbW9kZV9vYmplY3RfZ2V0IFtkcm1dXSBPQkogSUQ6IDExNCAoMSkKPiBbIDI5
+MDguNjM4NTYwXSBbZHJtOmRybV9tb2RlX29iamVjdF9nZXQgW2RybV1dIE9CSiBJRDogMTA4ICgx
+KQo+IFsgMjkwOC42Mzg1NjhdIFtkcm06ZHJtX2F0b21pY19nZXRfY3J0Y19zdGF0ZSBbZHJtXV0g
+QWRkZWQgW0NSVEM6NDE6aGVhZC0wXSAwMDAwMDAwMDk3YTYzOTZlIHN0YXRlIHRvIDAwMDAwMDAw
+NzE1NWJhNDkKPiBbIDI5MDguNjM4NTc1XSBbZHJtOmRybV9hdG9taWNfYWRkX2FmZmVjdGVkX2Nv
+bm5lY3RvcnMgW2RybV1dIEFkZGluZyBhbGwgY3VycmVudCBjb25uZWN0b3JzIGZvciBbQ1JUQzo0
+MTpoZWFkLTBdIHRvIDAwMDAwMDAwNzE1NWJhNDkKPiBbIDI5MDguNjM4NTgyXSBbZHJtOmRybV9t
+b2RlX29iamVjdF9nZXQgW2RybV1dIE9CSiBJRDogODIgKDMpCj4gWyAyOTA4LjYzODU4OV0gW2Ry
+bTpkcm1fbW9kZV9vYmplY3RfZ2V0IFtkcm1dXSBPQkogSUQ6IDgyICg0KQo+IFsgMjkwOC42Mzg1
+OTZdIFtkcm06ZHJtX2F0b21pY19nZXRfY29ubmVjdG9yX3N0YXRlIFtkcm1dXSBBZGRlZCBbQ09O
+TkVDVE9SOjgyOkRQLTZdIDAwMDAwMDAwODc0MjcxNDQgc3RhdGUgdG8gMDAwMDAwMDA3MTU1YmE0
+OQo+IFsgMjkwOC42Mzg2MDNdIFtkcm06ZHJtX2F0b21pY19jaGVja19vbmx5IFtkcm1dXSBjaGVj
+a2luZyAwMDAwMDAwMDcxNTViYTQ5Cj4gWyAyOTA4LjYzODYwOV0gW2RybTpkcm1fYXRvbWljX2hl
+bHBlcl9jaGVja19tb2Rlc2V0IFtkcm1fa21zX2hlbHBlcl1dIFtDUlRDOjQxOmhlYWQtMF0gYWN0
+aXZlIGNoYW5nZWQKPiBbIDI5MDguNjM4NjEzXSBbZHJtOmRybV9hdG9taWNfaGVscGVyX2NoZWNr
+X21vZGVzZXQgW2RybV9rbXNfaGVscGVyXV0gVXBkYXRpbmcgcm91dGluZyBmb3IgW0NPTk5FQ1RP
+Ujo4MjpEUC02XQo+IFsgMjkwOC42Mzg2MTZdIFtkcm06ZHJtX2F0b21pY19oZWxwZXJfY2hlY2tf
+bW9kZXNldCBbZHJtX2ttc19oZWxwZXJdXSBObyBzdWl0YWJsZSBlbmNvZGVyIGZvdW5kIGZvciBb
+Q09OTkVDVE9SOjgyOkRQLTZdCj4gWyAyOTA4LjYzODYyM10gW2RybTpkcm1fYXRvbWljX2NoZWNr
+X29ubHkgW2RybV1dIGF0b21pYyBkcml2ZXIgY2hlY2sgZm9yIDAwMDAwMDAwNzE1NWJhNDkgZmFp
+bGVkOiAtMjIKPiBbIDI5MDguNjM4NjMwXSBbZHJtOmRybV9hdG9taWNfc3RhdGVfZGVmYXVsdF9j
+bGVhciBbZHJtXV0gQ2xlYXJpbmcgYXRvbWljIHN0YXRlIDAwMDAwMDAwNzE1NWJhNDkKPiBbIDI5
+MDguNjM4NjM3XSBbZHJtOmRybV9tb2RlX29iamVjdF9wdXQucGFydC4yIFtkcm1dXSBPQkogSUQ6
+IDgyICg0KQo+IFsgMjkwOC42Mzg2NDNdIFtkcm06ZHJtX21vZGVfb2JqZWN0X3B1dC5wYXJ0LjIg
+W2RybV1dIE9CSiBJRDogODIgKDMpCj4gWyAyOTA4LjYzODY1MF0gW2RybTpkcm1fbW9kZV9vYmpl
+Y3RfcHV0LnBhcnQuMiBbZHJtXV0gT0JKIElEOiAxMTQgKDIpCj4gWyAyOTA4LjYzODY1Nl0gW2Ry
+bTpkcm1fbW9kZV9vYmplY3RfcHV0LnBhcnQuMiBbZHJtXV0gT0JKIElEOiAxMDggKDIpCj4gWyAy
+OTA4LjYzODY2M10gW2RybTpfX2RybV9hdG9taWNfc3RhdGVfZnJlZSBbZHJtXV0gRnJlZWluZyBh
+dG9taWMgc3RhdGUgMDAwMDAwMDA3MTU1YmE0OQo+IFsgMjkwOC42Mzg2NjldIFtkcm06ZHJtX21v
+ZGVfb2JqZWN0X3B1dC5wYXJ0LjIgW2RybV1dIE9CSiBJRDogODIgKDIpCj4gWyAyOTA4LjYzODY3
+Nl0gW2RybTpkcm1faW9jdGwgW2RybV1dIHBpZD0xMjkyOCwgcmV0ID0gLTIyCj4gCj4gV2hpbGUg
+dGhpcyBkb2Vzbid0IHVzdWFsbHkgcmVzdWx0IGluIGFueSBlcnJvcnMgdGhhdCB3b3VsZCBiZSBv
+YnZpb3VzIHRvCj4gdGhlIHVzZXIsIGl0IGRvZXMgcmVzdWx0IGluIHVzIGxlYXZpbmcgZGlzcGxh
+eSByZXNvdXJjZXMgb24uIFRoaXMgaW4KPiB0dXJuIGxlYWRzIHRvIHVud2FudGVkIHNpZGVhZmZl
+Y3RzIGxpa2UgaW5hY3RpdmUgR1BVcyBiZWluZyBsZWZ0IG9uCj4gKHVzdWFsbHkgZnJvbSB0aGUg
+cmVzdWx0aW5nIGxlYWtlZCBydW50aW1lIFBNIHJlZikuCj4gCj4gU28sIHByb3ZpZGUgYW4gZWFz
+aWVyIHdheSBvZiBkb2luZyB0aGlzIHRoYXQgZG9lc24ndCByZXF1aXJlIGJyZWFraW5nCj4gLT5i
+ZXN0X2VuY29kZXIoKTogYWRkIGEgY29tbW9uIGRybV9kcF9tc3RfY29ubmVjdG9yX2F0b21pY19j
+aGVjaygpCj4gZnVuY3Rpb24gdGhhdCBEUk0gZHJpdmVycyBjYW4gY2FsbCBpbiBvcmRlciB0byBo
+YXZlIENSVEMgZW5hYmxpbmcKPiBjb21taXRzIGZhaWwgYXV0b21hdGljYWxseSBpZiB0aGUgTVNU
+IHBvcnQgZHJpdmluZyB0aGUgY29ubmVjdG9yIG5vCj4gbG9uZ2VyIGV4aXN0cy4gV2UnbGwgYWxz
+byBiZSBhYmxlIHRvIGV4cGFuZCB1cG9uIHRoaXMgbGF0ZXIgYXMgd2VsbCBvbmNlCj4gd2UgYWRk
+IE1TVCBmYWxsYmFjayByZXRyYWluaW5nIHN1cHBvcnQuCj4gCj4gU2lnbmVkLW9mZi1ieTogTHl1
+ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwoK
+VGhpcyBkb2VzIHNlZW0gbGlrZSBhIHNhbmVyIHdheSB0byBoYW5kbGUgdGhlIGNhc2Ugd2hlbiB0
+aGUgTVNUIGNvbm5lY3RvciBpcyBnb25lLiBBcyB0aGlzIGRvZXNuJ3QgY3VycmVudGx5IHNlZW0g
+dG8gYWZmZWN0IGFtZGdwdSBkaXJlY3RseSBhbmQgSSB0aGVyZWZvcmUgbWlnaHQgbWlzcyBzb21l
+dGhpbmcgSSdsbCBsZWF2ZSB0aGUgUkIgdG8gc29tZW9uZSBlbHNlLCBidXQgeW91IGhhdmUgbXkK
+QWNrZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoKSGFycnkK
+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMgfCA3NiArKysr
+KysrKysrKysrKysrKysrKysrKysrKysKPiAgaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIu
+aCAgICAgICB8ICAzICsrCj4gIDIgZmlsZXMgY2hhbmdlZCwgNzkgaW5zZXJ0aW9ucygrKQo+IAo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jIGIvZHJp
+dmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+IGluZGV4IDc3ODA1NjdhYTY2OS4u
+MDE2MmQ0YmYyNTQ5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3Rv
+cG9sb2d5LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4g
+QEAgLTMxMjksNiArMzEyOSw4MiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9wcml2YXRlX3N0
+YXRlX2Z1bmNzIG1zdF9zdGF0ZV9mdW5jcyA9IHsKPiAgCS5hdG9taWNfZGVzdHJveV9zdGF0ZSA9
+IGRybV9kcF9tc3RfZGVzdHJveV9zdGF0ZSwKPiAgfTsKPiAgCj4gK3N0YXRpYyBib29sCj4gK2Ry
+bV9kcF9tc3RfY29ubmVjdG9yX3N0aWxsX2V4aXN0cyhzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29u
+bmVjdG9yLAo+ICsJCQkJICBzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKPiAr
+CQkJCSAgc3RydWN0IGRybV9kcF9tc3RfYnJhbmNoICptc3RiKQo+ICt7Cj4gKwlzdHJ1Y3QgZHJt
+X2RwX21zdF9wb3J0ICpwb3J0Owo+ICsJYm9vbCBleGlzdHMgPSBmYWxzZTsKPiArCj4gKwltc3Ri
+ID0gZHJtX2RwX2dldF92YWxpZGF0ZWRfbXN0Yl9yZWYobWdyLCBtc3RiKTsKPiArCWlmICghbXN0
+YikKPiArCQlyZXR1cm4gZmFsc2U7Cj4gKwo+ICsJbGlzdF9mb3JfZWFjaF9lbnRyeShwb3J0LCAm
+bXN0Yi0+cG9ydHMsIG5leHQpIHsKPiArCQlwb3J0ID0gZHJtX2RwX2dldF92YWxpZGF0ZWRfcG9y
+dF9yZWYobWdyLCBwb3J0KTsKPiArCQlpZiAoIXBvcnQpCj4gKwkJCWNvbnRpbnVlOwo+ICsKPiAr
+CQlleGlzdHMgPSAocG9ydC0+Y29ubmVjdG9yID09IGNvbm5lY3RvciB8fAo+ICsJCQkgIChwb3J0
+LT5tc3RiICYmCj4gKwkJCSAgIGRybV9kcF9tc3RfY29ubmVjdG9yX3N0aWxsX2V4aXN0cyhjb25u
+ZWN0b3IsIG1nciwKPiArCQkJCQkJCSAgICAgcG9ydC0+bXN0YikpKTsKPiArCj4gKwkJZHJtX2Rw
+X3B1dF9wb3J0KHBvcnQpOwo+ICsJCWlmIChleGlzdHMpCj4gKwkJCWJyZWFrOwo+ICsJfQo+ICsK
+PiArCWRybV9kcF9wdXRfbXN0X2JyYW5jaF9kZXZpY2UobXN0Yik7Cj4gKwlyZXR1cm4gZXhpc3Rz
+Owo+ICt9Cj4gKwo+ICsvKioKPiArICogZHJtX2RwX21zdF9jb25uZWN0b3JfYXRvbWljX2NoZWNr
+IC0gSGVscGVyIGZvciB2YWxpZGF0aW5nIGEgbmV3IGF0b21pYwo+ICsgKiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBzdGF0ZSBvbiBhbiBNU1QgY29ubmVjdG9yCj4gKyAqIEBj
+b25uZWN0b3I6IGRybSBjb25uZWN0b3IKPiArICogQGNvbm5lY3Rvcl9zdGF0ZTogdGhlIG5ldyBh
+dG9taWMgc3RhdGUgb2YgQGNvbm5lY3Rvcgo+ICsgKiBAbWdyOiB0aGUgTVNUIHRvcG9sb2d5IG1n
+ciBmb3IgQGNvbm5lY3Rvcgo+ICsgKgo+ICsgKiBUaGlzIGZ1bmN0aW9uIHBlcmZvcm1zIHZhcmlv
+dXMgYXRvbWljIGNoZWNrcyB0aGF0IGFwcGx5IHRvIGFsbCBkcml2ZXJzCj4gKyAqIHVzaW5nIHRo
+ZSBEUk0gRFAgTVNUIGhlbHBlcnMuIFRoaXMgc2hvdWxkIGJlIGNhbGxlZCBieSBhbGwgZHJpdmVy
+cyBhdCB0aGUKPiArICogc3RhcnQgb2YgdGhlIGF0b21pY19jaGVjayBmdW5jdGlvbiBmb3IgdGhl
+aXIgTVNUIGNvbm5lY3RvcnMuCj4gKyAqCj4gKyAqIFJldHVybiAwIGZvciBzdWNjZXNzLCBvciBu
+ZWdhdGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuCj4gKyAqLwo+ICtpbnQKPiArZHJtX2RwX21z
+dF9jb25uZWN0b3JfYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3Is
+Cj4gKwkJCQkgIHN0cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpjb25uZWN0b3Jfc3RhdGUsCj4g
+KwkJCQkgIHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyKQo+ICt7Cj4gKwlzdHJ1
+Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUgPSBjb25uZWN0b3Jfc3RhdGUtPnN0YXRlOwo+ICsJ
+c3RydWN0IGRybV9jcnRjICpjcnRjID0gY29ubmVjdG9yX3N0YXRlLT5jcnRjOwo+ICsJc3RydWN0
+IGRybV9jcnRjX3N0YXRlICpuZXdfY3J0Y19zdGF0ZTsKPiArCj4gKwlpZiAoIWNydGMpCj4gKwkJ
+cmV0dXJuIDA7Cj4gKwo+ICsJbmV3X2NydGNfc3RhdGUgPSBkcm1fYXRvbWljX2dldF9uZXdfY3J0
+Y19zdGF0ZShzdGF0ZSwgY3J0Yyk7Cj4gKwlpZiAoIW5ld19jcnRjX3N0YXRlKQo+ICsJCXJldHVy
+biAwOwo+ICsKPiArCWlmICghZHJtX2F0b21pY19jcnRjX25lZWRzX21vZGVzZXQobmV3X2NydGNf
+c3RhdGUpIHx8Cj4gKwkgICAgIW5ld19jcnRjX3N0YXRlLT5hY3RpdmUpCj4gKwkJcmV0dXJuIDA7
+Cj4gKwo+ICsJLyogTWFrZSBzdXJlIHRoYXQgdGhlIHBvcnQgZm9yIHRoaXMgTVNUIGNvbm5lY3Rv
+ciBzdGlsbCBleGlzdHMgKi8KPiArCWlmICghZHJtX2RwX21zdF9jb25uZWN0b3Jfc3RpbGxfZXhp
+c3RzKGNvbm5lY3RvciwgbWdyLAo+ICsJCQkJCSAgICAgICBtZ3ItPm1zdF9wcmltYXJ5KSkgewo+
+ICsJCURSTV9ERUJVR19BVE9NSUMoIltDT05ORUNUT1I6JWQ6JXNdIGhhcyBkaXNhcHBlYXJlZCBm
+cm9tIHRoZSBNU1QgdG9wb2xvZ3lcbiIsCj4gKwkJCQkgY29ubmVjdG9yLT5iYXNlLmlkLCBjb25u
+ZWN0b3ItPm5hbWUpOwo+ICsJCXJldHVybiAtRUlOVkFMOwo+ICsJfQo+ICsKPiArCXJldHVybiAw
+Owo+ICt9Cj4gK0VYUE9SVF9TWU1CT0woZHJtX2RwX21zdF9jb25uZWN0b3JfYXRvbWljX2NoZWNr
+KTsKPiArCj4gIC8qKgo+ICAgKiBkcm1fYXRvbWljX2dldF9tc3RfdG9wb2xvZ3lfc3RhdGU6IGdl
+dCBNU1QgdG9wb2xvZ3kgc3RhdGUKPiAgICoKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJt
+X2RwX21zdF9oZWxwZXIuaCBiL2luY2x1ZGUvZHJtL2RybV9kcF9tc3RfaGVscGVyLmgKPiBpbmRl
+eCA3Zjc4ZDI2YTA3NjYuLjhlMzNjMmM4NWQxZSAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9k
+cm1fZHBfbXN0X2hlbHBlci5oCj4gKysrIGIvaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIu
+aAo+IEBAIC02MjUsNiArNjI1LDkgQEAgdm9pZCBkcm1fZHBfbXN0X3RvcG9sb2d5X21ncl9zdXNw
+ZW5kKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyKTsKPiAgaW50IGRybV9kcF9t
+c3RfdG9wb2xvZ3lfbWdyX3Jlc3VtZShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1n
+cik7Cj4gIHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X3N0YXRlICpkcm1fYXRvbWljX2dldF9t
+c3RfdG9wb2xvZ3lfc3RhdGUoc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlLAo+ICAJCQkJ
+CQkJCSAgICBzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncik7Cj4gK2ludCBkcm1f
+ZHBfbXN0X2Nvbm5lY3Rvcl9hdG9taWNfY2hlY2soc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5l
+Y3RvciwKPiArCQkJCSAgICAgIHN0cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpjb25uZWN0b3Jf
+c3RhdGUsCj4gKwkJCQkgICAgICBzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncik7
+Cj4gIGludCBkcm1fZHBfYXRvbWljX2ZpbmRfdmNwaV9zbG90cyhzdHJ1Y3QgZHJtX2F0b21pY19z
+dGF0ZSAqc3RhdGUsCj4gIAkJCQkgIHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdy
+LAo+ICAJCQkJICBzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0ICpwb3J0LCBpbnQgcGJuKTsKPiAKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
