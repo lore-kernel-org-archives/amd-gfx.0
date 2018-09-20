@@ -1,53 +1,56 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v2 6/6] drm/amdgpu/dm/mst: Use drm_dp_mst_connector_atomic_check()
-Date: Wed, 19 Sep 2018 19:09:03 -0400
-Message-ID: <20180919230913.16894-7-lyude@redhat.com>
-References: <20180919230913.16894-1-lyude@redhat.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20180919230913.16894-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, Roman Li <Roman.Li@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, Shirish S <shirish.s@amd.com>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: correct the hwmon interface ppt limit
+ output
+Date: Thu, 20 Sep 2018 10:26:07 +0800
+Message-ID: <20180920022607.18997-1-evan.quan@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-Hook this into amdgpu's atomic check for their connectors so they never
-get modesets on no-longer-present MST connectors. We'll also expand on
-this later once we add DP MST fallback retraining support.
-
-As well, turns out that the only atomic DRM driver without the
-->best_encoder() bug is amdgpu. Congrats AMD!
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 9a300732ba37..d011a39f17b2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -294,10 +294,22 @@ static struct drm_encoder *dm_mst_best_encoder(struct drm_connector *connector)
- 	return &amdgpu_dm_connector->mst_encoder->base;
- }
- 
-+static int
-+amdgpu_dm_mst_connector_atomic_check(struct drm_connector *connector,
-+				     struct drm_connector_state *new_cstate)
-+{
-+	struct amdgpu_dm_connector *aconnector =
-+		to_amdgpu_dm_connector(connector);
-+
-+	return drm_dp_mst_connector_atomic_check(connector, new_cstate,
-+						 &aconnector->mst_mgr);
-+}
-+
- static const struct drm_connector_helper_funcs dm_dp_mst_connector_helper_funcs = {
- 	.get_modes = dm_dp_mst_get_modes,
- 	.mode_valid = amdgpu_dm_connector_mode_valid,
- 	.best_encoder = dm_mst_best_encoder,
-+	.atomic_check = amdgpu_dm_mst_connector_atomic_check,
- };
- 
- static void amdgpu_dm_encoder_destroy(struct drm_encoder *encoder)
--- 
-2.17.1
+VGhlIHBwdCBsaW1pdCByZWFkIG91dCBieSBod21vbiBpbnRlcmZhY2UgaXMgYWx3YXlzIDAuCkNv
+cnJlY3QgdGhpcyBod21vbiBpbnRlcmZhY2Ugb3V0cHV0LgoKQ2hhbmdlLUlkOiBJMmM1MzdjYWNk
+YTA0MDM0MjAxMTIwYjljMWVhODJkMTEzZDk5Y2VkOApTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4g
+PGV2YW4ucXVhbkBhbWQuY29tPgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
+ZGV1Y2hlckBhbWQuY29tPgpSZXZpZXdlZC1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgot
+LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jICB8
+IDggKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXUxMV9kcml2
+ZXJfaWYuaCB8IDYgKysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKykKCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdt
+Z3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5j
+CmluZGV4IGQ0NWNiZmU4ZTE4NC4uYWM2NGNhNDIzYjczIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwpAQCAtMTU0NCw2ICsxNTQ0
+LDE0IEBAIHN0YXRpYyBpbnQgdmVnYTIwX2VuYWJsZV9kcG1fdGFza3Moc3RydWN0IHBwX2h3bWdy
+ICpod21ncikKIAkJCSJbRW5hYmxlRFBNVGFza3NdIEZhaWxlZCB0byBwb3B1bGF0ZSB1bWRwc3Rh
+dGUgY2xvY2tzISIsCiAJCQlyZXR1cm4gcmVzdWx0KTsKIAorCXJlc3VsdCA9IHNtdW1fc2VuZF9t
+c2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLCBQUFNNQ19NU0dfR2V0UHB0TGltaXQsCisJ
+CQlQT1dFUl9TT1VSQ0VfQUMgPDwgMTYpOworCVBQX0FTU0VSVF9XSVRIX0NPREUoIXJlc3VsdCwK
+KwkJCSJbR2V0UHB0TGltaXRdIGdldCBkZWZhdWx0IFBQVCBsaW1pdCBmYWlsZWQhIiwKKwkJCXJl
+dHVybiByZXN1bHQpOworCXZlZ2EyMF9yZWFkX2FyZ19mcm9tX3NtYyhod21nciwgJmh3bWdyLT5k
+ZWZhdWx0X3Bvd2VyX2xpbWl0KTsKKwlod21nci0+cG93ZXJfbGltaXQgPSBod21nci0+ZGVmYXVs
+dF9wb3dlcl9saW1pdDsKKwogCXJldHVybiAwOwogfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211MTFfZHJpdmVyX2lmLmggYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9pbmMvc211MTFfZHJpdmVyX2lmLmgKaW5kZXggNzExOTFkZWI0ZTc2
+Li5hMDAyMDIxNDE0ZmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2luYy9zbXUxMV9kcml2ZXJfaWYuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9pbmMvc211MTFfZHJpdmVyX2lmLmgKQEAgLTI2OCw2ICsyNjgsMTIgQEAgdHlwZWRlZiBlbnVt
+IHsKICAgUFBDTEtfQ09VTlQsCiB9IFBQQ0xLX2U7CiAKK3R5cGVkZWYgZW51bSB7CisgIFBPV0VS
+X1NPVVJDRV9BQywKKyAgUE9XRVJfU09VUkNFX0RDLAorICBQT1dFUl9TT1VSQ0VfQ09VTlQsCit9
+IFBPV0VSX1NPVVJDRV9lOworCiB0eXBlZGVmIGVudW0gewogICBWT0xUQUdFX01PREVfQVZGUyA9
+IDAsCiAgIFZPTFRBR0VfTU9ERV9BVkZTX1NTLAotLSAKMi4xOS4wCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
