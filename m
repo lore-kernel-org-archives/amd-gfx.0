@@ -1,146 +1,47 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2] drm/amdgpu:No action when VCN PG state is unchanged
-Date: Fri, 21 Sep 2018 14:05:16 +0000
-Message-ID: <BYAPR12MB277586C5BB434DF23EC5B3C0FB120@BYAPR12MB2775.namprd12.prod.outlook.com>
-References: <1536598142-19689-1-git-send-email-James.Zhu@amd.com>
- <1536872144-18347-1-git-send-email-James.Zhu@amd.com>
- <CADnq5_Nb-QPFox25ggaaOVO12P2_BUN7gmVWoJYpim1mYS9r3Q@mail.gmail.com>
- <f7433b95-909a-8a6b-6659-2f9d04c108e5@amd.com>
- <CADnq5_P2T2R+AyDquvEDWPN09iE1ZUMfMxoMSiJtuUWTKxkarQ@mail.gmail.com>
- <f0c2d5b3-a273-406f-16c8-8e419ae26dd8@amd.com>
- <1d95a0b3-3b35-53f3-4ef3-0a0bbcc0456e@gmail.com>
- <89710c26-e399-5f1f-d27c-d038bf275a23@amd.com>
- <1faf5014-572d-0260-0f50-ab63aedc274e@amd.com>
+From: zhong jiang <zhongjiang@huawei.com>
+Subject: Re: [PATCH] drm: amd: Use kmemdup instead of duplicating its function
+Date: Fri, 21 Sep 2018 22:13:09 +0800
+Message-ID: <5BA4FC75.7040902@huawei.com>
+References: <1537284932-62278-1-git-send-email-zhongjiang@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1faf5014-572d-0260-0f50-ab63aedc274e-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: James Zhu <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1537284932-62278-1-git-send-email-zhongjiang@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, alexander.deucher@amd.com
+Cc: oded.gabbay@gmail.com, christian.koenig@amd.com, David1.Zhou@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SW4gbXkgdW5kZXJzdGFuZCwgd2hlbiAgZHBnIG1vZGUgZW5hYmxlZCwgIHdlIGRvbid0IG5lZWQg
-dG8gcG93ZXIgdXAvZG93biBWQ04gdmlhIFNNVSBhbmQgDQpBbHNvIGRvbid0IG5lZWQgdG8gc2V0
-IHZjbiBwb3dlciBnYXRlL3VuZ2F0ZSBzdGF0ZS4NCg0KSnVzdCBuZWVkIHRvIGVuYWJsZSB0aGUg
-ZHBnIG1vZGUuDQoNCklmIG5vdCB0cnVlLCBwbGVhc2UgY29ycmVjdCBtZS4NCg0KQmVzdCBSZWdh
-cmRzDQpSZXgNCg0KDQoNCg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206
-IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFs
-ZiBPZg0KPiBDaHJpc3RpYW4gS8O2bmlnDQo+IFNlbnQ6IEZyaWRheSwgU2VwdGVtYmVyIDIxLCAy
-MDE4IDg6NTMgUE0NCj4gVG86IFpodSwgSmFtZXMgPEphbWVzLlpodUBhbWQuY29tPjsgQWxleCBE
-ZXVjaGVyDQo+IDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+IENjOiBKYW1lcyBaaHUgPGp6aHVt
-c0BnbWFpbC5jb20+OyBaaHUsIEphbWVzIDxKYW1lcy5aaHVAYW1kLmNvbT47DQo+IGFtZC1nZngg
-bGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQo+IFN1YmplY3Q6IFJlOiBbUEFU
-Q0ggdjJdIGRybS9hbWRncHU6Tm8gYWN0aW9uIHdoZW4gVkNOIFBHIHN0YXRlIGlzDQo+IHVuY2hh
-bmdlZA0KPiANCj4gQW0gMjEuMDkuMjAxOCB1bSAxNDoyOCBzY2hyaWViIEphbWVzIFpodToNCj4g
-Pg0KPiA+DQo+ID4gT24gMjAxOC0wOS0yMCAwMTo1NCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90
-ZToNCj4gPj4gQW0gMjAuMDkuMjAxOCB1bSAxODoyNCBzY2hyaWViIEphbWVzIFpodToNCj4gPj4+
-DQo+ID4+Pg0KPiA+Pj4gT24gMjAxOC0wOS0yMCAxMTo0OSBBTSwgQWxleCBEZXVjaGVyIHdyb3Rl
-Og0KPiA+Pj4+IE9uIFRodSwgU2VwIDIwLCAyMDE4IGF0IDExOjI3IEFNIEphbWVzIFpodSA8amFt
-ZXN6QGFtZC5jb20+DQo+IHdyb3RlOg0KPiA+Pj4+Pg0KPiA+Pj4+Pg0KPiA+Pj4+PiBPbiAyMDE4
-LTA5LTIwIDExOjE0IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+ID4+Pj4+PiBPbiBUaHUsIFNl
-cCAxMywgMjAxOCBhdCA0OjU2IFBNIEphbWVzIFpodSA8anpodW1zQGdtYWlsLmNvbT4NCj4gd3Jv
-dGU6DQo+ID4+Pj4+Pj4gV2hlbiBWQ04gUEcgc3RhdGUgaXMgdW5jaGFuZ2VkLCBpdCBpcyB1bm5l
-Y2Vzc2FyeSB0byByZXNldCBwb3dlcg0KPiA+Pj4+Pj4+IGdhdGUgc3RhdGUNCj4gPj4+Pj4+Pg0K
-PiA+Pj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEphbWVzIFpodSA8SmFtZXMuWmh1QGFtZC5jb20+DQo+
-ID4+Pj4+Pj4gLS0tDQo+ID4+Pj4+Pj4gwqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdmNuLmggfMKgIDEgKw0KPiA+Pj4+Pj4+IMKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvdmNuX3YxXzAuY8KgwqAgfCAxMiArKysrKysrKysrLS0NCj4gPj4+Pj4+PiDCoMKgIDIg
-ZmlsZXMgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4gPj4+Pj4+
-Pg0KPiA+Pj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdmNuLmgNCj4gPj4+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-Y24uaA0KPiA+Pj4+Pj4+IGluZGV4IDBiMGI4NjMuLmQyMjE5YWIgMTAwNjQ0DQo+ID4+Pj4+Pj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oDQo+ID4+Pj4+Pj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oDQo+ID4+Pj4+Pj4g
-QEAgLTY5LDYgKzY5LDcgQEAgc3RydWN0IGFtZGdwdV92Y24gew0KPiA+Pj4+Pj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3JpbmfCoMKgwqDCoMKgIHJpbmdfanBlZzsNCj4gPj4+
-Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9pcnFfc3JjwqDCoCBpcnE7DQo+
-ID4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIG51bV9lbmNfcmluZ3M7DQo+ID4+Pj4+Pj4gK8KgwqDCoMKgwqDCoCBlbnVtIGFt
-ZF9wb3dlcmdhdGluZ19zdGF0ZSBjdXJfc3RhdGU7DQo+ID4+Pj4+PiBEb2VzIHRoZSBkZWZhdWx0
-IHZhbHVlICgwKSBhdCBpbml0IHRpbWUgcHJvcGVybHkgcmVmbGVjdCB0aGUNCj4gPj4+Pj4+IGRl
-ZmF1bHQgcG93ZXJnYXRpbmcgc3RhdGU/wqAgSWYgc28sDQo+ID4+Pj4+PiBBY2tlZC1ieTogQWxl
-eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiA+Pj4+PiBZZXMsIHRoZSBi
-ZWxvdyBjb2RlIHNob3dzIGl0IHdpbGwgYmUgc2V0IHRvIDAgZHVyaW5nIGRyaXZlciBsb2FkDQo+
-ID4+Pj4+IHN0YWdlLg0KPiA+Pj4+IFllcywgSSB1bmRlcnN0YW5kIHRoYXQuwqAgSXMgMCAoQU1E
-X1BHX1NUQVRFX0dBVEUpIHdoYXQgd2Ugd2FudCBhcw0KPiA+Pj4+IHRoZSBkZWZhdWx0IHRob3Vn
-aD/CoCBUaGUgZmlyc3QgdGltZSB0aGUgY29kZSBydW5zIGFyZSB3ZSBnb2luZyB0bw0KPiA+Pj4+
-IGRvIHRoZSByaWdodCB0aGluZyBvciBpcyB0aGUgY29kZSBnb2luZyB0byByZXR1cm4gZWFybHk/
-wqAgSUlSQywgdGhlDQo+ID4+Pj4gaHcgZGVmYXVsdCBpcyB1bmdhdGVkLg0KPiA+Pj4gY3VyX3N0
-YXRlIGlzIHVzZWQgZm9yIHRyYWNraW5nIGRyaXZlciBTVyBQRyBzdGF0ZSwgbm90IEhXwqAgUEcg
-c3RhdGUuDQo+ID4+PiBJIHRob3VnaCBubyBtYXR0ZXIgd2hhdCBIV8KgIFBHIHN0YXRlIGlzIGFm
-dGVyIGRldmljZSBwb3dlcnMgdXAsIHdoZW4NCj4gPj4+IGZpcnN0IHZjbiByaW5nIGlzIHNjaGVk
-dWxlZCB0byBydW4sDQo+ID4+PiBiZWdpbl91c2UtPnNldF9wb3dlcmdhdGluZ19zdGF0ZS0+dmNu
-X3YxXzBfc3RhcnQtPnVuZ2F0ZQ0KPiA+Pj4gcG93ZXIvY2xvY2stPkJvb3RfVkNQVcKgIHdpbGwg
-YmUgdHJpZWQuDQo+ID4+Pg0KPiA+Pj4gRm9yIERQRyBtb2RlLCB0aGUgdW5nYXRlIHBvd2VyL2Ns
-b2NrICwgYm9vdCBWQ1BVIHdpbGwgbm90IGFjdHVhbGx5DQo+ID4+PiBiZSBhY3RpdmF0ZWQgZHVy
-aW5nIHN0YXJ0IHNldHVwIHN0YWdlLCBhbmQgb25seSBiZSBhY3RpdmF0ZWQgZHVyaW5nDQo+ID4+
-PiByaW5nIHJ1biBzdGFnZS4NCj4gPj4NCj4gPj4gTWhtLCBJIHdvbmRlciBpZiBpdCB3b3VsZG4n
-dCBiZSBiZXR0ZXIgdG8gaGF2ZSB0aGF0IGZ1bmN0aW9uYWxpdHkgb25lDQo+ID4+IGxheWVyIHVw
-Lg0KPiA+Pg0KPiA+PiBFLmcuIGluIGFtZGdwdV9kZXZpY2VfaXBfc2V0X3Bvd2VyZ2F0aW5nX3N0
-YXRlIHNvIHRoYXQgaXQgYXBwbGllcyB0bw0KPiA+PiBhbGwgSVAgYmxvY2tzIGluIHRoZSBzYW1l
-IHdheS4NCj4gPiBJZiBuZWNlc3NhcnksIEkgY2FuIGFkZCBzdXBwb3J0IGZvciBJUCBibG9ja3Mg
-bGF0ZXIuDQo+IA0KPiBZZWFoLCBhZ3JlZS4gSW4gZ2VuZXJhbCBJJ20gbm90IGRvaW5nIG11Y2gg
-d2l0aCBwb3dlciBtYW5hZ2VtZW50LCBzbw0KPiBjYW4ndCBqdWRnZSBpZiB0aGF0IGlzIGEgZ29v
-ZCBpZGVhIG9yIG5vdC4NCj4gDQo+IEFueXdheSBmZWVsIGZyZWUgdG8gYWRkIG15IEFja2VkLWJ5
-IHRvIHRoZSBwYXRjaC4NCj4gDQo+IFJlZ2FyZHMsDQo+IENocmlzdGlhbi4NCj4gDQo+ID4gSmFt
-ZXMNCj4gPj4NCj4gPj4gQnV0IG9uIHRoZSBvdGhlciBoYW5kIHRoZSBjb3JyZWN0IHNvbHV0aW9u
-IGxvb2tzIGdvb2QgdG8gbWUgYXMgd2VsbCwNCj4gPj4gc28gZmVlbCBmcmVlIHRvIGFkZCBteSBB
-Y2tlZC1ieSBhcyB3ZWxsLg0KPiA+Pg0KPiA+PiBDaHJpc3RpYW4uDQo+ID4+DQo+ID4+Pg0KPiA+
-Pj4gSmFtZXMNCj4gPj4+PiBBbGV4DQo+ID4+Pj4+IGludCBhbWRncHVfZHJpdmVyX2xvYWRfa21z
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGxvbmcNCj4gPj4+Pj4gZmxhZ3MpDQo+
-ID4+Pj4+IC4uLi4NCj4gPj4+Pj4gwqDCoMKgwqDCoCBhZGV2ID0ga3phbGxvYyhzaXplb2Yoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UpLCBHRlBfS0VSTkVMKTsNCj4gPj4+Pj4NCj4gPj4+Pj4gc3RydWN0
-IGFtZGdwdV9kZXZpY2Ugew0KPiA+Pj4+PiAuLi4uDQo+ID4+Pj4+IMKgwqDCoMKgwqAgc3RydWN0
-IGFtZGdwdV92Y27CoMKgwqDCoMKgwqDCoCB2Y247DQo+ID4+Pj4+DQo+ID4+Pj4+IEJlc3QgUmVn
-YXJkcyENCj4gPj4+Pj4gSmFtZXMgemh1DQo+ID4+Pj4+Pj4gwqDCoCB9Ow0KPiA+Pj4+Pj4+DQo+
-ID4+Pj4+Pj4gwqDCoCBpbnQgYW1kZ3B1X3Zjbl9zd19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KTsgZGlmZg0KPiA+Pj4+Pj4+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmNuX3YxXzAuYw0KPiA+Pj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNu
-X3YxXzAuYw0KPiA+Pj4+Pj4+IGluZGV4IDI2NjRiYjIuLjJjZGUwYjQgMTAwNjQ0DQo+ID4+Pj4+
-Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYw0KPiA+Pj4+Pj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMNCj4gPj4+Pj4+PiBA
-QCAtMTYzMywxMiArMTYzMywyMCBAQCBzdGF0aWMgaW50DQo+ID4+Pj4+Pj4gdmNuX3YxXzBfc2V0
-X3Bvd2VyZ2F0aW5nX3N0YXRlKHZvaWQgKmhhbmRsZSwNCj4gPj4+Pj4+PiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCAqIHJldmlzaXQgdGhpcyB3aGVuIHRoZXJlIGlzIGEgY2xlYW5lciBsaW5lIGJldHdl
-ZW4NCj4gPj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIHRoZSBzbWMgYW5kIHRoZSBodyBi
-bG9ja3MNCj4gPj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqLw0KPiA+Pj4+Pj4+ICvCoMKg
-wqDCoMKgwqAgaW50IHJldDsNCj4gPj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4gPj4+Pj4+PiAqKWhh
-bmRsZTsNCj4gPj4+Pj4+Pg0KPiA+Pj4+Pj4+ICvCoMKgwqDCoMKgwqAgaWYoc3RhdGUgPT0gYWRl
-di0+dmNuLmN1cl9zdGF0ZSkNCj4gPj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gMDsNCj4gPj4+Pj4+PiArDQo+ID4+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlm
-IChzdGF0ZSA9PSBBTURfUEdfU1RBVEVfR0FURSkNCj4gPj4+Pj4+PiAtwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gdmNuX3YxXzBfc3RvcChhZGV2KTsNCj4gPj4+Pj4+PiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSB2Y25fdjFfMF9zdG9wKGFkZXYpOw0KPiA+
-Pj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBlbHNlDQo+ID4+Pj4+Pj4gLcKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIHZjbl92MV8wX3N0YXJ0KGFkZXYpOw0KPiA+Pj4+Pj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IHZjbl92MV8wX3N0YXJ0KGFkZXYpOw0K
-PiA+Pj4+Pj4+ICsNCj4gPj4+Pj4+PiArwqDCoMKgwqDCoMKgIGlmKCFyZXQpDQo+ID4+Pj4+Pj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYWRldi0+dmNuLmN1cl9zdGF0ZSA9IHN0YXRl
-Ow0KPiA+Pj4+Pj4+ICvCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsNCj4gPj4+Pj4+PiDCoMKgIH0N
-Cj4gPj4+Pj4+Pg0KPiA+Pj4+Pj4+IMKgwqAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVu
-Y3MgdmNuX3YxXzBfaXBfZnVuY3MgPSB7DQo+ID4+Pj4+Pj4gLS0NCj4gPj4+Pj4+PiAyLjcuNA0K
-PiA+Pj4+Pj4+DQo+ID4+Pj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18NCj4gPj4+Pj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiA+Pj4+Pj4+IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+Pj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo+ID4+Pg0KPiA+Pj4gX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gPj4+IGFtZC1nZngg
-bWFpbGluZyBsaXN0DQo+ID4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+Pj4g
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo+
-ID4+DQo+ID4NCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
++cc  amd-gfx@lists.freedesktop.org
+
+Thanks,
+zhong jiang
+
+On 2018/9/18 23:35, zhong jiang wrote:
+> kmemdup has implemented the function that kmalloc() + memcpy().
+> We prefer to kmemdup rather than code opened implementation.
+>
+> Signed-off-by: zhong jiang <zhongjiang@huawei.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index ee49960..8ddd585 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -747,12 +747,10 @@ int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
+>  		return -ENODATA;
+>  	}
+>  
+> -	pcrat_image = kmalloc(crat_table->length, GFP_KERNEL);
+> +	pcrat_image = kmemdup(crat_table, crat_table->length, GFP_KERNEL);
+>  	if (!pcrat_image)
+>  		return -ENOMEM;
+>  
+> -	memcpy(pcrat_image, crat_table, crat_table->length);
+> -
+>  	*crat_image = pcrat_image;
+>  	*size = crat_table->length;
+>  
