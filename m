@@ -1,126 +1,52 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: Leave intel_conn->mst_port
- set, use mst_port_gone instead
-Date: Fri, 21 Sep 2018 11:27:46 +0200
-Message-ID: <20180921092746.GC11082@phenom.ffwll.local>
-References: <20180918230637.20700-1-lyude@redhat.com>
- <20180918230637.20700-4-lyude@redhat.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: Making use of more Gitlab features for xf86-video-amdgpu
+Date: Fri, 21 Sep 2018 11:49:55 +0200
+Message-ID: <8814faa4-ac34-e73a-93b5-21f338183c0c@daenzer.net>
+References: <117378cb-d2fa-3d88-8422-3d77b6cf7782@daenzer.net>
+ <bc07517c-5b73-b899-64b1-d987b627e928@daenzer.net>
+ <BY1PR12MB05024D93C1BC57E13BC03368B4120@BY1PR12MB0502.namprd12.prod.outlook.com>
+ <43e8c93a-251a-fb23-4fa0-9b213c2745bb@daenzer.net>
+ <d2f1050d-dbbf-78bd-600b-7a8e3c7f1530@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20180918230637.20700-4-lyude@redhat.com>
-Sender: stable-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <d2f1050d-dbbf-78bd-600b-7a8e3c7f1530-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Sep 18, 2018 at 07:06:19PM -0400, Lyude Paul wrote:
-> Currently we set intel_connector->mst_port to NULL to signify that the
-> MST port has been removed from the system so that we can prevent further
-> action on the port such as connector probes, mode probing, etc.
-> However, we're going to need access to intel_connector->mst_port in
-> order to fixup ->best_encoder() so that it can always return the correct
-> encoder for an MST port to prevent legacy DPMS prop changes from
-> failing. This should be safe, so instead keep intel_connector->mst_port
-> always set and instead add intel_connector->mst_port_gone in order to
-> signify whether or not the connector has disappeared from the system.
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: stable@vger.kernel.org
-
-Hm, how exactly do legacy DPMS setprop blow up here? Or at least I can't
-come up with a scenario that's specific to legacy props, atomic should be
-equally affected. By the time we land in this code, the core code already
-remapping it to be purely an atomic update.
-
-Another thought: Should we handle at least some of this in the probe
-helpers? I.e. once you unplugged a drm_connector, it always shows
-disconnected and mode list is gone, instead of duplicating this over all
-drivers. We could just check connector->registered.
-
-Thanks, Daniel
-> ---
->  drivers/gpu/drm/i915/intel_dp_mst.c | 14 +++++++-------
->  drivers/gpu/drm/i915/intel_drv.h    |  1 +
->  2 files changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/intel_dp_mst.c b/drivers/gpu/drm/i915/intel_dp_mst.c
-> index 4ecd65375603..fcb9b87b9339 100644
-> --- a/drivers/gpu/drm/i915/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/intel_dp_mst.c
-> @@ -311,9 +311,8 @@ static int intel_dp_mst_get_ddc_modes(struct drm_connector *connector)
->  	struct edid *edid;
->  	int ret;
->  
-> -	if (!intel_dp) {
-> +	if (intel_connector->mst_port_gone)
->  		return intel_connector_update_modes(connector, NULL);
-> -	}
->  
->  	edid = drm_dp_mst_get_edid(connector, &intel_dp->mst_mgr, intel_connector->port);
->  	ret = intel_connector_update_modes(connector, edid);
-> @@ -328,9 +327,10 @@ intel_dp_mst_detect(struct drm_connector *connector, bool force)
->  	struct intel_connector *intel_connector = to_intel_connector(connector);
->  	struct intel_dp *intel_dp = intel_connector->mst_port;
->  
-> -	if (!intel_dp)
-> +	if (intel_connector->mst_port_gone)
->  		return connector_status_disconnected;
-> -	return drm_dp_mst_detect_port(connector, &intel_dp->mst_mgr, intel_connector->port);
-> +	return drm_dp_mst_detect_port(connector, &intel_dp->mst_mgr,
-> +				      intel_connector->port);
->  }
->  
->  static void
-> @@ -370,7 +370,7 @@ intel_dp_mst_mode_valid(struct drm_connector *connector,
->  	int bpp = 24; /* MST uses fixed bpp */
->  	int max_rate, mode_rate, max_lanes, max_link_clock;
->  
-> -	if (!intel_dp)
-> +	if (intel_connector->mst_port_gone)
->  		return MODE_ERROR;
->  
->  	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
-> @@ -402,7 +402,7 @@ static struct drm_encoder *intel_mst_atomic_best_encoder(struct drm_connector *c
->  	struct intel_dp *intel_dp = intel_connector->mst_port;
->  	struct intel_crtc *crtc = to_intel_crtc(state->crtc);
->  
-> -	if (!intel_dp)
-> +	if (intel_connector->mst_port_gone)
->  		return NULL;
->  	return &intel_dp->mst_encoders[crtc->pipe]->base.base;
->  }
-> @@ -514,7 +514,7 @@ static void intel_dp_destroy_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
->  						   connector);
->  	/* prevent race with the check in ->detect */
->  	drm_modeset_lock(&connector->dev->mode_config.connection_mutex, NULL);
-> -	intel_connector->mst_port = NULL;
-> +	intel_connector->mst_port_gone = true;
->  	drm_modeset_unlock(&connector->dev->mode_config.connection_mutex);
->  
->  	drm_connector_put(connector);
-> diff --git a/drivers/gpu/drm/i915/intel_drv.h b/drivers/gpu/drm/i915/intel_drv.h
-> index 8fc61e96754f..87ce772ae7f8 100644
-> --- a/drivers/gpu/drm/i915/intel_drv.h
-> +++ b/drivers/gpu/drm/i915/intel_drv.h
-> @@ -409,6 +409,7 @@ struct intel_connector {
->  	void *port; /* store this opaque as its illegal to dereference it */
->  
->  	struct intel_dp *mst_port;
-> +	bool mst_port_gone;
->  
->  	/* Work struct to schedule a uevent on link train failure */
->  	struct work_struct modeset_retry_work;
-> -- 
-> 2.17.1
-> 
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+T24gMjAxOC0wOS0yMSA5OjU3IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjEu
+MDkuMjAxOCB1bSAwOTo0MiBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+PiBPbiAyMDE4LTA5LTIx
+IDk6MjIgYS5tLiwgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpIHdyb3RlOgo+Pj4gQWZ0ZXIgbW92aW5n
+IHBhdGNoIHN1Ym1pdHRlZCBhbmQgcmV2aWV3ZWQgYXMgTVJzLCBtYWlsIGxpc3Qgd2lsbCBiZQo+
+Pj4gbm8gdXNlZnVsPyBBbmQgbWFueSBwZW9wbGUgY291bGQgbWlzcyBuZXcgcGF0Y2hlcywgcmln
+aHQ/Cj4+IElmIHlvdSB3YW50IHRvIGJlIG5vdGlmaWVkIG9mIG1lcmdlIHJlcXVlc3RzLCBlbmFi
+bGUgbm90aWZpY2F0aW9ucyBmb3IKPj4gdGhlbSBhdCBodHRwczovL2dpdGxhYi5mcmVlZGVza3Rv
+cC5vcmcveG9yZy9kcml2ZXIveGY4Ni12aWRlby1hbWRncHUKPj4gdXNpbmcgdGhlIGJ1dHRvbiB3
+aXRoIHRoZSBiZWxsIHN5bWJvbCBhdCB0aGUgdG9wIHJpZ2h0LiAoVGhpcyB3aWxsIG9ubHkKPj4g
+d29yayBpZiB5b3UncmUgbG9nZ2VkIGludG8geW91ciBHaXRsYWIgYWNjb3VudCkKPiAKPiBZZWFo
+LCBidXQgaXMgdGhlIG1haWxpbmcgbGlzdCBub3RpZmllZCBhYm91dCBtZXJnZSByZXF1ZXN0cyBh
+bmQKPiBlc3BlY2lhbGx5IGFib3V0IHBvc3NpYmxlIGRpc2N1c3Npb25zIG9uIG1lcmdlIHJlcXVl
+c3RzPwoKVW5mb3J0dW5hdGVseSwgdGhhdCBkb2Vzbid0IHNlZW0gcG9zc2libGUgd2l0aCBHaXRs
+YWIgYXQgdGhpcyB0aW1lLgpJbnRlcmVzdGVkIHVzZXJzIGhhdmUgdG8gZW5hYmxlIG5vdGlmaWNh
+dGlvbnMgaW4gdGhlaXIgR2l0bGFiIGFjY291bnRzLgoKCj4gRm9yIHhmODYtdmlkZW8tYW1kZ3B1
+IGRldmVsb3BtZW50IHRoYXQgd291bGRuJ3QgYmUgbXVjaCBvZiBhbiBpc3N1ZSwgYnV0Cj4gZm9y
+IG90aGVyIHByb2plY3RzIHRoYXQgY291bGQgdHVybiBvdXQgaW4gcXVpdGUgYSBzaG93IHN0b3Bw
+ZXIuCgpXZWxsLCB0aGlzIGRpc2N1c3Npb24gaXMgc3BlY2lmaWNhbGx5IGFib3V0IHhmODYtdmlk
+ZW8tYW1kZ3B1IChhbmQgbGF0ZXIKLWF0aSkuIDopCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOk
+bnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGli
+cmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5k
+IFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
