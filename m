@@ -1,47 +1,62 @@
-From: zhong jiang <zhongjiang@huawei.com>
-Subject: Re: [PATCH] drm: amd: Use kmemdup instead of duplicating its function
-Date: Fri, 21 Sep 2018 22:13:09 +0800
-Message-ID: <5BA4FC75.7040902@huawei.com>
-References: <1537284932-62278-1-git-send-email-zhongjiang@huawei.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 9/9] drm/amdgpu: print smc feature mask in debugfs
+ amdgpu_pm_info
+Date: Fri, 21 Sep 2018 14:13:45 +0000
+Message-ID: <BYAPR12MB27757C8B41C5B3ED73D4A604FB120@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <20180921035449.6996-1-alexander.deucher@amd.com>
+ <20180921035449.6996-9-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1537284932-62278-1-git-send-email-zhongjiang@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, alexander.deucher@amd.com
-Cc: oded.gabbay@gmail.com, christian.koenig@amd.com, David1.Zhou@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20180921035449.6996-9-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-+cc  amd-gfx@lists.freedesktop.org
-
-Thanks,
-zhong jiang
-
-On 2018/9/18 23:35, zhong jiang wrote:
-> kmemdup has implemented the function that kmalloc() + memcpy().
-> We prefer to kmemdup rather than code opened implementation.
->
-> Signed-off-by: zhong jiang <zhongjiang@huawei.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> index ee49960..8ddd585 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-> @@ -747,12 +747,10 @@ int kfd_create_crat_image_acpi(void **crat_image, size_t *size)
->  		return -ENODATA;
->  	}
->  
-> -	pcrat_image = kmalloc(crat_table->length, GFP_KERNEL);
-> +	pcrat_image = kmemdup(crat_table, crat_table->length, GFP_KERNEL);
->  	if (!pcrat_image)
->  		return -ENOMEM;
->  
-> -	memcpy(pcrat_image, crat_table, crat_table->length);
-> -
->  	*crat_image = pcrat_image;
->  	*size = crat_table->length;
->  
+U2VyaWVzIGlzOiANClJldmlld2VkLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+DQoNClJl
+Z2FyZHMNClJleA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1n
+ZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBB
+bGV4DQo+IERldWNoZXINCj4gU2VudDogRnJpZGF5LCBTZXB0ZW1iZXIgMjEsIDIwMTggMTE6NTUg
+QU0NCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBEZXVjaGVyLCBB
+bGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSCA5
+LzldIGRybS9hbWRncHU6IHByaW50IHNtYyBmZWF0dXJlIG1hc2sgaW4gZGVidWdmcw0KPiBhbWRn
+cHVfcG1faW5mbw0KPiANCj4gUHJpbnQgdGhlIGVuYWJsZWQgc21jIGZlYXR1cmUgbWFzayBpbiBh
+bWRncHVfcG1faW5mbyBmb3IgZGVidWdnaW5nLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQWxleCBE
+ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgNSArKysrKw0KPiAgMSBmaWxlIGNoYW5nZWQs
+IDUgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9wbS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3BtLmMNCj4gaW5kZXggOGMzMzRmYzgwOGMyLi4xOGQ5ODllMGUzNjIgMTAwNjQ0DQo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IEBAIC0xOTc2LDYgKzE5NzYsNyBAQCB2
+b2lkIGFtZGdwdV9wbV9jb21wdXRlX2Nsb2NrcyhzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRl
+dikgIHN0YXRpYyBpbnQgYW1kZ3B1X2RlYnVnZnNfcG1faW5mb19wcChzdHJ1Y3QNCj4gc2VxX2Zp
+bGUgKm0sIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KSAgew0KPiAgCXVpbnQzMl90IHZhbHVl
+Ow0KPiArCXVpbnQ2NF90IHZhbHVlNjQ7DQo+ICAJdWludDMyX3QgcXVlcnkgPSAwOw0KPiAgCWlu
+dCBzaXplOw0KPiANCj4gQEAgLTIwMTQsNiArMjAxNSwxMCBAQCBzdGF0aWMgaW50IGFtZGdwdV9k
+ZWJ1Z2ZzX3BtX2luZm9fcHAoc3RydWN0DQo+IHNlcV9maWxlICptLCBzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYQ0KPiAgCQlzZXFfcHJpbnRmKG0sICJHUFUgTG9hZDogJXUgJSVcbiIsIHZhbHVlKTsN
+Cj4gIAlzZXFfcHJpbnRmKG0sICJcbiIpOw0KPiANCj4gKwkvKiBTTUMgZmVhdHVyZSBtYXNrICov
+DQo+ICsJaWYgKCFhbWRncHVfZHBtX3JlYWRfc2Vuc29yKGFkZXYsDQo+IEFNREdQVV9QUF9TRU5T
+T1JfRU5BQkxFRF9TTUNfRkVBVFVSRVNfTUFTSywgKHZvaWQgKikmdmFsdWU2NCwNCj4gJnNpemUp
+KQ0KPiArCQlzZXFfcHJpbnRmKG0sICJTTUMgRmVhdHVyZSBNYXNrOiAweCUwMTZsbHhcbiIsIHZh
+bHVlNjQpOw0KPiArDQo+ICAJLyogVVZEIGNsb2NrcyAqLw0KPiAgCWlmICghYW1kZ3B1X2RwbV9y
+ZWFkX3NlbnNvcihhZGV2LA0KPiBBTURHUFVfUFBfU0VOU09SX1VWRF9QT1dFUiwgKHZvaWQgKikm
+dmFsdWUsICZzaXplKSkgew0KPiAgCQlpZiAoIXZhbHVlKSB7DQo+IC0tDQo+IDIuMTMuNg0KPiAN
+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
