@@ -1,62 +1,52 @@
 From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH] drm/amd/powerplay: Change id parameter type in pp_atomfwctrl_get_clk_information_by_clkid
-Date: Fri, 21 Sep 2018 14:01:06 -0700
-Message-ID: <20180921210106.24310-1-natechancellor@gmail.com>
+Subject: [PATCH] drm/amd/display: Change status's type in aux_reply_transaction_data
+Date: Fri, 21 Sep 2018 14:55:05 -0700
+Message-ID: <20180921215505.14634-1-natechancellor@gmail.com>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Clang generates warnings when one enumerated type is implicitly
-converted to another.
+Clang warns when one enumerated type is implicitly converted to another.
 
-drivers/gpu/drm/amd/amdgpu/../powerplay/hwmgr/ppatomfwctrl.c:532:57:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:315:19: warning:
+implicit conversion from enumeration type 'enum
+aux_channel_operation_result' to different enumeration type 'enum
+aux_transaction_reply' [-Wenum-conversion]
+                reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
+                              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/i2caux/dce110/aux_engine_dce110.c:349:19:
 warning: implicit conversion from enumeration type 'enum
-atom_smu11_syspll0_clock_id' to different enumeration type 'BIOS_CLKID'
-      (aka 'enum atom_smu9_syspll0_clock_id') [-Wenum-conversion]
-        if (!pp_atomfwctrl_get_clk_information_by_clkid(hwmgr,
-SMU11_SYSPLL0_SOCCLK_ID, &frequency))
+aux_channel_operation_result' to different enumeration type 'enum
+aux_transaction_reply' [-Wenum-conversion]
+                reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
+                              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this case, that is expected behavior. To make that clear to Clang
-without explicitly casting these values, change id's type to uint8_t
-in pp_atomfwctrl_get_clk_information_by_clkid so no conversion happens.
+Instead of implicitly or explicitly converting between types, just
+change status to type uint8_t (since its max size is 255) which avoids
+this construct altogether.
 
 Reported-by: Nick Desaulniers <ndesaulniers@google.com>
 Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c | 3 ++-
- drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.h | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_ddc_types.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-index d27c1c9df286..4588bddf8b33 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.c
-@@ -488,7 +488,8 @@ int pp_atomfwctrl_get_gpio_information(struct pp_hwmgr *hwmgr,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h b/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
+index 05c8c31d8b31..97e1d4d19263 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
+@@ -79,7 +79,7 @@ enum aux_transaction_reply {
+ };
  
--int pp_atomfwctrl_get_clk_information_by_clkid(struct pp_hwmgr *hwmgr, BIOS_CLKID id, uint32_t *frequency)
-+int pp_atomfwctrl_get_clk_information_by_clkid(struct pp_hwmgr *hwmgr,
-+					       uint8_t id, uint32_t *frequency)
- {
- 	struct amdgpu_device *adev = hwmgr->adev;
- 	struct atom_get_smu_clock_info_parameters_v3_1   parameters;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.h b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.h
-index 22e21668c93a..fe9e8ceef50e 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.h
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomfwctrl.h
-@@ -236,7 +236,7 @@ int pp_atomfwctrl_get_vbios_bootup_values(struct pp_hwmgr *hwmgr,
- int pp_atomfwctrl_get_smc_dpm_information(struct pp_hwmgr *hwmgr,
- 			struct pp_atomfwctrl_smc_dpm_parameters *param);
- int pp_atomfwctrl_get_clk_information_by_clkid(struct pp_hwmgr *hwmgr,
--					BIOS_CLKID id, uint32_t *frequency);
-+					uint8_t id, uint32_t *frequency);
- 
- #endif
- 
+ struct aux_reply_transaction_data {
+-	enum aux_transaction_reply status;
++	uint8_t status;
+ 	uint32_t length;
+ 	uint8_t *data;
+ };
 -- 
 2.19.0
