@@ -1,159 +1,147 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Add warning message for INT SW fallback.
-Date: Fri, 21 Sep 2018 19:57:54 +0000
-Message-ID: <BN6PR12MB18091290269EC45DB4347008F7120@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1537559505-24299-1-git-send-email-andrey.grodzovsky@amd.com>,
- <1537559505-24299-2-git-send-email-andrey.grodzovsky@amd.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915: Leave intel_conn->mst_port
+ set, use mst_port_gone instead
+Date: Fri, 21 Sep 2018 16:17:16 -0400
+Message-ID: <472fd6a7a46d44c079ce45b67ed23dee35dd96cf.camel@redhat.com>
+References: <20180918230637.20700-1-lyude@redhat.com>
+         <20180918230637.20700-4-lyude@redhat.com>
+         <20180921092746.GC11082@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1954675035=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1537559505-24299-2-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20180921092746.GC11082@phenom.ffwll.local>
+Sender: stable-owner@vger.kernel.org
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============1954675035==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18091290269EC45DB4347008F7120BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18091290269EC45DB4347008F7120BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Andrey G=
-rodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, September 21, 2018 3:51:45 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Grodzovsky, Andrey; Koenig, Christian
-Subject: [PATCH 2/2] drm/amdgpu: Add warning message for INT SW fallback.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_fence.c
-index da36731..1ae2583 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -274,6 +274,7 @@ static void amdgpu_fence_fallback(struct timer_list *t)
-         struct amdgpu_ring *ring =3D from_timer(ring, t,
-                                               fence_drv.fallback_timer);
-
-+       DRM_INFO("Fallback to SW interrupt on ring %s due to HW interrupt t=
-ime out", ring->name);
-         amdgpu_fence_process(ring);
- }
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18091290269EC45DB4347008F7120BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is: <br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Andrey Grodzovsky &lt;andrey.=
-grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, September 21, 2018 3:51:45 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Grodzovsky, Andrey; Koenig, Christian<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu: Add warning message for INT SW fall=
-back.</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzo=
-vsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 1 &#43;<br>
-&nbsp;1 file changed, 1 insertion(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_fence.c<br>
-index da36731..1ae2583 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
-@@ -274,6 &#43;274,7 @@ static void amdgpu_fence_fallback(struct timer_list=
- *t)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
-=3D from_timer(ring, t,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fence_drv.fallback_time=
-r);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;Fallback to SW int=
-errupt on ring %s due to HW interrupt time out&quot;, ring-&gt;name);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_fence_process(ring)=
-;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18091290269EC45DB4347008F7120BN6PR12MB1809namp_--
-
---===============1954675035==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1954675035==--
+On Fri, 2018-09-21 at 11:27 +0200, Daniel Vetter wrote:
+> On Tue, Sep 18, 2018 at 07:06:19PM -0400, Lyude Paul wrote:
+> > Currently we set intel_connector->mst_port to NULL to signify that the
+> > MST port has been removed from the system so that we can prevent further
+> > action on the port such as connector probes, mode probing, etc.
+> > However, we're going to need access to intel_connector->mst_port in
+> > order to fixup ->best_encoder() so that it can always return the correct
+> > encoder for an MST port to prevent legacy DPMS prop changes from
+> > failing. This should be safe, so instead keep intel_connector->mst_port
+> > always set and instead add intel_connector->mst_port_gone in order to
+> > signify whether or not the connector has disappeared from the system.
+> > 
+> > Signed-off-by: Lyude Paul <lyude@redhat.com>
+> > Cc: stable@vger.kernel.org
+> 
+> Hm, how exactly do legacy DPMS setprop blow up here? Or at least I can't
+> come up with a scenario that's specific to legacy props, atomic should be
+> equally affected. By the time we land in this code, the core code already
+> remapping it to be purely an atomic update.
+So, what I've been seeing with X that's been blowing this up:
+ * Hotplug event gets received, X does reprobe
+ * Notices MST connectors are now disconnected, sets DPMS from on->off
+ * During atomic_check, drm_atomic_helper_check_modeset() is called
+ * update_connector_routing() gets called
+ * funcs->best_encoder() returns NULL for the encoder
+ * update_connector_routing() fails atomic commit with "No suitable encoder
+   found", line 320 of drm_atomic_helper
+> 
+> Another thought: Should we handle at least some of this in the probe
+> helpers? I.e. once you unplugged a drm_connector, it always shows
+> disconnected and mode list is gone, instead of duplicating this over all
+> drivers. We could just check connector->registered.
+oooh, good idea! I will certainly go do that
+> 
+> Thanks, Daniel
+> > ---
+> >  drivers/gpu/drm/i915/intel_dp_mst.c | 14 +++++++-------
+> >  drivers/gpu/drm/i915/intel_drv.h    |  1 +
+> >  2 files changed, 8 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/intel_dp_mst.c
+> > b/drivers/gpu/drm/i915/intel_dp_mst.c
+> > index 4ecd65375603..fcb9b87b9339 100644
+> > --- a/drivers/gpu/drm/i915/intel_dp_mst.c
+> > +++ b/drivers/gpu/drm/i915/intel_dp_mst.c
+> > @@ -311,9 +311,8 @@ static int intel_dp_mst_get_ddc_modes(struct
+> > drm_connector *connector)
+> >  	struct edid *edid;
+> >  	int ret;
+> >  
+> > -	if (!intel_dp) {
+> > +	if (intel_connector->mst_port_gone)
+> >  		return intel_connector_update_modes(connector, NULL);
+> > -	}
+> >  
+> >  	edid = drm_dp_mst_get_edid(connector, &intel_dp->mst_mgr,
+> > intel_connector->port);
+> >  	ret = intel_connector_update_modes(connector, edid);
+> > @@ -328,9 +327,10 @@ intel_dp_mst_detect(struct drm_connector *connector,
+> > bool force)
+> >  	struct intel_connector *intel_connector =
+> > to_intel_connector(connector);
+> >  	struct intel_dp *intel_dp = intel_connector->mst_port;
+> >  
+> > -	if (!intel_dp)
+> > +	if (intel_connector->mst_port_gone)
+> >  		return connector_status_disconnected;
+> > -	return drm_dp_mst_detect_port(connector, &intel_dp->mst_mgr,
+> > intel_connector->port);
+> > +	return drm_dp_mst_detect_port(connector, &intel_dp->mst_mgr,
+> > +				      intel_connector->port);
+> >  }
+> >  
+> >  static void
+> > @@ -370,7 +370,7 @@ intel_dp_mst_mode_valid(struct drm_connector
+> > *connector,
+> >  	int bpp = 24; /* MST uses fixed bpp */
+> >  	int max_rate, mode_rate, max_lanes, max_link_clock;
+> >  
+> > -	if (!intel_dp)
+> > +	if (intel_connector->mst_port_gone)
+> >  		return MODE_ERROR;
+> >  
+> >  	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
+> > @@ -402,7 +402,7 @@ static struct drm_encoder
+> > *intel_mst_atomic_best_encoder(struct drm_connector *c
+> >  	struct intel_dp *intel_dp = intel_connector->mst_port;
+> >  	struct intel_crtc *crtc = to_intel_crtc(state->crtc);
+> >  
+> > -	if (!intel_dp)
+> > +	if (intel_connector->mst_port_gone)
+> >  		return NULL;
+> >  	return &intel_dp->mst_encoders[crtc->pipe]->base.base;
+> >  }
+> > @@ -514,7 +514,7 @@ static void intel_dp_destroy_mst_connector(struct
+> > drm_dp_mst_topology_mgr *mgr,
+> >  						   connector);
+> >  	/* prevent race with the check in ->detect */
+> >  	drm_modeset_lock(&connector->dev->mode_config.connection_mutex, NULL);
+> > -	intel_connector->mst_port = NULL;
+> > +	intel_connector->mst_port_gone = true;
+> >  	drm_modeset_unlock(&connector->dev->mode_config.connection_mutex);
+> >  
+> >  	drm_connector_put(connector);
+> > diff --git a/drivers/gpu/drm/i915/intel_drv.h
+> > b/drivers/gpu/drm/i915/intel_drv.h
+> > index 8fc61e96754f..87ce772ae7f8 100644
+> > --- a/drivers/gpu/drm/i915/intel_drv.h
+> > +++ b/drivers/gpu/drm/i915/intel_drv.h
+> > @@ -409,6 +409,7 @@ struct intel_connector {
+> >  	void *port; /* store this opaque as its illegal to dereference it */
+> >  
+> >  	struct intel_dp *mst_port;
+> > +	bool mst_port_gone;
+> >  
+> >  	/* Work struct to schedule a uevent on link train failure */
+> >  	struct work_struct modeset_retry_work;
+> > -- 
+> > 2.17.1
+> > 
+> > _______________________________________________
+> > Intel-gfx mailing list
+> > Intel-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> 
+> 
+-- 
+Cheers,
+	Lyude Paul
