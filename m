@@ -1,52 +1,64 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH] drm/amd/display: Change status's type in aux_reply_transaction_data
-Date: Fri, 21 Sep 2018 14:55:05 -0700
-Message-ID: <20180921215505.14634-1-natechancellor@gmail.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Suppress keypresses from ACPI_VIDEO events
+Date: Fri, 21 Sep 2018 20:43:44 -0400
+Message-ID: <20180922004346.12288-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-Clang warns when one enumerated type is implicitly converted to another.
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:315:19: warning:
-implicit conversion from enumeration type 'enum
-aux_channel_operation_result' to different enumeration type 'enum
-aux_transaction_reply' [-Wenum-conversion]
-                reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
-                              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/i2caux/dce110/aux_engine_dce110.c:349:19:
-warning: implicit conversion from enumeration type 'enum
-aux_channel_operation_result' to different enumeration type 'enum
-aux_transaction_reply' [-Wenum-conversion]
-                reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
-                              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Instead of implicitly or explicitly converting between types, just
-change status to type uint8_t (since its max size is 255) which avoids
-this construct altogether.
-
-Reported-by: Nick Desaulniers <ndesaulniers@google.com>
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dc_ddc_types.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h b/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
-index 05c8c31d8b31..97e1d4d19263 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
-@@ -79,7 +79,7 @@ enum aux_transaction_reply {
- };
- 
- struct aux_reply_transaction_data {
--	enum aux_transaction_reply status;
-+	uint8_t status;
- 	uint32_t length;
- 	uint8_t *data;
- };
--- 
-2.19.0
+Q3VycmVudGx5IHdlIHJldHVybiBOT1RJRllfRE9ORSBmb3IgYW55IGV2ZW50IHdoaWNoIHdlIGRv
+bid0IHRoaW5rIGlzCm91cnMuIEhvd2V2ZXIsIG1hbnkgbGFwdG9wcyB3aWxsIHNlbmQgbW9yZSB0
+aGVuIGp1c3QgYW4gQVRJRiBldmVudCBhbmQKd2lsbCBhbHNvIHNlbmQgYW4gQUNQSV9WSURFT19O
+T1RJRllfUFJPQkUgZXZlbnQgYXMgd2VsbC4gU2luY2Ugd2UgZG9uJ3QKY2hlY2sgZm9yIHRoaXMs
+IHdlIHJldHVybiBOT1RJRllfRE9ORSB3aGljaCBjYXVzZXMgYSBrZXlwcmVzcyBmb3IgdGhlCkFD
+UEkgZXZlbnQgdG8gYmUgcHJvcG9nYXRlZCB0byB1c2Vyc3BhY2UuIFRoaXMgaXMgdGhlIGVxdWl2
+YWxlbnQgb2YKc29tZW9uZSBwcmVzc2luZyB0aGUgZGlzcGxheSBrZXkgb24gYSBsYXB0b3AgZXZl
+cnkgdGltZSB0aGVyZSdzIGEKaG90cGx1ZyBldmVudC4KClNvLCBjaGVjayBmb3IgQUNQSV9WSURF
+T19OT1RJRllfUFJPQkUgZXZlbnRzIGFuZCBzdXBwcmVzcyBrZXlwcmVzc2VzCmZyb20gdGhlbS4K
+ClNpZ25lZC1vZmYtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+CkNjOiBzdGFibGVA
+dmdlci5rZXJuZWwub3JnCi0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Fj
+cGkuYyB8IDE3ICsrKysrKysrKysrKy0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0aW9u
+cygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfYWNwaS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Fj
+cGkuYwppbmRleCAzNTM5OTMyMThmMjEuLmYwMDg4MDRmMGI5NyAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcGkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfYWNwaS5jCkBAIC0zNTgsNyArMzU4LDkgQEAgc3RhdGljIGludCBh
+bWRncHVfYXRpZl9nZXRfc2Jpb3NfcmVxdWVzdHMoc3RydWN0IGFtZGdwdV9hdGlmICphdGlmLAog
+ICoKICAqIENoZWNrcyB0aGUgYWNwaSBldmVudCBhbmQgaWYgaXQgbWF0Y2hlcyBhbiBhdGlmIGV2
+ZW50LAogICogaGFuZGxlcyBpdC4KLSAqIFJldHVybnMgTk9USUZZIGNvZGUKKyAqCisgKiBSZXR1
+cm5zOgorICogTk9USUZZX0JBRCBvciBOT1RJRllfRE9ORSwgZGVwZW5kaW5nIG9uIHRoZSBldmVu
+dC4KICAqLwogc3RhdGljIGludCBhbWRncHVfYXRpZl9oYW5kbGVyKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LAogCQkJICAgICAgIHN0cnVjdCBhY3BpX2J1c19ldmVudCAqZXZlbnQpCkBAIC0z
+NzIsMTEgKzM3NCwxNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9hdGlmX2hhbmRsZXIoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsCiAJaWYgKHN0cmNtcChldmVudC0+ZGV2aWNlX2NsYXNzLCBBQ1BJ
+X1ZJREVPX0NMQVNTKSAhPSAwKQogCQlyZXR1cm4gTk9USUZZX0RPTkU7CiAKKwkvKiBJcyB0aGlz
+IGFjdHVhbGx5IG91ciBldmVudD8gKi8KIAlpZiAoIWF0aWYgfHwKIAkgICAgIWF0aWYtPm5vdGlm
+aWNhdGlvbl9jZmcuZW5hYmxlZCB8fAotCSAgICBldmVudC0+dHlwZSAhPSBhdGlmLT5ub3RpZmlj
+YXRpb25fY2ZnLmNvbW1hbmRfY29kZSkKLQkJLyogTm90IG91ciBldmVudCAqLwotCQlyZXR1cm4g
+Tk9USUZZX0RPTkU7CisJICAgIGV2ZW50LT50eXBlICE9IGF0aWYtPm5vdGlmaWNhdGlvbl9jZmcu
+Y29tbWFuZF9jb2RlKSB7CisJCS8qIFRoZXNlIGV2ZW50cyB3aWxsIGdlbmVyYXRlIGtleXByZXNz
+ZXMgb3RoZXJ3aXNlICovCisJCWlmIChldmVudC0+dHlwZSA9PSBBQ1BJX1ZJREVPX05PVElGWV9Q
+Uk9CRSkKKwkJCXJldHVybiBOT1RJRllfQkFEOworCQllbHNlCisJCQlyZXR1cm4gTk9USUZZX0RP
+TkU7CisJfQogCiAJaWYgKGF0aWYtPmZ1bmN0aW9ucy5zYmlvc19yZXF1ZXN0cykgewogCQlzdHJ1
+Y3QgYXRpZl9zYmlvc19yZXF1ZXN0cyByZXE7CkBAIC0zODUsNyArMzkyLDcgQEAgc3RhdGljIGlu
+dCBhbWRncHVfYXRpZl9oYW5kbGVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQljb3Vu
+dCA9IGFtZGdwdV9hdGlmX2dldF9zYmlvc19yZXF1ZXN0cyhhdGlmLCAmcmVxKTsKIAogCQlpZiAo
+Y291bnQgPD0gMCkKLQkJCXJldHVybiBOT1RJRllfRE9ORTsKKwkJCXJldHVybiBOT1RJRllfQkFE
+OwogCiAJCURSTV9ERUJVR19EUklWRVIoIkFUSUY6ICVkIHBlbmRpbmcgU0JJT1MgcmVxdWVzdHNc
+biIsIGNvdW50KTsKIAotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
