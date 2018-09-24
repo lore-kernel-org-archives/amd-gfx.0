@@ -1,15 +1,10 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Deactivate SW interrupt fallback in
- amdgpu_fence_process
-Date: Sun, 23 Sep 2018 10:17:32 +0200
-Message-ID: <f9719a0e-9ea2-4bd4-2c01-86c70fc4a0c3@amd.com>
-References: <1537673129-8345-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix the page fault of raven2
+Date: Mon, 24 Sep 2018 10:07:00 +0800
+Message-ID: <1537754820-17901-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0108930013=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1537673129-8345-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,39 +15,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjMuMDkuMjAxOCB1bSAwNToyNSBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Ogo+IERlYWN0
-aXZhdGUgU1cgaW50ZXJydXB0IGZhbGxiYWNrIHdoZW4gYWxsIGVtaXRlZCBmZW5jZXMgYXJlIGNv
-bXBsZXRlZC4KPiBBbHNvIHN3aXRjaCBpbnRlcnJ1cHQgU1cgZmFsbGJhY2sgbWVzc2FnZSBmcm9t
-IElORk8gdG8gV0FSTi4KPgo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRy
-ZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+IFN1Z2dlc3RlZC1ieTogQ2hyaXN0aWFuIEtvbmlnIDxD
-aHJpc3RpYW4uS29lbmlnQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZmVuY2UuYyB8IDQgKysrLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0
-aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ZlbmNlLmMKPiBpbmRleCAxYWUyNTgzLi45NTEyMjQ4IDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPiBAQCAtMjMxLDYgKzIzMSw4IEBAIHZvaWQg
-YW1kZ3B1X2ZlbmNlX3Byb2Nlc3Moc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICAgCj4gICAJ
-aWYgKHNlcSAhPSByaW5nLT5mZW5jZV9kcnYuc3luY19zZXEpCj4gICAJCWFtZGdwdV9mZW5jZV9z
-Y2hlZHVsZV9mYWxsYmFjayhyaW5nKTsKPiArCWVsc2UKPiArCQlkZWxfdGltZXIoJnJpbmctPmZl
-bmNlX2Rydi5mYWxsYmFja190aW1lcik7CgpUaGlua2luZyBtb3JlIGFib3V0IGl0IEkgY2FtZSB0
-byB0aGUgY29uY2x1c2lvbiB0aGF0IHRoaXMgc3RpbGwgaXNuJ3QgCjEwMCUgY29ycmVjdC4KCldl
-IG9ubHkgd2FudCB0aGUgZmFsbGJhY2sgdG8gYmUgcnVubmluZyB3aGVuIHNpZ25hbGluZyBpcyBl
-eHBsaWNpdGx5IAplbmFibGVkLiBTbyBpZiBJJ20gbm90IGNvbXBsZXRlbHkgbWlzdGFrZW4gdGhh
-dCByYXRoZXIgc2hvdWxkIGxvb2sgbGlrZSAKdGhpczoKCmlmIChkZWxfdGltZXIoJnJpbmctPmZl
-bmNlX2Rydi5mYWxsYmFja190aW1lcikgJiYKIMKgwqDCoCBzZXEgIT0gcmluZy0+ZmVuY2VfZHJ2
-LnN5bmNfc2VxKQogwqDCoMKgIMKgwqDCoCBhbWRncHVfZmVuY2Vfc2NoZWR1bGVfZmFsbGJhY2so
-cmluZyk7CgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+ICAgCj4gICAJaWYgKHVubGlrZWx5KHNlcSA9
-PSBsYXN0X3NlcSkpCj4gICAJCXJldHVybjsKPiBAQCAtMjc0LDcgKzI3Niw3IEBAIHN0YXRpYyB2
-b2lkIGFtZGdwdV9mZW5jZV9mYWxsYmFjayhzdHJ1Y3QgdGltZXJfbGlzdCAqdCkKPiAgIAlzdHJ1
-Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSBmcm9tX3RpbWVyKHJpbmcsIHQsCj4gICAJCQkJCSAgICAg
-IGZlbmNlX2Rydi5mYWxsYmFja190aW1lcik7Cj4gICAKPiAtCURSTV9JTkZPKCJGYWxsYmFjayB0
-byBTVyBpbnRlcnJ1cHQgb24gcmluZyAlcyBkdWUgdG8gSFcgaW50ZXJydXB0IHRpbWUgb3V0Iiwg
-cmluZy0+bmFtZSk7Cj4gKwlEUk1fV0FSTigiRmFsbGJhY2sgdG8gU1cgaW50ZXJydXB0IG9uIHJp
-bmcgJXMgZHVlIHRvIEhXIGludGVycnVwdCB0aW1lIG91dCIsIHJpbmctPm5hbWUpOwo+ICAgCWFt
-ZGdwdV9mZW5jZV9wcm9jZXNzKHJpbmcpOwo+ICAgfQo+ICAgCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0108930013==
+Content-Type: text/plain; charset="y"
+Content-Transfer-Encoding: 8bit
+
+While the apg_end address is 0xffffffff, if add 1 with it, the value will be
+overflow and roll back to 0. So when 0 is written to
+mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, the system aperture is actually disabled. And
+so any access to vram will trigger a page fault.
+
+Raven2's HW issue only need increase the vram end address, and needn't do it on
+the agp.
+
+Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Marek Olšák <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+index 65f58eb..ceb7847 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+@@ -82,7 +82,8 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		 * to get rid of the VM fault and hardware hang.
+ 		 */
+ 		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+-			     (max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18) + 0x1);
++			     max((adev->gmc.vram_end >> 18) + 0x1,
++				 adev->gmc.agp_end >> 18));
+ 	else
+ 		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+ 			     max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index 80698b5..14649f8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -100,7 +100,8 @@ static void mmhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		 * to get rid of the VM fault and hardware hang.
+ 		 */
+ 		WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+-			     (max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18) + 0x1);
++			     max((adev->gmc.vram_end >> 18) + 0x1,
++				 adev->gmc.agp_end >> 18));
+ 	else
+ 		WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+ 			     max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18);
+-- 
+2.7.4
+
+
+--===============0108930013==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0108930013==--
