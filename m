@@ -1,13 +1,15 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix the page fault of raven2
-Date: Mon, 24 Sep 2018 10:49:02 +0200
-Message-ID: <cce7a63c-d785-5e69-3caf-a881ffdea3e2@gmail.com>
-References: <1537754820-17901-1-git-send-email-ray.huang@amd.com>
+Subject: Re: [PATCH 4/6] drm: add timeline syncobj payload query ioctl
+Date: Mon, 24 Sep 2018 12:14:21 +0200
+Message-ID: <379e947d-f438-875f-c4b2-3603099ac469@gmail.com>
+References: <20180920110353.16114-1-david1.zhou@amd.com>
+ <20180920110353.16114-4-david1.zhou@amd.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0366263192=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1537754820-17901-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180920110353.16114-4-david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,167 +21,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0366263192==
-Content-Type: multipart/alternative;
- boundary="------------3454D8E09747633750E62F8F"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------3454D8E09747633750E62F8F
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 24.09.2018 um 04:07 schrieb Huang Rui:
-> While the apg_end address is 0xffffffff, if add 1 with it, the value will be
-> overflow and roll back to 0. So when 0 is written to
-> mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, the system aperture is actually disabled. And
-> so any access to vram will trigger a page fault.
->
-> Raven2's HW issue only need increase the vram end address, and needn't do it on
-> the agp.
->
-> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-> Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> Cc: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> Cc: Marek Olšák <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-
-Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 3 ++-
->   drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 3 ++-
->   2 files changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> index 65f58eb..ceb7847 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> @@ -82,7 +82,8 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
->   		 * to get rid of the VM fault and hardware hang.
->   		 */
->   		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
-> -			     (max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18) + 0x1);
-> +			     max((adev->gmc.vram_end >> 18) + 0x1,
-> +				 adev->gmc.agp_end >> 18));
->   	else
->   		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
->   			     max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> index 80698b5..14649f8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> @@ -100,7 +100,8 @@ static void mmhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
->   		 * to get rid of the VM fault and hardware hang.
->   		 */
->   		WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
-> -			     (max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18) + 0x1);
-> +			     max((adev->gmc.vram_end >> 18) + 0x1,
-> +				 adev->gmc.agp_end >> 18));
->   	else
->   		WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
->   			     max(adev->gmc.vram_end, adev->gmc.agp_end) >> 18);
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------3454D8E09747633750E62F8F
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 24.09.2018 um 04:07 schrieb Huang
-      Rui:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1537754820-17901-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">While the apg_end address is 0xffffffff, if add 1 with it, the value will be
-overflow and roll back to 0. So when 0 is written to
-mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR, the system aperture is actually disabled. And
-so any access to vram will trigger a page fault.
-
-Raven2's HW issue only need increase the vram end address, and needn't do it on
-the agp.
-
-Signed-off-by: Huang Rui <a class="moz-txt-link-rfc2396E" href="mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">&lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;</a>
-Acked-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
-Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>
-Cc: Marek Olšák <a class="moz-txt-link-rfc2396E" href="mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org">&lt;marek.olsak-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
-    </blockquote>
-    <br>
-    Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:1537754820-17901-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 3 ++-
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-index 65f58eb..ceb7847 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-@@ -82,7 +82,8 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 		 * to get rid of the VM fault and hardware hang.
- 		 */
- 		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--			     (max(adev-&gt;gmc.vram_end, adev-&gt;gmc.agp_end) &gt;&gt; 18) + 0x1);
-+			     max((adev-&gt;gmc.vram_end &gt;&gt; 18) + 0x1,
-+				 adev-&gt;gmc.agp_end &gt;&gt; 18));
- 	else
- 		WREG32_SOC15(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
- 			     max(adev-&gt;gmc.vram_end, adev-&gt;gmc.agp_end) &gt;&gt; 18);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-index 80698b5..14649f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -100,7 +100,8 @@ static void mmhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
- 		 * to get rid of the VM fault and hardware hang.
- 		 */
- 		WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--			     (max(adev-&gt;gmc.vram_end, adev-&gt;gmc.agp_end) &gt;&gt; 18) + 0x1);
-+			     max((adev-&gt;gmc.vram_end &gt;&gt; 18) + 0x1,
-+				 adev-&gt;gmc.agp_end &gt;&gt; 18));
- 	else
- 		WREG32_SOC15(MMHUB, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
- 			     max(adev-&gt;gmc.vram_end, adev-&gt;gmc.agp_end) &gt;&gt; 18);
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------3454D8E09747633750E62F8F--
-
---===============0366263192==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0366263192==--
+QW0gMjAuMDkuMjAxOCB1bSAxMzowMyBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gdXNlciBtb2Rl
+IGNhbiBxdWVyeSB0aW1lbGluZSBwYXlsb2FkLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2h1bm1pbmcg
+WmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1f
+aW50ZXJuYWwuaCB8ICAyICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMgICAgfCAg
+MiArKwo+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMgIHwgNTMgKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKwo+ICAgaW5jbHVkZS91YXBpL2RybS9kcm0uaCAgICAgICAg
+IHwgMTEgKysrKysrKwo+ICAgNCBmaWxlcyBjaGFuZ2VkLCA2OCBpbnNlcnRpb25zKCspCj4KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oIGIvZHJpdmVycy9ncHUv
+ZHJtL2RybV9pbnRlcm5hbC5oCj4gaW5kZXggNTY2ZDQ0ZTNjNzgyLi45YzQ4MjY0MTFhM2MgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gQEAgLTE4OSw2ICsxODksOCBAQCBpbnQgZHJtX3N5
+bmNvYmpfcmVzZXRfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAg
+IAkJCSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7Cj4gICBpbnQgZHJtX3N5bmNv
+Ympfc2lnbmFsX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAJ
+CQkgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKTsKPiAraW50IGRybV9zeW5jb2Jq
+X3F1ZXJ5X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gKwkJCSAg
+ICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7Cj4gICAKPiAgIC8qIGRybV9mcmFtZWJ1
+ZmZlci5jICovCj4gICB2b2lkIGRybV9mcmFtZWJ1ZmZlcl9wcmludF9pbmZvKHN0cnVjdCBkcm1f
+cHJpbnRlciAqcCwgdW5zaWduZWQgaW50IGluZGVudCwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2RybV9pb2N0bC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gaW5kZXgg
+YzA4OTE2MTRmNTE2Li5jM2MwNjE3ZTYzNzIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2RybV9pb2N0bC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gQEAgLTY3
+NSw2ICs2NzUsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9pb2N0bF9kZXNjIGRybV9pb2N0
+bHNbXSA9IHsKPiAgIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxMT1cpLAo+ICAg
+CURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfU0lHTkFMLCBkcm1fc3luY29ial9zaWdu
+YWxfaW9jdGwsCj4gICAJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVSX0FMTE9XKSwKPiAr
+CURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfUVVFUlksIGRybV9zeW5jb2JqX3F1ZXJ5
+X2lvY3RsLAo+ICsJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVSX0FMTE9XKSwKPiAgIAlE
+Uk1fSU9DVExfREVGKERSTV9JT0NUTF9DUlRDX0dFVF9TRVFVRU5DRSwgZHJtX2NydGNfZ2V0X3Nl
+cXVlbmNlX2lvY3RsLCBEUk1fVU5MT0NLRUQpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RM
+X0NSVENfUVVFVUVfU0VRVUVOQ0UsIGRybV9jcnRjX3F1ZXVlX3NlcXVlbmNlX2lvY3RsLCBEUk1f
+VU5MT0NLRUQpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX01PREVfQ1JFQVRFX0xFQVNF
+LCBkcm1fbW9kZV9jcmVhdGVfbGVhc2VfaW9jdGwsIERSTV9NQVNURVJ8RFJNX1VOTE9DS0VEKSwK
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vZHJtX3N5bmNvYmouYwo+IGluZGV4IGE0M2RlMGU0NjE2Yy4uZTk5OGZjMzE5ZjlmIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKPiBAQCAtMTI4OSwzICsxMjg5LDU2IEBAIGRybV9zeW5j
+b2JqX3NpZ25hbF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAg
+Cj4gICAJcmV0dXJuIHJldDsKPiAgIH0KPiArCj4gK3N0YXRpYyB2b2lkIGRybV9zeW5jb2JqX3Rp
+bWVsaW5lX3F1ZXJ5X3BheWxvYWQoc3RydWN0IGRybV9zeW5jb2JqICpzeW5jb2JqLAo+ICsJCQkJ
+CSAgICAgICB1aW50NjRfdCAqcG9pbnQpCj4gK3sKPiArCWlmIChzeW5jb2JqLT50eXBlICE9IERS
+TV9TWU5DT0JKX1RZUEVfVElNRUxJTkUpIHsKPiArCQlEUk1fRVJST1IoIk5vcm1hbCBzeW5jb2Jq
+IGNhbm4ndCBiZSBxdWVyaWVkISIpOwo+ICsJCSpwb2ludCA9IDA7Cj4gKwkJcmV0dXJuOwo+ICsJ
+fQo+ICsJKnBvaW50ID0gc3luY29iai0+c2lnbmFsX3BvaW50Owo+ICt9Cj4gKwo+ICtpbnQgZHJt
+X3N5bmNvYmpfcXVlcnlfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwK
+PiArCQkJICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKQo+ICt7Cj4gKwlzdHJ1Y3Qg
+ZHJtX3N5bmNvYmpfdGltZWxpbmVfcXVlcnkgKmFyZ3MgPSBkYXRhOwo+ICsJc3RydWN0IGRybV9z
+eW5jb2JqICoqc3luY29ianM7Cj4gKwl1aW50NjRfdCAqcG9pbnRzOwo+ICsJdWludDMyX3QgaTsK
+PiArCWludCByZXQ7Cj4gKwo+ICsJaWYgKCFkcm1fY29yZV9jaGVja19mZWF0dXJlKGRldiwgRFJJ
+VkVSX1NZTkNPQkopKQo+ICsJCXJldHVybiAtRU5PREVWOwo+ICsKPiArCWlmIChhcmdzLT5jb3Vu
+dF9oYW5kbGVzID09IDApCj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gKwo+ICsJcmV0ID0gZHJtX3N5
+bmNvYmpfYXJyYXlfZmluZChmaWxlX3ByaXZhdGUsCj4gKwkJCQkgICAgIHU2NF90b191c2VyX3B0
+cihhcmdzLT5oYW5kbGVzKSwKPiArCQkJCSAgICAgYXJncy0+Y291bnRfaGFuZGxlcywKPiArCQkJ
+CSAgICAgJnN5bmNvYmpzKTsKPiArCWlmIChyZXQgPCAwKQo+ICsJCXJldHVybiByZXQ7Cj4gKwo+
+ICsKPiArCXBvaW50cyA9IGttYWxsb2NfYXJyYXkoYXJncy0+Y291bnRfaGFuZGxlcywgc2l6ZW9m
+KCpwb2ludHMpLAo+ICsJCQkgICAgICAgR0ZQX0tFUk5FTCk7Cj4gKwlpZiAocG9pbnRzID09IE5V
+TEwpIHsKPiArCQlyZXQgPSAtRU5PTUVNOwo+ICsJCWdvdG8gb3V0Owo+ICsJfQo+ICsJZm9yIChp
+ID0gMDsgaSA8IGFyZ3MtPmNvdW50X2hhbmRsZXM7IGkrKykgewo+ICsJCWRybV9zeW5jb2JqX3Rp
+bWVsaW5lX3F1ZXJ5X3BheWxvYWQoc3luY29ianNbaV0sICZwb2ludHNbaV0pOwo+ICsJCWNvcHlf
+dG9fdXNlcih1NjRfdG9fdXNlcl9wdHIoYXJncy0+cG9pbnRzKSwgcG9pbnRzLAo+ICsJCQkgICAg
+IHNpemVvZih1aW50NjRfdCkgKiBhcmdzLT5jb3VudF9oYW5kbGVzKTsKCkNvcHlpbmcgdGhlIHBv
+aW50cyB0byB1c2Vyc3BhY2Ugb24gZWFjaCBpdGVyYXRpb24gb2YgdGhlIGxvb3A/IFRoYXQgCmRv
+ZXNuJ3QgbG9va3MgY29ycmVjdCB0byBtZS4KCkFkZGl0aW9uYWwgdG8gdGhhdCB5b3UgbmVlZCB0
+byBjaGVjayB0aGUgcmV0dXJuIHZhbHVlIG9mIGNvcHlfdG9fdXNlci4KClJlZ2FyZHMsCkNocmlz
+dGlhbi4KCj4gKwl9Cj4gKwo+ICsJa2ZyZWUocG9pbnRzKTsKPiArb3V0Ogo+ICsJZHJtX3N5bmNv
+YmpfYXJyYXlfZnJlZShzeW5jb2JqcywgYXJncy0+Y291bnRfaGFuZGxlcyk7Cj4gKwo+ICsJcmV0
+dXJuIHJldDsKPiArfQo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2RybS5oIGIvaW5j
+bHVkZS91YXBpL2RybS9kcm0uaAo+IGluZGV4IDUwMWU4NmQ4MWY0Ny4uMTg4YjYzZjE5NzViIDEw
+MDY0NAo+IC0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vZHJtLmgKPiArKysgYi9pbmNsdWRlL3VhcGkv
+ZHJtL2RybS5oCj4gQEAgLTc2Nyw2ICs3NjcsMTUgQEAgc3RydWN0IGRybV9zeW5jb2JqX2FycmF5
+IHsKPiAgIAlfX3UzMiBwYWQ7Cj4gICB9Owo+ICAgCj4gK3N0cnVjdCBkcm1fc3luY29ial90aW1l
+bGluZV9xdWVyeSB7Cj4gKwlfX3U2NCBoYW5kbGVzOwo+ICsJLyogcG9pbnRzIGFyZSB0aW1lbGlu
+ZSBzeW5jb2JqcyBwYXlsb2FkcyByZXR1cm5lZCBieSBxdWVyeSBpb2N0bCAqLwo+ICsJX191NjQg
+cG9pbnRzOwo+ICsJX191MzIgY291bnRfaGFuZGxlczsKPiArCV9fdTMyIHBhZDsKPiArfTsKPiAr
+Cj4gKwo+ICAgLyogUXVlcnkgY3VycmVudCBzY2Fub3V0IHNlcXVlbmNlIG51bWJlciAqLwo+ICAg
+c3RydWN0IGRybV9jcnRjX2dldF9zZXF1ZW5jZSB7Cj4gICAJX191MzIgY3J0Y19pZDsJCS8qIHJl
+cXVlc3RlZCBjcnRjX2lkICovCj4gQEAgLTkyNCw2ICs5MzMsOCBAQCBleHRlcm4gIkMiIHsKPiAg
+ICNkZWZpbmUgRFJNX0lPQ1RMX01PREVfUkVWT0tFX0xFQVNFCURSTV9JT1dSKDB4QzksIHN0cnVj
+dCBkcm1fbW9kZV9yZXZva2VfbGVhc2UpCj4gICAKPiAgICNkZWZpbmUgRFJNX0lPQ1RMX1NZTkNP
+QkpfVElNRUxJTkVfV0FJVAlEUk1fSU9XUigweENBLCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxp
+bmVfd2FpdCkKPiArI2RlZmluZSBEUk1fSU9DVExfU1lOQ09CSl9RVUVSWQkJRFJNX0lPV1IoMHhD
+Qiwgc3RydWN0IGRybV9zeW5jb2JqX3RpbWVsaW5lX3F1ZXJ5KQo+ICsKPiAgIC8qKgo+ICAgICog
+RGV2aWNlIHNwZWNpZmljIGlvY3RscyBzaG91bGQgb25seSBiZSBpbiB0aGVpciByZXNwZWN0aXZl
+IGhlYWRlcnMKPiAgICAqIFRoZSBkZXZpY2Ugc3BlY2lmaWMgaW9jdGwgcmFuZ2UgaXMgZnJvbSAw
+eDQwIHRvIDB4OWYuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
