@@ -1,20 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Deactivate SW interrupt fallback in
- amdgpu_fence_process v2
-Date: Mon, 24 Sep 2018 19:44:49 +0200
-Message-ID: <b5b0710c-4ea3-b2c1-0be6-19d59b45b2f8@gmail.com>
-References: <20180924121022.2071-1-christian.koenig@amd.com>
- <BN6PR12MB18097AA77D7E8948DE462823F7170@BN6PR12MB1809.namprd12.prod.outlook.com>
- <4ca8e57b-6927-e6a0-b063-9dc5a4d26952@amd.com>
- <8971d575-3279-9974-04be-45bb62cb42a3@amd.com>
- <b94f9fe1-e351-79e1-0f31-6400197cf64b@gmail.com>
- <3f12ea59-0db9-85ca-1374-7678674859f6@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2 0/3] A DRM API for adaptive sync and variable refresh rate
+ support
+Date: Mon, 24 Sep 2018 14:15:34 -0400
+Message-ID: <20180924181537.12092-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1744632489=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3f12ea59-0db9-85ca-1374-7678674859f6-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,390 +17,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Aric.Cyr-5C7GfCeVMHo@public.gmane.org, nicolai.haehnle-5C7GfCeVMHo@public.gmane.org, michel-otUistvHUpPR7s880joybQ@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, daniel-/w4YWyX8dFk@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, harry.wentland-5C7GfCeVMHo@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org, ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1744632489==
-Content-Type: multipart/alternative;
- boundary="------------6D0C19749EF0216871A56733"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------6D0C19749EF0216871A56733
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 24.09.2018 um 17:32 schrieb Andrey Grodzovsky:
->
->
->
-> On 09/24/2018 11:19 AM, Christian König wrote:
->> Thanks.
->>
->> One more thing which came to my mind is that we might want to print 
->> the warning only when amdgpu_fence_process has actually done some 
->> processing.
->>
->> Otherwise we could get warnings for long running jobs.
->
-> Do you mean that you want to know that amdgpu_fence_process was called 
-> from the SW fallback timer and print warning only if last_seq != seq 
-> and the while loop actually signaled something ?
-
-Yeah, something like that.
-
-Christian.
-
->
-> Andrey
->
->>
->> Christian.
->>
->> Am 24.09.2018 um 17:14 schrieb Andrey Grodzovsky:
->>>
->>> P.S I pushed it.
->>>
->>>
->>> Thanks,
->>>
->>> Andrey
->>>
->>>
->>> On 09/24/2018 11:13 AM, Andrey Grodzovsky wrote:
->>>>
->>>> Reviewed-and-Tested-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
->>>>
->>>>
->>>> Andrey
->>>>
->>>>
->>>> On 09/24/2018 10:31 AM, Deucher, Alexander wrote:
->>>>>
->>>>> Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
->>>>>
->>>>> ------------------------------------------------------------------------
->>>>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf 
->>>>> of Christian König <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->>>>> *Sent:* Monday, September 24, 2018 8:10:22 AM
->>>>> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>>>> *Subject:* [PATCH] drm/amdgpu: Deactivate SW interrupt fallback in 
->>>>> amdgpu_fence_process v2
->>>>> From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
->>>>>
->>>>> Deactivate SW interrupt fallback when all emited fences are completed.
->>>>> Also switch interrupt SW fallback message from INFO to WARN.
->>>>>
->>>>> v2: shorten the warnign message a bit and only re-activate the 
->>>>> timer during
->>>>> processing if it was already activated before.
->>>>>
->>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
->>>>> Suggested-by: Christian Konig <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
->>>>> ---
->>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 5 +++--
->>>>>  1 file changed, 3 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c 
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>> index 1ae25835cad1..4e6e9c9654dd 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->>>>> @@ -229,7 +229,8 @@ void amdgpu_fence_process(struct amdgpu_ring 
->>>>> *ring)
->>>>>
->>>>>          } while (atomic_cmpxchg(&drv->last_seq, last_seq, seq) != 
->>>>> last_seq);
->>>>>
->>>>> -       if (seq != ring->fence_drv.sync_seq)
->>>>> +       if (del_timer(&ring->fence_drv.fallback_timer) &&
->>>>> +           seq != ring->fence_drv.sync_seq)
->>>>> amdgpu_fence_schedule_fallback(ring);
->>>>>
->>>>>          if (unlikely(seq == last_seq))
->>>>> @@ -274,7 +275,7 @@ static void amdgpu_fence_fallback(struct 
->>>>> timer_list *t)
->>>>>          struct amdgpu_ring *ring = from_timer(ring, t,
->>>>> fence_drv.fallback_timer);
->>>>>
->>>>> -       DRM_INFO("Fallback to SW interrupt on ring %s due to HW 
->>>>> interrupt time out", ring->name);
->>>>> +       DRM_WARN("Fence fallback timer expired on ring %s\n", 
->>>>> ring->name);
->>>>>          amdgpu_fence_process(ring);
->>>>>  }
->>>>>
->>>>> -- 
->>>>> 2.14.1
->>>>>
->>>>> _______________________________________________
->>>>> amd-gfx mailing list
->>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>>>
->>>>>
->>>>> _______________________________________________
->>>>> amd-gfx mailing list
->>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>>
->>>>
->>>>
->>>> _______________________________________________
->>>> amd-gfx mailing list
->>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>
->>
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------6D0C19749EF0216871A56733
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 24.09.2018 um 17:32 schrieb Andrey
-      Grodzovsky:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:3f12ea59-0db9-85ca-1374-7678674859f6-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <p><br>
-      </p>
-      <br>
-      <div class="moz-cite-prefix">On 09/24/2018 11:19 AM, Christian
-        König wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:b94f9fe1-e351-79e1-0f31-6400197cf64b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
-        <meta http-equiv="Content-Type" content="text/html;
-          charset=windows-1252">
-        <div class="moz-cite-prefix">Thanks.<br>
-          <br>
-          One more thing which came to my mind is that we might want to
-          print the warning only when amdgpu_fence_process has actually
-          done some processing.<br>
-          <br>
-          Otherwise we could get warnings for long running jobs.<br>
-        </div>
-      </blockquote>
-      <br>
-      Do you mean that you want to know that amdgpu_fence_process was
-      called from the SW fallback timer and print warning only if
-      last_seq != seq and the while loop actually signaled something ?<br>
-    </blockquote>
-    <br>
-    Yeah, something like that.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:3f12ea59-0db9-85ca-1374-7678674859f6-5C7GfCeVMHo@public.gmane.org"> <br>
-      Andrey<br>
-      <br>
-      <blockquote type="cite"
-        cite="mid:b94f9fe1-e351-79e1-0f31-6400197cf64b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
-        <div class="moz-cite-prefix"> <br>
-          Christian.<br>
-          <br>
-          Am 24.09.2018 um 17:14 schrieb Andrey Grodzovsky:<br>
-        </div>
-        <blockquote type="cite"
-          cite="mid:8971d575-3279-9974-04be-45bb62cb42a3-5C7GfCeVMHo@public.gmane.org">
-          <p>P.S I pushed it.</p>
-          <p><br>
-          </p>
-          <p>Thanks,</p>
-          <p>Andrey<br>
-          </p>
-          <br>
-          <div class="moz-cite-prefix">On 09/24/2018 11:13 AM, Andrey
-            Grodzovsky wrote:<br>
-          </div>
-          <blockquote type="cite"
-            cite="mid:4ca8e57b-6927-e6a0-b063-9dc5a4d26952-5C7GfCeVMHo@public.gmane.org">
-            <p>Reviewed-and-Tested-by: Andrey Grodzovsky <a
-                class="moz-txt-link-rfc2396E"
-                href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
-                moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            </p>
-            <p><br>
-            </p>
-            <p>Andrey</p>
-            <p><br>
-            </p>
-            <div class="moz-cite-prefix">On 09/24/2018 10:31 AM,
-              Deucher, Alexander wrote:<br>
-            </div>
-            <blockquote type="cite"
-cite="mid:BN6PR12MB18097AA77D7E8948DE462823F7170-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-              <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-              <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-                dir="ltr">
-                <p style="margin-top:0;margin-bottom:0">Acked-by: Alex
-                  Deucher <a class="moz-txt-link-rfc2396E"
-                    href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org"
-                    moz-do-not-send="true">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                </p>
-              </div>
-              <hr style="display:inline-block;width:98%" tabindex="-1">
-              <div id="divRplyFwdMsg" dir="ltr"><font
-                  style="font-size:11pt" face="Calibri, sans-serif"
-                  color="#000000"><b>From:</b> amd-gfx <a
-                    class="moz-txt-link-rfc2396E"
-                    href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                    moz-do-not-send="true">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>
-                  on behalf of Christian König <a
-                    class="moz-txt-link-rfc2396E"
-                    href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                    moz-do-not-send="true">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-                  <b>Sent:</b> Monday, September 24, 2018 8:10:22 AM<br>
-                  <b>To:</b> <a class="moz-txt-link-abbreviated"
-                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                  <b>Subject:</b> [PATCH] drm/amdgpu: Deactivate SW
-                  interrupt fallback in amdgpu_fence_process v2</font>
-                <div> </div>
-              </div>
-              <div class="BodyFragment"><font size="2"><span
-                    style="font-size:11pt;">
-                    <div class="PlainText">From: Andrey Grodzovsky <a
-                        class="moz-txt-link-rfc2396E"
-                        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
-                        moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                      <br>
-                      Deactivate SW interrupt fallback when all emited
-                      fences are completed.<br>
-                      Also switch interrupt SW fallback message from
-                      INFO to WARN.<br>
-                      <br>
-                      v2: shorten the warnign message a bit and only
-                      re-activate the timer during<br>
-                      processing if it was already activated before.<br>
-                      <br>
-                      Signed-off-by: Andrey Grodzovsky <a
-                        class="moz-txt-link-rfc2396E"
-                        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
-                        moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                      Suggested-by: Christian Konig <a
-                        class="moz-txt-link-rfc2396E"
-                        href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org"
-                        moz-do-not-send="true">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                      ---<br>
-                       drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 5
-                      +++--<br>
-                       1 file changed, 3 insertions(+), 2 deletions(-)<br>
-                      <br>
-                      diff --git
-                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
-                      index 1ae25835cad1..4e6e9c9654dd 100644<br>
-                      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
-                      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
-                      @@ -229,7 +229,8 @@ void
-                      amdgpu_fence_process(struct amdgpu_ring *ring)<br>
-                       <br>
-                               } while
-                      (atomic_cmpxchg(&amp;drv-&gt;last_seq, last_seq,
-                      seq) != last_seq);<br>
-                       <br>
-                      -       if (seq != ring-&gt;fence_drv.sync_seq)<br>
-                      +       if
-                      (del_timer(&amp;ring-&gt;fence_drv.fallback_timer)
-                      &amp;&amp;<br>
-                      +           seq != ring-&gt;fence_drv.sync_seq)<br>
-                                      
-                      amdgpu_fence_schedule_fallback(ring);<br>
-                       <br>
-                               if (unlikely(seq == last_seq))<br>
-                      @@ -274,7 +275,7 @@ static void
-                      amdgpu_fence_fallback(struct timer_list *t)<br>
-                               struct amdgpu_ring *ring =
-                      from_timer(ring, t,<br>
-                                                                    
-                      fence_drv.fallback_timer);<br>
-                       <br>
-                      -       DRM_INFO("Fallback to SW interrupt on ring
-                      %s due to HW interrupt time out", ring-&gt;name);<br>
-                      +       DRM_WARN("Fence fallback timer expired on
-                      ring %s\n", ring-&gt;name);<br>
-                               amdgpu_fence_process(ring);<br>
-                       }<br>
-                       <br>
-                      -- <br>
-                      2.14.1<br>
-                      <br>
-                      _______________________________________________<br>
-                      amd-gfx mailing list<br>
-                      <a class="moz-txt-link-abbreviated"
-                        href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                        moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                      <a
-                        href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                        moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-                    </div>
-                  </span></font></div>
-              <br>
-              <fieldset class="mimeAttachmentHeader"></fieldset>
-              <br>
-              <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-            </blockquote>
-            <br>
-            <br>
-            <fieldset class="mimeAttachmentHeader"></fieldset>
-            <br>
-            <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-          </blockquote>
-          <br>
-        </blockquote>
-        <br>
-      </blockquote>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------6D0C19749EF0216871A56733--
-
---===============1744632489==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1744632489==--
+VGhlc2UgcGF0Y2hlcyBhcmUgcGFydCBvZiBhIHByb3Bvc2VkIG5ldyBpbnRlcmZhY2UgZm9yIHN1
+cHBvcnRpbmcgdmFyaWFibGUgcmVmcmVzaCByYXRlIHZpYSBEUk0gcHJvcGVydGllcy4KCj09PSBD
+aGFuZ2VzIGZyb20gdjEgPT09CgpGb3IgZHJtOgoKKiBUaGUgdmFyaWFibGVfcmVmcmVzaF9jYXBh
+YmxlIHByb3BlcnR5IGlzIG5vdyBmbGFnZ2VkIGFzIERSTV9NT0RFX1BST1BfSU1NVVRBQkxFCgpG
+b3IgZHJtL2dwdS9hbWQvZGlzcGxheToKCiogUGF0Y2hlcyBubyBsb25nZXIgcHVsbCBpbiBJT0NU
+TC9GcmVlU3luYyByZWZhY3RvcmluZyBjb2RlCiogRnJlZVN5bmMgZW5hYmxlL2Rpc2FibGUgYmVo
+YXZpb3IgaGFzIGJlZW4gbW9kaWZpZWQgdG8gcmVmbGVjdCBjaGFuZ2VzIGluIHVzZXJzcGFjZSBi
+ZWhhdmlvciBmcm9tIHhmODYtdmlkZW8tYW1kZ3B1IGFuZCBtZXNhCgo9PT0gQWRhcHRpdmUgc3lu
+YyBhbmQgdmFyaWFibGUgcmVmcmVzaCByYXRlID09PQoKQWRhcHRpdmUgc3luYyBpcyBwYXJ0IG9m
+IHRoZSBEaXNwbGF5UG9ydCBzcGVjIGFuZCBhbGxvd3MgZm9yIGdyYXBoaWNzIGFkYXB0ZXJzIHRv
+IGRyaXZlIGRpc3BsYXlzIHdpdGggdmFyeWluZyBmcmFtZSB0aW1pbmdzLgoKVmFyaWFibGUgcmVm
+cmVzaCByYXRlIChWUlIpIGlzIGVzc2VudGlhbGx5IHRoZSBzYW1lLCBidXQgZGVmaW5lZCBmb3Ig
+SERNSS4KCj09PSBVc2UgY2FzZXMgZm9yIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSA9PT0KClZhcmlh
+YmxlIGZyYW1lIChmbGlwKSB0aW1pbmdzIGRvbid0IGFsaWduIHdlbGwgd2l0aCBmaXhlZCByZWZy
+ZXNoIHJhdGUgZGlzcGxheXMuIFRoaXMgcmVzdWx0cyBpbiBzdHV0dGVyaW5nLCB0ZWFyaW5nIGFu
+ZC9vciBpbnB1dCBsYWcuIEJ5IGFkanVzdGluZyB0aGUgZGlzcGxheSByZWZyZXNoIHJhdGUgZHlu
+YW1pY2FsbHkgdGhlc2UgaXNzdWVzIGNhbiBiZSByZWR1Y2VkIG9yIGVsaW1pbmF0ZWQuCgpIb3dl
+dmVyLCBub3QgYWxsIGNvbnRlbnQgaXMgc3VpdGFibGUgZm9yIGR5bmFtaWMgcmVmcmVzaCBhZGFw
+dGF0aW9uLiBDb250ZW50IHRoYXQgaXMgZmxpcHBlZCBpbmZyZXF1ZW50bHkgb3IgYXQgcmFuZG9t
+IGludGVydmFscyB0ZW5kcyB0byBmYWlyIHBvb3JseS4gTXVsdGlwbGUgY2xpZW50cyB0cnlpbmcg
+dG8gZmxpcCB1bmRlciB0aGUgc2FtZSBzY3JlZW4gY2FuIHNpbWlsYXJseSBpbnRlcmZlcmUgd2l0
+aCBwcmVkaWN0aW9uLgoKVXNlcmxhbmQgbmVlZHMgYSB3YXkgdG8gbGV0IHRoZSBkcml2ZXIga25v
+dyB3aGVuIHRoZSBjb250ZW50IG9uIHRoZSBzY3JlZW4gaXMgc3VpdGFibGUgZm9yIHZhcmlhYmxl
+IHJlZnJlc2ggcmF0ZSBhbmQgaWYgdGhlIHVzZXIgd2lzaGVzIHRvIGhhdmUgdGhlIGZlYXR1cmUg
+ZW5hYmxlZC4KCj09PSBEUk0gQVBJIHRvIHN1cHBvcnQgdmFyaWFibGUgcmVmcmVzaCByYXRlcyA9
+PT0KClRoaXMgcGF0Y2ggaW50cm9kdWNlcyBhIG5ldyBBUEkgdmlhIGF0b21pYyBwcm9wZXJ0aWVz
+IG9uIHRoZSBEUk0gY29ubmVjdG9yIGFuZCBDUlRDLgoKVGhlIGNvbm5lY3RvciBoYXMgdHdvIG5l
+dyBvcHRpb25hbCBwcm9wZXJ0aWVzOgoKKiBib29sIHZhcmlhYmxlX3JlZnJlc2hfY2FwYWJsZSAt
+IHNldCBieSB0aGUgZHJpdmVyIGlmIHRoZSBoYXJkd2FyZSBpcyBjYXBhYmxlIG9mIHN1cHBvcnRp
+bmcgdmFyaWFibGUgcmVmcmVzaCB0ZWNoCgoqIGJvb2wgdmFyaWFibGVfcmVmcmVzaF9lbmFibGVk
+IC0gc2V0IGJ5IHRoZSB1c2VyIHRvIGVuYWJsZSB2YXJpYWJsZSByZWZyZXNoIGFkanVzdG1lbnQg
+b3ZlciB0aGUgY29ubmVjdG9yCgpUaGUgQ1JUQyBoYXMgb25lIGFkZGl0aW9uYWwgZGVmYXVsdCBw
+cm9wZXJ0eToKCiogYm9vbCB2YXJpYWJsZV9yZWZyZXNoIC0gYSBjb250ZW50IGhpbnQgdG8gdGhl
+IGRyaXZlciBzcGVjaWZ5aW5nIHRoYXQgdGhlIENSVEMgY29udGVudHMgYXJlIHN1aXRhYmxlIGZv
+ciB2YXJpYWJsZSByZWZyZXNoIGFkanVzdG1lbnQKCj09IE92ZXJ2aWV3IGZvciBEUk0gZHJpdmVy
+IGRldmVsb3BlcnMgPT09CgpEcml2ZXIgZGV2ZWxvcGVycyBjYW4gYXR0YWNoIHRoZSBvcHRpb25h
+bCBjb25uZWN0b3IgcHJvcGVydGllcyB2aWEgZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfdmFyaWFibGVf
+cmVmcmVzaF9wcm9wZXJ0aWVzIG9uIGNvbm5lY3RvcnMgdGhhdCBzdXBwb3J0IHZhcmlhYmxlIHJl
+ZnJlc2ggKHR5cGljYWxseSBEUCBvciBIRE1JKS4KClRoZSB2YXJpYWJsZV9yZWZyZXNoX2NhcGFi
+bGUgcHJvcGVydHkgc2hvdWxkIGJlIG1hbmFnZWQgYXMgdGhlIG91dHB1dCBvbiB0aGUgY29ubmVj
+dG9yIGNoYW5nZXMuIFRoZSBwcm9wZXJ0eSBpcyByZWFkIG9ubHkgZnJvbSB1c2Vyc3BhY2UuCgpU
+aGUgdmFyaWFibGVfcmVmcmVzaF9lbmFibGVkIHByb3BlcnR5IGlzIGludGVuZGVkIHRvIGJlIGEg
+cHJvcGVydHkgY29udHJvbGxlZCBieSB1c2VybGFuZCBhcyBhIGdsb2JhbCBvbi9vZmYgc3dpdGNo
+IGZvciB2YXJpYWJsZSByZWZyZXNoIHRlY2hub2xvZ3kuIEl0IHNob3VsZCBiZSBjaGVja2VkIGJl
+Zm9yZSBlbmFibGluZyB2YXJpYWJsZSByZWZyZXNoIHJhdGUuCgo9PT0gT3ZlcnZpZXcgZm9yIFVz
+ZXJsYW5kIGRldmVsb3BlcnMgPT0KClRoZSB2YXJpYWJsZV9yZWZyZXNoIHByb3BlcnR5IG9uIHRo
+ZSBDUlRDIHNob3VsZCBiZSBzZXQgdG8gdHJ1ZSB3aGVuIHRoZSBDUlRDcyBhcmUgc3VpdGFibGUg
+Zm9yIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZS4gSW4gcHJhY3RpY2UgdGhpcyBpcyBwcm9iYWJseSBh
+biBhcHBsaWNhdGlvbiBsaWtlIGEgZ2FtZSAtIGEgc2luZ2xlIHdpbmRvdyB0aGF0IGNvdmVycyB0
+aGUgd2hvbGUgQ1JUQyBzdXJmYWNlIGFuZCBpcyB0aGUgb25seSBjbGllbnQgaXNzdWluZyBmbGlw
+cy4KClRvIGRlbW9uc3RyYXRlIHRoZSBzdWl0YWJpbGl0eSBvZiB0aGUgQVBJIGZvciB2YXJpYWJs
+ZSByZWZyZXNoIGFuZCBkeW5hbWljIGFkYXB0YXRpb24gdGhlcmUgYXJlIGFkZGl0aW9uYWwgcGF0
+Y2hlcyB1c2luZyB0aGlzIEFQSSB0aGF0IGltcGxlbWVudCBhZGFwdGl2ZSB2YXJpYWJsZSByZWZy
+ZXNoIGFjcm9zcyBrZXJuZWwgYW5kIHVzZXJsYW5kIHByb2plY3RzOgoKKiBEUk0gKGRyaS1kZXZl
+bCkKKiBhbWRncHUgRFJNIGtlcm5lbCBkcml2ZXIgKGFtZC1nZngpCiogeGY4Ni12aWRlby1hbWRn
+cHUgKGFtZC1nZngpCiogbWVzYSAobWVzYS1kZXYpCgpUaGVzZSBwYXRjaGVzIGVuYWJsZSBhZGFw
+dGl2ZSB2YXJpYWJsZSByZWZyZXNoIG9uIFggZm9yIEFNRCBoYXJkd2FyZSBwcm92aWRlZCB0aGF0
+IHRoZSB1c2VyIHNldHMgdGhlIHZhcmlhYmxlX3JlZnJlc2hfZW5hYmxlZCBwcm9wZXJ0eSB0byB0
+cnVlIG9uIHN1cHBvcnRlZCBjb25uZWN0b3JzIChpZS4gdXNpbmcgeHJhbmRyIC0tc2V0LXByb3Ap
+LgoKVGhlIHBhdGNoZXMgaGF2ZSBiZWVuIHRlc3RlZCBhcyB3b3JraW5nIG9uIHVwc3RyZWFtIHVz
+ZXJsYW5kIHdpdGggdGhlIEdOT01FIGRlc2t0b3AgZW52aXJvbm1lbnQgdW5kZXIgYSBzaW5nbGUg
+bW9uaXRvciBzZXR1cC4gVGhleSBhbHNvIHdvcmsgb24gS0RFIGluIHNpbmdsZSBtb25pdG9yIHNl
+dHVwIGlmIHRoZSBjb21wb3NpdG9yIGlzIGRpc2FibGVkLgoKVGhlIHBhdGNoZXMgcmVxdWlyZSB0
+aGF0IHRoZSBhcHBsaWNhdGlvbiB3aW5kb3cgY2FuIGlzc3VlIHNjcmVlbiBmbGlwcyB2aWEgdGhl
+IFByZXNlbnQgZXh0ZW5zaW9uIHRvIHhmODYtdmlkZW8tYW1kZ3B1LiBEdWUgdG8gUHJlc2VudCBl
+eHRlbnNpb24gbGltaXRhdGlvbnMgc29tZSBkZXNrdG9wIGVudmlyb25tZW50cyBhbmQgbXVsdGkt
+bW9uaXRvciBzZXR1cHMgYXJlIGN1cnJlbnRseSBub3QgY29tcGF0aWJsZS4KCkZ1bGwgaW1wbGVt
+ZW50YXRpb24gZGV0YWlscyBmb3IgdGhlc2UgY2hhbmdlcyBjYW4gYmUgcmV2aWV3ZWQgaW4gdGhl
+aXIgcmVzcGVjdGl2ZSBtYWlsaW5nIGxpc3RzLgoKPT09IFByZXZpb3VzIGRpc2N1c3Npb25zID09
+PQoKVGhlc2UgcGF0Y2hlcyBhcmUgYmFzZWQgdXBvbiBmZWVkYmFjayBmcm9tIHBhdGNoZXMgYW5k
+IGZlZWRiYWNrIGZyb20gdHdvIHByZXZpb3VzIHRocmVhZHMgb24gdGhlIHN1YmplY3Qgd2hpY2gg
+YXJlIGxpbmtlZCBiZWxvdyBmb3IgcmVmZXJlbmNlOgoKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvYXJjaGl2ZXMvYW1kLWdmeC8yMDE4LUFwcmlsLzAyMTA0Ny5odG1sCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2RyaS1kZXZlbC8yMDE3LU9jdG9iZXIvMTU1MjA3
+Lmh0bWwKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvZHJpLWRldmVsLzIw
+MTgtU2VwdGVtYmVyLzE4OTQwNC5odG1sCgpOaWNob2xhcyBLYXpsYXVza2FzCgpOaWNob2xhcyBL
+YXpsYXVza2FzICgzKToKICBkcm06IEFkZCB2YXJpYWJsZSByZWZyZXNoIHJhdGUgcHJvcGVydGll
+cyB0byBjb25uZWN0b3IKICBkcm06IEFkZCB2YXJpYWJsZSByZWZyZXNoIHByb3BlcnR5IHRvIERS
+TSBDUlRDCiAgZHJtL2FtZC9kaXNwbGF5OiBTZXQgRnJlZVN5bmMgc3RhdGUgdXNpbmcgRFJNIFZS
+UiBwcm9wZXJ0aWVzCgogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
+bS5jIHwgMjMyICsrKysrKysrKy0tLS0tLS0tLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
+Z3B1X2RtL2FtZGdwdV9kbS5oIHwgICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19o
+ZWxwZXIuYyAgICAgICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfdWFw
+aS5jICAgICAgICAgICAgIHwgIDEyICsKIGRyaXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmMg
+ICAgICAgICAgICAgICB8ICAzNSArKysKIGRyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Yy5jICAgICAg
+ICAgICAgICAgICAgICB8ICAgMiArCiBkcml2ZXJzL2dwdS9kcm0vZHJtX21vZGVfY29uZmlnLmMg
+ICAgICAgICAgICAgfCAgIDYgKwogaW5jbHVkZS9kcm0vZHJtX2Nvbm5lY3Rvci5oICAgICAgICAg
+ICAgICAgICAgIHwgIDI3ICsrCiBpbmNsdWRlL2RybS9kcm1fY3J0Yy5oICAgICAgICAgICAgICAg
+ICAgICAgICAgfCAgMTMgKwogaW5jbHVkZS9kcm0vZHJtX21vZGVfY29uZmlnLmggICAgICAgICAg
+ICAgICAgIHwgICA4ICsKIDEwIGZpbGVzIGNoYW5nZWQsIDIyNSBpbnNlcnRpb25zKCspLCAxMTcg
+ZGVsZXRpb25zKC0pCgotLSAKMi4xOS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
