@@ -1,16 +1,20 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: Improve reservation object shared slot function
-Date: Mon, 24 Sep 2018 17:43:19 +0200
-Message-ID: <20180924154319.GW11082@phenom.ffwll.local>
-References: <20180924115819.2116-1-christian.koenig@amd.com>
- <20180924150319.GV11082@phenom.ffwll.local>
- <b84dbae6-12ce-5632-d80f-567cb7fe678b@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Deactivate SW interrupt fallback in
+ amdgpu_fence_process v2
+Date: Mon, 24 Sep 2018 19:44:49 +0200
+Message-ID: <b5b0710c-4ea3-b2c1-0be6-19d59b45b2f8@gmail.com>
+References: <20180924121022.2071-1-christian.koenig@amd.com>
+ <BN6PR12MB18097AA77D7E8948DE462823F7170@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <4ca8e57b-6927-e6a0-b063-9dc5a4d26952@amd.com>
+ <8971d575-3279-9974-04be-45bb62cb42a3@amd.com>
+ <b94f9fe1-e351-79e1-0f31-6400197cf64b@gmail.com>
+ <3f12ea59-0db9-85ca-1374-7678674859f6@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1744632489=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <b84dbae6-12ce-5632-d80f-567cb7fe678b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <3f12ea59-0db9-85ca-1374-7678674859f6-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,50 +25,390 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gTW9uLCBTZXAgMjQsIDIwMTggYXQgMDU6MTY6NTBQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiBBbSAyNC4wOS4yMDE4IHVtIDE3OjAzIHNjaHJpZWIgRGFuaWVsIFZldHRlcjoK
-PiA+IE9uIE1vbiwgU2VwIDI0LCAyMDE4IGF0IDAxOjU4OjEyUE0gKzAyMDAsIENocmlzdGlhbiBL
-w7ZuaWcgd3JvdGU6Cj4gPiA+IFRoZSByZXNlcnZhdGlvbiBvYmplY3Qgc2hhcmVkIHNsb3QgZnVu
-Y3Rpb24gb25seSBhbGxvd2VkIHRvIHJlc2VydmUgb25lIHNsb3QgYXQgYSB0aW1lLgo+ID4gPiAK
-PiA+ID4gSW1wcm92ZSB0aGF0IGFuZCBhbGxvdyB0byByZXNlcnZlIG11bHRpcGxlIHNsb3RzIHRv
-IHN1cHBvcnQgYXRvbWljYWxseSBzdWJtaXNzaW9uIHRvIG11bHRpcGxlIGVuZ2luZXMuCj4gPiBJ
-IHRoaW5rIHlvdSBjYW4gZG8gdGhpcyBhbHJlYWR5LCBqdXN0IGRvbid0IGRyb3AgdGhlIHd3X211
-dGV4IGxvY2suIEFuZCBJCj4gPiBhbHNvIHRoaW5rIHRoYXQgaW52YXJpYW50IHN0aWxsIGhvbGRz
-LCBpZiB5b3UgZHJvcCB0aGUgd3dfbXV0ZXggbG9jayB5b3VyCj4gPiBmZW5jZSBzbG90IHJlc2Vy
-dmF0aW9uIGV2YXBvcmF0ZXMuIFlvdXIgbmV3IGNvZGUgaXMganVzdCBhIGJpdCBtb3JlCj4gPiBj
-b252ZW5pZW50Lgo+IAo+IFRoZSBwcm9ibGVtIGlzIHRoYXQgYWxsb2NhdGluZyBhIHNsb3QgY291
-bGQgaW4gdGhlb3J5IGZhaWwgd2l0aCAtRU5PTUVNLgo+IAo+IEFuZCBhdCB0aGUgcG9pbnQgd2Ug
-YWRkIHRoZSBmZW5jZSB0aGUgaGFyZHdhcmUgaXMgYWxyZWFkeSB1c2luZyB0aGUgbWVtb3J5LAo+
-IHNvIGZhaWx1cmUgaXMgbm90IG9uIG9wdGlvbi4KPiAKPiBLZXkgZmVhdHVyZSBpcyB0aGF0IHdl
-IGFyZSBnZXR0aW5nIHN1Ym1pc3Npb25zIHRvIG11bHRpcGxlIGVuZ2luZXMgd2hpY2gKPiBlaXRo
-ZXIgbmVlZHMgdG8gYmUgc3VibWl0dGVkIHRvZ2V0aGVyIG9yIG5vdCBhdCBhbGwuCj4gCj4gPiBD
-b3VsZCB3ZSBjaGVjay9lbmZvcmNlIHRoaXMgc29tZWhvdyB3aGVuIFdXX01VVEVYIGRlYnVnZ2lu
-ZyBpcyBlbmFibGVkPwo+ID4gRS5nLiBzdG9yZSB0aGUgd3dfbXV0ZXggY3R4IGluIHRoZSByZXNl
-cnZhdGlvbiAod2UgY2FuIGRpZyBpdCBvdXQgZnJvbQo+ID4gdW5kZXIgdGhlIGxvY2spLCBhbmQg
-dGhlbiBjaGVjayB0aGF0IHRoZSBsb2NrIGhvbGRlci9jdHggaGFzbid0IGNoYW5nZWQKPiA+IHdo
-ZW4gYWRkaW5nIGFsbCB0aGUgZmVuY2VzPyBJIHRoaW5rIHdpdGggbXVsdGlwbGUgZmVuY2VzIGdl
-dHRpbmcgYWRkZWQKPiA+IGF0b21pY2FsbHkgc29tZSBtb3JlIGRlYnVnIGNoZWNrcyBoZXJlIHdv
-dWxkIGJlIGdvb2QuCj4gCj4gWWVhaCwgSSB3YXMgYWxyZWFkeSB0aGlua2luZyBhYm91dCBzb21l
-dGhpbmcgc2ltaWxhci4KPiAKPiBXZSB3b3VsZG4ndCBuZWVkIHRvIHJlbWVtYmVyIHRoZSBjb250
-ZXh0IG9yIGFueXRoaW5nLCBidXQgcmF0aGVyIGp1c3Qgc2V0Cj4gc2hhcmVkX21heD1zaGFyZWRf
-Y291bnQgaW4gcmVzZXJ2YXRpb25fb2JqZWN0X3VubG9jaygpLgo+IAo+ID4gQW5vdGhlciBvbmU6
-IERvIHdlIHdhbnQgdG8gaW5zaXN0IHRoYXQgeW91IGVpdGhlciBhZGQgYWxsIHRoZSBmZW5jZXMs
-IG9yCj4gPiBub25lLCB0byBtYWtlIHRoaXMgZnVsbHkgYXRvbWljPyBXZSBjb3VsZCBjaGVjayB0
-aGlzIHdoZW4gdW5sb2NraW5nIHRoZQo+ID4gcmVzZXJ2YXRpb24uIEtpbmRhIGhhcmQgdG8gZ3Vl
-c3Mgd2hhdCB5b3VyIGV4YWN0IHVzZS1jYXNlIGhlcmUgaXMuCj4gCj4gTm8sIHNvbWUgZmVuY2Ug
-KGxpa2UgVk0gdXBkYXRlcykgYXJlIHBlcmZlY3RseSBvcHRpb25hbC4KCkFoIHJpZ2h0LCB2bSBt
-b3ZlcyBtaWdodCBhbHJlYWR5IGJlIHVuZGVyd2F5IChldmVuIGlmIHlvdSBlbmQgdXAgdGhyb3dp
-bmcKYWxsIHRoZSBhY3R1YWwgQ1Mgc3R1ZmYgZnJvbSB1c2Vyc3BhY2UgYXdheSksIG9yIG1pZ2h0
-IG5vdCBoYXBwZW4uCgo+ID4gQWxsIHRoaXMgd291bGQgb2ZjIGJlIGNvbXBpbGVkIG91dCBmb3Ig
-IVdXX01VVEVYX0RFQlVHIGtlcm5lbHMuCj4gCj4gVGhvc2UgZXh0cmEgY2hlY2tzIHNvdW5kcyBs
-aWtlIGEgZ29vZCBpZGVhIHRvIG1lLCBnb2luZyB0byBhZGQgdGhhdC4KClllYWggdGhhdCdkIGJl
-IGdyZWF0LCBqdXN0IGZpZ3VyZWQgInRoaXMgaGFzIGxvdHMgb2YgcG90ZW50aWFsIGZvciBuYXN0
-eQp0byBkZWJ1ZyBidWdzIi4gVGhlIHBhdGNoZXMgdGhlbXNlbHZlcyBsb29rIGdvb2QgdG8gbWUs
-IGF0IGxlYXN0IGZyb20Kc2tpbW1pbmcuCi1EYW5pZWwKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdh
-cmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1744632489==
+Content-Type: multipart/alternative;
+ boundary="------------6D0C19749EF0216871A56733"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------6D0C19749EF0216871A56733
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 24.09.2018 um 17:32 schrieb Andrey Grodzovsky:
+>
+>
+>
+> On 09/24/2018 11:19 AM, Christian König wrote:
+>> Thanks.
+>>
+>> One more thing which came to my mind is that we might want to print 
+>> the warning only when amdgpu_fence_process has actually done some 
+>> processing.
+>>
+>> Otherwise we could get warnings for long running jobs.
+>
+> Do you mean that you want to know that amdgpu_fence_process was called 
+> from the SW fallback timer and print warning only if last_seq != seq 
+> and the while loop actually signaled something ?
+
+Yeah, something like that.
+
+Christian.
+
+>
+> Andrey
+>
+>>
+>> Christian.
+>>
+>> Am 24.09.2018 um 17:14 schrieb Andrey Grodzovsky:
+>>>
+>>> P.S I pushed it.
+>>>
+>>>
+>>> Thanks,
+>>>
+>>> Andrey
+>>>
+>>>
+>>> On 09/24/2018 11:13 AM, Andrey Grodzovsky wrote:
+>>>>
+>>>> Reviewed-and-Tested-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+>>>>
+>>>>
+>>>> Andrey
+>>>>
+>>>>
+>>>> On 09/24/2018 10:31 AM, Deucher, Alexander wrote:
+>>>>>
+>>>>> Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+>>>>>
+>>>>> ------------------------------------------------------------------------
+>>>>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf 
+>>>>> of Christian König <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>>>> *Sent:* Monday, September 24, 2018 8:10:22 AM
+>>>>> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>>> *Subject:* [PATCH] drm/amdgpu: Deactivate SW interrupt fallback in 
+>>>>> amdgpu_fence_process v2
+>>>>> From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+>>>>>
+>>>>> Deactivate SW interrupt fallback when all emited fences are completed.
+>>>>> Also switch interrupt SW fallback message from INFO to WARN.
+>>>>>
+>>>>> v2: shorten the warnign message a bit and only re-activate the 
+>>>>> timer during
+>>>>> processing if it was already activated before.
+>>>>>
+>>>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+>>>>> Suggested-by: Christian Konig <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+>>>>> ---
+>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 5 +++--
+>>>>>  1 file changed, 3 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>> index 1ae25835cad1..4e6e9c9654dd 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+>>>>> @@ -229,7 +229,8 @@ void amdgpu_fence_process(struct amdgpu_ring 
+>>>>> *ring)
+>>>>>
+>>>>>          } while (atomic_cmpxchg(&drv->last_seq, last_seq, seq) != 
+>>>>> last_seq);
+>>>>>
+>>>>> -       if (seq != ring->fence_drv.sync_seq)
+>>>>> +       if (del_timer(&ring->fence_drv.fallback_timer) &&
+>>>>> +           seq != ring->fence_drv.sync_seq)
+>>>>> amdgpu_fence_schedule_fallback(ring);
+>>>>>
+>>>>>          if (unlikely(seq == last_seq))
+>>>>> @@ -274,7 +275,7 @@ static void amdgpu_fence_fallback(struct 
+>>>>> timer_list *t)
+>>>>>          struct amdgpu_ring *ring = from_timer(ring, t,
+>>>>> fence_drv.fallback_timer);
+>>>>>
+>>>>> -       DRM_INFO("Fallback to SW interrupt on ring %s due to HW 
+>>>>> interrupt time out", ring->name);
+>>>>> +       DRM_WARN("Fence fallback timer expired on ring %s\n", 
+>>>>> ring->name);
+>>>>>          amdgpu_fence_process(ring);
+>>>>>  }
+>>>>>
+>>>>> -- 
+>>>>> 2.14.1
+>>>>>
+>>>>> _______________________________________________
+>>>>> amd-gfx mailing list
+>>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>>>
+>>>>>
+>>>>> _______________________________________________
+>>>>> amd-gfx mailing list
+>>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>>
+>>>>
+>>>>
+>>>> _______________________________________________
+>>>> amd-gfx mailing list
+>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>
+>>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------6D0C19749EF0216871A56733
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 24.09.2018 um 17:32 schrieb Andrey
+      Grodzovsky:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:3f12ea59-0db9-85ca-1374-7678674859f6-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <p><br>
+      </p>
+      <br>
+      <div class="moz-cite-prefix">On 09/24/2018 11:19 AM, Christian
+        König wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:b94f9fe1-e351-79e1-0f31-6400197cf64b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+        <meta http-equiv="Content-Type" content="text/html;
+          charset=windows-1252">
+        <div class="moz-cite-prefix">Thanks.<br>
+          <br>
+          One more thing which came to my mind is that we might want to
+          print the warning only when amdgpu_fence_process has actually
+          done some processing.<br>
+          <br>
+          Otherwise we could get warnings for long running jobs.<br>
+        </div>
+      </blockquote>
+      <br>
+      Do you mean that you want to know that amdgpu_fence_process was
+      called from the SW fallback timer and print warning only if
+      last_seq != seq and the while loop actually signaled something ?<br>
+    </blockquote>
+    <br>
+    Yeah, something like that.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:3f12ea59-0db9-85ca-1374-7678674859f6-5C7GfCeVMHo@public.gmane.org"> <br>
+      Andrey<br>
+      <br>
+      <blockquote type="cite"
+        cite="mid:b94f9fe1-e351-79e1-0f31-6400197cf64b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+        <div class="moz-cite-prefix"> <br>
+          Christian.<br>
+          <br>
+          Am 24.09.2018 um 17:14 schrieb Andrey Grodzovsky:<br>
+        </div>
+        <blockquote type="cite"
+          cite="mid:8971d575-3279-9974-04be-45bb62cb42a3-5C7GfCeVMHo@public.gmane.org">
+          <p>P.S I pushed it.</p>
+          <p><br>
+          </p>
+          <p>Thanks,</p>
+          <p>Andrey<br>
+          </p>
+          <br>
+          <div class="moz-cite-prefix">On 09/24/2018 11:13 AM, Andrey
+            Grodzovsky wrote:<br>
+          </div>
+          <blockquote type="cite"
+            cite="mid:4ca8e57b-6927-e6a0-b063-9dc5a4d26952-5C7GfCeVMHo@public.gmane.org">
+            <p>Reviewed-and-Tested-by: Andrey Grodzovsky <a
+                class="moz-txt-link-rfc2396E"
+                href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
+                moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            </p>
+            <p><br>
+            </p>
+            <p>Andrey</p>
+            <p><br>
+            </p>
+            <div class="moz-cite-prefix">On 09/24/2018 10:31 AM,
+              Deucher, Alexander wrote:<br>
+            </div>
+            <blockquote type="cite"
+cite="mid:BN6PR12MB18097AA77D7E8948DE462823F7170-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+              <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+              <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+                dir="ltr">
+                <p style="margin-top:0;margin-bottom:0">Acked-by: Alex
+                  Deucher <a class="moz-txt-link-rfc2396E"
+                    href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org"
+                    moz-do-not-send="true">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                </p>
+              </div>
+              <hr style="display:inline-block;width:98%" tabindex="-1">
+              <div id="divRplyFwdMsg" dir="ltr"><font
+                  style="font-size:11pt" face="Calibri, sans-serif"
+                  color="#000000"><b>From:</b> amd-gfx <a
+                    class="moz-txt-link-rfc2396E"
+                    href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                    moz-do-not-send="true">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>
+                  on behalf of Christian König <a
+                    class="moz-txt-link-rfc2396E"
+                    href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                    moz-do-not-send="true">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+                  <b>Sent:</b> Monday, September 24, 2018 8:10:22 AM<br>
+                  <b>To:</b> <a class="moz-txt-link-abbreviated"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <b>Subject:</b> [PATCH] drm/amdgpu: Deactivate SW
+                  interrupt fallback in amdgpu_fence_process v2</font>
+                <div> </div>
+              </div>
+              <div class="BodyFragment"><font size="2"><span
+                    style="font-size:11pt;">
+                    <div class="PlainText">From: Andrey Grodzovsky <a
+                        class="moz-txt-link-rfc2396E"
+                        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
+                        moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                      <br>
+                      Deactivate SW interrupt fallback when all emited
+                      fences are completed.<br>
+                      Also switch interrupt SW fallback message from
+                      INFO to WARN.<br>
+                      <br>
+                      v2: shorten the warnign message a bit and only
+                      re-activate the timer during<br>
+                      processing if it was already activated before.<br>
+                      <br>
+                      Signed-off-by: Andrey Grodzovsky <a
+                        class="moz-txt-link-rfc2396E"
+                        href="mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org"
+                        moz-do-not-send="true">&lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                      Suggested-by: Christian Konig <a
+                        class="moz-txt-link-rfc2396E"
+                        href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org"
+                        moz-do-not-send="true">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                      ---<br>
+                       drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 5
+                      +++--<br>
+                       1 file changed, 3 insertions(+), 2 deletions(-)<br>
+                      <br>
+                      diff --git
+                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+                      index 1ae25835cad1..4e6e9c9654dd 100644<br>
+                      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+                      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+                      @@ -229,7 +229,8 @@ void
+                      amdgpu_fence_process(struct amdgpu_ring *ring)<br>
+                       <br>
+                               } while
+                      (atomic_cmpxchg(&amp;drv-&gt;last_seq, last_seq,
+                      seq) != last_seq);<br>
+                       <br>
+                      -       if (seq != ring-&gt;fence_drv.sync_seq)<br>
+                      +       if
+                      (del_timer(&amp;ring-&gt;fence_drv.fallback_timer)
+                      &amp;&amp;<br>
+                      +           seq != ring-&gt;fence_drv.sync_seq)<br>
+                                      
+                      amdgpu_fence_schedule_fallback(ring);<br>
+                       <br>
+                               if (unlikely(seq == last_seq))<br>
+                      @@ -274,7 +275,7 @@ static void
+                      amdgpu_fence_fallback(struct timer_list *t)<br>
+                               struct amdgpu_ring *ring =
+                      from_timer(ring, t,<br>
+                                                                    
+                      fence_drv.fallback_timer);<br>
+                       <br>
+                      -       DRM_INFO("Fallback to SW interrupt on ring
+                      %s due to HW interrupt time out", ring-&gt;name);<br>
+                      +       DRM_WARN("Fence fallback timer expired on
+                      ring %s\n", ring-&gt;name);<br>
+                               amdgpu_fence_process(ring);<br>
+                       }<br>
+                       <br>
+                      -- <br>
+                      2.14.1<br>
+                      <br>
+                      _______________________________________________<br>
+                      amd-gfx mailing list<br>
+                      <a class="moz-txt-link-abbreviated"
+                        href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                        moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                      <a
+                        href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                        moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+                    </div>
+                  </span></font></div>
+              <br>
+              <fieldset class="mimeAttachmentHeader"></fieldset>
+              <br>
+              <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+            </blockquote>
+            <br>
+            <br>
+            <fieldset class="mimeAttachmentHeader"></fieldset>
+            <br>
+            <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+          </blockquote>
+          <br>
+        </blockquote>
+        <br>
+      </blockquote>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------6D0C19749EF0216871A56733--
+
+--===============1744632489==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1744632489==--
