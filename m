@@ -1,44 +1,82 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amdgpu: remove set but not used variable 'header'
-Date: Wed, 26 Sep 2018 14:15:34 +0000
-Message-ID: <1537971334-130152-1-git-send-email-yuehaibing@huawei.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 5/7] drm/amd/pp: Remove useless code in smu
+Date: Wed, 26 Sep 2018 10:07:12 -0400
+Message-ID: <CADnq5_Pdi4God-L5FVcL09sAKc9JYr_38miy9dBFyh3Qs5nKuQ@mail.gmail.com>
+References: <1537966249-30259-1-git-send-email-Rex.Zhu@amd.com>
+ <1537966249-30259-5-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Likun.Gao@amd.com, David.Francis@amd.com, ray.huang@amd.com, Feifei.Xu@amd.com, Monk.Liu@amd.com
-Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1537966249-30259-5-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c: In function 'amdgpu_ucode_init_bo':
-drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:431:39: warning:
- variable 'header' set but not used [-Wunused-but-set-variable]
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index 1fa8bc3..afd5cf3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -428,7 +428,6 @@ int amdgpu_ucode_init_bo(struct amdgpu_device *adev)
- 	uint64_t fw_offset = 0;
- 	int i, err;
- 	struct amdgpu_firmware_info *ucode = NULL;
--	const struct common_firmware_header *header = NULL;
- 
- 	if (!adev->firmware.fw_size) {
- 		dev_warn(adev->dev, "No ip firmware need to load\n");
-@@ -465,7 +464,6 @@ int amdgpu_ucode_init_bo(struct amdgpu_device *adev)
- 	for (i = 0; i < adev->firmware.max_ucodes; i++) {
- 		ucode = &adev->firmware.ucode[i];
- 		if (ucode->fw) {
--			header = (const struct common_firmware_header *)ucode->fw->data;
- 			amdgpu_ucode_init_single_fw(adev, ucode, adev->firmware.fw_buf_mc + fw_offset,
- 						    adev->firmware.fw_buf_ptr + fw_offset);
- 			if (i == AMDGPU_UCODE_ID_CP_MEC1 &&
+T24gV2VkLCBTZXAgMjYsIDIwMTggYXQgODo1MiBBTSBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+
+IHdyb3RlOgo+Cj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKUGxl
+YXNlIGRlc2NyaWJlIHdoeSB0aGUgY29kZSBpcyB1c2VsZXNzIGFuZCBjYW4gYmUgcmVtb3ZlZC4K
+ClRoYW5rcywKCkFsZXgKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL2h3bWdyLmMgICAgICAgIHwgMSAtCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2luYy9od21nci5oICAgICAgICAgIHwgMSAtCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L3NtdW1nci9zbXU3X3NtdW1nci5jIHwgNSAtLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVtZ3IuYyB8IDUgLS0tLS0KPiAgNCBmaWxlcyBjaGFu
+Z2VkLCAxMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aHdtZ3IvaHdtZ3IuYwo+IGluZGV4IDc1MDBhM2UuLjc4NDQyNTYgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMKPiBAQCAtODksNyArODksNiBAQCBp
+bnQgaHdtZ3JfZWFybHlfaW5pdChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICAgICAgICAgaHdt
+Z3JfaW5pdF9kZWZhdWx0X2NhcHMoaHdtZ3IpOwo+ICAgICAgICAgaHdtZ3Jfc2V0X3VzZXJfc3Bl
+Y2lmeV9jYXBzKGh3bWdyKTsKPiAgICAgICAgIGh3bWdyLT5mYW5fY3RybF9pc19pbl9kZWZhdWx0
+X21vZGUgPSB0cnVlOwo+IC0gICAgICAgaHdtZ3ItPnJlbG9hZF9mdyA9IDE7Cj4gICAgICAgICBo
+d21ncl9pbml0X3dvcmtsb2FkX3Byb3JpdHkoaHdtZ3IpOwo+Cj4gICAgICAgICBzd2l0Y2ggKGh3
+bWdyLT5jaGlwX2ZhbWlseSkgewo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9pbmMvaHdtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9o
+d21nci5oCj4gaW5kZXggZDExODNiMS4uYjY5MWZjYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2luYy9od21nci5oCj4gQEAgLTczMyw3ICs3MzMsNiBAQCBzdHJ1Y3QgcHBf
+aHdtZ3Igewo+ICAgICAgICAgdm9pZCAqc211X2JhY2tlbmQ7Cj4gICAgICAgICBjb25zdCBzdHJ1
+Y3QgcHBfc211bWdyX2Z1bmMgKnNtdW1ncl9mdW5jczsKPiAgICAgICAgIGJvb2wgaXNfa2lja2Vy
+Owo+IC0gICAgICAgYm9vbCByZWxvYWRfZnc7Cj4KPiAgICAgICAgIGVudW0gUFBfREFMX1BPV0VS
+TEVWRUwgZGFsX3Bvd2VyX2xldmVsOwo+ICAgICAgICAgc3RydWN0IHBobV9keW5hbWljX3N0YXRl
+X2luZm8gZHluX3N0YXRlOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L3NtdW1nci9zbXU3X3NtdW1nci5jCj4gaW5kZXggMTg2ZGFmYy4uMTBlYjk2NyAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuYwo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9zbXU3X3NtdW1nci5j
+Cj4gQEAgLTM4MSwxMSArMzgxLDYgQEAgaW50IHNtdTdfcmVxdWVzdF9zbXVfbG9hZF9mdyhzdHJ1
+Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICAgICAgICAgdWludDMyX3QgZndfdG9fbG9hZDsKPiAgICAg
+ICAgIGludCByID0gMDsKPgo+IC0gICAgICAgaWYgKCFod21nci0+cmVsb2FkX2Z3KSB7Cj4gLSAg
+ICAgICAgICAgICAgIHByX2luZm8oInNraXAgcmVsb2FkaW5nLi4uXG4iKTsKPiAtICAgICAgICAg
+ICAgICAgcmV0dXJuIDA7Cj4gLSAgICAgICB9Cj4gLQo+ICAgICAgICAgaWYgKHNtdV9kYXRhLT5z
+b2Z0X3JlZ3Nfc3RhcnQpCj4gICAgICAgICAgICAgICAgIGNnc193cml0ZV9pbmRfcmVnaXN0ZXIo
+aHdtZ3ItPmRldmljZSwgQ0dTX0lORF9SRUdfX1NNQywKPiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgc211X2RhdGEtPnNvZnRfcmVnc19zdGFydCArIHNtdW1fZ2V0X29m
+ZnNldG9mKGh3bWdyLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9zbXVtZ3Ivc211OF9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Nt
+dW1nci9zbXU4X3NtdW1nci5jCj4gaW5kZXggYTc0YzViZS4uN2E0YzQyNSAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211OF9zbXVtZ3IuYwo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9zbXU4X3NtdW1nci5jCj4g
+QEAgLTY1OSwxMSArNjU5LDYgQEAgc3RhdGljIGludCBzbXU4X3JlcXVlc3Rfc211X2xvYWRfZnco
+c3RydWN0IHBwX2h3bWdyICpod21ncikKPiAgICAgICAgIHN0cnVjdCBzbXU4X3NtdW1nciAqc211
+OF9zbXUgPSBod21nci0+c211X2JhY2tlbmQ7Cj4gICAgICAgICB1aW50MzJfdCBzbWNfYWRkcmVz
+czsKPgo+IC0gICAgICAgaWYgKCFod21nci0+cmVsb2FkX2Z3KSB7Cj4gLSAgICAgICAgICAgICAg
+IHByX2luZm8oInNraXAgcmVsb2FkaW5nLi4uXG4iKTsKPiAtICAgICAgICAgICAgICAgcmV0dXJu
+IDA7Cj4gLSAgICAgICB9Cj4gLQo+ICAgICAgICAgc211OF9zbXVfcG9wdWxhdGVfZmlybXdhcmVf
+ZW50cmllcyhod21ncik7Cj4KPiAgICAgICAgIHNtdThfc211X2NvbnN0cnVjdF90b2MoaHdtZ3Ip
+Owo+IC0tCj4gMS45LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
