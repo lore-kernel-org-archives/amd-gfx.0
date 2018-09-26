@@ -1,87 +1,44 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 11/12] drm/amdgpu: add support for self irq on Vega10
-Date: Wed, 26 Sep 2018 15:53:29 +0200
-Message-ID: <20180926135330.2218-11-christian.koenig@amd.com>
-References: <20180926135330.2218-1-christian.koenig@amd.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amdgpu: remove set but not used variable 'header'
+Date: Wed, 26 Sep 2018 14:15:34 +0000
+Message-ID: <1537971334-130152-1-git-send-email-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180926135330.2218-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Likun.Gao@amd.com, David.Francis@amd.com, ray.huang@amd.com, Feifei.Xu@amd.com, Monk.Liu@amd.com
+Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyBmaW5hbGx5IGVuYWJsZXMgcHJvY2Vzc2luZyBvZiByaW5nIDEgJiAyLgoKU2lnbmVkLW9m
-Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9paC5jIHwgNjggKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDYzIGluc2VydGlvbnMoKyksIDUg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVn
-YTEwX2loLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYwppbmRleCBl
-NmFmOWI0YzMxMTYuLmRkMTU1YTIwN2ZkZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvdmVnYTEwX2loLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVn
-YTEwX2loLmMKQEAgLTI1OCw3ICsyNTgsNyBAQCBzdGF0aWMgdm9pZCB2ZWdhMTBfaWhfaXJxX2Rp
-c2FibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiBzdGF0aWMgdTMyIHZlZ2ExMF9paF9n
-ZXRfd3B0cihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCSAgICAgIHN0cnVjdCBhbWRn
-cHVfaWhfcmluZyAqaWgpCiB7Ci0JdTMyIHdwdHIsIHRtcDsKKwl1MzIgd3B0ciwgcmVnLCB0bXA7
-CiAKIAl3cHRyID0gbGUzMl90b19jcHUoKmloLT53cHRyX2NwdSk7CiAKQEAgLTI3NCw5ICsyNzQs
-MTggQEAgc3RhdGljIHUzMiB2ZWdhMTBfaWhfZ2V0X3dwdHIoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsCiAJCQkgd3B0ciwgaWgtPnJwdHIsIHRtcCk7CiAJCWloLT5ycHRyID0gdG1wOwogCi0J
-CXRtcCA9IFJSRUczMl9OT19LSVEoU09DMTVfUkVHX09GRlNFVChPU1NTWVMsIDAsIG1tSUhfUkJf
-Q05UTCkpOworCQlpZiAoaWggPT0gJmFkZXYtPmlycS5paCkKKwkJCXJlZyA9IFNPQzE1X1JFR19P
-RkZTRVQoT1NTU1lTLCAwLCBtbUlIX1JCX0NOVEwpOworCQllbHNlIGlmIChpaCA9PSAmYWRldi0+
-aXJxLmloMSkKKwkJCXJlZyA9IFNPQzE1X1JFR19PRkZTRVQoT1NTU1lTLCAwLCBtbUlIX1JCX0NO
-VEwpOworCQllbHNlIGlmIChpaCA9PSAmYWRldi0+aXJxLmloMikKKwkJCXJlZyA9IFNPQzE1X1JF
-R19PRkZTRVQoT1NTU1lTLCAwLCBtbUlIX1JCX0NOVEwpOworCQllbHNlCisJCQlCVUcoKTsKKwor
-CQl0bXAgPSBSUkVHMzJfTk9fS0lRKHJlZyk7CiAJCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBJ
-SF9SQl9DTlRMLCBXUFRSX09WRVJGTE9XX0NMRUFSLCAxKTsKLQkJV1JFRzMyX05PX0tJUShTT0Mx
-NV9SRUdfT0ZGU0VUKE9TU1NZUywgMCwgbW1JSF9SQl9DTlRMKSwgdG1wKTsKKwkJV1JFRzMyX05P
-X0tJUShyZWcsIHRtcCk7CiAJfQogCXJldHVybiAod3B0ciAmIGloLT5wdHJfbWFzayk7CiB9CkBA
-IC0zMzgsOSArMzQ3LDUyIEBAIHN0YXRpYyB2b2lkIHZlZ2ExMF9paF9zZXRfcnB0cihzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwKIAkJLyogWFhYIGNoZWNrIGlmIHN3YXBwaW5nIGlzIG5lY2Vz
-c2FyeSBvbiBCRSAqLwogCQkqaWgtPnJwdHJfY3B1ID0gaWgtPnJwdHI7CiAJCVdET09SQkVMTDMy
-KGloLT5kb29yYmVsbF9pbmRleCwgaWgtPnJwdHIpOwotCX0gZWxzZSB7CisJfSBlbHNlIGlmIChp
-aCA9PSAmYWRldi0+aXJxLmloKSB7CiAJCVdSRUczMl9TT0MxNShPU1NTWVMsIDAsIG1tSUhfUkJf
-UlBUUiwgaWgtPnJwdHIpOworCX0gZWxzZSBpZiAoaWggPT0gJmFkZXYtPmlycS5paDEpIHsKKwkJ
-V1JFRzMyX1NPQzE1KE9TU1NZUywgMCwgbW1JSF9SQl9SUFRSX1JJTkcxLCBpaC0+cnB0cik7CisJ
-fSBlbHNlIGlmIChpaCA9PSAmYWRldi0+aXJxLmloMikgeworCQlXUkVHMzJfU09DMTUoT1NTU1lT
-LCAwLCBtbUlIX1JCX1JQVFJfUklORzIsIGloLT5ycHRyKTsKKwl9Cit9CisKKy8qKgorICogdmVn
-YTEwX2loX3NlbGZfaXJxIC0gZGlzcGF0Y2ggd29yayBmb3IgcmluZyAxIGFuZCAyCisgKgorICog
-QGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgorICogQHNvdXJjZTogaXJxIHNvdXJjZQorICog
-QGVudHJ5OiBJViB3aXRoIFdQVFIgdXBkYXRlCisgKgorICogVXBkYXRlIHRoZSBXUFRSIGZyb20g
-dGhlIElWIGFuZCBzY2hlZHVsZSB3b3JrIHRvIGhhbmRsZSB0aGUgZW50cmllcy4KKyAqLworc3Rh
-dGljIGludCB2ZWdhMTBfaWhfc2VsZl9pcnEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCisJ
-CQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgKnNvdXJjZSwKKwkJCSAgICAgIHN0cnVjdCBh
-bWRncHVfaXZfZW50cnkgKmVudHJ5KQoreworCXVpbnQzMl90IHdwdHIgPSBjcHVfdG9fbGUzMihl
-bnRyeS0+c3JjX2RhdGFbMF0pOworCisJc3dpdGNoIChlbnRyeS0+cmluZ19pZCkgeworCWNhc2Ug
-MToKKwkJKmFkZXYtPmlycS5paDEud3B0cl9jcHUgPSB3cHRyOworCQlzY2hlZHVsZV93b3JrKCZh
-ZGV2LT5pcnEuaWgxX3dvcmspOworCQlicmVhazsKKwljYXNlIDI6CisJCSphZGV2LT5pcnEuaWgy
-LndwdHJfY3B1ID0gd3B0cjsKKwkJc2NoZWR1bGVfd29yaygmYWRldi0+aXJxLmloMl93b3JrKTsK
-KwkJYnJlYWs7CisJZGVmYXVsdDogYnJlYWs7CiAJfQorCXJldHVybiAwOworfQorCitzdGF0aWMg
-Y29uc3Qgc3RydWN0IGFtZGdwdV9pcnFfc3JjX2Z1bmNzIHZlZ2ExMF9paF9zZWxmX2lycV9mdW5j
-cyA9IHsKKwkucHJvY2VzcyA9IHZlZ2ExMF9paF9zZWxmX2lycSwKK307CisKK3N0YXRpYyB2b2lk
-IHZlZ2ExMF9paF9zZXRfc2VsZl9pcnFfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Cit7CisJYWRldi0+aXJxLnNlbGZfaXJxLm51bV90eXBlcyA9IDA7CisJYWRldi0+aXJxLnNlbGZf
-aXJxLmZ1bmNzID0gJnZlZ2ExMF9paF9zZWxmX2lycV9mdW5jczsKIH0KIAogc3RhdGljIGludCB2
-ZWdhMTBfaWhfZWFybHlfaW5pdCh2b2lkICpoYW5kbGUpCkBAIC0zNDgsMTMgKzQwMCwxOSBAQCBz
-dGF0aWMgaW50IHZlZ2ExMF9paF9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkKIAlzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKIAogCXZl
-Z2ExMF9paF9zZXRfaW50ZXJydXB0X2Z1bmNzKGFkZXYpOworCXZlZ2ExMF9paF9zZXRfc2VsZl9p
-cnFfZnVuY3MoYWRldik7CiAJcmV0dXJuIDA7CiB9CiAKIHN0YXRpYyBpbnQgdmVnYTEwX2loX3N3
-X2luaXQodm9pZCAqaGFuZGxlKQogewotCWludCByOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOworCWludCByOworCisJciA9IGFt
-ZGdwdV9pcnFfYWRkX2lkKGFkZXYsIFNPQzE1X0lIX0NMSUVOVElEX0lILCAwLAorCQkJICAgICAg
-JmFkZXYtPmlycS5zZWxmX2lycSk7CisJaWYgKHIpCisJCXJldHVybiByOwogCiAJciA9IGFtZGdw
-dV9paF9yaW5nX2luaXQoYWRldiwgJmFkZXYtPmlycS5paCwgMjU2ICogMTAyNCwgdHJ1ZSk7CiAJ
-aWYgKHIpCi0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c: In function 'amdgpu_ucode_init_bo':
+drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:431:39: warning:
+ variable 'header' set but not used [-Wunused-but-set-variable]
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index 1fa8bc3..afd5cf3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -428,7 +428,6 @@ int amdgpu_ucode_init_bo(struct amdgpu_device *adev)
+ 	uint64_t fw_offset = 0;
+ 	int i, err;
+ 	struct amdgpu_firmware_info *ucode = NULL;
+-	const struct common_firmware_header *header = NULL;
+ 
+ 	if (!adev->firmware.fw_size) {
+ 		dev_warn(adev->dev, "No ip firmware need to load\n");
+@@ -465,7 +464,6 @@ int amdgpu_ucode_init_bo(struct amdgpu_device *adev)
+ 	for (i = 0; i < adev->firmware.max_ucodes; i++) {
+ 		ucode = &adev->firmware.ucode[i];
+ 		if (ucode->fw) {
+-			header = (const struct common_firmware_header *)ucode->fw->data;
+ 			amdgpu_ucode_init_single_fw(adev, ucode, adev->firmware.fw_buf_mc + fw_offset,
+ 						    adev->firmware.fw_buf_ptr + fw_offset);
+ 			if (i == AMDGPU_UCODE_ID_CP_MEC1 &&
