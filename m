@@ -1,49 +1,75 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] amdgpu drm-fixes-4.19
-Date: Thu, 27 Sep 2018 10:54:18 -0500
-Message-ID: <20180927155418.2813-1-alexander.deucher@amd.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: [PATCH v2] drm/amd/display: Use proper enums in process_channel_reply
+Date: Thu, 27 Sep 2018 11:06:33 -0700
+Message-ID: <20180927180632.11520-1-natechancellor@gmail.com>
+References: <20180921215505.14634-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20180921215505.14634-1-natechancellor@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkp1c3QgYSBmZXcgZml4ZXMgZm9yIDQuMTk6Ci0gQ291cGxlIG9mIHN1c3BlbmQv
-cmVzdW1lIGZpeGVzCi0gRml4IEVESUQgZW11bGF0aW9uIHdpdGggREMKClRoZSBmb2xsb3dpbmcg
-Y2hhbmdlcyBzaW5jZSBjb21taXQgNGZjYjdmOGJlODI5ZDIxYmNiYjI0ZWVmMjIwNGZiNmIzNGVk
-MWY4MDoKCiAgTWVyZ2UgYnJhbmNoICdkcm0tZml4ZXMtNC4xOScgb2YgZ2l0Oi8vcGVvcGxlLmZy
-ZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggaW50byBkcm0tZml4ZXMgKDIwMTgtMDktMjEgMDk6
-NTI6MjcgKzEwMDApCgphcmUgYXZhaWxhYmxlIGluIHRoZSBnaXQgcmVwb3NpdG9yeSBhdDoKCiAg
-Z2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggZHJtLWZpeGVzLTQuMTkK
-CmZvciB5b3UgdG8gZmV0Y2ggY2hhbmdlcyB1cCB0byBmYmJkYWRmMmZhZjE3Y2Q4OGU5YzQ0Nzcw
-MTQ5NTU0MDM3N2M1NzQzOgoKICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBFZGlkIGVtdWxhdGlvbiBm
-b3IgbGludXggKDIwMTgtMDktMjcgMTA6MDU6MjEgLTA1MDApCgotLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCkJoYXdhbnByZWV0
-IExha2hhICgxKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBGaXggRWRpZCBlbXVsYXRpb24gZm9y
-IGxpbnV4CgpSZXggWmh1ICgxKToKICAgICAgZHJtL2FtZGdwdTogRml4IHZjZSB3b3JrIHF1ZXVl
-IHdhcyBub3QgY2FuY2VsbGVkIHdoZW4gc3VzcGVuZAoKUm9tYW4gTGkgKDEpOgogICAgICBkcm0v
-YW1kL2Rpc3BsYXk6IEZpeCBWZWdhMTAgbGlnaHR1cCBvbiBTMyByZXN1bWUKCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMgICAgICAgICAgICB8ICAgMyArLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jICAgICAgICAgICAgfCAgIDQgKy0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgIHwgMTM5ICsr
-KysrKysrKysrKysrKysrKysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUv
-ZGNfbGluay5jICAgICAgfCAgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
-Y19saW5rLmggICAgICAgICAgIHwgICAxICsKIC4uLi9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNl
-MTEwX2h3X3NlcXVlbmNlci5jICAgIHwgICAyICstCiAuLi4vYW1kL2Rpc3BsYXkvZGMvZGNlMTEw
-L2RjZTExMF9od19zZXF1ZW5jZXIuaCAgICB8ICAgNSAtCiAuLi4vYW1kL2Rpc3BsYXkvZGMvZGNl
-MTIwL2RjZTEyMF9od19zZXF1ZW5jZXIuYyAgICB8ICAxMiAtLQogOCBmaWxlcyBjaGFuZ2VkLCAx
-NDIgaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRpb25zKC0pCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+Clang warns when one enumerated type is implicitly converted to another.
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:315:19: warning:
+implicit conversion from enumeration type 'enum
+aux_channel_operation_result' to different enumeration type 'enum
+aux_transaction_reply' [-Wenum-conversion]
+                reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
+                              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/i2caux/dce110/aux_engine_dce110.c:349:19:
+warning: implicit conversion from enumeration type 'enum
+aux_channel_operation_result' to different enumeration type 'enum
+aux_transaction_reply' [-Wenum-conversion]
+                reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
+                              ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The current enum is incorrect, it should be from aux_transaction_reply,
+so use AUX_TRANSACTION_REPLY_HPD_DISCON.
+
+Reported-by: Nick Desaulniers <ndesaulniers@google.com>
+Suggested-by: Nick Desaulniers <ndesaulniers@google.com>
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+---
+
+v1 -> v2:
+
+* Rather than change status to an integer, use the proper enumerated
+  type from aux_transaction reply as suggested by Nick and confirmed
+  by Henry.
+
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c                    | 2 +-
+ .../gpu/drm/amd/display/dc/i2caux/dce110/aux_engine_dce110.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+index 3f5b2e6f7553..aaeb7faac0c4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+@@ -312,7 +312,7 @@ static void process_channel_reply(
+ 
+ 	/* in case HPD is LOW, exit AUX transaction */
+ 	if ((sw_status & AUX_SW_STATUS__AUX_SW_HPD_DISCON_MASK)) {
+-		reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
++		reply->status = AUX_TRANSACTION_REPLY_HPD_DISCON;
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/i2caux/dce110/aux_engine_dce110.c b/drivers/gpu/drm/amd/display/dc/i2caux/dce110/aux_engine_dce110.c
+index 8eee8ace1259..59c3ed43d609 100644
+--- a/drivers/gpu/drm/amd/display/dc/i2caux/dce110/aux_engine_dce110.c
++++ b/drivers/gpu/drm/amd/display/dc/i2caux/dce110/aux_engine_dce110.c
+@@ -346,7 +346,7 @@ static void process_channel_reply(
+ 
+ 	/* in case HPD is LOW, exit AUX transaction */
+ 	if ((sw_status & AUX_SW_STATUS__AUX_SW_HPD_DISCON_MASK)) {
+-		reply->status = AUX_CHANNEL_OPERATION_FAILED_HPD_DISCON;
++		reply->status = AUX_TRANSACTION_REPLY_HPD_DISCON;
+ 		return;
+ 	}
+ 
+-- 
+2.19.0
