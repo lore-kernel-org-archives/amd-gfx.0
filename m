@@ -1,16 +1,21 @@
-From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2 1/8] drm/amdgpu:Use register UVD_SCRATCH9 for VCN
- ring/ib test
-Date: Thu, 27 Sep 2018 07:59:06 +0000
-Message-ID: <CY1PR12MB0043F8CD46065C1D4976782DEC140@CY1PR12MB0043.namprd12.prod.outlook.com>
-References: <1537916597-24934-1-git-send-email-James.Zhu@amd.com>
- <BY2PR12MB0040053276C8221F42BBEE1BEC150@BY2PR12MB0040.namprd12.prod.outlook.com>
- <f4e28569-476d-c355-6748-4e4e0b15f400@amd.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu
+ notifier v4
+Date: Thu, 27 Sep 2018 08:47:19 +0000
+Message-ID: <DM5PR12MB1707D5E46617B2936F800F1992140@DM5PR12MB1707.namprd12.prod.outlook.com>
+References: <1536871954-8451-1-git-send-email-Philip.Yang@amd.com>
+ <9d6717ac-23f0-7beb-6e41-58c6e32acdf8@amd.com>
+ <58bc3bb9-b7b1-a32f-e355-c78a23d95215@gmail.com>
+ <383388c8-1bff-48d9-1044-f16e66bcbfa5@amd.com>
+ <3850fbeb-5d91-9c14-43c9-45d5d058e15b@amd.com>
+ <de28cee0-3461-4f99-eeae-b793de00ca58@amd.com>
+ <e4cf7212-4340-8639-c8c1-057e4d1083f0@amd.com>,
+ <DM5PR12MB17078469EB6D3AF1D53B788992140@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <a76b71ac-4b5b-45d7-b48b-6d0e4a7e7524@email.android.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2035542074=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f4e28569-476d-c355-6748-4e4e0b15f400-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <a76b71ac-4b5b-45d7-b48b-6d0e4a7e7524-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,103 +27,501 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, James Zhu <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Gao, Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Jerome Glisse <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBaaHUsIEphbWVzDQo+IFNlbnQ6
-IFdlZG5lc2RheSwgU2VwdGVtYmVyIDI2LCAyMDE4IDk6MDMgUE0NCj4gVG86IEh1YW5nLCBSYXkg
-PFJheS5IdWFuZ0BhbWQuY29tPjsgSmFtZXMgWmh1IDxqemh1bXNAZ21haWwuY29tPjsNCj4gYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFpodSwgSmFtZXMgPEphbWVzLlpodUBh
-bWQuY29tPjsgR2FvLCBMaWt1biA8TGlrdW4uR2FvQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0ggdjIgMS84XSBkcm0vYW1kZ3B1OlVzZSByZWdpc3RlciBVVkRfU0NSQVRDSDkgZm9yDQo+
-IFZDTiByaW5nL2liIHRlc3QNCj4gDQo+IA0KPiANCj4gT24gMjAxOC0wOS0yNiAwNjozOCBBTSwg
-SHVhbmcsIFJheSB3cm90ZToNCj4gPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4g
-RnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5v
-cmddIE9uDQo+ID4+IEJlaGFsZiBPZiBKYW1lcyBaaHUNCj4gPj4gU2VudDogV2VkbmVzZGF5LCBT
-ZXB0ZW1iZXIgMjYsIDIwMTggNzowMyBBTQ0KPiA+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcNCj4gPj4gQ2M6IFpodSwgSmFtZXMgPEphbWVzLlpodUBhbWQuY29tPg0KPiA+PiBT
-dWJqZWN0OiBbUEFUQ0ggdjIgMS84XSBkcm0vYW1kZ3B1OlVzZSByZWdpc3RlciBVVkRfU0NSQVRD
-SDkgZm9yDQo+IFZDTg0KPiA+PiByaW5nL2liIHRlc3QNCj4gPj4NCj4gPj4gVXNlIHJlZ2lzdGVy
-IFVWRF9TQ1JBVENIOSBmb3IgVkNOIHJpbmcvaWIgdGVzdC4gU2luY2UgdGhvc2UgcmVnaXN0ZXJz
-DQo+ID4+IGNhbid0IGJlIGRpcmVjdGx5IGFjY2Vzc2VkIHVuZGVyIERQRyhEeW5hbWljIFBvd2Vy
-IEdhdGUpIG1vZGUuDQo+ID4+DQo+ID4+IFNpZ25lZC1vZmYtYnk6IEphbWVzIFpodSA8SmFtZXMu
-Wmh1QGFtZC5jb20+DQo+ID4+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+DQo+ID4gVGhhbmtzIEphbWVzLiBXZSB3aWxsIGdpdmUgYSB0cnkgb24g
-UGljYXNzby4NCj4gUGxlYXNlIGFkZCB0ZXN0IGNhc2VzIHRvIHJ1biBkZWMvZW5jL21qcGVjIGRl
-YyB0b2dldGhlci4NCj4gDQo+IFBsYXkgZGVjKHVzaW5nIERQRyBtb2RlKSBjbGlwIGNvbnRpbnVv
-dXNseSBBU0FQLiBydW4gZW5jL21qcGVjIGRlYyAodXNpbmcNCj4gRFBHIHBhdXNlIG1vZGUpIHdp
-dGggcmFuZG9tIGdhcC7CoCBJdCB0cnkgdG8gbWFrZSB2Y24gc3dpdGNoIGJldHdlZW4gRFBHDQo+
-IG1vZGUgYW5kIERQRyBwYXVzZSBtb2RlLg0KPiANCj4gaWYgeW91IHdpbGwgYm9vdCB3aXRoIGRy
-bS5kZWJ1Zz0xLCBZb3Ugd2lsbCBzZWUgRFBHIG1vZGUgc3dpdGNoaW5nDQo+IG1lc3NhZ2VzIGlu
-IHN5c2xvZy4NCg0KVGhhbmtzLCBJIHNhdyB0aGUgc3dpdGNoIG1lc3NhZ2VzIG9uIG15IFBpY2Fz
-c28gYm9hcmQ6DQpbICAgODguNzg5MzIyXSBbZHJtOmFtZGdwdV92Y25fcGF1c2VfZHBnX21vZGUg
-W2FtZGdwdV1dIGRwZyBwYXVzZSBzdGF0ZSBjaGFuZ2VkIDA6MCAtPiAxOjANClsgICA4OC43OTIz
-MzJdIFtkcm06YW1kZ3B1X3Zjbl9wYXVzZV9kcGdfbW9kZSBbYW1kZ3B1XV0gZHBnIHBhdXNlIHN0
-YXRlIGNoYW5nZWQgMTowIC0+IDE6MQ0KDQpUaGFua3MsDQpSYXkNCg0KPiBKYW1lcw0KPiANCj4g
-Pg0KPiA+IEZlZWwgZnJlZSB0byBhZGQgbXkgUkIgZm9yIHRoZSBzZXJpZXM6DQo+ID4gUmV2aWV3
-ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+DQo+ID4NCj4gPj4gLS0tDQo+ID4+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jIHwgMTYgKysrKysrKyst
-LS0tLS0tLQ0KPiA+PiAgIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDggZGVsZXRp
-b25zKC0pDQo+ID4+DQo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdmNuLmMNCj4gPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dmNuLmMNCj4gPj4gaW5kZXggYTczNjc0Zi4uMjcyNjJhOCAxMDA2NDQNCj4gPj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jDQo+ID4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYw0KPiA+PiBAQCAtMjY0LDcgKzI2NCw3IEBA
-IGludCBhbWRncHVfdmNuX2RlY19yaW5nX3Rlc3RfcmluZyhzdHJ1Y3QNCj4gPj4gYW1kZ3B1X3Jp
-bmcgKnJpbmcpDQo+ID4+ICAgCXVuc2lnbmVkIGk7DQo+ID4+ICAgCWludCByOw0KPiA+Pg0KPiA+
-PiAtCVdSRUczMihTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgMCwgbW1VVkRfQ09OVEVYVF9JRCksDQo+
-ID4+IDB4Q0FGRURFQUQpOw0KPiA+PiArCVdSRUczMihTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgMCwg
-bW1VVkRfU0NSQVRDSDkpLA0KPiA+PiAweENBRkVERUFEKTsNCj4gPj4gICAJciA9IGFtZGdwdV9y
-aW5nX2FsbG9jKHJpbmcsIDMpOw0KPiA+PiAgIAlpZiAocikgew0KPiA+PiAgIAkJRFJNX0VSUk9S
-KCJhbWRncHU6IGNwIGZhaWxlZCB0byBsb2NrIHJpbmcgJWQgKCVkKS5cbiIsDQo+IEBAIC0yNzIs
-MTENCj4gPj4gKzI3MiwxMSBAQCBpbnQgYW1kZ3B1X3Zjbl9kZWNfcmluZ190ZXN0X3Jpbmcoc3Ry
-dWN0DQo+ID4+IGFtZGdwdV9yaW5nICpyaW5nKQ0KPiA+PiAgIAkJcmV0dXJuIHI7DQo+ID4+ICAg
-CX0NCj4gPj4gICAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywNCj4gPj4gLQkJUEFDS0VUMChTT0Mx
-NV9SRUdfT0ZGU0VUKFVWRCwgMCwNCj4gPj4gbW1VVkRfQ09OVEVYVF9JRCksIDApKTsNCj4gPj4g
-KwkJUEFDS0VUMChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgMCwgbW1VVkRfU0NSQVRDSDkpLA0KPiA+
-PiAwKSk7DQo+ID4+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDB4REVBREJFRUYpOw0KPiA+
-PiAgIAlhbWRncHVfcmluZ19jb21taXQocmluZyk7DQo+ID4+ICAgCWZvciAoaSA9IDA7IGkgPCBh
-ZGV2LT51c2VjX3RpbWVvdXQ7IGkrKykgew0KPiA+PiAtCQl0bXAgPSBSUkVHMzIoU09DMTVfUkVH
-X09GRlNFVChVVkQsIDAsDQo+ID4+IG1tVVZEX0NPTlRFWFRfSUQpKTsNCj4gPj4gKwkJdG1wID0g
-UlJFRzMyKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLA0KPiA+PiBtbVVWRF9TQ1JBVENIOSkpOw0K
-PiA+PiAgIAkJaWYgKHRtcCA9PSAweERFQURCRUVGKQ0KPiA+PiAgIAkJCWJyZWFrOw0KPiA+PiAg
-IAkJRFJNX1VERUxBWSgxKTsNCj4gPj4gQEAgLTYxNiw3ICs2MTYsNyBAQCBpbnQgYW1kZ3B1X3Zj
-bl9qcGVnX3JpbmdfdGVzdF9yaW5nKHN0cnVjdA0KPiA+PiBhbWRncHVfcmluZyAqcmluZykNCj4g
-Pj4gICAJdW5zaWduZWQgaTsNCj4gPj4gICAJaW50IHI7DQo+ID4+DQo+ID4+IC0JV1JFRzMyKFNP
-QzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9DT05URVhUX0lEKSwNCj4gPj4gMHhDQUZFREVB
-RCk7DQo+ID4+ICsJV1JFRzMyKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9TQ1JBVENI
-OSksDQo+ID4+IDB4Q0FGRURFQUQpOw0KPiA+PiAgIAlyID0gYW1kZ3B1X3JpbmdfYWxsb2Mocmlu
-ZywgMyk7DQo+ID4+DQo+ID4+ICAgCWlmIChyKSB7DQo+ID4+IEBAIC02MjYsMTIgKzYyNiwxMiBA
-QCBpbnQgYW1kZ3B1X3Zjbl9qcGVnX3JpbmdfdGVzdF9yaW5nKHN0cnVjdA0KPiA+PiBhbWRncHVf
-cmluZyAqcmluZykNCj4gPj4gICAJfQ0KPiA+Pg0KPiA+PiAgIAlhbWRncHVfcmluZ193cml0ZShy
-aW5nLA0KPiA+PiAtCQlQQUNLRVRKKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLA0KPiA+PiBtbVVW
-RF9DT05URVhUX0lEKSwgMCwgMCwgMCkpOw0KPiA+PiArCQlQQUNLRVRKKFNPQzE1X1JFR19PRkZT
-RVQoVVZELCAwLCBtbVVWRF9TQ1JBVENIOSksDQo+ID4+IDAsIDAsIDApKTsNCj4gPj4gICAJYW1k
-Z3B1X3Jpbmdfd3JpdGUocmluZywgMHhERUFEQkVFRik7DQo+ID4+ICAgCWFtZGdwdV9yaW5nX2Nv
-bW1pdChyaW5nKTsNCj4gPj4NCj4gPj4gICAJZm9yIChpID0gMDsgaSA8IGFkZXYtPnVzZWNfdGlt
-ZW91dDsgaSsrKSB7DQo+ID4+IC0JCXRtcCA9IFJSRUczMihTT0MxNV9SRUdfT0ZGU0VUKFVWRCwg
-MCwNCj4gPj4gbW1VVkRfQ09OVEVYVF9JRCkpOw0KPiA+PiArCQl0bXAgPSBSUkVHMzIoU09DMTVf
-UkVHX09GRlNFVChVVkQsIDAsDQo+ID4+IG1tVVZEX1NDUkFUQ0g5KSk7DQo+ID4+ICAgCQlpZiAo
-dG1wID09IDB4REVBREJFRUYpDQo+ID4+ICAgCQkJYnJlYWs7DQo+ID4+ICAgCQlEUk1fVURFTEFZ
-KDEpOw0KPiA+PiBAQCAtNjY1LDcgKzY2NSw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Zjbl9qcGVn
-X3NldF9yZWcoc3RydWN0DQo+ID4+IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCBoYW5kbGUs
-DQo+ID4+DQo+ID4+ICAgCWliID0gJmpvYi0+aWJzWzBdOw0KPiA+Pg0KPiA+PiAtCWliLT5wdHJb
-MF0gPSBQQUNLRVRKKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLA0KPiA+PiBtbVVWRF9KUEVHX1BJ
-VENIKSwgMCwgMCwgUEFDS0VUSl9UWVBFMCk7DQo+ID4+ICsJaWItPnB0clswXSA9IFBBQ0tFVEoo
-U09DMTVfUkVHX09GRlNFVChVVkQsIDAsDQo+ID4+IG1tVVZEX1NDUkFUQ0g5KSwgMCwgMCwNCj4g
-Pj4gK1BBQ0tFVEpfVFlQRTApOw0KPiA+PiAgIAlpYi0+cHRyWzFdID0gMHhERUFEQkVFRjsNCj4g
-Pj4gICAJZm9yIChpID0gMjsgaSA8IDE2OyBpICs9IDIpIHsNCj4gPj4gICAJCWliLT5wdHJbaV0g
-PSBQQUNLRVRKKDAsIDAsIDAsIFBBQ0tFVEpfVFlQRTYpOyBAQCAtNzE0LDcNCj4gPj4gKzcxNCw3
-IEBAIGludCBhbWRncHVfdmNuX2pwZWdfcmluZ190ZXN0X2liKHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywNCj4gPj4gbG9uZyB0aW1lb3V0KQ0KPiA+PiAgIAkJciA9IDA7DQo+ID4+DQo+ID4+ICAg
-CWZvciAoaSA9IDA7IGkgPCBhZGV2LT51c2VjX3RpbWVvdXQ7IGkrKykgew0KPiA+PiAtCQl0bXAg
-PSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChVVkQsIDAsDQo+ID4+IG1tVVZEX0pQRUdfUElUQ0gp
-KTsNCj4gPj4gKwkJdG1wID0gUlJFRzMyKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLA0KPiA+PiBt
-bVVWRF9TQ1JBVENIOSkpOw0KPiA+PiAgIAkJaWYgKHRtcCA9PSAweERFQURCRUVGKQ0KPiA+PiAg
-IAkJCWJyZWFrOw0KPiA+PiAgIAkJRFJNX1VERUxBWSgxKTsNCj4gPj4gLS0NCj4gPj4gMi43LjQN
-Cj4gPj4NCj4gPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18NCj4gPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcNCj4gPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============2035542074==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB1707D5E46617B2936F800F1992140DM5PR12MB1707namp_"
+
+--_000_DM5PR12MB1707D5E46617B2936F800F1992140DM5PR12MB1707namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+So back to my previous question:
+
+
+
+>> But do we really need another lock for this? Wouldn't the
+
+>> re-validation of userptr BOs (currently calling get_user_pages) force
+
+>> synchronization with the ongoing page table invalidation through the
+
+>> mmap_sem or other MM locks?
+
+>
+
+> No and yes. We don't hold any other locks while doing command submission,=
+ but I expect that HMM has its own mechanism to prevent that.
+
+>
+
+> Since we don't modify amdgpu_mn_lock()/amdgpu_mn_unlock() we are certainl=
+y not using this mechanism correctly.
+
+The existing amdgpu_mn_lock/unlock should block the MMU notifier while a co=
+mmand submission is in progress. It should also block command submission wh=
+ile an MMU notifier is in progress.
+
+What we lose with HMM is the ability to hold a read-lock for the entire dur=
+ation of the invalidate_range_start until invalidate_range_end. As I unders=
+tand it, that lock is meant to prevent new command submissions while the pa=
+ge tables are being updated by the kernel. But my point is, that get_user_p=
+ages or hmm_vma_fault should do the same kind of thing. Before the command =
+submission can go ahead, it needs to update the userptr addresses. If the p=
+age tables are still being updated, it will block there even without holdin=
+g the amdgpu_mn_read_lock.
+
+Regards,
+  Felix
+
+From: Koenig, Christian
+Sent: Thursday, September 27, 2018 3:00 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Jero=
+me Glisse <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
+
+No, that won't work. We would still run into lock inversion problems.
+
+What we could do with the scheduler is to turn submissions into dummies if =
+we find that the page tables are now outdated.
+
+But that would be really hacky and I'm not sure if that would really work i=
+n all cases.
+
+Christian.
+
+Am 27.09.2018 08:53 schrieb "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailt=
+o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>:
+I had a chat with Jerome yesterday. He pointed out that the new blockable p=
+arameter can be used to infer whether the MMU notifier is being called  in =
+a reclaim operation. So if blockable=3D=3Dtrue, it should even be safe to t=
+ake the BO reservation lock without problems. I think with that we should b=
+e able to remove the read-write locking completely and go back to locking (=
+or try-locking for blockable=3D=3Dfalse) the reservation locks in the MMU n=
+otifier?
+
+Regards,
+  Felix
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Christian K=F6nig
+Sent: Saturday, September 15, 2018 3:47 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>=
+; Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org<mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@l=
+ists.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jerome Glisse <=
+j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
+
+Am 14.09.2018 um 22:21 schrieb Felix Kuehling:
+> On 2018-09-14 01:52 PM, Christian K=F6nig wrote:
+>> Am 14.09.2018 um 19:47 schrieb Philip Yang:
+>>> On 2018-09-14 03:51 AM, Christian K=F6nig wrote:
+>>>> Am 13.09.2018 um 23:51 schrieb Felix Kuehling:
+>>>>> On 2018-09-13 04:52 PM, Philip Yang wrote:
+>>>>> [SNIP]
+>>>>>>    +    amdgpu_mn_read_unlock(amn);
+>>>>>> +
+>>>>> amdgpu_mn_read_lock/unlock support recursive locking for multiple
+>>>>> overlapping or nested invalidation ranges. But if you'r locking
+>>>>> and unlocking in the same function. Is that still a concern?
+>>> I don't understand the possible recursive case, but
+>>> amdgpu_mn_read_lock() still support recursive locking.
+>>>> Well the real problem is that unlocking them here won't work.
+>>>>
+>>>> We need to hold the lock until we are sure that the operation which
+>>>> updates the page tables is completed.
+>>>>
+>>> The reason for this change is because hmm mirror has
+>>> invalidate_start callback, no invalidate_end callback
+>>>
+>>> Check mmu_notifier.c and hmm.c again, below is entire logic to
+>>> update CPU page tables and callback:
+>>>
+>>> mn lock amn->lock is used to protect interval tree access because
+>>> user may submit/register new userptr anytime.
+>>> This is same for old and new way.
+>>>
+>>> step 2 guarantee the GPU operation is done before updating CPU page
+>>> table.
+>>>
+>>> So I think the change is safe. We don't need hold mn lock until the
+>>> CPU page tables update is completed.
+>> No, that isn't even remotely correct. The lock doesn't protects the
+>> interval tree.
+>>
+>>> Old:
+>>>     1. down_read_non_owner(&amn->lock)
+>>>     2. loop to handle BOs from node->bos through interval tree
+>>> amn->object nodes
+>>>         gfx: wait for pending BOs fence operation done, mark user
+>>> pages dirty
+>>>         kfd: evict user queues of the process, wait for queue
+>>> unmap/map operation done
+>>>     3. update CPU page tables
+>>>     4. up_read(&amn->lock)
+>>>
+>>> New, switch step 3 and 4
+>>>     1. down_read_non_owner(&amn->lock)
+>>>     2. loop to handle BOs from node->bos through interval tree
+>>> amn->object nodes
+>>>         gfx: wait for pending BOs fence operation done, mark user
+>>> pages dirty
+>>>         kfd: evict user queues of the process, wait for queue
+>>> unmap/map operation done
+>>>     3. up_read(&amn->lock)
+>>>     4. update CPU page tables
+>> The lock is there to make sure that we serialize page table updates
+>> with command submission.
+> As I understand it, the idea is to prevent command submission (adding
+> new fences to BOs) while a page table invalidation is in progress.
+
+Yes, exactly.
+
+> But do we really need another lock for this? Wouldn't the
+> re-validation of userptr BOs (currently calling get_user_pages) force
+> synchronization with the ongoing page table invalidation through the
+> mmap_sem or other MM locks?
+
+No and yes. We don't hold any other locks while doing command submission, b=
+ut I expect that HMM has its own mechanism to prevent that.
+
+Since we don't modify amdgpu_mn_lock()/amdgpu_mn_unlock() we are certainly =
+not using this mechanism correctly.
+
+Regards,
+Christian.
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB1707D5E46617B2936F800F1992140DM5PR12MB1707namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.emailquote, li.emailquote, div.emailquote
+	{mso-style-name:emailquote;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:1.0pt;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">So back to my previous question:<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; But do we really need another lock for t=
+his? Wouldn't the
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; re-validation of userptr BOs (currently =
+calling get_user_pages) force
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; synchronization with the ongoing page ta=
+ble invalidation through the
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; mmap_sem or other MM locks?<o:p></o:p></=
+p>
+<p class=3D"MsoPlainText">&gt;<o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">&gt; No and yes. We don't hold any other locks wh=
+ile doing command submission, but I expect that HMM has its own mechanism t=
+o prevent that.<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;<o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">&gt; Since we don't modify amdgpu_mn_lock()/amdgp=
+u_mn_unlock() we are certainly not using this mechanism correctly.<o:p></o:=
+p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">The existing amdgpu_mn_lock/unlock should block the =
+MMU notifier while a command submission is in progress. It should also bloc=
+k command submission while an MMU notifier is in progress.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">What we lose with HMM is the ability to hold a read-=
+lock for the entire duration of the invalidate_range_start until invalidate=
+_range_end. As I understand it, that lock is meant to prevent new command s=
+ubmissions while the page tables are
+ being updated by the kernel. But my point is, that get_user_pages or hmm_v=
+ma_fault should do the same kind of thing. Before the command submission ca=
+n go ahead, it needs to update the userptr addresses. If the page tables ar=
+e still being updated, it will block
+ there even without holding the amdgpu_mn_read_lock.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; Felix<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Koenig, Christian <br>
+<b>Sent:</b> Thursday, September 27, 2018 3:00 AM<br>
+<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> Yang, Philip &lt;Philip.Yang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org; Jerome Glisse &lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
+mmu notifier v4<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal">No, that won't work. We would still run into lock in=
+version problems.<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">What we could do with the scheduler is to turn submi=
+ssions into dummies if we find that the page tables are now outdated.<o:p><=
+/o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">But that would be really hacky and I'm not sure if t=
+hat would really work in all cases.<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Christian.<o:p></o:p></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">Am 27.09.2018 08:53 schrieb &quot;Kuehling, Felix&qu=
+ot; &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a=
+>&gt;:<o:p></o:p></p>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">I had a chat with Jerome yesterday. He pointed out t=
+hat the new blockable parameter can be used to infer whether the MMU notifi=
+er is being called&nbsp; in a reclaim operation. So if blockable=3D=3Dtrue,=
+ it should even be safe to take the BO reservation
+ lock without problems. I think with that we should be able to remove the r=
+ead-write locking completely and go back to locking (or try-locking for blo=
+ckable=3D=3Dfalse) the reservation locks in the MMU notifier?<br>
+<br>
+Regards,<br>
+&nbsp; Felix<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">=
+amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; On Behalf Of Christian K=F6ni=
+g<br>
+Sent: Saturday, September 15, 2018 3:47 AM<br>
+To: Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.Kue=
+hling-5C7GfCeVMHo@public.gmane.org</a>&gt;; Yang, Philip &lt;<a href=3D"mailto:Philip.Yang@amd.c=
+om">Philip.Yang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>; Jerome Glisse &lt;<a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">j.glisse@g=
+mail.com</a>&gt;<br>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4<br>
+<br>
+Am 14.09.2018 um 22:21 schrieb Felix Kuehling:<br>
+&gt; On 2018-09-14 01:52 PM, Christian K=F6nig wrote:<br>
+&gt;&gt; Am 14.09.2018 um 19:47 schrieb Philip Yang:<br>
+&gt;&gt;&gt; On 2018-09-14 03:51 AM, Christian K=F6nig wrote:<br>
+&gt;&gt;&gt;&gt; Am 13.09.2018 um 23:51 schrieb Felix Kuehling:<br>
+&gt;&gt;&gt;&gt;&gt; On 2018-09-13 04:52 PM, Philip Yang wrote:<br>
+&gt;&gt;&gt;&gt;&gt; [SNIP]<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&nbsp; &nbsp; &#43;&nbsp;&nbsp;&nbsp; amdgpu_mn_rea=
+d_unlock(amn);<br>
+&gt;&gt;&gt;&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt;&gt;&gt; amdgpu_mn_read_lock/unlock support recursive locking f=
+or multiple <br>
+&gt;&gt;&gt;&gt;&gt; overlapping or nested invalidation ranges. But if you'=
+r locking <br>
+&gt;&gt;&gt;&gt;&gt; and unlocking in the same function. Is that still a co=
+ncern?<br>
+&gt;&gt;&gt; I don't understand the possible recursive case, but<br>
+&gt;&gt;&gt; amdgpu_mn_read_lock() still support recursive locking.<br>
+&gt;&gt;&gt;&gt; Well the real problem is that unlocking them here won't wo=
+rk.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; We need to hold the lock until we are sure that the operat=
+ion which <br>
+&gt;&gt;&gt;&gt; updates the page tables is completed.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt; The reason for this change is because hmm mirror has <br>
+&gt;&gt;&gt; invalidate_start callback, no invalidate_end callback<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Check mmu_notifier.c and hmm.c again, below is entire logic to=
+ <br>
+&gt;&gt;&gt; update CPU page tables and callback:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; mn lock amn-&gt;lock is used to protect interval tree access b=
+ecause <br>
+&gt;&gt;&gt; user may submit/register new userptr anytime.<br>
+&gt;&gt;&gt; This is same for old and new way.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; step 2 guarantee the GPU operation is done before updating CPU=
+ page <br>
+&gt;&gt;&gt; table.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; So I think the change is safe. We don't need hold mn lock unti=
+l the <br>
+&gt;&gt;&gt; CPU page tables update is completed.<br>
+&gt;&gt; No, that isn't even remotely correct. The lock doesn't protects th=
+e <br>
+&gt;&gt; interval tree.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Old:<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 1. down_read_non_owner(&amp;amn-&gt;lock)<b=
+r>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 2. loop to handle BOs from node-&gt;bos thr=
+ough interval tree<br>
+&gt;&gt;&gt; amn-&gt;object nodes<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx: wait for pendi=
+ng BOs fence operation done, mark user <br>
+&gt;&gt;&gt; pages dirty<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd: evict user que=
+ues of the process, wait for queue <br>
+&gt;&gt;&gt; unmap/map operation done<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 3. update CPU page tables<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 4. up_read(&amp;amn-&gt;lock)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; New, switch step 3 and 4<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 1. down_read_non_owner(&amp;amn-&gt;lock)<b=
+r>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 2. loop to handle BOs from node-&gt;bos thr=
+ough interval tree<br>
+&gt;&gt;&gt; amn-&gt;object nodes<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx: wait for pendi=
+ng BOs fence operation done, mark user <br>
+&gt;&gt;&gt; pages dirty<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd: evict user que=
+ues of the process, wait for queue <br>
+&gt;&gt;&gt; unmap/map operation done<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 3. up_read(&amp;amn-&gt;lock)<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 4. update CPU page tables<br>
+&gt;&gt; The lock is there to make sure that we serialize page table update=
+s <br>
+&gt;&gt; with command submission.<br>
+&gt; As I understand it, the idea is to prevent command submission (adding =
+<br>
+&gt; new fences to BOs) while a page table invalidation is in progress.<br>
+<br>
+Yes, exactly.<br>
+<br>
+&gt; But do we really need another lock for this? Wouldn't the <br>
+&gt; re-validation of userptr BOs (currently calling get_user_pages) force =
+<br>
+&gt; synchronization with the ongoing page table invalidation through the <=
+br>
+&gt; mmap_sem or other MM locks?<br>
+<br>
+No and yes. We don't hold any other locks while doing command submission, b=
+ut I expect that HMM has its own mechanism to prevent that.<br>
+<br>
+Since we don't modify amdgpu_mn_lock()/amdgpu_mn_unlock() we are certainly =
+not using this mechanism correctly.<br>
+<br>
+Regards,<br>
+Christian.<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB1707D5E46617B2936F800F1992140DM5PR12MB1707namp_--
+
+--===============2035542074==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2035542074==--
