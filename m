@@ -1,12 +1,29 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amd/pp: Export load_firmware interface
-Date: Thu, 27 Sep 2018 14:09:29 +0000
-Message-ID: <BYAPR12MB2775243258483D0EC9EA2E65FB140@BYAPR12MB2775.namprd12.prod.outlook.com>
-References: <1538056543-23070-1-git-send-email-Rex.Zhu@amd.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu
+ notifier v4
+Date: Thu, 27 Sep 2018 14:27:09 +0000
+Message-ID: <DM5PR12MB1707273AC4B0C03A3BEDF73092140@DM5PR12MB1707.namprd12.prod.outlook.com>
+References: <1536871954-8451-1-git-send-email-Philip.Yang@amd.com>
+ <9d6717ac-23f0-7beb-6e41-58c6e32acdf8@amd.com>
+ <58bc3bb9-b7b1-a32f-e355-c78a23d95215@gmail.com>
+ <383388c8-1bff-48d9-1044-f16e66bcbfa5@amd.com>
+ <3850fbeb-5d91-9c14-43c9-45d5d058e15b@amd.com>
+ <de28cee0-3461-4f99-eeae-b793de00ca58@amd.com>
+ <e4cf7212-4340-8639-c8c1-057e4d1083f0@amd.com>
+ <DM5PR12MB17078469EB6D3AF1D53B788992140@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <a76b71ac-4b5b-45d7-b48b-6d0e4a7e7524@email.android.com>
+ <DM5PR12MB1707D5E46617B2936F800F1992140@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <d752c19b-6d2e-c7c1-1cd7-651e25b8f708@amd.com>
+ <DM5PR12MB17077A78E0F95BFBA57F2E1A92140@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <425fe859-c780-48a5-a2c6-c3bf2b9abb38@amd.com>
+ <DM5PR12MB17072AE77EB0DE3AD22B8D7892140@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <9b427976-f2ff-8ba1-6ebf-588ca95aef80@amd.com>,
+ <DM5PR12MB17072879EC907150027D6F7892140@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <58199419-e20f-4ab0-ac1d-a7eb79f5c6f7@email.android.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2082822779=="
+Content-Type: multipart/mixed; boundary="===============0963204793=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1538056543-23070-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <58199419-e20f-4ab0-ac1d-a7eb79f5c6f7-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,1400 +35,1168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Jerome Glisse <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2082822779==
+--===============0963204793==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB2775243258483D0EC9EA2E65FB140BYAPR12MB2775namp_"
+	boundary="_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_"
 
---_000_BYAPR12MB2775243258483D0EC9EA2E65FB140BYAPR12MB2775namp_
+--_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Sorry, Please ignore this patch.
+> In this case you can end up accessing pages which are invalidated while g=
+et_user_pages is in process.
+
+What's the sequence of events you have in mind? Something like this?
+
+
+  *   Page table is updated and triggers MMU notifier
+  *   amdgpu MMU notifier runs and waits for pending CS to finish while hol=
+ding the read lock
+  *   New CS starts just after invalidate_range_start MMU notifier finishes=
+ but before the page table update is done
+  *   get_user_pages returns outdated physical addresses
+
+I hope that's not actually possible and that get_user_pages or hmm_vma_faul=
+t would block until the page table update is done. That is, invalidate_rang=
+e_start marks the start of a page table update, and while that update is in=
+ progress, get_user_pages or hmm_vma_fault block. Jerome, can you comment o=
+n that?
+
+Thanks,
+  Felix
+
+From: Koenig, Christian
+Sent: Thursday, September 27, 2018 9:59 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Jero=
+me Glisse <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
+
+Yeah I understand that, but again that won't work.
+
+In this case you can end up accessing pages which are invalidated while get=
+_user_pages is in process.
+
+Christian.
+
+Am 27.09.2018 15:41 schrieb "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailt=
+o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>:
+> I'm not planning to change that. I don't think there is any need to chang=
+e it.
+>
+> Yeah, but when HMM doesn't provide both the start and the end hock of the=
+ invalidation this way won't work any more.
+>
+> So we need to find a solution for this,
+> Christian.
+
+My whole argument is that you don't need to hold the read lock until the in=
+validate_range_end. Just read_lock and read_unlock in the invalidate_range_=
+start function.
+
+Regards,
+  Felix
+
+From: Koenig, Christian
+Sent: Thursday, September 27, 2018 9:22 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>
+Cc: Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org<mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org>>; amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jerome Glisse=
+ <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
+
+Am 27.09.2018 um 15:18 schrieb Kuehling, Felix:
+> The problem is here:
+>
+> ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
+> amdgpu_mn_unlock(p->mn);
+>
+> We need to hold the lock until the fence is added to the reservation obje=
+ct.
+>
+> Otherwise somebody could have changed the page tables just in the moment =
+between the check of amdgpu_ttm_tt_userptr_needs_pages() and adding the fen=
+ce to the reservation object.
+
+I'm not planning to change that. I don't think there is any need to change =
+it.
+
+Yeah, but when HMM doesn't provide both the start and the end hock of the i=
+nvalidation this way won't work any more.
+
+So we need to find a solution for this,
+Christian.
+
+
+Regards,
+  Felix
+
+From: Koenig, Christian
+Sent: Thursday, September 27, 2018 7:24 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org><mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org><mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org>; amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jerome Glisse=
+ <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
+
+Am 27.09.2018 um 13:08 schrieb Kuehling, Felix:
+> We double check that there wasn't any page table modification while we pr=
+epared the submission and restart the whole process when there actually was=
+ some update.
+>
+> The reason why we need to do this is here:
+>
+>        ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
+>        amdgpu_mn_unlock(p->mn);
+>
+> Only after the new fence is added to the buffer object we can release the=
+ lock so that any invalidation will now block on our command submission to =
+finish before it modifies the page table.
+
+
+I don't see why this requires holding the read-lock until invalidate_range_=
+end. amdgpu_ttm_tt_affect_userptr gets called while the mn read-lock is hel=
+d in invalidate_range_start notifier.
+
+That's not related to amdgpu_ttm_tt_affect_userptr(), this function could a=
+ctually be called outside the lock.
+
+The problem is here:
+
+ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
+amdgpu_mn_unlock(p->mn);
+
+We need to hold the lock until the fence is added to the reservation object=
+.
+
+Otherwise somebody could have changed the page tables just in the moment be=
+tween the check of amdgpu_ttm_tt_userptr_needs_pages() and adding the fence=
+ to the reservation object.
+
+Regards,
+Christian.
 
 
 
 
-Best Regards
+Regards,
+  Felix
 
-Rex
+From: Koenig, Christian
+Sent: Thursday, September 27, 2018 5:27 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org><mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org><mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org>; amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jerome Glisse=
+ <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
 
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, September 27, 2018 9:55 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH v2] drm/amd/pp: Export load_firmware interface
+That is correct, but take a look what we do when after calling the amdgpu_m=
+n_read_lock():
 
-Export this interface for the AMDGPU_FW_LOAD_SMU type.
-gfx/sdma can request smu to load firmware.
 
-Split the smu7/8_start_smu function into two functions
-1. start_smu, used for load smu firmware in smu7/8 and
-   check smu firmware version.
-2. request_smu_load_fw, used for load other ip's firmware
-   on smu7/8 and add firmware loading staus check.
 
-v2: default fw loading type is via smu for VI, driver call smu
-    to load all fw at the begin of hw init.
+        /* No memory allocation is allowed while holding the mn lock */
+        amdgpu_mn_lock(p->mn);
+        amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+                struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(e->tv.bo);
 
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/vi.c                    | 16 ++++++
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c      | 20 ++++----
- drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c |  4 +-
- .../gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c  | 25 ++++-----
- .../drm/amd/powerplay/smumgr/polaris10_smumgr.c    |  4 +-
- drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 59 +++++-------------=
-----
- drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h |  3 +-
- drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c | 46 ++++++++---------
- .../gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c    | 12 ++++-
- .../gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c    |  4 +-
- 10 files changed, 86 insertions(+), 107 deletions(-)
+                if (amdgpu_ttm_tt_userptr_needs_pages(bo->tbo.ttm)) {
+                        r =3D -ERESTARTSYS;
+                        goto error_abort;
+                }
+        }
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
-i.c
-index 88b57a5..3384a15 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1222,6 +1222,16 @@ static int vi_common_hw_init(void *handle)
-         /* enable the doorbell aperture */
-         vi_enable_doorbell_aperture(adev, true);
+We double check that there wasn't any page table modification while we prep=
+ared the submission and restart the whole process when there actually was s=
+ome update.
 
-+       if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_SMU) {
-+               if (adev->powerplay.pp_funcs->load_firmware) {
-+                       amdgpu_ucode_init_bo(adev);
-+                       if (adev->powerplay.pp_funcs->load_firmware(adev->p=
-owerplay.pp_handle)) {
-+                               adev->firmware.load_type =3D AMDGPU_FW_LOAD=
-_DIRECT;
-+                               amdgpu_ucode_fini_bo(adev);
-+                       }
-+               }
-+       }
-+
-         return 0;
- }
+The reason why we need to do this is here:
 
-@@ -1235,6 +1245,12 @@ static int vi_common_hw_fini(void *handle)
-         if (amdgpu_sriov_vf(adev))
-                 xgpu_vi_mailbox_put_irq(adev);
 
-+       if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_SMU) {
-+               release_firmware(adev->pm.fw);
-+               adev->pm.fw =3D NULL;
-+               amdgpu_ucode_fini_bo(adev);
-+       }
-+
-         return 0;
- }
+        ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
+        amdgpu_mn_unlock(p->mn);
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c
-index aff7c14..5dc8fb9 100644
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-@@ -109,12 +109,6 @@ static int pp_sw_fini(void *handle)
+Only after the new fence is added to the buffer object we can release the l=
+ock so that any invalidation will now block on our command submission to fi=
+nish before it modifies the page table.
 
-         hwmgr_sw_fini(hwmgr);
+The only other option would be to add the fence first and then check if the=
+re was any update to the page tables.
 
--       if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_SMU) {
--               release_firmware(adev->pm.fw);
--               adev->pm.fw =3D NULL;
--               amdgpu_ucode_fini_bo(adev);
--       }
--
-         return 0;
- }
+The issue with that approach is that adding a fence can't be made undone, s=
+o if we find that there actually was an update to the page tables we would =
+need to somehow turn the CS into a dummy (e.g. overwrite all IBs with NOPs =
+or something like that) and still submit it.
 
-@@ -124,9 +118,6 @@ static int pp_hw_init(void *handle)
-         struct amdgpu_device *adev =3D handle;
-         struct pp_hwmgr *hwmgr =3D adev->powerplay.pp_handle;
+Not sure if that is actually possible.
 
--       if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_SMU)
--               amdgpu_ucode_init_bo(adev);
--
-         ret =3D hwmgr_hw_init(hwmgr);
+Regards,
+Christian.
 
-         if (ret)
-@@ -275,7 +266,16 @@ static int pp_set_clockgating_state(void *handle,
+Am 27.09.2018 um 10:47 schrieb Kuehling, Felix:
+So back to my previous question:
 
- static int pp_dpm_load_fw(void *handle)
- {
--       return 0;
-+       struct pp_hwmgr *hwmgr =3D handle;
-+       int ret =3D 0;
-+
-+       if (!hwmgr || !hwmgr->smumgr_funcs)
-+               return -EINVAL;
-+
-+       if (hwmgr->smumgr_funcs->request_smu_load_fw)
-+               ret =3D hwmgr->smumgr_funcs->request_smu_load_fw(hwmgr);
-+
-+       return ret;
- }
 
- static int pp_dpm_fw_loading_complete(void *handle)
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/fiji_smumgr.c
-index b6b62a7..ffd7d78 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
-@@ -310,8 +310,6 @@ static int fiji_start_smu(struct pp_hwmgr *hwmgr)
-                         offsetof(SMU73_Firmware_Header, SoftRegisters),
-                         &(priv->smu7_data.soft_regs_start), 0x40000);
 
--       result =3D smu7_request_smu_load_fw(hwmgr);
--
-         return result;
- }
+>> But do we really need another lock for this? Wouldn't the
 
-@@ -2643,7 +2641,7 @@ static int fiji_update_dpm_settings(struct pp_hwmgr *=
-hwmgr,
-         .smu_fini =3D &smu7_smu_fini,
-         .start_smu =3D &fiji_start_smu,
-         .check_fw_load_finish =3D &smu7_check_fw_load_finish,
--       .request_smu_load_fw =3D &smu7_reload_firmware,
-+       .request_smu_load_fw =3D &smu7_request_smu_load_fw,
-         .request_smu_load_specific_fw =3D NULL,
-         .send_msg_to_smc =3D &smu7_send_msg_to_smc,
-         .send_msg_to_smc_with_parameter =3D &smu7_send_msg_to_smc_with_par=
-ameter,
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/driver=
-s/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-index 73aa368..68a4836 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-@@ -232,27 +232,24 @@ static int iceland_request_smu_load_specific_fw(struc=
-t pp_hwmgr *hwmgr,
+>> re-validation of userptr BOs (currently calling get_user_pages) force
 
- static int iceland_start_smu(struct pp_hwmgr *hwmgr)
- {
--       int result;
--
--       result =3D iceland_smu_upload_firmware_image(hwmgr);
--       if (result)
--               return result;
--       result =3D iceland_smu_start_smc(hwmgr);
--       if (result)
--               return result;
-+       struct iceland_smumgr *priv =3D hwmgr->smu_backend;
-+       int result =3D 0;
+>> synchronization with the ongoing page table invalidation through the
 
-         if (!smu7_is_smc_ram_running(hwmgr)) {
--               pr_info("smu not running, upload firmware again \n");
-                 result =3D iceland_smu_upload_firmware_image(hwmgr);
-                 if (result)
-                         return result;
+>> mmap_sem or other MM locks?
 
--               result =3D iceland_smu_start_smc(hwmgr);
--               if (result)
--                       return result;
-+               iceland_smu_start_smc(hwmgr);
-         }
-+       /* Setup SoftRegsStart here for register lookup in case
-+        * DummyBackEnd is used and ProcessFirmwareHeader is not executed
-+        */
+>
 
--       result =3D smu7_request_smu_load_fw(hwmgr);
-+       smu7_read_smc_sram_dword(hwmgr,
-+                       SMU71_FIRMWARE_HEADER_LOCATION +
-+                       offsetof(SMU71_Firmware_Header, SoftRegisters),
-+                       &(priv->smu7_data.soft_regs_start), 0x40000);
+> No and yes. We don't hold any other locks while doing command submission,=
+ but I expect that HMM has its own mechanism to prevent that.
 
-         return result;
- }
-@@ -2662,7 +2659,7 @@ static bool iceland_is_dpm_running(struct pp_hwmgr *h=
-wmgr)
-         .smu_fini =3D &smu7_smu_fini,
-         .start_smu =3D &iceland_start_smu,
-         .check_fw_load_finish =3D &smu7_check_fw_load_finish,
--       .request_smu_load_fw =3D &smu7_reload_firmware,
-+       .request_smu_load_fw =3D &smu7_request_smu_load_fw,
-         .request_smu_load_specific_fw =3D &iceland_request_smu_load_specif=
-ic_fw,
-         .send_msg_to_smc =3D &smu7_send_msg_to_smc,
-         .send_msg_to_smc_with_parameter =3D &smu7_send_msg_to_smc_with_par=
-ameter,
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/driv=
-ers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-index 872d382..2ad6ad9 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-@@ -313,8 +313,6 @@ static int polaris10_start_smu(struct pp_hwmgr *hwmgr)
-         smu7_read_smc_sram_dword(hwmgr, SMU7_FIRMWARE_HEADER_LOCATION + of=
-fsetof(SMU74_Firmware_Header, SoftRegisters),
-                                         &(smu_data->smu7_data.soft_regs_st=
-art), 0x40000);
+>
 
--       result =3D smu7_request_smu_load_fw(hwmgr);
--
-         return result;
- }
+> Since we don't modify amdgpu_mn_lock()/amdgpu_mn_unlock() we are certainl=
+y not using this mechanism correctly.
 
-@@ -2478,7 +2476,7 @@ static int polaris10_update_dpm_settings(struct pp_hw=
-mgr *hwmgr,
-         .smu_fini =3D smu7_smu_fini,
-         .start_smu =3D polaris10_start_smu,
-         .check_fw_load_finish =3D smu7_check_fw_load_finish,
--       .request_smu_load_fw =3D smu7_reload_firmware,
-+       .request_smu_load_fw =3D smu7_request_smu_load_fw,
-         .request_smu_load_specific_fw =3D NULL,
-         .send_msg_to_smc =3D smu7_send_msg_to_smc,
-         .send_msg_to_smc_with_parameter =3D smu7_send_msg_to_smc_with_para=
-meter,
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-index 10eb967..edfb061 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-@@ -302,44 +302,6 @@ int smu7_write_smc_sram_dword(struct pp_hwmgr *hwmgr, =
-uint32_t smc_addr, uint32_
-         return 0;
- }
+The existing amdgpu_mn_lock/unlock should block the MMU notifier while a co=
+mmand submission is in progress. It should also block command submission wh=
+ile an MMU notifier is in progress.
 
--/* Convert the firmware type to SMU type mask. For MEC, we need to check a=
-ll MEC related type */
--
--static uint32_t smu7_get_mask_for_firmware_type(uint32_t fw_type)
--{
--       uint32_t result =3D 0;
--
--       switch (fw_type) {
--       case UCODE_ID_SDMA0:
--               result =3D UCODE_ID_SDMA0_MASK;
--               break;
--       case UCODE_ID_SDMA1:
--               result =3D UCODE_ID_SDMA1_MASK;
--               break;
--       case UCODE_ID_CP_CE:
--               result =3D UCODE_ID_CP_CE_MASK;
--               break;
--       case UCODE_ID_CP_PFP:
--               result =3D UCODE_ID_CP_PFP_MASK;
--               break;
--       case UCODE_ID_CP_ME:
--               result =3D UCODE_ID_CP_ME_MASK;
--               break;
--       case UCODE_ID_CP_MEC:
--       case UCODE_ID_CP_MEC_JT1:
--       case UCODE_ID_CP_MEC_JT2:
--               result =3D UCODE_ID_CP_MEC_MASK;
--               break;
--       case UCODE_ID_RLC_G:
--               result =3D UCODE_ID_RLC_G_MASK;
--               break;
--       default:
--               pr_info("UCode type is out of range! \n");
--               result =3D 0;
--       }
--
--       return result;
--}
--
- static int smu7_populate_single_firmware_entry(struct pp_hwmgr *hwmgr,
-                                                 uint32_t fw_type,
-                                                 struct SMU_Entry *entry)
-@@ -381,6 +343,11 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
-         uint32_t fw_to_load;
-         int r =3D 0;
+What we lose with HMM is the ability to hold a read-lock for the entire dur=
+ation of the invalidate_range_start until invalidate_range_end. As I unders=
+tand it, that lock is meant to prevent new command submissions while the pa=
+ge tables are being updated by the kernel. But my point is, that get_user_p=
+ages or hmm_vma_fault should do the same kind of thing. Before the command =
+submission can go ahead, it needs to update the userptr addresses. If the p=
+age tables are still being updated, it will block there even without holdin=
+g the amdgpu_mn_read_lock.
 
-+       if (hwmgr->smumgr_funcs->start_smu(hwmgr)) {
-+               pr_err("smu not running \n");
-+               return -EINVAL;
-+       }
-+
-         if (smu_data->soft_regs_start)
-                 cgs_write_ind_register(hwmgr->device, CGS_IND_REG__SMC,
-                                         smu_data->soft_regs_start + smum_g=
-et_offsetof(hwmgr,
-@@ -462,10 +429,13 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
-         smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR=
-_HI, upper_32_bits(smu_data->header_buffer.mc_addr));
-         smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR=
-_LO, lower_32_bits(smu_data->header_buffer.mc_addr));
+Regards,
+  Felix
 
--       if (smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_LoadUcodes=
-, fw_to_load))
--               pr_err("Fail to Request SMU Load uCode");
-+       smu7_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_LoadUcodes, fw=
-_to_load);
+From: Koenig, Christian
+Sent: Thursday, September 27, 2018 3:00 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org><mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org><mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org>; amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jerome Glisse=
+ <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org><mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
 
--       return r;
-+       r =3D smu7_check_fw_load_finish(hwmgr, fw_to_load);
-+       if (!r)
-+               return 0;
-+
-+       pr_err("SMU load firmware failed\n");
+No, that won't work. We would still run into lock inversion problems.
 
- failed:
-         kfree(smu_data->toc);
-@@ -477,20 +447,15 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
- int smu7_check_fw_load_finish(struct pp_hwmgr *hwmgr, uint32_t fw_type)
- {
-         struct smu7_smumgr *smu_data =3D (struct smu7_smumgr *)(hwmgr->smu=
-_backend);
--       uint32_t fw_mask =3D smu7_get_mask_for_firmware_type(fw_type);
-         uint32_t ret;
+What we could do with the scheduler is to turn submissions into dummies if =
+we find that the page tables are now outdated.
 
-         ret =3D phm_wait_on_indirect_register(hwmgr, mmSMC_IND_INDEX_11,
-                                         smu_data->soft_regs_start + smum_g=
-et_offsetof(hwmgr,
-                                         SMU_SoftRegisters, UcodeLoadStatus=
-),
--                                       fw_mask, fw_mask);
-+                                       fw_type, fw_type);
-         return ret;
- }
+But that would be really hacky and I'm not sure if that would really work i=
+n all cases.
 
--int smu7_reload_firmware(struct pp_hwmgr *hwmgr)
--{
--       return hwmgr->smumgr_funcs->start_smu(hwmgr);
--}
+Christian.
 
- static int smu7_upload_smc_firmware_data(struct pp_hwmgr *hwmgr, uint32_t =
-length, uint32_t *src, uint32_t limit)
- {
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.h
-index 01f0538f..10c8ceb 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h
-@@ -73,9 +73,8 @@ int smu7_read_smc_sram_dword(struct pp_hwmgr *hwmgr, uint=
-32_t smc_addr,
- int smu7_write_smc_sram_dword(struct pp_hwmgr *hwmgr, uint32_t smc_addr,
-                                                 uint32_t value, uint32_t l=
-imit);
+Am 27.09.2018 08:53 schrieb "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailt=
+o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>:
+I had a chat with Jerome yesterday. He pointed out that the new blockable p=
+arameter can be used to infer whether the MMU notifier is being called  in =
+a reclaim operation. So if blockable=3D=3Dtrue, it should even be safe to t=
+ake the BO reservation lock without problems. I think with that we should b=
+e able to remove the read-write locking completely and go back to locking (=
+or try-locking for blockable=3D=3Dfalse) the reservation locks in the MMU n=
+otifier?
 
--int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr);
- int smu7_check_fw_load_finish(struct pp_hwmgr *hwmgr, uint32_t fw_type);
--int smu7_reload_firmware(struct pp_hwmgr *hwmgr);
-+int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr);
- int smu7_upload_smu_firmware_image(struct pp_hwmgr *hwmgr);
- int smu7_init(struct pp_hwmgr *hwmgr);
- int smu7_smu_fini(struct pp_hwmgr *hwmgr);
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-index 7a4c425..90f5f30 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-@@ -658,6 +658,8 @@ static int smu8_request_smu_load_fw(struct pp_hwmgr *hw=
-mgr)
- {
-         struct smu8_smumgr *smu8_smu =3D hwmgr->smu_backend;
-         uint32_t smc_address;
-+       uint32_t fw_to_check =3D 0;
-+       int ret;
+Regards,
+  Felix
 
-         smu8_smu_populate_firmware_entries(hwmgr);
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Christian K=F6nig
+Sent: Saturday, September 15, 2018 3:47 AM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>=
+; Yang, Philip <Philip.Yang-5C7GfCeVMHo@public.gmane.org<mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org>>; amd-gfx@l=
+ists.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Jerome Glisse <=
+j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4
 
-@@ -684,28 +686,9 @@ static int smu8_request_smu_load_fw(struct pp_hwmgr *h=
-wmgr)
-         smu8_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_ExecuteJob,
-                                 smu8_smu->toc_entry_power_profiling_index)=
-;
+Am 14.09.2018 um 22:21 schrieb Felix Kuehling:
+> On 2018-09-14 01:52 PM, Christian K=F6nig wrote:
+>> Am 14.09.2018 um 19:47 schrieb Philip Yang:
+>>> On 2018-09-14 03:51 AM, Christian K=F6nig wrote:
+>>>> Am 13.09.2018 um 23:51 schrieb Felix Kuehling:
+>>>>> On 2018-09-13 04:52 PM, Philip Yang wrote:
+>>>>> [SNIP]
+>>>>>>    +    amdgpu_mn_read_unlock(amn);
+>>>>>> +
+>>>>> amdgpu_mn_read_lock/unlock support recursive locking for multiple
+>>>>> overlapping or nested invalidation ranges. But if you'r locking
+>>>>> and unlocking in the same function. Is that still a concern?
+>>> I don't understand the possible recursive case, but
+>>> amdgpu_mn_read_lock() still support recursive locking.
+>>>> Well the real problem is that unlocking them here won't work.
+>>>>
+>>>> We need to hold the lock until we are sure that the operation which
+>>>> updates the page tables is completed.
+>>>>
+>>> The reason for this change is because hmm mirror has
+>>> invalidate_start callback, no invalidate_end callback
+>>>
+>>> Check mmu_notifier.c and hmm.c again, below is entire logic to
+>>> update CPU page tables and callback:
+>>>
+>>> mn lock amn->lock is used to protect interval tree access because
+>>> user may submit/register new userptr anytime.
+>>> This is same for old and new way.
+>>>
+>>> step 2 guarantee the GPU operation is done before updating CPU page
+>>> table.
+>>>
+>>> So I think the change is safe. We don't need hold mn lock until the
+>>> CPU page tables update is completed.
+>> No, that isn't even remotely correct. The lock doesn't protects the
+>> interval tree.
+>>
+>>> Old:
+>>>     1. down_read_non_owner(&amn->lock)
+>>>     2. loop to handle BOs from node->bos through interval tree
+>>> amn->object nodes
+>>>         gfx: wait for pending BOs fence operation done, mark user
+>>> pages dirty
+>>>         kfd: evict user queues of the process, wait for queue
+>>> unmap/map operation done
+>>>     3. update CPU page tables
+>>>     4. up_read(&amn->lock)
+>>>
+>>> New, switch step 3 and 4
+>>>     1. down_read_non_owner(&amn->lock)
+>>>     2. loop to handle BOs from node->bos through interval tree
+>>> amn->object nodes
+>>>         gfx: wait for pending BOs fence operation done, mark user
+>>> pages dirty
+>>>         kfd: evict user queues of the process, wait for queue
+>>> unmap/map operation done
+>>>     3. up_read(&amn->lock)
+>>>     4. update CPU page tables
+>> The lock is there to make sure that we serialize page table updates
+>> with command submission.
+> As I understand it, the idea is to prevent command submission (adding
+> new fences to BOs) while a page table invalidation is in progress.
 
--       return smu8_send_msg_to_smc_with_parameter(hwmgr,
-+       smu8_send_msg_to_smc_with_parameter(hwmgr,
-                                         PPSMC_MSG_ExecuteJob,
-                                         smu8_smu->toc_entry_initialize_ind=
-ex);
--}
--
--static int smu8_start_smu(struct pp_hwmgr *hwmgr)
--{
--       int ret =3D 0;
--       uint32_t fw_to_check =3D 0;
--       struct amdgpu_device *adev =3D hwmgr->adev;
--
--       uint32_t index =3D SMN_MP1_SRAM_START_ADDR +
--                        SMU8_FIRMWARE_HEADER_LOCATION +
--                        offsetof(struct SMU8_Firmware_Header, Version);
--
--
--       if (hwmgr =3D=3D NULL || hwmgr->device =3D=3D NULL)
--               return -EINVAL;
--
--       cgs_write_register(hwmgr->device, mmMP0PUB_IND_INDEX, index);
--       hwmgr->smu_version =3D cgs_read_register(hwmgr->device, mmMP0PUB_IN=
-D_DATA);
--       adev->pm.fw_version =3D hwmgr->smu_version >> 8;
+Yes, exactly.
 
-         fw_to_check =3D UCODE_ID_RLC_G_MASK |
-                         UCODE_ID_SDMA0_MASK |
-@@ -719,8 +702,6 @@ static int smu8_start_smu(struct pp_hwmgr *hwmgr)
-         if (hwmgr->chip_id =3D=3D CHIP_STONEY)
-                 fw_to_check &=3D ~(UCODE_ID_SDMA1_MASK | UCODE_ID_CP_MEC_J=
-T2_MASK);
+> But do we really need another lock for this? Wouldn't the
+> re-validation of userptr BOs (currently calling get_user_pages) force
+> synchronization with the ongoing page table invalidation through the
+> mmap_sem or other MM locks?
 
--       smu8_request_smu_load_fw(hwmgr);
--
-         ret =3D smu8_check_fw_load_finish(hwmgr, fw_to_check);
-         if (ret) {
-                 pr_err("SMU firmware load failed\n");
-@@ -734,6 +715,25 @@ static int smu8_start_smu(struct pp_hwmgr *hwmgr)
-         return ret;
- }
+No and yes. We don't hold any other locks while doing command submission, b=
+ut I expect that HMM has its own mechanism to prevent that.
 
-+static int smu8_start_smu(struct pp_hwmgr *hwmgr)
-+{
-+       struct amdgpu_device *adev =3D hwmgr->adev;
-+
-+       uint32_t index =3D SMN_MP1_SRAM_START_ADDR +
-+                        SMU8_FIRMWARE_HEADER_LOCATION +
-+                        offsetof(struct SMU8_Firmware_Header, Version);
-+
-+
-+       if (hwmgr =3D=3D NULL || hwmgr->device =3D=3D NULL)
-+               return -EINVAL;
-+
-+       cgs_write_register(hwmgr->device, mmMP0PUB_IND_INDEX, index);
-+       hwmgr->smu_version =3D cgs_read_register(hwmgr->device, mmMP0PUB_IN=
-D_DATA);
-+       adev->pm.fw_version =3D hwmgr->smu_version >> 8;
-+
-+       return 0;
-+}
-+
- static int smu8_smu_init(struct pp_hwmgr *hwmgr)
- {
-         int ret =3D 0;
-@@ -876,7 +876,7 @@ static bool smu8_is_dpm_running(struct pp_hwmgr *hwmgr)
-         .smu_fini =3D smu8_smu_fini,
-         .start_smu =3D smu8_start_smu,
-         .check_fw_load_finish =3D smu8_check_fw_load_finish,
--       .request_smu_load_fw =3D NULL,
-+       .request_smu_load_fw =3D smu8_request_smu_load_fw,
-         .request_smu_load_specific_fw =3D NULL,
-         .get_argument =3D smu8_get_argument,
-         .send_msg_to_smc =3D smu8_send_msg_to_smc,
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/=
-gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-index ae8378e..d8f1ca2 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-@@ -192,7 +192,8 @@ static int tonga_start_in_non_protection_mode(struct pp=
-_hwmgr *hwmgr)
+Since we don't modify amdgpu_mn_lock()/amdgpu_mn_unlock() we are certainly =
+not using this mechanism correctly.
 
- static int tonga_start_smu(struct pp_hwmgr *hwmgr)
- {
--       int result;
-+       struct tonga_smumgr *priv =3D hwmgr->smu_backend;
-+       int result =3D 0;
-
-         /* Only start SMC if SMC RAM is not running */
-         if (!smu7_is_smc_ram_running(hwmgr) && hwmgr->not_vf) {
-@@ -209,7 +210,14 @@ static int tonga_start_smu(struct pp_hwmgr *hwmgr)
-                 }
-         }
-
--       result =3D smu7_request_smu_load_fw(hwmgr);
-+       /* Setup SoftRegsStart here for register lookup in case
-+        * DummyBackEnd is used and ProcessFirmwareHeader is not executed
-+        */
-+
-+       smu7_read_smc_sram_dword(hwmgr,
-+                       SMU72_FIRMWARE_HEADER_LOCATION +
-+                       offsetof(SMU72_Firmware_Header, SoftRegisters),
-+                       &(priv->smu7_data.soft_regs_start), 0x40000);
-
-         return result;
- }
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/=
-gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-index 3d415fa..71e376f 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
-@@ -218,8 +218,6 @@ static int vegam_start_smu(struct pp_hwmgr *hwmgr)
-                         &(smu_data->smu7_data.soft_regs_start),
-                         0x40000);
-
--       result =3D smu7_request_smu_load_fw(hwmgr);
--
-         return result;
- }
-
-@@ -2280,7 +2278,7 @@ static int vegam_thermal_setup_fan_table(struct pp_hw=
-mgr *hwmgr)
-         .smu_fini =3D smu7_smu_fini,
-         .start_smu =3D vegam_start_smu,
-         .check_fw_load_finish =3D smu7_check_fw_load_finish,
--       .request_smu_load_fw =3D smu7_reload_firmware,
-+       .request_smu_load_fw =3D smu7_request_smu_load_fw,
-         .request_smu_load_specific_fw =3D NULL,
-         .send_msg_to_smc =3D smu7_send_msg_to_smc,
-         .send_msg_to_smc_with_parameter =3D smu7_send_msg_to_smc_with_para=
-meter,
---
-1.9.1
-
+Regards,
+Christian.
 _______________________________________________
 amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in the sections below.
 
 
 
---_000_BYAPR12MB2775243258483D0EC9EA2E65FB140BYAPR12MB2775namp_
+
+--_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
 1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:Consolas;
+	color:black;}
+p.msonormal00, li.msonormal00, div.msonormal00
+	{mso-style-name:msonormal0;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+p.emailquote, li.emailquote, div.emailquote
+	{mso-style-name:emailquote;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:1.0pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+span.plaintextchar0
+	{mso-style-name:plaintextchar;
+	font-family:"Calibri",sans-serif;}
+span.emailstyle22
+	{mso-style-name:emailstyle22;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.emailstyle23
+	{mso-style-name:emailstyle23;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.emailstyle24
+	{mso-style-name:emailstyle24;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.emailstyle25
+	{mso-style-name:emailstyle25;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle30
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:1914123001;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1258128068 243071270 67698691 67698693 67698689 676=
+98691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:Calibri;
+	mso-bidi-font-family:"Times New Roman";}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New",serif;}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New",serif;}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New",serif;}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Sorry, Please ignore this patch.<=
-/p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
+<body bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&gt; In this case y=
+ou can end up accessing pages which are invalidated while get_user_pages is=
+ in process.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">What&#8217;s the se=
+quence of events you have in mind? Something like this?<o:p></o:p></span></=
+p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<ul style=3D"margin-top:0in" type=3D"disc">
+<li class=3D"MsoListParagraph" style=3D"color:windowtext;margin-left:0in;ms=
+o-list:l0 level1 lfo1">
+Page table is updated and triggers MMU notifier<o:p></o:p></li><li class=3D=
+"MsoListParagraph" style=3D"color:windowtext;margin-left:0in;mso-list:l0 le=
+vel1 lfo1">
+amdgpu MMU notifier runs and waits for pending CS to finish while holding t=
+he read lock<o:p></o:p></li><li class=3D"MsoListParagraph" style=3D"color:w=
+indowtext;margin-left:0in;mso-list:l0 level1 lfo1">
+New CS starts just after invalidate_range_start MMU notifier finishes but b=
+efore the page table update is done<o:p></o:p></li><li class=3D"MsoListPara=
+graph" style=3D"color:windowtext;margin-left:0in;mso-list:l0 level1 lfo1">
+get_user_pages returns outdated physical addresses<o:p></o:p></li></ul>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">I hope that&#8217;s=
+ not actually possible and that get_user_pages or hmm_vma_fault would block=
+ until the page table update is done. That is, invalidate_range_start marks=
+ the start of a page table update, and while
+ that update is in progress, get_user_pages or hmm_vma_fault block. Jerome,=
+ can you comment on that?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Thanks,<br>
+&nbsp; Felix<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
+<span style=3D"color:windowtext"> Koenig, Christian
 <br>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
-</p>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx-=
-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&=
-gt;<br>
-<b>Sent:</b> Thursday, September 27, 2018 9:55 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH v2] drm/amd/pp: Export load_firmware interface</font=
->
-<div>&nbsp;</div>
+<b>Sent:</b> Thursday, September 27, 2018 9:59 AM<br>
+<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> Yang, Philip &lt;Philip.Yang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org; Jerome Glisse &lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
+mmu notifier v4<o:p></o:p></span></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Export this interface for the AMDGPU_FW_LOAD_SMU t=
-ype.<br>
-gfx/sdma can request smu to load firmware.<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Yeah I understand t=
+hat, but again that won't work.
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">In this case you ca=
+n end up accessing pages which are invalidated while get_user_pages is in p=
+rocess.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Christian.<o:p></o:=
+p></span></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Am 27.09.2018 15:41=
+ schrieb &quot;Kuehling, Felix&quot; &lt;<a href=3D"mailto:Felix.Kuehling@a=
+md.com">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;:<o:p></o:p></span></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&gt; I&#8217;m not =
+planning to change that. I don&#8217;t think there is any need to change it=
+.</span><o:p></o:p></p>
+<p class=3D"MsoNormal">&gt;<br>
+&gt; Yeah, but when HMM doesn't provide both the start and the end hock of =
+the invalidation this way won't work any more.<br>
+&gt;<br>
+&gt; So we need to find a solution for this,<br>
+&gt; Christian.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">My whole argument is that you don&#8217;t need to ho=
+ld the read lock until the invalidate_range_end. Just read_lock and read_un=
+lock in the invalidate_range_start function.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&nbsp; Felix<o:p></o:=
+p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
+/o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
+<span style=3D"color:windowtext"> Koenig, Christian
 <br>
-Split the smu7/8_start_smu function into two functions<br>
-1. start_smu, used for load smu firmware in smu7/8 and<br>
-&nbsp;&nbsp; check smu firmware version.<br>
-2. request_smu_load_fw, used for load other ip's firmware<br>
-&nbsp;&nbsp; on smu7/8 and add firmware loading staus check.<br>
+<b>Sent:</b> Thursday, September 27, 2018 9:22 AM<br>
+<b>To:</b> Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Fe=
+lix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>Cc:</b> Yang, Philip &lt;<a href=3D"mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org">Philip.Y=
+ang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>; Jerome Glisse &lt;<a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">j.glisse@g=
+mail.com</a>&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
+mmu notifier v4</span><o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">Am 27.09.2018 um 15:18 schrieb Kuehling, Felix:<o:p>=
+</o:p></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">&gt; The problem is here:<br>
+&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; ttm_eu_fence_buffer_objects(&amp;p-&gt;ticket, =
+&amp;p-&gt;validated, p-&gt;fence);<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; amdgpu_mn_unlock(p-&gt;mn); <o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&gt;<br>
+&gt; We need to hold the lock until the fence is added to the reservation o=
+bject.<br>
+&gt;<br>
+&gt; Otherwise somebody could have changed the page tables just in the mome=
+nt between the check of amdgpu_ttm_tt_userptr_needs_pages() and adding the =
+fence to the reservation object.<br>
 <br>
-v2: default fw loading type is via smu for VI, driver call smu<br>
-&nbsp;&nbsp;&nbsp; to load all fw at the begin of hw init.<br>
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">I&#8217;m not plann=
+ing to change that. I don&#8217;t think there is any need to change it.</sp=
+an><o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
+Yeah, but when HMM doesn't provide both the start and the end hock of the i=
+nvalidation this way won't work any more.<br>
 <br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vi.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; | 16 &#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; | 20 &#43;&#43;&#43;&#43;----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c |&nbsp; 4 &#43;-<b=
-r>
-&nbsp;.../gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c&nbsp; | 25 &#43;&#4=
-3;&#43;&#43;-----<br>
-&nbsp;.../drm/amd/powerplay/smumgr/polaris10_smumgr.c&nbsp;&nbsp;&nbsp; |&n=
-bsp; 4 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 59 &#43;&#43;&#4=
-3;&#43;&#43;-----------------<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h |&nbsp; 3 &#43;-<b=
-r>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c | 46 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;---------<br>
-&nbsp;.../gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c&nbsp;&nbsp;&nbsp; | 1=
-2 &#43;&#43;&#43;&#43;-<br>
-&nbsp;.../gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c&nbsp;&nbsp;&nbsp; |&n=
-bsp; 4 &#43;-<br>
-&nbsp;10 files changed, 86 insertions(&#43;), 107 deletions(-)<br>
+So we need to find a solution for this,<br>
+Christian.<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
-i.c<br>
-index 88b57a5..3384a15 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-@@ -1222,6 &#43;1222,16 @@ static int vi_common_hw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable the doorbell ape=
-rture */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vi_enable_doorbell_apertur=
-e(adev, true);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =
-=3D=3D AMDGPU_FW_LOAD_SMU) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_funcs-&gt;load_firmware) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ucode=
-_init_bo(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt=
-;powerplay.pp_funcs-&gt;load_firmware(adev-&gt;powerplay.pp_handle)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;firmware.load_type =3D AMDGPU_=
-FW_LOAD_DIRECT;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ucode_fini_bo(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -1235,6 &#43;1245,12 @@ static int vi_common_hw_fini(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
+<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Regards,</span><o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp; Felix</span>=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
+/o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
+<span style=3D"color:windowtext"> Koenig, Christian
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; xgpu_vi_mailbox_put_irq(adev);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =
-=3D=3D AMDGPU_FW_LOAD_SMU) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; release_firmware(adev-&gt;pm.fw);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;pm.fw =3D NULL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ucode_fini_bo(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
-m/amd/powerplay/amd_powerplay.c<br>
-index aff7c14..5dc8fb9 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
-@@ -109,12 &#43;109,6 @@ static int pp_sw_fini(void *handle)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr_sw_fini(hwmgr);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=
-=3D AMDGPU_FW_LOAD_SMU) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; release_firmware(adev-&gt;pm.fw);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;pm.fw =3D NULL;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ucode_fini_bo(adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -124,9 &#43;118,6 @@ static int pp_hw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D handle;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D=
- adev-&gt;powerplay.pp_handle;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=
-=3D AMDGPU_FW_LOAD_SMU)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ucode_init_bo(adev);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D hwmgr_hw_init(hwmg=
-r);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-@@ -275,7 &#43;266,16 @@ static int pp_set_clockgating_state(void *handle,<=
-br>
-&nbsp;<br>
-&nbsp;static int pp_dpm_load_fw(void *handle)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
-;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;smumgr_f=
-uncs)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;smumgr_funcs-&gt;re=
-quest_smu_load_fw)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D hwmgr-&gt;smumgr_funcs-&gt;request_smu_load_fw(hwmgr=
-);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int pp_dpm_fw_loading_complete(void *handle)<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/fiji_smumgr.c<br>
-index b6b62a7..ffd7d78 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c<br>
-@@ -310,8 &#43;310,6 @@ static int fiji_start_smu(struct pp_hwmgr *hwmgr)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offse=
-tof(SMU73_Firmware_Header, SoftRegisters),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-(priv-&gt;smu7_data.soft_regs_start), 0x40000);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D smu7_request_smu_load_fw(h=
-wmgr);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -2643,7 &#43;2641,7 @@ static int fiji_update_dpm_settings(struct pp_hwm=
-gr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smu_fini =3D &amp;smu7_sm=
-u_fini,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_smu =3D &amp;fiji_s=
-tart_smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_load_finish =3D =
-&amp;smu7_check_fw_load_finish,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D &amp;smu7_re=
-load_firmware,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D &amp;smu=
-7_request_smu_load_fw,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_specific=
-_fw =3D NULL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc =3D &amp;=
-smu7_send_msg_to_smc,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc_with_para=
-meter =3D &amp;smu7_send_msg_to_smc_with_parameter,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/driver=
-s/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c<br>
-index 73aa368..68a4836 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c<br>
-@@ -232,27 &#43;232,24 @@ static int iceland_request_smu_load_specific_fw(s=
-truct pp_hwmgr *hwmgr,<br>
-&nbsp;<br>
-&nbsp;static int iceland_start_smu(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int result;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D iceland_smu_upload_firmwar=
-e_image(hwmgr);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (result)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return result;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D iceland_smu_start_smc(hwmg=
-r);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (result)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return result;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct iceland_smumgr *priv =3D h=
-wmgr-&gt;smu_backend;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int result =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu7_is_smc_ram_runni=
-ng(hwmgr)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_info(&quot;smu not running, upload firmware again \n&quot;);<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; result =3D iceland_smu_upload_firmware_image(hwmgr);<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (result)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n result;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D iceland_smu_start_smc(hwmgr);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (result)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; iceland_smu_start_smc(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Setup SoftRegsStart here for r=
-egister lookup in case<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * DummyBackEnd is used and =
-ProcessFirmwareHeader is not executed<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D smu7_request_smu_load_fw(h=
-wmgr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_read_smc_sram_dword(hwmgr,<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU71_FIRMWA=
-RE_HEADER_LOCATION &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offsetof(SMU=
-71_Firmware_Header, SoftRegisters),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;(priv-&=
-gt;smu7_data.soft_regs_start), 0x40000);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
-&nbsp;}<br>
-@@ -2662,7 &#43;2659,7 @@ static bool iceland_is_dpm_running(struct pp_hwmg=
-r *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smu_fini =3D &amp;smu7_sm=
-u_fini,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_smu =3D &amp;icelan=
-d_start_smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_load_finish =3D =
-&amp;smu7_check_fw_load_finish,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D &amp;smu7_re=
-load_firmware,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D &amp;smu=
-7_request_smu_load_fw,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_specific=
-_fw =3D &amp;iceland_request_smu_load_specific_fw,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc =3D &amp;=
-smu7_send_msg_to_smc,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc_with_para=
-meter =3D &amp;smu7_send_msg_to_smc_with_parameter,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/driv=
-ers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c<br>
-index 872d382..2ad6ad9 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c<b=
-r>
-@@ -313,8 &#43;313,6 @@ static int polaris10_start_smu(struct pp_hwmgr *hwm=
-gr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_read_smc_sram_dword(h=
-wmgr, SMU7_FIRMWARE_HEADER_LOCATION &#43; offsetof(SMU74_Firmware_Header, S=
-oftRegisters),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; &amp;(smu_data-&gt;smu7_data.soft_regs_start), 0x40000);<br=
+<b>Sent:</b> Thursday, September 27, 2018 7:24 AM<br>
+<b>To:</b> Kuehling, Felix <a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">&lt;Fe=
+lix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<b>Cc:</b> Yang, Philip <a href=3D"mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org">&lt;Philip.Y=
+ang-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>; Jerome Glisse
+<a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
+mmu notifier v4</span><o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">Am 27.09.2018 um 13:08 schrieb Kuehling, Felix:<o:p>=
+</o:p></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">&gt; We double check that there wasn't any page tabl=
+e modification while we prepared the submission and restart the whole proce=
+ss when there actually was some update.<br>
+&gt;<br>
+&gt; The reason why we need to do this is here:<br>
+&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal">&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_eu_fen=
+ce_buffer_objects(&amp;p-&gt;ticket, &amp;p-&gt;validated, p-&gt;fence);<br=
 >
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D smu7_request_smu_load_fw(h=
-wmgr);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -2478,7 &#43;2476,7 @@ static int polaris10_update_dpm_settings(struct p=
-p_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smu_fini =3D smu7_smu_fin=
-i,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_smu =3D polaris10_s=
-tart_smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_load_finish =3D =
-smu7_check_fw_load_finish,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D smu7_reload_=
-firmware,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D smu7_req=
-uest_smu_load_fw,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_specific=
-_fw =3D NULL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc =3D smu7_=
-send_msg_to_smc,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc_with_para=
-meter =3D smu7_send_msg_to_smc_with_parameter,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-index 10eb967..edfb061 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-@@ -302,44 &#43;302,6 @@ int smu7_write_smc_sram_dword(struct pp_hwmgr *hwm=
-gr, uint32_t smc_addr, uint32_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--/* Convert the firmware type to SMU type mask. For MEC, we need to check a=
-ll MEC related type */<br>
--<br>
--static uint32_t smu7_get_mask_for_firmware_type(uint32_t fw_type)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t result =3D 0;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (fw_type) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_SDMA0:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D UCODE_ID_SDMA0_MASK;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_SDMA1:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D UCODE_ID_SDMA1_MASK;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_CP_CE:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D UCODE_ID_CP_CE_MASK;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_CP_PFP:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D UCODE_ID_CP_PFP_MASK;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_CP_ME:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D UCODE_ID_CP_ME_MASK;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_CP_MEC:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_CP_MEC_JT1:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_CP_MEC_JT2:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D UCODE_ID_CP_MEC_MASK;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case UCODE_ID_RLC_G:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D UCODE_ID_RLC_G_MASK;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_info(&quot;UCode type is out of range! \n&quot;);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; result =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
--}<br>
--<br>
-&nbsp;static int smu7_populate_single_firmware_entry(struct pp_hwmgr *hwmgr=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fw=
-_type,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct SMU_=
-Entry *entry)<br>
-@@ -381,6 &#43;343,11 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmg=
-r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fw_to_load;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;smumgr_funcs-&gt;st=
-art_smu(hwmgr)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; pr_err(&quot;smu not running \n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_data-&gt;soft_regs=
-_start)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; cgs_write_ind_register(hwmgr-&gt;device, CGS_IND_REG_=
-_SMC,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; smu_data-&gt;soft_regs_start &#43; smum_get_offsetof(hwmgr,=
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mn_unlock(p-&gt;mn);<=
+o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&gt;<br>
+&gt; Only after the new fence is added to the buffer object we can release =
+the lock so that any invalidation will now block on our command submission =
+to finish before it modifies the page table.<br>
 <br>
-@@ -462,10 &#43;429,13 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwm=
-gr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_send_msg_to_smc_with_=
-parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_HI, upper_32_bits(smu_data-&gt;hea=
-der_buffer.mc_addr));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_send_msg_to_smc_with_=
-parameter(hwmgr, PPSMC_MSG_DRV_DRAM_ADDR_LO, lower_32_bits(smu_data-&gt;hea=
-der_buffer.mc_addr));<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu7_send_msg_to_smc_with_paramet=
-er(hwmgr, PPSMC_MSG_LoadUcodes, fw_to_load))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_err(&quot;Fail to Request SMU Load uCode&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_send_msg_to_smc_with_paramet=
-er(hwmgr, PPSMC_MSG_LoadUcodes, fw_to_load);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D smu7_check_fw_load_finish(h=
-wmgr, fw_to_load);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;SMU load firmware fa=
-iled\n&quot;);<br>
-&nbsp;<br>
-&nbsp;failed:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(smu_data-&gt;toc);<b=
-r>
-@@ -477,20 &#43;447,15 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwm=
-gr)<br>
-&nbsp;int smu7_check_fw_load_finish(struct pp_hwmgr *hwmgr, uint32_t fw_typ=
-e)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_smumgr *smu_da=
-ta =3D (struct smu7_smumgr *)(hwmgr-&gt;smu_backend);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fw_mask =3D smu7_get_mask_fo=
-r_firmware_type(fw_type);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ret;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_wait_on_indire=
-ct_register(hwmgr, mmSMC_IND_INDEX_11,<br>
+<br>
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">I don&#8217;t see w=
+hy this requires holding the read-lock until invalidate_range_end. amdgpu_t=
+tm_tt_affect_userptr gets called while the mn read-lock is held in invalida=
+te_range_start notifier.</span><o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
+That's not related to amdgpu_ttm_tt_affect_userptr(), this function could a=
+ctually be called outside the lock.<br>
+<br>
+The problem is here:<br>
+<br>
+<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">ttm_eu_fence_buffer_objects(&amp;p-&gt;ticket, &amp;=
+p-&gt;validated, p-&gt;fence);<o:p></o:p></p>
+</blockquote>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">amdgpu_mn_unlock(p-&gt;mn); <o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
+We need to hold the lock until the fence is added to the reservation object=
+.<br>
+<br>
+Otherwise somebody could have changed the page tables just in the moment be=
+tween the check of amdgpu_ttm_tt_userptr_needs_pages() and adding the fence=
+ to the reservation object.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+<br>
+<br>
+<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Regards,</span><o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp; Felix</span>=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
+/o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
+<span style=3D"color:windowtext"> Koenig, Christian
+<br>
+<b>Sent:</b> Thursday, September 27, 2018 5:27 AM<br>
+<b>To:</b> Kuehling, Felix <a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">&lt;Fe=
+lix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<b>Cc:</b> Yang, Philip <a href=3D"mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org">&lt;Philip.Y=
+ang-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>; Jerome Glisse
+<a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
+mmu notifier v4</span><o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">That is correct, but =
+take a look what we do when after calling the amdgpu_mn_read_lock():<br>
+<br>
+<br>
+<br>
+<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* No mem=
+ory allocation is allowed while holding the mn lock */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mn_lock(p-&gt;mn);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_list_for_each_userptr_=
+entry(e, p-&gt;bo_list) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; smu_data-&gt;soft_regs_start &#43; smum_get_offsetof(hwmgr,=
+sp;&nbsp;&nbsp; struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(e-&gt;tv.bo);<br>
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+sp;&nbsp;&nbsp; if (amdgpu_ttm_tt_userptr_needs_pages(bo-&gt;tbo.ttm)) {<br=
+>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; SMU_SoftRegisters, UcodeLoadStatus),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; fw_mask, fw_mask);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; fw_type, fw_type);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
--int smu7_reload_firmware(struct pp_hwmgr *hwmgr)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;smumgr_funcs-&gt;sta=
-rt_smu(hwmgr);<br>
--}<br>
-&nbsp;<br>
-&nbsp;static int smu7_upload_smc_firmware_data(struct pp_hwmgr *hwmgr, uint=
-32_t length, uint32_t *src, uint32_t limit)<br>
-&nbsp;{<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.h<br>
-index 01f0538f..10c8ceb 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.h<br>
-@@ -73,9 &#43;73,8 @@ int smu7_read_smc_sram_dword(struct pp_hwmgr *hwmgr, =
-uint32_t smc_addr,<br>
-&nbsp;int smu7_write_smc_sram_dword(struct pp_hwmgr *hwmgr, uint32_t smc_ad=
-dr,<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -ERES=
+TARTSYS;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto error_=
+abort;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t va=
-lue, uint32_t limit);<br>
-&nbsp;<br>
--int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr);<br>
-&nbsp;int smu7_check_fw_load_finish(struct pp_hwmgr *hwmgr, uint32_t fw_typ=
-e);<br>
--int smu7_reload_firmware(struct pp_hwmgr *hwmgr);<br>
-&#43;int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr);<br>
-&nbsp;int smu7_upload_smu_firmware_image(struct pp_hwmgr *hwmgr);<br>
-&nbsp;int smu7_init(struct pp_hwmgr *hwmgr);<br>
-&nbsp;int smu7_smu_fini(struct pp_hwmgr *hwmgr);<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
-index 7a4c425..90f5f30 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
-@@ -658,6 &#43;658,8 @@ static int smu8_request_smu_load_fw(struct pp_hwmgr=
- *hwmgr)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu8_smumgr *smu8_s=
-mu =3D hwmgr-&gt;smu_backend;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t smc_address;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fw_to_check =3D 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_smu_populate_firmware=
-_entries(hwmgr);<br>
-&nbsp;<br>
-@@ -684,28 &#43;686,9 @@ static int smu8_request_smu_load_fw(struct pp_hwmg=
-r *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_send_msg_to_smc_with_=
-parameter(hwmgr, PPSMC_MSG_ExecuteJob,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_smu-&gt;toc_entry_power_pro=
-filing_index);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return smu8_send_msg_to_smc_with_para=
-meter(hwmgr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_send_msg_to_smc_with_paramet=
-er(hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; PPSMC_MSG_ExecuteJob,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; smu8_smu-&gt;toc_entry_initialize_index);<br>
--}<br>
--<br>
--static int smu8_start_smu(struct pp_hwmgr *hwmgr)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fw_to_check =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D hwmgr-=
-&gt;adev;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index =3D SMN_MP1_SRAM_START=
-_ADDR &#43;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU8_FIRMW=
-ARE_HEADER_LOCATION &#43;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offsetof(s=
-truct SMU8_Firmware_Header, Version);<br>
--<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr =3D=3D NULL || hwmgr-&gt;de=
-vice =3D=3D NULL)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cgs_write_register(hwmgr-&gt;device, =
-mmMP0PUB_IND_INDEX, index);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;smu_version =3D cgs_read_re=
-gister(hwmgr-&gt;device, mmMP0PUB_IND_DATA);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.fw_version =3D hwmgr-&gt;=
-smu_version &gt;&gt; 8;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_to_check =3D UCODE_ID_R=
-LC_G_MASK |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UCODE=
-_ID_SDMA0_MASK |<br>
-@@ -719,8 &#43;702,6 @@ static int smu8_start_smu(struct pp_hwmgr *hwmgr)<b=
+sp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
+We double check that there wasn't any page table modification while we prep=
+ared the submission and restart the whole process when there actually was s=
+ome update.<br>
+<br>
+The reason why we need to do this is here:<br>
+<br>
+<br>
+<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_eu_fe=
+nce_buffer_objects(&amp;p-&gt;ticket, &amp;p-&gt;validated, p-&gt;fence);<b=
 r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;chip_id =3D=
-=3D CHIP_STONEY)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; fw_to_check &amp;=3D ~(UCODE_ID_SDMA1_MASK | UCODE_ID=
-_CP_MEC_JT2_MASK);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_request_smu_load_fw(hwmgr);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu8_check_fw_load=
-_finish(hwmgr, fw_to_check);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pr_err(&quot;SMU firmware load failed\n&quot;);<br>
-@@ -734,6 &#43;715,25 @@ static int smu8_start_smu(struct pp_hwmgr *hwmgr)<=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mn_unlock(p-&gt;mn);<o:p>=
+</o:p></p>
+</blockquote>
+<p class=3D"MsoNormal"><br>
+Only after the new fence is added to the buffer object we can release the l=
+ock so that any invalidation will now block on our command submission to fi=
+nish before it modifies the page table.<br>
+<br>
+The only other option would be to add the fence first and then check if the=
+re was any update to the page tables.<br>
+<br>
+The issue with that approach is that adding a fence can't be made undone, s=
+o if we find that there actually was an update to the page tables we would =
+need to somehow turn the CS into a dummy (e.g. overwrite all IBs with NOPs =
+or something like that) and still
+ submit it.<br>
+<br>
+Not sure if that is actually possible.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 27.09.2018 um 10:47 schrieb Kuehling, Felix:<o:p></o:p></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">So back to my previous question:<o:p></o:p></p>
+<p class=3D"MsoPlainText">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; But do we really need another lock for t=
+his? Wouldn't the
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; re-validation of userptr BOs (currently =
+calling get_user_pages) force
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; synchronization with the ongoing page ta=
+ble invalidation through the
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&gt; mmap_sem or other MM locks?<o:p></o:p></=
+p>
+<p class=3D"MsoPlainText">&gt;&nbsp;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; No and yes. We don't hold any other locks wh=
+ile doing command submission, but I expect that HMM has its own mechanism t=
+o prevent that.<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; Since we don't modify amdgpu_mn_lock()/amdgp=
+u_mn_unlock() we are certainly not using this mechanism correctly.<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">The existing amdgpu_mn_lock/unlock should block the =
+MMU notifier while a command submission is in progress. It should also bloc=
+k command submission while an MMU notifier is in progress.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">What we lose with HMM is the ability to hold a read-=
+lock for the entire duration of the invalidate_range_start until invalidate=
+_range_end. As I understand it, that lock is meant to prevent new command s=
+ubmissions while the page tables are
+ being updated by the kernel. But my point is, that get_user_pages or hmm_v=
+ma_fault should do the same kind of thing. Before the command submission ca=
+n go ahead, it needs to update the userptr addresses. If the page tables ar=
+e still being updated, it will block
+ there even without holding the amdgpu_mn_read_lock.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; Felix<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Koenig, Christian <br>
+<b>Sent:</b> Thursday, September 27, 2018 3:00 AM<br>
+<b>To:</b> Kuehling, Felix <a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">&lt;Fe=
+lix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<b>Cc:</b> Yang, Philip <a href=3D"mailto:Philip.Yang-5C7GfCeVMHo@public.gmane.org">&lt;Philip.Y=
+ang-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>; Jerome Glisse
+<a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
+mmu notifier v4<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal">No, that won't work. We would still run into lock in=
+version problems.<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">What we could do with the scheduler is to turn submi=
+ssions into dummies if we find that the page tables are now outdated.<o:p><=
+/o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">But that would be really hacky and I'm not sure if t=
+hat would really work in all cases.<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Christian.<o:p></o:p></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">Am 27.09.2018 08:53 schrieb &quot;Kuehling, Felix&qu=
+ot; &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a=
+>&gt;:<o:p></o:p></p>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">I had a chat with Jerome yesterday. He pointed out t=
+hat the new blockable parameter can be used to infer whether the MMU notifi=
+er is being called&nbsp; in a reclaim operation. So if blockable=3D=3Dtrue,=
+ it should even be safe to take the BO reservation
+ lock without problems. I think with that we should be able to remove the r=
+ead-write locking completely and go back to locking (or try-locking for blo=
+ckable=3D=3Dfalse) the reservation locks in the MMU notifier?<br>
+<br>
+Regards,<br>
+&nbsp; Felix<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">=
+amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; On Behalf Of Christian K=F6ni=
+g<br>
+Sent: Saturday, September 15, 2018 3:47 AM<br>
+To: Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.Kue=
+hling-5C7GfCeVMHo@public.gmane.org</a>&gt;; Yang, Philip &lt;<a href=3D"mailto:Philip.Yang@amd.c=
+om">Philip.Yang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>; Jerome Glisse &lt;<a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">j.glisse@g=
+mail.com</a>&gt;<br>
+Subject: Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu not=
+ifier v4<br>
+<br>
+Am 14.09.2018 um 22:21 schrieb Felix Kuehling:<br>
+&gt; On 2018-09-14 01:52 PM, Christian K=F6nig wrote:<br>
+&gt;&gt; Am 14.09.2018 um 19:47 schrieb Philip Yang:<br>
+&gt;&gt;&gt; On 2018-09-14 03:51 AM, Christian K=F6nig wrote:<br>
+&gt;&gt;&gt;&gt; Am 13.09.2018 um 23:51 schrieb Felix Kuehling:<br>
+&gt;&gt;&gt;&gt;&gt; On 2018-09-13 04:52 PM, Philip Yang wrote:<br>
+&gt;&gt;&gt;&gt;&gt; [SNIP]<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&nbsp; &nbsp; &#43;&nbsp;&nbsp;&nbsp; amdgpu_mn_rea=
+d_unlock(amn);<br>
+&gt;&gt;&gt;&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt;&gt;&gt; amdgpu_mn_read_lock/unlock support recursive locking f=
+or multiple <br>
+&gt;&gt;&gt;&gt;&gt; overlapping or nested invalidation ranges. But if you'=
+r locking <br>
+&gt;&gt;&gt;&gt;&gt; and unlocking in the same function. Is that still a co=
+ncern?<br>
+&gt;&gt;&gt; I don't understand the possible recursive case, but<br>
+&gt;&gt;&gt; amdgpu_mn_read_lock() still support recursive locking.<br>
+&gt;&gt;&gt;&gt; Well the real problem is that unlocking them here won't wo=
+rk.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; We need to hold the lock until we are sure that the operat=
+ion which <br>
+&gt;&gt;&gt;&gt; updates the page tables is completed.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt; The reason for this change is because hmm mirror has <br>
+&gt;&gt;&gt; invalidate_start callback, no invalidate_end callback<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Check mmu_notifier.c and hmm.c again, below is entire logic to=
+ <br>
+&gt;&gt;&gt; update CPU page tables and callback:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; mn lock amn-&gt;lock is used to protect interval tree access b=
+ecause <br>
+&gt;&gt;&gt; user may submit/register new userptr anytime.<br>
+&gt;&gt;&gt; This is same for old and new way.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; step 2 guarantee the GPU operation is done before updating CPU=
+ page <br>
+&gt;&gt;&gt; table.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; So I think the change is safe. We don't need hold mn lock unti=
+l the <br>
+&gt;&gt;&gt; CPU page tables update is completed.<br>
+&gt;&gt; No, that isn't even remotely correct. The lock doesn't protects th=
+e <br>
+&gt;&gt; interval tree.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Old:<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 1. down_read_non_owner(&amp;amn-&gt;lock)<b=
+r>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 2. loop to handle BOs from node-&gt;bos thr=
+ough interval tree<br>
+&gt;&gt;&gt; amn-&gt;object nodes<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx: wait for pendi=
+ng BOs fence operation done, mark user <br>
+&gt;&gt;&gt; pages dirty<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd: evict user que=
+ues of the process, wait for queue <br>
+&gt;&gt;&gt; unmap/map operation done<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 3. update CPU page tables<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 4. up_read(&amp;amn-&gt;lock)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; New, switch step 3 and 4<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 1. down_read_non_owner(&amp;amn-&gt;lock)<b=
+r>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 2. loop to handle BOs from node-&gt;bos thr=
+ough interval tree<br>
+&gt;&gt;&gt; amn-&gt;object nodes<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx: wait for pendi=
+ng BOs fence operation done, mark user <br>
+&gt;&gt;&gt; pages dirty<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd: evict user que=
+ues of the process, wait for queue <br>
+&gt;&gt;&gt; unmap/map operation done<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 3. up_read(&amp;amn-&gt;lock)<br>
+&gt;&gt;&gt;&nbsp; &nbsp;&nbsp; 4. update CPU page tables<br>
+&gt;&gt; The lock is there to make sure that we serialize page table update=
+s <br>
+&gt;&gt; with command submission.<br>
+&gt; As I understand it, the idea is to prevent command submission (adding =
+<br>
+&gt; new fences to BOs) while a page table invalidation is in progress.<br>
+<br>
+Yes, exactly.<br>
+<br>
+&gt; But do we really need another lock for this? Wouldn't the <br>
+&gt; re-validation of userptr BOs (currently calling get_user_pages) force =
+<br>
+&gt; synchronization with the ongoing page table invalidation through the <=
 br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static int smu8_start_smu(struct pp_hwmgr *hwmgr)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D hw=
-mgr-&gt;adev;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index =3D SMN_MP1_SRAM_S=
-TART_ADDR &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU8_F=
-IRMWARE_HEADER_LOCATION &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset=
-of(struct SMU8_Firmware_Header, Version);<br>
-&#43;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr =3D=3D NULL || hwmgr-&g=
-t;device =3D=3D NULL)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cgs_write_register(hwmgr-&gt;devi=
-ce, mmMP0PUB_IND_INDEX, index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;smu_version =3D cgs_rea=
-d_register(hwmgr-&gt;device, mmMP0PUB_IND_DATA);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.fw_version =3D hwmgr-=
-&gt;smu_version &gt;&gt; 8;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static int smu8_smu_init(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-@@ -876,7 &#43;876,7 @@ static bool smu8_is_dpm_running(struct pp_hwmgr *hw=
-mgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smu_fini =3D smu8_smu_fin=
-i,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_smu =3D smu8_start_=
-smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_load_finish =3D =
-smu8_check_fw_load_finish,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D NULL,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D smu8_req=
-uest_smu_load_fw,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_specific=
-_fw =3D NULL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_argument =3D smu8_get=
-_argument,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc =3D smu8_=
-send_msg_to_smc,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/=
-gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c<br>
-index ae8378e..d8f1ca2 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c<br>
-@@ -192,7 &#43;192,8 @@ static int tonga_start_in_non_protection_mode(struc=
-t pp_hwmgr *hwmgr)<br>
-&nbsp;<br>
-&nbsp;static int tonga_start_smu(struct pp_hwmgr *hwmgr)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int result;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct tonga_smumgr *priv =3D hwm=
-gr-&gt;smu_backend;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int result =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Only start SMC if SMC R=
-AM is not running */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu7_is_smc_ram_runni=
-ng(hwmgr) &amp;&amp; hwmgr-&gt;not_vf) {<br>
-@@ -209,7 &#43;210,14 @@ static int tonga_start_smu(struct pp_hwmgr *hwmgr)=
+&gt; mmap_sem or other MM locks?<br>
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D smu7_request_smu_load_fw(h=
-wmgr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Setup SoftRegsStart here for r=
-egister lookup in case<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * DummyBackEnd is used and =
-ProcessFirmwareHeader is not executed<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_read_smc_sram_dword(hwmgr,<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU72_FIRMWA=
-RE_HEADER_LOCATION &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offsetof(SMU=
-72_Firmware_Header, SoftRegisters),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;(priv-&=
-gt;smu7_data.soft_regs_start), 0x40000);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/=
-gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c<br>
-index 3d415fa..71e376f 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c<br>
-@@ -218,8 &#43;218,6 @@ static int vegam_start_smu(struct pp_hwmgr *hwmgr)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;=
-(smu_data-&gt;smu7_data.soft_regs_start),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x400=
-00);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D smu7_request_smu_load_fw(h=
-wmgr);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
-&nbsp;}<br>
-&nbsp;<br>
-@@ -2280,7 &#43;2278,7 @@ static int vegam_thermal_setup_fan_table(struct p=
-p_hwmgr *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .smu_fini =3D smu7_smu_fin=
-i,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_smu =3D vegam_start=
-_smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .check_fw_load_finish =3D =
-smu7_check_fw_load_finish,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D smu7_reload_=
-firmware,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_fw =3D smu7_req=
-uest_smu_load_fw,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .request_smu_load_specific=
-_fw =3D NULL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc =3D smu7_=
-send_msg_to_smc,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .send_msg_to_smc_with_para=
-meter =3D smu7_send_msg_to_smc_with_parameter,<br>
--- <br>
-1.9.1<br>
+No and yes. We don't hold any other locks while doing command submission, b=
+ut I expect that HMM has its own mechanism to prevent that.<br>
 <br>
+Since we don't modify amdgpu_mn_lock()/amdgpu_mn_unlock() we are certainly =
+not using this mechanism correctly.<br>
+<br>
+Regards,<br>
+Christian.<br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk765884" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
-desktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15380573002800.7746271423568079" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15380573002620.6615257615661329" style=3D"width: 9=
-0%; background-color: rgb(255, 255, 255); position: relative; overflow: aut=
-o; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: 1=
-px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200);=
-" role=3D"presentation" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing: 0px;" valign=3D"top">
-<td id=3D"TextCell_15380573002800.8729728302113203" style=3D"vertical-align=
-: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
-">
-<div id=3D"LPRemovePreviewContainer_15380573002800.6596419293200704"></div>
-<div id=3D"LPTitle_15380573002800.6685421005742361" style=3D"top: 0px; colo=
-r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;=
-wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&q=
-uot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif=
-; line-height: 21px;">
-<a id=3D"LPUrlAnchor_15380573002800.5659310772379927" style=3D"text-decorat=
-ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
- target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15380573002800.27986444667919286" style=3D"margin: 10=
-px 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quo=
-t;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tah=
-oma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15380573002800.6911916717608517" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
-segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, =
-Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; o=
-verflow: hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in
- the sections below.</div>
-</td>
-</tr>
-</tbody>
-</table>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </div>
-<br>
+</blockquote>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-</span></font></div>
 </div>
 </div>
 </body>
 </html>
 
---_000_BYAPR12MB2775243258483D0EC9EA2E65FB140BYAPR12MB2775namp_--
+--_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_--
 
---===============2082822779==
+--===============0963204793==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1421,4 +1206,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============2082822779==--
+--===============0963204793==--
